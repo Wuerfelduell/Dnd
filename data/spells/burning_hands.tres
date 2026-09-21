@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="SpellData" format=3]
+
+[ext_resource type="Script" path="res://scripts/data/spell_data.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+display_name = "Burning Hands"
+level = 1
+cost = 0
+target_kind = 5
+range_m = 4.5
+area_radius_m = 4.5
+max_targets = 99
+creature_type_filter = ""
+concentration = false
+description = "Flames burst from your hands: every enemy within 4.5 m takes 3d6 fire damage, DEX save for half."
+attack_kind = 2
+save_ability = "dex"
+half_damage_on_save = true
+damage_dice = "3d6"
+damage_type = "fire"
+repeat_count = 1
+heal_dice = ""
+heal_adds_casting_mod = false
+status_rounds = 1

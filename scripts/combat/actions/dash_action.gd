@@ -1,13 +1,15 @@
-## Dash: spend the Action to gain movement equal to the speed.
+## Dash: gain movement equal to the speed. Normally an Action; Rogues get it
+## as a bonus action (Cunning Action).
 class_name DashAction
 extends CombatAction
 
 
-func _init() -> void:
-	id = &"dash"
-	display_name = "Dash"
-	cost = Cost.ACTION
-	requires_target = false
+func _init(p_cost: Cost = Cost.ACTION) -> void:
+	cost = p_cost
+	id = &"dash" if p_cost == Cost.ACTION else &"dash_bonus"
+	display_name = "Dash" if p_cost == Cost.ACTION else "Cunning Dash"
+	target_kind = TargetKind.NONE
+	tag = "+move"
 
 
 func execute(actor: Actor, _target: Actor) -> void:
@@ -17,4 +19,4 @@ func execute(actor: Actor, _target: Actor) -> void:
 
 
 func description(actor: Actor) -> String:
-	return "Dash (%s): gain %.1f m of extra movement this turn" % [cost_name(), actor.speed_m()]
+	return "%s (%s): gain %.1f m of extra movement this turn" % [display_name, cost_name(), actor.speed_m()]

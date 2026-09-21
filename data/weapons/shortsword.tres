@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="WeaponData" format=3]
+
+[ext_resource type="Script" path="res://scripts/data/weapon_data.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+display_name = "Shortsword"
+damage_dice = "1d6"
+damage_type = "piercing"
+ability = "dex"
+is_ranged = false
+is_finesse = true
+is_light = true
+range_m = 1.5
+on_hit_save_ability = ""
+on_hit_save_dc = 0
+on_hit_status_rounds = 1

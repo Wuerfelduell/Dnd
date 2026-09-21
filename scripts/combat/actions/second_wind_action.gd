@@ -1,17 +1,17 @@
-## Second Wind (Fighter): Bonus Action, heal 1d10 + 1, once per combat.
+## Second Wind (Fighter): Bonus Action, heal 1d10 + level, once per combat.
 class_name SecondWindAction
 extends CombatAction
 
 const FLAG := "second_wind_used"
 const HEAL_DICE := "1d10"
-const HEAL_BONUS := 1
 
 
 func _init() -> void:
 	id = &"second_wind"
 	display_name = "Second Wind"
 	cost = Cost.BONUS_ACTION
-	requires_target = false
+	target_kind = TargetKind.NONE
+	tag = "1/combat"
 
 
 func is_available(actor: Actor) -> bool:
@@ -26,12 +26,12 @@ func unavailable_reason(actor: Actor) -> String:
 
 func execute(actor: Actor, _target: Actor) -> void:
 	actor.combat_flags[FLAG] = true
-	var roll := Dice.parse(HEAL_DICE, HEAL_BONUS)
+	var roll := Dice.parse(HEAL_DICE, actor.data.second_wind_bonus)
 	var healed := actor.heal(roll.total())
 	EventBus.log("[b]%s[/b] uses Second Wind: %s, heals %d HP." % [actor.display_name(), roll.describe(), healed])
 	EventBus.heal_applied.emit(actor, healed, roll)
 	await GameState.wait(0.6)
 
 
-func description(_actor: Actor) -> String:
-	return "Second Wind (%s): heal %s+%d, once per combat" % [cost_name(), HEAL_DICE, HEAL_BONUS]
+func description(actor: Actor) -> String:
+	return "Second Wind (%s): heal %s+%d, once per combat" % [cost_name(), HEAL_DICE, actor.data.second_wind_bonus]

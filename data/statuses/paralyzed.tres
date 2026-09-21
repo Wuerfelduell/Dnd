@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="StatusEffectData" format=3]
+
+[ext_resource type="Script" path="res://scripts/data/status_effect_data.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+id = &"paralyzed"
+display_name = "Paralyzed"
+short_name = "PAR"
+tint = Color(0.75, 0.4, 1, 1)
+default_rounds = 10
+description = "Incapacitated, fails STR/DEX saves, attacks against it have advantage, melee hits are critical. Repeats a WIS save at the end of each turn."
+incapacitated = true
+auto_fail_str_dex_saves = true
+attacks_against_advantage = true
+auto_crit_melee_against = true
+repeat_save_ability = "wis"

@@ -2,7 +2,7 @@
 class_name AttackResult
 extends RefCounted
 
-var weapon: WeaponData
+var label: String = "attack"
 var attack_roll: DiceResult
 var target_ac: int = 10
 var hit: bool = false
@@ -11,6 +11,12 @@ var fumble: bool = false
 ## Null on a miss.
 var damage_roll: DiceResult
 var damage_total: int = 0
+var damage_type: String = ""
+## Extra Sneak Attack dice (null when not applied).
+var sneak_roll: DiceResult
+## Why the roll had advantage / disadvantage (for the log).
+var advantage_reasons: PackedStringArray = PackedStringArray()
+var disadvantage_reasons: PackedStringArray = PackedStringArray()
 
 
 func outcome_text() -> String:
@@ -19,3 +25,14 @@ func outcome_text() -> String:
 	if fumble:
 		return "FUMBLE"
 	return "HIT" if hit else "MISS"
+
+
+func mode_text() -> String:
+	var parts := PackedStringArray()
+	if not advantage_reasons.is_empty():
+		parts.append("advantage: " + ", ".join(advantage_reasons))
+	if not disadvantage_reasons.is_empty():
+		parts.append("disadvantage: " + ", ".join(disadvantage_reasons))
+	if parts.is_empty():
+		return ""
+	return " (%s)" % "; ".join(parts)

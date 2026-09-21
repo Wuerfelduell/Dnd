@@ -1,0 +1,46 @@
+[gd_resource type="Resource" script_class="ActorData" format=3]
+
+[ext_resource type="Script" path="res://scripts/data/actor_data.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/data/actor_stats.gd" id="2"]
+[ext_resource type="Script" path="res://scripts/data/weapon_data.gd" id="3"]
+[ext_resource type="Script" path="res://scripts/data/spell_data.gd" id="4"]
+[ext_resource type="Resource" path="res://data/weapons/mace.tres" id="5"]
+[ext_resource type="Resource" path="res://data/spells/sacred_flame.tres" id="6"]
+[ext_resource type="Resource" path="res://data/spells/guiding_bolt.tres" id="7"]
+[ext_resource type="Resource" path="res://data/spells/cure_wounds.tres" id="8"]
+[ext_resource type="Resource" path="res://data/spells/healing_word.tres" id="9"]
+[ext_resource type="Resource" path="res://data/spells/bless.tres" id="10"]
+[ext_resource type="Resource" path="res://data/spells/hold_person.tres" id="11"]
+
+[sub_resource type="Resource" id="Stats"]
+script = ExtResource("2")
+max_hp = 24
+armor_class = 16
+strength_mod = 2
+dexterity_mod = 0
+constitution_mod = 2
+intelligence_mod = 0
+wisdom_mod = 3
+charisma_mod = 1
+proficiency_bonus = 2
+save_proficiencies = PackedStringArray("wis", "cha")
+speed_m = 9.0
+
+[resource]
+script = ExtResource("1")
+display_name = "Tomas"
+class_name_text = "Cleric"
+faction = 0
+creature_type = "humanoid"
+stats = SubResource("Stats")
+weapons = Array[ExtResource("3")]([ExtResource("5")])
+color = Color(0.95, 0.8, 0.3, 1)
+attacks_per_action = 1
+has_second_wind = false
+second_wind_bonus = 1
+has_action_surge = false
+has_cunning_action = false
+sneak_attack_dice = ""
+spellcasting_ability = "wis"
+spells = Array[ExtResource("4")]([ExtResource("6"), ExtResource("7"), ExtResource("8"), ExtResource("9"), ExtResource("10"), ExtResource("11")])
+spell_slots = PackedInt32Array(0, 4, 2)

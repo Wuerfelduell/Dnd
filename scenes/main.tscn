@@ -3,11 +3,17 @@
 [ext_resource type="Script" path="res://scripts/world/world.gd" id="1"]
 [ext_resource type="PackedScene" path="res://scenes/actors/player.tscn" id="2"]
 [ext_resource type="PackedScene" path="res://scenes/actors/enemy.tscn" id="3"]
-[ext_resource type="Resource" path="res://data/actors/goblin_brute.tres" id="4"]
 [ext_resource type="Script" path="res://scripts/combat/combat_manager.gd" id="5"]
 [ext_resource type="Script" path="res://scripts/world/camera_rig.gd" id="6"]
 [ext_resource type="Script" path="res://scripts/combat/player_combat_input.gd" id="7"]
 [ext_resource type="PackedScene" path="res://scenes/ui/combat_hud.tscn" id="8"]
+[ext_resource type="PackedScene" path="res://scenes/actors/party_member.tscn" id="9"]
+[ext_resource type="Resource" path="res://data/actors/rogue.tres" id="10"]
+[ext_resource type="Resource" path="res://data/actors/wizard.tres" id="11"]
+[ext_resource type="Resource" path="res://data/actors/cleric.tres" id="12"]
+[ext_resource type="Resource" path="res://data/actors/goblin_archer.tres" id="13"]
+[ext_resource type="Resource" path="res://data/actors/hobgoblin.tres" id="14"]
+[ext_resource type="Resource" path="res://data/actors/wolf.tres" id="15"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_arena"]
 geometry_parsed_geometry_type = 1
@@ -236,15 +242,56 @@ material_override = SubResource("Mat_pillar")
 [node name="Shape" type="CollisionShape3D" parent="NavigationRegion3D/Pillar3"]
 shape = SubResource("CylinderShape3D_pillar")
 
-[node name="Player" parent="." instance=ExtResource("2")]
+[node name="Party" type="Node3D" parent="."]
+
+[node name="Fighter" parent="Party" instance=ExtResource("2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 12)
 
-[node name="GoblinWarrior" parent="." instance=ExtResource("3")]
-transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -1, 0, -10)
+[node name="Rogue" parent="Party" instance=ExtResource("9")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0, 13.5)
+data = ExtResource("10")
 
-[node name="GoblinBrute" parent="." instance=ExtResource("3")]
-transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 4, 0, -13)
-data = ExtResource("4")
+[node name="Wizard" parent="Party" instance=ExtResource("9")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0, 13.5)
+data = ExtResource("11")
+
+[node name="PartyFollower" parent="Party/Wizard" index="4"]
+formation_offset = Vector3(1.5, 0, 1.5)
+
+[node name="Cleric" parent="Party" instance=ExtResource("9")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 15)
+data = ExtResource("12")
+
+[node name="PartyFollower" parent="Party/Cleric" index="4"]
+formation_offset = Vector3(0, 0, 3)
+
+[node name="Enemies" type="Node3D" parent="."]
+
+[node name="GoblinWarrior" parent="Enemies" instance=ExtResource("3")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -2, 0, -9)
+
+[node name="GoblinWarrior2" parent="Enemies" instance=ExtResource("3")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 3, 0, -10)
+
+[node name="GoblinArcher" parent="Enemies" instance=ExtResource("3")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 7, 0, -15)
+data = ExtResource("13")
+
+[node name="Hobgoblin" parent="Enemies" instance=ExtResource("3")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 1, 0, -14)
+data = ExtResource("14")
+
+[node name="Wolf" parent="Enemies" instance=ExtResource("3")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -6, 0, -12)
+data = ExtResource("15")
+
+[node name="Wolf2" parent="Enemies" instance=ExtResource("3")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -7, 0, -9)
+data = ExtResource("15")
+
+[node name="GoblinArcher2" parent="Enemies" instance=ExtResource("3")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -3, 0, -16)
+data = ExtResource("13")
 
 [node name="CombatManager" type="Node" parent="."]
 script = ExtResource("5")

@@ -1,0 +1,43 @@
+[gd_resource type="Resource" script_class="ActorData" format=3]
+
+[ext_resource type="Script" path="res://scripts/data/actor_data.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/data/actor_stats.gd" id="2"]
+[ext_resource type="Script" path="res://scripts/data/weapon_data.gd" id="3"]
+[ext_resource type="Script" path="res://scripts/data/spell_data.gd" id="4"]
+[ext_resource type="Resource" path="res://data/weapons/shortsword.tres" id="5"]
+[ext_resource type="Resource" path="res://data/weapons/shortbow.tres" id="6"]
+[ext_resource type="Resource" path="res://data/weapons/dagger.tres" id="7"]
+
+[sub_resource type="Resource" id="Stats"]
+script = ExtResource("2")
+max_hp = 24
+armor_class = 14
+strength_mod = 0
+dexterity_mod = 3
+constitution_mod = 1
+intelligence_mod = 1
+wisdom_mod = 1
+charisma_mod = 2
+proficiency_bonus = 2
+save_proficiencies = PackedStringArray("dex", "int")
+speed_m = 9.0
+
+[resource]
+script = ExtResource("1")
+display_name = "Vex"
+class_name_text = "Rogue"
+faction = 0
+creature_type = "humanoid"
+stats = SubResource("Stats")
+weapons = Array[ExtResource("3")]([ExtResource("5"), ExtResource("6")])
+color = Color(0.6, 0.35, 0.85, 1)
+attacks_per_action = 1
+has_second_wind = false
+second_wind_bonus = 1
+has_action_surge = false
+has_cunning_action = true
+sneak_attack_dice = "2d6"
+spellcasting_ability = ""
+spells = Array[ExtResource("4")]([])
+spell_slots = PackedInt32Array()
+offhand_weapon = ExtResource("7")

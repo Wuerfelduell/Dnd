@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="StatusEffectData" format=3]
+
+[ext_resource type="Script" path="res://scripts/data/status_effect_data.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+id = &"blessed"
+display_name = "Blessed"
+short_name = "BLS"
+tint = Color(1, 0.9, 0.4, 1)
+default_rounds = 10
+description = "+1d4 on attack rolls and saving throws."
+attack_bonus_dice = "1d4"
+save_bonus_dice = "1d4"

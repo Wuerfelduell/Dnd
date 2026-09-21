@@ -1,16 +1,23 @@
-## A creature in the world: player character or enemy.
+## A creature in the world: party member or enemy.
 ##
-## Owns runtime state (HP, turn resources, available actions) and low-level
-## movement. It does not decide anything: exploration input comes from
-## [PlayerController], combat decisions from [CombatManager] / [EnemyAI].
+## Owns runtime state (HP, turn resources, spell slots, statuses, concentration,
+## available actions) and low-level movement. It does not decide anything:
+## exploration input comes from [PlayerController] / [PartyFollower], combat
+## decisions from [CombatManager] and the AI brains.
 class_name Actor
 extends CharacterBody3D
 
 signal hp_changed(current: int, maximum: int)
 signal downed(actor: Actor)
+signal revived(actor: Actor)
+signal statuses_changed(actor: Actor)
 signal movement_finished(actor: Actor)
+## Emitted while moving in combat when this actor leaves a hostile's reach
+## (the [CombatManager] resolves the opportunity attack).
+signal reach_left(mover: Actor, hostile: Actor)
 
 const BODY_RADIUS := 0.4
+const MELEE_REACH := 1.5
 
 @export var data: ActorData
 ## Visual walking speed in m/s (rules movement is in TurnState).
@@ -22,13 +29,23 @@ var turn_state: TurnState = TurnState.new()
 var actions: Array[CombatAction] = []
 ## Free-form per-combat flags (e.g. "second_wind_used"); reset on combat start.
 var combat_flags: Dictionary = {}
+## Remaining spell slots, index = level.
+var spell_slots: PackedInt32Array = PackedInt32Array()
+var statuses: Array[StatusEffect] = []
+## Spell currently concentrated on (null = none) and the effects it sustains.
+var concentration_spell: SpellData = null
+var concentration_effects: Array[StatusEffect] = []
 ## Distance actually travelled during the last [method move_along_path].
 var last_move_distance: float = 0.0
+## Actors that can threaten this one while it moves (set by the CombatManager).
+var threat_sources: Array[Actor] = []
 
 var _path: PackedVector3Array = PackedVector3Array()
 var _path_index: int = 0
 var _distance_budget: float = 0.0
 var _moving: bool = false
+var _pause_depth: int = 0
+var _oa_reacted: Array[Actor] = []
 var _runtime_initialized: bool = false
 
 @onready var visual: ActorVisual = get_node_or_null("Visual")
@@ -46,13 +63,14 @@ func _ready() -> void:
 	hp_changed.emit(current_hp, max_hp())
 
 
-## Sets up HP and actions from [member data]. Safe to call without a scene tree
-## (unit tests build actors with Actor.new()).
+## Sets up HP, slots and actions from [member data]. Safe to call without a
+## scene tree (unit tests build actors with Actor.new()).
 func initialize_runtime() -> void:
 	if _runtime_initialized:
 		return
 	_runtime_initialized = true
 	current_hp = data.stats.max_hp
+	reset_spell_slots()
 	_build_actions()
 
 
@@ -60,9 +78,33 @@ func _build_actions() -> void:
 	actions.clear()
 	for weapon in data.weapons:
 		actions.append(AttackAction.new(weapon))
-	actions.append(DashAction.new())
+	if data.offhand_weapon != null:
+		actions.append(OffhandAttackAction.new(data.offhand_weapon))
+	for spell in data.spells:
+		actions.append(SpellAction.new(spell))
+	actions.append(DashAction.new(CombatAction.Cost.ACTION))
+	actions.append(DisengageAction.new(CombatAction.Cost.ACTION))
+	if data.has_cunning_action:
+		actions.append(DashAction.new(CombatAction.Cost.BONUS_ACTION))
+		actions.append(DisengageAction.new(CombatAction.Cost.BONUS_ACTION))
 	if data.has_second_wind:
 		actions.append(SecondWindAction.new())
+	if data.has_action_surge:
+		actions.append(ActionSurgeAction.new())
+
+
+## Called at combat start: fresh flags, slots, no lingering statuses.
+func reset_for_combat() -> void:
+	combat_flags.clear()
+	reset_spell_slots()
+	clear_all_statuses()
+	break_concentration("combat start", false)
+	turn_state.clear()
+	stop_moving()
+
+
+func reset_spell_slots() -> void:
+	spell_slots = data.spell_slots.duplicate()
 
 
 # --- Queries -------------------------------------------------------------
@@ -92,11 +134,19 @@ func max_hp() -> int:
 
 
 func armor_class() -> int:
-	return data.stats.armor_class
+	return data.stats.armor_class + int(status_sum("armor_class_bonus"))
 
 
+## Movement per turn after status effects (Ray of Frost etc.).
 func speed_m() -> float:
-	return data.stats.speed_m
+	var speed := data.stats.speed_m + float(status_sum("speed_delta_m"))
+	for e in statuses:
+		speed *= e.data.speed_multiplier
+	return maxf(0.0, speed)
+
+
+func is_incapacitated() -> bool:
+	return is_down or status_flag("incapacitated")
 
 
 func attack_bonus(weapon: WeaponData) -> int:
@@ -105,6 +155,14 @@ func attack_bonus(weapon: WeaponData) -> int:
 
 func damage_bonus(weapon: WeaponData) -> int:
 	return data.stats.ability_mod(weapon.ability)
+
+
+## First melee weapon (used for opportunity attacks).
+func melee_weapon() -> WeaponData:
+	for w in data.weapons:
+		if not w.is_ranged:
+			return w
+	return null
 
 
 ## Horizontal edge-to-edge distance (0 when the capsules touch).
@@ -127,20 +185,46 @@ func find_action(action_id: StringName) -> CombatAction:
 	return null
 
 
+func has_spell_slot(level: int) -> bool:
+	if level <= 0:
+		return true
+	return level < spell_slots.size() and spell_slots[level] > 0
+
+
+func spend_spell_slot(level: int) -> bool:
+	if level <= 0:
+		return true
+	if not has_spell_slot(level):
+		return false
+	spell_slots[level] -= 1
+	return true
+
+
+func max_spell_slots(level: int) -> int:
+	return data.spell_slots[level] if level < data.spell_slots.size() else 0
+
+
 # --- HP ------------------------------------------------------------------
 
-func take_damage(amount: int) -> void:
+func take_damage(amount: int, damage_type: String = "") -> void:
 	if is_down or amount <= 0:
 		return
 	current_hp = maxi(0, current_hp - amount)
 	hp_changed.emit(current_hp, max_hp())
+	EventBus.damage_applied.emit(self, amount, damage_type)
 	if current_hp == 0:
 		_go_down()
+	elif concentration_spell != null:
+		_concentration_check(amount)
 
 
+## Heals; a downed creature gets back up with the healed amount.
 func heal(amount: int) -> int:
-	if is_down or amount <= 0:
+	if amount <= 0:
 		return 0
+	if is_down:
+		_revive(mini(max_hp(), amount))
+		return current_hp
 	var before := current_hp
 	current_hp = mini(max_hp(), current_hp + amount)
 	hp_changed.emit(current_hp, max_hp())
@@ -151,6 +235,8 @@ func _go_down() -> void:
 	is_down = true
 	turn_state.clear()
 	stop_moving()
+	clear_all_statuses()
+	break_concentration("went down")
 	if visual:
 		visual.set_down(true)
 	# Let others walk through the body; deferred because this can run inside physics callbacks.
@@ -158,6 +244,181 @@ func _go_down() -> void:
 	if shape:
 		shape.set_deferred("disabled", true)
 	downed.emit(self)
+
+
+func _revive(hp: int) -> void:
+	is_down = false
+	current_hp = hp
+	if visual:
+		visual.set_down(false)
+	var shape := get_node_or_null("CollisionShape3D")
+	if shape:
+		shape.set_deferred("disabled", false)
+	hp_changed.emit(current_hp, max_hp())
+	revived.emit(self)
+
+
+# --- Statuses ------------------------------------------------------------
+
+func add_status(effect_data: StatusEffectData, source: Actor = null, rounds: int = -2, save_dc: int = 0) -> StatusEffect:
+	# Refresh instead of stacking the same condition twice.
+	var existing := get_status(effect_data.id)
+	if existing != null:
+		remove_status(existing, true)
+	var effect := StatusEffect.new()
+	effect.data = effect_data
+	effect.source = source
+	effect.holder = self
+	effect.save_dc = save_dc
+	effect.remaining_rounds = effect_data.default_rounds if rounds == -2 else rounds
+	statuses.append(effect)
+	if effect_data.incapacitated:
+		turn_state.clear()
+		stop_moving()
+	if visual:
+		visual.set_status_tint(_status_tint())
+	statuses_changed.emit(self)
+	EventBus.status_applied.emit(self, effect)
+	return effect
+
+
+func remove_status(effect: StatusEffect, silent: bool = false) -> void:
+	if not statuses.has(effect):
+		return
+	statuses.erase(effect)
+	if effect.concentration_owner != null:
+		effect.concentration_owner.concentration_effects.erase(effect)
+	if visual:
+		visual.set_status_tint(_status_tint())
+	statuses_changed.emit(self)
+	if not silent:
+		EventBus.status_removed.emit(self, effect)
+
+
+func clear_all_statuses() -> void:
+	for e in statuses.duplicate():
+		remove_status(e, true)
+
+
+func get_status(status_id: StringName) -> StatusEffect:
+	for e in statuses:
+		if e.data.id == status_id:
+			return e
+	return null
+
+
+func has_status(status_id: StringName) -> bool:
+	return get_status(status_id) != null
+
+
+## True when any active status has the boolean [param flag] set.
+func status_flag(flag: String) -> bool:
+	for e in statuses:
+		if e.data.get(flag) == true:
+			return true
+	return false
+
+
+func status_names_with_flag(flag: String) -> String:
+	var names := PackedStringArray()
+	for e in statuses:
+		if e.data.get(flag) == true:
+			names.append(e.data.display_name)
+	return ", ".join(names)
+
+
+## Sum of a numeric status field over all active statuses.
+func status_sum(field: String) -> float:
+	var sum := 0.0
+	for e in statuses:
+		sum += float(e.data.get(field))
+	return sum
+
+
+## Dice notations from statuses (e.g. {"Bless": "1d4"}).
+func status_bonus_dice(field: String) -> Dictionary:
+	var out := {}
+	for e in statuses:
+		var dice: String = e.data.get(field)
+		if dice != "":
+			out[e.data.display_name] = dice
+	return out
+
+
+func status_summary() -> String:
+	var parts := PackedStringArray()
+	for e in statuses:
+		parts.append(e.data.short_name)
+	return ", ".join(parts)
+
+
+func consume_statuses_on_attacked() -> void:
+	for e in statuses.duplicate():
+		if e.data.consumed_on_attacked:
+			remove_status(e)
+
+
+func _status_tint() -> Color:
+	for e in statuses:
+		if e.data.tint != Color(1, 1, 1, 1):
+			return e.data.tint
+	return Color(1, 1, 1, 1)
+
+
+## Called by the CombatManager at the end of this actor's turn: durations
+## tick down, repeatable saves are attempted.
+func end_of_turn_tick() -> void:
+	for e in statuses.duplicate():
+		if not statuses.has(e):
+			continue
+		if e.data.repeat_save_ability != "" and e.save_dc > 0 and is_alive():
+			var save := SavingThrow.resolve(self, e.data.repeat_save_ability, e.save_dc, e.data.display_name)
+			EventBus.log("%s tries to shake off %s: %s" % [display_name(), e.data.display_name, save.describe()])
+			if save.success:
+				remove_status(e)
+				continue
+		if e.remaining_rounds > 0:
+			e.remaining_rounds -= 1
+			if e.remaining_rounds == 0:
+				remove_status(e)
+		elif e.remaining_rounds == 0:
+			remove_status(e)
+
+
+# --- Concentration -------------------------------------------------------
+
+func start_concentration(spell: SpellData) -> void:
+	if concentration_spell != null:
+		break_concentration("casting %s" % spell.display_name)
+	concentration_spell = spell
+	statuses_changed.emit(self)
+
+
+func link_concentration_effect(effect: StatusEffect) -> void:
+	effect.concentration_owner = self
+	concentration_effects.append(effect)
+
+
+func break_concentration(reason: String, announce: bool = true) -> void:
+	if concentration_spell == null:
+		return
+	var spell := concentration_spell
+	concentration_spell = null
+	for e in concentration_effects.duplicate():
+		if e.holder != null and is_instance_valid(e.holder):
+			e.holder.remove_status(e)
+	concentration_effects.clear()
+	statuses_changed.emit(self)
+	if announce:
+		EventBus.concentration_broken.emit(self, spell, reason)
+
+
+func _concentration_check(damage: int) -> void:
+	var dc := maxi(10, damage / 2)
+	var save := SavingThrow.resolve(self, "con", dc, "concentration")
+	EventBus.log("%s concentration check (%s): %s" % [display_name(), concentration_spell.display_name, save.describe()])
+	if not save.success:
+		break_concentration("failed the concentration save")
 
 
 # --- Movement ------------------------------------------------------------
@@ -169,6 +430,8 @@ func move_along_path(path: PackedVector3Array, max_distance: float) -> void:
 	_path = path
 	_path_index = 1
 	_distance_budget = max_distance
+	_oa_reacted.clear()
+	_pause_depth = 0
 	if path.size() < 2 or max_distance <= 0.0:
 		_moving = false
 		call_deferred("_emit_movement_finished")
@@ -182,8 +445,16 @@ func is_moving() -> bool:
 
 func stop_moving() -> void:
 	if _moving:
-		_moving = false
-		velocity = Vector3.ZERO
+		_finish_move()
+
+
+## Freezes the walk (e.g. while an opportunity attack resolves).
+func pause_moving() -> void:
+	_pause_depth += 1
+
+
+func resume_moving() -> void:
+	_pause_depth = maxi(0, _pause_depth - 1)
 
 
 func _emit_movement_finished() -> void:
@@ -191,10 +462,10 @@ func _emit_movement_finished() -> void:
 
 
 func _physics_process(delta: float) -> void:
-	if not _moving:
+	if not _moving or _pause_depth > 0:
 		return
 	var step_left := move_speed * delta
-	while step_left > 0.0001 and _moving:
+	while step_left > 0.0001 and _moving and _pause_depth == 0:
 		if _path_index >= _path.size() or _distance_budget <= 0.0001:
 			_finish_move()
 			break
@@ -208,12 +479,14 @@ func _physics_process(delta: float) -> void:
 		var step := minf(step_left, minf(dist, _distance_budget))
 		var dir := to_target / dist
 		face_direction(dir)
+		var threats := _threats_in_reach()
 		var before := global_position
 		var collision := move_and_collide(dir * step)
 		var moved := (global_position - before).length()
 		last_move_distance += moved
 		_distance_budget -= moved
 		step_left -= step
+		_check_reach_left(threats)
 		if collision != null:
 			# Bumped into something (usually another actor): stop here.
 			_finish_move()
@@ -222,8 +495,32 @@ func _physics_process(delta: float) -> void:
 			_path_index += 1
 
 
+func _threats_in_reach() -> Array[Actor]:
+	var out: Array[Actor] = []
+	if threat_sources.is_empty() or status_flag("immune_to_opportunity_attacks"):
+		return out
+	for other in threat_sources:
+		if other == self or not is_instance_valid(other) or not other.is_alive() or other.is_incapacitated():
+			continue
+		if not is_hostile_to(other) or not other.turn_state.reaction_available or _oa_reacted.has(other):
+			continue
+		if other.melee_weapon() == null:
+			continue
+		if distance_to(other) <= MELEE_REACH + 0.001:
+			out.append(other)
+	return out
+
+
+func _check_reach_left(threats: Array[Actor]) -> void:
+	for other in threats:
+		if distance_to(other) > MELEE_REACH + 0.001:
+			_oa_reacted.append(other)
+			reach_left.emit(self, other)
+
+
 func _finish_move() -> void:
 	_moving = false
+	_pause_depth = 0
 	velocity = Vector3.ZERO
 	movement_finished.emit(self)
 

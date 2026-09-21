@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="StatusEffectData" format=3]
+
+[ext_resource type="Script" path="res://scripts/data/status_effect_data.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+id = &"disengaging"
+display_name = "Disengaging"
+short_name = "DSG"
+tint = Color(1, 1, 1, 1)
+default_rounds = 0
+description = "Movement does not provoke opportunity attacks this turn."
+immune_to_opportunity_attacks = true

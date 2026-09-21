@@ -1,7 +1,7 @@
 ## Central dice roller.
 ##
 ## All randomness in the rules layer goes through this class so tests can seed
-## it and so a future "dice history" / advantage system has one entry point.
+## it and so a future "dice history" has one entry point.
 class_name Dice
 extends RefCounted
 
@@ -25,8 +25,26 @@ static func roll(count: int, sides: int, modifier: int = 0) -> DiceResult:
 	return result
 
 
-static func d20(modifier: int = 0) -> DiceResult:
-	return roll(1, 20, modifier)
+static func d20(modifier: int = 0, mode: DiceResult.Mode = DiceResult.Mode.NORMAL) -> DiceResult:
+	if mode == DiceResult.Mode.NORMAL:
+		return roll(1, 20, modifier)
+	var result := roll(2, 20, modifier)
+	result.count = 1
+	result.mode = mode
+	if mode == DiceResult.Mode.ADVANTAGE:
+		result.kept = 0 if result.rolls[0] >= result.rolls[1] else 1
+	else:
+		result.kept = 0 if result.rolls[0] <= result.rolls[1] else 1
+	return result
+
+
+## Combines advantage and disadvantage sources the 5e way: any of both cancels out.
+static func combine_modes(advantage: bool, disadvantage: bool) -> DiceResult.Mode:
+	if advantage and not disadvantage:
+		return DiceResult.Mode.ADVANTAGE
+	if disadvantage and not advantage:
+		return DiceResult.Mode.DISADVANTAGE
+	return DiceResult.Mode.NORMAL
 
 
 ## Roll a notation string like "1d8+3", "2d6" or "d4-1".

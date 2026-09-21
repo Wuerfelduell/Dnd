@@ -8,6 +8,7 @@ extends Node3D
 const DOWN_TINT := Color(0.35, 0.35, 0.35)
 
 var _base_color: Color = Color.WHITE
+var _status_tint: Color = Color(1, 1, 1, 1)
 var _material: StandardMaterial3D
 
 @onready var body: MeshInstance3D = $Body
@@ -27,8 +28,25 @@ func _ready() -> void:
 
 func apply_color(color: Color) -> void:
 	_base_color = color
+	_refresh_color()
+
+
+## Tint from the most prominent status effect (white = none).
+func set_status_tint(tint: Color) -> void:
+	_status_tint = tint
+	_refresh_color()
+
+
+func _current_color() -> Color:
+	var parent := get_parent()
+	if parent is Actor and parent.is_down:
+		return DOWN_TINT
+	return _base_color.lerp(_status_tint, 0.5) if _status_tint != Color(1, 1, 1, 1) else _base_color
+
+
+func _refresh_color() -> void:
 	if _material:
-		_material.albedo_color = color
+		_material.albedo_color = _current_color()
 
 
 func set_down(down: bool) -> void:
@@ -36,13 +54,12 @@ func set_down(down: bool) -> void:
 		# "Lying on the ground": tip the whole visual over and grey it out.
 		rotation_degrees.x = -80.0
 		position.y = 0.3
-		_material.albedo_color = DOWN_TINT
 		ring.visible = false
 		target_ring.visible = false
 	else:
 		rotation_degrees.x = 0.0
 		position.y = 0.0
-		_material.albedo_color = _base_color
+	_refresh_color()
 
 
 ## Ring under the active actor.
@@ -60,5 +77,4 @@ func flash(color: Color, duration: float = 0.25) -> void:
 		return
 	var tween := create_tween()
 	_material.albedo_color = color
-	var back := DOWN_TINT if get_parent().is_down else _base_color
-	tween.tween_property(_material, "albedo_color", back, duration)
+	tween.tween_property(_material, "albedo_color", _current_color(), duration)

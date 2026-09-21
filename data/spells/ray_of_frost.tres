@@ -1,0 +1,27 @@
+[gd_resource type="Resource" script_class="SpellData" format=3]
+
+[ext_resource type="Script" path="res://scripts/data/spell_data.gd" id="1"]
+[ext_resource type="Resource" path="res://data/statuses/slowed.tres" id="2"]
+
+[resource]
+script = ExtResource("1")
+display_name = "Ray of Frost"
+level = 0
+cost = 0
+target_kind = 0
+range_m = 18.0
+area_radius_m = 0.0
+max_targets = 1
+creature_type_filter = ""
+concentration = false
+description = "1d8 cold damage and the target is slowed (-3 m) until the end of its next turn."
+attack_kind = 1
+save_ability = "dex"
+half_damage_on_save = false
+damage_dice = "1d8"
+damage_type = "cold"
+repeat_count = 1
+heal_dice = ""
+heal_adds_casting_mod = false
+status_rounds = 1
+applies_status = ExtResource("2")

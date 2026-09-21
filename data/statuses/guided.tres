@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="StatusEffectData" format=3]
+
+[ext_resource type="Script" path="res://scripts/data/status_effect_data.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+id = &"guided"
+display_name = "Guided"
+short_name = "GDD"
+tint = Color(0.8, 0.9, 1, 1)
+default_rounds = 1
+description = "The next attack roll against this creature has advantage."
+attacks_against_advantage = true
+consumed_on_attacked = true

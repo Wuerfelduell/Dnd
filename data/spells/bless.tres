@@ -1,0 +1,27 @@
+[gd_resource type="Resource" script_class="SpellData" format=3]
+
+[ext_resource type="Script" path="res://scripts/data/spell_data.gd" id="1"]
+[ext_resource type="Resource" path="res://data/statuses/blessed.tres" id="2"]
+
+[resource]
+script = ExtResource("1")
+display_name = "Bless"
+level = 1
+cost = 0
+target_kind = 4
+range_m = 9.0
+area_radius_m = 9.0
+max_targets = 3
+creature_type_filter = ""
+concentration = true
+description = "You and up to two allies within 9 m add 1d4 to attack rolls and saving throws for 10 rounds. Concentration."
+attack_kind = 0
+save_ability = "dex"
+half_damage_on_save = false
+damage_dice = ""
+damage_type = ""
+repeat_count = 1
+heal_dice = ""
+heal_adds_casting_mod = false
+status_rounds = 10
+applies_status = ExtResource("2")

@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="WeaponData" format=3]
+
+[ext_resource type="Script" path="res://scripts/data/weapon_data.gd" id="1"]
+[ext_resource type="Resource" path="res://data/statuses/prone.tres" id="2"]
+
+[resource]
+script = ExtResource("1")
+display_name = "Bite"
+damage_dice = "2d4"
+damage_type = "piercing"
+ability = "str"
+is_ranged = false
+is_finesse = false
+is_light = false
+range_m = 1.5
+on_hit_save_ability = "str"
+on_hit_save_dc = 11
+on_hit_status_rounds = -1
+on_hit_status = ExtResource("2")

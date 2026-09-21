@@ -19,6 +19,8 @@ var _pending_tap_position: Vector2 = Vector2.ZERO
 
 func _ready() -> void:
 	actor.add_to_group("player")
+	actor.add_to_group("party")
+	actor.add_to_group("party_leader")
 	actor.move_speed = walk_speed
 
 

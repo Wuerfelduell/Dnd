@@ -1,0 +1,41 @@
+[gd_resource type="Resource" script_class="ActorData" format=3]
+
+[ext_resource type="Script" path="res://scripts/data/actor_data.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/data/actor_stats.gd" id="2"]
+[ext_resource type="Script" path="res://scripts/data/weapon_data.gd" id="3"]
+[ext_resource type="Script" path="res://scripts/data/spell_data.gd" id="4"]
+[ext_resource type="Resource" path="res://data/weapons/wolf_bite.tres" id="5"]
+
+[sub_resource type="Resource" id="Stats"]
+script = ExtResource("2")
+max_hp = 11
+armor_class = 13
+strength_mod = 1
+dexterity_mod = 2
+constitution_mod = 1
+intelligence_mod = 0
+wisdom_mod = 0
+charisma_mod = 0
+proficiency_bonus = 2
+save_proficiencies = PackedStringArray()
+speed_m = 12.0
+
+[resource]
+script = ExtResource("1")
+display_name = "Wolf"
+class_name_text = "Beast"
+faction = 1
+creature_type = "beast"
+stats = SubResource("Stats")
+weapons = Array[ExtResource("3")]([ExtResource("5")])
+color = Color(0.55, 0.55, 0.6, 1)
+attacks_per_action = 1
+has_pack_tactics = true
+has_second_wind = false
+second_wind_bonus = 1
+has_action_surge = false
+has_cunning_action = false
+sneak_attack_dice = ""
+spellcasting_ability = ""
+spells = Array[ExtResource("4")]([])
+spell_slots = PackedInt32Array()

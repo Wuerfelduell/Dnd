@@ -6,14 +6,23 @@
 class_name CombatAction
 extends RefCounted
 
-enum Cost { ACTION, BONUS_ACTION, FREE }
+enum Cost { ACTION, BONUS_ACTION, REACTION, FREE }
+
+## What the player has to click after selecting the action.
+enum TargetKind { NONE, ENEMY, ALLY, ANY }
 
 var id: StringName = &"action"
 var display_name: String = "Action"
 var cost: Cost = Cost.ACTION
-var requires_target: bool = false
-## Only meaningful when [member requires_target] is true.
+var target_kind: TargetKind = TargetKind.NONE
+## Only meaningful when a target is required.
 var range_m: float = 0.0
+## Second line on the action button, e.g. "L1 3/4" or "cantrip".
+var tag: String = ""
+
+
+func requires_target() -> bool:
+	return target_kind != TargetKind.NONE
 
 
 func cost_name() -> String:
@@ -21,17 +30,23 @@ func cost_name() -> String:
 		Cost.ACTION:
 			return "Action"
 		Cost.BONUS_ACTION:
-			return "Bonus Action"
+			return "Bonus"
+		Cost.REACTION:
+			return "Reaction"
 	return "Free"
 
 
 ## True when the actor still has the resources / charges for this action.
 func is_available(actor: Actor) -> bool:
+	if actor.is_incapacitated():
+		return false
 	return actor.turn_state.can_pay(cost)
 
 
 ## Explanation for the UI why the action is unavailable (empty string = usable).
 func unavailable_reason(actor: Actor) -> String:
+	if actor.is_incapacitated():
+		return "Incapacitated"
 	if not actor.turn_state.can_pay(cost):
 		return "%s already used" % cost_name()
 	return ""
@@ -39,7 +54,12 @@ func unavailable_reason(actor: Actor) -> String:
 
 ## Whether [param target] is a legal target right now (range, faction, alive...).
 func can_target(_actor: Actor, _target: Actor) -> bool:
-	return not requires_target
+	return not requires_target()
+
+
+## Pays the cost. Overridden by actions with special economy (Extra Attack).
+func pay_cost(actor: Actor) -> bool:
+	return actor.turn_state.spend(cost)
 
 
 ## Performs the action. May await for presentation pacing.
@@ -51,3 +71,8 @@ func execute(_actor: Actor, _target: Actor) -> void:
 ## Short text for tooltips / the action bar.
 func description(_actor: Actor) -> String:
 	return display_name
+
+
+## Helper: distance check between two actors for a targeted action.
+func in_range(actor: Actor, target: Actor) -> bool:
+	return actor.distance_to(target) <= range_m + 0.001

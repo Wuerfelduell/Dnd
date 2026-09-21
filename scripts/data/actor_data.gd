@@ -1,17 +1,63 @@
-## Static definition of a creature: identity, stats, weapons, abilities.
+## Static definition of a creature: identity, stats, weapons, abilities, spells.
 ##
-## Runtime values (current HP, turn resources) live on the [Actor] node, so one
-## ActorData resource can be shared by many spawned creatures.
+## Runtime values (current HP, turn resources, statuses) live on the [Actor]
+## node, so one ActorData resource can be shared by many spawned creatures.
 class_name ActorData
 extends Resource
 
 enum Faction { PLAYER, ENEMY }
 
 @export var display_name: String = "Actor"
+## Fighter / Rogue / Wizard / Cleric / Goblin ... (display only for now).
+@export var class_name_text: String = ""
 @export var faction: Faction = Faction.ENEMY
+## "humanoid", "beast", ... used by spells such as Hold Person.
+@export var creature_type: String = "humanoid"
 @export var stats: ActorStats
 @export var weapons: Array[WeaponData] = []
-## Fighter-style bonus action: heal 1d10+1 once per combat.
-@export var has_second_wind: bool = false
+## Light weapon for the bonus-action off-hand attack (two-weapon fighting).
+@export var offhand_weapon: WeaponData
 ## Placeholder visual colour until real models exist.
 @export var color: Color = Color.WHITE
+
+@export_group("Class features")
+## Number of weapon attacks per Attack action (Extra Attack / Multiattack).
+@export var attacks_per_action: int = 1
+## Fighter: bonus action heal 1d10 + level, once per combat.
+@export var has_second_wind: bool = false
+@export var second_wind_bonus: int = 1
+## Fighter: one extra action, once per combat.
+@export var has_action_surge: bool = false
+## Rogue: Dash / Disengage as a bonus action.
+@export var has_cunning_action: bool = false
+## Rogue: extra damage dice once per turn, e.g. "2d6". Empty = none.
+@export var sneak_attack_dice: String = ""
+## Wolves: advantage on attacks when an ally is adjacent to the target.
+@export var has_pack_tactics: bool = false
+
+@export_group("Spellcasting")
+## "int" (Wizard), "wis" (Cleric) ... empty = no caster.
+@export var spellcasting_ability: String = ""
+@export var spells: Array[SpellData] = []
+## Slots per level, index = level (index 0 unused). e.g. [0, 4, 2] = 4 first, 2 second.
+@export var spell_slots: PackedInt32Array = PackedInt32Array()
+
+
+func is_caster() -> bool:
+	return spellcasting_ability != "" and not spells.is_empty()
+
+
+func spell_attack_bonus() -> int:
+	if not is_caster():
+		return 0
+	return stats.ability_mod(spellcasting_ability) + stats.proficiency_bonus
+
+
+func spell_save_dc() -> int:
+	if not is_caster():
+		return 10
+	return 8 + stats.ability_mod(spellcasting_ability) + stats.proficiency_bonus
+
+
+func casting_mod() -> int:
+	return stats.ability_mod(spellcasting_ability) if is_caster() else 0

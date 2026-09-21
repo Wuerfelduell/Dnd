@@ -1,0 +1,41 @@
+[gd_resource type="Resource" script_class="ActorData" format=3]
+
+[ext_resource type="Script" path="res://scripts/data/actor_data.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/data/actor_stats.gd" id="2"]
+[ext_resource type="Script" path="res://scripts/data/weapon_data.gd" id="3"]
+[ext_resource type="Script" path="res://scripts/data/spell_data.gd" id="4"]
+[ext_resource type="Resource" path="res://data/weapons/longsword.tres" id="5"]
+[ext_resource type="Resource" path="res://data/weapons/longbow.tres" id="6"]
+
+[sub_resource type="Resource" id="Stats"]
+script = ExtResource("2")
+max_hp = 28
+armor_class = 16
+strength_mod = 3
+dexterity_mod = 1
+constitution_mod = 2
+intelligence_mod = 0
+wisdom_mod = 1
+charisma_mod = 0
+proficiency_bonus = 2
+save_proficiencies = PackedStringArray("str", "con")
+speed_m = 9.0
+
+[resource]
+script = ExtResource("1")
+display_name = "Bran"
+class_name_text = "Fighter"
+faction = 0
+creature_type = "humanoid"
+stats = SubResource("Stats")
+weapons = Array[ExtResource("3")]([ExtResource("5"), ExtResource("6")])
+color = Color(0.25, 0.55, 0.95, 1)
+attacks_per_action = 1
+has_second_wind = true
+second_wind_bonus = 3
+has_action_surge = true
+has_cunning_action = false
+sneak_attack_dice = ""
+spellcasting_ability = ""
+spells = Array[ExtResource("4")]([])
+spell_slots = PackedInt32Array()

@@ -1,0 +1,27 @@
+[gd_resource type="Resource" script_class="SpellData" format=3]
+
+[ext_resource type="Script" path="res://scripts/data/spell_data.gd" id="1"]
+[ext_resource type="Resource" path="res://data/statuses/paralyzed.tres" id="2"]
+
+[resource]
+script = ExtResource("1")
+display_name = "Hold Person"
+level = 2
+cost = 0
+target_kind = 0
+range_m = 18.0
+area_radius_m = 0.0
+max_targets = 1
+creature_type_filter = "humanoid"
+concentration = true
+description = "A humanoid must succeed on a WIS save or be paralyzed. It repeats the save at the end of each of its turns. Concentration."
+attack_kind = 2
+save_ability = "wis"
+half_damage_on_save = false
+damage_dice = ""
+damage_type = ""
+repeat_count = 1
+heal_dice = ""
+heal_adds_casting_mod = false
+status_rounds = 10
+applies_status = ExtResource("2")

@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="StatusEffectData" format=3]
+
+[ext_resource type="Script" path="res://scripts/data/status_effect_data.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+id = &"prone"
+display_name = "Prone"
+short_name = "PRN"
+tint = Color(0.7, 0.55, 0.35, 1)
+default_rounds = -1
+description = "Attacks have disadvantage; melee attacks against it have advantage, ranged ones disadvantage. Standing up costs half the movement."
+attacks_disadvantage = true
+melee_attacks_against_advantage = true
+ranged_attacks_against_disadvantage = true

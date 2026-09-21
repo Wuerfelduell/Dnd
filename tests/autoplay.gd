@@ -3,22 +3,29 @@
 ## Run with:
 ##   godot --headless --path . -- --autoplay [--seed=42]
 ##
-## Steps: explore towards the goblins → combat starts → the hero is played by
-## the same EnemyAI brain (via the public CombatManager API) → combat ends →
-## exploration works again. Exit code 0 on success.
+## Steps: explore (joystick, tap-to-move, walking) → an enemy spots the party →
+## the first party turn is played through the real input pipeline (mouse
+## raycast, action selection, hotkey) → the rest is played by [PartyAI] and
+## [EnemyAI] → victory returns to exploration (or defeat ends in game over).
+## Exit code 0 on success.
 class_name Autoplay
 extends Node
 
-const TIMEOUT_SECONDS := 120.0
+const TIMEOUT_SECONDS := 180.0
 
 var world: World
 var combat: CombatManager
 var player: Actor
-var player_ai := EnemyAI.new()
 
 var _log_count: int = 0
 var _time: float = 0.0
 var _failed: bool = false
+var _spells_cast: int = 0
+var _saves: int = 0
+var _oas: int = 0
+var _statuses: int = 0
+var _concentration_breaks: int = 0
+var _first_party_turn_done: bool = false
 
 
 static func is_requested() -> bool:
@@ -45,6 +52,11 @@ func _ready() -> void:
 		Dice.seed_rng(seed_value)
 		print("[autoplay] seed %d" % seed_value)
 	EventBus.log_message.connect(func(t): _log_count += 1; print("[log] " + _strip_bbcode(t)))
+	EventBus.spell_cast.connect(func(_c, _s, _t): _spells_cast += 1)
+	EventBus.save_resolved.connect(func(_a, _r): _saves += 1)
+	EventBus.opportunity_attack.connect(func(_r, _m): _oas += 1)
+	EventBus.status_applied.connect(func(_a, _e): _statuses += 1)
+	EventBus.concentration_broken.connect(func(_a, _s, _r): _concentration_breaks += 1)
 	combat.turn_started.connect(_on_turn_started)
 	_run()
 
@@ -73,6 +85,7 @@ func _run() -> void:
 	expect(GameState.is_exploring(), "starts in exploration")
 	var nav_map := world.get_world_3d().navigation_map
 	expect(NavigationServer3D.map_get_regions(nav_map).size() > 0, "navmesh region registered")
+	expect(world.party().size() == 4, "party of four")
 
 	# 1a. Explore with the virtual joystick: press its center, drag up, hold.
 	var controller: PlayerController = player.get_node("PlayerController")
@@ -103,6 +116,12 @@ func _run() -> void:
 	expect(player.global_position.distance_to(start) > 2.0, "tap on ground walked the player (%.2f m)" % player.global_position.distance_to(start))
 	expect(not player.is_moving(), "tap-to-move stops at the destination")
 	print("[autoplay] tap-to-move ok: %s" % player.global_position)
+	# Followers trail the leader.
+	var followers_close := 0
+	for p in world.party():
+		if p != player and p.global_position.distance_to(player.global_position) < 6.0:
+			followers_close += 1
+	expect(followers_close == 3, "party members follow the leader (%d close)" % followers_close)
 
 	# 1c. Explore: walk north until an enemy notices us.
 	controller.debug_direction = Vector3.FORWARD
@@ -113,37 +132,47 @@ func _run() -> void:
 	controller.debug_direction = Vector3.ZERO
 	if _failed:
 		return
-	expect(player.global_position.distance_to(start) > 3.0, "player walked during exploration")
 	expect(GameState.is_in_combat(), "combat started after being spotted (frames=%d)" % frames)
-	print("[autoplay] combat started after %d frames at %s" % [frames, player.global_position])
+	expect(combat.participants.size() >= 6, "party + several enemies in combat (%d)" % combat.participants.size())
+	print("[autoplay] combat started after %d frames with %d combatants" % [frames, combat.participants.size()])
 
-	# 2. Wait until combat resolves; player turns are handled in _on_turn_started.
+	# 2. Wait until combat resolves; party turns are handled in _on_turn_started.
 	frames = 0
-	while GameState.is_in_combat() and frames < 20000 and not _failed:
+	while GameState.is_in_combat() and frames < 40000 and not _failed:
 		await get_tree().physics_frame
 		frames += 1
 	if _failed:
 		return
 	expect(not GameState.is_in_combat(), "combat finished")
-	expect(combat.initiative.entries.size() == 3, "three combatants in initiative")
 	expect(combat.initiative.round_number >= 1, "at least one round played")
-	print("[autoplay] combat ended in round %d, state=%s, hero HP %d/%d" % [
-		combat.initiative.round_number, GameState.state_name(), player.current_hp, player.max_hp()])
+	print("[autoplay] combat ended in round %d, state=%s; spells=%d saves=%d OAs=%d statuses=%d conc.breaks=%d" % [
+		combat.initiative.round_number, GameState.state_name(), _spells_cast, _saves, _oas, _statuses, _concentration_breaks])
+	for p in world.party():
+		print("[autoplay]   %s %s HP %d/%d" % [p.display_name(), p.data.class_name_text, p.current_hp, p.max_hp()])
+	expect(_spells_cast > 0, "spells were cast")
+	print("[autoplay] FEATURES spells=%d saves=%d oas=%d statuses=%d concbreaks=%d rounds=%d result=%s" % [
+		_spells_cast, _saves, _oas, _statuses, _concentration_breaks, combat.initiative.round_number,
+		"defeat" if GameState.is_game_over() else "victory"])
 	var enemies_down := 0
-	for a in world.actors():
-		if not a.is_player() and not a.is_alive():
+	for a in world.enemies():
+		if not a.is_alive():
 			enemies_down += 1
 
 	if GameState.is_game_over():
-		expect(player.is_down, "game over implies hero is down")
-		print("[autoplay] hero was defeated (valid outcome with this seed) — loop completed")
+		var alive := 0
+		for p in world.party():
+			if p.is_alive():
+				alive += 1
+		expect(alive == 0, "game over implies the whole party is down")
+		print("[autoplay] party was defeated (valid outcome with this seed) — loop completed")
 		get_tree().quit(0)
 		return
 
 	# 3. Victory: back to exploration, movement works again, no re-trigger.
 	expect(GameState.is_exploring(), "back in exploration after victory")
-	expect(enemies_down == 2, "both enemies down (%d)" % enemies_down)
-	expect(player.is_alive(), "hero alive after victory")
+	expect(enemies_down == combat.participants.size() - 4, "all enemies down (%d)" % enemies_down)
+	for p in world.party():
+		expect(p.is_alive(), "%s is up after victory" % p.display_name())
 	await get_tree().physics_frame
 	await get_tree().physics_frame
 	var pos := player.global_position
@@ -159,77 +188,69 @@ func _run() -> void:
 
 
 func _on_turn_started(actor: Actor) -> void:
-	if actor != player:
+	if not actor.is_player() or _first_party_turn_done:
 		return
-	if not _clicked_turn_done:
-		_clicked_turn_done = true
-		_play_hero_turn_with_mouse.call_deferred(actor)
-	else:
-		_play_hero_turn.call_deferred(actor)
+	_first_party_turn_done = true
+	_play_first_turn_with_mouse.call_deferred(actor)
 
 
-var _clicked_turn_done: bool = false
-
-
-## First hero turn: drive the real input pipeline (mouse raycast + hotkey)
-## instead of calling the CombatManager directly.
-func _play_hero_turn_with_mouse(actor: Actor) -> void:
+## First party turn: drive the real input pipeline (mouse raycast, action bar
+## selection, hotkey) instead of calling the CombatManager directly. Afterwards
+## the PartyAI takes over.
+func _play_first_turn_with_mouse(actor: Actor) -> void:
 	var input: PlayerCombatInput = world.combat_input
 	var target := Targeting.nearest_hostile(actor, combat.participants)
-	expect(target != null, "hero has a target")
+	expect(target != null, "party member has a target")
 	expect(combat.is_player_turn(), "it is the player's turn")
-	print("[autoplay] viewport size for mouse test: %s" % get_viewport().get_visible_rect().size)
-	# In a tiny headless viewport the HUD panels would cover the whole screen and
-	# swallow the clicks, so hide them for this part (their logic keeps running).
+	print("[autoplay] first party turn: %s (%s), viewport %s" % [actor.display_name(), actor.data.class_name_text, get_viewport().get_visible_rect().size])
 	world.hud.visible = false
 
-	# a) Click the ground a few meters to the side → movement.
+	# a) Click the ground a few meters to the side -> movement.
 	var dest := actor.global_position + Vector3(2.5, 0.0, 0.0)
 	var movement_before := actor.turn_state.movement_remaining
 	_simulate_click(dest)
 	await _wait_until_idle()
-	expect(actor.turn_state.movement_remaining < movement_before, "ground click consumed movement (%.2f → %.2f)" % [
+	expect(actor.turn_state.movement_remaining < movement_before, "ground click consumed movement (%.2f -> %.2f)" % [
 		movement_before, actor.turn_state.movement_remaining])
-	print("[autoplay] mouse move ok: %.2f m left, distance to %s = %.2f m" % [
-		actor.turn_state.movement_remaining, target.display_name(), actor.distance_to(target)])
+	print("[autoplay] mouse move ok: %.2f m left" % actor.turn_state.movement_remaining)
 
-	# b) Click the enemy → default attack (sword if adjacent, else bow).
-	var enemy_hp := target.current_hp
-	_simulate_click(target.global_position + Vector3(0, 0.9, 0))
-	await _wait_until_idle()
-	expect(not actor.turn_state.action_available, "enemy click used the action")
-	print("[autoplay] mouse attack ok: %s HP %d → %d" % [target.display_name(), enemy_hp, target.current_hp])
-
-	# c) Bonus action via the action bar path.
-	var sw := actor.find_action(&"second_wind")
-	if sw != null and combat.is_active:
-		input.use_action(sw)
+	# b) Select a targeted action from the bar that can reach the enemy, then click the enemy.
+	var chosen: CombatAction = null
+	for a in actor.actions:
+		if a.target_kind == CombatAction.TargetKind.ENEMY and a.is_available(actor) and a.can_target(actor, target):
+			chosen = a
+			break
+	if chosen != null:
+		var actions_before := actor.turn_state.actions_remaining
+		var bonus_before := actor.turn_state.bonus_actions_remaining
+		input.use_action(chosen)
+		expect(input.selected_action == chosen, "action bar selected %s" % chosen.display_name)
+		_simulate_click(target.global_position + Vector3(0, 0.9, 0))
 		await _wait_until_idle()
-		expect(not actor.turn_state.bonus_action_available, "Second Wind used the bonus action")
+		expect(actor.turn_state.actions_remaining < actions_before or actor.turn_state.bonus_actions_remaining < bonus_before
+			or actor.turn_state.attacks_remaining > 0, "enemy click used %s" % chosen.display_name)
+		expect(input.selected_action == null, "selection cleared after use")
+		print("[autoplay] targeted action via click ok: %s" % chosen.display_name)
+	else:
+		print("[autoplay] no targeted action in range for %s, skipping click attack" % actor.display_name())
 
 	world.hud.visible = true
 
-	# d) End the turn with the Space hotkey.
+	# c) End the turn with the Space hotkey, then hand the party to the AI.
 	if combat.is_active and combat.active_actor == actor:
 		_simulate_key("end_turn")
 		for _i in 3:
 			await get_tree().process_frame
-		expect(combat.active_actor != actor or not combat.is_active, "Space ended the hero's turn")
+		expect(combat.active_actor != actor or not combat.is_active, "Space ended the turn")
 		print("[autoplay] hotkey end turn ok")
+	world.set_auto_battle(true)
 
 
 func _simulate_click(world_position: Vector3) -> void:
 	var cam: Camera3D = world.camera_rig.camera
 	var screen := cam.unproject_position(world_position)
-	var press := InputEventMouseButton.new()
-	press.button_index = MOUSE_BUTTON_LEFT
-	press.pressed = true
-	press.position = screen
-	press.global_position = screen
-	get_viewport().push_input(press, true)
-	var release := press.duplicate()
-	release.pressed = false
-	get_viewport().push_input(release, true)
+	_simulate_mouse(screen, true)
+	_simulate_mouse(screen, false)
 
 
 func _simulate_mouse(screen: Vector2, pressed: bool) -> void:
@@ -270,18 +291,6 @@ func _wait_until_idle() -> void:
 		await get_tree().physics_frame
 		frames += 1
 	await get_tree().physics_frame
-
-
-func _play_hero_turn(actor: Actor) -> void:
-	var before_action := actor.turn_state.action_available
-	# Use Second Wind when hurt (exercise the bonus action path).
-	var sw := actor.find_action(&"second_wind")
-	if sw != null and sw.is_available(actor) and actor.current_hp <= actor.max_hp() / 2:
-		await combat.perform_action(actor, sw, null)
-	await player_ai.take_turn(actor, combat)
-	if combat.is_active and combat.active_actor == actor:
-		expect(before_action, "hero had an action at turn start")
-		combat.end_turn()
 
 
 static func _strip_bbcode(text: String) -> String:

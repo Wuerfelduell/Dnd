@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="StatusEffectData" format=3]
+
+[ext_resource type="Script" path="res://scripts/data/status_effect_data.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+id = &"slowed"
+display_name = "Slowed"
+short_name = "SLW"
+tint = Color(0.5, 0.7, 1, 1)
+default_rounds = 1
+description = "Speed reduced by 3 m until the end of its next turn."
+speed_delta_m = -3.0

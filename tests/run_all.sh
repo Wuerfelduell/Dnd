@@ -16,7 +16,11 @@ unit=${PIPESTATUS[0]}
 
 status=0
 [ "$unit" -eq 0 ] || status=1
-for seed in 4 8; do
+echo "== scenario tests =="
+"$GODOT" --headless --path . -- --scenario 2>&1 | filter | grep -E '^\[scenario\]|SCRIPT ERROR|FAIL'
+[ "${PIPESTATUS[0]}" -eq 0 ] || status=1
+
+for seed in 4 8 15; do
   echo "== autoplay seed $seed =="
   "$GODOT" --headless --path . -- --autoplay --seed="$seed" 2>&1 | filter | grep -E '^\[autoplay\]|SCRIPT ERROR|FAIL'
   [ "${PIPESTATUS[0]}" -eq 0 ] || status=1

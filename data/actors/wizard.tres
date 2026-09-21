@@ -1,0 +1,45 @@
+[gd_resource type="Resource" script_class="ActorData" format=3]
+
+[ext_resource type="Script" path="res://scripts/data/actor_data.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/data/actor_stats.gd" id="2"]
+[ext_resource type="Script" path="res://scripts/data/weapon_data.gd" id="3"]
+[ext_resource type="Script" path="res://scripts/data/spell_data.gd" id="4"]
+[ext_resource type="Resource" path="res://data/weapons/dagger.tres" id="5"]
+[ext_resource type="Resource" path="res://data/spells/fire_bolt.tres" id="6"]
+[ext_resource type="Resource" path="res://data/spells/ray_of_frost.tres" id="7"]
+[ext_resource type="Resource" path="res://data/spells/magic_missile.tres" id="8"]
+[ext_resource type="Resource" path="res://data/spells/burning_hands.tres" id="9"]
+[ext_resource type="Resource" path="res://data/spells/scorching_ray.tres" id="10"]
+
+[sub_resource type="Resource" id="Stats"]
+script = ExtResource("2")
+max_hp = 17
+armor_class = 12
+strength_mod = -1
+dexterity_mod = 2
+constitution_mod = 1
+intelligence_mod = 3
+wisdom_mod = 1
+charisma_mod = 0
+proficiency_bonus = 2
+save_proficiencies = PackedStringArray("int", "wis")
+speed_m = 9.0
+
+[resource]
+script = ExtResource("1")
+display_name = "Elara"
+class_name_text = "Wizard"
+faction = 0
+creature_type = "humanoid"
+stats = SubResource("Stats")
+weapons = Array[ExtResource("3")]([ExtResource("5")])
+color = Color(0.3, 0.85, 0.9, 1)
+attacks_per_action = 1
+has_second_wind = false
+second_wind_bonus = 1
+has_action_surge = false
+has_cunning_action = false
+sneak_attack_dice = ""
+spellcasting_ability = "int"
+spells = Array[ExtResource("4")]([ExtResource("6"), ExtResource("7"), ExtResource("8"), ExtResource("9"), ExtResource("10")])
+spell_slots = PackedInt32Array(0, 4, 2)

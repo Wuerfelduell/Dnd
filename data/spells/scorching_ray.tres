@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="SpellData" format=3]
+
+[ext_resource type="Script" path="res://scripts/data/spell_data.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+display_name = "Scorching Ray"
+level = 2
+cost = 0
+target_kind = 0
+range_m = 36.0
+area_radius_m = 0.0
+max_targets = 1
+creature_type_filter = ""
+concentration = false
+description = "Three rays of fire, 2d6 fire damage each (separate attack rolls)."
+attack_kind = 1
+save_ability = "dex"
+half_damage_on_save = false
+damage_dice = "2d6"
+damage_type = "fire"
+repeat_count = 3
+heal_dice = ""
+heal_adds_casting_mod = false
+status_rounds = 1
