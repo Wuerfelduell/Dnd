@@ -1,16 +1,23 @@
 ## Heads-up display: mode banner, initiative list, action bar, dice log,
-## floating combat text and the game-over overlay.
+## camera buttons (touch), floating combat text and the game-over overlay.
+##
+## Designed for a 1280x720 base resolution that is scaled to the screen, so
+## all buttons stay finger sized on a phone.
 class_name CombatHud
 extends CanvasLayer
+
+signal restart_requested
 
 const LOG_MAX_LINES := 200
 
 var combat: CombatManager
 var combat_input: PlayerCombatInput
 var player: Actor
+var camera_rig: CameraRig
 
 var _action_buttons: Dictionary = {}  # CombatAction -> Button
 var _log_lines: PackedStringArray = PackedStringArray()
+var _touch: bool = false
 
 @onready var mode_label: Label = %ModeLabel
 @onready var hint_label: Label = %HintLabel
@@ -20,15 +27,23 @@ var _log_lines: PackedStringArray = PackedStringArray()
 @onready var action_panel: PanelContainer = %ActionPanel
 @onready var resources_label: Label = %ResourcesLabel
 @onready var end_turn_button: Button = %EndTurnButton
+@onready var log_toggle: Button = %LogToggle
 @onready var log_text: RichTextLabel = %LogText
 @onready var game_over_panel: PanelContainer = %GameOverPanel
 @onready var game_over_label: Label = %GameOverLabel
+@onready var restart_button: Button = %RestartButton
+@onready var rotate_left_button: Button = %RotateLeftButton
+@onready var rotate_right_button: Button = %RotateRightButton
+@onready var zoom_in_button: Button = %ZoomInButton
+@onready var zoom_out_button: Button = %ZoomOutButton
 
 
-func setup(p_combat: CombatManager, p_input: PlayerCombatInput, p_player: Actor) -> void:
+func setup(p_combat: CombatManager, p_input: PlayerCombatInput, p_player: Actor, p_camera_rig: CameraRig) -> void:
 	combat = p_combat
 	combat_input = p_input
 	player = p_player
+	camera_rig = p_camera_rig
+	_touch = ScreenRaycast.has_touchscreen()
 
 	EventBus.log_message.connect(_on_log_message)
 	EventBus.attack_resolved.connect(_on_attack_resolved)
@@ -43,6 +58,13 @@ func setup(p_combat: CombatManager, p_input: PlayerCombatInput, p_player: Actor)
 	combat_input.selected_action_changed.connect(func(_a): _refresh_action_bar())
 
 	end_turn_button.pressed.connect(func(): combat.end_turn())
+	restart_button.pressed.connect(func(): restart_requested.emit())
+	rotate_left_button.pressed.connect(func(): camera_rig.rotate_by(45.0))
+	rotate_right_button.pressed.connect(func(): camera_rig.rotate_by(-45.0))
+	zoom_in_button.pressed.connect(func(): camera_rig.zoom_by(-3.0))
+	zoom_out_button.pressed.connect(func(): camera_rig.zoom_by(3.0))
+	log_toggle.toggled.connect(_on_log_toggled)
+	log_toggle.button_pressed = true
 	game_over_panel.visible = false
 	_refresh_all()
 
@@ -57,24 +79,28 @@ func _refresh_mode() -> void:
 	match GameState.state:
 		GameState.State.EXPLORATION:
 			mode_label.text = "EXPLORATION"
-			hint_label.text = "WASD move · Q/E rotate camera · wheel zoom"
+			if _touch:
+				hint_label.text = "Tap the ground to walk there. Camera buttons on the right."
+			else:
+				hint_label.text = "WASD or click the ground to walk. Q/E rotate camera, wheel zoom."
 			initiative_panel.visible = false
 			action_panel.visible = false
 		GameState.State.COMBAT:
-			var who := combat.active_actor.display_name() if combat.active_actor else "…"
-			mode_label.text = "COMBAT · Round %d · %s's turn" % [combat.initiative.round_number, who]
+			var who := combat.active_actor.display_name() if combat.active_actor else "..."
+			mode_label.text = "COMBAT - Round %d - %s's turn" % [combat.initiative.round_number, who]
 			if combat.is_player_turn():
+				var tap := "Tap" if _touch else "Click"
 				if combat_input.selected_action != null:
-					hint_label.text = "Click an enemy to use %s · right click / Esc to cancel" % combat_input.selected_action.display_name
+					hint_label.text = "%s an enemy to use %s. Tap the button again to cancel." % [tap, combat_input.selected_action.display_name]
 				else:
-					hint_label.text = "Click ground to move · click enemy to attack · Space = end turn"
+					hint_label.text = "%s the ground to move, %s an enemy to attack." % [tap, tap.to_lower()]
 			else:
-				hint_label.text = "Enemy is acting…"
+				hint_label.text = "Enemy is acting..."
 			initiative_panel.visible = true
 			action_panel.visible = true
 		GameState.State.GAME_OVER:
 			mode_label.text = "GAME OVER"
-			hint_label.text = "Press R to restart"
+			hint_label.text = "Tap Restart to try again." if _touch else "Press R or Restart to try again."
 			action_panel.visible = false
 
 
@@ -89,7 +115,7 @@ func _refresh_initiative() -> void:
 	initiative_box.add_child(header)
 	for e in combat.initiative.entries:
 		var lbl := Label.new()
-		var marker := "▶ " if e.actor == combat.active_actor else "   "
+		var marker := "> " if e.actor == combat.active_actor else "   "
 		var hp := "DOWN" if not e.actor.is_alive() else "%d/%d HP" % [e.actor.current_hp, e.actor.max_hp()]
 		lbl.text = "%s%s (%d)  %s" % [marker, e.actor.display_name(), e.total, hp]
 		if not e.actor.is_alive():
@@ -114,7 +140,7 @@ func _refresh_action_bar() -> void:
 		_action_buttons.clear()
 		for action in actor.actions:
 			var btn := Button.new()
-			btn.custom_minimum_size = Vector2(150, 44)
+			btn.custom_minimum_size = Vector2(150, 60)
 			btn.toggle_mode = action.requires_target
 			btn.pressed.connect(func(): combat_input.use_action(action))
 			action_bar.add_child(btn)
@@ -134,10 +160,15 @@ func _refresh_action_bar() -> void:
 	end_turn_button.disabled = not interactive
 	var ts := actor.turn_state
 	resources_label.text = "Action: %s   Bonus: %s   Movement: %.1f m" % [
-		"✔" if ts.action_available else "✘",
-		"✔" if ts.bonus_action_available else "✘",
+		"ready" if ts.action_available else "used",
+		"ready" if ts.bonus_action_available else "used",
 		ts.movement_remaining]
 	_refresh_mode()
+
+
+func _on_log_toggled(open: bool) -> void:
+	log_text.visible = open
+	log_toggle.text = "Log  v" if open else "Log  >"
 
 
 func _on_log_message(text: String) -> void:
@@ -183,5 +214,5 @@ func _on_combat_ended(victory: bool) -> void:
 	_action_buttons.clear()
 	if not victory:
 		game_over_panel.visible = true
-		game_over_label.text = "You have fallen.\nPress R to restart."
+		game_over_label.text = "You have fallen."
 	_refresh_all()

@@ -23,7 +23,8 @@ func _ready() -> void:
 	_bake_navmesh()
 	camera_rig.set_follow_target(player)
 	combat_input.setup(combat, camera_rig.camera)
-	hud.setup(combat, combat_input, player)
+	hud.setup(combat, combat_input, player, camera_rig)
+	hud.restart_requested.connect(restart)
 
 	EventBus.enemy_spotted.connect(_on_enemy_spotted)
 	combat.turn_started.connect(_on_turn_started)
@@ -105,8 +106,13 @@ func _update_movement_indicator() -> void:
 	movement_indicator.scale = Vector3(radius, 1.0, radius)
 
 
+func restart() -> void:
+	if not GameState.is_game_over():
+		return
+	GameState.set_state(GameState.State.EXPLORATION)
+	get_tree().reload_current_scene()
+
+
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("restart"):
-		if GameState.is_game_over():
-			GameState.set_state(GameState.State.EXPLORATION)
-			get_tree().reload_current_scene()
+		restart()

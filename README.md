@@ -18,19 +18,26 @@ können, ohne die Kampflogik anzufassen (siehe `docs/ARCHITECTURE.md`).
 2. Godot starten → **Importieren** → die Datei `project.godot` in diesem Ordner auswählen.
 3. Im Editor **F5** drücken (oder oben rechts „Play“).
 
+Läuft auch direkt im **Godot-Editor auf Android**: Projekt dort importieren und starten.
+Die komplette Steuerung geht per Touch, Maus und Tastatur sind optional.
+
 ## Steuerung
 
-| Modus | Eingabe | Wirkung |
-|---|---|---|
-| Erkundung | `W A S D` / Pfeiltasten | Laufen (kamerarelativ) |
-| beide | `Q` / `E` | Kamera drehen |
-| beide | Mausrad | Zoom |
-| Kampf | Linksklick auf Boden | Bewegung (blauer Kreis = verbleibende Reichweite) |
-| Kampf | Linksklick auf Gegner | Angriff (Schwert, wenn angrenzend, sonst Bogen) |
-| Kampf | Buttons unten | Longsword / Longbow / Dash / Second Wind auswählen bzw. ausführen |
-| Kampf | Rechtsklick / `Esc` | Auswahl abbrechen |
-| Kampf | `Leertaste` / `Enter` oder „End Turn“ | Zug beenden |
-| Game Over | `R` | Neustart |
+| Modus | Touch / Maus | Tastatur (optional) | Wirkung |
+|---|---|---|---|
+| Erkundung | Tippen auf Boden | `W A S D` | Laufen (per Tipp entlang des Navmeshs) |
+| beide | Buttons „< Cam“ / „Cam >“ | `Q` / `E` | Kamera um 45° drehen |
+| beide | Buttons „Zoom +“ / „Zoom -“ | Mausrad | Zoom |
+| Kampf | Tippen auf Boden | | Bewegung (blauer Kreis = verbleibende Reichweite) |
+| Kampf | Tippen auf Gegner | | Angriff (Schwert, wenn angrenzend, sonst Bogen) |
+| Kampf | Buttons unten | | Longsword / Longbow / Dash / Second Wind auswählen bzw. ausführen |
+| Kampf | Button erneut tippen | Rechtsklick / `Esc` | Auswahl abbrechen |
+| Kampf | Button „End Turn“ | `Leertaste` / `Enter` | Zug beenden |
+| Game Over | Button „Restart“ | `R` | Neustart |
+| beide | Button „Log“ | | Würfel-Log ein-/ausklappen |
+
+Das UI ist auf 1280×720 ausgelegt und wird auf jede Bildschirmgröße skaliert (Querformat).
+Auf Mobilgeräten wird automatisch der Compatibility-Renderer verwendet.
 
 Die Goblins stehen nördlich des Startpunkts. Sobald einer den Helden bemerkt (8 m), beginnt
 der Kampf; alle Gegner in 14 m Umkreis nehmen teil.

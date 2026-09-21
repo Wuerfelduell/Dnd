@@ -40,12 +40,12 @@ func notation() -> String:
 	return s
 
 
-## e.g. "1d20+5 → [14] + 5 = 19"
+## e.g. "1d20+5: [14] + 5 = 19"
 func describe() -> String:
 	var parts := PackedStringArray()
 	for r in rolls:
 		parts.append(str(r))
-	var s := "%s → [%s]" % [notation(), ", ".join(parts)]
+	var s := "%s: [%s]" % [notation(), ", ".join(parts)]
 	if modifier > 0:
 		s += " + %d" % modifier
 	elif modifier < 0:

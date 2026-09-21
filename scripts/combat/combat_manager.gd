@@ -36,7 +36,7 @@ func start_combat(actors: Array[Actor]) -> void:
 			a.combat_flags.clear()
 			a.stop_moving()
 	GameState.set_state(GameState.State.COMBAT)
-	EventBus.log("[color=yellow][b]⚔ Combat begins![/b][/color]")
+	EventBus.log("[color=yellow][b]Combat begins![/b][/color]")
 	initiative.roll_for(participants)
 	for e in initiative.entries:
 		EventBus.log("Initiative %s: %s" % [e.actor.display_name(), e.roll.describe()])

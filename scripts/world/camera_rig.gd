@@ -1,7 +1,8 @@
 ## Third-person / isometric style follow camera.
 ##
-## Yaw rotates with Q/E, mouse wheel zooms, pitch is fixed. Follows a target
-## node (the player in exploration, the active actor in combat).
+## Yaw rotates with Q/E or the on-screen buttons, zoom with the mouse wheel or
+## the on-screen buttons, pitch is fixed. Follows a target node (the player in
+## exploration, the active actor in combat).
 class_name CameraRig
 extends Node3D
 
@@ -13,6 +14,7 @@ extends Node3D
 @export var zoom_step: float = 1.5
 
 var _zoom: float = 16.0
+var _yaw_tween: Tween
 
 @onready var pitch: Node3D = $Pitch
 @onready var camera: Camera3D = $Pitch/Camera3D
@@ -39,11 +41,23 @@ func _process(delta: float) -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("camera_zoom_in"):
-		_zoom = maxf(zoom_min, _zoom - zoom_step)
-		_apply_zoom()
+		zoom_by(-zoom_step)
 	elif event.is_action_pressed("camera_zoom_out"):
-		_zoom = minf(zoom_max, _zoom + zoom_step)
-		_apply_zoom()
+		zoom_by(zoom_step)
+
+
+## Smoothly turns the camera by [param degrees] (used by the touch buttons).
+func rotate_by(degrees: float) -> void:
+	if _yaw_tween != null and _yaw_tween.is_valid():
+		_yaw_tween.kill()
+	_yaw_tween = create_tween()
+	_yaw_tween.tween_property(self, "rotation_degrees:y", rotation_degrees.y + degrees, 0.25) \
+		.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUAD)
+
+
+func zoom_by(amount: float) -> void:
+	_zoom = clampf(_zoom + amount, zoom_min, zoom_max)
+	_apply_zoom()
 
 
 func _apply_zoom() -> void:

@@ -1,7 +1,8 @@
-## Direct (WASD) control of the player's actor during exploration.
+## Control of the player's actor during exploration.
 ##
-## Disabled automatically in combat; combat movement is turn-based and handled
-## by [PlayerCombatInput] + [CombatManager].
+## Two ways to move: WASD (camera relative) or tap/click on the ground, which
+## walks there along the navigation mesh (touch friendly). Disabled in combat;
+## combat movement is turn-based and handled by [PlayerCombatInput] + [CombatManager].
 class_name PlayerController
 extends Node
 
@@ -10,25 +11,59 @@ extends Node
 ## Tests can steer the character without real input events.
 var debug_direction: Vector3 = Vector3.ZERO
 
+var _pending_tap: bool = false
+var _pending_tap_position: Vector2 = Vector2.ZERO
+
 @onready var actor: Actor = get_parent()
 
 
 func _ready() -> void:
 	actor.add_to_group("player")
+	actor.move_speed = walk_speed
+
+
+func _unhandled_input(event: InputEvent) -> void:
+	if not GameState.is_exploring() or actor.is_down:
+		return
+	if event.is_action_pressed("select"):
+		_pending_tap = true
+		_pending_tap_position = event.position
+		get_viewport().set_input_as_handled()
 
 
 func _physics_process(_delta: float) -> void:
-	if not GameState.is_exploring() or actor.is_down or actor.is_moving():
+	if not GameState.is_exploring() or actor.is_down:
+		_pending_tap = false
 		return
+	if _pending_tap:
+		_pending_tap = false
+		_walk_to_tap()
 	var dir := _input_direction()
 	if dir.length_squared() > 0.0001:
+		# Direct input overrides a running tap-to-move.
+		actor.stop_moving()
 		actor.velocity = dir.normalized() * walk_speed
 		actor.face_direction(dir)
-	else:
+		actor.velocity.y = 0.0
+		actor.move_and_slide()
+		actor.global_position.y = 0.0
+	elif not actor.is_moving():
 		actor.velocity = Vector3.ZERO
-	actor.velocity.y = 0.0
-	actor.move_and_slide()
-	actor.global_position.y = 0.0
+
+
+func _walk_to_tap() -> void:
+	var camera := get_viewport().get_camera_3d()
+	var hit := ScreenRaycast.pick(camera, _pending_tap_position)
+	if hit.is_empty():
+		return
+	var destination: Vector3 = hit["position"]
+	var clicked: Actor = hit.get("actor")
+	if clicked != null:
+		# Tapping an enemy walks towards it; the encounter starts on its own.
+		destination = clicked.global_position
+	var path := CombatMovement.find_path(actor.get_world_3d().navigation_map, actor.global_position, destination)
+	actor.stop_moving()
+	actor.move_along_path(path, INF)
 
 
 func _input_direction() -> Vector3:

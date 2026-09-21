@@ -20,10 +20,10 @@ script = ExtResource("1")
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -260.0
-offset_top = 12.0
-offset_right = 260.0
-offset_bottom = 70.0
+offset_left = -280.0
+offset_top = 8.0
+offset_right = 280.0
+offset_bottom = 66.0
 grow_horizontal = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
 
@@ -33,7 +33,7 @@ layout_mode = 2
 [node name="ModeLabel" type="Label" parent="TopPanel/VBox"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_font_sizes/font_size = 22
+theme_override_font_sizes/font_size = 20
 text = "EXPLORATION"
 horizontal_alignment = 1
 
@@ -41,24 +41,95 @@ horizontal_alignment = 1
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(0.8, 0.8, 0.85, 1)
-text = "WASD move"
+theme_override_font_sizes/font_size = 14
+text = "Tap the ground to walk there."
 horizontal_alignment = 1
 
 [node name="InitiativePanel" type="PanelContainer" parent="."]
 unique_name_in_owner = true
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_left = 12.0
-offset_top = -120.0
-offset_right = 300.0
-offset_bottom = 120.0
-grow_vertical = 2
+anchors_preset = 0
+offset_left = 8.0
+offset_top = 80.0
+offset_right = 268.0
+offset_bottom = 200.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
 
 [node name="InitiativeList" type="VBoxContainer" parent="InitiativePanel"]
 unique_name_in_owner = true
 layout_mode = 2
+
+[node name="LogPanel" type="PanelContainer" parent="."]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -372.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = 200.0
+grow_horizontal = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
+
+[node name="VBox" type="VBoxContainer" parent="LogPanel"]
+layout_mode = 2
+
+[node name="LogToggle" type="Button" parent="LogPanel/VBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 36)
+layout_mode = 2
+toggle_mode = true
+button_pressed = true
+text = "Log  v"
+
+[node name="LogText" type="RichTextLabel" parent="LogPanel/VBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 140)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/normal_font_size = 13
+theme_override_font_sizes/bold_font_size = 13
+bbcode_enabled = true
+scroll_following = true
+
+[node name="CameraPanel" type="PanelContainer" parent="."]
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -96.0
+offset_top = -40.0
+offset_right = -8.0
+offset_bottom = 232.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
+
+[node name="VBox" type="VBoxContainer" parent="CameraPanel"]
+layout_mode = 2
+
+[node name="RotateLeftButton" type="Button" parent="CameraPanel/VBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(64, 56)
+layout_mode = 2
+text = "< Cam"
+
+[node name="RotateRightButton" type="Button" parent="CameraPanel/VBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(64, 56)
+layout_mode = 2
+text = "Cam >"
+
+[node name="ZoomInButton" type="Button" parent="CameraPanel/VBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(64, 56)
+layout_mode = 2
+text = "Zoom +"
+
+[node name="ZoomOutButton" type="Button" parent="CameraPanel/VBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(64, 56)
+layout_mode = 2
+text = "Zoom -"
 
 [node name="ActionPanel" type="PanelContainer" parent="."]
 unique_name_in_owner = true
@@ -67,10 +138,10 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -420.0
-offset_top = -110.0
-offset_right = 420.0
-offset_bottom = -12.0
+offset_left = -470.0
+offset_top = -118.0
+offset_right = 470.0
+offset_bottom = -8.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
@@ -81,7 +152,7 @@ layout_mode = 2
 [node name="ResourcesLabel" type="Label" parent="ActionPanel/VBox"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Action: ✔   Bonus: ✔   Movement: 9.0 m"
+text = "Action: ready   Bonus: ready   Movement: 9.0 m"
 horizontal_alignment = 1
 
 [node name="ActionBar" type="HBoxContainer" parent="ActionPanel/VBox"]
@@ -91,30 +162,9 @@ alignment = 1
 
 [node name="EndTurnButton" type="Button" parent="ActionPanel/VBox/ActionBar"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(150, 44)
+custom_minimum_size = Vector2(150, 60)
 layout_mode = 2
-text = "End Turn
-[Space]"
-
-[node name="LogPanel" type="PanelContainer" parent="."]
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -520.0
-offset_top = -300.0
-offset_right = -12.0
-offset_bottom = -12.0
-grow_horizontal = 0
-grow_vertical = 0
-theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
-
-[node name="LogText" type="RichTextLabel" parent="LogPanel"]
-unique_name_in_owner = true
-layout_mode = 2
-bbcode_enabled = true
-scroll_following = true
+text = "End Turn"
 
 [node name="GameOverPanel" type="PanelContainer" parent="."]
 unique_name_in_owner = true
@@ -124,20 +174,28 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -220.0
-offset_top = -70.0
-offset_right = 220.0
-offset_bottom = 70.0
+offset_left = -200.0
+offset_top = -90.0
+offset_right = 200.0
+offset_bottom = 90.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
 
-[node name="GameOverLabel" type="Label" parent="GameOverPanel"]
+[node name="VBox" type="VBoxContainer" parent="GameOverPanel"]
+layout_mode = 2
+alignment = 1
+
+[node name="GameOverLabel" type="Label" parent="GameOverPanel/VBox"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.4, 0.35, 1)
 theme_override_font_sizes/font_size = 28
-text = "You have fallen.
-Press R to restart."
+text = "You have fallen."
 horizontal_alignment = 1
-vertical_alignment = 1
+
+[node name="RestartButton" type="Button" parent="GameOverPanel/VBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+text = "Restart"

@@ -39,7 +39,7 @@ func _test_dice() -> void:
 	check(neg.count == 1 and neg.sides == 4 and neg.modifier == 1, "parse d4-1 with extra +2")
 	var d := Dice.parse("1d8", 3)
 	check(d.notation() == "1d8+3", "notation: " + d.notation())
-	check(d.describe().begins_with("1d8+3 → ["), "describe: " + d.describe())
+	check(d.describe().begins_with("1d8+3: ["), "describe: " + d.describe())
 	# Deterministic with seed
 	Dice.seed_rng(7)
 	var a := Dice.roll(3, 6).rolls

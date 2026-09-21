@@ -6,8 +6,6 @@ extends Node
 signal selected_action_changed(action: CombatAction)
 signal hovered_actor_changed(actor: Actor)
 
-const RAY_LENGTH := 500.0
-
 @export var combat: CombatManager
 @export var camera: Camera3D
 
@@ -71,14 +69,14 @@ func _physics_process(_delta: float) -> void:
 		_set_hovered(null)
 		return
 	# Hover highlight
-	var hover_hit := _raycast(_mouse_position)
+	var hover_hit := ScreenRaycast.pick(camera, _mouse_position)
 	var hover_actor: Actor = hover_hit.get("actor")
 	_set_hovered(hover_actor if hover_actor != null and hover_actor.is_alive() and hover_actor.is_hostile_to(combat.active_actor) else null)
 
 	if not _pending_click:
 		return
 	_pending_click = false
-	var hit := _raycast(_pending_click_position)
+	var hit := ScreenRaycast.pick(camera, _pending_click_position)
 	if OS.is_stdout_verbose():
 		print("[input] click raycast: ", hit)
 	if hit.is_empty():
@@ -111,23 +109,6 @@ func _default_attack_for(actor: Actor, target: Actor) -> CombatAction:
 			if fallback == null:
 				fallback = action
 	return null
-
-
-func _raycast(screen_position: Vector2) -> Dictionary:
-	var from := camera.project_ray_origin(screen_position)
-	var dir := camera.project_ray_normal(screen_position)
-	var query := PhysicsRayQueryParameters3D.create(from, from + dir * RAY_LENGTH)
-	query.collision_mask = 3
-	query.collide_with_bodies = true
-	var space := get_viewport().world_3d.direct_space_state
-	var result := space.intersect_ray(query)
-	if result.is_empty():
-		return {}
-	var collider: Object = result.get("collider")
-	var out := {"position": result["position"], "actor": null}
-	if collider is Actor:
-		out["actor"] = collider
-	return out
 
 
 func _set_hovered(actor: Actor) -> void:

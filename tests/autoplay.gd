@@ -74,9 +74,21 @@ func _run() -> void:
 	var nav_map := world.get_world_3d().navigation_map
 	expect(NavigationServer3D.map_get_regions(nav_map).size() > 0, "navmesh region registered")
 
-	# 1. Explore: walk north until an enemy notices us.
+	# 1a. Explore by tapping the ground (touch path): walk 3 m north.
 	var controller: PlayerController = player.get_node("PlayerController")
 	var start := player.global_position
+	world.hud.visible = false
+	_simulate_click(start + Vector3(0, 0, -3.0))
+	var tap_frames := 0
+	while tap_frames < 300 and (tap_frames < 5 or player.is_moving()):
+		await get_tree().physics_frame
+		tap_frames += 1
+	world.hud.visible = true
+	expect(player.global_position.distance_to(start) > 2.0, "tap on ground walked the player (%.2f m)" % player.global_position.distance_to(start))
+	expect(not player.is_moving(), "tap-to-move stops at the destination")
+	print("[autoplay] tap-to-move ok: %s" % player.global_position)
+
+	# 1b. Explore: walk north until an enemy notices us.
 	controller.debug_direction = Vector3.FORWARD
 	var frames := 0
 	while GameState.is_exploring() and frames < 2000 and not _failed:
@@ -198,10 +210,10 @@ func _simulate_click(world_position: Vector3) -> void:
 	press.pressed = true
 	press.position = screen
 	press.global_position = screen
-	get_viewport().push_input(press)
+	get_viewport().push_input(press, true)
 	var release := press.duplicate()
 	release.pressed = false
-	get_viewport().push_input(release)
+	get_viewport().push_input(release, true)
 
 
 func _simulate_key(action: String) -> void:
@@ -209,10 +221,10 @@ func _simulate_key(action: String) -> void:
 	expect(events.size() > 0, "action %s has a binding" % action)
 	var press: InputEventKey = events[0].duplicate()
 	press.pressed = true
-	get_viewport().push_input(press)
+	get_viewport().push_input(press, true)
 	var release: InputEventKey = press.duplicate()
 	release.pressed = false
-	get_viewport().push_input(release)
+	get_viewport().push_input(release, true)
 
 
 func _wait_until_idle() -> void:

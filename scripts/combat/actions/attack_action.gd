@@ -25,7 +25,7 @@ func can_target(actor: Actor, target: Actor) -> bool:
 func execute(actor: Actor, target: Actor) -> void:
 	actor.face_actor(target)
 	var result := AttackResolver.resolve(actor, weapon, target)
-	var line := "[b]%s[/b] attacks [b]%s[/b] with %s: %s vs AC %d → [b]%s[/b]" % [
+	var line := "[b]%s[/b] attacks [b]%s[/b] with %s: %s vs AC %d = [b]%s[/b]" % [
 		actor.display_name(), target.display_name(), weapon.display_name,
 		result.attack_roll.describe(), result.target_ac, result.outcome_text()]
 	if result.hit:

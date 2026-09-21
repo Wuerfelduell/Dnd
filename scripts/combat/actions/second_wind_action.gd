@@ -28,7 +28,7 @@ func execute(actor: Actor, _target: Actor) -> void:
 	actor.combat_flags[FLAG] = true
 	var roll := Dice.parse(HEAL_DICE, HEAL_BONUS)
 	var healed := actor.heal(roll.total())
-	EventBus.log("[b]%s[/b] uses Second Wind: %s → heals %d HP." % [actor.display_name(), roll.describe(), healed])
+	EventBus.log("[b]%s[/b] uses Second Wind: %s, heals %d HP." % [actor.display_name(), roll.describe(), healed])
 	EventBus.heal_applied.emit(actor, healed, roll)
 	await GameState.wait(0.6)
 
