@@ -42,13 +42,19 @@ var last_move_distance: float = 0.0
 ## Actors that can threaten this one while it moves (set by the CombatManager).
 var threat_sources: Array[Actor] = []
 
+## Ammunition per kind, e.g. {"arrows": 20}.
+var ammo: Dictionary = {}
+
 var _path: PackedVector3Array = PackedVector3Array()
 var _path_index: int = 0
 var _distance_budget: float = 0.0
 var _moving: bool = false
 var _pause_depth: int = 0
+var _stall_frames: int = 0
 var _oa_reacted: Array[Actor] = []
 var _runtime_initialized: bool = false
+## The .tres this actor was built from (enemy scaling rebuilds from it).
+var _source_data: ActorData
 
 @onready var visual: ActorVisual = get_node_or_null("Visual")
 @onready var name_label: ActorLabel = get_node_or_null("Label")
@@ -72,10 +78,22 @@ func initialize_runtime() -> void:
 		return
 	_runtime_initialized = true
 	# Own copy: level-ups and tests mutate it without touching the .tres files.
+	_source_data = data
 	data = data.duplicate(true)
 	current_hp = data.stats.max_hp
 	reset_spell_slots()
+	refill_ammo()
 	_build_actions()
+
+
+## Fresh runtime data from the original resource (used when enemies are
+## re-scaled for a new wave). Keeps the actor's node, loses level-ups.
+func rebuild_from_source() -> void:
+	data = _source_data.duplicate(true)
+	current_hp = data.stats.max_hp
+	reset_spell_slots()
+	refill_ammo()
+	rebuild_actions()
 
 
 ## Rebuilds the action list from [member data] (after a level-up).
@@ -118,10 +136,9 @@ func _build_actions() -> void:
 		actions.append(ActionSurgeAction.new())
 
 
-## Called at combat start: fresh flags, slots, no lingering statuses.
+## Called at combat start. Slots, once-per-rest features and ammunition are
+## NOT refreshed here: they only come back by resting.
 func reset_for_combat() -> void:
-	combat_flags.clear()
-	reset_spell_slots()
 	clear_all_statuses()
 	break_concentration("combat start", false)
 	turn_state.clear()
@@ -130,6 +147,60 @@ func reset_for_combat() -> void:
 
 func reset_spell_slots() -> void:
 	spell_slots = data.spell_slots.duplicate()
+
+
+# --- Ammunition -----------------------------------------------------------
+
+func refill_ammo() -> void:
+	ammo.clear()
+	for w in data.weapons:
+		if w.uses_ammo:
+			ammo[w.ammo_name] = maxi(ammo.get(w.ammo_name, 0), w.ammo_max)
+
+
+func ammo_left(weapon: WeaponData) -> int:
+	if not weapon.uses_ammo:
+		return -1
+	return ammo.get(weapon.ammo_name, 0)
+
+
+func has_ammo(weapon: WeaponData) -> bool:
+	return not weapon.uses_ammo or ammo.get(weapon.ammo_name, 0) > 0
+
+
+func spend_ammo(weapon: WeaponData) -> void:
+	if weapon.uses_ammo:
+		ammo[weapon.ammo_name] = maxi(0, ammo.get(weapon.ammo_name, 0) - 1)
+
+
+## Adds ammunition up to each weapon's maximum.
+func recover_ammo(fraction: float) -> void:
+	for w in data.weapons:
+		if w.uses_ammo:
+			var gain := int(ceil(w.ammo_max * fraction))
+			ammo[w.ammo_name] = mini(w.ammo_max, ammo.get(w.ammo_name, 0) + gain)
+
+
+# --- Resting --------------------------------------------------------------
+
+## Short rest: one hit die of healing per two levels, short-rest features
+## (Second Wind, Action Surge) and some ammunition come back. Downed
+## creatures get up.
+func short_rest() -> int:
+	var dice := maxi(1, int(ceil(data.level / 2.0)))
+	var heal_amount := (data.hit_die / 2 + 1 + data.stats.constitution_mod) * dice
+	clear_all_statuses()
+	break_concentration("rest", false)
+	turn_state.clear()
+	stop_moving()
+	combat_flags.clear()
+	recover_ammo(0.5)
+	return heal(maxi(1, heal_amount))
+
+
+## Long rest: everything back.
+func long_rest() -> void:
+	restore_full(global_position)
 
 
 # --- Queries -------------------------------------------------------------
@@ -457,6 +528,7 @@ func move_along_path(path: PackedVector3Array, max_distance: float) -> void:
 	_distance_budget = max_distance
 	_oa_reacted.clear()
 	_pause_depth = 0
+	_stall_frames = 0
 	if path.size() < 2 or max_distance <= 0.0:
 		_moving = false
 		call_deferred("_emit_movement_finished")
@@ -490,6 +562,7 @@ func _physics_process(delta: float) -> void:
 	if not _moving or _pause_depth > 0:
 		return
 	var step_left := move_speed * delta
+	var frame_moved := 0.0
 	while step_left > 0.0001 and _moving and _pause_depth == 0:
 		if _path_index >= _path.size() or _distance_budget <= 0.0001:
 			_finish_move()
@@ -498,7 +571,7 @@ func _physics_process(delta: float) -> void:
 		target.y = global_position.y
 		var to_target := target - global_position
 		var dist := to_target.length()
-		if dist < 0.01:
+		if dist < 0.05:
 			_path_index += 1
 			continue
 		var step := minf(step_left, minf(dist, _distance_budget))
@@ -507,17 +580,30 @@ func _physics_process(delta: float) -> void:
 		var threats := _threats_in_reach()
 		var before := global_position
 		var collision := move_and_collide(dir * step)
+		if collision != null:
+			# Slide along whatever we bumped into (usually another creature)
+			# instead of stopping; the path already tries to avoid bodies.
+			var remainder := collision.get_remainder().slide(collision.get_normal())
+			remainder.y = 0.0
+			if remainder.length() > 0.001:
+				move_and_collide(remainder)
+		global_position.y = before.y
 		var moved := (global_position - before).length()
 		last_move_distance += moved
 		_distance_budget -= moved
+		frame_moved += moved
 		step_left -= step
 		_check_reach_left(threats)
-		if collision != null:
-			# Bumped into something (usually another actor): stop here.
-			_finish_move()
-			break
-		if dist - moved < 0.01:
+		if (target - global_position).length() < 0.15:
 			_path_index += 1
+	# Stuck against something for a while: give up gracefully.
+	if _moving:
+		if frame_moved < 0.002:
+			_stall_frames += 1
+			if _stall_frames >= 20:
+				_finish_move()
+		else:
+			_stall_frames = 0
 
 
 func _threats_in_reach() -> Array[Actor]:

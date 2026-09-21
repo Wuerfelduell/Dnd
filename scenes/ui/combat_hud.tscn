@@ -211,7 +211,7 @@ offset_bottom = -24.0
 grow_vertical = 0
 script = ExtResource("2")
 
-[node name="RestButton" type="Button" parent="."]
+[node name="NextWaveButton" type="Button" parent="."]
 unique_name_in_owner = true
 visible = false
 anchors_preset = 7
@@ -219,14 +219,32 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -140.0
+offset_left = -300.0
 offset_top = -76.0
-offset_right = 140.0
+offset_right = -10.0
 offset_bottom = -16.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_font_sizes/font_size = 18
-text = "Rest & next wave"
+text = "Short rest & wave 2"
+
+[node name="LongRestButton" type="Button" parent="."]
+unique_name_in_owner = true
+visible = false
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = -76.0
+offset_right = 300.0
+offset_bottom = -16.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(0.6, 1, 0.6, 1)
+theme_override_font_sizes/font_size = 18
+text = "Long rest (full recovery)"
 
 [node name="LevelUpPanel" type="PanelContainer" parent="."]
 unique_name_in_owner = true

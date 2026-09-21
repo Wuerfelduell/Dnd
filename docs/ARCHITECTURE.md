@@ -32,7 +32,7 @@ Die KI benutzt ausschließlich die öffentliche `CombatManager`-API (`perform_ac
 | `ActorData` | Statische Definition: Fraktion, Kreaturentyp, Stats, Waffen, Off-hand, Klassenfeatures (Multiattack, Second Wind, Action Surge, Cunning Action, Sneak Attack, Pack Tactics), Zauber + Slots. |
 | `SpellData` | Zauber deklarativ: Stufe, Kosten, Zielart, Reichweite, Angriffsart (Spell Attack / Save / Auto-Hit), Schaden, Heilung, Status, Concentration. |
 | `StatusEffectData` | Zustand deklarativ als Flags: handlungsunfähig, Vorteil/Nachteil-Regeln, Tempo, Bonuswürfel, Wiederholungs-Save. |
-| `Actor` | Laufzeitzustand: HP, `TurnState`, Slots, Statuses, Concentration, Actions, Down/Revive, Pfadbewegung inkl. Erkennen „verlässt Reichweite“ (Signal `reach_left`). |
+| `Actor` | Laufzeitzustand: HP, `TurnState`, Slots, Munition, Statuses, Concentration, Actions, Down/Revive, `short_rest` / `long_rest`, Pfadbewegung mit Gleiten an Körpern, Stall-Erkennung und „verlässt Reichweite“ (Signal `reach_left`). |
 | `TurnState` | Actions, Bonus Actions, Reaction, Bewegung, ausstehende Multiattack-Schläge, Sneak-Attack-Flag, Light-Weapon-Flag. |
 | `CombatAction` | Basisklasse: `id`, Kosten, `target_kind` (NONE/ENEMY/ALLY/ANY/POINT), `is_available`, `can_target`, `can_target_point`, `pay_cost`, `execute(actor, target, point)`. |
 | `AttackResolver` | d20 + Bonus gegen AC mit allen Vorteil/Nachteil-Quellen, Bless, Crit-Regeln (nat 20, Paralyzed), Sneak Attack. Arbeitet auf einem `AttackProfile` (Waffe oder Zauber). |
@@ -43,7 +43,8 @@ Die KI benutzt ausschließlich die öffentliche `CombatManager`-API (`perform_ac
 | `PartyAI` | Klassenheuristiken (Fighter: Surge/Second Wind; Rogue: Sneak-Ziel + Off-hand; Wizard: Flächen-/Slot-Zauber und Kiting; Cleric: Notheilung, Bless, Hold Person, Guiding Bolt). Dient Autoplay-Test und „Auto-battle“-Button. |
 | `PlayerCombatInput` | Lock & Roll: Aktion wählen → Tipp sperrt Figur, Punkt (in Reichweite geklemmt) oder Weg (auf Restbewegung gekürzt) → `confirm()` führt aus, `cancel()` verwirft. Signal `lock_changed` für Vorschau und HUD. Kennt keine Regeln. |
 | `TargetingPreview` | Zeichnet die Sperre: Flächenkreis (rot bei Freunden im Radius), Wegstrecke (rot bei Opportunity Attack), Zielmarker. |
-| `Progression` | XP-Tabelle, Level-Up-Anwendung auf die Laufzeitkopie der `ActorData` (HP, Übungsbonus, ASI, Klassenfeatures, Slots, neue Zauber), Cantrip-Skalierung. |
+| `Progression` | XP-Tabelle, Level-Up-Anwendung auf die Laufzeitkopie der `ActorData` (HP, Übungsbonus, ASI, Klassenfeatures, Slots, neue Zauber), Cantrip-Skalierung, `scale_enemy` (Gegner aus der Quell-Resource neu aufbauen und auf ein Level heben). |
+| `CombatMovement` | `plan(mover, ziel, andere)`: Navmesh-Pfad + Umwege um Körper (`detour_around`) + freies Ziel (`free_destination`), Opportunity-Attack-Vorhersage, Kürzen auf Restbewegung. Wird von Kampf, Vorschau, KI, Followern und Tap-to-Move gleichermaßen benutzt. |
 | `PartyFollower` | Nicht gesteuerte Party-Mitglieder folgen dem Anführer in Formation (Navmesh-Pfad). |
 | `World` | Verdrahtet Szene, entscheidet Kampfstart (Wahrnehmung) und Teilnehmer (ganze Party + Gegner im Umkreis), stabilisiert Gefallene nach dem Sieg, vergibt XP (`Progression`), Rast & Respawn der nächsten Welle. |
 | `CombatHud` | Modus, Initiative mit Status, Aktionsleiste (Flow-Layout, Kosten/Slots), Ressourcen, Log, Floating Text, Kamera-Buttons, Joystick, Auto-battle, Game-Over. |
@@ -67,6 +68,6 @@ Die KI benutzt ausschließlich die öffentliche `CombatManager`-API (`perform_ac
 
 ## Tests
 
-* `tests/unit_tests.tscn`: Regelschicht ohne Kampfszene (1710 Checks).
+* `tests/unit_tests.tscn`: Regelschicht ohne Kampfszene (rund 1750 Checks), inklusive Wegplanung um Körper, Munition, Rasten und Gegner-Skalierung.
 * `tests/scenario.gd` (`--scenario`): gescriptete Situationen in der echten Szene mit Physik und Navmesh, inklusive Fireball auf einen Punkt und Misty Step.
 * `tests/autoplay.gd` (`--autoplay --seed=N`): kompletter Loop inklusive echter Eingabe-Events (Lock, Cancel, Confirm), Sieg, Level-Up, Rast, zweite Welle; gibt eine `FEATURES`-Zeile mit Zählern (Zauber, Saves, OAs, Status, Concentration) aus.

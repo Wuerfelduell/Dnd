@@ -20,6 +20,9 @@ func _ready() -> void:
 	_test_spell_slots_and_actions()
 	_test_point_spells()
 	_test_progression()
+	_test_movement_planning()
+	_test_ammo_and_rests()
+	_test_enemy_scaling()
 	_test_initiative()
 	print("\n%d checks, %d failures" % [_checks, _failures])
 	get_tree().quit(0 if _failures == 0 else 1)
@@ -515,6 +518,121 @@ func _test_progression() -> void:
 	check(Progression.xp_for_next_level(f2) == 800, "next level needs 800")
 	for a in [fighter, rogue, wizard, cleric, hob, gob, f2, w2]:
 		a.queue_free()
+
+
+# --- Movement planning ----------------------------------------------------
+
+func _test_movement_planning() -> void:
+	var mover := _make_actor("res://data/actors/fighter.tres")
+	var blocker := _make_actor("res://data/actors/goblin_warrior.tres")
+	var blocker2 := _make_actor("res://data/actors/wolf.tres")
+	_place(mover, 0, 0)
+	_place(blocker, 0, -5)
+	_place(blocker2, 0, -8)
+	var others: Array[Actor] = [blocker, blocker2]
+	var path := CombatMovement.plan(mover, Vector3(0, 0, -12), others)
+	check(path.size() >= 3, "path around two bodies gets detour points (%d)" % path.size())
+	var min_clearance := INF
+	for i in range(1, path.size()):
+		for b in others:
+			min_clearance = minf(min_clearance, _segment_distance(path[i - 1], path[i], b.global_position))
+	check(min_clearance >= CombatMovement.CLEARANCE - 0.05, "no path segment crosses a body (min %.2f)" % min_clearance)
+	check(path[path.size() - 1].distance_to(Vector3(0, 0, -12)) < 0.1, "destination kept when free")
+	# Destination on top of a creature is moved next to it.
+	var occupied := CombatMovement.plan(mover, Vector3(0, 0, -5), others)
+	var end := occupied[occupied.size() - 1]
+	check(end.distance_to(blocker.global_position) >= CombatMovement.CLEARANCE - 0.01, "occupied destination shifted out of the body (%.2f)" % end.distance_to(blocker.global_position))
+	# Walking up to an adjacent enemy still ends next to it (no pointless detour).
+	var adjacent := CombatMovement.plan(mover, Vector3(0, 0, -3.9), others)
+	check(adjacent.size() == 2, "approach to an adjacent spot stays a straight line (%d)" % adjacent.size())
+	# Downed creatures don't block.
+	blocker.take_damage(999)
+	var through := CombatMovement.plan(mover, Vector3(0, 0, -6.5), others)
+	check(through.size() == 2, "downed bodies are ignored (%d)" % through.size())
+	mover.queue_free()
+	blocker.queue_free()
+	blocker2.queue_free()
+
+
+func _segment_distance(a: Vector3, b: Vector3, p: Vector3) -> float:
+	a.y = 0.0
+	b.y = 0.0
+	p.y = 0.0
+	var ab := b - a
+	var len := ab.length()
+	if len < 0.001:
+		return a.distance_to(p)
+	var t := clampf((p - a).dot(ab) / (len * len), 0.0, 1.0)
+	return (a + ab * t).distance_to(p)
+
+
+# --- Ammunition & rests ---------------------------------------------------
+
+func _test_ammo_and_rests() -> void:
+	var fighter := _make_actor("res://data/actors/fighter.tres")
+	var wizard := _make_actor("res://data/actors/wizard.tres")
+	var archer := _make_actor("res://data/actors/goblin_archer.tres")
+	var bow: WeaponData = fighter.data.weapons[1]
+	check(bow.uses_ammo and fighter.ammo_left(bow) == 20, "longbow starts with 20 arrows")
+	var bow_action := fighter.find_action(&"attack_longbow") as AttackAction
+	check(bow_action.is_available(fighter) and "20 arrows" in bow_action.tag_for(fighter), "bow action shows arrows")
+	fighter.ammo["arrows"] = 1
+	fighter.spend_ammo(bow)
+	check(fighter.ammo_left(bow) == 0 and not bow_action.is_available(fighter), "no arrows -> bow unavailable")
+	check(bow_action.unavailable_reason(fighter) == "No arrows left", "reason mentions arrows")
+	check(fighter.find_action(&"attack_longsword").is_available(fighter), "sword still works")
+	check(archer.ammo_left(archer.data.weapons[0]) == 8 and archer.data.weapons.size() == 2, "goblin archer: 8 arrows and a dagger")
+	# Slots and features persist through combat starts, come back on rest.
+	wizard.spend_spell_slot(1)
+	wizard.spend_spell_slot(2)
+	fighter.combat_flags["second_wind_used"] = true
+	wizard.reset_for_combat()
+	fighter.reset_for_combat()
+	check(wizard.spell_slots[1] == 3 and wizard.spell_slots[2] == 1, "combat start keeps spent slots")
+	check(fighter.combat_flags.get("second_wind_used", false), "combat start keeps used features")
+	fighter.current_hp = 5
+	var healed := fighter.short_rest()
+	check(healed == 16 and fighter.current_hp == 21, "short rest at level 3 heals two hit dice (2 x (6 + CON 2))")
+	check(not fighter.combat_flags.has("second_wind_used"), "short rest recharges Second Wind / Action Surge")
+	check(fighter.ammo_left(bow) == 10, "short rest recovers half the arrows")
+	wizard.short_rest()
+	check(wizard.spell_slots[1] == 3, "short rest does not restore spell slots")
+	wizard.long_rest()
+	check(wizard.spell_slots[1] == 4 and wizard.spell_slots[2] == 2, "long rest restores slots")
+	fighter.take_damage(999)
+	fighter.short_rest()
+	check(fighter.is_alive() and fighter.current_hp == 16, "short rest gets a downed character up")
+	fighter.long_rest()
+	check(fighter.current_hp == fighter.max_hp() and fighter.ammo_left(bow) == 20, "long rest: full HP and arrows")
+	fighter.queue_free()
+	wizard.queue_free()
+	archer.queue_free()
+
+
+# --- Enemy scaling --------------------------------------------------------
+
+func _test_enemy_scaling() -> void:
+	var gob := _make_actor("res://data/actors/goblin_warrior.tres")
+	var hob := _make_actor("res://data/actors/hobgoblin.tres")
+	var base_hit := gob.attack_bonus(gob.data.weapons[0])
+	var lines := Progression.scale_enemy(gob, 5)
+	check(gob.data.level == 5 and gob.max_hp() == 17 and gob.current_hp == 17, "goblin level 5: 12 HP * 1.8 = 17 (%d)" % gob.max_hp())
+	check(gob.armor_class() == 14, "goblin level 5: AC 13 + 1 (%d)" % gob.armor_class())
+	check(gob.attack_bonus(gob.data.weapons[0]) == base_hit + 2, "goblin level 5: +1 proficiency +1 DEX to hit (%d)" % gob.attack_bonus(gob.data.weapons[0]))
+	check(gob.data.xp_value == 100 and lines.size() == 1, "goblin level 5 is worth 100 XP (%d)" % gob.data.xp_value)
+	Progression.scale_enemy(gob, 4)
+	check(gob.data.level == 4 and gob.max_hp() == 14, "re-scaling starts from the base again: level 4 = 12 * 1.2 = 14 HP (%d)" % gob.max_hp())
+	check(gob.armor_class() == 13 and gob.attack_bonus(gob.data.weapons[0]) == base_hit, "one level up changes only HP")
+	var same := Progression.scale_enemy(hob, 3)
+	check(same.is_empty() and hob.max_hp() == 39, "hobgoblin at its own level is unchanged")
+	var f := _make_actor("res://data/actors/fighter.tres")
+	var w := _make_actor("res://data/actors/wizard.tres")
+	Progression.apply_level_up(w, 4)
+	check(Progression.average_level([f, w] as Array[Actor]) == 4, "average level rounds (3, 4 -> 4)")
+	gob.queue_free()
+	hob.queue_free()
+	f.queue_free()
+	w.queue_free()
 
 
 # --- Initiative -----------------------------------------------------------

@@ -17,8 +17,10 @@ func bind(actor: Actor) -> void:
 func _refresh() -> void:
 	var lines := PackedStringArray()
 	var title := _actor.display_name()
-	if _actor.data.class_name_text != "":
-		title += " (%s)" % _actor.data.class_name_text
+	if _actor.is_player():
+		title += " (%s %d)" % [_actor.data.class_name_text, _actor.data.level]
+	elif _actor.data.level > 1:
+		title += " (Lv %d)" % _actor.data.level
 	lines.append(title)
 	if _actor.is_down:
 		lines.append("DOWN")

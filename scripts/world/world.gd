@@ -8,6 +8,12 @@ extends Node3D
 
 signal wave_started(number: int)
 
+const ENEMY_SCENE := preload("res://scenes/actors/enemy.tscn")
+const REINFORCEMENT_DATA := preload("res://data/actors/goblin_warrior.tres")
+## A long rest is offered after every N-th wave.
+const LONG_REST_EVERY := 3
+const MAX_REINFORCEMENTS := 4
+
 ## Enemies within this distance of the one who spotted the party join the fight.
 @export var encounter_radius: float = 16.0
 
@@ -41,7 +47,8 @@ func _ready() -> void:
 	hud.setup(combat, combat_input, leader, camera_rig)
 	hud.restart_requested.connect(restart)
 	hud.auto_battle_toggled.connect(set_auto_battle)
-	hud.rest_requested.connect(rest_and_next_wave)
+	hud.next_wave_requested.connect(next_wave)
+	hud.long_rest_requested.connect(long_rest)
 	combat_input.lock_changed.connect(_update_preview)
 	combat_input.selected_action_changed.connect(func(_a): _update_preview())
 
@@ -124,7 +131,7 @@ func _on_enemy_spotted(enemy: Actor) -> void:
 		if e.is_alive() and e.center_distance_to(enemy) <= encounter_radius:
 			participants.append(e)
 	EventBus.log("[b]%s[/b] spotted the party!" % enemy.display_name())
-	hud.set_rest_available(false)
+	hud.set_rest_available(false, false, wave)
 	combat.start_combat(participants)
 
 
@@ -138,23 +145,72 @@ func set_auto_battle(enabled: bool) -> void:
 		combat.call_deferred("_run_ai_turn", combat.active_actor, combat.party_ai)
 
 
-## Heals the party, refreshes slots and puts every enemy back at its spawn.
-func rest_and_next_wave() -> void:
+func long_rest_available() -> bool:
+	return wave % LONG_REST_EVERY == 0
+
+
+## Long rest: everything back. Only offered after every third wave.
+func long_rest() -> void:
+	if combat.is_active or not GameState.is_exploring() or not long_rest_available():
+		return
+	for p in party():
+		p.long_rest()
+	EventBus.log("[color=lime][b]The party takes a long rest: hit points, spell slots, features and arrows are restored.[/b][/color]")
+	_start_wave(wave + 1)
+
+
+## Short rest between waves: one hit die of healing, Second Wind / Action Surge
+## and half the arrows come back. Spell slots stay spent.
+func next_wave() -> void:
 	if combat.is_active or not GameState.is_exploring():
 		return
-	wave += 1
 	for p in party():
-		p.restore_full(p.global_position)
+		var healed := p.short_rest()
+		EventBus.log("%s catches their breath (+%d HP)." % [p.display_name(), healed])
+	_start_wave(wave + 1)
+
+
+## The party returns to camp, every enemy goes back to its spawn scaled to the
+## party, plus reinforcements.
+func _start_wave(number: int) -> void:
+	wave = number
+	var level := Progression.average_level(party())
+	for p in party():
+		var t: Transform3D = _spawn_transforms.get(p, p.global_transform)
+		p.stop_moving()
+		p.global_transform = t
+	camera_rig.global_position = leader.global_position
+	# From wave 3 on, an extra goblin joins each wave (up to MAX_REINFORCEMENTS).
+	for i in mini(MAX_REINFORCEMENTS, wave - 2) - _reinforcements.size():
+		_spawn_reinforcement()
 	for e in enemies():
 		var t: Transform3D = _spawn_transforms.get(e, e.global_transform)
+		var lines := Progression.scale_enemy(e, level)
 		e.restore_full(t.origin)
 		e.global_transform = t
 		var perception := e.get_node_or_null("Perception")
 		if perception:
 			perception.set_deferred("monitoring", true)
-	hud.set_rest_available(false)
-	EventBus.log("[color=yellow][b]The party rests. Wave %d approaches![/b][/color]" % wave)
+		for l in lines:
+			EventBus.log("[color=gray]%s[/color]" % l)
+	hud.set_rest_available(false, false, wave)
+	EventBus.log("[color=yellow][b]Wave %d approaches! The enemies are level %d.[/b][/color]" % [wave, level])
 	wave_started.emit(wave)
+
+
+var _reinforcements: Array[Actor] = []
+
+
+func _spawn_reinforcement() -> void:
+	var enemy: Actor = ENEMY_SCENE.instantiate()
+	enemy.data = REINFORCEMENT_DATA
+	var index := _reinforcements.size()
+	var spot := Vector3(-8.0 + 4.0 * index, 0.0, -17.0)
+	enemy.transform = Transform3D(Basis.from_euler(Vector3(0, PI, 0)), spot)
+	$Enemies.add_child(enemy)
+	enemy.name = "Reinforcement%d" % (index + 1)
+	_reinforcements.append(enemy)
+	_spawn_transforms[enemy] = enemy.global_transform
 
 
 func _on_turn_started(actor: Actor) -> void:
@@ -199,7 +255,7 @@ func _on_combat_ended(victory: bool) -> void:
 			line += " and reaches [b]level %d[/b]: %s" % [r.new_level, ", ".join(r.lines)]
 		EventBus.log("[color=yellow]%s[/color]" % line)
 	hud.show_level_ups(last_reports)
-	hud.set_rest_available(living_enemies() == 0)
+	hud.set_rest_available(living_enemies() == 0, long_rest_available(), wave)
 
 
 func _update_preview() -> void:

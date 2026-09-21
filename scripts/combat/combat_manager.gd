@@ -193,7 +193,7 @@ func move_actor(actor: Actor, destination: Vector3) -> bool:
 	if actor.turn_state.movement_remaining <= 0.05:
 		EventBus.log("[color=gray]%s has no movement left.[/color]" % actor.display_name())
 		return false
-	var path := CombatMovement.find_path(get_viewport().world_3d.navigation_map, actor.global_position, destination)
+	var path := CombatMovement.plan(actor, destination, participants)
 	var full_length := CombatMovement.path_length(path)
 	if full_length < 0.05:
 		return false
@@ -205,9 +205,9 @@ func move_actor(actor: Actor, destination: Vector3) -> bool:
 		return false
 	actor.turn_state.spend_movement(actor.last_move_distance)
 	if OS.is_stdout_verbose():
-		print("[move] %s path=%.2f m budget=%.2f moved=%.2f end=%s" % [
+		print("[move] %s path=%.2f m budget=%.2f moved=%.2f end=%s points=%s" % [
 			actor.display_name(), full_length, actor.turn_state.movement_remaining + actor.last_move_distance,
-			actor.last_move_distance, actor.global_position])
+			actor.last_move_distance, actor.global_position, path])
 	_action_in_progress = false
 	state_updated.emit()
 	_check_end()

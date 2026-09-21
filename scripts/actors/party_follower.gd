@@ -30,7 +30,15 @@ func _physics_process(delta: float) -> void:
 	if distance > 1.2:
 		if _replan_timer <= 0.0:
 			_replan_timer = replan_interval
-			var path := CombatMovement.find_path(actor.get_world_3d().navigation_map, actor.global_position, goal)
+			var path := CombatMovement.plan(actor, goal, _others())
 			actor.move_along_path(path, INF)
 	elif distance <= 0.6 and actor.is_moving():
 		actor.stop_moving()
+
+
+func _others() -> Array[Actor]:
+	var out: Array[Actor] = []
+	for n in get_tree().get_nodes_in_group("actors"):
+		if n is Actor and n != actor:
+			out.append(n)
+	return out

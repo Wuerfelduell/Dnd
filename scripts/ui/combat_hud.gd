@@ -9,7 +9,8 @@ extends CanvasLayer
 
 signal restart_requested
 signal auto_battle_toggled(enabled: bool)
-signal rest_requested
+signal next_wave_requested
+signal long_rest_requested
 
 const LOG_MAX_LINES := 200
 
@@ -42,7 +43,8 @@ var _touch: bool = false
 @onready var level_up_panel: PanelContainer = %LevelUpPanel
 @onready var level_up_text: RichTextLabel = %LevelUpText
 @onready var continue_button: Button = %ContinueButton
-@onready var rest_button: Button = %RestButton
+@onready var next_wave_button: Button = %NextWaveButton
+@onready var long_rest_button: Button = %LongRestButton
 @onready var rotate_left_button: Button = %RotateLeftButton
 @onready var rotate_right_button: Button = %RotateRightButton
 @onready var zoom_in_button: Button = %ZoomInButton
@@ -80,7 +82,8 @@ func setup(p_combat: CombatManager, p_input: PlayerCombatInput, p_player: Actor,
 	auto_button.toggled.connect(func(on): auto_battle_toggled.emit(on))
 	restart_button.pressed.connect(func(): restart_requested.emit())
 	continue_button.pressed.connect(func(): level_up_panel.visible = false)
-	rest_button.pressed.connect(func(): rest_requested.emit())
+	next_wave_button.pressed.connect(func(): next_wave_requested.emit())
+	long_rest_button.pressed.connect(func(): long_rest_requested.emit())
 	rotate_left_button.pressed.connect(func(): camera_rig.rotate_by(45.0))
 	rotate_right_button.pressed.connect(func(): camera_rig.rotate_by(-45.0))
 	zoom_in_button.pressed.connect(func(): camera_rig.zoom_by(-3.0))
@@ -89,7 +92,8 @@ func setup(p_combat: CombatManager, p_input: PlayerCombatInput, p_player: Actor,
 	log_toggle.button_pressed = true
 	game_over_panel.visible = false
 	level_up_panel.visible = false
-	rest_button.visible = false
+	next_wave_button.visible = false
+	long_rest_button.visible = false
 	_refresh_all()
 
 
@@ -123,13 +127,15 @@ func _refresh_mode() -> void:
 			initiative_panel.visible = true
 			action_panel.visible = combat.active_actor != null and combat.active_actor.is_player()
 			joystick.visible = false
-			rest_button.visible = false
+			next_wave_button.visible = false
+			long_rest_button.visible = false
 		GameState.State.GAME_OVER:
 			mode_label.text = "GAME OVER"
 			hint_label.text = "Tap Restart to try again." if _touch else "Press R or Restart to try again."
 			action_panel.visible = false
 			joystick.visible = false
-			rest_button.visible = false
+			next_wave_button.visible = false
+			long_rest_button.visible = false
 
 
 func _player_hint(tap: String) -> String:
@@ -188,7 +194,7 @@ func _refresh_action_bar() -> void:
 		var btn: Button = _action_buttons[action]
 		var available: bool = action.is_available(actor)
 		btn.disabled = not interactive or not available
-		var tag: String = action.tag
+		var tag: String = action.tag_for(actor)
 		if action is SpellAction and not action.spell.is_cantrip():
 			tag = "L%d %d/%d" % [action.spell.level, actor.spell_slots[action.spell.level] if action.spell.level < actor.spell_slots.size() else 0, actor.max_spell_slots(action.spell.level)]
 		btn.text = "%s\n%s · %s" % [action.display_name, action.cost_name(), tag]
@@ -214,6 +220,8 @@ func _refresh_action_bar() -> void:
 	for level in range(1, actor.spell_slots.size()):
 		if actor.max_spell_slots(level) > 0:
 			parts.append("L%d %d/%d" % [level, actor.spell_slots[level], actor.max_spell_slots(level)])
+	for kind in actor.ammo:
+		parts.append("%d %s" % [actor.ammo[kind], kind])
 	if actor.concentration_spell != null:
 		parts.append("Concentrating: " + actor.concentration_spell.display_name)
 	resources_label.text = "  ·  ".join(parts)
@@ -255,8 +263,11 @@ func show_level_ups(reports: Array) -> void:
 	level_up_panel.visible = true
 
 
-func set_rest_available(available: bool) -> void:
-	rest_button.visible = available and GameState.is_exploring()
+## [param long_rest] additionally offers the full recovery.
+func set_rest_available(available: bool, long_rest: bool, wave: int) -> void:
+	next_wave_button.visible = available and GameState.is_exploring()
+	next_wave_button.text = "Short rest & wave %d" % (wave + 1)
+	long_rest_button.visible = available and long_rest and GameState.is_exploring()
 
 
 func _on_log_toggled(open: bool) -> void:

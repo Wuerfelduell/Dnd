@@ -85,6 +85,11 @@ func description(_actor: Actor) -> String:
 	return display_name
 
 
+## Second button line; actions with live counters (ammo) override this.
+func tag_for(_actor: Actor) -> String:
+	return tag
+
+
 ## Helper: distance check between two actors for a targeted action.
 func in_range(actor: Actor, target: Actor) -> bool:
 	return actor.distance_to(target) <= range_m + 0.001

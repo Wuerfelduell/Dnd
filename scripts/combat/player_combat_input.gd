@@ -234,8 +234,7 @@ func _lock_move(actor: Actor, destination: Vector3) -> void:
 	if actor.turn_state.movement_remaining <= 0.05:
 		EventBus.log("[color=gray]%s has no movement left.[/color]" % actor.display_name())
 		return
-	var map := actor.get_world_3d().navigation_map
-	var path := CombatMovement.find_path(map, actor.global_position, destination)
+	var path := CombatMovement.plan(actor, destination, combat.participants)
 	path = CombatMovement.truncate(path, actor.turn_state.movement_remaining)
 	if path.size() < 2 or CombatMovement.path_length(path) < 0.1:
 		return

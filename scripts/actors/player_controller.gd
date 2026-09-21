@@ -63,7 +63,11 @@ func _walk_to_tap() -> void:
 	if clicked != null:
 		# Tapping an enemy walks towards it; the encounter starts on its own.
 		destination = clicked.global_position
-	var path := CombatMovement.find_path(actor.get_world_3d().navigation_map, actor.global_position, destination)
+	var others: Array[Actor] = []
+	for n in get_tree().get_nodes_in_group("actors"):
+		if n is Actor and n != actor:
+			others.append(n)
+	var path := CombatMovement.plan(actor, destination, others)
 	actor.stop_moving()
 	actor.move_along_path(path, INF)
 

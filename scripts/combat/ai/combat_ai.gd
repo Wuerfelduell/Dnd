@@ -105,7 +105,7 @@ func attack_for(actor: Actor, target: Actor) -> Dictionary:
 ## Walks into reach of [param target] for [param attack] (dashing first if needed).
 func approach(actor: Actor, combat: CombatManager, target: Actor, attack: CombatAction) -> void:
 	var point := Targeting.approach_point(actor, target, attack.range_m, combat.participants)
-	var needed := CombatMovement.path_length(CombatMovement.find_path(nav_map(actor), actor.global_position, point))
+	var needed := CombatMovement.path_length(CombatMovement.plan(actor, point, combat.participants))
 	if needed > actor.turn_state.movement_remaining:
 		for dash_id in [&"dash_bonus", &"dash"]:
 			if usable(actor, dash_id) and needed <= actor.turn_state.movement_remaining + actor.speed_m():

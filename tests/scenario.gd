@@ -58,9 +58,12 @@ func _place(actor: Actor, x: float, z: float) -> void:
 
 
 func _wait_turn(actor: Actor) -> void:
-	# Let other combatants act until it is this actor's turn.
+	# Let other combatants act until it is this actor's turn; other party
+	# members (waiting for a human) simply pass.
 	var frames := 0
 	while combat.is_active and (combat.active_actor != actor or combat.is_busy()) and frames < 5000:
+		if combat.is_player_turn() and combat.active_actor != actor:
+			combat.end_turn()
 		await get_tree().physics_frame
 		frames += 1
 	expect(combat.is_active and combat.active_actor == actor, "waited for %s's turn" % actor.display_name())
@@ -80,6 +83,7 @@ func _run() -> void:
 	await _scenario_hold_person()
 	await _scenario_revive()
 	await _scenario_fireball()
+	await _scenario_walk_around()
 	if not _failed:
 		print("[scenario] SUCCESS after %.1f s" % _time)
 		get_tree().quit(0)
@@ -237,6 +241,33 @@ func _scenario_fireball() -> void:
 	expect(ok2 and wizard.global_position.distance_to(before) > 4.0, "misty step moved the wizard (%s -> %s)" % [before, wizard.global_position])
 	expect(_oa_count == 0, "teleporting did not provoke an opportunity attack")
 	expect(not wizard.turn_state.bonus_action_available, "misty step used the bonus action")
+	await _end()
+
+
+func _scenario_walk_around() -> void:
+	print("[scenario] --- walking around bodies ---")
+	var fighter := _actor("Party/Fighter")
+	var rogue := _actor("Party/Rogue")
+	var cleric := _actor("Party/Cleric")
+	var gob := _actor("Enemies/GoblinArcher2")
+	for a in [fighter, rogue, cleric, gob]:
+		a.restore_full(a.global_position)
+	# Two allies stand in a line between the fighter and the goblin.
+	_place(fighter, -12, 8)
+	_place(rogue, -12, 5)
+	_place(cleric, -12, 2)
+	_place(gob, -12, -6)
+	combat.start_combat([fighter, rogue, cleric, gob] as Array[Actor])
+	await _wait_turn(fighter)
+	var before := fighter.global_position
+	var ok: bool = await combat.move_actor(fighter, Vector3(-12, 0, -1))
+	expect(ok, "move accepted")
+	var travelled := before.distance_to(fighter.global_position)
+	expect(fighter.global_position.z < 1.0, "fighter got past both allies (%s)" % fighter.global_position)
+	expect(travelled > 7.0, "fighter walked a long way (%.2f m)" % travelled)
+	expect(fighter.last_move_distance > 8.9 and fighter.last_move_distance < 9.1, "the whole movement budget was used on the detour (%.2f)" % fighter.last_move_distance)
+	for ally in [rogue, cleric]:
+		expect(fighter.center_distance_to(ally) > 0.7, "did not end up inside %s" % ally.display_name())
 	await _end()
 
 

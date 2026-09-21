@@ -10,10 +10,14 @@ func _ready() -> void:
 	owner_actor.downed.connect(func(_a): set_deferred("monitoring", false))
 
 
+## Real detection radius; overlap reports can be stale right after teleports.
+@export var radius_m: float = 8.5
+
+
 func _on_body_entered(body: Node3D) -> void:
 	if not GameState.is_exploring() or not owner_actor.is_alive():
 		return
-	if body is Actor and body.is_player() and body.is_alive():
+	if body is Actor and body.is_player() and body.is_alive() and owner_actor.center_distance_to(body) <= radius_m:
 		EventBus.enemy_spotted.emit(owner_actor)
 
 
@@ -23,6 +27,6 @@ func _physics_process(_delta: float) -> void:
 	if not GameState.is_exploring() or not owner_actor.is_alive() or not monitoring:
 		return
 	for body in get_overlapping_bodies():
-		if body is Actor and body.is_player() and body.is_alive():
+		if body is Actor and body.is_player() and body.is_alive() and owner_actor.center_distance_to(body) <= radius_m:
 			EventBus.enemy_spotted.emit(owner_actor)
 			return

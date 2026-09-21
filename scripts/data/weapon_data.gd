@@ -19,6 +19,10 @@ extends Resource
 @export var is_light: bool = false
 ## Melee reach or normal ranged distance in meters (5 ft = 1.5 m).
 @export var range_m: float = 1.5
+## Ranged weapons that consume ammunition.
+@export var uses_ammo: bool = false
+@export var ammo_name: String = "arrows"
+@export var ammo_max: int = 20
 ## Optional rider on hit: the target must pass a saving throw or gains a status
 ## (e.g. a wolf's bite knocking the target prone).
 @export var on_hit_save_ability: String = ""

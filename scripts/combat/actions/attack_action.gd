@@ -17,7 +17,7 @@ func _init(p_weapon: WeaponData) -> void:
 
 
 func is_available(actor: Actor) -> bool:
-	if actor.is_incapacitated():
+	if actor.is_incapacitated() or not actor.has_ammo(weapon):
 		return false
 	return actor.turn_state.attacks_remaining > 0 or actor.turn_state.can_pay(Cost.ACTION)
 
@@ -25,9 +25,17 @@ func is_available(actor: Actor) -> bool:
 func unavailable_reason(actor: Actor) -> String:
 	if actor.is_incapacitated():
 		return "Incapacitated"
+	if not actor.has_ammo(weapon):
+		return "No %s left" % weapon.ammo_name
 	if actor.turn_state.attacks_remaining <= 0 and not actor.turn_state.can_pay(Cost.ACTION):
 		return "Action already used"
 	return ""
+
+
+func tag_for(actor: Actor) -> String:
+	if weapon.uses_ammo:
+		return "%s · %d %s" % [weapon.damage_dice, actor.ammo_left(weapon), weapon.ammo_name]
+	return weapon.damage_dice
 
 
 func pay_cost(actor: Actor) -> bool:
@@ -54,6 +62,7 @@ func execute(actor: Actor, target: Actor, _point: Vector3 = Vector3.ZERO) -> voi
 ## Shared by regular, off-hand and opportunity attacks.
 static func perform_attack(actor: Actor, target: Actor, p_weapon: WeaponData, verb: String, add_damage_bonus: bool = true) -> AttackResult:
 	actor.face_actor(target)
+	actor.spend_ammo(p_weapon)
 	var others := CombatContext.actors_near(actor)
 	var profile := AttackProfile.from_weapon(actor, p_weapon, add_damage_bonus)
 	var result := AttackResolver.resolve(actor, target, profile, others)

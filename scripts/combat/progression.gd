@@ -156,6 +156,45 @@ static func apply_level_up(actor: Actor, new_level: int) -> PackedStringArray:
 	return lines
 
 
+## The encounter is balanced for a party of this level; enemies scale relative to it.
+const BASELINE_PARTY_LEVEL := 3
+
+
+## Enemies grow with the party. Rebuilds the creature from its resource and
+## applies (level - baseline) bumps: HP, hit chance, AC, damage, XP value.
+static func scale_enemy(actor: Actor, level: int) -> PackedStringArray:
+	actor.rebuild_from_source()
+	var d := actor.data
+	var lines := PackedStringArray()
+	var delta := level - BASELINE_PARTY_LEVEL
+	if delta <= 0:
+		return lines
+	var stats := d.stats
+	stats.max_hp = int(round(stats.max_hp * (1.0 + 0.2 * delta)))
+	stats.proficiency_bonus += int(delta / 2)
+	stats.armor_class += int(delta / 2)
+	var ability_bump := int(delta / 2)
+	stats.strength_mod += ability_bump
+	stats.dexterity_mod += ability_bump
+	d.xp_value = int(round(d.xp_value * (1.0 + 0.5 * delta)))
+	d.level = level
+	actor.current_hp = stats.max_hp
+	actor.hp_changed.emit(actor.current_hp, actor.max_hp())
+	actor.statuses_changed.emit(actor)
+	lines.append("%s -> level %d: %d HP, AC %d, %+d to hit and damage" % [
+		d.display_name, level, stats.max_hp, stats.armor_class, ability_bump + int(delta / 2)])
+	return lines
+
+
+static func average_level(party: Array[Actor]) -> int:
+	if party.is_empty():
+		return 1
+	var sum := 0
+	for p in party:
+		sum += p.data.level
+	return int(round(float(sum) / float(party.size())))
+
+
 static func _raise_ability(stats: ActorStats, ability: String) -> void:
 	match ability.to_lower():
 		"str":

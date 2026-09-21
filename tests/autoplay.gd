@@ -191,12 +191,20 @@ func _run() -> void:
 	expect(GameState.is_exploring(), "down enemies do not re-trigger combat")
 	expect(_log_count > 10, "combat log received messages (%d)" % _log_count)
 
-	# 4. Rest & next wave: enemies respawn, second fight (auto-battle), level 5 on a win.
-	expect(world.hud.rest_button.visible, "rest button offered after clearing the wave")
-	world.hud.rest_button.pressed.emit()
+	# 4. Short rest & next wave: scaled enemies + a reinforcement, second fight (auto-battle).
+	expect(world.hud.next_wave_button.visible, "next wave button offered after clearing the wave")
+	expect(not world.hud.long_rest_button.visible, "no long rest before wave 3")
+	var wizard: Actor = world.get_node("Party/Wizard")
+	var slots_before := wizard.spell_slots.duplicate()
+	var hp_before := player.current_hp
+	world.hud.next_wave_button.pressed.emit()
 	await get_tree().physics_frame
-	expect(world.wave == 2 and world.living_enemies() == combat.participants.size() - 4, "wave 2 respawned the enemies")
-	expect(player.current_hp == player.max_hp(), "party rested to full")
+	expect(world.wave == 2 and world.living_enemies() == world.enemies().size() and world.enemies().size() == 7, "wave 2 respawned all enemies, reinforcements start at wave 3 (wave %d, %d living)" % [world.wave, world.living_enemies()])
+	expect(GameState.is_exploring() and player.global_position.distance_to(Vector3(0, 0, 12)) < 0.5, "party returned to camp (%s)" % player.global_position)
+	expect(player.current_hp <= player.max_hp() and player.current_hp >= hp_before, "short rest healed a little, not fully (%d -> %d / %d)" % [hp_before, player.current_hp, player.max_hp()])
+	expect(wizard.spell_slots == slots_before, "short rest keeps spent slots")
+	var scaled: Actor = world.get_node("Enemies/GoblinWarrior")
+	expect(scaled.data.level == 4 and scaled.max_hp() == 14, "goblins scaled to level 4 (%d HP)" % scaled.max_hp())
 	controller.debug_direction = Vector3.FORWARD
 	frames = 0
 	while GameState.is_exploring() and frames < 3000 and not _failed:
@@ -215,6 +223,7 @@ func _run() -> void:
 	if GameState.is_exploring():
 		expect(player.data.level == 5 and player.data.attacks_per_action == 2, "wave 2 victory reaches level 5 with Extra Attack")
 		expect(world.get_node("Party/Wizard").find_action(&"spell_fireball") != null, "wizard learned fireball")
+		expect(not world.hud.long_rest_button.visible and world.hud.next_wave_button.visible, "still no long rest after wave 2")
 	print("[autoplay] SUCCESS after %.1f s" % _time)
 	get_tree().quit(0)
 

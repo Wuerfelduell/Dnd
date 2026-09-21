@@ -1,4 +1,4 @@
-# Dnd – 3D-RPG-Prototyp (Vertical Slice, Test 3: Lock & Roll + Level-Ups)
+# Dnd – 3D-RPG-Prototyp (Vertical Slice, Test 4: Wellen, Ressourcen, Wegfindung)
 
 Trying to make a dnd game using my Baldur's Gate 3 and D&D 5.5e experience.
 
@@ -41,7 +41,8 @@ Die komplette Steuerung geht per Touch, Maus und Tastatur sind optional.
 | Kampf | Button „End Turn“ | `Leertaste` | Zug beenden |
 | Kampf | Button „Auto-battle“ | | Die Party spielt sich selbst (dieselbe KI wie im Test) |
 | Game Over | Button „Restart“ | `R` | Neustart |
-| Erkundung | Button „Rest & next wave“ | | Nach einem Sieg: Party voll heilen, Gegner respawnen |
+| Erkundung | Button „Short rest & wave N“ | | Nach einem Sieg: Party geht ins Lager zurück, kurze Rast (etwas Heilung, Second Wind / Action Surge, halbe Pfeile), Gegner kommen skaliert zurück |
+| Erkundung | Button „Long rest“ | | Nur nach jeder dritten Welle: alles zurück, auch Zauber-Slots |
 | beide | Button „Log“ | | Würfel-Log ein-/ausklappen |
 
 Im Kampf steuerst du immer die Figur, die gerade am Zug ist. Die Aktionsleiste zeigt alle
@@ -87,7 +88,10 @@ Umwerfen, Pack Tactics), 1 Hobgoblin Captain (AC 17, 39 HP, zwei Angriffe pro Ac
 * **Vorteil / Nachteil** (2d20, höherer bzw. niedrigerer Wurf; beides hebt sich auf) durch Zustände, Guiding Bolt, Pack Tactics, Fernkampf mit angrenzendem Gegner.
 * **Rettungswürfe** 1d20 + Attribut (+ Übung) gegen DC. Zauber-DC = 8 + Übung + Attribut.
 * **Opportunity Attacks**: Wer die Nahkampfreichweite (1,5 m) eines Gegners verlässt, kassiert dessen Reaction-Angriff. Disengage verhindert das.
-* **Spell Slots** pro Stufe, werden zu Kampfbeginn und beim Rasten aufgefrischt. Cantrips sind gratis und würfeln ab Stufe 5 doppelt.
+* **Ressourcen sind endlich**: Zauber-Slots, Second Wind und Action Surge laden nicht mehr pro Kampf auf. Kurze Rast zwischen den Wellen: ein Trefferwürfel Heilung pro zwei Stufen, Kämpfer-Features und die Hälfte der Pfeile. Lange Rast (nur nach jeder dritten Welle): alles. Cantrips sind gratis und würfeln ab Stufe 5 doppelt.
+* **Pfeile**: Langbogen und Kurzbogen haben 20 Pfeile, Goblin-Bogenschützen 8 (danach greifen sie mit dem Dolch an). Die Aktionsleiste zeigt den Vorrat.
+* **Wellen skalieren**: Beim Respawn werden alle Gegner auf das durchschnittliche Party-Level gehoben (+20 % HP pro Stufe, alle zwei Stufen +1 auf Treffer, Schaden und AC, mehr XP), und ab Welle 3 kommt pro Welle ein zusätzlicher Goblin-Krieger dazu (bis vier).
+* **Wegfindung** weicht anderen Figuren aus, stellt ein besetztes Ziel daneben und gleitet bei Berührung an Körpern entlang statt stehen zu bleiben.
 * **Concentration**: nur ein Concentration-Zauber gleichzeitig; Schaden erzwingt einen CON-Rettungswurf (DC 10 oder halber Schaden), Fehlschlag oder Down beendet den Zauber und alle verknüpften Effekte.
 * **Status-Effekte**: Blessed (+1d4 Angriff/Saves), Guided (Vorteil auf den nächsten Angriff), Slowed (-3 m), Paralyzed (handlungsunfähig, Angriffe mit Vorteil, Nahkampftreffer sind Crits, Wiederholungs-Save am Zugende), Prone (Nachteil auf eigene Angriffe, Nahkampf gegen sich mit Vorteil, Aufstehen kostet halbe Bewegung), Disengaging.
 * 0 HP = „Down“. Heilung (Healing Word, Cure Wounds) holt Gefallene zurück. Nach einem Sieg stehen alle mit 1 HP auf. Ist die ganze Party down → Game Over.
