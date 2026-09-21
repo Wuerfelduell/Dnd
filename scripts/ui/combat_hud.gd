@@ -36,7 +36,7 @@ var _touch: bool = false
 @onready var rotate_right_button: Button = %RotateRightButton
 @onready var zoom_in_button: Button = %ZoomInButton
 @onready var zoom_out_button: Button = %ZoomOutButton
-@onready var joystick: VirtualJoystick = %Joystick
+@onready var joystick: HudJoystick = %Joystick
 
 
 func setup(p_combat: CombatManager, p_input: PlayerCombatInput, p_player: Actor, p_camera_rig: CameraRig) -> void:

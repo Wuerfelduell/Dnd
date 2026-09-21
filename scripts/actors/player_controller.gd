@@ -71,7 +71,7 @@ func _input_direction() -> Vector3:
 		return debug_direction
 	var input := Input.get_vector("move_left", "move_right", "move_forward", "move_back")
 	if input.length_squared() < 0.0001:
-		var joystick := get_tree().get_first_node_in_group("virtual_joystick") as VirtualJoystick
+		var joystick := get_tree().get_first_node_in_group("virtual_joystick") as HudJoystick
 		if joystick != null:
 			input = joystick.direction
 	if input.length_squared() < 0.0001:

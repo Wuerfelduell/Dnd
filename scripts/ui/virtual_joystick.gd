@@ -2,7 +2,7 @@
 ##
 ## Publishes [member direction] (x right, y down, length 0..1). The player
 ## controller reads it like a gamepad stick; nothing else depends on it.
-class_name VirtualJoystick
+class_name HudJoystick
 extends Control
 
 @export var base_radius: float = 70.0

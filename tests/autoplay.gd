@@ -77,7 +77,7 @@ func _run() -> void:
 	# 1a. Explore with the virtual joystick: press its center, drag up, hold.
 	var controller: PlayerController = player.get_node("PlayerController")
 	var start := player.global_position
-	var joystick: VirtualJoystick = world.hud.joystick
+	var joystick: HudJoystick = world.hud.joystick
 	await get_tree().process_frame
 	var joy_center := joystick.get_global_rect().get_center()
 	_simulate_mouse(joy_center, true)
