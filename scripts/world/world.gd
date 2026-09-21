@@ -36,10 +36,13 @@ func _ready() -> void:
 	EventBus.log("Goblins lurk to the north. Combat starts when one of them notices you.")
 
 	# Headless integration test hook (godot --headless -- --autoplay).
-	if Autoplay.is_requested():
-		var autoplay := Autoplay.new()
-		autoplay.name = "Autoplay"
-		add_child(autoplay)
+	# Loaded dynamically so the game does not depend on the tests folder.
+	if OS.get_cmdline_user_args().has("--autoplay"):
+		var script: GDScript = load("res://tests/autoplay.gd")
+		if script != null:
+			var autoplay: Node = script.new()
+			autoplay.name = "Autoplay"
+			add_child(autoplay)
 
 
 func _bake_navmesh() -> void:

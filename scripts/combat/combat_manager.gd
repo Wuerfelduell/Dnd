@@ -83,7 +83,7 @@ func is_busy() -> bool:
 
 
 func end_turn() -> void:
-	if not is_active or active_actor == null or _action_in_progress or _ending_turn:
+	if not is_active or active_actor == null or _action_in_progress or _ai_turn_in_progress or _ending_turn:
 		return
 	_ending_turn = true
 	var actor := active_actor
