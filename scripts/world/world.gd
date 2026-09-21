@@ -67,7 +67,7 @@ func _ready() -> void:
 	EventBus.log("Goblins, wolves and a hobgoblin captain lurk to the north. Combat starts when one of them notices you.")
 
 	# Headless integration test hooks (godot --headless -- --autoplay / --scenario).
-	for flag in ["--autoplay", "--scenario"]:
+	for flag in ["--autoplay", "--scenario", "--screenshot"]:
 		if OS.get_cmdline_user_args().has(flag):
 			var script: GDScript = load("res://tests/%s.gd" % flag.trim_prefix("--"))
 			if script != null:

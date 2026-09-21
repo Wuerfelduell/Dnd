@@ -23,6 +23,7 @@ func _ready() -> void:
 	_test_movement_planning()
 	_test_ammo_and_rests()
 	_test_enemy_scaling()
+	_test_miniatures()
 	_test_initiative()
 	print("\n%d checks, %d failures" % [_checks, _failures])
 	get_tree().quit(0 if _failures == 0 else 1)
@@ -633,6 +634,45 @@ func _test_enemy_scaling() -> void:
 	hob.queue_free()
 	f.queue_free()
 	w.queue_free()
+
+
+# --- Miniatures -----------------------------------------------------------
+
+func _test_miniatures() -> void:
+	var scene: PackedScene = load("res://scenes/actors/enemy.tscn")
+	for kind in ["goblin_warrior", "goblin_archer", "wolf", "hobgoblin"]:
+		var enemy: Actor = scene.instantiate()
+		enemy.data = load("res://data/actors/%s.tres" % kind)
+		add_child(enemy)
+		var mini := enemy.visual.get_node_or_null("Mini")
+		check(mini != null, "%s has a miniature" % kind)
+		if mini == null:
+			enemy.queue_free()
+			continue
+		var parts := mini.get_child_count()
+		check(parts >= 12, "%s miniature has enough parts (%d)" % [kind, parts])
+		var top := 0.0
+		for child in mini.get_children():
+			if child is MeshInstance3D:
+				top = maxf(top, child.position.y + child.get_aabb().size.y * 0.5)
+		var expected := MiniatureBuilder.height_of(enemy.data.miniature)
+		check(absf(top - expected) < 0.35, "%s is about %.2f m tall (%.2f)" % [kind, expected, top])
+		check(not enemy.visual.body.visible and enemy.visual.get_node("Base") != null, "%s hides the capsule and stands on a base" % kind)
+		# Tint / down / flash must not touch the recipe's own colours permanently.
+		var mat: StandardMaterial3D = mini.get_child(0).material_override
+		var original := mat.albedo_color
+		enemy.add_status(_status("blessed"), null, 2)
+		check(mat.albedo_color != original, "%s tints with a status" % kind)
+		enemy.clear_all_statuses()
+		check(mat.albedo_color == original, "%s tint restored" % kind)
+		enemy.take_damage(999)
+		check(enemy.visual.rotation_degrees.x < -70.0 and mat.albedo_color != original, "%s falls over and greys out when down" % kind)
+		enemy.queue_free()
+	var hero: Actor = load("res://scenes/actors/player.tscn").instantiate()
+	add_child(hero)
+	check(hero.visual.get_node_or_null("Mini") == null and hero.visual.body.visible, "heroes keep the capsule for now")
+	check(hero.visual.get_node("BaseRim") != null, "heroes stand on a base too")
+	hero.queue_free()
 
 
 # --- Initiative -----------------------------------------------------------

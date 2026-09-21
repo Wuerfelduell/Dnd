@@ -13,7 +13,7 @@ Regeln (reine Logik)   Dice · DiceResult · AttackProfile · AttackResolver · 
                        SecondWind/ActionSurge) · Targeting · CombatMovement · CombatContext · Progression
 KI                     CombatAI (Basis) · EnemyAI · PartyAI
 Orchestrierung         CombatManager (Node)                                   GameState (Autoload)
-Welt / Actors          World · Actor · ActorVisual · PlayerController · PartyFollower · EnemyPerception · CameraRig · TargetingPreview
+Welt / Actors          World · Actor · ActorVisual · MiniatureBuilder · PlayerController · PartyFollower · EnemyPerception · CameraRig · TargetingPreview
 Eingabe                InputSetup (Autoload) · PlayerCombatInput · HudJoystick · ScreenRaycast
 Präsentation           CombatHud · ActorLabel · FloatingText                    EventBus (Autoload)
 ```
@@ -45,6 +45,7 @@ Die KI benutzt ausschließlich die öffentliche `CombatManager`-API (`perform_ac
 | `TargetingPreview` | Zeichnet die Sperre: Flächenkreis (rot bei Freunden im Radius), Wegstrecke (rot bei Opportunity Attack), Zielmarker. |
 | `Progression` | XP-Tabelle, Level-Up-Anwendung auf die Laufzeitkopie der `ActorData` (HP, Übungsbonus, ASI, Klassenfeatures, Slots, neue Zauber), Cantrip-Skalierung, `scale_enemy` (Gegner aus der Quell-Resource neu aufbauen und auf ein Level heben). |
 | `CombatMovement` | `plan(mover, ziel, andere)`: Navmesh-Pfad + Umwege um Körper (`detour_around`) + freies Ziel (`free_destination`), Opportunity-Attack-Vorhersage, Kürzen auf Restbewegung. Wird von Kampf, Vorschau, KI, Followern und Tap-to-Move gleichermaßen benutzt. |
+| `ActorVisual` / `MiniatureBuilder` | Sockel mit Fraktionsring, Miniatur nach Rezept (`ActorData.miniature`) aus Primitiven, Status-Tönung, Umkippen bei Down, Treffer-Blitz, Auswahl-/Zielringe. Neues Wesen = neues Rezept in `MiniatureBuilder`. |
 | `PartyFollower` | Nicht gesteuerte Party-Mitglieder folgen dem Anführer in Formation (Navmesh-Pfad). |
 | `World` | Verdrahtet Szene, entscheidet Kampfstart (Wahrnehmung) und Teilnehmer (ganze Party + Gegner im Umkreis), stabilisiert Gefallene nach dem Sieg, vergibt XP (`Progression`), Rast & Respawn der nächsten Welle. |
 | `CombatHud` | Modus, Initiative mit Status, Aktionsleiste (Flow-Layout, Kosten/Slots), Ressourcen, Log, Floating Text, Kamera-Buttons, Joystick, Auto-battle, Game-Over. |
@@ -64,7 +65,8 @@ Die KI benutzt ausschließlich die öffentliche `CombatManager`-API (`perform_ac
 * **Level-Up-Wahl** (Attribut, Feats, Zauberauswahl): `Progression.apply_level_up` liefert heute feste Änderungen; ein Auswahl-Dialog würde vor dem Anwenden Optionen anbieten.
 * **Reaktionszauber (Shield)**: Hook vor dem Trefferabgleich in `AttackResolver` bzw. ein `reaction_requested`-Signal im `CombatManager` analog zu `_on_reach_left`.
 * **Todesrettungswürfe / echte Rast-Regeln**: `Actor` (Down-State erweitern), Slots nicht mehr pro Kampf auffrischen, `World.rest_and_next_wave` in eine Level-Logik überführen.
-* **Echte Assets**: `ActorVisual` und `actor.tscn` ersetzen; Animationen an `Actor.move_along_path` / `execute` hängen.
+* **Echte Assets**: `MiniatureBuilder`-Rezept durch ein importiertes Modell unter `ActorVisual` ersetzen; Animationen an `Actor.move_along_path` / `execute` hängen.
+* **Screenshots ohne Editor**: `tests/screenshot.gd` (`--screenshot`) rendert Übersicht und Nahaufnahmen aller Figuren, unter Linux mit `xvfb-run` und `--rendering-driver opengl3`.
 
 ## Tests
 

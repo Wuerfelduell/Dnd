@@ -11,9 +11,13 @@ Flächenzauber werden auf einen Punkt gezielt, jede Aktion wird per **Lock & Rol
 besiegte Gegner bringen XP und Level-Ups (Stufe 3 bis 8), und nach einem Sieg kann die Party
 rasten und die nächste Welle rufen.
 
-Alles besteht bewusst aus Platzhalter-Geometrie (Kapseln, Würfel, Zylinder). Die Systeme
-sind so getrennt, dass echte Modelle, Animationen und weitere Regeln später ergänzt werden
-können, ohne die Kampflogik anzufassen (siehe `docs/ARCHITECTURE.md`).
+Die Gegner sind Tabletop-Miniaturen aus Primitiven auf runden Sockeln (Goblin mit Säbel und
+Schild, Bogenschütze, Wolf, Hobgoblin-Captain), ohne Animation: die Figuren gleiten wie
+Spielfiguren über den Boden.
+
+![Die Gegner-Miniaturen](docs/screenshots/enemies.png)
+ Die Helden sind noch Kapseln auf Sockeln. Alles Visuelle sitzt in
+`ActorVisual` / `MiniatureBuilder`, die Kampflogik kennt davon nichts (siehe `docs/ARCHITECTURE.md`).
 
 ## Starten
 
@@ -113,6 +117,9 @@ godot --headless --path . -- --autoplay --seed=4
 
 # Alles nacheinander
 ./tests/run_all.sh
+
+# Screenshots der Figuren rendern (braucht ein Display oder xvfb-run)
+xvfb-run godot --rendering-driver opengl3 --path . -- --screenshot --shot-dir=/tmp/shots
 ```
 
 Der Seed macht die Würfel reproduzierbar. Über zwölf Seeds gewinnt die KI-Party etwa zwei von drei Kämpfen.

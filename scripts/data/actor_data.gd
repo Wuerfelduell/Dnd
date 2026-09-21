@@ -25,8 +25,10 @@ enum Faction { PLAYER, ENEMY }
 @export var weapons: Array[WeaponData] = []
 ## Light weapon for the bonus-action off-hand attack (two-weapon fighting).
 @export var offhand_weapon: WeaponData
-## Placeholder visual colour until real models exist.
+## Base rim colour (and capsule colour while no miniature recipe exists).
 @export var color: Color = Color.WHITE
+## Key of a [MiniatureBuilder] recipe ("goblin", "wolf", ...). Empty = capsule.
+@export var miniature: String = ""
 
 @export_group("Class features")
 ## Number of weapon attacks per Attack action (Extra Attack / Multiattack).
