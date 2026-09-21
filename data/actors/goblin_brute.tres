@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="ActorData" format=3]
+
+[ext_resource type="Script" path="res://scripts/data/actor_data.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/data/actor_stats.gd" id="2"]
+[ext_resource type="Script" path="res://scripts/data/weapon_data.gd" id="3"]
+[ext_resource type="Resource" path="res://data/weapons/scimitar.tres" id="4"]
+
+[sub_resource type="Resource" id="Stats_brute"]
+script = ExtResource("2")
+max_hp = 15
+armor_class = 12
+strength_mod = 2
+dexterity_mod = 1
+constitution_mod = 1
+proficiency_bonus = 2
+speed_m = 9.0
+
+[resource]
+script = ExtResource("1")
+display_name = "Goblin Brute"
+faction = 1
+stats = SubResource("Stats_brute")
+weapons = Array[ExtResource("3")]([ExtResource("4")])
+has_second_wind = false
+color = Color(0.55, 0.45, 0.15, 1)

@@ -1,0 +1,27 @@
+## Autoload: decoupled game events.
+##
+## Gameplay systems emit here; UI / presentation systems listen. This keeps the
+## combat code free of any knowledge about labels, logs or floating text.
+extends Node
+
+## Human readable line for the combat log. Supports BBCode.
+signal log_message(text: String)
+
+## An attack was fully resolved (hit or miss). [param result] is an AttackResult.
+signal attack_resolved(attacker: Node, target: Node, result: AttackResult)
+
+## Someone rolled initiative.
+signal initiative_rolled(actor: Node, result: DiceResult)
+
+## Healing was applied.
+signal heal_applied(actor: Node, amount: int, roll: DiceResult)
+
+## An enemy noticed the player during exploration.
+signal enemy_spotted(enemy: Node)
+
+## Request for a floating text at a world position (presentation only).
+signal floating_text_requested(world_position: Vector3, text: String, color: Color)
+
+
+func log(text: String) -> void:
+	log_message.emit(text)
