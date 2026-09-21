@@ -1,0 +1,40 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="DnD Prototype"
+config/description="D&D-inspired 3D RPG vertical slice: exploration + turn-based combat."
+run/main_scene="res://scenes/main.tscn"
+config/features=PackedStringArray("4.3", "Forward Plus")
+
+[autoload]
+
+GameState="*res://scripts/core/game_state.gd"
+EventBus="*res://scripts/core/event_bus.gd"
+InputSetup="*res://scripts/core/input_setup.gd"
+
+[display]
+
+window/size/viewport_width=1600
+window/size/viewport_height=900
+
+[layer_names]
+
+3d_physics/layer_1="world"
+3d_physics/layer_2="actors"
+
+[navigation]
+
+3d/default_cell_size=0.25
+
+[rendering]
+
+renderer/rendering_method="forward_plus"

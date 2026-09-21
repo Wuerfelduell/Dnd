@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="ActorData" format=3]
+
+[ext_resource type="Script" path="res://scripts/data/actor_data.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/data/actor_stats.gd" id="2"]
+[ext_resource type="Script" path="res://scripts/data/weapon_data.gd" id="3"]
+[ext_resource type="Resource" path="res://data/weapons/longsword.tres" id="4"]
+[ext_resource type="Resource" path="res://data/weapons/longbow.tres" id="5"]
+
+[sub_resource type="Resource" id="Stats_hero"]
+script = ExtResource("2")
+max_hp = 20
+armor_class = 15
+strength_mod = 3
+dexterity_mod = 2
+constitution_mod = 2
+proficiency_bonus = 2
+speed_m = 9.0
+
+[resource]
+script = ExtResource("1")
+display_name = "Hero"
+faction = 0
+stats = SubResource("Stats_hero")
+weapons = Array[ExtResource("3")]([ExtResource("4"), ExtResource("5")])
+has_second_wind = true
+color = Color(0.25, 0.55, 0.95, 1)
