@@ -30,7 +30,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		return
 	if event is InputEventMouseMotion:
 		_mouse_position = event.position
-	elif event.is_action_pressed("select"):
+	elif ScreenRaycast.is_tap(event):
 		if OS.is_stdout_verbose():
 			print("[input] select at ", event.position)
 		_pending_click = true

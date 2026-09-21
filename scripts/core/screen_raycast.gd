@@ -36,5 +36,12 @@ static func is_over_gui(viewport: Viewport, screen_position: Vector2) -> bool:
 		and control.get_global_rect().has_point(screen_position)
 
 
+## A primary tap/click: the left mouse button, real or emulated from touch.
+## Touch is deliberately routed through the emulated mouse event only: that
+## one respects GUI consumption, so a tap on a button never leaks to the world.
+static func is_tap(event: InputEvent) -> bool:
+	return event.is_action_pressed("select")
+
+
 static func has_touchscreen() -> bool:
 	return DisplayServer.is_touchscreen_available()

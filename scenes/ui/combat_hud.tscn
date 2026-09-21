@@ -1,6 +1,7 @@
 [gd_scene format=3]
 
 [ext_resource type="Script" path="res://scripts/ui/combat_hud.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/ui/virtual_joystick.gd" id="2"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
 content_margin_left = 12.0
@@ -165,6 +166,18 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(150, 60)
 layout_mode = 2
 text = "End Turn"
+
+[node name="Joystick" type="Control" parent="."]
+unique_name_in_owner = true
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 24.0
+offset_top = -184.0
+offset_right = 184.0
+offset_bottom = -24.0
+grow_vertical = 0
+script = ExtResource("2")
 
 [node name="GameOverPanel" type="PanelContainer" parent="."]
 unique_name_in_owner = true

@@ -25,7 +25,8 @@ Die komplette Steuerung geht per Touch, Maus und Tastatur sind optional.
 
 | Modus | Touch / Maus | Tastatur (optional) | Wirkung |
 |---|---|---|---|
-| Erkundung | Tippen auf Boden | `W A S D` | Laufen (per Tipp entlang des Navmeshs) |
+| Erkundung | Joystick unten links | `W A S D` | Laufen (kamerarelativ) |
+| Erkundung | Tippen auf Boden | Linksklick | Laufen (per Tipp entlang des Navmeshs) |
 | beide | Buttons „< Cam“ / „Cam >“ | `Q` / `E` | Kamera um 45° drehen |
 | beide | Buttons „Zoom +“ / „Zoom -“ | Mausrad | Zoom |
 | Kampf | Tippen auf Boden | | Bewegung (blauer Kreis = verbleibende Reichweite) |

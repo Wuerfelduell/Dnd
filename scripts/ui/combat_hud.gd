@@ -36,6 +36,7 @@ var _touch: bool = false
 @onready var rotate_right_button: Button = %RotateRightButton
 @onready var zoom_in_button: Button = %ZoomInButton
 @onready var zoom_out_button: Button = %ZoomOutButton
+@onready var joystick: VirtualJoystick = %Joystick
 
 
 func setup(p_combat: CombatManager, p_input: PlayerCombatInput, p_player: Actor, p_camera_rig: CameraRig) -> void:
@@ -80,11 +81,12 @@ func _refresh_mode() -> void:
 		GameState.State.EXPLORATION:
 			mode_label.text = "EXPLORATION"
 			if _touch:
-				hint_label.text = "Tap the ground to walk there. Camera buttons on the right."
+				hint_label.text = "Joystick or tap the ground to walk. Camera buttons on the right."
 			else:
-				hint_label.text = "WASD or click the ground to walk. Q/E rotate camera, wheel zoom."
+				hint_label.text = "WASD, joystick or click the ground to walk. Q/E rotate camera, wheel zoom."
 			initiative_panel.visible = false
 			action_panel.visible = false
+			joystick.visible = true
 		GameState.State.COMBAT:
 			var who := combat.active_actor.display_name() if combat.active_actor else "..."
 			mode_label.text = "COMBAT - Round %d - %s's turn" % [combat.initiative.round_number, who]
@@ -98,10 +100,12 @@ func _refresh_mode() -> void:
 				hint_label.text = "Enemy is acting..."
 			initiative_panel.visible = true
 			action_panel.visible = true
+			joystick.visible = false
 		GameState.State.GAME_OVER:
 			mode_label.text = "GAME OVER"
 			hint_label.text = "Tap Restart to try again." if _touch else "Press R or Restart to try again."
 			action_panel.visible = false
+			joystick.visible = false
 
 
 func _refresh_initiative() -> void:

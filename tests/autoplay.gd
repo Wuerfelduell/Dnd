@@ -74,9 +74,25 @@ func _run() -> void:
 	var nav_map := world.get_world_3d().navigation_map
 	expect(NavigationServer3D.map_get_regions(nav_map).size() > 0, "navmesh region registered")
 
-	# 1a. Explore by tapping the ground (touch path): walk 3 m north.
+	# 1a. Explore with the virtual joystick: press its center, drag up, hold.
 	var controller: PlayerController = player.get_node("PlayerController")
 	var start := player.global_position
+	var joystick: VirtualJoystick = world.hud.joystick
+	await get_tree().process_frame
+	var joy_center := joystick.get_global_rect().get_center()
+	_simulate_mouse(joy_center, true)
+	_simulate_mouse_motion(joy_center + Vector2(0, -60))
+	for _i in 30:
+		await get_tree().physics_frame
+	expect(joystick.direction.y < -0.5, "joystick reports an upward direction (%s)" % joystick.direction)
+	expect(player.global_position.z < start.z - 1.0, "joystick moved the player north (%.2f)" % (start.z - player.global_position.z))
+	_simulate_mouse(joy_center + Vector2(0, -60), false)
+	await get_tree().physics_frame
+	expect(joystick.direction == Vector2.ZERO, "joystick resets on release")
+	print("[autoplay] joystick ok: %s" % player.global_position)
+	start = player.global_position
+
+	# 1b. Explore by tapping the ground (touch path): walk 3 m north.
 	world.hud.visible = false
 	_simulate_click(start + Vector3(0, 0, -3.0))
 	var tap_frames := 0
@@ -88,7 +104,7 @@ func _run() -> void:
 	expect(not player.is_moving(), "tap-to-move stops at the destination")
 	print("[autoplay] tap-to-move ok: %s" % player.global_position)
 
-	# 1b. Explore: walk north until an enemy notices us.
+	# 1c. Explore: walk north until an enemy notices us.
 	controller.debug_direction = Vector3.FORWARD
 	var frames := 0
 	while GameState.is_exploring() and frames < 2000 and not _failed:
@@ -214,6 +230,23 @@ func _simulate_click(world_position: Vector3) -> void:
 	var release := press.duplicate()
 	release.pressed = false
 	get_viewport().push_input(release, true)
+
+
+func _simulate_mouse(screen: Vector2, pressed: bool) -> void:
+	var ev := InputEventMouseButton.new()
+	ev.button_index = MOUSE_BUTTON_LEFT
+	ev.pressed = pressed
+	ev.position = screen
+	ev.global_position = screen
+	get_viewport().push_input(ev, true)
+
+
+func _simulate_mouse_motion(screen: Vector2) -> void:
+	var ev := InputEventMouseMotion.new()
+	ev.position = screen
+	ev.global_position = screen
+	ev.button_mask = MOUSE_BUTTON_MASK_LEFT
+	get_viewport().push_input(ev, true)
 
 
 func _simulate_key(action: String) -> void:

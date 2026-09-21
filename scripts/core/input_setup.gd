@@ -2,6 +2,10 @@
 ## place and don't depend on hand-editing project.godot.
 extends Node
 
+## InputMap wildcard: the event matches every device, including the mouse
+## events Godot emulates from touch (which carry a special device id).
+const ALL_DEVICES := -1
+
 const KEY_BINDINGS := {
 	"move_forward": [KEY_W, KEY_UP],
 	"move_back": [KEY_S, KEY_DOWN],
@@ -28,11 +32,13 @@ func _ready() -> void:
 		for key in KEY_BINDINGS[action]:
 			var ev := InputEventKey.new()
 			ev.physical_keycode = key
+			ev.device = ALL_DEVICES
 			InputMap.action_add_event(action, ev)
 	for action in MOUSE_BINDINGS:
 		_ensure_action(action)
 		var ev := InputEventMouseButton.new()
 		ev.button_index = MOUSE_BINDINGS[action]
+		ev.device = ALL_DEVICES
 		InputMap.action_add_event(action, ev)
 
 

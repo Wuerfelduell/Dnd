@@ -25,7 +25,7 @@ func _ready() -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	if not GameState.is_exploring() or actor.is_down:
 		return
-	if event.is_action_pressed("select"):
+	if ScreenRaycast.is_tap(event):
 		_pending_tap = true
 		_pending_tap_position = event.position
 		get_viewport().set_input_as_handled()
@@ -70,6 +70,10 @@ func _input_direction() -> Vector3:
 	if debug_direction.length_squared() > 0.0001:
 		return debug_direction
 	var input := Input.get_vector("move_left", "move_right", "move_forward", "move_back")
+	if input.length_squared() < 0.0001:
+		var joystick := get_tree().get_first_node_in_group("virtual_joystick") as VirtualJoystick
+		if joystick != null:
+			input = joystick.direction
 	if input.length_squared() < 0.0001:
 		return Vector3.ZERO
 	# Camera-relative: forward is where the camera looks (flattened).
