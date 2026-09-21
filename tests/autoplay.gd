@@ -168,11 +168,18 @@ func _run() -> void:
 		get_tree().quit(0)
 		return
 
-	# 3. Victory: back to exploration, movement works again, no re-trigger.
+	# 3. Victory: back to exploration, XP and level-ups, movement works again, no re-trigger.
 	expect(GameState.is_exploring(), "back in exploration after victory")
 	expect(enemies_down == combat.participants.size() - 4, "all enemies down (%d)" % enemies_down)
 	for p in world.party():
 		expect(p.is_alive(), "%s is up after victory" % p.display_name())
+		expect(p.data.xp > 0, "%s earned xp (%d)" % [p.display_name(), p.data.xp])
+	expect(world.last_reports.size() == 4 and world.last_reports[0].leveled(), "first wave levels the party up")
+	expect(player.data.level == 4 and player.data.stats.strength_mod == 4, "fighter is level 4 with STR +4")
+	expect(world.hud.level_up_panel.visible, "level-up panel shown")
+	world.hud.continue_button.pressed.emit()
+	expect(not world.hud.level_up_panel.visible, "continue closes the panel")
+	print("[autoplay] level-up ok: %s" % ", ".join(world.last_reports[0].lines))
 	await get_tree().physics_frame
 	await get_tree().physics_frame
 	var pos := player.global_position
@@ -183,6 +190,31 @@ func _run() -> void:
 	expect(player.global_position.distance_to(pos) > 0.5, "player can walk after combat")
 	expect(GameState.is_exploring(), "down enemies do not re-trigger combat")
 	expect(_log_count > 10, "combat log received messages (%d)" % _log_count)
+
+	# 4. Rest & next wave: enemies respawn, second fight (auto-battle), level 5 on a win.
+	expect(world.hud.rest_button.visible, "rest button offered after clearing the wave")
+	world.hud.rest_button.pressed.emit()
+	await get_tree().physics_frame
+	expect(world.wave == 2 and world.living_enemies() == combat.participants.size() - 4, "wave 2 respawned the enemies")
+	expect(player.current_hp == player.max_hp(), "party rested to full")
+	controller.debug_direction = Vector3.FORWARD
+	frames = 0
+	while GameState.is_exploring() and frames < 3000 and not _failed:
+		await get_tree().physics_frame
+		frames += 1
+	controller.debug_direction = Vector3.ZERO
+	expect(GameState.is_in_combat(), "wave 2 combat started")
+	frames = 0
+	while GameState.is_in_combat() and frames < 40000 and not _failed:
+		await get_tree().physics_frame
+		frames += 1
+	if _failed:
+		return
+	print("[autoplay] wave 2 ended: %s, rounds=%d, fighter level %d, wizard level %d" % [
+		GameState.state_name(), combat.initiative.round_number, player.data.level, world.get_node("Party/Wizard").data.level])
+	if GameState.is_exploring():
+		expect(player.data.level == 5 and player.data.attacks_per_action == 2, "wave 2 victory reaches level 5 with Extra Attack")
+		expect(world.get_node("Party/Wizard").find_action(&"spell_fireball") != null, "wizard learned fireball")
 	print("[autoplay] SUCCESS after %.1f s" % _time)
 	get_tree().quit(0)
 
@@ -205,16 +237,20 @@ func _play_first_turn_with_mouse(actor: Actor) -> void:
 	print("[autoplay] first party turn: %s (%s), viewport %s" % [actor.display_name(), actor.data.class_name_text, get_viewport().get_visible_rect().size])
 	world.hud.visible = false
 
-	# a) Click the ground a few meters to the side -> movement.
+	# a) Tap the ground a few meters to the side -> path locked; tap again -> move.
 	var dest := actor.global_position + Vector3(2.5, 0.0, 0.0)
 	var movement_before := actor.turn_state.movement_remaining
 	_simulate_click(dest)
 	await _wait_until_idle()
-	expect(actor.turn_state.movement_remaining < movement_before, "ground click consumed movement (%.2f -> %.2f)" % [
+	expect(input.lock_kind == PlayerCombatInput.LockKind.MOVE and input.locked_path.size() >= 2, "ground tap locked a path")
+	expect(actor.turn_state.movement_remaining == movement_before, "locking a move spends nothing")
+	_simulate_click(dest)
+	await _wait_until_idle()
+	expect(actor.turn_state.movement_remaining < movement_before, "second tap moved (%.2f -> %.2f)" % [
 		movement_before, actor.turn_state.movement_remaining])
-	print("[autoplay] mouse move ok: %.2f m left" % actor.turn_state.movement_remaining)
+	print("[autoplay] lock & confirm move ok: %.2f m left" % actor.turn_state.movement_remaining)
 
-	# b) Select a targeted action from the bar that can reach the enemy, then click the enemy.
+	# b) Select a targeted action from the bar, tap the enemy (lock), then confirm.
 	var chosen: CombatAction = null
 	for a in actor.actions:
 		if a.target_kind == CombatAction.TargetKind.ENEMY and a.is_available(actor) and a.can_target(actor, target):
@@ -227,10 +263,20 @@ func _play_first_turn_with_mouse(actor: Actor) -> void:
 		expect(input.selected_action == chosen, "action bar selected %s" % chosen.display_name)
 		_simulate_click(target.global_position + Vector3(0, 0.9, 0))
 		await _wait_until_idle()
+		expect(input.has_lock() and input.locked_actor == target, "enemy tap locked the target")
+		expect(actor.turn_state.actions_remaining == actions_before and actor.turn_state.bonus_actions_remaining == bonus_before,
+			"locking spends nothing")
+		input.cancel()
+		expect(not input.has_lock() and input.selected_action == null, "cancel drops lock and selection")
+		input.use_action(chosen)
+		_simulate_click(target.global_position + Vector3(0, 0.9, 0))
+		await _wait_until_idle()
+		input.confirm()
+		await _wait_until_idle()
 		expect(actor.turn_state.actions_remaining < actions_before or actor.turn_state.bonus_actions_remaining < bonus_before
-			or actor.turn_state.attacks_remaining > 0, "enemy click used %s" % chosen.display_name)
-		expect(input.selected_action == null, "selection cleared after use")
-		print("[autoplay] targeted action via click ok: %s" % chosen.display_name)
+			or actor.turn_state.attacks_remaining > 0, "confirm used %s" % chosen.display_name)
+		expect(input.selected_action == null and not input.has_lock(), "selection and lock cleared after use")
+		print("[autoplay] lock & confirm via click ok: %s" % chosen.display_name)
 	else:
 		print("[autoplay] no targeted action in range for %s, skipping click attack" % actor.display_name())
 

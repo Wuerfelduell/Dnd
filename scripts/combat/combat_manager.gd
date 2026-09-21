@@ -144,13 +144,17 @@ func end_turn() -> void:
 
 
 ## Validates, pays the cost and executes. Returns false if refused.
-func perform_action(actor: Actor, action: CombatAction, target: Actor) -> bool:
+func perform_action(actor: Actor, action: CombatAction, target: Actor, point: Vector3 = Vector3.ZERO) -> bool:
 	if not is_active or actor != active_actor or _action_in_progress:
 		return false
 	if not action.is_available(actor):
 		EventBus.log("[color=gray]%s: %s[/color]" % [action.display_name, action.unavailable_reason(actor)])
 		return false
-	if action.requires_target() and not action.can_target(actor, target):
+	if action.targets_point():
+		if not action.can_target_point(actor, point):
+			EventBus.log("[color=gray]%s: that spot is out of range (%.1f m).[/color]" % [action.display_name, action.range_m])
+			return false
+	elif action.requires_target() and not action.can_target(actor, target):
 		_explain_bad_target(actor, action, target)
 		return false
 	var gen := _generation
@@ -159,7 +163,7 @@ func perform_action(actor: Actor, action: CombatAction, target: Actor) -> bool:
 		_action_in_progress = false
 		return false
 	state_updated.emit()
-	await action.execute(actor, target)
+	await action.execute(actor, target, point)
 	if gen != _generation:
 		return false
 	_action_in_progress = false

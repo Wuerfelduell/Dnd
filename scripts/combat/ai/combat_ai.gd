@@ -54,6 +54,38 @@ func try_use(actor: Actor, combat: CombatManager, action_id: StringName, target:
 	return await combat.perform_action(actor, a, target)
 
 
+## Uses a POINT action at [param point] if available and in range.
+func try_use_at(actor: Actor, combat: CombatManager, action_id: StringName, point: Vector3) -> bool:
+	var a := actor.find_action(action_id)
+	if a == null or not a.is_available(actor) or not a.can_target_point(actor, point):
+		return false
+	return await combat.perform_action(actor, a, null, point)
+
+
+## Best spot for an area spell: the hostile whose surroundings contain the most
+## hostiles and no allies. Returns {"point": Vector3, "count": int} or {} if none.
+func best_area_point(actor: Actor, combat: CombatManager, spell: SpellData, min_targets: int) -> Dictionary:
+	var best := {}
+	var best_count := min_targets - 1
+	for h in hostiles(actor, combat):
+		if actor.global_position.distance_to(h.global_position) > spell.range_m:
+			continue
+		var count := 0
+		var ally_hit := false
+		for other in combat.participants:
+			if not other.is_alive() or not SpellResolver.point_hits(h.global_position, spell.area_radius_m, other):
+				continue
+			if actor.is_hostile_to(other):
+				count += 1
+			elif spell.area_affects_allies:
+				ally_hit = true
+		if ally_hit or count <= best_count:
+			continue
+		best_count = count
+		best = {"point": h.global_position, "count": count}
+	return best
+
+
 ## First available weapon attack that can hit [param target] now, preferring
 ## melee when adjacent; null if none. [param fallback] receives the best
 ## attack to walk into range for.

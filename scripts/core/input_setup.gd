@@ -13,7 +13,8 @@ const KEY_BINDINGS := {
 	"move_right": [KEY_D, KEY_RIGHT],
 	"camera_rotate_left": [KEY_Q],
 	"camera_rotate_right": [KEY_E],
-	"end_turn": [KEY_SPACE, KEY_ENTER],
+	"end_turn": [KEY_SPACE],
+	"confirm": [KEY_ENTER, KEY_KP_ENTER],
 	"cancel": [KEY_ESCAPE],
 	"restart": [KEY_R],
 }

@@ -19,7 +19,7 @@ static func status_data() -> StatusEffectData:
 	return _status
 
 
-func execute(actor: Actor, _target: Actor) -> void:
+func execute(actor: Actor, _target: Actor, _point: Vector3 = Vector3.ZERO) -> void:
 	actor.add_status(status_data(), actor, 0)
 	EventBus.log("[b]%s[/b] disengages: no opportunity attacks this turn." % actor.display_name())
 	await GameState.wait(0.2)

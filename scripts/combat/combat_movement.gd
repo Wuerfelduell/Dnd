@@ -26,6 +26,43 @@ static func path_length(path: PackedVector3Array) -> float:
 	return length
 
 
+## Hostiles with a reaction whose reach the actor would leave along [param path].
+static func provoking_hostiles(actor: Actor, path: PackedVector3Array, others: Array[Actor]) -> Array[Actor]:
+	var out: Array[Actor] = []
+	if path.size() < 2 or actor.status_flag("immune_to_opportunity_attacks"):
+		return out
+	var reach := Actor.MELEE_REACH + Actor.BODY_RADIUS * 2.0 + 0.001
+	for other in others:
+		if other == actor or not other.is_alive() or other.is_incapacitated() or not actor.is_hostile_to(other):
+			continue
+		if not other.turn_state.reaction_available or other.melee_weapon() == null:
+			continue
+		var op := other.global_position
+		op.y = 0.0
+		var inside := _flat(path[0]).distance_to(op) <= reach
+		if not inside:
+			continue
+		var step := 0.25
+		for i in range(1, path.size()):
+			var a := _flat(path[i - 1])
+			var b := _flat(path[i])
+			var seg_len := a.distance_to(b)
+			var t := 0.0
+			while t < seg_len:
+				t = minf(seg_len, t + step)
+				var p := a.lerp(b, t / seg_len) if seg_len > 0.0 else b
+				if p.distance_to(op) > reach:
+					out.append(other)
+					break
+			if out.has(other):
+				break
+	return out
+
+
+static func _flat(v: Vector3) -> Vector3:
+	return Vector3(v.x, 0.0, v.z)
+
+
 ## Cuts the path so its total length is at most [param max_length].
 static func truncate(path: PackedVector3Array, max_length: float) -> PackedVector3Array:
 	var out := PackedVector3Array()

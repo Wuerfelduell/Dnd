@@ -34,7 +34,7 @@ func can_target(actor: Actor, target: Actor) -> bool:
 		and actor.is_hostile_to(target) and in_range(actor, target)
 
 
-func execute(actor: Actor, target: Actor) -> void:
+func execute(actor: Actor, target: Actor, _point: Vector3 = Vector3.ZERO) -> void:
 	await AttackAction.perform_attack(actor, target, weapon, "strikes with the off-hand at", false)
 
 

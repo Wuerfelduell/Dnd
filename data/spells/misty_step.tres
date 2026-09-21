@@ -1,0 +1,27 @@
+[gd_resource type="Resource" script_class="SpellData" format=3]
+
+[ext_resource type="Script" path="res://scripts/data/spell_data.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+display_name = "Misty Step"
+level = 2
+cost = 1
+target_kind = 6
+range_m = 9.0
+area_radius_m = 0.0
+max_targets = 1
+creature_type_filter = ""
+area_affects_allies = false
+teleport = true
+concentration = false
+description = "Teleport to a spot within 9 m. Bonus action, never provokes opportunity attacks."
+attack_kind = 0
+save_ability = "dex"
+half_damage_on_save = false
+damage_dice = ""
+damage_type = ""
+repeat_count = 1
+heal_dice = ""
+heal_adds_casting_mod = false
+status_rounds = 1

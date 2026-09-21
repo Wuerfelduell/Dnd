@@ -67,6 +67,23 @@ static func parse(notation: String, extra_modifier: int = 0) -> DiceResult:
 	return roll(count, sides, modifier + extra_modifier)
 
 
+## "1d10" with multiplier 2 -> "2d10" (cantrip scaling).
+static func scale_notation(notation: String, multiplier: int) -> String:
+	if multiplier <= 1:
+		return notation
+	var m := _notation_regex.search(notation) if _notation_regex != null else null
+	if m == null:
+		_notation_regex = RegEx.new()
+		_notation_regex.compile("^\\s*(\\d*)\\s*[dD]\\s*(\\d+)\\s*(?:([+-])\\s*(\\d+))?\\s*$")
+		m = _notation_regex.search(notation)
+	assert(m != null, "Invalid dice notation: '%s'" % notation)
+	var count := 1 if m.get_string(1) == "" else int(m.get_string(1))
+	var s := "%dd%s" % [count * multiplier, m.get_string(2)]
+	if m.get_string(4) != "":
+		s += m.get_string(3) + m.get_string(4)
+	return s
+
+
 ## Random pick used for tie breaking etc. (also seeded).
 static func randf() -> float:
 	return _rng.randf()

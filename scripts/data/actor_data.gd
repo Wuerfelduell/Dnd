@@ -8,8 +8,16 @@ extends Resource
 enum Faction { PLAYER, ENEMY }
 
 @export var display_name: String = "Actor"
-## Fighter / Rogue / Wizard / Cleric / Goblin ... (display only for now).
+## Fighter / Rogue / Wizard / Cleric / Goblin ... (drives level-up tables).
 @export var class_name_text: String = ""
+@export var level: int = 1
+## Experience earned (party members) / awarded when defeated (enemies).
+@export var xp: int = 0
+@export var xp_value: int = 0
+## Hit die size for HP on level-up (d10 Fighter, d8 Rogue/Cleric, d6 Wizard).
+@export var hit_die: int = 8
+## Ability raised by the level 4 ability score improvement ("str", "dex", ...).
+@export var primary_ability: String = "str"
 @export var faction: Faction = Faction.ENEMY
 ## "humanoid", "beast", ... used by spells such as Hold Person.
 @export var creature_type: String = "humanoid"

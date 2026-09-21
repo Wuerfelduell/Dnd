@@ -1,0 +1,27 @@
+[gd_resource type="Resource" script_class="SpellData" format=3]
+
+[ext_resource type="Script" path="res://scripts/data/spell_data.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+display_name = "Shatter"
+level = 2
+cost = 0
+target_kind = 6
+range_m = 18.0
+area_radius_m = 3.0
+max_targets = 1
+creature_type_filter = ""
+area_affects_allies = true
+teleport = false
+concentration = false
+description = "A painful ringing burst: every creature within 3 m of the point takes 3d8 thunder damage, CON save for half. Hits friends too."
+attack_kind = 2
+save_ability = "con"
+half_damage_on_save = true
+damage_dice = "3d8"
+damage_type = "thunder"
+repeat_count = 1
+heal_dice = ""
+heal_adds_casting_mod = false
+status_rounds = 1

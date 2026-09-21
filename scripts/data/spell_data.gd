@@ -9,6 +9,7 @@ enum TargetKind {
 	SELF,              ## only the caster
 	ALLIES_NEAR_SELF,  ## caster + nearest allies within [member area_radius_m] (max [member max_targets])
 	ENEMIES_NEAR_SELF, ## all hostiles within [member area_radius_m] of the caster
+	POINT,             ## a point within range; affects creatures within [member area_radius_m]
 }
 
 enum AttackKind { NONE, SPELL_ATTACK, SAVE, AUTO_HIT }
@@ -23,6 +24,12 @@ enum AttackKind { NONE, SPELL_ATTACK, SAVE, AUTO_HIT }
 @export var max_targets: int = 1
 ## Only creatures of this type are valid targets (e.g. "humanoid" for Hold Person). Empty = any.
 @export var creature_type_filter: String = ""
+## POINT spells: friends inside the area are hit too (Fireball!).
+@export var area_affects_allies: bool = true
+## POINT spells: instead of an effect, move the caster to the point (Misty Step).
+@export var teleport: bool = false
+## Damage cantrips roll more dice at caster level 5 / 11 / 17.
+@export var cantrip_scaling: bool = true
 @export var concentration: bool = false
 @export_multiline var description: String = ""
 
@@ -47,3 +54,7 @@ func is_cantrip() -> bool:
 
 func needs_single_target() -> bool:
 	return target_kind in [TargetKind.ENEMY, TargetKind.ALLY, TargetKind.ANY_CREATURE]
+
+
+func needs_point() -> bool:
+	return target_kind == TargetKind.POINT

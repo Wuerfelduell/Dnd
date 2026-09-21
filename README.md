@@ -1,4 +1,4 @@
-# Dnd – 3D-RPG-Prototyp (Vertical Slice, Test 2: Party)
+# Dnd – 3D-RPG-Prototyp (Vertical Slice, Test 3: Lock & Roll + Level-Ups)
 
 Trying to make a dnd game using my Baldur's Gate 3 and D&D 5.5e experience.
 
@@ -7,6 +7,9 @@ Wizard, Cleric, Stufe 3) erkundet eine kleine Testszene, wird von Goblins, Wölf
 Hobgoblin-Captain entdeckt und kämpft rundenbasiert mit Initiative, Action / Bonus Action /
 Reaction / Bewegung, Nah- und Fernkampf, Zaubern mit Spell Slots, Rettungswürfen,
 Concentration, Status-Effekten, Opportunity Attacks, Sneak Attack und Multiattack.
+Flächenzauber werden auf einen Punkt gezielt, jede Aktion wird per **Lock & Roll** bestätigt,
+besiegte Gegner bringen XP und Level-Ups (Stufe 3 bis 8), und nach einem Sieg kann die Party
+rasten und die nächste Welle rufen.
 
 Alles besteht bewusst aus Platzhalter-Geometrie (Kapseln, Würfel, Zylinder). Die Systeme
 sind so getrennt, dass echte Modelle, Animationen und weitere Regeln später ergänzt werden
@@ -29,17 +32,41 @@ Die komplette Steuerung geht per Touch, Maus und Tastatur sind optional.
 | Erkundung | Tippen auf Boden | Linksklick | Laufen per Tipp entlang des Navmeshs |
 | beide | Buttons „< Cam“ / „Cam >“ | `Q` / `E` | Kamera um 45° drehen |
 | beide | Buttons „Zoom +“ / „Zoom -“ | Mausrad | Zoom |
-| Kampf | Tippen auf Boden | | Bewegung (blauer Kreis = verbleibende Reichweite) |
-| Kampf | Tippen auf Gegner | | Angriff mit der besten Waffe in Reichweite |
-| Kampf | Button unten, dann Ziel tippen | | Waffe / Zauber / Fähigkeit auf Gegner, Verbündeten oder sich selbst |
-| Kampf | Button erneut tippen | Rechtsklick / `Esc` | Auswahl abbrechen |
-| Kampf | Button „End Turn“ | `Leertaste` / `Enter` | Zug beenden |
+| Kampf | Tippen auf Boden | | Weg wird vorgeschaut (rot = provoziert Opportunity Attack), dann **Confirm** oder erneut tippen |
+| Kampf | Tippen auf Gegner | | Angriff mit der besten Waffe wird gesperrt, dann **Confirm** oder erneut tippen |
+| Kampf | Button unten, dann Ziel tippen | | Waffe / Zauber / Fähigkeit auf Gegner, Verbündeten oder sich selbst sperren, dann **Confirm** |
+| Kampf | Flächenzauber, dann Boden tippen | | Kreis zeigt die Fläche und alle betroffenen Figuren (rot, wenn Freunde drin stehen), dann **Confirm** |
+| Kampf | Button „Cancel“ | Rechtsklick / `Esc` | Sperre und Auswahl aufheben |
+| Kampf | Button „Confirm“ | `Enter` | Gesperrte Aktion ausführen |
+| Kampf | Button „End Turn“ | `Leertaste` | Zug beenden |
 | Kampf | Button „Auto-battle“ | | Die Party spielt sich selbst (dieselbe KI wie im Test) |
 | Game Over | Button „Restart“ | `R` | Neustart |
+| Erkundung | Button „Rest & next wave“ | | Nach einem Sieg: Party voll heilen, Gegner respawnen |
 | beide | Button „Log“ | | Würfel-Log ein-/ausklappen |
 
 Im Kampf steuerst du immer die Figur, die gerade am Zug ist. Die Aktionsleiste zeigt alle
 Aktionen der Figur mit Kosten (Action / Bonus / Frei) und Zauberstufe samt Slots.
+
+**Lock & Roll**: Nichts passiert durch einen einzelnen Tipp. Erst wird das Ziel (Figur, Punkt
+oder Weg) gesperrt und vorgeschaut, die Hinweiszeile oben sagt, was passieren würde (etwa
+„Fireball hits Goblin, Wolf, Elara (ally!)“ oder „Move 6 m - provokes an opportunity attack
+from Wolf!“). Dann Confirm, oder dasselbe Ziel noch einmal antippen.
+
+## Level-Ups
+
+Besiegte Gegner geben XP (Goblin/Wolf 50, Hobgoblin-Captain 700), aufgeteilt auf die Party.
+Stufe 4 ab 200 XP, Stufe 5 ab 450, dann 800, 1250, 1800. Nach dem Kampf zeigt ein Fenster,
+was jeder bekommen hat. Änderungen gelten sofort, ohne die Datendateien anzufassen.
+
+| Stufe | Alle | Fighter | Rogue | Wizard | Cleric |
+|---|---|---|---|---|---|
+| 4 | HP (halber Trefferwürfel + 1 + CON), +1 auf den Hauptattribut-Modifikator | Second Wind 1d10+4 | | Slots 4/3, Shatter, Misty Step | Slots 4/3 |
+| 5 | HP, Übungsbonus +3 (Angriffe, Saves, DC) | Extra Attack | Sneak Attack 3d6 | Slots 4/3/2, Fireball, Cantrips 2 Würfel | Slots 4/3/2, Mass Healing Word, Cantrips 2 Würfel |
+
+Neue Zauber: **Shatter** (L2, Punkt, 3 m Radius, 3d8 Donner, CON-Save halbiert, trifft auch
+Freunde), **Misty Step** (L2, Bonus Action, Teleport 9 m, keine Opportunity Attack),
+**Fireball** (L3, Punkt, 6 m Radius, 8d6 Feuer, DEX-Save halbiert, trifft auch Freunde),
+**Mass Healing Word** (L3, Bonus Action, bis zu sechs Verbündete 1d4 + WIS).
 
 ## Die Party (Stufe 3)
 
@@ -60,11 +87,11 @@ Umwerfen, Pack Tactics), 1 Hobgoblin Captain (AC 17, 39 HP, zwei Angriffe pro Ac
 * **Vorteil / Nachteil** (2d20, höherer bzw. niedrigerer Wurf; beides hebt sich auf) durch Zustände, Guiding Bolt, Pack Tactics, Fernkampf mit angrenzendem Gegner.
 * **Rettungswürfe** 1d20 + Attribut (+ Übung) gegen DC. Zauber-DC = 8 + Übung + Attribut.
 * **Opportunity Attacks**: Wer die Nahkampfreichweite (1,5 m) eines Gegners verlässt, kassiert dessen Reaction-Angriff. Disengage verhindert das.
-* **Spell Slots** pro Stufe, werden zu Kampfbeginn aufgefrischt (kein Rasten im Prototyp). Cantrips sind gratis.
+* **Spell Slots** pro Stufe, werden zu Kampfbeginn und beim Rasten aufgefrischt. Cantrips sind gratis und würfeln ab Stufe 5 doppelt.
 * **Concentration**: nur ein Concentration-Zauber gleichzeitig; Schaden erzwingt einen CON-Rettungswurf (DC 10 oder halber Schaden), Fehlschlag oder Down beendet den Zauber und alle verknüpften Effekte.
 * **Status-Effekte**: Blessed (+1d4 Angriff/Saves), Guided (Vorteil auf den nächsten Angriff), Slowed (-3 m), Paralyzed (handlungsunfähig, Angriffe mit Vorteil, Nahkampftreffer sind Crits, Wiederholungs-Save am Zugende), Prone (Nachteil auf eigene Angriffe, Nahkampf gegen sich mit Vorteil, Aufstehen kostet halbe Bewegung), Disengaging.
 * 0 HP = „Down“. Heilung (Healing Word, Cure Wounds) holt Gefallene zurück. Nach einem Sieg stehen alle mit 1 HP auf. Ist die ganze Party down → Game Over.
-* Noch nicht enthalten: Todesrettungswürfe, Deckung, Resistenzen, Zauber mit Flächenziel per Tipp, Reaktionszauber (Shield), Rasten, Level-Ups, Inventar.
+* Noch nicht enthalten: Todesrettungswürfe, Deckung, Resistenzen, Reaktionszauber (Shield), Inventar, freie Attributswahl beim Level-Up (der Hauptwert steigt automatisch).
 
 ## Tests (ohne Editor)
 
@@ -76,7 +103,8 @@ godot --headless --path . res://tests/unit_tests.tscn
 # Wiederholungs-Save, Auto-Crit, Concentration-Verlust), Healing Word belebt wieder
 godot --headless --path . -- --scenario
 
-# Kompletter Loop: Joystick, Tippen, Party folgt, Kampf (erster Zug per simulierten Klicks, Rest per KI), Sieg/Niederlage
+# Kompletter Loop: Joystick, Tippen, Party folgt, Kampf (erster Zug per Lock & Confirm, Rest per KI),
+# Sieg, Level-Up, Rest & zweite Welle, Stufe 5
 godot --headless --path . -- --autoplay --seed=4
 
 # Alles nacheinander
@@ -94,10 +122,10 @@ scripts/core/     GameState, EventBus, InputSetup, Dice, DiceResult, ScreenRayca
 scripts/data/     ActorData, ActorStats, WeaponData, SpellData, StatusEffectData (Resources)
 scripts/actors/   Actor, ActorVisual, PlayerController, PartyFollower, EnemyPerception
 scripts/combat/   CombatManager, InitiativeTracker, TurnState, AttackResolver, AttackProfile,
-                  SavingThrow, SpellResolver, StatusEffect, Targeting, CombatMovement,
+                  SavingThrow, SpellResolver, StatusEffect, Progression, Targeting, CombatMovement,
                   PlayerCombatInput, actions/ (Attack, Offhand, Spell, Dash, Disengage, Second Wind,
                   Action Surge), ai/ (CombatAI, PartyAI), EnemyAI
-scripts/world/    World, CameraRig
+scripts/world/    World, CameraRig, TargetingPreview
 scripts/ui/       CombatHud, HudJoystick, ActorLabel, FloatingText
 data/             .tres für Helden, Gegner, Waffen, Zauber und Status-Effekte
 tests/            Unit-Tests, Szenario-Test, Autoplay-Integrationstest, run_all.sh

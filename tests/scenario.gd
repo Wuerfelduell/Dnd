@@ -79,6 +79,7 @@ func _run() -> void:
 	await _scenario_disengage()
 	await _scenario_hold_person()
 	await _scenario_revive()
+	await _scenario_fireball()
 	if not _failed:
 		print("[scenario] SUCCESS after %.1f s" % _time)
 		get_tree().quit(0)
@@ -196,6 +197,47 @@ func _scenario_revive() -> void:
 	expect(not cleric.turn_state.bonus_action_available and cleric.turn_state.action_available, "healing word was a bonus action")
 	await _end()
 	wizard.current_hp = wizard.max_hp()
+
+
+func _scenario_fireball() -> void:
+	print("[scenario] --- fireball at a point ---")
+	var wizard := _actor("Party/Wizard")
+	var fighter := _actor("Party/Fighter")
+	var g1 := _actor("Enemies/GoblinWarrior")
+	var g2 := _actor("Enemies/Hobgoblin")  # 39 HP: survives the fireball so combat goes on
+	for a in [wizard, fighter, g1, g2]:
+		a.restore_full(a.global_position)
+	_place(wizard, 0, 10)
+	_place(fighter, 0, 8)
+	_place(g1, 0, -2)
+	_place(g2, 3, -3)
+	Progression.apply_level_up(wizard, 4)
+	Progression.apply_level_up(wizard, 5)
+	combat.start_combat([wizard, fighter, g1, g2] as Array[Actor])
+	await _wait_turn(wizard)
+	var fireball := wizard.find_action(&"spell_fireball")
+	expect(fireball != null and fireball.is_available(wizard), "wizard can cast fireball")
+	var g1_hp := g1.current_hp
+	var g2_hp := g2.current_hp
+	var f_hp := fighter.current_hp
+	var far: bool = await combat.perform_action(wizard, fireball, null, Vector3(0, 0, -60))
+	expect(not far, "fireball refused out of range")
+	var ok: bool = await combat.perform_action(wizard, fireball, null, Vector3(1.5, 0, -2.5))
+	expect(ok, "fireball cast at a point")
+	expect(wizard.spell_slots[3] == 1, "level 3 slot spent")
+	expect(g1.current_hp < g1_hp and g2.current_hp < g2_hp, "both goblins took fire damage (%d->%d, %d->%d)" % [g1_hp, g1.current_hp, g2_hp, g2.current_hp])
+	expect(fighter.current_hp == f_hp, "fighter outside the 6 m area is unharmed")
+	# Misty Step teleports without provoking.
+	_place(g1, 0, 11)
+	g1.restore_full(g1.global_position)
+	var step := wizard.find_action(&"spell_misty_step")
+	var before := wizard.global_position
+	_oa_count = 0
+	var ok2: bool = await combat.perform_action(wizard, step, null, Vector3(6, 0, 10))
+	expect(ok2 and wizard.global_position.distance_to(before) > 4.0, "misty step moved the wizard (%s -> %s)" % [before, wizard.global_position])
+	expect(_oa_count == 0, "teleporting did not provoke an opportunity attack")
+	expect(not wizard.turn_state.bonus_action_available, "misty step used the bonus action")
+	await _end()
 
 
 static func _strip(text: String) -> String:

@@ -67,7 +67,19 @@ func _wizard(actor: Actor, combat: CombatManager) -> void:
 	if target == null:
 		return
 	var cast := false
-	if adjacent.size() >= 2 and usable(actor, &"spell_burning_hands"):
+	# Escape first if surrounded: Misty Step is a bonus action.
+	if not adjacent.is_empty() and usable(actor, &"spell_misty_step"):
+		var away := actor.global_position + (actor.global_position - adjacent[0].global_position).normalized() * 8.0
+		if await try_use_at(actor, combat, &"spell_misty_step", away):
+			adjacent = adjacent_hostiles(actor, combat)
+	for area_id in [&"spell_fireball", &"spell_shatter"]:
+		if cast or not usable(actor, area_id):
+			continue
+		var spell_action := action(actor, area_id) as SpellAction
+		var spot := best_area_point(actor, combat, spell_action.spell, 2)
+		if not spot.is_empty():
+			cast = await try_use_at(actor, combat, area_id, spot["point"])
+	if not cast and adjacent.size() >= 2 and usable(actor, &"spell_burning_hands"):
 		cast = await try_use(actor, combat, &"spell_burning_hands")
 	if not cast and usable(actor, &"spell_scorching_ray"):
 		cast = await try_use(actor, combat, &"spell_scorching_ray", target)
@@ -90,7 +102,14 @@ func _cleric(actor: Actor, combat: CombatManager) -> void:
 	# 1. Emergency healing with the bonus action.
 	var hurt := _most_hurt_ally(actor, combat, 18.0, true)
 	if hurt != null and (hurt.is_down or hurt.current_hp <= hurt.max_hp() * 0.35):
-		await try_use(actor, combat, &"spell_healing_word", hurt)
+		var hurt_count := 0
+		for a in allies(actor, combat):
+			if a.is_down or a.current_hp <= a.max_hp() * 0.5:
+				hurt_count += 1
+		if hurt_count >= 2 and usable(actor, &"spell_mass_healing_word"):
+			await try_use(actor, combat, &"spell_mass_healing_word")
+		else:
+			await try_use(actor, combat, &"spell_healing_word", hurt)
 	# 2. Action: Bless on round 1, Hold Person on the biggest humanoid, Guiding Bolt, Sacred Flame.
 	var target := nearest_hostile(actor, combat)
 	var done := false

@@ -36,7 +36,7 @@ static func from_spell(caster: Actor, spell: SpellData) -> AttackProfile:
 	var p := AttackProfile.new()
 	p.label = spell.display_name
 	p.attack_bonus = caster.data.spell_attack_bonus()
-	p.damage_dice = spell.damage_dice
+	p.damage_dice = Progression.scaled_spell_dice(caster, spell)
 	p.damage_bonus = 0
 	p.damage_type = spell.damage_type
 	p.is_ranged = spell.range_m > 1.5

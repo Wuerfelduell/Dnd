@@ -47,7 +47,7 @@ func can_target(actor: Actor, target: Actor) -> bool:
 	return in_range(actor, target)
 
 
-func execute(actor: Actor, target: Actor) -> void:
+func execute(actor: Actor, target: Actor, _point: Vector3 = Vector3.ZERO) -> void:
 	await perform_attack(actor, target, weapon, "attacks")
 
 

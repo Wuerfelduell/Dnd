@@ -12,7 +12,7 @@ func _init(p_cost: Cost = Cost.ACTION) -> void:
 	tag = "+move"
 
 
-func execute(actor: Actor, _target: Actor) -> void:
+func execute(actor: Actor, _target: Actor, _point: Vector3 = Vector3.ZERO) -> void:
 	actor.turn_state.add_movement(actor.speed_m())
 	EventBus.log("[b]%s[/b] dashes (+%.1f m movement)." % [actor.display_name(), actor.speed_m()])
 	await GameState.wait(0.2)

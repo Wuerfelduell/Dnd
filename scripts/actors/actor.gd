@@ -11,6 +11,8 @@ signal hp_changed(current: int, maximum: int)
 signal downed(actor: Actor)
 signal revived(actor: Actor)
 signal statuses_changed(actor: Actor)
+## The action list was rebuilt (level-up, new spells).
+signal actions_changed(actor: Actor)
 signal movement_finished(actor: Actor)
 ## Emitted while moving in combat when this actor leaves a hostile's reach
 ## (the [CombatManager] resolves the opportunity attack).
@@ -69,9 +71,32 @@ func initialize_runtime() -> void:
 	if _runtime_initialized:
 		return
 	_runtime_initialized = true
+	# Own copy: level-ups and tests mutate it without touching the .tres files.
+	data = data.duplicate(true)
 	current_hp = data.stats.max_hp
 	reset_spell_slots()
 	_build_actions()
+
+
+## Rebuilds the action list from [member data] (after a level-up).
+func rebuild_actions() -> void:
+	_build_actions()
+	actions_changed.emit(self)
+
+
+## Back to full health at the spawn position (new wave / rest).
+func restore_full(at_position: Vector3 = global_position) -> void:
+	global_position = at_position
+	clear_all_statuses()
+	break_concentration("rest", false)
+	turn_state.clear()
+	stop_moving()
+	reset_spell_slots()
+	if is_down:
+		_revive(max_hp())
+	else:
+		current_hp = max_hp()
+		hp_changed.emit(current_hp, max_hp())
 
 
 func _build_actions() -> void:

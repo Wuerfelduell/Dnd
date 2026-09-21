@@ -23,7 +23,7 @@ func unavailable_reason(actor: Actor) -> String:
 	return super.unavailable_reason(actor)
 
 
-func execute(actor: Actor, _target: Actor) -> void:
+func execute(actor: Actor, _target: Actor, _point: Vector3 = Vector3.ZERO) -> void:
 	actor.combat_flags[FLAG] = true
 	actor.turn_state.actions_remaining += 1
 	EventBus.log("[b]%s[/b] surges: one extra Action this turn!" % actor.display_name())

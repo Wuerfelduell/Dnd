@@ -10,10 +10,10 @@ Daten (Resources)      ActorData · ActorStats · WeaponData · SpellData · Sta
 Regeln (reine Logik)   Dice · DiceResult · AttackProfile · AttackResolver · AttackResult
                        SavingThrow · SaveResult · SpellResolver · StatusEffect · TurnState
                        InitiativeTracker · CombatAction (+ Attack/Offhand/Spell/Dash/Disengage/
-                       SecondWind/ActionSurge) · Targeting · CombatMovement · CombatContext
+                       SecondWind/ActionSurge) · Targeting · CombatMovement · CombatContext · Progression
 KI                     CombatAI (Basis) · EnemyAI · PartyAI
 Orchestrierung         CombatManager (Node)                                   GameState (Autoload)
-Welt / Actors          World · Actor · ActorVisual · PlayerController · PartyFollower · EnemyPerception · CameraRig
+Welt / Actors          World · Actor · ActorVisual · PlayerController · PartyFollower · EnemyPerception · CameraRig · TargetingPreview
 Eingabe                InputSetup (Autoload) · PlayerCombatInput · HudJoystick · ScreenRaycast
 Präsentation           CombatHud · ActorLabel · FloatingText                    EventBus (Autoload)
 ```
@@ -34,16 +34,18 @@ Die KI benutzt ausschließlich die öffentliche `CombatManager`-API (`perform_ac
 | `StatusEffectData` | Zustand deklarativ als Flags: handlungsunfähig, Vorteil/Nachteil-Regeln, Tempo, Bonuswürfel, Wiederholungs-Save. |
 | `Actor` | Laufzeitzustand: HP, `TurnState`, Slots, Statuses, Concentration, Actions, Down/Revive, Pfadbewegung inkl. Erkennen „verlässt Reichweite“ (Signal `reach_left`). |
 | `TurnState` | Actions, Bonus Actions, Reaction, Bewegung, ausstehende Multiattack-Schläge, Sneak-Attack-Flag, Light-Weapon-Flag. |
-| `CombatAction` | Basisklasse: `id`, Kosten, `target_kind` (NONE/ENEMY/ALLY/ANY), `is_available`, `can_target`, `pay_cost`, `execute`. |
+| `CombatAction` | Basisklasse: `id`, Kosten, `target_kind` (NONE/ENEMY/ALLY/ANY/POINT), `is_available`, `can_target`, `can_target_point`, `pay_cost`, `execute(actor, target, point)`. |
 | `AttackResolver` | d20 + Bonus gegen AC mit allen Vorteil/Nachteil-Quellen, Bless, Crit-Regeln (nat 20, Paralyzed), Sneak Attack. Arbeitet auf einem `AttackProfile` (Waffe oder Zauber). |
 | `SavingThrow` | d20 + Save-Bonus (+ Bless) gegen DC, Auto-Fail für STR/DEX bei Paralyzed. |
 | `SpellResolver` | Zielsammlung nach Zielart, Angriff/Save/Auto-Hit pro Ziel (Wiederholungen für Darts/Strahlen), Schaden, Heilung, Status, Concentration-Verknüpfung. |
 | `CombatManager` | Einziger Ort, an dem Regeln durchgesetzt werden: `start_combat`, `perform_action`, `move_actor`, `end_turn` (Status-Tick, Wiederholungs-Saves), Opportunity Attacks (`_on_reach_left`), Aufstehen aus Prone, Übersprungene Züge, Kampfende. Generationszähler schützt vor Koroutinen abgebrochener Kämpfe. |
 | `EnemyAI` | Zielwahl nach Erreichbarkeit und Verwundbarkeit, Fernkampf wenn nötig, Dash zum Heranlaufen, Multiattack. |
 | `PartyAI` | Klassenheuristiken (Fighter: Surge/Second Wind; Rogue: Sneak-Ziel + Off-hand; Wizard: Flächen-/Slot-Zauber und Kiting; Cleric: Notheilung, Bless, Hold Person, Guiding Bolt). Dient Autoplay-Test und „Auto-battle“-Button. |
-| `PlayerCombatInput` | Tipp → Raycast → Bewegung / Standardangriff / gewählte Aktion auf gültiges Ziel. Kennt keine Regeln. |
+| `PlayerCombatInput` | Lock & Roll: Aktion wählen → Tipp sperrt Figur, Punkt (in Reichweite geklemmt) oder Weg (auf Restbewegung gekürzt) → `confirm()` führt aus, `cancel()` verwirft. Signal `lock_changed` für Vorschau und HUD. Kennt keine Regeln. |
+| `TargetingPreview` | Zeichnet die Sperre: Flächenkreis (rot bei Freunden im Radius), Wegstrecke (rot bei Opportunity Attack), Zielmarker. |
+| `Progression` | XP-Tabelle, Level-Up-Anwendung auf die Laufzeitkopie der `ActorData` (HP, Übungsbonus, ASI, Klassenfeatures, Slots, neue Zauber), Cantrip-Skalierung. |
 | `PartyFollower` | Nicht gesteuerte Party-Mitglieder folgen dem Anführer in Formation (Navmesh-Pfad). |
-| `World` | Verdrahtet Szene, entscheidet Kampfstart (Wahrnehmung) und Teilnehmer (ganze Party + Gegner im Umkreis), stabilisiert Gefallene nach dem Sieg. |
+| `World` | Verdrahtet Szene, entscheidet Kampfstart (Wahrnehmung) und Teilnehmer (ganze Party + Gegner im Umkreis), stabilisiert Gefallene nach dem Sieg, vergibt XP (`Progression`), Rast & Respawn der nächsten Welle. |
 | `CombatHud` | Modus, Initiative mit Status, Aktionsleiste (Flow-Layout, Kosten/Slots), Ressourcen, Log, Floating Text, Kamera-Buttons, Joystick, Auto-battle, Game-Over. |
 
 ## Ablauf eines Zuges
@@ -57,13 +59,14 @@ Die KI benutzt ausschließlich die öffentliche `CombatManager`-API (`perform_ac
 ## Erweiterungspunkte
 
 * **Neue Zauber / Zustände**: nur `.tres` anlegen. Neue Mechaniken = neues Flag in `StatusEffectData` + Abfrage an der passenden Stelle (`AttackResolver`, `SavingThrow`, `CombatManager`).
-* **Flächenziele per Tipp**: `CombatAction.TargetKind.POINT` ergänzen, `PlayerCombatInput` reicht den Bodenpunkt durch, `SpellResolver.collect_targets` filtert um den Punkt.
+* **Weitere Punkt-Zauber**: `SpellData.target_kind = POINT`, Radius und `area_affects_allies` setzen, fertig. `teleport = true` macht daraus einen Sprung (Misty Step).
+* **Level-Up-Wahl** (Attribut, Feats, Zauberauswahl): `Progression.apply_level_up` liefert heute feste Änderungen; ein Auswahl-Dialog würde vor dem Anwenden Optionen anbieten.
 * **Reaktionszauber (Shield)**: Hook vor dem Trefferabgleich in `AttackResolver` bzw. ein `reaction_requested`-Signal im `CombatManager` analog zu `_on_reach_left`.
-* **Todesrettungswürfe / Rasten / Level-Ups**: `Actor` (Down-State erweitern), Slots nicht mehr pro Kampf auffrischen.
+* **Todesrettungswürfe / echte Rast-Regeln**: `Actor` (Down-State erweitern), Slots nicht mehr pro Kampf auffrischen, `World.rest_and_next_wave` in eine Level-Logik überführen.
 * **Echte Assets**: `ActorVisual` und `actor.tscn` ersetzen; Animationen an `Actor.move_along_path` / `execute` hängen.
 
 ## Tests
 
-* `tests/unit_tests.tscn`: Regelschicht ohne Kampfszene (1678 Checks).
-* `tests/scenario.gd` (`--scenario`): gescriptete Situationen in der echten Szene mit Physik und Navmesh.
-* `tests/autoplay.gd` (`--autoplay --seed=N`): kompletter Loop inklusive echter Eingabe-Events; gibt eine `FEATURES`-Zeile mit Zählern (Zauber, Saves, OAs, Status, Concentration) aus.
+* `tests/unit_tests.tscn`: Regelschicht ohne Kampfszene (1710 Checks).
+* `tests/scenario.gd` (`--scenario`): gescriptete Situationen in der echten Szene mit Physik und Navmesh, inklusive Fireball auf einen Punkt und Misty Step.
+* `tests/autoplay.gd` (`--autoplay --seed=N`): kompletter Loop inklusive echter Eingabe-Events (Lock, Cancel, Confirm), Sieg, Level-Up, Rast, zweite Welle; gibt eine `FEATURES`-Zeile mit Zählern (Zauber, Saves, OAs, Status, Concentration) aus.

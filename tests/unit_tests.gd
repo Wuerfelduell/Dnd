@@ -18,6 +18,8 @@ func _ready() -> void:
 	_test_saving_throws()
 	_test_statuses_and_concentration()
 	_test_spell_slots_and_actions()
+	_test_point_spells()
+	_test_progression()
 	_test_initiative()
 	print("\n%d checks, %d failures" % [_checks, _failures])
 	get_tree().quit(0 if _failures == 0 else 1)
@@ -414,6 +416,105 @@ func _test_spell_slots_and_actions() -> void:
 	cleric.queue_free()
 	wolf.queue_free()
 	fighter.queue_free()
+
+
+# --- Point spells ---------------------------------------------------------
+
+func _test_point_spells() -> void:
+	var wizard := _make_actor("res://data/actors/wizard.tres")
+	var fighter := _make_actor("res://data/actors/fighter.tres")
+	var g1 := _make_actor("res://data/actors/goblin_warrior.tres")
+	var g2 := _make_actor("res://data/actors/goblin_archer.tres")
+	var wolf := _make_actor("res://data/actors/wolf.tres")
+	_place(wizard, 0, 0)
+	_place(g1, 10, 0)
+	_place(g2, 12, 1)
+	_place(wolf, 30, 0)
+	_place(fighter, 11, -4)
+	var others: Array[Actor] = [wizard, fighter, g1, g2, wolf]
+	CombatContext.override_actors = others
+	var fireball: SpellData = load("res://data/spells/fireball.tres")
+	check(fireball.needs_point() and fireball.area_radius_m == 6.0 and fireball.area_affects_allies, "fireball is a 6 m point spell")
+	var hit := SpellResolver.collect_targets(wizard, fireball, null, Vector3(11, 0, 0))
+	check(hit.size() == 3 and hit.has(g1) and hit.has(g2) and hit.has(fighter), "fireball at (11,0) hits both goblins and the fighter (%d)" % hit.size())
+	check(not hit.has(wolf) and not hit.has(wizard), "fireball misses creatures outside the area")
+	var shatter: SpellData = load("res://data/spells/shatter.tres")
+	var s_hit := SpellResolver.collect_targets(wizard, shatter, null, Vector3(11, 0, 0))
+	check(s_hit.size() == 2 and not s_hit.has(fighter), "shatter (3 m) hits the goblins but not the fighter 4 m away (%d)" % s_hit.size())
+	# Actions: range check and AI spot finder.
+	Progression.apply_level_up(wizard, 4)
+	Progression.apply_level_up(wizard, 5)
+	var fb := wizard.find_action(&"spell_fireball") as SpellAction
+	check(fb != null and fb.target_kind == CombatAction.TargetKind.POINT, "wizard knows fireball at level 5 as a point action")
+	check(fb.can_target_point(wizard, Vector3(40, 0, 0)) and not fb.can_target_point(wizard, Vector3(50, 0, 0)), "fireball range 45 m")
+	var ms := wizard.find_action(&"spell_misty_step") as SpellAction
+	check(ms != null and ms.spell.teleport and ms.cost == CombatAction.Cost.BONUS_ACTION, "misty step is a bonus action teleport")
+	check(SpellResolver.collect_targets(wizard, ms.spell, null, Vector3(5, 0, 0)).is_empty(), "misty step has no targets")
+	CombatContext.override_actors = []
+	for a in others:
+		a.queue_free()
+
+
+# --- Progression ----------------------------------------------------------
+
+func _test_progression() -> void:
+	var fighter := _make_actor("res://data/actors/fighter.tres")
+	var rogue := _make_actor("res://data/actors/rogue.tres")
+	var wizard := _make_actor("res://data/actors/wizard.tres")
+	var cleric := _make_actor("res://data/actors/cleric.tres")
+	var hob := _make_actor("res://data/actors/hobgoblin.tres")
+	var gob := _make_actor("res://data/actors/goblin_warrior.tres")
+	check(fighter.data.level == 3 and fighter.data.xp == 0, "party starts at level 3 with 0 xp")
+	check(Progression.proficiency_for_level(4) == 2 and Progression.proficiency_for_level(5) == 3, "proficiency table")
+	check(Progression.cantrip_tier(3) == 1 and Progression.cantrip_tier(5) == 2 and Progression.cantrip_tier(11) == 3, "cantrip tiers")
+	check(Dice.scale_notation("1d10", 2) == "2d10" and Dice.scale_notation("1d4+1", 2) == "2d4+1", "dice scaling")
+	# Data on disk must stay untouched: the actor works on a copy.
+	var on_disk: ActorData = load("res://data/actors/fighter.tres")
+	check(fighter.data != on_disk, "actor owns a runtime copy of its data")
+
+	var hp_before := fighter.max_hp()
+	var lines := Progression.apply_level_up(fighter, 4)
+	check(fighter.data.level == 4 and fighter.max_hp() == hp_before + 8, "fighter L4: +8 HP (d10 avg 6 + CON 2)")
+	check(fighter.data.stats.strength_mod == 4 and fighter.attack_bonus(fighter.data.weapons[0]) == 6, "fighter L4 ASI: STR +4, sword +6")
+	check(on_disk.stats.strength_mod == 3 and on_disk.level == 3, "fighter.tres untouched")
+	Progression.apply_level_up(fighter, 5)
+	check(fighter.data.stats.proficiency_bonus == 3 and fighter.attack_bonus(fighter.data.weapons[0]) == 7, "fighter L5: proficiency +3, sword +7")
+	check(fighter.data.attacks_per_action == 2 and fighter.data.second_wind_bonus == 5, "fighter L5: extra attack, second wind +5")
+	check(lines.size() >= 3, "level-up reports lines (%d)" % lines.size())
+
+	Progression.apply_level_up(rogue, 4)
+	Progression.apply_level_up(rogue, 5)
+	check(rogue.data.sneak_attack_dice == "3d6" and rogue.data.stats.dexterity_mod == 4, "rogue L5: sneak 3d6, DEX +4")
+
+	Progression.apply_level_up(wizard, 4)
+	check(wizard.data.spell_slots == PackedInt32Array([0, 4, 3]), "wizard L4 slots 4/3")
+	check(wizard.find_action(&"spell_shatter") != null and wizard.find_action(&"spell_misty_step") != null, "wizard L4 learns shatter + misty step")
+	Progression.apply_level_up(wizard, 5)
+	check(wizard.data.spell_slots == PackedInt32Array([0, 4, 3, 2]) and wizard.has_spell_slot(3), "wizard L5 slots 4/3/2")
+	check(wizard.find_action(&"spell_fireball") != null, "wizard L5 learns fireball")
+	check(wizard.data.spell_save_dc() == 15, "wizard L5 DC 15 (8 + 3 + INT 4)")
+	var fire_bolt: SpellData = load("res://data/spells/fire_bolt.tres")
+	check(Progression.scaled_spell_dice(wizard, fire_bolt) == "2d10", "fire bolt scales to 2d10 at level 5")
+	var mm: SpellData = load("res://data/spells/magic_missile.tres")
+	check(Progression.scaled_spell_dice(wizard, mm) == "1d4+1", "leveled spells do not scale")
+
+	Progression.apply_level_up(cleric, 4)
+	Progression.apply_level_up(cleric, 5)
+	check(cleric.find_action(&"spell_mass_healing_word") != null and cleric.data.stats.wisdom_mod == 4, "cleric L5: mass healing word, WIS +4")
+
+	# XP sharing and automatic level-ups.
+	var f2 := _make_actor("res://data/actors/fighter.tres")
+	var w2 := _make_actor("res://data/actors/wizard.tres")
+	var party: Array[Actor] = [f2, w2]
+	var defeated: Array[Actor] = [hob, gob]
+	var reports := Progression.award_encounter(party, defeated)
+	check(reports.size() == 2 and reports[0].xp_gained == 375, "750 XP split between two = 375 each")
+	check(f2.data.level == 4 and reports[0].leveled() and reports[0].new_level == 4, "375 XP reaches level 4 (200) but not 5 (450)")
+	var r2 := Progression.grant_xp(f2, 100)
+	check(f2.data.level == 5 and r2.leveled(), "475 XP reaches level 5")
+	check(Progression.xp_for_next_level(f2) == 800, "next level needs 800")
+	for a in [fighter, rogue, wizard, cleric, hob, gob, f2, w2]:
+		a.queue_free()
 
 
 # --- Initiative -----------------------------------------------------------

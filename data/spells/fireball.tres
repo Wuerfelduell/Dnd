@@ -1,0 +1,27 @@
+[gd_resource type="Resource" script_class="SpellData" format=3]
+
+[ext_resource type="Script" path="res://scripts/data/spell_data.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+display_name = "Fireball"
+level = 3
+cost = 0
+target_kind = 6
+range_m = 45.0
+area_radius_m = 6.0
+max_targets = 1
+creature_type_filter = ""
+area_affects_allies = true
+teleport = false
+concentration = false
+description = "A bright streak explodes into flame: every creature within 6 m of the point takes 8d6 fire damage, DEX save for half. Hits friends too!"
+attack_kind = 2
+save_ability = "dex"
+half_damage_on_save = true
+damage_dice = "8d6"
+damage_type = "fire"
+repeat_count = 1
+heal_dice = ""
+heal_adds_casting_mod = false
+status_rounds = 1

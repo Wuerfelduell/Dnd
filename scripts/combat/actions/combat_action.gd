@@ -9,7 +9,7 @@ extends RefCounted
 enum Cost { ACTION, BONUS_ACTION, REACTION, FREE }
 
 ## What the player has to click after selecting the action.
-enum TargetKind { NONE, ENEMY, ALLY, ANY }
+enum TargetKind { NONE, ENEMY, ALLY, ANY, POINT }
 
 var id: StringName = &"action"
 var display_name: String = "Action"
@@ -57,14 +57,26 @@ func can_target(_actor: Actor, _target: Actor) -> bool:
 	return not requires_target()
 
 
+## For POINT actions: is [param point] a legal target position?
+func can_target_point(actor: Actor, point: Vector3) -> bool:
+	if target_kind != TargetKind.POINT:
+		return false
+	return actor.global_position.distance_to(point) <= range_m + 0.05
+
+
+func targets_point() -> bool:
+	return target_kind == TargetKind.POINT
+
+
 ## Pays the cost. Overridden by actions with special economy (Extra Attack).
 func pay_cost(actor: Actor) -> bool:
 	return actor.turn_state.spend(cost)
 
 
 ## Performs the action. May await for presentation pacing.
-## The cost has already been paid when this is called.
-func execute(_actor: Actor, _target: Actor) -> void:
+## The cost has already been paid when this is called. [param point] is only
+## meaningful for POINT actions.
+func execute(_actor: Actor, _target: Actor, _point: Vector3 = Vector3.ZERO) -> void:
 	pass
 
 

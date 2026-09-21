@@ -24,7 +24,7 @@ func unavailable_reason(actor: Actor) -> String:
 	return super.unavailable_reason(actor)
 
 
-func execute(actor: Actor, _target: Actor) -> void:
+func execute(actor: Actor, _target: Actor, _point: Vector3 = Vector3.ZERO) -> void:
 	actor.combat_flags[FLAG] = true
 	var roll := Dice.parse(HEAL_DICE, actor.data.second_wind_bonus)
 	var healed := actor.heal(roll.total())

@@ -1,0 +1,27 @@
+[gd_resource type="Resource" script_class="SpellData" format=3]
+
+[ext_resource type="Script" path="res://scripts/data/spell_data.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+display_name = "Mass Healing Word"
+level = 3
+cost = 1
+target_kind = 4
+range_m = 18.0
+area_radius_m = 18.0
+max_targets = 6
+creature_type_filter = ""
+area_affects_allies = true
+teleport = false
+concentration = false
+description = "Up to six allies within 18 m (you included) heal 1d4 + your Wisdom modifier. Bonus action."
+attack_kind = 0
+save_ability = "dex"
+half_damage_on_save = false
+damage_dice = ""
+damage_type = ""
+repeat_count = 1
+heal_dice = "1d4"
+heal_adds_casting_mod = true
+status_rounds = 1

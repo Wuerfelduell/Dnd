@@ -19,6 +19,8 @@ func _init(p_spell: SpellData) -> void:
 			target_kind = TargetKind.ALLY
 		SpellData.TargetKind.ANY_CREATURE:
 			target_kind = TargetKind.ANY
+		SpellData.TargetKind.POINT:
+			target_kind = TargetKind.POINT
 		_:
 			target_kind = TargetKind.NONE
 	tag = "cantrip" if spell.is_cantrip() else "L%d" % spell.level
@@ -60,14 +62,16 @@ func pay_cost(actor: Actor) -> bool:
 	return actor.spend_spell_slot(spell.level)
 
 
-func execute(actor: Actor, target: Actor) -> void:
-	await SpellResolver.cast(actor, spell, target)
+func execute(actor: Actor, target: Actor, point: Vector3 = Vector3.ZERO) -> void:
+	await SpellResolver.cast(actor, spell, target, point)
 
 
 func description(actor: Actor) -> String:
 	var s := "%s (%s, %s" % [display_name, "cantrip" if spell.is_cantrip() else "level %d" % spell.level, cost_name()]
 	if spell.concentration:
 		s += ", concentration"
+	if spell.needs_point():
+		s += ", %.0f m radius" % spell.area_radius_m
 	s += "): " + spell.description
 	match spell.attack_kind:
 		SpellData.AttackKind.SPELL_ATTACK:
