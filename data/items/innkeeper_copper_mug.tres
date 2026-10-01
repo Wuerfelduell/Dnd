@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="ItemData" format=3]
+
+[ext_resource type="Script" path="res://scripts/data/item_data.gd" id="1"]
+[ext_resource type="Texture2D" path="res://assets/shop/icons/gold_coin.png" id="2"]
+
+[resource]
+script = ExtResource("1")
+icon = ExtResource("2")
+icon_tint = Color(0.9, 0.55, 0.35, 1)
+id = &"innkeeper_copper_mug"
+display_name = "Dented copper mug"
+description = "A battered copper beer mug with a dent. Somebody in the tavern misses it."
+kind = 4
+value = 5
+stack_max = 1

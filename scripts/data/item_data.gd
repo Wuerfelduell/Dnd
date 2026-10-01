@@ -15,8 +15,8 @@ enum Kind { CONSUMABLE, AMMO, WEAPON, ARMOR, TRINKET }
 ## Tint for icons that are reused (the strength potion shares the health icon).
 @export var icon_tint: Color = Color.WHITE
 @export var kind: Kind = Kind.CONSUMABLE
-## Price in gold at the merchant; sells for half.
-@export var value: int = 10
+## Price in copper at the merchant (100 copper = 1 gold); sells for half.
+@export var value: int = 100
 @export var stack_max: int = 20
 ## 3D model below res://assets/shop/models/ (shop table, loot drops).
 @export var model: String = ""

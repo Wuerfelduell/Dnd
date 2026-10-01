@@ -1,8 +1,10 @@
 ## Control of the player's actor during exploration.
 ##
 ## Two ways to move: WASD (camera relative) or tap/click on the ground, which
-## walks there along the navigation mesh (touch friendly). Disabled in combat;
-## combat movement is turn-based and handled by [PlayerCombatInput] + [CombatManager].
+## walks there along the navigation mesh (touch friendly). Tapping a chest or a
+## bystander walks up to it and interacts on arrival (loot / talk). Disabled in
+## combat; combat movement is turn-based and handled by [PlayerCombatInput] +
+## [CombatManager].
 class_name PlayerController
 extends Node
 
@@ -13,7 +15,14 @@ var debug_direction: Vector3 = Vector3.ZERO
 
 var _pending_tap: bool = false
 var _steering: bool = false
+## What the leader walks towards to interact with: a [LootChest] or a neutral [Actor].
 var _target_chest: LootChest = null
+var _target_npc: Actor = null
+## How close the leader has to be to talk to somebody (across a bar counter).
+const TALK_DISTANCE := 3.2
+## Where the leader aims when walking up to somebody: this far from them, on
+## the leader's side (keeps the counter between the innkeeper and the party).
+const TALK_APPROACH := 2.2
 var _pending_tap_position: Vector2 = Vector2.ZERO
 
 @onready var actor: Actor = get_parent()
@@ -57,6 +66,8 @@ func _physics_process(delta: float) -> void:
 			actor.play_action("idle")
 		if _target_chest != null:
 			_arrive_at_chest()
+		elif _target_npc != null:
+			_arrive_at_npc()
 
 
 func _walk_to_tap() -> void:
@@ -66,6 +77,10 @@ func _walk_to_tap() -> void:
 		return
 	var destination: Vector3 = hit["position"]
 	var clicked: Actor = hit.get("actor")
+	if clicked != null and clicked.is_neutral():
+		# Tapping a bystander walks up and starts the conversation.
+		walk_to_npc(clicked)
+		return
 	if clicked != null:
 		# Tapping an enemy walks towards it; the encounter starts on its own.
 		destination = clicked.global_position
@@ -76,11 +91,34 @@ func _walk_to_tap() -> void:
 ## Walks to [param destination]; with a [param chest] the leader opens it on arrival.
 func walk_to(destination: Vector3, chest: LootChest = null) -> void:
 	_target_chest = chest
+	_target_npc = null
 	if chest != null:
 		if chest.within_reach(actor):
 			_arrive_at_chest()
 			return
 		destination = chest.global_position
+	_walk(destination)
+
+
+## Walks up to [param npc] and emits [signal EventBus.npc_reached] on arrival.
+func walk_to_npc(npc: Actor) -> void:
+	_target_chest = null
+	_target_npc = npc
+	if npc_within_reach(npc):
+		_arrive_at_npc()
+		return
+	var towards := actor.global_position - npc.global_position
+	towards.y = 0.0
+	if towards.length() < 0.1:
+		towards = Vector3.BACK
+	_walk(npc.global_position + towards.normalized() * TALK_APPROACH)
+
+
+func npc_within_reach(npc: Actor) -> bool:
+	return npc != null and actor.distance_to(npc) <= TALK_DISTANCE
+
+
+func _walk(destination: Vector3) -> void:
 	var others: Array[Actor] = []
 	for n in get_tree().get_nodes_in_group("actors"):
 		if n is Actor and n != actor:
@@ -97,6 +135,19 @@ func _arrive_at_chest() -> void:
 		actor.face_direction(chest.global_position - actor.global_position)
 		actor.play_action("interact")
 		EventBus.chest_reached.emit(chest)
+
+
+func _arrive_at_npc() -> void:
+	var npc := _target_npc
+	_target_npc = null
+	if npc == null:
+		return
+	if npc_within_reach(npc):
+		actor.face_actor(npc)
+		npc.face_actor(actor)
+		EventBus.npc_reached.emit(npc)
+	else:
+		EventBus.log("[color=gray]%s cannot get close enough to %s.[/color]" % [actor.display_name(), npc.display_name()])
 
 
 func _input_direction() -> Vector3:

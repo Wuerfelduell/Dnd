@@ -379,3 +379,76 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
 text = "Restart"
+
+[node name="DialoguePanel" type="PanelContainer" parent="."]
+unique_name_in_owner = true
+visible = false
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -400.0
+offset_top = -372.0
+offset_right = 400.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
+
+[node name="VBox" type="VBoxContainer" parent="DialoguePanel"]
+layout_mode = 2
+
+[node name="Header" type="HBoxContainer" parent="DialoguePanel/VBox"]
+layout_mode = 2
+
+[node name="DialogueSpeaker" type="Label" parent="DialoguePanel/VBox/Header"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 0.9, 0.4, 1)
+theme_override_font_sizes/font_size = 20
+text = "Wirt"
+
+[node name="DialogueClose" type="Button" parent="DialoguePanel/VBox/Header"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(44, 36)
+layout_mode = 2
+tooltip_text = "Gespräch abbrechen"
+text = "X"
+
+[node name="DialogueText" type="RichTextLabel" parent="DialoguePanel/VBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 16
+theme_override_font_sizes/bold_font_size = 16
+bbcode_enabled = true
+fit_content = true
+scroll_active = false
+
+[node name="DialogueStage" type="Label" parent="DialoguePanel/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.75, 0.75, 0.8, 1)
+theme_override_font_sizes/font_size = 13
+text = "Er hält die Hand auf."
+autowrap_mode = 3
+
+[node name="DialogueCheck" type="Label" parent="DialoguePanel/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.6, 0.9, 1, 1)
+theme_override_font_sizes/font_size = 13
+text = ""
+autowrap_mode = 3
+
+[node name="DialogueScroll" type="ScrollContainer" parent="DialoguePanel/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="DialogueChoices" type="VBoxContainer" parent="DialoguePanel/VBox/DialogueScroll"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3

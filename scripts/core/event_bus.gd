@@ -41,11 +41,18 @@ signal enemy_spotted(enemy: Node)
 ## A consumable was used on someone.
 signal item_used(user: Node, target: Node, item: ItemData)
 
-## The party's bag received gold and/or items (victory loot, chests, purchases).
-signal loot_gained(gold: int, items: Array)
+## The party's bag received copper and/or items (victory loot, chests, purchases).
+signal loot_gained(copper: int, items: Array)
 
 ## The leader reached a chest it was sent to.
 signal chest_reached(chest: Node)
+
+## The leader walked up to a bystander it was sent to (talk).
+signal npc_reached(npc: Node)
+
+## A conversation opened / closed.
+signal dialogue_started(npc: Node, dialogue_id: String)
+signal dialogue_ended(npc: Node, dialogue_id: String)
 
 ## Request for a floating text at a world position (presentation only).
 signal floating_text_requested(world_position: Vector3, text: String, color: Color)

@@ -20,6 +20,9 @@ enum Faction { PLAYER, ENEMY, NEUTRAL }
 ## Ability raised by the level 4 ability score improvement ("str", "dex", ...).
 @export var primary_ability: String = "str"
 @export var faction: Faction = Faction.ENEMY
+## Dialogue played when the party talks to this creature (data/dialogues/<id>.json).
+## Empty = nothing to say.
+@export var dialogue: String = ""
 ## "humanoid", "beast", ... used by spells such as Hold Person.
 @export var creature_type: String = "humanoid"
 @export var stats: ActorStats

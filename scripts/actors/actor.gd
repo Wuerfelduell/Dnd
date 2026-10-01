@@ -240,6 +240,27 @@ func is_neutral() -> bool:
 	return data.faction == ActorData.Faction.NEUTRAL
 
 
+## Id of the creature definition: the file name of its ActorData ("town_guard").
+## Dialogues refer to scene actors by this.
+func data_id() -> String:
+	var source := _source_data if _source_data != null else data
+	if source == null or source.resource_path == "":
+		return ""
+	return source.resource_path.get_file().get_basename()
+
+
+## A bystander picks a fight: from now on an enemy to the party (and stays one).
+func turn_hostile() -> void:
+	if data.faction == ActorData.Faction.ENEMY:
+		return
+	data.faction = ActorData.Faction.ENEMY
+	data.model_idle_action = "idle"
+	if visual:
+		visual.apply_color(data.color)
+	play_action("idle")
+	statuses_changed.emit(self)
+
+
 func is_alive() -> bool:
 	return not is_down
 

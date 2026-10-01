@@ -1,5 +1,9 @@
-## The party's shared bag: gold and stacks of items. Pure data with a signal;
-## the HUD, the merchant and [UseItemAction] all talk to this.
+## The party's shared bag: coins and stacks of items. Pure data with a signal;
+## the HUD, the dialogues, the merchant and [UseItemAction] all talk to this.
+##
+## Money is counted in copper: 10 copper = 1 silver, 10 silver = 1 gold
+## (the convention of the hand-written dialogues). [method format_money]
+## renders it as "2 G 3 S 5 K".
 class_name Inventory
 extends RefCounted
 
@@ -16,7 +20,11 @@ const CONSUMABLE_PATHS := [
 
 static var _consumables: Array[ItemData] = []
 
-var gold: int = 0
+const COPPER_PER_SILVER := 10
+const SILVER_PER_GOLD := 10
+const COPPER_PER_GOLD := COPPER_PER_SILVER * SILVER_PER_GOLD
+
+var copper: int = 0
 var _stacks: Dictionary = {}  # ItemData -> int
 
 
@@ -86,24 +94,45 @@ func total_items() -> int:
 	return n
 
 
-func add_gold(amount: int) -> void:
+func add_copper(amount: int) -> void:
 	if amount <= 0:
 		return
-	gold += amount
+	copper += amount
 	changed.emit()
 
 
-## False when the party cannot afford it.
-func spend_gold(amount: int) -> bool:
-	if amount > gold:
+## False when the party cannot afford it (nothing is taken then).
+func spend_copper(amount: int) -> bool:
+	if amount > copper or amount < 0:
 		return false
-	gold -= amount
+	copper -= amount
 	changed.emit()
 	return true
+
+
+func can_afford(amount: int) -> bool:
+	return amount <= copper
+
+
+## "2 G 3 S 5 K" (gold, silver, copper); zero parts are left out, 0 -> "0 K".
+static func format_money(amount: int) -> String:
+	if amount <= 0:
+		return "0 K"
+	var gold := amount / COPPER_PER_GOLD
+	var silver := (amount % COPPER_PER_GOLD) / COPPER_PER_SILVER
+	var rest := amount % COPPER_PER_SILVER
+	var parts := PackedStringArray()
+	if gold > 0:
+		parts.append("%d G" % gold)
+	if silver > 0:
+		parts.append("%d S" % silver)
+	if rest > 0:
+		parts.append("%d K" % rest)
+	return " ".join(parts)
 
 
 func describe() -> String:
 	var parts := PackedStringArray()
 	for item in items():
 		parts.append("%s x%d" % [item.display_name, count(item)])
-	return "%d gold%s" % [gold, (", " + ", ".join(parts)) if not parts.is_empty() else ""]
+	return "%s%s" % [format_money(copper), (", " + ", ".join(parts)) if not parts.is_empty() else ""]

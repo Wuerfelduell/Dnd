@@ -31,6 +31,9 @@ func _ready() -> void:
 	_test_new_creatures()
 	_test_neutral_npcs()
 	await _test_inventory_and_potions()
+	_test_money_and_story()
+	_test_dialogue_tree()
+	_test_dialogue_runner()
 	print("\n%d checks, %d failures" % [_checks, _failures])
 	get_tree().quit(0 if _failures == 0 else 1)
 
@@ -1008,7 +1011,10 @@ func _test_neutral_npcs() -> void:
 		check(npc.visual.uses_model(), "%s has a model" % kind)
 		var animator := npc.visual.animator()
 		check(animator != null and animator.current_action == npc.data.model_idle_action, "%s rests with %s (%s)" % [kind, npc.data.model_idle_action, animator.current_action if animator else "-"])
-		check(npc.data.weapons.is_empty() and npc.data.xp_value == 0, "%s carries no weapon and gives no XP" % kind)
+		if kind == "cook" or kind == "town_guard":
+			check(not npc.data.weapons.is_empty() and npc.data.xp_value > 0, "%s is armed for the day a dialogue turns sour" % kind)
+		else:
+			check(npc.data.weapons.is_empty() and npc.data.xp_value == 0, "%s carries no weapon and gives no XP" % kind)
 		var attack := fighter.find_action(&"attack_longsword")
 		_place(fighter, 0, 0)
 		_place(npc, 0, 1.2)
@@ -1036,13 +1042,13 @@ func _test_inventory_and_potions() -> void:
 	bag.changed.connect(func(): changes[0] += 1)
 	bag.add(health, 2)
 	bag.add(health)
-	bag.add_gold(30)
-	check(bag.count(health) == 3 and bag.gold == 30 and bag.total_items() == 3 and changes[0] == 3, "stacking, gold and change signals")
+	bag.add_copper(30)
+	check(bag.count(health) == 3 and bag.copper == 30 and bag.total_items() == 3 and changes[0] == 3, "stacking, copper and change signals")
 	check(bag.remove(health, 2) and bag.count(health) == 1 and not bag.remove(health, 5) and bag.count(health) == 1, "removing respects the count")
-	check(bag.spend_gold(20) and bag.gold == 10 and not bag.spend_gold(11) and bag.gold == 10, "spending gold respects the purse")
+	check(bag.spend_copper(20) and bag.copper == 10 and not bag.spend_copper(11) and bag.copper == 10, "spending copper respects the purse")
 	bag.add(antidote)
 	check(bag.items()[0] == antidote or bag.items()[0] == health, "items are listed")
-	check(bag.describe().begins_with("10 gold"), "describe starts with the gold (%s)" % bag.describe())
+	check(bag.describe().begins_with("1 S"), "describe starts with the coins (%s)" % bag.describe())
 
 	# Potions on actors.
 	var fighter := _make_actor("res://data/actors/fighter.tres")
@@ -1106,13 +1112,233 @@ func _test_inventory_and_potions() -> void:
 	check(fighter.current_hp > hp_before and bag.count(health) == 1 and not fighter.turn_state.bonus_action_available, "drinking heals, consumes one and spends the bonus action")
 	# A chest hands out its contents once.
 	var chest := LootChest.new()
-	chest.gold = 12
+	chest.copper = 12
 	chest.item_ids = PackedStringArray(["potion_mana", "arrows"])
 	add_child(chest)
 	var contents := chest.open()
-	check(contents["gold"] == 12 and contents["items"].size() == 2 and contents["items"][0] == mana, "chest contents")
-	check(chest.looted and chest.open()["gold"] == 0, "a chest opens only once")
+	check(contents["copper"] == 12 and contents["items"].size() == 2 and contents["items"][0] == mana, "chest contents")
+	check(chest.looted and chest.open()["copper"] == 0, "a chest opens only once")
 	chest.queue_free()
 	for a in [fighter, wizard, gob]:
 		a.queue_free()
 
+
+
+# --- Money & story state -----------------------------------------------------
+
+func _test_money_and_story() -> void:
+	check(Inventory.format_money(0) == "0 K" and Inventory.format_money(7) == "7 K", "copper only")
+	check(Inventory.format_money(10) == "1 S" and Inventory.format_money(235) == "2 G 3 S 5 K", "silver and gold (%s)" % Inventory.format_money(235))
+	check(Inventory.format_money(300) == "3 G" and Inventory.format_money(1200) == "12 G", "whole gold leaves out zero parts")
+	var bag := Inventory.new()
+	bag.add_copper(40)
+	check(bag.can_afford(40) and not bag.can_afford(41) and not bag.spend_copper(-1), "can_afford and no negative spending")
+	for path in ["potion_health", "potion_mana", "potion_antidote", "potion_strength", "arrows", "beer", "stew", "innkeeper_copper_mug"]:
+		var item := Inventory.find_item(StringName(path))
+		check(item != null and item.value > 0 and item.icon != null, "item %s exists with a copper price and an icon" % path)
+	var mug := Inventory.find_item(&"innkeeper_copper_mug")
+	check(mug.kind == ItemData.Kind.TRINKET and not mug.is_consumable(), "the mug is a trinket")
+	var beer := Inventory.find_item(&"beer")
+	check(beer.is_consumable() and beer.heal_dice == "1d4", "beer is food that heals a little")
+
+	var story := StoryState.new()
+	var changes: Array[int] = [0]
+	story.changed.connect(func(): changes[0] += 1)
+	check(story.get_flag("x") == false and story.get_flag("x", 3) == 3 and story.quest_status("q") == "", "empty story")
+	story.set_flag("hunter_route_known", true)
+	check(story.increment_flag("asks") == 1 and story.increment_flag("asks") == 2 and story.get_flag("asks") == 2, "counters")
+	story.set_quest("recover_innkeeper_mug", "accepted", 20, 4)
+	check(story.quest_status("recover_innkeeper_mug") == "accepted" and story.quest_reward("recover_innkeeper_mug")["beer"] == 4 and not story.quest_completed("recover_innkeeper_mug"), "quest accepted with reward")
+	story.complete_quest("recover_innkeeper_mug")
+	check(story.quest_completed("recover_innkeeper_mug") and story.quest_status("recover_innkeeper_mug") == "completed", "quest completed")
+	story.consume("free_beer_success")
+	story.set_navigation_hint("cave", "hunter_hut")
+	check(story.is_consumed("free_beer_success") and not story.is_consumed("x") and story.navigation_hints["cave"] == "hunter_hut", "consumed nodes and hints")
+	var snapshot := story.to_dict()
+	check(snapshot["flags"]["hunter_route_known"] == true and snapshot["quests"].has("recover_innkeeper_mug") and changes[0] == 7, "snapshot and change signals (%d)" % changes[0])
+
+
+# --- Dialogue data -------------------------------------------------------------
+
+func _test_dialogue_tree() -> void:
+	var tree := DialogueTree.load_by_id("innkeeper")
+	check(tree != null, "innkeeper dialogue loads")
+	if tree == null:
+		return
+	check(tree.errors.is_empty(), "innkeeper dialogue is consistent: %s" % ", ".join(tree.errors))
+	check(tree.id == "innkeeper" and tree.language == "de" and tree.entry == "greeting" and tree.nodes.size() == 72, "72 nodes, entry greeting")
+	check(tree.speaker_name("innkeeper") == "Wirt" and tree.speaker_name("system") == "" and tree.actor_reference("town_guard") == "town_guard", "speakers")
+	var reachable := tree.reachable_nodes()
+	var unreachable := PackedStringArray()
+	for node_id in tree.nodes:
+		if not reachable.has(node_id):
+			unreachable.append(node_id)
+	check(unreachable.size() == 1 and unreachable[0] == "victory_directions", "only the after-fight node is outside the graph (%s)" % ", ".join(unreachable))
+	check(DialogueTree.is_switch(tree.node("mug_return")) and not DialogueTree.is_authored(tree.node("pending_fee_guard_deception")), "switch and not_authored markers")
+	check(DialogueTree.targets_of(tree.node("greeting")).size() == 5, "greeting leads to 3 nodes plus a check's two outcomes")
+	check(DialogueTree.load_by_id("nobody") == null, "missing dialogue is null, not a crash")
+	var broken := DialogueTree.from_dict({"id": "x", "entry": "a", "speakers": {"system": {"name": ""}},
+		"nodes": {"a": {"speaker": "system", "text": "", "choices": [{"id": "go", "text": "", "next": "missing"}], "effects": [{"type": "explode"}]}}})
+	check(broken.errors.size() == 2, "validation reports missing targets and unknown effects (%s)" % ", ".join(broken.errors))
+
+
+# --- Dialogue runtime -----------------------------------------------------------
+
+## Index of the visible choice with [param choice_id] (-1 when hidden).
+func _choice_index(runner: DialogueRunner, choice_id: String) -> int:
+	for view in runner.choices():
+		if view["id"] == choice_id:
+			return view["index"]
+	return -1
+
+
+func _pick(runner: DialogueRunner, choice_id: String) -> bool:
+	var index := _choice_index(runner, choice_id)
+	if index < 0:
+		return false
+	return runner.choose(index)
+
+
+func _test_dialogue_runner() -> void:
+	var tree := DialogueTree.load_by_id("innkeeper")
+	var fighter := _make_actor("res://data/actors/fighter.tres")
+	var rogue := _make_actor("res://data/actors/rogue.tres")
+	var party: Array[Actor] = [fighter, rogue]
+	var bag := Inventory.new()
+	var story := StoryState.new()
+	var effects: Array = []
+	var ended: Array = []
+	var lines: Array = []
+
+	var runner := DialogueRunner.new(tree, bag, story, party)
+	runner.world_effect.connect(func(e): effects.append(e))
+	runner.ended.connect(func(r): ended.append(r))
+	runner.line_changed.connect(func(speaker, text, _stage): lines.append([speaker, text]))
+
+	# Greeting: four authored answers, the threat is a check.
+	runner.start()
+	check(runner.is_running and runner.current_id == "greeting" and runner.choices().size() == 4, "greeting shows four answers (%d)" % runner.choices().size())
+	check(lines.size() == 1 and lines[0][0] == "Wirt" and lines[0][1].begins_with("Komm rein"), "the innkeeper speaks first")
+	check(runner.choices()[3]["is_check"] and runner.choices()[3]["text"].begins_with("[Einschüchtern]"), "the threat is marked as a check")
+
+	# Buying the meal: disabled without 4 silver, atomic with it.
+	check(_pick(runner, "meal") and runner.current_id == "meal_joke", "meal -> meal_joke")
+	check(_pick(runner, "continue") and runner.current_id == "meal_price", "continue -> meal_price")
+	var buy: Dictionary = runner.choices()[_choice_index(runner, "buy")]
+	check(not buy["enabled"] and buy["reason"].begins_with("Nicht genug Münzen"), "buying is disabled with an empty purse (%s)" % buy["reason"])
+	check(not runner.choose(buy["index"]), "a disabled answer cannot be chosen")
+	bag.add_copper(45)
+	runner.end()
+	runner.start()
+	_pick(runner, "meal")
+	_pick(runner, "continue")
+	check(runner.choices()[_choice_index(runner, "buy")]["enabled"], "with 45 copper the meal is affordable")
+	check(_pick(runner, "buy"), "buy the meal")
+	check(bag.copper == 5 and bag.count(Inventory.find_item(&"beer")) == 4 and bag.count(Inventory.find_item(&"stew")) == 4, "40 copper paid, four beer and four stew in the bag (%s)" % bag.describe())
+	check(not runner.is_running and ended.back() == "terminal", "the silent terminal node ends the conversation")
+
+	# Question menus: answered questions disappear, also in the repeated menu.
+	runner.start()
+	_pick(runner, "danger")
+	check(runner.current_id == "spider_rumour" and _pick(runner, "hunter") and runner.current_id == "hunter_location", "danger -> spider rumour -> hunter location")
+	check(runner.choices().size() == 5 and _pick(runner, "last_seen") and runner.current_id == "hunter_last_seen", "ask when he was last seen")
+	check(_pick(runner, "back") and runner.current_id == "hunter_questions", "back to the remaining questions")
+	check(_choice_index(runner, "last_seen") < 0 and _choice_index(runner, "checked") >= 0 and runner.choices().size() == 4, "the answered question is gone, the others stay")
+	check(_pick(runner, "visit") and not runner.is_running and ended.back() == "choice", "'visit' ends the conversation")
+
+	# Skill checks: the best talker rolls, DC 0 always succeeds, 99 always fails.
+	runner.default_dc = 0
+	runner.start()
+	check(_pick(runner, "threat") and runner.current_id == "greeting_threat_success", "an unbeatable threat check succeeds")
+	var result := runner.last_check
+	check(result["skill"] == "intimidation" and result["roller"] == fighter and result["modifier"] == 2 and result["proficient"], "the fighter (CHA +0, trained +2) ties with the rogue (CHA +2) and wins the tie as the trained one (%s)" % str(result))
+	check(result["total"] == result["natural"] + result["modifier"] and result["success"] and result["dc"] == 0, "roll arithmetic")
+	check(_pick(runner, "free_beer") and runner.current_id == "free_beer_success" and bag.count(Inventory.find_item(&"beer")) == 8, "the free round: +4 beer")
+	check(story.is_consumed("free_beer_success") and runner.choices().size() == 1 and runner.choices()[0]["kind"] == "end", "a terminal node with text offers 'Gespräch beenden'")
+	runner.choose(0)
+	check(not runner.is_running, "...which ends it")
+	runner.start()
+	_pick(runner, "threat")
+	check(_choice_index(runner, "free_beer") < 0 and _choice_index(runner, "order") >= 0, "the free round happens once per run")
+	runner.end()
+	runner.default_dc = 99
+	effects.clear()
+	runner.start()
+	check(_pick(runner, "threat") and runner.current_id == "greeting_threat_failure", "a failed check takes the failure branch")
+	check(_pick(runner, "continue") and runner.current_id == "greeting_guard", "the guard steps in")
+	check(_pick(runner, "attack") and not runner.is_running and ended.back() == "combat", "attacking the guard ends the talk with a fight")
+	check(effects.size() == 1 and effects[0]["type"] == "start_combat" and effects[0]["participants"] == ["town_guard"] and effects[0]["on_victory"] == "victory_directions", "the world is asked to start the guard fight")
+	runner.default_dc = DialogueRunner.DEFAULT_DC
+
+	# Leaving on the guard's demand.
+	effects.clear()
+	runner.start("greeting_guard")
+	check(_pick(runner, "leave") and effects.size() == 1 and effects[0]["type"] == "leave_location" and not runner.is_running, "leaving asks the world to walk out")
+
+	# Not authored branches are hidden, payments need the exact amount.
+	runner.start("fee_guard")
+	check(_choice_index(runner, "lie") < 0 and _choice_index(runner, "threat") < 0 and _choice_index(runner, "pay") >= 0, "unwritten branches are hidden, the payment stays")
+	check(runner.choices()[_choice_index(runner, "pay")]["enabled"] and bag.copper == 5, "5 copper pay the 5 copper fee")
+	check(_pick(runner, "pay") and bag.copper == 0, "the fee is paid")
+	runner.end()
+
+	# The innkeeper's lie after a failed intimidation routes the party to the cave.
+	bag.add_copper(100)
+	effects.clear()
+	runner.start("fee_wirt_threat_success")
+	check(_pick(runner, "continue") and runner.current_id == "directions_false", "the 'shortcut'")
+	check(story.get_flag("hunter_route_known") == true and story.get_flag("hunter_route_false") == true and story.navigation_hints.get("cave") == "hunter_hut", "flags and the navigation hint are set")
+	check(effects.size() == 1 and effects[0]["type"] == "set_navigation_hint", "the world hears about the hint")
+	runner.end()
+
+	# Automatic transitions: the cook stabs, the fight starts after 'Weiter'.
+	effects.clear()
+	runner.start("cook_stabs")
+	check(runner.is_running and runner.choices().size() == 1 and runner.choices()[0]["kind"] == "continue", "a stage direction waits for 'Weiter'")
+	runner.advance()
+	check(not runner.is_running and effects.size() == 1 and effects[0]["participants"] == ["cook", "town_guard"] and effects[0]["opening_attack"]["attacker"] == "cook", "then the cook and the guard fight, the cook strikes first")
+
+	# The mug quest: ask three times, negotiate, bring it back.
+	runner.start()
+	_pick(runner, "work")
+	check(runner.current_id == "work" and _pick(runner, "origin") and runner.current_id == "mug_origin_first", "first question about the mug")
+	_pick(runner, "back")
+	check(_pick(runner, "origin") and runner.current_id == "mug_origin_second", "second question")
+	_pick(runner, "back")
+	check(_pick(runner, "origin") and runner.current_id == "mug_origin_third" and story.get_flag("mug_origin_asks") == 3, "the third time he is done talking")
+	check(runner.choices()[0]["kind"] == "end", "...and the conversation can only end")
+	runner.end()
+	runner.start()
+	_pick(runner, "work")
+	check(_pick(runner, "reward") and runner.current_id == "mug_offer", "ask for the reward")
+	check(_pick(runner, "accept") and story.quest_status("recover_innkeeper_mug") == "accepted" and story.quest_reward("recover_innkeeper_mug")["copper"] == 20 and not runner.is_running, "accepted: 2 silver and four beer")
+	runner.start()
+	_pick(runner, "work")
+	check(_choice_index(runner, "reward") < 0, "a decided quest is not renegotiated")
+	runner.end()
+	runner.start()
+	check(_choice_index(runner, "return_mug") < 0, "without the mug there is nothing to hand over")
+	runner.end()
+	var mug := Inventory.find_item(&"innkeeper_copper_mug")
+	bag.add(mug)
+	var copper_before := bag.copper
+	var beer_before := bag.count(Inventory.find_item(&"beer"))
+	runner.start()
+	check(_choice_index(runner, "return_mug") >= 0, "with the mug the return is offered at the greeting")
+	check(_pick(runner, "return_mug") and runner.current_id == "mug_return_promised", "the switch routes to the promised reward")
+	check(bag.count(mug) == 0 and bag.copper == copper_before + 20 and bag.count(Inventory.find_item(&"beer")) == beer_before + 4, "mug handed over, 20 copper and four beer received")
+	check(story.quest_completed("recover_innkeeper_mug"), "quest completed")
+	runner.advance()
+	runner.start()
+	check(_choice_index(runner, "return_mug") < 0, "a completed quest offers no second return")
+	runner.end()
+
+	# Refused food service blocks stew purchases.
+	story.set_flag("food_service_refused", true)
+	runner.start("meal_price")
+	var blocked: Dictionary = runner.choices()[_choice_index(runner, "buy")]
+	check(not blocked["enabled"] and blocked["reason"].begins_with("Die Köchin"), "no stew after the insult (%s)" % blocked["reason"])
+	runner.end()
+
+	fighter.queue_free()
+	rogue.queue_free()

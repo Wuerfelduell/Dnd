@@ -1,6 +1,7 @@
 ## Heads-up display: mode banner, initiative list, action bar with lock-and-
 ## confirm, dice log, camera buttons (touch), floating combat text, level-up
-## and game-over overlays, rest button.
+## and game-over overlays, rest button, the party bag and the dialogue panel
+## (speaker, line, stage direction, finger-sized answer buttons).
 ##
 ## Designed for a 1280x720 base resolution that is scaled to the screen, so
 ## all buttons stay finger sized on a phone.
@@ -56,11 +57,21 @@ var _touch: bool = false
 @onready var inventory_hint: Label = %InventoryHint
 @onready var inventory_list: VBoxContainer = %InventoryList
 @onready var close_bag_button: Button = %CloseBagButton
+@onready var dialogue_panel: PanelContainer = %DialoguePanel
+@onready var dialogue_speaker: Label = %DialogueSpeaker
+@onready var dialogue_text: RichTextLabel = %DialogueText
+@onready var dialogue_stage: Label = %DialogueStage
+@onready var dialogue_check: Label = %DialogueCheck
+@onready var dialogue_choices: VBoxContainer = %DialogueChoices
+@onready var dialogue_close: Button = %DialogueClose
+var _dialogue: DialogueRunner = null
 
 const SFX := {
 	"potion": preload("res://assets/shop/sounds/potion_drink.wav"),
 	"coins": preload("res://assets/shop/sounds/coin_jingle.wav"),
 	"chest": preload("res://assets/shop/sounds/chest_open.wav"),
+	"miss": preload("res://assets/shop/sounds/miss.wav"),
+	"purchase": preload("res://assets/shop/sounds/purchase_confirmed.wav"),
 }
 var _sfx: AudioStreamPlayer
 var world: World
@@ -92,6 +103,8 @@ func setup(p_combat: CombatManager, p_input: PlayerCombatInput, p_player: Actor,
 		world.inventory.changed.connect(_refresh_inventory)
 	bag_button.pressed.connect(func(): _show_inventory(not inventory_panel.visible))
 	close_bag_button.pressed.connect(func(): _show_inventory(false))
+	dialogue_close.pressed.connect(func(): if _dialogue != null: _dialogue.end("player"))
+	dialogue_panel.visible = false
 	_refresh_inventory()
 
 	combat.combat_started.connect(func(_p): _refresh_all(); _refresh_inventory())
@@ -158,6 +171,14 @@ func _refresh_mode() -> void:
 		GameState.State.GAME_OVER:
 			mode_label.text = "GAME OVER"
 			hint_label.text = "Tap Restart to try again." if _touch else "Press R or Restart to try again."
+			action_panel.visible = false
+			joystick.visible = false
+			next_wave_button.visible = false
+			long_rest_button.visible = false
+		GameState.State.DIALOGUE:
+			mode_label.text = "CONVERSATION"
+			hint_label.text = "Pick an answer. Paid answers show their price; greyed ones are out of reach. [Skill] answers roll a check."
+			initiative_panel.visible = false
 			action_panel.visible = false
 			joystick.visible = false
 			next_wave_button.visible = false
@@ -402,8 +423,8 @@ func _refresh_inventory() -> void:
 	if world == null:
 		return
 	var bag := world.inventory
-	bag_button.text = "Bag · %d g" % bag.gold
-	inventory_title.text = "Party bag · %d gold" % bag.gold
+	bag_button.text = "Bag · %s" % Inventory.format_money(bag.copper)
+	inventory_title.text = "Party bag · %s" % Inventory.format_money(bag.copper)
 	if not inventory_panel.visible:
 		return
 	for child in inventory_list.get_children():
@@ -439,7 +460,7 @@ func _refresh_inventory() -> void:
 			use.pressed.connect(func(): world.use_item_from_bag(item))
 			row.add_child(use)
 		inventory_list.add_child(row)
-	inventory_hint.text = "In combat potions are a bonus action on the action bar." if combat.is_active else "Potions go to whoever needs them most. Tap a chest in the world to loot it."
+	inventory_hint.text = "In combat potions are a bonus action on the action bar." if combat.is_active else "Potions go to whoever needs them most. Tap a chest to loot it, tap the innkeeper to talk. 10 K = 1 S, 10 S = 1 G."
 
 
 func _on_item_used(_user: Node, target: Node, item: ItemData) -> void:
@@ -450,15 +471,87 @@ func _on_item_used(_user: Node, target: Node, item: ItemData) -> void:
 	_refresh_inventory()
 
 
-func _on_loot_gained(gold: int, items: Array) -> void:
+func _on_loot_gained(copper: int, items: Array) -> void:
 	_play("coins")
 	var who := world.leader if world != null else null
 	if who != null:
-		var text := "+%d GOLD" % gold if gold > 0 else ""
+		var text := "+%s" % Inventory.format_money(copper) if copper > 0 else ""
 		if not items.is_empty():
 			text += (" " if text != "" else "") + "+%d ITEM%s" % [items.size(), "S" if items.size() > 1 else ""]
 		FloatingText.spawn(who.get_parent(), who.global_position + Vector3(0, 1.4, 0), text, Color(1.0, 0.85, 0.3))
 	_refresh_inventory()
+
+
+# --- Dialogue ------------------------------------------------------------
+
+## Opens the panel for [param runner] (connect before the runner starts).
+func show_dialogue(runner: DialogueRunner, npc: Actor) -> void:
+	_dialogue = runner
+	runner.line_changed.connect(_on_dialogue_line)
+	runner.choices_changed.connect(_refresh_dialogue_choices)
+	runner.check_resolved.connect(_on_dialogue_check)
+	dialogue_speaker.text = npc.display_name() if npc != null else ""
+	dialogue_text.text = ""
+	dialogue_stage.text = ""
+	dialogue_stage.visible = false
+	dialogue_check.text = ""
+	dialogue_check.visible = false
+	for child in dialogue_choices.get_children():
+		child.queue_free()
+	inventory_panel.visible = false
+	level_up_panel.visible = false
+	dialogue_panel.visible = true
+	_refresh_mode()
+
+
+func hide_dialogue() -> void:
+	_dialogue = null
+	dialogue_panel.visible = false
+	_refresh_mode()
+
+
+func _on_dialogue_line(speaker: String, text: String, stage_direction: String) -> void:
+	if speaker != "":
+		dialogue_speaker.text = speaker
+	dialogue_text.text = text
+	dialogue_stage.text = stage_direction
+	dialogue_stage.visible = stage_direction != ""
+
+
+func _refresh_dialogue_choices(views: Array) -> void:
+	for child in dialogue_choices.get_children():
+		child.queue_free()
+	for view in views:
+		var btn := Button.new()
+		btn.custom_minimum_size = Vector2(0, 46)
+		btn.alignment = HORIZONTAL_ALIGNMENT_LEFT
+		btn.add_theme_font_size_override("font_size", 15)
+		btn.set("autowrap_mode", TextServer.AUTOWRAP_WORD_SMART)
+		var text: String = view["text"]
+		if not view["enabled"]:
+			btn.disabled = true
+			text += "
+" + str(view["reason"])
+			btn.tooltip_text = str(view["reason"])
+		if view["kind"] != "choice":
+			btn.add_theme_color_override("font_color", Color(0.7, 0.85, 1.0))
+			btn.alignment = HORIZONTAL_ALIGNMENT_CENTER
+		btn.text = text
+		var index: int = view["index"]
+		btn.pressed.connect(func():
+			if _dialogue != null:
+				dialogue_check.visible = false
+				_dialogue.choose(index))
+		dialogue_choices.add_child(btn)
+
+
+func _on_dialogue_check(result: Dictionary) -> void:
+	dialogue_check.text = "%s: %s würfelt %d %s %d = %d gegen SG %d – %s." % [
+		DialogueRunner.skill_name_de(result["skill"]), result["roller_name"], result["natural"],
+		"+" if result["modifier"] >= 0 else "-", absi(result["modifier"]), result["total"], result["dc"],
+		"Erfolg" if result["success"] else "Fehlschlag"]
+	dialogue_check.visible = true
+	_play("purchase" if result["success"] else "miss")
 
 
 func _on_combat_ended(victory: bool) -> void:

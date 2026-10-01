@@ -1,10 +1,10 @@
-## Autoload: global game mode (exploration / combat / game over).
+## Autoload: global game mode (exploration / dialogue / combat / game over).
 ##
 ## Holds no combat logic itself; CombatManager switches the state and other
 ## systems (player controller, HUD, camera) react to [signal state_changed].
 extends Node
 
-enum State { EXPLORATION, COMBAT, GAME_OVER }
+enum State { EXPLORATION, COMBAT, GAME_OVER, DIALOGUE }
 
 signal state_changed(new_state: State, old_state: State)
 
@@ -35,6 +35,11 @@ func is_game_over() -> bool:
 	return state == State.GAME_OVER
 
 
+## A conversation is open: nobody walks, nobody notices anybody.
+func is_in_dialogue() -> bool:
+	return state == State.DIALOGUE
+
+
 ## Await a pause of [param seconds] scaled by [member pacing].
 ## With pacing 0 this still yields one frame so signals/physics can settle.
 func wait(seconds: float) -> void:
@@ -52,4 +57,6 @@ func state_name(s: State = state) -> String:
 			return "Combat"
 		State.GAME_OVER:
 			return "Game Over"
+		State.DIALOGUE:
+			return "Dialogue"
 	return "?"

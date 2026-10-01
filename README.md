@@ -1,4 +1,4 @@
-# Dnd – 3D-RPG-Prototyp (Vertical Slice, Test 9: Inventar, Tränke, Beute)
+# Dnd – 3D-RPG-Prototyp (Vertical Slice, Test 10: Gespräche mit dem Wirt)
 
 Trying to make a dnd game using my Baldur's Gate 3 and D&D 5.5e experience.
 
@@ -27,11 +27,21 @@ Pilzschamane und am Ende der Steingolem, der die Schatztruhe bewacht. Die Höhle
 mischen sich nie: es kämpft nur die Gruppe, zu der der Entdecker gehört. Die Höhlenbewohner kommen
 nicht wieder, die Arena-Wellen laufen unabhängig davon weiter.
 
+Mit dem **Wirt** kann man reden: antippen, der Anführer geht hin, und das Gespräch aus
+`data/dialogues/innkeeper.json` läuft (handgeschrieben, auf Deutsch). Man kann Essen kaufen, nach dem
+verschwundenen Jäger fragen, einen Wegbeschreibungs-Preis aushandeln, drohen (Einschüchtern),
+lügen (Täuschen) oder verhandeln (Überzeugen) – jeder dieser Würfe ist ein echter d20-Wurf des
+besten Redners der Party. Wer es übertreibt, bekommt es mit der **Stadtwache** zu tun (Langschwert,
+22 HP, AC 16) oder mit der **Köchin** samt Messer, und beide Kämpfe laufen mit denselben Regeln wie
+jeder andere. Der Wirt vermisst außerdem seinen **kupfernen Bierkrug**: Der liegt in der Schatztruhe
+der Höhle, und wer ihn zurückbringt, bekommt die vereinbarte Belohnung.
+
 ![Die Helden](docs/screenshots/party.png)
 ![Die Taverne](docs/screenshots/tavern.png)
 ![Die Höhle](docs/screenshots/cave.png)
 ![Die Kreaturen der späteren Wellen](docs/screenshots/creatures.png)
 ![Beutel und Tränke auf der Aktionsleiste](docs/screenshots/hud_potions.png)
+![Gespräch mit dem Wirt](docs/screenshots/hud_dialogue.png)
 ![Die Schützen-Anhöhe](docs/screenshots/ledge.png)
 ![Das Lager bei Nacht](docs/screenshots/camp_night.png)
 
@@ -128,10 +138,12 @@ Umwerfen, Pack Tactics), 1 Hobgoblin Captain (AC 17, 39 HP, zwei Angriffe pro Ac
 * **Ressourcen sind endlich**: Zauber-Slots, Second Wind und Action Surge laden nicht mehr pro Kampf auf. Kurze Rast zwischen den Wellen: ein Trefferwürfel Heilung pro zwei Stufen, Kämpfer-Features und die Hälfte der Pfeile. Lange Rast (nur nach jeder dritten Welle): alles. Cantrips sind gratis und würfeln ab Stufe 5 doppelt.
 * **Pfeile**: Langbogen und Kurzbogen haben 20 Pfeile, Goblin-Bogenschützen 8 (danach greifen sie mit dem Dolch an). Die Aktionsleiste zeigt den Vorrat.
 * **Wellen skalieren**: Beim Respawn werden alle Gegner auf das durchschnittliche Party-Level gehoben (+20 % HP pro Stufe, alle zwei Stufen +1 auf Treffer, Schaden und AC, mehr XP), und ab Welle 3 kommt pro Welle ein zusätzlicher Goblin-Krieger dazu (bis vier).
-* **Inventar und Tränke**: Die Party hat einen gemeinsamen Beutel (Knopf oben links, zeigt das Gold). Vier Tränke: Heiltrank (2d4+2, belebt Gefallene), Manatrank (gibt den höchsten verbrauchten Zauberslot zurück), Gegengift (heilt Poisoned), Stärketrank (+2 Waffenschaden für 5 Runden). Dazu Pfeilbündel (+10 Pfeile). Im Kampf sind Tränke eine **Bonus Action** auf der Aktionsleiste, auch für einen Verbündeten in 1,5 m, auch für einen Gefallenen. Außerhalb des Kampfes geht ein Trank aus dem Beutel an das Mitglied, das ihn am nötigsten hat. Die KI-Party trinkt unter 40 % HP und bei Gift.
-* **Beute**: Besiegte Gegner hinterlassen Gold (XP-Wert geteilt durch 10) und mit 15 % Wahrscheinlichkeit einen Trank. Kisten in der Welt (Truhe am Lager, Schatztruhe hinter dem Golem) werden angetippt, der Anführer läuft hin und plündert sie einmal. Start: 25 Gold, zwei Heiltränke, ein Gegengift. Händler, Ausrüstung und Speichern folgen.
+* **Inventar und Tränke**: Die Party hat einen gemeinsamen Beutel (Knopf oben links, zeigt die Münzen). Vier Tränke: Heiltrank (2d4+2, belebt Gefallene), Manatrank (gibt den höchsten verbrauchten Zauberslot zurück), Gegengift (heilt Poisoned), Stärketrank (+2 Waffenschaden für 5 Runden). Dazu Pfeilbündel (+10 Pfeile). Im Kampf sind Tränke eine **Bonus Action** auf der Aktionsleiste, auch für einen Verbündeten in 1,5 m, auch für einen Gefallenen. Außerhalb des Kampfes geht ein Trank aus dem Beutel an das Mitglied, das ihn am nötigsten hat. Die KI-Party trinkt unter 40 % HP und bei Gift.
+* **Geld**: gezählt wird in **Kupfer**, 10 Kupfer = 1 Silber, 10 Silber = 1 Gold (Anzeige „2 G 3 S 5 K“). Die Party startet mit 3 Gold (300 Kupfer), zwei Heiltränken und einem Gegengift. Preise der Tränke in Kupfer (Heiltrank 250, Gegengift 150, Stärketrank 350, Manatrank 400, Pfeilbündel 50); Bier und Eintopf vom Wirt kosten 1 Silber pro Kopf.
+* **Beute**: Besiegte Gegner hinterlassen Kupfer in Höhe ihres XP-Werts (mindestens 5) und mit 15 % Wahrscheinlichkeit einen Trank. Kisten in der Welt (Truhe am Lager: 1 G 5 S, Schatztruhe hinter dem Golem: 12 G, vier Tränke und der Bierkrug des Wirts) werden angetippt, der Anführer läuft hin und plündert sie einmal. Händler, Ausrüstung und Speichern folgen.
+* **Gespräche**: Neutrale mit einem `dialogue`-Eintrag in ihrer `.tres` (bisher der Wirt) werden angetippt; der Anführer läuft bis auf 2,4 m heran, das Spiel wechselt in den Modus **Gespräch** (niemand läuft, niemand entdeckt jemanden), und das Panel unten zeigt Sprecher, Zeile, Regieanweisung und die Antworten als Knöpfe. Die Dialogdatei ist Daten (JSON, Schema 1): Knoten mit Sprecher, Text, Antworten, Effekten, Regieanweisung, `terminal`, `automatic_next` (nur ein „Weiter“), `switch` (verzweigt nach Flag oder Quest-Status), `requires`, `once_per_run`; Antworten mit `next`, `end_conversation`, `once_answered` (gestellte Fragen verschwinden, auch im wiederholten Fragenmenü), `requires` (Mindestkupfer, Essensverbot) und `check`. Ein `check` ist d20 + Charisma (+ Übungsbonus, wenn jemand den Skill hat: Kämpfer Einschüchtern, Schurkin Täuschen und Überzeugen, Kleriker Überzeugen) gegen den SG; lässt der Autor den SG offen (`null`), gilt **SG 12**. Es würfelt das lebende Mitglied mit dem besten Bonus, bei Gleichstand das geübte; der Wurf steht im Panel und im Log, pro Gespräch wird jeder Check nur einmal gewürfelt. Effekte: Flags setzen/zählen, Kupfer ausgeben (atomar, unbezahlbare Antworten sind ausgegraut mit Grund) oder erhalten, Gegenstände geben/nehmen (Bier heilt 1W4, Eintopf 1W8+1), Quest setzen/belohnen/abschließen (eine entschiedene Quest wird nicht neu verhandelt), Hinweise, `start_combat` (die genannten Leute werden feindlich und bleiben es; ein `opening_attack` lässt die Köchin vor der Initiative zustechen; `on_victory` setzt das Gespräch nach dem Sieg fort, sobald das Siegespanel geschlossen ist) und `leave_location` (die Party geht vor die Tür). Vom Autor als `not_authored` markierte Zweige werden ausgeblendet, nicht erfunden. Der Krug wird am Gruß als Navigationsknopf angeboten, sobald er im Beutel liegt und die Quest offen ist. Abbrechen geht jederzeit über das X.
 * **Höhlen-Encounter**: eigener Kampf mit sieben Bewohnern, ausgelöst durch deren Wahrnehmung (die Höhle ist dunkel bis auf Kristalle und Pilze, also kommt man bis auf 3,4 m heran). Nur Gegner derselben Gruppe im Umkreis von 16 m des Entdeckers schließen sich an. XP wie gewohnt; die Rast nach einer Welle hängt nur von den Arena-Gegnern ab.
-* **Taverne**: sechs neutrale NPCs mit eigenen Posen (Sitzen, Jubeln, Hantieren). Neutral heißt: `is_hostile_to` ist in beide Richtungen falsch, keine Aktion kann sie anvisieren, Flächenzauber können sie aber treffen, wenn man sie in den Radius nimmt.
+* **Taverne**: sechs neutrale NPCs mit eigenen Posen (Sitzen, Jubeln, Hantieren). Neutral heißt: `is_hostile_to` ist in beide Richtungen falsch, keine Aktion kann sie anvisieren, Flächenzauber können sie aber treffen, wenn man sie in den Radius nimmt. Wache und Köchin tragen Waffen und geben XP (50 / 25), falls ein Gespräch eskaliert; die anderen vier haben noch nichts zu sagen (Dialoge werden von Hand geschrieben).
 * **Neue Kreaturen aus dem Höhleneingang** (bleiben ab ihrer Welle dabei): Welle 2 Fledermaus; Welle 3 Höhlenspinne (giftiger Biss: CON-Save DC 11, sonst **Poisoned** = Nachteil auf Angriffe, CON-Wiederholungssave) und Kristallschleim (24 HP, langsam, Säure); Welle 4 zweite Spinne, Pilzschamane (Sporenspucke auf 9 m mit Gift) und ein Wegelagerer (Sneak Attack 1d6); Welle 5 Ruinengeist (Lebensentzug 2d6) und zweiter Wegelagerer; Welle 6 der **Steingolem** (68 HP, AC 17, zwei Schläge 2d8+5, langsam). Alles in `World.WAVE_ARRIVALS` als Daten, jede Kreatur ist eine `.tres` mit Modell.
 * **Wegfindung** weicht anderen Figuren aus, stellt ein besetztes Ziel daneben und gleitet bei Berührung an Körpern entlang statt stehen zu bleiben. Figuren folgen dem Gelände (Schwerkraft, Treppen), Bewegung wird auf der Bodenebene gemessen.
 * **Höhe**: Steht der Angreifer mindestens 1 m höher als das Ziel, bekommt er +2 auf den Angriffswurf; steht er mindestens 1 m tiefer, -2. Gilt für Waffen und Zauberangriffe. Die Schützen-Anhöhe und der Aussichtsfelsen sind 2 m hoch, der Hügel am Lager 1 m; alle haben Treppen (unter der Treppe liegt ein glatter Collider, damit die Figuren hinaufgleiten). Direkt am Fuß einer Klippe verdeckt die Kante den Unterkörper, das zählt als Deckung.
@@ -140,7 +152,7 @@ Umwerfen, Pack Tactics), 1 Hobgoblin Captain (AC 17, 39 HP, zwei Angriffe pro Ac
 * **Concentration**: nur ein Concentration-Zauber gleichzeitig; Schaden erzwingt einen CON-Rettungswurf (DC 10 oder halber Schaden), Fehlschlag oder Down beendet den Zauber und alle verknüpften Effekte.
 * **Status-Effekte**: Blessed (+1d4 Angriff/Saves), Guided (Vorteil auf den nächsten Angriff), Slowed (-3 m), Paralyzed (handlungsunfähig, Angriffe mit Vorteil, Nahkampftreffer sind Crits, Wiederholungs-Save am Zugende), Prone (Nachteil auf eigene Angriffe, Nahkampf gegen sich mit Vorteil, Aufstehen kostet halbe Bewegung), Disengaging.
 * 0 HP = „Down“. Heilung (Healing Word, Cure Wounds) holt Gefallene zurück. Nach einem Sieg stehen alle mit 1 HP auf. Ist die ganze Party down → Game Over.
-* Noch nicht enthalten: Todesrettungswürfe, Resistenzen, Reaktionszauber (Shield), Ausrüstung mit Slots und Händler (Icons, Rüstungs- und Waffenmodelle liegen schon unter `assets/shop/`), Projektile, Speichern, freie Attributswahl beim Level-Up (der Hauptwert steigt automatisch), Verstecken als Aktion, Kreaturen als Deckung, Gespräche mit den Tavernenleuten.
+* Noch nicht enthalten: Todesrettungswürfe, Resistenzen, Reaktionszauber (Shield), Ausrüstung mit Slots und Händler (Icons, Rüstungs- und Waffenmodelle liegen schon unter `assets/shop/`), Projektile, Speichern, freie Attributswahl beim Level-Up (der Hauptwert steigt automatisch), Verstecken als Aktion, Kreaturen als Deckung, Dialoge für Köchin, Barde, Händler, Gast und Wache, eine echte Jägerhütte (die Wegbeschreibungen setzen bisher nur Flags und einen Hinweis im Log), Speichern des Story-Zustands.
 
 ## Tests (ohne Editor)
 
@@ -151,7 +163,8 @@ godot --headless --path . res://tests/unit_tests.tscn
 # Szenarien in der echten Szene: Opportunity Attack, Disengage, Hold Person (Lähmung, Zug überspringen,
 # Wiederholungs-Save, Auto-Crit, Concentration-Verlust), Healing Word belebt wieder, Fireball,
 # Misty Step, Umgehen von Körpern, Treppen hinauf, Höhenbonus, Deckung hinter Kiste/Säule,
-# sichtbare Zielpunkte, Licht und Wahrnehmung im Dunkeln
+# sichtbare Zielpunkte, Licht und Wahrnehmung im Dunkeln, Kisten und Beute, Gespräch mit dem Wirt
+# samt Wachen- und Köchinnen-Kampf
 godot --headless --path . -- --scenario
 
 # Kompletter Loop: Joystick, Tippen, Party folgt, Kampf (erster Zug per Lock & Confirm, Rest per KI),
@@ -163,7 +176,7 @@ godot --headless --path . -- --autoplay --seed=4
 
 # Screenshots der Figuren, der Party, der Anhöhe, des Lagers, der Taverne und der Höhle rendern (braucht ein Display oder xvfb-run)
 xvfb-run godot --rendering-driver opengl3 --path . -- --screenshot --shot-dir=/tmp/shots
-# HUD mit offenem Beutel und Aktionsleiste im Kampf
+# HUD mit offenem Beutel, dem Gespräch mit dem Wirt und der Aktionsleiste im Kampf
 xvfb-run godot --rendering-driver opengl3 --path . -- --hudshot
 ```
 
@@ -177,16 +190,18 @@ scenes/           main.tscn (Testarena, Party, Gegner), actors/, ui/
 scripts/core/     GameState, EventBus, InputSetup, Dice, DiceResult, ScreenRaycast
 scripts/data/     ActorData, ActorStats, WeaponData, SpellData, StatusEffectData (Resources)
 scripts/actors/   Actor, ActorVisual, CharacterAnimator, MiniatureBuilder, PlayerController, PartyFollower, EnemyPerception
-scripts/items/    Inventory (Beutel der Party)
+scripts/items/    Inventory (Beutel der Party, Kupfer/Silber/Gold)
+scripts/story/    StoryState (Flags, Quests, Hinweise, einmalige Dialogknoten)
+scripts/dialogue/ DialogueTree (JSON laden und prüfen), DialogueRunner (Knoten, Antworten, Checks, Effekte)
 scripts/combat/   CombatManager, InitiativeTracker, TurnState, AttackResolver, AttackProfile,
                   SavingThrow, SpellResolver, StatusEffect, Progression, Targeting, CombatMovement,
                   Visibility (Sichtlinie, Deckung, Höhe), Lighting (Licht/Schatten), CombatSituation,
                   PlayerCombatInput, actions/ (Attack, Offhand, Spell, Dash, Disengage, Second Wind,
                   Action Surge, UseItem), ai/ (CombatAI, PartyAI), EnemyAI
-scripts/world/    World (Wellentabelle, Arena-/Höhlen-Gruppen, NPCs, Beute), TerrainBuilder (Arena, Taverne, Höhle, Plateaus, Treppen, Mauern, Ruinen, Lichter), Terrain (Bodenhöhe), LootChest,
+scripts/world/    World (Wellentabelle, Arena-/Höhlen-Gruppen, NPCs, Beute, Gespräche und ihre Folgen), TerrainBuilder (Arena, Taverne, Höhle, Plateaus, Treppen, Mauern, Ruinen, Lichter), Terrain (Bodenhöhe), LootChest,
                   LightSource, CameraRig, TargetingPreview
 scripts/ui/       CombatHud, HudJoystick, ActorLabel, FloatingText
-data/             .tres für Helden, Gegner (inkl. Modell, Maßstab, Ausrüstung), Waffen, Zauber, Status-Effekte und Items
+data/             .tres für Helden, Gegner (inkl. Modell, Maßstab, Ausrüstung), Waffen, Zauber, Status-Effekte und Items; dialogues/ mit den handgeschriebenen Gesprächen (JSON)
 assets/           Benutzte GLB-Modelle (characters/, kaykit/, kenney/, custom_grid/, environment_expansion/), shop/ (Icons, Tränke, Projektile, Rüstungen, Sounds, Effekte), Kataloge, Lizenzen, Original-ZIPs
 tests/            Unit-Tests, Szenario-Test, Autoplay-Integrationstest, run_all.sh
 docs/             Architekturbeschreibung, Screenshots

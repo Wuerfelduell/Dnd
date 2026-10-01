@@ -3,7 +3,8 @@
 ## Run with:  godot --headless --path . -- --scenario
 ## Covers: opportunity attacks (and Disengage avoiding them), Hold Person with
 ## paralysis / turn skip / repeat save / auto-crit, concentration breaking,
-## reviving a downed ally with Healing Word.
+## reviving a downed ally with Healing Word, terrain, the tavern and the cave,
+## loot, and talking to the innkeeper (including the fights a talk can start).
 extends Node
 
 var world: World
@@ -87,6 +88,7 @@ func _run() -> void:
 	await _scenario_terrain_cover_and_shadows()
 	await _scenario_tavern_and_cave()
 	await _scenario_loot()
+	await _scenario_dialogue()
 	if not _failed:
 		print("[scenario] SUCCESS after %.1f s" % _time)
 		get_tree().quit(0)
@@ -427,20 +429,20 @@ func _scenario_loot() -> void:
 	print("[scenario] --- chests, loot and potions ---")
 	var fighter := _actor("Party/Fighter")
 	var bag := world.inventory
-	expect(bag.gold == 25 and bag.count(Inventory.find_item(&"potion_health")) == 2, "the party starts with 25 gold and two health potions (%s)" % bag.describe())
+	expect(bag.copper == 300 and bag.count(Inventory.find_item(&"potion_health")) == 2, "the party starts with 3 gold and two health potions (%s)" % bag.describe())
 	expect(fighter.find_action(&"use_potion_health") != null, "the fighter has potion actions")
 	# Walk to the tavern chest and open it.
 	var chest: LootChest = world.get_node("NavigationRegion3D/Chest")
 	expect(chest != null and not chest.looted, "the tavern chest exists")
 	var controller: PlayerController = fighter.get_node("PlayerController")
 	fighter.global_position = Vector3(3.5, 0, 13)
-	var gold_before := bag.gold
+	var copper_before := bag.copper
 	controller.walk_to(chest.global_position, chest)
 	var frames := 0
-	while frames < 600 and bag.gold == gold_before:
+	while frames < 600 and bag.copper == copper_before:
 		await get_tree().physics_frame
 		frames += 1
-	expect(bag.gold == gold_before + 15 and bag.count(Inventory.find_item(&"potion_antidote")) == 2 and bag.count(Inventory.find_item(&"arrows")) == 1, "walking to the chest loots 15 gold, an antidote and arrows (%s; fighter at %s moving=%s, chest at %s, pending=%s, frames=%d)" % [bag.describe(), fighter.global_position, fighter.is_moving(), chest.global_position, controller._target_chest, frames])
+	expect(bag.copper == copper_before + 150 and bag.count(Inventory.find_item(&"potion_antidote")) == 2 and bag.count(Inventory.find_item(&"arrows")) == 1, "walking to the chest loots 1 gold 5 silver, an antidote and arrows (%s; fighter at %s moving=%s, chest at %s, pending=%s, frames=%d)" % [bag.describe(), fighter.global_position, fighter.is_moving(), chest.global_position, controller._target_chest, frames])
 	expect(chest.looted, "the chest is now empty")
 	# Drinking outside combat goes to the most hurt member.
 	var wizard := _actor("Party/Wizard")
@@ -453,14 +455,102 @@ func _scenario_loot() -> void:
 	var gob := _actor("Enemies/GoblinWarrior")
 	fighter.global_position = Vector3(0, 0, 0)
 	gob.global_position = Vector3(0, 0, -1.2)
-	gold_before = bag.gold
+	copper_before = bag.copper
 	combat.start_combat([fighter, gob] as Array[Actor])
 	await _wait_turn(fighter)
 	gob.take_damage(999)
 	combat.end_turn()
 	await get_tree().physics_frame
 	await get_tree().physics_frame
-	expect(not combat.is_active and bag.gold >= gold_before + 5, "the fallen goblin left at least 5 gold (%d -> %d)" % [gold_before, bag.gold])
+	expect(not combat.is_active and bag.copper >= copper_before + 50, "the fallen goblin left at least 50 copper (%d -> %d)" % [copper_before, bag.copper])
 	fighter.global_position = Vector3(0, 0, 12)
 	gob.restore_full(Vector3(-2, 0, -9))
 
+
+
+func _scenario_dialogue() -> void:
+	print("[scenario] --- talking to the innkeeper, fights with the guard and the cook ---")
+	var fighter := _actor("Party/Fighter")
+	var innkeeper := _actor("Npcs/Innkeeper")
+	var guard := _actor("Npcs/TownGuard")
+	var cook := _actor("Npcs/Cook")
+	var controller: PlayerController = fighter.get_node("PlayerController")
+	expect(innkeeper.data.dialogue == "innkeeper" and innkeeper.data_id() == "innkeeper" and guard.data_id() == "town_guard", "the innkeeper has a dialogue, actors know their data id")
+	# Free floor in front of the bar (fighter) and by the door (the others).
+	fighter.restore_full(Vector3(3.2, 0, 27.0))
+	for p in world.party():
+		if p != fighter:
+			p.restore_full(Vector3(0.0, 0, 25.5 + 0.9 * p.get_index()))
+	await get_tree().physics_frame
+	# Walk up and talk (what a tap on the innkeeper does).
+	controller.walk_to_npc(innkeeper)
+	var frames := 0
+	while frames < 600 and not GameState.is_in_dialogue():
+		await get_tree().physics_frame
+		frames += 1
+	expect(GameState.is_in_dialogue() and world.dialogue != null and world.dialogue.current_id == "greeting", "walking up to the innkeeper opens the greeting (frames=%d, fighter at %s, moving=%s, innkeeper at %s)" % [frames, fighter.global_position, fighter.is_moving(), innkeeper.global_position])
+	expect(fighter.distance_to(innkeeper) <= PlayerController.TALK_DISTANCE + 0.3, "the fighter stands next to him (%.1f m)" % fighter.distance_to(innkeeper))
+	expect(world.hud.dialogue_panel.visible and world.hud.dialogue_choices.get_child_count() == 4, "the HUD shows four answers (%d)" % world.hud.dialogue_choices.get_child_count())
+	expect(world.hud.dialogue_speaker.text == "Wirt" and world.hud.dialogue_text.text.begins_with("Komm rein"), "speaker and line are shown (%s: %s)" % [world.hud.dialogue_speaker.text, world.hud.dialogue_text.text.left(20)])
+	# Tap the first answer.
+	var button: Button = world.hud.dialogue_choices.get_child(0)
+	button.pressed.emit()
+	expect(world.dialogue.current_id == "meal_joke", "tapping an answer continues the conversation (%s)" % world.dialogue.current_id)
+	world.hud.dialogue_close.pressed.emit()
+	await get_tree().physics_frame
+	expect(GameState.is_exploring() and not world.hud.dialogue_panel.visible and world.dialogue == null, "closing returns to exploration")
+
+	# A fight the dialogue starts: the guard turns hostile, victory continues the talk.
+	var tree := DialogueTree.load_by_id("innkeeper")
+	var runner := world.start_dialogue(tree, innkeeper, "greeting_guard")
+	expect(GameState.is_in_dialogue() and runner.current_id == "greeting_guard", "a dialogue can start at any node")
+	var attack_index := -1
+	for view in runner.choices():
+		if view["id"] == "attack":
+			attack_index = view["index"]
+	expect(attack_index >= 0 and runner.choose(attack_index), "pick 'attack'")
+	frames = 0
+	while frames < 300 and not combat.is_active:
+		await get_tree().physics_frame
+		frames += 1
+	expect(combat.is_active and GameState.is_in_combat(), "attacking the guard starts a fight")
+	expect(guard.data.faction == ActorData.Faction.ENEMY and not guard.is_neutral() and fighter.is_hostile_to(guard) and guard.is_hostile_to(fighter), "the guard is hostile now")
+	expect(combat.participants.has(guard) and not combat.participants.has(innkeeper) and not combat.participants.has(cook), "only the guard fights the party, the innkeeper and the cook stay out of it")
+	expect(world.hud.dialogue_panel.visible == false, "the dialogue panel closed for the fight")
+	await _wait_turn(fighter)
+	guard.take_damage(999)
+	combat.end_turn()
+	await get_tree().physics_frame
+	await get_tree().physics_frame
+	expect(not combat.is_active and GameState.is_exploring() and not guard.is_alive(), "the guard is down, back to exploring")
+	expect(world.hud.level_up_panel.visible, "the victory panel shows first")
+	world.hud.continue_button.pressed.emit()
+	await get_tree().physics_frame
+	expect(GameState.is_in_dialogue() and world.dialogue != null and world.dialogue.current_id == "victory_directions", "after the panel the frightened innkeeper blurts out the true directions (%s)" % (world.dialogue.current_id if world.dialogue else "no dialogue"))
+	expect(world.story.get_flag("hunter_route_known") == true and world.story.get_flag("hunter_route_false") == false, "the route flags are set")
+	expect(world.dialogue.choices().size() == 1 and world.dialogue.choices()[0]["kind"] == "end", "only 'Gespräch beenden' is left")
+	world.dialogue.advance()
+	await get_tree().physics_frame
+	expect(GameState.is_exploring() and world.dialogue == null, "and the talk is over")
+
+	# The cook's opening stab: she steps up and attacks before initiative; the dead guard cannot join.
+	var attacks: Array[int] = [0]
+	var on_attack := func(attacker, _target, _result):
+		if attacker == cook:
+			attacks[0] += 1
+	EventBus.attack_resolved.connect(on_attack)
+	runner = world.start_dialogue(tree, innkeeper, "cook_stabs")
+	expect(runner.choices().size() == 1 and runner.choices()[0]["kind"] == "continue", "the stage direction waits for 'Weiter'")
+	runner.advance()
+	frames = 0
+	while frames < 300 and not combat.is_active:
+		await get_tree().physics_frame
+		frames += 1
+	expect(combat.is_active and combat.participants.has(cook) and not combat.participants.has(guard), "the cook fights, the fallen guard does not")
+	expect(attacks[0] == 1 and cook.distance_to(fighter) < 2.0, "she stepped up to the fighter and stabbed once before the fight (%d attacks, %.1f m)" % [attacks[0], cook.distance_to(fighter)])
+	expect(cook.data.faction == ActorData.Faction.ENEMY, "the cook is hostile from now on")
+	EventBus.attack_resolved.disconnect(on_attack)
+	await _end()
+	expect(GameState.is_exploring() and not combat.is_active, "back to exploring after the tavern brawl")
+	for p in world.party():
+		p.restore_full(Vector3(0, 0, 12) + Vector3(0.9 * p.get_index(), 0, 0))

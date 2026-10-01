@@ -1,8 +1,10 @@
 ## Root of the test level: wires world, party, enemies, combat manager, camera and HUD.
 ##
 ## Contains no rules. It decides *when* combat starts (an enemy spotted a party
-## member), *who* participates (the whole party + enemies near the spotter),
-## hands out experience after a victory and respawns the enemies for the next wave.
+## member, or a dialogue turned sour), *who* participates (the whole party +
+## enemies near the spotter), hands out experience after a victory and respawns
+## the enemies for the next wave. It also opens conversations with bystanders
+## and carries out what the dialogues ask of the world (fights, leaving).
 class_name World
 extends Node3D
 
@@ -25,6 +27,10 @@ const WAVE_ARRIVALS := {
 }
 ## Where newcomers appear: in front of the cave mouth in the north-west.
 const CAVE_MOUTH := Vector3(-10.0, 0.0, -17.0)
+## The yard in front of the tavern door (where a thrown-out party ends up).
+const TAVERN_EXIT := Vector3(-2.0, 0.0, 20.5)
+## Starting purse in copper (100 copper = 1 gold).
+const START_COPPER := 300
 
 ## Enemies within this distance of the one who spotted the party join the fight.
 @export var encounter_radius: float = 16.0
@@ -41,8 +47,17 @@ var preview: TargetingPreview
 var wave: int = 1
 ## The party's shared bag.
 var inventory: Inventory = Inventory.new()
-## Gold a defeated enemy is worth: xp_value / GOLD_PER_XP (at least 1).
-const GOLD_PER_XP := 10
+## Flags, quests and hints the dialogues set.
+var story: StoryState = StoryState.new()
+## The open conversation (null outside dialogues) and who the party talks to.
+var dialogue: DialogueRunner = null
+var dialogue_npc: Actor = null
+## Dialogue node to play after winning a fight a dialogue started.
+var _pending_victory_dialogue: Dictionary = {}
+var _fight_pending: bool = false
+## Copper a defeated enemy is worth: xp_value * COPPER_PER_XP (at least MIN_LOOT_COPPER).
+const COPPER_PER_XP := 1
+const MIN_LOOT_COPPER := 5
 ## Chance in percent that a defeated enemy drops a potion.
 const POTION_DROP_PERCENT := 15
 var last_reports: Array[Progression.Report] = []
@@ -79,12 +94,13 @@ func _ready() -> void:
 		_spawn_transforms[a] = a.global_transform
 
 	# Starting supplies and the bag for everybody in the party.
-	inventory.add_gold(25)
+	inventory.add_copper(START_COPPER)
 	inventory.add(Inventory.find_item(&"potion_health"), 2)
 	inventory.add(Inventory.find_item(&"potion_antidote"), 1)
 	for p in party():
 		p.set_inventory(inventory)
 	EventBus.chest_reached.connect(open_chest)
+	EventBus.npc_reached.connect(talk_to)
 
 	EventBus.enemy_spotted.connect(_on_enemy_spotted)
 	combat.turn_started.connect(_on_turn_started)
@@ -96,7 +112,7 @@ func _ready() -> void:
 
 	EventBus.log("Your party: %s." % ", ".join(_party_names()))
 	EventBus.log("Goblins, wolves and a hobgoblin captain camp to the north. Combat starts when one of them notices you.")
-	EventBus.log("[color=gray]South through the gate lies the tavern (friendly folk, no fighting). The tunnel in the north wall leads into a cave with its own dangers and a treasure at the end.[/color]")
+	EventBus.log("[color=gray]South through the gate lies the tavern: tap the innkeeper to talk (he speaks German). The tunnel in the north wall leads into a cave with its own dangers and a treasure at the end.[/color]")
 	EventBus.log("[color=gray]Night rules: stay out of the torchlight to get close unseen. High ground gives +2 to hit, crates and low walls give cover, full cover blocks the shot.[/color]")
 
 	# Headless integration test hooks (godot --headless -- --autoplay / --scenario).
@@ -185,10 +201,7 @@ func _party_names() -> PackedStringArray:
 func _on_enemy_spotted(enemy: Actor) -> void:
 	if not GameState.is_exploring() or combat.is_active:
 		return
-	var participants: Array[Actor] = []
-	for p in party():
-		if p.is_alive():
-			participants.append(p)
+	var participants: Array[Actor] = _living_party()
 	# Only the spotter's own group joins: the cave encounter and the arena
 	# waves never mix, however close the cave mouth is.
 	for e in enemies():
@@ -197,6 +210,14 @@ func _on_enemy_spotted(enemy: Actor) -> void:
 	EventBus.log("[b]%s[/b] spotted the party!" % enemy.display_name())
 	hud.set_rest_available(false, false, wave)
 	combat.start_combat(participants)
+
+
+func _living_party() -> Array[Actor]:
+	var out: Array[Actor] = []
+	for p in party():
+		if p.is_alive():
+			out.append(p)
+	return out
 
 
 func set_auto_battle(enabled: bool) -> void:
@@ -350,35 +371,38 @@ func _on_combat_ended(victory: bool) -> void:
 		EventBus.log("[color=yellow]%s[/color]" % line)
 	hud.show_level_ups(last_reports)
 	hud.set_rest_available(living_enemies() == 0, long_rest_available(), wave)
+	if not _pending_victory_dialogue.is_empty():
+		# The innkeeper has something to say once the level-up panel is closed.
+		hud.continue_button.pressed.connect(_start_pending_dialogue, CONNECT_ONE_SHOT)
 
 
-## Gold and the odd potion from the fallen.
+## Copper and the odd potion from the fallen.
 func _award_loot(defeated: Array[Actor]) -> void:
-	var gold := 0
+	var copper := 0
 	var found: Array[ItemData] = []
 	for e in defeated:
-		gold += maxi(1, e.data.xp_value / GOLD_PER_XP)
+		copper += maxi(MIN_LOOT_COPPER, e.data.xp_value * COPPER_PER_XP)
 		if Dice.roll(1, 100).total() <= POTION_DROP_PERCENT:
 			var pick := Dice.roll(1, 10).total()
 			var item_id := &"potion_health" if pick <= 6 else (&"potion_mana" if pick <= 8 else (&"potion_antidote" if pick == 9 else &"potion_strength"))
 			found.append(Inventory.find_item(item_id))
-	gain_loot(gold, found, "from the fallen")
+	gain_loot(copper, found, "from the fallen")
 
 
-## Puts [param gold] and [param items] into the bag and tells everyone.
-func gain_loot(gold: int, items: Array[ItemData], source: String) -> void:
-	if gold <= 0 and items.is_empty():
+## Puts [param copper] and [param items] into the bag and tells everyone.
+func gain_loot(copper: int, items: Array[ItemData], source: String) -> void:
+	if copper <= 0 and items.is_empty():
 		return
-	inventory.add_gold(gold)
+	inventory.add_copper(copper)
 	var names := PackedStringArray()
 	for item in items:
 		inventory.add(item)
 		names.append(item.display_name)
-	var text := "%d gold" % gold if gold > 0 else ""
+	var text := Inventory.format_money(copper) if copper > 0 else ""
 	if not names.is_empty():
 		text += (", " if text != "" else "") + ", ".join(names)
 	EventBus.log("[color=yellow]Loot %s: %s.[/color]" % [source, text])
-	EventBus.loot_gained.emit(gold, items)
+	EventBus.loot_gained.emit(copper, items)
 
 
 ## The leader opened a chest.
@@ -388,7 +412,7 @@ func open_chest(chest: LootChest) -> void:
 		return
 	var contents := chest.open()
 	EventBus.floating_text_requested.emit(chest.global_position + Vector3.UP, "OPENED", Color(1.0, 0.85, 0.3))
-	gain_loot(contents["gold"], contents["items"], "from the chest")
+	gain_loot(contents["copper"], contents["items"], "from the chest")
 
 
 ## Drinks / uses an item outside combat on [param target] (defaults to the
@@ -415,6 +439,128 @@ func use_item_from_bag(item: ItemData, target: Actor = null) -> bool:
 	EventBus.log("[color=aqua]%s[/color]" % item.use_on(target, target))
 	EventBus.item_used.emit(target, target, item)
 	return true
+
+
+# --- Dialogues -------------------------------------------------------------
+
+## The leader walked up to [param npc]: open its dialogue, if it has one.
+func talk_to(npc: Actor) -> void:
+	if not GameState.is_exploring() or combat.is_active or npc == null or not npc.is_neutral():
+		return
+	var dialogue_id := npc.data.dialogue
+	if dialogue_id == "":
+		EventBus.log("[color=gray]%s has nothing to say.[/color]" % npc.display_name())
+		return
+	var tree := DialogueTree.load_by_id(dialogue_id)
+	if tree == null:
+		EventBus.log("[color=gray]%s mumbles something (dialogue '%s' missing).[/color]" % [npc.display_name(), dialogue_id])
+		return
+	start_dialogue(tree, npc)
+
+
+## Opens [param tree] with [param npc] at [param entry] (default: the greeting).
+func start_dialogue(tree: DialogueTree, npc: Actor, entry: String = "") -> DialogueRunner:
+	if dialogue != null and dialogue.is_running:
+		dialogue.end("replaced")
+	dialogue = DialogueRunner.new(tree, inventory, story, _living_party())
+	dialogue_npc = npc
+	_fight_pending = false
+	dialogue.world_effect.connect(_on_dialogue_world_effect.bind(tree, npc))
+	dialogue.ended.connect(_on_dialogue_ended.bind(tree, npc))
+	for p in party():
+		p.stop_moving()
+	GameState.set_state(GameState.State.DIALOGUE)
+	hud.show_dialogue(dialogue, npc)
+	EventBus.dialogue_started.emit(npc, tree.id)
+	EventBus.log("[color=aqua]%s talks to %s.[/color]" % [leader.display_name(), npc.display_name()])
+	dialogue.start(entry)
+	return dialogue
+
+
+func _on_dialogue_ended(_reason: String, tree: DialogueTree, npc: Actor) -> void:
+	hud.hide_dialogue()
+	EventBus.dialogue_ended.emit(npc, tree.id)
+	if GameState.is_in_dialogue() and not _fight_pending:
+		GameState.set_state(GameState.State.EXPLORATION)
+	dialogue = null
+	dialogue_npc = null
+
+
+## Things a dialogue asks the world to do.
+func _on_dialogue_world_effect(effect: Dictionary, tree: DialogueTree, npc: Actor) -> void:
+	match str(effect.get("type", "")):
+		"start_combat":
+			_fight_pending = true
+			_start_dialogue_fight(effect, tree, npc)
+		"leave_location":
+			EventBus.log("[color=gray]The party leaves the %s.[/color]" % str(effect.get("location", "tavern")))
+			var controller := leader.get_node_or_null("PlayerController") as PlayerController
+			if controller != null:
+				controller.call_deferred("walk_to", TAVERN_EXIT)
+		"set_navigation_hint":
+			EventBus.log("[color=gray]Directions noted: the way to the '%s' leads to the %s.[/color]" % [
+				str(effect.get("presented_as", "")).replace("_", " "), str(effect.get("destination", ""))])
+
+
+## Finds the bystander a dialogue speaker stands for ("town_guard").
+func npc_by_reference(reference: String) -> Actor:
+	for a in actors():
+		if a.data_id() == reference and a.is_alive():
+			return a
+	return null
+
+
+## The named bystanders turn hostile; an optional opening attack lands before
+## initiative is rolled; a victory may continue the conversation.
+func _start_dialogue_fight(effect: Dictionary, tree: DialogueTree, npc: Actor) -> void:
+	var participants: Array[Actor] = _living_party()
+	var foes: Array[Actor] = []
+	for reference in effect.get("participants", []):
+		var foe := npc_by_reference(str(reference))
+		if foe != null:
+			foe.turn_hostile()
+			foes.append(foe)
+			participants.append(foe)
+	if foes.is_empty():
+		_fight_pending = false
+		GameState.set_state(GameState.State.EXPLORATION)
+		return
+	var names := PackedStringArray()
+	for foe in foes:
+		names.append(foe.display_name())
+	EventBus.log("[color=orange][b]%s draw%s steel![/b][/color]" % [", ".join(names), "s" if foes.size() == 1 else ""])
+	_pending_victory_dialogue = {}
+	if effect.get("on_victory") != null:
+		_pending_victory_dialogue = {"tree": tree, "node": str(effect["on_victory"]), "npc": npc}
+	var opening = effect.get("opening_attack")
+	if opening is Dictionary:
+		var attacker := npc_by_reference(str(opening.get("attacker", "")))
+		var target := leader if leader.is_alive() else (participants[0] if not participants.is_empty() else null)
+		if attacker != null and target != null and attacker.melee_weapon() != null:
+			# She steps up to the speaker and stabs before anybody reacts.
+			var away := (attacker.global_position - target.global_position)
+			away.y = 0.0
+			if away.length() < 0.1:
+				away = Vector3.FORWARD
+			var spot := target.global_position + away.normalized() * 1.3
+			spot.y = Terrain.ground_height(self, spot)
+			attacker.global_position = spot
+			hud.set_rest_available(false, false, wave)
+			await AttackAction.perform_attack(attacker, target, attacker.melee_weapon(), "stabs")
+	hud.set_rest_available(false, false, wave)
+	_fight_pending = false
+	combat.start_combat(participants)
+
+
+func _start_pending_dialogue() -> void:
+	var pending := _pending_victory_dialogue
+	_pending_victory_dialogue = {}
+	if pending.is_empty() or not GameState.is_exploring():
+		return
+	var npc: Actor = pending["npc"]
+	if npc == null or not is_instance_valid(npc) or not npc.is_alive():
+		return
+	start_dialogue(pending["tree"], npc, pending["node"])
 
 
 func _update_preview() -> void:

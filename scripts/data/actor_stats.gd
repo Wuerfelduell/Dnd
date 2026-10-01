@@ -15,6 +15,8 @@ extends Resource
 @export var save_proficiencies: PackedStringArray = PackedStringArray()
 ## Movement per turn in meters (5e: 30 ft = 9 m).
 @export var speed_m: float = 9.0
+## Skills with proficiency (dialogue checks): "intimidation", "persuasion", "deception".
+@export var skill_proficiencies: PackedStringArray = PackedStringArray()
 
 
 func ability_mod(ability: String) -> int:
@@ -44,6 +46,10 @@ func save_bonus(ability: String) -> int:
 	if is_save_proficient(ability):
 		bonus += proficiency_bonus
 	return bonus
+
+
+func has_skill(skill: String) -> bool:
+	return skill_proficiencies.has(skill.to_lower())
 
 
 func initiative_bonus() -> int:

@@ -73,7 +73,7 @@ const CAVE_FEATURES := [
 	{"name": "BoulderLarge", "model": "environment_expansion/cave/cave_boulder_large", "position": Vector3(-13, 0, -27), "radius": 1.2, "height": 1.8},
 	{"name": "BoulderFlat", "model": "environment_expansion/cave/cave_boulder_flat", "position": Vector3(-4, 0, -36), "radius": 1.2, "height": 0.7},
 	{"name": "MineCart", "model": "environment_expansion/cave/cave_mine_cart", "position": Vector3(-14, 0, -31), "radius": 0.9, "height": 1.0},
-	{"name": "TreasureChest", "model": "environment_expansion/licensed_props/cave__chest_gold", "position": Vector3(-5, 0, -39), "radius": 0.8, "height": 1.3, "rotation": 180.0, "loot": {"gold": 120, "items": ["potion_health", "potion_health", "potion_mana", "potion_strength"]}},
+	{"name": "TreasureChest", "model": "environment_expansion/licensed_props/cave__chest_gold", "position": Vector3(-5, 0, -39), "radius": 0.8, "height": 1.3, "rotation": 180.0, "loot": {"copper": 1200, "items": ["potion_health", "potion_health", "potion_mana", "potion_strength", "innkeeper_copper_mug"]}},
 ]
 const CAVE_PROPS := [
 	{"model": "environment_expansion/cave/cave_pool_water", "position": Vector3(-6, 0, -26), "rotation": 0.0, "scale": 1.0},
@@ -120,7 +120,7 @@ const COVER := [
 	{"name": "LowWallEast", "model": "custom_grid/cover_stone_low_2m", "position": Vector3(4.5, 0, -6), "rotation": 90.0, "scale": 1.0, "box": Vector3(2.08, 1.02, 0.58)},
 	{"name": "LowWallWest", "model": "custom_grid/cover_stone_low_2m", "position": Vector3(-9.5, 0, -6), "rotation": 0.0, "scale": 1.0, "box": Vector3(2.08, 1.02, 0.58)},
 	{"name": "Barricade", "model": "custom_grid/cover_wood_barricade", "position": Vector3(6, 0, 3), "rotation": 90.0, "scale": 1.0, "box": Vector3(2.0, 1.2, 0.5)},
-	{"name": "Chest", "model": "kaykit/props/chest", "position": Vector3(3.5, 0, 16.5), "rotation": -20.0, "scale": 0.8, "box": Vector3(1.36, 1.04, 1.16), "loot": {"gold": 15, "items": ["potion_antidote", "arrows"]}},
+	{"name": "Chest", "model": "kaykit/props/chest", "position": Vector3(3.5, 0, 16.5), "rotation": -20.0, "scale": 0.8, "box": Vector3(1.36, 1.04, 1.16), "loot": {"copper": 150, "items": ["potion_antidote", "arrows"]}},
 	# Ruined shrine in the south-east corner: altar and sarcophagus are waist-high cover.
 	{"name": "Altar", "model": "environment_expansion/ruins/ruin_altar", "position": Vector3(14, 0, 14), "rotation": 0.0, "scale": 1.0, "box": Vector3(2.2, 1.13, 1.6)},
 	{"name": "Sarcophagus", "model": "environment_expansion/ruins/ruin_sarcophagus_closed", "position": Vector3(11, 0, 16.5), "rotation": 90.0, "scale": 1.0, "box": Vector3(1.6, 1.04, 2.8)},
@@ -682,7 +682,7 @@ static func _static_body(parent: Node3D, name: String, loot: Dictionary = {}) ->
 		body = StaticBody3D.new()
 	else:
 		var chest := LootChest.new()
-		chest.gold = loot.get("gold", 0)
+		chest.copper = loot.get("copper", 0)
 		chest.item_ids = PackedStringArray(loot.get("items", []))
 		body = chest
 	body.name = name
