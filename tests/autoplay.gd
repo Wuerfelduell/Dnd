@@ -86,7 +86,7 @@ func _run() -> void:
 	var nav_map := world.get_world_3d().navigation_map
 	expect(NavigationServer3D.map_get_regions(nav_map).size() > 0, "navmesh region registered")
 	expect(world.party().size() == 4, "party of four")
-	expect(world.npcs().size() == 6 and world.cave_enemies().size() == 7 and world.arena_enemies().size() == 7, "six tavern folk, seven cave dwellers, seven arena enemies")
+	expect(world.npcs().size() == 12 and world.villagers().size() == 6 and world.cave_enemies().size() == 7 and world.arena_enemies().size() == 7, "six tavern folk and six villagers, seven cave dwellers, seven arena enemies")
 
 	# 1a. Explore with the virtual joystick: press its center, drag up, hold.
 	var controller: PlayerController = player.get_node("PlayerController")

@@ -112,6 +112,7 @@ func _ready() -> void:
 
 	EventBus.log("Your party: %s." % ", ".join(_party_names()))
 	EventBus.log("Goblins, wolves and a hobgoblin captain camp to the north. Combat starts when one of them notices you.")
+	EventBus.log("[color=gray]Through the east gate a road leads over a river into a burned village; six survivors stand among the ruins.[/color]")
 	EventBus.log("[color=gray]South through the gate lies the tavern: tap the innkeeper to talk (he speaks German). The tunnel in the north wall leads into a cave with its own dangers and a treasure at the end.[/color]")
 	EventBus.log("[color=gray]Night rules: stay out of the torchlight to get close unseen. High ground gives +2 to hit, crates and low walls give cover, full cover blocks the shot.[/color]")
 
@@ -178,6 +179,15 @@ func npcs() -> Array[Actor]:
 	var out: Array[Actor] = []
 	for a in actors():
 		if a.is_neutral():
+			out.append(a)
+	return out
+
+
+## The survivors in the ruined village east of the arena.
+func villagers() -> Array[Actor]:
+	var out: Array[Actor] = []
+	for a in actors():
+		if a.get_parent() == $Villagers:
 			out.append(a)
 	return out
 
@@ -467,6 +477,7 @@ func start_dialogue(tree: DialogueTree, npc: Actor, entry: String = "") -> Dialo
 		var a := npc_by_reference(reference)
 		return a != null and a.is_neutral()
 	dialogue.objective_met = objective_met
+	dialogue.speaker = leader if leader.is_alive() else null
 	dialogue_npc = npc
 	_fight_pending = false
 	dialogue.world_effect.connect(_on_dialogue_world_effect.bind(tree, npc))
@@ -509,9 +520,37 @@ func _on_dialogue_world_effect(effect: Dictionary, tree: DialogueTree, npc: Acto
 			EventBus.log("[color=gray]A %s goes to %s.[/color]" % [str(effect.get("item", "drink")), who.display_name() if who != null else str(effect.get("recipient", ""))])
 			if who != null:
 				who.play_action("use_item")
+		"narrative_event":
+			_narrative_event(effect, npc)
+		"narrative_work":
+			match str(effect.get("task", "")):
+				"dig_three_graves":
+					EventBus.log("[color=gray]The party takes the spades and digs three graves beside Borik's. Nobody talks much.[/color]")
+				_:
+					EventBus.log("[color=gray]The party lends a hand (%s).[/color]" % str(effect.get("task", "")).replace("_", " "))
+			for p in _living_party():
+				p.play_action("interact")
 		"open_shop":
 			var discount := int(story.get_flag(str(effect.get("apply_discount_flag", "")), 0))
 			EventBus.log("[color=gray]The merchant's table: the shop is not stocked yet%s.[/color]" % ((" (%d %% discount noted)" % discount) if discount > 0 else ""))
+
+
+## Story events a dialogue hands to the world. Hagan telling the families
+## happens once the party has left him: he walks off, the flag follows.
+func _narrative_event(effect: Dictionary, npc: Actor) -> void:
+	var flag := str(effect.get("result_flag", ""))
+	match str(effect.get("event", "")):
+		"hagan_tells_survivors":
+			var after := func(_n, _id):
+				EventBus.log("[color=gray]Hagan goes from house to house and tells the families what happened at the granary.[/color]")
+				if npc != null and is_instance_valid(npc):
+					npc.play_action("interact")
+				if flag != "":
+					story.set_flag(flag, true)
+			EventBus.dialogue_ended.connect(after, CONNECT_ONE_SHOT)
+		_:
+			if flag != "":
+				story.set_flag(flag, true)
 
 
 ## Quest objectives the dialogues ask about ("cave_cleared": every original

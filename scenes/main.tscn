@@ -27,10 +27,16 @@
 [ext_resource type="Resource" path="res://data/actors/merchant.tres" id="25"]
 [ext_resource type="Resource" path="res://data/actors/tipsy_guest.tres" id="26"]
 [ext_resource type="Resource" path="res://data/actors/town_guard.tres" id="27"]
+[ext_resource type="Resource" path="res://data/actors/village_elder.tres" id="28"]
+[ext_resource type="Resource" path="res://data/actors/village_blacksmith.tres" id="29"]
+[ext_resource type="Resource" path="res://data/actors/village_healer.tres" id="30"]
+[ext_resource type="Resource" path="res://data/actors/village_widow.tres" id="31"]
+[ext_resource type="Resource" path="res://data/actors/village_scavenger.tres" id="32"]
+[ext_resource type="Resource" path="res://data/actors/village_gravedigger.tres" id="33"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_arena"]
 geometry_parsed_geometry_type = 1
-geometry_collision_mask = 1
+geometry_collision_mask = 5
 cell_size = 0.25
 cell_height = 0.25
 agent_height = 2.0
@@ -167,6 +173,32 @@ data = ExtResource("26")
 [node name="TownGuard" parent="Npcs" instance=ExtResource("16")]
 transform = Transform3D(1.0, 0, 0.0, 0, 1, 0, -0.0, 0, 1.0, 0.8, 0, 25.2)
 data = ExtResource("27")
+
+[node name="Villagers" type="Node3D" parent="."]
+
+[node name="Elder" parent="Villagers" instance=ExtResource("16")]
+transform = Transform3D(-1.0, 0, -0.0, 0, 1, 0, 0.0, 0, -1.0, 40.0, 0, 10.0)
+data = ExtResource("28")
+
+[node name="Blacksmith" parent="Villagers" instance=ExtResource("16")]
+transform = Transform3D(-1.0, 0, -0.0, 0, 1, 0, 0.0, 0, -1.0, 62.5, 0, -5.0)
+data = ExtResource("29")
+
+[node name="Healer" parent="Villagers" instance=ExtResource("16")]
+transform = Transform3D(1.0, 0, -0.0, 0, 1, 0, 0.0, 0, 1.0, 62.0, 0, 15.5)
+data = ExtResource("30")
+
+[node name="Widow" parent="Villagers" instance=ExtResource("16")]
+transform = Transform3D(0.0, 0, 1.0, 0, 1, 0, -1.0, 0, 0.0, 40.5, 0, 3.2)
+data = ExtResource("31")
+
+[node name="Scavenger" parent="Villagers" instance=ExtResource("16")]
+transform = Transform3D(1.0, 0, -0.0, 0, 1, 0, 0.0, 0, 1.0, 33.0, 0, -9.0)
+data = ExtResource("32")
+
+[node name="Gravedigger" parent="Villagers" instance=ExtResource("16")]
+transform = Transform3D(1.0, 0, -0.0, 0, 1, 0, 0.0, 0, 1.0, 56.5, 0, 14.5)
+data = ExtResource("33")
 
 [node name="CaveEnemies" type="Node3D" parent="."]
 

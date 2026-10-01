@@ -37,12 +37,21 @@ signal ended(reason: String)
 ## Used where the author left the DC open (null).
 const DEFAULT_DC := 12
 ## Items the dialogues hand out, by the id used in the JSON (others map 1:1 to data/items/<id>.tres).
-const ITEM_IDS := {"beer": &"beer", "stew": &"stew", "innkeeper_copper_mug": &"innkeeper_copper_mug"}
+const ITEM_IDS := {
+	"beer": &"beer", "stew": &"stew", "innkeeper_copper_mug": &"innkeeper_copper_mug",
+	"antidote": &"potion_antidote", "healing_potion": &"potion_health",
+}
 ## Navigation labels for additional entry points (not spoken lines).
 const ENTRY_LABELS := {
 	"return_mug": "[Den Kupferkrug zurückgeben]",
 	"complain_about_ring": "[Wegen des Rings beschweren]",
 	"claim_cave_reward": "[Die Höhlenbelohnung einfordern]",
+	"return_tongs": "[Die Zange zurückgeben]",
+	"return_burial_coins": "[Die Grabmünzen zurückgeben]",
+	"identify_husband": "[Den Siegelring übergeben]",
+	"son_returned": "[Tavin ist zurück]",
+	"correct_lie": "[Über den Ring reden]",
+	"after_public_truth": "[Nach der Wahrheit am Kornspeicher]",
 }
 const CONTINUE_LABEL := "Weiter"
 const END_LABEL := "Gespräch beenden"
@@ -50,9 +59,13 @@ const SKILL_NAMES := {
 	"intimidation": "Einschüchtern", "persuasion": "Überzeugen", "deception": "Täuschen",
 	"perception": "Wahrnehmung", "insight": "Menschenkenntnis", "survival": "Überlebenskunst",
 	"arcana": "Arkane Kunde", "athletics": "Athletik", "investigation": "Nachforschen",
+	"medicine": "Heilkunde",
 }
 ## Requirements that hide a choice (everything else only disables it).
-const HIDING_REQUIREMENTS := ["npc_alive", "flag_true", "flag_false", "item", "quest_not_accepted", "quest_not_completed", "quest_accepted_or_completed"]
+const HIDING_REQUIREMENTS := [
+	"npc_alive", "flag_true", "flag_false", "flag_value", "flags_any", "flags_all", "flags_all_false",
+	"item", "quest_not_accepted", "quest_not_completed", "quest_accepted_or_completed", "actor_injured",
+]
 
 var tree: DialogueTree
 var inventory: Inventory
@@ -60,6 +73,9 @@ var story: StoryState
 ## Who can roll skill checks (alive party members).
 var party: Array[Actor] = []
 var default_dc: int = DEFAULT_DC
+## The party member doing the talking ("speaking_player" in the data):
+## heal_actor and actor_injured refer to them. Defaults to the first of [member party].
+var speaker: Actor = null
 ## Is the bystander with this actor reference alive and still a bystander?
 ## Set by the world; the default knows nobody is missing.
 var npc_available: Callable = func(_reference: String) -> bool: return true
@@ -293,7 +309,41 @@ func requirements_met(req: Dictionary) -> bool:
 		return false
 	if req.has("npc_alive") and not npc_available.call(str(req["npc_alive"])):
 		return false
+	if req.has("flag_value"):
+		var wanted: Dictionary = req["flag_value"]
+		for flag in wanted:
+			if str(story.get_flag(str(flag), "")) != str(wanted[flag]):
+				return false
+	if req.has("flags_any"):
+		var any := false
+		for flag in req["flags_any"]:
+			if bool(story.get_flag(str(flag), false)):
+				any = true
+		if not any:
+			return false
+	if req.has("flags_all"):
+		for flag in req["flags_all"]:
+			if not bool(story.get_flag(str(flag), false)):
+				return false
+	if req.has("flags_all_false"):
+		for flag in req["flags_all_false"]:
+			if bool(story.get_flag(str(flag), false)):
+				return false
+	if req.has("actor_injured"):
+		var who := talker()
+		if who == null or who.current_hp >= who.max_hp():
+			return false
 	return true
+
+
+## Who "speaking_player" is: [member speaker], else the first living party member.
+func talker() -> Actor:
+	if speaker != null and is_instance_valid(speaker) and speaker.is_alive():
+		return speaker
+	for member in party:
+		if member != null and member.is_alive():
+			return member
+	return null
 
 
 # --- Choices ---------------------------------------------------------------
@@ -408,9 +458,20 @@ func _decides_settled_quest(choice: Dictionary) -> bool:
 	return false
 
 
+## True when an effect would change a quest that already has a status (a
+## different status or reward). Repeating the same deal (two villagers both
+## asking the party to find the boy) is fine.
 func _sets_settled_quest(effects: Array) -> bool:
 	for effect in effects:
-		if str(effect.get("type", "")) == "set_quest" and story.quest_status(str(effect.get("quest", ""))) != "":
+		if str(effect.get("type", "")) != "set_quest":
+			continue
+		var quest := str(effect.get("quest", ""))
+		var status := story.quest_status(quest)
+		if status == "":
+			continue
+		var reward := story.quest_reward(quest)
+		if status != str(effect.get("status", "accepted")) or reward["copper"] != int(effect.get("reward_copper", 0)) \
+				or reward["beer"] != int(effect.get("reward_beer", 0)):
 			return true
 	return false
 
@@ -573,6 +634,8 @@ func _apply_effect(effect: Dictionary) -> void:
 			var quest := str(effect["quest"])
 			var status := str(effect.get("status", "accepted"))
 			story.set_quest(quest, status, int(effect.get("reward_copper", 0)), int(effect.get("reward_beer", 0)))
+			if effect.has("held_copper"):
+				story.quests[quest]["held_copper"] = int(effect["held_copper"])
 			EventBus.log("[color=yellow]Quest '%s': %s.[/color]" % [quest.replace("_", " "), status])
 		"give_quest_reward":
 			_pay_quest_reward(str(effect["quest"]))
@@ -602,7 +665,17 @@ func _apply_effect(effect: Dictionary) -> void:
 		"start_combat":
 			world_effect.emit(effect)
 			end("combat")
-		"leave_location", "open_shop", "serve_drink":
+		"heal_actor":
+			var who := talker()
+			if who != null:
+				var healed := who.heal(int(effect.get("amount", 0)))
+				EventBus.heal_applied.emit(who, healed, null)
+				EventBus.log("[color=lime]%s is treated: +%d HP.[/color]" % [who.display_name(), healed])
+		"unlock_service":
+			var service := str(effect.get("service", ""))
+			story.set_flag("service_" + service, int(effect.get("discount_percent", 0)))
+			EventBus.log("[color=yellow]Unlocked for later: %s (%d %% off).[/color]" % [service.replace("_", " "), int(effect.get("discount_percent", 0))])
+		"leave_location", "open_shop", "serve_drink", "narrative_event", "narrative_work":
 			world_effect.emit(effect)
 		_:
 			push_warning("Dialogue '%s': unknown effect '%s'" % [tree.id, type])

@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="ItemData" format=3]
+
+[ext_resource type="Script" path="res://scripts/data/item_data.gd" id="1"]
+[ext_resource type="Texture2D" path="res://assets/shop/icons/scroll.png" id="2"]
+
+[resource]
+script = ExtResource("1")
+icon = ExtResource("2")
+icon_tint = Color(0.95, 0.92, 0.85, 1)
+id = &"bandage"
+display_name = "Bandage"
+description = "Clean linen from Sella. Heals 1d4+1 HP."
+kind = 0
+value = 20
+stack_max = 10
+heal_dice = "1d4"
+heal_bonus = 1

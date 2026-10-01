@@ -16,7 +16,7 @@ const TILE := 4.0
 const ARENA_HALF := 20.0
 ## Wall tiles left out per side (index along the side): the south gate to the
 ## tavern yard and the cave mouth in the north wall.
-const WALL_GAPS := {"south": [4, 5], "north": [2]}
+const WALL_GAPS := {"south": [4, 5], "north": [2], "east": [4, 5]}
 ## Tavern: a 16 x 12 m hall south of the arena (x -8..8, z 24..36) behind a yard.
 const TAVERN_FLOOR_X := [-6.0, -2.0, 2.0, 6.0]
 const TAVERN_FLOOR_Z := [26.0, 30.0, 34.0]
@@ -146,7 +146,7 @@ const PILLARS := [
 ## Decoration without collision (scale, rotation in degrees).
 const PROPS := [
 	{"model": "kenney/rocks/rock_largeA", "position": Vector3(-14, 0, 12), "rotation": 40.0, "scale": 2.5},
-	{"model": "kenney/rocks/rock_largeB", "position": Vector3(15, 0, -1), "rotation": -70.0, "scale": 2.2},
+	{"model": "kenney/rocks/rock_largeB", "position": Vector3(17.5, 0, -13), "rotation": -70.0, "scale": 2.2},
 	{"model": "kenney/rocks/rock_largeB", "position": Vector3(-17.5, 0, -14), "rotation": 15.0, "scale": 2.0},
 	{"model": "kenney/props/tent_detailedOpen", "position": Vector3(3, 0, -18.5), "rotation": 160.0, "scale": 3.0},
 	{"model": "kenney/props/tent_detailedOpen", "position": Vector3(-15.5, 0, -18.3), "rotation": 200.0, "scale": 3.0},
@@ -193,7 +193,7 @@ const LIGHTS := [
 ## Wall pieces that differ from the plain wall, keyed by side and tile index.
 const WALL_VARIANTS := {
 	"north": {2: "kaykit/walls/wall_broken", 7: "kaykit/walls/wall_doorway"},
-	"east": {4: "kaykit/walls/wall_broken"},
+	"east": {3: "kaykit/walls/wall_broken"},
 	"west": {6: "kaykit/walls/wall_doorway"},
 	"south": {1: "kaykit/walls/wall_broken", 8: "kaykit/walls/wall_broken"},
 }
@@ -208,6 +208,7 @@ static func build(nav_parent: Node3D, light_parent: Node3D) -> void:
 	_walls(nav_parent)
 	_tavern(nav_parent)
 	_cave(nav_parent)
+	VillageBuilder.build(nav_parent, light_parent)
 	for p in PLATEAUS:
 		_plateau(nav_parent, p)
 	for s in STAIRS:
@@ -265,8 +266,9 @@ static func collider_count() -> int:
 			if i == 0 or gaps[i] != gaps[i - 1] + 1:
 				openings += 1
 		wall_segments += openings + 1
-	return PLATEAUS.size() + STAIRS.size() + COVER.size() + PILLARS.size() + wall_segments + 2 \
-		+ TAVERN_WALLS.size() + TAVERN_FURNITURE.size() + 3 + CAVE_FEATURES.size() + lights
+	return PLATEAUS.size() + STAIRS.size() + COVER.size() + PILLARS.size() + wall_segments + 4 \
+		+ TAVERN_WALLS.size() + TAVERN_FURNITURE.size() + 3 + CAVE_FEATURES.size() + lights \
+		+ VillageBuilder.collider_count()
 
 
 ## Footprint of a plateau or staircase entry.
@@ -403,6 +405,9 @@ static func _walls(parent: Node3D) -> void:
 	# Gate posts beside the south gate and the legs of the cave mouth arch.
 	_pillar(parent, {"name": "GatePostWest", "model": "kaykit/pillars/pillar", "position": Vector3(-4.75, 0, ARENA_HALF), "radius": 0.75, "height": 4.0})
 	_pillar(parent, {"name": "GatePostEast", "model": "kaykit/pillars/pillar", "position": Vector3(4.75, 0, ARENA_HALF), "radius": 0.75, "height": 4.0})
+	# The east gate to the village.
+	_pillar(parent, {"name": "VillageGatePostNorth", "model": "kaykit/pillars/pillar", "position": Vector3(ARENA_HALF, 0, -4.75), "radius": 0.75, "height": 4.0})
+	_pillar(parent, {"name": "VillageGatePostSouth", "model": "kaykit/pillars/pillar", "position": Vector3(ARENA_HALF, 0, 4.75), "radius": 0.75, "height": 4.0})
 
 
 static func _plateau(parent: Node3D, entry: Dictionary) -> StaticBody3D:

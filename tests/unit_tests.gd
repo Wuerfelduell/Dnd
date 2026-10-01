@@ -35,6 +35,7 @@ func _ready() -> void:
 	_test_dialogue_tree()
 	_test_dialogue_runner()
 	_test_tavern_dialogues()
+	_test_village_dialogues()
 	print("\n%d checks, %d failures" % [_checks, _failures])
 	get_tree().quit(0 if _failures == 0 else 1)
 
@@ -945,7 +946,7 @@ func _test_terrain_layout() -> void:
 		if l is LightSource:
 			sources += 1
 			check(l.radius_m >= 2.0 and l.is_in_group("light_source"), "%s is a light source" % l.name)
-	check(sources == TerrainBuilder.LIGHTS.size(), "all torches built (%d)" % sources)
+	check(sources == TerrainBuilder.LIGHTS.size() + VillageBuilder.LIGHTS.size(), "all torches built, village included (%d)" % sources)
 	nav.queue_free()
 	lights.queue_free()
 
@@ -1544,6 +1545,190 @@ func _test_tavern_dialogues() -> void:
 			mug_spots += 1
 			check(f["name"] == "FlatBoulder" and f["position"].z > -17.0 and f["position"].x > TerrainBuilder.CAVE_FLOOR_X[2], "the mug lies in front of the cave mouth, to the right")
 	check(mug_spots == 1, "exactly one mug in the world")
+
+	for a in party:
+		a.queue_free()
+
+
+# --- The ruined village -------------------------------------------------------------
+
+## A runner over [param file] (data/dialogues/village/<file>.json) sharing bag and story.
+func _village(file: String, bag: Inventory, story: StoryState, party: Array[Actor], effects: Array) -> DialogueRunner:
+	var runner := DialogueRunner.new(DialogueTree.load_by_id("village/" + file), bag, story, party)
+	runner.world_effect.connect(func(e): effects.append(e))
+	return runner
+
+
+func _test_village_dialogues() -> void:
+	var files := {"elder": "village_elder", "blacksmith": "village_blacksmith", "gravedigger": "village_gravedigger",
+		"healer": "village_healer", "scavenger": "village_scavenger", "widow": "village_widow"}
+	for file in files:
+		var t := DialogueTree.load_by_id("village/" + file)
+		check(t != null and t.errors.is_empty(), "village/%s loads and is consistent (%s)" % [file, ", ".join(t.errors) if t else "missing"])
+		if t == null:
+			continue
+		check(t.id == files[file] and t.reachable_nodes().size() == t.nodes.size(), "village/%s: id %s, every node reachable" % [file, t.id])
+		var data: ActorData = load("res://data/actors/%s.tres" % files[file])
+		check(data != null and data.dialogue == "village/" + file and data.faction == ActorData.Faction.NEUTRAL, "%s is a neutral villager with a dialogue" % files[file])
+		check(ResourceLoader.exists("res://assets/characters/%s.glb" % data.model), "%s has a model (%s)" % [files[file], data.model])
+	for item_id in ["dorek_marked_tongs", "granary_broken_bolt", "mara_husband_signet", "bandage"]:
+		check(Inventory.find_item(StringName(item_id)) != null, "item %s exists" % item_id)
+	check(Inventory.find_item(&"bandage").is_consumable() and Inventory.find_item(&"mara_husband_signet").kind == ItemData.Kind.TRINKET, "bandage heals, the ring is a trinket")
+
+	var fighter := _make_actor("res://data/actors/fighter.tres")
+	var rogue := _make_actor("res://data/actors/rogue.tres")
+	var wizard := _make_actor("res://data/actors/wizard.tres")
+	var cleric := _make_actor("res://data/actors/cleric.tres")
+	var party: Array[Actor] = [fighter, rogue, wizard, cleric]
+	var bag := Inventory.new()
+	var story := StoryState.new()
+	var effects: Array = []
+
+	# Dorek: the locked door, the tongs and the repair discount.
+	var smith := _village("blacksmith", bag, story, party, effects)
+	smith.start()
+	check(smith.current_id == "greeting" and _choice_index(smith, "return_tongs") < 0, "no tongs, nothing to return")
+	check(_pick(smith, "door") and story.get_flag("village_smith_testimony") == true and story.get_flag("village_granary_lock_known") == true, "Dorek tells about the bolted door")
+	_pick(smith, "leave")
+	smith.start()
+	check(_pick(smith, "help") and _pick(smith, "quest") and story.quest_status("village_recover_tongs") == "accepted" and story.get_flag("village_tongs_location_known") == true, "he asks for his tongs from the forge")
+	smith.advance()
+	bag.add(Inventory.find_item(&"dorek_marked_tongs"))
+	smith.start()
+	check(_pick(smith, "return_tongs") and smith.current_id == "return_tongs" and bag.count(Inventory.find_item(&"dorek_marked_tongs")) == 0, "the tongs go back")
+	check(story.quest_completed("village_recover_tongs") and story.get_flag("service_dorek_repair") == 20, "quest done, 20 %% repair discount noted for later")
+	smith.advance()
+	smith.start()
+	check(_choice_index(smith, "return_tongs") < 0 and _choice_index(smith, "help") < 0, "nothing more to return or ask")
+	smith.end()
+
+	# Hagan: the lock testimony opens the granary question, the confession ends privately.
+	var elder := _village("elder", bag, story, party, effects)
+	elder.start()
+	check(elder.current_id == "greeting" and _choice_index(elder, "granary") >= 0, "with Dorek's testimony the granary can be raised")
+	check(_pick(elder, "granary") and _pick(elder, "proof") and elder.current_id == "confront" and story.get_flag("village_elder_order_known") == true, "confronted with the bolt")
+	check(_pick(elder, "question") and elder.current_id == "confession" and story.get_flag("village_elder_confessed") == true, "Hagan confesses")
+	effects.clear()
+	check(_pick(elder, "private") and _pick(elder, "agree") and not elder.is_running, "he will tell the families himself")
+	check(story.get_flag("village_truth_resolution") == "private_accountability" and effects.size() == 1 and effects[0]["type"] == "narrative_event" and effects[0]["result_flag"] == "village_private_confession_delivered", "the world is asked to let him speak")
+	elder.start()
+	check(elder.current_id == "accountability_pending", "until then he is still looking for words")
+	elder.advance()
+	story.set_flag("village_private_confession_delivered", true)
+	elder.start()
+	check(elder.current_id == "resolved_private", "afterwards: nobody forgave him")
+	elder.advance()
+	smith.start()
+	check(_choice_index(smith, "after_public_truth") < 0, "no public reaction after a private confession")
+	smith.end()
+
+	# Blackmail and public exposure are separate endings (fresh runs).
+	var story_b := StoryState.new()
+	var bag_b := Inventory.new()
+	story_b.set_flag("village_granary_lock_known", true)
+	elder = _village("elder", bag_b, story_b, party, effects)
+	elder.default_dc = 0
+	elder.start()
+	_pick(elder, "granary")
+	_pick(elder, "proof")
+	_pick(elder, "question")
+	check(_pick(elder, "blackmail") and elder.current_id == "blackmail_success" and bag_b.copper == 30 and story_b.get_flag("village_truth_resolution") == "blackmail", "blackmail: 3 silver, Hagan's secret kept")
+	check(elder.last_check["skill"] == "intimidation" and elder.last_check["roller"] == fighter, "the fighter does the threatening")
+	elder.advance()
+	elder.start()
+	check(elder.current_id == "resolved_blackmail", "Hagan remembers")
+	elder.end()
+	var story_c := StoryState.new()
+	story_c.set_flag("village_smith_testimony", true)
+	elder = _village("elder", Inventory.new(), story_c, party, effects)
+	elder.start()
+	_pick(elder, "granary")
+	_pick(elder, "proof")
+	_pick(elder, "question")
+	check(_pick(elder, "public") and elder.current_id == "public" and story_c.get_flag("village_truth_resolution") == "public_exposure", "the truth in front of everyone")
+	elder.advance()
+	for file in ["blacksmith", "gravedigger", "healer", "widow"]:
+		var r := _village(file, Inventory.new(), story_c, party, effects)
+		r.start()
+		check(_choice_index(r, "after_public_truth") >= 0, "%s reacts to the public truth" % file)
+		r.end()
+	elder.start()
+	check(elder.current_id == "resolved_public", "Hagan after the exposure")
+	elder.end()
+
+	# Borik and Mara: the signet ring, told truthfully.
+	var borik := _village("gravedigger", bag, story, party, effects)
+	borik.start()
+	check(_pick(borik, "husband") and _pick(borik, "ring") and _pick(borik, "promise"), "Borik hands over the ring for Mara")
+	var ring := Inventory.find_item(&"mara_husband_signet")
+	check(bag.count(ring) == 1 and story.quest_status("village_identify_husband") == "accepted", "the ring is in the bag, the quest is open")
+	borik.start()
+	_pick(borik, "husband")
+	check(_choice_index(borik, "ring") < 0, "only one ring")
+	borik.end()
+	var mara := _village("widow", bag, story, party, effects)
+	mara.start()
+	check(_choice_index(mara, "identify_husband") >= 0 and _pick(mara, "identify_husband") and mara.current_id == "ring_return", "the ring can be handed to Mara")
+	check(_pick(mara, "truth") and mara.current_id == "death_truth" and bag.count(ring) == 0 and story.quest_completed("village_identify_husband") and story.get_flag("village_mara_knows_husband_dead") == true, "she learns the truth")
+	mara.advance()
+	mara.start()
+	check(_choice_index(mara, "identify_husband") < 0 and _choice_index(mara, "correct_lie") < 0, "nothing more about the ring")
+	mara.end()
+
+	# Borik's burial coins: a lie takes them, the return entry gives them back.
+	borik.default_dc = 0
+	bag.add_copper(10)
+	var before := bag.copper
+	borik.start()
+	_pick(borik, "valuables")
+	check(_pick(borik, "lie") and borik.current_id == "loot_lie_success" and bag.copper == before + 4 and story.quests["village_return_burial_coins"]["held_copper"] == 4, "four copper held for the families")
+	check(borik.last_check["skill"] == "deception" and borik.last_check["roller"] == rogue, "the rogue lies")
+	borik.advance()
+	borik.start()
+	check(_pick(borik, "return_burial_coins") and _pick(borik, "return") and bag.copper == before and story.quest_completed("village_return_burial_coins"), "and gives them back")
+	borik.advance()
+	borik.start()
+	check(_choice_index(borik, "return_burial_coins") < 0, "returned once")
+	_pick(borik, "help")
+	effects.clear()
+	check(_pick(borik, "work") and effects.size() == 1 and effects[0]["type"] == "narrative_work" and story.get_flag("village_graves_helped") == true, "digging graves asks the world")
+
+	# Sella: a donated potion for two bandages, treatment only for the hurt.
+	bag.add(Inventory.find_item(&"potion_health"))
+	var sella := _village("healer", bag, story, party, effects)
+	sella.speaker = fighter
+	sella.start()
+	_pick(sella, "help")
+	check(_choice_index(sella, "potion") >= 0 and _choice_index(sella, "antidote") < 0, "a healing potion can be given, no antidote in the bag")
+	check(_pick(sella, "potion") and sella.current_id == "donation" and bag.count(Inventory.find_item(&"potion_health")) == 0 and bag.count(Inventory.find_item(&"bandage")) == 2 and story.quest_completed("village_help_sella"), "two bandages for the potion")
+	sella.advance()
+	sella.start()
+	_pick(sella, "treat")
+	check(_choice_index(sella, "pay") < 0 and _choice_index(sella, "work") < 0, "a healthy speaker needs no treatment")
+	sella.end()
+	fighter.take_damage(8)
+	var hp := fighter.current_hp
+	sella.start()
+	_pick(sella, "treat")
+	check(_pick(sella, "pay") and fighter.current_hp == hp + 4 and story.get_flag("village_sella_player_treated") == true, "one silver, four hit points for the speaker")
+	sella.end()
+	sella.start()
+	_pick(sella, "help")
+	check(_choice_index(sella, "potion") < 0, "the donation happens once")
+	sella.end()
+
+	# Nilo and Mara: the boy's hiding place, the same promise twice is fine.
+	var nilo := _village("scavenger", bag, story, party, effects)
+	nilo.start()
+	_pick(nilo, "boy")
+	check(_pick(nilo, "gentle") and nilo.current_id == "boy_truth" and story.get_flag("village_tavin_location_known") == true, "Nilo saw Tavin run to the charcoal hut")
+	check(_pick(nilo, "go") and story.quest_status("village_find_tavin") == "accepted", "the party will look for him")
+	mara.start()
+	check(_choice_index(mara, "clue") >= 0 and _pick(mara, "help") and _choice_index(mara, "accept") >= 0, "Mara can still be promised the same thing")
+	mara.end()
+	mara.start()
+	check(_choice_index(mara, "son_returned") < 0, "Tavin is not back yet (the rescue scene is still missing)")
+	mara.end()
 
 	for a in party:
 		a.queue_free()

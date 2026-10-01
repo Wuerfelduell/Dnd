@@ -89,6 +89,7 @@ func _run() -> void:
 	await _scenario_tavern_and_cave()
 	await _scenario_loot()
 	await _scenario_dialogue()
+	await _scenario_village()
 	if not _failed:
 		print("[scenario] SUCCESS after %.1f s" % _time)
 		get_tree().quit(0)
@@ -369,7 +370,7 @@ func _scenario_tavern_and_cave() -> void:
 	var to_cave := CombatMovement.find_path(map, Vector3(0, 0, 12), Vector3(-10, 0, -30))
 	expect(to_cave.size() > 2 and to_cave[to_cave.size() - 1].distance_to(Vector3(-10, 0, -30)) < 1.0 and CombatMovement.path_length(to_cave) < 60.0, "path from the camp into the cave (%.1f m)" % CombatMovement.path_length(to_cave))
 	# Tavern folk: neutral, lit, labelled by name, never part of a fight.
-	expect(world.npcs().size() == 6, "six tavern folk (%d)" % world.npcs().size())
+	expect(world.npcs().size() == 12 and world.villagers().size() == 6, "six tavern folk and six villagers (%d)" % world.npcs().size())
 	var innkeeper: Actor = world.get_node("Npcs/Innkeeper")
 	expect(innkeeper.is_neutral() and not fighter.is_hostile_to(innkeeper) and not innkeeper.is_hostile_to(fighter), "the innkeeper is nobody's enemy")
 	var gob := _actor("Enemies/GoblinWarrior")
@@ -580,5 +581,80 @@ func _scenario_dialogue() -> void:
 	EventBus.attack_resolved.disconnect(on_attack)
 	await _end()
 	expect(GameState.is_exploring() and not combat.is_active, "back to exploring after the tavern brawl")
+	for p in world.party():
+		p.restore_full(Vector3(0, 0, 12) + Vector3(0.9 * p.get_index(), 0, 0))
+
+
+func _scenario_village() -> void:
+	print("[scenario] --- the ruined village: east gate, bridge, river, forge, villagers ---")
+	var fighter := _actor("Party/Fighter")
+	var controller: PlayerController = fighter.get_node("PlayerController")
+	var hagan := _actor("Villagers/Elder")
+	var dorek := _actor("Villagers/Blacksmith")
+	expect(world.villagers().size() == 6, "six survivors (%d)" % world.villagers().size())
+	for v in world.villagers():
+		expect(v.is_neutral() and v.data.dialogue.begins_with("village/") and v.visual.uses_model(), "%s is a neutral villager with a model and a dialogue" % v.display_name())
+	for p in world.party():
+		p.restore_full(Vector3(-2.0 + 0.9 * p.get_index(), 0, 12))
+	# The navmesh carries a path from the arena over the bridge.
+	var path := CombatMovement.find_path(fighter.get_world_3d().navigation_map, Vector3(10, 0, 0), Vector3(60, 0, 0))
+	var crosses := false
+	for point in path:
+		if absf(point.x - VillageBuilder.ORIGIN.x) < 2.0:
+			crosses = true
+			expect(absf(point.z) < VillageBuilder.BRIDGE_HALF_WIDTH and point.y > 0.2, "the path crosses on the bridge deck (%s)" % point)
+	expect(crosses and path[path.size() - 1].distance_to(Vector3(60, 0, 0)) < 1.0, "a navmesh path leads from the arena over the bridge (%d points)" % path.size())
+	# Walk from the arena through the east gate, over the bridge, up to Dorek.
+	fighter.global_position = Vector3(14, 0, 0)
+	controller.walk_to_npc(dorek)
+	var frames := 0
+	while frames < 1200 and not GameState.is_in_dialogue():
+		await get_tree().physics_frame
+		frames += 1
+	expect(GameState.is_in_dialogue() and world.dialogue != null and world.dialogue.tree.id == "village_blacksmith", "the fighter walked through the east gate and over the bridge to Dorek (frames=%d, at %s)" % [frames, fighter.global_position])
+	expect(world.hud.dialogue_speaker.text == "Dorek", "Dorek speaks (%s)" % world.hud.dialogue_speaker.text)
+	world.hud.dialogue_close.pressed.emit()
+	await get_tree().physics_frame
+	# The cold forge holds the tongs.
+	var forge: LootChest = world.get_node("NavigationRegion3D/Village/ColdForge")
+	var tongs := Inventory.find_item(&"dorek_marked_tongs")
+	controller.walk_to(forge.global_position, forge)
+	frames = 0
+	while frames < 600 and world.inventory.count(tongs) == 0:
+		await get_tree().physics_frame
+		frames += 1
+	expect(world.inventory.count(tongs) == 1 and forge.looted, "the tongs are pulled from the forge (frames=%d)" % frames)
+	# The river keeps walkers out; only the bridge crosses.
+	fighter.global_position = Vector3(VillageBuilder.ORIGIN.x + 6.0, 0, 9.0)
+	await get_tree().physics_frame
+	controller.debug_direction = Vector3.LEFT
+	for _i in 120:
+		await get_tree().physics_frame
+	controller.debug_direction = Vector3.ZERO
+	expect(fighter.global_position.x > VillageBuilder.ORIGIN.x + VillageBuilder.RIVER_BARRIER_X and fighter.global_position.y > -0.2, "the river barrier stops the fighter on the east bank (%s)" % fighter.global_position)
+	# Line of sight is not blocked by the barrier.
+	var hagan_spot := hagan.global_position
+	hagan.global_position = Vector3(VillageBuilder.ORIGIN.x - 6.0, 0, 9.0)
+	expect(Visibility.has_line_of_sight(fighter, hagan), "one can see across the river")
+	hagan.global_position = hagan_spot
+	# Back over the bridge to Hagan.
+	controller.walk_to_npc(hagan)
+	frames = 0
+	while frames < 1200 and not GameState.is_in_dialogue():
+		await get_tree().physics_frame
+		frames += 1
+	expect(GameState.is_in_dialogue() and world.dialogue.tree.id == "village_elder" and world.dialogue.current_id == "greeting", "back over the bridge to Hagan (frames=%d, at %s)" % [frames, fighter.global_position])
+	world.dialogue.end()
+	await get_tree().physics_frame
+	# The tongs go back to Dorek through the extra entry.
+	var smith := world.start_dialogue(DialogueTree.load_by_id("village/blacksmith"), dorek)
+	var index := -1
+	for view in smith.choices():
+		if view["id"] == "return_tongs":
+			index = view["index"]
+	expect(index >= 0 and smith.choose(index) and world.inventory.count(tongs) == 0 and world.story.get_flag("service_dorek_repair") == 20, "Dorek gets his tongs back")
+	smith.advance()
+	await get_tree().physics_frame
+	expect(GameState.is_exploring(), "exploring again")
 	for p in world.party():
 		p.restore_full(Vector3(0, 0, 12) + Vector3(0.9 * p.get_index(), 0, 0))

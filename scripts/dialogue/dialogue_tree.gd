@@ -21,6 +21,7 @@ const KNOWN_EFFECTS := [
 	"set_flag", "increment_flag", "spend_currency", "give_currency", "give_item", "remove_item",
 	"set_quest", "give_quest_reward", "complete_quest", "quest_hint", "set_navigation_hint",
 	"start_combat", "leave_location", "open_shop", "serve_drink", "claim_quest_reward",
+	"unlock_service", "narrative_event", "narrative_work", "heal_actor",
 ]
 
 var id: String = ""
