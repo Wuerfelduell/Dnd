@@ -1,4 +1,4 @@
-# Dnd – 3D-RPG-Prototyp (Vertical Slice, Test 6: echte Assets, Höhen, Deckung, Nacht)
+# Dnd – 3D-RPG-Prototyp (Vertical Slice, Test 7: Höhlenkreaturen, Ruinen, echte Assets)
 
 Trying to make a dnd game using my Baldur's Gate 3 and D&D 5.5e experience.
 
@@ -19,16 +19,21 @@ mit +2, nach oben mit -2. Kisten, Mauern und Säulen geben **Deckung** per Sicht
 halbe (+2 AC) oder Dreiviertel-Deckung (+5 AC), hinter einer Säule ist das Ziel nicht anvisierbar.
 
 ![Die Helden](docs/screenshots/party.png)
+![Die Kreaturen der späteren Wellen](docs/screenshots/creatures.png)
 ![Die Schützen-Anhöhe](docs/screenshots/ledge.png)
 ![Das Lager bei Nacht](docs/screenshots/camp_night.png)
 
-Die Szene und die Figuren kommen aus den beiden Asset-Paketen unter `assets/` (alles CC0):
+Die Szene und die Figuren kommen aus den vier Asset-Paketen unter `assets/` (alles CC0):
 KayKit Dungeon Remastered (Mauern, Säulen, Kisten, Fackeln, Bodenplatten), Kenney Nature Kit
 (Bäume, Felsen, Zelte, Lagerfeuer), eigene Raster-Plattformen und Treppen für die Höhenebenen,
-KayKit Adventurers für die Helden (Ritter, Schurkin mit Kapuze, Magierin, Kleriker-Variante) und
-Quaternius für Goblins und Wolf. Die Helden haben 76 Animationsclips, der Goblin 7, der Wolf 24;
-das Spiel spielt Idle, Laufen, Angriff, Schuss, Zauber, Treffer und Tod über einen kleinen
-Adapter (`CharacterAnimator`). Jede Figur steht wie eine Miniatur auf einem Sockel mit
+Ruinen- und Höhlenbauteile (Altar, Sarkophag, Säulenreste, Torbogen, Statue, Feuerbecken,
+Runenstein, Höhleneingang mit Kristallen und Leuchtpilzen), KayKit Adventurers für die Helden
+(Ritter, Schurkin mit Kapuze, Magierin, Kleriker-Variante), Quaternius für Goblins und Wolf und
+die eigenen Kreaturen des Figurenpakets für spätere Wellen (Höhlenspinne, Fledermaus,
+Kristallschleim, Pilzschamane, Ruinengeist, Wegelagerer, Steingolem). Die Helden haben 76
+Animationsclips, der Goblin 7, der Wolf 24, die Kreaturen 9 (inklusive Slam und Spawn); das Spiel
+spielt Idle, Laufen, Angriff, Schlag, Schuss, Zauber, Treffer und Tod über einen kleinen Adapter
+(`CharacterAnimator`). Jede Figur steht wie eine Miniatur auf einem Sockel mit
 Fraktionsring. Alles Visuelle sitzt in `ActorVisual`, das Gelände in `TerrainBuilder`; die
 Kampflogik kennt davon nichts (siehe `docs/ARCHITECTURE.md`). Fehlt ein Modell, springen die
 Primitiv-Miniaturen aus `MiniatureBuilder` ein, fehlt ein Umgebungsmodell, ein Platzhalterblock.
@@ -111,6 +116,7 @@ Umwerfen, Pack Tactics), 1 Hobgoblin Captain (AC 17, 39 HP, zwei Angriffe pro Ac
 * **Ressourcen sind endlich**: Zauber-Slots, Second Wind und Action Surge laden nicht mehr pro Kampf auf. Kurze Rast zwischen den Wellen: ein Trefferwürfel Heilung pro zwei Stufen, Kämpfer-Features und die Hälfte der Pfeile. Lange Rast (nur nach jeder dritten Welle): alles. Cantrips sind gratis und würfeln ab Stufe 5 doppelt.
 * **Pfeile**: Langbogen und Kurzbogen haben 20 Pfeile, Goblin-Bogenschützen 8 (danach greifen sie mit dem Dolch an). Die Aktionsleiste zeigt den Vorrat.
 * **Wellen skalieren**: Beim Respawn werden alle Gegner auf das durchschnittliche Party-Level gehoben (+20 % HP pro Stufe, alle zwei Stufen +1 auf Treffer, Schaden und AC, mehr XP), und ab Welle 3 kommt pro Welle ein zusätzlicher Goblin-Krieger dazu (bis vier).
+* **Neue Kreaturen aus dem Höhleneingang** (bleiben ab ihrer Welle dabei): Welle 2 Fledermaus; Welle 3 Höhlenspinne (giftiger Biss: CON-Save DC 11, sonst **Poisoned** = Nachteil auf Angriffe, CON-Wiederholungssave) und Kristallschleim (24 HP, langsam, Säure); Welle 4 zweite Spinne, Pilzschamane (Sporenspucke auf 9 m mit Gift) und ein Wegelagerer (Sneak Attack 1d6); Welle 5 Ruinengeist (Lebensentzug 2d6) und zweiter Wegelagerer; Welle 6 der **Steingolem** (68 HP, AC 17, zwei Schläge 2d8+5, langsam). Alles in `World.WAVE_ARRIVALS` als Daten, jede Kreatur ist eine `.tres` mit Modell.
 * **Wegfindung** weicht anderen Figuren aus, stellt ein besetztes Ziel daneben und gleitet bei Berührung an Körpern entlang statt stehen zu bleiben. Figuren folgen dem Gelände (Schwerkraft, Treppen), Bewegung wird auf der Bodenebene gemessen.
 * **Höhe**: Steht der Angreifer mindestens 1 m höher als das Ziel, bekommt er +2 auf den Angriffswurf; steht er mindestens 1 m tiefer, -2. Gilt für Waffen und Zauberangriffe. Die Schützen-Anhöhe und der Aussichtsfelsen sind 2 m hoch, der Hügel am Lager 1 m; alle haben Treppen (unter der Treppe liegt ein glatter Collider, damit die Figuren hinaufgleiten). Direkt am Fuß einer Klippe verdeckt die Kante den Unterkörper, das zählt als Deckung.
 * **Sichtlinie & Deckung**: Von den Augen des Angreifers gehen fünf Strahlen zu Augen, Brust, Knien und beiden Schultern des Ziels (nur Levelgeometrie blockiert, keine Kreaturen). 1–2 blockiert = halbe Deckung (+2 AC, +2 auf DEX-Saves), 3–4 = Dreiviertel-Deckung (+5), alle 5 = volle Deckung: kein Ziel sichtbar, Angriff und Zauber werden verweigert (der Log erklärt warum). Nahkampf ignoriert Deckung. Flächenzauber brauchen einen sichtbaren Zielpunkt, Deckung gegen die Explosion wird vom Punkt aus gemessen. Kisten sind 1 m hoch, Mauern 0,9 m, Säulen 4 m.
@@ -158,11 +164,11 @@ scripts/combat/   CombatManager, InitiativeTracker, TurnState, AttackResolver, A
                   Visibility (Sichtlinie, Deckung, Höhe), Lighting (Licht/Schatten), CombatSituation,
                   PlayerCombatInput, actions/ (Attack, Offhand, Spell, Dash, Disengage, Second Wind,
                   Action Surge), ai/ (CombatAI, PartyAI), EnemyAI
-scripts/world/    World, TerrainBuilder (Plateaus, Treppen, Mauern, Fackeln), Terrain (Bodenhöhe),
+scripts/world/    World (inkl. Wellentabelle), TerrainBuilder (Plateaus, Treppen, Mauern, Ruinen, Höhleneingang, Lichter), Terrain (Bodenhöhe),
                   LightSource, CameraRig, TargetingPreview
 scripts/ui/       CombatHud, HudJoystick, ActorLabel, FloatingText
 data/             .tres für Helden, Gegner (inkl. Modell, Maßstab, Ausrüstung), Waffen, Zauber und Status-Effekte
-assets/           Benutzte GLB-Modelle (characters/, kaykit/, kenney/, custom_grid/), Kataloge, Lizenzen, Original-ZIPs
+assets/           Benutzte GLB-Modelle (characters/, kaykit/, kenney/, custom_grid/, environment_expansion/), Kataloge, Lizenzen, Original-ZIPs
 tests/            Unit-Tests, Szenario-Test, Autoplay-Integrationstest, run_all.sh
 docs/             Architekturbeschreibung, Screenshots
 ```

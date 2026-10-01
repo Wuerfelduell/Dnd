@@ -1,0 +1,49 @@
+[gd_resource type="Resource" script_class="ActorData" format=3]
+
+[ext_resource type="Script" path="res://scripts/data/actor_data.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/data/actor_stats.gd" id="2"]
+[ext_resource type="Script" path="res://scripts/data/weapon_data.gd" id="3"]
+[ext_resource type="Script" path="res://scripts/data/spell_data.gd" id="4"]
+[ext_resource type="Resource" path="res://data/weapons/bat_bite.tres" id="5"]
+
+[sub_resource type="Resource" id="Stats"]
+script = ExtResource("2")
+max_hp = 7
+armor_class = 13
+strength_mod = -1
+dexterity_mod = 3
+constitution_mod = 0
+intelligence_mod = -4
+wisdom_mod = 1
+charisma_mod = -3
+proficiency_bonus = 2
+save_proficiencies = PackedStringArray()
+speed_m = 12.0
+
+[resource]
+script = ExtResource("1")
+display_name = "Cave Bat"
+level = 1
+xp = 0
+xp_value = 25
+hit_die = 6
+primary_ability = "str"
+class_name_text = "Beast"
+faction = 1
+creature_type = "beast"
+stats = SubResource("Stats")
+weapons = Array[ExtResource("3")]([ExtResource("5")])
+color = Color(0.75, 0.2, 0.15, 1)
+attacks_per_action = 1
+has_second_wind = false
+has_action_surge = false
+has_cunning_action = false
+sneak_attack_dice = ""
+has_pack_tactics = false
+spellcasting_ability = ""
+spells = Array[ExtResource("4")]([])
+spell_slots = PackedInt32Array()
+model = "cast_expansion/cave_enemies/Cave_Bat"
+model_scale = 0.8
+model_height = 1.0
+model_equipment = PackedStringArray()

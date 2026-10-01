@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="WeaponData" format=3]
+
+[ext_resource type="Script" path="res://scripts/data/weapon_data.gd" id="1"]
+[ext_resource type="Resource" path="res://data/statuses/poisoned.tres" id="2"]
+
+[resource]
+script = ExtResource("1")
+display_name = "Spore Spit"
+damage_dice = "1d8"
+damage_type = "poison"
+ability = "dex"
+is_ranged = true
+is_finesse = false
+is_light = false
+range_m = 9.0
+on_hit_save_ability = "con"
+on_hit_save_dc = 12
+on_hit_status_rounds = 2
+on_hit_status = ExtResource("2")

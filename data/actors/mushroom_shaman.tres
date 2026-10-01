@@ -1,0 +1,50 @@
+[gd_resource type="Resource" script_class="ActorData" format=3]
+
+[ext_resource type="Script" path="res://scripts/data/actor_data.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/data/actor_stats.gd" id="2"]
+[ext_resource type="Script" path="res://scripts/data/weapon_data.gd" id="3"]
+[ext_resource type="Script" path="res://scripts/data/spell_data.gd" id="4"]
+[ext_resource type="Resource" path="res://data/weapons/spore_spit.tres" id="5"]
+[ext_resource type="Resource" path="res://data/weapons/slime_pseudopod.tres" id="6"]
+
+[sub_resource type="Resource" id="Stats"]
+script = ExtResource("2")
+max_hp = 22
+armor_class = 12
+strength_mod = 0
+dexterity_mod = 2
+constitution_mod = 1
+intelligence_mod = 1
+wisdom_mod = 3
+charisma_mod = 0
+proficiency_bonus = 2
+save_proficiencies = PackedStringArray("con")
+speed_m = 7.5
+
+[resource]
+script = ExtResource("1")
+display_name = "Mushroom Shaman"
+level = 3
+xp = 0
+xp_value = 200
+hit_die = 8
+primary_ability = "str"
+class_name_text = "Shaman"
+faction = 1
+creature_type = "plant"
+stats = SubResource("Stats")
+weapons = Array[ExtResource("3")]([ExtResource("5"), ExtResource("6")])
+color = Color(0.75, 0.2, 0.15, 1)
+attacks_per_action = 1
+has_second_wind = false
+has_action_surge = false
+has_cunning_action = false
+sneak_attack_dice = ""
+has_pack_tactics = false
+spellcasting_ability = ""
+spells = Array[ExtResource("4")]([])
+spell_slots = PackedInt32Array()
+model = "cast_expansion/cave_enemies/Mushroom_Shaman"
+model_scale = 0.85
+model_height = 1.75
+model_equipment = PackedStringArray()

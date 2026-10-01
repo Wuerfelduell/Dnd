@@ -43,6 +43,8 @@ enum Faction { PLAYER, ENEMY }
 @export var model_equipment: PackedStringArray = PackedStringArray()
 ## Extra yaw so the model looks along the actor's -Z like the capsule does.
 @export var model_yaw_degrees: float = 180.0
+## Animation action for melee attacks ("attack", or "slam" for the golems).
+@export var model_attack_action: String = "attack"
 
 @export_group("Class features")
 ## Number of weapon attacks per Attack action (Extra Attack / Multiattack).

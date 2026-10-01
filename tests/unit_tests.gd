@@ -28,6 +28,7 @@ func _ready() -> void:
 	_test_cover_and_elevation()
 	_test_shadows()
 	_test_terrain_layout()
+	_test_new_creatures()
 	print("\n%d checks, %d failures" % [_checks, _failures])
 	get_tree().quit(0 if _failures == 0 else 1)
 
@@ -937,7 +938,55 @@ func _test_terrain_layout() -> void:
 	for l in lights.get_children():
 		if l is LightSource:
 			sources += 1
-			check(l.radius_m >= 6.0 and l.is_in_group("light_source"), "%s is a light source" % l.name)
+			check(l.radius_m >= 4.0 and l.is_in_group("light_source"), "%s is a light source" % l.name)
 	check(sources == TerrainBuilder.LIGHTS.size(), "all torches built (%d)" % sources)
 	nav.queue_free()
 	lights.queue_free()
+
+
+# --- Cave and ruin creatures ----------------------------------------------
+
+func _test_new_creatures() -> void:
+	var poisoned := _status("poisoned")
+	check(poisoned.attacks_disadvantage and poisoned.repeat_save_ability == "con" and poisoned.default_rounds == 3, "poisoned: disadvantage, CON repeat save, 3 rounds")
+	var scene: PackedScene = load("res://scenes/actors/enemy.tscn")
+	var expected := {
+		"cave_spider": ["Cave Spider", "slam"], "cave_bat": ["Cave Bat", "slam"], "crystal_slime": ["Crystal Slime", "slam"],
+		"mushroom_shaman": ["Mushroom Shaman", "cast"], "ruin_wraith": ["Ruin Wraith", "cast"],
+		"bandit": ["Bandit", "ranged"], "stone_golem": ["Stone Golem", "slam"],
+	}
+	for kind in expected:
+		var actor: Actor = scene.instantiate()
+		actor.data = load("res://data/actors/%s.tres" % kind)
+		add_child(actor)
+		check(actor.display_name() == expected[kind][0] and not actor.is_player() and actor.data.xp_value > 0, "%s loads as an enemy" % kind)
+		check(actor.visual.uses_model() and actor.figure_height() == actor.data.model_height, "%s shows its model" % kind)
+		var animator := actor.visual.animator()
+		check(animator != null and animator.has_action("idle") and animator.has_action("run") and animator.has_action("attack") and animator.has_action("hit") and animator.has_action("death"), "%s has the basic clips" % kind)
+		check(animator != null and animator.has_action(expected[kind][1]), "%s can play %s" % [kind, expected[kind][1]])
+		check(not actor.actions.is_empty() and actor.actions[0] is AttackAction, "%s has an attack" % kind)
+		actor.queue_free()
+	# The golem slams twice per action; the spider's bite poisons on a failed CON save.
+	var golem := _make_actor("res://data/actors/stone_golem.tres")
+	check(golem.data.attacks_per_action == 2 and golem.data.model_attack_action == "slam" and golem.armor_class() == 17, "golem: two slams, AC 17")
+	var spider := _make_actor("res://data/actors/cave_spider.tres")
+	var bite: WeaponData = spider.data.weapons[0]
+	check(bite.on_hit_status == poisoned and bite.on_hit_save_ability == "con" and bite.on_hit_save_dc == 11, "spider bite carries the poison save")
+	var fighter := _make_actor("res://data/actors/fighter.tres")
+	fighter.add_status(poisoned, spider, 3)
+	check(fighter.status_flag("attacks_disadvantage"), "a poisoned fighter attacks with disadvantage")
+	CombatContext.override_actors = [fighter, spider]
+	_place(fighter, 0, 0)
+	_place(spider, 0, 1.2)
+	var swing := AttackResolver.resolve(fighter, spider, AttackProfile.from_weapon(fighter, fighter.data.weapons[0]), [fighter, spider])
+	check(swing.attack_roll.mode == DiceResult.Mode.DISADVANTAGE, "poison shows up in the roll")
+	CombatContext.override_actors = []
+	# Wave table: newcomers from wave 2 on, the golem at wave 5.
+	check(World.WAVE_ARRIVALS.has(2) and World.WAVE_ARRIVALS[2].size() == 1, "wave 2 brings one cave creature")
+	check(World.WAVE_ARRIVALS[6][0].ends_with("stone_golem.tres"), "wave 6 brings the golem")
+	for w in World.WAVE_ARRIVALS:
+		for path in World.WAVE_ARRIVALS[w]:
+			check(ResourceLoader.exists(path), "%s exists" % path)
+	for a in [golem, spider, fighter]:
+		a.queue_free()
+

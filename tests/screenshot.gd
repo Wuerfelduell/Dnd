@@ -75,6 +75,22 @@ func _run() -> void:
 		free_cam.look_at(party_center + Vector3(0, 0.8, 0), Vector3.UP)
 		await _settle()
 		await _shoot("party")
+	# The creatures of the later waves, lined up in the open.
+	var creature_center := Vector3(1.0, 0.0, 0.0)
+	var spawned: Array[Actor] = []
+	var kinds := ["stone_golem", "cave_spider", "cave_bat", "crystal_slime", "mushroom_shaman", "ruin_wraith", "bandit"]
+	for i in kinds.size():
+		var creature: Actor = load("res://scenes/actors/enemy.tscn").instantiate()
+		creature.data = load("res://data/actors/%s.tres" % kinds[i])
+		creature.transform = Transform3D(Basis.from_euler(Vector3(0, PI, 0)), creature_center + Vector3(-6.9 + 2.3 * i, 0.0, 0.0))
+		world.get_node("Enemies").add_child(creature)
+		spawned.append(creature)
+	free_cam.global_position = creature_center + Vector3(0.0, 4.0, 9.0)
+	free_cam.look_at(creature_center + Vector3(0, 0.8, 0), Vector3.UP)
+	await _settle()
+	await _shoot("creatures")
+	for c in spawned:
+		c.queue_free()
 	# The height levels: archer ledge with its stairs and the dark overlook.
 	free_cam.global_position = Vector3(-1.0, 6.0, -7.0)
 	free_cam.look_at(Vector3(7.0, 1.5, -15.0), Vector3.UP)

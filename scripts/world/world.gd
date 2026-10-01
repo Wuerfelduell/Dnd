@@ -13,6 +13,18 @@ const REINFORCEMENT_DATA := preload("res://data/actors/goblin_warrior.tres")
 ## A long rest is offered after every N-th wave.
 const LONG_REST_EVERY := 3
 const MAX_REINFORCEMENTS := 4
+## Creatures from the cave and the ruins that join from a given wave on (and
+## stay for every later wave, rescaled). Waves beyond the table repeat the
+## last entry's roster plus the goblin reinforcements.
+const WAVE_ARRIVALS := {
+	2: ["res://data/actors/cave_bat.tres"],
+	3: ["res://data/actors/cave_spider.tres", "res://data/actors/crystal_slime.tres"],
+	4: ["res://data/actors/cave_spider.tres", "res://data/actors/mushroom_shaman.tres", "res://data/actors/bandit.tres"],
+	5: ["res://data/actors/ruin_wraith.tres", "res://data/actors/bandit.tres"],
+	6: ["res://data/actors/stone_golem.tres"],
+}
+## Where newcomers appear: in front of the cave mouth in the north-west.
+const CAVE_MOUTH := Vector3(-10.0, 0.0, -17.0)
 
 ## Enemies within this distance of the one who spotted the party join the fight.
 @export var encounter_radius: float = 16.0
@@ -189,6 +201,13 @@ func _start_wave(number: int) -> void:
 	# From wave 3 on, an extra goblin joins each wave (up to MAX_REINFORCEMENTS).
 	for i in mini(MAX_REINFORCEMENTS, wave - 2) - _reinforcements.size():
 		_spawn_reinforcement()
+	# New creature kinds arrive according to the wave table.
+	if WAVE_ARRIVALS.has(wave):
+		var names := PackedStringArray()
+		for path in WAVE_ARRIVALS[wave]:
+			var newcomer := _spawn_arrival(load(path))
+			names.append(newcomer.display_name())
+		EventBus.log("[color=orange]From the cave mouth: %s![/color]" % ", ".join(names))
 	for e in enemies():
 		var t: Transform3D = _spawn_transforms.get(e, e.global_transform)
 		var lines := Progression.scale_enemy(e, level)
@@ -208,15 +227,37 @@ var _reinforcements: Array[Actor] = []
 
 
 func _spawn_reinforcement() -> void:
-	var enemy: Actor = ENEMY_SCENE.instantiate()
-	enemy.data = REINFORCEMENT_DATA
 	var index := _reinforcements.size()
-	var spot := Vector3(-13.0 + 3.5 * index, 0.0, -17.5)
+	var enemy := _spawn_enemy(REINFORCEMENT_DATA, Vector3(-13.0 + 3.5 * index, 0.0, -17.5), "Reinforcement%d" % (index + 1))
+	_reinforcements.append(enemy)
+
+
+var _arrivals: Array[Actor] = []
+
+
+func _spawn_arrival(data: ActorData) -> Actor:
+	var index := _arrivals.size()
+	# A loose cluster in front of the cave mouth, spreading east.
+	var spot := CAVE_MOUTH + Vector3(1.6 * (index % 5) + 0.8 * (index / 5), 0.0, 1.4 * (index / 5))
+	var enemy := _spawn_enemy(data, spot, "Arrival%d" % (index + 1))
+	enemy.play_action("spawn")
+	_arrivals.append(enemy)
+	return enemy
+
+
+func _spawn_enemy(data: ActorData, spot: Vector3, node_name: String) -> Actor:
+	var enemy: Actor = ENEMY_SCENE.instantiate()
+	enemy.data = data
 	enemy.transform = Transform3D(Basis.from_euler(Vector3(0, PI, 0)), spot)
 	$Enemies.add_child(enemy)
-	enemy.name = "Reinforcement%d" % (index + 1)
-	_reinforcements.append(enemy)
+	enemy.name = node_name
 	_spawn_transforms[enemy] = enemy.global_transform
+	return enemy
+
+
+## Everyone a wave brings (for the HUD / tests).
+func arrivals() -> Array[Actor]:
+	return _arrivals
 
 
 func _on_turn_started(actor: Actor) -> void:

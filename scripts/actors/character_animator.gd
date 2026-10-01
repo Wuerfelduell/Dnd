@@ -14,10 +14,12 @@ const CANDIDATES := {
 	"walk": ["Walking_A", "Walk"],
 	"run": ["Running_A", "Run", "Gallop", "Walking_A", "Walk"],
 	"attack": ["1H_Melee_Attack_Slice_Diagonal", "1H_Melee_Attack_Chop", "Attack"],
-	"ranged": ["2H_Ranged_Shoot", "1H_Ranged_Shoot", "Attack"],
-	"cast": ["Spellcast_Shoot", "Spellcasting", "Attack"],
-	"hit": ["Hit_A", "HitRecieve", "Idle_HitReact_Left"],
+	"slam": ["Slam", "2H_Melee_Attack_Chop", "Attack"],
+	"ranged": ["2H_Ranged_Shoot", "1H_Ranged_Shoot", "Cast", "Attack"],
+	"cast": ["Spellcast_Shoot", "Spellcasting", "Cast", "Attack"],
+	"hit": ["Hit_A", "HitRecieve", "Idle_HitReact_Left", "Hit"],
 	"death": ["Death_A", "Death"],
+	"spawn": ["Spawn", "Idle"],
 	"revive": ["Lie_StandUp", "Idle"],
 }
 const LOOPING := ["idle", "walk", "run"]

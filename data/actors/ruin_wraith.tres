@@ -1,0 +1,49 @@
+[gd_resource type="Resource" script_class="ActorData" format=3]
+
+[ext_resource type="Script" path="res://scripts/data/actor_data.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/data/actor_stats.gd" id="2"]
+[ext_resource type="Script" path="res://scripts/data/weapon_data.gd" id="3"]
+[ext_resource type="Script" path="res://scripts/data/spell_data.gd" id="4"]
+[ext_resource type="Resource" path="res://data/weapons/wraith_touch.tres" id="5"]
+
+[sub_resource type="Resource" id="Stats"]
+script = ExtResource("2")
+max_hp = 30
+armor_class = 13
+strength_mod = 0
+dexterity_mod = 3
+constitution_mod = 2
+intelligence_mod = 1
+wisdom_mod = 2
+charisma_mod = 2
+proficiency_bonus = 2
+save_proficiencies = PackedStringArray("wis")
+speed_m = 12.0
+
+[resource]
+script = ExtResource("1")
+display_name = "Ruin Wraith"
+level = 4
+xp = 0
+xp_value = 450
+hit_die = 8
+primary_ability = "str"
+class_name_text = "Undead"
+faction = 1
+creature_type = "undead"
+stats = SubResource("Stats")
+weapons = Array[ExtResource("3")]([ExtResource("5")])
+color = Color(0.75, 0.2, 0.15, 1)
+attacks_per_action = 1
+has_second_wind = false
+has_action_surge = false
+has_cunning_action = false
+sneak_attack_dice = ""
+has_pack_tactics = false
+spellcasting_ability = ""
+spells = Array[ExtResource("4")]([])
+spell_slots = PackedInt32Array()
+model = "cast_expansion/ruin_enemies/Ruin_Wraith"
+model_scale = 1.0
+model_height = 1.5
+model_equipment = PackedStringArray()

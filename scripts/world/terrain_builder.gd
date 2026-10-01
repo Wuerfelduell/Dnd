@@ -47,6 +47,11 @@ const COVER := [
 	{"name": "LowWallWest", "model": "custom_grid/cover_stone_low_2m", "position": Vector3(-9.5, 0, -6), "rotation": 0.0, "scale": 1.0, "box": Vector3(2.08, 1.02, 0.58)},
 	{"name": "Barricade", "model": "custom_grid/cover_wood_barricade", "position": Vector3(6, 0, 3), "rotation": 90.0, "scale": 1.0, "box": Vector3(0.5, 1.2, 2.0)},
 	{"name": "Chest", "model": "kaykit/props/chest", "position": Vector3(3.5, 0, 16.5), "rotation": -20.0, "scale": 0.8, "box": Vector3(1.36, 1.04, 1.16)},
+	# Ruined shrine in the south-east corner: altar and sarcophagus are waist-high cover.
+	{"name": "Altar", "model": "environment_expansion/ruins/ruin_altar", "position": Vector3(14, 0, 14), "rotation": 0.0, "scale": 1.0, "box": Vector3(2.2, 1.13, 1.6)},
+	{"name": "Sarcophagus", "model": "environment_expansion/ruins/ruin_sarcophagus_closed", "position": Vector3(11, 0, 16.5), "rotation": 90.0, "scale": 1.0, "box": Vector3(1.6, 1.04, 2.8)},
+	{"name": "FallenColumn", "model": "environment_expansion/ruins/ruin_column_fallen", "position": Vector3(-14, 0, 6), "rotation": 60.0, "scale": 1.0, "box": Vector3(1.0, 0.97, 3.35)},
+	{"name": "Statue", "model": "environment_expansion/ruins/ruin_statue_worn", "position": Vector3(-17, 0, 11), "rotation": 120.0, "scale": 1.0, "box": Vector3(1.3, 2.2, 1.3)},
 ]
 ## Round obstacles with a cylinder collider.
 const PILLARS := [
@@ -57,14 +62,25 @@ const PILLARS := [
 	{"name": "PineB", "model": "kenney/trees/tree_pineRoundB", "position": Vector3(16, 0, 15), "radius": 0.4, "height": 4.0, "scale": 3.4},
 	{"name": "PineC", "model": "kenney/trees/tree_pineRoundB", "position": Vector3(-15, 0, -16), "radius": 0.4, "height": 4.0, "scale": 3.0},
 	{"name": "PineD", "model": "kenney/trees/tree_pineRoundA", "position": Vector3(17, 0, 8), "radius": 0.45, "height": 4.0, "scale": 2.8},
+	{"name": "HalfColumnA", "model": "environment_expansion/ruins/ruin_column_half", "position": Vector3(16, 0, 11), "radius": 0.6, "height": 1.92},
+	{"name": "HalfColumnB", "model": "environment_expansion/ruins/ruin_column_half", "position": Vector3(-14, 0, -12), "radius": 0.6, "height": 1.92},
+	{"name": "ArchLegWest", "model": "environment_expansion/ruins/ruin_arch_broken", "position": Vector3(-13, 0, 14), "radius": 0.45, "height": 3.6, "rotation": 30.0, "collider_offset": Vector3(-1.8, 0, 0)},
+	{"name": "Stalagmite", "model": "environment_expansion/cave/cave_stalagmite_large", "position": Vector3(-7, 0, -15.5), "radius": 0.55, "height": 2.4},
 ]
 ## Decoration without collision (scale, rotation in degrees).
 const PROPS := [
 	{"model": "kenney/rocks/rock_largeA", "position": Vector3(-14, 0, 12), "rotation": 40.0, "scale": 2.5},
 	{"model": "kenney/rocks/rock_largeB", "position": Vector3(15, 0, -1), "rotation": -70.0, "scale": 2.2},
-	{"model": "kenney/rocks/rock_largeB", "position": Vector3(-12, 0, -17), "rotation": 15.0, "scale": 2.0},
+	{"model": "kenney/rocks/rock_largeB", "position": Vector3(-17.5, 0, -14), "rotation": 15.0, "scale": 2.0},
 	{"model": "kenney/props/tent_detailedOpen", "position": Vector3(3, 0, -18.5), "rotation": 160.0, "scale": 3.0},
-	{"model": "kenney/props/tent_detailedOpen", "position": Vector3(-9, 0, -18.5), "rotation": 200.0, "scale": 3.0},
+	{"model": "kenney/props/tent_detailedOpen", "position": Vector3(-15.5, 0, -18.3), "rotation": 200.0, "scale": 3.0},
+	# Cave mouth in the north wall: where later waves come from.
+	{"model": "environment_expansion/cave/cave_tunnel_arch_4", "position": Vector3(-10, 0, -18.8), "rotation": 0.0, "scale": 1.0},
+	{"model": "environment_expansion/cave/cave_crystals_cyan", "position": Vector3(-12.6, 0, -18.2), "rotation": 20.0, "scale": 1.0},
+	{"model": "environment_expansion/cave/cave_crystals_purple", "position": Vector3(-7.3, 0, -18.3), "rotation": -40.0, "scale": 0.8},
+	{"model": "environment_expansion/cave/cave_glowing_fungi", "position": Vector3(-8.5, 0, -16.8), "rotation": 0.0, "scale": 1.0},
+	{"model": "environment_expansion/ruins/ruin_rubble_small", "position": Vector3(14.5, 0, 17.5), "rotation": 10.0, "scale": 1.0},
+	{"model": "environment_expansion/ruins/ruin_rubble_small", "position": Vector3(-16, 0, 4), "rotation": 75.0, "scale": 0.9},
 	{"model": "kenney/foliage/plant_bush", "position": Vector3(-11, 0, 11), "rotation": 0.0, "scale": 3.0},
 	{"model": "kenney/foliage/plant_bush", "position": Vector3(13, 0, 11), "rotation": 90.0, "scale": 3.0},
 	{"model": "kenney/foliage/plant_bush", "position": Vector3(-15, 0, 8), "rotation": 45.0, "scale": 2.5},
@@ -83,6 +99,9 @@ const LIGHTS := [
 	{"name": "WestTorch", "position": Vector3(-6.0, 0.0, -5.0), "kind": "torch"},
 	{"name": "EastTorch", "position": Vector3(8.0, 0.0, -2.0), "kind": "torch"},
 	{"name": "SouthEastTorch", "position": Vector3(12.0, 0.0, 6.0), "kind": "torch"},
+	{"name": "ShrineBrazier", "position": Vector3(16.5, 0.0, 15.5), "kind": "brazier"},
+	{"name": "Runestone", "position": Vector3(-16.5, 0.0, 16.0), "kind": "runestone"},
+	{"name": "CaveCrystals", "position": Vector3(-10.0, 0.0, -17.5), "kind": "crystal"},
 ]
 ## Wall pieces that differ from the plain wall, keyed by side and tile index.
 const WALL_VARIANTS := {
@@ -117,13 +136,23 @@ static func build(nav_parent: Node3D, light_parent: Node3D) -> void:
 		match l["kind"]:
 			"campfire":
 				_campfire(light_parent, nav_parent, l["name"], l["position"])
+			"brazier":
+				_brazier(light_parent, nav_parent, l["name"], l["position"])
+			"runestone":
+				_glow(light_parent, nav_parent, l["name"], l["position"], "environment_expansion/ruins/ruin_runestone", Color(0.4, 0.9, 1.0), 4.0, Vector2(0.6, 2.54), 1.6)
+			"crystal":
+				_glow(light_parent, null, l["name"], l["position"], "", Color(0.45, 0.85, 1.0), 4.5, Vector2.ZERO, 0.8)
 			_:
 				_torch(light_parent, l["name"], l["position"])
 
 
 ## Number of static bodies [method build] creates (tests cross-check the scene).
 static func collider_count() -> int:
-	return PLATEAUS.size() + STAIRS.size() + COVER.size() + PILLARS.size() + 4 + 1
+	var lights := 0
+	for l in LIGHTS:
+		if l["kind"] in ["campfire", "brazier", "runestone"]:
+			lights += 1
+	return PLATEAUS.size() + STAIRS.size() + COVER.size() + PILLARS.size() + 4 + lights
 
 
 ## Footprint of a plateau or staircase entry.
@@ -304,12 +333,13 @@ static func _cover(parent: Node3D, entry: Dictionary) -> StaticBody3D:
 static func _pillar(parent: Node3D, entry: Dictionary) -> StaticBody3D:
 	var body := _static_body(parent, entry["name"])
 	body.position = entry["position"]
+	body.rotation.y = deg_to_rad(entry.get("rotation", 0.0))
 	var shape := CollisionShape3D.new()
 	var cyl := CylinderShape3D.new()
 	cyl.radius = entry["radius"]
 	cyl.height = entry["height"]
 	shape.shape = cyl
-	shape.position = Vector3(0.0, entry["height"] * 0.5, 0.0)
+	shape.position = Vector3(0.0, entry["height"] * 0.5, 0.0) + entry.get("collider_offset", Vector3.ZERO)
 	body.add_child(shape)
 	if _model(body, entry["model"], Vector3.ZERO, 0.0, entry.get("scale", 1.0)) == null:
 		_fallback_box(body, Vector3(entry["radius"] * 2.0, entry["height"], entry["radius"] * 2.0), Vector3(0.0, entry["height"] * 0.5, 0.0))
@@ -352,6 +382,53 @@ static func _campfire(parent: Node3D, nav_parent: Node3D, name: String, base: Ve
 	shape.shape = cyl
 	shape.position = Vector3(0.0, 0.35, 0.0)
 	body.add_child(shape)
+	return light
+
+
+## Stone brazier with a fire: a light source and a small obstacle.
+static func _brazier(parent: Node3D, nav_parent: Node3D, name: String, base: Vector3) -> LightSource:
+	var light := LightSource.new()
+	light.name = name
+	light.radius_m = 5.0
+	light.position = base + Vector3.UP * 1.7
+	parent.add_child(light)
+	if _model(light, "environment_expansion/ruins/ruin_brazier", Vector3(0.0, -1.7, 0.0), 0.0, 1.0) == null:
+		_fallback_box(light, Vector3(0.8, 1.6, 0.8), Vector3(0.0, -0.9, 0.0))
+	_mesh_part(light, _sphere_mesh(0.2), Vector3(0.0, 0.05, 0.0), FLAME, true)
+	_omni(light, Vector3(0.0, 0.2, 0.0), 8.0, 2.0)
+	var body := _static_body(nav_parent, name + "Base")
+	body.position = base
+	var shape := CollisionShape3D.new()
+	var cyl := CylinderShape3D.new()
+	cyl.radius = 0.55
+	cyl.height = 1.6
+	shape.shape = cyl
+	shape.position = Vector3(0.0, 0.8, 0.0)
+	body.add_child(shape)
+	return light
+
+
+## A glowing object (rune stone, crystals): coloured light, optional collider.
+static func _glow(parent: Node3D, nav_parent: Node3D, name: String, base: Vector3, model: String, color: Color, radius_m: float, collider: Vector2, energy: float) -> LightSource:
+	var light := LightSource.new()
+	light.name = name
+	light.radius_m = radius_m
+	light.position = base + Vector3.UP * 1.2
+	parent.add_child(light)
+	if model != "":
+		_model(light, model, Vector3(0.0, -1.2, 0.0), 0.0, 1.0)
+	var omni := _omni(light, Vector3.ZERO, radius_m + 2.0, energy)
+	omni.light_color = color
+	if nav_parent != null and collider != Vector2.ZERO:
+		var body := _static_body(nav_parent, name + "Base")
+		body.position = base
+		var shape := CollisionShape3D.new()
+		var cyl := CylinderShape3D.new()
+		cyl.radius = collider.x
+		cyl.height = collider.y
+		shape.shape = cyl
+		shape.position = Vector3(0.0, collider.y * 0.5, 0.0)
+		body.add_child(shape)
 	return light
 
 

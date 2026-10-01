@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="WeaponData" format=3]
+
+[ext_resource type="Script" path="res://scripts/data/weapon_data.gd" id="1"]
+[ext_resource type="Resource" path="res://data/statuses/poisoned.tres" id="2"]
+
+[resource]
+script = ExtResource("1")
+display_name = "Venomous Bite"
+damage_dice = "1d6"
+damage_type = "piercing"
+ability = "dex"
+is_ranged = false
+is_finesse = true
+is_light = false
+range_m = 1.5
+on_hit_save_ability = "con"
+on_hit_save_dc = 11
+on_hit_status_rounds = 3
+on_hit_status = ExtResource("2")

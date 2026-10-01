@@ -1,0 +1,108 @@
+DnD — TAVERNE, HÖHLE UND RUINE
+==============================
+
+INHALT
+161 GLB-Modelle, davon 79 neue eigene Bauteile und 82 ausgewählte KayKit-/Kenney-
+Requisiten aus dem vorherigen Umgebungspaket. Alle GLBs sind eigenständig;
+Materialien und benötigte Texturen sind eingebettet.
+
+Taverne: 63 Modelle
+Fachwerkwände, Fensteröffnungen, Türrahmen und separates Türblatt, Holzfußböden,
+Tresen (gerade/Ecke/Ende), Rundtisch, Bank, hohe Hocker, Bühne und Stufen,
+Kamin und Feuer, Flaschenregal, Kronleuchter, Balken, Trennwand, Empfangstresen,
+Dachmodul und Gasthausschild. Dazu KayKit-Stühle, Betten, Geschirr, Flaschen,
+Fässer, Kerzen und weitere Einrichtung.
+
+Höhle: 48 Modelle
+Trockener/nasser Boden und Kiesboden, unregelmäßige Felswände, niedrige Wände,
+Eckmodul, Tunnelbögen, Stalagmiten, Stalaktiten, Felssäule, Felsblöcke,
+Kristallgruppen (Cyan/Violett/Bernstein), Erzbrocken, Wasser- und Giftpfützen,
+Leuchtpilze, Minenstützen, Gleise, Minenwagen und Felsbrücke.
+Dazu passende Fels-, Gelände- und Dungeon-Requisiten.
+
+Ruine: 50 Modelle
+Moosige und zerbrochene Böden, verschieden hohe Bruchmauern, Ecke, intakter und
+beschädigter Torbogen, ganze/halbe/gebrochene/umgestürzte Säulen, Altar,
+offener/geschlossener Sarkophag, Schutt, Steintreppe, Moosfläche, Kletterpflanze,
+Runenstein, verwitterte Statue, Feuerbecken und Käfig. Dazu KayKit-Bruchmauern,
+Steinplatten und Kenney-Pflanzen.
+
+Zusätzlich:
+- Drei fertige Godot-Beispielkarten.
+- 53 statische Kollisionsvorlagen für eigene strukturelle Bauteile.
+- Bedienung für Karte wechseln, Ansicht drehen und zoomen.
+- Drei Kartenbilder und eine Übersicht ausgewählter neuer Modelle.
+- asset_catalog.json mit Quelle, Kategorie, Abmessungen, Polygonzahl und Hash.
+- sources.json und CC0-Lizenzen.
+
+ALS GODOT-PROJEKT STARTEN
+ZIP entpacken, project.godot im Godot-4.3-Projektmanager importieren,
+den ersten Modellimport abwarten und F5 drücken.
+Die Vorschau startet in der Taverne. Oben links kannst du zwischen Taverne,
+Höhle und Ruine wechseln, die Kamera drehen und zoomen. Die Buttons sind
+auch per Touch bedienbar. Das Projekt enthält keine Spielersteuerung.
+
+IN DEIN BESTEHENDES DND-SPIEL ÜBERNEHMEN
+Die Ordner assets/environment_expansion, scenes/environment_expansion und
+scripts/environment_expansion in dein Projekt kopieren. Diese Ordner sind
+getrennt von den bereits gelieferten Figuren- und Umgebungsordnern.
+Deine vorhandene project.godot NICHT ersetzen.
+Alle Pfade erwarten res://assets/, res://scenes/ und res://scripts/.
+
+Für einzelne sichtbare Bauteile: GLB in die Szene ziehen.
+Für Bauteile mit Physik: die entsprechende Szene aus
+scenes/environment_expansion/collision_ready/ verwenden.
+Die Beispielkarten verwenden diese Kollisionsvorlagen für die eigenen
+strukturellen Teile. Kleine Requisiten und lizenzierte Deko haben darin keine
+zusätzlich erzeugten Kollisionen. Bei Bedarf selbst passend ergänzen.
+
+MASSSTAB UND MODULARITÄT
+Y ist oben; 1 Godot-Einheit entspricht hier 1 m.
+Neue Bodenmodule: 4x4 m. Wandmodule: meist 4 m breit.
+Tavernenwände: 3.2 m hoch; die Türöffnung ist 2 m breit und 2.6 m hoch.
+Türblatt: 1.8 m breit. Öffnen/Schließen benötigt eigene Türlogik und einen
+passenden Drehpunkt, z.B. einen Node3D am seitlichen Scharnier.
+Tunnelbogen: 4 oder 6 m Breite, lichte Öffnung entsprechend kleiner.
+Stalaktiten wachsen ab ihrem Ursprung nach unten; an der gewünschten Deckenhöhe
+platzieren. In der Vogelperspektive die Decke ausblenden oder ganz weglassen.
+Neue Wand- und Bodenmodule auf 4-m-Raster setzen; Requisiten frei platzieren.
+Bei einem anderen DnD-Raster alle betreffenden Modelle einheitlich skalieren.
+Bei älteren KayKit-/Kenney-Requisiten die Abmessungen im Katalog nachsehen.
+Dachmodul und Stalaktiten liegen als Assets bei, sind in den offenen
+Beispielansichten bewusst nicht über den Spielflächen eingebaut.
+
+KOLLISION UND SPIELLOGIK
+Die 53 Vorlagen verwenden ConcavePolygonShape3D auf StaticBody3D und folgen der
+sichtbaren Dreiecksgeometrie. Durchgänge in Bögen, Fenstern und Türrahmen sind
+dadurch geometrisch offen. Das sind statische Umgebungskollisionen; für
+bewegliche Türen/Wagen/Objekte einfache oder konvexe Formen selbst anlegen.
+Keine zusätzliche zweite Kollision auf dieselbe vorhandene Spielfläche setzen.
+NavigationMesh nach dem Zusammenbauen neu backen und Figuren testen.
+Die Szenen haben keine bereits gebackene Navigation und keine Deckungsregeln.
+metadata/dnd_role und suggested_role im Katalog sind Hinweise für die Integration,
+keine automatisch wirksamen Kampfregeln.
+Giftpfützen, Kristalle, Truhen, Käfige, Betten und Erz haben keine Interaktions-
+oder Schadenslogik. Wasser ist ein flaches stilisiertes Modell ohne Simulation.
+Feuer, Kerzen und Kristalle besitzen keine Partikelanimationen.
+
+LICHT UND LEISTUNG
+Die Beispielkarten enthalten echte OmniLight3D-Lichter bei Kamin, Kronleuchter,
+Kristallen, Runenstein und Feuerbecken. Das reine GLB eines leuchtenden Objekts
+stellt beim Einsetzen keine eigene Lichtquelle auf. Licht im Spiel ergänzen.
+Auf Android Reichweiten begrenzen und nur wenige Echtzeitschatten verwenden.
+Kleine Deko kollisionsfrei halten. Bei großen Karten wiederholte Böden und
+Pflanzen per MultiMeshInstance3D darstellen. Die transparenten Gameplay- und
+Sichtlinienregeln bleiben in deinem Spiel.
+
+VORSCHAU UND PRÜFUNG
+previews/ enthält Bilder, die aus den tatsächlich enthaltenen Meshes gerendert
+wurden. Das sind externe geometrische Renderings; die Beleuchtung unterscheidet
+sich von der Godot-Laufzeit. Die Karten wurden auf ihre Anordnung geprüft.
+Die Godot-Ladeprüfung und verbleibende Einschränkungen stehen in VALIDIERUNG.txt.
+Die Assets wurden noch nicht in dein GitHub-Repository eingebaut.
+
+LIZENZEN
+KayKit- und Kenney-Requisiten: CC0, siehe Original-Lizenzen in licenses/.
+Neue eigene Bauteile und Vorschau-Skripte: ebenfalls CC0.
+Die neuen Modelle sind eigene Ergänzungen, keine offiziellen KayKit-/Kenney-
+Assets. Persönliche und kommerzielle Nutzung ist möglich.

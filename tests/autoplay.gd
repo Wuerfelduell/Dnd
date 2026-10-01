@@ -199,7 +199,8 @@ func _run() -> void:
 	var hp_before := player.current_hp
 	world.hud.next_wave_button.pressed.emit()
 	await get_tree().physics_frame
-	expect(world.wave == 2 and world.living_enemies() == world.enemies().size() and world.enemies().size() == 7, "wave 2 respawned all enemies, reinforcements start at wave 3 (wave %d, %d living)" % [world.wave, world.living_enemies()])
+	expect(world.wave == 2 and world.living_enemies() == world.enemies().size() and world.enemies().size() == 8, "wave 2 respawned all enemies plus a cave bat (wave %d, %d living of %d)" % [world.wave, world.living_enemies(), world.enemies().size()])
+	expect(world.arrivals().size() == 1 and world.arrivals()[0].data.display_name == "Cave Bat" and world.arrivals()[0].visual.uses_model(), "the cave bat arrived with its model")
 	expect(GameState.is_exploring() and player.global_position.distance_to(Vector3(0, 0, 12)) < 0.5, "party returned to camp (%s)" % player.global_position)
 	expect(player.current_hp <= player.max_hp() and player.current_hp >= hp_before, "short rest healed a little, not fully (%d -> %d / %d)" % [hp_before, player.current_hp, player.max_hp()])
 	expect(wizard.spell_slots == slots_before, "short rest keeps spent slots")

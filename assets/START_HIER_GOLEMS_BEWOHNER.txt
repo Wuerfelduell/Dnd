@@ -1,0 +1,131 @@
+DnD — GOLEMS, HÖHLENGEGNER UND TAVERNENBEWOHNER
+==============================================
+
+20 FIGUREN UND VARIANTEN
+-----------------------
+Höhle:
+Stone_Golem: massiver Steingolem mit leuchtendem Kern, Augen und Steinsegmenten.
+Crystal_Golem: Variante des Golems mit Kristallen und violettem Kern.
+Lava_Golem: dunkle Variante mit orangefarbenem Lavakern.
+Cave_Spider: Höhlenspinne mit acht beweglichen Beinen und Fangzähnen.
+Cave_Bat: Höhlenfledermaus mit animierten Flügeln.
+Crystal_Slime: Kristallschleim mit Squash-Animationen.
+Mushroom_Shaman: Pilzschamane mit Armen und Füßen.
+
+Ruine / Überraschungsgegner:
+Ruin_Guardian: verwitterte Golem-Variante mit Moos und goldenem Kern.
+Chest_Mimic: Truhenmimik mit beweglichem Deckel und Fangzähnen.
+Ruin_Wraith: schwebender Ruinengeist aus einfachen festen Low-Poly-Flächen.
+
+Taverne / Siedlung:
+Innkeeper: Wirt mit Krug.
+Cook: Koch/Köchin mit Kochhaube und Pfanne.
+Bard: Barde mit Laute.
+Merchant: Händler mit Buch und Beutel.
+Tipsy_Guest: Gast mit Flasche.
+Traveler: Reisender mit Laterne und Kapuze.
+Miner: Bergarbeiter mit Helm und Spitzhacke.
+Scholar: Gelehrter mit Buch.
+Town_Guard: Stadtwache mit Schwert und Schild.
+Bandit: Wegelagerer mit Kapuze und Dolchen.
+
+Die Bewohner sind eigene Varianten vorhandener KayKit-Helden mit geänderter
+Kleidung, ausgewählter Ausrüstung und neuen Requisiten. Sie haben keine zehn
+verschiedenen neuen Gesichter. Die vier Golems teilen denselben Grundaufbau,
+unterscheiden sich durch Material, Farbe und zusätzliche Details.
+Die Kreaturen sind originale Ergänzungen und keine offiziellen KayKit-Modelle.
+
+ANIMATIONEN
+-----------
+Jede neue Kreatur hat 9 Clips:
+Idle, Walk, Run, Attack, Slam, Cast, Hit, Death, Spawn.
+Die Animationen verwenden starre bewegliche Modellteile und eine animierte
+Node-Hierarchie. Sie sind kein menschliches Skin-Skelett und können nicht
+ungeprüft mit KayKit-Animationen oder Humanoid-Retargeting verwendet werden.
+Walk/Run laufen auf der Stelle. Der Körper kann für die sichtbare Bewegung
+leicht wippen oder sich innerhalb des Clips versetzen; keine Weltbewegung.
+Die Augen und Kerne haben emissive Materialien, erzeugen aber keine eigenen
+Lichtquellen oder Partikeleffekte. Das später in deiner Szene ergänzen.
+
+Die NPC-Varianten behalten je 76 vorhandene KayKit-Clips, inklusive Ausgangspose.
+Das sind generische humanoide Bewegungen und Gesten. Es gibt keine speziell
+neu erstellte Lautenspiel-, Koch-, Trink- oder Gesprächsanimation. Die Requisiten
+folgen den Handknochen; Orientierung/Kollision der Requisiten bei den im Spiel
+verwendeten Clips prüfen. Keine automatische Waffen- oder Requisitenablage.
+
+GODOT 4.3 VORSCHAU
+-----------------
+ZIP entpacken, project.godot im Projektmanager importieren, Modellimport abwarten,
+dann F5. Oben zwischen Creatures und Tavern_People wechseln.
+Die Buttons spielen Idle/Walk/Run/Attack/Slam/Cast/Hit/Death/Spawn.
+Wenn eine Figur keinen passenden Clip besitzt, zeigt die Vorschau Idle.
+Die Bilder in previews/ zeigen die tatsächlichen Modelle in ihrer Ausgangspose;
+sie sind externe Mesh-Renderings und keine Aufnahmen eines laufenden Spiels.
+
+IN DEIN SPIEL ÜBERNEHMEN
+-----------------------
+assets/cast_expansion, scenes/cast_expansion und scripts/cast_expansion in dein
+Projekt kopieren. Die Pfade erwarten res://assets/, res://scenes/, res://scripts/.
+Diese Ordner kollidieren nicht mit den zuvor gelieferten Figuren-/Umgebungspacks.
+Deine bestehende project.godot NICHT ersetzen.
+Die fertigen Figurenvorlagen stehen in scenes/cast_expansion/actors/.
+
+Wenn du bereits eine CharacterBody3D-Figur mit Steuerung hast, am besten nur
+das GLB als sichtbares Modell darunter einbauen. Bestehende Bewegung, Physik,
+KI, HP und Auswahlringe beibehalten; keine zweite Figurensteuerung stapeln.
+Die beiliegenden Vorlagen haben CharacterBody3D + einfache Capsule-Kollision,
+aber keine eigene Bewegung, KI oder Dialoglogik.
+
+Animationsadapter bei Nutzung der Vorlagen:
+figur.play_action("idle")
+figur.play_action("walk")
+figur.play_action("attack")
+figur.play_action("slam")
+figur.play_action("cast")
+figur.play_action("hit")
+figur.play_action("death")
+
+Idle/Walk/Run laufen als Schleife. Andere Aktionen einmal.
+Nach Ende einer Aktion wieder idle setzen, wenn deine Spiellogik das verlangt.
+Die neuen Kreaturen setzen die Grundpose beim Animationswechsel zurück.
+Eine Angriffsanimation verursacht allein keinen Schaden. Trefferzeitpunkte,
+Angriffsreichweiten, Projektile, Bodeneffekte und Zustände im Spiel anbinden.
+Golems haben größere Arme als ihre Körperkollision; bei Bedarf eigene
+Treffer-/Angriffszonen ergänzen. Bei Tod wird die Physikkollision nicht automatisch
+abgeschaltet. NPC-Neutralität und Gegnerrolle sind Metadaten, keine KI-Regeln.
+
+MASSSTAB / PLATZIERUNG
+---------------------
+1 Godot-Einheit wird als 1 m behandelt, Y ist oben.
+Golems sind etwa doppelt so hoch wie die vorbereiteten Bewohner.
+NPCs sind in den Vorlagen passend zu den zuvor gelieferten Helden skaliert.
+Die Fledermaus schwebt in der Modellpose über dem Boden und hat einen separat
+versetzten Collider. Die Kapseln sind vereinfachte Kollisionsvorlagen und bilden
+Spinne, Schleim, Flügel, Golemarme und Todesposen nicht exakt ab.
+Neue Kreaturen sind nach +Z ausgerichtet. Blickrichtung im eigenen Spiel prüfen.
+
+placement_suggestions.json enthält Vorschläge für die zuletzt gelieferten
+Tavern/Cave/Ruins-Beispielkarten. Diese Vorschläge sind Daten für den Einbau,
+kein automatischer Spawner. Die Umgebungsmodelle selbst liegen im vorherigen
+ZIP DnD_Taverne_Hoehle_Ruine.zip. Dieses Paket funktioniert als Figuren-Vorschau
+auch ohne das Umgebungspaket.
+
+BONUS: IDEEN FÜR DEIN SPIEL
+--------------------------
+Steingolem: langsamer Wuchtangriff; Slam als angekündigter Flächenschlag.
+Kristallgolem: Cast-Clip für einen späteren Kristallbeschuss.
+Lavakern-Golem: sichtbarer Kern als Hinweis auf einen späteren Überhitzungszustand.
+Pilzschamane: Cast-Clip für einen späteren Sporenangriff.
+Truhenmimik: Attack bewegt den Deckel; eignet sich als falsche Beutetruhe.
+Ruinengeist: schwebender Gegner mit Hit-/Cast-Clip.
+Diese Ideen sind nicht als Spielmechaniken implementiert.
+
+LIZENZEN UND PRÜFUNG
+-------------------
+KayKit-Basis von Kay Lousberg: CC0. Originale Lizenz liegt in licenses/.
+Neue Kreaturen, Requisiten, Varianten und Vorschau-Skripte: ebenfalls CC0.
+Die Quellen und genauen Clipnamen stehen in sources.json, character_catalog.json
+und animation_lists.txt. Persönliche und kommerzielle Nutzung ist möglich.
+Prüfergebnisse und verbleibende Einschränkungen stehen in VALIDIERUNG.txt.
+Die Figuren wurden noch nicht in dein Repository oder auf deinem Androidgerät
+eingebaut und getestet.
