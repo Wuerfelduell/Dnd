@@ -38,6 +38,15 @@ signal opportunity_attack(reactor: Node, mover: Node)
 ## An enemy noticed the player during exploration.
 signal enemy_spotted(enemy: Node)
 
+## A consumable was used on someone.
+signal item_used(user: Node, target: Node, item: ItemData)
+
+## The party's bag received gold and/or items (victory loot, chests, purchases).
+signal loot_gained(gold: int, items: Array)
+
+## The leader reached a chest it was sent to.
+signal chest_reached(chest: Node)
+
 ## Request for a floating text at a world position (presentation only).
 signal floating_text_requested(world_position: Vector3, text: String, color: Color)
 

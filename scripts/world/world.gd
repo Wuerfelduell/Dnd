@@ -39,6 +39,12 @@ const CAVE_MOUTH := Vector3(-10.0, 0.0, -17.0)
 
 var preview: TargetingPreview
 var wave: int = 1
+## The party's shared bag.
+var inventory: Inventory = Inventory.new()
+## Gold a defeated enemy is worth: xp_value / GOLD_PER_XP (at least 1).
+const GOLD_PER_XP := 10
+## Chance in percent that a defeated enemy drops a potion.
+const POTION_DROP_PERCENT := 15
 var last_reports: Array[Progression.Report] = []
 
 var _spawn_transforms: Dictionary = {}  # Actor -> Transform3D
@@ -72,6 +78,14 @@ func _ready() -> void:
 	for a in actors():
 		_spawn_transforms[a] = a.global_transform
 
+	# Starting supplies and the bag for everybody in the party.
+	inventory.add_gold(25)
+	inventory.add(Inventory.find_item(&"potion_health"), 2)
+	inventory.add(Inventory.find_item(&"potion_antidote"), 1)
+	for p in party():
+		p.set_inventory(inventory)
+	EventBus.chest_reached.connect(open_chest)
+
 	EventBus.enemy_spotted.connect(_on_enemy_spotted)
 	combat.turn_started.connect(_on_turn_started)
 	combat.turn_ended.connect(_on_turn_ended)
@@ -86,7 +100,7 @@ func _ready() -> void:
 	EventBus.log("[color=gray]Night rules: stay out of the torchlight to get close unseen. High ground gives +2 to hit, crates and low walls give cover, full cover blocks the shot.[/color]")
 
 	# Headless integration test hooks (godot --headless -- --autoplay / --scenario).
-	for flag in ["--autoplay", "--scenario", "--screenshot"]:
+	for flag in ["--autoplay", "--scenario", "--screenshot", "--hudshot"]:
 		if OS.get_cmdline_user_args().has(flag):
 			var script: GDScript = load("res://tests/%s.gd" % flag.trim_prefix("--"))
 			if script != null:
@@ -328,6 +342,7 @@ func _on_combat_ended(victory: bool) -> void:
 		if not a.is_player() and not a.is_alive():
 			defeated.append(a)
 	last_reports = Progression.award_encounter(party(), defeated)
+	_award_loot(defeated)
 	for r in last_reports:
 		var line := "%s gains %d XP" % [r.actor.display_name(), r.xp_gained]
 		if r.leveled():
@@ -335,6 +350,71 @@ func _on_combat_ended(victory: bool) -> void:
 		EventBus.log("[color=yellow]%s[/color]" % line)
 	hud.show_level_ups(last_reports)
 	hud.set_rest_available(living_enemies() == 0, long_rest_available(), wave)
+
+
+## Gold and the odd potion from the fallen.
+func _award_loot(defeated: Array[Actor]) -> void:
+	var gold := 0
+	var found: Array[ItemData] = []
+	for e in defeated:
+		gold += maxi(1, e.data.xp_value / GOLD_PER_XP)
+		if Dice.roll(1, 100).total() <= POTION_DROP_PERCENT:
+			var pick := Dice.roll(1, 10).total()
+			var item_id := &"potion_health" if pick <= 6 else (&"potion_mana" if pick <= 8 else (&"potion_antidote" if pick == 9 else &"potion_strength"))
+			found.append(Inventory.find_item(item_id))
+	gain_loot(gold, found, "from the fallen")
+
+
+## Puts [param gold] and [param items] into the bag and tells everyone.
+func gain_loot(gold: int, items: Array[ItemData], source: String) -> void:
+	if gold <= 0 and items.is_empty():
+		return
+	inventory.add_gold(gold)
+	var names := PackedStringArray()
+	for item in items:
+		inventory.add(item)
+		names.append(item.display_name)
+	var text := "%d gold" % gold if gold > 0 else ""
+	if not names.is_empty():
+		text += (", " if text != "" else "") + ", ".join(names)
+	EventBus.log("[color=yellow]Loot %s: %s.[/color]" % [source, text])
+	EventBus.loot_gained.emit(gold, items)
+
+
+## The leader opened a chest.
+func open_chest(chest: LootChest) -> void:
+	if chest.looted:
+		EventBus.log("[color=gray]The chest is empty.[/color]")
+		return
+	var contents := chest.open()
+	EventBus.floating_text_requested.emit(chest.global_position + Vector3.UP, "OPENED", Color(1.0, 0.85, 0.3))
+	gain_loot(contents["gold"], contents["items"], "from the chest")
+
+
+## Drinks / uses an item outside combat on [param target] (defaults to the
+## party member who needs it most). False if nothing could be done.
+func use_item_from_bag(item: ItemData, target: Actor = null) -> bool:
+	if combat.is_active or not inventory.has(item):
+		return false
+	if target == null:
+		var best_score := -INF
+		for p in party():
+			if not item.can_use_on(p):
+				continue
+			var score := 1.0 - float(p.current_hp) / float(maxi(1, p.max_hp()))
+			if p.is_down:
+				score = 2.0
+			if score > best_score:
+				best_score = score
+				target = p
+	if target == null or not item.can_use_on(target):
+		EventBus.log("[color=gray]%s: nobody needs that right now.[/color]" % item.display_name)
+		return false
+	inventory.remove(item)
+	target.play_action("use_item")
+	EventBus.log("[color=aqua]%s[/color]" % item.use_on(target, target))
+	EventBus.item_used.emit(target, target, item)
+	return true
 
 
 func _update_preview() -> void:

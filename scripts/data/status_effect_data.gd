@@ -41,6 +41,8 @@ extends Resource
 ## Extra dice on saving throws, e.g. "1d4" (Bless).
 @export var save_bonus_dice: String = ""
 @export var armor_class_bonus: int = 0
+## Flat bonus to weapon damage (strength potion).
+@export var damage_bonus: int = 0
 ## Enemies cannot make opportunity attacks against the creature (Disengage).
 @export var immune_to_opportunity_attacks: bool = false
 

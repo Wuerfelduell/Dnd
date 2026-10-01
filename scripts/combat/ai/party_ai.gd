@@ -7,6 +7,11 @@ extends EnemyAI
 
 func take_turn(actor: Actor, combat: CombatManager) -> void:
 	await GameState.wait(0.3)
+	# Badly hurt or poisoned: a potion from the bag is a bonus action.
+	if actor.current_hp <= actor.max_hp() * 0.4:
+		await try_use(actor, combat, &"use_potion_health", actor)
+	if actor.has_status(&"poisoned"):
+		await try_use(actor, combat, &"use_potion_antidote", actor)
 	match actor.data.class_name_text:
 		"Fighter":
 			await _fighter(actor, combat)

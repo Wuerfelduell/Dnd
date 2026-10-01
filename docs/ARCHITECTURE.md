@@ -6,7 +6,8 @@ Status-Effekte, Ausrüstung und verschiedene Gegner tragen. Keine monolithischen
 ## Schichten
 
 ```
-Daten (Resources)      ActorData · ActorStats · WeaponData · SpellData · StatusEffectData   (data/*.tres)
+Daten (Resources)      ActorData · ActorStats · WeaponData · SpellData · StatusEffectData · ItemData   (data/*.tres)
+Inventar               Inventory (Beutel der Party) · UseItemAction · LootChest
 Regeln (reine Logik)   Dice · DiceResult · AttackProfile · AttackResolver · AttackResult · CombatSituation
                        SavingThrow · SaveResult · SpellResolver · StatusEffect · TurnState
                        InitiativeTracker · CombatAction (+ Attack/Offhand/Spell/Dash/Disengage/
@@ -35,7 +36,10 @@ Die KI benutzt ausschließlich die öffentliche `CombatManager`-API (`perform_ac
 | `Dice` / `DiceResult` | Alle Würfe (seedbar). `d20(mod, mode)` würfelt mit Vorteil/Nachteil, `extras` sind Bonuswürfel (Bless). |
 | `ActorData` | Statische Definition: Fraktion, Kreaturentyp, Stats, Waffen, Off-hand, Klassenfeatures (Multiattack, Second Wind, Action Surge, Cunning Action, Sneak Attack, Pack Tactics), Zauber + Slots. |
 | `SpellData` | Zauber deklarativ: Stufe, Kosten, Zielart, Reichweite, Angriffsart (Spell Attack / Save / Auto-Hit), Schaden, Heilung, Status, Concentration. |
-| `StatusEffectData` | Zustand deklarativ als Flags: handlungsunfähig, Vorteil/Nachteil-Regeln, Tempo, Bonuswürfel, Wiederholungs-Save. |
+| `StatusEffectData` | Zustand deklarativ als Flags: handlungsunfähig, Vorteil/Nachteil-Regeln, Tempo, Bonuswürfel, Schadensbonus, Wiederholungs-Save. |
+| `ItemData` | Item deklarativ: Art (Verbrauch, Munition, später Waffe/Rüstung), Icon, Preis, Effekt (Heilwürfel, geheilter Status, Zauberslot, angewandter Status, Munition). `can_use_on` / `use_on` wenden den Effekt an; der Beutel, die Aktionsleiste und der spätere Händler lesen nur diese Felder. |
+| `Inventory` | Gemeinsamer Beutel der Party: Gold und Stapel, Signal `changed`. `World` hält ihn und reicht ihn per `Actor.set_inventory` an die Party; damit bekommt jedes Mitglied pro Verbrauchsgegenstand eine `UseItemAction` (Bonus Action, Verbündeter in Reichweite, auch gefallene). |
+| `LootChest` | StaticBody3D mit Inhalt (Gold, Item-Ids), einmal zu öffnen. Tippen in der Erkundung schickt den Anführer hin (`PlayerController.walk_to`), bei Ankunft `EventBus.chest_reached` → `World.open_chest` → `gain_loot`. Siegbeute: `World._award_loot` (Gold pro XP, Trank-Chance). |
 | `Actor` | Laufzeitzustand: HP, `TurnState`, Slots, Munition, Statuses, Concentration, Actions, Down/Revive, `short_rest` / `long_rest`, Pfadbewegung per `move_and_slide` mit Schwerkraft (Treppen, Gefälle, Gleiten an Körpern), Stall-Erkennung und „verlässt Reichweite“ (Signal `reach_left`). Entfernungen und Bewegungsbudget zählen auf der Bodenebene. Ruft an den passenden Stellen `play_action()` (laufen, Treffer, Tod); `figure_height()` liefert die Figurenhöhe für Augenhöhe und Labels. |
 | `TurnState` | Actions, Bonus Actions, Reaction, Bewegung, ausstehende Multiattack-Schläge, Sneak-Attack-Flag, Light-Weapon-Flag. |
 | `CombatAction` | Basisklasse: `id`, Kosten, `target_kind` (NONE/ENEMY/ALLY/ANY/POINT), `is_available`, `can_target`, `can_target_point`, `pay_cost`, `execute(actor, target, point)`. |

@@ -1,4 +1,4 @@
-# Dnd – 3D-RPG-Prototyp (Vertical Slice, Test 8: Taverne, Höhle, zusammenhängende Welt)
+# Dnd – 3D-RPG-Prototyp (Vertical Slice, Test 9: Inventar, Tränke, Beute)
 
 Trying to make a dnd game using my Baldur's Gate 3 and D&D 5.5e experience.
 
@@ -31,6 +31,7 @@ nicht wieder, die Arena-Wellen laufen unabhängig davon weiter.
 ![Die Taverne](docs/screenshots/tavern.png)
 ![Die Höhle](docs/screenshots/cave.png)
 ![Die Kreaturen der späteren Wellen](docs/screenshots/creatures.png)
+![Beutel und Tränke auf der Aktionsleiste](docs/screenshots/hud_potions.png)
 ![Die Schützen-Anhöhe](docs/screenshots/ledge.png)
 ![Das Lager bei Nacht](docs/screenshots/camp_night.png)
 
@@ -127,6 +128,8 @@ Umwerfen, Pack Tactics), 1 Hobgoblin Captain (AC 17, 39 HP, zwei Angriffe pro Ac
 * **Ressourcen sind endlich**: Zauber-Slots, Second Wind und Action Surge laden nicht mehr pro Kampf auf. Kurze Rast zwischen den Wellen: ein Trefferwürfel Heilung pro zwei Stufen, Kämpfer-Features und die Hälfte der Pfeile. Lange Rast (nur nach jeder dritten Welle): alles. Cantrips sind gratis und würfeln ab Stufe 5 doppelt.
 * **Pfeile**: Langbogen und Kurzbogen haben 20 Pfeile, Goblin-Bogenschützen 8 (danach greifen sie mit dem Dolch an). Die Aktionsleiste zeigt den Vorrat.
 * **Wellen skalieren**: Beim Respawn werden alle Gegner auf das durchschnittliche Party-Level gehoben (+20 % HP pro Stufe, alle zwei Stufen +1 auf Treffer, Schaden und AC, mehr XP), und ab Welle 3 kommt pro Welle ein zusätzlicher Goblin-Krieger dazu (bis vier).
+* **Inventar und Tränke**: Die Party hat einen gemeinsamen Beutel (Knopf oben links, zeigt das Gold). Vier Tränke: Heiltrank (2d4+2, belebt Gefallene), Manatrank (gibt den höchsten verbrauchten Zauberslot zurück), Gegengift (heilt Poisoned), Stärketrank (+2 Waffenschaden für 5 Runden). Dazu Pfeilbündel (+10 Pfeile). Im Kampf sind Tränke eine **Bonus Action** auf der Aktionsleiste, auch für einen Verbündeten in 1,5 m, auch für einen Gefallenen. Außerhalb des Kampfes geht ein Trank aus dem Beutel an das Mitglied, das ihn am nötigsten hat. Die KI-Party trinkt unter 40 % HP und bei Gift.
+* **Beute**: Besiegte Gegner hinterlassen Gold (XP-Wert geteilt durch 10) und mit 15 % Wahrscheinlichkeit einen Trank. Kisten in der Welt (Truhe am Lager, Schatztruhe hinter dem Golem) werden angetippt, der Anführer läuft hin und plündert sie einmal. Start: 25 Gold, zwei Heiltränke, ein Gegengift. Händler, Ausrüstung und Speichern folgen.
 * **Höhlen-Encounter**: eigener Kampf mit sieben Bewohnern, ausgelöst durch deren Wahrnehmung (die Höhle ist dunkel bis auf Kristalle und Pilze, also kommt man bis auf 3,4 m heran). Nur Gegner derselben Gruppe im Umkreis von 16 m des Entdeckers schließen sich an. XP wie gewohnt; die Rast nach einer Welle hängt nur von den Arena-Gegnern ab.
 * **Taverne**: sechs neutrale NPCs mit eigenen Posen (Sitzen, Jubeln, Hantieren). Neutral heißt: `is_hostile_to` ist in beide Richtungen falsch, keine Aktion kann sie anvisieren, Flächenzauber können sie aber treffen, wenn man sie in den Radius nimmt.
 * **Neue Kreaturen aus dem Höhleneingang** (bleiben ab ihrer Welle dabei): Welle 2 Fledermaus; Welle 3 Höhlenspinne (giftiger Biss: CON-Save DC 11, sonst **Poisoned** = Nachteil auf Angriffe, CON-Wiederholungssave) und Kristallschleim (24 HP, langsam, Säure); Welle 4 zweite Spinne, Pilzschamane (Sporenspucke auf 9 m mit Gift) und ein Wegelagerer (Sneak Attack 1d6); Welle 5 Ruinengeist (Lebensentzug 2d6) und zweiter Wegelagerer; Welle 6 der **Steingolem** (68 HP, AC 17, zwei Schläge 2d8+5, langsam). Alles in `World.WAVE_ARRIVALS` als Daten, jede Kreatur ist eine `.tres` mit Modell.
@@ -137,7 +140,7 @@ Umwerfen, Pack Tactics), 1 Hobgoblin Captain (AC 17, 39 HP, zwei Angriffe pro Ac
 * **Concentration**: nur ein Concentration-Zauber gleichzeitig; Schaden erzwingt einen CON-Rettungswurf (DC 10 oder halber Schaden), Fehlschlag oder Down beendet den Zauber und alle verknüpften Effekte.
 * **Status-Effekte**: Blessed (+1d4 Angriff/Saves), Guided (Vorteil auf den nächsten Angriff), Slowed (-3 m), Paralyzed (handlungsunfähig, Angriffe mit Vorteil, Nahkampftreffer sind Crits, Wiederholungs-Save am Zugende), Prone (Nachteil auf eigene Angriffe, Nahkampf gegen sich mit Vorteil, Aufstehen kostet halbe Bewegung), Disengaging.
 * 0 HP = „Down“. Heilung (Healing Word, Cure Wounds) holt Gefallene zurück. Nach einem Sieg stehen alle mit 1 HP auf. Ist die ganze Party down → Game Over.
-* Noch nicht enthalten: Todesrettungswürfe, Resistenzen, Reaktionszauber (Shield), Inventar, freie Attributswahl beim Level-Up (der Hauptwert steigt automatisch), Verstecken als Aktion, Kreaturen als Deckung, Gespräche mit den Tavernenleuten, Öffnen der Schatztruhe.
+* Noch nicht enthalten: Todesrettungswürfe, Resistenzen, Reaktionszauber (Shield), Ausrüstung mit Slots und Händler (Icons, Rüstungs- und Waffenmodelle liegen schon unter `assets/shop/`), Projektile, Speichern, freie Attributswahl beim Level-Up (der Hauptwert steigt automatisch), Verstecken als Aktion, Kreaturen als Deckung, Gespräche mit den Tavernenleuten.
 
 ## Tests (ohne Editor)
 
@@ -158,8 +161,10 @@ godot --headless --path . -- --autoplay --seed=4
 # Alles nacheinander
 ./tests/run_all.sh
 
-# Screenshots der Figuren, der Party, der Anhöhe und des Lagers rendern (braucht ein Display oder xvfb-run)
+# Screenshots der Figuren, der Party, der Anhöhe, des Lagers, der Taverne und der Höhle rendern (braucht ein Display oder xvfb-run)
 xvfb-run godot --rendering-driver opengl3 --path . -- --screenshot --shot-dir=/tmp/shots
+# HUD mit offenem Beutel und Aktionsleiste im Kampf
+xvfb-run godot --rendering-driver opengl3 --path . -- --hudshot
 ```
 
 Der Seed macht die Würfel reproduzierbar. Über dreizehn Seeds gewinnt die KI-Party sieben erste Wellen (die Nachtregeln helfen ihr: sie schleicht im Dunkeln an das beleuchtete Lager heran und eröffnet mit Vorteil) und drei von sieben zweiten Wellen gegen die hochskalierten Gegner. Welche Seeds verloren gehen, wechselt mit jeder Geometrieänderung; die Kämpfe sind knapp.
@@ -172,16 +177,17 @@ scenes/           main.tscn (Testarena, Party, Gegner), actors/, ui/
 scripts/core/     GameState, EventBus, InputSetup, Dice, DiceResult, ScreenRaycast
 scripts/data/     ActorData, ActorStats, WeaponData, SpellData, StatusEffectData (Resources)
 scripts/actors/   Actor, ActorVisual, CharacterAnimator, MiniatureBuilder, PlayerController, PartyFollower, EnemyPerception
+scripts/items/    Inventory (Beutel der Party)
 scripts/combat/   CombatManager, InitiativeTracker, TurnState, AttackResolver, AttackProfile,
                   SavingThrow, SpellResolver, StatusEffect, Progression, Targeting, CombatMovement,
                   Visibility (Sichtlinie, Deckung, Höhe), Lighting (Licht/Schatten), CombatSituation,
                   PlayerCombatInput, actions/ (Attack, Offhand, Spell, Dash, Disengage, Second Wind,
-                  Action Surge), ai/ (CombatAI, PartyAI), EnemyAI
-scripts/world/    World (Wellentabelle, Arena-/Höhlen-Gruppen, NPCs), TerrainBuilder (Arena, Taverne, Höhle, Plateaus, Treppen, Mauern, Ruinen, Lichter), Terrain (Bodenhöhe),
+                  Action Surge, UseItem), ai/ (CombatAI, PartyAI), EnemyAI
+scripts/world/    World (Wellentabelle, Arena-/Höhlen-Gruppen, NPCs, Beute), TerrainBuilder (Arena, Taverne, Höhle, Plateaus, Treppen, Mauern, Ruinen, Lichter), Terrain (Bodenhöhe), LootChest,
                   LightSource, CameraRig, TargetingPreview
 scripts/ui/       CombatHud, HudJoystick, ActorLabel, FloatingText
-data/             .tres für Helden, Gegner (inkl. Modell, Maßstab, Ausrüstung), Waffen, Zauber und Status-Effekte
-assets/           Benutzte GLB-Modelle (characters/, kaykit/, kenney/, custom_grid/, environment_expansion/), Kataloge, Lizenzen, Original-ZIPs
+data/             .tres für Helden, Gegner (inkl. Modell, Maßstab, Ausrüstung), Waffen, Zauber, Status-Effekte und Items
+assets/           Benutzte GLB-Modelle (characters/, kaykit/, kenney/, custom_grid/, environment_expansion/), shop/ (Icons, Tränke, Projektile, Rüstungen, Sounds, Effekte), Kataloge, Lizenzen, Original-ZIPs
 tests/            Unit-Tests, Szenario-Test, Autoplay-Integrationstest, run_all.sh
 docs/             Architekturbeschreibung, Screenshots
 ```

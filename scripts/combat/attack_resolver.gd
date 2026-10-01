@@ -80,7 +80,8 @@ static func resolve(attacker: Actor, target: Actor, profile: AttackProfile, othe
 
 	# --- damage ------------------------------------------------------------
 	if result.hit:
-		result.damage_roll = Dice.parse(profile.damage_dice, profile.damage_bonus)
+		var bonus_damage := int(attacker.status_sum("damage_bonus")) if profile.is_weapon else 0
+		result.damage_roll = Dice.parse(profile.damage_dice, profile.damage_bonus + bonus_damage)
 		if result.critical:
 			var extra := Dice.parse(profile.damage_dice, 0)
 			result.damage_roll.rolls.append_array(extra.rolls)

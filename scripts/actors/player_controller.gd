@@ -13,6 +13,7 @@ var debug_direction: Vector3 = Vector3.ZERO
 
 var _pending_tap: bool = false
 var _steering: bool = false
+var _target_chest: LootChest = null
 var _pending_tap_position: Vector2 = Vector2.ZERO
 
 @onready var actor: Actor = get_parent()
@@ -54,6 +55,8 @@ func _physics_process(delta: float) -> void:
 		if _steering:
 			_steering = false
 			actor.play_action("idle")
+		if _target_chest != null:
+			_arrive_at_chest()
 
 
 func _walk_to_tap() -> void:
@@ -66,6 +69,18 @@ func _walk_to_tap() -> void:
 	if clicked != null:
 		# Tapping an enemy walks towards it; the encounter starts on its own.
 		destination = clicked.global_position
+	var chest := hit.get("collider") as LootChest
+	walk_to(destination, chest)
+
+
+## Walks to [param destination]; with a [param chest] the leader opens it on arrival.
+func walk_to(destination: Vector3, chest: LootChest = null) -> void:
+	_target_chest = chest
+	if chest != null:
+		if chest.within_reach(actor):
+			_arrive_at_chest()
+			return
+		destination = chest.global_position
 	var others: Array[Actor] = []
 	for n in get_tree().get_nodes_in_group("actors"):
 		if n is Actor and n != actor:
@@ -73,6 +88,15 @@ func _walk_to_tap() -> void:
 	var path := CombatMovement.plan(actor, destination, others)
 	actor.stop_moving()
 	actor.move_along_path(path, INF)
+
+
+func _arrive_at_chest() -> void:
+	var chest := _target_chest
+	_target_chest = null
+	if chest != null and chest.within_reach(actor):
+		actor.face_direction(chest.global_position - actor.global_position)
+		actor.play_action("interact")
+		EventBus.chest_reached.emit(chest)
 
 
 func _input_direction() -> Vector3:

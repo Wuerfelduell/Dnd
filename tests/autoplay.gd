@@ -178,6 +178,7 @@ func _run() -> void:
 	expect(world.last_reports.size() == 4 and world.last_reports[0].leveled(), "first wave levels the party up")
 	expect(player.data.level == 4 and player.data.stats.strength_mod == 4, "fighter is level 4 with STR +4")
 	expect(world.hud.level_up_panel.visible, "level-up panel shown")
+	expect(world.inventory.gold > 25, "the fallen left gold in the bag (%d)" % world.inventory.gold)
 	world.hud.continue_button.pressed.emit()
 	expect(not world.hud.level_up_panel.visible, "continue closes the panel")
 	print("[autoplay] level-up ok: %s" % ", ".join(world.last_reports[0].lines))

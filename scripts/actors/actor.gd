@@ -45,6 +45,8 @@ var threat_sources: Array[Actor] = []
 
 ## Ammunition per kind, e.g. {"arrows": 20}.
 var ammo: Dictionary = {}
+## The party's shared bag (null for enemies and bystanders). Set by [World].
+var inventory: Inventory = null
 
 var _path: PackedVector3Array = PackedVector3Array()
 var _path_index: int = 0
@@ -136,6 +138,15 @@ func _build_actions() -> void:
 		actions.append(SecondWindAction.new())
 	if data.has_action_surge:
 		actions.append(ActionSurgeAction.new())
+	if inventory != null:
+		for item in Inventory.consumables():
+			actions.append(UseItemAction.new(item))
+
+
+## Hands the actor the party's bag (potion buttons appear on the action bar).
+func set_inventory(bag: Inventory) -> void:
+	inventory = bag
+	rebuild_actions()
 
 
 ## Called at combat start. Slots, once-per-rest features and ammunition are

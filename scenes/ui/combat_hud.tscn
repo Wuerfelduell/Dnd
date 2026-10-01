@@ -46,13 +46,73 @@ theme_override_font_sizes/font_size = 14
 text = "Tap the ground to walk there."
 horizontal_alignment = 1
 
-[node name="InitiativePanel" type="PanelContainer" parent="."]
+[node name="BagButton" type="Button" parent="."]
 unique_name_in_owner = true
 anchors_preset = 0
 offset_left = 8.0
 offset_top = 76.0
-offset_right = 300.0
+offset_right = 176.0
 offset_bottom = 120.0
+theme_override_font_sizes/font_size = 16
+text = "Bag · 0 g"
+
+[node name="InventoryPanel" type="PanelContainer" parent="."]
+unique_name_in_owner = true
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -260.0
+offset_top = -200.0
+offset_right = 260.0
+offset_bottom = 200.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
+
+[node name="VBox" type="VBoxContainer" parent="InventoryPanel"]
+layout_mode = 2
+
+[node name="InventoryTitle" type="Label" parent="InventoryPanel/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Party bag"
+horizontal_alignment = 1
+
+[node name="InventoryHint" type="Label" parent="InventoryPanel/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8, 0.8, 0.85, 1)
+theme_override_font_sizes/font_size = 13
+text = "Potions go to whoever needs them most. In combat use them from the action bar."
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="InventoryScroll" type="ScrollContainer" parent="InventoryPanel/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="InventoryList" type="VBoxContainer" parent="InventoryPanel/VBox/InventoryScroll"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="CloseBagButton" type="Button" parent="InventoryPanel/VBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 44)
+layout_mode = 2
+text = "Close"
+
+[node name="InitiativePanel" type="PanelContainer" parent="."]
+unique_name_in_owner = true
+anchors_preset = 0
+offset_left = 8.0
+offset_top = 128.0
+offset_right = 300.0
+offset_bottom = 172.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
 
 [node name="InitiativeList" type="VBoxContainer" parent="InitiativePanel"]

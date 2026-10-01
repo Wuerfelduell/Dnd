@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="ItemData" format=3]
+
+[ext_resource type="Script" path="res://scripts/data/item_data.gd" id="1"]
+[ext_resource type="Texture2D" path="res://assets/shop/icons/potion_mana.png" id="2"]
+
+[resource]
+script = ExtResource("1")
+icon = ExtResource("2")
+id = &"potion_mana"
+display_name = "Mana Potion"
+description = "Restores one spent spell slot of the highest level."
+kind = 0
+value = 40
+stack_max = 10
+model = "potion_mana"
+restores_spell_slot = true

@@ -30,6 +30,7 @@ func _ready() -> void:
 	_test_terrain_layout()
 	_test_new_creatures()
 	_test_neutral_npcs()
+	await _test_inventory_and_potions()
 	print("\n%d checks, %d failures" % [_checks, _failures])
 	get_tree().quit(0 if _failures == 0 else 1)
 
@@ -1018,4 +1019,100 @@ func _test_neutral_npcs() -> void:
 	check(fighter.is_hostile_to(gob) and gob.is_hostile_to(fighter), "heroes and goblins still fight")
 	fighter.queue_free()
 	gob.queue_free()
+
+
+# --- Inventory & potions ---------------------------------------------------
+
+func _test_inventory_and_potions() -> void:
+	var bag := Inventory.new()
+	var health := Inventory.find_item(&"potion_health")
+	var mana := Inventory.find_item(&"potion_mana")
+	var antidote := Inventory.find_item(&"potion_antidote")
+	var strength := Inventory.find_item(&"potion_strength")
+	var arrows := Inventory.find_item(&"arrows")
+	check(health != null and mana != null and antidote != null and strength != null and arrows != null, "all item data files load")
+	check(Inventory.consumables().size() == 4 and health.icon != null and strength.icon_tint != Color.WHITE, "four consumables with icons")
+	var changes := [0]
+	bag.changed.connect(func(): changes[0] += 1)
+	bag.add(health, 2)
+	bag.add(health)
+	bag.add_gold(30)
+	check(bag.count(health) == 3 and bag.gold == 30 and bag.total_items() == 3 and changes[0] == 3, "stacking, gold and change signals")
+	check(bag.remove(health, 2) and bag.count(health) == 1 and not bag.remove(health, 5) and bag.count(health) == 1, "removing respects the count")
+	check(bag.spend_gold(20) and bag.gold == 10 and not bag.spend_gold(11) and bag.gold == 10, "spending gold respects the purse")
+	bag.add(antidote)
+	check(bag.items()[0] == antidote or bag.items()[0] == health, "items are listed")
+	check(bag.describe().begins_with("10 gold"), "describe starts with the gold (%s)" % bag.describe())
+
+	# Potions on actors.
+	var fighter := _make_actor("res://data/actors/fighter.tres")
+	var wizard := _make_actor("res://data/actors/wizard.tres")
+	var gob := _make_actor("res://data/actors/goblin_warrior.tres")
+	check(not health.can_use_on(fighter) and health.unusable_reason(fighter) != "", "a healthy fighter cannot drink a health potion")
+	fighter.take_damage(10)
+	check(health.can_use_on(fighter), "a hurt fighter can")
+	var before := fighter.current_hp
+	var line := health.use_on(fighter, fighter)
+	check(fighter.current_hp > before and fighter.current_hp <= fighter.max_hp() and line.contains("heals"), "health potion heals 2d4+2 (%s)" % line)
+	fighter.take_damage(999)
+	check(fighter.is_down and health.can_use_on(fighter), "a downed ally can be given a potion")
+	health.use_on(fighter, wizard)
+	check(fighter.is_alive() and fighter.current_hp >= 4, "it revives them (%d HP)" % fighter.current_hp)
+	check(not mana.can_use_on(fighter) and not mana.can_use_on(wizard), "mana potion needs a spent slot")
+	wizard.spend_spell_slot(2)
+	wizard.spend_spell_slot(1)
+	check(mana.can_use_on(wizard), "wizard with spent slots can drink mana")
+	mana.use_on(wizard, wizard)
+	check(wizard.spell_slots[2] == 2 and wizard.spell_slots[1] == 3, "mana restores the highest spent level first")
+	check(not antidote.can_use_on(fighter), "antidote needs poison")
+	fighter.add_status(_status("poisoned"), gob, 3)
+	check(antidote.can_use_on(fighter), "poisoned fighter can drink the antidote")
+	antidote.use_on(fighter, fighter)
+	check(not fighter.has_status(&"poisoned"), "antidote cures poison")
+	check(strength.can_use_on(fighter), "strength potion usable")
+	strength.use_on(fighter, fighter)
+	check(fighter.has_status(&"empowered") and not strength.can_use_on(fighter), "empowered, no double dose")
+	_place(fighter, 0, 0)
+	_place(gob, 0, 1.2)
+	var swing := AttackResolver.resolve(fighter, gob, AttackProfile.from_weapon(fighter, fighter.data.weapons[0]), [fighter, gob] as Array[Actor])
+	if swing.hit:
+		check(swing.damage_roll.modifier == fighter.damage_bonus(fighter.data.weapons[0]) + 2, "empowered adds +2 weapon damage (%d)" % swing.damage_roll.modifier)
+	fighter.clear_all_statuses()
+	fighter.ammo["arrows"] = 5
+	check(arrows.can_use_on(fighter), "arrows refill a bow user")
+	arrows.use_on(fighter, fighter)
+	check(fighter.ammo["arrows"] == 15, "a bundle adds 10 arrows (%d)" % fighter.ammo["arrows"])
+	check(not arrows.can_use_on(wizard), "the wizard has no bow for arrows")
+
+	# The action bar: potion buttons appear once the party has the bag.
+	var before_actions := fighter.actions.size()
+	fighter.set_inventory(bag)
+	check(fighter.actions.size() == before_actions + 4, "four potion actions join the action list")
+	var drink := fighter.find_action(&"use_potion_health") as UseItemAction
+	check(drink != null and drink.cost == CombatAction.Cost.BONUS_ACTION and drink.target_kind == CombatAction.TargetKind.ALLY, "drinking is a bonus action on an ally")
+	bag.remove(health, bag.count(health))
+	fighter.turn_state.begin_turn(fighter.speed_m())
+	check(not drink.is_available(fighter) and drink.unavailable_reason(fighter) == "None left in the bag", "no potion, no button (%s)" % drink.unavailable_reason(fighter))
+	bag.add(health, 2)
+	fighter.current_hp = fighter.max_hp()
+	fighter.take_damage(8)
+	check(drink.is_available(fighter) and drink.can_target(fighter, fighter) and drink.tag_for(fighter) == "x2", "available with two in the bag")
+	check(not drink.can_target(fighter, gob), "cannot feed potions to goblins")
+	_place(wizard, 0, -6)
+	check(not drink.can_target(fighter, wizard), "an ally 6 m away is out of reach")
+	var hp_before := fighter.current_hp
+	drink.pay_cost(fighter)
+	await drink.execute(fighter, fighter)
+	check(fighter.current_hp > hp_before and bag.count(health) == 1 and not fighter.turn_state.bonus_action_available, "drinking heals, consumes one and spends the bonus action")
+	# A chest hands out its contents once.
+	var chest := LootChest.new()
+	chest.gold = 12
+	chest.item_ids = PackedStringArray(["potion_mana", "arrows"])
+	add_child(chest)
+	var contents := chest.open()
+	check(contents["gold"] == 12 and contents["items"].size() == 2 and contents["items"][0] == mana, "chest contents")
+	check(chest.looted and chest.open()["gold"] == 0, "a chest opens only once")
+	chest.queue_free()
+	for a in [fighter, wizard, gob]:
+		a.queue_free()
 

@@ -20,7 +20,7 @@ static func pick(camera: Camera3D, screen_position: Vector2) -> Dictionary:
 	var result := space.intersect_ray(query)
 	if result.is_empty():
 		return {}
-	var out := {"position": result["position"], "actor": null}
+	var out := {"position": result["position"], "actor": null, "collider": result.get("collider")}
 	var collider: Object = result.get("collider")
 	if collider is Actor:
 		out["actor"] = collider

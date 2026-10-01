@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="StatusEffectData" format=3]
+
+[ext_resource type="Script" path="res://scripts/data/status_effect_data.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+id = &"empowered"
+display_name = "Empowered"
+short_name = "STR+"
+tint = Color(1, 0.65, 0.25, 1)
+default_rounds = 5
+description = "+2 damage with weapon attacks."
+damage_bonus = 2

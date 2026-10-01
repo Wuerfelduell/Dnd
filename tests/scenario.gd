@@ -86,6 +86,7 @@ func _run() -> void:
 	await _scenario_walk_around()
 	await _scenario_terrain_cover_and_shadows()
 	await _scenario_tavern_and_cave()
+	await _scenario_loot()
 	if not _failed:
 		print("[scenario] SUCCESS after %.1f s" % _time)
 		get_tree().quit(0)
@@ -413,9 +414,53 @@ func _scenario_tavern_and_cave() -> void:
 				arena_count += 1
 		expect(cave_count == 7 and arena_count == 0, "all seven cave dwellers join, no goblin does (%d / %d)" % [cave_count, arena_count])
 		expect(combat.participants.has(golem), "the golem guards the treasure")
-	await _end()
+	# Quiet the spider again before ending, or it spots the party once more.
 	perception.set_physics_process(false)
-	perception.set_deferred("monitoring", false)
+	perception.monitoring = false
 	for p in world.party():
 		p.global_position = Vector3(0, 0, 12)
+	await _end()
+	expect(GameState.is_exploring() and not combat.is_active, "back to exploring after the cave fight")
+
+
+func _scenario_loot() -> void:
+	print("[scenario] --- chests, loot and potions ---")
+	var fighter := _actor("Party/Fighter")
+	var bag := world.inventory
+	expect(bag.gold == 25 and bag.count(Inventory.find_item(&"potion_health")) == 2, "the party starts with 25 gold and two health potions (%s)" % bag.describe())
+	expect(fighter.find_action(&"use_potion_health") != null, "the fighter has potion actions")
+	# Walk to the tavern chest and open it.
+	var chest: LootChest = world.get_node("NavigationRegion3D/Chest")
+	expect(chest != null and not chest.looted, "the tavern chest exists")
+	var controller: PlayerController = fighter.get_node("PlayerController")
+	fighter.global_position = Vector3(3.5, 0, 13)
+	var gold_before := bag.gold
+	controller.walk_to(chest.global_position, chest)
+	var frames := 0
+	while frames < 600 and bag.gold == gold_before:
+		await get_tree().physics_frame
+		frames += 1
+	expect(bag.gold == gold_before + 15 and bag.count(Inventory.find_item(&"potion_antidote")) == 2 and bag.count(Inventory.find_item(&"arrows")) == 1, "walking to the chest loots 15 gold, an antidote and arrows (%s; fighter at %s moving=%s, chest at %s, pending=%s, frames=%d)" % [bag.describe(), fighter.global_position, fighter.is_moving(), chest.global_position, controller._target_chest, frames])
+	expect(chest.looted, "the chest is now empty")
+	# Drinking outside combat goes to the most hurt member.
+	var wizard := _actor("Party/Wizard")
+	wizard.take_damage(10)
+	var hp := wizard.current_hp
+	expect(world.use_item_from_bag(Inventory.find_item(&"potion_health")), "a potion can be used from the bag")
+	expect(wizard.current_hp > hp and bag.count(Inventory.find_item(&"potion_health")) == 1, "it went to the hurt wizard")
+	expect(not world.use_item_from_bag(Inventory.find_item(&"potion_mana")), "nobody needs a mana potion yet")
+	# Victory loot: gold for the fallen.
+	var gob := _actor("Enemies/GoblinWarrior")
+	fighter.global_position = Vector3(0, 0, 0)
+	gob.global_position = Vector3(0, 0, -1.2)
+	gold_before = bag.gold
+	combat.start_combat([fighter, gob] as Array[Actor])
+	await _wait_turn(fighter)
+	gob.take_damage(999)
+	combat.end_turn()
+	await get_tree().physics_frame
+	await get_tree().physics_frame
+	expect(not combat.is_active and bag.gold >= gold_before + 5, "the fallen goblin left at least 5 gold (%d -> %d)" % [gold_before, bag.gold])
+	fighter.global_position = Vector3(0, 0, 12)
+	gob.restore_full(Vector3(-2, 0, -9))
 

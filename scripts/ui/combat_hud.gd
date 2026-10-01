@@ -50,6 +50,20 @@ var _touch: bool = false
 @onready var zoom_in_button: Button = %ZoomInButton
 @onready var zoom_out_button: Button = %ZoomOutButton
 @onready var joystick: HudJoystick = %Joystick
+@onready var bag_button: Button = %BagButton
+@onready var inventory_panel: PanelContainer = %InventoryPanel
+@onready var inventory_title: Label = %InventoryTitle
+@onready var inventory_hint: Label = %InventoryHint
+@onready var inventory_list: VBoxContainer = %InventoryList
+@onready var close_bag_button: Button = %CloseBagButton
+
+const SFX := {
+	"potion": preload("res://assets/shop/sounds/potion_drink.wav"),
+	"coins": preload("res://assets/shop/sounds/coin_jingle.wav"),
+	"chest": preload("res://assets/shop/sounds/chest_open.wav"),
+}
+var _sfx: AudioStreamPlayer
+var world: World
 
 
 func setup(p_combat: CombatManager, p_input: PlayerCombatInput, p_player: Actor, p_camera_rig: CameraRig) -> void:
@@ -66,9 +80,21 @@ func setup(p_combat: CombatManager, p_input: PlayerCombatInput, p_player: Actor,
 	EventBus.status_applied.connect(_on_status_applied)
 	EventBus.status_removed.connect(_on_status_removed)
 	EventBus.concentration_broken.connect(_on_concentration_broken)
+	EventBus.item_used.connect(_on_item_used)
+	EventBus.loot_gained.connect(_on_loot_gained)
+	EventBus.chest_reached.connect(func(_c): _play("chest"))
 	GameState.state_changed.connect(func(_n, _o): _refresh_mode())
+	_sfx = AudioStreamPlayer.new()
+	_sfx.name = "Sfx"
+	add_child(_sfx)
+	world = get_parent() as World
+	if world != null:
+		world.inventory.changed.connect(_refresh_inventory)
+	bag_button.pressed.connect(func(): _show_inventory(not inventory_panel.visible))
+	close_bag_button.pressed.connect(func(): _show_inventory(false))
+	_refresh_inventory()
 
-	combat.combat_started.connect(func(_p): _refresh_all())
+	combat.combat_started.connect(func(_p): _refresh_all(); _refresh_inventory())
 	combat.turn_started.connect(func(_a): _refresh_all())
 	combat.turn_ended.connect(func(_a): _refresh_all())
 	combat.state_updated.connect(_refresh_all)
@@ -198,6 +224,11 @@ func _refresh_action_bar() -> void:
 		if action is SpellAction and not action.spell.is_cantrip():
 			tag = "L%d %d/%d" % [action.spell.level, actor.spell_slots[action.spell.level] if action.spell.level < actor.spell_slots.size() else 0, actor.max_spell_slots(action.spell.level)]
 		btn.text = "%s\n%s · %s" % [action.display_name, action.cost_name(), tag]
+		if action is UseItemAction:
+			btn.icon = action.item.icon
+			btn.expand_icon = true
+			btn.add_theme_constant_override("icon_max_width", 28)
+			btn.modulate = action.item.icon_tint if available else Color.WHITE
 		btn.tooltip_text = action.description(actor)
 		if not available:
 			btn.tooltip_text += "\n" + action.unavailable_reason(actor)
@@ -353,9 +384,87 @@ func _on_concentration_broken(actor: Node, spell: SpellData, reason: String) -> 
 	FloatingText.spawn(a.get_parent(), a.global_position + Vector3(0, 1.0, 0), "CONCENTRATION LOST", Color(1.0, 0.6, 0.3))
 
 
+# --- Bag -----------------------------------------------------------------
+
+func _play(key: String) -> void:
+	if _sfx != null and SFX.has(key):
+		_sfx.stream = SFX[key]
+		_sfx.play()
+
+
+func _show_inventory(open: bool) -> void:
+	inventory_panel.visible = open
+	if open:
+		_refresh_inventory()
+
+
+func _refresh_inventory() -> void:
+	if world == null:
+		return
+	var bag := world.inventory
+	bag_button.text = "Bag · %d g" % bag.gold
+	inventory_title.text = "Party bag · %d gold" % bag.gold
+	if not inventory_panel.visible:
+		return
+	for child in inventory_list.get_children():
+		child.queue_free()
+	var items := bag.items()
+	if items.is_empty():
+		var empty := Label.new()
+		empty.text = "Nothing but lint."
+		empty.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		inventory_list.add_child(empty)
+	for item in items:
+		var row := HBoxContainer.new()
+		row.custom_minimum_size = Vector2(0, 48)
+		var icon := TextureRect.new()
+		icon.texture = item.icon
+		icon.modulate = item.icon_tint
+		icon.custom_minimum_size = Vector2(40, 40)
+		icon.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+		icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+		row.add_child(icon)
+		var label := Label.new()
+		label.text = "%s  x%d\n%s" % [item.display_name, bag.count(item), item.description]
+		label.add_theme_font_size_override("font_size", 13)
+		label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		row.add_child(label)
+		if item.is_consumable():
+			var use := Button.new()
+			use.text = "Use"
+			use.custom_minimum_size = Vector2(72, 40)
+			use.disabled = combat.is_active
+			use.tooltip_text = "In combat: use it from the action bar (bonus action)." if combat.is_active else "Goes to the party member who needs it most."
+			use.pressed.connect(func(): world.use_item_from_bag(item))
+			row.add_child(use)
+		inventory_list.add_child(row)
+	inventory_hint.text = "In combat potions are a bonus action on the action bar." if combat.is_active else "Potions go to whoever needs them most. Tap a chest in the world to loot it."
+
+
+func _on_item_used(_user: Node, target: Node, item: ItemData) -> void:
+	_play("potion")
+	var t := target as Actor
+	if t != null:
+		FloatingText.spawn(t.get_parent(), t.global_position + Vector3(0, 1.2, 0), item.display_name.to_upper(), Color(0.6, 0.9, 1.0))
+	_refresh_inventory()
+
+
+func _on_loot_gained(gold: int, items: Array) -> void:
+	_play("coins")
+	var who := world.leader if world != null else null
+	if who != null:
+		var text := "+%d GOLD" % gold if gold > 0 else ""
+		if not items.is_empty():
+			text += (" " if text != "" else "") + "+%d ITEM%s" % [items.size(), "S" if items.size() > 1 else ""]
+		FloatingText.spawn(who.get_parent(), who.global_position + Vector3(0, 1.4, 0), text, Color(1.0, 0.85, 0.3))
+	_refresh_inventory()
+
+
 func _on_combat_ended(victory: bool) -> void:
 	_action_buttons.clear()
 	_buttons_actor = null
+	_refresh_inventory()
 	if not victory:
 		game_over_panel.visible = true
 		game_over_label.text = "The party has fallen."

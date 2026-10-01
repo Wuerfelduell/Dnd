@@ -1,0 +1,55 @@
+DND SHOP & KAMPF-ASSETS — GODOT 4.3
+
+Fertiges Assetpaket, eigenständiges Godot-Demoprojekt. project.godot öffnen und F6/F5 starten. Leertaste oder Bildschirmberührung wechselt die Ritterrüstung; die sechs Billboard-Effekte laufen automatisch.
+
+INHALT
+20 neue/abgeleitete GLB-Assets:
+- Vier Tränke: Heilung rot, Mana blau, Gegengift grün, Stärke orange. Höhe 0,30 m, Bodenpivot. Farben über PBR-Material, keine externe Textur nötig.
+- Bogen 1,20 m, Kurzbogen 0,80 m, Streitkolben. Griff am Ursprung, Längsachse Y; für KayKit handslot.r/l vorbereitet.
+- Warentisch mit ausgelegten Tränken, Münzen, Schriftrolle und Waffe: ein Modell, 2 x 1 m Stellfläche.
+- Beutesack: 0,40 m hoch, Bodenpivot.
+- Acht Projektile: Armbrustbolzen, Wurfdolch, Feuerkugel, Frostsplitter, magisches Geschoss, Vergeltungsstrahl, Sporenkugel, Säuretropfen. Bolzen/Dolch 0,50 m lang. Ursprung in der Mitte der Modellbegrenzung, Flugrichtung +Z, maximal 48 Dreiecke (Limit 200). Zauberprojektile mit Emissions-Material.
+- Drei Torso-Varianten: Leder, Kettenhemd, Platte. Original Knight_Body-Geometrie und KayKit-Hautgewichte bleiben erhalten. Unterschiede durch braunes Leder, Kettenmuster und glänzendes Metall; gleiche Torso-Silhouette. Keine neuen vollständigen Rüstungsanzüge oder Helme.
+Zusätzlich drei originale CC0-KayKit-Helden (Knight, Mage, Rogue) als Testfiguren mit Animationen.
+
+18 INVENTAR-ICONS
+PNG, RGBA, 128 x 128, transparent, einheitliche dunkle Konturen und klare Farben. Inhalt exakt nach deiner Liste: drei Tränke, Pfeilbündel, Goldmünze, Schwert, Dolch, Bogen, Stab, Streitkolben, Schild, Leder, Kettenhemd, Platte, Ring, Amulett, Schriftrolle, leerer Platz. Dunkler HUD-Hintergrund gehört ins UI; er ist nicht in die Icons eingebrannt. Stil: deterministisch gezeichnete Vektorsymbole, in hoher Auflösung gerendert und verkleinert. Kein Bildgenerator verwendet.
+
+EFFEKTE
+Sechs transparente Sprite-Sheets (512 x 512): Trefferfunken, Staub statt Blut, Feuerexplosion, Frostsplitter, Giftwolke, Heilfunkeln. Je 4 x 4 Kacheln, 128 x 128 je Frame, Reihenfolge zeilenweise von links oben nach rechts unten. Frame 15 ist komplett ausgeblendet. Vorgabe 24 FPS = 0,667 Sekunden.
+scripts/billboard_fx.gd richtet Sprite3D ein und entfernt den Effekt nach 16 Frames. Pixelgröße wird aus effect_size_m berechnet. Standardgröße 1,28 m, Feuerball z.B. 3–5 m.
+trail_soft.png: weißer weicher Strich 256 x 64, transparent. Längsrichtung horizontal (UV-U); auf ein Quad legen und dessen lange Achse in Flugrichtung ausrichten. Für Richtung/Farbe Materialmodulation nutzen. Der Strich selbst simuliert keine Bewegung.
+
+12 SOUNDS
+WAV, Mono, PCM16, 44,1 kHz. Synthetisch erzeugte stilisierte Platzhalter: coin_jingle, potion_drink, chest_open, purchase_confirmed, purchase_rejected, bow_draw, bow_shot, arrow_impact, spell_cast, explosion, hit, miss. Keine aufgenommenen Geräusche oder Stimmen. coin_jingle/Kauf meist AudioStreamPlayer im UI; räumliche Treffer/Explosion meist AudioStreamPlayer3D.
+
+RÜSTUNG IM SPIEL WECHSELN
+Nicht das gesamte armor_*.glb als zweite Figur an den Helden hängen. Das erzeugt ein zweites Skelett.
+Stattdessen scripts/equip_armor.gd verwenden:
+  var torso = KayKitArmor.equip(hero_node, preload("res://models/armor/armor_chainmail.glb"))
+Die Funktion sucht den *_Body-Mesh und das Skeleton3D, überträgt den Torso und bindet alle 41 Skin-Bindungen nach Knochennamen auf das vorhandene Skelett. Der alte Torso wird verborgen. AnimationPlayer und das Figurenskelett bleiben aktiv. Mit Knight, Mage und Rogue inklusive wiederholtem Wechsel geprüft. Für eigene oder modifizierte Rigs sind gleiche Knochen, Restposes und Proportionen Voraussetzung.
+KayKit-Cape oder bereits angezeigte Waffen separat ausblenden, falls sie mit Rüstung/Handmodell kollidieren.
+
+HANDWAFFEN
+scripts/equip_weapon.gd stellt BoneAttachment3D an handslot.r bzw. handslot.l bereit:
+  KayKitWeapon.attach(hero_skeleton, preload("res://models/hand_weapons/bow.glb"))
+rotation_degrees und scale_factor sind Parameter. Die endgültige Haltung hängt von deiner gewählten KayKit-Animation ab; am Beispielcharakter ausrichten. Das Paket enthält keine neue Bogenanimation oder Zieh-/Schusslogik. Vorhandene Ranged-Animationen können als Ausgangspunkt dienen.
+
+PROJEKTILE
+Richtung in Godot: projectile.global_basis.z. Bewegung z.B. mit global_position += global_basis.z * speed * delta. Godot-Kameras schauen standardmäßig nach -Z; das ändert die +Z-Konvention der Projektile nicht. Bei look_at daher use_model_front=true verwenden.
+Kollision, Fluggeschwindigkeit, Schaden, Abklingzeit, Zauberauslösung und Drops sind Spielcode und nicht im GLB enthalten.
+Emission funktioniert auch ohne Glow. Ein Bloom-Halo ist in Godot Compatibility nicht automatisch vorhanden; Sprite/Trail ergänzt den sichtbaren Zauber.
+
+IMPORT INS BESTEHENDE PROJEKT
+Ordner models, icons, effects, sounds und scripts an die entsprechenden res://-Pfade kopieren. README-Beispiele und Demo nutzen diese Pfade. Bei anderen Zielordnern Pfade anpassen. GLBs enthalten Materialien/Texturen, keine externen Abhängigkeiten.
+Die project.godot dieses Pakets dient nur der Demo. Das vorhandene Projekt weiterverwenden.
+
+LIZENZEN & QUELLEN
+Originale Modelle, Icons, Effekte, Sounds und Scripts: CC0 1.0, siehe licenses/Original_CC0.txt.
+Rüstung und Testfiguren: KayKit Adventurers von Kay Lousberg, CC0. Abgeleitete Varianten sind keine offiziellen KayKit-Assets.
+Originalquelle: https://github.com/KayKit-Game-Assets/KayKit-Character-Pack-Adventures-1.0
+catalog.json enthält Modellpfade, Maße, Dreieckzahlen, FX-Zuordnung und Dateilisten.
+previews enthält Übersichten der tatsächlichen Modelle, Icons und Effektframes.
+
+PRÜFUNG
+Siehe VALIDIERUNG.txt. Godot-Import, Ressourcentypen, Knochenbindungen, Restposes und Wechsel geprüft. Die grafische Demo und die Soundwirkung auf einem echten Android-Gerät sind noch nicht geprüft. Kauf- und Kampflogik werden nicht automatisch in dein bisheriges Spiel eingebaut.

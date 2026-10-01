@@ -53,6 +53,14 @@ const TAVERN_FURNITURE := [
 	{"name": "StoolB", "model": "environment_expansion/tavern/tavern_stool_tall", "position": Vector3(4.3, 0, 30.0), "rotation": 0.0, "box": Vector3(0.8, 0.96, 0.8)},
 	{"name": "Keg", "model": "environment_expansion/licensed_props/tavern__keg", "position": Vector3(6.8, 0, 35.0), "rotation": 20.0, "box": Vector3(1.8, 2.05, 2.0)},
 	{"name": "SmallBarrel", "model": "environment_expansion/licensed_props/tavern__barrel_small", "position": Vector3(-6.8, 0, 25.2), "rotation": 0.0, "box": Vector3(1.0, 1.02, 1.0)},
+	{"name": "WaresTable", "model": "shop/models/merchant_wares_table", "position": Vector3(-4.5, 0, 25.0), "rotation": 0.0, "box": Vector3(2.0, 1.0, 1.0)},
+]
+## Potions standing on the bar (decoration).
+const TAVERN_PROPS := [
+	{"model": "shop/models/potion_health", "position": Vector3(5.4, 1.33, 27.6), "rotation": 0.0, "scale": 1.0},
+	{"model": "shop/models/potion_mana", "position": Vector3(5.8, 1.33, 28.1), "rotation": 30.0, "scale": 1.0},
+	{"model": "shop/models/potion_antidote", "position": Vector3(5.5, 1.33, 34.4), "rotation": 0.0, "scale": 1.0},
+	{"model": "shop/models/loot_pouch", "position": Vector3(6.2, 1.33, 33.5), "rotation": 45.0, "scale": 1.0},
 ]
 ## Cave: 20 x 20 m north-west of the arena (x -20..0, z -40..-20), reached through the cave mouth.
 const CAVE_FLOOR_X := [-18.0, -14.0, -10.0, -6.0, -2.0]
@@ -65,7 +73,7 @@ const CAVE_FEATURES := [
 	{"name": "BoulderLarge", "model": "environment_expansion/cave/cave_boulder_large", "position": Vector3(-13, 0, -27), "radius": 1.2, "height": 1.8},
 	{"name": "BoulderFlat", "model": "environment_expansion/cave/cave_boulder_flat", "position": Vector3(-4, 0, -36), "radius": 1.2, "height": 0.7},
 	{"name": "MineCart", "model": "environment_expansion/cave/cave_mine_cart", "position": Vector3(-14, 0, -31), "radius": 0.9, "height": 1.0},
-	{"name": "TreasureChest", "model": "environment_expansion/licensed_props/cave__chest_gold", "position": Vector3(-5, 0, -39), "radius": 0.8, "height": 1.3, "rotation": 180.0},
+	{"name": "TreasureChest", "model": "environment_expansion/licensed_props/cave__chest_gold", "position": Vector3(-5, 0, -39), "radius": 0.8, "height": 1.3, "rotation": 180.0, "loot": {"gold": 120, "items": ["potion_health", "potion_health", "potion_mana", "potion_strength"]}},
 ]
 const CAVE_PROPS := [
 	{"model": "environment_expansion/cave/cave_pool_water", "position": Vector3(-6, 0, -26), "rotation": 0.0, "scale": 1.0},
@@ -112,7 +120,7 @@ const COVER := [
 	{"name": "LowWallEast", "model": "custom_grid/cover_stone_low_2m", "position": Vector3(4.5, 0, -6), "rotation": 90.0, "scale": 1.0, "box": Vector3(2.08, 1.02, 0.58)},
 	{"name": "LowWallWest", "model": "custom_grid/cover_stone_low_2m", "position": Vector3(-9.5, 0, -6), "rotation": 0.0, "scale": 1.0, "box": Vector3(2.08, 1.02, 0.58)},
 	{"name": "Barricade", "model": "custom_grid/cover_wood_barricade", "position": Vector3(6, 0, 3), "rotation": 90.0, "scale": 1.0, "box": Vector3(2.0, 1.2, 0.5)},
-	{"name": "Chest", "model": "kaykit/props/chest", "position": Vector3(3.5, 0, 16.5), "rotation": -20.0, "scale": 0.8, "box": Vector3(1.36, 1.04, 1.16)},
+	{"name": "Chest", "model": "kaykit/props/chest", "position": Vector3(3.5, 0, 16.5), "rotation": -20.0, "scale": 0.8, "box": Vector3(1.36, 1.04, 1.16), "loot": {"gold": 15, "items": ["potion_antidote", "arrows"]}},
 	# Ruined shrine in the south-east corner: altar and sarcophagus are waist-high cover.
 	{"name": "Altar", "model": "environment_expansion/ruins/ruin_altar", "position": Vector3(14, 0, 14), "rotation": 0.0, "scale": 1.0, "box": Vector3(2.2, 1.13, 1.6)},
 	{"name": "Sarcophagus", "model": "environment_expansion/ruins/ruin_sarcophagus_closed", "position": Vector3(11, 0, 16.5), "rotation": 90.0, "scale": 1.0, "box": Vector3(1.6, 1.04, 2.8)},
@@ -460,7 +468,7 @@ static func _stairs(parent: Node3D, entry: Dictionary) -> Node3D:
 
 
 static func _cover(parent: Node3D, entry: Dictionary) -> StaticBody3D:
-	var body := _static_body(parent, entry["name"])
+	var body := _static_body(parent, entry["name"], entry.get("loot", {}))
 	body.position = entry["position"]
 	body.rotation.y = deg_to_rad(entry["rotation"])
 	var size: Vector3 = entry["box"]
@@ -471,7 +479,7 @@ static func _cover(parent: Node3D, entry: Dictionary) -> StaticBody3D:
 
 
 static func _pillar(parent: Node3D, entry: Dictionary) -> StaticBody3D:
-	var body := _static_body(parent, entry["name"])
+	var body := _static_body(parent, entry["name"], entry.get("loot", {}))
 	body.position = entry["position"]
 	body.rotation.y = deg_to_rad(entry.get("rotation", 0.0))
 	var shape := CollisionShape3D.new()
@@ -540,8 +548,10 @@ static func _tavern(parent: Node3D) -> void:
 			_fallback_box(body, Vector3(4.05, 3.2, 0.4), Vector3(0.0, 1.6, 0.0))
 	for f in TAVERN_FURNITURE:
 		_cover(parent, {"name": f["name"], "model": f["model"], "position": f["position"], "rotation": f["rotation"], "scale": 1.0, "box": f["box"]})
-	# Sign beside the door and a chandelier hook are decoration.
+	# Sign beside the door and the wares on the bar are decoration.
 	_model(parent, "environment_expansion/tavern/tavern_inn_sign", Vector3(0.2, 0.0, 23.7), 0.0, 1.0)
+	for p in TAVERN_PROPS:
+		_model(parent, p["model"], p["position"], p["rotation"], p["scale"])
 
 
 ## The cave: rock walls on three sides (the fourth is the arena's north wall),
@@ -666,8 +676,15 @@ static func _scene(model: String) -> PackedScene:
 	return scene
 
 
-static func _static_body(parent: Node3D, name: String) -> StaticBody3D:
-	var body := StaticBody3D.new()
+static func _static_body(parent: Node3D, name: String, loot: Dictionary = {}) -> StaticBody3D:
+	var body: StaticBody3D
+	if loot.is_empty():
+		body = StaticBody3D.new()
+	else:
+		var chest := LootChest.new()
+		chest.gold = loot.get("gold", 0)
+		chest.item_ids = PackedStringArray(loot.get("items", []))
+		body = chest
 	body.name = name
 	body.collision_layer = 1
 	body.collision_mask = 0
