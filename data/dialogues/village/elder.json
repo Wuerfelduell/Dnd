@@ -1,0 +1,582 @@
+{
+  "schema_version": 1,
+  "id": "village_elder",
+  "language": "de",
+  "status": "authored_dialogue_design_not_runtime_integrated",
+  "title": "Hagan – Dorfvorsteher",
+  "personality": "Erschöpft, kontrolliert und schuldig. Hat im Versuch, Menschen zu schützen, den Kornspeicher verriegelt. Versteckt seine Fehlentscheidung hinter der Geschichte des Überfalls.",
+  "entry": "resolution_router",
+  "additional_entries": {},
+  "entry_requirements": {
+    "npc_alive": "village_elder",
+    "game_mode": "exploration",
+    "no_combat_active": true
+  },
+  "context_file": "_context.json",
+  "speakers": {
+    "village_elder": {
+      "name": "Hagan",
+      "actor_reference": "village_elder",
+      "status": "planned_actor"
+    },
+    "village_blacksmith": {
+      "name": "Dorek",
+      "actor_reference": "village_blacksmith",
+      "status": "planned_actor"
+    },
+    "village_widow": {
+      "name": "Mara",
+      "actor_reference": "village_widow",
+      "status": "planned_actor"
+    },
+    "village_scavenger": {
+      "name": "Nilo",
+      "actor_reference": "village_scavenger",
+      "status": "planned_actor"
+    },
+    "village_healer": {
+      "name": "Sella",
+      "actor_reference": "village_healer",
+      "status": "planned_actor"
+    },
+    "village_gravedigger": {
+      "name": "Borik",
+      "actor_reference": "village_gravedigger",
+      "status": "planned_actor"
+    },
+    "system": {
+      "name": ""
+    }
+  },
+  "conventions": {
+    "address": "Duzen; ihr/euch nur für eine angesprochene Gruppe.",
+    "currency": {
+      "base_unit": "copper",
+      "copper_per_silver": 10,
+      "silver_per_gold": 10,
+      "status": "proposed_conversion_consistent_with_tavern"
+    },
+    "transitions": "next, automatic_next and switch targets refer to nodes in this file. terminal ends dialogue. Navigation controls are not spoken dialogue.",
+    "checks": "d20 + ability + skill proficiency; DC null pending balance. One persistent attempt per NPC/node/choice per save. No reroll by reopening.",
+    "conditions": "requires gates choices before selection; flags_all/flags_any refer to shared village flags. Every outcome retains an exit.",
+    "payments": "Inventory and currency effects in a choice/node are atomic. Check funds/items before applying. No auto-payment and no auto-combat on insufficient money.",
+    "rewards": "Unique items, claims and rewards are persistent once-per-save; no menu/reentry farming.",
+    "knowledge": "Only heard/revealed clues set player-knowledge flags. _context.json truth is author knowledge, never automatically revealed to players.",
+    "questions": "Informational replies return to the remaining questions; once_answered topics disappear after answered. Closing dialogue is always available.",
+    "truth_resolution": "At most one outcome, stored in village_truth_resolution; private/public/blackmail switches close the unresolved tree. Choosing accountability schedules a narrative confession but does not pretend it occurred before its world hook fires."
+  },
+  "design_decisions_pending": [
+    "Probe-DCs.",
+    "Anbindung an Dorf-Szenen, Inventar, Journal und gespeicherte Quest-Zustände."
+  ],
+  "nodes": {
+    "greeting": {
+      "speaker": "village_elder",
+      "text": "Wenn du helfen willst, hilf. Wenn du wissen willst, was hier passiert ist, sieh dich um. Ich habe die Geschichte heute schon zu oft erzählt.",
+      "choices": [
+        {
+          "id": "raid",
+          "text": "Dann erzähl sie einmal richtig.",
+          "next": "raid",
+          "effects": [],
+          "once_answered": true
+        },
+        {
+          "id": "granary",
+          "text": "Warum war der Kornspeicher von außen verriegelt?",
+          "next": "granary",
+          "effects": [],
+          "requires": {
+            "flags_any": [
+              "village_granary_lock_known",
+              "village_smith_testimony"
+            ]
+          }
+        },
+        {
+          "id": "supplies",
+          "text": "Wer verteilt die Vorräte?",
+          "next": "supplies",
+          "effects": [],
+          "once_answered": true
+        },
+        {
+          "id": "read",
+          "text": "[Motiv erkennen] Darauf achten, welche Ruine er beim Reden meidet.",
+          "next": null,
+          "effects": [],
+          "check": {
+            "ability": "wisdom",
+            "skill": "insight",
+            "dc": null,
+            "success": "suspect",
+            "failure": "read_failed",
+            "retry": false,
+            "attempt_key": "village_elder.greeting.read"
+          }
+        },
+        {
+          "id": "leave",
+          "text": "Wir schauen uns erst um.",
+          "next": null,
+          "effects": [],
+          "end_conversation": true
+        }
+      ],
+      "effects": []
+    },
+    "raid": {
+      "speaker": "village_elder",
+      "text": "Über die Brücke. Kurz nach Einbruch der Dunkelheit. Erst wollten sie Korn und Münzen. Dann haben sie Feuer gelegt, damit keiner hinter ihnen herkam.",
+      "choices": [
+        {
+          "id": "shelter",
+          "text": "Wo hast du die Leute hingebracht?",
+          "next": "shelter",
+          "effects": []
+        },
+        {
+          "id": "back",
+          "text": "Noch eine Frage.",
+          "next": "greeting",
+          "effects": []
+        },
+        {
+          "id": "end",
+          "text": "Ich lasse dich weiterarbeiten.",
+          "next": null,
+          "effects": [],
+          "end_conversation": true
+        }
+      ],
+      "effects": []
+    },
+    "shelter": {
+      "speaker": "village_elder",
+      "text": "In den Kornspeicher. Steinwände, schwere Tür. Das war der sicherste Ort im Dorf.",
+      "choices": [
+        {
+          "id": "door",
+          "text": "Wer hat die Tür zugemacht?",
+          "next": "granary",
+          "effects": []
+        },
+        {
+          "id": "leave",
+          "text": "Ich sehe mir den Speicher an.",
+          "next": null,
+          "effects": [],
+          "end_conversation": true
+        }
+      ],
+      "effects": []
+    },
+    "supplies": {
+      "speaker": "village_elder",
+      "text": "Ich. Einer muss darauf achten, dass morgen noch etwas übrig ist. Wenn jeder nimmt, was er braucht, essen wir übermorgen Asche.",
+      "choices": [
+        {
+          "id": "pockets",
+          "text": "Und was bleibt in deiner Tasche?",
+          "next": "pockets",
+          "effects": []
+        },
+        {
+          "id": "offer",
+          "text": "Dann gebe ich Vorräte lieber direkt der Heilerin.",
+          "next": null,
+          "effects": [],
+          "end_conversation": true
+        },
+        {
+          "id": "back",
+          "text": "Noch eine Frage.",
+          "next": "greeting",
+          "effects": []
+        }
+      ],
+      "effects": []
+    },
+    "pockets": {
+      "speaker": "village_elder",
+      "text": "Ein Schlüssel, der niemandem mehr hilft, und drei Silber, mit denen ich gestern Brot kaufen wollte. Wenn du glaubst, ich werde hier reich, hast du die falsche Ruine gefunden.",
+      "choices": [
+        {
+          "id": "back",
+          "text": "Noch eine Frage.",
+          "next": "greeting",
+          "effects": []
+        },
+        {
+          "id": "end",
+          "text": "Ich lasse dich weiterarbeiten.",
+          "next": null,
+          "effects": [],
+          "end_conversation": true
+        }
+      ],
+      "effects": []
+    },
+    "suspect": {
+      "speaker": "system",
+      "text": "",
+      "choices": [
+        {
+          "id": "ask",
+          "text": "Du schaust kein einziges Mal zum Kornspeicher. Warum?",
+          "next": "granary",
+          "effects": []
+        },
+        {
+          "id": "leave",
+          "text": "Ich sehe mir erst diese Tür an.",
+          "next": null,
+          "effects": [],
+          "end_conversation": true
+        }
+      ],
+      "effects": [
+        {
+          "type": "set_flag",
+          "flag": "village_elder_suspected",
+          "value": true
+        }
+      ],
+      "stage_direction": "Bei jedem Knacken im verbrannten Dach fährt er zusammen. Den Kornspeicher hinter ihm erwähnt er nicht."
+    },
+    "read_failed": {
+      "speaker": "village_elder",
+      "text": "Du kannst mich noch eine Stunde ansehen. Die Häuser werden dadurch nicht wieder heil.",
+      "choices": [
+        {
+          "id": "back",
+          "text": "Noch eine Frage.",
+          "next": "greeting",
+          "effects": []
+        },
+        {
+          "id": "end",
+          "text": "Ich lasse dich weiterarbeiten.",
+          "next": null,
+          "effects": [],
+          "end_conversation": true
+        }
+      ],
+      "effects": []
+    },
+    "granary": {
+      "speaker": "village_elder",
+      "text": "Damit die Räuber nicht hineinkamen. Ich habe sie geschützt.",
+      "choices": [
+        {
+          "id": "proof",
+          "text": "Dorek musste die Tür von außen aufbrechen. Du hast die Leute eingeschlossen.",
+          "next": "confront",
+          "effects": [],
+          "requires": {
+            "flags_any": [
+              "village_smith_testimony",
+              "village_granary_lock_known"
+            ]
+          }
+        },
+        {
+          "id": "persuade",
+          "text": "[Überzeugen] Wenn du sie schützen wolltest, sag mir, warum du sie nicht wieder herausgelassen hast.",
+          "next": null,
+          "effects": [],
+          "check": {
+            "ability": "charisma",
+            "skill": "persuasion",
+            "dc": null,
+            "success": "confession",
+            "failure": "denial",
+            "retry": false,
+            "attempt_key": "village_elder.granary.persuade"
+          }
+        },
+        {
+          "id": "leave",
+          "text": "Ich frage jemanden, der drinnen war.",
+          "next": null,
+          "effects": [],
+          "end_conversation": true
+        }
+      ],
+      "effects": []
+    },
+    "confront": {
+      "speaker": "village_elder",
+      "text": "Ich wollte sie wieder aufmachen. Den Schlüssel hatte ich eben noch. Dann kam der Rauch. Ich habe ihn nicht mehr gefunden.",
+      "choices": [
+        {
+          "id": "question",
+          "text": "Und dann bist du weggelaufen?",
+          "next": "confession",
+          "effects": []
+        },
+        {
+          "id": "pause",
+          "text": "Das reicht mir vorerst.",
+          "next": null,
+          "effects": [],
+          "end_conversation": true
+        }
+      ],
+      "effects": [
+        {
+          "type": "set_flag",
+          "flag": "village_elder_order_known",
+          "value": true
+        }
+      ]
+    },
+    "denial": {
+      "speaker": "village_elder",
+      "text": "Du warst nicht da. Du kannst dir aus jeder verbrannten Tür eine Anklage bauen. Ich bleibe bei dem, was ich getan habe: Ich habe Schutz gesucht.",
+      "choices": [
+        {
+          "id": "leave",
+          "text": "Dann reden wir wieder, wenn ich Beweise habe.",
+          "next": null,
+          "effects": [],
+          "end_conversation": true
+        },
+        {
+          "id": "back",
+          "text": "Noch eine Frage.",
+          "next": "greeting",
+          "effects": []
+        }
+      ],
+      "effects": []
+    },
+    "confession": {
+      "speaker": "village_elder",
+      "text": "Ich bin zu Dorek. Als wir zurückkamen, hörte ich sie noch gegen die Tür schlagen. Er hat sie aufgebrochen. Für manche war es zu spät.",
+      "choices": [
+        {
+          "id": "private",
+          "text": "Du gehst zu den Angehörigen und sagst ihnen das selbst.",
+          "next": "accountability",
+          "effects": []
+        },
+        {
+          "id": "public",
+          "text": "Die Leute müssen das hören. Jetzt.",
+          "next": "public",
+          "effects": []
+        },
+        {
+          "id": "blackmail",
+          "text": "[Einschüchtern] Deine drei Silber. Dann entscheide ich später, wem ich das erzähle.",
+          "next": null,
+          "effects": [],
+          "check": {
+            "ability": "charisma",
+            "skill": "intimidation",
+            "dc": null,
+            "success": "blackmail_success",
+            "failure": "blackmail_failed",
+            "retry": false,
+            "attempt_key": "village_elder.confession.blackmail"
+          },
+          "requires": {
+            "flag_false": "village_elder_blackmailed"
+          }
+        },
+        {
+          "id": "leave",
+          "text": "Ich verspreche dir kein Schweigen.",
+          "next": null,
+          "effects": [],
+          "end_conversation": true
+        }
+      ],
+      "effects": [
+        {
+          "type": "set_flag",
+          "flag": "village_elder_confessed",
+          "value": true
+        }
+      ],
+      "stage_direction": "Er zieht einen rußgeschwärzten Schlüssel aus der Tasche. „Den habe ich am Morgen wiedergefunden.“"
+    },
+    "accountability": {
+      "speaker": "village_elder",
+      "text": "Bleib neben mir, wenn ich es sage. Nicht um mich zu schützen. Damit ich nicht wieder bei der Hälfte aufhöre.",
+      "choices": [
+        {
+          "id": "agree",
+          "text": "Ich bleibe dabei.",
+          "next": null,
+          "effects": [
+            {
+              "type": "set_flag",
+              "flag": "village_truth_resolution",
+              "value": "private_accountability"
+            },
+            {
+              "type": "narrative_event",
+              "event": "hagan_tells_survivors",
+              "result_flag": "village_private_confession_delivered",
+              "require_world_hook": true
+            }
+          ],
+          "end_conversation": true
+        },
+        {
+          "id": "refuse",
+          "text": "Du musst das ohne mich tun.",
+          "next": null,
+          "effects": [
+            {
+              "type": "set_flag",
+              "flag": "village_truth_resolution",
+              "value": "private_accountability"
+            },
+            {
+              "type": "narrative_event",
+              "event": "hagan_tells_survivors",
+              "result_flag": "village_private_confession_delivered",
+              "require_world_hook": true
+            }
+          ],
+          "end_conversation": true
+        }
+      ],
+      "effects": [],
+      "stage_direction": "Er steckt den Schlüssel nicht wieder ein."
+    },
+    "public": {
+      "speaker": "system",
+      "text": "",
+      "choices": [],
+      "effects": [
+        {
+          "type": "set_flag",
+          "flag": "village_truth_resolution",
+          "value": "public_exposure"
+        }
+      ],
+      "terminal": true,
+      "stage_direction": "Du rufst die Überlebenden zusammen. Hagan widerspricht deiner Darstellung nicht. Dorek stellt sich neben ihn, Mara bleibt am Rand. Niemand spricht, als Hagan den Schlüssel auf den Tisch legt.",
+      "followup": "Shared public-exposure state adds short reactions in the other village files; no extra crowd NPCs required."
+    },
+    "blackmail_success": {
+      "speaker": "village_elder",
+      "text": "Nimm sie. Aber tu nicht so, als würdest du damit irgendjemanden von ihnen zurückholen.",
+      "choices": [],
+      "effects": [
+        {
+          "type": "give_currency",
+          "currency": "copper",
+          "amount": 30
+        },
+        {
+          "type": "set_flag",
+          "flag": "village_elder_blackmailed",
+          "value": true
+        },
+        {
+          "type": "set_flag",
+          "flag": "village_truth_resolution",
+          "value": "blackmail"
+        }
+      ],
+      "terminal": true,
+      "once_per_save": true,
+      "stage_direction": "Er drückt dir seine letzten drei Silber in die Hand.",
+      "requires": {
+        "flag_false": "village_elder_blackmailed"
+      },
+      "atomic_effects": true
+    },
+    "blackmail_failed": {
+      "speaker": "village_elder",
+      "text": "Dann erzähl es. Ich habe Menschen verloren. Dich muss ich nicht auch noch bezahlen.",
+      "choices": [
+        {
+          "id": "public",
+          "text": "Dann hören sie es jetzt.",
+          "next": "public",
+          "effects": []
+        },
+        {
+          "id": "private",
+          "text": "Dann sag es ihnen wenigstens selbst.",
+          "next": "accountability",
+          "effects": []
+        },
+        {
+          "id": "leave",
+          "text": "Wir sind fertig.",
+          "next": null,
+          "effects": [],
+          "end_conversation": true
+        }
+      ],
+      "effects": []
+    },
+    "resolution_router": {
+      "speaker": "system",
+      "text": "",
+      "choices": [],
+      "effects": [],
+      "switch": {
+        "flag": "village_truth_resolution",
+        "cases": {
+          "private_accountability": "private_router",
+          "public_exposure": "resolved_public",
+          "blackmail": "resolved_blackmail"
+        },
+        "default": "greeting"
+      }
+    },
+    "resolved_private": {
+      "speaker": "village_elder",
+      "text": "Ich habe es ihnen gesagt. Keiner hat mir vergeben. Ich habe auch nicht darum gebeten.",
+      "choices": [],
+      "effects": [],
+      "terminal": true,
+      "requires": {
+        "flag_true": "village_private_confession_delivered"
+      },
+      "note": "Only after the confession event has actually occurred. Pending event must show accountability_pending, not claim a confession already happened."
+    },
+    "resolved_public": {
+      "speaker": "village_elder",
+      "text": "Sie kennen jetzt meine Entscheidung. Lass mich wenigstens beim Wiederaufbau etwas richtig machen.",
+      "choices": [],
+      "effects": [],
+      "terminal": true
+    },
+    "resolved_blackmail": {
+      "speaker": "village_elder",
+      "text": "Du hast meine Münzen. Ich habe den Schlüssel. Keiner von uns ist dadurch ein besserer Mensch geworden.",
+      "choices": [],
+      "effects": [],
+      "terminal": true
+    },
+    "private_router": {
+      "speaker": "system",
+      "text": "",
+      "choices": [],
+      "effects": [],
+      "switch": {
+        "flag": "village_private_confession_delivered",
+        "cases": {
+          "true": "resolved_private"
+        },
+        "default": "accountability_pending"
+      }
+    },
+    "accountability_pending": {
+      "speaker": "village_elder",
+      "text": "Ich habe es noch nicht gesagt. Ich suche gerade nach Worten, die nicht wieder wie eine Ausrede klingen.",
+      "choices": [],
+      "effects": [],
+      "terminal": true
+    }
+  }
+}

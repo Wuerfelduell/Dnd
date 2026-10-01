@@ -1,0 +1,424 @@
+{
+  "schema_version": 1,
+  "id": "village_scavenger",
+  "language": "de",
+  "status": "authored_dialogue_design_not_runtime_integrated",
+  "title": "Nilo – junger Plünderer",
+  "personality": "16 Jahre, schnell im Reden, misstrauisch. Sammelt Essen und Münzen aus den Ruinen; kennt Tavins Fluchtweg und verschweigt ihn aus Angst vor Fragen nach seinem eigenen Verhalten.",
+  "entry": "greeting",
+  "additional_entries": {},
+  "entry_requirements": {
+    "npc_alive": "village_scavenger",
+    "game_mode": "exploration",
+    "no_combat_active": true
+  },
+  "context_file": "_context.json",
+  "speakers": {
+    "village_elder": {
+      "name": "Hagan",
+      "actor_reference": "village_elder",
+      "status": "planned_actor"
+    },
+    "village_blacksmith": {
+      "name": "Dorek",
+      "actor_reference": "village_blacksmith",
+      "status": "planned_actor"
+    },
+    "village_widow": {
+      "name": "Mara",
+      "actor_reference": "village_widow",
+      "status": "planned_actor"
+    },
+    "village_scavenger": {
+      "name": "Nilo",
+      "actor_reference": "village_scavenger",
+      "status": "planned_actor"
+    },
+    "village_healer": {
+      "name": "Sella",
+      "actor_reference": "village_healer",
+      "status": "planned_actor"
+    },
+    "village_gravedigger": {
+      "name": "Borik",
+      "actor_reference": "village_gravedigger",
+      "status": "planned_actor"
+    },
+    "system": {
+      "name": ""
+    }
+  },
+  "conventions": {
+    "address": "Duzen; ihr/euch nur für eine angesprochene Gruppe.",
+    "currency": {
+      "base_unit": "copper",
+      "copper_per_silver": 10,
+      "silver_per_gold": 10,
+      "status": "proposed_conversion_consistent_with_tavern"
+    },
+    "transitions": "next, automatic_next and switch targets refer to nodes in this file. terminal ends dialogue. Navigation controls are not spoken dialogue.",
+    "checks": "d20 + ability + skill proficiency; DC null pending balance. One persistent attempt per NPC/node/choice per save. No reroll by reopening.",
+    "conditions": "requires gates choices before selection; flags_all/flags_any refer to shared village flags. Every outcome retains an exit.",
+    "payments": "Inventory and currency effects in a choice/node are atomic. Check funds/items before applying. No auto-payment and no auto-combat on insufficient money.",
+    "rewards": "Unique items, claims and rewards are persistent once-per-save; no menu/reentry farming.",
+    "knowledge": "Only heard/revealed clues set player-knowledge flags. _context.json truth is author knowledge, never automatically revealed to players.",
+    "questions": "Informational replies return to the remaining questions; once_answered topics disappear after answered. Closing dialogue is always available."
+  },
+  "design_decisions_pending": [
+    "Probe-DCs.",
+    "Anbindung an Dorf-Szenen, Inventar, Journal und gespeicherte Quest-Zustände."
+  ],
+  "nodes": {
+    "greeting": {
+      "speaker": "village_scavenger",
+      "text": "Hier gibt’s nichts mehr zu holen. Wenn du wegen der Münzen kommst, warst du zu langsam.",
+      "choices": [
+        {
+          "id": "bag",
+          "text": "Was hast du in dem Beutel?",
+          "next": "bag",
+          "effects": [],
+          "once_answered": true
+        },
+        {
+          "id": "boy",
+          "text": "Eine Frau sucht ihren Sohn. Roter Schal.",
+          "next": "boy",
+          "effects": []
+        },
+        {
+          "id": "raid",
+          "text": "Was hast du beim Überfall gesehen?",
+          "next": "raid",
+          "effects": [],
+          "once_answered": true
+        },
+        {
+          "id": "leave",
+          "text": "Dann pass auf, dass dir nicht jemand zuvorkommt.",
+          "next": null,
+          "effects": [],
+          "end_conversation": true
+        }
+      ],
+      "effects": [],
+      "stage_direction": "Er zieht einen Beutel zwischen seine Füße und stellt sich davor."
+    },
+    "bag": {
+      "speaker": "village_scavenger",
+      "text": "Brot. Eine Zwiebel. Sachen, die morgen schlecht wären. Die Besitzer kommen dafür nicht zurück.",
+      "choices": [
+        {
+          "id": "coins",
+          "text": "Die Münzen werden auch schlecht?",
+          "next": "coins",
+          "effects": []
+        },
+        {
+          "id": "share",
+          "text": "Dann gib Sella etwas von dem Brot.",
+          "next": "share",
+          "effects": [],
+          "requires": {
+            "flag_false": "village_nilo_shared_food"
+          }
+        },
+        {
+          "id": "leave",
+          "text": "Ich nehme dir dein Essen nicht weg.",
+          "next": null,
+          "effects": [],
+          "end_conversation": true
+        }
+      ],
+      "effects": []
+    },
+    "coins": {
+      "speaker": "village_scavenger",
+      "text": "Wenn ich sie hier liegen lasse, nimmt sie der Nächste. Du schaust doch auch schon die ganze Zeit auf den Beutel.",
+      "choices": [
+        {
+          "id": "persuade",
+          "text": "[Überzeugen] Bring die Münzen zu Hagan oder den Angehörigen. Dann musst du sie nicht verstecken.",
+          "next": null,
+          "effects": [],
+          "check": {
+            "ability": "charisma",
+            "skill": "persuasion",
+            "dc": null,
+            "success": "return_loot",
+            "failure": "loot_refused",
+            "retry": false,
+            "attempt_key": "village_scavenger.coins.persuade"
+          },
+          "requires": {
+            "flag_false": "village_nilo_returns_loot"
+          }
+        },
+        {
+          "id": "leave",
+          "text": "Behalte sie. Aber nenn es nicht Aufräumen.",
+          "next": null,
+          "effects": [],
+          "end_conversation": true
+        }
+      ],
+      "effects": []
+    },
+    "share": {
+      "speaker": "village_scavenger",
+      "text": "Sella? Gut. Das Brot kann sie haben. Die Zwiebel behalte ich.",
+      "choices": [],
+      "effects": [
+        {
+          "type": "set_flag",
+          "flag": "village_nilo_shared_food",
+          "value": true
+        }
+      ],
+      "terminal": true,
+      "stage_direction": "Er legt einen Laib in ein sauberes Tuch. „Sag ihr nicht, woher er kommt.“",
+      "note": "Narrative donation fulfilled once by Nilo; no bread item granted to player and no reward farming.",
+      "once_per_save": true
+    },
+    "return_loot": {
+      "speaker": "village_scavenger",
+      "text": "Hagan kriegt sie nicht. Mara vielleicht. Ich lege sie ihr vor die Tür. Wenn du dabeistehst, sieht es aus, als wäre ich schon gefangen.",
+      "choices": [],
+      "effects": [
+        {
+          "type": "set_flag",
+          "flag": "village_nilo_returns_loot",
+          "value": true
+        }
+      ],
+      "terminal": true,
+      "stage_direction": "Er zieht vier kleine Münzen aus dem Beutel und zählt sie zweimal.",
+      "note": "Future world state: four copper given to Mara, not to player. Loot restitution is not evidence of the granary order."
+    },
+    "loot_refused": {
+      "speaker": "village_scavenger",
+      "text": "Dann stehe ich morgen wieder mit leeren Händen da. Du bist übermorgen weg. Ich bin noch hier.",
+      "choices": [
+        {
+          "id": "back",
+          "text": "Noch eine Frage.",
+          "next": "greeting",
+          "effects": []
+        },
+        {
+          "id": "leave",
+          "text": "Ich verstehe. Ich muss es nicht gut finden.",
+          "next": null,
+          "effects": [],
+          "end_conversation": true
+        }
+      ],
+      "effects": []
+    },
+    "boy": {
+      "speaker": "village_scavenger",
+      "text": "Tavin? Den kenne ich nicht.",
+      "choices": [
+        {
+          "id": "read",
+          "text": "[Motiv erkennen] Auf seine Reaktion beim Namen achten.",
+          "next": null,
+          "effects": [],
+          "check": {
+            "ability": "wisdom",
+            "skill": "insight",
+            "dc": null,
+            "success": "boy_suspected",
+            "failure": "boy_read_failed",
+            "retry": false,
+            "attempt_key": "village_scavenger.boy.read"
+          }
+        },
+        {
+          "id": "gentle",
+          "text": "Ich will dir nichts wegnehmen. Ich will nur, dass seine Mutter weiß, wo er ist.",
+          "next": "boy_truth",
+          "effects": []
+        },
+        {
+          "id": "leave",
+          "text": "Wenn dir etwas einfällt, rede mit Mara.",
+          "next": null,
+          "effects": [],
+          "end_conversation": true
+        }
+      ],
+      "effects": []
+    },
+    "boy_suspected": {
+      "speaker": "system",
+      "text": "",
+      "choices": [
+        {
+          "id": "caught",
+          "text": "Ich habe seinen Namen gar nicht gesagt. Du kennst ihn.",
+          "next": "boy_caught",
+          "effects": []
+        },
+        {
+          "id": "leave",
+          "text": "Du kannst es seiner Mutter auch selbst sagen.",
+          "next": null,
+          "effects": [],
+          "end_conversation": true
+        }
+      ],
+      "effects": [
+        {
+          "type": "set_flag",
+          "flag": "village_nilo_knows_tavin",
+          "value": true
+        }
+      ],
+      "stage_direction": "Du hast nur den roten Schal erwähnt. Den Namen Tavin hat er selbst genannt."
+    },
+    "boy_read_failed": {
+      "speaker": "village_scavenger",
+      "text": "Rote Schals gibt’s mehr als einen.",
+      "choices": [
+        {
+          "id": "patient",
+          "text": "Dann hör mir zu: Ein Junge wird vermisst. Du bekommst keinen Ärger, wenn du von ihm erzählst.",
+          "next": "boy_truth",
+          "effects": []
+        },
+        {
+          "id": "leave",
+          "text": "Ich frage jemand anderen.",
+          "next": null,
+          "effects": [],
+          "end_conversation": true
+        }
+      ],
+      "effects": []
+    },
+    "boy_caught": {
+      "speaker": "village_scavenger",
+      "text": "Ja. Und jetzt denkst du, ich hätte ihm etwas getan.",
+      "choices": [
+        {
+          "id": "kind",
+          "text": "Nein. Ich glaube, du hast ihn gesehen.",
+          "next": "boy_truth",
+          "effects": []
+        },
+        {
+          "id": "threat",
+          "text": "[Einschüchtern] Hör auf auszuweichen. Sag mir jetzt, wo er ist.",
+          "next": null,
+          "effects": [],
+          "check": {
+            "ability": "charisma",
+            "skill": "intimidation",
+            "dc": null,
+            "success": "boy_truth",
+            "failure": "false_direction",
+            "retry": false,
+            "attempt_key": "village_scavenger.boy_caught.threat"
+          }
+        },
+        {
+          "id": "leave",
+          "text": "Wenn ihm etwas passiert, während du schweigst, musst du damit leben.",
+          "next": null,
+          "effects": [],
+          "end_conversation": true
+        }
+      ],
+      "effects": []
+    },
+    "boy_truth": {
+      "speaker": "village_scavenger",
+      "text": "Er ist hinten aus dem Speicher geklettert. Ich hatte vorher am Fenster nach Essen gesucht. Er ist zum Fluss gelaufen. In die alte Köhlerhütte, glaube ich. Da schlafen wir manchmal, wenn wir nicht heimwollen.",
+      "choices": [
+        {
+          "id": "go",
+          "text": "Ich gehe hin. Sag seiner Mutter, dass wir nach ihm suchen.",
+          "next": null,
+          "effects": [
+            {
+              "type": "set_quest",
+              "quest": "village_find_tavin",
+              "status": "accepted"
+            }
+          ],
+          "end_conversation": true
+        },
+        {
+          "id": "ask",
+          "text": "Ich sage Mara, wo sie suchen kann.",
+          "next": null,
+          "effects": [
+            {
+              "type": "set_flag",
+              "flag": "village_mara_knows_son_location",
+              "value": true
+            }
+          ],
+          "end_conversation": true
+        }
+      ],
+      "effects": [
+        {
+          "type": "set_flag",
+          "flag": "village_tavin_location_known",
+          "value": true
+        },
+        {
+          "type": "set_flag",
+          "flag": "village_nilo_told_truth",
+          "value": true
+        }
+      ],
+      "stage_direction": "Er zeigt flussabwärts. „Er hatte noch seinen Schal.“"
+    },
+    "false_direction": {
+      "speaker": "village_scavenger",
+      "text": "Bei der Brücke. Auf der anderen Seite. Jetzt lass mich in Ruhe.",
+      "choices": [],
+      "effects": [
+        {
+          "type": "set_flag",
+          "flag": "village_tavin_false_lead",
+          "value": true
+        }
+      ],
+      "terminal": true,
+      "stage_direction": "Er zeigt hastig nach Norden, obwohl er eben noch zum Fluss gesehen hat.",
+      "rumour_reliability": "false",
+      "note": "A failed threat gives a deliberate false lead to the bridge, never changes Tavin's actual hut location. Another NPC/scene must let player recover the true lead."
+    },
+    "raid": {
+      "speaker": "village_scavenger",
+      "text": "Die Räuber wollten Säcke, keine Häuser. Einer hat trotzdem eine Fackel ins Dach geworfen. Der andere hat ihn angeschrien. Ich hab nicht verstanden, was. Dann bin ich unters Haus.",
+      "choices": [
+        {
+          "id": "back",
+          "text": "Noch eine Frage.",
+          "next": "greeting",
+          "effects": []
+        },
+        {
+          "id": "leave",
+          "text": "Gut, dass du dort herausgekommen bist.",
+          "next": null,
+          "effects": [],
+          "end_conversation": true
+        }
+      ],
+      "effects": [
+        {
+          "type": "set_flag",
+          "flag": "village_raiders_arson_known",
+          "value": true
+        }
+      ]
+    }
+  }
+}

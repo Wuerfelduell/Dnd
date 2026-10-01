@@ -1,0 +1,486 @@
+{
+  "schema_version": 1,
+  "id": "village_widow",
+  "language": "de",
+  "status": "authored_dialogue_design_not_runtime_integrated",
+  "title": "Mara – sucht Mann und Sohn",
+  "personality": "Erschöpfte, entschlossene Mutter. Will zuverlässige Nachrichten statt Trostfloskeln. Noch weiß sie nicht, dass ihr Mann tot ist; ihr Sohn lebt.",
+  "entry": "greeting",
+  "additional_entries": {
+    "identify_husband": "ring_return",
+    "son_returned": "son_return",
+    "after_public_truth": "public_reaction",
+    "correct_lie": "correct_lie"
+  },
+  "entry_requirements": {
+    "npc_alive": "village_widow",
+    "game_mode": "exploration",
+    "no_combat_active": true
+  },
+  "context_file": "_context.json",
+  "speakers": {
+    "village_elder": {
+      "name": "Hagan",
+      "actor_reference": "village_elder",
+      "status": "planned_actor"
+    },
+    "village_blacksmith": {
+      "name": "Dorek",
+      "actor_reference": "village_blacksmith",
+      "status": "planned_actor"
+    },
+    "village_widow": {
+      "name": "Mara",
+      "actor_reference": "village_widow",
+      "status": "planned_actor"
+    },
+    "village_scavenger": {
+      "name": "Nilo",
+      "actor_reference": "village_scavenger",
+      "status": "planned_actor"
+    },
+    "village_healer": {
+      "name": "Sella",
+      "actor_reference": "village_healer",
+      "status": "planned_actor"
+    },
+    "village_gravedigger": {
+      "name": "Borik",
+      "actor_reference": "village_gravedigger",
+      "status": "planned_actor"
+    },
+    "system": {
+      "name": ""
+    }
+  },
+  "conventions": {
+    "address": "Duzen; ihr/euch nur für eine angesprochene Gruppe.",
+    "currency": {
+      "base_unit": "copper",
+      "copper_per_silver": 10,
+      "silver_per_gold": 10,
+      "status": "proposed_conversion_consistent_with_tavern"
+    },
+    "transitions": "next, automatic_next and switch targets refer to nodes in this file. terminal ends dialogue. Navigation controls are not spoken dialogue.",
+    "checks": "d20 + ability + skill proficiency; DC null pending balance. One persistent attempt per NPC/node/choice per save. No reroll by reopening.",
+    "conditions": "requires gates choices before selection; flags_all/flags_any refer to shared village flags. Every outcome retains an exit.",
+    "payments": "Inventory and currency effects in a choice/node are atomic. Check funds/items before applying. No auto-payment and no auto-combat on insufficient money.",
+    "rewards": "Unique items, claims and rewards are persistent once-per-save; no menu/reentry farming.",
+    "knowledge": "Only heard/revealed clues set player-knowledge flags. _context.json truth is author knowledge, never automatically revealed to players.",
+    "questions": "Informational replies return to the remaining questions; once_answered topics disappear after answered. Closing dialogue is always available.",
+    "lie_aftermath": "correct_lie becomes available after a world event sets village_borik_told_mara. village_mara_refuses_player suppresses optional private talk, never blocks returning Tavin or quest-critical truth. _context author truth is not auto-shared."
+  },
+  "design_decisions_pending": [
+    "Probe-DCs.",
+    "Anbindung an Dorf-Szenen, Inventar, Journal und gespeicherte Quest-Zustände."
+  ],
+  "nodes": {
+    "greeting": {
+      "speaker": "village_widow",
+      "text": "Wenn du jemanden aus den Ruinen kommen siehst: dunkle Jacke, breite Schultern. Oder einen Jungen mit einem roten Schal. Frag nach mir. Mara.",
+      "choices": [
+        {
+          "id": "who",
+          "text": "Wen suchst du?",
+          "next": "family",
+          "effects": [],
+          "once_answered": true
+        },
+        {
+          "id": "last",
+          "text": "Wo hast du sie zuletzt gesehen?",
+          "next": "last",
+          "effects": [],
+          "once_answered": true
+        },
+        {
+          "id": "help",
+          "text": "Ich suche nach deinem Jungen.",
+          "next": "son_quest",
+          "effects": []
+        },
+        {
+          "id": "clue",
+          "text": "Nilo hat deinen Sohn gesehen.",
+          "next": "son_hint",
+          "effects": [],
+          "requires": {
+            "flag_true": "village_tavin_location_known"
+          }
+        },
+        {
+          "id": "leave",
+          "text": "Ich halte die Augen offen.",
+          "next": null,
+          "effects": [],
+          "end_conversation": true
+        }
+      ],
+      "effects": []
+    },
+    "family": {
+      "speaker": "village_widow",
+      "text": "Mein Mann und Tavin. Mein Mann ist mit den anderen zum Speicher. Tavin wollte noch seinen Hund holen. Seitdem warte ich.",
+      "choices": [
+        {
+          "id": "hope",
+          "text": "Vielleicht sind sie zusammen aus dem Dorf gekommen.",
+          "next": "hope",
+          "effects": []
+        },
+        {
+          "id": "back",
+          "text": "Noch eine Frage.",
+          "next": "greeting",
+          "effects": []
+        },
+        {
+          "id": "leave",
+          "text": "Ich suche nach beiden.",
+          "next": null,
+          "effects": [],
+          "end_conversation": true
+        }
+      ],
+      "effects": []
+    },
+    "hope": {
+      "speaker": "village_widow",
+      "text": "Vielleicht. Jeder sagt vielleicht. Wenn du etwas weißt, sag es. Wenn nicht, lass mir meine eigenen Gedanken.",
+      "choices": [
+        {
+          "id": "back",
+          "text": "Noch eine Frage.",
+          "next": "greeting",
+          "effects": []
+        },
+        {
+          "id": "leave",
+          "text": "Verstanden.",
+          "next": null,
+          "effects": [],
+          "end_conversation": true
+        }
+      ],
+      "effects": []
+    },
+    "last": {
+      "speaker": "village_widow",
+      "text": "Tavin an unserem Haus. Sein Vater auf dem Weg zum Kornspeicher. Er hat gesagt, ich soll mich um den Jungen kümmern. Ich habe ihm zugerufen, dass wir gleich nachkommen.",
+      "choices": [
+        {
+          "id": "back",
+          "text": "Noch eine Frage.",
+          "next": "greeting",
+          "effects": []
+        },
+        {
+          "id": "leave",
+          "text": "Ich fange dort an.",
+          "next": null,
+          "effects": [],
+          "end_conversation": true
+        }
+      ],
+      "effects": []
+    },
+    "son_quest": {
+      "speaker": "village_widow",
+      "text": "Ich kann dir nichts bezahlen. Wenn du ihn findest, bring ihn zurück. Nicht seinen Schal. Ihn.",
+      "choices": [
+        {
+          "id": "accept",
+          "text": "Ich suche ihn.",
+          "next": null,
+          "effects": [
+            {
+              "type": "set_quest",
+              "quest": "village_find_tavin",
+              "status": "accepted"
+            }
+          ],
+          "end_conversation": true
+        },
+        {
+          "id": "decline",
+          "text": "Ich verspreche lieber nichts, das ich nicht halten kann.",
+          "next": null,
+          "effects": [],
+          "end_conversation": true
+        }
+      ],
+      "effects": []
+    },
+    "son_hint": {
+      "speaker": "village_widow",
+      "text": "Am Fluss? Dann ist er noch draußen.",
+      "choices": [
+        {
+          "id": "go",
+          "text": "Ich gehe zur Köhlerhütte und bringe ihn her.",
+          "next": null,
+          "effects": [
+            {
+              "type": "set_quest",
+              "quest": "village_find_tavin",
+              "status": "accepted"
+            }
+          ],
+          "end_conversation": true
+        },
+        {
+          "id": "tell",
+          "text": "Nilo kann dir den Weg genauer zeigen.",
+          "next": null,
+          "effects": [
+            {
+              "type": "set_flag",
+              "flag": "village_mara_knows_son_location",
+              "value": true
+            }
+          ],
+          "end_conversation": true
+        }
+      ],
+      "effects": [
+        {
+          "type": "set_flag",
+          "flag": "village_mara_knows_son_location",
+          "value": true
+        }
+      ],
+      "stage_direction": "Zum ersten Mal sieht sie dich direkt an."
+    },
+    "ring_return": {
+      "speaker": "village_widow",
+      "text": "Das ist sein Ring. Woher hast du ihn?",
+      "choices": [
+        {
+          "id": "truth",
+          "text": "Borik hat ihn bei deinem Mann gefunden. Er ist im Kornspeicher gestorben.",
+          "next": "death_truth",
+          "effects": []
+        },
+        {
+          "id": "lie",
+          "text": "[Täuschen] Er hat ihn verloren. Wir wissen noch nicht, wo er ist.",
+          "next": null,
+          "effects": [],
+          "check": {
+            "ability": "charisma",
+            "skill": "deception",
+            "dc": null,
+            "success": "death_lie_success",
+            "failure": "death_lie_failed",
+            "retry": false,
+            "attempt_key": "village_widow.ring_return.lie"
+          }
+        },
+        {
+          "id": "wait",
+          "text": "Ich lasse dir einen Moment. Danach sage ich dir alles.",
+          "next": null,
+          "effects": [],
+          "end_conversation": true
+        }
+      ],
+      "effects": [],
+      "requires": {
+        "item": "mara_husband_signet",
+        "quantity": 1,
+        "flag_false": "village_husband_identified"
+      }
+    },
+    "death_truth": {
+      "speaker": "village_widow",
+      "text": "Ich will zu ihm. Du zeigst mir, wo Borik ihn hingelegt hat.",
+      "choices": [],
+      "effects": [
+        {
+          "type": "remove_item",
+          "item": "mara_husband_signet",
+          "quantity": 1
+        },
+        {
+          "type": "set_flag",
+          "flag": "village_husband_identified",
+          "value": true
+        },
+        {
+          "type": "set_flag",
+          "flag": "village_mara_knows_husband_dead",
+          "value": true
+        },
+        {
+          "type": "complete_quest",
+          "quest": "village_identify_husband"
+        }
+      ],
+      "terminal": true,
+      "atomic_effects": true,
+      "requires": {
+        "item": "mara_husband_signet",
+        "quantity": 1,
+        "flag_false": "village_husband_identified"
+      },
+      "stage_direction": "Sie schließt die Hand um den Ring. Sie weint nicht sofort."
+    },
+    "death_lie_success": {
+      "speaker": "village_widow",
+      "text": "Dann kann ich ihn ihm wiedergeben.",
+      "choices": [],
+      "effects": [
+        {
+          "type": "remove_item",
+          "item": "mara_husband_signet",
+          "quantity": 1
+        },
+        {
+          "type": "set_flag",
+          "flag": "village_husband_identified",
+          "value": true
+        },
+        {
+          "type": "set_flag",
+          "flag": "village_mara_false_hope",
+          "value": true
+        },
+        {
+          "type": "complete_quest",
+          "quest": "village_identify_husband"
+        }
+      ],
+      "terminal": true,
+      "atomic_effects": true,
+      "requires": {
+        "item": "mara_husband_signet",
+        "quantity": 1,
+        "flag_false": "village_husband_identified"
+      },
+      "stage_direction": "Sie nimmt den Ring und schaut wieder zur Straße.",
+      "consequence": "Borik can tell her the truth later; after that, Mara refuses further private conversations with the player. Do not treat the lie as having saved her husband."
+    },
+    "death_lie_failed": {
+      "speaker": "village_widow",
+      "text": "An der Innenseite ist noch Blut. Du schaust mich nicht an. Sag mir, wo er liegt.",
+      "choices": [
+        {
+          "id": "truth",
+          "text": "Bei Borik. Es tut mir leid.",
+          "next": "death_truth",
+          "effects": []
+        },
+        {
+          "id": "leave",
+          "text": "Ich kann dir das gerade nicht sagen.",
+          "next": null,
+          "effects": [
+            {
+              "type": "set_flag",
+              "flag": "village_mara_distrusts_player",
+              "value": true
+            }
+          ],
+          "end_conversation": true
+        }
+      ],
+      "effects": []
+    },
+    "son_return": {
+      "speaker": "village_widow",
+      "text": "Tavin.",
+      "choices": [],
+      "effects": [
+        {
+          "type": "set_flag",
+          "flag": "village_son_reunion_seen",
+          "value": true
+        },
+        {
+          "type": "complete_quest",
+          "quest": "village_find_tavin"
+        }
+      ],
+      "terminal": true,
+      "requires": {
+        "flag_true": "village_tavin_returned",
+        "flag_false": "village_son_reunion_seen"
+      },
+      "stage_direction": "Sie lässt alles fallen und zieht ihn an sich. Erst als sie ihn wieder loslässt, sagt sie zu dir: „Danke.“",
+      "note": "No money or item reward. Tavin must actually return via a later rescue scene trigger.",
+      "atomic_effects": true
+    },
+    "public_reaction": {
+      "speaker": "village_widow",
+      "text": "Du willst, dass ich ihn ansehe? Ich warte hier auf zwei Menschen. Stell Hagan vor seine eigene Tür, aber stell ihn nicht vor meine.",
+      "choices": [],
+      "effects": [],
+      "terminal": true,
+      "requires": {
+        "flag_value": {
+          "village_truth_resolution": "public_exposure"
+        }
+      }
+    },
+    "correct_lie": {
+      "speaker": "village_widow",
+      "text": "Du hast gesagt, er hätte den Ring verloren. Borik sagt, er hat ihn bei seinem Körper gefunden.",
+      "choices": [
+        {
+          "id": "admit",
+          "text": "Ich habe gelogen. Ich konnte es dir nicht sagen.",
+          "next": null,
+          "effects": [
+            {
+              "type": "set_flag",
+              "flag": "village_mara_knows_husband_dead",
+              "value": true
+            },
+            {
+              "type": "set_flag",
+              "flag": "village_mara_false_hope",
+              "value": false
+            },
+            {
+              "type": "set_flag",
+              "flag": "village_mara_refuses_player",
+              "value": true
+            }
+          ],
+          "end_conversation": true
+        },
+        {
+          "id": "leave",
+          "text": "Ich gehe.",
+          "next": null,
+          "effects": [
+            {
+              "type": "set_flag",
+              "flag": "village_mara_knows_husband_dead",
+              "value": true
+            },
+            {
+              "type": "set_flag",
+              "flag": "village_mara_false_hope",
+              "value": false
+            },
+            {
+              "type": "set_flag",
+              "flag": "village_mara_refuses_player",
+              "value": true
+            }
+          ],
+          "end_conversation": true
+        }
+      ],
+      "effects": [],
+      "requires": {
+        "flags_all": [
+          "village_mara_false_hope",
+          "village_borik_told_mara"
+        ]
+      },
+      "stage_direction": "„Du gehst jetzt. Meinen Jungen kannst du trotzdem zurückbringen. Das schulde ich ihm, nicht dir.“"
+    }
+  }
+}
