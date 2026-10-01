@@ -162,7 +162,7 @@ godot --headless --path . -- --autoplay --seed=4
 xvfb-run godot --rendering-driver opengl3 --path . -- --screenshot --shot-dir=/tmp/shots
 ```
 
-Der Seed macht die Würfel reproduzierbar. Über zwölf Seeds gewinnt die KI-Party neun von zwölf ersten Wellen (die Nachtregeln helfen ihr: sie schleicht im Dunkeln an das beleuchtete Lager heran und eröffnet mit Vorteil) und sechs von neun zweiten Wellen gegen die hochskalierten Gegner.
+Der Seed macht die Würfel reproduzierbar. Über dreizehn Seeds gewinnt die KI-Party sieben erste Wellen (die Nachtregeln helfen ihr: sie schleicht im Dunkeln an das beleuchtete Lager heran und eröffnet mit Vorteil) und drei von sieben zweiten Wellen gegen die hochskalierten Gegner. Welche Seeds verloren gehen, wechselt mit jeder Geometrieänderung; die Kämpfe sind knapp.
 
 ## Projektstruktur
 
