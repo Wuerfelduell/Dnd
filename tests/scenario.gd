@@ -85,6 +85,7 @@ func _run() -> void:
 	await _scenario_fireball()
 	await _scenario_walk_around()
 	await _scenario_terrain_cover_and_shadows()
+	await _scenario_tavern_and_cave()
 	if not _failed:
 		print("[scenario] SUCCESS after %.1f s" % _time)
 		get_tree().quit(0)
@@ -353,4 +354,68 @@ func _scenario_terrain_cover_and_shadows() -> void:
 	expect(level.elevation_bonus() == 0, "same level on the ledge: no height bonus")
 	await _end()
 	fighter.global_position = Vector3(0, 0, 12)
+
+
+func _scenario_tavern_and_cave() -> void:
+	print("[scenario] --- tavern folk and the cave encounter ---")
+	var fighter := _actor("Party/Fighter")
+	var map := world.get_world_3d().navigation_map
+	# The navmesh connects camp, tavern hall and cave.
+	var to_tavern := CombatMovement.find_path(map, Vector3(0, 0, 12), Vector3(0, 0, 30))
+	expect(to_tavern.size() > 2 and to_tavern[to_tavern.size() - 1].distance_to(Vector3(0, 0, 30)) < 1.0 and CombatMovement.path_length(to_tavern) < 30.0, "path from the camp into the tavern (%.1f m)" % CombatMovement.path_length(to_tavern))
+	var to_cave := CombatMovement.find_path(map, Vector3(0, 0, 12), Vector3(-10, 0, -30))
+	expect(to_cave.size() > 2 and to_cave[to_cave.size() - 1].distance_to(Vector3(-10, 0, -30)) < 1.0 and CombatMovement.path_length(to_cave) < 60.0, "path from the camp into the cave (%.1f m)" % CombatMovement.path_length(to_cave))
+	# Tavern folk: neutral, lit, labelled by name, never part of a fight.
+	expect(world.npcs().size() == 6, "six tavern folk (%d)" % world.npcs().size())
+	var innkeeper: Actor = world.get_node("Npcs/Innkeeper")
+	expect(innkeeper.is_neutral() and not fighter.is_hostile_to(innkeeper) and not innkeeper.is_hostile_to(fighter), "the innkeeper is nobody's enemy")
+	var gob := _actor("Enemies/GoblinWarrior")
+	expect(not gob.is_hostile_to(innkeeper) and not Targeting.living_hostiles(gob, [fighter, innkeeper] as Array[Actor]).has(innkeeper), "goblins ignore the innkeeper")
+	expect(innkeeper.visual.uses_model() and innkeeper.visual.animator().current_action == "idle", "the innkeeper stands around with his model")
+	var bard: Actor = world.get_node("Npcs/Bard")
+	expect(bard.visual.animator().current_action == "cheer" and bard.global_position.y > 0.4, "the bard performs on the stage")
+	expect(Lighting.is_lit(innkeeper) and Lighting.is_lit(bard), "the tavern is lit by hearth and chandelier")
+	expect(innkeeper.name_label.text == "Innkeeper", "NPC labels show the name only (%s)" % innkeeper.name_label.text)
+	expect(not fighter.find_action(&"attack_longsword").can_target(fighter, innkeeper), "you cannot attack tavern folk")
+	# A fight next to the tavern: the folk stay out of it.
+	_place(fighter, 0, 22)
+	_place(gob, 2, 22)
+	combat.start_combat([fighter, gob] as Array[Actor])
+	await _wait_turn(fighter)
+	expect(not combat.participants.has(innkeeper) and not combat.participants.has(world.get_node("Npcs/TownGuard")), "tavern folk are not combatants")
+	await _end()
+	_place(gob, -2, -9)
+	# The cave: dark, its own group; walking in wakes the cave dwellers but not the goblins.
+	expect(world.cave_enemies().size() == 7, "seven cave dwellers (%d)" % world.cave_enemies().size())
+	var spider: Actor = world.get_node("CaveEnemies/CaveSpider1")
+	var golem: Actor = world.get_node("CaveEnemies/CaveGolem")
+	expect(Lighting.is_in_shadow(spider) and golem.data.display_name == "Stone Golem", "the cave is dark and guarded")
+	var perception: EnemyPerception = spider.get_node("Perception")
+	perception.set_physics_process(true)
+	perception.monitoring = true
+	for p in world.party():
+		p.global_position = Vector3(-10, 0, -21) + Vector3(0.6 * (p.get_index() - 1), 0, 0.8 * p.get_index())
+	fighter.global_position = Vector3(-12, 0, -22)
+	expect(not perception.can_notice(fighter), "5 m away in the dark: the spider has not noticed the fighter")
+	fighter.global_position = Vector3(-13, 0, -23.5)
+	var frames := 0
+	while GameState.is_exploring() and frames < 300:
+		await get_tree().physics_frame
+		frames += 1
+	expect(GameState.is_in_combat(), "walking up to the spider in the dark starts the cave encounter")
+	if GameState.is_in_combat():
+		var cave_count := 0
+		var arena_count := 0
+		for a in combat.participants:
+			if world.cave_enemies().has(a):
+				cave_count += 1
+			elif world.arena_enemies().has(a):
+				arena_count += 1
+		expect(cave_count == 7 and arena_count == 0, "all seven cave dwellers join, no goblin does (%d / %d)" % [cave_count, arena_count])
+		expect(combat.participants.has(golem), "the golem guards the treasure")
+	await _end()
+	perception.set_physics_process(false)
+	perception.set_deferred("monitoring", false)
+	for p in world.party():
+		p.global_position = Vector3(0, 0, 12)
 

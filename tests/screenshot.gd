@@ -54,7 +54,7 @@ func _run() -> void:
 	# Group shot of all enemies.
 	var center := Vector3.ZERO
 	var n := 0
-	for e in world.enemies():
+	for e in world.arena_enemies():
 		center += e.global_position
 		n += 1
 	if n > 0:
@@ -100,6 +100,15 @@ func _run() -> void:
 	free_cam.look_at(Vector3(-16.0, 1.0, -2.0), Vector3.UP)
 	await _settle()
 	await _shoot("overlook")
+	# Tavern (from above the door, looking in) and the cave.
+	free_cam.global_position = Vector3(0.0, 9.0, 21.0)
+	free_cam.look_at(Vector3(0.0, 0.8, 31.0), Vector3.UP)
+	await _settle()
+	await _shoot("tavern")
+	free_cam.global_position = Vector3(-10.0, 10.0, -18.0)
+	free_cam.look_at(Vector3(-10.0, 0.5, -31.0), Vector3.UP)
+	await _settle()
+	await _shoot("cave")
 	camera.make_current()
 	print("[screenshot] done -> %s" % _dir)
 	get_tree().quit(0)

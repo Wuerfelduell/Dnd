@@ -82,6 +82,7 @@ func _ready() -> void:
 
 	EventBus.log("Your party: %s." % ", ".join(_party_names()))
 	EventBus.log("Goblins, wolves and a hobgoblin captain camp to the north. Combat starts when one of them notices you.")
+	EventBus.log("[color=gray]South through the gate lies the tavern (friendly folk, no fighting). The tunnel in the north wall leads into a cave with its own dangers and a treasure at the end.[/color]")
 	EventBus.log("[color=gray]Night rules: stay out of the torchlight to get close unseen. High ground gives +2 to hit, crates and low walls give cover, full cover blocks the shot.[/color]")
 
 	# Headless integration test hooks (godot --headless -- --autoplay / --scenario).
@@ -115,17 +116,46 @@ func party() -> Array[Actor]:
 	return out
 
 
+## Every hostile creature: the arena waves and the cave encounter.
 func enemies() -> Array[Actor]:
 	var out: Array[Actor] = []
 	for a in actors():
-		if not a.is_player():
+		if a.data.faction == ActorData.Faction.ENEMY:
 			out.append(a)
 	return out
 
 
+## Enemies that belong to the waves (respawned between waves).
+func arena_enemies() -> Array[Actor]:
+	var out: Array[Actor] = []
+	for e in enemies():
+		if e.get_parent() == $Enemies:
+			out.append(e)
+	return out
+
+
+## The one-time encounter inside the cave.
+func cave_enemies() -> Array[Actor]:
+	var out: Array[Actor] = []
+	for e in enemies():
+		if e.get_parent() == $CaveEnemies:
+			out.append(e)
+	return out
+
+
+## Tavern folk and other bystanders.
+func npcs() -> Array[Actor]:
+	var out: Array[Actor] = []
+	for a in actors():
+		if a.is_neutral():
+			out.append(a)
+	return out
+
+
+## Living enemies of the arena waves (the cave does not block resting).
 func living_enemies() -> int:
 	var n := 0
-	for e in enemies():
+	for e in arena_enemies():
 		if e.is_alive():
 			n += 1
 	return n
@@ -145,8 +175,10 @@ func _on_enemy_spotted(enemy: Actor) -> void:
 	for p in party():
 		if p.is_alive():
 			participants.append(p)
+	# Only the spotter's own group joins: the cave encounter and the arena
+	# waves never mix, however close the cave mouth is.
 	for e in enemies():
-		if e.is_alive() and e.center_distance_to(enemy) <= encounter_radius:
+		if e.is_alive() and e.get_parent() == enemy.get_parent() and e.center_distance_to(enemy) <= encounter_radius:
 			participants.append(e)
 	EventBus.log("[b]%s[/b] spotted the party!" % enemy.display_name())
 	hud.set_rest_available(false, false, wave)
@@ -208,7 +240,7 @@ func _start_wave(number: int) -> void:
 			var newcomer := _spawn_arrival(load(path))
 			names.append(newcomer.display_name())
 		EventBus.log("[color=orange]From the cave mouth: %s![/color]" % ", ".join(names))
-	for e in enemies():
+	for e in arena_enemies():
 		var t: Transform3D = _spawn_transforms.get(e, e.global_transform)
 		var lines := Progression.scale_enemy(e, level)
 		e.restore_full(t.origin)

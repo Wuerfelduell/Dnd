@@ -220,7 +220,13 @@ func is_player() -> bool:
 
 
 func is_hostile_to(other: Actor) -> bool:
-	return other != self and other.data.faction != data.faction
+	if other == self or other.data.faction == data.faction:
+		return false
+	return data.faction != ActorData.Faction.NEUTRAL and other.data.faction != ActorData.Faction.NEUTRAL
+
+
+func is_neutral() -> bool:
+	return data.faction == ActorData.Faction.NEUTRAL
 
 
 func is_alive() -> bool:

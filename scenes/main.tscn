@@ -15,6 +15,19 @@
 [ext_resource type="Resource" path="res://data/actors/hobgoblin.tres" id="14"]
 [ext_resource type="Resource" path="res://data/actors/wolf.tres" id="15"]
 
+[ext_resource type="PackedScene" path="res://scenes/actors/npc.tscn" id="16"]
+[ext_resource type="Resource" path="res://data/actors/cave_spider.tres" id="17"]
+[ext_resource type="Resource" path="res://data/actors/cave_bat.tres" id="18"]
+[ext_resource type="Resource" path="res://data/actors/crystal_slime.tres" id="19"]
+[ext_resource type="Resource" path="res://data/actors/mushroom_shaman.tres" id="20"]
+[ext_resource type="Resource" path="res://data/actors/stone_golem.tres" id="21"]
+[ext_resource type="Resource" path="res://data/actors/innkeeper.tres" id="22"]
+[ext_resource type="Resource" path="res://data/actors/cook.tres" id="23"]
+[ext_resource type="Resource" path="res://data/actors/bard.tres" id="24"]
+[ext_resource type="Resource" path="res://data/actors/merchant.tres" id="25"]
+[ext_resource type="Resource" path="res://data/actors/tipsy_guest.tres" id="26"]
+[ext_resource type="Resource" path="res://data/actors/town_guard.tres" id="27"]
+
 [sub_resource type="NavigationMesh" id="NavigationMesh_arena"]
 geometry_parsed_geometry_type = 1
 geometry_collision_mask = 1
@@ -41,7 +54,7 @@ ambient_light_energy = 0.45
 tonemap_mode = 2
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ground"]
-size = Vector3(40, 0.5, 40)
+size = Vector3(40, 0.5, 80)
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_indicator"]
 top_radius = 1.0
@@ -128,6 +141,62 @@ data = ExtResource("15")
 [node name="GoblinArcher2" parent="Enemies" instance=ExtResource("3")]
 transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -4, 0, -15)
 data = ExtResource("13")
+
+[node name="Npcs" type="Node3D" parent="."]
+
+[node name="Innkeeper" parent="Npcs" instance=ExtResource("16")]
+transform = Transform3D(0.0, 0, 1.0, 0, 1, 0, -1.0, 0, 0.0, 7.0, 0, 31.0)
+data = ExtResource("22")
+
+[node name="Cook" parent="Npcs" instance=ExtResource("16")]
+transform = Transform3D(0.0, 0, 1.0, 0, 1, 0, -1.0, 0, 0.0, -5.4, 0, 31.6)
+data = ExtResource("23")
+
+[node name="Bard" parent="Npcs" instance=ExtResource("16")]
+transform = Transform3D(1.0, 0, 0.0, 0, 1, 0, -0.0, 0, 1.0, -6.0, 0.49, 34.4)
+data = ExtResource("24")
+
+[node name="Merchant" parent="Npcs" instance=ExtResource("16")]
+transform = Transform3D(-1.0, 0, 0.0, 0, 1, 0, -0.0, 0, -1.0, 1.5, 0, 31.2)
+data = ExtResource("25")
+
+[node name="TipsyGuest" parent="Npcs" instance=ExtResource("16")]
+transform = Transform3D(1.0, 0, 0.0, 0, 1, 0, -0.0, 0, 1.0, -2.5, 0, 30.3)
+data = ExtResource("26")
+
+[node name="TownGuard" parent="Npcs" instance=ExtResource("16")]
+transform = Transform3D(1.0, 0, 0.0, 0, 1, 0, -0.0, 0, 1.0, 0.8, 0, 25.2)
+data = ExtResource("27")
+
+[node name="CaveEnemies" type="Node3D" parent="."]
+
+[node name="CaveSpider1" parent="CaveEnemies" instance=ExtResource("3")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -14, 0, -25)
+data = ExtResource("17")
+
+[node name="CaveSpider2" parent="CaveEnemies" instance=ExtResource("3")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -5, 0, -29)
+data = ExtResource("17")
+
+[node name="CaveBat1" parent="CaveEnemies" instance=ExtResource("3")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -10, 0, -27)
+data = ExtResource("18")
+
+[node name="CaveBat2" parent="CaveEnemies" instance=ExtResource("3")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -17, 0, -33)
+data = ExtResource("18")
+
+[node name="CaveSlime" parent="CaveEnemies" instance=ExtResource("3")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -3, 0, -34)
+data = ExtResource("19")
+
+[node name="CaveShaman" parent="CaveEnemies" instance=ExtResource("3")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -12, 0, -36)
+data = ExtResource("20")
+
+[node name="CaveGolem" parent="CaveEnemies" instance=ExtResource("3")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -9, 0, -37)
+data = ExtResource("21")
 
 [node name="CombatManager" type="Node" parent="."]
 script = ExtResource("5")

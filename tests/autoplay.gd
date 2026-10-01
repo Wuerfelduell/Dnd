@@ -86,6 +86,7 @@ func _run() -> void:
 	var nav_map := world.get_world_3d().navigation_map
 	expect(NavigationServer3D.map_get_regions(nav_map).size() > 0, "navmesh region registered")
 	expect(world.party().size() == 4, "party of four")
+	expect(world.npcs().size() == 6 and world.cave_enemies().size() == 7 and world.arena_enemies().size() == 7, "six tavern folk, seven cave dwellers, seven arena enemies")
 
 	# 1a. Explore with the virtual joystick: press its center, drag up, hold.
 	var controller: PlayerController = player.get_node("PlayerController")
@@ -154,7 +155,7 @@ func _run() -> void:
 		_spells_cast, _saves, _oas, _statuses, _concentration_breaks, combat.initiative.round_number,
 		"defeat" if GameState.is_game_over() else "victory"])
 	var enemies_down := 0
-	for a in world.enemies():
+	for a in world.arena_enemies():
 		if not a.is_alive():
 			enemies_down += 1
 
@@ -199,7 +200,7 @@ func _run() -> void:
 	var hp_before := player.current_hp
 	world.hud.next_wave_button.pressed.emit()
 	await get_tree().physics_frame
-	expect(world.wave == 2 and world.living_enemies() == world.enemies().size() and world.enemies().size() == 8, "wave 2 respawned all enemies plus a cave bat (wave %d, %d living of %d)" % [world.wave, world.living_enemies(), world.enemies().size()])
+	expect(world.wave == 2 and world.living_enemies() == world.arena_enemies().size() and world.arena_enemies().size() == 8, "wave 2 respawned all arena enemies plus a cave bat (wave %d, %d living of %d)" % [world.wave, world.living_enemies(), world.arena_enemies().size()])
 	expect(world.arrivals().size() == 1 and world.arrivals()[0].data.display_name == "Cave Bat" and world.arrivals()[0].visual.uses_model(), "the cave bat arrived with its model")
 	expect(GameState.is_exploring() and player.global_position.distance_to(Vector3(0, 0, 12)) < 0.5, "party returned to camp (%s)" % player.global_position)
 	expect(player.current_hp <= player.max_hp() and player.current_hp >= hp_before, "short rest healed a little, not fully (%d -> %d / %d)" % [hp_before, player.current_hp, player.max_hp()])

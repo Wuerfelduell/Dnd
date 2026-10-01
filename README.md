@@ -1,4 +1,4 @@
-# Dnd – 3D-RPG-Prototyp (Vertical Slice, Test 7: Höhlenkreaturen, Ruinen, echte Assets)
+# Dnd – 3D-RPG-Prototyp (Vertical Slice, Test 8: Taverne, Höhle, zusammenhängende Welt)
 
 Trying to make a dnd game using my Baldur's Gate 3 and D&D 5.5e experience.
 
@@ -18,7 +18,18 @@ Schützen-Anhöhe mit Treppe, ein dunkler Aussichtsfelsen, ein Hügel am Lager):
 mit +2, nach oben mit -2. Kisten, Mauern und Säulen geben **Deckung** per Sichtlinien-Raycast:
 halbe (+2 AC) oder Dreiviertel-Deckung (+5 AC), hinter einer Säule ist das Ziel nicht anvisierbar.
 
+Die Welt hängt zusammen: Im Süden führt ein Tor aus der Arena über einen Hof in die **Taverne**
+(Wirt hinter der Theke, Köchin am Kamin, Barde auf der Bühne, Händler und ein beschwipster Gast an
+den Tischen, Stadtwache an der Tür). Die Leute sind neutral: niemand greift sie an, sie greifen
+niemanden an, und sie stehen in keinem Kampf. Im Norden führt der Tunnel in der Arenawand in eine
+dunkle **Höhle** mit eigenem Encounter: zwei Spinnen, zwei Fledermäuse, ein Kristallschleim, ein
+Pilzschamane und am Ende der Steingolem, der die Schatztruhe bewacht. Die Höhle und die Arena-Wellen
+mischen sich nie: es kämpft nur die Gruppe, zu der der Entdecker gehört. Die Höhlenbewohner kommen
+nicht wieder, die Arena-Wellen laufen unabhängig davon weiter.
+
 ![Die Helden](docs/screenshots/party.png)
+![Die Taverne](docs/screenshots/tavern.png)
+![Die Höhle](docs/screenshots/cave.png)
 ![Die Kreaturen der späteren Wellen](docs/screenshots/creatures.png)
 ![Die Schützen-Anhöhe](docs/screenshots/ledge.png)
 ![Das Lager bei Nacht](docs/screenshots/camp_night.png)
@@ -116,6 +127,8 @@ Umwerfen, Pack Tactics), 1 Hobgoblin Captain (AC 17, 39 HP, zwei Angriffe pro Ac
 * **Ressourcen sind endlich**: Zauber-Slots, Second Wind und Action Surge laden nicht mehr pro Kampf auf. Kurze Rast zwischen den Wellen: ein Trefferwürfel Heilung pro zwei Stufen, Kämpfer-Features und die Hälfte der Pfeile. Lange Rast (nur nach jeder dritten Welle): alles. Cantrips sind gratis und würfeln ab Stufe 5 doppelt.
 * **Pfeile**: Langbogen und Kurzbogen haben 20 Pfeile, Goblin-Bogenschützen 8 (danach greifen sie mit dem Dolch an). Die Aktionsleiste zeigt den Vorrat.
 * **Wellen skalieren**: Beim Respawn werden alle Gegner auf das durchschnittliche Party-Level gehoben (+20 % HP pro Stufe, alle zwei Stufen +1 auf Treffer, Schaden und AC, mehr XP), und ab Welle 3 kommt pro Welle ein zusätzlicher Goblin-Krieger dazu (bis vier).
+* **Höhlen-Encounter**: eigener Kampf mit sieben Bewohnern, ausgelöst durch deren Wahrnehmung (die Höhle ist dunkel bis auf Kristalle und Pilze, also kommt man bis auf 3,4 m heran). Nur Gegner derselben Gruppe im Umkreis von 16 m des Entdeckers schließen sich an. XP wie gewohnt; die Rast nach einer Welle hängt nur von den Arena-Gegnern ab.
+* **Taverne**: sechs neutrale NPCs mit eigenen Posen (Sitzen, Jubeln, Hantieren). Neutral heißt: `is_hostile_to` ist in beide Richtungen falsch, keine Aktion kann sie anvisieren, Flächenzauber können sie aber treffen, wenn man sie in den Radius nimmt.
 * **Neue Kreaturen aus dem Höhleneingang** (bleiben ab ihrer Welle dabei): Welle 2 Fledermaus; Welle 3 Höhlenspinne (giftiger Biss: CON-Save DC 11, sonst **Poisoned** = Nachteil auf Angriffe, CON-Wiederholungssave) und Kristallschleim (24 HP, langsam, Säure); Welle 4 zweite Spinne, Pilzschamane (Sporenspucke auf 9 m mit Gift) und ein Wegelagerer (Sneak Attack 1d6); Welle 5 Ruinengeist (Lebensentzug 2d6) und zweiter Wegelagerer; Welle 6 der **Steingolem** (68 HP, AC 17, zwei Schläge 2d8+5, langsam). Alles in `World.WAVE_ARRIVALS` als Daten, jede Kreatur ist eine `.tres` mit Modell.
 * **Wegfindung** weicht anderen Figuren aus, stellt ein besetztes Ziel daneben und gleitet bei Berührung an Körpern entlang statt stehen zu bleiben. Figuren folgen dem Gelände (Schwerkraft, Treppen), Bewegung wird auf der Bodenebene gemessen.
 * **Höhe**: Steht der Angreifer mindestens 1 m höher als das Ziel, bekommt er +2 auf den Angriffswurf; steht er mindestens 1 m tiefer, -2. Gilt für Waffen und Zauberangriffe. Die Schützen-Anhöhe und der Aussichtsfelsen sind 2 m hoch, der Hügel am Lager 1 m; alle haben Treppen (unter der Treppe liegt ein glatter Collider, damit die Figuren hinaufgleiten). Direkt am Fuß einer Klippe verdeckt die Kante den Unterkörper, das zählt als Deckung.
@@ -124,7 +137,7 @@ Umwerfen, Pack Tactics), 1 Hobgoblin Captain (AC 17, 39 HP, zwei Angriffe pro Ac
 * **Concentration**: nur ein Concentration-Zauber gleichzeitig; Schaden erzwingt einen CON-Rettungswurf (DC 10 oder halber Schaden), Fehlschlag oder Down beendet den Zauber und alle verknüpften Effekte.
 * **Status-Effekte**: Blessed (+1d4 Angriff/Saves), Guided (Vorteil auf den nächsten Angriff), Slowed (-3 m), Paralyzed (handlungsunfähig, Angriffe mit Vorteil, Nahkampftreffer sind Crits, Wiederholungs-Save am Zugende), Prone (Nachteil auf eigene Angriffe, Nahkampf gegen sich mit Vorteil, Aufstehen kostet halbe Bewegung), Disengaging.
 * 0 HP = „Down“. Heilung (Healing Word, Cure Wounds) holt Gefallene zurück. Nach einem Sieg stehen alle mit 1 HP auf. Ist die ganze Party down → Game Over.
-* Noch nicht enthalten: Todesrettungswürfe, Resistenzen, Reaktionszauber (Shield), Inventar, freie Attributswahl beim Level-Up (der Hauptwert steigt automatisch), Verstecken als Aktion, Kreaturen als Deckung.
+* Noch nicht enthalten: Todesrettungswürfe, Resistenzen, Reaktionszauber (Shield), Inventar, freie Attributswahl beim Level-Up (der Hauptwert steigt automatisch), Verstecken als Aktion, Kreaturen als Deckung, Gespräche mit den Tavernenleuten, Öffnen der Schatztruhe.
 
 ## Tests (ohne Editor)
 
@@ -164,7 +177,7 @@ scripts/combat/   CombatManager, InitiativeTracker, TurnState, AttackResolver, A
                   Visibility (Sichtlinie, Deckung, Höhe), Lighting (Licht/Schatten), CombatSituation,
                   PlayerCombatInput, actions/ (Attack, Offhand, Spell, Dash, Disengage, Second Wind,
                   Action Surge), ai/ (CombatAI, PartyAI), EnemyAI
-scripts/world/    World (inkl. Wellentabelle), TerrainBuilder (Plateaus, Treppen, Mauern, Ruinen, Höhleneingang, Lichter), Terrain (Bodenhöhe),
+scripts/world/    World (Wellentabelle, Arena-/Höhlen-Gruppen, NPCs), TerrainBuilder (Arena, Taverne, Höhle, Plateaus, Treppen, Mauern, Ruinen, Lichter), Terrain (Bodenhöhe),
                   LightSource, CameraRig, TargetingPreview
 scripts/ui/       CombatHud, HudJoystick, ActorLabel, FloatingText
 data/             .tres für Helden, Gegner (inkl. Modell, Maßstab, Ausrüstung), Waffen, Zauber und Status-Effekte

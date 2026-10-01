@@ -29,6 +29,7 @@ func _ready() -> void:
 	_test_shadows()
 	_test_terrain_layout()
 	_test_new_creatures()
+	_test_neutral_npcs()
 	print("\n%d checks, %d failures" % [_checks, _failures])
 	get_tree().quit(0 if _failures == 0 else 1)
 
@@ -932,13 +933,13 @@ func _test_terrain_layout() -> void:
 			elif c is MeshInstance3D or c.get_child_count() > 0 and c.get_child(0) is MeshInstance3D:
 				models += 1
 	check(bodies == TerrainBuilder.collider_count(), "one collider per plateau, staircase, cover, pillar, wall side and fire pit (%d / %d)" % [bodies, TerrainBuilder.collider_count()])
-	check(nav.get_node("Floors").get_child_count() == 100, "100 floor tiles (%d)" % nav.get_node("Floors").get_child_count())
+	check(nav.get_node("Floors").get_child_count() == 141, "100 arena, 4 yard, 12 tavern and 25 cave floor tiles (%d)" % nav.get_node("Floors").get_child_count())
 	check(ResourceLoader.exists("res://assets/custom_grid/platform_4x4_h2.glb"), "asset pack models are in the project")
 	var sources := 0
 	for l in lights.get_children():
 		if l is LightSource:
 			sources += 1
-			check(l.radius_m >= 4.0 and l.is_in_group("light_source"), "%s is a light source" % l.name)
+			check(l.radius_m >= 2.0 and l.is_in_group("light_source"), "%s is a light source" % l.name)
 	check(sources == TerrainBuilder.LIGHTS.size(), "all torches built (%d)" % sources)
 	nav.queue_free()
 	lights.queue_free()
@@ -989,4 +990,32 @@ func _test_new_creatures() -> void:
 			check(ResourceLoader.exists(path), "%s exists" % path)
 	for a in [golem, spider, fighter]:
 		a.queue_free()
+
+
+# --- Tavern folk (neutral) -------------------------------------------------
+
+func _test_neutral_npcs() -> void:
+	var fighter := _make_actor("res://data/actors/fighter.tres")
+	var gob := _make_actor("res://data/actors/goblin_warrior.tres")
+	var scene: PackedScene = load("res://scenes/actors/npc.tscn")
+	for kind in ["innkeeper", "cook", "bard", "merchant", "tipsy_guest", "town_guard"]:
+		var npc: Actor = scene.instantiate()
+		npc.data = load("res://data/actors/%s.tres" % kind)
+		add_child(npc)
+		check(npc.is_neutral() and not npc.is_player() and npc.data.faction == ActorData.Faction.NEUTRAL, "%s is neutral" % kind)
+		check(not fighter.is_hostile_to(npc) and not gob.is_hostile_to(npc) and not npc.is_hostile_to(fighter) and not npc.is_hostile_to(gob), "%s: nobody's enemy" % kind)
+		check(npc.visual.uses_model(), "%s has a model" % kind)
+		var animator := npc.visual.animator()
+		check(animator != null and animator.current_action == npc.data.model_idle_action, "%s rests with %s (%s)" % [kind, npc.data.model_idle_action, animator.current_action if animator else "-"])
+		check(npc.data.weapons.is_empty() and npc.data.xp_value == 0, "%s carries no weapon and gives no XP" % kind)
+		var attack := fighter.find_action(&"attack_longsword")
+		_place(fighter, 0, 0)
+		_place(npc, 0, 1.2)
+		check(not attack.can_target(fighter, npc), "%s cannot be attacked" % kind)
+		var hostiles := Targeting.living_hostiles(gob, [fighter, npc] as Array[Actor])
+		check(hostiles.size() == 1 and hostiles[0] == fighter, "goblins only see the fighter as hostile")
+		npc.queue_free()
+	check(fighter.is_hostile_to(gob) and gob.is_hostile_to(fighter), "heroes and goblins still fight")
+	fighter.queue_free()
+	gob.queue_free()
 

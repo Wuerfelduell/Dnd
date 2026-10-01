@@ -5,7 +5,8 @@
 class_name ActorData
 extends Resource
 
-enum Faction { PLAYER, ENEMY }
+## NEUTRAL creatures (tavern folk) fight nobody and nobody fights them.
+enum Faction { PLAYER, ENEMY, NEUTRAL }
 
 @export var display_name: String = "Actor"
 ## Fighter / Rogue / Wizard / Cleric / Goblin ... (drives level-up tables).
@@ -45,6 +46,8 @@ enum Faction { PLAYER, ENEMY }
 @export var model_yaw_degrees: float = 180.0
 ## Animation action for melee attacks ("attack", or "slam" for the golems).
 @export var model_attack_action: String = "attack"
+## Resting animation while nothing happens ("idle", "sit", "cheer", "use_item" ...).
+@export var model_idle_action: String = "idle"
 
 @export_group("Class features")
 ## Number of weapon attacks per Attack action (Extra Attack / Multiattack).

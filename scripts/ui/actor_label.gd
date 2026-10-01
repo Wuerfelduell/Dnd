@@ -36,6 +36,10 @@ func _process(delta: float) -> void:
 func _refresh() -> void:
 	var lines := PackedStringArray()
 	var title := _actor.display_name()
+	if _actor.is_neutral():
+		text = title
+		modulate = Color(0.85, 0.9, 0.8)
+		return
 	if _actor.is_player():
 		title += " (%s %d)" % [_actor.data.class_name_text, _actor.data.level]
 	elif _actor.data.level > 1:

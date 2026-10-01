@@ -83,7 +83,7 @@ func _build_model(data: ActorData) -> bool:
 	var player: AnimationPlayer = null
 	for n in model.find_children("*", "", true, false):
 		if n is MeshInstance3D:
-			if String(n.name) in EQUIPMENT_NAMES:
+			if String(n.name) in EQUIPMENT_NAMES and not data.model_equipment.has("*"):
 				n.visible = String(n.name) in data.model_equipment
 			for i in n.get_surface_override_material_count():
 				var mat: Material = n.get_active_material(i)
@@ -95,7 +95,8 @@ func _build_model(data: ActorData) -> bool:
 		elif n is AnimationPlayer and player == null:
 			player = n
 	_animator = CharacterAnimator.new(player)
-	_animator.play("idle")
+	_animator.resting_action = data.model_idle_action if _animator.has_action(data.model_idle_action) else "idle"
+	_animator.play(_animator.resting_action)
 	return true
 
 

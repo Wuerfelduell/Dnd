@@ -21,8 +21,13 @@ const CANDIDATES := {
 	"death": ["Death_A", "Death"],
 	"spawn": ["Spawn", "Idle"],
 	"revive": ["Lie_StandUp", "Idle"],
+	# Tavern folk
+	"sit": ["Sit_Chair_Idle", "Idle"],
+	"cheer": ["Cheer", "Idle"],
+	"use_item": ["Use_Item", "Idle"],
+	"interact": ["Interact", "Idle"],
 }
-const LOOPING := ["idle", "walk", "run"]
+const LOOPING := ["idle", "walk", "run", "sit"]
 
 var player: AnimationPlayer
 ## Action to fall back to when a one-shot clip ends ("idle" or "run").
@@ -69,6 +74,9 @@ func play(action: String) -> bool:
 			return true
 	current_action = action
 	player.play(clip, 0.15)
+	if not looping and action == resting_action:
+		# A one-shot resting pose (cheer, use item) restarts each time it ends.
+		player.seek(0.0)
 	return true
 
 

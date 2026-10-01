@@ -14,6 +14,72 @@ extends RefCounted
 const ASSET_ROOT := "res://assets/"
 const TILE := 4.0
 const ARENA_HALF := 20.0
+## Wall tiles left out per side (index along the side): the south gate to the
+## tavern yard and the cave mouth in the north wall.
+const WALL_GAPS := {"south": [4, 5], "north": [2]}
+## Tavern: a 16 x 12 m hall south of the arena (x -8..8, z 24..36) behind a yard.
+const TAVERN_FLOOR_X := [-6.0, -2.0, 2.0, 6.0]
+const TAVERN_FLOOR_Z := [26.0, 30.0, 34.0]
+const YARD_Z := 22.0
+## Wall modules (4 m, 3.2 m high). "door" leaves a 2 m opening in the middle.
+const TAVERN_WALLS := [
+	{"model": "environment_expansion/tavern/tavern_wall_window", "position": Vector3(-6, 0, 24), "rotation": 0.0},
+	{"model": "environment_expansion/tavern/tavern_wall_door", "position": Vector3(-2, 0, 24), "rotation": 0.0, "door": true},
+	{"model": "environment_expansion/tavern/tavern_wall_solid", "position": Vector3(2, 0, 24), "rotation": 0.0},
+	{"model": "environment_expansion/tavern/tavern_wall_window", "position": Vector3(6, 0, 24), "rotation": 0.0},
+	{"model": "environment_expansion/tavern/tavern_wall_solid", "position": Vector3(-6, 0, 36), "rotation": 180.0},
+	{"model": "environment_expansion/tavern/tavern_wall_window", "position": Vector3(-2, 0, 36), "rotation": 180.0},
+	{"model": "environment_expansion/tavern/tavern_wall_solid", "position": Vector3(2, 0, 36), "rotation": 180.0},
+	{"model": "environment_expansion/tavern/tavern_wall_window", "position": Vector3(6, 0, 36), "rotation": 180.0},
+	{"model": "environment_expansion/tavern/tavern_wall_window", "position": Vector3(-8, 0, 26), "rotation": 90.0},
+	{"model": "environment_expansion/tavern/tavern_wall_solid", "position": Vector3(-8, 0, 30), "rotation": 90.0},
+	{"model": "environment_expansion/tavern/tavern_wall_solid", "position": Vector3(-8, 0, 34), "rotation": 90.0},
+	{"model": "environment_expansion/tavern/tavern_wall_solid", "position": Vector3(8, 0, 26), "rotation": -90.0},
+	{"model": "environment_expansion/tavern/tavern_wall_window", "position": Vector3(8, 0, 30), "rotation": -90.0},
+	{"model": "environment_expansion/tavern/tavern_wall_solid", "position": Vector3(8, 0, 34), "rotation": -90.0},
+]
+## Tavern furniture with box colliders (size after rotation handled by the body).
+const TAVERN_FURNITURE := [
+	{"name": "BarNorth", "model": "environment_expansion/tavern/tavern_bar_straight", "position": Vector3(5.6, 0, 29), "rotation": 90.0, "box": Vector3(4.0, 1.33, 1.2)},
+	{"name": "BarSouth", "model": "environment_expansion/tavern/tavern_bar_straight", "position": Vector3(5.6, 0, 33), "rotation": 90.0, "box": Vector3(4.0, 1.33, 1.2)},
+	{"name": "BottleRack", "model": "environment_expansion/tavern/tavern_bottle_rack", "position": Vector3(7.65, 0, 31), "rotation": -90.0, "box": Vector3(3.0, 2.2, 0.6)},
+	{"name": "Fireplace", "model": "environment_expansion/tavern/tavern_fireplace", "position": Vector3(-7.2, 0, 30), "rotation": 90.0, "box": Vector3(2.8, 3.5, 1.5)},
+	{"name": "Stage", "model": "environment_expansion/tavern/tavern_stage", "position": Vector3(-6, 0, 34.4), "rotation": 0.0, "box": Vector3(4.0, 0.49, 3.0)},
+	{"name": "TableWest", "model": "environment_expansion/tavern/tavern_table_round", "position": Vector3(-2.5, 0, 28.5), "rotation": 0.0, "box": Vector3(2.0, 1.08, 2.0)},
+	{"name": "TableEast", "model": "environment_expansion/tavern/tavern_table_round", "position": Vector3(1.5, 0, 33), "rotation": 0.0, "box": Vector3(2.0, 1.08, 2.0)},
+	{"name": "BenchWest", "model": "environment_expansion/tavern/tavern_bench", "position": Vector3(-2.5, 0, 30.3), "rotation": 0.0, "box": Vector3(2.4, 0.54, 0.7)},
+	{"name": "BenchEast", "model": "environment_expansion/tavern/tavern_bench", "position": Vector3(1.5, 0, 31.2), "rotation": 180.0, "box": Vector3(2.4, 0.54, 0.7)},
+	{"name": "StoolA", "model": "environment_expansion/tavern/tavern_stool_tall", "position": Vector3(4.3, 0, 28.2), "rotation": 0.0, "box": Vector3(0.8, 0.96, 0.8)},
+	{"name": "StoolB", "model": "environment_expansion/tavern/tavern_stool_tall", "position": Vector3(4.3, 0, 30.0), "rotation": 0.0, "box": Vector3(0.8, 0.96, 0.8)},
+	{"name": "Keg", "model": "environment_expansion/licensed_props/tavern__keg", "position": Vector3(6.8, 0, 35.0), "rotation": 20.0, "box": Vector3(1.8, 2.05, 2.0)},
+	{"name": "SmallBarrel", "model": "environment_expansion/licensed_props/tavern__barrel_small", "position": Vector3(-6.8, 0, 25.2), "rotation": 0.0, "box": Vector3(1.0, 1.02, 1.0)},
+]
+## Cave: 20 x 20 m north-west of the arena (x -20..0, z -40..-20), reached through the cave mouth.
+const CAVE_FLOOR_X := [-18.0, -14.0, -10.0, -6.0, -2.0]
+const CAVE_FLOOR_Z := [-38.0, -34.0, -30.0, -26.0, -22.0]
+const CAVE_FEATURES := [
+	{"name": "RockColumn", "model": "environment_expansion/cave/cave_rock_column", "position": Vector3(-7, 0, -30), "radius": 0.7, "height": 3.8},
+	{"name": "StalagmiteA", "model": "environment_expansion/cave/cave_stalagmite_cluster", "position": Vector3(-16, 0, -37), "radius": 0.9, "height": 2.4},
+	{"name": "StalagmiteB", "model": "environment_expansion/cave/cave_stalagmite_cluster", "position": Vector3(-3, 0, -24), "radius": 0.9, "height": 2.4},
+	{"name": "StalagmiteC", "model": "environment_expansion/cave/cave_stalagmite_large", "position": Vector3(-11, 0, -33), "radius": 0.6, "height": 2.4},
+	{"name": "BoulderLarge", "model": "environment_expansion/cave/cave_boulder_large", "position": Vector3(-13, 0, -27), "radius": 1.2, "height": 1.8},
+	{"name": "BoulderFlat", "model": "environment_expansion/cave/cave_boulder_flat", "position": Vector3(-4, 0, -36), "radius": 1.2, "height": 0.7},
+	{"name": "MineCart", "model": "environment_expansion/cave/cave_mine_cart", "position": Vector3(-14, 0, -31), "radius": 0.9, "height": 1.0},
+	{"name": "TreasureChest", "model": "environment_expansion/licensed_props/cave__chest_gold", "position": Vector3(-5, 0, -39), "radius": 0.8, "height": 1.3, "rotation": 180.0},
+]
+const CAVE_PROPS := [
+	{"model": "environment_expansion/cave/cave_pool_water", "position": Vector3(-6, 0, -26), "rotation": 0.0, "scale": 1.0},
+	{"model": "environment_expansion/cave/cave_pool_toxic", "position": Vector3(-17, 0, -30), "rotation": 40.0, "scale": 1.0},
+	{"model": "environment_expansion/cave/cave_mine_rails", "position": Vector3(-14, 0, -35), "rotation": 0.0, "scale": 1.0},
+	{"model": "environment_expansion/cave/cave_mine_rails", "position": Vector3(-14, 0, -39), "rotation": 0.0, "scale": 1.0},
+	{"model": "environment_expansion/cave/cave_mine_support", "position": Vector3(-14, 0, -37), "rotation": 0.0, "scale": 1.0},
+	{"model": "environment_expansion/cave/cave_ore_deposit", "position": Vector3(-1.5, 0, -27.5), "rotation": 30.0, "scale": 1.0},
+	{"model": "environment_expansion/cave/cave_stalagmite_small", "position": Vector3(-9, 0, -24), "rotation": 0.0, "scale": 1.0},
+	{"model": "environment_expansion/cave/cave_stalagmite_small", "position": Vector3(-18, 0, -26), "rotation": 70.0, "scale": 1.2},
+	{"model": "environment_expansion/cave/cave_stalagmite_small", "position": Vector3(-2, 0, -38), "rotation": 120.0, "scale": 1.1},
+	{"model": "environment_expansion/licensed_props/cave__mushroom_tanGroup", "position": Vector3(-8, 0, -36), "rotation": 0.0, "scale": 3.0},
+	{"model": "environment_expansion/licensed_props/cave__mushroom_tanGroup", "position": Vector3(-16.5, 0, -23.5), "rotation": 60.0, "scale": 3.0},
+]
 const STEP_HEIGHT := 0.25
 const SLOPE_RUN_IN := 0.5
 const FALLBACK := Color(0.5, 0.47, 0.43)
@@ -43,9 +109,9 @@ const COVER := [
 	{"name": "Crate3", "model": "kaykit/cover/box_large", "position": Vector3(8, 0, 6), "rotation": 0.0, "scale": 0.66, "box": Vector3(1.0, 1.0, 1.0)},
 	{"name": "CrateStack", "model": "kaykit/cover/crates_stacked", "position": Vector3(12, 0, -4), "rotation": 20.0, "scale": 1.0, "box": Vector3(2.1, 2.15, 2.25)},
 	{"name": "Barrel", "model": "kaykit/cover/barrel_large", "position": Vector3(-5, 0, 16.5), "rotation": 0.0, "scale": 0.7, "box": Vector3(1.26, 1.4, 1.26)},
-	{"name": "LowWallEast", "model": "custom_grid/cover_stone_low_2m", "position": Vector3(4.5, 0, -6), "rotation": 90.0, "scale": 1.0, "box": Vector3(0.58, 1.02, 2.08)},
+	{"name": "LowWallEast", "model": "custom_grid/cover_stone_low_2m", "position": Vector3(4.5, 0, -6), "rotation": 90.0, "scale": 1.0, "box": Vector3(2.08, 1.02, 0.58)},
 	{"name": "LowWallWest", "model": "custom_grid/cover_stone_low_2m", "position": Vector3(-9.5, 0, -6), "rotation": 0.0, "scale": 1.0, "box": Vector3(2.08, 1.02, 0.58)},
-	{"name": "Barricade", "model": "custom_grid/cover_wood_barricade", "position": Vector3(6, 0, 3), "rotation": 90.0, "scale": 1.0, "box": Vector3(0.5, 1.2, 2.0)},
+	{"name": "Barricade", "model": "custom_grid/cover_wood_barricade", "position": Vector3(6, 0, 3), "rotation": 90.0, "scale": 1.0, "box": Vector3(2.0, 1.2, 0.5)},
 	{"name": "Chest", "model": "kaykit/props/chest", "position": Vector3(3.5, 0, 16.5), "rotation": -20.0, "scale": 0.8, "box": Vector3(1.36, 1.04, 1.16)},
 	# Ruined shrine in the south-east corner: altar and sarcophagus are waist-high cover.
 	{"name": "Altar", "model": "environment_expansion/ruins/ruin_altar", "position": Vector3(14, 0, 14), "rotation": 0.0, "scale": 1.0, "box": Vector3(2.2, 1.13, 1.6)},
@@ -74,8 +140,8 @@ const PROPS := [
 	{"model": "kenney/rocks/rock_largeB", "position": Vector3(-17.5, 0, -14), "rotation": 15.0, "scale": 2.0},
 	{"model": "kenney/props/tent_detailedOpen", "position": Vector3(3, 0, -18.5), "rotation": 160.0, "scale": 3.0},
 	{"model": "kenney/props/tent_detailedOpen", "position": Vector3(-15.5, 0, -18.3), "rotation": 200.0, "scale": 3.0},
-	# Cave mouth in the north wall: where later waves come from.
-	{"model": "environment_expansion/cave/cave_tunnel_arch_4", "position": Vector3(-10, 0, -18.8), "rotation": 0.0, "scale": 1.0},
+	# Cave mouth in the north wall: where later waves come from and the way into the cave.
+	{"model": "environment_expansion/cave/cave_tunnel_arch_4", "position": Vector3(-10, 0, -20.0), "rotation": 0.0, "scale": 1.0},
 	{"model": "environment_expansion/cave/cave_crystals_cyan", "position": Vector3(-12.6, 0, -18.2), "rotation": 20.0, "scale": 1.0},
 	{"model": "environment_expansion/cave/cave_crystals_purple", "position": Vector3(-7.3, 0, -18.3), "rotation": -40.0, "scale": 0.8},
 	{"model": "environment_expansion/cave/cave_glowing_fungi", "position": Vector3(-8.5, 0, -16.8), "rotation": 0.0, "scale": 1.0},
@@ -102,6 +168,17 @@ const LIGHTS := [
 	{"name": "ShrineBrazier", "position": Vector3(16.5, 0.0, 15.5), "kind": "brazier"},
 	{"name": "Runestone", "position": Vector3(-16.5, 0.0, 16.0), "kind": "runestone"},
 	{"name": "CaveCrystals", "position": Vector3(-10.0, 0.0, -17.5), "kind": "crystal"},
+	{"name": "Hearth", "position": Vector3(-6.4, 0.0, 30.0), "kind": "hearth"},
+	{"name": "Chandelier", "position": Vector3(0.0, 0.0, 30.0), "kind": "chandelier"},
+	{"name": "CandleWest", "position": Vector3(-2.5, 1.08, 28.5), "kind": "candle"},
+	{"name": "CandleEast", "position": Vector3(1.5, 1.08, 33.0), "kind": "candle"},
+	{"name": "BarCandle", "position": Vector3(6.1, 1.33, 31.0), "kind": "candle"},
+	{"name": "YardTorchWest", "position": Vector3(-5.0, 0.0, 22.5), "kind": "torch"},
+	{"name": "YardTorchEast", "position": Vector3(3.0, 0.0, 22.5), "kind": "torch"},
+	{"name": "CaveCrystalCyan", "position": Vector3(-18.5, 0.0, -23.0), "kind": "crystal_cyan"},
+	{"name": "CaveCrystalPurple", "position": Vector3(-1.5, 0.0, -33.0), "kind": "crystal_purple"},
+	{"name": "CaveCrystalAmber", "position": Vector3(-18.8, 0.0, -38.5), "kind": "crystal_amber"},
+	{"name": "CaveFungi", "position": Vector3(-9.0, 0.0, -37.5), "kind": "fungi"},
 ]
 ## Wall pieces that differ from the plain wall, keyed by side and tile index.
 const WALL_VARIANTS := {
@@ -119,6 +196,8 @@ static var _scene_cache: Dictionary = {}
 static func build(nav_parent: Node3D, light_parent: Node3D) -> void:
 	_floors(nav_parent)
 	_walls(nav_parent)
+	_tavern(nav_parent)
+	_cave(nav_parent)
 	for p in PLATEAUS:
 		_plateau(nav_parent, p)
 	for s in STAIRS:
@@ -142,6 +221,20 @@ static func build(nav_parent: Node3D, light_parent: Node3D) -> void:
 				_glow(light_parent, nav_parent, l["name"], l["position"], "environment_expansion/ruins/ruin_runestone", Color(0.4, 0.9, 1.0), 4.0, Vector2(0.6, 2.54), 1.6)
 			"crystal":
 				_glow(light_parent, null, l["name"], l["position"], "", Color(0.45, 0.85, 1.0), 4.5, Vector2.ZERO, 0.8)
+			"crystal_cyan":
+				_glow(light_parent, nav_parent, l["name"], l["position"], "environment_expansion/cave/cave_crystals_cyan", Color(0.45, 0.85, 1.0), 4.5, Vector2(0.6, 1.5), 1.4)
+			"crystal_purple":
+				_glow(light_parent, nav_parent, l["name"], l["position"], "environment_expansion/cave/cave_crystals_purple", Color(0.75, 0.45, 1.0), 4.5, Vector2(0.6, 1.5), 1.4)
+			"crystal_amber":
+				_glow(light_parent, nav_parent, l["name"], l["position"], "environment_expansion/cave/cave_crystals_amber", Color(1.0, 0.75, 0.35), 4.5, Vector2(0.6, 1.5), 1.4)
+			"fungi":
+				_glow(light_parent, null, l["name"], l["position"], "environment_expansion/cave/cave_glowing_fungi", Color(0.5, 1.0, 0.7), 3.5, Vector2.ZERO, 1.0)
+			"hearth":
+				_glow(light_parent, null, l["name"], l["position"], "environment_expansion/tavern/tavern_hearth_fire", Color(1.0, 0.7, 0.4), 7.0, Vector2.ZERO, 2.4)
+			"chandelier":
+				_chandelier(light_parent, l["name"], l["position"])
+			"candle":
+				_glow(light_parent, null, l["name"], l["position"], "environment_expansion/licensed_props/tavern__candle_lit", Color(1.0, 0.85, 0.6), 2.5, Vector2.ZERO, 0.7)
 			_:
 				_torch(light_parent, l["name"], l["position"])
 
@@ -150,9 +243,20 @@ static func build(nav_parent: Node3D, light_parent: Node3D) -> void:
 static func collider_count() -> int:
 	var lights := 0
 	for l in LIGHTS:
-		if l["kind"] in ["campfire", "brazier", "runestone"]:
+		if l["kind"] in ["campfire", "brazier", "runestone", "crystal_cyan", "crystal_purple", "crystal_amber"]:
 			lights += 1
-	return PLATEAUS.size() + STAIRS.size() + COVER.size() + PILLARS.size() + 4 + lights
+	var wall_segments := 0
+	for side in ["north", "south", "east", "west"]:
+		# Adjacent gaps merge into one opening.
+		var gaps: Array = WALL_GAPS.get(side, []).duplicate()
+		gaps.sort()
+		var openings := 0
+		for i in gaps.size():
+			if i == 0 or gaps[i] != gaps[i - 1] + 1:
+				openings += 1
+		wall_segments += openings + 1
+	return PLATEAUS.size() + STAIRS.size() + COVER.size() + PILLARS.size() + wall_segments + 2 \
+		+ TAVERN_WALLS.size() + TAVERN_FURNITURE.size() + 3 + CAVE_FEATURES.size() + lights
 
 
 ## Footprint of a plateau or staircase entry.
@@ -225,9 +329,22 @@ static func _floors(parent: Node3D) -> void:
 			elif absf(x) <= TILE and (absf(z - 12.0) <= TILE or absf(z + 12.0) <= TILE):
 				model = "custom_grid/floor_earth_4x4"
 			_model(floors, model, Vector3(x, -top, z), 90.0 * ((ix * 7 + iz * 3) % 4), 1.0)
+	# Tavern yard (earth) and the tavern's oak floor.
+	for x in TAVERN_FLOOR_X:
+		_model(floors, "custom_grid/floor_earth_4x4", Vector3(x, 0.0, YARD_Z), 0.0, 1.0)
+		for z in TAVERN_FLOOR_Z:
+			var oak := "environment_expansion/tavern/tavern_floor_dark" if x > 4.0 else "environment_expansion/tavern/tavern_floor_oak"
+			_model(floors, oak, Vector3(x, -0.04, z), 0.0, 1.0)
+	# Cave floor: dry rock with wet and gravel patches.
+	for i in CAVE_FLOOR_X.size():
+		for j in CAVE_FLOOR_Z.size():
+			var kinds := ["cave_floor_dry", "cave_floor_dry", "cave_floor_wet", "cave_floor_gravel"]
+			var kind: String = kinds[(i * 3 + j * 5) % kinds.size()]
+			_model(floors, "environment_expansion/cave/" + kind, Vector3(CAVE_FLOOR_X[i], -0.09, CAVE_FLOOR_Z[j]), 90.0 * ((i + j * 2) % 4), 1.0)
 
 
-## Ten wall pieces per side, one long collider per side.
+## Ten wall pieces per side; one collider per unbroken stretch, gaps for the
+## south gate and the cave mouth.
 static func _walls(parent: Node3D) -> void:
 	var n := int(ARENA_HALF * 2.0 / TILE)
 	for side in ["north", "south", "east", "west"]:
@@ -235,9 +352,29 @@ static func _walls(parent: Node3D) -> void:
 		var along_x: bool = side == "north" or side == "south"
 		var sign: float = -1.0 if side == "north" or side == "west" else 1.0
 		body.position = Vector3(0.0, 0.0, sign * ARENA_HALF) if along_x else Vector3(sign * ARENA_HALF, 0.0, 0.0)
-		_box_collider(body, Vector3(ARENA_HALF * 2.0 + 1.0, 4.0, 1.0) if along_x else Vector3(1.0, 4.0, ARENA_HALF * 2.0 + 1.0), Vector3(0.0, 2.0, 0.0))
+		var gaps: Array = WALL_GAPS.get(side, [])
+		# Collider stretches between gaps (tile edges), slightly past the corners.
+		var start := -ARENA_HALF - 0.5
+		var cuts: Array = []
+		for g in gaps:
+			cuts.append([-ARENA_HALF + TILE * g, -ARENA_HALF + TILE * (g + 1)])
+		cuts.append([ARENA_HALF + 0.5, ARENA_HALF + 0.5])
+		var segment := 0
+		for c in cuts:
+			var length: float = c[0] - start
+			if length > 0.01:
+				var mid: float = (start + c[0]) * 0.5
+				var seg_body := body if segment == 0 else _static_body(parent, "Wall%s%d" % [side.capitalize(), segment])
+				if segment > 0:
+					seg_body.position = body.position
+				_box_collider(seg_body, Vector3(length, 4.0, 1.0) if along_x else Vector3(1.0, 4.0, length),
+					Vector3(mid, 2.0, 0.0) if along_x else Vector3(0.0, 2.0, mid))
+				segment += 1
+			start = c[1]
 		var variants: Dictionary = WALL_VARIANTS.get(side, {})
 		for i in n:
+			if gaps.has(i):
+				continue
 			var offset := -ARENA_HALF + TILE * (i + 0.5)
 			var model: String = variants.get(i, "kaykit/walls/wall")
 			var local := Vector3(offset, 0.0, 0.0) if along_x else Vector3(0.0, 0.0, offset)
@@ -253,6 +390,9 @@ static func _walls(parent: Node3D) -> void:
 			var inst := _model(body, model, local, yaw, 1.0)
 			if inst == null:
 				_fallback_box(body, Vector3(TILE, 4.0, 1.0), local + Vector3(0.0, 2.0, 0.0))
+	# Gate posts beside the south gate and the legs of the cave mouth arch.
+	_pillar(parent, {"name": "GatePostWest", "model": "kaykit/pillars/pillar", "position": Vector3(-4.75, 0, ARENA_HALF), "radius": 0.75, "height": 4.0})
+	_pillar(parent, {"name": "GatePostEast", "model": "kaykit/pillars/pillar", "position": Vector3(4.75, 0, ARENA_HALF), "radius": 0.75, "height": 4.0})
 
 
 static func _plateau(parent: Node3D, entry: Dictionary) -> StaticBody3D:
@@ -382,6 +522,70 @@ static func _campfire(parent: Node3D, nav_parent: Node3D, name: String, base: Ve
 	shape.shape = cyl
 	shape.position = Vector3(0.0, 0.35, 0.0)
 	body.add_child(shape)
+	return light
+
+
+## The tavern hall: wall modules with one door, furniture with colliders.
+static func _tavern(parent: Node3D) -> void:
+	for w in TAVERN_WALLS:
+		var body := _static_body(parent, "TavernWall%d" % parent.get_child_count())
+		body.position = w["position"]
+		body.rotation.y = deg_to_rad(w["rotation"])
+		if w.get("door", false):
+			_box_collider(body, Vector3(1.0, 3.2, 0.4), Vector3(-1.5, 1.6, 0.0))
+			_box_collider(body, Vector3(1.0, 3.2, 0.4), Vector3(1.5, 1.6, 0.0))
+		else:
+			_box_collider(body, Vector3(4.05, 3.2, 0.4), Vector3(0.0, 1.6, 0.0))
+		if _model(body, w["model"], Vector3.ZERO, 0.0, 1.0) == null:
+			_fallback_box(body, Vector3(4.05, 3.2, 0.4), Vector3(0.0, 1.6, 0.0))
+	for f in TAVERN_FURNITURE:
+		_cover(parent, {"name": f["name"], "model": f["model"], "position": f["position"], "rotation": f["rotation"], "scale": 1.0, "box": f["box"]})
+	# Sign beside the door and a chandelier hook are decoration.
+	_model(parent, "environment_expansion/tavern/tavern_inn_sign", Vector3(0.2, 0.0, 23.7), 0.0, 1.0)
+
+
+## The cave: rock walls on three sides (the fourth is the arena's north wall),
+## rock features with cylinder colliders, pools and rails as decoration.
+static func _cave(parent: Node3D) -> void:
+	var west := _static_body(parent, "CaveWallWest")
+	west.position = Vector3(-ARENA_HALF, 0.0, -30.0)
+	_box_collider(west, Vector3(1.4, 3.9, 21.0), Vector3(0.0, 1.95, 0.0))
+	var east := _static_body(parent, "CaveWallEast")
+	east.position = Vector3(0.0, 0.0, -30.0)
+	_box_collider(east, Vector3(1.4, 3.9, 21.0), Vector3(0.0, 1.95, 0.0))
+	var north := _static_body(parent, "CaveWallNorth")
+	north.position = Vector3(-10.0, 0.0, -40.0)
+	_box_collider(north, Vector3(22.0, 3.9, 1.4), Vector3(0.0, 1.95, 0.0))
+	for i in CAVE_FLOOR_Z.size():
+		var z: float = CAVE_FLOOR_Z[i]
+		var model := "environment_expansion/cave/cave_wall_a" if i % 2 == 0 else "environment_expansion/cave/cave_wall_b"
+		if _model(west, model, Vector3(0.0, 0.0, z + 30.0), 90.0, 1.0) == null:
+			_fallback_box(west, Vector3(1.4, 3.9, TILE), Vector3(0.0, 1.95, z + 30.0))
+		if _model(east, model, Vector3(0.0, 0.0, z + 30.0), -90.0, 1.0) == null:
+			_fallback_box(east, Vector3(1.4, 3.9, TILE), Vector3(0.0, 1.95, z + 30.0))
+	for i in CAVE_FLOOR_X.size():
+		var x: float = CAVE_FLOOR_X[i]
+		var model := "environment_expansion/cave/cave_wall_b" if i % 2 == 0 else "environment_expansion/cave/cave_wall_a"
+		if _model(north, model, Vector3(x + 10.0, 0.0, 0.0), 0.0, 1.0) == null:
+			_fallback_box(north, Vector3(TILE, 3.9, 1.4), Vector3(x + 10.0, 1.95, 0.0))
+	for f in CAVE_FEATURES:
+		_pillar(parent, f)
+	var decor := Node3D.new()
+	decor.name = "CaveDecoration"
+	parent.add_child(decor)
+	for p in CAVE_PROPS:
+		_model(decor, p["model"], p["position"], p["rotation"], p["scale"])
+
+
+## Chandelier hanging under the (invisible) ceiling: light only.
+static func _chandelier(parent: Node3D, name: String, base: Vector3) -> LightSource:
+	var light := LightSource.new()
+	light.name = name
+	light.radius_m = 9.0
+	light.position = base + Vector3.UP * 3.0
+	parent.add_child(light)
+	_model(light, "environment_expansion/tavern/tavern_chandelier", Vector3(0.0, -1.4, 0.0), 0.0, 1.0)
+	_omni(light, Vector3(0.0, -0.5, 0.0), 12.0, 2.2)
 	return light
 
 
