@@ -190,7 +190,7 @@ func _scenario_revive() -> void:
 	var gob := _actor("Enemies/GoblinArcher")
 	_place(cleric, 8, 0)
 	_place(wizard, 10, 0)
-	_place(gob, 8, -12)
+	_place(gob, 8, -9)
 	combat.start_combat([cleric, wizard, gob] as Array[Actor])
 	wizard.take_damage(999)
 	expect(wizard.is_down, "wizard is down")
@@ -285,15 +285,16 @@ func _scenario_terrain_cover_and_shadows() -> void:
 	var gob := _actor("Enemies/GoblinWarrior")
 	var archer := _actor("Enemies/GoblinArcher")
 	# Heights come from the generated terrain.
-	expect(absf(Terrain.ground_height(world, Vector3(9, 0, -16)) - 1.5) < 0.1, "archer ledge is 1.5 m high (%.2f)" % Terrain.ground_height(world, Vector3(9, 0, -16)))
+	expect(absf(Terrain.ground_height(world, Vector3(9, 0, -16)) - 2.0) < 0.1, "archer ledge is 2 m high (%.2f)" % Terrain.ground_height(world, Vector3(9, 0, -16)))
 	expect(absf(Terrain.ground_height(world, Vector3(0, 0, 0))) < 0.05, "arena centre is flat")
-	expect(absf(Terrain.ground_height(world, Vector3(3, 0, -16.5)) - 0.8) < 0.2, "ledge stairs are half way up in the middle (%.2f)" % Terrain.ground_height(world, Vector3(3, 0, -16.5)))
+	expect(absf(Terrain.ground_height(world, Vector3(4, 0, -14)) - 1.1) < 0.25, "ledge stairs are half way up in the middle (%.2f)" % Terrain.ground_height(world, Vector3(4, 0, -14)))
 	var spawn: Transform3D = world._spawn_transforms[archer]
-	expect(absf(spawn.origin.y - 1.5) < 0.05, "the archer spawns on the ledge (%s)" % spawn.origin)
+	expect(absf(spawn.origin.y - 2.0) < 0.05, "the archer spawns on the ledge (%s)" % spawn.origin)
 	archer.global_position = spawn.origin
 
 	# High ground: the archer on the ledge shoots down at +2, the fighter shoots up at -2.
-	fighter.global_position = Vector3(8, 0, -11)
+	# Standing well clear of the cliff foot; right below the edge the ledge itself would hide the lower body.
+	fighter.global_position = Vector3(8, 0, -6)
 	var down := CombatSituation.assess(archer, fighter)
 	expect(down.elevation_bonus() == 2 and down.cover == Visibility.Cover.NONE, "archer on the ledge has high ground (+2), no cover (%.2f m, %d)" % [down.elevation_m, down.cover])
 	var up := CombatSituation.assess(fighter, archer)
@@ -340,14 +341,14 @@ func _scenario_terrain_cover_and_shadows() -> void:
 	expect(not perception.can_notice(fighter), "no line of sight through the pillar: not noticed")
 
 	# Walking up the stairs in combat: the fighter ends on the ledge.
-	fighter.global_position = Vector3(-1, 0, -16.5)
+	fighter.global_position = Vector3(-1, 0, -14)
 	gob.global_position = Vector3(-8, 0, -9)
 	combat.start_combat([fighter, archer] as Array[Actor])
 	await _wait_turn(fighter)
-	var ok: bool = await combat.move_actor(fighter, Vector3(6, 1.5, -16.5))
+	var ok: bool = await combat.move_actor(fighter, Vector3(7.5, 2, -14))
 	expect(ok, "move onto the ledge accepted")
-	expect(fighter.global_position.y > 1.3 and fighter.global_position.x > 4.5, "fighter climbed the stairs onto the ledge (%s)" % fighter.global_position)
-	expect(fighter.turn_state.movement_remaining < 3.0, "the climb cost movement (%.1f left)" % fighter.turn_state.movement_remaining)
+	expect(fighter.global_position.y > 1.8 and fighter.global_position.x > 6.2, "fighter climbed the stairs onto the ledge (%s)" % fighter.global_position)
+	expect(fighter.turn_state.movement_remaining < 2.0, "the climb cost movement (%.1f left)" % fighter.turn_state.movement_remaining)
 	var level := CombatSituation.assess(fighter, archer)
 	expect(level.elevation_bonus() == 0, "same level on the ledge: no height bonus")
 	await _end()

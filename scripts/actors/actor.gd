@@ -312,8 +312,10 @@ func take_damage(amount: int, damage_type: String = "") -> void:
 	EventBus.damage_applied.emit(self, amount, damage_type)
 	if current_hp == 0:
 		_go_down()
-	elif concentration_spell != null:
-		_concentration_check(amount)
+	else:
+		play_action("hit")
+		if concentration_spell != null:
+			_concentration_check(amount)
 
 
 ## Heals; a downed creature gets back up with the healed amount.
@@ -536,6 +538,7 @@ func move_along_path(path: PackedVector3Array, max_distance: float) -> void:
 		call_deferred("_emit_movement_finished")
 		return
 	_moving = true
+	play_action("run")
 
 
 func is_moving() -> bool:
@@ -550,10 +553,13 @@ func stop_moving() -> void:
 ## Freezes the walk (e.g. while an opportunity attack resolves).
 func pause_moving() -> void:
 	_pause_depth += 1
+	play_action("idle")
 
 
 func resume_moving() -> void:
 	_pause_depth = maxi(0, _pause_depth - 1)
+	if _moving and _pause_depth == 0:
+		play_action("run")
 
 
 func _emit_movement_finished() -> void:
@@ -644,7 +650,28 @@ func _finish_move() -> void:
 	_moving = false
 	_pause_depth = 0
 	velocity = Vector3.ZERO
+	play_action("idle")
 	movement_finished.emit(self)
+
+
+## Visible pose for an action ("attack", "ranged", "cast", "hit", "run" ...);
+## does nothing for miniatures and capsules.
+func play_action(action: String) -> void:
+	if visual != null:
+		visual.play_action(action)
+
+
+## Height of the visible figure in metres (eye height, labels).
+func figure_height() -> float:
+	if data == null:
+		return 1.8
+	if visual != null and visual.uses_model():
+		return data.model_height
+	if data.model != "" and visual == null:
+		return data.model_height
+	if MiniatureBuilder.has_recipe(data.miniature):
+		return MiniatureBuilder.height_of(data.miniature)
+	return 1.8
 
 
 func face_direction(dir: Vector3) -> void:

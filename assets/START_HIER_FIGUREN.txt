@@ -1,0 +1,88 @@
+DnD FIGURENPAKET — START HIER
+============================
+
+PASSEND ZU DEINEM SPIEL
+Bran: Knight.tscn (Ritter mit Schwert und Schild)
+Vex: Rogue_Hooded.tscn (Schurke mit Kapuze und Dolchen)
+Elara: Mage.tscn (Magier)
+Tomas: Cleric.tscn (eigene Variante des KayKit-Magiers, ohne Spitzhut,
+mit elfenbeinfarbener Kleidung und goldenem Umhang)
+
+Gegner: Goblin.tscn und Wolf.tscn.
+Goblin_Captain.tscn ist der gleiche Goblin mit größerem Maßstab, kein neues
+Hobgoblin-Modell. Goblin hat keinen eigenen Fernangriffsclip und keine Waffe.
+Als Fernkämpfer-Vorlage gibt es Rogue_Ranged.tscn mit Armbrust. Für einen
+Goblin-Bogenschützen ist eine eigene Bewaffnung/Animation noch anzubinden.
+Vier Skeletttypen für zusätzliche Gegner: Warrior, Rogue, Mage und Minion.
+Warrior/Rogue/Mage haben in den Szenenvorlagen Waffen an Handknochen montiert.
+
+INHALT
+12 animierte GLB-Figuren:
+- 5 originale KayKit-Helden: Knight, Mage, Barbarian, Rogue, Rogue_Hooded.
+- 4 originale KayKit-Skelette: Warrior, Rogue, Mage, Minion.
+- 1 originaler Quaternius-Goblin und 1 Quaternius-Wolf.
+- 1 eigene Cleric-Variante auf Basis von KayKit Mage.
+40 separate Waffen/Zubehörteile als GLB, mit eingebetteten Texturen.
+14 Godot-Figurenszenen mit Animationsadapter und Capsule-Kollisionsform.
+Eine Animationsvorschau mit Buttons für Idle/Walk/Run/Attack/Ranged/Cast/Hit/Death.
+Character_Preview.jpg zeigt echte Modelle in ihrer Ausgangspose.
+character_catalog.json und animation_lists.txt enthalten die echten Clipnamen.
+
+ANIMATIONEN
+KayKit-Helden und Cleric: je 76 enthaltene Clips, inklusive Ausgangspose.
+KayKit-Skelette: je 95 enthaltene Clips.
+Goblin: 7 Clips. Wolf: 24 Clip-Einträge, darunter Varianten/Duplikate mit Präfix;
+das sind nicht 24 unterschiedliche Bewegungen. Unterschiedliche Figuren haben
+unterschiedliche Aktionen. Der Adapter meldet false, wenn eine Aktion fehlt.
+Die Vorschau schaltet bei fehlender Aktion auf Idle zurück.
+
+IN GODOT 4.3 ÖFFNEN
+ZIP entpacken, project.godot im Projektmanager importieren, Modellimport abwarten,
+dann F5. Die Buttons zeigen die verschiedenen Animationen.
+Die Kamera und Figurenpositionen der Vorschau dienen nur zur Präsentation.
+
+IN DEIN BESTEHENDES PROJEKT ÜBERNEHMEN
+Die Ordner assets/characters, assets/equipment und scripts sowie die benötigten
+scenes/characters kopieren. Pfade erwarten res://assets/, res://scripts/ und
+res://scenes/. Deine vorhandene project.godot nicht ersetzen.
+Die Ordnernamen passen zum zuvor gelieferten Environment-Pack.
+Wenn bereits eine Datei gleichen Namens besteht, beim Zusammenführen prüfen.
+
+Für deine vorhandene Spiellogik reicht es meistens, das GLB-Mesh als Visual
+unter deine existierende Figur zu setzen. Kollision/Bewegung/HP/Initiative aus
+dem Spiel beibehalten. Keine zweite CharacterBody-Kollision darüberlegen.
+Die beiliegenden TSCN-Figuren sind eigenständige Vorlagen ohne Bewegungscode.
+Nicht einfach mehrere Figuren-Steuerungen oder Animationsadapter stapeln.
+
+Beim Nutzen der Vorlagen kann deine Spiellogik z.B. aufrufen:
+figur.play_action("idle")
+figur.play_action("walk")
+figur.play_action("attack")
+figur.play_action("cast")
+figur.play_action("hit")
+figur.play_action("death")
+
+Der Adapter steuert die sichtbare Animation. Bewegung, Trefferzeitpunkte,
+Würfelregeln, Schaden, KI, Projektile und Auswahlringe bleiben Aufgaben des Spiels.
+Eine Angriffsanimation löst allein keinen Schaden aus. Angriff/Hit/Death laufen
+einmal; Idle/Walk/Run als Schleife. Nach einer beendeten Aktion bei Bedarf
+wieder play_action("idle") aufrufen. Der Adapter ersetzt keinen AnimationTree.
+
+BEWAFFNUNG UND MASSSTAB
+Originale KayKit-Helden enthalten mehrere alternative sichtbare Zubehör-Meshes.
+Der Adapter blendet über allowed_equipment die nicht benötigten Varianten aus.
+Wenn du das rohe GLB ohne Adapter nutzt, die Alternativen selbst ausblenden.
+KayKit-Waffen an handslot.r oder handslot.l des Skeleton3D befestigen.
+Die Skelette demonstrieren BoneAttachment3D dafür. Quaternius hat ein anderes
+Skelett; dessen Waffen und Animationen nicht ungeprüft mit KayKit mischen.
+Die Vorlagen skalieren Helden/Skelette grob auf 1.8 m, den Goblin kleiner und
+den Wolf separat. Kollisionen sind einfache Vorlagen und müssen zur Bewegung
+und zum Maßstab deines Spiels passen. Die Wolf-Kapsel ist keine exakte Tierform.
+Drehung, Blickrichtung und Körpermaße nach dem Einbau im Spiel kontrollieren.
+
+QUELLEN / LIZENZEN
+Kay Lousberg / KayKit: Adventurers und Skeletons, CC0.
+Quaternius: Goblin und Wolf, jeweils auf der Modellseite als CC0 ausgewiesen.
+Cleric ist eine eigene bearbeitete CC0-Variante und keine offizielle KayKit-Figur.
+Originale Quellen und Lizenzen liegen in sources.json und licenses/.
+Persönliche und kommerzielle Verwendung ist möglich.

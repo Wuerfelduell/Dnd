@@ -642,56 +642,86 @@ func _test_enemy_scaling() -> void:
 # --- Miniatures -----------------------------------------------------------
 
 func _test_miniatures() -> void:
-	var scene: PackedScene = load("res://scenes/actors/enemy.tscn")
-	for kind in ["goblin_warrior", "goblin_archer", "wolf", "hobgoblin"]:
-		var enemy: Actor = scene.instantiate()
-		enemy.data = load("res://data/actors/%s.tres" % kind)
-		add_child(enemy)
-		var mini := enemy.visual.get_node_or_null("Mini")
-		check(mini != null, "%s has a miniature" % kind)
-		if mini == null:
-			enemy.queue_free()
-			continue
-		var parts := mini.get_child_count()
-		check(parts >= 12, "%s miniature has enough parts (%d)" % [kind, parts])
+	# Primitive miniatures stay as the fallback: every recipe builds, is about as
+	# tall as announced and can be tinted.
+	for kind in ["goblin", "goblin_archer", "wolf", "hobgoblin", "fighter", "rogue", "wizard", "cleric"]:
+		var root := Node3D.new()
+		add_child(root)
+		var mats: Array = []
+		MiniatureBuilder.build(kind, root, mats, Color(0.3, 0.5, 0.9))
+		check(root.get_child_count() >= 12 and mats.size() >= 12, "%s recipe has enough parts (%d)" % [kind, root.get_child_count()])
 		var top := 0.0
-		for child in mini.get_children():
+		for child in root.get_children():
 			if child is MeshInstance3D:
 				top = maxf(top, child.position.y + child.get_aabb().size.y * 0.5)
-		var expected := MiniatureBuilder.height_of(enemy.data.miniature)
-		check(absf(top - expected) < 0.35, "%s is about %.2f m tall (%.2f)" % [kind, expected, top])
-		check(not enemy.visual.body.visible and enemy.visual.get_node("Base") != null, "%s hides the capsule and stands on a base" % kind)
-		# Tint / down / flash must not touch the recipe's own colours permanently.
+		check(absf(top - MiniatureBuilder.height_of(kind)) < 0.35, "%s is about %.2f m tall (%.2f)" % [kind, MiniatureBuilder.height_of(kind), top])
+		root.queue_free()
+	# A creature without a model uses its recipe, tints with statuses and tips over when down.
+	var scene: PackedScene = load("res://scenes/actors/enemy.tscn")
+	var plain: Actor = scene.instantiate()
+	var gob_data: ActorData = load("res://data/actors/goblin_warrior.tres").duplicate(true)
+	gob_data.model = ""
+	plain.data = gob_data
+	add_child(plain)
+	var mini := plain.visual.get_node_or_null("Mini")
+	check(mini != null and not plain.visual.body.visible and plain.visual.get_node("Base") != null, "goblin without a model gets the miniature on a base")
+	check(is_equal_approx(plain.figure_height(), MiniatureBuilder.height_of("goblin")), "miniature height drives the figure height")
+	if mini != null:
 		var mat: StandardMaterial3D = mini.get_child(0).material_override
 		var original := mat.albedo_color
-		enemy.add_status(_status("blessed"), null, 2)
-		check(mat.albedo_color != original, "%s tints with a status" % kind)
-		enemy.clear_all_statuses()
-		check(mat.albedo_color == original, "%s tint restored" % kind)
-		enemy.take_damage(999)
-		check(enemy.visual.rotation_degrees.x < -70.0 and mat.albedo_color != original, "%s falls over and greys out when down" % kind)
-		enemy.queue_free()
-	# Heroes: one recipe per class, coloured with the class colour.
+		plain.add_status(_status("blessed"), null, 2)
+		check(mat.albedo_color != original, "miniature tints with a status")
+		plain.clear_all_statuses()
+		check(mat.albedo_color == original, "miniature tint restored")
+		plain.take_damage(999)
+		check(plain.visual.rotation_degrees.x < -70.0 and mat.albedo_color != original, "miniature falls over and greys out when down")
+	plain.queue_free()
+	# With the asset pack installed everybody gets an animated model.
 	var member_scene: PackedScene = load("res://scenes/actors/party_member.tscn")
-	for kind in ["fighter", "rogue", "wizard", "cleric"]:
-		var hero: Actor = member_scene.instantiate()
-		hero.data = load("res://data/actors/%s.tres" % kind)
-		add_child(hero)
-		var mini := hero.visual.get_node_or_null("Mini")
-		check(mini != null and not hero.visual.body.visible, "%s has a miniature instead of the capsule" % kind)
-		check(hero.visual.get_node("BaseRim") != null, "%s stands on a base" % kind)
-		if mini != null:
-			check(mini.get_child_count() >= 20, "%s miniature has enough parts (%d)" % [kind, mini.get_child_count()])
-			var top := 0.0
-			var accent_used := false
-			for child in mini.get_children():
-				if child is MeshInstance3D:
-					top = maxf(top, child.position.y + child.get_aabb().size.y * 0.5)
-					if child.material_override.albedo_color.is_equal_approx(hero.data.color):
-						accent_used = true
-			check(absf(top - MiniatureBuilder.height_of(kind)) < 0.35, "%s is about %.2f m tall (%.2f)" % [kind, MiniatureBuilder.height_of(kind), top])
-			check(accent_used, "%s wears the class colour" % kind)
-		hero.queue_free()
+	for kind in ["fighter", "rogue", "wizard", "cleric", "goblin_warrior", "goblin_archer", "hobgoblin", "wolf"]:
+		var actor: Actor = (member_scene if kind in ["fighter", "rogue", "wizard", "cleric"] else scene).instantiate()
+		actor.data = load("res://data/actors/%s.tres" % kind)
+		add_child(actor)
+		var model := actor.visual.get_node_or_null("Model")
+		check(model != null and actor.visual.uses_model() and not actor.visual.body.visible, "%s shows its animated model" % kind)
+		check(actor.visual.get_node("BaseRim") != null, "%s stands on a base" % kind)
+		check(is_equal_approx(actor.figure_height(), actor.data.model_height) and actor.data.model_height > 0.5, "%s figure height comes from the model data" % kind)
+		var animator := actor.visual.animator()
+		check(animator != null and animator.player != null, "%s has an animation player" % kind)
+		if animator != null and animator.player != null:
+			for action in ["idle", "run", "attack", "hit", "death"]:
+				check(animator.has_action(action), "%s can play %s" % [kind, action])
+			check(animator.current_action == "idle", "%s starts idle" % kind)
+			check(actor.visual.play_action("attack") and animator.current_action == "attack" and animator.player.is_playing(), "%s plays the attack clip" % kind)
+			animator._on_finished(animator.clip_for("attack"))
+			check(animator.current_action == "idle", "%s returns to idle after the attack" % kind)
+			actor.move_along_path(PackedVector3Array([actor.global_position, actor.global_position + Vector3(0, 0, -3)]), 9.0)
+			check(animator.current_action == "run", "%s runs while moving" % kind)
+			actor.stop_moving()
+			check(animator.current_action == "idle", "%s idles after stopping" % kind)
+		if kind == "fighter":
+			var sword: MeshInstance3D = model.find_children("1H_Sword", "MeshInstance3D", true, false)[0]
+			var big_sword: MeshInstance3D = model.find_children("2H_Sword", "MeshInstance3D", true, false)[0]
+			check(sword != null and sword.visible and big_sword != null and not big_sword.visible, "knight shows the sword and hides the unused one")
+		# Tint and flash work on per-instance materials; death keeps the model upright and plays the clip.
+		var meshes := model.find_children("*", "MeshInstance3D", true, false)
+		var first: MeshInstance3D = null
+		for m in meshes:
+			if m.visible and m.get_surface_override_material(0) != null:
+				first = m
+				break
+		if first != null:
+			var mat: StandardMaterial3D = first.get_surface_override_material(0)
+			var original := mat.albedo_color
+			actor.add_status(_status("blessed"), null, 2)
+			check(mat.albedo_color != original, "%s model tints with a status" % kind)
+			actor.clear_all_statuses()
+			check(mat.albedo_color == original, "%s model tint restored" % kind)
+		actor.take_damage(999)
+		check(actor.visual.rotation_degrees.x == 0.0 and actor.visual.animator().current_action == "death", "%s plays death instead of tipping over" % kind)
+		actor.heal(5)
+		check(actor.visual.animator().current_action != "death", "%s gets up again" % kind)
+		actor.queue_free()
 
 
 # --- Initiative -----------------------------------------------------------
@@ -859,20 +889,21 @@ func _test_shadows() -> void:
 # --- Terrain layout --------------------------------------------------------
 
 func _test_terrain_layout() -> void:
-	check(is_equal_approx(TerrainBuilder.layout_height(9.0, -16.0), 1.5), "archer ledge is 1.5 m high")
-	check(is_equal_approx(TerrainBuilder.layout_height(-16.0, 0.0), 1.5), "overlook is 1.5 m high")
-	check(is_equal_approx(TerrainBuilder.layout_height(-5.0, 4.0), 0.75), "mound is 0.75 m high")
+	check(is_equal_approx(TerrainBuilder.layout_height(9.0, -16.0), 2.0), "archer ledge is 2 m high")
+	check(is_equal_approx(TerrainBuilder.layout_height(-18.0, -4.0), 2.0), "overlook is 2 m high")
+	check(is_equal_approx(TerrainBuilder.layout_height(-6.0, 4.0), 1.0), "mound is 1 m high")
 	check(is_equal_approx(TerrainBuilder.layout_height(0.0, 0.0), 0.0), "centre of the arena is flat")
-	check(is_equal_approx(TerrainBuilder.layout_height(3.0, -16.5), 0.75), "ledge stairs are half way up in the middle")
-	check(is_equal_approx(TerrainBuilder.layout_height(-16.0, -6.0), 0.75), "overlook stairs rise southwards")
+	check(is_equal_approx(TerrainBuilder.layout_height(4.0, -14.0), 1.0), "ledge stairs are half way up in the middle")
+	check(is_equal_approx(TerrainBuilder.layout_height(-18.0, 2.0), 1.0), "overlook stairs rise northwards")
+	check(is_equal_approx(TerrainBuilder.layout_height(-6.0, 7.0), 0.5), "mound stairs rise northwards")
 	# Nothing may stand where the scenario tests and the camp are.
-	for spot in [Vector2(0, 12), Vector2(0, 0), Vector2(5, 0), Vector2(-5, 0), Vector2(8, -12), Vector2(-12, 5), Vector2(-12, -6), Vector2(0, -14), Vector2(-2, -9)]:
+	for spot in [Vector2(0, 12), Vector2(0, 0), Vector2(5, 0), Vector2(-5, 0), Vector2(8, -9), Vector2(-12, 5), Vector2(-12, -6), Vector2(0, -14), Vector2(-2, -9), Vector2(-2.5, -17.5)]:
 		check(is_equal_approx(TerrainBuilder.layout_height(spot.x, spot.y), 0.0), "flat ground at %s" % spot)
-	# Every ramp leads up to a plateau of the same height.
-	for r in TerrainBuilder.RAMPS:
-		var rect: Rect2 = r["rect"]
+	# Every staircase leads up to a plateau of the same height.
+	for s in TerrainBuilder.STAIRS:
+		var rect := TerrainBuilder.footprint(s)
 		var top := Vector2.ZERO
-		match r["rises"]:
+		match s["rises"]:
 			"east":
 				top = Vector2(rect.end.x + 0.2, rect.get_center().y)
 			"west":
@@ -881,23 +912,27 @@ func _test_terrain_layout() -> void:
 				top = Vector2(rect.get_center().x, rect.end.y + 0.2)
 			"north":
 				top = Vector2(rect.get_center().x, rect.position.y - 0.2)
-		check(is_equal_approx(TerrainBuilder.layout_height(top.x, top.y), r["height"]), "%s ends on its plateau" % r["name"])
-	# Building into a scene produces colliders on layer 1 and light sources.
+		check(is_equal_approx(TerrainBuilder.layout_height(top.x, top.y), s["height"]), "%s ends on its plateau" % s["name"])
+	# Building into a scene produces colliders on layer 1, models from the pack and light sources.
 	var nav := Node3D.new()
 	var lights := Node3D.new()
 	add_child(nav)
 	add_child(lights)
 	TerrainBuilder.build(nav, lights)
 	var bodies := 0
+	var models := 0
 	for n in nav.get_children():
 		if n is StaticBody3D:
 			check(n.collision_layer == 1, "%s is on the world layer" % n.name)
 			bodies += 1
-		else:
-			for c in n.get_children():
-				if c is StaticBody3D:
-					bodies += 1
-	check(bodies == TerrainBuilder.PLATEAUS.size() + TerrainBuilder.RAMPS.size() + TerrainBuilder.LOW_WALLS.size() + 1, "one collider per plateau, ramp, wall and the fire pit (%d)" % bodies)
+		for c in n.get_children():
+			if c is StaticBody3D:
+				bodies += 1
+			elif c is MeshInstance3D or c.get_child_count() > 0 and c.get_child(0) is MeshInstance3D:
+				models += 1
+	check(bodies == TerrainBuilder.collider_count(), "one collider per plateau, staircase, cover, pillar, wall side and fire pit (%d / %d)" % [bodies, TerrainBuilder.collider_count()])
+	check(nav.get_node("Floors").get_child_count() == 100, "100 floor tiles (%d)" % nav.get_node("Floors").get_child_count())
+	check(ResourceLoader.exists("res://assets/custom_grid/platform_4x4_h2.glb"), "asset pack models are in the project")
 	var sources := 0
 	for l in lights.get_children():
 		if l is LightSource:

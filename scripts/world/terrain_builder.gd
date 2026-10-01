@@ -1,63 +1,118 @@
-## Generates the level's height levels, cover walls and lights from a small
-## tile-like layout: plateaus (blocks), ramps with stair steps, low walls and
-## torches. Everything is primitive geometry on collision layer 1, parented to
-## the NavigationRegion3D so the navmesh bake picks it up.
+## Builds the level from the environment asset pack (KayKit Dungeon Remastered,
+## Kenney Nature Kit and the pack's own grid platforms / stairs, all CC0) on a
+## 4 m tile grid: floors, height levels with stairs, walls, pillars, cover,
+## lights and decoration. Everything that matters for the rules gets a simple
+## collider on layer 1 (boxes, cylinders, a slope under each staircase), so
+## navmesh, [Terrain] heights and [Visibility] rays never depend on mesh details.
 ##
-## This is the stand-in for a GridMap with real tiles: each entry below is a
-## "cell group" with a footprint and a height. Replacing the meshes with
-## Kenney/KayKit tiles later means swapping the mesh in [method _block] /
-## [method _ramp]; rules read heights from [Terrain] and don't care.
+## Models are loaded from res://assets/ (see assets/START_HIER.txt and
+## assets/asset_catalog.json for sizes). A missing model falls back to a plain
+## box of the collider's size, so the game and the tests keep working.
 class_name TerrainBuilder
 extends RefCounted
 
-const STONE := Color(0.5, 0.47, 0.43)
-const STONE_RIM := Color(0.36, 0.34, 0.31)
-const STEP := Color(0.44, 0.41, 0.38)
-const WALL := Color(0.54, 0.51, 0.47)
-const WOOD := Color(0.42, 0.28, 0.15)
+const ASSET_ROOT := "res://assets/"
+const TILE := 4.0
+const ARENA_HALF := 20.0
+const STEP_HEIGHT := 0.25
+const SLOPE_RUN_IN := 0.5
+const FALLBACK := Color(0.5, 0.47, 0.43)
 const FLAME := Color(1.0, 0.62, 0.2)
 const TORCH_LIGHT := Color(1.0, 0.76, 0.48)
-const STEP_HEIGHT := 0.125
 
-## Raised blocks: footprint (x, z, width, depth) and top height.
+## Raised blocks made of 4x4 platform tiles: tile centres, the model and the top height.
 const PLATEAUS := [
-	{"name": "ArcherLedge", "rect": Rect2(5.0, -19.5, 8.0, 6.5), "height": 1.5},
-	{"name": "Overlook", "rect": Rect2(-19.5, -4.0, 5.5, 7.0), "height": 1.5},
-	{"name": "Mound", "rect": Rect2(-8.0, 2.0, 5.0, 4.0), "height": 0.75},
+	{"name": "ArcherLedge", "model": "custom_grid/platform_4x4_h2", "height": 2.0,
+		"cells": [Vector2(8, -18), Vector2(12, -18), Vector2(8, -14), Vector2(12, -14)]},
+	{"name": "Overlook", "model": "custom_grid/platform_4x4_h2", "height": 2.0,
+		"cells": [Vector2(-18, -6), Vector2(-18, -2)]},
+	{"name": "Mound", "model": "custom_grid/platform_4x4_h1", "height": 1.0,
+		"cells": [Vector2(-6, 4)]},
 ]
-## Stairs from the ground up to a plateau: footprint, height and the
-## direction in which they rise.
-const RAMPS := [
-	{"name": "LedgeStairs", "rect": Rect2(1.0, -18.0, 4.0, 3.0), "height": 1.5, "rises": "east"},
-	{"name": "OverlookStairs", "rect": Rect2(-17.0, -8.0, 2.0, 4.0), "height": 1.5, "rises": "south"},
-	{"name": "MoundStairs", "rect": Rect2(-10.0, 3.0, 2.0, 2.0), "height": 0.75, "rises": "east"},
+## Stairs: the model's origin is the centre of its bottom edge; it rises for
+## [length] metres in the direction [rises] up to [height].
+const STAIRS := [
+	{"name": "LedgeStairs", "model": "custom_grid/stairs_grid_w4_h2", "base": Vector3(2, 0, -14), "rises": "east", "height": 2.0, "length": 4.0, "width": 4.0},
+	{"name": "OverlookStairs", "model": "custom_grid/stairs_grid_w4_h2", "base": Vector3(-18, 0, 4), "rises": "north", "height": 2.0, "length": 4.0, "width": 4.0},
+	{"name": "MoundStairs", "model": "custom_grid/stairs_grid_w4_h1", "base": Vector3(-6, 0, 8), "rises": "north", "height": 1.0, "length": 2.0, "width": 4.0},
 ]
-## Waist-high walls: cover, not obstacles for sight.
-const LOW_WALLS := [
-	{"name": "LowWallEast", "rect": Rect2(4.3, -7.5, 0.4, 3.0), "height": 0.9},
-	{"name": "LowWallWest", "rect": Rect2(-11.0, -6.2, 3.0, 0.4), "height": 0.9},
+## Obstacles with a box collider (size after scaling; cover for the rules).
+const COVER := [
+	{"name": "Crate1", "model": "kaykit/cover/box_large", "position": Vector3(-4, 0, -6), "rotation": 0.0, "scale": 0.66, "box": Vector3(1.0, 1.0, 1.0)},
+	{"name": "Crate2", "model": "kaykit/cover/box_large", "position": Vector3(5, 0, -9), "rotation": 30.0, "scale": 0.66, "box": Vector3(1.0, 1.0, 1.0)},
+	{"name": "Crate3", "model": "kaykit/cover/box_large", "position": Vector3(8, 0, 6), "rotation": 0.0, "scale": 0.66, "box": Vector3(1.0, 1.0, 1.0)},
+	{"name": "CrateStack", "model": "kaykit/cover/crates_stacked", "position": Vector3(12, 0, -4), "rotation": 20.0, "scale": 1.0, "box": Vector3(2.1, 2.15, 2.25)},
+	{"name": "Barrel", "model": "kaykit/cover/barrel_large", "position": Vector3(-5, 0, 16.5), "rotation": 0.0, "scale": 0.7, "box": Vector3(1.26, 1.4, 1.26)},
+	{"name": "LowWallEast", "model": "custom_grid/cover_stone_low_2m", "position": Vector3(4.5, 0, -6), "rotation": 90.0, "scale": 1.0, "box": Vector3(0.58, 1.02, 2.08)},
+	{"name": "LowWallWest", "model": "custom_grid/cover_stone_low_2m", "position": Vector3(-9.5, 0, -6), "rotation": 0.0, "scale": 1.0, "box": Vector3(2.08, 1.02, 0.58)},
+	{"name": "Barricade", "model": "custom_grid/cover_wood_barricade", "position": Vector3(6, 0, 3), "rotation": 90.0, "scale": 1.0, "box": Vector3(0.5, 1.2, 2.0)},
+	{"name": "Chest", "model": "kaykit/props/chest", "position": Vector3(3.5, 0, 16.5), "rotation": -20.0, "scale": 0.8, "box": Vector3(1.36, 1.04, 1.16)},
 ]
-## Light sources: position of the base on the ground and the kind.
+## Round obstacles with a cylinder collider.
+const PILLARS := [
+	{"name": "Pillar1", "model": "kaykit/pillars/pillar", "position": Vector3(-5, 0, -13), "radius": 0.75, "height": 4.0},
+	{"name": "Pillar2", "model": "kaykit/pillars/pillar", "position": Vector3(-7, 0, -1), "radius": 0.75, "height": 4.0},
+	{"name": "Pillar3", "model": "kaykit/pillars/pillar", "position": Vector3(16, 0, -8), "radius": 0.75, "height": 4.0},
+	{"name": "PineA", "model": "kenney/trees/tree_pineRoundA", "position": Vector3(-16, 0, 16), "radius": 0.45, "height": 4.0, "scale": 3.2},
+	{"name": "PineB", "model": "kenney/trees/tree_pineRoundB", "position": Vector3(16, 0, 15), "radius": 0.4, "height": 4.0, "scale": 3.4},
+	{"name": "PineC", "model": "kenney/trees/tree_pineRoundB", "position": Vector3(-15, 0, -16), "radius": 0.4, "height": 4.0, "scale": 3.0},
+	{"name": "PineD", "model": "kenney/trees/tree_pineRoundA", "position": Vector3(17, 0, 8), "radius": 0.45, "height": 4.0, "scale": 2.8},
+]
+## Decoration without collision (scale, rotation in degrees).
+const PROPS := [
+	{"model": "kenney/rocks/rock_largeA", "position": Vector3(-14, 0, 12), "rotation": 40.0, "scale": 2.5},
+	{"model": "kenney/rocks/rock_largeB", "position": Vector3(15, 0, -1), "rotation": -70.0, "scale": 2.2},
+	{"model": "kenney/rocks/rock_largeB", "position": Vector3(-12, 0, -17), "rotation": 15.0, "scale": 2.0},
+	{"model": "kenney/props/tent_detailedOpen", "position": Vector3(3, 0, -18.5), "rotation": 160.0, "scale": 3.0},
+	{"model": "kenney/props/tent_detailedOpen", "position": Vector3(-9, 0, -18.5), "rotation": 200.0, "scale": 3.0},
+	{"model": "kenney/foliage/plant_bush", "position": Vector3(-11, 0, 11), "rotation": 0.0, "scale": 3.0},
+	{"model": "kenney/foliage/plant_bush", "position": Vector3(13, 0, 11), "rotation": 90.0, "scale": 3.0},
+	{"model": "kenney/foliage/plant_bush", "position": Vector3(-15, 0, 8), "rotation": 45.0, "scale": 2.5},
+	{"model": "kenney/foliage/grass_large", "position": Vector3(10, 0, 10), "rotation": 0.0, "scale": 3.0},
+	{"model": "kenney/foliage/grass_large", "position": Vector3(-10, 0, -10), "rotation": 60.0, "scale": 3.0},
+	{"model": "kenney/foliage/grass_large", "position": Vector3(14, 0, 3), "rotation": 120.0, "scale": 3.0},
+	{"model": "kenney/foliage/mushroom_red", "position": Vector3(-15.5, 0, 14.5), "rotation": 0.0, "scale": 3.0},
+	{"model": "kenney/foliage/mushroom_red", "position": Vector3(-14, 0, -15), "rotation": 70.0, "scale": 3.0},
+]
+## Light sources: base position on the ground and the kind.
 const LIGHTS := [
 	{"name": "CampTorchWest", "position": Vector3(-2.5, 0.0, 10.0), "kind": "torch"},
 	{"name": "CampTorchEast", "position": Vector3(2.5, 0.0, 10.0), "kind": "torch"},
 	{"name": "Campfire", "position": Vector3(0.0, 0.0, -11.5), "kind": "campfire"},
-	{"name": "LedgeTorch", "position": Vector3(9.0, 1.5, -16.0), "kind": "torch"},
+	{"name": "LedgeTorch", "position": Vector3(9.0, 2.0, -16.0), "kind": "torch"},
 	{"name": "WestTorch", "position": Vector3(-6.0, 0.0, -5.0), "kind": "torch"},
 	{"name": "EastTorch", "position": Vector3(8.0, 0.0, -2.0), "kind": "torch"},
 	{"name": "SouthEastTorch", "position": Vector3(12.0, 0.0, 6.0), "kind": "torch"},
 ]
+## Wall pieces that differ from the plain wall, keyed by side and tile index.
+const WALL_VARIANTS := {
+	"north": {2: "kaykit/walls/wall_broken", 7: "kaykit/walls/wall_doorway"},
+	"east": {4: "kaykit/walls/wall_broken"},
+	"west": {6: "kaykit/walls/wall_doorway"},
+	"south": {1: "kaykit/walls/wall_broken", 8: "kaykit/walls/wall_broken"},
+}
+
+static var _scene_cache: Dictionary = {}
 
 
 ## Builds terrain under [param nav_parent] (baked into the navmesh) and lights
 ## under [param light_parent].
 static func build(nav_parent: Node3D, light_parent: Node3D) -> void:
+	_floors(nav_parent)
+	_walls(nav_parent)
 	for p in PLATEAUS:
-		_block(nav_parent, p["name"], p["rect"], p["height"], STONE, true)
-	for r in RAMPS:
-		_ramp(nav_parent, r["name"], r["rect"], r["height"], r["rises"])
-	for w in LOW_WALLS:
-		_block(nav_parent, w["name"], w["rect"], w["height"], WALL, false)
+		_plateau(nav_parent, p)
+	for s in STAIRS:
+		_stairs(nav_parent, s)
+	for c in COVER:
+		_cover(nav_parent, c)
+	for p in PILLARS:
+		_pillar(nav_parent, p)
+	var decor := Node3D.new()
+	decor.name = "Decoration"
+	light_parent.add_child(decor)
+	for p in PROPS:
+		_model(decor, p["model"], p["position"], p["rotation"], p["scale"])
 	for l in LIGHTS:
 		match l["kind"]:
 			"campfire":
@@ -66,18 +121,45 @@ static func build(nav_parent: Node3D, light_parent: Node3D) -> void:
 				_torch(light_parent, l["name"], l["position"])
 
 
+## Number of static bodies [method build] creates (tests cross-check the scene).
+static func collider_count() -> int:
+	return PLATEAUS.size() + STAIRS.size() + COVER.size() + PILLARS.size() + 4 + 1
+
+
+## Footprint of a plateau or staircase entry.
+static func footprint(entry: Dictionary) -> Rect2:
+	if entry.has("cells"):
+		var rect := Rect2()
+		for i in entry["cells"].size():
+			var c: Vector2 = entry["cells"][i]
+			var cell := Rect2(c.x - TILE * 0.5, c.y - TILE * 0.5, TILE, TILE)
+			rect = cell if i == 0 else rect.merge(cell)
+		return rect
+	var base: Vector3 = entry["base"]
+	var length: float = entry["length"]
+	var half_w: float = entry["width"] * 0.5
+	match entry["rises"]:
+		"east":
+			return Rect2(base.x, base.z - half_w, length, entry["width"])
+		"west":
+			return Rect2(base.x - length, base.z - half_w, length, entry["width"])
+		"south":
+			return Rect2(base.x - half_w, base.z, entry["width"], length)
+	return Rect2(base.x - half_w, base.z - length, entry["width"], length)
+
+
 ## Height of the layout at an x/z position (0 = ground), from the data only.
 ## Used by tests to cross-check the physics answer of [Terrain].
 static func layout_height(x: float, z: float) -> float:
 	var h := 0.0
 	for p in PLATEAUS:
-		if _inside(p["rect"], x, z):
+		if _inside(footprint(p), x, z):
 			h = maxf(h, p["height"])
-	for r in RAMPS:
-		var rect: Rect2 = r["rect"]
+	for s in STAIRS:
+		var rect := footprint(s)
 		if _inside(rect, x, z):
 			var t := 0.0
-			match r["rises"]:
+			match s["rises"]:
 				"east":
 					t = (x - rect.position.x) / rect.size.x
 				"west":
@@ -86,7 +168,7 @@ static func layout_height(x: float, z: float) -> float:
 					t = (z - rect.position.y) / rect.size.y
 				"north":
 					t = (rect.end.y - z) / rect.size.y
-			h = maxf(h, r["height"] * clampf(t, 0.0, 1.0))
+			h = maxf(h, s["height"] * clampf(t, 0.0, 1.0))
 	return h
 
 
@@ -96,29 +178,81 @@ static func _inside(rect: Rect2, x: float, z: float) -> bool:
 
 # --- Pieces ----------------------------------------------------------------
 
-static func _block(parent: Node3D, name: String, rect: Rect2, height: float, color: Color, rim: bool) -> StaticBody3D:
-	var body := _static_body(parent, name)
-	var center := Vector3(rect.position.x + rect.size.x * 0.5, 0.0, rect.position.y + rect.size.y * 0.5)
-	var size := Vector3(rect.size.x, height + 0.5, rect.size.y)
-	body.position = center
-	_box_part(body, size, Vector3(0.0, (height - 0.5) * 0.5, 0.0), color, true)
-	if rim:
-		# Thin lighter top slab (slightly above the block so nothing z-fights).
-		_box_part(body, Vector3(rect.size.x - 0.02, 0.02, rect.size.y - 0.02), Vector3(0.0, height + 0.005, 0.0), color.lightened(0.08), false)
-		# Darker lip along the top edge so the cliff reads as a step up.
-		_box_part(body, Vector3(rect.size.x + 0.12, 0.08, rect.size.y + 0.12), Vector3(0.0, height - 0.05, 0.0), STONE_RIM, false)
+## 4x4 floor tiles: grass, with earth around both camps and a stone road between them.
+static func _floors(parent: Node3D) -> void:
+	var floors := Node3D.new()
+	floors.name = "Floors"
+	parent.add_child(floors)
+	var n := int(ARENA_HALF * 2.0 / TILE)
+	for ix in n:
+		for iz in n:
+			var x := -ARENA_HALF + TILE * (ix + 0.5)
+			var z := -ARENA_HALF + TILE * (iz + 0.5)
+			var model := "custom_grid/floor_grass_4x4"
+			var top := 0.0
+			if absf(x) <= TILE and absf(z) <= 2.0 * TILE:
+				model = "kaykit/floors/floor_tile_large"
+				top = 0.05
+			elif absf(x) <= TILE and (absf(z - 12.0) <= TILE or absf(z + 12.0) <= TILE):
+				model = "custom_grid/floor_earth_4x4"
+			_model(floors, model, Vector3(x, -top, z), 90.0 * ((ix * 7 + iz * 3) % 4), 1.0)
+
+
+## Ten wall pieces per side, one long collider per side.
+static func _walls(parent: Node3D) -> void:
+	var n := int(ARENA_HALF * 2.0 / TILE)
+	for side in ["north", "south", "east", "west"]:
+		var body := _static_body(parent, "Wall" + side.capitalize())
+		var along_x: bool = side == "north" or side == "south"
+		var sign: float = -1.0 if side == "north" or side == "west" else 1.0
+		body.position = Vector3(0.0, 0.0, sign * ARENA_HALF) if along_x else Vector3(sign * ARENA_HALF, 0.0, 0.0)
+		_box_collider(body, Vector3(ARENA_HALF * 2.0 + 1.0, 4.0, 1.0) if along_x else Vector3(1.0, 4.0, ARENA_HALF * 2.0 + 1.0), Vector3(0.0, 2.0, 0.0))
+		var variants: Dictionary = WALL_VARIANTS.get(side, {})
+		for i in n:
+			var offset := -ARENA_HALF + TILE * (i + 0.5)
+			var model: String = variants.get(i, "kaykit/walls/wall")
+			var local := Vector3(offset, 0.0, 0.0) if along_x else Vector3(0.0, 0.0, offset)
+			# The wall's front faces -Z in the model; turn each side to face the arena.
+			var yaw := 0.0
+			match side:
+				"north":
+					yaw = 180.0
+				"east":
+					yaw = 90.0
+				"west":
+					yaw = -90.0
+			var inst := _model(body, model, local, yaw, 1.0)
+			if inst == null:
+				_fallback_box(body, Vector3(TILE, 4.0, 1.0), local + Vector3(0.0, 2.0, 0.0))
+
+
+static func _plateau(parent: Node3D, entry: Dictionary) -> StaticBody3D:
+	var body := _static_body(parent, entry["name"])
+	var rect := footprint(entry)
+	var height: float = entry["height"]
+	var center := rect.get_center()
+	body.position = Vector3(center.x, 0.0, center.y)
+	_box_collider(body, Vector3(rect.size.x, height + 0.5, rect.size.y), Vector3(0.0, (height - 0.5) * 0.5, 0.0))
+	for c in entry["cells"]:
+		var local := Vector3(c.x - center.x, 0.0, c.y - center.y)
+		if _model(body, entry["model"], local, 0.0, 1.0) == null:
+			_fallback_box(body, Vector3(TILE, height, TILE), local + Vector3(0.0, height * 0.5, 0.0))
 	return body
 
 
-## A sloped collider (so figures glide up) with stair steps drawn on top.
-static func _ramp(parent: Node3D, name: String, rect: Rect2, height: float, rises: String) -> Node3D:
+## The stair model plus a sloped collider so figures glide up (CharacterBody3D
+## cannot climb 25 cm steps on its own). The slope starts [constant SLOPE_RUN_IN]
+## before the first step just below the ground and ends exactly on the plateau,
+## so there is no lip at either end; figures float or sink by a few centimetres
+## on the steps, which the tabletop look forgives.
+static func _stairs(parent: Node3D, entry: Dictionary) -> Node3D:
 	var pivot := Node3D.new()
-	pivot.name = name
-	pivot.position = Vector3(rect.position.x + rect.size.x * 0.5, 0.0, rect.position.y + rect.size.y * 0.5)
-	var along_x := rises == "east" or rises == "west"
-	var length := rect.size.x if along_x else rect.size.y
-	var width := rect.size.y if along_x else rect.size.x
-	match rises:
+	pivot.name = entry["name"]
+	var rect := footprint(entry)
+	var center := rect.get_center()
+	pivot.position = Vector3(center.x, 0.0, center.y)
+	# Pivot: local +X is the rising direction.
+	match entry["rises"]:
 		"east":
 			pivot.rotation.y = 0.0
 		"west":
@@ -128,38 +262,58 @@ static func _ramp(parent: Node3D, name: String, rect: Rect2, height: float, rise
 		"south":
 			pivot.rotation.y = -PI * 0.5
 	parent.add_child(pivot)
-	# Collider: box whose top surface runs from (-L/2, 0) to (+L/2, h), lifted
-	# half a step so figures stand on the middle of each drawn step.
+	var height: float = entry["height"]
+	var length: float = entry["length"]
+	var width: float = entry["width"]
 	var body := _static_body(pivot, "Slope")
-	var steps := maxi(2, int(round(height / STEP_HEIGHT)))
-	var lift := height / steps * 0.5
-	var slant := sqrt(length * length + height * height)
+	var foot := Vector3(-length * 0.5 - SLOPE_RUN_IN, -0.05, 0.0)
+	var crest := Vector3(length * 0.5, height, 0.0)
+	var run := crest - foot
+	var slant := run.length()
 	var thickness := 0.6
-	var angle := atan2(height, length)
+	var angle := atan2(run.y, run.x)
 	var normal := Vector3(-sin(angle), cos(angle), 0.0)
-	var top_mid := Vector3(0.0, height * 0.5 + lift, 0.0)
 	var shape := CollisionShape3D.new()
 	var box := BoxShape3D.new()
 	box.size = Vector3(slant, thickness, width)
 	shape.shape = box
-	shape.position = top_mid - normal * thickness * 0.5
+	shape.position = (foot + crest) * 0.5 - normal * thickness * 0.5
 	shape.rotation.z = angle
 	body.add_child(shape)
-	# Visual stairs (no collision): one box per step.
-	var step_len := length / steps
-	var step_h := height / steps
-	for i in steps:
-		var x := -length * 0.5 + step_len * (i + 0.5)
-		var top := step_h * (i + 1)
-		var bottom := -0.3
-		var mesh := BoxMesh.new()
-		mesh.size = Vector3(step_len, top - bottom, width)
-		var inst := MeshInstance3D.new()
-		inst.mesh = mesh
-		inst.material_override = _material(STEP if i % 2 == 0 else STEP.darkened(0.08))
-		inst.position = Vector3(x, (top + bottom) * 0.5, 0.0)
-		pivot.add_child(inst)
+	# The model rises along its own +Z from its bottom edge: turn +Z onto local +X.
+	var inst := _model(pivot, entry["model"], Vector3(-length * 0.5, 0.0, 0.0), 90.0, 1.0)
+	if inst == null:
+		var steps := int(round(height / STEP_HEIGHT))
+		for i in steps:
+			var top := height * (i + 1) / steps
+			_fallback_box(pivot, Vector3(length / steps, top, width), Vector3(-length * 0.5 + length / steps * (i + 0.5), top * 0.5, 0.0))
 	return pivot
+
+
+static func _cover(parent: Node3D, entry: Dictionary) -> StaticBody3D:
+	var body := _static_body(parent, entry["name"])
+	body.position = entry["position"]
+	body.rotation.y = deg_to_rad(entry["rotation"])
+	var size: Vector3 = entry["box"]
+	_box_collider(body, size, Vector3(0.0, size.y * 0.5, 0.0))
+	if _model(body, entry["model"], Vector3.ZERO, 0.0, entry["scale"]) == null:
+		_fallback_box(body, size, Vector3(0.0, size.y * 0.5, 0.0))
+	return body
+
+
+static func _pillar(parent: Node3D, entry: Dictionary) -> StaticBody3D:
+	var body := _static_body(parent, entry["name"])
+	body.position = entry["position"]
+	var shape := CollisionShape3D.new()
+	var cyl := CylinderShape3D.new()
+	cyl.radius = entry["radius"]
+	cyl.height = entry["height"]
+	shape.shape = cyl
+	shape.position = Vector3(0.0, entry["height"] * 0.5, 0.0)
+	body.add_child(shape)
+	if _model(body, entry["model"], Vector3.ZERO, 0.0, entry.get("scale", 1.0)) == null:
+		_fallback_box(body, Vector3(entry["radius"] * 2.0, entry["height"], entry["radius"] * 2.0), Vector3(0.0, entry["height"] * 0.5, 0.0))
+	return body
 
 
 static func _torch(parent: Node3D, name: String, base: Vector3) -> LightSource:
@@ -168,10 +322,10 @@ static func _torch(parent: Node3D, name: String, base: Vector3) -> LightSource:
 	light.radius_m = 6.0
 	light.position = base + Vector3.UP * 1.8
 	parent.add_child(light)
-	_mesh_part(light, _cylinder_mesh(0.05, 1.7), Vector3(0.0, -0.85, 0.0), WOOD, false)
-	_mesh_part(light, _cylinder_mesh(0.1, 0.14), Vector3(0.0, -0.02, 0.0), Color(0.25, 0.2, 0.16), false)
-	_mesh_part(light, _sphere_mesh(0.16), Vector3(0.0, 0.14, 0.0), FLAME, true)
-	_mesh_part(light, _sphere_mesh(0.09), Vector3(0.0, 0.3, 0.0), Color(1.0, 0.85, 0.4), true)
+	# The torch model's handle is centred on its origin; stand it in the ground, scaled up.
+	if _model(light, "kaykit/lighting/torch_lit", Vector3(0.0, -1.8 + 0.64, 0.0), 0.0, 1.6) == null:
+		_fallback_box(light, Vector3(0.1, 1.7, 0.1), Vector3(0.0, -0.95, 0.0))
+	_mesh_part(light, _sphere_mesh(0.14), Vector3(0.0, 0.0, 0.0), FLAME, true)
 	_omni(light, Vector3(0.0, 0.2, 0.0), 9.0, 2.2)
 	return light
 
@@ -182,15 +336,13 @@ static func _campfire(parent: Node3D, nav_parent: Node3D, name: String, base: Ve
 	light.radius_m = 7.0
 	light.position = base + Vector3.UP * 0.5
 	parent.add_child(light)
-	for i in 3:
-		var log_mesh := _cylinder_mesh(0.08, 1.0)
-		var log_inst := _mesh_part(light, log_mesh, Vector3(0.0, -0.4, 0.0), WOOD.darkened(0.2), false)
-		log_inst.rotation_degrees = Vector3(90.0, 60.0 * i, 0.0)
-	_mesh_part(light, _sphere_mesh(0.32), Vector3(0.0, -0.15, 0.0), FLAME, true)
-	_mesh_part(light, _sphere_mesh(0.18), Vector3(0.0, 0.15, 0.0), Color(1.0, 0.85, 0.4), true)
+	if _model(light, "kenney/props/campfire_stones", Vector3(0.0, -0.5 + 0.12, 0.0), 0.0, 2.6) == null:
+		_mesh_part(light, _cylinder_mesh(0.7, 0.3), Vector3(0.0, -0.35, 0.0), Color(0.3, 0.28, 0.26), false)
+	_model(light, "kenney/props/campfire_logs", Vector3(0.0, -0.5 + 0.14, 0.0), 30.0, 2.6)
+	_mesh_part(light, _sphere_mesh(0.3), Vector3(0.0, -0.1, 0.0), FLAME, true)
+	_mesh_part(light, _sphere_mesh(0.17), Vector3(0.0, 0.2, 0.0), Color(1.0, 0.85, 0.4), true)
 	_omni(light, Vector3.ZERO, 11.0, 2.8)
-	# Nobody walks through the fire: a stone ring in the navmesh region, taller
-	# than the navmesh's climbable step so paths go around it.
+	# Nobody walks through the fire: a collider taller than the navmesh's step.
 	var body := _static_body(nav_parent, name + "Pit")
 	body.position = base
 	var shape := CollisionShape3D.new()
@@ -200,14 +352,38 @@ static func _campfire(parent: Node3D, nav_parent: Node3D, name: String, base: Ve
 	shape.shape = cyl
 	shape.position = Vector3(0.0, 0.35, 0.0)
 	body.add_child(shape)
-	_mesh_part(body, _cylinder_mesh(0.75, 0.3), Vector3(0.0, 0.15, 0.0), Color(0.3, 0.28, 0.26), false)
-	for i in 8:
-		var angle := TAU * i / 8.0
-		_mesh_part(body, _sphere_mesh(0.16), Vector3(cos(angle) * 0.62, 0.3, sin(angle) * 0.62), Color(0.36, 0.34, 0.32), false)
 	return light
 
 
 # --- Helpers ---------------------------------------------------------------
+
+## Instantiates a model from the asset pack; null when it is not available.
+static func _model(parent: Node3D, model: String, position: Vector3, yaw_degrees: float, scale: float) -> Node3D:
+	var scene := _scene(model)
+	if scene == null:
+		return null
+	var inst := scene.instantiate() as Node3D
+	if inst == null:
+		return null
+	inst.position = position
+	inst.rotation.y = deg_to_rad(yaw_degrees)
+	inst.scale = Vector3.ONE * scale
+	parent.add_child(inst)
+	return inst
+
+
+static func _scene(model: String) -> PackedScene:
+	if _scene_cache.has(model):
+		return _scene_cache[model]
+	var path := ASSET_ROOT + model + ".glb"
+	var scene: PackedScene = null
+	if ResourceLoader.exists(path):
+		scene = load(path) as PackedScene
+	if scene == null:
+		push_warning("TerrainBuilder: model %s not available, using a placeholder box" % path)
+	_scene_cache[model] = scene
+	return scene
+
 
 static func _static_body(parent: Node3D, name: String) -> StaticBody3D:
 	var body := StaticBody3D.new()
@@ -218,36 +394,34 @@ static func _static_body(parent: Node3D, name: String) -> StaticBody3D:
 	return body
 
 
-static func _box_part(body: StaticBody3D, size: Vector3, position: Vector3, color: Color, collide: bool) -> void:
+static func _box_collider(body: StaticBody3D, size: Vector3, position: Vector3) -> void:
+	var shape := CollisionShape3D.new()
+	var box := BoxShape3D.new()
+	box.size = size
+	shape.shape = box
+	shape.position = position
+	body.add_child(shape)
+
+
+static func _fallback_box(parent: Node3D, size: Vector3, position: Vector3) -> MeshInstance3D:
 	var mesh := BoxMesh.new()
 	mesh.size = size
-	_mesh_part(body, mesh, position, color, false)
-	if collide:
-		var shape := CollisionShape3D.new()
-		var box := BoxShape3D.new()
-		box.size = size
-		shape.shape = box
-		shape.position = position
-		body.add_child(shape)
+	return _mesh_part(parent, mesh, position, FALLBACK, false)
 
 
 static func _mesh_part(parent: Node3D, mesh: Mesh, position: Vector3, color: Color, glow: bool) -> MeshInstance3D:
 	var inst := MeshInstance3D.new()
 	inst.mesh = mesh
-	inst.material_override = _material(color, glow)
-	inst.position = position
-	parent.add_child(inst)
-	return inst
-
-
-static func _material(color: Color, glow: bool = false) -> StandardMaterial3D:
 	var mat := StandardMaterial3D.new()
 	mat.albedo_color = color
 	if glow:
 		mat.emission_enabled = true
 		mat.emission = color
 		mat.emission_energy_multiplier = 2.0
-	return mat
+	inst.material_override = mat
+	inst.position = position
+	parent.add_child(inst)
+	return inst
 
 
 static func _cylinder_mesh(radius: float, height: float) -> CylinderMesh:

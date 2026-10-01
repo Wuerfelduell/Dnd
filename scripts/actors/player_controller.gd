@@ -12,6 +12,7 @@ extends Node
 var debug_direction: Vector3 = Vector3.ZERO
 
 var _pending_tap: bool = false
+var _steering: bool = false
 var _pending_tap_position: Vector2 = Vector2.ZERO
 
 @onready var actor: Actor = get_parent()
@@ -46,8 +47,13 @@ func _physics_process(delta: float) -> void:
 		actor.stop_moving()
 		actor.face_direction(dir)
 		actor.walk(dir.normalized() * walk_speed, delta)
+		actor.play_action("run")
+		_steering = true
 	elif not actor.is_moving():
 		actor.velocity = Vector3.ZERO
+		if _steering:
+			_steering = false
+			actor.play_action("idle")
 
 
 func _walk_to_tap() -> void:

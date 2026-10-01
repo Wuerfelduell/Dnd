@@ -1,0 +1,80 @@
+DnD ENVIRONMENT PACK — START HIER
+=================================
+
+Auswahl fuer deine Screenshots
+-----------------------------
+KayKit Dungeon Remastered ist die Hauptbasis: gut lesbare Low-Poly-Formen,
+Stein, Holz und mittelalterliche Requisiten passend zu deinen Spielfiguren.
+Kenney Nature Kit ergaenzt Wald, Felsen, Fluesse, Bruecken und Aussengelaende.
+Eigene Rastermodelle schliessen die Luecke bei hohen Plattformen und passenden
+Treppen. Kenney behaelt bewusst seine Originalfarben. Wenn du nur den dunkleren
+Dungeon-Look willst, beginne mit KayKit und den custom_grid-Modellen.
+
+INHALT
+- 203 KayKit-Dungeonmodelle (kompletter GLB-Modellbestand dieses Quellpakets).
+- 329 Kenney-Naturmodelle (kompletter GLB-Modellbestand dieses Quellpakets).
+- 21 eigene Ergaenzungen: Stein/Holz/Erde/Gras-Bodenplatten, Plattformen,
+  Treppen und niedrige/hohe Deckung.
+- 21 Godot-Szenen mit physischen Kollisionen fuer die eigenen Ergaenzungen.
+- Dungeon_Courtyard.tscn und Forest_Camp.tscn als fertige visuelle Bauvorlagen.
+- Asset_Preview.jpg mit 24 ausgewaehlten echten Modellen.
+- asset_catalog.csv und .json mit Pfaden, Abmessungen und Dreieckszahlen.
+- replacement_guide.json: Zuordnung deiner Prototyp-Bloecke zu Modellen.
+- Quellen und CC0-Lizenzen.
+
+GODOT 4.3: ALS BEISPIELPROJEKT OEFFNEN
+1. ZIP entpacken.
+2. Im Godot-Projektmanager die project.godot importieren.
+3. Den ersten Modellimport abwarten und F6/F5 druecken.
+4. Fuer die zweite Umgebung scenes/Forest_Camp.tscn oeffnen und F6 druecken.
+Die beiden Beispiele sind statische Umgebungsszenen mit Kamera und Beleuchtung.
+Sie enthalten keine Spielfiguren, Steuerung oder Kampfmechanik.
+
+IN DEIN BESTEHENDES SPIEL UEBERNEHMEN
+1. Den Ordner assets in deinen res://-Projektordner kopieren.
+2. Fuer Beispiel-/Kollisionsszenen auch scenes kopieren; die Pfade erwarten
+   res://assets/ und res://scenes/. Deine project.godot NICHT ersetzen.
+3. GLB-Dateien aus dem Dateisystem in deine 3D-Szene ziehen.
+4. Die Kollisionsversionen stehen unter scenes/collision_ready/.
+5. Bestehende logische Block-/Deckungs-/Hoeheninformationen beibehalten und
+   nur ihre sichtbaren Meshes ersetzen. Danach auf korrekte Positionen pruefen.
+6. Kollisionen fuer KayKit/Kenney bei Bedarf am Mesh generieren. Bei Tueren,
+   Torboegen und Bruecken getrennte passende Kollisionsformen verwenden;
+   eine einzige grosse Box wuerde den freien Durchgang verschliessen.
+7. Navigationsmesh nach der Platzierung neu backen. Treppen, Plattformen,
+   Sichtlinie und Deckungsregeln in deinem Spiel separat anbinden.
+
+MASSE UND AUSRICHTUNG
+Y ist oben. 1 Godot-Einheit wird hier als 1 m behandelt.
+Eigene Bodenplatten sind 2x2 oder 4x4 m. Ihre Oberseite liegt ca. bei Y=0.
+Plattformen haben 1 oder 2 m Hoehe plus ca. 3 cm Oberflaechendetail.
+Eigene Treppen steigen in +Z-Richtung, 25 cm pro Stufe; 180 Grad drehen,
+wenn der Aufgang in -Z-Richtung liegen soll. Breiten sind 2 oder 4 m.
+KayKit floor_tile_large: 4x4 m; floor_tile_small: 2x2 m.
+KayKit wall: 4 m breit und 4 m hoch. Original-KayKit-Treppen haben einen
+anderen Massstab; fuer exakt passende Plattformen die custom_grid-Treppen nutzen.
+Kenney hat unterschiedliche Objektgroessen: Abmessungen im Katalog verwenden,
+nicht alle Modelle pauschal identisch skalieren.
+Wenn dein DnD-Raster 1.5 m pro Feld sein soll, beim Einbau einheitlich skalieren.
+Die Szene und die Spielregeln muessen denselben Massstab verwenden.
+
+LICHT UND ANDROID
+Fackel-/Kerzenmodelle sind sichtbar, aber Lichtquellen musst du zusaetzlich setzen.
+Fuer warmes Fackellicht z.B. OmniLight3D mit orangegelber Farbe und Reichweite
+4–6 m verwenden. Nur wenige Lichter gleichzeitig mit Echtzeitschatten betreiben.
+Wiederholte Boeden/Baeume fuer grosse Karten mit MultiMeshInstance3D darstellen.
+Dekoration kollisionsfrei halten, wenn sie nicht fuer Bewegung relevant ist.
+Offene Seitenwaende oder kleine Vordergrundwaende halten die Kameraansicht frei.
+
+LIZENZEN UND UMFANG
+KayKit: Kay Lousberg / KayKit. Kenney: Kenney. Beides CC0; persoenliche und
+kommerzielle Nutzung moeglich. Original-Lizenzen liegen im Ordner licenses.
+Eigene Ergaenzungen sind ebenfalls CC0. Sie sind keine offiziellen KayKit-Assets.
+Dies ist ein 3D-Umgebungsbaukasten, kein komplettes DnD-Spiel. Figuren, Monster,
+Animationen, Sounds, UI und Spielregeln sind nicht enthalten. Die Dateien wurden
+nicht in dein bestehendes Repository eingebaut. Deine Screenshots sind die Basis
+fuer die Auswahl; die Spielszenen sind neue Vorlagen.
+
+QUELLEN
+https://github.com/KayKit-Game-Assets/KayKit-Dungeon-Remastered-1.0
+https://kenney.nl/assets/nature-kit

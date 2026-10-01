@@ -67,9 +67,9 @@ static func elevation_bonus(delta_m: float) -> int:
 # --- Geometry queries -------------------------------------------------------
 
 static func figure_height(actor: Actor) -> float:
-	if actor.data != null and MiniatureBuilder.has_recipe(actor.data.miniature):
-		return MiniatureBuilder.height_of(actor.data.miniature)
-	return CAPSULE_HEIGHT
+	if actor == null:
+		return CAPSULE_HEIGHT
+	return actor.figure_height()
 
 
 static func eye_position(actor: Actor) -> Vector3:

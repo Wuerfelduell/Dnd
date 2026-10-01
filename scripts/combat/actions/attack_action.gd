@@ -71,6 +71,7 @@ func execute(actor: Actor, target: Actor, _point: Vector3 = Vector3.ZERO) -> voi
 static func perform_attack(actor: Actor, target: Actor, p_weapon: WeaponData, verb: String, add_damage_bonus: bool = true) -> AttackResult:
 	actor.face_actor(target)
 	actor.spend_ammo(p_weapon)
+	actor.play_action("ranged" if p_weapon.is_ranged else "attack")
 	var others := CombatContext.actors_near(actor)
 	var profile := AttackProfile.from_weapon(actor, p_weapon, add_damage_bonus)
 	var result := AttackResolver.resolve(actor, target, profile, others, CombatSituation.assess(actor, target))

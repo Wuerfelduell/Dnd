@@ -28,7 +28,21 @@ enum Faction { PLAYER, ENEMY }
 ## Base rim colour (and capsule colour while no miniature recipe exists).
 @export var color: Color = Color.WHITE
 ## Key of a [MiniatureBuilder] recipe ("goblin", "wolf", ...). Empty = capsule.
+## Used when no [member model] is set or the model file is missing.
 @export var miniature: String = ""
+
+@export_group("Animated model")
+## Path below res://assets/characters/ of an animated GLB ("adventurers/Knight").
+## Empty = miniature / capsule.
+@export var model: String = ""
+@export var model_scale: float = 1.0
+## Height of the scaled figure in metres (labels, eye height for line of sight).
+@export var model_height: float = 1.8
+## Equipment meshes inside the model that stay visible (KayKit heroes carry
+## every alternative weapon as a hidden mesh): "1H_Sword", "Round_Shield" ...
+@export var model_equipment: PackedStringArray = PackedStringArray()
+## Extra yaw so the model looks along the actor's -Z like the capsule does.
+@export var model_yaw_degrees: float = 180.0
 
 @export_group("Class features")
 ## Number of weapon attacks per Attack action (Extra Attack / Multiattack).

@@ -12,8 +12,7 @@ var _light_timer: float = 0.0
 
 func bind(actor: Actor) -> void:
 	_actor = actor
-	if actor.data.miniature != "":
-		position.y = MiniatureBuilder.height_of(actor.data.miniature) + 0.45
+	position.y = actor.figure_height() + 0.45
 	actor.hp_changed.connect(func(_c, _m): _refresh())
 	actor.downed.connect(func(_a): _refresh())
 	actor.revived.connect(func(_a): _refresh())

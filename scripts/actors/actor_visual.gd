@@ -1,23 +1,33 @@
-## Presentation of an actor: a tabletop-style miniature on a round base.
+## Presentation of an actor: an animated character model on a round base, or a
+## tabletop-style miniature built from primitives, or the placeholder capsule.
 ##
-## Creatures with an [member ActorData.miniature] recipe get a figure built by
-## [MiniatureBuilder]; everything else keeps the placeholder capsule. All
-## visual state (colour, status tint, down pose, rings, flashes) goes through
-## this node so real models / animations can replace it later without
-## touching gameplay code.
+## Priority: [member ActorData.model] (GLB from the asset pack, animated via
+## [CharacterAnimator]) > [member ActorData.miniature] ([MiniatureBuilder]) >
+## capsule. All visual state (colour, status tint, down pose, rings, flashes,
+## animations) goes through this node; gameplay code only calls
+## [method play_action] and never touches meshes.
 class_name ActorVisual
 extends Node3D
 
 const DOWN_TINT := Color(0.35, 0.35, 0.35)
 const BASE_RADIUS := 0.5
+const MODEL_ROOT := "res://assets/characters/"
+## Equipment meshes that KayKit heroes carry as hidden alternatives.
+const EQUIPMENT_NAMES := ["1H_Sword_Offhand", "Badge_Shield", "Rectangle_Shield", "Round_Shield", "Spike_Shield",
+	"1H_Sword", "2H_Sword", "Knife_Offhand", "1H_Crossbow", "2H_Crossbow", "Knife", "Throwable", "Spellbook",
+	"Spellbook_open", "1H_Wand", "2H_Staff", "1H_Axe_Offhand", "Barbarian_Round_Shield", "1H_Axe", "2H_Axe", "Mug"]
 
 var _base_color: Color = Color.WHITE
 var _status_tint: Color = Color(1, 1, 1, 1)
 var _material: StandardMaterial3D
+## Per-instance materials of the miniature or model, with their original colours.
 var _mini_materials: Array = []
 var _mini_colors: Array[Color] = []
 var _rim_material: StandardMaterial3D
 var _uses_mini: bool = false
+var _uses_model: bool = false
+var _animator: CharacterAnimator
+var _flash_tween: Tween
 
 @onready var body: MeshInstance3D = $Body
 @onready var nose: MeshInstance3D = $Nose
@@ -35,18 +45,74 @@ func _ready() -> void:
 	target_ring.position.y = 0.1
 	_build_base()
 	var actor := get_parent() as Actor
-	var kind := actor.data.miniature if actor != null and actor.data != null else ""
-	if MiniatureBuilder.has_recipe(kind):
+	var data: ActorData = actor.data if actor != null else null
+	if data != null and data.model != "" and _build_model(data):
+		_uses_model = true
+		body.visible = false
+		nose.visible = false
+	elif data != null and MiniatureBuilder.has_recipe(data.miniature):
 		_uses_mini = true
 		body.visible = false
 		nose.visible = false
 		var mini := Node3D.new()
 		mini.name = "Mini"
 		add_child(mini)
-		MiniatureBuilder.build(kind, mini, _mini_materials, actor.data.color)
+		MiniatureBuilder.build(data.miniature, mini, _mini_materials, data.color)
 		for m in _mini_materials:
 			_mini_colors.append(m.albedo_color)
 	apply_color(_base_color)
+
+
+## Instantiates the animated model, hides unused equipment, gives every mesh
+## its own material (for tints) and starts the idle clip. False if missing.
+func _build_model(data: ActorData) -> bool:
+	var path := MODEL_ROOT + data.model + ".glb"
+	if not ResourceLoader.exists(path):
+		push_warning("ActorVisual: model %s not found, using the miniature" % path)
+		return false
+	var scene := load(path) as PackedScene
+	if scene == null:
+		return false
+	var model := scene.instantiate() as Node3D
+	if model == null:
+		return false
+	model.name = "Model"
+	model.scale = Vector3.ONE * data.model_scale
+	model.rotation.y = deg_to_rad(data.model_yaw_degrees)
+	add_child(model)
+	var player: AnimationPlayer = null
+	for n in model.find_children("*", "", true, false):
+		if n is MeshInstance3D:
+			if String(n.name) in EQUIPMENT_NAMES:
+				n.visible = String(n.name) in data.model_equipment
+			for i in n.get_surface_override_material_count():
+				var mat: Material = n.get_active_material(i)
+				if mat is StandardMaterial3D:
+					var own: StandardMaterial3D = mat.duplicate()
+					n.set_surface_override_material(i, own)
+					_mini_materials.append(own)
+					_mini_colors.append(own.albedo_color)
+		elif n is AnimationPlayer and player == null:
+			player = n
+	_animator = CharacterAnimator.new(player)
+	_animator.play("idle")
+	return true
+
+
+func uses_model() -> bool:
+	return _uses_model
+
+
+func animator() -> CharacterAnimator:
+	return _animator
+
+
+## Plays a game action on the model ("idle", "run", "attack", "ranged",
+## "cast", "hit", "death", "revive"); no-op for miniatures and capsules.
+func play_action(action: String) -> bool:
+	if _animator == null:
+		return false
+	return _animator.play(action)
 
 
 ## Round base like a painted miniature: dark disc with a coloured rim.
@@ -110,7 +176,15 @@ func _refresh_color() -> void:
 
 
 func set_down(down: bool) -> void:
-	if down:
+	if _uses_model:
+		# Animated figures play their death clip and stay lying there.
+		if down:
+			play_action("death")
+		else:
+			play_action("revive")
+		ring.visible = ring.visible and not down
+		target_ring.visible = target_ring.visible and not down
+	elif down:
 		# Knocked over like a mini on the table.
 		rotation_degrees.x = -80.0
 		position.y = 0.3
@@ -135,15 +209,28 @@ func set_targetable(targetable: bool) -> void:
 func flash(color: Color, duration: float = 0.25) -> void:
 	if _material == null:
 		return
+	if _flash_tween != null and _flash_tween.is_valid():
+		_flash_tween.kill()
 	_material.albedo_color = color
 	for m in _mini_materials:
-		m.albedo_color = color
-	var tween := create_tween()
-	tween.tween_method(_flash_step, 0.0, 1.0, duration)
+		if _uses_model:
+			# Textured models: pulse the emission instead of overriding the texture tint.
+			m.emission_enabled = true
+			m.emission = color
+			m.emission_energy_multiplier = 1.2
+		else:
+			m.albedo_color = color
+	_flash_tween = create_tween()
+	_flash_tween.tween_method(_flash_step, 0.0, 1.0, duration)
 
 
 func _flash_step(t: float) -> void:
 	var white := Color(1, 1, 1)
 	_material.albedo_color = white.lerp(_tinted(_base_color), t)
 	for i in _mini_materials.size():
-		_mini_materials[i].albedo_color = white.lerp(_tinted(_mini_colors[i]), t)
+		if _uses_model:
+			_mini_materials[i].emission_energy_multiplier = 1.2 * (1.0 - t)
+			if t >= 1.0:
+				_mini_materials[i].emission_enabled = false
+		else:
+			_mini_materials[i].albedo_color = white.lerp(_tinted(_mini_colors[i]), t)

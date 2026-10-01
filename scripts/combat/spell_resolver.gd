@@ -25,6 +25,7 @@ static func cast(caster: Actor, spell: SpellData, target: Actor, point: Vector3 
 		caster.face_actor(targets[0])
 	elif spell.needs_point():
 		caster.face_direction(point - caster.global_position)
+	caster.play_action("cast")
 	EventBus.spell_cast.emit(caster, spell, targets)
 	if spell.needs_point() and spell.area_radius_m > 0.0:
 		EventBus.floating_text_requested.emit(point, spell.display_name.to_upper(), Color(1.0, 0.6, 0.2))
