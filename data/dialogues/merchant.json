@@ -4,8 +4,8 @@
   "language": "de",
   "status": "authored_dialogue_design_not_runtime_integrated",
   "title": "Händler – Waren, Feilschen und lange Finger",
-  "personality": "Freundlich, solange jemand zahlt. Erkennt Tricks, kalkuliert Risiken und verschenkt nichts aus Dankbarkeit.",
-  "entry": "entry",
+  "personality": "Verkauft bewusst einen wertlosen Kupferring als Schutz gegen Riesenspinnen. Nach entdecktem Betrug lässt er sich zu Rückzahlung, Schweigegeld oder Rabatt drängen; öffentliche Entlarvung kostet ihn Kunden.",
+  "entry": "service_router",
   "source": {
     "repository": "Wuerfelduell/Dnd",
     "design_reference_branch": "claude/dnd-new-repo-aueydw",
@@ -18,10 +18,6 @@
     "merchant": {
       "name": "Händler",
       "actor_reference": "merchant"
-    },
-    "town_guard": {
-      "name": "Wache",
-      "actor_reference": "town_guard"
     }
   },
   "conventions": {
@@ -33,20 +29,21 @@
       "status": "same_proposed_conversion_as_innkeeper"
     },
     "transitions": "next refers to a node in this file; terminal ends the conversation. back/continue are navigation controls rather than spoken dialogue.",
-    "skill_checks": "d20 plus ability and applicable skill proficiency; success when total >= DC. DC is null until gameplay balancing. One attempt per attempt_key and NPC per save; never reroll by reopening the menu.",
+    "skill_checks": "d20 + ability + applicable proficiency; DCs null until balanced. Persistent NPC/node/choice attempt keys, one roll per save, no reroll by reopening.",
     "payment": "Validate funds before removing currency. Payments, item grants and quest claims are atomic; disabled choices do not apply effects.",
-    "persistence": "Rewards, discount flags, quest claims and refused service persist per save and cannot be reset by reopening a conversation.",
+    "persistence": "Payments and item/effect grants resolve atomically. Unique rewards, evidence and discounts cannot be farmed. Discounts never stack.",
     "combat": "Only listed participants join. Other tavern NPCs remain neutral. An opening attack is resolved by the future combat system, not by this data file.",
     "integration": "Dialogue data only. Quests, shop, items, proficiency, combat handoff and scene navigation require later implementation.",
-    "participants": "Referenced NPC interventions require that NPC to be alive and available. Do not resurrect a dead guard; if unavailable, hide the choice path that depends on that intervention.",
-    "fallback_eligibility": "No entry or reward nodes for downed NPCs. After shop/combat effects the dialogue closes. If required participants are unavailable, do not start an empty encounter."
+    "participants": "Referenced NPCs must be alive/available; hide choices whose resulting intervention requires an unavailable NPC. Never resurrect NPCs.",
+    "question_menus": "Informational replies return to remaining unanswered topics. Navigation controls are not spoken lines.",
+    "refunds": "A paid ring owner may use complain_about_ring even after trade is refused. Refund requires the owned ring and paid-purchase flag; once only. Free rings cannot be refunded."
   },
   "design_decisions_pending": [
-    "Schwierigkeitsgrade der Proben.",
-    "Anbindung an Inventar, Wirtschaft, Speicherstände und Szenen; diese Datei enthält keine Laufzeitlogik."
+    "Schwierigkeitsgrade vor Laufzeitintegration festlegen.",
+    "Neue Beweisgegenstände, Item-IDs und Folgen an Inventar, Shop und Speicherstände anbinden. Keine Spiellogik in dieser Datei."
   ],
   "nodes": {
-    "entry": {
+    "service_router": {
       "speaker": "system",
       "text": "",
       "choices": [],
@@ -61,54 +58,27 @@
     },
     "greeting": {
       "speaker": "merchant",
-      "text": "Heilmittel, Pfeile, Ausrüstung. Alles, was du draußen gern dabeihättest. Alles, was du hinterher bedauerst, nicht gekauft zu haben.",
+      "text": "Du willst zur Höhle? Dann habe ich etwas, das dir mehr nützt als noch ein Schwert.",
       "choices": [
         {
+          "id": "ring",
+          "text": "Zeig her.",
+          "next": "ring_offer",
+          "effects": []
+        },
+        {
           "id": "shop",
-          "text": "Zeig mir deine Waren.",
+          "text": "Ich brauche echte Ausrüstung. Zeig mir deine Waren.",
           "next": "shop",
           "effects": []
         },
         {
-          "id": "haggle",
-          "text": "[Überzeugen] Wir kommen lebend zurück und kaufen wieder. Gib uns einen Grund, bei dir zu bleiben.",
-          "next": null,
+          "id": "refund",
+          "text": "Wir müssen über deinen Ring reden.",
+          "next": "refund_router",
           "effects": [],
-          "check": {
-            "ability": "charisma",
-            "skill": "persuasion",
-            "dc": null,
-            "success": "haggle_success",
-            "failure": "haggle_failure",
-            "retry": false,
-            "attempt_key": "merchant.greeting.haggle"
-          },
           "requires": {
-            "flag_false": "merchant_discount_percent"
-          }
-        },
-        {
-          "id": "advice",
-          "text": "Was würdest du für die Höhle mitnehmen?",
-          "next": "advice",
-          "effects": []
-        },
-        {
-          "id": "steal",
-          "text": "[Fingerfertigkeit] Während er redet, den kleinen Münzbeutel vom Tisch nehmen.",
-          "next": null,
-          "effects": [],
-          "check": {
-            "ability": "dexterity",
-            "skill": "sleight_of_hand",
-            "dc": null,
-            "success": "steal_success",
-            "failure": "steal_failure",
-            "retry": false,
-            "attempt_key": "merchant.greeting.steal"
-          },
-          "requires": {
-            "flag_false": "merchant_purse_stolen"
+            "flag_true": "fake_ring_purchased"
           }
         },
         {
@@ -119,34 +89,284 @@
           "end_conversation": true
         }
       ],
-      "effects": []
+      "effects": [],
+      "stage_direction": "Er dreht einen Kupferring so ins Licht, dass die eingeritzten Striche kurz aufglänzen."
     },
-    "shop": {
+    "ring_offer": {
       "speaker": "merchant",
-      "text": "Schau in Ruhe. Was du zerbrichst, steht schon auf deiner Rechnung.",
-      "choices": [],
-      "effects": [
-        {
-          "type": "open_shop",
-          "merchant": "merchant",
-          "apply_discount_flag": "merchant_discount_percent"
-        }
-      ],
-      "terminal": true
-    },
-    "haggle_success": {
-      "speaker": "merchant",
-      "text": "Zehn Prozent. Einmal ausgehandelt, dauerhaft gültig. Wenn du mir wirklich noch ein paarmal Geld vorbeibringst, bin ich zufrieden.",
+      "text": "Zwölf Silber. Alter Spinnenschutz. Die Tiere spüren den Ring und halten Abstand. Billiger als ein neuer Arm.",
       "choices": [
         {
-          "id": "shop",
-          "text": "Dann schauen wir uns deine Waren an.",
-          "next": "shop",
+          "id": "buy",
+          "text": "Wenn das stimmt, nehme ich ihn.",
+          "next": "ring_bought",
+          "effects": [
+            {
+              "type": "spend_currency",
+              "currency": "copper",
+              "amount": 120,
+              "require_funds": true
+            },
+            {
+              "type": "give_item",
+              "item": "fake_spider_ring",
+              "quantity": 1
+            },
+            {
+              "type": "set_flag",
+              "flag": "fake_ring_purchased",
+              "value": true
+            },
+            {
+              "type": "set_flag",
+              "flag": "fake_ring_obtained",
+              "value": true
+            }
+          ],
+          "requires": {
+            "minimum_copper": 120,
+            "flag_false": "fake_ring_obtained"
+          },
+          "atomic_effects": true
+        },
+        {
+          "id": "guarantee",
+          "text": "Und wenn mich trotzdem eine Spinne beißt?",
+          "next": "guarantee",
+          "effects": []
+        },
+        {
+          "id": "examine",
+          "text": "[Arkane Kunde] Die angeblichen Schutzrunen untersuchen.",
+          "next": null,
+          "effects": [],
+          "check": {
+            "ability": "intelligence",
+            "skill": "arcana",
+            "dc": null,
+            "success": "ring_exposed",
+            "failure": "ring_failed",
+            "retry": false,
+            "attempt_key": "merchant.ring_offer.examine"
+          }
+        },
+        {
+          "id": "decline",
+          "text": "Ich behalte meine zwölf Silber.",
+          "next": null,
+          "effects": [],
+          "end_conversation": true
+        }
+      ],
+      "effects": []
+    },
+    "guarantee": {
+      "speaker": "merchant",
+      "text": "Dann hast du ihn vermutlich falsch getragen. Manche halten die Hand weg, wenn die Spinne kommt. Der Ring muss natürlich zwischen dir und dem Tier sein.",
+      "choices": [
+        {
+          "id": "question",
+          "text": "Du erwartest, dass ich einer Riesenspinne die Hand ins Maul halte?",
+          "next": "ring_suspicion",
+          "effects": []
+        },
+        {
+          "id": "back",
+          "text": "Zurück zu den übrigen Fragen.",
+          "next": "ring_offer",
+          "effects": []
+        },
+        {
+          "id": "end",
+          "text": "Das war’s. Bis dann.",
+          "next": null,
+          "effects": [],
+          "end_conversation": true
+        }
+      ],
+      "effects": []
+    },
+    "ring_suspicion": {
+      "speaker": "merchant",
+      "text": "Nicht ins Maul. In ihre Richtung. Du hörst wirklich nur das, was dich aufregt.",
+      "choices": [
+        {
+          "id": "inspect",
+          "text": "[Wahrnehmung] Den Ring und seine angeblichen Gebrauchsspuren genauer betrachten.",
+          "next": null,
+          "effects": [],
+          "check": {
+            "ability": "wisdom",
+            "skill": "perception",
+            "dc": null,
+            "success": "ring_exposed",
+            "failure": "ring_failed",
+            "retry": false,
+            "attempt_key": "merchant.ring_suspicion.inspect"
+          }
+        },
+        {
+          "id": "leave",
+          "text": "Die Aufregung behalte ich. Den Ring behältst du.",
+          "next": null,
+          "effects": [],
+          "end_conversation": true
+        }
+      ],
+      "effects": []
+    },
+    "ring_failed": {
+      "speaker": "merchant",
+      "text": "Du suchst zu viel Glanz. Die wirksamen Dinge sehen oft unscheinbar aus.",
+      "choices": [
+        {
+          "id": "buy",
+          "text": "Gut. Ich nehme ihn.",
+          "next": "ring_bought",
+          "effects": [
+            {
+              "type": "spend_currency",
+              "currency": "copper",
+              "amount": 120,
+              "require_funds": true
+            },
+            {
+              "type": "give_item",
+              "item": "fake_spider_ring",
+              "quantity": 1
+            },
+            {
+              "type": "set_flag",
+              "flag": "fake_ring_purchased",
+              "value": true
+            },
+            {
+              "type": "set_flag",
+              "flag": "fake_ring_obtained",
+              "value": true
+            }
+          ],
+          "requires": {
+            "minimum_copper": 120,
+            "flag_false": "fake_ring_obtained"
+          },
+          "atomic_effects": true
+        },
+        {
+          "id": "decline",
+          "text": "Dann bleibe ich bei meinem Schild.",
+          "next": null,
+          "effects": [],
+          "end_conversation": true
+        }
+      ],
+      "effects": []
+    },
+    "ring_bought": {
+      "speaker": "merchant",
+      "text": "Gute Entscheidung. Und denk dran: die Hand nach vorne.",
+      "choices": [],
+      "effects": [],
+      "terminal": true,
+      "stage_direction": "Er steckt die zwölf Silber ein, bevor du den Ring ganz vom Tisch genommen hast."
+    },
+    "ring_exposed": {
+      "speaker": "system",
+      "text": "",
+      "choices": [
+        {
+          "id": "private",
+          "text": "Das ist ein gewöhnlicher Kupferring. Deine Schutzrunen sind Feilspuren.",
+          "next": "fraud",
+          "effects": []
+        },
+        {
+          "id": "public",
+          "text": "[Laut] Zwölf Silber für einen Kupferring! Der Mann verkauft hier Spinnenschutz ohne Schutz!",
+          "next": "public_fraud",
           "effects": []
         },
         {
           "id": "leave",
-          "text": "Darauf komme ich zurück.",
+          "text": "Behalte deinen Schrott.",
+          "next": null,
+          "effects": [],
+          "end_conversation": true
+        }
+      ],
+      "effects": [
+        {
+          "type": "set_flag",
+          "flag": "fake_ring_fraud_known",
+          "value": true
+        }
+      ],
+      "stage_direction": "Die Striche ergeben kein Schutzzeichen. Der Glanz stammt von Lampenfett. Am Ring ist keine Magie."
+    },
+    "fraud": {
+      "speaker": "merchant",
+      "text": "Wenn du laut wirst, bekommt keiner von uns etwas davon. Was willst du?",
+      "choices": [
+        {
+          "id": "discount",
+          "text": "Zehn Prozent auf echte Ware. Dann reden wir nicht mehr über den Ring.",
+          "next": "discount_deal",
+          "effects": []
+        },
+        {
+          "id": "ring_free",
+          "text": "Den Ring kostenlos. Als Erinnerung daran, was du hier versucht hast.",
+          "next": "ring_free_router",
+          "effects": []
+        },
+        {
+          "id": "blackmail",
+          "text": "[Einschüchtern] Zwei Silber Schweigegeld. Sonst hören deine nächsten Kunden alles.",
+          "next": null,
+          "effects": [],
+          "check": {
+            "ability": "charisma",
+            "skill": "intimidation",
+            "dc": null,
+            "success": "blackmail_success",
+            "failure": "blackmail_failure",
+            "retry": false,
+            "attempt_key": "merchant.fraud.blackmail"
+          },
+          "requires": {
+            "flag_false": "merchant_blackmail_paid"
+          }
+        },
+        {
+          "id": "public",
+          "text": "Dass du es den Gästen selbst erklärst.",
+          "next": "public_fraud",
+          "effects": []
+        },
+        {
+          "id": "leave",
+          "text": "Ich kaufe woanders.",
+          "next": null,
+          "effects": [],
+          "end_conversation": true
+        }
+      ],
+      "effects": [],
+      "stage_direction": "Er legt seine Hand flach über den Ring und senkt die Stimme."
+    },
+    "discount_deal": {
+      "speaker": "merchant",
+      "text": "Zehn Prozent. Auf echte Ware. Und jetzt lässt du den Ring aus deinen Geschichten raus.",
+      "choices": [
+        {
+          "id": "shop",
+          "text": "Dann zeig mir die echte Ware.",
+          "next": "shop",
+          "effects": []
+        },
+        {
+          "id": "end",
+          "text": "Das war’s. Bis dann.",
           "next": null,
           "effects": [],
           "end_conversation": true
@@ -160,231 +380,60 @@
         }
       ]
     },
-    "haggle_failure": {
+    "ring_free_router": {
+      "speaker": "system",
+      "text": "",
+      "choices": [],
+      "effects": [],
+      "switch": {
+        "flag": "fake_ring_obtained",
+        "cases": {
+          "true": "already_has_ring"
+        },
+        "default": "ring_free"
+      }
+    },
+    "ring_free": {
       "speaker": "merchant",
-      "text": "Jeder verspricht mir, wiederzukommen. Manche tun’s sogar. Meine Preise gelten trotzdem für alle.",
-      "choices": [
+      "text": "Nimm ihn. Aber dann verschwindet das Gespräch zusammen mit ihm in deiner Tasche.",
+      "choices": [],
+      "effects": [
         {
-          "id": "shop",
-          "text": "Dann zeig mir die Waren.",
-          "next": "shop",
-          "effects": []
+          "type": "give_item",
+          "item": "fake_spider_ring",
+          "quantity": 1
         },
         {
-          "id": "leave",
-          "text": "Dann lasse ich’s.",
-          "next": null,
-          "effects": [],
-          "end_conversation": true
+          "type": "set_flag",
+          "flag": "fake_ring_obtained",
+          "value": true
         }
       ],
-      "effects": []
+      "terminal": true,
+      "once_per_save": true,
+      "atomic_effects": true
     },
-    "advice": {
+    "already_has_ring": {
       "speaker": "merchant",
-      "text": "Heilmittel und Gegengift. Pfeile für alles, was von der Decke kommt. Und keine Panik, wenn du etwas Großes triffst und es nicht blutet. Ein Loch im Felsen wird nicht durch Fluchen größer.",
-      "choices": [
-        {
-          "id": "shop",
-          "text": "Zeig mir, was du davon hast.",
-          "next": "shop",
-          "effects": []
-        },
-        {
-          "id": "leave",
-          "text": "Danke für den Rat.",
-          "next": null,
-          "effects": [],
-          "end_conversation": true
-        }
-      ],
-      "effects": []
+      "text": "Du hast ihn schon. Eine Erinnerung pro Kunde reicht.",
+      "choices": [],
+      "effects": [],
+      "terminal": true
     },
-    "steal_success": {
+    "blackmail_success": {
       "speaker": "merchant",
-      "text": "Und? Suchst du etwas Bestimmtes?",
-      "choices": [
-        {
-          "id": "leave",
-          "text": "Nur einen Überblick. Bis später.",
-          "next": null,
-          "effects": [],
-          "end_conversation": true
-        }
-      ],
+      "text": "Zwei Silber. Und ich will dich danach nicht mehr vor meinem Tisch stehen sehen.",
+      "choices": [],
       "effects": [
         {
           "type": "give_currency",
           "currency": "copper",
-          "amount": 10
+          "amount": 20
         },
         {
           "type": "set_flag",
-          "flag": "merchant_purse_stolen",
+          "flag": "merchant_blackmail_paid",
           "value": true
-        }
-      ],
-      "stage_direction": "Der Münzbeutel verschwindet unbemerkt in deiner Tasche.",
-      "once_per_save": true,
-      "atomic_effects": true
-    },
-    "steal_failure": {
-      "speaker": "merchant",
-      "text": "Leg ihn hin. Langsam. Dann entscheiden wir, ob ich die Wache brauche.",
-      "choices": [
-        {
-          "id": "return",
-          "text": "Schon gut. Hier ist er.",
-          "next": "return_purse",
-          "effects": []
-        },
-        {
-          "id": "lie",
-          "text": "[Täuschen] Ich wollte nur prüfen, ob das Leder etwas taugt.",
-          "next": null,
-          "effects": [],
-          "check": {
-            "ability": "charisma",
-            "skill": "deception",
-            "dc": null,
-            "success": "excuse_success",
-            "failure": "excuse_failure",
-            "retry": false,
-            "attempt_key": "merchant.steal_failure.lie"
-          }
-        },
-        {
-          "id": "attack",
-          "text": "Dann brauchst du sie jetzt. [Angreifen]",
-          "next": "fight_guard",
-          "effects": []
-        }
-      ],
-      "effects": [],
-      "stage_direction": "Er hält dein Handgelenk fest. Der Beutel ist noch nicht in deinem Besitz.",
-      "note": "No currency is given on a failed theft.",
-      "participant_requirements": {
-        "town_guard": {
-          "alive": true,
-          "can_fight": true
-        }
-      }
-    },
-    "return_purse": {
-      "speaker": "merchant",
-      "text": "Du kaufst hier heute nichts mehr. Pack deine Finger ein und geh.",
-      "choices": [],
-      "effects": [
-        {
-          "type": "set_flag",
-          "flag": "merchant_service_refused",
-          "value": true
-        }
-      ],
-      "terminal": true
-    },
-    "excuse_success": {
-      "speaker": "merchant",
-      "text": "Es taugt. Dein Benehmen nicht. Beim nächsten Griff lässt du erst eine Münze liegen.",
-      "choices": [
-        {
-          "id": "shop",
-          "text": "Dann kaufe ich lieber ehrlich ein.",
-          "next": "shop",
-          "effects": []
-        },
-        {
-          "id": "leave",
-          "text": "Verstanden.",
-          "next": null,
-          "effects": [],
-          "end_conversation": true
-        }
-      ],
-      "effects": []
-    },
-    "excuse_failure": {
-      "speaker": "merchant",
-      "text": "Und ich prüfe jetzt, ob die Wache aufmerksam ist. Wache!",
-      "choices": [
-        {
-          "id": "fine",
-          "text": "Gut. Fünf Silber. Lassen wir es dabei.",
-          "next": "fine_paid",
-          "effects": [
-            {
-              "type": "spend_currency",
-              "currency": "copper",
-              "amount": 50,
-              "require_funds": true
-            }
-          ],
-          "requires": {
-            "minimum_copper": 50
-          },
-          "atomic_effects": true
-        },
-        {
-          "id": "leave",
-          "text": "Ich gehe. Der Beutel bleibt hier.",
-          "next": null,
-          "effects": [
-            {
-              "type": "set_flag",
-              "flag": "merchant_service_refused",
-              "value": true
-            }
-          ],
-          "end_conversation": true
-        },
-        {
-          "id": "attack",
-          "text": "Dann versuch, sie zu kassieren. [Angreifen]",
-          "next": "fight_guard",
-          "effects": []
-        }
-      ],
-      "effects": [],
-      "stage_direction": "Die Wache kommt dazu. „Fünf Silber wegen des Diebstahlversuchs, wenn du hier weiter einkaufen willst. Sonst gehst du und lässt den Händler in Ruhe.“",
-      "participant_requirements": {
-        "town_guard": {
-          "alive": true,
-          "can_fight": true
-        }
-      }
-    },
-    "fine_paid": {
-      "speaker": "town_guard",
-      "text": "Gut. Der Beutel bleibt auf dem Tisch. Deine Hände bleiben ab jetzt bei dir.",
-      "choices": [
-        {
-          "id": "shop",
-          "text": "Ich will nur noch kaufen.",
-          "next": "shop",
-          "effects": []
-        },
-        {
-          "id": "leave",
-          "text": "Das war’s für heute.",
-          "next": null,
-          "effects": [],
-          "end_conversation": true
-        }
-      ],
-      "effects": []
-    },
-    "fight_guard": {
-      "speaker": "town_guard",
-      "text": "Du hast es so gewollt.",
-      "choices": [],
-      "effects": [
-        {
-          "type": "start_combat",
-          "participants": [
-            "town_guard"
-          ],
-          "opening_attack": null,
-          "on_victory": null
         },
         {
           "type": "set_flag",
@@ -393,30 +442,324 @@
         }
       ],
       "terminal": true,
-      "stage_direction": "Die Wache zieht ihr Schwert. Der unbewaffnete Händler zieht sich zurück.",
-      "participant_conditions": {
-        "town_guard": {
-          "alive": true,
-          "can_fight": true
+      "once_per_save": true,
+      "stage_direction": "Er zählt die Münzen verdeckt unter der Tischkante ab.",
+      "atomic_effects": true
+    },
+    "blackmail_failure": {
+      "speaker": "merchant",
+      "text": "Ein Händler, der Mist verkauft, und jemand, der ihn erpresst. Willst du wirklich, dass die Wache entscheiden muss, wer schlimmer ist?",
+      "choices": [
+        {
+          "id": "public",
+          "text": "Die Gäste dürfen auch entscheiden.",
+          "next": "public_fraud",
+          "effects": []
+        },
+        {
+          "id": "discount",
+          "text": "Dann zehn Prozent auf echte Ware. Kein Geld aus deinem Beutel.",
+          "next": "discount_deal",
+          "effects": []
+        },
+        {
+          "id": "leave",
+          "text": "Dann sind wir fertig.",
+          "next": null,
+          "effects": [],
+          "end_conversation": true
         }
+      ],
+      "effects": []
+    },
+    "public_fraud": {
+      "speaker": "merchant",
+      "text": "Du verstehst das falsch. Es ist ein traditionelles Zeichen, keine Garantie.",
+      "choices": [],
+      "effects": [
+        {
+          "type": "set_flag",
+          "flag": "merchant_fraud_public",
+          "value": true
+        },
+        {
+          "type": "set_flag",
+          "flag": "merchant_service_refused",
+          "value": true
+        }
+      ],
+      "automatic_next": "public_aftermath",
+      "stage_direction": "Ein Gast legt eine gerade gekaufte Schnalle zurück auf den Tisch. Ein anderer fragt laut, ob seine Heilsalbe auch nur Fett sei."
+    },
+    "public_aftermath": {
+      "speaker": "merchant",
+      "text": "Glückwunsch. Du hast deine Zuhörer. Bei mir kaufst du nichts mehr.",
+      "choices": [],
+      "effects": [],
+      "terminal": true,
+      "stage_direction": "Er stopft die übrigen Ringe in einen Beutel und dreht seinen Tisch von dir weg."
+    },
+    "refund_router": {
+      "speaker": "system",
+      "text": "",
+      "choices": [],
+      "effects": [],
+      "switch": {
+        "flag": "fake_ring_refunded",
+        "cases": {
+          "true": "already_refunded"
+        },
+        "default": "refund_entry"
+      },
+      "requires": {
+        "flag_true": "fake_ring_purchased"
       }
+    },
+    "refund_entry": {
+      "speaker": "merchant",
+      "text": "Du wolltest den Ring, du hast den Ring. Was soll ich jetzt noch tun?",
+      "choices": [
+        {
+          "id": "proof",
+          "text": "Dein Ring ist wertlos. Hier sind deine Feilspuren. Ich will meine zwölf Silber zurück.",
+          "next": "refund_demand",
+          "effects": [],
+          "requires": {
+            "flag_true": "fake_ring_fraud_known",
+            "item": "fake_spider_ring",
+            "quantity": 1
+          }
+        },
+        {
+          "id": "examine",
+          "text": "[Arkane Kunde] Den Ring jetzt gründlich untersuchen.",
+          "next": null,
+          "effects": [],
+          "check": {
+            "ability": "intelligence",
+            "skill": "arcana",
+            "dc": null,
+            "success": "refund_proof",
+            "failure": "refund_no_proof",
+            "retry": false,
+            "attempt_key": "merchant.refund_entry.examine"
+          },
+          "requires": {
+            "item": "fake_spider_ring",
+            "quantity": 1
+          }
+        },
+        {
+          "id": "leave",
+          "text": "Noch nichts. Ich komme wieder.",
+          "next": null,
+          "effects": [],
+          "end_conversation": true
+        }
+      ],
+      "effects": []
+    },
+    "refund_proof": {
+      "speaker": "system",
+      "text": "",
+      "choices": [
+        {
+          "id": "refund",
+          "text": "Ich will mein Geld zurück.",
+          "next": "refund_demand",
+          "effects": []
+        },
+        {
+          "id": "leave",
+          "text": "Den Betrug vergesse ich nicht.",
+          "next": null,
+          "effects": [],
+          "end_conversation": true
+        }
+      ],
+      "effects": [
+        {
+          "type": "set_flag",
+          "flag": "fake_ring_fraud_known",
+          "value": true
+        }
+      ],
+      "stage_direction": "Keine Schutzmagie. Nur Kupfer, Feilspuren und eingetrocknetes Lampenfett."
+    },
+    "refund_no_proof": {
+      "speaker": "merchant",
+      "text": "Du kommst mit einem Verdacht, ich sitze hier mit meiner Ware. Behalt den Ring oder verschenk ihn.",
+      "choices": [],
+      "effects": [],
+      "terminal": true
+    },
+    "refund_demand": {
+      "speaker": "merchant",
+      "text": "Leiser. Leg den Ring hin. Du bekommst dein Geld zurück.",
+      "choices": [
+        {
+          "id": "return",
+          "text": "Hier. Zwölf Silber.",
+          "next": "refunded",
+          "effects": [
+            {
+              "type": "remove_item",
+              "item": "fake_spider_ring",
+              "quantity": 1
+            },
+            {
+              "type": "give_currency",
+              "currency": "copper",
+              "amount": 120
+            },
+            {
+              "type": "set_flag",
+              "flag": "fake_ring_refunded",
+              "value": true
+            }
+          ],
+          "requires": {
+            "item": "fake_spider_ring",
+            "quantity": 1,
+            "flag_true": "fake_ring_purchased",
+            "flag_false": "fake_ring_refunded"
+          },
+          "atomic_effects": true
+        },
+        {
+          "id": "public",
+          "text": "Vor den Gästen. Damit sie wissen, warum du zahlst.",
+          "next": "public_refund",
+          "effects": []
+        },
+        {
+          "id": "keep",
+          "text": "Ich behalte ihn erst einmal als Beweis.",
+          "next": null,
+          "effects": [],
+          "end_conversation": true
+        }
+      ],
+      "effects": []
+    },
+    "refunded": {
+      "speaker": "merchant",
+      "text": "Wir hatten dieses Gespräch nie.",
+      "choices": [],
+      "effects": [],
+      "terminal": true,
+      "stage_direction": "Er nimmt den Ring zurück und schiebt dir die vollen zwölf Silber zu."
+    },
+    "public_refund": {
+      "speaker": "merchant",
+      "text": "Hier. Zwölf Silber. Dein Ring war eine schlechte Ware. Zufrieden?",
+      "choices": [
+        {
+          "id": "take",
+          "text": "Jetzt schon.",
+          "next": "public_refunded",
+          "effects": [
+            {
+              "type": "remove_item",
+              "item": "fake_spider_ring",
+              "quantity": 1
+            },
+            {
+              "type": "give_currency",
+              "currency": "copper",
+              "amount": 120
+            },
+            {
+              "type": "set_flag",
+              "flag": "fake_ring_refunded",
+              "value": true
+            },
+            {
+              "type": "set_flag",
+              "flag": "merchant_fraud_public",
+              "value": true
+            },
+            {
+              "type": "set_flag",
+              "flag": "merchant_service_refused",
+              "value": true
+            }
+          ],
+          "requires": {
+            "item": "fake_spider_ring",
+            "quantity": 1,
+            "flag_true": "fake_ring_purchased",
+            "flag_false": "fake_ring_refunded"
+          },
+          "atomic_effects": true
+        },
+        {
+          "id": "keep",
+          "text": "Ich behalte den Ring als Beweis.",
+          "next": null,
+          "effects": [],
+          "end_conversation": true
+        }
+      ],
+      "effects": [],
+      "stage_direction": "Er legt die Münzen offen hin. Zwei Gäste sehen erst auf den Ring, dann auf ihre eigenen Einkäufe."
+    },
+    "public_refunded": {
+      "speaker": "merchant",
+      "text": "Und jetzt geh von meinem Tisch.",
+      "choices": [],
+      "effects": [],
+      "terminal": true
+    },
+    "already_refunded": {
+      "speaker": "merchant",
+      "text": "Du hast deine zwölf Silber zurück. Dieselbe Ware nehme ich kein zweites Mal zurück.",
+      "choices": [],
+      "effects": [],
+      "terminal": true
+    },
+    "shop": {
+      "speaker": "merchant",
+      "text": "Schau. Die Preise stehen dran. Die Ware kannst du prüfen, bevor du zahlst.",
+      "choices": [],
+      "effects": [
+        {
+          "type": "open_shop",
+          "merchant": "merchant",
+          "apply_discount_flag": "merchant_discount_percent"
+        }
+      ],
+      "terminal": true
     },
     "refused": {
       "speaker": "merchant",
-      "text": "Du hattest deine Gelegenheit. Hier kaufst du nichts mehr.",
+      "text": "Mein Tisch ist für dich geschlossen.",
       "choices": [],
       "effects": [],
       "terminal": true
     }
   },
   "world_dependencies": {
-    "shop_catalog": "Use the future shop inventory. No gear is created by this dialogue.",
-    "shop_discount": "merchant_discount_percent=10, permanent once awarded; never stack it.",
-    "stolen_item": "One generic merchant_coin_purse containing exactly 10 copper; no random expensive merchandise."
+    "shop": "Uses future real shop stock; fake ring sale is not a genuine protective item.",
+    "ring": {
+      "id": "fake_spider_ring",
+      "actual_value_copper": 1,
+      "sale_price_copper": 120,
+      "magical": false,
+      "combat_bonus": 0,
+      "poison_resistance": false,
+      "description": "Kupferring mit eingekratzten Strichen; wird betrügerisch als Spinnenschutz angeboten."
+    },
+    "proof": "No ring destruction required; examination reveals filed-in marks and lamp grease, no enchantment.",
+    "discount": "merchant_discount_percent shared with old file; fixed 10, not stacked."
   },
   "entry_requirements": {
     "npc_alive": "merchant",
     "game_mode": "exploration",
     "no_combat_active": true
-  }
+  },
+  "additional_entries": {
+    "complain_about_ring": "refund_router"
+  },
+  "revision": 2
 }

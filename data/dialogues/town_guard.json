@@ -4,7 +4,7 @@
   "language": "de",
   "status": "authored_dialogue_design_not_runtime_integrated",
   "title": "Wache – Türdienst und Höhlenauftrag",
-  "personality": "Trocken, müde, auf Ordnung bedacht. Verlangt bei Ärger Gebühren, lässt sich aber zu Zugeständnissen bewegen.",
+  "personality": "Eine einzelne, korrupte Wache. Sie bietet nur 30 der bereitgestellten 50 Silber als Höhlenbelohnung an und will 20 behalten. Entlarvung macht sie nervös; öffentliche Bloßstellung persönlich.",
   "entry": "greeting",
   "source": {
     "repository": "Wuerfelduell/Dnd",
@@ -29,28 +29,27 @@
       "status": "same_proposed_conversion_as_innkeeper"
     },
     "transitions": "next refers to a node in this file; terminal ends the conversation. back/continue are navigation controls rather than spoken dialogue.",
-    "skill_checks": "d20 plus ability and applicable skill proficiency; success when total >= DC. DC is null until gameplay balancing. One attempt per attempt_key and NPC per save; never reroll by reopening the menu.",
+    "skill_checks": "d20 + ability + applicable proficiency. DCs remain null pending balancing. A persistent NPC/node/choice attempt key permits one roll per save. A failed roll must still leave an exit; do not silently reroll.",
     "payment": "Validate funds before removing currency. Payments, item grants and quest claims are atomic; disabled choices do not apply effects.",
-    "persistence": "Rewards, discount flags, quest claims and refused service persist per save and cannot be reset by reopening a conversation.",
+    "persistence": "Choices gated by flags/quest state cannot be farmed. Payments plus item/effect grants and quest rewards resolve atomically. Applied discount is fixed, not cumulative.",
     "combat": "Only listed participants join. Other tavern NPCs remain neutral. An opening attack is resolved by the future combat system, not by this data file.",
     "integration": "Dialogue data only. Quests, shop, items, proficiency, combat handoff and scene navigation require later implementation.",
-    "participants": "Referenced NPC interventions require that NPC to be alive and available. Do not resurrect a dead guard; if unavailable, hide the choice path that depends on that intervention.",
-    "fallback_eligibility": "No entry or reward nodes for downed NPCs. After shop/combat effects the dialogue closes. If required participants are unavailable, do not start an empty encounter."
+    "question_menus": "Informational replies return to remaining questions or a clearly labeled topic menu. once_answered choices are removed until all remaining topics are resolved; reopening does not reset checked/rewarded choices.",
+    "participants": "NPC interventions require the named NPC to be alive/available. If absent, hide the dependent choice before selection, including checks whose failure would summon that NPC. Never revive NPCs."
   },
   "design_decisions_pending": [
-    "Schwierigkeitsgrade der Proben.",
-    "Anbindung an Inventar, Wirtschaft, Speicherstände und Szenen; diese Datei enthält keine Laufzeitlogik.",
-    "Abnahmekriterium und sichere Prüfung des einmaligen Höhlen-Encounters vor der Auszahlung."
+    "Schwierigkeitsgrade und Skill-Proficiencies vor der Laufzeitintegration festlegen.",
+    "Neue Beweisgegenstände, Auftragsbedingungen und Folgen an Inventar, Speicherstände und Szenen anbinden. Diese Datei implementiert keine Spiellogik."
   ],
   "nodes": {
     "greeting": {
       "speaker": "town_guard",
-      "text": "Deine Waffen kannst du behalten. Solange sie in den Scheiden bleiben. Und nein, ‚er hat beim Kartenspiel geschummelt‘ zählt hier nicht als Notwehr.",
+      "text": "Suchst du Arbeit oder Ärger? Für das Erste habe ich einen Auftrag. Für das Zweite stehe ich schon hier.",
       "choices": [
         {
-          "id": "cave",
-          "text": "Der Wirt sagt, du zahlst für die Viecher in der Höhle.",
-          "next": "cave_offer",
+          "id": "job",
+          "text": "Der Wirt hat mich wegen der Höhle zu dir geschickt.",
+          "next": "offer",
           "effects": [],
           "requires": {
             "quest_not_accepted": "clear_tavern_cave",
@@ -58,130 +57,31 @@
           }
         },
         {
-          "id": "road",
-          "text": "Was ist auf der Straße los?",
-          "next": "road",
-          "effects": []
-        },
-        {
-          "id": "fees",
-          "text": "Bekommst du vom Wirt eigentlich einen Anteil an den Gebühren?",
-          "next": "fees",
-          "effects": []
-        },
-        {
-          "id": "threat",
-          "text": "[Einschüchtern] Wenn ich Ärger machen will, hältst du mich nicht auf.",
-          "next": null,
-          "effects": [],
-          "check": {
-            "ability": "charisma",
-            "skill": "intimidation",
-            "dc": null,
-            "success": "threat_success",
-            "failure": "threat_failure",
-            "retry": false,
-            "attempt_key": "town_guard.greeting.threat"
-          }
-        },
-        {
-          "id": "leave",
-          "text": "Dann lasse ich dich weiter die Tür bewachen.",
-          "next": null,
-          "effects": [],
-          "end_conversation": true
-        }
-      ],
-      "effects": []
-    },
-    "cave_offer": {
-      "speaker": "town_guard",
-      "text": "Dreißig Silber für die Höhle. Nicht für zwei tote Spinnen vor dem Eingang. Wenn da unten noch etwas lebt, das einen Reisenden fressen kann, ist die Arbeit nicht erledigt.",
-      "choices": [
-        {
-          "id": "accept",
-          "text": "Abgemacht. Wir kümmern uns darum.",
-          "next": "cave_accept",
-          "effects": [
-            {
-              "type": "set_quest",
-              "quest": "clear_tavern_cave",
-              "status": "accepted",
-              "reward_copper": 300
-            }
-          ],
-          "requires": {
-            "quest_not_accepted": "clear_tavern_cave"
-          }
-        },
-        {
-          "id": "details",
-          "text": "Was erwartet uns dort?",
-          "next": "cave_details",
+          "id": "payment",
+          "text": "Woher kommt das Geld für den Auftrag?",
+          "next": "funding",
           "effects": [],
           "once_answered": true
         },
         {
-          "id": "negotiate",
-          "text": "[Überzeugen] Vierzig Silber. Du hast schließlich einen Grund, nicht selbst reinzugehen.",
-          "next": null,
+          "id": "road",
+          "text": "Warum gehst du nicht selbst in die Höhle?",
+          "next": "road",
           "effects": [],
-          "check": {
-            "ability": "charisma",
-            "skill": "persuasion",
-            "dc": null,
-            "success": "cave_negotiate_success",
-            "failure": "cave_negotiate_failure",
-            "retry": false,
-            "attempt_key": "town_guard.cave_offer.negotiate"
-          }
+          "once_answered": true
         },
         {
-          "id": "decline",
-          "text": "Dann such dir jemand anderen.",
-          "next": null,
+          "id": "claim",
+          "text": "Wir müssen über unseren Höhlenauftrag reden.",
+          "next": "claim_router",
           "effects": [],
-          "end_conversation": true
-        }
-      ],
-      "effects": []
-    },
-    "cave_details": {
-      "speaker": "town_guard",
-      "text": "Spinnen und Fledermäuse haben wir gesehen. Einer meiner Leute schwört, dass weiter hinten ein Felsen aufgestanden ist. Ich zahle dir fürs Nachsehen, nicht fürs Ausprobieren, ob er recht hatte.",
-      "choices": [
-        {
-          "id": "back",
-          "text": "Zurück zum Auftrag.",
-          "next": "cave_offer",
-          "effects": []
-        }
-      ],
-      "effects": []
-    },
-    "cave_negotiate_success": {
-      "speaker": "town_guard",
-      "text": "Vierzig. Wenn die Höhle sicher ist. Ich will keinen halben Auftrag und keine halbe Leiche zurück.",
-      "choices": [
-        {
-          "id": "accept",
-          "text": "Abgemacht.",
-          "next": "cave_accept",
-          "effects": [
-            {
-              "type": "set_quest",
-              "quest": "clear_tavern_cave",
-              "status": "accepted",
-              "reward_copper": 400
-            }
-          ],
           "requires": {
-            "quest_not_accepted": "clear_tavern_cave"
+            "quest_accepted_or_completed": "clear_tavern_cave"
           }
         },
         {
-          "id": "decline",
-          "text": "Ich überlege es mir.",
+          "id": "leave",
+          "text": "Heute weder Arbeit noch Ärger.",
           "next": null,
           "effects": [],
           "end_conversation": true
@@ -189,14 +89,14 @@
       ],
       "effects": []
     },
-    "cave_negotiate_failure": {
+    "offer": {
       "speaker": "town_guard",
-      "text": "Du hast recht: Ich habe einen Grund. Und genau dreißig Silber. Nimm den Auftrag oder lass es.",
+      "text": "Dreißig Silber. Du machst die Höhle sicher, ich zahle. Alles, was du dort findest, geht mich nichts an.",
       "choices": [
         {
           "id": "accept",
-          "text": "Dreißig reichen. Wir machen es.",
-          "next": "cave_accept",
+          "text": "Abgemacht. Wir kümmern uns um die Höhle.",
+          "next": "accepted",
           "effects": [
             {
               "type": "set_quest",
@@ -206,12 +106,62 @@
             }
           ],
           "requires": {
-            "quest_not_accepted": "clear_tavern_cave"
+            "quest_not_accepted": "clear_tavern_cave",
+            "quest_not_completed": "clear_tavern_cave"
           }
         },
         {
+          "id": "details",
+          "text": "Was genau sollen wir töten?",
+          "next": "details",
+          "effects": [],
+          "once_answered": true
+        },
+        {
+          "id": "read_guard",
+          "text": "[Motiv erkennen] Beim Wort ‚dreißig‘ auf seine Reaktion achten.",
+          "next": null,
+          "effects": [],
+          "check": {
+            "ability": "wisdom",
+            "skill": "insight",
+            "dc": null,
+            "success": "notice_success",
+            "failure": "notice_failure",
+            "retry": false,
+            "attempt_key": "town_guard.offer.read_guard"
+          }
+        },
+        {
+          "id": "notice",
+          "text": "Ich lese erst den Aushang neben deiner Tür.",
+          "next": "read_notice",
+          "effects": []
+        },
+        {
           "id": "decline",
-          "text": "Dann nicht.",
+          "text": "Für dreißig Silber gehst du selbst.",
+          "next": null,
+          "effects": [],
+          "end_conversation": true
+        }
+      ],
+      "effects": [],
+      "stage_direction": "Beim Nennen der Summe schiebt er einen versiegelten Geldbeutel hinter den Krug auf seinem Tisch."
+    },
+    "details": {
+      "speaker": "town_guard",
+      "text": "Spinnen, Fledermäuse und was sonst dort unten sitzt. Mein letzter Mann hat von einem Felsen erzählt, der aufgestanden ist. Ich will nicht hören, dass du den Eingang freigeräumt hast, während dahinter noch jemand gefressen wird.",
+      "choices": [
+        {
+          "id": "back",
+          "text": "Zurück zu den übrigen Fragen.",
+          "next": "offer",
+          "effects": []
+        },
+        {
+          "id": "end",
+          "text": "Das war’s. Bis dann.",
           "next": null,
           "effects": [],
           "end_conversation": true
@@ -219,20 +169,13 @@
       ],
       "effects": []
     },
-    "cave_accept": {
+    "funding": {
       "speaker": "town_guard",
-      "text": "Komm zurück, wenn die Höhle sicher ist. Ich gehe selbst bis zum Eingang und prüfe deine Geschichte. Bis dahin bleibt das Geld bei mir.",
-      "choices": [],
-      "effects": [],
-      "terminal": true
-    },
-    "road": {
-      "speaker": "town_guard",
-      "text": "Räuber im Norden. Wolfsrudel am Waldrand. Und mittendrin Händler, die meinen, eine Laterne mache sie unsterblich. Geh bei Tageslicht und bleib bei deinen Leuten.",
+      "text": "Vom Dorf. Die Händler wollten wieder eine sichere Straße. Ich verwalte die Auszahlung. Einer muss ja aufpassen, dass sich hier keiner bedient.",
       "choices": [
         {
           "id": "back",
-          "text": "Noch etwas anderes.",
+          "text": "Zurück zu den übrigen Fragen.",
           "next": "greeting",
           "effects": []
         },
@@ -246,19 +189,19 @@
       ],
       "effects": []
     },
-    "fees": {
+    "road": {
       "speaker": "town_guard",
-      "text": "Ich bekomme einen Anteil an jedem Abend, an dem ich hier meine Ruhe habe. Deiner läuft gerade schlecht.",
+      "text": "Weil ich hier gebraucht werde. Stell dir vor, ich gehe rein und irgendein Idiot sticht währenddessen den Wirt ab.",
       "choices": [
         {
           "id": "back",
-          "text": "Noch etwas anderes.",
+          "text": "Zurück zu den übrigen Fragen.",
           "next": "greeting",
           "effects": []
         },
         {
           "id": "end",
-          "text": "Schon verstanden.",
+          "text": "Das war’s. Bis dann.",
           "next": null,
           "effects": [],
           "end_conversation": true
@@ -266,23 +209,349 @@
       ],
       "effects": []
     },
-    "threat_success": {
-      "speaker": "town_guard",
-      "text": "Du hast mich beeindruckt. Jetzt beeindruck mich damit, dass du dein Schwert stecken lässt.",
-      "choices": [],
+    "notice_success": {
+      "speaker": "system",
+      "text": "",
+      "choices": [
+        {
+          "id": "confront",
+          "text": "Du hast gerade den Geldbeutel versteckt. Was steht wirklich auf dem Aushang?",
+          "next": "read_notice",
+          "effects": []
+        },
+        {
+          "id": "back",
+          "text": "Zurück zu den übrigen Fragen.",
+          "next": "offer",
+          "effects": []
+        }
+      ],
       "effects": [
         {
           "type": "set_flag",
-          "flag": "guard_final_warning",
+          "flag": "guard_suspected",
           "value": true
         }
       ],
-      "terminal": true,
-      "stage_direction": "Die Wache nimmt die Hand vom Schwertgriff, behält dich aber im Blick."
+      "stage_direction": "Er schaut beim Nennen der Summe zum Aushang und verdeckt den Geldbeutel mit dem Unterarm. Etwas an seinem Angebot stimmt nicht."
     },
-    "threat_failure": {
+    "notice_failure": {
       "speaker": "town_guard",
-      "text": "Dann finden wir heraus, wer von uns sich überschätzt.",
+      "text": "Du kannst meine Hände noch eine Stunde anstarren. Dreißig bleiben dreißig.",
+      "choices": [
+        {
+          "id": "accept",
+          "text": "Abgemacht. Wir kümmern uns um die Höhle.",
+          "next": "accepted",
+          "effects": [
+            {
+              "type": "set_quest",
+              "quest": "clear_tavern_cave",
+              "status": "accepted",
+              "reward_copper": 300
+            }
+          ],
+          "requires": {
+            "quest_not_accepted": "clear_tavern_cave",
+            "quest_not_completed": "clear_tavern_cave"
+          }
+        },
+        {
+          "id": "notice",
+          "text": "Dann lese ich den Aushang selbst.",
+          "next": "read_notice",
+          "effects": []
+        },
+        {
+          "id": "decline",
+          "text": "Dann behalt dein Angebot.",
+          "next": null,
+          "effects": [],
+          "end_conversation": true
+        }
+      ],
+      "effects": []
+    },
+    "read_notice": {
+      "speaker": "system",
+      "text": "Auf dem Aushang steht: ‚Sicherung der nördlichen Höhle. Bereitgestellte Belohnung: 50 Silber. Auszahlung durch die Ortswache.‘",
+      "choices": [
+        {
+          "id": "private",
+          "text": "Der Aushang sagt fünfzig. Wo sind die anderen zwanzig?",
+          "next": "exposed",
+          "effects": []
+        },
+        {
+          "id": "public",
+          "text": "[Laut] Hört mal her! Die Wache behält zwanzig Silber von der Höhlenbelohnung!",
+          "next": "public_exposure",
+          "effects": [],
+          "requires": {
+            "npc_alive": "town_guard"
+          }
+        },
+        {
+          "id": "leave",
+          "text": "Den Auftrag schaue ich mir später noch einmal an.",
+          "next": null,
+          "effects": [],
+          "end_conversation": true
+        }
+      ],
+      "effects": [
+        {
+          "type": "set_flag",
+          "flag": "guard_bounty_evidence",
+          "value": true
+        }
+      ]
+    },
+    "exposed": {
+      "speaker": "town_guard",
+      "text": "Verwaltung, Abnahme, Unkosten. Oder glaubst du, der Beutel zählt sich selbst?",
+      "choices": [
+        {
+          "id": "full",
+          "text": "Dann spare ich dir die Verwaltung. Ich nehme die vollen fünfzig.",
+          "next": "full_offer",
+          "effects": []
+        },
+        {
+          "id": "split",
+          "text": "Vierzig für uns. Zehn für dein Schweigen über alles, was wir dort finden.",
+          "next": "split_offer",
+          "effects": []
+        },
+        {
+          "id": "public",
+          "text": "Dann erkläre ich deine Unkosten jetzt den Gästen.",
+          "next": "public_exposure",
+          "effects": []
+        },
+        {
+          "id": "decline",
+          "text": "Mit dir mache ich keine Geschäfte.",
+          "next": null,
+          "effects": [],
+          "end_conversation": true
+        }
+      ],
+      "effects": [],
+      "stage_direction": "Er zieht den Beutel wieder hervor und senkt die Stimme."
+    },
+    "full_offer": {
+      "speaker": "town_guard",
+      "text": "Gut. Fünfzig. Aber die Höhle muss wirklich leer sein. Für jeden lebenden Zahn da unten bleibt das Geld bei mir.",
+      "choices": [
+        {
+          "id": "accept",
+          "text": "Abgemacht. Wir kümmern uns um die Höhle.",
+          "next": "accepted",
+          "effects": [
+            {
+              "type": "set_quest",
+              "quest": "clear_tavern_cave",
+              "status": "accepted",
+              "reward_copper": 500
+            }
+          ],
+          "requires": {
+            "quest_not_accepted": "clear_tavern_cave",
+            "quest_not_completed": "clear_tavern_cave"
+          }
+        },
+        {
+          "id": "decline",
+          "text": "Ich unterschreibe nichts. Noch nicht.",
+          "next": null,
+          "effects": [],
+          "end_conversation": true
+        }
+      ],
+      "effects": []
+    },
+    "split_offer": {
+      "speaker": "town_guard",
+      "text": "Vierzig. Und ich habe weder Schmuck noch Waffen noch einen verdammten Goldklumpen gesehen, den du aus der Höhle trägst.",
+      "choices": [
+        {
+          "id": "accept",
+          "text": "Abgemacht. Wir kümmern uns um die Höhle.",
+          "next": "accepted",
+          "effects": [
+            {
+              "type": "set_quest",
+              "quest": "clear_tavern_cave",
+              "status": "accepted",
+              "reward_copper": 400
+            }
+          ],
+          "requires": {
+            "quest_not_accepted": "clear_tavern_cave",
+            "quest_not_completed": "clear_tavern_cave"
+          }
+        },
+        {
+          "id": "decline",
+          "text": "Lieber doch kein Geschäft.",
+          "next": null,
+          "effects": [],
+          "end_conversation": true
+        }
+      ],
+      "effects": [
+        {
+          "type": "set_flag",
+          "flag": "guard_private_deal",
+          "value": true
+        }
+      ]
+    },
+    "public_exposure": {
+      "speaker": "town_guard",
+      "text": "Fünfzig Silber! Du bekommst fünfzig. Zufrieden?",
+      "choices": [
+        {
+          "id": "accept",
+          "text": "Sehr. Schreib die volle Summe auf.",
+          "next": "public_accepted",
+          "effects": [
+            {
+              "type": "set_quest",
+              "quest": "clear_tavern_cave",
+              "status": "accepted",
+              "reward_copper": 500
+            }
+          ],
+          "requires": {
+            "quest_not_accepted": "clear_tavern_cave",
+            "quest_not_completed": "clear_tavern_cave"
+          }
+        },
+        {
+          "id": "push",
+          "text": "Sag den Gästen erst, wo die zwanzig verschwinden sollten.",
+          "next": "public_push",
+          "effects": []
+        },
+        {
+          "id": "leave",
+          "text": "Jetzt wissen wenigstens alle, mit wem sie Geschäfte machen.",
+          "next": null,
+          "effects": [],
+          "end_conversation": true
+        }
+      ],
+      "effects": [
+        {
+          "type": "set_flag",
+          "flag": "guard_publicly_exposed",
+          "value": true
+        },
+        {
+          "type": "set_flag",
+          "flag": "guard_hostile_attitude",
+          "value": true
+        }
+      ],
+      "stage_direction": "An zwei Tischen verstummen die Gespräche. Die Wache schaut nicht zum Aushang, sondern direkt in dein Gesicht."
+    },
+    "public_accepted": {
+      "speaker": "town_guard",
+      "text": "Du bekommst dein Geld. Und danach gehst du mir aus den Augen.",
+      "choices": [],
+      "effects": [],
+      "terminal": true,
+      "stage_direction": "Er schreibt die fünfzig Silber auf eine Auftragsbestätigung und drückt sie dir in die Hand."
+    },
+    "public_push": {
+      "speaker": "town_guard",
+      "text": "Du hast dein Geld noch nicht verdient. Willst du den Auftrag, oder willst du unbedingt herausfinden, wie geduldig ich bin?",
+      "choices": [
+        {
+          "id": "take_job",
+          "text": "Schreib fünfzig auf. Dann ist Schluss.",
+          "next": "accepted",
+          "effects": [
+            {
+              "type": "set_quest",
+              "quest": "clear_tavern_cave",
+              "status": "accepted",
+              "reward_copper": 500
+            }
+          ],
+          "requires": {
+            "quest_not_accepted": "clear_tavern_cave",
+            "quest_not_completed": "clear_tavern_cave"
+          }
+        },
+        {
+          "id": "threat",
+          "text": "[Einschüchtern] Ich will hören, dass du das Dorf bestehlen wolltest.",
+          "next": null,
+          "effects": [],
+          "check": {
+            "ability": "charisma",
+            "skill": "intimidation",
+            "dc": null,
+            "success": "public_threat_success",
+            "failure": "guard_fight",
+            "retry": false,
+            "attempt_key": "town_guard.public_push.threat"
+          }
+        },
+        {
+          "id": "leave",
+          "text": "Jeder hier hat dich verstanden. Das reicht.",
+          "next": null,
+          "effects": [],
+          "end_conversation": true
+        }
+      ],
+      "effects": []
+    },
+    "public_threat_success": {
+      "speaker": "town_guard",
+      "text": "Die zwanzig wären bei mir geblieben. Jetzt bleiben sie im Beutel. Mehr wirst du von mir nicht hören.",
+      "choices": [
+        {
+          "id": "accept",
+          "text": "Abgemacht. Wir kümmern uns um die Höhle.",
+          "next": "accepted",
+          "effects": [
+            {
+              "type": "set_quest",
+              "quest": "clear_tavern_cave",
+              "status": "accepted",
+              "reward_copper": 500
+            }
+          ],
+          "requires": {
+            "quest_not_accepted": "clear_tavern_cave",
+            "quest_not_completed": "clear_tavern_cave"
+          }
+        },
+        {
+          "id": "leave",
+          "text": "Das war alles, was ich wissen wollte.",
+          "next": null,
+          "effects": [],
+          "end_conversation": true
+        }
+      ],
+      "effects": [
+        {
+          "type": "set_flag",
+          "flag": "guard_confessed",
+          "value": true
+        }
+      ],
+      "stage_direction": "Er spricht jedes Wort einzeln aus. Vom Tisch hinten kommt ein kurzes, ungläubiges Lachen."
+    },
+    "guard_fight": {
+      "speaker": "town_guard",
+      "text": "Dann ist unser Gespräch vorbei.",
       "choices": [],
       "effects": [
         {
@@ -295,30 +564,34 @@
         }
       ],
       "terminal": true,
-      "stage_direction": "Die Wache zieht ihr Schwert."
+      "stage_direction": "Er zieht sein Schwert. „Widerstand gegen die Wache!“"
     },
-    "cave_return": {
+    "accepted": {
+      "speaker": "town_guard",
+      "text": "Komm wieder, wenn die Höhle sicher ist. Ich prüfe den Eingang selbst. Die vereinbarte Summe steht fest.",
+      "choices": [],
+      "effects": [],
+      "terminal": true
+    },
+    "claim_router": {
       "speaker": "system",
       "text": "",
       "choices": [],
       "effects": [],
-      "requires": {
-        "npc_alive": "town_guard"
-      },
       "switch": {
         "quest": "clear_tavern_cave",
         "field": "claim_state",
         "cases": {
-          "ready": "cave_reward",
-          "accepted_incomplete": "cave_incomplete",
-          "completed": "cave_already_paid"
+          "ready": "claim_ready",
+          "accepted_incomplete": "claim_incomplete",
+          "completed": "claim_complete"
         },
-        "default": "cave_not_accepted"
+        "default": "claim_missing"
       }
     },
-    "cave_reward": {
+    "claim_ready": {
       "speaker": "town_guard",
-      "text": "Gut. Dann kann ich meine Leute wieder auf der Straße einsetzen. Hier ist die vereinbarte Belohnung.",
+      "text": "Die Höhle ist sicher. Hier. Die vereinbarte Summe.",
       "choices": [],
       "effects": [
         {
@@ -326,8 +599,8 @@
           "quest": "clear_tavern_cave",
           "require_accepted": true,
           "require_objective": "cave_cleared",
-          "require_not_claimed": true,
-          "verify_objective_before_claim": true
+          "verify_objective_before_claim": true,
+          "require_not_claimed": true
         },
         {
           "type": "complete_quest",
@@ -335,31 +608,31 @@
         }
       ],
       "terminal": true,
-      "stage_direction": "Nach der Prüfung zählt die Wache die vereinbarten Münzen ab.",
+      "stage_direction": "Nach der Prüfung zählt er die Münzen bis zur letzten ab. Bei einem öffentlich entlarvten Betrug vermeidet er jeden Blick zu den anderen Gästen.",
       "atomic_effects": true
     },
-    "cave_incomplete": {
+    "claim_incomplete": {
       "speaker": "town_guard",
-      "text": "Solange da unten noch etwas herumläuft, bleibt das Geld bei mir. Mach die Arbeit zu Ende.",
+      "text": "Da unten lebt noch etwas. Du kannst mich hier bloßstellen, aber deine halbe Arbeit bezahle ich trotzdem nicht.",
       "choices": [],
       "effects": [],
       "terminal": true
     },
-    "cave_already_paid": {
+    "claim_complete": {
       "speaker": "town_guard",
-      "text": "Du hast deine Belohnung bekommen. Dieselbe Höhle bezahle ich nicht zweimal.",
+      "text": "Du hast dein Geld. Wenn du noch einen Beutel suchst, such dir einen anderen Besitzer.",
       "choices": [],
       "effects": [],
       "terminal": true
     },
-    "cave_not_accepted": {
+    "claim_missing": {
       "speaker": "town_guard",
-      "text": "Wir hatten noch keine Abmachung. Sag mir erst, welche Arbeit du übernehmen willst.",
+      "text": "Noch kein Auftrag, noch keine Auszahlung. Willst du über die Höhle reden?",
       "choices": [
         {
           "id": "offer",
-          "text": "Dann reden wir über die Höhle.",
-          "next": "cave_offer",
+          "text": "Dann zeig mir dein Angebot.",
+          "next": "offer",
           "effects": []
         },
         {
@@ -374,17 +647,21 @@
     }
   },
   "additional_entries": {
-    "claim_cave_reward": "cave_return",
-    "cave_quest_progress": "cave_return"
+    "claim_cave_reward": "claim_router"
   },
   "world_dependencies": {
-    "cave_cleared": "All original cave encounter enemies are defeated. Waves/arena kills do not count; do not respawn cave foes for rewards.",
-    "cave_quest": "clear_tavern_cave",
-    "guard_alive": "No dialogue or payout if this guard was defeated."
+    "quest": "clear_tavern_cave",
+    "official_bounty_copper": 500,
+    "offered_bounty_copper": 300,
+    "withheld_cut_copper": 200,
+    "cave_cleared": "All original cave enemies defeated; arena/wave kills never count.",
+    "evidence": "Dated village notice on the table by the door, labeled Höhle – 50 Silber; readable by the player before/after talking.",
+    "guard_alive": "No claims or conversations with a downed guard."
   },
   "entry_requirements": {
     "npc_alive": "town_guard",
     "game_mode": "exploration",
     "no_combat_active": true
-  }
+  },
+  "revision": 2
 }
