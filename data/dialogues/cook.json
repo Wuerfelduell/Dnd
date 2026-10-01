@@ -1,0 +1,661 @@
+{
+  "schema_version": 1,
+  "id": "cook",
+  "language": "de",
+  "status": "authored_dialogue_design_not_runtime_integrated",
+  "title": "Köchin – Eintopf und schlechte Manieren",
+  "personality": "Harte, stolze Köchin. Der blutige Sack enthält gewildertes Reh aus dem herrschaftlichen Forst. Sie spielt mit der Angst der Gäste und will ihre Wilderei vor der korrupten Wache verbergen.",
+  "entry": "service_router",
+  "source": {
+    "repository": "Wuerfelduell/Dnd",
+    "design_reference_branch": "claude/dnd-new-repo-aueydw",
+    "destination_branch": "main"
+  },
+  "speakers": {
+    "system": {
+      "name": ""
+    },
+    "cook": {
+      "name": "Köchin",
+      "actor_reference": "cook"
+    },
+    "town_guard": {
+      "name": "Wache",
+      "actor_reference": "town_guard"
+    }
+  },
+  "conventions": {
+    "address": "Duzen. Ihr/euch nur für die gesamte Gruppe.",
+    "currency": {
+      "base_unit": "copper",
+      "copper_per_silver": 10,
+      "silver_per_gold": 10,
+      "status": "same_proposed_conversion_as_innkeeper"
+    },
+    "transitions": "next refers to a node in this file; terminal ends the conversation. back/continue are navigation controls rather than spoken dialogue.",
+    "skill_checks": "d20 + ability + applicable proficiency. DCs remain null pending balancing. A persistent NPC/node/choice attempt key permits one roll per save. A failed roll must still leave an exit; do not silently reroll.",
+    "payment": "Validate funds before removing currency. Payments, item grants and quest claims are atomic; disabled choices do not apply effects.",
+    "persistence": "Choices gated by flags/quest state cannot be farmed. Payments plus item/effect grants and quest rewards resolve atomically. Applied discount is fixed, not cumulative.",
+    "combat": "Only listed participants join. Other tavern NPCs remain neutral. An opening attack is resolved by the future combat system, not by this data file.",
+    "integration": "Dialogue data only. Quests, shop, items, proficiency, combat handoff and scene navigation require later implementation.",
+    "question_menus": "Informational replies return to remaining questions or a clearly labeled topic menu. once_answered choices are removed until all remaining topics are resolved; reopening does not reset checked/rewarded choices.",
+    "participants": "NPC interventions require the named NPC to be alive/available. If absent, hide the dependent choice before selection, including checks whose failure would summon that NPC. Never revive NPCs."
+  },
+  "design_decisions_pending": [
+    "Schwierigkeitsgrade und Skill-Proficiencies vor der Laufzeitintegration festlegen.",
+    "Neue Beweisgegenstände, Auftragsbedingungen und Folgen an Inventar, Speicherstände und Szenen anbinden. Diese Datei implementiert keine Spiellogik."
+  ],
+  "nodes": {
+    "service_router": {
+      "speaker": "system",
+      "text": "",
+      "choices": [],
+      "effects": [],
+      "switch": {
+        "flag": "food_service_refused",
+        "cases": {
+          "true": "refused"
+        },
+        "default": "greeting"
+      }
+    },
+    "greeting": {
+      "speaker": "cook",
+      "text": "Hunger? Eine Schüssel kostet ein Silber. Fragen über das Fleisch kosten Appetit.",
+      "choices": [
+        {
+          "id": "buy",
+          "text": "Eine Schüssel, bitte.",
+          "next": "price_router",
+          "effects": []
+        },
+        {
+          "id": "sack",
+          "text": "Was ist in dem blutigen Sack unter deinem Tisch?",
+          "next": "sack",
+          "effects": []
+        },
+        {
+          "id": "compliment",
+          "text": "Riecht besser, als du es verkaufst.",
+          "next": "compliment",
+          "effects": []
+        },
+        {
+          "id": "leave",
+          "text": "Ich esse später.",
+          "next": null,
+          "effects": [],
+          "end_conversation": true
+        }
+      ],
+      "effects": [],
+      "stage_direction": "Sie schiebt mit dem Fuß einen schweren Sack unter den Tisch. Eine dunkle Spur bleibt auf den Dielen."
+    },
+    "price_router": {
+      "speaker": "system",
+      "text": "",
+      "choices": [],
+      "effects": [],
+      "switch": {
+        "flag": "cook_silence_deal",
+        "cases": {
+          "true": "half_price"
+        },
+        "default": "normal_price"
+      }
+    },
+    "normal_price": {
+      "speaker": "cook",
+      "text": "Ein Silber. Brot ist dabei. Der Löffel bleibt hier.",
+      "choices": [
+        {
+          "id": "buy",
+          "text": "Hier, ein Silber.",
+          "next": "bought",
+          "effects": [
+            {
+              "type": "spend_currency",
+              "currency": "copper",
+              "amount": 10,
+              "require_funds": true
+            },
+            {
+              "type": "give_item",
+              "item": "stew",
+              "quantity": 1
+            }
+          ],
+          "requires": {
+            "minimum_copper": 10,
+            "food_service_allowed": true
+          },
+          "atomic_effects": true
+        },
+        {
+          "id": "decline",
+          "text": "Dann nicht.",
+          "next": null,
+          "effects": [],
+          "end_conversation": true
+        }
+      ],
+      "effects": []
+    },
+    "half_price": {
+      "speaker": "cook",
+      "text": "Fünf Kupfer. So lange du deinen Mund beim Essen aufmachst und sonst geschlossen hältst.",
+      "choices": [
+        {
+          "id": "buy",
+          "text": "Hier. Fünf Kupfer.",
+          "next": "bought",
+          "effects": [
+            {
+              "type": "spend_currency",
+              "currency": "copper",
+              "amount": 5,
+              "require_funds": true
+            },
+            {
+              "type": "give_item",
+              "item": "stew",
+              "quantity": 1
+            }
+          ],
+          "requires": {
+            "minimum_copper": 5,
+            "food_service_allowed": true
+          },
+          "atomic_effects": true
+        },
+        {
+          "id": "decline",
+          "text": "Heute nicht.",
+          "next": null,
+          "effects": [],
+          "end_conversation": true
+        }
+      ],
+      "effects": []
+    },
+    "bought": {
+      "speaker": "cook",
+      "text": "Heiß. Iss langsam, dann hast du länger was davon.",
+      "choices": [],
+      "effects": [],
+      "terminal": true,
+      "stage_direction": "Sie schiebt dir eine Schüssel und ein Stück Brot hin."
+    },
+    "compliment": {
+      "speaker": "cook",
+      "text": "Dann iss, bevor ich es mir anders überlege.",
+      "choices": [
+        {
+          "id": "buy",
+          "text": "Gut. Eine Schüssel.",
+          "next": "price_router",
+          "effects": []
+        },
+        {
+          "id": "end",
+          "text": "Das war’s. Bis dann.",
+          "next": null,
+          "effects": [],
+          "end_conversation": true
+        }
+      ],
+      "effects": []
+    },
+    "sack": {
+      "speaker": "cook",
+      "text": "Der Letzte, der gefragt hat, wollte auch nicht bezahlen.",
+      "choices": [
+        {
+          "id": "joke",
+          "text": "Soll mich das beruhigen?",
+          "next": "sack_joke",
+          "effects": []
+        },
+        {
+          "id": "inspect",
+          "text": "[Wahrnehmung] Unter dem Tisch nachsehen, während sie zum Topf greift.",
+          "next": null,
+          "effects": [],
+          "check": {
+            "ability": "wisdom",
+            "skill": "perception",
+            "dc": null,
+            "success": "sack_discovered",
+            "failure": "sack_failed",
+            "retry": false,
+            "attempt_key": "cook.sack.inspect"
+          }
+        },
+        {
+          "id": "open",
+          "text": "Dann mach den Sack auf.",
+          "next": "open_sack",
+          "effects": []
+        },
+        {
+          "id": "leave",
+          "text": "Ich verliere gerade meinen Hunger.",
+          "next": null,
+          "effects": [],
+          "end_conversation": true
+        }
+      ],
+      "effects": [],
+      "stage_direction": "Sie wischt sich die Hände an einem Lappen ab. Die Flecken darauf sind frisch."
+    },
+    "sack_joke": {
+      "speaker": "cook",
+      "text": "Mich beruhigt es. Er fragt jedenfalls nicht mehr.",
+      "choices": [
+        {
+          "id": "open",
+          "text": "Mach ihn auf. Ich will sehen, was drin ist.",
+          "next": "open_sack",
+          "effects": []
+        },
+        {
+          "id": "leave",
+          "text": "Ich esse woanders.",
+          "next": null,
+          "effects": [],
+          "end_conversation": true
+        }
+      ],
+      "effects": []
+    },
+    "sack_failed": {
+      "speaker": "cook",
+      "text": "Meine Küche ist da oben. Unter dem Tisch gibt’s nichts für dich.",
+      "choices": [
+        {
+          "id": "ask",
+          "text": "Dann zeig mir den Inhalt selbst.",
+          "next": "open_sack",
+          "effects": []
+        },
+        {
+          "id": "leave",
+          "text": "Schon gut.",
+          "next": null,
+          "effects": [],
+          "end_conversation": true
+        }
+      ],
+      "effects": [],
+      "stage_direction": "Sie zieht den Sack ganz hinter ihre Beine."
+    },
+    "open_sack": {
+      "speaker": "cook",
+      "text": "Ein Reh. Du siehst doch das Fell. Oder glaubst du, ich häute meine Gäste?",
+      "choices": [
+        {
+          "id": "identify",
+          "text": "[Überleben] Die Schlinge und das Wappenband am Hinterlauf betrachten.",
+          "next": null,
+          "effects": [],
+          "check": {
+            "ability": "wisdom",
+            "skill": "survival",
+            "dc": null,
+            "success": "sack_discovered",
+            "failure": "sack_reassured",
+            "retry": false,
+            "attempt_key": "cook.open_sack.identify"
+          }
+        },
+        {
+          "id": "eat",
+          "text": "Dann reicht mir das. Eine Schüssel.",
+          "next": "price_router",
+          "effects": []
+        },
+        {
+          "id": "leave",
+          "text": "Fleisch reicht mir als Antwort.",
+          "next": null,
+          "effects": [],
+          "end_conversation": true
+        }
+      ],
+      "effects": [],
+      "stage_direction": "Sie zieht den Sack kurz auf. Unter dem Fell liegt eine eiserne Schlinge; an einem Lauf hängt ein Stoffstreifen mit einem Wappen."
+    },
+    "sack_reassured": {
+      "speaker": "system",
+      "text": "",
+      "choices": [
+        {
+          "id": "eat",
+          "text": "Ein Reh. Gut. Dann esse ich doch etwas.",
+          "next": "price_router",
+          "effects": []
+        },
+        {
+          "id": "leave",
+          "text": "Ich bin trotzdem nicht hungrig.",
+          "next": null,
+          "effects": [],
+          "end_conversation": true
+        }
+      ],
+      "effects": [],
+      "stage_direction": "Es ist eindeutig Wild. Die Herkunft der Schlinge und des Wappenbandes erkennst du nicht."
+    },
+    "sack_discovered": {
+      "speaker": "system",
+      "text": "",
+      "choices": [
+        {
+          "id": "quiet",
+          "text": "Ein Reh aus dem geschützten Forst. Weiß die Wache, was hier im Topf landet?",
+          "next": "caught",
+          "effects": []
+        },
+        {
+          "id": "public",
+          "text": "[Zur Wache] Komm mal her. Deine Köchin verkauft gewildertes Fleisch.",
+          "next": "expose",
+          "effects": [],
+          "requires": {
+            "npc_alive": "town_guard"
+          }
+        },
+        {
+          "id": "take_evidence",
+          "text": "Das Wappenband nehme ich mit. Dann kannst du später nicht alles abstreiten.",
+          "next": "evidence",
+          "effects": [],
+          "requires": {
+            "flag_false": "cook_evidence_taken"
+          }
+        },
+        {
+          "id": "silent",
+          "text": "Gutes Fleisch. Ich habe nichts gesehen.",
+          "next": null,
+          "effects": [],
+          "end_conversation": true
+        }
+      ],
+      "effects": [
+        {
+          "type": "set_flag",
+          "flag": "cook_poaching_known",
+          "value": true
+        }
+      ],
+      "stage_direction": "Das Wappen markiert den herrschaftlichen Forst, in dem die Jagd verboten ist. Die Schlinge ist mit demselben Zeichen versehen."
+    },
+    "caught": {
+      "speaker": "cook",
+      "text": "Leiser. Der da draußen würde mir den Topf pfänden und danach daraus essen.",
+      "choices": [
+        {
+          "id": "discount",
+          "text": "Fünf Kupfer pro Schüssel. Dann bleibt die Sache unter uns.",
+          "next": "silence_deal",
+          "effects": []
+        },
+        {
+          "id": "food",
+          "text": "Zwei Schüsseln für meine Freunde. Dann habe ich nur ein Reh gesehen.",
+          "next": "free_food",
+          "effects": [],
+          "requires": {
+            "flag_false": "cook_poaching_food_claimed"
+          }
+        },
+        {
+          "id": "public",
+          "text": "Dann soll er wenigstens wissen, was er pfändet.",
+          "next": "expose",
+          "effects": [],
+          "requires": {
+            "npc_alive": "town_guard"
+          }
+        },
+        {
+          "id": "kind",
+          "text": "Lass gut sein. Ich werde dich nicht wegen eines Rehs verkaufen.",
+          "next": null,
+          "effects": [],
+          "end_conversation": true
+        }
+      ],
+      "effects": [],
+      "stage_direction": "Sie packt den Sack oben zusammen und schaut zur Tür."
+    },
+    "silence_deal": {
+      "speaker": "cook",
+      "text": "Fünf Kupfer. Und sobald du das Maul aufmachst, bist du wieder voll zahlender Gast. Wenn ich dich überhaupt noch bediene.",
+      "choices": [
+        {
+          "id": "buy",
+          "text": "Abgemacht. Dann eine Schüssel.",
+          "next": "half_price",
+          "effects": []
+        },
+        {
+          "id": "leave",
+          "text": "Abgemacht. Ich komme später wieder.",
+          "next": null,
+          "effects": [],
+          "end_conversation": true
+        }
+      ],
+      "effects": [
+        {
+          "type": "set_flag",
+          "flag": "cook_silence_deal",
+          "value": true
+        }
+      ]
+    },
+    "free_food": {
+      "speaker": "cook",
+      "text": "Zwei Schüsseln. Einmal. Danach bezahlst du wieder wie jeder andere.",
+      "choices": [],
+      "effects": [
+        {
+          "type": "give_item",
+          "item": "stew",
+          "quantity": 2
+        },
+        {
+          "type": "set_flag",
+          "flag": "cook_poaching_food_claimed",
+          "value": true
+        }
+      ],
+      "terminal": true,
+      "once_per_save": true,
+      "atomic_effects": true
+    },
+    "evidence": {
+      "speaker": "cook",
+      "text": "Das bleibt hier.",
+      "choices": [
+        {
+          "id": "persuade",
+          "text": "[Überzeugen] Ich behalte es als Sicherheit. Die Wache sieht es nur, wenn du mich betrügst.",
+          "next": null,
+          "effects": [],
+          "check": {
+            "ability": "charisma",
+            "skill": "persuasion",
+            "dc": null,
+            "success": "evidence_success",
+            "failure": "evidence_failed",
+            "retry": false,
+            "attempt_key": "cook.evidence.persuade"
+          }
+        },
+        {
+          "id": "attack",
+          "text": "Dann versuch, es mir abzunehmen. [Angreifen]",
+          "next": "cook_fight",
+          "effects": [],
+          "requires": {
+            "npc_alive": "town_guard"
+          }
+        },
+        {
+          "id": "leave",
+          "text": "Gut. Dann lassen wir es liegen.",
+          "next": null,
+          "effects": [],
+          "end_conversation": true
+        }
+      ],
+      "effects": [],
+      "stage_direction": "Sie legt die Hand auf das Wappenband und greift mit der anderen zum Messer."
+    },
+    "evidence_success": {
+      "speaker": "cook",
+      "text": "Nimm es. Aber wenn du damit an der Tür herumwedelst, war das deine letzte warme Mahlzeit hier.",
+      "choices": [],
+      "effects": [
+        {
+          "type": "give_item",
+          "item": "cook_poaching_evidence",
+          "quantity": 1
+        },
+        {
+          "type": "set_flag",
+          "flag": "cook_evidence_taken",
+          "value": true
+        }
+      ],
+      "terminal": true,
+      "once_per_save": true,
+      "atomic_effects": true
+    },
+    "evidence_failed": {
+      "speaker": "cook",
+      "text": "Du sammelst keine Sicherheit. Du sammelst Ärger. Hände weg.",
+      "choices": [
+        {
+          "id": "withdraw",
+          "text": "Schon gut. Ich lasse es liegen.",
+          "next": "greeting",
+          "effects": []
+        },
+        {
+          "id": "attack",
+          "text": "Dann eben mit Gewalt. [Angreifen]",
+          "next": "cook_fight",
+          "effects": [],
+          "requires": {
+            "npc_alive": "town_guard"
+          }
+        }
+      ],
+      "effects": []
+    },
+    "expose": {
+      "speaker": "town_guard",
+      "text": "Wilderei? Das wird teuer.",
+      "choices": [],
+      "effects": [
+        {
+          "type": "set_flag",
+          "flag": "cook_silence_deal",
+          "value": false
+        },
+        {
+          "type": "set_flag",
+          "flag": "food_service_refused",
+          "value": true
+        },
+        {
+          "type": "set_flag",
+          "flag": "cook_poaching_exposed",
+          "value": true
+        }
+      ],
+      "automatic_next": "expose_cook",
+      "stage_direction": "Er zieht den Sack hervor, sieht das Reh und greift nach dem Geldbeutel der Köchin.",
+      "requires": {
+        "npc_alive": "town_guard"
+      }
+    },
+    "expose_cook": {
+      "speaker": "cook",
+      "text": "Nimm deine Finger weg. Deine letzten drei Abendessen kamen aus demselben Sack.",
+      "choices": [],
+      "effects": [],
+      "automatic_next": "expose_guard",
+      "stage_direction": "Die Wache hält kurz inne. Einige Gäste drehen sich um."
+    },
+    "expose_guard": {
+      "speaker": "town_guard",
+      "text": "Die Sache wird intern geklärt. Geh zurück an deinen Tisch.",
+      "choices": [],
+      "effects": [],
+      "automatic_next": "expose_end",
+      "stage_direction": "Er zieht die Köchin ein Stück beiseite. Du hörst Münzen, die in seine Hand fallen."
+    },
+    "expose_end": {
+      "speaker": "cook",
+      "text": "Für dich koche ich keinen Löffel mehr. Schau zu, wie lange dich deine Ehrlichkeit satt macht.",
+      "choices": [],
+      "effects": [],
+      "terminal": true,
+      "stage_direction": "Sie nimmt den Sack wieder an sich. Die Wache geht zurück zur Tür."
+    },
+    "cook_fight": {
+      "speaker": "cook",
+      "text": "",
+      "choices": [],
+      "effects": [
+        {
+          "type": "start_combat",
+          "participants": [
+            "cook",
+            "town_guard"
+          ],
+          "opening_attack": {
+            "attacker": "cook",
+            "weapon": "knife",
+            "target": "speaking_player"
+          },
+          "on_victory": null
+        }
+      ],
+      "terminal": true,
+      "stage_direction": "Sie sticht zu. Die Wache steigt auf ihrer Seite in den Kampf ein.",
+      "participant_conditions": {
+        "town_guard": {
+          "alive": true,
+          "can_fight": true
+        }
+      }
+    },
+    "refused": {
+      "speaker": "cook",
+      "text": "Die Küche ist für dich geschlossen. Das gilt auch, wenn du jetzt plötzlich freundlich bist.",
+      "choices": [],
+      "effects": [],
+      "terminal": true
+    }
+  },
+  "world_dependencies": {
+    "food_service_refused": "Shared with innkeeper.json; preserve refusal.",
+    "poached_deer": "Sack below preparation table contains deer carcass, an iron hunting snare and a torn strip of heraldic cloth from a protected-forest marker; no human remains.",
+    "evidence": "cook_poaching_evidence is a unique cloth/marked snare evidence item, obtainable only once.",
+    "guard_intervention": "Requires the single guard alive/available. Cook+guard combat remains as in innkeeper.json."
+  },
+  "entry_requirements": {
+    "npc_alive": "cook",
+    "game_mode": "exploration",
+    "no_combat_active": true
+  },
+  "additional_entries": {},
+  "revision": 2
+}

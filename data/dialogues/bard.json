@@ -1,0 +1,777 @@
+{
+  "schema_version": 1,
+  "id": "bard",
+  "language": "de",
+  "status": "authored_dialogue_design_not_runtime_integrated",
+  "title": "Barde – Lieder, Spott und Gerüchte",
+  "personality": "Freundlicher, aufmerksamer Barde. Hört zu, erzählt gern und bringt Wärme in die raue Taverne. Keine Drohungen oder Erpressung; mehr Gespräch über Gäste, Jäger und Spieler.",
+  "entry": "entry",
+  "source": {
+    "repository": "Wuerfelduell/Dnd",
+    "design_reference_branch": "claude/dnd-new-repo-aueydw",
+    "destination_branch": "main"
+  },
+  "speakers": {
+    "bard": {
+      "name": "Barde",
+      "actor_reference": "bard"
+    },
+    "system": {
+      "name": ""
+    }
+  },
+  "conventions": {
+    "address": "Duzen. Ihr/euch nur für die gesamte Gruppe.",
+    "currency": {
+      "base_unit": "copper",
+      "copper_per_silver": 10,
+      "silver_per_gold": 10,
+      "status": "same_proposed_conversion_as_innkeeper"
+    },
+    "transitions": "next refers to a node in this file; terminal ends the conversation. back/continue are navigation controls rather than spoken dialogue.",
+    "skill_checks": "d20 + ability + applicable proficiency; DCs null until balanced. Persistent NPC/node/choice attempt keys, one roll per save, no reroll by reopening.",
+    "payment": "Validate funds before removing currency. Payments, item grants and quest claims are atomic; disabled choices do not apply effects.",
+    "persistence": "Payments and item/effect grants resolve atomically. Unique rewards, evidence and discounts cannot be farmed. Discounts never stack.",
+    "combat": "Only listed participants join. Other tavern NPCs remain neutral. An opening attack is resolved by the future combat system, not by this data file.",
+    "integration": "Dialogue data only. Quests, shop, items, proficiency, combat handoff and scene navigation require later implementation.",
+    "participants": "Referenced NPCs must be alive/available; hide choices whose resulting intervention requires an unavailable NPC. Never resurrect NPCs.",
+    "question_menus": "Informational replies return to remaining unanswered topics. Navigation controls are not spoken lines.",
+    "existing_state": "Friendly by default; respects previously saved refusal after a threat. New dialogue contains no threat choices."
+  },
+  "design_decisions_pending": [
+    "Schwierigkeitsgrade vor Laufzeitintegration festlegen.",
+    "Neue Beweisgegenstände, Item-IDs und Folgen an Inventar, Shop und Speicherstände anbinden. Keine Spiellogik in dieser Datei."
+  ],
+  "nodes": {
+    "greeting": {
+      "speaker": "bard",
+      "text": "Komm näher. Du musst nichts bezahlen, um zuzuhören. Für eine gute Geschichte rücke ich sogar ein Stück auf der Bank.",
+      "choices": [
+        {
+          "id": "guests",
+          "text": "Kennst du die Leute hier?",
+          "next": "people",
+          "effects": []
+        },
+        {
+          "id": "hunter",
+          "text": "Was weißt du über den verletzten Jäger?",
+          "next": "hunter",
+          "effects": []
+        },
+        {
+          "id": "you",
+          "text": "Wie bist du hier gelandet?",
+          "next": "past",
+          "effects": []
+        },
+        {
+          "id": "story",
+          "text": "Eine Geschichte kann ich dir anbieten.",
+          "next": "player_story",
+          "effects": []
+        },
+        {
+          "id": "song",
+          "text": "Spiel uns etwas.",
+          "next": "song_offer",
+          "effects": []
+        },
+        {
+          "id": "leave",
+          "text": "Ich höre dir erst einmal von meinem Tisch aus zu.",
+          "next": null,
+          "effects": [],
+          "end_conversation": true
+        }
+      ],
+      "effects": [],
+      "stage_direction": "Er dämpft die Saiten und macht dir neben sich Platz."
+    },
+    "people": {
+      "speaker": "bard",
+      "text": "Lang genug, um zu wissen, wann ich weiterspielen muss. Der Wirt zählt Münzen. Die Köchin zählt Schüsseln. Die Wache zählt beides, wenn sie glaubt, keiner schaut hin.",
+      "choices": [
+        {
+          "id": "wirt",
+          "text": "Und der Wirt?",
+          "next": "wirt",
+          "effects": [],
+          "once_answered": true
+        },
+        {
+          "id": "cook",
+          "text": "Was hältst du von der Köchin?",
+          "next": "cook",
+          "effects": [],
+          "once_answered": true
+        },
+        {
+          "id": "guard",
+          "text": "Die Wache zählt beides?",
+          "next": "guard",
+          "effects": [],
+          "once_answered": true
+        },
+        {
+          "id": "guest",
+          "text": "Was ist mit dem Mann am Tisch?",
+          "next": "guest",
+          "effects": [],
+          "once_answered": true
+        },
+        {
+          "id": "back",
+          "text": "Zurück zu den übrigen Fragen.",
+          "next": "greeting",
+          "effects": []
+        },
+        {
+          "id": "end",
+          "text": "Das war’s. Bis dann.",
+          "next": null,
+          "effects": [],
+          "end_conversation": true
+        }
+      ],
+      "effects": []
+    },
+    "wirt": {
+      "speaker": "bard",
+      "text": "Er kann dir fünf Kupfer abnehmen und dabei aussehen, als hätte er dir gerade einen Gefallen getan. Aber wenn jemand hungrig vor der Tür schläft, stellt er manchmal Essen raus. Er möchte nur nicht, dass man ihn dabei sieht.",
+      "choices": [
+        {
+          "id": "back",
+          "text": "Zurück zu den übrigen Fragen.",
+          "next": "people",
+          "effects": []
+        },
+        {
+          "id": "end",
+          "text": "Das war’s. Bis dann.",
+          "next": null,
+          "effects": [],
+          "end_conversation": true
+        }
+      ],
+      "effects": []
+    },
+    "cook": {
+      "speaker": "bard",
+      "text": "Sie hat mir im ersten Winter jeden Abend eine Schüssel hingestellt. Ich hatte kein Geld, nur eine Laute mit zwei Saiten. Als ich gefragt habe, wie ich das bezahlen soll, hat sie gesagt: ‚Mit weniger falschen Tönen.‘",
+      "choices": [
+        {
+          "id": "now",
+          "text": "Und spielst du inzwischen richtig?",
+          "next": "cook_music",
+          "effects": []
+        },
+        {
+          "id": "back",
+          "text": "Zurück zu den übrigen Fragen.",
+          "next": "people",
+          "effects": []
+        },
+        {
+          "id": "end",
+          "text": "Das war’s. Bis dann.",
+          "next": null,
+          "effects": [],
+          "end_conversation": true
+        }
+      ],
+      "effects": []
+    },
+    "cook_music": {
+      "speaker": "bard",
+      "text": "Meistens. Wenn sie mit der Kelle im Takt auf den Topf schlägt, weiß ich, dass ich ihr gefalle. Wenn sie aufhört, übe ich lieber noch einmal.",
+      "choices": [
+        {
+          "id": "back",
+          "text": "Zurück zu den übrigen Fragen.",
+          "next": "people",
+          "effects": []
+        },
+        {
+          "id": "end",
+          "text": "Das war’s. Bis dann.",
+          "next": null,
+          "effects": [],
+          "end_conversation": true
+        }
+      ],
+      "effects": [],
+      "stage_direction": "Er lächelt zum Kamin hinüber."
+    },
+    "guard": {
+      "speaker": "bard",
+      "text": "Der Aushang bei ihrer Tür ist lesbarer als ihre Angebote. Schau lieber selbst drauf, bevor du etwas zusagst. Mehr sage ich nicht, solange sie mithören kann.",
+      "choices": [
+        {
+          "id": "back",
+          "text": "Zurück zu den übrigen Fragen.",
+          "next": "people",
+          "effects": []
+        },
+        {
+          "id": "end",
+          "text": "Das war’s. Bis dann.",
+          "next": null,
+          "effects": [],
+          "end_conversation": true
+        }
+      ],
+      "effects": [
+        {
+          "type": "set_flag",
+          "flag": "guard_notice_hint_known",
+          "value": true
+        }
+      ]
+    },
+    "guest": {
+      "speaker": "bard",
+      "text": "Er erzählt dieselbe Geschichte jedes Mal anders. Normalerweise macht mir das nichts aus. Aber seit der Jäger verletzt zurückkam, klingt sein Lachen, als würde er etwas übertönen.",
+      "choices": [
+        {
+          "id": "ask",
+          "text": "Glaubst du, er hat etwas damit zu tun?",
+          "next": "guest_concern",
+          "effects": []
+        },
+        {
+          "id": "back",
+          "text": "Zurück zu den übrigen Fragen.",
+          "next": "people",
+          "effects": []
+        },
+        {
+          "id": "end",
+          "text": "Das war’s. Bis dann.",
+          "next": null,
+          "effects": [],
+          "end_conversation": true
+        }
+      ],
+      "effects": []
+    },
+    "guest_concern": {
+      "speaker": "bard",
+      "text": "Ich weiß es nicht. Frag ihn, wenn er einmal den Krug absetzt. Nicht jedes Schweigen ist eine Antwort, aber bei ihm wäre es wenigstens ein Anfang.",
+      "choices": [
+        {
+          "id": "back",
+          "text": "Zurück zu den übrigen Fragen.",
+          "next": "people",
+          "effects": []
+        },
+        {
+          "id": "end",
+          "text": "Das war’s. Bis dann.",
+          "next": null,
+          "effects": [],
+          "end_conversation": true
+        }
+      ],
+      "effects": []
+    },
+    "hunter": {
+      "speaker": "bard",
+      "text": "Er hat früher hier gesessen, bis ich das letzte Lied gespielt hatte. Nach dem Biss saß er nur einen Abend da. Den Arm auf dem Tisch, die Hand ganz still.",
+      "choices": [
+        {
+          "id": "wound",
+          "text": "War die Wunde so schlimm?",
+          "next": "hunter_wound",
+          "effects": [],
+          "once_answered": true
+        },
+        {
+          "id": "said",
+          "text": "Was hat er gesagt?",
+          "next": "hunter_words",
+          "effects": [],
+          "once_answered": true
+        },
+        {
+          "id": "help",
+          "text": "Hast du versucht, ihm zu helfen?",
+          "next": "hunter_help",
+          "effects": [],
+          "once_answered": true
+        },
+        {
+          "id": "back",
+          "text": "Zurück zu den übrigen Fragen.",
+          "next": "greeting",
+          "effects": []
+        },
+        {
+          "id": "end",
+          "text": "Das war’s. Bis dann.",
+          "next": null,
+          "effects": [],
+          "end_conversation": true
+        }
+      ],
+      "effects": []
+    },
+    "hunter_wound": {
+      "speaker": "bard",
+      "text": "Ich habe den Verband nicht angefasst. Als die Köchin eine Schüssel neben seine Hand stellte, zuckte er zusammen, obwohl sie ihn gar nicht berührt hatte. Das war nicht nur ein Schnitt.",
+      "choices": [
+        {
+          "id": "back",
+          "text": "Zurück zu den übrigen Fragen.",
+          "next": "hunter",
+          "effects": []
+        },
+        {
+          "id": "end",
+          "text": "Das war’s. Bis dann.",
+          "next": null,
+          "effects": [],
+          "end_conversation": true
+        }
+      ],
+      "effects": []
+    },
+    "hunter_words": {
+      "speaker": "bard",
+      "text": "Er hat gefragt, ob man etwas vergessen kann, wenn man genug trinkt. Ich hab gesagt: höchstens den Heimweg. Er hat nicht gelacht.",
+      "choices": [
+        {
+          "id": "reply",
+          "text": "Was hast du dann gemacht?",
+          "next": "hunter_song",
+          "effects": []
+        },
+        {
+          "id": "back",
+          "text": "Zurück zu den übrigen Fragen.",
+          "next": "hunter",
+          "effects": []
+        },
+        {
+          "id": "end",
+          "text": "Das war’s. Bis dann.",
+          "next": null,
+          "effects": [],
+          "end_conversation": true
+        }
+      ],
+      "effects": []
+    },
+    "hunter_song": {
+      "speaker": "bard",
+      "text": "Ich habe etwas gespielt, das er kannte. Beim Refrain hat er ganz leise mitgesungen. Danach ist er gegangen. Manchmal kann ich nicht mehr tun, als jemanden für ein paar Minuten hierzubehalten.",
+      "choices": [
+        {
+          "id": "back",
+          "text": "Zurück zu den übrigen Fragen.",
+          "next": "hunter",
+          "effects": []
+        },
+        {
+          "id": "end",
+          "text": "Das war’s. Bis dann.",
+          "next": null,
+          "effects": [],
+          "end_conversation": true
+        }
+      ],
+      "effects": []
+    },
+    "hunter_help": {
+      "speaker": "bard",
+      "text": "Ich habe ihm angeboten, ihn zum Heiler zu begleiten. Er wollte nach Hause. Ich hätte nachdrücklicher sein sollen. Falls du bei ihm vorbeikommst, sag ihm, dass sein Platz noch frei ist.",
+      "choices": [
+        {
+          "id": "promise",
+          "text": "Das richte ich ihm aus.",
+          "next": null,
+          "effects": [
+            {
+              "type": "set_flag",
+              "flag": "bard_message_for_hunter",
+              "value": true
+            }
+          ],
+          "end_conversation": true
+        },
+        {
+          "id": "back",
+          "text": "Zurück zu den übrigen Fragen.",
+          "next": "hunter",
+          "effects": []
+        },
+        {
+          "id": "end",
+          "text": "Das war’s. Bis dann.",
+          "next": null,
+          "effects": [],
+          "end_conversation": true
+        }
+      ],
+      "effects": []
+    },
+    "past": {
+      "speaker": "bard",
+      "text": "Ich wollte in die Hauptstadt. Dann ist mir hier die Laute gerissen, der Regen hat angefangen und die Köchin hat mir Essen gegeben. Die Saiten sind längst repariert. Ich bin trotzdem geblieben.",
+      "choices": [
+        {
+          "id": "why",
+          "text": "Wegen der Köchin?",
+          "next": "stayed",
+          "effects": [],
+          "once_answered": true
+        },
+        {
+          "id": "dream",
+          "text": "Willst du noch in die Hauptstadt?",
+          "next": "dream",
+          "effects": [],
+          "once_answered": true
+        },
+        {
+          "id": "back",
+          "text": "Zurück zu den übrigen Fragen.",
+          "next": "greeting",
+          "effects": []
+        },
+        {
+          "id": "end",
+          "text": "Das war’s. Bis dann.",
+          "next": null,
+          "effects": [],
+          "end_conversation": true
+        }
+      ],
+      "effects": []
+    },
+    "stayed": {
+      "speaker": "bard",
+      "text": "Auch. Aber hier merkt jemand, wenn ich einen Abend nicht spiele. In der Hauptstadt wäre ich vermutlich einer von zwanzig Männern, die vor derselben Tür um Aufmerksamkeit betteln.",
+      "choices": [
+        {
+          "id": "back",
+          "text": "Zurück zu den übrigen Fragen.",
+          "next": "past",
+          "effects": []
+        },
+        {
+          "id": "end",
+          "text": "Das war’s. Bis dann.",
+          "next": null,
+          "effects": [],
+          "end_conversation": true
+        }
+      ],
+      "effects": []
+    },
+    "dream": {
+      "speaker": "bard",
+      "text": "Ja. Nur möchte ich etwas mitnehmen, das ich selbst erlebt habe. Nicht noch ein Lied über einen König, dessen Namen ich nur kenne, weil er sich auf ‚Thron‘ reimt.",
+      "choices": [
+        {
+          "id": "offer",
+          "text": "Dann erzählen wir dir, was wir draußen erleben.",
+          "next": "future_story",
+          "effects": []
+        },
+        {
+          "id": "back",
+          "text": "Zurück zu den übrigen Fragen.",
+          "next": "past",
+          "effects": []
+        },
+        {
+          "id": "end",
+          "text": "Das war’s. Bis dann.",
+          "next": null,
+          "effects": [],
+          "end_conversation": true
+        }
+      ],
+      "effects": []
+    },
+    "future_story": {
+      "speaker": "bard",
+      "text": "Gern. Aber komm auch zurück, wenn es schiefgeht. Für Geschichten über Siege findet sich immer jemand. Die anderen hört man viel zu selten.",
+      "choices": [],
+      "effects": [
+        {
+          "type": "set_flag",
+          "flag": "bard_waits_for_party_story",
+          "value": true
+        }
+      ],
+      "terminal": true
+    },
+    "player_story": {
+      "speaker": "bard",
+      "text": "Dann erzähl. Muss nicht heldenhaft sein. Ich habe heute schon genug Helden gehört.",
+      "choices": [
+        {
+          "id": "honest",
+          "text": "Wir haben mehr Glück gehabt, als uns lieb ist.",
+          "next": "honest_story",
+          "effects": []
+        },
+        {
+          "id": "embellish",
+          "text": "[Täuschen] Einen gewöhnlichen Kampf zu einem gewaltigen Sieg ausschmücken.",
+          "next": null,
+          "effects": [],
+          "check": {
+            "ability": "charisma",
+            "skill": "deception",
+            "dc": null,
+            "success": "tall_story_success",
+            "failure": "tall_story_failure",
+            "retry": false,
+            "attempt_key": "bard.player_story.embellish"
+          }
+        },
+        {
+          "id": "loss",
+          "text": "Jemand ist beinahe nicht zurückgekommen.",
+          "next": "hard_story",
+          "effects": []
+        },
+        {
+          "id": "later",
+          "text": "Ein anderes Mal. Heute fehlt mir die Lust.",
+          "next": null,
+          "effects": [],
+          "end_conversation": true
+        }
+      ],
+      "effects": []
+    },
+    "honest_story": {
+      "speaker": "bard",
+      "text": "Das ist ein guter Anfang. Die meisten lassen das Glück weg und stellen sich dafür selbst ein Stück größer hin.",
+      "choices": [
+        {
+          "id": "continue",
+          "text": "Dann erzähle ich dir, wie es wirklich war.",
+          "next": "story_heard",
+          "effects": []
+        },
+        {
+          "id": "later",
+          "text": "Den Rest bekommst du nach dem nächsten Bier.",
+          "next": null,
+          "effects": [],
+          "end_conversation": true
+        }
+      ],
+      "effects": []
+    },
+    "story_heard": {
+      "speaker": "bard",
+      "text": "Danke. Wenn ich daraus etwas mache, frage ich dich vorher. Nicht jede Geschichte gehört gleich der ganzen Taverne.",
+      "choices": [],
+      "effects": [
+        {
+          "type": "set_flag",
+          "flag": "bard_heard_honest_party_story",
+          "value": true
+        }
+      ],
+      "terminal": true,
+      "stage_direction": "Er hört zu, ohne dazwischenzuspielen."
+    },
+    "tall_story_success": {
+      "speaker": "bard",
+      "text": "Das gibt ein ordentliches Lied. Sag nur: Soll ich deine Gefährten auch so unverwundbar machen, oder dürfen die menschlich bleiben?",
+      "choices": [
+        {
+          "id": "admit",
+          "text": "Vielleicht habe ich es etwas größer erzählt.",
+          "next": null,
+          "effects": [
+            {
+              "type": "set_flag",
+              "flag": "bard_heard_embellished_story",
+              "value": true
+            }
+          ],
+          "end_conversation": true
+        },
+        {
+          "id": "play",
+          "text": "Mach ein Lied daraus.",
+          "next": null,
+          "effects": [
+            {
+              "type": "set_flag",
+              "flag": "bard_party_song_requested",
+              "value": true
+            }
+          ],
+          "end_conversation": true
+        }
+      ],
+      "effects": [],
+      "stage_direction": "Er grinst und probiert eine kurze Melodie aus."
+    },
+    "tall_story_failure": {
+      "speaker": "bard",
+      "text": "Eine Kleinigkeit: Du hast den Gegner zuerst von hinten getroffen und später gesehen, wie er auf dich zugestürmt ist. Vielleicht fangen wir bei der Version an, bei der du selbst dabei warst.",
+      "choices": [
+        {
+          "id": "truth",
+          "text": "Gut. Ich erzähle es ehrlich.",
+          "next": "honest_story",
+          "effects": []
+        },
+        {
+          "id": "laugh",
+          "text": "Erwischt. Du hörst zu gut zu.",
+          "next": null,
+          "effects": [],
+          "end_conversation": true
+        }
+      ],
+      "effects": [],
+      "stage_direction": "Er lächelt, ohne die anderen Gäste auf dich aufmerksam zu machen."
+    },
+    "hard_story": {
+      "speaker": "bard",
+      "text": "Dann bin ich froh, dass ihr hier sitzt.",
+      "choices": [
+        {
+          "id": "talk",
+          "text": "Ich möchte darüber reden.",
+          "next": "hard_story_heard",
+          "effects": []
+        },
+        {
+          "id": "quiet",
+          "text": "Heute lieber nicht.",
+          "next": null,
+          "effects": [],
+          "end_conversation": true
+        },
+        {
+          "id": "song",
+          "text": "Spiel einfach etwas Ruhiges.",
+          "next": "quiet_song",
+          "effects": []
+        }
+      ],
+      "effects": [],
+      "stage_direction": "Er legt die Laute beiseite. „Du musst mir den Rest nicht erzählen.“"
+    },
+    "hard_story_heard": {
+      "speaker": "bard",
+      "text": "Ich kann dir nicht sagen, dass es nächstes Mal besser wird. Aber du musst den Abend heute nicht allein damit verbringen.",
+      "choices": [],
+      "effects": [
+        {
+          "type": "set_flag",
+          "flag": "bard_confided_in",
+          "value": true
+        }
+      ],
+      "terminal": true,
+      "stage_direction": "Er bleibt sitzen und hört zu. Er macht keinen Witz und schreibt sich nichts auf."
+    },
+    "song_offer": {
+      "speaker": "bard",
+      "text": "Ein ruhiges Lied gibt’s umsonst. Für drei Kupfer spiele ich etwas, bei dem die Leute mitsingen, statt ihre Sorgen mitzuzählen.",
+      "choices": [
+        {
+          "id": "quiet",
+          "text": "Dann das ruhige.",
+          "next": "quiet_song",
+          "effects": []
+        },
+        {
+          "id": "pay",
+          "text": "Hier. Drei Kupfer. Bring etwas Leben rein.",
+          "next": "lively_song",
+          "effects": [
+            {
+              "type": "spend_currency",
+              "currency": "copper",
+              "amount": 3,
+              "require_funds": true
+            }
+          ],
+          "requires": {
+            "minimum_copper": 3
+          },
+          "atomic_effects": true
+        },
+        {
+          "id": "later",
+          "text": "Spiel einfach weiter, wie du wolltest.",
+          "next": null,
+          "effects": [],
+          "end_conversation": true
+        }
+      ],
+      "effects": []
+    },
+    "quiet_song": {
+      "speaker": "bard",
+      "text": "",
+      "choices": [],
+      "effects": [],
+      "terminal": true,
+      "stage_direction": "Er spielt eine warme, langsame Melodie. Die Gespräche gehen weiter, aber an deinem Tisch wird es für eine Weile ruhiger.",
+      "presentation": {
+        "music_cue": "tavern_bard_quiet",
+        "stat_bonus": 0
+      }
+    },
+    "lively_song": {
+      "speaker": "bard",
+      "text": "Die Straße war lang und der Geldbeutel klein,\ndoch irgendwo brannte ein Licht.\nWir kamen mit Regen und Hunger herein,\nund gingen noch lange nicht.",
+      "choices": [],
+      "effects": [],
+      "terminal": true,
+      "stage_direction": "Er hebt beim Refrain den Blick. Erst singt ein Gast mit, dann ein zweiter.",
+      "presentation": {
+        "music_cue": "tavern_bard_lively",
+        "stat_bonus": 0
+      }
+    },
+    "entry": {
+      "speaker": "system",
+      "text": "",
+      "choices": [],
+      "effects": [],
+      "switch": {
+        "flag": "bard_will_not_speak",
+        "cases": {
+          "true": "previously_threatened"
+        },
+        "default": "greeting"
+      }
+    },
+    "previously_threatened": {
+      "speaker": "bard",
+      "text": "Nach der Drohung mit meinen Fingern brauche ich etwas Abstand. Bitte lass mich heute einfach spielen.",
+      "choices": [],
+      "effects": [],
+      "terminal": true,
+      "stage_direction": "Er bleibt höflich, rückt aber nicht auf der Bank zur Seite."
+    }
+  },
+  "entry_requirements": {
+    "npc_alive": "bard",
+    "game_mode": "exploration",
+    "no_combat_active": true
+  },
+  "additional_entries": {},
+  "revision": 2,
+  "world_dependencies": {
+    "hunter": "Only knows the wounded hunter's last tavern visit. Does not assert he has died or been cured.",
+    "guest_confession": "Optional line acknowledges shared guest_hunter_confessed without spoiling unheard guest story.",
+    "song": "Original tavern verse, one optional paid song, no stat buff or repeatable reward."
+  }
+}
