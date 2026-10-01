@@ -1,0 +1,1725 @@
+{
+  "schema_version": 1,
+  "id": "innkeeper",
+  "language": "de",
+  "status": "authored_dialogue_design_not_runtime_integrated",
+  "title": "Wirt – ausgewählte Dialoge",
+  "entry": "greeting",
+  "additional_entries": {
+    "return_mug": "mug_return"
+  },
+  "source": {
+    "repository": "Wuerfelduell/Dnd",
+    "design_reference_branch": "claude/dnd-new-repo-aueydw",
+    "destination_branch": "main"
+  },
+  "speakers": {
+    "innkeeper": {
+      "name": "Wirt",
+      "actor_reference": "innkeeper"
+    },
+    "cook": {
+      "name": "Köchin",
+      "actor_reference": "cook"
+    },
+    "town_guard": {
+      "name": "Wache",
+      "actor_reference": "town_guard"
+    },
+    "system": {
+      "name": ""
+    }
+  },
+  "conventions": {
+    "address": "Alle Figuren werden geduzt; ihr/euch ist nur bei einer angesprochenen Gruppe zulässig.",
+    "currency": {
+      "base_unit": "copper",
+      "copper_per_silver": 10,
+      "silver_per_gold": 10,
+      "status": "proposed_for_future_integration"
+    },
+    "choices": "Only the selected player replies and NPC reactions are included. A/B variants rejected by the user are omitted.",
+    "question_menus": "After replies in hunter/deer/wound menus, return to the remaining questions. Do not invent extra follow-up dialogue.",
+    "skill_checks": "d20 + Charisma + applicable skill proficiency. DCs were not selected and remain null. Resolve once; no retry in the same conversation path.",
+    "payment": "Payments are atomic and require sufficient funds. A disabled payment choice never spends money; approved refusal choices remain available. Insufficient funds do not auto-select combat.",
+    "transitions": "automatic_next executes without an extra player choice; terminal ends the conversation. continue/back labels are presentation/navigation controls, not new spoken lines.",
+    "food_refusal": "food_service_refused blocks subsequent stew purchases.",
+    "combat": "The cook's stab is an opening knife attack; the single town guard joins on her side. Guard-only fights involve the single guard. Combat outcomes for cook fights were not authored.",
+    "directions": "After the failed intimidation at the information fee, the innkeeper deliberately lies and routes the party to the cave. Victory over the guard produces true directions.",
+    "quest_rewards": "Mug rewards can be collected only once and require handing over the unique mug. Agreed reward: 2 silver + four beers; negotiated reward: 5 silver + four beers; withdrawn offer: hidden 1 silver, no beer.",
+    "assets": "Hunter hut, unique mug, navigation destinations and scene NPCs are design references. This file does not create them."
+  },
+  "design_decisions_pending": [
+    "Skill-check difficulty classes and which party member rolls.",
+    "Runtime economy/inventory/save API and exact currency conversion; no game logic is added by this file.",
+    "Some selected fee-guard replies were not expanded; explicitly marked not_authored nodes retain them.",
+    "Several direct one-bowl replies currently refer to the existing four-person purchase node, as stated during design. A separate single-serving menu needs a decision before integration.",
+    "After combat with cook and guard, no post-victory NPC dialogue was selected.",
+    "Whether irritation counters, refused service and final warnings persist across sessions."
+  ],
+  "nodes": {
+    "greeting": {
+      "speaker": "innkeeper",
+      "text": "Komm rein, setz dich. Eintopf ist noch da, Bier sowieso. Wenn du Blut auf den Boden tropfst, nimm bitte den Tisch hinten – den muss ich ohnehin schrubben.",
+      "choices": [
+        {
+          "id": "meal",
+          "text": "Vier Bier und Eintopf. Das Blut ist größtenteils nicht unseres.",
+          "next": "meal_joke",
+          "effects": []
+        },
+        {
+          "id": "danger",
+          "text": "Du scheinst an verletzte Gäste gewöhnt zu sein. Ist es hier immer so gefährlich?",
+          "next": "spider_rumour",
+          "effects": []
+        },
+        {
+          "id": "work",
+          "text": "Wir suchen Arbeit. Hast du etwas, das besser bezahlt wird als Bodenschrubben?",
+          "next": "work",
+          "effects": []
+        },
+        {
+          "id": "threat",
+          "text": "[Einschüchtern] Noch ein Spruch über unser Blut, und du schrubbst dein eigenes vom Boden. Haben wir uns verstanden?",
+          "next": null,
+          "effects": [],
+          "check": {
+            "ability": "charisma",
+            "skill": "intimidation",
+            "dc": null,
+            "success": "greeting_threat_success",
+            "failure": "greeting_threat_failure",
+            "retry": false
+          }
+        }
+      ],
+      "effects": []
+    },
+    "meal_joke": {
+      "speaker": "innkeeper",
+      "text": "‚Größtenteils‘ reicht mir. Die Köchin fragt auch nicht so genau, was im Eintopf ist.",
+      "choices": [
+        {
+          "id": "continue",
+          "text": "Weiter.",
+          "next": "meal_price",
+          "effects": []
+        }
+      ],
+      "effects": [],
+      "stage_direction": "Er stellt vier Krüge auf die Theke."
+    },
+    "meal_price": {
+      "speaker": "innkeeper",
+      "text": "Ein Silber für Bier und Eintopf pro Kopf. Brot ist dabei. Wenn du Nachschlag willst, verhandelst du selbst mit der Köchin.",
+      "choices": [
+        {
+          "id": "buy",
+          "text": "Hier, vier Silber.",
+          "next": "meal_bought",
+          "effects": [
+            {
+              "type": "spend_currency",
+              "currency": "copper",
+              "amount": 40,
+              "require_funds": true
+            },
+            {
+              "type": "give_item",
+              "item": "beer",
+              "quantity": 4
+            },
+            {
+              "type": "give_item",
+              "item": "stew",
+              "quantity": 4
+            }
+          ],
+          "requires": {
+            "minimum_copper": 40,
+            "food_service_allowed": true
+          }
+        },
+        {
+          "id": "decline",
+          "text": "So viel haben wir gerade nicht. Dann lassen wir’s.",
+          "next": null,
+          "effects": [],
+          "end_conversation": true
+        }
+      ],
+      "effects": []
+    },
+    "meal_bought": {
+      "speaker": "system",
+      "text": "",
+      "choices": [],
+      "effects": [],
+      "terminal": true
+    },
+    "spider_rumour": {
+      "speaker": "innkeeper",
+      "text": "Nicht immer. Seit ein paar Wochen kommen selbst die Jäger vor Sonnenuntergang zurück. Einer hatte einen Biss im Arm, so groß wie meine Faust. Behauptete, eine Spinne hätte ihn erwischt. Seither geht keiner mehr zur Höhle.",
+      "choices": [
+        {
+          "id": "hunter",
+          "text": "Wo finden wir diesen Jäger?",
+          "next": "hunter_location",
+          "effects": []
+        },
+        {
+          "id": "reason",
+          "text": "Was wollte er überhaupt in der Höhle?",
+          "next": "deer_story",
+          "effects": []
+        },
+        {
+          "id": "doubt",
+          "text": "Klingt, als hätte er nach ein paar Bier eine gute Geschichte gebraucht.",
+          "next": "wound_story",
+          "effects": []
+        },
+        {
+          "id": "avoid",
+          "text": "Danke für die Warnung. Wir halten uns von der Höhle fern.",
+          "next": null,
+          "effects": [],
+          "end_conversation": true
+        }
+      ],
+      "effects": []
+    },
+    "hunter_location": {
+      "speaker": "innkeeper",
+      "text": "Versuch’s bei seiner Jägerhütte am Waldrand. Allerdings hab ich ihn schon länger nicht mehr gesehen.",
+      "choices": [
+        {
+          "id": "directions",
+          "text": "Wie kommen wir zu seiner Hütte?",
+          "next": "directions_fee",
+          "effects": [],
+          "once_answered": true
+        },
+        {
+          "id": "last_seen",
+          "text": "Wann hast du ihn zuletzt gesehen?",
+          "next": "hunter_last_seen",
+          "effects": [],
+          "once_answered": true
+        },
+        {
+          "id": "checked",
+          "text": "Hat niemand nach ihm geschaut?",
+          "next": "hunter_checked",
+          "effects": [],
+          "once_answered": true
+        },
+        {
+          "id": "dead",
+          "text": "Vielleicht hat ihn die Spinne doch noch erwischt.",
+          "next": "hunter_dead",
+          "effects": [],
+          "once_answered": true
+        },
+        {
+          "id": "visit",
+          "text": "Gut, wir sehen bei seiner Hütte nach.",
+          "next": null,
+          "effects": [],
+          "end_conversation": true
+        }
+      ],
+      "effects": [],
+      "choice_policy": "Return to remaining unanswered questions after a reply; visit ends the conversation."
+    },
+    "hunter_questions": {
+      "speaker": "system",
+      "text": "",
+      "choices": [
+        {
+          "id": "directions",
+          "text": "Wie kommen wir zu seiner Hütte?",
+          "next": "directions_fee",
+          "effects": [],
+          "once_answered": true
+        },
+        {
+          "id": "last_seen",
+          "text": "Wann hast du ihn zuletzt gesehen?",
+          "next": "hunter_last_seen",
+          "effects": [],
+          "once_answered": true
+        },
+        {
+          "id": "checked",
+          "text": "Hat niemand nach ihm geschaut?",
+          "next": "hunter_checked",
+          "effects": [],
+          "once_answered": true
+        },
+        {
+          "id": "dead",
+          "text": "Vielleicht hat ihn die Spinne doch noch erwischt.",
+          "next": "hunter_dead",
+          "effects": [],
+          "once_answered": true
+        },
+        {
+          "id": "visit",
+          "text": "Gut, wir sehen bei seiner Hütte nach.",
+          "next": null,
+          "effects": [],
+          "end_conversation": true
+        }
+      ],
+      "effects": []
+    },
+    "hunter_last_seen": {
+      "speaker": "innkeeper",
+      "text": "Vor vier oder fünf Tagen. Er war blass, hat kaum geredet und seinen Krug nicht ausgetrunken. Bei ihm bleibt normalerweise kein Tropfen übrig.",
+      "choices": [
+        {
+          "id": "back",
+          "text": "Zurück zu den übrigen Fragen.",
+          "next": "hunter_questions",
+          "effects": []
+        }
+      ],
+      "effects": []
+    },
+    "hunter_checked": {
+      "speaker": "innkeeper",
+      "text": "Ich hab die Wache darum gebeten. Sie meinte, solange niemand Hilfe ruft, hätte sie Wichtigeres zu tun. Selber war ich noch nicht draußen.",
+      "choices": [
+        {
+          "id": "back",
+          "text": "Zurück zu den übrigen Fragen.",
+          "next": "hunter_questions",
+          "effects": []
+        }
+      ],
+      "effects": []
+    },
+    "hunter_dead": {
+      "speaker": "innkeeper",
+      "text": "Vielleicht. Aber solange keiner nachgesehen hat, schreibe ich ihn nicht ab. Er hat schon Schlimmeres überlebt als einen Biss.",
+      "choices": [
+        {
+          "id": "back",
+          "text": "Zurück zu den übrigen Fragen.",
+          "next": "hunter_questions",
+          "effects": []
+        }
+      ],
+      "effects": []
+    },
+    "directions_fee": {
+      "speaker": "innkeeper",
+      "text": "Information ist nicht kostenlos. Fünf Kupfer.",
+      "choices": [
+        {
+          "id": "pay",
+          "text": "Hier. Jetzt die Wegbeschreibung.",
+          "next": "directions_true",
+          "effects": [
+            {
+              "type": "spend_currency",
+              "currency": "copper",
+              "amount": 5,
+              "require_funds": true
+            }
+          ],
+          "requires": {
+            "minimum_copper": 5
+          }
+        },
+        {
+          "id": "decline",
+          "text": "Dann finden wir die Hütte selbst.",
+          "next": "hunter_questions",
+          "effects": []
+        },
+        {
+          "id": "threat",
+          "text": "[Einschüchtern] Du sagst uns jetzt, wo die Hütte steht. Und die Hand nimmst du besser wieder runter.",
+          "next": null,
+          "effects": [],
+          "check": {
+            "ability": "charisma",
+            "skill": "intimidation",
+            "dc": null,
+            "success": "directions_threat_success",
+            "failure": "directions_threat_failure",
+            "retry": false
+          }
+        }
+      ],
+      "effects": [],
+      "stage_direction": "Er hält die Hand auf."
+    },
+    "directions_true": {
+      "speaker": "innkeeper",
+      "text": "Hinter der Taverne in den Wald, bei der alten Eiche rechts. Die Hütte mit dem Geweih über der Tür.",
+      "choices": [
+        {
+          "id": "back",
+          "text": "Zurück zu den übrigen Fragen.",
+          "next": "hunter_questions",
+          "effects": []
+        }
+      ],
+      "effects": [
+        {
+          "type": "set_flag",
+          "flag": "hunter_route_known",
+          "value": true
+        },
+        {
+          "type": "set_flag",
+          "flag": "hunter_route_false",
+          "value": false
+        }
+      ]
+    },
+    "directions_threat_success": {
+      "speaker": "innkeeper",
+      "text": "Schon gut. Hinter der Taverne in den Wald, bei der alten Eiche rechts. Die Hütte mit dem Geweih über der Tür.",
+      "choices": [
+        {
+          "id": "back",
+          "text": "Zurück zu den übrigen Fragen.",
+          "next": "hunter_questions",
+          "effects": []
+        }
+      ],
+      "effects": [
+        {
+          "type": "set_flag",
+          "flag": "hunter_route_known",
+          "value": true
+        },
+        {
+          "type": "set_flag",
+          "flag": "hunter_route_false",
+          "value": false
+        }
+      ],
+      "stage_direction": "Er zieht die Hand zurück."
+    },
+    "directions_threat_failure": {
+      "speaker": "innkeeper",
+      "text": "Na gut, wenn du’s eh nicht wissen willst, dann rede mit der Wache.",
+      "choices": [
+        {
+          "id": "continue",
+          "text": "Weiter.",
+          "next": "fee_guard",
+          "effects": []
+        }
+      ],
+      "effects": [
+        {
+          "type": "set_flag",
+          "flag": "innkeeper_route_lie",
+          "value": true
+        }
+      ],
+      "stage_direction": "Der Wirt zieht die Hand zurück und winkt zur Tür: „Wache! Komm mal her. Der hier wird aufdringlich.“"
+    },
+    "fee_guard": {
+      "speaker": "town_guard",
+      "text": "Was ist hier los? Ich hoffe, ich muss dich nicht wegen fünf Kupfermünzen vor die Tür setzen.",
+      "choices": [
+        {
+          "id": "pay",
+          "text": "Schon gut. Wir bezahlen die fünf Kupfer.",
+          "next": "fee_twenty",
+          "effects": [
+            {
+              "type": "spend_currency",
+              "currency": "copper",
+              "amount": 5,
+              "require_funds": true
+            },
+            {
+              "type": "set_flag",
+              "flag": "directions_five_paid",
+              "value": true
+            }
+          ],
+          "requires": {
+            "minimum_copper": 5
+          }
+        },
+        {
+          "id": "lie",
+          "text": "[Täuschen] Ein Missverständnis. Wir haben ihn nicht bedroht.",
+          "next": null,
+          "effects": [],
+          "check": {
+            "ability": "charisma",
+            "skill": "deception",
+            "dc": null,
+            "success": "pending_fee_guard_deception",
+            "failure": "pending_fee_guard_deception",
+            "retry": false
+          }
+        },
+        {
+          "id": "threat",
+          "text": "[Einschüchtern] Geh zurück zur Tür. Das hier geht dich nichts an.",
+          "next": null,
+          "effects": [],
+          "check": {
+            "ability": "charisma",
+            "skill": "intimidation",
+            "dc": null,
+            "success": "pending_fee_guard_intimidation",
+            "failure": "pending_fee_guard_intimidation",
+            "retry": false
+          }
+        }
+      ],
+      "effects": []
+    },
+    "fee_twenty": {
+      "speaker": "innkeeper",
+      "text": "Wo ist der Rest? Zwanzig Kupfer waren ausgemacht.",
+      "choices": [
+        {
+          "id": "pay_rest",
+          "text": "Hier sind die restlichen fünfzehn. Jetzt die Wegbeschreibung.",
+          "next": "directions_false",
+          "effects": [
+            {
+              "type": "spend_currency",
+              "currency": "copper",
+              "amount": 15,
+              "require_funds": true
+            }
+          ],
+          "requires": {
+            "minimum_copper": 15
+          }
+        },
+        {
+          "id": "object",
+          "text": "Du hast gerade selbst von fünf Kupfermünzen gesprochen.",
+          "next": "guard_surcharge",
+          "effects": []
+        },
+        {
+          "id": "threat",
+          "text": "[Einschüchtern] Nimm die fünf und sag uns den Weg. Meine Geduld ist aufgebraucht.",
+          "next": null,
+          "effects": [],
+          "check": {
+            "ability": "charisma",
+            "skill": "intimidation",
+            "dc": null,
+            "success": "fee_wirt_threat_success",
+            "failure": "fee_wirt_threat_failure",
+            "retry": false
+          }
+        },
+        {
+          "id": "leave",
+          "text": "Behalt die fünf. Wir sind fertig.",
+          "next": null,
+          "effects": [],
+          "end_conversation": true
+        }
+      ],
+      "effects": [],
+      "stage_direction": "Als du fünf Kupfer auf die Theke legst, schiebt der Wirt die Münzen mit einem Finger zusammen."
+    },
+    "directions_false": {
+      "speaker": "innkeeper",
+      "text": "Nimm den nördlichen Pfad bis zu den Felsen. Dort durch den schmalen Durchgang. Das ist die Abkürzung zu seiner Hütte.",
+      "choices": [
+        {
+          "id": "back",
+          "text": "Zurück zu den übrigen Fragen.",
+          "next": "hunter_questions",
+          "effects": []
+        }
+      ],
+      "effects": [
+        {
+          "type": "set_flag",
+          "flag": "hunter_route_known",
+          "value": true
+        },
+        {
+          "type": "set_flag",
+          "flag": "hunter_route_false",
+          "value": true
+        },
+        {
+          "type": "set_navigation_hint",
+          "destination": "cave",
+          "presented_as": "hunter_hut"
+        }
+      ]
+    },
+    "guard_surcharge": {
+      "speaker": "town_guard",
+      "text": "Ja, fünf für die Auskunft. Die fünfzehn extra sind dafür, dass er mich rufen musste.",
+      "choices": [
+        {
+          "id": "pay_rest",
+          "text": "Na schön. Hier sind die restlichen fünfzehn.",
+          "next": "directions_false",
+          "effects": [
+            {
+              "type": "spend_currency",
+              "currency": "copper",
+              "amount": 15,
+              "require_funds": true
+            }
+          ],
+          "requires": {
+            "minimum_copper": 15
+          }
+        },
+        {
+          "id": "persuade",
+          "text": "[Überzeugen] Wir haben die fünf bezahlt. Lass uns die Sache damit beenden.",
+          "next": null,
+          "effects": [],
+          "check": {
+            "ability": "charisma",
+            "skill": "persuasion",
+            "dc": null,
+            "success": "fee_persuade_success",
+            "failure": "fee_persuade_failure",
+            "retry": false
+          }
+        },
+        {
+          "id": "threat",
+          "text": "[Einschüchtern] Du bekommst keine einzige Münze. Geh zurück an deine Tür.",
+          "next": null,
+          "effects": [],
+          "check": {
+            "ability": "charisma",
+            "skill": "intimidation",
+            "dc": null,
+            "success": "fee_guard_threat_success",
+            "failure": "fee_guard_threat_failure",
+            "retry": false
+          }
+        },
+        {
+          "id": "leave",
+          "text": "Behaltet die fünf. Wir gehen.",
+          "next": null,
+          "effects": [],
+          "end_conversation": true
+        }
+      ],
+      "effects": []
+    },
+    "fee_persuade_success": {
+      "speaker": "town_guard",
+      "text": "Die fünf reichen. Aber wenn ich noch einmal wegen dir herkommen muss, wird’s teurer.",
+      "choices": [
+        {
+          "id": "continue",
+          "text": "Weiter.",
+          "next": "directions_false",
+          "effects": []
+        }
+      ],
+      "effects": [],
+      "stage_direction": "Die Wache nickt dem Wirt zu. „Sag ihm den Weg.“"
+    },
+    "fee_persuade_failure": {
+      "speaker": "town_guard",
+      "text": "Dann fehlen immer noch fünfzehn Kupfer. Bezahlt oder geht. Ich diskutiere das nicht weiter.",
+      "choices": [
+        {
+          "id": "pay_rest",
+          "text": "Hier sind die fünfzehn Kupfer.",
+          "next": "directions_false",
+          "effects": [
+            {
+              "type": "spend_currency",
+              "currency": "copper",
+              "amount": 15,
+              "require_funds": true
+            }
+          ],
+          "requires": {
+            "minimum_copper": 15
+          }
+        },
+        {
+          "id": "attack",
+          "text": "Dann hol sie dir. [Angreifen]",
+          "next": "fight_guard",
+          "effects": []
+        }
+      ],
+      "effects": []
+    },
+    "fee_guard_threat_success": {
+      "speaker": "town_guard",
+      "text": "Gut. Keine weiteren Münzen. Aber danach will ich hier Ruhe haben.",
+      "choices": [
+        {
+          "id": "continue",
+          "text": "Weiter.",
+          "next": "directions_false",
+          "effects": []
+        }
+      ],
+      "effects": [],
+      "stage_direction": "Die Hand der Wache löst sich langsam vom Schwertgriff. Sie nickt dem Wirt zu."
+    },
+    "fee_guard_threat_failure": {
+      "speaker": "town_guard",
+      "text": "Du hattest deine Gelegenheit, das friedlich zu klären.",
+      "choices": [
+        {
+          "id": "continue",
+          "text": "Weiter.",
+          "next": "fight_guard",
+          "effects": []
+        }
+      ],
+      "effects": [],
+      "stage_direction": "Die Wache zieht ihr Schwert.",
+      "automatic_next": "fight_guard"
+    },
+    "fee_wirt_threat_success": {
+      "speaker": "innkeeper",
+      "text": "Schon gut. Keine weiteren Münzen.",
+      "choices": [
+        {
+          "id": "continue",
+          "text": "Weiter.",
+          "next": "directions_false",
+          "effects": []
+        }
+      ],
+      "effects": [],
+      "stage_direction": "Der Wirt steckt hastig die fünf Kupfer ein."
+    },
+    "fee_wirt_threat_failure": {
+      "speaker": "town_guard",
+      "text": "Jetzt reicht’s. Noch fünfzehn Kupfer oder wir klären das draußen.",
+      "choices": [
+        {
+          "id": "pay_rest",
+          "text": "Hier sind die fünfzehn Kupfer.",
+          "next": "directions_false",
+          "effects": [
+            {
+              "type": "spend_currency",
+              "currency": "copper",
+              "amount": 15,
+              "require_funds": true
+            }
+          ],
+          "requires": {
+            "minimum_copper": 15
+          }
+        },
+        {
+          "id": "attack",
+          "text": "Dann hol sie dir. [Angreifen]",
+          "next": "fight_guard",
+          "effects": []
+        }
+      ],
+      "effects": [],
+      "stage_direction": "Die Wache greift an ihren Schwertgriff."
+    },
+    "victory_directions": {
+      "speaker": "innkeeper",
+      "text": "Die Hütte! Hinter der Taverne in den Wald, bei der alten Eiche rechts! Geweih über der Tür!",
+      "choices": [],
+      "effects": [
+        {
+          "type": "set_flag",
+          "flag": "hunter_route_known",
+          "value": true
+        },
+        {
+          "type": "set_flag",
+          "flag": "hunter_route_false",
+          "value": false
+        }
+      ],
+      "stage_direction": "Er weicht bis an die Wand zurück.",
+      "terminal": true
+    },
+    "deer_story": {
+      "speaker": "innkeeper",
+      "text": "Er ist einem verletzten Reh gefolgt. Die Blutspur führte hinein. Weiter hinten hat er etwas im Dunkeln gehört – da hätte er besser umgedreht.",
+      "choices": [
+        {
+          "id": "found",
+          "text": "Hat er das Reh noch gefunden?",
+          "next": "deer_found",
+          "effects": [],
+          "once_answered": true
+        },
+        {
+          "id": "depth",
+          "text": "Wie weit ist er in die Höhle gegangen?",
+          "next": "deer_depth",
+          "effects": [],
+          "once_answered": true
+        },
+        {
+          "id": "end",
+          "text": "Das reicht uns. Danke.",
+          "next": null,
+          "effects": [],
+          "end_conversation": true
+        }
+      ],
+      "effects": []
+    },
+    "deer_questions": {
+      "speaker": "system",
+      "text": "",
+      "choices": [
+        {
+          "id": "found",
+          "text": "Hat er das Reh noch gefunden?",
+          "next": "deer_found",
+          "effects": [],
+          "once_answered": true
+        },
+        {
+          "id": "depth",
+          "text": "Wie weit ist er in die Höhle gegangen?",
+          "next": "deer_depth",
+          "effects": [],
+          "once_answered": true
+        },
+        {
+          "id": "end",
+          "text": "Das reicht uns. Danke.",
+          "next": null,
+          "effects": [],
+          "end_conversation": true
+        }
+      ],
+      "effects": []
+    },
+    "deer_found": {
+      "speaker": "innkeeper",
+      "text": "Ja. Hing eingesponnen an der Höhlendecke. Als er mit der Fackel näher ran ist, hat es sich noch bewegt.",
+      "choices": [
+        {
+          "id": "back",
+          "text": "Zurück zu den übrigen Fragen.",
+          "next": "deer_questions",
+          "effects": []
+        }
+      ],
+      "effects": []
+    },
+    "deer_depth": {
+      "speaker": "innkeeper",
+      "text": "Nicht weit, sagte er. Das Tageslicht vom Eingang konnte er noch sehen. Geholfen hat ihm das wenig – die Spinne kam von oben.",
+      "choices": [
+        {
+          "id": "back",
+          "text": "Zurück zu den übrigen Fragen.",
+          "next": "deer_questions",
+          "effects": []
+        }
+      ],
+      "effects": []
+    },
+    "wound_story": {
+      "speaker": "innkeeper",
+      "text": "Hab ich ihm auch gesagt. Dann hat er den Verband abgenommen. Meinen Eintopf hab ich an dem Abend nicht mehr angerührt.",
+      "choices": [
+        {
+          "id": "severity",
+          "text": "So schlimm sah die Wunde aus?",
+          "next": "wound_severity",
+          "effects": [],
+          "once_answered": true
+        },
+        {
+          "id": "insult",
+          "text": "Dein Eintopf sieht auch ohne offene Wunde nicht besonders appetitlich aus.",
+          "next": "stew_insult",
+          "effects": [],
+          "once_answered": true
+        },
+        {
+          "id": "end",
+          "text": "Mehr müssen wir nicht wissen. Danke.",
+          "next": null,
+          "effects": [],
+          "end_conversation": true
+        }
+      ],
+      "effects": []
+    },
+    "wound_questions": {
+      "speaker": "system",
+      "text": "",
+      "choices": [
+        {
+          "id": "severity",
+          "text": "So schlimm sah die Wunde aus?",
+          "next": "wound_severity",
+          "effects": [],
+          "once_answered": true
+        },
+        {
+          "id": "insult",
+          "text": "Dein Eintopf sieht auch ohne offene Wunde nicht besonders appetitlich aus.",
+          "next": "stew_insult",
+          "effects": [],
+          "once_answered": true
+        },
+        {
+          "id": "end",
+          "text": "Mehr müssen wir nicht wissen. Danke.",
+          "next": null,
+          "effects": [],
+          "end_conversation": true
+        }
+      ],
+      "effects": []
+    },
+    "wound_severity": {
+      "speaker": "innkeeper",
+      "text": "Er konnte die Finger kaum noch bewegen. Als er den Verband abgezogen hat, kam Eiter mit. Ich hab ihm einen frischen Lappen gegeben und gesagt, er soll endlich zum Heiler.",
+      "choices": [
+        {
+          "id": "back",
+          "text": "Zurück zu den übrigen Fragen.",
+          "next": "wound_questions",
+          "effects": []
+        }
+      ],
+      "effects": []
+    },
+    "stew_insult": {
+      "speaker": "innkeeper",
+      "text": "Sag das ruhig lauter. Die Köchin hat ihr Messer heute noch nicht oft genug benutzt.",
+      "choices": [
+        {
+          "id": "buy",
+          "text": "Wenn sie so gut kocht, wie sie droht, nehme ich eine Schüssel.",
+          "next": "meal_price",
+          "effects": []
+        },
+        {
+          "id": "shout",
+          "text": "Ich sagte: Der Eintopf sieht nicht besonders appetitlich aus!",
+          "next": "cook_threat",
+          "effects": [],
+          "stage_direction": "Zur Küche rufen."
+        },
+        {
+          "id": "joke",
+          "text": "War nur ein Scherz. Richte ihr meinen Dank fürs Essen aus.",
+          "next": "wound_questions",
+          "effects": []
+        },
+        {
+          "id": "leave",
+          "text": "Wir gehen besser.",
+          "next": null,
+          "effects": [],
+          "end_conversation": true
+        }
+      ],
+      "effects": [],
+      "stage_direction": "Er wirft einen Blick zur Küche."
+    },
+    "cook_threat": {
+      "speaker": "cook",
+      "text": "Kannst du das noch einmal wiederholen?",
+      "choices": [
+        {
+          "id": "repeat",
+          "text": "Ich sagte: Dein Eintopf sieht nicht besonders appetitlich aus.",
+          "next": "cook_stabs",
+          "effects": []
+        },
+        {
+          "id": "persuade",
+          "text": "[Überzeugen] Ein schlechter Scherz. Dafür muss hier niemand verletzt werden.",
+          "next": null,
+          "effects": [],
+          "check": {
+            "ability": "charisma",
+            "skill": "persuasion",
+            "dc": null,
+            "success": "cook_persuade_success",
+            "failure": "cook_persuade_failure",
+            "retry": false
+          }
+        },
+        {
+          "id": "threat",
+          "text": "[Einschüchtern] Steck das Messer weg, solange du es noch halten kannst.",
+          "next": null,
+          "effects": [],
+          "check": {
+            "ability": "charisma",
+            "skill": "intimidation",
+            "dc": null,
+            "success": "cook_intimidate_success",
+            "failure": "cook_intimidate_failure",
+            "retry": false
+          }
+        },
+        {
+          "id": "buy",
+          "text": "Bring mir eine Schüssel. Vielleicht schmeckt er besser, als er aussieht.",
+          "next": "cook_price",
+          "effects": []
+        }
+      ],
+      "effects": [],
+      "stage_direction": "Die Köchin kommt an die Theke, zieht ein Messer und richtet die Spitze auf dich."
+    },
+    "cook_stabs": {
+      "speaker": "cook",
+      "text": "",
+      "choices": [],
+      "effects": [],
+      "stage_direction": "Die Köchin sticht ohne ein weiteres Wort zu.",
+      "automatic_next": "fight_cook_guard"
+    },
+    "cook_persuade_success": {
+      "speaker": "cook",
+      "text": "Eine Entschuldigung hätte weniger Worte gebraucht.",
+      "choices": [],
+      "effects": [],
+      "stage_direction": "Sie steckt das Messer weg.",
+      "terminal": true
+    },
+    "cook_persuade_failure": {
+      "speaker": "cook",
+      "text": "Jetzt war’s also nur ein Scherz?",
+      "choices": [],
+      "effects": [],
+      "stage_direction": "Sie sticht zu.",
+      "automatic_next": "fight_cook_guard"
+    },
+    "cook_intimidate_success": {
+      "speaker": "cook",
+      "text": "Dann koch dir deinen Fraß künftig selbst.",
+      "choices": [],
+      "effects": [
+        {
+          "type": "set_flag",
+          "flag": "food_service_refused",
+          "value": true
+        }
+      ],
+      "stage_direction": "Sie schaut auf deine Waffen und senkt das Messer.",
+      "terminal": true
+    },
+    "cook_intimidate_failure": {
+      "speaker": "cook",
+      "text": "",
+      "choices": [],
+      "effects": [],
+      "stage_direction": "Sie schlägt deine drohende Hand mit der freien Hand beiseite und stößt mit dem Messer zu.",
+      "automatic_next": "fight_cook_guard"
+    },
+    "cook_price": {
+      "speaker": "cook",
+      "text": "Zwei Silber. Einer für den Eintopf, einer für deine große Klappe.",
+      "choices": [
+        {
+          "id": "pay",
+          "text": "Hier. Zwei Silber.",
+          "next": "cook_bought",
+          "effects": [
+            {
+              "type": "spend_currency",
+              "currency": "copper",
+              "amount": 20,
+              "require_funds": true
+            },
+            {
+              "type": "give_item",
+              "item": "stew",
+              "quantity": 1
+            }
+          ],
+          "requires": {
+            "minimum_copper": 20,
+            "food_service_allowed": true
+          }
+        },
+        {
+          "id": "persuade",
+          "text": "[Überzeugen] Ein Silber und eine ehrliche Entschuldigung. Einverstanden?",
+          "next": null,
+          "effects": [],
+          "check": {
+            "ability": "charisma",
+            "skill": "persuasion",
+            "dc": null,
+            "success": "cook_price_success",
+            "failure": "cook_price_failure",
+            "retry": false
+          }
+        },
+        {
+          "id": "no_money",
+          "text": "So viel haben wir nicht.",
+          "next": "cook_no_money",
+          "effects": []
+        }
+      ],
+      "effects": [],
+      "stage_direction": "Sie steckt das Messer weg."
+    },
+    "cook_price_success": {
+      "speaker": "cook",
+      "text": "Ein Silber. Und ab jetzt hör ich von dir nur noch Kaugeräusche.",
+      "choices": [
+        {
+          "id": "pay",
+          "text": "Hier. Ein Silber.",
+          "next": "cook_bought",
+          "effects": [
+            {
+              "type": "spend_currency",
+              "currency": "copper",
+              "amount": 10,
+              "require_funds": true
+            },
+            {
+              "type": "give_item",
+              "item": "stew",
+              "quantity": 1
+            }
+          ],
+          "requires": {
+            "minimum_copper": 10,
+            "food_service_allowed": true
+          }
+        },
+        {
+          "id": "no_money",
+          "text": "So viel haben wir nicht.",
+          "next": "cook_no_money",
+          "effects": []
+        }
+      ],
+      "effects": [],
+      "stage_direction": "Sie schnaubt und hält die Hand auf."
+    },
+    "cook_price_failure": {
+      "speaker": "cook",
+      "text": "Die Entschuldigung nehme ich. Zwei Silber kostet’s trotzdem.",
+      "choices": [
+        {
+          "id": "pay",
+          "text": "Hier. Zwei Silber.",
+          "next": "cook_bought",
+          "effects": [
+            {
+              "type": "spend_currency",
+              "currency": "copper",
+              "amount": 20,
+              "require_funds": true
+            },
+            {
+              "type": "give_item",
+              "item": "stew",
+              "quantity": 1
+            }
+          ],
+          "requires": {
+            "minimum_copper": 20,
+            "food_service_allowed": true
+          }
+        },
+        {
+          "id": "no_money",
+          "text": "So viel haben wir nicht.",
+          "next": "cook_no_money",
+          "effects": []
+        }
+      ],
+      "effects": [],
+      "stage_direction": "Sie hält die Hand auf."
+    },
+    "cook_bought": {
+      "speaker": "system",
+      "text": "",
+      "choices": [],
+      "effects": [],
+      "terminal": true
+    },
+    "cook_no_money": {
+      "speaker": "cook",
+      "text": "",
+      "choices": [],
+      "effects": [],
+      "stage_direction": "Die Köchin zieht erneut ihr Messer und sticht zu.",
+      "automatic_next": "fight_cook_guard"
+    },
+    "work": {
+      "speaker": "innkeeper",
+      "text": "Die Wache zahlt für jemanden, der die Viecher aus der Höhle schafft. Frag den Mann an der Tür nach der Belohnung. Und wenn du dort einen kupfernen Bierkrug findest: Das ist meiner. Frag nicht.",
+      "choices": [
+        {
+          "id": "origin",
+          "text": "Wie kommt dein Bierkrug in die Höhle?",
+          "next": "mug_origin",
+          "effects": [
+            {
+              "type": "increment_flag",
+              "flag": "mug_origin_asks",
+              "amount": 1
+            }
+          ],
+          "repeatable": true
+        },
+        {
+          "id": "reward",
+          "text": "Was zahlst du, wenn wir deinen Krug zurückbringen?",
+          "next": "mug_offer",
+          "effects": []
+        },
+        {
+          "id": "accept_hint",
+          "text": "Wir fragen die Wache. Deinen Krug bringen wir mit, falls wir ihn finden.",
+          "next": null,
+          "effects": [
+            {
+              "type": "set_flag",
+              "flag": "mug_search_known",
+              "value": true
+            },
+            {
+              "type": "quest_hint",
+              "quest": "recover_innkeeper_mug"
+            }
+          ],
+          "end_conversation": true
+        },
+        {
+          "id": "decline_hint",
+          "text": "Für deinen verlorenen Krug riskieren wir nichts. Wir reden mit der Wache.",
+          "next": null,
+          "effects": [],
+          "end_conversation": true
+        }
+      ],
+      "effects": []
+    },
+    "mug_origin": {
+      "speaker": "innkeeper",
+      "text": "",
+      "choices": [],
+      "effects": [],
+      "switch": {
+        "flag": "mug_origin_asks",
+        "cases": {
+          "1": "mug_origin_first",
+          "2": "mug_origin_second"
+        },
+        "default": "mug_origin_third"
+      }
+    },
+    "mug_origin_first": {
+      "speaker": "innkeeper",
+      "text": "Ich hab gesagt: Frag nicht.",
+      "choices": [
+        {
+          "id": "back",
+          "text": "Zurück zu den übrigen Fragen.",
+          "next": "work",
+          "effects": []
+        }
+      ],
+      "effects": []
+    },
+    "mug_origin_second": {
+      "speaker": "innkeeper",
+      "text": "Du gehst mir langsam auf die Nerven.",
+      "choices": [
+        {
+          "id": "back",
+          "text": "Zurück zu den übrigen Fragen.",
+          "next": "work",
+          "effects": []
+        }
+      ],
+      "effects": [],
+      "stage_direction": "Er legt den Lappen hin und schaut dich an."
+    },
+    "mug_origin_third": {
+      "speaker": "innkeeper",
+      "text": "Für dich bin ich fertig.",
+      "choices": [],
+      "effects": [],
+      "stage_direction": "Er geht ans andere Ende der Theke und bedient einen anderen Gast.",
+      "terminal": true
+    },
+    "mug_offer": {
+      "speaker": "innkeeper",
+      "text": "Zwei Silber und eine Runde Bier für euch vier. Der Krug ist nichts Besonderes, aber ich trinke seit zwanzig Jahren daraus.",
+      "choices": [
+        {
+          "id": "accept",
+          "text": "Abgemacht. Wenn wir ihn finden, bringen wir ihn mit.",
+          "next": null,
+          "effects": [
+            {
+              "type": "set_quest",
+              "quest": "recover_innkeeper_mug",
+              "status": "accepted",
+              "reward_copper": 20,
+              "reward_beer": 4
+            }
+          ],
+          "end_conversation": true
+        },
+        {
+          "id": "persuade",
+          "text": "[Überzeugen] Für zwanzig Jahre Erinnerungen sind fünf Silber und die Runde Bier doch angemessen.",
+          "next": null,
+          "effects": [],
+          "check": {
+            "ability": "charisma",
+            "skill": "persuasion",
+            "dc": null,
+            "success": "mug_offer_success",
+            "failure": "mug_offer_failure",
+            "retry": false
+          }
+        },
+        {
+          "id": "decline",
+          "text": "Behalte dein Bier. Such deinen Krug selbst.",
+          "next": null,
+          "effects": [
+            {
+              "type": "set_quest",
+              "quest": "recover_innkeeper_mug",
+              "status": "declined",
+              "reward_copper": 0,
+              "reward_beer": 0
+            }
+          ],
+          "end_conversation": true
+        }
+      ],
+      "effects": []
+    },
+    "mug_offer_success": {
+      "speaker": "innkeeper",
+      "text": "Du weißt auch, wo du ansetzen musst. Gut. Fünf Silber und eine Runde – wenn du ihn zurückbringst.",
+      "choices": [],
+      "effects": [
+        {
+          "type": "set_quest",
+          "quest": "recover_innkeeper_mug",
+          "status": "accepted",
+          "reward_copper": 50,
+          "reward_beer": 4
+        }
+      ],
+      "terminal": true
+    },
+    "mug_offer_failure": {
+      "speaker": "innkeeper",
+      "text": "Wenn ihr ihn findet, behaltet ihn. Von mir bekommt ihr nichts.",
+      "choices": [],
+      "effects": [
+        {
+          "type": "set_quest",
+          "quest": "recover_innkeeper_mug",
+          "status": "withdrawn",
+          "reward_copper": 10,
+          "reward_beer": 0
+        }
+      ],
+      "terminal": true
+    },
+    "mug_return": {
+      "speaker": "system",
+      "text": "",
+      "choices": [],
+      "effects": [],
+      "requires": {
+        "item": "innkeeper_copper_mug",
+        "quantity": 1,
+        "quest_not_completed": "recover_innkeeper_mug"
+      },
+      "switch": {
+        "quest": "recover_innkeeper_mug",
+        "field": "status",
+        "cases": {
+          "accepted": "mug_return_promised",
+          "withdrawn": "mug_return_withdrawn"
+        },
+        "default": "pending_unagreed_mug_return"
+      }
+    },
+    "mug_return_promised": {
+      "speaker": "innkeeper",
+      "text": "Da ist er ja. Die Delle kenn ich. Setzt euch. Eure Runde kommt gleich.",
+      "choices": [],
+      "effects": [
+        {
+          "type": "remove_item",
+          "item": "innkeeper_copper_mug",
+          "quantity": 1
+        },
+        {
+          "type": "give_quest_reward",
+          "quest": "recover_innkeeper_mug"
+        },
+        {
+          "type": "complete_quest",
+          "quest": "recover_innkeeper_mug"
+        }
+      ],
+      "stage_direction": "Er hebt den Krug gegen das Licht und grinst. Er legt die vereinbarten Münzen hin.",
+      "terminal": true
+    },
+    "mug_return_withdrawn": {
+      "speaker": "innkeeper",
+      "text": "Hast ihn doch mitgebracht. Hier. Für die Mühe.",
+      "choices": [],
+      "effects": [
+        {
+          "type": "remove_item",
+          "item": "innkeeper_copper_mug",
+          "quantity": 1
+        },
+        {
+          "type": "give_currency",
+          "currency": "copper",
+          "amount": 10
+        },
+        {
+          "type": "complete_quest",
+          "quest": "recover_innkeeper_mug"
+        }
+      ],
+      "stage_direction": "Er nimmt den Krug und dreht ihn in den Händen. Er legt ein Silber auf die Theke.",
+      "terminal": true
+    },
+    "greeting_threat_success": {
+      "speaker": "innkeeper",
+      "text": "Verstanden. Bier und Essen kommen gleich. Ich wollte keinen Ärger.",
+      "choices": [
+        {
+          "id": "order",
+          "text": "Gut. Dann bring es.",
+          "next": "meal_price",
+          "effects": []
+        },
+        {
+          "id": "free_beer",
+          "text": "[Einschüchtern] Die erste Runde geht auf dich.",
+          "next": null,
+          "effects": [],
+          "check": {
+            "ability": "charisma",
+            "skill": "intimidation",
+            "dc": null,
+            "success": "free_beer_success",
+            "failure": "free_beer_failure",
+            "retry": false
+          }
+        },
+        {
+          "id": "leave",
+          "text": "Besser so. Wir gehen.",
+          "next": null,
+          "effects": [],
+          "end_conversation": true
+        }
+      ],
+      "effects": [],
+      "stage_direction": "Er legt den Lappen hin und tritt einen Schritt zurück."
+    },
+    "free_beer_success": {
+      "speaker": "innkeeper",
+      "text": "Ja. Die erste Runde geht aufs Haus.",
+      "choices": [],
+      "effects": [
+        {
+          "type": "give_item",
+          "item": "beer",
+          "quantity": 4
+        }
+      ],
+      "stage_direction": "Er nickt hastig und greift nach vier Krügen.",
+      "terminal": true,
+      "once_per_run": true
+    },
+    "free_beer_failure": {
+      "speaker": "innkeeper",
+      "text": "Jetzt reicht’s. Wache! Der hier will sich sein Bier mit Drohungen holen.",
+      "choices": [
+        {
+          "id": "continue",
+          "text": "Weiter.",
+          "next": "beer_guard",
+          "effects": []
+        }
+      ],
+      "effects": [],
+      "stage_direction": "Er stellt die leeren Krüge ab."
+    },
+    "beer_guard": {
+      "speaker": "town_guard",
+      "text": "Du bezahlst dein Bier wie jeder andere. Oder du gehst. Was wird’s?",
+      "choices": [
+        {
+          "id": "price",
+          "text": "Gut. Was kostet die Bestellung?",
+          "next": "meal_price",
+          "effects": []
+        },
+        {
+          "id": "lie",
+          "text": "[Täuschen] Er hat uns die Runde angeboten. Jetzt stellt er es anders dar.",
+          "next": null,
+          "effects": [],
+          "check": {
+            "ability": "charisma",
+            "skill": "deception",
+            "dc": null,
+            "success": "beer_lie_success",
+            "failure": "beer_lie_failure",
+            "retry": false
+          }
+        },
+        {
+          "id": "attack",
+          "text": "Dann hol dir die Bezahlung. [Angreifen]",
+          "next": "fight_guard",
+          "effects": []
+        }
+      ],
+      "effects": []
+    },
+    "beer_lie_success": {
+      "speaker": "town_guard",
+      "text": "Dann klärt eure Abmachung unter euch.",
+      "choices": [],
+      "effects": [
+        {
+          "type": "give_item",
+          "item": "beer",
+          "quantity": 4
+        }
+      ],
+      "stage_direction": "Die Wache geht zurück zur Tür. Der Wirt schenkt zähneknirschend ein.",
+      "terminal": true,
+      "once_per_run": true
+    },
+    "beer_lie_failure": {
+      "speaker": "town_guard",
+      "text": "Ich stand nah genug, um deine Drohung zu hören. Bezahlen. Jetzt.",
+      "choices": [
+        {
+          "id": "pay",
+          "text": "Gut. Wir bezahlen.",
+          "next": "meal_price",
+          "effects": []
+        },
+        {
+          "id": "attack",
+          "text": "Dann hol dir die Bezahlung. [Angreifen]",
+          "next": "fight_guard",
+          "effects": []
+        }
+      ],
+      "effects": []
+    },
+    "greeting_threat_failure": {
+      "speaker": "innkeeper",
+      "text": "Wache? Dieser Herr möchte mir gerade erklären, wessen Blut ich heute noch aufwischen soll.",
+      "choices": [
+        {
+          "id": "continue",
+          "text": "Weiter.",
+          "next": "greeting_guard",
+          "effects": []
+        }
+      ],
+      "effects": [],
+      "stage_direction": "Er sieht zur Tür."
+    },
+    "greeting_guard": {
+      "speaker": "town_guard",
+      "text": "Du drohst dem Wirt in seiner eigenen Taverne? Dann erklär mir mal, warum ich dich hier drin lassen sollte.",
+      "choices": [
+        {
+          "id": "apologize",
+          "text": "Weil ich mich entschuldige. Der Spruch war daneben.",
+          "next": "greeting_apology",
+          "effects": []
+        },
+        {
+          "id": "threat",
+          "text": "[Einschüchtern] Weil du mich nicht rausbekommst.",
+          "next": null,
+          "effects": [],
+          "check": {
+            "ability": "charisma",
+            "skill": "intimidation",
+            "dc": null,
+            "success": "greeting_guard_threat_success",
+            "failure": "greeting_guard_threat_failure",
+            "retry": false
+          }
+        },
+        {
+          "id": "leave",
+          "text": "Schon gut. Wir gehen.",
+          "next": null,
+          "effects": [
+            {
+              "type": "leave_location",
+              "location": "tavern"
+            }
+          ],
+          "end_conversation": true
+        },
+        {
+          "id": "attack",
+          "text": "Versuch doch, mich rauszuwerfen. [Angreifen]",
+          "next": "fight_guard",
+          "effects": []
+        }
+      ],
+      "effects": []
+    },
+    "greeting_apology": {
+      "speaker": "town_guard",
+      "text": "Sag das ihm.",
+      "choices": [
+        {
+          "id": "continue",
+          "text": "Weiter.",
+          "next": "greeting_apology_wirt",
+          "effects": []
+        }
+      ],
+      "effects": [],
+      "stage_direction": "Die Wache nickt zum Wirt."
+    },
+    "greeting_apology_wirt": {
+      "speaker": "innkeeper",
+      "text": "Hab’s gehört. Setz dich und lass den Ärger draußen.",
+      "choices": [
+        {
+          "id": "back",
+          "text": "Zurück zu den übrigen Fragen.",
+          "next": "greeting",
+          "effects": []
+        }
+      ],
+      "effects": []
+    },
+    "greeting_guard_threat_success": {
+      "speaker": "town_guard",
+      "text": "Ich riskiere hier keine Verletzten. Noch eine Drohung, und die Taverne bleibt für dich geschlossen.",
+      "choices": [],
+      "effects": [
+        {
+          "type": "set_flag",
+          "flag": "guard_final_warning",
+          "value": true
+        }
+      ],
+      "stage_direction": "Die Wache nimmt die Hand vom Schwertgriff.",
+      "terminal": true
+    },
+    "greeting_guard_threat_failure": {
+      "speaker": "town_guard",
+      "text": "Du hattest die Wahl.",
+      "choices": [],
+      "effects": [],
+      "stage_direction": "Die Wache tritt auf dich zu und zieht ihr Schwert.",
+      "automatic_next": "fight_guard"
+    },
+    "fight_guard": {
+      "speaker": "system",
+      "text": "",
+      "choices": [],
+      "effects": [
+        {
+          "type": "start_combat",
+          "participants": [
+            "town_guard"
+          ],
+          "opening_attack": null,
+          "on_victory": "victory_directions"
+        }
+      ],
+      "terminal": true
+    },
+    "fight_cook_guard": {
+      "speaker": "system",
+      "text": "",
+      "choices": [],
+      "effects": [
+        {
+          "type": "start_combat",
+          "participants": [
+            "cook",
+            "town_guard"
+          ],
+          "opening_attack": {
+            "attacker": "cook",
+            "weapon": "knife",
+            "target": "speaking_player"
+          },
+          "on_victory": null
+        }
+      ],
+      "terminal": true
+    },
+    "pending_fee_guard_deception": {
+      "speaker": "system",
+      "text": "",
+      "choices": [],
+      "effects": [],
+      "status": "not_authored",
+      "terminal": true,
+      "note": "Diese Spielerantwort wurde ausgewählt; Erfolg und Fehlschlag wurden noch nicht gemeinsam formuliert. Nicht durch erfundene Texte ersetzen."
+    },
+    "pending_fee_guard_intimidation": {
+      "speaker": "system",
+      "text": "",
+      "choices": [],
+      "effects": [],
+      "status": "not_authored",
+      "terminal": true,
+      "note": "Diese Spielerantwort wurde ausgewählt; Erfolg und Fehlschlag an dieser Stelle fehlen. Die später bestätigten Drohungen bei der 20-Kupfer-Forderung sind eigene Zweige."
+    },
+    "pending_unagreed_mug_return": {
+      "speaker": "system",
+      "text": "",
+      "choices": [],
+      "effects": [],
+      "status": "not_authored",
+      "terminal": true,
+      "note": "Rückgabe ohne angenommenen Auftrag und ohne gescheiterte Preisverhandlung noch nicht besprochen."
+    }
+  }
+}
