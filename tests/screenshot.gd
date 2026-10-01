@@ -82,10 +82,10 @@ func _run() -> void:
 	for i in kinds.size():
 		var creature: Actor = load("res://scenes/actors/enemy.tscn").instantiate()
 		creature.data = load("res://data/actors/%s.tres" % kinds[i])
-		creature.transform = Transform3D(Basis.from_euler(Vector3(0, PI, 0)), creature_center + Vector3(-6.9 + 2.3 * i, 0.0, 0.0))
+		creature.transform = Transform3D(Basis.from_euler(Vector3(0, PI, 0)), creature_center + Vector3(-6.3 + 2.1 * i, 0.0, 0.0))
 		world.get_node("Enemies").add_child(creature)
 		spawned.append(creature)
-	free_cam.global_position = creature_center + Vector3(0.0, 4.0, 9.0)
+	free_cam.global_position = creature_center + Vector3(0.0, 5.0, 12.5)
 	free_cam.look_at(creature_center + Vector3(0, 0.8, 0), Vector3.UP)
 	await _settle()
 	await _shoot("creatures")
