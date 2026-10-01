@@ -1,0 +1,362 @@
+{
+  "schema_version": 1,
+  "id": "cook",
+  "language": "de",
+  "status": "authored_dialogue_design_not_runtime_integrated",
+  "title": "Köchin – Eintopf und schlechte Manieren",
+  "personality": "Direkt, stolz auf ihr Essen, schnell beleidigt. Dass sie auf schwere Provokation mit dem Messer losgeht, entspricht dem Wirt-Dialog.",
+  "entry": "service_entry",
+  "source": {
+    "repository": "Wuerfelduell/Dnd",
+    "design_reference_branch": "claude/dnd-new-repo-aueydw",
+    "destination_branch": "main"
+  },
+  "speakers": {
+    "system": {
+      "name": ""
+    },
+    "cook": {
+      "name": "Köchin",
+      "actor_reference": "cook"
+    }
+  },
+  "conventions": {
+    "address": "Duzen. Ihr/euch nur für die gesamte Gruppe.",
+    "currency": {
+      "base_unit": "copper",
+      "copper_per_silver": 10,
+      "silver_per_gold": 10,
+      "status": "same_proposed_conversion_as_innkeeper"
+    },
+    "transitions": "next refers to a node in this file; terminal ends the conversation. back/continue are navigation controls rather than spoken dialogue.",
+    "skill_checks": "d20 plus ability and applicable skill proficiency; success when total >= DC. DC is null until gameplay balancing. One attempt per attempt_key and NPC per save; never reroll by reopening the menu.",
+    "payment": "Validate funds before removing currency. Payments, item grants and quest claims are atomic; disabled choices do not apply effects.",
+    "persistence": "Rewards, discount flags, quest claims and refused service persist per save and cannot be reset by reopening a conversation.",
+    "combat": "Only listed participants join. Other tavern NPCs remain neutral. An opening attack is resolved by the future combat system, not by this data file.",
+    "integration": "Dialogue data only. Quests, shop, items, proficiency, combat handoff and scene navigation require later implementation.",
+    "participants": "Referenced NPC interventions require that NPC to be alive and available. Do not resurrect a dead guard; if unavailable, hide the choice path that depends on that intervention.",
+    "fallback_eligibility": "No entry or reward nodes for downed NPCs. After shop/combat effects the dialogue closes. If required participants are unavailable, do not start an empty encounter."
+  },
+  "design_decisions_pending": [
+    "Schwierigkeitsgrade der Proben.",
+    "Anbindung an Inventar, Wirtschaft, Speicherstände und Szenen; diese Datei enthält keine Laufzeitlogik."
+  ],
+  "nodes": {
+    "service_entry": {
+      "speaker": "system",
+      "text": "",
+      "choices": [],
+      "effects": [],
+      "switch": {
+        "flag": "food_service_refused",
+        "cases": {
+          "true": "service_refused"
+        },
+        "default": "greeting"
+      }
+    },
+    "greeting": {
+      "speaker": "cook",
+      "text": "Wenn du Hunger hast, sag’s. Wenn du wissen willst, was im Topf ist, frag nach dem Essen.",
+      "choices": [
+        {
+          "id": "buy",
+          "text": "Eine Schüssel, bitte.",
+          "next": "price",
+          "effects": []
+        },
+        {
+          "id": "ingredients",
+          "text": "Jetzt bin ich neugierig. Was ist drin?",
+          "next": "ingredients",
+          "effects": [],
+          "once_answered": true
+        },
+        {
+          "id": "compliment",
+          "text": "[Überzeugen] Das riecht gut. Für jemanden, der heute draußen beinahe draufgegangen ist, hast du doch einen Nachschlag übrig?",
+          "next": null,
+          "effects": [],
+          "check": {
+            "ability": "charisma",
+            "skill": "persuasion",
+            "dc": null,
+            "success": "compliment_success",
+            "failure": "compliment_failure",
+            "retry": false,
+            "attempt_key": "cook.greeting.compliment"
+          },
+          "requires": {
+            "flag_false": "cook_extra_serving_claimed"
+          }
+        },
+        {
+          "id": "insult",
+          "text": "Sieht eher aus, als wäre etwas im Topf draufgegangen.",
+          "next": "insult_warning",
+          "effects": []
+        },
+        {
+          "id": "leave",
+          "text": "Ich störe dich nicht weiter.",
+          "next": null,
+          "effects": [],
+          "end_conversation": true
+        }
+      ],
+      "effects": []
+    },
+    "price": {
+      "speaker": "cook",
+      "text": "Ein Silber für die Schüssel. Brot dazu. Den Löffel gibst du zurück.",
+      "choices": [
+        {
+          "id": "pay",
+          "text": "Hier, ein Silber.",
+          "next": "bought",
+          "effects": [
+            {
+              "type": "spend_currency",
+              "currency": "copper",
+              "amount": 10,
+              "require_funds": true
+            },
+            {
+              "type": "give_item",
+              "item": "stew",
+              "quantity": 1
+            }
+          ],
+          "requires": {
+            "minimum_copper": 10,
+            "food_service_allowed": true
+          },
+          "atomic_effects": true
+        },
+        {
+          "id": "decline",
+          "text": "Dann heute nicht.",
+          "next": null,
+          "effects": [],
+          "end_conversation": true
+        }
+      ],
+      "effects": []
+    },
+    "bought": {
+      "speaker": "cook",
+      "text": "Vorsicht, heiß. Und wenn du sie fallen lässt, leckst du sie selbst vom Boden.",
+      "choices": [],
+      "effects": [],
+      "terminal": true,
+      "stage_direction": "Sie stellt dir eine dampfende Schüssel hin."
+    },
+    "ingredients": {
+      "speaker": "cook",
+      "text": "Zwiebeln, Rüben und Fleisch. Das Fleisch hatte vorhin noch einen Namen. Mehr brauchst du nicht zu wissen.",
+      "choices": [
+        {
+          "id": "back",
+          "text": "Noch etwas anderes.",
+          "next": "greeting",
+          "effects": []
+        },
+        {
+          "id": "end",
+          "text": "Gut. Das reicht mir.",
+          "next": null,
+          "effects": [],
+          "end_conversation": true
+        }
+      ],
+      "effects": []
+    },
+    "compliment_success": {
+      "speaker": "cook",
+      "text": "Mit einem leeren Magen stirbt’s sich schlecht. Kauf eine Schüssel, dann fülle ich sie dir einmal nach.",
+      "choices": [
+        {
+          "id": "pay",
+          "text": "Hier, ein Silber.",
+          "next": "extra_bought",
+          "effects": [
+            {
+              "type": "spend_currency",
+              "currency": "copper",
+              "amount": 10,
+              "require_funds": true
+            },
+            {
+              "type": "give_item",
+              "item": "stew",
+              "quantity": 2
+            },
+            {
+              "type": "set_flag",
+              "flag": "cook_extra_serving_claimed",
+              "value": true
+            }
+          ],
+          "requires": {
+            "minimum_copper": 10,
+            "food_service_allowed": true,
+            "flag_false": "cook_extra_serving_claimed"
+          },
+          "atomic_effects": true
+        },
+        {
+          "id": "decline",
+          "text": "Vielleicht später.",
+          "next": null,
+          "effects": [],
+          "end_conversation": true
+        }
+      ],
+      "effects": []
+    },
+    "extra_bought": {
+      "speaker": "cook",
+      "text": "So. Und jetzt hör auf, so elend auf meinen Topf zu schauen.",
+      "choices": [],
+      "effects": [],
+      "terminal": true
+    },
+    "compliment_failure": {
+      "speaker": "cook",
+      "text": "Dann solltest du etwas essen. Ein Silber, wie für jeden anderen auch.",
+      "choices": [
+        {
+          "id": "pay",
+          "text": "Hier, ein Silber.",
+          "next": "bought",
+          "effects": [
+            {
+              "type": "spend_currency",
+              "currency": "copper",
+              "amount": 10,
+              "require_funds": true
+            },
+            {
+              "type": "give_item",
+              "item": "stew",
+              "quantity": 1
+            }
+          ],
+          "requires": {
+            "minimum_copper": 10,
+            "food_service_allowed": true
+          },
+          "atomic_effects": true
+        },
+        {
+          "id": "decline",
+          "text": "Dann lasse ich’s.",
+          "next": null,
+          "effects": [],
+          "end_conversation": true
+        }
+      ],
+      "effects": []
+    },
+    "insult_warning": {
+      "speaker": "cook",
+      "text": "Willst du essen oder willst du mich beleidigen? Entscheide dich.",
+      "choices": [
+        {
+          "id": "apologize",
+          "text": "Essen. Schlechter Spruch. Entschuldigung.",
+          "next": "price",
+          "effects": []
+        },
+        {
+          "id": "double_down",
+          "text": "Wenn du beides anbietest: erst das eine, dann das andere.",
+          "next": "cook_fight",
+          "effects": []
+        },
+        {
+          "id": "threat",
+          "text": "[Einschüchtern] Spar dir den Ton und gib mir die Schüssel.",
+          "next": null,
+          "effects": [],
+          "check": {
+            "ability": "charisma",
+            "skill": "intimidation",
+            "dc": null,
+            "success": "threat_success",
+            "failure": "cook_fight",
+            "retry": false,
+            "attempt_key": "cook.insult_warning.threat"
+          }
+        },
+        {
+          "id": "leave",
+          "text": "Weder noch. Ich gehe.",
+          "next": null,
+          "effects": [],
+          "end_conversation": true
+        }
+      ],
+      "effects": [],
+      "stage_direction": "Sie legt die Kelle ab und greift nach ihrem Messer."
+    },
+    "threat_success": {
+      "speaker": "cook",
+      "text": "Selbst wenn du mir den Topf wegnimmst, wirst du hier nicht mehr bedient.",
+      "choices": [],
+      "effects": [
+        {
+          "type": "set_flag",
+          "flag": "food_service_refused",
+          "value": true
+        }
+      ],
+      "terminal": true,
+      "stage_direction": "Sie tritt vom Topf zurück, die Hand weiter am Messer."
+    },
+    "cook_fight": {
+      "speaker": "cook",
+      "text": "",
+      "choices": [],
+      "effects": [
+        {
+          "type": "start_combat",
+          "participants": [
+            "cook",
+            "town_guard"
+          ],
+          "opening_attack": {
+            "attacker": "cook",
+            "weapon": "knife",
+            "target": "speaking_player"
+          },
+          "on_victory": null
+        }
+      ],
+      "terminal": true,
+      "stage_direction": "Sie zieht das Messer und sticht sofort zu. Die Wache kommt ihr zu Hilfe.",
+      "participant_conditions": {
+        "town_guard": {
+          "alive": true,
+          "can_fight": true
+        }
+      }
+    },
+    "service_refused": {
+      "speaker": "cook",
+      "text": "Für dich ist die Küche zu. Das hast du dir selbst eingebrockt.",
+      "choices": [],
+      "effects": [],
+      "terminal": true
+    }
+  },
+  "world_dependencies": {
+    "food_service_refused": "Shared flag from innkeeper.json; no later purchase clears it.",
+    "guard_alive": "The guard joins cook combat only while alive and able to fight."
+  },
+  "entry_requirements": {
+    "npc_alive": "cook",
+    "game_mode": "exploration",
+    "no_combat_active": true
+  }
+}

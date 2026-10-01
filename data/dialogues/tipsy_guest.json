@@ -1,0 +1,305 @@
+{
+  "schema_version": 1,
+  "id": "tipsy_guest",
+  "language": "de",
+  "status": "authored_dialogue_design_not_runtime_integrated",
+  "title": "Beschwipster Gast – Prahlerei und der verschwundene Krug",
+  "personality": "Redselig, angeheitert, verschweigt seine eigene Blamage. Kennt eine nützliche Kleinigkeit über den Krug, braucht aber keinen neuen Nebenauftrag.",
+  "entry": "greeting",
+  "source": {
+    "repository": "Wuerfelduell/Dnd",
+    "design_reference_branch": "claude/dnd-new-repo-aueydw",
+    "destination_branch": "main"
+  },
+  "speakers": {
+    "tipsy_guest": {
+      "name": "Beschwipster Gast",
+      "actor_reference": "tipsy_guest"
+    }
+  },
+  "conventions": {
+    "address": "Duzen. Ihr/euch nur für die gesamte Gruppe.",
+    "currency": {
+      "base_unit": "copper",
+      "copper_per_silver": 10,
+      "silver_per_gold": 10,
+      "status": "same_proposed_conversion_as_innkeeper"
+    },
+    "transitions": "next refers to a node in this file; terminal ends the conversation. back/continue are navigation controls rather than spoken dialogue.",
+    "skill_checks": "d20 plus ability and applicable skill proficiency; success when total >= DC. DC is null until gameplay balancing. One attempt per attempt_key and NPC per save; never reroll by reopening the menu.",
+    "payment": "Validate funds before removing currency. Payments, item grants and quest claims are atomic; disabled choices do not apply effects.",
+    "persistence": "Rewards, discount flags, quest claims and refused service persist per save and cannot be reset by reopening a conversation.",
+    "combat": "Only listed participants join. Other tavern NPCs remain neutral. An opening attack is resolved by the future combat system, not by this data file.",
+    "integration": "Dialogue data only. Quests, shop, items, proficiency, combat handoff and scene navigation require later implementation.",
+    "participants": "Referenced NPC interventions require that NPC to be alive and available. Do not resurrect a dead guard; if unavailable, hide the choice path that depends on that intervention.",
+    "fallback_eligibility": "No entry or reward nodes for downed NPCs. After shop/combat effects the dialogue closes. If required participants are unavailable, do not start an empty encounter."
+  },
+  "design_decisions_pending": [
+    "Schwierigkeitsgrade der Proben.",
+    "Anbindung an Inventar, Wirtschaft, Speicherstände und Szenen; diese Datei enthält keine Laufzeitlogik."
+  ],
+  "nodes": {
+    "greeting": {
+      "speaker": "tipsy_guest",
+      "text": "Setz dich. Oder bleib stehen. Der andere Stuhl schwankt mehr als meiner.",
+      "choices": [
+        {
+          "id": "story",
+          "text": "Was hast du heute angestellt?",
+          "next": "story",
+          "effects": []
+        },
+        {
+          "id": "mug",
+          "text": "Der Wirt sucht seinen kupfernen Krug.",
+          "next": "mug_reaction",
+          "effects": []
+        },
+        {
+          "id": "drunk",
+          "text": "Du hast genug getrunken.",
+          "next": "drunk",
+          "effects": []
+        },
+        {
+          "id": "drink",
+          "text": "[Überzeugen] Wir trinken auf unsere Heldentaten. Die nächste Runde zahlst du.",
+          "next": null,
+          "effects": [],
+          "check": {
+            "ability": "charisma",
+            "skill": "persuasion",
+            "dc": null,
+            "success": "drink_success",
+            "failure": "drink_failure",
+            "retry": false,
+            "attempt_key": "tipsy_guest.greeting.drink"
+          },
+          "requires": {
+            "flag_false": "guest_round_claimed"
+          }
+        },
+        {
+          "id": "leave",
+          "text": "Ich lasse dich mit deinem Stuhl allein.",
+          "next": null,
+          "effects": [],
+          "end_conversation": true
+        }
+      ],
+      "effects": []
+    },
+    "story": {
+      "speaker": "tipsy_guest",
+      "text": "War gestern bei der Höhle. Hab etwas im Dunkeln gehört und bin gegangen. Das war keine Flucht. Ich habe mir nur einen gewaltigen Vorsprung für heute erarbeitet.",
+      "choices": [
+        {
+          "id": "mug",
+          "text": "Warst du mit dem Wirt dort?",
+          "next": "mug_reaction",
+          "effects": []
+        },
+        {
+          "id": "leave",
+          "text": "Den Vorsprung solltest du behalten.",
+          "next": null,
+          "effects": [],
+          "end_conversation": true
+        }
+      ],
+      "effects": []
+    },
+    "mug_reaction": {
+      "speaker": "tipsy_guest",
+      "text": "Den kupfernen? Hat er dir auch erzählt, wie er dort hingekommen ist?",
+      "choices": [
+        {
+          "id": "tell",
+          "text": "Nein. Er wollte nicht darüber reden.",
+          "next": "mug_story",
+          "effects": []
+        },
+        {
+          "id": "lie",
+          "text": "[Täuschen] Er sagt, du hast ihn dort liegen lassen.",
+          "next": null,
+          "effects": [],
+          "check": {
+            "ability": "charisma",
+            "skill": "deception",
+            "dc": null,
+            "success": "mug_lie_success",
+            "failure": "mug_lie_failure",
+            "retry": false,
+            "attempt_key": "tipsy_guest.mug_reaction.lie"
+          }
+        },
+        {
+          "id": "leave",
+          "text": "Ist mir egal. Wir schauen danach.",
+          "next": null,
+          "effects": [],
+          "end_conversation": true
+        }
+      ],
+      "effects": [],
+      "stage_direction": "Er versucht, sein Grinsen hinter dem eigenen Krug zu verstecken."
+    },
+    "mug_story": {
+      "speaker": "tipsy_guest",
+      "text": "Wir waren draußen trinken. Er wollte beweisen, dass sein Rülpsen lauter ist als das Echo in der Höhle. Dann kam aus dem Dunkeln eine Antwort, die keiner von uns gemacht hat.",
+      "choices": [
+        {
+          "id": "where",
+          "text": "Und wo liegt der Krug jetzt?",
+          "next": "mug_location",
+          "effects": []
+        },
+        {
+          "id": "leave",
+          "text": "Jetzt weiß ich, warum er nicht darüber redet.",
+          "next": null,
+          "effects": [],
+          "end_conversation": true
+        }
+      ],
+      "effects": []
+    },
+    "mug_lie_success": {
+      "speaker": "tipsy_guest",
+      "text": "Ich? Er hat ihn fallen lassen! Neben dem flachen Stein rechts vorm Eingang. Ich hatte beide Hände frei. Zum Rennen.",
+      "choices": [],
+      "effects": [
+        {
+          "type": "set_flag",
+          "flag": "mug_location_known",
+          "value": true
+        }
+      ],
+      "terminal": true,
+      "stage_direction": "Er zeigt mit dem Finger auf die Theke, als könnte er dort den Stein beweisen."
+    },
+    "mug_lie_failure": {
+      "speaker": "tipsy_guest",
+      "text": "Das sagt er bestimmt nicht. Dann müsste er zugeben, dass wir zusammen dort waren.",
+      "choices": [
+        {
+          "id": "where",
+          "text": "Sag einfach, wo ich suchen soll.",
+          "next": "mug_location",
+          "effects": []
+        },
+        {
+          "id": "leave",
+          "text": "Schon gut. Vergiss es.",
+          "next": null,
+          "effects": [],
+          "end_conversation": true
+        }
+      ],
+      "effects": []
+    },
+    "mug_location": {
+      "speaker": "tipsy_guest",
+      "text": "Neben dem flachen Stein rechts vorm Höhleneingang. Wenn du ihn findest, erzähl ihm nicht, dass ich geredet habe. Ich trinke gern hier.",
+      "choices": [],
+      "effects": [
+        {
+          "type": "set_flag",
+          "flag": "mug_location_known",
+          "value": true
+        }
+      ],
+      "terminal": true
+    },
+    "drunk": {
+      "speaker": "tipsy_guest",
+      "text": "Gut beobachtet. Jetzt weiß ich auch, warum ich dich zweimal sehe.",
+      "choices": [
+        {
+          "id": "leave",
+          "text": "Dann viel Glück mit dem zweiten Ich.",
+          "next": null,
+          "effects": [],
+          "end_conversation": true
+        },
+        {
+          "id": "threat",
+          "text": "[Einschüchtern] Dann hör auf zu reden, bevor du auch zwei Schläge bekommst.",
+          "next": null,
+          "effects": [],
+          "check": {
+            "ability": "charisma",
+            "skill": "intimidation",
+            "dc": null,
+            "success": "threat_success",
+            "failure": "threat_failure",
+            "retry": false,
+            "attempt_key": "tipsy_guest.drunk.threat"
+          }
+        }
+      ],
+      "effects": []
+    },
+    "threat_success": {
+      "speaker": "tipsy_guest",
+      "text": "Schon gut. Gehört. Ich bin still.",
+      "choices": [],
+      "effects": [],
+      "terminal": true,
+      "stage_direction": "Er zieht seinen Krug näher an sich und senkt den Blick."
+    },
+    "threat_failure": {
+      "speaker": "tipsy_guest",
+      "text": "Wache! Der droht uns beiden!",
+      "choices": [],
+      "effects": [],
+      "terminal": true,
+      "stage_direction": "Die Wache schaut herüber. „Lass ihn trinken. Du bist nüchtern genug, um es besser zu wissen.“ Der Gast hält sich demonstrativ den Mund zu.",
+      "note": "No forced fight: the guest is unarmed, and this brief intervention closes the conversation.",
+      "participant_requirements": {
+        "town_guard": {
+          "alive": true,
+          "can_fight": true
+        }
+      }
+    },
+    "drink_success": {
+      "speaker": "tipsy_guest",
+      "text": "Vier Bier? Na gut. Aber du erzählst die Geschichte so, dass ich morgen der Mutigste am Tisch war.",
+      "choices": [],
+      "effects": [
+        {
+          "type": "give_item",
+          "item": "beer",
+          "quantity": 4
+        },
+        {
+          "type": "set_flag",
+          "flag": "guest_round_claimed",
+          "value": true
+        }
+      ],
+      "terminal": true,
+      "once_per_save": true,
+      "stage_direction": "Er winkt dem Wirt zu und bezahlt die Runde.",
+      "atomic_effects": true
+    },
+    "drink_failure": {
+      "speaker": "tipsy_guest",
+      "text": "Meine größte Heldentat heute war, die letzte Runde zu bezahlen. Die Geschichte wiederhole ich nicht.",
+      "choices": [],
+      "effects": [],
+      "terminal": true
+    }
+  },
+  "world_dependencies": {
+    "mug_hint": "The innkeeper's unique copper mug lies near the cave entrance, beside the flat rock on the right. Future scene placement must match this hint.",
+    "no_extra_bounty": "This NPC offers no quest reward and does not duplicate the innkeeper's mug quest."
+  },
+  "entry_requirements": {
+    "npc_alive": "tipsy_guest",
+    "game_mode": "exploration",
+    "no_combat_active": true
+  }
+}

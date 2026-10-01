@@ -1,0 +1,367 @@
+{
+  "schema_version": 1,
+  "id": "bard",
+  "language": "de",
+  "status": "authored_dialogue_design_not_runtime_integrated",
+  "title": "Barde – Lieder, Spott und Gerüchte",
+  "personality": "Schlagfertiger Beobachter. Verdient an Liedern und Klatsch; wehrt Provokation mit Spott ab und meidet echten Kampf.",
+  "entry": "entry",
+  "source": {
+    "repository": "Wuerfelduell/Dnd",
+    "design_reference_branch": "claude/dnd-new-repo-aueydw",
+    "destination_branch": "main"
+  },
+  "speakers": {
+    "system": {
+      "name": ""
+    },
+    "bard": {
+      "name": "Barde",
+      "actor_reference": "bard"
+    }
+  },
+  "conventions": {
+    "address": "Duzen. Ihr/euch nur für die gesamte Gruppe.",
+    "currency": {
+      "base_unit": "copper",
+      "copper_per_silver": 10,
+      "silver_per_gold": 10,
+      "status": "same_proposed_conversion_as_innkeeper"
+    },
+    "transitions": "next refers to a node in this file; terminal ends the conversation. back/continue are navigation controls rather than spoken dialogue.",
+    "skill_checks": "d20 plus ability and applicable skill proficiency; success when total >= DC. DC is null until gameplay balancing. One attempt per attempt_key and NPC per save; never reroll by reopening the menu.",
+    "payment": "Validate funds before removing currency. Payments, item grants and quest claims are atomic; disabled choices do not apply effects.",
+    "persistence": "Rewards, discount flags, quest claims and refused service persist per save and cannot be reset by reopening a conversation.",
+    "combat": "Only listed participants join. Other tavern NPCs remain neutral. An opening attack is resolved by the future combat system, not by this data file.",
+    "integration": "Dialogue data only. Quests, shop, items, proficiency, combat handoff and scene navigation require later implementation.",
+    "participants": "Referenced NPC interventions require that NPC to be alive and available. Do not resurrect a dead guard; if unavailable, hide the choice path that depends on that intervention.",
+    "fallback_eligibility": "No entry or reward nodes for downed NPCs. After shop/combat effects the dialogue closes. If required participants are unavailable, do not start an empty encounter."
+  },
+  "design_decisions_pending": [
+    "Schwierigkeitsgrade der Proben.",
+    "Anbindung an Inventar, Wirtschaft, Speicherstände und Szenen; diese Datei enthält keine Laufzeitlogik."
+  ],
+  "nodes": {
+    "entry": {
+      "speaker": "system",
+      "text": "",
+      "choices": [],
+      "effects": [],
+      "switch": {
+        "flag": "bard_will_not_speak",
+        "cases": {
+          "true": "refused"
+        },
+        "default": "greeting"
+      }
+    },
+    "greeting": {
+      "speaker": "bard",
+      "text": "Du siehst aus, als hättest du eine Geschichte. Wenn sie gut ist, mache ich ein Lied draus. Wenn sie schlecht ist, ändere ich deinen Namen.",
+      "choices": [
+        {
+          "id": "song",
+          "text": "Spiel etwas, bei dem man sein Bier behalten kann.",
+          "next": "song_offer",
+          "effects": []
+        },
+        {
+          "id": "rumour",
+          "text": "Was hört man hier so?",
+          "next": "rumour_offer",
+          "effects": []
+        },
+        {
+          "id": "story",
+          "text": "[Täuschen] In der Höhle habe ich einen Golem mit bloßen Händen zerlegt.",
+          "next": null,
+          "effects": [],
+          "check": {
+            "ability": "charisma",
+            "skill": "deception",
+            "dc": null,
+            "success": "story_success",
+            "failure": "story_failure",
+            "retry": false,
+            "attempt_key": "bard.greeting.story"
+          }
+        },
+        {
+          "id": "insult",
+          "text": "Du könntest auch einfach aufhören. Das wäre dein bestes Stück.",
+          "next": "insult",
+          "effects": []
+        },
+        {
+          "id": "leave",
+          "text": "Spiel weiter. Ich hör von dort drüben zu.",
+          "next": null,
+          "effects": [],
+          "end_conversation": true
+        }
+      ],
+      "effects": []
+    },
+    "song_offer": {
+      "speaker": "bard",
+      "text": "Drei Kupfer für das Lied. Dafür singe ich keine einzige Strophe über einen toten Geliebten.",
+      "choices": [
+        {
+          "id": "pay",
+          "text": "Hier. Und halte dich daran.",
+          "next": "song",
+          "effects": [
+            {
+              "type": "spend_currency",
+              "currency": "copper",
+              "amount": 3,
+              "require_funds": true
+            }
+          ],
+          "requires": {
+            "minimum_copper": 3
+          },
+          "atomic_effects": true
+        },
+        {
+          "id": "decline",
+          "text": "Dann höre ich lieber den anderen Gästen zu.",
+          "next": null,
+          "effects": [],
+          "end_conversation": true
+        }
+      ],
+      "effects": []
+    },
+    "song": {
+      "speaker": "bard",
+      "text": "Ein Mann zog aus mit Schild und Speer,\nkam ohne Schild und Hose her.\nDen Drachen hat er nie geseh’n,\ndoch alle sah’n ihn heimwärts geh’n.",
+      "choices": [],
+      "effects": [],
+      "terminal": true,
+      "stage_direction": "Er schlägt einen fröhlichen Rhythmus an. Am Tisch nebenan grölt jemand die letzte Zeile mit."
+    },
+    "rumour_offer": {
+      "speaker": "bard",
+      "text": "Zwei Kupfer. Der Wirt verlangt Geld für Wege. Ich für Geschichten, bei denen du dir den Weg sparen kannst.",
+      "choices": [
+        {
+          "id": "pay",
+          "text": "Hier. Was weißt du?",
+          "next": "rumour",
+          "effects": [
+            {
+              "type": "spend_currency",
+              "currency": "copper",
+              "amount": 2,
+              "require_funds": true
+            }
+          ],
+          "requires": {
+            "minimum_copper": 2
+          },
+          "atomic_effects": true
+        },
+        {
+          "id": "persuade",
+          "text": "[Überzeugen] Wenn ich deiner Geschichte nachgehe, bekommst du vielleicht ein neues Lied. Das ist mehr wert als zwei Kupfer.",
+          "next": null,
+          "effects": [],
+          "check": {
+            "ability": "charisma",
+            "skill": "persuasion",
+            "dc": null,
+            "success": "rumour",
+            "failure": "rumour_refused",
+            "retry": false,
+            "attempt_key": "bard.rumour_offer.persuade"
+          }
+        },
+        {
+          "id": "decline",
+          "text": "Behalte deine Geschichte.",
+          "next": null,
+          "effects": [],
+          "end_conversation": true
+        }
+      ],
+      "effects": []
+    },
+    "rumour": {
+      "speaker": "bard",
+      "text": "Der Jäger war neulich hier. Hat dauernd seinen Arm gerieben, als würde unter der Haut etwas krabbeln. Ich hab gefragt, ob ihm kalt ist. Er sagte nur: ‚Nicht von außen.‘",
+      "choices": [
+        {
+          "id": "visit",
+          "text": "Dann sehen wir bei ihm nach.",
+          "next": null,
+          "effects": [
+            {
+              "type": "set_flag",
+              "flag": "hunter_poison_rumour_known",
+              "value": true
+            }
+          ],
+          "end_conversation": true
+        },
+        {
+          "id": "leave",
+          "text": "Das wollte ich vor dem Essen nicht hören.",
+          "next": null,
+          "effects": [
+            {
+              "type": "set_flag",
+              "flag": "hunter_poison_rumour_known",
+              "value": true
+            }
+          ],
+          "end_conversation": true
+        }
+      ],
+      "effects": [],
+      "stage_direction": "Er dämpft mit der Hand die Saiten seiner Laute."
+    },
+    "rumour_refused": {
+      "speaker": "bard",
+      "text": "‚Vielleicht‘ zahlt meine Zeche nicht. Zwei Kupfer.",
+      "choices": [
+        {
+          "id": "pay",
+          "text": "Na gut. Hier.",
+          "next": "rumour",
+          "effects": [
+            {
+              "type": "spend_currency",
+              "currency": "copper",
+              "amount": 2,
+              "require_funds": true
+            }
+          ],
+          "requires": {
+            "minimum_copper": 2
+          },
+          "atomic_effects": true
+        },
+        {
+          "id": "decline",
+          "text": "Dann nicht.",
+          "next": null,
+          "effects": [],
+          "end_conversation": true
+        }
+      ],
+      "effects": []
+    },
+    "story_success": {
+      "speaker": "bard",
+      "text": "Mit bloßen Händen? Ausgezeichnet. Im Lied werden’s bloße Füße. Sonst glaubt mir das Publikum nicht, dass du so verrückt bist.",
+      "choices": [],
+      "effects": [
+        {
+          "type": "set_flag",
+          "flag": "bard_tells_party_legend",
+          "value": true
+        }
+      ],
+      "terminal": true
+    },
+    "story_failure": {
+      "speaker": "bard",
+      "text": "Dann zeig deine Hände. Keine Schramme? Faszinierend. Der Golem muss weicher gewesen sein als die Geschichte.",
+      "choices": [],
+      "effects": [
+        {
+          "type": "set_flag",
+          "flag": "bard_caught_party_lie",
+          "value": true
+        }
+      ],
+      "terminal": true
+    },
+    "insult": {
+      "speaker": "bard",
+      "text": "Und du könntest den Mund halten. Offenbar haben wir beide noch ungenutztes Talent.",
+      "choices": [
+        {
+          "id": "laugh",
+          "text": "Gut. Den hast du gewonnen.",
+          "next": null,
+          "effects": [],
+          "end_conversation": true
+        },
+        {
+          "id": "threat",
+          "text": "[Einschüchtern] Noch ein Wort über mich, und du spielst mit gebrochenen Fingern.",
+          "next": null,
+          "effects": [],
+          "check": {
+            "ability": "charisma",
+            "skill": "intimidation",
+            "dc": null,
+            "success": "threat_success",
+            "failure": "threat_failure",
+            "retry": false,
+            "attempt_key": "bard.insult.threat"
+          }
+        },
+        {
+          "id": "leave",
+          "text": "Wir sind fertig.",
+          "next": null,
+          "effects": [],
+          "end_conversation": true
+        }
+      ],
+      "effects": []
+    },
+    "threat_success": {
+      "speaker": "bard",
+      "text": "Verstanden. Ich spiele für jemand anderen.",
+      "choices": [],
+      "effects": [
+        {
+          "type": "set_flag",
+          "flag": "bard_will_not_speak",
+          "value": true
+        }
+      ],
+      "terminal": true,
+      "stage_direction": "Er zieht die Laute an sich und setzt sich ans andere Ende der Bühne."
+    },
+    "threat_failure": {
+      "speaker": "bard",
+      "text": "Wache? Unser neuer Musikfreund möchte mir die Finger brechen.",
+      "choices": [
+        {
+          "id": "withdraw",
+          "text": "Schon gut. Ich gehe.",
+          "next": null,
+          "effects": [],
+          "end_conversation": true
+        }
+      ],
+      "effects": [],
+      "stage_direction": "Die Wache tritt zwischen euch. „Lass ihn in Ruhe. Oder wir bekommen ein Problem.“",
+      "note": "Keine zusätzliche Wachen-Verhandlung; dieser kleine Zweig endet hier.",
+      "participant_requirements": {
+        "town_guard": {
+          "alive": true,
+          "can_fight": true
+        }
+      }
+    },
+    "refused": {
+      "speaker": "bard",
+      "text": "",
+      "choices": [],
+      "effects": [],
+      "terminal": true,
+      "stage_direction": "Er wendet sich ab und spielt weiter."
+    }
+  },
+  "entry_requirements": {
+    "npc_alive": "bard",
+    "game_mode": "exploration",
+    "no_combat_active": true
+  }
+}

@@ -1,0 +1,422 @@
+{
+  "schema_version": 1,
+  "id": "merchant",
+  "language": "de",
+  "status": "authored_dialogue_design_not_runtime_integrated",
+  "title": "Händler – Waren, Feilschen und lange Finger",
+  "personality": "Freundlich, solange jemand zahlt. Erkennt Tricks, kalkuliert Risiken und verschenkt nichts aus Dankbarkeit.",
+  "entry": "entry",
+  "source": {
+    "repository": "Wuerfelduell/Dnd",
+    "design_reference_branch": "claude/dnd-new-repo-aueydw",
+    "destination_branch": "main"
+  },
+  "speakers": {
+    "system": {
+      "name": ""
+    },
+    "merchant": {
+      "name": "Händler",
+      "actor_reference": "merchant"
+    },
+    "town_guard": {
+      "name": "Wache",
+      "actor_reference": "town_guard"
+    }
+  },
+  "conventions": {
+    "address": "Duzen. Ihr/euch nur für die gesamte Gruppe.",
+    "currency": {
+      "base_unit": "copper",
+      "copper_per_silver": 10,
+      "silver_per_gold": 10,
+      "status": "same_proposed_conversion_as_innkeeper"
+    },
+    "transitions": "next refers to a node in this file; terminal ends the conversation. back/continue are navigation controls rather than spoken dialogue.",
+    "skill_checks": "d20 plus ability and applicable skill proficiency; success when total >= DC. DC is null until gameplay balancing. One attempt per attempt_key and NPC per save; never reroll by reopening the menu.",
+    "payment": "Validate funds before removing currency. Payments, item grants and quest claims are atomic; disabled choices do not apply effects.",
+    "persistence": "Rewards, discount flags, quest claims and refused service persist per save and cannot be reset by reopening a conversation.",
+    "combat": "Only listed participants join. Other tavern NPCs remain neutral. An opening attack is resolved by the future combat system, not by this data file.",
+    "integration": "Dialogue data only. Quests, shop, items, proficiency, combat handoff and scene navigation require later implementation.",
+    "participants": "Referenced NPC interventions require that NPC to be alive and available. Do not resurrect a dead guard; if unavailable, hide the choice path that depends on that intervention.",
+    "fallback_eligibility": "No entry or reward nodes for downed NPCs. After shop/combat effects the dialogue closes. If required participants are unavailable, do not start an empty encounter."
+  },
+  "design_decisions_pending": [
+    "Schwierigkeitsgrade der Proben.",
+    "Anbindung an Inventar, Wirtschaft, Speicherstände und Szenen; diese Datei enthält keine Laufzeitlogik."
+  ],
+  "nodes": {
+    "entry": {
+      "speaker": "system",
+      "text": "",
+      "choices": [],
+      "effects": [],
+      "switch": {
+        "flag": "merchant_service_refused",
+        "cases": {
+          "true": "refused"
+        },
+        "default": "greeting"
+      }
+    },
+    "greeting": {
+      "speaker": "merchant",
+      "text": "Heilmittel, Pfeile, Ausrüstung. Alles, was du draußen gern dabeihättest. Alles, was du hinterher bedauerst, nicht gekauft zu haben.",
+      "choices": [
+        {
+          "id": "shop",
+          "text": "Zeig mir deine Waren.",
+          "next": "shop",
+          "effects": []
+        },
+        {
+          "id": "haggle",
+          "text": "[Überzeugen] Wir kommen lebend zurück und kaufen wieder. Gib uns einen Grund, bei dir zu bleiben.",
+          "next": null,
+          "effects": [],
+          "check": {
+            "ability": "charisma",
+            "skill": "persuasion",
+            "dc": null,
+            "success": "haggle_success",
+            "failure": "haggle_failure",
+            "retry": false,
+            "attempt_key": "merchant.greeting.haggle"
+          },
+          "requires": {
+            "flag_false": "merchant_discount_percent"
+          }
+        },
+        {
+          "id": "advice",
+          "text": "Was würdest du für die Höhle mitnehmen?",
+          "next": "advice",
+          "effects": []
+        },
+        {
+          "id": "steal",
+          "text": "[Fingerfertigkeit] Während er redet, den kleinen Münzbeutel vom Tisch nehmen.",
+          "next": null,
+          "effects": [],
+          "check": {
+            "ability": "dexterity",
+            "skill": "sleight_of_hand",
+            "dc": null,
+            "success": "steal_success",
+            "failure": "steal_failure",
+            "retry": false,
+            "attempt_key": "merchant.greeting.steal"
+          },
+          "requires": {
+            "flag_false": "merchant_purse_stolen"
+          }
+        },
+        {
+          "id": "leave",
+          "text": "Heute kaufe ich nichts.",
+          "next": null,
+          "effects": [],
+          "end_conversation": true
+        }
+      ],
+      "effects": []
+    },
+    "shop": {
+      "speaker": "merchant",
+      "text": "Schau in Ruhe. Was du zerbrichst, steht schon auf deiner Rechnung.",
+      "choices": [],
+      "effects": [
+        {
+          "type": "open_shop",
+          "merchant": "merchant",
+          "apply_discount_flag": "merchant_discount_percent"
+        }
+      ],
+      "terminal": true
+    },
+    "haggle_success": {
+      "speaker": "merchant",
+      "text": "Zehn Prozent. Einmal ausgehandelt, dauerhaft gültig. Wenn du mir wirklich noch ein paarmal Geld vorbeibringst, bin ich zufrieden.",
+      "choices": [
+        {
+          "id": "shop",
+          "text": "Dann schauen wir uns deine Waren an.",
+          "next": "shop",
+          "effects": []
+        },
+        {
+          "id": "leave",
+          "text": "Darauf komme ich zurück.",
+          "next": null,
+          "effects": [],
+          "end_conversation": true
+        }
+      ],
+      "effects": [
+        {
+          "type": "set_flag",
+          "flag": "merchant_discount_percent",
+          "value": 10
+        }
+      ]
+    },
+    "haggle_failure": {
+      "speaker": "merchant",
+      "text": "Jeder verspricht mir, wiederzukommen. Manche tun’s sogar. Meine Preise gelten trotzdem für alle.",
+      "choices": [
+        {
+          "id": "shop",
+          "text": "Dann zeig mir die Waren.",
+          "next": "shop",
+          "effects": []
+        },
+        {
+          "id": "leave",
+          "text": "Dann lasse ich’s.",
+          "next": null,
+          "effects": [],
+          "end_conversation": true
+        }
+      ],
+      "effects": []
+    },
+    "advice": {
+      "speaker": "merchant",
+      "text": "Heilmittel und Gegengift. Pfeile für alles, was von der Decke kommt. Und keine Panik, wenn du etwas Großes triffst und es nicht blutet. Ein Loch im Felsen wird nicht durch Fluchen größer.",
+      "choices": [
+        {
+          "id": "shop",
+          "text": "Zeig mir, was du davon hast.",
+          "next": "shop",
+          "effects": []
+        },
+        {
+          "id": "leave",
+          "text": "Danke für den Rat.",
+          "next": null,
+          "effects": [],
+          "end_conversation": true
+        }
+      ],
+      "effects": []
+    },
+    "steal_success": {
+      "speaker": "merchant",
+      "text": "Und? Suchst du etwas Bestimmtes?",
+      "choices": [
+        {
+          "id": "leave",
+          "text": "Nur einen Überblick. Bis später.",
+          "next": null,
+          "effects": [],
+          "end_conversation": true
+        }
+      ],
+      "effects": [
+        {
+          "type": "give_currency",
+          "currency": "copper",
+          "amount": 10
+        },
+        {
+          "type": "set_flag",
+          "flag": "merchant_purse_stolen",
+          "value": true
+        }
+      ],
+      "stage_direction": "Der Münzbeutel verschwindet unbemerkt in deiner Tasche.",
+      "once_per_save": true,
+      "atomic_effects": true
+    },
+    "steal_failure": {
+      "speaker": "merchant",
+      "text": "Leg ihn hin. Langsam. Dann entscheiden wir, ob ich die Wache brauche.",
+      "choices": [
+        {
+          "id": "return",
+          "text": "Schon gut. Hier ist er.",
+          "next": "return_purse",
+          "effects": []
+        },
+        {
+          "id": "lie",
+          "text": "[Täuschen] Ich wollte nur prüfen, ob das Leder etwas taugt.",
+          "next": null,
+          "effects": [],
+          "check": {
+            "ability": "charisma",
+            "skill": "deception",
+            "dc": null,
+            "success": "excuse_success",
+            "failure": "excuse_failure",
+            "retry": false,
+            "attempt_key": "merchant.steal_failure.lie"
+          }
+        },
+        {
+          "id": "attack",
+          "text": "Dann brauchst du sie jetzt. [Angreifen]",
+          "next": "fight_guard",
+          "effects": []
+        }
+      ],
+      "effects": [],
+      "stage_direction": "Er hält dein Handgelenk fest. Der Beutel ist noch nicht in deinem Besitz.",
+      "note": "No currency is given on a failed theft.",
+      "participant_requirements": {
+        "town_guard": {
+          "alive": true,
+          "can_fight": true
+        }
+      }
+    },
+    "return_purse": {
+      "speaker": "merchant",
+      "text": "Du kaufst hier heute nichts mehr. Pack deine Finger ein und geh.",
+      "choices": [],
+      "effects": [
+        {
+          "type": "set_flag",
+          "flag": "merchant_service_refused",
+          "value": true
+        }
+      ],
+      "terminal": true
+    },
+    "excuse_success": {
+      "speaker": "merchant",
+      "text": "Es taugt. Dein Benehmen nicht. Beim nächsten Griff lässt du erst eine Münze liegen.",
+      "choices": [
+        {
+          "id": "shop",
+          "text": "Dann kaufe ich lieber ehrlich ein.",
+          "next": "shop",
+          "effects": []
+        },
+        {
+          "id": "leave",
+          "text": "Verstanden.",
+          "next": null,
+          "effects": [],
+          "end_conversation": true
+        }
+      ],
+      "effects": []
+    },
+    "excuse_failure": {
+      "speaker": "merchant",
+      "text": "Und ich prüfe jetzt, ob die Wache aufmerksam ist. Wache!",
+      "choices": [
+        {
+          "id": "fine",
+          "text": "Gut. Fünf Silber. Lassen wir es dabei.",
+          "next": "fine_paid",
+          "effects": [
+            {
+              "type": "spend_currency",
+              "currency": "copper",
+              "amount": 50,
+              "require_funds": true
+            }
+          ],
+          "requires": {
+            "minimum_copper": 50
+          },
+          "atomic_effects": true
+        },
+        {
+          "id": "leave",
+          "text": "Ich gehe. Der Beutel bleibt hier.",
+          "next": null,
+          "effects": [
+            {
+              "type": "set_flag",
+              "flag": "merchant_service_refused",
+              "value": true
+            }
+          ],
+          "end_conversation": true
+        },
+        {
+          "id": "attack",
+          "text": "Dann versuch, sie zu kassieren. [Angreifen]",
+          "next": "fight_guard",
+          "effects": []
+        }
+      ],
+      "effects": [],
+      "stage_direction": "Die Wache kommt dazu. „Fünf Silber wegen des Diebstahlversuchs, wenn du hier weiter einkaufen willst. Sonst gehst du und lässt den Händler in Ruhe.“",
+      "participant_requirements": {
+        "town_guard": {
+          "alive": true,
+          "can_fight": true
+        }
+      }
+    },
+    "fine_paid": {
+      "speaker": "town_guard",
+      "text": "Gut. Der Beutel bleibt auf dem Tisch. Deine Hände bleiben ab jetzt bei dir.",
+      "choices": [
+        {
+          "id": "shop",
+          "text": "Ich will nur noch kaufen.",
+          "next": "shop",
+          "effects": []
+        },
+        {
+          "id": "leave",
+          "text": "Das war’s für heute.",
+          "next": null,
+          "effects": [],
+          "end_conversation": true
+        }
+      ],
+      "effects": []
+    },
+    "fight_guard": {
+      "speaker": "town_guard",
+      "text": "Du hast es so gewollt.",
+      "choices": [],
+      "effects": [
+        {
+          "type": "start_combat",
+          "participants": [
+            "town_guard"
+          ],
+          "opening_attack": null,
+          "on_victory": null
+        },
+        {
+          "type": "set_flag",
+          "flag": "merchant_service_refused",
+          "value": true
+        }
+      ],
+      "terminal": true,
+      "stage_direction": "Die Wache zieht ihr Schwert. Der unbewaffnete Händler zieht sich zurück.",
+      "participant_conditions": {
+        "town_guard": {
+          "alive": true,
+          "can_fight": true
+        }
+      }
+    },
+    "refused": {
+      "speaker": "merchant",
+      "text": "Du hattest deine Gelegenheit. Hier kaufst du nichts mehr.",
+      "choices": [],
+      "effects": [],
+      "terminal": true
+    }
+  },
+  "world_dependencies": {
+    "shop_catalog": "Use the future shop inventory. No gear is created by this dialogue.",
+    "shop_discount": "merchant_discount_percent=10, permanent once awarded; never stack it.",
+    "stolen_item": "One generic merchant_coin_purse containing exactly 10 copper; no random expensive merchandise."
+  },
+  "entry_requirements": {
+    "npc_alive": "merchant",
+    "game_mode": "exploration",
+    "no_combat_active": true
+  }
+}
