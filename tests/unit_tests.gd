@@ -34,6 +34,7 @@ func _ready() -> void:
 	_test_money_and_story()
 	_test_dialogue_tree()
 	_test_dialogue_runner()
+	_test_tavern_dialogues()
 	print("\n%d checks, %d failures" % [_checks, _failures])
 	get_tree().quit(0 if _failures == 0 else 1)
 
@@ -1254,7 +1255,7 @@ func _test_dialogue_runner() -> void:
 	check(result["skill"] == "intimidation" and result["roller"] == fighter and result["modifier"] == 2 and result["proficient"], "the fighter (CHA +0, trained +2) ties with the rogue (CHA +2) and wins the tie as the trained one (%s)" % str(result))
 	check(result["total"] == result["natural"] + result["modifier"] and result["success"] and result["dc"] == 0, "roll arithmetic")
 	check(_pick(runner, "free_beer") and runner.current_id == "free_beer_success" and bag.count(Inventory.find_item(&"beer")) == 8, "the free round: +4 beer")
-	check(story.is_consumed("free_beer_success") and runner.choices().size() == 1 and runner.choices()[0]["kind"] == "end", "a terminal node with text offers 'Gespräch beenden'")
+	check(story.is_consumed("innkeeper/free_beer_success") and runner.choices().size() == 1 and runner.choices()[0]["kind"] == "end", "a terminal node with text offers 'Gespräch beenden'")
 	runner.choose(0)
 	check(not runner.is_running, "...which ends it")
 	runner.start()
@@ -1342,3 +1343,207 @@ func _test_dialogue_runner() -> void:
 
 	fighter.queue_free()
 	rogue.queue_free()
+
+
+# --- The other tavern folk -------------------------------------------------------
+
+func _test_tavern_dialogues() -> void:
+	# Every file loads, is consistent and every node is reachable.
+	var expected_nodes := {"bard": 29, "cook": 25, "merchant": 28, "tipsy_guest": 19, "town_guard": 22}
+	for dialogue_id in expected_nodes:
+		var t := DialogueTree.load_by_id(dialogue_id)
+		check(t != null and t.errors.is_empty(), "%s dialogue loads and is consistent (%s)" % [dialogue_id, ", ".join(t.errors) if t else "missing"])
+		if t == null:
+			continue
+		check(t.nodes.size() == expected_nodes[dialogue_id], "%s has %d nodes (%d)" % [dialogue_id, expected_nodes[dialogue_id], t.nodes.size()])
+		check(t.reachable_nodes().size() == t.nodes.size(), "%s: every node is reachable" % dialogue_id)
+		var data: ActorData = load("res://data/actors/%s.tres" % dialogue_id)
+		check(data.dialogue == dialogue_id, "%s actor data points at its dialogue" % dialogue_id)
+	for item_id in ["fake_spider_ring", "cook_poaching_evidence"]:
+		var item := Inventory.find_item(StringName(item_id))
+		check(item != null and item.kind == ItemData.Kind.TRINKET, "%s exists as a trinket" % item_id)
+
+	var fighter := _make_actor("res://data/actors/fighter.tres")
+	var rogue := _make_actor("res://data/actors/rogue.tres")
+	var wizard := _make_actor("res://data/actors/wizard.tres")
+	var cleric := _make_actor("res://data/actors/cleric.tres")
+	var party: Array[Actor] = [fighter, rogue, wizard, cleric]
+	var bag := Inventory.new()
+	var story := StoryState.new()
+	var effects: Array = []
+	var guard_alive: Array[bool] = [true]
+	var cave_cleared: Array[bool] = [false]
+
+	# --- Town guard: the cave bounty, claim states and the objective.
+	var guard := DialogueRunner.new(DialogueTree.load_by_id("town_guard"), bag, story, party)
+	guard.world_effect.connect(func(e): effects.append(e))
+	guard.npc_available = func(reference: String) -> bool: return reference != "town_guard" or guard_alive[0]
+	guard.objective_met = func(objective: String) -> bool: return objective == "cave_cleared" and cave_cleared[0]
+	guard.start()
+	check(guard.current_id == "greeting" and _choice_index(guard, "job") >= 0 and _choice_index(guard, "claim") < 0 and _choice_index(guard, "claim_cave_reward") < 0, "without a job there is nothing to claim")
+	check(_pick(guard, "job") and guard.current_id == "offer", "the offer")
+	guard.default_dc = 0
+	check(_pick(guard, "read_guard") and guard.current_id == "notice_success" and guard.last_check["skill"] == "insight" and guard.last_check["roller"] == cleric and guard.last_check["proficient"] and guard.last_check["modifier"] == 5, "insight: the cleric (WIS +3, trained) reads him (%s)" % str(guard.last_check))
+	check(story.has_attempted("town_guard.offer.read_guard"), "the attempt is remembered for the run")
+	check(_pick(guard, "confront") and guard.current_id == "read_notice", "the notice says 50 silver")
+	check(_pick(guard, "private") and guard.current_id == "exposed" and _pick(guard, "full") and guard.current_id == "full_offer", "haggle in private for the full sum")
+	check(_pick(guard, "accept") and story.quest_status("clear_tavern_cave") == "accepted" and story.quest_reward("clear_tavern_cave")["copper"] == 500, "500 copper agreed")
+	check(guard.current_id == "accepted" and guard.choices()[0]["kind"] == "end", "the deal ends the talk")
+	guard.advance()
+	guard.start()
+	check(_choice_index(guard, "job") < 0 and _choice_index(guard, "claim") >= 0 and _choice_index(guard, "claim_cave_reward") < 0, "with the job taken only the claim remains (no duplicate entry button)")
+	check(guard.quest_objective("clear_tavern_cave") == "cave_cleared" and guard.claim_state("clear_tavern_cave") == "accepted_incomplete", "the cave is not cleared yet")
+	check(_pick(guard, "claim") and guard.current_id == "claim_incomplete", "no pay for half the work")
+	guard.advance()
+	cave_cleared[0] = true
+	var copper_before := bag.copper
+	guard.start("claim_cave_reward")
+	check(guard.current_id == "claim_ready" and bag.copper == copper_before + 500 and story.quest_completed("clear_tavern_cave") and story.quest_claimed("clear_tavern_cave"), "a cleared cave pays 5 gold once (%s)" % guard.current_id)
+	guard.advance()
+	guard.start("claim_router")
+	check(guard.current_id == "claim_complete" and bag.copper == copper_before + 500, "a second claim pays nothing")
+	guard.end()
+	# A failed public threat starts the fight after the guard's line.
+	story = StoryState.new()
+	guard = DialogueRunner.new(DialogueTree.load_by_id("town_guard"), bag, story, party)
+	guard.world_effect.connect(func(e): effects.append(e))
+	guard.default_dc = 99
+	effects.clear()
+	guard.start("public_push")
+	check(_pick(guard, "threat") and guard.current_id == "guard_fight" and guard.is_running and effects.is_empty(), "the guard draws his sword after his line, not before (%s)" % guard.current_id)
+	check(guard.choices().size() == 1 and guard.choices()[0]["kind"] == "continue", "'Weiter' starts the fight")
+	guard.advance()
+	check(not guard.is_running and effects.size() == 1 and effects[0]["type"] == "start_combat" and effects[0]["participants"] == ["town_guard"], "then the fight")
+
+	# --- Cook: service router, the sack, evidence, hidden choices without the guard.
+	story = StoryState.new()
+	bag = Inventory.new()
+	bag.add_copper(30)
+	var cook := DialogueRunner.new(DialogueTree.load_by_id("cook"), bag, story, party)
+	cook.world_effect.connect(func(e): effects.append(e))
+	cook.npc_available = func(reference: String) -> bool: return reference != "town_guard" or guard_alive[0]
+	cook.start()
+	check(cook.current_id == "greeting", "the service router lets a welcome guest through")
+	check(_pick(cook, "buy") and cook.current_id == "normal_price" and _pick(cook, "buy") and bag.copper == 20 and bag.count(Inventory.find_item(&"stew")) == 1, "a bowl for a silver (%s)" % bag.describe())
+	cook.advance()
+	cook.default_dc = 0
+	cook.start()
+	_pick(cook, "sack")
+	check(_pick(cook, "inspect") and cook.current_id == "sack_discovered" and cook.last_check["skill"] == "perception" and cook.last_check["roller"] == rogue and cook.last_check["proficient"], "perception: the trained rogue looks (%s)" % str(cook.last_check))
+	check(_choice_index(cook, "public") >= 0 and _choice_index(cook, "take_evidence") >= 0, "with the guard alive the sack can be made public")
+	check(_pick(cook, "quiet") and cook.current_id == "caught" and _pick(cook, "discount") and cook.current_id == "silence_deal", "the silence deal")
+	check(_pick(cook, "buy") and cook.current_id == "half_price" and story.get_flag("cook_silence_deal") == true, "half price from now on")
+	check(_pick(cook, "buy") and bag.copper == 15 and bag.count(Inventory.find_item(&"stew")) == 2, "five copper a bowl")
+	cook.advance()
+	guard_alive[0] = false
+	cook.start()
+	_pick(cook, "sack")
+	check(_choice_index(cook, "inspect") < 0 and _pick(cook, "open") and cook.current_id == "open_sack", "the rolled check is gone for the run, the sack can still be opened")
+	check(_pick(cook, "identify") and cook.current_id == "sack_discovered" and cook.last_check["skill"] == "survival" and cook.last_check["roller"] == fighter, "survival: the fighter knows game")
+	check(_choice_index(cook, "public") < 0 and _choice_index(cook, "take_evidence") >= 0, "with the guard dead nobody can be called")
+	check(_pick(cook, "take_evidence") and cook.current_id == "evidence" and _choice_index(cook, "attack") < 0, "...and no fight needs him either")
+	check(_pick(cook, "persuade") and cook.current_id == "evidence_success" and bag.count(Inventory.find_item(&"cook_poaching_evidence")) == 1 and story.get_flag("cook_evidence_taken") == true, "the evidence, once")
+	cook.advance()
+	cook.start()
+	_pick(cook, "sack")
+	check(_choice_index(cook, "inspect") < 0 and _choice_index(cook, "open") >= 0, "both checks are spent, the sack can still be opened")
+	cook.end()
+	story.set_flag("food_service_refused", true)
+	cook.start()
+	check(cook.current_id == "refused" and cook.choices()[0]["kind"] == "end", "a refused guest only hears that the kitchen is closed")
+	cook.end()
+	guard_alive[0] = true
+
+	# --- Merchant: the ring, the fraud, the refund entry, the shop.
+	story = StoryState.new()
+	bag = Inventory.new()
+	bag.add_copper(200)
+	var merchant := DialogueRunner.new(DialogueTree.load_by_id("merchant"), bag, story, party)
+	merchant.world_effect.connect(func(e): effects.append(e))
+	merchant.start()
+	check(_choice_index(merchant, "refund") < 0 and _choice_index(merchant, "complain_about_ring") < 0, "no ring, no complaint")
+	check(_pick(merchant, "ring") and merchant.current_id == "ring_offer" and _pick(merchant, "buy") and bag.copper == 80 and bag.count(Inventory.find_item(&"fake_spider_ring")) == 1, "twelve silver for a scratched ring")
+	merchant.advance()
+	merchant.start()
+	check(_choice_index(merchant, "refund") >= 0 and _choice_index(merchant, "complain_about_ring") < 0, "the greeting's own refund choice, not a second button")
+	_pick(merchant, "ring")
+	check(_choice_index(merchant, "buy") < 0, "a ring owner is not sold a second one")
+	merchant.default_dc = 0
+	check(_pick(merchant, "examine") and merchant.current_id == "ring_exposed" and merchant.last_check["skill"] == "arcana" and merchant.last_check["roller"] == wizard and merchant.last_check["proficient"], "arcana: the wizard sees no enchantment")
+	check(_pick(merchant, "private") and merchant.current_id == "fraud" and _pick(merchant, "blackmail") and merchant.current_id == "blackmail_success" and bag.copper == 100 and story.get_flag("merchant_service_refused") == true, "blackmail: two silver and the table is closed")
+	merchant.advance()
+	merchant.start()
+	check(merchant.current_id == "refused" and _choice_index(merchant, "complain_about_ring") >= 0, "a refused customer can still complain about the ring")
+	check(_pick(merchant, "complain_about_ring") and merchant.current_id == "refund_entry", "the complaint entry")
+	check(_choice_index(merchant, "proof") >= 0 and _choice_index(merchant, "examine") >= 0, "the fraud is known: the demand is open (a fresh examination has its own attempt key)")
+	check(_pick(merchant, "proof") and merchant.current_id == "refund_demand" and _pick(merchant, "return") and merchant.current_id == "refunded" and bag.copper == 220 and bag.count(Inventory.find_item(&"fake_spider_ring")) == 0, "the ring goes back, twelve silver come back")
+	merchant.advance()
+	merchant.start()
+	check(_choice_index(merchant, "complain_about_ring") >= 0 and _pick(merchant, "complain_about_ring") and merchant.current_id == "already_refunded", "no second refund")
+	merchant.end()
+	story = StoryState.new()
+	merchant = DialogueRunner.new(DialogueTree.load_by_id("merchant"), bag, story, party)
+	merchant.world_effect.connect(func(e): effects.append(e))
+	effects.clear()
+	merchant.start()
+	check(_pick(merchant, "shop") and merchant.current_id == "shop" and effects.size() == 1 and effects[0]["type"] == "open_shop", "the shop asks the world")
+	merchant.end()
+
+	# --- Tipsy guest: a beer for the story, the confession, the mug hint.
+	story = StoryState.new()
+	bag = Inventory.new()
+	bag.add_copper(5)
+	var guest := DialogueRunner.new(DialogueTree.load_by_id("tipsy_guest"), bag, story, party)
+	guest.world_effect.connect(func(e): effects.append(e))
+	effects.clear()
+	guest.start()
+	check(_pick(guest, "beer") and guest.current_id == "drunk_lie" and bag.copper == 0 and effects.size() == 1 and effects[0]["type"] == "serve_drink" and effects[0]["recipient"] == "tipsy_guest", "a beer for the guest, served by the world")
+	check(bag.count(Inventory.find_item(&"beer")) == 0, "the beer is his, not the party's")
+	check(_pick(guest, "caught") and guest.current_id == "confront", "caught in the lie")
+	guest.default_dc = 0
+	check(_pick(guest, "persuade") and guest.current_id == "confession" and guest.last_check["skill"] == "persuasion" and guest.last_check["roller"] == rogue, "persuasion: the rogue gets the confession")
+	check(_choice_index(guest, "help") >= 0 and _pick(guest, "help") and guest.current_id == "help", "the promise")
+	guest.advance()
+	guest.start()
+	check(_choice_index(guest, "beer") < 0, "he got his beer already")
+	check(_pick(guest, "mug") and _pick(guest, "where") and guest.current_id == "mug_where", "the mug lies beside the flat stone right of the cave mouth")
+	guest.end()
+
+	# --- Bard: free listening, a paid song, the embellished story.
+	story = StoryState.new()
+	bag = Inventory.new()
+	bag.add_copper(2)
+	var bard := DialogueRunner.new(DialogueTree.load_by_id("bard"), bag, story, party)
+	bard.start()
+	check(bard.current_id == "greeting", "the bard's entry switch lets a friendly party through")
+	_pick(bard, "song")
+	var pay: Dictionary = bard.choices()[_choice_index(bard, "pay")]
+	check(not pay["enabled"] and _pick(bard, "quiet") and bard.current_id == "quiet_song", "two copper buy no lively song, the quiet one is free")
+	bard.advance()
+	bag.add_copper(1)
+	bard.start()
+	_pick(bard, "song")
+	check(_pick(bard, "pay") and bard.current_id == "lively_song" and bag.copper == 0, "three copper for the lively song")
+	bard.advance()
+	bard.default_dc = 99
+	bard.start()
+	_pick(bard, "story")
+	check(_pick(bard, "embellish") and bard.current_id == "tall_story_failure" and bard.last_check["skill"] == "deception" and bard.last_check["roller"] == rogue and story.has_attempted("bard.player_story.embellish"), "a failed tall story")
+	check(_pick(bard, "truth") and bard.current_id == "honest_story" and _pick(bard, "continue") and bard.current_id == "story_heard" and story.get_flag("bard_heard_honest_party_story") == true, "...and the honest one after")
+	bard.end()
+	story.set_flag("bard_will_not_speak", true)
+	bard.start()
+	check(bard.current_id == "previously_threatened", "a threatened bard keeps his distance")
+	bard.end()
+
+	# The flat boulder by the cave mouth carries the mug now, the treasure chest does not.
+	var mug_spots := 0
+	for f in TerrainBuilder.CAVE_FEATURES:
+		var loot: Dictionary = f.get("loot", {})
+		if loot.get("items", []).has("innkeeper_copper_mug"):
+			mug_spots += 1
+			check(f["name"] == "FlatBoulder" and f["position"].z > -17.0 and f["position"].x > TerrainBuilder.CAVE_FLOOR_X[2], "the mug lies in front of the cave mouth, to the right")
+	check(mug_spots == 1, "exactly one mug in the world")
+
+	for a in party:
+		a.queue_free()

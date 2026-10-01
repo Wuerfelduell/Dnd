@@ -10,8 +10,10 @@ extends RefCounted
 signal changed
 
 var flags: Dictionary = {}  # String -> Variant (bool / int)
-## quest id -> {"status": String, "reward_copper": int, "reward_beer": int, "completed": bool}
+## quest id -> {"status": String, "reward_copper": int, "reward_beer": int, "completed": bool, "claimed": bool}
 var quests: Dictionary = {}
+## Skill checks with an attempt_key that were rolled this run: key -> success.
+var attempts: Dictionary = {}
 ## destination -> what the party was told it is ("cave" -> "hunter_hut").
 var navigation_hints: Dictionary = {}
 ## Dialogue node ids that may only happen once per run and already did.
@@ -48,6 +50,33 @@ func set_quest(quest: String, status: String, reward_copper: int = 0, reward_bee
 	entry["reward_copper"] = reward_copper
 	entry["reward_beer"] = reward_beer
 	quests[quest] = entry
+	changed.emit()
+
+
+## Accepted or completed (a declined or withdrawn offer is neither).
+func quest_accepted(quest: String) -> bool:
+	var status := quest_status(quest)
+	return status == "accepted" or status == "completed"
+
+
+func quest_claimed(quest: String) -> bool:
+	return quests.has(quest) and bool(quests[quest].get("claimed", false))
+
+
+## The reward was paid out (once).
+func mark_quest_claimed(quest: String) -> void:
+	var entry: Dictionary = quests.get(quest, {"status": "accepted", "reward_copper": 0, "reward_beer": 0, "completed": false})
+	entry["claimed"] = true
+	quests[quest] = entry
+	changed.emit()
+
+
+func has_attempted(attempt_key: String) -> bool:
+	return attempts.has(attempt_key)
+
+
+func record_attempt(attempt_key: String, success: bool) -> void:
+	attempts[attempt_key] = success
 	changed.emit()
 
 
@@ -89,4 +118,5 @@ func to_dict() -> Dictionary:
 		"quests": quests.duplicate(true),
 		"navigation_hints": navigation_hints.duplicate(),
 		"consumed_nodes": consumed_nodes.keys(),
+		"attempts": attempts.duplicate(),
 	}

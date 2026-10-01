@@ -1,8 +1,9 @@
 ## Control of the player's actor during exploration.
 ##
-## Two ways to move: WASD (camera relative) or tap/click on the ground, which
-## walks there along the navigation mesh (touch friendly). Tapping a chest or a
-## bystander walks up to it and interacts on arrival (loot / talk). Disabled in
+## Moving: WASD or the virtual joystick (camera relative). Tapping the ground
+## does nothing outside combat on purpose: a mistap must never send the party
+## running into a camp. Tapping a chest or a bystander walks up to it along
+## the navigation mesh and interacts on arrival (loot / talk). Disabled in
 ## combat; combat movement is turn-based and handled by [PlayerCombatInput] +
 ## [CombatManager].
 class_name PlayerController
@@ -75,17 +76,15 @@ func _walk_to_tap() -> void:
 	var hit := ScreenRaycast.pick(camera, _pending_tap_position)
 	if hit.is_empty():
 		return
-	var destination: Vector3 = hit["position"]
 	var clicked: Actor = hit.get("actor")
 	if clicked != null and clicked.is_neutral():
 		# Tapping a bystander walks up and starts the conversation.
 		walk_to_npc(clicked)
 		return
-	if clicked != null:
-		# Tapping an enemy walks towards it; the encounter starts on its own.
-		destination = clicked.global_position
 	var chest := hit.get("collider") as LootChest
-	walk_to(destination, chest)
+	if chest != null:
+		walk_to(chest.global_position, chest)
+	# Ground and enemies: nothing. Walking is the joystick's job.
 
 
 ## Walks to [param destination]; with a [param chest] the leader opens it on arrival.

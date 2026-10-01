@@ -5,11 +5,14 @@
 ##
 ## Node keys: speaker, text, choices, effects, stage_direction, terminal,
 ## automatic_next, switch {flag | quest + field, cases, default}, requires
-## {item, quantity, quest_not_completed}, once_per_run, status ("not_authored"
-## marks a branch the author has not written yet).
+## {item, quantity, quest_not_completed, quest_not_accepted,
+## quest_accepted_or_completed, flag_true, flag_false, npc_alive}, once_per_run /
+## once_per_save, status ("not_authored" marks a branch the author has not
+## written yet). Keys such as presentation, atomic_effects, participant_conditions,
+## rumour_reliability and note are authoring metadata the runtime does not need.
 ## Choice keys: id, text, next, effects, end_conversation, once_answered,
-## repeatable, requires {minimum_copper, food_service_allowed}, check
-## {ability, skill, dc, success, failure, retry}.
+## repeatable, requires {minimum_copper, food_service_allowed + the node keys},
+## check {ability, skill, dc, success, failure, retry, attempt_key}.
 class_name DialogueTree
 extends RefCounted
 
@@ -17,7 +20,7 @@ const DIALOGUE_DIR := "res://data/dialogues/"
 const KNOWN_EFFECTS := [
 	"set_flag", "increment_flag", "spend_currency", "give_currency", "give_item", "remove_item",
 	"set_quest", "give_quest_reward", "complete_quest", "quest_hint", "set_navigation_hint",
-	"start_combat", "leave_location",
+	"start_combat", "leave_location", "open_shop", "serve_drink", "claim_quest_reward",
 ]
 
 var id: String = ""

@@ -3,7 +3,7 @@
 ## Run with:
 ##   godot --headless --path . -- --autoplay [--seed=42]
 ##
-## Steps: explore (joystick, tap-to-move, walking) → an enemy spots the party →
+## Steps: explore (joystick, no tap-to-move, walking) → an enemy spots the party →
 ## the first party turn is played through the real input pipeline (mouse
 ## raycast, action selection, hotkey) → the rest is played by [PartyAI] and
 ## [EnemyAI] → victory returns to exploration (or defeat ends in game over).
@@ -106,17 +106,22 @@ func _run() -> void:
 	print("[autoplay] joystick ok: %s" % player.global_position)
 	start = player.global_position
 
-	# 1b. Explore by tapping the ground (touch path): walk 3 m north.
+	# 1b. A tap on the ground does nothing outside combat: a mistap must never
+	# send the party running into a camp. Walking is the joystick's job.
 	world.hud.visible = false
 	_simulate_click(start + Vector3(0, 0, -3.0))
-	var tap_frames := 0
-	while tap_frames < 300 and (tap_frames < 5 or player.is_moving()):
+	for _i in 20:
 		await get_tree().physics_frame
-		tap_frames += 1
 	world.hud.visible = true
-	expect(player.global_position.distance_to(start) > 2.0, "tap on ground walked the player (%.2f m)" % player.global_position.distance_to(start))
-	expect(not player.is_moving(), "tap-to-move stops at the destination")
-	print("[autoplay] tap-to-move ok: %s" % player.global_position)
+	expect(player.global_position.distance_to(start) < 0.5 and not player.is_moving(), "a ground tap does not move the leader (%.2f m)" % player.global_position.distance_to(start))
+	controller.debug_direction = Vector3(0, 0, -1)
+	for _i in 40:
+		await get_tree().physics_frame
+	controller.debug_direction = Vector3.ZERO
+	for _i in 20:
+		await get_tree().physics_frame
+	expect(player.global_position.distance_to(start) > 2.0, "the stick walked the player north instead (%.2f m)" % player.global_position.distance_to(start))
+	print("[autoplay] no tap-to-move ok: %s" % player.global_position)
 	# Followers trail the leader.
 	var followers_close := 0
 	for p in world.party():

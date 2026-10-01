@@ -73,7 +73,9 @@ const CAVE_FEATURES := [
 	{"name": "BoulderLarge", "model": "environment_expansion/cave/cave_boulder_large", "position": Vector3(-13, 0, -27), "radius": 1.2, "height": 1.8},
 	{"name": "BoulderFlat", "model": "environment_expansion/cave/cave_boulder_flat", "position": Vector3(-4, 0, -36), "radius": 1.2, "height": 0.7},
 	{"name": "MineCart", "model": "environment_expansion/cave/cave_mine_cart", "position": Vector3(-14, 0, -31), "radius": 0.9, "height": 1.0},
-	{"name": "TreasureChest", "model": "environment_expansion/licensed_props/cave__chest_gold", "position": Vector3(-5, 0, -39), "radius": 0.8, "height": 1.3, "rotation": 180.0, "loot": {"copper": 1200, "items": ["potion_health", "potion_health", "potion_mana", "potion_strength", "innkeeper_copper_mug"]}},
+	# The innkeeper's mug lies beside the flat stone right of the cave mouth (the tipsy guest knows).
+	{"name": "FlatBoulder", "model": "environment_expansion/cave/cave_boulder_flat", "position": Vector3(-6.0, 0, -15.0), "radius": 0.9, "height": 0.8, "rotation": 20.0, "loot": {"copper": 0, "items": ["innkeeper_copper_mug"]}},
+	{"name": "TreasureChest", "model": "environment_expansion/licensed_props/cave__chest_gold", "position": Vector3(-5, 0, -39), "radius": 0.8, "height": 1.3, "rotation": 180.0, "loot": {"copper": 1200, "items": ["potion_health", "potion_health", "potion_mana", "potion_strength"]}},
 ]
 const CAVE_PROPS := [
 	{"model": "environment_expansion/cave/cave_pool_water", "position": Vector3(-6, 0, -26), "rotation": 0.0, "scale": 1.0},

@@ -463,6 +463,10 @@ func start_dialogue(tree: DialogueTree, npc: Actor, entry: String = "") -> Dialo
 	if dialogue != null and dialogue.is_running:
 		dialogue.end("replaced")
 	dialogue = DialogueRunner.new(tree, inventory, story, _living_party())
+	dialogue.npc_available = func(reference: String) -> bool:
+		var a := npc_by_reference(reference)
+		return a != null and a.is_neutral()
+	dialogue.objective_met = objective_met
 	dialogue_npc = npc
 	_fight_pending = false
 	dialogue.world_effect.connect(_on_dialogue_world_effect.bind(tree, npc))
@@ -500,6 +504,29 @@ func _on_dialogue_world_effect(effect: Dictionary, tree: DialogueTree, npc: Acto
 		"set_navigation_hint":
 			EventBus.log("[color=gray]Directions noted: the way to the '%s' leads to the %s.[/color]" % [
 				str(effect.get("presented_as", "")).replace("_", " "), str(effect.get("destination", ""))])
+		"serve_drink":
+			var who := npc_by_reference(str(effect.get("recipient", "")))
+			EventBus.log("[color=gray]A %s goes to %s.[/color]" % [str(effect.get("item", "drink")), who.display_name() if who != null else str(effect.get("recipient", ""))])
+			if who != null:
+				who.play_action("use_item")
+		"open_shop":
+			var discount := int(story.get_flag(str(effect.get("apply_discount_flag", "")), 0))
+			EventBus.log("[color=gray]The merchant's table: the shop is not stocked yet%s.[/color]" % ((" (%d %% discount noted)" % discount) if discount > 0 else ""))
+
+
+## Quest objectives the dialogues ask about ("cave_cleared": every original
+## cave dweller is down; arena waves never count).
+func objective_met(objective: String) -> bool:
+	match objective:
+		"cave_cleared":
+			var dwellers := cave_enemies()
+			if dwellers.is_empty():
+				return false
+			for e in dwellers:
+				if e.is_alive():
+					return false
+			return true
+	return false
 
 
 ## Finds the bystander a dialogue speaker stands for ("town_guard").

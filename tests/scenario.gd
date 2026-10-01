@@ -500,6 +500,34 @@ func _scenario_dialogue() -> void:
 	await get_tree().physics_frame
 	expect(GameState.is_exploring() and not world.hud.dialogue_panel.visible and world.dialogue == null, "closing returns to exploration")
 
+	# The guard's bounty: accepted at the door, paid once the cave is really empty.
+	var guard_tree := DialogueTree.load_by_id("town_guard")
+	var bounty := world.start_dialogue(guard_tree, guard)
+	var job_index := -1
+	for view in bounty.choices():
+		if view["id"] == "job":
+			job_index = view["index"]
+	expect(job_index >= 0 and bounty.choose(job_index) and bounty.current_id == "offer", "the guard offers the cave job")
+	var accept_index := -1
+	for view in bounty.choices():
+		if view["id"] == "accept":
+			accept_index = view["index"]
+	expect(accept_index >= 0 and bounty.choose(accept_index) and world.story.quest_status("clear_tavern_cave") == "accepted", "30 silver accepted")
+	bounty.advance()
+	await get_tree().physics_frame
+	bounty = world.start_dialogue(guard_tree, guard, "claim_cave_reward")
+	expect(bounty.current_id == "claim_incomplete" and not world.objective_met("cave_cleared"), "with the cave alive there is no pay (%s)" % bounty.current_id)
+	bounty.advance()
+	await get_tree().physics_frame
+	for e in world.cave_enemies():
+		e.take_damage(999)
+	var copper_before := world.inventory.copper
+	bounty = world.start_dialogue(guard_tree, guard, "claim_cave_reward")
+	expect(bounty.current_id == "claim_ready" and world.inventory.copper == copper_before + 300 and world.story.quest_completed("clear_tavern_cave"), "an empty cave pays 3 gold (%s, %d -> %d)" % [bounty.current_id, copper_before, world.inventory.copper])
+	bounty.advance()
+	await get_tree().physics_frame
+	expect(GameState.is_exploring(), "back to exploring after the payout")
+
 	# A fight the dialogue starts: the guard turns hostile, victory continues the talk.
 	var tree := DialogueTree.load_by_id("innkeeper")
 	var runner := world.start_dialogue(tree, innkeeper, "greeting_guard")

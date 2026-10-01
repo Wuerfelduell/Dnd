@@ -147,9 +147,9 @@ func _refresh_mode() -> void:
 		GameState.State.EXPLORATION:
 			mode_label.text = "EXPLORATION"
 			if _touch:
-				hint_label.text = "Joystick or tap the ground to walk. Stay in the dark to sneak closer. Camera buttons on the right."
+				hint_label.text = "Joystick to walk. Tap a chest to loot it, a tavern guest to talk. Stay in the dark to sneak closer."
 			else:
-				hint_label.text = "WASD, joystick or click the ground to walk. Stay in the dark to sneak closer. Q/E rotate camera, wheel zoom."
+				hint_label.text = "WASD or joystick to walk. Click a chest to loot it, a tavern guest to talk. Stay in the dark to sneak closer. Q/E rotate, wheel zoom."
 			initiative_panel.visible = false
 			action_panel.visible = false
 			joystick.visible = true
@@ -460,7 +460,7 @@ func _refresh_inventory() -> void:
 			use.pressed.connect(func(): world.use_item_from_bag(item))
 			row.add_child(use)
 		inventory_list.add_child(row)
-	inventory_hint.text = "In combat potions are a bonus action on the action bar." if combat.is_active else "Potions go to whoever needs them most. Tap a chest to loot it, tap the innkeeper to talk. 10 K = 1 S, 10 S = 1 G."
+	inventory_hint.text = "In combat potions are a bonus action on the action bar." if combat.is_active else "Potions go to whoever needs them most. Tap a chest to loot it, a tavern guest to talk. 10 K = 1 S, 10 S = 1 G."
 
 
 func _on_item_used(_user: Node, target: Node, item: ItemData) -> void:

@@ -1,4 +1,4 @@
-# Dnd – 3D-RPG-Prototyp (Vertical Slice, Test 10: Gespräche mit dem Wirt)
+# Dnd – 3D-RPG-Prototyp (Vertical Slice, Test 11: Gespräche in der Taverne)
 
 Trying to make a dnd game using my Baldur's Gate 3 and D&D 5.5e experience.
 
@@ -27,14 +27,25 @@ Pilzschamane und am Ende der Steingolem, der die Schatztruhe bewacht. Die Höhle
 mischen sich nie: es kämpft nur die Gruppe, zu der der Entdecker gehört. Die Höhlenbewohner kommen
 nicht wieder, die Arena-Wellen laufen unabhängig davon weiter.
 
-Mit dem **Wirt** kann man reden: antippen, der Anführer geht hin, und das Gespräch aus
-`data/dialogues/innkeeper.json` läuft (handgeschrieben, auf Deutsch). Man kann Essen kaufen, nach dem
-verschwundenen Jäger fragen, einen Wegbeschreibungs-Preis aushandeln, drohen (Einschüchtern),
-lügen (Täuschen) oder verhandeln (Überzeugen) – jeder dieser Würfe ist ein echter d20-Wurf des
-besten Redners der Party. Wer es übertreibt, bekommt es mit der **Stadtwache** zu tun (Langschwert,
-22 HP, AC 16) oder mit der **Köchin** samt Messer, und beide Kämpfe laufen mit denselben Regeln wie
-jeder andere. Der Wirt vermisst außerdem seinen **kupfernen Bierkrug**: Der liegt in der Schatztruhe
-der Höhle, und wer ihn zurückbringt, bekommt die vereinbarte Belohnung.
+Mit allen sechs **Tavernenleuten** kann man reden: antippen, der Anführer geht hin, und das
+handgeschriebene Gespräch aus `data/dialogues/<npc>.json` läuft (auf Deutsch). Beim **Wirt** gibt es
+Essen, Gerüchte über den verschwundenen Jäger und einen Wegbeschreibungs-Preis; die **Köchin**
+verkauft Eintopf und versteckt unter dem Tisch gewildertes Reh (wer den Sack durchschaut, bekommt
+Schweigegeld-Rabatt, Beweise oder Ärger); der **Händler** dreht einem einen wertlosen „Spinnenschutz“-Ring
+an, den man nach entlarvtem Betrug zurückgeben, erpressen oder öffentlich machen kann; der
+**beschwipste Gast** prahlt, wie er den Jäger gerettet hat, und gesteht unter Druck das Gegenteil
+(er weiß auch, wo der Krug des Wirts liegt); die **Wache** vergibt den Auftrag, die Höhle zu säubern,
+und zahlt nach der Prüfung die Belohnung aus (30, 40 oder 50 Silber, je nachdem, wie gut man ihre
+Unterschlagung durchschaut); der **Barde** hört zu, erzählt und spielt für drei Kupfer ein Lied.
+Drohen (Einschüchtern), lügen (Täuschen), verhandeln (Überzeugen), Leute lesen (Menschenkenntnis),
+Säcke prüfen (Wahrnehmung, Überlebenskunst) oder Ringe untersuchen (Arkane Kunde) sind echte
+d20-Würfe des besten Redners der Party. Wer es übertreibt, bekommt es mit der **Stadtwache** zu tun
+(Langschwert, 22 HP, AC 16) oder mit der **Köchin** samt Messer, und beide Kämpfe laufen mit denselben
+Regeln wie jeder andere. Der Wirt vermisst seinen **kupfernen Bierkrug**: Der liegt neben dem flachen
+Stein rechts vor dem Höhleneingang, und wer ihn zurückbringt, bekommt die vereinbarte Belohnung.
+
+**Laufen geht nur per Joystick / WASD.** Ein Tipp auf den Boden tut außerhalb des Kampfes nichts,
+damit ein Fehltipp die Party nie in ein Lager rennen lässt; getippt wird nur auf Kisten und Leute.
 
 ![Die Helden](docs/screenshots/party.png)
 ![Die Taverne](docs/screenshots/tavern.png)
@@ -76,7 +87,7 @@ Die komplette Steuerung geht per Touch, Maus und Tastatur sind optional.
 | Modus | Touch / Maus | Tastatur (optional) | Wirkung |
 |---|---|---|---|
 | Erkundung | Joystick unten links | `W A S D` | Anführer (Bran) laufen lassen, die Party folgt |
-| Erkundung | Tippen auf Boden | Linksklick | Laufen per Tipp entlang des Navmeshs |
+| Erkundung | Tippen auf Kiste / Tavernengast | Linksklick | Anführer läuft hin und plündert bzw. redet (ein Tipp auf den Boden tut nichts) |
 | beide | Buttons „< Cam“ / „Cam >“ | `Q` / `E` | Kamera um 45° drehen |
 | beide | Buttons „Zoom +“ / „Zoom -“ | Mausrad | Zoom |
 | Kampf | Tippen auf Boden | | Weg wird vorgeschaut (rot = provoziert Opportunity Attack), dann **Confirm** oder erneut tippen |
@@ -141,9 +152,9 @@ Umwerfen, Pack Tactics), 1 Hobgoblin Captain (AC 17, 39 HP, zwei Angriffe pro Ac
 * **Inventar und Tränke**: Die Party hat einen gemeinsamen Beutel (Knopf oben links, zeigt die Münzen). Vier Tränke: Heiltrank (2d4+2, belebt Gefallene), Manatrank (gibt den höchsten verbrauchten Zauberslot zurück), Gegengift (heilt Poisoned), Stärketrank (+2 Waffenschaden für 5 Runden). Dazu Pfeilbündel (+10 Pfeile). Im Kampf sind Tränke eine **Bonus Action** auf der Aktionsleiste, auch für einen Verbündeten in 1,5 m, auch für einen Gefallenen. Außerhalb des Kampfes geht ein Trank aus dem Beutel an das Mitglied, das ihn am nötigsten hat. Die KI-Party trinkt unter 40 % HP und bei Gift.
 * **Geld**: gezählt wird in **Kupfer**, 10 Kupfer = 1 Silber, 10 Silber = 1 Gold (Anzeige „2 G 3 S 5 K“). Die Party startet mit 3 Gold (300 Kupfer), zwei Heiltränken und einem Gegengift. Preise der Tränke in Kupfer (Heiltrank 250, Gegengift 150, Stärketrank 350, Manatrank 400, Pfeilbündel 50); Bier und Eintopf vom Wirt kosten 1 Silber pro Kopf.
 * **Beute**: Besiegte Gegner hinterlassen Kupfer in Höhe ihres XP-Werts (mindestens 5) und mit 15 % Wahrscheinlichkeit einen Trank. Kisten in der Welt (Truhe am Lager: 1 G 5 S, Schatztruhe hinter dem Golem: 12 G, vier Tränke und der Bierkrug des Wirts) werden angetippt, der Anführer läuft hin und plündert sie einmal. Händler, Ausrüstung und Speichern folgen.
-* **Gespräche**: Neutrale mit einem `dialogue`-Eintrag in ihrer `.tres` (bisher der Wirt) werden angetippt; der Anführer läuft bis auf 2,4 m heran, das Spiel wechselt in den Modus **Gespräch** (niemand läuft, niemand entdeckt jemanden), und das Panel unten zeigt Sprecher, Zeile, Regieanweisung und die Antworten als Knöpfe. Die Dialogdatei ist Daten (JSON, Schema 1): Knoten mit Sprecher, Text, Antworten, Effekten, Regieanweisung, `terminal`, `automatic_next` (nur ein „Weiter“), `switch` (verzweigt nach Flag oder Quest-Status), `requires`, `once_per_run`; Antworten mit `next`, `end_conversation`, `once_answered` (gestellte Fragen verschwinden, auch im wiederholten Fragenmenü), `requires` (Mindestkupfer, Essensverbot) und `check`. Ein `check` ist d20 + Charisma (+ Übungsbonus, wenn jemand den Skill hat: Kämpfer Einschüchtern, Schurkin Täuschen und Überzeugen, Kleriker Überzeugen) gegen den SG; lässt der Autor den SG offen (`null`), gilt **SG 12**. Es würfelt das lebende Mitglied mit dem besten Bonus, bei Gleichstand das geübte; der Wurf steht im Panel und im Log, pro Gespräch wird jeder Check nur einmal gewürfelt. Effekte: Flags setzen/zählen, Kupfer ausgeben (atomar, unbezahlbare Antworten sind ausgegraut mit Grund) oder erhalten, Gegenstände geben/nehmen (Bier heilt 1W4, Eintopf 1W8+1), Quest setzen/belohnen/abschließen (eine entschiedene Quest wird nicht neu verhandelt), Hinweise, `start_combat` (die genannten Leute werden feindlich und bleiben es; ein `opening_attack` lässt die Köchin vor der Initiative zustechen; `on_victory` setzt das Gespräch nach dem Sieg fort, sobald das Siegespanel geschlossen ist) und `leave_location` (die Party geht vor die Tür). Vom Autor als `not_authored` markierte Zweige werden ausgeblendet, nicht erfunden. Der Krug wird am Gruß als Navigationsknopf angeboten, sobald er im Beutel liegt und die Quest offen ist. Abbrechen geht jederzeit über das X.
+* **Gespräche**: Neutrale mit einem `dialogue`-Eintrag in ihrer `.tres` (alle sechs Tavernenleute) werden angetippt; der Anführer läuft bis auf 3,2 m heran (über die Theke hinweg), das Spiel wechselt in den Modus **Gespräch** (niemand läuft, niemand entdeckt jemanden), und das Panel unten zeigt Sprecher, Zeile, Regieanweisung und die Antworten als Knöpfe. Die Dialogdatei ist Daten (JSON, Schema 1): Knoten mit Sprecher, Text, Antworten, Effekten, Regieanweisung, `terminal`, `automatic_next` (nur ein „Weiter“), `switch` (verzweigt nach Flag, Quest-Status oder `claim_state` der Belohnung), `requires`, `once_per_run` / `once_per_save`; Antworten mit `next`, `end_conversation`, `once_answered` (gestellte Fragen verschwinden, auch im wiederholten Fragenmenü), `requires` und `check`. Bedingungen: Mindestkupfer und Essensverbot grauen eine Antwort mit Grund aus; Flags (`flag_true` / `flag_false`), Gegenstände im Beutel, Quest-Zustand (`quest_not_accepted`, `quest_not_completed`, `quest_accepted_or_completed`) und `npc_alive` (die genannte Person lebt noch und ist noch neutral) blenden sie aus. Ein `check` ist d20 + Attribut (+ Übungsbonus, wenn jemand den Skill hat: Kämpfer Einschüchtern und Überlebenskunst, Schurkin Täuschen, Überzeugen und Wahrnehmung, Kleriker Überzeugen und Menschenkenntnis, Magierin Arkane Kunde) gegen den SG; lässt der Autor den SG offen (`null`), gilt **SG 12**. Es würfelt das lebende Mitglied mit dem besten Bonus, bei Gleichstand das geübte; der Wurf steht im Panel und im Log. Ohne `attempt_key` wird ein Check einmal pro Gespräch gewürfelt, mit `attempt_key` einmal pro Durchlauf (danach verschwindet die Antwort). Effekte: Flags setzen/zählen, Kupfer ausgeben (atomar) oder erhalten, Gegenstände geben/nehmen (Bier heilt 1W4, Eintopf 1W8+1, dazu Beweisstück und Ring als Trinkets), Quest setzen/belohnen/abschließen (`claim_quest_reward` prüft angenommen, Ziel erfüllt und noch nicht ausgezahlt; eine entschiedene Quest wird nicht neu verhandelt), Hinweise, `start_combat` (die genannten Leute werden feindlich und bleiben es; steht noch eine Zeile im Knoten, beginnt der Kampf erst nach „Weiter“; ein `opening_attack` lässt die Köchin vor der Initiative zustechen; `on_victory` setzt das Gespräch nach dem Sieg fort, sobald das Siegespanel geschlossen ist), `leave_location` (die Party geht vor die Tür), `serve_drink` (das Bier geht an den Gast) und `open_shop` (Logzeile, der Laden kommt als Nächstes). Vom Autor als `not_authored` markierte Zweige werden ausgeblendet, nicht erfunden. Zusatz-Einstiege (Krug zurückgeben, wegen des Rings beschweren, Höhlenbelohnung einfordern) erscheinen am ersten gesprochenen Knoten als Navigationsknopf, sobald ihre Bedingungen erfüllt sind, auch wenn der NPC einen eigentlich nicht mehr bedient. Abbrechen geht jederzeit über das X. Quest-Ziel `cave_cleared` = alle sieben ursprünglichen Höhlenbewohner besiegt (Arena-Wellen zählen nie).
 * **Höhlen-Encounter**: eigener Kampf mit sieben Bewohnern, ausgelöst durch deren Wahrnehmung (die Höhle ist dunkel bis auf Kristalle und Pilze, also kommt man bis auf 3,4 m heran). Nur Gegner derselben Gruppe im Umkreis von 16 m des Entdeckers schließen sich an. XP wie gewohnt; die Rast nach einer Welle hängt nur von den Arena-Gegnern ab.
-* **Taverne**: sechs neutrale NPCs mit eigenen Posen (Sitzen, Jubeln, Hantieren). Neutral heißt: `is_hostile_to` ist in beide Richtungen falsch, keine Aktion kann sie anvisieren, Flächenzauber können sie aber treffen, wenn man sie in den Radius nimmt. Wache und Köchin tragen Waffen und geben XP (50 / 25), falls ein Gespräch eskaliert; die anderen vier haben noch nichts zu sagen (Dialoge werden von Hand geschrieben).
+* **Taverne**: sechs neutrale NPCs mit eigenen Posen (Sitzen, Jubeln, Hantieren). Neutral heißt: `is_hostile_to` ist in beide Richtungen falsch, keine Aktion kann sie anvisieren, Flächenzauber können sie aber treffen, wenn man sie in den Radius nimmt. Wache und Köchin tragen Waffen und geben XP (50 / 25), falls ein Gespräch eskaliert; alle sechs haben ihre eigenen, von Hand geschriebenen Gespräche.
 * **Neue Kreaturen aus dem Höhleneingang** (bleiben ab ihrer Welle dabei): Welle 2 Fledermaus; Welle 3 Höhlenspinne (giftiger Biss: CON-Save DC 11, sonst **Poisoned** = Nachteil auf Angriffe, CON-Wiederholungssave) und Kristallschleim (24 HP, langsam, Säure); Welle 4 zweite Spinne, Pilzschamane (Sporenspucke auf 9 m mit Gift) und ein Wegelagerer (Sneak Attack 1d6); Welle 5 Ruinengeist (Lebensentzug 2d6) und zweiter Wegelagerer; Welle 6 der **Steingolem** (68 HP, AC 17, zwei Schläge 2d8+5, langsam). Alles in `World.WAVE_ARRIVALS` als Daten, jede Kreatur ist eine `.tres` mit Modell.
 * **Wegfindung** weicht anderen Figuren aus, stellt ein besetztes Ziel daneben und gleitet bei Berührung an Körpern entlang statt stehen zu bleiben. Figuren folgen dem Gelände (Schwerkraft, Treppen), Bewegung wird auf der Bodenebene gemessen.
 * **Höhe**: Steht der Angreifer mindestens 1 m höher als das Ziel, bekommt er +2 auf den Angriffswurf; steht er mindestens 1 m tiefer, -2. Gilt für Waffen und Zauberangriffe. Die Schützen-Anhöhe und der Aussichtsfelsen sind 2 m hoch, der Hügel am Lager 1 m; alle haben Treppen (unter der Treppe liegt ein glatter Collider, damit die Figuren hinaufgleiten). Direkt am Fuß einer Klippe verdeckt die Kante den Unterkörper, das zählt als Deckung.
@@ -152,7 +163,7 @@ Umwerfen, Pack Tactics), 1 Hobgoblin Captain (AC 17, 39 HP, zwei Angriffe pro Ac
 * **Concentration**: nur ein Concentration-Zauber gleichzeitig; Schaden erzwingt einen CON-Rettungswurf (DC 10 oder halber Schaden), Fehlschlag oder Down beendet den Zauber und alle verknüpften Effekte.
 * **Status-Effekte**: Blessed (+1d4 Angriff/Saves), Guided (Vorteil auf den nächsten Angriff), Slowed (-3 m), Paralyzed (handlungsunfähig, Angriffe mit Vorteil, Nahkampftreffer sind Crits, Wiederholungs-Save am Zugende), Prone (Nachteil auf eigene Angriffe, Nahkampf gegen sich mit Vorteil, Aufstehen kostet halbe Bewegung), Disengaging.
 * 0 HP = „Down“. Heilung (Healing Word, Cure Wounds) holt Gefallene zurück. Nach einem Sieg stehen alle mit 1 HP auf. Ist die ganze Party down → Game Over.
-* Noch nicht enthalten: Todesrettungswürfe, Resistenzen, Reaktionszauber (Shield), Ausrüstung mit Slots und Händler (Icons, Rüstungs- und Waffenmodelle liegen schon unter `assets/shop/`), Projektile, Speichern, freie Attributswahl beim Level-Up (der Hauptwert steigt automatisch), Verstecken als Aktion, Kreaturen als Deckung, Dialoge für Köchin, Barde, Händler, Gast und Wache, eine echte Jägerhütte (die Wegbeschreibungen setzen bisher nur Flags und einen Hinweis im Log), Speichern des Story-Zustands.
+* Noch nicht enthalten: Todesrettungswürfe, Resistenzen, Reaktionszauber (Shield), Ausrüstung mit Slots und Händler (Icons, Rüstungs- und Waffenmodelle liegen schon unter `assets/shop/`), Projektile, Speichern, freie Attributswahl beim Level-Up (der Hauptwert steigt automatisch), Verstecken als Aktion, Kreaturen als Deckung, der Laden des Händlers (`open_shop` ist nur eine Logzeile), eine echte Jägerhütte (die Wegbeschreibungen setzen bisher nur Flags und einen Hinweis im Log), der Aushang an der Tür als lesbares Objekt, Speichern des Story-Zustands.
 
 ## Tests (ohne Editor)
 
@@ -167,7 +178,7 @@ godot --headless --path . res://tests/unit_tests.tscn
 # samt Wachen- und Köchinnen-Kampf
 godot --headless --path . -- --scenario
 
-# Kompletter Loop: Joystick, Tippen, Party folgt, Kampf (erster Zug per Lock & Confirm, Rest per KI),
+# Kompletter Loop: Joystick (Tippen auf den Boden tut nichts), Party folgt, Kampf (erster Zug per Lock & Confirm, Rest per KI),
 # Sieg, Level-Up, Rest & zweite Welle, Stufe 5
 godot --headless --path . -- --autoplay --seed=4
 
