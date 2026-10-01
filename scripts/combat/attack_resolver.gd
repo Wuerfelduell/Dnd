@@ -8,17 +8,34 @@
 ## * hits from within 1.5 m against a paralyzed creature are critical
 ## * Sneak Attack once per turn with a finesse/ranged weapon when the attacker
 ##   has advantage or an ally is adjacent to the target (and no disadvantage)
+## * battlefield ([CombatSituation]): cover raises the AC against ranged
+##   attacks, high ground gives +2 / low ground -2 on the roll, shooting
+##   unseen from the dark gives advantage, shooting at someone in the dark
+##   from afar disadvantage. Any attack reveals the attacker for the round.
 class_name AttackResolver
 extends RefCounted
 
 
-static func resolve(attacker: Actor, target: Actor, profile: AttackProfile, others: Array[Actor] = []) -> AttackResult:
+static func resolve(attacker: Actor, target: Actor, profile: AttackProfile, others: Array[Actor] = [], situation: CombatSituation = null) -> AttackResult:
+	if situation == null:
+		situation = CombatSituation.new()
 	var result := AttackResult.new()
 	result.label = profile.label
 	result.damage_type = profile.damage_type
-	result.target_ac = target.armor_class()
+	result.situation = situation
 
 	var melee_adjacent := not profile.is_ranged and attacker.distance_to(target) <= 1.5 + 0.001
+
+	# --- battlefield: cover and elevation --------------------------------
+	var cover_bonus := situation.cover_ac_bonus() if profile.is_ranged else 0
+	result.target_ac = target.armor_class() + cover_bonus
+	if cover_bonus > 0:
+		result.notes.append("%s AC +%d" % [Visibility.cover_name(situation.cover), cover_bonus])
+	var elevation := situation.elevation_bonus()
+	if elevation > 0:
+		result.notes.append("high ground +%d" % elevation)
+	elif elevation < 0:
+		result.notes.append("target above %d" % elevation)
 
 	# --- advantage / disadvantage sources ---------------------------------
 	if target.status_flag("attacks_against_advantage"):
@@ -33,10 +50,14 @@ static func resolve(attacker: Actor, target: Actor, profile: AttackProfile, othe
 		result.disadvantage_reasons.append("enemy adjacent")
 	if attacker.data.has_pack_tactics and _ally_adjacent_to(target, attacker, others):
 		result.advantage_reasons.append("Pack Tactics")
+	if situation.unseen_attacker(profile.is_ranged, attacker.turn_state.revealed):
+		result.advantage_reasons.append("unseen, from the shadows")
+	if situation.target_hard_to_see(profile.is_ranged):
+		result.disadvantage_reasons.append("target in the dark")
 	var mode := Dice.combine_modes(not result.advantage_reasons.is_empty(), not result.disadvantage_reasons.is_empty())
 
 	# --- attack roll -------------------------------------------------------
-	result.attack_roll = Dice.d20(profile.attack_bonus, mode)
+	result.attack_roll = Dice.d20(profile.attack_bonus + elevation, mode)
 	var bless := attacker.status_bonus_dice("attack_bonus_dice")
 	for label in bless:
 		result.attack_roll.add_extra(Dice.parse(bless[label]), label)
@@ -54,6 +75,8 @@ static func resolve(attacker: Actor, target: Actor, profile: AttackProfile, othe
 
 	# Effects that only last until the next attack roll against the target (Guiding Bolt).
 	target.consume_statuses_on_attacked()
+	# Whoever attacks is noticed, dark or not.
+	attacker.turn_state.revealed = true
 
 	# --- damage ------------------------------------------------------------
 	if result.hit:

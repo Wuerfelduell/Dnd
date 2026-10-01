@@ -38,6 +38,11 @@ var player: Actor:
 
 
 func _ready() -> void:
+	# Height levels, cover walls and torches are generated, then baked into the navmesh.
+	var lights := Node3D.new()
+	lights.name = "Lights"
+	add_child(lights)
+	TerrainBuilder.build(nav_region, lights)
 	_bake_navmesh()
 	preview = TargetingPreview.new()
 	preview.name = "TargetingPreview"
@@ -64,7 +69,8 @@ func _ready() -> void:
 	movement_indicator.visible = false
 
 	EventBus.log("Your party: %s." % ", ".join(_party_names()))
-	EventBus.log("Goblins, wolves and a hobgoblin captain lurk to the north. Combat starts when one of them notices you.")
+	EventBus.log("Goblins, wolves and a hobgoblin captain camp to the north. Combat starts when one of them notices you.")
+	EventBus.log("[color=gray]Night rules: stay out of the torchlight to get close unseen. High ground gives +2 to hit, crates and low walls give cover, full cover blocks the shot.[/color]")
 
 	# Headless integration test hooks (godot --headless -- --autoplay / --scenario).
 	for flag in ["--autoplay", "--scenario", "--screenshot"]:
@@ -205,7 +211,7 @@ func _spawn_reinforcement() -> void:
 	var enemy: Actor = ENEMY_SCENE.instantiate()
 	enemy.data = REINFORCEMENT_DATA
 	var index := _reinforcements.size()
-	var spot := Vector3(-8.0 + 4.0 * index, 0.0, -17.0)
+	var spot := Vector3(-13.0 + 3.5 * index, 0.0, -17.5)
 	enemy.transform = Transform3D(Basis.from_euler(Vector3(0, PI, 0)), spot)
 	$Enemies.add_child(enemy)
 	enemy.name = "Reinforcement%d" % (index + 1)
@@ -289,7 +295,7 @@ func _update_movement_indicator() -> void:
 		return
 	var radius := actor.turn_state.movement_remaining
 	movement_indicator.visible = radius > 0.05
-	movement_indicator.global_position = Vector3(actor.global_position.x, 0.03, actor.global_position.z)
+	movement_indicator.global_position = Vector3(actor.global_position.x, actor.global_position.y + 0.03, actor.global_position.z)
 	movement_indicator.scale = Vector3(radius, 1.0, radius)
 
 

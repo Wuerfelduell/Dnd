@@ -44,7 +44,7 @@ func can_target(actor: Actor, target: Actor) -> bool:
 		return true
 	if target == null or not target.is_alive() and not (spell.heal_dice != "" and target.is_down):
 		return false
-	if not in_range(actor, target):
+	if not in_range(actor, target) or not can_see(actor, target):
 		return false
 	if spell.creature_type_filter != "" and target.data.creature_type != spell.creature_type_filter:
 		return false
@@ -54,6 +54,14 @@ func can_target(actor: Actor, target: Actor) -> bool:
 		SpellData.TargetKind.ALLY:
 			return not actor.is_hostile_to(target)
 	return true
+
+
+func is_ranged() -> bool:
+	return spell.range_m > Actor.MELEE_REACH
+
+
+func uses_attack_roll() -> bool:
+	return spell.attack_kind == SpellData.AttackKind.SPELL_ATTACK
 
 
 func pay_cost(actor: Actor) -> bool:

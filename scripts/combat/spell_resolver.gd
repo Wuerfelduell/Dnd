@@ -30,7 +30,7 @@ static func cast(caster: Actor, spell: SpellData, target: Actor, point: Vector3 
 		EventBus.floating_text_requested.emit(point, spell.display_name.to_upper(), Color(1.0, 0.6, 0.2))
 	for t in targets:
 		for i in spell.repeat_count:
-			await _apply_to(caster, spell, t, i)
+			await _apply_to(caster, spell, t, i, point)
 			if not t.is_alive() and spell.heal_dice == "":
 				break
 	await GameState.wait(0.6)
@@ -90,13 +90,13 @@ static func _teleport(caster: Actor, point: Vector3) -> void:
 		var map := caster.get_world_3d().navigation_map
 		if map.is_valid() and NavigationServer3D.map_get_regions(map).size() > 0:
 			destination = NavigationServer3D.map_get_closest_point(map, point)
-	destination.y = caster.global_position.y
+	destination = Terrain.snap_to_ground(caster, destination)
 	caster.stop_moving()
 	caster.global_position = destination
 	EventBus.log("%s vanishes and reappears %.1f m away." % [caster.display_name(), 0.0 if not caster.is_inside_tree() else caster.global_position.distance_to(point) + 0.0])
 
 
-static func _apply_to(caster: Actor, spell: SpellData, target: Actor, index: int) -> void:
+static func _apply_to(caster: Actor, spell: SpellData, target: Actor, index: int, point: Vector3 = Vector3.ZERO) -> void:
 	var affected := true
 	var damage_multiplier := 1.0
 	var shot := "" if spell.repeat_count <= 1 else " #%d" % (index + 1)
@@ -105,7 +105,7 @@ static func _apply_to(caster: Actor, spell: SpellData, target: Actor, index: int
 		SpellData.AttackKind.SPELL_ATTACK:
 			var profile := AttackProfile.from_spell(caster, spell)
 			profile.label = spell.display_name + shot
-			var result := AttackResolver.resolve(caster, target, profile, CombatContext.actors_near(caster))
+			var result := AttackResolver.resolve(caster, target, profile, CombatContext.actors_near(caster), CombatSituation.assess(caster, target))
 			EventBus.log("%s%s vs [b]%s[/b]: %s vs AC %d = [b]%s[/b]%s%s" % [
 				spell.display_name, shot, target.display_name(), result.attack_roll.describe(),
 				result.target_ac, result.outcome_text(), result.mode_text(),
@@ -119,7 +119,15 @@ static func _apply_to(caster: Actor, spell: SpellData, target: Actor, index: int
 				_apply_status(caster, spell, target)
 			return
 		SpellData.AttackKind.SAVE:
-			var save := SavingThrow.resolve(target, spell.save_ability, caster.data.spell_save_dc(), spell.display_name)
+			# Cover helps against DEX saves, measured from where the effect comes from.
+			var bonus := 0
+			var bonus_label := ""
+			if spell.save_ability.to_lower() == "dex" and target.is_inside_tree():
+				var origin := point + Vector3.UP * 0.5 if spell.needs_point() else Visibility.eye_position(caster)
+				var cover := Visibility.cover_from_point(origin, target)
+				bonus = Visibility.cover_bonus(cover)
+				bonus_label = Visibility.cover_name(cover)
+			var save := SavingThrow.resolve(target, spell.save_ability, caster.data.spell_save_dc(), spell.display_name, bonus, bonus_label)
 			EventBus.log("%s: [b]%s[/b] %s" % [spell.display_name, target.display_name(), save.describe()])
 			if save.success:
 				if spell.half_damage_on_save:

@@ -13,6 +13,9 @@ var attacks_remaining: int = 0
 var sneak_attack_used: bool = false
 ## Two-weapon fighting requires an attack with a light weapon first.
 var attacked_with_light_weapon: bool = false
+## Set by any attack: an attacker in the dark is unseen only until it strikes.
+## Cleared at the start of its next turn (it may slip back into the shadows).
+var revealed: bool = false
 
 
 func begin_turn(speed_m: float) -> void:
@@ -24,6 +27,7 @@ func begin_turn(speed_m: float) -> void:
 	attacks_remaining = 0
 	sneak_attack_used = false
 	attacked_with_light_weapon = false
+	revealed = false
 
 
 func clear() -> void:
@@ -31,6 +35,7 @@ func clear() -> void:
 	bonus_actions_remaining = 0
 	movement_remaining = 0.0
 	attacks_remaining = 0
+	revealed = false
 
 
 var action_available: bool:

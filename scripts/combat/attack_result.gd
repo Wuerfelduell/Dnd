@@ -17,6 +17,9 @@ var sneak_roll: DiceResult
 ## Why the roll had advantage / disadvantage (for the log).
 var advantage_reasons: PackedStringArray = PackedStringArray()
 var disadvantage_reasons: PackedStringArray = PackedStringArray()
+## Flat modifiers from the battlefield, e.g. "half cover AC +2", "high ground +2".
+var notes: PackedStringArray = PackedStringArray()
+var situation: CombatSituation
 
 
 func outcome_text() -> String:
@@ -29,6 +32,8 @@ func outcome_text() -> String:
 
 func mode_text() -> String:
 	var parts := PackedStringArray()
+	for n in notes:
+		parts.append(n)
 	if not advantage_reasons.is_empty():
 		parts.append("advantage: " + ", ".join(advantage_reasons))
 	if not disadvantage_reasons.is_empty():

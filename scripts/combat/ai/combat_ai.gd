@@ -103,8 +103,13 @@ func attack_for(actor: Actor, target: Actor) -> Dictionary:
 
 
 ## Walks into reach of [param target] for [param attack] (dashing first if needed).
+## A ranged attacker without line of sight walks up close instead of stopping
+## at maximum range behind the same obstacle.
 func approach(actor: Actor, combat: CombatManager, target: Actor, attack: CombatAction) -> void:
-	var point := Targeting.approach_point(actor, target, attack.range_m, combat.participants)
+	var reach := attack.range_m
+	if attack.is_ranged() and not Visibility.has_line_of_sight(actor, target):
+		reach = minf(reach, 2.0)
+	var point := Targeting.approach_point(actor, target, reach, combat.participants)
 	var needed := CombatMovement.path_length(CombatMovement.plan(actor, point, combat.participants))
 	if needed > actor.turn_state.movement_remaining:
 		for dash_id in [&"dash_bonus", &"dash"]:

@@ -1,4 +1,4 @@
-# Dnd – 3D-RPG-Prototyp (Vertical Slice, Test 4: Wellen, Ressourcen, Wegfindung)
+# Dnd – 3D-RPG-Prototyp (Vertical Slice, Test 5: Höhen, Deckung, Nacht)
 
 Trying to make a dnd game using my Baldur's Gate 3 and D&D 5.5e experience.
 
@@ -11,13 +11,24 @@ Flächenzauber werden auf einen Punkt gezielt, jede Aktion wird per **Lock & Rol
 besiegte Gegner bringen XP und Level-Ups (Stufe 3 bis 8), und nach einem Sieg kann die Party
 rasten und die nächste Welle rufen.
 
-Die Gegner sind Tabletop-Miniaturen aus Primitiven auf runden Sockeln (Goblin mit Säbel und
-Schild, Bogenschütze, Wolf, Hobgoblin-Captain), ohne Animation: die Figuren gleiten wie
-Spielfiguren über den Boden.
+Die Szene spielt **nachts**: Fackeln und ein Lagerfeuer sind die einzigen Lichtquellen, und das
+Licht ist eine Regel. Wer im Dunkeln steht, wird erst aus der Nähe bemerkt und schießt unbemerkt
+mit Vorteil; wer ins Dunkle schießt, hat Nachteil. Die Arena hat **Höhenebenen** (eine
+Schützen-Anhöhe mit Treppe, ein dunkler Aussichtsfelsen, ein Hügel am Lager): von oben trifft man
+mit +2, nach oben mit -2. Kisten, Mauern und Säulen geben **Deckung** per Sichtlinien-Raycast:
+halbe (+2 AC) oder Dreiviertel-Deckung (+5 AC), hinter einer Säule ist das Ziel nicht anvisierbar.
 
-![Die Gegner-Miniaturen](docs/screenshots/enemies.png)
- Die Helden sind noch Kapseln auf Sockeln. Alles Visuelle sitzt in
-`ActorVisual` / `MiniatureBuilder`, die Kampflogik kennt davon nichts (siehe `docs/ARCHITECTURE.md`).
+![Die Helden](docs/screenshots/party.png)
+![Die Schützen-Anhöhe](docs/screenshots/ledge.png)
+![Das Lager bei Nacht](docs/screenshots/camp_night.png)
+
+Alle Figuren sind Tabletop-Miniaturen aus Primitiven auf runden Sockeln (Kämpfer in Platte,
+Schurkin mit Kapuze, Magierin mit Hut und Stab, Kleriker mit Streitkolben und Schild; Goblin mit
+Säbel und Schild, Bogenschütze, Wolf, Hobgoblin-Captain), ohne Animation: die Figuren gleiten wie
+Spielfiguren über den Boden und die Treppen hinauf. Alles Visuelle sitzt in
+`ActorVisual` / `MiniatureBuilder`, das Gelände in `TerrainBuilder`; die Kampflogik kennt davon
+nichts (siehe `docs/ARCHITECTURE.md`). Echte Assets (z. B. KayKit Adventurers, Kenney-Tiles)
+lassen sich später an genau diesen beiden Stellen einsetzen.
 
 ## Starten
 
@@ -95,11 +106,14 @@ Umwerfen, Pack Tactics), 1 Hobgoblin Captain (AC 17, 39 HP, zwei Angriffe pro Ac
 * **Ressourcen sind endlich**: Zauber-Slots, Second Wind und Action Surge laden nicht mehr pro Kampf auf. Kurze Rast zwischen den Wellen: ein Trefferwürfel Heilung pro zwei Stufen, Kämpfer-Features und die Hälfte der Pfeile. Lange Rast (nur nach jeder dritten Welle): alles. Cantrips sind gratis und würfeln ab Stufe 5 doppelt.
 * **Pfeile**: Langbogen und Kurzbogen haben 20 Pfeile, Goblin-Bogenschützen 8 (danach greifen sie mit dem Dolch an). Die Aktionsleiste zeigt den Vorrat.
 * **Wellen skalieren**: Beim Respawn werden alle Gegner auf das durchschnittliche Party-Level gehoben (+20 % HP pro Stufe, alle zwei Stufen +1 auf Treffer, Schaden und AC, mehr XP), und ab Welle 3 kommt pro Welle ein zusätzlicher Goblin-Krieger dazu (bis vier).
-* **Wegfindung** weicht anderen Figuren aus, stellt ein besetztes Ziel daneben und gleitet bei Berührung an Körpern entlang statt stehen zu bleiben.
+* **Wegfindung** weicht anderen Figuren aus, stellt ein besetztes Ziel daneben und gleitet bei Berührung an Körpern entlang statt stehen zu bleiben. Figuren folgen dem Gelände (Schwerkraft, Treppen), Bewegung wird auf der Bodenebene gemessen.
+* **Höhe**: Steht der Angreifer mindestens 1 m höher als das Ziel, bekommt er +2 auf den Angriffswurf; steht er mindestens 1 m tiefer, -2. Gilt für Waffen und Zauberangriffe.
+* **Sichtlinie & Deckung**: Von den Augen des Angreifers gehen fünf Strahlen zu Augen, Brust, Knien und beiden Schultern des Ziels (nur Levelgeometrie blockiert, keine Kreaturen). 1–2 blockiert = halbe Deckung (+2 AC, +2 auf DEX-Saves), 3–4 = Dreiviertel-Deckung (+5), alle 5 = volle Deckung: kein Ziel sichtbar, Angriff und Zauber werden verweigert (der Log erklärt warum). Nahkampf ignoriert Deckung. Flächenzauber brauchen einen sichtbaren Zielpunkt, Deckung gegen die Explosion wird vom Punkt aus gemessen. Kisten sind 1 m hoch, Mauern 0,9 m, Säulen 4 m.
+* **Licht & Schatten** (Stealth): Eine Figur ist beleuchtet, wenn eine Fackel (6 m) oder das Lagerfeuer (7 m) sie mit freier Linie erreicht; gerenderte Schatten spielen keine Rolle. Im Dunkeln bemerken Gegner sie erst auf 40 % der Wahrnehmungsreichweite (3,4 m statt 8,5 m) und nur mit Sichtlinie. Fernangriffe und Zauberangriffe aus dem Dunkeln haben **Vorteil**, bis der Angreifer zuschlägt (dann ist er bis zu seinem nächsten Zug „entdeckt“); Fernangriffe auf ein Ziel im Dunkeln aus mehr als 3 m haben **Nachteil**. Das Label über der Figur zeigt „in the dark“, die Lock-&-Roll-Zeile fasst Deckung, Höhe und Licht vor dem Bestätigen zusammen.
 * **Concentration**: nur ein Concentration-Zauber gleichzeitig; Schaden erzwingt einen CON-Rettungswurf (DC 10 oder halber Schaden), Fehlschlag oder Down beendet den Zauber und alle verknüpften Effekte.
 * **Status-Effekte**: Blessed (+1d4 Angriff/Saves), Guided (Vorteil auf den nächsten Angriff), Slowed (-3 m), Paralyzed (handlungsunfähig, Angriffe mit Vorteil, Nahkampftreffer sind Crits, Wiederholungs-Save am Zugende), Prone (Nachteil auf eigene Angriffe, Nahkampf gegen sich mit Vorteil, Aufstehen kostet halbe Bewegung), Disengaging.
 * 0 HP = „Down“. Heilung (Healing Word, Cure Wounds) holt Gefallene zurück. Nach einem Sieg stehen alle mit 1 HP auf. Ist die ganze Party down → Game Over.
-* Noch nicht enthalten: Todesrettungswürfe, Deckung, Resistenzen, Reaktionszauber (Shield), Inventar, freie Attributswahl beim Level-Up (der Hauptwert steigt automatisch).
+* Noch nicht enthalten: Todesrettungswürfe, Resistenzen, Reaktionszauber (Shield), Inventar, freie Attributswahl beim Level-Up (der Hauptwert steigt automatisch), Verstecken als Aktion, Kreaturen als Deckung.
 
 ## Tests (ohne Editor)
 
@@ -108,7 +122,9 @@ Umwerfen, Pack Tactics), 1 Hobgoblin Captain (AC 17, 39 HP, zwei Angriffe pro Ac
 godot --headless --path . res://tests/unit_tests.tscn
 
 # Szenarien in der echten Szene: Opportunity Attack, Disengage, Hold Person (Lähmung, Zug überspringen,
-# Wiederholungs-Save, Auto-Crit, Concentration-Verlust), Healing Word belebt wieder
+# Wiederholungs-Save, Auto-Crit, Concentration-Verlust), Healing Word belebt wieder, Fireball,
+# Misty Step, Umgehen von Körpern, Treppen hinauf, Höhenbonus, Deckung hinter Kiste/Säule,
+# sichtbare Zielpunkte, Licht und Wahrnehmung im Dunkeln
 godot --headless --path . -- --scenario
 
 # Kompletter Loop: Joystick, Tippen, Party folgt, Kampf (erster Zug per Lock & Confirm, Rest per KI),
@@ -118,11 +134,11 @@ godot --headless --path . -- --autoplay --seed=4
 # Alles nacheinander
 ./tests/run_all.sh
 
-# Screenshots der Figuren rendern (braucht ein Display oder xvfb-run)
+# Screenshots der Figuren, der Party, der Anhöhe und des Lagers rendern (braucht ein Display oder xvfb-run)
 xvfb-run godot --rendering-driver opengl3 --path . -- --screenshot --shot-dir=/tmp/shots
 ```
 
-Der Seed macht die Würfel reproduzierbar. Über zwölf Seeds gewinnt die KI-Party etwa zwei von drei Kämpfen.
+Der Seed macht die Würfel reproduzierbar. Über zwölf Seeds gewinnt die KI-Party zehn von zwölf ersten Wellen (die Nachtregeln helfen ihr: sie schleicht im Dunkeln an das beleuchtete Lager heran und eröffnet mit Vorteil) und etwa jede zweite zweite Welle gegen die hochskalierten Gegner.
 
 ## Projektstruktur
 
@@ -131,14 +147,16 @@ project.godot
 scenes/           main.tscn (Testarena, Party, Gegner), actors/, ui/
 scripts/core/     GameState, EventBus, InputSetup, Dice, DiceResult, ScreenRaycast
 scripts/data/     ActorData, ActorStats, WeaponData, SpellData, StatusEffectData (Resources)
-scripts/actors/   Actor, ActorVisual, PlayerController, PartyFollower, EnemyPerception
+scripts/actors/   Actor, ActorVisual, MiniatureBuilder, PlayerController, PartyFollower, EnemyPerception
 scripts/combat/   CombatManager, InitiativeTracker, TurnState, AttackResolver, AttackProfile,
                   SavingThrow, SpellResolver, StatusEffect, Progression, Targeting, CombatMovement,
+                  Visibility (Sichtlinie, Deckung, Höhe), Lighting (Licht/Schatten), CombatSituation,
                   PlayerCombatInput, actions/ (Attack, Offhand, Spell, Dash, Disengage, Second Wind,
                   Action Surge), ai/ (CombatAI, PartyAI), EnemyAI
-scripts/world/    World, CameraRig, TargetingPreview
+scripts/world/    World, TerrainBuilder (Plateaus, Treppen, Mauern, Fackeln), Terrain (Bodenhöhe),
+                  LightSource, CameraRig, TargetingPreview
 scripts/ui/       CombatHud, HudJoystick, ActorLabel, FloatingText
 data/             .tres für Helden, Gegner, Waffen, Zauber und Status-Effekte
 tests/            Unit-Tests, Szenario-Test, Autoplay-Integrationstest, run_all.sh
-docs/             Architekturbeschreibung
+docs/             Architekturbeschreibung, Screenshots
 ```

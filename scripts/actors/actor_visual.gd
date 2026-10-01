@@ -43,7 +43,7 @@ func _ready() -> void:
 		var mini := Node3D.new()
 		mini.name = "Mini"
 		add_child(mini)
-		MiniatureBuilder.build(kind, mini, _mini_materials)
+		MiniatureBuilder.build(kind, mini, _mini_materials, actor.data.color)
 		for m in _mini_materials:
 			_mini_colors.append(m.albedo_color)
 	apply_color(_base_color)

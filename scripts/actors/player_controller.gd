@@ -33,7 +33,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		get_viewport().set_input_as_handled()
 
 
-func _physics_process(_delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	if not GameState.is_exploring() or actor.is_down:
 		_pending_tap = false
 		return
@@ -44,11 +44,8 @@ func _physics_process(_delta: float) -> void:
 	if dir.length_squared() > 0.0001:
 		# Direct input overrides a running tap-to-move.
 		actor.stop_moving()
-		actor.velocity = dir.normalized() * walk_speed
 		actor.face_direction(dir)
-		actor.velocity.y = 0.0
-		actor.move_and_slide()
-		actor.global_position.y = 0.0
+		actor.walk(dir.normalized() * walk_speed, delta)
 	elif not actor.is_moving():
 		actor.velocity = Vector3.ZERO
 

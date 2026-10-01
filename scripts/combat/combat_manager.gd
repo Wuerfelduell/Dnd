@@ -152,7 +152,7 @@ func perform_action(actor: Actor, action: CombatAction, target: Actor, point: Ve
 		return false
 	if action.targets_point():
 		if not action.can_target_point(actor, point):
-			EventBus.log("[color=gray]%s: that spot is out of range (%.1f m).[/color]" % [action.display_name, action.range_m])
+			_explain_bad_point(actor, action, point)
 			return false
 	elif action.requires_target() and not action.can_target(actor, target):
 		_explain_bad_target(actor, action, target)
@@ -179,8 +179,18 @@ func _explain_bad_target(actor: Actor, action: CombatAction, target: Actor) -> v
 	if distance > action.range_m:
 		EventBus.log("[color=gray]%s: %s is out of range (%.1f m > %.1f m). Move closer first.[/color]" % [
 			action.display_name, target.display_name(), distance, action.range_m])
+	elif not Visibility.has_line_of_sight(actor, target):
+		EventBus.log("[color=gray]%s: no line of sight to %s (full cover). Move to see past the obstacle.[/color]" % [
+			action.display_name, target.display_name()])
 	else:
 		EventBus.log("[color=gray]%s: %s is not a valid target.[/color]" % [action.display_name, target.display_name()])
+
+
+func _explain_bad_point(actor: Actor, action: CombatAction, point: Vector3) -> void:
+	if not action.point_in_range(actor, point):
+		EventBus.log("[color=gray]%s: that spot is out of range (%.1f m).[/color]" % [action.display_name, action.range_m])
+	else:
+		EventBus.log("[color=gray]%s: you can't see that spot from here.[/color]" % action.display_name)
 
 
 ## Moves the active actor towards [param destination] as far as its remaining

@@ -20,6 +20,7 @@ signal reach_left(mover: Actor, hostile: Actor)
 
 const BODY_RADIUS := 0.4
 const MELEE_REACH := 1.5
+const GRAVITY := 25.0
 
 @export var data: ActorData
 ## Visual walking speed in m/s (rules movement is in TurnState).
@@ -64,6 +65,7 @@ func _ready() -> void:
 	assert(data != null, "Actor '%s' has no ActorData" % name)
 	initialize_runtime()
 	add_to_group("actors")
+	floor_snap_length = 0.4
 	if visual:
 		visual.apply_color(data.color)
 	if name_label:
@@ -561,49 +563,58 @@ func _emit_movement_finished() -> void:
 func _physics_process(delta: float) -> void:
 	if not _moving or _pause_depth > 0:
 		return
-	var step_left := move_speed * delta
-	var frame_moved := 0.0
-	while step_left > 0.0001 and _moving and _pause_depth == 0:
-		if _path_index >= _path.size() or _distance_budget <= 0.0001:
-			_finish_move()
-			break
-		var target := _path[_path_index]
-		target.y = global_position.y
-		var to_target := target - global_position
-		var dist := to_target.length()
-		if dist < 0.05:
-			_path_index += 1
-			continue
-		var step := minf(step_left, minf(dist, _distance_budget))
-		var dir := to_target / dist
-		face_direction(dir)
-		var threats := _threats_in_reach()
-		var before := global_position
-		var collision := move_and_collide(dir * step)
-		if collision != null:
-			# Slide along whatever we bumped into (usually another creature)
-			# instead of stopping; the path already tries to avoid bodies.
-			var remainder := collision.get_remainder().slide(collision.get_normal())
-			remainder.y = 0.0
-			if remainder.length() > 0.001:
-				move_and_collide(remainder)
-		global_position.y = before.y
-		var moved := (global_position - before).length()
-		last_move_distance += moved
-		_distance_budget -= moved
-		frame_moved += moved
-		step_left -= step
-		_check_reach_left(threats)
-		if (target - global_position).length() < 0.15:
-			_path_index += 1
+	# Skip waypoints we are already standing on.
+	while _path_index < _path.size() and _flat_distance_to(_path[_path_index]) < 0.05:
+		_path_index += 1
+	if _path_index >= _path.size() or _distance_budget <= 0.0001:
+		_finish_move()
+		return
+	var target := _path[_path_index]
+	target.y = global_position.y
+	var to_target := target - global_position
+	var dist := to_target.length()
+	var step := minf(move_speed * delta, minf(dist, _distance_budget))
+	var dir := to_target / dist
+	face_direction(dir)
+	var threats := _threats_in_reach()
+	var moved := walk(dir * (step / delta), delta)
+	last_move_distance += moved
+	_distance_budget -= moved
+	_check_reach_left(threats)
+	if _flat_distance_to(target) < 0.15:
+		_path_index += 1
 	# Stuck against something for a while: give up gracefully.
 	if _moving:
-		if frame_moved < 0.002:
+		if moved < 0.002:
 			_stall_frames += 1
 			if _stall_frames >= 20:
 				_finish_move()
 		else:
 			_stall_frames = 0
+
+
+## One physics step of walking with [param horizontal_velocity] (m/s) while
+## gravity keeps the body on the ground: up stairs, down slopes, sliding along
+## other creatures and walls. Returns the horizontal distance travelled.
+func walk(horizontal_velocity: Vector3, delta: float) -> float:
+	var before := global_position
+	var vertical := velocity.y
+	if is_on_floor():
+		vertical = -1.0
+	else:
+		vertical -= GRAVITY * delta
+	velocity = Vector3(horizontal_velocity.x, vertical, horizontal_velocity.z)
+	move_and_slide()
+	var moved := global_position - before
+	moved.y = 0.0
+	return moved.length()
+
+
+func _flat_distance_to(point: Vector3) -> float:
+	var a := global_position
+	a.y = 0.0
+	point.y = 0.0
+	return a.distance_to(point)
 
 
 func _threats_in_reach() -> Array[Actor]:

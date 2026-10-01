@@ -57,15 +57,31 @@ func can_target(_actor: Actor, _target: Actor) -> bool:
 	return not requires_target()
 
 
-## For POINT actions: is [param point] a legal target position?
+## For POINT actions: is [param point] a legal target position (in range and visible)?
 func can_target_point(actor: Actor, point: Vector3) -> bool:
 	if target_kind != TargetKind.POINT:
 		return false
-	return actor.global_position.distance_to(point) <= range_m + 0.05
+	return point_in_range(actor, point) and Visibility.point_visible(actor, point)
+
+
+func point_in_range(actor: Actor, point: Vector3) -> bool:
+	var flat := point
+	flat.y = actor.global_position.y
+	return actor.global_position.distance_to(flat) <= range_m + 0.05
 
 
 func targets_point() -> bool:
 	return target_kind == TargetKind.POINT
+
+
+## Ranged attacks care about cover and darkness; melee does not.
+func is_ranged() -> bool:
+	return false
+
+
+## Attack-roll actions get advantage / disadvantage from the battlefield.
+func uses_attack_roll() -> bool:
+	return false
 
 
 ## Pays the cost. Overridden by actions with special economy (Extra Attack).
@@ -93,3 +109,8 @@ func tag_for(_actor: Actor) -> String:
 ## Helper: distance check between two actors for a targeted action.
 func in_range(actor: Actor, target: Actor) -> bool:
 	return actor.distance_to(target) <= range_m + 0.001
+
+
+## Helper: a target behind full cover cannot be attacked or targeted by spells.
+func can_see(actor: Actor, target: Actor) -> bool:
+	return target == actor or Visibility.has_line_of_sight(actor, target)

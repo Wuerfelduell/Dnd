@@ -35,7 +35,7 @@ func _process(delta: float) -> void:
 		rotation_degrees.y += yaw * rotate_speed_deg * delta
 	if follow_target != null and is_instance_valid(follow_target):
 		var goal := follow_target.global_position
-		goal.y = 0.0
+		goal.y = maxf(0.0, goal.y)
 		global_position = global_position.lerp(goal, clampf(follow_speed * delta, 0.0, 1.0))
 
 

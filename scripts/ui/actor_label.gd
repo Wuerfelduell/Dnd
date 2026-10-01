@@ -1,8 +1,13 @@
 ## Floating name + HP + status label above an actor (placeholder for real HP bars).
+## Also shows whether the creature stands in the dark (stealth rules).
 class_name ActorLabel
 extends Label3D
 
+const LIGHT_CHECK_INTERVAL := 0.4
+
 var _actor: Actor
+var _in_shadow: bool = false
+var _light_timer: float = 0.0
 
 
 func bind(actor: Actor) -> void:
@@ -14,6 +19,19 @@ func bind(actor: Actor) -> void:
 	actor.revived.connect(func(_a): _refresh())
 	actor.statuses_changed.connect(func(_a): _refresh())
 	_refresh()
+
+
+func _process(delta: float) -> void:
+	if _actor == null:
+		return
+	_light_timer -= delta
+	if _light_timer > 0.0:
+		return
+	_light_timer = LIGHT_CHECK_INTERVAL
+	var shadow := Lighting.is_in_shadow(_actor)
+	if shadow != _in_shadow:
+		_in_shadow = shadow
+		_refresh()
 
 
 func _refresh() -> void:
@@ -37,6 +55,8 @@ func _refresh() -> void:
 		extra.append(statuses)
 	if _actor.concentration_spell != null:
 		extra.append("C: " + _actor.concentration_spell.display_name)
+	if _in_shadow and not _actor.is_down:
+		extra.append("in the dark")
 	if not extra.is_empty():
 		lines.append(" | ".join(extra))
 	text = "\n".join(lines)

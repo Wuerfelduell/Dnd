@@ -108,9 +108,9 @@ func _refresh_mode() -> void:
 		GameState.State.EXPLORATION:
 			mode_label.text = "EXPLORATION"
 			if _touch:
-				hint_label.text = "Joystick or tap the ground to walk. Camera buttons on the right."
+				hint_label.text = "Joystick or tap the ground to walk. Stay in the dark to sneak closer. Camera buttons on the right."
 			else:
-				hint_label.text = "WASD, joystick or click the ground to walk. Q/E rotate camera, wheel zoom."
+				hint_label.text = "WASD, joystick or click the ground to walk. Stay in the dark to sneak closer. Q/E rotate camera, wheel zoom."
 			initiative_panel.visible = false
 			action_panel.visible = false
 			joystick.visible = true
@@ -224,6 +224,8 @@ func _refresh_action_bar() -> void:
 		parts.append("%d %s" % [actor.ammo[kind], kind])
 	if actor.concentration_spell != null:
 		parts.append("Concentrating: " + actor.concentration_spell.display_name)
+	if Lighting.is_in_shadow(actor):
+		parts.append("In the dark" + (" (revealed)" if ts.revealed else " (unseen)"))
 	resources_label.text = "  ·  ".join(parts)
 	_refresh_mode()
 

@@ -18,9 +18,6 @@ static func find_path(map: RID, from: Vector3, to: Vector3) -> PackedVector3Arra
 		var start := NavigationServer3D.map_get_closest_point(map, from)
 		var goal := NavigationServer3D.map_get_closest_point(map, to)
 		path = NavigationServer3D.map_get_path(map, start, goal, true)
-		# Keep the actor's own height (navmesh surface may sit slightly lower/higher).
-		for i in path.size():
-			path[i].y = from.y
 	if path.size() < 2:
 		path = PackedVector3Array([from, to])
 	return path
@@ -28,12 +25,15 @@ static func find_path(map: RID, from: Vector3, to: Vector3) -> PackedVector3Arra
 
 ## Full plan for [param mover]: navmesh path + detours around [param others]
 ## + a free destination. This is what movement, previews and the AI use.
+## Path heights follow the terrain; distances are measured on the ground plane.
 static func plan(mover: Actor, destination: Vector3, others: Array[Actor]) -> PackedVector3Array:
 	var map := RID()
 	if mover.is_inside_tree():
 		map = mover.get_world_3d().navigation_map
 	var blockers := _blockers(mover, others)
-	var goal := free_destination(mover, destination, blockers)
+	# The goal must sit on the surface at that spot (plateau or ground),
+	# otherwise the navmesh picks the nearest polygon of the wrong level.
+	var goal := Terrain.snap_to_ground(mover, free_destination(mover, destination, blockers))
 	var path := find_path(map, mover.global_position, goal)
 	return detour_around(_drop_points_inside_bodies(path, blockers), blockers)
 
@@ -134,7 +134,9 @@ static func _detour_point(a: Vector3, b: Vector3, blockers: Array[Actor], last_s
 		# (attacking an adjacent enemy): only interior crossings need a detour.
 		if t < 0.05 or t > seg_len - 0.05:
 			continue
-		if last_segment and fb.distance_to(c) < CLEARANCE + 0.3:
+		# Ending next to a creature is fine only when the segment merely *ends*
+		# near it; a segment that passes through the body first still detours.
+		if last_segment and fb.distance_to(c) < CLEARANCE + 0.3 and seg_len - t < CLEARANCE:
 			continue
 		if t < best_t:
 			best_t = t
@@ -162,10 +164,11 @@ static func _detour_point(a: Vector3, b: Vector3, blockers: Array[Actor], last_s
 	return waypoint
 
 
+## Length on the ground plane (climbing stairs costs their horizontal length).
 static func path_length(path: PackedVector3Array) -> float:
 	var length := 0.0
 	for i in range(1, path.size()):
-		length += path[i - 1].distance_to(path[i])
+		length += _flat(path[i - 1]).distance_to(_flat(path[i]))
 	return length
 
 
@@ -215,12 +218,12 @@ static func truncate(path: PackedVector3Array, max_length: float) -> PackedVecto
 	var remaining := max_length
 	for i in range(1, path.size()):
 		var seg := path[i] - path[i - 1]
-		var seg_len := seg.length()
+		var seg_len := _flat(seg).length()
 		if seg_len <= remaining:
 			out.append(path[i])
 			remaining -= seg_len
 		else:
-			if remaining > 0.001:
-				out.append(path[i - 1] + seg.normalized() * remaining)
+			if remaining > 0.001 and seg_len > 0.001:
+				out.append(path[i - 1] + seg * (remaining / seg_len))
 			break
 	return out

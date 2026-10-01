@@ -84,6 +84,7 @@ func _run() -> void:
 	await _scenario_revive()
 	await _scenario_fireball()
 	await _scenario_walk_around()
+	await _scenario_terrain_cover_and_shadows()
 	if not _failed:
 		print("[scenario] SUCCESS after %.1f s" % _time)
 		get_tree().quit(0)
@@ -275,3 +276,80 @@ static func _strip(text: String) -> String:
 	var regex := RegEx.new()
 	regex.compile("\\[/?[a-z]+(=[^\\]]*)?\\]")
 	return regex.sub(text, "", true)
+
+
+func _scenario_terrain_cover_and_shadows() -> void:
+	print("[scenario] --- terrain, cover, line of sight, shadows ---")
+	var fighter := _actor("Party/Fighter")
+	var wizard := _actor("Party/Wizard")
+	var gob := _actor("Enemies/GoblinWarrior")
+	var archer := _actor("Enemies/GoblinArcher")
+	# Heights come from the generated terrain.
+	expect(absf(Terrain.ground_height(world, Vector3(9, 0, -16)) - 1.5) < 0.1, "archer ledge is 1.5 m high (%.2f)" % Terrain.ground_height(world, Vector3(9, 0, -16)))
+	expect(absf(Terrain.ground_height(world, Vector3(0, 0, 0))) < 0.05, "arena centre is flat")
+	expect(absf(Terrain.ground_height(world, Vector3(3, 0, -16.5)) - 0.8) < 0.2, "ledge stairs are half way up in the middle (%.2f)" % Terrain.ground_height(world, Vector3(3, 0, -16.5)))
+	var spawn: Transform3D = world._spawn_transforms[archer]
+	expect(absf(spawn.origin.y - 1.5) < 0.05, "the archer spawns on the ledge (%s)" % spawn.origin)
+	archer.global_position = spawn.origin
+
+	# High ground: the archer on the ledge shoots down at +2, the fighter shoots up at -2.
+	fighter.global_position = Vector3(8, 0, -11)
+	var down := CombatSituation.assess(archer, fighter)
+	expect(down.elevation_bonus() == 2 and down.cover == Visibility.Cover.NONE, "archer on the ledge has high ground (+2), no cover (%.2f m, %d)" % [down.elevation_m, down.cover])
+	var up := CombatSituation.assess(fighter, archer)
+	expect(up.elevation_bonus() == -2, "shooting up at the ledge is -2")
+	expect(fighter.find_action(&"attack_longbow").can_target(fighter, archer), "the archer on the ledge is visible from below")
+
+	# Half cover behind a crate (1 m high): some rays blocked, target still attackable.
+	fighter.global_position = Vector3(-4, 0, -3.5)
+	gob.global_position = Vector3(-4, 0, -8.5)
+	var crate := CombatSituation.assess(fighter, gob)
+	expect(crate.cover == Visibility.Cover.HALF, "goblin behind the crate has half cover (%d blocked -> %d)" % [Visibility.blocked_count(Visibility.eye_position(fighter), gob), crate.cover])
+	expect(fighter.find_action(&"attack_longbow").can_target(fighter, gob), "half cover does not block the shot")
+	var open := CombatSituation.assess(fighter, archer)
+	expect(open.cover != Visibility.Cover.FULL, "nothing between the fighter and the archer")
+	# Full cover behind a pillar: no line of sight, the action refuses the target.
+	fighter.global_position = Vector3(-5, 0, -9)
+	gob.global_position = Vector3(-5, 0, -17)
+	expect(not Visibility.has_line_of_sight(fighter, gob), "pillar gives full cover")
+	expect(not fighter.find_action(&"attack_longbow").can_target(fighter, gob), "no line of sight: cannot shoot")
+	expect(not wizard.find_action(&"spell_fire_bolt").can_target(fighter, gob), "no line of sight: cannot cast either")
+	# Point spells need a visible point of origin.
+	wizard.global_position = Vector3(-4, 0, -3.5)
+	var fireball := wizard.find_action(&"spell_fireball") as SpellAction
+	expect(Visibility.point_visible(wizard, Vector3(-4, 0, -12)), "a spot beyond the crate is visible")
+	expect(not Visibility.point_visible(wizard, Vector3(-4, 0, -7.4)), "the ground right behind the crate is hidden")
+	if fireball != null:
+		expect(fireball.can_target_point(wizard, Vector3(-4, 0, -12)) and not fireball.can_target_point(wizard, Vector3(-4, 0, -7.4)), "fireball respects the visible spot")
+
+	# Shadows: lit at the camp torches, dark in the middle; dark creatures are noticed only up close.
+	fighter.global_position = Vector3(0, 0, 12)
+	expect(Lighting.is_lit(fighter), "camp is lit by its torches")
+	fighter.global_position = Vector3(0, 0, 2)
+	expect(Lighting.is_in_shadow(fighter), "the middle of the arena is dark")
+	gob.global_position = Vector3(0, 0, -4)
+	var perception: EnemyPerception = gob.get_node("Perception")
+	expect(not perception.can_notice(fighter), "6 m away in the dark: not noticed")
+	fighter.global_position = Vector3(0, 0, -1)
+	expect(perception.can_notice(fighter), "3 m away in the dark: noticed")
+	fighter.global_position = Vector3(0, 0, -8)
+	expect(Lighting.is_lit(fighter), "the campfire lights the goblin camp")
+	expect(perception.can_notice(fighter), "lit and 4 m away: noticed")
+	gob.global_position = Vector3(-5, 0, -17)
+	fighter.global_position = Vector3(-5, 0, -9)
+	expect(not perception.can_notice(fighter), "no line of sight through the pillar: not noticed")
+
+	# Walking up the stairs in combat: the fighter ends on the ledge.
+	fighter.global_position = Vector3(-1, 0, -16.5)
+	gob.global_position = Vector3(-8, 0, -9)
+	combat.start_combat([fighter, archer] as Array[Actor])
+	await _wait_turn(fighter)
+	var ok: bool = await combat.move_actor(fighter, Vector3(6, 1.5, -16.5))
+	expect(ok, "move onto the ledge accepted")
+	expect(fighter.global_position.y > 1.3 and fighter.global_position.x > 4.5, "fighter climbed the stairs onto the ledge (%s)" % fighter.global_position)
+	expect(fighter.turn_state.movement_remaining < 3.0, "the climb cost movement (%.1f left)" % fighter.turn_state.movement_remaining)
+	var level := CombatSituation.assess(fighter, archer)
+	expect(level.elevation_bonus() == 0, "same level on the ledge: no height bonus")
+	await _end()
+	fighter.global_position = Vector3(0, 0, 12)
+

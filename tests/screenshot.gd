@@ -44,7 +44,10 @@ func _run() -> void:
 		if actor == null:
 			continue
 		var target := actor.global_position + Vector3(0, 0.9, 0)
-		free_cam.global_position = target + Vector3(2.2, 1.4, 2.6)
+		# In front of the figure, slightly to its left, looking down a little.
+		var forward := -actor.global_transform.basis.z
+		var right := actor.global_transform.basis.x
+		free_cam.global_position = target + forward * 2.6 + right * 2.2 + Vector3.UP * 1.4
 		free_cam.look_at(target, Vector3.UP)
 		await _settle()
 		await _shoot(key)
@@ -60,6 +63,27 @@ func _run() -> void:
 		free_cam.look_at(center + Vector3(0, 0.5, 0), Vector3.UP)
 		await _settle()
 		await _shoot("enemies")
+	# Group shot of the party, seen from the front (they face north).
+	var party_center := Vector3.ZERO
+	var members := 0
+	for p in world.party():
+		party_center += p.global_position
+		members += 1
+	if members > 0:
+		party_center /= members
+		free_cam.global_position = party_center + Vector3(0.5, 3.2, -5.5)
+		free_cam.look_at(party_center + Vector3(0, 0.8, 0), Vector3.UP)
+		await _settle()
+		await _shoot("party")
+	# The height levels: archer ledge with its stairs and the dark overlook.
+	free_cam.global_position = Vector3(-1.0, 6.0, -7.0)
+	free_cam.look_at(Vector3(7.0, 1.5, -15.0), Vector3.UP)
+	await _settle()
+	await _shoot("ledge")
+	free_cam.global_position = Vector3(-7.0, 6.0, 5.0)
+	free_cam.look_at(Vector3(-16.0, 1.0, -2.0), Vector3.UP)
+	await _settle()
+	await _shoot("overlook")
 	camera.make_current()
 	print("[screenshot] done -> %s" % _dir)
 	get_tree().quit(0)

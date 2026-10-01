@@ -52,7 +52,15 @@ func can_target(actor: Actor, target: Actor) -> bool:
 		return false
 	if not target.is_alive() or not actor.is_hostile_to(target):
 		return false
-	return in_range(actor, target)
+	return in_range(actor, target) and can_see(actor, target)
+
+
+func is_ranged() -> bool:
+	return weapon.is_ranged
+
+
+func uses_attack_roll() -> bool:
+	return true
 
 
 func execute(actor: Actor, target: Actor, _point: Vector3 = Vector3.ZERO) -> void:
@@ -65,7 +73,7 @@ static func perform_attack(actor: Actor, target: Actor, p_weapon: WeaponData, ve
 	actor.spend_ammo(p_weapon)
 	var others := CombatContext.actors_near(actor)
 	var profile := AttackProfile.from_weapon(actor, p_weapon, add_damage_bonus)
-	var result := AttackResolver.resolve(actor, target, profile, others)
+	var result := AttackResolver.resolve(actor, target, profile, others, CombatSituation.assess(actor, target))
 	var line := "[b]%s[/b] %s [b]%s[/b] with %s: %s vs AC %d = [b]%s[/b]%s" % [
 		actor.display_name(), verb, target.display_name(), p_weapon.display_name,
 		result.attack_roll.describe(), result.target_ac, result.outcome_text(), result.mode_text()]

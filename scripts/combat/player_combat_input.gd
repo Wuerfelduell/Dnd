@@ -29,6 +29,8 @@ var locked_provokers: Array[Actor] = []
 ## Creatures inside the locked area (POINT actions).
 var locked_area_targets: Array[Actor] = []
 
+## Where the ground was tapped for the current MOVE lock.
+var _locked_tap: Vector3 = Vector3.INF
 var _pending_click: bool = false
 var _pending_click_position: Vector2 = Vector2.ZERO
 var _mouse_position: Vector2 = Vector2.ZERO
@@ -130,6 +132,7 @@ func _clear_lock() -> void:
 	lock_kind = LockKind.NONE
 	locked_actor = null
 	locked_path = PackedVector3Array()
+	_locked_tap = Vector3.INF
 	locked_provokers = []
 	locked_area_targets = []
 	if had:
@@ -167,7 +170,10 @@ func _on_tap(actor: Actor, clicked: Actor, position: Vector3) -> void:
 				var point := position
 				if clicked != null:
 					point = clicked.global_position
-				point = _clamp_to_range(actor, point, selected_action.range_m)
+				point = Terrain.snap_to_ground(actor, _clamp_to_range(actor, point, selected_action.range_m))
+				if not selected_action.can_target_point(actor, point):
+					combat._explain_bad_point(actor, selected_action, point)
+					return
 				if lock_kind == LockKind.POINT and point.distance_to(locked_point) < 0.6:
 					confirm()
 				else:
@@ -204,8 +210,10 @@ func _on_tap(actor: Actor, clicked: Actor, position: Vector3) -> void:
 		else:
 			EventBus.log("[color=gray]Pick a spell or ability first to use it on %s.[/color]" % clicked.display_name())
 		return
+	# Tapping the same spot again confirms, even when the walkable end of the
+	# path had to move (tap on a wall, a crate or a creature's spot).
 	if lock_kind == LockKind.MOVE and locked_path.size() >= 2 \
-			and position.distance_to(locked_path[locked_path.size() - 1]) < 0.8:
+			and (position.distance_to(_locked_tap) < 0.8 or position.distance_to(locked_path[locked_path.size() - 1]) < 0.8):
 		confirm()
 	else:
 		_lock_move(actor, position)
@@ -240,6 +248,7 @@ func _lock_move(actor: Actor, destination: Vector3) -> void:
 		return
 	lock_kind = LockKind.MOVE
 	locked_path = path
+	_locked_tap = destination
 	locked_provokers = CombatMovement.provoking_hostiles(actor, path, combat.participants)
 	lock_changed.emit()
 
@@ -286,7 +295,12 @@ func describe_lock(actor: Actor) -> String:
 				text += " - provokes an opportunity attack from %s!" % ", ".join(names)
 			return text
 		LockKind.ACTOR:
-			return "%s on %s" % [selected_action.display_name, locked_actor.display_name()]
+			var text := "%s on %s" % [selected_action.display_name, locked_actor.display_name()]
+			var notes := CombatSituation.assess(actor, locked_actor).summary(
+				selected_action.is_ranged(), selected_action.uses_attack_roll(), actor.turn_state.revealed)
+			if not notes.is_empty():
+				text += " (%s)" % "; ".join(notes)
+			return text
 		LockKind.POINT:
 			if selected_action is SpellAction and selected_action.spell.teleport:
 				return "%s to that spot" % selected_action.display_name

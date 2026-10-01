@@ -45,6 +45,9 @@ func choose_target(actor: Actor, combat: CombatManager) -> Actor:
 		score -= float(h.armor_class()) * 2.0
 		if h.is_incapacitated():
 			score += 20.0
+		# Someone standing in the dark is a poor target for a shot.
+		if Lighting.is_in_shadow(h):
+			score -= 12.0
 		if score > best_score:
 			best_score = score
 			best = h

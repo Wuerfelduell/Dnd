@@ -25,6 +25,9 @@ func _ready() -> void:
 	_test_enemy_scaling()
 	_test_miniatures()
 	_test_initiative()
+	_test_cover_and_elevation()
+	_test_shadows()
+	_test_terrain_layout()
 	print("\n%d checks, %d failures" % [_checks, _failures])
 	get_tree().quit(0 if _failures == 0 else 1)
 
@@ -668,11 +671,27 @@ func _test_miniatures() -> void:
 		enemy.take_damage(999)
 		check(enemy.visual.rotation_degrees.x < -70.0 and mat.albedo_color != original, "%s falls over and greys out when down" % kind)
 		enemy.queue_free()
-	var hero: Actor = load("res://scenes/actors/player.tscn").instantiate()
-	add_child(hero)
-	check(hero.visual.get_node_or_null("Mini") == null and hero.visual.body.visible, "heroes keep the capsule for now")
-	check(hero.visual.get_node("BaseRim") != null, "heroes stand on a base too")
-	hero.queue_free()
+	# Heroes: one recipe per class, coloured with the class colour.
+	var member_scene: PackedScene = load("res://scenes/actors/party_member.tscn")
+	for kind in ["fighter", "rogue", "wizard", "cleric"]:
+		var hero: Actor = member_scene.instantiate()
+		hero.data = load("res://data/actors/%s.tres" % kind)
+		add_child(hero)
+		var mini := hero.visual.get_node_or_null("Mini")
+		check(mini != null and not hero.visual.body.visible, "%s has a miniature instead of the capsule" % kind)
+		check(hero.visual.get_node("BaseRim") != null, "%s stands on a base" % kind)
+		if mini != null:
+			check(mini.get_child_count() >= 20, "%s miniature has enough parts (%d)" % [kind, mini.get_child_count()])
+			var top := 0.0
+			var accent_used := false
+			for child in mini.get_children():
+				if child is MeshInstance3D:
+					top = maxf(top, child.position.y + child.get_aabb().size.y * 0.5)
+					if child.material_override.albedo_color.is_equal_approx(hero.data.color):
+						accent_used = true
+			check(absf(top - MiniatureBuilder.height_of(kind)) < 0.35, "%s is about %.2f m tall (%.2f)" % [kind, MiniatureBuilder.height_of(kind), top])
+			check(accent_used, "%s wears the class colour" % kind)
+		hero.queue_free()
 
 
 # --- Initiative -----------------------------------------------------------
@@ -703,3 +722,187 @@ func _test_initiative() -> void:
 	fighter.queue_free()
 	g1.queue_free()
 	g2.queue_free()
+
+
+# --- Cover, line of sight & high ground -----------------------------------
+
+func _test_cover_and_elevation() -> void:
+	# Pure rules first.
+	check(Visibility.cover_from_count(0) == Visibility.Cover.NONE, "0 blocked rays = no cover")
+	check(Visibility.cover_from_count(1) == Visibility.Cover.HALF and Visibility.cover_from_count(2) == Visibility.Cover.HALF, "1-2 blocked = half cover")
+	check(Visibility.cover_from_count(3) == Visibility.Cover.THREE_QUARTERS and Visibility.cover_from_count(4) == Visibility.Cover.THREE_QUARTERS, "3-4 blocked = three-quarters")
+	check(Visibility.cover_from_count(5) == Visibility.Cover.FULL, "5 blocked = full cover")
+	check(Visibility.cover_bonus(Visibility.Cover.NONE) == 0 and Visibility.cover_bonus(Visibility.Cover.HALF) == 2 and Visibility.cover_bonus(Visibility.Cover.THREE_QUARTERS) == 5, "cover bonuses 0/2/5")
+	check(Visibility.elevation_bonus(1.5) == 2 and Visibility.elevation_bonus(0.75) == 0 and Visibility.elevation_bonus(-1.5) == -2, "high ground +2 from 1 m, low ground -2")
+
+	var fighter := _make_actor("res://data/actors/fighter.tres")
+	var gob := _make_actor("res://data/actors/goblin_warrior.tres")
+	_place(fighter, 0, 0)
+	_place(gob, 0, -6)
+	var others: Array[Actor] = [fighter, gob]
+	var bow: WeaponData = fighter.data.weapons[1]
+	var sword: WeaponData = fighter.data.weapons[0]
+	# No geometry in the test scene: assessing the real scene gives a neutral situation.
+	var neutral := CombatSituation.assess(fighter, gob)
+	check(neutral.cover == Visibility.Cover.NONE and neutral.elevation_bonus() == 0 and not neutral.attacker_in_shadow, "empty world = no cover, no height, daylight")
+	check(Visibility.has_line_of_sight(fighter, gob), "line of sight in an empty world")
+	check(Visibility.eye_position(fighter).y > 1.5 and Visibility.eye_position(gob).y < 1.3, "eye height follows the figure (%.2f / %.2f)" % [Visibility.eye_position(fighter).y, Visibility.eye_position(gob).y])
+	check(Visibility.body_points(gob, fighter.global_position).size() == Visibility.SAMPLE_COUNT, "five body sample points")
+
+	# Half cover: +2 AC against the bow, nothing against the sword.
+	var half := CombatSituation.new()
+	half.cover = Visibility.Cover.HALF
+	var shot := AttackResolver.resolve(fighter, gob, AttackProfile.from_weapon(fighter, bow), others, half)
+	check(shot.target_ac == gob.armor_class() + 2, "half cover raises AC by 2 against ranged (%d)" % shot.target_ac)
+	check(shot.notes.size() == 1 and shot.notes[0].begins_with("half cover"), "cover is noted in the result")
+	_place(gob, 0, -1)
+	var swing := AttackResolver.resolve(fighter, gob, AttackProfile.from_weapon(fighter, sword), others, half)
+	check(swing.target_ac == gob.armor_class(), "melee ignores cover (%d)" % swing.target_ac)
+	var tq := CombatSituation.new()
+	tq.cover = Visibility.Cover.THREE_QUARTERS
+	_place(gob, 0, -6)
+	shot = AttackResolver.resolve(fighter, gob, AttackProfile.from_weapon(fighter, bow), others, tq)
+	check(shot.target_ac == gob.armor_class() + 5, "three-quarters cover: AC +5 (%d)" % shot.target_ac)
+
+	# High ground: +2 on the roll; standing below: -2.
+	var high := CombatSituation.new()
+	high.elevation_m = 1.5
+	shot = AttackResolver.resolve(fighter, gob, AttackProfile.from_weapon(fighter, bow), others, high)
+	check(shot.attack_roll.modifier == fighter.attack_bonus(bow) + 2, "high ground adds +2 to the attack roll (%d)" % shot.attack_roll.modifier)
+	check(shot.notes.has("high ground +2"), "high ground noted")
+	var low := CombatSituation.new()
+	low.elevation_m = -1.5
+	shot = AttackResolver.resolve(fighter, gob, AttackProfile.from_weapon(fighter, bow), others, low)
+	check(shot.attack_roll.modifier == fighter.attack_bonus(bow) - 2, "shooting upwards: -2 (%d)" % shot.attack_roll.modifier)
+	var summary := high.summary(true, true, false)
+	check(summary.size() == 1 and summary[0].begins_with("high ground"), "summary explains high ground")
+
+	# Cover also protects DEX saves: a +2 bonus is part of the roll and the log.
+	var save := SavingThrow.resolve(gob, "dex", 13, "Fireball", 2, "half cover")
+	check(save.roll.modifier == gob.data.stats.save_bonus("dex") + 2 and save.describe().contains("half cover +2"), "DEX save includes the cover bonus")
+	var plain := SavingThrow.resolve(gob, "dex", 13, "Fireball")
+	check(plain.bonus == 0 and not plain.describe().contains("cover"), "no cover, no note")
+
+	# Full cover: the action refuses the target.
+	var attack := fighter.find_action(&"attack_longbow")
+	check(attack.is_ranged() and attack.uses_attack_roll(), "longbow is a ranged attack-roll action")
+	check(not fighter.find_action(&"attack_longsword").is_ranged(), "longsword is melee")
+	check(attack.can_target(fighter, gob), "visible goblin can be shot")
+	check(attack.can_see(fighter, gob), "line of sight helper agrees")
+	fighter.queue_free()
+	gob.queue_free()
+
+
+# --- Shadows (stealth) -----------------------------------------------------
+
+func _test_shadows() -> void:
+	var rogue := _make_actor("res://data/actors/rogue.tres")
+	var gob := _make_actor("res://data/actors/goblin_warrior.tres")
+	_place(rogue, 0, 0)
+	_place(gob, 0, -8)
+	var others: Array[Actor] = [rogue, gob]
+	CombatContext.override_actors = others
+	var bow: WeaponData = rogue.data.weapons[1]
+	check(bow.is_ranged, "rogue's second weapon is the shortbow")
+	check(Lighting.is_lit(rogue), "no light sources = daylight, everyone is lit")
+
+	# Unseen archer: advantage, and Sneak Attack rides along.
+	var dark := CombatSituation.new()
+	dark.attacker_in_shadow = true
+	dark.distance_m = rogue.distance_to(gob)
+	check(dark.unseen_attacker(true, false) and not dark.unseen_attacker(false, false), "only ranged attacks profit from the dark")
+	check(not dark.unseen_attacker(true, true), "a revealed attacker is no longer unseen")
+	var shot := AttackResolver.resolve(rogue, gob, AttackProfile.from_weapon(rogue, bow), others, dark)
+	check(shot.attack_roll.mode == DiceResult.Mode.ADVANTAGE and shot.advantage_reasons.has("unseen, from the shadows"), "shooting from the dark has advantage")
+	check(rogue.turn_state.revealed, "the shot reveals the archer")
+	if shot.hit:
+		check(shot.sneak_roll != null, "advantage from the dark enables Sneak Attack")
+	var second := AttackResolver.resolve(rogue, gob, AttackProfile.from_weapon(rogue, bow), others, dark)
+	check(second.attack_roll.mode == DiceResult.Mode.NORMAL, "second shot in the same turn: revealed, no advantage")
+	rogue.turn_state.begin_turn(rogue.speed_m())
+	check(not rogue.turn_state.revealed, "a new turn hides the archer again")
+
+	# Target in the dark: disadvantage from afar, not up close; cancels with the attacker's own cover of darkness.
+	var hidden := CombatSituation.new()
+	hidden.target_in_shadow = true
+	hidden.distance_m = 7.0
+	shot = AttackResolver.resolve(rogue, gob, AttackProfile.from_weapon(rogue, bow), others, hidden)
+	check(shot.attack_roll.mode == DiceResult.Mode.DISADVANTAGE and shot.disadvantage_reasons.has("target in the dark"), "shooting into the dark has disadvantage")
+	hidden.distance_m = 2.0
+	shot = AttackResolver.resolve(rogue, gob, AttackProfile.from_weapon(rogue, bow), others, hidden)
+	check(shot.attack_roll.mode == DiceResult.Mode.NORMAL, "a target in the dark 2 m away is still visible")
+	rogue.turn_state.begin_turn(rogue.speed_m())
+	var both := CombatSituation.new()
+	both.attacker_in_shadow = true
+	both.target_in_shadow = true
+	both.distance_m = 7.0
+	shot = AttackResolver.resolve(rogue, gob, AttackProfile.from_weapon(rogue, bow), others, both)
+	check(shot.attack_roll.mode == DiceResult.Mode.NORMAL and shot.advantage_reasons.size() == 1 and shot.disadvantage_reasons.size() == 1, "both in the dark: advantage and disadvantage cancel")
+	var melee := AttackResolver.resolve(gob, rogue, AttackProfile.from_weapon(gob, gob.data.weapons[0]), others, both)
+	check(melee.attack_roll.mode == DiceResult.Mode.NORMAL and melee.advantage_reasons.is_empty(), "melee attackers get nothing from the dark")
+	var notes := both.summary(true, true, false)
+	check(notes.size() == 2, "summary lists both darkness effects (%s)" % ", ".join(notes))
+
+	# Lighting override lets tests force the state; the perception radius shrinks in the dark.
+	Lighting.override[rogue] = false
+	check(Lighting.is_in_shadow(rogue), "override puts the rogue in the dark")
+	var situation := CombatSituation.assess(rogue, gob)
+	check(situation.attacker_in_shadow and not situation.target_in_shadow, "assess reads the lighting")
+	Lighting.override.clear()
+	check(Lighting.is_lit(rogue), "override cleared")
+	check(is_equal_approx(Lighting.SHADOW_PERCEPTION_FACTOR, 0.4), "enemies notice creatures in the dark at 40 percent of the radius")
+	CombatContext.override_actors = []
+	rogue.queue_free()
+	gob.queue_free()
+
+
+# --- Terrain layout --------------------------------------------------------
+
+func _test_terrain_layout() -> void:
+	check(is_equal_approx(TerrainBuilder.layout_height(9.0, -16.0), 1.5), "archer ledge is 1.5 m high")
+	check(is_equal_approx(TerrainBuilder.layout_height(-16.0, 0.0), 1.5), "overlook is 1.5 m high")
+	check(is_equal_approx(TerrainBuilder.layout_height(-5.0, 4.0), 0.75), "mound is 0.75 m high")
+	check(is_equal_approx(TerrainBuilder.layout_height(0.0, 0.0), 0.0), "centre of the arena is flat")
+	check(is_equal_approx(TerrainBuilder.layout_height(3.0, -16.5), 0.75), "ledge stairs are half way up in the middle")
+	check(is_equal_approx(TerrainBuilder.layout_height(-16.0, -6.0), 0.75), "overlook stairs rise southwards")
+	# Nothing may stand where the scenario tests and the camp are.
+	for spot in [Vector2(0, 12), Vector2(0, 0), Vector2(5, 0), Vector2(-5, 0), Vector2(8, -12), Vector2(-12, 5), Vector2(-12, -6), Vector2(0, -14), Vector2(-2, -9)]:
+		check(is_equal_approx(TerrainBuilder.layout_height(spot.x, spot.y), 0.0), "flat ground at %s" % spot)
+	# Every ramp leads up to a plateau of the same height.
+	for r in TerrainBuilder.RAMPS:
+		var rect: Rect2 = r["rect"]
+		var top := Vector2.ZERO
+		match r["rises"]:
+			"east":
+				top = Vector2(rect.end.x + 0.2, rect.get_center().y)
+			"west":
+				top = Vector2(rect.position.x - 0.2, rect.get_center().y)
+			"south":
+				top = Vector2(rect.get_center().x, rect.end.y + 0.2)
+			"north":
+				top = Vector2(rect.get_center().x, rect.position.y - 0.2)
+		check(is_equal_approx(TerrainBuilder.layout_height(top.x, top.y), r["height"]), "%s ends on its plateau" % r["name"])
+	# Building into a scene produces colliders on layer 1 and light sources.
+	var nav := Node3D.new()
+	var lights := Node3D.new()
+	add_child(nav)
+	add_child(lights)
+	TerrainBuilder.build(nav, lights)
+	var bodies := 0
+	for n in nav.get_children():
+		if n is StaticBody3D:
+			check(n.collision_layer == 1, "%s is on the world layer" % n.name)
+			bodies += 1
+		else:
+			for c in n.get_children():
+				if c is StaticBody3D:
+					bodies += 1
+	check(bodies == TerrainBuilder.PLATEAUS.size() + TerrainBuilder.RAMPS.size() + TerrainBuilder.LOW_WALLS.size() + 1, "one collider per plateau, ramp, wall and the fire pit (%d)" % bodies)
+	var sources := 0
+	for l in lights.get_children():
+		if l is LightSource:
+			sources += 1
+			check(l.radius_m >= 6.0 and l.is_in_group("light_source"), "%s is a light source" % l.name)
+	check(sources == TerrainBuilder.LIGHTS.size(), "all torches built (%d)" % sources)
+	nav.queue_free()
+	lights.queue_free()

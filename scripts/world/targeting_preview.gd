@@ -57,7 +57,7 @@ func clear() -> void:
 func show_area(center: Vector3, radius: float, hits_ally: bool) -> void:
 	clear()
 	_area.visible = true
-	_area.global_position = Vector3(center.x, 0.04, center.z)
+	_area.global_position = Vector3(center.x, Terrain.ground_height(self, center) + 0.04, center.z)
 	_area.scale = Vector3(maxf(0.3, radius), 1.0, maxf(0.3, radius))
 	_area_material.albedo_color = Color(1.0, 0.25, 0.2, 0.32) if hits_ally else Color(1.0, 0.55, 0.15, 0.28)
 
@@ -70,12 +70,17 @@ func show_path(path: PackedVector3Array, provokes: bool) -> void:
 	_line_material.albedo_color = color
 	_line_mesh.clear_surfaces()
 	_line_mesh.surface_begin(Mesh.PRIMITIVE_LINE_STRIP)
-	for p in path:
-		_line_mesh.surface_add_vertex(Vector3(p.x, 0.08, p.z))
+	for i in path.size():
+		var p := path[i]
+		_line_mesh.surface_add_vertex(Vector3(p.x, Terrain.ground_height(self, p) + 0.08, p.z))
+		# Stairs: add a point in the middle of long segments so the line follows the slope.
+		if i + 1 < path.size() and p.distance_to(path[i + 1]) > 1.0:
+			var mid := p.lerp(path[i + 1], 0.5)
+			_line_mesh.surface_add_vertex(Vector3(mid.x, Terrain.ground_height(self, mid) + 0.08, mid.z))
 	_line_mesh.surface_end()
 	_line.visible = true
 	_line.global_transform = Transform3D.IDENTITY
 	var end := path[path.size() - 1]
 	_destination.visible = true
-	_destination.global_position = Vector3(end.x, 0.05, end.z)
+	_destination.global_position = Vector3(end.x, Terrain.ground_height(self, end) + 0.05, end.z)
 	_destination.material_override.albedo_color = Color(color.r, color.g, color.b, 0.5)
