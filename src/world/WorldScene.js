@@ -1,6 +1,7 @@
 import Phaser from 'phaser';
 import { createTextures, createCharacterSheet, hash2, TILE, TILE_INDEX, SOLID_KEYS } from './textures.js';
 import { Lighting, DEPTH } from './Lighting.js';
+import { preloadSprites } from './assets.js';
 
 export const VIEW_W = 480;
 export const VIEW_H = 270;
@@ -61,6 +62,10 @@ export function tileIndexFor(rows, x, y) {
 export class WorldScene extends Phaser.Scene {
   constructor() {
     super('world');
+  }
+
+  preload() {
+    preloadSprites(this);
   }
 
   create() {

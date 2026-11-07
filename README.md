@@ -89,7 +89,8 @@ src/
   world/WorldScene.js     Orte, Figuren, Bewegung, Interaktion, Reisen
   world/CombatScene.js    Kampfbildschirm: Seitenansicht, Ringe, Takt-Leiste, Animationen
   world/Lighting.js       Nachtlicht
-  world/textures.js       Platzhalter-Pixelgrafik, prozedural erzeugt
+  world/assets.js         lädt die PNG-Pixel-Art und ordnet sie den Texture-Keys zu
+  world/textures.js       prozedurale Platzhalter für alles ohne PNG
   ui/Ui.js, style.css     HUD, Dialoge, Notizbuch, Stadtkarte, Enden
   data/
     campaign.json         Start, Ränge, Reiseziele, alle Figuren
@@ -113,13 +114,20 @@ Alles Inhaltliche liegt als JSON in `src/data/`. Bedingungen funktionieren über
 `"auto"` löst sie beim Näherkommen aus, `"kind": "rest"` heilt.
 `npm test` meldet kaputte Verweise und prüft, dass beide Fälle lösbar bleiben.
 
-### Echte Pixel-Art einbauen
+### Pixel-Art
 
-Die Grafik ist bewusst Platzhalter und wird zur Laufzeit erzeugt. Die Maße
-entsprechen schon den Vorgaben für echte Assets: Tiles 16x16, Figuren 16x32,
-Lauf-Sheets 64x128 (4 Frames × Reihen unten/links/rechts/oben), Props auf 16er-Raster.
-Ein PNG kann also später einfach die erzeugte Textur gleichen Namens ersetzen
-(z. B. in `public/assets/` ablegen und in der Szene laden statt erzeugen).
+Die echten Grafiken liegen als PNG unter `public/sprites/` (von Codex erzeugt,
+auf die Zielgrößen normalisiert: Tiles 16x16, Figuren 16x32, Lauf-Sheets 64x128
+mit den Reihen unten/links/rechts/oben). `src/world/assets.js` lädt sie im
+`preload()` und legt sie unter denselben Texture-Keys an wie die alten Platzhalter:
+
+- `TILE_CELLS`: Tile-Key → Zelle im Tileset (optional mit Grund-Tile darunter)
+- `PROP_CELLS`: Prop-Key → Ausschnitt aus einem Prop-Sheet
+- `CHARACTER_SHEETS`: Figur (`player`, `npc_<id>`) → Lauf-Sheet
+
+Alles, was dort nicht zugeordnet ist, zeichnet `textures.js` weiterhin prozedural
+(z. B. Gras, Brücke, Schreibtisch, Miss Pimm). Ein neues Asset einbauen heißt also:
+PNG nach `public/sprites/` legen und eine Zeile in `assets.js` ergänzen.
 
 ## Deployment (GitHub Pages)
 
