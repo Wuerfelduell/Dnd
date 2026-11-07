@@ -1,0 +1,80 @@
+{
+  "id": "crypt",
+  "name": "Krypta unter St. Ebba",
+  "ambient": {
+    "night": 0.93,
+    "fog": 0.15
+  },
+  "rows": [
+    "||||||||||||||||||||",
+    "||||||||||||||||||||",
+    "|ssKssssssssssssKss|",
+    "|ssssssssAAssssssss|",
+    "|ssssssssssssssssss|",
+    "|ssssssssssssssssss|",
+    "|sKssssssssssssssKs|",
+    "|ssssssssssssssssss|",
+    "|ssssssssssssssssss|",
+    "|sssssKssssssKsssss|",
+    "|ssssssssssssssssss|",
+    "||||||||||||||||||||"
+  ],
+  "spawns": {
+    "default": [
+      10,
+      9
+    ]
+  },
+  "interactables": [
+    {
+      "id": "stairs",
+      "kind": "door",
+      "to": "ebba",
+      "spawn": "altar",
+      "tile": [
+        9,
+        10
+      ],
+      "prompt": "Hinaufsteigen",
+      "sprite": "stairs",
+      "marker": false
+    },
+    {
+      "id": "box",
+      "kind": "dialogue",
+      "dialogue": "musicbox",
+      "title": "Spieldose",
+      "tile": [
+        9,
+        3
+      ],
+      "prompt": "Spieldose untersuchen",
+      "sprite": "musicbox",
+      "reach": 26,
+      "marker": true,
+      "done_flag": "box_seen"
+    }
+  ],
+  "decor": [
+    {
+      "sprite": "circle",
+      "tile": [
+        9,
+        6
+      ],
+      "depth": 40,
+      "alpha": 0.7
+    }
+  ],
+  "npcs": [
+    {
+      "id": "hester",
+      "tile": [
+        9,
+        6
+      ],
+      "facing": "down",
+      "static": true
+    }
+  ]
+}

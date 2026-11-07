@@ -1,0 +1,234 @@
+{
+  "marlowe": {
+    "start": [
+      { "node": "brief_01", "hide_if_flags": ["briefed_01"] },
+      { "node": "report_good", "requires_flags": ["case_01_closed", "elias_rescued"], "hide_if_flags": ["reported_01"] },
+      { "node": "report_bad", "requires_flags": ["case_01_closed"], "hide_if_flags": ["reported_01"] },
+      { "node": "epilogue", "requires_flags": ["case_02_closed"] },
+      { "node": "hub" }
+    ],
+    "nodes": {
+      "brief_01": {
+        "text": "Sie sind also der Neue. Setzen Sie sich nicht, wir haben keine Zeit.\n\nEin Lampenanzünder, Elias Thorne, ist heute Nacht in Ashgrove Lane verschwunden. Constable Price hält es für einen Unfall. Ich nicht. Gehen Sie hin. Und glauben Sie nicht alles, was man Ihnen erzählt. Auch meinen eigenen Leuten nicht.",
+        "sets_flags": ["briefed_01", "travel_ashgrove"], "start_quests": ["case_01"], "complete_quests": ["arrival"],
+        "choices": [
+          { "text": "Was zählt hier im Revier?", "next": "about_honor" },
+          { "text": "Ich mache mich auf den Weg." }
+        ]
+      },
+      "about_honor": {
+        "text": "Ihr Ruf. Lösen Sie Fälle sauber, stellen Sie Gauner, und Türen öffnen sich: Akten, Zeugen, meine Geduld. Beschuldigen Sie Unschuldige, und Sie stehen wieder auf der Straße.\n\nUnd noch etwas: Eine Aussage ist nur eine Vermutung. Erst wenn eine zweite Quelle dasselbe sagt, glaube ich es.",
+        "choices": [{ "text": "Verstanden.", "next": "hub" }]
+      },
+      "report_good": {
+        "text": "Elias Thorne lebt. Gute Arbeit, wirklich.\n\nVey. Diesen Namen habe ich seit zwölf Jahren nicht mehr gehört.",
+        "sets_flags": ["reported_01"], "complete_quests": ["report_01"],
+        "choices": [{ "text": "Sie kennen sie?", "next": "brief_02" }]
+      },
+      "report_bad": {
+        "text": "Elias Thorne ist tot. Das Revier vergisst so etwas nicht, und ich auch nicht.\n\nTrotzdem: Ich brauche jeden, der denken kann.",
+        "sets_flags": ["reported_01"], "complete_quests": ["report_01"],
+        "choices": [{ "text": "Was gibt es?", "next": "brief_02" }]
+      },
+      "brief_02": {
+        "text": "Später. Es gibt Neues: Hester Marsh, vierzehn, ist verschwunden. Am selben Morgen fand der Küster von St. Ebba ein geöffnetes Kindergrab.\n\nConstable Rook meint, das Mädchen sei einfach weggelaufen. Prüfen Sie das.",
+        "gives_clues": ["police_runaway"], "sets_flags": ["travel_ebba", "briefed_02"], "start_quests": ["case_02"],
+        "choices": [{ "text": "Ich sehe mir die Ruine an." }]
+      },
+      "hub": {
+        "text": "Ja?",
+        "choices": [
+          { "text": "Wie stehe ich im Revier?", "next": "standing" },
+          { "text": "Haben Sie einen Rat für mich?", "next": "advice" },
+          { "text": "Was wissen Sie über Miriam Vey?", "next": "secret", "requires_quests_active": ["case_02"], "requires_honor": 50, "hide_if_clues": ["marlowe_secret"] },
+          { "text": "Jemand hat das Augen-Siegel in Barnabys Zellengitter geritzt. Von außen.", "next": "cell", "requires_clues": ["cell_sigil"], "hide_if_flags": ["cell_reported"] },
+          { "text": "Ich weiß, was mit Hester geschehen ist.", "next": "accuse", "requires_quests_active": ["case_02"] },
+          { "text": "Nichts weiter." }
+        ]
+      },
+      "standing": { "rank": true, "text": "Marlowe mustert dich.", "choices": [{ "text": "Danke.", "next": "hub" }] },
+      "advice": { "hint": true, "text": "Hm.", "choices": [{ "text": "Danke.", "next": "hub" }] },
+      "secret": {
+        "text": "Ich war damals dabei, als junge Constable. Als St. Ebba brannte, hat Miriam Vey nicht geweint. Sie hat gesungen. Und gesagt: Jedes Licht, das ich nehme, bringt dich ein Stück zurück.\n\nSie meinte ihre Tochter Lilian.",
+        "gives_clues": ["marlowe_secret"],
+        "choices": [{ "text": "Danke für Ihr Vertrauen.", "next": "hub" }]
+      },
+      "cell": {
+        "text": "Von außen? Dann war es einer von uns.\n\nDas bleibt unter uns, verstanden? Kein Wort zu den Constables. Danke.",
+        "sets_flags": ["cell_reported"], "complete_quests": ["cell_knock"],
+        "choices": [{ "text": "Kein Wort.", "next": "hub" }]
+      },
+      "accuse": {
+        "text": "Ich höre.",
+        "choices": [
+          { "text": "Hester ist weggelaufen, wie Constable Rook sagt.", "next": "end_runaway" },
+          { "text": "Küster Anselm steckt dahinter.", "next": "end_anselm" },
+          { "text": "Moll hat für Vey das Grab geöffnet, und Veys Lied hat Hester in die Krypta gelockt. Sie liegt dort unten.", "requires_conclusions": ["grave_for_vey", "lured_by_vey"], "requires_flags": ["hester_found"],
+            "next": [{ "node": "end_good", "requires_certain": ["grave_for_vey", "lured_by_vey"] }, { "node": "unsure" }] },
+          { "text": "Mehr noch: Vey wollte mit Hesters Leben ihre Tochter Lilian zurückholen. Ich habe die Spieldose zerstört.", "requires_conclusions": ["grave_for_vey", "lured_by_vey", "vey_motive"], "requires_flags": ["hester_found", "box_destroyed"],
+            "next": [{ "node": "end_perfect", "requires_certain": ["grave_for_vey", "lured_by_vey", "vey_motive"] }, { "node": "unsure" }] },
+          { "text": "Noch nicht.", "next": "hub" }
+        ]
+      },
+      "unsure": {
+        "text": "Vermutungen. Ich brauche Informationen, die mindestens zwei Quellen bestätigen. Kommen Sie wieder, wenn Sie sicher sind.",
+        "choices": [{ "text": "Verstanden.", "next": "hub" }]
+      },
+      "end_runaway": { "text": "Marlowe seufzt und schließt die Akte.", "ending": "c2_runaway" },
+      "end_anselm": { "text": "Marlowe schickt zwei Constables los.", "ending": "c2_anselm" },
+      "end_good": { "text": "Marlowe ist schon aufgestanden, bevor du fertig bist. „Holt, vier Mann, Laternen. Sofort.“", "ending": "c2_good" },
+      "end_perfect": { "text": "Marlowe sieht dich lange an. Dann greift sie selbst nach ihrem Mantel.", "ending": "c2_perfect" },
+      "epilogue": {
+        "text": "Vey ist noch da draußen. Und jemand in diesem Revier ritzt Augen in meine Gitter.\n\nRuhen Sie sich aus, Ermittler. Der nächste Fall kommt bestimmt.\n\n(Ende von Fall 2. Fall 3 folgt.)",
+        "choices": [
+          { "text": "Wie stehe ich im Revier?", "next": "standing" },
+          { "text": "Gute Nacht, Inspektorin." }
+        ]
+      }
+    }
+  },
+  "pimm": {
+    "start": [
+      { "node": "returned", "requires_flags": ["file_returned"] },
+      { "node": "return", "requires_flags": ["has_file_47"] },
+      { "node": "start" }
+    ],
+    "nodes": {
+      "start": {
+        "text": "Archiv. Bitte nichts anfassen, was Sie nicht anfassen dürfen.",
+        "choices": [
+          { "text": "Was darf ich denn anfassen?", "next": "rules" },
+          { "text": "Sie wirken besorgt.", "next": "lost", "hide_if_quests": ["lost_file"] },
+          { "text": "Auf Wiedersehen." }
+        ]
+      },
+      "rules": {
+        "text": "Die Schränke links öffnen sich nach Rang. Unglücksakten ab Rang Ermittler, die versiegelten ab Vertrauter des Reviers. Vorschrift ist Vorschrift.",
+        "choices": [{ "text": "Verstehe.", "next": "start" }]
+      },
+      "lost": {
+        "text": "Akte 47 fehlt. Irgendein Constable hat sie mitgenommen und nie zurückgebracht. Wenn Sie sie finden, lege ich beim Revier ein gutes Wort für Sie ein.",
+        "start_quests": ["lost_file"],
+        "choices": [{ "text": "Ich halte die Augen offen.", "next": "start" }]
+      },
+      "return": {
+        "text": "Akte 47! Wo war sie? ... Bei Price. Natürlich.\n\nDanke. Das werde ich nicht vergessen.",
+        "sets_flags": ["file_returned"], "complete_quests": ["lost_file"], "gives_clues": ["file_47"],
+        "choices": [{ "text": "Was steht eigentlich drin?", "next": "content" }]
+      },
+      "content": {
+        "text": "Verschwundene Lampenanzünder. Drei in zwölf Jahren, alle im Mai, alle am Kanal. Niemand hat je eine Verbindung gezogen. Vielleicht wollte das auch niemand.",
+        "choices": [{ "text": "Interessant.", "next": "start" }]
+      },
+      "returned": {
+        "text": "Ah, mein Lieblingsermittler. Was kann ich tun?",
+        "choices": [
+          { "text": "Was darf ich anfassen?", "next": "rules" },
+          { "text": "Nichts, danke." }
+        ]
+      }
+    }
+  },
+  "holt": {
+    "start": "start",
+    "nodes": {
+      "start": {
+        "text": "Sergeant Holt, Wachhabender. Was gibt's?",
+        "choices": [
+          { "text": "Wie bekomme ich hier Ansehen?", "next": "honor" },
+          { "text": "Haben Sie einen Tipp für mich?", "next": "tip" },
+          { "text": "Wie gut kennen Sie Constable Rook?", "next": "rook", "requires_clues": ["cell_sigil"] },
+          { "text": "Bis später." }
+        ]
+      },
+      "honor": {
+        "text": "Fälle lösen. Gauner stellen. Nicht lügen und keinen Falschen beschuldigen. Wer oben steht, sieht mehr Akten und bekommt mehr Antworten. Lesen Sie die Dienstvorschriften da hinten am Regal.",
+        "choices": [{ "text": "Danke.", "next": "start" }]
+      },
+      "tip": { "hint": true, "text": "Lassen Sie mich überlegen ...", "choices": [{ "text": "Danke.", "next": "start" }] },
+      "rook": {
+        "text": "Rook? Neu hier. Kam vor einem halben Jahr aus der alten Kapellengemeinde von St. Ebba. Fleißig, immer als Erster da und als Letzter weg. Wieso fragen Sie?",
+        "choices": [{ "text": "Nur so.", "next": "start" }]
+      }
+    }
+  },
+  "rook": {
+    "start": [{ "node": "case2", "requires_quests_active": ["case_02"] }, { "node": "start" }],
+    "nodes": {
+      "start": {
+        "text": "Constable Rook. Sie sind der neue Ermittler? Viel Glück. Hier glaubt einem keiner was.",
+        "choices": [{ "text": "Danke." }]
+      },
+      "case2": {
+        "text": "Wegen der kleinen Marsh? Ausgerissen, ganz sicher. Die wollte schon immer weg aus Kettlegate. Ich würde da keine Zeit verschwenden.",
+        "gives_clues": ["rook_runaway"],
+        "choices": [
+          { "text": "Und der Küster von St. Ebba?", "next": "anselm" },
+          { "text": "Danke." }
+        ]
+      },
+      "anselm": {
+        "text": "Der? Würde mich nicht wundern, wenn der Gräber plündert. Merkwürdiger Kauz. Lebt ganz allein in der Ruine.",
+        "gives_clues": ["rook_anselm"],
+        "choices": [{ "text": "Ich behalte es im Kopf." }]
+      }
+    }
+  },
+  "barnaby": {
+    "start": [{ "node": "proud", "requires_honor": 35 }, { "node": "start" }],
+    "nodes": {
+      "start": {
+        "text": "Psst. Du. Du bist kein richtiger Bulle, oder? Mit dir kann man reden.",
+        "choices": [
+          { "text": "Warum flüsterst du?", "next": "knock", "hide_if_quests": ["cell_knock"] },
+          { "text": "Kennst du den Totengräber Moll?", "next": "moll", "requires_quests_active": ["case_02"], "hide_if_clues": ["barnaby_silver"] },
+          { "text": "Bis dann." }
+        ]
+      },
+      "knock": {
+        "text": "Jede Nacht klopft es. Dreimal. An den Gittern. Und wenn ich hinsehe, ist keiner da. Nur so 'ne Kälte, die dir in die Knochen kriecht.",
+        "start_quests": ["cell_knock"],
+        "choices": [{ "text": "Ich sehe mir das an.", "next": "start" }]
+      },
+      "moll": {
+        "text": "Moll? Hat mir beim Würfeln letzte Woche in Silber bezahlt. Silber mit so 'nem komischen Auge drauf. Ein Totengräber mit Silber, ich bitte dich.",
+        "gives_clues": ["barnaby_silver"],
+        "choices": [{ "text": "Danke, Barnaby.", "next": "start" }]
+      },
+      "proud": {
+        "text": "Ah, der feine Herr Ermittler. Jetzt, wo die Bullen dich mögen, red ich nicht mehr mit dir.",
+        "choices": [
+          { "text": "Was ist mit dem Klopfen?", "next": "knock", "hide_if_quests": ["cell_knock"] },
+          { "text": "Kennst du Moll?", "next": "moll_refuse", "requires_quests_active": ["case_02"], "hide_if_clues": ["barnaby_silver"] },
+          { "text": "Wie du meinst." }
+        ]
+      },
+      "moll_refuse": {
+        "text": "Frag doch deine neuen Freunde mit den Helmen.",
+        "choices": [{ "text": "(Hohes Ansehen öffnet nicht jede Tür.)" }]
+      }
+    }
+  },
+  "elias": {
+    "start": "start",
+    "nodes": {
+      "start": {
+        "text": "Sie haben mich gefunden. Ich ... danke Ihnen. Marlowe lässt mich hier schlafen, bis ich wieder bei Kräften bin.",
+        "choices": [
+          { "text": "Woran erinnern Sie sich?", "next": "memory", "requires_quests_active": ["case_02"], "hide_if_clues": ["song_memory"] },
+          { "text": "Woran erinnern Sie sich?", "next": "memory_early", "hide_if_quests": ["case_02"] },
+          { "text": "Ruhen Sie sich aus." }
+        ]
+      },
+      "memory": {
+        "text": "Das Lied hat mich bei meinem Namen gerufen, verstehen Sie? Ich bin einfach losgelaufen. Ins Wasser. Wenn das Lied jetzt jemand anderen ruft ...",
+        "gives_clues": ["song_memory"],
+        "choices": [{ "text": "Danke, Elias.", "next": "start" }]
+      },
+      "memory_early": {
+        "text": "An ein Lied. Mehr nicht. Fragen Sie mich ein andermal, wenn mein Kopf klarer ist.",
+        "choices": [{ "text": "Natürlich.", "next": "start" }]
+      }
+    }
+  }
+}

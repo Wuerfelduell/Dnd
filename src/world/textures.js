@@ -15,9 +15,16 @@ export const TILE_KEYS = [
   'fence',
   'water0', 'water1',
   'bridgeLeft', 'bridgeMid', 'bridgeRight',
+  'wood0', 'wood1', 'wallTop', 'wallFace', 'wallDoor', 'desk', 'shelf', 'bars',
+  'grass0', 'grass1', 'path', 'grave', 'openGrave', 'charred', 'rubble', 'deadTree',
+  'stone', 'cryptTop', 'cryptFace', 'altar',
 ];
 export const TILE_INDEX = Object.fromEntries(TILE_KEYS.map((k, i) => [k, i]));
-export const SOLID_KEYS = ['brick', 'window', 'door', 'roofEaveBottom', 'roofEaveTop', 'fence', 'water0', 'water1'];
+export const SOLID_KEYS = [
+  'brick', 'window', 'door', 'roofEaveBottom', 'roofEaveTop', 'fence', 'water0', 'water1',
+  'wallTop', 'wallFace', 'wallDoor', 'desk', 'shelf', 'bars',
+  'grave', 'openGrave', 'rubble', 'deadTree', 'cryptTop', 'cryptFace', 'altar',
+];
 
 /** Deterministischer Hash für Variationen pro Tile. */
 export function hash2(x, y, seed = 0) {
@@ -144,6 +151,152 @@ function drawBridge(p, side) {
   if (side === 'right') { p(13, 0, 3, 16, '#2e2216'); p(15, 0, 1, 16, '#4a3622'); }
 }
 
+function drawWood(p, v) {
+  p(0, 0, 16, 16, '#4a3626');
+  for (let y = 0; y < 16; y += 4) {
+    p(0, y, 16, 1, '#3a2a1c');
+    p(0, y + 1, 16, 1, '#55402c');
+    const seam = (y / 4 + v * 2) % 4 * 4 + 2;
+    p(seam, y, 1, 4, '#3a2a1c');
+  }
+}
+
+function drawWallTop(p) {
+  p(0, 0, 16, 16, '#1e1c24');
+  p(0, 0, 16, 1, '#2c2934');
+}
+
+function drawWallFace(p) {
+  p(0, 0, 16, 10, '#3c3848');
+  for (let x = 1; x < 16; x += 4) p(x, 0, 1, 10, '#454052');
+  p(0, 0, 16, 1, '#2a2733');
+  p(0, 10, 16, 1, '#6b5236');
+  p(0, 11, 16, 5, '#4a3424');
+  p(0, 15, 16, 1, '#2e2016');
+  p(7, 11, 1, 4, '#3a2618');
+}
+
+function drawWallDoor(p) {
+  drawWallFace(p);
+  p(3, 1, 10, 15, '#2a1c14');
+  p(4, 2, 8, 14, '#5a3c28');
+  p(4, 2, 8, 1, '#6b4a30');
+  p(5, 4, 6, 4, '#4a3020');
+  p(10, 10, 1, 1, '#c8a050');
+}
+
+function drawDesk(p) {
+  drawWood(p, 1);
+  p(0, 2, 16, 11, '#5e432c');
+  p(0, 2, 16, 1, '#7a5a3c');
+  p(0, 12, 16, 2, '#3e2a1a');
+  p(3, 4, 5, 4, '#d8d0bc');
+  p(4, 5, 3, 1, '#8a8274');
+  p(10, 5, 3, 3, '#2a2a30');
+  p(11, 4, 1, 1, '#b08840');
+}
+
+function drawShelf(p) {
+  p(0, 0, 16, 16, '#2e2016');
+  p(1, 1, 14, 6, '#1a120c');
+  p(1, 8, 14, 6, '#1a120c');
+  const books = ['#6a3a3a', '#3a4a5a', '#5a5a3a', '#4a3a5a', '#6b5a3a'];
+  for (let i = 0; i < 6; i++) {
+    p(2 + i * 2, 2 + (i % 2), 2, 5 - (i % 2), books[i % books.length]);
+    p(2 + i * 2, 9 + ((i + 1) % 2), 2, 5 - ((i + 1) % 2), books[(i + 2) % books.length]);
+  }
+  p(0, 7, 16, 1, '#4a3424');
+  p(0, 14, 16, 2, '#4a3424');
+}
+
+function drawBars(p) {
+  drawWood(p, 0);
+  p(0, 1, 16, 2, OUTLINE);
+  p(0, 13, 16, 2, OUTLINE);
+  for (let x = 1; x < 16; x += 3) { p(x, 1, 2, 14, '#2a2c34'); p(x, 1, 1, 14, '#4a4d58'); }
+}
+
+function drawGrass(p, v) {
+  p(0, 0, 16, 16, '#26302a');
+  const blades = v ? [[2, 3], [9, 6], [5, 11], [13, 13], [11, 1]] : [[4, 2], [12, 4], [1, 9], [8, 12], [14, 9]];
+  blades.forEach(([x, y]) => { p(x, y, 1, 2, '#36463a'); p(x + 1, y + 1, 1, 1, '#2e3c32'); });
+}
+
+function drawPath(p) {
+  p(0, 0, 16, 16, '#3e362c');
+  [[2, 3], [10, 2], [6, 9], [13, 11], [3, 13]].forEach(([x, y]) => p(x, y, 2, 1, '#544a3c'));
+  p(0, 0, 1, 16, '#342e26'); p(15, 0, 1, 16, '#342e26');
+}
+
+function drawGrave(p) {
+  drawGrass(p, 1);
+  p(3, 13, 11, 2, '#1a1e1c');
+  p(4, 4, 8, 10, '#5a5a62');
+  p(5, 3, 6, 1, '#5a5a62');
+  p(4, 4, 1, 10, '#6e6e78');
+  p(6, 6, 4, 1, '#44444c'); p(6, 8, 4, 1, '#44444c');
+}
+
+function drawOpenGrave(p) {
+  drawGrass(p, 0);
+  p(1, 2, 14, 12, '#5a4a32');
+  p(3, 4, 10, 8, '#120e0c');
+  p(3, 4, 10, 1, '#2a2018');
+}
+
+function drawCharred(p) {
+  p(0, 0, 16, 16, '#2a2624');
+  p(0, 7, 16, 1, '#201c1a'); p(7, 0, 1, 7, '#201c1a'); p(11, 8, 1, 8, '#201c1a');
+  [[3, 3], [12, 2], [9, 12], [2, 11]].forEach(([x, y]) => p(x, y, 1, 1, '#4a4440'));
+}
+
+function drawRubble(p) {
+  drawCharred(p);
+  p(1, 6, 7, 6, '#3c3634'); p(1, 6, 7, 1, '#4e4644');
+  p(8, 3, 7, 9, '#36302e'); p(8, 3, 7, 1, '#4a4240');
+  p(4, 11, 9, 3, '#2e2826');
+  p(10, 5, 2, 1, '#1a1614');
+}
+
+function drawDeadTree(p) {
+  drawGrass(p, 0);
+  p(7, 4, 2, 11, '#2a2018');
+  p(4, 2, 1, 4, '#2a2018'); p(5, 5, 2, 1, '#2a2018');
+  p(11, 1, 1, 5, '#2a2018'); p(9, 6, 2, 1, '#2a2018');
+  p(5, 14, 6, 1, '#1a1614');
+}
+
+function drawStone(p) {
+  p(0, 0, 16, 16, '#34343c');
+  p(0, 7, 16, 1, '#26262c'); p(0, 15, 16, 1, '#26262c');
+  p(5, 0, 1, 7, '#26262c'); p(11, 8, 1, 7, '#26262c');
+  p(1, 1, 3, 1, '#3e3e48');
+}
+
+function drawCryptTop(p) {
+  p(0, 0, 16, 16, '#16161c');
+  p(0, 0, 16, 1, '#22222a');
+}
+
+function drawCryptFace(p) {
+  p(0, 0, 16, 16, '#24242c');
+  for (let row = 0; row < 4; row++) {
+    const off = row % 2 ? 4 : 0;
+    for (let c = -1; c < 2; c++) {
+      const x = c * 8 + off; const xx = Math.max(0, x); const ww = Math.min(16, x + 7) - xx;
+      if (ww > 0) { p(xx, row * 4, ww, 3, '#30303a'); p(xx, row * 4, ww, 1, '#3c3c48'); }
+    }
+  }
+}
+
+function drawAltar(p) {
+  drawStone(p);
+  p(0, 3, 16, 11, '#55524c');
+  p(0, 3, 16, 1, '#6e6a62');
+  p(0, 12, 16, 2, '#3a3834');
+  p(0, 5, 16, 4, '#4a2226');
+}
+
 const TILE_PAINTERS = {
   cobble0: (p) => drawCobble(p, 0), cobble1: (p) => drawCobble(p, 1),
   cobble2: (p) => drawCobble(p, 2), cobble3: (p) => drawCobble(p, 3),
@@ -154,6 +307,11 @@ const TILE_PAINTERS = {
   water0: (p) => drawWater(p, 0), water1: (p) => drawWater(p, 1),
   bridgeLeft: (p) => drawBridge(p, 'left'), bridgeMid: (p) => drawBridge(p, 'mid'),
   bridgeRight: (p) => drawBridge(p, 'right'),
+  wood0: (p) => drawWood(p, 0), wood1: (p) => drawWood(p, 1),
+  wallTop: drawWallTop, wallFace: drawWallFace, wallDoor: drawWallDoor, desk: drawDesk, shelf: drawShelf, bars: drawBars,
+  grass0: (p) => drawGrass(p, 0), grass1: (p) => drawGrass(p, 1), path: drawPath, grave: drawGrave, openGrave: drawOpenGrave,
+  charred: drawCharred, rubble: drawRubble, deadTree: drawDeadTree,
+  stone: drawStone, cryptTop: drawCryptTop, cryptFace: drawCryptFace, altar: drawAltar,
 };
 
 // --- Figuren ---------------------------------------------------------------
@@ -283,7 +441,56 @@ const PROPS = {
     p(10, 8, 3, 5, '#6fe0d0'); p(10, 6, 1, 1, '#6fe0d0'); p(12, 6, 1, 1, '#6fe0d0');
   }],
   glint: [16, 16, (p) => { p(7, 5, 1, 5, '#fff2c8'); p(5, 7, 5, 1, '#fff2c8'); }],
+  coins: [16, 16, (p) => {
+    [[3, 9], [7, 11], [10, 8], [12, 12]].forEach(([x, y]) => { p(x, y, 2, 2, '#a8803c'); p(x, y, 1, 1, '#e0c070'); });
+  }],
+  coat: [16, 16, (p) => {
+    p(4, 2, 8, 2, '#2a2c34'); p(3, 4, 10, 10, '#3a3e48'); p(3, 4, 10, 1, '#4a4e5a'); p(7, 4, 2, 10, '#30343c');
+    p(4, 14, 2, 1, '#6a8aa0'); p(10, 13, 1, 2, '#6a8aa0');
+  }],
+  scratches: [16, 16, (p) => {
+    for (let i = 0; i < 4; i++) for (let j = 0; j < 4; j++) p(3 + i * 3, 4 + j * 2 + (i % 2), 1, 2, '#1e1c22');
+  }],
+  file: [16, 16, (p) => {
+    p(3, 4, 10, 9, '#8a7450'); p(3, 4, 10, 1, '#a08a62'); p(5, 6, 6, 1, '#d8d0bc'); p(5, 8, 5, 1, '#d8d0bc'); p(9, 11, 3, 2, '#7a2a2a');
+  }],
+  paper: [16, 16, (p) => {
+    p(4, 4, 8, 9, '#cfc6ae'); p(5, 6, 6, 1, '#5a5448'); p(5, 8, 6, 1, '#5a5448'); p(5, 10, 4, 1, '#5a5448'); p(9, 9, 2, 2, '#141016');
+  }],
+  shovel: [16, 16, (p) => {
+    p(7, 1, 2, 9, '#5a442e'); p(6, 1, 4, 1, '#5a442e'); p(5, 10, 6, 5, '#6a6a72'); p(5, 10, 6, 1, '#8a8a94'); p(8, 13, 1, 2, '#26302a'); p(5, 15, 6, 1, '#8a6a38');
+  }],
+  jacket: [16, 16, (p) => {
+    p(2, 3, 12, 2, '#2a2018'); p(4, 5, 8, 9, '#4a3a2a'); p(4, 5, 8, 1, '#5a4a36'); p(9, 9, 2, 2, '#c8c8d0');
+  }],
+  medallion: [16, 16, (p) => {
+    p(6, 2, 1, 6, '#8a8a90'); p(9, 2, 1, 6, '#8a8a90'); p(5, 8, 6, 6, '#b08840'); p(6, 9, 4, 4, '#e0c070'); p(7, 10, 2, 2, '#b08840');
+  }],
+  musicbox: [16, 16, (p) => {
+    p(3, 6, 10, 7, '#5a2a2a'); p(3, 6, 10, 1, '#7a3a3a'); p(3, 4, 10, 2, '#6a3232'); p(7, 9, 2, 2, '#e0c070'); p(12, 8, 2, 1, '#b08840');
+  }],
+  circle: [48, 48, (p) => {
+    for (let a = 0; a < 64; a++) {
+      const t = (a / 64) * Math.PI * 2;
+      p(Math.round(24 + Math.cos(t) * 20), Math.round(24 + Math.sin(t) * 20), 1, 1, '#6fe0d0');
+      if (a % 2 === 0) p(Math.round(24 + Math.cos(t) * 15), Math.round(24 + Math.sin(t) * 15), 1, 1, '#3a8a80');
+    }
+    p(20, 22, 8, 4, '#6fe0d0'); p(22, 23, 4, 2, '#141016');
+  }],
+  stairs: [16, 16, (p) => {
+    for (let i = 0; i < 4; i++) { p(1 + i, 2 + i * 3, 14 - i * 2, 3, i % 2 ? '#2a2a32' : '#3a3a44'); }
+    p(5, 13, 6, 3, '#0a0a0e');
+  }],
+  candle: [16, 16, (p) => {
+    p(6, 7, 4, 7, '#d8d0bc'); p(6, 7, 1, 7, '#efe8d6'); p(7, 4, 2, 3, '#ffd890'); p(7, 3, 1, 1, '#fff2c8'); p(5, 14, 6, 1, '#4a4440');
+  }],
 };
+
+// Stehende Öllampe (Innenräume), 16x32
+const OIL_LAMP = [16, 32, (p) => {
+  p(7, 12, 2, 18, '#3a2a1c'); p(5, 29, 6, 3, '#2a1c14');
+  p(4, 4, 8, 8, '#2a2018'); p(5, 5, 6, 6, '#ffd890'); p(6, 6, 4, 4, '#fff2c8'); p(5, 2, 6, 2, '#2a2018');
+}];
 
 function radialTexture(scene, key, size, stops) {
   if (scene.textures.exists(key)) return;
@@ -334,7 +541,7 @@ export function createTextures(scene) {
     drawLamp(painter(ctx), lit);
     scene.textures.addCanvas(key, c);
   }
-  for (const [key, [w, h, draw]] of Object.entries(PROPS)) {
+  for (const [key, [w, h, draw]] of [...Object.entries(PROPS), ['oil_lamp', OIL_LAMP]]) {
     if (scene.textures.exists(key)) continue;
     const { c, ctx } = makeCanvas(w, h);
     draw(painter(ctx));

@@ -1,0 +1,267 @@
+{
+  "arrival": {
+    "title": "Erster Tag im Revier",
+    "kind": "main",
+    "case": "case_01",
+    "summary": "Melde dich bei Inspektorin Marlowe.",
+    "steps": [
+      {
+        "text": "Sprich mit Inspektorin Marlowe (Büro hinten rechts)",
+        "done": {
+          "requires_flags": [
+            "briefed_01"
+          ]
+        }
+      }
+    ]
+  },
+  "case_01": {
+    "title": "Fall 1: Die erloschene Laterne",
+    "kind": "main",
+    "case": "case_01",
+    "summary": "Der Lampenanzünder Elias Thorne ist in Ashgrove Lane verschwunden. Nur seine Laterne an der Brücke brennt nicht mehr.",
+    "steps": [
+      {
+        "text": "Reise nach Ashgrove Lane (Ausgang des Reviers)",
+        "done": {
+          "requires_clues": [
+            "frosted_lamp"
+          ]
+        }
+      },
+      {
+        "text": "Finde heraus, ob es ein Unfall war",
+        "done": {
+          "requires_conclusions": [
+            "unnatural_cold"
+          ]
+        }
+      },
+      {
+        "text": "Finde heraus, wer dahintersteckt",
+        "done": {
+          "requires_conclusions": [
+            "vey_sigil"
+          ]
+        }
+      },
+      {
+        "text": "Finde heraus, ob Elias noch lebt",
+        "done": {
+          "requires_conclusions": [
+            "elias_alive"
+          ]
+        }
+      },
+      {
+        "text": "Sichere die Schlussfolgerungen mit je zwei Quellen ab",
+        "done": {
+          "requires_certain": [
+            "unnatural_cold",
+            "vey_sigil",
+            "elias_alive"
+          ]
+        }
+      },
+      {
+        "text": "Nenne Constable Price deine Lösung",
+        "done": {
+          "requires_flags": [
+            "case_01_closed"
+          ]
+        }
+      }
+    ]
+  },
+  "report_01": {
+    "title": "Bericht an Marlowe",
+    "kind": "main",
+    "case": "case_01",
+    "summary": "Fall 1 ist abgeschlossen. Die Inspektorin erwartet deinen Bericht.",
+    "steps": [
+      {
+        "text": "Berichte Inspektorin Marlowe im Revier",
+        "done": {
+          "requires_flags": [
+            "reported_01"
+          ]
+        }
+      }
+    ]
+  },
+  "case_02": {
+    "title": "Fall 2: Asche von St. Ebba",
+    "kind": "main",
+    "case": "case_02",
+    "summary": "Die vierzehnjährige Hester Marsh ist verschwunden. Am selben Morgen fand man auf dem Friedhof von St. Ebba ein geöffnetes Kindergrab.",
+    "steps": [
+      {
+        "text": "Reise zur Ruine von St. Ebba",
+        "done": {
+          "requires_any_clues": [
+            "open_grave",
+            "hester_diary",
+            "anselm_grave"
+          ]
+        }
+      },
+      {
+        "text": "Finde heraus, wer das Grab geöffnet hat und warum",
+        "done": {
+          "requires_conclusions": [
+            "grave_for_vey"
+          ]
+        }
+      },
+      {
+        "text": "Finde heraus, was Hester in jener Nacht tat",
+        "done": {
+          "requires_conclusions": [
+            "lured_by_vey"
+          ]
+        }
+      },
+      {
+        "text": "Finde Hester",
+        "done": {
+          "requires_flags": [
+            "hester_found"
+          ]
+        }
+      },
+      {
+        "text": "Sichere die Schlussfolgerungen mit je zwei Quellen ab",
+        "done": {
+          "requires_certain": [
+            "grave_for_vey",
+            "lured_by_vey"
+          ]
+        }
+      },
+      {
+        "text": "Optional: Verstehe, was Vey wirklich will (Archiv, Inspektorin)",
+        "done": {
+          "requires_certain": [
+            "vey_motive"
+          ]
+        }
+      },
+      {
+        "text": "Berichte Inspektorin Marlowe",
+        "done": {
+          "requires_flags": [
+            "case_02_closed"
+          ]
+        }
+      }
+    ]
+  },
+  "pickpocket": {
+    "title": "Der Taschendieb von Ashgrove",
+    "kind": "side",
+    "case": "side",
+    "summary": "Jemand hat Gretas Kasse gestohlen.",
+    "steps": [
+      {
+        "text": "Finde heraus, wer der Dieb ist",
+        "done": {
+          "requires_likely": [
+            "kit_thief"
+          ]
+        }
+      },
+      {
+        "text": "Stell den Dieb zur Rede",
+        "done": {
+          "requires_flags": [
+            "kit_resolved"
+          ]
+        }
+      }
+    ]
+  },
+  "lost_file": {
+    "title": "Die verlegte Akte",
+    "kind": "side",
+    "case": "side",
+    "summary": "Miss Pimm vermisst Akte 47. Zuletzt hat sie ein Constable mitgenommen.",
+    "steps": [
+      {
+        "text": "Finde heraus, welcher Constable Akte 47 hat",
+        "done": {
+          "requires_flags": [
+            "has_file_47"
+          ]
+        }
+      },
+      {
+        "text": "Bring die Akte zu Miss Pimm",
+        "done": {
+          "requires_flags": [
+            "file_returned"
+          ]
+        }
+      }
+    ],
+    "reward": {
+      "honor": 6,
+      "honor_reason": "Akte 47 zurückgebracht"
+    }
+  },
+  "cell_knock": {
+    "title": "Das Klopfen in der Zelle",
+    "kind": "side",
+    "case": "side",
+    "summary": "Häftling Barnaby schwört, dass es nachts an seinen Gittern klopft.",
+    "steps": [
+      {
+        "text": "Untersuche die Zellengitter (Geistsicht?)",
+        "done": {
+          "requires_clues": [
+            "cell_sigil"
+          ]
+        }
+      },
+      {
+        "text": "Melde den Fund Inspektorin Marlowe",
+        "done": {
+          "requires_flags": [
+            "cell_reported"
+          ]
+        }
+      }
+    ],
+    "reward": {
+      "honor": 5,
+      "honor_reason": "Verdacht im Revier gemeldet"
+    }
+  },
+  "medallion": {
+    "title": "Hesters Medaillon",
+    "kind": "side",
+    "case": "side",
+    "summary": "Ivy glaubt, dass Hester ihr Medaillon in der Nacht trug, als sie verschwand.",
+    "steps": [
+      {
+        "text": "Suche das Medaillon auf dem Friedhof und in der Ruine",
+        "done": {
+          "requires_clues": [
+            "medallion"
+          ]
+        }
+      },
+      {
+        "text": "Bring es Ivy zurück",
+        "done": {
+          "requires_flags": [
+            "medallion_returned"
+          ]
+        }
+      }
+    ],
+    "reward": {
+      "honor": 4,
+      "honor_reason": "Ivy geholfen"
+    }
+  }
+}

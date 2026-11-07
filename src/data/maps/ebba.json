@@ -1,0 +1,198 @@
+{
+  "id": "ebba",
+  "name": "Ruine von St. Ebba",
+  "ambient": {
+    "night": 0.9,
+    "fog": 0.5
+  },
+  "rows": [
+    "gggggggggggggggggggggggggggggggggggggggg",
+    "gYggggggggggrrrccrrrrrrrcrrrgggggggggggg",
+    "ggggggggggggrccccccccccccccrggggggggggYg",
+    "ggggggggggggrccccccAAccccccrgggggggggggg",
+    "gggggggggggYrccccccccccccccggggggggggggg",
+    "ggggggggggggrccrrccccccccccrgggggggggggg",
+    "gggggggggggggccccccccccrrccrgggggggggggg",
+    "ggggggggggggrccccccccccrrccrgggggggggggg",
+    "ggggggggggggrccccccccccccccrgggggggggggg",
+    "ggYgggggggggrcrrrrrcccrrrccrgggggggggYgg",
+    "ggggggggggggggggggLgpgLggggggggggggggggg",
+    "ggGgGgGgGgGgggggggggpggggggggggRRRRRRggg",
+    "ggggggggggggggggggggpgggggggggg#W##W#ggg",
+    "ggGgGgUgGgGgggggggggpgggggggggg##D###ggg",
+    "ggggggggggggggggggggpggggggggggggggggggg",
+    "ggGgGgGgGgGgggggggggpggggggggggggggggggg",
+    "gggppppppppLppppppppppppppppppLpppppppgg",
+    "ggggggggggggggggggggpggggggggggggggggggg",
+    "ggGgGgGgGgGgggggggggpgggGgGgGgGggggggggg",
+    "ggggggggggggggggggLgpgggggggYggggggggggg",
+    "ggggggggggggggggggggpggggggggggggggggggg",
+    "fffffffffffffffffffpppffffffffffffffffff"
+  ],
+  "spawns": {
+    "default": [
+      20,
+      20
+    ],
+    "altar": [
+      20,
+      5
+    ]
+  },
+  "interactables": [
+    {
+      "id": "exit",
+      "kind": "travel",
+      "tile": [
+        20,
+        21
+      ],
+      "prompt": "Friedhof verlassen (Stadtkarte)",
+      "marker": false
+    },
+    {
+      "id": "grave",
+      "clue": "open_grave",
+      "tile": [
+        6,
+        13
+      ],
+      "prompt": "Offenes Grab untersuchen",
+      "marker": true
+    },
+    {
+      "id": "shovel",
+      "clue": "moll_shovel",
+      "tile": [
+        36,
+        15
+      ],
+      "prompt": "Spaten untersuchen",
+      "sprite": "shovel",
+      "lock": {
+        "requires_clues": [
+          "open_grave"
+        ],
+        "text": "Ein Spaten, an den Schuppen gelehnt. Dir fällt nichts Besonderes auf. Vielleicht später, wenn du weißt, wonach du suchst."
+      }
+    },
+    {
+      "id": "jacket",
+      "clue": "vey_payment",
+      "tile": [
+        31,
+        15
+      ],
+      "prompt": "Jacke untersuchen",
+      "sprite": "jacket"
+    },
+    {
+      "id": "hymn",
+      "clue": "hymn_sheet",
+      "tile": [
+        18,
+        4
+      ],
+      "prompt": "Notenblatt untersuchen",
+      "sprite": "paper"
+    },
+    {
+      "id": "draft",
+      "clue": "cold_draft",
+      "tile": [
+        21,
+        4
+      ],
+      "prompt": "Luftzug untersuchen",
+      "sprite": "seal",
+      "hidden": true
+    },
+    {
+      "id": "book",
+      "clue": "anselm_book",
+      "tile": [
+        25,
+        3
+      ],
+      "prompt": "Buch untersuchen",
+      "sprite": "file"
+    },
+    {
+      "id": "medallion",
+      "clue": "medallion",
+      "tile": [
+        20,
+        8
+      ],
+      "prompt": "Etwas glänzt im Staub",
+      "sprite": "medallion",
+      "visible_if": {
+        "requires_quests_active": [
+          "medallion"
+        ]
+      }
+    },
+    {
+      "id": "crypt_door",
+      "kind": "door",
+      "to": "crypt",
+      "spawn": "default",
+      "tile": [
+        19,
+        4
+      ],
+      "prompt": "In die Krypta hinabsteigen",
+      "sprite": "stairs",
+      "marker": false,
+      "visible_if": {
+        "requires_facts": [
+          "crypt"
+        ]
+      }
+    }
+  ],
+  "decor": [],
+  "npcs": [
+    {
+      "id": "ivy",
+      "tile": [
+        22,
+        19
+      ],
+      "facing": "left"
+    },
+    {
+      "id": "anselm",
+      "tile": [
+        16,
+        8
+      ],
+      "facing": "down"
+    },
+    {
+      "id": "moll",
+      "tile": [
+        34,
+        15
+      ],
+      "facing": "down"
+    },
+    {
+      "id": "kit",
+      "tile": [
+        4,
+        17
+      ],
+      "facing": "right",
+      "dialogue": "kit_ebba",
+      "visible_if": {
+        "requires_flags": [
+          "kit_informant"
+        ],
+        "requires_quests_active": [
+          "case_02"
+        ]
+      }
+    }
+  ]
+}

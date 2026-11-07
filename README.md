@@ -6,8 +6,8 @@ Ermitteln, Gespräche und das Verknüpfen von Hinweisen, nicht Kämpfe.
 
 ![Screenshot](docs/screenshot.png)
 
-**Stand:** spielbarer Prototyp mit einem kompletten kleinen Fall,
-*„Die erloschene Laterne“* (ca. 10 Minuten, drei mögliche Enden).
+**Stand:** spielbarer Prototyp mit zwei zusammenhängenden Fällen, vier Nebenaufträgen,
+vier Orten (Polizeirevier, Ashgrove Lane, Friedhof St. Ebba, Krypta) und Spielständen.
 
 ## Spielen
 
@@ -35,13 +35,25 @@ Ermitteln, Gespräche und das Verknüpfen von Hinweisen, nicht Kämpfe.
 ## Spielmechanik
 
 - **Hinweise** findest du in der Welt (funkelnde Stellen) oder in Gesprächen.
-- **Geistsicht** macht okkulte Spuren sichtbar. Sie zehrt an den **Nerven**;
-  bei 0 reißt dich ein Kopfschmerz heraus, danach erholen sie sich langsam.
-- **Verknüpfen**: Im Notizbuch kombinierst du zwei Hinweise zu einer
-  **Schlussfolgerung**. Manche Gesprächsoptionen tauchen erst mit dem passenden
-  Hinweis oder der passenden Schlussfolgerung auf.
-- **Auflösung**: Wenn du glaubst, es zu wissen, sprich mit der Polizei. Welche
-  Antworten du geben kannst, hängt von deinen Schlussfolgerungen ab.
+  Jeder Hinweis ist eine **Quelle** für eine **Information**.
+- **Nicht alles ist wahr**: Eine Information mit einer Quelle ist nur eine
+  *Vermutung*. Erst ab **zwei unabhängigen Quellen** gilt sie als *sehr wahrscheinlich*.
+  Auch die Polizei liegt manchmal falsch; solche Infos werden durch Gegenbeweise *widerlegt*.
+- **Verknüpfen**: Im Notizbuch kombinierst du zwei Informationen zu einer
+  **Schlussfolgerung**. Sie ist *gesichert*, wenn beide Informationen sehr wahrscheinlich sind.
+  Für eine Auflösung wollen Price und Marlowe gesicherte Schlussfolgerungen sehen.
+- **Ansehen bei der Polizei**: Gelöste Fälle, gestellte Gauner und Nebenaufträge bringen
+  Ansehen, falsche Beschuldigungen kosten es. Fünf Ränge (Zivilist, Hilfsermittler,
+  Ermittler, Vertrauter des Reviers, Geachteter Ermittler) öffnen Archivakten,
+  Dienstbücher und Gesprächsoptionen, die zusätzliche Quellen und Abkürzungen liefern.
+  Gesperrte Optionen sieht man ausgegraut mit dem nötigen Rang. Manche Leute (Häftlinge)
+  reden dafür *weniger*, je angesehener du bist.
+- **Geistsicht** macht okkulte Spuren sichtbar. Sie zehrt an den **Nerven**.
+- **Aufträge** stehen im Notizbuch mit abhakbaren Schritten. Der Spielstand wird
+  automatisch im Browser gespeichert (Titelbildschirm: Fortsetzen / Neues Spiel).
+
+![Notizbuch](docs/notizbuch.png)
+![Gesperrte Option](docs/gesperrt.png)
 
 ## Technik
 
@@ -53,23 +65,29 @@ Ermitteln, Gespräche und das Verknüpfen von Hinweisen, nicht Kämpfe.
 
 ```
 src/
-  main.js               Start, Skalierung, Verdrahtung
-  core/GameState.js     Spielzustand & Regeln (ohne Phaser, in Node testbar)
-  world/StreetScene.js  Karte, Figuren, Bewegung, Interaktion
-  world/Lighting.js     Nachtlicht
-  world/textures.js     Platzhalter-Pixelgrafik, prozedural erzeugt
-  ui/Ui.js, style.css   HUD, Dialoge, Notizbuch, Enden
-  data/case_01.json     Der komplette Fall: Karte, Hinweise, Dialoge, Enden
-tests/                  `npm test`: prüft Falldaten und Spiellogik
+  main.js                 Start, Skalierung, Spielstand
+  core/GameState.js       Regeln: Quellen, Ansehen, Aufträge, Bedingungen (ohne Phaser, in Node testbar)
+  world/WorldScene.js     Orte, Figuren, Bewegung, Interaktion, Reisen
+  world/Lighting.js       Nachtlicht
+  world/textures.js       Platzhalter-Pixelgrafik, prozedural erzeugt
+  ui/Ui.js, style.css     HUD, Dialoge, Notizbuch, Stadtkarte, Enden
+  data/
+    campaign.json         Start, Ränge, Reiseziele, alle Figuren
+    quests.json           Haupt- und Nebenaufträge mit Schritten
+    case_01.json, ...     Informationen, Hinweise (Quellen), Schlussfolgerungen, Enden
+    maps/*.json           Orte als Zeichenraster + Objekte + Figuren
+    dialogues/*.json      Dialogbäume
+tests/                    `npm test`: Datenprüfung + beide Fälle über die echten Dialoge durchgespielt
 ```
 
-### Einen Fall bearbeiten
+### Inhalte bearbeiten
 
-Alles Inhaltliche steht in `src/data/case_01.json`: die Karte als Zeichenraster
-(Legende in `map_legend`), Hinweise, Schlussfolgerungen (welche Hinweis-Paare
-zusammengehören), Figuren, Dialogbäume und Enden. Dialogoptionen können mit
-`requires_clues`, `requires_conclusions` und `hide_if_clues` an den
-Ermittlungsstand gebunden werden. `npm test` meldet kaputte Verweise.
+Alles Inhaltliche liegt als JSON in `src/data/`. Bedingungen funktionieren überall gleich
+(Dialogoptionen, Startknoten, Objekte, Sperren): `requires_clues`, `requires_facts`,
+`requires_likely` (≥ 2 Quellen), `requires_conclusions`, `requires_certain`, `requires_flags`,
+`requires_honor`, `max_honor`, `requires_quests_active`, `hide_if_*`. Effekte genauso:
+`gives_clues`, `sets_flags`, `start_quests`, `complete_quests`, `honor`, `ending`.
+`npm test` meldet kaputte Verweise und prüft, dass beide Fälle lösbar bleiben.
 
 ### Echte Pixel-Art einbauen
 
