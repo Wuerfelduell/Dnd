@@ -1,0 +1,138 @@
+/* 1em = 8 Spielpixel. --k ist der ganzzahlige Skalierungsfaktor (siehe main.js). */
+:root {
+  --ink: #e6dcc8;
+  --muted: #9a917f;
+  --brass: #b08a52;
+  --panel: rgba(14, 12, 18, 0.94);
+  --occult: #6fe0d0;
+  --gold: #e8c070;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  height: 100%;
+  background: #040408;
+  overflow: hidden;
+}
+
+body { display: grid; place-items: center; }
+
+#frame {
+  --k: 2;
+  position: relative;
+  font-family: 'Pixelify Sans', ui-monospace, monospace;
+  font-size: calc(var(--k) * 8px);
+  line-height: 1.25;
+  color: var(--ink);
+}
+
+#game, #game canvas {
+  position: absolute;
+  inset: 0;
+  width: 100% !important;
+  height: 100% !important;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
+
+#ui { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+#ui .layer, #ui button { pointer-events: auto; }
+#ui .layer:empty { pointer-events: none; }
+
+.key {
+  display: inline-block;
+  min-width: 1.4em;
+  padding: 0 0.3em;
+  border: 0.125em solid var(--brass);
+  border-radius: 0.2em;
+  color: var(--gold);
+  font-size: 0.85em;
+  text-align: center;
+  line-height: 1.2;
+}
+
+/* HUD */
+.hud-left { position: absolute; left: 0.75em; top: 0.6em; }
+.case-title { font-size: 0.9em; color: var(--muted); text-shadow: 0 0.125em 0 #000; }
+.meter { display: flex; align-items: center; gap: 0.5em; font-size: 0.8em; margin-top: 0.3em; color: var(--muted); }
+.bar { width: 7em; height: 0.6em; border: 0.125em solid #3a3440; background: #120f16; }
+.fill { height: 100%; width: 100%; background: #8aa6b8; transition: width 0.2s linear; }
+.fill.low { background: #b85a4a; }
+.hud-right { position: absolute; right: 0.75em; top: 0.6em; font-size: 0.8em; color: var(--muted); text-shadow: 0 0.125em 0 #000; }
+.vision-tag {
+  position: absolute; left: 50%; top: 0.6em; transform: translateX(-50%);
+  color: var(--occult); letter-spacing: 0.15em; font-size: 0.9em; opacity: 0; transition: opacity 0.3s;
+  text-shadow: 0 0 0.5em var(--occult);
+}
+#ui.vision .vision-tag { opacity: 1; animation: pulse 2s ease-in-out infinite; }
+@keyframes pulse { 50% { opacity: 0.55; } }
+
+.prompt {
+  position: absolute; left: 50%; bottom: 1.2em; transform: translateX(-50%);
+  background: var(--panel); border: 0.125em solid var(--brass); padding: 0.3em 0.7em; white-space: nowrap;
+}
+.hidden { display: none; }
+
+.toasts { position: absolute; right: 0.75em; top: 2.4em; display: flex; flex-direction: column; align-items: flex-end; gap: 0.3em; }
+.toast {
+  background: var(--panel); border-left: 0.25em solid var(--occult); padding: 0.25em 0.6em; font-size: 0.85em;
+  transition: opacity 0.6s, transform 0.6s;
+}
+.toast.gold { border-color: var(--gold); color: var(--gold); }
+.toast.warn { border-color: #b85a4a; }
+.toast.out { opacity: 0; transform: translateX(1em); }
+
+/* Panels */
+.layer { position: absolute; inset: 0; display: flex; align-items: flex-end; justify-content: center; padding: 1em; }
+.panel {
+  width: 100%;
+  background: var(--panel);
+  border: 0.125em solid var(--brass);
+  box-shadow: 0 0 0 0.125em #000, 0 0.5em 1.5em rgba(0, 0, 0, 0.6);
+  padding: 0.8em 1em;
+}
+.panel h1 { margin: 0 0 0.2em; font-size: 2.4em; font-weight: 600; color: var(--gold); letter-spacing: 0.05em; }
+.panel h2 { margin: 0 0 1em; font-size: 1.2em; font-weight: 400; color: var(--muted); }
+.panel h3 { margin: 0 0 0.5em; font-size: 1.2em; color: var(--gold); font-weight: 600; }
+.panel h4 { margin: 0 0 0.4em; font-size: 0.95em; color: var(--muted); font-weight: 400; text-transform: uppercase; letter-spacing: 0.08em; }
+.panel p { margin: 0 0 0.6em; }
+.panel .footer { color: var(--muted); font-size: 0.85em; margin-top: 0.4em; }
+.panel button {
+  font: inherit; color: var(--ink); background: #221d28; border: 0.125em solid #4a4050;
+  padding: 0.25em 0.7em; cursor: pointer;
+}
+.panel button:hover:not(:disabled) { border-color: var(--brass); background: #2c2532; }
+.panel button:disabled { opacity: 0.45; cursor: default; }
+.panel button.primary { border-color: var(--brass); }
+.panel .next { float: right; margin-top: -0.3em; }
+
+.layer:has(.title), .layer:has(.notebook), .layer:has(.ending) { align-items: center; background: rgba(4, 4, 8, 0.55); }
+.panel.title, .panel.ending { max-width: 34em; text-align: center; padding: 1.4em 1.6em; }
+.panel.title .controls { display: grid; gap: 0.4em; margin: 0 auto 1.2em; text-align: left; width: fit-content; color: var(--muted); }
+.panel.ending-good h1 { color: var(--occult); }
+.panel.ending-drowned h1, .panel.ending-half h1 { color: #c8826a; }
+.panel.ending .text { text-align: left; }
+
+.panel.message, .panel.dialogue { max-width: 46em; }
+.speaker { color: var(--gold); font-weight: 600; margin-bottom: 0.3em; }
+.speaker .role { color: var(--muted); font-weight: 400; font-size: 0.85em; }
+.choices { list-style: none; margin: 0.4em 0 0; padding: 0; display: grid; gap: 0.25em; }
+.choices button { width: 100%; text-align: left; background: transparent; border-color: transparent; }
+.choices button:hover { border-color: var(--brass); }
+
+.panel.notebook { max-width: 52em; max-height: 100%; overflow: auto; background: rgba(24, 20, 16, 0.97); border-color: #8a6a40; }
+.notebook .sub { color: var(--muted); font-weight: 400; font-size: 0.75em; margin-left: 0.5em; }
+.objective { color: var(--muted); font-size: 0.9em; margin-bottom: 0.7em; border-left: 0.25em solid #8a6a40; padding-left: 0.5em; }
+.cols { display: grid; grid-template-columns: 1fr 1.3fr; gap: 1em; }
+.notebook ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.25em; }
+.notebook .clue { width: 100%; text-align: left; font-size: 0.9em; }
+.notebook .clue.sel { border-color: var(--occult); color: var(--occult); }
+.notebook .concl li { font-size: 0.85em; color: var(--muted); }
+.notebook .concl strong { color: var(--gold); font-weight: 600; }
+.notebook .empty { color: var(--muted); font-size: 0.85em; font-style: italic; }
+.detail { margin-top: 0.8em; padding: 0.5em 0.6em; background: rgba(0, 0, 0, 0.3); min-height: 3.2em; font-size: 0.9em; }
+.feedback { min-height: 1.3em; margin-top: 0.4em; font-size: 0.9em; color: var(--muted); }
+.feedback .good { color: var(--gold); }
+.actions { display: flex; gap: 0.5em; justify-content: flex-end; margin-top: 0.3em; }
