@@ -1,19 +1,50 @@
 import Phaser from 'phaser';
 import './style.css';
-import caseData from './data/case_01.json';
+import { content } from './data/index.js';
 import { GameState } from './core/GameState.js';
-import { StreetScene, VIEW_W, VIEW_H } from './world/StreetScene.js';
+import { WorldScene, VIEW_W, VIEW_H } from './world/WorldScene.js';
 import { Ui } from './ui/Ui.js';
 
-const state = new GameState(caseData);
+const SAVE_KEY = 'nebelakten-save';
+const state = new GameState(content);
 const frame = document.getElementById('frame');
 const uiRoot = document.getElementById('ui');
 
+// --- Spielstand (localStorage, Fehler werden still ignoriert) ---------------------
+function readSave() {
+  try { return JSON.parse(localStorage.getItem(SAVE_KEY) ?? 'null'); } catch { return null; }
+}
+function writeSave() {
+  if (!started) return;
+  const scene = game.scene.getScene('world');
+  const pos = scene?.player && !scene.leaving ? scene.playerPosition() : null;
+  try { localStorage.setItem(SAVE_KEY, JSON.stringify(state.serialize(pos))); } catch { /* privat/kein Speicher */ }
+}
+function clearSave() {
+  try { localStorage.removeItem(SAVE_KEY); } catch { /* egal */ }
+}
+let saveTimer = null;
+const saveSoon = () => { clearTimeout(saveTimer); saveTimer = setTimeout(writeSave, 300); };
+['changed', 'quest', 'honor', 'ending', 'travel', 'conclusion'].forEach((ev) => state.on(ev, saveSoon));
+setInterval(writeSave, 5000);
+
+let started = false;
 let game;
+const restartWorld = () => game.scene.getScene('world').scene.restart();
+
 const ui = new Ui(uiRoot, state, {
-  onRestart: () => {
+  hasSave: () => readSave()?.v === 2,
+  onNewGame: () => {
+    clearSave();
     state.reset();
-    game.scene.getScene('street').scene.restart();
+    started = true;
+    restartWorld();
+    saveSoon();
+  },
+  onContinue: () => {
+    if (!state.load(readSave())) state.reset();
+    started = true;
+    restartWorld();
   },
 });
 
@@ -27,7 +58,7 @@ game = new Phaser.Game({
   backgroundColor: '#06070d',
   physics: { default: 'arcade', arcade: { debug: false } },
   scale: { mode: Phaser.Scale.NONE },
-  scene: [StreetScene],
+  scene: [WorldScene],
   callbacks: {
     preBoot: (g) => {
       g.registry.set('state', state);
@@ -44,9 +75,10 @@ function fit() {
   frame.style.setProperty('--k', k);
 }
 window.addEventListener('resize', fit);
+window.addEventListener('beforeunload', writeSave);
 fit();
 
 ui.showTitle();
 
 // Für Tests und Debugging in der Browser-Konsole.
-window.__nebel = { game, state, ui, scene: () => game.scene.getScene('street') };
+window.__nebel = { game, state, ui, content, scene: () => game.scene.getScene('world') };

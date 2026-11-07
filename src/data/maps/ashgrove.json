@@ -1,0 +1,212 @@
+{
+  "id": "ashgrove",
+  "name": "Ashgrove Lane",
+  "ambient": {
+    "night": 0.88,
+    "fog": 0.4
+  },
+  "rows": [
+    "RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR",
+    "#WW##WW###WW##WW####WW####WW###WW##WW###",
+    "##D#######D####D########D########D######",
+    ",,,,L,,,,,,,,,L,,,,,,,,,,,,,,,L,,,,,,,,,",
+    "........................................",
+    "........................................",
+    "........................................",
+    ",,,,,,,,,,,,,,,,,,,,,,X,,,,,,,,,,,,,,,,,",
+    "ffffffffffffffffff,,,,ffffffffffffffffff",
+    "~~~~~~~~~~~~~~~~~~====~~~~~~~~~~~~~~~~~~",
+    "~~~~~~~~~~~~~~~~~~====~~~~~~~~~~~~~~~~~~",
+    "~~~~~~~~~~~~~~~~~~====~~~~~~~~~~~~~~~~~~",
+    "ffffffffffffffffff,,,,ffffffffffffffffff",
+    ",,,,,,,,L,,,,,,,,,,,,,,,,,,,L,,,,,,,,,,,",
+    "........................................",
+    "........................................",
+    ",,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,L,,",
+    "####D#########D#######D#######D#########",
+    "##WW###WW###WW####WW####WW#####WW###WW##",
+    "RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR"
+  ],
+  "spawns": {
+    "default": [
+      1,
+      5
+    ]
+  },
+  "interactables": [
+    {
+      "id": "exit",
+      "kind": "travel",
+      "tile": [
+        0,
+        5
+      ],
+      "prompt": "Stadtkarte öffnen",
+      "marker": false,
+      "reach": 20
+    },
+    {
+      "id": "lamp_bridge",
+      "clue": "frosted_lamp",
+      "tile": [
+        22,
+        7
+      ],
+      "prompt": "Laterne untersuchen",
+      "marker": false
+    },
+    {
+      "id": "pole",
+      "clue": "dropped_pole",
+      "tile": [
+        25,
+        13
+      ],
+      "prompt": "Stange untersuchen",
+      "sprite": "pole"
+    },
+    {
+      "id": "scratches",
+      "clue": "wall_scratches",
+      "tile": [
+        17,
+        12
+      ],
+      "prompt": "Geländer untersuchen",
+      "sprite": "scratches"
+    },
+    {
+      "id": "bottle",
+      "clue": "gin_bottle",
+      "tile": [
+        33,
+        5
+      ],
+      "prompt": "Flasche untersuchen",
+      "sprite": "bottle"
+    },
+    {
+      "id": "seal",
+      "clue": "wax_seal",
+      "tile": [
+        20,
+        6
+      ],
+      "prompt": "Siegel untersuchen",
+      "sprite": "seal",
+      "hidden": true
+    },
+    {
+      "id": "prints",
+      "clue": "footprints",
+      "tile": [
+        21,
+        15
+      ],
+      "prompt": "Spuren untersuchen",
+      "sprite": "footprint",
+      "hidden": true
+    },
+    {
+      "id": "coat",
+      "clue": "wet_coat",
+      "tile": [
+        21,
+        17
+      ],
+      "prompt": "Mantel untersuchen",
+      "sprite": "coat"
+    },
+    {
+      "id": "coins",
+      "clue": "kit_coins",
+      "tile": [
+        13,
+        6
+      ],
+      "prompt": "Münzen untersuchen",
+      "sprite": "coins",
+      "visible_if": {
+        "requires_quests_active": [
+          "pickpocket"
+        ]
+      }
+    }
+  ],
+  "decor": [
+    {
+      "sprite": "footprint",
+      "tile": [
+        20,
+        12
+      ],
+      "hidden": true
+    },
+    {
+      "sprite": "footprint",
+      "tile": [
+        20,
+        13
+      ],
+      "hidden": true
+    },
+    {
+      "sprite": "footprint",
+      "tile": [
+        21,
+        14
+      ],
+      "hidden": true
+    },
+    {
+      "sprite": "footprint",
+      "tile": [
+        22,
+        16
+      ],
+      "hidden": true
+    }
+  ],
+  "npcs": [
+    {
+      "id": "greta",
+      "tile": [
+        10,
+        5
+      ],
+      "facing": "down"
+    },
+    {
+      "id": "halloway",
+      "tile": [
+        24,
+        16
+      ],
+      "facing": "left"
+    },
+    {
+      "id": "price",
+      "tile": [
+        4,
+        14
+      ],
+      "facing": "right"
+    },
+    {
+      "id": "kit",
+      "tile": [
+        37,
+        14
+      ],
+      "facing": "left",
+      "visible_if": {
+        "requires_quests_active": [
+          "pickpocket"
+        ],
+        "hide_if_flags": [
+          "kit_resolved"
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,178 @@
+{
+  "id": "revier",
+  "name": "Polizeirevier Kettlegate",
+  "ambient": {
+    "night": 0.6,
+    "fog": 0
+  },
+  "rows": [
+    "IIIIIIIIIIIIIIIIIIIIIIIIIIIIII",
+    "IIIIIIIIIIIIIIIIIIIIIIIIIIIIII",
+    "IBBBBBwwwwwwwwwwwwwwwwwBBBBwwI",
+    "IwwwwwwwOwOwwwwwwwwwwwwwwwwwwI",
+    "IwwwwwwwwwwwwwwwwwwwTTTwwwwwwI",
+    "IwwwwwwwwwwwwwwwwwwwwwwwwwwwwI",
+    "IwwOwwwwwwwwwwwwwwwwwwwwwwwOwI",
+    "IwwwwwwwwwwwTTwwwwwwwwwwwwwwwI",
+    "IwwwwwwwwwwwwwwwwwwwwwwwwwwwwI",
+    "IIIIIIIIwwwwwwwwwwwwwwwwwwwwwI",
+    "IwwwwwwHwwwwwwwwwwwwTTTTTwwwwI",
+    "IwwwwwwHwwwwwwwwwwwwwwwwwwwwwI",
+    "IwwwwwwHwwwwwOwwwwwwwwwwwwwwwI",
+    "IwwwwwwHwwwwwwwwwwwwwwwwwwOwwI",
+    "IwwwwwwHwwwwwwwwwwwwwwwwwwwwwI",
+    "IIIIIIIIIIIIIIEEIIIIIIIIIIIIII"
+  ],
+  "spawns": {
+    "default": [
+      14,
+      13
+    ],
+    "start": [
+      16,
+      6
+    ]
+  },
+  "interactables": [
+    {
+      "id": "exit",
+      "kind": "travel",
+      "tile": [
+        14,
+        14
+      ],
+      "prompt": "Revier verlassen (Stadtkarte)",
+      "marker": false,
+      "reach": 26
+    },
+    {
+      "id": "rules",
+      "kind": "read",
+      "tile": [
+        24,
+        2
+      ],
+      "prompt": "Dienstvorschriften lesen",
+      "marker": false,
+      "title": "Dienstvorschriften des Reviers Kettlegate",
+      "text": "§ 3: Ansehen erwirbt sich, wer Fälle sauber löst, Gauner stellt und dem Revier keine Schande macht. Wer Unschuldige beschuldigt, verliert es.\n\n§ 7: Zeugen lügen. Constables irren. Eine Aussage ist eine Vermutung, bis eine zweite, unabhängige Quelle sie stützt.\n\n§ 12: Das Archiv öffnet sich nach Rang. Ermittler (35) erhalten Einsicht in Unglücksakten, Vertraute des Reviers (50) auch in die versiegelten Schränke."
+    },
+    {
+      "id": "archive_a",
+      "kind": "read",
+      "tile": [
+        2,
+        2
+      ],
+      "prompt": "Aktenschrank öffnen",
+      "marker": false,
+      "title": "Akte: Der Brand von St. Ebba",
+      "lock": {
+        "requires_honor": 35,
+        "text": "Miss Pimm räuspert sich: „Dieser Schrank ist Ermittlern vorbehalten.“",
+        "footer": "Benötigt Rang Ermittler (Ansehen 35)."
+      },
+      "text": "Vor zwölf Jahren brannte die Kapelle St. Ebba während einer Chorprobe nieder. Unter den Toten: Lilian Vey, sieben Jahre, Tochter der Chorleiterin. Ihre Leiche wurde nie ganz geborgen.\n\nNotiz eines Constables: Die Mutter schrie am Grab, sie werde ihr Kind zurückholen, „koste es, was es wolle“.\n\nBeigelegt: ein alter Bauplan. Unter dem Altarraum ist eine Krypta eingezeichnet.",
+      "done_flag": "read_archive_a",
+      "effects": {
+        "gives_clues": [
+          "fire_report",
+          "church_plan"
+        ]
+      }
+    },
+    {
+      "id": "archive_b",
+      "kind": "read",
+      "tile": [
+        4,
+        2
+      ],
+      "prompt": "Versiegelten Schrank öffnen",
+      "marker": false,
+      "title": "Versiegelte Akte: Der Chor von St. Ebba",
+      "lock": {
+        "requires_honor": 50,
+        "text": "Ein schweres Schloss. Miss Pimm schüttelt den Kopf: „Nur für Vertraute des Reviers.“",
+        "footer": "Benötigt Rang Vertrauter des Reviers (Ansehen 50)."
+      },
+      "text": "Mitgliederliste des Kapellenchors, vom Revier beschlagnahmt nach dem Brand. Leitung: Miriam Vey. Unter den Helfern: „J. Moll, Bälgetreter der Orgel“.\n\nRandnotiz in Inspektorin Marlowes Handschrift: „Der Chor hat sich nie aufgelöst. Er singt nur woanders.“",
+      "done_flag": "read_archive_b",
+      "effects": {
+        "gives_clues": [
+          "choir_members"
+        ]
+      }
+    },
+    {
+      "id": "cell_sigil",
+      "clue": "cell_sigil",
+      "tile": [
+        7,
+        11
+      ],
+      "prompt": "Gitter untersuchen",
+      "sprite": "seal",
+      "hidden": true
+    }
+  ],
+  "decor": [],
+  "npcs": [
+    {
+      "id": "marlowe",
+      "tile": [
+        21,
+        3
+      ],
+      "facing": "down",
+      "reach": 36
+    },
+    {
+      "id": "pimm",
+      "tile": [
+        6,
+        4
+      ],
+      "facing": "down"
+    },
+    {
+      "id": "holt",
+      "tile": [
+        22,
+        9
+      ],
+      "facing": "down",
+      "reach": 36
+    },
+    {
+      "id": "rook",
+      "tile": [
+        17,
+        12
+      ],
+      "facing": "left"
+    },
+    {
+      "id": "barnaby",
+      "tile": [
+        6,
+        12
+      ],
+      "facing": "right",
+      "reach": 36
+    },
+    {
+      "id": "elias",
+      "tile": [
+        14,
+        8
+      ],
+      "facing": "down",
+      "visible_if": {
+        "requires_flags": [
+          "elias_rescued"
+        ]
+      }
+    }
+  ]
+}

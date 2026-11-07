@@ -1,257 +1,85 @@
 {
-  "id": "case_01",
-  "title": "Die erloschene Laterne",
-  "location": "Ashgrove Lane",
-  "intro": "Ashgrove Lane, kurz nach Mitternacht.\n\nDer Lampenanzünder Elias Thorne ist verschwunden. Constable Price hält es für einen betrunkenen Sturz in den Kanal. Doch nur eine einzige Laterne brennt nicht mehr: die an der Brücke.\n\nSieh dich um, sprich mit den Leuten und verknüpfe die Hinweise in deinem Notizbuch. Wenn du weißt, was geschehen ist, geh zu Constable Price.",
-  "objective": "Finde heraus, was mit Elias Thorne geschehen ist. Sprich mit Constable Price, sobald du dir sicher bist.",
-  "player_start": [5, 5],
-  "map_legend": {
-    "R": "Dach",
-    "#": "Ziegelfassade",
-    "W": "Fenster (beleuchtet)",
-    "D": "Tür",
-    ",": "Gehweg",
-    ".": "Kopfsteinpflaster",
-    "f": "Eisengeländer",
-    "~": "Kanal",
-    "=": "Brücke",
-    "L": "Gaslaterne",
-    "X": "erloschene Laterne"
+  "facts": {
+    "lamp_frozen": { "case": "case_01", "text": "Die Brückenlaterne wurde von etwas Kaltem ausgelöscht." },
+    "lullaby": { "case": "case_01", "text": "Um Mitternacht erklang vom Kanal ein Wiegenlied." },
+    "quiet_night": { "case": "case_01", "text": "Es war eine ruhige Nacht. Niemand hat etwas gehört.", "refuted_if_likely": ["lullaby"] },
+    "seal_at_bridge": { "case": "case_01", "text": "An der Brücke wurde mit dem Augen-Siegel des Chors von St. Ebba gesiegelt." },
+    "vey_key": { "case": "case_01", "text": "Eine Frau namens Vey war hinter Elias' silbernem Laternenschlüssel her." },
+    "pole_climb": { "case": "case_01", "text": "Elias hat sich aus dem Kanal gezogen." },
+    "to_pawnshop": { "case": "case_01", "text": "Elias ist nach dem Sturz zum Pfandhaus gegangen." },
+    "drunk": { "case": "case_01", "text": "Elias war betrunken und ist in den Kanal gefallen.", "refuted_by": ["gin_bottle", "greta_sober"] },
+    "old_bottle": { "case": "case_01", "text": "Die Ginflasche an der Straße liegt seit Tagen dort." },
+    "elias_sober": { "case": "case_01", "text": "Elias rührt seit Jahren keinen Alkohol an." },
+    "elias_in_cellar": { "case": "case_01", "text": "Elias versteckt sich im Keller des Pfandhauses." },
+    "kit_thief": { "case": "side", "text": "Der Straßenjunge Kit hat Gretas Kasse gestohlen." },
+    "akte_47": { "case": "side", "text": "In den letzten zwölf Jahren verschwanden drei Lampenanzünder, immer im Mai." },
+    "cell_eye": { "case": "side", "text": "Jemand hat das Augen-Siegel von außen in die Zellengitter des Reviers geritzt." }
   },
-  "map": [
-    "RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR",
-    "#WW##WW###WW##WW####WW####WW###WW##WW###",
-    "##D#######D####D########D########D######",
-    ",,,,L,,,,,,,,,L,,,,,,,,,,,,,,,L,,,,,,,,,",
-    "........................................",
-    "........................................",
-    "........................................",
-    ",,,,,,,,,,,,,,,,,,,,,,X,,,,,,,,,,,,,,,,,",
-    "ffffffffffffffffff,,,,ffffffffffffffffff",
-    "~~~~~~~~~~~~~~~~~~====~~~~~~~~~~~~~~~~~~",
-    "~~~~~~~~~~~~~~~~~~====~~~~~~~~~~~~~~~~~~",
-    "~~~~~~~~~~~~~~~~~~====~~~~~~~~~~~~~~~~~~",
-    "ffffffffffffffffff,,,,ffffffffffffffffff",
-    ",,,,,,,,L,,,,,,,,,,,,,,,,,,,L,,,,,,,,,,,",
-    "........................................",
-    "........................................",
-    ",,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,L,,",
-    "####D#########D#######D#######D#########",
-    "##WW###WW###WW####WW####WW#####WW###WW##",
-    "RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR"
-  ],
   "clues": {
-    "frosted_lamp": {
-      "name": "Vereiste Laterne",
-      "text": "Die Brückenlaterne ist erloschen. Das Glas ist von innen mit Raureif überzogen, obwohl die Nacht mild ist. Der Docht ist nicht heruntergebrannt. Es sieht aus, als hätte etwas die Flamme einfach ausgetrunken."
-    },
-    "dropped_pole": {
-      "name": "Verbogene Anzünderstange",
-      "text": "Elias' Anzünderstange liegt am Südufer, der Messinghaken ist verbogen. Sie ist bis zum Griff nass, als hätte sich jemand daran aus dem Wasser gezogen."
-    },
-    "gin_bottle": {
-      "name": "Leere Ginflasche",
-      "text": "Eine leere Flasche billiger Gin. Auf dem Glas liegt eine dicke Staubschicht. Die liegt hier schon seit Tagen und hat mit letzter Nacht nichts zu tun."
-    },
-    "wax_seal": {
-      "name": "Augen-Siegel",
-      "text": "Nur mit der Geistsicht zu erkennen: ein Klecks schwarzes Siegelwachs auf dem Pflaster, eingeprägt ein Auge in einem Kreis. Es strahlt eine Kälte aus, die in den Fingern brennt."
-    },
-    "footprints": {
-      "name": "Nasse Fußspuren",
-      "text": "In der Geistsicht leuchten sie schwach: nackte, nasse Fußabdrücke. Sie führen von der Brücke direkt zur Tür des Pfandhauses."
-    },
-    "testimony_humming": {
-      "name": "Aussage: Wiegenlied am Kanal",
-      "text": "Greta, die Blumenverkäuferin: Um Mitternacht flackerten alle Laternen gleichzeitig, und vom Kanal kam ein Summen wie ein altes Wiegenlied."
-    },
-    "chapel_choir": {
-      "name": "Der Chor von St. Ebba",
-      "text": "Greta erkennt das Augen-Symbol: Es stand auf den Gesangbüchern der abgebrannten Kapelle St. Ebba. Die Chorleiterin hieß Miriam Vey."
-    },
-    "pawn_ledger": {
-      "name": "Eintrag im Pfandbuch",
-      "text": "Elias Thorne hat gestern einen silbernen Laternenschlüssel verpfändet. Noch am selben Abend wurde er gekauft. Unterschrift der Käuferin: M. Vey."
-    },
-    "elias_hidden": {
-      "name": "Elias im Keller",
-      "text": "Halloway gesteht: Elias liegt halb erfroren in seinem Keller und redet wirr von einem Lied. Halloway hat ihn versteckt, damit sie ihn nicht findet."
-    }
+    "frosted_lamp": { "fact": "lamp_frozen", "source": "Eigene Beobachtung", "name": "Vereiste Laterne",
+      "text": "Die Brückenlaterne ist erloschen. Das Glas ist von innen mit Raureif überzogen, obwohl die Nacht mild ist. Der Docht ist nicht heruntergebrannt." },
+    "greta_frost": { "fact": "lamp_frozen", "source": "Greta", "name": "Greta: Raureif am Glas",
+      "text": "„Heute früh war das Glas der Brückenlaterne weiß wie Raureif. Im Mai! Ich hab's mit eigenen Augen gesehen.“" },
+    "testimony_humming": { "fact": "lullaby", "source": "Greta", "name": "Greta: Wiegenlied am Kanal",
+      "text": "„Um Mitternacht flackerten alle Laternen, und vom Kanal kam ein Summen. Ein altes Wiegenlied.“" },
+    "kit_heard": { "fact": "lullaby", "source": "Kit", "name": "Kit: Singsang vom Wasser",
+      "text": "„So'n Singsang, ganz leise, vom Wasser her. Mitten in der Nacht. Mir is' richtig kalt geworden.“" },
+    "halloway_lie": { "fact": "quiet_night", "source": "Mr. Halloway", "name": "Halloway: Ruhige Nacht",
+      "text": "„Heute Nacht? Nichts. Ich habe nichts gehört. Gar nichts.“ Er weicht deinem Blick aus." },
+    "wax_seal": { "fact": "seal_at_bridge", "source": "Geistsicht", "name": "Augen-Siegel",
+      "text": "Nur mit der Geistsicht zu erkennen: schwarzes Siegelwachs auf dem Pflaster, eingeprägt ein Auge in einem Kreis. Es brennt kalt in den Fingern." },
+    "chapel_choir": { "fact": "seal_at_bridge", "source": "Greta", "name": "Greta: Das Zeichen des Chors",
+      "text": "„Das Auge? Damit haben die Damen vom Chor von St. Ebba ihre Briefe gesiegelt. Die Chorleiterin hieß Miriam Vey.“" },
+    "pawn_ledger": { "fact": "vey_key", "source": "Pfandbuch", "name": "Eintrag im Pfandbuch",
+      "text": "Elias Thorne verpfändete gestern einen silbernen Laternenschlüssel. Am selben Abend gekauft von: „M. Vey“." },
+    "greta_grey_woman": { "fact": "vey_key", "source": "Greta", "name": "Greta: Die Frau im grauen Mantel",
+      "text": "„Gestern Abend fragte eine Frau im grauen Mantel nach Elias. Ob er den alten Silberschlüssel noch hat. Sie nannte sich Vey.“" },
+    "lamp_logbook": { "fact": "vey_key", "source": "Elias' Dienstbuch", "name": "Elias' Dienstbuch",
+      "text": "Letzter Eintrag in Elias' Handschrift: „Die Frau im grauen Mantel war wieder da. Will den Schlüssel. Sagt, die Laternen gehörten ihr.“" },
+    "dropped_pole": { "fact": "pole_climb", "source": "Eigene Beobachtung", "name": "Verbogene Anzünderstange",
+      "text": "Elias' Anzünderstange liegt am Südufer, der Messinghaken ist verbogen und bis zum Griff nass." },
+    "wall_scratches": { "fact": "pole_climb", "source": "Eigene Beobachtung", "name": "Kratzspuren am Geländer",
+      "text": "Frische Kratzspuren an der Ufermauer unter dem Geländer. Jemand hat sich hier mit bloßen Händen aus dem Wasser gezogen." },
+    "kit_saw": { "fact": "pole_climb", "source": "Kit", "name": "Kit: Ein nasser Mann",
+      "text": "„Hab 'nen Mann gesehen, klatschnass, der is' an der Mauer hochgekrabbelt. Dann is' er Richtung Pfandhaus gehumpelt.“" },
+    "footprints": { "fact": "to_pawnshop", "source": "Geistsicht", "name": "Nasse Fußspuren",
+      "text": "In der Geistsicht leuchten nackte, nasse Fußabdrücke. Sie führen von der Brücke zur Tür des Pfandhauses." },
+    "wet_coat": { "fact": "to_pawnshop", "source": "Eigene Beobachtung", "name": "Tropfnasser Mantel",
+      "text": "Am Gitter neben der Pfandhaustür hängt ein Lampenanzündermantel mit Messingknöpfen. Er ist noch tropfnass." },
+    "price_drunk": { "fact": "drunk", "source": "Constable Price", "name": "Price: Betrunken in den Kanal",
+      "text": "„Elias Thorne war ein Säufer, das weiß jeder. Gin und Kanal, Fall erledigt.“" },
+    "gin_bottle": { "fact": "old_bottle", "source": "Eigene Beobachtung", "name": "Verstaubte Ginflasche",
+      "text": "Eine leere Ginflasche, dick mit Staub bedeckt. Sie liegt hier seit Tagen und hat mit letzter Nacht nichts zu tun." },
+    "greta_sober": { "fact": "elias_sober", "source": "Greta", "name": "Greta: Elias trinkt nicht",
+      "text": "„Elias und Gin? Unsinn. Der hat seit seiner Hochzeit keinen Tropfen angerührt.“" },
+    "elias_hidden": { "fact": "elias_in_cellar", "source": "Mr. Halloway", "name": "Halloway: Elias im Keller",
+      "text": "„Er ist unten im Keller. Halb erfroren, redet immer wieder von einem Lied. Ich wollte nicht, dass sie ihn findet.“" },
+    "kit_coins": { "fact": "kit_thief", "source": "Eigene Beobachtung", "name": "Verstreute Münzen",
+      "text": "Kupfermünzen, eine kleine Spur Richtung Osten. Daneben ein Fetzen von einem viel zu großen Mantel." },
+    "greta_boy": { "fact": "kit_thief", "source": "Greta", "name": "Greta: Der Junge im großen Mantel",
+      "text": "„Ein Bengel in einem viel zu großen Mantel. Kit heißt der, treibt sich immer am Ostende rum.“" },
+    "file_47": { "fact": "akte_47", "source": "Akte 47", "name": "Akte 47: Verschwundene Lampenanzünder",
+      "text": "Drei Lampenanzünder verschwanden in zwölf Jahren, alle im Mai, alle nahe am Kanal. Keiner wurde gefunden. Der Mai ist der Monat, in dem St. Ebba brannte." },
+    "cell_sigil": { "fact": "cell_eye", "source": "Geistsicht", "name": "Augen-Siegel im Revier",
+      "text": "In die Gitterstäbe ist ein Auge in einem Kreis geritzt. Frisch. Und von außen, also von jemandem, der im Revier ein und aus geht." }
   },
   "deductions": [
-    {
-      "id": "unnatural_cold",
-      "pairs": [["frosted_lamp", "testimony_humming"]],
-      "name": "Kein Unfall",
-      "text": "Das Lied und der Frost gehören zusammen. Etwas hat das Licht der Laterne verschlungen. Das war kein betrunkener Sturz, sondern ein Ritual."
-    },
-    {
-      "id": "vey_sigil",
-      "pairs": [["wax_seal", "pawn_ledger"], ["wax_seal", "chapel_choir"]],
-      "name": "Die Spur führt zu M. Vey",
-      "text": "Das Augen-Siegel gehört zum alten Chor von St. Ebba, und M. Vey hat Elias' Laternenschlüssel gekauft. Miriam Vey stand letzte Nacht an der Brücke."
-    },
-    {
-      "id": "elias_alive",
-      "pairs": [["dropped_pole", "footprints"]],
-      "name": "Elias ist nicht ertrunken",
-      "text": "Die Stange war sein Rettungsanker. Elias hat sich aus dem Wasser gezogen und ist barfuß zum Pfandhaus gelaufen."
-    }
+    { "id": "unnatural_cold", "case": "case_01", "pairs": [["lamp_frozen", "lullaby"]], "name": "Kein Unfall",
+      "text": "Das Lied und der Frost gehören zusammen. Etwas hat das Licht der Laterne verschlungen. Das war ein Ritual." },
+    { "id": "vey_sigil", "case": "case_01", "pairs": [["seal_at_bridge", "vey_key"]], "name": "Die Spur führt zu M. Vey",
+      "text": "Das Siegel des Chors an der Brücke und die Frau, die Elias' Schlüssel wollte: Miriam Vey stand letzte Nacht an der Brücke." },
+    { "id": "elias_alive", "case": "case_01", "pairs": [["pole_climb", "to_pawnshop"]], "name": "Elias ist nicht ertrunken",
+      "text": "Elias hat sich aus dem Wasser gezogen und ist zum Pfandhaus gelaufen." }
   ],
-  "interactables": [
-    { "id": "lamp_bridge", "clue": "frosted_lamp", "tile": [22, 7], "prompt": "Laterne untersuchen", "marker": false },
-    { "id": "pole", "clue": "dropped_pole", "tile": [25, 13], "prompt": "Stange untersuchen", "sprite": "pole" },
-    { "id": "bottle", "clue": "gin_bottle", "tile": [33, 5], "prompt": "Flasche untersuchen", "sprite": "bottle" },
-    { "id": "seal", "clue": "wax_seal", "tile": [20, 6], "prompt": "Siegel untersuchen", "sprite": "seal", "hidden": true },
-    { "id": "prints", "clue": "footprints", "tile": [21, 15], "prompt": "Spuren untersuchen", "sprite": "footprint", "hidden": true }
-  ],
-  "decor": [
-    { "sprite": "footprint", "tile": [20, 12], "hidden": true },
-    { "sprite": "footprint", "tile": [20, 13], "hidden": true },
-    { "sprite": "footprint", "tile": [21, 14], "hidden": true },
-    { "sprite": "footprint", "tile": [22, 16], "hidden": true }
-  ],
-  "npcs": [
-    {
-      "id": "greta",
-      "name": "Greta",
-      "role": "Blumenverkäuferin",
-      "tile": [10, 5],
-      "facing": "down",
-      "palette": { "coat": "#6e4a5c", "hat": "#3d2f3a", "skin": "#d9b38c", "hair": "#8a5a3a", "legs": "#3a3040" },
-      "dialogue": "greta"
-    },
-    {
-      "id": "halloway",
-      "name": "Mr. Halloway",
-      "role": "Pfandleiher",
-      "tile": [24, 16],
-      "facing": "left",
-      "palette": { "coat": "#4a5040", "hat": "#2a2a26", "skin": "#c9a07a", "hair": "#6b6b6b", "legs": "#2e2e2a" },
-      "dialogue": "halloway"
-    },
-    {
-      "id": "price",
-      "name": "Constable Price",
-      "role": "Polizei",
-      "tile": [4, 14],
-      "facing": "right",
-      "palette": { "coat": "#2c3550", "hat": "#1f2538", "skin": "#e0b894", "hair": "#4a3426", "legs": "#1f2538" },
-      "dialogue": "price"
-    }
-  ],
-  "dialogues": {
-    "greta": {
-      "start": "start",
-      "nodes": {
-        "start": {
-          "text": "Blumen für jemanden daheim? ... Ach, Sie sind der Ermittler. Wegen Elias, nicht wahr? Armer Kerl.",
-          "choices": [
-            { "text": "Was haben Sie letzte Nacht bemerkt?", "next": "night" },
-            { "text": "Kennen Sie dieses Symbol? Ein Auge in einem Kreis.", "next": "symbol", "requires_clues": ["wax_seal"] },
-            { "text": "Danke, das war alles." }
-          ]
-        },
-        "night": {
-          "text": "Gegen Mitternacht flackerten alle Laternen gleichzeitig. Und vom Kanal her kam ein Summen. Ein Wiegenlied. Mir standen die Haare zu Berge.",
-          "gives_clues": ["testimony_humming"],
-          "choices": [
-            { "text": "Ein Wiegenlied?", "next": "lullaby" },
-            { "text": "Noch etwas anderes ...", "next": "start" }
-          ]
-        },
-        "lullaby": {
-          "text": "\"Schlaf, Kind, das Wasser wacht.\" Meine Großmutter hat das gesungen. Heute singt das niemand mehr. Höchstens die alten Damen vom Kapellenchor, früher.",
-          "choices": [{ "text": "Verstehe.", "next": "start" }]
-        },
-        "symbol": {
-          "text": "Das ... das stand auf den Gesangbüchern von St. Ebba, bevor die Kapelle abbrannte. Die Chorleiterin hieß Vey. Miriam Vey. Eine kalte Frau.",
-          "gives_clues": ["chapel_choir"],
-          "choices": [{ "text": "Danke, Greta.", "next": "start" }]
-        }
-      }
-    },
-    "halloway": {
-      "start": "start",
-      "nodes": {
-        "start": {
-          "text": "Geschlossen. Kommen Sie morgen wieder.",
-          "choices": [
-            { "text": "Kannten Sie Elias Thorne?", "next": "elias" },
-            { "text": "Nasse, nackte Fußspuren führen vom Kanal direkt zu Ihrer Tür.", "next": "prints", "requires_clues": ["footprints"], "hide_if_clues": ["pawn_ledger"] },
-            { "text": "Zeigen Sie mir noch einmal das Pfandbuch.", "next": "ledger_again", "requires_clues": ["pawn_ledger"] },
-            { "text": "Elias ist nicht ertrunken. Er hat sich aus dem Kanal gezogen und ist zu Ihnen gekommen.", "next": "confess", "requires_conclusions": ["elias_alive"], "requires_clues": ["pawn_ledger"], "hide_if_clues": ["elias_hidden"] },
-            { "text": "Schon gut." }
-          ]
-        },
-        "elias": {
-          "text": "Jeder kannte ihn. Hat jeden Abend die Laternen angezündet. Mehr weiß ich nicht. Gute Nacht.",
-          "choices": [{ "text": "Hm.", "next": "start" }]
-        },
-        "prints": {
-          "text": "... Sie sind hartnäckig. Na gut. Elias war gestern hier und hat seinen silbernen Laternenschlüssel verpfändet. Eine Frau hat ihn noch am selben Abend gekauft. Hier, sehen Sie selbst ins Buch.",
-          "gives_clues": ["pawn_ledger"],
-          "choices": [
-            { "text": "Und was war heute Nacht?", "next": "lie" }
-          ]
-        },
-        "lie": {
-          "text": "Heute Nacht? Nichts. Ich habe nichts gehört. Gar nichts.",
-          "choices": [{ "text": "(Er weicht deinem Blick aus.)", "next": "start" }]
-        },
-        "ledger_again": {
-          "text": "\"Silberner Laternenschlüssel, verpfändet von E. Thorne. Verkauft am selben Abend an M. Vey.\" Zufrieden?",
-          "choices": [{ "text": "Fürs Erste.", "next": "start" }]
-        },
-        "confess": {
-          "text": "*seufzt* Er ist unten im Keller. Halb erfroren, redet immer wieder von einem Lied. Ich wollte nicht, dass sie ihn findet. Bitte, sagen Sie es nur jemandem, dem Sie trauen.",
-          "gives_clues": ["elias_hidden"],
-          "choices": [{ "text": "Ich kümmere mich darum.", "next": "start" }]
-        }
-      }
-    },
-    "price": {
-      "start": "start",
-      "nodes": {
-        "start": {
-          "text": "Ein Lampenanzünder fällt betrunken in den Kanal, und schon schicken sie mir einen Ermittler. Haben Sie was, oder verschwenden Sie meine Zeit?",
-          "choices": [
-            { "text": "Was wissen Sie bisher?", "next": "facts" },
-            { "text": "Ich weiß, was mit Elias passiert ist.", "next": "accuse" },
-            { "text": "Ich sehe mich noch um." }
-          ]
-        },
-        "facts": {
-          "text": "Elias Thorne, zweiundfünfzig, verschwunden seit Mitternacht. Seine Laterne an der Brücke ist aus. Ich tippe auf Gin und Kanal. Fall erledigt, wenn Sie mich fragen.",
-          "choices": [{ "text": "Wir werden sehen.", "next": "start" }]
-        },
-        "accuse": {
-          "text": "Na dann. Ich höre. Was ist mit Elias Thorne passiert?",
-          "choices": [
-            { "text": "Er war betrunken und ist im Kanal ertrunken.", "next": "end_drowned" },
-            { "text": "Miriam Vey hat ihn mit einem Ritual in den Kanal gelockt. Er ist tot.", "next": "end_half", "requires_conclusions": ["unnatural_cold", "vey_sigil"] },
-            { "text": "Miriam Vey wollte ihn mit einem Ritual holen. Aber Elias lebt, er versteckt sich im Keller des Pfandhauses.", "next": "end_good", "requires_conclusions": ["unnatural_cold", "vey_sigil", "elias_alive"] },
-            { "text": "Ich brauche noch etwas Zeit.", "next": "start" }
-          ]
-        },
-        "end_drowned": { "text": "Price nickt zufrieden und klappt sein Notizbuch zu.", "ending": "drowned" },
-        "end_half": { "text": "Price runzelt die Stirn, schreibt den Namen aber auf.", "ending": "half" },
-        "end_good": { "text": "Price starrt dich einen Moment an. Dann pfeift er nach zwei Constables.", "ending": "good" }
-      }
-    }
-  },
   "endings": {
-    "good": {
-      "title": "Fall gelöst",
-      "text": "Im Keller des Pfandhauses finden sie Elias Thorne: zitternd, aber am Leben. Von Miriam Vey fehlt jede Spur. Nur ein verkohltes Gesangbuch mit einem Auge auf dem Einband treibt am Morgen im Kanal.\n\nIn Ashgrove Lane brennen die Laternen wieder. Fürs Erste."
-    },
-    "half": {
-      "title": "Halb richtig",
-      "text": "Price glaubt dir das Ritual nicht, aber den Namen notiert er. Drei Tage später findet man Elias im Keller des Pfandhauses. Erfroren, mitten im Sommer.\n\nHättest du genauer hingesehen, wäre er vielleicht noch am Leben."
-    },
-    "drowned": {
-      "title": "Akte geschlossen",
-      "text": "Die Akte Elias Thorne wird geschlossen: Unfall unter Alkoholeinfluss.\n\nIn der nächsten Nacht erlischt in Ashgrove Lane die zweite Laterne."
-    }
+    "c1_good": { "case": "case_01", "title": "Fall gelöst", "honor": 20,
+      "sets_flags": ["case_01_closed", "elias_rescued"], "complete_quests": ["case_01"], "start_quests": ["report_01"],
+      "text": "Im Keller des Pfandhauses finden sie Elias Thorne: zitternd, aber am Leben. Von Miriam Vey fehlt jede Spur.\n\nPrice brummt etwas, das fast wie ein Lob klingt. Inspektorin Marlowe wird von dir hören wollen." },
+    "c1_half": { "case": "case_01", "title": "Halb richtig", "honor": 5,
+      "sets_flags": ["case_01_closed", "elias_dead"], "complete_quests": ["case_01"], "start_quests": ["report_01"],
+      "text": "Price notiert den Namen Vey. Drei Tage später findet man Elias im Keller des Pfandhauses. Erfroren, mitten im Mai.\n\nHättest du genauer hingesehen, wäre er vielleicht noch am Leben." },
+    "c1_drowned": { "case": "case_01", "title": "Akte geschlossen", "honor": -10,
+      "sets_flags": ["case_01_closed", "elias_dead", "c1_wrong"], "complete_quests": ["case_01"], "start_quests": ["report_01"],
+      "text": "Die Akte Elias Thorne wird geschlossen: Unfall unter Alkoholeinfluss. Du hast der Polizei ihre eigene falsche Geschichte geglaubt.\n\nIn der nächsten Nacht erlischt in Ashgrove Lane die zweite Laterne." }
   }
 }
