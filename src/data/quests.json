@@ -122,6 +122,14 @@
         }
       },
       {
+        "text": "Besiege, was Hester in der Krypta bewacht",
+        "done": {
+          "requires_flags": [
+            "warden_defeated"
+          ]
+        }
+      },
+      {
         "text": "Finde Hester",
         "done": {
           "requires_flags": [
@@ -262,6 +270,37 @@
     "reward": {
       "honor": 4,
       "honor_reason": "Ivy geholfen"
+    }
+  },
+  "fog_hound": {
+    "title": "Das Heulen am Kanal",
+    "kind": "side",
+    "case": "side",
+    "summary": "Greta hört nachts ein Heulen aus dem Nebel am Kanal. Etwas hat den Hund des Bäckers geholt.",
+    "steps": [
+      {
+        "text": "Frag in Ashgrove herum, was im Nebel lauert (optional: Kit)",
+        "done": {
+          "requires_flags": [
+            "hound_lore"
+          ]
+        }
+      },
+      {
+        "text": "Stell dich dem Ding am Ostende des Kanals",
+        "done": {
+          "requires_flags": [
+            "hound_defeated"
+          ]
+        }
+      }
+    ],
+    "reward": {
+      "honor": 5,
+      "honor_reason": "Den Nebelhund vertrieben",
+      "gives_items": {
+        "bannsalz": 1
+      }
     }
   }
 }

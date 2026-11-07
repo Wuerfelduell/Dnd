@@ -1,0 +1,154 @@
+{
+  "sparring": {
+    "name": "Sergeant Holt",
+    "sprite": "npc:holt",
+    "practice": true,
+    "fleeable": true,
+    "hp": 34,
+    "intro": "Holt krempelt die Ärmel hoch. „Leertaste zum Ausweichen, F zum Parieren. Wer im letzten Moment pariert, darf zurückschlagen.“",
+    "attacks": [
+      {
+        "name": "Gerader Stoß",
+        "damage": 5,
+        "hits": [
+          900
+        ]
+      },
+      {
+        "name": "Doppelschlag",
+        "damage": 4,
+        "hits": [
+          800,
+          1250
+        ]
+      },
+      {
+        "name": "Finte",
+        "damage": 6,
+        "hits": [
+          1500
+        ]
+      }
+    ],
+    "on_win": {},
+    "first_win": {
+      "gives_items": {
+        "verband": 1
+      },
+      "honor": 2,
+      "honor_reason": "Übungskampf gegen Holt gewonnen"
+    },
+    "win_text": "Holt landet auf dem Hosenboden und lacht. „Nicht schlecht! Wer so pariert, überlebt in Kettlegate eine Nacht länger.“"
+  },
+  "fog_hound": {
+    "name": "Nebelhund",
+    "sprite": "hound",
+    "occult": true,
+    "fleeable": true,
+    "hp": 34,
+    "intro": "Aus dem Nebel am Kanal schält sich etwas mit zu vielen Zähnen. Seine Augen glühen grün wie Veys Siegel.",
+    "attacks": [
+      {
+        "name": "Sprung",
+        "damage": 6,
+        "hits": [
+          1000
+        ]
+      },
+      {
+        "name": "Schnappen",
+        "damage": 4,
+        "hits": [
+          650,
+          950,
+          1250
+        ]
+      },
+      {
+        "name": "Lauern ... Biss",
+        "damage": 9,
+        "hits": [
+          1800
+        ]
+      }
+    ],
+    "weak_if": {
+      "requires_flags": [
+        "hound_lore"
+      ]
+    },
+    "weak_text": "Kit hat dir verraten, dass Licht den Hund blendet. Er weicht vor deiner Laterne zurück.",
+    "on_win": {
+      "sets_flags": [
+        "hound_defeated"
+      ],
+      "complete_quests": [
+        "fog_hound"
+      ]
+    },
+    "on_lose": {},
+    "lose_text": "Du wachst auf dem Pflaster auf. Der Hund ist fort, deine Rippen schmerzen. Greta hat dir einen Schal unter den Kopf geschoben.",
+    "win_text": "Der Hund zerfällt zu Nebel, der über das Geländer in den Kanal rinnt. Zurück bleibt ein Halsband mit einem eingebrannten Auge im Kreis."
+  },
+  "ash_warden": {
+    "name": "Aschewächter",
+    "sprite": "warden",
+    "occult": true,
+    "fleeable": false,
+    "hp": 46,
+    "intro": "Asche wirbelt vom Boden auf und formt eine Gestalt in einer Chorrobe. Wo das Gesicht sein sollte, glüht ein Auge im Kreis.",
+    "attacks": [
+      {
+        "name": "Aschenhieb",
+        "damage": 7,
+        "hits": [
+          1000
+        ]
+      },
+      {
+        "name": "Chorus",
+        "damage": 4,
+        "hits": [
+          700,
+          1000,
+          1300,
+          1600
+        ]
+      },
+      {
+        "name": "Zögern ... Schlag",
+        "damage": 10,
+        "hits": [
+          2000
+        ]
+      },
+      {
+        "name": "Zwei Stimmen",
+        "damage": 6,
+        "hits": [
+          900,
+          1600
+        ]
+      }
+    ],
+    "weak_if": {
+      "requires_flags": [
+        "box_destroyed"
+      ]
+    },
+    "weak_text": "Die Spieldose ist zerschlagen. Ohne ihre Melodie zerfällt der Wächter schneller.",
+    "on_win": {
+      "sets_flags": [
+        "warden_defeated"
+      ],
+      "honor": 4,
+      "honor_reason": "Aschewächter besiegt"
+    },
+    "lose_to": {
+      "map": "ebba",
+      "spawn": "altar"
+    },
+    "lose_text": "Kälte, dann nichts. Du kommst an der Treppe zur Krypta wieder zu dir. Irgendwer oder irgendetwas hat dich hinaufgeschleift.",
+    "win_text": "Der Wächter fällt in sich zusammen. Nur ein Häufchen Asche und ein verkohltes Notenblatt bleiben. Der Weg zu Hester ist frei."
+  }
+}

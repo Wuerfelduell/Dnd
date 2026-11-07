@@ -2,9 +2,20 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { GameState } from '../src/core/GameState.js';
-import { loadContent, talk, use } from './helpers.js';
+import { loadContent, talk, use, fight } from './helpers.js';
 
 const content = loadContent();
+
+/** Krypta: Bannsalz bei Anselm holen, den Aschewächter besiegen, dann ist Hester erreichbar. */
+function passWarden(s) {
+  const hester = content.maps.crypt.npcs.find((n) => n.id === 'hester');
+  assert.ok(!s.meets(hester.lock), 'Hester ist vor dem Kampf unerreichbar');
+  talk(s, 'anselm', ['Unheiliges']);
+  assert.equal(s.itemCount('bannsalz'), 2);
+  const { result } = fight(s, 'ash_warden', { defend: (i) => (i % 2 ? 'miss' : 'dodge'), items: ['bannsalz', 'bannsalz'], healBelow: 15 });
+  assert.equal(result.outcome, 'won');
+  assert.ok(s.meets(hester.lock));
+}
 
 function playCase1(s, { sidequests = true } = {}) {
   talk(s, 'marlowe', ['auf den Weg']);
@@ -90,6 +101,7 @@ test('Fall 2: gutes Ende mit minimalem Ansehen (keine Rang-Abkürzungen)', () =>
   use(s, 'ebba', 'draft');
   assert.equal(s.factStatus('crypt'), 'likely');
   use(s, 'ebba', 'hymn');
+  passWarden(s);
   talk(s, 'hester', []);
   talk(s, 'musicbox', ['Lieber nichts']);
   assert.equal(s.combine('song_calls', 'lullaby_for_lilian').result, 'new');
@@ -120,6 +132,7 @@ test('Fall 2: perfektes Ende braucht Ansehen (Archiv oder Inspektorin)', () => {
   use(s, 'ebba', 'jacket');
   talk(s, 'anselm', ['nachts']);
   use(s, 'ebba', 'hymn');
+  passWarden(s);
   talk(s, 'hester', []);
   talk(s, 'musicbox', ['Lieber nichts']);
   s.combine('dug_by_moll', 'paid_by_vey');

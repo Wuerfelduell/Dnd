@@ -27,6 +27,9 @@ function checkRefs(o, where) {
     for (const k of keys) for (const id of o[k] ?? []) assert.ok(exists[kind](id), `${where}: ${k} -> ${id} existiert nicht`);
   }
   if (o.ending) assert.ok(content.endings[o.ending], `${where}: Ende ${o.ending} fehlt`);
+  for (const k of ['requires_items', 'hide_if_items']) for (const id of o[k] ?? []) assert.ok(content.items[id], `${where}: ${k} -> ${id} existiert nicht`);
+  for (const k of ['gives_items', 'takes_items']) for (const id of Object.keys(o[k] ?? {})) assert.ok(content.items[id], `${where}: ${k} -> ${id} existiert nicht`);
+  if (o.combat) assert.ok(content.encounters[o.combat], `${where}: Kampf ${o.combat} fehlt`);
 }
 
 test('Karten sind rechteckig, nutzen bekannte Zeichen, Figuren stehen auf freien Feldern', () => {
@@ -42,12 +45,14 @@ test('Karten sind rechteckig, nutzen bekannte Zeichen, Figuren stehen auf freien
       assert.ok(content.npcs[n.id], `${id}: Figur ${n.id} fehlt in campaign.json`);
       assert.ok(WALKABLE.has(at(n.tile)), `${id}: ${n.id} steht auf "${at(n.tile)}"`);
       checkRefs(n.visible_if, `${id}/${n.id}`);
+      checkRefs(n.lock, `${id}/${n.id}`);
     }
     for (const i of m.interactables ?? []) {
       assert.ok(at(i.tile) !== undefined, `${id}/${i.id} außerhalb`);
       if (!i.kind || i.kind === 'clue') assert.ok(content.clues[i.clue], `${id}/${i.id}: Hinweis ${i.clue}`);
       if (i.kind === 'door') assert.ok(content.maps[i.to]?.spawns[i.spawn], `${id}/${i.id}: Ziel ${i.to}/${i.spawn}`);
       if (i.kind === 'dialogue') assert.ok(content.dialogues[i.dialogue], `${id}/${i.id}: Dialog ${i.dialogue}`);
+      if (i.kind === 'combat') assert.ok(content.encounters[i.encounter], `${id}/${i.id}: Kampf ${i.encounter}`);
       checkRefs(i.visible_if, `${id}/${i.id}`);
       checkRefs(i.lock, `${id}/${i.id}`);
       checkRefs(i.effects, `${id}/${i.id}`);
@@ -105,5 +110,23 @@ test('Jede Information, die für ein gutes Ende nötig ist, hat mindestens zwei 
     const d = content.deductions.find((x) => x.id === id);
     const ok = d.pairs.some((p) => p.every((f) => Object.values(content.clues).filter((c) => c.fact === f).length >= 2));
     assert.ok(ok, `${id}: kein Paar mit je zwei Quellen`);
+  }
+});
+
+test('Gegenstände und Kämpfe sind vollständig', () => {
+  const start = content.start;
+  for (const id of Object.keys(start.items ?? {})) assert.ok(content.items[id], `Startgegenstand ${id}`);
+  assert.ok(content.items[start.weapon]?.kind === 'weapon', 'Startwaffe');
+  for (const [id, it] of Object.entries(content.items)) {
+    assert.ok(['weapon', 'consumable', 'key'].includes(it.kind), `${id}: Art ${it.kind}`);
+    if (it.kind === 'weapon') assert.ok(it.atk > 0, `${id}: Angriff`);
+    if (it.kind === 'consumable') assert.ok(it.heal || it.composure || it.damage, `${id}: Wirkung`);
+  }
+  for (const [id, e] of Object.entries(content.encounters)) {
+    assert.ok(e.hp > 0 && e.attacks.length, `${id}: Leben und Attacken`);
+    for (const a of e.attacks) assert.ok(a.damage > 0 && a.hits.length && a.hits.every((h, i) => h >= 500 && (i === 0 || h - a.hits[i - 1] >= 250)), `${id}/${a.name}: Schläge zu dicht`);
+    if (e.sprite.startsWith('npc:')) assert.ok(content.npcs[e.sprite.slice(4)], `${id}: Figur`);
+    for (const k of ['on_win', 'on_lose', 'first_win', 'weak_if']) checkRefs(e[k], `${id}.${k}`);
+    if (e.lose_to) assert.ok(content.maps[e.lose_to.map]?.spawns[e.lose_to.spawn], `${id}: lose_to`);
   }
 });

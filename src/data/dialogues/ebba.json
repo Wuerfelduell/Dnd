@@ -1,48 +1,128 @@
 {
   "ivy": {
     "start": [
-      { "node": "after_good", "requires_flags": ["hester_saved"] },
-      { "node": "after_bad", "requires_flags": ["hester_lost"] },
-      { "node": "start" }
+      {
+        "node": "after_good",
+        "requires_flags": [
+          "hester_saved"
+        ]
+      },
+      {
+        "node": "after_bad",
+        "requires_flags": [
+          "hester_lost"
+        ]
+      },
+      {
+        "node": "start"
+      }
     ],
     "nodes": {
       "start": {
         "text": "Sind Sie von der Polizei? Bitte, Sie müssen Hester finden. Alle sagen, sie sei weggelaufen. Das stimmt nicht!",
         "choices": [
-          { "text": "Erzähl mir von der Nacht.", "next": "night", "hide_if_clues": ["ivy_saw_moll"] },
-          { "text": "Hat Hester etwas hinterlassen?", "next": "diary", "hide_if_clues": ["hester_diary"] },
-          { "text": "Hast du etwas verloren?", "next": "med", "hide_if_quests": ["medallion"] },
-          { "text": "Ich habe Hesters Medaillon gefunden. Es lag in der Ruine.", "next": "returned", "requires_clues": ["medallion"], "hide_if_flags": ["medallion_returned"] },
-          { "text": "Ich tue, was ich kann." }
+          {
+            "text": "Erzähl mir von der Nacht.",
+            "next": "night",
+            "hide_if_clues": [
+              "ivy_saw_moll"
+            ]
+          },
+          {
+            "text": "Hat Hester etwas hinterlassen?",
+            "next": "diary",
+            "hide_if_clues": [
+              "hester_diary"
+            ]
+          },
+          {
+            "text": "Hast du etwas verloren?",
+            "next": "med",
+            "hide_if_quests": [
+              "medallion"
+            ]
+          },
+          {
+            "text": "Ich habe Hesters Medaillon gefunden. Es lag in der Ruine.",
+            "next": "returned",
+            "requires_clues": [
+              "medallion"
+            ],
+            "hide_if_flags": [
+              "medallion_returned"
+            ]
+          },
+          {
+            "text": "Ich tue, was ich kann."
+          }
         ]
       },
       "night": {
         "text": "Ich konnte nicht schlafen. Hester war schon fort. Vom Fenster aus sah ich den Totengräber mit seiner Laterne, hinten bei den Kindergräbern. Mitten in der Nacht.",
-        "gives_clues": ["ivy_saw_moll"],
-        "choices": [{ "text": "Danke, Ivy.", "next": "start" }]
+        "gives_clues": [
+          "ivy_saw_moll"
+        ],
+        "choices": [
+          {
+            "text": "Danke, Ivy.",
+            "next": "start"
+          }
+        ]
       },
       "diary": {
         "text": "Ihr Tagebuch. Ich habe es gelesen, obwohl ich das nicht darf. Hier. Lesen Sie die letzte Seite.",
-        "gives_clues": ["hester_diary"],
-        "choices": [{ "text": "Ich passe darauf auf.", "next": "start" }]
+        "gives_clues": [
+          "hester_diary"
+        ],
+        "choices": [
+          {
+            "text": "Ich passe darauf auf.",
+            "next": "start"
+          }
+        ]
       },
       "med": {
         "text": "Hester trug Großmutters Medaillon. Sie hat es nie abgelegt. Es ist auch fort. Wenn Sie es finden, wissen Sie, wo sie war.",
-        "start_quests": ["medallion"],
-        "choices": [{ "text": "Ich suche danach.", "next": "start" }]
+        "start_quests": [
+          "medallion"
+        ],
+        "choices": [
+          {
+            "text": "Ich suche danach.",
+            "next": "start"
+          }
+        ]
       },
       "returned": {
         "text": "In der Ruine? Dann war sie wirklich dort, und nicht auf dem Weg aus der Stadt! Danke. Bitte, finden Sie auch sie.",
-        "sets_flags": ["medallion_returned"], "complete_quests": ["medallion"],
-        "choices": [{ "text": "Versprochen.", "next": "start" }]
+        "sets_flags": [
+          "medallion_returned"
+        ],
+        "complete_quests": [
+          "medallion"
+        ],
+        "choices": [
+          {
+            "text": "Versprochen.",
+            "next": "start"
+          }
+        ]
       },
       "after_good": {
         "text": "Hester schläft zu Hause. Sie erinnert sich an nichts. Ich werde nie vergessen, was Sie getan haben.",
-        "choices": [{ "text": "Pass auf sie auf." }]
+        "choices": [
+          {
+            "text": "Pass auf sie auf."
+          }
+        ]
       },
       "after_bad": {
         "text": "Gehen Sie. Bitte. Gehen Sie einfach.",
-        "choices": [{ "text": "..." }]
+        "choices": [
+          {
+            "text": "..."
+          }
+        ]
       }
     }
   },
@@ -52,41 +132,141 @@
       "start": {
         "text": "Gott zum Gruße. Sie kommen wegen des Grabes? Oder wegen des Mädchens?",
         "choices": [
-          { "text": "Erzählen Sie mir vom Grab.", "next": "grave", "hide_if_clues": ["anselm_grave"] },
-          { "text": "Haben Sie nachts etwas gehört?", "next": "song", "hide_if_clues": ["anselm_song"] },
-          { "text": "Wer könnte das Grab geöffnet haben?", "next": "who", "hide_if_clues": ["anselm_silver"] },
-          { "text": "Gibt es hier Räume unter der Kapelle?", "next": "crypt", "requires_honor": 35, "hide_if_clues": ["anselm_crypt"] },
-          { "text": "Man sagt, Sie verkaufen Grabbeigaben.", "next": "accused", "requires_any_clues": ["moll_blames", "rook_anselm"], "hide_if_clues": ["anselm_book"] },
-          { "text": "Gott zum Gruße." }
+          {
+            "text": "Erzählen Sie mir vom Grab.",
+            "next": "grave",
+            "hide_if_clues": [
+              "anselm_grave"
+            ]
+          },
+          {
+            "text": "Haben Sie nachts etwas gehört?",
+            "next": "song",
+            "hide_if_clues": [
+              "anselm_song"
+            ]
+          },
+          {
+            "text": "Wer könnte das Grab geöffnet haben?",
+            "next": "who",
+            "hide_if_clues": [
+              "anselm_silver"
+            ]
+          },
+          {
+            "text": "Gibt es hier Räume unter der Kapelle?",
+            "next": "crypt",
+            "requires_honor": 35,
+            "hide_if_clues": [
+              "anselm_crypt"
+            ]
+          },
+          {
+            "text": "Man sagt, Sie verkaufen Grabbeigaben.",
+            "next": "accused",
+            "requires_any_clues": [
+              "moll_blames",
+              "rook_anselm"
+            ],
+            "hide_if_clues": [
+              "anselm_book"
+            ]
+          },
+          {
+            "text": "Haben Sie etwas gegen ... Unheiliges?",
+            "next": "salt",
+            "requires_facts": [
+              "crypt"
+            ],
+            "hide_if_flags": [
+              "got_salt"
+            ]
+          },
+          {
+            "text": "Gott zum Gruße."
+          }
         ]
       },
       "grave": {
         "text": "Jemand hat Lilians Grab geöffnet. Lilian Vey, die Tochter der Chorleiterin. Das Kind lag in der Erde mit seiner Spieldose. Die ist fort.",
-        "gives_clues": ["anselm_grave"],
-        "choices": [{ "text": "Eine Spieldose?", "next": "box" }]
+        "gives_clues": [
+          "anselm_grave"
+        ],
+        "choices": [
+          {
+            "text": "Eine Spieldose?",
+            "next": "box"
+          }
+        ]
       },
       "box": {
         "text": "Sie spielte immer dasselbe Wiegenlied. Die Mutter hat es ihr jeden Abend vorgesungen. Damals, als hier noch gesungen wurde.",
-        "choices": [{ "text": "Danke.", "next": "start" }]
+        "choices": [
+          {
+            "text": "Danke.",
+            "next": "start"
+          }
+        ]
       },
       "song": {
         "text": "Nachts singt es in der Ruine. Ein Wiegenlied. Und neulich lief ein Mädchen im Nachthemd an mir vorbei, als hätte es mich nicht gesehen. Ich dachte, ich träume.",
-        "gives_clues": ["anselm_song"],
-        "choices": [{ "text": "Ein Mädchen im Nachthemd ...", "next": "start" }]
+        "gives_clues": [
+          "anselm_song"
+        ],
+        "choices": [
+          {
+            "text": "Ein Mädchen im Nachthemd ...",
+            "next": "start"
+          }
+        ]
       },
       "who": {
         "text": "Ich will niemanden beschuldigen. Aber Moll, der Totengräber, zahlt seit einer Woche im Wirtshaus mit Silber. Ein Totengräber! Woher hat er das?",
-        "gives_clues": ["anselm_silver"],
-        "choices": [{ "text": "Gute Frage.", "next": "start" }]
+        "gives_clues": [
+          "anselm_silver"
+        ],
+        "choices": [
+          {
+            "text": "Gute Frage.",
+            "next": "start"
+          }
+        ]
       },
       "crypt": {
         "text": "Ihnen, einem Ermittler des Reviers, kann ich es sagen. Unter dem Altar gibt es eine Krypta. Der Eingang wurde nach dem Brand zugemauert. Dachte ich jedenfalls.",
-        "gives_clues": ["anselm_crypt"],
-        "choices": [{ "text": "Danke für Ihr Vertrauen.", "next": "start" }]
+        "gives_clues": [
+          "anselm_crypt"
+        ],
+        "choices": [
+          {
+            "text": "Danke für Ihr Vertrauen.",
+            "next": "start"
+          }
+        ]
       },
       "accused": {
         "text": "Wer sagt das? Moll? Oder dieser junge Constable? Sehen Sie in mein Kassenbuch, es liegt hinten auf dem Stein. Jede Münze ist verzeichnet.",
-        "choices": [{ "text": "Das werde ich.", "next": "start" }]
+        "choices": [
+          {
+            "text": "Das werde ich.",
+            "next": "start"
+          }
+        ]
+      },
+      "salt": {
+        "text": "Sie wollen hinunter. Ich sehe es Ihnen an.\n\nNehmen Sie das. Geweihtes Salz, noch vom alten Pfarrer. Werfen Sie es, wenn etwas aus Asche nach Ihnen greift. Und kommen Sie lebend wieder herauf.",
+        "gives_items": {
+          "bannsalz": 2
+        },
+        "sets_flags": [
+          "got_salt"
+        ],
+        "choices": [
+          {
+            "text": "Danke, Küster.",
+            "next": "start"
+          }
+        ]
       }
     }
   },
@@ -96,72 +276,212 @@
       "start": {
         "text": "Ich grab nur. Ich red nicht.",
         "choices": [
-          { "text": "Lilian Veys Grab wurde geöffnet.", "next": "blame", "requires_clues": ["open_grave"], "hide_if_clues": ["moll_blames"] },
-          { "text": "Sie haben das Grab geöffnet, und Vey hat Sie dafür in Silber bezahlt.", "next": "confess", "requires_conclusions": ["grave_for_vey"], "hide_if_clues": ["moll_confession"] },
-          { "text": "Revier Kettlegate. Reden Sie jetzt, oder Sie reden in der Zelle.", "next": "confess", "requires_honor": 50, "hide_if_clues": ["moll_confession"] },
-          { "text": "Schon gut." }
+          {
+            "text": "Lilian Veys Grab wurde geöffnet.",
+            "next": "blame",
+            "requires_clues": [
+              "open_grave"
+            ],
+            "hide_if_clues": [
+              "moll_blames"
+            ]
+          },
+          {
+            "text": "Sie haben das Grab geöffnet, und Vey hat Sie dafür in Silber bezahlt.",
+            "next": "confess",
+            "requires_conclusions": [
+              "grave_for_vey"
+            ],
+            "hide_if_clues": [
+              "moll_confession"
+            ]
+          },
+          {
+            "text": "Revier Kettlegate. Reden Sie jetzt, oder Sie reden in der Zelle.",
+            "next": "confess",
+            "requires_honor": 50,
+            "hide_if_clues": [
+              "moll_confession"
+            ]
+          },
+          {
+            "text": "Schon gut."
+          }
         ]
       },
       "blame": {
         "text": "Und? Ich hab's nicht gewesen. Fragen Sie doch den Küster! Der verkauft heimlich Sachen aus den Gräbern. Ich grab nur.",
-        "gives_clues": ["moll_blames"],
-        "choices": [{ "text": "Wir sprechen uns noch.", "next": "start" }]
+        "gives_clues": [
+          "moll_blames"
+        ],
+        "choices": [
+          {
+            "text": "Wir sprechen uns noch.",
+            "next": "start"
+          }
+        ]
       },
       "confess": {
         "text": "*Er lässt den Spaten sinken.* Sie hat bezahlt. Miriam. Ich schulde ihr was, von früher. Ich sollte die Spieldose der Kleinen holen.\n\nSie ist unten. Unter dem Altar. Das Mädchen auch. Ich wollte das nicht.",
-        "gives_clues": ["moll_confession"], "sets_flags": ["moll_confessed"],
-        "choices": [{ "text": "Rühren Sie sich nicht von der Stelle." }]
+        "gives_clues": [
+          "moll_confession"
+        ],
+        "sets_flags": [
+          "moll_confessed"
+        ],
+        "choices": [
+          {
+            "text": "Rühren Sie sich nicht von der Stelle."
+          }
+        ]
       }
     }
   },
   "kit_ebba": {
-    "start": [{ "node": "done", "requires_clues": ["kit_moll_night"] }, { "node": "start" }],
+    "start": [
+      {
+        "node": "done",
+        "requires_clues": [
+          "kit_moll_night"
+        ]
+      },
+      {
+        "node": "start"
+      }
+    ],
     "nodes": {
       "start": {
         "text": "Mister! Hab auf dich gewartet. Wie abgemacht, Augen offen gehalten. Moll hat nachts gebuddelt, hinten bei den kleinen Gräbern. Dann is' er mit 'ner Kiste in die Ruine.",
-        "gives_clues": ["kit_moll_night"],
-        "choices": [{ "text": "Gute Arbeit, Kit." }]
+        "gives_clues": [
+          "kit_moll_night"
+        ],
+        "choices": [
+          {
+            "text": "Gute Arbeit, Kit."
+          }
+        ]
       },
-      "done": { "text": "Ich bleib in der Nähe, Mister.", "choices": [{ "text": "Danke." }] }
+      "done": {
+        "text": "Ich bleib in der Nähe, Mister.",
+        "choices": [
+          {
+            "text": "Danke."
+          }
+        ]
+      }
     }
   },
   "hester": {
-    "start": [{ "node": "again", "requires_flags": ["hester_found"] }, { "node": "start" }],
+    "start": [
+      {
+        "node": "again",
+        "requires_flags": [
+          "hester_found"
+        ]
+      },
+      {
+        "node": "start"
+      }
+    ],
     "nodes": {
       "start": {
         "text": "*Hester steht im Kreis. Ihre Augen sind offen, aber leer. Sie summt.*\n\n„... schlaf, Kind, das Wasser wacht ...“",
-        "sets_flags": ["hester_found"],
-        "choices": [{ "text": "Hester! Wach auf!", "next": "nowake" }]
+        "sets_flags": [
+          "hester_found"
+        ],
+        "choices": [
+          {
+            "text": "Hester! Wach auf!",
+            "next": "nowake"
+          }
+        ]
       },
       "nowake": {
         "text": "Sie reagiert nicht. Ihre Hände sind eiskalt. Allein bekommst du sie hier nicht heraus. Das Revier muss Hilfe schicken. Sag Inspektorin Marlowe, was du herausgefunden hast.",
-        "choices": [{ "text": "Halte durch, Hester." }]
+        "choices": [
+          {
+            "text": "Halte durch, Hester."
+          }
+        ]
       },
-      "again": { "text": "*Sie summt weiter, kaum hörbar.*", "choices": [{ "text": "Ich hole Hilfe." }] }
+      "again": {
+        "text": "*Sie summt weiter, kaum hörbar.*",
+        "choices": [
+          {
+            "text": "Ich hole Hilfe."
+          }
+        ]
+      }
     }
   },
   "musicbox": {
-    "start": [{ "node": "broken", "requires_flags": ["box_destroyed"] }, { "node": "start" }],
+    "start": [
+      {
+        "node": "broken",
+        "requires_flags": [
+          "box_destroyed"
+        ]
+      },
+      {
+        "node": "start"
+      }
+    ],
     "nodes": {
       "start": {
         "text": "Eine kleine Spieldose aus rotem Holz, kalt wie Eis. Sie spielt von selbst. Mit jedem Ton wird Hester ein wenig blasser.",
-        "gives_clues": ["music_box", "box_engraving"],
+        "gives_clues": [
+          "music_box",
+          "box_engraving"
+        ],
         "choices": [
-          { "text": "Die Spieldose zerschlagen.", "next": "smash", "requires_conclusions": ["vey_motive"] },
-          { "text": "Die Spieldose zerschlagen.", "next": "smash_unsure", "hide_if_conclusions": ["vey_motive"] },
-          { "text": "Lieber nichts anfassen." }
+          {
+            "text": "Die Spieldose zerschlagen.",
+            "next": "smash",
+            "requires_conclusions": [
+              "vey_motive"
+            ]
+          },
+          {
+            "text": "Die Spieldose zerschlagen.",
+            "next": "smash_unsure",
+            "hide_if_conclusions": [
+              "vey_motive"
+            ]
+          },
+          {
+            "text": "Lieber nichts anfassen."
+          }
         ]
       },
       "smash": {
         "text": "Das Holz splittert. Die Melodie bricht mitten im Ton ab. Hester holt tief Luft, als wäre sie aus tiefem Wasser aufgetaucht, und schläft dann ruhig weiter.",
-        "sets_flags": ["box_destroyed"], "honor": 5, "honor_reason": "Ritual unterbrochen",
-        "choices": [{ "text": "Weiter." }]
+        "sets_flags": [
+          "box_destroyed"
+        ],
+        "honor": 5,
+        "honor_reason": "Ritual unterbrochen",
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
       },
       "smash_unsure": {
         "text": "Deine Hand zögert. Du weißt nicht, was diese Spieldose ist und was geschieht, wenn du sie zerstörst. Verstehe zuerst, was Vey wirklich will.",
-        "choices": [{ "text": "(Notizbuch: Was will Vey?)" }]
+        "choices": [
+          {
+            "text": "(Notizbuch: Was will Vey?)"
+          }
+        ]
       },
-      "broken": { "text": "Nur noch Splitter und ein verstummter Kamm aus Messing.", "choices": [{ "text": "Weiter." }] }
+      "broken": {
+        "text": "Nur noch Splitter und ein verstummter Kamm aus Messing.",
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      }
     }
   }
 }

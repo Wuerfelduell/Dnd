@@ -114,6 +114,69 @@
       "prompt": "Gitter untersuchen",
       "sprite": "seal",
       "hidden": true
+    },
+    {
+      "id": "medkit",
+      "kind": "read",
+      "tile": [
+        28,
+        10
+      ],
+      "sprite": "medkit",
+      "prompt": "Verbandskasten öffnen",
+      "title": "Verbandskasten",
+      "text": "Ein Blechkasten mit rotem Kreuz. Zwei saubere Verbände liegen obenauf. Niemand wird sie vermissen.",
+      "done_flag": "took_medkit",
+      "effects": {
+        "gives_items": {
+          "verband": 2
+        }
+      },
+      "lock": {
+        "hide_if_flags": [
+          "took_medkit"
+        ],
+        "text": "Der Kasten ist leer. Holt wird ihn irgendwann auffüllen.",
+        "footer": ""
+      }
+    },
+    {
+      "id": "cot",
+      "kind": "rest",
+      "tile": [
+        27,
+        7
+      ],
+      "sprite": "cot",
+      "prompt": "Auf der Pritsche ausruhen",
+      "marker": false,
+      "title": "Pritsche im Wachraum",
+      "text": "Du legst dich eine Stunde hin. Durch die Wand hörst du Holt schnarchen. Als du aufstehst, schmerzt nichts mehr."
+    },
+    {
+      "id": "evidence",
+      "kind": "read",
+      "tile": [
+        27,
+        2
+      ],
+      "sprite": "file",
+      "prompt": "Asservatenschrank öffnen",
+      "marker": false,
+      "title": "Asservatenkammer",
+      "text": "Beschlagnahmte Dinge aus alten Fällen. Ganz hinten ein Stockdegen mit Silbereinlage, laut Zettel aus dem Nachlass eines Exorzisten, und zwei Beutel geweihtes Salz.\n\nMarlowe hat einen Zettel angeheftet: „Für den Vertrauten des Reviers. Bringen Sie ihn heil zurück.“",
+      "done_flag": "took_evidence",
+      "effects": {
+        "gives_items": {
+          "stockdegen": 1,
+          "bannsalz": 2
+        }
+      },
+      "lock": {
+        "requires_honor": 50,
+        "text": "Abgeschlossen. Den Schlüssel bekommen nur Vertraute des Reviers.",
+        "footer": "Benötigt Rang Vertrauter des Reviers (Ansehen 50)."
+      }
     }
   ],
   "decor": [],

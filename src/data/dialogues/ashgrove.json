@@ -1,69 +1,287 @@
 {
   "greta": {
-    "start": [{ "node": "after", "requires_flags": ["case_01_closed"] }, { "node": "start" }],
+    "start": [
+      {
+        "node": "after",
+        "requires_flags": [
+          "case_01_closed"
+        ]
+      },
+      {
+        "node": "start"
+      }
+    ],
     "nodes": {
       "start": {
         "text": "Blumen für jemanden daheim? ... Ach, Sie sind der Ermittler. Wegen Elias, nicht wahr? Armer Kerl.",
         "choices": [
-          { "text": "Was haben Sie letzte Nacht bemerkt?", "next": "night", "hide_if_clues": ["testimony_humming"] },
-          { "text": "Ist Ihnen an der Brückenlaterne etwas aufgefallen?", "next": "frost", "requires_clues": ["frosted_lamp"], "hide_if_clues": ["greta_frost"] },
-          { "text": "Hat in letzter Zeit jemand nach Elias gefragt?", "next": "grey", "hide_if_clues": ["greta_grey_woman"] },
-          { "text": "Constable Price sagt, Elias habe getrunken.", "next": "sober", "requires_clues": ["price_drunk"], "hide_if_clues": ["greta_sober"] },
-          { "text": "Kennen Sie dieses Symbol? Ein Auge in einem Kreis.", "next": "symbol", "requires_clues": ["wax_seal"], "hide_if_clues": ["chapel_choir"] },
-          { "text": "Sie wirken aufgebracht.", "next": "theft", "hide_if_quests": ["pickpocket"] },
-          { "text": "Ich habe mich um Ihre Kasse gekümmert.", "next": "thanks", "requires_flags": ["kit_resolved"], "hide_if_flags": ["greta_thanked"] },
-          { "text": "Danke, das war alles." }
+          {
+            "text": "Was haben Sie letzte Nacht bemerkt?",
+            "next": "night",
+            "hide_if_clues": [
+              "testimony_humming"
+            ]
+          },
+          {
+            "text": "Ist Ihnen an der Brückenlaterne etwas aufgefallen?",
+            "next": "frost",
+            "requires_clues": [
+              "frosted_lamp"
+            ],
+            "hide_if_clues": [
+              "greta_frost"
+            ]
+          },
+          {
+            "text": "Hat in letzter Zeit jemand nach Elias gefragt?",
+            "next": "grey",
+            "hide_if_clues": [
+              "greta_grey_woman"
+            ]
+          },
+          {
+            "text": "Constable Price sagt, Elias habe getrunken.",
+            "next": "sober",
+            "requires_clues": [
+              "price_drunk"
+            ],
+            "hide_if_clues": [
+              "greta_sober"
+            ]
+          },
+          {
+            "text": "Kennen Sie dieses Symbol? Ein Auge in einem Kreis.",
+            "next": "symbol",
+            "requires_clues": [
+              "wax_seal"
+            ],
+            "hide_if_clues": [
+              "chapel_choir"
+            ]
+          },
+          {
+            "text": "Sie wirken aufgebracht.",
+            "next": "theft",
+            "hide_if_quests": [
+              "pickpocket"
+            ]
+          },
+          {
+            "text": "Ich habe mich um Ihre Kasse gekümmert.",
+            "next": "thanks",
+            "requires_flags": [
+              "kit_resolved"
+            ],
+            "hide_if_flags": [
+              "greta_thanked"
+            ]
+          },
+          {
+            "text": "Haben Sie das Heulen am Kanal gehört?",
+            "next": "hound",
+            "requires_flags": [
+              "briefed_01"
+            ],
+            "hide_if_quests": [
+              "fog_hound"
+            ]
+          },
+          {
+            "text": "Der Hund vom Kanal kommt nicht wieder.",
+            "next": "hound_done",
+            "requires_flags": [
+              "hound_defeated"
+            ],
+            "hide_if_flags": [
+              "greta_hound_thanked"
+            ]
+          },
+          {
+            "text": "Danke, das war alles."
+          }
         ]
       },
       "night": {
         "text": "Gegen Mitternacht flackerten alle Laternen gleichzeitig. Und vom Kanal kam ein Summen. Ein Wiegenlied. Mir standen die Haare zu Berge.",
-        "gives_clues": ["testimony_humming"],
-        "choices": [{ "text": "Ein Wiegenlied?", "next": "lullaby" }, { "text": "Noch etwas anderes ...", "next": "start" }]
+        "gives_clues": [
+          "testimony_humming"
+        ],
+        "choices": [
+          {
+            "text": "Ein Wiegenlied?",
+            "next": "lullaby"
+          },
+          {
+            "text": "Noch etwas anderes ...",
+            "next": "start"
+          }
+        ]
       },
       "lullaby": {
         "text": "„Schlaf, Kind, das Wasser wacht.“ Meine Großmutter hat das gesungen. Heute singt das niemand mehr. Höchstens die Damen vom alten Kapellenchor, früher.",
-        "choices": [{ "text": "Verstehe.", "next": "start" }]
+        "choices": [
+          {
+            "text": "Verstehe.",
+            "next": "start"
+          }
+        ]
       },
       "frost": {
         "text": "Und ob! Heute früh war das Glas weiß wie Raureif. Im Mai! Ich hab's mit eigenen Augen gesehen, bevor die Sonne kam.",
-        "gives_clues": ["greta_frost"],
-        "choices": [{ "text": "Danke.", "next": "start" }]
+        "gives_clues": [
+          "greta_frost"
+        ],
+        "choices": [
+          {
+            "text": "Danke.",
+            "next": "start"
+          }
+        ]
       },
       "grey": {
         "text": "Jetzt, wo Sie es sagen: Gestern Abend kam eine Frau im grauen Mantel. Fragte, ob Elias den alten Silberschlüssel noch hat. Sie nannte sich Vey. Kalte Augen.",
-        "gives_clues": ["greta_grey_woman"],
-        "choices": [{ "text": "Ein Silberschlüssel?", "next": "key" }]
+        "gives_clues": [
+          "greta_grey_woman"
+        ],
+        "choices": [
+          {
+            "text": "Ein Silberschlüssel?",
+            "next": "key"
+          }
+        ]
       },
       "key": {
         "text": "Für die alten Laternen am Kanal. Elias war stolz drauf. Aber er war knapp bei Kasse, das wussten alle.",
-        "choices": [{ "text": "Danke, Greta.", "next": "start" }]
+        "choices": [
+          {
+            "text": "Danke, Greta.",
+            "next": "start"
+          }
+        ]
       },
       "sober": {
         "text": "Elias und Gin? Unsinn! Der hat seit seiner Hochzeit keinen Tropfen angerührt. Price erzählt viel, wenn der Tag lang ist.",
-        "gives_clues": ["greta_sober"],
-        "choices": [{ "text": "Gut zu wissen.", "next": "start" }]
+        "gives_clues": [
+          "greta_sober"
+        ],
+        "choices": [
+          {
+            "text": "Gut zu wissen.",
+            "next": "start"
+          }
+        ]
       },
       "symbol": {
         "text": "Das Auge? Damit haben die Damen vom Chor von St. Ebba ihre Briefe gesiegelt, bevor die Kapelle abbrannte. Die Chorleiterin hieß Miriam Vey.",
-        "gives_clues": ["chapel_choir"],
-        "choices": [{ "text": "Vey ...", "next": "start" }]
+        "gives_clues": [
+          "chapel_choir"
+        ],
+        "choices": [
+          {
+            "text": "Vey ...",
+            "next": "start"
+          }
+        ]
       },
       "theft": {
         "text": "Aufgebracht? Mir hat so ein Bengel die Kasse geklaut, gestern Abend! Ein Junge in einem viel zu großen Mantel. Kit heißt der, treibt sich immer am Ostende rum.",
-        "gives_clues": ["greta_boy"], "start_quests": ["pickpocket"],
-        "choices": [{ "text": "Ich kümmere mich darum.", "next": "start" }]
+        "gives_clues": [
+          "greta_boy"
+        ],
+        "start_quests": [
+          "pickpocket"
+        ],
+        "choices": [
+          {
+            "text": "Ich kümmere mich darum.",
+            "next": "start"
+          }
+        ]
       },
       "thanks": {
         "text": "Sie sind ein Schatz! Hier, eine Nelke fürs Knopfloch. Ich erzähle allen, dass das Revier endlich jemanden hat, der was taugt.",
-        "sets_flags": ["greta_thanked"], "honor": 1, "honor_reason": "Greta erzählt herum",
-        "choices": [{ "text": "Gern geschehen.", "next": "start" }]
+        "sets_flags": [
+          "greta_thanked"
+        ],
+        "honor": 1,
+        "honor_reason": "Greta erzählt herum",
+        "choices": [
+          {
+            "text": "Gern geschehen.",
+            "next": "start"
+          }
+        ]
       },
       "after": {
         "text": "Die Laternen brennen wieder. Fast. Ich schlafe trotzdem nicht gut.",
         "choices": [
-          { "text": "Ich habe mich um Ihre Kasse gekümmert.", "next": "thanks", "requires_flags": ["kit_resolved"], "hide_if_flags": ["greta_thanked"] },
-          { "text": "Sie wirken aufgebracht.", "next": "theft", "hide_if_quests": ["pickpocket"] },
-          { "text": "Passen Sie auf sich auf." }
+          {
+            "text": "Ich habe mich um Ihre Kasse gekümmert.",
+            "next": "thanks",
+            "requires_flags": [
+              "kit_resolved"
+            ],
+            "hide_if_flags": [
+              "greta_thanked"
+            ]
+          },
+          {
+            "text": "Sie wirken aufgebracht.",
+            "next": "theft",
+            "hide_if_quests": [
+              "pickpocket"
+            ]
+          },
+          {
+            "text": "Haben Sie das Heulen am Kanal gehört?",
+            "next": "hound",
+            "requires_flags": [
+              "briefed_01"
+            ],
+            "hide_if_quests": [
+              "fog_hound"
+            ]
+          },
+          {
+            "text": "Der Hund vom Kanal kommt nicht wieder.",
+            "next": "hound_done",
+            "requires_flags": [
+              "hound_defeated"
+            ],
+            "hide_if_flags": [
+              "greta_hound_thanked"
+            ]
+          },
+          {
+            "text": "Passen Sie auf sich auf."
+          }
+        ]
+      },
+      "hound": {
+        "text": "Gehört? Ich träume davon! Jede Nacht, wenn der Nebel dick wird, heult es unten am Wasser. Gestern hat es den Hund vom Bäcker geholt. Price sagt, das seien Füchse. Füchse, die so groß sind wie ein Kalb?\n\nWenn Sie Mut haben: Am Ostende, wo die Brücke im Nebel verschwindet, da lauert es.",
+        "start_quests": [
+          "fog_hound"
+        ],
+        "choices": [
+          {
+            "text": "Ich sehe nach.",
+            "next": "start"
+          }
+        ]
+      },
+      "hound_done": {
+        "text": "Wirklich? Oh, dem Himmel sei Dank! Hier, nehmen Sie das. Das Tonikum hat mein Mann immer getrunken. Hat ihm nicht geholfen, aber vielleicht Ihnen.",
+        "sets_flags": [
+          "greta_hound_thanked"
+        ],
+        "gives_items": {
+          "tonikum": 1
+        },
+        "choices": [
+          {
+            "text": "Danke, Greta.",
+            "next": "start"
+          }
         ]
       }
     }
@@ -74,91 +292,286 @@
       "start": {
         "text": "Geschlossen. Kommen Sie morgen wieder.",
         "choices": [
-          { "text": "Kannten Sie Elias Thorne?", "next": "elias" },
-          { "text": "Revier Kettlegate. Zeigen Sie mir Ihr Pfandbuch.", "next": "ledger_rank", "requires_honor": 35, "hide_if_clues": ["pawn_ledger"] },
-          { "text": "Elias' Spur führt direkt zu Ihrer Tür.", "next": "prints", "requires_any_clues": ["footprints", "wet_coat"], "hide_if_clues": ["pawn_ledger"] },
-          { "text": "Was war heute Nacht los?", "next": "lie", "requires_clues": ["pawn_ledger"], "hide_if_clues": ["halloway_lie"] },
-          { "text": "Elias ist nicht ertrunken. Er ist zu Ihnen gekommen.", "next": "confess", "requires_conclusions": ["elias_alive"], "hide_if_clues": ["elias_hidden"] },
-          { "text": "Schon gut." }
+          {
+            "text": "Kannten Sie Elias Thorne?",
+            "next": "elias"
+          },
+          {
+            "text": "Revier Kettlegate. Zeigen Sie mir Ihr Pfandbuch.",
+            "next": "ledger_rank",
+            "requires_honor": 35,
+            "hide_if_clues": [
+              "pawn_ledger"
+            ]
+          },
+          {
+            "text": "Elias' Spur führt direkt zu Ihrer Tür.",
+            "next": "prints",
+            "requires_any_clues": [
+              "footprints",
+              "wet_coat"
+            ],
+            "hide_if_clues": [
+              "pawn_ledger"
+            ]
+          },
+          {
+            "text": "Was war heute Nacht los?",
+            "next": "lie",
+            "requires_clues": [
+              "pawn_ledger"
+            ],
+            "hide_if_clues": [
+              "halloway_lie"
+            ]
+          },
+          {
+            "text": "Elias ist nicht ertrunken. Er ist zu Ihnen gekommen.",
+            "next": "confess",
+            "requires_conclusions": [
+              "elias_alive"
+            ],
+            "hide_if_clues": [
+              "elias_hidden"
+            ]
+          },
+          {
+            "text": "Schon gut."
+          }
         ]
       },
       "elias": {
         "text": "Jeder kannte ihn. Hat jeden Abend die Laternen angezündet. Mehr weiß ich nicht. Gute Nacht.",
-        "choices": [{ "text": "Hm.", "next": "start" }]
+        "choices": [
+          {
+            "text": "Hm.",
+            "next": "start"
+          }
+        ]
       },
       "ledger_rank": {
         "text": "Vom Revier? ... Na gut. Elias war gestern hier und hat seinen silbernen Laternenschlüssel verpfändet. Eine Frau hat ihn am selben Abend gekauft. Hier, im Buch.",
-        "gives_clues": ["pawn_ledger"],
-        "choices": [{ "text": "Danke.", "next": "start" }]
+        "gives_clues": [
+          "pawn_ledger"
+        ],
+        "choices": [
+          {
+            "text": "Danke.",
+            "next": "start"
+          }
+        ]
       },
       "prints": {
         "text": "... Sie sind hartnäckig. Na gut. Elias war gestern hier und hat seinen silbernen Laternenschlüssel verpfändet. Eine Frau hat ihn am selben Abend gekauft. Sehen Sie selbst ins Buch.",
-        "gives_clues": ["pawn_ledger"],
-        "choices": [{ "text": "Und was war heute Nacht?", "next": "lie" }]
+        "gives_clues": [
+          "pawn_ledger"
+        ],
+        "choices": [
+          {
+            "text": "Und was war heute Nacht?",
+            "next": "lie"
+          }
+        ]
       },
       "lie": {
         "text": "Heute Nacht? Nichts. Ich habe nichts gehört. Gar nichts. Es war eine ruhige Nacht.",
-        "gives_clues": ["halloway_lie"],
-        "choices": [{ "text": "(Er weicht deinem Blick aus.)", "next": "start" }]
+        "gives_clues": [
+          "halloway_lie"
+        ],
+        "choices": [
+          {
+            "text": "(Er weicht deinem Blick aus.)",
+            "next": "start"
+          }
+        ]
       },
       "confess": {
         "text": "*seufzt* Er ist unten im Keller. Halb erfroren, redet immer wieder von einem Lied. Ich wollte nicht, dass sie ihn findet. Bitte sagen Sie es nur jemandem, dem Sie trauen.",
-        "gives_clues": ["elias_hidden"],
-        "choices": [{ "text": "Ich kümmere mich darum.", "next": "start" }]
+        "gives_clues": [
+          "elias_hidden"
+        ],
+        "choices": [
+          {
+            "text": "Ich kümmere mich darum.",
+            "next": "start"
+          }
+        ]
       }
     }
   },
   "price": {
-    "start": [{ "node": "after", "requires_flags": ["case_01_closed"] }, { "node": "start" }],
+    "start": [
+      {
+        "node": "after",
+        "requires_flags": [
+          "case_01_closed"
+        ]
+      },
+      {
+        "node": "start"
+      }
+    ],
     "nodes": {
       "start": {
         "text": "Ein Lampenanzünder fällt betrunken in den Kanal, und die schicken mir einen Ermittler. Was wollen Sie?",
         "choices": [
-          { "text": "Was wissen Sie bisher?", "next": "facts" },
-          { "text": "Kann ich Elias' Dienstbuch sehen?", "next": "logbook", "requires_honor": 20, "hide_if_clues": ["lamp_logbook"] },
-          { "text": "Haben Sie Akte 47 aus dem Archiv?", "next": "file", "requires_quests_active": ["lost_file"], "hide_if_flags": ["has_file_47"] },
-          { "text": "Ich weiß, was mit Elias passiert ist.", "next": "accuse" },
-          { "text": "Ich sehe mich noch um." }
+          {
+            "text": "Was wissen Sie bisher?",
+            "next": "facts"
+          },
+          {
+            "text": "Kann ich Elias' Dienstbuch sehen?",
+            "next": "logbook",
+            "requires_honor": 20,
+            "hide_if_clues": [
+              "lamp_logbook"
+            ]
+          },
+          {
+            "text": "Haben Sie Akte 47 aus dem Archiv?",
+            "next": "file",
+            "requires_quests_active": [
+              "lost_file"
+            ],
+            "hide_if_flags": [
+              "has_file_47"
+            ]
+          },
+          {
+            "text": "Ich weiß, was mit Elias passiert ist.",
+            "next": "accuse"
+          },
+          {
+            "text": "Ich sehe mich noch um."
+          }
         ]
       },
       "facts": {
         "text": "Elias Thorne, zweiundfünfzig, verschwunden seit Mitternacht. Seine Laterne an der Brücke ist aus. Der Mann war ein Säufer, das weiß jeder. Gin und Kanal, Fall erledigt.",
-        "gives_clues": ["price_drunk"],
-        "choices": [{ "text": "Wir werden sehen.", "next": "start" }]
+        "gives_clues": [
+          "price_drunk"
+        ],
+        "choices": [
+          {
+            "text": "Wir werden sehen.",
+            "next": "start"
+          }
+        ]
       },
       "logbook": {
         "text": "Na gut, Sie haben sich im Revier ja schon einen Namen gemacht. Hier, sein Dienstbuch. Lag in seiner Kammer.",
-        "gives_clues": ["lamp_logbook"],
-        "choices": [{ "text": "Danke.", "next": "start" }]
+        "gives_clues": [
+          "lamp_logbook"
+        ],
+        "choices": [
+          {
+            "text": "Danke.",
+            "next": "start"
+          }
+        ]
       },
       "file": {
         "text": "Ach, die. Liegt seit Wochen in meiner Manteltasche. Bringen Sie sie zurück, bevor Pimm mich erwürgt.",
-        "sets_flags": ["has_file_47"],
-        "choices": [{ "text": "Mache ich.", "next": "start" }]
+        "sets_flags": [
+          "has_file_47"
+        ],
+        "choices": [
+          {
+            "text": "Mache ich.",
+            "next": "start"
+          }
+        ]
       },
       "accuse": {
         "text": "Na dann. Ich höre. Was ist mit Elias Thorne passiert?",
         "choices": [
-          { "text": "Er war betrunken und ist im Kanal ertrunken.", "next": "end_drowned" },
-          { "text": "Miriam Vey hat ihn mit einem Ritual in den Kanal gelockt. Er ist tot.", "requires_conclusions": ["unnatural_cold", "vey_sigil"],
-            "next": [{ "node": "end_half", "requires_certain": ["unnatural_cold", "vey_sigil"] }, { "node": "unsure" }] },
-          { "text": "Vey wollte ihn mit einem Ritual holen. Aber Elias lebt, er ist im Keller des Pfandhauses.", "requires_conclusions": ["unnatural_cold", "vey_sigil", "elias_alive"],
-            "next": [{ "node": "end_good", "requires_certain": ["unnatural_cold", "vey_sigil", "elias_alive"] }, { "node": "unsure" }] },
-          { "text": "Ich brauche noch Zeit.", "next": "start" }
+          {
+            "text": "Er war betrunken und ist im Kanal ertrunken.",
+            "next": "end_drowned"
+          },
+          {
+            "text": "Miriam Vey hat ihn mit einem Ritual in den Kanal gelockt. Er ist tot.",
+            "requires_conclusions": [
+              "unnatural_cold",
+              "vey_sigil"
+            ],
+            "next": [
+              {
+                "node": "end_half",
+                "requires_certain": [
+                  "unnatural_cold",
+                  "vey_sigil"
+                ]
+              },
+              {
+                "node": "unsure"
+              }
+            ]
+          },
+          {
+            "text": "Vey wollte ihn mit einem Ritual holen. Aber Elias lebt, er ist im Keller des Pfandhauses.",
+            "requires_conclusions": [
+              "unnatural_cold",
+              "vey_sigil",
+              "elias_alive"
+            ],
+            "next": [
+              {
+                "node": "end_good",
+                "requires_certain": [
+                  "unnatural_cold",
+                  "vey_sigil",
+                  "elias_alive"
+                ]
+              },
+              {
+                "node": "unsure"
+              }
+            ]
+          },
+          {
+            "text": "Ich brauche noch Zeit.",
+            "next": "start"
+          }
         ]
       },
       "unsure": {
         "text": "Geschichten. Ich will Beweise. Mindestens zwei Leute oder Spuren, die dasselbe sagen. Sonst schreibe ich Unfall.",
-        "choices": [{ "text": "Ich komme wieder.", "next": "start" }]
+        "choices": [
+          {
+            "text": "Ich komme wieder.",
+            "next": "start"
+          }
+        ]
       },
-      "end_drowned": { "text": "Price nickt zufrieden und klappt sein Notizbuch zu.", "ending": "c1_drowned" },
-      "end_half": { "text": "Price runzelt die Stirn, schreibt den Namen aber auf.", "ending": "c1_half" },
-      "end_good": { "text": "Price starrt dich einen Moment an. Dann pfeift er nach zwei Constables.", "ending": "c1_good" },
+      "end_drowned": {
+        "text": "Price nickt zufrieden und klappt sein Notizbuch zu.",
+        "ending": "c1_drowned"
+      },
+      "end_half": {
+        "text": "Price runzelt die Stirn, schreibt den Namen aber auf.",
+        "ending": "c1_half"
+      },
+      "end_good": {
+        "text": "Price starrt dich einen Moment an. Dann pfeift er nach zwei Constables.",
+        "ending": "c1_good"
+      },
       "after": {
         "text": "Sie schon wieder. Marlowe hält ja große Stücke auf Sie, hab ich gehört.",
         "choices": [
-          { "text": "Haben Sie Akte 47 aus dem Archiv?", "next": "file", "requires_quests_active": ["lost_file"], "hide_if_flags": ["has_file_47"] },
-          { "text": "Bis dann." }
+          {
+            "text": "Haben Sie Akte 47 aus dem Archiv?",
+            "next": "file",
+            "requires_quests_active": [
+              "lost_file"
+            ],
+            "hide_if_flags": [
+              "has_file_47"
+            ]
+          },
+          {
+            "text": "Bis dann."
+          }
         ]
       }
     }
@@ -169,43 +582,143 @@
       "start": {
         "text": "Was glotzt du so, Mister?",
         "choices": [
-          { "text": "Hast du letzte Nacht etwas gehört?", "next": "heard", "hide_if_clues": ["kit_heard"] },
-          { "text": "Hast du jemanden aus dem Kanal steigen sehen?", "next": "saw", "requires_clues": ["kit_heard"], "hide_if_clues": ["kit_saw"] },
-          { "text": "Gretas Kasse. Her damit.", "next": "caught", "requires_likely": ["kit_thief"] },
-          { "text": "Gretas Kasse. Her damit.", "next": "bluff", "requires_suspected": ["kit_thief"] },
-          { "text": "Schon gut." }
+          {
+            "text": "Hast du letzte Nacht etwas gehört?",
+            "next": "heard",
+            "hide_if_clues": [
+              "kit_heard"
+            ]
+          },
+          {
+            "text": "Hast du jemanden aus dem Kanal steigen sehen?",
+            "next": "saw",
+            "requires_clues": [
+              "kit_heard"
+            ],
+            "hide_if_clues": [
+              "kit_saw"
+            ]
+          },
+          {
+            "text": "Gretas Kasse. Her damit.",
+            "next": "caught",
+            "requires_likely": [
+              "kit_thief"
+            ]
+          },
+          {
+            "text": "Gretas Kasse. Her damit.",
+            "next": "bluff",
+            "requires_suspected": [
+              "kit_thief"
+            ]
+          },
+          {
+            "text": "Weißt du was über das Ding am Kanal?",
+            "next": "hound",
+            "requires_quests_active": [
+              "fog_hound"
+            ],
+            "hide_if_flags": [
+              "hound_lore"
+            ]
+          },
+          {
+            "text": "Schon gut."
+          }
         ]
       },
       "heard": {
         "text": "So'n Singsang, ganz leise, vom Wasser her. Mitten in der Nacht. Mir is' richtig kalt geworden. Und dann war die Laterne an der Brücke aus.",
-        "gives_clues": ["kit_heard"],
-        "choices": [{ "text": "Und gesehen?", "next": "saw" }]
+        "gives_clues": [
+          "kit_heard"
+        ],
+        "choices": [
+          {
+            "text": "Und gesehen?",
+            "next": "saw"
+          }
+        ]
       },
       "saw": {
         "text": "Hab 'nen Mann gesehen, klatschnass, der is' an der Mauer hochgekrabbelt. Dann is' er Richtung Pfandhaus gehumpelt. Ich hab nix gemacht, ehrlich!",
-        "gives_clues": ["kit_saw"],
-        "choices": [{ "text": "Schon gut.", "next": "start" }]
+        "gives_clues": [
+          "kit_saw"
+        ],
+        "choices": [
+          {
+            "text": "Schon gut.",
+            "next": "start"
+          }
+        ]
       },
       "bluff": {
         "text": "Beweis es doch! Wer sagt das? Eine Aussage, pfff. Das kann jeder sein.",
-        "choices": [{ "text": "(Du brauchst eine zweite Quelle.)", "next": "start" }]
+        "choices": [
+          {
+            "text": "(Du brauchst eine zweite Quelle.)",
+            "next": "start"
+          }
+        ]
       },
       "caught": {
         "text": "Die Münzen, der Mantelfetzen, und Greta hat mich gesehen? ... Okay, okay. Hier. Is' eh fast nix drin.",
         "choices": [
-          { "text": "Du kommst mit zu Constable Price.", "next": "arrest" },
-          { "text": "Gib Greta das Geld zurück. Und halt für mich die Augen offen.", "next": "mercy" }
+          {
+            "text": "Du kommst mit zu Constable Price.",
+            "next": "arrest"
+          },
+          {
+            "text": "Gib Greta das Geld zurück. Und halt für mich die Augen offen.",
+            "next": "mercy"
+          }
         ]
       },
       "arrest": {
         "text": "Price nimmt Kit am Kragen und nickt dir anerkennend zu. Das spricht sich im Revier herum.",
-        "sets_flags": ["kit_resolved", "kit_arrested"], "honor": 8, "honor_reason": "Taschendieb gestellt", "complete_quests": ["pickpocket"],
-        "choices": [{ "text": "Weiter." }]
+        "sets_flags": [
+          "kit_resolved",
+          "kit_arrested"
+        ],
+        "honor": 8,
+        "honor_reason": "Taschendieb gestellt",
+        "complete_quests": [
+          "pickpocket"
+        ],
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
       },
       "mercy": {
         "text": "Kit grinst. „Abgemacht, Mister. Wenn irgendwo was is', hör ich's zuerst.“\n\nDas Revier wird davon nichts erfahren. Aber du hast jetzt einen Spitzel.",
-        "sets_flags": ["kit_resolved", "kit_informant"], "honor": 2, "honor_reason": "Gretas Geld zurück", "complete_quests": ["pickpocket"],
-        "choices": [{ "text": "Weiter." }]
+        "sets_flags": [
+          "kit_resolved",
+          "kit_informant"
+        ],
+        "honor": 2,
+        "honor_reason": "Gretas Geld zurück",
+        "complete_quests": [
+          "pickpocket"
+        ],
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      },
+      "hound": {
+        "text": "Das Nebelvieh? Klar. Ich hab's gesehen, von der Dachrinne aus. Es kommt nur, wo keine Laterne brennt. Als der Bäcker mit der Lampe rauskam, hat es gejault und ist zurück ins Wasser.\n\nHalt ihm deine Laterne ins Gesicht. Und lass dich nicht beißen, die Wunden werden kalt.",
+        "sets_flags": [
+          "hound_lore"
+        ],
+        "choices": [
+          {
+            "text": "Danke, Kit.",
+            "next": "start"
+          }
+        ]
       }
     }
   }

@@ -53,6 +53,26 @@
       "reach": 26,
       "marker": true,
       "done_flag": "box_seen"
+    },
+    {
+      "id": "warden",
+      "kind": "combat",
+      "encounter": "ash_warden",
+      "tile": [
+        9,
+        7
+      ],
+      "sprite": "warden",
+      "sprite_scale": 0.5,
+      "marker": false,
+      "auto": 34,
+      "reach": 30,
+      "prompt": "Dem Aschewächter entgegentreten",
+      "visible_if": {
+        "hide_if_flags": [
+          "warden_defeated"
+        ]
+      }
     }
   ],
   "decor": [
@@ -74,7 +94,14 @@
         6
       ],
       "facing": "down",
-      "static": true
+      "static": true,
+      "lock": {
+        "requires_flags": [
+          "warden_defeated"
+        ],
+        "text": "Ein Wirbel aus Asche steht zwischen dir und dem Mädchen.",
+        "footer": ""
+      }
     }
   ]
 }

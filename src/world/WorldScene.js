@@ -9,7 +9,7 @@ const PLAYER_SPEED = 72;
 const INTERACT_RANGE = 22;
 const DIRS = ['down', 'left', 'right', 'up'];
 
-const PLAYER_PALETTE = {
+export const PLAYER_PALETTE = {
   coat: '#6a5a48', hat: '#2e2a26', skin: '#e0b894', hair: '#3a2a20', legs: '#2c2a30', scarf: '#7a3a3a',
 };
 
@@ -179,6 +179,11 @@ export class WorldScene extends Phaser.Scene {
         item.parts.push(item.glint);
         this.tweens.add({ targets: item.glint, alpha: 0.9, duration: 700, yoyo: true, repeat: -1, repeatDelay: 1800 + Math.random() * 1500, delay: Math.random() * 2000 });
       }
+      if (item.kind === 'combat') {
+        this.lighting.add({ x, y: y - 4, radius: 30, intensity: 0.6, color: 0x6fe0d0, glowAlpha: 0.35, flicker: 0.25, active: () => item.active });
+      }
+      if (def.solid) item.blocker = this.addBlocker(x, y + 2, def.solid[0] ?? 16, def.solid[1] ?? 12);
+      if (def.sprite_scale) item.sprite?.setScale(def.sprite_scale).setOrigin(0.5, 0.75);
       if (item.hidden) {
         item.light = this.lighting.add({ x, y, radius: 22, intensity: 0.7, color: 0x6fe0d0, glowAlpha: 0.4, flicker: 0.2, active: () => this.state.spiritVision && item.active });
       }
@@ -263,6 +268,7 @@ export class WorldScene extends Phaser.Scene {
     this.input.keyboard.on('keydown-Q', queue('vision'));
     this.input.keyboard.on('keydown-J', queue('notebook'));
     this.input.keyboard.on('keydown-TAB', queue('notebook'));
+    this.input.keyboard.on('keydown-I', queue('inventory'));
   }
 
   bindState() {
@@ -337,6 +343,7 @@ export class WorldScene extends Phaser.Scene {
     if (!blocked) this.state.tick(delta / 1000);
     this.updateMovement(blocked);
     this.updateFocus(blocked);
+    this.checkAuto(blocked);
     this.handleKeys(blocked);
     this.lighting.update(time);
     const cam = this.cameras.main;
@@ -380,6 +387,15 @@ export class WorldScene extends Phaser.Scene {
     this.ui.setPrompt(best ? best.prompt : null);
   }
 
+  /** Objekte mit "auto" lösen von selbst aus (z. B. ein Hinterhalt), sobald man nah genug ist. */
+  checkAuto(blocked) {
+    if (blocked) return;
+    for (const it of this.interactables) {
+      if (!it.def.auto || !it.active) continue;
+      if (Phaser.Math.Distance.Between(this.player.x, this.player.y - 3, it.x, it.y) < it.def.auto) { this.interact(it); return; }
+    }
+  }
+
   handleKeys(blocked) {
     const action = this.pending;
     this.pending = null;
@@ -387,6 +403,7 @@ export class WorldScene extends Phaser.Scene {
     if (action === 'interact' && this.focus) this.interact(this.focus);
     else if (action === 'vision') this.state.setSpiritVision(!this.state.spiritVision);
     else if (action === 'notebook') this.ui.openNotebook();
+    else if (action === 'inventory') this.ui.openNotebook('items');
   }
 
   interact(it) {
@@ -410,6 +427,15 @@ export class WorldScene extends Phaser.Scene {
       case 'travel':
         this.ui.openTravel(this.state.map);
         break;
+      case 'combat':
+        this.startCombat(def.encounter);
+        break;
+      case 'rest': {
+        const healed = this.state.heal(this.state.maxHp);
+        this.state.setComposure(100);
+        this.ui.showMessage(def.title, def.text, { footer: healed > 0 ? `+${healed} Leben, Nerven beruhigt.` : 'Du bist ausgeruht.' });
+        break;
+      }
       case 'door':
         this.travelTo(def.to, def.spawn);
         break;
@@ -441,6 +467,24 @@ export class WorldScene extends Phaser.Scene {
       this.state.position = null;
       this.state.emit('travel', mapId);
       this.scene.restart();
+    });
+  }
+
+  /** Pausiert die Welt und startet den Kampfbildschirm. */
+  startCombat(id) {
+    if (this.leaving || this.scene.isActive('combat')) return;
+    this.state.pendingCombat = null;
+    this.state.setSpiritVision(false);
+    this.player.setVelocity(0, 0);
+    this.player.anims.stop();
+    this.scene.pause();
+    this.scene.launch('combat', {
+      id,
+      onDone: (result) => {
+        this.scene.resume();
+        this.refreshVisibility();
+        if (result.travel) this.travelTo(result.travel.map, result.travel.spawn);
+      },
     });
   }
 
