@@ -97,6 +97,16 @@
             ]
           },
           {
+            "text": "Kennen Sie diese Taschenuhr?",
+            "next": "watch",
+            "requires_items": [
+              "taschenuhr"
+            ],
+            "hide_if_flags": [
+              "watch_owner_known"
+            ]
+          },
+          {
             "text": "Danke, das war alles."
           }
         ]
@@ -253,6 +263,16 @@
             ]
           },
           {
+            "text": "Kennen Sie diese Taschenuhr?",
+            "next": "watch",
+            "requires_items": [
+              "taschenuhr"
+            ],
+            "hide_if_flags": [
+              "watch_owner_known"
+            ]
+          },
+          {
             "text": "Passen Sie auf sich auf."
           }
         ]
@@ -280,6 +300,55 @@
         "choices": [
           {
             "text": "Danke, Greta.",
+            "next": "start"
+          }
+        ]
+      },
+      "watch": {
+        "text": "Greta wird blass. „Das ist ... die hab ich Elias geschenkt. Meinem Bruder. Zur Hochzeit.“",
+        "sets_flags": [
+          "watch_owner_known"
+        ],
+        "choices": [
+          {
+            "text": "Elias ist im Revier. Ich bringe sie ihm.",
+            "next": "watch_alive",
+            "requires_flags": [
+              "elias_rescued"
+            ]
+          },
+          {
+            "text": "Es tut mir leid. Behalten Sie sie.",
+            "next": "watch_dead",
+            "hide_if_flags": [
+              "elias_rescued"
+            ]
+          }
+        ]
+      },
+      "watch_alive": {
+        "text": "Tun Sie das. Und sagen Sie ihm, er soll nicht so stur sein und mich besuchen.",
+        "choices": [
+          {
+            "text": "Mache ich.",
+            "next": "start"
+          }
+        ]
+      },
+      "watch_dead": {
+        "text": "Greta drückt die Uhr an die Brust. Lange sagt sie nichts. Dann: „Danke. Wenigstens das ist zurück.“",
+        "takes_items": {
+          "taschenuhr": 1
+        },
+        "sets_flags": [
+          "watch_returned"
+        ],
+        "complete_quests": [
+          "lost_watch"
+        ],
+        "choices": [
+          {
+            "text": "Passen Sie auf sich auf.",
             "next": "start"
           }
         ]
@@ -333,6 +402,36 @@
             ],
             "hide_if_clues": [
               "elias_hidden"
+            ]
+          },
+          {
+            "text": "Haben Sie Dinge, die nie abgeholt wurden?",
+            "next": "watch",
+            "requires_flags": [
+              "case_01_closed"
+            ],
+            "hide_if_quests": [
+              "lost_watch"
+            ]
+          },
+          {
+            "text": "Wer bezahlt hier mit Chorsilber?",
+            "next": "oil",
+            "requires_flags": [
+              "briefed_03"
+            ],
+            "hide_if_clues": [
+              "halloway_oil"
+            ]
+          },
+          {
+            "text": "Woher haben Sie die Silberleuchter im Fenster?",
+            "next": "candles",
+            "requires_quests_active": [
+              "barnaby_case"
+            ],
+            "hide_if_clues": [
+              "halloway_candles"
             ]
           },
           {
@@ -393,6 +492,45 @@
         "choices": [
           {
             "text": "Ich kümmere mich darum.",
+            "next": "start"
+          }
+        ]
+      },
+      "watch": {
+        "text": "Jede Menge. Aber das hier ... eine Taschenuhr, seit einem Jahr. Gravur: „Für E., von G.“ Nehmen Sie sie, wenn Sie den Besitzer finden. Mir bringt sie nur schlechte Laune.",
+        "gives_items": {
+          "taschenuhr": 1
+        },
+        "start_quests": [
+          "lost_watch"
+        ],
+        "choices": [
+          {
+            "text": "Ich finde ihn.",
+            "next": "start"
+          }
+        ]
+      },
+      "oil": {
+        "text": "Der Öllieferant vom Hafen. Kommt jede Woche, tauscht Silber mit dem alten Chorwappen gegen Münzen. Sagt, es sei Bezahlung für Lagerhaus 7. Mich geht das nichts an.",
+        "gives_clues": [
+          "halloway_oil"
+        ],
+        "choices": [
+          {
+            "text": "Danke.",
+            "next": "start"
+          }
+        ]
+      },
+      "candles": {
+        "text": "Die? Hat mir der Küster von St. Ebba gebracht, vor Wochen. Hat geweint dabei, der Arme. Für die Dachbalken, sagte er.",
+        "gives_clues": [
+          "halloway_candles"
+        ],
+        "choices": [
+          {
+            "text": "Danke, Mr. Halloway.",
             "next": "start"
           }
         ]
@@ -570,7 +708,29 @@
             ]
           },
           {
+            "text": "Wer sollte Sie nachts ablösen?",
+            "next": "rook",
+            "requires_flags": [
+              "briefed_03"
+            ],
+            "hide_if_clues": [
+              "price_rook"
+            ]
+          },
+          {
             "text": "Bis dann."
+          }
+        ]
+      },
+      "rook": {
+        "text": "Rook. Um Mitternacht. Zweimal ist er nicht gekommen, genau in den Nächten, als das Mädchen verschwand. Ich hab's nicht gemeldet. Man verpfeift keinen Kollegen.\n\n... Jetzt hab ich's doch getan, oder?",
+        "gives_clues": [
+          "price_rook"
+        ],
+        "choices": [
+          {
+            "text": "Es war richtig.",
+            "next": "after"
           }
         ]
       }
@@ -621,6 +781,16 @@
             ],
             "hide_if_flags": [
               "hound_lore"
+            ]
+          },
+          {
+            "text": "Hast du nachts Polizisten gesehen?",
+            "next": "rook",
+            "requires_flags": [
+              "briefed_03"
+            ],
+            "hide_if_clues": [
+              "kit_rook"
             ]
           },
           {
@@ -716,6 +886,193 @@
         "choices": [
           {
             "text": "Danke, Kit.",
+            "next": "start"
+          }
+        ]
+      },
+      "rook": {
+        "text": "Einen. Lief Richtung Friedhof, ohne Laterne. Blond. Der hat gesummt, ganz leise. Ich hab mich in der Regenrinne versteckt.",
+        "gives_clues": [
+          "kit_rook"
+        ],
+        "choices": [
+          {
+            "text": "Danke, Kit.",
+            "next": "start"
+          }
+        ]
+      }
+    }
+  },
+  "pip": {
+    "start": "start",
+    "nodes": {
+      "start": {
+        "text": "Extrablatt! Extrablatt! ... Ach, Sie sind's. Der Ermittler! Haben Sie eine Geschichte für mich? Ohne Schlagzeile kein Lohn.",
+        "choices": [
+          {
+            "text": "Was willst du für eine Geschichte?",
+            "next": "headline",
+            "hide_if_quests": [
+              "pip_headline"
+            ]
+          },
+          {
+            "text": "Ich hab eine Geschichte für dich.",
+            "next": "tell",
+            "requires_quests_active": [
+              "pip_headline"
+            ]
+          },
+          {
+            "text": "Wo verkaufst du sonst?",
+            "next": "docks",
+            "requires_flags": [
+              "briefed_03"
+            ],
+            "hide_if_clues": [
+              "pip_docks"
+            ]
+          },
+          {
+            "text": "Heute nicht."
+          }
+        ]
+      },
+      "headline": {
+        "text": "Irgendwas! Mord, Geister, Skandal. Die Leute wollen Gänsehaut zum Frühstück.",
+        "start_quests": [
+          "pip_headline"
+        ],
+        "choices": [
+          {
+            "text": "Ich überleg mir was.",
+            "next": "start"
+          }
+        ]
+      },
+      "tell": {
+        "text": "Pip zückt einen Bleistiftstummel. „Schießen Sie los!“",
+        "choices": [
+          {
+            "text": "Eine Hexe namens Miriam Vey entführt Kinder für ein Ritual.",
+            "next": "vey"
+          },
+          {
+            "text": "Der Ermittler hat den Nebelhund vom Kanal vertrieben.",
+            "next": "hound",
+            "requires_flags": [
+              "hound_defeated"
+            ]
+          },
+          {
+            "text": "Ein Straßenjunge hat gestohlenes Geld zurückgegeben.",
+            "next": "kit",
+            "requires_flags": [
+              "kit_resolved"
+            ]
+          },
+          {
+            "text": "Lieber doch nicht.",
+            "next": "start"
+          }
+        ]
+      },
+      "vey": {
+        "text": "Pips Augen werden groß. „DAS ist eine Schlagzeile!“ Er rennt los.\n\nAm nächsten Morgen steht es in jeder Zeitung. Marlowe wird das nicht gefallen. Und Vey weiß jetzt, dass du sie jagst.",
+        "sets_flags": [
+          "pip_story",
+          "pip_vey"
+        ],
+        "complete_quests": [
+          "pip_headline"
+        ],
+        "honor": -3,
+        "honor_reason": "Ermittlungsdetails an die Presse",
+        "choices": [
+          {
+            "text": "Oh je.",
+            "next": "start"
+          }
+        ]
+      },
+      "hound": {
+        "text": "„Held von Ashgrove!“ Pip kritzelt begeistert. Am nächsten Tag nicken dir sogar die Constables zu.",
+        "sets_flags": [
+          "pip_story"
+        ],
+        "complete_quests": [
+          "pip_headline"
+        ],
+        "honor": 3,
+        "honor_reason": "Guter Artikel in der Morgenpost",
+        "choices": [
+          {
+            "text": "Freut mich.",
+            "next": "start"
+          }
+        ]
+      },
+      "kit": {
+        "text": "„Herz aus Gold in der Gosse“. Pip ist gerührt, wenn auch nur ein bisschen. Kit wird sich freuen. Oder dich verfluchen.",
+        "sets_flags": [
+          "pip_story"
+        ],
+        "complete_quests": [
+          "pip_headline"
+        ],
+        "honor": 2,
+        "honor_reason": "Gute Nachrichten in der Morgenpost",
+        "choices": [
+          {
+            "text": "Gern.",
+            "next": "start"
+          }
+        ]
+      },
+      "docks": {
+        "text": "Am Kanalhafen, frühmorgens. Da gehen Frauen in grauen Mänteln ins Lagerhaus 7, mit Kerzen im Korb. Und raus kommen sie nicht vor Sonnenaufgang. Gruselig, sag ich Ihnen. Wär 'ne gute Schlagzeile.",
+        "gives_clues": [
+          "pip_docks"
+        ],
+        "choices": [
+          {
+            "text": "Behalt sie noch für dich.",
+            "next": "start"
+          }
+        ]
+      }
+    }
+  },
+  "barnaby_free": {
+    "start": "start",
+    "nodes": {
+      "start": {
+        "text": "Barnaby blinzelt in die Gaslaterne, als hätte er sie seit Jahren nicht gesehen. „Frische Luft! Und alles nur, weil einer zugehört hat. Ich schulde dir was, Schnüffler.“",
+        "choices": [
+          {
+            "text": "Hast du den gesehen, der nachts an deinen Gittern klopfte?",
+            "next": "saw",
+            "hide_if_clues": [
+              "barnaby_saw"
+            ],
+            "requires_flags": [
+              "briefed_03"
+            ]
+          },
+          {
+            "text": "Mach's gut, Barnaby."
+          }
+        ]
+      },
+      "saw": {
+        "text": "Und ob. Junges Gesicht, blonde Haare unter dem Helm. Hat mir zugezwinkert und das Auge in die Gitter geritzt. Derselbe, der mich eingebuchtet hat: Rook.",
+        "gives_clues": [
+          "barnaby_saw"
+        ],
+        "choices": [
+          {
+            "text": "Danke.",
             "next": "start"
           }
         ]

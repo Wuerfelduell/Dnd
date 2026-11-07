@@ -150,5 +150,142 @@
     },
     "lose_text": "Kälte, dann nichts. Du kommst an der Treppe zur Krypta wieder zu dir. Irgendwer oder irgendetwas hat dich hinaufgeschleift.",
     "win_text": "Der Wächter fällt in sich zusammen. Nur ein Häufchen Asche und ein verkohltes Notenblatt bleiben. Der Weg zu Hester ist frei."
+  },
+  "archive_rats": {
+    "name": "Aktenfresser",
+    "sprite": "rats",
+    "fleeable": true,
+    "hp": 24,
+    "intro": "Hinter dem Regal quillt ein Knäuel Ratten hervor, die Mäuler voller Papier. Eine von ihnen hat ein Auge im Kreis auf dem Rücken, wie eingebrannt.",
+    "attacks": [
+      {
+        "name": "Gewusel",
+        "damage": 3,
+        "hits": [
+          600,
+          900,
+          1200
+        ]
+      },
+      {
+        "name": "Anspringen",
+        "damage": 5,
+        "hits": [
+          1100
+        ]
+      }
+    ],
+    "on_win": {
+      "sets_flags": [
+        "rats_defeated"
+      ]
+    },
+    "win_text": "Die Ratten fliehen in die Mauerritzen. Zurück bleibt angefressenes Papier und eine Ratte mit verbranntem Fell. Pimm wird das nicht gern hören."
+  },
+  "choir_zealots": {
+    "name": "Chorfanatiker",
+    "sprite": "npc:cultist",
+    "fleeable": false,
+    "hp": 42,
+    "intro": "Zwei Gestalten in grauen Kutten treten aus dem Kerzenlicht. „Die Tür wird sich öffnen“, singen sie im Chor, und ziehen Kerzenleuchter aus Messing.",
+    "attacks": [
+      {
+        "name": "Leuchterhieb",
+        "damage": 6,
+        "hits": [
+          950
+        ]
+      },
+      {
+        "name": "Im Chor",
+        "damage": 4,
+        "hits": [
+          700,
+          1000,
+          1450
+        ]
+      },
+      {
+        "name": "Verzögerter Schlag",
+        "damage": 8,
+        "hits": [
+          1700
+        ]
+      }
+    ],
+    "weak_if": {
+      "requires_flags": [
+        "sparring_won"
+      ]
+    },
+    "weak_text": "Holts Übungskampf zahlt sich aus: Die Fanatiker holen weit aus und lassen die Deckung offen.",
+    "on_win": {
+      "sets_flags": [
+        "zealots_defeated"
+      ]
+    },
+    "lose_to": {
+      "map": "docks",
+      "spawn": "default"
+    },
+    "lose_text": "Du wachst am Kai auf, Price beugt sich über dich. „Die haben Sie rausgeworfen wie einen Sack Kartoffeln. Noch mal?“",
+    "win_text": "Die Fanatiker sinken auf die Knie und hören auf zu singen. Hinten im Lagerhaus wartet jemand in einem Polizeimantel."
+  },
+  "rook_fight": {
+    "name": "Constable Rook",
+    "sprite": "npc:rook",
+    "fleeable": false,
+    "hp": 50,
+    "intro": "Rook zieht seinen Schlagstock. „Sie verstehen das nicht. Sie hat mir eine Familie gegeben, als ich keine hatte.“",
+    "attacks": [
+      {
+        "name": "Dienstschlag",
+        "damage": 6,
+        "hits": [
+          850
+        ]
+      },
+      {
+        "name": "Drei Schläge",
+        "damage": 5,
+        "hits": [
+          700,
+          1050,
+          1400
+        ]
+      },
+      {
+        "name": "Täuschung",
+        "damage": 9,
+        "hits": [
+          1900
+        ]
+      },
+      {
+        "name": "Doppelt",
+        "damage": 6,
+        "hits": [
+          800,
+          1500
+        ]
+      }
+    ],
+    "weak_if": {
+      "requires_flags": [
+        "rook_lore"
+      ]
+    },
+    "weak_text": "Holt hat dich gewarnt: Nach dem dritten Schlag lässt Rook die Deckung fallen. Du wartest genau darauf.",
+    "on_win": {
+      "sets_flags": [
+        "rook_defeated"
+      ]
+    },
+    "lose_to": {
+      "map": "docks",
+      "spawn": "default"
+    },
+    "lose_text": "Ein Schlag gegen die Schläfe, dann Kälte. Price hat dich aus dem Lagerhaus gezogen. „Rook ist noch drin. Wir müssen zurück.“",
+    "win_text": "Rook lässt den Schlagstock fallen und sinkt gegen die Kisten. Hinter dem Altar raschelt ein grauer Mantel."
   }
 }

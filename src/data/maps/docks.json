@@ -1,0 +1,125 @@
+{
+  "id": "docks",
+  "name": "Kanalhafen",
+  "ambient": {
+    "night": 0.84,
+    "fog": 0.55
+  },
+  "rows": [
+    "RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR",
+    "#WW##WW###WW##WW####WW####WW##WW##",
+    "##D#######D########D#######D######",
+    ",,,,L,,,,,,,,,,,L,,,,,,,,,,,,L,,,,",
+    "..................................",
+    "..CC.......V.........CC.....V.....",
+    "..C...............................",
+    "..................................",
+    "PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP",
+    "PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP",
+    "QQQQQQQQQQPPPPQQQQQQQQQQQQPPPPQQQQ",
+    "~~~~~~~~~~PPPP~~~~~~~~~~~~PPPP~~~~",
+    "~~~~~~~~~~PPPP~~~~~~~~~~~~PPPP~~~~",
+    "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+  ],
+  "spawns": {
+    "default": [
+      1,
+      6
+    ],
+    "warehouse": [
+      19,
+      3
+    ]
+  },
+  "interactables": [
+    {
+      "id": "exit",
+      "kind": "travel",
+      "tile": [
+        0,
+        5
+      ],
+      "prompt": "Zur Stadtkarte",
+      "marker": false
+    },
+    {
+      "id": "door7",
+      "kind": "door",
+      "to": "warehouse",
+      "spawn": "default",
+      "tile": [
+        19,
+        2
+      ],
+      "prompt": "Lagerhaus 7 betreten",
+      "marker": true,
+      "lock": {
+        "requires_flags": [
+          "case_03_raid"
+        ],
+        "hide_if_flags": [
+          "case_03_closed"
+        ],
+        "text": "Die Tür von Lagerhaus 7 ist verriegelt. Von drinnen hört man leisen Gesang.",
+        "footer": ""
+      }
+    },
+    {
+      "id": "coldspot",
+      "kind": "dialogue",
+      "dialogue": "ghost",
+      "title": "Kalte Stelle am Steg",
+      "role": "",
+      "tile": [
+        12,
+        11
+      ],
+      "hidden": true,
+      "prompt": "Die kalte Stelle berühren",
+      "reach": 26,
+      "done_flag": "ghost_spoken",
+      "visible_if": {
+        "requires_quests_active": [
+          "drowned"
+        ]
+      }
+    },
+    {
+      "id": "crane_note",
+      "kind": "read",
+      "tile": [
+        28,
+        9
+      ],
+      "sprite": "paper",
+      "prompt": "Zettel am Poller lesen",
+      "title": "Aushang am Poller",
+      "text": "„Arbeiter gesucht für Nachtschicht, Lagerhaus 7. Guter Lohn in Silber. Fragen verboten.“\n\nJemand hat mit Bleistift darunter geschrieben: „Nate ist nicht zurückgekommen.“",
+      "done_flag": "read_crane_note"
+    }
+  ],
+  "npcs": [
+    {
+      "id": "tobias",
+      "tile": [
+        24,
+        7
+      ],
+      "facing": "left"
+    },
+    {
+      "id": "price",
+      "tile": [
+        3,
+        7
+      ],
+      "facing": "right",
+      "dialogue": "price_docks",
+      "visible_if": {
+        "requires_flags": [
+          "case_03_raid"
+        ]
+      }
+    }
+  ]
+}

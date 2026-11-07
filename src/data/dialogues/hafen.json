@@ -1,0 +1,308 @@
+{
+  "tobias": {
+    "start": [
+      {
+        "node": "done",
+        "requires_flags": [
+          "tobias_told"
+        ]
+      },
+      {
+        "node": "start"
+      }
+    ],
+    "nodes": {
+      "start": {
+        "text": "Ein breitschultriger Mann starrt aufs Wasser. „Suchen Sie Arbeit? Gehen Sie woanders hin. Hier verschwinden Leute.“",
+        "choices": [
+          {
+            "text": "Wer ist verschwunden?",
+            "next": "nate",
+            "hide_if_quests": [
+              "drowned"
+            ]
+          },
+          {
+            "text": "Ich habe mit Nate gesprochen.",
+            "next": "told",
+            "requires_flags": [
+              "ghost_spoken"
+            ],
+            "hide_if_flags": [
+              "tobias_told"
+            ]
+          },
+          {
+            "text": "Was ist mit Lagerhaus 7?",
+            "next": "seven"
+          },
+          {
+            "text": "Schon gut."
+          }
+        ]
+      },
+      "nate": {
+        "text": "Mein Bruder Nate. Hat Nachtschicht im Lagerhaus 7 angenommen, guter Lohn in Silber. Vor einer Woche haben sie ihn aus dem Wasser gezogen. Gestolpert, sagt die Polizei.\n\nAber seitdem ist es am Steg eiskalt, und es riecht nach Kerzenwachs. Nate hatte Angst vor Wasser. Der wäre nie auf den Steg gegangen.",
+        "start_quests": [
+          "drowned"
+        ],
+        "choices": [
+          {
+            "text": "Ich sehe mir den Steg an.",
+            "next": "start"
+          }
+        ]
+      },
+      "seven": {
+        "text": "Gehört keinem, sagt man. Nachts brennt Licht, und es wird gesungen. Wer fragt, bekommt Silber fürs Schweigen. Oder schwimmt.",
+        "choices": [
+          {
+            "text": "Verstehe.",
+            "next": "start"
+          }
+        ]
+      },
+      "told": {
+        "text": "Tobias hört zu, ohne dich zu unterbrechen. Als du fertig bist, wischt er sich übers Gesicht.\n\n„Gestoßen. Ich wusste es.“ Er drückt dir eine Flasche in die Hand. „Für die Rippen. Und wenn Sie die Leute aus Nummer 7 erwischen ... grüßen Sie sie von Nate.“",
+        "sets_flags": [
+          "tobias_told"
+        ],
+        "complete_quests": [
+          "drowned"
+        ],
+        "choices": [
+          {
+            "text": "Das werde ich.",
+            "next": "done"
+          }
+        ]
+      },
+      "done": {
+        "text": "Tobias nickt dir zu. Zum ersten Mal sieht er nicht aufs Wasser.",
+        "choices": [
+          {
+            "text": "Pass auf dich auf."
+          }
+        ]
+      }
+    }
+  },
+  "ghost": {
+    "start": "start",
+    "nodes": {
+      "start": {
+        "text": "Das Wasser unter dem Steg wird schwarz und still. Eine Gestalt steigt auf, durchscheinend, mit nassen Haaren. Sie zittert.\n\n„Ich wollte nicht singen. Sie haben gesagt, ich muss mitsingen, sonst ... Die Frau in Grau hat genickt, und der Polizist hat mich gestoßen.“",
+        "choices": [
+          {
+            "text": "Wer war der Polizist?",
+            "next": "who"
+          },
+          {
+            "text": "Ruh dich aus, Nate.",
+            "next": "rest"
+          }
+        ]
+      },
+      "who": {
+        "text": "„Jung. Blond. Er hat geweint, als er mich gestoßen hat. Sag Tobias ... sag ihm, ich bin nicht gestolpert.“",
+        "sets_flags": [
+          "ghost_spoken"
+        ],
+        "choices": [
+          {
+            "text": "Ich sage es ihm.",
+            "next": "rest"
+          }
+        ]
+      },
+      "rest": {
+        "text": "Die Gestalt löst sich auf wie Atem im Winter. Das Wasser wird wieder grau.",
+        "sets_flags": [
+          "ghost_spoken"
+        ],
+        "choices": [
+          {
+            "text": "(weiter)"
+          }
+        ]
+      }
+    }
+  },
+  "price_docks": {
+    "start": "start",
+    "nodes": {
+      "start": {
+        "text": "Price hält eine Laterne hoch. „Zwei Mann sichern die Hintertür. Lagerhaus 7, das mit dem Licht. Wenn Sie so weit sind, gehen wir rein. Sie zuerst. Ihr Fall.“",
+        "choices": [
+          {
+            "text": "Wie viele sind drin?",
+            "next": "many"
+          },
+          {
+            "text": "Haben Sie Verbandszeug dabei?",
+            "next": "bandage",
+            "hide_if_flags": [
+              "price_bandage"
+            ]
+          },
+          {
+            "text": "Gleich."
+          }
+        ]
+      },
+      "many": {
+        "text": "Keine Ahnung. Es wird gesungen. Viele Stimmen, oder eine, die klingt wie viele. Ich hasse diesen Fall.",
+        "choices": [
+          {
+            "text": "Ich auch.",
+            "next": "start"
+          }
+        ]
+      },
+      "bandage": {
+        "text": "Price kramt in seiner Manteltasche. „Zwei. Mehr hab ich nicht. Bluten Sie nicht auf meine Stiefel.“",
+        "gives_items": {
+          "verband": 2
+        },
+        "sets_flags": [
+          "price_bandage"
+        ],
+        "choices": [
+          {
+            "text": "Danke, Price.",
+            "next": "start"
+          }
+        ]
+      }
+    }
+  },
+  "rook_final": {
+    "start": [
+      {
+        "node": "beaten",
+        "requires_flags": [
+          "rook_defeated"
+        ]
+      },
+      {
+        "node": "start"
+      }
+    ],
+    "nodes": {
+      "start": {
+        "text": "Rook steht vor dem Altar, die Dienstmütze in der Hand. Er sieht müde aus. „Sie hätten nicht herkommen sollen. Sie ist so nah dran. Lilian kommt zurück, und dann ... dann ist alles wieder gut.“",
+        "choices": [
+          {
+            "text": "Du hast Hester in die Krypta getragen.",
+            "next": "confront"
+          },
+          {
+            "text": "Du hast Nate Lowe ertränkt.",
+            "next": "nate",
+            "requires_flags": [
+              "ghost_spoken"
+            ]
+          }
+        ]
+      },
+      "confront": {
+        "text": "„Ich hab sie getragen, ja. Sie hat nicht gelitten. Sie hat geschlafen.“ Er setzt die Mütze wieder auf. „Und jetzt gehen Sie. Bitte.“",
+        "choices": [
+          {
+            "text": "Nein, Thomas.",
+            "next": "fight"
+          }
+        ]
+      },
+      "nate": {
+        "text": "Rooks Gesicht fällt in sich zusammen. „Er wollte zur Polizei. Ich ... ich bin die Polizei.“",
+        "choices": [
+          {
+            "text": "Nicht mehr.",
+            "next": "fight"
+          }
+        ]
+      },
+      "fight": {
+        "text": "Rook zieht den Schlagstock.",
+        "combat": "rook_fight",
+        "choices": [
+          {
+            "text": "(Kampf beginnen)"
+          }
+        ]
+      },
+      "beaten": {
+        "text": "Rook sitzt an den Kisten, die Hände im Schoß. Er summt. Er hört nicht auf zu summen.",
+        "choices": [
+          {
+            "text": "(Ihn lassen)"
+          }
+        ]
+      }
+    }
+  },
+  "vey": {
+    "start": "start",
+    "nodes": {
+      "start": {
+        "text": "Eine Frau in Grau tritt hinter dem Altar hervor. Silberne Haare, Augen wie Winterwasser. Miriam Vey.\n\n„Sie haben mir einen Sohn genommen. Ich hatte schon eine Tochter verloren. Wissen Sie, wie das ist?“",
+        "choices": [
+          {
+            "text": "Du hast Kinder entführt und Menschen getötet.",
+            "next": "accuse"
+          },
+          {
+            "text": "Die Glocke bekommst du nicht.",
+            "next": "bell",
+            "requires_certain": [
+              "vey_bell"
+            ]
+          }
+        ]
+      },
+      "accuse": {
+        "text": "„Ich habe sie schlafen lassen. Nur ein bisschen. Lilian hat zwölf Jahre geschlafen.“\n\nSie hebt die Hand. Die Kerzen erlöschen alle auf einmal. Als Price mit der Laterne hereinstürmt, ist der Platz hinter dem Altar leer. Nur das Wasser unter den Bodenbrettern schlägt Wellen. Und der Glockenstuhl ist leer.",
+        "choices": [
+          {
+            "text": "Weiter",
+            "next": "end_good"
+          }
+        ]
+      },
+      "end_good": {
+        "text": "Price legt Rook Handschellen an.",
+        "ending": "c3_good"
+      },
+      "bell": {
+        "text": "Du stellst dich zwischen Vey und die Glocke unter dem Tuch. Sie ist kleiner als gedacht, schwarz vom Ruß.\n\nVey sieht dich lange an. „Dann warte ich eben auf eine andere Glocke. Kettlegate hat viele Türme.“\n\nDie Kerzen erlöschen. Als Price hereinstürmt, ist sie fort. Die Glocke aber liegt in deinen Armen und summt leise.",
+        "gives_items": {
+          "glocke": 1
+        },
+        "choices": [
+          {
+            "text": "Weiter",
+            "next": "end_perfect"
+          }
+        ]
+      },
+      "end_perfect": {
+        "text": "Price legt Rook Handschellen an und starrt auf die Glocke. „Was zum Teufel ist das?“",
+        "ending": "c3_perfect"
+      }
+    }
+  },
+  "cultist": {
+    "start": "start",
+    "nodes": {
+      "start": {
+        "text": "„Die Tür wird sich öffnen.“",
+        "choices": [
+          {
+            "text": "(schweigen)"
+          }
+        ]
+      }
+    }
+  }
+}

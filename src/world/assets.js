@@ -34,6 +34,12 @@ export const SHEETS = {
   anselm: 'characters/12_sexton_anselm_walk.png',
   moll: 'characters/12_moll_walk.png',
   miriam: 'characters/12_miriam_vey_walk.png',
+  docks: 'tilesets/13_01_docks_tiles.png',
+  doctor: 'characters/04_doctor_walk.png',
+  widow: 'characters/04_widow_walk.png',
+  newsboy: 'characters/04_newspaper_boy_walk.png',
+  dockworker: 'characters/04_dock_worker_walk.png',
+  cultist: 'characters/04_cultist_walk.png',
 };
 
 /**
@@ -54,6 +60,8 @@ export const TILE_CELLS = {
   grave: ['ebba', 35, 'grass0'], deadTree: ['ebba', 39, 'grass0'], rubble: ['ebba', 22, 'charred'],
   fence: ['ebba', 42, 'grass0'],
   stone: ['crypt', 11], cryptFace: ['crypt', 29],
+  planks0: ['docks', 0], planks1: ['docks', 1], quay: ['docks', 8],
+  crate: ['docks', 24, 'planks0'], barrel: ['docks', 37, 'planks1'],
 };
 
 /** Prop-Texture-Key → Ausschnitt [sheet, x, y, w, h]. Ausgabegröße = w x h. */
@@ -78,6 +86,7 @@ export const CHARACTER_SHEETS = {
   npc_elias: 'elias', npc_greta: 'greta', npc_halloway: 'halloway', npc_price: 'price',
   npc_kit: 'kit', npc_ivy: 'ivy', npc_hester: 'hester', npc_anselm: 'anselm', npc_moll: 'moll',
   npc_miriam: 'miriam',
+  npc_fenwick: 'doctor', npc_agnes: 'widow', npc_pip: 'newsboy', npc_tobias: 'dockworker', npc_cultist: 'cultist',
 };
 
 const srcKey = (sheet) => `src_${sheet}`;

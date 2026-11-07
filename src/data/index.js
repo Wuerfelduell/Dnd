@@ -6,6 +6,10 @@ import items from './items.json';
 import encounters from './encounters.json';
 import case01 from './case_01.json';
 import case02 from './case_02.json';
+import case03 from './case_03.json';
+import docks from './maps/docks.json';
+import warehouse from './maps/warehouse.json';
+import dHafen from './dialogues/hafen.json';
 import revier from './maps/revier.json';
 import ashgrove from './maps/ashgrove.json';
 import ebba from './maps/ebba.json';
@@ -19,7 +23,7 @@ export const content = buildContent({
   quests,
   items,
   encounters,
-  cases: [case01, case02],
-  maps: [revier, ashgrove, ebba, crypt],
-  dialogues: [dRevier, dAshgrove, dEbba],
+  cases: [case01, case02, case03],
+  maps: [revier, ashgrove, ebba, crypt, docks, warehouse],
+  dialogues: [dRevier, dAshgrove, dEbba, dHafen],
 });

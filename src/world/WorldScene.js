@@ -55,6 +55,10 @@ export function tileIndexFor(rows, x, y) {
     case 's': case 'K': return TILE_INDEX.stone;
     case '|': return TILE_INDEX[at(0, 1) === '|' || at(0, 1) === undefined ? 'cryptTop' : 'cryptFace'];
     case 'A': return TILE_INDEX.altar;
+    case 'P': return TILE_INDEX[v(2, 11) ? 'planks1' : 'planks0'];
+    case 'Q': return TILE_INDEX.quay;
+    case 'C': return TILE_INDEX.crate;
+    case 'V': return TILE_INDEX.barrel;
     default: throw new Error(`Unbekanntes Kartenzeichen "${ch}" bei ${x},${y}`);
   }
 }
@@ -173,7 +177,13 @@ export class WorldScene extends Phaser.Scene {
       const x = tx * TILE + 8;
       const y = ty * TILE + 8;
       const item = { kind: def.kind ?? 'clue', def, x, y, hidden: !!def.hidden, prompt: def.prompt, reach: def.reach ?? INTERACT_RANGE, active: true, parts: [] };
-      if (def.sprite) {
+      if (def.sprite?.startsWith('npc:')) {
+        // Gegner in Menschengestalt: Figur aus dem Lauf-Sheet (Frame 0 = nach unten)
+        const id = def.sprite.slice(4);
+        createCharacterSheet(this, `npc_${id}`, this.state.content.npcs[id].palette);
+        item.sprite = this.add.sprite(x, y + 7, `npc_${id}`, 0).setOrigin(0.5, 1).setDepth(100 + y + 7);
+        item.parts.push(item.sprite);
+      } else if (def.sprite) {
         item.sprite = this.add.image(x, y, def.sprite).setDepth(50);
         item.parts.push(item.sprite);
         if (item.hidden) this.hidden.push(item.sprite);
