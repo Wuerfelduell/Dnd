@@ -2,6 +2,8 @@
 // Alles hält sich an die Asset-Maße (Tiles 16x16, Figuren 16x32, Sheets 64x128),
 // damit echte PNGs später 1:1 die Platzhalter ersetzen können (siehe README).
 
+import { createSpriteTextures, drawTileFromSheet } from './assets.js';
+
 export const TILE = 16;
 
 const OUTLINE = '#1a1c2c';
@@ -587,10 +589,15 @@ const ENEMIES = {
 };
 
 export function createTextures(scene) {
-  // Tileset als Streifen (17 x 16px). Später einfach durch ein PNG ersetzen.
+  // Echte PNGs (assets.js) zuerst anlegen; alles Fehlende wird unten prozedural ergänzt.
+  createSpriteTextures(scene);
+  // Tileset als Streifen (16px pro Tile): PNG-Zelle, sonst Platzhalter.
   if (!scene.textures.exists('tiles')) {
     const { c, ctx } = makeCanvas(TILE_KEYS.length * TILE, TILE);
-    TILE_KEYS.forEach((k, i) => TILE_PAINTERS[k](painter(ctx, i * TILE, 0)));
+    TILE_KEYS.forEach((k, i) => {
+      const fallback = (key) => TILE_PAINTERS[key](painter(ctx, i * TILE, 0));
+      if (!drawTileFromSheet(scene, ctx, k, i * TILE, 0, fallback)) fallback(k);
+    });
     scene.textures.addCanvas('tiles', c);
   }
   for (const [key, lit] of [['lamp_lit', true], ['lamp_frost', false]]) {
