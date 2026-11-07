@@ -1,0 +1,148 @@
+// Kampfregeln, Leben und Inventar: `npm test`
+import { test } from 'node:test';
+import assert from 'node:assert/strict';
+import { GameState } from '../src/core/GameState.js';
+import { Combat, judgeDefense, judgeTiming, WINDOW } from '../src/core/Combat.js';
+import { loadContent, fight } from './helpers.js';
+
+const content = loadContent();
+const fresh = () => new GameState(content);
+
+test('Timing: Parade eng, Ausweichen großzügig, zu früh ist daneben', () => {
+  assert.equal(judgeDefense('parry', 0), 'parry');
+  assert.equal(judgeDefense('parry', WINDOW.parry + 1), 'miss');
+  assert.equal(judgeDefense('dodge', -WINDOW.dodge), 'dodge');
+  assert.equal(judgeDefense('dodge', -WINDOW.dodge - 50), 'miss');
+  const zone = { center: 0.6, perfect: 0.05, good: 0.12 };
+  assert.equal(judgeTiming(0.62, zone), 'perfect');
+  assert.equal(judgeTiming(0.7, zone), 'good');
+  assert.equal(judgeTiming(0.9, zone), 'miss');
+  assert.equal(judgeTiming(null, zone), 'miss');
+});
+
+test('Startausrüstung, Heilen, Ausrüsten und Gegenstände benutzen', () => {
+  const s = fresh();
+  assert.equal(s.hp, 40);
+  assert.equal(s.weapon, 'spazierstock');
+  assert.equal(s.itemCount('verband'), 2);
+  assert.equal(s.useItem('verband'), 'Du bist unverletzt.');
+  s.damage(20);
+  assert.match(s.useItem('verband'), /\+12 Leben/);
+  assert.equal(s.hp, 32);
+  assert.equal(s.itemCount('verband'), 1);
+  s.applyEffects({ gives_items: { schlagstock: 1, bannsalz: 1 } });
+  assert.equal(s.weapon, 'schlagstock', 'bessere Waffe wird angelegt');
+  assert.match(s.useItem('bannsalz'), /nur im Kampf/);
+  assert.ok(s.equip('spazierstock'));
+  assert.ok(s.meets({ requires_items: ['bannsalz'] }));
+  assert.ok(!s.meets({ hide_if_items: ['bannsalz'] }));
+});
+
+test('Spielstand enthält Leben und Inventar, alte Stände laden weiter', () => {
+  const s = fresh();
+  s.damage(15);
+  s.applyEffects({ gives_items: { tonikum: 2 } });
+  const t = fresh();
+  assert.ok(t.load(JSON.parse(JSON.stringify(s.serialize(null)))));
+  assert.equal(t.hp, 25);
+  assert.equal(t.itemCount('tonikum'), 2);
+  const old = { ...s.serialize(null), v: 2 };
+  delete old.hp; delete old.inventory;
+  assert.ok(t.load(old));
+  assert.equal(t.hp, 40);
+  assert.equal(t.itemCount('verband'), 2);
+});
+
+test('Parade gibt Konzentration und Konter, Treffer kosten Leben', () => {
+  const s = fresh();
+  const c = new Combat(s, 'fog_hound');
+  const atk = c.nextEnemyAttack();
+  const hp = c.enemy.hp;
+  const r = c.resolveHit(atk, 'parry');
+  assert.equal(r.damage, 0);
+  assert.ok(c.enemy.hp < hp);
+  assert.equal(c.ap, 2);
+  c.resolveHit(atk, 'miss');
+  assert.equal(s.hp, 40 - atk.damage);
+  assert.equal(c.resolveHit(atk, 'dodge').damage, 0);
+});
+
+test('Präziser Angriff macht mehr Schaden und bringt mehr Konzentration', () => {
+  const a = new Combat(fresh(), 'fog_hound');
+  const b = new Combat(fresh(), 'fog_hound');
+  const ra = a.useSkill('attack', ['perfect']);
+  const rb = b.useSkill('attack', ['miss']);
+  assert.ok(ra.total > rb.total);
+  assert.equal(a.ap, 3);
+  assert.equal(b.ap, 2);
+  assert.throws(() => b.useSkill('ward', ['good']), /nicht möglich/);
+});
+
+test('Laternenblende lässt den Gegner aussetzen, Bannwort kostet Nerven', () => {
+  const s = fresh();
+  const c = new Combat(s, 'ash_warden');
+  c.ap = 6;
+  assert.ok(c.useSkill('blind', ['good']).stunned);
+  assert.equal(c.nextEnemyAttack(), null);
+  assert.ok(c.nextEnemyAttack());
+  const before = s.composure;
+  const r = c.useSkill('ward', ['good']);
+  assert.equal(r.total, 24, 'doppelt gegen Okkultes');
+  assert.equal(s.composure, before - 15);
+});
+
+test('Wissen aus den Ermittlungen deckt Schwachstellen auf', () => {
+  const s = fresh();
+  assert.ok(!new Combat(s, 'ash_warden').weak);
+  s.flags.add('box_destroyed');
+  const c = new Combat(s, 'ash_warden');
+  assert.ok(c.weak);
+  assert.ok(c.useSkill('attack', ['good']).total > new Combat(fresh(), 'ash_warden').useSkill('attack', ['good']).total);
+});
+
+test('Übungskampf: kein Schaden bleibt, erster Sieg gibt eine Belohnung', () => {
+  const s = fresh();
+  const honor = s.honor;
+  const { result } = fight(s, 'sparring', { defend: (i) => (i % 2 ? 'miss' : 'dodge') });
+  assert.equal(result.outcome, 'won');
+  assert.equal(s.hp, 40, 'Leben nach Übung wiederhergestellt');
+  assert.equal(s.itemCount('verband'), 3);
+  assert.equal(s.honor, honor + 2);
+  fight(s, 'sparring');
+  assert.equal(s.itemCount('verband'), 3, 'Belohnung nur einmal');
+});
+
+test('Niederlage: Ohnmacht mit wenig Leben, im Wächterkampf zurück an die Treppe', () => {
+  const s = fresh();
+  const { result } = fight(s, 'ash_warden', { attack: 'miss', defend: () => 'miss' });
+  assert.equal(result.outcome, 'lost');
+  assert.equal(s.hp, 16);
+  assert.deepEqual(result.travel, { map: 'ebba', spawn: 'altar' });
+  assert.ok(!s.flags.has('warden_defeated'));
+});
+
+test('Balance: Mit Startausrüstung und den Gegenständen auf dem Weg ist jeder Kampf zu schaffen', () => {
+  // Wer jedem zweiten Schlag ausweicht und unter 15 Leben verbindet, gewinnt.
+  // Vor dem Aschewächter gibt Küster Anselm zwei Beutel Bannsalz.
+  for (const id of Object.keys(content.encounters)) {
+    const s = fresh();
+    const items = id === 'ash_warden' ? ['bannsalz', 'bannsalz'] : [];
+    if (items.length) s.addItem('bannsalz', 2);
+    const { result, combat } = fight(s, id, { defend: (i) => (i % 2 ? 'miss' : 'dodge'), items, healBelow: 15 });
+    assert.equal(result.outcome, 'won', `${id}: verloren in Runde ${combat.round}`);
+  }
+});
+
+test('Balance: Wer nur einsteckt, verliert gegen den Aschewächter', () => {
+  const { result } = fight(fresh(), 'ash_warden', { defend: () => 'miss' });
+  assert.equal(result.outcome, 'lost');
+});
+
+test('Nebelhund: Sieg erledigt den Auftrag und bringt Belohnungen', () => {
+  const s = fresh();
+  s.startQuest('fog_hound');
+  fight(s, 'fog_hound', { attack: 'perfect', defend: () => 'parry' });
+  assert.equal(s.quests.fog_hound, 'done');
+  assert.ok(s.flags.has('hound_defeated'));
+  assert.equal(s.itemCount('bannsalz'), 1);
+});

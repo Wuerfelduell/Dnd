@@ -22,17 +22,19 @@ export class Ui {
       <div class="hud">
         <div class="hud-left">
           <div class="place"></div>
+          <div class="meter life"><span>Leben</span><div class="bar"><div class="lfill"></div></div><em class="hpnum"></em></div>
           <div class="meter"><span>Nerven</span><div class="bar"><div class="fill"></div></div></div>
           <div class="meter honor"><span class="rank"></span><div class="bar"><div class="hfill"></div></div></div>
         </div>
         <div class="hud-right">
-          <span class="key">J</span> Notizbuch &nbsp; <span class="key">Q</span> Geistsicht
+          <span class="key">J</span> Notizbuch &nbsp; <span class="key">I</span> Inventar &nbsp; <span class="key">Q</span> Geistsicht
         </div>
         <div class="vision-tag">Geistsicht</div>
       </div>
       <div class="prompt hidden"></div>
       <div class="toasts"></div>
-      <div class="layer"></div>`;
+      <div class="layer"></div>
+      <div class="floats"></div>`;
     this.$ = (sel) => root.querySelector(sel);
     this.layer = this.$('.layer');
 
@@ -53,16 +55,25 @@ export class Ui {
       if (status === 'done') this.toast(`Auftrag erledigt: ${q.title}`, 'quest');
     });
     state.on('ending', (id) => { this.pendingEnding = id; });
+    state.on('hp', () => this.updateHp());
+    state.on('item', ({ id, delta }) => {
+      if (this.modal === 'combat') return;
+      const it = state.item(id);
+      if (delta > 0) this.toast(`Erhalten: ${it.name}${delta > 1 ? ` ×${delta}` : ''}`, 'item');
+      else if (it.kind !== 'consumable') this.toast(`Abgegeben: ${it.name}`, 'warn');
+    });
 
     window.addEventListener('keydown', (e) => this.onKey(e), true);
     this.updateComposure(state.composure);
     this.updateHonor();
+    this.updateHp();
   }
 
   onSceneReady(scene) {
     this.scene = scene;
     this.$('.place').textContent = this.state.content.maps[this.state.map].name;
     this.updateHonor();
+    this.updateHp();
   }
 
   isBlocking() {
@@ -75,6 +86,14 @@ export class Ui {
     const fill = this.$('.fill');
     fill.style.width = `${v}%`;
     fill.classList.toggle('low', v < 30);
+  }
+
+  updateHp() {
+    const s = this.state;
+    const fill = this.$('.lfill');
+    fill.style.width = `${(s.hp / s.maxHp) * 100}%`;
+    fill.classList.toggle('low', s.hp / s.maxHp < 0.3);
+    this.$('.hpnum').textContent = `${s.hp}/${s.maxHp}`;
   }
 
   updateHonor() {
@@ -128,6 +147,8 @@ export class Ui {
       const id = this.pendingEnding;
       this.pendingEnding = null;
       this.showEnding(id);
+    } else if (this.state.pendingCombat && this.scene) {
+      this.scene.startCombat(this.state.pendingCombat);
     }
   }
 
@@ -270,22 +291,25 @@ export class Ui {
 
   renderNotebook(feedback) {
     const cases = this.visibleCases();
-    if (this.tab !== 'quests' && !cases.some((c) => c.id === this.tab)) this.tab = 'quests';
-    const tabs = [{ id: 'quests', title: 'Aufträge' }, ...cases.map((c) => ({ id: c.id, title: c.title.replace(/:.*/, '') }))];
-    const body = this.tab === 'quests' ? this.questsHtml() : this.caseHtml(this.tab);
+    if (!['quests', 'items'].includes(this.tab) && !cases.some((c) => c.id === this.tab)) this.tab = 'quests';
+    const tabs = [{ id: 'quests', title: 'Aufträge' }, { id: 'items', title: 'Inventar' }, ...cases.map((c) => ({ id: c.id, title: c.title.replace(/:.*/, '') }))];
+    const body = this.tab === 'quests' ? this.questsHtml() : this.tab === 'items' ? this.itemsHtml() : this.caseHtml(this.tab);
+    const isCase = !['quests', 'items'].includes(this.tab);
     const el = this.open('notebook', `
       <div class="tabs">${tabs.map((t, i) => `<button class="tab ${t.id === this.tab ? 'sel' : ''}" data-tab="${t.id}"><span class="key">${i + 1}</span> ${esc(t.title)}</button>`).join('')}
         <span class="rankinfo">${esc(this.state.rank().name)} · Ansehen ${this.state.honor}</span></div>
       ${body}
       <div class="feedback">${feedback}</div>
       <div class="actions">
-        ${this.tab !== 'quests' ? `<button class="primary" data-act="combine" ${this.selected.length === 2 ? '' : 'disabled'}>Verknüpfen <span class="key">V</span></button>` : ''}
+        ${isCase ? `<button class="primary" data-act="combine" ${this.selected.length === 2 ? '' : 'disabled'}>Verknüpfen <span class="key">V</span></button>` : ''}
         <button data-act="close">Schließen <span class="key">J</span></button>
       </div>`, 'notebook');
     this.notebookTabs = tabs;
     el.querySelectorAll('[data-tab]').forEach((b) => { b.onclick = () => { this.tab = b.dataset.tab; this.selected = []; this.renderNotebook(''); }; });
     el.querySelectorAll('[data-fact]').forEach((b) => { b.onclick = () => this.toggleFact(b.dataset.fact); });
     el.querySelector('[data-act=combine]')?.addEventListener('click', () => this.combine());
+    el.querySelectorAll('[data-use]').forEach((b) => { b.onclick = () => this.renderNotebook(esc(this.state.useItem(b.dataset.use) ?? '')); });
+    el.querySelectorAll('[data-equip]').forEach((b) => { b.onclick = () => { this.state.equip(b.dataset.equip); this.renderNotebook(''); }; });
     el.querySelector('[data-act=close]').onclick = () => this.close();
   }
 
@@ -302,6 +326,24 @@ export class Ui {
       return `<li class="quest ${st}"><div class="qtitle"><span class="qkind">${q.kind === 'main' ? 'Hauptfall' : 'Nebenauftrag'}</span> ${esc(q.title)} ${st !== 'active' ? '<span class="badge likely">erledigt</span>' : ''}</div>
         ${st === 'active' ? `<div class="qsum">${esc(q.summary)}</div>` : ''}${steps}</li>`;
     }).join('')}</ul>`;
+  }
+
+  itemsHtml() {
+    const s = this.state;
+    const kindOrder = { weapon: 0, consumable: 1, key: 2 };
+    const list = s.items().sort((a, b) => kindOrder[a.kind] - kindOrder[b.kind]);
+    const w = s.weaponStats();
+    const rows = list.map((it) => {
+      let action = '';
+      if (it.kind === 'weapon') action = s.weapon === it.id ? '<span class="badge likely">ausgerüstet</span>' : `<button class="small" data-equip="${it.id}">Ausrüsten</button>`;
+      else if (it.kind === 'consumable' && !it.combat_only) action = `<button class="small" data-use="${it.id}">Benutzen</button>`;
+      else if (it.combat_only) action = '<span class="muted">nur im Kampf</span>';
+      const stat = it.kind === 'weapon' ? ` <span class="muted">Angriff ${it.atk}${it.occult ? ', stark gegen Okkultes' : ''}</span>` : '';
+      return `<li class="item"><div><strong>${esc(it.name)}</strong>${it.count > 1 ? ` ×${it.count}` : ''}${stat}<br><span class="desc">${esc(it.desc)}</span></div><div>${action}</div></li>`;
+    }).join('');
+    return `
+      <div class="status">Leben <strong>${s.hp}/${s.maxHp}</strong> · Nerven <strong>${Math.round(s.composure)}</strong> · Waffe <strong>${esc(w.name)}</strong> (Angriff ${w.atk})</div>
+      <ul class="items">${rows || '<li class="empty">Deine Taschen sind leer.</li>'}</ul>`;
   }
 
   caseHtml(caseId) {
@@ -356,6 +398,129 @@ export class Ui {
     this.renderNotebook(msg);
   }
 
+  // --- Kampf -----------------------------------------------------------------
+
+  openCombat(scene) {
+    this.combatScene = scene;
+    this.combatMenuOpen = null;
+    this.modal = 'combat';
+    this.setPrompt(null);
+    this.root.classList.add('in-combat');
+    this.layer.innerHTML = `
+      <div class="combat">
+        <div class="cb-enemy"><div class="cb-name"></div><div class="bar big"><div class="efill"></div></div><div class="cb-tags"></div></div>
+        <div class="cb-msg"><div class="cb-text"></div><div class="cb-help"></div></div>
+        <div class="cb-bottom">
+          <div class="cb-player">
+            <div class="cb-name">Du <span class="muted cb-weapon"></span></div>
+            <div class="meter"><span>Leben</span><div class="bar"><div class="pfill"></div></div><em class="cb-hp"></em></div>
+            <div class="meter"><span>Nerven</span><div class="bar"><div class="nfill"></div></div></div>
+            <div class="cb-ap"><span>Konzentration</span> <span class="pips"></span></div>
+          </div>
+          <div class="cb-menu"></div>
+        </div>
+      </div>`;
+    this.combatRefresh();
+  }
+
+  combatRefresh() {
+    const sc = this.combatScene;
+    if (!sc || this.modal !== 'combat') return;
+    const c = sc.combat;
+    const s = this.state;
+    const q = (sel) => this.layer.querySelector(sel);
+    q('.cb-enemy .cb-name').textContent = `${c.enemy.name} · ${c.enemy.hp}/${c.enemy.maxHp}`;
+    q('.efill').style.width = `${(c.enemy.hp / c.enemy.maxHp) * 100}%`;
+    q('.cb-tags').innerHTML = [c.enemy.occult ? '<span class="badge refuted">okkult</span>' : '', c.weak ? '<span class="badge likely">Schwachstelle bekannt</span>' : '', c.enc.practice ? '<span class="badge suspected">Übung</span>' : ''].join(' ');
+    q('.pfill').style.width = `${(s.hp / s.maxHp) * 100}%`;
+    q('.pfill').classList.toggle('low', s.hp / s.maxHp < 0.3);
+    q('.cb-hp').textContent = `${s.hp}/${s.maxHp}`;
+    q('.nfill').style.width = `${s.composure}%`;
+    q('.cb-weapon').textContent = s.weaponStats().name;
+    q('.pips').innerHTML = Array.from({ length: 6 }, (_, i) => `<i class="${i < c.ap ? 'on' : ''}"></i>`).join('');
+  }
+
+  combatMessage(text, help = '') {
+    const el = this.layer.querySelector('.cb-text');
+    if (!el) return;
+    el.innerHTML = paragraphs(text);
+    this.layer.querySelector('.cb-help').textContent = help;
+    this.layer.querySelector('.cb-menu').innerHTML = '';
+    this.combatMenuOpen = null;
+  }
+
+  /** Hauptmenü bzw. Untermenüs ('skills', 'items'). */
+  combatMenu(sub = 'main') {
+    const sc = this.combatScene;
+    const c = sc.combat;
+    let entries;
+    if (sub === 'main') {
+      entries = [
+        { text: 'Angriff', info: '+1 K', act: { type: 'skill', id: 'attack' } },
+        { text: 'Fertigkeiten', info: `${c.ap} K`, sub: 'skills' },
+        { text: 'Gegenstände', info: `${this.state.items().filter((i) => i.kind === 'consumable').length}`, sub: 'items' },
+        { text: 'Fliehen', info: c.enc.fleeable ? '' : 'unmöglich', act: { type: 'flee' }, disabled: !c.enc.fleeable },
+      ];
+      this.layer.querySelector('.cb-text').innerHTML = `<p>Runde ${c.round}. Was tust du?</p>`;
+      this.layer.querySelector('.cb-help').textContent = '';
+    } else if (sub === 'skills') {
+      entries = c.skills().filter((k) => k.id !== 'attack').map((k) => ({
+        text: k.name, info: `${k.cost} K${k.composure ? ` · ${k.composure} Nerven` : ''}`, desc: k.desc, act: { type: 'skill', id: k.id }, disabled: !k.usable,
+      }));
+    } else {
+      entries = this.state.items().filter((i) => i.kind === 'consumable').map((i) => ({ text: `${i.name} ×${i.count}`, desc: i.desc, act: { type: 'item', id: i.id } }));
+      if (!entries.length) entries = [{ text: 'Keine Gegenstände', disabled: true }];
+    }
+    if (sub !== 'main') entries.push({ text: 'Zurück', back: true });
+    this.combatMenuOpen = { sub, entries };
+    const menu = this.layer.querySelector('.cb-menu');
+    menu.innerHTML = `<ol class="choices">${entries.map((e, i) => `<li><button data-i="${i}" ${e.disabled ? 'disabled' : ''} title="${esc(e.desc ?? '')}">
+      <span class="key">${e.back ? 'Esc' : i + 1}</span> ${esc(e.text)} <span class="muted">${esc(e.info ?? '')}</span></button></li>`).join('')}</ol>
+      <div class="cb-desc"></div>`;
+    menu.querySelectorAll('[data-i]').forEach((b) => {
+      b.onclick = () => this.combatPick(Number(b.dataset.i));
+      b.onmouseenter = () => { menu.querySelector('.cb-desc').textContent = entries[Number(b.dataset.i)].desc ?? ''; };
+    });
+  }
+
+  combatPick(i) {
+    const m = this.combatMenuOpen;
+    const e = m?.entries[i];
+    if (!e || e.disabled) return;
+    if (e.back) { this.combatMenu('main'); return; }
+    if (e.sub) { this.combatMenu(e.sub); return; }
+    this.combatScene.choose(e.act);
+  }
+
+  combatFloat(text, xPct, yPct, cls) {
+    const box = this.$('.floats');
+    const el = document.createElement('div');
+    el.className = `float ${cls}`;
+    el.textContent = text;
+    el.style.left = `${xPct}%`;
+    el.style.top = `${yPct}%`;
+    box.appendChild(el);
+    setTimeout(() => el.remove(), 1100);
+  }
+
+  combatOver(title) {
+    const c = this.combatScene.combat;
+    const text = { won: `${c.enemy.name} ist besiegt.`, lost: 'Deine Beine geben nach.', fled: 'Du bringst dich in Sicherheit.' }[c.outcome];
+    this.combatMessage(`${title}! ${text}`, 'Weiter mit E');
+  }
+
+  closeCombat(result, enc) {
+    this.combatScene = null;
+    this.root.classList.remove('in-combat');
+    this.$('.floats').innerHTML = '';
+    this.modal = null;
+    this.layer.innerHTML = '';
+    this.updateHp();
+    const title = { won: 'Sieg', lost: 'Ohnmacht', fled: 'Rückzug' }[result.outcome];
+    this.keysBlockedUntil = performance.now() + 400; // hastiges E-Drücken schließt die Meldung nicht sofort
+    this.showMessage(`${title}: ${enc.name}`, result.text);
+  }
+
   // --- Ende -------------------------------------------------------------------
 
   showEnding(id) {
@@ -375,7 +540,9 @@ export class Ui {
 
   onKey(e) {
     if (!this.modal || e.repeat) return;
+    if (performance.now() < (this.keysBlockedUntil ?? 0)) { e.preventDefault(); e.stopPropagation(); return; }
     const k = e.key.toLowerCase();
+    if (this.modal === 'combat') { this.onCombatKey(e, k); return; }
     const confirm = k === 'e' || k === ' ' || k === 'enter';
     const num = /^[1-9]$/.test(k) ? Number(k) - 1 : -1;
     let handled = true;
@@ -386,10 +553,25 @@ export class Ui {
     else if (this.modal === 'dialogue' && confirm && this.dialogue?.keyMap.length === 1) this.choose(this.dialogue.keyMap[0]);
     else if (this.modal === 'travel' && num >= 0) this.travel(num);
     else if (this.modal === 'travel' && k === 'escape') this.close();
-    else if (this.modal === 'notebook' && (k === 'j' || k === 'tab' || k === 'escape')) this.close();
+    else if (this.modal === 'notebook' && (k === 'j' || k === 'i' || k === 'tab' || k === 'escape')) this.close();
     else if (this.modal === 'notebook' && k === 'v') this.combine();
     else if (this.modal === 'notebook' && num >= 0 && this.notebookTabs[num]) { this.tab = this.notebookTabs[num].id; this.selected = []; this.renderNotebook(''); }
     else handled = false;
     if (handled) { e.preventDefault(); e.stopPropagation(); }
+  }
+
+  onCombatKey(e, k) {
+    const sc = this.combatScene;
+    if (!sc) return;
+    let handled = false;
+    const num = /^[1-9]$/.test(k) ? Number(k) - 1 : -1;
+    if (sc.phase === 'menu' && this.combatMenuOpen) {
+      if (num >= 0) { this.combatPick(num); handled = true; }
+      else if ((k === 'escape' || k === 'backspace') && this.combatMenuOpen.sub !== 'main') { this.combatMenu('main'); handled = true; }
+    } else {
+      const kind = k === ' ' ? 'dodge' : k === 'f' ? 'parry' : (k === 'e' || k === 'enter') ? 'confirm' : null;
+      if (kind) handled = sc.onKey(kind);
+    }
+    if (handled || k === ' ' || k === 'tab') { e.preventDefault(); e.stopPropagation(); }
   }
 }

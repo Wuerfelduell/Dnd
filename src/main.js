@@ -4,6 +4,7 @@ import { content } from './data/index.js';
 import { GameState } from './core/GameState.js';
 import { WorldScene, VIEW_W, VIEW_H } from './world/WorldScene.js';
 import { Ui } from './ui/Ui.js';
+import { CombatScene } from './world/CombatScene.js';
 
 const SAVE_KEY = 'nebelakten-save';
 const state = new GameState(content);
@@ -25,7 +26,7 @@ function clearSave() {
 }
 let saveTimer = null;
 const saveSoon = () => { clearTimeout(saveTimer); saveTimer = setTimeout(writeSave, 300); };
-['changed', 'quest', 'honor', 'ending', 'travel', 'conclusion'].forEach((ev) => state.on(ev, saveSoon));
+['changed', 'quest', 'honor', 'ending', 'travel', 'conclusion', 'item'].forEach((ev) => state.on(ev, saveSoon));
 setInterval(writeSave, 5000);
 
 let started = false;
@@ -33,7 +34,7 @@ let game;
 const restartWorld = () => game.scene.getScene('world').scene.restart();
 
 const ui = new Ui(uiRoot, state, {
-  hasSave: () => readSave()?.v === 2,
+  hasSave: () => [2, 3].includes(readSave()?.v),
   onNewGame: () => {
     clearSave();
     state.reset();
@@ -58,7 +59,7 @@ game = new Phaser.Game({
   backgroundColor: '#06070d',
   physics: { default: 'arcade', arcade: { debug: false } },
   scale: { mode: Phaser.Scale.NONE },
-  scene: [WorldScene],
+  scene: [WorldScene, CombatScene],
   callbacks: {
     preBoot: (g) => {
       g.registry.set('state', state);

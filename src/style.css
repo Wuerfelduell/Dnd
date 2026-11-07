@@ -183,3 +183,55 @@ body { display: grid; place-items: center; }
 .panel.ending .sub { color: var(--muted); font-size: 0.9em; }
 .panel.ending-good h1 { color: var(--occult); }
 .panel.ending-bad h1 { color: #c8826a; }
+
+/* v3: Leben, Inventar, Kampf */
+.meter.life .lfill, .pfill { height: 100%; background: #b8604a; transition: width 0.25s linear; }
+.meter.life em, .cb-hp { font-style: normal; color: var(--ink); font-size: 0.9em; }
+.lfill.low, .pfill.low { background: #e04a3a; animation: pulse 1s ease-in-out infinite; }
+.toast.item { border-color: #c8a86a; }
+button.small { font-size: 0.8em; padding: 0.1em 0.5em; }
+.status { color: var(--muted); margin-bottom: 0.5em; }
+.status strong { color: var(--ink); font-weight: normal; }
+.items { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 0.35em; max-height: 19em; overflow-y: auto; }
+.items .item { display: flex; justify-content: space-between; align-items: center; gap: 1em; padding: 0.3em 0.5em; border: 0.125em solid #2a2630; }
+.items .desc { color: var(--muted); font-size: 0.85em; }
+
+#ui.in-combat .hud, #ui.in-combat .prompt, #ui.in-combat .toasts { display: none; }
+.combat { position: absolute; inset: 0; pointer-events: none; }
+.combat button { pointer-events: auto; font: inherit; color: var(--ink); padding: 0.15em 0.4em; border: 0.125em solid transparent; cursor: pointer; }
+.combat button:hover:not(:disabled) { border-color: var(--brass); background: #2c2532; }
+.cb-enemy { position: absolute; right: 1em; top: 0.8em; width: 18em; text-align: right; text-shadow: 0 0.125em 0 #000; }
+.cb-enemy .bar.big { width: 100%; height: 0.8em; margin-top: 0.2em; }
+.efill { height: 100%; background: #c84a4a; transition: width 0.3s ease-out; }
+.cb-tags { margin-top: 0.3em; font-size: 0.85em; }
+.cb-msg {
+  position: absolute; left: 1em; top: 0.8em; width: 26em;
+  background: var(--panel); border: 0.125em solid var(--brass); padding: 0.4em 0.7em; font-size: 0.9em;
+}
+.cb-msg p { margin: 0 0 0.3em; }
+.cb-help { color: var(--gold); font-size: 0.9em; }
+.cb-help:empty { display: none; }
+.cb-bottom { position: absolute; left: 0; right: 0; bottom: 0; height: 7.6em; display: flex; gap: 0.6em; padding: 0.5em 0.8em; background: linear-gradient(transparent, rgba(4, 4, 8, 0.85) 30%); }
+.cb-player { width: 17em; }
+.cb-player .bar { width: 8em; }
+.nfill { height: 100%; background: #8aa6b8; }
+.cb-ap { font-size: 0.8em; color: var(--muted); margin-top: 0.3em; display: flex; align-items: center; gap: 0.4em; }
+.pips i { display: inline-block; width: 0.7em; height: 0.7em; margin-right: 0.2em; border: 0.125em solid var(--brass); transform: rotate(45deg); }
+.pips i.on { background: var(--gold); box-shadow: 0 0 0.4em var(--gold); }
+.cb-menu { flex: 1; background: var(--panel); border: 0.125em solid var(--brass); padding: 0.2em 0.5em; pointer-events: auto; }
+.cb-menu:empty { visibility: hidden; }
+.cb-menu .choices { grid-template-columns: 1fr 1fr; margin: 0; gap: 0.1em 0.4em; }
+.cb-menu button[disabled] { opacity: 0.45; }
+.cb-desc { font-size: 0.75em; color: var(--muted); min-height: 1em; }
+.floats { position: absolute; inset: 0; pointer-events: none; }
+.float {
+  position: absolute; transform: translate(-50%, 0); white-space: nowrap; font-size: 1.1em;
+  text-shadow: 0 0.125em 0 #000, 0 0 0.3em #000; animation: floatUp 1.1s ease-out forwards;
+}
+.float.dmg { color: #fff2c8; }
+.float.crit { color: var(--gold); font-size: 1.4em; }
+.float.hurt { color: #ff7a6a; font-size: 1.3em; }
+.float.perfect { color: var(--gold); }
+.float.good { color: var(--occult); }
+.float.miss { color: var(--muted); }
+@keyframes floatUp { from { opacity: 1; margin-top: 0; } 70% { opacity: 1; } to { opacity: 0; margin-top: -2.5em; } }

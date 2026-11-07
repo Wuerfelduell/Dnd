@@ -6,8 +6,9 @@ Ermitteln, Gespräche und das Verknüpfen von Hinweisen, nicht Kämpfe.
 
 ![Screenshot](docs/screenshot.png)
 
-**Stand:** spielbarer Prototyp mit zwei zusammenhängenden Fällen, vier Nebenaufträgen,
-vier Orten (Polizeirevier, Ashgrove Lane, Friedhof St. Ebba, Krypta) und Spielständen.
+**Stand:** spielbarer Prototyp mit zwei zusammenhängenden Fällen, fünf Nebenaufträgen,
+vier Orten (Polizeirevier, Ashgrove Lane, Friedhof St. Ebba, Krypta), Inventar, Leben,
+einem kleinen Rundenkampf mit Timing und Spielständen.
 
 ## Spielen
 
@@ -30,6 +31,10 @@ vier Orten (Polizeirevier, Ashgrove Lane, Friedhof St. Ebba, Krypta) und Spielst
 | `1`–`9` oder Klick | Antwort im Gespräch wählen |
 | `Q` | Geistsicht an/aus: zeigt verborgene Spuren, kostet Nerven |
 | `J` / `Tab` | Notizbuch: zwei Hinweise anklicken, mit `V` verknüpfen |
+| `I` | Inventar: Gegenstände benutzen, Waffe ausrüsten |
+| Kampf: `1`–`4` | Aktion wählen (Angriff, Fertigkeiten, Gegenstände, Flucht) |
+| Kampf: `E` / `Leertaste` | beim Angriff im goldenen Bereich drücken |
+| Kampf: `Leertaste` / `F` | beim gegnerischen Schlag ausweichen / parieren |
 | `R` | nach einem Ende neu starten |
 
 ## Spielmechanik
@@ -49,9 +54,22 @@ vier Orten (Polizeirevier, Ashgrove Lane, Friedhof St. Ebba, Krypta) und Spielst
   Gesperrte Optionen sieht man ausgegraut mit dem nötigen Rang. Manche Leute (Häftlinge)
   reden dafür *weniger*, je angesehener du bist.
 - **Geistsicht** macht okkulte Spuren sichtbar. Sie zehrt an den **Nerven**.
+- **Leben und Inventar**: Verbände und Tonikum heilen, Riechsalz beruhigt die Nerven,
+  Bannsalz hilft gegen Okkultes. Die Pritsche im Revier heilt vollständig. Bessere Waffen
+  gibt es mit höherem Rang (Dienstschlagstock ab Hilfsermittler, Stockdegen ab Vertrauter).
+- **Kampf** ist selten und kurz, das Ermitteln bleibt im Vordergrund. Rundenbasiert mit Timing:
+  Angriffe im richtigen Moment treffen präzise. Gegnerische Schläge kündigt ein schrumpfender
+  Ring an: *Ausweichen* (Leertaste) ist großzügig, *Parieren* (F) eng, bringt aber Konzentration
+  und einen Konter. Wer alle Schläge einer Attacke pariert, setzt zum Gegenschlag an.
+  Konzentration bezahlt Fertigkeiten (Doppelschlag, Laternenblende, Bannwort).
+  Wissen aus den Ermittlungen deckt Schwachstellen auf. Eine Niederlage ist kein Game Over:
+  Man wacht mit wenig Leben wieder auf. Kämpfe bisher: Übungskampf mit Sergeant Holt,
+  der Nebelhund am Kanal (Nebenauftrag) und der Aschewächter in der Krypta (Fall 2).
 - **Aufträge** stehen im Notizbuch mit abhakbaren Schritten. Der Spielstand wird
   automatisch im Browser gespeichert (Titelbildschirm: Fortsetzen / Neues Spiel).
 
+![Kampf](docs/kampf.png)
+![Inventar](docs/inventar.png)
 ![Notizbuch](docs/notizbuch.png)
 ![Gesperrte Option](docs/gesperrt.png)
 
@@ -66,18 +84,22 @@ vier Orten (Polizeirevier, Ashgrove Lane, Friedhof St. Ebba, Krypta) und Spielst
 ```
 src/
   main.js                 Start, Skalierung, Spielstand
-  core/GameState.js       Regeln: Quellen, Ansehen, Aufträge, Bedingungen (ohne Phaser, in Node testbar)
+  core/GameState.js       Regeln: Quellen, Ansehen, Aufträge, Leben, Inventar, Bedingungen (ohne Phaser, in Node testbar)
+  core/Combat.js          Kampfregeln: Timing-Fenster, Schaden, Konzentration, Folgen (in Node testbar)
   world/WorldScene.js     Orte, Figuren, Bewegung, Interaktion, Reisen
+  world/CombatScene.js    Kampfbildschirm: Seitenansicht, Ringe, Takt-Leiste, Animationen
   world/Lighting.js       Nachtlicht
   world/textures.js       Platzhalter-Pixelgrafik, prozedural erzeugt
   ui/Ui.js, style.css     HUD, Dialoge, Notizbuch, Stadtkarte, Enden
   data/
     campaign.json         Start, Ränge, Reiseziele, alle Figuren
     quests.json           Haupt- und Nebenaufträge mit Schritten
+    items.json            Gegenstände (Waffen, Heilung, Kampfhilfen)
+    encounters.json       Gegner: Leben, Attacken (Schlagzeiten in ms), Schwachstellen, Folgen
     case_01.json, ...     Informationen, Hinweise (Quellen), Schlussfolgerungen, Enden
     maps/*.json           Orte als Zeichenraster + Objekte + Figuren
     dialogues/*.json      Dialogbäume
-tests/                    `npm test`: Datenprüfung + beide Fälle über die echten Dialoge durchgespielt
+tests/                    `npm test`: Datenprüfung, Kampfregeln und Balance, beide Fälle über die echten Dialoge durchgespielt
 ```
 
 ### Inhalte bearbeiten
@@ -85,8 +107,10 @@ tests/                    `npm test`: Datenprüfung + beide Fälle über die ech
 Alles Inhaltliche liegt als JSON in `src/data/`. Bedingungen funktionieren überall gleich
 (Dialogoptionen, Startknoten, Objekte, Sperren): `requires_clues`, `requires_facts`,
 `requires_likely` (≥ 2 Quellen), `requires_conclusions`, `requires_certain`, `requires_flags`,
-`requires_honor`, `max_honor`, `requires_quests_active`, `hide_if_*`. Effekte genauso:
-`gives_clues`, `sets_flags`, `start_quests`, `complete_quests`, `honor`, `ending`.
+`requires_honor`, `max_honor`, `requires_quests_active`, `requires_items`, `hide_if_*`. Effekte genauso:
+`gives_clues`, `sets_flags`, `start_quests`, `complete_quests`, `honor`, `gives_items`, `takes_items`,
+`heal`, `combat` (startet einen Kampf), `ending`. Kartenobjekte mit `"kind": "combat"` sind Gegner,
+`"auto"` löst sie beim Näherkommen aus, `"kind": "rest"` heilt.
 `npm test` meldet kaputte Verweise und prüft, dass beide Fälle lösbar bleiben.
 
 ### Echte Pixel-Art einbauen

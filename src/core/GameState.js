@@ -8,12 +8,14 @@
 // - Schlussfolgerung (deduction): entsteht im Notizbuch aus zwei Informationen.
 //   Sie gilt als gesichert, wenn beide Informationen sehr wahrscheinlich sind.
 // - Ansehen (honor): Ruf bei der Polizei. Höhere Ränge öffnen Akten und Gespräche.
+// - Leben (hp) und Inventar: Gegenstände heilen, beruhigen die Nerven oder helfen im Kampf.
 
 export const COMPOSURE_MAX = 100;
 export const VISION_DRAIN_PER_SEC = 9;
 export const VISION_REGEN_PER_SEC = 6;
 export const LIKELY_SOURCES = 2;
-export const SAVE_VERSION = 2;
+export const SAVE_VERSION = 3;
+export const DEFAULT_HP = 40;
 
 export class GameState {
   constructor(content) {
@@ -35,6 +37,11 @@ export class GameState {
     this.spiritVision = false;
     this.endings = {}; // caseId -> endingId
     this.position = null;
+    this.maxHp = s.hp ?? DEFAULT_HP;
+    this.hp = this.maxHp;
+    this.inventory = { ...(s.items ?? {}) }; // id -> Anzahl
+    this.weapon = s.weapon ?? null;
+    this.pendingCombat = null;
     for (const q of s.quests ?? []) this.quests[q] = 'active';
   }
 
@@ -190,7 +197,9 @@ export class GameState {
       none(o.hide_if_clues, (c) => this.hasClue(c)) &&
       none(o.hide_if_flags, (f) => this.flags.has(f)) &&
       none(o.hide_if_conclusions, (c) => this.hasConclusion(c)) &&
-      none(o.hide_if_quests, (q) => this.quests[q] !== undefined)
+      none(o.hide_if_quests, (q) => this.quests[q] !== undefined) &&
+      all(o.requires_items, (i) => this.itemCount(i) > 0) &&
+      none(o.hide_if_items, (i) => this.itemCount(i) > 0)
     );
   }
 
@@ -210,8 +219,12 @@ export class GameState {
     for (const q of e.complete_quests ?? []) this.finishQuest(q, 'done');
     for (const q of e.fail_quests ?? []) this.finishQuest(q, 'failed');
     if (e.honor) this.addHonor(e.honor, e.honor_reason ?? '');
+    for (const [id, n] of Object.entries(e.gives_items ?? {})) this.addItem(id, n);
+    for (const [id, n] of Object.entries(e.takes_items ?? {})) this.removeItem(id, n);
+    if (e.heal) this.heal(e.heal === 'full' ? this.maxHp : e.heal);
     if (e.ending) this.setEnding(e.ending);
-    if (gained.length || e.sets_flags || e.start_quests || e.complete_quests || e.honor) this.emit('changed');
+    if (e.combat) this.startCombat(e.combat);
+    if (gained.length || e.sets_flags || e.start_quests || e.complete_quests || e.honor || e.gives_items || e.takes_items) this.emit('changed');
     return gained;
   }
 
@@ -251,6 +264,90 @@ export class GameState {
       if (step) return { quest: this.quest(q).title, text: step.text };
     }
     return null;
+  }
+
+  // --- Leben & Inventar ----------------------------------------------------------------
+  item(id) {
+    return this.content.items[id];
+  }
+
+  itemCount(id) {
+    return this.inventory[id] ?? 0;
+  }
+
+  addItem(id, n = 1) {
+    const it = this.item(id);
+    if (!it) throw new Error(`Unbekannter Gegenstand: ${id}`);
+    this.inventory[id] = this.itemCount(id) + n;
+    // Bessere Waffe automatisch ausrüsten
+    if (it.kind === 'weapon' && (!this.weapon || it.atk > this.item(this.weapon).atk)) this.weapon = id;
+    this.emit('item', { id, delta: n });
+  }
+
+  removeItem(id, n = 1) {
+    if (this.itemCount(id) < n) return false;
+    this.inventory[id] -= n;
+    if (this.inventory[id] <= 0) delete this.inventory[id];
+    if (this.weapon === id && !this.inventory[id]) this.weapon = null;
+    this.emit('item', { id, delta: -n });
+    return true;
+  }
+
+  /** Liste für das Inventar: [{id, count, ...gegenstand}] */
+  items() {
+    return Object.keys(this.inventory).map((id) => ({ id, count: this.inventory[id], ...this.item(id) }));
+  }
+
+  weaponStats() {
+    return this.weapon ? this.item(this.weapon) : { name: 'Fäuste', atk: 3 };
+  }
+
+  equip(id) {
+    if (this.item(id)?.kind !== 'weapon' || !this.itemCount(id)) return false;
+    this.weapon = id;
+    this.emit('changed');
+    return true;
+  }
+
+  heal(n) {
+    const before = this.hp;
+    this.hp = Math.min(this.maxHp, this.hp + n);
+    if (this.hp !== before) this.emit('hp', { value: this.hp, delta: this.hp - before });
+    return this.hp - before;
+  }
+
+  damage(n) {
+    const before = this.hp;
+    this.hp = Math.max(0, this.hp - n);
+    if (this.hp !== before) this.emit('hp', { value: this.hp, delta: this.hp - before });
+    return before - this.hp;
+  }
+
+  setComposure(v) {
+    this.composure = Math.max(0, Math.min(COMPOSURE_MAX, v));
+    this.emit('composure', this.composure);
+  }
+
+  /** Verbraucht einen Gegenstand außerhalb des Kampfes. Gibt eine Meldung zurück oder null. */
+  useItem(id) {
+    const it = this.item(id);
+    if (!it || it.kind !== 'consumable' || !this.itemCount(id)) return null;
+    if (it.combat_only) return `${it.name} hilft nur im Kampf.`;
+    if (it.heal && this.hp >= this.maxHp && !it.composure) return 'Du bist unverletzt.';
+    if (it.composure && this.composure >= COMPOSURE_MAX && !it.heal) return 'Deine Nerven sind ruhig.';
+    this.removeItem(id);
+    const parts = [];
+    if (it.heal) parts.push(`+${this.heal(it.heal)} Leben`);
+    if (it.composure) { this.setComposure(this.composure + it.composure); parts.push(`+${it.composure} Nerven`); }
+    this.emit('changed');
+    return `${it.name}: ${parts.join(', ')}`;
+  }
+
+  /** Merkt einen Kampf vor. Die Oberfläche startet ihn, sobald das aktuelle Fenster zu ist. */
+  startCombat(id) {
+    if (!this.content.encounters[id]) throw new Error(`Unbekannter Kampf: ${id}`);
+    this.pendingCombat = id;
+    this.emit('combat', id);
   }
 
   // --- Enden -------------------------------------------------------------------------
@@ -300,11 +397,14 @@ export class GameState {
       quests: this.quests,
       honor: this.honor,
       endings: this.endings,
+      hp: this.hp,
+      inventory: this.inventory,
+      weapon: this.weapon,
     };
   }
 
   load(data) {
-    if (!data || data.v !== SAVE_VERSION) return false;
+    if (!data || (data.v !== SAVE_VERSION && data.v !== 2)) return false;
     this.reset();
     this.map = data.map;
     this.spawn = null;
@@ -316,6 +416,12 @@ export class GameState {
     this.quests = Object.fromEntries(Object.entries(data.quests).filter(([q]) => this.quest(q)));
     this.honor = data.honor;
     this.endings = data.endings ?? {};
+    // Ab Version 3: Leben und Inventar (ältere Stände behalten die Startausrüstung)
+    if (data.v >= 3) {
+      this.hp = Math.max(1, Math.min(this.maxHp, data.hp ?? this.maxHp));
+      this.inventory = Object.fromEntries(Object.entries(data.inventory ?? {}).filter(([i, n]) => this.item(i) && n > 0));
+      this.weapon = this.inventory[data.weapon] ? data.weapon : null;
+    }
     if (!this.content.maps[this.map]) { this.map = this.content.start.map; this.position = null; }
     return true;
   }

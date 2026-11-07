@@ -131,6 +131,31 @@
           "pickpocket"
         ]
       }
+    },
+    {
+      "id": "hound",
+      "kind": "combat",
+      "encounter": "fog_hound",
+      "tile": [
+        37,
+        6
+      ],
+      "sprite": "hound",
+      "sprite_scale": 0.5,
+      "marker": false,
+      "solid": [
+        20,
+        10
+      ],
+      "prompt": "Dem Nebelhund entgegentreten",
+      "visible_if": {
+        "requires_quests_active": [
+          "fog_hound"
+        ],
+        "hide_if_flags": [
+          "hound_defeated"
+        ]
+      }
     }
   ],
   "decor": [

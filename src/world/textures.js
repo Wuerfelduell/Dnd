@@ -484,6 +484,13 @@ const PROPS = {
   candle: [16, 16, (p) => {
     p(6, 7, 4, 7, '#d8d0bc'); p(6, 7, 1, 7, '#efe8d6'); p(7, 4, 2, 3, '#ffd890'); p(7, 3, 1, 1, '#fff2c8'); p(5, 14, 6, 1, '#4a4440');
   }],
+  medkit: [16, 16, (p) => {
+    p(2, 4, 12, 9, '#d8d0bc'); p(2, 4, 12, 1, '#efe8d6'); p(2, 12, 12, 1, '#a8a090'); p(7, 6, 2, 5, '#a83232'); p(5, 8, 6, 1, '#a83232'); p(6, 3, 4, 1, '#5a5448');
+  }],
+  cot: [32, 16, (p) => {
+    p(1, 5, 30, 8, '#5a4a36'); p(2, 4, 28, 7, '#7a8a9a'); p(2, 4, 28, 1, '#9aaaba'); p(3, 5, 7, 5, '#d8d0bc'); p(12, 6, 17, 4, '#4a5a7a');
+    p(1, 13, 2, 3, '#3a2e22'); p(29, 13, 2, 3, '#3a2e22');
+  }],
 };
 
 // Stehende Öllampe (Innenräume), 16x32
@@ -528,6 +535,57 @@ function fogTexture(scene, key, seed) {
   tex.refresh();
 }
 
+// --- Kampfgegner (Seitenansicht, 64x64 für Übernatürliches) -------------------------
+
+/** 1px-Umriss um alle deckenden Pixel einer ganzen Textur. */
+export function outlineAll(ctx, w, h, color = [0x1a, 0x1c, 0x2c]) {
+  const img = ctx.getImageData(0, 0, w, h);
+  const d = img.data;
+  const out = new Uint8ClampedArray(d);
+  const opaque = (x, y) => x >= 0 && y >= 0 && x < w && y < h && d[(y * w + x) * 4 + 3] > 0;
+  for (let y = 0; y < h; y++) {
+    for (let x = 0; x < w; x++) {
+      if (opaque(x, y)) continue;
+      if (opaque(x + 1, y) || opaque(x - 1, y) || opaque(x, y + 1) || opaque(x, y - 1)) {
+        const i = (y * w + x) * 4;
+        out[i] = color[0]; out[i + 1] = color[1]; out[i + 2] = color[2]; out[i + 3] = 255;
+      }
+    }
+  }
+  img.data.set(out);
+  ctx.putImageData(img, 0, 0);
+}
+
+const ENEMIES = {
+  // Nebelhund: schlanker, zu langer Hund aus Nebel, grüne Augen. Schaut nach links.
+  hound: [64, 64, (p) => {
+    const body = '#3a4250'; const hi = '#56607a'; const dark = '#262c38';
+    p(18, 30, 30, 12, body); p(18, 30, 30, 2, hi); p(44, 26, 8, 10, body); // Rumpf, Hüfte
+    p(8, 24, 14, 12, body); p(8, 24, 14, 2, hi); p(4, 30, 8, 5, body); // Kopf, Schnauze
+    p(10, 20, 3, 5, dark); p(16, 20, 3, 5, dark); // Ohren
+    p(11, 27, 3, 2, '#7ef0d8'); p(16, 27, 3, 2, '#7ef0d8'); // Augen
+    for (let i = 0; i < 4; i++) p(5 + i * 2, 35, 1, 2, '#e8e8e0'); // Zähne
+    p(20, 42, 4, 14, dark); p(28, 42, 4, 12, body); p(40, 42, 4, 14, dark); p(46, 40, 4, 14, body); // Beine
+    p(52, 26, 8, 3, body); p(58, 22, 3, 5, body); // Schwanz
+    for (let i = 0; i < 6; i++) p(22 + i * 4, 33 + (i % 2), 2, 1, dark); // Rippen
+    for (let i = 0; i < 8; i++) p(20 + i * 5, 56 + (i % 2) * 2, 4, 2, 'rgba(150,165,190,0.5)'); // Nebelfetzen
+  }],
+  // Aschewächter: Chorrobe aus Asche, Auge im Kreis statt Gesicht.
+  warden: [64, 64, (p) => {
+    const robe = '#4a4448'; const hi = '#6a6268'; const dark = '#2a2628';
+    p(22, 20, 20, 36, robe); p(18, 34, 28, 22, robe); p(14, 48, 36, 10, robe);
+    p(22, 20, 2, 36, hi); p(40, 22, 2, 30, dark);
+    p(24, 8, 16, 14, dark); p(26, 6, 12, 2, dark); // Kapuze
+    p(27, 11, 10, 8, '#141016');
+    p(28, 13, 8, 4, '#7ef0d8'); p(30, 14, 4, 2, '#141016'); p(27, 14, 1, 2, '#7ef0d8'); p(36, 14, 1, 2, '#7ef0d8');
+    p(12, 30, 10, 4, robe); p(8, 32, 6, 3, '#8a8478'); // Arm mit Aschehand
+    p(42, 30, 10, 4, robe); p(50, 28, 5, 3, '#8a8478');
+    p(28, 26, 8, 10, '#d8d0bc'); p(29, 28, 6, 1, '#5a5448'); p(29, 30, 6, 1, '#5a5448'); p(29, 32, 4, 1, '#5a5448'); // Notenblatt
+    for (let i = 0; i < 10; i++) p(12 + i * 4, 58 + (i % 3), 3, 2, '#6a6268'); // Aschewirbel
+    for (let i = 0; i < 6; i++) p(16 + i * 6, 2 + (i % 2) * 3, 1, 1, '#8a8478');
+  }],
+};
+
 export function createTextures(scene) {
   // Tileset als Streifen (17 x 16px). Später einfach durch ein PNG ersetzen.
   if (!scene.textures.exists('tiles')) {
@@ -545,6 +603,13 @@ export function createTextures(scene) {
     if (scene.textures.exists(key)) continue;
     const { c, ctx } = makeCanvas(w, h);
     draw(painter(ctx));
+    scene.textures.addCanvas(key, c);
+  }
+  for (const [key, [w, h, draw]] of Object.entries(ENEMIES)) {
+    if (scene.textures.exists(key)) continue;
+    const { c, ctx } = makeCanvas(w, h);
+    draw(painter(ctx));
+    outlineAll(ctx, w, h);
     scene.textures.addCanvas(key, c);
   }
   radialTexture(scene, 'light', 128, [[0, 'rgba(255,255,255,1)'], [0.45, 'rgba(255,255,255,0.75)'], [1, 'rgba(255,255,255,0)']]);
