@@ -1,0 +1,48 @@
+{
+  "facts": {
+    "mole": { "case": "case_03", "text": "Ein Polizist hat Hester in die Krypta getragen." },
+    "rook_choir": { "case": "case_03", "text": "Constable Rook sang als Junge in Miriam Veys Chor." },
+    "rook_nights": { "case": "case_03", "text": "Rook war in den Nächten der Entführungen nicht auf seinem Posten." },
+    "holt_mole": { "case": "case_03", "text": "Sergeant Holt arbeitet heimlich für Vey.", "refuted_by": ["pimm_ledger"], "refuted_if_likely": ["rook_nights"] },
+    "docks": { "case": "case_03", "text": "Der Chor versammelt sich im Lagerhaus 7 am Kanalhafen." },
+    "ritual_bell": { "case": "case_03", "text": "Vey braucht die alte Glocke von St. Ebba als drittes Stück ihres Rituals." },
+    "barnaby_thief": { "case": "side", "text": "Barnaby hat die Silberleuchter von St. Ebba gestohlen.", "refuted_if_likely": ["barnaby_innocent"] },
+    "barnaby_innocent": { "case": "side", "text": "Die Silberleuchter wurden nie gestohlen. Barnaby sitzt unschuldig." }
+  },
+  "clues": {
+    "hester_coat": { "fact": "mole", "source": "Hester Marsh", "name": "Der Mann im Polizeimantel", "text": "„Er hat mich getragen. Ich hab die Messingknöpfe gesehen, so wie bei den Constables. Und er hat mitgesummt. Er kannte das Lied.“" },
+    "fenwick_fibres": { "fact": "mole", "source": "Dr. Fenwick", "name": "Blaue Wollfasern", "text": "„An der Spieldose und am Kreidekreis in der Krypta hingen Wollfasern. Dunkelblau, dicht gewalkt. So einen Stoff bekommen in Kettlegate nur die Constables.“" },
+    "ash_boots": { "fact": "mole", "source": "Eigene Beobachtung", "name": "Stiefel im Revier", "text": "Am Stiefelregal des Reviers: ein Paar Dienststiefel mit gelbem Lehm und grauer Asche an den Sohlen. Der gleiche Lehm wie auf dem Friedhof von St. Ebba. Kein Name im Schaft." },
+    "barnaby_saw": { "fact": "mole", "source": "Barnaby", "name": "Der nächtliche Besucher", "text": "„Das Klopfen? Das war einer von euch. Junges Gesicht, blonde Haare unter dem Helm. Hat mir zugezwinkert und das Auge in die Gitter geritzt.“" },
+    "holt_rook": { "fact": "rook_choir", "source": "Sergeant Holt", "name": "Rooks Herkunft", "text": "„Rook kam vor einem halben Jahr aus der alten Kapellengemeinde von St. Ebba. Hat mir mal erzählt, er habe als Junge im Chor gesungen.“" },
+    "anselm_rook": { "fact": "rook_choir", "source": "Küster Anselm", "name": "Der Solist", "text": "„Thomas Rook? Er sang die Soli. Miriam liebte ihn wie einen Sohn. Nach dem Brand stand er tagelang vor der Ruine und weinte.“" },
+    "agnes_rook": { "fact": "rook_choir", "source": "Agnes Crane", "name": "Der Liebling der Chorleiterin", "text": "„Der kleine Thomas. Miriam hat ihn bei sich aufgenommen, als seine Mutter starb. Er würde alles für sie tun. Alles.“" },
+    "duty_roster": { "fact": "rook_nights", "source": "Dienstbuch des Reviers", "name": "Gestrichene Nachtwachen", "text": "Rook hat sich für beide Nächte selbst zur Wache in Ashgrove eingetragen. Danach wurde der Eintrag sauber durchgestrichen, ohne Gegenzeichnung. Niemand hat ihn ersetzt." },
+    "price_rook": { "fact": "rook_nights", "source": "Constable Price", "name": "Price wartete umsonst", "text": "„Rook sollte mich um Mitternacht ablösen. Zweimal. Zweimal kam er nicht. Ich hab's nicht gemeldet, man verpfeift keinen Kollegen.“" },
+    "kit_rook": { "fact": "rook_nights", "source": "Kit", "name": "Ein Constable auf dem Weg nach St. Ebba", "text": "„Nachts lief ein Bulle Richtung Friedhof. Ohne Laterne. Blond. Der hat gesummt, ganz leise.“" },
+    "rook_holt": { "fact": "holt_mole", "source": "Constable Rook", "name": "Rooks Verdacht", "text": "„Holt. Ich hab ihn nachts im Keller gesehen, mit einem Brief. Sagen Sie's keinem, er ist mein Vorgesetzter.“" },
+    "planted_note": { "fact": "holt_mole", "source": "Zettel in Holts Schreibtisch", "name": "Zettel „Für M. V.“", "text": "In Holts Schublade, obenauf, als hätte ihn jemand dort hingelegt: „Für M. V. Alles bereit. H.“ Die Schrift ist steif, wie mit der falschen Hand geschrieben." },
+    "pimm_ledger": { "fact": "holt_mole", "source": "Besucherbuch des Hospitals (Miss Pimm)", "name": "Holts Alibi", "text": "Miss Pimm legt das Besucherbuch des Hospitals vor, das das Revier gegenzeichnet: In beiden Nächten saß Holt bis zum Morgen am Bett seiner kranken Frau. Unterschrieben von der Oberschwester." },
+    "rook_locker": { "fact": "docks", "source": "Rooks Spind", "name": "Lieferschein", "text": "In Rooks Spind, unter einer zusammengelegten Chorrobe: ein Lieferschein. „40 Wachskerzen, 2 Kanister Lampenöl. Lieferung: Lagerhaus 7, Kanalhafen. Bezahlt.“" },
+    "pip_docks": { "fact": "docks", "source": "Pip, Zeitungsjunge", "name": "Graue Frauen am Hafen", "text": "„Am Kanalhafen verkauf ich morgens. Da gehen Frauen in grauen Mänteln ins Lagerhaus 7, mit Kerzen im Korb. Und raus kommen sie nicht vor Sonnenaufgang.“" },
+    "halloway_oil": { "fact": "docks", "source": "Mr. Halloway", "name": "Bezahlt mit Chorsilber", "text": "„Der Öllieferant vom Hafen hat bei mir Silber eingetauscht. Gestempelt mit dem Chorwappen. Er sagte, es sei Bezahlung für Lagerhaus 7.“" },
+    "agnes_bell": { "fact": "ritual_bell", "source": "Agnes Crane", "name": "Drei Stimmen", "text": "„Miriam hat damals gesagt: Drei Stimmen öffnen die Tür. Das Licht, das Kind, die Glocke. Die Laterne hat sie, die Spieldose hat sie. Fehlt nur die Glocke.“" },
+    "bell_missing": { "fact": "ritual_bell", "source": "Eigene Beobachtung", "name": "Der leere Glockenstuhl", "text": "Im verkohlten Glockenstuhl von St. Ebba hängt nichts mehr. Die Halterung wurde frisch durchgesägt, Sägespäne liegen im Ruß." },
+    "marlowe_bell": { "fact": "ritual_bell", "source": "Inspektorin Marlowe", "name": "Die Glocke in der Brandnacht", "text": "„In der Brandnacht hat die Glocke von selbst geläutet. Dreimal. Dann kamen die Flammen. Ich habe nie jemandem davon erzählt.“" },
+    "police_report_barnaby": { "fact": "barnaby_thief", "source": "Festnahmebericht (Constable Rook)", "name": "Festnahmebericht", "text": "„Barnaby J., festgenommen mit zwei Silberleuchtern aus der Ruine von St. Ebba. Zeuge: keiner. Gez. T. Rook.“" },
+    "anselm_candles": { "fact": "barnaby_innocent", "source": "Küster Anselm", "name": "Die Leuchter wurden verkauft", "text": "„Gestohlen? Ich habe die Leuchter selbst verkauft, an den Pfandleiher in Ashgrove. Für die Dachbalken. Das steht im Kirchenbuch.“" },
+    "halloway_candles": { "fact": "barnaby_innocent", "source": "Mr. Halloway", "name": "Die Leuchter im Schaufenster", "text": "„Die Silberleuchter? Stehen seit Wochen bei mir im Schaufenster. Hat mir der Küster gebracht. Wieso?“" }
+  },
+  "deductions": [
+    { "id": "rook_mole", "case": "case_03", "honor": 4, "pairs": [["mole", "rook_choir"], ["mole", "rook_nights"]], "name": "Rook ist Veys Mann im Revier", "text": "Ein Constable trug Hester in die Krypta. Rook war Veys Chorknabe und in beiden Nächten nicht auf Posten." },
+    { "id": "choir_docks", "case": "case_03", "honor": 3, "pairs": [["docks", "rook_choir"], ["docks", "rook_nights"]], "name": "Rooks Nächte führen zum Kanalhafen", "text": "Der Chor sammelt sich im Lagerhaus 7. Dorthin verschwindet Rook, wenn er nicht auf Wache ist." },
+    { "id": "vey_bell", "case": "case_03", "honor": 3, "pairs": [["ritual_bell", "docks"]], "name": "Die Glocke ist im Lagerhaus", "text": "Vey hat die Glocke von St. Ebba in das Lagerhaus 7 bringen lassen. Ohne sie kann sie das Ritual nicht vollenden." },
+    { "id": "holt_guilty", "case": "case_03", "honor": 0, "pairs": [["mole", "holt_mole"]], "name": "Holt ist der Maulwurf", "text": "Holt hat Hester getragen und arbeitet für Vey." },
+    { "id": "barnaby_framed", "case": "side", "honor": 2, "pairs": [["barnaby_innocent", "mole"], ["barnaby_innocent", "rook_nights"]], "name": "Rook hat Barnaby eingesperrt", "text": "Barnaby hat Rook nachts gesehen. Rook hat ihn mit einem falschen Bericht weggesperrt." }
+  ],
+  "endings": {
+    "c3_perfect": { "case": "case_03", "title": "Die Glocke schweigt", "honor": 30, "sets_flags": ["case_03_closed", "rook_arrested", "bell_secured"], "complete_quests": ["case_03"], "text": "Rook wird in Ketten abgeführt. Die Glocke von St. Ebba liegt in deinen Händen, schwer und kalt. Ohne sie ist Veys Ritual nur ein Lied ohne Ende.\n\nMiriam Vey ist im Kanal verschwunden. Aber zum ersten Mal hast du ihr etwas genommen, das sie braucht. Marlowe wird das nicht vergessen." },
+    "c3_good": { "case": "case_03", "title": "Der Maulwurf ist gefasst", "honor": 20, "sets_flags": ["case_03_closed", "rook_arrested"], "complete_quests": ["case_03"], "text": "Rook wird abgeführt, der Chor ist zerstreut. Doch als die Constables das Lagerhaus durchsuchen, ist der Glockenstuhl leer. Vey hat die Glocke mitgenommen.\n\nIrgendwo in Kettlegate wartet sie auf die richtige Nacht." },
+    "c3_holt": { "case": "case_03", "title": "Der falsche Mann", "honor": -12, "sets_flags": ["case_03_closed", "holt_suspended", "c3_wrong"], "complete_quests": ["case_03"], "text": "Sergeant Holt gibt wortlos seine Dienstmarke ab. Am nächsten Morgen ist Constable Rook nicht zum Dienst erschienen. Sein Spind ist leer.\n\nIn der Nacht läutet über Kettlegate eine Glocke, die es nicht mehr geben dürfte." }
+  }
+}

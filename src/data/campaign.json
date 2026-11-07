@@ -4,58 +4,338 @@
     "map": "revier",
     "spawn": "start",
     "honor": 15,
-    "quests": ["arrival"],
+    "quests": [
+      "arrival"
+    ],
     "hp": 40,
-    "items": { "spazierstock": 1, "verband": 2 },
+    "items": {
+      "spazierstock": 1,
+      "verband": 2
+    },
     "weapon": "spazierstock",
     "intro_title": "Kettlegate, kurz vor Mitternacht",
     "intro": "Du bist neu in der Stadt: ein freier Ermittler, den das Polizeirevier Kettlegate anheuert, wenn die Constables nicht weiterwissen. Und in letzter Zeit wissen sie oft nicht weiter.\n\nNoch traut dir hier niemand. Dein Ansehen bei der Polizei entscheidet, welche Akten du lesen darfst und wer mit dir redet.\n\nMelde dich bei Inspektorin Marlowe. Ihr Büro ist hinten rechts."
   },
   "ranks": [
-    { "min": 0, "name": "Zivilist", "text": "Das Revier duldet dich gerade so." },
-    { "min": 20, "name": "Hilfsermittler", "text": "Constables zeigen dir Dienstbücher und Berichte." },
-    { "min": 35, "name": "Ermittler", "text": "Das Archiv öffnet seine Unglücksakten. Zeugen nehmen dich ernst." },
-    { "min": 50, "name": "Vertrauter des Reviers", "text": "Versiegelte Akten, vertrauliche Gespräche mit der Inspektorin. Verdächtige knicken schneller ein." },
-    { "min": 70, "name": "Geachteter Ermittler", "text": "Ganz Kettlegate kennt deinen Namen." }
+    {
+      "min": 0,
+      "name": "Zivilist",
+      "text": "Das Revier duldet dich gerade so."
+    },
+    {
+      "min": 20,
+      "name": "Hilfsermittler",
+      "text": "Constables zeigen dir Dienstbücher und Berichte."
+    },
+    {
+      "min": 35,
+      "name": "Ermittler",
+      "text": "Das Archiv öffnet seine Unglücksakten. Zeugen nehmen dich ernst."
+    },
+    {
+      "min": 50,
+      "name": "Vertrauter des Reviers",
+      "text": "Versiegelte Akten, vertrauliche Gespräche mit der Inspektorin. Verdächtige knicken schneller ein."
+    },
+    {
+      "min": 70,
+      "name": "Geachteter Ermittler",
+      "text": "Ganz Kettlegate kennt deinen Namen."
+    }
   ],
   "travel": [
-    { "map": "revier", "spawn": "default", "name": "Polizeirevier Kettlegate", "desc": "Inspektorin Marlowe, Archiv, Zellen." },
-    { "map": "ashgrove", "spawn": "default", "name": "Ashgrove Lane", "desc": "Gaslaternen am Kanal. Fall 1.", "requires_flags": ["travel_ashgrove"] },
-    { "map": "ebba", "spawn": "default", "name": "Ruine von St. Ebba", "desc": "Friedhof und abgebrannte Kapelle. Fall 2.", "requires_flags": ["travel_ebba"] }
+    {
+      "map": "revier",
+      "spawn": "default",
+      "name": "Polizeirevier Kettlegate",
+      "desc": "Inspektorin Marlowe, Archiv, Zellen."
+    },
+    {
+      "map": "ashgrove",
+      "spawn": "default",
+      "name": "Ashgrove Lane",
+      "desc": "Gaslaternen am Kanal. Fall 1.",
+      "requires_flags": [
+        "travel_ashgrove"
+      ]
+    },
+    {
+      "map": "ebba",
+      "spawn": "default",
+      "name": "Ruine von St. Ebba",
+      "desc": "Friedhof und abgebrannte Kapelle. Fall 2.",
+      "requires_flags": [
+        "travel_ebba"
+      ]
+    },
+    {
+      "map": "docks",
+      "spawn": "default",
+      "name": "Kanalhafen",
+      "desc": "Lagerhäuser, Kräne, kaltes Wasser. Fall 3.",
+      "requires_flags": [
+        "travel_docks"
+      ]
+    }
   ],
   "cases": [
-    { "id": "case_01", "title": "Fall 1: Die erloschene Laterne" },
-    { "id": "case_02", "title": "Fall 2: Asche von St. Ebba" },
-    { "id": "side", "title": "Nebenfälle" }
+    {
+      "id": "case_01",
+      "title": "Fall 1: Die erloschene Laterne"
+    },
+    {
+      "id": "case_02",
+      "title": "Fall 2: Asche von St. Ebba"
+    },
+    {
+      "id": "case_03",
+      "title": "Fall 3: Der Chor singt woanders"
+    },
+    {
+      "id": "side",
+      "title": "Nebenfälle"
+    }
   ],
   "npcs": {
-    "marlowe": { "name": "Inspektorin Marlowe", "role": "Leiterin des Reviers", "dialogue": "marlowe",
-      "palette": { "coat": "#3a3248", "hat": "#241f2c", "skin": "#e8c4a0", "hair": "#8a8a90", "legs": "#241f2c" } },
-    "pimm": { "name": "Miss Pimm", "role": "Archivarin", "dialogue": "pimm",
-      "palette": { "coat": "#5a5a4a", "hat": "#3a3a30", "skin": "#e0bc98", "hair": "#a0603a", "legs": "#3a3a30" } },
-    "holt": { "name": "Sergeant Holt", "role": "Wachhabender", "dialogue": "holt",
-      "palette": { "coat": "#2c3550", "hat": "#1f2538", "skin": "#c89a74", "hair": "#2a1e16", "legs": "#1f2538" } },
-    "rook": { "name": "Constable Rook", "role": "junger Constable", "dialogue": "rook",
-      "palette": { "coat": "#34405a", "hat": "#222a3e", "skin": "#f0d0b0", "hair": "#c8a060", "legs": "#222a3e" } },
-    "barnaby": { "name": "Barnaby", "role": "Häftling", "dialogue": "barnaby",
-      "palette": { "coat": "#5a4e3e", "hat": "#3a3228", "skin": "#c8a080", "hair": "#7a7a70", "legs": "#3a3228" } },
-    "elias": { "name": "Elias Thorne", "role": "Lampenanzünder", "dialogue": "elias",
-      "palette": { "coat": "#4a4a3a", "hat": "#2a2a22", "skin": "#d0b090", "hair": "#9a9a90", "legs": "#2a2a22" } },
-    "greta": { "name": "Greta", "role": "Blumenverkäuferin", "dialogue": "greta",
-      "palette": { "coat": "#6e4a5c", "hat": "#3d2f3a", "skin": "#d9b38c", "hair": "#8a5a3a", "legs": "#3a3040" } },
-    "halloway": { "name": "Mr. Halloway", "role": "Pfandleiher", "dialogue": "halloway",
-      "palette": { "coat": "#4a5040", "hat": "#2a2a26", "skin": "#c9a07a", "hair": "#6b6b6b", "legs": "#2e2e2a" } },
-    "price": { "name": "Constable Price", "role": "Streifenpolizist", "dialogue": "price",
-      "palette": { "coat": "#2c3550", "hat": "#1f2538", "skin": "#e0b894", "hair": "#4a3426", "legs": "#1f2538" } },
-    "kit": { "name": "Kit", "role": "Straßenjunge", "dialogue": "kit",
-      "palette": { "coat": "#6a5038", "hat": "#3a2e22", "skin": "#e0b894", "hair": "#5a3a22", "legs": "#3a3228" } },
-    "ivy": { "name": "Ivy Marsh", "role": "Hesters Schwester", "dialogue": "ivy",
-      "palette": { "coat": "#4a5a6a", "hat": "#2e3640", "skin": "#f0d0b4", "hair": "#c87a4a", "legs": "#2e3640" } },
-    "anselm": { "name": "Küster Anselm", "role": "Hüter der Ruine", "dialogue": "anselm",
-      "palette": { "coat": "#2a2a2e", "hat": "#1e1e22", "skin": "#d8b898", "hair": "#e0e0e0", "legs": "#1e1e22" } },
-    "moll": { "name": "Moll", "role": "Totengräber", "dialogue": "moll",
-      "palette": { "coat": "#4a4030", "hat": "#2e2a20", "skin": "#b88a64", "hair": "#3a3a30", "legs": "#2e2a20" } },
-    "hester": { "name": "Hester Marsh", "role": "verschwundenes Mädchen", "dialogue": "hester",
-      "palette": { "coat": "#d8d0c4", "hat": "#c87a4a", "skin": "#f0d8c0", "hair": "#c87a4a", "legs": "#bfb6a8" } }
+    "marlowe": {
+      "name": "Inspektorin Marlowe",
+      "role": "Leiterin des Reviers",
+      "dialogue": "marlowe",
+      "palette": {
+        "coat": "#3a3248",
+        "hat": "#241f2c",
+        "skin": "#e8c4a0",
+        "hair": "#8a8a90",
+        "legs": "#241f2c"
+      }
+    },
+    "pimm": {
+      "name": "Miss Pimm",
+      "role": "Archivarin",
+      "dialogue": "pimm",
+      "palette": {
+        "coat": "#5a5a4a",
+        "hat": "#3a3a30",
+        "skin": "#e0bc98",
+        "hair": "#a0603a",
+        "legs": "#3a3a30"
+      }
+    },
+    "holt": {
+      "name": "Sergeant Holt",
+      "role": "Wachhabender",
+      "dialogue": "holt",
+      "palette": {
+        "coat": "#2c3550",
+        "hat": "#1f2538",
+        "skin": "#c89a74",
+        "hair": "#2a1e16",
+        "legs": "#1f2538"
+      }
+    },
+    "rook": {
+      "name": "Constable Rook",
+      "role": "junger Constable",
+      "dialogue": "rook",
+      "palette": {
+        "coat": "#34405a",
+        "hat": "#222a3e",
+        "skin": "#f0d0b0",
+        "hair": "#c8a060",
+        "legs": "#222a3e"
+      }
+    },
+    "barnaby": {
+      "name": "Barnaby",
+      "role": "Häftling",
+      "dialogue": "barnaby",
+      "palette": {
+        "coat": "#5a4e3e",
+        "hat": "#3a3228",
+        "skin": "#c8a080",
+        "hair": "#7a7a70",
+        "legs": "#3a3228"
+      }
+    },
+    "elias": {
+      "name": "Elias Thorne",
+      "role": "Lampenanzünder",
+      "dialogue": "elias",
+      "palette": {
+        "coat": "#4a4a3a",
+        "hat": "#2a2a22",
+        "skin": "#d0b090",
+        "hair": "#9a9a90",
+        "legs": "#2a2a22"
+      }
+    },
+    "greta": {
+      "name": "Greta",
+      "role": "Blumenverkäuferin",
+      "dialogue": "greta",
+      "palette": {
+        "coat": "#6e4a5c",
+        "hat": "#3d2f3a",
+        "skin": "#d9b38c",
+        "hair": "#8a5a3a",
+        "legs": "#3a3040"
+      }
+    },
+    "halloway": {
+      "name": "Mr. Halloway",
+      "role": "Pfandleiher",
+      "dialogue": "halloway",
+      "palette": {
+        "coat": "#4a5040",
+        "hat": "#2a2a26",
+        "skin": "#c9a07a",
+        "hair": "#6b6b6b",
+        "legs": "#2e2e2a"
+      }
+    },
+    "price": {
+      "name": "Constable Price",
+      "role": "Streifenpolizist",
+      "dialogue": "price",
+      "palette": {
+        "coat": "#2c3550",
+        "hat": "#1f2538",
+        "skin": "#e0b894",
+        "hair": "#4a3426",
+        "legs": "#1f2538"
+      }
+    },
+    "kit": {
+      "name": "Kit",
+      "role": "Straßenjunge",
+      "dialogue": "kit",
+      "palette": {
+        "coat": "#6a5038",
+        "hat": "#3a2e22",
+        "skin": "#e0b894",
+        "hair": "#5a3a22",
+        "legs": "#3a3228"
+      }
+    },
+    "ivy": {
+      "name": "Ivy Marsh",
+      "role": "Hesters Schwester",
+      "dialogue": "ivy",
+      "palette": {
+        "coat": "#4a5a6a",
+        "hat": "#2e3640",
+        "skin": "#f0d0b4",
+        "hair": "#c87a4a",
+        "legs": "#2e3640"
+      }
+    },
+    "anselm": {
+      "name": "Küster Anselm",
+      "role": "Hüter der Ruine",
+      "dialogue": "anselm",
+      "palette": {
+        "coat": "#2a2a2e",
+        "hat": "#1e1e22",
+        "skin": "#d8b898",
+        "hair": "#e0e0e0",
+        "legs": "#1e1e22"
+      }
+    },
+    "moll": {
+      "name": "Moll",
+      "role": "Totengräber",
+      "dialogue": "moll",
+      "palette": {
+        "coat": "#4a4030",
+        "hat": "#2e2a20",
+        "skin": "#b88a64",
+        "hair": "#3a3a30",
+        "legs": "#2e2a20"
+      }
+    },
+    "hester": {
+      "name": "Hester Marsh",
+      "role": "verschwundenes Mädchen",
+      "dialogue": "hester",
+      "palette": {
+        "coat": "#d8d0c4",
+        "hat": "#c87a4a",
+        "skin": "#f0d8c0",
+        "hair": "#c87a4a",
+        "legs": "#bfb6a8"
+      }
+    },
+    "fenwick": {
+      "name": "Dr. Fenwick",
+      "role": "Polizeiarzt",
+      "dialogue": "fenwick",
+      "palette": {
+        "coat": "#3a3a3a",
+        "hat": "#222",
+        "skin": "#e0c0a0",
+        "hair": "#bbb",
+        "legs": "#222"
+      }
+    },
+    "agnes": {
+      "name": "Agnes Crane",
+      "role": "Witwe, einst im Chor",
+      "dialogue": "agnes",
+      "palette": {
+        "coat": "#2a2a30",
+        "hat": "#1a1a20",
+        "skin": "#e0c8b0",
+        "hair": "#888",
+        "legs": "#1a1a20"
+      }
+    },
+    "pip": {
+      "name": "Pip",
+      "role": "Zeitungsjunge",
+      "dialogue": "pip",
+      "palette": {
+        "coat": "#5a4a3a",
+        "hat": "#3a3028",
+        "skin": "#f0c8a0",
+        "hair": "#a06030",
+        "legs": "#3a3028"
+      }
+    },
+    "tobias": {
+      "name": "Tobias Lowe",
+      "role": "Hafenarbeiter",
+      "dialogue": "tobias",
+      "palette": {
+        "coat": "#3a4a5a",
+        "hat": "#2a3440",
+        "skin": "#c89a74",
+        "hair": "#3a2a1a",
+        "legs": "#2a3440"
+      }
+    },
+    "cultist": {
+      "name": "Chorfanatiker",
+      "role": "Veys Chor",
+      "dialogue": "cultist",
+      "palette": {
+        "coat": "#5a5a5a",
+        "hat": "#4a4a4a",
+        "skin": "#d8c0a8",
+        "hair": "#4a4a4a",
+        "legs": "#3a3a3a"
+      }
+    },
+    "miriam": {
+      "name": "Miriam Vey",
+      "role": "Chorleiterin",
+      "dialogue": "vey",
+      "palette": {
+        "coat": "#6a6a72",
+        "hat": "#3a3a40",
+        "skin": "#e8d0c0",
+        "hair": "#c8c8d0",
+        "legs": "#3a3a40"
+      }
+    }
   }
 }

@@ -27,9 +27,35 @@
         ]
       },
       {
-        "node": "epilogue",
+        "node": "epilogue3",
+        "requires_flags": [
+          "case_03_closed",
+          "rook_arrested"
+        ]
+      },
+      {
+        "node": "epilogue3_bad",
+        "requires_flags": [
+          "case_03_closed"
+        ]
+      },
+      {
+        "node": "brief_03a",
+        "requires_flags": [
+          "case_02_closed",
+          "hester_saved"
+        ],
+        "hide_if_flags": [
+          "briefed_03"
+        ]
+      },
+      {
+        "node": "brief_03b",
         "requires_flags": [
           "case_02_closed"
+        ],
+        "hide_if_flags": [
+          "briefed_03"
         ]
       },
       {
@@ -153,6 +179,40 @@
             "next": "accuse",
             "requires_quests_active": [
               "case_02"
+            ]
+          },
+          {
+            "text": "Haben Sie je etwas von einer Glocke gehört?",
+            "next": "bell",
+            "requires_honor": 50,
+            "requires_flags": [
+              "briefed_03"
+            ],
+            "hide_if_clues": [
+              "marlowe_bell"
+            ]
+          },
+          {
+            "text": "Ich weiß, wer der Maulwurf ist.",
+            "next": "accuse3",
+            "requires_quests_active": [
+              "case_03"
+            ],
+            "hide_if_flags": [
+              "case_03_raid"
+            ]
+          },
+          {
+            "text": "Barnaby sitzt unschuldig. Ich habe Beweise.",
+            "next": "barnaby",
+            "requires_likely": [
+              "barnaby_innocent"
+            ],
+            "requires_quests_active": [
+              "barnaby_case"
+            ],
+            "hide_if_flags": [
+              "barnaby_free"
             ]
           },
           {
@@ -307,6 +367,161 @@
             "text": "Gute Nacht, Inspektorin."
           }
         ]
+      },
+      "brief_03a": {
+        "text": "Hester Marsh ist heute Morgen aufgewacht. Dr. Fenwick ist bei ihr, drüben im Krankenzimmer.\n\nSie sagt, ein Mann im Polizeimantel habe sie in die Krypta getragen. Ein Polizist. Einer von uns.\n\nIch kann niemandem hier trauen. Außer Ihnen, vielleicht. Finden Sie heraus, wer es war, und wohin dieser Chor verschwunden ist. Leise.",
+        "choices": [
+          {
+            "text": "Ich fange beim Arzt an.",
+            "next": "brief_03_more"
+          }
+        ],
+        "sets_flags": [
+          "briefed_03"
+        ],
+        "start_quests": [
+          "case_03"
+        ]
+      },
+      "brief_03b": {
+        "text": "Hester Marsh haben wir nicht gefunden. Aber Dr. Fenwick hat sich die Krypta angesehen und Fasern gefunden, die da nicht hingehören. Polizeistoff.\n\nEiner von uns hat Vey geholfen. Ich kann niemandem hier trauen. Außer Ihnen, vielleicht. Finden Sie heraus, wer es war, und wohin dieser Chor verschwunden ist. Leise.",
+        "choices": [
+          {
+            "text": "Ich fange beim Arzt an.",
+            "next": "brief_03_more"
+          }
+        ],
+        "sets_flags": [
+          "briefed_03"
+        ],
+        "start_quests": [
+          "case_03"
+        ]
+      },
+      "brief_03_more": {
+        "text": "Noch etwas: Halten Sie die Augen offen. Wer hier gegen Vey arbeitet, schläft in letzter Zeit schlecht. Und wer für sie arbeitet, schläft gar nicht.",
+        "choices": [
+          {
+            "text": "Verstanden.",
+            "next": "hub"
+          }
+        ]
+      },
+      "epilogue3": {
+        "text": "Rook. Ein Junge, den ich selbst eingestellt habe. Ich hätte es sehen müssen.\n\nVey ist noch irgendwo da draußen. Aber Kettlegate schläft heute ein bisschen ruhiger. Dank Ihnen.",
+        "choices": [
+          {
+            "text": "Wie stehe ich im Revier?",
+            "next": "standing"
+          },
+          {
+            "text": "Gute Nacht, Inspektorin.",
+            "next": "hub_end"
+          }
+        ]
+      },
+      "hub_end": {
+        "text": "Gute Nacht. Und schließen Sie die Tür ab. Man weiß nie, wer noch singt.",
+        "choices": [
+          {
+            "text": "(gehen)"
+          }
+        ]
+      },
+      "bell": {
+        "text": "Marlowe schweigt lange. Dann schließt sie die Tür.",
+        "gives_clues": [
+          "marlowe_bell"
+        ],
+        "choices": [
+          {
+            "text": "Danke, dass Sie es mir sagen.",
+            "next": "hub"
+          }
+        ]
+      },
+      "accuse3": {
+        "text": "Wer?",
+        "choices": [
+          {
+            "text": "Sergeant Holt.",
+            "next": "end_holt"
+          },
+          {
+            "text": "Constable Rook. Und der Chor trifft sich im Lagerhaus 7 am Kanalhafen.",
+            "next": [
+              {
+                "node": "raid",
+                "requires_certain": [
+                  "rook_mole",
+                  "choir_docks"
+                ]
+              },
+              {
+                "node": "unsure3"
+              }
+            ]
+          },
+          {
+            "text": "Noch nicht.",
+            "next": "hub"
+          }
+        ]
+      },
+      "unsure3": {
+        "text": "Das ist ein schwerer Vorwurf gegen einen Constable. Ich brauche Informationen, die mindestens zwei Quellen bestätigen. Für beides: wer, und wo.",
+        "choices": [
+          {
+            "text": "Verstanden.",
+            "next": "hub"
+          }
+        ]
+      },
+      "end_holt": {
+        "text": "Marlowe sieht dich an, als hättest du sie geschlagen. Dann ruft sie Holt herein.",
+        "ending": "c3_holt"
+      },
+      "raid": {
+        "text": "Marlowe steht auf. „Rook ist heute nicht zum Dienst erschienen. Das sagt mir genug.“\n\n„Price wartet mit zwei Mann am Kanalhafen. Gehen Sie vor, Sie kennen den Fall besser als jeder von uns. Und nehmen Sie etwas zum Verbinden mit.“",
+        "sets_flags": [
+          "case_03_raid",
+          "travel_docks"
+        ],
+        "honor": 3,
+        "honor_reason": "Den Maulwurf enttarnt",
+        "choices": [
+          {
+            "text": "Zum Kanalhafen."
+          }
+        ]
+      },
+      "barnaby": {
+        "text": "Wieder Rook? ... Gut. Holt soll ihn rauslassen. Und Barnaby bekommt eine Entschuldigung vom Revier. Schriftlich.",
+        "sets_flags": [
+          "barnaby_free"
+        ],
+        "choices": [
+          {
+            "text": "Danke.",
+            "next": "hub"
+          }
+        ],
+        "complete_quests": [
+          "barnaby_case"
+        ]
+      },
+      "epilogue3_bad": {
+        "text": "Holt ist fort. Rook ist fort. Und ich habe den Falschen gehen lassen, weil Sie es mir gesagt haben.\n\nIch weiß nicht, ob ich Ihnen noch einmal glauben kann. Beweisen Sie es mir.",
+        "choices": [
+          {
+            "text": "Wie stehe ich im Revier?",
+            "next": "standing"
+          },
+          {
+            "text": "Ich werde es beweisen.",
+            "next": "hub_end"
+          }
+        ]
       }
     }
   },
@@ -341,6 +556,34 @@
             "next": "lost",
             "hide_if_quests": [
               "lost_file"
+            ]
+          },
+          {
+            "text": "Kann man prüfen, wo Holt nachts war?",
+            "next": "ledger",
+            "requires_any_clues": [
+              "planted_note",
+              "rook_holt"
+            ],
+            "hide_if_clues": [
+              "pimm_ledger"
+            ]
+          },
+          {
+            "text": "Was raschelt da hinten?",
+            "next": "rats",
+            "hide_if_quests": [
+              "archive_rats"
+            ]
+          },
+          {
+            "text": "Die Ratten sind fort.",
+            "next": "rats_done",
+            "requires_flags": [
+              "rats_defeated"
+            ],
+            "hide_if_flags": [
+              "rats_reported"
             ]
           },
           {
@@ -404,8 +647,75 @@
             "next": "rules"
           },
           {
+            "text": "Kann man prüfen, wo Holt nachts war?",
+            "next": "ledger",
+            "requires_any_clues": [
+              "planted_note",
+              "rook_holt"
+            ],
+            "hide_if_clues": [
+              "pimm_ledger"
+            ]
+          },
+          {
+            "text": "Was raschelt da hinten?",
+            "next": "rats",
+            "hide_if_quests": [
+              "archive_rats"
+            ]
+          },
+          {
+            "text": "Die Ratten sind fort.",
+            "next": "rats_done",
+            "requires_flags": [
+              "rats_defeated"
+            ],
+            "hide_if_flags": [
+              "rats_reported"
+            ]
+          },
+          {
             "text": "Nichts, danke."
           }
+        ]
+      },
+      "ledger": {
+        "text": "Holt? Seine Frau liegt im Hospital. Das Revier zeichnet die Besucherbücher gegen, Vorschrift. Moment ...\n\nHier. Beide Nächte. Bis zum Morgen. Unterschrieben von der Oberschwester. Wer behauptet etwas anderes?",
+        "gives_clues": [
+          "pimm_ledger"
+        ],
+        "choices": [
+          {
+            "text": "Niemand mehr.",
+            "next": "start"
+          }
+        ]
+      },
+      "rats": {
+        "text": "Ratten! Seit einer Woche. Sie fressen ausgerechnet die Unglücksakten. Nur die. Als hätte ihnen jemand gesagt, welche.\n\nWenn Sie keine Angst vor Ungeziefer haben: hinten links, hinter dem letzten Regal.",
+        "start_quests": [
+          "archive_rats"
+        ],
+        "choices": [
+          {
+            "text": "Ich sehe nach.",
+            "next": "start"
+          }
+        ]
+      },
+      "rats_done": {
+        "text": "Eine Ratte mit einem eingebrannten Auge? ... Ich will es gar nicht wissen. Danke. Nehmen Sie das, mein Vater schwor darauf.",
+        "sets_flags": [
+          "rats_reported"
+        ],
+        "choices": [
+          {
+            "text": "Gern geschehen.",
+            "next": "start"
+          }
+        ],
+        "complete_quests": [
+          "archive_rats"
         ]
       }
     }
@@ -454,6 +764,39 @@
             ]
           },
           {
+            "text": "Was wissen Sie über Rooks Herkunft?",
+            "next": "rook3",
+            "requires_quests_active": [
+              "case_03"
+            ],
+            "hide_if_clues": [
+              "holt_rook"
+            ]
+          },
+          {
+            "text": "Ich weiß, dass Sie in den Nächten im Hospital waren.",
+            "next": "holt_clear",
+            "requires_clues": [
+              "pimm_ledger"
+            ],
+            "hide_if_flags": [
+              "rook_lore"
+            ]
+          },
+          {
+            "text": "Barnaby ist unschuldig. Lassen Sie ihn frei.",
+            "next": "barnaby",
+            "requires_likely": [
+              "barnaby_innocent"
+            ],
+            "requires_quests_active": [
+              "barnaby_case"
+            ],
+            "hide_if_flags": [
+              "barnaby_free"
+            ]
+          },
+          {
             "text": "Bis später."
           }
         ]
@@ -484,6 +827,9 @@
             "text": "Nur so.",
             "next": "start"
           }
+        ],
+        "gives_clues": [
+          "holt_rook"
         ]
       },
       "spar_intro": {
@@ -536,11 +882,58 @@
             "next": "start"
           }
         ]
+      },
+      "rook3": {
+        "text": "Rook? Kam vor einem halben Jahr aus der alten Kapellengemeinde von St. Ebba. Hat mal erzählt, er habe als Junge im Chor gesungen. Wieso?",
+        "gives_clues": [
+          "holt_rook"
+        ],
+        "choices": [
+          {
+            "text": "Nur so.",
+            "next": "start"
+          }
+        ]
+      },
+      "holt_clear": {
+        "text": "Holt reibt sich die Augen. „Jemand wollte mir das anhängen, was? Meine Frau liegt im Sterben, und irgendein Schwein schreibt Zettel in meinem Namen.“\n\n„Hören Sie: Wenn es Rook ist ... Ich hab ihn trainiert. Nach dem dritten Schlag lässt er die Deckung fallen. Immer. Merken Sie sich das.“",
+        "sets_flags": [
+          "rook_lore"
+        ],
+        "honor": 2,
+        "honor_reason": "Holt vertraut dir",
+        "choices": [
+          {
+            "text": "Danke, Sergeant.",
+            "next": "start"
+          }
+        ]
+      },
+      "barnaby": {
+        "text": "Holt liest die Notizen zweimal. „Rooks Bericht. Natürlich.“ Er nimmt den Schlüsselbund vom Haken. „Barnaby! Raus mit dir. Und lass dich nicht wieder erwischen, wobei auch immer.“",
+        "sets_flags": [
+          "barnaby_free"
+        ],
+        "choices": [
+          {
+            "text": "Danke.",
+            "next": "start"
+          }
+        ],
+        "complete_quests": [
+          "barnaby_case"
+        ]
       }
     }
   },
   "rook": {
     "start": [
+      {
+        "node": "case3",
+        "requires_quests_active": [
+          "case_03"
+        ]
+      },
       {
         "node": "case2",
         "requires_quests_active": [
@@ -585,6 +978,50 @@
             "text": "Ich behalte es im Kopf."
           }
         ]
+      },
+      "case3": {
+        "text": "Rook sieht sich um, dann senkt er die Stimme. „Sie suchen den, der Vey hilft, oder? Ich ... ich hab was gesehen.“",
+        "choices": [
+          {
+            "text": "Was hast du gesehen?",
+            "next": "case3_holt",
+            "hide_if_clues": [
+              "rook_holt"
+            ]
+          },
+          {
+            "text": "Wo warst du in den Nächten, als Hester verschwand?",
+            "next": "case3_nights",
+            "requires_any_clues": [
+              "duty_roster",
+              "price_rook"
+            ]
+          },
+          {
+            "text": "Später."
+          }
+        ]
+      },
+      "case3_holt": {
+        "text": "Holt. Ich hab ihn nachts im Keller gesehen, mit einem Brief. Sagen Sie's keinem, er ist mein Vorgesetzter.",
+        "gives_clues": [
+          "rook_holt"
+        ],
+        "choices": [
+          {
+            "text": "Ich behalte es für mich.",
+            "next": "case3"
+          }
+        ]
+      },
+      "case3_nights": {
+        "text": "Auf Wache, natürlich. In Ashgrove.\n\nRook lächelt. Seine Hand zuckt dabei zur Brusttasche, als wollte er etwas verstecken.",
+        "choices": [
+          {
+            "text": "Natürlich.",
+            "next": "case3"
+          }
+        ]
       }
     }
   },
@@ -617,6 +1054,23 @@
             ],
             "hide_if_clues": [
               "barnaby_silver"
+            ]
+          },
+          {
+            "text": "Warum sitzt du eigentlich?",
+            "next": "why",
+            "hide_if_quests": [
+              "barnaby_case"
+            ]
+          },
+          {
+            "text": "Hast du den gesehen, der klopft?",
+            "next": "saw",
+            "requires_flags": [
+              "briefed_03"
+            ],
+            "hide_if_clues": [
+              "barnaby_saw"
             ]
           },
           {
@@ -669,6 +1123,13 @@
             ]
           },
           {
+            "text": "Warum sitzt du eigentlich?",
+            "next": "why",
+            "hide_if_quests": [
+              "barnaby_case"
+            ]
+          },
+          {
             "text": "Wie du meinst."
           }
         ]
@@ -678,6 +1139,33 @@
         "choices": [
           {
             "text": "(Hohes Ansehen öffnet nicht jede Tür.)"
+          }
+        ]
+      },
+      "why": {
+        "text": "Silberleuchter aus St. Ebba, sagt der Bericht. Hab ich nie gesehen, die Dinger! Der junge Constable hat mich geschnappt, als ich nachts an der Ruine pinkeln war. Hat mir die Leuchter einfach vor die Füße gelegt.\n\nFrag den Küster. Frag irgendwen. Ich bin vieles, aber kein Kirchendieb.",
+        "gives_clues": [
+          "police_report_barnaby"
+        ],
+        "start_quests": [
+          "barnaby_case"
+        ],
+        "choices": [
+          {
+            "text": "Ich höre mich um.",
+            "next": "start"
+          }
+        ]
+      },
+      "saw": {
+        "text": "Das Klopfen? Das war einer von euch. Junges Gesicht, blonde Haare unter dem Helm. Hat mir zugezwinkert und das Auge in die Gitter geritzt. Derselbe, der mich eingebuchtet hat.",
+        "gives_clues": [
+          "barnaby_saw"
+        ],
+        "choices": [
+          {
+            "text": "Danke, Barnaby.",
+            "next": "start"
           }
         ]
       }
@@ -707,6 +1195,16 @@
             ]
           },
           {
+            "text": "Ich glaube, die gehört Ihnen.",
+            "next": "watch",
+            "requires_items": [
+              "taschenuhr"
+            ],
+            "requires_flags": [
+              "watch_owner_known"
+            ]
+          },
+          {
             "text": "Ruhen Sie sich aus."
           }
         ]
@@ -728,6 +1226,146 @@
         "choices": [
           {
             "text": "Natürlich.",
+            "next": "start"
+          }
+        ]
+      },
+      "watch": {
+        "text": "Elias starrt die Uhr an. Dann lacht er, zum ersten Mal, seit du ihn kennst.\n\n„Gretas Geschenk. Ich musste sie versetzen, als das Geld knapp war. Deshalb hab ich mich auf diese Frau eingelassen, auf Vey ... Danke. Nehmen Sie das, mir hilft es nicht mehr.“",
+        "takes_items": {
+          "taschenuhr": 1
+        },
+        "gives_items": {
+          "riechsalz": 1
+        },
+        "sets_flags": [
+          "watch_returned"
+        ],
+        "complete_quests": [
+          "lost_watch"
+        ],
+        "choices": [
+          {
+            "text": "Passen Sie auf sich auf.",
+            "next": "start"
+          }
+        ]
+      }
+    }
+  },
+  "hester_awake": {
+    "start": "start",
+    "nodes": {
+      "start": {
+        "text": "Hester sitzt aufrecht im Bett, eine Decke um die Schultern. Ihre Augen sind klar. „Sie sind der, der mich gefunden hat, oder?“",
+        "choices": [
+          {
+            "text": "Woran erinnerst du dich?",
+            "next": "memory",
+            "hide_if_clues": [
+              "hester_coat"
+            ]
+          },
+          {
+            "text": "Kanntest du den Mann?",
+            "next": "knew",
+            "requires_clues": [
+              "hester_coat"
+            ]
+          },
+          {
+            "text": "Ruh dich aus."
+          }
+        ]
+      },
+      "memory": {
+        "text": "An das Lied. Und dann an Arme, die mich getragen haben. Ich hab die Messingknöpfe gesehen, so wie bei den Constables. Und er hat mitgesummt. Er kannte das Lied, jede Note.",
+        "gives_clues": [
+          "hester_coat"
+        ],
+        "choices": [
+          {
+            "text": "Danke, Hester.",
+            "next": "start"
+          }
+        ]
+      },
+      "knew": {
+        "text": "Ich hab sein Gesicht nicht gesehen. Nur blonde Haare unter dem Helm. Und er roch nach Kerzenwachs.",
+        "choices": [
+          {
+            "text": "Das hilft mir.",
+            "next": "start"
+          }
+        ]
+      }
+    }
+  },
+  "fenwick": {
+    "start": "start",
+    "nodes": {
+      "start": {
+        "text": "Dr. Fenwick, Polizeiarzt. Wenn Sie nicht bluten, fassen Sie sich kurz.",
+        "choices": [
+          {
+            "text": "Was haben Sie in der Krypta gefunden?",
+            "next": "fibres",
+            "requires_flags": [
+              "briefed_03"
+            ],
+            "hide_if_clues": [
+              "fenwick_fibres"
+            ]
+          },
+          {
+            "text": "Können Sie mich zusammenflicken?",
+            "next": "heal"
+          },
+          {
+            "text": "Ihr Tonikum ist berühmt.",
+            "next": "tonic",
+            "hide_if_flags": [
+              "fenwick_tonic"
+            ]
+          },
+          {
+            "text": "Auf Wiedersehen."
+          }
+        ]
+      },
+      "fibres": {
+        "text": "Fasern. An der Spieldose und am Kreidekreis. Dunkelblau, dicht gewalkt. So einen Stoff bekommen in Kettlegate nur die Constables. Ich habe es Marlowe gesagt. Sie hat sehr lange geschwiegen.",
+        "gives_clues": [
+          "fenwick_fibres"
+        ],
+        "choices": [
+          {
+            "text": "Danke, Doktor.",
+            "next": "start"
+          }
+        ]
+      },
+      "heal": {
+        "text": "Fenwick tupft, näht und murmelt etwas über Leute, die sich mit Geistern prügeln. „So. Fassen Sie nichts Okkultes an, bevor das verheilt ist.“",
+        "heal": "full",
+        "choices": [
+          {
+            "text": "Danke.",
+            "next": "start"
+          }
+        ]
+      },
+      "tonic": {
+        "text": "Berühmt ist übertrieben. Bitter ist es. Hier, eine Flasche. Gegen Kratzer und gegen Kettlegate.",
+        "gives_items": {
+          "tonikum": 1
+        },
+        "sets_flags": [
+          "fenwick_tonic"
+        ],
+        "choices": [
+          {
+            "text": "Danke.",
             "next": "start"
           }
         ]

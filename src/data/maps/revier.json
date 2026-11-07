@@ -177,6 +177,99 @@
         "text": "Abgeschlossen. Den Schlüssel bekommen nur Vertraute des Reviers.",
         "footer": "Benötigt Rang Vertrauter des Reviers (Ansehen 50)."
       }
+    },
+    {
+      "id": "boots",
+      "kind": "clue",
+      "clue": "ash_boots",
+      "tile": [
+        17,
+        14
+      ],
+      "prompt": "Stiefelregal ansehen",
+      "visible_if": {
+        "requires_flags": [
+          "briefed_03"
+        ]
+      }
+    },
+    {
+      "id": "roster",
+      "kind": "clue",
+      "clue": "duty_roster",
+      "tile": [
+        12,
+        7
+      ],
+      "sprite": "paper",
+      "prompt": "Dienstbuch aufschlagen",
+      "reach": 26,
+      "visible_if": {
+        "requires_flags": [
+          "briefed_03"
+        ]
+      }
+    },
+    {
+      "id": "holt_desk",
+      "kind": "clue",
+      "clue": "planted_note",
+      "tile": [
+        21,
+        10
+      ],
+      "sprite": "paper",
+      "prompt": "Holts Schublade durchsehen",
+      "reach": 26,
+      "visible_if": {
+        "requires_flags": [
+          "briefed_03"
+        ]
+      }
+    },
+    {
+      "id": "locker",
+      "kind": "clue",
+      "clue": "rook_locker",
+      "tile": [
+        19,
+        14
+      ],
+      "sprite": "locker",
+      "prompt": "Rooks Spind öffnen",
+      "visible_if": {
+        "requires_flags": [
+          "briefed_03"
+        ]
+      },
+      "lock": {
+        "requires_conclusions": [
+          "rook_mole"
+        ],
+        "text": "Rooks Spind. Ohne begründeten Verdacht darfst du ihn nicht aufbrechen. Holt würde dir die Hand abhacken.",
+        "footer": "Verknüpfe zuerst im Notizbuch, wer der Maulwurf ist."
+      }
+    },
+    {
+      "id": "rats",
+      "kind": "combat",
+      "encounter": "archive_rats",
+      "tile": [
+        1,
+        7
+      ],
+      "sprite": "rats",
+      "sprite_scale": 0.4,
+      "marker": false,
+      "prompt": "Hinter das Regal leuchten",
+      "visible_if": {
+        "requires_quests_active": [
+          "archive_rats"
+        ],
+        "hide_if_flags": [
+          "rats_defeated"
+        ]
+      }
     }
   ],
   "decor": [],
@@ -205,7 +298,12 @@
         9
       ],
       "facing": "down",
-      "reach": 36
+      "reach": 36,
+      "visible_if": {
+        "hide_if_flags": [
+          "holt_suspended"
+        ]
+      }
     },
     {
       "id": "rook",
@@ -213,7 +311,12 @@
         17,
         12
       ],
-      "facing": "left"
+      "facing": "left",
+      "visible_if": {
+        "hide_if_flags": [
+          "case_03_raid"
+        ]
+      }
     },
     {
       "id": "barnaby",
@@ -222,7 +325,12 @@
         12
       ],
       "facing": "right",
-      "reach": 36
+      "reach": 36,
+      "visible_if": {
+        "hide_if_flags": [
+          "barnaby_free"
+        ]
+      }
     },
     {
       "id": "elias",
@@ -234,6 +342,34 @@
       "visible_if": {
         "requires_flags": [
           "elias_rescued"
+        ]
+      }
+    },
+    {
+      "id": "hester",
+      "tile": [
+        26,
+        6
+      ],
+      "facing": "down",
+      "dialogue": "hester_awake",
+      "static": true,
+      "visible_if": {
+        "requires_flags": [
+          "briefed_03"
+        ]
+      }
+    },
+    {
+      "id": "fenwick",
+      "tile": [
+        24,
+        6
+      ],
+      "facing": "right",
+      "visible_if": {
+        "requires_flags": [
+          "briefed_03"
         ]
       }
     }

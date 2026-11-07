@@ -6,8 +6,8 @@ Ermitteln, Gespräche und das Verknüpfen von Hinweisen, nicht Kämpfe.
 
 ![Screenshot](docs/screenshot.png)
 
-**Stand:** spielbarer Prototyp mit zwei zusammenhängenden Fällen, fünf Nebenaufträgen,
-vier Orten (Polizeirevier, Ashgrove Lane, Friedhof St. Ebba, Krypta), Inventar, Leben,
+**Stand:** spielbarer Prototyp mit drei zusammenhängenden Fällen, zehn Nebenaufträgen,
+sechs Orten (Polizeirevier, Ashgrove Lane, Friedhof St. Ebba, Krypta, Kanalhafen, Lagerhaus 7), Inventar, Leben,
 einem kleinen Rundenkampf mit Timing und Spielständen.
 
 ## Spielen
@@ -68,10 +68,19 @@ einem kleinen Rundenkampf mit Timing und Spielständen.
 - **Aufträge** stehen im Notizbuch mit abhakbaren Schritten. Der Spielstand wird
   automatisch im Browser gespeichert (Titelbildschirm: Fortsetzen / Neues Spiel).
 
+![Lagerhaus 7](docs/lagerhaus.png)
 ![Kampf](docs/kampf.png)
 ![Inventar](docs/inventar.png)
 ![Notizbuch](docs/notizbuch.png)
 ![Gesperrte Option](docs/gesperrt.png)
+
+## Geschichte bisher
+
+1. **Die erloschene Laterne:** Der Lampenanzünder Elias Thorne verschwindet in Ashgrove Lane. Spur: Miriam Vey, ehemalige Chorleiterin von St. Ebba.
+2. **Asche von St. Ebba:** Hester Marsh wird von einem Wiegenlied in die Krypta gelockt. Vey will ihre tote Tochter Lilian zurückholen.
+3. **Der Chor singt woanders:** Jemand im Revier hilft Vey. Falsche Fährten führen zu Sergeant Holt, die Wahrheit zu Constable Rook und zum Lagerhaus 7 am Kanalhafen. Wer herausfindet, dass Vey noch die Glocke von St. Ebba braucht, kann ihr Ritual aufhalten.
+
+Nebenaufträge: Taschendieb, verlegte Akte, Klopfen in der Zelle, Hesters Medaillon, Nebelhund, Die Uhr ohne Besitzer, Ratten im Archiv, Barnabys Unschuld (ein falscher Polizeibericht), Der Ertrunkene vom Kanalhafen (Geistsicht), Die Schlagzeile (eine Entscheidung mit Folgen fürs Ansehen).
 
 ## Technik
 
@@ -97,7 +106,7 @@ src/
     quests.json           Haupt- und Nebenaufträge mit Schritten
     items.json            Gegenstände (Waffen, Heilung, Kampfhilfen)
     encounters.json       Gegner: Leben, Attacken (Schlagzeiten in ms), Schwachstellen, Folgen
-    case_01.json, ...     Informationen, Hinweise (Quellen), Schlussfolgerungen, Enden
+    case_01.json, ...     Informationen, Hinweise (Quellen), Schlussfolgerungen, Enden (Fall 1 bis 3)
     maps/*.json           Orte als Zeichenraster + Objekte + Figuren
     dialogues/*.json      Dialogbäume
 tests/                    `npm test`: Datenprüfung, Kampfregeln und Balance, beide Fälle über die echten Dialoge durchgespielt

@@ -183,6 +183,26 @@
             ]
           },
           {
+            "text": "Kannten Sie einen Thomas Rook?",
+            "next": "rook",
+            "requires_flags": [
+              "briefed_03"
+            ],
+            "hide_if_clues": [
+              "anselm_rook"
+            ]
+          },
+          {
+            "text": "Wurden hier Silberleuchter gestohlen?",
+            "next": "candles",
+            "requires_quests_active": [
+              "barnaby_case"
+            ],
+            "hide_if_clues": [
+              "anselm_candles"
+            ]
+          },
+          {
             "text": "Gott zum Gruße."
           }
         ]
@@ -264,6 +284,30 @@
         "choices": [
           {
             "text": "Danke, Küster.",
+            "next": "start"
+          }
+        ]
+      },
+      "rook": {
+        "text": "Thomas? Er sang die Soli. Miriam liebte ihn wie einen Sohn. Nach dem Brand stand er tagelang vor der Ruine und weinte. Heute trägt er eine Uniform, habe ich gehört. Gott sei Dank.",
+        "gives_clues": [
+          "anselm_rook"
+        ],
+        "choices": [
+          {
+            "text": "Ja. Gott sei Dank.",
+            "next": "start"
+          }
+        ]
+      },
+      "candles": {
+        "text": "Gestohlen? Ich habe die Leuchter selbst verkauft, an den Pfandleiher in Ashgrove. Für die Dachbalken. Es steht im Kirchenbuch, sehen Sie selbst. Wer behauptet so etwas?",
+        "gives_clues": [
+          "anselm_candles"
+        ],
+        "choices": [
+          {
+            "text": "Ein Polizeibericht.",
             "next": "start"
           }
         ]
@@ -479,6 +523,88 @@
         "choices": [
           {
             "text": "Weiter."
+          }
+        ]
+      }
+    }
+  },
+  "agnes": {
+    "start": [
+      {
+        "node": "late",
+        "requires_flags": [
+          "briefed_03"
+        ]
+      },
+      {
+        "node": "start"
+      }
+    ],
+    "nodes": {
+      "start": {
+        "text": "Eine alte Frau in Schwarz legt Blumen auf ein Grab. „Hier liegt mein Mann. Er hat die Orgel gespielt, früher, für den Chor.“",
+        "choices": [
+          {
+            "text": "Sie waren im Chor?",
+            "next": "choir"
+          },
+          {
+            "text": "Mein Beileid."
+          }
+        ]
+      },
+      "choir": {
+        "text": "Zwanzig Jahre. Bis zum Brand. Ich rede nicht gern darüber. Miriam war ... sie war nicht immer so. Sie hat nur ihr Kind zu sehr geliebt.",
+        "choices": [
+          {
+            "text": "Verstehe.",
+            "next": "start"
+          }
+        ]
+      },
+      "late": {
+        "text": "Agnes Crane blickt nicht von dem Grab auf. „Sie kommen wegen Miriam. Alle kommen jetzt wegen Miriam.“",
+        "choices": [
+          {
+            "text": "Kennen Sie Thomas Rook?",
+            "next": "rook",
+            "hide_if_clues": [
+              "agnes_rook"
+            ]
+          },
+          {
+            "text": "Was plant Miriam als Nächstes?",
+            "next": "bell",
+            "hide_if_clues": [
+              "agnes_bell"
+            ]
+          },
+          {
+            "text": "Ich lasse Sie in Ruhe."
+          }
+        ]
+      },
+      "rook": {
+        "text": "Der kleine Thomas. Miriam hat ihn bei sich aufgenommen, als seine Mutter starb. Er würde alles für sie tun. Alles.",
+        "gives_clues": [
+          "agnes_rook"
+        ],
+        "choices": [
+          {
+            "text": "Danke.",
+            "next": "late"
+          }
+        ]
+      },
+      "bell": {
+        "text": "Sie hat es damals gesagt, in der letzten Probe vor dem Brand: „Drei Stimmen öffnen die Tür. Das Licht, das Kind, die Glocke.“\n\nDie Laterne hat sie. Die Spieldose hat sie. Fehlt nur die Glocke. Sehen Sie in den Glockenstuhl, wenn Sie mir nicht glauben.",
+        "gives_clues": [
+          "agnes_bell"
+        ],
+        "choices": [
+          {
+            "text": "Das werde ich.",
+            "next": "late"
           }
         ]
       }

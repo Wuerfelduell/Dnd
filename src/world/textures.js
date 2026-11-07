@@ -20,12 +20,14 @@ export const TILE_KEYS = [
   'wood0', 'wood1', 'wallTop', 'wallFace', 'wallDoor', 'desk', 'shelf', 'bars',
   'grass0', 'grass1', 'path', 'grave', 'openGrave', 'charred', 'rubble', 'deadTree',
   'stone', 'cryptTop', 'cryptFace', 'altar',
+  'planks0', 'planks1', 'quay', 'crate', 'barrel',
 ];
 export const TILE_INDEX = Object.fromEntries(TILE_KEYS.map((k, i) => [k, i]));
 export const SOLID_KEYS = [
   'brick', 'window', 'door', 'roofEaveBottom', 'roofEaveTop', 'fence', 'water0', 'water1',
   'wallTop', 'wallFace', 'wallDoor', 'desk', 'shelf', 'bars',
   'grave', 'openGrave', 'rubble', 'deadTree', 'cryptTop', 'cryptFace', 'altar',
+  'quay', 'crate', 'barrel',
 ];
 
 /** Deterministischer Hash für Variationen pro Tile. */
@@ -299,6 +301,29 @@ function drawAltar(p) {
   p(0, 5, 16, 4, '#4a2226');
 }
 
+// Kanalhafen (Platzhalter, echte Tiles kommen aus 13_01_docks_tiles.png)
+function drawPlanks(p, v) {
+  p(0, 0, 16, 16, '#4a3a2a');
+  for (let i = 0; i < 4; i++) { p(0, i * 4, 16, 1, '#2e241a'); p(((i + v) * 5) % 16, i * 4 + 1, 1, 3, '#2e241a'); }
+  p(0, 1, 16, 1, '#5a4a36');
+}
+function drawQuay(p) {
+  p(0, 0, 16, 16, '#3a3e48');
+  p(0, 0, 16, 2, '#5a5e6a');
+  p(0, 7, 16, 1, '#2a2c34'); p(7, 2, 1, 5, '#2a2c34'); p(3, 8, 1, 8, '#2a2c34'); p(11, 8, 1, 8, '#2a2c34');
+  p(0, 14, 16, 2, '#1e2a34');
+}
+function drawCrate(p) {
+  drawPlanks(p, 0);
+  p(1, 2, 14, 13, '#6a5034'); p(1, 2, 14, 1, '#8a6a44'); p(1, 14, 14, 1, '#3a2a1a');
+  p(1, 2, 1, 13, '#3a2a1a'); p(14, 2, 1, 13, '#3a2a1a'); for (let i = 0; i < 12; i++) p(2 + i, 3 + i, 1, 1, '#3a2a1a');
+}
+function drawBarrel(p) {
+  drawPlanks(p, 1);
+  p(3, 1, 10, 14, '#5a4028'); p(2, 3, 12, 10, '#5a4028'); p(3, 1, 10, 1, '#7a5a38');
+  p(2, 4, 12, 1, '#2a2c34'); p(2, 11, 12, 1, '#2a2c34'); p(5, 2, 1, 12, '#6a4c30');
+}
+
 const TILE_PAINTERS = {
   cobble0: (p) => drawCobble(p, 0), cobble1: (p) => drawCobble(p, 1),
   cobble2: (p) => drawCobble(p, 2), cobble3: (p) => drawCobble(p, 3),
@@ -314,6 +339,7 @@ const TILE_PAINTERS = {
   grass0: (p) => drawGrass(p, 0), grass1: (p) => drawGrass(p, 1), path: drawPath, grave: drawGrave, openGrave: drawOpenGrave,
   charred: drawCharred, rubble: drawRubble, deadTree: drawDeadTree,
   stone: drawStone, cryptTop: drawCryptTop, cryptFace: drawCryptFace, altar: drawAltar,
+  planks0: (p) => drawPlanks(p, 0), planks1: (p) => drawPlanks(p, 2), quay: drawQuay, crate: drawCrate, barrel: drawBarrel,
 };
 
 // --- Figuren ---------------------------------------------------------------
@@ -486,6 +512,13 @@ const PROPS = {
   candle: [16, 16, (p) => {
     p(6, 7, 4, 7, '#d8d0bc'); p(6, 7, 1, 7, '#efe8d6'); p(7, 4, 2, 3, '#ffd890'); p(7, 3, 1, 1, '#fff2c8'); p(5, 14, 6, 1, '#4a4440');
   }],
+  locker: [16, 16, (p) => {
+    p(3, 1, 10, 15, '#4a5060'); p(3, 1, 10, 1, '#6a7080'); p(8, 1, 1, 15, '#2a2e38'); p(5, 3, 2, 1, '#2a2e38'); p(10, 3, 2, 1, '#2a2e38');
+    p(6, 8, 1, 2, '#c8a860'); p(10, 8, 1, 2, '#c8a860');
+  }],
+  bellmount: [16, 16, (p) => {
+    p(2, 2, 12, 2, '#3a2a1a'); p(2, 4, 2, 11, '#3a2a1a'); p(12, 4, 2, 11, '#3a2a1a'); p(7, 4, 2, 3, '#6a6a72'); p(7, 7, 2, 1, '#b8b8c0');
+  }],
   medkit: [16, 16, (p) => {
     p(2, 4, 12, 9, '#d8d0bc'); p(2, 4, 12, 1, '#efe8d6'); p(2, 12, 12, 1, '#a8a090'); p(7, 6, 2, 5, '#a83232'); p(5, 8, 6, 1, '#a83232'); p(6, 3, 4, 1, '#5a5448');
   }],
@@ -559,6 +592,15 @@ export function outlineAll(ctx, w, h, color = [0x1a, 0x1c, 0x2c]) {
 }
 
 const ENEMIES = {
+  // Aktenfresser: ein Knäuel Ratten mit Papierfetzen
+  rats: [64, 64, (p) => {
+    const fur = '#4a4038'; const hi = '#6a5a4a';
+    [[10, 40], [26, 44], [40, 38], [18, 30], [34, 28]].forEach(([x, y], i) => {
+      p(x, y, 14, 8, fur); p(x, y, 14, 1, hi); p(x - 4, y + 2, 5, 5, fur); p(x - 3, y + 3, 1, 1, '#e05050');
+      p(x + 14, y + 4, 6 - (i % 3), 1, '#b88a7a'); p(x + 2, y + 8, 2, 2, '#2a2420'); p(x + 10, y + 8, 2, 2, '#2a2420');
+    });
+    for (let i = 0; i < 9; i++) p(6 + i * 6, 52 + (i % 3) * 2, 4, 3, '#d8d0bc');
+  }],
   // Nebelhund: schlanker, zu langer Hund aus Nebel, grüne Augen. Schaut nach links.
   hound: [64, 64, (p) => {
     const body = '#3a4250'; const hi = '#56607a'; const dark = '#262c38';

@@ -302,5 +302,205 @@
         "bannsalz": 1
       }
     }
+  },
+  "case_03": {
+    "title": "Fall 3: Der Chor singt woanders",
+    "kind": "main",
+    "case": "case_03",
+    "summary": "Hester ist im Revier aufgewacht. Sie erinnert sich an einen Mann im Polizeimantel. Jemand im Revier arbeitet für Miriam Vey.",
+    "steps": [
+      {
+        "text": "Sprich mit Dr. Fenwick im Krankenzimmer des Reviers",
+        "done": {
+          "requires_any_clues": [
+            "fenwick_fibres",
+            "hester_coat"
+          ]
+        }
+      },
+      {
+        "text": "Finde heraus, wer im Revier für Vey arbeitet",
+        "done": {
+          "requires_conclusions": [
+            "rook_mole"
+          ]
+        }
+      },
+      {
+        "text": "Finde heraus, wo sich der Chor versammelt",
+        "done": {
+          "requires_conclusions": [
+            "choir_docks"
+          ]
+        }
+      },
+      {
+        "text": "Sichere beides mit je zwei Quellen ab",
+        "done": {
+          "requires_certain": [
+            "rook_mole",
+            "choir_docks"
+          ]
+        }
+      },
+      {
+        "text": "Optional: Was will Vey als Nächstes? (St. Ebba, Agnes Crane)",
+        "done": {
+          "requires_certain": [
+            "vey_bell"
+          ]
+        }
+      },
+      {
+        "text": "Nenne Inspektorin Marlowe den Maulwurf",
+        "done": {
+          "requires_flags": [
+            "case_03_raid"
+          ]
+        }
+      },
+      {
+        "text": "Stürme das Lagerhaus 7 am Kanalhafen",
+        "done": {
+          "requires_flags": [
+            "case_03_closed"
+          ]
+        }
+      }
+    ]
+  },
+  "lost_watch": {
+    "title": "Die Uhr ohne Besitzer",
+    "kind": "side",
+    "case": "side",
+    "summary": "Mr. Halloway hat eine versetzte Taschenuhr, die nie abgeholt wurde. Die Gravur lautet „Für E., von G.“",
+    "steps": [
+      {
+        "text": "Finde heraus, wem die Uhr gehört",
+        "done": {
+          "requires_flags": [
+            "watch_owner_known"
+          ]
+        }
+      },
+      {
+        "text": "Bring die Uhr zurück",
+        "done": {
+          "requires_flags": [
+            "watch_returned"
+          ]
+        }
+      }
+    ],
+    "reward": {
+      "honor": 4,
+      "honor_reason": "Eine Uhr heimgebracht"
+    }
+  },
+  "archive_rats": {
+    "title": "Ratten im Archiv",
+    "kind": "side",
+    "case": "side",
+    "summary": "Etwas frisst sich durch Miss Pimms Unglücksakten. Sie hört es nachts rascheln, hinten links in der Ecke.",
+    "steps": [
+      {
+        "text": "Vertreibe, was in der Archivecke haust",
+        "done": {
+          "requires_flags": [
+            "rats_defeated"
+          ]
+        }
+      },
+      {
+        "text": "Gib Miss Pimm Bescheid",
+        "done": {
+          "requires_flags": [
+            "rats_reported"
+          ]
+        }
+      }
+    ],
+    "reward": {
+      "honor": 3,
+      "honor_reason": "Das Archiv gerettet",
+      "gives_items": {
+        "bannsalz": 1
+      }
+    }
+  },
+  "barnaby_case": {
+    "title": "Barnabys Unschuld",
+    "kind": "side",
+    "case": "side",
+    "summary": "Barnaby schwört, er habe die Silberleuchter von St. Ebba nie angerührt. Der Festnahmebericht sagt etwas anderes.",
+    "steps": [
+      {
+        "text": "Finde zwei Quellen dafür, dass Barnaby unschuldig ist",
+        "done": {
+          "requires_likely": [
+            "barnaby_innocent"
+          ]
+        }
+      },
+      {
+        "text": "Leg Sergeant Holt die Beweise vor",
+        "done": {
+          "requires_flags": [
+            "barnaby_free"
+          ]
+        }
+      }
+    ],
+    "reward": {
+      "honor": 6,
+      "honor_reason": "Einen Unschuldigen befreit"
+    }
+  },
+  "drowned": {
+    "title": "Der Ertrunkene vom Kanalhafen",
+    "kind": "side",
+    "case": "side",
+    "summary": "Tobias' Bruder Nate ist vor einer Woche in den Kanal gestürzt. Seitdem riecht es nachts am Steg nach Wachs, und das Wasser ist eiskalt.",
+    "steps": [
+      {
+        "text": "Untersuche den Steg (Geistsicht?)",
+        "done": {
+          "requires_flags": [
+            "ghost_spoken"
+          ]
+        }
+      },
+      {
+        "text": "Erzähl Tobias, was mit Nate geschah",
+        "done": {
+          "requires_flags": [
+            "tobias_told"
+          ]
+        }
+      }
+    ],
+    "reward": {
+      "honor": 4,
+      "honor_reason": "Nate Lowe kann ruhen",
+      "gives_items": {
+        "tonikum": 1
+      }
+    }
+  },
+  "pip_headline": {
+    "title": "Die Schlagzeile",
+    "kind": "side",
+    "case": "side",
+    "summary": "Pip, der Zeitungsjunge, braucht eine Geschichte für die Morgenausgabe. Sonst bekommt er keinen Lohn.",
+    "steps": [
+      {
+        "text": "Gib Pip eine Geschichte (überleg dir, welche)",
+        "done": {
+          "requires_flags": [
+            "pip_story"
+          ]
+        }
+      }
+    ]
   }
 }

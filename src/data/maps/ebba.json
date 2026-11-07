@@ -149,6 +149,22 @@
           "crypt"
         ]
       }
+    },
+    {
+      "id": "bell",
+      "kind": "clue",
+      "clue": "bell_missing",
+      "tile": [
+        25,
+        2
+      ],
+      "sprite": "bellmount",
+      "prompt": "Glockenstuhl untersuchen",
+      "visible_if": {
+        "requires_flags": [
+          "briefed_03"
+        ]
+      }
     }
   ],
   "decor": [],
@@ -193,6 +209,14 @@
           "case_02"
         ]
       }
+    },
+    {
+      "id": "agnes",
+      "tile": [
+        8,
+        17
+      ],
+      "facing": "right"
     }
   ]
 }

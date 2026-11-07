@@ -1,0 +1,121 @@
+{
+  "id": "warehouse",
+  "name": "Lagerhaus 7",
+  "ambient": {
+    "night": 0.84,
+    "fog": 0.2
+  },
+  "rows": [
+    "IIIIIIIIIIIIIIIIIIIIII",
+    "IIIIIIIIIIIIIIIIIIIIII",
+    "IwwwCCwwwwwwwwwwwCCwwI",
+    "IwwwwwwwwwKwKwwwwwwwwI",
+    "IwwwwwwwwwAAwwwwwwwwwI",
+    "IwCwwwwwwwwwwwwwwwwCwI",
+    "IwwwwwwwwwwwwwwwwwwwwI",
+    "IwwVwwwwwwwwwwwwwwVwwI",
+    "IwwwwwwwwwwwwwwwwwwwwI",
+    "IwwwwwwwwwwwwwwwwwwwwI",
+    "IwwwwwwwwwwwwwwwwwwwwI",
+    "IIIIIIIIIIEEIIIIIIIIII"
+  ],
+  "spawns": {
+    "default": [
+      10,
+      9
+    ]
+  },
+  "interactables": [
+    {
+      "id": "out",
+      "kind": "door",
+      "to": "docks",
+      "spawn": "warehouse",
+      "tile": [
+        10,
+        10
+      ],
+      "prompt": "Hinaus zum Kai",
+      "marker": false
+    },
+    {
+      "id": "zealots",
+      "kind": "combat",
+      "encounter": "choir_zealots",
+      "tile": [
+        10,
+        7
+      ],
+      "sprite": "npc:cultist",
+      "marker": false,
+      "auto": 30,
+      "reach": 28,
+      "prompt": "Den Chorfanatikern entgegentreten",
+      "visible_if": {
+        "hide_if_flags": [
+          "zealots_defeated"
+        ]
+      },
+      "solid": [
+        14,
+        8
+      ]
+    },
+    {
+      "id": "hymns",
+      "kind": "read",
+      "tile": [
+        4,
+        8
+      ],
+      "sprite": "paper",
+      "prompt": "Notenblätter lesen",
+      "title": "Notenblätter",
+      "text": "Dutzende Abschriften desselben Wiegenlieds. Am Rand, in Veys Handschrift: „Erste Stimme: das Licht (Ashgrove). Zweite Stimme: das Kind (St. Ebba). Dritte Stimme: die Glocke. Bei Neumond.“",
+      "done_flag": "read_hymns"
+    }
+  ],
+  "decor": [
+    {
+      "sprite": "circle",
+      "tile": [
+        10,
+        6
+      ],
+      "depth": 40,
+      "alpha": 0.6
+    }
+  ],
+  "npcs": [
+    {
+      "id": "rook",
+      "tile": [
+        7,
+        4
+      ],
+      "facing": "right",
+      "dialogue": "rook_final",
+      "visible_if": {
+        "requires_flags": [
+          "zealots_defeated"
+        ]
+      }
+    },
+    {
+      "id": "miriam",
+      "tile": [
+        14,
+        4
+      ],
+      "facing": "left",
+      "visible_if": {
+        "requires_flags": [
+          "rook_defeated"
+        ],
+        "hide_if_flags": [
+          "case_03_closed"
+        ]
+      }
+    }
+  ]
+}

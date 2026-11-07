@@ -128,6 +128,8 @@ test('Balance: Mit Startausrüstung und den Gegenständen auf dem Weg ist jeder 
     const s = fresh();
     const items = id === 'ash_warden' ? ['bannsalz', 'bannsalz'] : [];
     if (items.length) s.addItem('bannsalz', 2);
+    // In Fall 3 ist man längst Hilfsermittler und hat den Dienstschlagstock von Holt.
+    if (['choir_zealots', 'rook_fight'].includes(id)) s.addItem('schlagstock');
     const { result, combat } = fight(s, id, { defend: (i) => (i % 2 ? 'miss' : 'dodge'), items, healBelow: 15 });
     assert.equal(result.outcome, 'won', `${id}: verloren in Runde ${combat.round}`);
   }
