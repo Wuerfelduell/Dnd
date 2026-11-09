@@ -856,9 +856,12 @@ export const PORTRAIT_EXTRA = {
 };
 /** Portrait-URL und Spalte für Figur + Stimmung (oder null). */
 export function portraitFor(id, mood) {
+  // Paket AK: wütend/traurig/nachdenklich/entschlossen (englisch) vor den Sonder-Streifen, deutsche Namen danach
+  if (AK_FIGURES.has(id) && AK_MOODS_EN[mood] !== undefined) return { url: akUrl(id), col: AK_MOODS_EN[mood] };
   for (const special of [PORTRAIT_SPECIAL[id], PORTRAIT_EXTRA[id]]) {
     if (special && special[1][mood] !== undefined) return { url: `${BASE}portraits/${special[0]}`, col: special[1][mood] };
   }
+  if (AK_FIGURES.has(id) && AK_MOODS_DE[mood] !== undefined) return { url: akUrl(id), col: AK_MOODS_DE[mood] };
   const url = portraitUrl(id);
   return url ? { url, col: PORTRAIT_MOODS[mood] ?? 0 } : null;
 }
@@ -1881,3 +1884,12 @@ for (const id of ['rost_schlaeger', 'rost_werfer', 'rost_schmied', 'schleier_mes
 // --- Paket AA: Kettlegate-Nebenaufträge (data/packs/kg_nebenquests) -----------------------------------
 /** Die drei neuen Gesuchten kämpfen vorerst mit vorhandenen Sheets (Grafiken kommen mit Codex AJ). */
 Object.assign(ENCOUNTER_SHEETS, { kg_kopfgeld_siegelbrecher: 'enemy_laternendieb', kg_kopfgeld_schichtdieb: 'enemy_pfandeintreiber', kg_kopfgeld_pfandvogt: 'enemy_schlachtergehilfe' });
+
+// --- Paket AK: zusätzliche Gesichtsausdrücke (manifest-emotionen2.json) -----------------------------------
+/** Figuren mit portraits/AK_<id>_emotions2.png: Spalten wütend 0, traurig 1, nachdenklich 2, entschlossen 3. */
+export const AK_FIGURES = new Set(['player', 'marlowe', 'holt', 'pimm', 'greta', 'quill', 'kit', 'pip', 'hester', 'ivy', 'rook', 'price',
+  'barnaby', 'miriam', 'oda_vey', 'mews', 'astronom', 'lichtmann', 'maud', 'ned', 'wick', 'souffleur', 'zunder', 'druce', 'sedge',
+  'hale', 'brack', 'hesper', 'wyle', 'pedell', 'brandt', 'elsbeth']);
+export const AK_MOODS_EN = { angry: 0, sad: 1, thoughtful: 2, determined: 3 };
+export const AK_MOODS_DE = { wuetend: 0, zornig: 0, traurig: 1, nachdenklich: 2, entschlossen: 3 };
+const akUrl = (id) => `${BASE}portraits/AK_${id}_emotions2.png`;
