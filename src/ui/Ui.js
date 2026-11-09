@@ -375,6 +375,11 @@ export class Ui {
       const id = this.pendingEnding;
       this.pendingEnding = null;
       this.showEnding(id);
+    } else if (this.pendingChapter) {
+      // Kapitelende (z. B. Fall 9): eigene Tafel nach dem Schlussbild
+      const ch = this.pendingChapter;
+      this.pendingChapter = null;
+      this.showMessage(ch.title, ch.text, { footer: ch.footer ?? '' });
     } else if (this.pendingLost) {
       const text = this.pendingLost;
       this.pendingLost = null;
@@ -1318,6 +1323,7 @@ export class Ui {
     // Schlussbild als Hintergrund (480x270)
     const img = endingImageUrl(id, end.case);
     if (img) { el.classList.add('with-image'); el.style.backgroundImage = `linear-gradient(rgba(10, 8, 14, 0.3), rgba(10, 8, 14, 0.85) 50%), url(${img})`; }
+    if (end.chapter) this.pendingChapter = end.chapter;
     el.querySelector('[data-act=ok]').onclick = () => this.close();
   }
 
