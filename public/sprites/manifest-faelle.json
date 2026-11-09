@@ -1,0 +1,2468 @@
+{
+  "version": 1,
+  "batch": "faelle",
+  "status": "exported; runtime integration pending",
+  "paletteMaxVisibleColors": 32,
+  "palette": [
+    "#1a1c2c",
+    "#252b38",
+    "#303b49",
+    "#425360",
+    "#586c78",
+    "#71858b",
+    "#95a5a5",
+    "#a8b4c0",
+    "#2d2629",
+    "#58433c",
+    "#715648",
+    "#92745a",
+    "#b3946e",
+    "#cfb18a",
+    "#e0c9a1",
+    "#494b3a",
+    "#686850",
+    "#8b8870",
+    "#eee2c5",
+    "#173d40",
+    "#245b59",
+    "#36817a",
+    "#4eafa2",
+    "#6fe0d0",
+    "#886332",
+    "#d0a050",
+    "#e8b860",
+    "#f0ce80",
+    "#c8b0e8",
+    "#e07a8a",
+    "#8c7295",
+    "#893e4e"
+  ],
+  "assets": [
+    {
+      "id": "theater",
+      "file": "props/E_01_theater_buehne.png",
+      "width": 160,
+      "height": 64,
+      "transparent": true,
+      "regions": {
+        "buehnenbild": {
+          "x": 0,
+          "y": 0,
+          "width": 48,
+          "height": 32
+        },
+        "thron": {
+          "x": 48,
+          "y": 0,
+          "width": 16,
+          "height": 32
+        },
+        "souffleurkasten": {
+          "x": 64,
+          "y": 0,
+          "width": 32,
+          "height": 16
+        },
+        "schminktisch": {
+          "x": 96,
+          "y": 0,
+          "width": 32,
+          "height": 32
+        },
+        "chaiselongue": {
+          "x": 128,
+          "y": 0,
+          "width": 32,
+          "height": 16
+        },
+        "kostuemschrank": {
+          "x": 0,
+          "y": 32,
+          "width": 32,
+          "height": 32
+        },
+        "grammophon": {
+          "x": 32,
+          "y": 32,
+          "width": 16,
+          "height": 32
+        },
+        "fanpost": {
+          "x": 48,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "leere_sternphiole": {
+          "x": 64,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        }
+      }
+    },
+    {
+      "id": "felix_versteck",
+      "file": "props/E_01_felix_versteck.png",
+      "width": 160,
+      "height": 64,
+      "transparent": true,
+      "regions": {
+        "phiolen_regal_0": {
+          "x": 0,
+          "y": 0,
+          "width": 32,
+          "height": 32
+        },
+        "phiolen_regal_1": {
+          "x": 32,
+          "y": 0,
+          "width": 32,
+          "height": 32
+        },
+        "phiolen_regal_2": {
+          "x": 64,
+          "y": 0,
+          "width": 32,
+          "height": 32
+        },
+        "phiolen_regal_3": {
+          "x": 96,
+          "y": 0,
+          "width": 32,
+          "height": 32
+        },
+        "werkbank": {
+          "x": 128,
+          "y": 0,
+          "width": 32,
+          "height": 32
+        },
+        "gasrohr": {
+          "x": 0,
+          "y": 32,
+          "width": 16,
+          "height": 32
+        },
+        "pritsche": {
+          "x": 16,
+          "y": 32,
+          "width": 16,
+          "height": 32
+        },
+        "chorwand": {
+          "x": 32,
+          "y": 32,
+          "width": 32,
+          "height": 32
+        },
+        "uhrwerk": {
+          "x": 64,
+          "y": 32,
+          "width": 32,
+          "height": 32
+        }
+      },
+      "regionAnimations": {
+        "shimmer": {
+          "regions": [
+            "phiolen_regal_0",
+            "phiolen_regal_1",
+            "phiolen_regal_2",
+            "phiolen_regal_3"
+          ],
+          "frameRate": 5,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "stimme_raub",
+      "file": "fx/E_01_stimme_raub.png",
+      "width": 256,
+      "height": 32,
+      "transparent": true,
+      "frameWidth": 32,
+      "frameHeight": 32,
+      "columns": 8,
+      "rows": 1,
+      "animations": {
+        "stimme_raub": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 10,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "phiole_bricht",
+      "file": "fx/E_01_phiole_bricht.png",
+      "width": 256,
+      "height": 32,
+      "transparent": true,
+      "frameWidth": 32,
+      "frameHeight": 32,
+      "columns": 8,
+      "rows": 1,
+      "animations": {
+        "phiole_bricht": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 10,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "glocke_stimme",
+      "file": "fx/E_01_glocke_stimme.png",
+      "width": 384,
+      "height": 48,
+      "transparent": true,
+      "frameWidth": 48,
+      "frameHeight": 48,
+      "columns": 8,
+      "rows": 1,
+      "animations": {
+        "glocke_stimme": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 10,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "turmuhr",
+      "file": "props/E_01_turmuhr.png",
+      "width": 96,
+      "height": 48,
+      "transparent": true,
+      "frameWidth": 48,
+      "frameHeight": 48,
+      "columns": 2,
+      "rows": 1,
+      "states": {
+        "stopped_3_33": 0,
+        "occult_3_33": 1
+      },
+      "clockTime": "03:33"
+    },
+    {
+      "id": "fall4_hinweise",
+      "file": "props/E_01_fall4_hinweise.png",
+      "width": 192,
+      "height": 16,
+      "transparent": true,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 12,
+      "rows": 1,
+      "icons": {
+        "stimmphiole": 0,
+        "soufflierbuch": 1,
+        "halbmaske": 2,
+        "polizeibericht": 3,
+        "tunnelkarte": 4,
+        "chorfoto": 5,
+        "stimmgabel": 6,
+        "russ": 7,
+        "eintrittskarte": 8,
+        "uhrschluessel": 9,
+        "watte": 10,
+        "trichter": 11
+      }
+    },
+    {
+      "id": "diva_special",
+      "file": "portraits/E_diva_stimme.png",
+      "width": 256,
+      "height": 64,
+      "transparent": false,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 4,
+      "rows": 1,
+      "expressions": {
+        "trying to sing with no sound": 0,
+        "hand at her throat in panic": 1,
+        "tearful": 2,
+        "radiant with her voice restored": 3
+      }
+    },
+    {
+      "id": "souffleur_special",
+      "file": "portraits/E_souffleur_enthuellung.png",
+      "width": 256,
+      "height": 64,
+      "transparent": false,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 4,
+      "rows": 1,
+      "expressions": {
+        "timid and helpful": 0,
+        "caught off guard": 1,
+        "feverish devotion with turquoise-lit eyes": 2,
+        "broken and weeping like a child": 3
+      }
+    },
+    {
+      "id": "maskenmacher_special",
+      "file": "portraits/E_maskenmacher_maske.png",
+      "width": 256,
+      "height": 64,
+      "transparent": false,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 4,
+      "rows": 1,
+      "expressions": {
+        "mask on": 0,
+        "mask lifted showing a scarred kind face": 1,
+        "offended": 2,
+        "grateful nod": 3
+      }
+    },
+    {
+      "id": "turmwaechter_special",
+      "file": "portraits/E_turmwaechter_hoeren.png",
+      "width": 256,
+      "height": 64,
+      "transparent": false,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 4,
+      "rows": 1,
+      "expressions": {
+        "pulling cotton from his ears": 0,
+        "terrified by a sound": 1,
+        "relieved": 2,
+        "listening intently": 3
+      }
+    },
+    {
+      "id": "ende_fall4_gut",
+      "file": "ui/endings/E_ende_fall4_gut.png",
+      "width": 480,
+      "height": 270,
+      "transparent": false,
+      "frameWidth": 480,
+      "frameHeight": 270,
+      "columns": 1,
+      "rows": 1
+    },
+    {
+      "id": "ende_fall4_halb",
+      "file": "ui/endings/E_ende_fall4_halb.png",
+      "width": 480,
+      "height": 270,
+      "transparent": false,
+      "frameWidth": 480,
+      "frameHeight": 270,
+      "columns": 1,
+      "rows": 1
+    },
+    {
+      "id": "ende_fall4_schlecht",
+      "file": "ui/endings/E_ende_fall4_schlecht.png",
+      "width": 480,
+      "height": 270,
+      "transparent": false,
+      "frameWidth": 480,
+      "frameHeight": 270,
+      "columns": 1,
+      "rows": 1
+    },
+    {
+      "id": "ende_fall4_haken",
+      "file": "ui/endings/E_ende_fall4_haken.png",
+      "width": 480,
+      "height": 270,
+      "transparent": false,
+      "frameWidth": 480,
+      "frameHeight": 270,
+      "columns": 1,
+      "rows": 1
+    },
+    {
+      "id": "ende_fall1",
+      "file": "ui/endings/E_ende_fall1.png",
+      "width": 480,
+      "height": 270,
+      "transparent": false,
+      "frameWidth": 480,
+      "frameHeight": 270,
+      "columns": 1,
+      "rows": 1
+    },
+    {
+      "id": "ende_fall2",
+      "file": "ui/endings/E_ende_fall2.png",
+      "width": 480,
+      "height": 270,
+      "transparent": false,
+      "frameWidth": 480,
+      "frameHeight": 270,
+      "columns": 1,
+      "rows": 1
+    },
+    {
+      "id": "ende_fall3",
+      "file": "ui/endings/E_ende_fall3.png",
+      "width": 480,
+      "height": 270,
+      "transparent": false,
+      "frameWidth": 480,
+      "frameHeight": 270,
+      "columns": 1,
+      "rows": 1
+    },
+    {
+      "id": "waescherin_walk",
+      "file": "characters/E_waescherin_walk.png",
+      "width": 64,
+      "height": 128,
+      "transparent": true,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "gameId": "waescherin",
+      "baseline": 30,
+      "animations": {
+        "walk_down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "walk_left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "walk_right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "walk_up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "waescherin_emotions",
+      "file": "portraits/E_waescherin_emotions.png",
+      "width": 256,
+      "height": 64,
+      "transparent": false,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 4,
+      "rows": 1,
+      "expressions": {
+        "neutral": 0,
+        "suspicious": 1,
+        "shocked": 2,
+        "smiling": 3
+      }
+    },
+    {
+      "id": "kaminkehrer_walk",
+      "file": "characters/E_kaminkehrer_walk.png",
+      "width": 64,
+      "height": 128,
+      "transparent": true,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "gameId": "kaminkehrer",
+      "baseline": 30,
+      "animations": {
+        "walk_down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "walk_left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "walk_right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "walk_up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "kaminkehrer_emotions",
+      "file": "portraits/E_kaminkehrer_emotions.png",
+      "width": 256,
+      "height": 64,
+      "transparent": false,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 4,
+      "rows": 1,
+      "expressions": {
+        "neutral": 0,
+        "suspicious": 1,
+        "shocked": 2,
+        "smiling": 3
+      }
+    },
+    {
+      "id": "kutscher_walk",
+      "file": "characters/E_kutscher_walk.png",
+      "width": 64,
+      "height": 128,
+      "transparent": true,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "gameId": "kutscher",
+      "baseline": 30,
+      "animations": {
+        "walk_down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "walk_left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "walk_right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "walk_up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "kutscher_emotions",
+      "file": "portraits/E_kutscher_emotions.png",
+      "width": 256,
+      "height": 64,
+      "transparent": false,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 4,
+      "rows": 1,
+      "expressions": {
+        "neutral": 0,
+        "suspicious": 1,
+        "shocked": 2,
+        "smiling": 3
+      }
+    },
+    {
+      "id": "fotografin_walk",
+      "file": "characters/E_fotografin_walk.png",
+      "width": 64,
+      "height": 128,
+      "transparent": true,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "gameId": "fotografin",
+      "baseline": 30,
+      "animations": {
+        "walk_down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "walk_left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "walk_right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "walk_up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "fotografin_emotions",
+      "file": "portraits/E_fotografin_emotions.png",
+      "width": 256,
+      "height": 64,
+      "transparent": false,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 4,
+      "rows": 1,
+      "expressions": {
+        "neutral": 0,
+        "suspicious": 1,
+        "shocked": 2,
+        "smiling": 3
+      }
+    },
+    {
+      "id": "schwindler_walk",
+      "file": "characters/E_schwindler_walk.png",
+      "width": 64,
+      "height": 128,
+      "transparent": true,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "gameId": "schwindler",
+      "baseline": 30,
+      "animations": {
+        "walk_down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "walk_left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "walk_right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "walk_up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "schwindler_emotions",
+      "file": "portraits/E_schwindler_emotions.png",
+      "width": 256,
+      "height": 64,
+      "transparent": false,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 4,
+      "rows": 1,
+      "expressions": {
+        "neutral": 0,
+        "suspicious": 1,
+        "shocked": 2,
+        "smiling": 3
+      }
+    },
+    {
+      "id": "wahrsagerin_walk",
+      "file": "characters/E_wahrsagerin_walk.png",
+      "width": 64,
+      "height": 128,
+      "transparent": true,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "gameId": "wahrsagerin",
+      "baseline": 30,
+      "animations": {
+        "walk_down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "walk_left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "walk_right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "walk_up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "wahrsagerin_emotions",
+      "file": "portraits/E_wahrsagerin_emotions.png",
+      "width": 256,
+      "height": 64,
+      "transparent": false,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 4,
+      "rows": 1,
+      "expressions": {
+        "neutral": 0,
+        "suspicious": 1,
+        "shocked": 2,
+        "smiling": 3
+      }
+    },
+    {
+      "id": "matrose_walk",
+      "file": "characters/E_matrose_walk.png",
+      "width": 64,
+      "height": 128,
+      "transparent": true,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "gameId": "matrose",
+      "baseline": 30,
+      "animations": {
+        "walk_down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "walk_left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "walk_right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "walk_up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "matrose_emotions",
+      "file": "portraits/E_matrose_emotions.png",
+      "width": 256,
+      "height": 64,
+      "transparent": false,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 4,
+      "rows": 1,
+      "expressions": {
+        "neutral": 0,
+        "suspicious": 1,
+        "shocked": 2,
+        "smiling": 3
+      }
+    },
+    {
+      "id": "gouvernante_walk",
+      "file": "characters/E_gouvernante_walk.png",
+      "width": 64,
+      "height": 128,
+      "transparent": true,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "gameId": "gouvernante",
+      "baseline": 30,
+      "animations": {
+        "walk_down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "walk_left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "walk_right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "walk_up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "gouvernante_emotions",
+      "file": "portraits/E_gouvernante_emotions.png",
+      "width": 256,
+      "height": 64,
+      "transparent": false,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 4,
+      "rows": 1,
+      "expressions": {
+        "neutral": 0,
+        "suspicious": 1,
+        "shocked": 2,
+        "smiling": 3
+      }
+    },
+    {
+      "id": "erbe_walk",
+      "file": "characters/E_erbe_walk.png",
+      "width": 64,
+      "height": 128,
+      "transparent": true,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "gameId": "erbe",
+      "baseline": 30,
+      "animations": {
+        "walk_down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "walk_left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "walk_right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "walk_up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "erbe_emotions",
+      "file": "portraits/E_erbe_emotions.png",
+      "width": 256,
+      "height": 64,
+      "transparent": false,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 4,
+      "rows": 1,
+      "expressions": {
+        "neutral": 0,
+        "suspicious": 1,
+        "shocked": 2,
+        "smiling": 3
+      }
+    },
+    {
+      "id": "rattenfaenger_walk",
+      "file": "characters/E_rattenfaenger_walk.png",
+      "width": 64,
+      "height": 128,
+      "transparent": true,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "gameId": "rattenfaenger",
+      "baseline": 30,
+      "animations": {
+        "walk_down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "walk_left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "walk_right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "walk_up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "rattenfaenger_emotions",
+      "file": "portraits/E_rattenfaenger_emotions.png",
+      "width": 256,
+      "height": 64,
+      "transparent": false,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 4,
+      "rows": 1,
+      "expressions": {
+        "neutral": 0,
+        "suspicious": 1,
+        "shocked": 2,
+        "smiling": 3
+      }
+    },
+    {
+      "id": "marktfrau_walk",
+      "file": "characters/E_marktfrau_walk.png",
+      "width": 64,
+      "height": 128,
+      "transparent": true,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "gameId": "marktfrau",
+      "baseline": 30,
+      "animations": {
+        "walk_down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "walk_left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "walk_right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "walk_up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "marktfrau_emotions",
+      "file": "portraits/E_marktfrau_emotions.png",
+      "width": 256,
+      "height": 64,
+      "transparent": false,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 4,
+      "rows": 1,
+      "expressions": {
+        "neutral": 0,
+        "suspicious": 1,
+        "shocked": 2,
+        "smiling": 3
+      }
+    },
+    {
+      "id": "student_walk",
+      "file": "characters/E_student_walk.png",
+      "width": 64,
+      "height": 128,
+      "transparent": true,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "gameId": "student",
+      "baseline": 30,
+      "animations": {
+        "walk_down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "walk_left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "walk_right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "walk_up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "student_emotions",
+      "file": "portraits/E_student_emotions.png",
+      "width": 256,
+      "height": 64,
+      "transparent": false,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 4,
+      "rows": 1,
+      "expressions": {
+        "neutral": 0,
+        "suspicious": 1,
+        "shocked": 2,
+        "smiling": 3
+      }
+    },
+    {
+      "id": "sufragette_walk",
+      "file": "characters/E_sufragette_walk.png",
+      "width": 64,
+      "height": 128,
+      "transparent": true,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "gameId": "sufragette",
+      "baseline": 30,
+      "animations": {
+        "walk_down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "walk_left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "walk_right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "walk_up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "sufragette_emotions",
+      "file": "portraits/E_sufragette_emotions.png",
+      "width": 256,
+      "height": 64,
+      "transparent": false,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 4,
+      "rows": 1,
+      "expressions": {
+        "neutral": 0,
+        "suspicious": 1,
+        "shocked": 2,
+        "smiling": 3
+      }
+    },
+    {
+      "id": "nachtwaechter_walk",
+      "file": "characters/E_nachtwaechter_walk.png",
+      "width": 64,
+      "height": 128,
+      "transparent": true,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "gameId": "nachtwaechter",
+      "baseline": 30,
+      "animations": {
+        "walk_down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "walk_left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "walk_right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "walk_up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "nachtwaechter_emotions",
+      "file": "portraits/E_nachtwaechter_emotions.png",
+      "width": 256,
+      "height": 64,
+      "transparent": false,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 4,
+      "rows": 1,
+      "expressions": {
+        "neutral": 0,
+        "suspicious": 1,
+        "shocked": 2,
+        "smiling": 3
+      }
+    },
+    {
+      "id": "kuenstler_walk",
+      "file": "characters/E_kuenstler_walk.png",
+      "width": 64,
+      "height": 128,
+      "transparent": true,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "gameId": "kuenstler",
+      "baseline": 30,
+      "animations": {
+        "walk_down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "walk_left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "walk_right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "walk_up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "kuenstler_emotions",
+      "file": "portraits/E_kuenstler_emotions.png",
+      "width": 256,
+      "height": 64,
+      "transparent": false,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 4,
+      "rows": 1,
+      "expressions": {
+        "neutral": 0,
+        "suspicious": 1,
+        "shocked": 2,
+        "smiling": 3
+      }
+    },
+    {
+      "id": "kind_streuner_walk",
+      "file": "characters/E_kind_streuner_walk.png",
+      "width": 64,
+      "height": 128,
+      "transparent": true,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "gameId": "kind_streuner",
+      "baseline": 30,
+      "animations": {
+        "walk_down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "walk_left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "walk_right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "walk_up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "kind_streuner_emotions",
+      "file": "portraits/E_kind_streuner_emotions.png",
+      "width": 256,
+      "height": 64,
+      "transparent": false,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 4,
+      "rows": 1,
+      "expressions": {
+        "neutral": 0,
+        "suspicious": 1,
+        "shocked": 2,
+        "smiling": 3
+      }
+    },
+    {
+      "id": "items_1",
+      "file": "items/E_03_papiere.png",
+      "width": 128,
+      "height": 16,
+      "transparent": true,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 8,
+      "rows": 1,
+      "icons": {
+        "liebesbrief": 0,
+        "erpresserbrief": 1,
+        "testament": 2,
+        "pfandschein": 3,
+        "zeitungsausschnitt": 4,
+        "landkarte_alt": 5,
+        "notenblatt_zerrissen": 6,
+        "fahrkarte": 7
+      }
+    },
+    {
+      "id": "liebesbrief",
+      "file": "items/liebesbrief.png",
+      "width": 16,
+      "height": 16,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "atlas": "items/E_03_papiere.png",
+      "atlasFrame": 0
+    },
+    {
+      "id": "erpresserbrief",
+      "file": "items/erpresserbrief.png",
+      "width": 16,
+      "height": 16,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "atlas": "items/E_03_papiere.png",
+      "atlasFrame": 1
+    },
+    {
+      "id": "testament",
+      "file": "items/testament.png",
+      "width": 16,
+      "height": 16,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "atlas": "items/E_03_papiere.png",
+      "atlasFrame": 2
+    },
+    {
+      "id": "pfandschein",
+      "file": "items/pfandschein.png",
+      "width": 16,
+      "height": 16,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "atlas": "items/E_03_papiere.png",
+      "atlasFrame": 3
+    },
+    {
+      "id": "zeitungsausschnitt",
+      "file": "items/zeitungsausschnitt.png",
+      "width": 16,
+      "height": 16,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "atlas": "items/E_03_papiere.png",
+      "atlasFrame": 4
+    },
+    {
+      "id": "landkarte_alt",
+      "file": "items/landkarte_alt.png",
+      "width": 16,
+      "height": 16,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "atlas": "items/E_03_papiere.png",
+      "atlasFrame": 5
+    },
+    {
+      "id": "notenblatt_zerrissen",
+      "file": "items/notenblatt_zerrissen.png",
+      "width": 16,
+      "height": 16,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "atlas": "items/E_03_papiere.png",
+      "atlasFrame": 6
+    },
+    {
+      "id": "fahrkarte",
+      "file": "items/fahrkarte.png",
+      "width": 16,
+      "height": 16,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "atlas": "items/E_03_papiere.png",
+      "atlasFrame": 7
+    },
+    {
+      "id": "items_2",
+      "file": "items/E_03_fundstuecke.png",
+      "width": 128,
+      "height": 16,
+      "transparent": true,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 8,
+      "rows": 1,
+      "icons": {
+        "ehering": 0,
+        "kinderschuh": 1,
+        "taschentuch": 2,
+        "zigarrenstummel": 3,
+        "knopf_messing": 4,
+        "haarnadel": 5,
+        "glasauge": 6,
+        "zahnrad_klein": 7
+      }
+    },
+    {
+      "id": "ehering",
+      "file": "items/ehering.png",
+      "width": 16,
+      "height": 16,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "atlas": "items/E_03_fundstuecke.png",
+      "atlasFrame": 0
+    },
+    {
+      "id": "kinderschuh",
+      "file": "items/kinderschuh.png",
+      "width": 16,
+      "height": 16,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "atlas": "items/E_03_fundstuecke.png",
+      "atlasFrame": 1
+    },
+    {
+      "id": "taschentuch",
+      "file": "items/taschentuch.png",
+      "width": 16,
+      "height": 16,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "atlas": "items/E_03_fundstuecke.png",
+      "atlasFrame": 2
+    },
+    {
+      "id": "zigarrenstummel",
+      "file": "items/zigarrenstummel.png",
+      "width": 16,
+      "height": 16,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "atlas": "items/E_03_fundstuecke.png",
+      "atlasFrame": 3
+    },
+    {
+      "id": "knopf_messing",
+      "file": "items/knopf_messing.png",
+      "width": 16,
+      "height": 16,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "atlas": "items/E_03_fundstuecke.png",
+      "atlasFrame": 4
+    },
+    {
+      "id": "haarnadel",
+      "file": "items/haarnadel.png",
+      "width": 16,
+      "height": 16,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "atlas": "items/E_03_fundstuecke.png",
+      "atlasFrame": 5
+    },
+    {
+      "id": "glasauge",
+      "file": "items/glasauge.png",
+      "width": 16,
+      "height": 16,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "atlas": "items/E_03_fundstuecke.png",
+      "atlasFrame": 6
+    },
+    {
+      "id": "zahnrad_klein",
+      "file": "items/zahnrad_klein.png",
+      "width": 16,
+      "height": 16,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "atlas": "items/E_03_fundstuecke.png",
+      "atlasFrame": 7
+    },
+    {
+      "id": "items_3",
+      "file": "items/E_03_beweise.png",
+      "width": 128,
+      "height": 16,
+      "transparent": true,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 8,
+      "rows": 1,
+      "icons": {
+        "klappmesser": 0,
+        "fussabdruck_gips": 1,
+        "fingerabdruck_karte": 2,
+        "giftflasche": 3,
+        "fotoplatte": 4,
+        "wachszylinder": 5,
+        "schluessel_rostig": 6,
+        "siegelring": 7
+      }
+    },
+    {
+      "id": "klappmesser",
+      "file": "items/klappmesser.png",
+      "width": 16,
+      "height": 16,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "atlas": "items/E_03_beweise.png",
+      "atlasFrame": 0
+    },
+    {
+      "id": "fussabdruck_gips",
+      "file": "items/fussabdruck_gips.png",
+      "width": 16,
+      "height": 16,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "atlas": "items/E_03_beweise.png",
+      "atlasFrame": 1
+    },
+    {
+      "id": "fingerabdruck_karte",
+      "file": "items/fingerabdruck_karte.png",
+      "width": 16,
+      "height": 16,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "atlas": "items/E_03_beweise.png",
+      "atlasFrame": 2
+    },
+    {
+      "id": "giftflasche",
+      "file": "items/giftflasche.png",
+      "width": 16,
+      "height": 16,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "atlas": "items/E_03_beweise.png",
+      "atlasFrame": 3
+    },
+    {
+      "id": "fotoplatte",
+      "file": "items/fotoplatte.png",
+      "width": 16,
+      "height": 16,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "atlas": "items/E_03_beweise.png",
+      "atlasFrame": 4
+    },
+    {
+      "id": "wachszylinder",
+      "file": "items/wachszylinder.png",
+      "width": 16,
+      "height": 16,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "atlas": "items/E_03_beweise.png",
+      "atlasFrame": 5
+    },
+    {
+      "id": "schluessel_rostig",
+      "file": "items/schluessel_rostig.png",
+      "width": 16,
+      "height": 16,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "atlas": "items/E_03_beweise.png",
+      "atlasFrame": 6
+    },
+    {
+      "id": "siegelring",
+      "file": "items/siegelring.png",
+      "width": 16,
+      "height": 16,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "atlas": "items/E_03_beweise.png",
+      "atlasFrame": 7
+    },
+    {
+      "id": "items_4",
+      "file": "items/E_03_kurioses.png",
+      "width": 128,
+      "height": 16,
+      "transparent": true,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 8,
+      "rows": 1,
+      "icons": {
+        "medaille_polizei": 0,
+        "brosche_silber": 1,
+        "spieldose_klein": 2,
+        "taschenspiegel": 3,
+        "kerze_schwarz": 4,
+        "amulett_auge": 5,
+        "fuchsfell": 6,
+        "flasche_gin": 7
+      }
+    },
+    {
+      "id": "medaille_polizei",
+      "file": "items/medaille_polizei.png",
+      "width": 16,
+      "height": 16,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "atlas": "items/E_03_kurioses.png",
+      "atlasFrame": 0
+    },
+    {
+      "id": "brosche_silber",
+      "file": "items/brosche_silber.png",
+      "width": 16,
+      "height": 16,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "atlas": "items/E_03_kurioses.png",
+      "atlasFrame": 1
+    },
+    {
+      "id": "spieldose_klein",
+      "file": "items/spieldose_klein.png",
+      "width": 16,
+      "height": 16,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "atlas": "items/E_03_kurioses.png",
+      "atlasFrame": 2
+    },
+    {
+      "id": "taschenspiegel",
+      "file": "items/taschenspiegel.png",
+      "width": 16,
+      "height": 16,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "atlas": "items/E_03_kurioses.png",
+      "atlasFrame": 3
+    },
+    {
+      "id": "kerze_schwarz",
+      "file": "items/kerze_schwarz.png",
+      "width": 16,
+      "height": 16,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "atlas": "items/E_03_kurioses.png",
+      "atlasFrame": 4
+    },
+    {
+      "id": "amulett_auge",
+      "file": "items/amulett_auge.png",
+      "width": 16,
+      "height": 16,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "atlas": "items/E_03_kurioses.png",
+      "atlasFrame": 5
+    },
+    {
+      "id": "fuchsfell",
+      "file": "items/fuchsfell.png",
+      "width": 16,
+      "height": 16,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "atlas": "items/E_03_kurioses.png",
+      "atlasFrame": 6
+    },
+    {
+      "id": "flasche_gin",
+      "file": "items/flasche_gin.png",
+      "width": 16,
+      "height": 16,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "atlas": "items/E_03_kurioses.png",
+      "atlasFrame": 7
+    },
+    {
+      "id": "akte_fall1",
+      "file": "ui/cases/E_akte_fall1.png",
+      "width": 128,
+      "height": 96,
+      "transparent": false,
+      "frameWidth": 128,
+      "frameHeight": 96,
+      "columns": 1,
+      "rows": 1
+    },
+    {
+      "id": "akte_fall2",
+      "file": "ui/cases/E_akte_fall2.png",
+      "width": 128,
+      "height": 96,
+      "transparent": false,
+      "frameWidth": 128,
+      "frameHeight": 96,
+      "columns": 1,
+      "rows": 1
+    },
+    {
+      "id": "akte_fall3",
+      "file": "ui/cases/E_akte_fall3.png",
+      "width": 128,
+      "height": 96,
+      "transparent": false,
+      "frameWidth": 128,
+      "frameHeight": 96,
+      "columns": 1,
+      "rows": 1
+    },
+    {
+      "id": "akte_fall4",
+      "file": "ui/cases/E_akte_fall4.png",
+      "width": 128,
+      "height": 96,
+      "transparent": false,
+      "frameWidth": 128,
+      "frameHeight": 96,
+      "columns": 1,
+      "rows": 1
+    },
+    {
+      "id": "akte_altmarkt",
+      "file": "ui/cases/E_akte_altmarkt.png",
+      "width": 128,
+      "height": 96,
+      "transparent": false,
+      "frameWidth": 128,
+      "frameHeight": 96,
+      "columns": 1,
+      "rows": 1
+    },
+    {
+      "id": "akte_leer",
+      "file": "ui/cases/E_akte_leer.png",
+      "width": 128,
+      "height": 96,
+      "transparent": false,
+      "frameWidth": 128,
+      "frameHeight": 96,
+      "columns": 1,
+      "rows": 1
+    },
+    {
+      "id": "szene_turmuhr",
+      "file": "ui/scenes/E_szene_turmuhr.png",
+      "width": 240,
+      "height": 135,
+      "transparent": false,
+      "frameWidth": 240,
+      "frameHeight": 135,
+      "columns": 1,
+      "rows": 1
+    },
+    {
+      "id": "szene_brief",
+      "file": "ui/scenes/E_szene_brief.png",
+      "width": 240,
+      "height": 135,
+      "transparent": false,
+      "frameWidth": 240,
+      "frameHeight": 135,
+      "columns": 1,
+      "rows": 1
+    },
+    {
+      "id": "szene_rook",
+      "file": "ui/scenes/E_szene_rook.png",
+      "width": 240,
+      "height": 135,
+      "transparent": false,
+      "frameWidth": 240,
+      "frameHeight": 135,
+      "columns": 1,
+      "rows": 1
+    },
+    {
+      "id": "szene_chor",
+      "file": "ui/scenes/E_szene_chor.png",
+      "width": 240,
+      "height": 135,
+      "transparent": false,
+      "frameWidth": 240,
+      "frameHeight": 135,
+      "columns": 1,
+      "rows": 1
+    },
+    {
+      "id": "szene_marlowe",
+      "file": "ui/scenes/E_szene_marlowe.png",
+      "width": 240,
+      "height": 135,
+      "transparent": false,
+      "frameWidth": 240,
+      "frameHeight": 135,
+      "columns": 1,
+      "rows": 1
+    },
+    {
+      "id": "szene_felix",
+      "file": "ui/scenes/E_szene_felix.png",
+      "width": 240,
+      "height": 135,
+      "transparent": false,
+      "frameWidth": 240,
+      "frameHeight": 135,
+      "columns": 1,
+      "rows": 1
+    },
+    {
+      "id": "spuren",
+      "file": "props/E_07_spuren.png",
+      "width": 176,
+      "height": 16,
+      "transparent": true,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 11,
+      "rows": 1,
+      "icons": {
+        "kratzspuren": 0,
+        "schwarzes_wachs": 1,
+        "handschuh": 2,
+        "tuerkise_tropfen": 3,
+        "kreidesiegel": 4,
+        "fensterriegel": 5,
+        "zigarettenasche": 6,
+        "stofffetzen": 7,
+        "radspuren": 8,
+        "bodenfach_zu": 9,
+        "bodenfach_offen": 10
+      }
+    },
+    {
+      "id": "stimmphiole",
+      "gameId": "stimmphiole",
+      "file": "items/stimmphiole.png",
+      "width": 16,
+      "height": 16,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true
+    },
+    {
+      "id": "stimmphiole_32",
+      "gameId": "stimmphiole",
+      "file": "items/32/stimmphiole.png",
+      "width": 32,
+      "height": 32,
+      "frameWidth": 32,
+      "frameHeight": 32,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true
+    },
+    {
+      "id": "quest_ui",
+      "file": "ui/E_04_quest_ui.png",
+      "width": 160,
+      "height": 176,
+      "transparent": true,
+      "regions": {
+        "new_0": {
+          "x": 0,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "new_1": {
+          "x": 16,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "new_2": {
+          "x": 32,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "new_3": {
+          "x": 48,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "turn_in_0": {
+          "x": 0,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "turn_in_1": {
+          "x": 16,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "turn_in_2": {
+          "x": 32,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "turn_in_3": {
+          "x": 48,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "in_progress_0": {
+          "x": 0,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "in_progress_1": {
+          "x": 16,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "in_progress_2": {
+          "x": 32,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "in_progress_3": {
+          "x": 48,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "occult_0": {
+          "x": 0,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "occult_1": {
+          "x": 16,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "occult_2": {
+          "x": 32,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "occult_3": {
+          "x": 48,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "accepted": {
+          "x": 0,
+          "y": 64,
+          "width": 160,
+          "height": 32
+        },
+        "completed": {
+          "x": 0,
+          "y": 96,
+          "width": 160,
+          "height": 32
+        },
+        "reward": {
+          "x": 0,
+          "y": 128,
+          "width": 48,
+          "height": 48,
+          "nineSlice": {
+            "left": 16,
+            "right": 16,
+            "top": 16,
+            "bottom": 16
+          }
+        },
+        "pin_amber": {
+          "x": 64,
+          "y": 144,
+          "width": 8,
+          "height": 8
+        },
+        "pin_lilac": {
+          "x": 80,
+          "y": 144,
+          "width": 8,
+          "height": 8
+        },
+        "pin_turquoise": {
+          "x": 96,
+          "y": 144,
+          "width": 8,
+          "height": 8
+        }
+      },
+      "regionAnimations": {
+        "new": {
+          "regions": [
+            "new_0",
+            "new_1",
+            "new_2",
+            "new_3"
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "turn_in": {
+          "regions": [
+            "turn_in_0",
+            "turn_in_1",
+            "turn_in_2",
+            "turn_in_3"
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "in_progress": {
+          "regions": [
+            "in_progress_0",
+            "in_progress_1",
+            "in_progress_2",
+            "in_progress_3"
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "occult": {
+          "regions": [
+            "occult_0",
+            "occult_1",
+            "occult_2",
+            "occult_3"
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        }
+      }
+    }
+  ]
+}

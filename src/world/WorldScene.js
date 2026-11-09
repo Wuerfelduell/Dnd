@@ -2,7 +2,7 @@ import Phaser from 'phaser';
 import { questTarget, nextHop } from '../core/Guide.js';
 import { createTextures, createCharacterSheet, hash2, TILE, TILE_INDEX, SOLID_KEYS } from './textures.js';
 import { Lighting, DEPTH } from './Lighting.js';
-import { preloadSprites, playSheetAnim, themeKeys, PROP_ORIGINS, MAP_WEATHER } from './assets.js';
+import { preloadSprites, playSheetAnim, themeKeys, facadeKeys, PROP_ORIGINS, MAP_WEATHER } from './assets.js';
 import { Roamers } from './Roamers.js';
 
 export const VIEW_W = 480;
@@ -90,13 +90,27 @@ const THEMES = {
   },
 };
 
+/** Paket D: Hausfassaden für Wände, Fenster, Türen und Dächer (Map-Feld "facade"). */
+function facadeTile(m, ch, at, x, y) {
+  const pick = (group, seed) => pickKey(facadeKeys(m, group), x, y, seed);
+  switch (ch) {
+    case '#': return pick('wall', 43);
+    case 'W': return pick('window', 44);
+    case 'D': return pick('door', 45);
+    case 'R': return at(0, 1) && at(0, 1) !== 'R' ? pick('eave', 46) : pick('roof', 47);
+    default: return null;
+  }
+}
+
 /** Wählt für ein Kartenzeichen den passenden Tile-Index (inkl. Variationen). */
-export function tileIndexFor(rows, x, y, theme = null) {
+export function tileIndexFor(rows, x, y, theme = null, facade = null) {
   const ch = rows[y][x];
   const at = (dx, dy) => rows[y + dy]?.[x + dx];
   const v = (n, seed) => Math.floor(hash2(x, y, seed) * n);
   const themed = theme && THEMES[theme]?.(ch, at, v, x, y);
   if (themed) return TILE_INDEX[themed];
+  const fac = facade && facadeTile(facade, ch, at, x, y);
+  if (fac) return TILE_INDEX[fac];
   switch (ch) {
     case '.': return TILE_INDEX[`cobble${v(4, 0)}`];
     case 'L': case 'X': {
@@ -198,7 +212,7 @@ export class WorldScene extends Phaser.Scene {
     const rows = this.mapDef.rows;
     this.mapW = rows[0].length * TILE;
     this.mapH = rows.length * TILE;
-    const data = rows.map((row, y) => [...row].map((_, x) => tileIndexFor(rows, x, y, this.mapDef.tiles)));
+    const data = rows.map((row, y) => [...row].map((_, x) => tileIndexFor(rows, x, y, this.mapDef.tiles, this.mapDef.facade)));
     const map = this.make.tilemap({ data, tileWidth: TILE, tileHeight: TILE });
     const tileset = map.addTilesetImage('tiles', 'tiles', TILE, TILE, 0, 0);
     this.groundLayer = map.createLayer(0, tileset, 0, 0).setDepth(0);
@@ -246,10 +260,12 @@ export class WorldScene extends Phaser.Scene {
   }
 
   buildWindows() {
+    // Elendsviertel und Fabriken: die meisten Fenster sind dunkel oder vernagelt
+    const dim = { slum: 0.18, fabrik: 0.3 }[this.mapDef.facade] ?? 0.5;
     this.mapDef.rows.forEach((row, ty) => {
       for (const m of row.matchAll(/W+/g)) {
         const x = (m.index + m[0].length / 2) * TILE;
-        this.lighting.add({ x, y: ty * TILE + 8, radius: 22 + m[0].length * 6, intensity: 0.5, color: 0xffa040, glowAlpha: 0.14, flicker: 0.04 });
+        this.lighting.add({ x, y: ty * TILE + 8, radius: 22 + m[0].length * 6, intensity: dim, color: 0xffa040, glowAlpha: 0.14, flicker: 0.04 });
       }
     });
   }
@@ -265,7 +281,7 @@ export class WorldScene extends Phaser.Scene {
       const [ox, oy] = def.offset ?? [0, 0];
       const x = tx * TILE + 8 + ox;
       const y = ty * TILE + 8 + oy;
-      const img = this.add.sprite(x, y, def.sprite, 0).setAlpha(def.alpha ?? 0.85);
+      const img = this.add.sprite(x, y, def.sprite, def.frame ?? 0).setAlpha(def.alpha ?? 0.85);
       if (def.origin) img.setOrigin(...def.origin);
       else if (PROP_ORIGINS[def.sprite]) img.setOrigin(0.5, PROP_ORIGINS[def.sprite]);
       if (def.flip) img.setFlipX(true);
@@ -404,11 +420,18 @@ export class WorldScene extends Phaser.Scene {
   /** Wetter (Paket C): Raster aus 64er-Kacheln über dem Bild, z. B. Regen am Hafen. */
   buildWeather() {
     const kind = this.mapDef.weather ?? MAP_WEATHER[this.mapDef.id];
-    if (!kind || !this.textures.exists('weather')) return;
+    if (!kind) return;
+    if (kind === 'fog') {
+      // Die Nebelkacheln aus C_08 sind nicht nahtlos (harte 64er-Kanten): stattdessen den Nebel dichter machen
+      this.fogA.setAlpha(Math.min(0.9, this.fogA.alpha * 1.8 + 0.15));
+      this.fogB.setAlpha(Math.min(0.7, this.fogB.alpha * 1.8 + 0.1));
+      return;
+    }
+    if (!this.textures.exists('weather')) return;
     for (let gy = 0; gy < Math.ceil(VIEW_H / 64); gy++) {
       for (let gx = 0; gx < Math.ceil(VIEW_W / 64); gx++) {
         const w = this.add.sprite(gx * 64, gy * 64, 'weather', 0).setOrigin(0).setScrollFactor(0).setDepth(DEPTH.dark + 2)
-          .setAlpha(kind === 'fog' ? 0.25 : 0.35);
+          .setAlpha(0.35);
         if (!playSheetAnim(w, 'weather', kind)) { w.destroy(); return; }
         w.anims.setProgress(hash2(gx, gy, 3));
       }
@@ -676,7 +699,7 @@ export class WorldScene extends Phaser.Scene {
       case 'read': {
         this.playPlayerAction('read');
         const isNew = !def.done_flag || !this.state.flags.has(def.done_flag);
-        this.ui.showMessage(def.title, def.text, { footer: def.footer ?? '' });
+        this.ui.showMessage(def.title, def.text, { footer: def.footer ?? '', scene: def.scene });
         if (isNew) this.state.applyEffects({ ...def.effects, sets_flags: [...(def.effects?.sets_flags ?? []), ...(def.done_flag ? [def.done_flag] : [])] });
         if (isNew && def.lock && def.done_flag) this.state.act('lock');
         break;
@@ -740,6 +763,9 @@ export class WorldScene extends Phaser.Scene {
       g.destroy();
     }
     this.goalArrow = this.add.image(0, 0, 'goal_arrow').setDepth(DEPTH.vision + 2).setVisible(false);
+    // Paket E: gemaltes Auftragszeichen über dem Ziel, solange es im Bild ist
+    this.goalMark = this.anims.exists('e_quest_in_progress')
+      ? this.add.sprite(0, 0, 'e_quest_in_progress').play('e_quest_in_progress').setDepth(DEPTH.vision + 2).setVisible(false) : null;
     this.goalPos = null;
     this.goalCheck = 0;
   }
@@ -761,11 +787,15 @@ export class WorldScene extends Phaser.Scene {
     if (time > this.goalCheck) { this.goalPos = this.findGoalPosition(); this.goalCheck = time + 400; }
     const p = this.goalPos;
     this.goalArrow.setVisible(!!p && !this.leaving);
+    this.goalMark?.setVisible(false);
     if (!p) return;
     const view = this.cameras.main.worldView;
     const m = 10;
     const inside = p.x > view.x + m && p.x < view.right - m && p.y > view.y + m && p.y < view.bottom - m;
-    if (inside) {
+    if (inside && this.goalMark) {
+      this.goalArrow.setVisible(false);
+      this.goalMark.setVisible(true).setPosition(p.x, p.y - 4 + Math.sin(time / 180) * 2);
+    } else if (inside) {
       this.goalArrow.setPosition(p.x, p.y + Math.sin(time / 180) * 2).setRotation(0);
     } else {
       // Am Bildrand, Spitze zeigt zum Ziel

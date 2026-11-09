@@ -2,9 +2,12 @@ import { DIGEST_LABELS } from '../core/Pathways.js';
 import { lootList, itemRarity, RARITY_NAMES } from '../core/Loot.js';
 import {
   itemIconUrl, itemIcon32Url, pathwayEmblemUrl, pathwayCardUrl, COIN_URL, SKILL_ICONS, SKILL_ICONS_URL, STATUS_ICONS, STATUS_ICONS_URL,
-  portraitUrl, PORTRAIT_MOODS, MAP_MARKERS, MAP_MARKERS_URL, LOG_MARKERS, LOG_MARKERS_URL, SOURCE_ICONS, SPRITE_BASE,
+  portraitUrl, portraitFor, MAP_MARKERS, MAP_MARKERS_URL, LOG_MARKERS, LOG_MARKERS_URL, SOURCE_ICONS, SPRITE_BASE,
+  endingImageUrl, caseFileUrl, sceneUrl, QUEST_UI_URL, QUEST_PINS, QUEST_BANNERS,
 } from '../world/assets.js';
 import { sourceOf } from '../core/sources.js';
+import { caseHints, nextDeduction } from '../core/hints.js';
+import { isSolved, knownPeople } from '../core/journal.js';
 import { canHurry, travelSafe, travelFast, afterHurryFight } from '../core/Travel.js';
 import { questTarget } from '../core/Guide.js';
 
@@ -21,11 +24,14 @@ const statusIcon = (id, title) => atlasIcon(STATUS_ICONS_URL, STATUS_ICONS[id], 
 const mapMarker = (map) => atlasIcon(MAP_MARKERS_URL, MAP_MARKERS[map], 13);
 /** Portrait (64x64 aus einem 256x64-Streifen) für den Dialog. */
 const portrait = (id, mood) => {
-  const url = portraitUrl(id);
-  if (!url) return '';
-  const col = PORTRAIT_MOODS[mood] ?? 0;
-  return `<div class="portrait" style="background-image:url(${url});background-position:${(col / 3) * 100}% 0"></div>`;
+  const p = portraitFor(id, mood);
+  if (!p) return '';
+  return `<div class="portrait" style="background-image:url(${p.url});background-position:${(p.col / 3) * 100}% 0"></div>`;
 };
+/** Zwischensequenzbild (240x135) über einem Text. */
+const sceneImg = (id) => { const url = id && sceneUrl(id); return url ? `<img class="scene" src="${url}" alt="" onerror="this.remove()">` : ''; };
+/** Ausschnitt aus ui/E_04_quest_ui.png (Banner, Nadeln). */
+const questUi = (cls, [x, y], k = 1 / 8) => `<span class="${cls}" style="background-image:url(${QUEST_UI_URL});background-size:${160 * k}em ${176 * k}em;background-position:-${x * k}em -${y * k}em"></span>`;
 /** Kleines Quellenbild im Notizbuch: Gesicht der erzählenden Person, sonst ein Symbol. */
 const SOURCE_LABEL = { observation: 'Eigene Beobachtung', vision: 'Geistsicht', police: 'Polizeibericht', archive: 'Akte', note: 'Gelesen', object: 'Spur am Ort', npc: 'Aussage' };
 const sourceFace = (content, clue) => {
@@ -101,8 +107,8 @@ export class Ui {
     state.on('rank', ({ rank, up }) => this.toast(`${up ? 'Neuer Rang' : 'Rang verloren'}: ${rank.name}`, up ? 'gold' : 'warn'));
     state.on('quest', ({ id, status }) => {
       const q = state.quest(id);
-      if (status === 'active') this.toast(`Neuer Auftrag: ${q.title}`, 'quest');
-      if (status === 'done') this.toast(`Auftrag erledigt: ${q.title}`, 'quest');
+      if (status === 'active') this.toast(`Neuer Auftrag: ${q.title}`, 'quest', QUEST_BANNERS.active);
+      if (status === 'done') this.toast(`Auftrag erledigt: ${q.title}`, 'quest', QUEST_BANNERS.done);
     });
     state.on('ending', (id) => { this.pendingEnding = id; });
     state.on('hp', () => this.updateHp());
@@ -244,12 +250,14 @@ export class Ui {
     el.classList.remove('hidden');
   }
 
-  toast(text, kind = '') {
+  toast(text, kind = '', banner = null) {
     const box = this.$('.toasts');
     while (box.children.length > 5) box.firstElementChild.remove();
     const el = document.createElement('div');
     el.className = `toast ${kind}`;
     el.textContent = text;
+    // Aufträge: gemaltes Banner (160x32) über dem Text
+    if (banner) { el.classList.add('with-banner'); el.insertAdjacentHTML('afterbegin', questUi('qbanner', banner, 1 / 16)); }
     box.appendChild(el);
     setTimeout(() => el.classList.add('out'), 3200);
     setTimeout(() => el.remove(), 3800);
@@ -315,9 +323,10 @@ export class Ui {
     el.querySelector('[data-act=continue]')?.addEventListener('click', this.titleContinue);
   }
 
-  showMessage(title, text, { footer = '', extra = '', face = '', onClose = null } = {}) {
+  showMessage(title, text, { footer = '', extra = '', face = '', onClose = null, scene = null } = {}) {
     if (onClose) this.afterClose = onClose;
     const el = this.open('message', `
+      ${sceneImg(scene)}
       <h3>${face}${esc(title)}</h3>
       <div class="text">${paragraphs(text)}</div>
       ${extra}
@@ -381,7 +390,7 @@ export class Ui {
     this.dialogue.choices = choices;
     let n = 0;
     const face = portrait(npc.id, node.mood);
-    const el = this.open('dialogue', `${face}
+    const el = this.open('dialogue', `${sceneImg(node.scene)}${face}
       <div class="speaker">${esc(npc.name)} <span class="role">${esc(npc.role ?? '')}</span></div>
       <div class="text">${paragraphs(text)}</div>
       <ol class="choices">${choices.map((c, i) => (c.locked
@@ -423,7 +432,7 @@ export class Ui {
     const goal = s.tracked ? questTarget(s, s.tracked) : null;
     const goalMap = goal?.district ?? null;
     const pin = (map, cls, inner, attrs = '') => {
-      if (map === goalMap) { cls += ' goal'; inner += '<span class="goaltag">Ziel</span>'; }
+      if (map === goalMap) { cls += ' goal'; inner += `${questUi('qpin', QUEST_PINS.amber)}<span class="goaltag">Ziel</span>`; }
       const [x, y] = pins[map];
       const cell = MAP_MARKERS[map] ?? 0;
       const col = cell % 13;
@@ -435,6 +444,7 @@ export class Ui {
     const unpinned = dests.map((d, i) => (pins[d.map] ? '' : `<button data-i="${i}"><span class="key">${i + 1}</span> ${esc(d.name)}</button>`)).join('');
     const el = this.open('travel', `
       <div class="map" style="background-image:url(${SPRITE_BASE}${rules.map_image})">
+        ${rules.fog_image ? '<canvas class="fog" width="480" height="270"></canvas>' : ''}
         ${here}${destPins}
         ${unpinned ? `<div class="unpinned">${unpinned}</div>` : ''}
       </div>
@@ -448,6 +458,27 @@ export class Ui {
       b.onmouseenter = () => { if (this.travelPick === null) this.travelInfo(dests[Number(b.dataset.i)]); };
     });
     el.querySelector('[data-act=stay]').onclick = () => (this.travelPick === null ? this.close() : this.openTravel(current));
+    const fog = el.querySelector('canvas.fog');
+    if (fog) this.drawFog(fog, `${SPRITE_BASE}${rules.fog_image}`, [current, ...dests.map((d) => d.map)].map((m) => pins[m]).filter(Boolean));
+  }
+
+  /** Nebel über der Stadtkarte; um bekannte Orte herum lichtet er sich. */
+  drawFog(canvas, url, spots) {
+    const img = new Image();
+    img.onload = () => {
+      const ctx = canvas.getContext('2d');
+      ctx.imageSmoothingEnabled = false;
+      ctx.drawImage(img, 0, 0);
+      ctx.globalCompositeOperation = 'destination-out';
+      for (const [x, y] of spots) {
+        const g = ctx.createRadialGradient(x, y, 18, x, y, 54);
+        g.addColorStop(0, 'rgba(0,0,0,1)');
+        g.addColorStop(1, 'rgba(0,0,0,0)');
+        ctx.fillStyle = g;
+        ctx.fillRect(x - 54, y - 54, 108, 108);
+      }
+    };
+    img.src = url;
   }
 
   travelInfo(d) {
@@ -531,25 +562,39 @@ export class Ui {
   }
 
   renderNotebook(feedback) {
-    const cases = this.visibleCases();
-    const fixed = ['quests', 'items', 'pfad'];
+    const all = this.visibleCases();
+    const solved = all.filter((c) => isSolved(this.state, c.id));
+    const cases = all.filter((c) => !solved.includes(c));
+    const fixed = ['quests', 'items', 'pfad', 'personen', 'archiv'];
+    if (this.tab === 'archiv' && !solved.length) this.tab = 'quests';
+    // Ein gelöster Fall wird im Archiv geöffnet
+    if (solved.some((c) => c.id === this.tab)) { this.archiveCase = this.tab; this.tab = 'archiv'; }
     if (!fixed.includes(this.tab) && !cases.some((c) => c.id === this.tab)) this.tab = 'quests';
-    const tabs = [{ id: 'quests', title: 'Aufträge' }, { id: 'items', title: 'Inventar' }, { id: 'pfad', title: 'Pfad' }, ...cases.map((c) => ({ id: c.id, title: c.title.replace(/:.*/, '') }))];
-    const body = this.tab === 'quests' ? this.questsHtml() : this.tab === 'items' ? this.itemsHtml() : this.tab === 'pfad' ? this.pathwayHtml() : this.caseHtml(this.tab);
-    const isCase = !fixed.includes(this.tab);
+    if (this.tab === 'archiv' && !solved.some((c) => c.id === this.archiveCase)) this.archiveCase = solved.at(-1)?.id;
+    const tabs = [{ id: 'quests', title: 'Aufträge' }, { id: 'items', title: 'Inventar' }, { id: 'pfad', title: 'Pfad' }, { id: 'personen', title: 'Personen' },
+      ...cases.map((c) => ({ id: c.id, title: c.title.replace(/:.*/, '') })), ...(solved.length ? [{ id: 'archiv', title: `Archiv (${solved.length})` }] : [])];
+    const caseId = this.currentCase();
+    const body = this.tab === 'quests' ? this.questsHtml() : this.tab === 'items' ? this.itemsHtml() : this.tab === 'pfad' ? this.pathwayHtml()
+      : this.tab === 'personen' ? this.peopleHtml() : this.tab === 'archiv' ? this.archiveHtml(solved) : this.caseHtml(this.tab);
+    const isCase = !!caseId;
+    const hint = String(feedback ?? '').startsWith('<div class="hint">') ? feedback : '';
     const el = this.open('notebook', `
       <div class="tabs">${tabs.map((t, i) => `<button class="tab ${t.id === this.tab ? 'sel' : ''}" data-tab="${t.id}"><span class="key">${i + 1}</span> ${esc(t.title)}</button>`).join('')}
         <span class="rankinfo">${esc(this.state.rank().name)} · Ansehen ${this.state.honor}</span></div>
+      ${hint ? `<div class="feedback hintbox">${hint}</div>` : ''}
       ${body}
-      <div class="feedback">${feedback}</div>
+      <div class="feedback">${hint ? '' : feedback}</div>
       <div class="actions">
+        ${isCase ? `<button data-act="hint" title="Jeder Klick verrät etwas mehr">Tipp${this.hintStage(caseId) ? ` ${this.hintStage(caseId)}/3` : ''} <span class="key">T</span></button>` : ''}
         ${isCase ? `<button class="primary" data-act="combine" ${this.selected.length === 2 ? '' : 'disabled'}>Verknüpfen <span class="key">V</span></button>` : ''}
         <button data-act="close">Schließen <span class="key">J</span></button>
       </div>`, 'notebook');
     this.notebookTabs = tabs;
     el.querySelectorAll('[data-tab]').forEach((b) => { b.onclick = () => { this.tab = b.dataset.tab; this.selected = []; this.renderNotebook(''); }; });
     el.querySelectorAll('[data-fact]').forEach((b) => { b.onclick = () => this.toggleFact(b.dataset.fact); });
+    el.querySelectorAll('[data-archive]').forEach((b) => { b.onclick = () => { this.archiveCase = b.dataset.archive; this.selected = []; this.renderNotebook(''); }; });
     el.querySelector('[data-act=combine]')?.addEventListener('click', () => this.combine());
+    el.querySelector('[data-act=hint]')?.addEventListener('click', () => this.showHint());
     el.querySelectorAll('[data-use]').forEach((b) => { b.onclick = () => this.renderNotebook(esc(this.state.useItem(b.dataset.use) ?? '')); });
     el.querySelectorAll('[data-equip]').forEach((b) => { b.onclick = () => { this.state.equip(b.dataset.equip); this.renderNotebook(''); }; });
     el.querySelectorAll('[data-drink]').forEach((b) => { b.onclick = () => this.drink(b.dataset.drink); });
@@ -573,7 +618,7 @@ export class Ui {
     const order = (q) => (s.quests[q] === 'active' ? 0 : 1) * 10 + (s.quest(q).kind === 'main' ? 0 : 1);
     ids.sort((a, b) => order(a) - order(b));
     if (!ids.length) return '<p class="empty">Noch keine Aufträge.</p>';
-    return `<p class="hintline">Klicke auf einen Auftrag, um ihn zu verfolgen. Ein Pfeil zeigt dir dann den Weg.</p><ul class="quests">${ids.map((id) => {
+    const row = (id) => {
       const q = s.quest(id);
       const st = s.quests[id];
       const active = st === 'active';
@@ -583,7 +628,13 @@ export class Ui {
       const goal = active ? `<div class="qgoal">➤ ${t ? esc(this.goalText(t)) : 'Kein fester Ort bekannt'}</div>` : '';
       return `<li class="quest ${st} ${tracked ? 'tracked' : ''}" ${active ? `data-track="${id}"` : ''}><div class="qtitle"><span class="qkind">${q.kind === 'main' ? 'Hauptfall' : 'Nebenauftrag'}</span> ${esc(q.title)} ${!active ? '<span class="badge likely">erledigt</span>' : ''}${tracked ? '<span class="badge track">verfolgt</span>' : ''}</div>
         ${active ? `<div class="qsum">${esc(q.summary)}</div>` : ''}${steps}${goal}</li>`;
-    }).join('')}</ul>`;
+    };
+    // Erledigte Aufträge zusammengeklappt, damit die offenen oben sichtbar bleiben
+    const open = ids.filter((id) => s.quests[id] === 'active');
+    const closed = ids.filter((id) => s.quests[id] !== 'active');
+    return `<p class="hintline">Klicke auf einen Auftrag, um ihn zu verfolgen. Ein Pfeil zeigt dir dann den Weg.</p>
+      <ul class="quests">${open.map(row).join('') || '<li class="empty">Gerade keine offenen Aufträge.</li>'}</ul>
+      ${closed.length ? `<details class="closed-quests"><summary>Erledigt (${closed.length})</summary><ul class="quests">${closed.map(row).join('')}</ul></details>` : ''}`;
   }
 
   itemsHtml() {
@@ -625,10 +676,18 @@ export class Ui {
         for (const [a, b] of d.pairs) if (usable(a) && usable(b)) { linkable.add(a); linkable.add(b); }
       }
     }
+    // Tipp ab Stufe 2: schwache Information markieren, ab Stufe 3 beide des Paares
+    const hinted = new Set();
+    const stage = this.hintStage(caseId);
+    const target = stage >= 2 ? nextDeduction(s, caseId) : null;
+    if (target) {
+      const weak = Math.max(0, target.status.findIndex((x) => x !== 'likely'));
+      target.pair.forEach((f, i) => { if (stage >= 3 || i === weak) hinted.add(f); });
+    }
     const factItems = facts.map((f) => {
       const st = s.factStatus(f);
       const n = s.factSources(f).length;
-      return `<li><button class="fact ${st} ${this.selected.includes(f) ? 'sel' : ''}" data-fact="${f}" ${st === 'refuted' ? 'data-refuted="1"' : ''}>
+      return `<li><button class="fact ${st} ${this.selected.includes(f) ? 'sel' : ''} ${hinted.has(f) ? 'hinted' : ''}" data-fact="${f}" ${st === 'refuted' ? 'data-refuted="1"' : ''}>
         ${this.badge(st)} ${linkable.has(f) ? '<span class="thread" title="Lässt sich verknüpfen">✦</span> ' : ''}${esc(s.fact(f).text)} <span class="src">${n}×</span></button></li>`;
     }).join('');
     const ded = s.content.deductions.filter((d) => d.case === caseId && s.hasConclusion(d.id));
@@ -649,13 +708,59 @@ export class Ui {
           <ul class="concl">${concl || '<li class="empty">Wähle zwei Informationen aus und verknüpfe sie.</li>'}</ul>
         </div>
       </div>
-      <div class="detail">${detail}</div>`;
+      <div class="detail">${detailId ? '' : `<img class="casefile" src="${caseFileUrl(caseId)}" alt="" onerror="this.remove()">`}${detail}</div>`;
   }
 
   toggleFact(id) {
     if (this.selected.includes(id)) this.selected = this.selected.filter((x) => x !== id);
     else this.selected = [...this.selected, id].slice(-2);
     this.renderNotebook('');
+  }
+
+  /** Der Fall, der gerade im Notizbuch offen ist (auch im Archiv), sonst null. */
+  currentCase() {
+    if (this.tab === 'archiv') return this.archiveCase ?? null;
+    return ['quests', 'items', 'pfad', 'personen'].includes(this.tab) ? null : this.tab;
+  }
+
+  /** Archiv: gelöste Fälle mit ihrem Ende; ein Klick öffnet die alten Informationen. */
+  archiveHtml(solved) {
+    const s = this.state;
+    const list = solved.map((c) => {
+      const end = s.content.endings[s.endings[c.id]];
+      return `<button class="tab ${c.id === this.archiveCase ? 'sel' : ''}" data-archive="${c.id}">${esc(c.title)}${end ? ` <span class="muted">· ${esc(end.title ?? '')}</span>` : ''}</button>`;
+    }).join('');
+    return `<div class="archive-list">${list}</div>${this.archiveCase ? this.caseHtml(this.archiveCase) : ''}`;
+  }
+
+  /** Personen, mit denen man gesprochen hat: Gesicht, Rolle, Ort, laufende Aufträge. */
+  peopleHtml() {
+    const people = knownPeople(this.state);
+    if (!people.length) return '<p class="empty">Du hast noch mit niemandem gesprochen.</p>';
+    return `<ul class="people">${people.map((p) => {
+      const url = portraitUrl(p.id);
+      const face = url ? `<span class="srcface face" style="background-image:url(${url})"></span>` : '<span class="srcface"></span>';
+      return `<li class="${p.quests.length ? 'busy' : ''}">${face}<div><strong>${esc(p.name)}</strong> <span class="muted">${esc(p.role)}</span>
+        <br><span class="where">${esc(p.places.join(', ') || 'unterwegs')}</span>${p.quests.map((q) => `<br><span class="qtag">${esc(q)}</span>`).join('')}</div></li>`;
+    }).join('')}</ul>`;
+  }
+
+  /** Aktuelle Tipp-Stufe eines Falls (0 = noch kein Tipp). Ändert sich das Ziel, beginnt es von vorn. */
+  hintStage(caseId) {
+    const h = this.hints?.[caseId];
+    if (!h) return 0;
+    return caseHints(this.state, caseId, 1).key === h.key ? h.level : 0;
+  }
+
+  /** Gestufter Tipp: jeder Klick verrät etwas mehr über die nächste offene Schlussfolgerung. */
+  showHint() {
+    const caseId = this.currentCase();
+    if (!caseId) return;
+    this.hints ??= {};
+    const level = Math.min(3, this.hintStage(caseId) + 1);
+    const h = caseHints(this.state, caseId, level);
+    this.hints[caseId] = { key: h.key, level };
+    this.renderNotebook(`<div class="hint">${h.lines.map((l) => `<p>${esc(l)}</p>`).join('')}</div>`);
   }
 
   combine() {
@@ -944,6 +1049,9 @@ export class Ui {
       <div class="text">${paragraphs(end.text)}</div>
       <div class="footer">Ansehen ${end.honor > 0 ? '+' : ''}${end.honor} · Rang: ${esc(s.rank().name)}</div>
       <button class="primary" data-act="ok">Weiter <span class="key">E</span></button>`, `ending ending-${end.honor >= 15 ? 'good' : 'bad'}`);
+    // Schlussbild als Hintergrund (480x270)
+    const img = endingImageUrl(id, end.case);
+    if (img) { el.classList.add('with-image'); el.style.backgroundImage = `linear-gradient(rgba(10, 8, 14, 0.3), rgba(10, 8, 14, 0.85) 50%), url(${img})`; }
     el.querySelector('[data-act=ok]').onclick = () => this.close();
   }
 
@@ -971,6 +1079,7 @@ export class Ui {
     else if ((this.modal === 'shop' || this.modal === 'brew') && (k === 'escape' || k === 'e')) this.close();
     else if (this.modal === 'brew' && num >= 0 && this.brewList?.[num]) this.brew(this.brewList[num].formula);
     else if (this.modal === 'notebook' && k === 'v') this.combine();
+    else if (this.modal === 'notebook' && k === 't') this.showHint();
     else if (this.modal === 'notebook' && num >= 0 && this.notebookTabs[num]) { this.tab = this.notebookTabs[num].id; this.selected = []; this.renderNotebook(''); }
     else handled = false;
     if (handled) { e.preventDefault(); e.stopPropagation(); }

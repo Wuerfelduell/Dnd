@@ -287,8 +287,8 @@ export const SOURCE_ICONS = {
   archive: [SOURCE_ICONS_URL, 5, 7], vision: [SOURCE_ICONS_URL, 6, 7], police: [LOG_MARKERS_URL, 3, 7],
 };
 
-/** Wetter pro Karte (Animation aus C_08_weather). */
-export const MAP_WEATHER = { docks: 'rain_light', ebba: 'ash', gaskanaele: 'fog' };
+/** Wetter pro Karte (Animation aus C_08_weather). "fog" verdichtet den vorhandenen Nebel statt Kacheln zu zeigen. */
+export const MAP_WEATHER = { docks: 'rain_light', ebba: 'ash' };
 
 // --- Paket A: animierte Sheets (Frames/Animationen in manifest-pfade.json) ----------
 
@@ -432,10 +432,198 @@ export const STATUS_ICONS = {
 export const SKILL_ICONS_URL = `${BASE}ui/skill_icons.png`;
 export const STATUS_ICONS_URL = `${BASE}ui/status_icons.png`;
 
+// --- Paket D (Stadt) und E (Fälle) -----------------------------------------------
+// Benannte Regionen stehen in manifest-stadt.json bzw. manifest-faelle.json. Jede Region wird
+// zur Texture `<prefix>_<region>`, jede Animation zur animierten Texture `<prefix>_<animation>`
+// (Deko spielt sie automatisch ab), z. B. d_strassenmoebel_police_box oder e_felix_versteck_shimmer.
+
+/** Prefix → [Manifest-Key, Manifest-Id]. Das Sheet wird als SHEETS[prefix] geladen. */
+export const REGION_SHEETS = {
+  d_theater: ['manifestStadt', 'D_05_theater'], d_uhrturm: ['manifestStadt', 'D_05_uhrturm'],
+  d_nordtor: ['manifestStadt', 'D_05_nordtor'], d_gaswerk: ['manifestStadt', 'D_05_gaswerk'],
+  d_sternwarte: ['manifestStadt', 'D_05_sternwarte'], d_villen: ['manifestStadt', 'D_05_villen'],
+  d_elend: ['manifestStadt', 'D_05_elend'],
+  d_theater_props: ['manifestStadt', 'D_05_theater_props'], d_uhrturm_props: ['manifestStadt', 'D_05_uhrturm_props'],
+  d_nordtor_props: ['manifestStadt', 'D_05_nordtor_props'], d_gaswerk_props: ['manifestStadt', 'D_05_gaswerk_props'],
+  d_sternwarte_props: ['manifestStadt', 'D_05_sternwarte_props'], d_villen_props: ['manifestStadt', 'D_05_villen_props'],
+  d_elend_props: ['manifestStadt', 'D_05_elend_props'], d_bruecken: ['manifestStadt', 'D_06_bruecken'],
+  d_strassenmoebel: ['manifestStadt', 'D_07_strassenmoebel'], d_wohnung: ['manifestStadt', 'D_08_wohnung_props'],
+  e_theater: ['manifestFaelle', 'theater'], e_felix_versteck: ['manifestFaelle', 'felix_versteck'],
+  e_quest: ['manifestFaelle', 'quest_ui'],
+};
+/** Dateien der Region-Sheets (die Manifeste kommen erst nach dem Laden der Bilder an). */
+const REGION_FILES = {
+  d_theater: 'tilesets/D_05_theater.png', d_uhrturm: 'tilesets/D_05_uhrturm.png', d_nordtor: 'tilesets/D_05_nordtor.png',
+  d_gaswerk: 'tilesets/D_05_gaswerk.png', d_sternwarte: 'tilesets/D_05_sternwarte.png', d_villen: 'tilesets/D_05_villen.png',
+  d_elend: 'tilesets/D_05_elend.png', d_bruecken: 'tilesets/D_06_bruecken.png',
+  d_strassenmoebel: 'props/D_07_strassenmoebel.png', d_wohnung: 'props/D_08_wohnung_props.png',
+  e_theater: 'props/E_01_theater_buehne.png', e_felix_versteck: 'props/E_01_felix_versteck.png', e_quest: 'ui/E_04_quest_ui.png',
+};
+for (const id of ['theater', 'uhrturm', 'nordtor', 'gaswerk', 'sternwarte', 'villen', 'elend']) REGION_FILES[`d_${id}_props`] = `props/D_05_${id}_props.png`;
+Object.assign(SHEETS, REGION_FILES);
+
+/** Ganze Bilder als Deko: Key → Pfad. Läden (48x48) ersetzen ein Erdgeschoss, die Krähenbrücke ist 96x48. */
+export const WHOLE_PROPS = { d_kraehenbruecke: 'props/D_06_kraehenbruecke.png' };
+export const SHOPS = ['apotheke', 'baeckerei', 'schneider', 'buchladen', 'uhrmacher', 'pfandhaus', 'kneipe', 'bestatter', 'zeitung', 'fotograf'];
+for (const id of SHOPS) WHOLE_PROPS[`d_shop_${id}`] = `tilesets/D_04_${id}.png`;
+Object.assign(SHEETS, WHOLE_PROPS);
+
+/** Einzelne 16x16-Zellen aus Icon-Streifen: Prefix → [Sheet-Pfad, Manifest-Id]. Key `<prefix>_<icon>`. */
+export const ICON_STRIPS = {
+  e_spur: ['props/E_07_spuren.png', 'spuren'],
+  e_hinweis: ['props/E_01_fall4_hinweise.png', 'fall4_hinweise'],
+};
+for (const [prefix, [path]] of Object.entries(ICON_STRIPS)) SHEETS[prefix] = path;
+
+/** Spritesheets mit festen Frames: Key → [Pfad, Breite, Höhe, Manifest-Id]. Animationen aus manifest-faelle.json. */
+export const CASE_SHEETS = {
+  e_turmuhr: ['props/E_01_turmuhr.png', 48, 48, 'turmuhr'], // Frame 0: stehengeblieben, 1: okkult beleuchtet
+  stimme_raub: ['fx/E_01_stimme_raub.png', 32, 32, 'stimme_raub'],
+  phiole_bricht: ['fx/E_01_phiole_bricht.png', 32, 32, 'phiole_bricht'],
+  glocke_stimme: ['fx/E_01_glocke_stimme.png', 48, 48, 'glocke_stimme'],
+};
+
+/** Hausfassaden aus D_03 (gleiches 8x6-Raster für alle Materialien). Map-Feld "facade": putz|holz|stein|slum|fabrik. */
+export const FACADES = ['putz', 'holz', 'stein', 'slum', 'fabrik'];
+const FACADE_CELLS = { wall: [0, 0, 0, 0, 1, 2], window: [8, 8, 12, 12, 9, 10, 13], door: [16, 17], eave: [24, 25], roof: [32, 33, 34, 35] };
+const FACADE_FALLBACK = { wall: 'brick', window: 'window', door: 'door', eave: 'roofEaveBottom', roof: 'roofEaveTop' };
+/** [{ key, sheet, cell, group, fallback }] – Tile-Key `fac_<material>_<gruppe>_<n>`. */
+/** Abweichungen je Material: In Elendsvierteln und Fabriken brennt kaum Licht, viele Fenster sind vernagelt. */
+const FACADE_OVERRIDES = { slum: { window: [9, 11, 11, 13, 9, 15, 8] }, fabrik: { window: [9, 13, 9, 8, 12] } };
+const facadeCells = (m, group) => FACADE_OVERRIDES[m]?.[group] ?? FACADE_CELLS[group];
+export const FACADE_TILE_LIST = FACADES.flatMap((m) => Object.keys(FACADE_CELLS).flatMap((group) => facadeCells(m, group).map((cell, n) => ({
+  key: `fac_${m}_${group}_${n}`, sheet: `fac_${m}`, cell, group, fallback: FACADE_FALLBACK[group],
+}))));
+/** Tile-Keys einer Fassadengruppe. */
+export const facadeKeys = (m, group) => facadeCells(m, group).map((_, n) => `fac_${m}_${group}_${n}`);
+for (const m of FACADES) SHEETS[`fac_${m}`] = `tilesets/D_03_fassade_${m}.png`;
+for (const t of FACADE_TILE_LIST) TILE_CELLS[t.key] = [t.sheet, t.cell];
+
+/** Paket E: 16 Auftragsfiguren mit Lauf-Sheet und Portrait (gameId aus manifest-faelle.json). */
+export const E_CHARACTERS = ['waescherin', 'kaminkehrer', 'kutscher', 'fotografin', 'schwindler', 'wahrsagerin', 'matrose',
+  'gouvernante', 'erbe', 'rattenfaenger', 'marktfrau', 'student', 'sufragette', 'nachtwaechter', 'kuenstler', 'kind_streuner'];
+for (const id of E_CHARACTERS) {
+  SHEETS[`e_${id}`] = `characters/E_${id}_walk.png`;
+  CHARACTER_SHEETS[`npc_${id}`] = `e_${id}`;
+  PORTRAITS[id] = `E_${id}_emotions.png`;
+}
+
+/**
+ * Zusätzliche Portrait-Streifen für Fall 4: Figur → [Datei, { Stimmung → Spalte }].
+ * Im Dialog wählt `"mood"` eines Knotens diese Streifen, sonst gilt PORTRAIT_MOODS.
+ */
+export const PORTRAIT_SPECIAL = {
+  diva: ['E_diva_stimme.png', { stumm: 0, panik: 1, traenen: 2, strahlend: 3 }],
+  souffleur: ['E_souffleur_enthuellung.png', { schuechtern: 0, ertappt: 1, entrueckt: 2, gebrochen: 3 }],
+  maskenmacher: ['E_maskenmacher_maske.png', { maske: 0, ohne_maske: 1, beleidigt: 2, dankbar: 3 }],
+  turmwaechter: ['E_turmwaechter_hoeren.png', { watte: 0, erschrocken: 1, erleichtert: 2, lauschen: 3 }],
+};
+/** Portrait-URL und Spalte für Figur + Stimmung (oder null). */
+export function portraitFor(id, mood) {
+  const special = PORTRAIT_SPECIAL[id];
+  if (special && special[1][mood] !== undefined) return { url: `${BASE}portraits/${special[0]}`, col: special[1][mood] };
+  const url = portraitUrl(id);
+  return url ? { url, col: PORTRAIT_MOODS[mood] ?? 0 } : null;
+}
+
+/** Schlussbilder (480x270): Ende → Bild; sonst das Bild des Falls. */
+export const ENDING_IMAGES = { c4_perfect: 'E_ende_fall4_gut', c4_good: 'E_ende_fall4_halb', c4_early: 'E_ende_fall4_schlecht', c4_mask: 'E_ende_fall4_haken' };
+export const CASE_ENDING_IMAGES = { case_01: 'E_ende_fall1', case_02: 'E_ende_fall2', case_03: 'E_ende_fall3' };
+export const endingImageUrl = (id, caseId) => {
+  const f = ENDING_IMAGES[id] ?? CASE_ENDING_IMAGES[caseId];
+  return f ? `${BASE}ui/endings/${f}.png` : null;
+};
+/** Fallakten (128x96) als Kopf im Notizbuch. */
+export const CASE_FILES = { case_01: 'E_akte_fall1', case_02: 'E_akte_fall2', case_03: 'E_akte_fall3', case_04: 'E_akte_fall4', side: 'E_akte_altmarkt' };
+export const caseFileUrl = (caseId) => `${BASE}ui/cases/${CASE_FILES[caseId] ?? 'E_akte_leer'}.png`;
+/** Zwischensequenzbilder (240x135): Dialogknoten und Lesetexte mit `"scene": "<id>"`. */
+export const SCENES = ['turmuhr', 'brief', 'rook', 'chor', 'marlowe', 'felix'];
+export const sceneUrl = (id) => (SCENES.includes(id) ? `${BASE}ui/scenes/E_szene_${id}.png` : null);
+
+/** Große Stadtkarte mit Nebel über unbesuchten Gegenden. */
+export const CITY_MAP_URL = `${BASE}ui/D_09_stadtkarte_gross.png`;
+export const CITY_FOG_URL = `${BASE}ui/D_09_stadtkarte_nebel.png`;
+/** Kartennadeln (8x8) in ui/E_04_quest_ui.png. */
+export const QUEST_UI_URL = `${BASE}ui/E_04_quest_ui.png`;
+export const QUEST_PINS = { amber: [64, 144], lilac: [80, 144], turquoise: [96, 144] };
+/** Banner (160x32) für angenommene und erledigte Aufträge. */
+export const QUEST_BANNERS = { active: [0, 64], done: [0, 96] };
+
+/** Legt Region-, Icon- und Fall-Texturen an (nach dem Laden der Manifeste). */
+function createRegionTextures(scene) {
+  const cut = (key, img, rects) => {
+    if (scene.textures.exists(key)) return;
+    const { w, h } = rects[0];
+    const c = document.createElement('canvas');
+    c.width = w * rects.length;
+    c.height = h;
+    const ctx = c.getContext('2d');
+    rects.forEach((r, i) => ctx.drawImage(img, r.x, r.y, r.w, r.h, i * w, 0, w, h));
+    const tex = scene.textures.addCanvas(key, c);
+    if (rects.length > 1) {
+      rects.forEach((_, i) => tex.add(i, 0, i * w, 0, w, h));
+    }
+    return tex;
+  };
+  const rect = (r) => ({ x: r.x, y: r.y, w: r.width ?? r.w, h: r.height ?? r.h });
+  for (const [prefix, [manifest, id]] of Object.entries(REGION_SHEETS)) {
+    const img = sourceOf(scene, prefix);
+    const def = scene.cache.json.get(manifest)?.assets?.find((a) => a.id === id);
+    if (!img || !def) continue;
+    // Regionen: Liste ({ name, ... }) oder Objekt (name → Rechteck)
+    const regions = Array.isArray(def.regions) ? Object.fromEntries(def.regions.map((r) => [r.name, r])) : def.regions ?? {};
+    for (const [name, r] of Object.entries(regions)) cut(`${prefix}_${name}`, img, [rect(r)]);
+    const anims = { ...(def.animations ?? {}) };
+    for (const [name, a] of Object.entries(def.regionAnimations ?? {})) anims[name] = { ...a, frames: a.regions.map((n) => regions[n]) };
+    for (const [name, a] of Object.entries(anims)) {
+      if (Array.isArray(a) || !a.frames?.length) continue;
+      const cols = Math.floor(img.width / 16);
+      // Zahlen = linke obere 16er-Zelle des Frames, sonst Rechtecke
+      const frames = a.frames.map((f) => (typeof f === 'number'
+        ? { x: (f % cols) * 16, y: Math.floor(f / cols) * 16, w: a.frameWidth ?? 16, h: a.frameHeight ?? 16 } : rect(f)));
+      const key = `${prefix}_${name}`;
+      if (!cut(key, img, frames)) continue;
+      if (!scene.anims.exists(key)) {
+        scene.anims.create({ key, frames: frames.map((_, i) => ({ key, frame: i })), frameRate: a.frameRate ?? 5, repeat: a.repeat ?? -1 });
+      }
+    }
+  }
+  for (const key of Object.keys(WHOLE_PROPS)) {
+    const img = sourceOf(scene, key);
+    if (img) cut(key, img, [{ x: 0, y: 0, w: img.width, h: img.height }]);
+  }
+  for (const [prefix, [, id]] of Object.entries(ICON_STRIPS)) {
+    const img = sourceOf(scene, prefix);
+    const icons = scene.cache.json.get('manifestFaelle')?.assets?.find((a) => a.id === id)?.icons ?? {};
+    if (img) for (const [name, i] of Object.entries(icons)) cut(`${prefix}_${name}`, img, [{ x: i * 16, y: 0, w: 16, h: 16 }]);
+  }
+}
+
+/** Begegnung → Fall-Effekte im Kampf: beim Angriff am Spieler, beim Sieg am Gegner. */
+export const ENCOUNTER_FX = { felix_fight: { attack: 'stimme_raub', won: 'phiole_bricht' } };
+
+/** Spielt eine Animation eines Fall-Sheets (CASE_SHEETS) ab. Liefert false, wenn etwas fehlt. */
+export function playCaseAnim(sprite, sheet, then) {
+  const scene = sprite.scene;
+  const spec = CASE_SHEETS[sheet];
+  if (!spec || !scene.textures.exists(sheet)) return false;
+  const key = `${sheet}-anim`;
+  if (!scene.anims.exists(key)) {
+    const def = scene.cache.json.get('manifestFaelle')?.assets?.find((a) => a.id === spec[3])?.animations?.[spec[3]];
+    if (!def) return false;
+    scene.anims.create({ key, frames: def.frames.map((frame) => ({ key: sheet, frame })), frameRate: def.frameRate, repeat: def.repeat });
+  }
+  sprite.setTexture(sheet);
+  sprite.play(key);
+  if (then) sprite.once(`animationcomplete-${key}`, then);
+  return true;
+}
+
 /** 16x16-Icon unter public/sprites/items/<id>.png (tests/sprites.test.js prüft, dass es zu jedem Item eins gibt). */
 export const itemIconUrl = (id) => `${BASE}items/${id}.png`;
-/** 32x32-Fassung (gibt es nur für Tränke). */
-export const itemIcon32Url = (id) => (id.startsWith('trank_') ? `${BASE}items/32/${id}.png` : null);
+/** 32x32-Fassung (gibt es für Tränke und die Stimmphiole). */
+const ICON32 = ['stimmphiole'];
+export const itemIcon32Url = (id) => (id.startsWith('trank_') || ICON32.includes(id) ? `${BASE}items/32/${id}.png` : null);
 
 const srcKey = (sheet) => `src_${sheet}`;
 
@@ -463,6 +651,11 @@ export function preloadSprites(scene) {
   if (!scene.cache.json.exists('manifestKampf')) scene.load.json('manifestKampf', `${BASE}manifest-kampf.json`);
   if (!scene.cache.json.exists('manifestWelt')) scene.load.json('manifestWelt', `${BASE}manifest-welt.json`);
   if (!scene.cache.json.exists('manifestPfade')) scene.load.json('manifestPfade', `${BASE}manifest-pfade.json`);
+  if (!scene.cache.json.exists('manifestStadt')) scene.load.json('manifestStadt', `${BASE}manifest-stadt.json`);
+  if (!scene.cache.json.exists('manifestFaelle')) scene.load.json('manifestFaelle', `${BASE}manifest-faelle.json`);
+  for (const [key, [path, w, h]] of Object.entries(CASE_SHEETS)) {
+    if (!scene.textures.exists(key)) scene.load.spritesheet(key, BASE + path, { frameWidth: w, frameHeight: h });
+  }
 }
 
 /**
@@ -579,4 +772,5 @@ export function createSpriteTextures(scene) {
     const img = sourceOf(scene, sheet);
     if (img) scene.textures.addSpriteSheet(key, img, { frameWidth: 16, frameHeight: 32 });
   }
+  createRegionTextures(scene);
 }
