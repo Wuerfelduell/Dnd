@@ -284,6 +284,7 @@ export class Ui {
             <div class="p2name">Spieler 2 <span class="muted p2weapon"></span></div>
             <div class="meter life"><span>Leben</span><div class="bar"><div class="p2hp"></div></div><em class="p2hpnum"></em></div>
             <div class="meter"><span>Nerven</span><div class="bar"><div class="p2nv"></div></div></div>
+            <div class="p2path hidden"></div>
             <div class="p2load hidden"></div>
           </div>
         </div>
@@ -331,7 +332,7 @@ export class Ui {
       if (this.modal === 'combat' || this.modal === 'shop') return;
       this.toast(`${delta > 0 ? '+' : ''}${delta} Schilling${reason ? `: ${reason}` : ''}`, delta > 0 ? 'item' : 'warn');
     });
-    state.on('unruhe', () => this.updateUnruhe());
+    state.on('unruhe', () => (state.acting === 2 ? this.updateP2() : this.updateUnruhe()));
     state.on('wanted', ({ level, delta, reason }) => {
       this.updateWanted();
       this.toast(`Fahndungsstufe ${level}${reason ? `: ${reason}` : ''}`, delta > 0 ? 'warn' : 'item');
@@ -343,17 +344,19 @@ export class Ui {
       else this.toast(`${name}: ${delta > 0 ? 'Vertrauen' : 'Misstrauen'} (${value > 0 ? '+' : ''}${value} von ±${max})`, delta > 0 ? 'item' : 'warn');
     });
     this.digestAcc = {};
-    state.on('digest', ({ delta, kind }) => {
+    state.on('digest', ({ delta, kind, player = 1 }) => {
       this.updateUnruhe();
+      if (player === 2) this.updateP2();
       // Rückmeldung: welche Handlung hat verdaut? Geistsicht sammelt, bis es sich lohnt.
-      this.digestAcc[kind] = (this.digestAcc[kind] ?? 0) + delta;
-      const acc = this.digestAcc[kind];
+      const key = `${player}:${kind}`;
+      this.digestAcc[key] = (this.digestAcc[key] ?? 0) + delta;
+      const acc = this.digestAcc[key];
       if (acc < (kind === 'vision' ? 5 : 1) && state.pathway.digestion < 100) return;
-      this.digestAcc[kind] = 0;
+      this.digestAcc[key] = 0;
       if (this.modal === 'combat') return;
-      this.toast(`+${Math.round(acc)} % verdaut: ${DIGEST_LABELS[kind] ?? kind}`, 'digest');
+      this.toast(`${player === 2 ? 'Spieler 2: ' : ''}+${Math.round(acc)} % verdaut: ${DIGEST_LABELS[kind] ?? kind}`, 'digest');
     });
-    state.on('digested', () => this.toast(state.pathway?.seq <= 8 ? 'Bereit für den nächsten Trank. Die Formel gibt es auf geheimen Treffen, selten bei Kittering.' : 'Bereit für den nächsten Trank. Kittering hat die Formel.', 'gold'));
+    state.on('digested', ({ seq, player = 1 }) => this.toast(`${player === 2 ? 'Spieler 2: ' : ''}${seq <= 8 ? 'Bereit für den nächsten Trank. Die Formel gibt es auf geheimen Treffen, selten bei Kittering.' : 'Bereit für den nächsten Trank. Kittering hat die Formel.'}`, 'gold'));
     // Geheime Treffen: Ankündigung und Uhr im HUD
     state.on('gathering', ({ text, open }) => {
       this.updateGathering();
@@ -362,12 +365,14 @@ export class Ui {
     });
     this.gatheringTimer = setInterval(() => this.updateGathering(), 1000);
     state.on('ascend', () => { this.updateUnruhe(); this.updateHp(); });
-    state.on('lostcontrol', ({ text }) => {
+    state.on('lostcontrol', ({ text, player = 1 }) => {
       this.updateHp();
       this.updateUnruhe();
+      this.updateP2();
       if (this.modal === 'combat') return;
-      if (this.modal) { this.pendingLost = text; return; }
-      this.showMessage('Kontrollverlust', text);
+      const title = player === 2 ? 'Kontrollverlust: Spieler 2' : 'Kontrollverlust';
+      if (this.modal) { this.pendingLost = { title, text }; return; }
+      this.showMessage(title, text);
     });
     // Flüstern bei hoher Unruhe
     this.whisperTimer = setInterval(() => {
@@ -547,6 +552,7 @@ export class Ui {
 
   updateUnruhe() {
     const s = this.state;
+    if (s.acting === 2) return; // Werte von Spieler 2 stehen im eigenen HUD-Kasten
     const dm = this.$('.meter.digest');
     dm.classList.toggle('hidden', !s.isBeyonder());
     if (s.isBeyonder()) {
@@ -599,6 +605,10 @@ export class Ui {
     this.$('.p2hpnum').textContent = `${v.hp}/${v.maxHp}`;
     this.$('.p2nv').style.width = `${(v.composure / v.maxComposure) * 100}%`;
     this.$('.p2weapon').textContent = v.weapon.name;
+    const path = this.$('.p2path');
+    path.classList.toggle('hidden', !v.pathway && v.unruhe <= 0);
+    if (v.pathway) path.innerHTML = `<span style="color:${v.pathway.color}">Seq ${v.pathway.seq} ${esc(v.pathway.seqName)}</span> · ${Math.floor(v.pathway.digestion)} % · <span class="${v.unruhe >= 60 ? 'curse' : ''}">Unruhe ${Math.round(v.unruhe)}</span>`;
+    else if (v.unruhe > 0) path.innerHTML = `<span class="${v.unruhe >= 60 ? 'curse' : ''}">Unruhe ${Math.round(v.unruhe)}</span>`;
     const load = this.$('.p2load');
     load.classList.toggle('hidden', !v.overloaded);
     if (v.overloaded) load.textContent = `Überladen · ${v.carry}`;
@@ -677,9 +687,9 @@ export class Ui {
       this.showMessage(ch.title, ch.text, { footer: ch.footer ?? '' });
       this.layer.querySelector('.panel.message')?.classList.add('chapterbook'); // Grundpaket: aufgeschlagenes Notizbuch (07_02)
     } else if (this.pendingLost) {
-      const text = this.pendingLost;
+      const { title, text } = this.pendingLost;
       this.pendingLost = null;
-      this.showMessage('Kontrollverlust', text);
+      this.showMessage(title, text);
     } else if (this.state.pendingCombat && this.scene) {
       this.scene.startCombat(this.state.pendingCombat);
     } else if (this.state.pendingTravel && this.scene) {
@@ -1046,7 +1056,7 @@ export class Ui {
       ...(beasts.length ? [{ id: 'bestiar', title: 'Bestiarium' }] : []),
       ...cases.map((c) => ({ id: c.id, title: c.title.replace(/:.*/, '') })), ...(solved.length ? [{ id: 'archiv', title: `Archiv (${solved.length})` }] : [])];
     const caseId = this.currentCase();
-    const body = this.tab === 'quests' ? this.questsHtml() : this.tab === 'items' ? this.itemsHtml() : this.tab === 'pfad' ? this.pathwayHtml()
+    const body = this.tab === 'quests' ? this.questsHtml() : this.tab === 'items' ? this.itemsHtml() : this.tab === 'pfad' ? this.pathwayTabHtml()
       : this.tab === 'personen' ? this.peopleHtml() : this.tab === 'bestiar' ? this.bestiaryHtml(beasts)
       : this.tab === 'archiv' ? this.archiveHtml(solved) : this.caseHtml(this.tab);
     const isCase = !!caseId;
@@ -1069,7 +1079,7 @@ export class Ui {
     el.querySelectorAll('[data-archive]').forEach((b) => { b.onclick = () => { this.archiveCase = b.dataset.archive; this.selected = []; this.renderNotebook(''); }; });
     el.querySelector('[data-act=combine]')?.addEventListener('click', () => this.combine());
     el.querySelector('[data-act=hint]')?.addEventListener('click', () => this.showHint());
-    const inv = (fn) => this.as(fn, this.tab === 'items' ? this.invPlayer : 1);
+    const inv = (fn) => this.as(fn, this.tab === 'items' || this.tab === 'pfad' ? this.invPlayer : 1);
     el.querySelectorAll('[data-use]').forEach((b) => { b.onclick = () => this.renderNotebook(esc(inv(() => this.state.useItem(b.dataset.use)) ?? '')); });
     el.querySelectorAll('[data-equip]').forEach((b) => { b.onclick = () => { inv(() => this.state.equip(b.dataset.equip)); this.renderNotebook(''); }; });
     el.querySelectorAll('[data-wear]').forEach((b) => { b.onclick = () => { inv(() => this.state.wear(b.dataset.wear)); this.renderNotebook(''); }; });
@@ -1085,13 +1095,14 @@ export class Ui {
     });
     el.querySelectorAll('[data-drink]').forEach((b) => { b.onclick = () => this.drink(b.dataset.drink); });
     el.querySelector('[data-ritual]')?.addEventListener('click', () => {
-      const r = this.state.performRitual();
+      const who = this.state.hasP2() ? this.invPlayer : 1;
+      const r = inv(() => this.state.performRitual());
       if (r.ok) {
-        const pid = this.state.pathway?.id;
+        const pid = inv(() => this.state.pathway?.id);
         this.close();
         const card = ritualCardUrl(pid);
-        this.showMessage('Ritual', r.text, { aside: card ? `<img class="ritualcard" src="${card}" alt="" onerror="this.remove()">` : '' });
-        this.scene?.playRitual?.(pid);
+        this.showMessage(who === 2 ? 'Ritual: Spieler 2' : 'Ritual', r.text, { aside: card ? `<img class="ritualcard" src="${card}" alt="" onerror="this.remove()">` : '' });
+        this.scene?.playRitual?.(pid, who);
       } else this.renderNotebook(esc(r.text));
     });
     el.querySelectorAll('[data-inspect]').forEach((b) => { b.onclick = () => this.inspectItem(b.dataset.inspect); });
@@ -1167,13 +1178,24 @@ export class Ui {
       ${closed.length ? `<details class="closed-quests"><summary>Erledigt (${closed.length})</summary><ul class="quests">${closed.map(row).join('')}</ul></details>` : ''}`;
   }
 
+  /** Umschaltung (G) zwischen Spieler 1 und 2 für Inventar und Pfad. */
+  playerTabsHtml() {
+    const who = this.invPlayer;
+    return `<div class="tabs playertabs">${[1, 2].map((n) => `<button class="tab ${n === who ? 'sel' : ''}" data-invplayer="${n}">Spieler ${n}${n === 1 ? ' · Ermittler' : ''}</button>`).join('')}<button class="muted subkeys keybtn" data-key="g">wechseln <span class="key">G</span></button></div>`;
+  }
+
   /** Inventar-Reiter: mit Spieler 2 gibt es oben eine Umschaltung (G) zwischen beiden Taschen. */
   itemsHtml() {
     const s = this.state;
     if (!s.hasP2()) { this.invPlayer = 1; return this.itemsListHtml(); }
-    const who = this.invPlayer;
-    const bar = `<div class="tabs playertabs">${[1, 2].map((n) => `<button class="tab ${n === who ? 'sel' : ''}" data-invplayer="${n}">Spieler ${n}${n === 1 ? ' · Ermittler' : ''}</button>`).join('')}<button class="muted subkeys keybtn" data-key="g">wechseln <span class="key">G</span></button></div>`;
-    return bar + s.withPlayer(who, () => this.itemsListHtml(), { quiet: true });
+    return this.playerTabsHtml() + s.withPlayer(this.invPlayer, () => this.itemsListHtml(), { quiet: true });
+  }
+
+  /** Pfad-Reiter: jeder Spieler hat seinen eigenen Pfad (G wechselt). */
+  pathwayTabHtml() {
+    const s = this.state;
+    if (!s.hasP2()) { this.invPlayer = 1; return this.pathwayHtml(); }
+    return this.playerTabsHtml() + s.withPlayer(this.invPlayer, () => this.pathwayHtml(), { quiet: true });
   }
 
   itemsListHtml() {
@@ -1195,7 +1217,6 @@ export class Ui {
       else if (it.kind === 'gear') action = s.isWorn(it.id) ? `<span class="badge likely">angelegt</span><br><button class="small" data-takeoff="${it.slot}">Ablegen</button>` : `<button class="small" data-wear="${it.id}">Anlegen</button>`;
       else if (it.kind === 'consumable' && !it.combat_only) action = `<button class="small" data-use="${it.id}">Benutzen</button>`;
       else if (it.combat_only) action = '<span class="muted">nur im Kampf</span>';
-      else if (it.kind === 'potion' && s.acting === 2) action = '<span class="muted">nur der Ermittler trinkt Tränke</span>';
       else if (it.kind === 'potion') {
         const chk = s.drinkCheck(it.id);
         action = chk.ok ? `<button class="small" data-drink="${it.id}">Trinken</button><br><span class="muted">Risiko ${Math.round(chk.risk * 100)} %</span>` : chk.ritual ? '<button class="small" data-recipe="1">Ritual nötig</button>' : '<span class="muted">nicht trinkbar</span>';
@@ -1430,18 +1451,24 @@ export class Ui {
   }
 
   drink(itemId) {
-    const r = this.state.drink(itemId);
+    const who = this.state.hasP2() && (this.tab === 'items' || this.tab === 'pfad') ? this.invPlayer : 1;
+    const r = this.as(() => this.state.drink(itemId), who);
     if (r.lost) { this.close(); return; } // Meldung kommt über 'lostcontrol'
     if (!r.ok) { this.renderNotebook(esc(r.text)); return; }
     this.close();
-    this.showMessage(this.state.item(itemId).name, r.text);
+    this.showMessage(`${who === 2 ? 'Spieler 2: ' : ''}${this.state.item(itemId).name}`, r.text);
   }
 
+  /** Braukessel: wer ihn bedient (Spieler 2 per Enter), braut aus seiner eigenen Tasche. */
   openBrew(feedback = '') {
+    this.state.withPlayer(this.actor, () => this.renderBrew(feedback), { quiet: true });
+  }
+
+  renderBrew(feedback) {
     const list = this.state.recipes();
     this.brewList = list;
     const el = this.open('brew', `
-      <h3>Braukessel</h3>
+      <h3>Braukessel${this.state.hasP2() ? ` <span class="muted">für Spieler ${this.state.acting}</span>` : ''}</h3>
       <p class="lead">Der Kessel blubbert über einem Kohlebecken. Wähle eine Formel. Die Zutaten werden verbraucht.</p>
       ${this.recipesHtml(true)}
       <div class="feedback">${feedback}</div>
@@ -1451,7 +1478,7 @@ export class Ui {
   }
 
   brew(formulaId) {
-    const r = this.state.brew(formulaId);
+    const r = this.as(() => this.state.brew(formulaId));
     this.scene?.playBrewFx?.(r.ok);
     this.openBrew(`<span class="${r.ok ? 'good' : ''}">${esc(r.text)}</span>`);
   }
@@ -2018,7 +2045,7 @@ export class Ui {
     else if ((this.modal === 'shop' || this.modal === 'storage') && k === 'g' && this.state.hasP2()) {
       this.actor = this.actor === 1 ? 2 : 1;
       if (this.modal === 'shop') this.openShop(this.shop.id, this.shop.mode); else this.openStorage('', ...this.storageArgs);
-    } else if (this.modal === 'notebook' && k === 'g' && this.tab === 'items' && this.state.hasP2()) { this.invPlayer = this.invPlayer === 1 ? 2 : 1; this.renderNotebook(''); }
+    } else if (this.modal === 'notebook' && k === 'g' && (this.tab === 'items' || this.tab === 'pfad') && this.state.hasP2()) { this.invPlayer = this.invPlayer === 1 ? 2 : 1; this.renderNotebook(''); }
     else if (this.modal === 'notebook' && k === 'v') this.combine();
     else if (this.modal === 'notebook' && k === 't') this.showHint();
     else if (this.modal === 'notebook' && this.tab === 'items' && (k === 'arrowleft' || k === 'arrowright') && this.itemCats?.length) {

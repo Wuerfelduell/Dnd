@@ -3,7 +3,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { GameState } from '../src/core/GameState.js';
-import { Combat, AP_START, ENEMY_HP_MULT, DUO_HP_MULT } from '../src/core/Combat.js';
+import { Combat, AP_START, ENEMY_HP_MULT, duoHpMult } from '../src/core/Combat.js';
 import { loadContent, fight, EXPERT, SKILLED } from './helpers.js';
 
 const content = loadContent();
@@ -76,7 +76,8 @@ test('Zu zweit: der Gegner hält mehr aus', () => {
   const s = hero();
   s.addP2();
   const c = new Combat(s, 'miss_wren');
-  assert.equal(c.enemy.maxHp, Math.round(content.encounters.miss_wren.hp * ENEMY_HP_MULT * DUO_HP_MULT));
+  assert.equal(c.enemy.maxHp, Math.round(content.encounters.miss_wren.hp * ENEMY_HP_MULT * duoHpMult(s)));
+  assert.ok(c.enemy.maxHp > new Combat(hero(), 'miss_wren').enemy.maxHp * 1.4);
   assert.equal(new Combat(hero(), 'miss_wren').enemy.maxHp, Math.round(content.encounters.miss_wren.hp * ENEMY_HP_MULT));
   // Übungskämpfe bleiben gleich
   assert.equal(new Combat(s, 'sparring').enemy.maxHp, content.encounters.sparring.hp);

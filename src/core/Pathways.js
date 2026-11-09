@@ -32,6 +32,8 @@ export const DIGEST_LABELS = {
   trade: 'gehandelt', brew: 'Trank gebraut', use_item: 'Heilmittel benutzt', lock: 'Verschlossenes geöffnet',
   loot: 'Belohnung eingestrichen',
 };
+/** Handlungen, die nur den Pfad dessen verdauen, der sie selbst tut. Alles andere verdaut beide Spieler. */
+export const PERSONAL_DIGEST = new Set(['parry', 'vision', 'use_item', 'brew']);
 const MULT_KEYS = new Set(['vision_cost', 'composure_regen', 'heal_bonus', 'price', 'sell', 'honor_loss', 'occult_mult',
   'money_bonus', 'skill_composure', 'calm_decay', 'dodge_window', 'damage_taken', 'digest_mult', 'dmg_mult']);
 
@@ -148,6 +150,14 @@ export const pathwayMethods = {
    */
   act(kind, amount = 1) {
     if (kind === 'combat_win') this.wins = (this.wins ?? 0) + 1;
+    const gained = this.digestOwn(kind, amount);
+    // Zu zweit: was beide gemeinsam erleben, verdaut auch den Trank des anderen Spielers
+    if (this.hasP2?.() && !PERSONAL_DIGEST.has(kind)) this.withPartner(() => this.digestOwn(kind, amount));
+    return gained;
+  },
+
+  /** Verdauung nur für den Spieler, dessen Werte gerade gelten. */
+  digestOwn(kind, amount = 1) {
     const p = this.pathway;
     if (!p) return 0;
     const table = this.pathwayDef().digest ?? {};
@@ -164,10 +174,11 @@ export const pathwayMethods = {
     if (p.digestion >= 100) return 0;
     const before = p.digestion;
     p.digestion = Math.min(100, p.digestion + pts);
-    this.emit('digest', { value: p.digestion, delta: p.digestion - before, kind });
+    const player = this.acting ?? 1;
+    this.emit('digest', { value: p.digestion, delta: p.digestion - before, kind, player });
     if (before < 100 && p.digestion >= 100) {
-      this.emit('notice', `Der Trank des ${this.seqDef().name} ist vollständig verdaut.`);
-      this.emit('digested', p);
+      this.emit('notice', `${player === 2 ? 'Spieler 2: ' : ''}Der Trank des ${this.seqDef().name} ist vollständig verdaut.`);
+      this.emit('digested', { ...p, player });
     }
     return p.digestion - before;
   },
@@ -205,7 +216,7 @@ export const pathwayMethods = {
     this.emit('composure', this.composure);
     this.emit('unruhe', this.unruhe);
     this.emit('money', { delta: -lostMoney, value: this.money, reason: 'Kontrollverlust' });
-    this.emit('lostcontrol', { text });
+    this.emit('lostcontrol', { text, player: this.acting ?? 1 });
     this.emit('changed');
     return text;
   },
@@ -269,7 +280,7 @@ export const pathwayMethods = {
       ? `Du trinkst. Es schmeckt nach Nebel und Kupfer. Dann wird die Welt für einen Herzschlag zu laut, zu hell, zu nah.\n\nDu bist jetzt Sequenz 9 des ${pd.name.replace('Pfad', 'Pfads')}: ${sd.name}.\n\n${sd.desc}\n\nGrundsatz: „${pd.principle}“ Handle danach, um den Trank zu verdauen.`
       : `Der Trank schlägt ein wie ein Blitz. Als er abklingt, bist du jemand anderes. Ein bisschen.\n\nDu bist jetzt Sequenz ${sd ? it.seq : ''}: ${sd.name}.\n\n${sd.desc}`;
     this.emit('unruhe', this.unruhe);
-    this.emit('ascend', { pathway: it.pathway, seq: it.seq });
+    this.emit('ascend', { pathway: it.pathway, seq: it.seq, player: this.acting ?? 1 });
     this.emit('changed');
     return { ok: true, text };
   },
@@ -295,8 +306,13 @@ export const pathwayMethods = {
     return this.seqDef(pid, seq)?.ritual ?? null;
   },
 
+  /** Merker für ein vollzogenes Ritual. Spieler 2 hat eigene (er kann denselben Pfad gehen). */
+  ritualFlag(pid, seq) {
+    return `${this.acting === 2 ? 'p2_' : ''}ritual_${pid}_${seq}`;
+  },
+
   ritualDone(pid, seq) {
-    return this.flags.has(`ritual_${pid}_${seq}`);
+    return this.flags.has(this.ritualFlag(pid, seq));
   },
 
   /** Schritte des nächsten Rituals mit Status: [{text, done}] (oder null, wenn keines nötig ist). */
@@ -335,10 +351,10 @@ export const pathwayMethods = {
     for (const [id, n] of Object.entries(r.consumes ?? {})) this.removeItem(id, n);
     if (r.tribute) this.addMoney(-r.tribute, { reason: 'Tribut' });
     const rules = this.content.ritualRules ?? { unruhe: 20, nerves: 20 };
-    this.flags.add(`ritual_${p.id}_${seq}`);
+    this.flags.add(this.ritualFlag(p.id, seq));
     this.setComposure(this.composure - (rules.nerves ?? 20));
     this.setUnruhe(this.unruhe + (rules.unruhe ?? 20));
-    this.emit('ritual', { pathway: p.id, seq });
+    this.emit('ritual', { pathway: p.id, seq, player: this.acting ?? 1 });
     this.emit('changed');
     return { ok: true, text: `${r.name}\n\n${r.desc}\n\nDas Ritual ist vollzogen. Die Luft um dich summt. Jetzt kannst du den Trank der Sequenz ${seq} trinken.` };
   },

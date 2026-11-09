@@ -239,6 +239,7 @@ export class CombatScene extends Phaser.Scene {
   }
 
   idle(sprite) {
+    if (sprite.downed) return; // wer K.o. ist, bleibt liegen
     if (this.phase !== 'over' || !this.combat.outcome) playBattleAnim(sprite, 'idle', null, this.baseSheet(sprite));
   }
 
@@ -274,7 +275,7 @@ export class CombatScene extends Phaser.Scene {
   }
 
   flash(target) {
-    if (this.phase !== 'over') this.anim(target, 'hurt');
+    if (this.phase !== 'over' && !target.downed) this.anim(target, 'hurt');
     target.setTintFill(0xffffff);
     this.time.delayedCall(80, () => {
       if (target === this.enemy && this.enemyTint !== null) target.setTint(this.enemyTint);
@@ -468,7 +469,7 @@ export class CombatScene extends Phaser.Scene {
         this.float(`-${c.selfHit}`, 'enemy', 'dmg');
         c.selfHit = 0;
         this.ui.combatRefresh();
-        this.time.delayedCall(900, () => (c.outcome ? this.over() : this.endRound()));
+        this.time.delayedCall(900, () => (c.outcome ? this.over() : this.afterStrike()));
         return;
       }
       if (c.lastAction) {
@@ -480,11 +481,11 @@ export class CombatScene extends Phaser.Scene {
         if (float) this.float(float[0], a.action === 'taunt' ? 'player' : 'enemy', float[1]);
         this.anim(this.enemy, 'special');
         this.ui.combatRefresh();
-        this.time.delayedCall(1100, () => this.endRound());
+        this.time.delayedCall(1100, () => this.afterStrike());
         return;
       }
       this.ui.combatMessage(`${c.enemy.name} taumelt und greift nicht an.`);
-      this.time.delayedCall(900, () => this.endRound());
+      this.time.delayedCall(900, () => this.afterStrike());
       return;
     }
     this.phase = 'enemy';
@@ -507,7 +508,7 @@ export class CombatScene extends Phaser.Scene {
   pressDefense(kind, t) {
     const hit = this.hits.find((h) => !h.result && t >= h.impact - EARLY_LIMIT);
     if (!hit) return;
-    hit.result = judgeDefense(kind, t - hit.impact, this.state.passive('dodge_window'), this.combat.parryWindow());
+    hit.result = judgeDefense(kind, t - hit.impact, this.combat.on(this.combat.target, () => this.state.passive('dodge_window')), this.combat.parryWindow());
     if (hit.result === 'miss') hit.early = t < hit.impact;
     else this.applyHit(hit);
   }
@@ -541,6 +542,8 @@ export class CombatScene extends Phaser.Scene {
 
   /** Zu zweit: ein Spieler bleibt liegen, der andere kämpft weiter. */
   knockedOut(sprite) {
+    if (sprite.downed) return;
+    sprite.downed = true;
     this.time.delayedCall(200, () => {
       if (!this.anim(sprite, 'defeated', false)) this.tweens.add({ targets: sprite, angle: -90, y: '+=4', duration: 500 });
       sprite.setAlpha(0.7);
@@ -565,10 +568,17 @@ export class CombatScene extends Phaser.Scene {
         onYoyo: () => { this.flash(this.enemy); this.hitFx('critical', 'enemy'); this.float(`-${dmg}`, 'enemy', 'crit'); this.cameras.main.shake(120, 0.008); },
       });
       this.ui.combatRefresh();
-      this.time.delayedCall(800, () => this.endRound());
+      this.time.delayedCall(800, () => this.afterStrike());
       return;
     }
-    this.time.delayedCall(400, () => this.endRound());
+    this.time.delayedCall(400, () => this.afterStrike());
+  }
+
+  /** Zu zweit greift der Gegner danach noch den anderen Spieler an, sonst ist die Runde vorbei. */
+  afterStrike() {
+    if (this.combat.outcome) { this.over(); return; }
+    if (this.combat.moreStrikes()) { this.time.delayedCall(250, () => this.enemyTurn()); return; }
+    this.endRound();
   }
 
   endRound() {

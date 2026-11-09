@@ -16,9 +16,14 @@ export const ENEMY_HP_MULT = 1.4;
 export const ENEMY_DMG_MULT = 1.4;
 export const ELITE_HP_MULT = 1.0; // zusätzlich zu den Daten (Elite ×1,5 der Grundform)
 export const ELITE_DMG_MULT = 0.9; // Eliten haben in den Daten schon +30 % Schaden, so bleibt es bei etwa +60 %
-// Zu zweit: der Gegner hält mehr aus und schlägt etwas härter (zwei Spieler teilen sich seine Angriffe)
-export const DUO_HP_MULT = 1.6;
-export const DUO_DMG_MULT = 1.15;
+// Zu zweit: der Gegner hält mehr aus, je nachdem wie stark Spieler 2 zuschlägt (gleich stark: ×1,9,
+// halb so stark: ×1,45), und er greift jede Runde jeden stehenden Spieler einmal an, dafür etwas
+// schwächer pro Schlag. So muss sich jeder selbst verteidigen, und keiner steht nur daneben.
+export const DUO_HP_SHARE = 0.9; // Anteil Zusatzleben bei gleich starkem Spieler 2
+export const DUO_POWER_MIN = 0.5; // Spieler 2 zählt mindestens halb ...
+export const DUO_POWER_MAX = 1.25; // ... und höchstens so viel wie 1,25 Ermittler
+export const DUO_HP_MULT = 1 + DUO_HP_SHARE; // bei gleich starken Spielern
+export const DUO_DMG_MULT = 0.85;
 export const ARMOR = { elite: 2, boss: 3 }; // zieht jedem Treffer so viel ab (mindestens 1 bleibt)
 export const COUNTER_MULT = 0.3; // Konter nach einer Parade
 export const RIPOSTE_MULT = 1.0; // Gegenschlag nach voll parierter Attacke
@@ -71,6 +76,17 @@ export function judgeTiming(pos, zone) {
 // Werte, die jeder Spieler im Kampf für sich hat (zu zweit: Spieler 1 und 2).
 const PER_FIGHTER = ['ap', 'shield', 'evading', 'bleed', 'actions', 'itemUsed'];
 
+/** Schlagkraft eines Spielers: Waffe mal Schadens-Passiven (Durchbrüche, Artefakte). */
+export function playerPower(state, n) {
+  return state.withPlayer(n, () => state.weaponStats().atk * state.passive('dmg_mult'), { quiet: true });
+}
+
+/** Zusatzleben des Gegners zu zweit: richtet sich danach, wie stark Spieler 2 im Vergleich zuschlägt. */
+export function duoHpMult(state) {
+  const ratio = playerPower(state, 2) / Math.max(1, playerPower(state, 1));
+  return 1 + DUO_HP_SHARE * Math.min(DUO_POWER_MAX, Math.max(DUO_POWER_MIN, ratio));
+}
+
 export class Combat {
   constructor(state, encounterId) {
     const enc = state.content.encounters[encounterId];
@@ -79,7 +95,8 @@ export class Combat {
     this.id = encounterId;
     this.enc = enc;
     const duo = !!state.hasP2?.();
-    const hp = enc.practice ? enc.hp : Math.round(enc.hp * ENEMY_HP_MULT * (enc.elite ? ELITE_HP_MULT : 1) * (duo ? DUO_HP_MULT : 1));
+    this.duoHpMult = duo ? duoHpMult(state) : 1;
+    const hp = enc.practice ? enc.hp : Math.round(enc.hp * ENEMY_HP_MULT * (enc.elite ? ELITE_HP_MULT : 1) * this.duoHpMult);
     // Panzer wächst mit der Gefahrenstufe des Gebiets (Marsch 1, ...), Bosse eine Stufe mehr
     const tier = state.content.zones?.[enc.zone]?.tier ?? 2;
     this.armor = enc.practice ? 0 : enc.armor ?? (enc.boss ? Math.min(ARMOR.boss, tier) : enc.elite ? Math.min(ARMOR.elite, tier - 1) : 0);
@@ -100,6 +117,7 @@ export class Combat {
     if (duo) this.fighters[2] = fighter(state.p2.hp, 2);
     this.actor = 1; // wer am Zug ist
     this.target = 1; // wen der Gegner gerade angreift
+    this.struck = []; // wen der Gegner in dieser Runde schon angegriffen hat (zu zweit jeden einmal)
     this.cur = null; // für wen die Werte gerade gelten (null = wer am Zug ist)
     this.stunned = false;
     this.round = 1;
@@ -195,6 +213,7 @@ export class Combat {
   /** Neue Runde: alle Spieler dürfen wieder handeln, Spieler 1 beginnt (wenn er steht). */
   startTurn() {
     for (const f of Object.values(this.fighters)) { f.actions = 0; f.itemUsed = false; }
+    this.struck = [];
     this.actor = this.fighters[1].down && this.duo ? 2 : 1;
   }
 
@@ -321,16 +340,21 @@ export class Combat {
   /** Nächste Attacke des Gegners, oder null, wenn er geblendet aussetzt. */
   nextEnemyAttack() {
     this.lastAction = null;
-    // Zu zweit greift der Gegner einen der stehenden Spieler an (allein immer dich)
+    // Zu zweit greift der Gegner jeden stehenden Spieler einmal pro Runde an, in zufälliger Reihenfolge
     const up = this.standing();
-    this.target = up.length > 1 ? up[Math.floor(this.rng() * up.length)] : up[0] ?? 1;
-    if (this.stunned) { this.stunned = false; return null; }
+    const fresh = up.filter((n) => !this.struck.includes(n));
+    const pool = fresh.length ? fresh : up;
+    this.target = pool.length > 1 ? pool[Math.floor(this.rng() * pool.length)] : pool[0] ?? 1;
+    this.struck.push(this.target);
+    // Geblendet oder verwirrt: die ganze Runde ist für den Gegner vorbei
+    if (this.stunned) { this.stunned = false; this.struck = [...up]; return null; }
     const list = this.enc.attacks;
     const atk = list[this.attackIndex % list.length];
     this.attackIndex += 1;
     if (this.confused) {
       // Verwirrt: der Gegner trifft sich selbst und greift diese Runde nicht an
       this.confused = false;
+      this.struck = [...up];
       this.selfHit = atk.action ? 0 : atk.damage * atk.hits.length;
       this.hurtEnemy(this.selfHit);
       return null;
@@ -357,6 +381,11 @@ export class Combat {
     this.lastAction = { name: atk.name, action: atk.action, value: v, text };
     this.log.push(`${atk.name}: ${text}`);
     return this.lastAction;
+  }
+
+  /** Zu zweit: greift der Gegner in dieser Runde noch einen anderen Spieler an? */
+  moreStrikes() {
+    return this.duo && !this.outcome && this.standing().some((n) => !this.struck.includes(n));
   }
 
   /** Ist der Gegner in Rage (wenig Leben)? */

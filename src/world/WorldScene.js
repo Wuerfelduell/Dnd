@@ -957,7 +957,7 @@ export class WorldScene extends Phaser.Scene {
       s.on('changed', refresh),
       s.on('conclusion', refresh),
       s.on('quest', refresh),
-      s.on('ascend', ({ pathway }) => this.playDrinkFx(pathway)),
+      s.on('ascend', ({ pathway, player }) => this.playDrinkFx(pathway, player)),
       s.on('unruhe', () => this.updateCracks()),
       s.on('party', () => { if (s.hasP2()) this.spawnP2(); else this.despawnP2(); }),
     );
@@ -1143,11 +1143,13 @@ export class WorldScene extends Phaser.Scene {
   // --- Paket A: Trank, Kessel, Aura, Kontrollrisse --------------------------------------
 
   /** Trinkanimation und Aufstiegs-Funken (nach erfolgreichem Trank). */
-  playDrinkFx(pathway) {
-    const p = this.player;
-    const done = () => { this.playerBusy = false; p.setTexture(this.playerKey, DIRS.indexOf(this.facing) * 4); this.updateAura(); };
-    if (playSheetAnim(p, 'player_drink', 'drink', done)) this.playerBusy = true;
-    else this.updateAura();
+  playDrinkFx(pathway, player = 1) {
+    const p = player === 2 && this.p2 ? this.p2 : this.player;
+    if (p === this.player) {
+      const done = () => { this.playerBusy = false; p.setTexture(this.playerKey, DIRS.indexOf(this.facing) * 4); this.updateAura(); };
+      if (playSheetAnim(p, 'player_drink', 'drink', done)) this.playerBusy = true;
+      else this.updateAura();
+    }
     if (!this.textures.exists('potion_ascend')) return;
     const fx = this.add.sprite(p.x, p.y - 12, 'potion_ascend').setDepth(p.depth + 1).setBlendMode(Phaser.BlendModes.ADD);
     const color = this.state.content.pathways[pathway]?.color;
@@ -1196,7 +1198,7 @@ export class WorldScene extends Phaser.Scene {
 
   /** Risse am Bildrand, wenn die Unruhe hoch ist (ab 50). */
   updateCracks() {
-    if (!this.textures.exists('control_cracks')) return;
+    if (!this.textures.exists('control_cracks') || this.state.acting === 2) return;
     const u = this.state.unruhe ?? 0;
     const frame = u >= 90 ? 3 : u >= 80 ? 2 : u >= 65 ? 1 : u >= 50 ? 0 : -1;
     if (frame < 0) { this.cracks?.setVisible(false); return; }
@@ -1439,14 +1441,15 @@ export class WorldScene extends Phaser.Scene {
 
   /** Hilfen für automatische Tests im Browser. */
   /** Paket P: Ritualkreis des Pfads unter dem Spieler, zeichnet sich auf, leuchtet eine Weile, verblasst. */
-  playRitual(pid) {
+  playRitual(pid, player = 1) {
     const key = `ritual_${pid}`;
     if (!this.textures.exists(key) || !this.player) return;
+    const who = player === 2 && this.p2 ? this.p2 : this.player;
     if (!this.anims.exists(`${key}_draw`)) {
       this.anims.create({ key: `${key}_draw`, frames: this.anims.generateFrameNumbers(key, { start: 0, end: 2 }), frameRate: 8, repeat: 0 });
       this.anims.create({ key: `${key}_loop`, frames: this.anims.generateFrameNumbers(key, { start: 3, end: 7 }), frameRate: 8, repeat: -1 });
     }
-    const circle = this.add.sprite(this.player.x, this.player.y - 4, key, 0).setDepth(5).setBlendMode(Phaser.BlendModes.ADD);
+    const circle = this.add.sprite(who.x, who.y - 4, key, 0).setDepth(5).setBlendMode(Phaser.BlendModes.ADD);
     circle.play(`${key}_draw`);
     circle.once('animationcomplete', () => circle.play(`${key}_loop`));
     let lit = true;
