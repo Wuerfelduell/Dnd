@@ -1301,3 +1301,42 @@ Sichtkontrolle: [Übersicht](preview-wexmoor6-overview.png),
 
 Grafiklieferung für Paket AM; Spielcode und andere Pakete bleiben unverändert.
 Einbindung und Timing-Abstimmung im laufenden Spiel erfolgen separat.
+
+## Batch AX — Dunscar-Gegner (`dunscar3`)
+
+84 PNGs für 6 normale Gegner, 5 Story-Bosse und 10 Sequenz-Prüfungsbosse:
+21 Kampf-Sheets, 21 Vier-Richtungs-Lauf-Sheets, 21 Bestiariumsbilder,
+15 Boss-Bänder und 6 Rufmuster/HUD-Sheets. Verbindliche IDs aus
+`codex_AX_dunscar_gegner.md`, Geschichte 3 und Pfadfarben aus den Sequenzdaten.
+
+- Manifest: `public/sprites/manifest-dunscar3.json`.
+- Tatsächlich verwendete Bildgenerator-Prompts und Quellprüfsummen:
+  `batch-dunscar3-generation.json`; Motivliste: `dunscar3-source-spec.json`.
+- Gemeinsame 32-Farben-Palette, indizierte PNGs, binäres Alpha und Nearest Neighbor.
+  Kampf: 6 Spalten, idle/attack/hurt/defeated = 4/6/3/4 Frames;
+  zusätzliche Phase-2-Reihe für Vielrufer, Gallowmere und alle Prüfungsbosse.
+  Unterschicht hat zusätzlich drei eigene Phasenreihen. Erste zwei Frames
+  jeder Angriffs-/Phasenreihe halten dieselbe Ausholpose (8 fps, 250 ms).
+- Karte: 16×32, vier Frames je Richtung unten/links/rechts/oben.
+  Grundlinien exklusiv: Karte 30, Kampf Framehöhe minus 2.
+- Bestiarium: 96×128; Boss-Band: 160×160 wie `S_08_boss_glockenmutter`.
+  Beide verwenden die erste Kampf-Ruhepose; Ableitung steht im Manifest.
+- Rufmuster: 16 geometrisch unterschiedliche Zeichen in 16×16 und exakt 2×
+  vergrößert; drei Statusrahmen ebenfalls in beiden Größen. Rufladungen:
+  48×16 pro Zustand (0–3), vertikal im 48×64-Sheet. Horchen: 16×16.
+  Die Zuordnung der Bildzeichen zu Story-Rufmustern erfolgt bei der Einbindung.
+- Schichtgänger schlafen nach der Niederlage; der Nachhall besteht aus
+  türkisen Konturen. Dessen Konturmaske entfernt neutrale Generatorreste
+  und normalisiert die Strichfarbe für bessere Lesbarkeit.
+
+Prüfung ohne Generatorquellen: `python tools/art/dunscar3/validate.py`.
+Erneuter Export mit Quellbelegen: `python tools/art/dunscar3/export.py RECEIPTS_DIR`.
+Ein Beleg pro Bild enthält `id`, `kind` (`battle`/`walk`), `path` und `prompt`.
+Export benötigt Pillow und NumPy, Prüfung Pillow. Quellen sind keine Runtime-Dateien.
+Ergebnis: `batch-dunscar3-validation.json`; alle 84 Assets bestehen die Prüfung.
+
+Sichtprüfung: [Gegner](batch-dunscar3-preview-normal.png),
+[Story-Bosse](batch-dunscar3-preview-story.png),
+[Prüfungsbosse](batch-dunscar3-preview-trials.png),
+[Rufmuster und HUD](batch-dunscar3-preview-ui.png).
+Spielcode und Storydaten bleiben unverändert; Einbindung erfolgt separat.
