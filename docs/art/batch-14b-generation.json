@@ -1,0 +1,94 @@
+{
+  "generator": "Built-in image_gen",
+  "date": "2026-11-09",
+  "jobs": [
+    {
+      "id": "battle_player",
+      "path": "battle/battle_player.png",
+      "size": [
+        288,
+        432
+      ],
+      "transparent": true,
+      "prompt": "STYLE GUIDE: Original Victorian industrial occult city mystery game. Pixel art with cozy-clean classic farming/life-sim readability but melancholic dark mood. Crisp hard-edged logical pixels, no antialias, no blur, no smooth gradients, no painted texture. Muted maximum 32-color palette: slate blue, fog grey, soot brown, moss, rust, brass, bone white; amber for lamps, teal #6fe0d0 for occult. Deep blue-grey 1 logical pixel outlines. 2-3 shading steps, top-left illumination, readable mid-brightness. Transparent alpha except opaque backgrounds. No text, labels, watermark, signature, grid lines, frames or UI borders. No franchise characters.\n\nSide-view battle animation sprite sheet, player investigator facing RIGHT, long dark grey coat, flat cap, scarf, satchel, pale face, short dark hair matching reference portrait. Exact sheet aspect ratio 2:3, 6 equal columns by 9 equal rows, each logical cell 48x48, final logical sheet 288x432. Render as enlarged nearest-neighbor pixels if needed. Consistent size and foot baseline inside every cell; no sprite crosses cell boundaries. Exact row contents left to right: row1 idle holding brass knob oak cane 4 frames then 2 EMPTY cells; row2 cane strike 6 frames windup swing impact recover; row3 revolver shot 5 frames then 1 EMPTY; row4 dodge backstep 4 then 2 EMPTY; row5 cane raised parry contact spark 4 then 2 EMPTY; row6 drinking small brown tonic bottle 4 then 2 EMPTY; row7 hurt recoil 3 then 3 EMPTY; row8 knocked down 4 then 2 EMPTY; row9 occult hand raised teal swirl 6 frames. Empty means fully transparent. Maintain same costume and identity. No labels. Reference supplied for character identity and palette only, not layout.",
+      "source": "exec-2cdd5a9d-ac9e-47c2-82fe-957cd315a29b.png"
+    },
+    {
+      "id": "enemy_holt",
+      "path": "battle/enemy_holt.png",
+      "size": [
+        288,
+        192
+      ],
+      "transparent": true,
+      "prompt": "STYLE GUIDE: Original Victorian industrial occult city mystery game. Pixel art with cozy-clean classic farming/life-sim readability but melancholic dark mood. Crisp hard-edged logical pixels, no antialias, no blur, no smooth gradients, no painted texture. Muted maximum 32-color palette: slate blue, fog grey, soot brown, moss, rust, brass, bone white; amber for lamps, teal #6fe0d0 for occult. Deep blue-grey 1 logical pixel outlines. 2-3 shading steps, top-left illumination, readable mid-brightness. Transparent alpha except opaque backgrounds. No text, labels, watermark, signature, grid lines, frames or UI borders. No franchise characters.\n\nSide-view human enemy battle sprite sheet facing LEFT, a heavyset desk sergeant in police-blue uniform with rolled sleeves and grey moustache, sparring with padded wooden practice truncheon, good-natured but serious. Exactly 6 columns x 4 rows, 48x48 logical pixels per cell, logical total 288x192. Same scale and baseline in all cells; generous transparent separation, no drawn grid. Row1 idle 4 frames then 2 transparent empty cells. Row2 attack 6 frames: identical held wind-up in first 2, swing third, contact fourth, recovery fifth sixth. Row3 hurt 3 then 3 empty. Row4 defeated 4 then 2 empty: laughing and raising a hand to yield, NEVER collapsing. No text.",
+      "source": "exec-7e052212-09ed-4414-99ce-da008ab52e6d.png"
+    },
+    {
+      "id": "enemy_nebelhund",
+      "path": "battle/enemy_nebelhund.png",
+      "size": [
+        384,
+        320
+      ],
+      "transparent": true,
+      "prompt": "STYLE GUIDE: Original Victorian industrial occult city mystery game. Pixel art with cozy-clean classic farming/life-sim readability but melancholic dark mood. Crisp hard-edged logical pixels, no antialias, no blur, no smooth gradients, no painted texture. Muted maximum 32-color palette: slate blue, fog grey, soot brown, moss, rust, brass, bone white; amber for lamps, teal #6fe0d0 for occult. Deep blue-grey 1 logical pixel outlines. 2-3 shading steps, top-left illumination, readable mid-brightness. Transparent alpha except opaque backgrounds. No text, labels, watermark, signature, grid lines, frames or UI borders. No franchise characters.\n\nSide-view supernatural enemy animation sheet facing LEFT: gaunt supernatural hound rising from canal fog, core of dark wet fur, body half drifting mist, two bright teal eyes. Exactly 6 equal columns and 5 equal rows, each cell 64x64 logical pixels, total 384x320. Constant ground baseline and size; no overlapping cells. Row1 4 breathing idle frames then 2 transparent empty cells. Row2 6 attack frames crouched windup then lunge bite and recover. Row3 6 special attack frames exhaling angular teal spectral mist. Row4 3 hurt recoil frames then 3 transparent empty cells. Row5 6 defeat frames dissolving into diminishing pixel fog; last frame few fading teal pixels. Use deliberate checker dithering for fog, no blur. Teal only bright color.",
+      "source": "exec-e8979a2c-1bcc-4c0b-a1db-09928d127010.png"
+    },
+    {
+      "id": "enemy_aschewaechter",
+      "path": "battle/enemy_aschewaechter.png",
+      "size": [
+        384,
+        320
+      ],
+      "transparent": true,
+      "prompt": "STYLE GUIDE: Original Victorian industrial occult city mystery game. Pixel art with cozy-clean classic farming/life-sim readability but melancholic dark mood. Crisp hard-edged logical pixels, no antialias, no blur, no smooth gradients, no painted texture. Muted maximum 32-color palette: slate blue, fog grey, soot brown, moss, rust, brass, bone white; amber for lamps, teal #6fe0d0 for occult. Deep blue-grey 1 logical pixel outlines. 2-3 shading steps, top-left illumination, readable mid-brightness. Transparent alpha except opaque backgrounds. No text, labels, watermark, signature, grid lines, frames or UI borders. No franchise characters.\n\nSide-view supernatural enemy battle animation sheet facing LEFT: tall humanoid of grey ash wearing scorched choir robe, teal embers in cracks, instead of a face a glowing teal eye inside a circle. Exactly 6 equal columns x 5 equal rows, each cell logical 64x64 pixels, total 384x320. Consistent scale and baseline; each silhouette wholly inside its cell. Row1 idle floating 4 frames then 2 transparent empty cells. Row2 attack 6 frames, held clear windup then clawlike arm sweep and recover. Row3 special attack 6 frames, raising arms and releasing teal occult ring. Row4 hurt 3 frames then 3 transparent empty cells. Row5 dissolving defeat 6 frames into grey ash heap and teal sparks. Pixel checker dithering not blur. Teal only bright color.",
+      "source": "exec-1d8f6d02-1b32-4dee-9466-5871dee9d975.png"
+    },
+    {
+      "id": "bg_revier",
+      "path": "battle/bg_revier.png",
+      "size": [
+        480,
+        270
+      ],
+      "transparent": false,
+      "prompt": "STYLE GUIDE: Original Victorian industrial occult city mystery game. Pixel art with cozy-clean classic farming/life-sim readability but melancholic dark mood. Crisp hard-edged logical pixels, no antialias, no blur, no smooth gradients, no painted texture. Muted maximum 32-color palette: slate blue, fog grey, soot brown, moss, rust, brass, bone white; amber for lamps, teal #6fe0d0 for occult. Deep blue-grey 1 logical pixel outlines. 2-3 shading steps, top-left illumination, readable mid-brightness. Transparent alpha except opaque backgrounds. No text, labels, watermark, signature, grid lines, frames or UI borders. No franchise characters.\n\nOpaque SIDE-VIEW turn-based battle background at exact 16:9 aspect ratio, logical 480x270 pixels. Police station training room, worn wooden floor, wall rack of truncheons, hanging punching bag at far right, barred window, soot brick and wooden wainscot, warm brass gas lantern. Main architectural details in top 200 pixels. Bottom 70 pixels an EMPTY flat horizontal floor strip across entire width for fighters; floor boundary at y=200. Keep central area uncluttered. Muted 32-color palette and crisp large logical pixels, no characters, no text. Readable flat 2-3 shade steps, no smooth lighting.",
+      "source": "exec-6db7733e-c3e0-4524-b1b6-5ffa86dade8d.png"
+    },
+    {
+      "id": "bg_ashgrove",
+      "path": "battle/bg_ashgrove.png",
+      "size": [
+        480,
+        270
+      ],
+      "transparent": false,
+      "prompt": "STYLE GUIDE: Original Victorian industrial occult city mystery game. Pixel art with cozy-clean classic farming/life-sim readability but melancholic dark mood. Crisp hard-edged logical pixels, no antialias, no blur, no smooth gradients, no painted texture. Muted maximum 32-color palette: slate blue, fog grey, soot brown, moss, rust, brass, bone white; amber for lamps, teal #6fe0d0 for occult. Deep blue-grey 1 logical pixel outlines. 2-3 shading steps, top-left illumination, readable mid-brightness. Transparent alpha except opaque backgrounds. No text, labels, watermark, signature, grid lines, frames or UI borders. No franchise characters.\n\nOpaque SIDE-VIEW battle background, exact 16:9 aspect, logical 480x270 pixels. Ashgrove Lane, foggy Victorian cobblestone street at night with wrought iron gas lamps and a canal bridge in mid-background, soot brick distant buildings and dark canal. Layered silhouettes for depth. Bottom 70 pixels EMPTY flat readable cobblestone fighting ground across entire width, boundary y=200; no objects there. Warm amber small gas lights, slate fog, muted blues browns, crisp large pixel shapes and 2-3 shade bands, no smooth gradient. No characters, no text.",
+      "source": "exec-eb741a56-4daf-4165-9f78-c392ee7850c9.png"
+    },
+    {
+      "id": "bg_krypta",
+      "path": "battle/bg_krypta.png",
+      "size": [
+        480,
+        270
+      ],
+      "transparent": false,
+      "prompt": "STYLE GUIDE: Original Victorian industrial occult city mystery game. Pixel art with cozy-clean classic farming/life-sim readability but melancholic dark mood. Crisp hard-edged logical pixels, no antialias, no blur, no smooth gradients, no painted texture. Muted maximum 32-color palette: slate blue, fog grey, soot brown, moss, rust, brass, bone white; amber for lamps, teal #6fe0d0 for occult. Deep blue-grey 1 logical pixel outlines. 2-3 shading steps, top-left illumination, readable mid-brightness. Transparent alpha except opaque backgrounds. No text, labels, watermark, signature, grid lines, frames or UI borders. No franchise characters.\n\nOpaque SIDE-VIEW battle background, exact 16:9 aspect, logical 480x270 pixels. Underground Victorian crypt, soot-grey stone burial niches and arches, clusters of candles along back wall, faint teal eye-in-circle ritual chalk ring on distant back floor near wall. Bottom 70 pixels EMPTY flat readable stone fighting ground across entire width, boundary y=200, no candles or obstacles in this bottom strip. Central area clear for combat silhouettes. Muted palette, crisp logical pixels, 2-3 flat shade bands, small amber candle flames and rare teal accent, no smooth glow. No characters, no text.",
+      "source": "exec-b5f16978-a244-4e8c-be15-582f637809e9.png"
+    },
+    {
+      "id": "items_14b",
+      "path": "items/14b_items.png",
+      "size": [
+        64,
+        32
+      ],
+      "transparent": true,
+      "prompt": "STYLE GUIDE: Original Victorian industrial occult city mystery game. Pixel art with cozy-clean classic farming/life-sim readability but melancholic dark mood. Crisp hard-edged logical pixels, no antialias, no blur, no smooth gradients, no painted texture. Muted maximum 32-color palette: slate blue, fog grey, soot brown, moss, rust, brass, bone white; amber for lamps, teal #6fe0d0 for occult. Deep blue-grey 1 logical pixel outlines. 2-3 shading steps, top-left illumination, readable mid-brightness. Transparent alpha except opaque backgrounds. No text, labels, watermark, signature, grid lines, frames or UI borders. No franchise characters.\n\nInventory pixel art item icon atlas, exactly 4 columns x 2 rows of equal square cells. Each logical cell 16x16, logical atlas 64x32. Seven icons and one empty transparent cell. Row1 left to right: (1) plain oak walking cane with rounded brass knob diagonal, (2) black police truncheon with leather wrist strap diagonal, (3) silver-plated cane sword partly drawn from dark cane diagonal, (4) rolled linen bandage. Row2 left to right: (5) brown pharmacist tonic bottle cork cream label no writing, (6) small open round smelling salts tin with pale crystals, (7) small cloth pouch of white warding salt with tiny teal sparkle, (8) EMPTY transparent. Each icon centered in 16x16 logical cell, 1 pixel dark outline, clear transparent margin. Pixel clusters must remain legible at tiny 16x16. No additional items no grid no text. Render enlarged hard pixel blocks, avoid fine details.",
+      "source": "exec-e72f11c6-41da-4893-be85-240795d31c2d.png"
+    }
+  ]
+}
