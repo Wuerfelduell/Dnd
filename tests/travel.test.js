@@ -11,7 +11,8 @@ const seq = (...vals) => { let i = 0; return () => vals[i++ % vals.length]; };
 const rules = content.travelRules;
 
 test('Daten: Pins, Ereignisse, Beute und Gegner passen zusammen', () => {
-  for (const t of content.travel) assert.ok(rules.pins[t.map], `Pin fehlt für ${t.map}`);
+  // Wexmoor (Kapitel 2) hat noch keine gemalte Karte: Ziele stehen dort als Liste
+  for (const t of content.travel) if ((t.city ?? 'kettlegate') === 'kettlegate') assert.ok(rules.pins[t.map], `Pin fehlt für ${t.map}`);
   for (const [x, y] of Object.values(rules.pins)) assert.ok(x >= 8 && x <= 472 && y >= 8 && y <= 262);
   for (const ev of rules.events) {
     if (ev.encounter) assert.ok(content.encounters[ev.encounter], `Gegner fehlt: ${ev.encounter}`);
@@ -51,7 +52,7 @@ test('Schnell und gefährlich: kostet Nerven, gesperrt bei zu wenig', () => {
 test('Schnell: Fundstück gibt Beute, Taschendieb nimmt Geld', () => {
   const s = fresh();
   const pickEvent = (id) => {
-    const pool = rules.events.filter((e) => s.meets(e));
+    const pool = rules.events.filter((e) => !e.city && s.meets(e));
     const total = pool.reduce((a, e) => a + e.weight, 0);
     let acc = 0;
     for (const e of pool) { if (e.id === id) return (acc + e.weight / 2) / total; acc += e.weight; }

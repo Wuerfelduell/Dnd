@@ -1,6 +1,7 @@
 // Reiner Spielzustand ohne Phaser-Abhängigkeit, damit er auch in Node-Tests läuft.
 import { pathwayMethods } from './Pathways.js';
 import { gatheringMethods } from './Gatherings.js';
+import { wantedMethods } from './Wanted.js';
 import { artifactMethods } from './Artifacts.js';
 
 /** Tragkraft in Pfund. Gegenstände ohne eigenes "weight" wiegen je nach Art so viel. */
@@ -57,6 +58,8 @@ export class GameState {
     this.tracked = s.quests?.[0] ?? null;
     this.resetPathway();
     this.resetGatherings();
+    this.resetWanted();
+    this.pendingTravel = null;
   }
 
   // --- Events -------------------------------------------------------------
@@ -278,6 +281,8 @@ export class GameState {
     // Unruhe trifft nur Beyonder; wer keinen Trank hat, verliert stattdessen Nerven.
     if (e.unruhe) { if (this.isBeyonder()) this.setUnruhe(this.unruhe + e.unruhe); else this.setComposure(this.composure - e.unruhe); }
     if (e.combat) this.startCombat(e.combat);
+    if (Number.isFinite(e.wanted) && this.content.police) this.setWanted(Math.max(this.wanted, e.wanted), e.wanted_reason ?? ''); // Fahndung hochsetzen (Ausbruch, Flucht)
+    if (e.travel) this.pendingTravel = e.travel; // Ortswechsel nach dem Fenster (z. B. aus der Zelle)
     if (gained.length || e.sets_flags || e.start_quests || e.complete_quests || e.honor || e.gives_items || e.takes_items || e.gives_money || e.takes_money) this.emit('changed');
     return gained;
   }
@@ -562,6 +567,7 @@ export class GameState {
     if (this.composure !== before) this.emit('composure', this.composure);
     this.tickPathway(dtSeconds);
     this.tickGatherings(dtSeconds);
+    this.tickWanted(dtSeconds);
   }
 
   // --- Speichern -------------------------------------------------------------------------
@@ -584,6 +590,7 @@ export class GameState {
       tracked: this.tracked,
       ...this.serializePathway(),
       ...this.serializeGatherings(),
+      ...this.serializeWanted(),
     };
   }
 
@@ -612,9 +619,10 @@ export class GameState {
     // Ab Version 4: Schilling, Pfad und Unruhe
     if (data.v >= 4) this.loadPathway(data);
     this.loadGatherings(data);
+    this.loadWanted(data);
     if (!this.content.maps[this.map]) { this.map = this.content.start.map; this.position = null; }
     return true;
   }
 }
 
-Object.assign(GameState.prototype, pathwayMethods, artifactMethods, gatheringMethods);
+Object.assign(GameState.prototype, pathwayMethods, artifactMethods, gatheringMethods, wantedMethods);

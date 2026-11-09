@@ -76,6 +76,155 @@
       "title": "Sternkarten",
       "text": "Starling hat einen Stern rot eingekreist, auf jeder Karte ein Stück weiter im Zentrum. Daneben in winziger Schrift: „Kommt näher. Warum?“",
       "done_flag": "read_charts"
+    },
+    {
+      "id": "lenses9",
+      "clue": "packed_lenses",
+      "tile": [
+        14,
+        3
+      ],
+      "prompt": "Die Linsenkästen ansehen",
+      "visible_if": {
+        "requires_quests_active": [
+          "case_09"
+        ]
+      }
+    },
+    {
+      "id": "letters9",
+      "clue": "letters9",
+      "tile": [
+        13,
+        3
+      ],
+      "sprite": "paper",
+      "prompt": "Die Briefentwürfe lesen",
+      "visible_if": {
+        "requires_quests_active": [
+          "case_09"
+        ]
+      }
+    },
+    {
+      "id": "blotter9",
+      "clue": "blotter9",
+      "tile": [
+        7,
+        3
+      ],
+      "prompt": "Das Löschpapier ansehen",
+      "visible_if": {
+        "requires_quests_active": [
+          "case_09"
+        ]
+      }
+    },
+    {
+      "id": "karte9",
+      "clue": "sternkarte9",
+      "tile": [
+        4,
+        4
+      ],
+      "sprite": "paper",
+      "prompt": "Die neueste Sternkarte ansehen",
+      "visible_if": {
+        "requires_quests_active": [
+          "case_09"
+        ]
+      }
+    },
+    {
+      "id": "ledger9",
+      "clue": "ledger9",
+      "tile": [
+        2,
+        10
+      ],
+      "hidden": true,
+      "prompt": "Hinter den Büchern nachsehen",
+      "visible_if": {
+        "requires_quests_active": [
+          "case_09"
+        ]
+      }
+    },
+    {
+      "id": "scope9",
+      "clue": "scope9",
+      "tile": [
+        8,
+        6
+      ],
+      "prompt": "Durch das Teleskop nach oben schauen",
+      "visible_if": {
+        "requires_quests_active": [
+          "case_09"
+        ]
+      }
+    },
+    {
+      "id": "sternlicht9",
+      "kind": "combat",
+      "encounter": "sternlicht",
+      "tile": [
+        8,
+        9
+      ],
+      "sprite": "apparition",
+      "marker": false,
+      "prompt": "Dem Licht entgegengehen",
+      "visible_if": {
+        "requires_flags": [
+          "case_09_showdown"
+        ],
+        "hide_if_flags": [
+          "sternlicht_defeated"
+        ]
+      }
+    },
+    {
+      "id": "starling9",
+      "kind": "combat",
+      "encounter": "starling_fight",
+      "tile": [
+        12,
+        7
+      ],
+      "sprite": "npc:astronom",
+      "marker": true,
+      "prompt": "Professor Starling stellen",
+      "visible_if": {
+        "requires_flags": [
+          "case_09_showdown",
+          "sternlicht_defeated"
+        ],
+        "hide_if_flags": [
+          "starling_beaten"
+        ]
+      }
+    },
+    {
+      "id": "spiegel9",
+      "kind": "dialogue",
+      "dialogue": "sternspiegel9",
+      "title": "Der Spiegel des Teleskops",
+      "role": "",
+      "tile": [
+        9,
+        7
+      ],
+      "marker": true,
+      "prompt": "Vor den Spiegel treten",
+      "visible_if": {
+        "requires_flags": [
+          "starling_beaten"
+        ],
+        "hide_if_flags": [
+          "case_09_closed"
+        ]
+      }
     }
   ],
   "npcs": [
@@ -85,7 +234,12 @@
         12,
         7
       ],
-      "facing": "left"
+      "facing": "left",
+      "visible_if": {
+        "hide_if_flags": [
+          "briefed_09"
+        ]
+      }
     }
   ],
   "tiles": "sternwarte",

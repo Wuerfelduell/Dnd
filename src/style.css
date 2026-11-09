@@ -247,6 +247,8 @@ button.small { font-size: 0.8em; padding: 0.1em 0.5em; }
 .dfill { height: 100%; background: var(--gold); }
 @keyframes pulse { from { opacity: 0.6; } to { opacity: 1; } }
 .money { margin-top: 0.3em; font-size: 0.8em; color: var(--gold); }
+.fahndung { margin-top: 0.2em; text-shadow: 0 0.125em 0 #000; font-size: 0.8em; color: #9aa4a8; letter-spacing: 0.05em; }
+.fahndung.hot { color: #ff9a60; }
 .notebook .lead { color: var(--ink); font-size: 0.85em; margin: 0.3em 0 0.6em; }
 .notebook .paths li, .notebook .seqs li { font-size: 0.85em; padding: 0.3em 0.5em; border: 0.125em solid #2a2630; }
 .notebook .seqs li.locked { opacity: 0.55; }
@@ -325,6 +327,8 @@ button.small { font-size: 0.8em; padding: 0.1em 0.5em; }
 .citymap .pin:hover .tag, .citymap .pin.sel .tag, .citymap .pin.here .tag { opacity: 1; }
 .citymap .pin.here .tag { color: var(--occult); }
 .citymap .unpinned { position: absolute; right: 0.6em; top: 0.6em; display: grid; gap: 0.2em; }
+.citymap .map.plain { background: radial-gradient(ellipse at 50% 40%, #2a3328 0%, #141a14 60%, #0a0d0a 100%); }
+.citymap .map.plain .unpinned { left: 50%; right: auto; top: 45%; transform: translate(-50%, -50%); min-width: 22em; gap: 0.4em; }
 .citymap .mapbar { position: absolute; left: 0.5em; right: 0.5em; bottom: 0.4em; display: flex; gap: 0.6em; align-items: center;
   background: var(--panel); border: 0.125em solid var(--brass); padding: 0.15em 0.5em; }
 .citymap .mapbar .info { flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
@@ -498,3 +502,20 @@ button.small.drop.armed { border-color: #c8826a; color: #ffb09a; }
 @supports not selector(::-webkit-scrollbar) {
   #ui * { scrollbar-width: thin; scrollbar-color: var(--brass) #120f16; }
 }
+
+/* Paket N: Artefakt-Oberfläche (ui/N_artefakt_ui.png, 128x64) */
+.item-icon.pulse { display: inline-block; background-size: 32px 16px; background-repeat: no-repeat; animation: iconpulse 0.66s steps(1) infinite; }
+@keyframes iconpulse { 0% { background-position: 0 0; } 50% { background-position: -16px 0; } }
+.artmark { display: inline-block; width: 8px; height: 8px; margin-right: 4px; vertical-align: 0; image-rendering: pixelated;
+  background: var(--artui) no-repeat; }
+.artmark.plus { background-position: -64px 0; }
+.artmark.minus { background-position: -72px 0; }
+.artslots { display: inline-flex; gap: 2px; vertical-align: middle; margin-right: 0.5em; }
+.artslot { position: relative; display: inline-block; width: 20px; height: 20px; image-rendering: pixelated; background: var(--artui) no-repeat 0 0; }
+.artslot.equipped { background-position: -20px 0; }
+.artslot.overloaded { background-position: -40px 0; }
+.artslot img { position: absolute; left: 4px; top: 4px; image-rendering: pixelated; }
+.meter.unruhe .bar { width: 8em; height: 1em; border: none; image-rendering: pixelated; background: var(--artui) no-repeat 0 -3em / 16em 8em; }
+.meter.unruhe .ufill { background: var(--artui) no-repeat 0 -5em / 16em 8em; animation: unrestfill 0.5s steps(1) infinite; }
+.meter.unruhe .ufill.low { filter: brightness(1.25) saturate(1.3); }
+@keyframes unrestfill { 0% { background-position: 0 -5em; } 25% { background-position: -8em -5em; } 50% { background-position: 0 -6em; } 75% { background-position: -8em -6em; } }

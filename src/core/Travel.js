@@ -19,6 +19,17 @@ export function travelData(state) {
   return state.content.travelRules;
 }
 
+/** Stadt einer Karte (Kapitel 2: Wexmoor). Alles ohne Feld `city` gehört zu Kettlegate. */
+export function cityOf(state, mapId) {
+  return state.content.maps[mapId]?.city ?? 'kettlegate';
+}
+
+/** Reiseziele, die von dieser Karte aus auf der Stadtkarte stehen: nur die eigene Stadt. */
+export function travelDestinations(state, current) {
+  const city = cityOf(state, current);
+  return state.content.travel.filter((t) => t.map !== current && (t.city ?? 'kettlegate') === city && state.meets(t));
+}
+
 /** Darf der schnelle Weg genommen werden? */
 export function canHurry(state) {
   if (state.isOverloaded?.()) return false;
@@ -72,7 +83,8 @@ export function rollLoot(state, tableId, rng = Math.random) {
 export function travelFast(state, rng = Math.random) {
   const rules = travelData(state);
   state.setComposure(state.composure - rules.modes.schnell.nerves_cost);
-  const ev = weighted(rules.events.filter((e) => state.meets(e)), rng);
+  const city = cityOf(state, state.map);
+  const ev = weighted(rules.events.filter((e) => (e.city ?? 'kettlegate') === city && state.meets(e)), rng);
   const out = { ...ev };
   if (ev.takes_money) {
     const before = state.money;

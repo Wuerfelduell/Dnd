@@ -12,8 +12,8 @@ const ZONES = Object.keys(content.zones);
 /** Feste Zufallsfolge für reproduzierbare Würfe. */
 const seq = (...values) => { let i = 0; return () => values[i++ % values.length]; };
 
-test('vier Gefahrengebiete mit Karte, Reiseziel, vielen Gegnern und einem Boss', () => {
-  assert.deepEqual(ZONES, ['marsch', 'katakomben', 'pestgassen', 'kraterwald']);
+test('sechs Gefahrengebiete (zwei in Wexmoor) mit Karte, Reiseziel, vielen Gegnern und einem Boss', () => {
+  assert.deepEqual(ZONES, ['marsch', 'katakomben', 'pestgassen', 'kraterwald', 'wx_vergessmoor', 'wx_leuchtturm']);
   for (const zid of ZONES) {
     const map = content.maps[zid];
     assert.ok(map, zid);

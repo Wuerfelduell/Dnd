@@ -5,22 +5,22 @@ import {
   portraitUrl, portraitFor, mapMarkerOf, LOG_MARKERS, LOG_MARKERS_URL, SOURCE_ICONS, SPRITE_BASE,
   endingImageUrl, caseFileUrl, sceneUrl, wantedUrl, QUEST_UI_URL, QUEST_PINS, QUEST_BANNERS,
   TURN_PORTRAITS, TURN_PORTRAITS_URL, TURN_PORTRAIT_URLS, BESTIARY, bestiaryUrl,
-  headUrl, ZIRKEL_URL, ZIRKEL_ICONS, sourceKind, sourceKindUrl, inspectUrl, RISK_ICONS, RISK_ICONS_URL, JOURNAL_FRAME, JOURNAL_FRAME_URL, choiceRisk, riskOf,
+  headUrl, ZIRKEL_URL, ZIRKEL_ICONS, skillIconOf, PULSE_ICONS, ARTIFACT_UI_URL, sourceKind, sourceKindUrl, inspectUrl, RISK_ICONS, RISK_ICONS_URL, JOURNAL_FRAME, JOURNAL_FRAME_URL, choiceRisk, riskOf,
   factionEmblemUrl, TRAVEL_MODES_URL, TRAVEL_MODE_ICONS, TRAVEL_MARKER_URL,
   DANGER_URL, DANGER_ICONS, DANGER_BANNER, RARITY_SHEET, RARITY_SHEET_URL, RARITY_GEMS,
 } from '../world/assets.js';
 import { sourceOf } from '../core/sources.js';
 import { caseHints, nextDeduction } from '../core/hints.js';
 import { isSolved, knownPeople } from '../core/journal.js';
-import { canHurry, travelSafe, travelFast, afterHurryFight } from '../core/Travel.js';
+import { canHurry, travelSafe, travelFast, afterHurryFight, travelDestinations, cityOf } from '../core/Travel.js';
 import { questTarget } from '../core/Guide.js';
 
 /** 16x16-Icon vor einem Item-Namen. Lädt es nicht, verschwindet es einfach. */
-const itemIcon = (id) => `<img class="item-icon" src="${itemIconUrl(id)}" alt="" width="16" height="16" onerror="this.remove()">`;
+const itemIcon = (id) => (PULSE_ICONS[id] ? `<span class="item-icon pulse" style="background-image:url(${PULSE_ICONS[id]})"></span>` : `<img class="item-icon" src="${itemIconUrl(id)}" alt="" width="16" height="16" onerror="this.remove()">`);
 /** Größeres Icon (Tränke in 32px, sonst das 16er doppelt). */
 const itemIconBig = (id) => `<img class="item-icon big" src="${itemIcon32Url(id) ?? itemIconUrl(id)}" alt="" width="32" height="32" onerror="this.remove()">`;
 /** Vor- und Nachteile eines Artefakts als kleine Liste. */
-const artifactEffectsHtml = (it) => `<span class="arteffects">${(it.boons ?? []).map((x) => `<span class="boon">+ ${esc(x.text)}</span>`).join('')}${(it.curses ?? []).map((x) => `<span class="curse">− ${esc(x.text)}</span>`).join('')}</span>`;
+const artifactEffectsHtml = (it) => `<span class="arteffects">${(it.boons ?? []).map((x) => `<span class="boon"><i class="artmark plus"></i>${esc(x.text)}</span>`).join('')}${(it.curses ?? []).map((x) => `<span class="curse"><i class="artmark minus"></i>${esc(x.text)}</span>`).join('')}</span>`;
 const emblem = (pid, size = 16) => `<img class="emblem" src="${pathwayEmblemUrl(pid, size)}" alt="" width="${size}" height="${size}" onerror="this.remove()">`;
 /** 16x16-Zelle aus einem Icon-Atlas (Fähigkeiten: 7 Spalten, Zustände: 12 Spalten). */
 const atlasIcon = (url, index, cols, title = '') => (index === undefined ? ''
@@ -31,7 +31,13 @@ const turnFace = (id) => {
   const [url, cols] = TURN_PORTRAIT_URLS[id] ?? [TURN_PORTRAITS_URL, 19];
   return `<span class="turnface" style="background-image:url(${url});background-size:${cols * 2}em 2em;background-position:-${TURN_PORTRAITS[id] * 2}em 0"></span>`;
 };
-const skillIcon = (id) => atlasIcon(SKILL_ICONS_URL, SKILL_ICONS[id], 7);
+const skillIcon = (id) => { const ic = skillIconOf(id); return ic ? atlasIcon(ic[0], ic[1], 7) : ''; };
+/** Artefakt-Slots (20x20 aus ui/N_artefakt_ui.png), angelegte mit Icon in der Öffnung. */
+const artifactSlots = (ids, max, overloaded) => Array.from({ length: Math.max(max, ids.length) }, (_, i) => {
+  const id = ids[i];
+  const kind = !id ? 'empty' : overloaded ? 'overloaded' : 'equipped';
+  return `<span class="artslot ${kind}">${id ? `<img src="${itemIconUrl(id)}" alt="" width="12" height="12">` : ''}</span>`;
+}).join('');
 const statusIcon = (id, title) => atlasIcon(STATUS_ICONS_URL, STATUS_ICONS[id], 12, title);
 const mapMarker = (map) => { const [url, i, cols] = mapMarkerOf(map); return atlasIcon(url, i, cols); };
 /** Portrait (64x64 aus einem 256x64-Streifen) für den Dialog. */
@@ -125,6 +131,7 @@ export const STATUS_LABEL = { suspected: 'Vermutung', likely: 'sehr wahrscheinli
 export class Ui {
   constructor(root, state, { onNewGame, onContinue, hasSave }) {
     this.root = root;
+    root.style.setProperty('--artui', `url(${new URL(ARTIFACT_UI_URL, document.baseURI).href})`);
     this.state = state;
     this.onNewGame = onNewGame;
     this.onContinue = onContinue;
@@ -145,6 +152,7 @@ export class Ui {
           <div class="meter unruhe hidden"><span>Unruhe</span><div class="bar"><div class="ufill"></div></div></div>
           <div class="money"></div>
           <div class="overload hidden"></div>
+          <div class="fahndung hidden"></div>
           <div class="treffen hidden"></div>
           <div class="goal hidden"></div>
         </div>
@@ -195,6 +203,10 @@ export class Ui {
       this.toast(`${delta > 0 ? '+' : ''}${delta} Schilling${reason ? `: ${reason}` : ''}`, delta > 0 ? 'item' : 'warn');
     });
     state.on('unruhe', () => this.updateUnruhe());
+    state.on('wanted', ({ level, delta, reason }) => {
+      this.updateWanted();
+      this.toast(`Fahndungsstufe ${level}${reason ? `: ${reason}` : ''}`, delta > 0 ? 'warn' : 'item');
+    });
     this.digestAcc = {};
     state.on('digest', ({ delta, kind }) => {
       this.updateUnruhe();
@@ -250,6 +262,7 @@ export class Ui {
     this.updateHp();
     this.updateMoney();
     this.updateUnruhe();
+    this.updateWanted();
     this.updateGoal();
     this.updateLoad();
   }
@@ -292,6 +305,18 @@ export class Ui {
     const heavy = this.state.isOverloaded();
     el.classList.toggle('hidden', !heavy);
     if (heavy) el.textContent = `Überladen · ${this.state.carryText()}`;
+  }
+
+  /** Kapitel 2: Fahndungsstufe im HUD, nur in Wexmoor. */
+  updateWanted() {
+    const el = this.$('.fahndung');
+    const s = this.state;
+    const r = s.policeRules?.();
+    const show = !!r && s.content.maps[s.map]?.city === 'wexmoor';
+    el.classList.toggle('hidden', !show);
+    if (!show) return;
+    el.classList.toggle('hot', s.wanted > 0);
+    el.textContent = `Fahndung ${'★'.repeat(s.wanted)}${'☆'.repeat(r.max_level - s.wanted)}`;
   }
 
   updateMoney() {
@@ -389,12 +414,21 @@ export class Ui {
       const id = this.pendingEnding;
       this.pendingEnding = null;
       this.showEnding(id);
+    } else if (this.pendingChapter) {
+      // Kapitelende (z. B. Fall 9): eigene Tafel nach dem Schlussbild
+      const ch = this.pendingChapter;
+      this.pendingChapter = null;
+      this.showMessage(ch.title, ch.text, { footer: ch.footer ?? '' });
     } else if (this.pendingLost) {
       const text = this.pendingLost;
       this.pendingLost = null;
       this.showMessage('Kontrollverlust', text);
     } else if (this.state.pendingCombat && this.scene) {
       this.scene.startCombat(this.state.pendingCombat);
+    } else if (this.state.pendingTravel && this.scene) {
+      const t = this.state.pendingTravel;
+      this.state.pendingTravel = null;
+      this.scene.travelTo(t.map, t.spawn);
     } else if (this.afterClose) {
       const after = this.afterClose;
       this.afterClose = null;
@@ -549,8 +583,11 @@ export class Ui {
   /** Gemalte Stadtkarte: Marker für jeden freigeschalteten Ort, danach die Reiseart. */
   openTravel(current) {
     const s = this.state;
-    const rules = s.content.travelRules;
-    const dests = s.content.travel.filter((t) => t.map !== current && s.meets(t));
+    const all = s.content.travelRules;
+    // Kapitel 2: Jede Stadt hat ihre eigene Karte (Wexmoor vorerst ohne gemaltes Bild, nur Ziele als Liste).
+    const cityRules = all.cities?.[cityOf(s, current)];
+    const rules = cityRules ? { ...cityRules, pins: cityRules.pins ?? {} } : all;
+    const dests = travelDestinations(s, current);
     this.travelDests = dests;
     this.travelPick = null;
     this.travelFrom = current;
@@ -569,14 +606,14 @@ export class Ui {
     const destPins = dests.map((d, i) => (pins[d.map] ? pin(d.map, '', `<span class="num">${i + 1}</span><span class="tag">${esc(d.name)}</span>`, `data-i="${i}"`) : '')).join('');
     const unpinned = dests.map((d, i) => (pins[d.map] ? '' : `<button data-i="${i}"><span class="key">${i + 1}</span> ${esc(d.name)}</button>`)).join('');
     const el = this.open('travel', `
-      <div class="map" style="background-image:url(${SPRITE_BASE}${rules.map_image})">
+      <div class="map${rules.map_image ? '' : ' plain'}"${rules.map_image ? ` style="background-image:url(${SPRITE_BASE}${rules.map_image})"` : ''}>
         ${rules.fog_image ? '<canvas class="fog" width="480" height="270"></canvas>' : ''}
         ${here}${destPins}
         ${unpinned ? `<div class="unpinned">${unpinned}</div>` : ''}
       </div>
       <div class="modes hidden"></div>
       <div class="mapbar">
-        <div class="info"><h3>Stadtkarte von Kettlegate</h3><span class="muted">${goal?.map ? `Ziel: ${esc(this.goalText(goal))}` : 'Wähle ein Ziel mit Zahl oder Klick.'}</span></div>
+        <div class="info"><h3>${esc(rules.title ?? 'Stadtkarte von Kettlegate')}</h3><span class="muted">${goal?.map ? `Ziel: ${esc(this.goalText(goal))}` : 'Wähle ein Ziel mit Zahl oder Klick.'}</span></div>
         <button data-act="stay"><span class="key">Esc</span> Hierbleiben</button>
       </div>`, 'citymap');
     el.querySelectorAll('[data-i]').forEach((b) => {
@@ -618,6 +655,11 @@ export class Ui {
     if (!d) return;
     const s = this.state;
     const rules = s.content.travelRules;
+    if (d.direct) { // Zugfahrt zwischen den Städten: keine Reiseart, direkt hin
+      this.close();
+      this.scene.travelTo(d.map, d.spawn);
+      return;
+    }
     this.travelPick = d;
     this.travelInfo(d);
     const el = this.layer.querySelector('.citymap');
@@ -822,7 +864,7 @@ export class Ui {
       return `<li class="item"><div>${it.kind === 'potion' || it.kind === 'formula' ? itemIconBig(it.id) : itemIcon(it.id)}<strong>${esc(it.name)}</strong>${it.count > 1 ? ` ×${it.count}` : ''}${stat}<br><span class="desc">${esc(it.desc)}</span>${effects}</div><div>${action}</div></li>`;
     }).join('');
     const arts = s.artifacts.length || list.some((it) => it.kind === 'artifact')
-      ? `<div class="status">Artefakte angelegt <strong>${s.artifacts.length}/${s.artifactRules().max_active ?? 3}</strong>${s.artifactUnruhe() ? ` · <span class="curse">Unruhe +${Math.round(s.artifactUnruhe() * 10) / 10} pro Sekunde</span>` : ''} · Anlegen bringt Unruhe, Ablegen kostet Nerven.</div>` : '';
+      ? `<div class="status"><span class="artslots">${artifactSlots(s.artifacts, s.artifactRules().max_active ?? 3, s.unruhe >= 60)}</span>Artefakte angelegt <strong>${s.artifacts.length}/${s.artifactRules().max_active ?? 3}</strong>${s.artifactUnruhe() ? ` · <span class="curse">Unruhe +${Math.round(s.artifactUnruhe() * 10) / 10} pro Sekunde</span>` : ''} · Anlegen bringt Unruhe, Ablegen kostet Nerven.</div>` : '';
     return `
       ${carryHtml(s)}
       <div class="status">Leben <strong>${s.hp}/${s.maxHp}</strong> · Nerven <strong>${Math.round(s.composure)}/${s.maxComposure()}</strong> · Waffe <strong>${esc(w.name)}</strong> (Angriff ${w.atk}) · ${coin}<strong>${s.money}</strong> Schilling</div>
@@ -1273,7 +1315,7 @@ export class Ui {
       this.layer.querySelector('.cb-help').textContent = '';
     } else if (sub === 'skills') {
       entries = c.skills().filter((k) => k.id !== 'attack').map((k) => ({
-        text: `${k.pathway && SKILL_ICONS[k.id] === undefined ? '✧ ' : ''}${k.name}`, skill: k.id, info: `${k.cost} K${k.composure ? ` · ${k.composure} Nerven` : ''}`, desc: k.desc, act: { type: 'skill', id: k.id }, disabled: !k.usable,
+        text: `${k.pathway && !skillIconOf(k.id) ? '✧ ' : ''}${k.name}`, skill: k.id, info: `${k.cost} K${k.composure ? ` · ${k.composure} Nerven` : ''}`, desc: k.desc, act: { type: 'skill', id: k.id }, disabled: !k.usable,
       }));
     } else {
       entries = this.state.items().filter((i) => i.kind === 'consumable').map((i) => ({ text: `${i.name} ×${i.count}`, icon: i.id, desc: i.desc, act: { type: 'item', id: i.id } }));
@@ -1347,6 +1389,7 @@ export class Ui {
     // Schlussbild als Hintergrund (480x270)
     const img = endingImageUrl(id, end.case);
     if (img) { el.classList.add('with-image'); el.style.backgroundImage = `linear-gradient(rgba(10, 8, 14, 0.3), rgba(10, 8, 14, 0.85) 50%), url(${img})`; }
+    if (end.chapter) this.pendingChapter = end.chapter;
     el.querySelector('[data-act=ok]').onclick = () => this.close();
   }
 

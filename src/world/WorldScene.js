@@ -5,6 +5,7 @@ import { Lighting, DEPTH } from './Lighting.js';
 import { preloadSprites, playSheetAnim, themeKeys, facadeKeys, PROP_ORIGINS, MAP_WEATHER } from './assets.js';
 import { Roamers } from './Roamers.js';
 import { Critters } from './Critters.js';
+import { Patrols } from './Patrols.js';
 
 export const VIEW_W = 480;
 export const VIEW_H = 270;
@@ -433,6 +434,7 @@ export class WorldScene extends Phaser.Scene {
     this.lamps = []; // Laternen, die per Bedingung an- oder ausgehen
     this.hidden = []; // nur in der Geistsicht sichtbar
     this.cleanups = [];
+    this.coverRects = []; // Sichtschutz vor Grauspähern (Deko mit cover)
     this.leaving = false;
     this.focus = null;
     this.pending = null;
@@ -455,6 +457,8 @@ export class WorldScene extends Phaser.Scene {
     this.roamers = new Roamers(this);
     this.roamers.build();
     this.roamers.buildCaches();
+    this.patrols = new Patrols(this);
+    this.patrols.build();
     this.buildAtmosphere(amb);
     this.buildWeather();
     this.bindInput();
@@ -553,6 +557,8 @@ export class WorldScene extends Phaser.Scene {
         this.critters.add(img, def);
       } else if (this.anims.exists(def.sprite)) img.play({ key: def.sprite, startFrame: Math.floor(hash2(tx, ty, 1) * (img.texture.frameTotal - 1)) });
       if (def.solid) this.addBlocker(x + (def.solid[2] ?? 0), y + (def.solid[3] ?? 0), def.solid[0], def.solid[1]);
+      // Kapitel 2: Deko mit `cover` verdeckt die Sicht der Grauspäher (Fläche des Bildes, unteres Drittel bis Fuß)
+      if (def.cover) this.coverRects.push(new Phaser.Geom.Rectangle(img.x - img.displayWidth / 2, img.y - img.displayHeight * img.originY, img.displayWidth, img.displayHeight));
       if (def.light) {
         const l = def.light;
         this.lighting.add({ x: x + (l.dx ?? 0), y: y + (l.dy ?? 0), radius: l.radius ?? 50, intensity: l.intensity ?? 0.8,
@@ -809,6 +815,7 @@ export class WorldScene extends Phaser.Scene {
     if (!blocked) this.state.tick(delta / 1000);
     this.updateMovement(blocked);
     this.roamers.update(time, delta, blocked || this.leaving);
+    this.patrols.update(time, delta, blocked || this.leaving);
     this.critters.update(time, delta, blocked);
     this.updateFocus(blocked);
     this.checkAuto(blocked);
@@ -987,6 +994,7 @@ export class WorldScene extends Phaser.Scene {
         this.playPlayerAction('rest');
         const healed = this.state.heal(this.state.maxHp);
         this.state.setComposure(100);
+        if (this.mapDef.city === 'wexmoor') this.state.restWanted(); // Untertauchen senkt die Fahndung
         this.ui.showMessage(def.title, def.text, { footer: healed > 0 ? `+${healed} Leben, Nerven beruhigt.` : 'Du bist ausgeruht.' });
         break;
       }

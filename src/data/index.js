@@ -60,21 +60,24 @@ import dFall5 from './dialogues/fall5.json';
 import dFall6 from './dialogues/fall6.json';
 import case07 from './case_07.json';
 import case08 from './case_08.json';
+import case09 from './case_09.json';
 import kontorThorne from './maps/kontor_thorne.json';
 import waisenhaus from './maps/waisenhaus.json';
 import traumkeller from './maps/traumkeller.json';
 import dFall78 from './dialogues/fall78.json';
+import dFall9 from './dialogues/fall9.json';
 import buildings from './gebaeude.json';
 import gatherings from './treffen.json';
+import wexmoor from './wexmoor.json';
 
 export const content = buildContent({
   campaign,
   quests,
   items,
   encounters,
-  cases: [case01, case02, case03, caseAltmarkt, case04, case05, case06, case07, case08],
+  cases: [case01, case02, case03, caseAltmarkt, case04, case05, case06, case07, case08, case09],
   maps: [revier, ashgrove, ebba, crypt, docks, warehouse, altmarkt, tavern, nachtmarkt, nordtor, theater, uhrturm, gaskanaele, schlachthof, sternwarte, marsch, katakomben, pestgassen, kraterwald, ankerhof, rostkapelle, hausMorrow, schleierhaus, giesserei, hausVey, resonanzkammer, atelier, ballsaal, spiegelkabinett, kontorThorne, waisenhaus, traumkeller],
-  dialogues: [dRevier, dAshgrove, dEbba, dHafen, dAltmarkt, dNachtmarkt, dNordtor, dFunde, dFactions, dFall5, dFall6, dFall78, dKopfgeld],
+  dialogues: [dRevier, dAshgrove, dEbba, dHafen, dAltmarkt, dNachtmarkt, dNordtor, dFunde, dFactions, dFall5, dFall6, dFall78, dFall9, dKopfgeld],
   pathways,
   market,
   travel,
@@ -83,4 +86,5 @@ export const content = buildContent({
   buildings,
   gatherings,
   city,
+  wexmoor,
 });
