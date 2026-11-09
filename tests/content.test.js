@@ -134,3 +134,46 @@ test('Gegenstände und Kämpfe sind vollständig', () => {
     if (e.lose_to) assert.ok(content.maps[e.lose_to.map]?.spawns[e.lose_to.spawn], `${id}: lose_to`);
   }
 });
+
+// Ein Gespräch, in dem jede Antwort nur zu einem weiteren Knoten führt, lässt sich
+// nie schließen (Finn im Nordtor hing so in einer Schleife). Von jedem erreichbaren
+// Knoten muss ein Ausgang erreichbar sein: eine Antwort ohne "next" (oder eine,
+// deren bedingtes "next" ins Leere laufen kann), Laden/Tresor/Gutachter, ein Knoten
+// ohne Antworten oder einer, dessen Antworten alle ausgeblendet sein können (dann
+// zeigt das UI "Ende").
+test('Aus jedem Dialog kommt man wieder heraus', () => {
+  const isCond = (ch) => Object.keys(ch).some((k) => k.startsWith('requires') || k.startsWith('hide_if'));
+  const targets = (next) => {
+    if (next === undefined || next === null) return [null];
+    if (typeof next === 'string') return [next];
+    const out = next.map((x) => x.node);
+    if (!next.some((x) => !isCond(x) && x.chance === undefined)) out.push(null);
+    return out;
+  };
+  for (const [id, tree] of Object.entries(content.dialogues)) {
+    const { nodes } = tree;
+    const reach = new Set();
+    const queue = targets(tree.start).filter(Boolean);
+    while (queue.length) {
+      const n = queue.pop();
+      if (reach.has(n)) continue;
+      reach.add(n);
+      for (const ch of nodes[n]?.choices ?? []) for (const t of targets(ch.next)) if (t) queue.push(t);
+    }
+    const isExit = (n) => {
+      const chs = nodes[n]?.choices ?? [];
+      return chs.length === 0 || chs.every(isCond)
+        || chs.some((ch) => ch.shop || ch.vault || ch.expert || targets(ch.next).includes(null));
+    };
+    const ok = new Set([...reach].filter(isExit));
+    for (let grew = true; grew;) {
+      grew = false;
+      for (const n of reach) {
+        if (ok.has(n)) continue;
+        if ((nodes[n].choices ?? []).some((ch) => targets(ch.next).some((t) => t && ok.has(t)))) { ok.add(n); grew = true; }
+      }
+    }
+    const trapped = [...reach].filter((n) => !ok.has(n));
+    assert.deepEqual(trapped, [], `${id}: aus ${trapped.join(', ')} führt kein Weg aus dem Gespräch`);
+  }
+});
