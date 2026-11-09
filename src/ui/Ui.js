@@ -717,7 +717,7 @@ export class Ui {
       const ch = this.pendingChapter;
       this.pendingChapter = null;
       // Paket AE: Kapitelkarte (Ende von Kapitel 1 kündigt Kapitel 2 an, sonst die Schlusskarte)
-      const card = ch.scene ?? (/Kapitel 1\b/.test(ch.title) ? 'kapitel2_karte' : 'kapitel_ende');
+      const card = ch.scene ?? (/Kapitel 1\b/.test(ch.title) ? 'kapitel2_karte' : /Kapitel 2\b/.test(ch.title) ? 'kapitel3_karte' : 'kapitel_ende');
       this.showMessage(ch.title, ch.text, { footer: ch.footer ?? '', scene: card });
       this.layer.querySelector('.panel.message')?.classList.add('chapterbook'); // Grundpaket: aufgeschlagenes Notizbuch (07_02)
     } else if (this.pendingLost) {
@@ -939,10 +939,11 @@ export class Ui {
       if (map === meetMap) { cls += ' goal meet'; inner += `${questUi('qpin', QUEST_PINS.amber)}<span class="goaltag">Treffen</span>`; }
       else if (map === goalMap) { cls += ' goal'; inner += `${questUi('qpin', QUEST_PINS.amber)}<span class="goaltag">Ziel</span>`; }
       const [x, y] = pins[map];
-      const [url, cell = 0, cols = 13, live = false, one = false] = mapMarkerOf(map);
+      const [url, cell = 0, cols = 13, live = false, grid = null] = mapMarkerOf(map);
       const col = cell % cols;
+      const size = grid ? `${cols * 2}em ${grid.rows * 2}em;--r:${grid.row}` : `${cols * 2}em ${live ? 8 : 4}em`;
       return `<button class="pin ${cls}${live ? ' live' : ''}" ${attrs} style="left:${x / 8}em;top:${y / 8}em">
-        <span class="mk${one ? ' one' : ''}" style="--c:${col};background-image:url(${url});background-size:${cols * 2}em ${live ? 8 : 4}em"></span>${inner}</button>`;
+        <span class="mk${grid ? ' one' : ''}" style="--c:${col};background-image:url(${url});background-size:${size}"></span>${inner}</button>`;
     };
     const here = pins[current] ? pin(current, 'here', `<span class="youmark" style="background-image:url(${TRAVEL_MARKER_URL})"></span><span class="tag">Du bist hier</span>`, 'disabled') : '';
     const destPins = dests.map((d, i) => (pins[d.map] ? pin(d.map, '', `<span class="num">${i + 1}</span><span class="tag">${esc(d.name)}</span>`, `data-i="${i}"`) : '')).join('');

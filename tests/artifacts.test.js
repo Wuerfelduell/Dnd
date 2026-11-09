@@ -211,7 +211,9 @@ test('Gefahrengebiete: Gegner können Artefakte fallen lassen, Bosse häufiger',
     const encs = Object.values(content.encounters).filter((e) => e.zone === zid);
     assert.ok(encs.length);
     const boss = Object.keys(content.encounters).find((id) => content.encounters[id].zone === zid && content.encounters[id].boss);
-    const normal = Object.keys(content.encounters).find((id) => content.encounters[id].zone === zid && !content.encounters[id].boss && !content.encounters[id].elite);
+    // Gegner, die sich mehrere Gebiete teilen (Dunscar), gehören zum zuletzt eingetragenen; dann zählt der Gegner auf der Karte
+    const normal = Object.keys(content.encounters).find((id) => content.encounters[id].zone === zid && !content.encounters[id].boss && !content.encounters[id].elite)
+      ?? content.maps[zid].roamers.find((r) => !r.boss && !content.encounters[r.encounter].boss).encounter;
     const sum = (id) => drops(id).reduce((n, d) => n + d.chance, 0);
     assert.ok(sum(normal) > 0 && sum(normal) < 0.05, `${zid}: seltener Drop`);
     assert.ok(sum(`${normal}_elite`) > sum(normal), `${zid}: Elite häufiger`);

@@ -11,7 +11,7 @@ const sprite = (p) => new URL(`../public/sprites/${p}`, import.meta.url);
 test('Paket AM: drei neue Wexmoorer Orte mit Reiseziel, Pin und Marker', () => {
   for (const id of ['wx_flossfriedhof', 'wx_lichtamt', 'wx_torfbrueche']) {
     assert.equal(content.maps[id]?.city, 'wexmoor', id);
-    assert.ok(mapMarkerOf(id)[0].includes('AN_marker'), id);
+    assert.ok(mapMarkerOf(id)[0].includes('AN_marker') && mapMarkerOf(id)[4].row === 1, id);
   }
   const pins = content.travelRules.cities.wexmoor.pins;
   for (const id of ['wx_flossfriedhof', 'wx_torfbrueche']) {

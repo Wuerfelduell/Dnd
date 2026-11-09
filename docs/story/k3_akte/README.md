@@ -30,3 +30,7 @@ Die acht Standarddateien folgen `wx_nebenquests` und `applyQuestPack`. `dialog_z
 `node docs/story/k3_akte/pruefen.mjs` prüft Struktur, Verweise, Präfixe, Flag-Setzer, Dialoggraphen und 64 vollständige Datenpfade mit positiven und negativen Endbedingungen. `--strict-external` schlägt zusätzlich fehl, solange zugesagte AS-Karten/Kämpfe nicht unter `src/data/` registriert sind. Diese offenen Verweise werden im normalen Liefercheck ausdrücklich ausgegeben, nicht als existierende Inhalte ausgegeben.
 
 Die angestrebten 7–9 Stunden beziehen sich auf Erkundung, Gespräche, Kämpfe und Wege zusammen mit AS/AT/AU: ca. 15–20 Minuten Anreise, je 65–85 Minuten für I–IV, 75–95 Minuten für V und 15–25 Minuten Epilog/Nachbereitung. Das ist ein Planungsbudget, keine gemessene Spielzeit; die reine Textlektüre ist deutlich kürzer. Ein späterer Spieltest muss es bestätigen.
+
+## Eingebaut (Kapitel 3 Teil 1)
+
+Spieldaten liegen jetzt in `src/data/packs/<paket>/` und werden über `src/data/index.js` geladen. Hier bleiben Doku und noch nicht eingebaute Zusatzdateien (Beutevorschlag, Anreisen, Epiloge, Rufmuster, Horchstellen). `pruefen.mjs` liest beide Orte. Abweichungen beim Einbau: alle Kapitel-3-Kämpfe tragen `chapter: 3`, Gegner nutzen die AX-Sheets (`enemy_<id>`), Kernzutaten sind Trophäen, einzelne Platzierungen wurden auf freie Felder verschoben, Dunscar ist eine eigene Stadtkarte (`city.json`). Offen für Teil 2: Ruf-Ladungen, nahtlose Bossphasen, pfadgefilterte Beute, Epiloge, AV-Tilesets.

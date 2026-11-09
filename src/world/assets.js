@@ -417,12 +417,18 @@ export const X_MAP_MARKERS_URL = `${BASE}ui/X_map_markers_zirkel.png`;
 /** Paket AN: Floßfriedhof, Lichtamt, Torfbrüche (3 Spalten, eine Zeile; Bild unten in der 16x32-Zelle). */
 export const AN_MAP_MARKERS = { wx_flossfriedhof: 0, wx_lichtamt: 1, wx_torfbrueche: 2 };
 export const AN_MAP_MARKERS_URL = `${BASE}ui/AN_marker.png`;
-/** Marker eines Ortes: [Bild-URL, Spalte, Spalten im Bild, live, nur eine Zeile]. */
+/** Kapitel 3 (AV): Dunscar-Marker, 6x3 Felder zu 16x16, je Ort ein Feld (ohne Hervorhebungszeile). */
+export const DS_MAP_MARKERS = Object.fromEntries(['ds_endbahnhof', 'ds_schwellenring', 'ds_arbeiterbogen', 'ds_kalkmarkt', 'ds_bruchstufen', 'ds_signalhang',
+  'ds_speisewagen', 'ds_runddepot', 'ds_pruefhaus', 'ds_teesaal', 'ds_lohnbuero', 'ds_nachtzug_wagen', 'ds_nachtzug_lok', 'ds_rangierwueste', 'ds_klopfbruch',
+  'ds_rufschlucht', 'ds_letzter_bahnsteig', 'ds_unterschicht'].map((id, i) => [id, i]));
+export const DS_MAP_MARKERS_URL = `${BASE}ui/ds_marker.png`;
+/** Marker eines Ortes: [Bild-URL, Feld, Spalten im Bild, live, Raster ohne Hervorhebungszeile {rows, row}]. */
 export const mapMarkerOf = (map) => {
   if (O_MAP_MARKERS[map] !== undefined) return [O_MAP_MARKERS_URL, O_MAP_MARKERS[map], 3, true];
   if (X_MAP_MARKERS[map] !== undefined) return [X_MAP_MARKERS_URL, X_MAP_MARKERS[map], 2, true];
   if (Q_MAP_MARKERS[map] !== undefined) return [Q_MAP_MARKERS_URL, Q_MAP_MARKERS[map], 7];
-  if (AN_MAP_MARKERS[map] !== undefined) return [AN_MAP_MARKERS_URL, AN_MAP_MARKERS[map], 3, false, true];
+  if (AN_MAP_MARKERS[map] !== undefined) return [AN_MAP_MARKERS_URL, AN_MAP_MARKERS[map], 3, false, { rows: 2, row: 1 }];
+  if (DS_MAP_MARKERS[map] !== undefined) return [DS_MAP_MARKERS_URL, DS_MAP_MARKERS[map], 6, false, { rows: 3, row: Math.floor(DS_MAP_MARKERS[map] / 6) }];
   if (J_MAP_MARKERS[map] !== undefined) return [J_MAP_MARKERS_URL, J_MAP_MARKERS[map], 13];
   return [MAP_MARKERS_URL, MAP_MARKERS[map], 13];
 };
@@ -892,7 +898,7 @@ export const K_SCENES = ['abzuege', 'schattenlos', 'maskenball', 'dunkelkammer',
 /** Paket M: Bilder zu Fall 7 und 8. */
 export const M_SCENES = ['kanal', 'finch', 'schlafsaal', 'molly', 'webstuhl', 'morgen'];
 /** Paket AE: Kapitelkarten (480x270) für Spielbeginn, Kapitelwechsel und Kapitelende. */
-export const CHAPTER_CARDS = ['kapitel1_karte', 'kapitel2_karte', 'kapitel_ende'];
+export const CHAPTER_CARDS = ['kapitel1_karte', 'kapitel2_karte', 'kapitel3_karte', 'kapitel_ende'];
 export const sceneUrl = (id) => (CHAPTER_CARDS.includes(id) ? `${BASE}ui/scenes/${id}.png` : SCENES.includes(id) ? `${BASE}ui/scenes/E_szene_${id}.png`
   : TRAVEL_SCENES.includes(id) ? `${BASE}ui/scenes/I_${id}.png`
     : J_SCENES.includes(id) ? `${BASE}ui/scenes/J_szene_${id}.png`
@@ -1090,6 +1096,8 @@ export function preloadSprites(scene) {
   if (!scene.cache.json.exists('manifestWexmoor7')) scene.load.json('manifestWexmoor7', `${BASE}manifest-wexmoor7.json`);
   if (!scene.cache.json.exists('manifestWexmoor6')) scene.load.json('manifestWexmoor6', `${BASE}manifest-wexmoor6.json`);
   if (!scene.cache.json.exists('manifestSequenzen3')) scene.load.json('manifestSequenzen3', `${BASE}manifest-sequenzen3.json`);
+  if (!scene.cache.json.exists('manifestDunscar1')) scene.load.json('manifestDunscar1', `${BASE}manifest-dunscar1.json`);
+  if (!scene.cache.json.exists('manifestDunscar3')) scene.load.json('manifestDunscar3', `${BASE}manifest-dunscar3.json`);
   if (!scene.cache.json.exists('manifestNebenquests')) scene.load.json('manifestNebenquests', `${BASE}manifest-nebenquests.json`);
   if (!scene.cache.json.exists('manifestSpieler2')) scene.load.json('manifestSpieler2', `${BASE}manifest-spieler2.json`);
   if (!scene.cache.json.exists('manifestWexmoor')) scene.load.json('manifestWexmoor', `${BASE}manifest-wexmoor.json`);
@@ -1133,7 +1141,7 @@ function battleAnimDef(scene, sheet, name) {
   return null;
 }
 /** Manifeste mit Kampf-Sheets; spätere Pakete nennen ihre Einträge nicht nach dem Sheet, darum auch über die Datei. */
-export const BATTLE_MANIFESTS = ['manifest14b', 'manifestKampf', 'manifestKampf2', 'manifestReise', 'manifestWildnis', 'manifestGegner3', 'manifestFall5', 'manifestFall6', 'manifestFall78', 'manifestSequenzen2', 'manifestWexmoor2', 'manifestWexmoor3', 'manifestWexmoor4', 'manifestWexmoor5', 'manifestPlatzhalter', 'manifestSpieler2', 'manifestNebenquests', 'manifestWexmoor7', 'manifestWexmoor6', 'manifestSequenzen3'];
+export const BATTLE_MANIFESTS = ['manifest14b', 'manifestKampf', 'manifestKampf2', 'manifestReise', 'manifestWildnis', 'manifestGegner3', 'manifestFall5', 'manifestFall6', 'manifestFall78', 'manifestSequenzen2', 'manifestWexmoor2', 'manifestWexmoor3', 'manifestWexmoor4', 'manifestWexmoor5', 'manifestPlatzhalter', 'manifestSpieler2', 'manifestNebenquests', 'manifestWexmoor7', 'manifestWexmoor6', 'manifestSequenzen3', 'manifestDunscar3'];
 export function battleSheetDef(scene, sheet) {
   const file = BATTLE_SHEETS[sheet]?.[0];
   for (const m of BATTLE_MANIFESTS) {
@@ -2029,3 +2037,52 @@ for (const id of AG_SKILL_FX) {
 BATTLE_SHEETS.battle_player_skills2 = ['battle/battle_player_skills2.png', 48];
 /** Aura der neuen Pfade (Geistsicht), 48x64, Animation 'loop'. */
 for (const p of ['waage', 'moor', 'uhr']) ANIM_SHEETS[`sq_aura_${p}`] = [`fx/sq_aura_${p}.png`, 48, 64];
+
+// --- Kapitel 3 (AR/AS): Gegenstände ohne eigenes Bild nutzen die vorgeschlagenen Platzhalter --------------
+Object.assign(ITEM_ICON_ALIASES, {
+  k3o_kalkpastille: 'verband', k3o_schichttee: 'tonikum', k3o_filzverband: 'verband', k3o_ventilspan: 'glockenerz', k3o_kreidestaub: 'silberstaub',
+  k3o_rufwachs: 'geisteressenz', k3o_schraubenzahn: 'glockenerz', k3o_schlagkern: 'salzkristall', k3o_trichterglas: 'glasauge', k3o_schichtknopf: 'ratssiegel',
+  k3o_leitungsklemme: 'glockenerz', k3o_stillkiesel: 'salzkristall', k3o_stillring: 'amulett_eisen', k3o_prueflinse: 'glasauge',
+  k3a_signalgeraet: 'fahrkarte_wexmoor', k3a_depotmarke: 'ratssiegel', k3a_leitungspruefer: 'amulett_eisen', k3a_bahnkarte: 'fahrkarte_wexmoor',
+  k3a_werkzeuge: 'ratssiegel', k3a_aufsichtsmarke: 'ratssiegel',
+});
+
+// --- Kapitel 3: Dunscar (AV Orte, AW Figuren, AX Gegner; manifest-dunscar1/2/3.json) ----------------------
+/** AW: die elf festen Figuren mit Lauf-Sheet, Portraits (vier plus AK-Stimmungen) und Kopf. */
+export const DS_FIGURES = ['k3_pfiff', 'k3_gallowmere', 'k3_willa', 'k3_oren', 'k3_mabel', 'k3_pelham', 'k3_nellie', 'k3_huxford', 'k3_esther',
+  'k3_adaine', 'k3_weichenstellerin'];
+for (const id of DS_FIGURES) {
+  SHEETS[`ds_${id}`] = `characters/${id}_walk.png`;
+  CHARACTER_SHEETS[`npc_${id}`] = `ds_${id}`;
+  PORTRAITS[id] = `${id}_emotions.png`;
+  HEADS.push(id);
+  AK_FIGURES.add(id);
+}
+/** AX: sechs Gegner und fünf Bosse (Kampf-Sheet, Kartenfigur, Bestiarium, Bossbild). [Kampf-Frame-Breite, -Höhe] */
+export const DS_ENEMIES = { schichtgaenger: [48], kalkstaubgeist: [64], signalkraehe: [48], lohnlistenmotte: [48], geruestklang: [64], nachhall: [64],
+  schwellenhund: [96], vorhauer: [96], vielrufer: [96], gallowmere: [64], unterschicht: [128, 96] };
+const DS_BOSSES = ['schwellenhund', 'vorhauer', 'vielrufer', 'gallowmere', 'unterschicht'];
+for (const [id, [w, h = w]] of Object.entries(DS_ENEMIES)) {
+  BATTLE_SHEETS[`enemy_${id}`] = [`battle/enemy_${id}.png`, w, h];
+  ENCOUNTER_SHEETS[id] = `enemy_${id}`;
+  OVERWORLD_SHEETS[id] = [`characters/F_ow_${id}.png`, 16, 32];
+  PROP_ORIGINS[`ow_${id}`] = 0.85;
+  ANIM_ALIASES[`enemy_${id}`] = { special: 'attack', cast: 'attack' };
+  BESTIARY_FILES[id] = `F_${id}`;
+  if (!BESTIARY.includes(id)) BESTIARY.push(id);
+}
+for (const id of ['nachhall', 'kalkstaubgeist']) FADING_SHEETS.push(`enemy_${id}`);
+for (const id of DS_BOSSES) {
+  BOSS_INTROS[id] = `${id}_ds`;
+  BOSS_INTRO_IMAGES[`${id}_ds`] = [`DS_boss_${id}`, `ui/DS_boss_${id}.png`];
+}
+/** Folgeabschnitte der Bosse zeigen dasselbe Sheet (Gallowmere 2, Unterschicht 2 und 3). */
+for (const [id, base] of [['k3o_gallowmere_phase2', 'gallowmere'], ['k3o_unterschicht_phase2', 'unterschicht'], ['k3o_unterschicht_phase3', 'unterschicht']]) {
+  ENCOUNTER_SHEETS[id] = `enemy_${base}`;
+  BOSS_INTROS[id] = `${base}_ds`;
+}
+/** AV: Kampfkulissen der Viertel und Gefahrengebiete. */
+for (const id of ['endbahnhof', 'schwellenring', 'arbeiterbogen', 'bruchstufen', 'rangierwueste', 'klopfbruch', 'rufschlucht', 'letzter_bahnsteig', 'unterschicht']) {
+  BATTLE_BACKGROUNDS[`ds_${id}`] = `bg_ds_${id}`;
+}
+Object.assign(BATTLE_BACKGROUNDS, { ds_kalkmarkt: 'bg_ds_arbeiterbogen', ds_signalhang: 'bg_ds_bruchstufen', ds_nachtzug_wagen: 'bg_ds_nachtzug', ds_nachtzug_lok: 'bg_ds_nachtzug' });

@@ -33,6 +33,10 @@
       "default": [
         2,
         19
+      ],
+      "zug": [
+        6,
+        4
       ]
     },
     "lights": [
@@ -425,21 +429,7 @@
         "marker": false
       }
     ],
-    "npcs": [
-      {
-        "id": "k3_weichenstellerin",
-        "tile": [
-          3,
-          6
-        ],
-        "facing": "right",
-        "visible_if": {
-          "requires_flags": [
-            "k3a_akt1_done"
-          ]
-        }
-      }
-    ],
+    "npcs": [],
     "decor": []
   },
   {
@@ -2685,7 +2675,7 @@
         "id": "k3o_rangierwueste_wache1",
         "encounter": "schichtgaenger",
         "tile": [
-          10,
+          11,
           26
         ],
         "elite_chance": 0.12
@@ -2708,7 +2698,8 @@
         ],
         "elite_chance": 0.12
       }
-    ]
+    ],
+    "danger": 4
   },
   {
     "id": "ds_klopfbruch",
@@ -2902,7 +2893,7 @@
         "id": "k3o_klopfbruch_wache1",
         "encounter": "kalkstaubgeist",
         "tile": [
-          10,
+          11,
           26
         ],
         "elite_chance": 0.12
@@ -2925,7 +2916,8 @@
         ],
         "elite_chance": 0.12
       }
-    ]
+    ],
+    "danger": 4
   },
   {
     "id": "ds_rufschlucht",
@@ -3119,7 +3111,7 @@
         "id": "k3o_rufschlucht_wache1",
         "encounter": "nachhall",
         "tile": [
-          10,
+          11,
           26
         ],
         "elite_chance": 0.12
@@ -3142,7 +3134,8 @@
         ],
         "elite_chance": 0.12
       }
-    ]
+    ],
+    "danger": 5
   },
   {
     "id": "ds_letzter_bahnsteig",
@@ -3540,7 +3533,7 @@
         "id": "k3o_unterschicht_wache1",
         "encounter": "nachhall",
         "tile": [
-          10,
+          11,
           26
         ],
         "elite_chance": 0.12
@@ -3563,6 +3556,7 @@
         ],
         "elite_chance": 0.12
       }
-    ]
+    ],
+    "danger": 6
   }
 ]
