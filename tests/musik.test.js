@@ -26,7 +26,12 @@ test('Musik: Titel, Karte mit Tag und Nacht, Stadt, Geistsicht und Kampf', () =>
   assert.equal(pickTrack(z, { map: 'altmarkt', city: 'kettlegate', playTime: NIGHT }), 'kettlegate_nacht');
   assert.equal(pickTrack(z, { map: 'revier', city: 'kettlegate' }), 'revier');
   assert.equal(pickTrack(z, { map: 'wx_leuchtturm', city: 'wexmoor' }), 'leuchtturm');
-  assert.equal(pickTrack(z, { map: 'ds_endbahnhof', city: 'dunscar' }), 'ermittlung');
+  assert.ok(pickTrack(z, { map: 'ds_endbahnhof', city: 'dunscar' }).startsWith('ds_'));
+  // Kapitel 3 (AY): Dunscar-Kämpfe, Bosse mit eigenem Stück auch in ihren Folgeabschnitten, Pfadprüfungen
+  assert.equal(pickTrack(z, { map: 'ds_rangierwueste', city: 'dunscar', combat: { id: 'schichtgaenger', enc: { chapter: 3 } } }), 'ds_kampf');
+  assert.equal(pickTrack(z, { map: 'ds_klopfbruch', city: 'dunscar', combat: { id: 'vorhauer', enc: { boss: true, chapter: 3 } } }), 'ds_boss');
+  assert.equal(pickTrack(z, { map: 'ds_letzter_bahnsteig', city: 'dunscar', combat: { id: 'k3o_gallowmere_phase2', enc: { boss: true, chapter: 3 } } }), 'ds_gallowmere');
+  assert.equal(pickTrack(z, { map: 'ds_bruchstufen', city: 'dunscar', combat: { id: 'k3p_brueckenpresser', enc: { chapter: 3 } } }), 'ds_pruefung');
   assert.equal(pickTrack(z, { map: 'altmarkt', city: 'kettlegate', vision: true }), 'geistsicht');
   assert.equal(pickTrack(z, { map: 'altmarkt', city: 'kettlegate', combat: { id: 'taschendieb', enc: {} } }), 'kampf');
   assert.equal(pickTrack(z, { map: 'crypt', city: 'kettlegate', combat: { id: 'moorleiche', enc: {} } }), 'kampf_okkult');

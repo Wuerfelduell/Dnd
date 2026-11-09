@@ -78,6 +78,7 @@ async function main() {
     const size = fs.statSync(path.join(directory, f)).size; assert(size <= 60000, `${f}: exceeds 60 KB`); total += size;
     if (/^instrumente/.test(f)) continue;
     const score = JSON.parse(fs.readFileSync(path.join(directory, f), 'utf8'));
+    if (score.art === 'sammlung' && score.stuecke) continue; // AY: Klangsammlungen prüft pruefen_dunscar.mjs
     assert.equal(f, `${score.id}.json`, 'ID / filename mismatch');
     const c = compileStueck(score, bank); rows.set(score.id, { c, size });
     console.log(`${score.id}: ${score.takt.join('/')} · ${score.bpm} BPM · intro ${c.loopStart.toFixed(2)} s + ${score.loop ? 'loop' : 'piece'} ${(score.loop ? c.loopDuration : c.duration).toFixed(2)} s · total ${c.duration.toFixed(2)} s · ${size} bytes`);
@@ -91,7 +92,7 @@ async function main() {
     const m = JSON.parse(fs.readFileSync(full)); assert.equal(m.format, 'nebel-musik-1', f);
     const base = path.resolve(root, 'public', m.base); assert(base.startsWith(path.join(root, 'public') + path.sep), `${f}: unsafe base`);
     for (const bankFile of m.instrumente || ['instrumente.json']) assert(fs.existsSync(path.join(base, bankFile)), `${f}: missing instrument bank ${bankFile}`);
-    for (const [id, t] of Object.entries(m.tracks)) {
+    for (const [id, t] of Object.entries(m.tracks || {})) {
       assert(!allTracks.has(id), `Duplicate manifest ID ${id}`); allTracks.add(id);
       assert(fs.existsSync(path.join(base, t.file)), `${f}: missing file ${t.file}`);
       assert(rows.has(id), `${f}: no compiled score ${id}`);

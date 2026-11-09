@@ -5,13 +5,13 @@ import { MusicSynth } from './MusicSynth.js';
  * aus der Zuordnung der Manifeste: Titel, Kampf (Boss je Kapitel, Okkultes, Standard), Geistsicht,
  * Karte (Tag/Nacht), Gefahrengebiet und zuletzt die Stadt. Startet erst nach der ersten Eingabe.
  */
-export const MUSIC_MANIFESTS = ['basis', 'kettlegate', 'wexmoor'].map((n) => `audio/manifest-musik-${n}.json`);
+export const MUSIC_MANIFESTS = ['basis', 'kettlegate', 'wexmoor', 'dunscar'].map((n) => `audio/manifest-musik-${n}.json`);
 
-/** Stadtmusik, wenn eine Karte keine eigene Zuordnung hat (Dunscar bis zu seinem eigenen Paket). */
+/** Stadtmusik, wenn eine Karte keine eigene Zuordnung hat. */
 const CITY_MUSIC = {
   kettlegate: { tag: 'kettlegate_tag', nacht: 'kettlegate_nacht' },
   wexmoor: { tag: 'wexmoor_tag', nacht: 'wexmoor_nacht' },
-  dunscar: { tag: 'ermittlung', nacht: 'ermittlung' },
+  dunscar: { tag: 'ds_stadt_tag', nacht: 'ds_stadt_nacht' },
 };
 /** Tag- und Nachtfassung wechseln alle 15 Minuten Spielzeit (das Spiel hat keine eigene Uhr). */
 export const DAY_NIGHT_SECONDS = 15 * 60;
@@ -29,9 +29,14 @@ export function pickTrack(z, ctx) {
   const night = Math.floor((ctx.playTime ?? 0) / DAY_NIGHT_SECONDS) % 2 === 1;
   if (ctx.combat) {
     const { id, enc } = ctx.combat;
+    const k = z.kampf ?? {};
+    // Kapitel 3 (AY): eigene Stücke für Gallowmere und die Unterschicht (auch ihre Folgeabschnitte) und die Pfadprüfungen
+    const named = k[id] ?? k[/^k3o_(\w+?)_phase\d$/.exec(id)?.[1]] ?? (id.startsWith('k3p_') ? k.pruefung : undefined);
+    if (named) return named;
     if (enc?.boss) return z.kampf?.[`boss_kapitel${enc.chapter ?? (ctx.city === 'wexmoor' ? 2 : 1)}`] ?? z.kampf?.boss_kapitel1 ?? 'kampf';
-    if (OCCULT.test(id)) return z.kampf?.okkult ?? z.kampf?.standard ?? 'kampf';
-    return z.kampf?.standard ?? 'kampf';
+    if (k[`standard_kapitel${enc?.chapter}`]) return k[`standard_kapitel${enc.chapter}`];
+    if (OCCULT.test(id)) return k.okkult ?? k.standard ?? 'kampf';
+    return k.standard ?? 'kampf';
   }
   if (ctx.vision) return z.ereignisse?.geistsicht ?? 'geistsicht';
   const own = variant(z.maps?.[ctx.map], night) ?? variant(z.zonen?.[ctx.zone ?? ctx.map], night);
