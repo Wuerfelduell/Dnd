@@ -5,7 +5,7 @@ import {
   portraitUrl, portraitFor, mapMarkerOf, LOG_MARKERS, LOG_MARKERS_URL, SOURCE_ICONS, SPRITE_BASE,
   endingImageUrl, caseFileUrl, sceneUrl, wantedUrl, QUEST_UI_URL, QUEST_PINS, QUEST_BANNERS,
   TURN_PORTRAITS, TURN_PORTRAITS_URL, TURN_PORTRAIT_URLS, BESTIARY, bestiaryUrl,
-  headUrl, ritualCardUrl, ZIRKEL_URL, ZIRKEL_ICONS, AUKTION_URL, AUKTION_REGIONS, skillIconOf, PULSE_ICONS, ARTIFACT_UI_URL, sourceKind, sourceKindUrl, inspectUrl, RISK_ICONS, RISK_ICONS_URL, JOURNAL_FRAME, JOURNAL_FRAME_URL, choiceRisk, riskOf,
+  headUrl, ritualCardUrl, ZIRKEL_URL, ZIRKEL_ICONS, AUKTION_URL, AUKTION_REGIONS, LONER_UI_URL, LONER_UI, LONER_SEALS, S_ZIRKEL_URL, S_ZIRKEL, skillIconOf, PULSE_ICONS, ARTIFACT_UI_URL, sourceKind, sourceKindUrl, inspectUrl, RISK_ICONS, RISK_ICONS_URL, JOURNAL_FRAME, JOURNAL_FRAME_URL, choiceRisk, riskOf,
   factionEmblemUrl, TRAVEL_MODES_URL, TRAVEL_MODE_ICONS, TRAVEL_MARKER_URL,
   DANGER_URL, DANGER_ICONS, DANGER_BANNER, RARITY_SHEET, RARITY_SHEET_URL, RARITY_GEMS,
 } from '../world/assets.js';
@@ -31,6 +31,33 @@ const auktionIcon = (name, cls = '', k = 1 / 8) => {
   if (!r) return '';
   const [x, y, w, h] = r;
   return `<span class="auk ${cls}" style="width:${w * k}em;height:${h * k}em;background-image:url(${AUKTION_URL});background-size:${128 * k}em ${64 * k}em;background-position:-${x * k}em -${y * k}em"></span>`;
+};
+/** Ausschnitt [x, y, w, h] aus einem Atlas der Größe sw x sh, k = em pro Pixel. */
+const regionIcon = (url, [x, y, w, h], sw, sh, cls = '', k = 1 / 8, title = '') => `<span class="auk ${cls}" title="${title}" style="width:${w * k}em;height:${h * k}em;background-image:url(${url});background-size:${sw * k}em ${sh * k}em;background-position:-${x * k}em -${y * k}em"></span>`;
+/** Paket S: Beziehung zu einem Einzelgänger (Abzeichen, Pfadsiegel, Leiste von Feind bis Freund, Sequenz-Punkte). */
+const lonerBar = (s, id) => {
+  const l = s.loner?.(id);
+  if (!l) return '';
+  const r = s.lonerRules();
+  const v = s.bond(id);
+  const st = s.bondStatus(id);
+  const badge = st === 'freund' ? 'ally' : st === 'feind' ? 'enemy' : v >= 2 ? 'friend' : v <= -1 ? 'wary' : 'neutral';
+  const label = { ally: 'Verbündet', enemy: 'Feind', friend: 'Freundlich', wary: 'Misstrauisch', neutral: 'Neutral' }[badge];
+  const k = 1 / 6;
+  const pos = (v - r.foe_at) / (r.friend_at - r.foe_at); // 0 = Feind, 1 = Freund
+  const fill = v < 0 ? `<span class="lfill neg" style="left:${pos * 64 * k}em;width:${(0.5 - pos) * 64 * k}em">${regionIcon(LONER_UI_URL, LONER_UI.enemy_fill, 128, 96, '', k)}</span>`
+    : v > 0 ? `<span class="lfill pos" style="left:${32 * k}em;width:${(pos - 0.5) * 64 * k}em">${regionIcon(LONER_UI_URL, LONER_UI.friend_fill, 128, 96, '', k)}</span>` : '';
+  const seal = LONER_SEALS[l.pathway] ? regionIcon(LONER_UI_URL, [...LONER_SEALS[l.pathway], 8, 8], 128, 96, 'seal', k, l.pathway) : '';
+  const pips = Array.from({ length: 4 }, (_, i) => regionIcon(LONER_UI_URL, i < Math.max(0, 9 - l.seq) - 1 ? LONER_UI.pip_filled : LONER_UI.pip_empty, 128, 96, 'pip', k)).join('');
+  return `<div class="lonerbar" title="${label} (${v > 0 ? '+' : ''}${v})">${regionIcon(LONER_UI_URL, LONER_UI[badge], 128, 96, 'badge', k, label)}${seal}
+    <span class="lbar">${fill}${regionIcon(LONER_UI_URL, LONER_UI.bar, 128, 96, 'frame', k)}<span class="needle" style="left:${(pos * 64 - 2) * k}em">${regionIcon(LONER_UI_URL, LONER_UI.needle, 128, 96, '', k)}</span></span>
+    <span class="pips" title="Sequenz ${l.seq}">${pips}</span><span class="lstate">${label}</span></div>`;
+};
+/** Stimmung eines Einzelgängers ohne eigene Knoten-Stimmung: freundlich als Freund, feindselig als Feind oder bei Misstrauen. */
+const lonerMood = (s, id) => {
+  if (!s.loner?.(id)) return undefined;
+  const st = s.bondStatus(id);
+  return st === 'freund' ? 'friendly' : st === 'feind' || s.bond(id) < 0 ? 'hostile' : s.bond(id) >= 2 ? 'friendly' : undefined;
 };
 /** Zug-Portrait (16x16, Paket F) neben den Namen im Kampf. */
 const turnFace = (id) => {
@@ -308,7 +335,8 @@ export class Ui {
     const [, inv] = ZIRKEL_ICONS[g.id] ?? [];
     const frac = st.open ? (g.end - this.state.playTime) / Math.max(1, g.end - g.start) : 1;
     const timer = st.open ? atlasIcon(ZIRKEL_URL, 24 + Math.min(7, Math.max(0, Math.floor((1 - frac) * 8))), 8) : '';
-    el.innerHTML = `${inv !== undefined ? atlasIcon(ZIRKEL_URL, 16 + inv, 8) : (st.open ? '◆' : '◇')}${timer} ${esc(st.text)}`;
+    const sInv = S_ZIRKEL[g.id] && regionIcon(S_ZIRKEL_URL, S_ZIRKEL[g.id].invite, 128, 64, 'invite', 1 / 16);
+    el.innerHTML = `${inv !== undefined ? atlasIcon(ZIRKEL_URL, 16 + inv, 8) : sInv || (st.open ? '◆' : '◇')}${timer} ${esc(st.text)}`;
   }
 
   /** HUD-Hinweis nur bei Überlast, damit die Anzeige sonst ruhig bleibt. */
@@ -554,7 +582,7 @@ export class Ui {
     if (choices.filter((c) => !c.locked).length === 0) choices.push({ text: node.ending ? 'Weiter' : 'Ende' });
     this.dialogue.choices = choices;
     let n = 0;
-    const face = portrait(npc.id, node.mood);
+    const face = portrait(npc.id, node.mood ?? lonerMood(this.state, npc.id));
     // Paket H: Nahansicht beim Untersuchen, verflucht bei Schaden oder Kampf; Risiko-Effekt über dem Bild
     const risk = npc.item ? riskOf(node) : null;
     const closeup = npc.item && inspectUrl(npc.item)
@@ -562,7 +590,7 @@ export class Ui {
     if (risk) this.scene?.playRiskFx?.(risk);
     if (npc.item && nodeId !== tree.start) this.scene?.playInspect?.(risk === 'curse' || risk === 'ambush' ? 'flinch' : risk === 'bonus_clue' ? 'note' : risk === 'unrest' ? 'clutch_head' : 'read');
     const el = this.open('dialogue', `${closeup || sceneImg(node.scene)}${wantedImg(node.wanted, node.wanted_caught)}${face}
-      <div class="speaker">${esc(npc.name)} <span class="role">${esc(npc.role ?? '')}</span></div>
+      <div class="speaker">${esc(npc.name)} <span class="role">${esc(npc.role ?? '')}</span></div>${lonerBar(this.state, npc.id)}
       <div class="text">${paragraphs(text)}</div>
       <ol class="choices">${choices.map((c, i) => (c.locked
         ? `<li><button disabled class="locked">🔒 ${esc(c.text)} <span class="lockinfo">${esc(c.locked)}</span></button></li>`
@@ -1256,7 +1284,7 @@ export class Ui {
     this.auctionActs = acts;
     let n = 0;
     const el = this.open('auction', `
-      <h3>${emblem !== undefined ? atlasIcon(ZIRKEL_URL, emblem, 8) : auktionIcon(a.circle, 'mark', 1 / 6)}${esc(g.name)} <span class="muted">${a.phase.startsWith('own') ? 'Eigenes Angebot' : `Runde ${Math.min(a.turn + 1, a.members.length)} von ${a.members.length}`}</span></h3>
+      <h3>${emblem !== undefined ? atlasIcon(ZIRKEL_URL, emblem, 8) : S_ZIRKEL[a.circle] ? regionIcon(S_ZIRKEL_URL, S_ZIRKEL[a.circle].emblem, 128, 64, 'mark', 1 / 16) : auktionIcon(a.circle, 'mark', 1 / 6)}${esc(g.name)} <span class="muted">${a.phase.startsWith('own') ? 'Eigenes Angebot' : `Runde ${Math.min(a.turn + 1, a.members.length)} von ${a.members.length}`}</span></h3>
       <ul class="seats">${seats}</ul>
       <div class="stage">${stage}</div>
       <ul class="alog">${a.log.map((t) => `<li>${t.startsWith('Zuschlag') ? auktionIcon('sold', 'sold', 1 / 12) : ''}${esc(t)}</li>`).join('')}</ul>

@@ -539,3 +539,15 @@ button.small.drop.armed { border-color: #c8826a; color: #ffb09a; }
 @keyframes bidhand { 50% { background-position: -2em 0; } }
 .auction h3 .auk.mark { margin-right: 0.3em; }
 .auction .bidline .srcface { vertical-align: middle; margin-right: 0.3em; }
+/* Paket S: Beziehung zu Einzelgängern im Dialog */
+.lonerbar { display: flex; align-items: center; gap: 0.35em; font-size: 0.75em; margin: 0.15em 0 0.4em; color: var(--muted, #a89c88); }
+.lonerbar .lbar { position: relative; display: inline-block; width: 10.67em; height: 1.33em; }
+.lonerbar .lbar > .auk.frame { position: absolute; left: 0; top: 0; }
+.lonerbar .lfill { position: absolute; top: 0; height: 1.33em; overflow: hidden; }
+.lonerbar .lfill .auk { position: absolute; top: 0; }
+.lonerbar .lfill.neg .auk { right: 0; }
+.lonerbar .lfill.pos .auk { left: 0; }
+.lonerbar .needle { position: absolute; top: -0.17em; }
+.lonerbar .pips { display: inline-flex; gap: 0.1em; }
+.lonerbar .lstate { margin-left: 0.2em; }
+.treffen .auk.invite { margin-right: 0.2em; }

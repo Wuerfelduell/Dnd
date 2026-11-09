@@ -82,6 +82,7 @@ export const SHEETS = {
   q_kajuete: 'tilesets/Q_kajuete_tiles.png',
   r_wexmoor: 'tilesets/R_wexmoor_tiles.png', r_innen: 'tilesets/R_innen_tiles.png', r_vergessmoor: 'tilesets/R_vergessmoor_tiles.png',
   r_leuchtturm: 'tilesets/R_leuchtturm_tiles.png',
+  s_salzwatt: 'tilesets/S_salzwatt_tiles.png', s_lichtlose: 'tilesets/S_lichtlose_tiles.png', s_salz: 'tilesets/S_salz_tiles.png',
   o_waage: 'tilesets/O_waage_tiles.png', o_kreide: 'tilesets/O_kreide_tiles.png', o_russ: 'tilesets/O_russ_tiles.png',
 };
 /** Paket C: Lauf-Sheets (characters/C_<id>_walk.png), Key = Figuren-Id. */
@@ -177,6 +178,11 @@ export const THEME_TILES = {
   r_vergessmoor: { sheet: 'r_vergessmoor', fallback: 'water0', water: [0, 1, 2, 3], ghost: [4], floor: [6, 7, 8, 9] },
   r_leuchtturm: { sheet: 'r_leuchtturm', fallback: 'stone', floor: [0, 1, 2, 3], ring: [4, 6], wallTop: [8], wallFace: [9],
     niche: [16, 17, 18, 19], glow: [24, 25, 26, 27], sand: [28, 29, 30, 31] },
+  // Paket S: Salzwatt (Schlick, Salzkruste, Priele, Meer, Pfähle, Damm), Keller der Lichtlosen, Salzspeicher (8x4-Raster)
+  s_salzwatt: { sheet: 's_salzwatt', fallback: 'path', floor: [0, 1, 2, 3], sand: [4, 5, 6, 7], debris: [22], water: [30, 31], deep: [20, 21],
+    stakes: [23], path: [24, 25, 26, 27] },
+  s_lichtlose: { sheet: 's_lichtlose', fallback: 'wood0', floor: [0, 1, 2, 3], ash: [4, 5, 6, 7], wallFace: [8, 9, 10, 11], wallTop: [12, 13, 14, 15] },
+  s_salz: { sheet: 's_salz', fallback: 'wood0', floor: [0, 1, 2, 3], sand: [4, 5, 6, 7], wallFace: [12, 13, 14, 15], wallTop: [8, 9, 10, 11] },
   // Paket O (Geheime Treffen): Gewölbe der Stillen Waage, Hinterzimmer des Kreidezirkels, Kohlenschuppen (8x4-Raster)
   o_waage: { sheet: 'o_waage', fallback: 'stone', floor: [0, 1, 2, 3], wet: [4, 7], wallTop: [17, 20, 21], wallFace: [16, 22, 23],
     niche: [19], grate: [24] },
@@ -595,7 +601,8 @@ export const REGION_SHEETS = {
   r_torfstich: ['manifestWexmoor2', 'R_torfstich_props'], r_salzmarkt: ['manifestWexmoor2', 'R_salzmarkt_props'],
   r_bojenhafen: ['manifestWexmoor2', 'R_bojenhafen_props'], r_oberstadt: ['manifestWexmoor2', 'R_oberstadt_props'],
   r_pfahldorf: ['manifestWexmoor2', 'R_pfahldorf_props'], r_innen_props: ['manifestWexmoor2', 'R_innen_props'],
-  r_vergessmoor_props: ['manifestWexmoor2', 'R_vergessmoor_props'], r_leuchtturm_props: ['manifestWexmoor2', 'R_leuchtturm_props'], q_lichtkegel: ['manifestWexmoor', 'lichtkegel'],
+  r_vergessmoor_props: ['manifestWexmoor2', 'R_vergessmoor_props'], r_leuchtturm_props: ['manifestWexmoor2', 'R_leuchtturm_props'],
+  s_salzwatt_props: ['manifestWexmoor3', 'salzwatt_props'], s_lichtlose_props: ['manifestWexmoor3', 'lichtlose_props'], s_salz_props: ['manifestWexmoor3', 'salz_props'], q_lichtkegel: ['manifestWexmoor', 'lichtkegel'],
 };
 /** Animationen aus benannten Regionen, die das Manifest nicht selbst mitbringt (Prefix → Name → Regionen). */
 export const REGION_ANIMS = {
@@ -633,6 +640,7 @@ const REGION_FILES = {
   r_salzmarkt: 'props/R_salzmarkt_props.png', r_bojenhafen: 'props/R_bojenhafen_props.png', r_oberstadt: 'props/R_oberstadt_props.png',
   r_pfahldorf: 'props/R_pfahldorf_props.png', r_innen_props: 'props/R_innen_props.png', r_vergessmoor_props: 'props/R_vergessmoor_props.png',
   r_leuchtturm_props: 'props/R_leuchtturm_props.png', q_lichtkegel: 'fx/Q_lichtkegel.png',
+  s_salzwatt_props: 'props/S_salzwatt_props.png', s_lichtlose_props: 'props/S_lichtlose_props.png', s_salz_props: 'props/S_salz_props.png',
   m_kontor_props: 'props/M_kontor_props.png', m_waisenhaus_props: 'props/M_waisenhaus_props.png', m_traumkeller_props: 'props/M_traumkeller_props.png',
 };
 for (const z of ['marsch', 'pestgassen', 'katakomben', 'kraterwald']) REGION_FILES[`g_${z}_props`] = `props/G_01_${z}_props.png`;
@@ -897,6 +905,7 @@ export function preloadSprites(scene) {
   if (!scene.cache.json.exists('manifestReise')) scene.load.json('manifestReise', `${BASE}manifest-reise.json`);
   if (!scene.cache.json.exists('manifestJournal')) scene.load.json('manifestJournal', `${BASE}manifest-journal.json`);
   if (!scene.cache.json.exists('manifestWexmoor2')) scene.load.json('manifestWexmoor2', `${BASE}manifest-wexmoor2.json`);
+  if (!scene.cache.json.exists('manifestWexmoor3')) scene.load.json('manifestWexmoor3', `${BASE}manifest-wexmoor3.json`);
   if (!scene.cache.json.exists('manifestWexmoor')) scene.load.json('manifestWexmoor', `${BASE}manifest-wexmoor.json`);
   if (!scene.cache.json.exists('manifestSequenzen2')) scene.load.json('manifestSequenzen2', `${BASE}manifest-sequenzen2.json`);
   if (!scene.cache.json.exists('manifestTreffen')) scene.load.json('manifestTreffen', `${BASE}manifest-treffen.json`);
@@ -936,7 +945,7 @@ function battleAnimDef(scene, sheet, name) {
   return null;
 }
 /** Manifeste mit Kampf-Sheets; spätere Pakete nennen ihre Einträge nicht nach dem Sheet, darum auch über die Datei. */
-const BATTLE_MANIFESTS = ['manifest14b', 'manifestKampf', 'manifestKampf2', 'manifestReise', 'manifestWildnis', 'manifestGegner3', 'manifestFall5', 'manifestFall6', 'manifestFall78', 'manifestSequenzen2', 'manifestWexmoor2'];
+const BATTLE_MANIFESTS = ['manifest14b', 'manifestKampf', 'manifestKampf2', 'manifestReise', 'manifestWildnis', 'manifestGegner3', 'manifestFall5', 'manifestFall6', 'manifestFall78', 'manifestSequenzen2', 'manifestWexmoor2', 'manifestWexmoor3'];
 export function battleSheetDef(scene, sheet) {
   const file = BATTLE_SHEETS[sheet]?.[0];
   for (const m of BATTLE_MANIFESTS) {
@@ -1517,4 +1526,79 @@ for (const id of U_FIGURES) {
   PORTRAITS[id] = `U_${id}_emotions.png`;
   HEADS.push(id);
 }
+
+// --- Paket S: Wexmoor-Monster, Einzelgänger, Salzwatt, Zirkel (manifest-wexmoor3.json) -----------------
+/** Monster aus Vergessmoor, Leuchtturm und Salzwatt: [Kampf-Frame, Karten-Frame-Breite]. */
+export const S_ENEMIES = { torfgaenger: [64, 16], weisslicht: [64, 32], schlickaal: [64, 32], reetmann: [64, 16], glasmoewe: [64, 32],
+  lichtbrut: [64, 32], linsensplitter: [64, 16], salzgeist: [64, 16], bojenglocke: [64, 16], nebelfischer: [64, 16] };
+const S_FADING = ['weisslicht', 'salzgeist', 'nebelfischer', 'lichtbrut'];
+for (const [id, [w, ow]] of Object.entries(S_ENEMIES)) {
+  BATTLE_SHEETS[`enemy_${id}`] = [`battle/enemy_${id}.png`, w];
+  ENCOUNTER_SHEETS[id] = `enemy_${id}`;
+  OVERWORLD_SHEETS[id] = [`characters/S_ow_${id}.png`, ow, 32];
+  PROP_ORIGINS[`ow_${id}`] = 0.85;
+  ANIM_ALIASES[`enemy_${id}`] = { attack: 'attack_a', special: 'attack_b' };
+  if (S_FADING.includes(id)) FADING_SHEETS.push(`enemy_${id}`);
+}
+/** Boss des Salzwatts: die Glockenmutter (96er-Sheet). */
+BATTLE_SHEETS.enemy_glockenmutter = ['battle/enemy_glockenmutter.png', 96];
+ENCOUNTER_SHEETS.glockenmutter = 'enemy_glockenmutter';
+ANIM_ALIASES.enemy_glockenmutter = { attack: 'tide_toll', special: 'chains', cast: 'lullaby', phase2: 'summon' };
+BOSS_INTROS.glockenmutter = 'glockenmutter_s';
+BOSS_INTRO_IMAGES.glockenmutter_s = ['S_08_boss_glockenmutter', 'ui/S_08_boss_glockenmutter.png'];
+/** Bestiarium-Karten (ui/bestiary/S_<id>.png), auch für die Bosse aus Paket R. */
+for (const id of [...Object.keys(S_ENEMIES), 'glockenmutter', 'namenlose', 'leuchtfeuer']) {
+  BESTIARY_PACK[id] = 'S';
+  if (!BESTIARY.includes(id)) BESTIARY.push(id);
+}
+/** Einzelgänger: Lauf-Sheet, Portrait (neutral, freundlich, feindselig, erschrocken), Kopf, Kampf-Sheet (48er, "yields" statt Tod). */
+export const S_LONERS = ['ez_reetkoenig', 'ez_brennerin', 'ez_spinnerin', 'ez_baender', 'ez_maskenwirt', 'ez_glockenfischer', 'ez_schleusendieb'];
+export const S_HOSTS = ['zirkel_lichtlose', 'zirkel_salzbruder'];
+const S_MOODS = { neutral: 0, friendly: 1, smile: 1, smiling: 1, faint_smile: 1, hostile: 2, angry: 2, suspicious: 2, shocked: 3 };
+for (const id of [...S_LONERS, ...S_HOSTS]) {
+  SHEETS[`s_${id}`] = `characters/S_${id}_walk.png`;
+  CHARACTER_SHEETS[`npc_${id}`] = `s_${id}`;
+  PORTRAITS[id] = `S_${id}_emotions.png`;
+  PORTRAIT_SPECIAL[id] = [`S_${id}_emotions.png`, S_MOODS];
+}
+for (const id of S_LONERS) {
+  HEADS.push(id);
+  BATTLE_SHEETS[`enemy_${id}`] = [`battle/enemy_${id}.png`, 48];
+  ENCOUNTER_SHEETS[id] = `enemy_${id}`;
+  ANIM_ALIASES[`enemy_${id}`] = { special: 'skill', cast: 'skill', defeated: 'yields' };
+}
+/** Zug-Portraits (ui/S_zug_portraits.png, 20 Spalten). */
+['torfgaenger', 'weisslicht', 'schlickaal', 'reetmann', 'glasmoewe', 'lichtbrut', 'linsensplitter', 'salzgeist', 'bojenglocke', 'nebelfischer',
+  'glockenmutter', 'namenlose', 'leuchtfeuer', ...S_LONERS].forEach((id, i) => {
+  TURN_PORTRAITS[id] = i;
+  TURN_PORTRAIT_URLS[id] = [`${BASE}ui/S_zug_portraits.png`, 20];
+});
+/** Gegner-Effekte. */
+const S_FX = { namensraub: [48], schlick: [48], reetsamen: [48], glassplitter: [48], salzkruste: [32], nebelnetz: [48], flutlaeuten: [96, 48], ketten: [64, 48] };
+for (const [id, [w, h = w]] of Object.entries(S_FX)) BATTLE_SHEETS[`fx_${id}`] = [`fx/fx_${id}.png`, w, h];
+Object.assign(ENCOUNTER_FX, {
+  torfgaenger: { attack: 'fx_namensraub' }, weisslicht: { attack: 'fx_namensraub' }, schlickaal: { attack: 'fx_schlick' },
+  reetmann: { attack: 'fx_reetsamen' }, glasmoewe: { attack: 'fx_glassplitter' }, linsensplitter: { attack: 'fx_glassplitter' },
+  salzgeist: { attack: 'fx_salzkruste' }, nebelfischer: { attack: 'fx_nebelnetz' },
+  glockenmutter: { attack: 'fx_flutlaeuten', multi: 'fx_flutlaeuten', heavy: 'fx_ketten' },
+});
+/** Salzwatt: eigene Kulisse. */
+BATTLE_BACKGROUNDS.wx_salzwatt = 'bg_salzwatt';
+ENCOUNTER_BACKGROUNDS.glockenmutter = 'bg_salzwatt';
+/** Beute und Artefakte (16er und 32er). */
+export const S_ITEMS = ['torfasche', 'fremdlicht_phiole', 'schlickperle', 'reetfaser', 'moewenglas', 'linsenscherbe', 'laternenoel_alt', 'salzkristall',
+  'bojenglocke_klein', 'leuchtturmlinse', 'namenstaefelchen', 'torfmesser_alt'];
+ICON32.push(...S_ITEMS);
+/** Einzelgänger-Anzeige (ui/S_einzelgaenger_ui.png, 128x96): Region → [x, y, w, h]. */
+export const LONER_UI_URL = `${BASE}ui/S_einzelgaenger_ui.png`;
+export const LONER_UI = {
+  bar: [0, 0, 64, 8], enemy_fill: [64, 0, 32, 8], friend_fill: [96, 0, 32, 8], needle: [0, 16, 4, 10],
+  enemy: [16, 16, 16, 16], wary: [32, 16, 16, 16], neutral: [48, 16, 16, 16], friend: [64, 16, 16, 16], ally: [80, 16, 16, 16],
+  pip_empty: [64, 40, 6, 6], pip_filled: [72, 40, 6, 6],
+};
+/** Pfad → Siegelfarbe (8x8) in der Einzelgänger-Anzeige. */
+export const LONER_SEALS = { laterne: [0, 40], faden: [8, 40], maske: [16, 40], echo: [24, 40], kessel: [32, 40], eisen: [40, 40], schluessel: [48, 40] };
+/** Zirkel aus Wexmoor (ui/S_zirkel.png): Emblem 32x32 und Einladung 16x16. */
+export const S_ZIRKEL_URL = `${BASE}ui/S_zirkel.png`;
+export const S_ZIRKEL = { lichtlose: { emblem: [0, 0, 32, 32], invite: [64, 0, 16, 16] }, salz: { emblem: [32, 0, 32, 32], invite: [80, 0, 16, 16] } };
 
