@@ -12,7 +12,7 @@ export function loadContent() {
     encounters: load('encounters.json'),
     cases: [load('case_01.json'), load('case_02.json'), load('case_03.json'), load('case_altmarkt.json'), load('case_04.json'), load('case_05.json'), load('case_06.json'), load('case_07.json'), load('case_08.json')],
     maps: ['revier', 'ashgrove', 'ebba', 'crypt', 'docks', 'warehouse', 'altmarkt', 'tavern', 'nachtmarkt', 'nordtor', 'theater', 'uhrturm', 'gaskanaele', 'schlachthof', 'sternwarte', 'marsch', 'katakomben', 'pestgassen', 'kraterwald', 'ankerhof', 'rostkapelle', 'haus_morrow', 'schleierhaus', 'giesserei', 'haus_vey', 'resonanzkammer', 'atelier', 'ballsaal', 'spiegelkabinett', 'kontor_thorne', 'waisenhaus', 'traumkeller'].map((m) => load(`maps/${m}.json`)),
-    dialogues: ['revier', 'ashgrove', 'ebba', 'hafen', 'altmarkt', 'nachtmarkt', 'nordtor', 'fundstuecke', 'factions', 'fall5', 'fall6', 'fall78'].map((d) => load(`dialogues/${d}.json`)),
+    dialogues: ['revier', 'ashgrove', 'ebba', 'hafen', 'altmarkt', 'nachtmarkt', 'nordtor', 'fundstuecke', 'factions', 'fall5', 'fall6', 'fall78', 'kopfgeld'].map((d) => load(`dialogues/${d}.json`)),
     pathways: load('pathways.json'),
     market: load('market.json'),
     travel: load('travel.json'),
@@ -20,6 +20,7 @@ export function loadContent() {
     factions: load('factions.json'),
     buildings: load('gebaeude.json'),
     gatherings: load('treffen.json'),
+    city: load('stadtgegner.json'),
   });
 }
 

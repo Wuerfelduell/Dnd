@@ -3,7 +3,7 @@ import { lootList, itemRarity, RARITY_NAMES } from '../core/Loot.js';
 import {
   itemIconUrl, itemIcon32Url, pathwayEmblemUrl, pathwayCardUrl, COIN_URL, SKILL_ICONS, SKILL_ICONS_URL, STATUS_ICONS, STATUS_ICONS_URL,
   portraitUrl, portraitFor, mapMarkerOf, LOG_MARKERS, LOG_MARKERS_URL, SOURCE_ICONS, SPRITE_BASE,
-  endingImageUrl, caseFileUrl, sceneUrl, QUEST_UI_URL, QUEST_PINS, QUEST_BANNERS,
+  endingImageUrl, caseFileUrl, sceneUrl, wantedUrl, QUEST_UI_URL, QUEST_PINS, QUEST_BANNERS,
   TURN_PORTRAITS, TURN_PORTRAITS_URL, TURN_PORTRAIT_URLS, BESTIARY, bestiaryUrl,
   headUrl, sourceKind, sourceKindUrl, inspectUrl, RISK_ICONS, RISK_ICONS_URL, JOURNAL_FRAME, JOURNAL_FRAME_URL, choiceRisk, riskOf,
   factionEmblemUrl, TRAVEL_MODES_URL, TRAVEL_MODE_ICONS, TRAVEL_MARKER_URL,
@@ -41,6 +41,8 @@ const portrait = (id, mood) => {
   return `<div class="portrait" style="background-image:url(${p.url});background-position:${(p.col / 3) * 100}% 0"></div>`;
 };
 /** Zwischensequenzbild (240x135) über einem Text. */
+/** Steckbrief (Paket L): 64x80, Spalte 0 gesucht, Spalte 1 gefasst. */
+const wantedImg = (id, caught) => (id ? `<div class="wanted ${caught ? 'caught' : ''}" style="background-image:url('${wantedUrl(id)}')"></div>` : '');
 const sceneImg = (id) => { const url = id && sceneUrl(id); return url ? `<img class="scene" src="${url}" alt="" onerror="this.remove()">` : ''; };
 /** Ausschnitt aus ui/E_04_quest_ui.png (Banner, Nadeln). */
 const questUi = (cls, [x, y], k = 1 / 8) => `<span class="${cls}" style="background-image:url(${QUEST_UI_URL});background-size:${160 * k}em ${176 * k}em;background-position:-${x * k}em -${y * k}em"></span>`;
@@ -486,7 +488,7 @@ export class Ui {
       ? `<img class="scene inspect" src="${inspectUrl(npc.item, risk === 'curse' || risk === 'ambush')}" alt="" onerror="this.remove()">` : '';
     if (risk) this.scene?.playRiskFx?.(risk);
     if (npc.item && nodeId !== tree.start) this.scene?.playInspect?.(risk === 'curse' || risk === 'ambush' ? 'flinch' : risk === 'bonus_clue' ? 'note' : risk === 'unrest' ? 'clutch_head' : 'read');
-    const el = this.open('dialogue', `${closeup || sceneImg(node.scene)}${face}
+    const el = this.open('dialogue', `${closeup || sceneImg(node.scene)}${wantedImg(node.wanted, node.wanted_caught)}${face}
       <div class="speaker">${esc(npc.name)} <span class="role">${esc(npc.role ?? '')}</span></div>
       <div class="text">${paragraphs(text)}</div>
       <ol class="choices">${choices.map((c, i) => (c.locked
@@ -748,7 +750,7 @@ export class Ui {
       const t = active ? questTarget(s, id) : null;
       const goal = active ? `<div class="qgoal">➤ ${t ? esc(this.goalText(t)) : 'Kein fester Ort bekannt'}</div>` : '';
       return `<li class="quest ${st} ${tracked ? 'tracked' : ''}" ${active ? `data-track="${id}"` : ''}><div class="qtitle"><span class="qkind">${q.kind === 'main' ? 'Hauptfall' : 'Nebenauftrag'}</span> ${esc(q.title)} ${!active ? '<span class="badge likely">erledigt</span>' : ''}${tracked ? '<span class="badge track">verfolgt</span>' : ''}</div>
-        ${active ? `<div class="qsum">${esc(q.summary)}</div>` : ''}${steps}${goal}</li>`;
+        ${active ? `<div class="qsum">${q.wanted ? wantedImg(q.wanted, false) : ''}${esc(q.summary)}</div>` : ''}${steps}${goal}</li>`;
     };
     // Erledigte Aufträge zusammengeklappt, damit die offenen oben sichtbar bleiben
     const open = ids.filter((id) => s.quests[id] === 'active');

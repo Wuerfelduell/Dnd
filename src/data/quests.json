@@ -1212,5 +1212,113 @@
         }
       }
     ]
+  },
+  "kopfgeld_laternendieb": {
+    "title": "Kopfgeld: „Funzel“ Moe Harker",
+    "kind": "side",
+    "case": "side",
+    "wanted": "laternendieb",
+    "summary": "Ein Laternendieb, der am Altmarkt die Gasstrümpfe stiehlt. Die Gassen sind seitdem dunkel, und in dunklen Gassen passiert mehr als Diebstahl.",
+    "steps": [
+      {
+        "text": "Stelle das Ziel (Altmarkt, nachts)",
+        "done": {
+          "requires_flags": [
+            "won_kopfgeld_laternendieb"
+          ]
+        }
+      },
+      {
+        "text": "Hol dir das Kopfgeld am Brett im Revier",
+        "done": {
+          "requires_flags": [
+            "kopfgeld_laternendieb_paid"
+          ]
+        }
+      }
+    ]
+  },
+  "kopfgeld_falschgeldpraeger": {
+    "title": "Kopfgeld: Silas Penn, der Präger",
+    "kind": "side",
+    "case": "side",
+    "wanted": "falschgeldpraeger",
+    "summary": "Falsche Schillinge auf dem Nachtmarkt. Die Händler schlagen sich gegenseitig, weil keiner mehr weiß, was echt ist.",
+    "steps": [
+      {
+        "text": "Stelle das Ziel (Nachtmarkt)",
+        "done": {
+          "requires_flags": [
+            "won_kopfgeld_falschgeldpraeger"
+          ]
+        }
+      },
+      {
+        "text": "Hol dir das Kopfgeld am Brett im Revier",
+        "done": {
+          "requires_flags": [
+            "kopfgeld_falschgeldpraeger_paid"
+          ]
+        }
+      }
+    ]
+  },
+  "kopfgeld_nachtkraemer": {
+    "title": "Kopfgeld: Dr. Quincy Vale",
+    "kind": "side",
+    "case": "side",
+    "wanted": "nachtkraemer",
+    "summary": "Ein Krämer verkauft am Nordtor „Mut in Flaschen“. Drei Tote. Er ist schwer zu fassen, weil er nie zweimal am selben Platz steht.",
+    "steps": [
+      {
+        "text": "Stelle das Ziel (Nordtor)",
+        "done": {
+          "requires_flags": [
+            "won_kopfgeld_nachtkraemer"
+          ]
+        }
+      },
+      {
+        "text": "Hol dir das Kopfgeld am Brett im Revier",
+        "done": {
+          "requires_flags": [
+            "kopfgeld_nachtkraemer_paid"
+          ]
+        }
+      }
+    ]
+  },
+  "kopfgeld_koenigin": {
+    "title": "Kopfgeld: Die Schmugglerkönigin",
+    "kind": "side",
+    "case": "side",
+    "wanted": "schmugglerkoenigin",
+    "summary": "Mag Ashdown, die Schmugglerkönigin, beherrscht die Kanäle. Marlowe hat das höchste Kopfgeld der Stadt auf sie ausgesetzt. Ihre Leute verraten sie nicht, aber vielleicht ihre Ware.",
+    "steps": [
+      {
+        "text": "Optional: Finde ihren Fluchtweg heraus (Schmuggler am Hafen verhören)",
+        "done": {
+          "requires_flags": [
+            "koenigin_route"
+          ]
+        }
+      },
+      {
+        "text": "Stelle die Schmugglerkönigin (Hafen, nachts)",
+        "done": {
+          "requires_flags": [
+            "won_schmugglerkoenigin"
+          ]
+        }
+      },
+      {
+        "text": "Hol dir das Kopfgeld am Brett im Revier",
+        "done": {
+          "requires_flags": [
+            "kopfgeld_koenigin_paid"
+          ]
+        }
+      }
+    ]
   }
 }
