@@ -10,8 +10,9 @@ const here = fileURLToPath(new URL('.', import.meta.url));
 const root = resolve(here, '../../..');
 const read = f => JSON.parse(readFileSync(f, 'utf8'));
 const files = dir => readdirSync(dir, {withFileTypes:true}).flatMap(e => e.isDirectory() ? files(join(dir,e.name)) : [join(dir,e.name)]);
-const pack = Object.fromEntries(files(here).filter(f=>f.endsWith('.json')).map(f=>[relative(here,f),read(f)]));
-const live = loadContent();
+const pkgDir = join(root, 'src/data/packs/sequenzen'); // seit dem Einbau dort
+const pack = Object.fromEntries(files(pkgDir).filter(f=>f.endsWith('.json')).map(f=>[relative(pkgDir,f),read(f)]));
+const live = loadContent({ sequenzen: false });
 const seqFields = new Set('name desc ingredients skill passives ritual honor growth_steps digest_rate veraenderung'.split(' '));
 const skillFields = new Set('id name desc cost hits flat mult holy burn stun weak pierce shield heal drain evade confuse sure composure'.split(' '));
 const passiveKeys = new Set('max_hp max_nerves atk ap_start dmg_mult occult_mult damage_taken dodge_window parry_ap heal_bonus vision_cost composure_regen skill_composure calm_decay use_calm unruhe_tick digest_mult price sell money_bonus honor_loss conclusion_honor link_hints lock_bonus carry always_flee'.split(' '));
@@ -19,7 +20,7 @@ const multipliers = new Set('vision_cost composure_regen heal_bonus price sell h
 const ritualFields = new Set('name map vision consumes requires desc also_maps min_nerves max_hp_pct min_conclusions tribute'.split(' '));
 const liveFlags=new Set();
 function walk(v,fn,path='') { if(!v || typeof v!=='object')return; fn(v,path); for(const [k,x] of Object.entries(v))walk(x,fn,`${path}.${k}`); }
-for(const f of files(join(root,'src/data')).filter(f=>f.endsWith('.json')))walk(read(f),v=>{
+for(const f of files(join(root,'src/data')).filter(f=>f.endsWith('.json')&&!f.startsWith(pkgDir)))walk(read(f),v=>{
   for(const flag of v.sets_flags??[])liveFlags.add(flag);
   if(v.done_flag)liveFlags.add(v.done_flag);
 });

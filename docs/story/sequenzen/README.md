@@ -1,6 +1,6 @@
 # AF: Sequenzen und Pfade
 
-**Status: prüfbarer Inhaltsentwurf, nicht eingebunden.** Enthalten sind 28 Stufen für die sieben bestehenden Pfade, drei vollständige neue Pfade mit zusammen 27 Stufen, 55 Zutaten und sechs Artefakte. Alle Änderungen dieses Pakets liegen in diesem Ordner. Keine Laufzeitdatei wird verändert.
+**Status: eingebaut.** Die JSON-Dateien liegen jetzt unter `src/data/packs/sequenzen/`, angewendet von `src/data/sequenzen.js`. Spielbar sind die drei neuen Pfade bis Sequenz 5: Zutaten 9 und 8 bei Nell, 7 und 6 auf den Kettlegater Treffen, der Kern für 5 auf den Wexmoorer Treffen; Formeln bei Kittering und (6/5) auf den Wexmoorer Treffen und als seltener Fund. Grafik leihen sie bis zur eigenen bei Eisen (Waage), Kessel (Moor) und Schlüssel (Uhr). Die Stufen 4 bis 1 aller zehn Pfade, ihre 40 Kernzutaten und die sechs Artefakte sind geladen (`content.highSeqs`, `content.highItems`, `artifacts.list`), bleiben aber gesperrt, bis Kapitel 3 die Bosse bringt. Ursprünglicher Entwurfsstand: 28 Stufen für die sieben bestehenden Pfade, drei neue Pfade mit zusammen 27 Stufen, 55 Zutaten und sechs Artefakte.
 
 ## Dateien und Formate
 

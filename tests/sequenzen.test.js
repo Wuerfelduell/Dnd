@@ -1,0 +1,70 @@
+import { test } from 'node:test';
+import assert from 'node:assert/strict';
+import { existsSync } from 'node:fs';
+import { loadContent } from './helpers.js';
+import { GameState } from '../src/core/GameState.js';
+import { SEQ_MAX } from '../src/core/Pathways.js';
+import { itemIconUrl, itemIcon32Url, pathwayEmblemUrl, PATHWAY_POSES } from '../src/world/assets.js';
+
+const content = loadContent();
+const NEW = ['sq_waage', 'sq_moor', 'sq_uhr'];
+const file = (url) => new URL(`../public/${url.replace(/^.*?sprites\//, 'sprites/')}`, import.meta.url);
+
+test('Paket AF: drei neue Pfade spielbar bis Sequenz 5, Stufen 4 bis 1 aller zehn Pfade geladen, aber gesperrt', () => {
+  assert.equal(SEQ_MAX, 5);
+  for (const pid of NEW) {
+    assert.deepEqual(Object.keys(content.pathways[pid].seqs).sort(), ['5', '6', '7', '8', '9']);
+    assert.ok(content.items[`trank_${pid}_9`] && content.items[`formel_${pid}_5`]);
+  }
+  assert.equal(Object.keys(content.highSeqs).length, 10);
+  for (const p of Object.values(content.highSeqs)) assert.deepEqual(Object.keys(p).sort(), ['1', '2', '3', '4']);
+  assert.ok(!content.items.trank_laterne_4 && !content.items.sq_zutat_laterne_4, 'Seq 4 bringt noch keinen Trank und keine Zutat');
+  assert.equal(Object.keys(content.highItems).length, 40);
+});
+
+test('Paket AF: Grundzutat und Formel 9 für jeden kaufbar, ab 7 nur auf Treffen, Kern für 5 in Wexmoor', () => {
+  const s = new GameState(content);
+  s.money = 999;
+  for (const pid of NEW) {
+    const z9 = `sq_zutat_${pid.slice(3)}_9`;
+    assert.equal(s.buy('nell', z9).ok, true, z9);
+    assert.equal(s.buy('kittering', `formel_${pid}_9`).ok, true);
+    assert.ok(!s.shopStock('nell').some((e) => e.item === `sq_zutat_${pid.slice(3)}_8`), 'fremder Pfad sieht Seq-8-Zutat nicht');
+  }
+  const offers = (cid) => content.gatherings.circles[cid].members.flatMap((m) => m.offers.map((o) => o.item));
+  const kg = ['waage', 'kreide', 'russ'].flatMap(offers);
+  const wx = ['lichtlose', 'salz'].flatMap(offers);
+  for (const pid of NEW) {
+    const k = pid.slice(3);
+    assert.ok(kg.includes(`sq_zutat_${k}_7`) && kg.includes(`sq_zutat_${k}_6`), pid);
+    assert.ok(wx.includes(`sq_zutat_${k}_5`) && wx.includes(`formel_${pid}_6`) && wx.includes(`formel_${pid}_5`), pid);
+  }
+});
+
+test('Paket AF: Waage schützt, Moor heilt, die Uhr trifft sicher', () => {
+  const sk = (pid) => Object.values(content.pathways[pid].seqs).map((s) => s.skill);
+  assert.ok(sk('sq_waage').every((k) => k.shield > 0));
+  assert.ok(sk('sq_moor').some((k) => k.heal > 0));
+  assert.ok(sk('sq_uhr').some((k) => k.sure));
+});
+
+test('Paket AF: Platzhalter für Embleme, Posen, Tränke, Zutaten und Artefakte', () => {
+  for (const pid of NEW) {
+    assert.ok(existsSync(file(pathwayEmblemUrl(pid, 32))), pid);
+    assert.ok(PATHWAY_POSES[pid], pid);
+    for (const n of [9, 8, 7, 6, 5]) {
+      assert.ok(existsSync(file(itemIconUrl(`trank_${pid}_${n}`))), `trank_${pid}_${n}`);
+      assert.ok(existsSync(file(itemIcon32Url(`trank_${pid}_${n}`))), `32 trank_${pid}_${n}`);
+      assert.ok(existsSync(file(itemIconUrl(`formel_${pid}_${n}`))), `formel_${pid}_${n}`);
+    }
+  }
+  for (const id of Object.keys(content.items).filter((i) => i.startsWith('sq_'))) assert.ok(existsSync(file(itemIconUrl(id))), id);
+  assert.equal(Object.keys(content.artifacts.list).filter((i) => i.startsWith('sq_')).length, 6);
+});
+
+test('Paket AF: Ritualbedingung „Fall abgeschlossen“ steht lesbar in der Liste', () => {
+  const s = new GameState(content);
+  s.pathway = { id: 'sq_waage', seq: 7, digestion: 100 };
+  const steps = s.ritualSteps('sq_waage', 6);
+  assert.ok(steps.some((st) => st.text === 'Fall 1: Die erloschene Laterne abgeschlossen'), JSON.stringify(steps));
+});

@@ -2,7 +2,7 @@ import Phaser from 'phaser';
 import { questTarget, nextHop } from '../core/Guide.js';
 import { createTextures, createCharacterSheet, hash2, TILE, TILE_INDEX, SOLID_KEYS } from './textures.js';
 import { Lighting, DEPTH } from './Lighting.js';
-import { preloadSprites, playSheetAnim, themeKeys, facadeKeys, PROP_ORIGINS, MAP_WEATHER, DISGUISE_SHEETS } from './assets.js';
+import { preloadSprites, playSheetAnim, themeKeys, facadeKeys, PROP_ORIGINS, MAP_WEATHER, DISGUISE_SHEETS, pathwayArt } from './assets.js';
 import { Roamers } from './Roamers.js';
 import { Critters } from './Critters.js';
 import { Patrols } from './Patrols.js';
@@ -1268,7 +1268,8 @@ export class WorldScene extends Phaser.Scene {
     const show = pid && this.state.spiritVision && this.textures.exists('aura_pfade');
     if (!show) { this.aura?.setVisible(false); return; }
     if (!this.aura) this.aura = this.add.sprite(0, 0, 'aura_pfade').setOrigin(0.5, 1).setAlpha(0.7).setBlendMode(Phaser.BlendModes.ADD).setDepth(DEPTH.dark + 1); // über der Dunkelheit, wie ein Leuchten
-    if (this.aura.anims.currentAnim?.key !== `aura_pfade-${pid}`) playSheetAnim(this.aura, 'aura_pfade', pid);
+    const art = pathwayArt(pid); // neue Pfade leihen sich die Aura eines Bestandspfads
+    if (this.aura.anims.currentAnim?.key !== `aura_pfade-${art}`) playSheetAnim(this.aura, 'aura_pfade', art);
     this.aura.setVisible(true).setPosition(this.player.x, this.player.y + 2);
   }
 
