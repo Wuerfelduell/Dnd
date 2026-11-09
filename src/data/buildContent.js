@@ -1,22 +1,27 @@
 // Fügt alle Inhaltsdateien zu einem Objekt zusammen (ohne JSON-Imports, damit Node-Tests es nutzen können).
 // Hinweise, Informationen, Schlussfolgerungen und Dialoge teilen sich jeweils einen Namensraum über alle Fälle.
 // factions.json (Sekten) bringt eigene Figuren, Reiseziele, Gegner, Beute, Aufträge und Hinweise mit.
-export function buildContent({ campaign, quests, cases, maps, dialogues, items = {}, encounters = {}, pathways = null, market = null, travel = null, wilds = null, factions = null }) {
+// gebaeude.json bringt betretbare Häuser mit: Innenräume, Türen in den Vierteln, Figuren, Händler, Dialoge.
+export function buildContent({ campaign, quests, cases, maps, dialogues, items = {}, encounters = {}, pathways = null, market = null, travel = null, wilds = null, factions = null, buildings = null }) {
   const merge = (list, key) => Object.assign({}, ...list.map((x) => x[key] ?? {}));
+  const b = buildings ?? {};
+  maps = withEntrances([...maps, ...(b.maps ?? [])], b.entrances ?? []);
   const wild = wildContent(wilds);
   const f = factions ?? {};
   if (f.facts || f.clues || f.deductions) cases = [...cases, { facts: f.facts, clues: f.clues, deductions: f.deductions }];
   return {
     ...campaign,
-    npcs: { ...campaign.npcs, ...(market?.npcs ?? {}), ...(f.npcs ?? {}) },
+    npcs: { ...campaign.npcs, ...(market?.npcs ?? {}), ...(f.npcs ?? {}), ...(b.npcs ?? {}) },
     travel: [...(campaign.travel ?? []), ...(market?.travel ?? []), ...wild.travel, ...(f.travel ?? [])],
     quests: { ...quests, ...(f.quests ?? {}) },
-    items: { ...items, ...(pathways?.items ?? {}), ...pathwayItems(pathways?.pathways ?? {}), ...wild.items, ...(f.items ?? {}) },
+    items: { ...items, ...(pathways?.items ?? {}), ...pathwayItems(pathways?.pathways ?? {}), ...artifactItems(pathways?.artifacts), ...wild.items, ...(f.items ?? {}) },
     encounters: { ...encounters, ...(market?.encounters ?? {}), ...(travel?.encounters ?? {}), ...wild.encounters, ...(f.encounters ?? {}) },
     travelRules: travel,
     pathways: pathways?.pathways ?? {},
-    market: market && { ...market, sell_prices: { ...market.sell_prices, ...(f.sell_prices ?? {}) } },
-    loot: { ...(market?.loot ?? {}), ...wild.loot, ...(f.loot ?? {}) },
+    market: market && { ...market, merchants: { ...market.merchants, ...(b.merchants ?? {}) }, sell_prices: { ...market.sell_prices, ...(f.sell_prices ?? {}) } },
+    loot: { ...(market?.loot ?? {}), ...artifactDrops(wild.loot, wild.encounters, pathways?.artifacts), ...(f.loot ?? {}) },
+    artifacts: pathways?.artifacts ?? null,
+    revierSupply: pathways?.revier_supply ?? null,
     zones: wild.zones,
     lootTables: wild.lootTables,
     factions: f.factions ?? {},
@@ -25,8 +30,27 @@ export function buildContent({ campaign, quests, cases, maps, dialogues, items =
     endings: merge(cases, 'endings'),
     deductions: cases.flatMap((c) => c.deductions ?? []),
     maps: Object.fromEntries(maps.map((m) => [m.id, m])),
-    dialogues: Object.assign({}, ...dialogues),
+    dialogues: Object.assign({}, ...dialogues, b.dialogues ?? {}),
   };
+}
+
+/**
+ * Hängt die Haustüren aus gebaeude.json an die Karten der Viertel: eine Tür ins Innere
+ * und einen Spawn davor (benannt nach dem Innenraum), auf dem man beim Hinausgehen landet.
+ */
+function withEntrances(maps, entrances) {
+  return maps.map((m) => {
+    const own = entrances.filter((e) => e.map === m.id);
+    if (!own.length) return m;
+    return {
+      ...m,
+      spawns: { ...m.spawns, ...Object.fromEntries(own.map((e) => [e.to, e.out])) },
+      interactables: [...(m.interactables ?? []), ...own.map((e) => ({
+        id: e.id, kind: 'door', to: e.to, spawn: e.spawn ?? 'default', tile: e.tile, prompt: e.prompt, marker: false, reach: e.reach ?? 26,
+        ...(e.lock ? { lock: e.lock } : {}),
+      }))],
+    };
+  });
 }
 
 /** Erzeugt für jede Sequenz eine Formel und einen Trank als Gegenstand. */
@@ -45,6 +69,34 @@ function pathwayItems(pathways) {
         desc: `Sequenz ${seq} des ${p.name.replace('Pfad', 'Pfads')}. „${p.principle}“ Am Braukessel brauen.`,
       };
     }
+  }
+  return out;
+}
+
+/** Artefakte (pathways.json → artifacts.list) werden Gegenstände der Art 'artifact'. */
+function artifactItems(artifacts) {
+  const out = {};
+  for (const [id, a] of Object.entries(artifacts?.list ?? {})) {
+    const { icon, zones, ...rest } = a;
+    out[id] = { ...rest, kind: 'artifact', rarity: 'okkult', zones };
+  }
+  return out;
+}
+
+/**
+ * Artefakte aus der Wildnis: Jeder Gegner eines Gebiets kann eines der dort heimischen Artefakte fallen lassen
+ * (selten, Bosse häufiger; Eliten verdoppeln die Chance wie bei allen Drops).
+ */
+function artifactDrops(loot, encounters, artifacts) {
+  if (!artifacts) return loot;
+  const out = { ...loot };
+  const chance = artifacts.drop_chance ?? { normal: 0.02, boss: 0.3 };
+  for (const [id, table] of Object.entries(loot)) {
+    const enc = encounters[id];
+    const ids = Object.entries(artifacts.list).filter(([, a]) => a.source === 'wild' && a.zones?.includes(enc?.zone)).map(([aid]) => aid);
+    if (!ids.length) continue;
+    const base = enc.boss ? chance.boss : chance.normal * (enc.elite ? 2 : 1);
+    out[id] = { ...table, drops: [...(table.drops ?? []), ...ids.map((item) => ({ item, chance: base / ids.length }))] };
   }
   return out;
 }

@@ -136,6 +136,12 @@ kann die Glocke brechen, statt sie nur zu zerschlagen. Endkampf gegen Miriam Vey
 Abgelichteten werfen keinen Schatten mehr. Spuren führen ins Atelier Whitlock am Altmarkt und ins
 Spiegelkabinett am Nordtor. Die Wahrsagerin ist die bequeme Verdächtige.
 
+**Fall 7: Ertrunken im Trockenen** und **Fall 8: Die Schlafwandler von St. Brigid** beginnen gleichzeitig und
+scheinen nichts miteinander zu tun zu haben: ein Bankier, der in seinem verschlossenen Kontor ertrunken ist, und
+Waisenkinder, die nachts im Schlaf zum Kanal gehen. Wer in beiden Fällen gräbt, sieht Spuren aus dem einen Fall
+im Notizbuch des anderen auftauchen („Querverbindung“). Erst wer beide verknüpft, findet die gemeinsame Täterin
+und den verschwundenen Jungen.
+
 Nebenauftrag **Das Wundertonikum**: Bess Hagan vom Hafen schwört, Dr. Pratt habe ihren Mann vergiftet.
 
 ## Technik
@@ -166,6 +172,7 @@ src/
     case_altmarkt.json    Informationen und Hinweise der Altmarkt-Nebenaufträge
     case_04.json          Fall 4 und die Nebenfälle am Nordtor
     case_05.json, case_06.json  Fall 5 und 6 (mit dem Nebenauftrag Wundertonikum)
+    case_07.json, case_08.json  Fall 7 und 8; Informationen mit `also` erscheinen unter Bedingungen auch im anderen Fall
     maps/*.json           Orte als Zeichenraster + Objekte + Figuren
     dialogues/*.json      Dialogbäume
 tests/                    `npm test`: Datenprüfung, Kampfregeln und Balance, beide Fälle über die echten Dialoge durchgespielt

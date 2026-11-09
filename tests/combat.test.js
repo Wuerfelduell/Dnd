@@ -123,10 +123,11 @@ test('Niederlage: Ohnmacht mit wenig Leben, im Wächterkampf zurück an die Trep
 
 const LATE = ['choir_zealots', 'rook_fight', 'gasgeist', 'felix_fight', 'uhrwerkwaechter', 'kanalkroete', 'maskenspieler', 'schlachtergehilfe',
   'chorwaechter', 'stimmenfresser', 'bronzeengel', 'glockenecho', 'miriam', 'schattenabzug', 'negativ_geist', 'silberbad_schleim', 'dreizehnter_gast', 'pratt_fight', // Fall 5/6
+  'ertrunkener', 'pfandeintreiber', 'traumfaden', 'miss_wren', // Fall 7/8
   ...Object.keys(content.encounters).filter((id) => content.encounters[id].faction)]; // Sekten kommen nach Fall 2/3
 
 const BOSSES = ['ash_warden', 'rook_fight', 'felix_fight', 'mirror_shade', 'fog_hound', 'rost_schmied', 'rost_vater', 'schleier_seherin', 'schleier_mutter',
-  'bronzeengel', 'miriam', 'dreizehnter_gast'];
+  'bronzeengel', 'miriam', 'dreizehnter_gast', 'traumfaden', 'miss_wren'];
 
 test('Balance: Geübte Spieler (Bosse: sehr Geübte) schaffen mit Startausrüstung jeden Kampf', () => {
   // Wer von drei Schlägen einem ausweicht, einen pariert und unter 15 Leben verbindet, gewinnt.
@@ -215,7 +216,7 @@ test('Noch härter: wechselndes Ringtempo, engeres Parieren bei Eliten, Panzer, 
   c.rng = seeded(3);
   const atk = c.nextEnemyAttack();
   assert.equal(atk.rings.length, atk.hits.length);
-  assert.ok(atk.rings.every((r) => RING_CURVES[r.curve] && r.lead >= 560 && r.lead <= 920));
+  assert.ok(atk.rings.every((r, i) => RING_CURVES[r.curve] && r.lead >= (i ? 380 : 560) && r.lead <= 920));
   // Übung bleibt gleichmäßig
   const p = new Combat(fresh(), 'sparring');
   assert.ok(p.nextEnemyAttack().rings.every((r) => r.curve === 'linear'));
@@ -231,4 +232,44 @@ test('Noch härter: wechselndes Ringtempo, engeres Parieren bei Eliten, Panzer, 
   // Konter nach Parade ist klein
   const r = c.resolveHit({ ...atk, unparryable: false }, 'parry');
   assert.ok(r.counter <= Math.ceil(s.weaponStats().atk * 0.3) + 1, `Konter ${r.counter}`);
+});
+
+test('Kombo-Angriffe: der nächste Ring erscheint erst nach dem vorigen Einschlag', () => {
+  let combos = 0;
+  for (const id of Object.keys(content.encounters)) {
+    for (let seed = 1; seed <= 6; seed++) {
+      const c = new Combat(fresh(), id);
+      c.rng = seeded(seed);
+      for (let n = 0; n < 6; n++) {
+        const atk = c.nextEnemyAttack();
+        if (!atk?.hits) continue;
+        if (atk.hits.length > 1) combos++;
+        for (let i = 1; i < atk.hits.length; i++) {
+          assert.ok(atk.hits[i] - atk.rings[i].lead > atk.hits[i - 1], `${id}: Ring ${i} überlappt`);
+        }
+      }
+    }
+  }
+  assert.ok(combos > 20, `nur ${combos} Kombos geprüft`);
+});
+
+test('Mehrere Aktionen pro Zug mit Konzentration, Gegenstand nur einmal pro Zug', () => {
+  const s = fresh();
+  s.applyEffects({ gives_items: { bannsalz: 2 } });
+  const c = new Combat(s, 'fog_hound');
+  c.ap = 6;
+  assert.ok(!c.endsTurn('double'), 'Fertigkeit mit Kosten beendet den Zug nicht');
+  assert.ok(c.endsTurn('attack'), 'einfacher Angriff beendet den Zug');
+  c.useSkill('double', ['good', 'good']);
+  c.useSkill('double', ['good', 'good']);
+  assert.equal(c.ap, 2);
+  assert.equal(c.actions, 2);
+  assert.ok(c.useItem('bannsalz'));
+  assert.equal(c.useItem('bannsalz'), null, 'zweiter Gegenstand im selben Zug geht nicht');
+  assert.ok(!c.canUseItem());
+  assert.equal(s.itemCount('bannsalz'), 1);
+  c.endRound();
+  assert.ok(c.canUseItem());
+  assert.equal(c.actions, 0);
+  assert.ok(c.useItem('bannsalz'), 'neuer Zug, neuer Gegenstand');
 });

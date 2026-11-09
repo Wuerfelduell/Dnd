@@ -19,6 +19,8 @@ import { questTarget } from '../core/Guide.js';
 const itemIcon = (id) => `<img class="item-icon" src="${itemIconUrl(id)}" alt="" width="16" height="16" onerror="this.remove()">`;
 /** Größeres Icon (Tränke in 32px, sonst das 16er doppelt). */
 const itemIconBig = (id) => `<img class="item-icon big" src="${itemIcon32Url(id) ?? itemIconUrl(id)}" alt="" width="32" height="32" onerror="this.remove()">`;
+/** Vor- und Nachteile eines Artefakts als kleine Liste. */
+const artifactEffectsHtml = (it) => `<span class="arteffects">${(it.boons ?? []).map((x) => `<span class="boon">+ ${esc(x.text)}</span>`).join('')}${(it.curses ?? []).map((x) => `<span class="curse">− ${esc(x.text)}</span>`).join('')}</span>`;
 const emblem = (pid, size = 16) => `<img class="emblem" src="${pathwayEmblemUrl(pid, size)}" alt="" width="${size}" height="${size}" onerror="this.remove()">`;
 /** 16x16-Zelle aus einem Icon-Atlas (Fähigkeiten: 7 Spalten, Zustände: 12 Spalten). */
 const atlasIcon = (url, index, cols, title = '') => (index === undefined ? ''
@@ -146,6 +148,10 @@ export class Ui {
     state.on('vision', (on) => root.classList.toggle('vision', on));
     state.on('notice', (t) => this.toast(t, 'warn'));
     state.on('clue', (id) => this.toast(`Neuer Hinweis: ${state.clue(id).name}`));
+    state.on('cross', ({ fact, case: c }) => {
+      const title = state.content.cases.find((x) => x.id === c)?.title.split(':')[0] ?? 'einem anderen Fall';
+      this.toast(`Querverbindung: „${state.fact(fact).text}“ gehört auch zu ${title}`, 'gold');
+    });
     state.on('fact', ({ id, status }) => {
       if (status === 'likely') this.toast(`Bestätigt: ${state.fact(id).text}`, 'gold');
       if (status === 'refuted') this.toast(`Widerlegt: ${state.fact(id).text}`, 'warn');
@@ -269,8 +275,9 @@ export class Ui {
 
   updateComposure(v) {
     const fill = this.$('.fill');
-    fill.style.width = `${v}%`;
-    fill.classList.toggle('low', v < 30);
+    const pct = (v / this.state.maxComposure()) * 100;
+    fill.style.width = `${pct}%`;
+    fill.classList.toggle('low', pct < 30);
   }
 
   updateHp() {
@@ -472,11 +479,13 @@ export class Ui {
   choose(i) {
     const choice = this.dialogue?.choices[i];
     if (!choice || choice.locked) return;
-    if (choice.shop) {
+    if (choice.shop || choice.vault || choice.expert) {
       const { onClose } = this.dialogue;
       this.dialogue = null;
       onClose?.();
-      this.openShop(choice.shop);
+      if (choice.shop) this.openShop(choice.shop);
+      else if (choice.vault) this.openVault();
+      else this.openExpert();
       return;
     }
     const next = this.state.pick(choice.next);
@@ -672,6 +681,8 @@ export class Ui {
     el.querySelectorAll('[data-use]').forEach((b) => { b.onclick = () => this.renderNotebook(esc(this.state.useItem(b.dataset.use) ?? '')); });
     el.querySelectorAll('[data-equip]').forEach((b) => { b.onclick = () => { this.state.equip(b.dataset.equip); this.renderNotebook(''); }; });
     el.querySelectorAll('[data-drink]').forEach((b) => { b.onclick = () => this.drink(b.dataset.drink); });
+    el.querySelectorAll('[data-wear]').forEach((b) => { b.onclick = () => this.renderNotebook(esc(this.state.equipArtifact(b.dataset.wear).text)); });
+    el.querySelectorAll('[data-unequip]').forEach((b) => { b.onclick = () => this.renderNotebook(esc(this.state.unequipArtifact(b.dataset.unequip).text)); });
     el.querySelectorAll('[data-inspect]').forEach((b) => { b.onclick = () => this.inspectItem(b.dataset.inspect); });
     el.querySelectorAll('[data-track]').forEach((b) => { b.onclick = () => { const id = b.dataset.track; this.state.track(this.state.tracked === id ? null : id); this.renderNotebook(''); }; });
     el.querySelectorAll('[data-recipe]').forEach((b) => { b.onclick = () => { this.tab = 'pfad'; this.renderNotebook(''); }; });
@@ -725,7 +736,7 @@ export class Ui {
 
   itemsHtml() {
     const s = this.state;
-    const kindOrder = { weapon: 0, consumable: 1, potion: 2, formula: 3, ingredient: 4, trophy: 5, key: 6 };
+    const kindOrder = { weapon: 0, artifact: 1, consumable: 2, potion: 3, formula: 4, ingredient: 5, trophy: 6, key: 7 };
     const list = s.items().sort((a, b) => kindOrder[a.kind] - kindOrder[b.kind]);
     const w = s.weaponStats();
     const rows = list.map((it) => {
@@ -737,14 +748,22 @@ export class Ui {
         const chk = s.drinkCheck(it.id);
         action = chk.ok ? `<button class="small" data-drink="${it.id}">Trinken</button><br><span class="muted">Risiko ${Math.round(chk.risk * 100)} %</span>` : '<span class="muted">nicht trinkbar</span>';
       } else if (it.kind === 'formula') action = '<button class="small" data-recipe="1">Rezept</button>';
-      else if (it.kind === 'ingredient') action = '<span class="muted">Zutat</span>';
+      else if (it.kind === 'artifact') {
+        action = s.isArtifactActive(it.id) ? `<span class="badge likely">angelegt</span><br><button class="small" data-unequip="${it.id}">Ablegen</button>`
+          : `<button class="small" data-wear="${it.id}" ${s.canEquipArtifact(it.id).ok ? '' : 'disabled'}>Anlegen</button>`;
+        if (s.borrowed.includes(it.id)) action += '<br><span class="muted">vom Revier geliehen</span>';
+      } else if (it.kind === 'ingredient') action = '<span class="muted">Zutat</span>';
       else if (it.kind === 'trophy') action = `<span class="muted rar-${itemRarity(it)}">Beutestück · ${RARITY_NAMES[itemRarity(it)]}</span>`;
       if (!action && it.inspect) action = `<button class="small" data-inspect="${it.id}">Untersuchen</button>`;
       const stat = it.kind === 'weapon' ? ` <span class="muted">Angriff ${it.atk}${it.occult ? ', stark gegen Okkultes' : ''}</span>` : '';
-      return `<li class="item"><div>${it.kind === 'potion' || it.kind === 'formula' ? itemIconBig(it.id) : itemIcon(it.id)}<strong>${esc(it.name)}</strong>${it.count > 1 ? ` ×${it.count}` : ''}${stat}<br><span class="desc">${esc(it.desc)}</span></div><div>${action}</div></li>`;
+      const effects = it.kind === 'artifact' ? artifactEffectsHtml(it) : '';
+      return `<li class="item"><div>${it.kind === 'potion' || it.kind === 'formula' ? itemIconBig(it.id) : itemIcon(it.id)}<strong>${esc(it.name)}</strong>${it.count > 1 ? ` ×${it.count}` : ''}${stat}<br><span class="desc">${esc(it.desc)}</span>${effects}</div><div>${action}</div></li>`;
     }).join('');
+    const arts = s.artifacts.length || list.some((it) => it.kind === 'artifact')
+      ? `<div class="status">Artefakte angelegt <strong>${s.artifacts.length}/${s.artifactRules().max_active ?? 3}</strong>${s.artifactUnruhe() ? ` · <span class="curse">Unruhe +${Math.round(s.artifactUnruhe() * 10) / 10} pro Sekunde</span>` : ''} · Anlegen bringt Unruhe, Ablegen kostet Nerven.</div>` : '';
     return `
-      <div class="status">Leben <strong>${s.hp}/${s.maxHp}</strong> · Nerven <strong>${Math.round(s.composure)}</strong> · Waffe <strong>${esc(w.name)}</strong> (Angriff ${w.atk}) · ${coin}<strong>${s.money}</strong> Schilling</div>
+      <div class="status">Leben <strong>${s.hp}/${s.maxHp}</strong> · Nerven <strong>${Math.round(s.composure)}/${s.maxComposure()}</strong> · Waffe <strong>${esc(w.name)}</strong> (Angriff ${w.atk}) · ${coin}<strong>${s.money}</strong> Schilling</div>
+      ${arts}
       <ul class="items">${rows || '<li class="empty">Deine Taschen sind leer.</li>'}</ul>`;
   }
 
@@ -774,7 +793,7 @@ export class Ui {
       const st = s.factStatus(f);
       const n = s.factSources(f).length;
       return `<li><button class="fact ${st} ${this.selected.includes(f) ? 'sel' : ''} ${hinted.has(f) ? 'hinted' : ''}" data-fact="${f}" ${st === 'refuted' ? 'data-refuted="1"' : ''}>
-        ${this.badge(st)} ${linkable.has(f) ? `${journalMark('string_pin', 'Lässt sich verknüpfen')} ` : ''}${esc(s.fact(f).text)} <span class="src">${n}×</span></button></li>`;
+        ${this.badge(st)} ${linkable.has(f) ? `${journalMark('string_pin', 'Lässt sich verknüpfen')} ` : ''}${esc(s.fact(f).text)} <span class="src">${n}×</span>${s.fact(f).case !== caseId ? `<span class="cross">Spur aus ${esc(s.content.cases.find((c) => c.id === s.fact(f).case)?.title.split(':')[0] ?? 'einem anderen Fall')}</span>` : ''}</button></li>`;
     }).join('');
     const ded = s.content.deductions.filter((d) => d.case === caseId && s.hasConclusion(d.id));
     const concl = ded.map((d) => `<li><strong>${esc(d.name)}</strong> ${s.isCertain(d.id) ? '<span class="badge likely">gesichert</span>' : '<span class="badge suspected">Vermutung</span>'}<br>${esc(d.text)}</li>`).join('');
@@ -895,6 +914,7 @@ export class Ui {
         <div class="meter"><span>Unruhe</span><div class="bar"><div class="ufill ${s.unruhe >= 60 ? 'low' : ''}" style="width:${s.unruhe}%"></div></div><em>${Math.round(s.unruhe)}</em></div>
       </div>
       <p class="lead"><em>„${esc(p.principle)}“</em> ${esc(p.digest_hint)}</p>
+      <p class="muted">Jede Sequenz dieses Pfades: +${s.growth().hp} Leben, +${s.growth().nerves} Nerven. Gerade: ${s.maxHp} Leben, ${s.maxComposure()} Nerven.</p>
       <h4>Was deinen Trank verdaut</h4>
       <ul class="digestlist">${s.digestTable().map((r) => `<li><span>${esc(r.label)}</span> <strong>+${r.points} %</strong></li>`).join('')}
         <li class="muted">Alles andere verdaut diesen Pfad nicht. Auf höheren Sequenzen geht es langsamer.</li></ul>
@@ -953,7 +973,7 @@ export class Ui {
       const sellable = s.items().filter((it) => s.sellPrice(it.id) !== null);
       this.shop.entries = sellable.map((it) => ({ id: it.id }));
       rows = sellable.map((it, i) => `<li class="item"><div>${itemIconBig(it.id)}<strong>${esc(it.name)}</strong>${it.count > 1 ? ` ×${it.count}` : ''}<br><span class="desc">${esc(it.desc)}</span></div>
-        <div><button class="small" data-sell="${i}">${i < 9 ? `<span class="key">${i + 1}</span> ` : ''}${s.sellPrice(it.id)} Sch.</button></div></li>`).join('') || '<li class="empty">Nichts, was Gorse haben will.</li>';
+        <div><button class="small" data-sell="${i}">${i < 9 ? `<span class="key">${i + 1}</span> ` : ''}${s.sellPrice(it.id)} Sch.</button></div></li>`).join('') || `<li class="empty">Nichts, was ${esc(m.name)} haben will.</li>`;
     }
     const el = this.open('shop', `
       <h3>${esc(m.name)} <span class="muted">${esc(m.title)}</span></h3>
@@ -968,12 +988,113 @@ export class Ui {
     el.querySelector('[data-act=close]').onclick = () => this.close();
   }
 
+  // --- Revier: Asservatenkammer und Gutachterin ---------------------------------------
+
+  /** Asservatenkammer: Artefakte ausleihen und zurückgeben. */
+  openVault(feedback = '') {
+    const s = this.state;
+    const stock = s.vaultStock();
+    this.vault = stock.map((e) => ({ type: 'artifact', id: e.id, borrowed: e.borrowed, disabled: !e.borrowed && !!e.locked }));
+    const rows = stock.map((e, i) => `<li class="item ${e.locked && !e.borrowed ? 'lockedrow' : ''}"><div>${itemIconBig(e.id)}<strong>${esc(e.name)}</strong><br>
+      <span class="desc">${esc(e.desc)}</span>${artifactEffectsHtml(e)}${e.locked && !e.borrowed ? `<span class="muted">🔒 ${esc(e.locked)}</span>` : ''}</div>
+      <div><button class="small" data-vault="${i}" ${this.vault[i].disabled ? 'disabled' : ''}><span class="key">${i + 1}</span> ${e.borrowed ? 'Zurückgeben' : 'Ausleihen'}</button></div></li>`).join('');
+    const el = this.open('vault', `
+      <h3>Asservatenkammer <span class="muted">Sergeant Thale</span></h3>
+      <p class="lead">„Alles hier ist beschlagnahmt, weil es jemandem geschadet hat. Ich leihe es Ihnen trotzdem. Höchstens drei Dinge gleichzeitig am Leib, sonst holen wir Sie aus dem Kanal.“</p>
+      <div class="status">Ausgeliehen <strong>${s.borrowed.length}/${s.borrowLimit()}</strong> · Mit höherem Rang darfst du mehr mitnehmen.</div>
+      <ul class="items shoplist">${rows}</ul>
+      <div class="feedback">${feedback}</div>
+      <div class="actions"><button data-act="close">Gehen <span class="key">Esc</span></button></div>`, 'notebook shop');
+    el.querySelectorAll('[data-vault]').forEach((b) => { b.onclick = () => this.vaultPick(Number(b.dataset.vault)); });
+    el.querySelector('[data-act=close]').onclick = () => this.close();
+  }
+
+  vaultPick(i) {
+    const e = this.vault?.[i];
+    if (!e || e.disabled) return;
+    if (e.type === 'potion') {
+      const r = this.state.takeRevierPotion(e.pathway);
+      this.openExpert(`<span class="${r.ok ? 'good' : ''}">${esc(r.text)}</span>`);
+      return;
+    }
+    const r = e.borrowed ? this.state.returnArtifact(e.id) : this.state.borrowArtifact(e.id);
+    this.openVault(`<span class="${r.ok ? 'good' : ''}">${esc(r.text)}</span>`);
+  }
+
+  /** Gutachterin Dr. Varga: Tränke des Reviers für gelöste Fälle, dazu eine Einschätzung des eigenen Pfades. */
+  openExpert(feedback = '') {
+    const s = this.state;
+    const sup = s.revierSupply();
+    const offers = s.revierOffers();
+    this.vault = offers.map((o) => ({ type: 'potion', pathway: o.pathway, disabled: o.taken || !!o.locked || !o.potion }));
+    const names = (sup?.pathways ?? []).map((pid) => s.content.pathways[pid]?.short).join(', ');
+    const rows = offers.map((o, i) => {
+      const p = s.content.pathways[o.pathway];
+      return `<li class="item ${o.locked ? 'lockedrow' : ''}"><div>${o.potion ? itemIconBig(o.potion) : emblem(o.pathway, 32)}<strong style="color:${p.color}">${esc(p.name)}</strong> · Sequenz ${o.seq}${o.name ? `: ${esc(o.name)}` : ''}<br>
+        <span class="desc">${esc(o.locked ? `🔒 ${o.locked}` : o.taken ? 'Schon abgeholt.' : p.seqs[o.seq]?.desc ?? '')}</span></div>
+        <div><button class="small" data-vault="${i}" ${this.vault[i].disabled ? 'disabled' : ''}><span class="key">${i + 1}</span> Abholen</button></div></li>`;
+    }).join('');
+    const intro = !s.isBeyonder()
+      ? `Das Revier führt Tränke für drei Pfade: ${names}. Jede Stufe gibt es einmal, sobald ein bestimmter Fall gelöst ist. Für alle anderen Pfade gehen Sie auf den Nachtmarkt.`
+      : offers.length ? 'Ihr Pfad gehört zu denen, die das Revier unterstützt. Jede gelöste Akte bringt Sie eine Stufe weiter. Trinken sollten Sie aber erst, wenn der letzte Trank verdaut ist.'
+        : `Ihr Pfad gehört nicht zu denen des Reviers (${names}). Beraten kann ich Sie trotzdem, aber Tränke bekommen Sie bei Kittering auf dem Nachtmarkt.`;
+    const el = this.open('vault', `
+      <h3>Dr. Ilse Varga <span class="muted">Gutachterin für Okkultes</span></h3>
+      <p class="lead">„${esc(intro)}“</p>
+      ${s.isBeyonder() ? `<div class="lead">${paragraphs(s.pathwayReport())}</div>` : ''}
+      <ul class="items shoplist">${rows || '<li class="empty">Gerade nichts für Sie.</li>'}</ul>
+      <div class="feedback">${feedback}</div>
+      <div class="actions"><button data-act="close">Gehen <span class="key">Esc</span></button></div>`, 'notebook shop');
+    el.querySelectorAll('[data-vault]').forEach((b) => { b.onclick = () => this.vaultPick(Number(b.dataset.vault)); });
+    el.querySelector('[data-act=close]').onclick = () => this.close();
+  }
+
   shopPick(i) {
     const sh = this.shop;
     const e = sh?.entries[i];
     if (!e) return;
     const r = sh.mode === 'buy' ? this.state.buy(sh.id, e.id) : this.state.sell(e.id);
     this.openShop(sh.id, sh.mode, `<span class="${r.ok ? 'good' : ''}">${esc(r.text)}</span>`);
+  }
+
+  // --- Eigenes Büro: Lagerschrank und Fallwand -------------------------------------------
+
+  /** Zwei Spalten: was du dabeihast und was im Schrank liegt. */
+  openStorage(feedback = '') {
+    const s = this.state;
+    const row = (it, act, label, all) => `<li class="item"><div>${itemIcon(it.id)}<strong>${esc(it.name)}</strong>${it.count > 1 ? ` ×${it.count}` : ''}</div>
+      <div><button class="small" data-${act}="${it.id}">${label}</button>${it.count > 1 ? ` <button class="small" data-${act}-all="${it.id}">${all}</button>` : ''}</div></li>`;
+    const carried = s.items().filter((it) => s.canStore(it.id));
+    const stored = s.storedItems();
+    const el = this.open('storage', `
+      <h3>Asservatenschrank <span class="muted">Dein Büro im Revier</span></h3>
+      <p class="lead">Was hier liegt, ist sicher, auch wenn du unterwegs ohnmächtig wirst oder ausgeraubt wirst. Beweisstücke bleiben bei dir.</p>
+      <div class="storage">
+        <div><h4>Bei dir</h4><ul class="items">${carried.map((it) => row(it, 'store', 'Einlagern', 'Alle')).join('') || '<li class="empty">Nichts zum Einlagern.</li>'}</ul></div>
+        <div><h4>Im Schrank</h4><ul class="items">${stored.map((it) => row(it, 'take', 'Nehmen', 'Alle')).join('') || '<li class="empty">Der Schrank ist leer.</li>'}</ul></div>
+      </div>
+      <div class="feedback">${feedback}</div>
+      <div class="actions"><button data-act="close">Schließen <span class="key">Esc</span></button></div>`, 'notebook shop storage-panel');
+    const act = (fn) => (b) => {
+      const r = fn(b);
+      this.openStorage(`<span class="${r.ok ? 'good' : ''}">${esc(r.text)}</span>`);
+    };
+    el.querySelectorAll('[data-store]').forEach((b) => { b.onclick = () => act(() => s.storeItem(b.dataset.store, 1))(b); });
+    el.querySelectorAll('[data-store-all]').forEach((b) => { b.onclick = () => act(() => s.storeItem(b.dataset.storeAll, s.itemCount(b.dataset.storeAll)))(b); });
+    el.querySelectorAll('[data-take]').forEach((b) => { b.onclick = () => act(() => s.retrieveItem(b.dataset.take, 1))(b); });
+    el.querySelectorAll('[data-take-all]').forEach((b) => { b.onclick = () => act(() => s.retrieveItem(b.dataset.takeAll, s.storedCount(b.dataset.takeAll)))(b); });
+    el.querySelector('[data-act=close]').onclick = () => this.close();
+  }
+
+  /** Fallwand im Büro: alle abgeschlossenen Fälle mit Aktendeckel und Ausgang. */
+  showCaseWall() {
+    const s = this.state;
+    const cases = Object.entries(s.endings).map(([caseId, endId]) => ({ caseId, quest: s.quest(caseId), end: s.content.endings[endId] }));
+    const extra = cases.length ? `<ul class="casewall">${cases.map((c) => `<li><img src="${caseFileUrl(c.caseId)}" alt="" onerror="this.remove()">
+      <div><strong>${esc(c.quest?.title ?? c.caseId)}</strong><br><span class="muted">${esc(c.end?.title ?? '')}</span></div></li>`).join('')}</ul>` : '';
+    this.showMessage('Fallwand', cases.length
+      ? 'Zeitungsausschnitte, Fotos, rote Fäden. Jeder Fall, den du abgeschlossen hast, hängt hier.'
+      : 'Noch leer. Ein paar Reißzwecken warten auf deinen ersten abgeschlossenen Fall.', { extra, footer: `Rang: ${s.rank().name} · Ansehen ${s.honor}` });
   }
 
   // --- Kampf -----------------------------------------------------------------
@@ -1024,7 +1145,7 @@ export class Ui {
     q('.pfill').style.width = `${(s.hp / s.maxHp) * 100}%`;
     q('.pfill').classList.toggle('low', s.hp / s.maxHp < 0.3);
     q('.cb-hp').textContent = `${s.hp}/${s.maxHp}`;
-    q('.nfill').style.width = `${s.composure}%`;
+    q('.nfill').style.width = `${(s.composure / s.maxComposure()) * 100}%`;
     q('.cb-weapon').textContent = s.weaponStats().name;
     q('.pips').innerHTML = Array.from({ length: 6 }, (_, i) => `<i class="${i < c.ap ? 'on' : ''}"></i>`).join('');
   }
@@ -1054,13 +1175,17 @@ export class Ui {
     const c = sc.combat;
     let entries;
     if (sub === 'main') {
+      const items = this.state.items().filter((i) => i.kind === 'consumable').length;
       entries = [
-        { text: 'Angriff', info: '+1 K', act: { type: 'skill', id: 'attack' } },
+        { text: 'Angriff', info: '+1 K · beendet den Zug', act: { type: 'skill', id: 'attack' } },
         { text: 'Fertigkeiten', info: `${c.ap} K`, sub: 'skills' },
-        { text: 'Gegenstände', info: `${this.state.items().filter((i) => i.kind === 'consumable').length}`, sub: 'items' },
+        { text: 'Gegenstände', info: c.canUseItem() ? `${items}` : 'schon benutzt', sub: 'items', disabled: !c.canUseItem() },
         { text: 'Fliehen', info: c.canFlee() ? '' : 'unmöglich', act: { type: 'flee' }, disabled: !c.canFlee() },
       ];
-      this.layer.querySelector('.cb-text').innerHTML = `<p>Runde ${c.round}. Was tust du?</p>`;
+      if (c.actions) entries.push({ text: 'Zug beenden', info: '', act: { type: 'end' } });
+      this.layer.querySelector('.cb-text').innerHTML = c.actions
+        ? `<p>${esc(c.log.at(-1) ?? '')}.</p><p>Runde ${c.round}: Du bist noch am Zug (${c.ap} Konzentration). Fertigkeiten kosten Konzentration, ein Gegenstand pro Zug.</p>`
+        : `<p>Runde ${c.round}. Was tust du? Solange die Konzentration reicht, kannst du mehrere Fertigkeiten nacheinander einsetzen.</p>`;
       this.layer.querySelector('.cb-help').textContent = '';
     } else if (sub === 'skills') {
       entries = c.skills().filter((k) => k.id !== 'attack').map((k) => ({
@@ -1162,7 +1287,8 @@ export class Ui {
     else if (this.modal === 'notebook' && (k === 'j' || k === 'i' || k === 'p' || k === 'tab' || k === 'escape')) this.close();
     else if (this.modal === 'shop' && num >= 0) this.shopPick(num);
     else if (this.modal === 'shop' && k === 'v' && this.state.merchant(this.shop.id).buys) this.openShop(this.shop.id, this.shop.mode === 'buy' ? 'sell' : 'buy');
-    else if ((this.modal === 'shop' || this.modal === 'brew') && (k === 'escape' || k === 'e')) this.close();
+    else if ((this.modal === 'shop' || this.modal === 'brew' || this.modal === 'storage' || this.modal === 'vault') && (k === 'escape' || k === 'e')) this.close();
+    else if (this.modal === 'vault' && num >= 0) this.vaultPick(num);
     else if (this.modal === 'brew' && num >= 0 && this.brewList?.[num]) this.brew(this.brewList[num].formula);
     else if (this.modal === 'notebook' && k === 'v') this.combine();
     else if (this.modal === 'notebook' && k === 't') this.showHint();

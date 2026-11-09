@@ -1,0 +1,2066 @@
+{
+  "_info": "Betretbare Gebäude: Innenräume, Eingänge in den Vierteln (werden beim Laden in die Karten eingefügt), Figuren, Händler und Dialoge.",
+  "maps": [
+    {
+      "id": "pfandhaus",
+      "name": "Pfandhaus Crane",
+      "ambient": {
+        "night": 0.62,
+        "fog": 0.04
+      },
+      "tiles": "tavern",
+      "rows": [
+        "IIIIIIIIIIIIIIII",
+        "IIIIIIIIIIIIIIII",
+        "IBBBBwwwwwwBBBBI",
+        "IwwwwwwwwwwwwwwI",
+        "IwwwTTTTTTwwwwwI",
+        "IwwwwwwwwwwwwwwI",
+        "IwwwwwwwwwwwwwOI",
+        "IwKwwwwwwwwwwwwI",
+        "IwwwwwwwwwwwwwwI",
+        "IIIIIIIEEIIIIIII"
+      ],
+      "spawns": {
+        "default": [
+          7,
+          7
+        ]
+      },
+      "npcs": [
+        {
+          "id": "crane",
+          "tile": [
+            6,
+            3
+          ],
+          "facing": "down",
+          "reach": 38
+        }
+      ],
+      "interactables": [
+        {
+          "id": "out",
+          "kind": "door",
+          "to": "altmarkt",
+          "spawn": "pfandhaus",
+          "tile": [
+            7,
+            8
+          ],
+          "prompt": "Hinaus auf den Altmarkt",
+          "marker": false,
+          "reach": 26
+        },
+        {
+          "id": "pfandbuch",
+          "kind": "read",
+          "tile": [
+            9,
+            4
+          ],
+          "sprite": "file",
+          "prompt": "Im Pfandbuch blättern",
+          "marker": false,
+          "title": "Pfandbuch, laufende Woche",
+          "text": "Eine Taschenuhr ohne Zeiger, 2 Schilling. Ein Ehering, 6 Schilling, „wird Freitag ausgelöst“, durchgestrichen. Ein Paar Kinderstiefel. Ein Gebiss.\n\nGanz unten, in zittriger Schrift: „Eine Stimmgabel aus Silber. Summt nachts. Bitte nicht verkaufen.“ Daneben hat jemand mit Bleistift ein Auge in einen Kreis gemalt und wieder ausradiert."
+        },
+        {
+          "id": "vitrine",
+          "kind": "read",
+          "tile": [
+            13,
+            5
+          ],
+          "prompt": "Die Vitrine betrachten",
+          "marker": false,
+          "title": "Glasvitrine",
+          "text": "Medaillons, Manschettenknöpfe, ein Glasauge, das dir folgt, egal wo du stehst. Auf einem Kärtchen: „Nicht ausgelöste Pfänder gehen nach dreißig Tagen in den Verkauf. Ausnahmen nur für die Polizei.“"
+        }
+      ],
+      "decor": [
+        {
+          "sprite": "i_orte_grandfather_clock",
+          "tile": [
+            1,
+            3
+          ],
+          "offset": [
+            0,
+            8
+          ],
+          "origin": [
+            0.5,
+            1
+          ],
+          "alpha": 1,
+          "ysort": true
+        },
+        {
+          "sprite": "pawn_table",
+          "tile": [
+            13,
+            5
+          ],
+          "offset": [
+            0,
+            8
+          ],
+          "origin": [
+            0.5,
+            1
+          ],
+          "alpha": 1,
+          "ysort": true,
+          "solid": [
+            40,
+            10,
+            0,
+            -4
+          ]
+        },
+        {
+          "sprite": "d_wohnung_birdcage",
+          "tile": [
+            11,
+            3
+          ],
+          "offset": [
+            0,
+            8
+          ],
+          "origin": [
+            0.5,
+            1
+          ],
+          "alpha": 1,
+          "ysort": true
+        },
+        {
+          "sprite": "d_wohnung_rug",
+          "tile": [
+            7,
+            6
+          ],
+          "alpha": 1,
+          "depth": 4,
+          "offset": [
+            8,
+            0
+          ]
+        },
+        {
+          "sprite": "d_wohnung_strongbox",
+          "tile": [
+            3,
+            3
+          ],
+          "offset": [
+            0,
+            8
+          ],
+          "origin": [
+            0.5,
+            1
+          ],
+          "alpha": 1,
+          "ysort": true
+        },
+        {
+          "sprite": "creatures",
+          "tile": [
+            11,
+            7
+          ],
+          "alpha": 1,
+          "anim": [
+            "creatures",
+            "cat_blink"
+          ],
+          "ysort": true,
+          "origin": [
+            0.5,
+            1
+          ],
+          "offset": [
+            0,
+            7
+          ]
+        }
+      ]
+    },
+    {
+      "id": "bestatter",
+      "name": "Bestattungen Quint",
+      "ambient": {
+        "night": 0.66,
+        "fog": 0.06
+      },
+      "tiles": "tavern",
+      "lights": [
+        {
+          "tile": [
+            13,
+            6
+          ],
+          "radius": 64,
+          "intensity": 0.55,
+          "color": "#8ab0d0",
+          "flicker": 0.04
+        },
+        {
+          "tile": [
+            5,
+            4
+          ],
+          "radius": 70,
+          "intensity": 0.7,
+          "color": "#ffb060",
+          "flicker": 0.1
+        }
+      ],
+      "rows": [
+        "IIIIIIIIIIIIIIIIII",
+        "IIIIIIIIIIIIIIIIII",
+        "IBBBwwwwwIwwwwwwwI",
+        "IwwwwwwwwIwwwwwwwI",
+        "IwwTTwwwwIwwwwwwwI",
+        "IwwwwwwwwwwwwwwwwI",
+        "IwwwwwwwwIwwwwwwwI",
+        "IwwwwwwwwIwwwwwwwI",
+        "IKwwwwwwwIwwwwwwKI",
+        "IwwwwwwwwIwwwwwwwI",
+        "IIIIEEIIIIIIIIIIII"
+      ],
+      "spawns": {
+        "default": [
+          4,
+          8
+        ]
+      },
+      "npcs": [
+        {
+          "id": "quint",
+          "tile": [
+            6,
+            3
+          ],
+          "facing": "down",
+          "reach": 30
+        }
+      ],
+      "interactables": [
+        {
+          "id": "out",
+          "kind": "door",
+          "to": "ashgrove",
+          "spawn": "bestatter",
+          "tile": [
+            4,
+            9
+          ],
+          "prompt": "Hinaus auf die Ashgrove Lane",
+          "marker": false,
+          "reach": 26
+        },
+        {
+          "id": "totenbuch",
+          "kind": "read",
+          "tile": [
+            3,
+            4
+          ],
+          "sprite": "file",
+          "prompt": "Das Totenbuch lesen",
+          "marker": false,
+          "title": "Totenbuch der Firma Quint",
+          "text": "Säuberlich geführt, jede Zeile ein Name, ein Datum, eine Ursache. „Ertrunken.“ „Lungenfieber.“ „Ertrunken.“ „Unbekannt (Kanal).“\n\nAuffällig: Seit dem Frühjahr steht hinter sieben Namen ein kleines Kreuz mit Bleistift. Alle sieben wurden nachts geholt, nicht morgens. Quint hat dazugeschrieben: „Kälter als üblich.“"
+        },
+        {
+          "id": "bahre",
+          "kind": "read",
+          "tile": [
+            13,
+            4
+          ],
+          "prompt": "Unter das Leichentuch sehen",
+          "marker": false,
+          "title": "Aufgebahrt",
+          "text": "Ein alter Mann, gewaschen und gekämmt, die Hände gefaltet. Auf den Augenlidern liegen zwei Kupfermünzen. Es riecht nach Lavendel und nach etwas darunter.\n\nNichts Verdächtiges. Nur der Tod, der in Kettlegate am fleißigsten arbeitet."
+        },
+        {
+          "id": "kalte_hand",
+          "kind": "read",
+          "tile": [
+            13,
+            6
+          ],
+          "prompt": "Die Kälte berühren",
+          "hidden": true,
+          "title": "Ein Flüstern",
+          "text": "In der Geistsicht sitzt jemand auf dem Rand der Bahre und schaut auf den eigenen Körper hinunter. Als du näher kommst, hebt er den Kopf.\n\n„Sagen Sie meiner Tochter, das Geld liegt unter der dritten Diele. Sie soll nicht alles dem Pfandleiher geben.“\n\nDann ist er fort, und unter deinen Fingern taut Reif.",
+          "done_flag": "quint_ghost",
+          "effects": {
+            "gives_money": 4
+          }
+        },
+        {
+          "id": "salzschale",
+          "kind": "read",
+          "tile": [
+            16,
+            3
+          ],
+          "sprite": "coins",
+          "prompt": "Die Salzschale nehmen",
+          "marker": false,
+          "title": "Salzschale",
+          "text": "Eine Schale grobes, graues Salz neben der Tür. Quint streut es um jeden Sarg, „damit keiner wieder aufsteht, der liegen soll“. Du nimmst dir eine Handvoll. Er wird es verschmerzen.",
+          "done_flag": "took_quint_salt",
+          "effects": {
+            "gives_items": {
+              "bannsalz": 1
+            }
+          },
+          "lock": {
+            "hide_if_flags": [
+              "took_quint_salt"
+            ],
+            "text": "Nur noch ein paar Körner. Quint füllt die Schale erst morgen wieder auf.",
+            "footer": ""
+          }
+        }
+      ],
+      "decor": [
+        {
+          "sprite": "cot",
+          "tile": [
+            13,
+            4
+          ],
+          "offset": [
+            0,
+            8
+          ],
+          "origin": [
+            0.5,
+            1
+          ],
+          "alpha": 1,
+          "ysort": true,
+          "solid": [
+            26,
+            8,
+            0,
+            -4
+          ]
+        },
+        {
+          "sprite": "cot",
+          "tile": [
+            13,
+            8
+          ],
+          "offset": [
+            0,
+            8
+          ],
+          "origin": [
+            0.5,
+            1
+          ],
+          "alpha": 1,
+          "ysort": true,
+          "solid": [
+            26,
+            8,
+            0,
+            -4
+          ]
+        },
+        {
+          "sprite": "i_orte_mourning_portrait",
+          "tile": [
+            11,
+            2
+          ],
+          "offset": [
+            0,
+            8
+          ],
+          "origin": [
+            0.5,
+            1
+          ],
+          "alpha": 1,
+          "ysort": true,
+          "depth": 6
+        },
+        {
+          "sprite": "i_orte_writing_desk",
+          "tile": [
+            7,
+            6
+          ],
+          "offset": [
+            0,
+            8
+          ],
+          "origin": [
+            0.5,
+            1
+          ],
+          "alpha": 1,
+          "ysort": true
+        },
+        {
+          "sprite": "d_wohnung_rug",
+          "tile": [
+            5,
+            6
+          ],
+          "alpha": 1,
+          "depth": 4,
+          "offset": [
+            8,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "id": "hafenmeisterei",
+      "name": "Hafenmeisterei",
+      "ambient": {
+        "night": 0.7,
+        "fog": 0.12
+      },
+      "tiles": "warehouse",
+      "rows": [
+        "IIIIIIIIIIIIIIIIII",
+        "IIIIIIIIIIIIIIIIII",
+        "IBBBwwwwwwwwwCCwwI",
+        "IwwwwwwwwwwwwwwwwI",
+        "IwwTTTwwwwwwwwCwwI",
+        "IwwwwwwwwwwwwwwwwI",
+        "IwwwwwwwwwwwwwwwOI",
+        "IwwwwwwwwwwwwwwwwI",
+        "IwwwwwwwwwwwwwwwwI",
+        "IIIIIIIIEEIIIIIIII"
+      ],
+      "spawns": {
+        "default": [
+          8,
+          7
+        ]
+      },
+      "interactables": [
+        {
+          "id": "out",
+          "kind": "door",
+          "to": "docks",
+          "spawn": "hafenmeisterei",
+          "tile": [
+            8,
+            8
+          ],
+          "prompt": "Hinaus zum Kanalhafen",
+          "marker": false,
+          "reach": 26
+        },
+        {
+          "id": "liegeplatzbuch",
+          "kind": "read",
+          "tile": [
+            4,
+            4
+          ],
+          "sprite": "file",
+          "prompt": "Das Liegeplatzbuch lesen",
+          "marker": false,
+          "title": "Liegeplatzbuch",
+          "text": "Kähne, Schuten, ein Dampfschlepper namens „Witwe Grau“. Zu jedem Schiff Ladung, Zoll, Liegezeit.\n\nEin Eintrag fällt aus der Reihe: „Kahn ohne Namen, Ladung: Glocken (?), bar bezahlt, kein Zoll.“ Der Hafenmeister hat ein Fragezeichen dahinter gesetzt und dann noch eins."
+        },
+        {
+          "id": "gezeiten",
+          "kind": "read",
+          "tile": [
+            9,
+            2
+          ],
+          "sprite": "paper",
+          "prompt": "Die Gezeitentafel lesen",
+          "marker": false,
+          "title": "Gezeitentafel",
+          "text": "Kreidezahlen für Flut und Ebbe, darunter ein Zettel: „Bei Nebel kein Kahn unter der Krähenbrücke durch. Wer es trotzdem tut, wird nicht gesucht.“"
+        },
+        {
+          "id": "fundkiste",
+          "kind": "read",
+          "tile": [
+            14,
+            6
+          ],
+          "sprite": "medkit",
+          "prompt": "Die Fundkiste öffnen",
+          "marker": false,
+          "title": "Fundkiste des Hafenmeisters",
+          "text": "Was am Kai liegen bleibt, landet hier: ein Handschuh, eine Pfeife, zwei Flaschen Lampenöl und ein paar Münzen. Der Hafenmeister ist nicht da. Ein Ermittler darf sich bedienen, findest du.",
+          "done_flag": "took_harbour_box",
+          "effects": {
+            "gives_items": {
+              "lampenoel": 2
+            },
+            "gives_money": 5
+          },
+          "lock": {
+            "hide_if_flags": [
+              "took_harbour_box"
+            ],
+            "text": "Nur noch der einzelne Handschuh. Den will niemand.",
+            "footer": ""
+          }
+        }
+      ],
+      "decor": [
+        {
+          "sprite": "crate_stack",
+          "tile": [
+            15,
+            3
+          ],
+          "offset": [
+            0,
+            8
+          ],
+          "origin": [
+            0.5,
+            1
+          ],
+          "alpha": 1,
+          "ysort": true
+        },
+        {
+          "sprite": "noticeboard",
+          "tile": [
+            9,
+            2
+          ],
+          "offset": [
+            0,
+            6
+          ],
+          "origin": [
+            0.5,
+            1
+          ],
+          "alpha": 1,
+          "ysort": true,
+          "depth": 6
+        },
+        {
+          "sprite": "i_orte_chains",
+          "tile": [
+            12,
+            7
+          ],
+          "offset": [
+            0,
+            8
+          ],
+          "origin": [
+            0.5,
+            1
+          ],
+          "alpha": 1,
+          "ysort": true
+        },
+        {
+          "sprite": "barrels_stacked",
+          "tile": [
+            2,
+            7
+          ],
+          "offset": [
+            0,
+            8
+          ],
+          "origin": [
+            0.5,
+            1
+          ],
+          "alpha": 1,
+          "ysort": true
+        },
+        {
+          "sprite": "creatures",
+          "tile": [
+            6,
+            6
+          ],
+          "alpha": 1,
+          "anim": [
+            "creatures",
+            "cat_blink"
+          ],
+          "ysort": true,
+          "origin": [
+            0.5,
+            1
+          ],
+          "offset": [
+            0,
+            7
+          ]
+        }
+      ]
+    },
+    {
+      "id": "mietskaserne",
+      "name": "Verlassene Mietwohnung",
+      "ambient": {
+        "night": 0.7,
+        "fog": 0.14
+      },
+      "tiles": "tavern",
+      "lights": [
+        {
+          "tile": [
+            11,
+            4
+          ],
+          "radius": 70,
+          "intensity": 0.75,
+          "color": "#ffa860",
+          "flicker": 0.18
+        },
+        {
+          "tile": [
+            3,
+            4
+          ],
+          "radius": 54,
+          "intensity": 0.45,
+          "color": "#7a90c0",
+          "flicker": 0.02
+        }
+      ],
+      "rows": [
+        "IIIIIIIIIIIIIIII",
+        "IIIIIIIIIIIIIIII",
+        "IwwwwwwIwwwwwwwI",
+        "IwwwwwwIwwwwwwwI",
+        "IwwwwwwwwwwwwwwI",
+        "IwwwwwwIwwwwwwwI",
+        "IwwwwwwIwwwwwwwI",
+        "IwwwwwwIwwwwwwwI",
+        "IwwwwwwIwwwwwwKI",
+        "IIIIIIIIIIIEEIII"
+      ],
+      "spawns": {
+        "default": [
+          11,
+          7
+        ]
+      },
+      "interactables": [
+        {
+          "id": "out",
+          "kind": "door",
+          "to": "pestgassen",
+          "spawn": "mietskaserne",
+          "tile": [
+            11,
+            8
+          ],
+          "prompt": "Hinaus in die Pestgassen",
+          "marker": false,
+          "reach": 26
+        },
+        {
+          "id": "bett",
+          "kind": "rest",
+          "tile": [
+            3,
+            3
+          ],
+          "prompt": "Auf der Matratze ausruhen",
+          "marker": false,
+          "title": "Eisenbett",
+          "text": "Die Matratze ist klamm, aber die Tür lässt sich verriegeln. Draußen schleift etwas an der Hauswand entlang und zieht weiter. Du schläfst trotzdem ein, eine Hand am Stock."
+        },
+        {
+          "id": "briefe",
+          "kind": "read",
+          "tile": [
+            11,
+            4
+          ],
+          "sprite": "paper",
+          "prompt": "Die Briefe auf dem Tisch lesen",
+          "marker": false,
+          "title": "Briefe, nie abgeschickt",
+          "text": "„Liebe Schwester, wir gehen. Der Kleine hustet nicht mehr, aber er singt im Schlaf, und es ist nicht seine Stimme.“\n\nDer zweite Brief bricht mitten im Satz ab: „Die Nachbarn sagen, der Nebel kommt nicht von der Marsch, er kommt aus den Kellern, und wer…“"
+        },
+        {
+          "id": "geldkassette",
+          "kind": "read",
+          "tile": [
+            13,
+            7
+          ],
+          "prompt": "Die Geldkassette aufbrechen",
+          "marker": false,
+          "title": "Geldkassette",
+          "text": "Das Schloss gibt beim dritten Versuch nach. Drinnen: ein paar Schilling, ein sauberer Verband und ein Kinderzahn in Seidenpapier. Den Zahn legst du zurück.",
+          "done_flag": "took_slum_box",
+          "effects": {
+            "gives_items": {
+              "verband": 1
+            },
+            "gives_money": 7
+          },
+          "lock": {
+            "hide_if_flags": [
+              "took_slum_box"
+            ],
+            "text": "Leer bis auf den Kinderzahn.",
+            "footer": ""
+          }
+        }
+      ],
+      "decor": [
+        {
+          "sprite": "d_wohnung_iron_bed",
+          "tile": [
+            3,
+            3
+          ],
+          "offset": [
+            0,
+            8
+          ],
+          "origin": [
+            0.5,
+            1
+          ],
+          "alpha": 1,
+          "ysort": true,
+          "solid": [
+            28,
+            10,
+            0,
+            -4
+          ]
+        },
+        {
+          "sprite": "d_wohnung_cradle",
+          "tile": [
+            5,
+            7
+          ],
+          "offset": [
+            0,
+            8
+          ],
+          "origin": [
+            0.5,
+            1
+          ],
+          "alpha": 1,
+          "ysort": true
+        },
+        {
+          "sprite": "d_wohnung_washstand",
+          "tile": [
+            1,
+            6
+          ],
+          "offset": [
+            0,
+            8
+          ],
+          "origin": [
+            0.5,
+            1
+          ],
+          "alpha": 1,
+          "ysort": true
+        },
+        {
+          "sprite": "d_wohnung_cooking_range",
+          "tile": [
+            9,
+            2
+          ],
+          "offset": [
+            0,
+            8
+          ],
+          "origin": [
+            0.5,
+            1
+          ],
+          "alpha": 1,
+          "ysort": true
+        },
+        {
+          "sprite": "d_wohnung_kitchen_table",
+          "tile": [
+            11,
+            4
+          ],
+          "offset": [
+            0,
+            8
+          ],
+          "origin": [
+            0.5,
+            1
+          ],
+          "alpha": 1,
+          "ysort": true,
+          "solid": [
+            28,
+            8,
+            0,
+            -4
+          ]
+        },
+        {
+          "sprite": "d_wohnung_coal_scuttle",
+          "tile": [
+            14,
+            3
+          ],
+          "offset": [
+            0,
+            8
+          ],
+          "origin": [
+            0.5,
+            1
+          ],
+          "alpha": 1,
+          "ysort": true
+        },
+        {
+          "sprite": "d_wohnung_strongbox",
+          "tile": [
+            13,
+            7
+          ],
+          "offset": [
+            0,
+            8
+          ],
+          "origin": [
+            0.5,
+            1
+          ],
+          "alpha": 1,
+          "ysort": true
+        },
+        {
+          "sprite": "d_wohnung_family_photo",
+          "tile": [
+            12,
+            2
+          ],
+          "offset": [
+            0,
+            8
+          ],
+          "origin": [
+            0.5,
+            1
+          ],
+          "alpha": 1,
+          "ysort": true,
+          "depth": 6
+        },
+        {
+          "sprite": "creatures",
+          "tile": [
+            3,
+            7
+          ],
+          "alpha": 1,
+          "anim": [
+            "creatures",
+            "rat"
+          ],
+          "ysort": true,
+          "origin": [
+            0.5,
+            1
+          ],
+          "offset": [
+            0,
+            7
+          ]
+        },
+        {
+          "sprite": "creatures",
+          "tile": [
+            10,
+            7
+          ],
+          "alpha": 1,
+          "anim": [
+            "creatures",
+            "rat"
+          ],
+          "ysort": true,
+          "origin": [
+            0.5,
+            1
+          ],
+          "offset": [
+            0,
+            7
+          ],
+          "flip": true
+        }
+      ]
+    },
+    {
+      "id": "revier_fluegel",
+      "name": "Revier, hinterer Flügel",
+      "ambient": {
+        "night": 0.62,
+        "fog": 0
+      },
+      "rows": [
+        "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII",
+        "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII",
+        "IBBBBBBIwwwwwwwwIwwwwwwwwwIwwwwI",
+        "IwwwwwwIwwwwwwwwIwwwwwwwwwIwwwwI",
+        "ICwwwwwIwwwTTwwwIwwwwwwwwwIwwwwI",
+        "ICwwwwwIwwwwwwwwIwwwwwwwwwIwwwwI",
+        "IwwwwwwIwwwwwwwwIwwwwwwwwOIwwwwI",
+        "IIIIwIIIIIIwIIIIIIIIwIIIIIIwwwwI",
+        "IwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwI",
+        "IwwOwwwwwwwwwwwwwwwwwwwwwwwwOwwI",
+        "IIIIIIIIIIIIIEEIIIIIIIIIIIIIIIII"
+      ],
+      "spawns": {
+        "default": [
+          13,
+          8
+        ],
+        "buero": [
+          29,
+          4
+        ]
+      },
+      "npcs": [
+        {
+          "id": "dunn",
+          "tile": [
+            21,
+            3
+          ],
+          "facing": "down",
+          "reach": 30
+        },
+        {
+          "id": "thale",
+          "tile": [
+            5,
+            4
+          ],
+          "facing": "down",
+          "reach": 30
+        },
+        {
+          "id": "varga",
+          "tile": [
+            15,
+            4
+          ],
+          "facing": "down",
+          "reach": 30
+        }
+      ],
+      "interactables": [
+        {
+          "id": "down",
+          "kind": "door",
+          "to": "revier",
+          "spawn": "revier_fluegel",
+          "tile": [
+            13,
+            9
+          ],
+          "prompt": "Zurück in die Wachstube",
+          "marker": false,
+          "reach": 26
+        },
+        {
+          "id": "stairs_up",
+          "kind": "door",
+          "to": "buero",
+          "spawn": "default",
+          "tile": [
+            29,
+            2
+          ],
+          "sprite": "stairs",
+          "prompt": "Treppe hinauf zu den Büros",
+          "marker": false,
+          "reach": 24,
+          "lock": {
+            "requires_honor": 70,
+            "text": "Constable Dunn räuspert sich hinter dir: „Oben sind die Büros der geachteten Ermittler. Die Inspektorin vergibt sie selbst, und nicht an jeden.“",
+            "footer": "Benötigt Rang Geachteter Ermittler (Ansehen 70)."
+          }
+        },
+        {
+          "id": "brett",
+          "kind": "read",
+          "tile": [
+            9,
+            8
+          ],
+          "sprite": "paper",
+          "prompt": "Das Schwarze Brett lesen",
+          "marker": false,
+          "title": "Schwarzes Brett",
+          "text": "Dienstpläne, eine Liste gesuchter Taschendiebe, ein Aufruf zur Blutspende für das Hospital.\n\nGanz oben, mit Reißzwecke und Marlowes Unterschrift: „Wer sich als geachteter Ermittler verdient macht, erhält ein eigenes Büro im Obergeschoss. Mit Schrank. Mit Schlüssel. Mit Kaffee, solange Constable Dunn ihn kocht.“"
+        },
+        {
+          "id": "beschlagnahmt",
+          "kind": "read",
+          "tile": [
+            3,
+            3
+          ],
+          "prompt": "Beschlagnahmte Vorräte durchsehen",
+          "marker": false,
+          "title": "Beschlagnahmte Vorräte",
+          "text": "Ein Karton mit sichergestellter Schmuggelware: Verbandszeug aus dem Hospital, Riechsalz, das jemand am Hafen verkaufen wollte. Für die Ermittlungsarbeit freigegeben, steht auf dem Etikett. Du quittierst und nimmst dir, was du brauchst.",
+          "done_flag": "took_evidence_supplies",
+          "effects": {
+            "gives_items": {
+              "verband": 1,
+              "riechsalz": 1
+            }
+          },
+          "lock": {
+            "requires_honor": 20,
+            "hide_if_flags": [
+              "took_evidence_supplies"
+            ],
+            "text": "Ein Schild am Regal: „Ausgabe nur an Hilfsermittler und höher.“ Und falls schon ausgegeben: Der Karton ist leer.",
+            "footer": "Benötigt Rang Hilfsermittler (Ansehen 20), nur einmal."
+          }
+        },
+        {
+          "id": "asservat_01",
+          "kind": "read",
+          "tile": [
+            2,
+            6
+          ],
+          "sprite": "file",
+          "prompt": "Asservatenkiste: Ashgrove Lane",
+          "marker": false,
+          "visible_if": {
+            "requires_flags": [
+              "case_01_closed"
+            ]
+          },
+          "title": "Asservaten: Der verschwundene Lampenanzünder",
+          "text": "Eine Laternenstange, ein Schlüsselbund, deine eigenen Notizen in Abschrift. Pimm hat die Kiste beschriftet: „Fall 1. Abgeschlossen. Nicht öffnen, ohne zu klopfen.“"
+        },
+        {
+          "id": "asservat_02",
+          "kind": "read",
+          "tile": [
+            4,
+            6
+          ],
+          "sprite": "seal",
+          "prompt": "Asservatenkiste: St. Ebba",
+          "marker": false,
+          "visible_if": {
+            "requires_flags": [
+              "case_02_closed"
+            ]
+          },
+          "title": "Asservaten: Asche von St. Ebba",
+          "text": "Ein verkohltes Gesangbuch, eine Grabkerze, eine Zeichnung des Siegels: ein Auge im Kreis. Jemand hat die Kiste mit Salz umstreut."
+        },
+        {
+          "id": "asservat_03",
+          "kind": "read",
+          "tile": [
+            6,
+            3
+          ],
+          "sprite": "file",
+          "prompt": "Asservatenkiste: Lagerhaus 7",
+          "marker": false,
+          "visible_if": {
+            "requires_flags": [
+              "case_03_closed"
+            ]
+          },
+          "title": "Asservaten: Der Chor singt woanders",
+          "text": "Chorroben, Kreide, eine Dienstmarke mit abgefeilter Nummer. Die Kiste ist schwerer, als sie aussieht. Niemand im Revier spricht gern über diesen Fall."
+        },
+        {
+          "id": "asservat_04",
+          "kind": "read",
+          "tile": [
+            6,
+            5
+          ],
+          "sprite": "file",
+          "prompt": "Asservatenkiste: Nordtor",
+          "marker": false,
+          "visible_if": {
+            "requires_flags": [
+              "case_04_closed"
+            ]
+          },
+          "title": "Asservaten: Die gestohlenen Stimmen",
+          "text": "Leere Glasphiolen in Holzwolle, ein Souffleurbuch, eine weiße Halbmaske. Wenn man die Phiolen schüttelt, glaubt man ganz leise jemanden summen zu hören."
+        },
+        {
+          "id": "protokoll",
+          "kind": "read",
+          "tile": [
+            12,
+            4
+          ],
+          "sprite": "paper",
+          "prompt": "Das Verhörprotokoll lesen",
+          "marker": false,
+          "title": "Verhörprotokoll (Auszug)",
+          "text": "„F: Wo waren Sie in der Nacht? A: Zuhause. F: Wer kann das bezeugen? A: Meine Katze. F: Die Katze sagt etwas anderes.“\n\nDarunter in Marlowes Schrift: „Eine Aussage ist eine Vermutung. Zwei unabhängige Aussagen sind ein Anfang. Ein Geständnis ohne Beweis ist gar nichts.“"
+        },
+        {
+          "id": "spiegel",
+          "kind": "read",
+          "tile": [
+            14,
+            2
+          ],
+          "prompt": "In den Spiegel schauen",
+          "marker": false,
+          "title": "Spiegel",
+          "text": "Ein großer, fleckiger Spiegel. Erst beim zweiten Hinsehen merkst du, dass dahinter ein dunkler Raum liegt. Von dort sieht man alles, und niemand sieht zurück.\n\nIn der Geistsicht, sagt man im Revier, sieht man manchmal doch jemanden."
+        },
+        {
+          "id": "tee",
+          "kind": "rest",
+          "tile": [
+            24,
+            5
+          ],
+          "prompt": "Am Ofen Tee trinken",
+          "marker": false,
+          "title": "Kantine",
+          "text": "Dunn schiebt dir einen Becher hin, der Tee ist schwarz wie Kanalwasser und doppelt so stark. Eine halbe Stunde am warmen Ofen, und Kettlegate sieht wieder halbwegs freundlich aus."
+        }
+      ],
+      "decor": [
+        {
+          "sprite": "h_fundbuero_shelves",
+          "tile": [
+            2,
+            5
+          ],
+          "offset": [
+            0,
+            8
+          ],
+          "origin": [
+            0.5,
+            1
+          ],
+          "alpha": 1,
+          "ysort": true,
+          "solid": [
+            28,
+            8,
+            0,
+            -4
+          ]
+        },
+        {
+          "sprite": "h_fundbuero_evidence_bag",
+          "tile": [
+            5,
+            3
+          ],
+          "alpha": 1,
+          "depth": 5
+        },
+        {
+          "sprite": "h_fundbuero_cursed_box",
+          "tile": [
+            4,
+            4
+          ],
+          "alpha": 1,
+          "depth": 5,
+          "offset": [
+            4,
+            0
+          ]
+        },
+        {
+          "sprite": "mirror",
+          "tile": [
+            14,
+            2
+          ],
+          "offset": [
+            0,
+            10
+          ],
+          "origin": [
+            0.5,
+            1
+          ],
+          "alpha": 1,
+          "ysort": true,
+          "depth": 6
+        },
+        {
+          "sprite": "overturned_chair",
+          "tile": [
+            10,
+            5
+          ],
+          "offset": [
+            0,
+            8
+          ],
+          "origin": [
+            0.5,
+            1
+          ],
+          "alpha": 1,
+          "ysort": true
+        },
+        {
+          "sprite": "kettle_stove",
+          "tile": [
+            24,
+            4
+          ],
+          "offset": [
+            0,
+            8
+          ],
+          "origin": [
+            0.5,
+            1
+          ],
+          "alpha": 1,
+          "ysort": true,
+          "solid": [
+            12,
+            6,
+            0,
+            -3
+          ]
+        },
+        {
+          "sprite": "table_stools",
+          "tile": [
+            20,
+            5
+          ],
+          "offset": [
+            0,
+            8
+          ],
+          "origin": [
+            0.5,
+            1
+          ],
+          "alpha": 1,
+          "ysort": true,
+          "solid": [
+            24,
+            8,
+            0,
+            -6
+          ]
+        },
+        {
+          "sprite": "locker",
+          "tile": [
+            18,
+            3
+          ],
+          "offset": [
+            0,
+            8
+          ],
+          "origin": [
+            0.5,
+            1
+          ],
+          "alpha": 1,
+          "ysort": true
+        },
+        {
+          "sprite": "locker",
+          "tile": [
+            19,
+            3
+          ],
+          "offset": [
+            0,
+            8
+          ],
+          "origin": [
+            0.5,
+            1
+          ],
+          "alpha": 1,
+          "ysort": true
+        },
+        {
+          "sprite": "boot_rack",
+          "tile": [
+            22,
+            2
+          ],
+          "offset": [
+            0,
+            8
+          ],
+          "origin": [
+            0.5,
+            1
+          ],
+          "alpha": 1,
+          "ysort": true,
+          "depth": 6
+        },
+        {
+          "sprite": "creatures",
+          "tile": [
+            22,
+            6
+          ],
+          "alpha": 1,
+          "anim": [
+            "creatures",
+            "cat_blink"
+          ],
+          "ysort": true,
+          "origin": [
+            0.5,
+            1
+          ],
+          "offset": [
+            0,
+            7
+          ]
+        }
+      ]
+    },
+    {
+      "id": "buero",
+      "name": "Dein Büro",
+      "ambient": {
+        "night": 0.55,
+        "fog": 0
+      },
+      "rows": [
+        "IIIIIIIIIIIIIIII",
+        "IIIIIIIIIIIIIIII",
+        "IBBBwwwwwwwwwwwI",
+        "IwwwwwwwwwwwwwwI",
+        "IwwwwwTTTwwwwwwI",
+        "IwwwwwwwwwwwwwwI",
+        "IwwwwwwwwwwwwwOI",
+        "IwOwwwwwwwwwwwwI",
+        "IwwwwwwwwwwwwwwI",
+        "IIIIIIEEIIIIIIII"
+      ],
+      "spawns": {
+        "default": [
+          6,
+          7
+        ]
+      },
+      "interactables": [
+        {
+          "id": "down",
+          "kind": "door",
+          "to": "revier_fluegel",
+          "spawn": "buero",
+          "tile": [
+            6,
+            8
+          ],
+          "prompt": "Treppe hinunter",
+          "marker": false,
+          "reach": 26
+        },
+        {
+          "id": "schrank",
+          "kind": "storage",
+          "tile": [
+            13,
+            3
+          ],
+          "prompt": "Asservatenschrank öffnen (Lager)",
+          "marker": false,
+          "reach": 24
+        },
+        {
+          "id": "fallwand",
+          "kind": "casewall",
+          "tile": [
+            10,
+            2
+          ],
+          "prompt": "Die Fallwand ansehen",
+          "marker": false
+        },
+        {
+          "id": "sofa",
+          "kind": "rest",
+          "tile": [
+            2,
+            4
+          ],
+          "sprite": "cot",
+          "prompt": "Auf dem Sofa ausruhen",
+          "marker": false,
+          "title": "Dein Sofa",
+          "text": "Durchgesessen, aber deins. Unten klappern die Schreibmaschinen, durch das Fenster fällt Gaslicht. Zum ersten Mal seit Wochen schläfst du, ohne die Tür im Blick zu behalten."
+        },
+        {
+          "id": "schreibtisch",
+          "kind": "read",
+          "tile": [
+            7,
+            4
+          ],
+          "sprite": "file",
+          "prompt": "Am Schreibtisch sitzen",
+          "marker": false,
+          "title": "Dein Schreibtisch",
+          "text": "Ein Messingschild mit deinem Namen, ein Tintenfass, ein Stapel ungelesener Post. Obenauf ein Zettel von Marlowe:\n\n„Glückwunsch. Der Schrank schließt ab, der Ofen zieht schlecht, und Dunn bringt Tee, wenn Sie nett fragen. Machen Sie mir keine Schande.“"
+        },
+        {
+          "id": "willkommen",
+          "kind": "read",
+          "tile": [
+            6,
+            7
+          ],
+          "prompt": "Das neue Türschild lesen",
+          "marker": false,
+          "auto": 30,
+          "visible_if": {
+            "hide_if_flags": [
+              "office_seen"
+            ]
+          },
+          "title": "Ein eigenes Büro",
+          "text": "Die Tür hat ein Schild bekommen, frisch graviert: dein Name, darunter „Ermittler“.\n\nHier kannst du Dinge im Schrank lagern, die du nicht ständig mit dir herumtragen willst, an der Fallwand deine gelösten Fälle ansehen und in Ruhe ausschlafen.",
+          "footer": "Lager: Schrank rechts hinten. Fallwand: an der Wand.",
+          "done_flag": "office_seen"
+        }
+      ],
+      "decor": [
+        {
+          "sprite": "fireplace",
+          "tile": [
+            5,
+            1
+          ],
+          "alpha": 1,
+          "origin": [
+            0.5,
+            1
+          ],
+          "offset": [
+            0,
+            8
+          ],
+          "depth": 60,
+          "light": {
+            "dy": -10,
+            "radius": 60,
+            "intensity": 0.8,
+            "flicker": 0.2
+          }
+        },
+        {
+          "sprite": "noticeboard",
+          "tile": [
+            10,
+            2
+          ],
+          "offset": [
+            0,
+            6
+          ],
+          "origin": [
+            0.5,
+            1
+          ],
+          "alpha": 1,
+          "ysort": true,
+          "depth": 6
+        },
+        {
+          "sprite": "locker",
+          "tile": [
+            13,
+            3
+          ],
+          "offset": [
+            0,
+            8
+          ],
+          "origin": [
+            0.5,
+            1
+          ],
+          "alpha": 1,
+          "ysort": true
+        },
+        {
+          "sprite": "locker",
+          "tile": [
+            14,
+            3
+          ],
+          "offset": [
+            0,
+            8
+          ],
+          "origin": [
+            0.5,
+            1
+          ],
+          "alpha": 1,
+          "ysort": true
+        },
+        {
+          "sprite": "d_wohnung_rug",
+          "tile": [
+            7,
+            6
+          ],
+          "alpha": 1,
+          "depth": 4,
+          "offset": [
+            8,
+            0
+          ]
+        },
+        {
+          "sprite": "d_wohnung_rocking_chair",
+          "tile": [
+            11,
+            6
+          ],
+          "offset": [
+            0,
+            8
+          ],
+          "origin": [
+            0.5,
+            1
+          ],
+          "alpha": 1,
+          "ysort": true
+        },
+        {
+          "sprite": "i_orte_grandfather_clock",
+          "tile": [
+            1,
+            6
+          ],
+          "offset": [
+            0,
+            8
+          ],
+          "origin": [
+            0.5,
+            1
+          ],
+          "alpha": 1,
+          "ysort": true
+        },
+        {
+          "sprite": "creatures",
+          "tile": [
+            4,
+            7
+          ],
+          "alpha": 1,
+          "anim": [
+            "creatures",
+            "cat_blink"
+          ],
+          "ysort": true,
+          "origin": [
+            0.5,
+            1
+          ],
+          "offset": [
+            0,
+            7
+          ]
+        }
+      ]
+    }
+  ],
+  "entrances": [
+    {
+      "map": "altmarkt",
+      "id": "pfandhaus_door",
+      "tile": [
+        44,
+        2
+      ],
+      "to": "pfandhaus",
+      "prompt": "Pfandhaus Crane betreten",
+      "out": [
+        44,
+        3
+      ]
+    },
+    {
+      "map": "ashgrove",
+      "id": "bestatter_door",
+      "tile": [
+        29,
+        2
+      ],
+      "to": "bestatter",
+      "prompt": "Bestattungen Quint betreten",
+      "out": [
+        29,
+        3
+      ]
+    },
+    {
+      "map": "docks",
+      "id": "hafenmeister_door",
+      "tile": [
+        10,
+        2
+      ],
+      "to": "hafenmeisterei",
+      "prompt": "Hafenmeisterei betreten",
+      "out": [
+        10,
+        3
+      ]
+    },
+    {
+      "map": "pestgassen",
+      "id": "mietskaserne_door",
+      "tile": [
+        5,
+        10
+      ],
+      "to": "mietskaserne",
+      "prompt": "In die verlassene Wohnung",
+      "out": [
+        5,
+        11
+      ]
+    },
+    {
+      "map": "revier",
+      "id": "fluegel_door",
+      "tile": [
+        12,
+        2
+      ],
+      "to": "revier_fluegel",
+      "prompt": "In den hinteren Flügel",
+      "out": [
+        12,
+        3
+      ]
+    }
+  ],
+  "npcs": {
+    "crane": {
+      "name": "Odile Crane",
+      "role": "Pfandleiherin",
+      "dialogue": "crane",
+      "palette": {
+        "coat": "#4a3a4a",
+        "hat": "#2a2028",
+        "skin": "#e4c4a8",
+        "hair": "#c8c0b8",
+        "legs": "#2a2028",
+        "scarf": "#8a6a3a"
+      }
+    },
+    "quint": {
+      "name": "Ambrosius Quint",
+      "role": "Bestatter",
+      "dialogue": "quint",
+      "palette": {
+        "coat": "#1e1e24",
+        "hat": "#101014",
+        "skin": "#d8c8b8",
+        "hair": "#4a4a50",
+        "legs": "#141418",
+        "scarf": "#5a5a64"
+      }
+    },
+    "dunn": {
+      "name": "Constable Dunn",
+      "role": "Wachstube und Kantine",
+      "dialogue": "dunn",
+      "palette": {
+        "coat": "#2a3450",
+        "hat": "#1a2030",
+        "skin": "#e0b894",
+        "hair": "#8a5a30",
+        "legs": "#1a2030"
+      }
+    },
+    "thale": {
+      "name": "Sergeant Ambrose Thale",
+      "role": "Asservatenwart",
+      "dialogue": "thale",
+      "palette": {
+        "coat": "#3a3a48",
+        "hat": "#22222c",
+        "skin": "#d8b090",
+        "hair": "#bbbbbb",
+        "legs": "#22222c"
+      }
+    },
+    "varga": {
+      "name": "Dr. Ilse Varga",
+      "role": "Gutachterin für Okkultes",
+      "dialogue": "varga",
+      "palette": {
+        "coat": "#4a2a3a",
+        "hat": "#2a1820",
+        "skin": "#e8ccb0",
+        "hair": "#2a2020",
+        "legs": "#2a1820"
+      }
+    }
+  },
+  "merchants": {
+    "crane": {
+      "name": "Odile Crane",
+      "title": "Pfandhaus, An- und Verkauf",
+      "buys": true,
+      "greeting": "Ich zahle, was es wert ist. Nicht, was Sie dafür halten.",
+      "stock": [
+        {
+          "item": "verband",
+          "price": 9
+        },
+        {
+          "item": "riechsalz",
+          "price": 13
+        },
+        {
+          "item": "lampenoel",
+          "price": 9
+        },
+        {
+          "item": "ruhetee",
+          "price": 11
+        },
+        {
+          "item": "bannsalz",
+          "price": 16,
+          "requires_honor": 20
+        }
+      ]
+    }
+  },
+  "dialogues": {
+    "crane": {
+      "start": "start",
+      "nodes": {
+        "start": {
+          "text": "Eine hagere Frau mit Lupe im Auge sieht nicht auf. „Wenn Sie etwas versetzen wollen, legen Sie es auf den Tresen. Wenn Sie etwas kaufen wollen, zeigen Sie mir Ihr Geld. Wenn Sie von der Polizei sind, zeigen Sie mir beides.“",
+          "choices": [
+            {
+              "text": "Handeln.",
+              "shop": "crane"
+            },
+            {
+              "text": "Was wird in letzter Zeit verpfändet?",
+              "next": "pfand"
+            },
+            {
+              "text": "Haben Sie etwas Ungewöhnliches gesehen?",
+              "next": "ungewoehnlich",
+              "requires_honor": 35
+            },
+            {
+              "text": "Bis dann."
+            }
+          ]
+        },
+        "pfand": {
+          "text": "„Uhren. Eheringe. Sonntagsmäntel. Wenn die Leute ihre Sonntagsmäntel bringen, wird es ein harter Winter.“ Sie tippt auf das Pfandbuch. „Und Dinge, die summen. Die nehme ich nicht mehr an.“",
+          "choices": [
+            {
+              "text": "Dinge, die summen?",
+              "next": "summen"
+            },
+            {
+              "text": "Zurück.",
+              "next": "start"
+            }
+          ]
+        },
+        "summen": {
+          "text": "„Eine Stimmgabel. Eine Spieldose ohne Walze. Ein Glas mit nichts drin.“ Sie legt die Lupe ab. „Alles nachts gebracht, alles von Leuten, die nicht wiederkamen. Ich habe es dem Pfarrer gegeben. Der hat es in den Kanal geworfen. Kluger Mann.“",
+          "choices": [
+            {
+              "text": "Zurück.",
+              "next": "start"
+            }
+          ]
+        },
+        "ungewoehnlich": {
+          "text": "Sie mustert dich länger. „Sie sind der, von dem man redet. Gut.“ Leiser: „Leute mit weißen Handschuhen kaufen alte Spiegel. Jeden, den ich habe, zum doppelten Preis. Sie fragen immer, ob schon jemand hineingesehen hat. Ich sage immer Nein.“",
+          "choices": [
+            {
+              "text": "Danke. Ich behalte das im Kopf.",
+              "next": "start"
+            }
+          ]
+        }
+      }
+    },
+    "quint": {
+      "start": "start",
+      "nodes": {
+        "start": {
+          "text": "Ein Mann in Schwarz, so blass, dass er selbst aufgebahrt sein könnte. Er verbeugt sich exakt so tief wie nötig. „Mein Beileid. Oder kommen Sie dienstlich? Bei mir ist das oft dasselbe.“",
+          "choices": [
+            {
+              "text": "Wie laufen die Geschäfte?",
+              "next": "geschaeft"
+            },
+            {
+              "text": "Ist Ihnen bei den Toten etwas aufgefallen?",
+              "next": "tote"
+            },
+            {
+              "text": "Glauben Sie an Geister?",
+              "next": "geister"
+            },
+            {
+              "text": "Auf Wiedersehen."
+            }
+          ]
+        },
+        "geschaeft": {
+          "text": "„Der Tod ist der einzige Kunde, der nie ausbleibt.“ Er rückt einen Kerzenleuchter um einen Fingerbreit. „Aber seit dem Frühjahr kommen mehr aus dem Kanal. Und die aus den Pestgassen bringt man mir gar nicht mehr. Man verbrennt sie dort.“",
+          "choices": [
+            {
+              "text": "Zurück.",
+              "next": "start"
+            }
+          ]
+        },
+        "tote": {
+          "text": "„Manche sind kälter, als sie sein dürften. Nicht kalt wie Wasser. Kalt wie ein Keller, in dem etwas wohnt.“ Er sieht zum Totenbuch. „Ich mache mir ein Kreuz dazu. Die Polizei hat nie danach gefragt. Sie sind der Erste.“",
+          "choices": [
+            {
+              "text": "Zurück.",
+              "next": "start"
+            }
+          ]
+        },
+        "geister": {
+          "text": "„Ich glaube an Salz.“ Er deutet auf die Schale neben der Tür. „Nehmen Sie sich ruhig eine Handvoll. Wer mit Ihrer Arbeit lebt, sollte es immer in der Tasche haben.“",
+          "choices": [
+            {
+              "text": "Zurück.",
+              "next": "start"
+            }
+          ]
+        }
+      }
+    },
+    "dunn": {
+      "start": [
+        {
+          "node": "geachtet",
+          "requires_honor": 70
+        },
+        {
+          "node": "start"
+        }
+      ],
+      "nodes": {
+        "start": {
+          "text": "Ein rundlicher Constable mit Schürze über der Uniform rührt in einem Kessel. „Tee? Suppe? Beides schmeckt gleich, aber nur eins wärmt.“",
+          "choices": [
+            {
+              "text": "Was gibt es hier hinten?",
+              "next": "fluegel"
+            },
+            {
+              "text": "Was ist oben?",
+              "next": "oben"
+            },
+            {
+              "text": "Gerüchte aus der Wachstube?",
+              "next": "geruechte",
+              "requires_honor": 20
+            },
+            {
+              "text": "Danke, Dunn."
+            }
+          ]
+        },
+        "fluegel": {
+          "text": "„Links die Asservatenkammer. Was wir bei Fällen sicherstellen, landet da, ordentlich beschriftet, sagt Miss Pimm. In der Mitte der Verhörraum, mit dem Spiegel. Und hier bin ich. Ohne mich würde das Revier verhungern.“",
+          "choices": [
+            {
+              "text": "Zurück.",
+              "next": "start"
+            }
+          ]
+        },
+        "oben": {
+          "text": "„Die Büros. Für geachtete Ermittler, mit eigenem Schrank, Ofen und Schlüssel.“ Er zwinkert. „Wer sich bei der Inspektorin einen Namen macht, bekommt eins. Ansehen siebzig, heißt es. Ich bringe dann den Tee hoch.“",
+          "choices": [
+            {
+              "text": "Zurück.",
+              "next": "start"
+            }
+          ]
+        },
+        "geruechte": {
+          "text": "Er senkt die Stimme. „Holt schuldet dem halben Revier Geld. Price schläft im Dienst, aber nur, wenn es regnet. Und Miss Pimm hat eine Akte über jeden von uns. Auch über Sie, nehme ich an.“",
+          "choices": [
+            {
+              "text": "Zurück.",
+              "next": "start"
+            }
+          ]
+        },
+        "geachtet": {
+          "text": "Dunn strahlt. „Da ist er ja, unser Geachteter! Ihr Büro ist oben, die Treppe hinauf. Ich habe den Ofen schon angeheizt. Zweimal. Er zieht schlecht.“",
+          "choices": [
+            {
+              "text": "Was gibt es hier hinten?",
+              "next": "fluegel"
+            },
+            {
+              "text": "Gerüchte aus der Wachstube?",
+              "next": "geruechte"
+            },
+            {
+              "text": "Danke, Dunn."
+            }
+          ]
+        }
+      }
+    },
+    "thale": {
+      "start": "start",
+      "nodes": {
+        "start": {
+          "text": "Ein grauhaariger Sergeant hinter einem Gitter. Hinter ihm Regale voller Kisten, jede mit roter Schnur verschnürt. Manche Kisten bewegen sich ein wenig.\n\n„Asservatenkammer. Wenn Sie etwas ausleihen wollen: Ich brauche Ihre Unterschrift. Und Ihre Nerven.“",
+          "choices": [
+            {
+              "text": "Was liegt hier?",
+              "next": "was"
+            },
+            {
+              "text": "Etwas ausleihen oder zurückgeben.",
+              "vault": true
+            },
+            {
+              "text": "Bis später, Sergeant."
+            }
+          ]
+        },
+        "was": {
+          "text": "„Artefakte. Dinge, die bei Fällen übrig geblieben sind und sich nicht vernichten lassen. Jedes hilft, und jedes nimmt sich etwas dafür. Leben, Nerven, Ansehen, Schlaf.\n\nRegeln: Ab Rang Ermittler ein Stück, später mehr. Nie mehr als drei gleichzeitig am Leib, das hält keiner aus. Wer damit umkippt, landet in meinem Bericht.“",
+          "choices": [
+            {
+              "text": "Und die, die man draußen findet?",
+              "next": "draussen"
+            },
+            {
+              "text": "Verstanden.",
+              "next": "start"
+            }
+          ]
+        },
+        "draussen": {
+          "text": "„In den Gefahrengebieten tragen manche Kreaturen so etwas mit sich herum. Selten, aber es kommt vor. Die gehören dann Ihnen. Ich würde sie trotzdem nicht alle gleichzeitig anlegen.“",
+          "choices": [
+            {
+              "text": "Danke.",
+              "next": "start"
+            }
+          ]
+        }
+      }
+    },
+    "varga": {
+      "start": "start",
+      "nodes": {
+        "start": {
+          "text": "Eine Frau mit Lupe am Kettchen sitzt vor einem Tisch voller Phiolen, Gutachten und gepresster Pflanzen.\n\n„Dr. Varga. Das Revier bezahlt mich dafür, dass ich weiß, was in diesen Phiolen ist. Und dafür, dass ich Ermittler davon abhalte, das Falsche zu trinken.“",
+          "choices": [
+            {
+              "text": "Was wissen Sie über die Sequenzen?",
+              "next": "sequenzen"
+            },
+            {
+              "text": "Hat das Revier Tränke für mich?",
+              "expert": true
+            },
+            {
+              "text": "Auf Wiedersehen."
+            }
+          ]
+        },
+        "sequenzen": {
+          "text": "„Jeder Pfad hat Stufen, von Sequenz 9 bis 5, soweit wir wissen. Jede Stufe macht stärker, zäher und ruhiger im Kopf, aber nur, wenn der vorige Trank verdaut ist. Verdauen heißt: nach dem Grundsatz des Pfades handeln.\n\nDas Revier führt drei Pfade: Laterne, Faden und Eisen. Für jeden gelösten großen Fall gebe ich die nächste Stufe aus. Alles andere bekommen Sie auf dem Nachtmarkt, bei Leuten, denen ich nicht über den Weg traue.“",
+          "choices": [
+            {
+              "text": "Welcher Fall bringt welche Stufe?",
+              "next": "stufen"
+            },
+            {
+              "text": "Danke.",
+              "next": "start"
+            }
+          ]
+        },
+        "stufen": {
+          "text": "„Sequenz 9 nach Ihrem ersten Fall, der erloschenen Laterne. Sequenz 8 nach St. Ebba. Sequenz 7 nach den gestohlenen Stimmen. Sequenz 6 nach dem Chor in der Glocke, Sequenz 5 nach dem dreizehnten Gast. Jede Stufe nur einmal, also verschütten Sie nichts.“",
+          "choices": [
+            {
+              "text": "Verstanden.",
+              "next": "start"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

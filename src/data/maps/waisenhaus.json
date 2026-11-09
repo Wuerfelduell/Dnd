@@ -1,0 +1,190 @@
+{
+  "id": "waisenhaus",
+  "name": "Waisenhaus St. Brigid",
+  "tiles": "tavern",
+  "ambient": {
+    "night": 0.86,
+    "fog": 0.08
+  },
+  "spawns": {
+    "default": [
+      7,
+      15
+    ],
+    "keller": [
+      4,
+      13
+    ]
+  },
+  "lights": [
+    {
+      "tile": [
+        9,
+        7
+      ],
+      "radius": 44,
+      "intensity": 0.4,
+      "color": "#e8b060",
+      "glow": 0.25
+    },
+    {
+      "tile": [
+        22,
+        6
+      ],
+      "radius": 40,
+      "intensity": 0.3,
+      "color": "#9ab0d8",
+      "glow": 0.25
+    }
+  ],
+  "rows": [
+    "IIIIIIIIIIIIIIIIIIIIIIIIIIIIII",
+    "IIIIIIIIIIIIIIIIIIIIIIIIIIIIII",
+    "IwwwOwwwwwwwOwwIwwwwwwOwwwwwwI",
+    "IwBBBBwwwwwwwwwIwTTwTTwTTwTTwI",
+    "IwwwwwwwwwwwwwwIwTTwTTwTTwTTwI",
+    "IwwwwwwwwwwwwwwwwwwwwwwwwwwwwI",
+    "IwwwwwwTTTTTwwwIwwwwwwwwwwwwwI",
+    "IwwwwwwTTTTTwwwIwwwwwwwwwwwwwI",
+    "IwwwwwwwwwwwwwwIwTTwTTwTTwTTwI",
+    "IwwwwwwwwwwwwwwIwTTwTTwTTwTTwI",
+    "IwVVwwwwwwwwwwwIwwwwwwwwwwwwwI",
+    "IwwwwwwwwwwwwwwIwwwwwwwwwwwwwI",
+    "IwwwwwwwwwwwwwwwwwwwwwwwwwwwwI",
+    "IwwwwwwwwwwwwwwIwwwwwwwwwwwwwI",
+    "IwwwwwwwwwwwwwwIwwwwwwwwwwwwwI",
+    "IwwwwwwwwwwwwwwIwwwwwwwwwwwwwI",
+    "IwwwwwwwwwwwwwwIwwwwwwwwwwwwwI",
+    "IIIIIIIEEIIIIIIIIIIIIIIIIIIIII"
+  ],
+  "npcs": [
+    {
+      "id": "gouvernante",
+      "tile": [
+        10,
+        9
+      ],
+      "facing": "down",
+      "visible_if": {
+        "requires_flags": [
+          "briefed_08"
+        ],
+        "hide_if_flags": [
+          "case_78_showdown"
+        ]
+      }
+    },
+    {
+      "id": "molly",
+      "tile": [
+        21,
+        12
+      ],
+      "facing": "left",
+      "visible_if": {
+        "requires_flags": [
+          "briefed_08"
+        ]
+      }
+    }
+  ],
+  "interactables": [
+    {
+      "id": "out",
+      "kind": "door",
+      "to": "ashgrove",
+      "spawn": "waisenhaus",
+      "tile": [
+        7,
+        16
+      ],
+      "prompt": "Hinaus nach Ashgrove",
+      "marker": false,
+      "reach": 22
+    },
+    {
+      "id": "tea",
+      "clue": "tea_tin",
+      "tile": [
+        3,
+        4
+      ],
+      "prompt": "Die Teedose im Regal ansehen",
+      "effects": {
+        "gives_items": {
+          "schlaftee": 1
+        }
+      },
+      "visible_if": {
+        "requires_quests_active": [
+          "case_08"
+        ]
+      }
+    },
+    {
+      "id": "gowns",
+      "clue": "muddy_gowns",
+      "tile": [
+        27,
+        12
+      ],
+      "prompt": "Den Wäschekorb durchsehen",
+      "visible_if": {
+        "requires_quests_active": [
+          "case_08"
+        ]
+      }
+    },
+    {
+      "id": "benjibed",
+      "clue": "benji_bed",
+      "tile": [
+        26,
+        6
+      ],
+      "prompt": "Benjis leeres Bett ansehen",
+      "visible_if": {
+        "requires_quests_active": [
+          "case_08"
+        ]
+      }
+    },
+    {
+      "id": "threads",
+      "clue": "thread_vision",
+      "tile": [
+        22,
+        6
+      ],
+      "prompt": "Den Fäden über den Betten folgen",
+      "hidden": true,
+      "visible_if": {
+        "requires_quests_active": [
+          "case_08"
+        ]
+      }
+    },
+    {
+      "id": "keller",
+      "kind": "door",
+      "to": "traumkeller",
+      "spawn": "default",
+      "tile": [
+        3,
+        13
+      ],
+      "sprite": "stairs",
+      "marker": true,
+      "prompt": "In den Keller hinabsteigen",
+      "visible_if": {
+        "requires_flags": [
+          "case_78_showdown"
+        ],
+        "hide_if_flags": [
+          "case_08_closed"
+        ]
+      }
+    }
+  ]
+}

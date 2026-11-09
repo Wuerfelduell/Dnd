@@ -1181,5 +1181,208 @@
       ]
     },
     "win_text": "Pratt sitzt zwischen seinen zerbrochenen Flaschen und rechnet laut nach, wie viel ihn das kostet."
+  },
+  "ertrunkener": {
+    "name": "Der Ertrunkene",
+    "sprite": "apparition",
+    "tint": "#7ab0a0",
+    "occult": true,
+    "hp": 34,
+    "fleeable": true,
+    "intro": "Im Kohlenkeller steht eine Gestalt, aus der Wasser rinnt, ohne dass der Boden nass wird. Sie hat Thornes Gesicht, nur aufgedunsen.",
+    "attacks": [
+      {
+        "name": "Schwall",
+        "damage": 7,
+        "hits": [
+          1100
+        ]
+      },
+      {
+        "name": "Gurgeln",
+        "damage": 3,
+        "hits": [
+          500,
+          800,
+          1100
+        ],
+        "nerves": 2
+      },
+      {
+        "name": "Nach unten ziehen",
+        "damage": 11,
+        "hits": [
+          1900
+        ]
+      }
+    ],
+    "on_win": {
+      "sets_flags": [
+        "ertrunkener_defeated"
+      ]
+    },
+    "win_text": "Die Gestalt fällt in sich zusammen. Zurück bleibt ein Geruch nach Kanal."
+  },
+  "pfandeintreiber": {
+    "name": "Der Pfandeintreiber",
+    "sprite": "npc:holt",
+    "tint": "#a08a6a",
+    "hp": 32,
+    "fleeable": true,
+    "intro": "Ein breiter Mann mit Melone und Schuldbuch versperrt dir den Weg. „Thorne ist tot, aber die Schulden leben. Und Schnüffler zahlen extra.“",
+    "attacks": [
+      {
+        "name": "Faustschlag",
+        "damage": 6,
+        "hits": [
+          900
+        ]
+      },
+      {
+        "name": "Schlagring",
+        "damage": 4,
+        "hits": [
+          600,
+          900
+        ]
+      },
+      {
+        "name": "Kopfstoß",
+        "damage": 10,
+        "hits": [
+          1700
+        ]
+      }
+    ],
+    "on_win": {
+      "sets_flags": [
+        "pfandeintreiber_defeated"
+      ],
+      "gives_items": {
+        "schuldbuch": 1
+      }
+    },
+    "win_text": "Er lässt das Schuldbuch fallen und rennt."
+  },
+  "traumfaden": {
+    "name": "Gewebe aus Traumfäden",
+    "sprite": "apparition",
+    "tint": "#b0b8f0",
+    "occult": true,
+    "hp": 38,
+    "fleeable": false,
+    "intro": "Zwischen dir und dem Webstuhl hängen tausend Fäden. Als du näherkommst, ziehen sie sich zu einer Gestalt zusammen, die wie ein schlafendes Kind atmet.",
+    "attacks": [
+      {
+        "name": "Umspinnen",
+        "damage": 3,
+        "hits": [
+          500,
+          750,
+          1000,
+          1250
+        ]
+      },
+      {
+        "name": "Wiegenlied",
+        "action": "taunt",
+        "value": 8,
+        "text": "Ein Kinderlied, ganz nah am Ohr. -8 Nerven."
+      },
+      {
+        "name": "Reißen",
+        "damage": 9,
+        "hits": [
+          1300
+        ]
+      },
+      {
+        "name": "Albtraum",
+        "damage": 12,
+        "hits": [
+          2000
+        ]
+      }
+    ],
+    "on_win": {
+      "sets_flags": [
+        "traumfaden_defeated"
+      ]
+    },
+    "lose_to": {
+      "map": "waisenhaus",
+      "spawn": "keller"
+    },
+    "win_text": "Die Fäden reißen und sinken zu Boden wie Staub."
+  },
+  "miss_wren": {
+    "name": "Miss Imogen Wren",
+    "sprite": "npc:cultist",
+    "tint": "#c8c8d8",
+    "occult": true,
+    "boss": true,
+    "hp": 46,
+    "fleeable": false,
+    "intro": "Miss Wren sitzt am Webstuhl und webt, ohne aufzusehen. „Sie verstehen das nicht. Er hätte sie auf die Straße gesetzt. Ich habe ihn nur im Schlaf besucht.“\n\nSie hebt die Schere.",
+    "attacks": [
+      {
+        "name": "Schlaflied",
+        "action": "taunt",
+        "value": 10,
+        "text": "Sie summt. Deine Lider werden schwer. -10 Nerven."
+      },
+      {
+        "name": "Fadenhieb",
+        "damage": 4,
+        "hits": [
+          500,
+          750,
+          1000,
+          1250
+        ]
+      },
+      {
+        "name": "Silberschere",
+        "damage": 8,
+        "hits": [
+          900,
+          1300
+        ]
+      },
+      {
+        "name": "Kanalwasser",
+        "damage": 12,
+        "hits": [
+          2100
+        ]
+      },
+      {
+        "name": "Ein Kind als Schild",
+        "action": "guard",
+        "value": 6,
+        "text": "Ein schlafender Schatten stellt sich vor sie. Panzer 6."
+      }
+    ],
+    "weak_if": {
+      "requires_certain": [
+        "d8_thread"
+      ]
+    },
+    "weak_text": "Du weißt, woran sie hängt: an den Fäden. Jeder Treffer am Webstuhl trifft auch sie.",
+    "on_win": {
+      "sets_flags": [
+        "wren_beaten"
+      ],
+      "gives_items": {
+        "silberschere": 1
+      },
+      "honor": 4,
+      "honor_reason": "Miss Wren gestellt"
+    },
+    "lose_to": {
+      "map": "waisenhaus",
+      "spawn": "keller"
+    },
+    "win_text": "Die Schere fällt. Miss Wren sinkt neben den Webstuhl und summt weiter, ganz leise."
   }
 }

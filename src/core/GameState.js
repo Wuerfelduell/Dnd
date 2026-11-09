@@ -1,5 +1,6 @@
 // Reiner Spielzustand ohne Phaser-Abhängigkeit, damit er auch in Node-Tests läuft.
 import { pathwayMethods } from './Pathways.js';
+import { artifactMethods } from './Artifacts.js';
 //
 // Begriffe:
 // - Hinweis (clue): eine einzelne Quelle, z. B. eine Spur oder eine Zeugenaussage.
@@ -11,7 +12,7 @@ import { pathwayMethods } from './Pathways.js';
 // - Ansehen (honor): Ruf bei der Polizei. Höhere Ränge öffnen Akten und Gespräche.
 // - Leben (hp) und Inventar: Gegenstände heilen, beruhigen die Nerven oder helfen im Kampf.
 
-export const COMPOSURE_MAX = 100;
+export const COMPOSURE_MAX = 100; // Grundwert; der echte Höchstwert ist maxComposure() (wächst mit den Sequenzen)
 export const VISION_DRAIN_PER_SEC = 9;
 export const VISION_REGEN_PER_SEC = 6;
 export const LIKELY_SOURCES = 2;
@@ -41,6 +42,7 @@ export class GameState {
     this.maxHp = s.hp ?? DEFAULT_HP;
     this.hp = this.maxHp;
     this.inventory = { ...(s.items ?? {}) }; // id -> Anzahl
+    this.storage = {}; // Lagerschrank im eigenen Büro: id -> Anzahl
     this.weapon = s.weapon ?? null;
     this.pendingCombat = null;
     this.tracked = null; // verfolgter Auftrag (Journal-Wegweiser)
@@ -100,7 +102,22 @@ export class GameState {
 
   knownFacts(caseId) {
     const seen = new Set(this.clues.map((c) => this.clue(c).fact));
-    return Object.keys(this.content.facts).filter((f) => seen.has(f) && (!caseId || this.fact(f).case === caseId));
+    return Object.keys(this.content.facts).filter((f) => seen.has(f) && (!caseId || this.fact(f).case === caseId || this.crossListed(f, caseId)));
+  }
+
+  /**
+   * Querverbindung: Eine Information aus einem anderen Fall taucht auch in caseId auf, sobald ihre Bedingung erfüllt ist
+   * (fact.also = [{ case, ...Bedingungen }]). So hängen zwei Fälle zusammen, die erst nichts miteinander zu tun haben.
+   */
+  /** Alle aktiven Querverbindungen bekannter Informationen als Set "fact>case". */
+  crossLinks() {
+    const out = new Set();
+    for (const f of this.knownFacts()) for (const a of this.fact(f).also ?? []) if (this.meets(a)) out.add(`${f}>${a.case}`);
+    return out;
+  }
+
+  crossListed(factId, caseId) {
+    return (this.fact(factId).also ?? []).some((a) => a.case === caseId && this.meets(a));
   }
 
   /** Eine Schlussfolgerung ist gesichert, wenn ein Paar komplett "sehr wahrscheinlich" ist. */
@@ -115,8 +132,11 @@ export class GameState {
     if (!clue) throw new Error(`Unbekannter Hinweis: ${id}`);
     if (this.hasClue(id)) return false;
     const before = this.snapshotFacts();
+    const crossBefore = this.crossLinks();
     this.clues.push(id);
     this.emit('clue', id);
+    // Neue Querverbindungen zwischen Fällen melden
+    for (const link of this.crossLinks()) if (!crossBefore.has(link)) this.emit('cross', { fact: link.split('>')[0], case: link.split('>')[1] });
     // Statuswechsel aller Informationen melden (auch indirekt widerlegte)
     for (const [f, old] of before) {
       const now = this.factStatus(f);
@@ -329,6 +349,7 @@ export class GameState {
     this.inventory[id] -= n;
     if (this.inventory[id] <= 0) delete this.inventory[id];
     if (this.weapon === id && !this.inventory[id]) this.weapon = null;
+    if (!this.inventory[id] && this.item(id)?.kind === 'artifact') this.dropArtifactIfGone(id);
     this.emit('item', { id, delta: -n });
     return true;
   }
@@ -336,6 +357,42 @@ export class GameState {
   /** Liste für das Inventar: [{id, count, ...gegenstand}] */
   items() {
     return Object.keys(this.inventory).map((id) => ({ id, count: this.inventory[id], ...this.item(id) }));
+  }
+
+  // --- Lager im eigenen Büro ------------------------------------------------------
+  /** Beweisstücke (Art "key") bleiben beim Ermittler, alles andere darf in den Schrank. */
+  canStore(id) {
+    const it = this.item(id);
+    return !!it && it.kind !== 'key';
+  }
+
+  storedCount(id) {
+    return this.storage[id] ?? 0;
+  }
+
+  /** Liste für den Schrank: [{id, count, ...gegenstand}] */
+  storedItems() {
+    return Object.keys(this.storage).map((id) => ({ id, count: this.storage[id], ...this.item(id) }));
+  }
+
+  storeItem(id, n = 1) {
+    if (!this.canStore(id)) return { ok: false, text: 'Beweisstücke behältst du lieber bei dir.' };
+    n = Math.min(n, this.itemCount(id));
+    if (n <= 0) return { ok: false, text: 'Davon hast du nichts dabei.' };
+    this.removeItem(id, n);
+    this.storage[id] = this.storedCount(id) + n;
+    this.emit('changed');
+    return { ok: true, text: `Eingelagert: ${this.item(id).name}${n > 1 ? ` ×${n}` : ''}.` };
+  }
+
+  retrieveItem(id, n = 1) {
+    n = Math.min(n, this.storedCount(id));
+    if (n <= 0) return { ok: false, text: 'Das liegt nicht im Schrank.' };
+    this.storage[id] -= n;
+    if (this.storage[id] <= 0) delete this.storage[id];
+    this.addItem(id, n);
+    this.emit('changed');
+    return { ok: true, text: `Herausgenommen: ${this.item(id).name}${n > 1 ? ` ×${n}` : ''}.` };
   }
 
   weaponStats() {
@@ -358,7 +415,9 @@ export class GameState {
     return this.hp - before;
   }
 
+  /** Schaden am Spieler. Artefakte und Passive verändern ihn (damage_taken). */
   damage(n) {
+    if (n > 0) n = Math.max(1, Math.round(n * this.passive('damage_taken')));
     const before = this.hp;
     this.hp = Math.max(0, this.hp - n);
     if (this.hp !== before) this.emit('hp', { value: this.hp, delta: this.hp - before });
@@ -366,7 +425,7 @@ export class GameState {
   }
 
   setComposure(v) {
-    this.composure = Math.max(0, Math.min(COMPOSURE_MAX, v));
+    this.composure = Math.max(0, Math.min(this.maxComposure(), v));
     this.emit('composure', this.composure);
   }
 
@@ -376,7 +435,7 @@ export class GameState {
     if (!it || it.kind !== 'consumable' || !this.itemCount(id)) return null;
     if (it.combat_only) return `${it.name} hilft nur im Kampf.`;
     if (it.heal && this.hp >= this.maxHp && !it.composure && !it.calm) return 'Du bist unverletzt.';
-    if (it.composure && this.composure >= COMPOSURE_MAX && !it.heal && !(it.calm && this.unruhe > 0)) return 'Deine Nerven sind ruhig.';
+    if (it.composure && this.composure >= this.maxComposure() && !it.heal && !(it.calm && this.unruhe > 0)) return 'Deine Nerven sind ruhig.';
     this.removeItem(id);
     const parts = this.applyConsumable(it);
     this.emit('changed');
@@ -434,7 +493,7 @@ export class GameState {
       }
     } else {
       const calmMind = this.unruhe >= 60 ? 0.5 : 1;
-      this.composure = Math.min(COMPOSURE_MAX, this.composure + VISION_REGEN_PER_SEC * this.passive('composure_regen') * calmMind * dtSeconds);
+      this.composure = Math.min(this.maxComposure(), this.composure + VISION_REGEN_PER_SEC * this.passive('composure_regen') * calmMind * dtSeconds);
     }
     if (this.composure !== before) this.emit('composure', this.composure);
     this.tickPathway(dtSeconds);
@@ -454,6 +513,7 @@ export class GameState {
       endings: this.endings,
       hp: this.hp,
       inventory: this.inventory,
+      storage: this.storage,
       weapon: this.weapon,
       tracked: this.tracked,
       ...this.serializePathway(),
@@ -479,6 +539,7 @@ export class GameState {
       this.hp = Math.max(1, Math.min(this.maxHp, data.hp ?? this.maxHp));
       this.inventory = Object.fromEntries(Object.entries(data.inventory ?? {}).filter(([i, n]) => this.item(i) && n > 0));
       this.weapon = this.inventory[data.weapon] ? data.weapon : null;
+      this.storage = Object.fromEntries(Object.entries(data.storage ?? {}).filter(([i, n]) => this.item(i) && n > 0));
     }
     // Ab Version 4: Schilling, Pfad und Unruhe
     if (data.v >= 4) this.loadPathway(data);
@@ -487,4 +548,4 @@ export class GameState {
   }
 }
 
-Object.assign(GameState.prototype, pathwayMethods);
+Object.assign(GameState.prototype, pathwayMethods, artifactMethods);

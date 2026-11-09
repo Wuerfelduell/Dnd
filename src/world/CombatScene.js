@@ -121,9 +121,15 @@ export class CombatScene extends Phaser.Scene {
 
   /** Effekt einer Pfad-Fähigkeit, am Spieler oder am Gegner. */
   skillFx(skillId) {
+    skillId = this.fxId(skillId);
     if (!SKILL_FX[skillId]) return;
     const p = SELF_FX.includes(skillId) ? this.playerCenter() : this.enemyCenter();
     this.playFx(`fx_${skillId}`, 'cast', p.x, p.y);
+  }
+
+  /** Effekt-Id einer Fähigkeit: neue Fähigkeiten leihen sich bis zur eigenen Grafik einen Effekt (fx). */
+  fxId(skillId) {
+    return this.combat?.skillDef(skillId)?.fx ?? skillId;
   }
 
   /** Schlaganimation passend zur Waffe. */
@@ -263,10 +269,15 @@ export class CombatScene extends Phaser.Scene {
       const r = c.useItem(action.id);
       if (!r) return;
       this.ui.combatMessage(r.text);
+      this.ui.combatRefresh();
       if (!this.anim(this.player, 'item')) this.flash(this.player);
       const used = c.state.item(action.id);
       this.hitFx(used.damage ? 'item' : used.composure ? 'nerves' : 'heal', used.damage ? 'enemy' : 'player');
       if (c.state.item(action.id).damage) { this.flash(this.enemy); this.float(`-${c.state.item(action.id).damage * (c.enemy.occult ? 2 : 1)}`, 'enemy', 'dmg'); }
+      this.phase = 'anim';
+      this.time.delayedCall(600, () => this.afterAction(false));
+    } else if (action.type === 'end') {
+      this.phase = 'anim';
       this.afterPlayer();
     } else if (action.type === 'flee') {
       if (!c.flee()) { this.ui.combatMessage('Kein Entkommen. Der Weg nach oben ist versperrt.'); return; }
@@ -328,10 +339,10 @@ export class CombatScene extends Phaser.Scene {
       if (r.stunned) this.flash(this.enemy);
       this.ui.combatMessage(`${sk.name}: ${r.effects.join(', ') || 'wirkt'}.${r.stunned ? ` ${c.enemy.name} setzt eine Runde aus.` : ''}`);
       this.ui.combatRefresh();
-      this.time.delayedCall(700, () => this.afterPlayer());
+      this.time.delayedCall(700, () => this.afterAction(c.endsTurn(skillId)));
       return;
     }
-    if (SKILL_FX[skillId]) { this.castAnim(); this.skillFx(skillId); } else this.attackAnim();
+    if (SKILL_FX[this.fxId(skillId)]) { this.castAnim(); this.skillFx(skillId); } else this.attackAnim();
     const blade = this.state.weapon === 'stockdegen';
     this.tweens.add({
       targets: this.player, x: ENEMY_X - 50, duration: 160, yoyo: true, ease: 'Quad.out',
@@ -350,7 +361,14 @@ export class CombatScene extends Phaser.Scene {
     if (skillId === 'blind' && !r.stunned) msg += ' Die Blende verfehlt ihr Ziel.';
     this.ui.combatMessage(msg);
     this.ui.combatRefresh();
-    this.time.delayedCall(700, () => this.afterPlayer());
+    this.time.delayedCall(700, () => this.afterAction(c.endsTurn(skillId)));
+  }
+
+  /** Nach einer Aktion: weiter im eigenen Zug (Konzentration) oder an den Gegner abgeben. */
+  afterAction(endTurn) {
+    if (endTurn || this.combat.outcome) { this.afterPlayer(); return; }
+    this.ui.combatRefresh();
+    this.toMenu();
   }
 
   afterPlayer() {

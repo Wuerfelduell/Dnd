@@ -288,6 +288,7 @@ export const MAP_MARKERS = {
   marsch: 3, katakomben: 2, pestgassen: 7, kraterwald: 12,
   ankerhof: 3, haus_morrow: 4, schleierhaus: 8, // Sekten: Platzhalter-Marker
   giesserei: 7, haus_vey: 1, resonanzkammer: 9, atelier: 4, ballsaal: 8, spiegelkabinett: 8, // Fall 5/6: Platzhalter
+  kontor_thorne: 4, waisenhaus: 1, traumkeller: 11, // Fall 7/8: Platzhalter
 };
 export const MAP_MARKERS_URL = `${BASE}ui/C_08_map_markers.png`;
 /** Notizbuch: Status → Zelle in ui/C_07_log_markers.png. */
@@ -434,6 +435,7 @@ export const ENCOUNTER_BACKGROUNDS = {
   archive_rats: 'bg_archiv', grubenkampf: 'bg_grube', mirror_shade: 'bg_spiegel',
   felix_fight: 'bg_glockenstube', miriam: 'bg_glockenstube', gasgeist: 'bg_gaswerk',
   bronzeengel: 'bg_glockenstube', glockenecho: 'bg_glockenstube', silberbad_schleim: 'bg_spiegel', dreizehnter_gast: 'bg_spiegel',
+  ertrunkener: 'bg_archiv', pfandeintreiber: 'bg_ashgrove', traumfaden: 'bg_gaswerk', miss_wren: 'bg_gaswerk',
   // Begegnungen auf dem schnellen Reiseweg (travel.json)
   reise_ratten: 'bg_hafen', reise_strassenraeuber: 'bg_ashgrove', reise_nebelhund: 'bg_ashgrove', reise_irrlicht: 'bg_hafen', reise_kultist: 'bg_altmarkt',
 };
