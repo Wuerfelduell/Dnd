@@ -1,0 +1,3568 @@
+[
+  {
+    "id": "ds_endbahnhof",
+    "name": "Endbahnhof",
+    "city": "dunscar",
+    "tiles": "c_bahnhof",
+    "tiles_wunsch": "ds_endbahnhof",
+    "rows": [
+      "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII",
+      "I..........................................I",
+      "I..........................................I",
+      "I..........................................I",
+      "I..........................................I",
+      "I.........II........II........II...........I",
+      "I.........II........II........II...........I",
+      "I..........................................I",
+      "I..........................................I",
+      "I.........II........II........II...........I",
+      "I.........II........II........II...........I",
+      "I.........II........II........II...........I",
+      "I.........II........II........II...........I",
+      "I.........II........II........II...........I",
+      "I..........................................I",
+      "I..........................................I",
+      "I.........II........II........II...........I",
+      "I.........II........II........II...........I",
+      "I..........................................I",
+      "I..........................................I",
+      "I..........................................I",
+      "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII"
+    ],
+    "spawns": {
+      "default": [
+        2,
+        19
+      ]
+    },
+    "lights": [
+      {
+        "tile": [
+          3,
+          18
+        ],
+        "radius": 75,
+        "intensity": 0.7,
+        "color": "#ffc782",
+        "glow": 0.2,
+        "flicker": 0.1
+      },
+      {
+        "tile": [
+          40,
+          4
+        ],
+        "radius": 55,
+        "intensity": 0.5,
+        "color": "#9baebc"
+      }
+    ],
+    "ambient": {
+      "night": 0.78,
+      "fog": 0.18
+    },
+    "interactables": [
+      {
+        "id": "k3o_endbahnhof_lesen1",
+        "kind": "read",
+        "tile": [
+          4,
+          3
+        ],
+        "prompt": "Ausfalltafel",
+        "title": "Ausfalltafel",
+        "text": "Seit siebzig Jahren steht bei jedem Zug „vorläufig“. Nur die Kreide am Wort „heute“ ist frisch.",
+        "marker": false,
+        "done_flag": "k3o_endbahnhof_gelesen1"
+      },
+      {
+        "id": "k3o_endbahnhof_lesen2",
+        "kind": "read",
+        "tile": [
+          10,
+          3
+        ],
+        "prompt": "Leerer Schalter",
+        "title": "Leerer Schalter",
+        "text": "Die Schublade ist leer. Auf ihrem Boden liegt der rechteckige Schatten einer Fahrkarte, obwohl das Licht von der Seite kommt.",
+        "marker": false,
+        "done_flag": "k3o_endbahnhof_gelesen2"
+      },
+      {
+        "id": "k3o_endbahnhof_lesen3",
+        "kind": "read",
+        "tile": [
+          16,
+          3
+        ],
+        "prompt": "Entwerter",
+        "title": "Entwerter",
+        "text": "Der Stempel trägt die Nummer einer geschlossenen Bruchstrecke. Frische Tinte sitzt in einer alten Kerbe.",
+        "marker": false,
+        "done_flag": "k3o_endbahnhof_gelesen3"
+      },
+      {
+        "id": "k3o_endbahnhof_lesen4",
+        "kind": "read",
+        "tile": [
+          22,
+          3
+        ],
+        "prompt": "Wartebank",
+        "title": "Wartebank",
+        "text": "Die Bank ist geputzt, die Lehne voller Kalk. Offenbar wartet man hier mit dem Rücken zur Ankunft.",
+        "marker": false,
+        "done_flag": "k3o_endbahnhof_gelesen4"
+      },
+      {
+        "id": "k3o_endbahnhof_lesen5",
+        "kind": "read",
+        "tile": [
+          28,
+          3
+        ],
+        "prompt": "Gepäckwaage",
+        "title": "Gepäckwaage",
+        "text": "Auf der Waage steht ein leerer Koffer. Der Zeiger bewegt sich erst, wenn du seinen Anhänger vorliest.",
+        "marker": false,
+        "done_flag": "k3o_endbahnhof_gelesen5"
+      },
+      {
+        "id": "k3o_endbahnhof_lesen6",
+        "kind": "read",
+        "tile": [
+          34,
+          3
+        ],
+        "prompt": "Fußwegplan",
+        "title": "Fußwegplan",
+        "text": "Blaue Pfeile führen durch alle sechs Viertel. Daneben steht: „Bei Signalstörung zu Fuß. Die Stadt bleibt dieselbe.“",
+        "marker": false,
+        "done_flag": "k3o_endbahnhof_gelesen6"
+      },
+      {
+        "id": "k3o_endbahnhof_nach_schwellenring",
+        "kind": "door",
+        "tile": [
+          4,
+          19
+        ],
+        "to": "ds_schwellenring",
+        "spawn": "default",
+        "prompt": "Nach Schwellenring",
+        "marker": true
+      },
+      {
+        "id": "k3o_endbahnhof_nach_signalhang",
+        "kind": "door",
+        "tile": [
+          7,
+          19
+        ],
+        "to": "ds_signalhang",
+        "spawn": "default",
+        "prompt": "Nach Signalhang",
+        "marker": true
+      },
+      {
+        "id": "k3o_endbahnhof_reise",
+        "kind": "travel",
+        "tile": [
+          2,
+          5
+        ],
+        "prompt": "Stadtkarte von Dunscar",
+        "marker": false
+      }
+    ],
+    "npcs": [
+      {
+        "id": "k3_pfiff",
+        "tile": [
+          3,
+          6
+        ],
+        "facing": "right",
+        "visible_if": {
+          "requires_flags": [
+            "k3_arrived"
+          ],
+          "hide_if_flags": [
+            "k3a_akt1_done"
+          ]
+        }
+      },
+      {
+        "id": "k3_nellie",
+        "tile": [
+          3,
+          8
+        ],
+        "facing": "right",
+        "visible_if": {
+          "requires_flags": [
+            "k3_arrived"
+          ]
+        }
+      }
+    ],
+    "decor": []
+  },
+  {
+    "id": "ds_schwellenring",
+    "name": "Schwellenring",
+    "city": "dunscar",
+    "tiles": "c_bahnhof",
+    "tiles_wunsch": "ds_schwellenring",
+    "rows": [
+      "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII",
+      "I..........................................I",
+      "I..........................................I",
+      "I..........................................I",
+      "I..........................................I",
+      "I..........................................I",
+      "I..........................................I",
+      "I......IIIII...IIIIIIIII...IIIIIIIII.......I",
+      "I......IIIII...IIIIIIIII...IIIIIIIII.......I",
+      "I..........................................I",
+      "I..........................................I",
+      "I..........................................I",
+      "I..........................................I",
+      "I..........................................I",
+      "I......IIIII...IIIIIIIII...IIIIIIIII.......I",
+      "I......IIIII...IIIIIIIII...IIIIIIIII.......I",
+      "I..........................................I",
+      "I..........................................I",
+      "I..........................................I",
+      "I..........................................I",
+      "I..........................................I",
+      "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII"
+    ],
+    "spawns": {
+      "default": [
+        2,
+        19
+      ]
+    },
+    "lights": [
+      {
+        "tile": [
+          3,
+          18
+        ],
+        "radius": 75,
+        "intensity": 0.7,
+        "color": "#ffc782",
+        "glow": 0.2,
+        "flicker": 0.1
+      },
+      {
+        "tile": [
+          40,
+          4
+        ],
+        "radius": 55,
+        "intensity": 0.5,
+        "color": "#9baebc"
+      }
+    ],
+    "ambient": {
+      "night": 0.78,
+      "fog": 0.18
+    },
+    "interactables": [
+      {
+        "id": "k3o_schwellenring_lesen1",
+        "kind": "read",
+        "tile": [
+          4,
+          3
+        ],
+        "prompt": "Drehscheibenplan",
+        "title": "Drehscheibenplan",
+        "text": "Ein gemauerter Gang ist auf dem alten Plan offen. Sein Gleis führt nicht hinaus, sondern zur Rückseite des Depots.",
+        "marker": false,
+        "done_flag": "k3o_schwellenring_gelesen1"
+      },
+      {
+        "id": "k3o_schwellenring_lesen2",
+        "kind": "read",
+        "tile": [
+          10,
+          3
+        ],
+        "prompt": "Wachstafel",
+        "title": "Wachstafel",
+        "text": "Eine Kerbe unterbricht die gezeichnete Pfifflinie. Daneben hat jemand „Ventilsitz prüfen“ eingeritzt.",
+        "marker": false,
+        "done_flag": "k3o_schwellenring_gelesen2"
+      },
+      {
+        "id": "k3o_schwellenring_lesen3",
+        "kind": "read",
+        "tile": [
+          16,
+          3
+        ],
+        "prompt": "Schallschleuse",
+        "title": "Schallschleuse",
+        "text": "Doppelte Filzvorhänge umgeben die Tür zum Speisewagen. Zwischen ihnen hängt ein Schild: „Hier wird niemand aufgerufen.“",
+        "marker": false,
+        "done_flag": "k3o_schwellenring_gelesen3"
+      },
+      {
+        "id": "k3o_schwellenring_lesen4",
+        "kind": "read",
+        "tile": [
+          22,
+          3
+        ],
+        "prompt": "Werkstattbuch",
+        "title": "Werkstattbuch",
+        "text": "Neue Bremsbeläge wurden ohne Rechnung ausgegeben. Der Empfänger hat nur einen öligen Fingerabdruck hinterlassen.",
+        "marker": false,
+        "done_flag": "k3o_schwellenring_gelesen4"
+      },
+      {
+        "id": "k3o_schwellenring_lesen5",
+        "kind": "read",
+        "tile": [
+          28,
+          3
+        ],
+        "prompt": "Heddas Weiche",
+        "title": "Heddas Weiche",
+        "text": "Die Weiche lässt sich von Hand stellen. Auf dem Griff steht: „Erst den Weg ansehen, dann seine Richtung wählen.“",
+        "marker": false,
+        "done_flag": "k3o_schwellenring_gelesen5"
+      },
+      {
+        "id": "k3o_schwellenring_lesen6",
+        "kind": "read",
+        "tile": [
+          34,
+          3
+        ],
+        "prompt": "Horchmarke",
+        "title": "Horchmarke",
+        "text": "Ein Messingtrichter zeigt nach Osten. Eine gestrichelte Linie führt zur Deckungsnische, eine zweite zur alten Mauer.",
+        "marker": false,
+        "done_flag": "k3o_schwellenring_gelesen6"
+      },
+      {
+        "id": "k3o_schwellenring_nach_endbahnhof",
+        "kind": "door",
+        "tile": [
+          4,
+          19
+        ],
+        "to": "ds_endbahnhof",
+        "spawn": "default",
+        "prompt": "Nach Endbahnhof",
+        "marker": true
+      },
+      {
+        "id": "k3o_schwellenring_nach_arbeiterbogen",
+        "kind": "door",
+        "tile": [
+          7,
+          19
+        ],
+        "to": "ds_arbeiterbogen",
+        "spawn": "default",
+        "prompt": "Nach Arbeiterbogen",
+        "marker": true
+      },
+      {
+        "id": "k3o_schwellenring_nach_speisewagen",
+        "kind": "door",
+        "tile": [
+          10,
+          19
+        ],
+        "to": "ds_speisewagen",
+        "spawn": "default",
+        "prompt": "Nach Pfiffs Speisewagen",
+        "marker": true
+      },
+      {
+        "id": "k3o_schwellenring_nach_runddepot",
+        "kind": "door",
+        "tile": [
+          13,
+          19
+        ],
+        "to": "ds_runddepot",
+        "spawn": "default",
+        "prompt": "Nach Runddepot",
+        "marker": true
+      },
+      {
+        "id": "k3o_schwellenring_nach_rangierwueste",
+        "kind": "door",
+        "tile": [
+          16,
+          19
+        ],
+        "to": "ds_rangierwueste",
+        "spawn": "default",
+        "prompt": "Nach Rangierwüste",
+        "marker": true,
+        "visible_if": {
+          "requires_flags": [
+            "k3a_akt1_done"
+          ]
+        }
+      },
+      {
+        "id": "k3o_schwellenring_reise",
+        "kind": "travel",
+        "tile": [
+          2,
+          5
+        ],
+        "prompt": "Stadtkarte von Dunscar",
+        "marker": false
+      }
+    ],
+    "npcs": [
+      {
+        "id": "k3_weichenstellerin",
+        "tile": [
+          3,
+          6
+        ],
+        "facing": "right",
+        "visible_if": {
+          "requires_flags": [
+            "k3a_akt1_done"
+          ]
+        }
+      }
+    ],
+    "decor": []
+  },
+  {
+    "id": "ds_arbeiterbogen",
+    "name": "Arbeiterbogen",
+    "city": "dunscar",
+    "tiles": "d_nachtmarkt",
+    "tiles_wunsch": "ds_arbeiterbogen",
+    "rows": [
+      "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII",
+      "I..........................................I",
+      "I..........................................I",
+      "I..........................................I",
+      "I..........................................I",
+      "I..........................................I",
+      "I..........................................I",
+      "I..........................................I",
+      "I...........III.........III.........III....I",
+      "I...........III.........III.........III....I",
+      "I...........III.........III.........III....I",
+      "I..........................................I",
+      "I..........................................I",
+      "I..........................................I",
+      "I..........................................I",
+      "I..........................................I",
+      "I...........III.........III.........III....I",
+      "I...........III.........III.........III....I",
+      "I..........................................I",
+      "I..........................................I",
+      "I..........................................I",
+      "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII"
+    ],
+    "spawns": {
+      "default": [
+        2,
+        19
+      ]
+    },
+    "lights": [
+      {
+        "tile": [
+          3,
+          18
+        ],
+        "radius": 75,
+        "intensity": 0.7,
+        "color": "#ffc782",
+        "glow": 0.2,
+        "flicker": 0.1
+      },
+      {
+        "tile": [
+          40,
+          4
+        ],
+        "radius": 55,
+        "intensity": 0.5,
+        "color": "#9baebc"
+      }
+    ],
+    "ambient": {
+      "night": 0.78,
+      "fog": 0.18
+    },
+    "interactables": [
+      {
+        "id": "k3o_arbeiterbogen_lesen1",
+        "kind": "read",
+        "tile": [
+          4,
+          3
+        ],
+        "prompt": "Gedeckter Tisch",
+        "title": "Gedeckter Tisch",
+        "text": "Hinter der Scheibe stehen drei Teller und vier Stühle. Der leere Platz bekommt keine Suppe, aber jeden Abend einen sauberen Löffel.",
+        "marker": false,
+        "done_flag": "k3o_arbeiterbogen_gelesen1"
+      },
+      {
+        "id": "k3o_arbeiterbogen_lesen2",
+        "kind": "read",
+        "tile": [
+          10,
+          3
+        ],
+        "prompt": "Frische Sohlen",
+        "title": "Frische Sohlen",
+        "text": "Kalkspuren führen von der Haustür zum Bett und zurück. Unter dem trockenen Staub liegt feuchte Erde von heute.",
+        "marker": false,
+        "done_flag": "k3o_arbeiterbogen_gelesen2"
+      },
+      {
+        "id": "k3o_arbeiterbogen_lesen3",
+        "kind": "read",
+        "tile": [
+          16,
+          3
+        ],
+        "prompt": "Arztschild",
+        "title": "Arztschild",
+        "text": "Huxfords Sprechzeiten beginnen nach Schichtende. Jemand hat gefragt, nach welcher Schicht; die Antwort wurde abgewaschen.",
+        "marker": false,
+        "done_flag": "k3o_arbeiterbogen_gelesen3"
+      },
+      {
+        "id": "k3o_arbeiterbogen_lesen4",
+        "kind": "read",
+        "tile": [
+          22,
+          3
+        ],
+        "prompt": "Windstiller Platz",
+        "title": "Windstiller Platz",
+        "text": "Die Wäsche hängt reglos. Nur ein Arbeitsmantel bewegt sich, als würde sein Besitzer tief einatmen.",
+        "marker": false,
+        "done_flag": "k3o_arbeiterbogen_gelesen4"
+      },
+      {
+        "id": "k3o_arbeiterbogen_lesen5",
+        "kind": "read",
+        "tile": [
+          28,
+          3
+        ],
+        "prompt": "Hausnummern",
+        "title": "Hausnummern",
+        "text": "Die neuen Hausnummern sind über alte Namen geschraubt. An einem Brett wurde die Schraube wieder gelöst.",
+        "marker": false,
+        "done_flag": "k3o_arbeiterbogen_gelesen5"
+      },
+      {
+        "id": "k3o_arbeiterbogen_lesen6",
+        "kind": "read",
+        "tile": [
+          34,
+          3
+        ],
+        "prompt": "Rückwegtafel",
+        "title": "Rückwegtafel",
+        "text": "Der breite Durchgang bleibt offen, auch wenn nachts die Haustüren schließen. Er führt zum Bahnhof und weiter zu Pfiffs Wagen.",
+        "marker": false,
+        "done_flag": "k3o_arbeiterbogen_gelesen6"
+      },
+      {
+        "id": "k3o_arbeiterbogen_nach_schwellenring",
+        "kind": "door",
+        "tile": [
+          4,
+          19
+        ],
+        "to": "ds_schwellenring",
+        "spawn": "default",
+        "prompt": "Nach Schwellenring",
+        "marker": true
+      },
+      {
+        "id": "k3o_arbeiterbogen_nach_kalkmarkt",
+        "kind": "door",
+        "tile": [
+          7,
+          19
+        ],
+        "to": "ds_kalkmarkt",
+        "spawn": "default",
+        "prompt": "Nach Kalkmarkt",
+        "marker": true
+      },
+      {
+        "id": "k3o_arbeiterbogen_nach_teesaal",
+        "kind": "door",
+        "tile": [
+          10,
+          19
+        ],
+        "to": "ds_teesaal",
+        "spawn": "default",
+        "prompt": "Nach Zur letzten Schicht",
+        "marker": true
+      },
+      {
+        "id": "k3o_arbeiterbogen_reise",
+        "kind": "travel",
+        "tile": [
+          2,
+          5
+        ],
+        "prompt": "Stadtkarte von Dunscar",
+        "marker": false
+      }
+    ],
+    "npcs": [
+      {
+        "id": "k3_huxford",
+        "tile": [
+          3,
+          6
+        ],
+        "facing": "right",
+        "visible_if": {
+          "requires_flags": [
+            "k3_arrived"
+          ]
+        }
+      }
+    ],
+    "decor": []
+  },
+  {
+    "id": "ds_kalkmarkt",
+    "name": "Kalkmarkt",
+    "city": "dunscar",
+    "tiles": "d_nachtmarkt",
+    "tiles_wunsch": "ds_kalkmarkt",
+    "rows": [
+      "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII",
+      "I..........................................I",
+      "I..........................................I",
+      "I..........................................I",
+      "I..........................................I",
+      "I.....................I....................I",
+      "I.....................I....................I",
+      "I.....................I....................I",
+      "I.....................I....................I",
+      "I.....................I....................I",
+      "I.....................I....................I",
+      "I..........................................I",
+      "I..........................................I",
+      "I.....................I....................I",
+      "I.....................I....................I",
+      "I.....................I....................I",
+      "I.....................I....................I",
+      "I.....................I....................I",
+      "I..........................................I",
+      "I..........................................I",
+      "I..........................................I",
+      "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII"
+    ],
+    "spawns": {
+      "default": [
+        2,
+        19
+      ]
+    },
+    "lights": [
+      {
+        "tile": [
+          3,
+          18
+        ],
+        "radius": 75,
+        "intensity": 0.7,
+        "color": "#ffc782",
+        "glow": 0.2,
+        "flicker": 0.1
+      },
+      {
+        "tile": [
+          40,
+          4
+        ],
+        "radius": 55,
+        "intensity": 0.5,
+        "color": "#9baebc"
+      }
+    ],
+    "ambient": {
+      "night": 0.78,
+      "fog": 0.18
+    },
+    "interactables": [
+      {
+        "id": "k3o_kalkmarkt_lesen1",
+        "kind": "read",
+        "tile": [
+          4,
+          3
+        ],
+        "prompt": "Unbeschrifteter Stein",
+        "title": "Unbeschrifteter Stein",
+        "text": "Die Fläche wurde für einen Namen geglättet, dann nie beschriftet. Ihr Alter passt nicht zur frischen Verkaufskarte.",
+        "marker": false,
+        "done_flag": "k3o_kalkmarkt_gelesen1"
+      },
+      {
+        "id": "k3o_kalkmarkt_lesen2",
+        "kind": "read",
+        "tile": [
+          10,
+          3
+        ],
+        "prompt": "Materialrechnung",
+        "title": "Materialrechnung",
+        "text": "Eine Lieferung gleicher Grabplatten trägt das Datum der letzten Bruchschicht. Der Rechnungstext spricht nur von Baumaterial.",
+        "marker": false,
+        "done_flag": "k3o_kalkmarkt_gelesen2"
+      },
+      {
+        "id": "k3o_kalkmarkt_lesen3",
+        "kind": "read",
+        "tile": [
+          16,
+          3
+        ],
+        "prompt": "Trödeltasse",
+        "title": "Trödeltasse",
+        "text": "Die Tasse begrüßt dich als „Herr Vorarbeiter“. Der Händler entschuldigt sich: Sie sei gebraucht, nicht höflich.",
+        "marker": false,
+        "done_flag": "k3o_kalkmarkt_gelesen3"
+      },
+      {
+        "id": "k3o_kalkmarkt_lesen4",
+        "kind": "read",
+        "tile": [
+          22,
+          3
+        ],
+        "prompt": "Marktwaage",
+        "title": "Marktwaage",
+        "text": "Ein Gewicht wurde aus einem alten Schichtzeichen gegossen. Man kann die Ziffer noch durch die neue Eichmarke lesen.",
+        "marker": false,
+        "done_flag": "k3o_kalkmarkt_gelesen4"
+      },
+      {
+        "id": "k3o_kalkmarkt_lesen5",
+        "kind": "read",
+        "tile": [
+          28,
+          3
+        ],
+        "prompt": "Teeausschank",
+        "title": "Teeausschank",
+        "text": "Hier gibt es Tee im Stehen. Mabels Wirtshaus liegt am Arbeiterbogen; der Pfeil verhindert täglich dieselbe Verwechslung.",
+        "marker": false,
+        "done_flag": "k3o_kalkmarkt_gelesen5"
+      },
+      {
+        "id": "k3o_kalkmarkt_lesen6",
+        "kind": "read",
+        "tile": [
+          34,
+          3
+        ],
+        "prompt": "Steinmetzrinne",
+        "title": "Steinmetzrinne",
+        "text": "Im Ablauf liegen helle Buchstabenreste. Kein vollständiger Name lässt sich daraus zusammensetzen.",
+        "marker": false,
+        "done_flag": "k3o_kalkmarkt_gelesen6"
+      },
+      {
+        "id": "k3o_kalkmarkt_nach_arbeiterbogen",
+        "kind": "door",
+        "tile": [
+          4,
+          19
+        ],
+        "to": "ds_arbeiterbogen",
+        "spawn": "default",
+        "prompt": "Nach Arbeiterbogen",
+        "marker": true
+      },
+      {
+        "id": "k3o_kalkmarkt_nach_bruchstufen",
+        "kind": "door",
+        "tile": [
+          7,
+          19
+        ],
+        "to": "ds_bruchstufen",
+        "spawn": "default",
+        "prompt": "Nach Bruchstufen",
+        "marker": true
+      },
+      {
+        "id": "k3o_kalkmarkt_reise",
+        "kind": "travel",
+        "tile": [
+          2,
+          5
+        ],
+        "prompt": "Stadtkarte von Dunscar",
+        "marker": false
+      }
+    ],
+    "npcs": [
+      {
+        "id": "k3_pelham",
+        "tile": [
+          3,
+          6
+        ],
+        "facing": "right",
+        "visible_if": {
+          "requires_flags": [
+            "k3_arrived"
+          ]
+        }
+      }
+    ],
+    "decor": []
+  },
+  {
+    "id": "ds_bruchstufen",
+    "name": "Bruchstufen",
+    "city": "dunscar",
+    "tiles": "g_katakomben",
+    "tiles_wunsch": "ds_bruchstufen",
+    "rows": [
+      "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII",
+      "IssssssssssssssssssssssssssssssssssssssssssI",
+      "IssssssssssssssssssssssssssssssssssssssssssI",
+      "IssssssssssssssssssssssssssssssssssssssssssI",
+      "IssssssssssssssssssssssssssssssssssssssssssI",
+      "IsssssssssIIssssssssIIssssssssIIsssssssssssI",
+      "IsssssssssIIssssssssIIssssssssIIsssssssssssI",
+      "IssssssssssssssssssssssssssssssssssssssssssI",
+      "IssssssssssssssssssssssssssssssssssssssssssI",
+      "IsssssssssIIssssssssIIssssssssIIsssssssssssI",
+      "IsssssssssIIssssssssIIssssssssIIsssssssssssI",
+      "IsssssssssIIssssssssIIssssssssIIsssssssssssI",
+      "IsssssssssIIssssssssIIssssssssIIsssssssssssI",
+      "IsssssssssIIssssssssIIssssssssIIsssssssssssI",
+      "IssssssssssssssssssssssssssssssssssssssssssI",
+      "IssssssssssssssssssssssssssssssssssssssssssI",
+      "IsssssssssIIssssssssIIssssssssIIsssssssssssI",
+      "IsssssssssIIssssssssIIssssssssIIsssssssssssI",
+      "IssssssssssssssssssssssssssssssssssssssssssI",
+      "IssssssssssssssssssssssssssssssssssssssssssI",
+      "IssssssssssssssssssssssssssssssssssssssssssI",
+      "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII"
+    ],
+    "spawns": {
+      "default": [
+        2,
+        19
+      ]
+    },
+    "lights": [
+      {
+        "tile": [
+          3,
+          18
+        ],
+        "radius": 75,
+        "intensity": 0.7,
+        "color": "#ffc782",
+        "glow": 0.2,
+        "flicker": 0.1
+      },
+      {
+        "tile": [
+          40,
+          4
+        ],
+        "radius": 55,
+        "intensity": 0.5,
+        "color": "#9baebc"
+      }
+    ],
+    "ambient": {
+      "night": 0.78,
+      "fog": 0.18
+    },
+    "interactables": [
+      {
+        "id": "k3o_bruchstufen_lesen1",
+        "kind": "read",
+        "tile": [
+          4,
+          3
+        ],
+        "prompt": "Vermessungspunkt",
+        "title": "Vermessungspunkt",
+        "text": "Adaines frische Kreidelinie verläuft neben dem alten Messnagel. Der Abstand ist größer als die abgetragene Gesteinsschicht.",
+        "marker": false,
+        "done_flag": "k3o_bruchstufen_gelesen1"
+      },
+      {
+        "id": "k3o_bruchstufen_lesen2",
+        "kind": "read",
+        "tile": [
+          10,
+          3
+        ],
+        "prompt": "Gerüstwind",
+        "title": "Gerüstwind",
+        "text": "Das Gerüst klingt beim Windstoß. Die Antwort darunter kommt erst, nachdem das lose Tuch wieder still hängt.",
+        "marker": false,
+        "done_flag": "k3o_bruchstufen_gelesen2"
+      },
+      {
+        "id": "k3o_bruchstufen_lesen3",
+        "kind": "read",
+        "tile": [
+          16,
+          3
+        ],
+        "prompt": "Rettungsfolge",
+        "title": "Rettungsfolge",
+        "text": "Vier Kerben, eine Pause und zwei Kerben stehen am Handlauf. Die letzte Kerbe wurde später ergänzt.",
+        "marker": false,
+        "done_flag": "k3o_bruchstufen_gelesen3"
+      },
+      {
+        "id": "k3o_bruchstufen_lesen4",
+        "kind": "read",
+        "tile": [
+          22,
+          3
+        ],
+        "prompt": "Treppenwange",
+        "title": "Treppenwange",
+        "text": "Breite Stufen führen ohne Sprung zum öffentlichen Aussichtsgang. Der gesperrte Bruch liegt hinter einem eigenen Tor.",
+        "marker": false,
+        "done_flag": "k3o_bruchstufen_gelesen4"
+      },
+      {
+        "id": "k3o_bruchstufen_lesen5",
+        "kind": "read",
+        "tile": [
+          28,
+          3
+        ],
+        "prompt": "Hohlraumzettel",
+        "title": "Hohlraumzettel",
+        "text": "Die jüngsten Hohlräume tragen Haltestellennamen. Auf der Gesteinskarte gibt es für diese Einteilung keinen Grund.",
+        "marker": false,
+        "done_flag": "k3o_bruchstufen_gelesen5"
+      },
+      {
+        "id": "k3o_bruchstufen_lesen6",
+        "kind": "read",
+        "tile": [
+          34,
+          3
+        ],
+        "prompt": "Sicherheitsnische",
+        "title": "Sicherheitsnische",
+        "text": "In der Nische ist die Außenkante des Gerüsts nicht zu hören. Ein aufgemalter Kreis zeigt den sicheren Standplatz.",
+        "marker": false,
+        "done_flag": "k3o_bruchstufen_gelesen6"
+      },
+      {
+        "id": "k3o_bruchstufen_nach_kalkmarkt",
+        "kind": "door",
+        "tile": [
+          4,
+          19
+        ],
+        "to": "ds_kalkmarkt",
+        "spawn": "default",
+        "prompt": "Nach Kalkmarkt",
+        "marker": true
+      },
+      {
+        "id": "k3o_bruchstufen_nach_signalhang",
+        "kind": "door",
+        "tile": [
+          7,
+          19
+        ],
+        "to": "ds_signalhang",
+        "spawn": "default",
+        "prompt": "Nach Signalhang",
+        "marker": true
+      },
+      {
+        "id": "k3o_bruchstufen_nach_klopfbruch",
+        "kind": "door",
+        "tile": [
+          10,
+          19
+        ],
+        "to": "ds_klopfbruch",
+        "spawn": "default",
+        "prompt": "Nach Klopfbruch",
+        "marker": true,
+        "visible_if": {
+          "requires_flags": [
+            "k3a_akt2_done"
+          ]
+        }
+      },
+      {
+        "id": "k3o_bruchstufen_nach_letzter_bahnsteig",
+        "kind": "door",
+        "tile": [
+          13,
+          19
+        ],
+        "to": "ds_letzter_bahnsteig",
+        "spawn": "default",
+        "prompt": "Nach Letzter Bahnsteig",
+        "marker": true,
+        "visible_if": {
+          "requires_flags": [
+            "k3a_akt2_done"
+          ]
+        }
+      },
+      {
+        "id": "k3o_bruchstufen_reise",
+        "kind": "travel",
+        "tile": [
+          2,
+          5
+        ],
+        "prompt": "Stadtkarte von Dunscar",
+        "marker": false
+      }
+    ],
+    "npcs": [
+      {
+        "id": "k3_adaine",
+        "tile": [
+          3,
+          6
+        ],
+        "facing": "right",
+        "visible_if": {
+          "requires_flags": [
+            "k3_arrived"
+          ]
+        }
+      }
+    ],
+    "decor": []
+  },
+  {
+    "id": "ds_signalhang",
+    "name": "Signalhang",
+    "city": "dunscar",
+    "tiles": "c_bahnhof",
+    "tiles_wunsch": "ds_signalhang",
+    "rows": [
+      "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII",
+      "I..........................................I",
+      "I..........................................I",
+      "I..........................................I",
+      "I..........................................I",
+      "I..........................................I",
+      "I..........................................I",
+      "I......IIIII...IIIIIIIII...IIIIIIIII.......I",
+      "I......IIIII...IIIIIIIII...IIIIIIIII.......I",
+      "I..........................................I",
+      "I..........................................I",
+      "I..........................................I",
+      "I..........................................I",
+      "I..........................................I",
+      "I......IIIII...IIIIIIIII...IIIIIIIII.......I",
+      "I......IIIII...IIIIIIIII...IIIIIIIII.......I",
+      "I..........................................I",
+      "I..........................................I",
+      "I..........................................I",
+      "I..........................................I",
+      "I..........................................I",
+      "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII"
+    ],
+    "spawns": {
+      "default": [
+        2,
+        19
+      ]
+    },
+    "lights": [
+      {
+        "tile": [
+          3,
+          18
+        ],
+        "radius": 75,
+        "intensity": 0.7,
+        "color": "#ffc782",
+        "glow": 0.2,
+        "flicker": 0.1
+      },
+      {
+        "tile": [
+          40,
+          4
+        ],
+        "radius": 55,
+        "intensity": 0.5,
+        "color": "#9baebc"
+      }
+    ],
+    "ambient": {
+      "night": 0.78,
+      "fog": 0.18
+    },
+    "interactables": [
+      {
+        "id": "k3o_signalhang_lesen1",
+        "kind": "read",
+        "tile": [
+          4,
+          3
+        ],
+        "prompt": "Sechs Leitungen",
+        "title": "Sechs Leitungen",
+        "text": "Sechs farbig markierte Drähte laufen zum Verteiler. Die Nummern entsprechen den Vierteln, nicht verschiedenen Zügen.",
+        "marker": false,
+        "done_flag": "k3o_signalhang_gelesen1"
+      },
+      {
+        "id": "k3o_signalhang_lesen2",
+        "kind": "read",
+        "tile": [
+          10,
+          3
+        ],
+        "prompt": "Empfangsstreifen",
+        "title": "Empfangsstreifen",
+        "text": "Eine Empfangszeit wurde zweimal sauber abgeschrieben. Die Uhr im Prüfhaus konnte diese Uhrzeit nicht angezeigt haben.",
+        "marker": false,
+        "done_flag": "k3o_signalhang_gelesen2"
+      },
+      {
+        "id": "k3o_signalhang_lesen3",
+        "kind": "read",
+        "tile": [
+          16,
+          3
+        ],
+        "prompt": "Verschlusskopie",
+        "title": "Verschlusskopie",
+        "text": "Das Verzeichnis nennt einen Freigabevermerk im Lohnbüro. Unter der Rubrik „Rettung“ steht lediglich eine Seitennummer.",
+        "marker": false,
+        "done_flag": "k3o_signalhang_gelesen3"
+      },
+      {
+        "id": "k3o_signalhang_lesen4",
+        "kind": "read",
+        "tile": [
+          22,
+          3
+        ],
+        "prompt": "Überdachter Bahnsteig",
+        "title": "Überdachter Bahnsteig",
+        "text": "Das Dach endet vor der Schlucht. Die Schienen gehen weiter, obwohl tagsüber keine Einfahrt sichtbar ist.",
+        "marker": false,
+        "done_flag": "k3o_signalhang_gelesen4"
+      },
+      {
+        "id": "k3o_signalhang_lesen5",
+        "kind": "read",
+        "tile": [
+          28,
+          3
+        ],
+        "prompt": "Handtrennung",
+        "title": "Handtrennung",
+        "text": "Jeder Leitungshebel hat einen eigenen Rückweg. Eine gemeinsame Rückmeldung ist bequem, aber baulich nicht nötig.",
+        "marker": false,
+        "done_flag": "k3o_signalhang_gelesen5"
+      },
+      {
+        "id": "k3o_signalhang_lesen6",
+        "kind": "read",
+        "tile": [
+          34,
+          3
+        ],
+        "prompt": "Prüfhausweg",
+        "title": "Prüfhausweg",
+        "text": "Ein niedriger Geländerweg führt zum Prüfhaus. Wer nur zuhören will, braucht weder eine Fahrkarte noch eine Antwort abzugeben.",
+        "marker": false,
+        "done_flag": "k3o_signalhang_gelesen6"
+      },
+      {
+        "id": "k3o_signalhang_nach_bruchstufen",
+        "kind": "door",
+        "tile": [
+          4,
+          19
+        ],
+        "to": "ds_bruchstufen",
+        "spawn": "default",
+        "prompt": "Nach Bruchstufen",
+        "marker": true
+      },
+      {
+        "id": "k3o_signalhang_nach_endbahnhof",
+        "kind": "door",
+        "tile": [
+          7,
+          19
+        ],
+        "to": "ds_endbahnhof",
+        "spawn": "default",
+        "prompt": "Nach Endbahnhof",
+        "marker": true
+      },
+      {
+        "id": "k3o_signalhang_nach_pruefhaus",
+        "kind": "door",
+        "tile": [
+          10,
+          19
+        ],
+        "to": "ds_pruefhaus",
+        "spawn": "default",
+        "prompt": "Nach Klangprüfhaus",
+        "marker": true
+      },
+      {
+        "id": "k3o_signalhang_nach_lohnbuero",
+        "kind": "door",
+        "tile": [
+          13,
+          19
+        ],
+        "to": "ds_lohnbuero",
+        "spawn": "default",
+        "prompt": "Nach Altes Lohnbüro",
+        "marker": true
+      },
+      {
+        "id": "k3o_signalhang_nach_rufschlucht",
+        "kind": "door",
+        "tile": [
+          16,
+          19
+        ],
+        "to": "ds_rufschlucht",
+        "spawn": "default",
+        "prompt": "Nach Rufschlucht",
+        "marker": true,
+        "visible_if": {
+          "requires_flags": [
+            "k3a_akt4_done"
+          ]
+        }
+      },
+      {
+        "id": "k3o_signalhang_nach_unterschicht",
+        "kind": "door",
+        "tile": [
+          19,
+          19
+        ],
+        "to": "ds_unterschicht",
+        "spawn": "default",
+        "prompt": "Nach Unterschicht",
+        "marker": true,
+        "visible_if": {
+          "requires_flags": [
+            "kapitel3_done"
+          ]
+        }
+      },
+      {
+        "id": "k3o_signalhang_reise",
+        "kind": "travel",
+        "tile": [
+          2,
+          5
+        ],
+        "prompt": "Stadtkarte von Dunscar",
+        "marker": false
+      }
+    ],
+    "npcs": [],
+    "decor": []
+  },
+  {
+    "id": "ds_speisewagen",
+    "name": "Pfiffs Speisewagen",
+    "city": "dunscar",
+    "tiles": "q_kajuete",
+    "tiles_wunsch": "ds_speisewagen",
+    "rows": [
+      "IIIIIIIIIIIIIIIIIIIIIIII",
+      "IwwwwwwwwwwwwwwwwwwwwwwI",
+      "IwwwwwwwwwwwwwwwwwwwwwwI",
+      "IwwwwwwwwwwwwwwwwwwwwwwI",
+      "IwwwwwwwwwwwwwwwwwwwwwwI",
+      "IwwwwwwwwwwwwwwwwwwwwwwI",
+      "IwwwwwwwwwwwwwwwwwwwwwwI",
+      "IwwwwwwwwwwwwwwwwwwwwwwI",
+      "IwwwwwwwwwwwIIIwwwwwwwwI",
+      "IwwwwwwwwwwwIIIwwwwwwwwI",
+      "IwwwwwwwwwwwwwwwwwwwwwwI",
+      "IwwwwwwwwwwwwwwwwwwwwwwI",
+      "IwwwwwwwwwwwwwwwwwwwwwwI",
+      "IIIIIIIIIIIIIIIIIIIIIIII"
+    ],
+    "spawns": {
+      "default": [
+        2,
+        11
+      ]
+    },
+    "lights": [
+      {
+        "tile": [
+          3,
+          10
+        ],
+        "radius": 75,
+        "intensity": 0.7,
+        "color": "#ffc782",
+        "glow": 0.2,
+        "flicker": 0.1
+      },
+      {
+        "tile": [
+          20,
+          4
+        ],
+        "radius": 55,
+        "intensity": 0.5,
+        "color": "#9baebc"
+      }
+    ],
+    "ambient": {
+      "night": 0.62,
+      "fog": 0
+    },
+    "interactables": [
+      {
+        "id": "k3o_speisewagen_lesen1",
+        "kind": "read",
+        "tile": [
+          3,
+          3
+        ],
+        "prompt": "Kohlenofen",
+        "title": "Kohlenofen",
+        "text": "Auf dem Ofen bleibt eine Kanne warm. Pfiff behauptet, selbst Gespenster müssten hier erst die Schuhe abtreten.",
+        "marker": false,
+        "done_flag": "k3o_speisewagen_gelesen1"
+      },
+      {
+        "id": "k3o_speisewagen_lesen2",
+        "kind": "read",
+        "tile": [
+          6,
+          3
+        ],
+        "prompt": "Familienwalze",
+        "title": "Familienwalze",
+        "text": "Das Etikett nennt einen Abend zu Hause. Aufnahmen bewahren Sätze; ob sie neue Fragen beantworten können, muss getrennt geprüft werden.",
+        "marker": false,
+        "done_flag": "k3o_speisewagen_gelesen2"
+      },
+      {
+        "id": "k3o_speisewagen_lesen3",
+        "kind": "read",
+        "tile": [
+          9,
+          3
+        ],
+        "prompt": "Filzvorhang",
+        "title": "Filzvorhang",
+        "text": "Zwischen den beiden Vorhängen endet jeder Nachhall. Dein eigener Atem klingt plötzlich gewöhnlich.",
+        "marker": false,
+        "done_flag": "k3o_speisewagen_gelesen3"
+      },
+      {
+        "id": "k3o_speisewagen_lesen4",
+        "kind": "read",
+        "tile": [
+          12,
+          3
+        ],
+        "prompt": "Geräteablage",
+        "title": "Geräteablage",
+        "text": "Drei Mulden passen zum Signalgerät. Pfiff füllt es kostenlos auf, auch nach einem missglückten Ausflug.",
+        "marker": false,
+        "done_flag": "k3o_speisewagen_gelesen4"
+      },
+      {
+        "id": "k3o_speisewagen_lesen5",
+        "kind": "read",
+        "tile": [
+          15,
+          3
+        ],
+        "prompt": "Wagenordnung",
+        "title": "Wagenordnung",
+        "text": "„Bett frei. Lager geteilt. Fallwand nicht als Garderobe benutzen.“ Die letzte Zeile wurde offenbar häufig ergänzt.",
+        "marker": false,
+        "done_flag": "k3o_speisewagen_gelesen5"
+      },
+      {
+        "id": "k3o_speisewagen_lesen6",
+        "kind": "read",
+        "tile": [
+          18,
+          3
+        ],
+        "prompt": "Abschaltschlüssel",
+        "title": "Abschaltschlüssel",
+        "text": "Ein leerer Haken ist mit „nur mit Zustimmung“ beschriftet. Pfiff hebt den Schlüssel für eine noch nicht getroffene Entscheidung auf.",
+        "marker": false,
+        "done_flag": "k3o_speisewagen_gelesen6"
+      },
+      {
+        "id": "k3o_speisewagen_nach_schwellenring",
+        "kind": "door",
+        "tile": [
+          4,
+          11
+        ],
+        "to": "ds_schwellenring",
+        "spawn": "default",
+        "prompt": "Nach Schwellenring",
+        "marker": true
+      },
+      {
+        "id": "k3o_wagen_rest",
+        "kind": "rest",
+        "tile": [
+          3,
+          5
+        ],
+        "prompt": "In der Koje ausruhen",
+        "marker": false
+      },
+      {
+        "id": "k3o_wagen_storage",
+        "kind": "storage",
+        "tile": [
+          7,
+          5
+        ],
+        "prompt": "Lagerkiste öffnen",
+        "marker": false
+      },
+      {
+        "id": "k3o_wagen_casewall",
+        "kind": "casewall",
+        "tile": [
+          11,
+          5
+        ],
+        "prompt": "Fallwand ansehen",
+        "marker": false
+      }
+    ],
+    "npcs": [
+      {
+        "id": "k3_pfiff",
+        "tile": [
+          3,
+          6
+        ],
+        "facing": "right",
+        "visible_if": {
+          "requires_flags": [
+            "k3a_akt1_done"
+          ]
+        }
+      }
+    ],
+    "decor": []
+  },
+  {
+    "id": "ds_runddepot",
+    "name": "Runddepot",
+    "city": "dunscar",
+    "tiles": "c_bahnhof",
+    "tiles_wunsch": "ds_runddepot",
+    "rows": [
+      "IIIIIIIIIIIIIIIIIIIIIIII",
+      "I......................I",
+      "I......................I",
+      "I......................I",
+      "I......................I",
+      "I...........I..........I",
+      "I...........I..........I",
+      "I......................I",
+      "I......................I",
+      "I...........I..........I",
+      "I......................I",
+      "I......................I",
+      "I......................I",
+      "IIIIIIIIIIIIIIIIIIIIIIII"
+    ],
+    "spawns": {
+      "default": [
+        2,
+        11
+      ]
+    },
+    "lights": [
+      {
+        "tile": [
+          3,
+          10
+        ],
+        "radius": 75,
+        "intensity": 0.7,
+        "color": "#ffc782",
+        "glow": 0.2,
+        "flicker": 0.1
+      },
+      {
+        "tile": [
+          20,
+          4
+        ],
+        "radius": 55,
+        "intensity": 0.5,
+        "color": "#9baebc"
+      }
+    ],
+    "ambient": {
+      "night": 0.62,
+      "fog": 0
+    },
+    "interactables": [
+      {
+        "id": "k3o_runddepot_lesen1",
+        "kind": "read",
+        "tile": [
+          3,
+          3
+        ],
+        "prompt": "Bremsstaub",
+        "title": "Bremsstaub",
+        "text": "Helle Späne liegen unter einer dunklen Achse. Jemand hat an dieser Bremse gearbeitet, seit der Boden zuletzt gefegt wurde.",
+        "marker": false,
+        "done_flag": "k3o_runddepot_gelesen1"
+      },
+      {
+        "id": "k3o_runddepot_lesen2",
+        "kind": "read",
+        "tile": [
+          6,
+          3
+        ],
+        "prompt": "Ventilsitz",
+        "title": "Ventilsitz",
+        "text": "Der Rand ist ausgeschlagen. Die Lücke liegt dort, wo die Wachstafel am Schwellenring eine fehlende Note zeigt.",
+        "marker": false,
+        "done_flag": "k3o_runddepot_gelesen2"
+      },
+      {
+        "id": "k3o_runddepot_lesen3",
+        "kind": "read",
+        "tile": [
+          9,
+          3
+        ],
+        "prompt": "Werkzeughaken",
+        "title": "Werkzeughaken",
+        "text": "Ein Bremsstück fehlt im Werkzeugbestand. Auf dem Haken hängt ein frischer Lappen statt eines Ausgabescheins.",
+        "marker": false,
+        "done_flag": "k3o_runddepot_gelesen3"
+      },
+      {
+        "id": "k3o_runddepot_lesen4",
+        "kind": "read",
+        "tile": [
+          12,
+          3
+        ],
+        "prompt": "Loknummer",
+        "title": "Loknummer",
+        "text": "Unter dem schwarzen Anstrich kommt die alte Nummer zum Vorschein. Sie ist keine wechselnde Erscheinung.",
+        "marker": false,
+        "done_flag": "k3o_runddepot_gelesen4"
+      },
+      {
+        "id": "k3o_runddepot_lesen5",
+        "kind": "read",
+        "tile": [
+          15,
+          3
+        ],
+        "prompt": "Wartungsgrube",
+        "title": "Wartungsgrube",
+        "text": "Eine Treppe führt trocken unter das Fahrwerk. Der Fluchtgang daneben endet am selben Depotportal.",
+        "marker": false,
+        "done_flag": "k3o_runddepot_gelesen5"
+      },
+      {
+        "id": "k3o_runddepot_lesen6",
+        "kind": "read",
+        "tile": [
+          18,
+          3
+        ],
+        "prompt": "Schmierzettel",
+        "title": "Schmierzettel",
+        "text": "„Für Großmutter“ steht zwischen zwei Mengenangaben. Öl erklärt eine fahrfähige Achse, nicht die Stimme im Wagen.",
+        "marker": false,
+        "done_flag": "k3o_runddepot_gelesen6"
+      },
+      {
+        "id": "k3o_runddepot_nach_schwellenring",
+        "kind": "door",
+        "tile": [
+          4,
+          11
+        ],
+        "to": "ds_schwellenring",
+        "spawn": "default",
+        "prompt": "Nach Schwellenring",
+        "marker": true
+      },
+      {
+        "id": "k3o_runddepot_nach_nachtzug_wagen",
+        "kind": "door",
+        "tile": [
+          7,
+          11
+        ],
+        "to": "ds_nachtzug_wagen",
+        "spawn": "default",
+        "prompt": "Nach Nachtzug: Personenwagen",
+        "marker": true
+      }
+    ],
+    "npcs": [
+      {
+        "id": "k3_oren",
+        "tile": [
+          3,
+          6
+        ],
+        "facing": "right",
+        "visible_if": {
+          "requires_flags": [
+            "k3_arrived"
+          ]
+        }
+      }
+    ],
+    "decor": []
+  },
+  {
+    "id": "ds_pruefhaus",
+    "name": "Klangprüfhaus",
+    "city": "dunscar",
+    "tiles": "b_interieur",
+    "tiles_wunsch": "ds_pruefhaus",
+    "rows": [
+      "IIIIIIIIIIIIIIIIIIIIIIII",
+      "IwwwwwwwwwwwwwwwwwwwwwwI",
+      "IwwwwwwwwwwwwwwwwwwwwwwI",
+      "IwwwwwwwwwwwwwwwwwwwwwwI",
+      "IwwwwwwwwwwwwwwwwwwwwwwI",
+      "IwwwwwwwwwIIwwwwwwwwwwwI",
+      "IwwwwwwwwwIIwwwwwwwwwwwI",
+      "IwwwwwwwwwwwwwwwwwwwwwwI",
+      "IwwwwwwwwwwwwwwwwwwwwwwI",
+      "IwwwwwwwwwIIwwwwwwwwwwwI",
+      "IwwwwwwwwwwwwwwwwwwwwwwI",
+      "IwwwwwwwwwwwwwwwwwwwwwwI",
+      "IwwwwwwwwwwwwwwwwwwwwwwI",
+      "IIIIIIIIIIIIIIIIIIIIIIII"
+    ],
+    "spawns": {
+      "default": [
+        2,
+        11
+      ]
+    },
+    "lights": [
+      {
+        "tile": [
+          3,
+          10
+        ],
+        "radius": 75,
+        "intensity": 0.7,
+        "color": "#ffc782",
+        "glow": 0.2,
+        "flicker": 0.1
+      },
+      {
+        "tile": [
+          20,
+          4
+        ],
+        "radius": 55,
+        "intensity": 0.5,
+        "color": "#9baebc"
+      }
+    ],
+    "ambient": {
+      "night": 0.62,
+      "fog": 0
+    },
+    "interactables": [
+      {
+        "id": "k3o_pruefhaus_lesen1",
+        "kind": "read",
+        "tile": [
+          3,
+          3
+        ],
+        "prompt": "Vergleichstrichter",
+        "title": "Vergleichstrichter",
+        "text": "Zwei Trichter stehen nebeneinander. Ein Brett trennt die Leitungen, damit der zweite nicht vom ersten antwortet.",
+        "marker": false,
+        "done_flag": "k3o_pruefhaus_gelesen1"
+      },
+      {
+        "id": "k3o_pruefhaus_lesen2",
+        "kind": "read",
+        "tile": [
+          6,
+          3
+        ],
+        "prompt": "Siegelrest",
+        "title": "Siegelrest",
+        "text": "Die Verpackung einer Stimmrest-Lieferung trägt ältere Datierungen. Das Datum allein sagt nichts über die heutige Freiheit einzelner Menschen.",
+        "marker": false,
+        "done_flag": "k3o_pruefhaus_gelesen2"
+      },
+      {
+        "id": "k3o_pruefhaus_lesen3",
+        "kind": "read",
+        "tile": [
+          9,
+          3
+        ],
+        "prompt": "Leere Walze",
+        "title": "Leere Walze",
+        "text": "Eine unbespielte Walze wird vor und nach jeder Probe gewogen. Willa nennt das ihre langweiligste und beste Gewohnheit.",
+        "marker": false,
+        "done_flag": "k3o_pruefhaus_gelesen3"
+      },
+      {
+        "id": "k3o_pruefhaus_lesen4",
+        "kind": "read",
+        "tile": [
+          12,
+          3
+        ],
+        "prompt": "Messprotokoll",
+        "title": "Messprotokoll",
+        "text": "Ein Signal ergänzt bei jedem Durchlauf denselben Satz. Die Ergänzung folgt der Aufnahme, nicht der Frage.",
+        "marker": false,
+        "done_flag": "k3o_pruefhaus_gelesen4"
+      },
+      {
+        "id": "k3o_pruefhaus_lesen5",
+        "kind": "read",
+        "tile": [
+          15,
+          3
+        ],
+        "prompt": "Personenfreier Ton",
+        "title": "Personenfreier Ton",
+        "text": "Die Kurve hat einen Anfang und ein Ende, aber keine Sprachsilben. Auf dem Blatt steht ausdrücklich: „Noch keine Ritualformel.“",
+        "marker": false,
+        "done_flag": "k3o_pruefhaus_gelesen5"
+      },
+      {
+        "id": "k3o_pruefhaus_lesen6",
+        "kind": "read",
+        "tile": [
+          18,
+          3
+        ],
+        "prompt": "Schutzkasten",
+        "title": "Schutzkasten",
+        "text": "Ein verschließbarer Kasten erlaubt die Probe ohne Sendung nach draußen. Zuhören verbraucht keine Rufladung.",
+        "marker": false,
+        "done_flag": "k3o_pruefhaus_gelesen6"
+      },
+      {
+        "id": "k3o_pruefhaus_nach_signalhang",
+        "kind": "door",
+        "tile": [
+          4,
+          11
+        ],
+        "to": "ds_signalhang",
+        "spawn": "default",
+        "prompt": "Nach Signalhang",
+        "marker": true
+      },
+      {
+        "id": "k3o_prueflinse_fund",
+        "kind": "read",
+        "tile": [
+          4,
+          7
+        ],
+        "prompt": "Prüflinse prüfen und mitnehmen",
+        "title": "Prüflinse",
+        "text": "Die Linse macht Nachhallränder deutlich. Mit ihr im Gepäck fällt es schwer, Unwichtiges auszublenden. Vorteil: Geistsicht kostet 25 % weniger Nerven. Nachteil: 20 weniger maximale Nerven. Beide gelten, solange du das Stück trägst. Du kannst es im Speisewagen einlagern.",
+        "done_flag": "k3o_prueflinse_genommen",
+        "visible_if": {
+          "hide_if_flags": [
+            "k3o_prueflinse_genommen"
+          ]
+        },
+        "effects": {
+          "gives_items": {
+            "k3o_prueflinse": 1
+          }
+        }
+      }
+    ],
+    "npcs": [
+      {
+        "id": "k3_willa",
+        "tile": [
+          3,
+          6
+        ],
+        "facing": "right",
+        "visible_if": {
+          "requires_flags": [
+            "k3_arrived"
+          ]
+        }
+      }
+    ],
+    "decor": []
+  },
+  {
+    "id": "ds_teesaal",
+    "name": "Zur letzten Schicht",
+    "city": "dunscar",
+    "tiles": "d_wohnung",
+    "tiles_wunsch": "ds_teesaal",
+    "rows": [
+      "IIIIIIIIIIIIIIIIIIIIIIII",
+      "IwwwwwwwwwwwwwwwwwwwwwwI",
+      "IwwwwwwwwwwwwwwwwwwwwwwI",
+      "IwwwwwwwwwwwwwwwwwwwwwwI",
+      "IwwwwwwwwwwwwwwwwwwwwwwI",
+      "IwwwwwwwwwwwwwwwwwwwwwwI",
+      "IwwwwwwwwwwwwwwwwwwwwwwI",
+      "IwwwwwwIIIIIwwwIIIIwwwwI",
+      "IwwwwwwIIIIIwwwIIIIwwwwI",
+      "IwwwwwwwwwwwwwwwwwwwwwwI",
+      "IwwwwwwwwwwwwwwwwwwwwwwI",
+      "IwwwwwwwwwwwwwwwwwwwwwwI",
+      "IwwwwwwwwwwwwwwwwwwwwwwI",
+      "IIIIIIIIIIIIIIIIIIIIIIII"
+    ],
+    "spawns": {
+      "default": [
+        2,
+        11
+      ]
+    },
+    "lights": [
+      {
+        "tile": [
+          3,
+          10
+        ],
+        "radius": 75,
+        "intensity": 0.7,
+        "color": "#ffc782",
+        "glow": 0.2,
+        "flicker": 0.1
+      },
+      {
+        "tile": [
+          20,
+          4
+        ],
+        "radius": 55,
+        "intensity": 0.5,
+        "color": "#9baebc"
+      }
+    ],
+    "ambient": {
+      "night": 0.62,
+      "fog": 0
+    },
+    "interactables": [
+      {
+        "id": "k3o_teesaal_lesen1",
+        "kind": "read",
+        "tile": [
+          3,
+          3
+        ],
+        "prompt": "Schichtmarken",
+        "title": "Schichtmarken",
+        "text": "Mabel bewahrt ungültige Marken in einer Teedose auf. Sie verlangt gültiges Geld nur von Gästen, die welches haben.",
+        "marker": false,
+        "done_flag": "k3o_teesaal_gelesen1"
+      },
+      {
+        "id": "k3o_teesaal_lesen2",
+        "kind": "read",
+        "tile": [
+          6,
+          3
+        ],
+        "prompt": "Gästebuch",
+        "title": "Gästebuch",
+        "text": "Neben jedem Namen steht ein kleines Ereignis: eine verbrannte Suppe, ein geliehener Mantel, ein verpasster Geburtstag. Keine Arbeitsleistung.",
+        "marker": false,
+        "done_flag": "k3o_teesaal_gelesen2"
+      },
+      {
+        "id": "k3o_teesaal_lesen3",
+        "kind": "read",
+        "tile": [
+          9,
+          3
+        ],
+        "prompt": "Extra Tasse",
+        "title": "Extra Tasse",
+        "text": "Die zusätzliche Tasse bleibt leer. Mabel sagt, Erinnern sei kein Grund, den Tee zu verschwenden.",
+        "marker": false,
+        "done_flag": "k3o_teesaal_gelesen3"
+      },
+      {
+        "id": "k3o_teesaal_lesen4",
+        "kind": "read",
+        "tile": [
+          12,
+          3
+        ],
+        "prompt": "Aushang",
+        "title": "Aushang",
+        "text": "Die Tür zum Platz bleibt von innen zu öffnen. Auch ein voller Saal ist kein Wartezimmer für den Nachtzug.",
+        "marker": false,
+        "done_flag": "k3o_teesaal_gelesen4"
+      },
+      {
+        "id": "k3o_teesaal_lesen5",
+        "kind": "read",
+        "tile": [
+          15,
+          3
+        ],
+        "prompt": "Küchenrechnung",
+        "title": "Küchenrechnung",
+        "text": "Der Kohlenverbrauch steigt an den Nächten nach dem Rundruf. Erschöpfte Gäste sitzen länger am warmen Herd.",
+        "marker": false,
+        "done_flag": "k3o_teesaal_gelesen5"
+      },
+      {
+        "id": "k3o_teesaal_lesen6",
+        "kind": "read",
+        "tile": [
+          18,
+          3
+        ],
+        "prompt": "Zettel am Fenster",
+        "title": "Zettel am Fenster",
+        "text": "„Wer seine Geschichte erzählen möchte, darf schweigen, bis er so weit ist.“ Darunter ist Platz für weitere Handschriften.",
+        "marker": false,
+        "done_flag": "k3o_teesaal_gelesen6"
+      },
+      {
+        "id": "k3o_teesaal_nach_arbeiterbogen",
+        "kind": "door",
+        "tile": [
+          4,
+          11
+        ],
+        "to": "ds_arbeiterbogen",
+        "spawn": "default",
+        "prompt": "Nach Arbeiterbogen",
+        "marker": true
+      }
+    ],
+    "npcs": [
+      {
+        "id": "k3_mabel",
+        "tile": [
+          3,
+          6
+        ],
+        "facing": "right",
+        "visible_if": {
+          "requires_flags": [
+            "k3_arrived"
+          ]
+        }
+      }
+    ],
+    "decor": []
+  },
+  {
+    "id": "ds_lohnbuero",
+    "name": "Altes Lohnbüro",
+    "city": "dunscar",
+    "tiles": "b_interieur",
+    "tiles_wunsch": "ds_lohnbuero",
+    "rows": [
+      "IIIIIIIIIIIIIIIIIIIIIIII",
+      "IwwwwwwwwwwwwwwwwwwwwwwI",
+      "IwwwwwwwwwwwwwwwwwwwwwwI",
+      "IwwwwwwwwwwwwwwwwwwwwwwI",
+      "IwwwwwwwwwwwwwwwwwwwwwwI",
+      "IwwwwwwwwwwwwwwwwwwwwwwI",
+      "IwwwwwwwwwwwwwwwwwwwwwwI",
+      "IwwwwwwwwwwwwwwwwwwwwwwI",
+      "IwwwwwwwwwwwIIIwwwwwwwwI",
+      "IwwwwwwwwwwwIIIwwwwwwwwI",
+      "IwwwwwwwwwwwwwwwwwwwwwwI",
+      "IwwwwwwwwwwwwwwwwwwwwwwI",
+      "IwwwwwwwwwwwwwwwwwwwwwwI",
+      "IIIIIIIIIIIIIIIIIIIIIIII"
+    ],
+    "spawns": {
+      "default": [
+        2,
+        11
+      ]
+    },
+    "lights": [
+      {
+        "tile": [
+          3,
+          10
+        ],
+        "radius": 75,
+        "intensity": 0.7,
+        "color": "#ffc782",
+        "glow": 0.2,
+        "flicker": 0.1
+      },
+      {
+        "tile": [
+          20,
+          4
+        ],
+        "radius": 55,
+        "intensity": 0.5,
+        "color": "#9baebc"
+      }
+    ],
+    "ambient": {
+      "night": 0.62,
+      "fog": 0
+    },
+    "interactables": [
+      {
+        "id": "k3o_lohnbuero_lesen1",
+        "kind": "read",
+        "tile": [
+          3,
+          3
+        ],
+        "prompt": "Abmeldespalte",
+        "title": "Abmeldespalte",
+        "text": "Die Spalte „freiwillig abgereist“ enthält gleichmäßige Häkchen. Für die einzelnen Abreisen fehlen Empfangsbestätigungen.",
+        "marker": false,
+        "done_flag": "k3o_lohnbuero_gelesen1"
+      },
+      {
+        "id": "k3o_lohnbuero_lesen2",
+        "kind": "read",
+        "tile": [
+          6,
+          3
+        ],
+        "prompt": "Vertragsschrank",
+        "title": "Vertragsschrank",
+        "text": "Esthers Register nennt das Fach des ursprünglichen Vertrags. Das Schloss wurde gepflegt, obwohl niemand mehr Lohn auszahlt.",
+        "marker": false,
+        "done_flag": "k3o_lohnbuero_gelesen2"
+      },
+      {
+        "id": "k3o_lohnbuero_lesen3",
+        "kind": "read",
+        "tile": [
+          9,
+          3
+        ],
+        "prompt": "Durchschlag",
+        "title": "Durchschlag",
+        "text": "Ein Materiallager wird als zweite Ablagestelle erwähnt. Die Abschrift hat dieselbe beschädigte Ziffer wie das Register.",
+        "marker": false,
+        "done_flag": "k3o_lohnbuero_gelesen3"
+      },
+      {
+        "id": "k3o_lohnbuero_lesen4",
+        "kind": "read",
+        "tile": [
+          12,
+          3
+        ],
+        "prompt": "Tintenprobe",
+        "title": "Tintenprobe",
+        "text": "Zwei Farben unterscheiden Eintrag und spätere Berichtigung. Beide liegen unter dem Staub der stillgelegten Heizung.",
+        "marker": false,
+        "done_flag": "k3o_lohnbuero_gelesen4"
+      },
+      {
+        "id": "k3o_lohnbuero_lesen5",
+        "kind": "read",
+        "tile": [
+          15,
+          3
+        ],
+        "prompt": "Lohnfenster",
+        "title": "Lohnfenster",
+        "text": "Die Ausgabeöffnung ist zu klein für ein Gesicht. Über ihr steht: „Nur vollständige Rückmeldungen.“",
+        "marker": false,
+        "done_flag": "k3o_lohnbuero_gelesen5"
+      },
+      {
+        "id": "k3o_lohnbuero_lesen6",
+        "kind": "read",
+        "tile": [
+          18,
+          3
+        ],
+        "prompt": "Leerer Stuhl",
+        "title": "Leerer Stuhl",
+        "text": "Die Sitzfläche ist vom Fenster weg gedreht. Wer hier arbeitete, musste die Wartenden nicht ansehen.",
+        "marker": false,
+        "done_flag": "k3o_lohnbuero_gelesen6"
+      },
+      {
+        "id": "k3o_lohnbuero_nach_signalhang",
+        "kind": "door",
+        "tile": [
+          4,
+          11
+        ],
+        "to": "ds_signalhang",
+        "spawn": "default",
+        "prompt": "Nach Signalhang",
+        "marker": true
+      }
+    ],
+    "npcs": [
+      {
+        "id": "k3_esther",
+        "tile": [
+          3,
+          6
+        ],
+        "facing": "right",
+        "visible_if": {
+          "requires_flags": [
+            "k3_arrived"
+          ]
+        }
+      }
+    ],
+    "decor": []
+  },
+  {
+    "id": "ds_nachtzug_wagen",
+    "name": "Nachtzug: Personenwagen",
+    "city": "dunscar",
+    "tiles": "d_wohnung",
+    "tiles_wunsch": "ds_nachtzug_wagen",
+    "rows": [
+      "IIIIIIIIIIIIIIIIIIIIIIII",
+      "IwwwwwwwwwwwwwwwwwwwwwwI",
+      "IwwwwwwwwwwwwwwwwwwwwwwI",
+      "IwwwwwwwwwwwwwwwwwwwwwwI",
+      "IwwwwwwwwwwwwwwwwwwwwwwI",
+      "IwwwwwwwwwwwIwwwwwwwwwwI",
+      "IwwwwwwwwwwwIwwwwwwwwwwI",
+      "IwwwwwwwwwwwwwwwwwwwwwwI",
+      "IwwwwwwwwwwwwwwwwwwwwwwI",
+      "IwwwwwwwwwwwIwwwwwwwwwwI",
+      "IwwwwwwwwwwwwwwwwwwwwwwI",
+      "IwwwwwwwwwwwwwwwwwwwwwwI",
+      "IwwwwwwwwwwwwwwwwwwwwwwI",
+      "IIIIIIIIIIIIIIIIIIIIIIII"
+    ],
+    "spawns": {
+      "default": [
+        2,
+        11
+      ]
+    },
+    "lights": [
+      {
+        "tile": [
+          3,
+          10
+        ],
+        "radius": 75,
+        "intensity": 0.7,
+        "color": "#ffc782",
+        "glow": 0.2,
+        "flicker": 0.1
+      },
+      {
+        "tile": [
+          20,
+          4
+        ],
+        "radius": 55,
+        "intensity": 0.5,
+        "color": "#9baebc"
+      }
+    ],
+    "ambient": {
+      "night": 0.62,
+      "fog": 0
+    },
+    "interactables": [
+      {
+        "id": "k3o_nachtzug_wagen_lesen1",
+        "kind": "read",
+        "tile": [
+          3,
+          3
+        ],
+        "prompt": "Warme Hand",
+        "title": "Warme Hand",
+        "text": "Am Fenster bleibt ein frischer Handabdruck. Die Schichtgänger atmen; sie sind keine beliebig ersetzbaren Gespenster.",
+        "marker": false,
+        "done_flag": "k3o_nachtzug_wagen_gelesen1"
+      },
+      {
+        "id": "k3o_nachtzug_wagen_lesen2",
+        "kind": "read",
+        "tile": [
+          6,
+          3
+        ],
+        "prompt": "Sitzkarten",
+        "title": "Sitzkarten",
+        "text": "Alte Namen stehen unter frisch eingerissenen Billettecken. Der Zug versucht, Antworten vorhandenen Plätzen zuzuordnen.",
+        "marker": false,
+        "done_flag": "k3o_nachtzug_wagen_gelesen2"
+      },
+      {
+        "id": "k3o_nachtzug_wagen_lesen3",
+        "kind": "read",
+        "tile": [
+          9,
+          3
+        ],
+        "prompt": "Notausstieg",
+        "title": "Notausstieg",
+        "text": "Der Hebel öffnet zur Wartungsseite. Solange der Zug steht, führt der Gang ins Runddepot zurück.",
+        "marker": false,
+        "done_flag": "k3o_nachtzug_wagen_gelesen3"
+      },
+      {
+        "id": "k3o_nachtzug_wagen_lesen4",
+        "kind": "read",
+        "tile": [
+          12,
+          3
+        ],
+        "prompt": "Schichtordnung",
+        "title": "Schichtordnung",
+        "text": "Ein gedruckter Satz verlangt Antwort auf jeden Aufruf. Das Wort „freiwillig“ steht nur im Titel.",
+        "marker": false,
+        "done_flag": "k3o_nachtzug_wagen_gelesen4"
+      },
+      {
+        "id": "k3o_nachtzug_wagen_lesen5",
+        "kind": "read",
+        "tile": [
+          15,
+          3
+        ],
+        "prompt": "Fensterstaub",
+        "title": "Fensterstaub",
+        "text": "Im Staub laufen sechs Linien zusammen. Du wischst sie nicht fort; ihre Richtung lässt sich auch ohne Klang verfolgen.",
+        "marker": false,
+        "done_flag": "k3o_nachtzug_wagen_gelesen5"
+      },
+      {
+        "id": "k3o_nachtzug_wagen_lesen6",
+        "kind": "read",
+        "tile": [
+          18,
+          3
+        ],
+        "prompt": "Wasserflasche",
+        "title": "Wasserflasche",
+        "text": "Die Flasche ist frisch gefüllt. Jemand hat für eine lebende Person gepackt, die morgens zurückkommen sollte.",
+        "marker": false,
+        "done_flag": "k3o_nachtzug_wagen_gelesen6"
+      },
+      {
+        "id": "k3o_nachtzug_wagen_nach_runddepot",
+        "kind": "door",
+        "tile": [
+          4,
+          11
+        ],
+        "to": "ds_runddepot",
+        "spawn": "default",
+        "prompt": "Nach Runddepot",
+        "marker": true
+      },
+      {
+        "id": "k3o_nachtzug_wagen_nach_nachtzug_lok",
+        "kind": "door",
+        "tile": [
+          7,
+          11
+        ],
+        "to": "ds_nachtzug_lok",
+        "spawn": "default",
+        "prompt": "Nach Nachtzug: Führerstand",
+        "marker": true
+      }
+    ],
+    "npcs": [],
+    "decor": []
+  },
+  {
+    "id": "ds_nachtzug_lok",
+    "name": "Nachtzug: Führerstand",
+    "city": "dunscar",
+    "tiles": "c_bahnhof",
+    "tiles_wunsch": "ds_nachtzug_lok",
+    "rows": [
+      "IIIIIIIIIIIIIIIIIIIIIIII",
+      "I......................I",
+      "I......................I",
+      "I......................I",
+      "I......................I",
+      "I.........II...........I",
+      "I.........II...........I",
+      "I......................I",
+      "I......................I",
+      "I.........II...........I",
+      "I......................I",
+      "I......................I",
+      "I......................I",
+      "IIIIIIIIIIIIIIIIIIIIIIII"
+    ],
+    "spawns": {
+      "default": [
+        2,
+        11
+      ]
+    },
+    "lights": [
+      {
+        "tile": [
+          3,
+          10
+        ],
+        "radius": 75,
+        "intensity": 0.7,
+        "color": "#ffc782",
+        "glow": 0.2,
+        "flicker": 0.1
+      },
+      {
+        "tile": [
+          20,
+          4
+        ],
+        "radius": 55,
+        "intensity": 0.5,
+        "color": "#9baebc"
+      }
+    ],
+    "ambient": {
+      "night": 0.62,
+      "fog": 0
+    },
+    "interactables": [
+      {
+        "id": "k3o_nachtzug_lok_lesen1",
+        "kind": "read",
+        "tile": [
+          3,
+          3
+        ],
+        "prompt": "Bremsgriff",
+        "title": "Bremsgriff",
+        "text": "Der Griff trägt neue Druckstellen. Die Bremse kann die Maschine halten, aber keine bereits gegebene Antwort zurücknehmen.",
+        "marker": false,
+        "done_flag": "k3o_nachtzug_lok_gelesen1"
+      },
+      {
+        "id": "k3o_nachtzug_lok_lesen2",
+        "kind": "read",
+        "tile": [
+          6,
+          3
+        ],
+        "prompt": "Rufventil",
+        "title": "Rufventil",
+        "text": "Das Ventil speist zwei Leitungen. Die zum Fahrwerk ist warm, die zum Trichter bleibt kalt.",
+        "marker": false,
+        "done_flag": "k3o_nachtzug_lok_gelesen2"
+      },
+      {
+        "id": "k3o_nachtzug_lok_lesen3",
+        "kind": "read",
+        "tile": [
+          9,
+          3
+        ],
+        "prompt": "Fahrbuch",
+        "title": "Fahrbuch",
+        "text": "Der letzte reguläre Eintrag meldet instabilen Fels. Die nächste Zeile verlangt dennoch Weiterfahrt.",
+        "marker": false,
+        "done_flag": "k3o_nachtzug_lok_gelesen3"
+      },
+      {
+        "id": "k3o_nachtzug_lok_lesen4",
+        "kind": "read",
+        "tile": [
+          12,
+          3
+        ],
+        "prompt": "Manometer",
+        "title": "Manometer",
+        "text": "Die Nadel steigt beim Aufruf eines Namens ohne entsprechenden Kesseldruck. Druck und Ruf sind verschiedene Kreisläufe.",
+        "marker": false,
+        "done_flag": "k3o_nachtzug_lok_gelesen4"
+      },
+      {
+        "id": "k3o_nachtzug_lok_lesen5",
+        "kind": "read",
+        "tile": [
+          15,
+          3
+        ],
+        "prompt": "Rückgang",
+        "title": "Rückgang",
+        "text": "Der Personenwagen bleibt über die Seitentür erreichbar. Kein Handgriff hier setzt unbemerkt die Abfahrt in Gang.",
+        "marker": false,
+        "done_flag": "k3o_nachtzug_lok_gelesen5"
+      },
+      {
+        "id": "k3o_nachtzug_lok_lesen6",
+        "kind": "read",
+        "tile": [
+          18,
+          3
+        ],
+        "prompt": "Stillstandsschild",
+        "title": "Stillstandsschild",
+        "text": "Die Fahrt wird erst nach bestätigtem Auftrag fortgesetzt. Du kannst die Anzeigen in Ruhe prüfen.",
+        "marker": false,
+        "done_flag": "k3o_nachtzug_lok_gelesen6"
+      },
+      {
+        "id": "k3o_nachtzug_lok_nach_nachtzug_wagen",
+        "kind": "door",
+        "tile": [
+          4,
+          11
+        ],
+        "to": "ds_nachtzug_wagen",
+        "spawn": "default",
+        "prompt": "Nach Nachtzug: Personenwagen",
+        "marker": true
+      }
+    ],
+    "npcs": [],
+    "decor": []
+  },
+  {
+    "id": "ds_rangierwueste",
+    "name": "Rangierwüste",
+    "city": "dunscar",
+    "tiles": "c_bahnhof",
+    "tiles_wunsch": "ds_rangierwueste",
+    "rows": [
+      "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I......IIIII...IIIIIIIII...IIIIIIIII...IIII....I",
+      "I......IIIII...IIIIIIIII...IIIIIIIII...IIII....I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I......IIIII...IIIIIIIII...IIIIIIIII...IIII....I",
+      "I......IIIII...IIIIIIIII...IIIIIIIII...IIII....I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I......IIIII...IIIIIIIII...IIIIIIIII...IIII....I",
+      "I......IIIII...IIIIIIIII...IIIIIIIII...IIII....I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "I..............................................I",
+      "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII"
+    ],
+    "spawns": {
+      "default": [
+        2,
+        27
+      ]
+    },
+    "lights": [
+      {
+        "tile": [
+          3,
+          26
+        ],
+        "radius": 75,
+        "intensity": 0.7,
+        "color": "#ffc782",
+        "glow": 0.2,
+        "flicker": 0.1
+      },
+      {
+        "tile": [
+          44,
+          4
+        ],
+        "radius": 55,
+        "intensity": 0.5,
+        "color": "#9baebc"
+      }
+    ],
+    "ambient": {
+      "night": 0.78,
+      "fog": 0.18
+    },
+    "interactables": [
+      {
+        "id": "k3o_rangierwueste_lesen1",
+        "kind": "read",
+        "tile": [
+          4,
+          3
+        ],
+        "prompt": "Falscher Anfahrpfiff",
+        "title": "Falscher Anfahrpfiff",
+        "text": "Eine Prüftafel zeigt kurz, kurz, lang, dann Abbruch. Der falsche Beginn lenkt das Suchlicht zur unbenutzten Weiche.",
+        "marker": false,
+        "done_flag": "k3o_rangierwueste_gelesen1"
+      },
+      {
+        "id": "k3o_rangierwueste_lesen2",
+        "kind": "read",
+        "tile": [
+          10,
+          3
+        ],
+        "prompt": "Schwellenmulde",
+        "title": "Schwellenmulde",
+        "text": "Schrauben liegen im Abdruck eines schweren Leibes. An den Holzrändern hängen keine Blutspuren.",
+        "marker": false,
+        "done_flag": "k3o_rangierwueste_gelesen2"
+      },
+      {
+        "id": "k3o_rangierwueste_lesen3",
+        "kind": "read",
+        "tile": [
+          16,
+          3
+        ],
+        "prompt": "Schichtwalzenfach",
+        "title": "Schichtwalzenfach",
+        "text": "Hinter dem Suchkreis liegt ein Fach für laufende Rückmeldungen. Sein Griff lässt sich von der Deckungsnische erreichen.",
+        "marker": false,
+        "done_flag": "k3o_rangierwueste_gelesen3"
+      },
+      {
+        "id": "k3o_rangierwueste_lesen4",
+        "kind": "read",
+        "tile": [
+          22,
+          3
+        ],
+        "prompt": "Ersatzkapsel",
+        "title": "Ersatzkapsel",
+        "text": "Eine versiegelte Kapsel passt zum Signalgerät. Das Siegel nennt ausdrücklich nur eine Ladung.",
+        "marker": false,
+        "done_flag": "k3o_rangierwueste_gelesen4"
+      },
+      {
+        "id": "k3o_rangierwueste_lesen5",
+        "kind": "read",
+        "tile": [
+          28,
+          3
+        ],
+        "prompt": "Nischenplan",
+        "title": "Nischenplan",
+        "text": "Die niedrige Mauer deckt den Rückweg zum Schwellenring. Das Warnschild erklärt auch den Weg ohne Signalgerät.",
+        "marker": false,
+        "done_flag": "k3o_rangierwueste_gelesen5"
+      },
+      {
+        "id": "k3o_rangierwueste_lesen6",
+        "kind": "read",
+        "tile": [
+          34,
+          3
+        ],
+        "prompt": "Blinde Schiene",
+        "title": "Blinde Schiene",
+        "text": "Die Schiene endet sichtbar in einem Prellbock. Wer einem falschen Nachhall folgt, steht hier, nicht in einer tödlichen Sackgasse.",
+        "marker": false,
+        "done_flag": "k3o_rangierwueste_gelesen6"
+      },
+      {
+        "id": "k3o_rangierwueste_nach_schwellenring",
+        "kind": "door",
+        "tile": [
+          4,
+          27
+        ],
+        "to": "ds_schwellenring",
+        "spawn": "default",
+        "prompt": "Nach Schwellenring",
+        "marker": true
+      },
+      {
+        "id": "k3o_schwellenhund_station",
+        "kind": "dialogue",
+        "dialogue": "k3o_schwellenhund_station",
+        "tile": [
+          4,
+          9
+        ],
+        "prompt": "Arbeitsstelle prüfen",
+        "marker": true
+      },
+      {
+        "id": "k3o_schwellenhund_beute",
+        "kind": "read",
+        "tile": [
+          5,
+          9
+        ],
+        "prompt": "Pfadbeute bergen",
+        "marker": true,
+        "title": "Versiegeltes Kernfach",
+        "text": "Die pfadgebundene Kernzutat bleibt bis zur sicheren Zuordnung versiegelt. Kampf und friedliche Bewältigung begründen denselben Anspruch."
+      }
+    ],
+    "npcs": [],
+    "decor": [],
+    "roamers": [
+      {
+        "id": "k3o_rangierwueste_wache1",
+        "encounter": "schichtgaenger",
+        "tile": [
+          10,
+          26
+        ],
+        "elite_chance": 0.12
+      },
+      {
+        "id": "k3o_rangierwueste_wache2",
+        "encounter": "signalkraehe",
+        "tile": [
+          18,
+          26
+        ],
+        "elite_chance": 0.12
+      },
+      {
+        "id": "k3o_rangierwueste_wache3",
+        "encounter": "lohnlistenmotte",
+        "tile": [
+          26,
+          26
+        ],
+        "elite_chance": 0.12
+      }
+    ]
+  },
+  {
+    "id": "ds_klopfbruch",
+    "name": "Klopfbruch",
+    "city": "dunscar",
+    "tiles": "g_katakomben",
+    "tiles_wunsch": "ds_klopfbruch",
+    "rows": [
+      "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII",
+      "IssssssssssssssssssssssssssssssssssssssssssssssI",
+      "IssssssssssssssssssssssssssssssssssssssssssssssI",
+      "IssssssssssssssssssssssssssssssssssssssssssssssI",
+      "IssssssssssssssssssssssssssssssssssssssssssssssI",
+      "IssssssssssssssssssssssssssssssssssssssssssssssI",
+      "IssssssssssssssssssssssssssssssssssssssssssssssI",
+      "IssssssssssssssssssssssssssssssssssssssssssssssI",
+      "IsssssssssssIIIsssssssssIIIsssssssssIIIssssssssI",
+      "IsssssssssssIIIsssssssssIIIsssssssssIIIssssssssI",
+      "IsssssssssssIIIsssssssssIIIsssssssssIIIssssssssI",
+      "IssssssssssssssssssssssssssssssssssssssssssssssI",
+      "IssssssssssssssssssssssssssssssssssssssssssssssI",
+      "IssssssssssssssssssssssssssssssssssssssssssssssI",
+      "IssssssssssssssssssssssssssssssssssssssssssssssI",
+      "IssssssssssssssssssssssssssssssssssssssssssssssI",
+      "IsssssssssssIIIsssssssssIIIsssssssssIIIssssssssI",
+      "IsssssssssssIIIsssssssssIIIsssssssssIIIssssssssI",
+      "IsssssssssssIIIsssssssssIIIsssssssssIIIssssssssI",
+      "IssssssssssssssssssssssssssssssssssssssssssssssI",
+      "IssssssssssssssssssssssssssssssssssssssssssssssI",
+      "IssssssssssssssssssssssssssssssssssssssssssssssI",
+      "IssssssssssssssssssssssssssssssssssssssssssssssI",
+      "IssssssssssssssssssssssssssssssssssssssssssssssI",
+      "IsssssssssssIIIsssssssssIIIsssssssssIIIssssssssI",
+      "IsssssssssssIIIsssssssssIIIsssssssssIIIssssssssI",
+      "IssssssssssssssssssssssssssssssssssssssssssssssI",
+      "IssssssssssssssssssssssssssssssssssssssssssssssI",
+      "IssssssssssssssssssssssssssssssssssssssssssssssI",
+      "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII"
+    ],
+    "spawns": {
+      "default": [
+        2,
+        27
+      ]
+    },
+    "lights": [
+      {
+        "tile": [
+          3,
+          26
+        ],
+        "radius": 75,
+        "intensity": 0.7,
+        "color": "#ffc782",
+        "glow": 0.2,
+        "flicker": 0.1
+      },
+      {
+        "tile": [
+          44,
+          4
+        ],
+        "radius": 55,
+        "intensity": 0.5,
+        "color": "#9baebc"
+      }
+    ],
+    "ambient": {
+      "night": 0.78,
+      "fog": 0.18
+    },
+    "interactables": [
+      {
+        "id": "k3o_klopfbruch_lesen1",
+        "kind": "read",
+        "tile": [
+          4,
+          3
+        ],
+        "prompt": "Originale Schlagfolge",
+        "title": "Originale Schlagfolge",
+        "text": "Vier Schläge, Pause, zwei Schläge. Die letzte Antwort kommt aus dem zugemauerten Rettungsgang, nicht aus dem Gerüst.",
+        "marker": false,
+        "done_flag": "k3o_klopfbruch_gelesen1"
+      },
+      {
+        "id": "k3o_klopfbruch_lesen2",
+        "kind": "read",
+        "tile": [
+          10,
+          3
+        ],
+        "prompt": "Werkzeugspuren",
+        "title": "Werkzeugspuren",
+        "text": "Breite Scharten passen zu den Werkzeugen der alten Schicht. Neuere Messmeißel hinterlassen schmalere Ränder.",
+        "marker": false,
+        "done_flag": "k3o_klopfbruch_gelesen2"
+      },
+      {
+        "id": "k3o_klopfbruch_lesen3",
+        "kind": "read",
+        "tile": [
+          16,
+          3
+        ],
+        "prompt": "Verschlossene Ausfahrt",
+        "title": "Verschlossene Ausfahrt",
+        "text": "Hinter losem Kalk liegt ein gemauerter Bogen. Er wurde von außen geschlossen.",
+        "marker": false,
+        "done_flag": "k3o_klopfbruch_gelesen3"
+      },
+      {
+        "id": "k3o_klopfbruch_lesen4",
+        "kind": "read",
+        "tile": [
+          22,
+          3
+        ],
+        "prompt": "Nachfüllfach",
+        "title": "Nachfüllfach",
+        "text": "Ein einzelner Ersatzbalg liegt in einem trockenen Kasten. Die Gebrauchsanweisung ist vollständig mit Bildern erklärt.",
+        "marker": false,
+        "done_flag": "k3o_klopfbruch_gelesen4"
+      },
+      {
+        "id": "k3o_klopfbruch_lesen5",
+        "kind": "read",
+        "tile": [
+          28,
+          3
+        ],
+        "prompt": "Rückwegseil",
+        "title": "Rückwegseil",
+        "text": "Das Seil endet oben an der öffentlichen Treppe. Du kannst zurückkehren, ohne dem Vorhauer etwas zu versprechen.",
+        "marker": false,
+        "done_flag": "k3o_klopfbruch_gelesen5"
+      },
+      {
+        "id": "k3o_klopfbruch_lesen6",
+        "kind": "read",
+        "tile": [
+          34,
+          3
+        ],
+        "prompt": "Rettungslampe",
+        "title": "Rettungslampe",
+        "text": "Die Lampe steht auf der sicheren Seite der Mauer. Auf dem Schild fehlt das Datum einer tatsächlichen Rettung.",
+        "marker": false,
+        "done_flag": "k3o_klopfbruch_gelesen6"
+      },
+      {
+        "id": "k3o_klopfbruch_nach_bruchstufen",
+        "kind": "door",
+        "tile": [
+          4,
+          27
+        ],
+        "to": "ds_bruchstufen",
+        "spawn": "default",
+        "prompt": "Nach Bruchstufen",
+        "marker": true
+      },
+      {
+        "id": "k3o_vorhauer_station",
+        "kind": "dialogue",
+        "dialogue": "k3o_vorhauer_station",
+        "tile": [
+          4,
+          9
+        ],
+        "prompt": "Arbeitsstelle prüfen",
+        "marker": true
+      },
+      {
+        "id": "k3o_vorhauer_beute",
+        "kind": "read",
+        "tile": [
+          5,
+          9
+        ],
+        "prompt": "Pfadbeute bergen",
+        "marker": true,
+        "title": "Versiegeltes Kernfach",
+        "text": "Die pfadgebundene Kernzutat bleibt bis zur sicheren Zuordnung versiegelt. Kampf und friedliche Bewältigung begründen denselben Anspruch."
+      }
+    ],
+    "npcs": [],
+    "decor": [],
+    "roamers": [
+      {
+        "id": "k3o_klopfbruch_wache1",
+        "encounter": "kalkstaubgeist",
+        "tile": [
+          10,
+          26
+        ],
+        "elite_chance": 0.12
+      },
+      {
+        "id": "k3o_klopfbruch_wache2",
+        "encounter": "geruestklang",
+        "tile": [
+          18,
+          26
+        ],
+        "elite_chance": 0.12
+      },
+      {
+        "id": "k3o_klopfbruch_wache3",
+        "encounter": "schichtgaenger",
+        "tile": [
+          26,
+          26
+        ],
+        "elite_chance": 0.12
+      }
+    ]
+  },
+  {
+    "id": "ds_rufschlucht",
+    "name": "Rufschlucht",
+    "city": "dunscar",
+    "tiles": "g_kraterwald",
+    "tiles_wunsch": "ds_rufschlucht",
+    "rows": [
+      "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII",
+      "IggggggggggggggggggggggggggggggggggggggggggggggI",
+      "IggggggggggggggggggggggggggggggggggggggggggggggI",
+      "IggggggggggggggggggggggggggggggggggggggggggggggI",
+      "IggggggggggggggggggggggggggggggggggggggggggggggI",
+      "IgggggggggggggggggggggggIggggggggggggggggggggggI",
+      "IgggggggggggggggggggggggIggggggggggggggggggggggI",
+      "IgggggggggggggggggggggggIggggggggggggggggggggggI",
+      "IgggggggggggggggggggggggIggggggggggggggggggggggI",
+      "IgggggggggggggggggggggggIggggggggggggggggggggggI",
+      "IgggggggggggggggggggggggIggggggggggggggggggggggI",
+      "IgggggggggggggggggggggggIggggggggggggggggggggggI",
+      "IgggggggggggggggggggggggIggggggggggggggggggggggI",
+      "IgggggggggggggggggggggggIggggggggggggggggggggggI",
+      "IgggggggggggggggggggggggIggggggggggggggggggggggI",
+      "IggggggggggggggggggggggggggggggggggggggggggggggI",
+      "IggggggggggggggggggggggggggggggggggggggggggggggI",
+      "IgggggggggggggggggggggggIggggggggggggggggggggggI",
+      "IgggggggggggggggggggggggIggggggggggggggggggggggI",
+      "IgggggggggggggggggggggggIggggggggggggggggggggggI",
+      "IgggggggggggggggggggggggIggggggggggggggggggggggI",
+      "IgggggggggggggggggggggggIggggggggggggggggggggggI",
+      "IgggggggggggggggggggggggIggggggggggggggggggggggI",
+      "IgggggggggggggggggggggggIggggggggggggggggggggggI",
+      "IgggggggggggggggggggggggIggggggggggggggggggggggI",
+      "IgggggggggggggggggggggggIggggggggggggggggggggggI",
+      "IggggggggggggggggggggggggggggggggggggggggggggggI",
+      "IggggggggggggggggggggggggggggggggggggggggggggggI",
+      "IggggggggggggggggggggggggggggggggggggggggggggggI",
+      "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII"
+    ],
+    "spawns": {
+      "default": [
+        2,
+        27
+      ]
+    },
+    "lights": [
+      {
+        "tile": [
+          3,
+          26
+        ],
+        "radius": 75,
+        "intensity": 0.7,
+        "color": "#ffc782",
+        "glow": 0.2,
+        "flicker": 0.1
+      },
+      {
+        "tile": [
+          44,
+          4
+        ],
+        "radius": 55,
+        "intensity": 0.5,
+        "color": "#9baebc"
+      }
+    ],
+    "ambient": {
+      "night": 0.78,
+      "fog": 0.18
+    },
+    "interactables": [
+      {
+        "id": "k3o_rufschlucht_lesen1",
+        "kind": "read",
+        "tile": [
+          4,
+          3
+        ],
+        "prompt": "Getrennte Klemmen",
+        "title": "Getrennte Klemmen",
+        "text": "Ruf und Antwort haben eigene Anschlüsse. Zwei getrennte Tests erreichen jeweils nur eine Leitung.",
+        "marker": false,
+        "done_flag": "k3o_rufschlucht_gelesen1"
+      },
+      {
+        "id": "k3o_rufschlucht_lesen2",
+        "kind": "read",
+        "tile": [
+          10,
+          3
+        ],
+        "prompt": "Sechs Abgänge",
+        "title": "Sechs Abgänge",
+        "text": "Jeder Abgang trägt ein Viertelzeichen. Die Markierungen lassen sich lesen, selbst wenn alle Trichter gleichzeitig sprechen.",
+        "marker": false,
+        "done_flag": "k3o_rufschlucht_gelesen2"
+      },
+      {
+        "id": "k3o_rufschlucht_lesen3",
+        "kind": "read",
+        "tile": [
+          16,
+          3
+        ],
+        "prompt": "Antwortsenke",
+        "title": "Antwortsenke",
+        "text": "Abgefangene Antworten sammeln sich in einer Mulde. Keine einzelne Stimme ist ihr Besitzer.",
+        "marker": false,
+        "done_flag": "k3o_rufschlucht_gelesen3"
+      },
+      {
+        "id": "k3o_rufschlucht_lesen4",
+        "kind": "read",
+        "tile": [
+          22,
+          3
+        ],
+        "prompt": "Reservebalg",
+        "title": "Reservebalg",
+        "text": "Der Balg ist unbenutzt und trägt eine einzelne Kerbe. Mehr als eine Notladung lässt sich daraus nicht gewinnen.",
+        "marker": false,
+        "done_flag": "k3o_rufschlucht_gelesen4"
+      },
+      {
+        "id": "k3o_rufschlucht_lesen5",
+        "kind": "read",
+        "tile": [
+          28,
+          3
+        ],
+        "prompt": "Sicherer Umgang",
+        "title": "Sicherer Umgang",
+        "text": "Ein heller Pfad führt außen um den Verteiler zurück. Die Abkürzung durch die Mitte ist freiwillig.",
+        "marker": false,
+        "done_flag": "k3o_rufschlucht_gelesen5"
+      },
+      {
+        "id": "k3o_rufschlucht_lesen6",
+        "kind": "read",
+        "tile": [
+          34,
+          3
+        ],
+        "prompt": "Hungerrand",
+        "title": "Hungerrand",
+        "text": "Die Kante darunter ist jünger als der Fels. Ihr Wachstum folgt den Anschlussnamen, nicht einer bekannten Bergbauschicht.",
+        "marker": false,
+        "done_flag": "k3o_rufschlucht_gelesen6"
+      },
+      {
+        "id": "k3o_rufschlucht_nach_signalhang",
+        "kind": "door",
+        "tile": [
+          4,
+          27
+        ],
+        "to": "ds_signalhang",
+        "spawn": "default",
+        "prompt": "Nach Signalhang",
+        "marker": true
+      },
+      {
+        "id": "k3o_vielrufer_station",
+        "kind": "dialogue",
+        "dialogue": "k3o_vielrufer_station",
+        "tile": [
+          4,
+          9
+        ],
+        "prompt": "Arbeitsstelle prüfen",
+        "marker": true
+      },
+      {
+        "id": "k3o_vielrufer_beute",
+        "kind": "read",
+        "tile": [
+          5,
+          9
+        ],
+        "prompt": "Pfadbeute bergen",
+        "marker": true,
+        "title": "Versiegeltes Kernfach",
+        "text": "Die pfadgebundene Kernzutat bleibt bis zur sicheren Zuordnung versiegelt. Kampf und friedliche Bewältigung begründen denselben Anspruch."
+      }
+    ],
+    "npcs": [],
+    "decor": [],
+    "roamers": [
+      {
+        "id": "k3o_rufschlucht_wache1",
+        "encounter": "nachhall",
+        "tile": [
+          10,
+          26
+        ],
+        "elite_chance": 0.12
+      },
+      {
+        "id": "k3o_rufschlucht_wache2",
+        "encounter": "signalkraehe",
+        "tile": [
+          18,
+          26
+        ],
+        "elite_chance": 0.12
+      },
+      {
+        "id": "k3o_rufschlucht_wache3",
+        "encounter": "geruestklang",
+        "tile": [
+          26,
+          26
+        ],
+        "elite_chance": 0.12
+      }
+    ]
+  },
+  {
+    "id": "ds_letzter_bahnsteig",
+    "name": "Letzter Bahnsteig",
+    "city": "dunscar",
+    "tiles": "c_bahnhof",
+    "tiles_wunsch": "ds_letzter_bahnsteig",
+    "rows": [
+      "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII",
+      "I..........................................I",
+      "I..........................................I",
+      "I..........................................I",
+      "I..........................................I",
+      "I.........II........II........II...........I",
+      "I.........II........II........II...........I",
+      "I..........................................I",
+      "I..........................................I",
+      "I.........II........II........II...........I",
+      "I.........II........II........II...........I",
+      "I.........II........II........II...........I",
+      "I.........II........II........II...........I",
+      "I.........II........II........II...........I",
+      "I..........................................I",
+      "I..........................................I",
+      "I.........II........II........II...........I",
+      "I.........II........II........II...........I",
+      "I..........................................I",
+      "I..........................................I",
+      "I..........................................I",
+      "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII"
+    ],
+    "spawns": {
+      "default": [
+        2,
+        19
+      ]
+    },
+    "lights": [
+      {
+        "tile": [
+          3,
+          18
+        ],
+        "radius": 75,
+        "intensity": 0.7,
+        "color": "#ffc782",
+        "glow": 0.2,
+        "flicker": 0.1
+      },
+      {
+        "tile": [
+          40,
+          4
+        ],
+        "radius": 55,
+        "intensity": 0.5,
+        "color": "#9baebc"
+      }
+    ],
+    "ambient": {
+      "night": 0.78,
+      "fog": 0.18
+    },
+    "interactables": [
+      {
+        "id": "k3o_letzter_bahnsteig_lesen1",
+        "kind": "read",
+        "tile": [
+          4,
+          3
+        ],
+        "prompt": "Rückmeldetafel",
+        "title": "Rückmeldetafel",
+        "text": "Sechs Felder warten auf getrennte Bestätigungen. Ein gemeinsamer Haken könnte verschleiern, wer noch im Zug ist.",
+        "marker": false,
+        "done_flag": "k3o_letzter_bahnsteig_gelesen1"
+      },
+      {
+        "id": "k3o_letzter_bahnsteig_lesen2",
+        "kind": "read",
+        "tile": [
+          10,
+          3
+        ],
+        "prompt": "Fahrmeistereintrag",
+        "title": "Fahrmeistereintrag",
+        "text": "Der Eintrag nennt Dienst und Todesdatum derselben Person. Eine fortgesetzte Rolle ist kein Beleg für fortgesetztes Leben.",
+        "marker": false,
+        "done_flag": "k3o_letzter_bahnsteig_gelesen2"
+      },
+      {
+        "id": "k3o_letzter_bahnsteig_lesen3",
+        "kind": "read",
+        "tile": [
+          16,
+          3
+        ],
+        "prompt": "Freier Ausgang",
+        "title": "Freier Ausgang",
+        "text": "Der Geländerweg bleibt offen. Vor der letzten Entscheidung lässt sich jeder Rückweg der lebenden Schichtgänger kontrollieren.",
+        "marker": false,
+        "done_flag": "k3o_letzter_bahnsteig_gelesen3"
+      },
+      {
+        "id": "k3o_letzter_bahnsteig_lesen4",
+        "kind": "read",
+        "tile": [
+          22,
+          3
+        ],
+        "prompt": "Hauptleitung",
+        "title": "Hauptleitung",
+        "text": "Die Leitung kann getrennt werden. Daneben warnt ein Schild, dass gespeicherte Stimmen beim Zerstören unwiederbringlich verloren gehen.",
+        "marker": false,
+        "done_flag": "k3o_letzter_bahnsteig_gelesen4"
+      },
+      {
+        "id": "k3o_letzter_bahnsteig_lesen5",
+        "kind": "read",
+        "tile": [
+          28,
+          3
+        ],
+        "prompt": "Sechs Erinnerungsplätze",
+        "title": "Sechs Erinnerungsplätze",
+        "text": "Sechs kleine Sockel stehen abseits der Gleise. Hier könnten Familien einzeln erinnern, ohne einen Arbeitsaufruf zu beantworten.",
+        "marker": false,
+        "done_flag": "k3o_letzter_bahnsteig_gelesen5"
+      },
+      {
+        "id": "k3o_letzter_bahnsteig_lesen6",
+        "kind": "read",
+        "tile": [
+          34,
+          3
+        ],
+        "prompt": "Namensanker",
+        "title": "Namensanker",
+        "text": "Die Halterung verlangt eine bewusste Zustimmung. Dein Namenstäfelchen passt nicht hinein und wird durch Anschauen nicht verbraucht.",
+        "marker": false,
+        "done_flag": "k3o_letzter_bahnsteig_gelesen6"
+      },
+      {
+        "id": "k3o_letzter_bahnsteig_nach_bruchstufen",
+        "kind": "door",
+        "tile": [
+          4,
+          19
+        ],
+        "to": "ds_bruchstufen",
+        "spawn": "default",
+        "prompt": "Nach Bruchstufen",
+        "marker": true
+      },
+      {
+        "id": "k3o_gallowmere_station",
+        "kind": "dialogue",
+        "dialogue": "k3o_gallowmere_station",
+        "tile": [
+          4,
+          9
+        ],
+        "prompt": "Arbeitsstelle prüfen",
+        "marker": true
+      }
+    ],
+    "npcs": [
+      {
+        "id": "k3_gallowmere",
+        "tile": [
+          3,
+          6
+        ],
+        "facing": "right",
+        "visible_if": {
+          "requires_flags": [
+            "k3a_akt2_done"
+          ]
+        }
+      }
+    ],
+    "decor": []
+  },
+  {
+    "id": "ds_unterschicht",
+    "name": "Unterschicht",
+    "city": "dunscar",
+    "tiles": "g_katakomben",
+    "tiles_wunsch": "ds_unterschicht",
+    "rows": [
+      "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII",
+      "IssssssssssssssssssssssssssssssssssssssssssssssI",
+      "IssssssssssssssssssssssssssssssssssssssssssssssI",
+      "IssssssssssssssssssssssssssssssssssssssssssssssI",
+      "IssssssssssssssssssssssssssssssssssssssssssssssI",
+      "IssssssssssssssssssssssssssssssssssssssssssssssI",
+      "IssssssssssssssssssssssssssssssssssssssssssssssI",
+      "IssssssIIIIIsssIIIIIIIIIsssIIIIIIIIIsssIIIIssssI",
+      "IssssssIIIIIsssIIIIIIIIIsssIIIIIIIIIsssIIIIssssI",
+      "IssssssssssssssssssssssssssssssssssssssssssssssI",
+      "IssssssssssssssssssssssssssssssssssssssssssssssI",
+      "IssssssssssssssssssssssssssssssssssssssssssssssI",
+      "IssssssssssssssssssssssssssssssssssssssssssssssI",
+      "IssssssssssssssssssssssssssssssssssssssssssssssI",
+      "IssssssIIIIIsssIIIIIIIIIsssIIIIIIIIIsssIIIIssssI",
+      "IssssssIIIIIsssIIIIIIIIIsssIIIIIIIIIsssIIIIssssI",
+      "IssssssssssssssssssssssssssssssssssssssssssssssI",
+      "IssssssssssssssssssssssssssssssssssssssssssssssI",
+      "IssssssssssssssssssssssssssssssssssssssssssssssI",
+      "IssssssssssssssssssssssssssssssssssssssssssssssI",
+      "IssssssssssssssssssssssssssssssssssssssssssssssI",
+      "IssssssIIIIIsssIIIIIIIIIsssIIIIIIIIIsssIIIIssssI",
+      "IssssssIIIIIsssIIIIIIIIIsssIIIIIIIIIsssIIIIssssI",
+      "IssssssssssssssssssssssssssssssssssssssssssssssI",
+      "IssssssssssssssssssssssssssssssssssssssssssssssI",
+      "IssssssssssssssssssssssssssssssssssssssssssssssI",
+      "IssssssssssssssssssssssssssssssssssssssssssssssI",
+      "IssssssssssssssssssssssssssssssssssssssssssssssI",
+      "IssssssssssssssssssssssssssssssssssssssssssssssI",
+      "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII"
+    ],
+    "spawns": {
+      "default": [
+        2,
+        27
+      ]
+    },
+    "lights": [
+      {
+        "tile": [
+          3,
+          26
+        ],
+        "radius": 75,
+        "intensity": 0.7,
+        "color": "#ffc782",
+        "glow": 0.2,
+        "flicker": 0.1
+      },
+      {
+        "tile": [
+          44,
+          4
+        ],
+        "radius": 55,
+        "intensity": 0.5,
+        "color": "#9baebc"
+      }
+    ],
+    "ambient": {
+      "night": 0.78,
+      "fog": 0.18
+    },
+    "interactables": [
+      {
+        "id": "k3o_unterschicht_lesen1",
+        "kind": "read",
+        "tile": [
+          4,
+          3
+        ],
+        "prompt": "Stumme Schwelle",
+        "title": "Stumme Schwelle",
+        "text": "Oberhalb liegt Dunscar, dessen Kapitel bereits abgeschlossen ist. Dieser Abstieg macht keine frühere Entscheidung rückgängig.",
+        "marker": false,
+        "done_flag": "k3o_unterschicht_gelesen1"
+      },
+      {
+        "id": "k3o_unterschicht_lesen2",
+        "kind": "read",
+        "tile": [
+          10,
+          3
+        ],
+        "prompt": "Drei Tiefen",
+        "title": "Drei Tiefen",
+        "text": "Drei Ringe umgeben die Senke. Auf dem inneren stehen keine Namen mehr, nur noch Stellen für Antworten.",
+        "marker": false,
+        "done_flag": "k3o_unterschicht_gelesen2"
+      },
+      {
+        "id": "k3o_unterschicht_lesen3",
+        "kind": "read",
+        "tile": [
+          16,
+          3
+        ],
+        "prompt": "Rückzugskerbe",
+        "title": "Rückzugskerbe",
+        "text": "Ein breiter Gang führt zurück zum Signalhang. Auch die Macht darunter kann den sicheren Unterschlupf nicht aufrufen.",
+        "marker": false,
+        "done_flag": "k3o_unterschicht_gelesen3"
+      },
+      {
+        "id": "k3o_unterschicht_lesen4",
+        "kind": "read",
+        "tile": [
+          22,
+          3
+        ],
+        "prompt": "Unzugeordnetes Register",
+        "title": "Unzugeordnetes Register",
+        "text": "Das Register enthält Lücken ohne Personen. Du musst niemanden einsetzen, um die Lücken sichtbar zu machen.",
+        "marker": false,
+        "done_flag": "k3o_unterschicht_gelesen4"
+      },
+      {
+        "id": "k3o_unterschicht_lesen5",
+        "kind": "read",
+        "tile": [
+          28,
+          3
+        ],
+        "prompt": "Letzter Ersatz",
+        "title": "Letzter Ersatz",
+        "text": "Ein versiegelter Balg liegt vor dem inneren Ring. Die Notladung ist für diesen Fund bestimmt, nicht für endlose Ausflüge.",
+        "marker": false,
+        "done_flag": "k3o_unterschicht_gelesen5"
+      },
+      {
+        "id": "k3o_unterschicht_lesen6",
+        "kind": "read",
+        "tile": [
+          34,
+          3
+        ],
+        "prompt": "Begrenzung",
+        "title": "Begrenzung",
+        "text": "An der Wand steht Pfiffs Kreidezeichen: „Hier schließen. Nicht behaupten, dass damit alles darunter endet.“",
+        "marker": false,
+        "done_flag": "k3o_unterschicht_gelesen6"
+      },
+      {
+        "id": "k3o_unterschicht_nach_signalhang",
+        "kind": "door",
+        "tile": [
+          4,
+          27
+        ],
+        "to": "ds_signalhang",
+        "spawn": "default",
+        "prompt": "Nach Signalhang",
+        "marker": true
+      },
+      {
+        "id": "k3o_stillring_fund",
+        "kind": "read",
+        "tile": [
+          4,
+          7
+        ],
+        "prompt": "Stillring prüfen und mitnehmen",
+        "title": "Stillring",
+        "text": "Ein Filzring in einer Messingfassung. Er erleichtert die Abwehr, dämpft aber auch deine Erholung. Vorteil: Ausweichfenster +20 %. Nachteil: Nervenerholung nur 60 %. Beide gelten, solange du das Stück trägst. Du kannst es im Speisewagen einlagern.",
+        "done_flag": "k3o_stillring_genommen",
+        "visible_if": {
+          "hide_if_flags": [
+            "k3o_stillring_genommen"
+          ]
+        },
+        "effects": {
+          "gives_items": {
+            "k3o_stillring": 1
+          }
+        }
+      },
+      {
+        "id": "k3o_unterschicht_station",
+        "kind": "dialogue",
+        "dialogue": "k3o_unterschicht_station",
+        "tile": [
+          4,
+          9
+        ],
+        "prompt": "Arbeitsstelle prüfen",
+        "marker": true
+      },
+      {
+        "id": "k3o_unterschicht_beute",
+        "kind": "read",
+        "tile": [
+          5,
+          9
+        ],
+        "prompt": "Pfadbeute bergen",
+        "marker": true,
+        "title": "Versiegeltes Kernfach",
+        "text": "Die pfadgebundene Kernzutat bleibt bis zur sicheren Zuordnung versiegelt. Kampf und friedliche Bewältigung begründen denselben Anspruch."
+      }
+    ],
+    "npcs": [],
+    "decor": [],
+    "roamers": [
+      {
+        "id": "k3o_unterschicht_wache1",
+        "encounter": "nachhall",
+        "tile": [
+          10,
+          26
+        ],
+        "elite_chance": 0.12
+      },
+      {
+        "id": "k3o_unterschicht_wache2",
+        "encounter": "kalkstaubgeist",
+        "tile": [
+          18,
+          26
+        ],
+        "elite_chance": 0.12
+      },
+      {
+        "id": "k3o_unterschicht_wache3",
+        "encounter": "lohnlistenmotte",
+        "tile": [
+          26,
+          26
+        ],
+        "elite_chance": 0.12
+      }
+    ]
+  }
+]
