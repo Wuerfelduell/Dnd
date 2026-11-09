@@ -963,6 +963,24 @@
           ],
           "facing": "down",
           "reach": 30
+        },
+        {
+          "id": "thale",
+          "tile": [
+            5,
+            4
+          ],
+          "facing": "down",
+          "reach": 30
+        },
+        {
+          "id": "varga",
+          "tile": [
+            15,
+            4
+          ],
+          "facing": "down",
+          "reach": 30
         }
       ],
       "interactables": [
@@ -1714,6 +1732,30 @@
         "hair": "#8a5a30",
         "legs": "#1a2030"
       }
+    },
+    "thale": {
+      "name": "Sergeant Ambrose Thale",
+      "role": "Asservatenwart",
+      "dialogue": "thale",
+      "palette": {
+        "coat": "#3a3a48",
+        "hat": "#22222c",
+        "skin": "#d8b090",
+        "hair": "#bbbbbb",
+        "legs": "#22222c"
+      }
+    },
+    "varga": {
+      "name": "Dr. Ilse Varga",
+      "role": "Gutachterin für Okkultes",
+      "dialogue": "varga",
+      "palette": {
+        "coat": "#4a2a3a",
+        "hat": "#2a1820",
+        "skin": "#e8ccb0",
+        "hair": "#2a2020",
+        "legs": "#2a1820"
+      }
     }
   },
   "merchants": {
@@ -1929,6 +1971,92 @@
             },
             {
               "text": "Danke, Dunn."
+            }
+          ]
+        }
+      }
+    },
+    "thale": {
+      "start": "start",
+      "nodes": {
+        "start": {
+          "text": "Ein grauhaariger Sergeant hinter einem Gitter. Hinter ihm Regale voller Kisten, jede mit roter Schnur verschnürt. Manche Kisten bewegen sich ein wenig.\n\n„Asservatenkammer. Wenn Sie etwas ausleihen wollen: Ich brauche Ihre Unterschrift. Und Ihre Nerven.“",
+          "choices": [
+            {
+              "text": "Was liegt hier?",
+              "next": "was"
+            },
+            {
+              "text": "Etwas ausleihen oder zurückgeben.",
+              "vault": true
+            },
+            {
+              "text": "Bis später, Sergeant."
+            }
+          ]
+        },
+        "was": {
+          "text": "„Artefakte. Dinge, die bei Fällen übrig geblieben sind und sich nicht vernichten lassen. Jedes hilft, und jedes nimmt sich etwas dafür. Leben, Nerven, Ansehen, Schlaf.\n\nRegeln: Ab Rang Ermittler ein Stück, später mehr. Nie mehr als drei gleichzeitig am Leib, das hält keiner aus. Wer damit umkippt, landet in meinem Bericht.“",
+          "choices": [
+            {
+              "text": "Und die, die man draußen findet?",
+              "next": "draussen"
+            },
+            {
+              "text": "Verstanden.",
+              "next": "start"
+            }
+          ]
+        },
+        "draussen": {
+          "text": "„In den Gefahrengebieten tragen manche Kreaturen so etwas mit sich herum. Selten, aber es kommt vor. Die gehören dann Ihnen. Ich würde sie trotzdem nicht alle gleichzeitig anlegen.“",
+          "choices": [
+            {
+              "text": "Danke.",
+              "next": "start"
+            }
+          ]
+        }
+      }
+    },
+    "varga": {
+      "start": "start",
+      "nodes": {
+        "start": {
+          "text": "Eine Frau mit Lupe am Kettchen sitzt vor einem Tisch voller Phiolen, Gutachten und gepresster Pflanzen.\n\n„Dr. Varga. Das Revier bezahlt mich dafür, dass ich weiß, was in diesen Phiolen ist. Und dafür, dass ich Ermittler davon abhalte, das Falsche zu trinken.“",
+          "choices": [
+            {
+              "text": "Was wissen Sie über die Sequenzen?",
+              "next": "sequenzen"
+            },
+            {
+              "text": "Hat das Revier Tränke für mich?",
+              "expert": true
+            },
+            {
+              "text": "Auf Wiedersehen."
+            }
+          ]
+        },
+        "sequenzen": {
+          "text": "„Jeder Pfad hat Stufen, von Sequenz 9 bis 5, soweit wir wissen. Jede Stufe macht stärker, zäher und ruhiger im Kopf, aber nur, wenn der vorige Trank verdaut ist. Verdauen heißt: nach dem Grundsatz des Pfades handeln.\n\nDas Revier führt drei Pfade: Laterne, Faden und Eisen. Für jeden gelösten großen Fall gebe ich die nächste Stufe aus. Alles andere bekommen Sie auf dem Nachtmarkt, bei Leuten, denen ich nicht über den Weg traue.“",
+          "choices": [
+            {
+              "text": "Welcher Fall bringt welche Stufe?",
+              "next": "stufen"
+            },
+            {
+              "text": "Danke.",
+              "next": "start"
+            }
+          ]
+        },
+        "stufen": {
+          "text": "„Sequenz 9 nach Ihrem ersten Fall, der erloschenen Laterne. Sequenz 8 nach St. Ebba. Sequenz 7 nach den gestohlenen Stimmen. Sequenz 6 nach dem Chor in der Glocke, Sequenz 5 nach dem dreizehnten Gast. Jede Stufe nur einmal, also verschütten Sie nichts.“",
+          "choices": [
+            {
+              "text": "Verstanden.",
+              "next": "start"
             }
           ]
         }
