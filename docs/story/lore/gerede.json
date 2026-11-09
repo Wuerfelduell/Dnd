@@ -1,0 +1,551 @@
+{
+  "kettlegate": {
+    "altmarkt": [
+      {
+        "text": "Die Äpfel glänzen mehr als meine Zukunft."
+      },
+      {
+        "text": "Der Brunnen hat heute weniger Münzen. Vielleicht spart er."
+      },
+      {
+        "text": "Gute Handschuhe erkennt man daran, dass niemand sie zurückbringt."
+      },
+      {
+        "text": "Der Nebel zahlt keinen Standplatz und braucht den meisten."
+      },
+      {
+        "text": "Elias lebt. Heute kaufe ich Blumen statt Beileidskarten.",
+        "requires_flags": [
+          "elias_rescued"
+        ]
+      },
+      {
+        "text": "Hester ist zurück. Das reicht mir als Nachricht.",
+        "requires_flags": [
+          "hester_saved"
+        ]
+      }
+    ],
+    "ashgrove": [
+      {
+        "text": "Die Laterne vor meinem Fenster hält mich für Nachtarbeit."
+      },
+      {
+        "text": "Am Kanal riecht sogar der Regen nach gestern."
+      },
+      {
+        "text": "Ich warte auf jemanden. Das ist hier eine Beschäftigung."
+      },
+      {
+        "text": "Diesen Schal habe ich trocken gekauft. Lange her."
+      },
+      {
+        "text": "Die Akte ist zu. Die Laterne flackert trotzdem.",
+        "requires_flags": [
+          "case_01_closed"
+        ]
+      },
+      {
+        "text": "Hester summt nur noch, sagt Ivy. Ich frage nicht weiter.",
+        "requires_flags": [
+          "hester_lost"
+        ],
+        "hide_if_flags": [
+          "c2_wrong"
+        ]
+      }
+    ],
+    "docks": [
+      {
+        "text": "Ein Tau merkt sich jeden Knoten, behauptet mein Vater."
+      },
+      {
+        "text": "Die Flut ist pünktlicher als unser Vorarbeiter."
+      },
+      {
+        "text": "Mein Boot gehört der Bank. Rudern darf ich selbst."
+      },
+      {
+        "text": "Wer Kohle zählt, bekommt schwarze Finger und schlechte Laune."
+      },
+      {
+        "text": "Rook ist verhaftet. Wer hat gestern seine Runde gemacht?",
+        "requires_flags": [
+          "rook_arrested"
+        ]
+      },
+      {
+        "text": "Holt ohne Marke. Das Revier erkennt sich selbst nicht wieder.",
+        "requires_flags": [
+          "holt_suspended"
+        ]
+      }
+    ],
+    "ebba": [
+      {
+        "text": "Die Blumen stehen schief. Der Boden wohl auch."
+      },
+      {
+        "text": "Ich komme wegen der Ruhe. Die Ruhe kommt selten."
+      },
+      {
+        "text": "Eine Kerze für jemanden, der noch nach Hause findet."
+      },
+      {
+        "text": "Der Gärtner sagt, Asche sei gut. Er meint Rosen."
+      },
+      {
+        "text": "Moll sitzt. Die Gräber graben sich hoffentlich nicht selbst.",
+        "requires_flags": [
+          "hester_saved"
+        ]
+      },
+      {
+        "text": "Anselm verhaftet? Einen Kirchenschlüssel habe ich auch.",
+        "requires_flags": [
+          "c2_wrong"
+        ]
+      }
+    ],
+    "nordtor": [
+      {
+        "text": "Meine Uhr geht vor. Wenigstens einer in der Familie."
+      },
+      {
+        "text": "Die Theaterkasse verkauft Hoffnung mit Sitzplatz."
+      },
+      {
+        "text": "Der Wind hat meine Zeitung gründlicher gelesen als ich."
+      },
+      {
+        "text": "Heute kein Schlachtbetrieb. Sogar die Krähen schauen enttäuscht."
+      },
+      {
+        "text": "Varenne singt wieder. Ich spare für die letzte Reihe.",
+        "requires_flags": [
+          "voices_returned"
+        ]
+      },
+      {
+        "text": "Pell sitzt ein. Seine Masken sehen freundlicher aus als manche Gesichter.",
+        "requires_flags": [
+          "pell_arrested"
+        ]
+      }
+    ],
+    "theater": [
+      {
+        "text": "Ich klatsche erst, wenn die anderen aufgehört haben. Man hört mich besser."
+      },
+      {
+        "text": "Der Vorhang ist schwerer als die Handlung."
+      },
+      {
+        "text": "Ich spiele heute einen Baum. Endlich eine feste Stellung."
+      },
+      {
+        "text": "Im Parkett zieht es. Kultur hält offenbar nicht warm."
+      },
+      {
+        "text": "Felix fehlt. Seine Anweisungen fehlen mir weniger.",
+        "requires_flags": [
+          "felix_arrested"
+        ]
+      },
+      {
+        "text": "Die Stimmen bleiben fort. Unsere Plakate sind jetzt zu laut.",
+        "requires_flags": [
+          "voices_lost"
+        ]
+      }
+    ],
+    "giesserei": [
+      {
+        "text": "Bronze merkt sich die Form. Meine Hände leider auch."
+      },
+      {
+        "text": "Der Meister nennt das Wärme. Er steht an der Tür."
+      },
+      {
+        "text": "Die Pausenglocke klingt immer ein wenig zu kurz."
+      },
+      {
+        "text": "Wir gießen heute nichts. Der Ruß arbeitet trotzdem."
+      },
+      {
+        "text": "Sieben Frauen zurück. Dafür lasse ich sogar den Ofen warten.",
+        "requires_flags": [
+          "singers_freed"
+        ]
+      },
+      {
+        "text": "Vey ist fort. Den ganzen Dreck lässt sie hier.",
+        "requires_flags": [
+          "vey_fled"
+        ]
+      }
+    ],
+    "ballsaal": [
+      {
+        "text": "Diese Handschuhe kosten eine Woche Essen. Sie schmecken vermutlich schlechter."
+      },
+      {
+        "text": "Ich kenne den Herrn nicht. Das ist gesellschaftlich sehr angenehm."
+      },
+      {
+        "text": "Die Blumen sind echt. Bei den Komplimenten weiß ich es nicht."
+      },
+      {
+        "text": "Der Kronleuchter hat mehr Schmuck als die Gäste zusammen."
+      },
+      {
+        "text": "Zwölf Schatten wieder da. Jetzt fehlt nur die Unbefangenheit.",
+        "requires_flags": [
+          "shadows_returned"
+        ]
+      },
+      {
+        "text": "Mews sitzt. Mein Porträt hängt vorläufig mit dem Gesicht zur Wand.",
+        "requires_flags": [
+          "mews_arrested"
+        ]
+      }
+    ],
+    "waisenhaus": [
+      {
+        "text": "Wer zuerst wach ist, bekommt den Löffel ohne verbogenen Stiel."
+      },
+      {
+        "text": "Wir haben den Regen gezählt. Dann kam der Lehrer."
+      },
+      {
+        "text": "Mein Papierboot fährt nur in flachen Geschichten."
+      },
+      {
+        "text": "Wenn ich groß bin, baue ich Türen ohne Schlösser."
+      },
+      {
+        "text": "Benji ist gefunden. Molly hat endlich wieder jemanden zum Schimpfen.",
+        "requires_flags": [
+          "benji_found"
+        ]
+      },
+      {
+        "text": "Die Flöte schweigt. Zwei Betten sind trotzdem leer.",
+        "requires_flags": [
+          "piper_arrested"
+        ]
+      }
+    ],
+    "sternwarte": [
+      {
+        "text": "Der Himmel hat Löcher. Der Professor nennt sie Aussicht."
+      },
+      {
+        "text": "Mit dem Fernrohr sieht man Regen schon von weitem."
+      },
+      {
+        "text": "Ich kehre nur die Treppe. Für Sternenstaub fehlt die Zulage."
+      },
+      {
+        "text": "Auf dem Hügel ist der Nebel nicht dünner, nur vornehmer."
+      },
+      {
+        "text": "Die Kuppel bleibt still. Der Haftbefehl macht dafür genug Lärm.",
+        "requires_flags": [
+          "case_09_closed"
+        ]
+      },
+      {
+        "text": "Im Kraterwald glitzert es. Ich bleibe lieber auf dem Weg.",
+        "requires_flags": [
+          "star_shattered"
+        ]
+      }
+    ]
+  },
+  "wexmoor": {
+    "wx_bahnhof": [
+      {
+        "text": "Das Amt sucht den Fremden noch. Die Zeitung sucht keine Antworten.",
+        "requires_flags": [
+          "k2_akt1_done"
+        ],
+        "hide_if_flags": [
+          "kapitel2_done"
+        ]
+      },
+      {
+        "text": "Die Akademie schweigt jetzt amtlich. Vorher schwieg sie freiwillig.",
+        "requires_flags": [
+          "k2_akt2_done"
+        ],
+        "hide_if_flags": [
+          "kapitel2_done"
+        ]
+      },
+      {
+        "text": "Freigesprochen. Vielleicht hängt hier morgen einmal ein Fahrplan statt Gesichtern.",
+        "requires_flags": [
+          "k2_end_rein"
+        ]
+      },
+      {
+        "text": "Seit der Hafenprügelei will jeder wissen, wem ich Fahrkarten verkaufe.",
+        "requires_flags": [
+          "k2_price_beaten"
+        ],
+        "hide_if_flags": [
+          "kapitel2_done"
+        ]
+      },
+      {
+        "text": "Der Zug war pünktlich. Wir haben vorsichtshalber die Uhr geprüft."
+      },
+      {
+        "text": "Mein Koffer schwimmt besser als ich. Das beruhigt mich nicht."
+      },
+      {
+        "text": "Ankunft steht dort. Von Willkommen war nie die Rede."
+      },
+      {
+        "text": "Nasse Fahrkarten trocknen langsamer als Ausreden."
+      },
+      {
+        "text": "Die Bretter knarren. Sie wollen ebenfalls aussteigen."
+      },
+      {
+        "text": "Wer hier umsteigt, sollte zuerst prüfen, worauf."
+      }
+    ],
+    "wx_torfstich": [
+      {
+        "text": "Der Fremde kennt jetzt die Viertel. Kennen die Viertel ihn?",
+        "requires_flags": [
+          "k2_akt1_done"
+        ],
+        "hide_if_flags": [
+          "kapitel2_done"
+        ]
+      },
+      {
+        "text": "Seit der Sache im Moor reden die Torfstecher beim Heimweg weniger.",
+        "requires_flags": [
+          "k2_akt3_done"
+        ]
+      },
+      {
+        "text": "Die Stege müssen höher. Der Turm ist wirklich aus.",
+        "requires_flags": [
+          "k2_end_moor"
+        ]
+      },
+      {
+        "text": "Das Moor gibt einen Schuh zurück und behält den Weg."
+      },
+      {
+        "text": "Mein Spaten rostet. Wenigstens verändert sich noch etwas."
+      },
+      {
+        "text": "Torf trocknet langsam. Rechnungen überhaupt nicht."
+      },
+      {
+        "text": "Ich erkenne meinen Mann am Husten, nicht am Kittel."
+      },
+      {
+        "text": "Der Boden federt. Das gilt hier als Entgegenkommen."
+      },
+      {
+        "text": "Zwei Ziegel fürs Feuer, einer fürs undichte Fenster."
+      },
+      {
+        "text": "Die Stiefel stehen von selbst. Ich leider nicht mehr lange."
+      }
+    ],
+    "wx_salzmarkt": [
+      {
+        "text": "Die Pegelgeschichte fehlt im Boten. Platz für Anzeigen war genug.",
+        "requires_flags": [
+          "k2_akt2_done"
+        ],
+        "hide_if_flags": [
+          "kapitel2_done"
+        ]
+      },
+      {
+        "text": "Nach den Vorgängen im Wachhaus zählt jeder seine Schlüssel.",
+        "requires_flags": [
+          "k2_akt4_done"
+        ],
+        "hide_if_flags": [
+          "kapitel2_done"
+        ]
+      },
+      {
+        "text": "Brandt sitzt in Haft. Heute schmeckt sogar das Salz anders.",
+        "requires_flags": [
+          "k2_end_rein"
+        ]
+      },
+      {
+        "text": "Der Fremde ist übers Meer fort. Das Amt bleibt hier.",
+        "requires_flags": [
+          "k2_end_meer"
+        ]
+      },
+      {
+        "text": "Salz hält alles frisch, außer Gerüchte."
+      },
+      {
+        "text": "Die Waage ist ehrlich. Der Daumen daneben weniger."
+      },
+      {
+        "text": "Drei Heringe kosten vier. Einer hat offenbar studiert."
+      },
+      {
+        "text": "Ich tausche trockene Socken gegen glaubwürdige Wettervorhersagen."
+      },
+      {
+        "text": "Der Markt steht auf Pfählen. Die Preise auf nichts."
+      },
+      {
+        "text": "Mein Brot ist hart genug, einen Vertrag zu besiegeln."
+      }
+    ],
+    "wx_bojenhafen": [
+      {
+        "text": "Price ist weg. Die Bojen machen immer noch Dienst.",
+        "requires_flags": [
+          "k2_akt3_done"
+        ]
+      },
+      {
+        "text": "Der Turm wartet wohl auf Besuch. Niemand leiht freiwillig sein Boot.",
+        "requires_flags": [
+          "k2_akt4_done"
+        ],
+        "hide_if_flags": [
+          "kapitel2_done"
+        ]
+      },
+      {
+        "text": "Die Flüchtigen sind auf See. Hier kontrolliert man jetzt selbst leere Kähne.",
+        "requires_flags": [
+          "k2_end_meer"
+        ]
+      },
+      {
+        "text": "Die Boje läutet. Meine Frau sagt, ich soll endlich essen kommen."
+      },
+      {
+        "text": "Teer hält Wasser draußen und jeden Handschlag fest."
+      },
+      {
+        "text": "Ein guter Kahn verrät dir vorher, wo er undicht wird."
+      },
+      {
+        "text": "Mein Netz hat mehr Flicken als Maschen."
+      },
+      {
+        "text": "Heute liegt der Nebel tief. Die Schulden leider auch."
+      },
+      {
+        "text": "Wenn das Tau singt, hat der Wind etwas vor."
+      },
+      {
+        "text": "Der Hering schaut mich an, als hätte ich ihn bestellt."
+      }
+    ],
+    "wx_oberstadt": [
+      {
+        "text": "Der Fremde hat Fragen zur Akademie. Die Akademie hat Formulare.",
+        "requires_flags": [
+          "k2_akt2_done"
+        ],
+        "hide_if_flags": [
+          "kapitel2_done"
+        ]
+      },
+      {
+        "text": "Seit Zunders Befreiung schaut die Wache selbst unter leere Bänke.",
+        "requires_flags": [
+          "k2_zunder_free"
+        ],
+        "hide_if_flags": [
+          "kapitel2_done"
+        ]
+      },
+      {
+        "text": "Ein neuer Lichtmeister. Die Druckfreigabe braucht noch immer dasselbe Siegel.",
+        "requires_flags": [
+          "k2_end_lichtmeister"
+        ]
+      },
+      {
+        "text": "Hier oben sinkt man mit besserer Aussicht."
+      },
+      {
+        "text": "Unsere Treppe ist trocken. Darüber sprechen wir beim Abendessen."
+      },
+      {
+        "text": "Die Sterne kosten nichts. Der Blick durchs Fernrohr schon."
+      },
+      {
+        "text": "Ein sauberes Siegel macht noch keinen sauberen Brief."
+      },
+      {
+        "text": "Der Beamte hat Feierabend. Mein Antrag offenbar noch nicht."
+      },
+      {
+        "text": "Im oberen Fenster brennt Licht. Vielleicht arbeitet dort sogar jemand."
+      },
+      {
+        "text": "Die Akademie verlangt Stille. Gegen Gebühren natürlich."
+      }
+    ],
+    "wx_pfahldorf": [
+      {
+        "text": "Die Namenlose ist bezwungen. Die Täfelchen hängen wir trotzdem auf.",
+        "requires_flags": [
+          "k2_akt3_done"
+        ]
+      },
+      {
+        "text": "Über die Wache reden wir jetzt leiser als übers Moor.",
+        "requires_flags": [
+          "k2_akt4_done"
+        ],
+        "hide_if_flags": [
+          "kapitel2_done"
+        ]
+      },
+      {
+        "text": "Das Lichtamt ist fort. Mutter Sedge schnitzt weiter.",
+        "requires_flags": [
+          "k2_end_moor"
+        ]
+      },
+      {
+        "text": "Ein Name passt auf Holz. Ein ganzes Leben nicht."
+      },
+      {
+        "text": "Die Kinder lernen zuerst schwimmen und dann die Hausnummern."
+      },
+      {
+        "text": "Unser Dach ist aus Reet. Unser Boden aus Hoffnung."
+      },
+      {
+        "text": "Klopf zweimal. Beim ersten Mal antwortet manchmal nur der Pfahl."
+      },
+      {
+        "text": "Die Suppe ist dünn. Dafür reicht der Topf bis morgen."
+      },
+      {
+        "text": "Wenn die Bretter schweigen, werde ich unruhig."
+      },
+      {
+        "text": "Hier kennt jeder jeden. Das Moor versucht es ebenfalls."
+      }
+    ]
+  }
+}
