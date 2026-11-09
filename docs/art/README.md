@@ -195,3 +195,48 @@ Visuelle Übersicht: `welt-preview.png`.
 Dieses Paket stellt die Grafiken und Metadaten bereit. Die Einbindung sowie
 die Beurteilung von Timing, Lesbarkeit und Übergängen im laufenden Spiel erfolgen
 separat. Es wird kein Spielcode geändert.
+
+## Grafikpaket I – Reisen und Sekten
+
+Batch `reise`, am 9. November 2026 nach `codex_I_reisen_sekten.md` mit
+`image_gen` erzeugt: **61 PNGs**, ohne Änderungen am Spielcode.
+
+- Acht Sektengegner: je ein 48×48-Kampf-Sheet (6×5 Zellen) und ein
+  16×32-Lauf-Sheet (4×4 Zellen).
+- Odo und Ysolde: zusätzlich je ein 96×96-Boss-Sheet (6×6 Zellen, Phase 2)
+  unter `battle/boss_<id>.png` und vier Emotionsportraits.
+- Reisearten, Spielermarker, Routenatlas und sieben Ereignisbilder (240×135).
+- Zwei Fraktionsembleme mit 16-, 32- und 64-Pixel-Regionen.
+- Zwei Versteckatlanten: je 8×6 Bodenkacheln à 16×16 links oben und
+  24 benannte Props à 32×32 rechts; vier Feuerframes pro Atlas.
+- Zwei Kampfhintergründe (480×270), Ankerhof-/Morrow-Props,
+  acht Gegenstände jeweils in 16×16 und 32×32 sowie ein Itematlas.
+- Jory, Lavinia und Tilly: je Lauf-Sheet und vier Portraits.
+- Fraktions-UI für die spätere Einbindung.
+
+`public/sprites/manifest-reise.json` folgt dem 14b-Schema und beschreibt
+Framegrößen, Spalten, Zeilen, Animationslisten, Geschwindigkeiten und benannte
+Atlasregionen. Kampfanimationen: idle / attack / special / hurt / defeated;
+Boss-Sheets ergänzen phase2. Beide Angriffe beginnen mit zwei identischen
+Ausholframes. Leere Restfelder sind transparent. Laufreihen: down / left /
+right / up. Grundlinien sind als exklusive Unterkante angegeben.
+Die Regionsnamen sind für die gemischten Atlanten maßgeblich; die Dossierregion
+ist 96×128, Reise-Routen 8×8, Zielmarker 8×16.
+
+Die tatsächlichen Prompts, Referenzen und SHA-256-Hashes der ausgewählten
+Generatorbilder stehen in `batch-reise-generation.json`. Insgesamt 47
+Generierungen einschließlich zweier Laufzyklus-Korrekturen. Export mit Nearest
+Neighbor, gemeinsamer 31-Farben-Palette aus Batch C/14b, binärem Alpha,
+zellexaktem Zuschnitt und gleicher Grundlinie. Die gemischten Atlanten wurden
+nach Sichtkontrolle in die dokumentierten Zielregionen gepackt.
+
+```sh
+python docs/art/export-reise.py /pfad/zu/generatorbildern
+python docs/art/verify-reise.py
+```
+
+Pillow, NumPy und SciPy werden für den Export benötigt. Die Prüfung kontrolliert
+alle 61 Dateien, Maße, Palette, Alpha, Framebelegung, Grundlinien, Padding,
+Ausholframes und Regionsgrenzen. Ergebnis: `reise-validation.json`.
+Übersicht: `reise-preview.png`. Die Einbindung, das Animationstiming und
+Tileset-Übergänge im laufenden Spiel müssen separat beurteilt werden.
