@@ -1,0 +1,403 @@
+{
+  "version": 1,
+  "batch": "wexmoor4",
+  "status": "exported; game integration separate",
+  "paletteMaxVisibleColors": 32,
+  "assets": [
+    {
+      "id": "V_elsbeth_walk",
+      "file": "characters/V_elsbeth_walk.png",
+      "kind": "walk",
+      "transparent": true,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        }
+      },
+      "gameId": "elsbeth",
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "occupiedCounts": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "baseline": 31,
+      "heldRows": [],
+      "width": 64,
+      "height": 128
+    },
+    {
+      "id": "elsbeth_head",
+      "gameId": "elsbeth",
+      "file": "ui/heads/elsbeth.png",
+      "kind": "head",
+      "width": 24,
+      "height": 24,
+      "frameWidth": 24,
+      "frameHeight": 24,
+      "columns": 1,
+      "rows": 1,
+      "transparent": false,
+      "animations": {},
+      "derivedFrom": "portraits/V_elsbeth_emotions.png",
+      "sourceRegion": {
+        "x": 10,
+        "y": 3,
+        "width": 44,
+        "height": 44
+      }
+    },
+    {
+      "id": "V_elsbeth_emotions",
+      "file": "portraits/V_elsbeth_emotions.png",
+      "kind": "portraits",
+      "transparent": false,
+      "animations": {},
+      "gameId": "elsbeth",
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 4,
+      "rows": 1,
+      "frameNames": [
+        "dazed",
+        "worried",
+        "shocked",
+        "relieved"
+      ],
+      "width": 256,
+      "height": 64
+    },
+    {
+      "id": "V_01_glocke_tiles",
+      "file": "tilesets/V_01_glocke_tiles.png",
+      "kind": "tiles",
+      "transparent": false,
+      "animations": {
+        "porthole_fog": {
+          "frames": [
+            18,
+            19
+          ],
+          "frameRate": 3,
+          "repeat": -1
+        }
+      },
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 8,
+      "rows": 3,
+      "tileNames": [
+        "warped dark plank floor",
+        "salt-stained plank floor",
+        "worn plank floor",
+        "plank floor with shallow puddle",
+        "wet stone wall base top edge",
+        "tarred plank wall middle face",
+        "wet stone wall bottom face",
+        "wall northwest outer corner",
+        "wall northeast outer corner",
+        "wall southwest outer corner",
+        "wall southeast outer corner",
+        "wall northwest inner corner",
+        "wall northeast inner corner",
+        "beamed ceiling edge left with fishing net",
+        "STAIR upper-left quadrant",
+        "STAIR upper-right quadrant",
+        "beamed ceiling edge middle with fishing net",
+        "beamed ceiling edge right with fishing net",
+        "round foggy porthole window phase1",
+        "same porthole window phase2 drifting fog",
+        "doorway with peat brown curtain",
+        "worn rush mat on planks",
+        "STAIR lower-left quadrant",
+        "STAIR lower-right quadrant"
+      ],
+      "occupiedCounts": [
+        8,
+        8,
+        8
+      ],
+      "composites": {
+        "stairs_up": [
+          [
+            14,
+            15
+          ],
+          [
+            22,
+            23
+          ]
+        ]
+      },
+      "width": 128,
+      "height": 48
+    },
+    {
+      "id": "V_glocke_props",
+      "file": "props/V_glocke_props.png",
+      "kind": "props",
+      "transparent": true,
+      "animations": {},
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 16,
+      "rows": 4,
+      "regions": {
+        "bar": {
+          "x": 0,
+          "y": 0,
+          "width": 64,
+          "height": 32
+        },
+        "bell": {
+          "x": 64,
+          "y": 0,
+          "width": 32,
+          "height": 32
+        },
+        "guest_book_0": {
+          "x": 96,
+          "y": 0,
+          "width": 16,
+          "height": 32
+        },
+        "guest_book_1": {
+          "x": 112,
+          "y": 0,
+          "width": 16,
+          "height": 32
+        },
+        "tables_0": {
+          "x": 128,
+          "y": 0,
+          "width": 32,
+          "height": 32
+        },
+        "tables_1": {
+          "x": 160,
+          "y": 0,
+          "width": 32,
+          "height": 32
+        },
+        "peat_stove_0": {
+          "x": 192,
+          "y": 0,
+          "width": 32,
+          "height": 32
+        },
+        "peat_stove_1": {
+          "x": 224,
+          "y": 0,
+          "width": 32,
+          "height": 32
+        },
+        "peat_stove_2": {
+          "x": 0,
+          "y": 32,
+          "width": 32,
+          "height": 32
+        },
+        "fish_barrel": {
+          "x": 32,
+          "y": 32,
+          "width": 16,
+          "height": 32
+        },
+        "keys": {
+          "x": 48,
+          "y": 32,
+          "width": 32,
+          "height": 16
+        },
+        "notice_board": {
+          "x": 80,
+          "y": 32,
+          "width": 32,
+          "height": 32
+        },
+        "bucket_0": {
+          "x": 112,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "bucket_1": {
+          "x": 128,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "bucket_2": {
+          "x": 144,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        }
+      },
+      "regionAnimations": {
+        "peat_stove": {
+          "regions": [
+            "peat_stove_0",
+            "peat_stove_1",
+            "peat_stove_2"
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "bucket": {
+          "regions": [
+            "bucket_0",
+            "bucket_1",
+            "bucket_2"
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        }
+      },
+      "states": {
+        "guest_book": [
+          "guest_book_0",
+          "guest_book_1"
+        ],
+        "tables": [
+          "tables_0",
+          "tables_1"
+        ]
+      },
+      "width": 256,
+      "height": 64
+    },
+    {
+      "id": "enemy_price",
+      "file": "battle/enemy_price.png",
+      "kind": "battle",
+      "transparent": true,
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 4,
+          "repeat": -1
+        },
+        "truncheon": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "lantern_flash": {
+          "frames": [
+            12,
+            13,
+            14,
+            15,
+            16,
+            17
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "whistle": {
+          "frames": [
+            18,
+            19,
+            20,
+            21
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            24,
+            25
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            30,
+            31,
+            32,
+            33
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      },
+      "gameId": "price_wx_fight",
+      "frameWidth": 48,
+      "frameHeight": 48,
+      "columns": 6,
+      "rows": 6,
+      "occupiedCounts": [
+        4,
+        6,
+        6,
+        4,
+        2,
+        4
+      ],
+      "baseline": 46,
+      "heldRows": [
+        1,
+        2
+      ],
+      "facing": "left",
+      "width": 288,
+      "height": 288
+    }
+  ]
+}

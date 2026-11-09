@@ -990,3 +990,49 @@ python docs/art/verify-wexmoor3.py
 Der Prüfbericht `validation-wexmoor3.json` kontrolliert Vollständigkeit, Maße, Palette, Alpha, Animationsreferenzen und Variation, Leerframes, Ausholpose, Grundlinie, Regionsgrenzen, Atlas-/Einzeldatei-Gleichheit und Portraitausschnitte. Grafikexport; Einbindung und Timing-Prüfung im laufenden Spiel erfolgen separat. Keine Spielcodeänderungen.
 
 Vorschauen: [Kämpfe 1](preview-wexmoor3-battle-1.png), [Kämpfe 2](preview-wexmoor3-battle-2.png), [Kämpfe 3](preview-wexmoor3-battle-3.png), [Figuren](preview-wexmoor3-figures.png), [Bestiarium](preview-wexmoor3-cards.png), [Welt, UI und Effekte](preview-wexmoor3-world-ui.png).
+
+## Grafikpaket V – Kapitel 2: Elsbeth, Gasthaus und Constable Price
+
+Batch `wexmoor4`, 9. November 2026, nach `codex_V_kapitel2_ausbau.md`:
+**sechs PNGs aus fünf mit image_gen erzeugten Hauptbildern und einer Treppenkorrektur**. Einbindung separat.
+
+| Datei unter public/sprites/ | Maße | Inhalt |
+|---|---:|---|
+| `characters/V_elsbeth_walk.png` | 64×128 | 4×4 Laufbilder, 16×32, unten/links/rechts/oben |
+| `portraits/V_elsbeth_emotions.png` | 256×64 | Benommen, besorgt, erschrocken, weinend erleichtert |
+| `ui/heads/elsbeth.png` | 24×24 | Ausschnitt des ersten Portraits |
+| `tilesets/V_01_glocke_tiles.png` | 128×48 | 24 Terrainkacheln à 16×16, acht pro Reihe |
+| `props/V_glocke_props.png` | 256 Pixel breit | 15 benannte Motive/Zustände auf dem 16er-Raster |
+| `battle/enemy_price.png` | 288×288 | Sechs Animationsreihen, 48×48 pro Zelle |
+
+Elsbeths fünf vorgegebene Farben und Prices zwei Polizeifarben ergänzen 25
+gemeinsame Wexmoor-Farben zu einer Palette von maximal 32 sichtbaren Farben.
+Prices vorhandenes Lauf-Sheet und Polizeiportrait dienen als Identitätsreferenz;
+die Elsbeth-Portraits verwenden ihr neues Lauf-Sheet. Bestehende Assets bleiben erhalten.
+
+Price: `idle` 4, `truncheon` 6, `lantern_flash` 6, `whistle` 4, `hurt` 2,
+`defeated` 4 Frames; kürzere Reihen haben transparente Restfelder. Bei beiden
+Angriffen sind die ersten zwei Frames dieselbe Ausholpose. Grundlinie exklusiv
+y=46, bei Elsbeth y=31. Vorschläge für Bildraten stehen im Manifest.
+
+Das Gasthaus hat einen eigenen Tresen und eine separat darüber platzierbare
+rissige Bronzeglocke, Gästebuch geschlossen/offen, zwei Tischvarianten, drei
+Ofenphasen und drei Tropf-/Eimerphasen. Weitere Props: Fischfass, Schlüsselbrett
+mit leerem Haken und Anschlagbrett. Benannte Ausschnitte stehen in `regions`,
+Animationen in `regionAnimations`, statische Varianten in `states`.
+Die Treppe besteht aus den Kacheln `[[14,15],[22,23]]` (nullbasiert), das
+Bullaugenfenster animiert die Kacheln 18 und 19. Der Terrainatlas ist deckend. Die durchgehende Treppe stammt aus einem separat
+erzeugten 32×32-Motiv, das in vier Kacheln aufgeteilt wird (`repairs`).
+
+Manifest: `public/sprites/manifest-wexmoor4.json`; Prompts, Referenzen,
+Quellmaße und Prüfsummen: `batch-wexmoor4-generation.json`; Sichtübersicht:
+`batch-wexmoor4-preview.png`; technischer Prüfbericht: `validation-wexmoor4.json`.
+Export: Nearest Neighbor, binäres Alpha, gemeinsame Skalierung pro Animation,
+Grundlinienausrichtung, Palette-Indizierung und dokumentierte Prop-Ausschnitte.
+Der Notizbuchkopf wird aus dem ersten Portrait abgeleitet.
+
+```sh
+# Pillow und numpy; SOURCE_DIR enthält die dokumentierten Generatororiginale.
+python docs/art/export-wexmoor4.py SOURCE_DIR .
+python docs/art/verify-wexmoor4.py
+```

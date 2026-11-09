@@ -1,0 +1,506 @@
+{
+  "batch": "wexmoor4",
+  "generator": "image_gen.imagegen",
+  "sourceBrief": "codex_V_kapitel2_ausbau.md",
+  "palette": [
+    "#1a1c2c",
+    "#252b38",
+    "#303b49",
+    "#425360",
+    "#586c78",
+    "#71858b",
+    "#95a5a5",
+    "#a8b4c0",
+    "#2d2629",
+    "#58433c",
+    "#715648",
+    "#92745a",
+    "#b3946e",
+    "#cfb18a",
+    "#e0c9a1",
+    "#494b3a",
+    "#686850",
+    "#8b8870",
+    "#eee2c5",
+    "#173d40",
+    "#8a6a4a",
+    "#c8b8a8",
+    "#3a3028",
+    "#6a5a4a",
+    "#886332",
+    "#d0a050",
+    "#e8b860",
+    "#f0ce80",
+    "#2c3550",
+    "#e8f0ff",
+    "#a08070",
+    "#1f2538"
+  ],
+  "paletteNote": "25 shared Wexmoor colors plus exact five Elsbeth and two Price colors; 32 visible colors maximum",
+  "postprocessing": [
+    "nearest-neighbor resizing",
+    "binary alpha threshold128",
+    "indexed shared palette",
+    "shared scale per animation and aligned baseline",
+    "held two-frame attack windups",
+    "transparent gutter detection for prop extraction",
+    "notebook head derived from dazed portrait"
+  ],
+  "references": [
+    {
+      "file": "12_constable_price_walk.png",
+      "sha256": "882e43b7eb43caeefb68619736ea8a7285446d235cc5d19f82312d6edc816ebd",
+      "size": [
+        64,
+        128
+      ]
+    },
+    {
+      "file": "C_price_police_emotions.png",
+      "sha256": "5a8d10c9a0c6d89d789a161ead681047ed109a37f8e8bc6a0fccc8316137f82c",
+      "size": [
+        256,
+        64
+      ]
+    },
+    {
+      "file": "R_hesper_emotions.png",
+      "sha256": "9b7888bf4634df89c959e2906b65af5d5f41c3b34f2e68b276070d50589a7a14",
+      "size": [
+        256,
+        64
+      ]
+    },
+    {
+      "file": "R_hesper_walk.png",
+      "sha256": "e3098fa7b54fadce8ca5c60605050d2994bda7a55dac95868c19424a3ac636dc",
+      "size": [
+        64,
+        128
+      ]
+    },
+    {
+      "file": "R_innen_tiles.png",
+      "sha256": "c3d5a99854a204582647124a3ef0b425058f7ba4d355dc5e5e63195d5e9c97c7",
+      "size": [
+        128,
+        80
+      ]
+    },
+    {
+      "file": "R_salzmarkt_props.png",
+      "sha256": "1d8f754c5e454914d0e2af40f7dff110d38140aa6ad7a6f7181cc04037de5ee6",
+      "size": [
+        256,
+        112
+      ]
+    }
+  ],
+  "jobs": [
+    {
+      "id": "V_elsbeth_walk",
+      "path": "characters/V_elsbeth_walk.png",
+      "kind": "walk",
+      "size": [
+        64,
+        128
+      ],
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\nWEXMOOR setting override: damp coastal marsh town, peat, reeds, salt and timber stilts. Use the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction. Hard pixel art only, no blur or smooth glow. Genuine alpha for sprite backgrounds, never a drawn checkerboard. No text or labels.\nNPC animation sheet: a dazed seamstress in her thirties in a worn umber-brown travelling coat over a dress greyed with peat dust, dusty-rose wool scarf, small dark brown hat with a pin, light brown hair coming loose from a low knot, pincushion on wrist, mud up to knees, distant red-rimmed eyes. Exact key colors: coat #6a5a4a, hat #3a3028, skin #c8b8a8, hair #8a6a4a, scarf #a08070. EXACTLY4columns x4rows,16 separate full-body poses. Row1down, row2left, row3right, row4BACK VIEW. Four step phases per row. Logical16x32 percell, whole64x128. Every cell rectangular1:2. Same scale/baseline, ample transparent gutters. Show walking even though clothes muddy. Match reference body proportions, create new younger woman, NOT Hesper.",
+      "refs": [
+        "R_hesper_walk.png"
+      ],
+      "transparent": true,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "counts": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "names": [
+        "down",
+        "left",
+        "right",
+        "up"
+      ],
+      "gameId": "elsbeth",
+      "source": "exec-ed6f9188-7139-4cd5-8f96-0cc75c47b17b.png",
+      "sourceSha256": "17c36898312e13445699e3860020926cad8b9b25641de878d8436b64af77c90a",
+      "sourceSize": [
+        887,
+        1774
+      ],
+      "referencePaths": [
+        "/workspace/scratch/3986c9a8d84f/V/refs/R_hesper_walk.png"
+      ]
+    },
+    {
+      "id": "V_elsbeth_emotions",
+      "path": "portraits/V_elsbeth_emotions.png",
+      "kind": "portraits",
+      "size": [
+        256,
+        64
+      ],
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\nWEXMOOR setting override: damp coastal marsh town, peat, reeds, salt and timber stilts. Use the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction. Hard pixel art only, no blur or smooth glow. Genuine alpha for sprite backgrounds, never a drawn checkerboard. No text or labels.\nPortrait sheet of SAME Elsbeth as attached walk identity: a dazed seamstress in her thirties in a worn umber-brown travelling coat over a dress greyed with peat dust, dusty-rose wool scarf, small dark brown hat with a pin, light brown hair coming loose from a low knot, pincushion on wrist, mud up to knees, distant red-rimmed eyes. Exact key colors: coat #6a5a4a, hat #3a3028, skin #c8b8a8, hair #8a6a4a, scarf #a08070. EXACTLY2columns x2rows,4square busts, identical framing, dark slate OPAQUE vignette background. Read order:1dazed empty stare with name forgotten;2worried furrowed brows;3shocked wide eyes and open mouth;4crying tears of relief with trembling smile. Facing slightly right. Each logical64x64. No objects outside bust, no text. Existing Hesper portrait reference is style only; Elsbeth is woman in thirties.",
+      "refs": [
+        "R_hesper_emotions.png",
+        "@V_elsbeth_walk"
+      ],
+      "transparent": false,
+      "frameNames": [
+        "dazed",
+        "worried",
+        "shocked",
+        "relieved"
+      ],
+      "headOutput": "ui/heads/elsbeth.png",
+      "gameId": "elsbeth",
+      "source": "exec-b5a56cd3-26d3-4bc4-b82a-c2ed44d57faf.png",
+      "sourceSha256": "0065c7ee347b44dabc800f41ce518cec450970892a5559e7d000269d0aaf62ca",
+      "sourceSize": [
+        1774,
+        887
+      ],
+      "referencePaths": [
+        "/workspace/scratch/3986c9a8d84f/V/refs/R_hesper_emotions.png",
+        "/workspace/scratch/3986c9a8d84f/generated_images/exec-ed6f9188-7139-4cd5-8f96-0cc75c47b17b.png"
+      ],
+      "sourceCrop": [
+        443,
+        0,
+        1331,
+        887
+      ]
+    },
+    {
+      "id": "V_01_glocke_tiles",
+      "path": "tilesets/V_01_glocke_tiles.png",
+      "kind": "tiles",
+      "size": [
+        128,
+        48
+      ],
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\nWEXMOOR setting override: damp coastal marsh town, peat, reeds, salt and timber stilts. Use the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction. Hard pixel art only, no blur or smooth glow. Genuine alpha for sprite backgrounds, never a drawn checkerboard. No text or labels.\nTERRAIN ATLAS, EXACTLY8columns x3rows square edge-to-edge tiles. Damp coastal inn interior. Final logical16x16 per tile. All tiles fully opaque, no gutters no gridlines no borders. Not a room illustration. Named reading order:\n1. warped dark plank floor\n2. salt-stained plank floor\n3. worn plank floor\n4. plank floor with shallow puddle\n5. wet stone wall base top edge\n6. tarred plank wall middle face\n7. wet stone wall bottom face\n8. wall northwest outer corner\n9. wall northeast outer corner\n10. wall southwest outer corner\n11. wall southeast outer corner\n12. wall northwest inner corner\n13. wall northeast inner corner\n14. beamed ceiling edge left with fishing net\n15. STAIR upper-left quadrant\n16. STAIR upper-right quadrant\n17. beamed ceiling edge middle with fishing net\n18. beamed ceiling edge right with fishing net\n19. round foggy porthole window phase1\n20. same porthole window phase2 drifting fog\n21. doorway with peat brown curtain\n22. worn rush mat on planks\n23. STAIR lower-left quadrant\n24. STAIR lower-right quadrant\nThe four stair quadrants form ONE coherent32x32 upward staircase at rightmost2columns in bottom2rows (zero-based14,15,22,23). All othercells standalone terrain pieces. Match tarred wood and wet stone palette, warm faint amber only where appropriate.",
+      "refs": [
+        "R_innen_tiles.png"
+      ],
+      "transparent": false,
+      "sourceColumns": 8,
+      "sourceRows": 3,
+      "tileNames": [
+        "warped dark plank floor",
+        "salt-stained plank floor",
+        "worn plank floor",
+        "plank floor with shallow puddle",
+        "wet stone wall base top edge",
+        "tarred plank wall middle face",
+        "wet stone wall bottom face",
+        "wall northwest outer corner",
+        "wall northeast outer corner",
+        "wall southwest outer corner",
+        "wall southeast outer corner",
+        "wall northwest inner corner",
+        "wall northeast inner corner",
+        "beamed ceiling edge left with fishing net",
+        "STAIR upper-left quadrant",
+        "STAIR upper-right quadrant",
+        "beamed ceiling edge middle with fishing net",
+        "beamed ceiling edge right with fishing net",
+        "round foggy porthole window phase1",
+        "same porthole window phase2 drifting fog",
+        "doorway with peat brown curtain",
+        "worn rush mat on planks",
+        "STAIR lower-left quadrant",
+        "STAIR lower-right quadrant"
+      ],
+      "tileAnimations": {
+        "porthole_fog": [
+          18,
+          19
+        ]
+      },
+      "composites": {
+        "stairs_up": [
+          [
+            14,
+            15
+          ],
+          [
+            22,
+            23
+          ]
+        ]
+      },
+      "source": "exec-14ca183d-b886-468b-9273-d2488ad59232.png",
+      "sourceSha256": "15c5d2786e3eb473c79380b6651f4265967646c19367a99e048319a386e544ef",
+      "sourceSize": [
+        2048,
+        768
+      ],
+      "referencePaths": [
+        "/workspace/scratch/3986c9a8d84f/V/refs/R_innen_tiles.png"
+      ]
+    },
+    {
+      "id": "V_glocke_props",
+      "path": "props/V_glocke_props.png",
+      "kind": "props",
+      "size": [
+        256,
+        64
+      ],
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\nWEXMOOR setting override: damp coastal marsh town, peat, reeds, salt and timber stilts. Use the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction. Hard pixel art only, no blur or smooth glow. Genuine alpha for sprite backgrounds, never a drawn checkerboard. No text or labels.\nPROP ATLAS for damp inn, EXACTLY5columns x3rows,15 isolated assets in reading order. Keep all motifs inside own cells with generous transparent gaps. The final proportions vary; long bar twicewide, lectern tall; no environment floor shadows.\n1. long wooden bar counter with tap and stacked mugs, frame 1 of 1\n2. cracked bronze ship bell hanging from a timber crossbeam, half green verdigris, clearly recognisable upside-down bell silhouette, frame 1 of 1\n3. heavy guest book on lectern, inkwell and quill, CLOSED then OPEN, frame 1 of 2\n4. heavy guest book on lectern, inkwell and quill, CLOSED then OPEN, frame 2 of 2\n5. round tables and stools,2 variants, frame 1 of 2\n6. round tables and stools,2 variants, frame 2 of 2\n7. peat stove with glowing ember3flicker phases, frame 1 of 3\n8. peat stove with glowing ember3flicker phases, frame 2 of 3\n9. peat stove with glowing ember3flicker phases, frame 3 of 3\n10. barrel of salted fish, frame 1 of 1\n11. wooden key board, hooks with dangling keys, one empty hook, no numbers, frame 1 of 1\n12. notice board pinned papers without text, frame 1 of 1\n13. bucket under dripping leak3distinct frames droplet high then low then splash, frame 1 of 3\n14. bucket under dripping leak3distinct frames droplet high then low then splash, frame 2 of 3\n15. bucket under dripping leak3distinct frames droplet high then low then splash, frame 3 of 3\nBronze cracked bell is a separate prop designed to mount above bar. Draw complete bell and supporting beam, no readable characters. Shared scale per animated object. Genuine transparency, solid opaque object surfaces.",
+      "refs": [
+        "R_salzmarkt_props.png"
+      ],
+      "transparent": true,
+      "sourceColumns": 5,
+      "sourceRows": 3,
+      "items": [
+        {
+          "name": "bar",
+          "width": 64,
+          "height": 32,
+          "frames": 1,
+          "description": "long wooden bar counter with tap and stacked mugs"
+        },
+        {
+          "name": "bell",
+          "width": 32,
+          "height": 32,
+          "frames": 1,
+          "description": "cracked bronze ship bell hanging from a timber crossbeam, half green verdigris, clearly recognisable upside-down bell silhouette"
+        },
+        {
+          "name": "guest_book",
+          "width": 16,
+          "height": 32,
+          "frames": 2,
+          "description": "heavy guest book on lectern, inkwell and quill, closed then open"
+        },
+        {
+          "name": "tables",
+          "width": 32,
+          "height": 32,
+          "frames": 2,
+          "description": "round tables and stools,2 variants"
+        },
+        {
+          "name": "peat_stove",
+          "width": 32,
+          "height": 32,
+          "frames": 3,
+          "description": "peat stove with glowing ember3flicker phases"
+        },
+        {
+          "name": "fish_barrel",
+          "width": 16,
+          "height": 32,
+          "frames": 1,
+          "description": "barrel of salted fish"
+        },
+        {
+          "name": "keys",
+          "width": 32,
+          "height": 16,
+          "frames": 1,
+          "description": "wooden key board, hooks with dangling keys, one empty hook, no numbers"
+        },
+        {
+          "name": "notice_board",
+          "width": 32,
+          "height": 32,
+          "frames": 1,
+          "description": "notice board pinned papers without text"
+        },
+        {
+          "name": "bucket",
+          "width": 16,
+          "height": 16,
+          "frames": 3,
+          "description": "bucket under dripping leak3distinct frames droplet high then low then splash"
+        }
+      ],
+      "source": "exec-4f390085-6b18-4a42-9283-6b558fba0004.png",
+      "sourceSha256": "119a4bcf89be2a72432615430e034ec23033b428420f54b34b3f9c99d08c2d3d",
+      "sourceSize": [
+        1619,
+        972
+      ],
+      "referencePaths": [
+        "/workspace/scratch/3986c9a8d84f/V/refs/R_salzmarkt_props.png"
+      ],
+      "sourceBoxes": [
+        [
+          0,
+          0,
+          469,
+          349
+        ],
+        [
+          469,
+          0,
+          763,
+          349
+        ],
+        [
+          763,
+          0,
+          1032,
+          349
+        ],
+        [
+          1032,
+          0,
+          1294,
+          349
+        ],
+        [
+          1294,
+          0,
+          1619,
+          349
+        ],
+        [
+          0,
+          349,
+          370,
+          678
+        ],
+        [
+          370,
+          349,
+          662,
+          678
+        ],
+        [
+          662,
+          349,
+          965,
+          678
+        ],
+        [
+          965,
+          349,
+          1279,
+          678
+        ],
+        [
+          1279,
+          349,
+          1619,
+          678
+        ],
+        [
+          0,
+          678,
+          355,
+          972
+        ],
+        [
+          355,
+          678,
+          721,
+          972
+        ],
+        [
+          721,
+          678,
+          1001,
+          972
+        ],
+        [
+          1001,
+          678,
+          1308,
+          972
+        ],
+        [
+          1308,
+          678,
+          1619,
+          972
+        ]
+      ]
+    },
+    {
+      "id": "enemy_price",
+      "path": "battle/enemy_price.png",
+      "kind": "battle",
+      "size": [
+        288,
+        288
+      ],
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\nWEXMOOR setting override: damp coastal marsh town, peat, reeds, salt and timber stilts. Use the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction. Hard pixel art only, no blur or smooth glow. Genuine alpha for sprite backgrounds, never a drawn checkerboard. No text or labels.\nConstable Price battle animation, SAME YOUNG MAN as attached Price walk and police portraits; same helmet and brown hair. Navy police greatcoat#2c3550, helmet#1f2538, folded warrant sticking out pocket, wooden truncheon and bulls-eye lantern, determined but uneasy face. Enemy facing LEFT. EXACTLY6columns x6rows, square cells, logical48x48 each. Transparent background. All poses same scale and baseline with safe margins. Rows:1idle breathing4frames then2empty;2truncheon strike6frames first2identical heldwindup then visible leftward swing impact recover;3lantern flash6frames first2identicalheldwindup raisinglantern then flash left and recover;4whistle call4frames then2empty;5hit2frames then4empty;6defeated4frames kneeling dropping truncheon then2empty. Total288x288logical. No grids, labels or scenery. Keep outfit and youthful face consistent.",
+      "refs": [
+        "12_constable_price_walk.png",
+        "C_price_police_emotions.png"
+      ],
+      "transparent": true,
+      "frameWidth": 48,
+      "frameHeight": 48,
+      "columns": 6,
+      "rows": 6,
+      "counts": [
+        4,
+        6,
+        6,
+        4,
+        2,
+        4
+      ],
+      "names": [
+        "idle",
+        "truncheon",
+        "lantern_flash",
+        "whistle",
+        "hurt",
+        "defeated"
+      ],
+      "heldRows": [
+        1,
+        2
+      ],
+      "gameId": "price_wx_fight",
+      "source": "exec-1feafbdd-1e46-4a70-9f1e-74f22bdafd73.png",
+      "sourceSha256": "2abd9fc81a3d9b13fc24f6fee1404857d9ae02a703e0cfecdaa38ad3b8f50a5a",
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "referencePaths": [
+        "/workspace/scratch/3986c9a8d84f/V/refs/12_constable_price_walk.png",
+        "/workspace/scratch/3986c9a8d84f/V/refs/C_price_police_emotions.png"
+      ]
+    }
+  ],
+  "repairs": [
+    {
+      "id": "repair_stairs",
+      "target": "V_01_glocke_tiles",
+      "kind": "tiles",
+      "indices": [
+        14,
+        15,
+        22,
+        23
+      ],
+      "sourceColumns": 2,
+      "sourceRows": 2,
+      "prompt": "Single game terrain asset: ONE CONTINUOUS STRAIGHT STAIRCASE going upward toward the TOP of image, for damp Victorian coastal timber inn. Top-down 3/4 pixel art. Square canvas logical32x32, precisely divisible into four16x16 quadrants but DO NOT draw grid or seams. ONE flight with SIX evenly spaced horizontal wooden treads running continuously bottom to top, absolutely no landing, no restart, no second staircase. Two continuous side stringers, weathered dark timber, subtle salt stains. Entire square is opaque terrain, muted slate blue and brown, same style and palette as attached inn tiles. No outline frame around canvas, no fog, no text, no characters, no UI. Crisp deliberate pixel clusters, no blur, no gradients. Output ONE square32x32 staircase magnified, not an atlas.",
+      "referencePaths": [
+        "/workspace/scratch/3986c9a8d84f/V/repo/public/sprites/tilesets/V_01_glocke_tiles.png"
+      ],
+      "source": "exec-bde43b4f-b281-4439-9858-d6af95c26661.png",
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "sourceSha256": "88f251bab868fd7e8754388696258906ac3cd72fd79454b306c5705ee79417b5"
+    }
+  ]
+}
