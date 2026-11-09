@@ -458,6 +458,7 @@ export class CombatScene extends Phaser.Scene {
 
   // Gegnerzug: Ankündigung, dann ein Ring pro Schlag. Leertaste weicht aus, F pariert.
   enemyTurn() {
+    this.ui.combatTurn?.('enemy');
     const c = this.combat;
     const atk = c.nextEnemyAttack();
     if (!atk) {

@@ -596,3 +596,98 @@ button.small.give { color: #9ab8ff; }
 .cb-players .cb-player[data-p="2"] .cb-name { color: #9ab8ff; }
 .cb-player.active { border-color: var(--gold); background: rgba(40, 32, 16, 0.5); }
 .cb-player.down { opacity: 0.5; }
+
+/* Paket A: Münze dreht sich, wenn sich das Geld ändert (ui/coin_spin.png, 6 Frames à 8x8) */
+.coinspin { display: inline-block; width: 1em; height: 1em; margin-right: 0.3em; vertical-align: -0.15em; image-rendering: pixelated;
+  background: var(--coinspin) 0 0 / 600% 100% no-repeat; animation: coinspin 0.5s steps(6) 3; }
+@keyframes coinspin { to { background-position: -6em 0; } }
+
+/* --- Paket B: Kampf-Oberfläche aus battle_hud.png, battle_menu.png, battle_result.png, damage_font.png --- */
+.combat .bar { display: none; }
+.combat .hudbar { display: inline-block; line-height: 0; }
+.cb-enemy .hudbar.enemy { display: block; margin-top: 0.2em; text-align: right; }
+.cb-enemy .cb-name .occult { margin-right: 0.3em; vertical-align: -0.35em; }
+.pips .pip { margin-right: 0.15em; }
+.cb-menu .cbicon { margin-right: 0.3em; vertical-align: -0.3em; }
+.skin-ui_battle_menu_png .cb-menu { border: 1em solid transparent; border-image: var(--bmenu-panel) 16 fill / 1em; background: none; padding: 0; color: #2a2018; }
+.skin-ui_battle_menu_png .cb-menu .choices button { color: #2a2018; text-shadow: none; position: relative; }
+.skin-ui_battle_menu_png .cb-menu .choices button .muted, .skin-ui_battle_menu_png .cb-desc { color: #5a4a38; }
+.skin-ui_battle_menu_png .cb-menu .choices button:hover:not(:disabled) { background: rgba(255, 240, 200, 0.35); border-color: transparent; }
+.skin-ui_battle_menu_png .cb-menu .choices button:hover:not(:disabled)::before { content: ''; position: absolute; left: -1em; top: 50%; width: 1em; height: 1em;
+  transform: translateY(-50%); background: var(--bmenu-pointer) center / contain no-repeat; image-rendering: pixelated; animation: nudge 0.4s steps(2) infinite alternate; }
+@keyframes nudge { to { transform: translate(0.2em, -50%); } }
+.cb-turn { position: absolute; left: 50%; top: 22%; width: 16em; height: 2.4em; transform: translateX(-50%); opacity: 0; pointer-events: none; white-space: nowrap; }
+.cb-turn.show { animation: turnBanner 1.3s ease-out forwards; }
+@keyframes turnBanner { 0% { opacity: 0; transform: translate(-50%, -0.5em); } 15%, 70% { opacity: 1; transform: translate(-50%, 0); } 100% { opacity: 0; } }
+.cb-target { position: absolute; left: 71.9%; top: 69%; transform: translate(-50%, -50%); pointer-events: none; line-height: 0; }
+.cb-target .reticle { animation: reticle 0.66s steps(4) infinite; }
+@keyframes reticle { to { background-position-x: -16em; } }
+.float.digits { display: flex; gap: 0.05em; line-height: 0; }
+.result-banner { display: block; margin: 0 auto 0.4em; }
+.loot-title .auk { margin-right: 0.3em; vertical-align: -0.3em; }
+.skin-ui_battle_menu_png .cb-menu .key { color: #2a2018; border-color: #6a5440; background: rgba(255, 240, 200, 0.4); }
+.cb-turn .auk { display: block; }
+.cb-turn span { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; color: #2a1e10; font-weight: 600; }
+.cb-turn.enemy span { color: #d8e4ec; text-shadow: 0 0.1em 0 #000; }
+
+/* --- Grundpaket (07_*, 14_*): Titelbild, Rahmen, Rang, Ruf, Hinweise --- */
+.layer:has(.title) { background: linear-gradient(rgba(4, 4, 8, 0.15), rgba(4, 4, 8, 0.55)), var(--title_bg) center / cover no-repeat; image-rendering: pixelated; }
+.panel.title { background: rgba(14, 12, 18, 0.82); }
+.panel.dialogue, .panel.message { border: 0.6em solid transparent; border-image: var(--dlgframe) 9 / 0.6em; background-clip: padding-box; }
+.meter.honor .bar { display: none; }
+.repbar { line-height: 0; }
+.rank .rankbadge { margin-right: 0.3em; vertical-align: -0.25em; }
+.promptico { margin-right: 0.4em; vertical-align: -0.25em; animation: promptico 0.6s steps(4) infinite; }
+@keyframes promptico { to { background-position-x: -4em; } }
+.toastico { margin-right: 0.4em; vertical-align: -0.25em; }
+.tabs .tabico { margin-right: 0.3em; vertical-align: -0.25em; }
+.rankinfo .rankbadge { margin-right: 0.3em; vertical-align: -0.25em; }
+.quest .qico { margin-right: 0.35em; vertical-align: -0.35em; }
+.quests li.quest.tracked { border: 0.7em solid transparent; border-image: var(--qframe) 12 / 0.7em; padding: 0.1em 0.3em; }
+.choices .lockico { margin-right: 0.35em; vertical-align: -0.25em; }
+/* Paket C: Notizbuch-Streifen für Vermutung und sehr wahrscheinlich (C_07_log_strips.png) */
+.notebook .fact.suspected, .notebook .fact.likely { background: var(--strip-suspected) left center / 100% 100% no-repeat; color: #2a2018; text-shadow: none; padding-left: 1.4em; border-color: transparent; }
+.notebook .fact.likely { background-image: var(--strip-likely); }
+.notebook .fact.suspected .src, .notebook .fact.likely .src { color: #5a4a38; }
+.notebook .fact.suspected.sel, .notebook .fact.likely.sel { outline: 0.125em solid var(--occult); }
+/* Paket A: Pfad-Leiter, Verdauung; Grundpaket: Nervenphiole */
+.notebook .seqs .socket { float: left; margin: 0 0.5em 0.2em 0; }
+.notebook .meters2 { grid-template-columns: 1fr 1fr auto; }
+.notebook .meters2 .meter:first-child .bar { display: none; }
+.digestbar { flex: none; }
+.digestico { flex: none; }
+.vialm .vial { flex: none; }
+.people.factions .frakico { flex: none; }
+.people.factions .frakbar { margin: 0.2em 0; }
+/* Paket A: Laden (A_10_shop.png) */
+.panel.shop { border: 1em solid transparent; border-image: var(--shop-frame) 16 / 1em; background-clip: padding-box; }
+.shopslot { float: left; width: 2.5em; height: 2.5em; margin: 0 0.5em 0.2em 0; display: flex; align-items: center; justify-content: center;
+  background: var(--shop-slot) center / 100% 100% no-repeat; image-rendering: pixelated; }
+.shopslot.locked { background-image: var(--shop-slot-locked); }
+.shopslot.sold { opacity: 0.55; }
+.shopslot .item-icon.big { float: none; margin: 0; width: 1.6em; height: 1.6em; }
+.shoplist li.item:hover .shopslot:not(.locked) { background-image: var(--shop-slot-hi); }
+.shopico { margin-right: 0.3em; vertical-align: -0.25em; }
+.pricetag { white-space: nowrap; }
+.pricetag::before { content: ''; display: inline-block; width: 1em; height: 0.5em; margin-right: 0.3em; background: var(--shop-tag) center / contain no-repeat; image-rendering: pixelated; vertical-align: 0.1em; }
+/* Paket G: Beutefenster */
+.panel.message.lootwin { border: 1em solid transparent; border-image: var(--loot-window) 16 / 1em; background-clip: padding-box; max-width: 28em; }
+.lootfx { float: right; margin-left: 0.5em; }
+.lootfx .pickup { animation: pickup 1s steps(5) forwards; }
+@keyframes pickup { to { background-position-x: -10em; } }
+.takeall { color: var(--muted); font-size: 0.85em; margin-bottom: 0.3em; }
+/* Paket I: Route auf der Stadtkarte */
+.citymap .route { position: absolute; inset: 0; pointer-events: none; filter: drop-shadow(0 0 0.1em #f4e4bc) drop-shadow(0 0 0.1em #f4e4bc); }
+.citymap .route .seg { position: absolute; width: 1em; height: 1em; background: var(--routes) 0 0 / 8em 4em no-repeat; image-rendering: pixelated; }
+.citymap .route.schnell .seg { background-position: -4em 0; }
+.citymap .route .flag { position: absolute; width: 1em; height: 2em; transform: translate(-50%, -100%); background: var(--routes) 0 -2em / 8em 4em no-repeat;
+  image-rendering: pixelated; animation: routeflag 0.5s steps(2) infinite; }
+@keyframes routeflag { to { background-position-x: -2em; } }
+/* Grundpaket: Kapitelende auf dem aufgeschlagenen Notizbuch (07_02_notebook.png, 480x270) */
+.panel.message.chapterbook { position: relative; max-width: none; width: 52em; height: 29.25em; border: none; box-shadow: none; padding: 3em 9em 4em 12.5em;
+  background: var(--notebook_bg) center / 100% 100% no-repeat; image-rendering: pixelated; color: #2a2018; text-shadow: none; overflow: hidden; }
+.panel.message.chapterbook h3 { color: #5a2a18; }
+.panel.message.chapterbook .text { column-count: 2; column-gap: 7em; font-size: 0.85em; height: 17em; }
+.panel.message.chapterbook .footer { color: #5a4a38; }
+.panel.message.chapterbook .next { position: absolute; right: 9em; bottom: 3.2em; }
+.layer:has(.chapterbook) { align-items: center; }

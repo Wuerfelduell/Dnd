@@ -1,7 +1,7 @@
 import { DIGEST_LABELS } from '../core/Pathways.js';
 import { lootList, itemRarity, RARITY_NAMES, lootPreview, chanceWord } from '../core/Loot.js';
 import {
-  itemIconUrl, itemIcon32Url, pathwayEmblemUrl, pathwayCardUrl, COIN_URL, STATUS_ICONS, STATUS_ICONS_URL,
+  itemIconUrl, itemIcon32Url, pathwayEmblemUrl, pathwayCardUrl, COIN_URL, moneyIconUrl, UI_SKINS, UI_SHEETS, UI_REGIONS, DAMAGE_FONT, STATUS_ICONS, STATUS_ICONS_URL,
   portraitUrl, portraitFor, mapMarkerOf, LOG_MARKERS, LOG_MARKERS_URL, SOURCE_ICONS, SPRITE_BASE,
   endingImageUrl, caseFileUrl, sceneUrl, wantedUrl, QUEST_UI_URL, QUEST_PINS, QUEST_BANNERS,
   TURN_PORTRAITS, TURN_PORTRAITS_URL, TURN_PORTRAIT_URLS, BESTIARY, bestiaryUrl,
@@ -137,10 +137,56 @@ const rarityGem = (r) => {
   return x === undefined ? '' : `<span class="raritygem" style="background-image:url(${RARITY_SHEET_URL});background-position:-${x / 8}em -${y / 8}em"></span>`;
 };
 const coin = '<img class="coin" src="' + COIN_URL + '" alt="" width="16" height="16" onerror="this.remove()">';
+/** Ausschnitt aus einem UI-Bogen (UI_SHEETS/UI_REGIONS), k = em pro Pixel. */
+const uiSprite = (sheet, region, k = 1 / 8, cls = '', title = '') => {
+  const r = UI_REGIONS[sheet]?.[region];
+  if (!r) return '';
+  const [path, w, h] = UI_SHEETS[sheet];
+  return regionIcon(SPRITE_BASE + path, r, w, h, `ui-${sheet} ${cls}`, k, title);
+};
+const damageDigits = (text, row, k) => [...text].map((ch) => {
+  const i = DAMAGE_FONT.glyphs.indexOf(ch);
+  const r = DAMAGE_FONT.rows[row];
+  return i < 0 ? '' : regionIcon(SPRITE_BASE + UI_SHEETS.dmg[0], [i * 8, r * 10, 8, 10], 96, 50, 'glyph', k);
+}).join('');
+/**
+ * Ausschnitte für 9-Slice-Rahmen und Zeiger: werden einmal auf ein Canvas kopiert und als CSS-Variable gesetzt
+ * (border-image braucht ein eigenes Bild). Lädt ein Bogen nicht, bleibt der bisherige Rahmen.
+ */
+const CROPS = {
+  'bmenu-panel': ['bmenu', [0, 0, 48, 48]], 'bmenu-pointer': ['bmenu', [80, 0, 8, 8]],
+  'shop-frame': ['shop', [0, 0, 48, 48]], 'shop-slot': ['shop', [0, 64, 20, 20]], 'shop-slot-hi': ['shop', [24, 64, 20, 20]],
+  'shop-slot-locked': ['shop', [96, 64, 20, 20]], 'shop-tag': ['shop', [64, 0, 16, 8]],
+  'loot-window': ['loot', [96, 0, 48, 48]], 'result-loot': ['bresult', [0, 96, 48, 48]],
+  'strip-suspected': ['logstrips', [0, 0, 160, 24]], 'strip-likely': ['logstrips', [0, 24, 160, 24]],
+  'equip-slot': ['equip', [112, 0, 20, 20]], 'equip-filled': ['equip', [112, 32, 20, 20]],
+};
+function cropSkins(root) {
+  const sheets = { ...Object.fromEntries(Object.entries(UI_SHEETS).map(([k, [p]]) => [k, p])), logstrips: 'ui/C_07_log_strips.png' };
+  const byFile = {};
+  for (const [name, [sheet, r]] of Object.entries(CROPS)) (byFile[sheets[sheet]] ??= []).push([name, r]);
+  for (const [path, list] of Object.entries(byFile)) {
+    const img = new Image();
+    img.onload = () => {
+      for (const [name, [x, y, w, h]] of list) {
+        const cv = document.createElement('canvas');
+        cv.width = w; cv.height = h;
+        cv.getContext('2d').drawImage(img, x, y, w, h, 0, 0, w, h);
+        root.style.setProperty(`--${name}`, `url(${cv.toDataURL()})`);
+      }
+      root.classList.add(`skin-${path.replace(/\W/g, '_')}`);
+    };
+    img.src = SPRITE_BASE + path;
+  }
+}
+/** Notizbuch-Reiter → Symbol aus 07_03_icons.png (Fallakten: Lupe). */
+const TAB_ICONS = { quests: 'ausruf', items: 'schluessel', pfad: 'auge', personen: 'sprechen', bestiar: 'spuren', archiv: 'notebook' };
+const pctStep = (frac, n) => Math.max(0, Math.min(n - 1, Math.round((1 - Math.max(0, Math.min(1, frac))) * (n - 1))));
+const moneyIcon = (n) => `<img class="coin" src="${moneyIconUrl(n)}" alt="" width="16" height="16" onerror="this.remove()">`;
 /** Beute als Liste mit Icon, Anzahl und Seltenheit (Farbe). */
 const lootHtml = (loot, items) => {
   const rows = lootList(loot, items).map((e) => `<li class="loot-row rar-${e.rarity}">${itemIcon(e.id)}<strong>${esc(e.name)}</strong>${e.n > 1 ? ` ×${e.n}` : ''} <span class="rar">${rarityGem(e.rarity)}${RARITY_NAMES[e.rarity]}</span></li>`);
-  if (loot?.money) rows.unshift(`<li class="loot-row">${coin}<strong>${loot.money} Schilling</strong></li>`);
+  if (loot?.money) rows.unshift(`<li class="loot-row">${moneyIcon(loot.money)}<strong>${loot.money} Schilling</strong></li>`);
   return rows.length ? `<ul class="loot">${rows.join('')}</ul>` : '';
 };
 
@@ -176,6 +222,8 @@ export class Ui {
   constructor(root, state, { onNewGame, onContinue, hasSave }) {
     this.root = root;
     root.style.setProperty('--artui', `url(${new URL(ARTIFACT_UI_URL, document.baseURI).href})`);
+    for (const [v, path] of Object.entries(UI_SKINS)) root.style.setProperty(`--${v}`, `url(${new URL(SPRITE_BASE + path, document.baseURI).href})`);
+    cropSkins(root);
     this.state = state;
     this.onNewGame = onNewGame;
     this.onContinue = onContinue;
@@ -194,7 +242,7 @@ export class Ui {
           <div class="place"></div>
           <div class="meter life"><span>Leben</span><div class="bar"><div class="lfill"></div></div><em class="hpnum"></em></div>
           <div class="meter"><span>Nerven</span><div class="bar"><div class="fill"></div></div></div>
-          <div class="meter honor"><span class="rank"></span><div class="bar"><div class="hfill"></div></div></div>
+          <div class="meter honor"><span class="rank"></span><div class="bar"><div class="hfill"></div></div><span class="repbar"></span></div>
           <div class="meter digest hidden"><span>Verdaut</span><div class="bar"><div class="dfill"></div></div><em class="dnum"></em></div>
           <div class="meter unruhe hidden"><span>Unruhe</span><div class="bar"><div class="ufill"></div></div></div>
           <div class="money"></div>
@@ -367,7 +415,7 @@ export class Ui {
     if (!el || this.state.acting === 2) return;
     const heavy = this.state.isOverloaded();
     el.classList.toggle('hidden', !heavy);
-    if (heavy) el.textContent = `Überladen · ${this.state.carryText()}`;
+    if (heavy) el.innerHTML = `${uiSprite('loot', 'full', 1 / 16, 'toastico')}Überladen · ${esc(this.state.carryText())}`;
   }
 
   /** Kapitel 2: Fahndungsstufe im HUD, nur in Wexmoor. */
@@ -383,7 +431,11 @@ export class Ui {
   }
 
   updateMoney() {
-    this.$('.money').innerHTML = `${coin}${this.state.money} Schilling`;
+    const m = this.state.money;
+    const changed = this.lastMoney !== undefined && this.lastMoney !== m;
+    this.lastMoney = m;
+    // Paket A: Münze dreht sich kurz, wenn sich das Geld ändert
+    this.$('.money').innerHTML = `${changed ? '<span class="coinspin"></span>' : coin}${m} Schilling`;
   }
 
   updateUnruhe() {
@@ -454,18 +506,23 @@ export class Ui {
     const s = this.state;
     const r = s.rank();
     const next = s.nextRank();
-    this.$('.rank').textContent = `${r.name} · ${s.honor}`;
+    // Grundpaket: Rangabzeichen und Rufleiste (14_01, 14_02)
+    const ri = Math.min(4, s.content.ranks.indexOf(r));
+    this.$('.rank').innerHTML = `${uiSprite('ranks', `r${Math.max(0, ri)}`, 1 / 16, 'rankbadge', r.name)}${esc(r.name)} · ${s.honor}`;
     const pct = next ? ((s.honor - r.min) / (next.min - r.min)) * 100 : 100;
     this.$('.hfill').style.width = `${Math.max(0, Math.min(100, pct))}%`;
+    this.$('.repbar').innerHTML = uiSprite('repbar', `f${Math.max(0, Math.min(4, Math.round(pct / 25)))}`, 1 / 12.8);
   }
 
-  setPrompt(text, key = 'E') {
+  setPrompt(text, key = 'E', kind = '') {
     const el = this.$('.prompt');
     if (!text || this.modal) { el.classList.add('hidden'); return; }
     if (el.dataset.text !== text || el.dataset.key !== key) {
       el.dataset.text = text;
       el.dataset.key = key;
-      el.innerHTML = `<span class="key">${esc(key)}</span> ${esc(text)}`;
+      // Grundpaket: animiertes Symbol (07_05) – sprechen, aufheben oder untersuchen
+      const icon = kind === 'npc' ? 'sprechen' : kind === 'loot' || /aufheben|nehmen|einstecken|öffnen/i.test(text) ? 'hand' : 'lupe';
+      el.innerHTML = `${uiSprite('interact', `${icon}0`, 1 / 16, 'promptico')}<span class="key">${esc(key)}</span> ${esc(text)}`;
     }
     el.classList.remove('hidden');
   }
@@ -476,6 +533,7 @@ export class Ui {
     const el = document.createElement('div');
     el.className = `toast ${kind}`;
     el.textContent = text;
+    if (kind === 'honor' || (kind === 'warn' && /Ansehen/.test(text))) el.insertAdjacentHTML('afterbegin', uiSprite('reppop', kind === 'honor' ? 'up' : 'down', 1 / 16, 'toastico'));
     // Aufträge: gemaltes Banner (160x32) über dem Text
     if (banner) { el.classList.add('with-banner'); el.insertAdjacentHTML('afterbegin', questUi('qbanner', banner, 1 / 16)); }
     box.appendChild(el);
@@ -510,6 +568,7 @@ export class Ui {
       const ch = this.pendingChapter;
       this.pendingChapter = null;
       this.showMessage(ch.title, ch.text, { footer: ch.footer ?? '' });
+      this.layer.querySelector('.panel.message')?.classList.add('chapterbook'); // Grundpaket: aufgeschlagenes Notizbuch (07_02)
     } else if (this.pendingLost) {
       const text = this.pendingLost;
       this.pendingLost = null;
@@ -554,6 +613,9 @@ export class Ui {
     el.querySelector('[data-act=continue]')?.addEventListener('click', this.titleContinue);
   }
 
+  /** Dialogportrait als HTML (z. B. für Meldungen außerhalb von Gesprächen). */
+  portraitHtml(id, mood) { return portrait(id, mood); }
+
   showMessage(title, text, { footer = '', extra = '', face = '', onClose = null, scene = null, aside = '' } = {}) {
     if (onClose) this.afterClose = onClose;
     const el = this.open('message', `
@@ -569,7 +631,10 @@ export class Ui {
   /** Inhalt eines Beutebehälters. */
   showLoot(title, loot) {
     const list = lootHtml(loot, this.state.content.items);
-    this.showMessage(title, list ? 'Du steckst ein:' : 'Leer. Jemand war schneller.', { extra: list });
+    // Paket G: Beutefenster mit Aufheben-Funkeln (G_03_loot_ui.png)
+    const aside = list ? `<span class="lootfx">${uiSprite('loot', 'pickup0', 1 / 8, 'pickup')}</span>` : '';
+    this.showMessage(title, list ? 'Du steckst alles ein:' : 'Leer. Jemand war schneller.', { extra: list ? `<div class="takeall">${uiSprite('loot', 'take_all', 1 / 16, 'toastico')}Alles genommen</div>${list}` : '', aside });
+    this.layer.querySelector('.panel.message')?.classList.add('lootwin');
   }
 
   showClue(id, isNew) {
@@ -644,7 +709,7 @@ export class Ui {
       <div class="speaker">${esc(npc.name)} <span class="role">${esc(npc.role ?? '')}</span></div>${lonerBar(this.state, npc.id)}
       <div class="text">${paragraphs(text)}</div>
       <ol class="choices">${choices.map((c, i) => (c.locked
-        ? `<li><button disabled class="locked">🔒 ${esc(c.text)} <span class="lockinfo">${esc(c.locked)}</span></button></li>`
+        ? `<li><button disabled class="locked">${uiSprite('locked', /^Rang/.test(c.locked) ? 'schloss' : 'gespraech', 1 / 16, 'lockico')}${esc(c.text)} <span class="lockinfo">${esc(c.locked)}</span></button></li>`
         : `<li><button data-i="${i}"><span class="key">${++n}</span> ${choiceRisk(c.text) ? riskIcon(choiceRisk(c.text), RISK_TITLES[choiceRisk(c.text)]) : ''}${esc(c.text)}</button></li>`)).join('')}</ol>`, `dialogue${face ? ' with-portrait' : ''}`);
     this.dialogue.keyMap = choices.map((c, i) => (c.locked ? null : i)).filter((i) => i !== null);
     el.querySelectorAll('[data-i]').forEach((b) => { b.onclick = () => this.choose(Number(b.dataset.i)); });
@@ -685,6 +750,7 @@ export class Ui {
     this.travelPick = null;
     this.travelFrom = current;
     const pins = rules.pins ?? {};
+    this.travelPins = pins;
     const goal = s.tracked ? questTarget(s, s.tracked) : null;
     const goalMap = goal?.district ?? null;
     const meetMap = s.gatheringTarget?.()?.district ?? null;
@@ -721,6 +787,22 @@ export class Ui {
     el.querySelector('[data-act=stay]').onclick = () => (this.travelPick === null ? this.close() : this.openTravel(current));
     const fog = el.querySelector('canvas.fog');
     if (fog) this.drawFog(fog, `${SPRITE_BASE}${rules.fog_image}`, [current, ...dests.map((d) => d.map), ...(lockedPin ? [goalMap] : [])].map((m) => pins[m]).filter(Boolean));
+  }
+
+  /** Paket I: gestrichelte Route vom Standort zum Ziel (I_reise_routen.png), am Ziel ein Fähnchen. */
+  drawRoute(map, from, to) {
+    map?.querySelector('.route')?.remove();
+    if (!map || !from || !to) return;
+    const [x0, y0] = from;
+    const [x1, y1] = to;
+    const len = Math.hypot(x1 - x0, y1 - y0);
+    const angle = Math.atan2(y1 - y0, x1 - x0);
+    const n = Math.max(1, Math.floor(len / 9));
+    const dots = Array.from({ length: n }, (_, i) => {
+      const t = (i + 0.5) / n;
+      return `<span class="seg" style="left:${(x0 + (x1 - x0) * t) / 8}em;top:${(y0 + (y1 - y0) * t) / 8}em;transform:translate(-50%,-50%) rotate(${angle}rad) scale(1.6)"></span>`;
+    }).join('');
+    map.insertAdjacentHTML('beforeend', `<div class="route">${dots}<span class="flag" style="left:${x1 / 8}em;top:${y1 / 8}em"></span></div>`);
   }
 
   /** Nebel über der Stadtkarte; um bekannte Orte herum lichtet er sich. */
@@ -762,6 +844,7 @@ export class Ui {
     this.travelInfo(d);
     const el = this.layer.querySelector('.citymap');
     el.querySelectorAll('.pin[data-i]').forEach((p) => p.classList.toggle('sel', Number(p.dataset.i) === i));
+    this.drawRoute(el.querySelector('.map'), this.travelPins?.[this.travelFrom], this.travelPins?.[d.map]);
     const safe = rules.modes.sicher;
     const fast = rules.modes.schnell;
     const hurry = canHurry(s);
@@ -772,7 +855,10 @@ export class Ui {
         <span class="muted">${esc(safe.desc)}</span><span class="gain">+${Math.round(s.maxHp * safe.heal_pct)} Leben · +${safe.nerves} Nerven · Journal</span></button>
       <button class="mode fast" data-mode="schnell" ${hurry ? '' : 'disabled'}>${modeIcon('schnell')}<b><span class="key">2</span> ${esc(fast.name)}</b>
         <span class="muted">${esc(fast.desc)}</span><span class="cost">${hurry ? `−${fast.nerves_cost} Nerven · Monster · Beute` : s.isOverloaded() ? `Zu schwer beladen (${s.carryText()})` : `Zu wenig Nerven (mind. ${fast.nerves_cost})`}</span></button>`;
-    modes.querySelectorAll('[data-mode]').forEach((b) => { b.onclick = () => this.travelMode(b.dataset.mode); });
+    modes.querySelectorAll('[data-mode]').forEach((b) => {
+      b.onclick = () => this.travelMode(b.dataset.mode);
+      b.onmouseenter = () => el.querySelector('.route')?.classList.toggle('schnell', b.dataset.mode === 'schnell');
+    });
     el.querySelector('[data-act=stay] .key').nextSibling.textContent = ' Anderes Ziel';
   }
 
@@ -851,8 +937,8 @@ export class Ui {
     const isCase = !!caseId;
     const hint = String(feedback ?? '').startsWith('<div class="hint">') ? feedback : '';
     const el = this.open('notebook', `
-      <div class="tabs">${tabs.map((t, i) => `<button class="tab ${t.id === this.tab ? 'sel' : ''}" data-tab="${t.id}"><span class="key">${i + 1}</span> ${esc(t.title)}</button>`).join('')}
-        <span class="rankinfo">${esc(this.state.rank().name)} · Ansehen ${this.state.honor}</span></div>
+      <div class="tabs">${tabs.map((t, i) => `<button class="tab ${t.id === this.tab ? 'sel' : ''}" data-tab="${t.id}"><span class="key">${i + 1}</span> ${uiSprite('icons', TAB_ICONS[t.id] ?? 'lupe', 1 / 16, 'tabico')}${esc(t.title)}</button>`).join('')}
+        <span class="rankinfo">${uiSprite('ranks', `r${Math.max(0, Math.min(4, this.state.content.ranks.indexOf(this.state.rank())))}`, 1 / 16, 'rankbadge')}${esc(this.state.rank().name)} · Ansehen ${this.state.honor}</span></div>
       ${hint ? `<div class="feedback hintbox">${hint}</div>` : ''}
       ${body}
       <div class="feedback">${hint ? '' : feedback}</div>
@@ -934,7 +1020,7 @@ export class Ui {
     const rows = p.items.map((e) => `<li class="loot-row rar-${e.rarity}" title="${esc(RARITY_NAMES[e.rarity])}">${itemIcon(e.id)}<span>${esc(e.name)}</span>
       <span class="rar">${e.first ? 'erster Sieg' : chanceWord(e.chance)}${e.elite ? ' · Elite' : ''}</span></li>`);
     const [lo, hi] = p.money;
-    if (hi) rows.unshift(`<li class="loot-row">${coin}<span>${lo === hi ? lo : `${lo}–${hi}`} Schilling</span></li>`);
+    if (hi) rows.unshift(`<li class="loot-row">${moneyIcon(hi)}<span>${lo === hi ? lo : `${lo}–${hi}`} Schilling</span></li>`);
     if (!rows.length) return '<p class="beast-noloot">Keine Beute bekannt.</p>';
     return `<h5>Beute${p.repeat ? '' : ' <span class="muted">(nur einmal)</span>'}</h5><ul class="loot beast-loot">${rows.join('')}</ul>`;
   }
@@ -953,7 +1039,7 @@ export class Ui {
       const steps = active ? `<ul class="steps">${s.questSteps(id).map((x) => `<li class="${x.done ? 'done' : ''}">${x.done ? '✓' : '○'} ${esc(x.text)}</li>`).join('')}</ul>` : '';
       const t = active ? questTarget(s, id) : null;
       const goal = active ? `<div class="qgoal">➤ ${t ? esc(this.goalText(t)) : 'Kein fester Ort bekannt'}</div>` : '';
-      return `<li class="quest ${st} ${tracked ? 'tracked' : ''}" ${active ? `data-track="${id}"` : ''}><div class="qtitle"><span class="qkind">${q.kind === 'main' ? 'Hauptfall' : 'Nebenauftrag'}</span> ${esc(q.title)} ${!active ? '<span class="badge likely">erledigt</span>' : ''}${tracked ? '<span class="badge track">verfolgt</span>' : ''}</div>
+      return `<li class="quest ${st} ${tracked ? 'tracked' : ''}" ${active ? `data-track="${id}"` : ''}><div class="qtitle">${uiSprite('qstatus', !active ? 'q1' : tracked ? 'q6' : q.kind === 'main' ? 'q5' : 'q2', 1 / 12, 'qico')}<span class="qkind">${q.kind === 'main' ? 'Hauptfall' : 'Nebenauftrag'}</span> ${esc(q.title)} ${!active ? '<span class="badge likely">erledigt</span>' : ''}${tracked ? '<span class="badge track">verfolgt</span>' : ''}</div>
         ${active ? `<div class="qsum">${q.wanted ? wantedImg(q.wanted, false) : ''}${esc(q.summary)}</div>` : ''}${steps}${goal}</li>`;
     };
     // Erledigte Aufträge zusammengeklappt, damit die offenen oben sichtbar bleiben
@@ -1095,10 +1181,28 @@ export class Ui {
   }
 
   /** Personen, mit denen man gesprochen hat: Gesicht, Rolle, Ort, laufende Aufträge. */
+  /** Paket I: Akte zu den Sekten (I_fraktionen.png) – Ermittlungsstand aus den Schritten des Auftrags. */
+  factionsHtml() {
+    const s = this.state;
+    const quests = { rostbrueder: 'rost_im_hafen', schleierschwestern: 'graue_schleier' };
+    const rows = Object.entries(quests).filter(([, q]) => s.quests[q]).map(([fid, q]) => {
+      const f = s.content.factions?.[fid];
+      if (!f) return '';
+      const steps = s.questSteps(q);
+      const done = steps.filter((x) => x.done).length;
+      const level = s.quests[q] !== 'active' ? 5 : Math.min(4, Math.round((done / steps.length) * 5));
+      const [icon, label] = s.quests[q] !== 'active' ? ['infiltrated', 'zerschlagen'] : done === 0 ? ['suspicious', 'Verdacht']
+        : done < steps.length - 1 ? ['hostile', 'feindlich'] : ['tolerated', 'fast am Ziel'];
+      return `<li>${uiSprite('frak', icon, 1 / 8, 'frakico', label)}<div><strong>${esc(f.full ?? f.name)}</strong> <span class="muted">${label}</span><br>${uiSprite('frak', `${fid}${level}`, 1 / 6, 'frakbar')}
+        <br><span class="muted">${esc(f.motto ?? '')}</span></div></li>`;
+    }).join('');
+    return rows ? `<h4>Sekten</h4><ul class="people factions">${rows}</ul><h4>Personen</h4>` : '';
+  }
+
   peopleHtml() {
     const people = knownPeople(this.state);
-    if (!people.length) return '<p class="empty">Du hast noch mit niemandem gesprochen.</p>';
-    return `<ul class="people">${people.map((p) => {
+    if (!people.length) return `${this.factionsHtml()}<p class="empty">Du hast noch mit niemandem gesprochen.</p>`;
+    return `${this.factionsHtml()}<ul class="people">${people.map((p) => {
       const face = headFace(p.id, esc(p.name));
       return `<li class="${p.quests.length ? 'busy' : ''}">${face}<div><strong>${esc(p.name)}</strong> <span class="muted">${esc(p.role)}</span>
         <br><span class="where">${esc(p.places.join(', ') || 'unterwegs')}</span>${p.quests.map((q) => `<br><span class="qtag">${esc(q)}</span>`).join('')}</div></li>`;
@@ -1155,8 +1259,10 @@ export class Ui {
     const rows = seqs.map((n) => {
       const sd = p.seqs[n];
       const reached = n >= cur.seq;
-      if (!reached) return `<li class="seq locked"><strong>Sequenz ${n}: ${esc(sd.name)}</strong> <span class="muted">noch nicht erreicht</span></li>`;
-      return `<li class="seq"><strong>Sequenz ${n}: ${esc(sd.name)}</strong> ${n === cur.seq ? '<span class="badge likely">aktuell</span>' : ''}<br>
+      // Paket A: Sockel der Pfad-Leiter (leer = als Nächstes, verriegelt = später, Riss bei hoher Unruhe)
+      const socket = uiSprite('ladder', !reached ? (n === cur.seq - 1 ? 'empty' : 'locked') : n === cur.seq && s.unruhe >= 60 ? 'cracked' : 'unlocked', 1 / 12, 'socket');
+      if (!reached) return `<li class="seq locked">${socket}<strong>Sequenz ${n}: ${esc(sd.name)}</strong> <span class="muted">noch nicht erreicht</span></li>`;
+      return `<li class="seq">${socket}<strong>Sequenz ${n}: ${esc(sd.name)}</strong> ${n === cur.seq ? '<span class="badge likely">aktuell</span>' : ''}<br>
         <span class="desc">${esc(sd.desc)}</span><br>
         ⚔ <strong>${esc(sd.skill.name)}</strong> <span class="muted">(${sd.skill.cost} K)</span> ${esc(sd.skill.desc)}
         ${(sd.passives ?? []).map((x) => `<br>✧ ${esc(x.text)}`).join('')}</li>`;
@@ -1165,8 +1271,9 @@ export class Ui {
     return `
       <div class="pathhead"><div class="pathcard"><img src="${pathwayCardUrl(cur.id)}" alt="" width="96" height="128" onerror="this.parentNode.remove()"><span style="color:${p.color}">Sequenz ${cur.seq}<br>${esc(s.seqDef().name)}</span></div><div>${emblem(cur.id, 32)}<strong style="color:${p.color}">${esc(p.name)}</strong> · Sequenz ${cur.seq}: ${esc(s.seqDef().name)}</div></div>
       <div class="meters2">
-        <div class="meter"><span>Verdaut</span><div class="bar"><div class="dfill" style="width:${d}%"></div></div><em>${d} %</em></div>
-        <div class="meter"><span>Unruhe</span><div class="bar"><div class="ufill ${s.unruhe >= 60 ? 'low' : ''}" style="width:${s.unruhe}%"></div></div><em>${Math.round(s.unruhe)}</em></div>
+        <div class="meter"><span>Verdaut</span><div class="bar"><div class="dfill" style="width:${d}%"></div></div>${uiSprite('digest', `fill${Math.min(100, Math.floor(d / 20) * 20)}`, 1 / 8, 'digestbar')}${d >= 100 ? uiSprite('digest', 'digested', 1 / 12, 'digestico', 'Verdaut') : ''}<em>${d} %</em></div>
+        <div class="meter"><span>Unruhe</span><div class="bar"><div class="ufill ${s.unruhe >= 60 ? 'low' : ''}" style="width:${s.unruhe}%"></div></div>${s.unruhe >= 60 ? uiSprite('digest', 'warning', 1 / 12, 'digestico', 'Gefahr') : ''}<em>${Math.round(s.unruhe)}</em></div>
+        <div class="meter vialm">${uiSprite('vial', `v${pctStep(s.composure / s.maxComposure(), 6)}`, 1 / 24, 'vial', 'Nerven')}<span>Nerven</span><em>${Math.round(s.composure)}/${s.maxComposure()}</em></div>
       </div>
       <p class="lead"><em>„${esc(p.principle)}“</em> ${esc(p.digest_hint)}</p>
       <p class="muted">Jede Sequenz dieses Pfades: +${s.growth().hp} Leben, +${s.growth().nerves} Nerven. Gerade: ${s.maxHp} Leben, ${s.maxComposure()} Nerven.</p>
@@ -1242,22 +1349,23 @@ export class Ui {
     if (mode === 'buy') {
       const stock = s.shopStock(merchantId);
       this.shop.entries = stock.map((e) => ({ id: e.item, disabled: !!e.locked || e.owned || s.money < e.price }));
-      rows = stock.map((e, i) => `<li class="item ${e.locked ? 'lockedrow' : ''}"><div>${itemIconBig(e.item)}<strong>${esc(e.name)}</strong>${s.itemCount(e.item) ? ` <span class="muted">(hast ${s.itemCount(e.item)})</span>` : ''}<br>
-        <span class="desc">${esc(e.locked ? `🔒 ${e.locked}` : e.desc)}</span></div>
-        <div>${e.owned ? `<span class="badge likely">${e.soldOut ? 'vergriffen' : 'gekauft'}</span>` : `${e.left ? `<span class="muted">noch ${e.left}</span> ` : ''}<button class="small" data-buy="${i}" ${this.shop.entries[i].disabled ? 'disabled' : ''}>${i < 9 ? `<span class="key">${i + 1}</span> ` : ''}${e.price} Sch.</button>`}</div></li>`).join('');
+      // Paket A: Ladenfächer, Schlösser und Preisschilder (A_10_shop.png)
+      rows = stock.map((e, i) => `<li class="item ${e.locked ? 'lockedrow' : ''}"><div><span class="shopslot ${e.locked ? 'locked' : e.owned ? 'sold' : ''}">${itemIconBig(e.item)}</span><strong>${esc(e.name)}</strong>${s.itemCount(e.item) ? ` <span class="muted">(hast ${s.itemCount(e.item)})</span>` : ''}<br>
+        <span class="desc">${e.locked ? uiSprite('shop', /Rang|Ansehen/.test(e.locked) ? 'locked_rank' : 'locked_pathway', 1 / 12, 'shopico') : ''}${esc(e.locked ?? e.desc)}</span></div>
+        <div>${e.owned ? `<span class="badge likely">${uiSprite('shop', 'only_once', 1 / 16, 'shopico')}${e.soldOut ? 'vergriffen' : 'gekauft'}</span>` : `${e.left ? `<span class="muted">noch ${e.left}</span> ` : ''}<button class="small pricetag" data-buy="${i}" ${this.shop.entries[i].disabled ? 'disabled' : ''}>${i < 9 ? `<span class="key">${i + 1}</span> ` : ''}${e.price} Sch.</button>`}</div></li>`).join('');
     } else {
       const sellable = s.items().filter((it) => s.sellPrice(it.id) !== null);
       this.shop.entries = sellable.map((it) => ({ id: it.id }));
-      rows = sellable.map((it, i) => `<li class="item"><div>${itemIconBig(it.id)}<strong>${esc(it.name)}</strong>${it.count > 1 ? ` ×${it.count}` : ''}<br><span class="desc">${esc(it.desc)}</span></div>
-        <div><button class="small" data-sell="${i}">${i < 9 ? `<span class="key">${i + 1}</span> ` : ''}${s.sellPrice(it.id)} Sch.</button></div></li>`).join('') || `<li class="empty">Nichts, was ${esc(m.name)} haben will.</li>`;
+      rows = sellable.map((it, i) => `<li class="item"><div><span class="shopslot">${itemIconBig(it.id)}</span><strong>${esc(it.name)}</strong>${it.count > 1 ? ` ×${it.count}` : ''}<br><span class="desc">${esc(it.desc)}</span></div>
+        <div><button class="small pricetag" data-sell="${i}">${i < 9 ? `<span class="key">${i + 1}</span> ` : ''}${s.sellPrice(it.id)} Sch.</button></div></li>`).join('') || `<li class="empty">Nichts, was ${esc(m.name)} haben will.</li>`;
     }
     const el = this.open('shop', `
       <h3>${esc(m.name)} <span class="muted">${esc(m.title)}</span>${s.hasP2() ? ` <span class="badge">für Spieler ${s.acting} · <span class="key">G</span> wechseln</span>` : ''}</h3>
       <p class="lead">„${esc(m.greeting)}“</p>
-      ${m.buys ? `<div class="tabs"><button class="tab ${mode === 'buy' ? 'sel' : ''}" data-mode="buy">Kaufen</button><button class="tab ${mode === 'sell' ? 'sel' : ''}" data-mode="sell">Verkaufen</button> <span class="muted">Wechseln mit <span class="key">V</span></span></div>` : ''}
+      ${m.buys ? `<div class="tabs"><button class="tab ${mode === 'buy' ? 'sel' : ''}" data-mode="buy">${uiSprite('shop', 'buy', 1 / 16, 'tabico')}Kaufen</button><button class="tab ${mode === 'sell' ? 'sel' : ''}" data-mode="sell">${uiSprite('shop', 'sell', 1 / 16, 'tabico')}Verkaufen</button> <span class="muted">Wechseln mit <span class="key">V</span></span></div>` : ''}
       <ul class="items shoplist">${rows}</ul>
       <div class="feedback">${feedback}</div>
-      <div class="actions"><span class="purse">${coin}${s.money} Schilling</span><button data-act="close">Gehen <span class="key">Esc</span></button></div>`, 'notebook shop');
+      <div class="actions"><span class="purse">${moneyIcon(s.money)}${s.money} Schilling</span><button data-act="close">Gehen <span class="key">Esc</span></button></div>`, 'notebook shop');
     el.querySelectorAll('[data-buy]').forEach((b) => { b.onclick = () => this.shopPick(Number(b.dataset.buy)); });
     el.querySelectorAll('[data-sell]').forEach((b) => { b.onclick = () => this.shopPick(Number(b.dataset.sell)); });
     el.querySelectorAll('[data-mode]').forEach((b) => { b.onclick = () => this.openShop(merchantId, b.dataset.mode); });
@@ -1393,7 +1501,7 @@ export class Ui {
       <div class="stage">${stage}</div>
       <ul class="alog">${a.log.map((t) => `<li>${t.startsWith('Zuschlag') ? auktionIcon('sold', 'sold', 1 / 12) : ''}${esc(t)}</li>`).join('')}</ul>
       ${feedback ? `<p class="feedback">${feedback}</p>` : ''}
-      <div class="actions"><span class="purse">${coin}${s.money} Schilling</span>
+      <div class="actions"><span class="purse">${moneyIcon(s.money)}${s.money} Schilling</span>
         ${acts.map((x, i) => `<button class="small" data-act-i="${i}" ${x.off ? 'disabled' : ''}><span class="key">${++n}</span> ${x.icon ? itemIcon(x.icon) : ''}${esc(x.label)}</button>`).join('')}
         <button data-act="leave">Gehen <span class="key">Esc</span></button></div>`, 'notebook auction');
     el.querySelectorAll('[data-act-i]').forEach((b) => { b.onclick = () => this.auctionPick(Number(b.dataset.actI)); });
@@ -1522,14 +1630,15 @@ export class Ui {
     this.root.classList.add('in-combat');
     this.layer.innerHTML = `
       <div class="combat">
-        <div class="cb-enemy">${turnFace(scene.encounterId)}<div class="cb-name"></div><div class="bar big"><div class="efill"></div></div><div class="cb-tags"></div></div>
+        <div class="cb-enemy">${turnFace(scene.encounterId)}<div class="cb-name"></div><div class="bar big"><div class="efill"></div></div><div class="hudbar enemy"></div><div class="cb-tags"></div></div>
+        <div class="cb-turn"></div><div class="cb-target hidden">${uiSprite('hud', 'target0', 1 / 6, 'reticle')}</div>
         <div class="cb-msg"><div class="cb-text"></div><div class="cb-help"></div></div>
         <div class="cb-bottom">
           <div class="cb-players">${Object.keys(scene.combat.fighters).map((n) => `
           <div class="cb-player" data-p="${n}">
             <div class="cb-name">${turnFace('player')}${scene.combat.duo ? `Spieler ${n}` : 'Du'} <span class="muted cb-weapon"></span> <span class="cb-status"></span></div>
-            <div class="meter"><span>Leben</span><div class="bar"><div class="pfill"></div></div><em class="cb-hp"></em></div>
-            <div class="meter"><span>Nerven</span><div class="bar"><div class="nfill"></div></div></div>
+            <div class="meter"><span>Leben</span><div class="bar"><div class="pfill"></div></div><span class="hudbar hp"></span><em class="cb-hp"></em></div>
+            <div class="meter"><span>Nerven</span><div class="bar"><div class="nfill"></div></div><span class="hudbar nerves"></span></div>
             <div class="cb-ap"><span>Konzentration</span> <span class="pips"></span></div>
           </div>`).join('')}</div>
           <div class="cb-menu"></div>
@@ -1544,7 +1653,9 @@ export class Ui {
     const c = sc.combat;
     const s = this.state;
     const q = (sel) => this.layer.querySelector(sel);
-    q('.cb-enemy .cb-name').textContent = `${c.enemy.name} · ${c.enemy.hp}/${c.enemy.maxHp}`;
+    q('.cb-enemy .cb-name').innerHTML = `${c.enemy.occult ? uiSprite('hud', 'occult', 1 / 8, 'occult', 'okkult') : ''}${esc(c.enemy.name)} · ${c.enemy.hp}/${c.enemy.maxHp}`;
+    // Paket B: Leisten aus battle_hud.png (sechs Füllstände)
+    q('.hudbar.enemy').innerHTML = uiSprite('hud', `enemy${pctStep(c.enemy.hp / c.enemy.maxHp, 6)}`, 1 / 4);
     q('.efill').style.width = `${(c.enemy.hp / c.enemy.maxHp) * 100}%`;
     const burn = c.burn ? { giftphiole: ['gift', 'Gift'], aetzwolke: ['zerfressen', 'Ätzend'] }[c.burn.source] ?? ['brennen', 'Brand'] : null;
     q('.cb-tags').innerHTML = [c.enemy.occult ? '<span class="badge refuted">okkult</span>' : '', c.weak ? `<span class="badge likely">${statusIcon('schwachstelle')}Schwachstelle bekannt</span>` : '', c.enc.practice ? '<span class="badge suspected">Übung</span>' : '',
@@ -1572,7 +1683,10 @@ export class Ui {
       b('.cb-hp').textContent = `${v.hp}/${v.maxHp}`;
       b('.nfill').style.width = `${(v.composure / v.maxComposure) * 100}%`;
       b('.cb-weapon').textContent = v.weapon.name;
-      b('.pips').innerHTML = Array.from({ length: 6 }, (_, i) => `<i class="${i < f.ap ? 'on' : ''}"></i>`).join('');
+      // Paket B: Leisten und Konzentration aus battle_hud.png
+      b('.hudbar.hp').innerHTML = uiSprite('hud', `hp${pctStep(v.hp / v.maxHp, 6)}`, 1 / 6);
+      b('.hudbar.nerves').innerHTML = uiSprite('hud', `nerves${pctStep(v.composure / v.maxComposure, 6)}`, 1 / 6);
+      b('.pips').innerHTML = Array.from({ length: 6 }, (_, i) => uiSprite('hud', i >= f.ap ? 'conc_empty' : f.ap >= 6 ? 'conc_glow' : 'conc_full', 1 / 6, 'pip')).join('');
     }
   }
 
@@ -1600,6 +1714,7 @@ export class Ui {
     el.innerHTML = paragraphs(text);
     this.layer.querySelector('.cb-help').textContent = help;
     this.layer.querySelector('.cb-menu').innerHTML = '';
+    this.layer.querySelector('.cb-target')?.classList.add('hidden');
     this.combatMenuOpen = null;
   }
 
@@ -1613,12 +1728,13 @@ export class Ui {
     if (sub === 'main') {
       const items = mine(() => this.state.items().filter((i) => i.kind === 'consumable').length);
       entries = [
-        { text: 'Angriff', info: '+1 K · beendet den Zug', act: { type: 'skill', id: 'attack' } },
-        { text: 'Fertigkeiten', info: `${c.ap} K`, sub: 'skills' },
-        { text: 'Gegenstände', info: c.canUseItem() ? `${items}` : 'schon benutzt', sub: 'items', disabled: !c.canUseItem() },
-        { text: 'Fliehen', info: c.canFlee() ? '' : 'unmöglich', act: { type: 'flee' }, disabled: !c.canFlee() },
+        { text: 'Angriff', ui: 'attack', info: '+1 K · beendet den Zug', act: { type: 'skill', id: 'attack' } },
+        { text: 'Fertigkeiten', ui: 'skill', info: `${c.ap} K`, sub: 'skills' },
+        { text: 'Gegenstände', ui: 'item', info: c.canUseItem() ? `${items}` : 'schon benutzt', sub: 'items', disabled: !c.canUseItem() },
+        { text: 'Fliehen', ui: 'flee', info: c.canFlee() ? '' : 'unmöglich', act: { type: 'flee' }, disabled: !c.canFlee() },
       ];
-      if (c.actions) entries.push({ text: 'Zug beenden', info: '', act: { type: 'end' } });
+      if (c.actions) entries.push({ text: 'Zug beenden', ui: 'defend', info: '', act: { type: 'end' } });
+      else this.combatTurn('player');
       this.layer.querySelector('.cb-text').innerHTML = c.actions
         ? `<p>${esc(c.log.at(-1) ?? '')}.</p><p>Runde ${c.round}: ${c.duo ? `Spieler ${c.actor} ist` : 'Du bist'} noch am Zug (${c.ap} Konzentration). Fertigkeiten kosten Konzentration, ein Gegenstand pro Zug.</p>`
         : `<p>Runde ${c.round}. ${turn}Was tust du? Solange die Konzentration reicht, kannst du mehrere Fertigkeiten nacheinander einsetzen.</p>`;
@@ -1633,9 +1749,10 @@ export class Ui {
     }
     if (sub !== 'main') entries.push({ text: 'Zurück', back: true });
     this.combatMenuOpen = { sub, entries };
+    this.layer.querySelector('.cb-target')?.classList.remove('hidden');
     const menu = this.layer.querySelector('.cb-menu');
     menu.innerHTML = `<ol class="choices">${entries.map((e, i) => `<li><button data-i="${i}" ${e.disabled ? 'disabled' : ''} title="${esc(e.desc ?? '')}">
-      <span class="key">${e.back ? 'Esc' : i + 1}</span> ${e.icon ? itemIcon(e.icon) : ''}${e.skill ? skillIcon(e.skill) : ''}${esc(e.text)} <span class="muted">${esc(e.info ?? '')}</span></button></li>`).join('')}</ol>
+      <span class="key">${e.back ? 'Esc' : i + 1}</span> ${e.ui ? uiSprite('bmenu', e.disabled ? `${e.ui}_off` : e.ui, 1 / 16 * 1.4, 'cbicon') : ''}${e.icon ? itemIcon(e.icon) : ''}${e.skill ? skillIcon(e.skill) : ''}${esc(e.text)} <span class="muted">${esc(e.info ?? '')}</span></button></li>`).join('')}</ol>
       <div class="cb-desc"></div>`;
     menu.querySelectorAll('[data-i]').forEach((b) => {
       b.onclick = () => this.combatPick(Number(b.dataset.i));
@@ -1656,11 +1773,24 @@ export class Ui {
     const box = this.$('.floats');
     const el = document.createElement('div');
     el.className = `float ${cls}`;
-    el.textContent = text;
+    // Paket B: Zahlen in der Schadensschrift (damage_font.png), Text bleibt Text
+    const row = /^[+-]?\d+$/.test(text) ? (text.startsWith('+') ? 'healing' : { crit: 'critical', hurt: 'player_damage', nerves: 'nerves' }[cls] ?? 'damage') : null;
+    if (row) { el.classList.add('digits'); el.innerHTML = damageDigits(text, row, 1 / 8); } else el.textContent = text;
     el.style.left = `${xPct}%`;
     el.style.top = `${yPct}%`;
     box.appendChild(el);
     setTimeout(() => el.remove(), 1100);
+  }
+
+  /** Kurzes Banner „Du bist am Zug“ / „Gegner am Zug“ (battle_hud.png). */
+  combatTurn(who) {
+    const el = this.layer.querySelector('.cb-turn');
+    if (!el) return;
+    el.innerHTML = `${uiSprite('hud', who === 'enemy' ? 'enemy_turn' : 'your_turn', 1 / 10)}<span>${who === 'enemy' ? 'Gegner am Zug' : this.combatScene?.combat?.duo ? `Spieler ${this.combatScene.combat.actor} am Zug` : 'Du bist am Zug'}</span>`;
+    el.classList.toggle('enemy', who === 'enemy');
+    el.classList.remove('show');
+    void el.offsetWidth; // Animation neu starten
+    el.classList.add('show');
   }
 
   combatOver(title) {
@@ -1680,9 +1810,10 @@ export class Ui {
     const title = { won: 'Sieg', lost: 'Ohnmacht', fled: 'Rückzug' }[result.outcome];
     this.keysBlockedUntil = performance.now() + 400; // hastiges E-Drücken schließt die Meldung nicht sofort
     const list = result.loot ? lootHtml(result.loot, this.state.content.items) : '';
-    const extra = list ? `<h4 class="loot-title">${result.lootDeferred ? 'Beute liegt am Boden' : 'Beute'}</h4>${list}` : '';
+    const extra = list ? `<h4 class="loot-title">${uiSprite('bresult', 'loot', 1 / 8)}${result.lootDeferred ? 'Beute liegt am Boden' : 'Beute'}</h4>${list}` : '';
     const footer = result.lootDeferred && list ? 'Geh hin und drück E, um sie aufzuheben.' : '';
-    this.showMessage(`${title}: ${enc.name}`, result.text, { extra, footer });
+    const banner = { won: uiSprite('bresult', 'victory', 1 / 8, 'result-banner'), lost: uiSprite('bresult', 'defeat', 1 / 8, 'result-banner') }[result.outcome] ?? '';
+    this.showMessage(`${title}: ${enc.name}`, result.text, { extra, footer, aside: banner });
   }
 
   // --- Ende -------------------------------------------------------------------

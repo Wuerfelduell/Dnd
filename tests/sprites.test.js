@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { existsSync, readFileSync } from 'node:fs';
 import { loadContent } from './helpers.js';
 import { S_ENEMIES, S_LONERS, S_HOSTS, S_ITEMS, TURN_PORTRAITS, R_SCENES, T_MEMBERS, U_FIGURES, AUKTION_REGIONS, SHEETS, BATTLE_SHEETS, ANIM_SHEETS, TILE_CELLS, PROP_CELLS, PROP_ANIMS, CHARACTER_SHEETS, ENCOUNTER_SHEETS, ENEMY_BATTLE_SHEETS, THEME_TILE_LIST, PORTRAITS, MAP_MARKERS, C_CHARACTERS, BATTLE_BACKGROUNDS, ENCOUNTER_BACKGROUNDS, SKILL_FX, SKILL_ICONS, STATUS_ICONS, PATHWAY_POSES, WEAPON_POSES, itemIconUrl, itemIcon32Url, pathwayEmblemUrl, pathwayCardUrl, COIN_URL, bossIntroImage,
-  REGION_SHEETS, REGION_ANIMS, ICON_STRIPS, CASE_SHEETS, WHOLE_PROPS, FACADES, E_CHARACTERS, PORTRAIT_SPECIAL, PORTRAIT_MOODS, ENDING_IMAGES, endingImageUrl,
+  REGION_SHEETS, REGION_ANIMS, ICON_STRIPS, CASE_SHEETS, WHOLE_PROPS, FACADES, E_CHARACTERS, PORTRAIT_SPECIAL, PORTRAIT_EXTRA, PORTRAIT_MOODS, ENDING_IMAGES, endingImageUrl,
   caseFileUrl, SCENES, sceneUrl, CITY_MAP_URL, CITY_FOG_URL, QUEST_UI_URL,
   OVERWORLD_SHEETS, BESTIARY, bestiaryUrl, F_EQUIPMENT, BOSS_INTROS, F_UI_SHEETS, overworldIdFor } from '../src/world/assets.js';
 import { TILE_KEYS } from '../src/world/textures.js';
@@ -178,7 +178,7 @@ test('Paket D/E: Figuren, Portraits, Schlussbilder, Akten und Szenen liegen bere
     assert.ok(existsSync(sprite(SHEETS[CHARACTER_SHEETS[`npc_${id}`]])), id);
     assert.ok(existsSync(sprite(`portraits/${PORTRAITS[id]}`)), id);
   }
-  for (const [id, [f, moods]] of Object.entries(PORTRAIT_SPECIAL)) {
+  for (const [id, [f, moods]] of Object.entries({ ...PORTRAIT_SPECIAL, ...PORTRAIT_EXTRA })) {
     assert.ok(existsSync(sprite(`portraits/${f}`)), f);
     assert.ok(Object.values(moods).every((c) => c >= 0 && c < 4), id);
   }
@@ -187,7 +187,7 @@ test('Paket D/E: Figuren, Portraits, Schlussbilder, Akten und Szenen liegen bere
     for (const [nid, node] of Object.entries(tree.nodes ?? {})) {
       if (node.scene) assert.ok(sceneUrl(node.scene), `${tid}.${nid}: Szene ${node.scene}`);
       if (!node.mood) continue;
-      const npcMoods = Object.values(PORTRAIT_SPECIAL).flatMap(([, m]) => Object.keys(m));
+      const npcMoods = [...Object.values(PORTRAIT_SPECIAL), ...Object.values(PORTRAIT_EXTRA)].flatMap(([, m]) => Object.keys(m));
       assert.ok(node.mood in PORTRAIT_MOODS || npcMoods.includes(node.mood), `${tid}.${nid}: ${node.mood}`);
     }
   }
@@ -551,4 +551,20 @@ test('Paket S: Monster, Einzelgänger, Gastgeber, Salzwatt und Zirkelräume nutz
   assert.equal(content.maps.wx_salzwatt.tiles, 's_salzwatt');
   assert.equal(content.maps.treffen_lichtlose.tiles, 's_lichtlose');
   assert.equal(content.maps.treffen_salz.tiles, 's_salz');
+});
+
+test('Liegengebliebene Bögen: Oberflächen-Ausschnitte liegen im Bild, Fundstücke sind Beute', async () => {
+  const A = await import('../src/world/assets.js');
+  for (const path of Object.values(A.UI_SKINS)) assert.ok(existsSync(sprite(path)), path);
+  for (const [sheet, regions] of Object.entries(A.UI_REGIONS)) {
+    const [path, w, h] = A.UI_SHEETS[sheet];
+    assert.ok(existsSync(sprite(path)), path);
+    for (const [name, [x, y, rw, rh]] of Object.entries(regions)) assert.ok(x >= 0 && y >= 0 && x + rw <= w && y + rh <= h, `${sheet}.${name}`);
+  }
+  for (const n of [1, 15, 40, 100]) assert.ok(existsSync(file(A.moneyIconUrl(n))), `Geld ${n}`);
+  for (const id of ['ehering', 'liebesbrief', 'spieldose_klein', 'medaille_polizei']) {
+    assert.equal(content.items[id]?.kind, 'trophy', id);
+    assert.ok(Object.values(content.encounters).some((e) => e.loot?.drops?.some((d) => d.item === id)) || Object.values(content.loot ?? {}).some((t) => t.drops?.some((d) => d.item === id)), `${id} fällt nirgends`);
+  }
+  for (const id of ['elsbeth', 'price_wx', 'streife']) assert.ok(existsSync(sprite(`portraits/${A.PORTRAITS[id]}`)), id);
 });

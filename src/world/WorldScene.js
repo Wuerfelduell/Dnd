@@ -1183,8 +1183,8 @@ export class WorldScene extends Phaser.Scene {
     }
     this.focus = best;
     this.focus2 = this.p2 && !blocked ? this.nearestInteractable(this.p2.x, this.p2.y - 3) : null;
-    if (best) this.ui.setPrompt(best.prompt);
-    else if (this.focus2) this.ui.setPrompt(`Spieler 2: ${this.focus2.prompt}`, 'Enter');
+    if (best) this.ui.setPrompt(best.prompt, 'E', best.kind);
+    else if (this.focus2) this.ui.setPrompt(`Spieler 2: ${this.focus2.prompt}`, 'Enter', this.focus2.kind);
     else this.ui.setPrompt(null);
   }
 

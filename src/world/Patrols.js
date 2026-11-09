@@ -185,6 +185,7 @@ export class Patrols {
     s.p2?.setVelocity(0, 0);
     const res = this.state.arrest();
     s.ui.showMessage('Festgenommen', res.text, {
+      aside: s.ui.portraitHtml('streife', 'angry'),
       footer: res.seized > 0 ? `Beschlagnahmt: ${res.seized} Schilling. Fahndungsstufe ${this.state.wanted}.` : `Fahndungsstufe ${this.state.wanted}.`,
       onClose: () => s.travelTo(res.map, res.spawn),
     });
