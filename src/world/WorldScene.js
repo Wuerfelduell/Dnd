@@ -275,6 +275,19 @@ const THEMES = {
       default: return null;
     }
   },
+  // Paket Q (Wexmoor): Zunders Kahn mit Bullaugen in der Bordwand
+  q_kajuete(ch, at, v, x, y) {
+    const k = (g, seed = 0) => pickKey(themeKeys('q_kajuete', g), x, y, seed);
+    switch (ch) {
+      case 'w': case 'O': return hash2(x, y, 91) > 0.9 ? k('wet', 1) : k('floor');
+      case 'I': {
+        const below = at(0, 1);
+        if (below !== undefined && !'IE'.includes(below)) return hash2(x, y, 92) > 0.8 ? k('porthole', 2) : k('wallFace', 3);
+        return k('wallTop', 4);
+      }
+      default: return THEMES.tavern(ch, at, v, x, y);
+    }
+  },
   // Paket O (Geheime Treffen): Gewölbe der Stillen Waage, Hinterzimmer des Kreidezirkels, Kohlenschuppen
   o_waage(ch, at, v, x, y) {
     const k = (g, seed = 0) => pickKey(themeKeys('o_waage', g), x, y, seed);
@@ -1118,6 +1131,22 @@ export class WorldScene extends Phaser.Scene {
   }
 
   /** Hilfen für automatische Tests im Browser. */
+  /** Paket P: Ritualkreis des Pfads unter dem Spieler, zeichnet sich auf, leuchtet eine Weile, verblasst. */
+  playRitual(pid) {
+    const key = `ritual_${pid}`;
+    if (!this.textures.exists(key) || !this.player) return;
+    if (!this.anims.exists(`${key}_draw`)) {
+      this.anims.create({ key: `${key}_draw`, frames: this.anims.generateFrameNumbers(key, { start: 0, end: 2 }), frameRate: 8, repeat: 0 });
+      this.anims.create({ key: `${key}_loop`, frames: this.anims.generateFrameNumbers(key, { start: 3, end: 7 }), frameRate: 8, repeat: -1 });
+    }
+    const circle = this.add.sprite(this.player.x, this.player.y - 4, key, 0).setDepth(5).setBlendMode(Phaser.BlendModes.ADD);
+    circle.play(`${key}_draw`);
+    circle.once('animationcomplete', () => circle.play(`${key}_loop`));
+    let lit = true;
+    this.lighting?.add({ follow: { get x() { return circle.x; }, get y() { return circle.y; } }, radius: 56, intensity: 0.8, color: 0xd8c8ff, glowAlpha: 0.3, flicker: 0.15, active: () => lit });
+    this.tweens.add({ targets: circle, alpha: 0, delay: 6000, duration: 1500, onComplete: () => { lit = false; circle.destroy(); } });
+  }
+
   debugTeleport(tx, ty) {
     this.player.setPosition(tx * TILE + 8, ty * TILE + 15);
     this.player.body.reset(this.player.x, this.player.y);

@@ -519,3 +519,6 @@ button.small.drop.armed { border-color: #c8826a; color: #ffb09a; }
 .meter.unruhe .ufill { background: var(--artui) no-repeat 0 -5em / 16em 8em; animation: unrestfill 0.5s steps(1) infinite; }
 .meter.unruhe .ufill.low { filter: brightness(1.25) saturate(1.3); }
 @keyframes unrestfill { 0% { background-position: 0 -5em; } 25% { background-position: -8em -5em; } 50% { background-position: 0 -6em; } 75% { background-position: -8em -6em; } }
+
+/* Paket P: Szenenkarte neben der Ritual-Meldung (96x128) */
+.ritualcard { float: left; width: 12em; height: 16em; margin: 0 1em 0.5em 0; image-rendering: pixelated; }
