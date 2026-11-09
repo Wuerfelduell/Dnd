@@ -1,10 +1,11 @@
-import { itemIconUrl } from '../world/assets.js';
+import { itemIconUrl, itemIcon32Url, pathwayEmblemUrl, pathwayCardUrl, COIN_URL } from '../world/assets.js';
 
-/** 16x16-Icon vor einem Item-Namen (falls es eins gibt). */
-const itemIcon = (id) => {
-  const url = itemIconUrl(id);
-  return url ? `<img class="item-icon" src="${url}" alt="" width="16" height="16">` : '';
-};
+/** 16x16-Icon vor einem Item-Namen. Lädt es nicht, verschwindet es einfach. */
+const itemIcon = (id) => `<img class="item-icon" src="${itemIconUrl(id)}" alt="" width="16" height="16" onerror="this.remove()">`;
+/** Größeres Icon (Tränke in 32px, sonst das 16er doppelt). */
+const itemIconBig = (id) => `<img class="item-icon big" src="${itemIcon32Url(id) ?? itemIconUrl(id)}" alt="" width="32" height="32" onerror="this.remove()">`;
+const emblem = (pid, size = 16) => `<img class="emblem" src="${pathwayEmblemUrl(pid, size)}" alt="" width="${size}" height="${size}" onerror="this.remove()">`;
+const coin = '<img class="coin" src="' + COIN_URL + '" alt="" width="16" height="16" onerror="this.remove()">';
 
 // HTML-Oberfläche über dem Spiel-Canvas: HUD, Hinweise, Dialoge, Notizbuch,
 // Stadtkarte und Enden. Text als HTML bleibt bei jeder Skalierung scharf.
@@ -113,7 +114,7 @@ export class Ui {
   }
 
   updateMoney() {
-    this.$('.money').textContent = `${this.state.money} Schilling`;
+    this.$('.money').innerHTML = `${coin}${this.state.money} Schilling`;
   }
 
   updateUnruhe() {
@@ -409,10 +410,10 @@ export class Ui {
       } else if (it.kind === 'formula') action = '<button class="small" data-recipe="1">Rezept</button>';
       else if (it.kind === 'ingredient') action = '<span class="muted">Zutat</span>';
       const stat = it.kind === 'weapon' ? ` <span class="muted">Angriff ${it.atk}${it.occult ? ', stark gegen Okkultes' : ''}</span>` : '';
-      return `<li class="item"><div>${itemIcon(it.id)}<strong>${esc(it.name)}</strong>${it.count > 1 ? ` ×${it.count}` : ''}${stat}<br><span class="desc">${esc(it.desc)}</span></div><div>${action}</div></li>`;
+      return `<li class="item"><div>${it.kind === 'potion' || it.kind === 'formula' ? itemIconBig(it.id) : itemIcon(it.id)}<strong>${esc(it.name)}</strong>${it.count > 1 ? ` ×${it.count}` : ''}${stat}<br><span class="desc">${esc(it.desc)}</span></div><div>${action}</div></li>`;
     }).join('');
     return `
-      <div class="status">Leben <strong>${s.hp}/${s.maxHp}</strong> · Nerven <strong>${Math.round(s.composure)}</strong> · Waffe <strong>${esc(w.name)}</strong> (Angriff ${w.atk}) · <strong>${s.money}</strong> Schilling</div>
+      <div class="status">Leben <strong>${s.hp}/${s.maxHp}</strong> · Nerven <strong>${Math.round(s.composure)}</strong> · Waffe <strong>${esc(w.name)}</strong> (Angriff ${w.atk}) · ${coin}<strong>${s.money}</strong> Schilling</div>
       <ul class="items">${rows || '<li class="empty">Deine Taschen sind leer.</li>'}</ul>`;
   }
 
@@ -486,7 +487,7 @@ export class Ui {
     if (!s.isBeyonder()) {
       return `
         <p class="lead">Du hast noch keinen Trank getrunken. Auf dem <strong>Nachtmarkt</strong> unter der Krähenbrücke erklärt dir Sabeth Orr die Pfade, Cornelius Kittering verkauft Formeln, Nell Rauhfuß die Zutaten. Gebraut wird am Kessel.</p>
-        <ul class="paths">${Object.values(all).map((p) => `<li><strong style="color:${p.color}">${esc(p.name)}</strong> <span class="muted">${Object.keys(p.seqs).sort((a, b) => b - a).map((k) => `${k}: ${esc(p.seqs[k].name)}`).join(' · ')}</span><br><em>„${esc(p.principle)}“</em> ${esc(p.digest_hint)}</li>`).join('')}</ul>
+        <ul class="paths">${Object.entries(all).map(([pid, p]) => `<li>${emblem(pid, 32)}<strong style="color:${p.color}">${esc(p.name)}</strong> <span class="muted">${Object.keys(p.seqs).sort((a, b) => b - a).map((k) => `${k}: ${esc(p.seqs[k].name)}`).join(' · ')}</span><br><em>„${esc(p.principle)}“</em> ${esc(p.digest_hint)}</li>`).join('')}</ul>
         ${this.recipesHtml(false)}`;
     }
     const p = s.pathwayDef();
@@ -503,7 +504,7 @@ export class Ui {
     }).join('');
     const d = Math.floor(cur.digestion);
     return `
-      <div class="pathhead"><strong style="color:${p.color}">${esc(p.name)}</strong> · Sequenz ${cur.seq}: ${esc(s.seqDef().name)}</div>
+      <div class="pathhead"><div class="pathcard"><img src="${pathwayCardUrl(cur.id)}" alt="" width="96" height="128" onerror="this.parentNode.remove()"><span style="color:${p.color}">Sequenz ${cur.seq}<br>${esc(s.seqDef().name)}</span></div><div>${emblem(cur.id, 32)}<strong style="color:${p.color}">${esc(p.name)}</strong> · Sequenz ${cur.seq}: ${esc(s.seqDef().name)}</div></div>
       <div class="meters2">
         <div class="meter"><span>Verdaut</span><div class="bar"><div class="dfill" style="width:${d}%"></div></div><em>${d} %</em></div>
         <div class="meter"><span>Unruhe</span><div class="bar"><div class="ufill ${s.unruhe >= 60 ? 'low' : ''}" style="width:${s.unruhe}%"></div></div><em>${Math.round(s.unruhe)}</em></div>
@@ -516,8 +517,8 @@ export class Ui {
   recipesHtml(withButtons) {
     const list = this.state.recipes();
     if (!list.length) return withButtons ? '<p class="empty">Du besitzt keine Formel. Cornelius Kittering verkauft welche.</p>' : '';
-    return `<h4>Formeln</h4><ul class="recipes">${list.map((r, i) => `<li><div><strong>${esc(r.name)}</strong> <span class="muted">Seq. ${r.seq}</span><br>
-      ${r.ingredients.map((x) => `<span class="${x.have >= x.need ? 'good' : 'muted'}">${esc(x.name)} ${x.have}/${x.need}</span>`).join(' · ')}</div>
+    return `<h4>Formeln</h4><ul class="recipes">${list.map((r, i) => `<li><div>${itemIconBig(r.potion)}<strong>${esc(r.name)}</strong> <span class="muted">Seq. ${r.seq}</span><br>
+      ${r.ingredients.map((x) => `<span class="ing ${x.have >= x.need ? 'good' : 'muted'}">${itemIcon(x.id)}${esc(x.name)} ${x.have}/${x.need}</span>`).join(' · ')}</div>
       ${withButtons ? `<div><button class="small" data-brew="${r.formula}" ${r.ready ? '' : 'disabled'}><span class="key">${i + 1}</span> Brauen</button></div>` : ''}</li>`).join('')}</ul>`;
   }
 
@@ -544,6 +545,7 @@ export class Ui {
 
   brew(formulaId) {
     const r = this.state.brew(formulaId);
+    this.scene?.playBrewFx?.(r.ok);
     this.openBrew(`<span class="${r.ok ? 'good' : ''}">${esc(r.text)}</span>`);
   }
 
@@ -556,13 +558,13 @@ export class Ui {
     if (mode === 'buy') {
       const stock = s.shopStock(merchantId);
       this.shop.entries = stock.map((e) => ({ id: e.item, disabled: !!e.locked || e.owned || s.money < e.price }));
-      rows = stock.map((e, i) => `<li class="item ${e.locked ? 'lockedrow' : ''}"><div><strong>${esc(e.name)}</strong>${s.itemCount(e.item) ? ` <span class="muted">(hast ${s.itemCount(e.item)})</span>` : ''}<br>
+      rows = stock.map((e, i) => `<li class="item ${e.locked ? 'lockedrow' : ''}"><div>${itemIconBig(e.item)}<strong>${esc(e.name)}</strong>${s.itemCount(e.item) ? ` <span class="muted">(hast ${s.itemCount(e.item)})</span>` : ''}<br>
         <span class="desc">${esc(e.locked ? `🔒 ${e.locked}` : e.desc)}</span></div>
         <div>${e.owned ? '<span class="badge likely">gekauft</span>' : `<button class="small" data-buy="${i}" ${this.shop.entries[i].disabled ? 'disabled' : ''}>${i < 9 ? `<span class="key">${i + 1}</span> ` : ''}${e.price} Sch.</button>`}</div></li>`).join('');
     } else {
       const sellable = s.items().filter((it) => s.sellPrice(it.id) !== null);
       this.shop.entries = sellable.map((it) => ({ id: it.id }));
-      rows = sellable.map((it, i) => `<li class="item"><div><strong>${esc(it.name)}</strong>${it.count > 1 ? ` ×${it.count}` : ''}<br><span class="desc">${esc(it.desc)}</span></div>
+      rows = sellable.map((it, i) => `<li class="item"><div>${itemIconBig(it.id)}<strong>${esc(it.name)}</strong>${it.count > 1 ? ` ×${it.count}` : ''}<br><span class="desc">${esc(it.desc)}</span></div>
         <div><button class="small" data-sell="${i}">${i < 9 ? `<span class="key">${i + 1}</span> ` : ''}${s.sellPrice(it.id)} Sch.</button></div></li>`).join('') || '<li class="empty">Nichts, was Gorse haben will.</li>';
     }
     const el = this.open('shop', `
@@ -571,7 +573,7 @@ export class Ui {
       ${m.buys ? `<div class="tabs"><button class="tab ${mode === 'buy' ? 'sel' : ''}" data-mode="buy">Kaufen</button><button class="tab ${mode === 'sell' ? 'sel' : ''}" data-mode="sell">Verkaufen</button> <span class="muted">Wechseln mit <span class="key">V</span></span></div>` : ''}
       <ul class="items shoplist">${rows}</ul>
       <div class="feedback">${feedback}</div>
-      <div class="actions"><span class="purse">${s.money} Schilling</span><button data-act="close">Gehen <span class="key">Esc</span></button></div>`, 'notebook shop');
+      <div class="actions"><span class="purse">${coin}${s.money} Schilling</span><button data-act="close">Gehen <span class="key">Esc</span></button></div>`, 'notebook shop');
     el.querySelectorAll('[data-buy]').forEach((b) => { b.onclick = () => this.shopPick(Number(b.dataset.buy)); });
     el.querySelectorAll('[data-sell]').forEach((b) => { b.onclick = () => this.shopPick(Number(b.dataset.sell)); });
     el.querySelectorAll('[data-mode]').forEach((b) => { b.onclick = () => this.openShop(merchantId, b.dataset.mode); });
