@@ -78,6 +78,67 @@ const THEMES = {
   }),
   gaskanaele: roomTheme('gaskanaele', { extra: (ch) => (ch === '~' ? themeKeys('gaskanaele', 'water')[0] : null) }),
   sternwarte: roomTheme('sternwarte'),
+  // Paket G: Gefahrengebiete
+  g_marsch(ch, at, v, x, y) {
+    const k = (g, seed = 0) => pickKey(themeKeys('g_marsch', g), x, y, seed);
+    const land = (c) => c !== undefined && c !== '~';
+    switch (ch) {
+      case 'g': return k('floor');
+      case 'p': return k('mud', 1);
+      case 'P': return k('wood', 2);
+      case '~':
+        if (land(at(0, -1))) return k('shoreN', 3);
+        if (land(at(0, 1))) return k('shoreS', 3);
+        return hash2(x, y, 41) > 0.97 ? k('gas', 4) : k('water', 4);
+      case 'r': return k('rocks', 5);
+      case 'Y': return k('reeds', 6);
+      case 'G': return k('rocks', 7);
+      default: return null;
+    }
+  },
+  g_katakomben(ch, at, v, x, y) {
+    const k = (g, seed = 0) => pickKey(themeKeys('g_katakomben', g), x, y, seed);
+    switch (ch) {
+      case 's': return hash2(x, y, 42) > 0.9 ? k('moss', 1) : k('floor');
+      case 'I': {
+        const below = at(0, 1);
+        if (below === undefined || 'IK'.includes(below)) {
+          // nur die Kante über einer Wandfront bekommt die Steinplatte, das Innere bleibt dunkel
+          const below2 = at(0, 2);
+          return below2 !== undefined && !'IK'.includes(below2) ? k('wallTop', 2) : null;
+        }
+        const r = hash2(x, y, 43);
+        return r > 0.93 ? k('candle', 3) : r > 0.8 ? k('niche', 3) : k('wallFace', 3);
+      }
+      case 'G': return k('grave', 4);
+      case 'K': return k('pillar', 5);
+      case 'B': return k('bones', 6);
+      case 'r': return k('rubble', 7);
+      default: return null;
+    }
+  },
+  g_kraterwald(ch, at, v, x, y) {
+    const k = (g, seed = 0) => pickKey(themeKeys('g_kraterwald', g), x, y, seed);
+    switch (ch) {
+      case 'g': return hash2(x, y, 44) > 0.85 ? k('tufts', 1) : k('floor');
+      case 'p': return k('path', 2);
+      case 'c': return k('ash', 3);
+      case 's': return k('shards', 4);
+      case 'r': return k('rocks', 5);
+      case 'Y': return k('trees', 6);
+      default: return null;
+    }
+  },
+  g_pestgassen(ch, at, v, x, y) {
+    const k = (g, seed = 0) => pickKey(themeKeys('g_pestgassen', g), x, y, seed);
+    switch (ch) {
+      case '.': return hash2(x, y, 45) > 0.85 ? k('weeds', 1) : k('floor');
+      case ',': return hash2(x, y, 46) > 0.6 ? k('weeds', 1) : k('floor');
+      case 'r': return k('rubble', 2);
+      case 'f': return k('barricade', 3);
+      default: return null;
+    }
+  },
   nachtmarkt(ch, at, v, x, y) {
     switch (ch) {
       case '#':
@@ -482,6 +543,11 @@ export class WorldScene extends Phaser.Scene {
       s.on('unruhe', () => this.updateCracks()),
     );
     this.updateCracks();
+    // Paket G: pulsierender Rand in Gefahrengebieten
+    if (this.mapDef.danger && this.textures.exists('g_gefahr_vignette')) {
+      this.add.sprite(0, 0, 'g_gefahr_vignette').setOrigin(0).setScrollFactor(0).setDepth(DEPTH.vision + 1)
+        .setAlpha(0.35 + 0.08 * this.mapDef.danger).play('g_gefahr_vignette');
+    }
     // Bereits bekannte Hinweise: kein Funkeln mehr
     for (const it of this.interactables) {
       if ((it.def.clue && s.hasClue(it.def.clue)) || (it.def.done_flag && s.flags.has(it.def.done_flag))) {

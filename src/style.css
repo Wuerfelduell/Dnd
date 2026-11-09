@@ -419,6 +419,17 @@ img.scene { display: block; width: 30em; height: 16.875em; margin: 0 auto 0.6em;
 @keyframes youmark { from { background-position: 0 0; } to { background-position: -8em 0; } }
 .emblem16 { display: inline-block; width: 1.5em; height: 1.5em; background-size: 10.5em 6em; background-position: 0 0; background-repeat: no-repeat; image-rendering: pixelated; vertical-align: -0.35em; margin-right: 0.3em; }
 
+/* Paket G: Gefahrengebiete und Beute */
+.dangericon { display: inline-block; width: 2em; height: 2em; background-size: 64em 142em; background-repeat: no-repeat; image-rendering: pixelated; vertical-align: -0.6em; margin-right: 0.3em; }
+.raritygem { display: inline-block; width: 1em; height: 1em; background-size: 32em 14em; background-repeat: no-repeat; image-rendering: pixelated; vertical-align: -0.1em; margin-right: 0.25em; }
+.zonebanner { position: absolute; left: 50%; top: 4.5em; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; justify-content: center;
+  background-repeat: no-repeat; image-rendering: pixelated; pointer-events: none; z-index: 5; transition: opacity 0.8s; animation: zonein 0.5s ease-out; }
+.zonebanner span { color: #f0d8b0; font-size: 1.1em; text-shadow: 0 0.125em 0 #000; }
+.zonebanner small { color: #e07a60; font-size: 0.75em; text-shadow: 0 0.125em 0 #000; }
+.zonebanner.out { opacity: 0; }
+@keyframes zonein { from { opacity: 0; transform: translate(-50%, -0.6em); } }
+.notebook .bestiary { display: flex; flex-wrap: wrap; justify-content: flex-start; gap: 0.6em; max-height: 25em; overflow-y: auto; overflow-x: hidden; }
+.notebook .bestiary img { width: 9em; height: 12em; }
 /* Querverbindung: Information aus einem anderen Fall */
 .notebook .fact .cross { display: block; font-size: 0.8em; color: var(--occult); font-style: italic; }
 /* Eigenes Büro: Lagerschrank und Fallwand */

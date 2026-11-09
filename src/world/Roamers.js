@@ -1,7 +1,7 @@
 import Phaser from 'phaser';
 import { TILE } from './textures.js';
 import { DEPTH } from './Lighting.js';
-import { overworldIdFor, LOOT_SHEETS } from './assets.js';
+import { overworldIdFor, LOOT_SHEETS, RARITY_SHEET } from './assets.js';
 import { lootRarity, lootList, rollLoot, takeLoot, isEmptyLoot, RARITY_COLORS, CONTAINERS, CONTAINER_NAMES } from '../core/Loot.js';
 
 // Gefahrengebiete: Gegner, die sichtbar über die Karte streifen, dich bemerken und jagen.
@@ -54,6 +54,11 @@ export class Roamers {
       this.makeSprite(r, def.encounter);
       r.shadow = s.add.ellipse(x, y + 1, r.boss ? 26 : 14, r.boss ? 8 : 5, 0x000000, 0.35);
       r.alert = this.makeAlert(x, y - 30, enc.occult);
+      // Paket G: Elite und Bosse tragen eine flackernde Aura
+      if ((r.elite || r.boss) && s.textures.exists('g_monster_fx_elite')) {
+        r.aura = s.add.sprite(x, y, 'g_monster_fx_elite').setOrigin(0.5, 0.8).setBlendMode(Phaser.BlendModes.ADD).setAlpha(0.75).setScale(r.boss ? 1.4 : 1);
+        r.aura.play('g_monster_fx_elite');
+      }
       // Leuchtende Augen bzw. Aura, damit man sie im Dunkeln kommen sieht
       const color = r.elite ? 0xff6050 : enc.tint ? hex(enc.tint) : 0x6fe0d0;
       r.light = s.lighting.add({ follow: r.sprite, offsetY: -r.sprite.displayHeight * 0.5, radius: r.boss ? 56 : r.elite ? 34 : 26, intensity: r.boss ? 0.6 : 0.42,
@@ -208,6 +213,7 @@ export class Roamers {
     const depth = 100 + y + 2;
     r.sprite.setDepth(depth);
     r.shadow.setPosition(x, y + 2).setDepth(depth - 1);
+    r.aura?.setPosition(x, y + 2).setDepth(depth - 0.5);
     const top = y + 2 - r.sprite.displayHeight * r.sprite.originY;
     r.alert.setPosition(x, top - 2 + Math.sin(time * 0.012) * 1.5).setVisible(r.mode === 'chase');
     r.label?.setPosition(x, top - (r.mode === 'chase' ? 14 : 2));
@@ -248,7 +254,7 @@ export class Roamers {
   kill(r) {
     r.alive = false;
     r.body.body.enable = false;
-    const parts = [r.sprite, r.shadow, r.alert, r.label].filter(Boolean);
+    const parts = [r.sprite, r.shadow, r.alert, r.label, r.aura].filter(Boolean);
     r.alert.setVisible(false);
     this.scene.tweens.add({ targets: parts, alpha: 0, duration: 500, onComplete: () => parts.forEach((o) => o.destroy()) });
   }
@@ -271,6 +277,13 @@ export class Roamers {
     if (!def) {
       sprite.setScale(0.2);
       s.tweens.add({ targets: sprite, scale: 1, y: { from: y - 10, to: y }, duration: 380, ease: 'Back.out' });
+    }
+    // Paket G: Lichtsäule in der Farbe der Seltenheit
+    const beam = `g_selten_beam_${RARITY_SHEET[loot ? rarity : 'selten']}`;
+    if (s.textures.exists(beam)) {
+      const b = s.add.sprite(x, y - 2, beam).setOrigin(0.5, 1).setDepth(DEPTH.dark + 1).setBlendMode(Phaser.BlendModes.ADD).setAlpha(0.7);
+      b.play(beam);
+      item.parts.push(b);
     }
     item.glow = s.lighting.add({ x, y: y - 6, radius: 24, intensity: 0.55, color, glowAlpha: 0.45, flicker: 0.3, active: () => item.active });
     item.glint = s.add.image(x + 3, y - 9, 'glint').setDepth(DEPTH.dark + 1).setAlpha(0).setTint(color).setBlendMode(Phaser.BlendModes.ADD);

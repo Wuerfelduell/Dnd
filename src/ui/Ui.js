@@ -7,6 +7,7 @@ import {
   TURN_PORTRAITS, TURN_PORTRAITS_URL, BESTIARY, bestiaryUrl,
   headUrl, sourceKind, sourceKindUrl, inspectUrl, RISK_ICONS, RISK_ICONS_URL, JOURNAL_FRAME, JOURNAL_FRAME_URL, choiceRisk, riskOf,
   factionEmblemUrl, TRAVEL_MODES_URL, TRAVEL_MODE_ICONS, TRAVEL_MARKER_URL,
+  DANGER_URL, DANGER_ICONS, DANGER_BANNER, RARITY_SHEET, RARITY_SHEET_URL, RARITY_GEMS,
 } from '../world/assets.js';
 import { sourceOf } from '../core/sources.js';
 import { caseHints, nextDeduction } from '../core/hints.js';
@@ -82,10 +83,19 @@ const sourceFace = (content, clue, unreliable = false) => {
   const [url, cell, cols] = SOURCE_ICONS[src.type] ?? SOURCE_ICONS.object;
   return `<span class="srcface icon" title="${title}" style="background-image:url(${url});background-size:${cols * 100}% 100%;background-position:${(cell / (cols - 1)) * 100}% 0"></span>`;
 };
+/** Paket G: Gefahrenstufe (1 bis 5) und Edelstein der Seltenheit. */
+const dangerIcon = (n) => {
+  const [x, y] = DANGER_ICONS[Math.min(5, Math.max(1, n)) - 1];
+  return `<span class="dangericon" style="background-image:url(${DANGER_URL});background-position:-${x / 8}em -${y / 8}em"></span>`;
+};
+const rarityGem = (r) => {
+  const [x, y] = RARITY_GEMS[RARITY_SHEET[r]] ?? [];
+  return x === undefined ? '' : `<span class="raritygem" style="background-image:url(${RARITY_SHEET_URL});background-position:-${x / 8}em -${y / 8}em"></span>`;
+};
 const coin = '<img class="coin" src="' + COIN_URL + '" alt="" width="16" height="16" onerror="this.remove()">';
 /** Beute als Liste mit Icon, Anzahl und Seltenheit (Farbe). */
 const lootHtml = (loot, items) => {
-  const rows = lootList(loot, items).map((e) => `<li class="loot-row rar-${e.rarity}">${itemIcon(e.id)}<strong>${esc(e.name)}</strong>${e.n > 1 ? ` ×${e.n}` : ''} <span class="rar">${RARITY_NAMES[e.rarity]}</span></li>`);
+  const rows = lootList(loot, items).map((e) => `<li class="loot-row rar-${e.rarity}">${itemIcon(e.id)}<strong>${esc(e.name)}</strong>${e.n > 1 ? ` ×${e.n}` : ''} <span class="rar">${rarityGem(e.rarity)}${RARITY_NAMES[e.rarity]}</span></li>`);
   if (loot?.money) rows.unshift(`<li class="loot-row">${coin}<strong>${loot.money} Schilling</strong></li>`);
   return rows.length ? `<ul class="loot">${rows.join('')}</ul>` : '';
 };
@@ -208,8 +218,10 @@ export class Ui {
   onSceneReady(scene) {
     this.scene = scene;
     const map = this.state.content.maps[this.state.map];
-    this.$('.place').textContent = map.danger ? `${map.name} · Gefahr ${'☠'.repeat(map.danger)}` : map.name;
+    this.$('.place').innerHTML = map.danger ? `${dangerIcon(map.danger)}${esc(map.name)} · Gefahr ${'☠'.repeat(map.danger)}` : esc(map.name);
     this.$('.place').classList.toggle('danger', !!map.danger);
+    if (map.danger && this.lastZone !== map.id) this.zoneBanner(map);
+    this.lastZone = map.danger ? map.id : null;
     this.updateHonor();
     this.updateHp();
     this.updateMoney();
@@ -393,6 +405,19 @@ export class Ui {
     const n = s.factSources(clue.fact).length;
     const extra = `<div class="factline">${this.badge(status)} ${esc(s.fact(clue.fact).text)} <span class="muted">(${n} ${n === 1 ? 'Quelle' : 'Quellen'})</span></div>`;
     this.showMessage(clue.name, clue.text, { extra, face: sourceFace(s.content, clue), footer: isNew ? `Quelle: ${clue.source}. Im Notizbuch vermerkt.` : 'Steht bereits in deinem Notizbuch.' });
+  }
+
+  /** Paket G: eiserne Plakette beim Betreten eines Gefahrengebiets. */
+  zoneBanner(map) {
+    this.root.querySelector('.zonebanner')?.remove();
+    const [x, y, w, h] = DANGER_BANNER;
+    const el = document.createElement('div');
+    el.className = 'zonebanner';
+    el.style.cssText = `width:${w / 6}em;height:${h / 6}em;background-image:url(${DANGER_URL});background-size:${512 / 6}em ${1136 / 6}em;background-position:-${x / 6}em -${y / 6}em`;
+    el.innerHTML = `<span>${esc(map.name)}</span><small>Gefahrenstufe ${map.danger}</small>`;
+    this.root.appendChild(el);
+    setTimeout(() => el.classList.add('out'), 2600);
+    setTimeout(() => el.remove(), 3400);
   }
 
   // --- Dialoge --------------------------------------------------------------
