@@ -2,7 +2,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { existsSync, readFileSync } from 'node:fs';
 import { loadContent } from './helpers.js';
-import { SHEETS, BATTLE_SHEETS, ANIM_SHEETS, TILE_CELLS, PROP_CELLS, PROP_ANIMS, CHARACTER_SHEETS, ENCOUNTER_SHEETS, ENEMY_BATTLE_SHEETS, THEME_TILE_LIST, PORTRAITS, MAP_MARKERS, C_CHARACTERS, BATTLE_BACKGROUNDS, ENCOUNTER_BACKGROUNDS, SKILL_FX, SKILL_ICONS, STATUS_ICONS, PATHWAY_POSES, WEAPON_POSES, itemIconUrl, itemIcon32Url, pathwayEmblemUrl, pathwayCardUrl, COIN_URL,
+import { SHEETS, BATTLE_SHEETS, ANIM_SHEETS, TILE_CELLS, PROP_CELLS, PROP_ANIMS, CHARACTER_SHEETS, ENCOUNTER_SHEETS, ENEMY_BATTLE_SHEETS, THEME_TILE_LIST, PORTRAITS, MAP_MARKERS, C_CHARACTERS, BATTLE_BACKGROUNDS, ENCOUNTER_BACKGROUNDS, SKILL_FX, SKILL_ICONS, STATUS_ICONS, PATHWAY_POSES, WEAPON_POSES, itemIconUrl, itemIcon32Url, pathwayEmblemUrl, pathwayCardUrl, COIN_URL, bossIntroImage,
   REGION_SHEETS, ICON_STRIPS, CASE_SHEETS, WHOLE_PROPS, FACADES, E_CHARACTERS, PORTRAIT_SPECIAL, PORTRAIT_MOODS, ENDING_IMAGES, endingImageUrl,
   caseFileUrl, SCENES, sceneUrl, CITY_MAP_URL, CITY_FOG_URL, QUEST_UI_URL,
   OVERWORLD_SHEETS, BESTIARY, bestiaryUrl, F_EQUIPMENT, BOSS_INTROS, F_UI_SHEETS, overworldIdFor } from '../src/world/assets.js';
@@ -136,7 +136,7 @@ test('Paket C: Portraits, Lauf-Sheets und Kartenmarker sind vollständig', () =>
 
 // --- Paket D (Stadt) und E (Fälle) -------------------------------------------------
 const manifest = (name) => JSON.parse(readFileSync(sprite(`manifest-${name}.json`), 'utf8'));
-const MANIFEST_FILES = { manifestStadt: manifest('stadt'), manifestFaelle: manifest('faelle'), manifestJournal: manifest('journal'), manifestReise: manifest('reise'), manifestWildnis: manifest('wildnis') };
+const MANIFEST_FILES = { manifestStadt: manifest('stadt'), manifestFaelle: manifest('faelle'), manifestJournal: manifest('journal'), manifestReise: manifest('reise'), manifestWildnis: manifest('wildnis'), manifestGegner3: manifest('gegner3') };
 const regionNames = (def) => {
   const regions = Array.isArray(def.regions) ? def.regions.map((r) => r.name) : Object.keys(def.regions ?? {});
   return [...regions, ...Object.keys(def.animations ?? {}), ...Object.keys(def.regionAnimations ?? {})];
@@ -216,7 +216,7 @@ test('Paket F: Bosse, Kartengegner, Bestiarium und Ausrüstung liegen bereit', (
     assert.ok(existsSync(file(itemIconUrl(id))), id);
     assert.ok(existsSync(file(itemIcon32Url(id))), id);
   }
-  for (const id of Object.values(BOSS_INTROS)) assert.ok(existsSync(sprite(`ui/F_08_boss_${id}.png`)), id);
+  for (const id of Object.values(BOSS_INTROS)) assert.ok(existsSync(sprite(bossIntroImage(id)[1])), id);
   for (const [key, [path]] of Object.entries(F_UI_SHEETS)) assert.ok(m.assets.some((a) => a.id === key && a.file === path), key);
   // Wilde Gegner mit passendem Kampf-Sheet bekommen ein Lauf-Sheet
   assert.equal(overworldIdFor('nebelgeist', { sheet: 'enemy_gasgeist' }), 'gasgeist');
@@ -303,4 +303,31 @@ test('Paket G: Monster, Gebiete, Beute und Gefahren-Anzeige liegen bereit', asyn
   G.DANGER_ICONS.forEach(([x, y], i) => assert.deepEqual([danger[`danger_${i + 1}`].x, danger[`danger_${i + 1}`].y], [x, y]));
   const r = m.assets.find((a) => a.id === 'rarity').regions;
   for (const [k, [x, y]] of Object.entries(G.RARITY_GEMS)) assert.deepEqual([r[`gem_${k}`].x, r[`gem_${k}`].y], [x, y], k);
+});
+
+test('Paket L: Stadtgegner, Kopfgelder und Beute liegen bereit', async () => {
+  const L = await import('../src/world/assets.js');
+  const m = JSON.parse(readFileSync(sprite('manifest-gegner3.json'), 'utf8'));
+  const byFile = (path) => m.assets.find((a) => a.file === path);
+  const order = m.assets.find((a) => a.id === 'L_zug_portraits').frameNames;
+  for (const [id, [w, ow]] of Object.entries(L.L_ENEMIES)) {
+    const def = byFile(L.BATTLE_SHEETS[`enemy_${id}`][0]);
+    assert.equal(def?.frameWidth, w, id);
+    const [atk, spc] = id === 'schmugglerkoenigin' ? ['attack_cutlass', 'attack_crate'] : ['attack_a', 'attack_b'];
+    assert.ok(def.animations[atk] && def.animations[spc] && def.animations.hurt && def.animations.defeated, id);
+    const owDef = byFile(L.OVERWORLD_SHEETS[id][0]);
+    assert.deepEqual([owDef?.frameWidth, owDef?.frameHeight], [ow, 32], id);
+    assert.ok(existsSync(file(L.bestiaryUrl(id))), id);
+    assert.ok(L.BESTIARY.includes(id), id);
+    assert.equal(order[L.TURN_PORTRAITS[id]], id);
+  }
+  for (const [, [key, path]] of Object.entries(L.BOSS_INTRO_IMAGES)) assert.ok(existsSync(sprite(path)), key);
+  for (const bg of ['daecher', 'markthalle']) assert.ok(existsSync(sprite(`battle/${L.BATTLE_BACKGROUNDS[bg]}.png`)), bg);
+  for (const fx of Object.values(L.ENCOUNTER_FX).map((f) => f.attack).filter((s) => s?.startsWith('fx_'))) assert.ok(existsSync(sprite(L.BATTLE_SHEETS[fx][0])), fx);
+  for (const id of L.L_ITEMS) {
+    assert.ok(existsSync(file(itemIconUrl(id))), id);
+    assert.ok(existsSync(file(itemIcon32Url(id))), id);
+  }
+  for (const id of ['laternendieb', 'kanalschmuggler']) assert.ok(existsSync(file(L.wantedUrl(id))), id);
+  assert.ok(existsSync(sprite(SHEETS.l_schmugglerkoenigin)));
 });
