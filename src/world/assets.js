@@ -4,6 +4,7 @@
 // bleibt automatisch beim Platzhalter.
 
 const BASE = './sprites/';
+export const SPRITE_BASE = BASE;
 
 /** Quell-Sheets: Key → Pfad unter public/sprites/. */
 export const SHEETS = {
@@ -393,7 +394,11 @@ export const BATTLE_BACKGROUNDS = {
   theater: 'bg_spiegel', uhrturm: 'bg_archiv', sternwarte: 'bg_archiv', schlachthof: 'bg_lagerhaus', gaskanaele: 'bg_hafen',
 };
 /** Begegnung → eigener Hintergrund (vor dem der Karte). */
-export const ENCOUNTER_BACKGROUNDS = { archive_rats: 'bg_archiv', grubenkampf: 'bg_grube', mirror_shade: 'bg_spiegel' };
+export const ENCOUNTER_BACKGROUNDS = {
+  archive_rats: 'bg_archiv', grubenkampf: 'bg_grube', mirror_shade: 'bg_spiegel',
+  // Begegnungen auf dem schnellen Reiseweg (travel.json)
+  reise_ratten: 'bg_hafen', reise_strassenraeuber: 'bg_ashgrove', reise_nebelhund: 'bg_ashgrove', reise_irrlicht: 'bg_hafen', reise_kultist: 'bg_altmarkt',
+};
 
 /** Fähigkeit → Zelle in ui/skill_icons.png (7 Pfadspalten x Sequenz 9/8/7). */
 export const SKILL_ICONS = {

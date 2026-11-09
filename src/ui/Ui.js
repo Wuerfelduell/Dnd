@@ -1,9 +1,10 @@
 import { DIGEST_LABELS } from '../core/Pathways.js';
 import {
   itemIconUrl, itemIcon32Url, pathwayEmblemUrl, pathwayCardUrl, COIN_URL, SKILL_ICONS, SKILL_ICONS_URL, STATUS_ICONS, STATUS_ICONS_URL,
-  portraitUrl, PORTRAIT_MOODS, MAP_MARKERS, MAP_MARKERS_URL, LOG_MARKERS, LOG_MARKERS_URL, SOURCE_ICONS,
+  portraitUrl, PORTRAIT_MOODS, MAP_MARKERS, MAP_MARKERS_URL, LOG_MARKERS, LOG_MARKERS_URL, SOURCE_ICONS, SPRITE_BASE,
 } from '../world/assets.js';
 import { sourceOf } from '../core/sources.js';
+import { canHurry, travelSafe, travelFast, afterHurryFight } from '../core/Travel.js';
 
 /** 16x16-Icon vor einem Item-Namen. Lädt es nicht, verschwindet es einfach. */
 const itemIcon = (id) => `<img class="item-icon" src="${itemIconUrl(id)}" alt="" width="16" height="16" onerror="this.remove()">`;
@@ -251,6 +252,10 @@ export class Ui {
       this.showMessage('Kontrollverlust', text);
     } else if (this.state.pendingCombat && this.scene) {
       this.scene.startCombat(this.state.pendingCombat);
+    } else if (this.afterClose) {
+      const after = this.afterClose;
+      this.afterClose = null;
+      after();
     }
   }
 
@@ -280,7 +285,8 @@ export class Ui {
     el.querySelector('[data-act=continue]')?.addEventListener('click', this.titleContinue);
   }
 
-  showMessage(title, text, { footer = '', extra = '', face = '' } = {}) {
+  showMessage(title, text, { footer = '', extra = '', face = '', onClose = null } = {}) {
+    if (onClose) this.afterClose = onClose;
     const el = this.open('message', `
       <h3>${face}${esc(title)}</h3>
       <div class="text">${paragraphs(text)}</div>
@@ -369,23 +375,106 @@ export class Ui {
 
   // --- Stadtkarte ----------------------------------------------------------------
 
+  /** Gemalte Stadtkarte: Marker für jeden freigeschalteten Ort, danach die Reiseart. */
   openTravel(current) {
     const s = this.state;
+    const rules = s.content.travelRules;
     const dests = s.content.travel.filter((t) => t.map !== current && s.meets(t));
     this.travelDests = dests;
+    this.travelPick = null;
+    this.travelFrom = current;
+    const pins = rules.pins ?? {};
+    const pin = (map, cls, inner, attrs = '') => {
+      const [x, y] = pins[map];
+      const cell = MAP_MARKERS[map] ?? 0;
+      const col = cell % 13;
+      return `<button class="pin ${cls}" ${attrs} style="left:${x / 8}em;top:${y / 8}em">
+        <span class="mk" style="--c:${col};background-image:url(${MAP_MARKERS_URL})"></span>${inner}</button>`;
+    };
+    const here = pins[current] ? pin(current, 'here', '<span class="tag">Du bist hier</span>', 'disabled') : '';
+    const destPins = dests.map((d, i) => (pins[d.map] ? pin(d.map, '', `<span class="num">${i + 1}</span><span class="tag">${esc(d.name)}</span>`, `data-i="${i}"`) : '')).join('');
+    const unpinned = dests.map((d, i) => (pins[d.map] ? '' : `<button data-i="${i}"><span class="key">${i + 1}</span> ${esc(d.name)}</button>`)).join('');
     const el = this.open('travel', `
-      <h3>Stadtkarte von Kettlegate</h3>
-      <ol class="choices">${dests.map((d, i) => `<li><button data-i="${i}"><span class="key">${i + 1}</span> ${mapMarker(d.map)}${esc(d.name)} <span class="muted">${esc(d.desc)}</span></button></li>`).join('')}
-      <li><button data-act="stay"><span class="key">Esc</span> Hierbleiben</button></li></ol>`, 'travel');
-    el.querySelectorAll('[data-i]').forEach((b) => { b.onclick = () => this.travel(Number(b.dataset.i)); });
-    el.querySelector('[data-act=stay]').onclick = () => this.close();
+      <div class="map" style="background-image:url(${SPRITE_BASE}${rules.map_image})">
+        ${here}${destPins}
+        ${unpinned ? `<div class="unpinned">${unpinned}</div>` : ''}
+      </div>
+      <div class="modes hidden"></div>
+      <div class="mapbar">
+        <div class="info"><h3>Stadtkarte von Kettlegate</h3><span class="muted">Wähle ein Ziel mit Zahl oder Klick.</span></div>
+        <button data-act="stay"><span class="key">Esc</span> Hierbleiben</button>
+      </div>`, 'citymap');
+    el.querySelectorAll('[data-i]').forEach((b) => {
+      b.onclick = () => this.travel(Number(b.dataset.i));
+      b.onmouseenter = () => { if (this.travelPick === null) this.travelInfo(dests[Number(b.dataset.i)]); };
+    });
+    el.querySelector('[data-act=stay]').onclick = () => (this.travelPick === null ? this.close() : this.openTravel(current));
   }
 
+  travelInfo(d) {
+    const info = this.layer.querySelector('.citymap .info');
+    if (info) info.innerHTML = `<h3>${esc(d.name)}</h3><span class="muted">${esc(d.desc)}</span>`;
+  }
+
+  /** Ziel gewählt: jetzt die Reiseart. */
   travel(i) {
     const d = this.travelDests?.[i];
     if (!d) return;
-    this.close();
-    this.scene.travelTo(d.map, d.spawn);
+    const s = this.state;
+    const rules = s.content.travelRules;
+    this.travelPick = d;
+    this.travelInfo(d);
+    const el = this.layer.querySelector('.citymap');
+    el.querySelectorAll('.pin[data-i]').forEach((p) => p.classList.toggle('sel', Number(p.dataset.i) === i));
+    const safe = rules.modes.sicher;
+    const fast = rules.modes.schnell;
+    const hurry = canHurry(s);
+    const modes = el.querySelector('.modes');
+    modes.classList.remove('hidden');
+    modes.innerHTML = `
+      <button class="mode safe" data-mode="sicher"><b><span class="key">1</span> ${esc(safe.name)}</b>
+        <span class="muted">${esc(safe.desc)}</span><span class="gain">+${Math.round(s.maxHp * safe.heal_pct)} Leben · +${safe.nerves} Nerven · Journal</span></button>
+      <button class="mode fast" data-mode="schnell" ${hurry ? '' : 'disabled'}><b><span class="key">2</span> ${esc(fast.name)}</b>
+        <span class="muted">${esc(fast.desc)}</span><span class="cost">${hurry ? `−${fast.nerves_cost} Nerven · Monster · Beute` : `Zu wenig Nerven (mind. ${fast.nerves_cost})`}</span></button>`;
+    modes.querySelectorAll('[data-mode]').forEach((b) => { b.onclick = () => this.travelMode(b.dataset.mode); });
+    el.querySelector('[data-act=stay] .key').nextSibling.textContent = ' Anderes Ziel';
+  }
+
+  travelMode(mode) {
+    const d = this.travelPick;
+    if (!d) return;
+    const s = this.state;
+    const go = () => this.scene.travelTo(d.map, d.spawn);
+    if (mode === 'sicher') {
+      const r = travelSafe(s);
+      const parts = [`Die Kutsche rumpelt über das Kopfsteinpflaster nach ${d.name}. Du lehnst dich zurück und schlägst dein Journal auf.`];
+      if (r.hint) parts.push(`${r.hint.quest}: ${r.hint.text}`);
+      if (r.review) parts.push(`Eine Notiz, die noch auf eine zweite Quelle wartet: „${r.review}“`);
+      if (!r.hint && !r.review) parts.push('Keine offenen Fragen. Du genießt den Blick auf die nebligen Straßen.');
+      const gains = [r.healed > 0 ? `+${r.healed} Leben` : '', r.nerves > 0 ? `+${r.nerves} Nerven` : ''].filter(Boolean).join(', ');
+      this.showMessage('Unterwegs: Journal lesen', parts.join('\n\n'), { footer: gains || 'Du bist ausgeruht.', onClose: go });
+      return;
+    }
+    if (mode !== 'schnell' || !canHurry(s)) return;
+    const ev = travelFast(s);
+    if (ev.encounter) {
+      this.showMessage(ev.title, ev.text, {
+        footer: 'Ein Kampf steht bevor.',
+        onClose: () => this.scene.startCombat(ev.encounter, (result) => {
+          const loot = afterHurryFight(s, ev, result.outcome);
+          // Nach der Kampfmeldung: Beute zeigen und weiterreisen
+          this.afterClose = () => {
+            if (loot.length) this.showMessage('Beute', `Du durchsuchst die Stelle und findest:\n${loot.join('\n')}`, { onClose: go });
+            else go();
+          };
+        }),
+      });
+      return;
+    }
+    const lines = [ev.text];
+    if (ev.loot?.length) lines.push(`Gefunden:\n${ev.loot.join('\n')}`);
+    const footer = ev.lostMoney ? `−${ev.lostMoney} Schilling` : '';
+    this.showMessage(ev.title, lines.join('\n\n'), { footer, onClose: go });
   }
 
   // --- Notizbuch ---------------------------------------------------------------
@@ -809,8 +898,9 @@ export class Ui {
     else if ((this.modal === 'message' || this.modal === 'ending') && (confirm || k === 'escape')) this.close();
     else if (this.modal === 'dialogue' && num >= 0) this.choose(this.dialogue.keyMap[num]);
     else if (this.modal === 'dialogue' && confirm && this.dialogue?.keyMap.length === 1) this.choose(this.dialogue.keyMap[0]);
-    else if (this.modal === 'travel' && num >= 0) this.travel(num);
-    else if (this.modal === 'travel' && k === 'escape') this.close();
+    else if (this.modal === 'travel' && this.travelPick && (num === 0 || num === 1)) this.travelMode(num === 0 ? 'sicher' : 'schnell');
+    else if (this.modal === 'travel' && !this.travelPick && num >= 0) this.travel(num);
+    else if (this.modal === 'travel' && k === 'escape') { if (this.travelPick) this.openTravel(this.travelFrom); else this.close(); }
     else if (this.modal === 'notebook' && (k === 'j' || k === 'i' || k === 'p' || k === 'tab' || k === 'escape')) this.close();
     else if (this.modal === 'shop' && num >= 0) this.shopPick(num);
     else if (this.modal === 'shop' && k === 'v' && this.state.merchant(this.shop.id).buys) this.openShop(this.shop.id, this.shop.mode === 'buy' ? 'sell' : 'buy');

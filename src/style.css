@@ -303,3 +303,33 @@ button.small { font-size: 0.8em; padding: 0.1em 0.5em; }
 .notebook .digestlist { grid-template-columns: 1fr 1fr; }
 .notebook .digestlist li { display: flex; justify-content: space-between; font-size: 0.85em; padding: 0.15em 0.5em; border: 0.125em solid #2a2630; }
 .notebook .digestlist li.muted { grid-column: 1 / -1; border: none; }
+
+/* Stadtkarte mit Reisearten (travel.json): Karte 480x270 = 60em x 33.75em */
+.layer:has(.citymap) { padding: 0; align-items: stretch; background: #040408; }
+.panel.citymap { position: relative; width: 60em; height: 33.75em; padding: 0; border: none; box-shadow: none; background: #1a1712; overflow: hidden; }
+.citymap .map { position: absolute; inset: 0; background-size: 100% 100%; image-rendering: pixelated; }
+.citymap .pin { position: absolute; transform: translate(-50%, -50%); padding: 0; background: none; border: none; width: 2em; height: 2em; }
+.citymap .pin:hover:not(:disabled) { background: none; }
+.citymap .pin .mk { display: block; width: 2em; height: 2em; image-rendering: pixelated; background-repeat: no-repeat;
+  background-size: 26em 4em; background-position: calc(var(--c) * -2em) 0; filter: drop-shadow(0 0.125em 0 #000); }
+.citymap .pin:hover .mk, .citymap .pin.sel .mk, .citymap .pin.here .mk { background-position: calc(var(--c) * -2em) -2em; }
+.citymap .pin.here:disabled { opacity: 1; cursor: default; }
+.citymap .pin .num { position: absolute; right: -0.6em; top: -0.5em; font-size: 0.75em; color: var(--gold); background: #1a1420; border: 0.125em solid var(--brass); border-radius: 0.3em; padding: 0 0.25em; line-height: 1.1; }
+.citymap .pin .tag { position: absolute; left: 50%; top: 2.1em; transform: translateX(-50%); white-space: nowrap; font-size: 0.7em; color: var(--ink);
+  background: rgba(14, 12, 18, 0.85); padding: 0 0.35em; border-radius: 0.2em; opacity: 0; transition: opacity 0.15s; pointer-events: none; }
+.citymap .pin:hover .tag, .citymap .pin.sel .tag, .citymap .pin.here .tag { opacity: 1; }
+.citymap .pin.here .tag { color: var(--occult); }
+.citymap .unpinned { position: absolute; right: 0.6em; top: 0.6em; display: grid; gap: 0.2em; }
+.citymap .mapbar { position: absolute; left: 0.5em; right: 0.5em; bottom: 0.4em; display: flex; gap: 0.6em; align-items: center;
+  background: var(--panel); border: 0.125em solid var(--brass); padding: 0.15em 0.5em; }
+.citymap .mapbar .info { flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.citymap .mapbar .info h3 { display: inline; margin: 0 0.5em 0 0; font-size: 0.95em; }
+.citymap .mapbar .muted { color: var(--muted); font-size: 0.75em; }
+.citymap .mapbar > button[data-act=stay] { white-space: nowrap; font-size: 0.85em; }
+.citymap .modes { position: absolute; left: 50%; top: 0.5em; transform: translateX(-50%); width: 36em; display: grid; grid-template-columns: 1fr 1fr; gap: 0.4em;
+  background: var(--panel); border: 0.125em solid var(--brass); padding: 0.4em; }
+.citymap .modes.hidden { display: none; }
+.citymap .mode { text-align: left; display: flex; flex-direction: column; gap: 0.15em; font-size: 0.85em; }
+.citymap .mode .muted { font-size: 0.8em; color: var(--muted); }
+.citymap .mode .gain { color: #9ad06a; font-size: 0.8em; }
+.citymap .mode .cost { color: #d08a6a; font-size: 0.8em; }

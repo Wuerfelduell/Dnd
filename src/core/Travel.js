@@ -1,0 +1,90 @@
+// Reisen über die Stadtkarte: zwei Reisearten (Daten in src/data/travel.json).
+// - sicher: langsam, regeneriert Leben und Nerven, unterwegs liest man im Journal.
+// - schnell: kostet Nerven, Zufallsereignis (Monster mit Beute, Fundstück, Taschendieb, nichts).
+// Reine Spiellogik ohne Grafik, damit die Tests sie direkt prüfen können.
+
+const randInt = (rng, [min, max]) => min + Math.floor(rng() * (max - min + 1));
+
+function weighted(list, rng) {
+  const total = list.reduce((s, x) => s + (x.weight ?? 1), 0);
+  let r = rng() * total;
+  for (const x of list) {
+    r -= x.weight ?? 1;
+    if (r < 0) return x;
+  }
+  return list[list.length - 1];
+}
+
+export function travelData(state) {
+  return state.content.travelRules;
+}
+
+/** Darf der schnelle Weg genommen werden? */
+export function canHurry(state) {
+  return state.composure >= travelData(state).modes.schnell.nerves_cost;
+}
+
+/**
+ * Langsam und sicher: Leben und Nerven zurück, dazu ein Blick ins Journal.
+ * Ergebnis: { healed, nerves, hint, review } (hint/review können fehlen).
+ */
+export function travelSafe(state, rng = Math.random) {
+  const m = travelData(state).modes.sicher;
+  const healed = state.heal(Math.max(1, Math.round(state.maxHp * m.heal_pct)));
+  const before = state.composure;
+  state.setComposure(before + m.nerves);
+  const nerves = Math.round(state.composure - before);
+  const hint = state.nextHint();
+  // Eine Vermutung mit nur einer Quelle in Erinnerung rufen: Wer eine zweite findet, bestätigt sie.
+  const open = state.content.cases.flatMap((c) => state.knownFacts(c.id))
+    .filter((f) => state.factStatus(f) === 'suspected');
+  const review = open.length ? state.fact(open[Math.floor(rng() * open.length)]).text : null;
+  state.emit('changed');
+  return { healed, nerves, hint, review };
+}
+
+/** Beute würfeln und gutschreiben. Ergebnis: Liste lesbarer Zeilen. */
+export function rollLoot(state, tableId, rng = Math.random) {
+  const t = travelData(state).loot[tableId];
+  if (!t) throw new Error(`Unbekannte Beutetabelle: ${tableId}`);
+  const got = {};
+  let money = 0;
+  if (t.money) money = state.addMoney(randInt(rng, t.money), { loot: true, reason: 'Beute' });
+  for (let i = 0; i < (t.rolls ?? 1); i++) {
+    const pool = (t.items ?? []).filter((x) => !(x.unique && (state.itemCount(x.id) > 0 || got[x.id])));
+    if (!pool.length) break;
+    const pick = weighted(pool, rng);
+    if (!pick.id) continue;
+    got[pick.id] = (got[pick.id] ?? 0) + (pick.n ?? 1);
+  }
+  for (const [id, n] of Object.entries(got)) state.addItem(id, n);
+  const lines = Object.entries(got).map(([id, n]) => `${state.item(id).name}${n > 1 ? ` ×${n}` : ''}`);
+  if (money > 0) lines.unshift(`${money} Schilling`);
+  return lines;
+}
+
+/**
+ * Schnell und gefährlich: kostet Nerven und würfelt ein Ereignis.
+ * Ergebnis: das Ereignis plus { loot?: [...], lostMoney? }. Hat es eine `encounter`,
+ * muss der Aufrufer den Kampf starten und danach `afterHurryFight` aufrufen.
+ */
+export function travelFast(state, rng = Math.random) {
+  const rules = travelData(state);
+  state.setComposure(state.composure - rules.modes.schnell.nerves_cost);
+  const ev = weighted(rules.events.filter((e) => state.meets(e)), rng);
+  const out = { ...ev };
+  if (ev.takes_money) {
+    const before = state.money;
+    state.addMoney(-Math.min(state.money, randInt(rng, ev.takes_money)));
+    out.lostMoney = before - state.money;
+  }
+  if (!ev.encounter && ev.loot) out.loot = rollLoot(state, ev.loot, rng);
+  state.emit('changed');
+  return out;
+}
+
+/** Nach einem Kampf unterwegs: bei Sieg Beute. */
+export function afterHurryFight(state, ev, outcome, rng = Math.random) {
+  if (outcome !== 'won' || !ev.loot) return [];
+  return rollLoot(state, ev.loot, rng);
+}

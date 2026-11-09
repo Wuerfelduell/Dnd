@@ -1,6 +1,6 @@
 // Fügt alle Inhaltsdateien zu einem Objekt zusammen (ohne JSON-Imports, damit Node-Tests es nutzen können).
 // Hinweise, Informationen, Schlussfolgerungen und Dialoge teilen sich jeweils einen Namensraum über alle Fälle.
-export function buildContent({ campaign, quests, cases, maps, dialogues, items = {}, encounters = {}, pathways = null, market = null }) {
+export function buildContent({ campaign, quests, cases, maps, dialogues, items = {}, encounters = {}, pathways = null, market = null, travel = null }) {
   const merge = (list, key) => Object.assign({}, ...list.map((x) => x[key] ?? {}));
   return {
     ...campaign,
@@ -8,7 +8,8 @@ export function buildContent({ campaign, quests, cases, maps, dialogues, items =
     travel: [...(campaign.travel ?? []), ...(market?.travel ?? [])],
     quests,
     items: { ...items, ...(pathways?.items ?? {}), ...pathwayItems(pathways?.pathways ?? {}) },
-    encounters: { ...encounters, ...(market?.encounters ?? {}) },
+    encounters: { ...encounters, ...(market?.encounters ?? {}), ...(travel?.encounters ?? {}) },
+    travelRules: travel,
     pathways: pathways?.pathways ?? {},
     market,
     loot: market?.loot ?? {},
