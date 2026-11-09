@@ -596,6 +596,38 @@ export class WorldScene extends Phaser.Scene {
     this.registry.get('audio')?.play(footstepSound(this.mapDef.tiles, this.mapDef.rows?.[ty]?.[tx]), { volume: 0.6 });
   }
 
+  /**
+   * Paket AD: Gerede. Alle 9–16 Sekunden sagt eine sichtbare Figur in der Nähe einen kurzen Satz,
+   * passend zu Karte und Spielstand, ohne die letzten Sätze zu wiederholen.
+   */
+  updateGossip(delta, blocked) {
+    this.gossipT = (this.gossipT ?? 6000) - delta;
+    if (this.gossipT > 0 || blocked) return;
+    this.gossipT = 9000 + Math.random() * 7000;
+    const city = this.mapDef.city ?? 'kettlegate';
+    const lines = (this.state.content.gossip?.[city]?.[this.state.map] ?? []).filter((g) => this.state.meets(g));
+    if (!lines.length) return;
+    const near = this.interactables.filter((i) => i.kind === 'npc' && i.active && i.sprite?.visible
+      && Phaser.Math.Distance.Between(i.x, i.y, this.player.x, this.player.y) < 150);
+    if (!near.length) return;
+    this.gossipSeen ??= [];
+    const fresh = lines.filter((g) => !this.gossipSeen.includes(g.text));
+    const line = (fresh.length ? fresh : lines)[Math.floor(Math.random() * (fresh.length || lines.length))];
+    this.gossipSeen = [...this.gossipSeen.slice(-6), line.text];
+    const who = near[Math.floor(Math.random() * near.length)];
+    this.gossipBubble?.destroy();
+    const bubble = this.add.text(who.sprite.x, who.sprite.y - 34, line.text, {
+      fontFamily: 'monospace', fontSize: '8px', color: '#1a1c2c', backgroundColor: '#e9e0c8', padding: { x: 3, y: 2 }, wordWrap: { width: 130 }, align: 'center',
+    }).setOrigin(0.5, 1).setDepth(9000).setAlpha(0);
+    // im Bild halten: oben zu knapp → unter die Figur, seitlich an den Rand schieben
+    const view = this.cameras.main.worldView;
+    if (bubble.y - bubble.height < view.y + 2) bubble.setOrigin(0.5, 0).setY(who.sprite.y + 2);
+    bubble.setX(Phaser.Math.Clamp(bubble.x, view.x + bubble.width / 2 + 2, view.right - bubble.width / 2 - 2));
+    this.gossipBubble = bubble;
+    this.tweens.add({ targets: bubble, alpha: 0.95, duration: 200 });
+    this.tweens.add({ targets: bubble, alpha: 0, delay: 3800, duration: 400, onComplete: () => bubble.destroy() });
+  }
+
   /** Paket Y: Hintergrundgeräusch des Ortes (eine Schleife, wechselt mit der Karte). */
   startAmbience() {
     const audio = this.registry.get('audio');
@@ -1079,6 +1111,7 @@ export class WorldScene extends Phaser.Scene {
     this.handleKeys(blocked);
     this.lighting.update(time);
     this.updateGoalMarker(time);
+    this.updateGossip(delta, blocked);
     const cam = this.cameras.main;
     this.fogA.setTilePosition(cam.scrollX * 0.9 + time * 0.006, cam.scrollY * 0.9 + time * 0.002);
     this.fogB.setTilePosition(cam.scrollX * 1.1 - time * 0.004, cam.scrollY * 1.1);

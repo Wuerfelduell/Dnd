@@ -1,3 +1,4 @@
+import { NEWSPAPERS } from '../data/lore.js';
 import { DIGEST_LABELS } from '../core/Pathways.js';
 import { GEAR_SLOT_NAMES } from '../core/Gear.js';
 import { lootList, itemRarity, RARITY_NAMES, lootPreview, chanceWord } from '../core/Loot.js';
@@ -337,6 +338,7 @@ export class Ui {
       this.updateWanted();
       this.toast(`Fahndungsstufe ${level}${reason ? `: ${reason}` : ''}`, delta > 0 ? 'warn' : 'item');
     });
+    state.on('newspaper', (p) => this.toast(`${NEWSPAPERS[p.zeitung] ?? 'Zeitung'}: „${p.title}“ (Notizbuch → Zeitung)`, 'gold'));
     state.on('bond', ({ name, value, delta, status, companion }) => {
       if (companion) { this.toast(`${name} ${delta > 0 ? 'vertraut dir mehr' : 'vertraut dir weniger'}.`, delta > 0 ? 'item' : 'warn'); return; }
       const max = state.lonerRules()?.friend_at ?? 3;
@@ -1058,7 +1060,9 @@ export class Ui {
     const solved = all.filter((c) => isSolved(this.state, c.id));
     const cases = all.filter((c) => !solved.includes(c));
     const beasts = this.knownBeasts();
-    const fixed = ['quests', 'items', 'pfad', 'personen', 'bestiar', 'archiv'];
+    const papers = this.state.paperArchive();
+    const fixed = ['quests', 'items', 'pfad', 'personen', 'bestiar', 'zeitung', 'archiv'];
+    if (this.tab === 'zeitung' && !papers.length) this.tab = 'quests';
     if (this.tab === 'archiv' && !solved.length) this.tab = 'quests';
     if (this.tab === 'bestiar' && !beasts.length) this.tab = 'quests';
     // Ein gelöster Fall wird im Archiv geöffnet
@@ -1067,10 +1071,11 @@ export class Ui {
     if (this.tab === 'archiv' && !solved.some((c) => c.id === this.archiveCase)) this.archiveCase = solved.at(-1)?.id;
     const tabs = [{ id: 'quests', title: 'Aufträge' }, { id: 'items', title: 'Inventar' }, { id: 'pfad', title: 'Pfad' }, { id: 'personen', title: 'Personen' },
       ...(beasts.length ? [{ id: 'bestiar', title: 'Bestiarium' }] : []),
+      ...(papers.length ? [{ id: 'zeitung', title: 'Zeitung' }] : []),
       ...cases.map((c) => ({ id: c.id, title: c.title.replace(/:.*/, '') })), ...(solved.length ? [{ id: 'archiv', title: `Archiv (${solved.length})` }] : [])];
     const caseId = this.currentCase();
     const body = this.tab === 'quests' ? this.questsHtml() : this.tab === 'items' ? this.itemsHtml() : this.tab === 'pfad' ? this.pathwayTabHtml()
-      : this.tab === 'personen' ? this.peopleHtml() : this.tab === 'bestiar' ? this.bestiaryHtml(beasts)
+      : this.tab === 'personen' ? this.peopleHtml() : this.tab === 'bestiar' ? this.bestiaryHtml(beasts) : this.tab === 'zeitung' ? this.papersHtml(papers)
       : this.tab === 'archiv' ? this.archiveHtml(solved) : this.caseHtml(this.tab);
     const isCase = !!caseId;
     const hint = String(feedback ?? '').startsWith('<div class="hint">') ? feedback : '';
@@ -1139,7 +1144,8 @@ export class Ui {
     const { encounters, loot } = this.state.content;
     const hasLoot = (id) => (loot?.[id]?.drops ?? []).length || Object.keys(loot?.[id]?.items ?? {}).length || loot?.[id]?.money;
     const won = (id) => flags.has(`won_${id}`) || flags.has(`won_${id}_elite`);
-    const extra = Object.keys(encounters).filter((id) => !id.endsWith('_elite') && !BESTIARY.includes(id) && hasLoot(id));
+    const lore = this.state.content.bestiaryTexts ?? {};
+    const extra = Object.keys(encounters).filter((id) => !id.endsWith('_elite') && !BESTIARY.includes(id) && (hasLoot(id) || lore[id]));
     return [...BESTIARY, ...extra].filter((id) => encounters[id] && won(id));
   }
 
@@ -1150,9 +1156,24 @@ export class Ui {
       const eliteWon = this.state.flags.has(`won_${id}_elite`);
       return `<li><img src="${bestiaryUrl(id)}" alt="" onerror="this.remove()"><div class="beast-info">
         <strong>${esc(e.name)}</strong><span class="muted">${e.occult ? 'Okkult · ' : ''}${e.hp} Leben${eliteWon ? ' · Elite besiegt' : ''}</span>
+        ${this.beastLoreHtml(id)}
         ${this.beastLootHtml(loot?.[id], items, eliteWon ? loot?.[`${id}_elite`] : null)}</div></li>`;
     };
     return `<ul class="bestiary">${ids.map(card).join('')}</ul>`;
+  }
+
+  /** Paket AD: Beschreibung und Kampftipp im Bestiarium. */
+  beastLoreHtml(id) {
+    const t = this.state.content.bestiaryTexts?.[id];
+    return t ? `<p class="beast-text">${esc(t.text)}</p><p class="beast-tip"><b>Tipp:</b> ${esc(t.hinweis)}</p>` : '';
+  }
+
+  /** Paket AD: erschienene Zeitungsausgaben, neueste zuerst. */
+  papersHtml(papers) {
+    const issue = (p) => `<article class="paper paper-${p.zeitung}"><div class="masthead">${esc(NEWSPAPERS[p.zeitung] ?? p.zeitung)}</div>
+      <h4>${esc(p.title)}</h4><div class="text">${paragraphs(p.text)}</div>
+      ${(p.kurz ?? []).length ? `<ul class="kurz">${p.kurz.map((k) => `<li>${esc(k)}</li>`).join('')}</ul>` : ''}</article>`;
+    return `<div class="papers">${papers.map(issue).join('')}</div>`;
   }
 
   /** Beute-Liste eines Gegners im Bestiarium. */

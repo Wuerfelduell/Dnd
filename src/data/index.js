@@ -87,6 +87,11 @@ import wx_case from './packs/wx_nebenquests/case.json';
 import wx_dialog_zusaetze from './packs/wx_nebenquests/dialog_zusaetze.json';
 import wx_platzierung from './packs/wx_nebenquests/platzierung.json';
 import wx_kahn_ausbau from './packs/wx_nebenquests/kahn_ausbau.json';
+import lore_bestiarium from './packs/lore/bestiarium.json';
+import lore_gerede from './packs/lore/gerede.json';
+import lore_item_texte from './packs/lore/item_texte.json';
+import lore_lesestuecke from './packs/lore/lesestuecke.json';
+import lore_zeitungen from './packs/lore/zeitungen.json';
 
 /** Nebenauftrags-Pakete (Codex AA, AB). */
 const wxNebenquests = { name: 'wx_nebenquests', quests: wx_quests, items: wx_items, encounters: wx_encounters, dialogues: wx_dialogues, npcs: wx_npcs, case: wx_case, dialog_zusaetze: wx_dialog_zusaetze, platzierung: wx_platzierung, kahn_ausbau: wx_kahn_ausbau };
@@ -110,4 +115,5 @@ export const content = buildContent({
   city,
   wexmoor,
   packs: [kgNebenquests, wxNebenquests],
+  lore: { bestiarium: lore_bestiarium, gerede: lore_gerede, item_texte: lore_item_texte, lesestuecke: lore_lesestuecke, zeitungen: lore_zeitungen },
 });
