@@ -1,7 +1,7 @@
 import { DIGEST_LABELS } from '../core/Pathways.js';
 import { lootList, itemRarity, RARITY_NAMES, lootPreview, chanceWord } from '../core/Loot.js';
 import {
-  itemIconUrl, itemIcon32Url, pathwayEmblemUrl, pathwayCardUrl, COIN_URL, SKILL_ICONS, SKILL_ICONS_URL, STATUS_ICONS, STATUS_ICONS_URL,
+  itemIconUrl, itemIcon32Url, pathwayEmblemUrl, pathwayCardUrl, COIN_URL, STATUS_ICONS, STATUS_ICONS_URL,
   portraitUrl, portraitFor, mapMarkerOf, LOG_MARKERS, LOG_MARKERS_URL, SOURCE_ICONS, SPRITE_BASE,
   endingImageUrl, caseFileUrl, sceneUrl, wantedUrl, QUEST_UI_URL, QUEST_PINS, QUEST_BANNERS,
   TURN_PORTRAITS, TURN_PORTRAITS_URL, TURN_PORTRAIT_URLS, BESTIARY, bestiaryUrl,
@@ -73,7 +73,6 @@ const artifactSlots = (ids, max, overloaded) => Array.from({ length: Math.max(ma
   return `<span class="artslot ${kind}">${id ? `<img src="${itemIconUrl(id)}" alt="" width="12" height="12">` : ''}</span>`;
 }).join('');
 const statusIcon = (id, title) => atlasIcon(STATUS_ICONS_URL, STATUS_ICONS[id], 12, title);
-const mapMarker = (map) => { const [url, i, cols] = mapMarkerOf(map); return atlasIcon(url, i, cols); };
 /** Portrait (64x64 aus einem 256x64-Streifen) für den Dialog. */
 const portrait = (id, mood) => {
   const p = portraitFor(id, mood);

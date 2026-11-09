@@ -1151,7 +1151,6 @@ Object.assign(BATTLE_BACKGROUNDS, { rostkapelle: 'bg_rostbrueder', schleierhaus:
 Object.assign(ENCOUNTER_BACKGROUNDS, { rost_vater: 'bg_rostbrueder', rost_schmied: 'bg_rostbrueder', schleier_mutter: 'bg_schleierschwestern', schleier_seherin: 'bg_schleierschwestern' });
 /** Wappen (factions/<id>.png, 112x64: 16er, 32er, 64er nebeneinander). */
 export const factionEmblemUrl = (id) => `${BASE}factions/${id}.png`;
-export const FACTION_EMBLEM = { 16: [0, 16], 32: [16, 32], 64: [48, 64] };
 /** Reise-UI: Reisearten (32x32) und Markierung des Standorts (16x16, vier Frames). */
 export const TRAVEL_MODES_URL = `${BASE}ui/I_reise_modes.png`;
 export const TRAVEL_MODE_ICONS = { sicher: 0, schnell: 1 };
@@ -1287,8 +1286,8 @@ ICON32.push(...J_ITEMS);
 INSPECT_VIEWS.push('lilians_spieluhr', 'veys_tagebuch', 'stimmgabel_silber');
 for (const id of ['c5_perfect', 'c5_good', 'c5_early', 'c5_rust']) ENDING_IMAGES[id] = id;
 ANIM_SHEETS.j_hinweise = ['props/J_fall5_hinweise.png', 16, 16];
-export const J_HINTS = ['bronze_shaving', 'chalk_bell', 'burned_score', 'white_lily', 'cracked_phial', 'robe_threads', 'sand_handprint',
-  'candle_ring', 'bronze_dust', 'tally_door'];
+// Frames von j_hinweise in Reihenfolge: bronze_shaving, chalk_bell, burned_score, white_lily, cracked_phial, robe_threads,
+// sand_handprint, candle_ring, bronze_dust, tally_door.
 
 // --- Paket K: Fall 6, der dreizehnte Gast (manifest-fall6.json) -----------------------------------
 
