@@ -2,6 +2,7 @@ import Phaser from 'phaser';
 import { TILE } from './textures.js';
 import { DEPTH } from './Lighting.js';
 import { overworldIdFor, LOOT_SHEETS, RARITY_SHEET } from './assets.js';
+import { fearsPlayer } from '../core/Fear.js';
 import { lootRarity, lootList, rollLoot, takeLoot, isEmptyLoot, RARITY_COLORS, CONTAINERS, CONTAINER_NAMES } from '../core/Loot.js';
 
 // Gefahrengebiete: Gegner, die sichtbar über die Karte streifen, dich bemerken und jagen.
@@ -15,6 +16,8 @@ const GRACE_MS = 2600; // nach Flucht oder Sieg: so lange greift niemand an
 const STUN_MS = 3500; // nach deiner Flucht steht der Gegner so lange benommen herum
 const WANDER_TILES = 4;
 const LEASH = 2.4; // jagt bis zum Vielfachen seines Wahrnehmungsradius
+const FLEE_SPEED = 50; // Höchsttempo beim Zurückweichen (du läufst 72, holst sie also ein)
+const FLEE_RANGE = 1.3; // weicht aus, solange du näher als das Vielfache seines Wahrnehmungsradius bist
 const hex = (c) => Number.parseInt(c.slice(1), 16);
 
 export class Roamers {
@@ -25,6 +28,7 @@ export class Roamers {
     this.drops = [];
     this.graceUntil = 0;
     this.lastWarn = 0;
+    this.fearShown = false; // Hinweis „weicht zurück“ nur einmal pro Karte
   }
 
   build() {
@@ -141,10 +145,21 @@ export class Roamers {
       const aggro = (roam.aggro ?? 72) * (r.elite ? 1.15 : 1) * (s.state.spiritVision ? 1.25 : 1);
       const home = Math.hypot(r.body.x - r.home.x, r.body.y - r.home.y);
       const graced = time < this.graceUntil;
+      const afraid = fearsPlayer(s.state.pathway?.seq, r.def, s.mapDef);
       if (time < r.stunUntil) {
         b.setVelocity(0, 0);
         r.mode = 'wander';
-      } else if (!graced && (d < aggro || (r.mode === 'chase' && d < aggro * LEASH && home < aggro * 4))) {
+      } else if (afraid && d < aggro * FLEE_RANGE) {
+        // Ab Sequenz 7: hält Abstand statt anzugreifen. Wer ihn einholt, kämpft trotzdem.
+        if (r.mode !== 'flee') this.notice(r, time, true);
+        r.mode = 'flee';
+        r.target = null;
+        const speed = Math.min((roam.chase ?? 54) * 0.8, FLEE_SPEED);
+        const v = new Phaser.Math.Vector2(-dx, -dy).normalize().scale(speed);
+        if (r.stuck > 400) v.rotate(r.stuckDir ?? Math.PI / 2);
+        b.setVelocity(v.x, v.y);
+        if (d < CONTACT && !graced) { this.engage(r); return; }
+      } else if (!afraid && !graced && (d < aggro || (r.mode === 'chase' && d < aggro * LEASH && home < aggro * 4))) {
         if (r.mode !== 'chase') this.notice(r, time);
         r.mode = 'chase';
         const speed = (roam.chase ?? 54) * (r.elite ? 1.12 : 1);
@@ -154,7 +169,7 @@ export class Roamers {
         b.setVelocity(v.x, v.y);
         if (d < CONTACT) { this.engage(r); return; }
       } else {
-        if (r.mode === 'chase') { r.mode = 'return'; r.target = { ...r.home }; }
+        if (r.mode === 'chase' || r.mode === 'flee') { r.mode = 'return'; r.target = { ...r.home }; }
         this.wander(r, delta);
       }
       // Festhängen erkennen
@@ -220,7 +235,14 @@ export class Roamers {
     r.label?.setPosition(x, top - (r.mode === 'chase' ? 14 : 2));
   }
 
-  notice(r, time) {
+  notice(r, time, afraid = false) {
+    if (afraid) {
+      if (!this.fearShown) {
+        this.fearShown = true;
+        this.scene.ui.toast?.(`${r.enc.name} weicht vor dir zurück.`);
+      }
+      return;
+    }
     this.scene.tweens.add({ targets: r.alert, scale: { from: 1.8, to: 1 }, duration: 220 });
     if (time - this.lastWarn > 4000) {
       this.lastWarn = time;
