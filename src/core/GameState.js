@@ -588,6 +588,13 @@ export class GameState {
     if (end.honor > 0) this.addMoney(end.honor * 2, { loot: true, reason: end.title });
   }
 
+  /** AP/AR: Epilogszenen zum Ende, deren Bedingungen erfüllt sind, in Dateireihenfolge. */
+  epilogue(endId) {
+    return (this.content.epiloge ?? []).filter((e) => e.ending === endId
+      && (e.requires_flags ?? []).every((f) => this.flags.has(f))
+      && !(e.hide_if_flags ?? []).some((f) => this.flags.has(f)));
+  }
+
   // --- Geistsicht & Nerven -------------------------------------------------------------
   setSpiritVision(active) {
     if (active && this.composure < 10) {

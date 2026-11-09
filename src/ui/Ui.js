@@ -712,6 +712,11 @@ export class Ui {
       const id = this.pendingEnding;
       this.pendingEnding = null;
       this.showEnding(id);
+    } else if (this.pendingEpilogue?.length) {
+      // AP/AR: Epilogszenen nach dem Schlussbild, eine Tafel je Szene, dann die Kapitelkarte
+      const scene = this.pendingEpilogue.shift();
+      this.showMessage(scene.title, scene.text, { footer: 'Epilog' });
+      this.layer.querySelector('.panel.message')?.classList.add('chapterbook');
     } else if (this.pendingChapter) {
       // Kapitelende (z. B. Fall 9): eigene Tafel nach dem Schlussbild
       const ch = this.pendingChapter;
@@ -2091,6 +2096,7 @@ export class Ui {
     const img = endingImageUrl(id, end.case);
     if (img) { el.classList.add('with-image'); el.style.backgroundImage = `linear-gradient(rgba(10, 8, 14, 0.3), rgba(10, 8, 14, 0.85) 50%), url(${img})`; }
     if (end.chapter) this.pendingChapter = end.chapter;
+    this.pendingEpilogue = s.epilogue(id);
     el.querySelector('[data-act=ok]').onclick = () => this.close();
   }
 

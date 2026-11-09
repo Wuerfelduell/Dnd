@@ -62,6 +62,7 @@ export function buildContent({ campaign, quests, cases, maps, dialogues, items =
   for (const pack of packs) applyQuestPack(content, pack);
   applyLore(content, lore); // Paket AD: Lesestücke, Itemtexte, Bestiarium, Zeitungen, Gerede
   for (const pack of packs) if (pack.zeitung) content.newspapers = [...(content.newspapers ?? []), ...pack.zeitung]; // Paket AL
+  content.epiloge = packs.flatMap((pack) => pack.epiloge ?? []); // AP/AR: Epilogszenen je Ende, in Dateireihenfolge
   for (const pack of packs) withPackLore(content, pack); // Paket AT: Gerede, Bestiarium und Lesestücke aus Nebenauftragspaketen
   for (const pack of packs) withPackBosses(content, pack); // Kapitel 3: Bosse, Folgeabschnitte und Kampftexte
   applySequenzen(content, sequenzen, sq); // Paket AF: Händler, Treffen und Funde für die neuen Pfade

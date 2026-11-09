@@ -147,3 +147,22 @@ test('Kapitel 3: das Kernfach des Vorhauers gibt nur die Zutat des eigenen Pfads
   assert.equal(s.itemCount('sq_zutat_eisen_3'), 1);
   assert.throws(() => talk(s, fach.dialogue, ['Kernzutat']), /keine verfügbare Option/);
 });
+
+test('Epiloge (AP/AR): jedes Kapitel-2/3-Ende zeigt seine Szenen in Dateireihenfolge', () => {
+  const ends = [...new Set(content.epiloge.map((e) => e.ending))];
+  assert.deepEqual(ends.sort(), ['k2_lichtmeister', 'k2_meer', 'k2_moor', 'k2_rein', 'k3_feierabend', 'k3_gegenstimme', 'k3_stilllegung', 'k3_vollzaehlig']);
+  for (const id of ends) {
+    const s = new GameState(content);
+    assert.deepEqual(s.epilogue(id), [], `${id}: vor dem Ende keine Szenen`);
+    s.setEnding(id);
+    const scenes = s.epilogue(id);
+    const slots = scenes.map((e) => e.title.split(' ·')[0]);
+    assert.deepEqual(slots, [...new Set(slots)], `${id}: je Szenenplatz höchstens eine Variante`);
+    assert.ok(scenes.length >= (id.startsWith('k3') ? 4 : 6), `${id}: ${scenes.length} Szenen`);
+  }
+  // bedingte Variante: Zunders Vertrauen ersetzt die Standardszene auf demselben Platz
+  const s = new GameState(content);
+  s.flags.add('k2v_zunder_vertraut');
+  s.setEnding('k2_rein');
+  assert.ok(s.epilogue('k2_rein').some((e) => e.requires_flags.includes('k2v_zunder_vertraut')));
+});
