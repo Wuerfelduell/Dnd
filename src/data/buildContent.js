@@ -16,12 +16,14 @@ export function buildContent({ campaign, quests, cases, maps, dialogues, items =
     npcs: { ...campaign.npcs, ...(market?.npcs ?? {}), ...(f.npcs ?? {}), ...(b.npcs ?? {}), ...(g.npcs ?? {}) },
     travel: [...(campaign.travel ?? []), ...(market?.travel ?? []), ...wild.travel, ...(f.travel ?? []), ...(g.travel ?? [])],
     quests: { ...quests, ...(f.quests ?? {}) },
-    items: { ...items, ...(pathways?.items ?? {}), ...pathwayItems(pathways?.pathways ?? {}), ...wild.items, ...(f.items ?? {}) },
+    items: { ...items, ...(pathways?.items ?? {}), ...pathwayItems(pathways?.pathways ?? {}), ...artifactItems(pathways?.artifacts), ...wild.items, ...(f.items ?? {}) },
     encounters: { ...encounters, ...(market?.encounters ?? {}), ...(travel?.encounters ?? {}), ...wild.encounters, ...(f.encounters ?? {}) },
     travelRules: travel && { ...travel, pins: { ...travel.pins, ...(g.pins ?? {}) } },
     pathways: pathways?.pathways ?? {},
     market: market && { ...market, merchants: { ...market.merchants, ...(b.merchants ?? {}), ...(g.merchants ?? {}) }, sell_prices: { ...market.sell_prices, ...(f.sell_prices ?? {}) } },
-    loot: { ...(market?.loot ?? {}), ...wild.loot, ...(f.loot ?? {}) },
+    loot: { ...(market?.loot ?? {}), ...artifactDrops(wild.loot, wild.encounters, pathways?.artifacts), ...(f.loot ?? {}) },
+    artifacts: pathways?.artifacts ?? null,
+    revierSupply: pathways?.revier_supply ?? null,
     zones: wild.zones,
     lootTables: wild.lootTables,
     factions: f.factions ?? {},
@@ -79,6 +81,34 @@ function pathwayItems(pathways) {
         desc: `Sequenz ${seq} des ${p.name.replace('Pfad', 'Pfads')}. „${p.principle}“ Am Braukessel brauen.`,
       };
     }
+  }
+  return out;
+}
+
+/** Artefakte (pathways.json → artifacts.list) werden Gegenstände der Art 'artifact'. */
+function artifactItems(artifacts) {
+  const out = {};
+  for (const [id, a] of Object.entries(artifacts?.list ?? {})) {
+    const { icon, zones, ...rest } = a;
+    out[id] = { ...rest, kind: 'artifact', rarity: 'okkult', zones };
+  }
+  return out;
+}
+
+/**
+ * Artefakte aus der Wildnis: Jeder Gegner eines Gebiets kann eines der dort heimischen Artefakte fallen lassen
+ * (selten, Bosse häufiger; Eliten verdoppeln die Chance wie bei allen Drops).
+ */
+function artifactDrops(loot, encounters, artifacts) {
+  if (!artifacts) return loot;
+  const out = { ...loot };
+  const chance = artifacts.drop_chance ?? { normal: 0.02, boss: 0.3 };
+  for (const [id, table] of Object.entries(loot)) {
+    const enc = encounters[id];
+    const ids = Object.entries(artifacts.list).filter(([, a]) => a.source === 'wild' && a.zones?.includes(enc?.zone)).map(([aid]) => aid);
+    if (!ids.length) continue;
+    const base = enc.boss ? chance.boss : chance.normal * (enc.elite ? 2 : 1);
+    out[id] = { ...table, drops: [...(table.drops ?? []), ...ids.map((item) => ({ item, chance: base / ids.length }))] };
   }
   return out;
 }

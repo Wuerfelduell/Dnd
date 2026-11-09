@@ -52,6 +52,10 @@
     "vey": [
       33,
       3
+    ],
+    "waisenhaus": [
+      22,
+      16
     ]
   },
   "interactables": [
@@ -232,6 +236,43 @@
       "visible_if": {
         "requires_flags": [
           "briefed_05"
+        ]
+      }
+    },
+    {
+      "id": "brigid_door",
+      "kind": "door",
+      "to": "waisenhaus",
+      "spawn": "default",
+      "tile": [
+        22,
+        17
+      ],
+      "prompt": "Das Waisenhaus St. Brigid betreten",
+      "marker": true,
+      "visible_if": {
+        "requires_flags": [
+          "briefed_08"
+        ]
+      }
+    },
+    {
+      "id": "eintreiber",
+      "kind": "combat",
+      "encounter": "pfandeintreiber",
+      "tile": [
+        18,
+        15
+      ],
+      "sprite": "npc:holt",
+      "marker": false,
+      "prompt": "Den Mann mit dem Schuldbuch ansprechen",
+      "visible_if": {
+        "requires_flags": [
+          "briefed_08"
+        ],
+        "hide_if_flags": [
+          "pfandeintreiber_defeated"
         ]
       }
     }
@@ -565,6 +606,19 @@
       "visible_if": {
         "requires_quests_active": [
           "case_05"
+        ]
+      }
+    },
+    {
+      "id": "rattenfaenger",
+      "tile": [
+        26,
+        15
+      ],
+      "facing": "left",
+      "visible_if": {
+        "requires_flags": [
+          "briefed_08"
         ]
       }
     }

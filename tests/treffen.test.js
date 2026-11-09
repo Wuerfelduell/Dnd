@@ -32,12 +32,20 @@ function jumpTo(s, id) {
 const seq7Ingredients = Object.values(content.pathways).map((p) => Object.keys(p.seqs[7].ingredients)).flat()
   .filter((i) => !['nebeltau', 'silberstaub'].includes(i));
 
-test('Normaler Markt: Zutaten ab Sequenz 7 sind nicht mehr käuflich', () => {
-  assert.ok(seq7Ingredients.includes('sternglas') && seq7Ingredients.includes('geisteressenz'));
+const highIngredients = Object.values(content.pathways).flatMap((p) => [7, 6, 5].flatMap((q) => Object.keys(p.seqs[q]?.ingredients ?? {})))
+  .filter((i) => !['nebeltau', 'silberstaub'].includes(i));
+
+test('Normaler Markt: Zutaten ab Sequenz 7 (auch 6 und 5) sind nicht mehr käuflich', () => {
+  assert.ok(highIngredients.includes('sternglas') && highIngredients.includes('geisteressenz'));
   for (const [id, m] of Object.entries(content.market.merchants)) {
     if (m.gathering) continue;
-    for (const e of m.stock) assert.ok(!seq7Ingredients.includes(e.item), `${id} verkauft ${e.item}`);
+    for (const e of m.stock) assert.ok(!highIngredients.includes(e.item), `${id} verkauft ${e.item}`);
   }
+});
+
+test('Jede Zutat ab Sequenz 7 gibt es auf mindestens einem Treffen', () => {
+  const sold = new Set(Object.values(content.market.merchants).filter((m) => m.gathering).flatMap((m) => m.stock.map((e) => e.item)));
+  for (const id of new Set(highIngredients)) assert.ok(sold.has(id), id);
 });
 
 test('Normaler Markt: Formeln für Sequenz 7 gibt es nur selten', () => {

@@ -1,5 +1,5 @@
 {
-  "_info": "Geheime Treffen ab Fall 4. Alle interval_min Spielminuten beginnt reihum (order) das Treffen eines Zirkels und bleibt open_min Minuten offen. Händler mit 'gathering' würfeln je Treffen ihr Angebot ('chance' pro Eintrag, 'limit' Stück pro Treffen). Zutaten ab Sequenz 7 gibt es nur hier oder als Beute, nie auf dem normalen Markt.",
+  "_info": "Geheime Treffen ab Fall 4. Alle interval_min Spielminuten beginnt reihum (order) das Treffen eines Zirkels und bleibt open_min Minuten offen. Händler mit 'gathering' würfeln je Treffen ihr Angebot ('chance' pro Eintrag, 'limit' Stück pro Treffen). Zutaten ab Sequenz 7 (auch 6 und 5) gibt es nur hier oder als Beute, nie auf dem normalen Markt.",
   "rules": {
     "interval_min": 20,
     "open_min": 6,
@@ -213,6 +213,96 @@
           "limit": 5
         },
         {
+          "item": "flammenkern",
+          "price": 110,
+          "chance": 0.3,
+          "limit": 1
+        },
+        {
+          "item": "knotengarn",
+          "price": 110,
+          "chance": 0.3,
+          "limit": 1
+        },
+        {
+          "item": "spiegelwachs",
+          "price": 110,
+          "chance": 0.3,
+          "limit": 1
+        },
+        {
+          "item": "glockenerz",
+          "price": 110,
+          "chance": 0.3,
+          "limit": 1
+        },
+        {
+          "item": "salamanderoel",
+          "price": 110,
+          "chance": 0.3,
+          "limit": 1
+        },
+        {
+          "item": "ambossstaub",
+          "price": 110,
+          "chance": 0.3,
+          "limit": 1
+        },
+        {
+          "item": "dietrichsilber",
+          "price": 110,
+          "chance": 0.3,
+          "limit": 1
+        },
+        {
+          "item": "lichtperle",
+          "price": 180,
+          "chance": 0.15,
+          "limit": 1
+        },
+        {
+          "item": "spindelknochen",
+          "price": 180,
+          "chance": 0.15,
+          "limit": 1
+        },
+        {
+          "item": "schminkasche",
+          "price": 180,
+          "chance": 0.15,
+          "limit": 1
+        },
+        {
+          "item": "atemglas",
+          "price": 180,
+          "chance": 0.15,
+          "limit": 1
+        },
+        {
+          "item": "goldschimmel",
+          "price": 180,
+          "chance": 0.15,
+          "limit": 1
+        },
+        {
+          "item": "schwertsplitter",
+          "price": 180,
+          "chance": 0.15,
+          "limit": 1
+        },
+        {
+          "item": "schattenseide",
+          "price": 180,
+          "chance": 0.15,
+          "limit": 1
+        },
+        {
+          "item": "nebelherz",
+          "price": 150,
+          "chance": 0.2,
+          "limit": 1
+        },
+        {
           "item": "formel_laterne_7",
           "price": 220,
           "once": true,
@@ -375,6 +465,160 @@
           "locked_text": "Erst ab Sequenz 8 dieses Pfades"
         },
         {
+          "item": "formel_laterne_6",
+          "price": 320,
+          "once": true,
+          "chance": 0.35,
+          "requires_pathway": [
+            "laterne",
+            7
+          ],
+          "locked_text": "Erst ab Sequenz 7 dieses Pfades"
+        },
+        {
+          "item": "formel_faden_6",
+          "price": 320,
+          "once": true,
+          "chance": 0.35,
+          "requires_pathway": [
+            "faden",
+            7
+          ],
+          "locked_text": "Erst ab Sequenz 7 dieses Pfades"
+        },
+        {
+          "item": "formel_maske_6",
+          "price": 320,
+          "once": true,
+          "chance": 0.35,
+          "requires_pathway": [
+            "maske",
+            7
+          ],
+          "locked_text": "Erst ab Sequenz 7 dieses Pfades"
+        },
+        {
+          "item": "formel_echo_6",
+          "price": 320,
+          "once": true,
+          "chance": 0.35,
+          "requires_pathway": [
+            "echo",
+            7
+          ],
+          "locked_text": "Erst ab Sequenz 7 dieses Pfades"
+        },
+        {
+          "item": "formel_kessel_6",
+          "price": 320,
+          "once": true,
+          "chance": 0.35,
+          "requires_pathway": [
+            "kessel",
+            7
+          ],
+          "locked_text": "Erst ab Sequenz 7 dieses Pfades"
+        },
+        {
+          "item": "formel_eisen_6",
+          "price": 320,
+          "once": true,
+          "chance": 0.35,
+          "requires_pathway": [
+            "eisen",
+            7
+          ],
+          "locked_text": "Erst ab Sequenz 7 dieses Pfades"
+        },
+        {
+          "item": "formel_schluessel_6",
+          "price": 320,
+          "once": true,
+          "chance": 0.35,
+          "requires_pathway": [
+            "schluessel",
+            7
+          ],
+          "locked_text": "Erst ab Sequenz 7 dieses Pfades"
+        },
+        {
+          "item": "formel_laterne_5",
+          "price": 480,
+          "once": true,
+          "chance": 0.2,
+          "requires_pathway": [
+            "laterne",
+            6
+          ],
+          "locked_text": "Erst ab Sequenz 6 dieses Pfades"
+        },
+        {
+          "item": "formel_faden_5",
+          "price": 480,
+          "once": true,
+          "chance": 0.2,
+          "requires_pathway": [
+            "faden",
+            6
+          ],
+          "locked_text": "Erst ab Sequenz 6 dieses Pfades"
+        },
+        {
+          "item": "formel_maske_5",
+          "price": 480,
+          "once": true,
+          "chance": 0.2,
+          "requires_pathway": [
+            "maske",
+            6
+          ],
+          "locked_text": "Erst ab Sequenz 6 dieses Pfades"
+        },
+        {
+          "item": "formel_echo_5",
+          "price": 480,
+          "once": true,
+          "chance": 0.2,
+          "requires_pathway": [
+            "echo",
+            6
+          ],
+          "locked_text": "Erst ab Sequenz 6 dieses Pfades"
+        },
+        {
+          "item": "formel_kessel_5",
+          "price": 480,
+          "once": true,
+          "chance": 0.2,
+          "requires_pathway": [
+            "kessel",
+            6
+          ],
+          "locked_text": "Erst ab Sequenz 6 dieses Pfades"
+        },
+        {
+          "item": "formel_eisen_5",
+          "price": 480,
+          "once": true,
+          "chance": 0.2,
+          "requires_pathway": [
+            "eisen",
+            6
+          ],
+          "locked_text": "Erst ab Sequenz 6 dieses Pfades"
+        },
+        {
+          "item": "formel_schluessel_5",
+          "price": 480,
+          "once": true,
+          "chance": 0.2,
+          "requires_pathway": [
+            "schluessel",
+            6
+          ],
+          "locked_text": "Erst ab Sequenz 6 dieses Pfades"
+        },
+        {
           "item": "formel_laterne_8",
           "price": 80,
           "once": true,
@@ -514,6 +758,96 @@
           "limit": 1
         },
         {
+          "item": "flammenkern",
+          "price": 100,
+          "chance": 0.2,
+          "limit": 1
+        },
+        {
+          "item": "knotengarn",
+          "price": 100,
+          "chance": 0.2,
+          "limit": 1
+        },
+        {
+          "item": "spiegelwachs",
+          "price": 100,
+          "chance": 0.2,
+          "limit": 1
+        },
+        {
+          "item": "glockenerz",
+          "price": 100,
+          "chance": 0.2,
+          "limit": 1
+        },
+        {
+          "item": "salamanderoel",
+          "price": 100,
+          "chance": 0.2,
+          "limit": 1
+        },
+        {
+          "item": "ambossstaub",
+          "price": 100,
+          "chance": 0.2,
+          "limit": 1
+        },
+        {
+          "item": "dietrichsilber",
+          "price": 100,
+          "chance": 0.2,
+          "limit": 1
+        },
+        {
+          "item": "lichtperle",
+          "price": 170,
+          "chance": 0.1,
+          "limit": 1
+        },
+        {
+          "item": "spindelknochen",
+          "price": 170,
+          "chance": 0.1,
+          "limit": 1
+        },
+        {
+          "item": "schminkasche",
+          "price": 170,
+          "chance": 0.1,
+          "limit": 1
+        },
+        {
+          "item": "atemglas",
+          "price": 170,
+          "chance": 0.1,
+          "limit": 1
+        },
+        {
+          "item": "goldschimmel",
+          "price": 170,
+          "chance": 0.1,
+          "limit": 1
+        },
+        {
+          "item": "schwertsplitter",
+          "price": 170,
+          "chance": 0.1,
+          "limit": 1
+        },
+        {
+          "item": "schattenseide",
+          "price": 170,
+          "chance": 0.1,
+          "limit": 1
+        },
+        {
+          "item": "nebelherz",
+          "price": 140,
+          "chance": 0.25,
+          "limit": 1
+        },
+        {
           "item": "formel_laterne_7",
           "price": 200,
           "once": true,
@@ -589,6 +923,83 @@
             8
           ],
           "locked_text": "Erst ab Sequenz 8 dieses Pfades"
+        },
+        {
+          "item": "formel_laterne_6",
+          "price": 340,
+          "once": true,
+          "chance": 0.1,
+          "requires_pathway": [
+            "laterne",
+            7
+          ],
+          "locked_text": "Erst ab Sequenz 7 dieses Pfades"
+        },
+        {
+          "item": "formel_faden_6",
+          "price": 340,
+          "once": true,
+          "chance": 0.1,
+          "requires_pathway": [
+            "faden",
+            7
+          ],
+          "locked_text": "Erst ab Sequenz 7 dieses Pfades"
+        },
+        {
+          "item": "formel_maske_6",
+          "price": 340,
+          "once": true,
+          "chance": 0.1,
+          "requires_pathway": [
+            "maske",
+            7
+          ],
+          "locked_text": "Erst ab Sequenz 7 dieses Pfades"
+        },
+        {
+          "item": "formel_echo_6",
+          "price": 340,
+          "once": true,
+          "chance": 0.1,
+          "requires_pathway": [
+            "echo",
+            7
+          ],
+          "locked_text": "Erst ab Sequenz 7 dieses Pfades"
+        },
+        {
+          "item": "formel_kessel_6",
+          "price": 340,
+          "once": true,
+          "chance": 0.1,
+          "requires_pathway": [
+            "kessel",
+            7
+          ],
+          "locked_text": "Erst ab Sequenz 7 dieses Pfades"
+        },
+        {
+          "item": "formel_eisen_6",
+          "price": 340,
+          "once": true,
+          "chance": 0.1,
+          "requires_pathway": [
+            "eisen",
+            7
+          ],
+          "locked_text": "Erst ab Sequenz 7 dieses Pfades"
+        },
+        {
+          "item": "formel_schluessel_6",
+          "price": 340,
+          "once": true,
+          "chance": 0.1,
+          "requires_pathway": [
+            "schluessel",
+            7
+          ],
+          "locked_text": "Erst ab Sequenz 7 dieses Pfades"
         },
         {
           "item": "tonikum",

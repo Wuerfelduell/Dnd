@@ -1,0 +1,197 @@
+{
+  "id": "kontor_thorne",
+  "name": "Kontor Thorne am Altmarkt",
+  "tiles": "tavern",
+  "ambient": {
+    "night": 0.82,
+    "fog": 0.06
+  },
+  "spawns": {
+    "default": [
+      5,
+      13
+    ]
+  },
+  "lights": [
+    {
+      "tile": [
+        10,
+        5
+      ],
+      "radius": 46,
+      "intensity": 0.45,
+      "color": "#e8c070",
+      "glow": 0.25
+    },
+    {
+      "tile": [
+        22,
+        6
+      ],
+      "radius": 34,
+      "intensity": 0.3,
+      "color": "#8aa0b8",
+      "glow": 0.2
+    }
+  ],
+  "rows": [
+    "IIIIIIIIIIIIIIIIIIIIIIIIII",
+    "IIIIIIIIIIIIIIIIIIIIIIIIII",
+    "IwwwwwwOwwwwwwOwIsOssssssI",
+    "IwBBBBwwwwwwwwwwIssssCCCsI",
+    "IwwwwwwwTTTTwwwwIssssCCCsI",
+    "IwwwwwwwTTTTwwwwIssssssssI",
+    "IwwwwwwwwwwwwwwwIssssssssI",
+    "IwwwwwwwwwwwwwwwIssssssssI",
+    "IwVVwwwwwwwwwwwwIssssssssI",
+    "IwwwwwwwwwwwTTwwIssssssssI",
+    "IwwwwwwwwwwwwwwwIssssssssI",
+    "IwwwwwwwwwwwwwwwwssssssssI",
+    "IwwwwwwwwwwwwwwwIssssssssI",
+    "IwwwwwwwwwwwwwwwIssssssssI",
+    "IwwwwwwwwwwwwwwwIssssssssI",
+    "IIIIIEEIIIIIIIIIIIIIIIIIII"
+  ],
+  "npcs": [
+    {
+      "id": "finch",
+      "tile": [
+        13,
+        11
+      ],
+      "facing": "left",
+      "visible_if": {
+        "requires_flags": [
+          "briefed_07"
+        ]
+      }
+    },
+    {
+      "id": "erbe",
+      "tile": [
+        4,
+        6
+      ],
+      "facing": "right",
+      "visible_if": {
+        "requires_quests_active": [
+          "case_07"
+        ]
+      }
+    }
+  ],
+  "interactables": [
+    {
+      "id": "out",
+      "kind": "door",
+      "to": "altmarkt",
+      "spawn": "kontor",
+      "tile": [
+        5,
+        14
+      ],
+      "prompt": "Hinaus auf den Altmarkt",
+      "marker": false,
+      "reach": 22
+    },
+    {
+      "id": "desk",
+      "clue": "water_glass",
+      "tile": [
+        10,
+        6
+      ],
+      "prompt": "Den Schreibtisch untersuchen",
+      "sprite": "paper",
+      "effects": {
+        "gives_items": {
+          "wasserprobe": 1
+        }
+      },
+      "visible_if": {
+        "requires_quests_active": [
+          "case_07"
+        ]
+      }
+    },
+    {
+      "id": "letter",
+      "clue": "pfaendung_letter",
+      "tile": [
+        13,
+        10
+      ],
+      "prompt": "Die Briefe auf dem Pult lesen",
+      "sprite": "paper",
+      "effects": {
+        "gives_items": {
+          "pfaendungsbrief": 1
+        }
+      },
+      "visible_if": {
+        "requires_quests_active": [
+          "case_07"
+        ]
+      }
+    },
+    {
+      "id": "chute",
+      "clue": "chute_prints",
+      "tile": [
+        22,
+        7
+      ],
+      "prompt": "Den Kohlenschacht ansehen",
+      "visible_if": {
+        "requires_quests_active": [
+          "case_07"
+        ]
+      }
+    },
+    {
+      "id": "marble",
+      "kind": "read",
+      "tile": [
+        19,
+        10
+      ],
+      "prompt": "Etwas glitzert in der Kohle",
+      "title": "Eine Glasmurmel",
+      "text": "Zwischen den Kohlen liegt eine Murmel aus grünem Glas, wie Kinder sie in der Tasche tragen. Jemand hat mit einer Nadel ein P hineingeritzt.",
+      "effects": {
+        "gives_items": {
+          "kinder_murmel": 1
+        },
+        "sets_flags": [
+          "murmel_found"
+        ]
+      },
+      "done_flag": "murmel_found",
+      "visible_if": {
+        "requires_quests_active": [
+          "case_07"
+        ]
+      }
+    },
+    {
+      "id": "drowned",
+      "kind": "combat",
+      "encounter": "ertrunkener",
+      "tile": [
+        20,
+        12
+      ],
+      "sprite": "apparition",
+      "marker": false,
+      "prompt": "Der nassen Gestalt folgen",
+      "visible_if": {
+        "requires_quests_active": [
+          "case_07"
+        ],
+        "hide_if_flags": [
+          "ertrunkener_defeated"
+        ]
+      }
+    }
+  ]
+}

@@ -553,3 +553,64 @@ und Tile-Übergänge müssen beim separaten Einbau im Spiel geprüft werden.
 Es wurde kein Laufzeittest des Spiels durchgeführt.
 
 Beim Upload ersetzen die 15 bereits vorhandenen 16×16-Material-Icons die bisherigen Motive durch die neuen Batch-G-Versionen. Alle übrigen Spielassets bleiben erhalten.
+
+## Grafikpaket L – Stadtgegner, Kopfgelder und Nachtmarker
+
+Batch `gegner3`, erzeugt am 9. November 2026 mit `image_gen` nach
+`codex_L_stadtgegner.md`: **77 PNG-Dateien aus 53 finalen Generatorbildern**.
+Die Begegnungs-IDs sind geplant; die Grafiken liegen für die spätere Einbindung bereit.
+
+| Gruppe | Dateien | Format |
+|---|---:|---|
+| Vier menschliche Gegner | 4 | 288×240, sechs Spalten, Frames 48×48 |
+| Sechs Nachtkreaturen | 6 | 384×320, sechs Spalten, Frames 64×64 |
+| Schmugglerkönigin im Kahn | 1 | 576×672, sechs Spalten, Frames 96×96 |
+| Kampf-/Statuseffekte | 7 | einreihig, sechs Frames bzw. vier beim Status |
+| Kartensprites inklusive Königin ohne Kahn | 11 | 4×4 Frames, 16×32 bzw. 32×32 |
+| Bossbüste und vier Emotionsportraits | 2 | 160×160; 256×64 |
+| Zugportraits und Bestiarium | 12 | elf 16×16-Icons; elf opake 96×128-Seiten |
+| Dächer und Markthalle | 2 | 480×270, opak |
+| Kopfgeld-Steckbriefe | 5 | 128×80, zwei Zustände à 64×80 |
+| Beute und Belohnungen | 26 | zwei Atlanten und zwölf Items in je 16×16 und 32×32 |
+| Elite-, Kopfgeld- und Nachtmarker | 1 | gemischter 128×64-Atlas |
+
+`public/sprites/manifest-gegner3.json` enthält Dateimaße, Framegrößen,
+nullbasierte Animationslisten, Geschwindigkeiten, Grundlinien und Zuordnungen.
+Alle normalen Gegner haben die Reihen `idle`, `attack_a`, `attack_b`, `hurt`,
+`defeated`. Die Königin ergänzt Verstärkung und Heilung und hat sieben Reihen.
+Beide Angriffe beginnen mit zwei identischen Ausholframes. Kürzere Reihen werden
+transparent aufgefüllt. Die Grundlinie bezeichnet die exklusive Unterkante des
+Sprites innerhalb der Zelle: 46, 62 bzw. 94; bei Kartensprites 31.
+
+Laufrichtungen sind unten, links, rechts, oben. Die Zugportraits und Bestiariumseiten
+folgen den elf geplanten Gegner-IDs aus dem Brief. Die Portraitausdrücke der Königin
+sind neutral, misstrauisch, wütend und leicht lächelnd. Steckbrief-Frame 0 zeigt den
+gesuchten Gegner, Frame 1 die durchgestrichene Fassung; es gibt keinen lesbaren Text.
+
+Die Item-Atlanten enthalten oben die 16×16-Versionen, darunter dieselben Motive in
+32×32. Die rechte Hälfte der oberen Reihe bleibt leer. `regions` nennt die exakten
+Ausschnitte; Einzeldateien und Atlanten enthalten identische Pixel. Die Marker
+haben drei Reihen mit je vier 16×16-Siegeln links im Atlas und eine volle untere
+Reihe mit vier 32×16-Bodenringen. `regionAnimations` verweist auf die unterschiedlich
+großen Ausschnitte. Siegel bewegen sich um genau einen Pixel nach oben/unten;
+der Bodenring verwendet vier generierte Phasen der umlaufenden Strichmarkierung.
+
+Export: Nearest-Neighbor-Skalierung, Zellzuschnitt, einheitliche Skalierung pro
+Figuren-Sheet, Ausrichtung an der Grundlinie, binäres Alpha und Indizierung auf die
+gemeinsamen 32 sichtbaren Farben von Batch B/F plus transparenten Index. Der
+Rußgeist und der Glockenheulen-Effekt wurden gezielt korrigiert. Prompts,
+Referenzen, Korrekturen und Quellbild-Prüfsummen stehen in
+`batch-gegner3-generation.json`. Große Generatororiginale sind keine Laufzeitassets.
+
+```sh
+# Benötigt Pillow und numpy; SOURCE_DIR enthält die dokumentierten Original-PNGs.
+python docs/art/export-gegner3.py SOURCE_DIR .
+python docs/art/verify-gegner3.py
+```
+
+Der Prüfer kontrolliert Vollständigkeit, Maße, Palette, Alpha, Zellbelegung,
+Grundlinien, gehaltene Ausholposen, Animationsvariation, Atlasregionen,
+Item-Gleichheit, Portrait-IDs, Markerbewegung und die Steckbriefzustände.
+Prüfbericht: `validation-gegner3.json`. Visuelle Übersicht: `batch-gegner3-preview.png`.
+Die Einbindung und Timing-Abstimmung im laufenden Spiel erfolgen separat.
+Dieses Paket ändert ausschließlich Grafiken, Manifest und Grafikdokumentation.

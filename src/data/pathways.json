@@ -93,7 +93,77 @@
               "text": "+8 Leben."
             }
           ]
+        },
+        "6": {
+          "name": "Nebelbrecher",
+          "desc": "Nebel weicht vor dir zurück, als hätte er Angst. Was sich verbirgt, wirft plötzlich einen Schatten.",
+          "ingredients": {
+            "flammenkern": 1,
+            "nebeltau": 1,
+            "silberstaub": 2,
+            "geisteressenz": 1
+          },
+          "skill": {
+            "id": "lichtbann",
+            "name": "Lichtbann",
+            "cost": 4,
+            "hits": 2,
+            "flat": 11,
+            "holy": true,
+            "weak": true,
+            "fx": "funkenregen",
+            "desc": "Zwei Schnitte aus Licht. Je 11 Schaden, doppelt gegen Okkultes, und die Schwachstelle liegt offen."
+          },
+          "passives": [
+            {
+              "key": "occult_mult",
+              "value": 1.2,
+              "text": "+20 % Schaden gegen Okkultes."
+            }
+          ]
+        },
+        "5": {
+          "name": "Flammenzeuge",
+          "desc": "Du brennst, ohne zu verbrennen. Okkulte Wesen verbrennen sich die Finger an dir.",
+          "ingredients": {
+            "lichtperle": 1,
+            "nebeltau": 1,
+            "geisteressenz": 2,
+            "nebelherz": 1
+          },
+          "skill": {
+            "id": "weissglut",
+            "name": "Weißglut",
+            "cost": 5,
+            "hits": 1,
+            "flat": 30,
+            "holy": true,
+            "stun": true,
+            "burn": [
+              5,
+              3
+            ],
+            "composure": 15,
+            "fx": "leuchtfeuer",
+            "desc": "Du lässt alles Licht auf einmal los. 30 Schaden, doppelt gegen Okkultes, der Gegner setzt aus und brennt 3 Runden. Kostet 15 Nerven."
+          },
+          "passives": [
+            {
+              "key": "vision_cost",
+              "value": 0.6,
+              "text": "Geistsicht kostet noch einmal 40 % weniger Nerven."
+            },
+            {
+              "key": "damage_taken",
+              "value": 0.9,
+              "text": "Du nimmst 10 % weniger Schaden."
+            }
+          ]
         }
+      },
+      "growth": {
+        "hp": 5,
+        "nerves": 6
       }
     },
     "faden": {
@@ -182,7 +252,76 @@
               "text": "Das Notizbuch markiert Informationen, die sich noch verknüpfen lassen."
             }
           ]
+        },
+        "6": {
+          "name": "Netzknüpfer",
+          "desc": "Du spannst Fäden zwischen Menschen, Orten und Lügen. Wer sich darin bewegt, verfängt sich.",
+          "ingredients": {
+            "knotengarn": 1,
+            "nebeltau": 1,
+            "silberstaub": 2,
+            "geisteressenz": 1
+          },
+          "skill": {
+            "id": "fangnetz",
+            "name": "Fangnetz",
+            "cost": 3,
+            "hits": 0,
+            "stun": true,
+            "weak": true,
+            "fx": "schwachstelle",
+            "desc": "Unsichtbare Fäden fesseln den Gegner. Er setzt eine Runde aus und ist verwundbar (Schwachstelle)."
+          },
+          "passives": [
+            {
+              "key": "conclusion_honor",
+              "value": 1,
+              "text": "+1 Ansehen mehr für jede Schlussfolgerung."
+            },
+            {
+              "key": "dodge_window",
+              "value": 1.15,
+              "text": "Ausweichfenster +15 %."
+            }
+          ]
+        },
+        "5": {
+          "name": "Knotenmeister",
+          "desc": "Du siehst, wo das Gewebe der Welt reißen will, und ziehst genau dort.",
+          "ingredients": {
+            "spindelknochen": 1,
+            "nebeltau": 1,
+            "geisteressenz": 2,
+            "nebelherz": 1
+          },
+          "skill": {
+            "id": "zerreissen",
+            "name": "Zerreißen",
+            "cost": 5,
+            "hits": 4,
+            "mult": 0.9,
+            "sure": true,
+            "weak": true,
+            "fx": "schicksalsfaden",
+            "desc": "Vier Schläge entlang der Bruchstellen. Kein Takt geht verloren, und der Gegner wird verwundbar."
+          },
+          "passives": [
+            {
+              "key": "dodge_window",
+              "value": 1.2,
+              "text": "Ausweichfenster +20 %."
+            },
+            {
+              "key": "max_nerves",
+              "value": 15,
+              "text": "+15 Nerven."
+            }
+          ]
         }
+      },
+      "growth": {
+        "hp": 4,
+        "nerves": 7
       }
     },
     "maske": {
@@ -272,7 +411,71 @@
               "text": "Du verlierst nur halb so viel Ansehen."
             }
           ]
+        },
+        "6": {
+          "name": "Zweitgesicht",
+          "desc": "Unter deiner Maske liegt eine zweite. Manchmal weißt du selbst nicht, welche gerade spricht.",
+          "ingredients": {
+            "spiegelwachs": 1,
+            "nebeltau": 1,
+            "silberstaub": 2,
+            "geisteressenz": 1
+          },
+          "skill": {
+            "id": "spiegelbild",
+            "name": "Spiegelbild",
+            "cost": 3,
+            "hits": 0,
+            "shield": 18,
+            "confuse": true,
+            "fx": "trugbild",
+            "desc": "Ein zweites Du tritt hervor. Es fängt 18 Schaden ab, und der Gegner schlägt beim nächsten Mal sich selbst."
+          },
+          "passives": [
+            {
+              "key": "price",
+              "value": 0.9,
+              "text": "Händler verlangen noch einmal 10 % weniger."
+            }
+          ]
+        },
+        "5": {
+          "name": "Hundertgesicht",
+          "desc": "Du bist jeder und niemand. Im Gedränge findet dich keiner, und jede Tür hält dich für einen Gast.",
+          "ingredients": {
+            "schminkasche": 1,
+            "nebeltau": 1,
+            "geisteressenz": 2,
+            "nebelherz": 1
+          },
+          "skill": {
+            "id": "maskenball",
+            "name": "Maskenball",
+            "cost": 5,
+            "hits": 3,
+            "mult": 1.0,
+            "evade": true,
+            "confuse": true,
+            "fx": "spiegelschritt",
+            "desc": "Drei Schläge aus drei Gesichtern. Der Gegner verliert dich aus den Augen, schlägt sich selbst und dann ins Leere."
+          },
+          "passives": [
+            {
+              "key": "honor_loss",
+              "value": 0.6,
+              "text": "Du verlierst noch weniger Ansehen."
+            },
+            {
+              "key": "sell",
+              "value": 1.2,
+              "text": "Gorse zahlt 20 % mehr."
+            }
+          ]
         }
+      },
+      "growth": {
+        "hp": 5,
+        "nerves": 6
       }
     },
     "echo": {
@@ -364,7 +567,73 @@
               "text": "Geistsicht kostet 25 % weniger Nerven."
             }
           ]
+        },
+        "6": {
+          "name": "Nachhallrufer",
+          "desc": "Wenn du sprichst, antworten Stimmen aus Wänden und Gräbern. Nicht alle davon sind freundlich.",
+          "ingredients": {
+            "glockenerz": 1,
+            "nebeltau": 1,
+            "silberstaub": 2,
+            "geisteressenz": 1
+          },
+          "skill": {
+            "id": "totenchor",
+            "name": "Totenchor",
+            "cost": 4,
+            "hits": 3,
+            "flat": 6,
+            "holy": true,
+            "composure": 10,
+            "fx": "klagelaut",
+            "desc": "Drei Stimmen singen mit dir. Je 6 Schaden, doppelt gegen Okkultes. Kostet 10 Nerven."
+          },
+          "passives": [
+            {
+              "key": "skill_composure",
+              "value": 0.7,
+              "text": "Fertigkeiten kosten 30 % weniger Nerven."
+            }
+          ]
+        },
+        "5": {
+          "name": "Stillsänger",
+          "desc": "Du kennst den Ton, mit dem alles verstummt. Du singst ihn nur selten.",
+          "ingredients": {
+            "atemglas": 1,
+            "nebeltau": 1,
+            "geisteressenz": 2,
+            "nebelherz": 1
+          },
+          "skill": {
+            "id": "stillgesang",
+            "name": "Stillgesang",
+            "cost": 5,
+            "hits": 1,
+            "flat": 24,
+            "drain": 0.6,
+            "stun": true,
+            "composure": 15,
+            "fx": "seelenzug",
+            "desc": "Ein Lied, das Atem stiehlt. 24 Schaden, 60 % davon heilen dich, der Gegner erstarrt. Kostet 15 Nerven."
+          },
+          "passives": [
+            {
+              "key": "composure_regen",
+              "value": 1.4,
+              "text": "Nerven erholen sich 40 % schneller."
+            },
+            {
+              "key": "max_nerves",
+              "value": 20,
+              "text": "+20 Nerven."
+            }
+          ]
         }
+      },
+      "growth": {
+        "hp": 4,
+        "nerves": 8
       }
     },
     "kessel": {
@@ -465,7 +734,74 @@
               "text": "Unruhe klingt 50 % schneller ab."
             }
           ]
+        },
+        "6": {
+          "name": "Destillateur",
+          "desc": "Du riechst, woraus ein Ding besteht, und weißt, was man daraus brennen kann.",
+          "ingredients": {
+            "salamanderoel": 1,
+            "nebeltau": 1,
+            "silberstaub": 2,
+            "geisteressenz": 1
+          },
+          "skill": {
+            "id": "lebenselixier",
+            "name": "Lebenselixier",
+            "cost": 3,
+            "hits": 0,
+            "heal": 30,
+            "shield": 10,
+            "fx": "wundsalbe",
+            "desc": "Ein Schluck aus der Taschenflasche. Heilt 30 Leben und härtet die Haut (Schutz 10)."
+          },
+          "passives": [
+            {
+              "key": "heal_bonus",
+              "value": 1.3,
+              "text": "Heilmittel wirken noch einmal 30 % stärker."
+            }
+          ]
+        },
+        "5": {
+          "name": "Wandlungsmeister",
+          "desc": "Gift, Arznei, Säure: für dich nur verschiedene Zustände derselben Sache.",
+          "ingredients": {
+            "goldschimmel": 1,
+            "nebeltau": 1,
+            "geisteressenz": 2,
+            "nebelherz": 1
+          },
+          "skill": {
+            "id": "zersetzung",
+            "name": "Zersetzung",
+            "cost": 5,
+            "hits": 2,
+            "flat": 12,
+            "burn": [
+              8,
+              3
+            ],
+            "weak": true,
+            "fx": "aetzwolke",
+            "desc": "Zwei Würfe mit wandelnden Tinkturen. Je 12 Schaden, 3 Runden je 8 Schaden, und die Rüstung zerfällt."
+          },
+          "passives": [
+            {
+              "key": "calm_decay",
+              "value": 1.3,
+              "text": "Unruhe klingt 30 % schneller ab."
+            },
+            {
+              "key": "use_calm",
+              "value": 10,
+              "text": "Heilmittel senken die Unruhe um weitere 10."
+            }
+          ]
         }
+      },
+      "growth": {
+        "hp": 6,
+        "nerves": 5
       }
     },
     "eisen": {
@@ -552,7 +888,70 @@
               "text": "+2 Angriff mit jeder Waffe."
             }
           ]
+        },
+        "6": {
+          "name": "Bollwerk",
+          "desc": "Du stehst wie eine Hafenmauer. Was gegen dich anrennt, bricht sich.",
+          "ingredients": {
+            "ambossstaub": 1,
+            "nebeltau": 1,
+            "silberstaub": 2,
+            "geisteressenz": 1
+          },
+          "skill": {
+            "id": "unbeugsam",
+            "name": "Unbeugsam",
+            "cost": 3,
+            "hits": 0,
+            "shield": 30,
+            "heal": 10,
+            "fx": "eisenhaut",
+            "desc": "Du atmest durch und stellst dich. Schutz 30 und +10 Leben."
+          },
+          "passives": [
+            {
+              "key": "atk",
+              "value": 2,
+              "text": "+2 Angriff."
+            }
+          ]
+        },
+        "5": {
+          "name": "Sturmbrecher",
+          "desc": "Dein Schlag hat das Gewicht eines Ambosses. Dein Körper fühlt kaum noch Schmerz.",
+          "ingredients": {
+            "schwertsplitter": 1,
+            "nebeltau": 1,
+            "geisteressenz": 2,
+            "nebelherz": 1
+          },
+          "skill": {
+            "id": "hammerfall",
+            "name": "Hammerfall",
+            "cost": 5,
+            "hits": 2,
+            "mult": 2.2,
+            "stun": true,
+            "fx": "wuchtschlag",
+            "desc": "Zwei Schläge wie Hammerschläge. Je 220 % Waffenschaden, der Gegner taumelt und setzt aus."
+          },
+          "passives": [
+            {
+              "key": "max_hp",
+              "value": 15,
+              "text": "+15 Leben."
+            },
+            {
+              "key": "damage_taken",
+              "value": 0.85,
+              "text": "Du nimmst 15 % weniger Schaden."
+            }
+          ]
         }
+      },
+      "growth": {
+        "hp": 8,
+        "nerves": 3
       }
     },
     "schluessel": {
@@ -641,7 +1040,71 @@
               "text": "Du kannst aus jedem Kampf fliehen."
             }
           ]
+        },
+        "6": {
+          "name": "Nachtschleicher",
+          "desc": "Türen seufzen erleichtert, wenn du kommst. Geldbörsen auch.",
+          "ingredients": {
+            "dietrichsilber": 1,
+            "nebeltau": 1,
+            "silberstaub": 2,
+            "geisteressenz": 1
+          },
+          "skill": {
+            "id": "taschenspiel",
+            "name": "Taschenspiel",
+            "cost": 3,
+            "hits": 2,
+            "mult": 1.2,
+            "confuse": true,
+            "fx": "hinterhalt",
+            "desc": "Zwei flinke Stiche und ein Griff in die falsche Tasche. Der Gegner schlägt beim nächsten Mal sich selbst."
+          },
+          "passives": [
+            {
+              "key": "lock_bonus",
+              "value": 10,
+              "text": "Schlösser öffnen sich noch früher (Ansehen -10)."
+            },
+            {
+              "key": "money_bonus",
+              "value": 1.15,
+              "text": "+15 % Schilling aus Beute."
+            }
+          ]
+        },
+        "5": {
+          "name": "Siegelbrecher",
+          "desc": "Kein Siegel hält dich auf, kein Riegel, kein Bann. Manchmal öffnest du Dinge, die besser verschlossen geblieben wären.",
+          "ingredients": {
+            "schattenseide": 1,
+            "nebeltau": 1,
+            "geisteressenz": 2,
+            "nebelherz": 1
+          },
+          "skill": {
+            "id": "kehlschnitt",
+            "name": "Kehlschnitt",
+            "cost": 5,
+            "hits": 3,
+            "mult": 1.4,
+            "sure": true,
+            "evade": true,
+            "fx": "schattenschritt",
+            "desc": "Drei Schnitte aus dem toten Winkel, jeder trifft. Dann bist du fort, und der nächste Angriff geht ins Leere."
+          },
+          "passives": [
+            {
+              "key": "lock_bonus",
+              "value": 15,
+              "text": "Schlösser öffnen sich noch früher (Ansehen -15)."
+            }
+          ]
         }
+      },
+      "growth": {
+        "hp": 5,
+        "nerves": 5
       }
     }
   },
@@ -796,6 +1259,520 @@
       "kind": "ingredient",
       "price": 40,
       "desc": "Ein Rest, der von einem besiegten okkulten Wesen bleibt. Kalt und leicht wie Atem."
+    },
+    "flammenkern": {
+      "name": "Flammenkern",
+      "kind": "ingredient",
+      "price": 80,
+      "desc": "Ein Kern aus dem Ofen der alten Glashütte. Er glüht seit dreißig Jahren."
+    },
+    "lichtperle": {
+      "name": "Lichtperle",
+      "kind": "ingredient",
+      "price": 130,
+      "desc": "Eine Perle, die im Dunkeln heller wird statt dunkler."
+    },
+    "knotengarn": {
+      "name": "Knotengarn",
+      "kind": "ingredient",
+      "price": 80,
+      "desc": "Garn einer blinden Weberin. Jeder Knoten ist ein Name."
+    },
+    "spindelknochen": {
+      "name": "Spindelknochen",
+      "kind": "ingredient",
+      "price": 130,
+      "desc": "Ein Fingerknochen, glattgeschliffen wie eine Spindel. Er dreht sich von selbst."
+    },
+    "spiegelwachs": {
+      "name": "Spiegelwachs",
+      "kind": "ingredient",
+      "price": 80,
+      "desc": "Wachs, in dem man sich spiegelt. Allerdings mit fremdem Gesicht."
+    },
+    "schminkasche": {
+      "name": "Schminkasche",
+      "kind": "ingredient",
+      "price": 130,
+      "desc": "Asche verbrannter Theaterschminke. Riecht nach Applaus."
+    },
+    "glockenerz": {
+      "name": "Glockenerz",
+      "kind": "ingredient",
+      "price": 80,
+      "desc": "Erz aus einer eingeschmolzenen Totenglocke. Summt bei Beerdigungen."
+    },
+    "atemglas": {
+      "name": "Atemglas",
+      "kind": "ingredient",
+      "price": 130,
+      "desc": "Ein verkorktes Fläschchen mit dem letzten Atemzug eines Fremden."
+    },
+    "salamanderoel": {
+      "name": "Salamanderöl",
+      "kind": "ingredient",
+      "price": 80,
+      "desc": "Öl, das im Wasser brennt. Teuer, gefährlich, wunderbar."
+    },
+    "goldschimmel": {
+      "name": "Goldschimmel",
+      "kind": "ingredient",
+      "price": 130,
+      "desc": "Schimmel, der auf alten Münzen wächst und Blei zu etwas anderem macht."
+    },
+    "ambossstaub": {
+      "name": "Amboss-Staub",
+      "kind": "ingredient",
+      "price": 80,
+      "desc": "Abrieb von einem Amboss, auf dem drei Schmiede gestorben sind."
+    },
+    "schwertsplitter": {
+      "name": "Schwertsplitter",
+      "kind": "ingredient",
+      "price": 130,
+      "desc": "Ein Splitter einer Klinge, die hundert Kämpfe gesehen hat."
+    },
+    "dietrichsilber": {
+      "name": "Dietrichsilber",
+      "kind": "ingredient",
+      "price": 80,
+      "desc": "Silber aus eingeschmolzenen Dietrichen. Passt in jedes Schloss."
+    },
+    "schattenseide": {
+      "name": "Schattenseide",
+      "kind": "ingredient",
+      "price": 130,
+      "desc": "Seide, die man nur sieht, wenn man nicht hinschaut."
+    },
+    "nebelherz": {
+      "name": "Nebelherz",
+      "kind": "ingredient",
+      "price": 150,
+      "desc": "Das kalte Herz eines großen okkulten Wesens. Es schlägt noch, ganz langsam."
+    }
+  },
+  "artifacts": {
+    "max_active": 3,
+    "equip_unruhe": 10,
+    "unequip_nerves": 15,
+    "clash_tick": 0.2,
+    "borrow_limit": [
+      [
+        35,
+        1
+      ],
+      [
+        50,
+        2
+      ],
+      [
+        70,
+        3
+      ]
+    ],
+    "drop_chance": {
+      "normal": 0.02,
+      "boss": 0.3
+    },
+    "list": {
+      "uhr_ertrunkener": {
+        "name": "Uhr des Ertrunkenen",
+        "source": "revier",
+        "requires_honor": 20,
+        "price": 60,
+        "icon": "taschenuhr",
+        "desc": "Eine Taschenuhr voller Kanalwasser. Sie tickt trotzdem, eine Sekunde zu früh.",
+        "boons": [
+          {
+            "key": "dodge_window",
+            "value": 1.35,
+            "text": "Ausweichfenster +35 %."
+          }
+        ],
+        "curses": [
+          {
+            "key": "composure_regen",
+            "value": 0.5,
+            "text": "Nerven erholen sich nur halb so schnell."
+          },
+          {
+            "key": "damage_taken",
+            "value": 1.1,
+            "text": "Du nimmst 10 % mehr Schaden."
+          }
+        ]
+      },
+      "richterhammer": {
+        "name": "Hammer von Richter Ashdown",
+        "source": "revier",
+        "requires_honor": 35,
+        "price": 90,
+        "icon": "amulett_eisen",
+        "desc": "Ein Richterhammer aus Schwarzeiche. Richter Ashdown hat damit sein letztes Urteil über sich selbst gesprochen.",
+        "boons": [
+          {
+            "key": "atk",
+            "value": 4,
+            "text": "+4 Angriff."
+          }
+        ],
+        "curses": [
+          {
+            "key": "honor_loss",
+            "value": 2,
+            "text": "Jeder Fehltritt kostet doppelt so viel Ansehen."
+          },
+          {
+            "key": "max_nerves",
+            "value": -20,
+            "text": "-20 Nerven."
+          }
+        ]
+      },
+      "augenbinde_odile": {
+        "name": "Augenbinde der Schwester Odile",
+        "source": "revier",
+        "requires_honor": 35,
+        "price": 90,
+        "icon": "taschentuch",
+        "desc": "Ein Streifen Leinen mit zwei aufgestickten Augen. Wer ihn trägt, sieht mehr. Wer ihn zu lange trägt, sieht weniger von sich selbst.",
+        "boons": [
+          {
+            "key": "vision_cost",
+            "value": 0.35,
+            "text": "Geistsicht kostet 65 % weniger Nerven."
+          },
+          {
+            "key": "occult_mult",
+            "value": 1.15,
+            "text": "+15 % Schaden gegen Okkultes."
+          }
+        ],
+        "curses": [
+          {
+            "key": "max_hp",
+            "value": -15,
+            "text": "-15 Leben."
+          }
+        ]
+      },
+      "bleiamulett": {
+        "name": "Bleiamulett aus Zelle 9",
+        "source": "revier",
+        "requires_honor": 50,
+        "price": 120,
+        "icon": "amulett_auge",
+        "desc": "Der Häftling aus Zelle 9 trug es, als man ihn fand. Er war unverletzt. Und völlig leer.",
+        "boons": [
+          {
+            "key": "damage_taken",
+            "value": 0.7,
+            "text": "Du nimmst 30 % weniger Schaden."
+          }
+        ],
+        "curses": [
+          {
+            "key": "heal_bonus",
+            "value": 0.5,
+            "text": "Heilmittel wirken nur halb."
+          },
+          {
+            "key": "digest_mult",
+            "value": 0.5,
+            "text": "Tränke verdauen nur halb so schnell."
+          }
+        ]
+      },
+      "rahmenloser_spiegel": {
+        "name": "Spiegel ohne Rahmen",
+        "source": "revier",
+        "requires_honor": 70,
+        "price": 160,
+        "icon": "taschenspiegel",
+        "desc": "Ein Handspiegel, dessen Rahmen jemand abgebrochen hat. Das Spiegelbild darin bewegt sich manchmal zuerst.",
+        "boons": [
+          {
+            "key": "occult_mult",
+            "value": 1.5,
+            "text": "+50 % Schaden gegen Okkultes."
+          },
+          {
+            "key": "skill_composure",
+            "value": 0.5,
+            "text": "Fertigkeiten kosten die Hälfte an Nerven."
+          }
+        ],
+        "curses": [
+          {
+            "key": "unruhe_tick",
+            "value": 0.5,
+            "text": "Die Unruhe steigt schnell von selbst."
+          }
+        ]
+      },
+      "zahnkette": {
+        "name": "Kette aus Moorzähnen",
+        "source": "wild",
+        "zones": [
+          "marsch"
+        ],
+        "price": 70,
+        "icon": "kette_rauchfass",
+        "desc": "Zähne aus dem Moor, auf Draht gezogen. Sie klappern, wenn du wütend bist.",
+        "boons": [
+          {
+            "key": "atk",
+            "value": 2,
+            "text": "+2 Angriff."
+          },
+          {
+            "key": "max_hp",
+            "value": 10,
+            "text": "+10 Leben."
+          }
+        ],
+        "curses": [
+          {
+            "key": "damage_taken",
+            "value": 1.3,
+            "text": "Du nimmst 30 % mehr Schaden."
+          }
+        ]
+      },
+      "hungriger_ring": {
+        "name": "Der hungrige Ring",
+        "source": "wild",
+        "zones": [
+          "marsch",
+          "kraterwald"
+        ],
+        "price": 80,
+        "icon": "siegelring",
+        "desc": "Ein Siegelring, der sich enger zieht, wenn du satt bist.",
+        "boons": [
+          {
+            "key": "heal_bonus",
+            "value": 2,
+            "text": "Heilmittel wirken doppelt."
+          },
+          {
+            "key": "max_hp",
+            "value": 10,
+            "text": "+10 Leben."
+          }
+        ],
+        "curses": [
+          {
+            "key": "digest_mult",
+            "value": 0.6,
+            "text": "Tränke verdauen 40 % langsamer."
+          },
+          {
+            "key": "damage_taken",
+            "value": 1.15,
+            "text": "Du nimmst 15 % mehr Schaden."
+          }
+        ]
+      },
+      "knochenwuerfel": {
+        "name": "Würfel aus Fingerknochen",
+        "source": "wild",
+        "zones": [
+          "katakomben"
+        ],
+        "price": 80,
+        "icon": "schaedelsplitter",
+        "desc": "Drei Würfel, jede Seite eine Sechs. Das Glück, das sie bringen, holen sie sich woanders zurück.",
+        "boons": [
+          {
+            "key": "money_bonus",
+            "value": 1.6,
+            "text": "+60 % Schilling aus Beute."
+          }
+        ],
+        "curses": [
+          {
+            "key": "price",
+            "value": 1.5,
+            "text": "Händler verlangen 50 % mehr."
+          },
+          {
+            "key": "sell",
+            "value": 0.6,
+            "text": "Gorse zahlt 40 % weniger."
+          }
+        ]
+      },
+      "stille_glocke": {
+        "name": "Die stille Glocke",
+        "source": "wild",
+        "zones": [
+          "katakomben"
+        ],
+        "price": 90,
+        "icon": "glocke",
+        "desc": "Eine kleine Handglocke ohne Klöppel. Wenn sie läutet, hört es nur der Träger.",
+        "boons": [
+          {
+            "key": "skill_composure",
+            "value": 0.3,
+            "text": "Fertigkeiten kosten 70 % weniger Nerven."
+          },
+          {
+            "key": "composure_regen",
+            "value": 1.5,
+            "text": "Nerven erholen sich 50 % schneller."
+          }
+        ],
+        "curses": [
+          {
+            "key": "max_hp",
+            "value": -12,
+            "text": "-12 Leben."
+          },
+          {
+            "key": "unruhe_tick",
+            "value": 0.35,
+            "text": "Die Unruhe klingt nicht mehr ab, sondern steigt von selbst."
+          }
+        ]
+      },
+      "kupferkrone": {
+        "name": "Krone aus Kupferdraht",
+        "source": "wild",
+        "zones": [
+          "pestgassen"
+        ],
+        "price": 90,
+        "icon": "geweihreif",
+        "desc": "Ein Reif aus verdrehtem Kupferdraht. Er macht stark und stur, und die Gedanken werden laut.",
+        "boons": [
+          {
+            "key": "max_hp",
+            "value": 25,
+            "text": "+25 Leben."
+          }
+        ],
+        "curses": [
+          {
+            "key": "max_nerves",
+            "value": -35,
+            "text": "-35 Nerven."
+          },
+          {
+            "key": "composure_regen",
+            "value": 0.7,
+            "text": "Nerven erholen sich 30 % langsamer."
+          }
+        ]
+      },
+      "wachshand": {
+        "name": "Die Wachshand",
+        "source": "wild",
+        "zones": [
+          "pestgassen"
+        ],
+        "price": 100,
+        "icon": "wachsherz",
+        "desc": "Eine Hand aus Kerzenwachs, die Finger leicht gekrümmt. Sie passt in jedes Schlüsselloch, wenn man sie lässt.",
+        "boons": [
+          {
+            "key": "lock_bonus",
+            "value": 20,
+            "text": "Schlösser öffnen sich früher (Ansehen -20)."
+          },
+          {
+            "key": "money_bonus",
+            "value": 1.2,
+            "text": "+20 % Schilling aus Beute."
+          }
+        ],
+        "curses": [
+          {
+            "key": "honor_loss",
+            "value": 2.5,
+            "text": "Fehltritte kosten 2,5-mal so viel Ansehen."
+          },
+          {
+            "key": "price",
+            "value": 1.2,
+            "text": "Händler verlangen 20 % mehr."
+          }
+        ]
+      },
+      "schwarzes_herz": {
+        "name": "Das schwarze Herz",
+        "source": "wild",
+        "zones": [
+          "kraterwald"
+        ],
+        "price": 140,
+        "icon": "brutschale",
+        "desc": "Ein Stein, der schlägt. Er macht deine Hände ruhig und deinen Kopf laut.",
+        "boons": [
+          {
+            "key": "parry_ap",
+            "value": 1,
+            "text": "Paraden bringen +1 Konzentration."
+          },
+          {
+            "key": "atk",
+            "value": 3,
+            "text": "+3 Angriff."
+          }
+        ],
+        "curses": [
+          {
+            "key": "unruhe_tick",
+            "value": 0.6,
+            "text": "Die Unruhe steigt schnell von selbst."
+          },
+          {
+            "key": "calm_decay",
+            "value": 0.4,
+            "text": "Unruhe klingt kaum noch ab."
+          }
+        ]
+      }
+    }
+  },
+  "revier_supply": {
+    "pathways": [
+      "laterne",
+      "faden",
+      "eisen"
+    ],
+    "seqs": {
+      "9": {
+        "requires_quests_done": [
+          "case_01"
+        ],
+        "locked_text": "Erst nach Fall 1: Die erloschene Laterne"
+      },
+      "8": {
+        "requires_quests_done": [
+          "case_02"
+        ],
+        "locked_text": "Erst nach Fall 2: Asche von St. Ebba"
+      },
+      "7": {
+        "requires_quests_done": [
+          "case_04"
+        ],
+        "locked_text": "Erst nach Fall 4: Die gestohlenen Stimmen"
+      },
+      "6": {
+        "requires_quests_done": [
+          "case_05"
+        ],
+        "locked_text": "Erst nach Fall 5: Der Chor in der Glocke"
+      },
+      "5": {
+        "requires_quests_done": [
+          "case_06"
+        ],
+        "locked_text": "Erst nach Fall 6: Der dreizehnte Gast"
+      }
     }
   }
 }

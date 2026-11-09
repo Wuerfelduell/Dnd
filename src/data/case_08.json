@@ -1,0 +1,276 @@
+{
+  "facts": {
+    "sleepwalk": {
+      "case": "case_08",
+      "text": "Die Kinder von St. Brigid wandeln nachts im Schlaf."
+    },
+    "piper_lure": {
+      "case": "case_08",
+      "text": "Der Rattenfänger lockt die Kinder mit seiner Flöte aus dem Haus.",
+      "refuted_by": [
+        "piper_home"
+      ]
+    },
+    "canal_walk": {
+      "case": "case_08",
+      "text": "Die Schlafwandler gehen zum Kanal und tauchen die Hände ins Wasser.",
+      "also": [
+        {
+          "case": "case_07",
+          "requires_any_clues": [
+            "water_glass",
+            "hale_weed"
+          ]
+        }
+      ]
+    },
+    "sleep_tea": {
+      "case": "case_08",
+      "text": "Miss Wren gibt den Kindern jeden Abend einen Tee mit Traumfaden."
+    },
+    "benji_missing": {
+      "case": "case_08",
+      "text": "Benji ist verschwunden. An seinem Bett klebt Kohlenstaub.",
+      "also": [
+        {
+          "case": "case_07",
+          "requires_any_clues": [
+            "chute_prints",
+            "finch_coal"
+          ]
+        }
+      ]
+    },
+    "dream_thread": {
+      "case": "case_08",
+      "text": "Von jedem Kind führt ein unsichtbarer Faden in den Keller des Waisenhauses."
+    }
+  },
+  "clues": {
+    "nan_sleepwalk": {
+      "fact": "sleepwalk",
+      "source": "Nan Kettle",
+      "name": "Barfuß in der Nacht",
+      "text": "„Die aus St. Brigid laufen nachts rum, Mister. Mit offenen Augen, aber die sehen nix. Ich hab Molly an der Hand genommen, und die hat nicht mal gezuckt.“"
+    },
+    "molly_walk": {
+      "fact": "sleepwalk",
+      "source": "Molly",
+      "name": "Ich träume vom Wasser",
+      "text": "„Ich träume jede Nacht dasselbe. Ich gehe zum Wasser, und eine Frau summt. Morgens sind meine Füße schmutzig. Miss Wren sagt, das ist vom Spielen.“"
+    },
+    "wren_piper": {
+      "fact": "piper_lure",
+      "source": "Miss Imogen Wren",
+      "name": "Der Mann mit der Flöte",
+      "text": "„Es ist dieser Rattenfänger. Er spielt nachts vor unseren Fenstern. Ich habe die Polizei schon dreimal gerufen.“"
+    },
+    "nan_piper": {
+      "fact": "piper_lure",
+      "source": "Nan Kettle",
+      "name": "Flötentöne",
+      "text": "„Und da war Flöte. Jedes Mal. Der Rattenfänger, der mit dem Sack.“"
+    },
+    "piper_home": {
+      "fact": "piper_lure",
+      "source": "Jasper Reed",
+      "name": "Ich bringe sie heim",
+      "text": "„Ich spiele, damit sie zurückfinden! Ratten folgen der Flöte, Kinder im Schlaf auch. Ich hol sie vom Kanal weg, jede Nacht. Ich hab nur nie gewusst, wer sie hinschickt.“"
+    },
+    "muddy_gowns": {
+      "fact": "canal_walk",
+      "source": "Eigene Beobachtung",
+      "name": "Nasse Nachthemden",
+      "text": "Im Wäschekorb liegen Nachthemden, die Säume nass und grün. Entengrütze, wie im Kanal hinter dem Haus."
+    },
+    "piper_canal": {
+      "fact": "canal_walk",
+      "source": "Jasper Reed",
+      "name": "Hände im Wasser",
+      "text": "„Sie knien am Kanal und halten die Hände ins Wasser. Alle gleich. Als würden sie etwas schöpfen, für jemand anderen.“"
+    },
+    "tea_tin": {
+      "fact": "sleep_tea",
+      "source": "Eigene Beobachtung",
+      "name": "Die Teedose",
+      "text": "In der Dose auf dem Regal liegen Mohnblüten und etwas Silbriges, fein wie Spinnweben. Beschriftet in ordentlicher Schrift: „Für ruhige Nächte. I. W.“"
+    },
+    "molly_tea": {
+      "fact": "sleep_tea",
+      "source": "Molly",
+      "name": "Der Abendtee",
+      "text": "„Jeden Abend Tee, das ganze Glas, sonst gibt’s Ärger. Er schmeckt nach Honig und nach nix. Benji hat seinen immer in den Blumentopf gekippt. Und dann ... hat sie es gemerkt.“"
+    },
+    "benji_bed": {
+      "fact": "benji_missing",
+      "source": "Eigene Beobachtung",
+      "name": "Benjis Bett",
+      "text": "Benjis Bett ist gemacht, als hätte niemand darin gelegen. Aber auf dem Laken sind schwarze Abdrücke von kleinen Füßen. Kohlenstaub."
+    },
+    "molly_benji": {
+      "fact": "benji_missing",
+      "source": "Molly",
+      "name": "Benji",
+      "text": "„Benji ist weg, seit einer Woche. In der Nacht davor kam er schwarz wie ein Schornsteinfeger zurück und hat geweint. Er hat gesagt, er hat einem Mann Wasser gebracht.“"
+    },
+    "thread_vision": {
+      "fact": "dream_thread",
+      "source": "Geistsicht",
+      "name": "Fäden über den Betten",
+      "text": "Mit der Geistsicht siehst du sie: Von jedem Kissen steigt ein Faden auf, dünn wie Haar, und alle laufen zusammen zur Kellertür. Einer hängt lose. Er führt zu Benjis leerem Bett.",
+      "by": "vision"
+    },
+    "piper_thread": {
+      "fact": "dream_thread",
+      "source": "Jasper Reed",
+      "name": "Was die Flöte hört",
+      "text": "„Wenn ich spiele, spür ich einen Zug, wie an einer Angelschnur. Von jedem Kind nach unten. In den Keller von St. Brigid. Ich hab mich nie getraut, da runterzugehen.“"
+    }
+  },
+  "deductions": [
+    {
+      "id": "d8_tea",
+      "case": "case_08",
+      "pairs": [
+        [
+          "sleep_tea",
+          "sleepwalk"
+        ]
+      ],
+      "name": "Der Tee",
+      "text": "Miss Wrens Abendtee schickt die Kinder auf Wanderschaft."
+    },
+    {
+      "id": "d8_thread",
+      "case": "case_08",
+      "pairs": [
+        [
+          "dream_thread",
+          "sleepwalk"
+        ]
+      ],
+      "name": "Kinder an Fäden",
+      "text": "Jemand führt die Schlafwandler an Traumfäden, und das Ende liegt im Keller von St. Brigid."
+    },
+    {
+      "id": "piper_guilty",
+      "case": "case_08",
+      "honor": 0,
+      "pairs": [
+        [
+          "piper_lure",
+          "sleepwalk"
+        ]
+      ],
+      "name": "Der Rattenfänger",
+      "text": "Der Rattenfänger lockt die Kinder mit seiner Flöte fort."
+    },
+    {
+      "id": "link_benji",
+      "case": "case_08",
+      "pairs": [
+        [
+          "coal_prints",
+          "benji_missing"
+        ]
+      ],
+      "name": "Benji im Kontor",
+      "text": "Benji ist der Junge, der durch Thornes Kohlenschacht kam. Er hat dem Bankier im Schlaf das Kanalwasser gebracht. Die beiden Fälle sind einer."
+    },
+    {
+      "id": "link_motive",
+      "case": "case_08",
+      "pairs": [
+        [
+          "foreclosure",
+          "sleep_tea"
+        ]
+      ],
+      "name": "Miss Wrens Grund",
+      "text": "Thorne wollte St. Brigid räumen. Miss Wren hat ihm im Schlaf ein Kind geschickt, mit Wasser aus dem Kanal."
+    }
+  ],
+  "endings": {
+    "c8_perfect": {
+      "case": "case_08",
+      "title": "Alle wachen auf",
+      "honor": 34,
+      "gives_money": 50,
+      "gives_items": {
+        "traumspule": 1
+      },
+      "sets_flags": [
+        "case_07_closed",
+        "case_08_closed",
+        "wren_arrested",
+        "benji_found"
+      ],
+      "complete_quests": [
+        "case_07",
+        "case_08"
+      ],
+      "text": "Du schneidest die Fäden einzeln, und bei jedem rufst du einen Namen. Oben im Schlafsaal setzen sich die Kinder auf, eines nach dem anderen, und weinen, weil sie nicht wissen, wo sie sind.\n\nDer letzte Faden führt nicht nach oben, sondern hinter den Webstuhl. Da schläft Benji, zusammengerollt, die Füße noch schwarz. Als du ihn rufst, macht er die Augen auf und fragt, ob der Mann sein Wasser getrunken hat.\n\nPrice führt Miss Wren ab. Sie lächelt und sagt, sie habe das Haus gerettet. Edmund Thorne erbt und lässt als Erstes die Räumung zurückziehen."
+    },
+    "c8_good": {
+      "case": "case_08",
+      "title": "Ein Feuer im Keller",
+      "honor": 20,
+      "gives_money": 30,
+      "sets_flags": [
+        "case_07_closed",
+        "case_08_closed",
+        "wren_arrested"
+      ],
+      "complete_quests": [
+        "case_07",
+        "case_08"
+      ],
+      "text": "Der Webstuhl brennt schnell, wie trockenes Haar. Oben schreien die Kinder im Schlaf auf, dann ist es still, und sie schlafen zum ersten Mal ohne zu wandern.\n\nBenji findet man erst am Morgen, hinter dem Webstuhl, die Füße schwarz. Er wacht auf, aber er spricht nicht mehr. Molly sitzt jeden Tag bei ihm.\n\nMiss Wren wird abgeführt. Thornes Fall ist damit auch geschlossen."
+    },
+    "c8_early": {
+      "case": "case_08",
+      "title": "Eine Verhaftung im Schlafsaal",
+      "honor": 10,
+      "gives_money": 15,
+      "sets_flags": [
+        "case_07_closed",
+        "case_08_closed",
+        "wren_arrested",
+        "benji_lost"
+      ],
+      "complete_quests": [
+        "case_07",
+        "case_08"
+      ],
+      "text": "Price verhaftet Miss Wren beim Abendtee. Sie wehrt sich nicht.\n\nDie Kinder wandern noch drei Nächte, dann hören die Fäden auf zu ziehen. Benji bleibt verschwunden. Nan sucht ihn jede Nacht am Kanal."
+    },
+    "c8_piper": {
+      "case": "case_08",
+      "title": "Der Mann mit der Flöte",
+      "honor": -8,
+      "sets_flags": [
+        "case_08_closed",
+        "c8_wrong",
+        "piper_arrested"
+      ],
+      "complete_quests": [
+        "case_08"
+      ],
+      "text": "Price nimmt Jasper Reed fest, mit Flöte und Sack. Miss Wren bedankt sich mit Tränen in den Augen.\n\nIn der nächsten Nacht spielt niemand mehr vor den Fenstern. Und am Morgen fehlen zwei Kinder."
+    },
+    "c7_wren": {
+      "case": "case_07",
+      "title": "Die Leiterin von St. Brigid",
+      "honor": 18,
+      "gives_money": 25,
+      "sets_flags": [
+        "case_07_closed",
+        "wren_arrested"
+      ],
+      "complete_quests": [
+        "case_07"
+      ],
+      "text": "Marlowe lässt Miss Wren holen. Sie hört sich die Vorwürfe an, faltet die Hände und sagt nichts.\n\nWas sie mit den Kindern gemacht hat, beweist niemand mehr. Aber die Kinder von St. Brigid schlafen wieder durch."
+    }
+  }
+}

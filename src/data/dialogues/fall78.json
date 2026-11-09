@@ -1,0 +1,525 @@
+{
+  "finch": {
+    "start": "start",
+    "nodes": {
+      "start": {
+        "text": "Ein dünner Mann mit Ärmelschonern sortiert Papiere, die niemand mehr unterschreiben wird. „Ambrose Finch, Kontorist. Zweiundzwanzig Jahre bei Mr. Thorne. Und jetzt das.“",
+        "choices": [
+          {
+            "text": "Wie haben Sie ihn gefunden?",
+            "next": "found",
+            "hide_if_clues": [
+              "finch_found"
+            ],
+            "requires_quests_active": [
+              "case_07"
+            ]
+          },
+          {
+            "text": "Wie kam jemand hier herein?",
+            "next": "coal",
+            "requires_clues": [
+              "finch_found"
+            ],
+            "hide_if_clues": [
+              "finch_coal"
+            ],
+            "requires_quests_active": [
+              "case_07"
+            ]
+          },
+          {
+            "text": "Hatte Mr. Thorne Feinde?",
+            "next": "enemies",
+            "requires_quests_active": [
+              "case_07"
+            ]
+          },
+          {
+            "text": "Mein Beileid."
+          }
+        ]
+      },
+      "found": {
+        "text": "Finch nimmt die Brille ab.",
+        "gives_clues": [
+          "finch_found"
+        ],
+        "choices": [
+          {
+            "text": "Danke.",
+            "next": "start"
+          }
+        ]
+      },
+      "coal": {
+        "text": "„Die Tür war von innen verriegelt, die Fenster vergittert. Nur ...“ Er zögert.",
+        "gives_clues": [
+          "finch_coal"
+        ],
+        "choices": [
+          {
+            "text": "Danke.",
+            "next": "start"
+          }
+        ]
+      },
+      "enemies": {
+        "text": "„Er war Bankier, Sir. Jeder in der Stadt schuldete ihm etwas. Zuletzt standen ein paar Damen mit Schildern vor der Tür. Wegen eines Waisenhauses, glaube ich.“",
+        "choices": [
+          {
+            "text": "Danke.",
+            "next": "start"
+          }
+        ]
+      }
+    }
+  },
+  "erbe": {
+    "start": "start",
+    "nodes": {
+      "start": {
+        "text": "Ein junger Mann im lila Gehrock lümmelt im Sessel seines toten Onkels. „Edmund Thorne. Wenn Sie mich verhaften wollen, tun Sie es schnell. Ich habe einen Kater.“",
+        "choices": [
+          {
+            "text": "Sie erben alles.",
+            "next": "inherit",
+            "hide_if_clues": [
+              "edmund_inherit"
+            ],
+            "requires_quests_active": [
+              "case_07"
+            ]
+          },
+          {
+            "text": "Was haben Sie mit dem Kontor vor?",
+            "next": "plans",
+            "requires_quests_active": [
+              "case_07"
+            ]
+          },
+          {
+            "text": "Nichts."
+          }
+        ]
+      },
+      "inherit": {
+        "text": "Er lacht freudlos.",
+        "gives_clues": [
+          "edmund_inherit"
+        ],
+        "choices": [
+          {
+            "text": "Danke.",
+            "next": "start"
+          }
+        ]
+      },
+      "plans": {
+        "text": "„Verkaufen, die Schulden bezahlen und nie wieder eine Zahl ansehen. Und die Räumung von diesem Waisenhaus, die mein Onkel durchziehen wollte ... ach, was weiß ich.“",
+        "choices": [
+          {
+            "text": "Danke.",
+            "next": "start"
+          }
+        ]
+      }
+    }
+  },
+  "matrose": {
+    "start": "start",
+    "nodes": {
+      "start": {
+        "text": "Ein Matrose mit Wollmütze flickt ein Netz und kaut auf einer kalten Pfeife. „Tobias Hale. Was gibt’s?“",
+        "choices": [
+          {
+            "text": "Kennen Sie Edmund Thorne? Lila Rock.",
+            "next": "alibi",
+            "requires_clues": [
+              "edmund_inherit"
+            ],
+            "hide_if_clues": [
+              "hale_alibi"
+            ],
+            "requires_quests_active": [
+              "case_07"
+            ]
+          },
+          {
+            "text": "Woher stammt dieses Wasser?",
+            "next": "weed",
+            "requires_items": [
+              "wasserprobe"
+            ],
+            "hide_if_clues": [
+              "hale_weed"
+            ],
+            "requires_quests_active": [
+              "case_07"
+            ]
+          },
+          {
+            "text": "Gute Fahrt."
+          }
+        ]
+      },
+      "alibi": {
+        "text": "Hale spuckt aus.",
+        "gives_clues": [
+          "hale_alibi"
+        ],
+        "choices": [
+          {
+            "text": "Danke.",
+            "next": "start"
+          }
+        ]
+      },
+      "weed": {
+        "text": "Er schnuppert am Glas.",
+        "gives_clues": [
+          "hale_weed"
+        ],
+        "choices": [
+          {
+            "text": "Danke.",
+            "next": "start"
+          }
+        ]
+      }
+    }
+  },
+  "sufragette": {
+    "start": "start",
+    "nodes": {
+      "start": {
+        "text": "Eine Frau mit Schärpe und Flugblättern stellt sich dir in den Weg. „Clara Benning. Stimmrecht für Frauen, und Brot für Waisen! Nehmen Sie ein Blatt.“",
+        "choices": [
+          {
+            "text": "Sie haben vor Thornes Kontor protestiert?",
+            "next": "protest",
+            "hide_if_clues": [
+              "clara_protest"
+            ],
+            "requires_quests_active": [
+              "case_07"
+            ]
+          },
+          {
+            "text": "Ein Blatt, bitte.",
+            "next": "leaflet"
+          },
+          {
+            "text": "Später."
+          }
+        ]
+      },
+      "protest": {
+        "text": "Ihr Blick wird hart.",
+        "gives_clues": [
+          "clara_protest"
+        ],
+        "choices": [
+          {
+            "text": "Danke.",
+            "next": "start"
+          }
+        ]
+      },
+      "leaflet": {
+        "text": "„Lesen Sie es. Und dann denken Sie daran, wer in dieser Stadt die Zahlen schreibt.“",
+        "choices": [
+          {
+            "text": "Mache ich.",
+            "next": "start"
+          }
+        ]
+      }
+    }
+  },
+  "gouvernante": {
+    "start": "start",
+    "nodes": {
+      "start": {
+        "text": "Eine Frau in Grau, das Haar straff gescheitelt, faltet Wäsche mit scharfen Kanten. Ihre Stimme ist leise und angenehm. „Imogen Wren. Ich leite St. Brigid. Die Kinder schlafen, bitte sprechen Sie leise.“",
+        "choices": [
+          {
+            "text": "Ihre Kinder wandeln nachts.",
+            "next": "piper",
+            "hide_if_clues": [
+              "wren_piper"
+            ],
+            "requires_quests_active": [
+              "case_08"
+            ]
+          },
+          {
+            "text": "Was ist in Ihrem Abendtee?",
+            "next": "tea",
+            "requires_clues": [
+              "tea_tin"
+            ],
+            "requires_quests_active": [
+              "case_08"
+            ]
+          },
+          {
+            "text": "Thorne wollte Ihr Haus räumen.",
+            "next": "thorne",
+            "requires_conclusions": [
+              "link_motive"
+            ],
+            "requires_quests_active": [
+              "case_08"
+            ]
+          },
+          {
+            "text": "Gute Nacht."
+          }
+        ]
+      },
+      "piper": {
+        "text": "Sie legt die Hand auf die Brust.",
+        "gives_clues": [
+          "wren_piper"
+        ],
+        "choices": [
+          {
+            "text": "Danke.",
+            "next": "start"
+          }
+        ]
+      },
+      "tea": {
+        "text": "„Kamille und Honig. Kinder schlafen schlecht, wenn sie keine Eltern haben.“ Sie lächelt. Der Tee in ihrer Tasse ist kalt und unberührt.",
+        "choices": [
+          {
+            "text": "Danke.",
+            "next": "start"
+          }
+        ]
+      },
+      "thorne": {
+        "text": "Für einen Moment hört sie auf zu falten. „Mr. Thorne hat sich die Sache überlegt. Wie gut, dass manche Männer im Schlaf vernünftig werden.“",
+        "choices": [
+          {
+            "text": "…",
+            "next": "start"
+          }
+        ]
+      }
+    }
+  },
+  "molly": {
+    "start": "start",
+    "nodes": {
+      "start": {
+        "text": "Ein Mädchen mit roten Zöpfen und dunklen Ringen unter den Augen hält eine Puppe fest. „Bist du von der Polizei? Nan hat gesagt, du kommst.“",
+        "choices": [
+          {
+            "text": "Was träumst du nachts?",
+            "next": "walk",
+            "hide_if_clues": [
+              "molly_walk"
+            ],
+            "requires_quests_active": [
+              "case_08"
+            ]
+          },
+          {
+            "text": "Erzähl mir vom Abendtee.",
+            "next": "tea",
+            "requires_clues": [
+              "molly_walk"
+            ],
+            "hide_if_clues": [
+              "molly_tea"
+            ],
+            "requires_quests_active": [
+              "case_08"
+            ]
+          },
+          {
+            "text": "Wo ist Benji?",
+            "next": "pip",
+            "hide_if_clues": [
+              "molly_benji"
+            ],
+            "requires_quests_active": [
+              "case_08"
+            ]
+          },
+          {
+            "text": "Schlaf gut, Molly."
+          }
+        ]
+      },
+      "walk": {
+        "text": "Sie flüstert, damit Miss Wren es nicht hört.",
+        "gives_clues": [
+          "molly_walk"
+        ],
+        "choices": [
+          {
+            "text": "Danke.",
+            "next": "start"
+          }
+        ]
+      },
+      "tea": {
+        "text": "Sie sieht sich zur Tür um.",
+        "gives_clues": [
+          "molly_tea"
+        ],
+        "choices": [
+          {
+            "text": "Danke.",
+            "next": "start"
+          }
+        ]
+      },
+      "pip": {
+        "text": "Ihre Unterlippe zittert.",
+        "gives_clues": [
+          "molly_benji"
+        ],
+        "choices": [
+          {
+            "text": "Danke.",
+            "next": "start"
+          }
+        ]
+      }
+    }
+  },
+  "rattenfaenger": {
+    "start": "start",
+    "nodes": {
+      "start": {
+        "text": "Ein hagerer Mann mit Ledersack und Holzflöte tritt aus dem Schatten. Etwas raschelt in dem Sack. „Jasper Reed, Ratten und Ungeziefer. Sie sind der Polizist, der mich sucht?“",
+        "choices": [
+          {
+            "text": "Miss Wren sagt, Sie locken die Kinder weg.",
+            "next": "home",
+            "hide_if_clues": [
+              "piper_home"
+            ],
+            "requires_quests_active": [
+              "case_08"
+            ]
+          },
+          {
+            "text": "Was machen die Kinder am Kanal?",
+            "next": "canal",
+            "requires_clues": [
+              "piper_home"
+            ],
+            "hide_if_clues": [
+              "piper_canal"
+            ],
+            "requires_quests_active": [
+              "case_08"
+            ]
+          },
+          {
+            "text": "Wohin führen die Kinder, wenn Sie spielen?",
+            "next": "thread",
+            "requires_clues": [
+              "piper_canal"
+            ],
+            "hide_if_clues": [
+              "piper_thread"
+            ],
+            "requires_quests_active": [
+              "case_08"
+            ]
+          },
+          {
+            "text": "Nichts."
+          }
+        ]
+      },
+      "home": {
+        "text": "Er packt die Flöte fester.",
+        "gives_clues": [
+          "piper_home"
+        ],
+        "choices": [
+          {
+            "text": "Danke.",
+            "next": "start"
+          }
+        ]
+      },
+      "canal": {
+        "text": "Er sieht zum Kanal hinüber.",
+        "gives_clues": [
+          "piper_canal"
+        ],
+        "choices": [
+          {
+            "text": "Danke.",
+            "next": "start"
+          }
+        ]
+      },
+      "thread": {
+        "text": "Er setzt die Flöte an, spielt drei Töne und verzieht das Gesicht.",
+        "gives_clues": [
+          "piper_thread"
+        ],
+        "choices": [
+          {
+            "text": "Danke.",
+            "next": "start"
+          }
+        ]
+      }
+    }
+  },
+  "webstuhl8": {
+    "start": "start",
+    "nodes": {
+      "start": {
+        "text": "Der Webstuhl ist voller Fäden, und an jedem hängt ein Atemzug. Oben im Haus hörst du die Kinder schlafen, alle im selben Takt. Hinter dem Webstuhl liegt etwas Kleines, zusammengerollt.",
+        "choices": [
+          {
+            "text": "Die Fäden einzeln durchschneiden und jedes Kind beim Namen rufen.",
+            "next": "perfect",
+            "requires_certain": [
+              "d8_thread"
+            ],
+            "requires_conclusions": [
+              "link_benji"
+            ]
+          },
+          {
+            "text": "Den Webstuhl anzünden.",
+            "next": "burn"
+          },
+          {
+            "text": "Noch nicht."
+          }
+        ]
+      },
+      "perfect": {
+        "text": "Du nimmst die Silberschere.",
+        "ending": "c8_perfect",
+        "choices": [
+          {
+            "text": "…"
+          }
+        ]
+      },
+      "burn": {
+        "text": "Du hältst die Lampe an die Fäden.",
+        "ending": "c8_good",
+        "choices": [
+          {
+            "text": "…"
+          }
+        ]
+      }
+    }
+  }
+}

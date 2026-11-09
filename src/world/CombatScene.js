@@ -121,9 +121,15 @@ export class CombatScene extends Phaser.Scene {
 
   /** Effekt einer Pfad-Fähigkeit, am Spieler oder am Gegner. */
   skillFx(skillId) {
+    skillId = this.fxId(skillId);
     if (!SKILL_FX[skillId]) return;
     const p = SELF_FX.includes(skillId) ? this.playerCenter() : this.enemyCenter();
     this.playFx(`fx_${skillId}`, 'cast', p.x, p.y);
+  }
+
+  /** Effekt-Id einer Fähigkeit: neue Fähigkeiten leihen sich bis zur eigenen Grafik einen Effekt (fx). */
+  fxId(skillId) {
+    return this.combat?.skillDef(skillId)?.fx ?? skillId;
   }
 
   /** Schlaganimation passend zur Waffe. */
@@ -336,7 +342,7 @@ export class CombatScene extends Phaser.Scene {
       this.time.delayedCall(700, () => this.afterAction(c.endsTurn(skillId)));
       return;
     }
-    if (SKILL_FX[skillId]) { this.castAnim(); this.skillFx(skillId); } else this.attackAnim();
+    if (SKILL_FX[this.fxId(skillId)]) { this.castAnim(); this.skillFx(skillId); } else this.attackAnim();
     const blade = this.state.weapon === 'stockdegen';
     this.tweens.add({
       targets: this.player, x: ENEMY_X - 50, duration: 160, yoyo: true, ease: 'Quad.out',

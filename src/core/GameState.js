@@ -1,6 +1,7 @@
 // Reiner Spielzustand ohne Phaser-Abhängigkeit, damit er auch in Node-Tests läuft.
 import { pathwayMethods } from './Pathways.js';
 import { gatheringMethods } from './Gatherings.js';
+import { artifactMethods } from './Artifacts.js';
 //
 // Begriffe:
 // - Hinweis (clue): eine einzelne Quelle, z. B. eine Spur oder eine Zeugenaussage.
@@ -12,7 +13,7 @@ import { gatheringMethods } from './Gatherings.js';
 // - Ansehen (honor): Ruf bei der Polizei. Höhere Ränge öffnen Akten und Gespräche.
 // - Leben (hp) und Inventar: Gegenstände heilen, beruhigen die Nerven oder helfen im Kampf.
 
-export const COMPOSURE_MAX = 100;
+export const COMPOSURE_MAX = 100; // Grundwert; der echte Höchstwert ist maxComposure() (wächst mit den Sequenzen)
 export const VISION_DRAIN_PER_SEC = 9;
 export const VISION_REGEN_PER_SEC = 6;
 export const LIKELY_SOURCES = 2;
@@ -103,7 +104,22 @@ export class GameState {
 
   knownFacts(caseId) {
     const seen = new Set(this.clues.map((c) => this.clue(c).fact));
-    return Object.keys(this.content.facts).filter((f) => seen.has(f) && (!caseId || this.fact(f).case === caseId));
+    return Object.keys(this.content.facts).filter((f) => seen.has(f) && (!caseId || this.fact(f).case === caseId || this.crossListed(f, caseId)));
+  }
+
+  /**
+   * Querverbindung: Eine Information aus einem anderen Fall taucht auch in caseId auf, sobald ihre Bedingung erfüllt ist
+   * (fact.also = [{ case, ...Bedingungen }]). So hängen zwei Fälle zusammen, die erst nichts miteinander zu tun haben.
+   */
+  /** Alle aktiven Querverbindungen bekannter Informationen als Set "fact>case". */
+  crossLinks() {
+    const out = new Set();
+    for (const f of this.knownFacts()) for (const a of this.fact(f).also ?? []) if (this.meets(a)) out.add(`${f}>${a.case}`);
+    return out;
+  }
+
+  crossListed(factId, caseId) {
+    return (this.fact(factId).also ?? []).some((a) => a.case === caseId && this.meets(a));
   }
 
   /** Eine Schlussfolgerung ist gesichert, wenn ein Paar komplett "sehr wahrscheinlich" ist. */
@@ -118,8 +134,11 @@ export class GameState {
     if (!clue) throw new Error(`Unbekannter Hinweis: ${id}`);
     if (this.hasClue(id)) return false;
     const before = this.snapshotFacts();
+    const crossBefore = this.crossLinks();
     this.clues.push(id);
     this.emit('clue', id);
+    // Neue Querverbindungen zwischen Fällen melden
+    for (const link of this.crossLinks()) if (!crossBefore.has(link)) this.emit('cross', { fact: link.split('>')[0], case: link.split('>')[1] });
     // Statuswechsel aller Informationen melden (auch indirekt widerlegte)
     for (const [f, old] of before) {
       const now = this.factStatus(f);
@@ -334,6 +353,7 @@ export class GameState {
     this.inventory[id] -= n;
     if (this.inventory[id] <= 0) delete this.inventory[id];
     if (this.weapon === id && !this.inventory[id]) this.weapon = null;
+    if (!this.inventory[id] && this.item(id)?.kind === 'artifact') this.dropArtifactIfGone(id);
     this.emit('item', { id, delta: -n });
     return true;
   }
@@ -399,7 +419,9 @@ export class GameState {
     return this.hp - before;
   }
 
+  /** Schaden am Spieler. Artefakte und Passive verändern ihn (damage_taken). */
   damage(n) {
+    if (n > 0) n = Math.max(1, Math.round(n * this.passive('damage_taken')));
     const before = this.hp;
     this.hp = Math.max(0, this.hp - n);
     if (this.hp !== before) this.emit('hp', { value: this.hp, delta: this.hp - before });
@@ -407,7 +429,7 @@ export class GameState {
   }
 
   setComposure(v) {
-    this.composure = Math.max(0, Math.min(COMPOSURE_MAX, v));
+    this.composure = Math.max(0, Math.min(this.maxComposure(), v));
     this.emit('composure', this.composure);
   }
 
@@ -417,7 +439,7 @@ export class GameState {
     if (!it || it.kind !== 'consumable' || !this.itemCount(id)) return null;
     if (it.combat_only) return `${it.name} hilft nur im Kampf.`;
     if (it.heal && this.hp >= this.maxHp && !it.composure && !it.calm) return 'Du bist unverletzt.';
-    if (it.composure && this.composure >= COMPOSURE_MAX && !it.heal && !(it.calm && this.unruhe > 0)) return 'Deine Nerven sind ruhig.';
+    if (it.composure && this.composure >= this.maxComposure() && !it.heal && !(it.calm && this.unruhe > 0)) return 'Deine Nerven sind ruhig.';
     this.removeItem(id);
     const parts = this.applyConsumable(it);
     this.emit('changed');
@@ -475,7 +497,7 @@ export class GameState {
       }
     } else {
       const calmMind = this.unruhe >= 60 ? 0.5 : 1;
-      this.composure = Math.min(COMPOSURE_MAX, this.composure + VISION_REGEN_PER_SEC * this.passive('composure_regen') * calmMind * dtSeconds);
+      this.composure = Math.min(this.maxComposure(), this.composure + VISION_REGEN_PER_SEC * this.passive('composure_regen') * calmMind * dtSeconds);
     }
     if (this.composure !== before) this.emit('composure', this.composure);
     this.tickPathway(dtSeconds);
@@ -533,4 +555,4 @@ export class GameState {
   }
 }
 
-Object.assign(GameState.prototype, pathwayMethods, gatheringMethods);
+Object.assign(GameState.prototype, pathwayMethods, artifactMethods, gatheringMethods);

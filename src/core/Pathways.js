@@ -2,7 +2,8 @@
 //
 // Begriffe:
 // - Pfad (pathway): eine von sieben Linien (Laterne, Faden, Maske, Echo, Kessel, Eisen, Schlüssel).
-// - Sequenz: Stufe auf dem Pfad. Man beginnt mit 9 und steigt bis 7 auf (kleiner = stärker).
+// - Sequenz: Stufe auf dem Pfad. Man beginnt mit 9 und steigt bis 5 auf (kleiner = stärker).
+//   Jede erreichte Sequenz bringt mehr Leben und Nerven (growth im Pfad).
 // - Verdauung (digestion, 0–100): wächst, wenn man nach dem Grundsatz des Pfades handelt
 //   (state.act). Erst bei 100 verträgt man den nächsten Trank gefahrlos.
 // - Unruhe (0–100): kommt mit jedem Trank, mit Geistsicht und zerrütteten Nerven. Klingt mit der
@@ -12,8 +13,10 @@
 // Die Methoden werden in GameState eingehängt (siehe unten in GameState.js).
 
 export const SEQ_START = 9;
-export const SEQ_MAX = 7; // höchste erreichbare Stufe in dieser Version
-export const DIGEST_RATE = { 9: 1, 8: 0.7, 7: 0.5 };
+export const SEQ_MAX = 5; // höchste erreichbare Stufe in dieser Version
+export const DIGEST_RATE = { 9: 1, 8: 0.7, 7: 0.5, 6: 0.35, 5: 0.25 };
+export const COMPOSURE_BASE = 100;
+export const DEFAULT_GROWTH = { hp: 5, nerves: 5 };
 export const UNRUHE_MAX = 100;
 export const UNRUHE_DECAY_PER_SEC = 0.25;
 export const UNRUHE_VISION_PER_SEC = 0.35;
@@ -28,7 +31,7 @@ export const DIGEST_LABELS = {
   loot: 'Belohnung eingestrichen',
 };
 const MULT_KEYS = new Set(['vision_cost', 'composure_regen', 'heal_bonus', 'price', 'sell', 'honor_loss', 'occult_mult',
-  'money_bonus', 'skill_composure', 'calm_decay', 'dodge_window']);
+  'money_bonus', 'skill_composure', 'calm_decay', 'dodge_window', 'damage_taken', 'digest_mult']);
 
 export const pathwayMethods = {
   resetPathway() {
@@ -37,6 +40,7 @@ export const pathwayMethods = {
     this.unruhe = 0;
     this.seenNodes = new Set();
     this.visionDigest = { map: null, total: 0 };
+    this.resetArtifacts();
   },
 
   // --- Nachschlagen -----------------------------------------------------------
@@ -60,18 +64,43 @@ export const pathwayMethods = {
     return out;
   },
 
-  /** Wert einer passiven Fähigkeit (Multiplikatoren multiplizieren sich, sonst wird addiert). */
+  /**
+   * Wert einer passiven Fähigkeit (Multiplikatoren multiplizieren sich, sonst wird addiert).
+   * Zählt die Passiven aller erreichten Sequenzen und die Vor- und Nachteile angelegter Artefakte.
+   */
   passive(key) {
     const mult = MULT_KEYS.has(key);
     let v = mult ? 1 : 0;
-    for (const s of this.reachedSeqs()) {
-      for (const p of s.passives ?? []) {
+    const lists = [...this.reachedSeqs().map((s) => s.passives ?? []), ...this.artifactEffects()];
+    for (const list of lists) {
+      for (const p of list) {
         if (p.key !== key) continue;
         if (typeof p.value === 'boolean') v = v || p.value;
         else v = mult ? v * p.value : v + p.value;
       }
     }
     return v;
+  },
+
+  /** Wie viele Sequenzen schon erreicht sind (9 = 1, 5 = 5). */
+  seqSteps() {
+    return this.pathway ? SEQ_START + 1 - this.pathway.seq : 0;
+  },
+
+  /** Zuwachs an Leben und Nerven pro erreichter Sequenz. */
+  growth() {
+    return { ...DEFAULT_GROWTH, ...(this.pathwayDef()?.growth ?? {}) };
+  },
+
+  /** Höchstwert der Nerven: Grundwert, Sequenzen, Passive und Artefakte. */
+  maxComposure() {
+    return Math.max(20, COMPOSURE_BASE + this.growth().nerves * this.seqSteps() + this.passive('max_nerves'));
+  },
+
+  /** Höchstwert des Lebens (ohne zu heilen oder zu verletzen). */
+  calcMaxHp() {
+    const base = this.content.start.hp ?? 40;
+    return Math.max(10, base + this.growth().hp * this.seqSteps() + this.passive('max_hp'));
   },
 
   /** Kampffertigkeiten des eigenen Pfades: { id: skill } */
@@ -111,7 +140,7 @@ export const pathwayMethods = {
     if (!p) return 0;
     const table = this.pathwayDef().digest ?? {};
     if (!table[kind]) return 0;
-    let pts = table[kind] * amount * (DIGEST_RATE[p.seq] ?? 0.5);
+    let pts = table[kind] * amount * (DIGEST_RATE[p.seq] ?? 0.25) * this.passive('digest_mult');
     if (kind === 'vision') {
       if (this.visionDigest.map !== this.map) this.visionDigest = { map: this.map, total: 0 };
       pts = Math.min(pts, Math.max(0, VISION_DIGEST_CAP - this.visionDigest.total));
@@ -134,7 +163,7 @@ export const pathwayMethods = {
   /** Was den eigenen Pfad wie stark verdaut, auf der aktuellen Sequenz: [{kind, label, points}] */
   digestTable() {
     if (!this.pathway) return [];
-    const rate = DIGEST_RATE[this.pathway.seq] ?? 0.5;
+    const rate = (DIGEST_RATE[this.pathway.seq] ?? 0.25) * this.passive('digest_mult');
     return Object.entries(this.pathwayDef().digest ?? {})
       .map(([kind, v]) => ({ kind, label: DIGEST_LABELS[kind] ?? kind, points: Math.round(v * rate * 10) / 10 }))
       .sort((a, b) => b.points - a.points);
@@ -157,7 +186,8 @@ export const pathwayMethods = {
     if (this.pathway) this.pathway.digestion = Math.max(0, this.pathway.digestion - 20);
     this.unruhe = 40;
     this.spiritVision = false;
-    const text = `${cause}\n\nDie Welt kippt zur Seite. Du siehst Dinge, die nicht da sind, und hörst deinen Namen in fremden Stimmen. Als du wieder zu dir kommst, liegst du auf kaltem Pflaster, die Hände zerkratzt.\n\nDu hast ${lostMoney} Schilling verloren${this.pathway ? ' und ein Stück deines Fortschritts beim Verdauen' : ''}.`;
+    const shame = this.artifactShame();
+    const text = `${cause}\n\nDie Welt kippt zur Seite. Du siehst Dinge, die nicht da sind, und hörst deinen Namen in fremden Stimmen. Als du wieder zu dir kommst, liegst du auf kaltem Pflaster, die Hände zerkratzt.\n\nDu hast ${lostMoney} Schilling verloren${this.pathway ? ' und ein Stück deines Fortschritts beim Verdauen' : ''}.${shame}`;
     this.emit('vision', false);
     this.emit('hp', { value: this.hp, delta: 0 });
     this.emit('composure', this.composure);
@@ -170,8 +200,9 @@ export const pathwayMethods = {
 
   /** Wird von tick() aufgerufen. */
   tickPathway(dt) {
-    if (!this.pathway && this.unruhe <= 0) return;
-    let u = this.unruhe;
+    const pull = this.artifactUnruhe();
+    if (!this.pathway && this.unruhe <= 0 && !pull) return;
+    let u = this.unruhe + pull * dt;
     if (this.spiritVision && this.pathway) {
       u += UNRUHE_VISION_PER_SEC * dt;
       this.act('vision', dt);
@@ -229,13 +260,16 @@ export const pathwayMethods = {
     return { ok: true, text };
   },
 
+  /** Rechnet Leben und Nerven neu (nach Aufstieg oder Artefaktwechsel). Mehr Höchstwert heilt um die Differenz. */
   updateMaxHp() {
-    const base = this.content.start.hp ?? 40;
     const before = this.maxHp;
-    this.maxHp = base + this.passive('max_hp');
+    this.maxHp = this.calcMaxHp();
     if (this.maxHp > before) this.hp += this.maxHp - before;
-    this.hp = Math.min(this.hp, this.maxHp);
+    this.hp = Math.max(1, Math.min(this.hp, this.maxHp));
     this.emit('hp', { value: this.hp, delta: 0 });
+    const maxC = this.maxComposure();
+    if (this.composure > maxC) this.composure = maxC;
+    this.emit('composure', this.composure);
   },
 
   // --- Brauen ---------------------------------------------------------------------------
@@ -301,6 +335,7 @@ export const pathwayMethods = {
   sellPrice(itemId) {
     const it = this.item(itemId);
     if (!it || it.kind === 'key' || it.kind === 'formula') return null;
+    if (this.borrowed?.includes(itemId)) return null; // Revier-Eigentum
     const base = this.content.market?.sell_prices?.[itemId] ?? it.price;
     if (!base) return null;
     return Math.max(1, Math.round(base * 0.5 * this.passive('sell')));
@@ -350,7 +385,7 @@ export const pathwayMethods = {
   },
 
   serializePathway() {
-    return { money: this.money, pathway: this.pathway, unruhe: Math.round(this.unruhe), seenNodes: [...this.seenNodes] };
+    return { money: this.money, pathway: this.pathway, unruhe: Math.round(this.unruhe), seenNodes: [...this.seenNodes], ...this.serializeArtifacts() };
   },
 
   loadPathway(data) {
@@ -359,7 +394,9 @@ export const pathwayMethods = {
     this.pathway = p && this.seqDef(p.id, p.seq) ? { id: p.id, seq: p.seq, digestion: p.digestion ?? 0 } : null;
     this.unruhe = Math.max(0, Math.min(UNRUHE_MAX - 1, data.unruhe ?? 0));
     this.seenNodes = new Set(data.seenNodes ?? []);
-    this.maxHp = (this.content.start.hp ?? 40) + this.passive('max_hp');
+    this.loadArtifacts(data);
+    this.maxHp = this.calcMaxHp();
     this.hp = Math.max(1, Math.min(this.maxHp, data.hp ?? this.maxHp));
+    this.composure = Math.min(this.composure, this.maxComposure());
   },
 };

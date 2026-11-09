@@ -62,7 +62,7 @@ test('Drops: Beutetabellen würfeln Geld und Gegenstände, Seltenheit wählt den
   const none = rollLoot(table, () => 0.999);
   assert.deepEqual(none.items, {});
   assert.equal(none.money, table.money[1]);
-  assert.equal(lootRarity(all, content.items), 'selten'); // Moorperle
+  assert.equal(lootRarity({ items: { moorwasser: 1, moorperle: 1 } }, content.items), 'selten'); // Moorperle
   assert.equal(CONTAINERS[lootRarity({ items: { moorwasser: 1 } }, content.items)], 'beutel');
   assert.equal(CONTAINERS[lootRarity({ items: { rattenkrone: 1 } }, content.items)], 'okkulter_schrein');
   for (const [id, it] of Object.entries(content.items)) assert.ok(RARITIES.includes(itemRarity(it)), id);
