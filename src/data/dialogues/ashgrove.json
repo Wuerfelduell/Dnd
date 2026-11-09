@@ -780,6 +780,16 @@
             ]
           },
           {
+            "text": "Was ist mit Professor Starling?",
+            "next": "star9",
+            "requires_quests_active": [
+              "case_09"
+            ],
+            "hide_if_clues": [
+              "price_kidnap"
+            ]
+          },
+          {
             "text": "Bis dann."
           }
         ]
@@ -792,6 +802,19 @@
         "choices": [
           {
             "text": "Es war richtig.",
+            "next": "after"
+          }
+        ]
+      },
+      "star9": {
+        "text": "Price verschränkt die Arme und mustert dich von oben bis unten.",
+        "gives_clues": [
+          "price_kidnap",
+          "price_letters"
+        ],
+        "choices": [
+          {
+            "text": "Ich war es nicht, Price.",
             "next": "after"
           }
         ]

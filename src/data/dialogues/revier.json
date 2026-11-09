@@ -135,6 +135,33 @@
         ]
       },
       {
+        "node": "farewell9",
+        "requires_flags": [
+          "case_09_closed"
+        ],
+        "hide_if_flags": [
+          "farewell9_seen"
+        ]
+      },
+      {
+        "node": "brief_09",
+        "requires_flags": [
+          "epilogue78_seen"
+        ],
+        "hide_if_flags": [
+          "briefed_09"
+        ]
+      },
+      {
+        "node": "brief_09",
+        "requires_flags": [
+          "epilogue8_seen"
+        ],
+        "hide_if_flags": [
+          "briefed_09"
+        ]
+      },
+      {
         "node": "brief_07",
         "requires_flags": [
           "case_06_closed",
@@ -411,6 +438,26 @@
           },
           {
             "text": "Nichts weiter."
+          },
+          {
+            "text": "Was stand in dem anonymen Brief?",
+            "next": "letters9",
+            "requires_quests_active": [
+              "case_09"
+            ],
+            "hide_if_clues": [
+              "marlowe_letters"
+            ]
+          },
+          {
+            "text": "Ich weiß, wer hinter allen Fällen steckt.",
+            "next": "accuse9",
+            "requires_quests_active": [
+              "case_09"
+            ],
+            "hide_if_flags": [
+              "case_09_showdown"
+            ]
           }
         ]
       },
@@ -1405,6 +1452,156 @@
         "choices": [
           {
             "text": "Es tut mir leid.",
+            "next": "hub"
+          }
+        ]
+      },
+      "brief_09": {
+        "text": "Marlowe steht am Fenster und winkt dich heran, ohne sich umzudrehen. „Sehen Sie den da? Neben dem Kirchturm.“\n\nEin Stern. Mitten am Tag.\n\n„Professor Starling von der Sternwarte ist seit drei Nächten verschwunden. Price glaubt an eine Entführung.“ Sie dreht sich um und legt einen Umschlag in ihre Schublade. „Und das kam heute für Price. Ohne Absender. Es geht um Sie.“",
+        "sets_flags": [
+          "briefed_09",
+          "travel_sternwarte"
+        ],
+        "start_quests": [
+          "case_09"
+        ],
+        "gives_clues": [
+          "police_star",
+          "police_starling"
+        ],
+        "scene": "brief",
+        "choices": [
+          {
+            "text": "Was steht in dem Brief?",
+            "next": "letters9"
+          },
+          {
+            "text": "Ich fahre zur Sternwarte.",
+            "next": "hub"
+          }
+        ]
+      },
+      "letters9": {
+        "text": "Marlowe zieht die Schublade wieder auf und liest vor, ohne dich anzusehen.",
+        "gives_clues": [
+          "marlowe_letters"
+        ],
+        "choices": [
+          {
+            "text": "Das ist eine Falle.",
+            "next": "letters9b"
+          }
+        ]
+      },
+      "letters9b": {
+        "text": "„Vermutlich. Aber Price zählt die Briefe, und Price kann zählen. Finden Sie heraus, wer sie schreibt, bevor er es tut.“",
+        "choices": [
+          {
+            "text": "Verstanden.",
+            "next": "hub"
+          }
+        ]
+      },
+      "accuse9": {
+        "text": "Marlowe schließt die Tür. „Price hat heute einen Haftbefehl beantragt. Gegen Sie. Ich habe ihn bis morgen früh liegen lassen.“ Sie setzt sich. „Also. Wer steckt hinter allem?“",
+        "choices": [
+          {
+            "text": "Miriam Vey. Der Chor hat nie aufgehört.",
+            "next": "vey9"
+          },
+          {
+            "text": "Professor Starling. Jeder Fall war eine Ernte für seinen Stern, und in der Neumondnacht holt er ihn herunter.",
+            "next": [
+              {
+                "node": "showdown9",
+                "requires_certain": [
+                  "d9_ernte",
+                  "d9_stern"
+                ]
+              },
+              {
+                "node": "unsure9"
+              }
+            ],
+            "requires_conclusions": [
+              "d9_ernte",
+              "d9_stern"
+            ]
+          },
+          {
+            "text": "Starling. Lassen Sie die Sternwarte stürmen.",
+            "next": "early9",
+            "requires_conclusions": [
+              "d9_ernte"
+            ]
+          },
+          {
+            "text": "Noch nicht.",
+            "next": "hub"
+          }
+        ]
+      },
+      "unsure9": {
+        "text": "„Ein Professor, der Sterne erntet.“ Marlowe reibt sich die Augen. „Wenn ich damit zum Polizeipräsidenten gehe, verhaftet er uns beide. Zwei Quellen für die Ernte, zwei für die Nacht. Dann gehe ich mit.“",
+        "choices": [
+          {
+            "text": "Ich hole sie.",
+            "next": "hub"
+          }
+        ]
+      },
+      "early9": {
+        "text": "„Dann schicke ich Price hin, noch heute. Aber wenn der Professor nicht da ist, steht Price morgen mit leeren Händen da. Und Sie kennt er schon.“",
+        "choices": [
+          {
+            "text": "Schicken Sie ihn.",
+            "next": "early9_go"
+          },
+          {
+            "text": "Ich suche weiter.",
+            "next": "hub"
+          }
+        ]
+      },
+      "early9_go": {
+        "text": "Marlowe klingelt nach Price.",
+        "ending": "c9_early",
+        "choices": [
+          {
+            "text": "…"
+          }
+        ]
+      },
+      "vey9": {
+        "text": "Marlowe sieht dich lange an. Dann unterschreibt sie eine Fahndung.",
+        "ending": "c9_vey",
+        "choices": [
+          {
+            "text": "…"
+          }
+        ]
+      },
+      "showdown9": {
+        "text": "Marlowe nimmt ihren Mantel vom Haken und hängt ihn wieder hin. „Ich kann nicht mitkommen. Wenn ich jetzt gehe, schickt Price mir jemanden hinterher.“\n\n„Bis die Sonne aufgeht, sind Sie mein Ermittler. Fahren Sie zur Sternwarte. Ich halte Price auf, so lange ich kann.“",
+        "sets_flags": [
+          "case_09_showdown"
+        ],
+        "honor": 3,
+        "honor_reason": "Den Drahtzieher erkannt",
+        "choices": [
+          {
+            "text": "Zur Sternwarte."
+          }
+        ]
+      },
+      "farewell9": {
+        "text": "Marlowe sieht von ihren Akten auf und erschrickt nicht einmal. „Sie dürften gar nicht hier sein. Price hängt Ihr Gesicht an jede Laterne.“\n\nSie schiebt dir eine Tasse Tee hin. „Trinken Sie aus und gehen Sie durch den Hof. Und schreiben Sie mir aus Wexmoor. Ohne Absender.“\n\n(Ende von Kapitel 1. Kettlegate bleibt offen für Nebenaufträge.)",
+        "sets_flags": [
+          "farewell9_seen"
+        ],
+        "choices": [
+          {
+            "text": "Danke. Für alles.",
             "next": "hub"
           }
         ]

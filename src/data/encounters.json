@@ -1384,5 +1384,123 @@
       "spawn": "keller"
     },
     "win_text": "Die Schere fällt. Miss Wren sinkt neben den Webstuhl und summt weiter, ganz leise."
+  },
+  "sternlicht": {
+    "name": "Gefallenes Sternlicht",
+    "sprite": "apparition",
+    "tint": "#e8f0ff",
+    "occult": true,
+    "hp": 38,
+    "fleeable": false,
+    "intro": "Aus dem Okular tropft Licht auf die Dielen und richtet sich auf. Es hat viele Stimmen, und keine davon gehört ihm.",
+    "attacks": [
+      {
+        "name": "Funkenregen",
+        "damage": 3,
+        "hits": [
+          500,
+          750,
+          1000,
+          1250
+        ]
+      },
+      {
+        "name": "Fremde Stimme",
+        "action": "taunt",
+        "value": 8,
+        "text": "Es singt mit Madame Varennes Stimme. -8 Nerven."
+      },
+      {
+        "name": "Lichtpeitsche",
+        "damage": 9,
+        "hits": [
+          1300
+        ]
+      },
+      {
+        "name": "Gleißen",
+        "damage": 12,
+        "hits": [
+          2000
+        ]
+      }
+    ],
+    "on_win": {
+      "sets_flags": [
+        "sternlicht_defeated"
+      ]
+    },
+    "lose_to": {
+      "map": "sternwarte",
+      "spawn": "default"
+    },
+    "win_text": "Das Licht zerfällt in Funken, die zum Teleskop zurückkriechen."
+  },
+  "starling_fight": {
+    "name": "Professor Lucius Starling",
+    "sprite": "npc:cultist",
+    "tint": "#e0e8ff",
+    "occult": true,
+    "boss": true,
+    "hp": 40,
+    "fleeable": false,
+    "intro": "Starling dreht sich vom Okular weg und lächelt, als hätte er dich zum Tee erwartet. „Mein bester Ermittler! Sie kommen genau richtig. Ohne Sie hätte ich nichts davon ernten können.“\n\nEr hebt eine Linse, und darin brennt ein Stück Stern.",
+    "attacks": [
+      {
+        "name": "Brennglas",
+        "damage": 7,
+        "hits": [
+          900,
+          1300
+        ]
+      },
+      {
+        "name": "Sternregen",
+        "damage": 4,
+        "hits": [
+          500,
+          750,
+          1000,
+          1250
+        ]
+      },
+      {
+        "name": "Gestohlene Stimme",
+        "action": "taunt",
+        "value": 6,
+        "text": "Er spricht mit Elias’ Stimme: „Hilf mir.“ -6 Nerven."
+      },
+      {
+        "name": "Geliehener Schatten",
+        "action": "guard",
+        "value": 3,
+        "text": "Ein fremder Schatten legt sich wie ein Mantel um ihn. Panzer 3."
+      },
+      {
+        "name": "Fallender Stern",
+        "damage": 12,
+        "hits": [
+          2100
+        ]
+      }
+    ],
+    "weak_if": {
+      "requires_certain": [
+        "d9_ernte"
+      ]
+    },
+    "weak_text": "Du weißt, woraus sein Licht besteht: aus fremden Stimmen, Schatten und Träumen. Du rufst ihre Namen, und es flackert.",
+    "on_win": {
+      "sets_flags": [
+        "starling_beaten"
+      ],
+      "honor": 5,
+      "honor_reason": "Professor Starling gestellt"
+    },
+    "lose_to": {
+      "map": "sternwarte",
+      "spawn": "default"
+    },
+    "win_text": "Die Linse zerspringt. Starling sinkt neben das Teleskop und lacht, als hätte er gewonnen."
   }
 }

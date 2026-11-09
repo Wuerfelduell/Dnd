@@ -466,6 +466,26 @@
             ]
           },
           {
+            "text": "Sehen Sie den neuen Stern?",
+            "next": "star9",
+            "requires_quests_active": [
+              "case_09"
+            ],
+            "hide_if_clues": [
+              "ezra_star"
+            ]
+          },
+          {
+            "text": "Haben Sie je Lichter aufsteigen sehen?",
+            "next": "lights9",
+            "requires_quests_active": [
+              "case_09"
+            ],
+            "hide_if_clues": [
+              "ezra_lights"
+            ]
+          },
+          {
             "text": "Nichts."
           }
         ],
@@ -506,6 +526,32 @@
           }
         ],
         "mood": "lauschen"
+      },
+      "star9": {
+        "text": "Ezra zieht die Watte aus beiden Ohren und schaut nach oben.",
+        "gives_clues": [
+          "ezra_star"
+        ],
+        "choices": [
+          {
+            "text": "Danke, Ezra.",
+            "next": "start"
+          }
+        ],
+        "mood": "lauschen"
+      },
+      "lights9": {
+        "text": "Er nickt langsam.",
+        "gives_clues": [
+          "ezra_lights"
+        ],
+        "choices": [
+          {
+            "text": "Danke, Ezra.",
+            "next": "start"
+          }
+        ],
+        "mood": "erschrocken"
       }
     }
   },
@@ -550,6 +596,16 @@
             ],
             "requires_quests_active": [
               "empty_hooks"
+            ]
+          },
+          {
+            "text": "Wer hat Ihr Ochsenblut am Ende gekauft?",
+            "next": "blood9",
+            "requires_quests_active": [
+              "case_09"
+            ],
+            "hide_if_clues": [
+              "bram9"
             ]
           },
           {
@@ -610,7 +666,29 @@
         "text": "Bram nickt dir zu. Das ist bei ihm so viel wie eine Umarmung.",
         "choices": [
           {
+            "text": "Wer hat Ihr Ochsenblut am Ende gekauft?",
+            "next": "blood9",
+            "requires_quests_active": [
+              "case_09"
+            ],
+            "hide_if_clues": [
+              "bram9"
+            ]
+          },
+          {
             "text": "Bis bald."
+          }
+        ]
+      },
+      "blood9": {
+        "text": "Bram wischt sich die Hände an der Schürze ab.",
+        "gives_clues": [
+          "bram9"
+        ],
+        "choices": [
+          {
+            "text": "Danke, Meister Okes.",
+            "next": "start"
           }
         ]
       }

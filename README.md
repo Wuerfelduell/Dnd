@@ -148,6 +148,13 @@ Waisenkinder, die nachts im Schlaf zum Kanal gehen. Wer in beiden Fällen gräbt
 im Notizbuch des anderen auftauchen („Querverbindung“). Erst wer beide verknüpft, findet die gemeinsame Täterin
 und den verschwundenen Jungen.
 
+**Fall 9: Der Sternsammler** ist das Finale von Kapitel 1. Über Kettlegate steht ein neuer Stern, Professor
+Starling ist verschwunden, und im Revier gehen anonyme Briefe ein, die dich zum Täter aller bisherigen Fälle
+machen. Wer die Spuren in der Sternwarte, im Zellengang und in der Stadt verbindet, erkennt den Drahtzieher: Starling
+hat jeden Fall als Ernte für seinen Stern inszeniert. Showdown in der Sternwarte. In jedem der vier Enden bleibt
+die Falle zu, und du musst Kettlegate verlassen. Danach erscheint die Tafel zum Ende von Kapitel 1 (Feld
+`chapter` am Ende), und Nebenaufträge bleiben spielbar.
+
 Nebenauftrag **Das Wundertonikum**: Bess Hagan vom Hafen schwört, Dr. Pratt habe ihren Mann vergiftet.
 
 ## Technik

@@ -1320,5 +1320,58 @@
         }
       }
     ]
+  },
+  "case_09": {
+    "title": "Fall 9: Der Sternsammler",
+    "kind": "main",
+    "case": "case_09",
+    "summary": "Über Kettlegate steht ein neuer Stern, Professor Starling ist verschwunden, und im Revier gehen anonyme Briefe über dich ein.",
+    "steps": [
+      {
+        "text": "Sieh dich in der Sternwarte um",
+        "done": {
+          "requires_any_clues": [
+            "packed_lenses",
+            "letters9",
+            "blotter9",
+            "sternkarte9",
+            "scope9",
+            "ledger9"
+          ]
+        }
+      },
+      {
+        "text": "Finde heraus, was deine alten Fälle verbindet",
+        "done": {
+          "requires_conclusions": [
+            "d9_ernte"
+          ]
+        }
+      },
+      {
+        "text": "Finde heraus, wann und wo der Stern fällt",
+        "done": {
+          "requires_conclusions": [
+            "d9_stern"
+          ]
+        }
+      },
+      {
+        "text": "Optional: Wer schreibt die Briefe über dich?",
+        "done": {
+          "requires_conclusions": [
+            "d9_falle"
+          ]
+        }
+      },
+      {
+        "text": "Stelle den Drahtzieher",
+        "done": {
+          "requires_flags": [
+            "case_09_closed"
+          ]
+        }
+      }
+    ]
   }
 }
