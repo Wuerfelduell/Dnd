@@ -56,8 +56,22 @@ export function use(state, mapId, objectId) {
   return 'ok';
 }
 
+/** Kleiner deterministischer Zufallsgenerator (mulberry32). */
+export function seeded(seed) {
+  let a = seed >>> 0;
+  return () => {
+    a = (a + 0x6d2b79f5) >>> 0;
+    let t = a;
+    t = Math.imul(t ^ (t >>> 15), t | 1);
+    t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+
 /** Geübte Spielweise: von drei Schlägen einer ausgewichen, einer pariert, einer kassiert. */
 export const SKILLED = (i) => ['dodge', 'parry', 'miss'][i % 3];
+/** Sehr geübt: von fünf Schlägen nur einer kassiert. So schafft man Eliten und Bosse. */
+export const EXPERT = (i) => ['dodge', 'parry', 'dodge', 'parry', 'miss'][i % 5];
 
 /**
  * Spielt einen Kampf mit festen Ergebnissen durch (wie CombatScene, ohne Timing).
@@ -65,6 +79,7 @@ export const SKILLED = (i) => ['dodge', 'parry', 'miss'][i % 3];
  */
 export function fight(state, encounterId, { attack = 'good', defend = () => 'dodge', skill = 'attack', items = [], healBelow = 0, maxRounds = 60 } = {}) {
   const c = new Combat(state, encounterId);
+  c.rng = seeded(7); // fester Zufall: Takt und Nachsetzen sind in Tests reproduzierbar
   let n = 0;
   while (!c.outcome && c.round <= maxRounds) {
     const heal = ['tonikum', 'verband'].find((i) => state.itemCount(i));
@@ -77,7 +92,8 @@ export function fight(state, encounterId, { attack = 'good', defend = () => 'dod
     if (c.outcome) break;
     const atk = c.nextEnemyAttack();
     if (atk) {
-      const results = atk.hits.map(() => defend(n++));
+      // Wer Ringe lesen kann, pariert keine nicht parierbaren Angriffe, sondern weicht aus
+      const results = atk.hits.map(() => { const r = defend(n++); return r === 'parry' && atk.unparryable ? 'dodge' : r; });
       for (const r of results) { c.resolveHit(atk, r); if (c.outcome) break; }
       if (!c.outcome && results.every((r) => r === 'parry')) c.riposte();
       c.endEnemyTurn();

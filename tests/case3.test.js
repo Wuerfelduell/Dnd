@@ -2,7 +2,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { GameState } from '../src/core/GameState.js';
-import { loadContent, talk, use, fight, SKILLED } from './helpers.js';
+import { loadContent, talk, use, fight, SKILLED, EXPERT } from './helpers.js';
 
 const content = loadContent();
 const WIN = { defend: SKILLED, healBelow: 15 };
@@ -52,7 +52,7 @@ function solveCase3(s, { bell = true } = {}) {
   assert.equal(fight(s, 'choir_zealots', WIN).result.outcome, 'won');
   talk(s, 'rook_final', ['Hester', 'Nein']);
   assert.equal(s.pendingCombat, 'rook_fight');
-  assert.equal(fight(s, 'rook_fight', WIN).result.outcome, 'won');
+  assert.equal(fight(s, 'rook_fight', { ...WIN, defend: EXPERT }).result.outcome, 'won'); // Bosskampf
 }
 
 test('Fall 3: Rook enttarnen, Lagerhaus stürmen, Glocke sichern (perfektes Ende)', () => {

@@ -9,18 +9,34 @@
 
 import { rollLoot, takeLoot } from './Loot.js';
 
-export const WINDOW = { parry: 90, dodge: 150 }; // ± Millisekunden um den Einschlag
+export const WINDOW = { parry: 80, dodge: 140 }; // ± Millisekunden um den Einschlag
+export const ELITE_PARRY = 65; // Eliten und Bosse: noch engeres Parierfenster
 // Schwierigkeit: echte Gegner (keine Übung) halten mehr aus und schlagen härter.
-export const ENEMY_HP_MULT = 1.25;
-export const ENEMY_DMG_MULT = 1.3;
-export const JITTER = 140; // Schläge kommen zufällig bis zu so viel früher/später
+export const ENEMY_HP_MULT = 1.4;
+export const ENEMY_DMG_MULT = 1.4;
+export const ELITE_HP_MULT = 1.0; // zusätzlich zu den Daten (Elite ×1,5 der Grundform)
+export const ELITE_DMG_MULT = 0.9; // Eliten haben in den Daten schon +30 % Schaden, so bleibt es bei etwa +60 %
+export const ARMOR = { elite: 2, boss: 3 }; // zieht jedem Treffer so viel ab (mindestens 1 bleibt)
+export const COUNTER_MULT = 0.3; // Konter nach einer Parade
+export const RIPOSTE_MULT = 1.0; // Gegenschlag nach voll parierter Attacke
+export const FOLLOWUP_CHANCE = 0.3; // Eliten und Bosse hängen manchmal einen Schlag an
+export const JITTER = 160; // Schläge kommen zufällig bis zu so viel früher/später
+// Wie sich der Ring zusammenzieht: u = vergangene Zeit (0..1) -> Anteil geschlossen (0..1).
+// Der Einschlag bleibt immer bei u = 1, nur das Tempo des Rings täuscht.
+export const RING_CURVES = {
+  linear: (u) => u,
+  schnell_langsam: (u) => 1 - (1 - u) ** 2.6, // schließt erst schnell, kriecht dann
+  langsam_schnell: (u) => u ** 2.6, // trödelt, dann schnappt er zu
+  stocken: (u) => (u < 0.35 ? u * 1.6 : u < 0.65 ? 0.56 : 0.56 + (u - 0.65) * (0.44 / 0.35)), // hält in der Mitte an
+  finte: (u) => (u < 0.45 ? u * 1.7 : u < 0.7 ? 0.765 - (u - 0.45) * 1.4 : 0.415 + (u - 0.7) * (0.585 / 0.3)), // zuckt zurück
+};
 export const DODGE_COST = 3; // Ausweichen kostet Nerven, Paraden geben welche zurück
 export const PARRY_GAIN = 2;
 export const ENRAGE_AT = 0.4; // unter 40 % Leben wird der Gegner schneller und härter
 export const EARLY_LIMIT = 450; // frühere Tastendrücke zählen noch nicht
 export const AP_MAX = 6;
 export const AP_START = 1;
-export const GRADE_MULT = { perfect: 1.5, good: 1, miss: 0.4 };
+export const GRADE_MULT = { perfect: 1.3, good: 1, miss: 0.4 };
 export const WEAK_MULT = 1.5;
 
 export const SKILLS = {
@@ -31,9 +47,9 @@ export const SKILLS = {
 };
 
 /** Bewertet einen Verteidigungsdruck. offset = Drückzeit - Einschlagzeit (ms). */
-export function judgeDefense(kind, offset, dodgeMult = 1) {
+export function judgeDefense(kind, offset, dodgeMult = 1, parryWindow = WINDOW.parry) {
   const a = Math.abs(offset);
-  if (kind === 'parry' && a <= WINDOW.parry) return 'parry';
+  if (kind === 'parry' && a <= parryWindow) return 'parry';
   if (kind === 'dodge' && a <= WINDOW.dodge * dodgeMult) return 'dodge';
   return 'miss';
 }
@@ -54,7 +70,10 @@ export class Combat {
     this.state = state;
     this.id = encounterId;
     this.enc = enc;
-    const hp = enc.practice ? enc.hp : Math.round(enc.hp * ENEMY_HP_MULT);
+    const hp = enc.practice ? enc.hp : Math.round(enc.hp * ENEMY_HP_MULT * (enc.elite ? ELITE_HP_MULT : 1));
+    // Panzer wächst mit der Gefahrenstufe des Gebiets (Marsch 1, ...), Bosse eine Stufe mehr
+    const tier = state.content.zones?.[enc.zone]?.tier ?? 2;
+    this.armor = enc.practice ? 0 : enc.armor ?? (enc.boss ? Math.min(ARMOR.boss, tier) : enc.elite ? Math.min(ARMOR.elite, tier - 1) : 0);
     this.enemy = { name: enc.name, hp, maxHp: hp, occult: !!enc.occult };
     this.rng = state.rng ?? Math.random;
     // Die härteste Einzelattacke kann man nicht parieren, nur ausweichen (außer die Daten sagen es anders)
@@ -193,7 +212,13 @@ export class Combat {
   }
 
   /** Schaden am Gegner (Panzer fängt zuerst ab). Gibt den tatsächlichen Schaden zurück. */
-  hurtEnemy(n) {
+  /** Parierfenster für diesen Gegner (ms). */
+  parryWindow() {
+    return this.enc.elite || this.enc.boss ? ELITE_PARRY : WINDOW.parry;
+  }
+
+  hurtEnemy(n, { pierce = false } = {}) {
+    if (this.armor && !pierce && n > 0) n = Math.max(1, n - this.armor);
     const absorbed = Math.min(this.enemyGuard, n);
     this.enemyGuard -= absorbed;
     const dmg = n - absorbed;
@@ -252,15 +277,26 @@ export class Combat {
    */
   prepareAttack(atk) {
     const rage = this.enraged();
-    const dmgMult = this.enc.practice ? 1 : ENEMY_DMG_MULT * (rage ? 1.2 : 1);
+    const tough0 = this.enc.elite;
+    const dmgMult = this.enc.practice ? 1 : ENEMY_DMG_MULT * (rage ? 1.2 : 1) * (tough0 ? ELITE_DMG_MULT : 1);
     const speed = rage ? 0.85 : 1;
     const hits = [];
-    for (const h of atk.hits) {
-      let t = h * speed + (this.rng() * 2 - 1) * JITTER;
+    const src = [...atk.hits];
+    // Eliten und Bosse setzen manchmal nach
+    const tough = !this.enc.practice && (this.enc.elite || this.enc.boss);
+    const followup = tough && this.rng() < FOLLOWUP_CHANCE;
+    if (followup) src.push(src.at(-1) + 330 + Math.round(this.rng() * 200));
+    for (const h of src) {
+      let t = h * speed + (this.enc.practice ? 0 : (this.rng() * 2 - 1) * JITTER);
       t = Math.max(450, t, (hits.at(-1) ?? 0) + 230);
       hits.push(Math.round(t));
     }
-    return { ...atk, damage: Math.max(1, Math.round(atk.damage * dmgMult)), hits, unparryable: this.unparryable.has(atk.name), enraged: rage };
+    // Jeder Ring bekommt ein eigenes Tempo und eine eigene Vorlaufzeit (Übung bleibt gleichmäßig)
+    const names = Object.keys(RING_CURVES);
+    const rings = hits.map(() => (this.enc.practice
+      ? { curve: 'linear', lead: 750 }
+      : { curve: names[Math.floor(this.rng() * names.length)], lead: Math.round(560 + this.rng() * 360) }));
+    return { ...atk, damage: Math.max(1, Math.round(atk.damage * dmgMult)), hits, rings, followup, unparryable: this.unparryable.has(atk.name), enraged: rage };
   }
 
   /**
@@ -279,7 +315,7 @@ export class Combat {
       if (!this.enc.practice) this.state.act('parry');
       this.state.setComposure(this.state.composure + PARRY_GAIN);
       this.gainAp(1 + this.state.passive('parry_ap'));
-      const counter = this.hurtEnemy(this.hitDamage(0.5, 'good'));
+      const counter = this.hurtEnemy(this.hitDamage(COUNTER_MULT, 'good'));
       return { damage: 0, counter, result };
     }
     if (result === 'dodge') return { damage: 0, counter: 0, result };
@@ -301,7 +337,7 @@ export class Combat {
 
   /** Alle Schläge pariert: Gegenschlag. */
   riposte() {
-    const dmg = this.hurtEnemy(this.hitDamage(1.5, 'perfect'));
+    const dmg = this.hurtEnemy(this.hitDamage(RIPOSTE_MULT, 'good'));
     this.log.push(`Gegenschlag: ${dmg} Schaden`);
     return dmg;
   }

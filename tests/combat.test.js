@@ -2,8 +2,8 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { GameState } from '../src/core/GameState.js';
-import { Combat, judgeDefense, judgeTiming, WINDOW, ENEMY_HP_MULT, ENEMY_DMG_MULT, DODGE_COST } from '../src/core/Combat.js';
-import { loadContent, fight, SKILLED } from './helpers.js';
+import { Combat, judgeDefense, judgeTiming, WINDOW, ENEMY_HP_MULT, ENEMY_DMG_MULT, DODGE_COST, RING_CURVES } from '../src/core/Combat.js';
+import { loadContent, fight, SKILLED, EXPERT, seeded } from './helpers.js';
 
 const content = loadContent();
 const fresh = () => new GameState(content);
@@ -124,7 +124,9 @@ test('Niederlage: Ohnmacht mit wenig Leben, im Wächterkampf zurück an die Trep
 const LATE = ['choir_zealots', 'rook_fight', 'gasgeist', 'felix_fight', 'uhrwerkwaechter', 'kanalkroete', 'maskenspieler', 'schlachtergehilfe',
   ...Object.keys(content.encounters).filter((id) => content.encounters[id].faction)]; // Sekten kommen nach Fall 2/3
 
-test('Balance: Geübte Spieler schaffen mit Startausrüstung jeden Kampf', () => {
+const BOSSES = ['ash_warden', 'rook_fight', 'felix_fight', 'mirror_shade', 'fog_hound', 'rost_schmied', 'rost_vater', 'schleier_seherin', 'schleier_mutter'];
+
+test('Balance: Geübte Spieler (Bosse: sehr Geübte) schaffen mit Startausrüstung jeden Kampf', () => {
   // Wer von drei Schlägen einem ausweicht, einen pariert und unter 15 Leben verbindet, gewinnt.
   // Vor dem Aschewächter gibt Küster Anselm zwei Beutel Bannsalz.
   for (const [id, enc] of Object.entries(content.encounters)) {
@@ -134,7 +136,9 @@ test('Balance: Geübte Spieler schaffen mit Startausrüstung jeden Kampf', () =>
     if (items.length) s.addItem('bannsalz', 2);
     // Ab Fall 3 hat man längst den Dienstschlagstock von Holt.
     if (LATE.includes(id)) s.addItem('schlagstock');
-    const { result, combat } = fight(s, id, { defend: SKILLED, items, healBelow: 15 });
+    // Bosse der Geschichte verlangen sauberes Timing
+    const defend = BOSSES.includes(id) ? EXPERT : SKILLED;
+    const { result, combat } = fight(s, id, { defend, items, healBelow: 15 });
     assert.equal(result.outcome, 'won', `${id}: verloren in Runde ${combat.round}`);
   }
 });
@@ -194,4 +198,35 @@ test('Nebelhund: Sieg erledigt den Auftrag und bringt Belohnungen', () => {
   assert.equal(s.quests.fog_hound, 'done');
   assert.ok(s.flags.has('hound_defeated'));
   assert.equal(s.itemCount('bannsalz'), 1);
+});
+
+test('Noch härter: wechselndes Ringtempo, engeres Parieren bei Eliten, Panzer, schwächere Konter', () => {
+  // Ringkurven: Start offen, Einschlag geschlossen, dazwischen unterschiedlich schnell
+  for (const [name, f] of Object.entries(RING_CURVES)) {
+    assert.equal(f(0), 0, name);
+    assert.ok(Math.abs(f(1) - 1) < 1e-9, name);
+  }
+  assert.ok(RING_CURVES.schnell_langsam(0.3) > 0.5 && RING_CURVES.langsam_schnell(0.3) < 0.1);
+  assert.ok(RING_CURVES.finte(0.65) < RING_CURVES.finte(0.45), 'Finte zuckt zurück');
+  const s = fresh();
+  const c = new Combat(s, 'fog_hound');
+  c.rng = seeded(3);
+  const atk = c.nextEnemyAttack();
+  assert.equal(atk.rings.length, atk.hits.length);
+  assert.ok(atk.rings.every((r) => RING_CURVES[r.curve] && r.lead >= 560 && r.lead <= 920));
+  // Übung bleibt gleichmäßig
+  const p = new Combat(fresh(), 'sparring');
+  assert.ok(p.nextEnemyAttack().rings.every((r) => r.curve === 'linear'));
+  // Eliten: engeres Parierfenster, Panzer
+  const elite = new Combat(fresh(), 'kerzenfresser_elite');
+  assert.ok(elite.parryWindow() < c.parryWindow());
+  assert.ok(elite.armor >= 1);
+  const hp = elite.enemy.hp;
+  elite.hurtEnemy(10);
+  assert.equal(elite.enemy.hp, hp - (10 - elite.armor));
+  assert.equal(judgeDefense('parry', 70, 1, elite.parryWindow()), 'miss');
+  assert.equal(judgeDefense('parry', 70), 'parry');
+  // Konter nach Parade ist klein
+  const r = c.resolveHit({ ...atk, unparryable: false }, 'parry');
+  assert.ok(r.counter <= Math.ceil(s.weaponStats().atk * 0.3) + 1, `Konter ${r.counter}`);
 });

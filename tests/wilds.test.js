@@ -4,7 +4,7 @@ import assert from 'node:assert/strict';
 import { GameState } from '../src/core/GameState.js';
 import { Combat } from '../src/core/Combat.js';
 import { rollLoot, lootRarity, itemRarity, takeLoot, CONTAINERS, RARITIES } from '../src/core/Loot.js';
-import { loadContent, fight, SKILLED } from './helpers.js';
+import { loadContent, fight, SKILLED, EXPERT } from './helpers.js';
 
 const content = loadContent();
 const fresh = () => new GameState(content);
@@ -141,13 +141,15 @@ const geared = (tier) => {
   return s;
 };
 
-test('Balance: Geübte schaffen jeden Gegner ihres Gebiets mit passender Ausrüstung', () => {
+test('Balance: Geübte schaffen normale Gegner ihres Gebiets, sehr Geübte auch Eliten und Bosse mit passender Ausrüstung', () => {
   for (const [id, e] of Object.entries(content.encounters)) {
     if (!e.wild) continue;
     // Bosse sind für Ausrüstung der nächsten Stufe gedacht (die Waffe dafür liegt beim vorigen Boss bzw. im Schrein)
     const tier = Math.min(4, content.zones[e.zone].tier + (e.boss ? 1 : 0));
     const s = geared(tier);
-    const { result, combat } = fight(s, id, { defend: SKILLED, healBelow: 18 });
+    // Sehr Geübte nutzen auch ihre Konzentration (Doppelschlag)
+    const tough = e.elite || e.boss;
+    const { result, combat } = fight(s, id, { defend: tough ? EXPERT : SKILLED, skill: tough ? 'double' : 'attack', healBelow: 18 });
     assert.equal(result.outcome, 'won', `${id}: verloren in Runde ${combat.round}`);
   }
 });
