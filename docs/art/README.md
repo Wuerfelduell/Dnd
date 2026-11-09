@@ -317,6 +317,60 @@ Die exportierten Grafiken sind in `batch-kampf2-preview.png` zusammengefasst.
 Die Einbindung und Timing-Abstimmung im Spiel erfolgen separat; dieses Paket
 ändert ausschließlich Grafiken, Manifest und Grafikdokumentation.
 
+
+## Grafikpaket H – Journal-Quellen und gefährliche Fundstücke
+
+Batch `journal`, erstellt am 9. November 2026 mit dem integrierten Bildgenerator nach
+`codex_H_journal_fundstuecke.md`: **96 PNGs** unter `public/sprites/`.
+
+| Gruppe | PNGs | Maße |
+|---|---:|---|
+| 48 Mini-Köpfe und sechs Gruppenstreifen | 54 | 24×24; Streifen 192×24 |
+| Zehn Quellen in zwei Größen und gemischter Atlas | 21 | 16×16, 24×24; Atlas 240×40 |
+| Journal-Rahmen und Verbindungsmarker | 1 | 128×64, benannte Regionen |
+| Gesangbuch und Spiegelscherbe in zwei Größen | 4 | 16×16, 32×32 |
+| Sechs Nahansichten mit je einer Fluchvariante | 12 | 160×120, deckend |
+| Risiko-Overlays, Risiko-Icons und Spieleraktionen | 3 | 2880×1080; 80×24; 96×128 |
+| Fundbüro-Requisiten | 1 | 96×32 |
+
+`manifest-journal.json` folgt dem 14b-Schema. Alle Frameindizes sind nullbasiert.
+Gemischte Atlanten verwenden `regions` mit `[x,y,width,height]`; die erste Zeile
+von `H_quellen.png` enthält zehn 16×16-Symbole, die zweite ab y=16 zehn 24×24-Symbole.
+Die 24×24-Ausschnitte der Foto-/Dokumentenrahmen sind unter `apertures` angegeben.
+Die Risiko-Overlays haben sechs Spalten und vier Zeilen: Unruhe (6), Fluch (6),
+Hinterhalt (4), Bonus-Hinweis (6). Restfelder sind transparent. Unruhe läuft als
+Schleife; die übrigen Effekte sind einmalig. Der zentrale Bereich der ersten
+beiden Effektreihen bleibt frei. Spieleraktionen: Lesen (6), Zurückzucken (4),
+Kopf halten (4), Notieren (4); Fußgrundlinie y=30, übrige Spalten leer.
+
+Die 26 Generatorausgaben einschließlich einer Spielerkopf-Korrektur, vollständige
+Prompts, Referenzen und SHA-256-Prüfsummen stehen in `batch-journal-generation.json`.
+Der Export übernimmt die gemeinsame Palette von 14b und ersetzt drei Farbfelder
+für die benötigten Violett- und gedeckten Rotakzente. Alle PNGs verwenden dieselben
+31 sichtbaren Farben plus transparenten Index, Nearest Neighbor und binäres Alpha.
+Die Fluchvarianten wurden aus den jeweiligen Grundansichten erzeugt.
+
+```sh
+python docs/art/export-journal.py /pfad/zu/generatorbildern
+python docs/art/verify-journal.py
+```
+
+Benötigt Pillow und numpy. Die Prüfung kontrolliert 96 Dateien, Maße, gemeinsame
+Palette, Alpha, Framebelegung und Padding, Grundlinien, Animationsvariation,
+Atlas-/Einzeldatei-Korrespondenz, Regionsgrenzen und transparente Rahmenfenster.
+Ergebnis: `journal-validation.json`; visuelle Übersichten: `journal-preview.png`,
+`journal-inspect-preview.png`, `journal-fx-preview.png`.
+
+Bestehende Porträts, Quellen-Symbole und C-Logmarker bleiben unverändert. Die sechs
+Reserve-Gegenstände sind ausdrücklich nicht erzeugt. Die beiden bereits vorhandenen
+16×16-Itembilder `items/verlorenes_gesangbuch.png` und `items/spiegelscherbe.png`
+werden im Art-Branch durch die zur Aufgabenbeschreibung passenden Buch-/Scherben-
+Motive ersetzt; insgesamt sind es 94 neue PNGs und zwei aktualisierte PNGs.
+Dieses Paket ändert keinen
+Spielcode. Laufzeiteinbindung, Animationstiming und die Lesbarkeit im konkreten
+Journal-Layout müssen beim Einbau im Spiel geprüft werden.
+
+
 ## Grafikpaket D – Stadt-Erweiterung
 
 Batch `stadt`, erstellt am 9. November 2026 nach `codex_D_stadt_erweiterung.md`:
