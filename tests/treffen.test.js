@@ -200,3 +200,27 @@ test('Treffpunkte haben einen Ausgang und Gastgeber mit Händler', () => {
     for (const e of content.market.merchants[host].stock) assert.ok(content.items[e.item], `${host}: ${e.item}`);
   }
 });
+
+test('Wegweiser: Während ein eigenes Treffen läuft, zeigt der Pfeil dorthin', async () => {
+  const { nextHop } = await import('../src/core/Guide.js');
+  const s = fall4();
+  s.pathway = { id: 'faden', seq: 9, digestion: 0 };
+  s.map = 'altmarkt';
+  jumpTo(s, 'kreide');
+  assert.equal(s.gatheringTarget(), null, 'kein Mitglied');
+  talk(s, 'schleierbote', ['Kreidezirkel beitreten']);
+  const t = s.gatheringTarget();
+  assert.equal(t.map, 'treffen_kreide');
+  assert.match(t.step, /Stadtkarte/);
+  assert.match(s.gatheringStatus().text, /über die Stadtkarte/);
+  // Vom Altmarkt führt der Weg über die Stadtkarte
+  const hop = nextHop(content, 'altmarkt', 'treffen_kreide');
+  assert.ok(hop?.travel, 'über die Stadtkarte');
+  assert.equal(content.maps.altmarkt.interactables.find((i) => i.id === hop.via).kind, 'travel');
+  // Am Treffpunkt zeigt er auf den Gastgeber
+  s.map = 'treffen_kreide';
+  assert.equal(s.gatheringTarget().id, 'vellacourt');
+  // Nach dem Treffen gibt es kein Ziel mehr
+  s.playTime += rules.open_min * MIN;
+  assert.equal(s.gatheringTarget(), null);
+});

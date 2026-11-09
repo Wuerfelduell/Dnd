@@ -600,8 +600,10 @@ export class Ui {
     const pins = rules.pins ?? {};
     const goal = s.tracked ? questTarget(s, s.tracked) : null;
     const goalMap = goal?.district ?? null;
+    const meetMap = s.gatheringTarget?.()?.district ?? null;
     const pin = (map, cls, inner, attrs = '') => {
-      if (map === goalMap) { cls += ' goal'; inner += `${questUi('qpin', QUEST_PINS.amber)}<span class="goaltag">Ziel</span>`; }
+      if (map === meetMap) { cls += ' goal meet'; inner += `${questUi('qpin', QUEST_PINS.amber)}<span class="goaltag">Treffen</span>`; }
+      else if (map === goalMap) { cls += ' goal'; inner += `${questUi('qpin', QUEST_PINS.amber)}<span class="goaltag">Ziel</span>`; }
       const [x, y] = pins[map];
       const [url, cell = 0, cols = 13, live = false] = mapMarkerOf(map);
       const col = cell % cols;

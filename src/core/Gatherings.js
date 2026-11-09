@@ -99,11 +99,32 @@ export const gatheringMethods = {
     if (!this.gatheringsUnlocked() || !this.memberships().length) return null;
     const cur = this.currentGathering();
     if (cur && this.isMember(cur.id)) {
-      return { open: cur, text: `${this.gatheringDef(cur.id).name}: offen noch ${fmt(cur.end - this.playTime)}` };
+      const there = this.map === this.gatheringDef(cur.id).map;
+      return { open: cur, text: `${this.gatheringDef(cur.id).name}: offen noch ${fmt(cur.end - this.playTime)}${there ? '' : ' · über die Stadtkarte'}` };
     }
     const next = this.nextGathering();
     if (!next) return null;
     return { next, text: `${this.gatheringDef(next.id).name} in ${fmt(next.start - this.playTime)}` };
+  },
+
+  /**
+   * Wegweiser zum laufenden Treffen (für Pfeil, HUD und Stadtkarte), solange man Mitglied ist
+   * und der Gastgeber noch handelt: { gathering, map, id, name, step, mapName, district } oder null.
+   */
+  gatheringTarget() {
+    if (!this.gatheringRules() || !this.gatheringsUnlocked()) return null;
+    const cur = this.currentGathering();
+    if (!cur || !this.isMember(cur.id)) return null;
+    const g = this.gatheringDef(cur.id);
+    const map = this.content.maps[g.map];
+    if (!map) return null;
+    const host = map.npcs?.[0]?.id ?? null;
+    const here = this.map === g.map;
+    return {
+      gathering: cur.id, map: g.map, id: here ? host : null, name: g.name, mapName: map.name, district: g.map,
+      step: here ? `${this.content.npcs[host]?.name ?? 'Gastgeber'} ansprechen, offen noch ${fmt(cur.end - this.playTime)}`
+        : `Geheimes Treffen läuft, offen noch ${fmt(cur.end - this.playTime)}. Stadtkarte öffnen und hinreisen.`,
+    };
   },
 
   /** Läuft im Spiel-Tick mit: zählt die Zeit und meldet, wenn ein eigenes Treffen beginnt oder endet. */
