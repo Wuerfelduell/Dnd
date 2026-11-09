@@ -1203,3 +1203,43 @@ HUD-Skalierung und gemeinsamer Kampfaufstellung im laufenden Spiel erfolgen sepa
 - Palette: 25 Farben aus dem vorhandenen Titelbild plus sechs gezielte Papier-/Nebel-/Okkultfarben, insgesamt 31 sichtbare Farben und ein transparenter Index. Alle PNGs sind indiziert, Alpha ist 0 oder 255. Kapitelkarten und Himmel sind deckend.
 - Erzeugung: [`batch-oberflaeche-generation.json`](batch-oberflaeche-generation.json) enthält die tatsächlichen Bildprompts, Referenzbasis, Quell-Hashes, verworfene Varianten und die Ableitung von Fenster-, Regen- und Lichtstrahlanimationen. Das Exportskript [`tools/art/oberflaeche/export.py`](../../tools/art/oberflaeche/export.py) nimmt eine lokale JSON-Zuordnung von Prompt-IDs zu Originalbildern entgegen; diese großen Generator-Originale sind nicht Teil des Laufzeitpakets. Es benötigt Pillow, NumPy und SciPy. Für die Prüfung der fertigen Dateien sind nur Pillow und NumPy nötig.
 - Prüfung: `python tools/art/oberflaeche/validate.py` kontrolliert Pflichtdateien, Maße, gemeinsame Palette, Alpha, Region-Grenzen, Überlappungen, sämtliche 82 Animationsframes, Kachelnähte und die Ausrichtung der Fensterlichter. Ergebnis: [`batch-oberflaeche-validation.json`](batch-oberflaeche-validation.json). Zusätzlich: `node --test tests/sprites.test.js` (35 Tests bestanden, nach Abgleich mit `main`).
+
+
+## Batch AJ — Nebenaufträge Kettlegate und Wexmoor (`nebenquests`)
+
+40 PNGs für alle 20 neuen IDs aus den Grafikwunschlisten von AA und AB:
+sieben Lauf-Sheets, sieben Emotions-Sheets mit jeweils vier Stimmungen,
+drei menschliche Kampf-Sheets und drei Bestiariumsbilder, sieben Items
+in 16×16 und 32×32 sowie sechs Torfkahn-Ausbauten.
+
+Manifest: `public/sprites/manifest-nebenquests.json`. Prompts einschließlich
+Korrekturen, Stilreferenzen, Quellprüfsummen und gemessene Zellzuschnitte:
+`docs/art/batch-nebenquests-generation.json`. Erzeugt mit dem eingebauten
+Bildgenerator; Export per Nearest Neighbor, gemeinsame 32-Farben-Palette
+(26 tatsächlich verwendet), indizierte PNGs und binäres Alpha.
+Die 32er-Items sind exakte 2×-Vergrößerungen der 16er-Icons.
+
+Menschen nutzen gemäß AJ 0.2/Abschnitt 3 **48×48** pro Kampfframe,
+auch wenn die ältere AA-Wunschliste 64×64 nennt. Layout wie `enemy_holt`:
+6 Spalten, Reihen idle / attack / hurt / defeated mit 4/6/3/4 Frames.
+Ausholframes 6 und 7 sind identisch; Niederlagen zeigen eine lebende,
+aufgebende Figur. Grundlinien (exklusiv): Lauf 31, Portrait 63, Kampf 46.
+Bestiarium: deckendes 96×128-Pergamentformat wie im Bestand.
+
+```sh
+python docs/art/export-nebenquests.py SOURCE_DIRECTORY
+python docs/art/verify-nebenquests.py --preview
+node --test tests/sprites.test.js
+```
+
+Der Export benötigt Pillow und NumPy, der Prüfer nur Pillow. Hochauflösende
+Generatorquellen werden über die protokollierten Dateinamen und SHA-256
+identifiziert; sie gehören nicht zu den Runtime-Dateien. Der Prüfer läuft
+ohne diese Quellen und gleicht die Lieferung direkt mit beiden Wunschlisten ab.
+Ergebnis: `validation-nebenquests.json`, alle Prüfungen bestanden;
+35 bestehende Sprite-Tests bestanden. Sichtprüfung der finalen Rasterexports:
+[Figuren](preview-nebenquests-characters.png),
+[Kampf und Bestiarium](preview-nebenquests-battle.png),
+[Items und Kahn](preview-nebenquests-objects.png).
+
+Asset-Lieferung zur separaten Einbindung; Spielcode und Storydaten unverändert.
