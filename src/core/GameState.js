@@ -101,7 +101,22 @@ export class GameState {
 
   knownFacts(caseId) {
     const seen = new Set(this.clues.map((c) => this.clue(c).fact));
-    return Object.keys(this.content.facts).filter((f) => seen.has(f) && (!caseId || this.fact(f).case === caseId));
+    return Object.keys(this.content.facts).filter((f) => seen.has(f) && (!caseId || this.fact(f).case === caseId || this.crossListed(f, caseId)));
+  }
+
+  /**
+   * Querverbindung: Eine Information aus einem anderen Fall taucht auch in caseId auf, sobald ihre Bedingung erfüllt ist
+   * (fact.also = [{ case, ...Bedingungen }]). So hängen zwei Fälle zusammen, die erst nichts miteinander zu tun haben.
+   */
+  /** Alle aktiven Querverbindungen bekannter Informationen als Set "fact>case". */
+  crossLinks() {
+    const out = new Set();
+    for (const f of this.knownFacts()) for (const a of this.fact(f).also ?? []) if (this.meets(a)) out.add(`${f}>${a.case}`);
+    return out;
+  }
+
+  crossListed(factId, caseId) {
+    return (this.fact(factId).also ?? []).some((a) => a.case === caseId && this.meets(a));
   }
 
   /** Eine Schlussfolgerung ist gesichert, wenn ein Paar komplett "sehr wahrscheinlich" ist. */
@@ -116,8 +131,11 @@ export class GameState {
     if (!clue) throw new Error(`Unbekannter Hinweis: ${id}`);
     if (this.hasClue(id)) return false;
     const before = this.snapshotFacts();
+    const crossBefore = this.crossLinks();
     this.clues.push(id);
     this.emit('clue', id);
+    // Neue Querverbindungen zwischen Fällen melden
+    for (const link of this.crossLinks()) if (!crossBefore.has(link)) this.emit('cross', { fact: link.split('>')[0], case: link.split('>')[1] });
     // Statuswechsel aller Informationen melden (auch indirekt widerlegte)
     for (const [f, old] of before) {
       const now = this.factStatus(f);

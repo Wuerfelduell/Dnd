@@ -107,6 +107,44 @@
         ]
       },
       {
+        "node": "epilogue78",
+        "requires_flags": [
+          "case_08_closed",
+          "wren_arrested"
+        ],
+        "hide_if_flags": [
+          "epilogue78_seen"
+        ]
+      },
+      {
+        "node": "epilogue7_bad",
+        "requires_flags": [
+          "c7_wrong"
+        ],
+        "hide_if_flags": [
+          "epilogue7_seen"
+        ]
+      },
+      {
+        "node": "epilogue8_bad",
+        "requires_flags": [
+          "c8_wrong"
+        ],
+        "hide_if_flags": [
+          "epilogue8_seen"
+        ]
+      },
+      {
+        "node": "brief_07",
+        "requires_flags": [
+          "case_06_closed",
+          "epilogue6_seen"
+        ],
+        "hide_if_flags": [
+          "briefed_07"
+        ]
+      },
+      {
         "node": "brief_06",
         "requires_flags": [
           "case_05_closed",
@@ -349,6 +387,26 @@
             ],
             "hide_if_flags": [
               "case_06_showdown"
+            ]
+          },
+          {
+            "text": "Ich weiß, wie Thorne ertrunken ist.",
+            "next": "accuse7",
+            "requires_quests_active": [
+              "case_07"
+            ],
+            "hide_if_flags": [
+              "case_78_showdown"
+            ]
+          },
+          {
+            "text": "Es geht um St. Brigid.",
+            "next": "accuse78",
+            "requires_quests_active": [
+              "case_08"
+            ],
+            "hide_if_flags": [
+              "case_78_showdown"
             ]
           },
           {
@@ -1084,7 +1142,7 @@
         ]
       },
       "epilogue6": {
-        "text": "Lucan Mews hat in der Zelle keinen Schatten, nicht einmal seinen eigenen. Fenwick meint, er hatte nie einen. Er sei so geboren worden und habe sich nur genommen, was ihm fehlte.\n\nDas macht es nicht besser. Aber es erklärt etwas.\n\n(Ende von Fall 6. Mehr Fälle folgen.)",
+        "text": "Lucan Mews hat in der Zelle keinen Schatten, nicht einmal seinen eigenen. Fenwick meint, er hatte nie einen. Er sei so geboren worden und habe sich nur genommen, was ihm fehlte.\n\nDas macht es nicht besser. Aber es erklärt etwas.\n\n(Ende von Fall 6. Sprich Marlowe noch einmal an.)",
         "sets_flags": [
           "epilogue6_seen"
         ],
@@ -1100,7 +1158,7 @@
         ]
       },
       "epilogue6_bad": {
-        "text": "Madame Orsolya sitzt in der Zelle und legt sich selbst die Karten. Gestern hat sie zu Price gesagt: „Morgen gehört dein Schatten einem anderen.“ Price lacht nicht mehr.\n\nUnd auf jeder neuen Fotoplatte in der Stadt steht ein Gast zu viel.\n\n(Ende von Fall 6. Mehr Fälle folgen.)",
+        "text": "Madame Orsolya sitzt in der Zelle und legt sich selbst die Karten. Gestern hat sie zu Price gesagt: „Morgen gehört dein Schatten einem anderen.“ Price lacht nicht mehr.\n\nUnd auf jeder neuen Fotoplatte in der Stadt steht ein Gast zu viel.\n\n(Ende von Fall 6. Sprich Marlowe noch einmal an.)",
         "sets_flags": [
           "epilogue6_seen"
         ],
@@ -1109,6 +1167,242 @@
             "text": "Wie stehe ich im Revier?",
             "next": "standing"
           },
+          {
+            "text": "Es tut mir leid.",
+            "next": "hub"
+          }
+        ]
+      },
+      "brief_07": {
+        "text": "Marlowe wirft dir eine Akte zu. „Josiah Thorne, Bankier, Kontor am Altmarkt. Heute Morgen tot aufgefunden. Ertrunken.“\n\nSie wartet, bis du aufsiehst. „Im Sessel. In einem verriegelten Raum. Mit trockenen Kleidern. Price will den Neffen hängen sehen, der erbt alles.\n\nAch, und die kleine Kettle vom Nachtmarkt hat zweimal nach Ihnen gefragt. Irgendwas mit Waisenkindern. Ich habe ihr gesagt, Sie haben zu tun.“",
+        "sets_flags": [
+          "briefed_07"
+        ],
+        "start_quests": [
+          "case_07"
+        ],
+        "gives_clues": [
+          "police_thorne",
+          "police_heir"
+        ],
+        "choices": [
+          {
+            "text": "Ich gehe zum Kontor.",
+            "next": "hub"
+          }
+        ]
+      },
+      "accuse7": {
+        "text": "„Wer hat Thorne ertränkt?“",
+        "choices": [
+          {
+            "text": "Der Neffe, Edmund Thorne.",
+            "next": "end_heir"
+          },
+          {
+            "text": "Ein Kind kam durch den Kohleschacht und brachte Kanalwasser. Geschickt hat es Miss Wren von St. Brigid.",
+            "next": [
+              {
+                "node": "wren7",
+                "requires_certain": [
+                  "d7_child",
+                  "link_motive"
+                ]
+              },
+              {
+                "node": "unsure7"
+              }
+            ],
+            "requires_conclusions": [
+              "d7_child",
+              "link_motive"
+            ]
+          },
+          {
+            "text": "Noch nicht.",
+            "next": "hub"
+          }
+        ]
+      },
+      "end_heir": {
+        "text": "Marlowe unterschreibt den Haftbefehl, ohne dich anzusehen.",
+        "ending": "c7_heir",
+        "choices": [
+          {
+            "text": "…"
+          }
+        ]
+      },
+      "unsure7": {
+        "text": "„Eine Waisenhausleiterin, die einen Bankier durch ein Kind ertränkt.“ Marlowe reibt sich die Schläfen. „Ich brauche für beides eine zweite Quelle, sonst lacht mich der Richter aus.“",
+        "choices": [
+          {
+            "text": "Ich hole sie.",
+            "next": "hub"
+          }
+        ]
+      },
+      "wren7": {
+        "text": "Marlowe sieht dich lange an. „Wenn das stimmt, ist das nicht nur Thornes Fall. Dann gehört Nans Fall dazu.“",
+        "choices": [
+          {
+            "text": "Ja. Lösen wir beide zusammen.",
+            "next": "hub",
+            "requires_quests_active": [
+              "case_08"
+            ]
+          },
+          {
+            "text": "Verhaften Sie Miss Wren.",
+            "next": "wren7_go",
+            "hide_if_flags": [
+              "briefed_08"
+            ]
+          },
+          {
+            "text": "Verhaften Sie Miss Wren.",
+            "next": "wren7_go",
+            "requires_quests_done": [
+              "case_08"
+            ]
+          }
+        ]
+      },
+      "wren7_go": {
+        "text": "Marlowe klingelt nach Price.",
+        "ending": "c7_wren",
+        "choices": [
+          {
+            "text": "…"
+          }
+        ]
+      },
+      "accuse78": {
+        "text": "Marlowe legt die Akte Thorne neben deine Notizen über St. Brigid. „Erklären Sie mir das.“",
+        "choices": [
+          {
+            "text": "Der Rattenfänger lockt die Kinder weg.",
+            "next": "end_piper"
+          },
+          {
+            "text": "Miss Wren führt die Kinder an Traumfäden. Benji hat Thorne im Schlaf das Wasser gebracht, weil Thorne St. Brigid räumen wollte.",
+            "next": [
+              {
+                "node": "showdown78",
+                "requires_certain": [
+                  "d8_thread",
+                  "link_motive"
+                ]
+              },
+              {
+                "node": "unsure78"
+              }
+            ],
+            "requires_conclusions": [
+              "d8_thread",
+              "link_motive"
+            ]
+          },
+          {
+            "text": "Miss Wren vergiftet die Kinder mit ihrem Tee.",
+            "next": "early78",
+            "requires_conclusions": [
+              "d8_tea"
+            ]
+          },
+          {
+            "text": "Noch nicht.",
+            "next": "hub"
+          }
+        ]
+      },
+      "end_piper": {
+        "text": "„Price wird sich freuen. Er mag keine Flöten.“",
+        "ending": "c8_piper",
+        "choices": [
+          {
+            "text": "…"
+          }
+        ]
+      },
+      "unsure78": {
+        "text": "„Fäden, die keiner sieht.“ Marlowe tippt auf Ihre Notizen. „Zwei Quellen für die Fäden und zwei für den Grund. Dann gehe ich mit Ihnen da runter.“",
+        "choices": [
+          {
+            "text": "Ich hole sie.",
+            "next": "hub"
+          }
+        ]
+      },
+      "early78": {
+        "text": "„Dann holen wir sie beim Abendtee. Aber wohin die Kinder gehen und wo der Junge ist, wissen wir dann immer noch nicht.“",
+        "choices": [
+          {
+            "text": "Holen Sie sie.",
+            "next": "early78_go"
+          },
+          {
+            "text": "Ich suche weiter.",
+            "next": "hub"
+          }
+        ]
+      },
+      "early78_go": {
+        "text": "Marlowe klingelt.",
+        "ending": "c8_early",
+        "choices": [
+          {
+            "text": "…"
+          }
+        ]
+      },
+      "showdown78": {
+        "text": "Marlowe steht auf und knöpft den Mantel zu. „Zwei Fälle, eine Frau. Price sperrt Ashgrove ab, und keiner trinkt heute Abend Tee.“\n\n„Gehen Sie in den Keller. Und Ermittler: Bringen Sie mir den Jungen.“",
+        "sets_flags": [
+          "case_78_showdown"
+        ],
+        "honor": 3,
+        "honor_reason": "Zwei Fälle als einen erkannt",
+        "choices": [
+          {
+            "text": "Nach St. Brigid."
+          }
+        ]
+      },
+      "epilogue78": {
+        "text": "Zwei Akten, ein Deckel. So etwas hatte ich in zwanzig Jahren nicht. Price hat gefragt, wie Sie darauf gekommen sind. Ich habe gesagt: Er liest die Akten, die nicht zusammengehören.\n\nMiss Wren summt in ihrer Zelle. Fenwick lässt keine Tasse Tee in ihre Nähe.\n\n(Ende von Fall 7 und 8. Mehr Fälle folgen.)",
+        "sets_flags": [
+          "epilogue78_seen"
+        ],
+        "choices": [
+          {
+            "text": "Wie stehe ich im Revier?",
+            "next": "standing"
+          },
+          {
+            "text": "Danke.",
+            "next": "hub"
+          }
+        ]
+      },
+      "epilogue7_bad": {
+        "text": "Edmund Thorne sitzt unten. Sein Anwalt hat drei Zeugen aus dem Ankerhof, die schwören, dass er die ganze Nacht dort war. Ich fürchte, wir haben den Falschen.\n\nUnd die Akte bleibt offen, ob sie zu ist oder nicht.",
+        "sets_flags": [
+          "epilogue7_seen"
+        ],
+        "choices": [
+          {
+            "text": "Es tut mir leid.",
+            "next": "hub"
+          }
+        ]
+      },
+      "epilogue8_bad": {
+        "text": "Der Rattenfänger sitzt in der Zelle neben dem Neffen von Thorne, falls Sie den auch geholt haben. Er spielt nicht mehr. Nan war hier und hat mich angeschrien.\n\nIn Ashgrove wandern die Kinder weiter.",
+        "sets_flags": [
+          "epilogue8_seen"
+        ],
+        "choices": [
           {
             "text": "Es tut mir leid.",
             "next": "hub"

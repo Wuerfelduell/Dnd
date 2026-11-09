@@ -324,7 +324,20 @@
     }
   },
   "kind_streuner": {
-    "start": "start",
+    "start": [
+      {
+        "node": "brief8",
+        "requires_flags": [
+          "briefed_07"
+        ],
+        "hide_if_flags": [
+          "briefed_08"
+        ]
+      },
+      {
+        "node": "start"
+      }
+    ],
     "nodes": {
       "start": {
         "text": "Ein Mädchen in einer viel zu großen Jacke beobachtet dich von einer Kiste aus. „Nan Kettle. Für einen Penny weiß ich alles.“",
@@ -343,6 +356,13 @@
           {
             "text": "Wo wohnst du?",
             "next": "home"
+          },
+          {
+            "text": "Was weißt du noch über St. Brigid?",
+            "next": "brigid",
+            "requires_quests_active": [
+              "case_08"
+            ]
           },
           {
             "text": "Lauf nach Hause."
@@ -367,6 +387,43 @@
         "choices": [
           {
             "text": "Pass auf dich auf.",
+            "next": "start"
+          }
+        ]
+      },
+      "brief8": {
+        "text": "Nan zupft dich am Ärmel, bevor du etwas sagen kannst. „Mister! Endlich. Marlowe hat gesagt, Sie haben keine Zeit für Kinderkram. Aber das ist kein Kram.“",
+        "sets_flags": [
+          "briefed_08"
+        ],
+        "start_quests": [
+          "case_08"
+        ],
+        "gives_clues": [
+          "nan_sleepwalk",
+          "nan_piper"
+        ],
+        "choices": [
+          {
+            "text": "Erzähl.",
+            "next": "brief8b"
+          }
+        ]
+      },
+      "brief8b": {
+        "text": "„Meine Freunde aus St. Brigid. Das Waisenhaus in Ashgrove. Die laufen nachts rum und schlafen dabei. Und Benji ist weg, seit einer Woche. Miss Wren sagt, er ist weggelaufen. Benji läuft nicht weg, Mister. Benji hat Angst im Dunkeln.“",
+        "choices": [
+          {
+            "text": "Ich sehe mir das an.",
+            "next": "start"
+          }
+        ]
+      },
+      "brigid": {
+        "text": "„Miss Wren ist streng, aber sie kocht gut. Und seit ein paar Wochen ist sie so ... froh. Als hätte sie was gewonnen.“",
+        "choices": [
+          {
+            "text": "Danke, Nan.",
             "next": "start"
           }
         ]
