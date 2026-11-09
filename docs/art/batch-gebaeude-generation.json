@@ -1,0 +1,523 @@
+{
+  "batch": "gebaeude",
+  "created": "2026-11-09",
+  "generator": "image_gen (built-in)",
+  "styleReferences": [
+    "public/sprites/characters/04_constable_walk.png",
+    "public/sprites/portraits/06_constable_emotions.png"
+  ],
+  "paletteReference": "src/data/gebaeude.json",
+  "jobs": [
+    {
+      "id": "dunn",
+      "kind": "walk",
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\nUse the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction. The attached character is a STYLE reference, not the requested identity.\nCharacter sprite sheet. Exactly 4 columns and 4 rows, 16 separate full-body sprites. Rows face DOWN, LEFT, RIGHT, UP in that exact order. Four visibly different walk phases per row: left step, passing, right step, passing. Logical frame 16x32, logical sheet 64x128, render at 8x nearest-neighbor scale (512x1024). Equal cell sizes with no gutters, centered sprite within each cell, same foot baseline at logical y=30, 1px transparent margins. No floor shadows, no labels, no grid lines. Chunky simple low resolution shapes, not high resolution miniature illustration.\nCharacter: a stout friendly constable in his thirties in a dark navy police uniform with brass buttons and a tall helmet, chestnut-brown hair and sideburns, rosy cheeks, a tin coffee pot in one hand and a mug in the other, sleeves slightly rolled, a cheerful gossip's grin; clearly different from the generic constable (rounder face, sideburns, coffee pot)",
+      "source": "exec-ae66aee9-573a-42f8-936e-a47d175415c7.png"
+    },
+    {
+      "id": "dunn",
+      "kind": "emotions",
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\nUse the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction. The attached character is a STYLE reference, not the requested identity.\nPortrait sheet: exactly four square panels edge to edge in one horizontal row. Logical resolution 256x64, four frames of 64x64, render 4x nearest-neighbor enlarged (1024x256). Same bust framing, head size, clothing and head position in all four panels, facing slightly right. Expressions left to right: neutral closed mouth, suspicious narrowed eyes, shocked wide eyes open mouth, faint smile. Each panel has an opaque dark slate vignette made of flat stepped pixel colors, not a smooth gradient. Include entire hat or hair with margin. No borders, labels or lettering.\nCharacter: a stout friendly constable in his thirties in a dark navy police uniform with brass buttons and a tall helmet, chestnut-brown hair and sideburns, rosy cheeks, a tin coffee pot in one hand and a mug in the other, sleeves slightly rolled, a cheerful gossip's grin; clearly different from the generic constable (rounder face, sideburns, coffee pot)\nSecond reference establishes this new character's identity and outfit. Match them exactly while using first reference portrait pixel style. For Dunn show chestnut sideburns and no large mustache.",
+      "source": "exec-450758ac-8cc2-4f66-a1e5-d3ec26c900af.png"
+    },
+    {
+      "id": "crane",
+      "kind": "walk",
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\nUse the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction. The attached character is a STYLE reference, not the requested identity.\nCharacter sprite sheet. Exactly 4 columns and 4 rows, 16 separate full-body sprites. Rows face DOWN, LEFT, RIGHT, UP in that exact order. Four visibly different walk phases per row: left step, passing, right step, passing. Logical frame 16x32, logical sheet 64x128, render at 8x nearest-neighbor scale (512x1024). Equal cell sizes with no gutters, centered sprite within each cell, same foot baseline at logical y=30, 1px transparent margins. No floor shadows, no labels, no grid lines. Chunky simple low resolution shapes, not high resolution miniature illustration.\nCharacter: a slim woman in her fifties in a dusky plum high-necked dress with a mustard-brown shawl, silver-grey hair in a severe bun, a jeweller's loupe on a ribbon, a ring of small brass keys at her waist, a pawn ticket between two fingers, appraising eyes",
+      "source": "exec-748a2202-3245-4fbc-bb5f-3cc9fc0a7ea3.png"
+    },
+    {
+      "id": "crane",
+      "kind": "emotions",
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\nUse the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction. The attached character is a STYLE reference, not the requested identity.\nPortrait sheet: exactly four square panels edge to edge in one horizontal row. Logical resolution 256x64, four frames of 64x64, render 4x nearest-neighbor enlarged (1024x256). Same bust framing, head size, clothing and head position in all four panels, facing slightly right. Expressions left to right: neutral closed mouth, suspicious narrowed eyes, shocked wide eyes open mouth, faint smile. Each panel has an opaque dark slate vignette made of flat stepped pixel colors, not a smooth gradient. Include entire hat or hair with margin. No borders, labels or lettering.\nCharacter: a slim woman in her fifties in a dusky plum high-necked dress with a mustard-brown shawl, silver-grey hair in a severe bun, a jeweller's loupe on a ribbon, a ring of small brass keys at her waist, a pawn ticket between two fingers, appraising eyes\nSecond reference establishes this new character's identity and outfit. Match them exactly while using first reference portrait pixel style. For Dunn show chestnut sideburns and no large mustache.",
+      "source": "exec-c5c5d77e-ba60-41f5-b070-9176c8b2ab21.png"
+    },
+    {
+      "id": "quint",
+      "kind": "walk",
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\nUse the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction. The attached character is a STYLE reference, not the requested identity.\nCharacter sprite sheet. Exactly 4 columns and 4 rows, 16 separate full-body sprites. Rows face DOWN, LEFT, RIGHT, UP in that exact order. Four visibly different walk phases per row: left step, passing, right step, passing. Logical frame 16x32, logical sheet 64x128, render at 8x nearest-neighbor scale (512x1024). Equal cell sizes with no gutters, centered sprite within each cell, same foot baseline at logical y=30, 1px transparent margins. No floor shadows, no labels, no grid lines. Chunky simple low resolution shapes, not high resolution miniature illustration.\nCharacter: a tall thin undertaker in a black frock coat and a tall black hat with a crape band, a grey cravat, dark grey hair, a long pale solemn face, a small bowl of coarse grey salt in his hands, measuring tape around his neck",
+      "source": "exec-dbcae276-5ca6-4a8c-ae64-be14ad550e3d.png"
+    },
+    {
+      "id": "quint",
+      "kind": "emotions",
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\nUse the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction. The attached character is a STYLE reference, not the requested identity.\nPortrait sheet: exactly four square panels edge to edge in one horizontal row. Logical resolution 256x64, four frames of 64x64, render 4x nearest-neighbor enlarged (1024x256). Same bust framing, head size, clothing and head position in all four panels, facing slightly right. Expressions left to right: neutral closed mouth, suspicious narrowed eyes, shocked wide eyes open mouth, faint smile. Each panel has an opaque dark slate vignette made of flat stepped pixel colors, not a smooth gradient. Include entire hat or hair with margin. No borders, labels or lettering.\nCharacter: a tall thin undertaker in a black frock coat and a tall black hat with a crape band, a grey cravat, dark grey hair, a long pale solemn face, a small bowl of coarse grey salt in his hands, measuring tape around his neck\nSecond reference establishes this new character's identity and outfit. Match them exactly while using first reference portrait pixel style. For Dunn show chestnut sideburns and no large mustache.",
+      "source": "exec-92a92b95-84da-4c0a-a767-f416ad42755e.png"
+    }
+  ],
+  "processing": [
+    {
+      "id": "dunn",
+      "kind": "walk",
+      "sourceSize": [
+        887,
+        1774
+      ],
+      "columnBands": [
+        [
+          10,
+          204
+        ],
+        [
+          232,
+          428
+        ],
+        [
+          456,
+          650
+        ],
+        [
+          679,
+          872
+        ]
+      ],
+      "rowBands": [
+        [
+          17,
+          417
+        ],
+        [
+          460,
+          860
+        ],
+        [
+          904,
+          1306
+        ],
+        [
+          1349,
+          1747
+        ]
+      ],
+      "normalization": "Crop transparent gutters, shared scale within sheet, nearest neighbour, center each cell; last opaque row y=30."
+    },
+    {
+      "id": "dunn",
+      "kind": "emotions",
+      "sourceSize": [
+        2172,
+        724
+      ],
+      "crop": [
+        0,
+        43,
+        2172,
+        681
+      ],
+      "normalization": "Remove black letterboxing then nearest-neighbour resize to 256x64."
+    },
+    {
+      "id": "crane",
+      "kind": "walk",
+      "sourceSize": [
+        887,
+        1774
+      ],
+      "columnBands": [
+        [
+          20,
+          192
+        ],
+        [
+          246,
+          415
+        ],
+        [
+          467,
+          634
+        ],
+        [
+          693,
+          859
+        ]
+      ],
+      "rowBands": [
+        [
+          27,
+          418
+        ],
+        [
+          467,
+          847
+        ],
+        [
+          908,
+          1292
+        ],
+        [
+          1361,
+          1741
+        ]
+      ],
+      "normalization": "Crop transparent gutters, shared scale within sheet, nearest neighbour, center each cell; last opaque row y=30."
+    },
+    {
+      "id": "crane",
+      "kind": "emotions",
+      "sourceSize": [
+        2172,
+        724
+      ],
+      "crop": [
+        0,
+        53,
+        2172,
+        671
+      ],
+      "normalization": "Remove black letterboxing then nearest-neighbour resize to 256x64."
+    },
+    {
+      "id": "quint",
+      "kind": "walk",
+      "sourceSize": [
+        1246,
+        1263
+      ],
+      "columnBands": [
+        [
+          252,
+          380
+        ],
+        [
+          454,
+          580
+        ],
+        [
+          663,
+          784
+        ],
+        [
+          865,
+          997
+        ]
+      ],
+      "rowBands": [
+        [
+          8,
+          305
+        ],
+        [
+          326,
+          621
+        ],
+        [
+          641,
+          937
+        ],
+        [
+          958,
+          1251
+        ]
+      ],
+      "normalization": "Crop transparent gutters, shared scale within sheet, nearest neighbour, center each cell; last opaque row y=30."
+    },
+    {
+      "id": "quint",
+      "kind": "emotions",
+      "sourceSize": [
+        2172,
+        724
+      ],
+      "crop": [
+        0,
+        0,
+        2172,
+        724
+      ],
+      "normalization": "Remove black letterboxing then nearest-neighbour resize to 256x64."
+    }
+  ],
+  "headPolygons": {
+    "dunn": [
+      [
+        12,
+        23
+      ],
+      [
+        16,
+        19
+      ],
+      [
+        17,
+        12
+      ],
+      [
+        22,
+        6
+      ],
+      [
+        27,
+        2
+      ],
+      [
+        38,
+        2
+      ],
+      [
+        44,
+        8
+      ],
+      [
+        48,
+        19
+      ],
+      [
+        52,
+        21
+      ],
+      [
+        51,
+        25
+      ],
+      [
+        48,
+        26
+      ],
+      [
+        50,
+        31
+      ],
+      [
+        48,
+        36
+      ],
+      [
+        45,
+        39
+      ],
+      [
+        41,
+        41
+      ],
+      [
+        29,
+        41
+      ],
+      [
+        25,
+        38
+      ],
+      [
+        20,
+        35
+      ],
+      [
+        16,
+        30
+      ],
+      [
+        16,
+        26
+      ]
+    ],
+    "crane": [
+      [
+        15,
+        19
+      ],
+      [
+        13,
+        15
+      ],
+      [
+        17,
+        8
+      ],
+      [
+        22,
+        7
+      ],
+      [
+        25,
+        3
+      ],
+      [
+        34,
+        2
+      ],
+      [
+        39,
+        5
+      ],
+      [
+        40,
+        9
+      ],
+      [
+        45,
+        11
+      ],
+      [
+        49,
+        16
+      ],
+      [
+        49,
+        21
+      ],
+      [
+        45,
+        25
+      ],
+      [
+        45,
+        31
+      ],
+      [
+        41,
+        35
+      ],
+      [
+        37,
+        37
+      ],
+      [
+        28,
+        36
+      ],
+      [
+        24,
+        32
+      ],
+      [
+        20,
+        29
+      ],
+      [
+        17,
+        25
+      ]
+    ],
+    "quint": [
+      [
+        15,
+        22
+      ],
+      [
+        16,
+        18
+      ],
+      [
+        20,
+        16
+      ],
+      [
+        20,
+        7
+      ],
+      [
+        24,
+        3
+      ],
+      [
+        35,
+        2
+      ],
+      [
+        41,
+        3
+      ],
+      [
+        44,
+        6
+      ],
+      [
+        44,
+        17
+      ],
+      [
+        49,
+        19
+      ],
+      [
+        50,
+        23
+      ],
+      [
+        47,
+        25
+      ],
+      [
+        49,
+        28
+      ],
+      [
+        46,
+        31
+      ],
+      [
+        44,
+        32
+      ],
+      [
+        44,
+        36
+      ],
+      [
+        42,
+        39
+      ],
+      [
+        37,
+        40
+      ],
+      [
+        31,
+        38
+      ],
+      [
+        27,
+        35
+      ],
+      [
+        24,
+        33
+      ],
+      [
+        18,
+        33
+      ],
+      [
+        18,
+        28
+      ],
+      [
+        14,
+        27
+      ]
+    ]
+  },
+  "palette": [
+    "#1a1c2c",
+    "#1a2030",
+    "#2a3450",
+    "#39445b",
+    "#51596b",
+    "#1e1e24",
+    "#101014",
+    "#4a4a50",
+    "#5a5a64",
+    "#8c8990",
+    "#c8c0b8",
+    "#d8c8b8",
+    "#e0b894",
+    "#e4c4a8",
+    "#b88c6c",
+    "#986c50",
+    "#c68668",
+    "#8a5a30",
+    "#5d3d30",
+    "#3c2d2c",
+    "#4a3a4a",
+    "#2a2028",
+    "#655061",
+    "#857484",
+    "#8a6a3a",
+    "#b18c4f",
+    "#d5b879",
+    "#ded1b0",
+    "#a39d8c",
+    "#304044",
+    "#242a3b"
+  ]
+}

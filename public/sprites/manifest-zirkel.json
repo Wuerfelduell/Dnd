@@ -1,0 +1,2289 @@
+{
+  "version": 1,
+  "batch": "zirkel",
+  "status": "exported; runtime integration pending",
+  "paletteMaxVisibleColors": 32,
+  "palette": [
+    "#1a1c2c",
+    "#252b38",
+    "#344454",
+    "#425360",
+    "#586c78",
+    "#95a5a5",
+    "#413433",
+    "#715648",
+    "#92745a",
+    "#b3946e",
+    "#cfb18a",
+    "#e0c9a1",
+    "#eee2c5",
+    "#303d30",
+    "#4a5839",
+    "#6a7a50",
+    "#2a3a3a",
+    "#486260",
+    "#6b8980",
+    "#886332",
+    "#b29351",
+    "#d0a050",
+    "#3b3547",
+    "#554b61",
+    "#776a80",
+    "#5a2a3a",
+    "#7b4149",
+    "#583426",
+    "#8a4c2d",
+    "#b87545",
+    "#4b4c41",
+    "#8b8870"
+  ],
+  "assets": [
+    {
+      "id": "T_tm_halloran_portrait",
+      "file": "portraits/T_tm_halloran_emotions.png",
+      "width": 256,
+      "height": 64,
+      "transparent": false,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 4,
+      "rows": 1,
+      "animations": {
+        "neutral": {
+          "frames": [
+            0
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "suspicious": {
+          "frames": [
+            1
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "shocked": {
+          "frames": [
+            2
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "bidding": {
+          "frames": [
+            3
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        }
+      },
+      "states": [
+        "neutral",
+        "suspicious",
+        "shocked",
+        "bidding"
+      ]
+    },
+    {
+      "id": "tm_halloran_head",
+      "file": "ui/heads/tm_halloran.png",
+      "width": 24,
+      "height": 24,
+      "transparent": false,
+      "frameWidth": 24,
+      "frameHeight": 24,
+      "columns": 1,
+      "rows": 1,
+      "sourcePortrait": "portraits/T_tm_halloran_emotions.png",
+      "sourceRect": [
+        4,
+        0,
+        52,
+        52
+      ]
+    },
+    {
+      "id": "T_tm_halloran_walk",
+      "file": "characters/T_tm_halloran_walk.png",
+      "width": 64,
+      "height": 128,
+      "transparent": true,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        }
+      },
+      "baseline": 31
+    },
+    {
+      "id": "T_tm_rusk_portrait",
+      "file": "portraits/T_tm_rusk_emotions.png",
+      "width": 256,
+      "height": 64,
+      "transparent": false,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 4,
+      "rows": 1,
+      "animations": {
+        "neutral": {
+          "frames": [
+            0
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "suspicious": {
+          "frames": [
+            1
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "shocked": {
+          "frames": [
+            2
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "bidding": {
+          "frames": [
+            3
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        }
+      },
+      "states": [
+        "neutral",
+        "suspicious",
+        "shocked",
+        "bidding"
+      ]
+    },
+    {
+      "id": "tm_rusk_head",
+      "file": "ui/heads/tm_rusk.png",
+      "width": 24,
+      "height": 24,
+      "transparent": false,
+      "frameWidth": 24,
+      "frameHeight": 24,
+      "columns": 1,
+      "rows": 1,
+      "sourcePortrait": "portraits/T_tm_rusk_emotions.png",
+      "sourceRect": [
+        4,
+        0,
+        52,
+        52
+      ]
+    },
+    {
+      "id": "T_tm_rusk_walk",
+      "file": "characters/T_tm_rusk_walk.png",
+      "width": 64,
+      "height": 128,
+      "transparent": true,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        }
+      },
+      "baseline": 31
+    },
+    {
+      "id": "T_tm_oddny_portrait",
+      "file": "portraits/T_tm_oddny_emotions.png",
+      "width": 256,
+      "height": 64,
+      "transparent": false,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 4,
+      "rows": 1,
+      "animations": {
+        "neutral": {
+          "frames": [
+            0
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "suspicious": {
+          "frames": [
+            1
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "shocked": {
+          "frames": [
+            2
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "bidding": {
+          "frames": [
+            3
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        }
+      },
+      "states": [
+        "neutral",
+        "suspicious",
+        "shocked",
+        "bidding"
+      ]
+    },
+    {
+      "id": "tm_oddny_head",
+      "file": "ui/heads/tm_oddny.png",
+      "width": 24,
+      "height": 24,
+      "transparent": false,
+      "frameWidth": 24,
+      "frameHeight": 24,
+      "columns": 1,
+      "rows": 1,
+      "sourcePortrait": "portraits/T_tm_oddny_emotions.png",
+      "sourceRect": [
+        4,
+        0,
+        52,
+        52
+      ]
+    },
+    {
+      "id": "T_tm_oddny_walk",
+      "file": "characters/T_tm_oddny_walk.png",
+      "width": 64,
+      "height": 128,
+      "transparent": true,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        }
+      },
+      "baseline": 31
+    },
+    {
+      "id": "T_tm_ferro_portrait",
+      "file": "portraits/T_tm_ferro_emotions.png",
+      "width": 256,
+      "height": 64,
+      "transparent": false,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 4,
+      "rows": 1,
+      "animations": {
+        "neutral": {
+          "frames": [
+            0
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "suspicious": {
+          "frames": [
+            1
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "shocked": {
+          "frames": [
+            2
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "bidding": {
+          "frames": [
+            3
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        }
+      },
+      "states": [
+        "neutral",
+        "suspicious",
+        "shocked",
+        "bidding"
+      ]
+    },
+    {
+      "id": "tm_ferro_head",
+      "file": "ui/heads/tm_ferro.png",
+      "width": 24,
+      "height": 24,
+      "transparent": false,
+      "frameWidth": 24,
+      "frameHeight": 24,
+      "columns": 1,
+      "rows": 1,
+      "sourcePortrait": "portraits/T_tm_ferro_emotions.png",
+      "sourceRect": [
+        4,
+        0,
+        52,
+        52
+      ]
+    },
+    {
+      "id": "T_tm_ferro_walk",
+      "file": "characters/T_tm_ferro_walk.png",
+      "width": 64,
+      "height": 128,
+      "transparent": true,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        }
+      },
+      "baseline": 31
+    },
+    {
+      "id": "T_tm_sallow_portrait",
+      "file": "portraits/T_tm_sallow_emotions.png",
+      "width": 256,
+      "height": 64,
+      "transparent": false,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 4,
+      "rows": 1,
+      "animations": {
+        "neutral": {
+          "frames": [
+            0
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "suspicious": {
+          "frames": [
+            1
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "shocked": {
+          "frames": [
+            2
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "bidding": {
+          "frames": [
+            3
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        }
+      },
+      "states": [
+        "neutral",
+        "suspicious",
+        "shocked",
+        "bidding"
+      ]
+    },
+    {
+      "id": "tm_sallow_head",
+      "file": "ui/heads/tm_sallow.png",
+      "width": 24,
+      "height": 24,
+      "transparent": false,
+      "frameWidth": 24,
+      "frameHeight": 24,
+      "columns": 1,
+      "rows": 1,
+      "sourcePortrait": "portraits/T_tm_sallow_emotions.png",
+      "sourceRect": [
+        4,
+        0,
+        52,
+        52
+      ]
+    },
+    {
+      "id": "T_tm_sallow_walk",
+      "file": "characters/T_tm_sallow_walk.png",
+      "width": 64,
+      "height": 128,
+      "transparent": true,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        }
+      },
+      "baseline": 31
+    },
+    {
+      "id": "T_tm_corve_portrait",
+      "file": "portraits/T_tm_corve_emotions.png",
+      "width": 256,
+      "height": 64,
+      "transparent": false,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 4,
+      "rows": 1,
+      "animations": {
+        "neutral": {
+          "frames": [
+            0
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "suspicious": {
+          "frames": [
+            1
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "shocked": {
+          "frames": [
+            2
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "bidding": {
+          "frames": [
+            3
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        }
+      },
+      "states": [
+        "neutral",
+        "suspicious",
+        "shocked",
+        "bidding"
+      ]
+    },
+    {
+      "id": "tm_corve_head",
+      "file": "ui/heads/tm_corve.png",
+      "width": 24,
+      "height": 24,
+      "transparent": false,
+      "frameWidth": 24,
+      "frameHeight": 24,
+      "columns": 1,
+      "rows": 1,
+      "sourcePortrait": "portraits/T_tm_corve_emotions.png",
+      "sourceRect": [
+        4,
+        0,
+        52,
+        52
+      ]
+    },
+    {
+      "id": "T_tm_corve_walk",
+      "file": "characters/T_tm_corve_walk.png",
+      "width": 64,
+      "height": 128,
+      "transparent": true,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        }
+      },
+      "baseline": 31
+    },
+    {
+      "id": "T_tm_ashdown_portrait",
+      "file": "portraits/T_tm_ashdown_emotions.png",
+      "width": 256,
+      "height": 64,
+      "transparent": false,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 4,
+      "rows": 1,
+      "animations": {
+        "neutral": {
+          "frames": [
+            0
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "suspicious": {
+          "frames": [
+            1
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "shocked": {
+          "frames": [
+            2
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "bidding": {
+          "frames": [
+            3
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        }
+      },
+      "states": [
+        "neutral",
+        "suspicious",
+        "shocked",
+        "bidding"
+      ]
+    },
+    {
+      "id": "tm_ashdown_head",
+      "file": "ui/heads/tm_ashdown.png",
+      "width": 24,
+      "height": 24,
+      "transparent": false,
+      "frameWidth": 24,
+      "frameHeight": 24,
+      "columns": 1,
+      "rows": 1,
+      "sourcePortrait": "portraits/T_tm_ashdown_emotions.png",
+      "sourceRect": [
+        4,
+        0,
+        52,
+        52
+      ]
+    },
+    {
+      "id": "T_tm_ashdown_walk",
+      "file": "characters/T_tm_ashdown_walk.png",
+      "width": 64,
+      "height": 128,
+      "transparent": true,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        }
+      },
+      "baseline": 31
+    },
+    {
+      "id": "T_tm_pemberley_portrait",
+      "file": "portraits/T_tm_pemberley_emotions.png",
+      "width": 256,
+      "height": 64,
+      "transparent": false,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 4,
+      "rows": 1,
+      "animations": {
+        "neutral": {
+          "frames": [
+            0
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "suspicious": {
+          "frames": [
+            1
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "shocked": {
+          "frames": [
+            2
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "bidding": {
+          "frames": [
+            3
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        }
+      },
+      "states": [
+        "neutral",
+        "suspicious",
+        "shocked",
+        "bidding"
+      ]
+    },
+    {
+      "id": "tm_pemberley_head",
+      "file": "ui/heads/tm_pemberley.png",
+      "width": 24,
+      "height": 24,
+      "transparent": false,
+      "frameWidth": 24,
+      "frameHeight": 24,
+      "columns": 1,
+      "rows": 1,
+      "sourcePortrait": "portraits/T_tm_pemberley_emotions.png",
+      "sourceRect": [
+        4,
+        0,
+        52,
+        52
+      ]
+    },
+    {
+      "id": "T_tm_pemberley_walk",
+      "file": "characters/T_tm_pemberley_walk.png",
+      "width": 64,
+      "height": 128,
+      "transparent": true,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        }
+      },
+      "baseline": 31
+    },
+    {
+      "id": "T_tm_dot_portrait",
+      "file": "portraits/T_tm_dot_emotions.png",
+      "width": 256,
+      "height": 64,
+      "transparent": false,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 4,
+      "rows": 1,
+      "animations": {
+        "neutral": {
+          "frames": [
+            0
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "suspicious": {
+          "frames": [
+            1
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "shocked": {
+          "frames": [
+            2
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "bidding": {
+          "frames": [
+            3
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        }
+      },
+      "states": [
+        "neutral",
+        "suspicious",
+        "shocked",
+        "bidding"
+      ]
+    },
+    {
+      "id": "tm_dot_head",
+      "file": "ui/heads/tm_dot.png",
+      "width": 24,
+      "height": 24,
+      "transparent": false,
+      "frameWidth": 24,
+      "frameHeight": 24,
+      "columns": 1,
+      "rows": 1,
+      "sourcePortrait": "portraits/T_tm_dot_emotions.png",
+      "sourceRect": [
+        4,
+        0,
+        52,
+        52
+      ]
+    },
+    {
+      "id": "T_tm_dot_walk",
+      "file": "characters/T_tm_dot_walk.png",
+      "width": 64,
+      "height": 128,
+      "transparent": true,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        }
+      },
+      "baseline": 31
+    },
+    {
+      "id": "T_tm_brann_portrait",
+      "file": "portraits/T_tm_brann_emotions.png",
+      "width": 256,
+      "height": 64,
+      "transparent": false,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 4,
+      "rows": 1,
+      "animations": {
+        "neutral": {
+          "frames": [
+            0
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "suspicious": {
+          "frames": [
+            1
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "shocked": {
+          "frames": [
+            2
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "bidding": {
+          "frames": [
+            3
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        }
+      },
+      "states": [
+        "neutral",
+        "suspicious",
+        "shocked",
+        "bidding"
+      ]
+    },
+    {
+      "id": "tm_brann_head",
+      "file": "ui/heads/tm_brann.png",
+      "width": 24,
+      "height": 24,
+      "transparent": false,
+      "frameWidth": 24,
+      "frameHeight": 24,
+      "columns": 1,
+      "rows": 1,
+      "sourcePortrait": "portraits/T_tm_brann_emotions.png",
+      "sourceRect": [
+        4,
+        0,
+        52,
+        52
+      ]
+    },
+    {
+      "id": "T_tm_brann_walk",
+      "file": "characters/T_tm_brann_walk.png",
+      "width": 64,
+      "height": 128,
+      "transparent": true,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        }
+      },
+      "baseline": 31
+    },
+    {
+      "id": "T_tm_cobb_portrait",
+      "file": "portraits/T_tm_cobb_emotions.png",
+      "width": 256,
+      "height": 64,
+      "transparent": false,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 4,
+      "rows": 1,
+      "animations": {
+        "neutral": {
+          "frames": [
+            0
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "suspicious": {
+          "frames": [
+            1
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "shocked": {
+          "frames": [
+            2
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "bidding": {
+          "frames": [
+            3
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        }
+      },
+      "states": [
+        "neutral",
+        "suspicious",
+        "shocked",
+        "bidding"
+      ]
+    },
+    {
+      "id": "tm_cobb_head",
+      "file": "ui/heads/tm_cobb.png",
+      "width": 24,
+      "height": 24,
+      "transparent": false,
+      "frameWidth": 24,
+      "frameHeight": 24,
+      "columns": 1,
+      "rows": 1,
+      "sourcePortrait": "portraits/T_tm_cobb_emotions.png",
+      "sourceRect": [
+        0,
+        4,
+        64,
+        52
+      ]
+    },
+    {
+      "id": "T_tm_cobb_walk",
+      "file": "characters/T_tm_cobb_walk.png",
+      "width": 64,
+      "height": 128,
+      "transparent": true,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        }
+      },
+      "baseline": 31
+    },
+    {
+      "id": "T_tm_sorrel_portrait",
+      "file": "portraits/T_tm_sorrel_emotions.png",
+      "width": 256,
+      "height": 64,
+      "transparent": false,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 4,
+      "rows": 1,
+      "animations": {
+        "neutral": {
+          "frames": [
+            0
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "suspicious": {
+          "frames": [
+            1
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "shocked": {
+          "frames": [
+            2
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "bidding": {
+          "frames": [
+            3
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        }
+      },
+      "states": [
+        "neutral",
+        "suspicious",
+        "shocked",
+        "bidding"
+      ]
+    },
+    {
+      "id": "tm_sorrel_head",
+      "file": "ui/heads/tm_sorrel.png",
+      "width": 24,
+      "height": 24,
+      "transparent": false,
+      "frameWidth": 24,
+      "frameHeight": 24,
+      "columns": 1,
+      "rows": 1,
+      "sourcePortrait": "portraits/T_tm_sorrel_emotions.png",
+      "sourceRect": [
+        4,
+        0,
+        52,
+        52
+      ]
+    },
+    {
+      "id": "T_tm_sorrel_walk",
+      "file": "characters/T_tm_sorrel_walk.png",
+      "width": 64,
+      "height": 128,
+      "transparent": true,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        }
+      },
+      "baseline": 31
+    },
+    {
+      "id": "T_tm_docht_portrait",
+      "file": "portraits/T_tm_docht_emotions.png",
+      "width": 256,
+      "height": 64,
+      "transparent": false,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 4,
+      "rows": 1,
+      "animations": {
+        "neutral": {
+          "frames": [
+            0
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "suspicious": {
+          "frames": [
+            1
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "shocked": {
+          "frames": [
+            2
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "bidding": {
+          "frames": [
+            3
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        }
+      },
+      "states": [
+        "neutral",
+        "suspicious",
+        "shocked",
+        "bidding"
+      ]
+    },
+    {
+      "id": "tm_docht_head",
+      "file": "ui/heads/tm_docht.png",
+      "width": 24,
+      "height": 24,
+      "transparent": false,
+      "frameWidth": 24,
+      "frameHeight": 24,
+      "columns": 1,
+      "rows": 1,
+      "sourcePortrait": "portraits/T_tm_docht_emotions.png",
+      "sourceRect": [
+        4,
+        0,
+        52,
+        52
+      ]
+    },
+    {
+      "id": "T_tm_docht_walk",
+      "file": "characters/T_tm_docht_walk.png",
+      "width": 64,
+      "height": 128,
+      "transparent": true,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        }
+      },
+      "baseline": 31
+    },
+    {
+      "id": "T_tm_mareike_portrait",
+      "file": "portraits/T_tm_mareike_emotions.png",
+      "width": 256,
+      "height": 64,
+      "transparent": false,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 4,
+      "rows": 1,
+      "animations": {
+        "neutral": {
+          "frames": [
+            0
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "suspicious": {
+          "frames": [
+            1
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "shocked": {
+          "frames": [
+            2
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "bidding": {
+          "frames": [
+            3
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        }
+      },
+      "states": [
+        "neutral",
+        "suspicious",
+        "shocked",
+        "bidding"
+      ]
+    },
+    {
+      "id": "tm_mareike_head",
+      "file": "ui/heads/tm_mareike.png",
+      "width": 24,
+      "height": 24,
+      "transparent": false,
+      "frameWidth": 24,
+      "frameHeight": 24,
+      "columns": 1,
+      "rows": 1,
+      "sourcePortrait": "portraits/T_tm_mareike_emotions.png",
+      "sourceRect": [
+        4,
+        0,
+        52,
+        52
+      ]
+    },
+    {
+      "id": "T_tm_mareike_walk",
+      "file": "characters/T_tm_mareike_walk.png",
+      "width": 64,
+      "height": 128,
+      "transparent": true,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        }
+      },
+      "baseline": 31
+    },
+    {
+      "id": "T_tm_fenn_portrait",
+      "file": "portraits/T_tm_fenn_emotions.png",
+      "width": 256,
+      "height": 64,
+      "transparent": false,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 4,
+      "rows": 1,
+      "animations": {
+        "neutral": {
+          "frames": [
+            0
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "suspicious": {
+          "frames": [
+            1
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "shocked": {
+          "frames": [
+            2
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "bidding": {
+          "frames": [
+            3
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        }
+      },
+      "states": [
+        "neutral",
+        "suspicious",
+        "shocked",
+        "bidding"
+      ]
+    },
+    {
+      "id": "tm_fenn_head",
+      "file": "ui/heads/tm_fenn.png",
+      "width": 24,
+      "height": 24,
+      "transparent": false,
+      "frameWidth": 24,
+      "frameHeight": 24,
+      "columns": 1,
+      "rows": 1,
+      "sourcePortrait": "portraits/T_tm_fenn_emotions.png",
+      "sourceRect": [
+        4,
+        0,
+        52,
+        52
+      ]
+    },
+    {
+      "id": "T_tm_fenn_walk",
+      "file": "characters/T_tm_fenn_walk.png",
+      "width": 64,
+      "height": 128,
+      "transparent": true,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        }
+      },
+      "baseline": 31
+    },
+    {
+      "id": "T_tm_gischt_portrait",
+      "file": "portraits/T_tm_gischt_emotions.png",
+      "width": 256,
+      "height": 64,
+      "transparent": false,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 4,
+      "rows": 1,
+      "animations": {
+        "neutral": {
+          "frames": [
+            0
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "suspicious": {
+          "frames": [
+            1
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "shocked": {
+          "frames": [
+            2
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "bidding": {
+          "frames": [
+            3
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        }
+      },
+      "states": [
+        "neutral",
+        "suspicious",
+        "shocked",
+        "bidding"
+      ]
+    },
+    {
+      "id": "tm_gischt_head",
+      "file": "ui/heads/tm_gischt.png",
+      "width": 24,
+      "height": 24,
+      "transparent": false,
+      "frameWidth": 24,
+      "frameHeight": 24,
+      "columns": 1,
+      "rows": 1,
+      "sourcePortrait": "portraits/T_tm_gischt_emotions.png",
+      "sourceRect": [
+        4,
+        0,
+        52,
+        52
+      ]
+    },
+    {
+      "id": "T_tm_gischt_walk",
+      "file": "characters/T_tm_gischt_walk.png",
+      "width": 64,
+      "height": 128,
+      "transparent": true,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        }
+      },
+      "baseline": 31
+    },
+    {
+      "id": "T_tm_lake_portrait",
+      "file": "portraits/T_tm_lake_emotions.png",
+      "width": 256,
+      "height": 64,
+      "transparent": false,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 4,
+      "rows": 1,
+      "animations": {
+        "neutral": {
+          "frames": [
+            0
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "suspicious": {
+          "frames": [
+            1
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "shocked": {
+          "frames": [
+            2
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "bidding": {
+          "frames": [
+            3
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        }
+      },
+      "states": [
+        "neutral",
+        "suspicious",
+        "shocked",
+        "bidding"
+      ]
+    },
+    {
+      "id": "tm_lake_head",
+      "file": "ui/heads/tm_lake.png",
+      "width": 24,
+      "height": 24,
+      "transparent": false,
+      "frameWidth": 24,
+      "frameHeight": 24,
+      "columns": 1,
+      "rows": 1,
+      "sourcePortrait": "portraits/T_tm_lake_emotions.png",
+      "sourceRect": [
+        4,
+        0,
+        52,
+        52
+      ]
+    },
+    {
+      "id": "T_tm_lake_walk",
+      "file": "characters/T_tm_lake_walk.png",
+      "width": 64,
+      "height": 128,
+      "transparent": true,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        }
+      },
+      "baseline": 31
+    },
+    {
+      "id": "T_tm_tam_portrait",
+      "file": "portraits/T_tm_tam_emotions.png",
+      "width": 256,
+      "height": 64,
+      "transparent": false,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 4,
+      "rows": 1,
+      "animations": {
+        "neutral": {
+          "frames": [
+            0
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "suspicious": {
+          "frames": [
+            1
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "shocked": {
+          "frames": [
+            2
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "bidding": {
+          "frames": [
+            3
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        }
+      },
+      "states": [
+        "neutral",
+        "suspicious",
+        "shocked",
+        "bidding"
+      ]
+    },
+    {
+      "id": "tm_tam_head",
+      "file": "ui/heads/tm_tam.png",
+      "width": 24,
+      "height": 24,
+      "transparent": false,
+      "frameWidth": 24,
+      "frameHeight": 24,
+      "columns": 1,
+      "rows": 1,
+      "sourcePortrait": "portraits/T_tm_tam_emotions.png",
+      "sourceRect": [
+        4,
+        0,
+        52,
+        52
+      ]
+    },
+    {
+      "id": "T_tm_tam_walk",
+      "file": "characters/T_tm_tam_walk.png",
+      "width": 64,
+      "height": 128,
+      "transparent": true,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        }
+      },
+      "baseline": 31
+    },
+    {
+      "id": "T_auktion",
+      "file": "ui/T_auktion.png",
+      "width": 128,
+      "height": 64,
+      "transparent": true,
+      "frameWidth": 128,
+      "frameHeight": 64,
+      "columns": 1,
+      "rows": 1,
+      "regions": {
+        "bid_0": [
+          0,
+          0,
+          16,
+          16
+        ],
+        "bid_1": [
+          16,
+          0,
+          16,
+          16
+        ],
+        "silent_scale": [
+          40,
+          0,
+          12,
+          12
+        ],
+        "chalk_circle": [
+          56,
+          0,
+          12,
+          12
+        ],
+        "soot_society": [
+          72,
+          0,
+          12,
+          12
+        ],
+        "lightless": [
+          88,
+          0,
+          12,
+          12
+        ],
+        "salt_brothers": [
+          104,
+          0,
+          12,
+          12
+        ],
+        "sold": [
+          104,
+          32,
+          24,
+          24
+        ],
+        "gavel_0": [
+          0,
+          32,
+          24,
+          24
+        ],
+        "gavel_1": [
+          24,
+          32,
+          24,
+          24
+        ],
+        "gavel_2": [
+          48,
+          32,
+          24,
+          24
+        ],
+        "gavel_3": [
+          72,
+          32,
+          24,
+          24
+        ]
+      },
+      "regionAnimations": {
+        "bid": {
+          "frames": [
+            "bid_0",
+            "bid_1"
+          ],
+          "frameRate": 4,
+          "repeat": -1
+        },
+        "gavel": {
+          "frames": [
+            "gavel_0",
+            "gavel_1",
+            "gavel_2",
+            "gavel_3"
+          ],
+          "frameRate": 10,
+          "repeat": 0
+        }
+      }
+    }
+  ]
+}

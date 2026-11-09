@@ -948,6 +948,29 @@ Grundlinien, Ausholposen, Animationsvariation, Prop-Regionen und Varianten,
 Portrait-/Item-Ableitungen sowie das kalte Weiß der Lichteffekte.
 
 
+## Batch T – Zirkelmitglieder
+
+55 PNGs für die Treffen-Auktionen: alle 18 Mitglieder mit Lauf-Sheet (64×128, 16×32 je Frame), Emotions-Sheet (256×64) und neutralem Sitzleistenkopf (24×24), dazu der optionale Auktionsatlas. Die Cobb-Zwillinge haben auch im Kopficon beide Köpfe in einem gemeinsamen Mantel.
+
+Manifest: `public/sprites/manifest-zirkel.json`. Prompts, Referenzen, Quell-Hashes und Zuschnitte: `batch-zirkel-generation.json`. Vorschau: [alle Mitglieder](batch-zirkel-preview.png). Gemeinsame 32-Farben-Palette, indizierte PNGs, Nearest Neighbor, binäres Alpha; Portraits und daraus abgeleitete Köpfe haben deckenden Schieferhintergrund.
+
+Laufreihen: down / left / right / up, jeweils vier Frames bei 8 fps. Portraitzustände: neutral / suspicious / shocked / bidding; die vierte Pose hebt Hand, Haken oder Bietermarke. `T_auktion.png` ist ein 128×64-Atlas mit benannten `regions`: zwei 16×16-Bietehände, fünf 12×12-Zirkelmarken, vier 24×24-Hammerschlagframes und ein 24×24-Wachssiegel ohne Schrift. `regionAnimations` beschreiben Bieten (4 fps) und Zuschlag (10 fps).
+
+```sh
+python docs/art/export-zirkel.py SOURCE_MAP.json
+python docs/art/verify-zirkel.py
+```
+
+Die Source Map ordnet die 37 Job-IDs den ursprünglichen Generator-PNGs zu. Die Prüfung bestätigt 55 Dateien, 288 Laufbilder, 72 Portraitzustände, 18 identische Kopfableitungen, 12 Atlasregionen, Maße, Palette, Transparenz und Framegrenzen. Sichtprüfung erfolgte auch im Zielraster. Keine Spielcodeänderung; Einbindung und Prüfung der Darstellung im laufenden Spiel erfolgen separat. Vorhandene Gastgeber, weitere Zirkelpersonen und Treffen-Räume werden nicht ersetzt.
+
+## Paket U – Gebäudefiguren (`gebaeude`)
+
+Constable Dunn, Odile Crane und Ambrosius Quint erhalten jeweils ein Lauf-Sheet (64×128, 4×4 Frames à 16×32), ein Emotions-Sheet (256×64, vier 64×64-Portraits) und einen transparenten Notizbuchkopf (24×24).
+
+Laufrichtungen: unten, links, rechts, oben; je 4 Phasen mit empfohlenen 7 fps. Emotionen: neutral, misstrauisch, erschrocken, leichtes Lächeln. Die Portrait-Hintergründe bleiben deckend. Laufbilder und Köpfe besitzen ausschließlich binäres Alpha. Alle neun PNGs verwenden dieselbe Palette mit 31 sichtbaren Farben plus transparentem Index.
+
+Manifest: `public/sprites/manifest-gebaeude.json`. Tatsächlich verwendete Prompts und Exportparameter: `docs/art/batch-gebaeude-generation.json`. Prüfung: `docs/art/batch-gebaeude-validation.json`. Die Köpfe sind Ausschnitte der neutralen Portraits. Laufbilder stehen auf der lokalen Grundlinie y=30, mit transparentem Zellrand. Keine Laufzeitintegration und keine Änderungen am Spielcode.
+
 ## Batch S – Wexmoor: Monster, Einzelgänger, Zirkel und Beute
 
 111 PNGs für `wexmoor3`: zehn Monster mit Kampf- und Kartenanimationen, sieben Einzelgänger mit Laufen/Emotionen/Kampf/Notizbuchkopf, Salzwatt mit Glockenmutter, zwei Zirkelräume samt Gastgebern, acht Effektstreifen, 13 Bestiariumkarten, Zugleiste und Beziehungs-UI sowie zwölf Items in 16×16 und 32×32 mit zwei Atlanten.
