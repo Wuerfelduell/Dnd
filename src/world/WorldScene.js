@@ -372,6 +372,17 @@ const THEMES = {
       default: return THEMES.g_katakomben(ch, at, v, x, y);
     }
   },
+  // Paket V: Gasthaus „Zur Ertrunkenen Glocke“: Planken, geteerte Wände mit Bullaugen, Binsenmatten
+  v_glocke: roomTheme('v_glocke', {
+    floorChars: 'wO.',
+    floorMix: (x, y) => (hash2(x, y, 74) > 0.93 ? themeKeys('v_glocke', 'carpet')[0] : pickKey(themeKeys('v_glocke', 'floor'), x, y, 0)),
+    extra: (ch, at, x, y) => {
+      if (ch !== 'I') return null;
+      const below = at(0, 1);
+      if (below === undefined || 'IE'.includes(below)) return pickKey(themeKeys('v_glocke', 'wallTop'), x, y, 2);
+      return hash2(x, y, 75) > 0.85 ? themeKeys('v_glocke', 'porthole')[0] : themeKeys('v_glocke', 'wallFace')[0];
+    },
+  }),
   // Paket S: Salzwatt (Schlick mit Salzkruste, Priele, offenes Meer am Rand, Pfähle, Damm) und die zwei Wexmoor-Zirkel
   s_salzwatt(ch, at, v, x, y) {
     const k = (g, seed = 0) => pickKey(themeKeys('s_salzwatt', g), x, y, seed);
