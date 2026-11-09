@@ -18,6 +18,15 @@ export const UNRUHE_MAX = 100;
 export const UNRUHE_DECAY_PER_SEC = 0.25;
 export const UNRUHE_VISION_PER_SEC = 0.35;
 export const VISION_DIGEST_CAP = 25; // pro Kartenbesuch
+/** Was hinter den Verdauungs-Schlüsseln steckt (für Anzeige und Rückmeldungen). */
+export const DIGEST_LABELS = {
+  clue: 'Hinweis gefunden', hidden_clue: 'verborgene Spur gefunden', fact_likely: 'Information bestätigt',
+  fact_refuted: 'Lüge widerlegt', conclusion: 'Schlussfolgerung gezogen', quest: 'Auftrag erledigt',
+  side_quest: 'Nebenauftrag erledigt', combat_win: 'Kampf gewonnen', occult_win: 'okkultes Wesen besiegt',
+  parry: 'Schlag pariert', vision: 'Geistsicht (pro Sekunde)', dialogue: 'neues Gespräch geführt',
+  trade: 'gehandelt', brew: 'Trank gebraut', use_item: 'Heilmittel benutzt', lock: 'Verschlossenes geöffnet',
+  loot: 'Belohnung eingestrichen',
+};
 const MULT_KEYS = new Set(['vision_cost', 'composure_regen', 'heal_bonus', 'price', 'sell', 'honor_loss', 'occult_mult',
   'money_bonus', 'skill_composure', 'calm_decay', 'dodge_window']);
 
@@ -120,6 +129,15 @@ export const pathwayMethods = {
       this.emit('digested', p);
     }
     return p.digestion - before;
+  },
+
+  /** Was den eigenen Pfad wie stark verdaut, auf der aktuellen Sequenz: [{kind, label, points}] */
+  digestTable() {
+    if (!this.pathway) return [];
+    const rate = DIGEST_RATE[this.pathway.seq] ?? 0.5;
+    return Object.entries(this.pathwayDef().digest ?? {})
+      .map(([kind, v]) => ({ kind, label: DIGEST_LABELS[kind] ?? kind, points: Math.round(v * rate * 10) / 10 }))
+      .sort((a, b) => b.points - a.points);
   },
 
   // --- Unruhe ------------------------------------------------------------------------

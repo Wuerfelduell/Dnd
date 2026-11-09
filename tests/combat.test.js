@@ -2,8 +2,8 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { GameState } from '../src/core/GameState.js';
-import { Combat, judgeDefense, judgeTiming, WINDOW } from '../src/core/Combat.js';
-import { loadContent, fight } from './helpers.js';
+import { Combat, judgeDefense, judgeTiming, WINDOW, ENEMY_HP_MULT, ENEMY_DMG_MULT, DODGE_COST } from '../src/core/Combat.js';
+import { loadContent, fight, SKILLED } from './helpers.js';
 
 const content = loadContent();
 const fresh = () => new GameState(content);
@@ -121,18 +121,63 @@ test('Niederlage: Ohnmacht mit wenig Leben, im Wächterkampf zurück an die Trep
   assert.ok(!s.flags.has('warden_defeated'));
 });
 
-test('Balance: Mit Startausrüstung und den Gegenständen auf dem Weg ist jeder Kampf zu schaffen', () => {
-  // Wer jedem zweiten Schlag ausweicht und unter 15 Leben verbindet, gewinnt.
+const LATE = ['choir_zealots', 'rook_fight', 'gasgeist', 'felix_fight', 'uhrwerkwaechter', 'kanalkroete', 'maskenspieler', 'schlachtergehilfe'];
+
+test('Balance: Geübte Spieler schaffen mit Startausrüstung jeden Kampf', () => {
+  // Wer von drei Schlägen einem ausweicht, einen pariert und unter 15 Leben verbindet, gewinnt.
   // Vor dem Aschewächter gibt Küster Anselm zwei Beutel Bannsalz.
   for (const id of Object.keys(content.encounters)) {
     const s = fresh();
     const items = id === 'ash_warden' ? ['bannsalz', 'bannsalz'] : [];
     if (items.length) s.addItem('bannsalz', 2);
-    // In Fall 3 ist man längst Hilfsermittler und hat den Dienstschlagstock von Holt.
-    if (['choir_zealots', 'rook_fight'].includes(id)) s.addItem('schlagstock');
-    const { result, combat } = fight(s, id, { defend: (i) => (i % 2 ? 'miss' : 'dodge'), items, healBelow: 15 });
+    // Ab Fall 3 hat man längst den Dienstschlagstock von Holt.
+    if (LATE.includes(id)) s.addItem('schlagstock');
+    const { result, combat } = fight(s, id, { defend: SKILLED, items, healBelow: 15 });
     assert.equal(result.outcome, 'won', `${id}: verloren in Runde ${combat.round}`);
   }
+});
+
+test('Balance: Wer nur jedem zweiten Schlag ausweicht, verliert gegen die harten Gegner', () => {
+  for (const id of ['ash_warden', 'rook_fight', 'felix_fight']) {
+    const s = fresh();
+    if (id === 'ash_warden') s.addItem('bannsalz', 2);
+    if (LATE.includes(id)) s.addItem('schlagstock');
+    const { result } = fight(s, id, { defend: (i) => (i % 2 ? 'miss' : 'dodge'), items: id === 'ash_warden' ? ['bannsalz', 'bannsalz'] : [], healBelow: 15 });
+    assert.equal(result.outcome, 'lost', id);
+  }
+});
+
+test('Härtere Kämpfe: nicht parierbare Angriffe, Ausweichen kostet Nerven, Zufallstakt, Rage', () => {
+  const s = fresh();
+  const c = new Combat(s, 'fog_hound');
+  assert.equal(c.enemy.maxHp, Math.round(34 * ENEMY_HP_MULT));
+  // Die härteste Einzelattacke („Lauern ... Biss“) ist nicht parierbar
+  c.attackIndex = 2;
+  const bite = c.nextEnemyAttack();
+  assert.equal(bite.unparryable, true);
+  assert.equal(bite.damage, Math.round(9 * ENEMY_DMG_MULT));
+  const r = c.resolveHit(bite, 'parry');
+  assert.equal(r.result, 'miss');
+  assert.equal(r.note, 'unparryable');
+  // Ausweichen kostet Nerven, ohne Nerven klappt es nicht
+  const n = s.composure;
+  assert.equal(c.resolveHit(bite, 'dodge').result, 'dodge');
+  assert.equal(s.composure, n - DODGE_COST);
+  s.setComposure(1);
+  assert.equal(c.resolveHit(bite, 'dodge').note, 'exhausted');
+  // Takt schwankt, Schläge bleiben spielbar
+  const times = new Set();
+  for (let i = 0; i < 6; i++) { c.attackIndex = 1; times.add(c.nextEnemyAttack().hits.join(',')); }
+  assert.ok(times.size > 1, 'Takt ist nicht immer gleich');
+  // Rage unter 40 % Leben
+  c.enemy.hp = 5;
+  c.attackIndex = 0;
+  const raged = c.nextEnemyAttack();
+  assert.equal(raged.enraged, true);
+  assert.ok(raged.damage > Math.round(6 * ENEMY_DMG_MULT));
+  // Übungskämpfe bleiben mild
+  const p = new Combat(fresh(), 'sparring');
+  assert.equal(p.enemy.maxHp, 34);
 });
 
 test('Balance: Wer nur einsteckt, verliert gegen den Aschewächter', () => {

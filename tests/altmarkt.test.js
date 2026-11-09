@@ -2,10 +2,10 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { GameState } from '../src/core/GameState.js';
-import { loadContent, talk, use, fight } from './helpers.js';
+import { loadContent, talk, use, fight, SKILLED } from './helpers.js';
 
 const content = loadContent();
-const WIN = { defend: (i) => (i % 2 ? 'miss' : 'dodge'), healBelow: 15 };
+const WIN = { defend: SKILLED, healBelow: 15 };
 
 function fresh(honor = 20) {
   const s = new GameState(content);
