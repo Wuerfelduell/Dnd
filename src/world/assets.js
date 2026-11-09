@@ -287,8 +287,8 @@ export const SOURCE_ICONS = {
   archive: [SOURCE_ICONS_URL, 5, 7], vision: [SOURCE_ICONS_URL, 6, 7], police: [LOG_MARKERS_URL, 3, 7],
 };
 
-/** Wetter pro Karte (Animation aus C_08_weather). */
-export const MAP_WEATHER = { docks: 'rain_light', ebba: 'ash', gaskanaele: 'fog' };
+/** Wetter pro Karte (Animation aus C_08_weather). "fog" verdichtet den vorhandenen Nebel statt Kacheln zu zeigen. */
+export const MAP_WEATHER = { docks: 'rain_light', ebba: 'ash' };
 
 // --- Paket A: animierte Sheets (Frames/Animationen in manifest-pfade.json) ----------
 
