@@ -1,0 +1,39 @@
+{
+  "format": "nebel-musik-1",
+  "base": "audio/musik/",
+  "instrumente": [
+    "instrumente.json"
+  ],
+  "tracks": {
+    "titel": {
+      "file": "titel.json",
+      "mood": "titel",
+      "volume": 0.7
+    },
+    "kettlegate_tag": {
+      "file": "kettlegate_tag.json",
+      "mood": "kettlegate_tag",
+      "volume": 0.7
+    },
+    "kampf": {
+      "file": "kampf.json",
+      "mood": "kampf",
+      "volume": 0.7
+    }
+  },
+  "zuordnung": {
+    "maps": {
+      "altmarkt": {
+        "tag": "kettlegate_tag"
+      }
+    },
+    "zonen": {},
+    "kampf": {
+      "standard": "kampf"
+    },
+    "ereignisse": {
+      "titel": "titel"
+    },
+    "titel": "titel"
+  }
+}

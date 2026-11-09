@@ -1,0 +1,117 @@
+{
+  "format": "nebel-musik-1",
+  "id": "titel",
+  "titel": "Nebelakten",
+  "bpm": 72,
+  "takt": [
+    4,
+    4
+  ],
+  "loop": true,
+  "lautstaerke": 0.72,
+  "hall": 0.38,
+  "spuren": {
+    "melodie": {
+      "instrument": "glocke",
+      "lautstaerke": 0.7,
+      "pan": -0.16
+    },
+    "akkorde": {
+      "instrument": "streicher",
+      "lautstaerke": 0.3,
+      "pan": 0.2
+    },
+    "luft": {
+      "instrument": "wind",
+      "lautstaerke": 0.12,
+      "pan": 0.1
+    },
+    "schatten": {
+      "instrument": "pad_glas",
+      "lautstaerke": 0.22,
+      "pan": 0.4
+    }
+  },
+  "muster": {
+    "motiv": {
+      "spur": "melodie",
+      "takte": 2,
+      "noten": "a4:4 f4:4 g4:4 c4:4 | c4:4 g4:4 a4:4 f4:4"
+    },
+    "antwort": {
+      "spur": "melodie",
+      "takte": 2,
+      "noten": "f4:4 a4:2 g4:2 e4:4 d4:4 | g4:4 f4:4 e4:4 d4:4"
+    },
+    "atem": {
+      "spur": "melodie",
+      "takte": 2,
+      "noten": "r:16 | r:16"
+    },
+    "bett_a": {
+      "spur": "akkorde",
+      "takte": 2,
+      "noten": "[d3,f3,a3]:16~ | [d3,f3,a3]:16"
+    },
+    "bett_b": {
+      "spur": "akkorde",
+      "takte": 2,
+      "noten": "[bb2,d3,f3]:16 | [g2,bb2,d3]:16"
+    },
+    "bett_c": {
+      "spur": "akkorde",
+      "takte": 2,
+      "noten": "[a2,c#3,e3]:16~ | [a2,c#3,e3]:16"
+    },
+    "luft": {
+      "spur": "luft",
+      "takte": 1,
+      "noten": "x:16@0.25"
+    },
+    "okkult": {
+      "spur": "schatten",
+      "takte": 2,
+      "noten": "c5:8 f#5:8 | b4:16"
+    }
+  },
+  "abschnitte": {
+    "intro": [
+      "bett_a",
+      "luft"
+    ],
+    "A": [
+      "motiv",
+      "bett_a",
+      "luft"
+    ],
+    "B": [
+      "antwort",
+      "bett_b",
+      "luft"
+    ],
+    "C": [
+      "motiv",
+      "bett_c",
+      "luft",
+      "okkult"
+    ]
+  },
+  "ablauf": [
+    "intro",
+    "A",
+    "B",
+    "C",
+    "A",
+    "B",
+    "C",
+    "A",
+    "B",
+    "C",
+    "A",
+    "B",
+    "C",
+    "A",
+    "B"
+  ],
+  "loop_ab": 1
+}
