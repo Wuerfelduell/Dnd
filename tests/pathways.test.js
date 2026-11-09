@@ -38,8 +38,9 @@ test('Sieben Pfade mit je Sequenz 9 bis 5, Fertigkeit, Passiven und kaufbaren Zu
       assert.ok(content.items[`trank_${pid}_${n}`] && content.items[`formel_${pid}_${n}`]);
     }
   }
-  // Jede Zutat und Formel ist irgendwo zu kaufen
-  const sold = new Set(Object.values(content.market.merchants).flatMap((m) => m.stock.map((e) => e.item)));
+  // Jede Zutat und Formel ist irgendwo zu kaufen (bei Händlern oder als Los auf einem geheimen Treffen)
+  const lots = Object.values(content.gatherings.circles).flatMap((c) => (c.members ?? []).flatMap((m) => m.offers.map((e) => e.item)));
+  const sold = new Set([...Object.values(content.market.merchants).flatMap((m) => m.stock.map((e) => e.item)), ...lots]);
   for (const [id, it] of Object.entries(content.items)) if (['ingredient', 'formula'].includes(it.kind)) assert.ok(sold.has(id), `${id} wird nirgends verkauft`);
   for (const m of Object.values(content.market.merchants)) for (const e of m.stock) assert.ok(content.items[e.item], `Händlerware ${e.item}`);
 });

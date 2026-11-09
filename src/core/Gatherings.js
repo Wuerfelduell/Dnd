@@ -29,6 +29,8 @@ export const gatheringMethods = {
     this.playTime = 0; // gespielte Sekunden (Dialoge, Menüs und Kämpfe zählen nicht)
     this.gatheringBought = { cycle: -1, items: {} };
     this.lastGatheringCycle = null;
+    this.auction = null; // laufende Runde (core/Auction.js), wird nicht gespeichert
+    this.sessionsHeld = []; // "zirkel:runde" – pro Treffen nur eine Runde
   },
 
   gatheringRules() {
@@ -104,7 +106,9 @@ export const gatheringMethods = {
     }
     const next = this.nextGathering();
     if (!next) return null;
-    return { next, text: `${this.gatheringDef(next.id).name} in ${fmt(next.start - this.playTime)}` };
+    // Gesuche vorher ankündigen, damit man weiß, was man mitnehmen sollte
+    const wants = this.sessionRequests ? [...new Set(this.sessionRequests(next.id, next.cycle).map((q) => this.item(q.item)?.name))] : [];
+    return { next, wants, text: `${this.gatheringDef(next.id).name} in ${fmt(next.start - this.playTime)}${wants.length ? ` · gesucht: ${wants.join(', ')}` : ''}` };
   },
 
   /**
@@ -122,7 +126,7 @@ export const gatheringMethods = {
     const here = this.map === g.map;
     return {
       gathering: cur.id, map: g.map, id: here ? host : null, name: g.name, mapName: map.name, district: g.map,
-      step: here ? `${this.content.npcs[host]?.name ?? 'Gastgeber'} ansprechen, offen noch ${fmt(cur.end - this.playTime)}`
+      step: here ? (this.sessionHeld?.(cur.id) ? `Runde vorbei. Treffen offen noch ${fmt(cur.end - this.playTime)}` : `${this.content.npcs[host]?.name ?? 'Gastgeber'} ansprechen und die Runde eröffnen, offen noch ${fmt(cur.end - this.playTime)}`)
         : `Geheimes Treffen läuft, offen noch ${fmt(cur.end - this.playTime)}. Stadtkarte öffnen und hinreisen.`,
     };
   },
@@ -138,7 +142,8 @@ export const gatheringMethods = {
     this.lastGatheringCycle = key;
     if (cur && this.isMember(cur.id)) {
       const g = this.gatheringDef(cur.id);
-      this.emit('gathering', { id: cur.id, open: true, text: g.invite });
+      const wants = this.sessionRequests ? [...new Set(this.sessionRequests(cur.id, cur.cycle).map((q) => this.item(q.item)?.name))] : [];
+      this.emit('gathering', { id: cur.id, open: true, text: `${g.invite}${wants.length ? ` Gesucht wird: ${wants.join(', ')}.` : ''}` });
       this.emit('changed');
     } else if (!cur && prev !== null) {
       const slot = this.gatheringSlot(prev);
@@ -183,13 +188,14 @@ export const gatheringMethods = {
   },
 
   serializeGatherings() {
-    return { playTime: Math.round(this.playTime), gatheringBought: this.gatheringBought };
+    return { playTime: Math.round(this.playTime), gatheringBought: this.gatheringBought, sessionsHeld: this.sessionsHeld };
   },
 
   loadGatherings(data) {
     this.playTime = Math.max(0, data.playTime ?? 0);
     const b = data.gatheringBought;
     this.gatheringBought = b && typeof b.cycle === 'number' ? { cycle: b.cycle, items: { ...b.items } } : { cycle: -1, items: {} };
+    this.sessionsHeld = Array.isArray(data.sessionsHeld) ? data.sessionsHeld.filter((k) => typeof k === 'string') : [];
     // Ein beim Speichern laufendes Treffen nicht noch einmal ankündigen
     this.lastGatheringCycle = this.currentGathering()?.cycle ?? null;
   },

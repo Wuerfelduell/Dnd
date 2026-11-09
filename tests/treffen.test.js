@@ -43,8 +43,10 @@ test('Normaler Markt: Zutaten ab Sequenz 7 (auch 6 und 5) sind nicht mehr käufl
   }
 });
 
+const lotsOf = (c) => (c.members ?? []).flatMap((m) => m.offers.map((e) => e.item));
+
 test('Jede Zutat ab Sequenz 7 gibt es auf mindestens einem Treffen', () => {
-  const sold = new Set(Object.values(content.market.merchants).filter((m) => m.gathering).flatMap((m) => m.stock.map((e) => e.item)));
+  const sold = new Set(Object.values(content.gatherings.circles).flatMap(lotsOf));
   for (const id of new Set(highIngredients)) assert.ok(sold.has(id), id);
 });
 
@@ -128,60 +130,176 @@ test('Treffpunkt erscheint nur für Mitglieder während des Treffens auf der Sta
   assert.ok(content.travelRules.pins.treffen_waage, 'Pin auf der Stadtkarte');
 });
 
-test('Handel auf dem Treffen: Zutaten für Sequenz 7, begrenzte Menge, danach geschlossen', () => {
+/** Mitglied der Waage, Treffen offen, Runde eröffnet. */
+function session(id = 'waage', setup = () => {}) {
   const s = fall4();
-  talk(s, 'schleierbote', ['Stillen Waage']);
-  let stock;
-  // Ein Treffen suchen, auf dem Geisteressenz liegt
-  for (let i = 0; i < 30; i++) {
-    jumpTo(s, 'waage');
-    stock = s.shopStock('tresswell');
-    if (stock.some((e) => e.item === 'geisteressenz')) break;
+  s.pathway = { id: 'eisen', seq: 8, digestion: 0 };
+  setup(s);
+  if (id === 'waage') talk(s, 'schleierbote', ['Stillen Waage']);
+  if (id === 'kreide') talk(s, 'schleierbote', ['Kreidezirkel beitreten']);
+  jumpTo(s, id);
+  return s;
+}
+
+test('Jeder Zirkel ist eine Gruppe aus 4 bis 5 Leuten, alle sitzen am Treffpunkt', () => {
+  for (const [id, c] of Object.entries(content.gatherings.circles)) {
+    assert.ok(c.members.length >= 4 && c.members.length <= 5, `${id}: ${c.members.length}`);
+    const map = content.maps[c.map];
+    for (const m of c.members) {
+      assert.ok(content.npcs[m.id], m.id);
+      assert.ok(map.npcs.some((n) => n.id === m.id), `${m.id} sitzt in ${c.map}`);
+      const open = content.dialogues[m.id].nodes.open;
+      assert.ok(open.choices.some((ch) => ch.auction === id), `${m.id} eröffnet die Runde`);
+      assert.ok(m.offers.length && m.wants.length, `${m.id}: Angebote und Gesuche`);
+      for (const e of m.offers) assert.ok(content.items[e.item], e.item);
+      for (const w of m.wants) assert.ok(content.items[w], w);
+    }
+    assert.ok(map.interactables.some((i) => i.kind === 'travel'), `${c.map}: Ausgang`);
   }
-  assert.equal(talk(s, 'tresswell', [])[0], 'open');
-  const ess = stock.find((e) => e.item === 'geisteressenz');
-  assert.ok(ess && !ess.locked);
-  for (let i = 0; i < ess.limit; i++) assert.equal(s.buy('tresswell', 'geisteressenz').ok, true);
-  const again = s.buy('tresswell', 'geisteressenz');
-  assert.equal(again.ok, false);
-  assert.match(again.text, /nichts mehr/);
-  // Das Angebot über viele Treffen enthält die Zutaten für Sequenz 7
-  const seen = new Set();
-  for (let i = 0; i < 40; i++) { jumpTo(s, 'waage'); s.shopStock('tresswell').forEach((e) => seen.add(e.item)); }
-  for (const id of seq7Ingredients) assert.ok(seen.has(id), `${id} taucht auf`);
-  // Nach dem Treffen ist alles zu
-  s.playTime += rules.open_min * MIN;
-  assert.equal(talk(s, 'tresswell', [])[0], 'closed');
-  assert.ok(s.shopStock('tresswell').every((e) => e.locked));
-  assert.equal(s.buy('tresswell', 'nebeltau').ok, false);
 });
 
-test('Kreidezirkel bietet die Formel für Sequenz 7 des eigenen Pfades öfter an als Kittering', () => {
+test('Runde: reihum ein Los mit Mitbietern, danach ein Gesuch, am Ende das eigene Angebot', () => {
+  const s = session();
+  assert.equal(s.startSession('waage').ok, true);
+  const a = s.auction;
+  assert.equal(a.members.length, content.gatherings.circles.waage.members.length);
+  const seen = [];
+  let guard = 0;
+  while (a.phase === 'lot' || a.phase === 'request') {
+    assert.ok(guard++ < 50);
+    seen.push(`${a.turn}:${a.phase}`);
+    if (a.phase === 'lot') {
+      assert.equal(s.auctionSpeaker(), a.lot.seller);
+      // so lange mitbieten, bis man gewinnt oder überboten wird
+      let r = s.bid();
+      let n = 0;
+      while (r.outbid && n++ < 30) r = s.bid();
+      if (a.phase === 'lot') s.passLot();
+    } else {
+      s.declineRequest();
+    }
+  }
+  assert.equal(a.phase, 'own');
+  assert.ok(new Set(seen.map((x) => x.split(':')[0])).size >= a.members.length - 1, 'jedes Mitglied war dran');
+  assert.ok(a.bought.length > 0, 'mit genug Geld gewinnt man auch etwas');
+  for (const b of a.bought) assert.ok(s.itemCount(b.item) > 0);
+  // Pro Treffen nur eine Runde
+  s.endSession();
+  assert.equal(s.startSession('waage').ok, false);
+});
+
+test('Auktion: Mitbieter treiben den Preis, Aussteigen kostet nichts', () => {
+  const s = session();
+  s.startSession('waage');
+  const a = s.auction;
+  // Ein Los mit Mitbieter suchen
+  let guard = 0;
+  while (!(a.phase === 'lot' && a.lot.leader) && guard++ < 20) { if (a.phase === 'lot') s.passLot(); else if (a.phase === 'request') s.declineRequest(); else break; }
+  if (a.phase !== 'lot') return; // in dieser Runde bot nie jemand mit (sehr selten)
+  const start = a.lot.price;
+  const money = s.money;
+  const r = s.bid();
+  assert.ok(r.ok);
+  assert.ok(a.phase !== 'lot' || a.lot.price > start, 'Preis steigt');
+  if (a.phase === 'lot') {
+    s.passLot();
+    assert.equal(s.money, money, 'überboten und ausgestiegen: nichts bezahlt');
+  }
+});
+
+test('Gesuche: stehen vorher fest, werden angekündigt und zahlen gut', () => {
+  const s = fall4();
+  talk(s, 'schleierbote', ['Stillen Waage']);
+  jumpTo(s, 'kreide');
+  const next = s.nextGathering();
+  const reqs = s.sessionRequests('waage', next.cycle);
+  assert.ok(reqs.length > 0, 'die Waage sucht etwas');
+  assert.match(s.gatheringStatus().text, /gesucht: /);
+  for (const q of reqs) assert.ok(s.gatheringStatus().text.includes(s.item(q.item).name));
+  // Mitbringen und abgeben
+  for (const q of reqs) s.addItem(q.item);
+  s.playTime = next.start + 1;
+  s.startSession('waage');
+  const a = s.auction;
+  const before = s.money;
+  let got = 0;
+  let guard = 0;
+  while ((a.phase === 'lot' || a.phase === 'request') && guard++ < 50) {
+    if (a.phase === 'lot') s.passLot();
+    else { const q = a.request; assert.ok(q.price >= s.itemValue(q.item)); s.fulfillRequest(); got += q.price; }
+  }
+  assert.equal(got, reqs.reduce((t, q) => t + q.price, 0));
+  assert.equal(s.money, before + got);
+});
+
+test('Ohne die Zutat kann man ein Gesuch nur ablehnen', () => {
+  const s = session();
+  s.startSession('waage');
+  const a = s.auction;
+  let guard = 0;
+  while (a.phase === 'lot' && guard++ < 10) s.passLot();
+  if (a.phase !== 'request') return;
+  const q = a.request;
+  s.inventory[q.item] = 0; delete s.inventory[q.item];
+  assert.equal(s.fulfillRequest().ok, false);
+  assert.equal(s.declineRequest().ok, true);
+});
+
+test('Eigenes Angebot: eigene Artefakte und Formeln, geliehene nicht', () => {
+  const s = session();
+  s.addItem('formel_eisen_9');
+  s.addItem('hungriger_ring');
+  s.borrowed = ['uhr_ertrunkener'];
+  s.addItem('uhr_ertrunkener');
+  s.startSession('waage');
+  const a = s.auction;
+  let guard = 0;
+  while ((a.phase === 'lot' || a.phase === 'request') && guard++ < 50) { if (a.phase === 'lot') s.passLot(); else s.declineRequest(); }
+  const ids = s.ownOfferables().map((o) => o.id);
+  assert.ok(ids.includes('formel_eisen_9') && ids.includes('hungriger_ring'));
+  assert.ok(!ids.includes('uhr_ertrunkener'), 'Leihgabe des Reviers');
+  // Ring anbieten, bis jemand bietet (Gebote hängen vom Würfel ab), dann annehmen
+  s.offerOwn('hungriger_ring');
+  if (!a.own.bids.length) { s.withdrawOwn(); return; }
+  const best = a.own.bids[0].price;
+  const money = s.money;
+  s.withdrawOwn();
+  assert.equal(s.itemCount('hungriger_ring'), 1, 'zurückgezogen');
+  s.offerOwn('formel_eisen_9');
+  if (a.own.bids.length) {
+    const p = a.own.bids[0].price;
+    s.acceptOwn();
+    assert.equal(s.itemCount('formel_eisen_9'), 0);
+    assert.equal(s.money, money + p);
+  }
+  assert.ok(best > 0);
+});
+
+test('Formeln für Sequenz 7 des eigenen Pfades kommen im Kreidezirkel als Los, fremde nicht', () => {
   const s = fall4();
   s.pathway = { id: 'eisen', seq: 8, digestion: 100 };
   talk(s, 'schleierbote', ['Kreidezirkel beitreten']);
   let hits = 0;
-  for (let i = 0; i < 40; i++) {
+  for (let i = 0; i < 30; i++) {
     jumpTo(s, 'kreide');
-    const e = s.shopStock('vellacourt').find((x) => x.item === 'formel_eisen_7');
-    if (e) { hits++; assert.equal(e.locked, null); }
-    assert.ok(!s.shopStock('vellacourt').some((x) => x.item === 'formel_laterne_7'), 'fremde Pfade bleiben unsichtbar');
+    for (const m of content.gatherings.circles.kreide.members) {
+      const lot = s.memberLot('kreide', s.marketCycle(), m.id);
+      if (!lot) continue;
+      if (lot.item === 'formel_eisen_7') hits++;
+      assert.ok(!/formel_(?!eisen)/.test(lot.item), `fremde Formel ${lot.item}`);
+    }
   }
-  assert.ok(hits >= 10, `nur ${hits}/40`);
+  assert.ok(hits >= 3, `nur ${hits}`);
 });
 
-test('Spielzeit und Einkäufe überstehen Speichern und Laden', () => {
-  const s = fall4();
-  talk(s, 'schleierbote', ['Stillen Waage']);
-  jumpTo(s, 'waage');
-  s.buy('tresswell', 'nebeltau');
-  const t = s.playTime;
-  const data = JSON.parse(JSON.stringify(s.serialize()));
+test('Gehaltene Runden überstehen Speichern und Laden', () => {
+  const s = session();
+  s.startSession('waage');
+  s.endSession();
   const l = new GameState(content);
-  assert.ok(l.load(data));
-  assert.ok(Math.abs(l.playTime - t) <= 1);
-  assert.ok(l.isMember('waage'));
-  assert.equal(l.shopStock('tresswell').find((e) => e.item === 'nebeltau').left, s.shopStock('tresswell').find((e) => e.item === 'nebeltau').left);
+  assert.ok(l.load(JSON.parse(JSON.stringify(s.serialize()))));
+  assert.ok(l.sessionHeld('waage'));
+  assert.equal(l.startSession('waage').ok, false);
   // Ein laufendes Treffen wird nach dem Laden nicht noch einmal angekündigt
   const notes = [];
   l.on('gathering', (e) => notes.push(e));
@@ -189,16 +307,11 @@ test('Spielzeit und Einkäufe überstehen Speichern und Laden', () => {
   assert.equal(notes.length, 0);
 });
 
-test('Treffpunkte haben einen Ausgang und Gastgeber mit Händler', () => {
-  for (const g of Object.values(content.gatherings.circles)) {
-    const map = content.maps[g.map];
-    assert.ok(map, g.map);
-    assert.ok(map.interactables.some((i) => i.kind === 'travel'), `${g.map}: Ausgang`);
-    const host = map.npcs[0].id;
-    assert.ok(content.npcs[host] && content.dialogues[host], host);
-    assert.equal(content.market.merchants[host].gathering, Object.keys(content.gatherings.circles).find((k) => content.gatherings.circles[k] === g));
-    for (const e of content.market.merchants[host].stock) assert.ok(content.items[e.item], `${host}: ${e.item}`);
-  }
+test('Nach dem Treffen ist Schluss', () => {
+  const s = session();
+  s.playTime += rules.open_min * MIN;
+  assert.equal(talk(s, 'tresswell', [])[0], 'closed');
+  assert.equal(s.startSession('waage').ok, false);
 });
 
 test('Wegweiser: Während ein eigenes Treffen läuft, zeigt der Pfeil dorthin', async () => {

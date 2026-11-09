@@ -1,5 +1,5 @@
 {
-  "_info": "Geheime Treffen ab Fall 4. Alle interval_min Spielminuten beginnt reihum (order) das Treffen eines Zirkels und bleibt open_min Minuten offen. Händler mit 'gathering' würfeln je Treffen ihr Angebot ('chance' pro Eintrag, 'limit' Stück pro Treffen). Zutaten ab Sequenz 7 (auch 6 und 5) gibt es nur hier oder als Beute, nie auf dem normalen Markt.",
+  "_info": "Geheime Treffen ab Fall 4. Alle interval_min Spielminuten beginnt reihum (order) das Treffen eines Zirkels und bleibt open_min Minuten offen. Händler mit 'gathering' würfeln je Treffen ihr Angebot ('chance' pro Eintrag, 'limit' Stück pro Treffen). Zutaten ab Sequenz 7 (auch 6 und 5) gibt es nur hier oder als Beute, nie auf dem normalen Markt. Ab Version Auktion: Jeder Zirkel hat 4 bis 5 Mitglieder (circles.*.members). Reihum bietet jedes Mitglied ein Los an (offers, 'chance' je Eintrag), die anderen bieten mit; danach ein Gesuch nach einer Zutat (wants). Zum Schluss kann man eigene Artefakte oder Formeln versteigern.",
   "rules": {
     "interval_min": 20,
     "open_min": 6,
@@ -18,6 +18,17 @@
         "lichtlose",
         "salz"
       ]
+    },
+    "auction": {
+      "lot_start": 0.6,
+      "step": 0.1,
+      "rival_interest": 0.65,
+      "rival_min": 0.75,
+      "rival_max": 1.45,
+      "request_chance": 0.75,
+      "request_markup": 1.8,
+      "own_min": 0.55,
+      "own_max": 1.5
     }
   },
   "circles": {
@@ -26,21 +37,970 @@
       "member_flag": "treffen_waage",
       "map": "treffen_waage",
       "short": "Zutaten",
-      "invite": "Ein Zettel in deiner Manteltasche, mit Silberstaub bestreut: Die Stille Waage wiegt jetzt. Gewölbe unter der Krähenbrücke. Der Treffpunkt steht jetzt auf der Stadtkarte."
+      "invite": "Ein Zettel in deiner Manteltasche, mit Silberstaub bestreut: Die Stille Waage wiegt jetzt. Gewölbe unter der Krähenbrücke. Der Treffpunkt steht jetzt auf der Stadtkarte.",
+      "members": [
+        {
+          "id": "tresswell",
+          "offers": [
+            {
+              "item": "sternglas",
+              "price": 65,
+              "chance": 0.45
+            },
+            {
+              "item": "sternschlacke",
+              "price": 65,
+              "chance": 0.45
+            },
+            {
+              "item": "flammenkern",
+              "price": 110,
+              "chance": 0.3
+            },
+            {
+              "item": "ambossstaub",
+              "price": 110,
+              "chance": 0.3
+            },
+            {
+              "item": "atemglas",
+              "price": 180,
+              "chance": 0.15
+            },
+            {
+              "item": "formel_laterne_7",
+              "price": 220,
+              "once": true,
+              "chance": 0.08,
+              "requires_pathway": [
+                "laterne",
+                8
+              ],
+              "locked_text": "Erst ab Sequenz 8 dieses Pfades"
+            },
+            {
+              "item": "formel_eisen_7",
+              "price": 220,
+              "once": true,
+              "chance": 0.08,
+              "requires_pathway": [
+                "eisen",
+                8
+              ],
+              "locked_text": "Erst ab Sequenz 8 dieses Pfades"
+            }
+          ],
+          "wants": [
+            "gluehwurmasche",
+            "eisenkraut",
+            "glockenstaub",
+            "irrlichtfunke"
+          ]
+        },
+        {
+          "id": "tm_halloran",
+          "offers": [
+            {
+              "item": "spiegelquecksilber",
+              "price": 65,
+              "chance": 0.45
+            },
+            {
+              "item": "nachtfalterstaub",
+              "price": 65,
+              "chance": 0.45
+            },
+            {
+              "item": "knotengarn",
+              "price": 110,
+              "chance": 0.3
+            },
+            {
+              "item": "dietrichsilber",
+              "price": 110,
+              "chance": 0.3
+            },
+            {
+              "item": "goldschimmel",
+              "price": 180,
+              "chance": 0.15
+            },
+            {
+              "item": "formel_faden_7",
+              "price": 220,
+              "once": true,
+              "chance": 0.08,
+              "requires_pathway": [
+                "faden",
+                8
+              ],
+              "locked_text": "Erst ab Sequenz 8 dieses Pfades"
+            },
+            {
+              "item": "formel_schluessel_7",
+              "price": 220,
+              "once": true,
+              "chance": 0.08,
+              "requires_pathway": [
+                "schluessel",
+                8
+              ],
+              "locked_text": "Erst ab Sequenz 8 dieses Pfades"
+            }
+          ],
+          "wants": [
+            "spinnenseide",
+            "kraehenfeder",
+            "kroetenschleim",
+            "egelschleim"
+          ]
+        },
+        {
+          "id": "tm_rusk",
+          "offers": [
+            {
+              "item": "puppenglas",
+              "price": 65,
+              "chance": 0.45
+            },
+            {
+              "item": "geisteressenz",
+              "price": 55,
+              "chance": 0.8
+            },
+            {
+              "item": "spiegelwachs",
+              "price": 110,
+              "chance": 0.3
+            },
+            {
+              "item": "lichtperle",
+              "price": 180,
+              "chance": 0.15
+            },
+            {
+              "item": "schwertsplitter",
+              "price": 180,
+              "chance": 0.15
+            },
+            {
+              "item": "formel_maske_7",
+              "price": 220,
+              "once": true,
+              "chance": 0.08,
+              "requires_pathway": [
+                "maske",
+                8
+              ],
+              "locked_text": "Erst ab Sequenz 8 dieses Pfades"
+            }
+          ],
+          "wants": [
+            "wachsbluete",
+            "leuchtmoos",
+            "ochsenblut",
+            "schnabelfeder"
+          ]
+        },
+        {
+          "id": "tm_oddny",
+          "offers": [
+            {
+              "item": "seufzerstein",
+              "price": 65,
+              "chance": 0.45
+            },
+            {
+              "item": "silberstaub",
+              "price": 14
+            },
+            {
+              "item": "glockenerz",
+              "price": 110,
+              "chance": 0.3
+            },
+            {
+              "item": "spindelknochen",
+              "price": 180,
+              "chance": 0.15
+            },
+            {
+              "item": "schattenseide",
+              "price": 180,
+              "chance": 0.15
+            },
+            {
+              "item": "formel_echo_7",
+              "price": 220,
+              "once": true,
+              "chance": 0.08,
+              "requires_pathway": [
+                "echo",
+                8
+              ],
+              "locked_text": "Erst ab Sequenz 8 dieses Pfades"
+            }
+          ],
+          "wants": [
+            "grabmoos",
+            "eulenfeder",
+            "schattenpilz",
+            "wachsherz"
+          ]
+        },
+        {
+          "id": "tm_ferro",
+          "offers": [
+            {
+              "item": "schwarzbernstein",
+              "price": 65,
+              "chance": 0.45
+            },
+            {
+              "item": "nebeltau",
+              "price": 4
+            },
+            {
+              "item": "salamanderoel",
+              "price": 110,
+              "chance": 0.3
+            },
+            {
+              "item": "schminkasche",
+              "price": 180,
+              "chance": 0.15
+            },
+            {
+              "item": "nebelherz",
+              "price": 150,
+              "chance": 0.2
+            },
+            {
+              "item": "formel_kessel_7",
+              "price": 220,
+              "once": true,
+              "chance": 0.08,
+              "requires_pathway": [
+                "kessel",
+                8
+              ],
+              "locked_text": "Erst ab Sequenz 8 dieses Pfades"
+            }
+          ],
+          "wants": [
+            "bitterwurz",
+            "mondmohn",
+            "moorperle",
+            "geisteressenz"
+          ]
+        }
+      ],
+      "host": "tresswell"
     },
     "kreide": {
       "name": "Der Kreidezirkel",
       "member_flag": "treffen_kreide",
       "map": "treffen_kreide",
       "short": "Formeln",
-      "invite": "Auf deiner Handfläche steht plötzlich ein Kreidekreis. Der Kreidezirkel tagt jetzt, Hinterzimmer am Altmarkt. Der Treffpunkt steht jetzt auf der Stadtkarte."
+      "invite": "Auf deiner Handfläche steht plötzlich ein Kreidekreis. Der Kreidezirkel tagt jetzt, Hinterzimmer am Altmarkt. Der Treffpunkt steht jetzt auf der Stadtkarte.",
+      "members": [
+        {
+          "id": "vellacourt",
+          "offers": [
+            {
+              "item": "formel_laterne_7",
+              "price": 180,
+              "once": true,
+              "chance": 0.55,
+              "requires_pathway": [
+                "laterne",
+                8
+              ],
+              "locked_text": "Erst ab Sequenz 8 dieses Pfades"
+            },
+            {
+              "item": "formel_eisen_7",
+              "price": 180,
+              "once": true,
+              "chance": 0.55,
+              "requires_pathway": [
+                "eisen",
+                8
+              ],
+              "locked_text": "Erst ab Sequenz 8 dieses Pfades"
+            },
+            {
+              "item": "formel_echo_6",
+              "price": 320,
+              "once": true,
+              "chance": 0.35,
+              "requires_pathway": [
+                "echo",
+                7
+              ],
+              "locked_text": "Erst ab Sequenz 7 dieses Pfades"
+            },
+            {
+              "item": "formel_faden_5",
+              "price": 480,
+              "once": true,
+              "chance": 0.2,
+              "requires_pathway": [
+                "faden",
+                6
+              ],
+              "locked_text": "Erst ab Sequenz 6 dieses Pfades"
+            },
+            {
+              "item": "formel_schluessel_5",
+              "price": 480,
+              "once": true,
+              "chance": 0.2,
+              "requires_pathway": [
+                "schluessel",
+                6
+              ],
+              "locked_text": "Erst ab Sequenz 6 dieses Pfades"
+            },
+            {
+              "item": "formel_kessel_8",
+              "price": 80,
+              "once": true,
+              "chance": 0.6,
+              "requires_pathway": [
+                "kessel",
+                9
+              ],
+              "locked_text": "Erst für Anhänger dieses Pfades"
+            }
+          ],
+          "wants": [
+            "papierfeder",
+            "mondmohn",
+            "spiegelquecksilber"
+          ]
+        },
+        {
+          "id": "tm_sallow",
+          "offers": [
+            {
+              "item": "formel_faden_7",
+              "price": 180,
+              "once": true,
+              "chance": 0.55,
+              "requires_pathway": [
+                "faden",
+                8
+              ],
+              "locked_text": "Erst ab Sequenz 8 dieses Pfades"
+            },
+            {
+              "item": "formel_schluessel_7",
+              "price": 180,
+              "once": true,
+              "chance": 0.55,
+              "requires_pathway": [
+                "schluessel",
+                8
+              ],
+              "locked_text": "Erst ab Sequenz 8 dieses Pfades"
+            },
+            {
+              "item": "formel_kessel_6",
+              "price": 320,
+              "once": true,
+              "chance": 0.35,
+              "requires_pathway": [
+                "kessel",
+                7
+              ],
+              "locked_text": "Erst ab Sequenz 7 dieses Pfades"
+            },
+            {
+              "item": "formel_maske_5",
+              "price": 480,
+              "once": true,
+              "chance": 0.2,
+              "requires_pathway": [
+                "maske",
+                6
+              ],
+              "locked_text": "Erst ab Sequenz 6 dieses Pfades"
+            },
+            {
+              "item": "formel_laterne_8",
+              "price": 80,
+              "once": true,
+              "chance": 0.6,
+              "requires_pathway": [
+                "laterne",
+                9
+              ],
+              "locked_text": "Erst für Anhänger dieses Pfades"
+            },
+            {
+              "item": "formel_eisen_8",
+              "price": 80,
+              "once": true,
+              "chance": 0.6,
+              "requires_pathway": [
+                "eisen",
+                9
+              ],
+              "locked_text": "Erst für Anhänger dieses Pfades"
+            }
+          ],
+          "wants": [
+            "glasfeder",
+            "spinnenseide",
+            "bronzeglocke_klein"
+          ]
+        },
+        {
+          "id": "tm_corve",
+          "offers": [
+            {
+              "item": "formel_maske_7",
+              "price": 180,
+              "once": true,
+              "chance": 0.55,
+              "requires_pathway": [
+                "maske",
+                8
+              ],
+              "locked_text": "Erst ab Sequenz 8 dieses Pfades"
+            },
+            {
+              "item": "formel_laterne_6",
+              "price": 320,
+              "once": true,
+              "chance": 0.35,
+              "requires_pathway": [
+                "laterne",
+                7
+              ],
+              "locked_text": "Erst ab Sequenz 7 dieses Pfades"
+            },
+            {
+              "item": "formel_eisen_6",
+              "price": 320,
+              "once": true,
+              "chance": 0.35,
+              "requires_pathway": [
+                "eisen",
+                7
+              ],
+              "locked_text": "Erst ab Sequenz 7 dieses Pfades"
+            },
+            {
+              "item": "formel_echo_5",
+              "price": 480,
+              "once": true,
+              "chance": 0.2,
+              "requires_pathway": [
+                "echo",
+                6
+              ],
+              "locked_text": "Erst ab Sequenz 6 dieses Pfades"
+            },
+            {
+              "item": "formel_faden_8",
+              "price": 80,
+              "once": true,
+              "chance": 0.6,
+              "requires_pathway": [
+                "faden",
+                9
+              ],
+              "locked_text": "Erst für Anhänger dieses Pfades"
+            },
+            {
+              "item": "formel_schluessel_8",
+              "price": 80,
+              "once": true,
+              "chance": 0.6,
+              "requires_pathway": [
+                "schluessel",
+                9
+              ],
+              "locked_text": "Erst für Anhänger dieses Pfades"
+            }
+          ],
+          "wants": [
+            "linsenscherbe",
+            "wachsdocht"
+          ]
+        },
+        {
+          "id": "tm_ashdown",
+          "offers": [
+            {
+              "item": "formel_echo_7",
+              "price": 180,
+              "once": true,
+              "chance": 0.55,
+              "requires_pathway": [
+                "echo",
+                8
+              ],
+              "locked_text": "Erst ab Sequenz 8 dieses Pfades"
+            },
+            {
+              "item": "formel_faden_6",
+              "price": 320,
+              "once": true,
+              "chance": 0.35,
+              "requires_pathway": [
+                "faden",
+                7
+              ],
+              "locked_text": "Erst ab Sequenz 7 dieses Pfades"
+            },
+            {
+              "item": "formel_schluessel_6",
+              "price": 320,
+              "once": true,
+              "chance": 0.35,
+              "requires_pathway": [
+                "schluessel",
+                7
+              ],
+              "locked_text": "Erst ab Sequenz 7 dieses Pfades"
+            },
+            {
+              "item": "formel_kessel_5",
+              "price": 480,
+              "once": true,
+              "chance": 0.2,
+              "requires_pathway": [
+                "kessel",
+                6
+              ],
+              "locked_text": "Erst ab Sequenz 6 dieses Pfades"
+            },
+            {
+              "item": "formel_maske_8",
+              "price": 80,
+              "once": true,
+              "chance": 0.6,
+              "requires_pathway": [
+                "maske",
+                9
+              ],
+              "locked_text": "Erst für Anhänger dieses Pfades"
+            },
+            {
+              "item": "geisteressenz",
+              "price": 60,
+              "chance": 0.3
+            }
+          ],
+          "wants": [
+            "fernrohr_messing",
+            "geisteressenz"
+          ]
+        },
+        {
+          "id": "tm_pemberley",
+          "offers": [
+            {
+              "item": "formel_kessel_7",
+              "price": 180,
+              "once": true,
+              "chance": 0.55,
+              "requires_pathway": [
+                "kessel",
+                8
+              ],
+              "locked_text": "Erst ab Sequenz 8 dieses Pfades"
+            },
+            {
+              "item": "formel_maske_6",
+              "price": 320,
+              "once": true,
+              "chance": 0.35,
+              "requires_pathway": [
+                "maske",
+                7
+              ],
+              "locked_text": "Erst ab Sequenz 7 dieses Pfades"
+            },
+            {
+              "item": "formel_laterne_5",
+              "price": 480,
+              "once": true,
+              "chance": 0.2,
+              "requires_pathway": [
+                "laterne",
+                6
+              ],
+              "locked_text": "Erst ab Sequenz 6 dieses Pfades"
+            },
+            {
+              "item": "formel_eisen_5",
+              "price": 480,
+              "once": true,
+              "chance": 0.2,
+              "requires_pathway": [
+                "eisen",
+                6
+              ],
+              "locked_text": "Erst ab Sequenz 6 dieses Pfades"
+            },
+            {
+              "item": "formel_echo_8",
+              "price": 80,
+              "once": true,
+              "chance": 0.6,
+              "requires_pathway": [
+                "echo",
+                9
+              ],
+              "locked_text": "Erst für Anhänger dieses Pfades"
+            }
+          ],
+          "wants": [
+            "eulenfeder",
+            "sternglas"
+          ]
+        }
+      ],
+      "host": "vellacourt"
     },
     "russ": {
       "name": "Die Rußgesellschaft",
       "member_flag": "treffen_russ",
       "map": "treffen_russ",
       "short": "Raritäten",
-      "invite": "Rußige Fingerabdrücke an deinem Ärmel, die vorher nicht da waren. Die Rußgesellschaft handelt jetzt, Kohlenschuppen hinter der Gießerei. Der Treffpunkt steht jetzt auf der Stadtkarte."
+      "invite": "Rußige Fingerabdrücke an deinem Ärmel, die vorher nicht da waren. Die Rußgesellschaft handelt jetzt, Kohlenschuppen hinter der Gießerei. Der Treffpunkt steht jetzt auf der Stadtkarte.",
+      "members": [
+        {
+          "id": "kohlenjem",
+          "offers": [
+            {
+              "item": "geisteressenz",
+              "price": 45,
+              "chance": 0.7
+            },
+            {
+              "item": "schwarzbernstein",
+              "price": 55,
+              "chance": 0.3
+            },
+            {
+              "item": "spiegelwachs",
+              "price": 100,
+              "chance": 0.2
+            },
+            {
+              "item": "lichtperle",
+              "price": 170,
+              "chance": 0.1
+            },
+            {
+              "item": "schwertsplitter",
+              "price": 170,
+              "chance": 0.1
+            },
+            {
+              "item": "formel_maske_7",
+              "price": 200,
+              "once": true,
+              "chance": 0.2,
+              "requires_pathway": [
+                "maske",
+                8
+              ],
+              "locked_text": "Erst ab Sequenz 8 dieses Pfades"
+            },
+            {
+              "item": "formel_laterne_6",
+              "price": 340,
+              "once": true,
+              "chance": 0.1,
+              "requires_pathway": [
+                "laterne",
+                7
+              ],
+              "locked_text": "Erst ab Sequenz 7 dieses Pfades"
+            },
+            {
+              "item": "formel_eisen_6",
+              "price": 340,
+              "once": true,
+              "chance": 0.1,
+              "requires_pathway": [
+                "eisen",
+                7
+              ],
+              "locked_text": "Erst ab Sequenz 7 dieses Pfades"
+            }
+          ],
+          "wants": [
+            "rattenschwanz",
+            "gasgluehstrumpf",
+            "geisteressenz"
+          ]
+        },
+        {
+          "id": "tm_dot",
+          "offers": [
+            {
+              "item": "sternglas",
+              "price": 55,
+              "chance": 0.3
+            },
+            {
+              "item": "sternschlacke",
+              "price": 55,
+              "chance": 0.3
+            },
+            {
+              "item": "glockenerz",
+              "price": 100,
+              "chance": 0.2
+            },
+            {
+              "item": "spindelknochen",
+              "price": 170,
+              "chance": 0.1
+            },
+            {
+              "item": "schattenseide",
+              "price": 170,
+              "chance": 0.1
+            },
+            {
+              "item": "formel_echo_7",
+              "price": 200,
+              "once": true,
+              "chance": 0.2,
+              "requires_pathway": [
+                "echo",
+                8
+              ],
+              "locked_text": "Erst ab Sequenz 8 dieses Pfades"
+            },
+            {
+              "item": "formel_faden_6",
+              "price": 340,
+              "once": true,
+              "chance": 0.1,
+              "requires_pathway": [
+                "faden",
+                7
+              ],
+              "locked_text": "Erst ab Sequenz 7 dieses Pfades"
+            },
+            {
+              "item": "formel_schluessel_6",
+              "price": 340,
+              "once": true,
+              "chance": 0.1,
+              "requires_pathway": [
+                "schluessel",
+                7
+              ],
+              "locked_text": "Erst ab Sequenz 7 dieses Pfades"
+            }
+          ],
+          "wants": [
+            "rattenkrone",
+            "russklumpen",
+            "tonikum"
+          ]
+        },
+        {
+          "id": "tm_brann",
+          "offers": [
+            {
+              "item": "spiegelquecksilber",
+              "price": 55,
+              "chance": 0.3
+            },
+            {
+              "item": "nachtfalterstaub",
+              "price": 55,
+              "chance": 0.3
+            },
+            {
+              "item": "salamanderoel",
+              "price": 100,
+              "chance": 0.2
+            },
+            {
+              "item": "schminkasche",
+              "price": 170,
+              "chance": 0.1
+            },
+            {
+              "item": "nebelherz",
+              "price": 140,
+              "chance": 0.25
+            },
+            {
+              "item": "formel_kessel_7",
+              "price": 200,
+              "once": true,
+              "chance": 0.2,
+              "requires_pathway": [
+                "kessel",
+                8
+              ],
+              "locked_text": "Erst ab Sequenz 8 dieses Pfades"
+            },
+            {
+              "item": "formel_maske_6",
+              "price": 340,
+              "once": true,
+              "chance": 0.1,
+              "requires_pathway": [
+                "maske",
+                7
+              ],
+              "locked_text": "Erst ab Sequenz 7 dieses Pfades"
+            },
+            {
+              "item": "tonikum",
+              "price": 16
+            }
+          ],
+          "wants": [
+            "knochenmehl",
+            "schmuggelware",
+            "bannsalz"
+          ]
+        },
+        {
+          "id": "tm_cobb",
+          "offers": [
+            {
+              "item": "puppenglas",
+              "price": 55,
+              "chance": 0.3
+            },
+            {
+              "item": "flammenkern",
+              "price": 100,
+              "chance": 0.2
+            },
+            {
+              "item": "ambossstaub",
+              "price": 100,
+              "chance": 0.2
+            },
+            {
+              "item": "atemglas",
+              "price": 170,
+              "chance": 0.1
+            },
+            {
+              "item": "formel_laterne_7",
+              "price": 200,
+              "once": true,
+              "chance": 0.2,
+              "requires_pathway": [
+                "laterne",
+                8
+              ],
+              "locked_text": "Erst ab Sequenz 8 dieses Pfades"
+            },
+            {
+              "item": "formel_eisen_7",
+              "price": 200,
+              "once": true,
+              "chance": 0.2,
+              "requires_pathway": [
+                "eisen",
+                8
+              ],
+              "locked_text": "Erst ab Sequenz 8 dieses Pfades"
+            },
+            {
+              "item": "formel_echo_6",
+              "price": 340,
+              "once": true,
+              "chance": 0.1,
+              "requires_pathway": [
+                "echo",
+                7
+              ],
+              "locked_text": "Erst ab Sequenz 7 dieses Pfades"
+            },
+            {
+              "item": "bannsalz",
+              "price": 13
+            }
+          ],
+          "wants": [
+            "schaedelsplitter",
+            "brutschale"
+          ]
+        },
+        {
+          "id": "tm_sorrel",
+          "offers": [
+            {
+              "item": "seufzerstein",
+              "price": 55,
+              "chance": 0.3
+            },
+            {
+              "item": "knotengarn",
+              "price": 100,
+              "chance": 0.2
+            },
+            {
+              "item": "dietrichsilber",
+              "price": 100,
+              "chance": 0.2
+            },
+            {
+              "item": "goldschimmel",
+              "price": 170,
+              "chance": 0.1
+            },
+            {
+              "item": "formel_faden_7",
+              "price": 200,
+              "once": true,
+              "chance": 0.2,
+              "requires_pathway": [
+                "faden",
+                8
+              ],
+              "locked_text": "Erst ab Sequenz 8 dieses Pfades"
+            },
+            {
+              "item": "formel_schluessel_7",
+              "price": 200,
+              "once": true,
+              "chance": 0.2,
+              "requires_pathway": [
+                "schluessel",
+                8
+              ],
+              "locked_text": "Erst ab Sequenz 8 dieses Pfades"
+            },
+            {
+              "item": "formel_kessel_6",
+              "price": 340,
+              "once": true,
+              "chance": 0.1,
+              "requires_pathway": [
+                "kessel",
+                7
+              ],
+              "locked_text": "Erst ab Sequenz 7 dieses Pfades"
+            }
+          ],
+          "wants": [
+            "sternhirschgeweih",
+            "hustenstaub"
+          ]
+        }
+      ],
+      "host": "kohlenjem"
     },
     "lichtlose": {
       "name": "Die Lichtlosen",
@@ -48,7 +1008,93 @@
       "map": "treffen_lichtlose",
       "short": "Schwarzlicht",
       "city": "wexmoor",
-      "invite": "In deiner Manteltasche ist plötzlich ein Streichholz, das schwarz brennt. Die Lichtlosen treffen sich, im Keller unter dem Torfstich. Der Treffpunkt steht jetzt auf der Stadtkarte."
+      "invite": "In deiner Manteltasche ist plötzlich ein Streichholz, das schwarz brennt. Die Lichtlosen treffen sich, im Keller unter dem Torfstich. Der Treffpunkt steht jetzt auf der Stadtkarte.",
+      "members": [
+        {
+          "id": "zirkel_lichtlose",
+          "offers": [
+            {
+              "item": "fremdlicht_phiole",
+              "price": 30,
+              "chance": 0.8
+            },
+            {
+              "item": "flammenkern",
+              "price": 100,
+              "chance": 0.25
+            },
+            {
+              "item": "schattenseide",
+              "price": 180,
+              "chance": 0.1
+            }
+          ],
+          "wants": [
+            "fremdlicht_phiole",
+            "lampenoel",
+            "moorwasser"
+          ]
+        },
+        {
+          "id": "tm_docht",
+          "offers": [
+            {
+              "item": "laternenoel_alt",
+              "price": 26,
+              "chance": 0.7
+            },
+            {
+              "item": "dietrichsilber",
+              "price": 100,
+              "chance": 0.25
+            }
+          ],
+          "wants": [
+            "laternenoel_alt",
+            "gluehwurmasche",
+            "geisteressenz"
+          ]
+        },
+        {
+          "id": "tm_mareike",
+          "offers": [
+            {
+              "item": "sternglas",
+              "price": 55,
+              "chance": 0.4
+            },
+            {
+              "item": "geisteressenz",
+              "price": 45,
+              "chance": 0.6
+            }
+          ],
+          "wants": [
+            "torfasche",
+            "leuchtmoos"
+          ]
+        },
+        {
+          "id": "tm_fenn",
+          "offers": [
+            {
+              "item": "nachtfalterstaub",
+              "price": 55,
+              "chance": 0.4
+            },
+            {
+              "item": "lichtperle",
+              "price": 180,
+              "chance": 0.1
+            }
+          ],
+          "wants": [
+            "wachsdocht",
+            "irrlichtfunke"
+          ]
+        }
+      ],
+      "host": "zirkel_lichtlose"
     },
     "salz": {
       "name": "Die Salzbrüder",
@@ -56,7 +1102,93 @@
       "map": "treffen_salz",
       "short": "Salzhandel",
       "city": "wexmoor",
-      "invite": "Auf deinem Ärmel liegt eine Spur Salz in Form eines Pfeils. Die Salzbrüder öffnen ihren Speicher am Bojenhafen. Der Treffpunkt steht jetzt auf der Stadtkarte."
+      "invite": "Auf deinem Ärmel liegt eine Spur Salz in Form eines Pfeils. Die Salzbrüder öffnen ihren Speicher am Bojenhafen. Der Treffpunkt steht jetzt auf der Stadtkarte.",
+      "members": [
+        {
+          "id": "zirkel_salzbruder",
+          "offers": [
+            {
+              "item": "salzkristall",
+              "price": 14,
+              "chance": 0.9
+            },
+            {
+              "item": "ambossstaub",
+              "price": 100,
+              "chance": 0.25
+            },
+            {
+              "item": "atemglas",
+              "price": 180,
+              "chance": 0.1
+            }
+          ],
+          "wants": [
+            "salzkristall",
+            "mantel_oelzeug",
+            "egelschleim"
+          ]
+        },
+        {
+          "id": "tm_gischt",
+          "offers": [
+            {
+              "item": "schlickperle",
+              "price": 50,
+              "chance": 0.5
+            },
+            {
+              "item": "glockenerz",
+              "price": 100,
+              "chance": 0.25
+            }
+          ],
+          "wants": [
+            "schlickperle",
+            "moorwasser",
+            "geisteressenz"
+          ]
+        },
+        {
+          "id": "tm_lake",
+          "offers": [
+            {
+              "item": "sternschlacke",
+              "price": 55,
+              "chance": 0.4
+            },
+            {
+              "item": "nebelherz",
+              "price": 160,
+              "chance": 0.15
+            }
+          ],
+          "wants": [
+            "moewenglas",
+            "kroetenschleim"
+          ]
+        },
+        {
+          "id": "tm_tam",
+          "offers": [
+            {
+              "item": "seufzerstein",
+              "price": 55,
+              "chance": 0.4
+            },
+            {
+              "item": "schwertsplitter",
+              "price": 180,
+              "chance": 0.1
+            }
+          ],
+          "wants": [
+            "reetfaser",
+            "ochsenblut"
+          ]
+        }
+      ],
+      "host": "zirkel_salzbruder"
     }
   },
   "pins": {
@@ -209,999 +1341,243 @@
         "legs": "#5a5a60",
         "scarf": "#305070"
       }
+    },
+    "tm_halloran": {
+      "name": "Witwe Halloran",
+      "role": "Kräuterhändlerin aus Ashgrove",
+      "dialogue": "tm_halloran",
+      "palette": {
+        "coat": "#3a4a34",
+        "hat": "#20281c",
+        "skin": "#e4cbb0",
+        "hair": "#d8d0c8",
+        "legs": "#20281c",
+        "scarf": "#6a7a50"
+      }
+    },
+    "tm_rusk": {
+      "name": "Doktor Pellam Rusk",
+      "role": "Apotheker ohne Zulassung",
+      "dialogue": "tm_rusk",
+      "palette": {
+        "coat": "#2a2a34",
+        "hat": "#141418",
+        "skin": "#e8d4bc",
+        "hair": "#5a4a3a",
+        "legs": "#141418",
+        "scarf": "#8a8a9a"
+      }
+    },
+    "tm_oddny": {
+      "name": "Mags Oddny",
+      "role": "Kanalsammlerin",
+      "dialogue": "tm_oddny",
+      "palette": {
+        "coat": "#4a4030",
+        "hat": "#2a2418",
+        "skin": "#c8a888",
+        "hair": "#8a3a20",
+        "legs": "#2a2418",
+        "scarf": "#4a6a6a"
+      }
+    },
+    "tm_ferro": {
+      "name": "Der stumme Ferro",
+      "role": "Leichenwäscher",
+      "dialogue": "tm_ferro",
+      "palette": {
+        "coat": "#2a2624",
+        "hat": "#141210",
+        "skin": "#d8c8b8",
+        "hair": "#202020",
+        "legs": "#141210",
+        "scarf": "#4a4440"
+      }
+    },
+    "tm_sallow": {
+      "name": "Professor Edmund Sallow",
+      "role": "Entlassener Dozent",
+      "dialogue": "tm_sallow",
+      "palette": {
+        "coat": "#4a3a2a",
+        "hat": "#2a2018",
+        "skin": "#e8d0b8",
+        "hair": "#c8c0b0",
+        "legs": "#2a2018",
+        "scarf": "#8a2a2a"
+      }
+    },
+    "tm_corve": {
+      "name": "Schwester Ines Corve",
+      "role": "Ehemalige Ordensfrau",
+      "dialogue": "tm_corve",
+      "palette": {
+        "coat": "#2a2a3a",
+        "hat": "#e8e4dc",
+        "skin": "#ecd8c4",
+        "hair": "#3a2a28",
+        "legs": "#1a1a24",
+        "scarf": "#4a4a6a"
+      }
+    },
+    "tm_ashdown": {
+      "name": "Lord Tobiah Ashdown",
+      "role": "Erbe mit Schulden",
+      "dialogue": "tm_ashdown",
+      "palette": {
+        "coat": "#5a2a3a",
+        "hat": "#2a1418",
+        "skin": "#f0dcc8",
+        "hair": "#c89a50",
+        "legs": "#2a1418",
+        "scarf": "#d8b860"
+      }
+    },
+    "tm_pemberley": {
+      "name": "Kit Pemberley",
+      "role": "Schreiberin im Grundbuchamt",
+      "dialogue": "tm_pemberley",
+      "palette": {
+        "coat": "#3a4a5a",
+        "hat": "#1a2430",
+        "skin": "#e8c8a8",
+        "hair": "#6a3a20",
+        "legs": "#1a2430",
+        "scarf": "#c8a050"
+      }
+    },
+    "tm_dot": {
+      "name": "Rattenkönigin Dot",
+      "role": "Kammerjägerin",
+      "dialogue": "tm_dot",
+      "palette": {
+        "coat": "#4a3a30",
+        "hat": "#241a14",
+        "skin": "#d0b090",
+        "hair": "#7a6a5a",
+        "legs": "#241a14",
+        "scarf": "#9a6a3a"
+      }
+    },
+    "tm_brann": {
+      "name": "Hakenhand Brann",
+      "role": "Plünderer aus dem Krater",
+      "dialogue": "tm_brann",
+      "palette": {
+        "coat": "#3a3430",
+        "hat": "#1a1614",
+        "skin": "#b89878",
+        "hair": "#3a2a20",
+        "legs": "#1a1614",
+        "scarf": "#6a3a20"
+      }
+    },
+    "tm_cobb": {
+      "name": "Die Cobb-Zwillinge",
+      "role": "Zwei Schmuggler, ein Mantel",
+      "dialogue": "tm_cobb",
+      "palette": {
+        "coat": "#2a3a3a",
+        "hat": "#141c1c",
+        "skin": "#d8b898",
+        "hair": "#a85a2a",
+        "legs": "#141c1c",
+        "scarf": "#8a8a3a"
+      }
+    },
+    "tm_sorrel": {
+      "name": "Old Sorrel",
+      "role": "Knochenhändlerin",
+      "dialogue": "tm_sorrel",
+      "palette": {
+        "coat": "#3a2a2a",
+        "hat": "#1a1414",
+        "skin": "#c8b8a8",
+        "hair": "#e0e0e0",
+        "legs": "#1a1414",
+        "scarf": "#5a3a3a"
+      }
+    },
+    "tm_docht": {
+      "name": "Bruder Docht",
+      "role": "Kerzenzieher",
+      "dialogue": "tm_docht",
+      "palette": {
+        "coat": "#1e1a18",
+        "hat": "#0e0c0a",
+        "skin": "#c8b0a0",
+        "hair": "#1e1a18",
+        "legs": "#0e0c0a",
+        "scarf": "#3a2a20"
+      }
+    },
+    "tm_mareike": {
+      "name": "Die blinde Mareike",
+      "role": "Seherin ohne Augen",
+      "dialogue": "tm_mareike",
+      "palette": {
+        "coat": "#2a2430",
+        "hat": "#141018",
+        "skin": "#d8c8c0",
+        "hair": "#a0a0a8",
+        "legs": "#141018",
+        "scarf": "#4a3a5a"
+      }
+    },
+    "tm_fenn": {
+      "name": "Fenn der Torfstecher",
+      "role": "Moorarbeiter",
+      "dialogue": "tm_fenn",
+      "palette": {
+        "coat": "#3a3424",
+        "hat": "#1a1810",
+        "skin": "#b0987a",
+        "hair": "#4a3a28",
+        "legs": "#1a1810",
+        "scarf": "#5a5030"
+      }
+    },
+    "tm_gischt": {
+      "name": "Bruder Gischt",
+      "role": "Fischer",
+      "dialogue": "tm_gischt",
+      "palette": {
+        "coat": "#3a4a5a",
+        "hat": "#1a2430",
+        "skin": "#c8a888",
+        "hair": "#5a4a3a",
+        "legs": "#1a2430",
+        "scarf": "#8aa0b0"
+      }
+    },
+    "tm_lake": {
+      "name": "Mutter Lake",
+      "role": "Netzflickerin",
+      "dialogue": "tm_lake",
+      "palette": {
+        "coat": "#4a4a40",
+        "hat": "#24241c",
+        "skin": "#d8c0a8",
+        "hair": "#c8c8c0",
+        "legs": "#24241c",
+        "scarf": "#6a7a8a"
+      }
+    },
+    "tm_tam": {
+      "name": "Der Bootsjunge Tam",
+      "role": "Laufbursche der Brüder",
+      "dialogue": "tm_tam",
+      "palette": {
+        "coat": "#5a4a3a",
+        "hat": "#2a2018",
+        "skin": "#e0c0a0",
+        "hair": "#c87a3a",
+        "legs": "#2a2018",
+        "scarf": "#3a5a7a"
+      }
     }
   },
-  "merchants": {
-    "tresswell": {
-      "name": "Ignaz Tresswell",
-      "title": "Die Stille Waage: Zutaten",
-      "gathering": "waage",
-      "greeting": "Gewogen wird in Silber. Bezahlt in Schilling. Geredet wird draußen.",
-      "stock": [
-        {
-          "item": "sternglas",
-          "price": 65,
-          "chance": 0.45,
-          "limit": 1
-        },
-        {
-          "item": "spiegelquecksilber",
-          "price": 65,
-          "chance": 0.45,
-          "limit": 1
-        },
-        {
-          "item": "puppenglas",
-          "price": 65,
-          "chance": 0.45,
-          "limit": 1
-        },
-        {
-          "item": "seufzerstein",
-          "price": 65,
-          "chance": 0.45,
-          "limit": 1
-        },
-        {
-          "item": "schwarzbernstein",
-          "price": 65,
-          "chance": 0.45,
-          "limit": 1
-        },
-        {
-          "item": "sternschlacke",
-          "price": 65,
-          "chance": 0.45,
-          "limit": 1
-        },
-        {
-          "item": "nachtfalterstaub",
-          "price": 65,
-          "chance": 0.45,
-          "limit": 1
-        },
-        {
-          "item": "geisteressenz",
-          "price": 55,
-          "chance": 0.8,
-          "limit": 2
-        },
-        {
-          "item": "silberstaub",
-          "price": 14,
-          "limit": 3
-        },
-        {
-          "item": "nebeltau",
-          "price": 4,
-          "limit": 5
-        },
-        {
-          "item": "flammenkern",
-          "price": 110,
-          "chance": 0.3,
-          "limit": 1
-        },
-        {
-          "item": "knotengarn",
-          "price": 110,
-          "chance": 0.3,
-          "limit": 1
-        },
-        {
-          "item": "spiegelwachs",
-          "price": 110,
-          "chance": 0.3,
-          "limit": 1
-        },
-        {
-          "item": "glockenerz",
-          "price": 110,
-          "chance": 0.3,
-          "limit": 1
-        },
-        {
-          "item": "salamanderoel",
-          "price": 110,
-          "chance": 0.3,
-          "limit": 1
-        },
-        {
-          "item": "ambossstaub",
-          "price": 110,
-          "chance": 0.3,
-          "limit": 1
-        },
-        {
-          "item": "dietrichsilber",
-          "price": 110,
-          "chance": 0.3,
-          "limit": 1
-        },
-        {
-          "item": "lichtperle",
-          "price": 180,
-          "chance": 0.15,
-          "limit": 1
-        },
-        {
-          "item": "spindelknochen",
-          "price": 180,
-          "chance": 0.15,
-          "limit": 1
-        },
-        {
-          "item": "schminkasche",
-          "price": 180,
-          "chance": 0.15,
-          "limit": 1
-        },
-        {
-          "item": "atemglas",
-          "price": 180,
-          "chance": 0.15,
-          "limit": 1
-        },
-        {
-          "item": "goldschimmel",
-          "price": 180,
-          "chance": 0.15,
-          "limit": 1
-        },
-        {
-          "item": "schwertsplitter",
-          "price": 180,
-          "chance": 0.15,
-          "limit": 1
-        },
-        {
-          "item": "schattenseide",
-          "price": 180,
-          "chance": 0.15,
-          "limit": 1
-        },
-        {
-          "item": "nebelherz",
-          "price": 150,
-          "chance": 0.2,
-          "limit": 1
-        },
-        {
-          "item": "formel_laterne_7",
-          "price": 220,
-          "once": true,
-          "chance": 0.08,
-          "requires_pathway": [
-            "laterne",
-            8
-          ],
-          "locked_text": "Erst ab Sequenz 8 dieses Pfades"
-        },
-        {
-          "item": "formel_faden_7",
-          "price": 220,
-          "once": true,
-          "chance": 0.08,
-          "requires_pathway": [
-            "faden",
-            8
-          ],
-          "locked_text": "Erst ab Sequenz 8 dieses Pfades"
-        },
-        {
-          "item": "formel_maske_7",
-          "price": 220,
-          "once": true,
-          "chance": 0.08,
-          "requires_pathway": [
-            "maske",
-            8
-          ],
-          "locked_text": "Erst ab Sequenz 8 dieses Pfades"
-        },
-        {
-          "item": "formel_echo_7",
-          "price": 220,
-          "once": true,
-          "chance": 0.08,
-          "requires_pathway": [
-            "echo",
-            8
-          ],
-          "locked_text": "Erst ab Sequenz 8 dieses Pfades"
-        },
-        {
-          "item": "formel_kessel_7",
-          "price": 220,
-          "once": true,
-          "chance": 0.08,
-          "requires_pathway": [
-            "kessel",
-            8
-          ],
-          "locked_text": "Erst ab Sequenz 8 dieses Pfades"
-        },
-        {
-          "item": "formel_eisen_7",
-          "price": 220,
-          "once": true,
-          "chance": 0.08,
-          "requires_pathway": [
-            "eisen",
-            8
-          ],
-          "locked_text": "Erst ab Sequenz 8 dieses Pfades"
-        },
-        {
-          "item": "formel_schluessel_7",
-          "price": 220,
-          "once": true,
-          "chance": 0.08,
-          "requires_pathway": [
-            "schluessel",
-            8
-          ],
-          "locked_text": "Erst ab Sequenz 8 dieses Pfades"
-        }
-      ]
-    },
-    "vellacourt": {
-      "name": "Ada Vellacourt",
-      "title": "Der Kreidezirkel: Formeln",
-      "gathering": "kreide",
-      "greeting": "Wir tauschen Wissen. Gegen Geld, da Sie nichts Interessantes wissen.",
-      "stock": [
-        {
-          "item": "formel_laterne_7",
-          "price": 180,
-          "once": true,
-          "chance": 0.55,
-          "requires_pathway": [
-            "laterne",
-            8
-          ],
-          "locked_text": "Erst ab Sequenz 8 dieses Pfades"
-        },
-        {
-          "item": "formel_faden_7",
-          "price": 180,
-          "once": true,
-          "chance": 0.55,
-          "requires_pathway": [
-            "faden",
-            8
-          ],
-          "locked_text": "Erst ab Sequenz 8 dieses Pfades"
-        },
-        {
-          "item": "formel_maske_7",
-          "price": 180,
-          "once": true,
-          "chance": 0.55,
-          "requires_pathway": [
-            "maske",
-            8
-          ],
-          "locked_text": "Erst ab Sequenz 8 dieses Pfades"
-        },
-        {
-          "item": "formel_echo_7",
-          "price": 180,
-          "once": true,
-          "chance": 0.55,
-          "requires_pathway": [
-            "echo",
-            8
-          ],
-          "locked_text": "Erst ab Sequenz 8 dieses Pfades"
-        },
-        {
-          "item": "formel_kessel_7",
-          "price": 180,
-          "once": true,
-          "chance": 0.55,
-          "requires_pathway": [
-            "kessel",
-            8
-          ],
-          "locked_text": "Erst ab Sequenz 8 dieses Pfades"
-        },
-        {
-          "item": "formel_eisen_7",
-          "price": 180,
-          "once": true,
-          "chance": 0.55,
-          "requires_pathway": [
-            "eisen",
-            8
-          ],
-          "locked_text": "Erst ab Sequenz 8 dieses Pfades"
-        },
-        {
-          "item": "formel_schluessel_7",
-          "price": 180,
-          "once": true,
-          "chance": 0.55,
-          "requires_pathway": [
-            "schluessel",
-            8
-          ],
-          "locked_text": "Erst ab Sequenz 8 dieses Pfades"
-        },
-        {
-          "item": "formel_laterne_6",
-          "price": 320,
-          "once": true,
-          "chance": 0.35,
-          "requires_pathway": [
-            "laterne",
-            7
-          ],
-          "locked_text": "Erst ab Sequenz 7 dieses Pfades"
-        },
-        {
-          "item": "formel_faden_6",
-          "price": 320,
-          "once": true,
-          "chance": 0.35,
-          "requires_pathway": [
-            "faden",
-            7
-          ],
-          "locked_text": "Erst ab Sequenz 7 dieses Pfades"
-        },
-        {
-          "item": "formel_maske_6",
-          "price": 320,
-          "once": true,
-          "chance": 0.35,
-          "requires_pathway": [
-            "maske",
-            7
-          ],
-          "locked_text": "Erst ab Sequenz 7 dieses Pfades"
-        },
-        {
-          "item": "formel_echo_6",
-          "price": 320,
-          "once": true,
-          "chance": 0.35,
-          "requires_pathway": [
-            "echo",
-            7
-          ],
-          "locked_text": "Erst ab Sequenz 7 dieses Pfades"
-        },
-        {
-          "item": "formel_kessel_6",
-          "price": 320,
-          "once": true,
-          "chance": 0.35,
-          "requires_pathway": [
-            "kessel",
-            7
-          ],
-          "locked_text": "Erst ab Sequenz 7 dieses Pfades"
-        },
-        {
-          "item": "formel_eisen_6",
-          "price": 320,
-          "once": true,
-          "chance": 0.35,
-          "requires_pathway": [
-            "eisen",
-            7
-          ],
-          "locked_text": "Erst ab Sequenz 7 dieses Pfades"
-        },
-        {
-          "item": "formel_schluessel_6",
-          "price": 320,
-          "once": true,
-          "chance": 0.35,
-          "requires_pathway": [
-            "schluessel",
-            7
-          ],
-          "locked_text": "Erst ab Sequenz 7 dieses Pfades"
-        },
-        {
-          "item": "formel_laterne_5",
-          "price": 480,
-          "once": true,
-          "chance": 0.2,
-          "requires_pathway": [
-            "laterne",
-            6
-          ],
-          "locked_text": "Erst ab Sequenz 6 dieses Pfades"
-        },
-        {
-          "item": "formel_faden_5",
-          "price": 480,
-          "once": true,
-          "chance": 0.2,
-          "requires_pathway": [
-            "faden",
-            6
-          ],
-          "locked_text": "Erst ab Sequenz 6 dieses Pfades"
-        },
-        {
-          "item": "formel_maske_5",
-          "price": 480,
-          "once": true,
-          "chance": 0.2,
-          "requires_pathway": [
-            "maske",
-            6
-          ],
-          "locked_text": "Erst ab Sequenz 6 dieses Pfades"
-        },
-        {
-          "item": "formel_echo_5",
-          "price": 480,
-          "once": true,
-          "chance": 0.2,
-          "requires_pathway": [
-            "echo",
-            6
-          ],
-          "locked_text": "Erst ab Sequenz 6 dieses Pfades"
-        },
-        {
-          "item": "formel_kessel_5",
-          "price": 480,
-          "once": true,
-          "chance": 0.2,
-          "requires_pathway": [
-            "kessel",
-            6
-          ],
-          "locked_text": "Erst ab Sequenz 6 dieses Pfades"
-        },
-        {
-          "item": "formel_eisen_5",
-          "price": 480,
-          "once": true,
-          "chance": 0.2,
-          "requires_pathway": [
-            "eisen",
-            6
-          ],
-          "locked_text": "Erst ab Sequenz 6 dieses Pfades"
-        },
-        {
-          "item": "formel_schluessel_5",
-          "price": 480,
-          "once": true,
-          "chance": 0.2,
-          "requires_pathway": [
-            "schluessel",
-            6
-          ],
-          "locked_text": "Erst ab Sequenz 6 dieses Pfades"
-        },
-        {
-          "item": "formel_laterne_8",
-          "price": 80,
-          "once": true,
-          "chance": 0.6,
-          "requires_pathway": [
-            "laterne",
-            9
-          ],
-          "locked_text": "Erst für Anhänger dieses Pfades"
-        },
-        {
-          "item": "formel_faden_8",
-          "price": 80,
-          "once": true,
-          "chance": 0.6,
-          "requires_pathway": [
-            "faden",
-            9
-          ],
-          "locked_text": "Erst für Anhänger dieses Pfades"
-        },
-        {
-          "item": "formel_maske_8",
-          "price": 80,
-          "once": true,
-          "chance": 0.6,
-          "requires_pathway": [
-            "maske",
-            9
-          ],
-          "locked_text": "Erst für Anhänger dieses Pfades"
-        },
-        {
-          "item": "formel_echo_8",
-          "price": 80,
-          "once": true,
-          "chance": 0.6,
-          "requires_pathway": [
-            "echo",
-            9
-          ],
-          "locked_text": "Erst für Anhänger dieses Pfades"
-        },
-        {
-          "item": "formel_kessel_8",
-          "price": 80,
-          "once": true,
-          "chance": 0.6,
-          "requires_pathway": [
-            "kessel",
-            9
-          ],
-          "locked_text": "Erst für Anhänger dieses Pfades"
-        },
-        {
-          "item": "formel_eisen_8",
-          "price": 80,
-          "once": true,
-          "chance": 0.6,
-          "requires_pathway": [
-            "eisen",
-            9
-          ],
-          "locked_text": "Erst für Anhänger dieses Pfades"
-        },
-        {
-          "item": "formel_schluessel_8",
-          "price": 80,
-          "once": true,
-          "chance": 0.6,
-          "requires_pathway": [
-            "schluessel",
-            9
-          ],
-          "locked_text": "Erst für Anhänger dieses Pfades"
-        },
-        {
-          "item": "geisteressenz",
-          "price": 60,
-          "chance": 0.3,
-          "limit": 1
-        }
-      ]
-    },
-    "kohlenjem": {
-      "name": "Kohlen-Jem",
-      "title": "Die Rußgesellschaft: Raritäten",
-      "gathering": "russ",
-      "greeting": "Alles selbst geholt. Fragen kosten extra.",
-      "stock": [
-        {
-          "item": "geisteressenz",
-          "price": 45,
-          "chance": 0.7,
-          "limit": 2
-        },
-        {
-          "item": "sternglas",
-          "price": 55,
-          "chance": 0.3,
-          "limit": 1
-        },
-        {
-          "item": "spiegelquecksilber",
-          "price": 55,
-          "chance": 0.3,
-          "limit": 1
-        },
-        {
-          "item": "puppenglas",
-          "price": 55,
-          "chance": 0.3,
-          "limit": 1
-        },
-        {
-          "item": "seufzerstein",
-          "price": 55,
-          "chance": 0.3,
-          "limit": 1
-        },
-        {
-          "item": "schwarzbernstein",
-          "price": 55,
-          "chance": 0.3,
-          "limit": 1
-        },
-        {
-          "item": "sternschlacke",
-          "price": 55,
-          "chance": 0.3,
-          "limit": 1
-        },
-        {
-          "item": "nachtfalterstaub",
-          "price": 55,
-          "chance": 0.3,
-          "limit": 1
-        },
-        {
-          "item": "flammenkern",
-          "price": 100,
-          "chance": 0.2,
-          "limit": 1
-        },
-        {
-          "item": "knotengarn",
-          "price": 100,
-          "chance": 0.2,
-          "limit": 1
-        },
-        {
-          "item": "spiegelwachs",
-          "price": 100,
-          "chance": 0.2,
-          "limit": 1
-        },
-        {
-          "item": "glockenerz",
-          "price": 100,
-          "chance": 0.2,
-          "limit": 1
-        },
-        {
-          "item": "salamanderoel",
-          "price": 100,
-          "chance": 0.2,
-          "limit": 1
-        },
-        {
-          "item": "ambossstaub",
-          "price": 100,
-          "chance": 0.2,
-          "limit": 1
-        },
-        {
-          "item": "dietrichsilber",
-          "price": 100,
-          "chance": 0.2,
-          "limit": 1
-        },
-        {
-          "item": "lichtperle",
-          "price": 170,
-          "chance": 0.1,
-          "limit": 1
-        },
-        {
-          "item": "spindelknochen",
-          "price": 170,
-          "chance": 0.1,
-          "limit": 1
-        },
-        {
-          "item": "schminkasche",
-          "price": 170,
-          "chance": 0.1,
-          "limit": 1
-        },
-        {
-          "item": "atemglas",
-          "price": 170,
-          "chance": 0.1,
-          "limit": 1
-        },
-        {
-          "item": "goldschimmel",
-          "price": 170,
-          "chance": 0.1,
-          "limit": 1
-        },
-        {
-          "item": "schwertsplitter",
-          "price": 170,
-          "chance": 0.1,
-          "limit": 1
-        },
-        {
-          "item": "schattenseide",
-          "price": 170,
-          "chance": 0.1,
-          "limit": 1
-        },
-        {
-          "item": "nebelherz",
-          "price": 140,
-          "chance": 0.25,
-          "limit": 1
-        },
-        {
-          "item": "formel_laterne_7",
-          "price": 200,
-          "once": true,
-          "chance": 0.2,
-          "requires_pathway": [
-            "laterne",
-            8
-          ],
-          "locked_text": "Erst ab Sequenz 8 dieses Pfades"
-        },
-        {
-          "item": "formel_faden_7",
-          "price": 200,
-          "once": true,
-          "chance": 0.2,
-          "requires_pathway": [
-            "faden",
-            8
-          ],
-          "locked_text": "Erst ab Sequenz 8 dieses Pfades"
-        },
-        {
-          "item": "formel_maske_7",
-          "price": 200,
-          "once": true,
-          "chance": 0.2,
-          "requires_pathway": [
-            "maske",
-            8
-          ],
-          "locked_text": "Erst ab Sequenz 8 dieses Pfades"
-        },
-        {
-          "item": "formel_echo_7",
-          "price": 200,
-          "once": true,
-          "chance": 0.2,
-          "requires_pathway": [
-            "echo",
-            8
-          ],
-          "locked_text": "Erst ab Sequenz 8 dieses Pfades"
-        },
-        {
-          "item": "formel_kessel_7",
-          "price": 200,
-          "once": true,
-          "chance": 0.2,
-          "requires_pathway": [
-            "kessel",
-            8
-          ],
-          "locked_text": "Erst ab Sequenz 8 dieses Pfades"
-        },
-        {
-          "item": "formel_eisen_7",
-          "price": 200,
-          "once": true,
-          "chance": 0.2,
-          "requires_pathway": [
-            "eisen",
-            8
-          ],
-          "locked_text": "Erst ab Sequenz 8 dieses Pfades"
-        },
-        {
-          "item": "formel_schluessel_7",
-          "price": 200,
-          "once": true,
-          "chance": 0.2,
-          "requires_pathway": [
-            "schluessel",
-            8
-          ],
-          "locked_text": "Erst ab Sequenz 8 dieses Pfades"
-        },
-        {
-          "item": "formel_laterne_6",
-          "price": 340,
-          "once": true,
-          "chance": 0.1,
-          "requires_pathway": [
-            "laterne",
-            7
-          ],
-          "locked_text": "Erst ab Sequenz 7 dieses Pfades"
-        },
-        {
-          "item": "formel_faden_6",
-          "price": 340,
-          "once": true,
-          "chance": 0.1,
-          "requires_pathway": [
-            "faden",
-            7
-          ],
-          "locked_text": "Erst ab Sequenz 7 dieses Pfades"
-        },
-        {
-          "item": "formel_maske_6",
-          "price": 340,
-          "once": true,
-          "chance": 0.1,
-          "requires_pathway": [
-            "maske",
-            7
-          ],
-          "locked_text": "Erst ab Sequenz 7 dieses Pfades"
-        },
-        {
-          "item": "formel_echo_6",
-          "price": 340,
-          "once": true,
-          "chance": 0.1,
-          "requires_pathway": [
-            "echo",
-            7
-          ],
-          "locked_text": "Erst ab Sequenz 7 dieses Pfades"
-        },
-        {
-          "item": "formel_kessel_6",
-          "price": 340,
-          "once": true,
-          "chance": 0.1,
-          "requires_pathway": [
-            "kessel",
-            7
-          ],
-          "locked_text": "Erst ab Sequenz 7 dieses Pfades"
-        },
-        {
-          "item": "formel_eisen_6",
-          "price": 340,
-          "once": true,
-          "chance": 0.1,
-          "requires_pathway": [
-            "eisen",
-            7
-          ],
-          "locked_text": "Erst ab Sequenz 7 dieses Pfades"
-        },
-        {
-          "item": "formel_schluessel_6",
-          "price": 340,
-          "once": true,
-          "chance": 0.1,
-          "requires_pathway": [
-            "schluessel",
-            7
-          ],
-          "locked_text": "Erst ab Sequenz 7 dieses Pfades"
-        },
-        {
-          "item": "tonikum",
-          "price": 16,
-          "limit": 2
-        },
-        {
-          "item": "bannsalz",
-          "price": 13,
-          "limit": 2
-        }
-      ]
-    },
-    "zirkel_lichtlose": {
-      "name": "Schwester Asche",
-      "title": "Die Lichtlosen: Schwarzlicht",
-      "gathering": "lichtlose",
-      "greeting": "Hier unten brennt nichts, was das Amt verkauft.",
-      "stock": [
-        {
-          "item": "fremdlicht_phiole",
-          "price": 30,
-          "chance": 0.8,
-          "limit": 2
-        },
-        {
-          "item": "laternenoel_alt",
-          "price": 26,
-          "chance": 0.7,
-          "limit": 2
-        },
-        {
-          "item": "sternglas",
-          "price": 55,
-          "chance": 0.4,
-          "limit": 1
-        },
-        {
-          "item": "nachtfalterstaub",
-          "price": 55,
-          "chance": 0.4,
-          "limit": 1
-        },
-        {
-          "item": "flammenkern",
-          "price": 100,
-          "chance": 0.25,
-          "limit": 1
-        },
-        {
-          "item": "dietrichsilber",
-          "price": 100,
-          "chance": 0.25,
-          "limit": 1
-        },
-        {
-          "item": "geisteressenz",
-          "price": 45,
-          "chance": 0.6,
-          "limit": 2
-        },
-        {
-          "item": "lichtperle",
-          "price": 180,
-          "chance": 0.1,
-          "limit": 1
-        },
-        {
-          "item": "schattenseide",
-          "price": 180,
-          "chance": 0.1,
-          "limit": 1
-        }
-      ]
-    },
-    "zirkel_salzbruder": {
-      "name": "Bruder Kliff",
-      "title": "Die Salzbrüder: Salzhandel",
-      "gathering": "salz",
-      "greeting": "Gewogen wird in Salz. Bezahlt in Schilling.",
-      "stock": [
-        {
-          "item": "salzkristall",
-          "price": 14,
-          "chance": 0.9,
-          "limit": 4
-        },
-        {
-          "item": "schlickperle",
-          "price": 50,
-          "chance": 0.5,
-          "limit": 1
-        },
-        {
-          "item": "sternschlacke",
-          "price": 55,
-          "chance": 0.4,
-          "limit": 1
-        },
-        {
-          "item": "seufzerstein",
-          "price": 55,
-          "chance": 0.4,
-          "limit": 1
-        },
-        {
-          "item": "ambossstaub",
-          "price": 100,
-          "chance": 0.25,
-          "limit": 1
-        },
-        {
-          "item": "glockenerz",
-          "price": 100,
-          "chance": 0.25,
-          "limit": 1
-        },
-        {
-          "item": "nebelherz",
-          "price": 160,
-          "chance": 0.15,
-          "limit": 1
-        },
-        {
-          "item": "schwertsplitter",
-          "price": 180,
-          "chance": 0.1,
-          "limit": 1
-        },
-        {
-          "item": "atemglas",
-          "price": 180,
-          "chance": 0.1,
-          "limit": 1
-        }
-      ]
-    }
-  },
+  "merchants": {},
   "dialogues": {
     "schleierbote": {
       "start": "start",
@@ -1375,8 +1751,8 @@
           "text": "Ein kleiner Mann mit Lupe vor dem Auge legt Ware auf eine Messingwaage. Kerzen tropfen. Niemand spricht lauter als ein Flüstern.",
           "choices": [
             {
-              "text": "Ware ansehen.",
-              "shop": "tresswell"
+              "text": "Die Runde eröffnen.",
+              "auction": "waage"
             },
             {
               "text": "Ich gehe."
@@ -1408,8 +1784,8 @@
           "text": "Eine Dame in hellem Kleid, Kreide an den Fingern. Auf dem Tisch liegen Formeln, jede mit einem Stein beschwert. „Lesen ist umsonst. Abschreiben nicht.“",
           "choices": [
             {
-              "text": "Formeln ansehen.",
-              "shop": "vellacourt"
+              "text": "Die Runde eröffnen.",
+              "auction": "kreide"
             },
             {
               "text": "Ich gehe."
@@ -1441,8 +1817,8 @@
           "text": "Ein Hüne mit rußschwarzem Gesicht sitzt auf einer Kiste. Neben ihm liegen Säcke, Phiolen und Dinge, die sich noch bewegen. „Alles frisch aus dem Krater. Fast alles.“",
           "choices": [
             {
-              "text": "Ware ansehen.",
-              "shop": "kohlenjem"
+              "text": "Die Runde eröffnen.",
+              "auction": "russ"
             },
             {
               "text": "Ich gehe."
@@ -1474,8 +1850,8 @@
           "text": "Im Keller brennt kein Licht. Trotzdem siehst du alles, als würde die Dunkelheit selbst leuchten. Eine Frau in Schwarz breitet Phiolen auf einem Tuch aus. „Das Amt verbrennt Menschen. Wir verkaufen nur, was übrig bleibt.“",
           "choices": [
             {
-              "text": "Ware ansehen.",
-              "shop": "zirkel_lichtlose"
+              "text": "Die Runde eröffnen.",
+              "auction": "lichtlose"
             },
             {
               "text": "Ich gehe."
@@ -1507,8 +1883,8 @@
           "text": "Zwischen Salzbergen steht ein Mann in weißer Schürze an einer Waage. „Bruder Kliff. Die Brüder haben gesagt, dass du kommst. Wiegen wir.“",
           "choices": [
             {
-              "text": "Ware ansehen.",
-              "shop": "zirkel_salzbruder"
+              "text": "Die Runde eröffnen.",
+              "auction": "salz"
             },
             {
               "text": "Ich gehe."
@@ -1517,6 +1893,600 @@
         },
         "closed": {
           "text": "Die Waage ist abgedeckt, die Salzberge sind festgetreten. „Nächste Flut“, sagt ein Lehrjunge und fegt dich hinaus.",
+          "choices": [
+            {
+              "text": "Gut."
+            }
+          ]
+        }
+      }
+    },
+    "tm_halloran": {
+      "start": [
+        {
+          "node": "open",
+          "requires_gathering": "waage"
+        },
+        {
+          "node": "closed"
+        }
+      ],
+      "nodes": {
+        "open": {
+          "text": "„Ich nehme nur, was frisch ist. Der Rest schmeckt nach Grab.“",
+          "choices": [
+            {
+              "text": "Die Runde eröffnen.",
+              "auction": "waage"
+            },
+            {
+              "text": "Später."
+            }
+          ]
+        },
+        "closed": {
+          "text": "Witwe Halloran ist nicht mehr da. Nur ein leerer Stuhl.",
+          "choices": [
+            {
+              "text": "Gut."
+            }
+          ]
+        }
+      }
+    },
+    "tm_rusk": {
+      "start": [
+        {
+          "node": "open",
+          "requires_gathering": "waage"
+        },
+        {
+          "node": "closed"
+        }
+      ],
+      "nodes": {
+        "open": {
+          "text": "„Dosierung ist alles. Und Diskretion.“",
+          "choices": [
+            {
+              "text": "Die Runde eröffnen.",
+              "auction": "waage"
+            },
+            {
+              "text": "Später."
+            }
+          ]
+        },
+        "closed": {
+          "text": "Doktor Pellam Rusk ist nicht mehr da. Nur ein leerer Stuhl.",
+          "choices": [
+            {
+              "text": "Gut."
+            }
+          ]
+        }
+      }
+    },
+    "tm_oddny": {
+      "start": [
+        {
+          "node": "open",
+          "requires_gathering": "waage"
+        },
+        {
+          "node": "closed"
+        }
+      ],
+      "nodes": {
+        "open": {
+          "text": "„Was im Kanal treibt, gehört dem, der zuerst nass wird.“",
+          "choices": [
+            {
+              "text": "Die Runde eröffnen.",
+              "auction": "waage"
+            },
+            {
+              "text": "Später."
+            }
+          ]
+        },
+        "closed": {
+          "text": "Mags Oddny ist nicht mehr da. Nur ein leerer Stuhl.",
+          "choices": [
+            {
+              "text": "Gut."
+            }
+          ]
+        }
+      }
+    },
+    "tm_ferro": {
+      "start": [
+        {
+          "node": "open",
+          "requires_gathering": "waage"
+        },
+        {
+          "node": "closed"
+        }
+      ],
+      "nodes": {
+        "open": {
+          "text": "Er hebt nur zwei Finger. Das heißt hier „zwei Schilling mehr“.",
+          "choices": [
+            {
+              "text": "Die Runde eröffnen.",
+              "auction": "waage"
+            },
+            {
+              "text": "Später."
+            }
+          ]
+        },
+        "closed": {
+          "text": "Der stumme Ferro ist nicht mehr da. Nur ein leerer Stuhl.",
+          "choices": [
+            {
+              "text": "Gut."
+            }
+          ]
+        }
+      }
+    },
+    "tm_sallow": {
+      "start": [
+        {
+          "node": "open",
+          "requires_gathering": "kreide"
+        },
+        {
+          "node": "closed"
+        }
+      ],
+      "nodes": {
+        "open": {
+          "text": "„Jede Formel ist ein Brief von einem Toten. Ich sammle Post.“",
+          "choices": [
+            {
+              "text": "Die Runde eröffnen.",
+              "auction": "kreide"
+            },
+            {
+              "text": "Später."
+            }
+          ]
+        },
+        "closed": {
+          "text": "Professor Edmund Sallow ist nicht mehr da. Nur ein leerer Stuhl.",
+          "choices": [
+            {
+              "text": "Gut."
+            }
+          ]
+        }
+      }
+    },
+    "tm_corve": {
+      "start": [
+        {
+          "node": "open",
+          "requires_gathering": "kreide"
+        },
+        {
+          "node": "closed"
+        }
+      ],
+      "nodes": {
+        "open": {
+          "text": "„Ich bete noch. Nur nicht mehr zu denselben.“",
+          "choices": [
+            {
+              "text": "Die Runde eröffnen.",
+              "auction": "kreide"
+            },
+            {
+              "text": "Später."
+            }
+          ]
+        },
+        "closed": {
+          "text": "Schwester Ines Corve ist nicht mehr da. Nur ein leerer Stuhl.",
+          "choices": [
+            {
+              "text": "Gut."
+            }
+          ]
+        }
+      }
+    },
+    "tm_ashdown": {
+      "start": [
+        {
+          "node": "open",
+          "requires_gathering": "kreide"
+        },
+        {
+          "node": "closed"
+        }
+      ],
+      "nodes": {
+        "open": {
+          "text": "„Mein Vater hat das Vermögen versoffen. Ich vertrinke es lieber.“",
+          "choices": [
+            {
+              "text": "Die Runde eröffnen.",
+              "auction": "kreide"
+            },
+            {
+              "text": "Später."
+            }
+          ]
+        },
+        "closed": {
+          "text": "Lord Tobiah Ashdown ist nicht mehr da. Nur ein leerer Stuhl.",
+          "choices": [
+            {
+              "text": "Gut."
+            }
+          ]
+        }
+      }
+    },
+    "tm_pemberley": {
+      "start": [
+        {
+          "node": "open",
+          "requires_gathering": "kreide"
+        },
+        {
+          "node": "closed"
+        }
+      ],
+      "nodes": {
+        "open": {
+          "text": "„Ich schreibe alles ab. Auch, was ich nicht soll.“",
+          "choices": [
+            {
+              "text": "Die Runde eröffnen.",
+              "auction": "kreide"
+            },
+            {
+              "text": "Später."
+            }
+          ]
+        },
+        "closed": {
+          "text": "Kit Pemberley ist nicht mehr da. Nur ein leerer Stuhl.",
+          "choices": [
+            {
+              "text": "Gut."
+            }
+          ]
+        }
+      }
+    },
+    "tm_dot": {
+      "start": [
+        {
+          "node": "open",
+          "requires_gathering": "russ"
+        },
+        {
+          "node": "closed"
+        }
+      ],
+      "nodes": {
+        "open": {
+          "text": "„Ich zahl gut für alles, was quiekt. Oder gequiekt hat.“",
+          "choices": [
+            {
+              "text": "Die Runde eröffnen.",
+              "auction": "russ"
+            },
+            {
+              "text": "Später."
+            }
+          ]
+        },
+        "closed": {
+          "text": "Rattenkönigin Dot ist nicht mehr da. Nur ein leerer Stuhl.",
+          "choices": [
+            {
+              "text": "Gut."
+            }
+          ]
+        }
+      }
+    },
+    "tm_brann": {
+      "start": [
+        {
+          "node": "open",
+          "requires_gathering": "russ"
+        },
+        {
+          "node": "closed"
+        }
+      ],
+      "nodes": {
+        "open": {
+          "text": "Er klopft mit dem Haken auf den Tisch. „Weiter.“",
+          "choices": [
+            {
+              "text": "Die Runde eröffnen.",
+              "auction": "russ"
+            },
+            {
+              "text": "Später."
+            }
+          ]
+        },
+        "closed": {
+          "text": "Hakenhand Brann ist nicht mehr da. Nur ein leerer Stuhl.",
+          "choices": [
+            {
+              "text": "Gut."
+            }
+          ]
+        }
+      }
+    },
+    "tm_cobb": {
+      "start": [
+        {
+          "node": "open",
+          "requires_gathering": "russ"
+        },
+        {
+          "node": "closed"
+        }
+      ],
+      "nodes": {
+        "open": {
+          "text": "„Wir bieten zusammen.“ „Und wir zahlen getrennt.“",
+          "choices": [
+            {
+              "text": "Die Runde eröffnen.",
+              "auction": "russ"
+            },
+            {
+              "text": "Später."
+            }
+          ]
+        },
+        "closed": {
+          "text": "Die Cobb-Zwillinge ist nicht mehr da. Nur ein leerer Stuhl.",
+          "choices": [
+            {
+              "text": "Gut."
+            }
+          ]
+        }
+      }
+    },
+    "tm_sorrel": {
+      "start": [
+        {
+          "node": "open",
+          "requires_gathering": "russ"
+        },
+        {
+          "node": "closed"
+        }
+      ],
+      "nodes": {
+        "open": {
+          "text": "„Knochen lügen nicht. Ihre Besitzer schon.“",
+          "choices": [
+            {
+              "text": "Die Runde eröffnen.",
+              "auction": "russ"
+            },
+            {
+              "text": "Später."
+            }
+          ]
+        },
+        "closed": {
+          "text": "Old Sorrel ist nicht mehr da. Nur ein leerer Stuhl.",
+          "choices": [
+            {
+              "text": "Gut."
+            }
+          ]
+        }
+      }
+    },
+    "tm_docht": {
+      "start": [
+        {
+          "node": "open",
+          "requires_gathering": "lichtlose"
+        },
+        {
+          "node": "closed"
+        }
+      ],
+      "nodes": {
+        "open": {
+          "text": "„Wir zünden nichts an. Wir lassen nur ausgehen.“",
+          "choices": [
+            {
+              "text": "Die Runde eröffnen.",
+              "auction": "lichtlose"
+            },
+            {
+              "text": "Später."
+            }
+          ]
+        },
+        "closed": {
+          "text": "Bruder Docht ist nicht mehr da. Nur ein leerer Stuhl.",
+          "choices": [
+            {
+              "text": "Gut."
+            }
+          ]
+        }
+      }
+    },
+    "tm_mareike": {
+      "start": [
+        {
+          "node": "open",
+          "requires_gathering": "lichtlose"
+        },
+        {
+          "node": "closed"
+        }
+      ],
+      "nodes": {
+        "open": {
+          "text": "„Ich sehe besser, seit das Licht weg ist.“",
+          "choices": [
+            {
+              "text": "Die Runde eröffnen.",
+              "auction": "lichtlose"
+            },
+            {
+              "text": "Später."
+            }
+          ]
+        },
+        "closed": {
+          "text": "Die blinde Mareike ist nicht mehr da. Nur ein leerer Stuhl.",
+          "choices": [
+            {
+              "text": "Gut."
+            }
+          ]
+        }
+      }
+    },
+    "tm_fenn": {
+      "start": [
+        {
+          "node": "open",
+          "requires_gathering": "lichtlose"
+        },
+        {
+          "node": "closed"
+        }
+      ],
+      "nodes": {
+        "open": {
+          "text": "„Im Torf liegt mehr als Torf. Fragen Sie nicht.“",
+          "choices": [
+            {
+              "text": "Die Runde eröffnen.",
+              "auction": "lichtlose"
+            },
+            {
+              "text": "Später."
+            }
+          ]
+        },
+        "closed": {
+          "text": "Fenn der Torfstecher ist nicht mehr da. Nur ein leerer Stuhl.",
+          "choices": [
+            {
+              "text": "Gut."
+            }
+          ]
+        }
+      }
+    },
+    "tm_gischt": {
+      "start": [
+        {
+          "node": "open",
+          "requires_gathering": "salz"
+        },
+        {
+          "node": "closed"
+        }
+      ],
+      "nodes": {
+        "open": {
+          "text": "„Was das Meer gibt, verkaufen wir weiter. Was es nimmt, nicht.“",
+          "choices": [
+            {
+              "text": "Die Runde eröffnen.",
+              "auction": "salz"
+            },
+            {
+              "text": "Später."
+            }
+          ]
+        },
+        "closed": {
+          "text": "Bruder Gischt ist nicht mehr da. Nur ein leerer Stuhl.",
+          "choices": [
+            {
+              "text": "Gut."
+            }
+          ]
+        }
+      }
+    },
+    "tm_lake": {
+      "start": [
+        {
+          "node": "open",
+          "requires_gathering": "salz"
+        },
+        {
+          "node": "closed"
+        }
+      ],
+      "nodes": {
+        "open": {
+          "text": "„Salz in der Wunde heilt. Salz im Tee nicht.“",
+          "choices": [
+            {
+              "text": "Die Runde eröffnen.",
+              "auction": "salz"
+            },
+            {
+              "text": "Später."
+            }
+          ]
+        },
+        "closed": {
+          "text": "Mutter Lake ist nicht mehr da. Nur ein leerer Stuhl.",
+          "choices": [
+            {
+              "text": "Gut."
+            }
+          ]
+        }
+      }
+    },
+    "tm_tam": {
+      "start": [
+        {
+          "node": "open",
+          "requires_gathering": "salz"
+        },
+        {
+          "node": "closed"
+        }
+      ],
+      "nodes": {
+        "open": {
+          "text": "„Ich bin nur zum Tragen da. Sagt Bruder Kliff.“",
+          "choices": [
+            {
+              "text": "Die Runde eröffnen.",
+              "auction": "salz"
+            },
+            {
+              "text": "Später."
+            }
+          ]
+        },
+        "closed": {
+          "text": "Der Bootsjunge Tam ist nicht mehr da. Nur ein leerer Stuhl.",
           "choices": [
             {
               "text": "Gut."
@@ -1575,6 +2545,42 @@
           ],
           "facing": "down",
           "reach": 40
+        },
+        {
+          "id": "tm_halloran",
+          "tile": [
+            6,
+            4
+          ],
+          "facing": "right",
+          "reach": 34
+        },
+        {
+          "id": "tm_rusk",
+          "tile": [
+            13,
+            4
+          ],
+          "facing": "left",
+          "reach": 34
+        },
+        {
+          "id": "tm_oddny",
+          "tile": [
+            5,
+            7
+          ],
+          "facing": "right",
+          "reach": 34
+        },
+        {
+          "id": "tm_ferro",
+          "tile": [
+            14,
+            7
+          ],
+          "facing": "left",
+          "reach": 34
         }
       ],
       "interactables": [
@@ -1913,6 +2919,42 @@
           ],
           "facing": "down",
           "reach": 40
+        },
+        {
+          "id": "tm_sallow",
+          "tile": [
+            6,
+            4
+          ],
+          "facing": "right",
+          "reach": 34
+        },
+        {
+          "id": "tm_corve",
+          "tile": [
+            13,
+            4
+          ],
+          "facing": "left",
+          "reach": 34
+        },
+        {
+          "id": "tm_ashdown",
+          "tile": [
+            5,
+            7
+          ],
+          "facing": "right",
+          "reach": 34
+        },
+        {
+          "id": "tm_pemberley",
+          "tile": [
+            14,
+            7
+          ],
+          "facing": "left",
+          "reach": 34
         }
       ],
       "interactables": [
@@ -2227,6 +3269,42 @@
           ],
           "facing": "down",
           "reach": 40
+        },
+        {
+          "id": "tm_dot",
+          "tile": [
+            6,
+            4
+          ],
+          "facing": "right",
+          "reach": 34
+        },
+        {
+          "id": "tm_brann",
+          "tile": [
+            13,
+            4
+          ],
+          "facing": "left",
+          "reach": 34
+        },
+        {
+          "id": "tm_cobb",
+          "tile": [
+            5,
+            7
+          ],
+          "facing": "right",
+          "reach": 34
+        },
+        {
+          "id": "tm_sorrel",
+          "tile": [
+            14,
+            7
+          ],
+          "facing": "left",
+          "reach": 34
         }
       ],
       "interactables": [
@@ -2491,6 +3569,33 @@
           ],
           "facing": "down",
           "reach": 40
+        },
+        {
+          "id": "tm_docht",
+          "tile": [
+            6,
+            4
+          ],
+          "facing": "right",
+          "reach": 34
+        },
+        {
+          "id": "tm_mareike",
+          "tile": [
+            13,
+            4
+          ],
+          "facing": "left",
+          "reach": 34
+        },
+        {
+          "id": "tm_fenn",
+          "tile": [
+            5,
+            7
+          ],
+          "facing": "right",
+          "reach": 34
         }
       ],
       "interactables": [
@@ -2593,6 +3698,33 @@
           ],
           "facing": "down",
           "reach": 40
+        },
+        {
+          "id": "tm_gischt",
+          "tile": [
+            6,
+            4
+          ],
+          "facing": "right",
+          "reach": 34
+        },
+        {
+          "id": "tm_lake",
+          "tile": [
+            13,
+            4
+          ],
+          "facing": "left",
+          "reach": 34
+        },
+        {
+          "id": "tm_tam",
+          "tile": [
+            5,
+            7
+          ],
+          "facing": "right",
+          "reach": 34
         }
       ],
       "interactables": [
