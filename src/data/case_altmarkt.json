@@ -1,0 +1,159 @@
+{
+  "facts": {
+    "silas_cheats": {
+      "case": "side",
+      "text": "Silas spielt im Ertrunkenen Mond mit gezinkten Würfeln."
+    },
+    "tobias_cheats": {
+      "case": "side",
+      "text": "Tobias Lowe hat am Würfeltisch die Würfel vertauscht.",
+      "refuted_if_likely": [
+        "silas_cheats"
+      ]
+    },
+    "grimes_bribes": {
+      "case": "side",
+      "text": "Marktwart Grimes kassiert Schutzgeld von den Händlern am Altmarkt."
+    },
+    "mirror_choir": {
+      "case": "side",
+      "text": "Quills Spiegel stammt aus dem Besitz von Veys Chor."
+    },
+    "lamp_sabotage": {
+      "case": "side",
+      "text": "Jemand vereist die Laternen am Altmarkt mit Absicht."
+    },
+    "candles_cult": {
+      "case": "side",
+      "text": "Veys Chor stellt die schwarzen Kerzen vor die Altmarkt-Kapelle.",
+      "refuted_if_likely": [
+        "candles_agnes"
+      ]
+    },
+    "candles_agnes": {
+      "case": "side",
+      "text": "Agnes Crane stellt die schwarzen Kerzen auf, aus Trauer um ihren Mann."
+    }
+  },
+  "clues": {
+    "maud_tobias": {
+      "fact": "tobias_cheats",
+      "source": "Maud",
+      "name": "Mauds Verdacht",
+      "text": "„Tobias hat Schulden, seit sein Bruder tot ist. Und gestern hat er einen Krug nach Silas geworfen. Wer immer verliert, fängt irgendwann an zu betrügen.“"
+    },
+    "dice_lead": {
+      "fact": "silas_cheats",
+      "source": "Eigene Beobachtung",
+      "name": "Würfel unter dem Spieltisch",
+      "text": "Unter dem Tisch, an dem Silas spielt, liegt ein verlorener Würfel. Eine Ecke ist angebohrt und mit Blei gefüllt. Du wirfst ihn zehnmal. Achtmal die Sechs."
+    },
+    "yard_dice": {
+      "fact": "silas_cheats",
+      "source": "Hinterhof in Ashgrove",
+      "name": "Beutel unter der Kiste",
+      "text": "Im Hinterhof hinter der Taverne, unter einer losen Kiste: ein Lederbeutel mit einem Dutzend Würfeln, alle beschwert. Ins Leder sind die Buchstaben S. M. gestickt."
+    },
+    "ned_dice": {
+      "fact": "silas_cheats",
+      "source": "Der blinde Ned",
+      "name": "Falscher Klang",
+      "text": "„Silas, der Spieler. Seine Würfel klingen falsch. Zwei klacken hell wie Knochen, die anderen dumpf. Blei. Er tauscht sie, wenn er hustet.“"
+    },
+    "greta_grimes": {
+      "fact": "grimes_bribes",
+      "source": "Greta",
+      "name": "Umgestoßene Stände",
+      "text": "„Wer Grimes nicht zahlt, dessen Stand fällt nachts um. Meiner ist schon zweimal umgefallen. Und am Morgen danach stand er da und hat gelacht.“"
+    },
+    "ned_grimes": {
+      "fact": "grimes_bribes",
+      "source": "Der blinde Ned",
+      "name": "Freitagsrunden",
+      "text": "„Grimes geht jeden Freitag von Stand zu Stand. Die Münzen klimpern in seiner linken Tasche, nicht in der Marktkasse. Die klingt anders, die hat ein Schloss.“"
+    },
+    "grimes_ledger": {
+      "fact": "grimes_bribes",
+      "source": "Eigene Beobachtung",
+      "name": "Heft unter dem Fass",
+      "text": "Ein speckiges Heft voller Namen und Beträge. Kein Stempel der Marktverwaltung, keine Unterschrift. Ganz unten steht: „Silas, 2 Schilling, wie immer.“"
+    },
+    "quill_receipt": {
+      "fact": "mirror_choir",
+      "source": "Mr. Quill",
+      "name": "Quills Kassenbuch",
+      "text": "Gekauft vor drei Wochen aus einem Nachlass am Kanalhafen. Als Verkäufer steht dort: „M. V., für den Chor“. Der Preis war lächerlich niedrig."
+    },
+    "mirror_sigil": {
+      "fact": "mirror_choir",
+      "source": "Geistsicht",
+      "name": "Auge im Glas",
+      "text": "In der Geistsicht siehst du es: In die Rückseite des Spiegels ist ein Auge im Kreis geritzt, dasselbe Zeichen wie an Veys Siegeln. Das Glas beschlägt, als würde es atmen."
+    },
+    "lamp_sigil": {
+      "fact": "lamp_sabotage",
+      "source": "Eigene Beobachtung",
+      "name": "Zeichen unter der Haube",
+      "text": "Unter der Haube der Laterne am südöstlichen Brunnenrand ist ein Auge im Kreis eingeritzt, noch frisch. Der Reif um das Zeichen ist in drei Ringen gewachsen. So friert keine Nacht."
+    },
+    "ned_song": {
+      "fact": "lamp_sabotage",
+      "source": "Der blinde Ned",
+      "name": "Drei Töne in der Nacht",
+      "text": "„Nachts singt jemand an den Laternen. Ganz leise, immer dieselben drei Töne. Danach knistert es wie Eis auf einer Pfütze. Ich hab’s der Polizei erzählt. Die haben gelacht.“"
+    },
+    "ambrose_cult": {
+      "fact": "candles_cult",
+      "source": "Pater Ambrose",
+      "name": "Ambroses Verdacht",
+      "text": "„Schwarze Kerzen im Halbkreis, jeden Morgen. Nach St. Ebba weiß doch jeder, wer so etwas tut. Das ist Veys Chor. Sie verhöhnen das Haus Gottes.“"
+    },
+    "candle_wax": {
+      "fact": "candles_agnes",
+      "source": "Eigene Beobachtung",
+      "name": "Wachs mit Orgelpfeifen",
+      "text": "Am Rand der Stufe klebt schwarzes Wachs. Ein Siegelring hat ein Zeichen hineingedrückt: zwei gekreuzte Orgelpfeifen. Kein Auge im Kreis. Daneben hängt ein langes graues Haar."
+    },
+    "agnes_candles": {
+      "fact": "candles_agnes",
+      "source": "Agnes Crane",
+      "name": "Sieben Jahre",
+      "text": "„Sieben Kerzen für sieben Jahre mit Walter. Er hat in der Altmarkt-Kapelle die Orgel gespielt, bevor Miriam ihn nach St. Ebba geholt hat. Schwarz, weil weiße Kerzen für die Lebenden sind.“"
+    },
+    "wick_candles": {
+      "fact": "candles_agnes",
+      "source": "Wick",
+      "name": "Frau in Schwarz",
+      "text": "„Jeden Morgen kurz vor sechs kniet eine alte Frau in Schwarz vor der Kapelle. Stellt Kerzen auf und weint. Ich lass sie in Ruhe. Trauer geht keinen was an.“"
+    }
+  },
+  "deductions": [
+    {
+      "id": "choir_survives",
+      "case": "side",
+      "honor": 3,
+      "pairs": [
+        [
+          "lamp_sabotage",
+          "mirror_choir"
+        ]
+      ],
+      "name": "Der Chor ist nicht zerschlagen",
+      "text": "Jemand vereist mit Veys Zeichen die Laternen, und Chorgerät taucht auf dem Markt auf. Nicht alle Sänger waren in Lagerhaus 7."
+    },
+    {
+      "id": "grimes_silas",
+      "case": "side",
+      "honor": 2,
+      "pairs": [
+        [
+          "silas_cheats",
+          "grimes_bribes"
+        ]
+      ],
+      "name": "Grimes deckt den Falschspieler",
+      "text": "Silas zahlt Grimes jeden Freitag seinen Anteil. Darum hat ihn nie jemand aus Kettlegate gejagt."
+    }
+  ],
+  "endings": {}
+}

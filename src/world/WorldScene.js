@@ -78,6 +78,7 @@ export class WorldScene extends Phaser.Scene {
     this.mapDef = this.state.content.maps[this.state.map];
     this.interactables = [];
     this.conditional = []; // Objekte mit visible_if
+    this.lamps = []; // Laternen, die per Bedingung an- oder ausgehen
     this.hidden = []; // nur in der Geistsicht sichtbar
     this.cleanups = [];
     this.leaving = false;
@@ -132,6 +133,12 @@ export class WorldScene extends Phaser.Scene {
 
   buildLamps() {
     const vision = () => this.state.spiritVision;
+    // Zusätzliche Lichtquellen aus der Karte (z. B. Wasserschimmer am Brunnen)
+    for (const l of this.mapDef.lights ?? []) {
+      const [tx, ty] = l.tile;
+      this.lighting.add({ x: tx * TILE + 8, y: ty * TILE + 8, radius: l.radius ?? 60, intensity: l.intensity ?? 0.6,
+        color: Number.parseInt((l.color ?? '#6a9ad0').slice(1), 16), glowAlpha: l.glow ?? 0.2, flicker: l.flicker ?? 0.06 });
+    }
     this.forEachTile(['L', 'X', 'O', 'K'], (tx, ty, ch) => {
       const x = tx * TILE + 8;
       const y = ty * TILE + 15;
@@ -188,6 +195,7 @@ export class WorldScene extends Phaser.Scene {
         item.parts.push(item.sprite);
         if (item.hidden) this.hidden.push(item.sprite);
       }
+      if (def.lamp) this.buildLamp(x, ty * TILE + 16, def.lamp);
       const isClue = item.kind === 'clue' || item.kind === 'read';
       if (def.marker ?? isClue) {
         item.glint = this.add.image(x + 3, y - 5, 'glint').setDepth(60).setAlpha(0).setBlendMode(Phaser.BlendModes.ADD);
@@ -205,6 +213,17 @@ export class WorldScene extends Phaser.Scene {
       this.interactables.push(item);
       this.registerVisibility(item, def, item.parts);
     }
+  }
+
+  /** Laterne, die brennt, sobald die Bedingung `litIf` erfüllt ist (sonst vereist). */
+  buildLamp(x, y, litIf) {
+    const isLit = () => this.state.meets(litIf);
+    const frost = this.add.image(x, y, 'lamp_frost').setOrigin(0.5, 1).setDepth(100 + y);
+    const lit = this.add.image(x, y, 'lamp_lit').setOrigin(0.5, 1).setDepth(100 + y);
+    this.addBlocker(x, y - 3, 6, 4);
+    this.lighting.add({ x, y: y - 37, radius: 78, intensity: 1, color: 0xffb860, glowAlpha: 0.32, flicker: 0.12, active: isLit });
+    this.lighting.add({ x, y: y - 37, radius: 34, intensity: 0.55, color: 0x6fe0d0, glowAlpha: 0.35, flicker: 0.3, active: () => !isLit() && this.state.spiritVision });
+    this.lamps.push({ frost, lit, isLit });
   }
 
   buildNpcs() {
@@ -312,6 +331,11 @@ export class WorldScene extends Phaser.Scene {
   }
 
   refreshVisibility() {
+    for (const l of this.lamps) {
+      const on = l.isLit();
+      l.lit.setVisible(on);
+      l.frost.setVisible(!on);
+    }
     for (const c of this.conditional) {
       const on = this.state.meets(c.def.visible_if);
       if (c.obj) c.obj.active = on;

@@ -107,6 +107,23 @@
             ]
           },
           {
+            "text": "Wollten Sie nicht einen Stand am Altmarkt?",
+            "next": "stall",
+            "hide_if_quests": [
+              "greta_stall"
+            ]
+          },
+          {
+            "text": "Wie läuft der Stand am Altmarkt?",
+            "next": "stall_thanks",
+            "requires_flags": [
+              "greta_stall_open"
+            ],
+            "hide_if_flags": [
+              "greta_stall_thanked"
+            ]
+          },
+          {
             "text": "Danke, das war alles."
           }
         ]
@@ -273,6 +290,23 @@
             ]
           },
           {
+            "text": "Wollten Sie nicht einen Stand am Altmarkt?",
+            "next": "stall",
+            "hide_if_quests": [
+              "greta_stall"
+            ]
+          },
+          {
+            "text": "Wie läuft der Stand am Altmarkt?",
+            "next": "stall_thanks",
+            "requires_flags": [
+              "greta_stall_open"
+            ],
+            "hide_if_flags": [
+              "greta_stall_thanked"
+            ]
+          },
+          {
             "text": "Passen Sie auf sich auf."
           }
         ]
@@ -350,6 +384,34 @@
           {
             "text": "Passen Sie auf sich auf.",
             "next": "start"
+          }
+        ]
+      },
+      "stall": {
+        "text": "Greta seufzt. „Am Altmarkt kaufen die Leute Blumen, hier kaufen sie nur Gin. Aber der Marktwart, Grimes, will Geld, das ich nicht habe.“",
+        "start_quests": [
+          "greta_stall"
+        ],
+        "gives_clues": [
+          "greta_grimes"
+        ],
+        "choices": [
+          {
+            "text": "Ich kümmere mich darum."
+          }
+        ]
+      },
+      "stall_thanks": {
+        "text": "Greta steckt dir eine weiße Nelke ans Revers. „Die Leute kaufen tatsächlich Blumen! Wer hätte gedacht, dass Kettlegate noch Blumen will?“\n\n„Hier, Lavendelsalz. Gegen schlechte Träume. Sie sehen aus, als hätten Sie welche.“",
+        "sets_flags": [
+          "greta_stall_thanked"
+        ],
+        "gives_items": {
+          "riechsalz": 1
+        },
+        "choices": [
+          {
+            "text": "Danke, Greta."
           }
         ]
       }

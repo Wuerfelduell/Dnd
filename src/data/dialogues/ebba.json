@@ -549,6 +549,16 @@
             "next": "choir"
           },
           {
+            "text": "Stellen Sie die schwarzen Kerzen vor die Altmarkt-Kapelle?",
+            "next": "candles",
+            "requires_quests_active": [
+              "black_candles"
+            ],
+            "hide_if_clues": [
+              "agnes_candles"
+            ]
+          },
+          {
             "text": "Mein Beileid."
           }
         ]
@@ -580,6 +590,16 @@
             ]
           },
           {
+            "text": "Stellen Sie die schwarzen Kerzen vor die Altmarkt-Kapelle?",
+            "next": "candles",
+            "requires_quests_active": [
+              "black_candles"
+            ],
+            "hide_if_clues": [
+              "agnes_candles"
+            ]
+          },
+          {
             "text": "Ich lasse Sie in Ruhe."
           }
         ]
@@ -605,6 +625,17 @@
           {
             "text": "Das werde ich.",
             "next": "late"
+          }
+        ]
+      },
+      "candles": {
+        "text": "Agnes schweigt lange. Dann wischt sie Erde von einem Grabstein.\n\n„Pater Ambrose hält mich für eine Hexe, nicht wahr?“",
+        "gives_clues": [
+          "agnes_candles"
+        ],
+        "choices": [
+          {
+            "text": "Nicht mehr lange."
           }
         ]
       }

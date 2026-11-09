@@ -502,5 +502,184 @@
         }
       }
     ]
+  },
+  "dice": {
+    "title": "Gezinkte Würfel",
+    "kind": "side",
+    "case": "side",
+    "summary": "Im Ertrunkenen Mond betrügt jemand am Würfeltisch. Wirtin Maud verdächtigt Tobias Lowe.",
+    "steps": [
+      {
+        "text": "Finde zwei Quellen dafür, wer betrügt",
+        "done": {
+          "requires_likely": [
+            "silas_cheats"
+          ]
+        }
+      },
+      {
+        "text": "Stell den Falschspieler",
+        "done": {
+          "requires_flags": [
+            "silas_resolved"
+          ]
+        }
+      },
+      {
+        "text": "Erzähl Maud, was du herausgefunden hast",
+        "done": {
+          "requires_flags": [
+            "dice_told"
+          ]
+        }
+      }
+    ],
+    "reward": {
+      "honor": 4,
+      "honor_reason": "Einen Falschspieler überführt"
+    }
+  },
+  "lamp_round": {
+    "title": "Laternenrunde",
+    "kind": "side",
+    "case": "side",
+    "summary": "Der alte Lampenanzünder Wick schafft die Leiter nicht mehr. Die vier Laternen am Brunnen vereisen jede Nacht.",
+    "steps": [
+      {
+        "text": "Zünde die vier Laternen am Brunnen wieder an",
+        "done": {
+          "requires_flags": [
+            "lamp1_lit",
+            "lamp2_lit",
+            "lamp3_lit",
+            "lamp4_lit"
+          ]
+        }
+      },
+      {
+        "text": "Kehre zu Wick zurück",
+        "done": {
+          "requires_flags": [
+            "lamps_told"
+          ]
+        }
+      }
+    ],
+    "reward": {
+      "honor": 3,
+      "honor_reason": "Dem Altmarkt das Licht zurückgegeben"
+    }
+  },
+  "quill_mirror": {
+    "title": "Der Spiegel von Mr. Quill",
+    "kind": "side",
+    "case": "side",
+    "summary": "In Mr. Quills Auslage steht ein Spiegel, vor dem die Leute stehen bleiben und nicht mehr weitergehen.",
+    "steps": [
+      {
+        "text": "Untersuche den Spiegel genauer",
+        "done": {
+          "requires_clues": [
+            "mirror_sigil"
+          ]
+        }
+      },
+      {
+        "text": "Brich den Bann des Spiegels",
+        "done": {
+          "requires_flags": [
+            "mirror_banished"
+          ]
+        }
+      },
+      {
+        "text": "Berichte Mr. Quill",
+        "done": {
+          "requires_flags": [
+            "quill_rewarded"
+          ]
+        }
+      }
+    ],
+    "reward": {
+      "honor": 4,
+      "honor_reason": "Einen Spuk beendet"
+    }
+  },
+  "blind_ned": {
+    "title": "Was der blinde Ned hört",
+    "kind": "side",
+    "case": "side",
+    "summary": "Ned sitzt am Brunnen und hört alles, was am Altmarkt geflüstert wird. Seine erfrorenen Hände brauchen einen Verband.",
+    "steps": [
+      {
+        "text": "Bring Ned einen Verband",
+        "done": {
+          "requires_flags": [
+            "ned_helped"
+          ]
+        }
+      }
+    ],
+    "reward": {
+      "honor": 2,
+      "honor_reason": "Einem Bettler geholfen"
+    }
+  },
+  "black_candles": {
+    "title": "Die schwarzen Kerzen",
+    "kind": "side",
+    "case": "side",
+    "summary": "Jeden Morgen stehen sieben schwarze Kerzen vor der Altmarkt-Kapelle. Pater Ambrose glaubt, Veys Chor verhöhnt ihn.",
+    "steps": [
+      {
+        "text": "Finde zwei Quellen dafür, wer die Kerzen aufstellt",
+        "done": {
+          "requires_likely": [
+            "candles_agnes"
+          ]
+        }
+      },
+      {
+        "text": "Sag es Pater Ambrose",
+        "done": {
+          "requires_flags": [
+            "candles_told"
+          ]
+        }
+      }
+    ],
+    "reward": {
+      "honor": 4,
+      "honor_reason": "Eine Witwe vor falschem Verdacht bewahrt"
+    }
+  },
+  "greta_stall": {
+    "title": "Gretas Stand",
+    "kind": "side",
+    "case": "side",
+    "summary": "Greta will Blumen am Altmarkt verkaufen. Marktwart Grimes verlangt Geld, das sie nicht hat.",
+    "steps": [
+      {
+        "text": "Finde Beweise gegen Grimes",
+        "done": {
+          "requires_likely": [
+            "grimes_bribes"
+          ]
+        }
+      },
+      {
+        "text": "Sorge dafür, dass Greta ihren Stand bekommt",
+        "done": {
+          "requires_flags": [
+            "greta_stall_open"
+          ]
+        }
+      }
+    ],
+    "reward": {
+      "honor": 4,
+      "honor_reason": "Greta zu ihrem Stand verholfen"
+    }
   }
 }

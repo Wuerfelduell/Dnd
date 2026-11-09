@@ -6,8 +6,9 @@ Ermitteln, Gespräche und das Verknüpfen von Hinweisen, nicht Kämpfe.
 
 ![Screenshot](docs/screenshot.png)
 
-**Stand:** spielbarer Prototyp mit drei zusammenhängenden Fällen, zehn Nebenaufträgen,
-sechs Orten (Polizeirevier, Ashgrove Lane, Friedhof St. Ebba, Krypta, Kanalhafen, Lagerhaus 7), Inventar, Leben,
+**Stand:** spielbarer Prototyp mit drei zusammenhängenden Fällen, sechzehn Nebenaufträgen,
+acht Orten (Polizeirevier, Ashgrove Lane mit Hinterhof, Taverne „Zum Ertrunkenen Mond“, Altmarkt,
+Friedhof St. Ebba, Krypta, Kanalhafen, Lagerhaus 7), Inventar, Leben,
 einem kleinen Rundenkampf mit Timing und Spielständen.
 
 ## Spielen
@@ -64,7 +65,8 @@ einem kleinen Rundenkampf mit Timing und Spielständen.
   Konzentration bezahlt Fertigkeiten (Doppelschlag, Laternenblende, Bannwort).
   Wissen aus den Ermittlungen deckt Schwachstellen auf. Eine Niederlage ist kein Game Over:
   Man wacht mit wenig Leben wieder auf. Kämpfe bisher: Übungskampf mit Sergeant Holt,
-  der Nebelhund am Kanal (Nebenauftrag) und der Aschewächter in der Krypta (Fall 2).
+  der Nebelhund am Kanal (Nebenauftrag), der Aschewächter in der Krypta (Fall 2), Ratten im Archiv,
+  der Chor und Rook im Lagerhaus 7 (Fall 3), Silas der Falschspieler und der Spiegelschatten.
 - **Aufträge** stehen im Notizbuch mit abhakbaren Schritten. Der Spielstand wird
   automatisch im Browser gespeichert (Titelbildschirm: Fortsetzen / Neues Spiel).
 
@@ -81,6 +83,12 @@ einem kleinen Rundenkampf mit Timing und Spielständen.
 3. **Der Chor singt woanders:** Jemand im Revier hilft Vey. Falsche Fährten führen zu Sergeant Holt, die Wahrheit zu Constable Rook und zum Lagerhaus 7 am Kanalhafen. Wer herausfindet, dass Vey noch die Glocke von St. Ebba braucht, kann ihr Ritual aufhalten.
 
 Nebenaufträge: Taschendieb, verlegte Akte, Klopfen in der Zelle, Hesters Medaillon, Nebelhund, Die Uhr ohne Besitzer, Ratten im Archiv, Barnabys Unschuld (ein falscher Polizeibericht), Der Ertrunkene vom Kanalhafen (Geistsicht), Die Schlagzeile (eine Entscheidung mit Folgen fürs Ansehen).
+
+Neu am Altmarkt und in der Taverne: **Gezinkte Würfel** (die Wirtin verdächtigt den Falschen), **Laternenrunde**
+(vier vereiste Laternen neu anzünden), **Der Spiegel von Mr. Quill** (Geistsicht und ein okkulter Kampf),
+**Was der blinde Ned hört** (ein Verband gegen Wissen), **Die schwarzen Kerzen** (nicht jeder Verdacht auf den Chor
+stimmt) und **Gretas Stand** (ein korrupter Marktwart, drei Lösungswege). Wer genau hinsieht, merkt:
+Veys Chor ist noch nicht ganz verstummt.
 
 ## Technik
 
@@ -107,6 +115,7 @@ src/
     items.json            Gegenstände (Waffen, Heilung, Kampfhilfen)
     encounters.json       Gegner: Leben, Attacken (Schlagzeiten in ms), Schwachstellen, Folgen
     case_01.json, ...     Informationen, Hinweise (Quellen), Schlussfolgerungen, Enden (Fall 1 bis 3)
+    case_altmarkt.json    Informationen und Hinweise der Altmarkt-Nebenaufträge
     maps/*.json           Orte als Zeichenraster + Objekte + Figuren
     dialogues/*.json      Dialogbäume
 tests/                    `npm test`: Datenprüfung, Kampfregeln und Balance, beide Fälle über die echten Dialoge durchgespielt

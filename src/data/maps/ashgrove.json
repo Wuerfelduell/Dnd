@@ -6,31 +6,47 @@
     "fog": 0.4
   },
   "rows": [
-    "RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR",
-    "#WW##WW###WW##WW####WW####WW###WW##WW###",
-    "##D#######D####D########D########D######",
-    ",,,,L,,,,,,,,,L,,,,,,,,,,,,,,,L,,,,,,,,,",
-    "........................................",
-    "........................................",
-    "........................................",
-    ",,,,,,,,,,,,,,,,,,,,,,X,,,,,,,,,,,,,,,,,",
-    "ffffffffffffffffff,,,,ffffffffffffffffff",
-    "~~~~~~~~~~~~~~~~~~====~~~~~~~~~~~~~~~~~~",
-    "~~~~~~~~~~~~~~~~~~====~~~~~~~~~~~~~~~~~~",
-    "~~~~~~~~~~~~~~~~~~====~~~~~~~~~~~~~~~~~~",
-    "ffffffffffffffffff,,,,ffffffffffffffffff",
-    ",,,,,,,,L,,,,,,,,,,,,,,,,,,,L,,,,,,,,,,,",
-    "........................................",
-    "........................................",
-    ",,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,L,,",
-    "####D#########D#######D#######D#########",
-    "##WW###WW###WW####WW####WW#####WW###WW##",
-    "RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR"
+    "RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR",
+    "#WW##WW###WW##WW####WW####WW###WW##WW####WW###WW##WWWW##WW###WW#",
+    "##D#######D####D########D########D#########D#######D########D###",
+    ",,,,L,,,,,,,,,L,,,,,,,,,,,,,,,L,,,,,,,,,,,,,,,L,,,,,,,,,,,L,,,,,",
+    "................................................................",
+    "................................................................",
+    "................................................................",
+    ",,,,,,,,,,,,,,,,,,,,,,X,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,",
+    "ffffffffffffffffff,,,,ffffffffffffffffffffffffffffffff,,,,ffffff",
+    "~~~~~~~~~~~~~~~~~~====~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~====~~~~~~",
+    "~~~~~~~~~~~~~~~~~~====~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~====~~~~~~",
+    "~~~~~~~~~~~~~~~~~~====~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~====~~~~~~",
+    "ffffffffffffffffff,,,,ffffffffffffffffffffffffffffffff,,,,ffffff",
+    ",,,,,,,,L,,,,,,,,,,,,,,,,,,,L,,,,,,,,,,,,,,,,,,,L,,,,,,,,,,,,,,,",
+    "................................................................",
+    "................................................................",
+    ",,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,L,,,,,,,,,,,,,,,,,,,,,,,,,,",
+    "####D#########D#######D#######D###########,,,#######D###########",
+    "##WW###WW###WW####WW####WW#####WW###WW###W,,,W##WW#####WW###WW##",
+    "RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR,,,RRRRRRRRRRRRRRRRRRR",
+    "RRRRRRRRRRRRRRRRRRRRRRRR#...............L......................#",
+    "RRRRRRRRRRRRRRRRRRRRRRRR#.gggg...CC...............VV..ggYgg....#",
+    "RRRRRRRRRRRRRRRRRRRRRRRR#.gYgg...C....................ggggg....#",
+    "RRRRRRRRRRRRRRRRRRRRRRRR#.gggg.................................#",
+    "RRRRRRRRRRRRRRRRRRRRRRRR#.....L.................L.........CCV..#",
+    "RRRRRRRRRRRRRRRRRRRRRRRR#.............V........................#",
+    "RRRRRRRRRRRRRRRRRRRRRRRR#......................................#",
+    "RRRRRRRRRRRRRRRRRRRRRRRR########################################"
   ],
   "spawns": {
     "default": [
       1,
       5
+    ],
+    "tavern": [
+      51,
+      3
+    ],
+    "yard": [
+      43,
+      21
     ]
   },
   "interactables": [
@@ -137,7 +153,7 @@
       "kind": "combat",
       "encounter": "fog_hound",
       "tile": [
-        37,
+        61,
         6
       ],
       "sprite": "hound",
@@ -156,6 +172,46 @@
           "hound_defeated"
         ]
       }
+    },
+    {
+      "id": "tavern_door",
+      "kind": "door",
+      "to": "tavern",
+      "spawn": "default",
+      "tile": [
+        51,
+        2
+      ],
+      "prompt": "Zum Ertrunkenen Mond",
+      "marker": true
+    },
+    {
+      "id": "yard_dice",
+      "clue": "yard_dice",
+      "tile": [
+        57,
+        24
+      ],
+      "sprite": "coins",
+      "prompt": "Unter die lose Kiste schauen",
+      "visible_if": {
+        "requires_quests_active": [
+          "dice"
+        ]
+      }
+    },
+    {
+      "id": "yard_sign",
+      "kind": "read",
+      "tile": [
+        43,
+        20
+      ],
+      "sprite": "paper",
+      "prompt": "Zettel an der Hofmauer lesen",
+      "title": "Zettel an der Hofmauer",
+      "text": "„Hinterhof der Ashgrove Lane. Abstellen von Fässern nur für Anwohner. Gez. Halloway.“\n\nDarunter ist mit Kreide ein Würfel gemalt, mit sechs Augen auf jeder Seite.",
+      "done_flag": "read_yard_sign"
     }
   ],
   "decor": [
@@ -199,7 +255,12 @@
         10,
         5
       ],
-      "facing": "down"
+      "facing": "down",
+      "visible_if": {
+        "hide_if_flags": [
+          "greta_stall_open"
+        ]
+      }
     },
     {
       "id": "halloway",

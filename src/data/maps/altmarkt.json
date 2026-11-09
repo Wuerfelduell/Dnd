@@ -1,0 +1,357 @@
+{
+  "id": "altmarkt",
+  "name": "Altmarkt",
+  "ambient": {
+    "night": 0.86,
+    "fog": 0.35
+  },
+  "rows": [
+    "RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR",
+    "#WW##WW###WWW#####WW##WW###WW####WWW###WW##WW###WW##WW##",
+    "###D#######D#########D########D########D#######D########",
+    ",,,,,L,,,,,,,,,,,L,,,,,,,,,,,L,,,,,,,,,,,L,,,,,,,,,,L,,,",
+    "........................................................",
+    "..gggg............................................gggg..",
+    "..gYgg............................................gYgg..",
+    "..gggg............................................gggg..",
+    "......TTT...TTT...........................TTT...TTT.....",
+    "......C.V...C.V...........................C.V...C.V.....",
+    "........................................................",
+    "........................................................",
+    "........................QQQQQQQQ........................",
+    "........................Q~~~~~~Q........................",
+    "........................Q~~~~~~Q........................",
+    "........................Q~~~~~~Q........................",
+    "........................Q~~~~~~Q........................",
+    "........................QQQQQQQQ........................",
+    "........................................................",
+    "........................................................",
+    "........................................................",
+    "......TTT...TTT...........................TTT...TTT.....",
+    "......C.V...C.V...........................C.V...C.V.....",
+    "........................................................",
+    "..gggg............................................gggg..",
+    "..gYgg............................................gYgg..",
+    "..gggg............................................gggg..",
+    ",,,,,,,,L,,,,,,,,,,,,,L,,,,,,,,,,,L,,,,,,,,,,,,,L,,,,,,,",
+    "####D#########D#######D########D#######D#########D######",
+    "##WW###WW###WW####WW####WW#####WW###WW#####WW###WW######",
+    "RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR",
+    "RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR"
+  ],
+  "spawns": {
+    "default": [
+      1,
+      15
+    ]
+  },
+  "decor": [
+    {
+      "sprite": "mirror",
+      "tile": [
+        36,
+        3
+      ],
+      "alpha": 1,
+      "depth": 60
+    }
+  ],
+  "interactables": [
+    {
+      "id": "exit",
+      "kind": "travel",
+      "tile": [
+        0,
+        15
+      ],
+      "prompt": "Stadtkarte öffnen",
+      "marker": false,
+      "reach": 20
+    },
+    {
+      "id": "notice",
+      "kind": "read",
+      "tile": [
+        5,
+        4
+      ],
+      "sprite": "paper",
+      "prompt": "Marktordnung lesen",
+      "title": "Marktordnung am Altmarkt",
+      "text": "„Standgebühren werden ausschließlich von der Marktverwaltung erhoben und quittiert. Beschwerden an das Polizeirevier Kettlegate.“\n\nDarunter hat jemand mit Kohle geschrieben: „Quittiert? Ha!“",
+      "done_flag": "read_market_notice"
+    },
+    {
+      "id": "lamp1",
+      "kind": "read",
+      "tile": [
+        20,
+        10
+      ],
+      "lamp": {
+        "requires_flags": [
+          "lamp1_lit"
+        ]
+      },
+      "prompt": "Laterne neu anzünden",
+      "title": "Vereiste Laterne",
+      "text": "Du kratzt den Reif von der Laterne an der nordwestlichen Brunnenecke. Er ist hart wie Glas und riecht nach Kerzenwachs. Der Docht fängt beim dritten Versuch Feuer.",
+      "done_flag": "lamp1_lit",
+      "visible_if": {
+        "requires_quests_active": [
+          "lamp_round"
+        ],
+        "hide_if_flags": [
+          "lamp1_lit"
+        ]
+      }
+    },
+    {
+      "id": "lamp2",
+      "kind": "read",
+      "tile": [
+        35,
+        10
+      ],
+      "lamp": {
+        "requires_flags": [
+          "lamp2_lit"
+        ]
+      },
+      "prompt": "Laterne neu anzünden",
+      "title": "Vereiste Laterne",
+      "text": "Die Laterne an der nordöstlichen Ecke ist so vereist, dass die Klappe klemmt. Mit Wicks Anzünder bekommst du sie auf. Warmes Licht fällt auf den Brunnen.",
+      "done_flag": "lamp2_lit",
+      "visible_if": {
+        "requires_quests_active": [
+          "lamp_round"
+        ],
+        "hide_if_flags": [
+          "lamp2_lit"
+        ]
+      }
+    },
+    {
+      "id": "lamp3",
+      "kind": "read",
+      "tile": [
+        20,
+        19
+      ],
+      "lamp": {
+        "requires_flags": [
+          "lamp3_lit"
+        ]
+      },
+      "prompt": "Laterne neu anzünden",
+      "title": "Vereiste Laterne",
+      "text": "Auf dem Glas der südwestlichen Laterne sind Eisblumen gewachsen, alle in dieselbe Richtung, zum Brunnen hin. Du wischst sie weg und zündest den Docht an.",
+      "done_flag": "lamp3_lit",
+      "visible_if": {
+        "requires_quests_active": [
+          "lamp_round"
+        ],
+        "hide_if_flags": [
+          "lamp3_lit"
+        ]
+      }
+    },
+    {
+      "id": "lamp4",
+      "kind": "read",
+      "tile": [
+        35,
+        19
+      ],
+      "lamp": {
+        "requires_flags": [
+          "lamp4_lit"
+        ]
+      },
+      "prompt": "Laterne neu anzünden",
+      "title": "Vereiste Laterne",
+      "text": "Die südöstliche Laterne ist am schlimmsten vereist. Als du die Haube abnimmst, fällt dir etwas auf. Dann brennt auch sie.",
+      "done_flag": "lamp4_lit",
+      "visible_if": {
+        "requires_quests_active": [
+          "lamp_round"
+        ],
+        "hide_if_flags": [
+          "lamp4_lit"
+        ]
+      },
+      "effects": {
+        "gives_clues": [
+          "lamp_sigil"
+        ]
+      }
+    },
+    {
+      "id": "mirror",
+      "kind": "read",
+      "tile": [
+        36,
+        4
+      ],
+      "prompt": "In den Spiegel schauen",
+      "title": "Spiegel in Quills Auslage",
+      "text": "Ein hoher Spiegel in vergoldetem Rahmen. Dein Spiegelbild sieht müde aus. Als du dich abwendest, dreht es sich einen Herzschlag zu spät mit.\n\nMit bloßem Auge ist nichts zu erkennen. Vielleicht sieht man mehr, wenn man anders hinsieht.",
+      "visible_if": {
+        "requires_quests_active": [
+          "quill_mirror"
+        ],
+        "hide_if_clues": [
+          "mirror_sigil"
+        ]
+      }
+    },
+    {
+      "id": "mirror_sigil",
+      "clue": "mirror_sigil",
+      "tile": [
+        37,
+        4
+      ],
+      "hidden": true,
+      "sprite": "seal",
+      "prompt": "Zeichen am Spiegel untersuchen",
+      "visible_if": {
+        "requires_quests_active": [
+          "quill_mirror"
+        ]
+      }
+    },
+    {
+      "id": "mirror_fight",
+      "kind": "combat",
+      "encounter": "mirror_shade",
+      "tile": [
+        36,
+        4
+      ],
+      "marker": true,
+      "prompt": "Den Spiegel bannen",
+      "visible_if": {
+        "requires_clues": [
+          "mirror_sigil"
+        ],
+        "hide_if_flags": [
+          "mirror_banished"
+        ]
+      }
+    },
+    {
+      "id": "wax",
+      "clue": "candle_wax",
+      "tile": [
+        24,
+        27
+      ],
+      "sprite": "candle",
+      "prompt": "Wachsreste untersuchen",
+      "visible_if": {
+        "requires_quests_active": [
+          "black_candles"
+        ]
+      }
+    },
+    {
+      "id": "ledger",
+      "clue": "grimes_ledger",
+      "tile": [
+        43,
+        22
+      ],
+      "sprite": "file",
+      "prompt": "Heft unter dem Fass ansehen",
+      "visible_if": {
+        "requires_quests_active": [
+          "greta_stall"
+        ]
+      }
+    }
+  ],
+  "npcs": [
+    {
+      "id": "wick",
+      "tile": [
+        7,
+        4
+      ],
+      "facing": "down"
+    },
+    {
+      "id": "ned",
+      "tile": [
+        23,
+        15
+      ],
+      "facing": "right",
+      "static": true
+    },
+    {
+      "id": "quill",
+      "tile": [
+        38,
+        3
+      ],
+      "facing": "down"
+    },
+    {
+      "id": "ambrose",
+      "tile": [
+        20,
+        27
+      ],
+      "facing": "down"
+    },
+    {
+      "id": "grimes",
+      "tile": [
+        46,
+        22
+      ],
+      "facing": "left",
+      "visible_if": {
+        "hide_if_flags": [
+          "grimes_gone"
+        ]
+      }
+    },
+    {
+      "id": "greta",
+      "tile": [
+        13,
+        10
+      ],
+      "facing": "up",
+      "visible_if": {
+        "requires_flags": [
+          "greta_stall_open"
+        ]
+      }
+    }
+  ],
+  "lights": [
+    {
+      "tile": [
+        27,
+        14
+      ],
+      "radius": 64,
+      "intensity": 0.55,
+      "color": "#7aa8d8",
+      "glow": 0.22
+    },
+    {
+      "tile": [
+        29,
+        15
+      ],
+      "radius": 40,
+      "intensity": 0.4,
+      "color": "#7aa8d8",
+      "glow": 0.15
+    }
+  ]
+}

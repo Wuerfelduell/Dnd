@@ -10,9 +10,9 @@ export function loadContent() {
     quests: load('quests.json'),
     items: load('items.json'),
     encounters: load('encounters.json'),
-    cases: [load('case_01.json'), load('case_02.json'), load('case_03.json')],
-    maps: ['revier', 'ashgrove', 'ebba', 'crypt', 'docks', 'warehouse'].map((m) => load(`maps/${m}.json`)),
-    dialogues: ['revier', 'ashgrove', 'ebba', 'hafen'].map((d) => load(`dialogues/${d}.json`)),
+    cases: [load('case_01.json'), load('case_02.json'), load('case_03.json'), load('case_altmarkt.json')],
+    maps: ['revier', 'ashgrove', 'ebba', 'crypt', 'docks', 'warehouse', 'altmarkt', 'tavern'].map((m) => load(`maps/${m}.json`)),
+    dialogues: ['revier', 'ashgrove', 'ebba', 'hafen', 'altmarkt'].map((d) => load(`dialogues/${d}.json`)),
   });
 }
 
