@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="de">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Dunscar – Figuren, Batch AW</title>
+<style>
+body{margin:0;background:#252b3b;color:#ded8c8;font:16px system-ui;line-height:1.5}header{padding:24px;position:sticky;top:0;background:#252b3bf5;border-bottom:1px solid #786548;z-index:2}h1{margin:0;font-size:24px}p{margin:8px 0}button,select{font:inherit;color:inherit;background:#4c4541;border:1px solid #a18a5b;border-radius:4px;padding:6px 12px;margin:8px 8px 0 0}main{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:16px;padding:24px}.card{background:#352f31;border:1px solid #4c4541;padding:16px;border-radius:8px;overflow:auto}.card h2{font-size:15px;overflow-wrap:anywhere}.stage{min-height:150px;display:flex;align-items:end;justify-content:center;padding:12px;background:repeating-conic-gradient(#303f3c 0 25%,#3b4744 0 50%) 0/16px 16px}canvas,img{image-rendering:pixelated}canvas{max-width:100%;object-fit:contain}details{font-size:13px}details img{max-width:100%;margin-top:12px}.meta{color:#bbae95;font-size:13px}.error{color:#ebcd8d}a{color:#ebcd8d}
+</style>
+<header><h1>Dunscar · Figuren und Stadtleben</h1><p>Batch AW: Laufanimationen, Tätigkeiten, acht Gesichtsausdrücke und drei Story-Szenen.</p><label>Gruppe <select id="filter"><option value="">Alle</option><option value="characters/">Figuren</option><option value="portraits/">Portraits</option><option value="ui/heads/">Köpfe</option><option value="ui/scenes/">Szenen</option></select></label><button id="pause">Animationen pausieren</button><span id="status"></span></header>
+<main id="assets"></main>
+<script type="module">
+const root='../../public/sprites/';
+const cards=[];let paused=false;
+try{
+const manifest=await fetch(root+'manifest-dunscar2.json').then(r=>{if(!r.ok)throw Error(r.status);return r.json()});
+document.querySelector('#status').textContent=`${manifest.assets.length} PNG-Dateien · zur separaten Einbindung`;
+for(const asset of manifest.assets){
+ const card=document.createElement('article');card.className='card';card.dataset.path=asset.file;
+ const title=document.createElement('h2');title.textContent=asset.id;card.append(title);
+ const stage=document.createElement('div');stage.className='stage';card.append(stage);
+ const canvas=document.createElement('canvas');canvas.width=asset.frameWidth;canvas.height=asset.frameHeight;
+ const zoom=asset.frameWidth<=24?4:asset.frameWidth<=64?3:1;
+ canvas.style.width=canvas.width*zoom+'px';canvas.style.height='auto';stage.append(canvas);
+ const ctx=canvas.getContext('2d');ctx.imageSmoothingEnabled=false;
+ const image=new Image();image.src=root+asset.file;await image.decode();
+ const options=Object.entries(asset.animations||{still:{frames:[0],frameRate:1}});
+ const select=document.createElement('select');for(const [name] of options){const o=document.createElement('option');o.value=name;o.textContent=name;select.append(o)}card.append(select);
+ const meta=document.createElement('p');meta.className='meta';meta.textContent=`${asset.width} × ${asset.height} · Frame ${asset.frameWidth} × ${asset.frameHeight}`;card.append(meta);
+ const detail=document.createElement('details');const summary=document.createElement('summary');summary.textContent='Ganzes Sheet';detail.append(summary);const full=image.cloneNode();full.alt=asset.id+' – vollständiges Sheet';detail.append(full);card.append(detail);
+ const link=document.createElement('a');link.href=image.src;link.textContent='PNG öffnen';card.append(link);
+ document.querySelector('#assets').append(card);
+ cards.push({card,canvas,ctx,image,asset,select,options});
+}
+let elapsed=0,last=performance.now();
+function draw(now){if(!paused)elapsed+=now-last;last=now;
+ for(const c of cards){if(c.card.hidden)continue;const clip=c.options.find(([n])=>n===c.select.value)[1];const frame=clip.frames[Math.floor(elapsed/1000*clip.frameRate)%clip.frames.length];const a=c.asset;c.ctx.clearRect(0,0,c.canvas.width,c.canvas.height);c.ctx.drawImage(c.image,(frame%a.columns)*a.frameWidth,Math.floor(frame/a.columns)*a.frameHeight,a.frameWidth,a.frameHeight,0,0,a.frameWidth,a.frameHeight)}requestAnimationFrame(draw)}requestAnimationFrame(draw);
+document.querySelector('#filter').onchange=e=>{for(const c of cards)c.card.hidden=!c.asset.file.startsWith(e.target.value)};
+document.querySelector('#pause').onclick=e=>{paused=!paused;e.target.textContent=paused?'Animationen fortsetzen':'Animationen pausieren'};
+}catch(error){document.querySelector('#status').textContent='Bitte über einen lokalen HTTP-Server öffnen. '+error;document.querySelector('#status').className='error'}
+</script>
+</html>

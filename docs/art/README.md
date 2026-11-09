@@ -1341,6 +1341,76 @@ Sichtprüfung: [Gegner](batch-dunscar3-preview-normal.png),
 [Rufmuster und HUD](batch-dunscar3-preview-ui.png).
 Spielcode und Storydaten bleiben unverändert; Einbindung erfolgt separat.
 
+## Batch AW – Figuren von Dunscar (`dunscar2`)
+
+69 PNG-Dateien für Kapitel 3 „Der letzte Zug nach Dunscar“ nach
+`codex_AW_dunscar_figuren.md` und der verbindlichen Geschichte 3:
+elf Hauptfiguren mit Lauf-Sheet, zwei Emotions-Sheets (acht Ausdrücke),
+24×24-Kopf und Tätigkeit; Gallowmeres Stimme hinter dem Schalter;
+vier lebende Schichtgänger, sechs Einwohner und drei Szenenbilder.
+Gallowmeres Kampf-Sheet gehört zu AX und ist nicht Bestandteil von AW.
+
+- Manifest: [`manifest-dunscar2.json`](../../public/sprites/manifest-dunscar2.json).
+- Animierte Vorschau: [`preview-dunscar2.html`](preview-dunscar2.html), über einen lokalen HTTP-Server öffnen.
+- Kontaktbögen: [Figuren](preview-dunscar2-figuren.png), [Einwohner](preview-dunscar2-einwohner.png), [Szenen](preview-dunscar2-szenen.png).
+- Tatsächliche Bildprompts, Stilreferenzen, Quellprüfsummen und Zellzuschnitte: [`batch-dunscar2-generation.json`](batch-dunscar2-generation.json).
+- Prüfergebnis: [`batch-dunscar2-validation.json`](batch-dunscar2-validation.json).
+
+Laufen: 16×32 pro Frame, vier Spalten, vier Reihen in der Reihenfolge
+unten / links / rechts / oben, vorgeschlagen 7 FPS. Tätigkeiten und Schalter:
+vier Frames à 16×32 nebeneinander, 5 FPS, einmalig abspielen. Die Vorschau
+wiederholt diese Clips nur für die Sichtprüfung. Bei Gallowmere ist die
+zusätzliche Tätigkeit das Anheben der Kettenpfeife mit anschließendem Horchen.
+Portraits: vier 64×64-Zellen; erstes Sheet neutral / misstrauisch / erschrocken /
+leichtes Lächeln, zweites wütend / traurig / nachdenklich / entschlossen.
+Frames im Manifest sind nullbasiert. Untere exklusive Pixelgrenze: 31 bei
+Figuren, 63 bei Portraits. UI-Köpfe sind aus dem neutralen Portrait abgeleitet.
+
+Erzeugt mit dem eingebauten Bildgenerator. Nearest-Neighbor-Export,
+gemeinsame 31 sichtbare Farben plus transparenter Index, ausschließlich
+Alpha 0 oder 255. Gallowmeres Durchschein-Effekt entsteht durch Pixellücken;
+die drei 480×270-Szenen sind deckend. Die Palette übernimmt die Bestandsfarben
+aus `12_sexton_anselm_walk.png` und ergänzt gezielte Nachhall-/Hautfarben.
+
+```sh
+python tools/art/dunscar2/export.py /pfad/zu/sources.json
+python tools/art/dunscar2/validate.py
+node --test tests/sprites.test.js
+```
+
+Der Export benötigt Pillow und NumPy. `sources.json` enthält die Einträge
+unter `records` aus dem Generierungsprotokoll als Liste, jeweils mit `source`
+als lokalem Pfad zur über `sourceFile` und SHA-256 identifizierten Original-PNG.
+Große Generatorquellen gehören nicht zu den Laufzeitdateien. Der Prüfer
+benötigt nur Pillow und läuft direkt auf der fertigen Lieferung.
+
+Grafikpaket zur separaten Einbindung; keine Änderungen am Spielcode.
+
+## Batch dunscar1 — Codex AV: Dunscar, Orte und Nachtzug
+
+32 PNGs zur separaten Einbindung von Kapitel 3 „Der letzte Zug nach Dunscar“:
+6 Tilesets mit 208 benannten 16×16-Zellen, 8 Prop-Sheets mit 53 Regionen,
+Nachtzug mit Lok und drei Wagen (4 aktive Phasen plus Stilllegung),
+Nachhall-Ringe und Weg-Overlay, 10 Kampfkulissen, 2 Szenenbilder,
+Stadtkarte, Nebel-Overlay und Marker für alle 18 festen Karten-IDs.
+
+Manifest: `public/sprites/manifest-dunscar1.json`. Zuordnung aller Karten,
+Animationsverträge und Reproduktionsanleitung: [Übergabe AV → AS](dunscar1-uebergabe.md).
+Prompts, Bildgenerator-Korrekturen, Quellprüfsummen und Zuschnitte:
+`batch-dunscar1-generation.json`. Export mit Nearest Neighbor, gemeinsamer
+32-Farben-Palette und binärem Alpha. Spielcode und Storydaten bleiben unverändert.
+
+```sh
+python docs/art/verify-dunscar1.py
+node --test tests/sprites.test.js
+```
+
+Prüfbericht: `validation-dunscar1.json`. Sichtübersichten:
+[Tiles](preview-dunscar1-tiles.png), [Props](preview-dunscar1-props.png),
+[Kampfkulissen](preview-dunscar1-backgrounds.png),
+[Karten/Szenen](preview-dunscar1-maps-scenes.png),
+[Zug/Effekte](preview-dunscar1-train-effects.png).
+
 
 ## Batch AG – sequenzen3
 
