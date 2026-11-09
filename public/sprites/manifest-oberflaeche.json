@@ -1,0 +1,1205 @@
+{
+  "version": 1,
+  "batch": "oberflaeche",
+  "status": "exported; runtime integration pending",
+  "paletteMaxVisibleColors": 31,
+  "palette": [
+    "#1a1c2c",
+    "#252b3b",
+    "#303f3c",
+    "#344154",
+    "#352f31",
+    "#426158",
+    "#475568",
+    "#4a3835",
+    "#4a5143",
+    "#4c4541",
+    "#594b3e",
+    "#5b6a7b",
+    "#608679",
+    "#65705a",
+    "#68473e",
+    "#6c6258",
+    "#758592",
+    "#786548",
+    "#8b5d49",
+    "#918572",
+    "#a18a5b",
+    "#aa7956",
+    "#b28a50",
+    "#d5ad68",
+    "#ebcd8d",
+    "#ded6bc",
+    "#6fe0d0",
+    "#8b71b5",
+    "#5b4477",
+    "#a1a9b1",
+    "#bfc3bc"
+  ],
+  "alpha": "binary; index 0 transparent",
+  "assets": [
+    {
+      "id": "ae_ui_AE_einstellungen",
+      "file": "ui/AE_einstellungen.png",
+      "width": 128,
+      "height": 32,
+      "transparent": true,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 8,
+      "rows": 2,
+      "regions": {
+        "lautstaerke": {
+          "x": 0,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "stumm": {
+          "x": 16,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "musik": {
+          "x": 32,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "effekte": {
+          "x": 48,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "vollbild": {
+          "x": 64,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "fenster": {
+          "x": 80,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "steuerung": {
+          "x": 96,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "speichern": {
+          "x": 112,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "laden": {
+          "x": 0,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "zurueck": {
+          "x": 16,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "zahnrad": {
+          "x": 32,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "info": {
+          "x": 48,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "beenden": {
+          "x": 64,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "pause": {
+          "x": 80,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "weiter": {
+          "x": 96,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "handy": {
+          "x": 112,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        }
+      }
+    },
+    {
+      "id": "ae_ui_AE_regler",
+      "file": "ui/AE_regler.png",
+      "width": 160,
+      "height": 16,
+      "transparent": true,
+      "regions": {
+        "schiene": {
+          "x": 0,
+          "y": 0,
+          "width": 48,
+          "height": 16,
+          "nineSlice": {
+            "left": 16,
+            "right": 16,
+            "top": 4,
+            "bottom": 4
+          }
+        },
+        "fuellung": {
+          "x": 48,
+          "y": 0,
+          "width": 48,
+          "height": 16,
+          "nineSlice": {
+            "left": 16,
+            "right": 16,
+            "top": 4,
+            "bottom": 4
+          }
+        },
+        "knopf_normal": {
+          "x": 96,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "knopf_gedrueckt": {
+          "x": 112,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "box_leer": {
+          "x": 128,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "box_angekreuzt": {
+          "x": 144,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        }
+      }
+    },
+    {
+      "id": "ae_ui_AE_touch",
+      "file": "ui/AE_touch.png",
+      "width": 320,
+      "height": 64,
+      "transparent": true,
+      "frameWidth": 32,
+      "frameHeight": 32,
+      "columns": 10,
+      "rows": 2,
+      "regions": {
+        "aktion_normal": {
+          "x": 0,
+          "y": 0,
+          "width": 32,
+          "height": 32
+        },
+        "aktion_gedrueckt": {
+          "x": 0,
+          "y": 32,
+          "width": 32,
+          "height": 32
+        },
+        "geistsicht_normal": {
+          "x": 32,
+          "y": 0,
+          "width": 32,
+          "height": 32
+        },
+        "geistsicht_gedrueckt": {
+          "x": 32,
+          "y": 32,
+          "width": 32,
+          "height": 32
+        },
+        "notizbuch_normal": {
+          "x": 64,
+          "y": 0,
+          "width": 32,
+          "height": 32
+        },
+        "notizbuch_gedrueckt": {
+          "x": 64,
+          "y": 32,
+          "width": 32,
+          "height": 32
+        },
+        "inventar_normal": {
+          "x": 96,
+          "y": 0,
+          "width": 32,
+          "height": 32
+        },
+        "inventar_gedrueckt": {
+          "x": 96,
+          "y": 32,
+          "width": 32,
+          "height": 32
+        },
+        "karte_normal": {
+          "x": 128,
+          "y": 0,
+          "width": 32,
+          "height": 32
+        },
+        "karte_gedrueckt": {
+          "x": 128,
+          "y": 32,
+          "width": 32,
+          "height": 32
+        },
+        "angriff_normal": {
+          "x": 160,
+          "y": 0,
+          "width": 32,
+          "height": 32
+        },
+        "angriff_gedrueckt": {
+          "x": 160,
+          "y": 32,
+          "width": 32,
+          "height": 32
+        },
+        "ausweichen_normal": {
+          "x": 192,
+          "y": 0,
+          "width": 32,
+          "height": 32
+        },
+        "ausweichen_gedrueckt": {
+          "x": 192,
+          "y": 32,
+          "width": 32,
+          "height": 32
+        },
+        "parieren_normal": {
+          "x": 224,
+          "y": 0,
+          "width": 32,
+          "height": 32
+        },
+        "parieren_gedrueckt": {
+          "x": 224,
+          "y": 32,
+          "width": 32,
+          "height": 32
+        },
+        "faehigkeit_normal": {
+          "x": 256,
+          "y": 0,
+          "width": 32,
+          "height": 32
+        },
+        "faehigkeit_gedrueckt": {
+          "x": 256,
+          "y": 32,
+          "width": 32,
+          "height": 32
+        },
+        "gegenstand_normal": {
+          "x": 288,
+          "y": 0,
+          "width": 32,
+          "height": 32
+        },
+        "gegenstand_gedrueckt": {
+          "x": 288,
+          "y": 32,
+          "width": 32,
+          "height": 32
+        }
+      }
+    },
+    {
+      "id": "ae_ui_AE_stick",
+      "file": "ui/AE_stick.png",
+      "width": 112,
+      "height": 64,
+      "transparent": true,
+      "regions": {
+        "grundplatte": {
+          "x": 0,
+          "y": 0,
+          "width": 64,
+          "height": 64
+        },
+        "knopf_normal": {
+          "x": 64,
+          "y": 0,
+          "width": 24,
+          "height": 24
+        },
+        "knopf_gedrueckt": {
+          "x": 88,
+          "y": 0,
+          "width": 24,
+          "height": 24
+        }
+      }
+    },
+    {
+      "id": "ae_ui_AE_titel_ebene_0_himmel",
+      "file": "ui/AE_titel/ebene_0_himmel.png",
+      "width": 480,
+      "height": 270,
+      "transparent": false,
+      "frameWidth": 480,
+      "frameHeight": 270,
+      "columns": 1,
+      "rows": 1,
+      "origin": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "ae_ui_AE_titel_ebene_2_ferne",
+      "file": "ui/AE_titel/ebene_2_ferne.png",
+      "width": 480,
+      "height": 270,
+      "transparent": true,
+      "frameWidth": 480,
+      "frameHeight": 270,
+      "columns": 1,
+      "rows": 1,
+      "origin": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "ae_ui_AE_titel_ebene_5_vorne",
+      "file": "ui/AE_titel/ebene_5_vorne.png",
+      "width": 480,
+      "height": 270,
+      "transparent": true,
+      "frameWidth": 480,
+      "frameHeight": 270,
+      "columns": 1,
+      "rows": 1,
+      "origin": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "ae_ui_AE_titel_ebene_1_mond",
+      "file": "ui/AE_titel/ebene_1_mond.png",
+      "width": 960,
+      "height": 270,
+      "transparent": true,
+      "frameWidth": 480,
+      "frameHeight": 270,
+      "columns": 2,
+      "rows": 1,
+      "animations": {
+        "pulsieren": {
+          "frames": [
+            0,
+            1
+          ],
+          "frameRate": 0.6,
+          "repeat": -1
+        }
+      },
+      "origin": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "ae_ui_AE_titel_ebene_3_nebel",
+      "file": "ui/AE_titel/ebene_3_nebel.png",
+      "width": 480,
+      "height": 270,
+      "transparent": true,
+      "frameWidth": 480,
+      "frameHeight": 270,
+      "columns": 1,
+      "rows": 1,
+      "tileable": [
+        "x"
+      ],
+      "origin": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "ae_ui_AE_titel_ebene_4_stadt",
+      "file": "ui/AE_titel/ebene_4_stadt.png",
+      "width": 480,
+      "height": 270,
+      "transparent": true,
+      "frameWidth": 480,
+      "frameHeight": 270,
+      "columns": 1,
+      "rows": 1,
+      "origin": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "ae_ui_AE_titel_ebene_4_fenster",
+      "file": "ui/AE_titel/ebene_4_fenster.png",
+      "width": 1920,
+      "height": 270,
+      "transparent": true,
+      "frameWidth": 480,
+      "frameHeight": 270,
+      "columns": 4,
+      "rows": 1,
+      "animations": {
+        "fenster": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 0.4,
+          "repeat": -1
+        }
+      },
+      "origin": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "ae_ui_AE_titel_ebene_5_laterne",
+      "file": "ui/AE_titel/ebene_5_laterne.png",
+      "width": 64,
+      "height": 16,
+      "transparent": true,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 4,
+      "rows": 1,
+      "animations": {
+        "flackern": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        }
+      },
+      "placement": {
+        "x": 64,
+        "y": 96,
+        "coordinateSpace": [
+          480,
+          270
+        ]
+      }
+    },
+    {
+      "id": "ae_ui_AE_titel_ebene_6_regen",
+      "file": "ui/AE_titel/ebene_6_regen.png",
+      "width": 1920,
+      "height": 270,
+      "transparent": true,
+      "frameWidth": 480,
+      "frameHeight": 270,
+      "columns": 4,
+      "rows": 1,
+      "animations": {
+        "regen": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 10,
+          "repeat": -1
+        }
+      },
+      "tileable": [
+        "x",
+        "y"
+      ],
+      "origin": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "ae_ui_scenes_kapitel1_karte",
+      "file": "ui/scenes/kapitel1_karte.png",
+      "width": 480,
+      "height": 270,
+      "transparent": false,
+      "frameWidth": 480,
+      "frameHeight": 270,
+      "columns": 1,
+      "rows": 1,
+      "safeTextArea": {
+        "x": 32,
+        "y": 190,
+        "width": 416,
+        "height": 68
+      }
+    },
+    {
+      "id": "ae_ui_scenes_kapitel2_karte",
+      "file": "ui/scenes/kapitel2_karte.png",
+      "width": 480,
+      "height": 270,
+      "transparent": false,
+      "frameWidth": 480,
+      "frameHeight": 270,
+      "columns": 1,
+      "rows": 1,
+      "safeTextArea": {
+        "x": 32,
+        "y": 190,
+        "width": 416,
+        "height": 68
+      }
+    },
+    {
+      "id": "ae_ui_scenes_kapitel_ende",
+      "file": "ui/scenes/kapitel_ende.png",
+      "width": 480,
+      "height": 270,
+      "transparent": false,
+      "frameWidth": 480,
+      "frameHeight": 270,
+      "columns": 1,
+      "rows": 1,
+      "safeTextArea": {
+        "x": 32,
+        "y": 190,
+        "width": 416,
+        "height": 68
+      }
+    },
+    {
+      "id": "ae_ui_AE_zeitung",
+      "file": "ui/AE_zeitung.png",
+      "width": 320,
+      "height": 160,
+      "transparent": true,
+      "regions": {
+        "seite": {
+          "x": 0,
+          "y": 0,
+          "width": 48,
+          "height": 48,
+          "nineSlice": {
+            "left": 16,
+            "right": 16,
+            "top": 16,
+            "bottom": 16
+          }
+        },
+        "sprechblase": {
+          "x": 48,
+          "y": 0,
+          "width": 24,
+          "height": 24,
+          "nineSlice": {
+            "left": 8,
+            "right": 8,
+            "top": 8,
+            "bottom": 8
+          }
+        },
+        "gedankenblase": {
+          "x": 72,
+          "y": 0,
+          "width": 24,
+          "height": 24,
+          "nineSlice": {
+            "left": 8,
+            "right": 8,
+            "top": 8,
+            "bottom": 8
+          }
+        },
+        "sprechzipfel": {
+          "x": 96,
+          "y": 0,
+          "width": 8,
+          "height": 8
+        },
+        "gedankenpunkte": {
+          "x": 104,
+          "y": 0,
+          "width": 8,
+          "height": 8
+        },
+        "kopf_kettlegate": {
+          "x": 0,
+          "y": 48,
+          "width": 160,
+          "height": 24
+        },
+        "kopf_wexmoor": {
+          "x": 160,
+          "y": 48,
+          "width": 160,
+          "height": 24
+        },
+        "foto_polizeiwache": {
+          "x": 0,
+          "y": 80,
+          "width": 64,
+          "height": 48
+        },
+        "foto_menschenmenge": {
+          "x": 64,
+          "y": 80,
+          "width": 64,
+          "height": 48
+        },
+        "foto_hafen": {
+          "x": 128,
+          "y": 80,
+          "width": 64,
+          "height": 48
+        },
+        "foto_leuchtturm": {
+          "x": 192,
+          "y": 80,
+          "width": 64,
+          "height": 48
+        }
+      }
+    },
+    {
+      "id": "ae_props_AE_zeitung",
+      "file": "props/AE_zeitung.png",
+      "width": 64,
+      "height": 32,
+      "transparent": true,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 1,
+      "regions": {
+        "zeitungsstaender": {
+          "x": 0,
+          "y": 0,
+          "width": 16,
+          "height": 32
+        },
+        "zeitungsjunge_kiste": {
+          "x": 16,
+          "y": 0,
+          "width": 16,
+          "height": 32
+        },
+        "anschlagpfahl": {
+          "x": 32,
+          "y": 0,
+          "width": 16,
+          "height": 32
+        },
+        "zeitungsfetzen": {
+          "x": 48,
+          "y": 0,
+          "width": 16,
+          "height": 32
+        }
+      }
+    },
+    {
+      "id": "ae_fx_AE_wexmoor_tiere",
+      "file": "fx/AE_wexmoor_tiere.png",
+      "width": 128,
+      "height": 272,
+      "transparent": true,
+      "regions": {
+        "moorfrosch_sitzen": {
+          "x": 0,
+          "y": 0,
+          "width": 32,
+          "height": 16
+        },
+        "moorfrosch_huepfen": {
+          "x": 0,
+          "y": 16,
+          "width": 64,
+          "height": 16
+        },
+        "moewe_fliegen": {
+          "x": 0,
+          "y": 32,
+          "width": 64,
+          "height": 16
+        },
+        "moewe_sitzen": {
+          "x": 0,
+          "y": 48,
+          "width": 32,
+          "height": 16
+        },
+        "aal_schwimmen": {
+          "x": 0,
+          "y": 64,
+          "width": 64,
+          "height": 16
+        },
+        "aal_auftauchen": {
+          "x": 0,
+          "y": 80,
+          "width": 64,
+          "height": 16
+        },
+        "irrlicht_schweben": {
+          "x": 0,
+          "y": 96,
+          "width": 96,
+          "height": 16
+        },
+        "schlickkrabbe_laufen": {
+          "x": 0,
+          "y": 112,
+          "width": 64,
+          "height": 16
+        },
+        "motten_kreisen": {
+          "x": 0,
+          "y": 128,
+          "width": 64,
+          "height": 16
+        },
+        "kraehe_sitzen": {
+          "x": 0,
+          "y": 144,
+          "width": 32,
+          "height": 16
+        },
+        "kraehe_kraechzen": {
+          "x": 0,
+          "y": 160,
+          "width": 32,
+          "height": 16
+        },
+        "graureiher_stehen": {
+          "x": 0,
+          "y": 176,
+          "width": 64,
+          "height": 32
+        },
+        "graureiher_schreiten": {
+          "x": 0,
+          "y": 208,
+          "width": 128,
+          "height": 32
+        },
+        "graureiher_auffliegen": {
+          "x": 0,
+          "y": 240,
+          "width": 128,
+          "height": 32
+        }
+      },
+      "animations": {
+        "moorfrosch_sitzen": {
+          "frames": [
+            0,
+            1
+          ],
+          "frameRate": 3,
+          "repeat": -1,
+          "region": "moorfrosch_sitzen",
+          "frameWidth": 16,
+          "frameHeight": 16,
+          "columns": 2,
+          "rows": 1,
+          "frameIndexSpace": "region"
+        },
+        "moorfrosch_huepfen": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 8,
+          "repeat": -1,
+          "region": "moorfrosch_huepfen",
+          "frameWidth": 16,
+          "frameHeight": 16,
+          "columns": 4,
+          "rows": 1,
+          "frameIndexSpace": "region"
+        },
+        "moewe_fliegen": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 8,
+          "repeat": -1,
+          "region": "moewe_fliegen",
+          "frameWidth": 16,
+          "frameHeight": 16,
+          "columns": 4,
+          "rows": 1,
+          "frameIndexSpace": "region"
+        },
+        "moewe_sitzen": {
+          "frames": [
+            0,
+            1
+          ],
+          "frameRate": 2,
+          "repeat": -1,
+          "region": "moewe_sitzen",
+          "frameWidth": 16,
+          "frameHeight": 16,
+          "columns": 2,
+          "rows": 1,
+          "frameIndexSpace": "region"
+        },
+        "aal_schwimmen": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1,
+          "region": "aal_schwimmen",
+          "frameWidth": 16,
+          "frameHeight": 16,
+          "columns": 4,
+          "rows": 1,
+          "frameIndexSpace": "region"
+        },
+        "aal_auftauchen": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 5,
+          "repeat": -1,
+          "region": "aal_auftauchen",
+          "frameWidth": 16,
+          "frameHeight": 16,
+          "columns": 4,
+          "rows": 1,
+          "frameIndexSpace": "region"
+        },
+        "irrlicht_schweben": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "frameRate": 7,
+          "repeat": -1,
+          "region": "irrlicht_schweben",
+          "frameWidth": 16,
+          "frameHeight": 16,
+          "columns": 6,
+          "rows": 1,
+          "frameIndexSpace": "region"
+        },
+        "schlickkrabbe_laufen": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 7,
+          "repeat": -1,
+          "region": "schlickkrabbe_laufen",
+          "frameWidth": 16,
+          "frameHeight": 16,
+          "columns": 4,
+          "rows": 1,
+          "frameIndexSpace": "region"
+        },
+        "motten_kreisen": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 8,
+          "repeat": -1,
+          "region": "motten_kreisen",
+          "frameWidth": 16,
+          "frameHeight": 16,
+          "columns": 4,
+          "rows": 1,
+          "frameIndexSpace": "region"
+        },
+        "kraehe_sitzen": {
+          "frames": [
+            0,
+            1
+          ],
+          "frameRate": 2,
+          "repeat": -1,
+          "region": "kraehe_sitzen",
+          "frameWidth": 16,
+          "frameHeight": 16,
+          "columns": 2,
+          "rows": 1,
+          "frameIndexSpace": "region"
+        },
+        "kraehe_kraechzen": {
+          "frames": [
+            0,
+            1
+          ],
+          "frameRate": 4,
+          "repeat": -1,
+          "region": "kraehe_kraechzen",
+          "frameWidth": 16,
+          "frameHeight": 16,
+          "columns": 2,
+          "rows": 1,
+          "frameIndexSpace": "region"
+        },
+        "graureiher_stehen": {
+          "frames": [
+            0,
+            1
+          ],
+          "frameRate": 2,
+          "repeat": -1,
+          "region": "graureiher_stehen",
+          "frameWidth": 32,
+          "frameHeight": 32,
+          "columns": 2,
+          "rows": 1,
+          "frameIndexSpace": "region"
+        },
+        "graureiher_schreiten": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 5,
+          "repeat": -1,
+          "region": "graureiher_schreiten",
+          "frameWidth": 32,
+          "frameHeight": 32,
+          "columns": 4,
+          "rows": 1,
+          "frameIndexSpace": "region"
+        },
+        "graureiher_auffliegen": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 8,
+          "repeat": 0,
+          "region": "graureiher_auffliegen",
+          "frameWidth": 32,
+          "frameHeight": 32,
+          "columns": 4,
+          "rows": 1,
+          "frameIndexSpace": "region"
+        }
+      },
+      "layout": "mixed-size region atlas"
+    },
+    {
+      "id": "ae_fx_AE_wexmoor_wetter",
+      "file": "fx/AE_wexmoor_wetter.png",
+      "width": 1920,
+      "height": 350,
+      "transparent": true,
+      "regions": {
+        "gischt": {
+          "x": 0,
+          "y": 0,
+          "width": 32,
+          "height": 8,
+          "frameWidth": 8,
+          "frameHeight": 8,
+          "columns": 4,
+          "rows": 1
+        },
+        "wasserkringel": {
+          "x": 32,
+          "y": 0,
+          "width": 64,
+          "height": 16,
+          "frameWidth": 16,
+          "frameHeight": 16,
+          "columns": 4,
+          "rows": 1
+        },
+        "nieselregen": {
+          "x": 0,
+          "y": 16,
+          "width": 960,
+          "height": 135,
+          "frameWidth": 240,
+          "frameHeight": 135,
+          "columns": 4,
+          "rows": 1,
+          "tileable": [
+            "x",
+            "y"
+          ]
+        },
+        "nebelbank_1": {
+          "x": 0,
+          "y": 151,
+          "width": 240,
+          "height": 135,
+          "frameWidth": 240,
+          "frameHeight": 135,
+          "columns": 1,
+          "rows": 1,
+          "tileable": [
+            "x",
+            "y"
+          ]
+        },
+        "nebelbank_2": {
+          "x": 240,
+          "y": 151,
+          "width": 240,
+          "height": 135,
+          "frameWidth": 240,
+          "frameHeight": 135,
+          "columns": 1,
+          "rows": 1,
+          "tileable": [
+            "x",
+            "y"
+          ]
+        },
+        "leuchtturm_lichtstrahl": {
+          "x": 0,
+          "y": 286,
+          "width": 1920,
+          "height": 64,
+          "frameWidth": 240,
+          "frameHeight": 64,
+          "columns": 8,
+          "rows": 1
+        }
+      },
+      "animations": {
+        "gischt": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 10,
+          "repeat": -1,
+          "region": "gischt",
+          "frameWidth": 8,
+          "frameHeight": 8,
+          "columns": 4,
+          "rows": 1,
+          "frameIndexSpace": "region"
+        },
+        "wasserkringel": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 8,
+          "repeat": -1,
+          "region": "wasserkringel",
+          "frameWidth": 16,
+          "frameHeight": 16,
+          "columns": 4,
+          "rows": 1,
+          "frameIndexSpace": "region"
+        },
+        "nieselregen": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 10,
+          "repeat": -1,
+          "region": "nieselregen",
+          "frameWidth": 240,
+          "frameHeight": 135,
+          "columns": 4,
+          "rows": 1,
+          "frameIndexSpace": "region"
+        },
+        "leuchtturm_lichtstrahl": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 6,
+          "repeat": -1,
+          "region": "leuchtturm_lichtstrahl",
+          "frameWidth": 240,
+          "frameHeight": 64,
+          "columns": 8,
+          "rows": 1,
+          "frameIndexSpace": "region"
+        }
+      },
+      "layout": "mixed-size region atlas"
+    }
+  ]
+}

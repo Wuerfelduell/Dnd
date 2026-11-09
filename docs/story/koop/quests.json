@@ -1,0 +1,178 @@
+{
+  "koop_zwei_schluessel": {
+    "title": "Zwei Schlüssel, ein Schrank",
+    "kind": "side",
+    "case": "side",
+    "summary": "Pimms Lohnschrank besitzt zwei über Gestänge verbundene Schlösser an verschiedenen Wänden. Öffnet ihn gemeinsam und entscheidet, wie ihr mit einem privaten Vermerk im Register umgeht.",
+    "steps": [
+      {
+        "text": "Lies Pimms Arbeitszettel am Schrank",
+        "done": {
+          "requires_flags": [
+            "koop_zwei_schluessel_angenommen"
+          ]
+        },
+        "target": {
+          "map": "revier",
+          "id": "koop_zwei_schluessel_auftrag",
+          "label": "Arbeitszettel"
+        }
+      },
+      {
+        "text": "Untersucht die Gravur und dreht beide Schlüssel gleichzeitig",
+        "done": {
+          "requires_flags": [
+            "koop_zwei_schluessel_offen"
+          ]
+        },
+        "target": {
+          "map": "revier",
+          "id": "koop_zwei_schluessel_p1",
+          "label": "Westliches Schloss"
+        }
+      },
+      {
+        "text": "Entscheidet über den privaten Vermerk und gebt das Register ab",
+        "done": {
+          "requires_flags": [
+            "koop_zwei_schluessel_fertig"
+          ]
+        },
+        "target": {
+          "map": "revier",
+          "id": "koop_zwei_schluessel_inhalt",
+          "label": "Lohnregister"
+        }
+      }
+    ],
+    "reward": {
+      "gives_money": 0
+    }
+  },
+  "koop_ablenkung": {
+    "title": "Die falsche Hafengebühr",
+    "kind": "side",
+    "case": "kapitel2",
+    "summary": "Ein Kontor hält eine doppelt bezahlte Hafengebühr zurück. Während eine Person den Grauspäher mit einer Lieferfrage beschäftigt, sucht die andere den Gegenbeleg im Kontor.",
+    "steps": [
+      {
+        "text": "Lest den Zahlungsauftrag am Salzmarkt",
+        "done": {
+          "requires_flags": [
+            "koop_ablenkung_angenommen"
+          ]
+        },
+        "target": {
+          "map": "wx_salzmarkt",
+          "id": "koop_ablenkung_auftrag",
+          "label": "Zahlungsauftrag"
+        }
+      },
+      {
+        "text": "Findet auf dem Kontrollzettel das richtige Fach",
+        "done": {
+          "requires_flags": [
+            "koop_ablenkung_zettel_gelesen"
+          ]
+        },
+        "target": {
+          "map": "wx_salzmarkt",
+          "id": "koop_ablenkung_zettel",
+          "label": "Kontrollzettel"
+        }
+      },
+      {
+        "text": "Lenkt gemeinsam ab und sichert den Gegenbeleg",
+        "done": {
+          "requires_flags": [
+            "koop_ablenkung_beleg_gesichert"
+          ]
+        },
+        "target": {
+          "map": "wx_salzmarkt",
+          "id": "koop_ablenkung_p2",
+          "label": "Kontorzugang"
+        }
+      },
+      {
+        "text": "Entscheidet am Rückgabekasten über die Auszahlung",
+        "done": {
+          "requires_flags": [
+            "koop_ablenkung_fertig"
+          ]
+        },
+        "target": {
+          "map": "wx_salzmarkt",
+          "id": "koop_ablenkung_abgabe",
+          "label": "Rückgabekasten"
+        }
+      }
+    ],
+    "reward": {
+      "gives_money": 0
+    }
+  },
+  "koop_spiegelbild": {
+    "title": "Der Weg im anderen Glas",
+    "kind": "side",
+    "case": "side",
+    "summary": "Eine zurückgelassene Prüfkammer zeigt jeder Person nur den nächsten Schritt der anderen. Wechselt euch mit den Hinweisen ab und findet den verborgenen Serviceausgang.",
+    "steps": [
+      {
+        "text": "Nehmt den Wartungsauftrag im Spiegelkabinett an",
+        "done": {
+          "requires_flags": [
+            "koop_spiegelbild_angenommen"
+          ]
+        },
+        "target": {
+          "map": "spiegelkabinett",
+          "id": "koop_spiegelbild_auftrag",
+          "label": "Wartungsschild"
+        }
+      },
+      {
+        "text": "Spieler 2 liest den Hinweis für Spieler 1",
+        "done": {
+          "requires_flags": [
+            "koop_spiegelbild_runde1"
+          ]
+        },
+        "target": {
+          "map": "spiegelkabinett",
+          "id": "koop_spiegelbild_blick_p2",
+          "label": "Östlicher Spiegel"
+        }
+      },
+      {
+        "text": "Spieler 1 liest den Hinweis für Spieler 2 und öffnet gemeinsam den Serviceausgang",
+        "done": {
+          "requires_flags": [
+            "koop_spiegelbild_offen"
+          ]
+        },
+        "target": {
+          "map": "spiegelkabinett",
+          "id": "koop_spiegelbild_blick_p1",
+          "label": "Westlicher Spiegel"
+        }
+      },
+      {
+        "text": "Entscheidet über die Spiegel und nehmt die Wartungsprämie",
+        "done": {
+          "requires_flags": [
+            "koop_spiegelbild_fertig"
+          ]
+        },
+        "target": {
+          "map": "spiegelkabinett",
+          "id": "koop_spiegelbild_kasse",
+          "label": "Wartungskasse"
+        }
+      }
+    ],
+    "reward": {
+      "gives_money": 0
+    }
+  }
+}

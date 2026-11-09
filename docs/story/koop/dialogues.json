@@ -1,0 +1,769 @@
+{
+  "koop_zwei_schluessel_dialog": {
+    "start": [
+      {
+        "node": "koop_zwei_schluessel_erledigt",
+        "requires_flags": [
+          "koop_zwei_schluessel_fertig"
+        ]
+      },
+      {
+        "node": "koop_zwei_schluessel_bereit",
+        "requires_flags": [
+          "koop_zwei_schluessel_angenommen"
+        ]
+      },
+      {
+        "node": "koop_zwei_schluessel_angebot"
+      }
+    ],
+    "nodes": {
+      "koop_zwei_schluessel_angebot": {
+        "text": "Neben Pimm liegt ein Arbeitszettel. „Der Lohnschrank klemmt nicht. Seine Schlösser müssen an beiden Wänden gleichzeitig gedreht werden. Bringen Sie mir das alte Nachtlohnregister, nicht die Schublade.“",
+        "choices": [
+          {
+            "text": "Wir übernehmen das.",
+            "next": "koop_zwei_schluessel_annehmen",
+            "requires_flags": [
+              "koop_aktiv",
+              "case_04_closed"
+            ]
+          },
+          {
+            "text": "Später."
+          }
+        ]
+      },
+      "koop_zwei_schluessel_annehmen": {
+        "text": "Pimm legt zwei Schlüssel in die Halterungen. „Die Gravur am Schrank erklärt die Drehrichtung. Ich bezahle die Arbeit, nicht die Geschwindigkeit.“",
+        "sets_flags": [
+          "koop_zwei_schluessel_angenommen"
+        ],
+        "start_quests": [
+          "koop_zwei_schluessel"
+        ],
+        "choices": [
+          {
+            "text": "Wir sehen nach."
+          }
+        ]
+      },
+      "koop_zwei_schluessel_bereit": {
+        "text": "Das Arbeitsblatt liegt noch neben dem Schrank. Die beiden Schlösser sind durch ein Gestänge verbunden. „Nicht erst das eine, dann das andere“, steht darunter.",
+        "choices": [
+          {
+            "text": "Zur Arbeit."
+          }
+        ]
+      },
+      "koop_zwei_schluessel_erledigt": {
+        "text": "Pimm hat den Auftrag mit einem kleinen Haken versehen. Die Schlüssel hängen wieder an ihrem Brett.",
+        "choices": [
+          {
+            "text": "Weitergehen."
+          }
+        ]
+      }
+    }
+  },
+  "koop_zwei_schluessel_oeffnen": {
+    "start": "koop_zwei_schluessel_pruefen",
+    "nodes": {
+      "koop_zwei_schluessel_pruefen": {
+        "text": "Der Spalt zwischen den Schranktüren ist kaum breiter als ein Haar. Beide Schlossfedern müssen zugleich nachgeben.",
+        "choices": [
+          {
+            "text": "Beide Schlüssel zur Türmitte drehen.",
+            "next": "koop_zwei_schluessel_geoeffnet",
+            "requires_flags": [
+              "koop_aktiv",
+              "koop_zwei_schluessel_p1",
+              "koop_zwei_schluessel_p2"
+            ],
+            "requires_quests_active": [
+              "koop_zwei_schluessel"
+            ],
+            "requires_clues": [
+              "koop_zwei_schluessel_gravur"
+            ],
+            "hide_if_flags": [
+              "koop_zwei_schluessel_fertig",
+              "koop_zwei_schluessel_offen"
+            ]
+          },
+          {
+            "text": "Noch einmal aufstellen."
+          }
+        ]
+      },
+      "koop_zwei_schluessel_geoeffnet": {
+        "text": "Das Gestänge sinkt mit einem trockenen Klicken. Die Tür bleibt offen, auch als ihr die Schlüssel loslasst. Innen liegt ein schmaler Band mit Lohnabrechnungen.",
+        "sets_flags": [
+          "koop_zwei_schluessel_offen"
+        ],
+        "clears_flags": [
+          "koop_zwei_schluessel_p1",
+          "koop_zwei_schluessel_p2"
+        ],
+        "choices": [
+          {
+            "text": "Das Register ansehen."
+          }
+        ]
+      }
+    }
+  },
+  "koop_zwei_schluessel_register": {
+    "start": [
+      {
+        "node": "koop_zwei_schluessel_quittiert",
+        "requires_flags": [
+          "koop_zwei_schluessel_fertig"
+        ]
+      },
+      {
+        "node": "koop_zwei_schluessel_wahl"
+      }
+    ],
+    "nodes": {
+      "koop_zwei_schluessel_wahl": {
+        "text": "Zwischen zwei Lohnspalten steht eine private Notiz: Eine Nachtwache ließ sich Vorschüsse für die Pflege zu Hause auszahlen. Die Summe stimmt, doch Pimm braucht für ihren Abgleich nur die Beträge. Ihr könnt ihr das Original geben oder eine Abschrift ohne die Randnotiz anfertigen.",
+        "choices": [
+          {
+            "text": "Das Original vollständig zur internen Ablage geben.",
+            "next": "koop_zwei_schluessel_original",
+            "requires_flags": [
+              "koop_aktiv",
+              "koop_zwei_schluessel_offen"
+            ],
+            "requires_quests_active": [
+              "koop_zwei_schluessel"
+            ]
+          },
+          {
+            "text": "Nur die Lohnbeträge abschreiben und das Original verschließen.",
+            "next": "koop_zwei_schluessel_abschrift",
+            "requires_flags": [
+              "koop_aktiv",
+              "koop_zwei_schluessel_offen"
+            ],
+            "requires_quests_active": [
+              "koop_zwei_schluessel"
+            ]
+          },
+          {
+            "text": "Noch überlegen."
+          }
+        ]
+      },
+      "koop_zwei_schluessel_original": {
+        "text": "Pimm prüft die Seitenzahl und legt das Original in die interne Ablage. „Vollständig. Dort können Berechtigte nachsehen.“ Der private Vermerk bleibt im zugänglichen Dienstregister.",
+        "sets_flags": [
+          "koop_zwei_schluessel_original_abgelegt",
+          "koop_zwei_schluessel_fertig"
+        ],
+        "complete_quests": [
+          "koop_zwei_schluessel"
+        ],
+        "gives_money": 28,
+        "choices": [
+          {
+            "text": "Die Quittung mitnehmen."
+          }
+        ]
+      },
+      "koop_zwei_schluessel_abschrift": {
+        "text": "Pimm vergleicht eure Abschrift mit den Summen. „Der Abgleich genügt. Die persönliche Notiz bleibt verschlossen.“ Für die zusätzliche Schreibarbeit fehlt ihr ein eigener Auszahlungsposten.",
+        "sets_flags": [
+          "koop_zwei_schluessel_privat_verschlossen",
+          "koop_zwei_schluessel_fertig"
+        ],
+        "complete_quests": [
+          "koop_zwei_schluessel"
+        ],
+        "gives_money": 20,
+        "honor": 2,
+        "choices": [
+          {
+            "text": "So soll es bleiben."
+          }
+        ]
+      },
+      "koop_zwei_schluessel_quittiert": {
+        "text": "Die Quittung ist ausgestellt. Pimm bewahrt sie unter erledigten Arbeiten auf.",
+        "choices": [
+          {
+            "text": "Weitergehen."
+          }
+        ]
+      }
+    }
+  },
+  "koop_ablenkung_dialog": {
+    "start": [
+      {
+        "node": "koop_ablenkung_erledigt",
+        "requires_flags": [
+          "koop_ablenkung_fertig"
+        ]
+      },
+      {
+        "node": "koop_ablenkung_bereit",
+        "requires_flags": [
+          "koop_ablenkung_angenommen"
+        ]
+      },
+      {
+        "node": "koop_ablenkung_angebot"
+      }
+    ],
+    "nodes": {
+      "koop_ablenkung_angebot": {
+        "text": "Am Rückgabekasten hängt eine Bitte der Marktleute. „Dieselbe Hafengebühr wurde zweimal eingezogen. Der Gegenbeleg liegt im Kontor hinter dem Wachposten. Wer ihn bringt, erhält eine Prämie aus unserer gemeinsamen Kasse.“",
+        "choices": [
+          {
+            "text": "Wir versuchen es zu zweit.",
+            "next": "koop_ablenkung_annehmen",
+            "requires_flags": [
+              "koop_aktiv",
+              "k2_akt1_done"
+            ],
+            "hide_if_flags": [
+              "kapitel2_done"
+            ]
+          },
+          {
+            "text": "Weitergehen."
+          }
+        ]
+      },
+      "koop_ablenkung_annehmen": {
+        "text": "Ein Zusatz nennt den Kontrollzettel unter der Markttafel. Eine Person soll den Grauspäher mit einer unverfänglichen Lieferfrage beschäftigen, die andere das Kontor durchsuchen. Namen und Gewalt würden aus einer kleinen Sache eine große machen.",
+        "sets_flags": [
+          "koop_ablenkung_angenommen"
+        ],
+        "start_quests": [
+          "koop_ablenkung"
+        ],
+        "choices": [
+          {
+            "text": "Zuerst den Zettel lesen."
+          }
+        ]
+      },
+      "koop_ablenkung_bereit": {
+        "text": "Die Bitte hängt noch am Kasten. Der Wachposten zwischen Gasse und Kontor macht die Suche allein aussichtslos.",
+        "choices": [
+          {
+            "text": "Wir kommen wieder."
+          }
+        ]
+      },
+      "koop_ablenkung_erledigt": {
+        "text": "Über der Bitte steht „Erledigt“. Jemand hat einen Salzkrümel aus dem frischen Leim gestrichen.",
+        "choices": [
+          {
+            "text": "Weitergehen."
+          }
+        ]
+      }
+    }
+  },
+  "koop_ablenkung_kontor": {
+    "start": "koop_ablenkung_faecher",
+    "nodes": {
+      "koop_ablenkung_faecher": {
+        "text": "Hinter dem Tresen stehen zwei Fächer. Eines trägt einen Anker, das andere eine Krone. Draußen erklärt der Grauspäher noch den Weg.",
+        "choices": [
+          {
+            "text": "Das Ankerfach nach der doppelten Zahlung durchsuchen.",
+            "next": "koop_ablenkung_sicher",
+            "requires_flags": [
+              "koop_aktiv",
+              "koop_ablenkung_p1",
+              "koop_ablenkung_p2"
+            ],
+            "requires_quests_active": [
+              "koop_ablenkung"
+            ],
+            "requires_clues": [
+              "koop_ablenkung_fach"
+            ],
+            "hide_if_flags": [
+              "koop_ablenkung_fertig",
+              "koop_ablenkung_beleg_gesichert"
+            ]
+          },
+          {
+            "text": "Im Kronenfach nachsehen.",
+            "next": "koop_ablenkung_falsch",
+            "requires_flags": [
+              "koop_aktiv",
+              "koop_ablenkung_p1",
+              "koop_ablenkung_p2"
+            ],
+            "requires_quests_active": [
+              "koop_ablenkung"
+            ]
+          },
+          {
+            "text": "Zurückziehen."
+          }
+        ]
+      },
+      "koop_ablenkung_falsch": {
+        "text": "Das Fach enthält ausschließlich offene Forderungen. Ihr zieht euch zurück, bevor der Grauspäher seine Erklärung beendet. Der Kontrollzettel könnte euch unnötiges Suchen ersparen.",
+        "clears_flags": [
+          "koop_ablenkung_p1",
+          "koop_ablenkung_p2"
+        ],
+        "choices": [
+          {
+            "text": "Neu aufstellen."
+          }
+        ]
+      },
+      "koop_ablenkung_sicher": {
+        "text": "Der Beleg trägt dieselbe Nummer wie die zweite Zahlung. Du überträgst Datum und Summe auf eine Abschrift und legst das Original zurück. Danach verlasst ihr beide ruhig den Posten.",
+        "sets_flags": [
+          "koop_ablenkung_beleg_gesichert"
+        ],
+        "clears_flags": [
+          "koop_ablenkung_p1",
+          "koop_ablenkung_p2"
+        ],
+        "gives_clues": [
+          "koop_ablenkung_gegenbeleg"
+        ],
+        "choices": [
+          {
+            "text": "Zum Rückgabekasten."
+          }
+        ]
+      }
+    }
+  },
+  "koop_ablenkung_auszahlung": {
+    "start": [
+      {
+        "node": "koop_ablenkung_quittung",
+        "requires_flags": [
+          "koop_ablenkung_fertig"
+        ]
+      },
+      {
+        "node": "koop_ablenkung_wahl"
+      }
+    ],
+    "nodes": {
+      "koop_ablenkung_wahl": {
+        "text": "Der Kassenvermerk verspricht 30 Schilling für den Gegenbeleg. Ihr könnt die volle Prämie nehmen oder zehn Schilling für die nächste gemeinsame Beschwerde im Kasten lassen. Der Beleg geht in beiden Fällen an die Marktleute.",
+        "choices": [
+          {
+            "text": "Den Gegenbeleg abgeben und die vollen 30 Schilling nehmen.",
+            "next": "koop_ablenkung_voll",
+            "requires_flags": [
+              "koop_aktiv",
+              "koop_ablenkung_beleg_gesichert"
+            ],
+            "requires_quests_active": [
+              "koop_ablenkung"
+            ]
+          },
+          {
+            "text": "20 Schilling nehmen und zehn in der Gemeinschaftskasse lassen.",
+            "next": "koop_ablenkung_teilen",
+            "requires_flags": [
+              "koop_aktiv",
+              "koop_ablenkung_beleg_gesichert"
+            ],
+            "requires_quests_active": [
+              "koop_ablenkung"
+            ]
+          },
+          {
+            "text": "Noch warten."
+          }
+        ]
+      },
+      "koop_ablenkung_voll": {
+        "text": "Ihr steckt die Abschrift in den Rückgabekasten und nehmt den zugesagten Betrag aus dem beschrifteten Umschlag. Auf der Rückseite quittiert ihr die Auszahlung mit einem schlichten Haken.",
+        "sets_flags": [
+          "koop_ablenkung_praemie_voll",
+          "koop_ablenkung_fertig"
+        ],
+        "complete_quests": [
+          "koop_ablenkung"
+        ],
+        "gives_money": 30,
+        "choices": [
+          {
+            "text": "Weitergehen."
+          }
+        ]
+      },
+      "koop_ablenkung_teilen": {
+        "text": "Zehn Schilling bleiben im Umschlag. Daneben schreibt ihr: „Für die nächste Beschwerde.“ Mehr Namen braucht der Kasten nicht.",
+        "sets_flags": [
+          "koop_ablenkung_kasse_gestuetzt",
+          "koop_ablenkung_fertig"
+        ],
+        "complete_quests": [
+          "koop_ablenkung"
+        ],
+        "gives_money": 20,
+        "honor": 2,
+        "choices": [
+          {
+            "text": "Weitergehen."
+          }
+        ]
+      },
+      "koop_ablenkung_quittung": {
+        "text": "Der Umschlag ist quittiert und leer bis auf den gegebenenfalls zurückgelegten Anteil. Eine zweite Prämie ist nicht vorgesehen.",
+        "choices": [
+          {
+            "text": "Weitergehen."
+          }
+        ]
+      }
+    }
+  },
+  "koop_spiegelbild_dialog": {
+    "start": [
+      {
+        "node": "koop_spiegelbild_erledigt",
+        "requires_flags": [
+          "koop_spiegelbild_fertig"
+        ]
+      },
+      {
+        "node": "koop_spiegelbild_bereit",
+        "requires_flags": [
+          "koop_spiegelbild_angenommen"
+        ]
+      },
+      {
+        "node": "koop_spiegelbild_angebot"
+      }
+    ],
+    "nodes": {
+      "koop_spiegelbild_angebot": {
+        "text": "An einem unbeschädigten Seitenrahmen hängt ein Wartungsschild. „Serviceausgang nur zu zweit prüfen. Jeder Spiegel zeigt den Weg des Gegenübers. Die Prämie liegt im Kasten hinter der Wartungsklappe.“ Der gewöhnliche Ausgang zum Nordtor bleibt frei.",
+        "choices": [
+          {
+            "text": "Wir prüfen den Weg gemeinsam.",
+            "next": "koop_spiegelbild_annehmen",
+            "requires_flags": [
+              "koop_aktiv",
+              "case_06_closed"
+            ]
+          },
+          {
+            "text": "Heute nicht."
+          }
+        ]
+      },
+      "koop_spiegelbild_annehmen": {
+        "text": "Die Schrift benennt zwei Standplätze und zwei Zeichenräder. Zuerst soll die Person am östlichen Spiegel der anderen den Weg weisen. Danach werden die Aufgaben getauscht.",
+        "sets_flags": [
+          "koop_spiegelbild_angenommen"
+        ],
+        "start_quests": [
+          "koop_spiegelbild"
+        ],
+        "choices": [
+          {
+            "text": "An die Standplätze gehen."
+          }
+        ]
+      },
+      "koop_spiegelbild_bereit": {
+        "text": "Das Schild ist unverändert. Ihr könnt die Prüfung jederzeit unterbrechen und über den normalen Ausgang zurückkehren.",
+        "choices": [
+          {
+            "text": "Weitersehen."
+          }
+        ]
+      },
+      "koop_spiegelbild_erledigt": {
+        "text": "Die Wartung ist quittiert. Der Durchgang hinter der Klappe bleibt leer.",
+        "choices": [
+          {
+            "text": "Weitergehen."
+          }
+        ]
+      }
+    }
+  },
+  "koop_spiegelbild_rad_p1": {
+    "start": "koop_spiegelbild_rad_p1_wahl",
+    "nodes": {
+      "koop_spiegelbild_rad_p1_wahl": {
+        "text": "Auf dem Zeichenrad stehen eine brennende Laterne, eine erloschene Laterne und eine Tür.",
+        "choices": [
+          {
+            "text": "Die erloschene Laterne wählen.",
+            "next": "koop_spiegelbild_rad_p1_richtig",
+            "requires_flags": [
+              "koop_aktiv",
+              "koop_spiegelbild_p1",
+              "koop_spiegelbild_p2",
+              "koop_spiegelbild_hinweis1"
+            ],
+            "requires_quests_active": [
+              "koop_spiegelbild"
+            ],
+            "hide_if_flags": [
+              "koop_spiegelbild_fertig",
+              "koop_spiegelbild_runde1"
+            ]
+          },
+          {
+            "text": "Die brennende Laterne wählen.",
+            "next": "koop_spiegelbild_rad_p1_falsch",
+            "requires_flags": [
+              "koop_aktiv",
+              "koop_spiegelbild_p1",
+              "koop_spiegelbild_p2",
+              "koop_spiegelbild_hinweis1"
+            ],
+            "requires_quests_active": [
+              "koop_spiegelbild"
+            ],
+            "hide_if_flags": [
+              "koop_spiegelbild_fertig",
+              "koop_spiegelbild_runde1"
+            ]
+          },
+          {
+            "text": "Die Tür wählen.",
+            "next": "koop_spiegelbild_rad_p1_falsch",
+            "requires_flags": [
+              "koop_aktiv",
+              "koop_spiegelbild_p1",
+              "koop_spiegelbild_p2",
+              "koop_spiegelbild_hinweis1"
+            ],
+            "requires_quests_active": [
+              "koop_spiegelbild"
+            ],
+            "hide_if_flags": [
+              "koop_spiegelbild_fertig",
+              "koop_spiegelbild_runde1"
+            ]
+          },
+          {
+            "text": "Erst den Hinweis austauschen."
+          }
+        ]
+      },
+      "koop_spiegelbild_rad_p1_richtig": {
+        "text": "Das linke Rad rastet ein. Im westlichen Glas erscheint jetzt ein anderes Bild, bestimmt für die zweite Person.",
+        "sets_flags": [
+          "koop_spiegelbild_runde1"
+        ],
+        "clears_flags": [
+          "koop_spiegelbild_p1",
+          "koop_spiegelbild_p2"
+        ],
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      },
+      "koop_spiegelbild_rad_p1_falsch": {
+        "text": "Das Zeichenrad dreht sich zurück. Ein heller Fleck läuft über das Glas, dann ist wieder nur der fremde Rücken zu sehen. Ihr könnt euch neu aufstellen und den Hinweis noch einmal vergleichen.",
+        "clears_flags": [
+          "koop_spiegelbild_p1",
+          "koop_spiegelbild_p2"
+        ],
+        "choices": [
+          {
+            "text": "Noch einmal versuchen."
+          }
+        ]
+      }
+    }
+  },
+  "koop_spiegelbild_rad_p2": {
+    "start": "koop_spiegelbild_rad_p2_wahl",
+    "nodes": {
+      "koop_spiegelbild_rad_p2_wahl": {
+        "text": "Auf dem Zeichenrad stehen ein straffer Knoten, zwei offene Schlaufen und ein zerrissenes Tau.",
+        "choices": [
+          {
+            "text": "Die zwei offenen Schlaufen wählen.",
+            "next": "koop_spiegelbild_rad_p2_richtig",
+            "requires_flags": [
+              "koop_aktiv",
+              "koop_spiegelbild_p1",
+              "koop_spiegelbild_p2",
+              "koop_spiegelbild_hinweis2",
+              "koop_spiegelbild_runde1"
+            ],
+            "requires_quests_active": [
+              "koop_spiegelbild"
+            ],
+            "hide_if_flags": [
+              "koop_spiegelbild_fertig",
+              "koop_spiegelbild_offen"
+            ]
+          },
+          {
+            "text": "Den straffen Knoten wählen.",
+            "next": "koop_spiegelbild_rad_p2_falsch",
+            "requires_flags": [
+              "koop_aktiv",
+              "koop_spiegelbild_p1",
+              "koop_spiegelbild_p2",
+              "koop_spiegelbild_hinweis2",
+              "koop_spiegelbild_runde1"
+            ],
+            "requires_quests_active": [
+              "koop_spiegelbild"
+            ],
+            "hide_if_flags": [
+              "koop_spiegelbild_fertig",
+              "koop_spiegelbild_offen"
+            ]
+          },
+          {
+            "text": "Das zerrissene Tau wählen.",
+            "next": "koop_spiegelbild_rad_p2_falsch",
+            "requires_flags": [
+              "koop_aktiv",
+              "koop_spiegelbild_p1",
+              "koop_spiegelbild_p2",
+              "koop_spiegelbild_hinweis2",
+              "koop_spiegelbild_runde1"
+            ],
+            "requires_quests_active": [
+              "koop_spiegelbild"
+            ],
+            "hide_if_flags": [
+              "koop_spiegelbild_fertig",
+              "koop_spiegelbild_offen"
+            ]
+          },
+          {
+            "text": "Erst den Hinweis austauschen."
+          }
+        ]
+      },
+      "koop_spiegelbild_rad_p2_richtig": {
+        "text": "Beide Räder stehen still. Zwischen den Spiegelrahmen öffnet sich eine niedrige Wartungsklappe, dahinter liegt der Prämienkasten. Der Mechanismus hält die Klappe offen.",
+        "sets_flags": [
+          "koop_spiegelbild_offen"
+        ],
+        "clears_flags": [
+          "koop_spiegelbild_p1",
+          "koop_spiegelbild_p2"
+        ],
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      },
+      "koop_spiegelbild_rad_p2_falsch": {
+        "text": "Das Zeichenrad dreht sich zurück. Ein heller Fleck läuft über das Glas, dann ist wieder nur der fremde Rücken zu sehen. Ihr könnt euch neu aufstellen und den Hinweis noch einmal vergleichen.",
+        "clears_flags": [
+          "koop_spiegelbild_p1",
+          "koop_spiegelbild_p2"
+        ],
+        "choices": [
+          {
+            "text": "Noch einmal versuchen."
+          }
+        ]
+      }
+    }
+  },
+  "koop_spiegelbild_abschluss": {
+    "start": [
+      {
+        "node": "koop_spiegelbild_quittung",
+        "requires_flags": [
+          "koop_spiegelbild_fertig"
+        ]
+      },
+      {
+        "node": "koop_spiegelbild_wahl"
+      }
+    ],
+    "nodes": {
+      "koop_spiegelbild_wahl": {
+        "text": "Im Kasten liegen 24 Schilling und zwei undurchsichtige Tücher. Eine Notiz bittet um ein Urteil: Die Seitenrahmen für spätere Prüfungen offen lassen oder nach bestandener Wartung verhängen. Die Klappe lässt sich in beiden Fällen von Hand bedienen.",
+        "choices": [
+          {
+            "text": "Die Seitenrahmen verhängen und die Prämie nehmen.",
+            "next": "koop_spiegelbild_verhaengen",
+            "requires_flags": [
+              "koop_aktiv",
+              "koop_spiegelbild_offen"
+            ],
+            "requires_quests_active": [
+              "koop_spiegelbild"
+            ]
+          },
+          {
+            "text": "Die Seitenrahmen als Prüfgerät offen lassen und die Prämie nehmen.",
+            "next": "koop_spiegelbild_bewahren",
+            "requires_flags": [
+              "koop_aktiv",
+              "koop_spiegelbild_offen"
+            ],
+            "requires_quests_active": [
+              "koop_spiegelbild"
+            ]
+          },
+          {
+            "text": "Noch überlegen."
+          }
+        ]
+      },
+      "koop_spiegelbild_verhaengen": {
+        "text": "Ihr hängt die Tücher über die beiden Seitenrahmen. Der Raum wirkt kleiner, und die Wartungsklappe lässt sich weiterhin von Hand bewegen. Ihr quittiert die Prämie.",
+        "sets_flags": [
+          "koop_spiegelbild_verdeckt",
+          "koop_spiegelbild_fertig"
+        ],
+        "complete_quests": [
+          "koop_spiegelbild"
+        ],
+        "gives_money": 24,
+        "choices": [
+          {
+            "text": "Durch den bekannten Ausgang gehen."
+          }
+        ]
+      },
+      "koop_spiegelbild_bewahren": {
+        "text": "Ihr lasst die Seitenrahmen offen und vermerkt, dass die Prüfung nur zu zweit stattfinden darf. Die Klappe bleibt zugänglich. Ihr quittiert die Prämie.",
+        "sets_flags": [
+          "koop_spiegelbild_bewahrt",
+          "koop_spiegelbild_fertig"
+        ],
+        "complete_quests": [
+          "koop_spiegelbild"
+        ],
+        "gives_money": 24,
+        "choices": [
+          {
+            "text": "Durch den bekannten Ausgang gehen."
+          }
+        ]
+      },
+      "koop_spiegelbild_quittung": {
+        "text": "Die Wartungsprämie wurde bereits entnommen. Der Kasten enthält nur noch eure Quittung.",
+        "choices": [
+          {
+            "text": "Weitergehen."
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,464 @@
+{
+  "druce": {
+    "choices_add": [
+      {
+        "text": "Ein Fahrplan für Laternen.",
+        "next": "k2a_tinte_zeuge_c2",
+        "requires_quests_active": [
+          "k2a_tinte"
+        ],
+        "hide_if_clues": [
+          "k2a_tinte_h_c2"
+        ]
+      },
+      {
+        "text": "Unter der Glasplatte.",
+        "next": "k2a_tinte_zeuge_d2",
+        "requires_quests_active": [
+          "k2a_tinte"
+        ],
+        "hide_if_clues": [
+          "k2a_tinte_h_d2"
+        ]
+      },
+      {
+        "text": "Über „Die Tinte des Telegrafisten“ sprechen.",
+        "next": "k2a_tinte_reaktion_offen",
+        "requires_flags": [
+          "k2a_tinte_ende_offen_gesetzt"
+        ]
+      },
+      {
+        "text": "Über „Die Tinte des Telegrafisten“ sprechen.",
+        "next": "k2a_tinte_reaktion_still",
+        "requires_flags": [
+          "k2a_tinte_ende_still_gesetzt"
+        ]
+      },
+      {
+        "text": "Über „Die Tinte des Telegrafisten“ sprechen.",
+        "next": "k2a_tinte_reaktion_verkauft",
+        "requires_flags": [
+          "k2a_tinte_ende_verkauft_gesetzt"
+        ]
+      }
+    ],
+    "nodes_add": {
+      "k2a_tinte_zeuge_c2": {
+        "text": "„Tor vier, zwanzig nach zwei. Genau da dreht die Streife um. Wer diesen Zettel hat, bezahlt nicht für Fracht. Er bezahlt für Dunkelheit.“ Du notierst, was die Aussage belegt und was sie offenlässt.",
+        "gives_clues": [
+          "k2a_tinte_h_c2"
+        ],
+        "choices": [
+          {
+            "text": "Danke."
+          }
+        ]
+      },
+      "k2a_tinte_zeuge_d2": {
+        "text": "Druce hat keinen Schlüssel zum Schaukasten. Senn bringt die fertig versiegelten Tafeln, noch bevor die Wache ihre Route wechselt. Du notierst, was die Aussage belegt und was sie offenlässt.",
+        "gives_clues": [
+          "k2a_tinte_h_d2"
+        ],
+        "choices": [
+          {
+            "text": "Danke."
+          }
+        ]
+      },
+      "k2a_tinte_reaktion_offen": {
+        "text": "Rimmel ist wieder Telegrafist, sagt Druce. „Vorher war er hauptsächlich Verdacht. Derselbe Lohn, schlechtere Stunden.“",
+        "choices": [
+          {
+            "text": "Ich komme wieder."
+          }
+        ]
+      },
+      "k2a_tinte_reaktion_still": {
+        "text": "Druce tippt auf den neuen Fahrplan. „Keine Namen im Boten. Aber eine Berichtigung am Bahnhof. Für Rimmel ist das nicht wenig.“",
+        "choices": [
+          {
+            "text": "Ich komme wieder."
+          }
+        ]
+      },
+      "k2a_tinte_reaktion_verkauft": {
+        "text": "Druce zählt die frischen Zettel hinter Glas. „Ein Kurzschluss mit so viel Bargeld. Die Elektrotechnik macht Fortschritte.“",
+        "choices": [
+          {
+            "text": "Ich komme wieder."
+          }
+        ]
+      }
+    }
+  },
+  "zunder": {
+    "choices_add": [
+      {
+        "text": "Was steckt hinter „Die Tinte des Telegrafisten“?",
+        "next": "k2a_tinte_hinweis_zunder",
+        "requires_flags": [
+          "k2_akt1_done"
+        ],
+        "hide_if_quests": [
+          "k2a_tinte"
+        ],
+        "hide_if_flags": [
+          "kapitel2_done"
+        ]
+      },
+      {
+        "text": "Was steckt hinter „Bittere Mittel“?",
+        "next": "k2a_bittere_mittel_hinweis_zunder",
+        "requires_flags": [
+          "k2_akt2_done"
+        ],
+        "hide_if_quests": [
+          "k2a_bittere_mittel"
+        ],
+        "hide_if_flags": [
+          "kapitel2_done"
+        ]
+      },
+      {
+        "text": "Was steckt hinter „Hafenrecht“?",
+        "next": "k2a_hafenrecht_hinweis_zunder",
+        "requires_flags": [
+          "k2_akt2_done"
+        ],
+        "hide_if_quests": [
+          "k2a_hafenrecht"
+        ],
+        "hide_if_flags": [
+          "kapitel2_done"
+        ]
+      },
+      {
+        "text": "Was steckt hinter „Das letzte Bild“?",
+        "next": "k2a_letztes_bild_hinweis_zunder",
+        "requires_flags": [
+          "k2_akt3_done"
+        ],
+        "hide_if_quests": [
+          "k2a_letztes_bild"
+        ],
+        "hide_if_flags": [
+          "kapitel2_done"
+        ]
+      }
+    ],
+    "nodes_add": {
+      "k2a_tinte_hinweis_zunder": {
+        "text": "Nachts antwortet eine seit dreißig Jahren versunkene Station. Rimmel möchte wissen, wer am anderen Ende sitzt, bevor die Wache seinen Namen auf einen Steckbrief setzt.\n\n„Sprich mit Eustace Rimmel. Ich hefte den Zettel hier an, aber die Leute müssen ihre Geschichte selbst erzählen.“",
+        "choices": [
+          {
+            "text": "Ich komme wieder."
+          }
+        ]
+      },
+      "k2a_bittere_mittel_hinweis_zunder": {
+        "text": "Drei Alte aus Pfahldorf sind nach derselben Hustensaftlieferung gestorben. Minna Sorrel bittet dich, ihre Arbeit zu prüfen, auch wenn sie dabei alles verlieren könnte.\n\n„Sprich mit Minna Sorrel. Ich hefte den Zettel hier an, aber die Leute müssen ihre Geschichte selbst erzählen.“",
+        "choices": [
+          {
+            "text": "Ich komme wieder."
+          }
+        ]
+      },
+      "k2a_hafenrecht_hinweis_zunder": {
+        "text": "Ein Boot treibt mit drei Toten ein. Auf jedem Arm steht derselbe Name. Dora Kell will drei Menschen bestatten, bevor die Hafenkasse aus ihnen einen einzigen Versicherungsfall macht.\n\n„Sprich mit Dora Kell. Ich hefte den Zettel hier an, aber die Leute müssen ihre Geschichte selbst erzählen.“",
+        "choices": [
+          {
+            "text": "Ich komme wieder."
+          }
+        ]
+      },
+      "k2a_letztes_bild_hinweis_zunder": {
+        "text": "In Vanes neuen Totenbildern steht dieselbe unbekannte Frau. Menschen, die beim Malen noch lebten, verschwinden sieben Tage später. Der Maler bittet um Hilfe, verschweigt aber, wer für ihn als tot gilt.\n\n„Sprich mit Lionel Vane. Ich hefte den Zettel hier an, aber die Leute müssen ihre Geschichte selbst erzählen.“",
+        "choices": [
+          {
+            "text": "Ich komme wieder."
+          }
+        ]
+      }
+    }
+  },
+  "sedge": {
+    "choices_add": [
+      {
+        "text": "Das vergessene Wasser.",
+        "next": "k2a_bittere_mittel_zeuge_c1",
+        "requires_quests_active": [
+          "k2a_bittere_mittel"
+        ],
+        "hide_if_clues": [
+          "k2a_bittere_mittel_h_c1"
+        ]
+      },
+      {
+        "text": "Keine allgemeine Seuche.",
+        "next": "k2a_bittere_mittel_zeuge_f1",
+        "requires_quests_active": [
+          "k2a_bittere_mittel"
+        ],
+        "hide_if_clues": [
+          "k2a_bittere_mittel_h_f1"
+        ]
+      },
+      {
+        "text": "Über „Bittere Mittel“ sprechen.",
+        "next": "k2a_bittere_mittel_reaktion_offen",
+        "requires_flags": [
+          "k2a_bittere_mittel_ende_offen_gesetzt"
+        ]
+      },
+      {
+        "text": "Über „Bittere Mittel“ sprechen.",
+        "next": "k2a_bittere_mittel_reaktion_geschuetzt",
+        "requires_flags": [
+          "k2a_bittere_mittel_ende_geschuetzt_gesetzt"
+        ]
+      },
+      {
+        "text": "Über „Bittere Mittel“ sprechen.",
+        "next": "k2a_bittere_mittel_reaktion_vergleich",
+        "requires_flags": [
+          "k2a_bittere_mittel_ende_vergleich_gesetzt"
+        ]
+      }
+    ],
+    "nodes_add": {
+      "k2a_bittere_mittel_zeuge_c1": {
+        "text": "„Alva wusste noch, dass sie Durst hatte. Sie wusste nicht mehr, wozu die Schale neben ihr da war. Bei Nerin und Pell war es dasselbe, lange vor der letzten Nacht.“ Du notierst, was die Aussage belegt und was sie offenlässt.",
+        "gives_clues": [
+          "k2a_bittere_mittel_h_c1"
+        ],
+        "choices": [
+          {
+            "text": "Danke."
+          }
+        ]
+      },
+      "k2a_bittere_mittel_zeuge_f1": {
+        "text": "„Die übrigen Häuser trinken aus demselben Brunnen. Wer den Saft nicht nahm, behielt seine Handgriffe. Ich habe jede Familie gefragt, auch die, mit denen ich seit Jahren nicht rede.“ Du notierst, was die Aussage belegt und was sie offenlässt.",
+        "gives_clues": [
+          "k2a_bittere_mittel_h_f1"
+        ],
+        "choices": [
+          {
+            "text": "Danke."
+          }
+        ]
+      },
+      "k2a_bittere_mittel_reaktion_offen": {
+        "text": "Sedge legt frische Suppe neben ein Bett. „Minna darf wieder klingeln. Veit muss warten, bis jemand seine Papiere gelesen hat. So herum ist es besser.“",
+        "choices": [
+          {
+            "text": "Ich komme wieder."
+          }
+        ]
+      },
+      "k2a_bittere_mittel_reaktion_geschuetzt": {
+        "text": "Sedge legt die Hand auf einen verschlossenen Umschlag. „Die Stadt weiß, wer es getan hat. Was Alva im Schlaf sagte, gehört trotzdem nicht der Stadt.“",
+        "choices": [
+          {
+            "text": "Ich komme wieder."
+          }
+        ]
+      },
+      "k2a_bittere_mittel_reaktion_vergleich": {
+        "text": "Sedge schneidet den Bindfaden einer Suppenkiste auf. „Das Geld ist angekommen. Die Antwort nicht. Man kann anscheinend beides getrennt verschicken.“",
+        "choices": [
+          {
+            "text": "Ich komme wieder."
+          }
+        ]
+      }
+    }
+  },
+  "brack": {
+    "choices_add": [
+      {
+        "text": "Die Hände am Netz.",
+        "next": "k2a_hafenrecht_zeuge_c2",
+        "requires_quests_active": [
+          "k2a_hafenrecht"
+        ],
+        "hide_if_clues": [
+          "k2a_hafenrecht_h_c2"
+        ]
+      },
+      {
+        "text": "Kein Ruf an das Moor.",
+        "next": "k2a_hafenrecht_zeuge_f2",
+        "requires_quests_active": [
+          "k2a_hafenrecht"
+        ],
+        "hide_if_clues": [
+          "k2a_hafenrecht_h_f2"
+        ]
+      },
+      {
+        "text": "Über „Hafenrecht“ sprechen.",
+        "next": "k2a_hafenrecht_reaktion_namen",
+        "requires_flags": [
+          "k2a_hafenrecht_ende_namen_gesetzt"
+        ]
+      },
+      {
+        "text": "Über „Hafenrecht“ sprechen.",
+        "next": "k2a_hafenrecht_reaktion_still",
+        "requires_flags": [
+          "k2a_hafenrecht_ende_still_gesetzt"
+        ]
+      },
+      {
+        "text": "Über „Hafenrecht“ sprechen.",
+        "next": "k2a_hafenrecht_reaktion_kasse",
+        "requires_flags": [
+          "k2a_hafenrecht_ende_kasse_gesetzt"
+        ]
+      }
+    ],
+    "nodes_add": {
+      "k2a_hafenrecht_zeuge_c2": {
+        "text": "„Beros Finger blieb seit dem Winter krumm. Timm knotete links. Merten hatte den Kupferknopf am Ärmel, den seine Tochter ihm angenäht hat. Ich verwechsle die drei nicht mit einem Namen im Buch.“ Du notierst, was die Aussage belegt und was sie offenlässt.",
+        "gives_clues": [
+          "k2a_hafenrecht_h_c2"
+        ],
+        "choices": [
+          {
+            "text": "Danke."
+          }
+        ]
+      },
+      "k2a_hafenrecht_zeuge_f2": {
+        "text": "„Salzbrüder ritzen solche Kassennummern nicht in Menschen. Das ist auch kein Bojenlied. Noll hat denen eine Nummer als Rückkehr zur Arbeit verkauft.“ Du notierst, was die Aussage belegt und was sie offenlässt.",
+        "gives_clues": [
+          "k2a_hafenrecht_h_f2"
+        ],
+        "choices": [
+          {
+            "text": "Danke."
+          }
+        ]
+      },
+      "k2a_hafenrecht_reaktion_namen": {
+        "text": "Brack zeigt auf das Totenbrett. „Drei Namen. Mehr wollte Dora am ersten Abend gar nicht. Jetzt kann sie wenigstens an die richtigen Türen klopfen.“",
+        "choices": [
+          {
+            "text": "Ich komme wieder."
+          }
+        ]
+      },
+      "k2a_hafenrecht_reaktion_still": {
+        "text": "Brack faltet drei Briefe. „Die Familien wissen Bescheid. Am Kai reden sie noch Unsinn. Ich kann ihnen nicht alles erzählen, aber ich muss auch nicht mitschwätzen.“",
+        "choices": [
+          {
+            "text": "Ich komme wieder."
+          }
+        ]
+      },
+      "k2a_hafenrecht_reaktion_kasse": {
+        "text": "Brack sieht auf deinen trockenen Mantel. „Dora hat drei Familien besucht. Noll einen neuen Kahn gekauft. Du musst mir nicht sagen, wer schneller fertig war.“",
+        "choices": [
+          {
+            "text": "Ich komme wieder."
+          }
+        ]
+      }
+    }
+  },
+  "hesper": {
+    "choices_add": [
+      {
+        "text": "Noas warme Mahlzeit.",
+        "next": "k2a_letztes_bild_zeuge_b1",
+        "requires_quests_active": [
+          "k2a_letztes_bild"
+        ],
+        "hide_if_clues": [
+          "k2a_letztes_bild_h_b1"
+        ]
+      },
+      {
+        "text": "Keine Grabesstille.",
+        "next": "k2a_letztes_bild_zeuge_e2",
+        "requires_quests_active": [
+          "k2a_letztes_bild"
+        ],
+        "hide_if_clues": [
+          "k2a_letztes_bild_h_e2"
+        ]
+      },
+      {
+        "text": "Über „Das letzte Bild“ sprechen.",
+        "next": "k2a_letztes_bild_reaktion_rueckgabe",
+        "requires_flags": [
+          "k2a_letztes_bild_ende_rueckgabe_gesetzt"
+        ]
+      },
+      {
+        "text": "Über „Das letzte Bild“ sprechen.",
+        "next": "k2a_letztes_bild_reaktion_bruch",
+        "requires_flags": [
+          "k2a_letztes_bild_ende_bruch_gesetzt"
+        ]
+      },
+      {
+        "text": "Über „Das letzte Bild“ sprechen.",
+        "next": "k2a_letztes_bild_reaktion_geheim",
+        "requires_flags": [
+          "k2a_letztes_bild_ende_geheim_gesetzt"
+        ]
+      }
+    ],
+    "nodes_add": {
+      "k2a_letztes_bild_zeuge_b1": {
+        "text": "„Noa aß nach ihrer angeblichen Beerdigung bei mir. Ihr Teller ging in die Küche, ihr Geld in die Kasse. Beides lässt sich nachsehen.“ Du notierst, was die Aussage belegt und was sie offenlässt.",
+        "gives_clues": [
+          "k2a_letztes_bild_h_b1"
+        ],
+        "choices": [
+          {
+            "text": "Danke."
+          }
+        ]
+      },
+      "k2a_letztes_bild_zeuge_e2": {
+        "text": "„Gestern hörte ich Noa aus ihrem Bild, in derselben ungeduldigen Stimme wie am Tresen. Sie wollte Wasser. Das darf kein Vorwand sein, wieder jemanden für tot zu erklären.“ Du notierst, was die Aussage belegt und was sie offenlässt.",
+        "gives_clues": [
+          "k2a_letztes_bild_h_e2"
+        ],
+        "choices": [
+          {
+            "text": "Danke."
+          }
+        ]
+      },
+      "k2a_letztes_bild_reaktion_rueckgabe": {
+        "text": "Hesper stellt einen vierten Becher hin. „Noa hat wieder über den Preis geschimpft. Diesmal habe ich nicht widersprochen. Das kommt nicht oft vor.“",
+        "choices": [
+          {
+            "text": "Ich komme wieder."
+          }
+        ]
+      },
+      "k2a_letztes_bild_reaktion_bruch": {
+        "text": "Hesper nimmt drei unbenutzte Gläser vom Tisch. „Man kann einen Raum sichern, indem man die Tür zumauert. Auch wenn noch jemand dahinter ist.“",
+        "choices": [
+          {
+            "text": "Ich komme wieder."
+          }
+        ]
+      },
+      "k2a_letztes_bild_reaktion_geheim": {
+        "text": "Hesper hebt Noas Zimmerrechnung auf. „Sie lebt, aber im Buch der Stadt tut sie es noch nicht. Ein freies Bett ist leichter zu bekommen als ein korrigierter Stempel.“",
+        "choices": [
+          {
+            "text": "Ich komme wieder."
+          }
+        ]
+      }
+    }
+  }
+}

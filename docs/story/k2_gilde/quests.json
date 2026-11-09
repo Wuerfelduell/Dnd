@@ -1,0 +1,203 @@
+{
+  "k2g_aufnahme": {
+    "title": "Drei Namen, keine Schuld",
+    "kind": "side",
+    "case": "kapitel2",
+    "summary": "Mutter Sedge bürgt für dich bei der Täfelchengilde, wenn du drei vom Moor verschluckte Namen aus ihren verbliebenen Spuren zurückbringst. Niemand muss dafür seinen eigenen hergeben.",
+    "steps": [
+      {
+        "text": "Lies die geschützte Schrift im Torfstich.",
+        "done": {
+          "requires_clues": [
+            "k2g_name_torf"
+          ]
+        },
+        "target": {
+          "map": "wx_torfstich",
+          "id": "k2g_name_torf",
+          "label": "Schubkarrengriff"
+        }
+      },
+      {
+        "text": "Sichere den Namen unter der Werkbank im Pfahldorf.",
+        "done": {
+          "requires_clues": [
+            "k2g_name_pfahl"
+          ]
+        },
+        "target": {
+          "map": "wx_pfahldorf",
+          "id": "k2g_name_pfahl",
+          "label": "Werkbank"
+        }
+      },
+      {
+        "text": "Vergleiche die beiden Schalen im Salzwatt.",
+        "done": {
+          "requires_clues": [
+            "k2g_name_watt"
+          ]
+        },
+        "target": {
+          "map": "wx_salzwatt",
+          "id": "k2g_name_watt",
+          "label": "Doppelte Schale"
+        }
+      },
+      {
+        "text": "Bring Sedge die Abschriften und bestimme, wie sie bewahrt werden.",
+        "done": {
+          "requires_flags": [
+            "k2g_aufnahme_done"
+          ]
+        },
+        "target": {
+          "map": "wx_pfahldorf",
+          "id": "sedge",
+          "label": "Mutter Sedge"
+        }
+      }
+    ]
+  },
+  "k2g_esse_stempel": {
+    "title": "Der Stempel ohne Auftrag",
+    "kind": "side",
+    "case": "kapitel2",
+    "summary": "Eine ausgemusterte Matrize liegt bei den alten Kisten am Bojenhafen. Jemand hat mein Zeichen nachgeschlagen. Vergleiche den Abdruck mit der Wartungskarte im Torfstich, bevor wir das falsche Stück vernichten.",
+    "steps": [
+      {
+        "text": "Der kalte Abdruck untersuchen.",
+        "done": {
+          "requires_clues": [
+            "k2g_esse_abdruck"
+          ]
+        },
+        "target": {
+          "map": "wx_bojenhafen",
+          "id": "k2g_esse_abdruck",
+          "label": "Der kalte Abdruck"
+        }
+      },
+      {
+        "text": "Die Wartungskarte vergleichen.",
+        "done": {
+          "requires_clues": [
+            "k2g_esse_karte"
+          ]
+        },
+        "target": {
+          "map": "wx_torfstich",
+          "id": "k2g_esse_karte",
+          "label": "Die Wartungskarte"
+        }
+      },
+      {
+        "text": "Bei Wanda Esse entscheiden und den Lohn abholen.",
+        "done": {
+          "requires_flags": [
+            "k2g_esse_stempel_done"
+          ]
+        },
+        "target": {
+          "map": "treffen_namensgilde",
+          "id": "tm_esse",
+          "label": "Wanda Esse"
+        }
+      }
+    ]
+  },
+  "k2g_kerbe_hand": {
+    "title": "Die ausgeliehene Handschrift",
+    "kind": "side",
+    "case": "kapitel2",
+    "summary": "Im Pfahldorf hängt noch ihr Musterbrett. Am Salzmarkt liegt meine erste Rechnung. Vergleiche beides. Ich will wissen, ob ich nur ihren Schwung geliehen habe oder auch ihre Arbeit verkauft.",
+    "steps": [
+      {
+        "text": "Das Musterbrett untersuchen.",
+        "done": {
+          "requires_clues": [
+            "k2g_kerbe_muster"
+          ]
+        },
+        "target": {
+          "map": "wx_pfahldorf",
+          "id": "k2g_kerbe_muster",
+          "label": "Das Musterbrett"
+        }
+      },
+      {
+        "text": "Die Rechnung mit dem R vergleichen.",
+        "done": {
+          "requires_clues": [
+            "k2g_kerbe_rechnung"
+          ]
+        },
+        "target": {
+          "map": "wx_salzmarkt",
+          "id": "k2g_kerbe_rechnung",
+          "label": "Die Rechnung mit dem R"
+        }
+      },
+      {
+        "text": "Bei Abel Kerbe entscheiden und den Lohn abholen.",
+        "done": {
+          "requires_flags": [
+            "k2g_kerbe_hand_done"
+          ]
+        },
+        "target": {
+          "map": "treffen_namensgilde",
+          "id": "tm_kerbe",
+          "label": "Abel Kerbe"
+        }
+      }
+    ]
+  },
+  "k2g_mulde_ruf": {
+    "title": "Ein Ruf ist kein Besitz",
+    "kind": "side",
+    "case": "kapitel2",
+    "summary": "Die Werkstatt ist längst versunken, aber ihre Ruftafel liegt im Torfstich. Ein freiwilliger Zusatz beider Familien hängt beim Pfahldorfsteg. Bring die Texte zusammen. Ich möchte den alten Fehler berichtigen, ohne wieder für andere zu entscheiden.",
+    "steps": [
+      {
+        "text": "Die Ruftafel der Werkstatt untersuchen.",
+        "done": {
+          "requires_clues": [
+            "k2g_mulde_tafel"
+          ]
+        },
+        "target": {
+          "map": "wx_torfstich",
+          "id": "k2g_mulde_tafel",
+          "label": "Die Ruftafel der Werkstatt"
+        }
+      },
+      {
+        "text": "Der Zusatz der Nachkommen vergleichen.",
+        "done": {
+          "requires_clues": [
+            "k2g_mulde_zusatz"
+          ]
+        },
+        "target": {
+          "map": "wx_pfahldorf",
+          "id": "k2g_mulde_zusatz",
+          "label": "Der Zusatz der Nachkommen"
+        }
+      },
+      {
+        "text": "Bei Hanne Mulde entscheiden und den Lohn abholen.",
+        "done": {
+          "requires_flags": [
+            "k2g_mulde_ruf_done"
+          ]
+        },
+        "target": {
+          "map": "treffen_namensgilde",
+          "id": "tm_mulde",
+          "label": "Hanne Mulde"
+        }
+      }
+    ]
+  }
+}

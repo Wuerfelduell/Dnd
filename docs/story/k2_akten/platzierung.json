@@ -1,0 +1,1149 @@
+[
+  {
+    "map": "wx_bahnhof",
+    "tile": [
+      10,
+      5
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k2a_tinte"
+      ]
+    },
+    "interactable": {
+      "id": "k2a_tinte_ort_a1",
+      "kind": "read",
+      "title": "Der Nachtstreifen",
+      "prompt": "Der Nachtstreifen",
+      "text": "Der Papierstreifen trägt die Kennung Riedwacht und die heutige Nachtzeit. Seine Zacken sind frisch, nicht aus einer alten Rolle ausgeschnitten.",
+      "footer": "Die Beobachtung steht in deiner Akte.",
+      "marker": true,
+      "done_flag": "k2a_tinte_ort_a1_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k2a_tinte_h_a1"
+        ]
+      }
+    }
+  },
+  {
+    "map": "wx_bahnhof",
+    "tile": [
+      26,
+      14
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k2a_tinte"
+      ],
+      "requires_flags": [
+        "k2a_tinte_kontrolle_done"
+      ]
+    },
+    "interactable": {
+      "id": "k2a_tinte_ort_b1",
+      "kind": "read",
+      "title": "Blankes Lötzinn",
+      "prompt": "Blankes Lötzinn",
+      "text": "Unter dreißig Jahren grüner Kruste glänzt eine neue Lötstelle. Ein trockener Draht führt zur alten Wärterhütte am Torfstich.",
+      "footer": "Die Beobachtung steht in deiner Akte.",
+      "marker": true,
+      "done_flag": "k2a_tinte_ort_b1_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k2a_tinte_h_b1"
+        ]
+      }
+    }
+  },
+  {
+    "map": "wx_salzmarkt",
+    "tile": [
+      9,
+      8
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k2a_tinte"
+      ]
+    },
+    "interactable": {
+      "id": "k2a_tinte_ort_b2",
+      "kind": "read",
+      "title": "Rechnung für eine tote Leitung",
+      "prompt": "Rechnung für eine tote Leitung",
+      "text": "„I. Senn: zwei Ellen Draht, Lötzinn, Anschluss Riedwacht. Bezahlt gestern.“ Die Nummer passt zum frischen Messingring in der Dose.",
+      "footer": "Die Beobachtung steht in deiner Akte.",
+      "marker": true,
+      "done_flag": "k2a_tinte_ort_b2_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k2a_tinte_h_b2"
+        ]
+      }
+    }
+  },
+  {
+    "map": "wx_salzmarkt",
+    "tile": [
+      10,
+      8
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k2a_tinte"
+      ]
+    },
+    "interactable": {
+      "id": "k2a_tinte_ort_c1",
+      "kind": "read",
+      "title": "Fracht ohne Gewicht",
+      "prompt": "Fracht ohne Gewicht",
+      "text": "Die angebliche Frachtliste nennt weder Ware noch Gewicht. Ihre Zahlen bezeichnen Schleusentor, Beginn und Ende der dortigen Streifenrunde.",
+      "footer": "Die Beobachtung steht in deiner Akte.",
+      "marker": true,
+      "done_flag": "k2a_tinte_ort_c1_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k2a_tinte_h_c1"
+        ]
+      }
+    }
+  },
+  {
+    "map": "wx_bahnhof",
+    "tile": [
+      11,
+      5
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k2a_tinte"
+      ]
+    },
+    "interactable": {
+      "id": "k2a_tinte_ort_d1",
+      "kind": "read",
+      "title": "Kopie vor dem Aushang",
+      "prompt": "Kopie vor dem Aushang",
+      "text": "Senn quittiert die Kontrollkarten jeweils um acht. Rimmel erhält sie erst am Morgen nach der Runde. Die Nachttelegramme kennen die neuen Zeiten vorher.",
+      "footer": "Die Beobachtung steht in deiner Akte.",
+      "marker": true,
+      "done_flag": "k2a_tinte_ort_d1_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k2a_tinte_h_d1"
+        ]
+      }
+    }
+  },
+  {
+    "map": "wx_torfstich",
+    "tile": [
+      11,
+      6
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k2a_tinte"
+      ]
+    },
+    "interactable": {
+      "id": "k2a_tinte_ort_e1",
+      "kind": "read",
+      "title": "Violett im Löschpapier",
+      "prompt": "Violett im Löschpapier",
+      "text": "Im Löschpapier stehen spiegelverkehrt Senns Initialen und dieselben drei Routen wie im Umschlag. Die violette Kopiertinte ist noch feucht.",
+      "footer": "Die Beobachtung steht in deiner Akte.",
+      "marker": true,
+      "done_flag": "k2a_tinte_ort_e1_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k2a_tinte_h_e1"
+        ]
+      }
+    }
+  },
+  {
+    "map": "wx_torfstich",
+    "tile": [
+      12,
+      6
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k2a_tinte"
+      ]
+    },
+    "interactable": {
+      "id": "k2a_tinte_ort_f2",
+      "kind": "read",
+      "title": "Drei getrennte Käufer",
+      "prompt": "Drei getrennte Käufer",
+      "text": "Drei verschiedene Bootssiegel stehen neben drei Zahlungen. Keines ist das schwarze Streichholz der Lichtlosen. Verkauft wurden ausschließlich Streifenpläne, keine von Druces Hilfsladungen.",
+      "footer": "Die Beobachtung steht in deiner Akte.",
+      "marker": true,
+      "done_flag": "k2a_tinte_ort_f2_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k2a_tinte_h_f2"
+        ]
+      }
+    }
+  },
+  {
+    "map": "wx_torfstich",
+    "tile": [
+      12,
+      7
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k2a_tinte"
+      ]
+    },
+    "interactable": {
+      "id": "k2a_tinte_ort_g1",
+      "kind": "read",
+      "title": "Die trockene Brücke",
+      "prompt": "Die trockene Brücke",
+      "text": "Eine einzelne Kupferbrücke verbindet den alten Sender mit der Hauptleitung. Zieht man sie heraus, bleibt die gewöhnliche Bahnverbindung erhalten.",
+      "footer": "Die Beobachtung steht in deiner Akte.",
+      "marker": true,
+      "done_flag": "k2a_tinte_ort_g1_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k2a_tinte_h_g1"
+        ]
+      }
+    }
+  },
+  {
+    "map": "wx_bahnhof",
+    "tile": [
+      9,
+      5
+    ],
+    "npc": "wxn_telegrafist",
+    "visible_if": {
+      "requires_flags": [
+        "k2_akt1_done"
+      ]
+    }
+  },
+  {
+    "map": "wx_salzmarkt",
+    "tile": [
+      8,
+      8
+    ],
+    "npc": "k2a_senn",
+    "visible_if": {
+      "requires_flags": [
+        "k2_akt1_done"
+      ],
+      "hide_if_flags": [
+        "k2a_tinte_done"
+      ]
+    }
+  },
+  {
+    "map": "wx_bahnhof",
+    "tile": [
+      25,
+      14
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k2a_tinte"
+      ]
+    },
+    "interactable": {
+      "id": "k2a_tinte_polizei",
+      "kind": "dialogue",
+      "dialogue": "k2a_tinte_kontrolle",
+      "title": "Die Kontrolle ansprechen",
+      "role": "Ermittlung",
+      "prompt": "Die Kontrolle ansprechen",
+      "marker": true
+    }
+  },
+  {
+    "map": "wx_torfstich",
+    "tile": [
+      10,
+      6
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k2a_tinte"
+      ],
+      "requires_flags": [
+        "k2a_tinte_gestellt"
+      ]
+    },
+    "interactable": {
+      "id": "k2a_tinte_finale",
+      "kind": "dialogue",
+      "dialogue": "k2a_tinte_showdown",
+      "title": "Den Schauplatz von „Die Tinte des Telegrafisten“ sichern",
+      "role": "Ermittlung",
+      "prompt": "Den Schauplatz von „Die Tinte des Telegrafisten“ sichern",
+      "marker": true
+    }
+  },
+  {
+    "map": "wx_pfahldorf",
+    "tile": [
+      7,
+      4
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k2a_bittere_mittel"
+      ]
+    },
+    "interactable": {
+      "id": "k2a_bittere_mittel_ort_a1",
+      "kind": "read",
+      "title": "Drei gleiche Chargenzeichen",
+      "prompt": "Drei gleiche Chargenzeichen",
+      "text": "Auf allen drei zurückgebrachten Flaschen steht Sorrel 6/M. Die Nachbarn haben die Reste getrennt verwahrt und die Namen der Toten daneben geschrieben.",
+      "footer": "Die Beobachtung steht in deiner Akte.",
+      "marker": true,
+      "done_flag": "k2a_bittere_mittel_ort_a1_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k2a_bittere_mittel_h_a1"
+        ]
+      }
+    }
+  },
+  {
+    "map": "wx_salzmarkt",
+    "tile": [
+      5,
+      7
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k2a_bittere_mittel"
+      ]
+    },
+    "interactable": {
+      "id": "k2a_bittere_mittel_ort_b1",
+      "kind": "read",
+      "title": "Weiße Blattadern",
+      "prompt": "Weiße Blattadern",
+      "text": "Zwischen den gewöhnlichen Minzblättern liegen blasse Blätter mit weißen Adern. Die Rückstellprobe der vorherigen Lieferung enthält keines davon.",
+      "footer": "Die Beobachtung steht in deiner Akte.",
+      "marker": true,
+      "done_flag": "k2a_bittere_mittel_ort_b1_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k2a_bittere_mittel_h_b1"
+        ]
+      }
+    }
+  },
+  {
+    "map": "wx_pfahldorf",
+    "tile": [
+      8,
+      4
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k2a_bittere_mittel"
+      ]
+    },
+    "interactable": {
+      "id": "k2a_bittere_mittel_ort_c2",
+      "kind": "read",
+      "title": "Besuchsfolge",
+      "prompt": "Besuchsfolge",
+      "text": "Drei verschiedene Nachbarn notieren denselben Verlauf nach dem Saft: verlorene Handgriffe, ausgelassene Mahlzeiten, fortschreitende Schwäche. Niemand beschreibt eine gewöhnliche Hustenverschlimmerung.",
+      "footer": "Die Beobachtung steht in deiner Akte.",
+      "marker": true,
+      "done_flag": "k2a_bittere_mittel_ort_c2_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k2a_bittere_mittel_h_c2"
+        ]
+      }
+    }
+  },
+  {
+    "map": "wx_salzmarkt",
+    "tile": [
+      5,
+      8
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k2a_bittere_mittel"
+      ]
+    },
+    "interactable": {
+      "id": "k2a_bittere_mittel_ort_d1",
+      "kind": "read",
+      "title": "Das zweite Siegel",
+      "prompt": "Das zweite Siegel",
+      "text": "Unter Minnas unbeschädigtem Empfangsfaden steckt ein bereits geöffnetes Akademiesiegel. Die Kiste war also vor ihrer Annahme geöffnet und wieder verschlossen worden.",
+      "footer": "Die Beobachtung steht in deiner Akte.",
+      "marker": true,
+      "done_flag": "k2a_bittere_mittel_ort_d1_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k2a_bittere_mittel_h_d1"
+        ]
+      }
+    }
+  },
+  {
+    "map": "wx_oberstadt",
+    "tile": [
+      36,
+      7
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k2a_bittere_mittel"
+      ]
+    },
+    "interactable": {
+      "id": "k2a_bittere_mittel_ort_d2",
+      "kind": "read",
+      "title": "Entnahme vor Zustellung",
+      "prompt": "Entnahme vor Zustellung",
+      "text": "„6/M: Austausch des Kräuterbündels, O. Veit.“ Die Uhrzeit liegt vor Minnas quittierter Annahme. Der alte Bündelrest wurde ins Versuchslager zurückgenommen.",
+      "footer": "Die Beobachtung steht in deiner Akte.",
+      "marker": true,
+      "done_flag": "k2a_bittere_mittel_ort_d2_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k2a_bittere_mittel_h_d2"
+        ]
+      }
+    }
+  },
+  {
+    "map": "wx_torfstich",
+    "tile": [
+      17,
+      4
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k2a_bittere_mittel"
+      ]
+    },
+    "interactable": {
+      "id": "k2a_bittere_mittel_ort_e2",
+      "kind": "read",
+      "title": "Rücknahme ausdrücklich gestrichen",
+      "prompt": "Rücknahme ausdrücklich gestrichen",
+      "text": "Veit hat hinter drei Versuchsnamen „Abbruch wegen Verwirrung“ gestrichen. Darunter: „Weitergabe über Hustencharge. Keine weitere Befragung vor Abschluss.“ Die drei Namen stimmen mit Minnas Toten überein.",
+      "footer": "Die Beobachtung steht in deiner Akte.",
+      "marker": true,
+      "done_flag": "k2a_bittere_mittel_ort_e2_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k2a_bittere_mittel_h_e2"
+        ]
+      }
+    }
+  },
+  {
+    "map": "wx_oberstadt",
+    "tile": [
+      37,
+      7
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k2a_bittere_mittel"
+      ]
+    },
+    "interactable": {
+      "id": "k2a_bittere_mittel_ort_f2",
+      "kind": "read",
+      "title": "Abgegrenzte Entnahmeliste",
+      "prompt": "Abgegrenzte Entnahmeliste",
+      "text": "Nur ein Kräuterbündel wurde ersetzt. Die Liste nennt ausdrücklich den alten Stichversuch, weder Jorins Linsensalz noch die Versorgung des Leuchtturms.",
+      "footer": "Die Beobachtung steht in deiner Akte.",
+      "marker": true,
+      "done_flag": "k2a_bittere_mittel_ort_f2_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k2a_bittere_mittel_h_f2"
+        ]
+      }
+    }
+  },
+  {
+    "map": "wx_pfahldorf",
+    "tile": [
+      9,
+      4
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k2a_bittere_mittel"
+      ]
+    },
+    "interactable": {
+      "id": "k2a_bittere_mittel_ort_g1",
+      "kind": "read",
+      "title": "Hilfe ohne Versuch",
+      "prompt": "Hilfe ohne Versuch",
+      "text": "Die Nachbarn übernehmen Mahlzeiten, Feuer und Wasser für die noch lebenden Betroffenen. Auf dem Plan steht: „Keine neue Mischung. Dabeibleiben.“",
+      "footer": "Die Beobachtung steht in deiner Akte.",
+      "marker": true,
+      "done_flag": "k2a_bittere_mittel_ort_g1_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k2a_bittere_mittel_h_g1"
+        ]
+      }
+    }
+  },
+  {
+    "map": "wx_salzmarkt",
+    "tile": [
+      6,
+      7
+    ],
+    "npc": "wxn_apothekerin",
+    "visible_if": {
+      "requires_flags": [
+        "k2_akt2_done"
+      ]
+    }
+  },
+  {
+    "map": "wx_oberstadt",
+    "tile": [
+      35,
+      7
+    ],
+    "npc": "k2a_veit",
+    "visible_if": {
+      "requires_flags": [
+        "k2_akt2_done"
+      ],
+      "hide_if_flags": [
+        "k2a_bittere_mittel_done"
+      ]
+    }
+  },
+  {
+    "map": "wx_salzmarkt",
+    "tile": [
+      7,
+      8
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k2a_bittere_mittel"
+      ]
+    },
+    "interactable": {
+      "id": "k2a_bittere_mittel_polizei",
+      "kind": "dialogue",
+      "dialogue": "k2a_bittere_mittel_kontrolle",
+      "title": "Die Kontrolle ansprechen",
+      "role": "Ermittlung",
+      "prompt": "Die Kontrolle ansprechen",
+      "marker": true
+    }
+  },
+  {
+    "map": "wx_torfstich",
+    "tile": [
+      16,
+      4
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k2a_bittere_mittel"
+      ],
+      "requires_flags": [
+        "k2a_bittere_mittel_gestellt"
+      ]
+    },
+    "interactable": {
+      "id": "k2a_bittere_mittel_finale",
+      "kind": "dialogue",
+      "dialogue": "k2a_bittere_mittel_showdown",
+      "title": "Den Schauplatz von „Bittere Mittel“ sichern",
+      "role": "Ermittlung",
+      "prompt": "Den Schauplatz von „Bittere Mittel“ sichern",
+      "marker": true
+    }
+  },
+  {
+    "map": "wx_bojenhafen",
+    "tile": [
+      22,
+      7
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k2a_hafenrecht"
+      ]
+    },
+    "interactable": {
+      "id": "k2a_hafenrecht_ort_a1",
+      "kind": "read",
+      "title": "Dreimal Rooke",
+      "prompt": "Dreimal Rooke",
+      "text": "Drei gleich alte Tätowierungen nennen Silas Rooke. Unter jedem Namen ist dieselbe Registriernummer gestochen, mit dem kleinen Haken der Hafenkasse.",
+      "footer": "Die Beobachtung steht in deiner Akte.",
+      "marker": true,
+      "done_flag": "k2a_hafenrecht_ort_a1_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k2a_hafenrecht_h_a1"
+        ]
+      }
+    }
+  },
+  {
+    "map": "wx_salzmarkt",
+    "tile": [
+      32,
+      8
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k2a_hafenrecht"
+      ]
+    },
+    "interactable": {
+      "id": "k2a_hafenrecht_ort_b1",
+      "kind": "read",
+      "title": "Drei Prämien, ein Empfänger",
+      "prompt": "Drei Prämien, ein Empfänger",
+      "text": "Drei Risikobeiträge wurden unter derselben Nummer eingezahlt. Bei Tod an Bord erhält der Verwalter der registrierten Person die gesamte Summe. Eingetragener Verwalter: Clem Noll.",
+      "footer": "Die Beobachtung steht in deiner Akte.",
+      "marker": true,
+      "done_flag": "k2a_hafenrecht_ort_b1_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k2a_hafenrecht_h_b1"
+        ]
+      }
+    }
+  },
+  {
+    "map": "wx_pfahldorf",
+    "tile": [
+      12,
+      4
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k2a_hafenrecht"
+      ]
+    },
+    "interactable": {
+      "id": "k2a_hafenrecht_ort_c1",
+      "kind": "read",
+      "title": "Vor zwölf Jahren beerdigt",
+      "prompt": "Vor zwölf Jahren beerdigt",
+      "text": "Silas Rooke wurde vor zwölf Jahren beerdigt. Drei Angehörigenschreiben ordnen die frischen Toten dagegen Bero, Timm und Merten zu, anhand alter Brüche und persönlicher Gegenstände.",
+      "footer": "Die Beobachtung steht in deiner Akte.",
+      "marker": true,
+      "done_flag": "k2a_hafenrecht_ort_c1_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k2a_hafenrecht_h_c1"
+        ]
+      }
+    }
+  },
+  {
+    "map": "wx_bojenhafen",
+    "tile": [
+      22,
+      8
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k2a_hafenrecht"
+      ]
+    },
+    "interactable": {
+      "id": "k2a_hafenrecht_ort_d1",
+      "kind": "read",
+      "title": "Riegel auf der Außenseite",
+      "prompt": "Riegel auf der Außenseite",
+      "text": "Die Luke war von außen verriegelt. Innen sind Druckspuren vom Rettungsversuch. Ein gewöhnliches Kentern hätte den Riegel nicht von selbst vorgeschoben.",
+      "footer": "Die Beobachtung steht in deiner Akte.",
+      "marker": true,
+      "done_flag": "k2a_hafenrecht_ort_d1_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k2a_hafenrecht_h_d1"
+        ]
+      }
+    }
+  },
+  {
+    "map": "wx_salzwatt",
+    "tile": [
+      17,
+      15
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k2a_hafenrecht"
+      ]
+    },
+    "interactable": {
+      "id": "k2a_hafenrecht_ort_d2",
+      "kind": "read",
+      "title": "Ausgezogene Dichtung",
+      "prompt": "Ausgezogene Dichtung",
+      "text": "Am trockenen Rand liegt die herausgezogene Dichtung der Bodenplanke. Ihr Zugdraht ist gekappt, nicht gerissen. Ein Schleifzug führt zum festgemachten Bergungskahn.",
+      "footer": "Die Beobachtung steht in deiner Akte.",
+      "marker": true,
+      "done_flag": "k2a_hafenrecht_ort_d2_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k2a_hafenrecht_h_d2"
+        ]
+      }
+    }
+  },
+  {
+    "map": "wx_salzmarkt",
+    "tile": [
+      33,
+      8
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k2a_hafenrecht"
+      ]
+    },
+    "interactable": {
+      "id": "k2a_hafenrecht_ort_e1",
+      "kind": "read",
+      "title": "Nolls Nachtauftrag",
+      "prompt": "Nolls Nachtauftrag",
+      "text": "„C. Noll: äußeren Riegel setzen, Zugdraht bis Steuerbank führen, keine Innenentriegelung.“ Der Durchschlag trägt die Registernummer des Fundkahns.",
+      "footer": "Die Beobachtung steht in deiner Akte.",
+      "marker": true,
+      "done_flag": "k2a_hafenrecht_ort_e1_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k2a_hafenrecht_h_e1"
+        ]
+      }
+    }
+  },
+  {
+    "map": "wx_pfahldorf",
+    "tile": [
+      13,
+      4
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k2a_hafenrecht"
+      ]
+    },
+    "interactable": {
+      "id": "k2a_hafenrecht_ort_g1",
+      "kind": "read",
+      "title": "Drei Empfangsvollmachten",
+      "prompt": "Drei Empfangsvollmachten",
+      "text": "Die drei Familien verlangen gemeinsam, dass Noll keine Zahlung für sie entgegennehmen darf. Sie erlauben Dora ausdrücklich, die tatsächlichen Namen öffentlich zu nennen.",
+      "footer": "Die Beobachtung steht in deiner Akte.",
+      "marker": true,
+      "done_flag": "k2a_hafenrecht_ort_g1_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k2a_hafenrecht_h_g1"
+        ]
+      }
+    }
+  },
+  {
+    "map": "wx_salzwatt",
+    "tile": [
+      19,
+      15
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k2a_hafenrecht"
+      ]
+    },
+    "interactable": {
+      "id": "k2a_hafenrecht_ort_g2",
+      "kind": "read",
+      "title": "Sicherung statt Auszahlung",
+      "prompt": "Sicherung statt Auszahlung",
+      "text": "Die Gegenzeichnung im Versicherungsduplikat erlaubt bei nachgewiesenem Identitätsmissbrauch eine Sperre zugunsten der tatsächlichen Hinterbliebenen. Ihr Anspruch muss danach einzeln geprüft werden.",
+      "footer": "Die Beobachtung steht in deiner Akte.",
+      "marker": true,
+      "done_flag": "k2a_hafenrecht_ort_g2_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k2a_hafenrecht_h_g2"
+        ]
+      }
+    }
+  },
+  {
+    "map": "wx_bojenhafen",
+    "tile": [
+      23,
+      7
+    ],
+    "npc": "wxn_hafenmeisterin",
+    "visible_if": {
+      "requires_flags": [
+        "k2_akt2_done"
+      ]
+    }
+  },
+  {
+    "map": "wx_salzmarkt",
+    "tile": [
+      31,
+      8
+    ],
+    "npc": "k2a_noll",
+    "visible_if": {
+      "requires_flags": [
+        "k2_akt2_done"
+      ],
+      "hide_if_flags": [
+        "k2a_hafenrecht_done"
+      ]
+    }
+  },
+  {
+    "map": "wx_bojenhafen",
+    "tile": [
+      24,
+      7
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k2a_hafenrecht"
+      ]
+    },
+    "interactable": {
+      "id": "k2a_hafenrecht_polizei",
+      "kind": "dialogue",
+      "dialogue": "k2a_hafenrecht_kontrolle",
+      "title": "Die Kontrolle ansprechen",
+      "role": "Ermittlung",
+      "prompt": "Die Kontrolle ansprechen",
+      "marker": true
+    }
+  },
+  {
+    "map": "wx_salzwatt",
+    "tile": [
+      20,
+      14
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k2a_hafenrecht"
+      ],
+      "requires_flags": [
+        "k2a_hafenrecht_gestellt"
+      ]
+    },
+    "interactable": {
+      "id": "k2a_hafenrecht_finale",
+      "kind": "dialogue",
+      "dialogue": "k2a_hafenrecht_showdown",
+      "title": "Den Schauplatz von „Hafenrecht“ sichern",
+      "role": "Ermittlung",
+      "prompt": "Den Schauplatz von „Hafenrecht“ sichern",
+      "marker": true
+    }
+  },
+  {
+    "map": "wx_oberstadt",
+    "tile": [
+      5,
+      7
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k2a_letztes_bild"
+      ]
+    },
+    "interactable": {
+      "id": "k2a_letztes_bild_ort_a1",
+      "kind": "read",
+      "title": "Sieben Tage Abstand",
+      "prompt": "Sieben Tage Abstand",
+      "text": "Drei angenommene Bilder für Noa Halm, Iven Dorr und Lotte Rehn, drei Vermisstenanzeigen auf dieselben Namen. Zwischen der jeweiligen Abholung und dem Verschwinden liegen genau sieben Tage. Das nächste Bild ist noch nicht ausgehändigt.",
+      "footer": "Die Beobachtung steht in deiner Akte.",
+      "marker": true,
+      "done_flag": "k2a_letztes_bild_ort_a1_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k2a_letztes_bild_h_a1"
+        ]
+      }
+    }
+  },
+  {
+    "map": "wx_salzmarkt",
+    "tile": [
+      13,
+      7
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k2a_letztes_bild"
+      ]
+    },
+    "interactable": {
+      "id": "k2a_letztes_bild_ort_b2",
+      "kind": "read",
+      "title": "Unterschrift nach dem Tod",
+      "prompt": "Unterschrift nach dem Tod",
+      "text": "Noa Halm hat zwei Tage nach dem Datum ihres Totenbildes persönlich für ein Zimmer bezahlt. Hespers Tageskasse und die Bedienung bestätigen denselben Abend.",
+      "footer": "Die Beobachtung steht in deiner Akte.",
+      "marker": true,
+      "done_flag": "k2a_letztes_bild_ort_b2_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k2a_letztes_bild_h_b2"
+        ]
+      }
+    }
+  },
+  {
+    "map": "wx_pfahldorf",
+    "tile": [
+      15,
+      4
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k2a_letztes_bild"
+      ]
+    },
+    "interactable": {
+      "id": "k2a_letztes_bild_ort_c1",
+      "kind": "read",
+      "title": "Der leere Registerplatz",
+      "prompt": "Der leere Registerplatz",
+      "text": "1790 wurde Elin Voss, Verwalterin der Namenlisten, vollständig aus dem Register gestrichen. Ein Randvermerk spricht von „Entlassung aus jeder Erinnerung“, nicht von einer Beerdigung.",
+      "footer": "Die Beobachtung steht in deiner Akte.",
+      "marker": true,
+      "done_flag": "k2a_letztes_bild_ort_c1_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k2a_letztes_bild_h_c1"
+        ]
+      }
+    }
+  },
+  {
+    "map": "wx_oberstadt",
+    "tile": [
+      6,
+      7
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k2a_letztes_bild"
+      ]
+    },
+    "interactable": {
+      "id": "k2a_letztes_bild_ort_c2",
+      "kind": "read",
+      "title": "Die Frau am Rand",
+      "prompt": "Die Frau am Rand",
+      "text": "Ein Bildabzug mit dem Namen Elin Voss zeigt dieselbe Frau und denselben fehlenden Manschettenknopf wie die Hintergründe. Die Rückseite trägt 1790 und den Stempel des damaligen Registers.",
+      "footer": "Die Beobachtung steht in deiner Akte.",
+      "marker": true,
+      "done_flag": "k2a_letztes_bild_ort_c2_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k2a_letztes_bild_h_c2"
+        ]
+      }
+    }
+  },
+  {
+    "map": "wx_oberstadt",
+    "tile": [
+      9,
+      7
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k2a_letztes_bild"
+      ]
+    },
+    "interactable": {
+      "id": "k2a_letztes_bild_ort_d2",
+      "kind": "read",
+      "title": "Graue Schicht unter fremder Farbe",
+      "prompt": "Graue Schicht unter fremder Farbe",
+      "text": "Unter allen neuen Bildern liegt dieselbe graue Grundierung. Ein älteres Totenbild ohne diese Schicht zeigt nur seinen Verstorbenen, auch nach Jahren.",
+      "footer": "Die Beobachtung steht in deiner Akte.",
+      "marker": true,
+      "done_flag": "k2a_letztes_bild_ort_d2_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k2a_letztes_bild_h_d2"
+        ]
+      }
+    }
+  },
+  {
+    "map": "wx_oberstadt",
+    "tile": [
+      10,
+      7
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k2a_letztes_bild"
+      ]
+    },
+    "interactable": {
+      "id": "k2a_letztes_bild_ort_e1",
+      "kind": "read",
+      "title": "Drei Atemflecken",
+      "prompt": "Drei Atemflecken",
+      "text": "Auf der Innenseite der Gläser entstehen drei Atemflecken. Aus der gemalten Tür dringt Noas Ruf nach Hesper. Die vermissten Menschen leben noch hinter den Hintergründen.",
+      "footer": "Die Beobachtung steht in deiner Akte.",
+      "marker": true,
+      "done_flag": "k2a_letztes_bild_ort_e1_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k2a_letztes_bild_h_e1"
+        ]
+      }
+    }
+  },
+  {
+    "map": "wx_pfahldorf",
+    "tile": [
+      16,
+      4
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k2a_letztes_bild"
+      ]
+    },
+    "interactable": {
+      "id": "k2a_letztes_bild_ort_f1",
+      "kind": "read",
+      "title": "Die Rückseite führt die Namen",
+      "prompt": "Die Rückseite führt die Namen",
+      "text": "„Irrtümlich gestrichene Personen einzeln rückseitig eintragen. Den gestrichenen Verwalter zuerst benennen. Bis zur Trennung kein Feuer an Rahmen oder Liste.“ Die Anleitung nennt Rückgabe, nicht Wiederbelebung.",
+      "footer": "Die Beobachtung steht in deiner Akte.",
+      "marker": true,
+      "done_flag": "k2a_letztes_bild_ort_f1_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k2a_letztes_bild_h_f1"
+        ]
+      }
+    }
+  },
+  {
+    "map": "wx_salzmarkt",
+    "tile": [
+      14,
+      7
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k2a_letztes_bild"
+      ]
+    },
+    "interactable": {
+      "id": "k2a_letztes_bild_ort_g2",
+      "kind": "read",
+      "title": "Kein Werk der Erben",
+      "prompt": "Kein Werk der Erben",
+      "text": "Die Bilder wurden von den angeblich Verstorbenen selbst bezahlt. Der Erbe, der sich zuerst beschwerte, hatte weder Zugang zum Atelier noch eine Zahlung an Vane geleistet.",
+      "footer": "Die Beobachtung steht in deiner Akte.",
+      "marker": true,
+      "done_flag": "k2a_letztes_bild_ort_g2_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k2a_letztes_bild_h_g2"
+        ]
+      }
+    }
+  },
+  {
+    "map": "wx_oberstadt",
+    "tile": [
+      7,
+      7
+    ],
+    "npc": "wxn_maler",
+    "visible_if": {
+      "requires_flags": [
+        "k2_akt3_done"
+      ]
+    }
+  },
+  {
+    "map": "wx_oberstadt",
+    "tile": [
+      8,
+      7
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k2a_letztes_bild"
+      ]
+    },
+    "interactable": {
+      "id": "k2a_letztes_bild_polizei",
+      "kind": "dialogue",
+      "dialogue": "k2a_letztes_bild_kontrolle",
+      "title": "Die Kontrolle ansprechen",
+      "role": "Ermittlung",
+      "prompt": "Die Kontrolle ansprechen",
+      "marker": true
+    }
+  },
+  {
+    "map": "wx_oberstadt",
+    "tile": [
+      6,
+      8
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k2a_letztes_bild"
+      ],
+      "requires_flags": [
+        "k2a_letztes_bild_gestellt"
+      ]
+    },
+    "interactable": {
+      "id": "k2a_letztes_bild_finale",
+      "kind": "dialogue",
+      "dialogue": "k2a_letztes_bild_showdown",
+      "title": "Den Schauplatz von „Das letzte Bild“ sichern",
+      "role": "Ermittlung",
+      "prompt": "Den Schauplatz von „Das letzte Bild“ sichern",
+      "marker": true
+    }
+  }
+]
