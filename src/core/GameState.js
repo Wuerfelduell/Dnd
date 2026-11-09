@@ -41,6 +41,7 @@ export class GameState {
     this.maxHp = s.hp ?? DEFAULT_HP;
     this.hp = this.maxHp;
     this.inventory = { ...(s.items ?? {}) }; // id -> Anzahl
+    this.storage = {}; // Lagerschrank im eigenen Büro: id -> Anzahl
     this.weapon = s.weapon ?? null;
     this.pendingCombat = null;
     this.tracked = null; // verfolgter Auftrag (Journal-Wegweiser)
@@ -356,6 +357,42 @@ export class GameState {
     return Object.keys(this.inventory).map((id) => ({ id, count: this.inventory[id], ...this.item(id) }));
   }
 
+  // --- Lager im eigenen Büro ------------------------------------------------------
+  /** Beweisstücke (Art "key") bleiben beim Ermittler, alles andere darf in den Schrank. */
+  canStore(id) {
+    const it = this.item(id);
+    return !!it && it.kind !== 'key';
+  }
+
+  storedCount(id) {
+    return this.storage[id] ?? 0;
+  }
+
+  /** Liste für den Schrank: [{id, count, ...gegenstand}] */
+  storedItems() {
+    return Object.keys(this.storage).map((id) => ({ id, count: this.storage[id], ...this.item(id) }));
+  }
+
+  storeItem(id, n = 1) {
+    if (!this.canStore(id)) return { ok: false, text: 'Beweisstücke behältst du lieber bei dir.' };
+    n = Math.min(n, this.itemCount(id));
+    if (n <= 0) return { ok: false, text: 'Davon hast du nichts dabei.' };
+    this.removeItem(id, n);
+    this.storage[id] = this.storedCount(id) + n;
+    this.emit('changed');
+    return { ok: true, text: `Eingelagert: ${this.item(id).name}${n > 1 ? ` ×${n}` : ''}.` };
+  }
+
+  retrieveItem(id, n = 1) {
+    n = Math.min(n, this.storedCount(id));
+    if (n <= 0) return { ok: false, text: 'Das liegt nicht im Schrank.' };
+    this.storage[id] -= n;
+    if (this.storage[id] <= 0) delete this.storage[id];
+    this.addItem(id, n);
+    this.emit('changed');
+    return { ok: true, text: `Herausgenommen: ${this.item(id).name}${n > 1 ? ` ×${n}` : ''}.` };
+  }
+
   weaponStats() {
     const w = this.weapon ? this.item(this.weapon) : { name: 'Fäuste', atk: 3 };
     const bonus = this.passive('atk');
@@ -472,6 +509,7 @@ export class GameState {
       endings: this.endings,
       hp: this.hp,
       inventory: this.inventory,
+      storage: this.storage,
       weapon: this.weapon,
       tracked: this.tracked,
       ...this.serializePathway(),
@@ -497,6 +535,7 @@ export class GameState {
       this.hp = Math.max(1, Math.min(this.maxHp, data.hp ?? this.maxHp));
       this.inventory = Object.fromEntries(Object.entries(data.inventory ?? {}).filter(([i, n]) => this.item(i) && n > 0));
       this.weapon = this.inventory[data.weapon] ? data.weapon : null;
+      this.storage = Object.fromEntries(Object.entries(data.storage ?? {}).filter(([i, n]) => this.item(i) && n > 0));
     }
     // Ab Version 4: Schilling, Pfad und Unruhe
     if (data.v >= 4) this.loadPathway(data);

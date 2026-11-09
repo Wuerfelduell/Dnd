@@ -421,3 +421,10 @@ img.scene { display: block; width: 30em; height: 16.875em; margin: 0 auto 0.6em;
 
 /* Querverbindung: Information aus einem anderen Fall */
 .notebook .fact .cross { display: block; font-size: 0.8em; color: var(--occult); font-style: italic; }
+/* Eigenes Büro: Lagerschrank und Fallwand */
+.storage { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8em; }
+.storage h4 { margin: 0 0 0.3em; color: var(--gold); font-size: 0.9em; }
+.storage .items { grid-template-columns: 1fr; max-height: 16em; }
+.casewall { list-style: none; margin: 0.5em 0 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 0.4em; max-height: 14em; overflow-y: auto; }
+.casewall li { display: flex; gap: 0.5em; align-items: center; font-size: 0.85em; }
+.casewall img { width: 32px; height: auto; image-rendering: pixelated; }

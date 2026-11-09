@@ -932,7 +932,7 @@ export class Ui {
       const sellable = s.items().filter((it) => s.sellPrice(it.id) !== null);
       this.shop.entries = sellable.map((it) => ({ id: it.id }));
       rows = sellable.map((it, i) => `<li class="item"><div>${itemIconBig(it.id)}<strong>${esc(it.name)}</strong>${it.count > 1 ? ` ×${it.count}` : ''}<br><span class="desc">${esc(it.desc)}</span></div>
-        <div><button class="small" data-sell="${i}">${i < 9 ? `<span class="key">${i + 1}</span> ` : ''}${s.sellPrice(it.id)} Sch.</button></div></li>`).join('') || '<li class="empty">Nichts, was Gorse haben will.</li>';
+        <div><button class="small" data-sell="${i}">${i < 9 ? `<span class="key">${i + 1}</span> ` : ''}${s.sellPrice(it.id)} Sch.</button></div></li>`).join('') || `<li class="empty">Nichts, was ${esc(m.name)} haben will.</li>`;
     }
     const el = this.open('shop', `
       <h3>${esc(m.name)} <span class="muted">${esc(m.title)}</span></h3>
@@ -953,6 +953,46 @@ export class Ui {
     if (!e) return;
     const r = sh.mode === 'buy' ? this.state.buy(sh.id, e.id) : this.state.sell(e.id);
     this.openShop(sh.id, sh.mode, `<span class="${r.ok ? 'good' : ''}">${esc(r.text)}</span>`);
+  }
+
+  // --- Eigenes Büro: Lagerschrank und Fallwand -------------------------------------------
+
+  /** Zwei Spalten: was du dabeihast und was im Schrank liegt. */
+  openStorage(feedback = '') {
+    const s = this.state;
+    const row = (it, act, label, all) => `<li class="item"><div>${itemIcon(it.id)}<strong>${esc(it.name)}</strong>${it.count > 1 ? ` ×${it.count}` : ''}</div>
+      <div><button class="small" data-${act}="${it.id}">${label}</button>${it.count > 1 ? ` <button class="small" data-${act}-all="${it.id}">${all}</button>` : ''}</div></li>`;
+    const carried = s.items().filter((it) => s.canStore(it.id));
+    const stored = s.storedItems();
+    const el = this.open('storage', `
+      <h3>Asservatenschrank <span class="muted">Dein Büro im Revier</span></h3>
+      <p class="lead">Was hier liegt, ist sicher, auch wenn du unterwegs ohnmächtig wirst oder ausgeraubt wirst. Beweisstücke bleiben bei dir.</p>
+      <div class="storage">
+        <div><h4>Bei dir</h4><ul class="items">${carried.map((it) => row(it, 'store', 'Einlagern', 'Alle')).join('') || '<li class="empty">Nichts zum Einlagern.</li>'}</ul></div>
+        <div><h4>Im Schrank</h4><ul class="items">${stored.map((it) => row(it, 'take', 'Nehmen', 'Alle')).join('') || '<li class="empty">Der Schrank ist leer.</li>'}</ul></div>
+      </div>
+      <div class="feedback">${feedback}</div>
+      <div class="actions"><button data-act="close">Schließen <span class="key">Esc</span></button></div>`, 'notebook shop storage-panel');
+    const act = (fn) => (b) => {
+      const r = fn(b);
+      this.openStorage(`<span class="${r.ok ? 'good' : ''}">${esc(r.text)}</span>`);
+    };
+    el.querySelectorAll('[data-store]').forEach((b) => { b.onclick = () => act(() => s.storeItem(b.dataset.store, 1))(b); });
+    el.querySelectorAll('[data-store-all]').forEach((b) => { b.onclick = () => act(() => s.storeItem(b.dataset.storeAll, s.itemCount(b.dataset.storeAll)))(b); });
+    el.querySelectorAll('[data-take]').forEach((b) => { b.onclick = () => act(() => s.retrieveItem(b.dataset.take, 1))(b); });
+    el.querySelectorAll('[data-take-all]').forEach((b) => { b.onclick = () => act(() => s.retrieveItem(b.dataset.takeAll, s.storedCount(b.dataset.takeAll)))(b); });
+    el.querySelector('[data-act=close]').onclick = () => this.close();
+  }
+
+  /** Fallwand im Büro: alle abgeschlossenen Fälle mit Aktendeckel und Ausgang. */
+  showCaseWall() {
+    const s = this.state;
+    const cases = Object.entries(s.endings).map(([caseId, endId]) => ({ caseId, quest: s.quest(caseId), end: s.content.endings[endId] }));
+    const extra = cases.length ? `<ul class="casewall">${cases.map((c) => `<li><img src="${caseFileUrl(c.caseId)}" alt="" onerror="this.remove()">
+      <div><strong>${esc(c.quest?.title ?? c.caseId)}</strong><br><span class="muted">${esc(c.end?.title ?? '')}</span></div></li>`).join('')}</ul>` : '';
+    this.showMessage('Fallwand', cases.length
+      ? 'Zeitungsausschnitte, Fotos, rote Fäden. Jeder Fall, den du abgeschlossen hast, hängt hier.'
+      : 'Noch leer. Ein paar Reißzwecken warten auf deinen ersten abgeschlossenen Fall.', { extra, footer: `Rang: ${s.rank().name} · Ansehen ${s.honor}` });
   }
 
   // --- Kampf -----------------------------------------------------------------
@@ -1033,13 +1073,17 @@ export class Ui {
     const c = sc.combat;
     let entries;
     if (sub === 'main') {
+      const items = this.state.items().filter((i) => i.kind === 'consumable').length;
       entries = [
-        { text: 'Angriff', info: '+1 K', act: { type: 'skill', id: 'attack' } },
+        { text: 'Angriff', info: '+1 K · beendet den Zug', act: { type: 'skill', id: 'attack' } },
         { text: 'Fertigkeiten', info: `${c.ap} K`, sub: 'skills' },
-        { text: 'Gegenstände', info: `${this.state.items().filter((i) => i.kind === 'consumable').length}`, sub: 'items' },
+        { text: 'Gegenstände', info: c.canUseItem() ? `${items}` : 'schon benutzt', sub: 'items', disabled: !c.canUseItem() },
         { text: 'Fliehen', info: c.canFlee() ? '' : 'unmöglich', act: { type: 'flee' }, disabled: !c.canFlee() },
       ];
-      this.layer.querySelector('.cb-text').innerHTML = `<p>Runde ${c.round}. Was tust du?</p>`;
+      if (c.actions) entries.push({ text: 'Zug beenden', info: '', act: { type: 'end' } });
+      this.layer.querySelector('.cb-text').innerHTML = c.actions
+        ? `<p>${esc(c.log.at(-1) ?? '')}.</p><p>Runde ${c.round}: Du bist noch am Zug (${c.ap} Konzentration). Fertigkeiten kosten Konzentration, ein Gegenstand pro Zug.</p>`
+        : `<p>Runde ${c.round}. Was tust du? Solange die Konzentration reicht, kannst du mehrere Fertigkeiten nacheinander einsetzen.</p>`;
       this.layer.querySelector('.cb-help').textContent = '';
     } else if (sub === 'skills') {
       entries = c.skills().filter((k) => k.id !== 'attack').map((k) => ({
@@ -1141,7 +1185,7 @@ export class Ui {
     else if (this.modal === 'notebook' && (k === 'j' || k === 'i' || k === 'p' || k === 'tab' || k === 'escape')) this.close();
     else if (this.modal === 'shop' && num >= 0) this.shopPick(num);
     else if (this.modal === 'shop' && k === 'v' && this.state.merchant(this.shop.id).buys) this.openShop(this.shop.id, this.shop.mode === 'buy' ? 'sell' : 'buy');
-    else if ((this.modal === 'shop' || this.modal === 'brew') && (k === 'escape' || k === 'e')) this.close();
+    else if ((this.modal === 'shop' || this.modal === 'brew' || this.modal === 'storage') && (k === 'escape' || k === 'e')) this.close();
     else if (this.modal === 'brew' && num >= 0 && this.brewList?.[num]) this.brew(this.brewList[num].formula);
     else if (this.modal === 'notebook' && k === 'v') this.combine();
     else if (this.modal === 'notebook' && k === 't') this.showHint();

@@ -18,6 +18,7 @@ export function loadContent() {
     travel: load('travel.json'),
     wilds: load('wilds.json'),
     factions: load('factions.json'),
+    buildings: load('gebaeude.json'),
   });
 }
 

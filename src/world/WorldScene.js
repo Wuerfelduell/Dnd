@@ -4,6 +4,7 @@ import { createTextures, createCharacterSheet, hash2, TILE, TILE_INDEX, SOLID_KE
 import { Lighting, DEPTH } from './Lighting.js';
 import { preloadSprites, playSheetAnim, themeKeys, facadeKeys, PROP_ORIGINS, MAP_WEATHER } from './assets.js';
 import { Roamers } from './Roamers.js';
+import { Critters } from './Critters.js';
 
 export const VIEW_W = 480;
 export const VIEW_H = 270;
@@ -186,6 +187,7 @@ export class WorldScene extends Phaser.Scene {
     this.lighting = new Lighting(this, { width: VIEW_W, height: VIEW_H });
     this.baseNight = amb.night ?? 0.88;
     this.blockers = this.physics.add.staticGroup();
+    this.critters = new Critters(this);
     this.buildLamps();
     this.buildWindows();
     this.buildObjects();
@@ -287,8 +289,10 @@ export class WorldScene extends Phaser.Scene {
       if (def.flip) img.setFlipX(true);
       // ysort: Tiefe nach Fußpunkt, damit Figuren davor oder dahinter stehen können
       img.setDepth(def.ysort ? 100 + img.y + img.displayHeight * (1 - img.originY) : def.depth ?? 50);
-      if (def.anim) playSheetAnim(img, ...def.anim);
-      else if (this.anims.exists(def.sprite)) img.play({ key: def.sprite, startFrame: Math.floor(hash2(tx, ty, 1) * (img.texture.frameTotal - 1)) });
+      if (def.anim) {
+        playSheetAnim(img, ...def.anim);
+        this.critters.add(img, def);
+      } else if (this.anims.exists(def.sprite)) img.play({ key: def.sprite, startFrame: Math.floor(hash2(tx, ty, 1) * (img.texture.frameTotal - 1)) });
       if (def.solid) this.addBlocker(x + (def.solid[2] ?? 0), y + (def.solid[3] ?? 0), def.solid[0], def.solid[1]);
       if (def.light) {
         const l = def.light;
@@ -541,6 +545,7 @@ export class WorldScene extends Phaser.Scene {
     if (!blocked) this.state.tick(delta / 1000);
     this.updateMovement(blocked);
     this.roamers.update(time, delta, blocked || this.leaving);
+    this.critters.update(time, delta, blocked);
     this.updateFocus(blocked);
     this.checkAuto(blocked);
     this.handleKeys(blocked);
@@ -700,6 +705,13 @@ export class WorldScene extends Phaser.Scene {
       case 'brew':
         this.ui.openBrew();
         break;
+      case 'storage':
+        this.playPlayerAction('pickup');
+        this.ui.openStorage();
+        break;
+      case 'casewall':
+        this.ui.showCaseWall();
+        break;
       case 'combat':
         this.startCombat(def.encounter);
         break;
@@ -715,6 +727,7 @@ export class WorldScene extends Phaser.Scene {
         break;
       }
       case 'door':
+        this.playPlayerAction('door');
         this.travelTo(def.to, def.spawn);
         break;
       case 'read': {

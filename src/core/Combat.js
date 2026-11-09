@@ -20,6 +20,8 @@ export const ARMOR = { elite: 2, boss: 3 }; // zieht jedem Treffer so viel ab (m
 export const COUNTER_MULT = 0.3; // Konter nach einer Parade
 export const RIPOSTE_MULT = 1.0; // Gegenschlag nach voll parierter Attacke
 export const FOLLOWUP_CHANCE = 0.3; // Eliten und Bosse hängen manchmal einen Schlag an
+export const RING_GAP = 80; // ms Pause zwischen Einschlag und nächstem Ring
+export const RING_FOLLOW_LEAD = 500; // Vorlauf der Folgeringe in der Übung
 export const JITTER = 160; // Schläge kommen zufällig bis zu so viel früher/später
 // Wie sich der Ring zusammenzieht: u = vergangene Zeit (0..1) -> Anteil geschlossen (0..1).
 // Der Einschlag bleibt immer bei u = 1, nur das Tempo des Rings täuscht.
@@ -84,6 +86,8 @@ export class Combat {
     this.ap = AP_START;
     this.stunned = false;
     this.round = 1;
+    this.actions = 0; // Aktionen in diesem Zug
+    this.itemUsed = false; // höchstens ein Gegenstand pro Zug
     this.attackIndex = 0;
     this.outcome = null; // 'won' | 'lost' | 'fled'
     this.hpBefore = state.hp;
@@ -123,6 +127,24 @@ export class Combat {
     return !!this.skills().find((s) => s.id === skillId && s.usable);
   }
 
+  /**
+   * Mehrere Aktionen pro Zug, solange Konzentration reicht. Der einfache Angriff
+   * (kostet nichts, bringt Konzentration) beendet den Zug.
+   */
+  endsTurn(skillId) {
+    return !this.skillDef(skillId)?.cost;
+  }
+
+  canUseItem() {
+    return !this.itemUsed;
+  }
+
+  /** Neuer Zug des Spielers. */
+  startTurn() {
+    this.actions = 0;
+    this.itemUsed = false;
+  }
+
   /** Schaden eines Treffers mit Waffe und Bewertung. */
   hitDamage(mult, grade) {
     const w = this.state.weaponStats();
@@ -141,6 +163,7 @@ export class Combat {
     const sk = this.skillDef(skillId);
     if (!this.canUse(skillId)) throw new Error(`Fertigkeit nicht möglich: ${skillId}`);
     this.ap -= sk.cost;
+    this.actions += 1;
     const cc = this.composureCost(sk);
     if (cc) this.state.setComposure(this.state.composure - cc);
     const hits = grades.slice(0, sk.hits).map((g) => {
@@ -185,7 +208,9 @@ export class Combat {
   /** Gegenstand im Kampf. Ergebnis: { text } oder null, wenn nicht möglich. */
   useItem(id) {
     const it = this.state.item(id);
-    if (!it || it.kind !== 'consumable' || !this.state.itemCount(id)) return null;
+    if (!it || it.kind !== 'consumable' || !this.state.itemCount(id) || this.itemUsed) return null;
+    this.itemUsed = true;
+    this.actions += 1;
     this.state.removeItem(id);
     const parts = this.state.applyConsumable(it);
     if (it.damage) {
@@ -286,16 +311,22 @@ export class Combat {
     const tough = !this.enc.practice && (this.enc.elite || this.enc.boss);
     const followup = tough && this.rng() < FOLLOWUP_CHANCE;
     if (followup) src.push(src.at(-1) + 330 + Math.round(this.rng() * 200));
-    for (const h of src) {
+    // Jeder Ring bekommt ein eigenes Tempo und eine eigene Vorlaufzeit (Übung bleibt gleichmäßig).
+    // Folgeschläge einer Kombo haben kürzeren Vorlauf.
+    const names = Object.keys(RING_CURVES);
+    const rings = src.map((_, i) => (this.enc.practice
+      ? { curve: 'linear', lead: i ? RING_FOLLOW_LEAD : 750 }
+      : {
+        curve: names[Math.floor(this.rng() * names.length)],
+        lead: Math.round(i ? 380 + this.rng() * 180 : 560 + this.rng() * 360),
+      }));
+    for (const [i, h] of src.entries()) {
       let t = h * speed + (this.enc.practice ? 0 : (this.rng() * 2 - 1) * JITTER);
-      t = Math.max(450, t, (hits.at(-1) ?? 0) + 230);
+      // Ein Ring erscheint erst, wenn der vorige eingeschlagen hat: keine Überlappung
+      const prev = hits.at(-1);
+      t = Math.max(450, t, prev === undefined ? 0 : prev + rings[i].lead + RING_GAP);
       hits.push(Math.round(t));
     }
-    // Jeder Ring bekommt ein eigenes Tempo und eine eigene Vorlaufzeit (Übung bleibt gleichmäßig)
-    const names = Object.keys(RING_CURVES);
-    const rings = hits.map(() => (this.enc.practice
-      ? { curve: 'linear', lead: 750 }
-      : { curve: names[Math.floor(this.rng() * names.length)], lead: Math.round(560 + this.rng() * 360) }));
     return { ...atk, damage: Math.max(1, Math.round(atk.damage * dmgMult)), hits, rings, followup, unparryable: this.unparryable.has(atk.name), enraged: rage };
   }
 
@@ -345,6 +376,7 @@ export class Combat {
   /** Rundenende: Brand/Gift wirkt auf den Gegner, Blutung auf dich (bleedTick). Gibt den Schaden am Gegner zurück. */
   endRound() {
     this.round += 1;
+    this.startTurn();
     this.bleedTick = 0;
     if (this.outcome) return 0;
     if (this.bleed) {

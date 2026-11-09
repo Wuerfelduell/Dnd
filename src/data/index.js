@@ -62,6 +62,7 @@ import kontorThorne from './maps/kontor_thorne.json';
 import waisenhaus from './maps/waisenhaus.json';
 import traumkeller from './maps/traumkeller.json';
 import dFall78 from './dialogues/fall78.json';
+import buildings from './gebaeude.json';
 
 export const content = buildContent({
   campaign,
@@ -76,4 +77,5 @@ export const content = buildContent({
   travel,
   wilds,
   factions,
+  buildings,
 });
