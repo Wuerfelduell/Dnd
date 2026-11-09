@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="de">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Nebelakten · Geräuscharchiv</title>
+<style>
+:root{color-scheme:dark;font:16px system-ui;background:#101b20;color:#e8dfca}body{max-width:1100px;margin:auto;padding:24px}h1{font:2.4rem Georgia;color:#d9bc7b}h2{border-bottom:1px solid #425158;padding-bottom:8px}header{position:sticky;top:0;background:#101b20f5;padding:10px 0;z-index:1}button,select,input{font:inherit}button,select{background:#263c43;color:#f7ecd3;border:1px solid #78938f;border-radius:5px;padding:8px;cursor:pointer}button:hover{background:#39565c}#groups{display:grid;gap:12px}.rows{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:12px}.sound{background:#1b2a30;padding:14px;border-radius:8px}small{display:block;color:#aebfb7;margin:8px 0}.sound p{min-height:2.5em}code{overflow-wrap:anywhere}#status{color:#b7d7cb;min-height:1.5em}label{display:inline-block;margin:6px 12px 6px 0}footer{margin:40px 0;color:#aebfb7}
+</style>
+<h1>Nebelakten · Geräuscharchiv</h1>
+<p>Originale Synthese für Kettlegate und Wexmoor. Alle Varianten einzeln anhören; Schleifen laufen bis „Stopp“.</p>
+<header><label>Format <select id="format"><option>ogg</option><option>mp3</option></select></label><label>Lautstärke <input id="volume" type="range" min="0" max="1" step=".01" value=".6"></label><label>Filtern <input id="filter" type="search" placeholder="ID oder Beschreibung"></label><button id="stop">Alles stoppen</button><div role="status" id="status">Lade Manifest …</div></header>
+<div id="groups"></div><footer>OGG Vorbis Q3 · MP3 96 kbit/s · Mono · 44,1 kHz · keine fremden Samples</footer>
+<script type="module">
+const $=id=>document.getElementById(id);
+const root=new URL('../../../public/',location.href);
+let context, current, currentGain, serial=0;
+if(!document.createElement('audio').canPlayType('audio/ogg; codecs="vorbis"'))$('format').value='mp3';
+function stop(){serial++;if(current){current.stop();current.disconnect();current=null}currentGain?.disconnect();currentGain=null;$('status').textContent='Gestoppt.'}
+$('stop').onclick=stop;
+$('format').onchange=stop;
+$('volume').oninput=()=>{if(currentGain)currentGain.gain.value=Number($('volume').value)*currentGain.mix};
+document.addEventListener('visibilitychange',()=>{if(document.hidden)stop()});
+async function play(id,entry,seam=false){
+ stop();const request=serial;
+ context??=new(window.AudioContext||window.webkitAudioContext)();await context.resume();
+ try{
+  const response=await fetch(new URL(`audio/sfx/${id}.${$('format').value}`,root));
+  if(!response.ok)throw new Error(`HTTP ${response.status}`);
+  const buffer=await context.decodeAudioData(await response.arrayBuffer());
+  if(request!==serial)return;
+  current=context.createBufferSource();current.buffer=buffer;current.loop=!!entry.loop;
+  currentGain=context.createGain();currentGain.mix=entry.volume;currentGain.gain.value=Number($('volume').value)*entry.volume;
+  current.connect(currentGain).connect(context.destination);
+  current.start(0,seam?Math.max(0,buffer.duration-.75):0);
+  $('status').textContent=`${id} · ${buffer.duration.toFixed(3)} s · ${entry.loop?'Schleife läuft':'Einzelklang'}`;
+ }catch(error){$('status').textContent=`Wiedergabe fehlgeschlagen: ${error.message}`}
+}
+try{
+ const response=await fetch(new URL('audio/manifest-sfx.json',root));if(!response.ok)throw new Error(`HTTP ${response.status}`);
+ const manifest=await response.json();
+ for(const group of ['ui','schritte','welt','polizei','kampf','okkult','atmo']){
+  const section=document.createElement('section');const title=document.createElement('h2');title.textContent=group;section.append(title);
+  const rows=document.createElement('div');rows.className='rows';section.append(rows);$('groups').append(section);
+  for(const [id,entry] of Object.entries(manifest.sounds).filter(([,e])=>e.group===group)){
+   const card=document.createElement('article');card.className='sound';card.dataset.search=`${id} ${entry.note}`.toLowerCase();
+   const name=document.createElement('code');name.textContent=id;card.append(name);
+   const note=document.createElement('p');note.textContent=entry.note;card.append(note);
+   const details=document.createElement('small');details.textContent=`${entry.duration} s · Mischung ${entry.volume}${entry.loop?' · nahtlose Schleife':''}`;card.append(details);
+   for(let v=1;v<=(entry.variants||1);v++){
+    const file=entry.variants?`${id}_${v}`:id;const button=document.createElement('button');button.textContent=entry.variants?`▶ ${v}`:'▶ Anhören';button.onclick=()=>play(file,entry);card.append(button,' ');
+   }
+   if(entry.loop){const button=document.createElement('button');button.textContent='Übergang testen';button.onclick=()=>play(id,entry,true);card.append(button)}
+   rows.append(card);
+  }
+ }
+ $('status').textContent=`${Object.keys(manifest.sounds).length} IDs bereit. Wiedergabe startet erst per Klick.`;
+ $('filter').oninput=()=>{const q=$('filter').value.toLowerCase();for(const card of document.querySelectorAll('.sound'))card.hidden=!card.dataset.search.includes(q)};
+}catch(error){$('status').textContent=`Archiv nicht geladen: ${error.message}. Vom Repository aus mit python -m http.server 8000 starten.`}
+</script>
+</html>
