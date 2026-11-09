@@ -222,5 +222,783 @@
     "name": "Marlowes Empfehlungsschreiben",
     "kind": "key",
     "desc": "Versiegelt, adressiert an das Polizeiamt Wexmoor. Unterschrieben mit einem Namen, den Marlowe nie benutzt."
+  },
+  "mantel_wolle": {
+    "name": "Wollmantel",
+    "kind": "gear",
+    "slot": "mantel",
+    "price": 20,
+    "weight": 3,
+    "boons": [
+      {
+        "key": "max_hp",
+        "value": 3,
+        "text": "+3 Leben"
+      }
+    ],
+    "desc": "Ein schlichter grauer Wollmantel. Hält Wind und Nässe ab."
+  },
+  "mantel_gewachst": {
+    "name": "Gewachster Ölmantel",
+    "kind": "gear",
+    "slot": "mantel",
+    "price": 28,
+    "weight": 3,
+    "boons": [
+      {
+        "key": "damage_taken",
+        "value": 0.95,
+        "text": "5 % weniger Schaden"
+      }
+    ],
+    "desc": "Dunkelgrünes Ölzeug, wie es die Kanalschiffer tragen. Regen perlt einfach ab."
+  },
+  "mantel_flicken": {
+    "name": "Flickenmantel",
+    "kind": "gear",
+    "slot": "mantel",
+    "price": 24,
+    "weight": 3,
+    "boons": [
+      {
+        "key": "carry",
+        "value": 6,
+        "text": "+6 Pfund Tragkraft"
+      }
+    ],
+    "desc": "Braun, oft geflickt und voller Taschen. Irgendwo ist immer noch Platz."
+  },
+  "mantel_samt": {
+    "name": "Samtgehrock",
+    "kind": "gear",
+    "slot": "mantel",
+    "price": 45,
+    "weight": 2,
+    "boons": [
+      {
+        "key": "price",
+        "value": 0.92,
+        "text": "8 % billiger einkaufen"
+      },
+      {
+        "key": "honor_loss",
+        "value": 0.85,
+        "text": "Ansehen sinkt langsamer"
+      }
+    ],
+    "desc": "Pflaumenfarbener Samt. In feinen Häusern öffnet er Türen und Münder."
+  },
+  "mantel_polizei": {
+    "name": "Revier-Umhang",
+    "kind": "gear",
+    "slot": "mantel",
+    "price": 40,
+    "weight": 3,
+    "boons": [
+      {
+        "key": "honor_loss",
+        "value": 0.75,
+        "text": "Ansehen sinkt viel langsamer"
+      },
+      {
+        "key": "max_hp",
+        "value": 2,
+        "text": "+2 Leben"
+      }
+    ],
+    "desc": "Marineblauer Umhang mit Messingschließe. Ausgemusterte Ware aus dem Revier."
+  },
+  "mantel_leder": {
+    "name": "Schwerer Ledermantel",
+    "kind": "gear",
+    "slot": "mantel",
+    "price": 55,
+    "weight": 4,
+    "boons": [
+      {
+        "key": "damage_taken",
+        "value": 0.88,
+        "text": "12 % weniger Schaden"
+      }
+    ],
+    "desc": "Schwarzes Leder, steif wie ein Brett. Klingen rutschen daran ab."
+  },
+  "mantel_chor": {
+    "name": "Chorgewand",
+    "kind": "gear",
+    "slot": "mantel",
+    "price": 35,
+    "weight": 2,
+    "boons": [
+      {
+        "key": "composure_regen",
+        "value": 1.2,
+        "text": "Nerven erholen sich 20 % schneller"
+      }
+    ],
+    "desc": "Ein graues Chorgewand mit Kapuze. Es riecht nach Weihrauch und kalten Kirchen."
+  },
+  "mantel_nebel": {
+    "name": "Nebelmantel",
+    "kind": "gear",
+    "slot": "mantel",
+    "price": 90,
+    "weight": 2,
+    "boons": [
+      {
+        "key": "dodge_window",
+        "value": 1.15,
+        "text": "Ausweichen gelingt leichter"
+      },
+      {
+        "key": "vision_cost",
+        "value": 0.85,
+        "text": "Geistsicht kostet weniger Nerven"
+      }
+    ],
+    "desc": "Silbrige Fäden durchziehen den Stoff. Am Saum löst er sich in Nebel auf.",
+    "rarity": "selten"
+  },
+  "mantel_moor": {
+    "name": "Moormantel",
+    "kind": "gear",
+    "slot": "mantel",
+    "price": 60,
+    "weight": 3,
+    "boons": [
+      {
+        "key": "damage_taken",
+        "value": 0.9,
+        "text": "10 % weniger Schaden"
+      },
+      {
+        "key": "max_hp",
+        "value": 4,
+        "text": "+4 Leben"
+      }
+    ],
+    "desc": "Aus gegerbter Moorhaut. Kalt, schwer und erstaunlich zäh.",
+    "rarity": "selten"
+  },
+  "mantel_giesser": {
+    "name": "Gießermantel",
+    "kind": "gear",
+    "slot": "mantel",
+    "price": 70,
+    "weight": 4,
+    "boons": [
+      {
+        "key": "damage_taken",
+        "value": 0.85,
+        "text": "15 % weniger Schaden"
+      }
+    ],
+    "desc": "Versengtes, schweres Leder aus der Gießerei. Hält Funken und Schläge ab.",
+    "rarity": "selten"
+  },
+  "mantel_frack": {
+    "name": "Frack mit Silberknöpfen",
+    "kind": "gear",
+    "slot": "mantel",
+    "price": 80,
+    "weight": 2,
+    "boons": [
+      {
+        "key": "price",
+        "value": 0.9,
+        "text": "10 % billiger einkaufen"
+      },
+      {
+        "key": "sell",
+        "value": 1.15,
+        "text": "15 % mehr beim Verkaufen"
+      }
+    ],
+    "desc": "Schwarzer Frack vom Maskenball. Wer ihn trägt, wird überall eingelassen.",
+    "rarity": "selten"
+  },
+  "hut_schirmmuetze": {
+    "name": "Schirmmütze",
+    "kind": "gear",
+    "slot": "hut",
+    "price": 8,
+    "weight": 1,
+    "boons": [
+      {
+        "key": "max_nerves",
+        "value": 4,
+        "text": "+4 Nerven"
+      }
+    ],
+    "desc": "Eine flache Mütze, wie sie jeder Hafenarbeiter trägt. Niemand schaut zweimal hin."
+  },
+  "hut_melone": {
+    "name": "Melone",
+    "kind": "gear",
+    "slot": "hut",
+    "price": 14,
+    "weight": 1,
+    "boons": [
+      {
+        "key": "conclusion_honor",
+        "value": 1,
+        "text": "+1 Ansehen pro Schlussfolgerung"
+      }
+    ],
+    "desc": "Ein runder Hut für den ordentlichen Herrn. Man nimmt dich ernster."
+  },
+  "hut_zylinder": {
+    "name": "Zylinder",
+    "kind": "gear",
+    "slot": "hut",
+    "price": 30,
+    "weight": 1,
+    "boons": [
+      {
+        "key": "sell",
+        "value": 1.1,
+        "text": "10 % mehr beim Verkaufen"
+      }
+    ],
+    "desc": "Hoch, schwarz und ein wenig zu elegant für die Gassen."
+  },
+  "hut_helm": {
+    "name": "Constable-Helm",
+    "kind": "gear",
+    "slot": "hut",
+    "price": 35,
+    "weight": 2,
+    "boons": [
+      {
+        "key": "damage_taken",
+        "value": 0.94,
+        "text": "6 % weniger Schaden"
+      },
+      {
+        "key": "lock_bonus",
+        "value": 5,
+        "text": "Schlösser im Revier öffnen sich mit 5 Ansehen weniger"
+      }
+    ],
+    "desc": "Der hohe Helm der Streife. Fängt so manchen Schlag auf den Kopf ab."
+  },
+  "hut_kapuze": {
+    "name": "Tiefe Kapuze",
+    "kind": "gear",
+    "slot": "hut",
+    "price": 18,
+    "weight": 1,
+    "boons": [
+      {
+        "key": "calm_decay",
+        "value": 1.15,
+        "text": "Unruhe klingt schneller ab"
+      }
+    ],
+    "desc": "Eine dunkle Kapuze, die das Gesicht in Schatten legt."
+  },
+  "hut_schutzbrille": {
+    "name": "Mütze mit Schutzbrille",
+    "kind": "gear",
+    "slot": "hut",
+    "price": 26,
+    "weight": 1,
+    "boons": [
+      {
+        "key": "dodge_window",
+        "value": 1.08,
+        "text": "Ausweichen gelingt etwas leichter"
+      }
+    ],
+    "desc": "Messinggläser an einer Lederkappe. Rauch und Funken stören dich nicht mehr."
+  },
+  "hut_witwenschleier": {
+    "name": "Witwenhut mit Schleier",
+    "kind": "gear",
+    "slot": "hut",
+    "price": 40,
+    "weight": 1,
+    "boons": [
+      {
+        "key": "vision_cost",
+        "value": 0.85,
+        "text": "Geistsicht kostet weniger Nerven"
+      }
+    ],
+    "desc": "Schwarzer Schleier vor dem Gesicht. Die Toten lassen dich in Ruhe trauern."
+  },
+  "hut_maske": {
+    "name": "Porzellanhalbmaske",
+    "kind": "gear",
+    "slot": "hut",
+    "price": 50,
+    "weight": 1,
+    "boons": [
+      {
+        "key": "skill_composure",
+        "value": 0.85,
+        "text": "Fertigkeiten kosten weniger Nerven"
+      }
+    ],
+    "desc": "Eine weiße Halbmaske an einem Band. Hinter ihr bleibt dein Blick ruhig.",
+    "rarity": "selten"
+  },
+  "hut_schnabel": {
+    "name": "Schnabelmaske",
+    "kind": "gear",
+    "slot": "hut",
+    "price": 55,
+    "weight": 1,
+    "boons": [
+      {
+        "key": "heal_bonus",
+        "value": 1.2,
+        "text": "Heilmittel wirken 20 % stärker"
+      },
+      {
+        "key": "max_nerves",
+        "value": 5,
+        "text": "+5 Nerven"
+      }
+    ],
+    "desc": "Eine Pestarztmaske mit Kräutern im Schnabel. Kein Gestank dringt hindurch.",
+    "rarity": "selten"
+  },
+  "hut_chor": {
+    "name": "Chorkapuze mit Bronzespange",
+    "kind": "gear",
+    "slot": "hut",
+    "price": 60,
+    "weight": 1,
+    "boons": [
+      {
+        "key": "composure_regen",
+        "value": 1.25,
+        "text": "Nerven erholen sich 25 % schneller"
+      },
+      {
+        "key": "max_nerves",
+        "value": 5,
+        "text": "+5 Nerven"
+      }
+    ],
+    "desc": "Die graue Kapuze der Sänger aus der Gießerei. Die Spange summt leise.",
+    "rarity": "selten"
+  },
+  "hut_maskenball": {
+    "name": "Maskenball-Zylinder",
+    "kind": "gear",
+    "slot": "hut",
+    "price": 75,
+    "weight": 1,
+    "boons": [
+      {
+        "key": "money_bonus",
+        "value": 1.15,
+        "text": "15 % mehr Schilling als Beute"
+      },
+      {
+        "key": "sell",
+        "value": 1.1,
+        "text": "10 % mehr beim Verkaufen"
+      }
+    ],
+    "desc": "Ein schwarzer Zylinder, im Band steckt eine silberne Halbmaske.",
+    "rarity": "selten"
+  },
+  "geweihreif": {
+    "name": "Geweihreif",
+    "kind": "gear",
+    "slot": "hut",
+    "price": 90,
+    "weight": 1,
+    "boons": [
+      {
+        "key": "occult_mult",
+        "value": 1.15,
+        "text": "15 % mehr Schaden gegen Okkultes"
+      },
+      {
+        "key": "max_hp",
+        "value": 4,
+        "text": "+4 Leben"
+      }
+    ],
+    "desc": "Ein Reif aus dem Geweih des Sternhirschs. Das Sternlicht darin wird nie ganz dunkel.",
+    "rarity": "okkult"
+  },
+  "amulett_laterne": {
+    "name": "Laternenanhänger",
+    "kind": "gear",
+    "slot": "amulett",
+    "price": 45,
+    "weight": 0.5,
+    "boons": [
+      {
+        "key": "vision_cost",
+        "value": 0.85,
+        "text": "Geistsicht kostet weniger Nerven"
+      }
+    ],
+    "desc": "Eine winzige Messinglaterne mit bernsteinfarbenem Schein.",
+    "rarity": "okkult"
+  },
+  "amulett_faden": {
+    "name": "Knotenband",
+    "kind": "gear",
+    "slot": "amulett",
+    "price": 45,
+    "weight": 0.5,
+    "boons": [
+      {
+        "key": "digest_mult",
+        "value": 1.1,
+        "text": "Tränke verdauen 10 % schneller"
+      }
+    ],
+    "desc": "Ein fliederfarbenes Band voller Knoten. Jeder Knoten ist eine Erinnerung.",
+    "rarity": "okkult"
+  },
+  "amulett_maske": {
+    "name": "Rosenkamee",
+    "kind": "gear",
+    "slot": "amulett",
+    "price": 45,
+    "weight": 0.5,
+    "boons": [
+      {
+        "key": "price",
+        "value": 0.92,
+        "text": "8 % billiger einkaufen"
+      }
+    ],
+    "desc": "Eine rosafarbene Kamee in Maskenform.",
+    "rarity": "okkult"
+  },
+  "amulett_echo": {
+    "name": "Echomuschel",
+    "kind": "gear",
+    "slot": "amulett",
+    "price": 45,
+    "weight": 0.5,
+    "boons": [
+      {
+        "key": "dodge_window",
+        "value": 1.1,
+        "text": "Ausweichen gelingt leichter"
+      }
+    ],
+    "desc": "Eine türkisfarbene Muschel an einer Schnur. Wer hineinhorcht, hört den Raum hinter sich.",
+    "rarity": "okkult"
+  },
+  "amulett_kessel": {
+    "name": "Kesselphiole",
+    "kind": "gear",
+    "slot": "amulett",
+    "price": 45,
+    "weight": 0.5,
+    "boons": [
+      {
+        "key": "heal_bonus",
+        "value": 1.2,
+        "text": "Heilmittel wirken 20 % stärker"
+      }
+    ],
+    "desc": "Ein grünes Glasfläschchen an einer Kette. Darin brodelt es ganz leise.",
+    "rarity": "okkult"
+  },
+  "amulett_eisen": {
+    "name": "Eisenring am Lederband",
+    "kind": "gear",
+    "slot": "amulett",
+    "price": 45,
+    "weight": 0.5,
+    "boons": [
+      {
+        "key": "max_hp",
+        "value": 5,
+        "text": "+5 Leben"
+      }
+    ],
+    "desc": "Ein rostiger Eisenring. Kaltes Eisen hält, was sonst zerfällt.",
+    "rarity": "okkult"
+  },
+  "amulett_schluessel": {
+    "name": "Schlüsselanhänger mit Krähenfeder",
+    "kind": "gear",
+    "slot": "amulett",
+    "price": 45,
+    "weight": 0.5,
+    "boons": [
+      {
+        "key": "lock_bonus",
+        "value": 8,
+        "text": "Schlösser öffnen sich mit 8 Ansehen weniger"
+      }
+    ],
+    "desc": "Ein Messingschlüssel, an dem eine Krähenfeder hängt.",
+    "rarity": "okkult"
+  },
+  "amulett_stimme": {
+    "name": "Sternglasphiole",
+    "kind": "gear",
+    "slot": "amulett",
+    "price": 60,
+    "weight": 0.5,
+    "boons": [
+      {
+        "key": "skill_composure",
+        "value": 0.85,
+        "text": "Fertigkeiten kosten weniger Nerven"
+      }
+    ],
+    "desc": "Ein Anhänger aus Sternglas, in dem ein weiches Licht gefangen ist.",
+    "rarity": "okkult"
+  },
+  "amulett_auge": {
+    "name": "Augenamulett",
+    "kind": "gear",
+    "slot": "amulett",
+    "price": 35,
+    "weight": 0.5,
+    "boons": [
+      {
+        "key": "vision_cost",
+        "value": 0.9,
+        "text": "Geistsicht kostet weniger Nerven"
+      }
+    ],
+    "desc": "Ein Anhänger mit einem Auge im Kreis. Er sieht, was du übersiehst."
+  },
+  "amulett_moorperle": {
+    "name": "Moorperlenkette",
+    "kind": "gear",
+    "slot": "amulett",
+    "price": 60,
+    "weight": 0.5,
+    "boons": [
+      {
+        "key": "composure_regen",
+        "value": 1.2,
+        "text": "Nerven erholen sich 20 % schneller"
+      },
+      {
+        "key": "max_nerves",
+        "value": 5,
+        "text": "+5 Nerven"
+      }
+    ],
+    "desc": "Eine trübe Perle aus dem Moor an einer Kette. Sie ist immer feucht.",
+    "rarity": "selten"
+  },
+  "wachsamulett": {
+    "name": "Wachsamulett",
+    "kind": "gear",
+    "slot": "amulett",
+    "price": 40,
+    "weight": 0.5,
+    "boons": [
+      {
+        "key": "use_calm",
+        "value": 6,
+        "text": "Heilmittel beruhigen um 6 Unruhe"
+      }
+    ],
+    "desc": "Ein Herz aus bleichem Wachs mit einem Docht. Es wärmt die Brust."
+  },
+  "glasfibel": {
+    "name": "Glasfibel",
+    "kind": "gear",
+    "slot": "amulett",
+    "price": 55,
+    "weight": 0.5,
+    "boons": [
+      {
+        "key": "dodge_window",
+        "value": 1.12,
+        "text": "Ausweichen gelingt leichter"
+      }
+    ],
+    "desc": "Eine Fibel aus dunklem Glas, geformt wie eine Feder.",
+    "rarity": "selten"
+  },
+  "siegelring": {
+    "name": "Siegelring",
+    "kind": "gear",
+    "slot": "amulett",
+    "price": 50,
+    "weight": 0.5,
+    "boons": [
+      {
+        "key": "sell",
+        "value": 1.12,
+        "text": "12 % mehr beim Verkaufen"
+      }
+    ],
+    "desc": "Ein schwerer Ring mit fremdem Wappen. Händler werden höflich.",
+    "rarity": "selten"
+  },
+  "amulett_wiegenlied": {
+    "name": "Wiegenlied-Anhänger",
+    "kind": "gear",
+    "slot": "amulett",
+    "price": 80,
+    "weight": 0.5,
+    "boons": [
+      {
+        "key": "calm_decay",
+        "value": 1.3,
+        "text": "Unruhe klingt 30 % schneller ab"
+      },
+      {
+        "key": "composure_regen",
+        "value": 1.15,
+        "text": "Nerven erholen sich 15 % schneller"
+      }
+    ],
+    "desc": "Eine winzige silberne Spieldose. Ihr Lied beruhigt selbst Miriams Chor.",
+    "rarity": "okkult"
+  },
+  "amulett_schatten": {
+    "name": "Schattenmedaillon",
+    "kind": "gear",
+    "slot": "amulett",
+    "price": 80,
+    "weight": 0.5,
+    "boons": [
+      {
+        "key": "occult_mult",
+        "value": 1.15,
+        "text": "15 % mehr Schaden gegen Okkultes"
+      },
+      {
+        "key": "always_flee",
+        "value": true,
+        "text": "Du kannst aus jedem Kampf fliehen"
+      }
+    ],
+    "desc": "Ein schwarzes Medaillon, darin eine winzige Silhouette. Manchmal bewegt sie sich.",
+    "rarity": "okkult"
+  },
+  "messingschlagring": {
+    "weight": 1,
+    "name": "Messingschlagring",
+    "kind": "weapon",
+    "atk": 5,
+    "desc": "Messing über den Knöcheln. Klein, schnell und gemein."
+  },
+  "brecheisen": {
+    "weight": 4,
+    "name": "Brecheisen",
+    "kind": "weapon",
+    "atk": 6,
+    "desc": "Ein schweres Eisen. Öffnet Kisten, Türen und Schädel."
+  },
+  "laterne_kampf": {
+    "weight": 4,
+    "name": "Blendlaterne",
+    "kind": "weapon",
+    "atk": 6,
+    "occult": 1.3,
+    "desc": "Eine schwere Laterne mit Linse. Als Keule taugt sie, ihr Licht brennt Geister."
+  },
+  "regenschirmdegen": {
+    "weight": 3,
+    "name": "Regenschirmdegen",
+    "kind": "weapon",
+    "atk": 7,
+    "desc": "Ein Regenschirm mit verborgener Klinge. Sehr englisch, sehr scharf."
+  },
+  "revolver": {
+    "weight": 3,
+    "name": "Revolver",
+    "kind": "weapon",
+    "atk": 9,
+    "desc": "Sechs Schuss, laut und unhöflich. Gegen Geister nur bedingt brauchbar."
+  },
+  "knochenmesser": {
+    "weight": 1,
+    "name": "Knochenmesser",
+    "kind": "weapon",
+    "atk": 7,
+    "occult": 1.4,
+    "desc": "Aus einem Oberschenkelknochen der Katakomben geschliffen. Die Toten kennen es."
+  },
+  "kette_rauchfass": {
+    "weight": 4,
+    "name": "Rauchfass an der Kette",
+    "kind": "weapon",
+    "atk": 6,
+    "occult": 1.6,
+    "desc": "Ein Weihrauchfass an langer Kette. Der Rauch beißt alles, was nicht atmet."
+  },
+  "taktstock_silber": {
+    "weight": 1,
+    "name": "Silberner Taktstock",
+    "kind": "weapon",
+    "atk": 5,
+    "occult": 1.8,
+    "desc": "Ein Dirigentenstab aus Silber. Er schlägt den Takt, und Geister müssen folgen."
+  },
+  "stimmgabel_gross": {
+    "weight": 4,
+    "name": "Große Stimmgabel",
+    "kind": "weapon",
+    "atk": 7,
+    "occult": 1.5,
+    "desc": "Eine eiserne Stimmgabel, so lang wie ein Arm. Ihr Ton zerreißt Gespenster."
+  },
+  "sternglasdolch": {
+    "weight": 1,
+    "name": "Sternglasdolch",
+    "kind": "weapon",
+    "atk": 8,
+    "occult": 1.5,
+    "desc": "Eine Klinge aus Sternglas. Sie leuchtet, kurz bevor sie trifft."
+  },
+  "taktstock_vey": {
+    "weight": 1,
+    "name": "Miriams Taktstock",
+    "kind": "weapon",
+    "atk": 8,
+    "occult": 1.8,
+    "desc": "Miriam Veys dunkler Taktstock mit Bronzespitze. Er zittert noch vom letzten Lied."
+  },
+  "blitzpulver": {
+    "name": "Blitzpulver",
+    "kind": "consumable",
+    "combat_only": true,
+    "damage": 4,
+    "stun": true,
+    "desc": "Magnesium in einer Papiertüte. Im Kampf: ein greller Blitz, 4 Schaden, der Gegner setzt eine Runde aus."
+  },
+  "taschentuch": {
+    "name": "Besticktes Taschentuch",
+    "kind": "trophy",
+    "weight": 0.2,
+    "price": 6,
+    "desc": "Ein Taschentuch mit fremdem Monogramm. Irgendwer vermisst es."
+  },
+  "glasauge": {
+    "name": "Glasauge",
+    "kind": "trophy",
+    "weight": 0.2,
+    "price": 18,
+    "desc": "Ein Glasauge. Es scheint dir zu folgen, wenn du gehst."
+  },
+  "taschenspiegel": {
+    "name": "Taschenspiegel",
+    "kind": "trophy",
+    "weight": 0.3,
+    "price": 14,
+    "desc": "Ein Handspiegel mit gesprungenem Glas. Im Sprung bewegt sich manchmal etwas."
+  },
+  "geisterkern": {
+    "name": "Geisterkern",
+    "kind": "trophy",
+    "weight": 0.3,
+    "price": 30,
+    "rarity": "okkult",
+    "desc": "Der kalte Kern eines vergangenen Geistes. Sammler zahlen gut dafür."
   }
 }

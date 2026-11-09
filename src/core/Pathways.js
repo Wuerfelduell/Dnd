@@ -69,12 +69,12 @@ export const pathwayMethods = {
 
   /**
    * Wert einer passiven Fähigkeit (Multiplikatoren multiplizieren sich, sonst wird addiert).
-   * Zählt die Passiven aller erreichten Sequenzen und die Vor- und Nachteile mitgeführter Artefakte.
+   * Zählt die Passiven aller erreichten Sequenzen, die Vor- und Nachteile mitgeführter Artefakte und angelegte Kleidung.
    */
   passive(key) {
     const mult = MULT_KEYS.has(key);
     let v = mult ? 1 : 0;
-    const lists = [...this.reachedSeqs().map((s) => s.passives ?? []), ...this.artifactEffects()];
+    const lists = [...this.reachedSeqs().map((s) => s.passives ?? []), ...this.artifactEffects(), ...this.gearEffects()];
     for (const list of lists) {
       for (const p of list) {
         if (p.key !== key) continue;

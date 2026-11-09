@@ -10,7 +10,7 @@
 // Spieler 2 trinkt keine Tränke: Pfad und Unruhe bleiben Sache des Ermittlers.
 
 /** Persönliche Werte, die zwischen den Spielern getauscht werden. */
-export const PERSONAL = ['hp', 'maxHp', 'inventory', 'weapon', 'composure', 'pathway', 'unruhe', 'spiritVision'];
+export const PERSONAL = ['hp', 'maxHp', 'inventory', 'weapon', 'gear', 'composure', 'pathway', 'unruhe', 'spiritVision'];
 
 export const P2_START = { hp: 40, items: { spazierstock: 1, verband: 2 }, weapon: 'spazierstock' };
 
@@ -33,7 +33,7 @@ export const partyMethods = {
       const hp = s.hp ?? P2_START.hp;
       this.p2 = {
         active: true, hp, maxHp: hp, inventory: items,
-        weapon: this.content.party?.weapon ?? (items[P2_START.weapon] ? P2_START.weapon : null),
+        weapon: this.content.party?.weapon ?? (items[P2_START.weapon] ? P2_START.weapon : null), gear: { hut: null, mantel: null, amulett: null },
         composure: 100, pathway: null, unruhe: 0, spiritVision: false,
       };
     }
@@ -140,7 +140,7 @@ export const partyMethods = {
   },
 
   serializeParty() {
-    return this.p2 ? { p2: { ...this.p2, inventory: { ...this.p2.inventory } } } : {};
+    return this.p2 ? { p2: { ...this.p2, inventory: { ...this.p2.inventory }, gear: { ...this.p2.gear } } } : {};
   },
 
   loadParty(data) {
@@ -149,7 +149,7 @@ export const partyMethods = {
     const inventory = Object.fromEntries(Object.entries(p.inventory ?? {}).filter(([i, n]) => this.item(i) && n > 0));
     this.p2 = {
       active: !!p.active, hp: Math.max(1, p.hp ?? 40), maxHp: p.maxHp ?? 40, inventory,
-      weapon: inventory[p.weapon] ? p.weapon : null, composure: p.composure ?? 100, pathway: null, unruhe: p.unruhe ?? 0, spiritVision: false,
+      weapon: inventory[p.weapon] ? p.weapon : null, gear: this.cleanGear(p.gear, inventory), composure: p.composure ?? 100, pathway: null, unruhe: p.unruhe ?? 0, spiritVision: false,
     };
     this.p2.hp = Math.min(this.p2.hp, this.p2.maxHp);
   },
