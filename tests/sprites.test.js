@@ -130,7 +130,7 @@ test('Paket C: Portraits, Lauf-Sheets und Kartenmarker sind vollständig', () =>
 
 // --- Paket D (Stadt) und E (Fälle) -------------------------------------------------
 const manifest = (name) => JSON.parse(readFileSync(sprite(`manifest-${name}.json`), 'utf8'));
-const MANIFEST_FILES = { manifestStadt: manifest('stadt'), manifestFaelle: manifest('faelle') };
+const MANIFEST_FILES = { manifestStadt: manifest('stadt'), manifestFaelle: manifest('faelle'), manifestJournal: manifest('journal'), manifestReise: manifest('reise') };
 const regionNames = (def) => {
   const regions = Array.isArray(def.regions) ? def.regions.map((r) => r.name) : Object.keys(def.regions ?? {});
   return [...regions, ...Object.keys(def.animations ?? {}), ...Object.keys(def.regionAnimations ?? {})];
@@ -160,8 +160,8 @@ test('Paket D/E: Karten-Deko nutzt nur vorhandene Regionen', () => {
     for (const n of Object.keys(MANIFEST_FILES.manifestFaelle.assets.find((a) => a.id === id).icons)) known.add(`${prefix}_${n}`);
   }
   for (const map of Object.values(content.maps)) {
-    for (const d of map.decor ?? []) if (/^[de]_/.test(d.sprite)) assert.ok(known.has(d.sprite), `${map.id}: ${d.sprite}`);
-    for (const d of map.interactables ?? []) if (/^[de]_/.test(d.sprite ?? '')) assert.ok(known.has(d.sprite), `${map.id}: ${d.sprite}`);
+    for (const d of map.decor ?? []) if (/^[dehi]_/.test(d.sprite)) assert.ok(known.has(d.sprite), `${map.id}: ${d.sprite}`);
+    for (const d of map.interactables ?? []) if (/^[dehi]_/.test(d.sprite ?? '')) assert.ok(known.has(d.sprite), `${map.id}: ${d.sprite}`);
     if (map.facade) assert.ok(FACADES.includes(map.facade), `${map.id}: Fassade ${map.facade}`);
   }
 });
@@ -216,4 +216,57 @@ test('Paket F: Bosse, Kartengegner, Bestiarium und Ausrüstung liegen bereit', (
   assert.equal(overworldIdFor('irrlicht', { sheet: 'enemy_gasgeist' }), 'gasgeist');
   assert.equal(overworldIdFor('moorleiche', { sheet: 'enemy_schattenpuppe' }), null);
   for (const key of [...Object.values(BATTLE_BACKGROUNDS), ...Object.values(ENCOUNTER_BACKGROUNDS)]) assert.ok(existsSync(sprite(`battle/${key}.png`)), key);
+});
+
+test('Paket H: Köpfe, Quellen, Nahansichten und Risiko-Effekte liegen bereit', async () => {
+  const H = await import('../src/world/assets.js');
+  const m = JSON.parse(readFileSync(sprite('manifest-journal.json'), 'utf8'));
+  for (const id of H.HEADS) assert.ok(existsSync(file(H.headUrl(id))), id);
+  for (const id of H.SOURCE_KINDS) assert.ok(existsSync(file(H.sourceKindUrl(id))), id);
+  for (const id of H.INSPECT_VIEWS) {
+    assert.ok(existsSync(file(H.inspectUrl(id))), id);
+    assert.ok(existsSync(file(H.inspectUrl(id, true))), id);
+  }
+  // Jedes untersuchbare Fundstück mit Nahansicht hat auch einen Untersuchen-Dialog
+  for (const id of H.INSPECT_VIEWS) assert.ok(content.items[id]?.inspect, id);
+  for (const key of ['player_inspect', 'risk_fx']) {
+    const [path, w, h] = H.ANIM_SHEETS[key];
+    const def = m.assets.find((a) => a.file === path);
+    assert.deepEqual([def.frameWidth, def.frameHeight], [w, h], key);
+  }
+  const risk = m.assets.find((a) => a.id === 'H_06_risiko').animations;
+  for (const k of ['unrest', 'curse', 'ambush', 'bonus_clue']) assert.ok(risk[k], k);
+  const icons = m.assets.find((a) => a.id === 'H_06_risiko_icons').regions;
+  for (const [k, [x, y, n]] of Object.entries(H.RISK_ICONS)) assert.deepEqual(icons[k], [x, y, n, n], k);
+  const frame = m.assets.find((a) => a.id === 'H_journal_rahmen').regions;
+  for (const [k, r] of Object.entries(H.JOURNAL_FRAME)) assert.deepEqual(frame[k], r, k);
+  for (const id of ['verlorenes_gesangbuch', 'spiegelscherbe']) assert.ok(existsSync(file(itemIcon32Url(id))), id);
+  assert.equal(H.sourceKind('note', 'Tagebuch der Pflegerin'), 'tagebuch');
+  assert.equal(H.sourceKind('npc', 'Holt'), null);
+});
+
+test('Paket I: Sektengegner, Verwandlungen, Figuren, Reisebilder und Wappen liegen bereit', async () => {
+  const I = await import('../src/world/assets.js');
+  const m = JSON.parse(readFileSync(sprite('manifest-reise.json'), 'utf8'));
+  const byFile = (path) => m.assets.find((a) => a.file === path);
+  for (const id of I.I_ENEMIES) {
+    const [path, w] = I.BATTLE_SHEETS[I.ENCOUNTER_SHEETS[id]];
+    assert.equal(byFile(path)?.frameWidth, w, id);
+    assert.ok(existsSync(sprite(I.OVERWORLD_SHEETS[id][0])), id);
+    assert.ok(existsSync(sprite(SHEETS[CHARACTER_SHEETS[`npc_${id}`]])), id);
+  }
+  for (const id of ['rost_streife', 'schleier_schatten']) assert.ok(I.BATTLE_SHEETS[I.ENCOUNTER_SHEETS[id]], id);
+  for (const [id, sheet] of Object.entries(I.BOSS_FORMS)) {
+    assert.ok(byFile(I.BATTLE_SHEETS[sheet][0])?.animations?.phase2, id);
+    assert.ok(content.encounters[id], id);
+  }
+  for (const id of [...I.I_CHARACTERS, 'rost_vater', 'schleier_mutter']) assert.ok(existsSync(sprite(`portraits/${PORTRAITS[id]}`)), id);
+  for (const id of I.I_CHARACTERS) assert.ok(existsSync(sprite(SHEETS[CHARACTER_SHEETS[`npc_${id}`]])), id);
+  for (const id of I.TRAVEL_SCENES) {
+    assert.ok(existsSync(file(I.sceneUrl(id))), id);
+    assert.ok(content.travelRules.events.some((e) => e.id === id), `Reiseereignis ${id}`);
+  }
+  for (const id of Object.keys(content.factions)) assert.ok(existsSync(file(I.factionEmblemUrl(id))), id);
+  for (const url of [I.TRAVEL_MODES_URL, I.TRAVEL_MARKER_URL]) assert.ok(existsSync(file(url)), url);
+  for (const id of ['rostwasser', 'ankerhaken', 'schleierdolch', 'porzellanmaske']) assert.ok(existsSync(file(itemIcon32Url(id))), id);
 });

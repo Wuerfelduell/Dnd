@@ -598,6 +598,27 @@ export class WorldScene extends Phaser.Scene {
     playSheetAnim(k.sprite, ok ? 'cauldron_success' : 'cauldron_fail', ok ? 'success' : 'fail', back);
   }
 
+  // --- Paket H: Untersuchen ----------------------------------------------------------------
+
+  /** Spieler liest, zuckt zurück, hält den Kopf oder notiert (beim Untersuchen eines Fundstücks). */
+  playInspect(name) {
+    const p = this.player;
+    if (!p || this.leaving) return;
+    const done = () => { this.playerBusy = false; p.setTexture('player', DIRS.indexOf(this.facing) * 4); };
+    if (playSheetAnim(p, 'player_inspect', name, done)) this.playerBusy = true;
+  }
+
+  /** Risiko-Effekt über dem Bild: unrest (Unruhe), curse (Fluch), ambush (Hinterhalt), bonus_clue (Hinweis). */
+  playRiskFx(kind) {
+    if (!this.textures.exists('risk_fx')) return;
+    this.riskFx?.destroy();
+    const fx = this.add.sprite(0, 0, 'risk_fx', 0).setOrigin(0).setScrollFactor(0).setDepth(DEPTH.vision + 2);
+    this.riskFx = fx;
+    const end = () => { if (this.riskFx === fx) this.riskFx = null; fx.destroy(); };
+    if (!playSheetAnim(fx, 'risk_fx', kind, end)) { end(); return; }
+    if (kind === 'unrest') this.time.delayedCall(2000, () => this.tweens.add({ targets: fx, alpha: 0, duration: 400, onComplete: end }));
+  }
+
   /** Pfad-Aura um die Figur, sichtbar mit Geistsicht. */
   updateAura() {
     const pid = this.state.pathway?.id;

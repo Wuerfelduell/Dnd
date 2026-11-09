@@ -3,7 +3,7 @@ import { Combat, WINDOW, EARLY_LIMIT, DODGE_COST, judgeDefense, judgeTiming } fr
 import { createTextures, createCharacterSheet } from './textures.js';
 import {
   BATTLE_BACKGROUNDS, ENCOUNTER_BACKGROUNDS, ENEMY_BATTLE_SHEETS, ENCOUNTER_SHEETS, FADING_SHEETS,
-  SKILL_FX, SELF_FX, PATHWAY_POSES, WEAPON_POSES, ENCOUNTER_FX, BOSS_INTROS, CASE_SHEETS, playBattleAnim, playCaseAnim,
+  SKILL_FX, SELF_FX, PATHWAY_POSES, WEAPON_POSES, ENCOUNTER_FX, BOSS_INTROS, BOSS_FORMS, CASE_SHEETS, playBattleAnim, playCaseAnim,
 } from './assets.js';
 import { VIEW_W, VIEW_H, PLAYER_PALETTE } from './WorldScene.js';
 
@@ -28,6 +28,7 @@ export class CombatScene extends Phaser.Scene {
     this.encounterId = data.id;
     this.onDone = data.onDone;
     this.deferLoot = !!data.deferLoot; // Gegner auf der Karte: Beute fällt als Behälter auf den Boden
+    this.transformed = false;
   }
 
   create() {
@@ -91,7 +92,7 @@ export class CombatScene extends Phaser.Scene {
     const a = this.cache.json.get('manifestKampf')?.assets?.find((x) => x.id === sheet);
     if (a?.origin) return a.origin[1];
     // Paket F: Fußlinie als Pixelzeile
-    const b = this.cache.json.get('manifestKampf2')?.assets?.find((x) => x.id === sheet);
+    const b = ['manifestKampf2', 'manifestReise'].map((m) => this.cache.json.get(m)?.assets?.find((x) => x.id === sheet)).find(Boolean);
     return b?.baseline ? (b.baseline + 1) / b.frameHeight : 1;
   }
 
@@ -355,7 +356,22 @@ export class CombatScene extends Phaser.Scene {
   afterPlayer() {
     this.ui.combatRefresh();
     if (this.combat.outcome) { this.time.delayedCall(300, () => this.over()); return; }
-    this.time.delayedCall(350, () => this.enemyTurn());
+    const wait = this.transform();
+    this.time.delayedCall(350 + wait, () => this.enemyTurn());
+  }
+
+  /** Paket I: Sektenoberhäupter verwandeln sich in Rage in ihre große Gestalt. Liefert die Dauer in ms. */
+  transform() {
+    const sheet = BOSS_FORMS[this.encounterId];
+    if (!sheet || this.transformed || !this.combat.enraged() || !this.textures.exists(sheet) || !this.enemySheet) return 0;
+    this.transformed = true;
+    this.enemySheet = sheet;
+    this.enemy.setTexture(sheet, 0).setOrigin(0.5, this.sheetOriginY(sheet)).setScale(1.2);
+    this.cameras.main.shake(300, 0.006);
+    this.cameras.main.flash(200, 120, 60, 40);
+    this.float('Verwandlung!', 'enemy', 'crit');
+    if (!this.anim(this.enemy, 'phase2')) this.idle(this.enemy);
+    return 900;
   }
 
   // Gegnerzug: Ankündigung, dann ein Ring pro Schlag. Leertaste weicht aus, F pariert.

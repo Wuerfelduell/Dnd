@@ -5,6 +5,8 @@ import {
   portraitUrl, portraitFor, MAP_MARKERS, MAP_MARKERS_URL, LOG_MARKERS, LOG_MARKERS_URL, SOURCE_ICONS, SPRITE_BASE,
   endingImageUrl, caseFileUrl, sceneUrl, QUEST_UI_URL, QUEST_PINS, QUEST_BANNERS,
   TURN_PORTRAITS, TURN_PORTRAITS_URL, BESTIARY, bestiaryUrl,
+  headUrl, sourceKind, sourceKindUrl, inspectUrl, RISK_ICONS, RISK_ICONS_URL, JOURNAL_FRAME, JOURNAL_FRAME_URL, choiceRisk, riskOf,
+  factionEmblemUrl, TRAVEL_MODES_URL, TRAVEL_MODE_ICONS, TRAVEL_MARKER_URL,
 } from '../world/assets.js';
 import { sourceOf } from '../core/sources.js';
 import { caseHints, nextDeduction } from '../core/hints.js';
@@ -38,11 +40,43 @@ const sceneImg = (id) => { const url = id && sceneUrl(id); return url ? `<img cl
 const questUi = (cls, [x, y], k = 1 / 8) => `<span class="${cls}" style="background-image:url(${QUEST_UI_URL});background-size:${160 * k}em ${176 * k}em;background-position:-${x * k}em -${y * k}em"></span>`;
 /** Kleines Quellenbild im Notizbuch: Gesicht der erzählenden Person, sonst ein Symbol. */
 const SOURCE_LABEL = { observation: 'Eigene Beobachtung', vision: 'Geistsicht', police: 'Polizeibericht', archive: 'Akte', note: 'Gelesen', object: 'Spur am Ort', npc: 'Aussage' };
-const sourceFace = (content, clue) => {
+/** Paket H: Bild im Journal-Rahmen (Foto 32x36 mit Kopf, Dokument 32x32 mit Quellensymbol). k = em pro Pixel. */
+const K = 1 / 12;
+const framed = (frame, img, [ax, ay], size, title, cls = '') => {
+  const [fx, fy, fw, fh] = JOURNAL_FRAME[frame];
+  return `<span class="srcface framed ${cls}" title="${title}" style="width:${fw * K}em;height:${fh * K}em;background-image:url(${JOURNAL_FRAME_URL}),url(${img});`
+    + `background-size:${128 * K}em ${64 * K}em,${size * K}em ${size * K}em;background-position:-${fx * K}em -${fy * K}em,${ax * K}em ${ay * K}em"></span>`;
+};
+/** Kopf einer Figur im Foto-Rahmen (zweifelhaft: zerrissenes Foto); ohne Mini-Kopf das Portrait. */
+const headFace = (id, title = '', unreliable = false) => {
+  const head = headUrl(id);
+  if (head) return framed(unreliable ? 'photo_unreliable' : 'photo', head, [4, 6], 24, title, 'head');
+  const url = portraitUrl(id);
+  return url ? `<span class="srcface face" title="${title}" style="background-image:url(${url})"></span>` : '<span class="srcface"></span>';
+};
+/** Marker aus dem Journal-Rahmen (16x16). */
+const journalMark = (id, title) => {
+  const [x, y] = JOURNAL_FRAME[id];
+  return `<span class="jmark" title="${title}" style="background-image:url(${JOURNAL_FRAME_URL});background-position:-${x / 8}em -${y / 8}em"></span>`;
+};
+/** Risiko-Symbol (ui/H_06_risiko_icons.png). */
+const riskIcon = (id, title = '') => {
+  const [x, y, n] = RISK_ICONS[id];
+  const k = n === 8 ? 1 / 5 : 1 / 8; // die kleinen Punkte größer zeigen
+  return `<span class="riskicon" title="${title}" style="width:${n * k}em;height:${n * k}em;background-image:url(${RISK_ICONS_URL});`
+    + `background-size:${80 * k}em ${24 * k}em;background-position:-${x * k}em -${y * k}em"></span>`;
+};
+/** Paket I: Symbol der Reiseart (32x32). */
+const modeIcon = (id) => `<span class="modeicon" style="background-image:url(${TRAVEL_MODES_URL});background-position:-${TRAVEL_MODE_ICONS[id] * 4}em 0"></span>`;
+const RISK_TITLES = { risk_low: 'Wenig Risiko', risk_medium: 'Riskant', risk_high: 'Gefährlich' };
+const sourceFace = (content, clue, unreliable = false) => {
   const src = sourceOf(content, clue);
   const title = esc(`${clue.source} (${SOURCE_LABEL[src.type]})`);
-  const face = src.type === 'npc' ? portraitUrl(src.npc) : src.type === 'observation' ? portraitUrl('player') : null;
-  if (face) return `<span class="srcface face" title="${title}" style="background-image:url(${face})"></span>`;
+  if (src.type === 'npc') return headFace(src.npc, title, unreliable);
+  if (src.type === 'observation') return headFace('player', title, unreliable);
+  if (src.type === 'vision') return headFace('spirit', title, unreliable);
+  const kind = sourceKind(src.type, clue.source);
+  if (kind) return framed('document', sourceKindUrl(kind), [4, 4], 24, title, 'doc');
   const [url, cell, cols] = SOURCE_ICONS[src.type] ?? SOURCE_ICONS.object;
   return `<span class="srcface icon" title="${title}" style="background-image:url(${url});background-size:${cols * 100}% 100%;background-position:${(cell / (cols - 1)) * 100}% 0"></span>`;
 };
@@ -394,12 +428,18 @@ export class Ui {
     this.dialogue.choices = choices;
     let n = 0;
     const face = portrait(npc.id, node.mood);
-    const el = this.open('dialogue', `${sceneImg(node.scene)}${face}
+    // Paket H: Nahansicht beim Untersuchen, verflucht bei Schaden oder Kampf; Risiko-Effekt über dem Bild
+    const risk = npc.item ? riskOf(node) : null;
+    const closeup = npc.item && inspectUrl(npc.item)
+      ? `<img class="scene inspect" src="${inspectUrl(npc.item, risk === 'curse' || risk === 'ambush')}" alt="" onerror="this.remove()">` : '';
+    if (risk) this.scene?.playRiskFx?.(risk);
+    if (npc.item && nodeId !== tree.start) this.scene?.playInspect?.(risk === 'curse' || risk === 'ambush' ? 'flinch' : risk === 'bonus_clue' ? 'note' : risk === 'unrest' ? 'clutch_head' : 'read');
+    const el = this.open('dialogue', `${closeup || sceneImg(node.scene)}${face}
       <div class="speaker">${esc(npc.name)} <span class="role">${esc(npc.role ?? '')}</span></div>
       <div class="text">${paragraphs(text)}</div>
       <ol class="choices">${choices.map((c, i) => (c.locked
         ? `<li><button disabled class="locked">🔒 ${esc(c.text)} <span class="lockinfo">${esc(c.locked)}</span></button></li>`
-        : `<li><button data-i="${i}"><span class="key">${++n}</span> ${esc(c.text)}</button></li>`)).join('')}</ol>`, `dialogue${face ? ' with-portrait' : ''}`);
+        : `<li><button data-i="${i}"><span class="key">${++n}</span> ${choiceRisk(c.text) ? riskIcon(choiceRisk(c.text), RISK_TITLES[choiceRisk(c.text)]) : ''}${esc(c.text)}</button></li>`)).join('')}</ol>`, `dialogue${face ? ' with-portrait' : ''}`);
     this.dialogue.keyMap = choices.map((c, i) => (c.locked ? null : i)).filter((i) => i !== null);
     el.querySelectorAll('[data-i]').forEach((b) => { b.onclick = () => this.choose(Number(b.dataset.i)); });
   }
@@ -443,7 +483,7 @@ export class Ui {
       return `<button class="pin ${cls}" ${attrs} style="left:${x / 8}em;top:${y / 8}em">
         <span class="mk" style="--c:${col};background-image:url(${MAP_MARKERS_URL})"></span>${inner}</button>`;
     };
-    const here = pins[current] ? pin(current, 'here', '<span class="tag">Du bist hier</span>', 'disabled') : '';
+    const here = pins[current] ? pin(current, 'here', `<span class="youmark" style="background-image:url(${TRAVEL_MARKER_URL})"></span><span class="tag">Du bist hier</span>`, 'disabled') : '';
     const destPins = dests.map((d, i) => (pins[d.map] ? pin(d.map, '', `<span class="num">${i + 1}</span><span class="tag">${esc(d.name)}</span>`, `data-i="${i}"`) : '')).join('');
     const unpinned = dests.map((d, i) => (pins[d.map] ? '' : `<button data-i="${i}"><span class="key">${i + 1}</span> ${esc(d.name)}</button>`)).join('');
     const el = this.open('travel', `
@@ -506,9 +546,9 @@ export class Ui {
     const modes = el.querySelector('.modes');
     modes.classList.remove('hidden');
     modes.innerHTML = `
-      <button class="mode safe" data-mode="sicher"><b><span class="key">1</span> ${esc(safe.name)}</b>
+      <button class="mode safe" data-mode="sicher">${modeIcon('sicher')}<b><span class="key">1</span> ${esc(safe.name)}</b>
         <span class="muted">${esc(safe.desc)}</span><span class="gain">+${Math.round(s.maxHp * safe.heal_pct)} Leben · +${safe.nerves} Nerven · Journal</span></button>
-      <button class="mode fast" data-mode="schnell" ${hurry ? '' : 'disabled'}><b><span class="key">2</span> ${esc(fast.name)}</b>
+      <button class="mode fast" data-mode="schnell" ${hurry ? '' : 'disabled'}>${modeIcon('schnell')}<b><span class="key">2</span> ${esc(fast.name)}</b>
         <span class="muted">${esc(fast.desc)}</span><span class="cost">${hurry ? `−${fast.nerves_cost} Nerven · Monster · Beute` : `Zu wenig Nerven (mind. ${fast.nerves_cost})`}</span></button>`;
     modes.querySelectorAll('[data-mode]').forEach((b) => { b.onclick = () => this.travelMode(b.dataset.mode); });
     el.querySelector('[data-act=stay] .key').nextSibling.textContent = ' Anderes Ziel';
@@ -533,6 +573,7 @@ export class Ui {
     const ev = travelFast(s);
     if (ev.encounter) {
       this.showMessage(ev.title, ev.text, {
+        scene: ev.id,
         footer: 'Ein Kampf steht bevor.',
         onClose: () => this.scene.startCombat(ev.encounter, (result) => {
           const loot = afterHurryFight(s, ev, result.outcome);
@@ -548,7 +589,7 @@ export class Ui {
     const lines = [ev.text];
     if (ev.loot?.length) lines.push(`Gefunden:\n${ev.loot.join('\n')}`);
     const footer = ev.lostMoney ? `−${ev.lostMoney} Schilling` : '';
-    this.showMessage(ev.title, lines.join('\n\n'), { footer, onClose: go });
+    this.showMessage(ev.title, lines.join('\n\n'), { footer, onClose: go, scene: ev.id });
   }
 
   // --- Notizbuch ---------------------------------------------------------------
@@ -615,7 +656,8 @@ export class Ui {
   /** Fundstück untersuchen: eigener Dialog mit Risiko (Unruhe, Verletzung, Kampf) und möglichen Bonus-Hinweisen. */
   inspectItem(id) {
     const it = this.state.item(id);
-    this.openDialogue({ name: it.name, role: 'Fundstück', dialogue: it.inspect }, ({ combat } = {}) => {
+    this.scene?.playInspect?.('read');
+    this.openDialogue({ name: it.name, role: 'Fundstück', dialogue: it.inspect, item: id }, ({ combat } = {}) => {
       if (!combat && !this.modal) this.openNotebook('items');
     });
   }
@@ -707,14 +749,15 @@ export class Ui {
       const st = s.factStatus(f);
       const n = s.factSources(f).length;
       return `<li><button class="fact ${st} ${this.selected.includes(f) ? 'sel' : ''} ${hinted.has(f) ? 'hinted' : ''}" data-fact="${f}" ${st === 'refuted' ? 'data-refuted="1"' : ''}>
-        ${this.badge(st)} ${linkable.has(f) ? '<span class="thread" title="Lässt sich verknüpfen">✦</span> ' : ''}${esc(s.fact(f).text)} <span class="src">${n}×</span></button></li>`;
+        ${this.badge(st)} ${linkable.has(f) ? `${journalMark('string_pin', 'Lässt sich verknüpfen')} ` : ''}${esc(s.fact(f).text)} <span class="src">${n}×</span></button></li>`;
     }).join('');
     const ded = s.content.deductions.filter((d) => d.case === caseId && s.hasConclusion(d.id));
     const concl = ded.map((d) => `<li><strong>${esc(d.name)}</strong> ${s.isCertain(d.id) ? '<span class="badge likely">gesichert</span>' : '<span class="badge suspected">Vermutung</span>'}<br>${esc(d.text)}</li>`).join('');
     const total = s.content.deductions.filter((d) => d.case === caseId && d.honor !== 0).length;
     const detailId = this.selected[this.selected.length - 1];
     const detail = detailId
-      ? `<strong>Quellen:</strong><ul class="sources">${s.factSources(detailId).map((c) => `<li>${sourceFace(s.content, s.clue(c))}<div><em>${esc(s.clue(c).source)}:</em> ${esc(s.clue(c).text)}</div></li>`).join('')}</ul>`
+      ? `<strong>Quellen:</strong>${s.factStatus(detailId) === 'refuted' ? journalMark('contradicts', 'Widerlegt') : s.factSources(detailId).length > 1 ? journalMark('same_source', 'Mehrere Quellen bestätigen das') : ''}
+        <ul class="sources">${s.factSources(detailId).map((c) => `<li>${sourceFace(s.content, s.clue(c), s.factStatus(detailId) === 'refuted')}<div><em>${esc(s.clue(c).source)}:</em> ${esc(s.clue(c).text)}</div></li>`).join('')}</ul>`
       : 'Klicke eine Information an, um ihre Quellen zu sehen. Ab zwei Quellen gilt sie als sehr wahrscheinlich. Wähle zwei Informationen und verknüpfe sie.';
     return `
       <div class="cols">
@@ -757,8 +800,7 @@ export class Ui {
     const people = knownPeople(this.state);
     if (!people.length) return '<p class="empty">Du hast noch mit niemandem gesprochen.</p>';
     return `<ul class="people">${people.map((p) => {
-      const url = portraitUrl(p.id);
-      const face = url ? `<span class="srcface face" style="background-image:url(${url})"></span>` : '<span class="srcface"></span>';
+      const face = headFace(p.id, esc(p.name));
       return `<li class="${p.quests.length ? 'busy' : ''}">${face}<div><strong>${esc(p.name)}</strong> <span class="muted">${esc(p.role)}</span>
         <br><span class="where">${esc(p.places.join(', ') || 'unterwegs')}</span>${p.quests.map((q) => `<br><span class="qtag">${esc(q)}</span>`).join('')}</div></li>`;
     }).join('')}</ul>`;
@@ -951,7 +993,7 @@ export class Ui {
       c.confused ? `<span class="badge suspected">${statusIcon('verwirrt')}verwirrt</span>` : '',
       c.enemyGuard ? `<span class="badge refuted">${statusIcon('eisenhaut')}Panzer ${c.enemyGuard}</span>` : '',
       c.veiled ? `<span class="badge refuted">${statusIcon('schatten')}verschleiert</span>` : '',
-      c.enc.faction ? `<span class="badge">${c.state.content.factions?.[c.enc.faction]?.name ?? ''}</span>` : ''].join(' ');
+      c.enc.faction ? `<span class="badge"><span class="emblem16" style="background-image:url(${factionEmblemUrl(c.enc.faction)})"></span>${c.state.content.factions?.[c.enc.faction]?.name ?? ''}</span>` : ''].join(' ');
     q('.cb-status').innerHTML = [c.shield ? statusIcon('eisenhaut', `Schutz ${c.shield}`) + c.shield : '', c.evading ? statusIcon('vorahnung', 'Nächster Angriff geht ins Leere') : '',
       c.bleed ? statusIcon('blutung', `Blutung: ${c.bleed.damage} pro Runde, noch ${c.bleed.rounds}`) + c.bleed.rounds : ''].join(' ');
     q('.pfill').style.width = `${(s.hp / s.maxHp) * 100}%`;
