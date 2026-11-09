@@ -135,6 +135,7 @@ export class Ui {
           <div class="meter digest hidden"><span>Verdaut</span><div class="bar"><div class="dfill"></div></div><em class="dnum"></em></div>
           <div class="meter unruhe hidden"><span>Unruhe</span><div class="bar"><div class="ufill"></div></div></div>
           <div class="money"></div>
+          <div class="fahndung hidden"></div>
           <div class="treffen hidden"></div>
           <div class="goal hidden"></div>
         </div>
@@ -185,6 +186,10 @@ export class Ui {
       this.toast(`${delta > 0 ? '+' : ''}${delta} Schilling${reason ? `: ${reason}` : ''}`, delta > 0 ? 'item' : 'warn');
     });
     state.on('unruhe', () => this.updateUnruhe());
+    state.on('wanted', ({ level, delta, reason }) => {
+      this.updateWanted();
+      this.toast(`Fahndungsstufe ${level}${reason ? `: ${reason}` : ''}`, delta > 0 ? 'warn' : 'item');
+    });
     this.digestAcc = {};
     state.on('digest', ({ delta, kind }) => {
       this.updateUnruhe();
@@ -239,6 +244,7 @@ export class Ui {
     this.updateHp();
     this.updateMoney();
     this.updateUnruhe();
+    this.updateWanted();
     this.updateGoal();
   }
 
@@ -266,6 +272,18 @@ export class Ui {
     el.classList.toggle('hidden', !st);
     el.classList.toggle('open', !!st?.open);
     if (st) el.textContent = `${st.open ? '◆' : '◇'} ${st.text}`;
+  }
+
+  /** Kapitel 2: Fahndungsstufe im HUD, nur in Wexmoor. */
+  updateWanted() {
+    const el = this.$('.fahndung');
+    const s = this.state;
+    const r = s.policeRules?.();
+    const show = !!r && s.content.maps[s.map]?.city === 'wexmoor';
+    el.classList.toggle('hidden', !show);
+    if (!show) return;
+    el.classList.toggle('hot', s.wanted > 0);
+    el.textContent = `Fahndung ${'★'.repeat(s.wanted)}${'☆'.repeat(r.max_level - s.wanted)}`;
   }
 
   updateMoney() {
@@ -374,6 +392,10 @@ export class Ui {
       this.showMessage('Kontrollverlust', text);
     } else if (this.state.pendingCombat && this.scene) {
       this.scene.startCombat(this.state.pendingCombat);
+    } else if (this.state.pendingTravel && this.scene) {
+      const t = this.state.pendingTravel;
+      this.state.pendingTravel = null;
+      this.scene.travelTo(t.map, t.spawn);
     } else if (this.afterClose) {
       const after = this.afterClose;
       this.afterClose = null;

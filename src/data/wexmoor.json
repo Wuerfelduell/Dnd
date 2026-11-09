@@ -132,6 +132,19 @@
         "hair": "#8a8a80",
         "legs": "#22282e"
       }
+    },
+    "grauspaeher": {
+      "name": "Grauspäher",
+      "role": "Stadtwache von Wexmoor",
+      "dialogue": "grauspaeher",
+      "palette": {
+        "coat": "#6a7074",
+        "hat": "#3a3e42",
+        "skin": "#d8b090",
+        "hair": "#4a4440",
+        "legs": "#2e3236",
+        "scarf": "#b0a070"
+      }
     }
   },
   "travel": [
@@ -317,6 +330,43 @@
           ],
           "sprite": "paper",
           "prompt": "Den Steckbrief an der Wand lesen"
+        },
+        {
+          "id": "wachtafel",
+          "kind": "read",
+          "tile": [
+            30,
+            2
+          ],
+          "sprite": "paper",
+          "prompt": "Den Aushang der Wache lesen",
+          "marker": false,
+          "title": "Bekanntmachung der Stadtwache",
+          "text": "„Auf Weisung des Lichtamts gilt nach Einbruch der Dunkelheit das Nachtrecht. Grauspäher sind befugt, jede Person ohne Angabe von Gründen festzusetzen.\n\nWer einen Gesuchten meldet, erhält fünfzig Schilling.“\n\nUnterschrieben ist nicht vom Wachhauptmann, sondern mit einem Siegel: einem Leuchtturm in einem Kreis.",
+          "footer": "Grauspäher sehen alles im Lichtkegel ihrer Laterne. Kisten, Wagen und Fässer verdecken dich."
+        },
+        {
+          "id": "streife_tipp",
+          "kind": "read",
+          "tile": [
+            30,
+            8
+          ],
+          "auto": 28,
+          "marker": false,
+          "prompt": "Umsehen",
+          "visible_if": {
+            "requires_flags": [
+              "k2_met_zunder"
+            ],
+            "hide_if_flags": [
+              "k2_patrol_tip"
+            ]
+          },
+          "title": "Ratte!",
+          "text": "Zunder zischt das Wort, und schon ist sie hinter einem Kohlenwagen verschwunden.\n\nDie Schleusenbrücke herauf kommt ein Grauspäher, eine Sturmlaterne in der Hand. Der Lichtkegel wandert über Pflaster und Bretter. Ein zweiter dreht seine Runde über den Hof.",
+          "footer": "Bleib aus den Lichtkegeln. Wirst du gesehen, lauf aus dem Licht oder hinter Deckung, bevor das Ausrufezeichen dich festnagelt. Der Ausgang zur Stadtkarte ist ganz links.",
+          "done_flag": "k2_patrol_tip"
         }
       ],
       "npcs": [
@@ -365,7 +415,8 @@
             8,
             0,
             -4
-          ]
+          ],
+          "cover": true
         },
         {
           "sprite": "d_gaswerk_props_coal_cart",
@@ -388,7 +439,8 @@
             8,
             0,
             -4
-          ]
+          ],
+          "cover": true
         },
         {
           "sprite": "d_bruecken_narrowboat",
@@ -471,7 +523,115 @@
             8,
             0,
             -4
-          ]
+          ],
+          "cover": true
+        },
+        {
+          "sprite": "d_nordtor_props_salt_barrels",
+          "tile": [
+            24,
+            15
+          ],
+          "offset": [
+            0,
+            8
+          ],
+          "origin": [
+            0.5,
+            1
+          ],
+          "alpha": 1,
+          "ysort": true,
+          "solid": [
+            12,
+            8,
+            0,
+            -4
+          ],
+          "cover": true
+        },
+        {
+          "sprite": "d_gaswerk_props_coal_cart",
+          "tile": [
+            12,
+            16
+          ],
+          "offset": [
+            0,
+            8
+          ],
+          "origin": [
+            0.5,
+            1
+          ],
+          "alpha": 1,
+          "ysort": true,
+          "solid": [
+            28,
+            8,
+            0,
+            -4
+          ],
+          "cover": true
+        }
+      ],
+      "police": true,
+      "patrols": [
+        {
+          "id": "hof",
+          "route": [
+            [
+              4,
+              3
+            ],
+            [
+              35,
+              3
+            ],
+            [
+              35,
+              8
+            ],
+            [
+              4,
+              8
+            ]
+          ],
+          "speed": 30,
+          "wait": 1200,
+          "visible_if": {
+            "requires_flags": [
+              "k2_met_zunder"
+            ]
+          }
+        },
+        {
+          "id": "schleuse",
+          "route": [
+            [
+              16,
+              9
+            ],
+            [
+              16,
+              16
+            ],
+            [
+              30,
+              16
+            ],
+            [
+              16,
+              16
+            ]
+          ],
+          "speed": 26,
+          "wait": 1600,
+          "visible_if": {
+            "requires_flags": [
+              "k2_met_zunder"
+            ]
+          }
         }
       ]
     },
@@ -797,6 +957,61 @@
           ]
         }
       ]
+    },
+    {
+      "id": "wx_zelle",
+      "name": "Wachhaus, Zelle 3",
+      "city": "wexmoor",
+      "ambient": {
+        "night": 0.7,
+        "fog": 0
+      },
+      "rows": [
+        "IIIIIIIIIII",
+        "IIIIIIIIIII",
+        "IwwwHwwwwOI",
+        "IwwwHwwwwwI",
+        "IwwwHwwwwwI",
+        "IwwwHwwwwwI",
+        "IIIIIIIIIII"
+      ],
+      "spawns": {
+        "default": [
+          2,
+          4
+        ]
+      },
+      "interactables": [
+        {
+          "id": "gitter",
+          "kind": "dialogue",
+          "dialogue": "wx_zelle",
+          "title": "Zellengitter",
+          "role": "Wachhaus Wexmoor",
+          "tile": [
+            3,
+            3
+          ],
+          "prompt": "Am Gitter rütteln",
+          "marker": true,
+          "reach": 24
+        },
+        {
+          "id": "pritsche",
+          "kind": "read",
+          "tile": [
+            1,
+            2
+          ],
+          "sprite": "cot",
+          "prompt": "Die Pritsche ansehen",
+          "marker": false,
+          "title": "Die Pritsche",
+          "text": "In das Holz der Pritsche sind Namen geritzt, Dutzende, manche so alt, dass sie fast verschwunden sind. Bei vielen ist der Name durchgestrichen und daneben steht nur: „vergessen“."
+        }
+      ],
+      "npcs": [],
+      "decor": []
     }
   ],
   "dialogues": {
@@ -919,7 +1134,7 @@
           ]
         },
         "wache": {
-          "text": "„Grauspäher laufen feste Runden, immer mit Laterne. Was im Lichtkegel steht, sehen sie. Bleib im Dunkeln, geh hinter Fässer und Wagen, und lauf nie direkt auf eine Laterne zu.“\n\n„Wenn sie dich kriegen, landest du im Wachhaus. Dann hol ich dich raus. Einmal. Vielleicht zweimal. Ab dem dritten Mal kostet es.“",
+          "text": "„Grauspäher laufen feste Runden, immer mit Laterne. Was im Lichtkegel steht, sehen sie. Bleib im Dunkeln, geh hinter Wagen und Fässer, und lauf nie direkt auf eine Laterne zu. Wenn einer ‚!‘ ruft, hast du einen Atemzug, um aus dem Licht zu kommen.“\n\n„Jedes Mal, wenn du ihnen davonläufst, suchen sie dich härter. Schlaf hier ein paar Nächte, dann vergessen sie dich wieder. Und wenn sie dich kriegen, hol ich dich raus. Zweimal umsonst. Dann kostet es.“",
           "choices": [
             {
               "text": "Noch was anderes.",
@@ -985,6 +1200,155 @@
           ]
         }
       }
+    },
+    "grauspaeher": {
+      "start": "start",
+      "nodes": {
+        "start": {
+          "text": "Ein Grauspäher in nassem Wachsmantel.",
+          "choices": [
+            {
+              "text": "Weiter."
+            }
+          ]
+        }
+      }
+    },
+    "wx_zelle": {
+      "start": "start",
+      "nodes": {
+        "start": {
+          "text": "Das Gitter ist alt und das Schloss noch älter. Draußen im Gang schnarcht ein Grauspäher auf einem Stuhl, die Laterne zu seinen Füßen.",
+          "choices": [
+            {
+              "text": "Auf Zunder warten.",
+              "next": [
+                {
+                  "node": "bail_free",
+                  "hide_if_flags": [
+                    "k2_bail_due"
+                  ]
+                },
+                {
+                  "node": "bail_pay",
+                  "requires_money": 15
+                },
+                {
+                  "node": "bail_broke"
+                }
+              ]
+            },
+            {
+              "text": "Das Schloss knacken.",
+              "next": [
+                {
+                  "node": "pick_ok",
+                  "chance": 0.45
+                },
+                {
+                  "node": "pick_fail"
+                }
+              ]
+            },
+            {
+              "text": "Noch nicht."
+            }
+          ]
+        },
+        "bail_free": {
+          "text": "Gegen Morgen klappert etwas am Fenster. Zunder hängt kopfüber am Sims, einen Dietrich zwischen den Zähnen.\n\n„Der Wachmann schuldet mir Öl. Und ich ihm jetzt nichts mehr.“ Das Schloss springt auf. „Das war gratis. Lange bleibt das nicht so.“",
+          "clears_flags": [
+            "k2_in_cell"
+          ],
+          "travel": {
+            "map": "wx_kahn",
+            "spawn": "default"
+          },
+          "choices": [
+            {
+              "text": "Raus hier."
+            }
+          ]
+        },
+        "bail_pay": {
+          "text": "Zunder kommt durch die Vordertür, mit einem Beutel Münzen und einem Lächeln, das dem Wachmann nicht gefällt. „Kaution. Für meinen Cousin, den Dummkopf.“\n\nDraußen hält sie die Hand auf. „Fünfzehn. Ich bin nicht die Heilsarmee.“",
+          "takes_money": 15,
+          "clears_flags": [
+            "k2_in_cell"
+          ],
+          "travel": {
+            "map": "wx_kahn",
+            "spawn": "default"
+          },
+          "choices": [
+            {
+              "text": "Danke, Zunder."
+            }
+          ]
+        },
+        "bail_broke": {
+          "text": "Zunder zahlt die Kaution aus eigener Tasche und redet den ganzen Heimweg nicht mit dir. Erst am Kahn sagt sie: „Das nächste Mal lass ich dich drin.“ Sie meint es nicht so. Hoffentlich.",
+          "nerves": -15,
+          "clears_flags": [
+            "k2_in_cell"
+          ],
+          "travel": {
+            "map": "wx_kahn",
+            "spawn": "default"
+          },
+          "choices": [
+            {
+              "text": "Es tut mir leid."
+            }
+          ]
+        },
+        "pick_ok": {
+          "text": "Ein Haken aus deinem Hosenbund, zwei Minuten Geduld, ein leises Klicken. Der Wachmann schnarcht weiter.\n\nDu schleichst durch den Hinterhof und über die Mauer. Als die Sonne aufgeht, stehst du am Güterbahnhof, als wärst du gerade erst angekommen.",
+          "clears_flags": [
+            "k2_in_cell"
+          ],
+          "travel": {
+            "map": "wx_bahnhof",
+            "spawn": "default"
+          },
+          "choices": [
+            {
+              "text": "Weg hier."
+            }
+          ]
+        },
+        "pick_fail": {
+          "text": "Der Haken bricht ab. Der Wachmann schnieft, dreht sich um und schläft weiter. Dein Herz hämmert.",
+          "nerves": -8,
+          "choices": [
+            {
+              "text": "Nochmal überlegen.",
+              "next": "start"
+            }
+          ]
+        }
+      }
     }
+  },
+  "police": {
+    "max_level": 3,
+    "cone": {
+      "range": 56,
+      "range_per_level": 12,
+      "angle": 70,
+      "angle_per_level": 10
+    },
+    "catch_sec": 1.4,
+    "catch_per_level": 0.25,
+    "catch_min_sec": 0.6,
+    "decay_sec": 300,
+    "rest_lowers": 1,
+    "seize_pct": 0.1,
+    "free_bails": 2,
+    "cell": {
+      "map": "wx_zelle",
+      "spawn": "default"
+    },
+    "arrest_text": "„Stehen bleiben! Im Namen des Lichtamts!“\n\nZwei Hände in grauen Wachshandschuhen packen dich, eine Laterne blendet dir ins Gesicht. Jemand vergleicht dich mit einem zerknitterten Zettel und nickt.\n\nDie Fahrt im Gefängniswagen dauert nicht lange. Das Wachhaus riecht nach nassem Wachs und kaltem Ruß."
   }
 }

@@ -65,3 +65,65 @@ test('Schnelle Reisen in Wexmoor würfeln nur Wexmoorer Ereignisse', () => {
     s.setComposure(100);
   }
 });
+
+test('Grauspäher: Sichtkegel wächst mit der Fahndung, Stufe sinkt beim Untertauchen', () => {
+  const s = afterChapter1();
+  const c0 = s.policeCone();
+  s.escapedPatrol();
+  s.escapedPatrol();
+  assert.equal(s.wanted, 2);
+  const c2 = s.policeCone();
+  assert.ok(c2.range > c0.range && c2.angle > c0.angle && c2.catchSec < c0.catchSec);
+  s.escapedPatrol();
+  s.escapedPatrol();
+  assert.equal(s.wanted, content.police.max_level, 'nicht über die Höchststufe');
+  s.restWanted();
+  assert.equal(s.wanted, content.police.max_level - 1);
+  s.tickWanted(content.police.decay_sec + 1);
+  assert.equal(s.wanted, content.police.max_level - 2, 'die Zeit lässt die Wache vergessen');
+  const saved = s.serialize();
+  const t = new GameState(content);
+  t.load(saved);
+  assert.equal(t.wanted, s.wanted);
+});
+
+test('Festnahme: Zelle, zweimal holt Zunder dich umsonst raus, danach kostet es', () => {
+  const s = afterChapter1();
+  s.money = 100;
+  for (let i = 1; i <= 3; i++) {
+    const r = s.arrest();
+    assert.equal(r.map, 'wx_zelle');
+    assert.ok(content.maps.wx_zelle.spawns[r.spawn]);
+    assert.ok(s.flags.has('k2_in_cell'));
+    const before = s.money;
+    const path = talk(s, 'wx_zelle', ['Zunder']);
+    assert.equal(path.at(-1), i <= 2 ? 'bail_free' : 'bail_pay', `Festnahme ${i}`);
+    assert.equal(before - s.money, i <= 2 ? 0 : 15);
+    assert.ok(!s.flags.has('k2_in_cell'));
+    assert.deepEqual(s.pendingTravel, { map: 'wx_kahn', spawn: 'default' });
+    s.pendingTravel = null;
+  }
+  // Schloss knacken: mit Glück direkt zum Bahnhof
+  s.arrest();
+  s.random = () => 0;
+  assert.equal(talk(s, 'wx_zelle', ['Schloss']).at(-1), 'pick_ok');
+  assert.equal(s.pendingTravel.map, 'wx_bahnhof');
+});
+
+test('Streifen stehen nur in Wexmoor und laufen über freie Felder', () => {
+  const WALK = new Set(['.', ',', '=', 'w', 'g', 'p', 'c', 's', 'P', 'L']);
+  for (const m of Object.values(content.maps)) {
+    for (const p of m.patrols ?? []) {
+      assert.equal(m.city, 'wexmoor', `${m.id}/${p.id}`);
+      assert.ok(m.police, `${m.id}: Karte mit Streifen braucht police: true`);
+      const pts = [...p.route, p.route[0]];
+      for (let i = 0; i < pts.length - 1; i++) {
+        const [[x0, y0], [x1, y1]] = [pts[i], pts[i + 1]];
+        assert.ok(x0 === x1 || y0 === y1, `${m.id}/${p.id}: nur gerade Strecken`);
+        for (let x = Math.min(x0, x1); x <= Math.max(x0, x1); x++) {
+          for (let y = Math.min(y0, y1); y <= Math.max(y0, y1); y++) assert.ok(WALK.has(m.rows[y][x]), `${m.id}/${p.id}: ${x},${y} ist "${m.rows[y][x]}"`);
+        }
+      }
+    }
+  }
+});
