@@ -74,6 +74,8 @@ Auf dem **Nachtmarkt** unter der Krähenbrücke (Stadtkarte) kann man aufsteigen
 - **Verknüpfen**: Im Notizbuch kombinierst du zwei Informationen zu einer
   **Schlussfolgerung**. Sie ist *gesichert*, wenn beide Informationen sehr wahrscheinlich sind.
   Für eine Auflösung wollen Price und Marlowe gesicherte Schlussfolgerungen sehen.
+- Gelöste Fälle wandern ins **Archiv** (eigener Reiter, alte Informationen bleiben lesbar). Der Reiter **Personen** listet alle,
+  mit denen du gesprochen hast, mit Gesicht, Ort und laufenden Aufträgen. Erledigte Aufträge sind zusammengeklappt.
 - **Tipp** (Taste T im Fall-Reiter): Jeder Klick verrät etwas mehr über die nächste offene Schlussfolgerung.
   Erst grob, was fehlt. Dann, welche Vermutung eine zweite Quelle braucht und wo es sie gibt. Zuletzt das Paar zum Verknüpfen.
 - **Ansehen bei der Polizei**: Gelöste Fälle, gestellte Gauner und Nebenaufträge bringen
