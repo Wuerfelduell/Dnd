@@ -158,7 +158,7 @@ test('Paket D/E: Region-Sheets passen zu ihren Manifesten', () => {
 });
 
 test('Paket D/E: Karten-Deko nutzt nur vorhandene Regionen', () => {
-  const known = new Set([...Object.keys(WHOLE_PROPS), ...Object.keys(CASE_SHEETS), ...Object.keys(ANIM_SHEETS)]);
+  const known = new Set([...Object.keys(WHOLE_PROPS), ...Object.keys(CASE_SHEETS), ...Object.keys(ANIM_SHEETS), ...Object.keys(PROP_CELLS)]);
   for (const [prefix, [m, id]] of Object.entries(REGION_SHEETS)) {
     for (const n of regionNames(MANIFEST_FILES[m].assets.find((a) => a.id === id))) known.add(`${prefix}_${n}`);
     for (const n of Object.keys(REGION_ANIMS[prefix] ?? {})) known.add(`${prefix}_${n}`);
@@ -167,8 +167,8 @@ test('Paket D/E: Karten-Deko nutzt nur vorhandene Regionen', () => {
     for (const n of Object.keys(MANIFEST_FILES.manifestFaelle.assets.find((a) => a.id === id).icons)) known.add(`${prefix}_${n}`);
   }
   for (const map of Object.values(content.maps)) {
-    for (const d of map.decor ?? []) if (/^[dehigjkmoqrs]_/.test(d.sprite)) assert.ok(known.has(d.sprite), `${map.id}: ${d.sprite}`);
-    for (const d of map.interactables ?? []) if (/^[dehigjkmoqrs]_/.test(d.sprite ?? '')) assert.ok(known.has(d.sprite), `${map.id}: ${d.sprite}`);
+    for (const d of map.decor ?? []) if (/^[bdehigjkmoqrs]_/.test(d.sprite)) assert.ok(known.has(d.sprite), `${map.id}: ${d.sprite}`);
+    for (const d of map.interactables ?? []) if (/^[bdehigjkmoqrs]_/.test(d.sprite ?? '')) assert.ok(known.has(d.sprite), `${map.id}: ${d.sprite}`);
     if (map.facade) assert.ok(FACADES.includes(map.facade), `${map.id}: Fassade ${map.facade}`);
   }
 });
@@ -493,7 +493,7 @@ test('Paket R: Wexmoor hat eigene Böden, Figuren, Bosse, Verkleidungen und Szen
   const themes = new Set(THEME_TILE_LIST.map((t) => t.theme));
   for (const id of ['wx_bahnhof', 'wx_salzmarkt', 'wx_bojenhafen', 'wx_oberstadt', 'wx_pfahldorf', 'wx_torfstich', 'wx_akademie', 'wx_lucent',
     'wx_wachhaus', 'wx_zelle', 'wx_vergessmoor', 'wx_leuchtturm']) {
-    assert.match(content.maps[id].tiles, /^r_/, id);
+    assert.match(content.maps[id].tiles, /^(r_|c_bahnhof$)/, id);
     assert.ok(themes.has(content.maps[id].tiles), id);
     assert.ok(!content.maps[id].decor.some((d) => /^d_(gaswerk|nordtor|bruecken_winch|strassenmoebel)/.test(d.sprite)), `${id}: Platzhalter-Deko`);
   }
@@ -567,4 +567,16 @@ test('Liegengebliebene Bögen: Oberflächen-Ausschnitte liegen im Bild, Fundstü
     assert.ok(Object.values(content.encounters).some((e) => e.loot?.drops?.some((d) => d.item === id)) || Object.values(content.loot ?? {}).some((t) => t.drops?.some((d) => d.item === id)), `${id} fällt nirgends`);
   }
   for (const id of ['elsbeth', 'price_wx', 'streife']) assert.ok(existsSync(sprite(`portraits/${A.PORTRAITS[id]}`)), id);
+});
+
+test('Liegengebliebene Tiles und Requisiten: Räume nutzen ihre Bögen, Deko liegt auf freiem Boden', () => {
+  const tiles = { mietskaserne: 'd_wohnung', haus_morrow: 'b_interieur', schleierhaus: 'b_keller', pfandhaus: 'b_auktion', bestatter: 'b_sanatorium', wx_bahnhof: 'c_bahnhof' };
+  for (const [map, theme] of Object.entries(tiles)) assert.equal(content.maps[map].tiles, theme, map);
+  const used = new Set(Object.values(content.maps).flatMap((m) => (m.decor ?? []).map((d) => d.sprite)));
+  for (const key of Object.keys(PROP_CELLS).filter((k) => /^(b|c_bahn)_/.test(k))) assert.ok(used.has(key), `${key} wird nirgends gezeigt`);
+  for (const m of Object.values(content.maps)) for (const d of m.decor ?? []) {
+    if (!/^(b|c_bahn)_/.test(d.sprite)) continue;
+    const [x, y] = d.tile;
+    assert.ok(!'I#E'.includes(m.rows[y][x]), `${m.id}: ${d.sprite} steht in der Wand`);
+  }
 });

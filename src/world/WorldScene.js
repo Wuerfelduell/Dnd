@@ -87,23 +87,30 @@ function rWexmoor(ground) {
 }
 
 /** Kartenthemen: ersetzen einzelne Zeichen durch eigene Tiles (Map-Feld "tiles"). */
+/** Theke, Regale und Fässer aus der Taverne (für Innenräume mit eigenem Boden und eigenen Wänden). */
+function tavernExtra(ch, at, x, y) {
+  if (ch === 'T') {
+    const { l, r, len } = runOf(at, 'T');
+    if (len < 3) return themeKeys('tavern', 'tableBase')[0]; // kleine Tische: Deko obendrauf
+    const [left, mid, right] = themeKeys('tavern', 'bar');
+    return l === 0 ? left : r === 0 ? right : mid;
+  }
+  if (ch === 'B') return pickKey(themeKeys('tavern', 'shelf'), x, y, 7);
+  if (ch === 'V') return themeKeys('tavern', 'barrel')[0];
+  return null;
+}
+
 const THEMES = {
   warehouse: roomTheme('warehouse', {
     floorMix: (x, y) => (hash2(x, y, 31) > 0.95 ? themeKeys('warehouse', 'debris')[0] : pickKey(themeKeys('warehouse', 'floor'), x, y, 0)),
   }),
-  tavern: roomTheme('tavern', {
-    extra: (ch, at, x, y) => {
-      if (ch === 'T') {
-        const { l, r, len } = runOf(at, 'T');
-        if (len < 3) return themeKeys('tavern', 'tableBase')[0]; // kleine Tische: Deko obendrauf
-        const [left, mid, right] = themeKeys('tavern', 'bar');
-        return l === 0 ? left : r === 0 ? right : mid;
-      }
-      if (ch === 'B') return pickKey(themeKeys('tavern', 'shelf'), x, y, 7);
-      if (ch === 'V') return themeKeys('tavern', 'barrel')[0];
-      return null;
-    },
-  }),
+  tavern: roomTheme('tavern', { extra: tavernExtra }),
+  // Bisher ungenutzte Innenraum-Tilesets: Boden und Wände eigen, Theke/Regale/Fässer wie in der Taverne
+  d_wohnung: roomTheme('d_wohnung', { extra: tavernExtra }),
+  b_interieur: roomTheme('b_interieur', { extra: tavernExtra }),
+  b_keller: roomTheme('b_keller', { extra: tavernExtra }),
+  b_auktion: roomTheme('b_auktion', { extra: tavernExtra }),
+  b_sanatorium: roomTheme('b_sanatorium', { extra: tavernExtra }),
   altmarkt: roomTheme('altmarkt', {
     floorChars: '.',
     extra: (ch) => (ch === 'T' ? themeKeys('altmarkt', 'stallBase')[0] : null), // Stände kommen als Deko
@@ -313,6 +320,15 @@ const THEMES = {
     }
   },
   // Paket R (Wexmoor): Stege, Markt, Oberstadt, Torfstich, Innenräume, Vergessmoor, Leuchtturm
+  // Paket C: Bahnhof Wexmoor mit Bahnsteig, Gleisen und Bahnsteigkante; Brücke und Kai bleiben Wexmoor
+  c_bahnhof: (ch, at, v, x, y) => {
+    const k = (g, seed) => pickKey(themeKeys('c_bahnhof', g), x, y, seed);
+    const water = (c) => '~Q='.includes(c ?? '~');
+    if (ch === 'P' && !water(at(0, 1)) && !water(at(0, -1))) return k('rails', 7);
+    if (ch === '.' && at(0, 1) === 'P') return k('edge', 8);
+    if (ch === '.' || ch === ',') return k('floor', 9);
+    return THEMES.r_wexmoor(ch, at, v, x, y);
+  },
   r_wexmoor: rWexmoor((ch, k) => (ch === '.' ? k('floor') : k('wood', 2))),
   r_salzmarkt: rWexmoor((ch, k, x, y) => (ch === '.' ? (hash2(x, y, 62) > 0.8 ? k('sand', 2, 'r_salzmarkt') : k('floor')) : k('wood', 2))),
   r_oberstadt(ch, at, v, x, y) {
@@ -450,6 +466,8 @@ const THEMES = {
   },
   nachtmarkt(ch, at, v, x, y) {
     switch (ch) {
+      // Paket D: eigener Kopfsteinboden, ab und zu Pfützen mit Laternenschein, Kreide und Gullys
+      case '.': return pickKey(themeKeys('d_nachtmarkt', hash2(x, y, 47) > 0.9 ? 'accent' : 'floor'), x, y, 48);
       case '#':
         if ('#WB'.includes(at(0, 1) ?? '')) return hash2(x, y, 4) > 0.7 ? 'nmArchDrip' : 'nmArch';
         return hash2(x, y, 6) > 0.8 ? 'nmChalk' : `nmWall${v(2, 2)}`;

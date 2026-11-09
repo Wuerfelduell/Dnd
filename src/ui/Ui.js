@@ -6,7 +6,7 @@ import {
   endingImageUrl, caseFileUrl, sceneUrl, wantedUrl, QUEST_UI_URL, QUEST_PINS, QUEST_BANNERS,
   TURN_PORTRAITS, TURN_PORTRAITS_URL, TURN_PORTRAIT_URLS, BESTIARY, bestiaryUrl,
   headUrl, ritualCardUrl, ZIRKEL_URL, ZIRKEL_ICONS, AUKTION_URL, AUKTION_REGIONS, LONER_UI_URL, LONER_UI, LONER_SEALS, S_ZIRKEL_URL, S_ZIRKEL, skillIconOf, PULSE_ICONS, ARTIFACT_UI_URL, sourceKind, sourceKindUrl, inspectUrl, RISK_ICONS, RISK_ICONS_URL, JOURNAL_FRAME, JOURNAL_FRAME_URL, choiceRisk, riskOf,
-  factionEmblemUrl, TRAVEL_MODES_URL, TRAVEL_MODE_ICONS, TRAVEL_MARKER_URL,
+  factionEmblemUrl, PLACE_PICTURES, TRAVEL_MODES_URL, TRAVEL_MODE_ICONS, TRAVEL_MARKER_URL,
   DANGER_URL, DANGER_ICONS, DANGER_BANNER, RARITY_SHEET, RARITY_SHEET_URL, RARITY_GEMS,
 } from '../world/assets.js';
 import { sourceOf } from '../core/sources.js';
@@ -826,7 +826,7 @@ export class Ui {
 
   travelInfo(d) {
     const info = this.layer.querySelector('.citymap .info');
-    if (info) info.innerHTML = `<h3>${esc(d.name)}</h3><span class="muted">${esc(d.desc)}</span>`;
+    if (info) info.innerHTML = `${PLACE_PICTURES[d.map] ? `<img class="placepic" src="${PLACE_PICTURES[d.map]}" alt="">` : ''}<h3>${esc(d.name)}</h3><span class="muted">${esc(d.desc)}</span>`;
   }
 
   /** Ziel gewählt: jetzt die Reiseart. */
