@@ -40,6 +40,12 @@ import marsch from './maps/marsch.json';
 import katakomben from './maps/katakomben.json';
 import pestgassen from './maps/pestgassen.json';
 import kraterwald from './maps/kraterwald.json';
+import factions from './factions.json';
+import ankerhof from './maps/ankerhof.json';
+import rostkapelle from './maps/rostkapelle.json';
+import hausMorrow from './maps/haus_morrow.json';
+import schleierhaus from './maps/schleierhaus.json';
+import dFactions from './dialogues/factions.json';
 
 export const content = buildContent({
   campaign,
@@ -47,10 +53,11 @@ export const content = buildContent({
   items,
   encounters,
   cases: [case01, case02, case03, caseAltmarkt, case04],
-  maps: [revier, ashgrove, ebba, crypt, docks, warehouse, altmarkt, tavern, nachtmarkt, nordtor, theater, uhrturm, gaskanaele, schlachthof, sternwarte, marsch, katakomben, pestgassen, kraterwald],
-  dialogues: [dRevier, dAshgrove, dEbba, dHafen, dAltmarkt, dNachtmarkt, dNordtor, dFunde],
+  maps: [revier, ashgrove, ebba, crypt, docks, warehouse, altmarkt, tavern, nachtmarkt, nordtor, theater, uhrturm, gaskanaele, schlachthof, sternwarte, marsch, katakomben, pestgassen, kraterwald, ankerhof, rostkapelle, hausMorrow, schleierhaus],
+  dialogues: [dRevier, dAshgrove, dEbba, dHafen, dAltmarkt, dNachtmarkt, dNordtor, dFunde, dFactions],
   pathways,
   market,
   travel,
   wilds,
+  factions,
 });

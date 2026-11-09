@@ -1,0 +1,259 @@
+{
+  "id": "schleierhaus",
+  "name": "Putzmacherei Grau",
+  "tiles": "tavern",
+  "ambient": {
+    "night": 0.72,
+    "fog": 0.08
+  },
+  "spawns": {
+    "default": [
+      14,
+      12
+    ],
+    "front": [
+      16,
+      8
+    ],
+    "back": [
+      17,
+      5
+    ]
+  },
+  "lights": [
+    {
+      "tile": [
+        6,
+        9
+      ],
+      "radius": 50,
+      "intensity": 0.6,
+      "color": "#ffb860",
+      "glow": 0.25
+    },
+    {
+      "tile": [
+        16,
+        3
+      ],
+      "radius": 46,
+      "intensity": 0.5,
+      "color": "#c8d0ff",
+      "glow": 0.3
+    },
+    {
+      "tile": [
+        25,
+        4
+      ],
+      "radius": 40,
+      "intensity": 0.55,
+      "color": "#ffb860",
+      "glow": 0.25
+    }
+  ],
+  "rows": [
+    "IIIIIIIIIIIIIIIIIIIIIIIIIIIIII",
+    "IIIIIIIIIIIIIIIIIIIIIIIIIIIIII",
+    "IOwwwwwwwwwIwwwwwwwwwIBBwwwwOI",
+    "IwwwwwwwwwwIwwwwwwwwwIwwwwwwwI",
+    "IwwwwwwwwwwIwwwwwwwwwIwwTTwwwI",
+    "IwwwwwwwwwwwwwwwwwwwwwwwwwwwwI",
+    "IwwwwwwwwwwIwwwwwwwwwIwwwwwwwI",
+    "IIIIIIIIIIIIIIIIEEIIIIIIIIIIII",
+    "I............................I",
+    "I...TTTTT..........BB........I",
+    "I............................I",
+    "I..V......................V..I",
+    "I............................I",
+    "IIIIIIIIIIIIIIEEIIIIIIIIIIIIII"
+  ],
+  "interactables": [
+    {
+      "id": "exit",
+      "kind": "travel",
+      "tile": [
+        14,
+        13
+      ],
+      "prompt": "Stadtkarte öffnen",
+      "marker": false,
+      "reach": 22
+    },
+    {
+      "id": "workshop",
+      "kind": "door",
+      "to": "schleierhaus",
+      "spawn": "back",
+      "tile": [
+        17,
+        7
+      ],
+      "prompt": "In die Werkstatt",
+      "marker": false,
+      "reach": 24,
+      "lock": {
+        "requires_flags": [
+          "messerin_down"
+        ],
+        "text": "Eine Tür mit Milchglas. Dahinter bewegen sich Schatten, sehr viele, aber man hört keinen Schritt. Fräulein Grau beobachtet dich im Spiegel.",
+        "footer": ""
+      }
+    },
+    {
+      "id": "to_shop",
+      "kind": "door",
+      "to": "schleierhaus",
+      "spawn": "front",
+      "tile": [
+        16,
+        7
+      ],
+      "prompt": "Zurück in den Laden",
+      "marker": false,
+      "reach": 24
+    },
+    {
+      "id": "hats",
+      "kind": "read",
+      "tile": [
+        19,
+        9
+      ],
+      "prompt": "Die Hutständer ansehen",
+      "marker": false,
+      "title": "Hüte ohne Köpfe",
+      "text": "Auf jedem Ständer ein Hut mit Schleier, und unter jedem Schleier eine Porzellanform: ein Gesicht, fein bemalt, mit Namensschild. „M. Price.“ „A. Hollis.“ Eines ist noch unbemalt.",
+      "done_flag": "read_veil_hats"
+    },
+    {
+      "id": "mirrors",
+      "kind": "read",
+      "tile": [
+        14,
+        2
+      ],
+      "prompt": "Die Spiegelwand zerschlagen",
+      "title": "Die Spiegelwand",
+      "text": "Du schlägst mit dem Stock in die Spiegel. Jeder zerspringt mit einem Seufzer, als ob jemand dahinter ausatmet. In den Scherben siehst du nur noch dich.",
+      "done_flag": "mirrors_broken",
+      "visible_if": {
+        "hide_if_flags": [
+          "seherin_down"
+        ]
+      }
+    },
+    {
+      "id": "seer",
+      "kind": "combat",
+      "encounter": "schleier_seherin",
+      "tile": [
+        17,
+        3
+      ],
+      "sprite": "npc:schleier_seherin",
+      "marker": true,
+      "solid": [
+        12,
+        10
+      ],
+      "prompt": "Der Frau zwischen den Spiegeln entgegentreten",
+      "visible_if": {
+        "hide_if_flags": [
+          "seherin_down"
+        ]
+      }
+    },
+    {
+      "id": "faces",
+      "kind": "read",
+      "tile": [
+        24,
+        4
+      ],
+      "prompt": "Das Gesichterbuch verbrennen",
+      "title": "Das Gesichterbuch",
+      "text": "Ein dickes Buch voller Zeichnungen: Gesichter von vorn, von der Seite, lachend, weinend. Auf jeder Seite ein Name. Du hältst es in die Lampe. Die Gesichter rollen sich in der Flamme zusammen, als würden sie sich abwenden.",
+      "done_flag": "faces_burned",
+      "visible_if": {
+        "requires_flags": [
+          "seherin_down"
+        ],
+        "hide_if_flags": [
+          "ysolde_resolved"
+        ]
+      }
+    },
+    {
+      "id": "ledger",
+      "clue": "ysolde_ledger",
+      "tile": [
+        25,
+        4
+      ],
+      "prompt": "Das Verzeichnis auf dem Schreibtisch lesen",
+      "visible_if": {
+        "requires_flags": [
+          "seherin_down"
+        ]
+      }
+    },
+    {
+      "id": "tilly",
+      "kind": "dialogue",
+      "dialogue": "tilly_cellar",
+      "title": "Tilly Brooks",
+      "role": "Hausmädchen",
+      "tile": [
+        5,
+        3
+      ],
+      "sprite": "npc:tilly",
+      "marker": true,
+      "solid": [
+        12,
+        10
+      ],
+      "prompt": "Hinter den Tüllvorhang sehen",
+      "visible_if": {
+        "requires_flags": [
+          "ysolde_resolved"
+        ],
+        "hide_if_flags": [
+          "tilly_freed"
+        ]
+      }
+    }
+  ],
+  "npcs": [
+    {
+      "id": "schleier_messerin",
+      "tile": [
+        10,
+        10
+      ],
+      "facing": "down",
+      "visible_if": {
+        "hide_if_flags": [
+          "messerin_down"
+        ]
+      }
+    },
+    {
+      "id": "schleier_mutter",
+      "tile": [
+        26,
+        5
+      ],
+      "facing": "left",
+      "visible_if": {
+        "requires_flags": [
+          "seherin_down"
+        ],
+        "hide_if_flags": [
+          "ysolde_resolved"
+        ]
+      }
+    }
+  ]
+}
