@@ -141,15 +141,15 @@ function session(id = 'waage', setup = () => {}) {
   return s;
 }
 
-test('Jeder Zirkel ist eine Gruppe aus 4 bis 5 Leuten, alle sitzen am Treffpunkt', () => {
+test('Jeder Zirkel ist eine Gruppe aus 4 bis 5 Leuten (Täfelchengilde: 3), alle sitzen am Treffpunkt', () => {
   for (const [id, c] of Object.entries(content.gatherings.circles)) {
-    assert.ok(c.members.length >= 4 && c.members.length <= 5, `${id}: ${c.members.length}`);
+    assert.ok(c.members.length >= (id === 'namensgilde' ? 3 : 4) && c.members.length <= 5, `${id}: ${c.members.length}`);
     const map = content.maps[c.map];
     for (const m of c.members) {
       assert.ok(content.npcs[m.id], m.id);
       assert.ok(map.npcs.some((n) => n.id === m.id), `${m.id} sitzt in ${c.map}`);
-      const open = content.dialogues[m.id].nodes.open;
-      assert.ok(open.choices.some((ch) => ch.auction === id), `${m.id} eröffnet die Runde`);
+      const nodes = Object.values(content.dialogues[content.npcs[m.id].dialogue ?? m.id].nodes); // AQ: eigener Dialog mit Startknoten
+      assert.ok(nodes.some((n) => n.choices?.some((ch) => ch.auction === id)), `${m.id} eröffnet die Runde`);
       assert.ok(m.offers.length && m.wants.length, `${m.id}: Angebote und Gesuche`);
       for (const e of m.offers) assert.ok(content.items[e.item], e.item);
       for (const w of m.wants) assert.ok(content.items[w], w);

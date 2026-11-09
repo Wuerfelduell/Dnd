@@ -395,7 +395,7 @@ export const MAP_MARKERS = {
   giesserei: 7, haus_vey: 1, resonanzkammer: 9, atelier: 4, ballsaal: 8, spiegelkabinett: 8, // Fall 5/6: Platzhalter
   treffen_waage: 6, treffen_kreide: 5, treffen_russ: 7, // Geheime Treffen: Platzhalter
   kontor_thorne: 4, waisenhaus: 1, traumkeller: 11, // Fall 7/8: Platzhalter
-  wx_bahnhof: 3, wx_torfstich: 3, wx_salzmarkt: 4, wx_bojenhafen: 3, wx_oberstadt: 0, wx_pfahldorf: 2, wx_vergessmoor: 3, wx_leuchtturm: 12, wx_salzwatt: 3, wx_altstadt: 2, treffen_lichtlose: 7, treffen_salz: 6, // Kapitel 2 (Wexmoor): Platzhalter
+  wx_bahnhof: 3, wx_torfstich: 3, wx_salzmarkt: 4, wx_bojenhafen: 3, wx_oberstadt: 0, wx_pfahldorf: 2, wx_vergessmoor: 3, wx_leuchtturm: 12, wx_salzwatt: 3, wx_altstadt: 2, treffen_lichtlose: 7, treffen_salz: 6, treffen_namensgilde: 7, // Kapitel 2 (Wexmoor): Platzhalter
 };
 export const MAP_MARKERS_URL = `${BASE}ui/C_08_map_markers.png`;
 /** Paket J: eigene Marker (gleiches Raster, 13 Spalten) für spätere Orte. */
@@ -412,7 +412,7 @@ export const Q_MAP_MARKERS = Object.fromEntries(['wx_bahnhof', 'wx_torfstich', '
   'wx_leuchtturm'].map((id, i) => [id, i]));
 export const Q_MAP_MARKERS_URL = `${BASE}ui/Q_wexmoor_marker.png`;
 /** Batch X: Marker der Wexmoor-Zirkel (2 Spalten, Zeilen wie Paket O). */
-export const X_MAP_MARKERS = { treffen_lichtlose: 0, treffen_salz: 1 };
+export const X_MAP_MARKERS = { treffen_lichtlose: 0, treffen_salz: 1, treffen_namensgilde: 0 }; // Täfelchengilde: Marker der Lichtlosen, bis es einen eigenen gibt
 export const X_MAP_MARKERS_URL = `${BASE}ui/X_map_markers_zirkel.png`;
 /** Marker eines Ortes: [Bild-URL, Spalte, Spalten im Bild, live]. */
 export const mapMarkerOf = (map) => {
@@ -1961,3 +1961,25 @@ BATTLE_SHEETS.enemy_gemalte_frau = ['battle/enemy_gemalte_frau.png', 64];
 ANIM_ALIASES.enemy_wxn_maler = { attack: 'brush_slash', special: 'paint_throw' };
 ANIM_ALIASES.enemy_gemalte_frau = { cast: 'emerge' };
 FADING_SHEETS.push('enemy_gemalte_frau');
+
+// --- Paket AO: elf neue Wexmoor-Figuren (manifest-wexmoor7.json) --------------------------------------
+/** Acht Einwohner (AL, AM, AP) und drei Mitglieder der Täfelchengilde (AQ): Lauf-Sheet, Portrait, Kopf, AK-Gesichter. */
+export const AO_FIGURES = ['wxn_bestatterin', 'wxn_lichtschreiber', 'wxn_torfgraeber', 'wxn_apothekerin', 'wxn_telegrafist',
+  'wxn_hafenmeisterin', 'wxn_krabbe', 'wxn_maler', 'tm_esse', 'tm_kerbe', 'tm_mulde'];
+for (const id of AO_FIGURES) {
+  SHEETS[`ao_${id}`] = `characters/${id}_walk.png`;
+  CHARACTER_SHEETS[`npc_${id}`] = `ao_${id}`;
+  PORTRAITS[id] = `${id}_emotions.png`;
+  HEADS.push(id);
+  AK_FIGURES.add(id);
+  if (id.startsWith('tm_')) T_MEMBERS.push(id);
+}
+/** Staffelei des Malers: leer und mit dem Bild der gemalten Frau. */
+for (const id of ['AO_staffelei', 'AO_staffelei_portraet']) {
+  WHOLE_PROPS[id] = `props/${id}.png`;
+  SHEETS[id] = `props/${id}.png`;
+  PROP_ORIGINS[id] = 0.85;
+}
+/** Paket AQ: Waren der Täfelchengilde nutzen bis zu eigenen Icons die vorgeschlagenen Platzhalter. */
+Object.assign(ITEM_ICON_ALIASES, { k2g_kerbstaub: 'torfasche', k2g_moorharz: 'salamanderoel', k2g_rufpastille: 'riechsalz',
+  k2g_schreinbruehe: 'moortee', k2g_zeugenklammer: 'amulett_eisen', k2g_nachhallspule: 'spindelknochen' });
