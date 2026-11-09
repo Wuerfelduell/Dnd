@@ -1,10 +1,12 @@
-# Codex-Paket AC: Kapitel 3, Story-Entwurf und Akt I als Daten
+# Codex-Paket AC: Kapitel 3, drei Geschichten zur Auswahl
 
 **Paket-Name:** `kapitel3` · **Ordner:** `docs/story/kapitel3/` · **ID-Präfix:** `k3_`
 
-Kapitel 1 (Kettlegate, 9 Fälle) und Kapitel 2 (Wexmoor, eine lange Jagd in 5 Akten) sind fertig. Für Kapitel 3 gibt es nur einen offenen Haken: **das, was unter dem Moor liegt und Namen frisst.** Du schreibst einen vollständigen Story-Entwurf und Akt I davon als fertige Spieldaten. Das ist ein **Entwurf zur Auswahl**: Seb entscheidet danach, was davon ins Spiel kommt.
+Kapitel 1 (Kettlegate, 9 Fälle) und Kapitel 2 (Wexmoor, eine lange Jagd in 5 Akten) sind fertig. Für Kapitel 3 gibt es nur einen offenen Haken: **das, was unter dem Moor liegt und Namen frisst.** Du schreibst **drei vollständige, voneinander verschiedene Geschichten** für Kapitel 3. Seb sucht danach eine aus; erst dann wird sie als Spieldaten gebaut. Du lieferst also **Texte, keine Spieldaten**.
 
 ## 0. Gemeinsame Regeln für Text-Pakete (bitte zuerst lesen)
+
+**Für dieses Paket gelten nur 0.1 und 0.4.** 0.2 (Datenformat), 0.3, 0.5 und 0.6 brauchst du erst, wenn die gewählte Geschichte als Daten gebaut wird; lies 0.2 trotzdem, damit deine Ideen zu dem passen, was das Spiel kann.
 
 Diese Datei ist **in sich vollständig**. Das Spiel heißt „Nebelakten“: ein originales 2D-Pixel-Mysteryspiel in Phaser 3 (Repo `Wuerfelduell/Dnd`). Kapitel 1 spielt in der Nebelstadt **Kettlegate** (Fälle 1 bis 9), Kapitel 2 in der versinkenden Moorstadt **Wexmoor** (eine lange Jagd auf Magistra Ilse Brandt, 5 Akte). Die Welt ist eigenständig: keine Namen, Orte, Organisationen oder Begriffe aus fremden Büchern, Spielen oder Filmen.
 
@@ -56,11 +58,12 @@ Wenn eine neue Figur, ein neues Item oder ein neuer Gegner ein Bild braucht, tra
 
 ---
 
-## 1. Erst lesen
-- `src/data/campaign.json`, `src/data/case_09.json` (Ende Kapitel 1, Flag `kapitel1_done`)
-- `src/data/wexmoor.json`: `quests` (Akte), `case` (Fakten, Deduktionen, **`endings`**), `dialogues` von `zunder`, `sedge`, `brandt`, `lichtmann`, `marlowe_wexmoor`, `vey_wexmoor`, `kit_wexmoor`. Die Lesetexte (`interactables` mit `kind: "read"`) in den Karten erzählen viel über das Moor, die Namens-Täfelchen und den Leuchtturm.
-- `src/data/pathways.json`: die Pfade (Fähigkeiten-Linien) und Sequenzen 9 bis 5 des Spielers. Kapitel 3 sollte den Weg zu Sequenz 4 öffnen.
-- `src/data/treffen.json`: geheime Zirkel und Auktionen.
+## 1. Erst lesen (Pflicht, bevor du schreibst)
+Die drei Geschichten müssen zur bisherigen Story passen. Lies deshalb zuerst gründlich:
+- **Kapitel 1 (Kettlegate):** `src/data/campaign.json`, alle Fälle `src/data/case_01.json` bis `case_09.json` (Fakten, Hinweise, Deduktionen, **Enden**), die Fall-Dialoge in `src/data/dialogues/` (vor allem `fall5.json`, `fall6.json`, `fall78.json`, `fall9.json`) und die Lesetexte in `src/data/maps/*.json` (`interactables` mit `kind: "read"`).
+- **Kapitel 2 (Wexmoor):** `src/data/wexmoor.json` komplett: `quests` (Akt I bis V, Nebenaufträge `k2_s_*`), `case` (Fakten, Deduktionen, die vier `endings`), `dialogues` (vor allem `zunder`, `sedge`, `brandt`, `lichtmann`, `hale`, `marlowe_wexmoor`, `vey_wexmoor`, `kit_wexmoor`, `elsbeth`), `loners`, die Lesetexte in `maps`.
+- **Welt-Regeln:** `src/data/pathways.json` (Pfade, Sequenzen 9 bis 5, Rituale, Artefakte), `src/data/treffen.json` (geheime Zirkel), `src/data/factions.json`.
+Schreib danach in `docs/story/kapitel3/story_bisher.md` eine Zusammenfassung von Kapitel 1 und 2 (höchstens 2 Seiten): Hauptfiguren, wer was weiß, offene Fäden, wichtige Flags. Jede deiner drei Geschichten muss mindestens **drei** dieser offenen Fäden aufgreifen.
 
 ## 2. Was schon feststeht
 - Kapitel 2 hat vier Enden: `k2_rein` (vor Gericht), `k2_moor`, `k2_lichtmeister`, `k2_meer`. Alle setzen `kapitel2_done`. Kapitel 3 muss **mit jedem Ende** funktionieren und darf darauf Bezug nehmen (Flags `k2_end_*`).
@@ -70,32 +73,24 @@ Wenn eine neue Figur, ein neues Item oder ein neuer Gegner ein Bild braucht, tra
 - Seb mochte an Kapitel 2: eine große Jagd statt vieler Einzelfälle, eine neue Stadt komplett erkunden, eine eigene Kernmechanik (dort: Polizei mit Lichtkegeln, Fahndung, Verkleidung), ein früher Unterschlupf mit einem Verbündeten.
 
 ## 3. Was du lieferst
-### 3.1 Zwei kurze Pitches (`pitches.md`)
-Zwei unterschiedliche Richtungen für Kapitel 3, je eine halbe Seite: Schauplatz (neue Stadt oder Ort mit 5 bis 7 Vierteln, eigener Stimmung, nicht wieder Moor-Küste), Gegenspieler, Kernmechanik (so prägend wie die Polizei in Wexmoor, aber anders), Verbündeter, Unterschlupf, wie die Namen-fressende Macht hineinspielt, wie es endet. Empfiehl einen davon und sag warum.
+### 3.1 Drei Geschichten (`geschichte_1.md`, `geschichte_2.md`, `geschichte_3.md`)
+Drei **deutlich verschiedene** Richtungen (anderer Schauplatz, anderer Gegenspieler, andere Kernmechanik, anderer Grundton). Jede Geschichte ist vollständig und gleich ausführlich (ca. 4 bis 6 Seiten), mit diesem Aufbau:
+1. **Titel und Leitsatz** (ein Satz, der die Geschichte verkauft).
+2. **Prämisse und Thema**: Worum geht es, welche Frage stellt das Kapitel?
+3. **Anschluss**: wie die Geschichte nach jedem der vier Enden von Kapitel 2 beginnt (je 2 bis 3 Sätze), welche offenen Fäden sie aufgreift, welche alten Figuren auftauchen und warum.
+4. **Schauplatz**: neue Stadt oder Gegend (nicht wieder Moor-Küste) mit 5 bis 7 Vierteln, je 2 bis 3 Sätze, dazu 3 Gefahrengebiete mit Boss.
+5. **Figuren** (8 bis 12): Name, Rolle, Geheimnis, Pfad (falls übernatürlich). Ein Verbündeter wie Zunder in Kapitel 2, ein früher Unterschlupf.
+6. **Gegenspieler**: wer, was will er, warum glaubt er, im Recht zu sein, wie hängt er mit dem zusammen, was unter dem Moor Namen frisst.
+7. **Kernmechanik**: so prägend wie die Polizei in Wexmoor, aber anders. In Spielregeln beschrieben: was der Spieler tut, was passiert, wie man scheitert.
+8. **Ablauf**: 5 Akte, je 4 Fährten. Pro Fährte 2 bis 4 Sätze: Ziel, Ort, ein Schlüssel-Hinweis, die Deduktion, die sie abschließt.
+9. **Wendepunkte**: die 3 größten Überraschungen.
+10. **Enden**: 3 bis 4 Enden mit Bedingungen.
+11. **Kostprobe**: eine Schlüsselszene als Dialog (10 bis 20 Zeilen) im Ton des Spiels.
+12. **Aufwand**: was neu gebaut werden müsste (Karten, Figuren, Gegner, neue Mechanik als Code), grob eingeschätzt als klein/mittel/groß.
 
-### 3.2 Story-Bibel zum empfohlenen Pitch (`bibel.md`)
-- Prämisse, Thema, Ton.
-- Schauplatz: jedes Viertel mit 3 bis 5 Sätzen, wichtigste Orte, Gefahrengebiete (mindestens 3, mit Boss).
-- Figuren (8 bis 12): Name, Rolle, Geheimnis, wie man sie trifft, Pfad (aus `pathways.json`), falls übernatürlich. Namen originell, passend zur Welt (englisch-viktorianisch klingende Nachnamen, deutsche Spitznamen wie „Zunder“).
-- Kernmechanik in Spielregeln beschrieben (was der Spieler tut, was passiert, wie man scheitert). Was davon neuen Code braucht, kommt in `offene_punkte.md`, nicht in die Daten.
-- Struktur: 5 Akte x 4 Fährten wie in Kapitel 2. Pro Fährte: Ziel, Ort, Hinweise, Deduktion, die sie abschließt.
-- Enden: 3 bis 4 Enden mit Bedingungen.
-- Bezüge zu den vier Enden von Kapitel 2.
+### 3.2 Vergleich (`vergleich.md`)
+Eine Tabelle der drei Geschichten (Schauplatz, Gegenspieler, Mechanik, Ton, aufgegriffene Fäden, Aufwand) und ein kurzer Absatz, welche du empfiehlst und warum. Die Entscheidung trifft Seb.
 
-### 3.3 Akt I als fertige Spieldaten
-Akt I komplett spielbar beschrieben, im Format von `src/data/wexmoor.json`:
-```
-docs/story/kapitel3/akt1/
-  kapitel3.json   { city, case, quests, npcs, dialogues, items, encounters } genau wie wexmoor.json aufgebaut (Teilmenge)
-  karten.md       jede neue Karte: Name, Größe in Kacheln, Beschreibung, wo Türen/Figuren/Objekte stehen, Tileset-Wunsch
-  lesetexte.json  alle Interactables mit kind "read" pro Karte: [{map, id, title, text, footer, visible_if, effects}]
-```
-- Ankunft, Verbündeter, Unterschlupf, die ersten 4 Fährten mit Hinweisen und Deduktionen, Ende von Akt I (Flag `k3_akt1_done`).
-- Ca. 40 bis 70 Dialogknoten, 15 bis 25 Hinweise, 4 bis 6 Deduktionen.
-- Karten musst du **nicht** als `rows` bauen; eine gute Beschreibung in `karten.md` reicht.
-
-### 3.4 Weiteres
-- `grafikwuensche.md`: alle Figuren, Kacheln, Gegner und Items aus Akt I (Format siehe 0.6), dazu je ein englischer Prompt für Stadtkarte und Titelbild des Kapitels.
-- `musikwuensche.md`: 4 bis 6 Stücke für Kapitel 3 (Name, Stimmung, Instrumente, wo im Spiel), passend zu den Musik-Regeln in `tools/audio/musik/` falls das Musik-Paket schon da ist, sonst frei.
-- `offene_punkte.md`: alles, was Code braucht.
-- `pruefen.mjs` für `akt1/kapitel3.json` und `akt1/lesetexte.json` (siehe 0.5).
+### 3.3 Sonst
+- `README.md`: Übersicht mit Leitsatz jeder Geschichte.
+- Keine Spieldaten, keine `pruefen.mjs` nötig. Die gewählte Geschichte wird später in einem eigenen Paket als Daten gebaut.

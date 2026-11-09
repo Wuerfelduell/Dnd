@@ -15,7 +15,7 @@ Jede Datei ist **eigenständig** (Regeln, Formate, Ablage stehen drin). Codex br
 | `codex_Z_musik.md` | Ton | 26 Musikstücke mit Leitmotiven für Kettlegate und Wexmoor, im Skript komponiert | `public/audio/musik/`, `tools/audio/musik/` |
 | `codex_AA_nebenquests_kettlegate.md` | Quests | 11 Nebenaufträge für die Auftragsfiguren + 3 Steckbriefe | `docs/story/kg_nebenquests/` |
 | `codex_AB_nebenquests_wexmoor.md` | Quests | 10 Nebenaufträge in Wexmoor + 6 Ausbauten für den Torfkahn | `docs/story/wx_nebenquests/` |
-| `codex_AC_kapitel3_story.md` | Story | Kapitel 3: zwei Pitches, Story-Bibel, Akt I als Daten (Entwurf zur Auswahl) | `docs/story/kapitel3/` |
+| `codex_AC_kapitel3_story.md` | Story | Kapitel 3: drei komplette Geschichten zur Auswahl, passend zu Kapitel 1 und 2, mit Vergleich | `docs/story/kapitel3/` |
 | `codex_AD_lesetexte_lore.md` | Texte | Zeitungen nach jedem Fall/Akt, 40 Lesestücke, Passanten-Gerede, Item-Texte, Bestiarium | `docs/story/lore/` |
 | `codex_AE_oberflaeche_wexmoor_leben.md` | Grafik | Einstellungs-Symbole, Touch-Knöpfe, Titelbild in Ebenen, Kapitelkarten, Zeitungs-UI, Tiere und Wetter für Wexmoor | `public/sprites/…`, Batch `oberflaeche` |
 | `codex_AF_sequenzen.md` | Pfade | Sequenz 4 bis 1 für alle 7 Pfade, 3 neue Pfade (9 bis 1), Zutaten, Rituale, Balancing | `docs/story/sequenzen/` |
