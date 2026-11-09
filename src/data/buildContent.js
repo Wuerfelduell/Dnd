@@ -4,24 +4,33 @@
 // gebaeude.json bringt betretbare Häuser mit: Innenräume, Türen in den Vierteln, Figuren, Händler, Dialoge.
 // stadtgegner.json (Paket L) verteilt Stadtgegner als Streifen auf die Viertel und bringt Beute und Kopfgeld-Brett mit.
 // treffen.json (geheime Treffen) bringt Zirkel, Treffpunkte, Gastgeber mit Händlern, Dialoge und Reiseziele mit.
-export function buildContent({ campaign, quests, cases, maps, dialogues, items = {}, encounters = {}, pathways = null, market = null, travel = null, wilds = null, factions = null, buildings = null, gatherings = null, city = null }) {
+// wexmoor.json (Kapitel 2) bringt die zweite Stadt mit: Karten mit `city: "wexmoor"`, eigene Reiseziele und -ereignisse, Figuren, Dialoge, Auftrag und Spuren.
+export function buildContent({ campaign, quests, cases, maps, dialogues, items = {}, encounters = {}, pathways = null, market = null, travel = null, wilds = null, factions = null, buildings = null, gatherings = null, city = null, wexmoor = null }) {
   const merge = (list, key) => Object.assign({}, ...list.map((x) => x[key] ?? {}));
   const b = buildings ?? {};
   const g = gatherings ?? {};
-  maps = withPlacements(withEntrances([...maps, ...(b.maps ?? []), ...(g.maps ?? [])], b.entrances ?? []), g.placements ?? []);
-  const wild = wildContent(wilds);
+  const wx = wexmoor ?? {};
+  if (wx.case) cases = [...cases, wx.case];
+  maps = withPlacements(withEntrances([...maps, ...(b.maps ?? []), ...(g.maps ?? []), ...(wx.maps ?? [])], b.entrances ?? []), g.placements ?? []);
+  // Kapitel 2 bringt eigene Gefahrengebiete mit (Vergessmoor)
+  const wild = wildContent(wexmoor?.zones ? { ...wilds, zones: { ...(wilds?.zones ?? {}), ...wexmoor.zones } } : wilds);
   const town = cityContent(city);
   maps = withCity(maps, city);
   const f = factions ?? {};
   if (f.facts || f.clues || f.deductions) cases = [...cases, { facts: f.facts, clues: f.clues, deductions: f.deductions }];
   return {
     ...campaign,
-    npcs: { ...campaign.npcs, ...(market?.npcs ?? {}), ...(f.npcs ?? {}), ...(b.npcs ?? {}), ...(g.npcs ?? {}) },
-    travel: [...(campaign.travel ?? []), ...(market?.travel ?? []), ...wild.travel, ...(f.travel ?? []), ...(g.travel ?? [])],
-    quests: { ...quests, ...(f.quests ?? {}) },
-    items: { ...items, ...(pathways?.items ?? {}), ...pathwayItems(pathways?.pathways ?? {}), ...artifactItems(pathways?.artifacts), ...wild.items, ...town.items, ...(f.items ?? {}) },
+    npcs: { ...campaign.npcs, ...(market?.npcs ?? {}), ...(f.npcs ?? {}), ...(b.npcs ?? {}), ...(g.npcs ?? {}), ...(wx.npcs ?? {}) },
+    travel: [...(campaign.travel ?? []), ...(market?.travel ?? []), ...wild.travel, ...(f.travel ?? []), ...(g.travel ?? []), ...(wx.travel ?? [])],
+    quests: { ...quests, ...(f.quests ?? {}), ...(wx.quests ?? {}) },
+    items: { ...items, ...(pathways?.items ?? {}), ...pathwayItems(pathways?.pathways ?? {}), ...artifactItems(pathways?.artifacts), ...wild.items, ...town.items, ...(f.items ?? {}), ...(wx.items ?? {}) },
     encounters: { ...encounters, ...(market?.encounters ?? {}), ...(travel?.encounters ?? {}), ...wild.encounters, ...town.encounters, ...(f.encounters ?? {}) },
-    travelRules: travel && { ...travel, pins: { ...travel.pins, ...(g.pins ?? {}) } },
+    travelRules: travel && {
+      ...travel,
+      pins: { ...travel.pins, ...(g.pins ?? {}) },
+      events: [...(travel.events ?? []), ...(wx.events ?? [])],
+      cities: { ...(travel.cities ?? {}), ...(wx.city ? { [wx.city.id]: wx.city } : {}) },
+    },
     pathways: pathways?.pathways ?? {},
     market: market && { ...market, merchants: { ...market.merchants, ...(b.merchants ?? {}), ...(g.merchants ?? {}) }, sell_prices: { ...market.sell_prices, ...(f.sell_prices ?? {}) } },
     loot: { ...(market?.loot ?? {}), ...artifactDrops(wild.loot, wild.encounters, pathways?.artifacts), ...town.loot, ...(f.loot ?? {}) },
@@ -32,12 +41,13 @@ export function buildContent({ campaign, quests, cases, maps, dialogues, items =
     lootTables: wild.lootTables,
     factions: f.factions ?? {},
     gatherings: g.rules ? { rules: g.rules, circles: g.circles ?? {} } : null,
+    police: wx.police ?? null,
     facts: merge(cases, 'facts'),
     clues: merge(cases, 'clues'),
     endings: merge(cases, 'endings'),
     deductions: cases.flatMap((c) => c.deductions ?? []),
     maps: Object.fromEntries(maps.map((m) => [m.id, m])),
-    dialogues: Object.assign({}, ...dialogues, b.dialogues ?? {}, g.dialogues ?? {}),
+    dialogues: Object.assign({}, ...dialogues, b.dialogues ?? {}, g.dialogues ?? {}, wx.dialogues ?? {}),
   };
 }
 

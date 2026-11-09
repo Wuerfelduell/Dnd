@@ -12,7 +12,7 @@ import {
 import { sourceOf } from '../core/sources.js';
 import { caseHints, nextDeduction } from '../core/hints.js';
 import { isSolved, knownPeople } from '../core/journal.js';
-import { canHurry, travelSafe, travelFast, afterHurryFight } from '../core/Travel.js';
+import { canHurry, travelSafe, travelFast, afterHurryFight, travelDestinations, cityOf } from '../core/Travel.js';
 import { questTarget } from '../core/Guide.js';
 
 /** 16x16-Icon vor einem Item-Namen. Lädt es nicht, verschwindet es einfach. */
@@ -142,6 +142,7 @@ export class Ui {
           <div class="meter digest hidden"><span>Verdaut</span><div class="bar"><div class="dfill"></div></div><em class="dnum"></em></div>
           <div class="meter unruhe hidden"><span>Unruhe</span><div class="bar"><div class="ufill"></div></div></div>
           <div class="money"></div>
+          <div class="fahndung hidden"></div>
           <div class="treffen hidden"></div>
           <div class="goal hidden"></div>
         </div>
@@ -192,6 +193,10 @@ export class Ui {
       this.toast(`${delta > 0 ? '+' : ''}${delta} Schilling${reason ? `: ${reason}` : ''}`, delta > 0 ? 'item' : 'warn');
     });
     state.on('unruhe', () => this.updateUnruhe());
+    state.on('wanted', ({ level, delta, reason }) => {
+      this.updateWanted();
+      this.toast(`Fahndungsstufe ${level}${reason ? `: ${reason}` : ''}`, delta > 0 ? 'warn' : 'item');
+    });
     this.digestAcc = {};
     state.on('digest', ({ delta, kind }) => {
       this.updateUnruhe();
@@ -246,6 +251,7 @@ export class Ui {
     this.updateHp();
     this.updateMoney();
     this.updateUnruhe();
+    this.updateWanted();
     this.updateGoal();
   }
 
@@ -278,6 +284,18 @@ export class Ui {
     const frac = st.open ? (g.end - this.state.playTime) / Math.max(1, g.end - g.start) : 1;
     const timer = st.open ? atlasIcon(ZIRKEL_URL, 24 + Math.min(7, Math.max(0, Math.floor((1 - frac) * 8))), 8) : '';
     el.innerHTML = `${inv !== undefined ? atlasIcon(ZIRKEL_URL, 16 + inv, 8) : (st.open ? '◆' : '◇')}${timer} ${esc(st.text)}`;
+  }
+
+  /** Kapitel 2: Fahndungsstufe im HUD, nur in Wexmoor. */
+  updateWanted() {
+    const el = this.$('.fahndung');
+    const s = this.state;
+    const r = s.policeRules?.();
+    const show = !!r && s.content.maps[s.map]?.city === 'wexmoor';
+    el.classList.toggle('hidden', !show);
+    if (!show) return;
+    el.classList.toggle('hot', s.wanted > 0);
+    el.textContent = `Fahndung ${'★'.repeat(s.wanted)}${'☆'.repeat(r.max_level - s.wanted)}`;
   }
 
   updateMoney() {
@@ -386,6 +404,10 @@ export class Ui {
       this.showMessage('Kontrollverlust', text);
     } else if (this.state.pendingCombat && this.scene) {
       this.scene.startCombat(this.state.pendingCombat);
+    } else if (this.state.pendingTravel && this.scene) {
+      const t = this.state.pendingTravel;
+      this.state.pendingTravel = null;
+      this.scene.travelTo(t.map, t.spawn);
     } else if (this.afterClose) {
       const after = this.afterClose;
       this.afterClose = null;
@@ -540,8 +562,11 @@ export class Ui {
   /** Gemalte Stadtkarte: Marker für jeden freigeschalteten Ort, danach die Reiseart. */
   openTravel(current) {
     const s = this.state;
-    const rules = s.content.travelRules;
-    const dests = s.content.travel.filter((t) => t.map !== current && s.meets(t));
+    const all = s.content.travelRules;
+    // Kapitel 2: Jede Stadt hat ihre eigene Karte (Wexmoor vorerst ohne gemaltes Bild, nur Ziele als Liste).
+    const cityRules = all.cities?.[cityOf(s, current)];
+    const rules = cityRules ? { ...cityRules, pins: cityRules.pins ?? {} } : all;
+    const dests = travelDestinations(s, current);
     this.travelDests = dests;
     this.travelPick = null;
     this.travelFrom = current;
@@ -560,14 +585,14 @@ export class Ui {
     const destPins = dests.map((d, i) => (pins[d.map] ? pin(d.map, '', `<span class="num">${i + 1}</span><span class="tag">${esc(d.name)}</span>`, `data-i="${i}"`) : '')).join('');
     const unpinned = dests.map((d, i) => (pins[d.map] ? '' : `<button data-i="${i}"><span class="key">${i + 1}</span> ${esc(d.name)}</button>`)).join('');
     const el = this.open('travel', `
-      <div class="map" style="background-image:url(${SPRITE_BASE}${rules.map_image})">
+      <div class="map${rules.map_image ? '' : ' plain'}"${rules.map_image ? ` style="background-image:url(${SPRITE_BASE}${rules.map_image})"` : ''}>
         ${rules.fog_image ? '<canvas class="fog" width="480" height="270"></canvas>' : ''}
         ${here}${destPins}
         ${unpinned ? `<div class="unpinned">${unpinned}</div>` : ''}
       </div>
       <div class="modes hidden"></div>
       <div class="mapbar">
-        <div class="info"><h3>Stadtkarte von Kettlegate</h3><span class="muted">${goal?.map ? `Ziel: ${esc(this.goalText(goal))}` : 'Wähle ein Ziel mit Zahl oder Klick.'}</span></div>
+        <div class="info"><h3>${esc(rules.title ?? 'Stadtkarte von Kettlegate')}</h3><span class="muted">${goal?.map ? `Ziel: ${esc(this.goalText(goal))}` : 'Wähle ein Ziel mit Zahl oder Klick.'}</span></div>
         <button data-act="stay"><span class="key">Esc</span> Hierbleiben</button>
       </div>`, 'citymap');
     el.querySelectorAll('[data-i]').forEach((b) => {
@@ -609,6 +634,11 @@ export class Ui {
     if (!d) return;
     const s = this.state;
     const rules = s.content.travelRules;
+    if (d.direct) { // Zugfahrt zwischen den Städten: keine Reiseart, direkt hin
+      this.close();
+      this.scene.travelTo(d.map, d.spawn);
+      return;
+    }
     this.travelPick = d;
     this.travelInfo(d);
     const el = this.layer.querySelector('.citymap');
