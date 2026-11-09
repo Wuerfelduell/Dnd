@@ -6,11 +6,13 @@ import { fileURLToPath } from 'node:url';
 const dir = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(dir, '../../..');
 const load = p => JSON.parse(fs.readFileSync(p, 'utf8'));
-const data = Object.fromEntries(fs.readdirSync(dir).filter(p => p.endsWith('.json')).map(p => [p, load(path.join(dir,p))]));
+// Seit dem Einbau liegen die JSON-Dateien unter src/data/packs/k2_orte und werden aus den übrigen Quellen herausgenommen.
+const pkgDir = path.join(root, 'src/data/packs/k2_orte');
+const data = Object.fromEntries(fs.readdirSync(pkgDir).filter(p => p.endsWith('.json')).map(p => [p, load(path.join(pkgDir,p))]));
 const p = n => data[n+'.json'];
 const walk = (v, fn, at = '') => { if (!v || typeof v !== 'object') return; if (!Array.isArray(v)) fn(v, at); for (const [k,x] of Object.entries(v)) walk(x,fn,at+'/'+k); };
 const jsonFiles = d => fs.readdirSync(d,{withFileTypes:true}).flatMap(e => e.isDirectory() ? jsonFiles(path.join(d,e.name)) : e.name.endsWith('.json') ? [path.join(d,e.name)] : []);
-const sourceFiles = jsonFiles(path.join(root,'src/data'));
+const sourceFiles = jsonFiles(path.join(root,'src/data')).filter(f => !f.startsWith(pkgDir));
 const sources = sourceFiles.map(load);
 const wx = load(path.join(root,'src/data/wexmoor.json'));
 const maps = new Map(wx.maps.map(m=>[m.id,structuredClone(m)]));

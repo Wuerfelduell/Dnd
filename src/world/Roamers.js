@@ -106,9 +106,11 @@ export class Roamers {
     if (owId && s.textures.exists(owKey)) {
       r.sheet = owKey;
       r.sprite = s.add.sprite(x, y + 2, owKey, 0).setOrigin(0.5, 1).setScale(size);
+      const rows = Math.max(1, Math.floor((s.textures.get(owKey).frameTotal - 1) / 4)); // Paket AN: Sheets mit nur einer Reihe
       DIRS.forEach((dir, row) => {
         const key = `${owKey}-${dir}`;
-        if (!s.anims.exists(key)) s.anims.create({ key, frames: s.anims.generateFrameNumbers(owKey, { start: row * 4, end: row * 4 + 3 }), frameRate: 7, repeat: -1 });
+        const start = (row < rows ? row : 0) * 4;
+        if (!s.anims.exists(key)) s.anims.create({ key, frames: s.anims.generateFrameNumbers(owKey, { start, end: start + 3 }), frameRate: 7, repeat: -1 });
       });
     } else {
       const sheet = r.enc.sheet && s.textures.exists(r.enc.sheet) ? r.enc.sheet : null;

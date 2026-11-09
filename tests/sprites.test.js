@@ -131,7 +131,7 @@ test('Paket C: Portraits, Lauf-Sheets und Kartenmarker sind vollständig', () =>
   for (const id of Object.keys(content.npcs)) {
     if (existsSync(sprite(`portraits/C_${id}_emotions.png`))) assert.ok(PORTRAITS[id], `Portrait nicht zugeordnet: ${id}`);
   }
-  for (const t of content.travel) if (!['crypt'].includes(t.map)) assert.ok(MAP_MARKERS[t.map] !== undefined, `Marker fehlt: ${t.map}`);
+  for (const t of content.travel) if (!['crypt'].includes(t.map)) assert.ok(mapMarkerOf(t.map)[1] !== undefined, `Marker fehlt: ${t.map}`);
 });
 
 // --- Paket D (Stadt) und E (Fälle) -------------------------------------------------

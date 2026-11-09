@@ -102,6 +102,19 @@ import k2a_dialog_zusaetze from './packs/k2_akten/dialog_zusaetze.json';
 import k2a_platzierung from './packs/k2_akten/platzierung.json';
 import k2a_faelle from './packs/k2_akten/faelle.json';
 import k2a_zeitung from './packs/k2_akten/zeitung.json';
+import k2o_quests from './packs/k2_orte/quests.json';
+import k2o_items from './packs/k2_orte/items.json';
+import k2o_encounters from './packs/k2_orte/encounters.json';
+import k2o_dialogues from './packs/k2_orte/dialogues.json';
+import k2o_npcs from './packs/k2_orte/npcs.json';
+import k2o_case from './packs/k2_orte/case.json';
+import k2o_dialog_zusaetze from './packs/k2_orte/dialog_zusaetze.json';
+import k2o_platzierung from './packs/k2_orte/platzierung.json';
+import k2o_artifacts from './packs/k2_orte/artifacts.json';
+import k2o_maps from './packs/k2_orte/maps.json';
+import k2o_travel from './packs/k2_orte/travel.json';
+import k2o_zone from './packs/k2_orte/zone.json';
+import k2o_pins from './packs/k2_orte/pins.json';
 import k2g_quests from './packs/k2_gilde/quests.json';
 import k2g_items from './packs/k2_gilde/items.json';
 import k2g_encounters from './packs/k2_gilde/encounters.json';
@@ -133,6 +146,7 @@ const wxNebenquests = { name: 'wx_nebenquests', quests: wx_quests, items: wx_ite
 const koop = { name: 'koop', quests: koop_quests, items: koop_items, encounters: koop_encounters, dialogues: koop_dialogues, npcs: koop_npcs, case: koop_case, dialog_zusaetze: koop_dialog_zusaetze, platzierung: koop_platzierung, geplauder: koop_geplauder, kampf: koop_kampf };
 /** Paket AL: vier Wexmoorer Akten. */
 const k2Akten = { name: 'k2_akten', quests: k2a_quests, items: k2a_items, encounters: k2a_encounters, dialogues: k2a_dialogues, npcs: k2a_npcs, case: k2a_case, dialog_zusaetze: k2a_dialog_zusaetze, platzierung: k2a_platzierung, faelle: k2a_faelle, zeitung: k2a_zeitung };
+const k2Orte = { name: 'k2_orte', quests: k2o_quests, items: k2o_items, encounters: k2o_encounters, dialogues: k2o_dialogues, npcs: k2o_npcs, case: k2o_case, dialog_zusaetze: k2o_dialog_zusaetze, platzierung: k2o_platzierung, artifacts: k2o_artifacts, maps: k2o_maps, travel: k2o_travel, zone: k2o_zone, pins: k2o_pins };
 const k2Gilde = { name: 'k2_gilde', quests: k2g_quests, items: k2g_items, encounters: k2g_encounters, dialogues: k2g_dialogues, npcs: k2g_npcs, case: k2g_case, dialog_zusaetze: k2g_dialog_zusaetze, platzierung: k2g_platzierung, artefakte: k2g_artefakte, treffen: k2g_treffen_namensgilde };
 const kgNebenquests = { name: 'kg_nebenquests', quests: kg_quests, items: kg_items, encounters: kg_encounters, dialogues: kg_dialogues, npcs: kg_npcs, case: kg_case, dialog_zusaetze: kg_dialog_zusaetze, platzierung: kg_platzierung };
 
@@ -153,7 +167,7 @@ export const content = buildContent({
   gatherings,
   city,
   wexmoor,
-  packs: [kgNebenquests, wxNebenquests, koop, k2Akten, k2Gilde],
+  packs: [kgNebenquests, wxNebenquests, koop, k2Akten, k2Orte, k2Gilde],
   lore: { bestiarium: lore_bestiarium, gerede: lore_gerede, item_texte: lore_item_texte, lesestuecke: lore_lesestuecke, zeitungen: lore_zeitungen },
   sequenzen: { neue_pfade: sq_neue_pfade, seq_4_bis_1: sq_seq_4_bis_1, zutaten: sq_zutaten, artefakte: sq_artefakte },
 });

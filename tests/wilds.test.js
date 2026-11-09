@@ -9,19 +9,23 @@ import { loadContent, fight, SKILLED, EXPERT } from './helpers.js';
 const content = loadContent();
 const fresh = () => new GameState(content);
 const ZONES = Object.keys(content.zones);
+const STORY_ZONES = { wx_torfbrueche: 'moorbraut' };
 /** Feste Zufallsfolge für reproduzierbare Würfe. */
 const seq = (...values) => { let i = 0; return () => values[i++ % values.length]; };
 
-test('acht Gefahrengebiete (vier in Wexmoor) mit Karte, Reiseziel, vielen Gegnern und einem Boss', () => {
-  assert.deepEqual(ZONES, ['marsch', 'katakomben', 'pestgassen', 'kraterwald', 'wx_vergessmoor', 'wx_leuchtturm', 'wx_salzwatt', 'wx_altstadt']);
+test('neun Gefahrengebiete (fünf in Wexmoor) mit Karte, Reiseziel, vielen Gegnern und einem Boss', () => {
+  assert.deepEqual(ZONES, ['marsch', 'katakomben', 'pestgassen', 'kraterwald', 'wx_vergessmoor', 'wx_leuchtturm', 'wx_salzwatt', 'wx_altstadt', 'wx_torfbrueche']);
   for (const zid of ZONES) {
     const map = content.maps[zid];
     assert.ok(map, zid);
     assert.ok(map.danger >= 1, `${zid}: Gefahrenstufe`);
     assert.ok(content.travel.some((t) => t.map === zid), `${zid}: Reiseziel`);
     const roamers = map.roamers;
-    assert.ok(roamers.length >= 15, `${zid}: nur ${roamers.length} Gegner`);
-    assert.equal(roamers.filter((r) => r.boss).length, 1, `${zid}: ein Boss`);
+    // Paket AM: die Torfbrüche sind ein Erzählort mit wenigen Gegnern; die Moorbraut stellt man bewusst am Brautbecken
+    const story = STORY_ZONES[zid];
+    assert.ok(roamers.length >= (story ? 6 : 15), `${zid}: nur ${roamers.length} Gegner`);
+    assert.equal(roamers.filter((r) => r.boss).length, story ? 0 : 1, `${zid}: ein Boss`);
+    if (story) assert.ok(content.encounters[story]?.boss && Object.values(content.dialogues).some((d) => Object.values(d.nodes).some((n) => n.encounter === story)), `${zid}: Boss ${story} im Gespräch`);
     const walk = new Set([...'.,gpscwPK=']);
     for (const r of roamers) {
       assert.ok(content.encounters[r.encounter]?.wild, `${zid}: ${r.encounter}`);
@@ -47,7 +51,7 @@ test('jeder normale Gegner hat eine stärkere Elite-Variante mit besserer Beute'
     assert.ok(elite.money[1] > base.money[1], `${id}: Elite-Geld`);
   }
   for (const zid of ZONES) {
-    const boss = content.maps[zid].roamers.find((r) => r.boss).encounter;
+    const boss = STORY_ZONES[zid] ?? content.maps[zid].roamers.find((r) => r.boss).encounter;
     assert.equal(content.encounters[boss].fleeable, false, `${boss}: Boss lässt dich nicht fliehen`);
   }
 });

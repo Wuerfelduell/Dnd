@@ -160,9 +160,10 @@ function pathwayItems(pathways) {
 
 /** Artefakte (pathways.json → artifacts.list) werden Gegenstände der Art 'artifact'. */
 /**
- * Paket AQ: Ein Pack kann einen Treffen-Ausschnitt (`treffen`: Zirkel, Karten, Pins, Reiseziele, Reihenfolge je Stadt)
+ * Paket AQ/AM: Ein Pack kann einen Treffen-Ausschnitt (`treffen`: Zirkel, Karten, Pins, Reiseziele, Reihenfolge je Stadt)
  * und Artefakte (`artefakte`) mitbringen. Beides gehört vor den Build; die Spiegel `npcs`/`dialogues` im Ausschnitt
  * bleiben weg, weil das Pack sie selbst einbringt. Pins einer Stadt landen auch auf deren Stadtkarte.
+ * Wexmoorer Orte bringen `maps`, `zone`, `travel` und `pins` mit.
  */
 function withPackTreffen(packs, gatherings, pathways, wexmoor) {
   for (const pack of packs) {
@@ -181,8 +182,21 @@ function withPackTreffen(packs, gatherings, pathways, wexmoor) {
       const cityPins = Object.fromEntries(Object.entries(t.pins ?? {}).filter(([id]) => t.travel?.some((x) => x.map === id && x.city === wexmoor?.city?.id)));
       if (Object.keys(cityPins).length) wexmoor = { ...wexmoor, city: { ...wexmoor.city, pins: { ...(wexmoor.city.pins ?? {}), ...cityPins } } };
     }
-    if (pack.artefakte && pathways?.artifacts) {
-      pathways = { ...pathways, artifacts: { ...pathways.artifacts, list: { ...pathways.artifacts.list, ...pack.artefakte } } };
+    const arts = pack.artefakte ?? pack.artifacts?.list;
+    if (arts && pathways?.artifacts) {
+      pathways = { ...pathways, artifacts: { ...pathways.artifacts, list: { ...pathways.artifacts.list, ...arts } } };
+    }
+    // Paket AM: neue Wexmoorer Orte (Karten, Gefahrengebiet, Reiseziele, Pins auf der Stadtkarte)
+    if (wexmoor && (pack.maps || pack.zone || pack.travel || pack.pins)) {
+      const known = new Set((wexmoor.maps ?? []).map((m) => m.id));
+      for (const m of pack.maps ?? []) if (known.has(m.id)) throw new Error(`${pack.name}: Karte ${m.id} gibt es schon`);
+      wexmoor = {
+        ...wexmoor,
+        maps: [...(wexmoor.maps ?? []), ...(pack.maps ?? [])],
+        zones: { ...(wexmoor.zones ?? {}), ...(pack.zone ?? {}) },
+        travel: [...(wexmoor.travel ?? []), ...(pack.travel ?? [])],
+        city: { ...wexmoor.city, pins: { ...(wexmoor.city?.pins ?? {}), ...(pack.pins ?? {}) } },
+      };
     }
   }
   return { gatherings, pathways, wexmoor };
