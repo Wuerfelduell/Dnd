@@ -1016,8 +1016,7 @@ export function playCaseAnim(sprite, sheet, then) {
 
 /** 16x16-Icon unter public/sprites/items/<id>.png (tests/sprites.test.js prüft, dass es zu jedem Item eins gibt). */
 /** Items ohne eigenes Bild (noch): Platzhalter aus einem ähnlichen Item. */
-export const ITEM_ICON_ALIASES = { kg_kerzenbund: 'lampenoel', kg_bleiorakel: 'spiegelscherbe', // Paket AA
-  k2n_pfandzettel: 'pfandschein', k2n_ivys_brief: 'liebesbrief', k2n_brief_hesper: 'liebesbrief', k2n_brief_druce: 'erpresserbrief', k2n_brief_pedell: 'pfaendungsbrief' }; // Paket AB
+export const ITEM_ICON_ALIASES = {}; // Paket AA/AB haben seit AJ eigene Symbole
 /** Zutaten und Artefakte aus Paket AF: Platzhalter laut docs/story/sequenzen/grafikwuensche.md. */
 const AF_ICONS = { sq_offene_blende: 'glasauge', sq_gegenakte: 'papierfeder', sq_ruecklaufbecher: 'brutschale', sq_stegbolzen: 'glockenzunge',
   sq_fristpendel: 'taschenuhr', sq_torfsiegel: 'glasfibel' };
