@@ -614,3 +614,40 @@ Item-Gleichheit, Portrait-IDs, Markerbewegung und die Steckbriefzustände.
 Prüfbericht: `validation-gegner3.json`. Visuelle Übersicht: `batch-gegner3-preview.png`.
 Die Einbindung und Timing-Abstimmung im laufenden Spiel erfolgen separat.
 Dieses Paket ändert ausschließlich Grafiken, Manifest und Grafikdokumentation.
+
+## Batch J – Fall 5: Der Chor in der Glocke
+
+84 PNGs für Gießerei, Vey-Haus und Resonanzkammer, vier Gegner, Miriams
+Glockenphase, Brannock/Oda/Lilian, Effekte, Bestiarium, Gegenstände, Nahansichten,
+sechs Zwischenszenen, vier Enden und 13 Kartenmarker. Die sechs vorhandenen
+16×16-Fallgegenstände ersetzen die inzwischen auf main angelegten Platzhalter.
+
+- Manifest: `public/sprites/manifest-fall5.json`
+- Verwendete Prompts und Referenzen: `docs/art/batch-fall5-generation.json`
+- Prüfung: `docs/art/batch-fall5-validation.json` (84 PNGs, 1.995 Prüfungen)
+- Vorschauen: `docs/art/previews/batch-fall5-*.png`
+
+31 gemeinsame sichtbare Farben plus Transparenz, binäres Alpha. Miriam Phase 2
+verwendet 96×96-Frames und dieselbe Grundlinie 94 wie Phase 1. Angriffe halten
+die Ausholpose zweimal; kurze Reihen bleiben transparent. Prop-Animationen
+verwenden explizite Rechtecke, statische Varianten sind keine Animationen.
+Der Schrittring beginnt bewusst mit einem transparenten Startframe. Für den
+Ring aus zwölf Stimmsäulen werden zwölf Instanzen der beiden Säulenzustände
+verwendet. Lilians Füße bleiben oberhalb der normalen Standlinie.
+
+Die Item-Atlanten enthalten oben 16×16-Icons und ab y=16 dieselben Gegenstände
+in 32×32. Einzeldateien und Atlas-Ausschnitte stimmen pixelgenau überein.
+Die drei verfluchten Nahansichten wurden aus ihren normalen Bildern bearbeitet.
+
+Erzeugt mit dem integrierten Bildgenerator; technische Nachbearbeitung mit
+Nearest Neighbor, geprüften Zellzuschnitten und gemeinsamer Palette:
+
+```sh
+python docs/art/export-fall5.py /pfad/zu/source-map.json
+python docs/art/verify-fall5.py
+python docs/art/preview-fall5.py
+```
+
+Die Source-Map ordnet Job-IDs den protokollierten Generatororiginalen zu.
+Nur Grafikdateien und Dokumentation; der Einbau und die Prüfung im laufenden
+Spiel erfolgen separat.

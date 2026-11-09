@@ -703,6 +703,10 @@ export class Ui {
     el.querySelectorAll('[data-use]').forEach((b) => { b.onclick = () => this.renderNotebook(esc(this.state.useItem(b.dataset.use) ?? '')); });
     el.querySelectorAll('[data-equip]').forEach((b) => { b.onclick = () => { this.state.equip(b.dataset.equip); this.renderNotebook(''); }; });
     el.querySelectorAll('[data-drink]').forEach((b) => { b.onclick = () => this.drink(b.dataset.drink); });
+    el.querySelector('[data-ritual]')?.addEventListener('click', () => {
+      const r = this.state.performRitual();
+      if (r.ok) { this.close(); this.showMessage('Ritual', r.text); } else this.renderNotebook(esc(r.text));
+    });
     el.querySelectorAll('[data-wear]').forEach((b) => { b.onclick = () => this.renderNotebook(esc(this.state.equipArtifact(b.dataset.wear).text)); });
     el.querySelectorAll('[data-unequip]').forEach((b) => { b.onclick = () => this.renderNotebook(esc(this.state.unequipArtifact(b.dataset.unequip).text)); });
     el.querySelectorAll('[data-inspect]').forEach((b) => { b.onclick = () => this.inspectItem(b.dataset.inspect); });
@@ -768,7 +772,7 @@ export class Ui {
       else if (it.combat_only) action = '<span class="muted">nur im Kampf</span>';
       else if (it.kind === 'potion') {
         const chk = s.drinkCheck(it.id);
-        action = chk.ok ? `<button class="small" data-drink="${it.id}">Trinken</button><br><span class="muted">Risiko ${Math.round(chk.risk * 100)} %</span>` : '<span class="muted">nicht trinkbar</span>';
+        action = chk.ok ? `<button class="small" data-drink="${it.id}">Trinken</button><br><span class="muted">Risiko ${Math.round(chk.risk * 100)} %</span>` : chk.ritual ? '<button class="small" data-recipe="1">Ritual nötig</button>' : '<span class="muted">nicht trinkbar</span>';
       } else if (it.kind === 'formula') action = '<button class="small" data-recipe="1">Rezept</button>';
       else if (it.kind === 'artifact') {
         action = s.isArtifactActive(it.id) ? `<span class="badge likely">angelegt</span><br><button class="small" data-unequip="${it.id}">Ablegen</button>`
@@ -937,11 +941,28 @@ export class Ui {
       </div>
       <p class="lead"><em>„${esc(p.principle)}“</em> ${esc(p.digest_hint)}</p>
       <p class="muted">Jede Sequenz dieses Pfades: +${s.growth().hp} Leben, +${s.growth().nerves} Nerven. Gerade: ${s.maxHp} Leben, ${s.maxComposure()} Nerven.</p>
+      ${this.ritualHtml()}
       <h4>Was deinen Trank verdaut</h4>
       <ul class="digestlist">${s.digestTable().map((r) => `<li><span>${esc(r.label)}</span> <strong>+${r.points} %</strong></li>`).join('')}
         <li class="muted">Alles andere verdaut diesen Pfad nicht. Auf höheren Sequenzen geht es langsamer.</li></ul>
       <ul class="seqs">${rows}</ul>
       ${this.recipesHtml(false)}`;
+  }
+
+  /** Ritual für den nächsten Trank (ab Sequenz 6): Ort, Zutaten, Bedingungen, Knopf. */
+  ritualHtml() {
+    const s = this.state;
+    if (!s.pathway) return '';
+    const seq = s.pathway.seq - 1;
+    const r = s.ritualDef(s.pathway.id, seq);
+    if (!r) return '';
+    if (s.ritualDone(s.pathway.id, seq)) return `<div class="ritual done"><h4>Ritual: ${esc(r.name)} <span class="badge likely">vollzogen</span></h4><p class="muted">Du kannst den Trank der Sequenz ${seq} trinken.</p></div>`;
+    const steps = s.ritualSteps();
+    const ready = steps.every((x) => x.done);
+    return `<div class="ritual"><h4>Ritual für Sequenz ${seq}: ${esc(r.name)}</h4>
+      <p class="desc">${esc(r.desc)}</p>
+      <ul class="steps">${steps.map((x) => `<li class="${x.done ? 'done' : ''}">${x.done ? '✓' : '○'} ${esc(x.text)}</li>`).join('')}</ul>
+      <button class="small ${ready ? 'primary' : ''}" data-ritual="1" ${ready ? '' : 'disabled'}>Ritual vollziehen</button> <span class="muted">Kostet 20 Nerven und bringt 20 Unruhe.</span></div>`;
   }
 
   recipesHtml(withButtons) {
