@@ -3523,7 +3523,7 @@
       "id": "treffen_lichtlose",
       "name": "Keller der Lichtlosen",
       "city": "wexmoor",
-      "tiles": "o_russ",
+      "tiles": "s_lichtlose",
       "ambient": {
         "night": 0.86,
         "fog": 0.2
@@ -3626,14 +3626,66 @@
       ],
       "decor": [
         {
-          "sprite": "o_russ_props_counter",
+          "sprite": "s_lichtlose_props_embers",
           "tile": [
             10,
-            4
+            6
+          ],
+          "offset": [
+            0,
+            8
+          ],
+          "origin": [
+            0.5,
+            1
           ],
           "alpha": 1,
+          "ysort": true,
           "solid": [
-            44,
+            28,
+            10,
+            0,
+            -4
+          ]
+        },
+        {
+          "sprite": "s_lichtlose_props_blindfolds",
+          "tile": [
+            3,
+            2
+          ],
+          "offset": [
+            0,
+            8
+          ],
+          "origin": [
+            0.5,
+            1
+          ],
+          "alpha": 1,
+          "ysort": true
+        },
+        {
+          "sprite": "s_lichtlose_props_blindfolds",
+          "tile": [
+            16,
+            2
+          ],
+          "offset": [
+            0,
+            8
+          ],
+          "origin": [
+            0.5,
+            1
+          ],
+          "alpha": 1,
+          "ysort": true
+        },
+        {
+          "sprite": "s_lichtlose_props_covered_lantern",
+          "tile": [
+            2,
             8
           ],
           "offset": [
@@ -3644,6 +3696,87 @@
             0.5,
             1
           ],
+          "alpha": 1,
+          "ysort": true
+        },
+        {
+          "sprite": "s_lichtlose_props_covered_lantern",
+          "tile": [
+            17,
+            8
+          ],
+          "offset": [
+            0,
+            8
+          ],
+          "origin": [
+            0.5,
+            1
+          ],
+          "alpha": 1,
+          "ysort": true
+        },
+        {
+          "sprite": "s_lichtlose_props_table",
+          "tile": [
+            10,
+            4
+          ],
+          "offset": [
+            0,
+            8
+          ],
+          "origin": [
+            0.5,
+            1
+          ],
+          "alpha": 1,
+          "ysort": true,
+          "solid": [
+            28,
+            6,
+            0,
+            -2
+          ]
+        },
+        {
+          "sprite": "s_lichtlose_props_ash_shelves",
+          "tile": [
+            6,
+            2
+          ],
+          "offset": [
+            0,
+            8
+          ],
+          "origin": [
+            0.5,
+            1
+          ],
+          "alpha": 1,
+          "ysort": true,
+          "solid": [
+            28,
+            6,
+            0,
+            -2
+          ]
+        },
+        {
+          "sprite": "s_lichtlose_props_carving",
+          "tile": [
+            13,
+            2
+          ],
+          "offset": [
+            0,
+            8
+          ],
+          "origin": [
+            0.5,
+            1
+          ],
+          "alpha": 1,
           "ysort": true
         }
       ]
@@ -3652,7 +3785,7 @@
       "id": "treffen_salz",
       "name": "Salzspeicher der Salzbrüder",
       "city": "wexmoor",
-      "tiles": "o_russ",
+      "tiles": "s_salz",
       "ambient": {
         "night": 0.86,
         "fog": 0.2
@@ -3755,14 +3888,32 @@
       ],
       "decor": [
         {
-          "sprite": "o_russ_props_counter",
+          "sprite": "s_salz_props_table",
           "tile": [
             10,
             4
           ],
+          "offset": [
+            0,
+            8
+          ],
+          "origin": [
+            0.5,
+            1
+          ],
           "alpha": 1,
+          "ysort": true,
           "solid": [
             44,
+            6,
+            0,
+            -2
+          ]
+        },
+        {
+          "sprite": "s_salz_props_salt_a",
+          "tile": [
+            3,
             8
           ],
           "offset": [
@@ -3773,6 +3924,187 @@
             0.5,
             1
           ],
+          "alpha": 1,
+          "ysort": true,
+          "solid": [
+            28,
+            10,
+            0,
+            -4
+          ],
+          "cover": true
+        },
+        {
+          "sprite": "s_salz_props_salt_b",
+          "tile": [
+            16,
+            8
+          ],
+          "offset": [
+            0,
+            8
+          ],
+          "origin": [
+            0.5,
+            1
+          ],
+          "alpha": 1,
+          "ysort": true,
+          "solid": [
+            28,
+            10,
+            0,
+            -4
+          ],
+          "cover": true
+        },
+        {
+          "sprite": "s_salz_props_sacks",
+          "tile": [
+            2,
+            3
+          ],
+          "offset": [
+            0,
+            8
+          ],
+          "origin": [
+            0.5,
+            1
+          ],
+          "alpha": 1,
+          "ysort": true,
+          "solid": [
+            12,
+            6,
+            0,
+            -2
+          ]
+        },
+        {
+          "sprite": "s_salz_props_sacks",
+          "tile": [
+            17,
+            3
+          ],
+          "offset": [
+            0,
+            8
+          ],
+          "origin": [
+            0.5,
+            1
+          ],
+          "alpha": 1,
+          "ysort": true,
+          "solid": [
+            12,
+            6,
+            0,
+            -2
+          ]
+        },
+        {
+          "sprite": "s_salz_props_fish_barrel",
+          "tile": [
+            15,
+            5
+          ],
+          "offset": [
+            0,
+            8
+          ],
+          "origin": [
+            0.5,
+            1
+          ],
+          "alpha": 1,
+          "ysort": true,
+          "solid": [
+            12,
+            6,
+            0,
+            -2
+          ]
+        },
+        {
+          "sprite": "s_salz_props_lantern",
+          "tile": [
+            10,
+            2
+          ],
+          "offset": [
+            0,
+            8
+          ],
+          "origin": [
+            0.5,
+            1
+          ],
+          "alpha": 1,
+          "ysort": true
+        },
+        {
+          "sprite": "s_salz_props_ledger",
+          "tile": [
+            7,
+            3
+          ],
+          "offset": [
+            0,
+            8
+          ],
+          "origin": [
+            0.5,
+            1
+          ],
+          "alpha": 1,
+          "ysort": true,
+          "solid": [
+            10,
+            6,
+            0,
+            -2
+          ]
+        },
+        {
+          "sprite": "s_salz_props_anchor",
+          "tile": [
+            13,
+            8
+          ],
+          "offset": [
+            0,
+            8
+          ],
+          "origin": [
+            0.5,
+            1
+          ],
+          "alpha": 1,
+          "ysort": true,
+          "solid": [
+            24,
+            8,
+            0,
+            -4
+          ]
+        },
+        {
+          "sprite": "s_salz_props_banner",
+          "tile": [
+            5,
+            2
+          ],
+          "offset": [
+            0,
+            8
+          ],
+          "origin": [
+            0.5,
+            1
+          ],
+          "alpha": 1,
           "ysort": true
         }
       ]

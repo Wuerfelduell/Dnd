@@ -352,6 +352,22 @@ const THEMES = {
       default: return THEMES.g_katakomben(ch, at, v, x, y);
     }
   },
+  // Paket S: Salzwatt (Schlick mit Salzkruste, Priele, offenes Meer am Rand, Pfähle, Damm) und die zwei Wexmoor-Zirkel
+  s_salzwatt(ch, at, v, x, y) {
+    const k = (g, seed = 0) => pickKey(themeKeys('s_salzwatt', g), x, y, seed);
+    switch (ch) {
+      case 'g': { const r = hash2(x, y, 71); return r > 0.93 ? k('debris', 1) : r > 0.78 ? k('sand', 1) : k('floor'); }
+      case 'P': return k('path', 2);
+      case 'Y': return k('stakes', 3);
+      case '~': {
+        const land = [at(0, -1), at(0, 1), at(-1, 0), at(1, 0)].filter((c) => c !== undefined && c !== '~').length;
+        return land >= 1 ? k('water', 4) : k('deep', 4);
+      }
+      default: return THEMES.g_marsch(ch, at, v, x, y);
+    }
+  },
+  s_lichtlose: roomTheme('s_lichtlose', { floorChars: 'wO.', floorMix: (x, y) => pickKey(themeKeys('s_lichtlose', hash2(x, y, 72) > 0.85 ? 'ash' : 'floor'), x, y, 0) }),
+  s_salz: roomTheme('s_salz', { floorChars: 'wO.', floorMix: (x, y) => pickKey(themeKeys('s_salz', hash2(x, y, 73) > 0.8 ? 'sand' : 'floor'), x, y, 0) }),
   // Paket Q (Wexmoor): Zunders Kahn mit Bullaugen in der Bordwand
   q_kajuete(ch, at, v, x, y) {
     const k = (g, seed = 0) => pickKey(themeKeys('q_kajuete', g), x, y, seed);

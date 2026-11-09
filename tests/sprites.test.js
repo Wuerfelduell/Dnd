@@ -2,7 +2,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { existsSync, readFileSync } from 'node:fs';
 import { loadContent } from './helpers.js';
-import { R_SCENES, T_MEMBERS, U_FIGURES, AUKTION_REGIONS, SHEETS, BATTLE_SHEETS, ANIM_SHEETS, TILE_CELLS, PROP_CELLS, PROP_ANIMS, CHARACTER_SHEETS, ENCOUNTER_SHEETS, ENEMY_BATTLE_SHEETS, THEME_TILE_LIST, PORTRAITS, MAP_MARKERS, C_CHARACTERS, BATTLE_BACKGROUNDS, ENCOUNTER_BACKGROUNDS, SKILL_FX, SKILL_ICONS, STATUS_ICONS, PATHWAY_POSES, WEAPON_POSES, itemIconUrl, itemIcon32Url, pathwayEmblemUrl, pathwayCardUrl, COIN_URL, bossIntroImage,
+import { S_ENEMIES, S_LONERS, S_HOSTS, S_ITEMS, TURN_PORTRAITS, R_SCENES, T_MEMBERS, U_FIGURES, AUKTION_REGIONS, SHEETS, BATTLE_SHEETS, ANIM_SHEETS, TILE_CELLS, PROP_CELLS, PROP_ANIMS, CHARACTER_SHEETS, ENCOUNTER_SHEETS, ENEMY_BATTLE_SHEETS, THEME_TILE_LIST, PORTRAITS, MAP_MARKERS, C_CHARACTERS, BATTLE_BACKGROUNDS, ENCOUNTER_BACKGROUNDS, SKILL_FX, SKILL_ICONS, STATUS_ICONS, PATHWAY_POSES, WEAPON_POSES, itemIconUrl, itemIcon32Url, pathwayEmblemUrl, pathwayCardUrl, COIN_URL, bossIntroImage,
   REGION_SHEETS, REGION_ANIMS, ICON_STRIPS, CASE_SHEETS, WHOLE_PROPS, FACADES, E_CHARACTERS, PORTRAIT_SPECIAL, PORTRAIT_MOODS, ENDING_IMAGES, endingImageUrl,
   caseFileUrl, SCENES, sceneUrl, CITY_MAP_URL, CITY_FOG_URL, QUEST_UI_URL,
   OVERWORLD_SHEETS, BESTIARY, bestiaryUrl, F_EQUIPMENT, BOSS_INTROS, F_UI_SHEETS, overworldIdFor } from '../src/world/assets.js';
@@ -136,7 +136,7 @@ test('Paket C: Portraits, Lauf-Sheets und Kartenmarker sind vollständig', () =>
 
 // --- Paket D (Stadt) und E (Fälle) -------------------------------------------------
 const manifest = (name) => JSON.parse(readFileSync(sprite(`manifest-${name}.json`), 'utf8'));
-const MANIFEST_FILES = { manifestStadt: manifest('stadt'), manifestFaelle: manifest('faelle'), manifestJournal: manifest('journal'), manifestReise: manifest('reise'), manifestWildnis: manifest('wildnis'), manifestGegner3: manifest('gegner3'), manifestFall5: manifest('fall5'), manifestFall6: manifest('fall6'), manifestFall78: manifest('fall78'), manifestTreffen: manifest('treffen'), manifestSequenzen2: manifest('sequenzen2'), manifestWexmoor: manifest('wexmoor'), manifestRituale: manifest('rituale'), manifestWexmoor2: manifest('wexmoor2') };
+const MANIFEST_FILES = { manifestStadt: manifest('stadt'), manifestFaelle: manifest('faelle'), manifestJournal: manifest('journal'), manifestReise: manifest('reise'), manifestWildnis: manifest('wildnis'), manifestGegner3: manifest('gegner3'), manifestFall5: manifest('fall5'), manifestFall6: manifest('fall6'), manifestFall78: manifest('fall78'), manifestTreffen: manifest('treffen'), manifestSequenzen2: manifest('sequenzen2'), manifestWexmoor: manifest('wexmoor'), manifestRituale: manifest('rituale'), manifestWexmoor2: manifest('wexmoor2'), manifestWexmoor3: manifest('wexmoor3') };
 const regionNames = (def) => {
   const regions = Array.isArray(def.regions) ? def.regions.map((r) => r.name) : Object.keys(def.regions ?? {});
   return [...regions, ...Object.keys(def.animations ?? {}), ...Object.keys(def.regionAnimations ?? {})];
@@ -167,8 +167,8 @@ test('Paket D/E: Karten-Deko nutzt nur vorhandene Regionen', () => {
     for (const n of Object.keys(MANIFEST_FILES.manifestFaelle.assets.find((a) => a.id === id).icons)) known.add(`${prefix}_${n}`);
   }
   for (const map of Object.values(content.maps)) {
-    for (const d of map.decor ?? []) if (/^[dehigjkmoqr]_/.test(d.sprite)) assert.ok(known.has(d.sprite), `${map.id}: ${d.sprite}`);
-    for (const d of map.interactables ?? []) if (/^[dehigjkmoqr]_/.test(d.sprite ?? '')) assert.ok(known.has(d.sprite), `${map.id}: ${d.sprite}`);
+    for (const d of map.decor ?? []) if (/^[dehigjkmoqrs]_/.test(d.sprite)) assert.ok(known.has(d.sprite), `${map.id}: ${d.sprite}`);
+    for (const d of map.interactables ?? []) if (/^[dehigjkmoqrs]_/.test(d.sprite ?? '')) assert.ok(known.has(d.sprite), `${map.id}: ${d.sprite}`);
     if (map.facade) assert.ok(FACADES.includes(map.facade), `${map.id}: Fassade ${map.facade}`);
   }
 });
@@ -532,3 +532,23 @@ test('Paket U: Dunn, Crane und Quint haben eigene Figur, Portrait und Kopf', () 
   }
 });
 
+
+// --- Paket S (Wexmoor-Monster, Einzelgänger, Salzwatt, Zirkel) -------------------------
+test('Paket S: Monster, Einzelgänger, Gastgeber, Salzwatt und Zirkelräume nutzen die neue Kunst', () => {
+  for (const id of [...Object.keys(S_ENEMIES), 'glockenmutter', ...S_LONERS]) {
+    assert.ok(existsSync(sprite(BATTLE_SHEETS[`enemy_${id}`][0])), id);
+    assert.ok(TURN_PORTRAITS[id] !== undefined, id);
+  }
+  for (const id of [...Object.keys(S_ENEMIES), 'glockenmutter', 'namenlose', 'leuchtfeuer']) assert.ok(existsSync(sprite(`ui/bestiary/S_${id}.png`)), id);
+  for (const z of Object.values(content.zones)) {
+    for (const [id, e] of Object.entries(z.encounters ?? {})) if (S_ENEMIES[id] || id === 'glockenmutter') assert.equal(e.sheet, `enemy_${id}`, id);
+  }
+  for (const id of [...S_LONERS, ...S_HOSTS]) {
+    assert.ok(existsSync(sprite(SHEETS[CHARACTER_SHEETS[`npc_${id}`]])), id);
+    assert.ok(existsSync(sprite(`portraits/${PORTRAITS[id]}`)), id);
+  }
+  for (const id of S_ITEMS) assert.ok(existsSync(sprite(`items/32/${id}.png`)), id);
+  assert.equal(content.maps.wx_salzwatt.tiles, 's_salzwatt');
+  assert.equal(content.maps.treffen_lichtlose.tiles, 's_lichtlose');
+  assert.equal(content.maps.treffen_salz.tiles, 's_salz');
+});
