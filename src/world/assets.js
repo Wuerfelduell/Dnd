@@ -253,7 +253,8 @@ export const THEME_TILES = {
 };
 /** Gruppen, die begehbar bleiben; alles andere blockiert. */
 const WALKABLE_GROUPS = ['floor', 'bridge', 'glow', 'debris', 'wet', 'wood', 'mud', 'moss', 'tufts', 'path', 'ash', 'shards', 'weeds', 'sand', 'slag', 'wear', 'ring',
-  'dark', 'stain', 'checker', 'parquet', 'carpet', 'arrow', 'chalk', 'stone', 'dorm', 'threads'];
+  'dark', 'stain', 'checker', 'parquet', 'carpet', 'arrow', 'chalk', 'stone', 'dorm', 'threads',
+  'edge', 'rails']; // Bahnhof Wexmoor: Bahnsteigkante und Gleise sind begehbar (sonst sind Bahnsteig und Ausgang abgeschnitten)
 /** Ersatz-Painter (textures.js) je Gruppe, falls das PNG fehlt. */
 const GROUP_FALLBACK = { wallFace: 'wallFace', wallTop: 'wallTop', bar: 'desk', shelf: 'shelf', barrel: 'barrel', seat: 'desk', water: 'water0' };
 
