@@ -5,11 +5,13 @@ import { fileURLToPath } from 'node:url';
 const dir = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(dir, '../../..');
 const read = p => JSON.parse(fs.readFileSync(p, 'utf8'));
-const files = fs.readdirSync(dir).filter(f => f.endsWith('.json')).sort();
-const data = Object.fromEntries(files.map(f => [f.slice(0,-5), read(path.join(dir,f))]));
+// Eingebaut: die Daten liegen jetzt in src/data/packs/k3_nebenquests
+const pkgDir = path.join(root, 'src/data/packs/k3_nebenquests');
+const files = fs.readdirSync(pkgDir).filter(f => f.endsWith('.json')).sort();
+const data = Object.fromEntries(files.map(f => [f.slice(0,-5), read(path.join(pkgDir,f))]));
 const walk = (v, fn) => { if (!v || typeof v !== 'object') return; fn(v); for(const x of Object.values(v)) walk(x,fn); };
 const source = [];
-function loadTree(p) { for(const e of fs.readdirSync(p,{withFileTypes:true})) {const f=path.join(p,e.name); if(e.isDirectory())loadTree(f); else if(e.name.endsWith('.json'))source.push(read(f));} }
+function loadTree(p) { for(const e of fs.readdirSync(p,{withFileTypes:true})) {const f=path.join(p,e.name); if(e.isDirectory())loadTree(f); else if(e.name.endsWith('.json')&&!f.startsWith(pkgDir))source.push(read(f));} }
 loadTree(path.join(root,'src/data'));
 const prefix = id => assert.ok(id.startsWith('k3n_'),`Fremde neue ID: ${id}`);
 const fixedMaps = ['ds_endbahnhof','ds_schwellenring','ds_arbeiterbogen','ds_kalkmarkt','ds_bruchstufen','ds_signalhang','ds_speisewagen','ds_runddepot','ds_pruefhaus','ds_teesaal','ds_lohnbuero'];
@@ -58,7 +60,7 @@ function checkDialog(id,nodes,choices=[],start) {
  for(const n of Object.keys(nodes))assert.ok(seen.has(n),`${id}: unerreichbarer Knoten ${n}`);
 }
 for(const [id,d] of Object.entries(data.dialogues))checkDialog(id,d.nodes,[],d.start);
-for(const [id,d] of Object.entries(data.dialog_zusaetze)){assert.ok(fixedNPCs.includes(id),`Ungeplanter Dialogzusatz ${id}`);deferred.add(`dialog:${id}`);checkDialog(id,d.nodes_add,d.choices_add);}
+for(const [id,d] of Object.entries(data.dialog_zusaetze)){assert.ok(fixedNPCs.includes(id.replace(/^k3a_/,"k3_")),`Ungeplanter Dialogzusatz ${id}`);deferred.add(`dialog:${id}`);checkDialog(id,d.nodes_add,d.choices_add);}
 const condRefs={requires_flags:'flag',hide_if_flags:'flag',requires_items:'item',hide_if_items:'item',requires_clues:'clue',hide_if_clues:'clue',requires_any_clues:'clue',requires_conclusions:'conclusion',hide_if_conclusions:'conclusion',requires_quests_active:'quest',requires_quests_done:'quest',hide_if_quests:'quest',gives_clues:'clue',start_quests:'quest',complete_quests:'quest'};
 walk(data,o=>{
  for(const [k,t] of Object.entries(condRefs))for(const id of o[k]??[])ref(t,id);

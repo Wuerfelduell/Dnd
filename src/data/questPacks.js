@@ -47,7 +47,8 @@ export function applyQuestPack(content, pack) {
     const d = content.dialogues[id];
     if (!d) throw new Error(`Zusatz für unbekannten Dialog ${id}`);
     // Marlowe hat kein `start`, ihr Menü heißt `hub` (Paket AI)
-    const key = d.nodes.start ? 'start' : 'hub';
+    // Kapitel-3-Figuren (AR) beginnen bei ihrem eigenen `start`-Knoten
+    const key = d.nodes.start ? 'start' : d.start && d.nodes[d.start] ? d.start : 'hub';
     const start = d.nodes[key];
     if (!start) throw new Error(`Dialog ${id} hat weder start noch hub`);
     const choices = [...(start.choices ?? [])];

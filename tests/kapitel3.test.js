@@ -87,3 +87,29 @@ test('Balance Kapitel 3: mit Sequenz 6 reicht es nicht für Vielrufer und Unters
     assert.equal(result.outcome, 'lost', id);
   }
 });
+
+test('Paket AT: zwölf Dunscarer Nebenaufträge mit Gerede, Bestiarium, Lesestücken und Kalkblatt', () => {
+  const k3n = Object.keys(content.quests).filter((q) => q.startsWith('k3n_'));
+  assert.equal(k3n.length, 12);
+  // Zusatzoptionen hängen an den Startknoten der AR-Figuren
+  for (const id of ['k3a_pfiff', 'k3a_mabel', 'k3a_oren', 'k3a_esther']) {
+    const d = content.dialogues[id];
+    assert.ok(d.nodes[d.start].choices.some((c) => c.next?.startsWith('k3n_')), id);
+  }
+  assert.ok(content.gossip.dunscar.ds_endbahnhof.length > 3);
+  assert.ok(content.bestiaryTexts.schichtgaenger);
+  assert.ok(content.maps.ds_endbahnhof.interactables.some((i) => i.id.startsWith('k3n_lese_')));
+  assert.equal(content.newspapers.filter((n) => n.id.startsWith('k3n_') && n.zeitung === 'dunscarer_kalkblatt').length, 8);
+});
+
+test('Paket AT: der Wartungssteg verbindet Schwellenring und Bruchstufen erst nach der Drehscheibe', () => {
+  const s = new GameState(content);
+  for (const [from, to] of [['ds_schwellenring', 'ds_bruchstufen'], ['ds_bruchstufen', 'ds_schwellenring']]) {
+    const door = content.maps[from].interactables.find((i) => i.to === to && i.id.startsWith('k3o_steg'));
+    assert.ok(door, from);
+    assert.ok(!s.meets(door.visible_if));
+    assert.ok(content.maps[to].spawns[door.spawn], `${to}/${door.spawn}`);
+  }
+  s.flags.add('k3n_drehscheibe_offen');
+  assert.ok(content.maps.ds_schwellenring.interactables.filter((i) => i.id.startsWith('k3o_steg')).every((d) => s.meets(d.visible_if)));
+});

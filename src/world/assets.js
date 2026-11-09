@@ -2086,3 +2086,5 @@ for (const id of ['endbahnhof', 'schwellenring', 'arbeiterbogen', 'bruchstufen',
   BATTLE_BACKGROUNDS[`ds_${id}`] = `bg_ds_${id}`;
 }
 Object.assign(BATTLE_BACKGROUNDS, { ds_kalkmarkt: 'bg_ds_arbeiterbogen', ds_signalhang: 'bg_ds_bruchstufen', ds_nachtzug_wagen: 'bg_ds_nachtzug', ds_nachtzug_lok: 'bg_ds_nachtzug' });
+// Paket AT (Kapitel 3 Nebenaufträge): Zunders vier Begleitbriefe nutzen vorerst Ivys Brief, bis eigene Icons kommen
+for (const end of ['rein', 'moor', 'lichtmeister', 'meer']) ITEM_ICON_ALIASES[`k3n_brief_aus_wexmoor_brief_${end}`] = 'k2n_ivys_brief';
