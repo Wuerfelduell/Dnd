@@ -1,0 +1,441 @@
+{
+  "format": "nebel-instrumente-1",
+  "instrumente": {
+    "drehorgel": {
+      "typ": "osc",
+      "welle": "square",
+      "attack": 0.02,
+      "decay": 0.15,
+      "sustain": 0.65,
+      "release": 0.3,
+      "filter": {
+        "tiefpass": 2100
+      },
+      "pulsbreite": 0.3,
+      "stimmen": 2,
+      "detune": 6,
+      "vibrato": {
+        "rate": 4.5,
+        "tiefe": 5
+      }
+    },
+    "harmonium": {
+      "typ": "osc",
+      "welle": "square",
+      "attack": 0.09,
+      "decay": 0.15,
+      "sustain": 0.65,
+      "release": 0.7,
+      "filter": {
+        "tiefpass": 1600
+      },
+      "pulsbreite": 0.45,
+      "stimmen": 3,
+      "detune": 4
+    },
+    "klavier": {
+      "typ": "fm",
+      "welle": "sine",
+      "attack": 0.005,
+      "decay": 0.45,
+      "sustain": 0.05,
+      "release": 1.2,
+      "filter": {
+        "tiefpass": 3500
+      },
+      "verhaeltnis": 2,
+      "index": 0.8
+    },
+    "celesta": {
+      "typ": "fm",
+      "welle": "sine",
+      "attack": 0.005,
+      "decay": 0.7,
+      "sustain": 0.05,
+      "release": 1.2,
+      "filter": {
+        "tiefpass": 3500
+      },
+      "verhaeltnis": 2.01,
+      "index": 1.6
+    },
+    "glocke": {
+      "typ": "fm",
+      "welle": "sine",
+      "attack": 0.005,
+      "decay": 1.2,
+      "sustain": 0.05,
+      "release": 1.2,
+      "filter": {
+        "tiefpass": 3500
+      },
+      "verhaeltnis": 2.76,
+      "index": 2.2
+    },
+    "spieluhr": {
+      "typ": "fm",
+      "welle": "sine",
+      "attack": 0.005,
+      "decay": 0.6,
+      "sustain": 0.05,
+      "release": 1.2,
+      "filter": {
+        "tiefpass": 3500
+      },
+      "verhaeltnis": 3.01,
+      "index": 1.2
+    },
+    "pad_glas": {
+      "typ": "fm",
+      "welle": "sine",
+      "attack": 0.3,
+      "decay": 1.6,
+      "sustain": 0.25,
+      "release": 1.2,
+      "filter": {
+        "tiefpass": 3500
+      },
+      "verhaeltnis": 2.73,
+      "index": 0.7
+    },
+    "streicher": {
+      "typ": "osc",
+      "welle": "sawtooth",
+      "attack": 0.5,
+      "decay": 0.15,
+      "sustain": 0.65,
+      "release": 1,
+      "filter": {
+        "tiefpass": 1400
+      },
+      "stimmen": 3,
+      "detune": 8
+    },
+    "streicher_tief": {
+      "typ": "osc",
+      "welle": "sawtooth",
+      "attack": 0.6,
+      "decay": 0.15,
+      "sustain": 0.65,
+      "release": 1.3,
+      "filter": {
+        "tiefpass": 800
+      },
+      "stimmen": 2,
+      "detune": 5
+    },
+    "pizzicato": {
+      "typ": "pluck",
+      "welle": "sine",
+      "attack": 0.004,
+      "decay": 0.6,
+      "sustain": 0.12,
+      "release": 0.5,
+      "filter": {
+        "tiefpass": 1400
+      },
+      "daempfung": 0.989
+    },
+    "kontrabass": {
+      "typ": "pluck",
+      "welle": "sine",
+      "attack": 0.004,
+      "decay": 0.6,
+      "sustain": 0.12,
+      "release": 0.5,
+      "filter": {
+        "tiefpass": 750
+      },
+      "daempfung": 0.987
+    },
+    "zither": {
+      "typ": "pluck",
+      "welle": "sine",
+      "attack": 0.004,
+      "decay": 0.6,
+      "sustain": 0.12,
+      "release": 0.5,
+      "filter": {
+        "tiefpass": 4200
+      },
+      "daempfung": 0.996
+    },
+    "hackbrett": {
+      "typ": "pluck",
+      "welle": "sine",
+      "attack": 0.004,
+      "decay": 0.6,
+      "sustain": 0.12,
+      "release": 0.5,
+      "filter": {
+        "tiefpass": 3400
+      },
+      "daempfung": 0.994
+    },
+    "akkordeon": {
+      "typ": "osc",
+      "welle": "square",
+      "attack": 0.08,
+      "decay": 0.15,
+      "sustain": 0.65,
+      "release": 0.3,
+      "filter": {
+        "tiefpass": 1900
+      },
+      "pulsbreite": 0.48,
+      "stimmen": 2,
+      "detune": 7
+    },
+    "fidel": {
+      "typ": "osc",
+      "welle": "sawtooth",
+      "attack": 0.12,
+      "decay": 0.15,
+      "sustain": 0.65,
+      "release": 0.2,
+      "filter": {
+        "tiefpass": 2300
+      },
+      "vibrato": {
+        "rate": 5,
+        "tiefe": 8
+      }
+    },
+    "floete": {
+      "typ": "osc",
+      "welle": "sine",
+      "attack": 0.06,
+      "decay": 0.15,
+      "sustain": 0.65,
+      "release": 0.3,
+      "filter": {
+        "tiefpass": 3000
+      },
+      "vibrato": {
+        "rate": 4.8,
+        "tiefe": 7
+      }
+    },
+    "chor_oo": {
+      "typ": "formant",
+      "welle": "sawtooth",
+      "attack": 0.5,
+      "decay": 0.15,
+      "sustain": 0.65,
+      "release": 1.4,
+      "filter": {
+        "tiefpass": 2400
+      },
+      "formanten": [
+        350,
+        800,
+        2200
+      ]
+    },
+    "chor_ah": {
+      "typ": "formant",
+      "welle": "sawtooth",
+      "attack": 0.35,
+      "decay": 0.15,
+      "sustain": 0.65,
+      "release": 1.2,
+      "filter": {
+        "tiefpass": 2800
+      },
+      "formanten": [
+        700,
+        1200,
+        2600
+      ]
+    },
+    "nebelhorn": {
+      "typ": "osc",
+      "welle": "sawtooth",
+      "attack": 0.6,
+      "decay": 0.15,
+      "sustain": 0.65,
+      "release": 1.5,
+      "filter": {
+        "tiefpass": 550
+      },
+      "stimmen": 2,
+      "detune": 3
+    },
+    "drone": {
+      "typ": "osc",
+      "welle": "sawtooth",
+      "attack": 0.8,
+      "decay": 0.15,
+      "sustain": 0.65,
+      "release": 1.8,
+      "filter": {
+        "tiefpass": 700
+      },
+      "stimmen": 2,
+      "detune": 4
+    },
+    "dampfpfeife": {
+      "typ": "osc",
+      "welle": "sine",
+      "attack": 0.08,
+      "decay": 0.15,
+      "sustain": 0.65,
+      "release": 0.4,
+      "filter": {
+        "tiefpass": 2600
+      },
+      "stimmen": 2,
+      "detune": 12,
+      "vibrato": {
+        "rate": 3,
+        "tiefe": 16
+      }
+    },
+    "saege": {
+      "typ": "osc",
+      "welle": "sine",
+      "attack": 0.15,
+      "decay": 0.15,
+      "sustain": 0.65,
+      "release": 0.6,
+      "filter": {
+        "tiefpass": 2600
+      },
+      "vibrato": {
+        "rate": 5,
+        "tiefe": 30
+      }
+    },
+    "pauke": {
+      "typ": "noise",
+      "welle": "sine",
+      "attack": 0.004,
+      "decay": 0.3,
+      "sustain": 0.01,
+      "release": 0.12,
+      "filter": {
+        "tiefpass": 650
+      },
+      "ton": 120,
+      "impuls": 0.3
+    },
+    "rahmentrommel": {
+      "typ": "noise",
+      "welle": "sine",
+      "attack": 0.004,
+      "decay": 0.18,
+      "sustain": 0.01,
+      "release": 0.12,
+      "filter": {
+        "tiefpass": 1500
+      },
+      "ton": 190,
+      "impuls": 0.18
+    },
+    "holzblock": {
+      "typ": "noise",
+      "welle": "sine",
+      "attack": 0.004,
+      "decay": 0.06,
+      "sustain": 0.01,
+      "release": 0.12,
+      "filter": {
+        "tiefpass": 1800
+      },
+      "ton": 780,
+      "impuls": 0.06
+    },
+    "amboss": {
+      "typ": "noise",
+      "welle": "sine",
+      "attack": 0.004,
+      "decay": 0.25,
+      "sustain": 0.01,
+      "release": 0.12,
+      "filter": {
+        "tiefpass": 3200
+      },
+      "ton": 1150,
+      "impuls": 0.25
+    },
+    "schlagzeug": {
+      "typ": "noise",
+      "welle": "sine",
+      "attack": 0.004,
+      "decay": 0.1,
+      "sustain": 0.01,
+      "release": 0.05,
+      "filter": {
+        "tiefpass": 2600
+      },
+      "schlaege": {
+        "kick": {
+          "ton": 110,
+          "impuls": 0.16,
+          "filter": {
+            "tiefpass": 600
+          }
+        },
+        "snare": {
+          "ton": 220,
+          "impuls": 0.08,
+          "filter": {
+            "bandpass": 1700
+          }
+        },
+        "hat": {
+          "impuls": 0.025,
+          "filter": {
+            "bandpass": 5000
+          }
+        },
+        "x": {
+          "ton": 110,
+          "impuls": 0.12,
+          "filter": {
+            "tiefpass": 700
+          }
+        }
+      }
+    },
+    "wind": {
+      "typ": "noise",
+      "welle": "sine",
+      "attack": 0.5,
+      "decay": 0.3,
+      "sustain": 0.5,
+      "release": 0.8,
+      "filter": {
+        "tiefpass": 700
+      },
+      "farbe": "rosa",
+      "modulation": 0.13
+    },
+    "wasser": {
+      "typ": "noise",
+      "welle": "sine",
+      "attack": 0.5,
+      "decay": 0.3,
+      "sustain": 0.5,
+      "release": 0.8,
+      "filter": {
+        "tiefpass": 1200
+      },
+      "farbe": "rosa",
+      "modulation": 0.7
+    },
+    "knistern": {
+      "typ": "noise",
+      "welle": "sine",
+      "attack": 0.5,
+      "decay": 0.3,
+      "sustain": 0.5,
+      "release": 0.8,
+      "filter": {
+        "tiefpass": 2300
+      },
+      "farbe": "rosa",
+      "modulation": 9
+    }
+  }
+}

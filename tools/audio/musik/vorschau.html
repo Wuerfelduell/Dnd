@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="de"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Nebelakten · Musikzimmer</title>
+<style>
+:root{color-scheme:dark;font-family:Georgia,serif;background:#101a20;color:#eee5d0}body{max-width:1000px;margin:auto;padding:28px}h1{font-weight:normal;color:#e5bd72}p{line-height:1.6;color:#b8c6c9}header{border-bottom:1px solid #44545b;margin-bottom:24px}button{padding:10px;border:1px solid #66767b;border-radius:5px;background:#25363f;color:#fff;cursor:pointer}button:disabled{opacity:.45;cursor:default}article{padding:18px;border:1px solid #3d4b50;border-radius:8px;margin:12px 0;background:#17272e}article.active{border-color:#e5bd72}h2{font-size:20px;margin:0 0 8px}small{display:block;color:#aabec3;margin:8px 0}.controls{display:flex;gap:10px;flex-wrap:wrap}#status{min-height:1.5em;color:#e5bd72}progress{width:100%;height:8px}.toolbar{position:sticky;top:0;background:#101a20;padding:12px 0;z-index:1}
+</style>
+<header><h1>Nebelakten · Musikzimmer</h1><p>Originale Noten, live im Browser gespielt. Kettlegate, Wexmoor und später Dunscar teilen ein Instrumentarium. „Schleife testen“ startet drei Sekunden vor dem Übergang; das Intro erklingt nur beim ersten Durchlauf.</p></header>
+<div class="toolbar"><label>Lautstärke <input id="volume" type="range" min="0" max="1" value="0.65" step="0.01"></label> <button id="pause">Pause</button> <button id="resume">Weiter</button> <button id="stop">Stopp</button><div role="status" id="status">Partituren werden geladen …</div><progress id="progress" value="0" max="1"></progress></div>
+<main id="tracks"></main><p id="summary"></p>
+<script type="module">
+import MusicSynth from '../../../src/core/MusicSynth.js';
+// Extend this list only when a new package is delivered. Missing packages are optional.
+const MANIFESTE = ['manifest-musik-basis.json', 'manifest-musik-kettlegate.json', 'manifest-musik-wexmoor.json', 'manifest-musik-dunscar.json', 'manifest-klang-dunscar.json'];
+const root = new URL('../../../', location.href), status = document.querySelector('#status'), synth = new MusicSynth();
+let message = '', autoPaused = false;
+const showError = error => { message = error.message; status.textContent = message; };
+document.querySelector('#stop').onclick = () => { synth.stopp({blende:.4}); message='Gestoppt'; };
+document.querySelector('#pause').onclick = () => { synth.pause(); message='Pausiert'; };
+document.querySelector('#resume').onclick = () => { synth.weiter().catch(showError); message=''; };
+document.querySelector('#volume').oninput = e => { synth.lautstaerke = +e.target.value; };
+document.addEventListener('visibilitychange', () => { if(document.hidden){autoPaused=!!synth.current;synth.pause();}else if(autoPaused){autoPaused=false;synth.weiter().catch(showError);} });
+window.addEventListener('pagehide',()=>synth.zerstoere());
+let loaded=0;const missing=[];
+for(const file of MANIFESTE){
+ let url;
+ for(const base of ['audio/','public/audio/']){
+  try{const candidate=new URL(base+file,root),r=await fetch(candidate);if(r.ok&&r.headers.get('content-type')?.includes('json')){url=candidate;break;}}catch{}
+ }
+ if(!url){missing.push(file);continue;}
+ try{await synth.ladeManifest(url);loaded++;}catch(error){showError(error);}
+}
+for(const [id,entry] of synth.tracks){
+ try{
+  const data=await synth.lade(id),s=data.score,card=document.createElement('article'),title=document.createElement('h2'),info=document.createElement('small'),buttons=document.createElement('div');
+  card.dataset.id=id;title.textContent=s.titel;info.textContent=`${id} · ${s.takt.join('/')} · ${s.bpm} BPM · Intro ${data.loopStart.toFixed(2)} s · ${s.loop?'Schleife '+data.loopDuration.toFixed(2):'Einzelstück '+data.duration.toFixed(2)} s`;
+  buttons.className='controls';
+  for(const [label,test] of [['Start',false],['Schleife testen',true]]){const b=document.createElement('button');b.textContent=label;b.disabled=test&&!s.loop;b.onclick=()=>{message='';synth.spiele(id,{blende: test ? .1 : 1.2,position:test?Math.max(data.loopStart,data.duration-3):0}).catch(showError);};buttons.append(b);}
+  card.append(title,info,buttons);document.querySelector('#tracks').append(card);
+ }catch(error){showError(error);}
+}
+document.querySelector('#summary').textContent=`${synth.tracks.size} Stücke aus ${loaded} Paketen. ${missing.length?'Weitere noch nicht vorhandene Pakete werden übersprungen.':''}`;
+if(!message)message=loaded?'Bereit · Start benötigt einen Klick':'Keine Partituren gefunden. Im Repository „python -m http.server 8000“ starten und diese Seite über localhost öffnen.';
+setInterval(()=>{const s=synth.status;status.textContent=message||(s?`${s.id} · ${s.pausiert?'pausiert':s.abschnitt} · ${s.position.toFixed(1)} s`:'Bereit');if(s?.dauer)document.querySelector('#progress').value=s.position/s.dauer;document.querySelectorAll('article').forEach(el=>el.classList.toggle('active',el.dataset.id===s?.id));},100);
+</script></html>
