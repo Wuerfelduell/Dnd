@@ -126,7 +126,8 @@ const LATE = ['choir_zealots', 'rook_fight', 'gasgeist', 'felix_fight', 'uhrwerk
 test('Balance: Geübte Spieler schaffen mit Startausrüstung jeden Kampf', () => {
   // Wer von drei Schlägen einem ausweicht, einen pariert und unter 15 Leben verbindet, gewinnt.
   // Vor dem Aschewächter gibt Küster Anselm zwei Beutel Bannsalz.
-  for (const id of Object.keys(content.encounters)) {
+  for (const [id, enc] of Object.entries(content.encounters)) {
+    if (enc.wild) continue; // Gefahrengebiete brauchen bessere Ausrüstung (tests/wilds.test.js)
     const s = fresh();
     const items = id === 'ash_warden' ? ['bannsalz', 'bannsalz'] : [];
     if (items.length) s.addItem('bannsalz', 2);

@@ -35,6 +35,11 @@ import market from './market.json';
 import travel from './travel.json';
 import nachtmarkt from './maps/nachtmarkt.json';
 import dNachtmarkt from './dialogues/nachtmarkt.json';
+import wilds from './wilds.json';
+import marsch from './maps/marsch.json';
+import katakomben from './maps/katakomben.json';
+import pestgassen from './maps/pestgassen.json';
+import kraterwald from './maps/kraterwald.json';
 
 export const content = buildContent({
   campaign,
@@ -42,9 +47,10 @@ export const content = buildContent({
   items,
   encounters,
   cases: [case01, case02, case03, caseAltmarkt, case04],
-  maps: [revier, ashgrove, ebba, crypt, docks, warehouse, altmarkt, tavern, nachtmarkt, nordtor, theater, uhrturm, gaskanaele, schlachthof, sternwarte],
+  maps: [revier, ashgrove, ebba, crypt, docks, warehouse, altmarkt, tavern, nachtmarkt, nordtor, theater, uhrturm, gaskanaele, schlachthof, sternwarte, marsch, katakomben, pestgassen, kraterwald],
   dialogues: [dRevier, dAshgrove, dEbba, dHafen, dAltmarkt, dNachtmarkt, dNordtor, dFunde],
   pathways,
   market,
   travel,
+  wilds,
 });

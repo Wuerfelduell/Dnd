@@ -272,6 +272,8 @@ export const portraitUrl = (id) => (PORTRAITS[id] ? `${BASE}portraits/${PORTRAIT
 export const MAP_MARKERS = {
   revier: 0, ashgrove: 1, ebba: 2, docks: 3, altmarkt: 4, tavern: 5, nachtmarkt: 6, warehouse: 7,
   theater: 8, uhrturm: 9, schlachthof: 10, gaskanaele: 11, sternwarte: 12, nordtor: 9,
+  // Gefahrengebiete (bis es eigene Marker gibt)
+  marsch: 3, katakomben: 2, pestgassen: 7, kraterwald: 12,
 };
 export const MAP_MARKERS_URL = `${BASE}ui/C_08_map_markers.png`;
 /** Notizbuch: Status → Zelle in ui/C_07_log_markers.png. */
@@ -392,6 +394,8 @@ export const BATTLE_BACKGROUNDS = {
   docks: 'bg_hafen', warehouse: 'bg_lagerhaus', tavern: 'bg_taverne', nachtmarkt: 'bg_nachtmarkt',
   // Neue Orte (bis es eigene Hintergründe gibt)
   theater: 'bg_spiegel', uhrturm: 'bg_archiv', sternwarte: 'bg_archiv', schlachthof: 'bg_lagerhaus', gaskanaele: 'bg_hafen',
+  // Gefahrengebiete (eigene Hintergründe bg_<map-id> kommen mit dem nächsten Codex-Paket)
+  marsch: 'bg_ashgrove', katakomben: 'bg_krypta', pestgassen: 'bg_altmarkt', kraterwald: 'bg_ebba',
 };
 /** Begegnung → eigener Hintergrund (vor dem der Karte). */
 export const ENCOUNTER_BACKGROUNDS = {
@@ -399,6 +403,15 @@ export const ENCOUNTER_BACKGROUNDS = {
   // Begegnungen auf dem schnellen Reiseweg (travel.json)
   reise_ratten: 'bg_hafen', reise_strassenraeuber: 'bg_ashgrove', reise_nebelhund: 'bg_ashgrove', reise_irrlicht: 'bg_hafen', reise_kultist: 'bg_altmarkt',
 };
+
+/**
+ * Gefahrengebiete: Lauf-Sheets der Gegner auf der Karte (characters/G_ow_<id>.png, 4 Reihen unten/links/rechts/oben
+ * x 4 Frames). Begegnung → [Pfad, Framebreite, Framehöhe]. Solange ein Eintrag fehlt, läuft das Kampf-Sheet
+ * verkleinert und getönt als Platzhalter über die Karte.
+ */
+export const OVERWORLD_SHEETS = {};
+/** Beutebehälter am Boden (props/G_loot_<behaelter>.png, 16x16, Frame 0 zu, Frame 1 offen). Fehlt einer, gibt es ein gezeichnetes Symbol. */
+export const LOOT_SHEETS = {};
 
 /** Fähigkeit → Zelle in ui/skill_icons.png (7 Pfadspalten x Sequenz 9/8/7). */
 export const SKILL_ICONS = {
@@ -433,6 +446,12 @@ export function preloadSprites(scene) {
   }
   for (const [key, [path, w, h]] of Object.entries(ANIM_SHEETS)) {
     if (!scene.textures.exists(key)) scene.load.spritesheet(key, BASE + path, { frameWidth: w, frameHeight: h });
+  }
+  for (const [id, [path, w, h = w]] of Object.entries(OVERWORLD_SHEETS)) {
+    if (!scene.textures.exists(`ow_${id}`)) scene.load.spritesheet(`ow_${id}`, BASE + path, { frameWidth: w, frameHeight: h });
+  }
+  for (const [id, path] of Object.entries(LOOT_SHEETS)) {
+    if (!scene.textures.exists(`G_loot_${id}`)) scene.load.spritesheet(`G_loot_${id}`, BASE + path, { frameWidth: 16, frameHeight: 16 });
   }
   if (!scene.cache.json.exists('manifest14b')) scene.load.json('manifest14b', `${BASE}manifest-14b.json`);
   if (!scene.cache.json.exists('manifestKampf')) scene.load.json('manifestKampf', `${BASE}manifest-kampf.json`);

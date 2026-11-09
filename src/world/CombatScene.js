@@ -27,6 +27,7 @@ export class CombatScene extends Phaser.Scene {
   init(data) {
     this.encounterId = data.id;
     this.onDone = data.onDone;
+    this.deferLoot = !!data.deferLoot; // Gegner auf der Karte: Beute fällt als Behälter auf den Boden
   }
 
   create() {
@@ -134,7 +135,7 @@ export class CombatScene extends Phaser.Scene {
     this.add.ellipse(PLAYER_X, GROUND_Y + 14, 34, 8, 0x000000, 0.35).setDepth(9);
 
     const spr = this.combat.enc.sprite;
-    const battleSheet = [ENCOUNTER_SHEETS[this.encounterId], ENEMY_BATTLE_SHEETS[spr]].find((k) => k && this.textures.exists(k));
+    const battleSheet = [this.combat.enc.sheet, ENCOUNTER_SHEETS[this.encounterId], ENEMY_BATTLE_SHEETS[spr]].find((k) => k && this.textures.exists(k));
     this.enemySheet = battleSheet ?? null;
     if (battleSheet) {
       this.enemy = this.add.sprite(ENEMY_X, GROUND_Y + 14, battleSheet, 0).setOrigin(0.5, this.sheetOriginY(battleSheet)).setScale(1.5);
@@ -148,6 +149,11 @@ export class CombatScene extends Phaser.Scene {
       this.tweens.add({ targets: this.enemy, y: GROUND_Y + 15, duration: 1200, yoyo: true, repeat: -1, ease: 'Sine.inOut' });
     }
     this.enemy.setDepth(10);
+    // Gefahrengebiete: Platzhalter-Sheets werden getönt, Elite und Boss sind größer
+    const enc = this.combat.enc;
+    this.enemyTint = enc.elite ? 0xff9080 : enc.tint ? Number.parseInt(enc.tint.slice(1), 16) : null;
+    if (this.enemyTint !== null) this.enemy.setTint(this.enemyTint);
+    if (enc.elite || enc.boss) this.enemy.setScale(this.enemy.scaleX * (enc.boss ? 1.35 : 1.18));
     this.add.ellipse(ENEMY_X, GROUND_Y + 14, 50, 10, 0x000000, 0.35).setDepth(9);
     if (this.combat.enemy.occult) {
       const aura = this.add.image(ENEMY_X, GROUND_Y - 30, 'glow').setScale(2.5).setTint(0x6fe0d0).setAlpha(0.25).setDepth(8);
@@ -187,7 +193,7 @@ export class CombatScene extends Phaser.Scene {
   flash(target) {
     if (this.phase !== 'over') this.anim(target, 'hurt');
     target.setTintFill(0xffffff);
-    this.time.delayedCall(80, () => target.clearTint());
+    this.time.delayedCall(80, () => (target === this.enemy && this.enemyTint !== null ? target.setTint(this.enemyTint) : target.clearTint()));
   }
 
   // --- Ablauf ------------------------------------------------------------------
@@ -431,7 +437,7 @@ export class CombatScene extends Phaser.Scene {
   leave() {
     if (this.leaving) return;
     this.leaving = true;
-    const result = this.combat.finish();
+    const result = this.combat.finish({ deferLoot: this.deferLoot });
     const done = () => {
       this.ui.closeCombat(result, this.combat.enc);
       this.onDone?.(result);

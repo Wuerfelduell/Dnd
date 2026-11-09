@@ -1,0 +1,290 @@
+{
+  "id": "katakomben",
+  "name": "Katakomben unter St. Ebba",
+  "danger": 2,
+  "ambient": {
+    "night": 0.86,
+    "fog": 0.12
+  },
+  "spawns": {
+    "default": [
+      6,
+      5
+    ]
+  },
+  "lights": [
+    {
+      "tile": [
+        46,
+        33
+      ],
+      "radius": 60,
+      "intensity": 0.6,
+      "color": "#c05050",
+      "glow": 0.3,
+      "flicker": 0.15
+    },
+    {
+      "tile": [
+        45,
+        13
+      ],
+      "radius": 40,
+      "intensity": 0.6,
+      "color": "#6fe0d0",
+      "glow": 0.35,
+      "flicker": 0.25
+    }
+  ],
+  "rows": [
+    "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII",
+    "IIIIIIIIIIIIIssssssIIKssssssIIIIIIIIIIIIIIIIIIIIIIII",
+    "IIIIIIIIIIIIIssrsBsIIssrsrssIIIIKsssssIIIIIIIIIIIIII",
+    "IIKssssssIIIIsssBrssssssssssIIIIssrrssIIIssssssIIIII",
+    "IIsBsssssIIIIssssssssssssssssssssssrssIIIssssssIIIII",
+    "IIsssssssssIIsssssKIIsssBsssssssssrrsssIIssssssIIIII",
+    "IIsrsssrsssssssssIIIIsssssssIIIIsssssKsssssssssIIIII",
+    "IIssssssKsssssssIIIIIsssssssIIIIIIIsssssssssssKIIIII",
+    "IIIIsssIIIIIIIIIIIIIIIIIssIIIIIIIIIssIIIIIIsssIIIIII",
+    "IIIIsssIIIIIIIIIIIIIIIIIssssIIIIIIIssIIIIIIIssIIIIII",
+    "IKssssssIIIssssssssIIIIIssssIIIIKsssssIIIIIIssIIIIII",
+    "IssssssssssssssssssIIIIIIIsssIIIssssrsIIIIIIssIIIIII",
+    "IsrssrrssssssssssssIIKsssssssIIIsrssssIIIKsssssssIII",
+    "IsssssssIIIsssssssssssssssssIIIIssssssIIIssssssssIII",
+    "IssssssKIIIsssssssssssssssssssssssssrsIIIssssssssIII",
+    "IIIsssIIIIIssssssssIIssssssssssssssssKIIIssssssssIII",
+    "IIIsssIIIIIsssssssKIIsssssKIIIIIsssIIIIIIsssssssKIII",
+    "IIIssIIIIIIIIIIsssIIIIIsssIIIIIIIIIIIIIIIIIIIssIIIII",
+    "IIIssIIIIIIIIIIIssIIIIIIssIIIIIIIIIIIIIIIIIIIssIIIII",
+    "IIsssIIIIIIKsssssssIIIIKsssssIIIIIIIIIIIIKsssssssIII",
+    "IIsssIIIIIIssssssssIIIsssssssIIKsssssssIIsGsGsGssIII",
+    "IssssssssIIsssssssssssssssBssIIssssssssIIssssssssIII",
+    "IssssssssIIssssssssssssssssssssssssssssssssssssssIII",
+    "IssssssssssssssssssssIIssssssssssssssssssssssssssIII",
+    "IssssssssssssssssssssIIssrBsssIssssssssIssGsGsGssIII",
+    "IsssssssKIIsssssssKIIIIssssssIIIIIIIIIIIIssssssssIII",
+    "IIIIIssIIIIIIIIIIIIIIIIIIIIssIIIIIIIIIIIIIIIIsssIIII",
+    "IIIIIssIIIIIIIIIIIIIIIIIIIIssIIIIIIIIIIIIIIIIsssIIII",
+    "IIKssssssIIIIIIIIIIIIIIIIIIssIIIIIIIIIIIIKssssssIIII",
+    "IIsGsGsGsIIIIIIIIIIIIIIKsssssIIKsssssssIIsssssssIIII",
+    "IIsssssssIIKssssssIIIIIssrrssIIsGsGsGssIIssssrssIIII",
+    "IIssssssssssssssssIIIIIssBsssIIssssssssIIssssBssIIII",
+    "IIssssssssssssssssIIIIIssssssIIssssssssssssrssssIIII",
+    "IIsGsGsGsIIsssssssIIIIIsssssKIIsGsGsGsssssssrsssIIII",
+    "IIsssssssIIsssssssIIIIIIIIIIIIIsssssssKIIsssssssIIII",
+    "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII",
+    "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII",
+    "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII"
+  ],
+  "interactables": [
+    {
+      "id": "exit",
+      "kind": "travel",
+      "tile": [
+        5,
+        5
+      ],
+      "prompt": "Hinauf zur Ruine (Stadtkarte)",
+      "marker": false,
+      "reach": 20
+    },
+    {
+      "id": "warning",
+      "kind": "read",
+      "tile": [
+        6,
+        4
+      ],
+      "sprite": "pole",
+      "prompt": "Kreidezeichen lesen",
+      "marker": false,
+      "title": "Kreidezeichen",
+      "text": "Am Torbogen stehen Striche, wie ein Kalender. Daneben in Küster Anselms Schrift: „Wer hier unten Kerzen sieht, die er nicht angezündet hat, soll umkehren.“\n\nDie letzte Zeile ist verwischt.",
+      "done_flag": "read_warn_katakomben"
+    },
+    {
+      "id": "cache_1",
+      "kind": "loot",
+      "tile": [
+        43,
+        5
+      ],
+      "table": "katakomben_cache",
+      "container": "kiste",
+      "prompt": "Durchsuchen"
+    },
+    {
+      "id": "cache_2",
+      "kind": "loot",
+      "tile": [
+        14,
+        23
+      ],
+      "table": "katakomben_cache",
+      "container": "beutel",
+      "prompt": "Durchsuchen"
+    },
+    {
+      "id": "cache_3",
+      "kind": "loot",
+      "tile": [
+        46,
+        14
+      ],
+      "table": "katakomben_cache",
+      "container": "beutel",
+      "prompt": "Durchsuchen"
+    },
+    {
+      "id": "treasure",
+      "kind": "loot",
+      "tile": [
+        46,
+        31
+      ],
+      "table": "katakomben_schatz",
+      "container": "truhe",
+      "prompt": "Truhe öffnen",
+      "done_flag": "looted_katakomben_schatz"
+    },
+    {
+      "id": "schrein",
+      "kind": "loot",
+      "tile": [
+        45,
+        13
+      ],
+      "table": "katakomben_schrein",
+      "container": "okkulter_schrein",
+      "prompt": "Schrein öffnen",
+      "done_flag": "looted_katakomben_schrein",
+      "lock": {
+        "requires_items": [
+          "ossuarschluessel"
+        ],
+        "text": "Ein Schrein aus vergilbten Knochen, verschlossen mit einem Schloss in Form eines Schädels. Das Schlüsselloch ist ein leeres Auge.",
+        "footer": "Wer hütet hier unten den Schlüssel?"
+      },
+      "effects": {
+        "takes_items": {
+          "ossuarschluessel": 1
+        }
+      }
+    }
+  ],
+  "roamers": [
+    {
+      "encounter": "knochenwurm",
+      "tile": [
+        45,
+        5
+      ]
+    },
+    {
+      "encounter": "kerzenfresser",
+      "tile": [
+        32,
+        23
+      ]
+    },
+    {
+      "encounter": "schaedelschwarm",
+      "tile": [
+        33,
+        22
+      ]
+    },
+    {
+      "encounter": "knochenwurm",
+      "tile": [
+        34,
+        14
+      ]
+    },
+    {
+      "encounter": "kerzenfresser",
+      "tile": [
+        12,
+        23
+      ]
+    },
+    {
+      "encounter": "schaedelschwarm",
+      "tile": [
+        14,
+        24
+      ]
+    },
+    {
+      "encounter": "knochenwurm",
+      "tile": [
+        37,
+        6
+      ]
+    },
+    {
+      "encounter": "kerzenfresser",
+      "tile": [
+        45,
+        15
+      ]
+    },
+    {
+      "encounter": "schaedelschwarm",
+      "tile": [
+        44,
+        14
+      ]
+    },
+    {
+      "encounter": "knochenwurm",
+      "tile": [
+        16,
+        32
+      ]
+    },
+    {
+      "encounter": "kerzenfresser",
+      "tile": [
+        14,
+        14
+      ]
+    },
+    {
+      "encounter": "schaedelschwarm",
+      "tile": [
+        14,
+        12
+      ]
+    },
+    {
+      "encounter": "knochenwurm",
+      "tile": [
+        25,
+        13
+      ]
+    },
+    {
+      "encounter": "kerzenfresser",
+      "tile": [
+        26,
+        14
+      ]
+    },
+    {
+      "encounter": "schaedelschwarm",
+      "tile": [
+        46,
+        28
+      ]
+    },
+    {
+      "encounter": "ossuarwaechter",
+      "tile": [
+        46,
+        33
+      ],
+      "boss": true
+    }
+  ]
+}
