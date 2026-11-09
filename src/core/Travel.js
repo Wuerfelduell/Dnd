@@ -43,6 +43,7 @@ export function canHurry(state) {
 export function travelSafe(state, rng = Math.random) {
   const m = travelData(state).modes.sicher;
   const healed = state.heal(Math.max(1, Math.round(state.maxHp * m.heal_pct)));
+  state.healPartner?.(0, { pct: m.heal_pct });
   const before = state.composure;
   state.setComposure(before + m.nerves);
   const nerves = Math.round(state.composure - before);

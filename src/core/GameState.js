@@ -5,6 +5,7 @@ import { auctionMethods } from './Auction.js';
 import { wantedMethods } from './Wanted.js';
 import { bondMethods } from './Bonds.js';
 import { artifactMethods } from './Artifacts.js';
+import { partyMethods } from './Party.js';
 
 /** Tragkraft in Pfund. Gegenstände ohne eigenes "weight" wiegen je nach Art so viel. */
 export const BASE_CARRY = 40;
@@ -62,6 +63,7 @@ export class GameState {
     this.resetGatherings();
     this.resetWanted();
     this.resetBonds();
+    this.resetParty();
     this.pendingTravel = null;
   }
 
@@ -276,7 +278,7 @@ export class GameState {
     if (e.honor) this.addHonor(e.honor, e.honor_reason ?? '');
     for (const [id, n] of Object.entries(e.gives_items ?? {})) this.addItem(id, n);
     for (const [id, n] of Object.entries(e.takes_items ?? {})) this.removeItem(id, n);
-    if (e.heal) this.heal(e.heal === 'full' ? this.maxHp : e.heal);
+    if (e.heal) { this.heal(e.heal === 'full' ? this.maxHp : e.heal); this.healPartner(e.heal); }
     if (e.gives_money) this.addMoney(e.gives_money, { loot: true, reason: e.honor_reason ?? '' });
     if (e.takes_money) this.addMoney(-e.takes_money);
     if (e.ending) this.setEnding(e.ending);
@@ -576,6 +578,7 @@ export class GameState {
     this.tickPathway(dtSeconds);
     this.tickGatherings(dtSeconds);
     this.tickWanted(dtSeconds);
+    this.tickParty(dtSeconds);
   }
 
   // --- Speichern -------------------------------------------------------------------------
@@ -600,6 +603,7 @@ export class GameState {
       ...this.serializeGatherings(),
       ...this.serializeWanted(),
       bonds: this.serializeBonds(),
+      ...this.serializeParty(),
     };
   }
 
@@ -635,9 +639,10 @@ export class GameState {
     this.loadGatherings(data);
     this.loadWanted(data);
     this.loadBonds(data.bonds);
+    this.loadParty(data);
     if (!this.content.maps[this.map]) { this.map = this.content.start.map; this.position = null; }
     return true;
   }
 }
 
-Object.assign(GameState.prototype, pathwayMethods, artifactMethods, gatheringMethods, wantedMethods, bondMethods, auctionMethods);
+Object.assign(GameState.prototype, partyMethods, pathwayMethods, artifactMethods, gatheringMethods, wantedMethods, bondMethods, auctionMethods);

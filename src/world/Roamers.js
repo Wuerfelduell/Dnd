@@ -120,7 +120,6 @@ export class Roamers {
 
   update(time, delta, blocked) {
     const s = this.scene;
-    const p = s.player;
     // Uhren laufen nicht, solange ein Fenster offen ist; danach kurz durchatmen
     if (blocked) {
       if (this.graceUntil > time) this.graceUntil += delta;
@@ -134,6 +133,7 @@ export class Roamers {
       if (!r.alive) continue;
       const b = r.body.body;
       if (blocked) { b.setVelocity(0, 0); this.sync(r, time); continue; }
+      const p = s.nearestPlayer?.(r.body.x, r.body.y) ?? s.player; // zu zweit: wer näher ist
       const dx = p.x - r.body.x;
       const dy = (p.y - 3) - r.body.y;
       const d = Math.hypot(dx, dy);
