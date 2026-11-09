@@ -706,3 +706,52 @@ button.small.give { color: #9ab8ff; }
 .paperdoll .worn { list-style: none; margin: 0; padding: 0; flex: 1; display: grid; gap: 0.5em; }
 .paperdoll .worn li { line-height: 1.4; }
 .paperdoll .worn .arteffects { display: block; }
+
+/* --- Handy / Touch ------------------------------------------------------------ */
+#frame { touch-action: manipulation; -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; -webkit-tap-highlight-color: transparent; }
+html, body { overscroll-behavior: none; }
+#game canvas { touch-action: none; }
+
+/* HUD-Knöpfe oben rechts (Klick oder Tipp, mit Tastenhinweis auf dem Rechner) */
+.hudbtns { display: flex; gap: 0.35em; justify-content: flex-end; flex-wrap: wrap; }
+.hudbtn {
+  font: inherit; color: var(--muted); background: rgba(14, 12, 18, 0.55); border: 0.125em solid transparent;
+  padding: 0.05em 0.3em; cursor: pointer; text-shadow: 0 0.125em 0 #000;
+}
+.hudbtn:hover { color: var(--ink); border-color: var(--brass); }
+.prompt { font: inherit; color: var(--ink); cursor: pointer; }
+.keybtn { font: inherit; background: none; border: none; padding: 0; margin: 0; cursor: pointer; color: inherit; }
+.panel button.keybtn { background: none; border: none; padding: 0 0.15em; }
+button.badge { font: inherit; font-size: 0.75em; cursor: pointer; }
+
+.touch-only { display: none; }
+html.touch .touch-only { display: block; }
+html.touch .no-touch { display: none !important; }
+html.touch #ui .key { display: none; }
+html.touch .hudbtn { color: var(--ink); background: rgba(14, 12, 18, 0.8); border-color: #4a4050; padding: 0.2em 0.45em; }
+html.touch .prompt { border-color: var(--gold); padding: 0.4em 0.9em; }
+html.touch .controls2 { display: none !important; }
+
+/* Kampf: Ausweichen und Parieren als Knöpfe (nur Touch); tippen sonst = Takt */
+.cb-touch { display: none; position: absolute; right: 1em; bottom: 1.4em; gap: 0.6em; pointer-events: none; }
+html.touch .cb-touch { display: flex; }
+.combat:has(.cb-menu:not(:empty)) .cb-touch { display: none; }
+.combat .cb-def {
+  pointer-events: auto; width: 6.2em; height: 3em; font-size: 0.9em; background: var(--panel);
+  border: 0.125em solid var(--brass); color: var(--gold); touch-action: none;
+}
+.combat .cb-def.parry { border-color: #e8c070; }
+.combat .cb-def.dodge { border-color: #6fa0e0; color: #a8c8ff; }
+.combat .cb-def.hit { background: #4a3a20; transform: scale(0.94); }
+
+/* Hochformat auf dem Handy: bitte drehen */
+#rotate { display: none; }
+@media (orientation: portrait) {
+  html.touch #rotate {
+    display: flex; position: fixed; inset: 0; z-index: 50; flex-direction: column; align-items: center; justify-content: center; gap: 1em;
+    background: #06070d; color: var(--ink); font-family: 'Pixelify Sans', ui-monospace, monospace; font-size: 20px; text-align: center; padding: 2em;
+  }
+  html.touch #rotate .phone { width: 2.4em; height: 4em; border: 0.2em solid var(--gold); border-radius: 0.4em; animation: rotatephone 2s ease-in-out infinite; }
+  html.touch #rotate button { font: inherit; font-size: 0.8em; color: var(--ink); background: #221d28; border: 0.125em solid var(--brass); padding: 0.3em 0.8em; }
+}
+@keyframes rotatephone { 0%, 30% { transform: rotate(0); } 60%, 100% { transform: rotate(-90deg); } }
