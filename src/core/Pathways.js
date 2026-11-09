@@ -331,7 +331,8 @@ export const pathwayMethods = {
     if (r.requires?.requires_flags) {
       for (const f of r.requires.requires_flags) {
         const enc = this.content.encounters[f.replace(/^won_/, '')];
-        steps.push({ text: enc ? `${enc.name} besiegt` : f, done: this.flags.has(f) });
+        const fall = this.content.quests[/^(case_\d+)_closed$/.exec(f)?.[1]]; // Rituale der neuen Pfade (Paket AF)
+        steps.push({ text: enc ? `${enc.name} besiegt` : fall ? `${fall.title} abgeschlossen` : f, done: this.flags.has(f) });
       }
     }
     if (r.tribute) steps.push({ text: `${r.tribute} Schilling als Tribut`, done: this.money >= r.tribute });

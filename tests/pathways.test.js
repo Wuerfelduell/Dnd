@@ -22,9 +22,9 @@ function brewPotion(s, pid, seq) {
   return `trank_${pid}_${seq}`;
 }
 
-test('Sieben Pfade mit je Sequenz 9 bis 5, Fertigkeit, Passiven und kaufbaren Zutaten', () => {
+test('Zehn Pfade (sieben + Waage, Moor, Uhr aus Paket AF) mit je Sequenz 9 bis 5, Fertigkeit, Passiven und kaufbaren Zutaten', () => {
   const ids = Object.keys(content.pathways);
-  assert.equal(ids.length, 7);
+  assert.equal(ids.length, 10);
   const skillIds = new Set();
   for (const [pid, p] of Object.entries(content.pathways)) {
     assert.deepEqual(Object.keys(p.seqs).sort(), ['5', '6', '7', '8', '9'], pid);

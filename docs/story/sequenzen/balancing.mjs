@@ -4,9 +4,10 @@ import { fileURLToPath } from 'node:url';
 import { loadContent } from '../../../tests/helpers.js';
 import { GameState } from '../../../src/core/GameState.js';
 import { Combat, SKILLS, AP_MAX, ENEMY_HP_MULT, ENEMY_DMG_MULT, DUO_HP_MULT } from '../../../src/core/Combat.js';
-const read = name => JSON.parse(readFileSync(new URL(name, import.meta.url), 'utf8'));
+// Seit dem Einbau liegen die Daten unter src/data/packs/sequenzen; verglichen wird mit dem Stand ohne Paket AF
+const read = name => JSON.parse(readFileSync(new URL(`../../../src/data/packs/sequenzen/${name}`, import.meta.url), 'utf8'));
 export function draftContent() {
-  const c = loadContent();
+  const c = loadContent({ sequenzen: false });
   for (const [id, p] of Object.entries(read('seq_4_bis_1.json'))) Object.assign(c.pathways[id].seqs, p.seqs);
   Object.assign(c.pathways, read('neue_pfade.json'));
   Object.assign(c.items, read('zutaten.json'));

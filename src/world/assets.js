@@ -2,6 +2,7 @@
 // Die PNGs ersetzen die prozedural gezeichneten Platzhalter aus textures.js unter
 // denselben Texture-Keys. Alles, was hier nicht zugeordnet ist (oder nicht lädt),
 // bleibt automatisch beim Platzhalter.
+import { PATHWAY_STANDIN } from '../data/sequenzen.js';
 
 const BASE = './sprites/';
 export const SPRITE_BASE = BASE;
@@ -459,8 +460,10 @@ const MANIFEST_IDS = { player_drink: 'A_player_drink', control_cracks: 'A_11_con
   player_inspect: 'H_player_untersuchen', risk_fx: 'H_06_risiko' };
 
 /** Pfad-Embleme und Karten (public/sprites/pathways/). */
-export const pathwayEmblemUrl = (pid, size = 32) => `${BASE}pathways/emblem_${pid}_${size}.png`;
-export const pathwayCardUrl = (pid) => `${BASE}pathways/card_${pid}.png`;
+/** Neue Pfade (Paket AF) zeigen bis zur eigenen Grafik die eines Bestandspfads. */
+export const pathwayArt = (pid) => PATHWAY_STANDIN[pid] ?? pid;
+export const pathwayEmblemUrl = (pid, size = 32) => `${BASE}pathways/emblem_${pathwayArt(pid)}_${size}.png`;
+export const pathwayCardUrl = (pid) => `${BASE}pathways/card_${pathwayArt(pid)}.png`;
 export const COIN_URL = `${BASE}items/schilling.png`;
 /**
  * Oberflächen-Bögen, die das UI als CSS-Variablen bekommt (--<name>: url(...)), siehe style.css.
@@ -589,6 +592,7 @@ export const SELF_FX = ['vorahnung', 'trugbild', 'wundsalbe', 'eisenhaut', 'spie
 
 /** Pfad → Zauberpose in battle_player_skills. */
 export const PATHWAY_POSES = { laterne: 'lantern', faden: 'thread', maske: 'mask', echo: 'echo', kessel: 'cauldron', eisen: 'iron', schluessel: 'key' };
+for (const [pid, standin] of Object.entries(PATHWAY_STANDIN)) PATHWAY_POSES[pid] = PATHWAY_POSES[standin];
 /** Waffe → Schlaganimation in battle_player_weapons (sonst battle_player 'attack'). */
 export const WEAPON_POSES = { schlagstock: 'truncheon', stockdegen: 'cane_sword' };
 
@@ -992,14 +996,25 @@ export function playCaseAnim(sprite, sheet, then) {
 /** Items ohne eigenes Bild (noch): Platzhalter aus einem ähnlichen Item. */
 export const ITEM_ICON_ALIASES = { kg_kerzenbund: 'lampenoel', kg_bleiorakel: 'spiegelscherbe', // Paket AA
   k2n_pfandzettel: 'pfandschein', k2n_ivys_brief: 'liebesbrief', k2n_brief_hesper: 'liebesbrief', k2n_brief_druce: 'erpresserbrief', k2n_brief_pedell: 'pfaendungsbrief' }; // Paket AB
-export const itemIconUrl = (id) => `${BASE}items/${ITEM_ICON_ALIASES[id] ?? id}.png`;
+/** Zutaten und Artefakte aus Paket AF: Platzhalter laut docs/story/sequenzen/grafikwuensche.md. */
+const AF_ICONS = { sq_offene_blende: 'glasauge', sq_gegenakte: 'papierfeder', sq_ruecklaufbecher: 'brutschale', sq_stegbolzen: 'glockenzunge',
+  sq_fristpendel: 'taschenuhr', sq_torfsiegel: 'glasfibel' };
+/** Trank/Formel eines neuen Pfads → Bild des Bestandspfads gleicher Stufe; Zutaten sq_zutat_* → Silberstaub (9–6) oder Geisteressenz (Kern). */
+const standinIcon = (id) => {
+  if (AF_ICONS[id]) return AF_ICONS[id];
+  const z = /^sq_zutat_\w+_(\d)$/.exec(id);
+  if (z) return Number(z[1]) >= 6 ? 'silberstaub' : 'geisteressenz';
+  const t = /^(trank|formel)_(sq_\w+)_(\d)$/.exec(id);
+  return t && PATHWAY_STANDIN[t[2]] ? `${t[1]}_${PATHWAY_STANDIN[t[2]]}_${t[3]}` : id;
+};
+export const itemIconUrl = (id) => `${BASE}items/${ITEM_ICON_ALIASES[id] ?? standinIcon(id)}.png`;
 /** 32x32-Fassung (gibt es für Tränke und die Stimmphiole). */
 const ICON32 = ['stimmphiole', 'verlorenes_gesangbuch', 'spiegelscherbe', ...F_EQUIPMENT,
   'rostwasser', 'schleierpuder', 'ankerhaken', 'schleierdolch', 'rostanker', 'porzellanmaske', 'rost_zeichen', 'schleier_zeichen',
   // Ausrüstung aus Paket G, J und K
   'mantel_moor', 'hut_schnabel', 'amulett_moorperle', 'knochenmesser', 'wachsamulett', 'glasfibel', 'sternglasdolch', 'geweihreif',
   'amulett_wiegenlied', 'mantel_giesser', 'taktstock_vey', 'hut_chor', 'amulett_schatten', 'hut_maskenball', 'mantel_frack', 'blitzpulver'];
-export const itemIcon32Url = (id) => (id.startsWith('trank_') || ICON32.includes(id) ? `${BASE}items/32/${id}.png` : null);
+export const itemIcon32Url = (id) => (id.startsWith('trank_') || ICON32.includes(id) ? `${BASE}items/32/${standinIcon(id)}.png` : null);
 
 const srcKey = (sheet) => `src_${sheet}`;
 

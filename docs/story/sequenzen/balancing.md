@@ -193,7 +193,7 @@ Das Finale mit Brandt wird über Dialog und Enden entschieden, nicht über einen
 
 ## Zielkorridore für Kapitel 3 und später
 
-Solo-HP werden bereits mit 1.4 multipliziert, Schaden mit 1.4. Duo-HP zusätzlich ×1.6, Duo-Schaden ×1,15; Rage-Schaden ×1,20. Nicht doppelt in Daten einrechnen. Zahlen unten sind neue Vorschläge, keine existierenden Encounters.
+Solo-HP werden bereits mit 1.4 multipliziert, Schaden mit 1.4. Duo-HP zusätzlich ×1.9, Duo-Schaden ×1,15; Rage-Schaden ×1,20. Nicht doppelt in Daten einrechnen. Zahlen unten sind neue Vorschläge, keine existierenden Encounters.
 
 | Zugang mit | Rolle | HP Daten / solo | Schaden je Ring Daten / solo | Ringe je Angriff |
 |---|---|---|---|---|
