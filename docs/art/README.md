@@ -195,3 +195,66 @@ Visuelle Übersicht: `welt-preview.png`.
 Dieses Paket stellt die Grafiken und Metadaten bereit. Die Einbindung sowie
 die Beurteilung von Timing, Lesbarkeit und Übergängen im laufenden Spiel erfolgen
 separat. Es wird kein Spielcode geändert.
+
+## Grafikpaket F – Bonusgegner, Bosse und Ausrüstung
+
+Batch `kampf2`, erzeugt am 9. November 2026 mit `image_gen` nach
+`codex_F_kampf2_bosse.md`: **119 PNG-Dateien aus 55 Generatorbildern**.
+
+| Gruppe | Dateien | Format |
+|---|---:|---|
+| Zehn neue Kampfkulissen | 10 | 480×270, opak; Bodenstreifen y=200–269 |
+| Felix, Miriam und Chorschatten | 3 | sechs Spalten; 48×48 bzw. Miriam 96×96 pro Frame |
+| Stimmen- und Phioleneffekte | 4 | einreihig, 6 bzw. 8 Frames |
+| Sichtbare Kartengegner | 10 | vier Richtungen × vier Frames, 16×32 oder 32×32 |
+| Alarm und Zugportraits | 2 | 4×3 Zellen à 16×16; 19 Portraits in einer Reihe |
+| Bestiarium | 18 | 96×128, opake Notizbuchseiten |
+| Ausrüstung | 68 | vier gemischte Atlanten und 32 Items in je zwei Größen |
+| Ausrüstungsoberfläche | 1 | 192×160 Atlas mit 96×128 Panel, 20×20 Slots und 8×8 Glyphen |
+| Boss-Einblendung | 3 | sechs 480×270 Frames und zwei 160×160 Büsten |
+
+`public/sprites/manifest-kampf2.json` beschreibt alle Dateien, nullbasierte
+Frame-Listen, Geschwindigkeiten, Schleifen, Grundlinien und benannte Regionen.
+Die Ausrüstungsatlanten sind 256×48: acht 16×16-Icons links in der oberen Reihe,
+acht 32×32-Icons darunter. Die rechte Hälfte der oberen Reihe bleibt transparent.
+Für die Entnahme sind die benannten `regions` maßgeblich; Einzeldateien enthalten
+dieselben Pixel. `panelSlots` nennt die vier Positionen innerhalb des Papierpuppen-
+Panels; separate Slotzustände und Typglyphen können darübergelegt werden.
+
+Die Zugportraits entsprechen genau der Reihenfolge im Brief. Die Bestiariumkarten
+verwenden dieselben Begegnungs-IDs, ohne den Spieler. Felix ist `felix_fight`,
+Miriam ist `miriam`. Gegner laufen in der Reihenfolge unten, links, rechts, oben.
+Alle Kampfgegner blicken nach links. Die zwei normalen Angriffe von Felix und Miriam
+sowie der Angriff des Chorschattens halten ihre erste Ausholpose zwei Frames lang.
+Kürzere Reihen haben transparente Restfelder. Die Grundlinie ist als exklusive
+Unterkante angegeben (46, 94 bzw. 31 Pixel innerhalb der Zelle).
+
+Die Bossblende verwendet ein einziges generiertes Tintenband, das in sechs Frames
+mit ganzzahligen Versätzen von links einläuft; Frame 0 ist vollständig transparent.
+Das endgültige Band liegt zwischen y=90 und y=179. Namen werden später vom Spiel
+gesetzt, die Grafik enthält keinen Text.
+
+Alle PNGs sind palettenindiziert mit denselben 32 sichtbaren Farben wie Batch B
+und einem zusätzlichen transparenten Index. Alpha ist binär. Der technische
+Export umfasst Nearest-Neighbor-Skalierung, Zellzuschnitt, gemeinsame Skalierung
+und Grundlinienausrichtung pro Figuren-Sheet, Palettenzuordnung und Atlasmontage.
+Das Papierpuppen-Panel verwendet ausgeschnittene, exakt auf 20×20 gerasterte Slots.
+Es werden keine Illustrationen prozedural ersetzt. Der Chorschatten wurde nach
+einer ersten Fassung korrigiert, um Weihrauchfass und Fanatiker-Verzierungen zu entfernen.
+
+Die tatsächlichen Prompts, Referenzen, Korrekturen, Originaldateinamen und
+SHA-256-Prüfsummen stehen in `batch-kampf2-generation.json`. Die großen
+Generatororiginale sind keine Laufzeitassets und liegen nicht im Repository.
+
+```sh
+# Pillow und numpy werden benötigt; SOURCE_DIR enthält die Generatororiginale.
+python docs/art/export-kampf2.py SOURCE_DIR .
+python docs/art/verify-kampf2.py
+```
+
+Die Prüfung kontrolliert Vollständigkeit, Zielmaße, Palette, Alpha, Zellenbelegung,
+Grundlinien, Ausholframes, Animationsvariation, Atlas-/Einzeldatei-Gleichheit,
+Portrait-IDs und die konsistente Bossblende. Ergebnis: `validation-kampf2.json`.
+Die exportierten Grafiken sind in `batch-kampf2-preview.png` zusammengefasst.
+Die Einbindung und Timing-Abstimmung im Spiel erfolgen separat; dieses Paket
+ändert ausschließlich Grafiken, Manifest und Grafikdokumentation.
