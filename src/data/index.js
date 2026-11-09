@@ -78,8 +78,18 @@ import kg_npcs from './packs/kg_nebenquests/npcs.json';
 import kg_case from './packs/kg_nebenquests/case.json';
 import kg_dialog_zusaetze from './packs/kg_nebenquests/dialog_zusaetze.json';
 import kg_platzierung from './packs/kg_nebenquests/platzierung.json';
+import wx_quests from './packs/wx_nebenquests/quests.json';
+import wx_items from './packs/wx_nebenquests/items.json';
+import wx_encounters from './packs/wx_nebenquests/encounters.json';
+import wx_dialogues from './packs/wx_nebenquests/dialogues.json';
+import wx_npcs from './packs/wx_nebenquests/npcs.json';
+import wx_case from './packs/wx_nebenquests/case.json';
+import wx_dialog_zusaetze from './packs/wx_nebenquests/dialog_zusaetze.json';
+import wx_platzierung from './packs/wx_nebenquests/platzierung.json';
+import wx_kahn_ausbau from './packs/wx_nebenquests/kahn_ausbau.json';
 
 /** Nebenauftrags-Pakete (Codex AA, AB). */
+const wxNebenquests = { name: 'wx_nebenquests', quests: wx_quests, items: wx_items, encounters: wx_encounters, dialogues: wx_dialogues, npcs: wx_npcs, case: wx_case, dialog_zusaetze: wx_dialog_zusaetze, platzierung: wx_platzierung, kahn_ausbau: wx_kahn_ausbau };
 const kgNebenquests = { name: 'kg_nebenquests', quests: kg_quests, items: kg_items, encounters: kg_encounters, dialogues: kg_dialogues, npcs: kg_npcs, case: kg_case, dialog_zusaetze: kg_dialog_zusaetze, platzierung: kg_platzierung };
 
 export const content = buildContent({
@@ -99,5 +109,5 @@ export const content = buildContent({
   gatherings,
   city,
   wexmoor,
-  packs: [kgNebenquests],
+  packs: [kgNebenquests, wxNebenquests],
 });

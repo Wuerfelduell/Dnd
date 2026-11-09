@@ -8,6 +8,16 @@ export const PACK_GUARDS = {
   kg_nebenquests: { erbe: 'edmund_arrested', gouvernante: 'wren_arrested', rattenfaenger: 'piper_arrested' },
 };
 
+/** Kahn-Ausbau: Platz in der Kajüte und einmalige Wirkung (Flag, das die Auszahlung sperrt). */
+const KAHN_SPOTS = {
+  k2n_kahn_reet: { tile: [1, 4] },
+  k2n_kahn_kiste: { tile: [6, 5], effects: { gives_items: { salzbrot: 2 } }, done: 'k2n_kiste_entnommen' },
+  k2n_kahn_glocke: { tile: [6, 7], effects: { nerves: 8 }, done: 'k2n_glocke_gelaeutet' },
+  k2n_kahn_waschtisch: { tile: [14, 4] },
+  k2n_kahn_ofen: { tile: [4, 2] },
+  k2n_kahn_kartentisch: { tile: [12, 4], effects: { nerves: 5 }, done: 'k2n_kartentisch_gelesen' },
+};
+
 export function applyQuestPack(content, pack) {
   const { quests = {}, items = {}, encounters = {}, dialogues = {}, npcs = {}, case: cas = {}, dialog_zusaetze: extra = {}, platzierung = [] } = pack;
   const guards = PACK_GUARDS[pack.name] ?? {};
@@ -49,6 +59,14 @@ export function applyQuestPack(content, pack) {
     const mm = own(mapId);
     mm.npcs = mm.npcs.map((n) => (guards[n.id]
       ? { ...n, visible_if: { ...(n.visible_if ?? {}), hide_if_flags: [...(n.visible_if?.hide_if_flags ?? []), guards[n.id]] } } : n));
+  }
+  // Paket AB: Ausbauten von Zunders Kahn als Objekte in der Kajüte (Wirkung in core/Kahn.js oder einmalig hier)
+  for (const [flag, k] of Object.entries(pack.kahn_ausbau ?? {})) {
+    const spot = KAHN_SPOTS[flag];
+    if (!spot) continue;
+    const m = own('wx_kahn');
+    m.interactables.push({ id: flag, kind: 'read', tile: spot.tile, prompt: k.name, title: k.name, text: k.deko, footer: k.wirkung,
+      visible_if: { requires_flags: [flag] }, ...(spot.effects ? { effects: spot.effects, done_flag: spot.done } : {}) });
   }
   for (const p of platzierung) {
     const m = own(p.map);
