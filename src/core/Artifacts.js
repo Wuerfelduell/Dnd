@@ -8,7 +8,8 @@
 //   verliert Ansehen.
 //
 // Revier-Ausgabe (pathways.json → revier_supply): Die Gutachterin Dr. Varga gibt für wenige Pfade
-// fertige Tränke aus, jede Sequenz einmal, sobald der passende Fall gelöst ist.
+// fertige Tränke aus, jede Sequenz einmal, sobald der passende Fall gelöst ist. Nur bis Sequenz 7:
+// höhere Stufen gibt es nur bei geheimen Treffen (Auktionen) oder als seltenen Fund.
 
 export const artifactMethods = {
   resetArtifacts() {
@@ -155,7 +156,7 @@ export const artifactMethods = {
       const seq = this.pathway ? this.pathway.seq - 1 : 9;
       const step = sup.seqs[seq];
       const sd = this.seqDef(pid, seq);
-      if (!step || !sd) return { pathway: pid, seq, locked: 'Weiter reicht die Ausgabe des Reviers nicht.', taken: false };
+      if (!step || !sd) return { pathway: pid, seq, locked: sup.beyond_text ?? 'Weiter reicht die Ausgabe des Reviers nicht.', taken: false };
       const taken = this.revierPotions.includes(`${pid}_${seq}`) || this.itemCount(`trank_${pid}_${seq}`) > 0;
       let locked = null;
       if (!this.meets(step)) locked = step.locked_text;
