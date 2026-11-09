@@ -398,11 +398,18 @@ export class WorldScene extends Phaser.Scene {
   /** Wetter (Paket C): Raster aus 64er-Kacheln über dem Bild, z. B. Regen am Hafen. */
   buildWeather() {
     const kind = this.mapDef.weather ?? MAP_WEATHER[this.mapDef.id];
-    if (!kind || !this.textures.exists('weather')) return;
+    if (!kind) return;
+    if (kind === 'fog') {
+      // Die Nebelkacheln aus C_08 sind nicht nahtlos (harte 64er-Kanten): stattdessen den Nebel dichter machen
+      this.fogA.setAlpha(Math.min(0.9, this.fogA.alpha * 1.8 + 0.15));
+      this.fogB.setAlpha(Math.min(0.7, this.fogB.alpha * 1.8 + 0.1));
+      return;
+    }
+    if (!this.textures.exists('weather')) return;
     for (let gy = 0; gy < Math.ceil(VIEW_H / 64); gy++) {
       for (let gx = 0; gx < Math.ceil(VIEW_W / 64); gx++) {
         const w = this.add.sprite(gx * 64, gy * 64, 'weather', 0).setOrigin(0).setScrollFactor(0).setDepth(DEPTH.dark + 2)
-          .setAlpha(kind === 'fog' ? 0.25 : 0.35);
+          .setAlpha(0.35);
         if (!playSheetAnim(w, 'weather', kind)) { w.destroy(); return; }
         w.anims.setProgress(hash2(gx, gy, 3));
       }

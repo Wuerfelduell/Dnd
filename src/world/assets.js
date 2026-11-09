@@ -276,8 +276,8 @@ export const MAP_MARKERS_URL = `${BASE}ui/C_08_map_markers.png`;
 export const LOG_MARKERS = { suspected: 0, likely: 1, refuted: 2 };
 export const LOG_MARKERS_URL = `${BASE}ui/C_07_log_markers.png`;
 
-/** Wetter pro Karte (Animation aus C_08_weather). */
-export const MAP_WEATHER = { docks: 'rain_light', ebba: 'ash', gaskanaele: 'fog' };
+/** Wetter pro Karte (Animation aus C_08_weather). "fog" verdichtet den vorhandenen Nebel statt Kacheln zu zeigen. */
+export const MAP_WEATHER = { docks: 'rain_light', ebba: 'ash' };
 
 // --- Paket A: animierte Sheets (Frames/Animationen in manifest-pfade.json) ----------
 
