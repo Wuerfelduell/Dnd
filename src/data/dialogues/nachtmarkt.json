@@ -1,0 +1,324 @@
+{
+  "sabeth": {
+    "start": [
+      {
+        "node": "again",
+        "requires_flags": [
+          "met_sabeth"
+        ]
+      },
+      {
+        "node": "first"
+      }
+    ],
+    "nodes": {
+      "first": {
+        "text": "Eine alte Frau mit milchigen Augen dreht den Kopf zu dir, bevor du etwas sagst.\n\n„Ein Ermittler vom Revier. Du riechst nach Akten und nach Nebel. Du bist hier, weil du gemerkt hast, dass die Stadt Dinge tut, die in keinem Lehrbuch stehen. Und weil du wissen willst, ob man da mithalten kann.“\n\n„Man kann. Mit dem richtigen Trank.“",
+        "choices": [
+          {
+            "text": "Wie funktioniert der Aufstieg?",
+            "next": "ascend"
+          },
+          {
+            "text": "Was ist Kontrollverlust?",
+            "next": "control"
+          },
+          {
+            "text": "Welche Pfade gibt es?",
+            "next": "paths"
+          },
+          {
+            "text": "Wie steht es um mich?",
+            "next": "me",
+            "requires_beyonder": true
+          },
+          {
+            "text": "Ich will meine Fähigkeiten ausprobieren.",
+            "next": "spar"
+          },
+          {
+            "text": "Bis später."
+          }
+        ],
+        "sets_flags": [
+          "met_sabeth"
+        ],
+        "gives_items": {
+          "ruhetee": 1
+        }
+      },
+      "again": {
+        "text": "„Na? Noch bei Verstand?“ Sabeth grinst schief.",
+        "choices": [
+          {
+            "text": "Wie funktioniert der Aufstieg?",
+            "next": "ascend"
+          },
+          {
+            "text": "Was ist Kontrollverlust?",
+            "next": "control"
+          },
+          {
+            "text": "Welche Pfade gibt es?",
+            "next": "paths"
+          },
+          {
+            "text": "Wie steht es um mich?",
+            "next": "me",
+            "requires_beyonder": true
+          },
+          {
+            "text": "Ich will meine Fähigkeiten ausprobieren.",
+            "next": "spar"
+          },
+          {
+            "text": "Bis später."
+          }
+        ]
+      },
+      "paths": {
+        "text": "„Sieben Pfade kennt man in Kettlegate. Es gibt mehr, aber die anderen wollen nicht gefunden werden.\n\nLaterne: Bring Licht ins Verborgene. Spurensucher, die Okkultes verbrennen.\nFaden: Verknüpfe, was getrennt scheint. Wahrsager und Ermittler.\nMaske: Spiele jede Rolle. Schmeichler, Täuscher, Illusionisten.\nEcho: Höre, was nicht mehr spricht. Sie reden mit den Toten.\nKessel: Alles verwandelt sich. Heiler und Giftmischer.\nEisen: Stehe, wo andere fallen. Kämpfer, die nicht umfallen.\nSchlüssel: Nimm, was man dir verwehrt. Diebe und Schattengänger.\n\nKittering verkauft die Formeln für die erste Stufe, Sequenz 9. Nell hat die Zutaten. Gebraut wird hier am Kessel.“",
+        "choices": [
+          {
+            "text": "Wie funktioniert der Aufstieg?",
+            "next": "ascend"
+          },
+          {
+            "text": "Was ist Kontrollverlust?",
+            "next": "control"
+          },
+          {
+            "text": "Welche Pfade gibt es?",
+            "next": "paths"
+          },
+          {
+            "text": "Wie steht es um mich?",
+            "next": "me",
+            "requires_beyonder": true
+          },
+          {
+            "text": "Ich will meine Fähigkeiten ausprobieren.",
+            "next": "spar"
+          },
+          {
+            "text": "Bis später."
+          }
+        ]
+      },
+      "ascend": {
+        "text": "„Du trinkst einen Trank und wirst Sequenz 9 deines Pfades. Dann musst du ihn verdauen. Nicht mit dem Magen, mit dem, was du tust.\n\nJeder Pfad hat einen Grundsatz. Lebst du danach, wird der Trank ein Teil von dir. Erst wenn er ganz verdaut ist, verträgst du den nächsten: Sequenz 8, dann 7.\n\nUnd merk dir: Ein Pfad pro Kopf. Wer zwei Pfade mischt, wird zu etwas, das man in den Kanal tragen muss.“",
+        "choices": [
+          {
+            "text": "Wie funktioniert der Aufstieg?",
+            "next": "ascend"
+          },
+          {
+            "text": "Was ist Kontrollverlust?",
+            "next": "control"
+          },
+          {
+            "text": "Welche Pfade gibt es?",
+            "next": "paths"
+          },
+          {
+            "text": "Wie steht es um mich?",
+            "next": "me",
+            "requires_beyonder": true
+          },
+          {
+            "text": "Ich will meine Fähigkeiten ausprobieren.",
+            "next": "spar"
+          },
+          {
+            "text": "Bis später."
+          }
+        ]
+      },
+      "control": {
+        "text": "„Jeder Trank bringt Unruhe mit. Stimmen, Bilder, ein Ziehen hinter den Augen. Sie klingt langsam ab, schneller, wenn du nach deinem Grundsatz handelst.\n\nWer einen Trank trinkt, bevor der letzte verdaut ist, riskiert den Kontrollverlust. Dann kippst du um, verlierst Kraft, Geld, Erinnerung. Hier unten überleben das die meisten. Meistens.\n\nRuhetee hilft. Gorse verkauft ihn.“",
+        "choices": [
+          {
+            "text": "Wie funktioniert der Aufstieg?",
+            "next": "ascend"
+          },
+          {
+            "text": "Was ist Kontrollverlust?",
+            "next": "control"
+          },
+          {
+            "text": "Welche Pfade gibt es?",
+            "next": "paths"
+          },
+          {
+            "text": "Wie steht es um mich?",
+            "next": "me",
+            "requires_beyonder": true
+          },
+          {
+            "text": "Ich will meine Fähigkeiten ausprobieren.",
+            "next": "spar"
+          },
+          {
+            "text": "Bis später."
+          }
+        ]
+      },
+      "me": {
+        "text": "Sabeth legt dir zwei kalte Finger auf die Stirn und lauscht.",
+        "choices": [
+          {
+            "text": "Wie funktioniert der Aufstieg?",
+            "next": "ascend"
+          },
+          {
+            "text": "Was ist Kontrollverlust?",
+            "next": "control"
+          },
+          {
+            "text": "Welche Pfade gibt es?",
+            "next": "paths"
+          },
+          {
+            "text": "Wie steht es um mich?",
+            "next": "me",
+            "requires_beyonder": true
+          },
+          {
+            "text": "Ich will meine Fähigkeiten ausprobieren.",
+            "next": "spar"
+          },
+          {
+            "text": "Bis später."
+          }
+        ],
+        "pathway_report": true
+      },
+      "spar": {
+        "text": "„Gut. Theorie hilft niemandem, der gebissen wird.“",
+        "choices": [
+          {
+            "text": "Los geht's.",
+            "next": "spar_go"
+          },
+          {
+            "text": "Später."
+          }
+        ]
+      },
+      "spar_go": {
+        "text": "Sabeth zieht mit Kreide einen Umriss auf das Pflaster.",
+        "combat": "schattenpuppe"
+      }
+    }
+  },
+  "nell": {
+    "start": "start",
+    "nodes": {
+      "start": {
+        "text": "Zwischen Kräuterbündeln und Gläsern mit trüben Flüssigkeiten sitzt eine Frau mit Erde unter den Fingernägeln. „Grundzutaten, Kräuter, alles für die ersten Tränke. Die stärkeren Sachen gibt's nur für Leute, denen das Revier traut.“",
+        "choices": [
+          {
+            "text": "Waren ansehen.",
+            "shop": "nell"
+          },
+          {
+            "text": "Wofür brauche ich Nebeltau?",
+            "next": "tau"
+          },
+          {
+            "text": "Bis dann."
+          }
+        ]
+      },
+      "tau": {
+        "text": "„Für alles. Jeder Trank fängt mit Nebeltau an. Für Sequenz 8 kommt Silberstaub dazu, für Sequenz 7 auch noch Geisteressenz. Die kriegst du von okkulten Biestern, wenn du sie erledigst. Oder bei Kittering, wenn du Geld hast.“",
+        "choices": [
+          {
+            "text": "Waren ansehen.",
+            "shop": "nell"
+          },
+          {
+            "text": "Danke."
+          }
+        ]
+      }
+    }
+  },
+  "kittering": {
+    "start": "start",
+    "nodes": {
+      "start": {
+        "text": "Ein hagerer Mann mit Monokel schiebt eine Lade mit vergilbten Papieren über den Tresen. „Formeln. Jede nur einmal. Die erste Stufe verkaufe ich jedem, die höheren nur Leuten, die schon auf dem Pfad gehen.“",
+        "choices": [
+          {
+            "text": "Formeln ansehen.",
+            "shop": "kittering"
+          },
+          {
+            "text": "Wer schreibt diese Formeln?",
+            "next": "who"
+          },
+          {
+            "text": "Bis dann."
+          }
+        ]
+      },
+      "who": {
+        "text": "„Tote, meistens. Leute, die es weit gebracht haben, und dann ein Stück zu weit.“ Er lächelt nicht.",
+        "choices": [
+          {
+            "text": "Formeln ansehen.",
+            "shop": "kittering"
+          },
+          {
+            "text": "Verstehe."
+          }
+        ]
+      }
+    }
+  },
+  "gorse": {
+    "start": "start",
+    "nodes": {
+      "start": {
+        "text": "Ein breiter Mann zwischen Stapeln von Taschenuhren, Mänteln und Vogelkäfigen. „Verbände, Tonikum, Ruhetee. Und wenn du was loswerden willst, ich zahle fair. Fast.“",
+        "choices": [
+          {
+            "text": "Handeln.",
+            "shop": "gorse"
+          },
+          {
+            "text": "Bis dann."
+          }
+        ]
+      }
+    }
+  },
+  "brock": {
+    "start": "start",
+    "nodes": {
+      "start": {
+        "text": "Ein Kerl mit Schürze und gebrochener Nase steht an einer Grube voller Sägemehl. „Drei Schilling Einsatz, zwölf für den Sieger. Kein Messer, kein Zauber vom Revier. Alles andere ist erlaubt.“",
+        "choices": [
+          {
+            "text": "Ich kämpfe. (3 Schilling)",
+            "next": "fight",
+            "requires_money": 3
+          },
+          {
+            "text": "Ich habe nicht genug Geld.",
+            "requires_money_below": 3
+          },
+          {
+            "text": "Ein andermal."
+          }
+        ]
+      },
+      "fight": {
+        "text": "Brock steckt deine Münzen ein und pfeift. Die Menge drängt sich ans Geländer.",
+        "takes_money": 3,
+        "combat": "grubenkampf"
+      }
+    }
+  }
+}

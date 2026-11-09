@@ -235,3 +235,24 @@ button.small { font-size: 0.8em; padding: 0.1em 0.5em; }
 .float.good { color: var(--occult); }
 .float.miss { color: var(--muted); }
 @keyframes floatUp { from { opacity: 1; margin-top: 0; } 70% { opacity: 1; } to { opacity: 0; margin-top: -2.5em; } }
+
+/* --- Pfade, Händler, Kessel -------------------------------------------------- */
+.meter.unruhe .ufill, .ufill { height: 100%; background: #8a5ac8; transition: width 0.25s linear; }
+.ufill.low { background: #d04a8a; animation: pulse 1s infinite alternate; }
+.dfill { height: 100%; background: var(--gold); }
+@keyframes pulse { from { opacity: 0.6; } to { opacity: 1; } }
+.money { margin-top: 0.3em; font-size: 0.8em; color: var(--gold); }
+.notebook .lead { color: var(--ink); font-size: 0.85em; margin: 0.3em 0 0.6em; }
+.notebook .paths li, .notebook .seqs li { font-size: 0.85em; padding: 0.3em 0.5em; border: 0.125em solid #2a2630; }
+.notebook .seqs li.locked { opacity: 0.55; }
+.notebook .pathhead { font-size: 1.05em; margin-bottom: 0.4em; }
+.notebook .meters2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1em; }
+.notebook .meters2 .bar { flex: 1; }
+.notebook .meters2 em { font-style: normal; color: var(--ink); }
+.notebook h4 { margin: 0.6em 0 0.3em; }
+.notebook .recipes li { display: flex; justify-content: space-between; align-items: center; gap: 1em; font-size: 0.85em; padding: 0.3em 0.5em; border: 0.125em solid #2a2630; }
+.notebook .good { color: #9ad06a; }
+.shoplist .lockedrow { opacity: 0.6; }
+.shop .purse { color: var(--gold); margin-right: auto; }
+.notebook .thread { color: var(--occult); }
+.layer:has(.shop), .layer:has(.brew) { align-items: center; background: rgba(4, 4, 8, 0.55); }

@@ -21,6 +21,10 @@ import crypt from './maps/crypt.json';
 import dRevier from './dialogues/revier.json';
 import dAshgrove from './dialogues/ashgrove.json';
 import dEbba from './dialogues/ebba.json';
+import pathways from './pathways.json';
+import market from './market.json';
+import nachtmarkt from './maps/nachtmarkt.json';
+import dNachtmarkt from './dialogues/nachtmarkt.json';
 
 export const content = buildContent({
   campaign,
@@ -28,6 +32,8 @@ export const content = buildContent({
   items,
   encounters,
   cases: [case01, case02, case03, caseAltmarkt],
-  maps: [revier, ashgrove, ebba, crypt, docks, warehouse, altmarkt, tavern],
-  dialogues: [dRevier, dAshgrove, dEbba, dHafen, dAltmarkt],
+  maps: [revier, ashgrove, ebba, crypt, docks, warehouse, altmarkt, tavern, nachtmarkt],
+  dialogues: [dRevier, dAshgrove, dEbba, dHafen, dAltmarkt, dNachtmarkt],
+  pathways,
+  market,
 });

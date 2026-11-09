@@ -1,5 +1,5 @@
 import { readFileSync } from 'node:fs';
-import { Combat, SKILLS } from '../src/core/Combat.js';
+import { Combat } from '../src/core/Combat.js';
 import { buildContent } from '../src/data/buildContent.js';
 
 const load = (p) => JSON.parse(readFileSync(new URL(`../src/data/${p}`, import.meta.url), 'utf8'));
@@ -11,8 +11,10 @@ export function loadContent() {
     items: load('items.json'),
     encounters: load('encounters.json'),
     cases: [load('case_01.json'), load('case_02.json'), load('case_03.json'), load('case_altmarkt.json')],
-    maps: ['revier', 'ashgrove', 'ebba', 'crypt', 'docks', 'warehouse', 'altmarkt', 'tavern'].map((m) => load(`maps/${m}.json`)),
-    dialogues: ['revier', 'ashgrove', 'ebba', 'hafen', 'altmarkt'].map((d) => load(`dialogues/${d}.json`)),
+    maps: ['revier', 'ashgrove', 'ebba', 'crypt', 'docks', 'warehouse', 'altmarkt', 'tavern', 'nachtmarkt'].map((m) => load(`maps/${m}.json`)),
+    dialogues: ['revier', 'ashgrove', 'ebba', 'hafen', 'altmarkt', 'nachtmarkt'].map((d) => load(`dialogues/${d}.json`)),
+    pathways: load('pathways.json'),
+    market: load('market.json'),
   });
 }
 
@@ -64,7 +66,7 @@ export function fight(state, encounterId, { attack = 'good', defend = () => 'dod
     else if (items.length && state.itemCount(items[0])) c.useItem(items.shift());
     else {
       const sk = c.canUse(skill) ? skill : 'attack';
-      c.useSkill(sk, Array(SKILLS[sk].hits).fill(attack));
+      c.useSkill(sk, Array(c.skillDef(sk).hits).fill(attack));
     }
     if (c.outcome) break;
     const atk = c.nextEnemyAttack();
@@ -72,6 +74,7 @@ export function fight(state, encounterId, { attack = 'good', defend = () => 'dod
       const results = atk.hits.map(() => defend(n++));
       for (const r of results) { c.resolveHit(atk, r); if (c.outcome) break; }
       if (!c.outcome && results.every((r) => r === 'parry')) c.riposte();
+      c.endEnemyTurn();
     }
     c.endRound();
   }

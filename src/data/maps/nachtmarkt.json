@@ -1,0 +1,128 @@
+{
+  "id": "nachtmarkt",
+  "name": "Nachtmarkt unter der Krähenbrücke",
+  "ambient": {
+    "night": 0.78,
+    "fog": 0.35
+  },
+  "rows": [
+    "##############################",
+    "#BB#W####W#BB####W###W####BB##",
+    ",,,,,,,,,,,,,,,,,,,,,,,,,,,,,,",
+    "..............................",
+    "..TTT......TTTT.......TTT.....",
+    "..............................",
+    "..............................",
+    "..C...........................",
+    "..CV..............ffff........",
+    ",,,,,,L,,,,,,,,,,,,,,,,,L,,,,,",
+    "QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ",
+    "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~",
+    "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+  ],
+  "spawns": {
+    "default": [
+      1,
+      6
+    ]
+  },
+  "npcs": [
+    {
+      "id": "nell",
+      "tile": [
+        3,
+        3
+      ],
+      "facing": "down",
+      "reach": 40
+    },
+    {
+      "id": "kittering",
+      "tile": [
+        13,
+        3
+      ],
+      "facing": "down",
+      "reach": 40
+    },
+    {
+      "id": "gorse",
+      "tile": [
+        23,
+        3
+      ],
+      "facing": "down",
+      "reach": 40
+    },
+    {
+      "id": "sabeth",
+      "tile": [
+        9,
+        7
+      ],
+      "facing": "right"
+    },
+    {
+      "id": "grubenwirt",
+      "tile": [
+        22,
+        7
+      ],
+      "facing": "left"
+    }
+  ],
+  "interactables": [
+    {
+      "id": "exit",
+      "kind": "travel",
+      "tile": [
+        0,
+        6
+      ],
+      "prompt": "Stadtkarte öffnen",
+      "marker": false,
+      "reach": 20
+    },
+    {
+      "id": "kessel",
+      "kind": "brew",
+      "tile": [
+        6,
+        6
+      ],
+      "prompt": "Am Braukessel brauen",
+      "sprite": "cauldron",
+      "marker": false,
+      "solid": [
+        14,
+        10
+      ],
+      "title": "Gemeinschaftskessel"
+    },
+    {
+      "id": "aushang",
+      "kind": "read",
+      "tile": [
+        7,
+        2
+      ],
+      "prompt": "Aushang lesen",
+      "marker": false,
+      "title": "Zettel an der Brückenmauer",
+      "text": "REGELN DES NACHTMARKTS\n\n1. Was hier verkauft wird, gibt es oben nicht.\n2. Wer einen Trank trinkt, den er nicht verdaut hat, trägt die Folgen selbst.\n3. Wer die Kontrolle verliert, wird in den Kanal getragen. Schwimmen lernen empfohlen.\n\nDarunter, in anderer Handschrift: „Fragt Sabeth, bevor ihr irgendwas trinkt.“"
+    },
+    {
+      "id": "grube",
+      "kind": "dialogue",
+      "tile": [
+        19,
+        7
+      ],
+      "prompt": "Zur Kampfgrube",
+      "marker": false,
+      "title": "Kampfgrube",
+      "role": "Sägemehl und Wetten",
+      "dialogue": "brock"
+    }
+  ]
+}
