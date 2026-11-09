@@ -14,6 +14,7 @@ import {
 import { sourceOf } from '../core/sources.js';
 import { caseHints, nextDeduction } from '../core/hints.js';
 import { guessMood } from '../core/Moods.js';
+import { koopGreeting } from '../core/Koop.js';
 import { isSolved, knownPeople } from '../core/journal.js';
 import { canHurry, travelSafe, travelFast, afterHurryFight, travelDestinations, cityOf } from '../core/Travel.js';
 import { questTarget } from '../core/Guide.js';
@@ -1844,13 +1845,15 @@ export class Ui {
 
   togglePlayer2() {
     const s = this.state;
+    // Paket AI: kurze Begrüßung oder Verabschiedung der gewählten Figur (in Wexmoor heimlich)
+    const wx = cityOf(s, s.map) === 'wexmoor';
     if (s.hasP2()) {
       s.removeP2();
-      this.openPause('Spieler 2 hat sich verabschiedet. Seine Sachen behält er für das nächste Mal.');
+      this.openPause(`${koopGreeting('leave', s.p2Look(), wx)}<br><span class="muted">Spieler 2 behält seine Sachen für das nächste Mal.</span>`);
     } else {
       const back = !!s.p2;
       s.addP2();
-      this.openPause(back ? 'Spieler 2 ist wieder dabei, mit seinen alten Sachen.' : 'Spieler 2 ist dabei: Spazierstock und zwei Verbände in der Tasche.');
+      this.openPause(`${koopGreeting('join', s.p2Look(), wx)}<br><span class="muted">${back ? 'Spieler 2 ist wieder dabei, mit seinen alten Sachen.' : 'Spieler 2 ist dabei: Spazierstock und zwei Verbände in der Tasche.'}</span>`);
     }
   }
 
