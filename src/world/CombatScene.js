@@ -56,7 +56,8 @@ export class CombatScene extends Phaser.Scene {
     this.input.gamepad?.on('down', this.padHandler);
     this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => this.input.gamepad?.off('down', this.padHandler));
     this.ui.openCombat(this);
-    this.ui.combatMessage(this.combat.enc.intro + (this.combat.weak ? `\n\n${this.combat.enc.weak_text}` : ''), 'Weiter mit E');
+    const ward = this.combat.wardMult() < 1 ? `\n\n${this.combat.log[0]}` : ''; // Sequenz-Schranke
+    this.ui.combatMessage(this.combat.enc.intro + (this.combat.weak ? `\n\n${this.combat.enc.weak_text}` : '') + ward, 'Weiter mit E');
     // transition_out deckt auf (Schwarz → Bild), transition_in deckt zu
     this.playTransition('transition_out', () => this.bossIntro()) || (this.cameras.main.fadeIn(250, 0, 0, 0), this.bossIntro());
   }

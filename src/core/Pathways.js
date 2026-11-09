@@ -18,7 +18,7 @@ export const DIGEST_RATE = { 9: 1, 8: 0.7, 7: 0.5, 6: 0.35, 5: 0.25 };
 export const COMPOSURE_BASE = 100;
 export const DEFAULT_GROWTH = { hp: 5, nerves: 5 };
 // Durchbrüche: Sequenz 7 und 6 zählen beim Wachstum doppelt (große Sprünge an Leben und Nerven).
-export const SEQ_GROWTH_STEPS = { 7: 2, 6: 2 };
+export const SEQ_GROWTH_STEPS = { 7: 2, 6: 2, 5: 3 }; // Sequenz 5 ist der große Durchbruch (Kapitel 2)
 export const UNRUHE_MAX = 100;
 export const UNRUHE_DECAY_PER_SEC = 0.25;
 export const UNRUHE_VISION_PER_SEC = 0.35;

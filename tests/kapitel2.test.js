@@ -247,6 +247,10 @@ function afterAct3() {
   // Ausrüstung wie für Bosse der Gefahrenstufe 2 (siehe wilds.test.js)
   s.addItem('egelhaken');
   s.equip('egelhaken');
+  // Die Namenlose ist ein höheres Wesen: ohne Sequenz 6 prallt fast alles ab (Formel und Zutaten gibt es auf den Wexmoorer Treffen)
+  s.pathway = { id: 'eisen', seq: 6, digestion: 0 };
+  s.updateMaxHp();
+  s.hp = s.maxHp;
   s.addItem('tonikum', 3);
   s.addItem('verband', 2);
   const { result } = fight(s, 'namenlose', { defend: EXPERT, skill: 'double', healBelow: 18 });
@@ -339,6 +343,8 @@ function atTheTop(opts) {
   s.flags.add('k2_am_turm');
   s.addItem('ossuarklinge');
   s.equip('ossuarklinge');
+  s.pathway = { id: 'eisen', seq: 5, digestion: 0 }; // das Leuchtfeuer verlangt Sequenz 5
+  s.updateMaxHp();
   s.addItem('tonikum', 4);
   s.addItem('verband', 2);
   s.heal(s.maxHp);

@@ -48,6 +48,11 @@ export const AP_MAX = 6;
 export const AP_START = 1;
 export const GRADE_MULT = { perfect: 1.3, good: 1, miss: 0.4 };
 export const WEAK_MULT = 1.5;
+/**
+ * Sequenz-Schranke: Gegner mit `min_seq` (z. B. Starling 7, die Namenlose 6, das Leuchtfeuer 5) sind höhere Wesen.
+ * Wer eine schwächere Sequenz hat (oder gar keinen Pfad), richtet nur einen Bruchteil seines Schadens an.
+ */
+export const SEQ_WARD_MULT = 0.08;
 
 export const SKILLS = {
   attack: { name: 'Angriff', cost: 0, hits: 1, mult: 1, desc: 'Ein Schlag im Takt. +1 Konzentration, +2 bei präzisem Treffer.' },
@@ -124,6 +129,7 @@ export class Combat {
     this.attackIndex = 0;
     this.outcome = null; // 'won' | 'lost' | 'fled'
     this.log = [];
+    if (this.wardMult() < 1) this.log.push(`${enc.name} ist zu mächtig für dich: Ohne Sequenz ${enc.min_seq} prallt fast alles an ${enc.name.startsWith('Die ') ? 'ihr' : 'ihm'} ab.`);
     this.confused = false; // nächster gegnerischer Angriff trifft den Gegner selbst
     this.burn = null; // { damage, rounds, source } Brand oder Gift
     // Menschliche Gegner (Sekten) haben Kniffe: Panzer, Schleier, Blutung, Einschüchterung
@@ -326,7 +332,15 @@ export class Combat {
     return this.enc.elite || this.enc.boss ? ELITE_PARRY : WINDOW.parry;
   }
 
+  /** Schadensfaktor der Sequenz-Schranke für den Spieler, der gerade handelt (zu zweit zählt jeder für sich). */
+  wardMult() {
+    const min = this.enc.min_seq;
+    if (!min || this.enc.practice) return 1;
+    return (this.state.pathway?.seq ?? 99) <= min ? 1 : SEQ_WARD_MULT;
+  }
+
   hurtEnemy(n, { pierce = false } = {}) {
+    if (n > 0) n = Math.max(1, Math.round(n * this.wardMult()));
     if (this.armor && !pierce && n > 0) n = Math.max(1, n - this.armor);
     const absorbed = Math.min(this.enemyGuard, n);
     this.enemyGuard -= absorbed;
@@ -400,7 +414,9 @@ export class Combat {
   prepareAttack(atk) {
     const rage = this.enraged();
     const tough0 = this.enc.elite;
-    const dmgMult = this.enc.practice ? 1 : ENEMY_DMG_MULT * (rage ? 1.2 : 1) * (tough0 ? ELITE_DMG_MULT : 1) * (this.duo ? DUO_DMG_MULT : 1);
+    // Feld `ramp`: der Gegner wird mit jeder Runde stärker (gegen endloses Abwarten hinter Schilden)
+    const ramp = 1 + (this.enc.ramp ?? 0) * Math.max(0, this.round - 1);
+    const dmgMult = this.enc.practice ? 1 : ENEMY_DMG_MULT * (rage ? 1.2 : 1) * (tough0 ? ELITE_DMG_MULT : 1) * (this.duo ? DUO_DMG_MULT : 1) * ramp;
     const speed = rage ? 0.85 : 1;
     const hits = [];
     const src = [...atk.hits];
