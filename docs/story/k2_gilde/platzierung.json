@@ -1,0 +1,245 @@
+[
+  {
+    "map": "wx_torfstich",
+    "tile": [
+      10,
+      12
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k2g_aufnahme"
+      ]
+    },
+    "interactable": {
+      "id": "k2g_name_torf",
+      "kind": "read",
+      "sprite": "paper",
+      "prompt": "Die Innenseite des Schubkarrengriffs",
+      "title": "Die Innenseite des Schubkarrengriffs",
+      "text": "Der Griff liegt frei im Torf. Außen ist die Namenskerbe leer, innen hält ein Messingband die eingeritzten Worte „Runa Vale, Torfmaßprüferin“ trocken. Daneben steht in derselben Hand: „Die kurzen Ziegel zählen doppelt, die langen Ausreden gar nicht.“ Du schreibst Namen und Beruf ab und lässt das Band an seinem Platz.",
+      "marker": true,
+      "done_flag": "k2g_name_torf_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k2g_name_torf"
+        ]
+      }
+    }
+  },
+  {
+    "map": "wx_pfahldorf",
+    "tile": [
+      23,
+      9
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k2g_aufnahme"
+      ]
+    },
+    "interactable": {
+      "id": "k2g_name_pfahl",
+      "kind": "read",
+      "sprite": "paper",
+      "prompt": "Das Brett unter der Werkbank",
+      "title": "Das Brett unter der Werkbank",
+      "text": "Auf der Werkbank ist nur ein heller Umriss geblieben. Unter dem Brett steht „Bennet Siel, Stegflicker“, geschützt durch eine Lage Harz. An jeder reparierten Stelle findest du sein Zeichen, zwei versetzte Nägel. Du zeichnest es neben den Namen, damit aus einer Erinnerung keine bloße Liste wird.",
+      "marker": true,
+      "done_flag": "k2g_name_pfahl_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k2g_name_pfahl"
+        ]
+      }
+    }
+  },
+  {
+    "map": "wx_salzwatt",
+    "tile": [
+      5,
+      14
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k2g_aufnahme"
+      ]
+    },
+    "interactable": {
+      "id": "k2g_name_watt",
+      "kind": "read",
+      "sprite": "paper",
+      "prompt": "Die doppelte Schale",
+      "title": "Die doppelte Schale",
+      "text": "Am trockenen Rand des Watts steckt eine Blechschale in einer zweiten. Zwischen den Böden hat das Salz „Ida Rusk, Netzwäscherin“ bewahrt, während die äußere Schrift vollständig fehlt. Ein eingeritzter Satz lautet: „Die kleine Schale gehört den Nachbarn.“ Du nimmst eine Abschrift, kein fremdes Eigentum.",
+      "marker": true,
+      "done_flag": "k2g_name_watt_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k2g_name_watt"
+        ]
+      }
+    }
+  },
+  {
+    "map": "wx_bojenhafen",
+    "tile": [
+      23,
+      8
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k2g_esse_stempel"
+      ]
+    },
+    "interactable": {
+      "id": "k2g_esse_abdruck",
+      "kind": "read",
+      "sprite": "paper",
+      "prompt": "Der kalte Abdruck",
+      "title": "Der kalte Abdruck",
+      "text": "Auf einem ausgemusterten Kistenstempel liegt frischer Ruß. Die kleine Kerbe im Turmsockel wurde nachgeschlagen, ihre Kanten sind hell. Der Griff trägt Wandas alte Werknummer, aber dieser jüngere Schlag stammt von einem anderen Werkzeug.",
+      "marker": true,
+      "done_flag": "k2g_esse_abdruck_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k2g_esse_abdruck"
+        ]
+      }
+    }
+  },
+  {
+    "map": "wx_torfstich",
+    "tile": [
+      11,
+      12
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k2g_esse_stempel"
+      ]
+    },
+    "interactable": {
+      "id": "k2g_esse_karte",
+      "kind": "read",
+      "sprite": "paper",
+      "prompt": "Die Wartungskarte",
+      "title": "Die Wartungskarte",
+      "text": "Die Karte zeigt Wandas ersten Abdruck ohne Kerbe. Daneben liegt der Durchschlag eines Rücknahmezettels: Das Lichtamt gab den Stempel als Schrott frei, ohne die Druckfläche zu zerstören. Wandas Zeichen belegt die Herstellung, nicht die spätere Verwendung.",
+      "marker": true,
+      "done_flag": "k2g_esse_karte_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k2g_esse_karte"
+        ]
+      }
+    }
+  },
+  {
+    "map": "wx_pfahldorf",
+    "tile": [
+      22,
+      10
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k2g_kerbe_hand"
+      ]
+    },
+    "interactable": {
+      "id": "k2g_kerbe_muster",
+      "kind": "read",
+      "sprite": "paper",
+      "prompt": "Das Musterbrett",
+      "title": "Das Musterbrett",
+      "text": "Das Probebrett trägt die Signatur „M. Kerbe“ und ein Datum vor Abels erster Werkstattrechnung. Beim Buchstaben R läuft die Kerbe über den Rand hinaus. Derselbe Fehler findet sich auf Abels jüngeren Täfelchen.",
+      "marker": true,
+      "done_flag": "k2g_kerbe_muster_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k2g_kerbe_muster"
+        ]
+      }
+    }
+  },
+  {
+    "map": "wx_salzmarkt",
+    "tile": [
+      14,
+      9
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k2g_kerbe_hand"
+      ]
+    },
+    "interactable": {
+      "id": "k2g_kerbe_rechnung",
+      "kind": "read",
+      "sprite": "paper",
+      "prompt": "Die Rechnung mit dem R",
+      "title": "Die Rechnung mit dem R",
+      "text": "Eine Rechnung wirbt mit „eigenem Schriftentwurf, A. Kerbe“. Am Rand ist das Muster-R samt überlaufender Kerbe abgerieben. Eine beiliegende Nachricht seiner Schwester erlaubt die Nutzung ausdrücklich, verlangt aber ihren Namen neben seinem.",
+      "marker": true,
+      "done_flag": "k2g_kerbe_rechnung_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k2g_kerbe_rechnung"
+        ]
+      }
+    }
+  },
+  {
+    "map": "wx_torfstich",
+    "tile": [
+      9,
+      12
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k2g_mulde_ruf"
+      ]
+    },
+    "interactable": {
+      "id": "k2g_mulde_tafel",
+      "kind": "read",
+      "sprite": "paper",
+      "prompt": "Die Ruftafel der Werkstatt",
+      "title": "Die Ruftafel der Werkstatt",
+      "text": "Auf der Tafel steht „Heller Grund“. Darunter sind zwei Familienzeichen zu erkennen, ein Topf und ein Rad. Hannes alte Abschrift nennt nur das Rad. Ein Ruf für einen gemeinsamen Arbeitsplatz wurde wie der Besitz einer einzigen Familie geführt.",
+      "marker": true,
+      "done_flag": "k2g_mulde_tafel_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k2g_mulde_tafel"
+        ]
+      }
+    }
+  },
+  {
+    "map": "wx_pfahldorf",
+    "tile": [
+      26,
+      9
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k2g_mulde_ruf"
+      ]
+    },
+    "interactable": {
+      "id": "k2g_mulde_zusatz",
+      "kind": "read",
+      "sprite": "paper",
+      "prompt": "Der Zusatz der Nachkommen",
+      "title": "Der Zusatz der Nachkommen",
+      "text": "Zwei erwachsene Nachkommen haben mit Topf und Rad unterzeichnet. „Beide Familien sollen genannt werden. Ob die alte Tafel im Schrein bleibt oder beim nächsten Gedenken dem Moor geschenkt wird, überlassen wir der Gilde. Eine Abschrift behalten wir in beiden Fällen.“",
+      "marker": true,
+      "done_flag": "k2g_mulde_zusatz_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k2g_mulde_zusatz"
+        ]
+      }
+    }
+  }
+]

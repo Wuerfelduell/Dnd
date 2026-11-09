@@ -1,0 +1,85 @@
+{
+  "k2g_kerbstaub": {
+    "name": "Kerbstaub",
+    "kind": "ingredient",
+    "weight": 0.2,
+    "price": 18,
+    "desc": "Staub aus unbeschrifteten Täfelchen. Abel verwendet ihn mit Harz als Füllung alter Kerben. Keine neue Trankformel."
+  },
+  "k2g_moorharz": {
+    "name": "Klares Moorharz",
+    "kind": "ingredient",
+    "weight": 0.3,
+    "price": 24,
+    "desc": "Helles Harz aus versunkenem Holz. Wanda schützt damit lesbare Spuren vor Salz. Keine neue Trankformel."
+  },
+  "k2g_rufpastille": {
+    "name": "Rufpastille",
+    "kind": "consumable",
+    "weight": 0.1,
+    "price": 9,
+    "heal": 6,
+    "calm": 12,
+    "desc": "Sumpfminze und Honig, in Papier mit leerem Namensfeld. Stellt 6 Leben wieder her und senkt die Unruhe um 12. Sie gibt keinen verlorenen Namen zurück."
+  },
+  "k2g_schreinbruehe": {
+    "name": "Schreinbrühe",
+    "kind": "consumable",
+    "weight": 0.5,
+    "price": 12,
+    "heal": 18,
+    "calm": 6,
+    "desc": "Warme Brühe aus Gerste und Salzkräutern. Stellt 18 Leben wieder her und senkt die Unruhe um 6. Der Löffel ist nicht im Preis enthalten."
+  },
+  "k2g_zeugenklammer": {
+    "name": "Die Zeugenklammer",
+    "source": "treffen",
+    "price": 105,
+    "desc": "Zwei eiserne Backen halten ein unbeschriebenes Stück Holz. Unter Druck hält deine Hand still, doch der Körper trägt die Last.",
+    "boons": [
+      {
+        "key": "parry_ap",
+        "value": 1,
+        "text": "Paraden bringen +1 Konzentration."
+      }
+    ],
+    "curses": [
+      {
+        "key": "max_hp",
+        "value": -10,
+        "text": "−10 maximales Leben."
+      }
+    ],
+    "kind": "artifact",
+    "rarity": "okkult",
+    "weight": 0.3
+  },
+  "k2g_nachhallspule": {
+    "name": "Die Nachhallspule",
+    "source": "treffen",
+    "price": 115,
+    "desc": "Eine Spule aus Moorholz bewahrt den Atem zwischen zwei Rufen. Gedanken werden ruhiger, fremdes Licht aber schärfer.",
+    "boons": [
+      {
+        "key": "composure_regen",
+        "value": 1.35,
+        "text": "Nerven erholen sich 35 % schneller."
+      },
+      {
+        "key": "max_nerves",
+        "value": 10,
+        "text": "+10 maximale Nerven."
+      }
+    ],
+    "curses": [
+      {
+        "key": "damage_taken",
+        "value": 1.15,
+        "text": "Du nimmst 15 % mehr Schaden."
+      }
+    ],
+    "kind": "artifact",
+    "rarity": "okkult",
+    "weight": 0.3
+  }
+}
