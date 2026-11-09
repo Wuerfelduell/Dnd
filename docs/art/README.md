@@ -881,3 +881,68 @@ Manifest: `public/sprites/manifest-rituale.json`. Animationsindizes sind nullbas
 
 
 Vorschau: `preview-rituale.png`. Technischer Prüfbericht: `validation-rituale.json`. Einbindung und Timing-Prüfung im laufenden Spiel erfolgen separat.
+
+## Grafikpaket R – Wexmoor: Orte, Figuren und Kapitel-2-Finale
+
+Batch `wexmoor2`, 9. November 2026: **74 PNGs aus 63 Hauptbildern und vier gezielten Korrekturbildern**,
+nach `codex_R_wexmoor_orte_figuren.md`. Erzeugt mit `image_gen`; die Einbindung
+in die Karten, Dialoge und Kämpfe erfolgt separat.
+
+| Gruppe | PNGs | Inhalt |
+|---|---:|---|
+| Figuren | 25 | Acht Lauf-Sheets, acht Emotions-Sheets, acht Notizbuchköpfe, Starling-Verblassensportrait |
+| Verkleidungen | 9 | Drei Spieler-Lauf-Sheets, drei Icons in je 16×16 und 32×32 |
+| Orte | 14 | Vier Tilesets, zehn Prop-Atlanten mit benannten Ausschnitten |
+| Kampf-Hintergründe | 5 | Stege, Oberstadt, Vergessmoor, Leuchtturmbasis und Laternenraum |
+| Bosse | 10 | Namenlose und Leuchtfeuer: zwei Kampf-Sheets, zwei Büsten, sechs Effekte |
+| Kapitelbilder | 11 | Fallakte, sechs Szenen, vier Enden |
+
+Lauf-Sheets sind 64×128 mit 16×32-Zellen, Reihen unten/links/rechts/oben.
+Portraits sind 256×64 mit vier 64×64-Emotionen: neutral, misstrauisch,
+erschrocken, leicht lächelnd. Die 24×24-Notizbuchköpfe sind aus dem jeweiligen
+Neutralportrait ausgeschnitten. Die drei neuen Verkleidungen verwenden das
+vorhandene Ermittler-Sheet als Identitätsreferenz. Ihre bestehenden 16×16-Icons
+`torfkittel`, `fischerjacke` und `akademierobe` werden an den ausdrücklich
+vorgegebenen Pfaden erneuert und um passende 32×32-Versionen ergänzt.
+
+Alle Terrainatlanten haben acht 16×16-Kacheln pro Reihe. Prop-Atlanten sind
+256 Pixel breit und auf dem 16er-Raster gepackt. `regions` benennt jedes Motiv
+und jeden Zustand in Originalmaßen; `regionAnimations` listet animierte
+Glanz-, Rauch-, Flacker-, Bojen- und Rotationsphasen. Statische Varianten und
+offen/geschlossen-Paare stehen unter `states`. Freie Atlasflächen bleiben leer.
+Die im Generatorbild gemessenen Ausschnitte stehen als `sourceBoxes` in der
+Generierungsdokumentation, damit breite Kähne und Lokomotiven ganz erhalten bleiben.
+
+Beide Bosse haben 576×672 Pixel, sechs Spalten und sieben Reihen à 96×96.
+Belegte Frames je Reihe: 4, 6, 6, 6, 6, 3, 6. Die ersten zwei Frames beider
+Angriffe halten die Ausholpose. Die Grundlinie liegt exklusiv bei y=94,
+bei Lauf-Sheets bei y=31. Hintergrundbilder und Enden sind opake 480×270;
+Kampf-Hintergründe reservieren die unteren 70 Pixel als Bodenstreifen.
+Szenen sind 240×135, die Fallakte 128×96.
+
+Palette: 31 gemeinsame Farben der bisherigen Pakete plus `#e8f0ff` für das
+kalte gestohlene Licht, insgesamt höchstens 32 sichtbare Farben. Das neue Weiß
+ersetzt den hier nicht benötigten Rosaton. Alpha ist binär. Starlings Gesicht
+und Hände flackern in den Lauf-Frames 2 und 4 mit transparentem Pixel-Dithering;
+sein Akt-V-Portrait zeigt dieselbe Person stärker verblassend vor Schiefergrau.
+
+`public/sprites/manifest-wexmoor2.json` dokumentiert Maße, Raster, Animationen,
+Atlasregionen und Ableitungen. `batch-wexmoor2-generation.json` enthält die
+tatsächlich verwendeten Prompts, Referenzen, Quellmaße und SHA-256-Prüfsummen.
+Die Geländer- und Nebeloverlays, zwei Moosecken sowie die felsige Inselküste wurden mit vier
+separaten Generatorbildern korrigiert; ihre Einfügung ist unter `repairs`
+dokumentiert. Der vollständig belegte Leuchtturm-Terrainatlas ist deckend.
+Die Generatororiginale sind keine Laufzeitassets. Technischer Export:
+Nearest Neighbor, Rasterzuschnitt, gemeinsame Skalierung pro Animation,
+Grundlinienausrichtung, Alpha-Schwelle 128 und Palette-Indizierung.
+
+```sh
+# Pillow und numpy; SOURCE_DIR enthält die dokumentierten Generatororiginale.
+python docs/art/export-wexmoor2.py SOURCE_DIR .
+python docs/art/verify-wexmoor2.py
+```
+
+Prüfbericht: `validation-wexmoor2.json`. Übersicht: `batch-wexmoor2-preview.png`.
+Der Prüfer kontrolliert Vollständigkeit, Maße, Farben, Alpha, leere Rasterfelder,
+Grundlinien, Ausholposen, Animationsvariation, Prop-Regionen und Varianten,
+Portrait-/Item-Ableitungen sowie das kalte Weiß der Lichteffekte.
