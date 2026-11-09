@@ -1,0 +1,2895 @@
+{
+  "version": 1,
+  "batch": "stadt",
+  "status": "exported; runtime integration pending",
+  "paletteMaxVisibleColors": 31,
+  "assets": [
+    {
+      "id": "D_01_nachtmarkt_boden",
+      "file": "tilesets/D_01_nachtmarkt_boden.png",
+      "width": 64,
+      "height": 96,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 4,
+      "rows": 6,
+      "transparent": false,
+      "animations": {}
+    },
+    {
+      "id": "D_02_pflaster_gras",
+      "file": "tilesets/D_02_pflaster_gras.png",
+      "width": 64,
+      "height": 64,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 4,
+      "rows": 4,
+      "transparent": false,
+      "animations": {},
+      "tileOrder": [
+        "full_B",
+        "edge_top",
+        "edge_bottom",
+        "edge_left",
+        "edge_right",
+        "outer_top_left",
+        "outer_top_right",
+        "outer_bottom_left",
+        "outer_bottom_right",
+        "inner_top_left",
+        "inner_top_right",
+        "inner_bottom_left",
+        "inner_bottom_right",
+        "diagonal_down",
+        "diagonal_up",
+        "full_A"
+      ],
+      "materialA": "street cobblestones",
+      "materialB": "dead yellow-green grass",
+      "edgeConvention": "Names describe the boundary of B: outer top-left has B extending down/right; edge top has A above B. Inner corners have an A notch in B.",
+      "fullFillIndices": {
+        "A": 15,
+        "B": 0
+      },
+      "edgeSignatures": [
+        {
+          "top": "BBBBBBBBBBBBBBBB",
+          "bottom": "BBBBBBBBBBBBBBBB",
+          "left": "BBBBBBBBBBBBBBBB",
+          "right": "BBBBBBBBBBBBBBBB"
+        },
+        {
+          "top": "AAAAAAAAAAAAAAAA",
+          "bottom": "BBBBBBBBBBBBBBBB",
+          "left": "AAAAAAAABBBBBBBB",
+          "right": "AAAAAAAABBBBBBBB"
+        },
+        {
+          "top": "BBBBBBBBBBBBBBBB",
+          "bottom": "AAAAAAAAAAAAAAAA",
+          "left": "BBBBBBBBAAAAAAAA",
+          "right": "BBBBBBBBAAAAAAAA"
+        },
+        {
+          "top": "AAAAAAAABBBBBBBB",
+          "bottom": "AAAAAAAABBBBBBBB",
+          "left": "AAAAAAAAAAAAAAAA",
+          "right": "BBBBBBBBBBBBBBBB"
+        },
+        {
+          "top": "BBBBBBBBAAAAAAAA",
+          "bottom": "BBBBBBBBAAAAAAAA",
+          "left": "BBBBBBBBBBBBBBBB",
+          "right": "AAAAAAAAAAAAAAAA"
+        },
+        {
+          "top": "AAAAAAAAAAAAAAAA",
+          "bottom": "AAAAAAAABBBBBBBB",
+          "left": "AAAAAAAAAAAAAAAA",
+          "right": "AAAAAAAABBBBBBBB"
+        },
+        {
+          "top": "AAAAAAAAAAAAAAAA",
+          "bottom": "BBBBBBBBAAAAAAAA",
+          "left": "AAAAAAAABBBBBBBB",
+          "right": "AAAAAAAAAAAAAAAA"
+        },
+        {
+          "top": "AAAAAAAABBBBBBBB",
+          "bottom": "AAAAAAAAAAAAAAAA",
+          "left": "AAAAAAAAAAAAAAAA",
+          "right": "BBBBBBBBAAAAAAAA"
+        },
+        {
+          "top": "BBBBBBBBAAAAAAAA",
+          "bottom": "AAAAAAAAAAAAAAAA",
+          "left": "BBBBBBBBAAAAAAAA",
+          "right": "AAAAAAAAAAAAAAAA"
+        },
+        {
+          "top": "AAAAAAAABBBBBBBB",
+          "bottom": "BBBBBBBBBBBBBBBB",
+          "left": "AAAAAAAABBBBBBBB",
+          "right": "BBBBBBBBBBBBBBBB"
+        },
+        {
+          "top": "BBBBBBBBAAAAAAAA",
+          "bottom": "BBBBBBBBBBBBBBBB",
+          "left": "BBBBBBBBBBBBBBBB",
+          "right": "AAAAAAAABBBBBBBB"
+        },
+        {
+          "top": "BBBBBBBBBBBBBBBB",
+          "bottom": "AAAAAAAABBBBBBBB",
+          "left": "BBBBBBBBAAAAAAAA",
+          "right": "BBBBBBBBBBBBBBBB"
+        },
+        {
+          "top": "BBBBBBBBBBBBBBBB",
+          "bottom": "BBBBBBBBAAAAAAAA",
+          "left": "BBBBBBBBBBBBBBBB",
+          "right": "BBBBBBBBAAAAAAAA"
+        },
+        {
+          "top": "BAAAAAAAAAAAAAAA",
+          "bottom": "BBBBBBBBBBBBBBBB",
+          "left": "BBBBBBBBBBBBBBBB",
+          "right": "AAAAAAAAAAAAAAAB"
+        },
+        {
+          "top": "AAAAAAAAAAAAAAAB",
+          "bottom": "BBBBBBBBBBBBBBBB",
+          "left": "AAAAAAAAAAAAAAAB",
+          "right": "BBBBBBBBBBBBBBBB"
+        },
+        {
+          "top": "AAAAAAAAAAAAAAAA",
+          "bottom": "AAAAAAAAAAAAAAAA",
+          "left": "AAAAAAAAAAAAAAAA",
+          "right": "AAAAAAAAAAAAAAAA"
+        }
+      ]
+    },
+    {
+      "id": "D_02_pflaster_matsch",
+      "file": "tilesets/D_02_pflaster_matsch.png",
+      "width": 64,
+      "height": 64,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 4,
+      "rows": 4,
+      "transparent": false,
+      "animations": {},
+      "tileOrder": [
+        "full_B",
+        "edge_top",
+        "edge_bottom",
+        "edge_left",
+        "edge_right",
+        "outer_top_left",
+        "outer_top_right",
+        "outer_bottom_left",
+        "outer_bottom_right",
+        "inner_top_left",
+        "inner_top_right",
+        "inner_bottom_left",
+        "inner_bottom_right",
+        "diagonal_down",
+        "diagonal_up",
+        "full_A"
+      ],
+      "materialA": "street cobblestones",
+      "materialB": "wet brown mud",
+      "edgeConvention": "Names describe the boundary of B: outer top-left has B extending down/right; edge top has A above B. Inner corners have an A notch in B.",
+      "fullFillIndices": {
+        "A": 15,
+        "B": 0
+      },
+      "edgeSignatures": [
+        {
+          "top": "BBBBBBBBBBBBBBBB",
+          "bottom": "BBBBBBBBBBBBBBBB",
+          "left": "BBBBBBBBBBBBBBBB",
+          "right": "BBBBBBBBBBBBBBBB"
+        },
+        {
+          "top": "AAAAAAAAAAAAAAAA",
+          "bottom": "BBBBBBBBBBBBBBBB",
+          "left": "AAAAAAAABBBBBBBB",
+          "right": "AAAAAAAABBBBBBBB"
+        },
+        {
+          "top": "BBBBBBBBBBBBBBBB",
+          "bottom": "AAAAAAAAAAAAAAAA",
+          "left": "BBBBBBBBAAAAAAAA",
+          "right": "BBBBBBBBAAAAAAAA"
+        },
+        {
+          "top": "AAAAAAAABBBBBBBB",
+          "bottom": "AAAAAAAABBBBBBBB",
+          "left": "AAAAAAAAAAAAAAAA",
+          "right": "BBBBBBBBBBBBBBBB"
+        },
+        {
+          "top": "BBBBBBBBAAAAAAAA",
+          "bottom": "BBBBBBBBAAAAAAAA",
+          "left": "BBBBBBBBBBBBBBBB",
+          "right": "AAAAAAAAAAAAAAAA"
+        },
+        {
+          "top": "AAAAAAAAAAAAAAAA",
+          "bottom": "AAAAAAAABBBBBBBB",
+          "left": "AAAAAAAAAAAAAAAA",
+          "right": "AAAAAAAABBBBBBBB"
+        },
+        {
+          "top": "AAAAAAAAAAAAAAAA",
+          "bottom": "BBBBBBBBAAAAAAAA",
+          "left": "AAAAAAAABBBBBBBB",
+          "right": "AAAAAAAAAAAAAAAA"
+        },
+        {
+          "top": "AAAAAAAABBBBBBBB",
+          "bottom": "AAAAAAAAAAAAAAAA",
+          "left": "AAAAAAAAAAAAAAAA",
+          "right": "BBBBBBBBAAAAAAAA"
+        },
+        {
+          "top": "BBBBBBBBAAAAAAAA",
+          "bottom": "AAAAAAAAAAAAAAAA",
+          "left": "BBBBBBBBAAAAAAAA",
+          "right": "AAAAAAAAAAAAAAAA"
+        },
+        {
+          "top": "AAAAAAAABBBBBBBB",
+          "bottom": "BBBBBBBBBBBBBBBB",
+          "left": "AAAAAAAABBBBBBBB",
+          "right": "BBBBBBBBBBBBBBBB"
+        },
+        {
+          "top": "BBBBBBBBAAAAAAAA",
+          "bottom": "BBBBBBBBBBBBBBBB",
+          "left": "BBBBBBBBBBBBBBBB",
+          "right": "AAAAAAAABBBBBBBB"
+        },
+        {
+          "top": "BBBBBBBBBBBBBBBB",
+          "bottom": "AAAAAAAABBBBBBBB",
+          "left": "BBBBBBBBAAAAAAAA",
+          "right": "BBBBBBBBBBBBBBBB"
+        },
+        {
+          "top": "BBBBBBBBBBBBBBBB",
+          "bottom": "BBBBBBBBAAAAAAAA",
+          "left": "BBBBBBBBBBBBBBBB",
+          "right": "BBBBBBBBAAAAAAAA"
+        },
+        {
+          "top": "BAAAAAAAAAAAAAAA",
+          "bottom": "BBBBBBBBBBBBBBBB",
+          "left": "BBBBBBBBBBBBBBBB",
+          "right": "AAAAAAAAAAAAAAAB"
+        },
+        {
+          "top": "AAAAAAAAAAAAAAAB",
+          "bottom": "BBBBBBBBBBBBBBBB",
+          "left": "AAAAAAAAAAAAAAAB",
+          "right": "BBBBBBBBBBBBBBBB"
+        },
+        {
+          "top": "AAAAAAAAAAAAAAAA",
+          "bottom": "AAAAAAAAAAAAAAAA",
+          "left": "AAAAAAAAAAAAAAAA",
+          "right": "AAAAAAAAAAAAAAAA"
+        }
+      ]
+    },
+    {
+      "id": "D_02_gras_matsch",
+      "file": "tilesets/D_02_gras_matsch.png",
+      "width": 64,
+      "height": 64,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 4,
+      "rows": 4,
+      "transparent": false,
+      "animations": {},
+      "tileOrder": [
+        "full_B",
+        "edge_top",
+        "edge_bottom",
+        "edge_left",
+        "edge_right",
+        "outer_top_left",
+        "outer_top_right",
+        "outer_bottom_left",
+        "outer_bottom_right",
+        "inner_top_left",
+        "inner_top_right",
+        "inner_bottom_left",
+        "inner_bottom_right",
+        "diagonal_down",
+        "diagonal_up",
+        "full_A"
+      ],
+      "materialA": "dead grass",
+      "materialB": "wet mud with puddles",
+      "edgeConvention": "Names describe the boundary of B: outer top-left has B extending down/right; edge top has A above B. Inner corners have an A notch in B.",
+      "fullFillIndices": {
+        "A": 15,
+        "B": 0
+      },
+      "edgeSignatures": [
+        {
+          "top": "BBBBBBBBBBBBBBBB",
+          "bottom": "BBBBBBBBBBBBBBBB",
+          "left": "BBBBBBBBBBBBBBBB",
+          "right": "BBBBBBBBBBBBBBBB"
+        },
+        {
+          "top": "AAAAAAAAAAAAAAAA",
+          "bottom": "BBBBBBBBBBBBBBBB",
+          "left": "AAAAAAAABBBBBBBB",
+          "right": "AAAAAAAABBBBBBBB"
+        },
+        {
+          "top": "BBBBBBBBBBBBBBBB",
+          "bottom": "AAAAAAAAAAAAAAAA",
+          "left": "BBBBBBBBAAAAAAAA",
+          "right": "BBBBBBBBAAAAAAAA"
+        },
+        {
+          "top": "AAAAAAAABBBBBBBB",
+          "bottom": "AAAAAAAABBBBBBBB",
+          "left": "AAAAAAAAAAAAAAAA",
+          "right": "BBBBBBBBBBBBBBBB"
+        },
+        {
+          "top": "BBBBBBBBAAAAAAAA",
+          "bottom": "BBBBBBBBAAAAAAAA",
+          "left": "BBBBBBBBBBBBBBBB",
+          "right": "AAAAAAAAAAAAAAAA"
+        },
+        {
+          "top": "AAAAAAAAAAAAAAAA",
+          "bottom": "AAAAAAAABBBBBBBB",
+          "left": "AAAAAAAAAAAAAAAA",
+          "right": "AAAAAAAABBBBBBBB"
+        },
+        {
+          "top": "AAAAAAAAAAAAAAAA",
+          "bottom": "BBBBBBBBAAAAAAAA",
+          "left": "AAAAAAAABBBBBBBB",
+          "right": "AAAAAAAAAAAAAAAA"
+        },
+        {
+          "top": "AAAAAAAABBBBBBBB",
+          "bottom": "AAAAAAAAAAAAAAAA",
+          "left": "AAAAAAAAAAAAAAAA",
+          "right": "BBBBBBBBAAAAAAAA"
+        },
+        {
+          "top": "BBBBBBBBAAAAAAAA",
+          "bottom": "AAAAAAAAAAAAAAAA",
+          "left": "BBBBBBBBAAAAAAAA",
+          "right": "AAAAAAAAAAAAAAAA"
+        },
+        {
+          "top": "AAAAAAAABBBBBBBB",
+          "bottom": "BBBBBBBBBBBBBBBB",
+          "left": "AAAAAAAABBBBBBBB",
+          "right": "BBBBBBBBBBBBBBBB"
+        },
+        {
+          "top": "BBBBBBBBAAAAAAAA",
+          "bottom": "BBBBBBBBBBBBBBBB",
+          "left": "BBBBBBBBBBBBBBBB",
+          "right": "AAAAAAAABBBBBBBB"
+        },
+        {
+          "top": "BBBBBBBBBBBBBBBB",
+          "bottom": "AAAAAAAABBBBBBBB",
+          "left": "BBBBBBBBAAAAAAAA",
+          "right": "BBBBBBBBBBBBBBBB"
+        },
+        {
+          "top": "BBBBBBBBBBBBBBBB",
+          "bottom": "BBBBBBBBAAAAAAAA",
+          "left": "BBBBBBBBBBBBBBBB",
+          "right": "BBBBBBBBAAAAAAAA"
+        },
+        {
+          "top": "BAAAAAAAAAAAAAAA",
+          "bottom": "BBBBBBBBBBBBBBBB",
+          "left": "BBBBBBBBBBBBBBBB",
+          "right": "AAAAAAAAAAAAAAAB"
+        },
+        {
+          "top": "AAAAAAAAAAAAAAAB",
+          "bottom": "BBBBBBBBBBBBBBBB",
+          "left": "AAAAAAAAAAAAAAAB",
+          "right": "BBBBBBBBBBBBBBBB"
+        },
+        {
+          "top": "AAAAAAAAAAAAAAAA",
+          "bottom": "AAAAAAAAAAAAAAAA",
+          "left": "AAAAAAAAAAAAAAAA",
+          "right": "AAAAAAAAAAAAAAAA"
+        }
+      ]
+    },
+    {
+      "id": "D_02_pflaster_schnee",
+      "file": "tilesets/D_02_pflaster_schnee.png",
+      "width": 64,
+      "height": 64,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 4,
+      "rows": 4,
+      "transparent": false,
+      "animations": {},
+      "tileOrder": [
+        "full_B",
+        "edge_top",
+        "edge_bottom",
+        "edge_left",
+        "edge_right",
+        "outer_top_left",
+        "outer_top_right",
+        "outer_bottom_left",
+        "outer_bottom_right",
+        "inner_top_left",
+        "inner_top_right",
+        "inner_bottom_left",
+        "inner_bottom_right",
+        "diagonal_down",
+        "diagonal_up",
+        "full_A"
+      ],
+      "materialA": "street cobblestones",
+      "materialB": "trodden grey snow",
+      "edgeConvention": "Names describe the boundary of B: outer top-left has B extending down/right; edge top has A above B. Inner corners have an A notch in B.",
+      "fullFillIndices": {
+        "A": 15,
+        "B": 0
+      },
+      "edgeSignatures": [
+        {
+          "top": "BBBBBBBBBBBBBBBB",
+          "bottom": "BBBBBBBBBBBBBBBB",
+          "left": "BBBBBBBBBBBBBBBB",
+          "right": "BBBBBBBBBBBBBBBB"
+        },
+        {
+          "top": "AAAAAAAAAAAAAAAA",
+          "bottom": "BBBBBBBBBBBBBBBB",
+          "left": "AAAAAAAABBBBBBBB",
+          "right": "AAAAAAAABBBBBBBB"
+        },
+        {
+          "top": "BBBBBBBBBBBBBBBB",
+          "bottom": "AAAAAAAAAAAAAAAA",
+          "left": "BBBBBBBBAAAAAAAA",
+          "right": "BBBBBBBBAAAAAAAA"
+        },
+        {
+          "top": "AAAAAAAABBBBBBBB",
+          "bottom": "AAAAAAAABBBBBBBB",
+          "left": "AAAAAAAAAAAAAAAA",
+          "right": "BBBBBBBBBBBBBBBB"
+        },
+        {
+          "top": "BBBBBBBBAAAAAAAA",
+          "bottom": "BBBBBBBBAAAAAAAA",
+          "left": "BBBBBBBBBBBBBBBB",
+          "right": "AAAAAAAAAAAAAAAA"
+        },
+        {
+          "top": "AAAAAAAAAAAAAAAA",
+          "bottom": "AAAAAAAABBBBBBBB",
+          "left": "AAAAAAAAAAAAAAAA",
+          "right": "AAAAAAAABBBBBBBB"
+        },
+        {
+          "top": "AAAAAAAAAAAAAAAA",
+          "bottom": "BBBBBBBBAAAAAAAA",
+          "left": "AAAAAAAABBBBBBBB",
+          "right": "AAAAAAAAAAAAAAAA"
+        },
+        {
+          "top": "AAAAAAAABBBBBBBB",
+          "bottom": "AAAAAAAAAAAAAAAA",
+          "left": "AAAAAAAAAAAAAAAA",
+          "right": "BBBBBBBBAAAAAAAA"
+        },
+        {
+          "top": "BBBBBBBBAAAAAAAA",
+          "bottom": "AAAAAAAAAAAAAAAA",
+          "left": "BBBBBBBBAAAAAAAA",
+          "right": "AAAAAAAAAAAAAAAA"
+        },
+        {
+          "top": "AAAAAAAABBBBBBBB",
+          "bottom": "BBBBBBBBBBBBBBBB",
+          "left": "AAAAAAAABBBBBBBB",
+          "right": "BBBBBBBBBBBBBBBB"
+        },
+        {
+          "top": "BBBBBBBBAAAAAAAA",
+          "bottom": "BBBBBBBBBBBBBBBB",
+          "left": "BBBBBBBBBBBBBBBB",
+          "right": "AAAAAAAABBBBBBBB"
+        },
+        {
+          "top": "BBBBBBBBBBBBBBBB",
+          "bottom": "AAAAAAAABBBBBBBB",
+          "left": "BBBBBBBBAAAAAAAA",
+          "right": "BBBBBBBBBBBBBBBB"
+        },
+        {
+          "top": "BBBBBBBBBBBBBBBB",
+          "bottom": "BBBBBBBBAAAAAAAA",
+          "left": "BBBBBBBBBBBBBBBB",
+          "right": "BBBBBBBBAAAAAAAA"
+        },
+        {
+          "top": "BAAAAAAAAAAAAAAA",
+          "bottom": "BBBBBBBBBBBBBBBB",
+          "left": "BBBBBBBBBBBBBBBB",
+          "right": "AAAAAAAAAAAAAAAB"
+        },
+        {
+          "top": "AAAAAAAAAAAAAAAB",
+          "bottom": "BBBBBBBBBBBBBBBB",
+          "left": "AAAAAAAAAAAAAAAB",
+          "right": "BBBBBBBBBBBBBBBB"
+        },
+        {
+          "top": "AAAAAAAAAAAAAAAA",
+          "bottom": "AAAAAAAAAAAAAAAA",
+          "left": "AAAAAAAAAAAAAAAA",
+          "right": "AAAAAAAAAAAAAAAA"
+        }
+      ]
+    },
+    {
+      "id": "D_02_gehweg_pflaster",
+      "file": "tilesets/D_02_gehweg_pflaster.png",
+      "width": 64,
+      "height": 64,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 4,
+      "rows": 4,
+      "transparent": false,
+      "animations": {},
+      "tileOrder": [
+        "full_B",
+        "edge_top",
+        "edge_bottom",
+        "edge_left",
+        "edge_right",
+        "outer_top_left",
+        "outer_top_right",
+        "outer_bottom_left",
+        "outer_bottom_right",
+        "inner_top_left",
+        "inner_top_right",
+        "inner_bottom_left",
+        "inner_bottom_right",
+        "diagonal_down",
+        "diagonal_up",
+        "full_A"
+      ],
+      "materialA": "pale flagstone sidewalk",
+      "materialB": "street cobblestones (a curb edge)",
+      "edgeConvention": "Names describe the boundary of B: outer top-left has B extending down/right; edge top has A above B. Inner corners have an A notch in B.",
+      "fullFillIndices": {
+        "A": 15,
+        "B": 0
+      },
+      "edgeSignatures": [
+        {
+          "top": "BBBBBBBBBBBBBBBB",
+          "bottom": "BBBBBBBBBBBBBBBB",
+          "left": "BBBBBBBBBBBBBBBB",
+          "right": "BBBBBBBBBBBBBBBB"
+        },
+        {
+          "top": "AAAAAAAAAAAAAAAA",
+          "bottom": "BBBBBBBBBBBBBBBB",
+          "left": "AAAAAAAABBBBBBBB",
+          "right": "AAAAAAAABBBBBBBB"
+        },
+        {
+          "top": "BBBBBBBBBBBBBBBB",
+          "bottom": "AAAAAAAAAAAAAAAA",
+          "left": "BBBBBBBBAAAAAAAA",
+          "right": "BBBBBBBBAAAAAAAA"
+        },
+        {
+          "top": "AAAAAAAABBBBBBBB",
+          "bottom": "AAAAAAAABBBBBBBB",
+          "left": "AAAAAAAAAAAAAAAA",
+          "right": "BBBBBBBBBBBBBBBB"
+        },
+        {
+          "top": "BBBBBBBBAAAAAAAA",
+          "bottom": "BBBBBBBBAAAAAAAA",
+          "left": "BBBBBBBBBBBBBBBB",
+          "right": "AAAAAAAAAAAAAAAA"
+        },
+        {
+          "top": "AAAAAAAAAAAAAAAA",
+          "bottom": "AAAAAAAABBBBBBBB",
+          "left": "AAAAAAAAAAAAAAAA",
+          "right": "AAAAAAAABBBBBBBB"
+        },
+        {
+          "top": "AAAAAAAAAAAAAAAA",
+          "bottom": "BBBBBBBBAAAAAAAA",
+          "left": "AAAAAAAABBBBBBBB",
+          "right": "AAAAAAAAAAAAAAAA"
+        },
+        {
+          "top": "AAAAAAAABBBBBBBB",
+          "bottom": "AAAAAAAAAAAAAAAA",
+          "left": "AAAAAAAAAAAAAAAA",
+          "right": "BBBBBBBBAAAAAAAA"
+        },
+        {
+          "top": "BBBBBBBBAAAAAAAA",
+          "bottom": "AAAAAAAAAAAAAAAA",
+          "left": "BBBBBBBBAAAAAAAA",
+          "right": "AAAAAAAAAAAAAAAA"
+        },
+        {
+          "top": "AAAAAAAABBBBBBBB",
+          "bottom": "BBBBBBBBBBBBBBBB",
+          "left": "AAAAAAAABBBBBBBB",
+          "right": "BBBBBBBBBBBBBBBB"
+        },
+        {
+          "top": "BBBBBBBBAAAAAAAA",
+          "bottom": "BBBBBBBBBBBBBBBB",
+          "left": "BBBBBBBBBBBBBBBB",
+          "right": "AAAAAAAABBBBBBBB"
+        },
+        {
+          "top": "BBBBBBBBBBBBBBBB",
+          "bottom": "AAAAAAAABBBBBBBB",
+          "left": "BBBBBBBBAAAAAAAA",
+          "right": "BBBBBBBBBBBBBBBB"
+        },
+        {
+          "top": "BBBBBBBBBBBBBBBB",
+          "bottom": "BBBBBBBBAAAAAAAA",
+          "left": "BBBBBBBBBBBBBBBB",
+          "right": "BBBBBBBBAAAAAAAA"
+        },
+        {
+          "top": "BAAAAAAAAAAAAAAA",
+          "bottom": "BBBBBBBBBBBBBBBB",
+          "left": "BBBBBBBBBBBBBBBB",
+          "right": "AAAAAAAAAAAAAAAB"
+        },
+        {
+          "top": "AAAAAAAAAAAAAAAB",
+          "bottom": "BBBBBBBBBBBBBBBB",
+          "left": "AAAAAAAAAAAAAAAB",
+          "right": "BBBBBBBBBBBBBBBB"
+        },
+        {
+          "top": "AAAAAAAAAAAAAAAA",
+          "bottom": "AAAAAAAAAAAAAAAA",
+          "left": "AAAAAAAAAAAAAAAA",
+          "right": "AAAAAAAAAAAAAAAA"
+        }
+      ]
+    },
+    {
+      "id": "D_02_kies_gras",
+      "file": "tilesets/D_02_kies_gras.png",
+      "width": 64,
+      "height": 64,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 4,
+      "rows": 4,
+      "transparent": false,
+      "animations": {},
+      "tileOrder": [
+        "full_B",
+        "edge_top",
+        "edge_bottom",
+        "edge_left",
+        "edge_right",
+        "outer_top_left",
+        "outer_top_right",
+        "outer_bottom_left",
+        "outer_bottom_right",
+        "inner_top_left",
+        "inner_top_right",
+        "inner_bottom_left",
+        "inner_bottom_right",
+        "diagonal_down",
+        "diagonal_up",
+        "full_A"
+      ],
+      "materialA": "gravel path",
+      "materialB": "dead grass",
+      "edgeConvention": "Names describe the boundary of B: outer top-left has B extending down/right; edge top has A above B. Inner corners have an A notch in B.",
+      "fullFillIndices": {
+        "A": 15,
+        "B": 0
+      },
+      "edgeSignatures": [
+        {
+          "top": "BBBBBBBBBBBBBBBB",
+          "bottom": "BBBBBBBBBBBBBBBB",
+          "left": "BBBBBBBBBBBBBBBB",
+          "right": "BBBBBBBBBBBBBBBB"
+        },
+        {
+          "top": "AAAAAAAAAAAAAAAA",
+          "bottom": "BBBBBBBBBBBBBBBB",
+          "left": "AAAAAAAABBBBBBBB",
+          "right": "AAAAAAAABBBBBBBB"
+        },
+        {
+          "top": "BBBBBBBBBBBBBBBB",
+          "bottom": "AAAAAAAAAAAAAAAA",
+          "left": "BBBBBBBBAAAAAAAA",
+          "right": "BBBBBBBBAAAAAAAA"
+        },
+        {
+          "top": "AAAAAAAABBBBBBBB",
+          "bottom": "AAAAAAAABBBBBBBB",
+          "left": "AAAAAAAAAAAAAAAA",
+          "right": "BBBBBBBBBBBBBBBB"
+        },
+        {
+          "top": "BBBBBBBBAAAAAAAA",
+          "bottom": "BBBBBBBBAAAAAAAA",
+          "left": "BBBBBBBBBBBBBBBB",
+          "right": "AAAAAAAAAAAAAAAA"
+        },
+        {
+          "top": "AAAAAAAAAAAAAAAA",
+          "bottom": "AAAAAAAABBBBBBBB",
+          "left": "AAAAAAAAAAAAAAAA",
+          "right": "AAAAAAAABBBBBBBB"
+        },
+        {
+          "top": "AAAAAAAAAAAAAAAA",
+          "bottom": "BBBBBBBBAAAAAAAA",
+          "left": "AAAAAAAABBBBBBBB",
+          "right": "AAAAAAAAAAAAAAAA"
+        },
+        {
+          "top": "AAAAAAAABBBBBBBB",
+          "bottom": "AAAAAAAAAAAAAAAA",
+          "left": "AAAAAAAAAAAAAAAA",
+          "right": "BBBBBBBBAAAAAAAA"
+        },
+        {
+          "top": "BBBBBBBBAAAAAAAA",
+          "bottom": "AAAAAAAAAAAAAAAA",
+          "left": "BBBBBBBBAAAAAAAA",
+          "right": "AAAAAAAAAAAAAAAA"
+        },
+        {
+          "top": "AAAAAAAABBBBBBBB",
+          "bottom": "BBBBBBBBBBBBBBBB",
+          "left": "AAAAAAAABBBBBBBB",
+          "right": "BBBBBBBBBBBBBBBB"
+        },
+        {
+          "top": "BBBBBBBBAAAAAAAA",
+          "bottom": "BBBBBBBBBBBBBBBB",
+          "left": "BBBBBBBBBBBBBBBB",
+          "right": "AAAAAAAABBBBBBBB"
+        },
+        {
+          "top": "BBBBBBBBBBBBBBBB",
+          "bottom": "AAAAAAAABBBBBBBB",
+          "left": "BBBBBBBBAAAAAAAA",
+          "right": "BBBBBBBBBBBBBBBB"
+        },
+        {
+          "top": "BBBBBBBBBBBBBBBB",
+          "bottom": "BBBBBBBBAAAAAAAA",
+          "left": "BBBBBBBBBBBBBBBB",
+          "right": "BBBBBBBBAAAAAAAA"
+        },
+        {
+          "top": "BAAAAAAAAAAAAAAA",
+          "bottom": "BBBBBBBBBBBBBBBB",
+          "left": "BBBBBBBBBBBBBBBB",
+          "right": "AAAAAAAAAAAAAAAB"
+        },
+        {
+          "top": "AAAAAAAAAAAAAAAB",
+          "bottom": "BBBBBBBBBBBBBBBB",
+          "left": "AAAAAAAAAAAAAAAB",
+          "right": "BBBBBBBBBBBBBBBB"
+        },
+        {
+          "top": "AAAAAAAAAAAAAAAA",
+          "bottom": "AAAAAAAAAAAAAAAA",
+          "left": "AAAAAAAAAAAAAAAA",
+          "right": "AAAAAAAAAAAAAAAA"
+        }
+      ]
+    },
+    {
+      "id": "D_02_pflaster_wasser",
+      "file": "tilesets/D_02_pflaster_wasser.png",
+      "width": 64,
+      "height": 64,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 4,
+      "rows": 4,
+      "transparent": false,
+      "animations": {},
+      "tileOrder": [
+        "full_B",
+        "edge_top",
+        "edge_bottom",
+        "edge_left",
+        "edge_right",
+        "outer_top_left",
+        "outer_top_right",
+        "outer_bottom_left",
+        "outer_bottom_right",
+        "inner_top_left",
+        "inner_top_right",
+        "inner_bottom_left",
+        "inner_bottom_right",
+        "diagonal_down",
+        "diagonal_up",
+        "full_A"
+      ],
+      "materialA": "cobblestones",
+      "materialB": "shallow standing water (flooded street)",
+      "edgeConvention": "Names describe the boundary of B: outer top-left has B extending down/right; edge top has A above B. Inner corners have an A notch in B.",
+      "fullFillIndices": {
+        "A": 15,
+        "B": 0
+      },
+      "edgeSignatures": [
+        {
+          "top": "BBBBBBBBBBBBBBBB",
+          "bottom": "BBBBBBBBBBBBBBBB",
+          "left": "BBBBBBBBBBBBBBBB",
+          "right": "BBBBBBBBBBBBBBBB"
+        },
+        {
+          "top": "AAAAAAAAAAAAAAAA",
+          "bottom": "BBBBBBBBBBBBBBBB",
+          "left": "AAAAAAAABBBBBBBB",
+          "right": "AAAAAAAABBBBBBBB"
+        },
+        {
+          "top": "BBBBBBBBBBBBBBBB",
+          "bottom": "AAAAAAAAAAAAAAAA",
+          "left": "BBBBBBBBAAAAAAAA",
+          "right": "BBBBBBBBAAAAAAAA"
+        },
+        {
+          "top": "AAAAAAAABBBBBBBB",
+          "bottom": "AAAAAAAABBBBBBBB",
+          "left": "AAAAAAAAAAAAAAAA",
+          "right": "BBBBBBBBBBBBBBBB"
+        },
+        {
+          "top": "BBBBBBBBAAAAAAAA",
+          "bottom": "BBBBBBBBAAAAAAAA",
+          "left": "BBBBBBBBBBBBBBBB",
+          "right": "AAAAAAAAAAAAAAAA"
+        },
+        {
+          "top": "AAAAAAAAAAAAAAAA",
+          "bottom": "AAAAAAAABBBBBBBB",
+          "left": "AAAAAAAAAAAAAAAA",
+          "right": "AAAAAAAABBBBBBBB"
+        },
+        {
+          "top": "AAAAAAAAAAAAAAAA",
+          "bottom": "BBBBBBBBAAAAAAAA",
+          "left": "AAAAAAAABBBBBBBB",
+          "right": "AAAAAAAAAAAAAAAA"
+        },
+        {
+          "top": "AAAAAAAABBBBBBBB",
+          "bottom": "AAAAAAAAAAAAAAAA",
+          "left": "AAAAAAAAAAAAAAAA",
+          "right": "BBBBBBBBAAAAAAAA"
+        },
+        {
+          "top": "BBBBBBBBAAAAAAAA",
+          "bottom": "AAAAAAAAAAAAAAAA",
+          "left": "BBBBBBBBAAAAAAAA",
+          "right": "AAAAAAAAAAAAAAAA"
+        },
+        {
+          "top": "AAAAAAAABBBBBBBB",
+          "bottom": "BBBBBBBBBBBBBBBB",
+          "left": "AAAAAAAABBBBBBBB",
+          "right": "BBBBBBBBBBBBBBBB"
+        },
+        {
+          "top": "BBBBBBBBAAAAAAAA",
+          "bottom": "BBBBBBBBBBBBBBBB",
+          "left": "BBBBBBBBBBBBBBBB",
+          "right": "AAAAAAAABBBBBBBB"
+        },
+        {
+          "top": "BBBBBBBBBBBBBBBB",
+          "bottom": "AAAAAAAABBBBBBBB",
+          "left": "BBBBBBBBAAAAAAAA",
+          "right": "BBBBBBBBBBBBBBBB"
+        },
+        {
+          "top": "BBBBBBBBBBBBBBBB",
+          "bottom": "BBBBBBBBAAAAAAAA",
+          "left": "BBBBBBBBBBBBBBBB",
+          "right": "BBBBBBBBAAAAAAAA"
+        },
+        {
+          "top": "BAAAAAAAAAAAAAAA",
+          "bottom": "BBBBBBBBBBBBBBBB",
+          "left": "BBBBBBBBBBBBBBBB",
+          "right": "AAAAAAAAAAAAAAAB"
+        },
+        {
+          "top": "AAAAAAAAAAAAAAAB",
+          "bottom": "BBBBBBBBBBBBBBBB",
+          "left": "AAAAAAAAAAAAAAAB",
+          "right": "BBBBBBBBBBBBBBBB"
+        },
+        {
+          "top": "AAAAAAAAAAAAAAAA",
+          "bottom": "AAAAAAAAAAAAAAAA",
+          "left": "AAAAAAAAAAAAAAAA",
+          "right": "AAAAAAAAAAAAAAAA"
+        }
+      ]
+    },
+    {
+      "id": "D_02_planken_wasser",
+      "file": "tilesets/D_02_planken_wasser.png",
+      "width": 64,
+      "height": 64,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 4,
+      "rows": 4,
+      "transparent": false,
+      "animations": {},
+      "tileOrder": [
+        "full_B",
+        "edge_top",
+        "edge_bottom",
+        "edge_left",
+        "edge_right",
+        "outer_top_left",
+        "outer_top_right",
+        "outer_bottom_left",
+        "outer_bottom_right",
+        "inner_top_left",
+        "inner_top_right",
+        "inner_bottom_left",
+        "inner_bottom_right",
+        "diagonal_down",
+        "diagonal_up",
+        "full_A"
+      ],
+      "materialA": "wooden pier planks",
+      "materialB": "dark canal water",
+      "edgeConvention": "Names describe the boundary of B: outer top-left has B extending down/right; edge top has A above B. Inner corners have an A notch in B.",
+      "fullFillIndices": {
+        "A": 15,
+        "B": 0
+      },
+      "edgeSignatures": [
+        {
+          "top": "BBBBBBBBBBBBBBBB",
+          "bottom": "BBBBBBBBBBBBBBBB",
+          "left": "BBBBBBBBBBBBBBBB",
+          "right": "BBBBBBBBBBBBBBBB"
+        },
+        {
+          "top": "AAAAAAAAAAAAAAAA",
+          "bottom": "BBBBBBBBBBBBBBBB",
+          "left": "AAAAAAAABBBBBBBB",
+          "right": "AAAAAAAABBBBBBBB"
+        },
+        {
+          "top": "BBBBBBBBBBBBBBBB",
+          "bottom": "AAAAAAAAAAAAAAAA",
+          "left": "BBBBBBBBAAAAAAAA",
+          "right": "BBBBBBBBAAAAAAAA"
+        },
+        {
+          "top": "AAAAAAAABBBBBBBB",
+          "bottom": "AAAAAAAABBBBBBBB",
+          "left": "AAAAAAAAAAAAAAAA",
+          "right": "BBBBBBBBBBBBBBBB"
+        },
+        {
+          "top": "BBBBBBBBAAAAAAAA",
+          "bottom": "BBBBBBBBAAAAAAAA",
+          "left": "BBBBBBBBBBBBBBBB",
+          "right": "AAAAAAAAAAAAAAAA"
+        },
+        {
+          "top": "AAAAAAAAAAAAAAAA",
+          "bottom": "AAAAAAAABBBBBBBB",
+          "left": "AAAAAAAAAAAAAAAA",
+          "right": "AAAAAAAABBBBBBBB"
+        },
+        {
+          "top": "AAAAAAAAAAAAAAAA",
+          "bottom": "BBBBBBBBAAAAAAAA",
+          "left": "AAAAAAAABBBBBBBB",
+          "right": "AAAAAAAAAAAAAAAA"
+        },
+        {
+          "top": "AAAAAAAABBBBBBBB",
+          "bottom": "AAAAAAAAAAAAAAAA",
+          "left": "AAAAAAAAAAAAAAAA",
+          "right": "BBBBBBBBAAAAAAAA"
+        },
+        {
+          "top": "BBBBBBBBAAAAAAAA",
+          "bottom": "AAAAAAAAAAAAAAAA",
+          "left": "BBBBBBBBAAAAAAAA",
+          "right": "AAAAAAAAAAAAAAAA"
+        },
+        {
+          "top": "AAAAAAAABBBBBBBB",
+          "bottom": "BBBBBBBBBBBBBBBB",
+          "left": "AAAAAAAABBBBBBBB",
+          "right": "BBBBBBBBBBBBBBBB"
+        },
+        {
+          "top": "BBBBBBBBAAAAAAAA",
+          "bottom": "BBBBBBBBBBBBBBBB",
+          "left": "BBBBBBBBBBBBBBBB",
+          "right": "AAAAAAAABBBBBBBB"
+        },
+        {
+          "top": "BBBBBBBBBBBBBBBB",
+          "bottom": "AAAAAAAABBBBBBBB",
+          "left": "BBBBBBBBAAAAAAAA",
+          "right": "BBBBBBBBBBBBBBBB"
+        },
+        {
+          "top": "BBBBBBBBBBBBBBBB",
+          "bottom": "BBBBBBBBAAAAAAAA",
+          "left": "BBBBBBBBBBBBBBBB",
+          "right": "BBBBBBBBAAAAAAAA"
+        },
+        {
+          "top": "BAAAAAAAAAAAAAAA",
+          "bottom": "BBBBBBBBBBBBBBBB",
+          "left": "BBBBBBBBBBBBBBBB",
+          "right": "AAAAAAAAAAAAAAAB"
+        },
+        {
+          "top": "AAAAAAAAAAAAAAAB",
+          "bottom": "BBBBBBBBBBBBBBBB",
+          "left": "AAAAAAAAAAAAAAAB",
+          "right": "BBBBBBBBBBBBBBBB"
+        },
+        {
+          "top": "AAAAAAAAAAAAAAAA",
+          "bottom": "AAAAAAAAAAAAAAAA",
+          "left": "AAAAAAAAAAAAAAAA",
+          "right": "AAAAAAAAAAAAAAAA"
+        }
+      ]
+    },
+    {
+      "id": "D_03_fassade_putz",
+      "file": "tilesets/D_03_fassade_putz.png",
+      "width": 128,
+      "height": 96,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 8,
+      "rows": 6,
+      "transparent": true,
+      "animations": {}
+    },
+    {
+      "id": "D_03_fassade_holz",
+      "file": "tilesets/D_03_fassade_holz.png",
+      "width": 128,
+      "height": 96,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 8,
+      "rows": 6,
+      "transparent": true,
+      "animations": {}
+    },
+    {
+      "id": "D_03_fassade_stein",
+      "file": "tilesets/D_03_fassade_stein.png",
+      "width": 128,
+      "height": 96,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 8,
+      "rows": 6,
+      "transparent": true,
+      "animations": {}
+    },
+    {
+      "id": "D_03_fassade_slum",
+      "file": "tilesets/D_03_fassade_slum.png",
+      "width": 128,
+      "height": 96,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 8,
+      "rows": 6,
+      "transparent": true,
+      "animations": {}
+    },
+    {
+      "id": "D_03_fassade_fabrik",
+      "file": "tilesets/D_03_fassade_fabrik.png",
+      "width": 128,
+      "height": 96,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 8,
+      "rows": 6,
+      "transparent": true,
+      "animations": {}
+    },
+    {
+      "id": "D_04_apotheke",
+      "file": "tilesets/D_04_apotheke.png",
+      "width": 48,
+      "height": 48,
+      "frameWidth": 48,
+      "frameHeight": 48,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "animations": {}
+    },
+    {
+      "id": "D_04_baeckerei",
+      "file": "tilesets/D_04_baeckerei.png",
+      "width": 48,
+      "height": 48,
+      "frameWidth": 48,
+      "frameHeight": 48,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "animations": {}
+    },
+    {
+      "id": "D_04_schneider",
+      "file": "tilesets/D_04_schneider.png",
+      "width": 48,
+      "height": 48,
+      "frameWidth": 48,
+      "frameHeight": 48,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "animations": {}
+    },
+    {
+      "id": "D_04_buchladen",
+      "file": "tilesets/D_04_buchladen.png",
+      "width": 48,
+      "height": 48,
+      "frameWidth": 48,
+      "frameHeight": 48,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "animations": {}
+    },
+    {
+      "id": "D_04_uhrmacher",
+      "file": "tilesets/D_04_uhrmacher.png",
+      "width": 48,
+      "height": 48,
+      "frameWidth": 48,
+      "frameHeight": 48,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "animations": {}
+    },
+    {
+      "id": "D_04_pfandhaus",
+      "file": "tilesets/D_04_pfandhaus.png",
+      "width": 48,
+      "height": 48,
+      "frameWidth": 48,
+      "frameHeight": 48,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "animations": {}
+    },
+    {
+      "id": "D_04_kneipe",
+      "file": "tilesets/D_04_kneipe.png",
+      "width": 48,
+      "height": 48,
+      "frameWidth": 48,
+      "frameHeight": 48,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "animations": {}
+    },
+    {
+      "id": "D_04_bestatter",
+      "file": "tilesets/D_04_bestatter.png",
+      "width": 48,
+      "height": 48,
+      "frameWidth": 48,
+      "frameHeight": 48,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "animations": {}
+    },
+    {
+      "id": "D_04_zeitung",
+      "file": "tilesets/D_04_zeitung.png",
+      "width": 48,
+      "height": 48,
+      "frameWidth": 48,
+      "frameHeight": 48,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "animations": {}
+    },
+    {
+      "id": "D_04_fotograf",
+      "file": "tilesets/D_04_fotograf.png",
+      "width": 48,
+      "height": 48,
+      "frameWidth": 48,
+      "frameHeight": 48,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "animations": {}
+    },
+    {
+      "id": "D_05_theater",
+      "file": "tilesets/D_05_theater.png",
+      "width": 128,
+      "height": 96,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 8,
+      "rows": 6,
+      "transparent": true,
+      "animations": {
+        "marquee": {
+          "frames": [
+            32,
+            40
+          ],
+          "frameWidth": 48,
+          "frameHeight": 16,
+          "frameRate": 3,
+          "repeat": -1
+        }
+      },
+      "regions": [
+        {
+          "name": "theater_facade",
+          "x": 0,
+          "y": 0,
+          "width": 80,
+          "height": 64
+        },
+        {
+          "name": "marquee_0",
+          "x": 0,
+          "y": 64,
+          "width": 48,
+          "height": 16
+        },
+        {
+          "name": "marquee_1",
+          "x": 0,
+          "y": 80,
+          "width": 48,
+          "height": 16
+        },
+        {
+          "name": "box_office",
+          "x": 80,
+          "y": 0,
+          "width": 16,
+          "height": 32
+        },
+        {
+          "name": "poster_column",
+          "x": 96,
+          "y": 0,
+          "width": 16,
+          "height": 32
+        },
+        {
+          "name": "stage_door",
+          "x": 112,
+          "y": 0,
+          "width": 16,
+          "height": 32
+        },
+        {
+          "name": "plinth",
+          "x": 80,
+          "y": 32,
+          "width": 32,
+          "height": 32
+        },
+        {
+          "name": "carriage_stand",
+          "x": 48,
+          "y": 64,
+          "width": 32,
+          "height": 32
+        }
+      ]
+    },
+    {
+      "id": "D_05_uhrturm",
+      "file": "tilesets/D_05_uhrturm.png",
+      "width": 128,
+      "height": 96,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 8,
+      "rows": 6,
+      "transparent": true,
+      "animations": {},
+      "regions": [
+        {
+          "name": "clock_face",
+          "x": 0,
+          "y": 0,
+          "width": 48,
+          "height": 48
+        },
+        {
+          "name": "tower_base",
+          "x": 48,
+          "y": 0,
+          "width": 32,
+          "height": 48
+        },
+        {
+          "name": "tower_shaft",
+          "x": 80,
+          "y": 0,
+          "width": 16,
+          "height": 48
+        },
+        {
+          "name": "railings",
+          "x": 96,
+          "y": 0,
+          "width": 32,
+          "height": 16
+        },
+        {
+          "name": "pump",
+          "x": 96,
+          "y": 16,
+          "width": 16,
+          "height": 32
+        },
+        {
+          "name": "bench",
+          "x": 96,
+          "y": 48,
+          "width": 32,
+          "height": 16
+        },
+        {
+          "name": "compass_floor",
+          "x": 0,
+          "y": 48,
+          "width": 32,
+          "height": 32
+        }
+      ]
+    },
+    {
+      "id": "D_05_nordtor",
+      "file": "tilesets/D_05_nordtor.png",
+      "width": 128,
+      "height": 96,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 8,
+      "rows": 6,
+      "transparent": true,
+      "animations": {},
+      "regions": [
+        {
+          "name": "gate_raised",
+          "x": 0,
+          "y": 0,
+          "width": 48,
+          "height": 48
+        },
+        {
+          "name": "gate_lowered",
+          "x": 48,
+          "y": 0,
+          "width": 48,
+          "height": 48
+        },
+        {
+          "name": "slaughterhouse",
+          "x": 0,
+          "y": 48,
+          "width": 48,
+          "height": 48
+        },
+        {
+          "name": "wall_walkway",
+          "x": 96,
+          "y": 0,
+          "width": 32,
+          "height": 32
+        },
+        {
+          "name": "livestock_pen",
+          "x": 48,
+          "y": 48,
+          "width": 32,
+          "height": 32
+        },
+        {
+          "name": "loading_ramp",
+          "x": 80,
+          "y": 48,
+          "width": 32,
+          "height": 32
+        },
+        {
+          "name": "trough",
+          "x": 96,
+          "y": 32,
+          "width": 32,
+          "height": 16
+        }
+      ]
+    },
+    {
+      "id": "D_05_gaswerk",
+      "file": "tilesets/D_05_gaswerk.png",
+      "width": 128,
+      "height": 96,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 8,
+      "rows": 6,
+      "transparent": true,
+      "animations": {
+        "furnace": {
+          "frames": [
+            20,
+            21
+          ],
+          "frameWidth": 16,
+          "frameHeight": 16,
+          "frameRate": 4,
+          "repeat": -1
+        }
+      },
+      "regions": [
+        {
+          "name": "gasometer_top",
+          "x": 0,
+          "y": 0,
+          "width": 64,
+          "height": 64
+        },
+        {
+          "name": "gasometer_base",
+          "x": 64,
+          "y": 0,
+          "width": 32,
+          "height": 32
+        },
+        {
+          "name": "smokestack_base",
+          "x": 96,
+          "y": 0,
+          "width": 32,
+          "height": 32
+        },
+        {
+          "name": "furnace_0",
+          "x": 64,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        {
+          "name": "furnace_1",
+          "x": 80,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        {
+          "name": "pipe_bridge",
+          "x": 64,
+          "y": 48,
+          "width": 64,
+          "height": 16
+        },
+        {
+          "name": "coal_heap",
+          "x": 0,
+          "y": 64,
+          "width": 32,
+          "height": 32
+        }
+      ]
+    },
+    {
+      "id": "D_05_sternwarte",
+      "file": "tilesets/D_05_sternwarte.png",
+      "width": 128,
+      "height": 96,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 8,
+      "rows": 6,
+      "transparent": true,
+      "animations": {
+        "star_glass": {
+          "frames": [
+            27,
+            28
+          ],
+          "frameWidth": 16,
+          "frameHeight": 16,
+          "frameRate": 3,
+          "repeat": -1
+        }
+      },
+      "regions": [
+        {
+          "name": "observatory_closed",
+          "x": 0,
+          "y": 0,
+          "width": 48,
+          "height": 48
+        },
+        {
+          "name": "observatory_open",
+          "x": 48,
+          "y": 0,
+          "width": 48,
+          "height": 48
+        },
+        {
+          "name": "bent_tree",
+          "x": 96,
+          "y": 0,
+          "width": 32,
+          "height": 48
+        },
+        {
+          "name": "crater_rim",
+          "x": 0,
+          "y": 48,
+          "width": 48,
+          "height": 48
+        },
+        {
+          "name": "star_glass_0",
+          "x": 48,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        {
+          "name": "star_glass_1",
+          "x": 64,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        {
+          "name": "dry_wall",
+          "x": 48,
+          "y": 64,
+          "width": 48,
+          "height": 16
+        }
+      ]
+    },
+    {
+      "id": "D_05_villen",
+      "file": "tilesets/D_05_villen.png",
+      "width": 128,
+      "height": 96,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 8,
+      "rows": 6,
+      "transparent": true,
+      "animations": {},
+      "regions": [
+        {
+          "name": "villa",
+          "x": 0,
+          "y": 0,
+          "width": 96,
+          "height": 64
+        },
+        {
+          "name": "fountain",
+          "x": 96,
+          "y": 0,
+          "width": 32,
+          "height": 32
+        },
+        {
+          "name": "double_lamp",
+          "x": 96,
+          "y": 32,
+          "width": 32,
+          "height": 32
+        },
+        {
+          "name": "gate_closed",
+          "x": 0,
+          "y": 64,
+          "width": 32,
+          "height": 32
+        },
+        {
+          "name": "gate_open",
+          "x": 32,
+          "y": 64,
+          "width": 32,
+          "height": 32
+        },
+        {
+          "name": "hedge",
+          "x": 64,
+          "y": 64,
+          "width": 32,
+          "height": 16
+        }
+      ]
+    },
+    {
+      "id": "D_05_elend",
+      "file": "tilesets/D_05_elend.png",
+      "width": 128,
+      "height": 96,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 8,
+      "rows": 6,
+      "transparent": true,
+      "animations": {
+        "oil_drum_fire": {
+          "frames": [
+            24,
+            25,
+            26,
+            27
+          ],
+          "frameWidth": 16,
+          "frameHeight": 32,
+          "frameRate": 7,
+          "repeat": -1
+        }
+      },
+      "regions": [
+        {
+          "name": "shacks",
+          "x": 0,
+          "y": 0,
+          "width": 64,
+          "height": 48
+        },
+        {
+          "name": "stilt_walkway",
+          "x": 64,
+          "y": 0,
+          "width": 64,
+          "height": 32
+        },
+        {
+          "name": "pump",
+          "x": 64,
+          "y": 32,
+          "width": 16,
+          "height": 32
+        },
+        {
+          "name": "fire_0",
+          "x": 0,
+          "y": 48,
+          "width": 16,
+          "height": 32
+        },
+        {
+          "name": "fire_1",
+          "x": 16,
+          "y": 48,
+          "width": 16,
+          "height": 32
+        },
+        {
+          "name": "fire_2",
+          "x": 32,
+          "y": 48,
+          "width": 16,
+          "height": 32
+        },
+        {
+          "name": "fire_3",
+          "x": 48,
+          "y": 48,
+          "width": 16,
+          "height": 32
+        },
+        {
+          "name": "laundry",
+          "x": 80,
+          "y": 32,
+          "width": 48,
+          "height": 16
+        }
+      ]
+    },
+    {
+      "id": "D_05_theater_props",
+      "file": "props/D_05_theater_props.png",
+      "width": 192,
+      "height": 144,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 12,
+      "rows": 9,
+      "transparent": true,
+      "animations": {
+        "horse_idle": {
+          "frameWidth": 32,
+          "frameHeight": 32,
+          "frames": [
+            {
+              "x": 48,
+              "y": 0,
+              "width": 32,
+              "height": 32
+            },
+            {
+              "x": 96,
+              "y": 0,
+              "width": 32,
+              "height": 32
+            },
+            {
+              "x": 144,
+              "y": 0,
+              "width": 32,
+              "height": 32
+            },
+            {
+              "x": 0,
+              "y": 48,
+              "width": 32,
+              "height": 32
+            }
+          ],
+          "frameRate": 5,
+          "repeat": -1
+        }
+      },
+      "regions": [
+        {
+          "name": "carriage",
+          "x": 0,
+          "y": 0,
+          "width": 48,
+          "height": 32
+        },
+        {
+          "name": "horse_idle_0",
+          "x": 48,
+          "y": 0,
+          "width": 32,
+          "height": 32
+        },
+        {
+          "name": "horse_idle_1",
+          "x": 96,
+          "y": 0,
+          "width": 32,
+          "height": 32
+        },
+        {
+          "name": "horse_idle_2",
+          "x": 144,
+          "y": 0,
+          "width": 32,
+          "height": 32
+        },
+        {
+          "name": "horse_idle_3",
+          "x": 0,
+          "y": 48,
+          "width": 32,
+          "height": 32
+        },
+        {
+          "name": "ticket_booth",
+          "x": 48,
+          "y": 48,
+          "width": 16,
+          "height": 32
+        },
+        {
+          "name": "poster_column",
+          "x": 96,
+          "y": 48,
+          "width": 16,
+          "height": 32
+        },
+        {
+          "name": "roses",
+          "x": 144,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        {
+          "name": "programmes",
+          "x": 0,
+          "y": 96,
+          "width": 16,
+          "height": 16
+        },
+        {
+          "name": "bench",
+          "x": 48,
+          "y": 96,
+          "width": 32,
+          "height": 16
+        },
+        {
+          "name": "costume_trunk",
+          "x": 96,
+          "y": 96,
+          "width": 32,
+          "height": 16
+        },
+        {
+          "name": "spotlight",
+          "x": 144,
+          "y": 96,
+          "width": 16,
+          "height": 16
+        }
+      ]
+    },
+    {
+      "id": "D_05_uhrturm_props",
+      "file": "props/D_05_uhrturm_props.png",
+      "width": 192,
+      "height": 144,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 12,
+      "rows": 9,
+      "transparent": true,
+      "animations": {
+        "crow_idle": {
+          "frameWidth": 16,
+          "frameHeight": 32,
+          "frames": [
+            {
+              "x": 48,
+              "y": 48,
+              "width": 16,
+              "height": 32
+            },
+            {
+              "x": 96,
+              "y": 48,
+              "width": 16,
+              "height": 32
+            },
+            {
+              "x": 144,
+              "y": 48,
+              "width": 16,
+              "height": 32
+            },
+            {
+              "x": 0,
+              "y": 96,
+              "width": 16,
+              "height": 32
+            }
+          ],
+          "frameRate": 5,
+          "repeat": -1
+        }
+      },
+      "regions": [
+        {
+          "name": "gear",
+          "x": 0,
+          "y": 0,
+          "width": 32,
+          "height": 32
+        },
+        {
+          "name": "rope_pulley",
+          "x": 48,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        {
+          "name": "ladder",
+          "x": 96,
+          "y": 0,
+          "width": 16,
+          "height": 48
+        },
+        {
+          "name": "tool_cart",
+          "x": 144,
+          "y": 0,
+          "width": 32,
+          "height": 16
+        },
+        {
+          "name": "notice",
+          "x": 0,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        {
+          "name": "crow_idle_0",
+          "x": 48,
+          "y": 48,
+          "width": 16,
+          "height": 32
+        },
+        {
+          "name": "crow_idle_1",
+          "x": 96,
+          "y": 48,
+          "width": 16,
+          "height": 32
+        },
+        {
+          "name": "crow_idle_2",
+          "x": 144,
+          "y": 48,
+          "width": 16,
+          "height": 32
+        },
+        {
+          "name": "crow_idle_3",
+          "x": 0,
+          "y": 96,
+          "width": 16,
+          "height": 32
+        }
+      ]
+    },
+    {
+      "id": "D_05_nordtor_props",
+      "file": "props/D_05_nordtor_props.png",
+      "width": 192,
+      "height": 144,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 12,
+      "rows": 9,
+      "transparent": true,
+      "animations": {
+        "drain_steam": {
+          "frameWidth": 16,
+          "frameHeight": 16,
+          "frames": [
+            {
+              "x": 96,
+              "y": 48,
+              "width": 16,
+              "height": 16
+            },
+            {
+              "x": 144,
+              "y": 48,
+              "width": 16,
+              "height": 16
+            },
+            {
+              "x": 0,
+              "y": 96,
+              "width": 16,
+              "height": 16
+            },
+            {
+              "x": 48,
+              "y": 96,
+              "width": 16,
+              "height": 16
+            }
+          ],
+          "frameRate": 5,
+          "repeat": -1
+        }
+      },
+      "regions": [
+        {
+          "name": "livestock_cart",
+          "x": 0,
+          "y": 0,
+          "width": 48,
+          "height": 32
+        },
+        {
+          "name": "salt_barrels",
+          "x": 48,
+          "y": 0,
+          "width": 16,
+          "height": 32
+        },
+        {
+          "name": "handcart",
+          "x": 96,
+          "y": 0,
+          "width": 32,
+          "height": 16
+        },
+        {
+          "name": "guard_booth",
+          "x": 144,
+          "y": 0,
+          "width": 32,
+          "height": 32
+        },
+        {
+          "name": "toll_pole",
+          "x": 0,
+          "y": 48,
+          "width": 48,
+          "height": 16
+        },
+        {
+          "name": "cat_barrel",
+          "x": 48,
+          "y": 48,
+          "width": 16,
+          "height": 32
+        },
+        {
+          "name": "drain_steam_0",
+          "x": 96,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        {
+          "name": "drain_steam_1",
+          "x": 144,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        {
+          "name": "drain_steam_2",
+          "x": 0,
+          "y": 96,
+          "width": 16,
+          "height": 16
+        },
+        {
+          "name": "drain_steam_3",
+          "x": 48,
+          "y": 96,
+          "width": 16,
+          "height": 16
+        }
+      ]
+    },
+    {
+      "id": "D_05_gaswerk_props",
+      "file": "props/D_05_gaswerk_props.png",
+      "width": 192,
+      "height": 144,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 12,
+      "rows": 9,
+      "transparent": true,
+      "animations": {
+        "leaking_pipe": {
+          "frameWidth": 16,
+          "frameHeight": 32,
+          "frames": [
+            {
+              "x": 48,
+              "y": 48,
+              "width": 16,
+              "height": 32
+            },
+            {
+              "x": 96,
+              "y": 48,
+              "width": 16,
+              "height": 32
+            },
+            {
+              "x": 144,
+              "y": 48,
+              "width": 16,
+              "height": 32
+            },
+            {
+              "x": 0,
+              "y": 96,
+              "width": 16,
+              "height": 32
+            }
+          ],
+          "frameRate": 5,
+          "repeat": -1
+        }
+      },
+      "regions": [
+        {
+          "name": "coal_cart",
+          "x": 0,
+          "y": 0,
+          "width": 32,
+          "height": 16
+        },
+        {
+          "name": "shovels_coal",
+          "x": 48,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        {
+          "name": "pressure_gauge",
+          "x": 96,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        {
+          "name": "valve",
+          "x": 144,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        {
+          "name": "bell_post",
+          "x": 0,
+          "y": 48,
+          "width": 16,
+          "height": 32
+        },
+        {
+          "name": "leaking_pipe_0",
+          "x": 48,
+          "y": 48,
+          "width": 16,
+          "height": 32
+        },
+        {
+          "name": "leaking_pipe_1",
+          "x": 96,
+          "y": 48,
+          "width": 16,
+          "height": 32
+        },
+        {
+          "name": "leaking_pipe_2",
+          "x": 144,
+          "y": 48,
+          "width": 16,
+          "height": 32
+        },
+        {
+          "name": "leaking_pipe_3",
+          "x": 0,
+          "y": 96,
+          "width": 16,
+          "height": 32
+        },
+        {
+          "name": "gas_canisters",
+          "x": 48,
+          "y": 96,
+          "width": 16,
+          "height": 32
+        }
+      ]
+    },
+    {
+      "id": "D_05_sternwarte_props",
+      "file": "props/D_05_sternwarte_props.png",
+      "width": 192,
+      "height": 96,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 12,
+      "rows": 6,
+      "transparent": true,
+      "animations": {},
+      "regions": [
+        {
+          "name": "telescope",
+          "x": 0,
+          "y": 0,
+          "width": 16,
+          "height": 32
+        },
+        {
+          "name": "weather_vane",
+          "x": 48,
+          "y": 0,
+          "width": 16,
+          "height": 32
+        },
+        {
+          "name": "meteorite",
+          "x": 96,
+          "y": 0,
+          "width": 32,
+          "height": 32
+        },
+        {
+          "name": "survey_stakes",
+          "x": 144,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        {
+          "name": "supply_crate",
+          "x": 0,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        {
+          "name": "sheep_sleeping",
+          "x": 48,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        {
+          "name": "sheep_standing",
+          "x": 96,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        }
+      ]
+    },
+    {
+      "id": "D_05_villen_props",
+      "file": "props/D_05_villen_props.png",
+      "width": 192,
+      "height": 96,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 12,
+      "rows": 6,
+      "transparent": true,
+      "animations": {},
+      "regions": [
+        {
+          "name": "fish_fountain",
+          "x": 0,
+          "y": 0,
+          "width": 32,
+          "height": 32
+        },
+        {
+          "name": "double_lamp",
+          "x": 48,
+          "y": 0,
+          "width": 32,
+          "height": 32
+        },
+        {
+          "name": "gate_closed",
+          "x": 96,
+          "y": 0,
+          "width": 32,
+          "height": 32
+        },
+        {
+          "name": "gate_open",
+          "x": 144,
+          "y": 0,
+          "width": 32,
+          "height": 32
+        },
+        {
+          "name": "winter_hedge",
+          "x": 0,
+          "y": 48,
+          "width": 32,
+          "height": 16
+        }
+      ]
+    },
+    {
+      "id": "D_05_elend_props",
+      "file": "props/D_05_elend_props.png",
+      "width": 192,
+      "height": 96,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 12,
+      "rows": 6,
+      "transparent": true,
+      "animations": {
+        "oil_drum_fire": {
+          "frameWidth": 16,
+          "frameHeight": 32,
+          "frames": [
+            {
+              "x": 48,
+              "y": 0,
+              "width": 16,
+              "height": 32
+            },
+            {
+              "x": 96,
+              "y": 0,
+              "width": 16,
+              "height": 32
+            },
+            {
+              "x": 144,
+              "y": 0,
+              "width": 16,
+              "height": 32
+            },
+            {
+              "x": 0,
+              "y": 48,
+              "width": 16,
+              "height": 32
+            }
+          ],
+          "frameRate": 5,
+          "repeat": -1
+        }
+      },
+      "regions": [
+        {
+          "name": "water_pump",
+          "x": 0,
+          "y": 0,
+          "width": 16,
+          "height": 32
+        },
+        {
+          "name": "oil_drum_fire_0",
+          "x": 48,
+          "y": 0,
+          "width": 16,
+          "height": 32
+        },
+        {
+          "name": "oil_drum_fire_1",
+          "x": 96,
+          "y": 0,
+          "width": 16,
+          "height": 32
+        },
+        {
+          "name": "oil_drum_fire_2",
+          "x": 144,
+          "y": 0,
+          "width": 16,
+          "height": 32
+        },
+        {
+          "name": "oil_drum_fire_3",
+          "x": 0,
+          "y": 48,
+          "width": 16,
+          "height": 32
+        },
+        {
+          "name": "laundry",
+          "x": 48,
+          "y": 48,
+          "width": 32,
+          "height": 16
+        },
+        {
+          "name": "rat_hole",
+          "x": 96,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        {
+          "name": "junk",
+          "x": 144,
+          "y": 48,
+          "width": 32,
+          "height": 16
+        }
+      ]
+    },
+    {
+      "id": "D_06_bruecken",
+      "file": "tilesets/D_06_bruecken.png",
+      "width": 128,
+      "height": 128,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 8,
+      "rows": 8,
+      "transparent": true,
+      "animations": {},
+      "regions": [
+        {
+          "name": "stone_horizontal",
+          "x": 0,
+          "y": 0,
+          "width": 64,
+          "height": 32
+        },
+        {
+          "name": "stone_vertical",
+          "x": 96,
+          "y": 0,
+          "width": 32,
+          "height": 64
+        },
+        {
+          "name": "iron_footbridge",
+          "x": 0,
+          "y": 32,
+          "width": 48,
+          "height": 16
+        },
+        {
+          "name": "lock_closed",
+          "x": 0,
+          "y": 48,
+          "width": 32,
+          "height": 32
+        },
+        {
+          "name": "lock_open",
+          "x": 32,
+          "y": 48,
+          "width": 32,
+          "height": 32
+        },
+        {
+          "name": "rowboat",
+          "x": 0,
+          "y": 96,
+          "width": 32,
+          "height": 16
+        },
+        {
+          "name": "narrowboat",
+          "x": 32,
+          "y": 96,
+          "width": 64,
+          "height": 16
+        },
+        {
+          "name": "winch",
+          "x": 64,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        {
+          "name": "steps",
+          "x": 64,
+          "y": 80,
+          "width": 16,
+          "height": 16
+        },
+        {
+          "name": "culvert",
+          "x": 80,
+          "y": 80,
+          "width": 16,
+          "height": 16
+        },
+        {
+          "name": "ice_0",
+          "x": 96,
+          "y": 96,
+          "width": 16,
+          "height": 16
+        },
+        {
+          "name": "ice_1",
+          "x": 112,
+          "y": 96,
+          "width": 16,
+          "height": 16
+        }
+      ]
+    },
+    {
+      "id": "D_06_kraehenbruecke",
+      "file": "props/D_06_kraehenbruecke.png",
+      "width": 96,
+      "height": 48,
+      "frameWidth": 96,
+      "frameHeight": 48,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "animations": {}
+    },
+    {
+      "id": "D_07_strassenmoebel",
+      "file": "props/D_07_strassenmoebel.png",
+      "width": 192,
+      "height": 240,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 12,
+      "rows": 15,
+      "transparent": true,
+      "animations": {
+        "chestnut_smoke": {
+          "frameWidth": 16,
+          "frameHeight": 32,
+          "frames": [
+            {
+              "x": 144,
+              "y": 48,
+              "width": 16,
+              "height": 32
+            },
+            {
+              "x": 0,
+              "y": 96,
+              "width": 16,
+              "height": 32
+            },
+            {
+              "x": 48,
+              "y": 96,
+              "width": 16,
+              "height": 32
+            },
+            {
+              "x": 96,
+              "y": 96,
+              "width": 16,
+              "height": 32
+            }
+          ],
+          "frameRate": 5,
+          "repeat": -1
+        }
+      },
+      "regions": [
+        {
+          "name": "horse_trough",
+          "x": 0,
+          "y": 0,
+          "width": 32,
+          "height": 16
+        },
+        {
+          "name": "drinking_fountain",
+          "x": 48,
+          "y": 0,
+          "width": 16,
+          "height": 32
+        },
+        {
+          "name": "police_box",
+          "x": 96,
+          "y": 0,
+          "width": 16,
+          "height": 32
+        },
+        {
+          "name": "handcart",
+          "x": 144,
+          "y": 0,
+          "width": 32,
+          "height": 16
+        },
+        {
+          "name": "milk_churns",
+          "x": 0,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        {
+          "name": "coal_cover",
+          "x": 48,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        {
+          "name": "sandwich_board",
+          "x": 96,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        {
+          "name": "chestnut_smoke_0",
+          "x": 144,
+          "y": 48,
+          "width": 16,
+          "height": 32
+        },
+        {
+          "name": "chestnut_smoke_1",
+          "x": 0,
+          "y": 96,
+          "width": 16,
+          "height": 32
+        },
+        {
+          "name": "chestnut_smoke_2",
+          "x": 48,
+          "y": 96,
+          "width": 16,
+          "height": 32
+        },
+        {
+          "name": "chestnut_smoke_3",
+          "x": 96,
+          "y": 96,
+          "width": 16,
+          "height": 32
+        },
+        {
+          "name": "penny_farthing",
+          "x": 144,
+          "y": 96,
+          "width": 16,
+          "height": 32
+        },
+        {
+          "name": "umbrella",
+          "x": 0,
+          "y": 144,
+          "width": 16,
+          "height": 16
+        },
+        {
+          "name": "snow",
+          "x": 48,
+          "y": 144,
+          "width": 16,
+          "height": 16
+        },
+        {
+          "name": "bollard",
+          "x": 96,
+          "y": 144,
+          "width": 16,
+          "height": 16
+        },
+        {
+          "name": "hitching_post",
+          "x": 144,
+          "y": 144,
+          "width": 16,
+          "height": 16
+        },
+        {
+          "name": "rag_bone_cart",
+          "x": 0,
+          "y": 192,
+          "width": 48,
+          "height": 32
+        }
+      ]
+    },
+    {
+      "id": "D_08_wohnung_props",
+      "file": "props/D_08_wohnung_props.png",
+      "width": 192,
+      "height": 192,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 12,
+      "rows": 12,
+      "transparent": true,
+      "animations": {},
+      "regions": [
+        {
+          "name": "iron_bed",
+          "x": 0,
+          "y": 0,
+          "width": 16,
+          "height": 32
+        },
+        {
+          "name": "washstand",
+          "x": 48,
+          "y": 0,
+          "width": 16,
+          "height": 32
+        },
+        {
+          "name": "cooking_range",
+          "x": 96,
+          "y": 0,
+          "width": 32,
+          "height": 32
+        },
+        {
+          "name": "kitchen_table",
+          "x": 144,
+          "y": 0,
+          "width": 32,
+          "height": 32
+        },
+        {
+          "name": "dresser",
+          "x": 0,
+          "y": 48,
+          "width": 32,
+          "height": 32
+        },
+        {
+          "name": "rocking_chair",
+          "x": 48,
+          "y": 48,
+          "width": 16,
+          "height": 32
+        },
+        {
+          "name": "cradle",
+          "x": 96,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        {
+          "name": "rug",
+          "x": 144,
+          "y": 48,
+          "width": 32,
+          "height": 32
+        },
+        {
+          "name": "bathtub",
+          "x": 0,
+          "y": 96,
+          "width": 32,
+          "height": 16
+        },
+        {
+          "name": "sewing_table",
+          "x": 48,
+          "y": 96,
+          "width": 32,
+          "height": 16
+        },
+        {
+          "name": "birdcage",
+          "x": 96,
+          "y": 96,
+          "width": 16,
+          "height": 32
+        },
+        {
+          "name": "family_photo",
+          "x": 144,
+          "y": 96,
+          "width": 16,
+          "height": 16
+        },
+        {
+          "name": "coal_scuttle",
+          "x": 0,
+          "y": 144,
+          "width": 16,
+          "height": 16
+        },
+        {
+          "name": "chamber_pot",
+          "x": 48,
+          "y": 144,
+          "width": 16,
+          "height": 16
+        },
+        {
+          "name": "strongbox",
+          "x": 96,
+          "y": 144,
+          "width": 16,
+          "height": 16
+        }
+      ]
+    },
+    {
+      "id": "D_08_wohnung_tiles",
+      "file": "tilesets/D_08_wohnung_tiles.png",
+      "width": 128,
+      "height": 128,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 8,
+      "rows": 8,
+      "transparent": true,
+      "animations": {}
+    },
+    {
+      "id": "D_09_stadtkarte_gross",
+      "file": "ui/D_09_stadtkarte_gross.png",
+      "width": 480,
+      "height": 270,
+      "frameWidth": 480,
+      "frameHeight": 270,
+      "columns": 1,
+      "rows": 1,
+      "transparent": false,
+      "animations": {}
+    },
+    {
+      "id": "D_09_stadtkarte_nebel",
+      "file": "ui/D_09_stadtkarte_nebel.png",
+      "width": 480,
+      "height": 270,
+      "frameWidth": 480,
+      "frameHeight": 270,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "animations": {}
+    }
+  ]
+}

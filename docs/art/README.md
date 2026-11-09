@@ -258,3 +258,65 @@ Portrait-IDs und die konsistente Bossblende. Ergebnis: `validation-kampf2.json`.
 Die exportierten Grafiken sind in `batch-kampf2-preview.png` zusammengefasst.
 Die Einbindung und Timing-Abstimmung im Spiel erfolgen separat; dieses Paket
 ändert ausschließlich Grafiken, Manifest und Grafikdokumentation.
+
+## Grafikpaket D – Stadt-Erweiterung
+
+Batch `stadt`, erstellt am 9. November 2026 nach `codex_D_stadt_erweiterung.md`:
+**45 neue PNGs** mit den vorgegebenen `D_`-Dateinamen. Bestehende Tilesets bleiben erhalten.
+
+| Gruppe | PNGs | Maße / Raster |
+|---|---:|---|
+| Nachtmarkt-Boden | 1 | 64×96, 24 Kacheln à 16×16 |
+| Acht Bodenübergänge | 8 | 64×64, jeweils 16 Kacheln |
+| Fünf Fassadenmaterialien | 5 | 128×96, 8×6 Kacheln |
+| Zehn Läden | 10 | je 48×48, transparent |
+| Sieben Viertel: Außenbereiche und Props | 14 | Außenbereiche 128×96; Props mit benannten Rechtecken |
+| Kanalbaukasten und Krähenbrücke | 2 | 128×128 bzw. 96×48 |
+| Straßenmöbel | 1 | 192×240, gemischte Objektgrößen |
+| Wohnungen: Props und Tiles | 2 | 192×192 bzw. 128×128 |
+| Große Stadtkarte und Nebel | 2 | je 480×270; Karte deckend, Nebel transparent |
+
+`public/sprites/manifest-stadt.json` dokumentiert Maße, Raster, 155 benannte
+Objektrechtecke und zehn Animationen. Bei gemischten Prop-Sheets sind `regions`
+und die expliziten Animationsrechtecke maßgeblich; `frameWidth: 16` beschreibt
+das zugrunde liegende Raster. Die Props sitzen in 48×48-Packslots, ihre tatsächlichen
+Framegrößen bleiben z. B. 16×32 oder 32×16. Animationsgrundlinien sind vereinheitlicht.
+Numerische Animationsindizes der Außen-Tilesets bezeichnen die linke obere
+16×16-Kachel des jeweiligen Frames; größere Frames haben eigene Breite/Höhe.
+
+Die acht Übergänge haben dieselbe nullbasierte Reihenfolge: B-Füller, obere/untere/
+linke/rechte Kante, vier Außen-, vier Innenecken, zwei Diagonalen, A-Füller.
+Die Namen bezeichnen den Rand von B (Außenecke oben links: B erstreckt sich nach
+unten/rechts). `edgeSignatures` geben die A/B-Belegung jedes Randpixels an.
+Nur kompatible Ränder werden verbunden; dies ist der angeforderte 16er-Satz,
+kein vollständiger 47er-Blob-Autotiler. Die vom Generator erzeugten A/B-Texturen
+wurden technisch mit gemeinsamen Randprofilen zusammengesetzt. Wiederholbare
+Füllflächen und alle kompatiblen Anschlüsse werden pixelgenau geprüft.
+Die zehn Nachtmarkt-Bodenvarianten und die beiden zusätzlichen Füller teilen Randpixel.
+
+`batch-stadt-generation.json` enthält alle tatsächlich verwendeten Prompts,
+Referenzen, Quellbild-Prüfsummen und geprüften Zuschnitte. Für Villen und Elend
+verwenden die Prop-Sheets die bereits im Viertelprompt genannten Gegenstände.
+Slum- und Fabrikfassade wurden für klarere Materialunterschiede nachgeneriert.
+Die Rohbilder wurden mit Nearest Neighbor gerastert, auf 31 gemeinsame sichtbare
+Farben plus Transparenzeintrag indiziert und mit binärem Alpha exportiert.
+Die Palette entspricht dem Welt-Batch mit einer tiefvioletten Ergänzung anstelle
+seines hellsten Ambertons. Große Baugruppen wurden separat zugeschnitten und
+in die dokumentierten Atlasrechtecke gepackt.
+
+```sh
+# Python 3 mit Pillow, numpy und scipy.
+# SOURCE_MAP.json: Objekt mit Job-ID -> Pfad des ursprünglichen Generator-PNGs.
+python docs/art/export-stadt.py SOURCE_MAP.json
+python docs/art/verify-stadt.py
+```
+
+Die Prüfung kontrolliert Vollständigkeit, Maße, Farben, Alpha, belegte Regionen,
+Animationsvariation und Grundlinien sowie passende Autotile-Randpixel.
+Ergebnis: `validation-stadt.json`. Sichtprüfungen der exportierten Bilder:
+[Grundflächen](previews/stadt-ground.png), [Häuser und Läden](previews/stadt-buildings.png),
+[Viertel](previews/stadt-districts.png), [Props](previews/stadt-props.png),
+[Innenräume und Brücken](previews/stadt-interiors-bridges.png), [Karte mit/ohne Nebel](previews/stadt-map.png).
+
+Die Einbindung und die Prüfung im laufenden Spiel erfolgen separat. Dieses Paket
+ändert ausschließlich Grafikassets und ihre Dokumentation.
