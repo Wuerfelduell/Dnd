@@ -4,7 +4,7 @@ import { GEAR_SLOT_NAMES } from '../core/Gear.js';
 import { lootList, itemRarity, RARITY_NAMES, lootPreview, chanceWord } from '../core/Loot.js';
 import {
   itemIconUrl, itemIcon32Url, pathwayEmblemUrl, pathwayCardUrl, COIN_URL, moneyIconUrl, UI_SKINS, UI_SHEETS, UI_REGIONS, DAMAGE_FONT, STATUS_ICONS, STATUS_ICONS_URL,
-  portraitUrl, portraitFor, AK_FIGURES, mapMarkerOf, LOG_MARKERS, LOG_MARKERS_URL, SOURCE_ICONS, SPRITE_BASE,
+  portraitUrl, portraitFor, AK_FIGURES, P2_LOOKS, P2_CHOICE_URL, p2HeadUrl, p2PortraitUrl, mapMarkerOf, LOG_MARKERS, LOG_MARKERS_URL, SOURCE_ICONS, SPRITE_BASE,
   endingImageUrl, caseFileUrl, sceneUrl, wantedUrl, QUEST_UI_URL, QUEST_PINS, QUEST_BANNERS,
   TURN_PORTRAITS, TURN_PORTRAITS_URL, TURN_PORTRAIT_URLS, BESTIARY, bestiaryUrl, TITLE_LAYERS,
   headUrl, ritualCardUrl, ZIRKEL_URL, ZIRKEL_ICONS, AUKTION_URL, AUKTION_REGIONS, LONER_UI_URL, LONER_UI, LONER_SEALS, S_ZIRKEL_URL, S_ZIRKEL, skillIconOf, PULSE_ICONS, ARTIFACT_UI_URL, sourceKind, sourceKindUrl, inspectUrl, RISK_ICONS, RISK_ICONS_URL, JOURNAL_FRAME, JOURNAL_FRAME_URL, choiceRisk, riskOf,
@@ -291,7 +291,7 @@ export class Ui {
             <button class="hudbtn" data-hud="menu">${setIcon('zahnrad', 'touch-only')}<span class="key">Esc</span> Menü</button>
           </div>
           <div class="hud-p2 hidden">
-            <div class="p2name">Spieler 2 <span class="muted p2weapon"></span></div>
+            <div class="p2name"><img class="p2head" alt="" width="12" height="12">Spieler 2 <span class="muted p2weapon"></span></div>
             <div class="meter life"><span>Leben</span><div class="bar"><div class="p2hp"></div></div><em class="p2hpnum"></em></div>
             <div class="meter"><span>Nerven</span><div class="bar"><div class="p2nv"></div></div></div>
             <div class="p2path hidden"></div>
@@ -623,6 +623,9 @@ export class Ui {
     el.classList.toggle('hidden', !on);
     if (!on) return;
     const v = this.state.playerView(2);
+    const head = this.$('.p2head');
+    const look = this.state.p2Look();
+    if (head && head.dataset.look !== look) { head.dataset.look = look; head.src = p2HeadUrl(look); }
     const hp = this.$('.p2hp');
     hp.style.width = `${(v.hp / v.maxHp) * 100}%`;
     hp.classList.toggle('low', v.hp / v.maxHp < 0.3);
@@ -1803,11 +1806,12 @@ export class Ui {
       <h3>Pause</h3>
       <div class="pausemenu">
         <button class="primary" data-act="resume">${setIcon('weiter')}<span class="key">Esc</span> Weiter</button>
-        <button data-act="p2">${setIcon('steuerung')}<span class="key">2</span> ${label}</button>
+        <button data-act="p2">${uiSprite('ahkoop', on ? 'verlassen' : 'beitreten', 1 / 12, 'aeicon')}<span class="key">2</span> ${label}</button>
         <button data-act="fullscreen">${setIcon(this.isFullscreen() ? 'fenster' : 'vollbild')}${this.fullscreenLabel()}</button>
         <button data-act="sound">${setIcon((this.audio?.master ?? 0) <= 0 ? 'stumm' : 'lautstaerke')}${this.soundLabel()}</button>
       </div>
       <div class="feedback">${feedback}</div>
+      ${on ? this.p2LookPicker() : ''}
       <p class="lead">${on ? 'Ihr spielt zu zweit an diesem Rechner. Die Kamera hält euch beide im Bild, jeder hat sein eigenes Inventar. Geld, Ansehen und Fälle teilt ihr.' : 'Zu zweit an einem Rechner: Spieler 2 läuft als Begleiter mit über denselben Bildschirm, mit eigenem Leben und eigenem Inventar.'}</p>
       <div class="controls2">
         <div><h4>Spieler 1 · Ermittler</h4>
@@ -1826,8 +1830,16 @@ export class Ui {
       </div>`, 'pause');
     el.querySelector('[data-act=resume]').onclick = () => this.close();
     el.querySelector('[data-act=p2]').onclick = () => this.togglePlayer2();
+    el.querySelectorAll('[data-look]').forEach((b) => { b.onclick = () => { this.state.setP2Look(b.dataset.look); this.openPause(`Spieler 2 spielt jetzt mit ${P2_LOOKS[b.dataset.look].name}.`); }; });
     el.querySelector('[data-act=fullscreen]').onclick = () => this.toggleFullscreen();
     el.querySelector('[data-act=sound]').onclick = (e) => { this.cycleSound(); e.currentTarget.textContent = this.soundLabel(); };
+  }
+
+  /** Paket AH: Auswahl der Figur von Spieler 2 (Auswahlbild mit beiden Figuren). */
+  p2LookPicker() {
+    const cur = this.state.p2Look();
+    return `<div class="p2looks"><img class="p2wahl" src="${P2_CHOICE_URL}" alt="" onerror="this.remove()"><div class="p2lookbtns">${Object.entries(P2_LOOKS).map(([id, l]) => `
+      <button data-look="${id}" class="${id === cur ? 'primary' : ''}"><span class="p2face" style="background-image:url(${p2PortraitUrl(id)})"></span>${esc(l.name)}<small class="muted">${esc(l.desc)}</small></button>`).join('')}</div></div>`;
   }
 
   togglePlayer2() {
@@ -1858,7 +1870,7 @@ export class Ui {
         <div class="cb-bottom">
           <div class="cb-players">${Object.keys(scene.combat.fighters).map((n) => `
           <div class="cb-player" data-p="${n}">
-            <div class="cb-name">${turnFace('player')}${scene.combat.duo ? `Spieler ${n}` : 'Du'} <span class="muted cb-weapon"></span> <span class="cb-status"></span></div>
+            <div class="cb-name">${turnFace(n === '2' ? this.state.p2Look() : 'player')}${scene.combat.duo ? `Spieler ${n}` : 'Du'} <span class="muted cb-weapon"></span> <span class="cb-status"></span></div>
             <div class="meter"><span>Leben</span><div class="bar"><div class="pfill"></div></div><span class="hudbar hp"></span><em class="cb-hp"></em></div>
             <div class="meter"><span>Nerven</span><div class="bar"><div class="nfill"></div></div><span class="hudbar nerves"></span></div>
             <div class="cb-ap"><span>Konzentration</span> <span class="pips"></span></div>

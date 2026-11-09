@@ -37,12 +37,25 @@ export const partyMethods = {
       this.p2 = {
         active: true, hp, maxHp: hp, inventory: items,
         weapon: this.content.party?.weapon ?? (items[P2_START.weapon] ? P2_START.weapon : null), gear: { hut: null, mantel: null, amulett: null },
-        composure: 100, pathway: null, unruhe: 0, spiritVision: false, visionDigest: { map: null, total: 0 },
+        composure: 100, pathway: null, unruhe: 0, spiritVision: false, visionDigest: { map: null, total: 0 }, look: 'p2a',
       };
     }
     this.p2.active = true;
     this.p2.hp = Math.max(1, this.p2.hp);
     this.emit('party', { active: true });
+    this.emit('changed');
+    return true;
+  },
+
+  /** Paket AH: Figur von Spieler 2 ('p2a' Schiebermütze, 'p2b' Melone). Alte Spielstände haben 'p2a'. */
+  p2Look() {
+    return this.p2?.look ?? 'p2a';
+  },
+
+  setP2Look(look) {
+    if (!this.p2 || !['p2a', 'p2b'].includes(look)) return false;
+    this.p2.look = look;
+    this.emit('p2look', { look });
     this.emit('changed');
     return true;
   },
@@ -172,6 +185,7 @@ export const partyMethods = {
       weapon: inventory[p.weapon] ? p.weapon : null, gear: this.cleanGear(p.gear, inventory), composure: p.composure ?? 100,
       pathway: path && this.seqDef(path.id, path.seq) ? { id: path.id, seq: path.seq, digestion: path.digestion ?? 0 } : null,
       unruhe: Math.max(0, Math.min(99, p.unruhe ?? 0)), spiritVision: false, visionDigest: { map: null, total: 0 },
+      look: p.look === 'p2b' ? 'p2b' : 'p2a',
     };
     // Höchstwerte aus Pfad, Artefakten und Kleidung neu rechnen
     this.withPlayer(2, () => { this.maxHp = this.calcMaxHp(); this.hp = Math.min(this.hp, this.maxHp); }, { quiet: true });

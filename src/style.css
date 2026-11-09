@@ -804,3 +804,12 @@ html.touch .cb-def .aeicon { display: block; margin: 0 auto 0.2em; font-size: 16
 .chaptercard img.scene { margin: 0; }
 .chaptercard .cap { position: absolute; left: 0; right: 0; top: 70%; bottom: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; color: var(--brass, #d5ad68); font-size: 1.6em; letter-spacing: 0.08em; text-shadow: 0 2px 0 #000; }
 .chaptercard .cap small { font-size: 0.5em; color: #bfc3bc; letter-spacing: 0.3em; text-transform: uppercase; }
+
+/* Paket AH: Figur von Spieler 2 */
+.p2head { image-rendering: pixelated; vertical-align: middle; margin-right: 0.3em; }
+.p2looks { display: flex; gap: 0.8em; align-items: center; margin: 0.5em 0; }
+.p2wahl { width: 15em; image-rendering: pixelated; border: 1px solid #586c78; }
+.p2lookbtns { display: flex; flex-direction: column; gap: 0.4em; flex: 1; }
+.p2lookbtns button { display: grid; grid-template-columns: 4em 1fr; grid-template-rows: auto auto; column-gap: 0.6em; text-align: left; align-items: center; }
+.p2lookbtns small { grid-column: 2; font-size: 0.75em; }
+.p2face { grid-row: span 2; width: 4em; height: 4em; background-size: 16em 4em; background-position: 0 0; image-rendering: pixelated; }

@@ -3,7 +3,7 @@ import { Combat, WINDOW, EARLY_LIMIT, DODGE_COST, RING_CURVES, judgeDefense, jud
 import { createTextures, createCharacterSheet } from './textures.js';
 import {
   BATTLE_BACKGROUNDS, ENCOUNTER_BACKGROUNDS, ENEMY_BATTLE_SHEETS, ENCOUNTER_SHEETS, FADING_SHEETS,
-  SKILL_FX, SELF_FX, PATHWAY_POSES, WEAPON_POSES, ENCOUNTER_FX, BOSS_INTROS, bossIntroImage, BOSS_FORMS, BOSS_FORM_BACKGROUNDS, BOSS_FORM_INTROS, battleSheetDef, CASE_SHEETS, playBattleAnim, playCaseAnim,
+  SKILL_FX, SELF_FX, PATHWAY_POSES, WEAPON_POSES, battleSheetsOf, ENCOUNTER_FX, BOSS_INTROS, bossIntroImage, BOSS_FORMS, BOSS_FORM_BACKGROUNDS, BOSS_FORM_INTROS, battleSheetDef, CASE_SHEETS, playBattleAnim, playCaseAnim,
 } from './assets.js';
 import { VIEW_W, VIEW_H, PLAYER_PALETTE } from './WorldScene.js';
 
@@ -164,14 +164,18 @@ export class CombatScene extends Phaser.Scene {
   /** Schlaganimation passend zur Waffe. */
   attackAnim(n = this.combat.actor) {
     const pose = WEAPON_POSES[this.combat.on(n, () => this.state.weapon)];
-    if (pose && playBattleAnim(this.player, pose, () => this.idle(this.player), 'battle_player_weapons')) return;
+    if (pose && playBattleAnim(this.player, pose, () => this.idle(this.player), this.sheetsOf(this.player).weapons)) return;
     this.anim(this.player, 'attack');
   }
 
   /** Zauberpose des eigenen Pfades; ohne Pfad (oder ohne Sheet) die 14b-Okkult-Pose. */
   castAnim() {
-    const pose = PATHWAY_POSES[this.combat.on(this.combat.actor, () => this.state.pathway?.id)];
-    if (pose && playBattleAnim(this.player, pose, () => this.idle(this.player), 'battle_player_skills')) return true;
+    const pid = this.combat.on(this.combat.actor, () => this.state.pathway?.id);
+    const sheets = this.sheetsOf(this.player);
+    // Paket AH: Spieler 2 hat eigene Posen auch für die neuen Pfade (sq_waage, sq_moor, sq_uhr)
+    for (const pose of [sheets.own && pid?.startsWith('sq_') && pid, PATHWAY_POSES[pid]]) {
+      if (pose && playBattleAnim(this.player, pose, () => this.idle(this.player), sheets.skills)) return true;
+    }
     return this.anim(this.player, 'occult');
   }
 
@@ -204,20 +208,24 @@ export class CombatScene extends Phaser.Scene {
     for (const n of Object.keys(this.homes).map(Number)) {
       const h = this.homes[n];
       let spr;
-      if (this.textures.exists('battle_player')) {
+      // Paket AH: Spieler 2 kämpft mit seiner eigenen Figur, sonst getönt mit dem Ermittler-Sheet
+      const look = n === 2 ? this.state.p2Look?.() : null;
+      const sheets = look && this.textures.exists(`${look}_battle`) ? { ...battleSheetsOf(look), own: true } : battleSheetsOf(null);
+      if (this.textures.exists(sheets.base)) {
         // Kampf-Sheet (48x48, Blick nach rechts); Füße liegen am unteren Zellrand.
-        spr = this.add.sprite(h.x, h.y, 'battle_player', 0).setOrigin(0.5, 1).setScale(1.5).setDepth(n === 2 ? 11 : 10);
+        spr = this.add.sprite(h.x, h.y, sheets.base, 0).setOrigin(0.5, 1).setScale(1.5).setDepth(n === 2 ? 11 : 10);
       } else {
         createCharacterSheet(this, 'player', PLAYER_PALETTE);
         spr = this.add.sprite(h.x, h.y, 'player', 8).setOrigin(0.5, 1).setScale(2).setDepth(n === 2 ? 11 : 10);
       }
       spr.homeX = h.x;
       spr.homeY = h.y;
-      spr.baseTint = n === 2 ? P2_TINT : null;
+      spr.sheets = sheets;
+      spr.baseTint = n === 2 && !sheets.own ? P2_TINT : null;
       if (spr.baseTint) spr.setTint(spr.baseTint);
       this.players[n] = spr;
       this.add.ellipse(h.x, h.y, 34, 8, 0x000000, 0.35).setDepth(9);
-      if (this.textures.exists('battle_player')) this.idle(spr);
+      if (this.textures.exists(sheets.base)) this.idle(spr);
     }
     this.player = this.players[1];
 
@@ -261,8 +269,13 @@ export class CombatScene extends Phaser.Scene {
 
   /** Grund-Sheet einer Figur (Zusatz-Sheets wie Waffen oder Zauber kehren hierher zurück). */
   baseSheet(sprite) {
-    if (Object.values(this.players ?? {}).includes(sprite)) return 'battle_player';
+    if (Object.values(this.players ?? {}).includes(sprite)) return this.sheetsOf(sprite).base;
     return this.enemySheet ?? sprite.texture.key;
+  }
+
+  /** Kampf-Sheets eines Spieler-Sprites (Paket AH). */
+  sheetsOf(sprite) {
+    return sprite?.sheets ?? battleSheetsOf(null);
   }
 
   playerCenter() {
@@ -630,7 +643,7 @@ export class CombatScene extends Phaser.Scene {
       if (this.anim(this.enemy, 'defeated', false)) { if (!human) this.tweens.add({ targets: this.enemy, alpha: 0, delay: 900, duration: 700 }); }
       else this.tweens.add({ targets: this.enemy, alpha: 0, y: '+=10', duration: 700 });
     }
-    if (c.outcome === 'won') for (const n of c.standing()) playBattleAnim(this.players[n], 'victory', null, 'battle_player_weapons');
+    if (c.outcome === 'won') for (const n of c.standing()) playBattleAnim(this.players[n], 'victory', null, this.sheetsOf(this.players[n]).weapons);
     if (c.outcome === 'won') {
       const efx = ENCOUNTER_FX[this.encounterId];
       this.caseFx(efx?.won, 'enemy');
