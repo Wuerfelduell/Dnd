@@ -847,6 +847,7 @@ export function preloadSprites(scene) {
   if (!scene.cache.json.exists('manifestWildnis')) scene.load.json('manifestWildnis', `${BASE}manifest-wildnis.json`);
   if (!scene.cache.json.exists('manifestReise')) scene.load.json('manifestReise', `${BASE}manifest-reise.json`);
   if (!scene.cache.json.exists('manifestJournal')) scene.load.json('manifestJournal', `${BASE}manifest-journal.json`);
+  if (!scene.cache.json.exists('manifestSequenzen2')) scene.load.json('manifestSequenzen2', `${BASE}manifest-sequenzen2.json`);
   if (!scene.cache.json.exists('manifestTreffen')) scene.load.json('manifestTreffen', `${BASE}manifest-treffen.json`);
   if (!scene.cache.json.exists('manifestFall78')) scene.load.json('manifestFall78', `${BASE}manifest-fall78.json`);
   if (!scene.cache.json.exists('manifestFall6')) scene.load.json('manifestFall6', `${BASE}manifest-fall6.json`);
@@ -884,7 +885,7 @@ function battleAnimDef(scene, sheet, name) {
   return null;
 }
 /** Manifeste mit Kampf-Sheets; spätere Pakete nennen ihre Einträge nicht nach dem Sheet, darum auch über die Datei. */
-const BATTLE_MANIFESTS = ['manifest14b', 'manifestKampf', 'manifestKampf2', 'manifestReise', 'manifestWildnis', 'manifestGegner3', 'manifestFall5', 'manifestFall6', 'manifestFall78'];
+const BATTLE_MANIFESTS = ['manifest14b', 'manifestKampf', 'manifestKampf2', 'manifestReise', 'manifestWildnis', 'manifestGegner3', 'manifestFall5', 'manifestFall6', 'manifestFall78', 'manifestSequenzen2'];
 export function battleSheetDef(scene, sheet) {
   const file = BATTLE_SHEETS[sheet]?.[0];
   for (const m of BATTLE_MANIFESTS) {
@@ -1343,3 +1344,39 @@ for (const id of ['schleierbote', 'tresswell', 'vellacourt', 'kohlenjem']) {
 /** Zirkel → Emblem/Einladung in ui/O_zirkel.png. */
 export const ZIRKEL_URL = `${BASE}ui/O_zirkel.png`;
 export const ZIRKEL_ICONS = { waage: [0, 2], kreide: [1, 3], russ: [2, 4] }; // [Emblem 32er-Spalte, Einladung 16er-Spalte]
+
+// --- Paket N: Sequenz 6/5, Artefakte und Asservatenkammer (manifest-sequenzen2.json) -------------
+// Tränke, Formeln und 16er-Icons ersetzen die Platzhalter unter gleichem Namen; hier kommt nur Neues dazu.
+/** Fähigkeiten der Sequenzen 6 und 5: Effekt-Streifen (Animation "cast") und Icons in ui/skill_icons_2.png. */
+Object.assign(SKILL_FX, {
+  lichtbann: 48, fangnetz: 48, spiegelbild: 48, totenchor: 48, lebenselixier: 32, unbeugsam: 48, taschenspiel: 48,
+  weissglut: 64, zerreissen: 64, maskenball: 64, stillgesang: 64, zersetzung: 48, hammerfall: 64, kehlschnitt: 48,
+});
+for (const id of ['lichtbann', 'fangnetz', 'spiegelbild', 'totenchor', 'lebenselixier', 'unbeugsam', 'taschenspiel',
+  'weissglut', 'zerreissen', 'maskenball', 'stillgesang', 'zersetzung', 'hammerfall', 'kehlschnitt']) BATTLE_SHEETS[`fx_${id}`] = [`fx/fx_${id}.png`, SKILL_FX[id]];
+SELF_FX.push('spiegelbild', 'lebenselixier', 'unbeugsam');
+/** Fähigkeit → Zelle in ui/skill_icons_2.png (7 Pfadspalten x Sequenz 6/5). */
+export const SKILL_ICONS_2 = Object.fromEntries([
+  'lichtbann', 'fangnetz', 'spiegelbild', 'totenchor', 'lebenselixier', 'unbeugsam', 'taschenspiel',
+  'weissglut', 'zerreissen', 'maskenball', 'stillgesang', 'zersetzung', 'hammerfall', 'kehlschnitt'].map((id, i) => [id, i]));
+export const SKILL_ICONS_2_URL = `${BASE}ui/skill_icons_2.png`;
+/** Icon einer Fähigkeit: [Bild-URL, Zelle] oder null. */
+export const skillIconOf = (id) => (SKILL_ICONS[id] !== undefined ? [SKILL_ICONS_URL, SKILL_ICONS[id]]
+  : SKILL_ICONS_2[id] !== undefined ? [SKILL_ICONS_2_URL, SKILL_ICONS_2[id]] : null);
+/** Verfluchte Artefakte und hohe Zutaten bekommen 32er-Icons (items/32/<id>.png). */
+export const N_ARTIFACTS = ['uhr_ertrunkener', 'richterhammer', 'augenbinde_odile', 'bleiamulett', 'rahmenloser_spiegel', 'zahnkette',
+  'hungriger_ring', 'knochenwuerfel', 'stille_glocke', 'kupferkrone', 'wachshand', 'schwarzes_herz'];
+export const N_INGREDIENTS = ['flammenkern', 'lichtperle', 'knotengarn', 'spindelknochen', 'spiegelwachs', 'schminkasche', 'glockenerz',
+  'atemglas', 'salamanderoel', 'goldschimmel', 'ambossstaub', 'schwertsplitter', 'dietrichsilber', 'schattenseide', 'nebelherz'];
+ICON32.push(...N_ARTIFACTS, ...N_INGREDIENTS);
+/** Pulsierende 16er-Icons (2 Frames nebeneinander). */
+export const PULSE_ICONS = { nebelherz: `${BASE}items/nebelherz_pulse.png`, schwarzes_herz: `${BASE}items/schwarzes_herz_pulse.png` };
+/** Artefakt-Oberfläche: Slots, Vor-/Nachteil-Marken, Unruhe-Leiste (ui/N_artefakt_ui.png, 128x64). */
+export const ARTIFACT_UI_URL = `${BASE}ui/N_artefakt_ui.png`;
+/** Asservatenwart Thale und Gutachterin Varga. */
+for (const id of ['thale', 'varga']) {
+  SHEETS[`n_${id}`] = `characters/N_${id}_walk.png`;
+  CHARACTER_SHEETS[`npc_${id}`] = `n_${id}`;
+  PORTRAITS[id] = `N_${id}_emotions.png`;
+  HEADS.push(id);
+}

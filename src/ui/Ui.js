@@ -5,7 +5,7 @@ import {
   portraitUrl, portraitFor, mapMarkerOf, LOG_MARKERS, LOG_MARKERS_URL, SOURCE_ICONS, SPRITE_BASE,
   endingImageUrl, caseFileUrl, sceneUrl, wantedUrl, QUEST_UI_URL, QUEST_PINS, QUEST_BANNERS,
   TURN_PORTRAITS, TURN_PORTRAITS_URL, TURN_PORTRAIT_URLS, BESTIARY, bestiaryUrl,
-  headUrl, ZIRKEL_URL, ZIRKEL_ICONS, sourceKind, sourceKindUrl, inspectUrl, RISK_ICONS, RISK_ICONS_URL, JOURNAL_FRAME, JOURNAL_FRAME_URL, choiceRisk, riskOf,
+  headUrl, ZIRKEL_URL, ZIRKEL_ICONS, skillIconOf, PULSE_ICONS, ARTIFACT_UI_URL, sourceKind, sourceKindUrl, inspectUrl, RISK_ICONS, RISK_ICONS_URL, JOURNAL_FRAME, JOURNAL_FRAME_URL, choiceRisk, riskOf,
   factionEmblemUrl, TRAVEL_MODES_URL, TRAVEL_MODE_ICONS, TRAVEL_MARKER_URL,
   DANGER_URL, DANGER_ICONS, DANGER_BANNER, RARITY_SHEET, RARITY_SHEET_URL, RARITY_GEMS,
 } from '../world/assets.js';
@@ -16,11 +16,11 @@ import { canHurry, travelSafe, travelFast, afterHurryFight } from '../core/Trave
 import { questTarget } from '../core/Guide.js';
 
 /** 16x16-Icon vor einem Item-Namen. Lädt es nicht, verschwindet es einfach. */
-const itemIcon = (id) => `<img class="item-icon" src="${itemIconUrl(id)}" alt="" width="16" height="16" onerror="this.remove()">`;
+const itemIcon = (id) => (PULSE_ICONS[id] ? `<span class="item-icon pulse" style="background-image:url(${PULSE_ICONS[id]})"></span>` : `<img class="item-icon" src="${itemIconUrl(id)}" alt="" width="16" height="16" onerror="this.remove()">`);
 /** Größeres Icon (Tränke in 32px, sonst das 16er doppelt). */
 const itemIconBig = (id) => `<img class="item-icon big" src="${itemIcon32Url(id) ?? itemIconUrl(id)}" alt="" width="32" height="32" onerror="this.remove()">`;
 /** Vor- und Nachteile eines Artefakts als kleine Liste. */
-const artifactEffectsHtml = (it) => `<span class="arteffects">${(it.boons ?? []).map((x) => `<span class="boon">+ ${esc(x.text)}</span>`).join('')}${(it.curses ?? []).map((x) => `<span class="curse">− ${esc(x.text)}</span>`).join('')}</span>`;
+const artifactEffectsHtml = (it) => `<span class="arteffects">${(it.boons ?? []).map((x) => `<span class="boon"><i class="artmark plus"></i>${esc(x.text)}</span>`).join('')}${(it.curses ?? []).map((x) => `<span class="curse"><i class="artmark minus"></i>${esc(x.text)}</span>`).join('')}</span>`;
 const emblem = (pid, size = 16) => `<img class="emblem" src="${pathwayEmblemUrl(pid, size)}" alt="" width="${size}" height="${size}" onerror="this.remove()">`;
 /** 16x16-Zelle aus einem Icon-Atlas (Fähigkeiten: 7 Spalten, Zustände: 12 Spalten). */
 const atlasIcon = (url, index, cols, title = '') => (index === undefined ? ''
@@ -31,7 +31,13 @@ const turnFace = (id) => {
   const [url, cols] = TURN_PORTRAIT_URLS[id] ?? [TURN_PORTRAITS_URL, 19];
   return `<span class="turnface" style="background-image:url(${url});background-size:${cols * 2}em 2em;background-position:-${TURN_PORTRAITS[id] * 2}em 0"></span>`;
 };
-const skillIcon = (id) => atlasIcon(SKILL_ICONS_URL, SKILL_ICONS[id], 7);
+const skillIcon = (id) => { const ic = skillIconOf(id); return ic ? atlasIcon(ic[0], ic[1], 7) : ''; };
+/** Artefakt-Slots (20x20 aus ui/N_artefakt_ui.png), angelegte mit Icon in der Öffnung. */
+const artifactSlots = (ids, max, overloaded) => Array.from({ length: Math.max(max, ids.length) }, (_, i) => {
+  const id = ids[i];
+  const kind = !id ? 'empty' : overloaded ? 'overloaded' : 'equipped';
+  return `<span class="artslot ${kind}">${id ? `<img src="${itemIconUrl(id)}" alt="" width="12" height="12">` : ''}</span>`;
+}).join('');
 const statusIcon = (id, title) => atlasIcon(STATUS_ICONS_URL, STATUS_ICONS[id], 12, title);
 const mapMarker = (map) => { const [url, i, cols] = mapMarkerOf(map); return atlasIcon(url, i, cols); };
 /** Portrait (64x64 aus einem 256x64-Streifen) für den Dialog. */
@@ -116,6 +122,7 @@ export const STATUS_LABEL = { suspected: 'Vermutung', likely: 'sehr wahrscheinli
 export class Ui {
   constructor(root, state, { onNewGame, onContinue, hasSave }) {
     this.root = root;
+    root.style.setProperty('--artui', `url(${new URL(ARTIFACT_UI_URL, document.baseURI).href})`);
     this.state = state;
     this.onNewGame = onNewGame;
     this.onContinue = onContinue;
@@ -791,7 +798,7 @@ export class Ui {
       return `<li class="item"><div>${it.kind === 'potion' || it.kind === 'formula' ? itemIconBig(it.id) : itemIcon(it.id)}<strong>${esc(it.name)}</strong>${it.count > 1 ? ` ×${it.count}` : ''}${stat}<br><span class="desc">${esc(it.desc)}</span>${effects}</div><div>${action}</div></li>`;
     }).join('');
     const arts = s.artifacts.length || list.some((it) => it.kind === 'artifact')
-      ? `<div class="status">Artefakte angelegt <strong>${s.artifacts.length}/${s.artifactRules().max_active ?? 3}</strong>${s.artifactUnruhe() ? ` · <span class="curse">Unruhe +${Math.round(s.artifactUnruhe() * 10) / 10} pro Sekunde</span>` : ''} · Anlegen bringt Unruhe, Ablegen kostet Nerven.</div>` : '';
+      ? `<div class="status"><span class="artslots">${artifactSlots(s.artifacts, s.artifactRules().max_active ?? 3, s.unruhe >= 60)}</span>Artefakte angelegt <strong>${s.artifacts.length}/${s.artifactRules().max_active ?? 3}</strong>${s.artifactUnruhe() ? ` · <span class="curse">Unruhe +${Math.round(s.artifactUnruhe() * 10) / 10} pro Sekunde</span>` : ''} · Anlegen bringt Unruhe, Ablegen kostet Nerven.</div>` : '';
     return `
       <div class="status">Leben <strong>${s.hp}/${s.maxHp}</strong> · Nerven <strong>${Math.round(s.composure)}/${s.maxComposure()}</strong> · Waffe <strong>${esc(w.name)}</strong> (Angriff ${w.atk}) · ${coin}<strong>${s.money}</strong> Schilling</div>
       ${arts}
@@ -1237,7 +1244,7 @@ export class Ui {
       this.layer.querySelector('.cb-help').textContent = '';
     } else if (sub === 'skills') {
       entries = c.skills().filter((k) => k.id !== 'attack').map((k) => ({
-        text: `${k.pathway && SKILL_ICONS[k.id] === undefined ? '✧ ' : ''}${k.name}`, skill: k.id, info: `${k.cost} K${k.composure ? ` · ${k.composure} Nerven` : ''}`, desc: k.desc, act: { type: 'skill', id: k.id }, disabled: !k.usable,
+        text: `${k.pathway && !skillIconOf(k.id) ? '✧ ' : ''}${k.name}`, skill: k.id, info: `${k.cost} K${k.composure ? ` · ${k.composure} Nerven` : ''}`, desc: k.desc, act: { type: 'skill', id: k.id }, disabled: !k.usable,
       }));
     } else {
       entries = this.state.items().filter((i) => i.kind === 'consumable').map((i) => ({ text: `${i.name} ×${i.count}`, icon: i.id, desc: i.desc, act: { type: 'item', id: i.id } }));
