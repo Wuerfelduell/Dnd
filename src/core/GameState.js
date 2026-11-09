@@ -3,6 +3,10 @@ import { pathwayMethods } from './Pathways.js';
 import { gatheringMethods } from './Gatherings.js';
 import { wantedMethods } from './Wanted.js';
 import { artifactMethods } from './Artifacts.js';
+
+/** Tragkraft in Pfund. Gegenstände ohne eigenes "weight" wiegen je nach Art so viel. */
+export const BASE_CARRY = 40;
+export const KIND_WEIGHT = { weapon: 4, artifact: 2, consumable: 1, potion: 1, ingredient: 0.5, trophy: 2, formula: 0, key: 0 };
 //
 // Begriffe:
 // - Hinweis (clue): eine einzelne Quelle, z. B. eine Spur oder eine Zeugenaussage.
@@ -45,6 +49,7 @@ export class GameState {
     this.hp = this.maxHp;
     this.inventory = { ...(s.items ?? {}) }; // id -> Anzahl
     this.storage = {}; // Lagerschrank im eigenen Büro: id -> Anzahl
+    this.stashes = {}; // weitere Verstecke (z. B. der Torfkahn in Wexmoor): ort -> { id -> Anzahl }
     this.weapon = s.weapon ?? null;
     this.pendingCombat = null;
     this.tracked = null; // verfolgter Auftrag (Journal-Wegweiser)
@@ -347,10 +352,13 @@ export class GameState {
   addItem(id, n = 1) {
     const it = this.item(id);
     if (!it) throw new Error(`Unbekannter Gegenstand: ${id}`);
+    const wasHeavy = this.isOverloaded();
     this.inventory[id] = this.itemCount(id) + n;
     // Bessere Waffe automatisch ausrüsten
     if (it.kind === 'weapon' && (!this.weapon || it.atk > this.item(this.weapon).atk)) this.weapon = id;
     this.emit('item', { id, delta: n });
+    // Beute geht nie verloren: wer zu viel trägt, wird nur langsamer.
+    if (!wasHeavy && this.isOverloaded()) this.emit('notice', `Zu schwer beladen (${this.carryText()}). Du kommst nur langsam voran. Lagere etwas ein oder wirf es weg.`);
   }
 
   removeItem(id, n = 1) {
@@ -368,6 +376,49 @@ export class GameState {
     return Object.keys(this.inventory).map((id) => ({ id, count: this.inventory[id], ...this.item(id) }));
   }
 
+  // --- Tragkraft --------------------------------------------------------------------
+  /** Gewicht eines Stücks in Pfund. Beweisstücke und Rezepte wiegen nichts. */
+  itemWeight(id) {
+    const it = this.item(id);
+    if (!it) return 0;
+    return it.weight ?? KIND_WEIGHT[it.kind] ?? 1;
+  }
+
+  carryWeight() {
+    let w = 0;
+    for (const [id, n] of Object.entries(this.inventory)) w += this.itemWeight(id) * n;
+    return Math.round(w * 10) / 10;
+  }
+
+  /** Grundlast plus Boni (Pfad des Eisens). */
+  carryCapacity() {
+    return BASE_CARRY + this.passive('carry');
+  }
+
+  isOverloaded() {
+    return this.carryWeight() > this.carryCapacity();
+  }
+
+  carryText() {
+    const f = (v) => String(Math.round(v * 10) / 10).replace('.', ',');
+    return `${f(this.carryWeight())}/${f(this.carryCapacity())} Pfund`;
+  }
+
+  /** Wegwerfen: weg ist weg. Beweisstücke und geliehene Artefakte gehen nicht. */
+  canDrop(id) {
+    const it = this.item(id);
+    return !!it && it.kind !== 'key' && !(this.borrowed ?? []).includes(id);
+  }
+
+  dropItem(id, n = 1) {
+    if (!this.canDrop(id)) return { ok: false, text: 'Das kannst du nicht einfach wegwerfen.' };
+    n = Math.min(n, this.itemCount(id));
+    if (n <= 0) return { ok: false, text: 'Davon hast du nichts dabei.' };
+    this.removeItem(id, n);
+    this.emit('changed');
+    return { ok: true, text: `Weggeworfen: ${this.item(id).name}${n > 1 ? ` ×${n}` : ''}.` };
+  }
+
   // --- Lager im eigenen Büro ------------------------------------------------------
   /** Beweisstücke (Art "key") bleiben beim Ermittler, alles andere darf in den Schrank. */
   canStore(id) {
@@ -375,30 +426,39 @@ export class GameState {
     return !!it && it.kind !== 'key';
   }
 
-  storedCount(id) {
-    return this.storage[id] ?? 0;
+  /** Inhalt eines Lagers. 'buero' ist der Asservatenschrank, alles andere ein eigenes Versteck. */
+  stash(where = 'buero') {
+    if (where === 'buero') return this.storage;
+    return (this.stashes[where] ??= {});
+  }
+
+  storedCount(id, where = 'buero') {
+    return this.stash(where)[id] ?? 0;
   }
 
   /** Liste für den Schrank: [{id, count, ...gegenstand}] */
-  storedItems() {
-    return Object.keys(this.storage).map((id) => ({ id, count: this.storage[id], ...this.item(id) }));
+  storedItems(where = 'buero') {
+    const st = this.stash(where);
+    return Object.keys(st).map((id) => ({ id, count: st[id], ...this.item(id) }));
   }
 
-  storeItem(id, n = 1) {
+  storeItem(id, n = 1, where = 'buero') {
     if (!this.canStore(id)) return { ok: false, text: 'Beweisstücke behältst du lieber bei dir.' };
     n = Math.min(n, this.itemCount(id));
     if (n <= 0) return { ok: false, text: 'Davon hast du nichts dabei.' };
     this.removeItem(id, n);
-    this.storage[id] = this.storedCount(id) + n;
+    const st = this.stash(where);
+    st[id] = (st[id] ?? 0) + n;
     this.emit('changed');
     return { ok: true, text: `Eingelagert: ${this.item(id).name}${n > 1 ? ` ×${n}` : ''}.` };
   }
 
-  retrieveItem(id, n = 1) {
-    n = Math.min(n, this.storedCount(id));
+  retrieveItem(id, n = 1, where = 'buero') {
+    const st = this.stash(where);
+    n = Math.min(n, st[id] ?? 0);
     if (n <= 0) return { ok: false, text: 'Das liegt nicht im Schrank.' };
-    this.storage[id] -= n;
-    if (this.storage[id] <= 0) delete this.storage[id];
+    st[id] -= n;
+    if (st[id] <= 0) delete st[id];
     this.addItem(id, n);
     this.emit('changed');
     return { ok: true, text: `Herausgenommen: ${this.item(id).name}${n > 1 ? ` ×${n}` : ''}.` };
@@ -525,6 +585,7 @@ export class GameState {
       hp: this.hp,
       inventory: this.inventory,
       storage: this.storage,
+      stashes: this.stashes,
       weapon: this.weapon,
       tracked: this.tracked,
       ...this.serializePathway(),
@@ -553,6 +614,7 @@ export class GameState {
       this.inventory = Object.fromEntries(Object.entries(data.inventory ?? {}).filter(([i, n]) => this.item(i) && n > 0));
       this.weapon = this.inventory[data.weapon] ? data.weapon : null;
       this.storage = Object.fromEntries(Object.entries(data.storage ?? {}).filter(([i, n]) => this.item(i) && n > 0));
+      this.stashes = Object.fromEntries(Object.entries(data.stashes ?? {}).map(([w, st]) => [w, Object.fromEntries(Object.entries(st ?? {}).filter(([i, n]) => this.item(i) && n > 0))]));
     }
     // Ab Version 4: Schilling, Pfad und Unruhe
     if (data.v >= 4) this.loadPathway(data);

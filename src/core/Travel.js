@@ -32,6 +32,7 @@ export function travelDestinations(state, current) {
 
 /** Darf der schnelle Weg genommen werden? */
 export function canHurry(state) {
+  if (state.isOverloaded?.()) return false;
   return state.composure >= travelData(state).modes.schnell.nerves_cost;
 }
 
