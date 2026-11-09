@@ -710,3 +710,48 @@ Ausholframes und Atlasgrenzen. Sichtkontrollen: `fall78-combat-preview.png`,
 
 Nur Grafikassets und Grafikdokumentation; kein Spielcode geändert. Einbindung,
 Tile-Zusammensetzung und Animationstiming im laufenden Spiel erfolgen separat.
+
+
+## Batch K – Fall 6: Der dreizehnte Gast
+
+81 PNGs für Atelier/Dunkelkammer, Ballsaal und Spiegelkabinett: drei Gegner und
+Boss mit acht Animationsreihen, neun Effekte, vier Maskenballgäste,
+Ashcombe/Mews, vier Kartengegner, vier Kampfkulissen, Bestiarium, Items,
+Hinweise, fünf Fotoplatten-Zustände, sechs Zwischenszenen und vier Enden.
+Die fünf vorhandenen 16×16-Fallgegenstände werden durch die passenden neuen
+Icons ersetzt; die bestehenden E-Figuren, Fotoplatte-Icons und anderen Batches
+werden weiterverwendet.
+
+- Manifest: `public/sprites/manifest-fall6.json`
+- Tatsächliche Prompts, Referenzen, Quell-Hashes und Zuschnitte: `batch-fall6-generation.json`
+- Prüfbericht: `batch-fall6-validation.json` (81 PNGs, 2.519 Prüfungen)
+- Sieben Übersichten und Boss-Animation: `previews/batch-fall6-*`
+
+31 gemeinsame sichtbare Farben plus transparenter Index; binäres Alpha.
+Kampf-Sheets haben sechs Spalten, transparente Restzellen und eine einheitliche
+Grundlinie je Sheet. `baselineY` ist die inklusive letzte sichtbare Pixelzeile:
+46/62/94 im Kampf, 30 bzw. 30 bei 16×32-/32×32-Kartensprites.
+Angriffe halten die erste Ausholpose für zwei Frames. Laufrichtungen: unten,
+links, rechts, oben. Effekte und Emotionsporträts liegen als horizontale Streifen vor.
+
+Variable Prop-Atlanten verwenden benannte `regions` und `regionAnimations`.
+Kamera, Schrank, Plattenentwicklung und Schattenablösung laufen einmal;
+Lampen, Kronleuchter, Tank und Karussell wiederholen ihre Animation.
+Die 13 Stühle sind separat benannt, die Tafel hat sechs plus sieben Gedecke.
+Terrain hat 8×8 Tiles à 16 Pixel, benannte Tile-IDs und größere `tileRegions`;
+die vier Basisboden-Varianten haben passende Randpixel für freie Kombination.
+Die Item-Atlanten enthalten 16×16-Icons oben und 32×32-Icons ab y=16.
+
+```sh
+# Pillow und numpy; SOURCE_DIR enthält die protokollierten Generatororiginale.
+python docs/art/export-fall6.py SOURCE_DIR .
+python docs/art/verify-fall6.py .
+python docs/art/preview-fall6.py .
+```
+
+Die Prüfung umfasst Vollständigkeit, Maße, gemeinsame Palette, Alpha,
+Atlasregionen, Animationsindizes, Zellenränder, Grundlinien, Ausholposen und
+Bodenübergänge. Bildkorrekturen betreffen unter anderem transparente Hintergründe,
+Mews ohne Brille, eindeutige Fotoplatten-Stufen und die Fotografin im Schlussbild.
+Grafikpaket und Dokumentation sind fertig; Einbau und Timing-Abgleich im laufenden
+Spiel erfolgen separat. Kein Spielcode wurde geändert.

@@ -376,5 +376,151 @@
         ]
       }
     }
+  },
+  "inspect_lilians_spieluhr": {
+    "start": "start",
+    "nodes": {
+      "start": {
+        "text": "Die Spieldose passt in eine Kinderhand. Auf dem Deckel ist ein Mond gemalt, das Messing ist dort blank, wo ein Daumen ihn tausendmal berührt hat.",
+        "choices": [
+          {
+            "text": "Aufziehen",
+            "next": "play"
+          },
+          {
+            "text": "Den Boden abschrauben (riskant)",
+            "next": [
+              {
+                "node": "inside_ok",
+                "chance": 0.6
+              },
+              {
+                "node": "inside_bad"
+              }
+            ]
+          },
+          {
+            "text": "Wieder einpacken."
+          }
+        ]
+      },
+      "play": {
+        "text": "Drei Töne, dann Stille. Die Walze steht, als warte sie darauf, dass jemand die Melodie zu Ende singt.",
+        "nerves": -3,
+        "choices": [
+          {
+            "text": "Weiter",
+            "next": "start"
+          }
+        ]
+      },
+      "inside_ok": {
+        "text": "Unter dem Boden klebt ein zusammengefalteter Zettel in Kinderschrift: „Mama soll wieder singen.“ Du faltest ihn behutsam zurück.",
+        "nerves": 5,
+        "choices": [
+          {
+            "text": "Weiter",
+            "next": "start"
+          }
+        ]
+      },
+      "inside_bad": {
+        "text": "Die Walze dreht sich von allein weiter. Aus dem winzigen Kasten singt ein Kind die nächsten Töne, ganz nah an deinem Ohr.",
+        "unruhe": 8,
+        "nerves": -12,
+        "choices": [
+          {
+            "text": "Weiter",
+            "next": "start"
+          }
+        ]
+      }
+    }
+  },
+  "inspect_veys_tagebuch": {
+    "start": "start",
+    "nodes": {
+      "start": {
+        "text": "Ein schwarzes Notizbuch mit abgegriffenen Ecken. Vorne Probenpläne und Einkaufslisten, hinten nur noch Noten und immer derselbe Name.",
+        "choices": [
+          {
+            "text": "Die ersten Seiten lesen",
+            "next": "early"
+          },
+          {
+            "text": "Die Noten hinten summen (gefährlich)",
+            "next": [
+              {
+                "node": "hum_ok",
+                "chance": 0.5
+              },
+              {
+                "node": "hum_bad"
+              }
+            ]
+          },
+          {
+            "text": "Zuklappen."
+          }
+        ]
+      },
+      "early": {
+        "text": "„Lilian hat heute die zweite Stimme gehalten, ganz allein. Sieben Jahre alt.“ Darunter, Wochen später und mit zitternder Hand: „Ich höre sie noch.“",
+        "choices": [
+          {
+            "text": "Weiter",
+            "next": "start"
+          }
+        ]
+      },
+      "hum_ok": {
+        "text": "Die Melodie bricht nach vier Takten ab. Sie ist unfertig, als hätte jemand auf die fehlenden Stimmen gewartet.",
+        "nerves": -3,
+        "choices": [
+          {
+            "text": "Weiter",
+            "next": "start"
+          }
+        ]
+      },
+      "hum_bad": {
+        "text": "Beim fünften Takt summen andere mit. Sieben Frauenstimmen, dicht hinter dir. Als du dich umdrehst, ist niemand da.",
+        "unruhe": 10,
+        "nerves": -15,
+        "choices": [
+          {
+            "text": "Weiter",
+            "next": "start"
+          }
+        ]
+      }
+    }
+  },
+  "inspect_stimmgabel_silber": {
+    "start": "start",
+    "nodes": {
+      "start": {
+        "text": "Eine Stimmgabel aus Silber, schmal und kalt. In den Griff hat Meisterin Hettie eine winzige Kerbe gefeilt.",
+        "choices": [
+          {
+            "text": "Leicht anschlagen",
+            "next": "tone"
+          },
+          {
+            "text": "Wieder einpacken."
+          }
+        ]
+      },
+      "tone": {
+        "text": "Der Ton ist um ein Haar zu hoch. Er reibt sich an allem, was du im Kopf hast, und für einen Moment wird es dort ganz still.",
+        "nerves": 8,
+        "choices": [
+          {
+            "text": "Weiter",
+            "next": "start"
+          }
+        ]
+      }
+    }
   }
 }

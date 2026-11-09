@@ -1,0 +1,3136 @@
+{
+  "version": 1,
+  "batch": "fall6",
+  "caseId": "case_06",
+  "status": "exported; runtime integration pending",
+  "paletteMaxVisibleColors": 31,
+  "palette": [
+    "#1a1c2c",
+    "#252b38",
+    "#303b49",
+    "#425360",
+    "#586c78",
+    "#71858b",
+    "#95a5a5",
+    "#2d2629",
+    "#633b46",
+    "#58433c",
+    "#715648",
+    "#92745a",
+    "#b3946e",
+    "#cfb18a",
+    "#e0c9a1",
+    "#494b3a",
+    "#85434b",
+    "#44345f",
+    "#78588d",
+    "#dbd2b3",
+    "#eee2c5",
+    "#173d40",
+    "#245b59",
+    "#36817a",
+    "#4eafa2",
+    "#6fe0d0",
+    "#5f4829",
+    "#886332",
+    "#ba8942",
+    "#dbac5d",
+    "#f0ce80"
+  ],
+  "assets": [
+    {
+      "id": "schattenabzug",
+      "file": "battle/enemy_schattenabzug.png",
+      "width": 288,
+      "height": 240,
+      "transparent": true,
+      "sha256": "f3bf393f929a001bc14b82c615aac71d16e0f39419ce2174cacf185b259fd644",
+      "frameWidth": 48,
+      "frameHeight": 48,
+      "columns": 6,
+      "rows": 5,
+      "baselineY": 46,
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "attack": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "special": {
+          "frames": [
+            12,
+            13,
+            14,
+            15,
+            16,
+            17
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            18,
+            19,
+            20
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            24,
+            25,
+            26,
+            27,
+            28,
+            29
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      },
+      "paddingFrames": [
+        4,
+        5,
+        21,
+        22,
+        23
+      ],
+      "heldAnticipationRows": [
+        1,
+        2
+      ],
+      "facing": "left",
+      "entityId": "schattenabzug"
+    },
+    {
+      "id": "negativ_geist",
+      "file": "battle/enemy_negativ_geist.png",
+      "width": 384,
+      "height": 320,
+      "transparent": true,
+      "sha256": "38f8d5b6b5d955385e89f4650ff540e051a6f208b4a760e8761f6c821b6f2d0f",
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 6,
+      "rows": 5,
+      "baselineY": 62,
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "attack": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "special": {
+          "frames": [
+            12,
+            13,
+            14,
+            15,
+            16,
+            17
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            18,
+            19,
+            20
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            24,
+            25,
+            26,
+            27,
+            28,
+            29
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      },
+      "paddingFrames": [
+        4,
+        5,
+        21,
+        22,
+        23
+      ],
+      "heldAnticipationRows": [
+        1,
+        2
+      ],
+      "facing": "left",
+      "entityId": "negativ_geist"
+    },
+    {
+      "id": "silberbad_schleim",
+      "file": "battle/enemy_silberbad_schleim.png",
+      "width": 384,
+      "height": 320,
+      "transparent": true,
+      "sha256": "1a36c22ffc7ba5b333d543488dd47bc7c0cfa37cfbee228561213b8f04879c95",
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 6,
+      "rows": 5,
+      "baselineY": 62,
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "attack": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "special": {
+          "frames": [
+            12,
+            13,
+            14,
+            15,
+            16,
+            17
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            18,
+            19,
+            20
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            24,
+            25,
+            26,
+            27,
+            28,
+            29
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      },
+      "paddingFrames": [
+        4,
+        5,
+        21,
+        22,
+        23
+      ],
+      "heldAnticipationRows": [
+        1,
+        2
+      ],
+      "facing": "left",
+      "entityId": "silberbad_schleim"
+    },
+    {
+      "id": "fx_blitzlicht",
+      "file": "fx/fx_blitzlicht.png",
+      "width": 288,
+      "height": 48,
+      "transparent": true,
+      "sha256": "174070e9ee2275c6ad5a3f1a9864dda9735287399aeb0a191305a6351f14aa0c",
+      "frameWidth": 48,
+      "frameHeight": 48,
+      "columns": 6,
+      "rows": 1,
+      "animations": {
+        "play": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "frameRate": 10,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "fx_bilderrahmen",
+      "file": "fx/fx_bilderrahmen.png",
+      "width": 288,
+      "height": 48,
+      "transparent": true,
+      "sha256": "22aaf556124ae6d9b88e7ecbabf2cd25a7f93d56201866055598fe2beba62c5c",
+      "frameWidth": 48,
+      "frameHeight": 48,
+      "columns": 6,
+      "rows": 1,
+      "animations": {
+        "play": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "frameRate": 10,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "fx_silberspritzer",
+      "file": "fx/fx_silberspritzer.png",
+      "width": 192,
+      "height": 32,
+      "transparent": true,
+      "sha256": "73f54711f14c7f0bd3876a9356f88087de84aa6c0cbcea55e2cb625c9e19d5be",
+      "frameWidth": 32,
+      "frameHeight": 32,
+      "columns": 6,
+      "rows": 1,
+      "animations": {
+        "play": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "frameRate": 10,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "fx_schattenraub",
+      "file": "fx/fx_schattenraub.png",
+      "width": 288,
+      "height": 32,
+      "transparent": true,
+      "sha256": "90269a2ce9cb4d0a896cafea0249ee14f8c534d14e52f6bad97864e82d2bbb3e",
+      "frameWidth": 48,
+      "frameHeight": 32,
+      "columns": 6,
+      "rows": 1,
+      "animations": {
+        "play": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "frameRate": 10,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "fx_status_schattenlos",
+      "file": "fx/fx_status_schattenlos.png",
+      "width": 64,
+      "height": 16,
+      "transparent": true,
+      "sha256": "a96bc38ee788f461bdf922b8ae473c09d172ee05b7b548cd14462c930c1884a4",
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 4,
+      "rows": 1,
+      "animations": {
+        "play": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 10,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "fx_status_geblendet",
+      "file": "fx/fx_status_geblendet.png",
+      "width": 64,
+      "height": 16,
+      "transparent": true,
+      "sha256": "fc6e4f6d28e665f93fb15a6df1f02c9b18230a9849175ec19dfd315774927047",
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 4,
+      "rows": 1,
+      "animations": {
+        "play": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 10,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "boss",
+      "file": "battle/enemy_dreizehnter_gast.png",
+      "width": 576,
+      "height": 768,
+      "transparent": true,
+      "sha256": "4d01c450c9c48862a6dd4ad7e7eb8235ac12ead11a64baaa76e29352e8c055fc",
+      "frameWidth": 96,
+      "frameHeight": 96,
+      "columns": 6,
+      "rows": 8,
+      "baselineY": 94,
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "belichtung": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "schattenschnitt": {
+          "frames": [
+            12,
+            13,
+            14,
+            15,
+            16,
+            17
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "gruppenbild": {
+          "frames": [
+            18,
+            19,
+            20,
+            21,
+            22,
+            23
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "summon": {
+          "frames": [
+            24,
+            25,
+            26,
+            27,
+            28,
+            29
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "phase2": {
+          "frames": [
+            30,
+            31,
+            32,
+            33,
+            34,
+            35
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            36,
+            37,
+            38
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            42,
+            43,
+            44,
+            45,
+            46,
+            47
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      },
+      "paddingFrames": [
+        4,
+        5,
+        39,
+        40,
+        41
+      ],
+      "heldAnticipationRows": [
+        1,
+        2,
+        3
+      ],
+      "facing": "left",
+      "entityId": "dreizehnter_gast"
+    },
+    {
+      "id": "fx_belichtung",
+      "file": "fx/fx_belichtung.png",
+      "width": 768,
+      "height": 96,
+      "transparent": true,
+      "sha256": "cdbb385f639d3be6fc93d5e345c511f502b001667c6ceb892faab343db26c2df",
+      "frameWidth": 96,
+      "frameHeight": 96,
+      "columns": 8,
+      "rows": 1,
+      "animations": {
+        "play": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 10,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "fx_gruppenbild",
+      "file": "fx/fx_gruppenbild.png",
+      "width": 768,
+      "height": 96,
+      "transparent": true,
+      "sha256": "fb34118797b05d0db62a7aa5117bc206529118c6e01ec87449d2b71d6b1d78f9",
+      "frameWidth": 96,
+      "frameHeight": 96,
+      "columns": 8,
+      "rows": 1,
+      "animations": {
+        "play": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 10,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "fx_schatten_frei",
+      "file": "fx/fx_schatten_frei.png",
+      "width": 768,
+      "height": 96,
+      "transparent": true,
+      "sha256": "51f252051285ac71bb5c8c35bd83f7fe716ad0068c6d03c01c16f7090ee1a35d",
+      "frameWidth": 96,
+      "frameHeight": 96,
+      "columns": 8,
+      "rows": 1,
+      "animations": {
+        "play": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 10,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "boss_bust",
+      "file": "ui/K_08_boss_gast.png",
+      "width": 160,
+      "height": 160,
+      "transparent": true,
+      "sha256": "e558b13fcda2acc9d5bfbe5c9cc0181245fc7f0c765e32bf19ad1f1423f07ee2",
+      "frameWidth": 160,
+      "frameHeight": 160,
+      "columns": 1,
+      "rows": 1
+    },
+    {
+      "id": "tiles_atelier",
+      "file": "tilesets/K_atelier_tiles.png",
+      "width": 128,
+      "height": 128,
+      "transparent": false,
+      "sha256": "7d281f6d2dc0a361f3d5127b20e77d5eecf56e4443e4ad4c7f50a0c6969730c9",
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 8,
+      "rows": 8,
+      "tileFamilies": [
+        "Four polished light wooden floor variants",
+        "Nine black-and-bone checkered posing floor pieces: NW N NE W center E SW S SE",
+        "Four dark darkroom floor boards with chemical stains",
+        "Cream plaster and dark-wood wall tops and front faces, corners and edges",
+        "Skylight window wall showing grey sky",
+        "Black-curtain doorway",
+        "Floor grate",
+        "Light-tight double door"
+      ],
+      "tileNames": [
+        "floor_variant_1",
+        "floor_variant_2",
+        "floor_variant_3",
+        "floor_variant_4",
+        "dark_board_1",
+        "dark_board_2",
+        "dark_board_3",
+        "dark_board_4",
+        "checker_north_west",
+        "checker_north_center",
+        "checker_north_east",
+        "chemical_stain_1",
+        "chemical_stain_2",
+        "chemical_stain_3",
+        "chemical_stain_4",
+        "chemical_stain_5",
+        "checker_middle_west",
+        "checker_middle_center",
+        "checker_middle_east",
+        "wall_row_0_part_3",
+        "wall_row_0_part_4",
+        "wall_row_0_part_5",
+        "wall_row_0_part_6",
+        "wall_row_0_part_7",
+        "checker_south_west",
+        "checker_south_center",
+        "checker_south_east",
+        "wall_row_1_part_3",
+        "wall_row_1_part_4",
+        "wall_row_1_part_5",
+        "wall_row_1_part_6",
+        "wall_row_1_part_7",
+        "wall_row_2_part_0",
+        "wall_row_2_part_1",
+        "wall_row_2_part_2",
+        "wall_row_2_part_3",
+        "wall_row_2_part_4",
+        "wall_row_2_part_5",
+        "wall_row_2_part_6",
+        "wall_row_2_part_7",
+        "wall_row_3_part_0",
+        "wall_row_3_part_1",
+        "wall_row_3_part_2",
+        "wall_row_3_part_3",
+        "wall_row_3_part_4",
+        "wall_row_3_part_5",
+        "wall_row_3_part_6",
+        "wall_row_3_part_7",
+        "atelier_tile_48",
+        "atelier_tile_49",
+        "atelier_tile_50",
+        "atelier_tile_51",
+        "atelier_tile_52",
+        "atelier_tile_53",
+        "atelier_tile_54",
+        "atelier_tile_55",
+        "atelier_tile_56",
+        "atelier_tile_57",
+        "atelier_tile_58",
+        "atelier_tile_59",
+        "atelier_tile_60",
+        "atelier_tile_61",
+        "atelier_tile_62",
+        "atelier_tile_63"
+      ],
+      "tileRegions": {
+        "posing_floor": [
+          0,
+          16,
+          48,
+          48
+        ],
+        "skylight": [
+          0,
+          96,
+          64,
+          16
+        ],
+        "curtain_door": [
+          64,
+          96,
+          16,
+          16
+        ],
+        "grate": [
+          80,
+          96,
+          16,
+          16
+        ],
+        "light_tight_door": [
+          96,
+          96,
+          32,
+          16
+        ]
+      },
+      "seamlessFloorFrames": [
+        0,
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "id": "tiles_ballsaal",
+      "file": "tilesets/K_ballsaal_tiles.png",
+      "width": 128,
+      "height": 128,
+      "transparent": false,
+      "sha256": "f160e13a35b2ebdb4ee1cb826b3b4c8df15bdfcd1837317db37d1285f6a41a84",
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 8,
+      "rows": 8,
+      "tileFamilies": [
+        "Four dark marble diamond floor variants",
+        "Nine parquet dance-floor star-inlay pieces: NW N NE W center E SW S SE",
+        "Nine burgundy carpet pieces: NW N NE W center E SW S SE",
+        "Pale blue-grey panelled wall tops, fronts, gilded trim corners and edges",
+        "Tall mirror wall",
+        "Heavy drawn-curtain wall",
+        "Sweeping staircase top middle bottom",
+        "Balcony railing"
+      ],
+      "tileNames": [
+        "floor_variant_1",
+        "floor_variant_2",
+        "floor_variant_3",
+        "floor_variant_4",
+        "ballsaal_tile_04",
+        "ballsaal_tile_05",
+        "ballsaal_tile_06",
+        "ballsaal_tile_07",
+        "parquet_north_west",
+        "parquet_north_center",
+        "parquet_north_east",
+        "carpet_north_west",
+        "carpet_north_center",
+        "carpet_north_east",
+        "ballsaal_tile_14",
+        "ballsaal_tile_15",
+        "parquet_middle_west",
+        "parquet_middle_center",
+        "parquet_middle_east",
+        "carpet_middle_west",
+        "carpet_middle_center",
+        "carpet_middle_east",
+        "ballsaal_tile_22",
+        "ballsaal_tile_23",
+        "parquet_south_west",
+        "parquet_south_center",
+        "parquet_south_east",
+        "carpet_south_west",
+        "carpet_south_center",
+        "carpet_south_east",
+        "ballsaal_tile_30",
+        "ballsaal_tile_31",
+        "ballsaal_tile_32",
+        "ballsaal_tile_33",
+        "ballsaal_tile_34",
+        "ballsaal_tile_35",
+        "ballsaal_tile_36",
+        "ballsaal_tile_37",
+        "ballsaal_tile_38",
+        "ballsaal_tile_39",
+        "ballsaal_tile_40",
+        "ballsaal_tile_41",
+        "ballsaal_tile_42",
+        "ballsaal_tile_43",
+        "ballsaal_tile_44",
+        "ballsaal_tile_45",
+        "ballsaal_tile_46",
+        "ballsaal_tile_47",
+        "ballsaal_tile_48",
+        "ballsaal_tile_49",
+        "ballsaal_tile_50",
+        "ballsaal_tile_51",
+        "ballsaal_tile_52",
+        "ballsaal_tile_53",
+        "ballsaal_tile_54",
+        "ballsaal_tile_55",
+        "ballsaal_tile_56",
+        "ballsaal_tile_57",
+        "ballsaal_tile_58",
+        "ballsaal_tile_59",
+        "ballsaal_tile_60",
+        "ballsaal_tile_61",
+        "ballsaal_tile_62",
+        "ballsaal_tile_63"
+      ],
+      "tileRegions": {
+        "parquet_star": [
+          0,
+          16,
+          48,
+          48
+        ],
+        "burgundy_carpet": [
+          48,
+          16,
+          48,
+          48
+        ],
+        "paneled_wall": [
+          96,
+          16,
+          32,
+          48
+        ],
+        "mirror_wall": [
+          0,
+          64,
+          48,
+          48
+        ],
+        "curtain_wall": [
+          48,
+          64,
+          32,
+          48
+        ],
+        "staircase": [
+          80,
+          64,
+          32,
+          48
+        ],
+        "balcony": [
+          112,
+          64,
+          16,
+          48
+        ]
+      },
+      "seamlessFloorFrames": [
+        0,
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "id": "tiles_spiegelkabinett",
+      "file": "tilesets/K_spiegelkabinett_tiles.png",
+      "width": 128,
+      "height": 128,
+      "transparent": false,
+      "sha256": "29e03ac9051563854c4c79274afa22803ff1803dd14ba6e8601dff0b2184594e",
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 8,
+      "rows": 8,
+      "tileFamilies": [
+        "Four worn wooden floors with sawdust",
+        "Dull brick-red and cream striped tent walls, top and front faces and corners",
+        "Thin silver mirror partition tops with brass frames: straight corner T-junction end",
+        "Three mirror wall faces showing stretched, squashed and empty reflection",
+        "Floor with painted arrow shape",
+        "Dark center floor with chalk marks"
+      ],
+      "tileNames": [
+        "floor_variant_1",
+        "floor_variant_2",
+        "floor_variant_3",
+        "floor_variant_4",
+        "spiegelkabinett_tile_04",
+        "spiegelkabinett_tile_05",
+        "spiegelkabinett_tile_06",
+        "spiegelkabinett_tile_07",
+        "spiegelkabinett_tile_08",
+        "spiegelkabinett_tile_09",
+        "spiegelkabinett_tile_10",
+        "spiegelkabinett_tile_11",
+        "spiegelkabinett_tile_12",
+        "spiegelkabinett_tile_13",
+        "spiegelkabinett_tile_14",
+        "spiegelkabinett_tile_15",
+        "spiegelkabinett_tile_16",
+        "spiegelkabinett_tile_17",
+        "spiegelkabinett_tile_18",
+        "spiegelkabinett_tile_19",
+        "spiegelkabinett_tile_20",
+        "spiegelkabinett_tile_21",
+        "spiegelkabinett_tile_22",
+        "spiegelkabinett_tile_23",
+        "partition_straight",
+        "partition_corner",
+        "partition_junction",
+        "partition_end",
+        "spiegelkabinett_tile_28",
+        "spiegelkabinett_tile_29",
+        "spiegelkabinett_tile_30",
+        "spiegelkabinett_tile_31",
+        "mirror_stretched",
+        "mirror_squashed",
+        "mirror_empty",
+        "mirror_empty_alt",
+        "spiegelkabinett_tile_36",
+        "spiegelkabinett_tile_37",
+        "spiegelkabinett_tile_38",
+        "spiegelkabinett_tile_39",
+        "floor_arrow",
+        "chalk_floor_1",
+        "chalk_floor_2",
+        "chalk_floor_3",
+        "chalk_floor_4",
+        "chalk_floor_5",
+        "chalk_floor_6",
+        "chalk_floor_7",
+        "spiegelkabinett_tile_48",
+        "spiegelkabinett_tile_49",
+        "spiegelkabinett_tile_50",
+        "spiegelkabinett_tile_51",
+        "spiegelkabinett_tile_52",
+        "spiegelkabinett_tile_53",
+        "spiegelkabinett_tile_54",
+        "spiegelkabinett_tile_55",
+        "spiegelkabinett_tile_56",
+        "spiegelkabinett_tile_57",
+        "spiegelkabinett_tile_58",
+        "spiegelkabinett_tile_59",
+        "spiegelkabinett_tile_60",
+        "spiegelkabinett_tile_61",
+        "spiegelkabinett_tile_62",
+        "spiegelkabinett_tile_63"
+      ],
+      "tileRegions": {
+        "tent_wall": [
+          0,
+          16,
+          64,
+          32
+        ],
+        "mirror_partition": [
+          0,
+          48,
+          64,
+          16
+        ],
+        "mirror_stretched": [
+          0,
+          64,
+          16,
+          16
+        ],
+        "mirror_squashed": [
+          16,
+          64,
+          16,
+          16
+        ],
+        "mirror_empty": [
+          32,
+          64,
+          16,
+          16
+        ],
+        "floor_arrow": [
+          0,
+          80,
+          16,
+          16
+        ],
+        "chalk_center": [
+          16,
+          80,
+          64,
+          16
+        ]
+      },
+      "seamlessFloorFrames": [
+        0,
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "id": "props_atelier",
+      "file": "props/K_atelier_props.png",
+      "width": 256,
+      "height": 80,
+      "transparent": true,
+      "sha256": "6f20775f906f6431ee454f2d4e7a6dbb78e4379a076b42c7b82921a5ba0c9488",
+      "regions": {
+        "camera_down": [
+          0,
+          0,
+          16,
+          32
+        ],
+        "camera_lifted": [
+          16,
+          0,
+          16,
+          32
+        ],
+        "posing_chair": [
+          32,
+          0,
+          16,
+          32
+        ],
+        "backdrop_garden": [
+          48,
+          0,
+          48,
+          32
+        ],
+        "backdrop_seaside": [
+          96,
+          0,
+          48,
+          32
+        ],
+        "flash_idle": [
+          144,
+          0,
+          16,
+          32
+        ],
+        "flash_burst": [
+          160,
+          0,
+          16,
+          32
+        ],
+        "reception": [
+          176,
+          0,
+          32,
+          16
+        ],
+        "plate_rack": [
+          208,
+          0,
+          32,
+          32
+        ],
+        "photo_wall": [
+          0,
+          32,
+          48,
+          32
+        ],
+        "sink": [
+          48,
+          32,
+          32,
+          16
+        ],
+        "safelight_0": [
+          80,
+          32,
+          16,
+          16
+        ],
+        "safelight_1": [
+          96,
+          32,
+          16,
+          16
+        ],
+        "drying_line": [
+          112,
+          32,
+          32,
+          16
+        ],
+        "chemicals": [
+          144,
+          32,
+          32,
+          16
+        ],
+        "cabinet_closed": [
+          176,
+          32,
+          16,
+          32
+        ],
+        "cabinet_open": [
+          192,
+          32,
+          16,
+          32
+        ],
+        "plate_0": [
+          208,
+          32,
+          16,
+          16
+        ],
+        "plate_1": [
+          224,
+          32,
+          16,
+          16
+        ],
+        "plate_2": [
+          240,
+          32,
+          16,
+          16
+        ],
+        "plate_3": [
+          0,
+          64,
+          16,
+          16
+        ]
+      },
+      "regionDescriptions": {
+        "camera_down": "wooden box camera on tripod, black hood cloth down",
+        "camera_lifted": "same camera, cloth lifted",
+        "posing_chair": "posing chair with head-brace stand",
+        "backdrop_garden": "garden scene painted backdrop on rollers",
+        "backdrop_seaside": "seaside scene painted backdrop on rollers",
+        "flash_idle": "flash powder lamp on pole unlit",
+        "flash_burst": "same flash lamp with bone-white pixel burst",
+        "reception": "reception desk with appointment book and bell",
+        "plate_rack": "glass photographic plates in wooden racks",
+        "photo_wall": "pinned photos of grey figures with one tall black figure in every photo",
+        "sink": "darkroom sink with three liquid trays",
+        "safelight_0": "dim muted brick-red safelight lamp",
+        "safelight_1": "same safelight flickering slightly brighter brick-red",
+        "drying_line": "prints hanging on pegs",
+        "chemicals": "brown chemical bottles on shelf",
+        "cabinet_closed": "locked cabinet with silver blank label, closed",
+        "cabinet_open": "same cabinet open",
+        "plate_0": "plate in tray, no figure yet",
+        "plate_1": "same plate, faint faceless figure",
+        "plate_2": "same plate, clearer faceless figure",
+        "plate_3": "same plate, fully developed faceless figure"
+      },
+      "grid": 16,
+      "regionAnimations": {
+        "camera": {
+          "regions": [
+            "camera_down",
+            "camera_lifted"
+          ],
+          "frameRate": 4,
+          "repeat": 0
+        },
+        "flash": {
+          "regions": [
+            "flash_idle",
+            "flash_burst"
+          ],
+          "frameRate": 4,
+          "repeat": 0
+        },
+        "safelight": {
+          "regions": [
+            "safelight_0",
+            "safelight_1"
+          ],
+          "frameRate": 4,
+          "repeat": -1
+        },
+        "cabinet": {
+          "regions": [
+            "cabinet_closed",
+            "cabinet_open"
+          ],
+          "frameRate": 4,
+          "repeat": 0
+        },
+        "develop": {
+          "regions": [
+            "plate_0",
+            "plate_1",
+            "plate_2",
+            "plate_3"
+          ],
+          "frameRate": 4,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "props_ballsaal",
+      "file": "props/K_ballsaal_props.png",
+      "width": 256,
+      "height": 112,
+      "transparent": true,
+      "sha256": "806edd1feb7559380d0167d37f64e3241ead208c44166d5ac1e17a81abd1c349",
+      "regions": {
+        "chandelier_0": [
+          0,
+          0,
+          48,
+          48
+        ],
+        "chandelier_1": [
+          48,
+          0,
+          48,
+          48
+        ],
+        "chandelier_2": [
+          96,
+          0,
+          48,
+          48
+        ],
+        "table": [
+          144,
+          0,
+          80,
+          32
+        ],
+        "chair_1": [
+          224,
+          0,
+          16,
+          16
+        ],
+        "chair_2": [
+          240,
+          0,
+          16,
+          16
+        ],
+        "chair_3": [
+          0,
+          48,
+          16,
+          16
+        ],
+        "chair_4": [
+          16,
+          48,
+          16,
+          16
+        ],
+        "chair_5": [
+          32,
+          48,
+          16,
+          16
+        ],
+        "chair_6": [
+          48,
+          48,
+          16,
+          16
+        ],
+        "chair_7": [
+          64,
+          48,
+          16,
+          16
+        ],
+        "chair_8": [
+          80,
+          48,
+          16,
+          16
+        ],
+        "chair_9": [
+          96,
+          48,
+          16,
+          16
+        ],
+        "chair_10": [
+          112,
+          48,
+          16,
+          16
+        ],
+        "chair_11": [
+          128,
+          48,
+          16,
+          16
+        ],
+        "chair_12": [
+          144,
+          48,
+          16,
+          16
+        ],
+        "chair_13": [
+          160,
+          48,
+          16,
+          16
+        ],
+        "piano": [
+          176,
+          48,
+          32,
+          32
+        ],
+        "quartet": [
+          208,
+          48,
+          32,
+          32
+        ],
+        "palm": [
+          240,
+          48,
+          16,
+          32
+        ],
+        "punch": [
+          0,
+          80,
+          16,
+          16
+        ],
+        "invitations": [
+          16,
+          80,
+          32,
+          16
+        ],
+        "party_photo": [
+          48,
+          80,
+          16,
+          32
+        ],
+        "mirror": [
+          64,
+          80,
+          16,
+          32
+        ],
+        "clock": [
+          80,
+          80,
+          16,
+          32
+        ],
+        "cloakroom": [
+          96,
+          80,
+          32,
+          32
+        ]
+      },
+      "regionDescriptions": {
+        "chandelier_0": "crystal chandelier seen from above with candle flames, flicker frame 1",
+        "chandelier_1": "crystal chandelier seen from above with candle flames, flicker frame 2",
+        "chandelier_2": "crystal chandelier seen from above with candle flames, flicker frame 3",
+        "table": "long banquet table with EXACTLY thirteen place settings and candelabras",
+        "chair_1": "Victorian dining chair",
+        "chair_2": "Victorian dining chair",
+        "chair_3": "Victorian dining chair",
+        "chair_4": "Victorian dining chair",
+        "chair_5": "Victorian dining chair",
+        "chair_6": "Victorian dining chair",
+        "chair_7": "Victorian dining chair",
+        "chair_8": "Victorian dining chair",
+        "chair_9": "Victorian dining chair",
+        "chair_10": "Victorian dining chair",
+        "chair_11": "Victorian dining chair",
+        "chair_12": "Victorian dining chair",
+        "chair_13": "Victorian dining chair, pulled out and frosted",
+        "piano": "grand piano",
+        "quartet": "empty string quartet chairs and music stands",
+        "palm": "potted palm",
+        "punch": "punch bowl on side table",
+        "invitations": "table with black invitation cards and masks",
+        "party_photo": "full-length party photograph on easel",
+        "mirror": "gilded standing mirror with no reflection",
+        "clock": "grandfather clock",
+        "cloakroom": "rack of coats and top hats"
+      },
+      "grid": 16,
+      "regionAnimations": {
+        "chandelier": {
+          "regions": [
+            "chandelier_0",
+            "chandelier_1",
+            "chandelier_2"
+          ],
+          "frameRate": 4,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "props_spiegelkabinett",
+      "file": "props/K_spiegelkabinett_props.png",
+      "width": 256,
+      "height": 64,
+      "transparent": true,
+      "sha256": "3824ba6a845a26f17ff81621784b9ff63c5653e7275f1de929516833841d3d1f",
+      "regions": {
+        "ticket_booth": [
+          0,
+          0,
+          32,
+          32
+        ],
+        "rope": [
+          32,
+          0,
+          32,
+          16
+        ],
+        "lamp_0": [
+          64,
+          0,
+          16,
+          16
+        ],
+        "lamp_1": [
+          80,
+          0,
+          16,
+          16
+        ],
+        "broken_mirror": [
+          96,
+          0,
+          16,
+          32
+        ],
+        "guest_mirror_0": [
+          112,
+          0,
+          16,
+          32
+        ],
+        "guest_mirror_1": [
+          128,
+          0,
+          16,
+          32
+        ],
+        "guest_mirror_2": [
+          144,
+          0,
+          16,
+          32
+        ],
+        "guest_mirror_3": [
+          160,
+          0,
+          16,
+          32
+        ],
+        "camera": [
+          176,
+          0,
+          32,
+          32
+        ],
+        "tank_0": [
+          208,
+          0,
+          32,
+          32
+        ],
+        "tank_1": [
+          0,
+          32,
+          32,
+          32
+        ],
+        "tank_2": [
+          32,
+          32,
+          32,
+          32
+        ],
+        "tank_3": [
+          64,
+          32,
+          32,
+          32
+        ],
+        "film": [
+          96,
+          32,
+          32,
+          16
+        ],
+        "shadows": [
+          128,
+          32,
+          32,
+          32
+        ]
+      },
+      "regionDescriptions": {
+        "ticket_booth": "ticket booth with striped awning",
+        "rope": "rope barrier and brass posts",
+        "lamp_0": "hooked oil lamp, dim amber flame",
+        "lamp_1": "same oil lamp, brighter flame",
+        "broken_mirror": "broken mirror with floor shards",
+        "guest_mirror_0": "standing mirror reflecting a faceless gentleman at distance stage 1 of four, progressively closer",
+        "guest_mirror_1": "standing mirror reflecting a faceless gentleman at distance stage 2 of four, progressively closer",
+        "guest_mirror_2": "standing mirror reflecting a faceless gentleman at distance stage 3 of four, progressively closer",
+        "guest_mirror_3": "standing mirror reflecting a faceless gentleman at distance stage 4 of four, progressively closer",
+        "camera": "old box camera with brass lens aimed at empty chair, silver dust and black wax",
+        "tank_0": "developing tank with bubbling dark silver liquid, bubbles at stage 1",
+        "tank_1": "developing tank with bubbling dark silver liquid, bubbles at stage 2",
+        "tank_2": "developing tank with bubbling dark silver liquid, bubbles at stage 3",
+        "tank_3": "developing tank with bubbling dark silver liquid, bubbles at stage 4",
+        "film": "black photographic film coils spilled on floor",
+        "shadows": "flat human shadow shapes pinned to boards like butterflies, faint violet sheen"
+      },
+      "grid": 16,
+      "regionAnimations": {
+        "lamp": {
+          "regions": [
+            "lamp_0",
+            "lamp_1"
+          ],
+          "frameRate": 4,
+          "repeat": -1
+        },
+        "guest_mirror": {
+          "regions": [
+            "guest_mirror_0",
+            "guest_mirror_1",
+            "guest_mirror_2",
+            "guest_mirror_3"
+          ],
+          "frameRate": 4,
+          "repeat": 0
+        },
+        "tank": {
+          "regions": [
+            "tank_0",
+            "tank_1",
+            "tank_2",
+            "tank_3"
+          ],
+          "frameRate": 4,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "props_jahrmarkt_aussen",
+      "file": "props/K_jahrmarkt_aussen.png",
+      "width": 256,
+      "height": 80,
+      "transparent": true,
+      "sha256": "45344974dfc23ddbb7f2f7a68082c30d4fd84ebad513dad1f8de373c18d8ebb8",
+      "regions": {
+        "entrance": [
+          0,
+          0,
+          48,
+          48
+        ],
+        "carousel_0": [
+          48,
+          0,
+          48,
+          48
+        ],
+        "carousel_1": [
+          96,
+          0,
+          48,
+          48
+        ],
+        "carousel_2": [
+          144,
+          0,
+          48,
+          48
+        ],
+        "carousel_3": [
+          192,
+          0,
+          48,
+          48
+        ],
+        "caravan": [
+          0,
+          48,
+          48,
+          32
+        ],
+        "lanterns": [
+          48,
+          48,
+          32,
+          16
+        ],
+        "shooting": [
+          80,
+          48,
+          32,
+          32
+        ],
+        "candy": [
+          112,
+          48,
+          16,
+          16
+        ]
+      },
+      "regionDescriptions": {
+        "entrance": "striped mirror-maze tent entrance, blank painted signboard",
+        "carousel_0": "small carousel of wooden horses, rotation stage 1 of four",
+        "carousel_1": "small carousel of wooden horses, rotation stage 2 of four",
+        "carousel_2": "small carousel of wooden horses, rotation stage 3 of four",
+        "carousel_3": "small carousel of wooden horses, rotation stage 4 of four",
+        "caravan": "fortune teller caravan",
+        "lanterns": "paper lantern string, amber glow",
+        "shooting": "shooting gallery booth",
+        "candy": "candy floss cart"
+      },
+      "grid": 16,
+      "regionAnimations": {
+        "carousel": {
+          "regions": [
+            "carousel_0",
+            "carousel_1",
+            "carousel_2",
+            "carousel_3"
+          ],
+          "frameRate": 4,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "gast_1",
+      "file": "characters/K_gast_1_walk.png",
+      "width": 64,
+      "height": 128,
+      "transparent": true,
+      "sha256": "b9bc9c60a8e33102f88c3ebe701c0e168398155b32a35c965e2a94464ab13f5e",
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "baselineY": 30,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        }
+      },
+      "paddingFrames": [],
+      "heldAnticipationRows": [],
+      "entityId": "gast_1"
+    },
+    {
+      "id": "gast_2",
+      "file": "characters/K_gast_2_walk.png",
+      "width": 64,
+      "height": 128,
+      "transparent": true,
+      "sha256": "f59c89ae4718a075db03563cdab8dea1cb5df5cbb087f5f2899a113bbc6c9f6e",
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "baselineY": 30,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        }
+      },
+      "paddingFrames": [],
+      "heldAnticipationRows": [],
+      "entityId": "gast_2"
+    },
+    {
+      "id": "gast_3",
+      "file": "characters/K_gast_3_walk.png",
+      "width": 64,
+      "height": 128,
+      "transparent": true,
+      "sha256": "b8bc72cf66ed679424ff1912bc27698a3d1efe54de119f74915dcd82ef8af538",
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "baselineY": 30,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        }
+      },
+      "paddingFrames": [],
+      "heldAnticipationRows": [],
+      "entityId": "gast_3"
+    },
+    {
+      "id": "gast_4",
+      "file": "characters/K_gast_4_walk.png",
+      "width": 64,
+      "height": 128,
+      "transparent": true,
+      "sha256": "408f9c5b89664cf7775f08a776cc12a7ab69e012e2c81bcd6c49fc3cb68432eb",
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "baselineY": 30,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        }
+      },
+      "paddingFrames": [],
+      "heldAnticipationRows": [],
+      "entityId": "gast_4"
+    },
+    {
+      "id": "shadows",
+      "file": "fx/K_schatten.png",
+      "width": 256,
+      "height": 16,
+      "transparent": true,
+      "sha256": "53da5c7a9471f9e817a8b12c1702c1e0f7d7e5ba3c41d64ad734bc5171580e20",
+      "regions": {
+        "normal": [
+          0,
+          0,
+          16,
+          8
+        ],
+        "thin": [
+          16,
+          0,
+          16,
+          8
+        ],
+        "broken": [
+          32,
+          0,
+          16,
+          8
+        ],
+        "fading": [
+          48,
+          0,
+          16,
+          8
+        ],
+        "stolen": [
+          64,
+          0,
+          32,
+          16
+        ],
+        "detach_0": [
+          96,
+          0,
+          32,
+          16
+        ],
+        "detach_1": [
+          128,
+          0,
+          32,
+          16
+        ],
+        "detach_2": [
+          160,
+          0,
+          32,
+          16
+        ],
+        "detach_3": [
+          192,
+          0,
+          32,
+          16
+        ]
+      },
+      "regionDescriptions": {
+        "normal": "normal dark blue-grey oval shadow, dithered edge",
+        "thin": "thinner paler oval shadow",
+        "broken": "shadow with gaps",
+        "fading": "almost gone shadow, faint outline",
+        "stolen": "stolen human-shaped shadow lying alone, deep violet sheen",
+        "detach_0": "shadow detaching and slithering away, movement stage 1",
+        "detach_1": "shadow detaching and slithering away, movement stage 2",
+        "detach_2": "shadow detaching and slithering away, movement stage 3",
+        "detach_3": "shadow detaching and slithering away, movement stage 4"
+      },
+      "grid": 16,
+      "regionAnimations": {
+        "detach": {
+          "regions": [
+            "detach_0",
+            "detach_1",
+            "detach_2",
+            "detach_3"
+          ],
+          "frameRate": 4,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "ashcombe_walk",
+      "file": "characters/K_ashcombe_walk.png",
+      "width": 64,
+      "height": 128,
+      "transparent": true,
+      "sha256": "ea9c347e420419c0ecb96782b8a3271360efb56ae697889e09ff7a4802329d6b",
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "baselineY": 30,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        }
+      },
+      "paddingFrames": [],
+      "heldAnticipationRows": [],
+      "entityId": "ashcombe"
+    },
+    {
+      "id": "ashcombe_portrait",
+      "file": "portraits/K_ashcombe_emotions.png",
+      "width": 256,
+      "height": 64,
+      "transparent": false,
+      "sha256": "f78396a0f8446308628ef196aaa692ec09277a165b6a516d3b91aeada7756325",
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 4,
+      "rows": 1,
+      "frameNames": [
+        "neutral",
+        "suspicious",
+        "shocked",
+        "smile"
+      ]
+    },
+    {
+      "id": "mews_walk",
+      "file": "characters/K_mews_walk.png",
+      "width": 64,
+      "height": 128,
+      "transparent": true,
+      "sha256": "3947f556583a1eadd8c3eb6036162ff2b7d9aa99413a2e2d5d1faf12d4d46d11",
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "baselineY": 30,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        }
+      },
+      "paddingFrames": [],
+      "heldAnticipationRows": [],
+      "entityId": "mews"
+    },
+    {
+      "id": "mews_portrait",
+      "file": "portraits/K_mews_emotions.png",
+      "width": 256,
+      "height": 64,
+      "transparent": false,
+      "sha256": "0ad6ce1e8aa42be25735e92c31841ea6f94bc601775aff73c10576a630d675a5",
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 4,
+      "rows": 1,
+      "frameNames": [
+        "neutral",
+        "suspicious",
+        "shocked",
+        "smile"
+      ]
+    },
+    {
+      "id": "mews_revealed",
+      "file": "portraits/K_mews_enthuellt_emotions.png",
+      "width": 256,
+      "height": 64,
+      "transparent": false,
+      "sha256": "45c00e5abca9fbd310e8b05b08dc228e294b1a7093a8bd8cd7d1242905c33191",
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 4,
+      "rows": 1,
+      "frameNames": [
+        "cold",
+        "triumphant",
+        "panicked",
+        "broken"
+      ]
+    },
+    {
+      "id": "bg_atelier",
+      "file": "battle/bg_atelier.png",
+      "width": 480,
+      "height": 270,
+      "transparent": false,
+      "sha256": "307e360cbf35ac8d1cbfbe96cb4bab45f371e5b012a7ad1a174c6d9a8bb03eb7",
+      "frameWidth": 480,
+      "frameHeight": 270,
+      "columns": 1,
+      "rows": 1,
+      "mapId": "atelier",
+      "groundStrip": [
+        0,
+        200,
+        480,
+        70
+      ]
+    },
+    {
+      "id": "bg_ballsaal",
+      "file": "battle/bg_ballsaal.png",
+      "width": 480,
+      "height": 270,
+      "transparent": false,
+      "sha256": "cd4f8aeceaf3f381d35c7a1a8d4815e03287e20734cba20dcb8f8a43e573f608",
+      "frameWidth": 480,
+      "frameHeight": 270,
+      "columns": 1,
+      "rows": 1,
+      "mapId": "ballsaal",
+      "groundStrip": [
+        0,
+        200,
+        480,
+        70
+      ]
+    },
+    {
+      "id": "bg_spiegelkabinett",
+      "file": "battle/bg_spiegelkabinett.png",
+      "width": 480,
+      "height": 270,
+      "transparent": false,
+      "sha256": "6cb3c921497b6982ff0951b342e5cf218a3c36e1fb24c9f78ee56ba6542de4ce",
+      "frameWidth": 480,
+      "frameHeight": 270,
+      "columns": 1,
+      "rows": 1,
+      "mapId": "spiegelkabinett",
+      "groundStrip": [
+        0,
+        200,
+        480,
+        70
+      ]
+    },
+    {
+      "id": "bg_spiegelkabinett_2",
+      "file": "battle/bg_spiegelkabinett_2.png",
+      "width": 480,
+      "height": 270,
+      "transparent": false,
+      "sha256": "d4ae4d1a6210effd4c49c5849582e5b3d69ec9e6a764d7b93019faeab2b6f507",
+      "frameWidth": 480,
+      "frameHeight": 270,
+      "columns": 1,
+      "rows": 1,
+      "mapId": "spiegelkabinett",
+      "groundStrip": [
+        0,
+        200,
+        480,
+        70
+      ]
+    },
+    {
+      "id": "ow_schattenabzug",
+      "file": "characters/K_ow_schattenabzug.png",
+      "width": 64,
+      "height": 128,
+      "transparent": true,
+      "sha256": "d37cdb460e1e7f6389de6aae91f11f7c2b153d4c4d4801394e1fc334d6b825dc",
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "baselineY": 30,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        }
+      },
+      "paddingFrames": [],
+      "heldAnticipationRows": [],
+      "entityId": "schattenabzug"
+    },
+    {
+      "id": "ow_negativ_geist",
+      "file": "characters/K_ow_negativ_geist.png",
+      "width": 64,
+      "height": 128,
+      "transparent": true,
+      "sha256": "d2f85db488f6ee0146b0d09cc96721f7a0dba30b0deecf750379fa910c8d2091",
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "baselineY": 30,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        }
+      },
+      "paddingFrames": [],
+      "heldAnticipationRows": [],
+      "entityId": "negativ_geist"
+    },
+    {
+      "id": "ow_silberbad_schleim",
+      "file": "characters/K_ow_silberbad_schleim.png",
+      "width": 128,
+      "height": 128,
+      "transparent": true,
+      "sha256": "564bbcf5680695c037320099e89cb8e02d32c7395145453da02fde32a9a91be4",
+      "frameWidth": 32,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "baselineY": 30,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        }
+      },
+      "paddingFrames": [],
+      "heldAnticipationRows": [],
+      "entityId": "silberbad_schleim"
+    },
+    {
+      "id": "ow_dreizehnter_gast",
+      "file": "characters/K_ow_dreizehnter_gast.png",
+      "width": 64,
+      "height": 128,
+      "transparent": true,
+      "sha256": "ced142a9bfe0a61944a7dfcbd77682be0c5f00664852f0a7a565558e465f5d5e",
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "baselineY": 30,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        }
+      },
+      "paddingFrames": [],
+      "heldAnticipationRows": [],
+      "entityId": "dreizehnter_gast"
+    },
+    {
+      "id": "turn_portraits",
+      "file": "ui/K_zug_portraits.png",
+      "width": 64,
+      "height": 16,
+      "transparent": true,
+      "sha256": "71025bbd120941374beefa4450909e44ed8bd34433ee04588568cf733d6b1052",
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 4,
+      "rows": 1,
+      "frameNames": [
+        "schattenabzug",
+        "negativ_geist",
+        "silberbad_schleim",
+        "dreizehnter_gast"
+      ]
+    },
+    {
+      "id": "bestiary_schattenabzug",
+      "file": "ui/bestiary/K_schattenabzug.png",
+      "width": 96,
+      "height": 128,
+      "transparent": false,
+      "sha256": "09afd02e377b00f937eacf7ff99b420a83078a8aa6aa2f752c178a1c40209054",
+      "frameWidth": 96,
+      "frameHeight": 128,
+      "columns": 1,
+      "rows": 1
+    },
+    {
+      "id": "bestiary_negativ_geist",
+      "file": "ui/bestiary/K_negativ_geist.png",
+      "width": 96,
+      "height": 128,
+      "transparent": false,
+      "sha256": "ef91af3bb589c095181142392e503bb6a006f4c790c65aa2701fce421d3fa55e",
+      "frameWidth": 96,
+      "frameHeight": 128,
+      "columns": 1,
+      "rows": 1
+    },
+    {
+      "id": "bestiary_silberbad_schleim",
+      "file": "ui/bestiary/K_silberbad_schleim.png",
+      "width": 96,
+      "height": 128,
+      "transparent": false,
+      "sha256": "9e40c0e795cc766511fa0a0bd69aaf6bf0b382bd0444d4b86b16a19644f5acd4",
+      "frameWidth": 96,
+      "frameHeight": 128,
+      "columns": 1,
+      "rows": 1
+    },
+    {
+      "id": "bestiary_dreizehnter_gast",
+      "file": "ui/bestiary/K_dreizehnter_gast.png",
+      "width": 96,
+      "height": 128,
+      "transparent": false,
+      "sha256": "c0fefe864c548288f163d6f622255cc99e6023b8d9dec55233a78a309bdaeb36",
+      "frameWidth": 96,
+      "frameHeight": 128,
+      "columns": 1,
+      "rows": 1
+    },
+    {
+      "id": "belichtungsmesser_16",
+      "file": "items/belichtungsmesser.png",
+      "width": 16,
+      "height": 16,
+      "transparent": true,
+      "sha256": "767877ab3537984e971160e3e569d803401dc231f4093b883f9e4de4523a03ce",
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 1,
+      "rows": 1
+    },
+    {
+      "id": "belichtungsmesser_32",
+      "file": "items/32/belichtungsmesser.png",
+      "width": 32,
+      "height": 32,
+      "transparent": true,
+      "sha256": "c01067239bd3bae1abd23e0b6a585a7e652f4965140c47e626ad635236bf76c7",
+      "frameWidth": 32,
+      "frameHeight": 32,
+      "columns": 1,
+      "rows": 1
+    },
+    {
+      "id": "gaesteliste_16",
+      "file": "items/gaesteliste.png",
+      "width": 16,
+      "height": 16,
+      "transparent": true,
+      "sha256": "d586757e223a73983bf4e1a02d8102d9f05da9048730d803c678411504322e67",
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 1,
+      "rows": 1
+    },
+    {
+      "id": "gaesteliste_32",
+      "file": "items/32/gaesteliste.png",
+      "width": 32,
+      "height": 32,
+      "transparent": true,
+      "sha256": "88b00701df4a47cd02105ab026831862b46c47e31884a8ccd350a635c9c634fd",
+      "frameWidth": 32,
+      "frameHeight": 32,
+      "columns": 1,
+      "rows": 1
+    },
+    {
+      "id": "silbernitrat_16",
+      "file": "items/silbernitrat.png",
+      "width": 16,
+      "height": 16,
+      "transparent": true,
+      "sha256": "4f874fc1279ef1ec7843107296fb30e82b34f9a027d2f0b3c64b4380c343b30c",
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 1,
+      "rows": 1
+    },
+    {
+      "id": "silbernitrat_32",
+      "file": "items/32/silbernitrat.png",
+      "width": 32,
+      "height": 32,
+      "transparent": true,
+      "sha256": "a284ab42322636fc0790fc8aa869e585e2cc172ae1afd49d74e5d9943ef63f46",
+      "frameWidth": 32,
+      "frameHeight": 32,
+      "columns": 1,
+      "rows": 1
+    },
+    {
+      "id": "schattenrest_16",
+      "file": "items/schattenrest.png",
+      "width": 16,
+      "height": 16,
+      "transparent": true,
+      "sha256": "34675f88c67b210b352b69d6b905f727c747ab361f4e5daabe1bb07669007ffa",
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 1,
+      "rows": 1
+    },
+    {
+      "id": "schattenrest_32",
+      "file": "items/32/schattenrest.png",
+      "width": 32,
+      "height": 32,
+      "transparent": true,
+      "sha256": "d40258d24e4b4f416d7c9ef3d725abb2b0f6c2c2f63e810e60662e9bdea3bf9d",
+      "frameWidth": 32,
+      "frameHeight": 32,
+      "columns": 1,
+      "rows": 1
+    },
+    {
+      "id": "kamera_alt_16",
+      "file": "items/kamera_alt.png",
+      "width": 16,
+      "height": 16,
+      "transparent": true,
+      "sha256": "fa909c6bd4ab1982def9294885b60d86a225a5b868cfccf9006c4dcef2a6abfa",
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 1,
+      "rows": 1
+    },
+    {
+      "id": "kamera_alt_32",
+      "file": "items/32/kamera_alt.png",
+      "width": 32,
+      "height": 32,
+      "transparent": true,
+      "sha256": "a06b54a6eb23cd721116b9d86072bc3a0149de7406c6451863977d598945a943",
+      "frameWidth": 32,
+      "frameHeight": 32,
+      "columns": 1,
+      "rows": 1
+    },
+    {
+      "id": "items",
+      "file": "items/K_items.png",
+      "width": 160,
+      "height": 48,
+      "transparent": true,
+      "sha256": "5934e5470605ef59c265e0200e2b55e0808c725d2e0af02761910e7ed151d9aa",
+      "regions": {
+        "belichtungsmesser_16": [
+          0,
+          0,
+          16,
+          16
+        ],
+        "belichtungsmesser_32": [
+          0,
+          16,
+          32,
+          32
+        ],
+        "gaesteliste_16": [
+          16,
+          0,
+          16,
+          16
+        ],
+        "gaesteliste_32": [
+          32,
+          16,
+          32,
+          32
+        ],
+        "silbernitrat_16": [
+          32,
+          0,
+          16,
+          16
+        ],
+        "silbernitrat_32": [
+          64,
+          16,
+          32,
+          32
+        ],
+        "schattenrest_16": [
+          48,
+          0,
+          16,
+          16
+        ],
+        "schattenrest_32": [
+          96,
+          16,
+          32,
+          32
+        ],
+        "kamera_alt_16": [
+          64,
+          0,
+          16,
+          16
+        ],
+        "kamera_alt_32": [
+          128,
+          16,
+          32,
+          32
+        ]
+      }
+    },
+    {
+      "id": "amulett_schatten_16",
+      "file": "items/amulett_schatten.png",
+      "width": 16,
+      "height": 16,
+      "transparent": true,
+      "sha256": "788dae6d0d79d6ff65bf0148cce22dc7740c1be2e98c676540b1d389f2e4be0c",
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 1,
+      "rows": 1
+    },
+    {
+      "id": "amulett_schatten_32",
+      "file": "items/32/amulett_schatten.png",
+      "width": 32,
+      "height": 32,
+      "transparent": true,
+      "sha256": "a2e873c011542b42968aabcf494a5a84b49b6e3cf046b50abb5d52a05d191bd7",
+      "frameWidth": 32,
+      "frameHeight": 32,
+      "columns": 1,
+      "rows": 1
+    },
+    {
+      "id": "hut_maskenball_16",
+      "file": "items/hut_maskenball.png",
+      "width": 16,
+      "height": 16,
+      "transparent": true,
+      "sha256": "5e0f15ac63d4a05f32406d3c24e8b4c35cbe90267876521099c961ea1636728a",
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 1,
+      "rows": 1
+    },
+    {
+      "id": "hut_maskenball_32",
+      "file": "items/32/hut_maskenball.png",
+      "width": 32,
+      "height": 32,
+      "transparent": true,
+      "sha256": "cc2114ddd0f4e2aa626560d0424aa183d1994bedb3ccae53ab92263d444e1b86",
+      "frameWidth": 32,
+      "frameHeight": 32,
+      "columns": 1,
+      "rows": 1
+    },
+    {
+      "id": "mantel_frack_16",
+      "file": "items/mantel_frack.png",
+      "width": 16,
+      "height": 16,
+      "transparent": true,
+      "sha256": "36f25cfb7ae9541236af7a9ce20e8862b3c87d17f91166ca11886b7675b0c689",
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 1,
+      "rows": 1
+    },
+    {
+      "id": "mantel_frack_32",
+      "file": "items/32/mantel_frack.png",
+      "width": 32,
+      "height": 32,
+      "transparent": true,
+      "sha256": "31ab0b3247c6d5702436d5140cf5290ffc926791540970fdc14ae779be7578ff",
+      "frameWidth": 32,
+      "frameHeight": 32,
+      "columns": 1,
+      "rows": 1
+    },
+    {
+      "id": "blitzpulver_16",
+      "file": "items/blitzpulver.png",
+      "width": 16,
+      "height": 16,
+      "transparent": true,
+      "sha256": "83a2a2a704f1bbf4abfc089fc103fd8cc380273b0c2f593f67491ff1db9db398",
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 1,
+      "rows": 1
+    },
+    {
+      "id": "blitzpulver_32",
+      "file": "items/32/blitzpulver.png",
+      "width": 32,
+      "height": 32,
+      "transparent": true,
+      "sha256": "e5cb0cb2e5f8d83590f1aa4dbb0046c121e33bde0a0fb772a74c264d0a388a15",
+      "frameWidth": 32,
+      "frameHeight": 32,
+      "columns": 1,
+      "rows": 1
+    },
+    {
+      "id": "belohnungen",
+      "file": "items/K_belohnungen.png",
+      "width": 128,
+      "height": 48,
+      "transparent": true,
+      "sha256": "1e39f510c72cf12650ef416656b62a5d57de0e4a7e56deff841954a94fd65776",
+      "regions": {
+        "amulett_schatten_16": [
+          0,
+          0,
+          16,
+          16
+        ],
+        "amulett_schatten_32": [
+          0,
+          16,
+          32,
+          32
+        ],
+        "hut_maskenball_16": [
+          16,
+          0,
+          16,
+          16
+        ],
+        "hut_maskenball_32": [
+          32,
+          16,
+          32,
+          32
+        ],
+        "mantel_frack_16": [
+          32,
+          0,
+          16,
+          16
+        ],
+        "mantel_frack_32": [
+          64,
+          16,
+          32,
+          32
+        ],
+        "blitzpulver_16": [
+          48,
+          0,
+          16,
+          16
+        ],
+        "blitzpulver_32": [
+          96,
+          16,
+          32,
+          32
+        ]
+      }
+    },
+    {
+      "id": "clues",
+      "file": "props/K_fall6_hinweise.png",
+      "width": 160,
+      "height": 16,
+      "transparent": true,
+      "sha256": "e5f26dbbacc80ac0f8fc70e737242830ece3df128558f9f1795587045bed417b",
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 10,
+      "rows": 1,
+      "frameNames": [
+        "fingerprints",
+        "developer",
+        "invitation",
+        "glove",
+        "missing_shadow",
+        "film",
+        "lens",
+        "footprints",
+        "wax",
+        "place_card"
+      ]
+    },
+    {
+      "id": "fotoplatte_1",
+      "file": "ui/inspect/fotoplatte_1.png",
+      "width": 160,
+      "height": 120,
+      "transparent": false,
+      "sha256": "ae57d7389b019419d3019bebff52f79670dba95721601ce2404c338323159035",
+      "frameWidth": 160,
+      "frameHeight": 120,
+      "columns": 1,
+      "rows": 1
+    },
+    {
+      "id": "fotoplatte_2",
+      "file": "ui/inspect/fotoplatte_2.png",
+      "width": 160,
+      "height": 120,
+      "transparent": false,
+      "sha256": "2d5efc6be9d80c02448785e1eba0537d4115c289e15cc3abd2ac85a01caa0750",
+      "frameWidth": 160,
+      "frameHeight": 120,
+      "columns": 1,
+      "rows": 1
+    },
+    {
+      "id": "fotoplatte_3",
+      "file": "ui/inspect/fotoplatte_3.png",
+      "width": 160,
+      "height": 120,
+      "transparent": false,
+      "sha256": "580717131383d7f8acc6f08e418ddc3cde9aeacc63ef9476bdbe3d5e689842e8",
+      "frameWidth": 160,
+      "frameHeight": 120,
+      "columns": 1,
+      "rows": 1
+    },
+    {
+      "id": "fotoplatte_4",
+      "file": "ui/inspect/fotoplatte_4.png",
+      "width": 160,
+      "height": 120,
+      "transparent": false,
+      "sha256": "c5b80f517b30d1b2377fbf437bcc5af7b3da613912c0d800c39a0bcffe7c1e71",
+      "frameWidth": 160,
+      "frameHeight": 120,
+      "columns": 1,
+      "rows": 1
+    },
+    {
+      "id": "fotoplatte_fluch",
+      "file": "ui/inspect/fotoplatte_fluch.png",
+      "width": 160,
+      "height": 120,
+      "transparent": false,
+      "sha256": "1a0f775b4d12032bd1615d10f5e9c75132e216cb97d710633d85b2c7e746b93e",
+      "frameWidth": 160,
+      "frameHeight": 120,
+      "columns": 1,
+      "rows": 1
+    },
+    {
+      "id": "case_cover",
+      "file": "ui/cases/K_akte_fall6.png",
+      "width": 128,
+      "height": 96,
+      "transparent": false,
+      "sha256": "3806065b2222ed46d8e49202112bb8cd92948ff9396d954a2e7a14daac843136",
+      "frameWidth": 128,
+      "frameHeight": 96,
+      "columns": 1,
+      "rows": 1
+    },
+    {
+      "id": "scene_abzuege",
+      "file": "ui/scenes/K_szene_abzuege.png",
+      "width": 240,
+      "height": 135,
+      "transparent": false,
+      "sha256": "7655793b0308666e393842fbe178d491af037e4a9e8ec6ee43951ddd5d7dce91",
+      "frameWidth": 240,
+      "frameHeight": 135,
+      "columns": 1,
+      "rows": 1
+    },
+    {
+      "id": "scene_schattenlos",
+      "file": "ui/scenes/K_szene_schattenlos.png",
+      "width": 240,
+      "height": 135,
+      "transparent": false,
+      "sha256": "67e6364d0f8e9476e758419107d141069d96b27edc4b82c29512f72ede5256f1",
+      "frameWidth": 240,
+      "frameHeight": 135,
+      "columns": 1,
+      "rows": 1
+    },
+    {
+      "id": "scene_maskenball",
+      "file": "ui/scenes/K_szene_maskenball.png",
+      "width": 240,
+      "height": 135,
+      "transparent": false,
+      "sha256": "2a17cc664b65e0d2aeade2931f2db50a72e18eadf13f5e7a1de75cc3843a934f",
+      "frameWidth": 240,
+      "frameHeight": 135,
+      "columns": 1,
+      "rows": 1
+    },
+    {
+      "id": "scene_dunkelkammer",
+      "file": "ui/scenes/K_szene_dunkelkammer.png",
+      "width": 240,
+      "height": 135,
+      "transparent": false,
+      "sha256": "db6f04d03933c4f71f7911c63cc0b8eef4f80bd16ec9e5e1dde4285a8c376d4b",
+      "frameWidth": 240,
+      "frameHeight": 135,
+      "columns": 1,
+      "rows": 1
+    },
+    {
+      "id": "scene_spiegel",
+      "file": "ui/scenes/K_szene_spiegel.png",
+      "width": 240,
+      "height": 135,
+      "transparent": false,
+      "sha256": "d2fd86e11622de1c8ce82c1eb2484c8761c2d4a35079c8c2921a30187db1af5b",
+      "frameWidth": 240,
+      "frameHeight": 135,
+      "columns": 1,
+      "rows": 1
+    },
+    {
+      "id": "scene_schatten_frei",
+      "file": "ui/scenes/K_szene_schatten_frei.png",
+      "width": 240,
+      "height": 135,
+      "transparent": false,
+      "sha256": "129dc7b4993fa6013140788f459df696daea2dd106e8d5526876f12c4c81818e",
+      "frameWidth": 240,
+      "frameHeight": 135,
+      "columns": 1,
+      "rows": 1
+    },
+    {
+      "id": "ending_perfect",
+      "file": "ui/endings/c6_perfect.png",
+      "width": 480,
+      "height": 270,
+      "transparent": false,
+      "sha256": "54114470de7da849077fec07592f406ee0d1e018fd456dbde3f5e4cedcfaddc2",
+      "frameWidth": 480,
+      "frameHeight": 270,
+      "columns": 1,
+      "rows": 1
+    },
+    {
+      "id": "ending_good",
+      "file": "ui/endings/c6_good.png",
+      "width": 480,
+      "height": 270,
+      "transparent": false,
+      "sha256": "bc80812b4d57bfd4f977889eef0cd9de1d0454a553a9ce783b5bd4dd08676077",
+      "frameWidth": 480,
+      "frameHeight": 270,
+      "columns": 1,
+      "rows": 1
+    },
+    {
+      "id": "ending_early",
+      "file": "ui/endings/c6_early.png",
+      "width": 480,
+      "height": 270,
+      "transparent": false,
+      "sha256": "b4652965a0c23f15d783408cca919712f2afe2a060d1927feccd26b82947f594",
+      "frameWidth": 480,
+      "frameHeight": 270,
+      "columns": 1,
+      "rows": 1
+    },
+    {
+      "id": "ending_seer",
+      "file": "ui/endings/c6_seer.png",
+      "width": 480,
+      "height": 270,
+      "transparent": false,
+      "sha256": "87f37e1fc3e3c1a187da64b838403a1dab8b94fa4428759db805df0c6a35f310",
+      "frameWidth": 480,
+      "frameHeight": 270,
+      "columns": 1,
+      "rows": 1
+    }
+  ]
+}
