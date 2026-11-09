@@ -1,0 +1,86 @@
+{
+  "format": "nebel-musik-1",
+  "id": "geistsicht",
+  "titel": "Unter der Wirklichkeit",
+  "bpm": 60,
+  "takt": [
+    4,
+    4
+  ],
+  "loop": true,
+  "lautstaerke": 0.48,
+  "hall": 0.55,
+  "spuren": {
+    "melodie": {
+      "instrument": "pad_glas",
+      "lautstaerke": 0.7,
+      "pan": -0.16
+    },
+    "akkorde": {
+      "instrument": "chor_oo",
+      "lautstaerke": 0.3,
+      "pan": 0.2
+    }
+  },
+  "muster": {
+    "motiv": {
+      "spur": "melodie",
+      "takte": 2,
+      "noten": "c5:8 f#5:8 | b4:16"
+    },
+    "antwort": {
+      "spur": "melodie",
+      "takte": 2,
+      "noten": "b4:8 f5:8 | e5:8 r:8"
+    },
+    "atem": {
+      "spur": "melodie",
+      "takte": 2,
+      "noten": "r:16 | r:16"
+    },
+    "bett_a": {
+      "spur": "akkorde",
+      "takte": 2,
+      "noten": "[d3,f3,a3]:16~ | [d3,f3,a3]:16"
+    },
+    "bett_b": {
+      "spur": "akkorde",
+      "takte": 2,
+      "noten": "[bb2,d3,f3]:16 | [g2,bb2,d3]:16"
+    },
+    "bett_c": {
+      "spur": "akkorde",
+      "takte": 2,
+      "noten": "[a2,c#3,e3]:16~ | [a2,c#3,e3]:16"
+    }
+  },
+  "abschnitte": {
+    "intro": [
+      "bett_a"
+    ],
+    "A": [
+      "motiv",
+      "bett_a"
+    ],
+    "B": [
+      "antwort",
+      "bett_b"
+    ],
+    "C": [
+      "motiv",
+      "bett_c"
+    ]
+  },
+  "ablauf": [
+    "intro",
+    "A",
+    "B",
+    "C",
+    "A",
+    "B",
+    "C",
+    "A",
+    "B"
+  ],
+  "loop_ab": 1
+}
