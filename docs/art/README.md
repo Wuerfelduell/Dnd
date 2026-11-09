@@ -1301,3 +1301,48 @@ Sichtkontrolle: [Übersicht](preview-wexmoor6-overview.png),
 
 Grafiklieferung für Paket AM; Spielcode und andere Pakete bleiben unverändert.
 Einbindung und Timing-Abstimmung im laufenden Spiel erfolgen separat.
+
+## Batch AW – Figuren von Dunscar (`dunscar2`)
+
+69 PNG-Dateien für Kapitel 3 „Der letzte Zug nach Dunscar“ nach
+`codex_AW_dunscar_figuren.md` und der verbindlichen Geschichte 3:
+elf Hauptfiguren mit Lauf-Sheet, zwei Emotions-Sheets (acht Ausdrücke),
+24×24-Kopf und Tätigkeit; Gallowmeres Stimme hinter dem Schalter;
+vier lebende Schichtgänger, sechs Einwohner und drei Szenenbilder.
+Gallowmeres Kampf-Sheet gehört zu AX und ist nicht Bestandteil von AW.
+
+- Manifest: [`manifest-dunscar2.json`](../../public/sprites/manifest-dunscar2.json).
+- Animierte Vorschau: [`preview-dunscar2.html`](preview-dunscar2.html), über einen lokalen HTTP-Server öffnen.
+- Kontaktbögen: [Figuren](preview-dunscar2-figuren.png), [Einwohner](preview-dunscar2-einwohner.png), [Szenen](preview-dunscar2-szenen.png).
+- Tatsächliche Bildprompts, Stilreferenzen, Quellprüfsummen und Zellzuschnitte: [`batch-dunscar2-generation.json`](batch-dunscar2-generation.json).
+- Prüfergebnis: [`batch-dunscar2-validation.json`](batch-dunscar2-validation.json).
+
+Laufen: 16×32 pro Frame, vier Spalten, vier Reihen in der Reihenfolge
+unten / links / rechts / oben, vorgeschlagen 7 FPS. Tätigkeiten und Schalter:
+vier Frames à 16×32 nebeneinander, 5 FPS, einmalig abspielen. Die Vorschau
+wiederholt diese Clips nur für die Sichtprüfung. Bei Gallowmere ist die
+zusätzliche Tätigkeit das Anheben der Kettenpfeife mit anschließendem Horchen.
+Portraits: vier 64×64-Zellen; erstes Sheet neutral / misstrauisch / erschrocken /
+leichtes Lächeln, zweites wütend / traurig / nachdenklich / entschlossen.
+Frames im Manifest sind nullbasiert. Untere exklusive Pixelgrenze: 31 bei
+Figuren, 63 bei Portraits. UI-Köpfe sind aus dem neutralen Portrait abgeleitet.
+
+Erzeugt mit dem eingebauten Bildgenerator. Nearest-Neighbor-Export,
+gemeinsame 31 sichtbare Farben plus transparenter Index, ausschließlich
+Alpha 0 oder 255. Gallowmeres Durchschein-Effekt entsteht durch Pixellücken;
+die drei 480×270-Szenen sind deckend. Die Palette übernimmt die Bestandsfarben
+aus `12_sexton_anselm_walk.png` und ergänzt gezielte Nachhall-/Hautfarben.
+
+```sh
+python tools/art/dunscar2/export.py /pfad/zu/sources.json
+python tools/art/dunscar2/validate.py
+node --test tests/sprites.test.js
+```
+
+Der Export benötigt Pillow und NumPy. `sources.json` enthält die Einträge
+unter `records` aus dem Generierungsprotokoll als Liste, jeweils mit `source`
+als lokalem Pfad zur über `sourceFile` und SHA-256 identifizierten Original-PNG.
+Große Generatorquellen gehören nicht zu den Laufzeitdateien. Der Prüfer
+benötigt nur Pillow und läuft direkt auf der fertigen Lieferung.
+
+Grafikpaket zur separaten Einbindung; keine Änderungen am Spielcode.
