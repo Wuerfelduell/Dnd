@@ -54,6 +54,14 @@ Beweisstücke wandern immer zum Ermittler. Wer geht, behält seine Sachen für d
 | `Enter` / Gamepad `A` | untersuchen, sprechen, Beute aufheben (landet in seiner Tasche) |
 | `I`, dann `G` / Gamepad `Y` | eigenes Inventar; `→ Sp. 1` gibt etwas weiter |
 | `G` im Laden oder Lager | zwischen den Taschen beider Spieler wechseln |
+| Kampf: `1`–`4` | Aktion wählen, wenn Spieler 2 am Zug ist (Gamepad `A` = Angriff) |
+| Kampf: `Enter` / Gamepad `A` | Takt beim eigenen Angriff |
+| Kampf: `←` / `→` (Gamepad `X` / `B`) | ausweichen / parieren, wenn der Gegner Spieler 2 angreift |
+
+Im Kampf stehen beide nebeneinander. Jede Runde handelt erst Spieler 1, dann Spieler 2, dann greift der Gegner
+einen von beiden an; abwehren muss der Angegriffene mit seinen Tasten. Jeder hat eigene Konzentration, eigene
+Gegenstände und eigene Zustände (Schutz, Blutung). Wer zu Boden geht, setzt aus; verloren ist erst, wenn beide
+liegen. Gewinnt der andere, rappelt sich der Gestürzte mit einem Viertel seines Lebens auf.
 
 ## Spielmechanik
 

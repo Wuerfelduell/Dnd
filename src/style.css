@@ -587,3 +587,12 @@ button.small.drop.armed { border-color: #c8826a; color: #ffb09a; }
 .playertabs { margin-bottom: 0.4em; }
 .playertabs .tab[data-invplayer="2"].sel { border-color: #6a86c8; color: #9ab8ff; }
 button.small.give { color: #9ab8ff; }
+/* Kampf zu zweit: ein Feld je Spieler, wer dran ist, leuchtet */
+.cb-players { display: flex; gap: 0.5em; }
+.cb-players .cb-player { padding: 0.15em 0.3em; border: 0.125em solid transparent; }
+.cb-players .cb-player:nth-child(2) { width: 13em; }
+.cb-players .cb-player:nth-child(2) .bar, .cb-players .cb-player:first-child:not(:only-child) .bar { width: 5.5em; }
+.cb-players .cb-player:first-child:not(:only-child) { width: 13em; }
+.cb-players .cb-player[data-p="2"] .cb-name { color: #9ab8ff; }
+.cb-player.active { border-color: var(--gold); background: rgba(40, 32, 16, 0.5); }
+.cb-player.down { opacity: 0.5; }

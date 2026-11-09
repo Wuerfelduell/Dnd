@@ -18,6 +18,9 @@ const TELEGRAPH = 650; // Ankündigung vor der ersten Attacke
 const BAR = { x: 140, y: 96, w: 200, h: 8 };
 
 const now = () => performance.now();
+const P2_TINT = 0x9ab8ff; // Spieler 2: gleiche Figur, kühler Mantel
+// Zu zweit stehen die Spieler versetzt: Spieler 1 vorn, Spieler 2 dahinter
+const DUO_HOMES = { 1: { x: PLAYER_X + 12, y: GROUND_Y + 10 }, 2: { x: PLAYER_X - 46, y: GROUND_Y + 20 } };
 
 export class CombatScene extends Phaser.Scene {
   constructor() {
@@ -43,6 +46,15 @@ export class CombatScene extends Phaser.Scene {
     createTextures(this);
     this.buildStage();
     this.gfx = this.add.graphics().setDepth(50);
+    // Gamepad (Spieler 2): A Takt/Aktion, X ausweichen, B parieren
+    this.padHandler = (pad, button) => {
+      const kind = { 0: 'confirm', 2: 'dodge', 1: 'parry' }[button.index];
+      if (!kind || !this.combat.duo) return;
+      if (this.phase === 'menu' && kind === 'confirm' && this.combat.actor === 2) { this.ui.combatPadPick?.(); return; }
+      this.onKey(kind, 2);
+    };
+    this.input.gamepad?.on('down', this.padHandler);
+    this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => this.input.gamepad?.off('down', this.padHandler));
     this.ui.openCombat(this);
     this.ui.combatMessage(this.combat.enc.intro + (this.combat.weak ? `\n\n${this.combat.enc.weak_text}` : ''), 'Weiter mit E');
     // transition_out deckt auf (Schwarz → Bild), transition_in deckt zu
@@ -134,15 +146,15 @@ export class CombatScene extends Phaser.Scene {
   }
 
   /** Schlaganimation passend zur Waffe. */
-  attackAnim() {
-    const pose = WEAPON_POSES[this.state.weapon];
+  attackAnim(n = this.combat.actor) {
+    const pose = WEAPON_POSES[this.combat.on(n, () => this.state.weapon)];
     if (pose && playBattleAnim(this.player, pose, () => this.idle(this.player), 'battle_player_weapons')) return;
     this.anim(this.player, 'attack');
   }
 
   /** Zauberpose des eigenen Pfades; ohne Pfad (oder ohne Sheet) die 14b-Okkult-Pose. */
   castAnim() {
-    const pose = PATHWAY_POSES[this.state.pathway?.id];
+    const pose = PATHWAY_POSES[this.combat.on(this.combat.actor, () => this.state.pathway?.id)];
     if (pose && playBattleAnim(this.player, pose, () => this.idle(this.player), 'battle_player_skills')) return true;
     return this.anim(this.player, 'occult');
   }
@@ -171,15 +183,27 @@ export class CombatScene extends Phaser.Scene {
     glow.setBlendMode(Phaser.BlendModes.ADD);
     this.fog = this.add.tileSprite(0, 0, VIEW_W, VIEW_H, 'fog_a').setOrigin(0).setAlpha(0.2).setDepth(40);
 
-    if (this.textures.exists('battle_player')) {
-      // Kampf-Sheet (48x48, Blick nach rechts); Füße liegen am unteren Zellrand.
-      this.player = this.add.sprite(PLAYER_X, GROUND_Y + 14, 'battle_player', 0).setOrigin(0.5, 1).setScale(1.5).setDepth(10);
-      this.idle(this.player);
-    } else {
-      createCharacterSheet(this, 'player', PLAYER_PALETTE);
-      this.player = this.add.sprite(PLAYER_X, GROUND_Y + 14, 'player', 8).setOrigin(0.5, 1).setScale(2).setDepth(10);
+    this.players = {};
+    this.homes = this.combat.duo ? DUO_HOMES : { 1: { x: PLAYER_X, y: GROUND_Y + 14 } };
+    for (const n of Object.keys(this.homes).map(Number)) {
+      const h = this.homes[n];
+      let spr;
+      if (this.textures.exists('battle_player')) {
+        // Kampf-Sheet (48x48, Blick nach rechts); Füße liegen am unteren Zellrand.
+        spr = this.add.sprite(h.x, h.y, 'battle_player', 0).setOrigin(0.5, 1).setScale(1.5).setDepth(n === 2 ? 11 : 10);
+      } else {
+        createCharacterSheet(this, 'player', PLAYER_PALETTE);
+        spr = this.add.sprite(h.x, h.y, 'player', 8).setOrigin(0.5, 1).setScale(2).setDepth(n === 2 ? 11 : 10);
+      }
+      spr.homeX = h.x;
+      spr.homeY = h.y;
+      spr.baseTint = n === 2 ? P2_TINT : null;
+      if (spr.baseTint) spr.setTint(spr.baseTint);
+      this.players[n] = spr;
+      this.add.ellipse(h.x, h.y, 34, 8, 0x000000, 0.35).setDepth(9);
+      if (this.textures.exists('battle_player')) this.idle(spr);
     }
-    this.add.ellipse(PLAYER_X, GROUND_Y + 14, 34, 8, 0x000000, 0.35).setDepth(9);
+    this.player = this.players[1];
 
     const spr = this.combat.enc.sprite;
     const battleSheet = [this.combat.enc.sheet, ENCOUNTER_SHEETS[this.encounterId], ENEMY_BATTLE_SHEETS[spr]].find((k) => k && this.textures.exists(k));
@@ -220,12 +244,24 @@ export class CombatScene extends Phaser.Scene {
 
   /** Grund-Sheet einer Figur (Zusatz-Sheets wie Waffen oder Zauber kehren hierher zurück). */
   baseSheet(sprite) {
-    if (sprite === this.player) return 'battle_player';
+    if (Object.values(this.players ?? {}).includes(sprite)) return 'battle_player';
     return this.enemySheet ?? sprite.texture.key;
   }
 
   playerCenter() {
-    return { x: PLAYER_X, y: GROUND_Y - 30 };
+    const p = this.player;
+    return { x: p?.homeX ?? PLAYER_X, y: (p?.homeY ?? GROUND_Y + 14) - 44 };
+  }
+
+  /** Spieler n rückt in den Mittelpunkt: Animationen, Ringe und Zahlen gelten ihm. */
+  focusPlayer(n) {
+    this.player = this.players[n] ?? this.players[1];
+    this.ui.combatRefresh();
+  }
+
+  /** Kurzer Name für Meldungen zu zweit. */
+  who(n) {
+    return this.combat.duo ? `Spieler ${n}` : 'Du';
   }
 
   enemyCenter() {
@@ -240,23 +276,38 @@ export class CombatScene extends Phaser.Scene {
   flash(target) {
     if (this.phase !== 'over') this.anim(target, 'hurt');
     target.setTintFill(0xffffff);
-    this.time.delayedCall(80, () => (target === this.enemy && this.enemyTint !== null ? target.setTint(this.enemyTint) : target.clearTint()));
+    this.time.delayedCall(80, () => {
+      if (target === this.enemy && this.enemyTint !== null) target.setTint(this.enemyTint);
+      else if (target.baseTint) target.setTint(target.baseTint);
+      else target.clearTint();
+    });
   }
 
   // --- Ablauf ------------------------------------------------------------------
 
-  /** Tastendruck aus der Oberfläche: 'confirm' | 'dodge' | 'parry' */
-  onKey(kind) {
+  /**
+   * Tastendruck aus der Oberfläche: 'confirm' | 'dodge' | 'parry'. who: welcher Spieler gedrückt hat.
+   * Zu zweit zählt der Takt nur für den, der am Zug ist, und die Abwehr nur für den Angegriffenen.
+   */
+  onKey(kind, who = 1) {
     const t = now();
+    const c = this.combat;
     if (this.phase === 'intro' && kind !== 'parry') { this.toMenu(); return true; }
-    if (this.phase === 'qte' && (kind === 'confirm' || kind === 'dodge')) { this.pressQte(t); return true; }
-    if (this.phase === 'enemy' && (kind === 'dodge' || kind === 'parry')) { this.pressDefense(kind, t); return true; }
+    if (this.phase === 'qte' && (kind === 'confirm' || kind === 'dodge')) {
+      if (!c.duo || who === c.actor) this.pressQte(t);
+      return true;
+    }
+    if (this.phase === 'enemy' && (kind === 'dodge' || kind === 'parry')) {
+      if (!c.duo || who === c.target) this.pressDefense(kind, t);
+      return true;
+    }
     if (this.phase === 'over' && kind !== 'parry') { this.leave(); return true; }
     return false;
   }
 
   toMenu() {
     this.phase = 'menu';
+    this.focusPlayer(this.combat.actor);
     this.ui.combatMenu();
   }
 
@@ -293,7 +344,8 @@ export class CombatScene extends Phaser.Scene {
     if (!sk.hits) { this.qte = { skillId, grades: [] }; this.phase = 'anim'; this.resolveSkill(); return; }
     this.phase = 'qte';
     this.qte = { skillId, grades: [], total: sk.hits, bar: null };
-    this.ui.combatMessage(`${sk.name}: Drücke E oder Leertaste, wenn der Zeiger im goldenen Bereich ist.`);
+    const keys = !this.combat.duo ? 'E oder Leertaste' : this.combat.actor === 2 ? 'Enter (Gamepad A)' : 'E oder Leertaste';
+    this.ui.combatMessage(`${this.combat.duo ? `${this.who(this.combat.actor)}, ` : ''}${sk.name}: Drücke ${keys}, wenn der Zeiger im goldenen Bereich ist.`);
     this.nextBar();
   }
 
@@ -345,7 +397,7 @@ export class CombatScene extends Phaser.Scene {
       return;
     }
     if (SKILL_FX[this.fxId(skillId)]) { this.castAnim(); this.skillFx(skillId); } else this.attackAnim();
-    const blade = this.state.weapon === 'stockdegen';
+    const blade = c.on(c.actor, () => this.state.weapon) === 'stockdegen';
     this.tweens.add({
       targets: this.player, x: ENEMY_X - 50, duration: 160, yoyo: true, ease: 'Quad.out',
       onYoyo: () => {
@@ -376,6 +428,8 @@ export class CombatScene extends Phaser.Scene {
   afterPlayer() {
     this.ui.combatRefresh();
     if (this.combat.outcome) { this.time.delayedCall(300, () => this.over()); return; }
+    // Zu zweit: nach Spieler 1 ist Spieler 2 dran, erst danach der Gegner
+    if (this.combat.passTurn()) { this.time.delayedCall(250, () => this.toMenu()); return; }
     const wait = this.transform();
     this.time.delayedCall(350 + wait, () => this.enemyTurn());
   }
@@ -421,6 +475,7 @@ export class CombatScene extends Phaser.Scene {
         const a = c.lastAction;
         this.ui.combatMessage(`${c.enemy.name}: ${a.name}\n\n${a.text}`);
         const float = { guard: [`Panzer +${a.value}`, 'good'], heal: [`+${a.value}`, 'good'], veil: ['Schleier', 'miss'], taunt: [`-${a.value} Nerven`, 'hurt'] }[a.action];
+        if (a.action === 'taunt') this.focusPlayer(c.target);
         if (float) this.float(float[0], a.action === 'taunt' ? 'player' : 'enemy', float[1]);
         this.anim(this.enemy, 'special');
         this.ui.combatRefresh();
@@ -433,10 +488,14 @@ export class CombatScene extends Phaser.Scene {
     }
     this.phase = 'enemy';
     this.attack = atk;
+    this.focusPlayer(c.target);
     const t0 = now() + TELEGRAPH;
     this.hits = atk.hits.map((h, i) => ({ impact: t0 + h, result: null, applied: false, ring: atk.rings?.[i] ?? { curve: 'linear', lead: RING_LEAD } }));
     const tags = [atk.unparryable ? '⚠ nicht parierbar, ausweichen!' : '', atk.enraged ? 'in Rage' : '', atk.followup ? 'setzt nach!' : '', atk.bleed ? 'Treffer bluten nach' : '', atk.nerves ? `Treffer kosten ${atk.nerves} Nerven` : ''].filter(Boolean).join(' · ');
-    this.ui.combatMessage(`${c.enemy.name}: ${atk.name}${atk.hits.length > 1 ? ` (${atk.hits.length} Schläge)` : ''}${tags ? `\n\n${tags}` : ''}${c.evading ? '\n\nDu weißt schon, wohin er schlägt.' : ''}`, `Leertaste: ausweichen (${DODGE_COST} Nerven) · F: parieren`);
+    const evading = c.fighters[c.target].evading;
+    const help = !c.duo ? `Leertaste: ausweichen (${DODGE_COST} Nerven) · F: parieren`
+      : c.target === 2 ? `Spieler 2 · ←: ausweichen (${DODGE_COST} Nerven) · →: parieren (Gamepad X / B)` : `Spieler 1 · Leertaste: ausweichen (${DODGE_COST} Nerven) · F: parieren`;
+    this.ui.combatMessage(`${c.enemy.name}: ${atk.name}${c.duo ? ` → ${this.who(c.target)}` : ''}${atk.hits.length > 1 ? ` (${atk.hits.length} Schläge)` : ''}${tags ? `\n\n${tags}` : ''}${evading ? '\n\nDu weißt schon, wohin er schlägt.' : ''}`, help);
     this.tweens.add({ targets: this.enemy, x: ENEMY_X + 8, duration: TELEGRAPH * 0.6, ease: 'Sine.out' });
     // Paket-B-Gegner haben zwei Angriffe: mehrteilige Attacken nutzen 'special'
     if (!(atk.hits.length > 1 && this.anim(this.enemy, 'special'))) this.anim(this.enemy, 'attack');
@@ -457,7 +516,7 @@ export class CombatScene extends Phaser.Scene {
     hit.applied = true;
     const r = this.combat.resolveHit(this.attack, hit.result);
     hit.result = r.result;
-    this.tweens.add({ targets: this.enemy, x: PLAYER_X + 70, duration: 90, yoyo: true, ease: 'Quad.in' });
+    this.tweens.add({ targets: this.enemy, x: this.player.homeX + 70, duration: 90, yoyo: true, ease: 'Quad.in' });
     if (hit.result === 'parry') {
       this.float('Parade!', 'player', 'perfect');
       this.anim(this.player, 'parry');
@@ -468,14 +527,26 @@ export class CombatScene extends Phaser.Scene {
       this.float('Ausgewichen', 'player', 'good');
       this.anim(this.player, 'dodge');
       this.hitFx('dodge', 'player');
-      this.tweens.add({ targets: this.player, x: PLAYER_X - 26, duration: 110, yoyo: true, ease: 'Quad.out' });
+      this.tweens.add({ targets: this.player, x: this.player.homeX - 26, duration: 110, yoyo: true, ease: 'Quad.out' });
     } else {
       this.time.delayedCall(90, () => { this.flash(this.player); if (r.damage) this.hitFx('blunt', 'player'); this.float(r.damage ? `-${r.damage}` : 'Abgefangen', 'player', r.damage ? 'hurt' : 'good'); if (r.damage) this.cameras.main.shake(120, 0.01); });
       if (hit.early) this.float('Zu früh', 'player', 'miss');
       else if (r.note === 'unparryable') this.float('Nicht parierbar!', 'player', 'miss');
       else if (r.note === 'exhausted') this.float('Erschöpft', 'player', 'miss');
+      if (r.down && !this.combat.outcome) this.knockedOut(this.player);
     }
     this.ui.combatRefresh();
+  }
+
+  /** Zu zweit: ein Spieler bleibt liegen, der andere kämpft weiter. */
+  knockedOut(sprite) {
+    this.time.delayedCall(200, () => {
+      if (!this.anim(sprite, 'defeated', false)) this.tweens.add({ targets: sprite, angle: -90, y: '+=4', duration: 500 });
+      sprite.setAlpha(0.7);
+      this.float('K.o.!', 'player', 'miss');
+    });
+    const n = Number(Object.keys(this.players).find((k) => this.players[k] === sprite));
+    this.ui.combatMessage(`${this.who(n)} geht zu Boden! ${this.who(n === 1 ? 2 : 1)} muss den Kampf allein beenden.`);
   }
 
   finishEnemyTurn() {
@@ -487,7 +558,7 @@ export class CombatScene extends Phaser.Scene {
     if (allParried && !c.outcome) {
       const dmg = c.riposte();
       this.ui.combatMessage(`Alles pariert! Gegenschlag: ${dmg} Schaden.`);
-      this.attackAnim();
+      this.attackAnim(c.target);
       this.tweens.add({
         targets: this.player, x: ENEMY_X - 50, duration: 140, yoyo: true,
         onYoyo: () => { this.flash(this.enemy); this.hitFx('critical', 'enemy'); this.float(`-${dmg}`, 'enemy', 'crit'); this.cameras.main.shake(120, 0.008); },
@@ -504,14 +575,17 @@ export class CombatScene extends Phaser.Scene {
     if (this.combat.outcome) { this.over(); return; }
     const dot = this.combat.endRound();
     const bleed = this.combat.bleedTick;
-    if (bleed) {
+    for (const [n, f] of Object.entries(this.combat.fighters)) {
+      if (!f.bleedTick) continue;
+      this.focusPlayer(Number(n));
       this.flash(this.player);
-      this.float(`-${bleed}`, 'player', 'hurt');
+      this.float(`-${f.bleedTick}`, 'player', 'hurt');
+      if (f.down) this.knockedOut(this.player);
     }
     if (dot || bleed) {
       if (dot) { this.flash(this.enemy); this.float(`-${dot}`, 'enemy', 'dmg'); }
       this.ui.combatRefresh();
-      this.ui.combatMessage([dot ? `${this.combat.enemy.name} leidet unter Brand und Gift: ${dot} Schaden.` : '', bleed ? `Deine Wunde blutet: ${bleed} Schaden.` : ''].filter(Boolean).join('\n\n'));
+      this.ui.combatMessage([dot ? `${this.combat.enemy.name} leidet unter Brand und Gift: ${dot} Schaden.` : '', bleed ? `${this.combat.duo ? 'Wunden bluten' : 'Deine Wunde blutet'}: ${bleed} Schaden.` : ''].filter(Boolean).join('\n\n'));
       this.time.delayedCall(700, () => (this.combat.outcome ? this.over() : this.toMenu()));
       return;
     }
@@ -527,13 +601,14 @@ export class CombatScene extends Phaser.Scene {
       if (this.anim(this.enemy, 'defeated', false)) { if (!human) this.tweens.add({ targets: this.enemy, alpha: 0, delay: 900, duration: 700 }); }
       else this.tweens.add({ targets: this.enemy, alpha: 0, y: '+=10', duration: 700 });
     }
-    if (c.outcome === 'won') playBattleAnim(this.player, 'victory', null, 'battle_player_weapons');
+    if (c.outcome === 'won') for (const n of c.standing()) playBattleAnim(this.players[n], 'victory', null, 'battle_player_weapons');
     if (c.outcome === 'won') {
       const efx = ENCOUNTER_FX[this.encounterId];
       this.caseFx(efx?.won, 'enemy');
       if (efx?.after) this.time.delayedCall(700, () => this.caseFx(efx.after, 'enemy', 1));
     }
     if (c.outcome === 'lost' && !this.anim(this.player, 'defeated', false)) this.tweens.add({ targets: this.player, angle: -90, y: '+=4', duration: 500 });
+    if (c.outcome !== 'lost') for (const n of c.standing()) this.players[n].setAlpha(1);
     const title = { won: 'Sieg', lost: 'Ohnmacht', fled: 'Rückzug' }[c.outcome];
     this.ui.combatOver(title);
   }
