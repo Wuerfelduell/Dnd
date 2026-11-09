@@ -127,6 +127,17 @@ Am Nordtor: **Die Kröte im Kanal**, **Das Uhrwerk schweigt nicht**, **Der Maske
 Nach Fall 3: **Das verschwundene Gesangbuch**. Miss Pimm vermisst ein Asservat aus St. Ebba, Mr. Quill hat es
 in der Vitrine. Man soll es nicht aufschlagen. Man kann es aber.
 
+**Fall 5: Der Chor in der Glocke.** Sieben Sängerinnen aus Veys altem Chor sind verschwunden, und die
+Glockengießerei Brannock am Kanal glüht. Price hält die Rostbrüder für schuldig. Hinweise gibt es in der
+Gießerei, im Haus Vey in Ashgrove und bei alten Bekannten am Nordtor. Wer Uhrmacherin und Sternwarte fragt,
+kann die Glocke brechen, statt sie nur zu zerschlagen. Endkampf gegen Miriam Vey in der Resonanzkammer.
+
+**Fall 6: Der dreizehnte Gast.** Auf den Fotoplatten vom Ball der Ashcombes steht ein Fremder, und die
+Abgelichteten werfen keinen Schatten mehr. Spuren führen ins Atelier Whitlock am Altmarkt und ins
+Spiegelkabinett am Nordtor. Die Wahrsagerin ist die bequeme Verdächtige.
+
+Nebenauftrag **Das Wundertonikum**: Bess Hagan vom Hafen schwört, Dr. Pratt habe ihren Mann vergiftet.
+
 ## Technik
 
 - [Phaser 3](https://phaser.io) (2D-Engine, WebGL) + [Vite](https://vitejs.dev) (Dev-Server & Build).
@@ -154,6 +165,7 @@ src/
     case_01.json, ...     Informationen, Hinweise (Quellen), Schlussfolgerungen, Enden (Fall 1 bis 3)
     case_altmarkt.json    Informationen und Hinweise der Altmarkt-Nebenaufträge
     case_04.json          Fall 4 und die Nebenfälle am Nordtor
+    case_05.json, case_06.json  Fall 5 und 6 (mit dem Nebenauftrag Wundertonikum)
     maps/*.json           Orte als Zeichenraster + Objekte + Figuren
     dialogues/*.json      Dialogbäume
 tests/                    `npm test`: Datenprüfung, Kampfregeln und Balance, beide Fälle über die echten Dialoge durchgespielt

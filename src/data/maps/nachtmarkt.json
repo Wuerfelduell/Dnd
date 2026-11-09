@@ -70,6 +70,48 @@
         7
       ],
       "facing": "left"
+    },
+    {
+      "id": "kind_streuner",
+      "tile": [
+        8,
+        8
+      ],
+      "facing": "right",
+      "visible_if": {
+        "requires_quests_active": [
+          "case_05"
+        ]
+      }
+    },
+    {
+      "id": "schwindler",
+      "tile": [
+        20,
+        7
+      ],
+      "facing": "down",
+      "visible_if": {
+        "hide_if_flags": [
+          "pratt_gone"
+        ]
+      }
+    },
+    {
+      "id": "student",
+      "tile": [
+        15,
+        7
+      ],
+      "facing": "right",
+      "visible_if": {
+        "requires_quests_active": [
+          "wundertonikum"
+        ],
+        "hide_if_flags": [
+          "pratt_resolved"
+        ]
+      }
     }
   ],
   "interactables": [
@@ -128,6 +170,20 @@
       "title": "Kampfgrube",
       "role": "Sägemehl und Wetten",
       "dialogue": "brock"
+    },
+    {
+      "id": "pratt_crate",
+      "clue": "pratt_crate",
+      "tile": [
+        22,
+        9
+      ],
+      "prompt": "In Pratts Kiste sehen",
+      "visible_if": {
+        "requires_quests_active": [
+          "wundertonikum"
+        ]
+      }
     }
   ],
   "decor": [

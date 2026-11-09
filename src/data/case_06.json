@@ -1,0 +1,283 @@
+{
+  "facts": {
+    "shadows_lost": {
+      "case": "case_06",
+      "text": "Wer auf den Fotoplatten vom Ball zu sehen ist, hat seinen Schatten verloren."
+    },
+    "seer_curse": {
+      "case": "case_06",
+      "text": "Die Wahrsagerin Orsolya hat die Ballgäste verflucht.",
+      "refuted_if_likely": [
+        "plates_tampered"
+      ]
+    },
+    "plates_tampered": {
+      "case": "case_06",
+      "text": "Die Platten wurden in einem fremden Silberbad entwickelt."
+    },
+    "mirror_source": {
+      "case": "case_06",
+      "text": "Das fremde Silberbad stammt von den Spiegeln des Kabinetts am Nordtor."
+    },
+    "mews_absent": {
+      "case": "case_06",
+      "text": "Lucan Mews war auf dem Ball, steht aber auf keiner Liste und auf keiner Platte."
+    },
+    "guest_made": {
+      "case": "case_06",
+      "text": "Der dreizehnte Gast ist ein Mensch, der sich aus fremden Schatten zusammensetzt."
+    },
+    "tonic_poison": {
+      "case": "side",
+      "text": "Dr. Pratts Wundertonikum ist Gift.",
+      "refuted_if_likely": [
+        "tonic_laudanum"
+      ]
+    },
+    "tonic_laudanum": {
+      "case": "side",
+      "text": "Das Wundertonikum ist gefärbter Gin mit Laudanum. Es macht abhängig, nicht krank."
+    },
+    "husband_fish": {
+      "case": "side",
+      "text": "Bess Hagans Mann ist krank von verdorbenem Fisch aus dem eigenen Fass."
+    }
+  },
+  "clues": {
+    "police_seer": {
+      "fact": "seer_curse",
+      "source": "Polizeibericht (Price)",
+      "name": "Die Wahrsagerin",
+      "text": "Price schreibt: „Madame Orsolya, Wahrsagerin, beim Ball angestellt. Hat Gästen den Tod vorhergesagt. Drei liegen jetzt im Bett. Fall klar.“"
+    },
+    "ashcombe_seer": {
+      "fact": "seer_curse",
+      "source": "Lady Cordelia Ashcombe",
+      "name": "Eine Prophezeiung",
+      "text": "„Sie hat jedem von uns in die Hand gesehen und gesagt: Morgen gehört dein Schatten einem anderen. Wir haben gelacht. Wer lacht jetzt?“"
+    },
+    "no_shadows": {
+      "fact": "shadows_lost",
+      "source": "Geistsicht",
+      "name": "Leere unter dem Kronleuchter",
+      "text": "Unter dem Kronleuchter werfen die Stühle Schatten, die Vasen, die Tische. An den Stellen, wo auf den Platten Gäste stehen, liegt kein Schatten, nur ein kalter, heller Fleck."
+    },
+    "ashcombe_shadow": {
+      "fact": "shadows_lost",
+      "source": "Lady Cordelia Ashcombe",
+      "name": "Die Kerze",
+      "text": "Lady Ashcombe hält eine Kerze neben sich. An der Wand hinter ihr ist nichts. „Seit dem Ball. Und ich bin so müde. Als würde jemand anderes für mich wach sein.“"
+    },
+    "owen_shadow": {
+      "fact": "shadows_lost",
+      "source": "Owen Pike",
+      "name": "Kein Schatten, kein Fieber",
+      "text": "„Ich hab drei Gäste untersucht. Puls schwach, kein Fieber, kein Gift. Und keiner von ihnen wirft einen Schatten, Sir. Ich hab die Lampe dreimal neu gestellt.“"
+    },
+    "silver_bath": {
+      "fact": "plates_tampered",
+      "source": "Eigene Beobachtung",
+      "name": "Das falsche Bad",
+      "text": "In den Wannen der Dunkelkammer steht ein Silberbad, das nicht nach Silber riecht, sondern nach kaltem Glas. Darin treiben dunkle Flocken, die sich von deiner Lampe wegdrehen."
+    },
+    "ada_bath": {
+      "fact": "plates_tampered",
+      "source": "Ada Whitlock",
+      "name": "Nicht mein Bad",
+      "text": "„Das ist nicht mein Bad. Meins mische ich selbst, ich kenne den Geruch. Am Abend des Balls hat Lucan die Platten entwickelt, weil ich die Gäste unterhalten musste.“"
+    },
+    "mirrors_scraped": {
+      "fact": "mirror_source",
+      "source": "Eigene Beobachtung",
+      "name": "Blinde Spiegel",
+      "text": "Von den Spiegeln im Kabinett ist das Silber in langen Streifen abgekratzt, sauber, mit einer feinen Klinge. Wer in die blinden Stellen sieht, sieht nichts. Nicht einmal sich selbst."
+    },
+    "abel_drive": {
+      "fact": "mirror_source",
+      "source": "Abel Crouch",
+      "name": "Eine Fahrt zum Jahrmarkt",
+      "text": "„Den jungen Herrn mit dem Chemiekoffer? Zweimal gefahren, nachts, zum Jahrmarkt am Nordtor. Er wollte, dass ich warte. Als er zurückkam, hat meine Laterne an ihm keinen Schatten gemacht.“"
+    },
+    "list_seen": {
+      "fact": "mews_absent",
+      "source": "Gästeliste der Ashcombes",
+      "name": "Zwölf und eine",
+      "text": "Zwölf Gäste, dazu „Miss A. Whitlock, Fotografie“. Kein Assistent. Lady Ashcombe hat neben die Liste geschrieben: „Der junge Mann mit dem Stativ war charmant. Wer war er?“"
+    },
+    "orsolya_mews": {
+      "fact": "mews_absent",
+      "source": "Madame Orsolya",
+      "name": "Der Junge ohne Schatten",
+      "text": "„Ich habe allen in die Hand gesehen. Allen bis auf einen. Der Junge mit dem Kasten hatte keine Linien in der Hand und keinen Schatten unter den Füßen. Ich habe gesagt, morgen gehört euer Schatten einem anderen. Ich habe gemeint: ihm.“"
+    },
+    "plate_vision": {
+      "fact": "guest_made",
+      "source": "Fotoplatte vom Ball",
+      "name": "Der Fremde auf der Platte",
+      "text": "Hältst du die Platte gegen das Licht, besteht der dreizehnte Gast aus Flecken, die nicht zusammenpassen: Lady Ashcombes Hand, die Schulter eines Offiziers, der Hut eines Kaufmanns. Nur der Mantelknopf ist sein eigener. Messing, wie an Lucans Jacke.",
+      "by": "vision"
+    },
+    "owen_mews": {
+      "fact": "guest_made",
+      "source": "Owen Pike",
+      "name": "Geborgte Schatten",
+      "text": "„Ein Mensch ohne eigenen Schatten stirbt nicht, er wird nur ... dünn. Es sei denn, er nimmt sich welche. Hab das in einem verbotenen Buch gelesen. Sagen Sie das bitte nicht meinem Professor.“"
+    },
+    "bess_poison": {
+      "fact": "tonic_poison",
+      "source": "Bess Hagan",
+      "name": "Gift in Flaschen",
+      "text": "„Mein Jack hat Pratts Wundertonikum getrunken, und seitdem liegt er grün im Bett! Gift ist das! Ich will, dass der Kerl hängt!“"
+    },
+    "owen_tonic": {
+      "fact": "tonic_laudanum",
+      "source": "Owen Pike",
+      "name": "Analyse am Küchentisch",
+      "text": "Owen schüttelt die Flasche gegen das Licht und riecht daran. „Gin, Zucker, grüne Tinte und Laudanum. Nicht giftig. Aber wer das jeden Tag trinkt, kommt nicht mehr davon los.“"
+    },
+    "pratt_crate": {
+      "fact": "tonic_laudanum",
+      "source": "Eigene Beobachtung",
+      "name": "Pratts Kiste",
+      "text": "In der Kiste unter dem Stand liegen leere Ginflaschen, ein Glas grüne Tinte, eine Rolle Etiketten mit Medaillen und eine braune Flasche aus der Apotheke: Laudanum."
+    },
+    "bess_barrel": {
+      "fact": "husband_fish",
+      "source": "Eigene Beobachtung",
+      "name": "Das Fischfass",
+      "text": "Hinter Bess Hagans Stand steht ein Fass, das seit Tagen in der Sonne gestanden hat. Der Geruch kommt nicht vom Hafen."
+    },
+    "owen_fish": {
+      "fact": "husband_fish",
+      "source": "Owen Pike",
+      "name": "Grün im Gesicht",
+      "text": "„Grün und Bauchkrämpfe? Das klingt nach Fischvergiftung, nicht nach Laudanum. Laudanum macht schläfrig, nicht grün.“"
+    }
+  },
+  "deductions": [
+    {
+      "id": "shadow_bath",
+      "case": "case_06",
+      "pairs": [
+        [
+          "plates_tampered",
+          "mirror_source"
+        ]
+      ],
+      "name": "Schatten im Silberbad",
+      "text": "Wer die Platten im Silber der Kabinettspiegel entwickelt, hält die Schatten der Abgelichteten darin fest."
+    },
+    {
+      "id": "thirteenth",
+      "case": "case_06",
+      "pairs": [
+        [
+          "mews_absent",
+          "shadows_lost"
+        ]
+      ],
+      "name": "Der dreizehnte Gast",
+      "text": "Der Fremde auf den Platten ist Lucan Mews. Er nimmt sich die Schatten der Gäste."
+    },
+    {
+      "id": "shadow_man",
+      "case": "case_06",
+      "pairs": [
+        [
+          "guest_made",
+          "plates_tampered"
+        ]
+      ],
+      "name": "Ein Mensch aus Schatten",
+      "text": "Lucan setzt sich aus gestohlenen Schatten zusammen. Wer das Silberbad umkehrt, gibt sie zurück."
+    },
+    {
+      "id": "seer_guilty",
+      "case": "case_06",
+      "pairs": [
+        [
+          "seer_curse",
+          "shadows_lost"
+        ]
+      ],
+      "honor": 0,
+      "name": "Der Fluch der Wahrsagerin",
+      "text": "Orsolya hat es vorhergesagt, also hat sie es getan."
+    },
+    {
+      "id": "quack_fraud",
+      "case": "side",
+      "pairs": [
+        [
+          "tonic_laudanum",
+          "husband_fish"
+        ]
+      ],
+      "name": "Betrug, aber kein Gift",
+      "text": "Pratt verkauft gefärbten Gin mit Laudanum. Jack Hagan ist aber am Fisch erkrankt, nicht am Tonikum."
+    }
+  ],
+  "endings": {
+    "c6_perfect": {
+      "case": "case_06",
+      "title": "Jeder bekommt seinen Schatten",
+      "honor": 35,
+      "gives_money": 50,
+      "gives_items": {
+        "kamera_alt": 1
+      },
+      "sets_flags": [
+        "case_06_closed",
+        "mews_arrested",
+        "shadows_returned"
+      ],
+      "complete_quests": [
+        "case_06"
+      ],
+      "text": "Du gießt das Silberbad über die Spiegel. Die Flocken lösen sich, steigen auf wie Ruß, und jeder Fetzen Dunkelheit zieht zur Tür hinaus, die Straße hinunter, ins Villenviertel.\n\nAm Morgen werfen zwölf Menschen wieder Schatten. Lucan Mews wirft keinen. Er sitzt in der Zelle und bittet um eine Lampe, damit er sehen kann, ob er überhaupt noch da ist.\n\nAda Whitlock schenkt dir ihre alte Reisekamera. „Damit Sie etwas haben, das nur zeigt, was da ist.“"
+    },
+    "c6_good": {
+      "case": "case_06",
+      "title": "Zerbrochene Spiegel",
+      "honor": 20,
+      "gives_money": 30,
+      "sets_flags": [
+        "case_06_closed",
+        "mews_arrested"
+      ],
+      "complete_quests": [
+        "case_06"
+      ],
+      "text": "Du zerschlägst die Spiegel, einen nach dem anderen. Mit jedem Klirren fällt ein Schatten zu Boden und kriecht davon.\n\nDie meisten finden ihren Weg zurück. Lady Ashcombe nicht. Sie lebt, aber sie meidet seitdem jedes Licht."
+    },
+    "c6_early": {
+      "case": "case_06",
+      "title": "Ein Assistent in Ketten",
+      "honor": 10,
+      "gives_money": 15,
+      "sets_flags": [
+        "case_06_closed",
+        "mews_arrested",
+        "shadows_lost_forever"
+      ],
+      "complete_quests": [
+        "case_06"
+      ],
+      "text": "Price verhaftet Lucan Mews im Atelier. Er lächelt die ganze Zeit. Die Schatten bleiben verschwunden, denn niemand weiß, wo er sie aufbewahrt hat. Im Spiegelkabinett am Nordtor gehen nachts Besucher verloren."
+    },
+    "c6_seer": {
+      "case": "case_06",
+      "title": "Der falsche Fluch",
+      "honor": -12,
+      "sets_flags": [
+        "case_06_closed",
+        "seer_arrested",
+        "c6_wrong"
+      ],
+      "complete_quests": [
+        "case_06"
+      ],
+      "text": "Madame Orsolya wird abgeführt und lacht. „Morgen gehört dein Schatten einem anderen“, sagt sie zu Price.\n\nEine Woche später hat auch Price keinen mehr."
+    }
+  }
+}

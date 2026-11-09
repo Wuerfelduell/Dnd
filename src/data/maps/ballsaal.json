@@ -1,0 +1,146 @@
+{
+  "id": "ballsaal",
+  "name": "Ballsaal der Villa Ashcombe",
+  "tiles": "theater",
+  "ambient": {
+    "night": 0.6,
+    "fog": 0.04
+  },
+  "spawns": {
+    "default": [
+      17,
+      17
+    ]
+  },
+  "rows": [
+    "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII",
+    "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII",
+    "IBBBwwwwwwwwwwwwwwwwwwwwwwwwwwwwBBBI",
+    "IwwwOwwwwwwwOwwCCCCCCwwOwwwwwwwOwwwI",
+    "IwwwwwwwwwwwwwwCCCCCCwwwwwwwwwwwwwwI",
+    "IwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwI",
+    "IwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwI",
+    "IwwwwTTwwwwwTTwwwwwwwwTTwwwwwTTwwwwI",
+    "IwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwI",
+    "IwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwI",
+    "IwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwI",
+    "IwwwwwwwTTwwwwwwwwwwwwwwwwTTwwwwwwwI",
+    "IwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwI",
+    "IwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwI",
+    "IwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwI",
+    "IwwwOwwwwwwwOwwwwwwwwwwOwwwwwwwOwwwI",
+    "IwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwI",
+    "IwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwI",
+    "IwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwI",
+    "IIIIIIIIIIIIIIIIIEEIIIIIIIIIIIIIIIII"
+  ],
+  "npcs": [
+    {
+      "id": "ashcombe",
+      "tile": [
+        18,
+        6
+      ],
+      "facing": "down",
+      "visible_if": {
+        "requires_flags": [
+          "briefed_06"
+        ]
+      }
+    },
+    {
+      "id": "student",
+      "tile": [
+        9,
+        12
+      ],
+      "facing": "right",
+      "visible_if": {
+        "requires_quests_active": [
+          "case_06"
+        ]
+      }
+    },
+    {
+      "id": "kutscher",
+      "tile": [
+        20,
+        16
+      ],
+      "facing": "up",
+      "visible_if": {
+        "requires_quests_active": [
+          "case_06"
+        ]
+      }
+    }
+  ],
+  "interactables": [
+    {
+      "id": "exit",
+      "kind": "travel",
+      "tile": [
+        17,
+        18
+      ],
+      "prompt": "Villa verlassen (Stadtkarte)",
+      "marker": false,
+      "reach": 26
+    },
+    {
+      "id": "guests",
+      "clue": "list_seen",
+      "tile": [
+        33,
+        3
+      ],
+      "prompt": "Die Gästeliste auf dem Pult lesen",
+      "sprite": "paper",
+      "effects": {
+        "gives_items": {
+          "gaesteliste": 1
+        }
+      },
+      "visible_if": {
+        "requires_quests_active": [
+          "case_06"
+        ]
+      }
+    },
+    {
+      "id": "lamp",
+      "clue": "no_shadows",
+      "tile": [
+        12,
+        8
+      ],
+      "prompt": "Die Gäste unter dem Kronleuchter betrachten",
+      "hidden": true,
+      "visible_if": {
+        "requires_quests_active": [
+          "case_06"
+        ]
+      }
+    },
+    {
+      "id": "abzug",
+      "kind": "combat",
+      "encounter": "schattenabzug",
+      "tile": [
+        27,
+        13
+      ],
+      "sprite": "apparition",
+      "marker": false,
+      "prompt": "Dem Schatten ohne Besitzer folgen",
+      "visible_if": {
+        "requires_quests_active": [
+          "case_06"
+        ],
+        "hide_if_flags": [
+          "schattenabzug_defeated"
+        ]
+      }
+    }
+  ]
+}

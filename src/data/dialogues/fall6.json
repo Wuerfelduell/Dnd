@@ -1,0 +1,704 @@
+{
+  "ashcombe": {
+    "start": "start",
+    "nodes": {
+      "start": {
+        "text": "Eine blasse Dame im Ballkleid sitzt zwischen leeren Gläsern, als wäre der Ball nie zu Ende gegangen. „Lady Cordelia Ashcombe. Sie sind von der Polizei? Endlich.“",
+        "choices": [
+          {
+            "text": "Was ist auf dem Ball passiert?",
+            "next": "seer",
+            "hide_if_clues": [
+              "ashcombe_seer"
+            ],
+            "requires_quests_active": [
+              "case_06"
+            ]
+          },
+          {
+            "text": "Geht es Ihnen gut?",
+            "next": "shadow",
+            "hide_if_clues": [
+              "ashcombe_shadow"
+            ],
+            "requires_quests_active": [
+              "case_06"
+            ]
+          },
+          {
+            "text": "Darf ich die Gästeliste sehen?",
+            "next": "list",
+            "requires_quests_active": [
+              "case_06"
+            ]
+          },
+          {
+            "text": "Ich sehe mich um."
+          }
+        ]
+      },
+      "seer": {
+        "text": "„Wir hatten eine Wahrsagerin engagiert, zur Belustigung.“ Sie lacht ohne Freude.",
+        "gives_clues": [
+          "ashcombe_seer"
+        ],
+        "choices": [
+          {
+            "text": "Danke.",
+            "next": "start"
+          }
+        ]
+      },
+      "shadow": {
+        "text": "Sie greift nach der Kerze.",
+        "gives_clues": [
+          "ashcombe_shadow"
+        ],
+        "choices": [
+          {
+            "text": "Danke.",
+            "next": "start"
+          }
+        ]
+      },
+      "list": {
+        "text": "„Auf dem Sekretär. Und die Fotografin, Miss Whitlock, hat ihr Atelier am Altmarkt. Sie hat die Platten.“",
+        "sets_flags": [
+          "atelier_known"
+        ],
+        "choices": [
+          {
+            "text": "Danke.",
+            "next": "start"
+          }
+        ]
+      }
+    }
+  },
+  "fotografin": {
+    "start": "start",
+    "nodes": {
+      "start": {
+        "text": "Eine Frau mit hochgesteckten Haaren und Silberflecken an den Fingern dreht eine Kamera auf dem Stativ. „Ada Whitlock. Wenn es um die Ballplatten geht: Ich habe sie nicht verflucht.“",
+        "choices": [
+          {
+            "text": "Wer hat die Platten entwickelt?",
+            "next": "bath",
+            "hide_if_clues": [
+              "ada_bath"
+            ],
+            "requires_quests_active": [
+              "case_06"
+            ]
+          },
+          {
+            "text": "Kann ich eine Platte mitnehmen?",
+            "next": "plate",
+            "hide_if_items": [
+              "fotoplatte"
+            ],
+            "hide_if_flags": [
+              "plate_given"
+            ],
+            "requires_quests_active": [
+              "case_06"
+            ]
+          },
+          {
+            "text": "Wer ist Lucan?",
+            "next": "lucan",
+            "requires_clues": [
+              "ada_bath"
+            ],
+            "requires_quests_active": [
+              "case_06"
+            ]
+          },
+          {
+            "text": "Schöne Kamera.",
+            "next": "camera"
+          },
+          {
+            "text": "Danke."
+          }
+        ]
+      },
+      "bath": {
+        "text": "Sie riecht an einer Wanne und verzieht das Gesicht.",
+        "gives_clues": [
+          "ada_bath"
+        ],
+        "choices": [
+          {
+            "text": "Danke.",
+            "next": "start"
+          }
+        ]
+      },
+      "plate": {
+        "text": "„Nehmen Sie die mit dem Kronleuchter. Ich will sie nicht mehr im Haus haben.“",
+        "gives_items": {
+          "fotoplatte": 1
+        },
+        "sets_flags": [
+          "plate_given"
+        ],
+        "choices": [
+          {
+            "text": "Danke.",
+            "next": "start"
+          }
+        ]
+      },
+      "lucan": {
+        "text": "„Lucan Mews. Kam vor einem Monat und wollte lernen, umsonst. Er hat ein gutes Auge. Zu gut. Er sieht sich die Leute an, als würde er Maß nehmen.“",
+        "choices": [
+          {
+            "text": "Danke.",
+            "next": "start"
+          }
+        ]
+      },
+      "camera": {
+        "text": "„Ein altes Gehäuse aus Messing. Man sagt, es fängt mehr ein als Licht. Unsinn, natürlich.“",
+        "choices": [
+          {
+            "text": "Natürlich.",
+            "next": "start"
+          }
+        ]
+      }
+    }
+  },
+  "mews": {
+    "start": "start",
+    "nodes": {
+      "start": {
+        "text": "Ein junger Mann mit Messingknöpfen poliert Linsen. Er sieht nicht auf. „Lucan Mews. Assistent. Ich war nicht auf dem Ball, falls Sie das fragen wollen.“",
+        "choices": [
+          {
+            "text": "Ihr Name steht auf keiner Liste.",
+            "next": "list",
+            "requires_clues": [
+              "list_seen"
+            ],
+            "requires_quests_active": [
+              "case_06"
+            ]
+          },
+          {
+            "text": "Was machen Sie hier?",
+            "next": "work"
+          },
+          {
+            "text": "Schon gut."
+          }
+        ]
+      },
+      "list": {
+        "text": "„Dann war ich wohl nicht da.“ Er lächelt. Unter seinem Stuhl liegt der Schatten von jemand anderem, viel zu groß für ihn.",
+        "choices": [
+          {
+            "text": "Danke.",
+            "next": "start"
+          }
+        ]
+      },
+      "work": {
+        "text": "„Ich lerne, wie man Menschen festhält. Auf Glas, meine ich.“",
+        "choices": [
+          {
+            "text": "Danke.",
+            "next": "start"
+          }
+        ]
+      }
+    }
+  },
+  "wahrsagerin": {
+    "start": "start",
+    "nodes": {
+      "start": {
+        "text": "Hinter einem Perlenvorhang mischt eine alte Frau mit Kopftuch Karten. „Madame Orsolya. Price hat mich schon gefunden, Liebling. Wollen Sie mich auch einsperren?“",
+        "choices": [
+          {
+            "text": "Was haben Sie den Gästen vorhergesagt?",
+            "next": "mews",
+            "hide_if_clues": [
+              "orsolya_mews"
+            ],
+            "requires_quests_active": [
+              "case_06"
+            ]
+          },
+          {
+            "text": "Lesen Sie mir die Hand.",
+            "next": "hand"
+          },
+          {
+            "text": "Nein."
+          }
+        ]
+      },
+      "mews": {
+        "text": "Sie legt eine Karte mit einem leeren Spiegel auf den Tisch.",
+        "gives_clues": [
+          "orsolya_mews"
+        ],
+        "choices": [
+          {
+            "text": "Danke.",
+            "next": "start"
+          }
+        ]
+      },
+      "hand": {
+        "text": "Sie dreht deine Hand ins Licht. „Viele Linien. Zu viele für einen, der nur Polizist ist.“",
+        "choices": [
+          {
+            "text": "Danke.",
+            "next": "start"
+          }
+        ]
+      }
+    }
+  },
+  "student": {
+    "start": "start",
+    "nodes": {
+      "start": {
+        "text": "Ein junger Mann mit Brille und Arzttasche gähnt. „Owen Pike, Medizinstudent. Ich helfe aus, wo der Doktor zu teuer ist.“",
+        "choices": [
+          {
+            "text": "Sie haben die Ballgäste untersucht?",
+            "next": "shadow",
+            "hide_if_clues": [
+              "owen_shadow"
+            ],
+            "requires_quests_active": [
+              "case_06"
+            ]
+          },
+          {
+            "text": "Kann ein Mensch fremde Schatten tragen?",
+            "next": "mews",
+            "requires_any_clues": [
+              "orsolya_mews",
+              "list_seen"
+            ],
+            "hide_if_clues": [
+              "owen_mews"
+            ],
+            "requires_quests_active": [
+              "case_06"
+            ]
+          },
+          {
+            "text": "Was ist in diesem Tonikum?",
+            "next": "tonic",
+            "requires_items": [
+              "wundertonikum"
+            ],
+            "hide_if_clues": [
+              "owen_tonic"
+            ]
+          },
+          {
+            "text": "Jack Hagan ist grün und hat Bauchkrämpfe.",
+            "next": "fish",
+            "requires_quests_active": [
+              "wundertonikum"
+            ],
+            "hide_if_clues": [
+              "owen_fish"
+            ]
+          },
+          {
+            "text": "Bis dann."
+          }
+        ]
+      },
+      "shadow": {
+        "text": "Er schiebt die Brille hoch.",
+        "gives_clues": [
+          "owen_shadow"
+        ],
+        "choices": [
+          {
+            "text": "Danke.",
+            "next": "start"
+          }
+        ]
+      },
+      "mews": {
+        "text": "Er sieht sich um, ob jemand zuhört.",
+        "gives_clues": [
+          "owen_mews"
+        ],
+        "choices": [
+          {
+            "text": "Danke.",
+            "next": "start"
+          }
+        ]
+      },
+      "tonic": {
+        "text": "Er entkorkt die Flasche.",
+        "gives_clues": [
+          "owen_tonic"
+        ],
+        "choices": [
+          {
+            "text": "Danke.",
+            "next": "start"
+          }
+        ]
+      },
+      "fish": {
+        "text": "Er runzelt die Stirn.",
+        "gives_clues": [
+          "owen_fish"
+        ],
+        "choices": [
+          {
+            "text": "Danke.",
+            "next": "start"
+          }
+        ]
+      }
+    }
+  },
+  "kutscher": {
+    "start": "start",
+    "nodes": {
+      "start": {
+        "text": "Ein Kutscher mit Zylinder und Pferdedecke über den Knien tippt an die Krempe. „Abel Crouch. Wohin soll's gehen?“",
+        "choices": [
+          {
+            "text": "Haben Sie jemanden vom Ball gefahren?",
+            "next": "drive",
+            "hide_if_clues": [
+              "abel_drive"
+            ],
+            "requires_quests_active": [
+              "case_06"
+            ]
+          },
+          {
+            "text": "Nirgendwohin, danke."
+          }
+        ]
+      },
+      "drive": {
+        "text": "Er krault das Pferd hinter den Ohren.",
+        "gives_clues": [
+          "abel_drive"
+        ],
+        "choices": [
+          {
+            "text": "Danke.",
+            "next": "start"
+          }
+        ]
+      }
+    }
+  },
+  "inspect_platte": {
+    "start": "start",
+    "nodes": {
+      "start": {
+        "text": "Eine Glasplatte, schwarz-weiß verkehrt: der Ballsaal der Ashcombes, zwölf Gäste unter dem Kronleuchter. Und ein dreizehnter, ganz hinten, unscharf.",
+        "choices": [
+          {
+            "text": "Gegen das Licht halten.",
+            "next": "vision",
+            "hide_if_clues": [
+              "plate_vision"
+            ]
+          },
+          {
+            "text": "Wegpacken."
+          }
+        ]
+      },
+      "vision": {
+        "text": "Du hältst die Platte gegen die Lampe.",
+        "gives_clues": [
+          "plate_vision"
+        ],
+        "choices": [
+          {
+            "text": "Wegpacken."
+          }
+        ]
+      }
+    }
+  },
+  "kabinett6": {
+    "start": "start",
+    "nodes": {
+      "start": {
+        "text": "Lucan Mews kniet zwischen den blinden Spiegeln. Um ihn herum liegen Schatten auf dem Boden wie abgelegte Mäntel. Sie zucken. Ohne sie ist er kaum mehr als ein dünner Strich.",
+        "choices": [
+          {
+            "text": "Die Schatten in das Silberbad zurückgießen und die Spiegel neu belegen.",
+            "next": "perfect",
+            "requires_certain": [
+              "shadow_man"
+            ],
+            "requires_items": [
+              "silbernitrat"
+            ]
+          },
+          {
+            "text": "Die Schatten in das Silberbad zurückgießen und die Spiegel neu belegen.",
+            "next": "perfect",
+            "requires_certain": [
+              "shadow_man"
+            ],
+            "requires_items": [
+              "schattenrest"
+            ],
+            "hide_if_items": [
+              "silbernitrat"
+            ]
+          },
+          {
+            "text": "Die Spiegel zerschlagen, damit er nie wieder welche nimmt.",
+            "next": "smash"
+          },
+          {
+            "text": "Noch nicht."
+          }
+        ]
+      },
+      "perfect": {
+        "text": "Du arbeitest langsam, Spiegel für Spiegel.",
+        "ending": "c6_perfect",
+        "choices": [
+          {
+            "text": "…"
+          }
+        ]
+      },
+      "smash": {
+        "text": "Glas regnet auf den Boden.",
+        "ending": "c6_good",
+        "choices": [
+          {
+            "text": "…"
+          }
+        ]
+      }
+    }
+  },
+  "marktfrau": {
+    "start": "start",
+    "nodes": {
+      "start": {
+        "text": "Eine kräftige Frau hinter einem Fischstand wischt sich die Hände an der Schürze ab. „Bess Hagan. Frischer Hering, frischer als woanders. Oder sind Sie wegen Pratt hier?“",
+        "choices": [
+          {
+            "text": "Wer ist Pratt?",
+            "next": "poison",
+            "hide_if_quests": [
+              "wundertonikum"
+            ]
+          },
+          {
+            "text": "Wie geht es Jack?",
+            "next": "jack",
+            "requires_quests_active": [
+              "wundertonikum"
+            ]
+          },
+          {
+            "text": "Pratt ist ein Betrüger, aber er hat Jack nicht vergiftet. Es war Ihr Fisch.",
+            "next": "truth",
+            "requires_conclusions": [
+              "quack_fraud"
+            ],
+            "requires_flags": [
+              "pratt_resolved"
+            ],
+            "hide_if_flags": [
+              "bess_told"
+            ]
+          },
+          {
+            "text": "Nur schauen."
+          }
+        ]
+      },
+      "poison": {
+        "text": "Sie knallt eine grüne Flasche auf den Tresen.",
+        "gives_clues": [
+          "bess_poison"
+        ],
+        "start_quests": [
+          "wundertonikum"
+        ],
+        "gives_items": {
+          "wundertonikum": 1
+        },
+        "choices": [
+          {
+            "text": "Ich sehe mir das an.",
+            "next": "start"
+          }
+        ]
+      },
+      "jack": {
+        "text": "„Grün wie ein Frosch und schwach wie ein Kätzchen. Ich hab ihm Suppe gekocht, aus dem guten Fisch.“",
+        "choices": [
+          {
+            "text": "Danke.",
+            "next": "start"
+          }
+        ]
+      },
+      "truth": {
+        "text": "Bess starrt auf das Fass hinter sich. Dann tritt sie es um. „Hering aus der letzten Hitze. Den wollte ich nicht wegwerfen.“ Sie lacht, bis sie weint.",
+        "sets_flags": [
+          "bess_told"
+        ],
+        "honor": 1,
+        "honor_reason": "Bess die Wahrheit gesagt",
+        "choices": [
+          {
+            "text": "Gute Besserung für Jack.",
+            "next": "start"
+          }
+        ]
+      }
+    }
+  },
+  "schwindler": {
+    "start": [
+      {
+        "node": "gone",
+        "requires_flags": [
+          "pratt_resolved"
+        ]
+      },
+      {
+        "node": "start"
+      }
+    ],
+    "nodes": {
+      "start": {
+        "text": "Ein Herr mit Medaillen am Revers und einem Bauchladen voller grüner Flaschen breitet die Arme aus. „Dr. Horatio Pratt! Mein Wundertonikum heilt Gicht, Gram und Geisterangst. Fünf Schilling die Flasche!“",
+        "choices": [
+          {
+            "text": "Eine Flasche, bitte.",
+            "next": "buy",
+            "requires_money": 5,
+            "hide_if_items": [
+              "wundertonikum"
+            ]
+          },
+          {
+            "text": "Bess Hagan sagt, Ihr Tonikum hat ihren Mann vergiftet.",
+            "next": "accused",
+            "requires_quests_active": [
+              "wundertonikum"
+            ],
+            "hide_if_flags": [
+              "pratt_warned"
+            ]
+          },
+          {
+            "text": "Gin, grüne Tinte und Laudanum. Gift ist es nicht, aber ein Betrug.",
+            "next": "confront",
+            "requires_likely": [
+              "tonic_laudanum"
+            ],
+            "requires_quests_active": [
+              "wundertonikum"
+            ]
+          },
+          {
+            "text": "Nein, danke."
+          }
+        ]
+      },
+      "buy": {
+        "text": "„Eine weise Entscheidung!“",
+        "takes_money": 5,
+        "gives_items": {
+          "wundertonikum": 1
+        },
+        "choices": [
+          {
+            "text": "Danke.",
+            "next": "start"
+          }
+        ]
+      },
+      "accused": {
+        "text": "„Vergiftet? Mein Tonikum ist rein wie Quellwasser! Lassen Sie es untersuchen, wenn Sie wollen.“ Er schwitzt.",
+        "sets_flags": [
+          "pratt_warned"
+        ],
+        "choices": [
+          {
+            "text": "Das werde ich.",
+            "next": "start"
+          }
+        ]
+      },
+      "confront": {
+        "text": "Pratts Lächeln rutscht ab. „Laudanum ist Medizin! Und wer sagt, dass es nicht hilft?“",
+        "choices": [
+          {
+            "text": "Jack Hagan ist krank von verdorbenem Fisch. Sie sind nur ein Betrüger. Packen Sie ein und verlassen Sie die Stadt.",
+            "next": "leave",
+            "requires_likely": [
+              "husband_fish"
+            ]
+          },
+          {
+            "text": "Sie kommen mit aufs Revier.",
+            "next": "fight"
+          },
+          {
+            "text": "Ich überlege es mir.",
+            "next": "start"
+          }
+        ]
+      },
+      "leave": {
+        "text": "Pratt sieht dich lange an, dann klappt er den Bauchladen zu. „Kein Mord, nur Geschäfte. Sie sind ein fairer Mann.“ Am nächsten Morgen ist sein Stand leer.",
+        "sets_flags": [
+          "pratt_resolved",
+          "pratt_gone"
+        ],
+        "complete_quests": [
+          "wundertonikum"
+        ],
+        "choices": [
+          {
+            "text": "…"
+          }
+        ]
+      },
+      "fight": {
+        "text": "Pratt wirft dir eine Flasche ins Gesicht und zieht ein Messer aus dem Ärmel.",
+        "combat": "pratt_fight",
+        "choices": [
+          {
+            "text": "…"
+          }
+        ]
+      },
+      "gone": {
+        "text": "Der Stand ist leer. Auf dem Pflaster liegt eine einzelne grüne Flasche.",
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      }
+    }
+  }
+}

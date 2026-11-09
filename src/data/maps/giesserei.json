@@ -1,0 +1,198 @@
+{
+  "id": "giesserei",
+  "name": "Glockengießerei Brannock",
+  "tiles": "warehouse",
+  "ambient": {
+    "night": 0.78,
+    "fog": 0.12
+  },
+  "spawns": {
+    "default": [
+      16,
+      15
+    ],
+    "kammer": [
+      24,
+      12
+    ]
+  },
+  "lights": [
+    {
+      "tile": [
+        4,
+        3
+      ],
+      "radius": 60,
+      "intensity": 0.55,
+      "color": "#e08a3a",
+      "glow": 0.25
+    },
+    {
+      "tile": [
+        30,
+        3
+      ],
+      "radius": 60,
+      "intensity": 0.55,
+      "color": "#e08a3a",
+      "glow": 0.25
+    },
+    {
+      "tile": [
+        17,
+        8
+      ],
+      "radius": 46,
+      "intensity": 0.4,
+      "color": "#c86a2a",
+      "glow": 0.2
+    }
+  ],
+  "rows": [
+    "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII",
+    "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII",
+    "IsCCCCssssssssssssssssssssssCCCCsI",
+    "IsCCCCssssssssssssssssssssssCCCCsI",
+    "IssssssssssssssssssssssssssssssssI",
+    "IOssssssssssssssssssssssssssssssOI",
+    "IsssssssssssssCCCCCCsssssssssssssI",
+    "IsssssssssssssCCCCCCsssssssssssssI",
+    "IsssssssssssssCCCCCCsssssssTTTsssI",
+    "IsVVVsssssssssCCCCCCsssssssssssssI",
+    "IsVssssssssssssssssssssssssssssssI",
+    "IssssssssssssssssssssssssssssBBBsI",
+    "IOssssssssssssssssssssssssssssssOI",
+    "IsssssssCCCCsssssssssssssssssssssI",
+    "IssssssssssssssssssssssssssssssssI",
+    "IssssssssssssssssssssssssssssssssI",
+    "IssssssssssssssssssssssssssssssssI",
+    "IIIIIIIIIIIIIIIIEEIIIIIIIIIIIIIIII"
+  ],
+  "npcs": [
+    {
+      "id": "brannock",
+      "tile": [
+        24,
+        9
+      ],
+      "facing": "left",
+      "visible_if": {
+        "requires_quests_active": [
+          "case_05"
+        ]
+      }
+    },
+    {
+      "id": "nachtwaechter",
+      "tile": [
+        6,
+        15
+      ],
+      "facing": "up",
+      "visible_if": {
+        "requires_quests_active": [
+          "case_05"
+        ]
+      }
+    }
+  ],
+  "interactables": [
+    {
+      "id": "exit",
+      "kind": "travel",
+      "tile": [
+        16,
+        16
+      ],
+      "prompt": "Gießerei verlassen (Stadtkarte)",
+      "marker": false,
+      "reach": 26
+    },
+    {
+      "id": "mould",
+      "clue": "giessform_seen",
+      "tile": [
+        17,
+        10
+      ],
+      "prompt": "Die Gussform untersuchen",
+      "effects": {
+        "gives_items": {
+          "giessform": 1
+        }
+      },
+      "visible_if": {
+        "requires_quests_active": [
+          "case_05"
+        ]
+      }
+    },
+    {
+      "id": "ledger",
+      "clue": "ledger_mv",
+      "tile": [
+        28,
+        9
+      ],
+      "prompt": "Das Auftragsbuch lesen",
+      "sprite": "paper",
+      "visible_if": {
+        "requires_quests_active": [
+          "case_05"
+        ]
+      }
+    },
+    {
+      "id": "tin",
+      "kind": "read",
+      "tile": [
+        3,
+        11
+      ],
+      "prompt": "Die Fässer ansehen",
+      "title": "Zinnfässer",
+      "text": "Auf den Deckeln ist ein Anker in einem Kettenring eingebrannt, das Zeichen der Rostbrüder. Die Fässer sind voll. Niemand hat das Zinn angerührt."
+    },
+    {
+      "id": "guard",
+      "kind": "combat",
+      "encounter": "chorwaechter",
+      "tile": [
+        10,
+        11
+      ],
+      "sprite": "npc:cultist",
+      "marker": false,
+      "prompt": "Den Mann in der Chorrobe stellen",
+      "visible_if": {
+        "requires_quests_active": [
+          "case_05"
+        ],
+        "hide_if_flags": [
+          "chorwaechter_defeated"
+        ]
+      }
+    },
+    {
+      "id": "kammer",
+      "kind": "door",
+      "to": "resonanzkammer",
+      "spawn": "default",
+      "tile": [
+        24,
+        13
+      ],
+      "sprite": "stairs",
+      "marker": true,
+      "prompt": "In die Resonanzkammer hinabsteigen",
+      "visible_if": {
+        "requires_flags": [
+          "case_05_showdown"
+        ],
+        "hide_if_flags": [
+          "case_05_closed"
+        ]
+      }
+    }
+  ]
+}

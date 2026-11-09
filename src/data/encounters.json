@@ -741,5 +741,445 @@
     "on_lose": {},
     "lose_text": "Du wachst mit dem Buch auf dem Schoß auf. Es ist zugeklappt. Dein Hals tut weh, als hättest du stundenlang gesungen.",
     "win_text": "Der Nebel sinkt zurück zwischen die Seiten. Auf der letzten ist etwas stehen geblieben, das vorher nicht da war."
+  },
+  "chorwaechter": {
+    "name": "Chorwächter",
+    "sprite": "npc:cultist",
+    "hp": 34,
+    "fleeable": true,
+    "intro": "Ein Mann in weißer Chorrobe tritt aus dem Ofenschatten. Er singt einen einzigen Ton und hört nicht auf.",
+    "attacks": [
+      {
+        "name": "Taktstock",
+        "damage": 5,
+        "hits": [
+          700,
+          1000
+        ]
+      },
+      {
+        "name": "Gehaltener Ton",
+        "action": "taunt",
+        "value": 8,
+        "text": "Der Ton bohrt sich in dein Ohr. -8 Nerven."
+      },
+      {
+        "name": "Fortissimo",
+        "damage": 10,
+        "hits": [
+          1800
+        ]
+      }
+    ],
+    "on_win": {
+      "sets_flags": [
+        "chorwaechter_defeated"
+      ]
+    },
+    "win_text": "Der Ton bricht ab. Der Mann sinkt zusammen und atmet, als hätte er es seit Tagen nicht getan."
+  },
+  "stimmenfresser": {
+    "name": "Stimmenfresser",
+    "sprite": "apparition",
+    "occult": true,
+    "hp": 36,
+    "fleeable": true,
+    "intro": "Im Schatten hinter Lilians Bett bewegt sich ein Mund ohne Gesicht. Er flüstert mit deiner Stimme deinen Namen.",
+    "attacks": [
+      {
+        "name": "Flüstern",
+        "damage": 3,
+        "hits": [
+          500,
+          750,
+          1000,
+          1250
+        ],
+        "nerves": 2
+      },
+      {
+        "name": "Verschlucken",
+        "damage": 8,
+        "hits": [
+          1500
+        ]
+      },
+      {
+        "name": "Stille",
+        "action": "veil",
+        "value": 0,
+        "text": "Es wird ganz still. Nur ein präziser Treffer findet den Mund."
+      }
+    ],
+    "on_win": {
+      "sets_flags": [
+        "stimmenfresser_defeated"
+      ]
+    },
+    "win_text": "Der Mund schließt sich und ist nur noch ein Fleck an der Wand."
+  },
+  "bronzeengel": {
+    "name": "Bronzener Engel",
+    "sprite": "warden",
+    "occult": true,
+    "hp": 44,
+    "fleeable": false,
+    "intro": "An der Treppe steht eine Engelsfigur aus frischer Bronze, noch warm vom Guss. Als du näherkommst, hebt sie den Klöppel wie ein Schwert.",
+    "attacks": [
+      {
+        "name": "Glockenschlag",
+        "damage": 9,
+        "hits": [
+          1200
+        ]
+      },
+      {
+        "name": "Nachklang",
+        "damage": 3,
+        "hits": [
+          600,
+          900,
+          1200,
+          1500
+        ]
+      },
+      {
+        "name": "Bronzehaut",
+        "action": "guard",
+        "value": 6,
+        "text": "Das Metall wird dicker. Panzer 6."
+      },
+      {
+        "name": "Sturz",
+        "damage": 13,
+        "hits": [
+          2100
+        ]
+      }
+    ],
+    "on_win": {
+      "sets_flags": [
+        "bronzeengel_defeated"
+      ],
+      "gives_items": {
+        "glockenzunge": 1
+      }
+    },
+    "lose_to": {
+      "map": "giesserei",
+      "spawn": "kammer"
+    },
+    "lose_text": "Du wachst auf der Treppe auf. Unten summt die Glocke weiter.",
+    "win_text": "Der Engel kippt und zerspringt am Boden in zwei Hälften. Sein Klöppel rollt dir vor die Füße."
+  },
+  "glockenecho": {
+    "name": "Glockenecho",
+    "sprite": "apparition",
+    "occult": true,
+    "hp": 30,
+    "fleeable": true,
+    "intro": "Ein Ton hängt in der Luft, der nicht aufhört. Er wird dichter, bis er eine Gestalt hat.",
+    "attacks": [
+      {
+        "name": "Widerhall",
+        "damage": 4,
+        "hits": [
+          800,
+          1300
+        ]
+      },
+      {
+        "name": "Überlagerung",
+        "damage": 3,
+        "hits": [
+          500,
+          750,
+          1000
+        ]
+      }
+    ],
+    "on_win": {
+      "sets_flags": [
+        "glockenecho_defeated"
+      ]
+    },
+    "win_text": "Das Echo verklingt."
+  },
+  "miriam": {
+    "name": "Miriam Vey",
+    "sprite": "npc:miriam",
+    "occult": true,
+    "boss": true,
+    "hp": 50,
+    "fleeable": false,
+    "intro": "Miriam Vey steht vor der Glocke, das geliehene Gesicht halb abgestreift. „Sie hätten zuhören sollen, Ermittler. Nur ein einziges Mal zuhören.“\n\nSie hebt den Taktstock, und die Glocke antwortet.",
+    "attacks": [
+      {
+        "name": "Wiegenlied",
+        "action": "taunt",
+        "value": 12,
+        "text": "Lilians Wiegenlied, ganz leise. Deine Augen werden schwer. -12 Nerven."
+      },
+      {
+        "name": "Sieben Stimmen",
+        "damage": 4,
+        "hits": [
+          600,
+          850,
+          1100,
+          1350
+        ]
+      },
+      {
+        "name": "Taktstock",
+        "damage": 7,
+        "hits": [
+          800,
+          1200
+        ]
+      },
+      {
+        "name": "Der erste Schlag",
+        "damage": 12,
+        "hits": [
+          2200
+        ]
+      },
+      {
+        "name": "Ein fremdes Gesicht",
+        "action": "heal",
+        "value": 6,
+        "text": "Sie streicht über ihr Gesicht, und die Wunde gehört plötzlich jemand anderem. +7 Leben."
+      }
+    ],
+    "weak_if": {
+      "requires_certain": [
+        "break_bell"
+      ]
+    },
+    "weak_text": "Du hältst Hetties Stimmgabel hoch. Der falsche Ton zittert durch die Kammer, und die Glocke stöhnt. Vey verliert den Takt.",
+    "on_win": {
+      "sets_flags": [
+        "vey_beaten"
+      ],
+      "honor": 5,
+      "honor_reason": "Miriam Vey bezwungen"
+    },
+    "lose_to": {
+      "map": "giesserei",
+      "spawn": "kammer"
+    },
+    "lose_text": "Du kommst oben in der Gießerei zu dir. Aus der Kammer klingt ein Wiegenlied. Es ist noch nicht Neumond. Noch nicht ganz.",
+    "win_text": "Vey sinkt gegen die Glocke. Der Taktstock fällt ihr aus der Hand. Die Glocke summt weiter, sieben Stimmen tief."
+  },
+  "schattenabzug": {
+    "name": "Schattenabzug",
+    "sprite": "apparition",
+    "occult": true,
+    "hp": 30,
+    "fleeable": true,
+    "intro": "Ein Schatten löst sich von der Wand, obwohl niemand vor ihr steht. Er hat die Umrisse eines Offiziers.",
+    "attacks": [
+      {
+        "name": "Kalter Griff",
+        "damage": 5,
+        "hits": [
+          900
+        ]
+      },
+      {
+        "name": "Flackern",
+        "damage": 3,
+        "hits": [
+          500,
+          800,
+          1100
+        ]
+      }
+    ],
+    "on_win": {
+      "sets_flags": [
+        "schattenabzug_defeated"
+      ]
+    },
+    "win_text": "Der Schatten fällt zu Boden und kriecht unter einen Stuhl. Dort bleibt er liegen, als würde er auf jemanden warten."
+  },
+  "negativ_geist": {
+    "name": "Negativgeist",
+    "sprite": "apparition",
+    "occult": true,
+    "hp": 34,
+    "fleeable": true,
+    "intro": "Im roten Licht der Dunkelkammer steht eine Gestalt, weiß, wo sie schwarz sein sollte. Ein Mensch, umgekehrt.",
+    "attacks": [
+      {
+        "name": "Blitzlicht",
+        "damage": 6,
+        "hits": [
+          1000
+        ],
+        "nerves": 4
+      },
+      {
+        "name": "Umkehrung",
+        "damage": 4,
+        "hits": [
+          600,
+          900
+        ]
+      },
+      {
+        "name": "Überbelichtung",
+        "damage": 11,
+        "hits": [
+          1900
+        ]
+      }
+    ],
+    "on_win": {
+      "sets_flags": [
+        "negativ_geist_defeated"
+      ],
+      "gives_items": {
+        "belichtungsmesser": 1
+      }
+    },
+    "win_text": "Die Gestalt verblasst wie eine Platte im Tageslicht."
+  },
+  "silberbad_schleim": {
+    "name": "Silberbadschleim",
+    "sprite": "rats",
+    "occult": true,
+    "hp": 32,
+    "fleeable": true,
+    "intro": "Die Pfütze glänzt wie flüssiger Spiegel. Dann richtet sie sich auf und zeigt dir dein Gesicht, falsch herum.",
+    "attacks": [
+      {
+        "name": "Spritzer",
+        "damage": 3,
+        "hits": [
+          500,
+          750,
+          1000,
+          1250
+        ]
+      },
+      {
+        "name": "Ätzendes Silber",
+        "damage": 7,
+        "hits": [
+          1300
+        ],
+        "bleed": [
+          2,
+          2
+        ]
+      }
+    ],
+    "on_win": {
+      "sets_flags": [
+        "silberbad_schleim_defeated"
+      ],
+      "gives_items": {
+        "schattenrest": 1
+      }
+    },
+    "win_text": "Der Schleim zerfließt. Zurück bleibt ein Fetzen Dunkelheit, der sich in eine leere Flasche flüchtet."
+  },
+  "dreizehnter_gast": {
+    "name": "Der dreizehnte Gast",
+    "sprite": "npc:cultist",
+    "occult": true,
+    "boss": true,
+    "hp": 46,
+    "fleeable": false,
+    "intro": "Lucan Mews tritt aus den Spiegeln, und mit ihm zwölf Schatten, die nicht seine sind. „Sie waren so schön auf den Platten. Ich wollte nur auch einmal da sein.“",
+    "attacks": [
+      {
+        "name": "Zwölf Schatten",
+        "damage": 3,
+        "hits": [
+          500,
+          750,
+          1000,
+          1250
+        ]
+      },
+      {
+        "name": "Blitzpulver",
+        "damage": 8,
+        "hits": [
+          1100
+        ],
+        "nerves": 5
+      },
+      {
+        "name": "Geborgter Leib",
+        "action": "heal",
+        "value": 5,
+        "text": "Ein fremder Schatten legt sich über seine Wunde. +5 Leben."
+      },
+      {
+        "name": "Spiegelsturz",
+        "damage": 13,
+        "hits": [
+          2000
+        ]
+      }
+    ],
+    "weak_if": {
+      "requires_certain": [
+        "shadow_bath"
+      ]
+    },
+    "weak_text": "Du weißt, woher seine Schatten kommen. Du zerschlägst den nächsten Spiegel, und Lucan zuckt zusammen, als hätte man ihm eine Rippe gebrochen.",
+    "on_win": {
+      "sets_flags": [
+        "mews_beaten"
+      ],
+      "honor": 4,
+      "honor_reason": "Den dreizehnten Gast gestellt"
+    },
+    "lose_to": {
+      "map": "nordtor",
+      "spawn": "kabinett"
+    },
+    "lose_text": "Du stehst draußen vor dem Kabinett und weißt nicht, wie du dorthin gekommen bist. Dein Schatten ist noch da. Fast ganz.",
+    "win_text": "Lucan fällt, und die fremden Schatten fallen von ihm ab. Darunter ist ein dünner junger Mann, der zittert.",
+    "tint": "#b8c4d8"
+  },
+  "pratt_fight": {
+    "name": "Dr. Horatio Pratt",
+    "sprite": "npc:silas",
+    "hp": 30,
+    "fleeable": true,
+    "intro": "Pratt zieht einen Stockdegen aus seinem Gehstock. „Meine Kunden sind zufrieden, Herr Polizist!“",
+    "attacks": [
+      {
+        "name": "Degenstich",
+        "damage": 5,
+        "hits": [
+          700,
+          1050
+        ]
+      },
+      {
+        "name": "Flasche ins Gesicht",
+        "damage": 7,
+        "hits": [
+          1300
+        ]
+      }
+    ],
+    "on_win": {
+      "sets_flags": [
+        "pratt_resolved",
+        "pratt_gone"
+      ],
+      "complete_quests": [
+        "wundertonikum"
+      ]
+    },
+    "win_text": "Pratt sitzt zwischen seinen zerbrochenen Flaschen und rechnet laut nach, wie viel ihn das kostet."
   }
 }

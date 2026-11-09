@@ -45,6 +45,10 @@
     "default": [
       1,
       15
+    ],
+    "atelier": [
+      30,
+      3
     ]
   },
   "decor": [
@@ -843,6 +847,23 @@
           "greta_stall"
         ]
       }
+    },
+    {
+      "id": "atelier_door",
+      "kind": "door",
+      "to": "atelier",
+      "spawn": "default",
+      "tile": [
+        30,
+        2
+      ],
+      "prompt": "Das Atelier Whitlock betreten",
+      "marker": true,
+      "visible_if": {
+        "requires_flags": [
+          "briefed_06"
+        ]
+      }
     }
   ],
   "npcs": [
@@ -902,6 +923,19 @@
       "visible_if": {
         "requires_flags": [
           "greta_stall_open"
+        ]
+      }
+    },
+    {
+      "id": "kuenstler",
+      "tile": [
+        20,
+        20
+      ],
+      "facing": "right",
+      "visible_if": {
+        "requires_quests_active": [
+          "case_05"
         ]
       }
     }

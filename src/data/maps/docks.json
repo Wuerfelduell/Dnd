@@ -97,6 +97,21 @@
       "title": "Aushang am Poller",
       "text": "„Arbeiter gesucht für Nachtschicht, Lagerhaus 7. Guter Lohn in Silber. Fragen verboten.“\n\nJemand hat mit Bleistift darunter geschrieben: „Nate ist nicht zurückgekommen.“",
       "done_flag": "read_crane_note"
+    },
+    {
+      "id": "bess_barrel",
+      "clue": "bess_barrel",
+      "tile": [
+        22,
+        8
+      ],
+      "sprite": "d_nordtor_props_salt_barrels",
+      "prompt": "Am Fass hinter dem Fischstand schnuppern",
+      "visible_if": {
+        "requires_quests_active": [
+          "wundertonikum"
+        ]
+      }
     }
   ],
   "npcs": [
@@ -121,6 +136,27 @@
           "case_03_raid"
         ]
       }
+    },
+    {
+      "id": "kaminkehrer",
+      "tile": [
+        8,
+        9
+      ],
+      "facing": "right",
+      "visible_if": {
+        "requires_quests_active": [
+          "case_05"
+        ]
+      }
+    },
+    {
+      "id": "marktfrau",
+      "tile": [
+        24,
+        9
+      ],
+      "facing": "left"
     }
   ],
   "decor": [

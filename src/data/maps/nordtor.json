@@ -26,6 +26,10 @@
     "kanal": [
       41,
       21
+    ],
+    "kabinett": [
+      36,
+      25
     ]
   },
   "rows": [
@@ -146,6 +150,23 @@
       "title": "Turmuhr am Nordtor",
       "text": "Die Zeiger stehen auf 3:33. Das Zifferblatt ist von innen beleuchtet, obwohl seit Tagen keiner die Lampen angezündet hat. Ab und zu bewegt sich dahinter ein Schatten.",
       "scene": "turmuhr"
+    },
+    {
+      "id": "kabinett_door",
+      "kind": "door",
+      "to": "spiegelkabinett",
+      "spawn": "default",
+      "tile": [
+        36,
+        26
+      ],
+      "prompt": "Das Spiegelkabinett betreten",
+      "marker": true,
+      "visible_if": {
+        "requires_flags": [
+          "briefed_06"
+        ]
+      }
     }
   ],
   "npcs": [

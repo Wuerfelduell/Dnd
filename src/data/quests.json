@@ -932,5 +932,184 @@
       "honor": 3,
       "honor_reason": "Ein Beweisstück zurückgebracht"
     }
+  },
+  "case_05": {
+    "title": "Fall 5: Der Chor in der Glocke",
+    "kind": "main",
+    "case": "case_05",
+    "summary": "Sieben Frauen aus Veys altem Chor sind verschwunden. Nachts hört man eine Glocke, die es nicht gibt, und die Gießerei Brannock am Kanal glüht.",
+    "steps": [
+      {
+        "text": "Sieh dich in der Glockengießerei Brannock um",
+        "done": {
+          "requires_any_clues": [
+            "giessform_seen",
+            "brannock_lady",
+            "tam_night"
+          ]
+        }
+      },
+      {
+        "text": "Finde heraus, was in der Gießerei gegossen wurde",
+        "done": {
+          "requires_conclusions": [
+            "voice_bell"
+          ]
+        }
+      },
+      {
+        "text": "Finde heraus, wer hinter dem Schleier steckt (Haus Vey in Ashgrove)",
+        "done": {
+          "requires_conclusions": [
+            "veiled_vey"
+          ]
+        }
+      },
+      {
+        "text": "Sichere beides mit je zwei Quellen ab",
+        "done": {
+          "requires_certain": [
+            "voice_bell",
+            "veiled_vey"
+          ]
+        }
+      },
+      {
+        "text": "Optional: Wie bricht man die Glocke? (Uhrmacherin, Sternwarte)",
+        "done": {
+          "requires_certain": [
+            "break_bell"
+          ]
+        }
+      },
+      {
+        "text": "Berichte Inspektorin Marlowe",
+        "done": {
+          "requires_flags": [
+            "case_05_showdown"
+          ]
+        }
+      },
+      {
+        "text": "Stell Miriam Vey in der Resonanzkammer",
+        "done": {
+          "requires_flags": [
+            "case_05_closed"
+          ]
+        }
+      }
+    ]
+  },
+  "case_06": {
+    "title": "Fall 6: Der dreizehnte Gast",
+    "kind": "main",
+    "case": "case_06",
+    "summary": "Auf jeder Fotoplatte vom Ball der Ashcombes steht ein Fremder. Seitdem werfen die Abgelichteten keinen Schatten mehr.",
+    "steps": [
+      {
+        "text": "Sprich mit Lady Ashcombe in ihrer Villa",
+        "done": {
+          "requires_any_clues": [
+            "ashcombe_shadow",
+            "ashcombe_seer"
+          ]
+        }
+      },
+      {
+        "text": "Sieh dir das Atelier Whitlock am Altmarkt an",
+        "done": {
+          "requires_any_clues": [
+            "silver_bath",
+            "ada_bath"
+          ]
+        }
+      },
+      {
+        "text": "Finde heraus, wie die Schatten verschwinden",
+        "done": {
+          "requires_conclusions": [
+            "shadow_bath"
+          ]
+        }
+      },
+      {
+        "text": "Finde heraus, wer der dreizehnte Gast ist",
+        "done": {
+          "requires_conclusions": [
+            "thirteenth"
+          ]
+        }
+      },
+      {
+        "text": "Sichere beides mit je zwei Quellen ab",
+        "done": {
+          "requires_certain": [
+            "shadow_bath",
+            "thirteenth"
+          ]
+        }
+      },
+      {
+        "text": "Optional: Wie bekommen die Gäste ihre Schatten zurück?",
+        "done": {
+          "requires_certain": [
+            "shadow_man"
+          ]
+        }
+      },
+      {
+        "text": "Berichte Inspektorin Marlowe",
+        "done": {
+          "requires_flags": [
+            "case_06_showdown"
+          ]
+        }
+      },
+      {
+        "text": "Stell den dreizehnten Gast im Spiegelkabinett",
+        "done": {
+          "requires_flags": [
+            "case_06_closed"
+          ]
+        }
+      }
+    ]
+  },
+  "wundertonikum": {
+    "title": "Das Wundertonikum",
+    "kind": "side",
+    "case": "side",
+    "summary": "Bess Hagan vom Hafen schwört, Dr. Pratts Wundertonikum vom Nachtmarkt habe ihren Mann vergiftet.",
+    "steps": [
+      {
+        "text": "Finde heraus, was im Tonikum steckt",
+        "done": {
+          "requires_any_clues": [
+            "owen_tonic",
+            "pratt_crate"
+          ]
+        }
+      },
+      {
+        "text": "Finde heraus, woran Jack Hagan wirklich krank ist",
+        "done": {
+          "requires_likely": [
+            "husband_fish"
+          ]
+        }
+      },
+      {
+        "text": "Stell Dr. Pratt zur Rede",
+        "done": {
+          "requires_flags": [
+            "pratt_resolved"
+          ]
+        }
+      }
+    ],
+    "reward": {
+      "honor": 3,
+      "honor_reason": "Einen Quacksalber entlarvt"
+    }
   }
 }

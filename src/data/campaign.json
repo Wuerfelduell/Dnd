@@ -103,6 +103,24 @@
       "requires_flags": [
         "travel_sternwarte"
       ]
+    },
+    {
+      "map": "giesserei",
+      "spawn": "default",
+      "name": "Glockengießerei Brannock",
+      "desc": "Am Kanal, hinter dem Hafen. Nachts glühen die Öfen. Fall 5.",
+      "requires_flags": [
+        "travel_giesserei"
+      ]
+    },
+    {
+      "map": "ballsaal",
+      "spawn": "default",
+      "name": "Villa Ashcombe",
+      "desc": "Ballsaal im Villenviertel. Fall 6.",
+      "requires_flags": [
+        "travel_ballsaal"
+      ]
     }
   ],
   "cases": [
@@ -121,6 +139,14 @@
     {
       "id": "case_04",
       "title": "Fall 4: Die gestohlenen Stimmen"
+    },
+    {
+      "id": "case_05",
+      "title": "Fall 5: Der Chor in der Glocke"
+    },
+    {
+      "id": "case_06",
+      "title": "Fall 6: Der dreizehnte Gast"
     },
     {
       "id": "side",
@@ -558,6 +584,198 @@
         "skin": "#e8d0b8",
         "hair": "#f0f0f0",
         "legs": "#1a2440"
+      }
+    },
+    "brannock": {
+      "name": "Meister Hugh Brannock",
+      "role": "Glockengießer",
+      "dialogue": "brannock",
+      "palette": {
+        "coat": "#4a3a2a",
+        "hat": "#2a2420",
+        "skin": "#c8906a",
+        "hair": "#8a8a8a",
+        "legs": "#2a2420"
+      }
+    },
+    "oda_vey": {
+      "name": "Oda Vey",
+      "role": "Miriams Schwester",
+      "dialogue": "oda_vey",
+      "palette": {
+        "coat": "#3a3a4a",
+        "hat": "#2a2a34",
+        "skin": "#e0c0a8",
+        "hair": "#5a4a4a",
+        "legs": "#2a2a34"
+      }
+    },
+    "nachtwaechter": {
+      "name": "Tam Pruett",
+      "role": "Nachtwächter der Gießerei",
+      "dialogue": "nachtwaechter",
+      "palette": {
+        "coat": "#4a4450",
+        "hat": "#2a2630",
+        "skin": "#d8b898",
+        "hair": "#4a3a2a",
+        "legs": "#2a2630"
+      }
+    },
+    "waescherin": {
+      "name": "Martha Doyle",
+      "role": "Wäscherin",
+      "dialogue": "waescherin",
+      "palette": {
+        "coat": "#4a4450",
+        "hat": "#2a2630",
+        "skin": "#d8b898",
+        "hair": "#4a3a2a",
+        "legs": "#2a2630"
+      }
+    },
+    "kaminkehrer": {
+      "name": "Ben Sotheby",
+      "role": "Kaminkehrer",
+      "dialogue": "kaminkehrer",
+      "palette": {
+        "coat": "#4a4450",
+        "hat": "#2a2630",
+        "skin": "#d8b898",
+        "hair": "#4a3a2a",
+        "legs": "#2a2630"
+      }
+    },
+    "kind_streuner": {
+      "name": "Nan Kettle",
+      "role": "Anführerin der Straßenkinder",
+      "dialogue": "kind_streuner",
+      "palette": {
+        "coat": "#4a4450",
+        "hat": "#2a2630",
+        "skin": "#d8b898",
+        "hair": "#4a3a2a",
+        "legs": "#2a2630"
+      }
+    },
+    "kuenstler": {
+      "name": "Emil Varga",
+      "role": "Maler",
+      "dialogue": "kuenstler",
+      "palette": {
+        "coat": "#4a4450",
+        "hat": "#2a2630",
+        "skin": "#d8b898",
+        "hair": "#4a3a2a",
+        "legs": "#2a2630"
+      }
+    },
+    "ashcombe": {
+      "name": "Lady Cordelia Ashcombe",
+      "role": "Gastgeberin",
+      "dialogue": "ashcombe",
+      "palette": {
+        "coat": "#5a2a3a",
+        "hat": "#3a1a2a",
+        "skin": "#ecd0c0",
+        "hair": "#d8c8a0",
+        "legs": "#3a1a2a"
+      }
+    },
+    "mews": {
+      "name": "Lucan Mews",
+      "role": "Assistent der Fotografin",
+      "dialogue": "mews",
+      "palette": {
+        "coat": "#2a2a2a",
+        "hat": "#1a1a1a",
+        "skin": "#d8d0c8",
+        "hair": "#1a1a1a",
+        "legs": "#1a1a1a"
+      }
+    },
+    "fotografin": {
+      "name": "Ada Whitlock",
+      "role": "Fotografin",
+      "dialogue": "fotografin",
+      "palette": {
+        "coat": "#4a4450",
+        "hat": "#2a2630",
+        "skin": "#d8b898",
+        "hair": "#4a3a2a",
+        "legs": "#2a2630"
+      }
+    },
+    "wahrsagerin": {
+      "name": "Madame Orsolya",
+      "role": "Wahrsagerin vom Kanal",
+      "dialogue": "wahrsagerin",
+      "palette": {
+        "coat": "#4a4450",
+        "hat": "#2a2630",
+        "skin": "#d8b898",
+        "hair": "#4a3a2a",
+        "legs": "#2a2630"
+      }
+    },
+    "student": {
+      "name": "Owen Pike",
+      "role": "Medizinstudent",
+      "dialogue": "student",
+      "palette": {
+        "coat": "#4a4450",
+        "hat": "#2a2630",
+        "skin": "#d8b898",
+        "hair": "#4a3a2a",
+        "legs": "#2a2630"
+      }
+    },
+    "kutscher": {
+      "name": "Abel Crouch",
+      "role": "Droschkenkutscher",
+      "dialogue": "kutscher",
+      "palette": {
+        "coat": "#4a4450",
+        "hat": "#2a2630",
+        "skin": "#d8b898",
+        "hair": "#4a3a2a",
+        "legs": "#2a2630"
+      }
+    },
+    "schwindler": {
+      "name": "Dr. Horatio Pratt",
+      "role": "Wunderheiler",
+      "dialogue": "schwindler",
+      "palette": {
+        "coat": "#4a4450",
+        "hat": "#2a2630",
+        "skin": "#d8b898",
+        "hair": "#4a3a2a",
+        "legs": "#2a2630"
+      }
+    },
+    "marktfrau": {
+      "name": "Bess Hagan",
+      "role": "Fischverkäuferin",
+      "dialogue": "marktfrau",
+      "palette": {
+        "coat": "#4a4450",
+        "hat": "#2a2630",
+        "skin": "#d8b898",
+        "hair": "#4a3a2a",
+        "legs": "#2a2630"
+      }
+    },
+    "lilian_echo": {
+      "name": "Lilian Vey",
+      "role": "Ein Echo",
+      "dialogue": "lilian_echo",
+      "palette": {
+        "coat": "#c8d8e8",
+        "hat": "#c8d8e8",
+        "skin": "#e8f0f8",
+        "hair": "#d8d8e0",
+        "legs": "#c8d8e8"
       }
     }
   }
