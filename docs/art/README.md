@@ -1302,6 +1302,31 @@ Sichtkontrolle: [Übersicht](preview-wexmoor6-overview.png),
 Grafiklieferung für Paket AM; Spielcode und andere Pakete bleiben unverändert.
 Einbindung und Timing-Abstimmung im laufenden Spiel erfolgen separat.
 
+## Batch dunscar1 — Codex AV: Dunscar, Orte und Nachtzug
+
+32 PNGs zur separaten Einbindung von Kapitel 3 „Der letzte Zug nach Dunscar“:
+6 Tilesets mit 208 benannten 16×16-Zellen, 8 Prop-Sheets mit 53 Regionen,
+Nachtzug mit Lok und drei Wagen (4 aktive Phasen plus Stilllegung),
+Nachhall-Ringe und Weg-Overlay, 10 Kampfkulissen, 2 Szenenbilder,
+Stadtkarte, Nebel-Overlay und Marker für alle 18 festen Karten-IDs.
+
+Manifest: `public/sprites/manifest-dunscar1.json`. Zuordnung aller Karten,
+Animationsverträge und Reproduktionsanleitung: [Übergabe AV → AS](dunscar1-uebergabe.md).
+Prompts, Bildgenerator-Korrekturen, Quellprüfsummen und Zuschnitte:
+`batch-dunscar1-generation.json`. Export mit Nearest Neighbor, gemeinsamer
+32-Farben-Palette und binärem Alpha. Spielcode und Storydaten bleiben unverändert.
+
+```sh
+python docs/art/verify-dunscar1.py
+node --test tests/sprites.test.js
+```
+
+Prüfbericht: `validation-dunscar1.json`. Sichtübersichten:
+[Tiles](preview-dunscar1-tiles.png), [Props](preview-dunscar1-props.png),
+[Kampfkulissen](preview-dunscar1-backgrounds.png),
+[Karten/Szenen](preview-dunscar1-maps-scenes.png),
+[Zug/Effekte](preview-dunscar1-train-effects.png).
+
 
 ## Batch AG – sequenzen3
 

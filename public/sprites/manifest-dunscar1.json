@@ -1,0 +1,3000 @@
+{
+  "version": 1,
+  "batch": "dunscar1",
+  "city": "dunscar",
+  "status": "exported; game integration separate",
+  "paletteMaxVisibleColors": 32,
+  "palette": [
+    "#1a1c2c",
+    "#252b38",
+    "#303b49",
+    "#425360",
+    "#586c78",
+    "#71858b",
+    "#95a5a5",
+    "#a8b4c0",
+    "#2d2629",
+    "#58433c",
+    "#715648",
+    "#92745a",
+    "#b3946e",
+    "#cfb18a",
+    "#e0c9a1",
+    "#494b3a",
+    "#686850",
+    "#8b8870",
+    "#eee2c5",
+    "#173d40",
+    "#245b59",
+    "#36817a",
+    "#4eafa2",
+    "#6fe0d0",
+    "#886332",
+    "#d0a050",
+    "#e8b860",
+    "#f0ce80",
+    "#c8b0e8",
+    "#5c426a",
+    "#8c7295",
+    "#893e4e"
+  ],
+  "assets": [
+    {
+      "id": "ds_stadt",
+      "kind": "tiles",
+      "transparent": false,
+      "columns": 8,
+      "rows": 4,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "file": "tilesets/ds_stadt.png",
+      "width": 128,
+      "height": 64,
+      "animations": {},
+      "tileNames": [
+        "paving 1",
+        "paving 2",
+        "paving 3",
+        "paving 4",
+        "chalk dust",
+        "cracked pavement",
+        "grass crack",
+        "ochre dirt",
+        "wall top",
+        "wall center",
+        "wall left corner",
+        "wall right corner",
+        "dark window",
+        "amber window",
+        "wooden door",
+        "door threshold",
+        "chimney base",
+        "chimney top",
+        "low wall horizontal",
+        "low wall vertical",
+        "wall NW",
+        "wall NE",
+        "wall SW",
+        "wall SE",
+        "pavement north",
+        "pavement south",
+        "pavement west",
+        "pavement east",
+        "pavement NW",
+        "pavement NE",
+        "pavement SW",
+        "pavement SE"
+      ],
+      "cells": {
+        "paving_1": {
+          "index": 0,
+          "x": 0,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "paving_2": {
+          "index": 1,
+          "x": 16,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "paving_3": {
+          "index": 2,
+          "x": 32,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "paving_4": {
+          "index": 3,
+          "x": 48,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "chalk_dust": {
+          "index": 4,
+          "x": 64,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "cracked_pavement": {
+          "index": 5,
+          "x": 80,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "grass_crack": {
+          "index": 6,
+          "x": 96,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "ochre_dirt": {
+          "index": 7,
+          "x": 112,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "wall_top": {
+          "index": 8,
+          "x": 0,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "wall_center": {
+          "index": 9,
+          "x": 16,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "wall_left_corner": {
+          "index": 10,
+          "x": 32,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "wall_right_corner": {
+          "index": 11,
+          "x": 48,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "dark_window": {
+          "index": 12,
+          "x": 64,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "amber_window": {
+          "index": 13,
+          "x": 80,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "wooden_door": {
+          "index": 14,
+          "x": 96,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "door_threshold": {
+          "index": 15,
+          "x": 112,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "chimney_base": {
+          "index": 16,
+          "x": 0,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "chimney_top": {
+          "index": 17,
+          "x": 16,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "low_wall_horizontal": {
+          "index": 18,
+          "x": 32,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "low_wall_vertical": {
+          "index": 19,
+          "x": 48,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "wall_nw": {
+          "index": 20,
+          "x": 64,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "wall_ne": {
+          "index": 21,
+          "x": 80,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "wall_sw": {
+          "index": 22,
+          "x": 96,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "wall_se": {
+          "index": 23,
+          "x": 112,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "pavement_north": {
+          "index": 24,
+          "x": 0,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "pavement_south": {
+          "index": 25,
+          "x": 16,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "pavement_west": {
+          "index": 26,
+          "x": 32,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "pavement_east": {
+          "index": 27,
+          "x": 48,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "pavement_nw": {
+          "index": 28,
+          "x": 64,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "pavement_ne": {
+          "index": 29,
+          "x": 80,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "pavement_sw": {
+          "index": 30,
+          "x": 96,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "pavement_se": {
+          "index": 31,
+          "x": 112,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        }
+      },
+      "sha256": "04c0686e5385329d931f23a60a43883e46c78bb26bb9319c6d75993fe403f97c"
+    },
+    {
+      "id": "ds_bahn",
+      "kind": "tiles",
+      "transparent": false,
+      "columns": 8,
+      "rows": 6,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "file": "tilesets/ds_bahn.png",
+      "width": 128,
+      "height": 96,
+      "animations": {},
+      "tileNames": [
+        "rail horizontal",
+        "rail vertical",
+        "curve NW",
+        "curve NE",
+        "curve SW",
+        "curve SE",
+        "switch left",
+        "switch right",
+        "buffer stop",
+        "ballast",
+        "platform north",
+        "platform south",
+        "platform west",
+        "platform east",
+        "roofed platform",
+        "signal cable channel",
+        "turntable 0 0",
+        "turntable 1 0",
+        "turntable 2 0",
+        "turntable 3 0",
+        "roof left",
+        "roof center",
+        "roof right",
+        "roof post",
+        "turntable 0 1",
+        "turntable 1 1",
+        "turntable 2 1",
+        "turntable 3 1",
+        "rail crossing",
+        "switch up",
+        "switch down",
+        "overgrown track",
+        "turntable 0 2",
+        "turntable 1 2",
+        "turntable 2 2",
+        "turntable 3 2",
+        "platform NW",
+        "platform NE",
+        "platform SW",
+        "platform SE",
+        "turntable 0 3",
+        "turntable 1 3",
+        "turntable 2 3",
+        "turntable 3 3",
+        "cable corner",
+        "gravel dry",
+        "rust stain",
+        "grass ballast"
+      ],
+      "cells": {
+        "rail_horizontal": {
+          "index": 0,
+          "x": 0,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "rail_vertical": {
+          "index": 1,
+          "x": 16,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "curve_nw": {
+          "index": 2,
+          "x": 32,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "curve_ne": {
+          "index": 3,
+          "x": 48,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "curve_sw": {
+          "index": 4,
+          "x": 64,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "curve_se": {
+          "index": 5,
+          "x": 80,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "switch_left": {
+          "index": 6,
+          "x": 96,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "switch_right": {
+          "index": 7,
+          "x": 112,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "buffer_stop": {
+          "index": 8,
+          "x": 0,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "ballast": {
+          "index": 9,
+          "x": 16,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "platform_north": {
+          "index": 10,
+          "x": 32,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "platform_south": {
+          "index": 11,
+          "x": 48,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "platform_west": {
+          "index": 12,
+          "x": 64,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "platform_east": {
+          "index": 13,
+          "x": 80,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "roofed_platform": {
+          "index": 14,
+          "x": 96,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "signal_cable_channel": {
+          "index": 15,
+          "x": 112,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "turntable_0_0": {
+          "index": 16,
+          "x": 0,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "turntable_1_0": {
+          "index": 17,
+          "x": 16,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "turntable_2_0": {
+          "index": 18,
+          "x": 32,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "turntable_3_0": {
+          "index": 19,
+          "x": 48,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "roof_left": {
+          "index": 20,
+          "x": 64,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "roof_center": {
+          "index": 21,
+          "x": 80,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "roof_right": {
+          "index": 22,
+          "x": 96,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "roof_post": {
+          "index": 23,
+          "x": 112,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "turntable_0_1": {
+          "index": 24,
+          "x": 0,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "turntable_1_1": {
+          "index": 25,
+          "x": 16,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "turntable_2_1": {
+          "index": 26,
+          "x": 32,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "turntable_3_1": {
+          "index": 27,
+          "x": 48,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "rail_crossing": {
+          "index": 28,
+          "x": 64,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "switch_up": {
+          "index": 29,
+          "x": 80,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "switch_down": {
+          "index": 30,
+          "x": 96,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "overgrown_track": {
+          "index": 31,
+          "x": 112,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "turntable_0_2": {
+          "index": 32,
+          "x": 0,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "turntable_1_2": {
+          "index": 33,
+          "x": 16,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "turntable_2_2": {
+          "index": 34,
+          "x": 32,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "turntable_3_2": {
+          "index": 35,
+          "x": 48,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "platform_nw": {
+          "index": 36,
+          "x": 64,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "platform_ne": {
+          "index": 37,
+          "x": 80,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "platform_sw": {
+          "index": 38,
+          "x": 96,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "platform_se": {
+          "index": 39,
+          "x": 112,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "turntable_0_3": {
+          "index": 40,
+          "x": 0,
+          "y": 80,
+          "width": 16,
+          "height": 16
+        },
+        "turntable_1_3": {
+          "index": 41,
+          "x": 16,
+          "y": 80,
+          "width": 16,
+          "height": 16
+        },
+        "turntable_2_3": {
+          "index": 42,
+          "x": 32,
+          "y": 80,
+          "width": 16,
+          "height": 16
+        },
+        "turntable_3_3": {
+          "index": 43,
+          "x": 48,
+          "y": 80,
+          "width": 16,
+          "height": 16
+        },
+        "cable_corner": {
+          "index": 44,
+          "x": 64,
+          "y": 80,
+          "width": 16,
+          "height": 16
+        },
+        "gravel_dry": {
+          "index": 45,
+          "x": 80,
+          "y": 80,
+          "width": 16,
+          "height": 16
+        },
+        "rust_stain": {
+          "index": 46,
+          "x": 96,
+          "y": 80,
+          "width": 16,
+          "height": 16
+        },
+        "grass_ballast": {
+          "index": 47,
+          "x": 112,
+          "y": 80,
+          "width": 16,
+          "height": 16
+        }
+      },
+      "composites": {
+        "turntable": {
+          "x": 0,
+          "y": 32,
+          "width": 64,
+          "height": 64,
+          "tileColumns": 4,
+          "tileRows": 4
+        }
+      },
+      "sha256": "a012e4d069c5c09bfa0b66aad3e397cd996515acfedd4caf6c90c3ea4739a6d5"
+    },
+    {
+      "id": "ds_bruch",
+      "kind": "tiles",
+      "transparent": false,
+      "columns": 8,
+      "rows": 4,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "file": "tilesets/ds_bruch.png",
+      "width": 128,
+      "height": 64,
+      "animations": {},
+      "tileNames": [
+        "chalk floor 1",
+        "chalk floor 2",
+        "chalk floor 3",
+        "chalk floor 4",
+        "rubble 1",
+        "rubble 2",
+        "milky puddle 1",
+        "milky puddle 2",
+        "cliff north",
+        "cliff south",
+        "cliff west",
+        "cliff east",
+        "cliff NW",
+        "cliff NE",
+        "cliff SW",
+        "cliff SE",
+        "steps top",
+        "steps middle",
+        "steps bottom",
+        "ladder top",
+        "ladder middle",
+        "ladder bottom",
+        "scaffold post",
+        "scaffold beam",
+        "mine rail horizontal",
+        "mine rail vertical",
+        "mine rail curve NW",
+        "mine rail curve NE",
+        "mine rail curve SW",
+        "mine rail curve SE",
+        "wood deck",
+        "rubble slope"
+      ],
+      "cells": {
+        "chalk_floor_1": {
+          "index": 0,
+          "x": 0,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "chalk_floor_2": {
+          "index": 1,
+          "x": 16,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "chalk_floor_3": {
+          "index": 2,
+          "x": 32,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "chalk_floor_4": {
+          "index": 3,
+          "x": 48,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "rubble_1": {
+          "index": 4,
+          "x": 64,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "rubble_2": {
+          "index": 5,
+          "x": 80,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "milky_puddle_1": {
+          "index": 6,
+          "x": 96,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "milky_puddle_2": {
+          "index": 7,
+          "x": 112,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "cliff_north": {
+          "index": 8,
+          "x": 0,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "cliff_south": {
+          "index": 9,
+          "x": 16,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "cliff_west": {
+          "index": 10,
+          "x": 32,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "cliff_east": {
+          "index": 11,
+          "x": 48,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "cliff_nw": {
+          "index": 12,
+          "x": 64,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "cliff_ne": {
+          "index": 13,
+          "x": 80,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "cliff_sw": {
+          "index": 14,
+          "x": 96,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "cliff_se": {
+          "index": 15,
+          "x": 112,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "steps_top": {
+          "index": 16,
+          "x": 0,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "steps_middle": {
+          "index": 17,
+          "x": 16,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "steps_bottom": {
+          "index": 18,
+          "x": 32,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "ladder_top": {
+          "index": 19,
+          "x": 48,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "ladder_middle": {
+          "index": 20,
+          "x": 64,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "ladder_bottom": {
+          "index": 21,
+          "x": 80,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "scaffold_post": {
+          "index": 22,
+          "x": 96,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "scaffold_beam": {
+          "index": 23,
+          "x": 112,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "mine_rail_horizontal": {
+          "index": 24,
+          "x": 0,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "mine_rail_vertical": {
+          "index": 25,
+          "x": 16,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "mine_rail_curve_nw": {
+          "index": 26,
+          "x": 32,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "mine_rail_curve_ne": {
+          "index": 27,
+          "x": 48,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "mine_rail_curve_sw": {
+          "index": 28,
+          "x": 64,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "mine_rail_curve_se": {
+          "index": 29,
+          "x": 80,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "wood_deck": {
+          "index": 30,
+          "x": 96,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "rubble_slope": {
+          "index": 31,
+          "x": 112,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        }
+      },
+      "sha256": "037c55a24ef2a508f9f8fc7473abe709a8393f2484f07f65eb5fab50c7745032"
+    },
+    {
+      "id": "ds_schlucht",
+      "kind": "tiles",
+      "transparent": false,
+      "columns": 8,
+      "rows": 4,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "file": "tilesets/ds_schlucht.png",
+      "width": 128,
+      "height": 64,
+      "animations": {
+        "opening": {
+          "frames": [
+            24,
+            25,
+            26,
+            27
+          ],
+          "frameRate": 4,
+          "repeat": -1
+        }
+      },
+      "tileNames": [
+        "dark cliff 1",
+        "dark cliff 2",
+        "cliff illegible grooves 1",
+        "cliff illegible grooves 2",
+        "cliff north",
+        "cliff south",
+        "cliff west",
+        "cliff east",
+        "wood bridge horizontal",
+        "wood bridge vertical",
+        "bridge NW",
+        "bridge NE",
+        "bridge SW",
+        "bridge SE",
+        "bridge support",
+        "broken bridge",
+        "chalk mist 1",
+        "chalk mist 2",
+        "chalk mist 3",
+        "chalk mist 4",
+        "cliff ledge",
+        "cliff crack",
+        "rock rubble",
+        "deep hollow",
+        "rock opening pulse 1",
+        "rock opening pulse 2",
+        "rock opening pulse 3",
+        "rock opening pulse 4",
+        "cliff corner NW",
+        "cliff corner NE",
+        "cliff corner SW",
+        "cliff corner SE"
+      ],
+      "cells": {
+        "dark_cliff_1": {
+          "index": 0,
+          "x": 0,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "dark_cliff_2": {
+          "index": 1,
+          "x": 16,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "cliff_illegible_grooves_1": {
+          "index": 2,
+          "x": 32,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "cliff_illegible_grooves_2": {
+          "index": 3,
+          "x": 48,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "cliff_north": {
+          "index": 4,
+          "x": 64,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "cliff_south": {
+          "index": 5,
+          "x": 80,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "cliff_west": {
+          "index": 6,
+          "x": 96,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "cliff_east": {
+          "index": 7,
+          "x": 112,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "wood_bridge_horizontal": {
+          "index": 8,
+          "x": 0,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "wood_bridge_vertical": {
+          "index": 9,
+          "x": 16,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "bridge_nw": {
+          "index": 10,
+          "x": 32,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "bridge_ne": {
+          "index": 11,
+          "x": 48,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "bridge_sw": {
+          "index": 12,
+          "x": 64,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "bridge_se": {
+          "index": 13,
+          "x": 80,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "bridge_support": {
+          "index": 14,
+          "x": 96,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "broken_bridge": {
+          "index": 15,
+          "x": 112,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "chalk_mist_1": {
+          "index": 16,
+          "x": 0,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "chalk_mist_2": {
+          "index": 17,
+          "x": 16,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "chalk_mist_3": {
+          "index": 18,
+          "x": 32,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "chalk_mist_4": {
+          "index": 19,
+          "x": 48,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "cliff_ledge": {
+          "index": 20,
+          "x": 64,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "cliff_crack": {
+          "index": 21,
+          "x": 80,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "rock_rubble": {
+          "index": 22,
+          "x": 96,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "deep_hollow": {
+          "index": 23,
+          "x": 112,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "rock_opening_pulse_1": {
+          "index": 24,
+          "x": 0,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "rock_opening_pulse_2": {
+          "index": 25,
+          "x": 16,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "rock_opening_pulse_3": {
+          "index": 26,
+          "x": 32,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "rock_opening_pulse_4": {
+          "index": 27,
+          "x": 48,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "cliff_corner_nw": {
+          "index": 28,
+          "x": 64,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "cliff_corner_ne": {
+          "index": 29,
+          "x": 80,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "cliff_corner_sw": {
+          "index": 30,
+          "x": 96,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "cliff_corner_se": {
+          "index": 31,
+          "x": 112,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        }
+      },
+      "sha256": "3d059710ce7016f87d42e322cf28416ffe7503e3bd81c65f8887d53b9d6c2c6b"
+    },
+    {
+      "id": "ds_innen",
+      "kind": "tiles",
+      "transparent": false,
+      "columns": 8,
+      "rows": 4,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "file": "tilesets/ds_innen.png",
+      "width": 128,
+      "height": 64,
+      "animations": {},
+      "tileNames": [
+        "wood floor 1",
+        "wood floor 2",
+        "wood floor 3",
+        "wood floor 4",
+        "test house tile 1",
+        "test house tile 2",
+        "carpet center",
+        "carpet worn",
+        "wallpaper top",
+        "wallpaper face",
+        "wallpaper NW",
+        "wallpaper NE",
+        "paneling top",
+        "paneling face",
+        "paneling left",
+        "paneling right",
+        "plateau window left",
+        "plateau window center",
+        "plateau window right",
+        "window sill",
+        "door top",
+        "door bottom",
+        "skirting left",
+        "skirting right",
+        "carpet north",
+        "carpet south",
+        "carpet west",
+        "carpet east",
+        "carpet NW",
+        "carpet NE",
+        "carpet SW",
+        "carpet SE"
+      ],
+      "cells": {
+        "wood_floor_1": {
+          "index": 0,
+          "x": 0,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "wood_floor_2": {
+          "index": 1,
+          "x": 16,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "wood_floor_3": {
+          "index": 2,
+          "x": 32,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "wood_floor_4": {
+          "index": 3,
+          "x": 48,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "test_house_tile_1": {
+          "index": 4,
+          "x": 64,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "test_house_tile_2": {
+          "index": 5,
+          "x": 80,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "carpet_center": {
+          "index": 6,
+          "x": 96,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "carpet_worn": {
+          "index": 7,
+          "x": 112,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "wallpaper_top": {
+          "index": 8,
+          "x": 0,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "wallpaper_face": {
+          "index": 9,
+          "x": 16,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "wallpaper_nw": {
+          "index": 10,
+          "x": 32,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "wallpaper_ne": {
+          "index": 11,
+          "x": 48,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "paneling_top": {
+          "index": 12,
+          "x": 64,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "paneling_face": {
+          "index": 13,
+          "x": 80,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "paneling_left": {
+          "index": 14,
+          "x": 96,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "paneling_right": {
+          "index": 15,
+          "x": 112,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "plateau_window_left": {
+          "index": 16,
+          "x": 0,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "plateau_window_center": {
+          "index": 17,
+          "x": 16,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "plateau_window_right": {
+          "index": 18,
+          "x": 32,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "window_sill": {
+          "index": 19,
+          "x": 48,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "door_top": {
+          "index": 20,
+          "x": 64,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "door_bottom": {
+          "index": 21,
+          "x": 80,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "skirting_left": {
+          "index": 22,
+          "x": 96,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "skirting_right": {
+          "index": 23,
+          "x": 112,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "carpet_north": {
+          "index": 24,
+          "x": 0,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "carpet_south": {
+          "index": 25,
+          "x": 16,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "carpet_west": {
+          "index": 26,
+          "x": 32,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "carpet_east": {
+          "index": 27,
+          "x": 48,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "carpet_nw": {
+          "index": 28,
+          "x": 64,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "carpet_ne": {
+          "index": 29,
+          "x": 80,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "carpet_sw": {
+          "index": 30,
+          "x": 96,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "carpet_se": {
+          "index": 31,
+          "x": 112,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        }
+      },
+      "sha256": "e5d5b5557b847154dc205b42e92ca97b8cecf7224c2c9aaa3136f7217ae04921"
+    },
+    {
+      "id": "ds_zug",
+      "kind": "tiles",
+      "transparent": false,
+      "columns": 8,
+      "rows": 4,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "file": "tilesets/ds_zug.png",
+      "width": 128,
+      "height": 64,
+      "animations": {
+        "passing_night": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 5,
+          "repeat": -1
+        }
+      },
+      "tileNames": [
+        "carriage plank 1",
+        "carriage plank 2",
+        "carriage plank 3",
+        "carriage plank 4",
+        "bench left",
+        "bench center",
+        "bench right",
+        "bench back",
+        "luggage net left",
+        "luggage net center",
+        "luggage net right",
+        "coach panel",
+        "night window frame 1",
+        "night window frame 2",
+        "night window frame 3",
+        "night window frame 4",
+        "boiler top left",
+        "boiler top right",
+        "boiler bottom left",
+        "boiler bottom right",
+        "regulator",
+        "blank gauge 1",
+        "blank gauge 2",
+        "firebox",
+        "door top",
+        "door bottom",
+        "cab floor",
+        "brass pipe straight",
+        "brass pipe corner",
+        "coal",
+        "coupling passage",
+        "coach wall"
+      ],
+      "cells": {
+        "carriage_plank_1": {
+          "index": 0,
+          "x": 0,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "carriage_plank_2": {
+          "index": 1,
+          "x": 16,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "carriage_plank_3": {
+          "index": 2,
+          "x": 32,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "carriage_plank_4": {
+          "index": 3,
+          "x": 48,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "bench_left": {
+          "index": 4,
+          "x": 64,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "bench_center": {
+          "index": 5,
+          "x": 80,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "bench_right": {
+          "index": 6,
+          "x": 96,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "bench_back": {
+          "index": 7,
+          "x": 112,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "luggage_net_left": {
+          "index": 8,
+          "x": 0,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "luggage_net_center": {
+          "index": 9,
+          "x": 16,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "luggage_net_right": {
+          "index": 10,
+          "x": 32,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "coach_panel": {
+          "index": 11,
+          "x": 48,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "night_window_frame_1": {
+          "index": 12,
+          "x": 64,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "night_window_frame_2": {
+          "index": 13,
+          "x": 80,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "night_window_frame_3": {
+          "index": 14,
+          "x": 96,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "night_window_frame_4": {
+          "index": 15,
+          "x": 112,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "boiler_top_left": {
+          "index": 16,
+          "x": 0,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "boiler_top_right": {
+          "index": 17,
+          "x": 16,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "boiler_bottom_left": {
+          "index": 18,
+          "x": 32,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "boiler_bottom_right": {
+          "index": 19,
+          "x": 48,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "regulator": {
+          "index": 20,
+          "x": 64,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "blank_gauge_1": {
+          "index": 21,
+          "x": 80,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "blank_gauge_2": {
+          "index": 22,
+          "x": 96,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "firebox": {
+          "index": 23,
+          "x": 112,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "door_top": {
+          "index": 24,
+          "x": 0,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "door_bottom": {
+          "index": 25,
+          "x": 16,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "cab_floor": {
+          "index": 26,
+          "x": 32,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "brass_pipe_straight": {
+          "index": 27,
+          "x": 48,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "brass_pipe_corner": {
+          "index": 28,
+          "x": 64,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "coal": {
+          "index": 29,
+          "x": 80,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "coupling_passage": {
+          "index": 30,
+          "x": 96,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        },
+        "coach_wall": {
+          "index": 31,
+          "x": 112,
+          "y": 48,
+          "width": 16,
+          "height": 16
+        }
+      },
+      "sha256": "f11cfab73513fbf73e9aa6c7ed7af7a61cb79d3b5f040f8cf107a95634bb8835"
+    },
+    {
+      "id": "ds_endbahnhof",
+      "kind": "props",
+      "transparent": true,
+      "columns": 4,
+      "rows": 2,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "file": "props/ds_endbahnhof.png",
+      "width": 256,
+      "height": 128,
+      "animations": {},
+      "baselineExclusive": 61,
+      "regions": {
+        "ticket_counter_with_iron_grille": {
+          "x": 0,
+          "y": 0,
+          "width": 64,
+          "height": 64
+        },
+        "waiting_bench": {
+          "x": 64,
+          "y": 0,
+          "width": 64,
+          "height": 64
+        },
+        "station_clock_without_numerals": {
+          "x": 128,
+          "y": 0,
+          "width": 64,
+          "height": 64
+        },
+        "blank_timetable_board": {
+          "x": 192,
+          "y": 0,
+          "width": 64,
+          "height": 64
+        },
+        "luggage_trolley": {
+          "x": 0,
+          "y": 64,
+          "width": 64,
+          "height": 64
+        },
+        "telegraph_desk": {
+          "x": 64,
+          "y": 64,
+          "width": 64,
+          "height": 64
+        },
+        "gas_lantern": {
+          "x": 128,
+          "y": 64,
+          "width": 64,
+          "height": 64
+        }
+      },
+      "sha256": "b6907b152497e1c330d1bc1502878c68ca3d079301e8e1cad8baf0e50e637854"
+    },
+    {
+      "id": "ds_schwellenring",
+      "kind": "props",
+      "transparent": true,
+      "columns": 4,
+      "rows": 2,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "file": "props/ds_schwellenring.png",
+      "width": 256,
+      "height": 128,
+      "animations": {
+        "signal": {
+          "frames": [
+            5,
+            6
+          ],
+          "frameRate": 2,
+          "repeat": -1
+        }
+      },
+      "baselineExclusive": 61,
+      "regions": {
+        "roundhouse_doors": {
+          "x": 0,
+          "y": 0,
+          "width": 64,
+          "height": 64
+        },
+        "mechanic_workbench": {
+          "x": 64,
+          "y": 0,
+          "width": 64,
+          "height": 64
+        },
+        "locomotive_wheel": {
+          "x": 128,
+          "y": 0,
+          "width": 64,
+          "height": 64
+        },
+        "coal_heap": {
+          "x": 192,
+          "y": 0,
+          "width": 64,
+          "height": 64
+        },
+        "water_crane": {
+          "x": 0,
+          "y": 64,
+          "width": 64,
+          "height": 64
+        },
+        "signal_arm_up": {
+          "x": 64,
+          "y": 64,
+          "width": 64,
+          "height": 64
+        },
+        "signal_arm_down": {
+          "x": 128,
+          "y": 64,
+          "width": 64,
+          "height": 64
+        }
+      },
+      "sha256": "abddd4fcb00bb29cafe9f0be4ed261e9e881d5fd334b5b44d7f105cacb1e3206"
+    },
+    {
+      "id": "ds_arbeiterbogen",
+      "kind": "props",
+      "transparent": true,
+      "columns": 4,
+      "rows": 2,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "file": "props/ds_arbeiterbogen.png",
+      "width": 256,
+      "height": 128,
+      "animations": {},
+      "baselineExclusive": 61,
+      "regions": {
+        "outdoor_dinner_table_one_empty_place": {
+          "x": 0,
+          "y": 0,
+          "width": 64,
+          "height": 64
+        },
+        "washing_line": {
+          "x": 64,
+          "y": 0,
+          "width": 64,
+          "height": 64
+        },
+        "windblown_picnic_table": {
+          "x": 128,
+          "y": 0,
+          "width": 64,
+          "height": 64
+        },
+        "limestone_doorway": {
+          "x": 192,
+          "y": 0,
+          "width": 64,
+          "height": 64
+        },
+        "stone_well": {
+          "x": 0,
+          "y": 64,
+          "width": 64,
+          "height": 64
+        }
+      },
+      "sha256": "46f3b577b9ee8a5cb82864dc6bbe3bc5e0ef56e49cec51249401ac6a24fa88b8"
+    },
+    {
+      "id": "ds_kalkmarkt",
+      "kind": "props",
+      "transparent": true,
+      "columns": 4,
+      "rows": 2,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "file": "props/ds_kalkmarkt.png",
+      "width": 256,
+      "height": 128,
+      "animations": {},
+      "baselineExclusive": 61,
+      "regions": {
+        "stonemason_workshop": {
+          "x": 0,
+          "y": 0,
+          "width": 64,
+          "height": 64
+        },
+        "blank_gravestone_round": {
+          "x": 64,
+          "y": 0,
+          "width": 64,
+          "height": 64
+        },
+        "blank_gravestone_pointed": {
+          "x": 128,
+          "y": 0,
+          "width": 64,
+          "height": 64
+        },
+        "blank_gravestone_square": {
+          "x": 192,
+          "y": 0,
+          "width": 64,
+          "height": 64
+        },
+        "blank_gravestone_cross": {
+          "x": 0,
+          "y": 64,
+          "width": 64,
+          "height": 64
+        },
+        "flea_stall_memory_plaques": {
+          "x": 64,
+          "y": 64,
+          "width": 64,
+          "height": 64
+        },
+        "tea_room_facade": {
+          "x": 128,
+          "y": 64,
+          "width": 64,
+          "height": 64
+        }
+      },
+      "sha256": "f9176cff906820239c5f1f09ecb2c458f01b845225bb07981c9b3495fb6f207d"
+    },
+    {
+      "id": "ds_bruchstufen_signalhang",
+      "kind": "props",
+      "transparent": true,
+      "columns": 4,
+      "rows": 3,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "file": "props/ds_bruchstufen_signalhang.png",
+      "width": 256,
+      "height": 192,
+      "animations": {
+        "scaffold": {
+          "frames": [
+            0,
+            1
+          ],
+          "frameRate": 3,
+          "repeat": -1
+        },
+        "listening": {
+          "frames": [
+            5,
+            6,
+            7,
+            8
+          ],
+          "frameRate": 5,
+          "repeat": -1
+        }
+      },
+      "baselineExclusive": 61,
+      "regions": {
+        "scaffold_sway_left": {
+          "x": 0,
+          "y": 0,
+          "width": 64,
+          "height": 64
+        },
+        "scaffold_sway_right": {
+          "x": 64,
+          "y": 0,
+          "width": 64,
+          "height": 64
+        },
+        "survey_theodolite": {
+          "x": 128,
+          "y": 0,
+          "width": 64,
+          "height": 64
+        },
+        "signal_cabin": {
+          "x": 192,
+          "y": 0,
+          "width": 64,
+          "height": 64
+        },
+        "sound_testing_house_facade": {
+          "x": 0,
+          "y": 64,
+          "width": 64,
+          "height": 64
+        },
+        "listening_horn_turquoise_pulse_1": {
+          "x": 64,
+          "y": 64,
+          "width": 64,
+          "height": 64
+        },
+        "listening_horn_turquoise_pulse_2": {
+          "x": 128,
+          "y": 64,
+          "width": 64,
+          "height": 64
+        },
+        "listening_horn_turquoise_pulse_3": {
+          "x": 192,
+          "y": 64,
+          "width": 64,
+          "height": 64
+        },
+        "listening_horn_turquoise_pulse_4": {
+          "x": 0,
+          "y": 128,
+          "width": 64,
+          "height": 64
+        }
+      },
+      "sha256": "bd694993cda9e606c8b476ad31172572a244de5fcb022e7ad1a09a4e557d0deb"
+    },
+    {
+      "id": "ds_speisewagen",
+      "kind": "props",
+      "transparent": true,
+      "columns": 4,
+      "rows": 3,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "file": "props/ds_speisewagen.png",
+      "width": 256,
+      "height": 192,
+      "animations": {
+        "stove": {
+          "frames": [
+            1,
+            2
+          ],
+          "frameRate": 4,
+          "repeat": -1
+        },
+        "phonograph": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        }
+      },
+      "baselineExclusive": 61,
+      "regions": {
+        "bunk": {
+          "x": 0,
+          "y": 0,
+          "width": 64,
+          "height": 64
+        },
+        "coal_stove_fire_1": {
+          "x": 64,
+          "y": 0,
+          "width": 64,
+          "height": 64
+        },
+        "coal_stove_fire_2": {
+          "x": 128,
+          "y": 0,
+          "width": 64,
+          "height": 64
+        },
+        "table_soup_bowl": {
+          "x": 192,
+          "y": 0,
+          "width": 64,
+          "height": 64
+        },
+        "wax_cylinder_phonograph_rotation_1": {
+          "x": 0,
+          "y": 64,
+          "width": 64,
+          "height": 64
+        },
+        "wax_cylinder_phonograph_rotation_2": {
+          "x": 64,
+          "y": 64,
+          "width": 64,
+          "height": 64
+        },
+        "wax_cylinder_phonograph_rotation_3": {
+          "x": 128,
+          "y": 64,
+          "width": 64,
+          "height": 64
+        },
+        "wax_cylinder_phonograph_rotation_4": {
+          "x": 192,
+          "y": 64,
+          "width": 64,
+          "height": 64
+        },
+        "storage_chest": {
+          "x": 0,
+          "y": 128,
+          "width": 64,
+          "height": 64
+        },
+        "investigation_case_wall": {
+          "x": 64,
+          "y": 128,
+          "width": 64,
+          "height": 64
+        },
+        "felt_padded_soundlock_door": {
+          "x": 128,
+          "y": 128,
+          "width": 64,
+          "height": 64
+        }
+      },
+      "sha256": "dbaaf486e030ebef273bd5c89187fafeb9ab13e2f75836cf523b24c23add053c"
+    },
+    {
+      "id": "ds_pruefhaus",
+      "kind": "props",
+      "transparent": true,
+      "columns": 4,
+      "rows": 1,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "file": "props/ds_pruefhaus.png",
+      "width": 256,
+      "height": 64,
+      "animations": {},
+      "baselineExclusive": 61,
+      "regions": {
+        "acoustic_horn": {
+          "x": 0,
+          "y": 0,
+          "width": 64,
+          "height": 64
+        },
+        "wax_cylinder_shelving": {
+          "x": 64,
+          "y": 0,
+          "width": 64,
+          "height": 64
+        },
+        "brass_measuring_instrument": {
+          "x": 128,
+          "y": 0,
+          "width": 64,
+          "height": 64
+        },
+        "victorian_headphones": {
+          "x": 192,
+          "y": 0,
+          "width": 64,
+          "height": 64
+        }
+      },
+      "sha256": "2623e7ffc3e3cbb341864b47e3d2acba5ad4b2c998a78df31f9a0fb94fec013a"
+    },
+    {
+      "id": "ds_lohnbuero",
+      "kind": "props",
+      "transparent": true,
+      "columns": 4,
+      "rows": 1,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "file": "props/ds_lohnbuero.png",
+      "width": 256,
+      "height": 64,
+      "animations": {},
+      "baselineExclusive": 61,
+      "regions": {
+        "filing_cabinets": {
+          "x": 0,
+          "y": 0,
+          "width": 64,
+          "height": 64
+        },
+        "standing_writing_desk": {
+          "x": 64,
+          "y": 0,
+          "width": 64,
+          "height": 64
+        },
+        "wage_envelope_shelf": {
+          "x": 128,
+          "y": 0,
+          "width": 64,
+          "height": 64
+        }
+      },
+      "sha256": "b2add684338ece3a5926e71fc1ada876e6eb347e8519dc314c33ad56c491cc30"
+    },
+    {
+      "id": "ds_nachhall",
+      "kind": "effect",
+      "transparent": true,
+      "columns": 8,
+      "rows": 1,
+      "frameWidth": 48,
+      "frameHeight": 48,
+      "file": "fx/ds_nachhall.png",
+      "width": 384,
+      "height": 48,
+      "animations": {
+        "call": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 10,
+          "repeat": 0
+        }
+      },
+      "sha256": "61f334b49742738828c1cf554ab3e8e09083b4775393d74d2cc02a5ea3700d89"
+    },
+    {
+      "id": "ds_nachhall_weg",
+      "kind": "effect",
+      "transparent": true,
+      "columns": 4,
+      "rows": 3,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "file": "fx/ds_nachhall_weg.png",
+      "width": 64,
+      "height": 48,
+      "animations": {
+        "straight": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 5,
+          "repeat": -1
+        },
+        "curve": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 5,
+          "repeat": -1
+        },
+        "end": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 5,
+          "repeat": -1
+        }
+      },
+      "sha256": "05a8222126b2bf1583eea3e56d1b392900f491d5b272d0035b894be836ee81a8"
+    },
+    {
+      "id": "ds_nachtzug",
+      "kind": "train",
+      "transparent": true,
+      "columns": 1,
+      "rows": 5,
+      "frameWidth": 208,
+      "frameHeight": 32,
+      "file": "props/ds_nachtzug.png",
+      "width": 208,
+      "height": 160,
+      "animations": {
+        "active_consist": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 5,
+          "repeat": -1
+        },
+        "stillgelegt": {
+          "frames": [
+            4
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        }
+      },
+      "baselineExclusive": 31,
+      "regions": {
+        "lok_0": {
+          "x": 0,
+          "y": 0,
+          "width": 64,
+          "height": 32
+        },
+        "lok_1": {
+          "x": 0,
+          "y": 32,
+          "width": 64,
+          "height": 32
+        },
+        "lok_2": {
+          "x": 0,
+          "y": 64,
+          "width": 64,
+          "height": 32
+        },
+        "lok_3": {
+          "x": 0,
+          "y": 96,
+          "width": 64,
+          "height": 32
+        },
+        "lok_stillgelegt": {
+          "x": 0,
+          "y": 128,
+          "width": 64,
+          "height": 32
+        },
+        "wagen_1_0": {
+          "x": 64,
+          "y": 0,
+          "width": 48,
+          "height": 32
+        },
+        "wagen_1_1": {
+          "x": 64,
+          "y": 32,
+          "width": 48,
+          "height": 32
+        },
+        "wagen_1_2": {
+          "x": 64,
+          "y": 64,
+          "width": 48,
+          "height": 32
+        },
+        "wagen_1_3": {
+          "x": 64,
+          "y": 96,
+          "width": 48,
+          "height": 32
+        },
+        "wagen_1_stillgelegt": {
+          "x": 64,
+          "y": 128,
+          "width": 48,
+          "height": 32
+        },
+        "wagen_2_0": {
+          "x": 112,
+          "y": 0,
+          "width": 48,
+          "height": 32
+        },
+        "wagen_2_1": {
+          "x": 112,
+          "y": 32,
+          "width": 48,
+          "height": 32
+        },
+        "wagen_2_2": {
+          "x": 112,
+          "y": 64,
+          "width": 48,
+          "height": 32
+        },
+        "wagen_2_3": {
+          "x": 112,
+          "y": 96,
+          "width": 48,
+          "height": 32
+        },
+        "wagen_2_stillgelegt": {
+          "x": 112,
+          "y": 128,
+          "width": 48,
+          "height": 32
+        },
+        "wagen_3_0": {
+          "x": 160,
+          "y": 0,
+          "width": 48,
+          "height": 32
+        },
+        "wagen_3_1": {
+          "x": 160,
+          "y": 32,
+          "width": 48,
+          "height": 32
+        },
+        "wagen_3_2": {
+          "x": 160,
+          "y": 64,
+          "width": 48,
+          "height": 32
+        },
+        "wagen_3_3": {
+          "x": 160,
+          "y": 96,
+          "width": 48,
+          "height": 32
+        },
+        "wagen_3_stillgelegt": {
+          "x": 160,
+          "y": 128,
+          "width": 48,
+          "height": 32
+        }
+      },
+      "regionAnimations": {
+        "lok": {
+          "frames": [
+            "lok_0",
+            "lok_1",
+            "lok_2",
+            "lok_3"
+          ],
+          "frameRate": 5,
+          "repeat": -1
+        },
+        "wagen_1": {
+          "frames": [
+            "wagen_1_0",
+            "wagen_1_1",
+            "wagen_1_2",
+            "wagen_1_3"
+          ],
+          "frameRate": 5,
+          "repeat": -1
+        },
+        "wagen_2": {
+          "frames": [
+            "wagen_2_0",
+            "wagen_2_1",
+            "wagen_2_2",
+            "wagen_2_3"
+          ],
+          "frameRate": 5,
+          "repeat": -1
+        },
+        "wagen_3": {
+          "frames": [
+            "wagen_3_0",
+            "wagen_3_1",
+            "wagen_3_2",
+            "wagen_3_3"
+          ],
+          "frameRate": 5,
+          "repeat": -1
+        }
+      },
+      "sha256": "f0448d819eec3fa940cfdc894e67a34a527bb1e81827b446774bdf10651b4b51"
+    },
+    {
+      "id": "bg_ds_endbahnhof",
+      "kind": "background",
+      "transparent": false,
+      "columns": 1,
+      "rows": 1,
+      "frameWidth": 480,
+      "frameHeight": 270,
+      "file": "battle/bg_ds_endbahnhof.png",
+      "width": 480,
+      "height": 270,
+      "animations": {},
+      "groundStrip": {
+        "x": 0,
+        "y": 200,
+        "width": 480,
+        "height": 70
+      },
+      "sha256": "7c46f6ba1cb36a02020b3e2595c4bc53e6d212f371d44792761c044925670f53"
+    },
+    {
+      "id": "bg_ds_schwellenring",
+      "kind": "background",
+      "transparent": false,
+      "columns": 1,
+      "rows": 1,
+      "frameWidth": 480,
+      "frameHeight": 270,
+      "file": "battle/bg_ds_schwellenring.png",
+      "width": 480,
+      "height": 270,
+      "animations": {},
+      "groundStrip": {
+        "x": 0,
+        "y": 200,
+        "width": 480,
+        "height": 70
+      },
+      "sha256": "47e3a0ca4dc1241dcc6c5ad43efbfb2568d2906a91e61e0038ac6d672ae73cf7"
+    },
+    {
+      "id": "bg_ds_arbeiterbogen",
+      "kind": "background",
+      "transparent": false,
+      "columns": 1,
+      "rows": 1,
+      "frameWidth": 480,
+      "frameHeight": 270,
+      "file": "battle/bg_ds_arbeiterbogen.png",
+      "width": 480,
+      "height": 270,
+      "animations": {},
+      "groundStrip": {
+        "x": 0,
+        "y": 200,
+        "width": 480,
+        "height": 70
+      },
+      "sha256": "8082c3a12be6d5d9749b7df1e5b9f302848a058a4db6fae32b5fa47ecf06f824"
+    },
+    {
+      "id": "bg_ds_bruchstufen",
+      "kind": "background",
+      "transparent": false,
+      "columns": 1,
+      "rows": 1,
+      "frameWidth": 480,
+      "frameHeight": 270,
+      "file": "battle/bg_ds_bruchstufen.png",
+      "width": 480,
+      "height": 270,
+      "animations": {},
+      "groundStrip": {
+        "x": 0,
+        "y": 200,
+        "width": 480,
+        "height": 70
+      },
+      "sha256": "342d03647e7bc83f898c99c269b9928867502d49f12dde649e9bf50ef264295d"
+    },
+    {
+      "id": "bg_ds_rangierwueste",
+      "kind": "background",
+      "transparent": false,
+      "columns": 1,
+      "rows": 1,
+      "frameWidth": 480,
+      "frameHeight": 270,
+      "file": "battle/bg_ds_rangierwueste.png",
+      "width": 480,
+      "height": 270,
+      "animations": {},
+      "groundStrip": {
+        "x": 0,
+        "y": 200,
+        "width": 480,
+        "height": 70
+      },
+      "sha256": "2b3fead28d0166704b4404b2f5baf207bc77d0043f8a690db410b3179aaa0059"
+    },
+    {
+      "id": "bg_ds_klopfbruch",
+      "kind": "background",
+      "transparent": false,
+      "columns": 1,
+      "rows": 1,
+      "frameWidth": 480,
+      "frameHeight": 270,
+      "file": "battle/bg_ds_klopfbruch.png",
+      "width": 480,
+      "height": 270,
+      "animations": {},
+      "groundStrip": {
+        "x": 0,
+        "y": 200,
+        "width": 480,
+        "height": 70
+      },
+      "sha256": "d0591c2329116361096160e4fba9062d36b4cb7d63cee3a4ecca49379d24f22d"
+    },
+    {
+      "id": "bg_ds_rufschlucht",
+      "kind": "background",
+      "transparent": false,
+      "columns": 1,
+      "rows": 1,
+      "frameWidth": 480,
+      "frameHeight": 270,
+      "file": "battle/bg_ds_rufschlucht.png",
+      "width": 480,
+      "height": 270,
+      "animations": {},
+      "groundStrip": {
+        "x": 0,
+        "y": 200,
+        "width": 480,
+        "height": 70
+      },
+      "sha256": "4d9b03e67b897920d8dcc6278d300d45128abf3869313bf6a93ebdbc96719067"
+    },
+    {
+      "id": "bg_ds_letzter_bahnsteig",
+      "kind": "background",
+      "transparent": false,
+      "columns": 1,
+      "rows": 1,
+      "frameWidth": 480,
+      "frameHeight": 270,
+      "file": "battle/bg_ds_letzter_bahnsteig.png",
+      "width": 480,
+      "height": 270,
+      "animations": {},
+      "groundStrip": {
+        "x": 0,
+        "y": 200,
+        "width": 480,
+        "height": 70
+      },
+      "sha256": "da5be026e72d039080051b85eb17e800545b4bb624db53da7c009a8246205ac3"
+    },
+    {
+      "id": "bg_ds_unterschicht",
+      "kind": "background",
+      "transparent": false,
+      "columns": 1,
+      "rows": 1,
+      "frameWidth": 480,
+      "frameHeight": 270,
+      "file": "battle/bg_ds_unterschicht.png",
+      "width": 480,
+      "height": 270,
+      "animations": {},
+      "groundStrip": {
+        "x": 0,
+        "y": 200,
+        "width": 480,
+        "height": 70
+      },
+      "sha256": "d82ebba39ca479c189caaf5d52a1e1e5e728586372e695cdab3102884155aa4a"
+    },
+    {
+      "id": "bg_ds_nachtzug",
+      "kind": "background",
+      "transparent": false,
+      "columns": 1,
+      "rows": 1,
+      "frameWidth": 480,
+      "frameHeight": 270,
+      "file": "battle/bg_ds_nachtzug.png",
+      "width": 480,
+      "height": 270,
+      "animations": {},
+      "groundStrip": {
+        "x": 0,
+        "y": 200,
+        "width": 480,
+        "height": 70
+      },
+      "sha256": "6f531d317fac88c6288a3b580c34a4aa1673bf20669a6b4e023cd4e008576bb7"
+    },
+    {
+      "id": "ds_nachtzug_scene",
+      "kind": "still",
+      "transparent": false,
+      "columns": 1,
+      "rows": 1,
+      "frameWidth": 480,
+      "frameHeight": 270,
+      "file": "ui/scenes/ds_nachtzug.png",
+      "width": 480,
+      "height": 270,
+      "animations": {},
+      "sha256": "2ff0cb75ba872e0208b52b21cbc11fbae5929e38712e9f16058eec48f1d925ba"
+    },
+    {
+      "id": "kapitel3_karte",
+      "kind": "still",
+      "transparent": false,
+      "columns": 1,
+      "rows": 1,
+      "frameWidth": 480,
+      "frameHeight": 270,
+      "file": "ui/scenes/kapitel3_karte.png",
+      "width": 480,
+      "height": 270,
+      "animations": {},
+      "sha256": "a246c4f26e7caca516fb9cb67061d12348f4ec094a826f3c587288aa80638bbc"
+    },
+    {
+      "id": "ds_karte",
+      "kind": "map",
+      "transparent": false,
+      "columns": 1,
+      "rows": 1,
+      "frameWidth": 480,
+      "frameHeight": 270,
+      "file": "ui/ds_karte.png",
+      "width": 480,
+      "height": 270,
+      "animations": {},
+      "sha256": "47f01f3d515c595d2d7dde6085e4a9d3e7939eeebad4cf75fe266259d67b6432"
+    },
+    {
+      "id": "ds_karte_nebel",
+      "kind": "overlay",
+      "transparent": true,
+      "columns": 1,
+      "rows": 1,
+      "frameWidth": 480,
+      "frameHeight": 270,
+      "file": "ui/ds_karte_nebel.png",
+      "width": 480,
+      "height": 270,
+      "animations": {},
+      "sha256": "fc2a846426064c0c0441bded3b29077b72f4145ed99360d0ea3d1da82ce2bc78"
+    },
+    {
+      "id": "ds_marker",
+      "kind": "markers",
+      "transparent": true,
+      "columns": 6,
+      "rows": 3,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "file": "ui/ds_marker.png",
+      "width": 96,
+      "height": 48,
+      "animations": {},
+      "baselineExclusive": 15,
+      "regions": {
+        "ds_endbahnhof": {
+          "x": 0,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "ds_schwellenring": {
+          "x": 16,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "ds_arbeiterbogen": {
+          "x": 32,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "ds_kalkmarkt": {
+          "x": 48,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "ds_bruchstufen": {
+          "x": 64,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "ds_signalhang": {
+          "x": 80,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "ds_speisewagen": {
+          "x": 0,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "ds_runddepot": {
+          "x": 16,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "ds_pruefhaus": {
+          "x": 32,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "ds_teesaal": {
+          "x": 48,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "ds_lohnbuero": {
+          "x": 64,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "ds_nachtzug_wagen": {
+          "x": 80,
+          "y": 16,
+          "width": 16,
+          "height": 16
+        },
+        "ds_nachtzug_lok": {
+          "x": 0,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "ds_rangierwueste": {
+          "x": 16,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "ds_klopfbruch": {
+          "x": 32,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "ds_rufschlucht": {
+          "x": 48,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "ds_letzter_bahnsteig": {
+          "x": 64,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        },
+        "ds_unterschicht": {
+          "x": 80,
+          "y": 32,
+          "width": 16,
+          "height": 16
+        }
+      },
+      "sha256": "16cce0dd980cb5e35a36132879d7339d2929105fd4c9bb92f9e945dd1a306ac3"
+    }
+  ]
+}
