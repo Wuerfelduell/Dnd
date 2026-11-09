@@ -130,6 +130,7 @@ export class Ui {
           <div class="meter digest hidden"><span>Verdaut</span><div class="bar"><div class="dfill"></div></div><em class="dnum"></em></div>
           <div class="meter unruhe hidden"><span>Unruhe</span><div class="bar"><div class="ufill"></div></div></div>
           <div class="money"></div>
+          <div class="treffen hidden"></div>
           <div class="goal hidden"></div>
         </div>
         <div class="hud-right">
@@ -190,7 +191,14 @@ export class Ui {
       if (this.modal === 'combat') return;
       this.toast(`+${Math.round(acc)} % verdaut: ${DIGEST_LABELS[kind] ?? kind}`, 'digest');
     });
-    state.on('digested', () => this.toast('Bereit für den nächsten Trank. Kittering hat die Formel.', 'gold'));
+    state.on('digested', () => this.toast(state.pathway?.seq <= 8 ? 'Bereit für den nächsten Trank. Die Formel gibt es auf geheimen Treffen, selten bei Kittering.' : 'Bereit für den nächsten Trank. Kittering hat die Formel.', 'gold'));
+    // Geheime Treffen: Ankündigung und Uhr im HUD
+    state.on('gathering', ({ text, open }) => {
+      this.updateGathering();
+      if (this.modal === 'combat') return;
+      this.toast(text, open ? 'gold' : 'warn');
+    });
+    this.gatheringTimer = setInterval(() => this.updateGathering(), 1000);
     state.on('ascend', () => { this.updateUnruhe(); this.updateHp(); });
     state.on('lostcontrol', ({ text }) => {
       this.updateHp();
@@ -244,6 +252,15 @@ export class Ui {
     const t = s.tracked ? questTarget(s, s.tracked) : null;
     el.classList.toggle('hidden', !t);
     if (t) el.innerHTML = `<span class="arrow">➤</span> ${esc(this.goalText(t))}<span class="gstep">${esc(t.step)}</span>`;
+  }
+
+  updateGathering() {
+    const el = this.$('.treffen');
+    if (!el) return;
+    const st = this.state.gatheringStatus();
+    el.classList.toggle('hidden', !st);
+    el.classList.toggle('open', !!st?.open);
+    if (st) el.textContent = `${st.open ? '◆' : '◇'} ${st.text}`;
   }
 
   updateMoney() {
@@ -968,7 +985,7 @@ export class Ui {
       this.shop.entries = stock.map((e) => ({ id: e.item, disabled: !!e.locked || e.owned || s.money < e.price }));
       rows = stock.map((e, i) => `<li class="item ${e.locked ? 'lockedrow' : ''}"><div>${itemIconBig(e.item)}<strong>${esc(e.name)}</strong>${s.itemCount(e.item) ? ` <span class="muted">(hast ${s.itemCount(e.item)})</span>` : ''}<br>
         <span class="desc">${esc(e.locked ? `🔒 ${e.locked}` : e.desc)}</span></div>
-        <div>${e.owned ? '<span class="badge likely">gekauft</span>' : `<button class="small" data-buy="${i}" ${this.shop.entries[i].disabled ? 'disabled' : ''}>${i < 9 ? `<span class="key">${i + 1}</span> ` : ''}${e.price} Sch.</button>`}</div></li>`).join('');
+        <div>${e.owned ? `<span class="badge likely">${e.soldOut ? 'vergriffen' : 'gekauft'}</span>` : `${e.left ? `<span class="muted">noch ${e.left}</span> ` : ''}<button class="small" data-buy="${i}" ${this.shop.entries[i].disabled ? 'disabled' : ''}>${i < 9 ? `<span class="key">${i + 1}</span> ` : ''}${e.price} Sch.</button>`}</div></li>`).join('');
     } else {
       const sellable = s.items().filter((it) => s.sellPrice(it.id) !== null);
       this.shop.entries = sellable.map((it) => ({ id: it.id }));

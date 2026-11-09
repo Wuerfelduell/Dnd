@@ -19,6 +19,7 @@ export function loadContent() {
     wilds: load('wilds.json'),
     factions: load('factions.json'),
     buildings: load('gebaeude.json'),
+    gatherings: load('treffen.json'),
   });
 }
 

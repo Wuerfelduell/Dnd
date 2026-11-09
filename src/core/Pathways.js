@@ -302,7 +302,7 @@ export const pathwayMethods = {
   shopStock(merchantId) {
     const m = this.merchant(merchantId);
     // Höhere Formeln anderer Pfade bleiben unsichtbar, sonst wird die Liste endlos
-    const visible = m.stock.filter((e) => !e.requires_pathway || this.pathway?.id === e.requires_pathway[0]);
+    const visible = this.merchantStock(merchantId).filter((e) => !e.requires_pathway || this.pathway?.id === e.requires_pathway[0]);
     return visible.map((e) => {
       const it = this.item(e.item);
       const price = Math.max(1, Math.round(e.price * this.passive('price')));
@@ -313,7 +313,7 @@ export const pathwayMethods = {
       }
       if (!locked && e.requires_honor !== undefined && this.honor < e.requires_honor) locked = `Rang ${this.rank(e.requires_honor).name} (Ansehen ${e.requires_honor}) nötig`;
       const owned = e.once && this.itemCount(e.item) > 0;
-      return { ...e, name: it.name, desc: it.desc, kind: it.kind, price, locked, owned };
+      return this.gatheringEntry(merchantId, { ...e, name: it.name, desc: it.desc, kind: it.kind, price, locked, owned });
     });
   },
 
@@ -321,9 +321,11 @@ export const pathwayMethods = {
     const e = this.shopStock(merchantId).find((x) => x.item === itemId);
     if (!e) return { ok: false, text: 'Das führt dieser Händler nicht.' };
     if (e.locked) return { ok: false, text: e.locked };
+    if (e.soldOut) return { ok: false, text: 'Davon ist auf diesem Treffen nichts mehr übrig.' };
     if (e.owned) return { ok: false, text: 'Diese Formel besitzt du schon.' };
     if (!this.spendMoney(e.price)) return { ok: false, text: 'Dafür reichen deine Schilling nicht.' };
     this.addItem(itemId);
+    this.noteGatheringBuy(merchantId, itemId);
     this.act('trade');
     this.emit('changed');
     return { ok: true, text: `Gekauft: ${e.name} für ${e.price} Schilling.` };

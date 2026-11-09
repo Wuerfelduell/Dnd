@@ -1,5 +1,6 @@
 // Reiner Spielzustand ohne Phaser-Abhängigkeit, damit er auch in Node-Tests läuft.
 import { pathwayMethods } from './Pathways.js';
+import { gatheringMethods } from './Gatherings.js';
 import { artifactMethods } from './Artifacts.js';
 //
 // Begriffe:
@@ -50,6 +51,7 @@ export class GameState {
     for (const q of s.quests ?? []) this.quests[q] = 'active';
     this.tracked = s.quests?.[0] ?? null;
     this.resetPathway();
+    this.resetGatherings();
   }
 
   // --- Events -------------------------------------------------------------
@@ -237,7 +239,9 @@ export class GameState {
       (o.requires_beyonder === undefined || this.isBeyonder() === o.requires_beyonder) &&
       none(o.hide_if_items, (i) => this.itemCount(i) > 0) &&
       (o.requires_nerves === undefined || this.composure >= o.requires_nerves) &&
-      (o.max_nerves === undefined || this.composure < o.max_nerves)
+      (o.max_nerves === undefined || this.composure < o.max_nerves) &&
+      (o.requires_gathering === undefined || this.gatheringOpen(o.requires_gathering) && this.isMember(o.requires_gathering)) &&
+      (o.requires_gatherings_unlocked === undefined || this.gatheringsUnlocked() === o.requires_gatherings_unlocked)
     );
   }
 
@@ -497,6 +501,7 @@ export class GameState {
     }
     if (this.composure !== before) this.emit('composure', this.composure);
     this.tickPathway(dtSeconds);
+    this.tickGatherings(dtSeconds);
   }
 
   // --- Speichern -------------------------------------------------------------------------
@@ -517,6 +522,7 @@ export class GameState {
       weapon: this.weapon,
       tracked: this.tracked,
       ...this.serializePathway(),
+      ...this.serializeGatherings(),
     };
   }
 
@@ -543,9 +549,10 @@ export class GameState {
     }
     // Ab Version 4: Schilling, Pfad und Unruhe
     if (data.v >= 4) this.loadPathway(data);
+    this.loadGatherings(data);
     if (!this.content.maps[this.map]) { this.map = this.content.start.map; this.position = null; }
     return true;
   }
 }
 
-Object.assign(GameState.prototype, pathwayMethods, artifactMethods);
+Object.assign(GameState.prototype, pathwayMethods, artifactMethods, gatheringMethods);

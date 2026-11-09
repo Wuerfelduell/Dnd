@@ -9,13 +9,26 @@ import { loadContent, talk } from './helpers.js';
 const content = loadContent();
 const never = () => 0.999;
 
+/** Formeln ab Sequenz 7 hat Kittering nur selten: Spielzeit auf eine Runde stellen, in der er sie anbietet. */
+function withOffer(s, merchant, item) {
+  const round = content.gatherings.rules.interval_min * 60;
+  for (let c = 0; c < 2000; c++) {
+    s.playTime = c * round;
+    if (s.shopStock(merchant).some((e) => e.item === item)) return s.shopStock(merchant).find((e) => e.item === item);
+  }
+  throw new Error(`${merchant} bietet ${item} nie an`);
+}
+
 /** Kauft Formel und Zutaten bei den Händlern und braut (Geld und Ansehen werden aufgefüllt). */
 function brew(s, pid, seq) {
   s.money = 5000;
   s.honor = Math.max(s.honor, 75);
+  withOffer(s, 'kittering', `formel_${pid}_${seq}`);
   assert.equal(s.buy('kittering', `formel_${pid}_${seq}`).ok, true, `Formel ${pid} ${seq}`);
   for (const [id, n] of Object.entries(content.items[`formel_${pid}_${seq}`].ingredients)) {
-    const shop = s.shopStock('nell').some((e) => e.item === id) ? 'nell' : 'kittering';
+    const shop = ['nell', 'kittering'].find((m) => s.shopStock(m).some((e) => e.item === id));
+    // Zutaten ab Sequenz 7 gibt es nur auf geheimen Treffen oder als Beute
+    if (!shop) { s.addItem(id, n); continue; }
     for (let i = 0; i < n; i++) assert.equal(s.buy(shop, id).ok, true, `Zutat ${id} (Sequenz ${seq})`);
   }
   assert.equal(s.brew(`formel_${pid}_${seq}`).ok, true);
@@ -56,12 +69,12 @@ test('Sequenz 6 und 5: Formeln erst mit Rang, nur für den eigenen Pfad; Verdaue
   const s = new GameState(content);
   for (const seq of [9, 8, 7]) { const p = brew(s, 'eisen', seq); if (s.pathway) digestAll(s); s.drink(p, never); }
   s.honor = 40;
-  const f6 = s.shopStock('kittering').find((e) => e.item === 'formel_eisen_6');
+  const f6 = withOffer(s, 'kittering', 'formel_eisen_6');
   assert.ok(f6.locked, 'Sequenz 6 erst ab Vertrauter des Reviers');
   assert.ok(!s.shopStock('kittering').some((e) => e.item === 'formel_laterne_6'), 'fremde Pfade unsichtbar');
   s.honor = 55;
   assert.ok(!s.shopStock('kittering').find((e) => e.item === 'formel_eisen_6').locked);
-  assert.ok(s.shopStock('kittering').find((e) => e.item === 'formel_eisen_5').locked, 'Sequenz 5 braucht Sequenz 6');
+  assert.ok(withOffer(s, 'kittering', 'formel_eisen_5').locked, 'Sequenz 5 braucht Sequenz 6');
   const at7 = s.digestTable().find((r) => r.kind === 'combat_win').points;
   digestAll(s);
   s.drink(brew(s, 'eisen', 6), never);

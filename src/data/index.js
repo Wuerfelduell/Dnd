@@ -63,6 +63,7 @@ import waisenhaus from './maps/waisenhaus.json';
 import traumkeller from './maps/traumkeller.json';
 import dFall78 from './dialogues/fall78.json';
 import buildings from './gebaeude.json';
+import gatherings from './treffen.json';
 
 export const content = buildContent({
   campaign,
@@ -78,4 +79,5 @@ export const content = buildContent({
   wilds,
   factions,
   buildings,
+  gatherings,
 });
