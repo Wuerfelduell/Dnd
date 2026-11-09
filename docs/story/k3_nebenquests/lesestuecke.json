@@ -1,0 +1,527 @@
+[
+  {
+    "map": "ds_endbahnhof",
+    "tile": [
+      3,
+      8
+    ],
+    "interactable": {
+      "id": "k3n_lese_01",
+      "kind": "read",
+      "sprite": "paper",
+      "prompt": "Fahrplan mit weißem Rand lesen",
+      "title": "Fahrplan mit weißem Rand",
+      "text": "Die letzte planmäßige Fahrt steht im Druck. Alle späteren Abfahrten sind von Hand ergänzt und wieder ausradiert. Wer eine Auskunft benötigt, möge sich an den Schalter wenden. Wer am Schalter keine Auskunft erhält, möge den Fahrplan nicht eigenmächtig verbessern. Am unteren Rand hat jemand geschrieben: „Wir warten nicht auf dieselbe Sache.“",
+      "footer": "Dunscar, ein Blatt aus dem Alltag.",
+      "visible_if": {
+        "requires_flags": [
+          "k3_arrived"
+        ]
+      }
+    }
+  },
+  {
+    "map": "ds_endbahnhof",
+    "tile": [
+      4,
+      8
+    ],
+    "interactable": {
+      "id": "k3n_lese_02",
+      "kind": "read",
+      "sprite": "paper",
+      "prompt": "Gepäckordnung lesen",
+      "title": "Gepäckordnung",
+      "text": "Nicht abgeholtes Gepäck wird nach Inhalt verzeichnet. Bei Koffern, die den Besitzer rufen, ist zunächst die Schnalle zu schließen. Eine gerufene Person gilt nicht automatisch als Eigentümer. Fundstücke dürfen tagsüber gegen Beschreibung abgeholt werden; die Aussprache des Namens ist kein Eigentumsnachweis.",
+      "footer": "Dunscar, ein Blatt aus dem Alltag.",
+      "visible_if": {
+        "requires_flags": [
+          "k3_arrived"
+        ]
+      }
+    }
+  },
+  {
+    "map": "ds_endbahnhof",
+    "tile": [
+      5,
+      8
+    ],
+    "interactable": {
+      "id": "k3n_lese_03",
+      "kind": "read",
+      "sprite": "paper",
+      "prompt": "Brief unter einer Sitzbank lesen",
+      "title": "Brief unter einer Sitzbank",
+      "text": "Liebste, ich bin heute mit Kalk an den Schuhen aufgewacht. Ich weiß nicht, ob ich gearbeitet habe, aber meine Hände tun so. Bitte lass die Hintertür offen, wenn du noch wach bist. Wenn nicht, klopfe ich mit den Knöcheln und warte. Ich will nicht, dass du auf eine Pfeife antworten musst.",
+      "footer": "Dunscar, ein Blatt aus dem Alltag.",
+      "visible_if": {
+        "requires_flags": [
+          "k3_arrived"
+        ]
+      }
+    }
+  },
+  {
+    "map": "ds_endbahnhof",
+    "tile": [
+      6,
+      8
+    ],
+    "interactable": {
+      "id": "k3n_lese_04",
+      "kind": "read",
+      "sprite": "paper",
+      "prompt": "Anweisung an die Telegrammboten lesen",
+      "title": "Anweisung an die Telegrammboten",
+      "text": "Empfang ist durch tatsächliche Übergabe zu bestätigen. Eine Wiederholung aus dem Leitungsrohr ersetzt keinen Empfänger. Unleserliche Uhrzeiten werden zurückgefragt, nicht nach Gefühl ergänzt. Die Dienststelle bittet außerdem darum, die Schreibfedern nicht zum Reinigen der Signalöffnungen zu benutzen.",
+      "footer": "Dunscar, ein Blatt aus dem Alltag.",
+      "visible_if": {
+        "requires_flags": [
+          "k3_arrived"
+        ]
+      }
+    }
+  },
+  {
+    "map": "ds_schwellenring",
+    "tile": [
+      7,
+      8
+    ],
+    "interactable": {
+      "id": "k3n_lese_05",
+      "kind": "read",
+      "sprite": "paper",
+      "prompt": "Gewerkschaftszettel: Hände lesen",
+      "title": "Gewerkschaftszettel: Hände",
+      "text": "Die Arbeit beginnt erst nach besprochenem Auftrag. Ein Pfiff ist keine Zustimmung, ein Lohnzettel kein Ersatz für ausgezahlten Lohn. Wer nachts erschöpft angetroffen wird, bekommt einen Sitzplatz und eine Begleitung heim. Über seinen Charakter wird dabei nicht abgestimmt.",
+      "footer": "Dunscar, ein Blatt aus dem Alltag.",
+      "visible_if": {
+        "requires_flags": [
+          "k3_arrived"
+        ]
+      }
+    }
+  },
+  {
+    "map": "ds_schwellenring",
+    "tile": [
+      8,
+      8
+    ],
+    "interactable": {
+      "id": "k3n_lese_06",
+      "kind": "read",
+      "sprite": "paper",
+      "prompt": "Werkstattbuch: der kleine Schlüssel lesen",
+      "title": "Werkstattbuch: der kleine Schlüssel",
+      "text": "Kleiner Schlüssel für die seitliche Werkzeuglade: bei Oren. Zweiter kleiner Schlüssel: ebenfalls bei Oren. Der Ausschuss hält dies für ungenügende Verteilung. Oren hält den Ausschuss für ungenügend klein, um in die Werkzeuglade zu passen. Ein neuer Aufbewahrungsort wurde nicht beschlossen.",
+      "footer": "Dunscar, ein Blatt aus dem Alltag.",
+      "visible_if": {
+        "requires_flags": [
+          "k3_arrived"
+        ]
+      }
+    }
+  },
+  {
+    "map": "ds_schwellenring",
+    "tile": [
+      2,
+      9
+    ],
+    "interactable": {
+      "id": "k3n_lese_07",
+      "kind": "read",
+      "sprite": "paper",
+      "prompt": "Handzettel am Wartungssteg lesen",
+      "title": "Handzettel am Wartungssteg",
+      "text": "Vor Belastung die Anschläge prüfen. Kein Rangieren während einer Begehung. Ein gesicherter Fußweg braucht weder Anfahrpfiff noch Antwort der Wartenden. Wer eine Abkürzung verspricht, soll auch sagen, was darüber nicht transportiert werden kann.",
+      "footer": "Dunscar, ein Blatt aus dem Alltag.",
+      "visible_if": {
+        "requires_flags": [
+          "k3_arrived"
+        ]
+      }
+    }
+  },
+  {
+    "map": "ds_speisewagen",
+    "tile": [
+      3,
+      9
+    ],
+    "interactable": {
+      "id": "k3n_lese_08",
+      "kind": "read",
+      "sprite": "paper",
+      "prompt": "Pfiffs Küchenregel lesen",
+      "title": "Pfiffs Küchenregel",
+      "text": "Die Koje ist für Schlafende, der Tisch für Hungrige, die Fallwand für Dinge, die man noch nicht versteht. Wer nachts eine vertraute Stimme hört, weckt lieber mich als das Signalgerät. Ich schimpfe vielleicht. Das ist wenigstens eine neue Antwort.",
+      "footer": "Dunscar, ein Blatt aus dem Alltag.",
+      "visible_if": {
+        "requires_flags": [
+          "k3_arrived"
+        ]
+      }
+    }
+  },
+  {
+    "map": "ds_arbeiterbogen",
+    "tile": [
+      4,
+      9
+    ],
+    "interactable": {
+      "id": "k3n_lese_09",
+      "kind": "read",
+      "sprite": "paper",
+      "prompt": "Ein überlieferter Kinderreim lesen",
+      "title": "Ein überlieferter Kinderreim",
+      "text": "Ein Schritt hinein, ein Schritt heraus,\ndie Kreide macht kein Arbeitshaus.\nWenn Nacht am echten Halte steht,\nbleib still, bis auch ihr Rufen geht.\nWer Feierabend sagen kann,\nfängt morgen selbst zu spielen an.\n\nDarunter: „Den letzten Vers nicht wieder abschneiden.“",
+      "footer": "Dunscar, ein Blatt aus dem Alltag.",
+      "visible_if": {
+        "requires_flags": [
+          "k3_arrived"
+        ]
+      }
+    }
+  },
+  {
+    "map": "ds_arbeiterbogen",
+    "tile": [
+      5,
+      9
+    ],
+    "interactable": {
+      "id": "k3n_lese_10",
+      "kind": "read",
+      "sprite": "paper",
+      "prompt": "Die zweite Serviette lesen",
+      "title": "Die zweite Serviette",
+      "text": "Meine Mutter faltete die Serviette für ihren Vater. Ich falte sie für meine Mutter, die das Falten nicht mehr kann. Niemand an diesem Tisch hat versprochen, siebzig Jahre stillzustehen. Wenn einmal jemand vom Teller isst, darf man zuerst fragen, ob er noch Hunger hat.",
+      "footer": "Dunscar, ein Blatt aus dem Alltag.",
+      "visible_if": {
+        "requires_flags": [
+          "k3_arrived"
+        ]
+      }
+    }
+  },
+  {
+    "map": "ds_arbeiterbogen",
+    "tile": [
+      6,
+      9
+    ],
+    "interactable": {
+      "id": "k3n_lese_11",
+      "kind": "read",
+      "sprite": "paper",
+      "prompt": "Wartezimmerzettel lesen",
+      "title": "Wartezimmerzettel",
+      "text": "Bitte bringen Sie alte Befunde mit, sofern Sie welche besitzen. Fehlende Unterlagen bedeuten nicht, dass Ihre Erschöpfung erfunden ist. Wer nicht selbst kommen kann, darf eine Person seines Vertrauens schicken. Die Praxis hat den Satz über „eingebildete Nachtschichten“ gestrichen.",
+      "footer": "Dunscar, ein Blatt aus dem Alltag.",
+      "visible_if": {
+        "requires_flags": [
+          "k3_arrived"
+        ]
+      }
+    }
+  },
+  {
+    "map": "ds_arbeiterbogen",
+    "tile": [
+      7,
+      9
+    ],
+    "interactable": {
+      "id": "k3n_lese_12",
+      "kind": "read",
+      "sprite": "paper",
+      "prompt": "Brief eines Schichtgängers lesen",
+      "title": "Brief eines Schichtgängers",
+      "text": "Ich erinnere mich an eine Bank und daran, dass alle die Füße darunter versteckten. Vielleicht war uns kalt. Vielleicht wollten wir nicht sehen, wohin sie uns getragen hatten. Heute bleibe ich bei meinem Bruder. Das ist noch keine Heilung, aber eine Adresse, die ich selbst ausgesucht habe.",
+      "footer": "Dunscar, ein Blatt aus dem Alltag.",
+      "visible_if": {
+        "requires_flags": [
+          "k3_arrived"
+        ]
+      }
+    }
+  },
+  {
+    "map": "ds_teesaal",
+    "tile": [
+      8,
+      9
+    ],
+    "interactable": {
+      "id": "k3n_lese_13",
+      "kind": "read",
+      "sprite": "paper",
+      "prompt": "Mabels offenes Buch lesen",
+      "title": "Mabels offenes Buch",
+      "text": "Tee für die Wartenden: vier Kannen. Suppe für die Heimkehrenden: zwei Töpfe. Brot für einen Mann, der sich nicht als Heimkehrender bezeichnen wollte: ebenfalls. Die Küche führt keine Untersuchung über die Berechtigung des Hungers. Für neue Zahlungsmittel hätte sie trotzdem gern eine Erklärung.",
+      "footer": "Dunscar, ein Blatt aus dem Alltag.",
+      "visible_if": {
+        "requires_flags": [
+          "k3_arrived"
+        ]
+      }
+    }
+  },
+  {
+    "map": "ds_kalkmarkt",
+    "tile": [
+      2,
+      10
+    ],
+    "interactable": {
+      "id": "k3n_lese_14",
+      "kind": "read",
+      "sprite": "paper",
+      "prompt": "Steinmetzordnung lesen",
+      "title": "Steinmetzordnung",
+      "text": "Vor dem ersten Meißelschlag wird die Schreibweise bestätigt. Eine Fahrkarte ist keine Grabmalbestellung. Ein fehlerhafter Name wird nicht durch tieferes Einschlagen richtig. Der Meister unterschreibt diese Regel zweimal, weil sie auf seinem ersten Schild selbst falsch geschrieben war.",
+      "footer": "Dunscar, ein Blatt aus dem Alltag.",
+      "visible_if": {
+        "requires_flags": [
+          "k3_arrived"
+        ]
+      }
+    }
+  },
+  {
+    "map": "ds_kalkmarkt",
+    "tile": [
+      3,
+      10
+    ],
+    "interactable": {
+      "id": "k3n_lese_15",
+      "kind": "read",
+      "sprite": "paper",
+      "prompt": "Verkaufszettel für Erinnerungsplatten lesen",
+      "title": "Verkaufszettel für Erinnerungsplatten",
+      "text": "Eine Platte bewahrt Klang in ihrer Rille. Sie bewahrt kein Versprechen, morgen etwas Neues zu sagen. Vor dem Kauf darf die Hülle abgenommen und die Inventarnummer geprüft werden. Wer ein Geräusch nicht wieder hören möchte, schuldet dem Verkäufer keine Begründung.",
+      "footer": "Dunscar, ein Blatt aus dem Alltag.",
+      "visible_if": {
+        "requires_flags": [
+          "k3_arrived"
+        ]
+      }
+    }
+  },
+  {
+    "map": "ds_kalkmarkt",
+    "tile": [
+      4,
+      10
+    ],
+    "interactable": {
+      "id": "k3n_lese_16",
+      "kind": "read",
+      "sprite": "paper",
+      "prompt": "Alte Gewerkschaftskasse lesen",
+      "title": "Alte Gewerkschaftskasse",
+      "text": "Drei Beiträge für einen kaputten Stiefel, zwei für die Witwenkasse, einer für das Dach. Der Rechnungsführer bittet, aus dem Wort „Witwe“ keine Voraussetzung für Unterstützung abzuleiten, solange niemand weiß, was mit den Vermissten geschehen ist. Die Bitte wurde am Rand erneut eingetragen.",
+      "footer": "Dunscar, ein Blatt aus dem Alltag.",
+      "visible_if": {
+        "requires_flags": [
+          "k3_arrived"
+        ]
+      }
+    }
+  },
+  {
+    "map": "ds_kalkmarkt",
+    "tile": [
+      5,
+      10
+    ],
+    "interactable": {
+      "id": "k3n_lese_17",
+      "kind": "read",
+      "sprite": "paper",
+      "prompt": "Brief an einen nicht verkauften Stein lesen",
+      "title": "Brief an einen nicht verkauften Stein",
+      "text": "Ich habe den Stein angesehen und bin wieder gegangen. Die richtigen Buchstaben standen darauf, aber ich war noch nicht bereit, sie in Stein zu sehen. Bitte halte ihn nicht aus Mitleid zurück. Halte ihn zurück, weil ich dafür bezahlt habe. Das lässt sich leichter sagen.",
+      "footer": "Dunscar, ein Blatt aus dem Alltag.",
+      "visible_if": {
+        "requires_flags": [
+          "k3_arrived"
+        ]
+      }
+    }
+  },
+  {
+    "map": "ds_bruchstufen",
+    "tile": [
+      6,
+      10
+    ],
+    "interactable": {
+      "id": "k3n_lese_18",
+      "kind": "read",
+      "sprite": "paper",
+      "prompt": "Kalkbruch-Vorschrift: Sicht lesen",
+      "title": "Kalkbruch-Vorschrift: Sicht",
+      "text": "Bei Staub die Arbeit unterbrechen und die Sichtlinie erneut prüfen. Das Geräusch eines Werkzeugs belegt nicht den Standort seines Trägers. Zur Kontrolle werden zwei feste Marken verwendet. Wer nur einen antwortenden Punkt findet, hat noch keine vermessene Strecke.",
+      "footer": "Dunscar, ein Blatt aus dem Alltag.",
+      "visible_if": {
+        "requires_flags": [
+          "k3_arrived"
+        ]
+      }
+    }
+  },
+  {
+    "map": "ds_bruchstufen",
+    "tile": [
+      7,
+      10
+    ],
+    "interactable": {
+      "id": "k3n_lese_19",
+      "kind": "read",
+      "sprite": "paper",
+      "prompt": "Kalkbruch-Vorschrift: Rettung lesen",
+      "title": "Kalkbruch-Vorschrift: Rettung",
+      "text": "Der letzte Arbeiter meldet sich persönlich am Sammelpunkt. Eine nachgerufene Zahl ersetzt keinen Menschen. Vermisste werden einzeln vermerkt; die Spalte darf nicht mit „alle“ geschlossen werden, solange jemand fehlt. Die untere Hälfte des Blatts trägt einen späteren, unleserlichen Genehmigungsvermerk.",
+      "footer": "Dunscar, ein Blatt aus dem Alltag.",
+      "visible_if": {
+        "requires_flags": [
+          "k3_arrived"
+        ]
+      }
+    }
+  },
+  {
+    "map": "ds_bruchstufen",
+    "tile": [
+      8,
+      10
+    ],
+    "interactable": {
+      "id": "k3n_lese_20",
+      "kind": "read",
+      "sprite": "paper",
+      "prompt": "Vermessungsnotiz lesen",
+      "title": "Vermessungsnotiz",
+      "text": "Heute stimmte die Sichtlinie und die Antwort lag daneben. Morgen messe ich zuerst ohne Ruf. Ein Messfehler ist eine Frage an das Verfahren, keine Kränkung meiner Person. Ich habe diesen Satz groß geschrieben, weil ich ihn offenbar öfter brauche. A. Quarrell.",
+      "footer": "Dunscar, ein Blatt aus dem Alltag.",
+      "visible_if": {
+        "requires_flags": [
+          "k3_arrived"
+        ]
+      }
+    }
+  },
+  {
+    "map": "ds_bruchstufen",
+    "tile": [
+      2,
+      11
+    ],
+    "interactable": {
+      "id": "k3n_lese_21",
+      "kind": "read",
+      "sprite": "paper",
+      "prompt": "Pausenbrief lesen",
+      "title": "Pausenbrief",
+      "text": "Wir setzen uns auf die warme Seite des Steins. Der Vorarbeiter sagt, die Pause sei noch nicht angeschrieben. Ich schreibe sie deshalb hier an dich. Wenn ich später behaupte, ich hätte keine gehabt, zeig mir den Brief und frag, warum ich mich dafür schäme.",
+      "footer": "Dunscar, ein Blatt aus dem Alltag.",
+      "visible_if": {
+        "requires_flags": [
+          "k3_arrived"
+        ]
+      }
+    }
+  },
+  {
+    "map": "ds_signalhang",
+    "tile": [
+      3,
+      11
+    ],
+    "interactable": {
+      "id": "k3n_lese_22",
+      "kind": "read",
+      "sprite": "paper",
+      "prompt": "Prüfhaus: neue Fragen lesen",
+      "title": "Prüfhaus: neue Fragen",
+      "text": "Eine wiederholte Begrüßung genügt nicht als Nachweis einer anwesenden Person. Stellen Sie eine neue, überprüfbare Frage, deren Antwort nicht auf der Walze steht. Notieren Sie auch Schweigen und Wiederholungen. Ein tröstlicher Klang ist kein Messfehler, aber ein anderer Befund.",
+      "footer": "Dunscar, ein Blatt aus dem Alltag.",
+      "visible_if": {
+        "requires_flags": [
+          "k3_arrived"
+        ]
+      }
+    }
+  },
+  {
+    "map": "ds_signalhang",
+    "tile": [
+      4,
+      11
+    ],
+    "interactable": {
+      "id": "k3n_lese_23",
+      "kind": "read",
+      "sprite": "paper",
+      "prompt": "Lohnbüro: Empfang lesen",
+      "title": "Lohnbüro: Empfang",
+      "text": "Der Empfänger bestätigt allein den Erhalt seiner Abschrift. Er erklärt damit weder den Betrag für ausreichend noch die Vergangenheit für erledigt. Das Formular besitzt keine Zeile für Vergebung. Bitte fügen Sie auch handschriftlich keine hinzu. E. Brindle.",
+      "footer": "Dunscar, ein Blatt aus dem Alltag.",
+      "visible_if": {
+        "requires_flags": [
+          "k3_arrived"
+        ]
+      }
+    }
+  },
+  {
+    "map": "ds_lohnbuero",
+    "tile": [
+      5,
+      11
+    ],
+    "interactable": {
+      "id": "k3n_lese_24",
+      "kind": "read",
+      "sprite": "paper",
+      "prompt": "Brief in der Spesenspalte lesen",
+      "title": "Brief in der Spesenspalte",
+      "text": "Mein Vater hat einmal einen Stiefel abgerechnet und wochenlang darüber gelacht. In eurer Liste steht nur eine Zahl. Wenn ihr den Namen lest, lest bitte auch die Zahl und stellt euch einen sehr schlechten Stiefel vor. Dann fehlt in eurer Rechnung vielleicht etwas weniger.",
+      "footer": "Dunscar, ein Blatt aus dem Alltag.",
+      "visible_if": {
+        "requires_flags": [
+          "k3_arrived"
+        ]
+      }
+    }
+  },
+  {
+    "map": "ds_signalhang",
+    "tile": [
+      6,
+      11
+    ],
+    "interactable": {
+      "id": "k3n_lese_25",
+      "kind": "read",
+      "sprite": "paper",
+      "prompt": "Aushang: gemeinsamer Heimweg lesen",
+      "title": "Aushang: gemeinsamer Heimweg",
+      "text": "Wer nicht allein heimgehen möchte, wartet im Licht vor dem Prüfhaus. Wir gehen in kleinen Gruppen über die sichere Fußroute. Niemand muss zum Beweis seiner Wachheit in die Schlucht rufen. Wer schweigt, wird mitgezählt, indem wir hinsehen.",
+      "footer": "Dunscar, ein Blatt aus dem Alltag.",
+      "visible_if": {
+        "requires_flags": [
+          "k3_arrived"
+        ]
+      }
+    }
+  }
+]

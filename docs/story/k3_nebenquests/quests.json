@@ -1,0 +1,891 @@
+{
+  "k3n_tischgedeck": {
+    "title": "Ein Platz seit siebzig Jahren",
+    "kind": "side",
+    "case": "kapitel3",
+    "summary": "„Bei den Vennicks bleibt seit siebzig Jahren ein Teller gedeckt“, sagt Mabel. „Heute ist er leer. Bevor sie einen zweiten Stuhl kaufen, möchte ich wissen, wer Hunger hatte.“",
+    "steps": [
+      {
+        "text": "Der abgeräumte Teller.",
+        "done": {
+          "requires_clues": [
+            "k3n_tischgedeck_spur1"
+          ]
+        },
+        "target": {
+          "map": "ds_arbeiterbogen",
+          "id": "k3n_tischgedeck_fund1",
+          "label": "Der abgeräumte Teller"
+        }
+      },
+      {
+        "text": "Die Küchenrechnung.",
+        "done": {
+          "requires_clues": [
+            "k3n_tischgedeck_spur2"
+          ]
+        },
+        "target": {
+          "map": "ds_teesaal",
+          "id": "k3n_tischgedeck_fund2",
+          "label": "Die Küchenrechnung"
+        }
+      },
+      {
+        "text": "Die Beobachtungen im Gespräch gegenprüfen.",
+        "done": {
+          "requires_flags": [
+            "k3n_tischgedeck_befragt"
+          ]
+        },
+        "target": {
+          "map": "ds_arbeiterbogen",
+          "id": "k3_mabel",
+          "label": "Gegenprobe"
+        }
+      },
+      {
+        "text": "Verbinde beide Beobachtungen im Journal.",
+        "done": {
+          "requires_conclusions": [
+            "k3n_tischgedeck_schluss"
+          ]
+        },
+        "target": {
+          "map": "ds_arbeiterbogen",
+          "id": "k3_mabel",
+          "label": "Befunde vergleichen"
+        }
+      },
+      {
+        "text": "Entscheide über das weitere Vorgehen.",
+        "done": {
+          "requires_flags": [
+            "k3n_tischgedeck_done"
+          ]
+        },
+        "target": {
+          "map": "ds_arbeiterbogen",
+          "id": "k3_mabel",
+          "label": "Ein Platz seit siebzig Jahren"
+        }
+      }
+    ]
+  },
+  "k3n_grabstein_ohne_namen": {
+    "title": "Der Stein mit deinem Namen",
+    "kind": "side",
+    "case": "kapitel3",
+    "summary": "Pelham dreht einen bestellten Stein zur Wand. „Der Auftraggeber hat keinen Namen dagelassen. Deiner steht allerdings vorn. Das ist normalerweise die umgekehrte Reihenfolge.“ Er bittet dich, Bestellung und Durchschlag zu vergleichen.",
+    "steps": [
+      {
+        "text": "Der nasse Schriftzug.",
+        "done": {
+          "requires_clues": [
+            "k3n_grabstein_ohne_namen_spur1"
+          ]
+        },
+        "target": {
+          "map": "ds_kalkmarkt",
+          "id": "k3n_grabstein_ohne_namen_fund1",
+          "label": "Der nasse Schriftzug"
+        }
+      },
+      {
+        "text": "Der falsche Durchschlag.",
+        "done": {
+          "requires_clues": [
+            "k3n_grabstein_ohne_namen_spur2"
+          ]
+        },
+        "target": {
+          "map": "ds_endbahnhof",
+          "id": "k3n_grabstein_ohne_namen_fund2",
+          "label": "Der falsche Durchschlag"
+        }
+      },
+      {
+        "text": "Die Beobachtungen im Gespräch gegenprüfen.",
+        "done": {
+          "requires_flags": [
+            "k3n_grabstein_ohne_namen_befragt"
+          ]
+        },
+        "target": {
+          "map": "ds_kalkmarkt",
+          "id": "k3_pelham",
+          "label": "Gegenprobe"
+        }
+      },
+      {
+        "text": "Verbinde beide Beobachtungen im Journal.",
+        "done": {
+          "requires_conclusions": [
+            "k3n_grabstein_ohne_namen_schluss"
+          ]
+        },
+        "target": {
+          "map": "ds_kalkmarkt",
+          "id": "k3_pelham",
+          "label": "Befunde vergleichen"
+        }
+      },
+      {
+        "text": "Entscheide über das weitere Vorgehen.",
+        "done": {
+          "requires_flags": [
+            "k3n_grabstein_ohne_namen_done"
+          ]
+        },
+        "target": {
+          "map": "ds_kalkmarkt",
+          "id": "k3_pelham",
+          "label": "Der Stein mit deinem Namen"
+        }
+      }
+    ]
+  },
+  "k3n_falsche_zeit": {
+    "title": "Eine Minute außerhalb der Schicht",
+    "kind": "side",
+    "case": "kapitel3",
+    "summary": "Nellie hält zwei Telegrammstreifen gegen die Lampe. „Ein lebender Arbeiter antwortet jede Nacht. Ich will seine Empfangszeit so falsch melden, dass der Zug ihn übergeht. Hilfst du mir, bevor ich aus Hoffnung eine Methode mache?“",
+    "steps": [
+      {
+        "text": "Der gesperrte Probestreifen.",
+        "done": {
+          "requires_clues": [
+            "k3n_falsche_zeit_spur1"
+          ]
+        },
+        "target": {
+          "map": "ds_endbahnhof",
+          "id": "k3n_falsche_zeit_fund1",
+          "label": "Der gesperrte Probestreifen"
+        }
+      },
+      {
+        "text": "Der Rücklaufkasten.",
+        "done": {
+          "requires_clues": [
+            "k3n_falsche_zeit_spur2"
+          ]
+        },
+        "target": {
+          "map": "ds_signalhang",
+          "id": "k3n_falsche_zeit_fund2",
+          "label": "Der Rücklaufkasten"
+        }
+      },
+      {
+        "text": "Die Beobachtungen im Gespräch gegenprüfen.",
+        "done": {
+          "requires_flags": [
+            "k3n_falsche_zeit_befragt"
+          ]
+        },
+        "target": {
+          "map": "ds_endbahnhof",
+          "id": "k3_nellie",
+          "label": "Gegenprobe"
+        }
+      },
+      {
+        "text": "Verbinde beide Beobachtungen im Journal.",
+        "done": {
+          "requires_conclusions": [
+            "k3n_falsche_zeit_schluss"
+          ]
+        },
+        "target": {
+          "map": "ds_endbahnhof",
+          "id": "k3_nellie",
+          "label": "Befunde vergleichen"
+        }
+      },
+      {
+        "text": "Entscheide über das weitere Vorgehen.",
+        "done": {
+          "requires_flags": [
+            "k3n_falsche_zeit_done"
+          ]
+        },
+        "target": {
+          "map": "ds_endbahnhof",
+          "id": "k3_nellie",
+          "label": "Eine Minute außerhalb der Schicht"
+        }
+      }
+    ]
+  },
+  "k3n_attest": {
+    "title": "Ein Zeuge ohne Fahrkarte",
+    "kind": "side",
+    "case": "kapitel3",
+    "summary": "„Ich habe Erholung bescheinigt, während mir die Leute vor Müdigkeit vom Stuhl rutschten“, sagt Huxford. „Ich will es berichtigen. Aber jemand, der nie mitfuhr, soll hören, ob ich wieder Ausreden finde.“",
+    "steps": [
+      {
+        "text": "Die Messblätter.",
+        "done": {
+          "requires_clues": [
+            "k3n_attest_spur1"
+          ]
+        },
+        "target": {
+          "map": "ds_arbeiterbogen",
+          "id": "k3n_attest_fund1",
+          "label": "Die Messblätter"
+        }
+      },
+      {
+        "text": "Die Steinmetzin am offenen Fenster.",
+        "done": {
+          "requires_clues": [
+            "k3n_attest_spur2"
+          ]
+        },
+        "target": {
+          "map": "ds_kalkmarkt",
+          "id": "k3n_attest_fund2",
+          "label": "Die Steinmetzin am offenen Fenster"
+        }
+      },
+      {
+        "text": "Die Beobachtungen im Gespräch gegenprüfen.",
+        "done": {
+          "requires_flags": [
+            "k3n_attest_befragt"
+          ]
+        },
+        "target": {
+          "map": "ds_arbeiterbogen",
+          "id": "k3_huxford",
+          "label": "Gegenprobe"
+        }
+      },
+      {
+        "text": "Verbinde beide Beobachtungen im Journal.",
+        "done": {
+          "requires_conclusions": [
+            "k3n_attest_schluss"
+          ]
+        },
+        "target": {
+          "map": "ds_arbeiterbogen",
+          "id": "k3_huxford",
+          "label": "Befunde vergleichen"
+        }
+      },
+      {
+        "text": "Entscheide über das weitere Vorgehen.",
+        "done": {
+          "requires_flags": [
+            "k3n_attest_done"
+          ]
+        },
+        "target": {
+          "map": "ds_arbeiterbogen",
+          "id": "k3_huxford",
+          "label": "Ein Zeuge ohne Fahrkarte"
+        }
+      }
+    ]
+  },
+  "k3n_vermessung": {
+    "title": "Der wandernde Nullpunkt",
+    "kind": "side",
+    "case": "kapitel3",
+    "summary": "Adaine zeigt dir einen Plan voller Radierlöcher. „Wenn ich noch einmal neu messe, ist bald mehr Loch als Papier da. Geh die Marken ab, während ich die Festpunkte halte. Ruf nichts, dessen Antwort du nicht kennst.“",
+    "steps": [
+      {
+        "text": "Die Marken an der Treppe.",
+        "done": {
+          "requires_clues": [
+            "k3n_vermessung_spur1"
+          ]
+        },
+        "target": {
+          "map": "ds_bruchstufen",
+          "id": "k3n_vermessung_fund1",
+          "label": "Die Marken an der Treppe"
+        }
+      },
+      {
+        "text": "Die gegengezeichnete Peilung.",
+        "done": {
+          "requires_clues": [
+            "k3n_vermessung_spur2"
+          ]
+        },
+        "target": {
+          "map": "ds_signalhang",
+          "id": "k3n_vermessung_fund2",
+          "label": "Die gegengezeichnete Peilung"
+        }
+      },
+      {
+        "text": "Die Beobachtungen im Gespräch gegenprüfen.",
+        "done": {
+          "requires_flags": [
+            "k3n_vermessung_befragt"
+          ]
+        },
+        "target": {
+          "map": "ds_bruchstufen",
+          "id": "k3_adaine",
+          "label": "Gegenprobe"
+        }
+      },
+      {
+        "text": "Verbinde beide Beobachtungen im Journal.",
+        "done": {
+          "requires_conclusions": [
+            "k3n_vermessung_schluss"
+          ]
+        },
+        "target": {
+          "map": "ds_bruchstufen",
+          "id": "k3_adaine",
+          "label": "Befunde vergleichen"
+        }
+      },
+      {
+        "text": "Entscheide über das weitere Vorgehen.",
+        "done": {
+          "requires_flags": [
+            "k3n_vermessung_done"
+          ]
+        },
+        "target": {
+          "map": "ds_bruchstufen",
+          "id": "k3_adaine",
+          "label": "Der wandernde Nullpunkt"
+        }
+      }
+    ]
+  },
+  "k3n_schichtmarke": {
+    "title": "Heute geprägt, gestern bezahlt",
+    "kind": "side",
+    "case": "kapitel3",
+    "summary": "Mabel legt eine noch warme Schichtmarke auf den Tresen. „Ungültiges Geld darf wenigstens kalt sein. Auf dieser steht das heutige Datum. Finde den Präger, bevor jemand meine Küche für eine Lohnstelle hält.“",
+    "steps": [
+      {
+        "text": "Die weiche Kante.",
+        "done": {
+          "requires_clues": [
+            "k3n_schichtmarke_spur1"
+          ]
+        },
+        "target": {
+          "map": "ds_teesaal",
+          "id": "k3n_schichtmarke_fund1",
+          "label": "Die weiche Kante"
+        }
+      },
+      {
+        "text": "Die Handpresse.",
+        "done": {
+          "requires_clues": [
+            "k3n_schichtmarke_spur2"
+          ]
+        },
+        "target": {
+          "map": "ds_schwellenring",
+          "id": "k3n_schichtmarke_fund2",
+          "label": "Die Handpresse"
+        }
+      },
+      {
+        "text": "Die Beobachtungen im Gespräch gegenprüfen.",
+        "done": {
+          "requires_flags": [
+            "k3n_schichtmarke_befragt"
+          ]
+        },
+        "target": {
+          "map": "ds_teesaal",
+          "id": "k3_mabel",
+          "label": "Gegenprobe"
+        }
+      },
+      {
+        "text": "Verbinde beide Beobachtungen im Journal.",
+        "done": {
+          "requires_conclusions": [
+            "k3n_schichtmarke_schluss"
+          ]
+        },
+        "target": {
+          "map": "ds_teesaal",
+          "id": "k3_mabel",
+          "label": "Befunde vergleichen"
+        }
+      },
+      {
+        "text": "Entscheide über das weitere Vorgehen.",
+        "done": {
+          "requires_flags": [
+            "k3n_schichtmarke_done"
+          ]
+        },
+        "target": {
+          "map": "ds_teesaal",
+          "id": "k3_mabel",
+          "label": "Heute geprägt, gestern bezahlt"
+        }
+      }
+    ]
+  },
+  "k3n_secondhand": {
+    "title": "Die falsche Begrüßung",
+    "kind": "side",
+    "case": "kapitel3",
+    "summary": "Ruth Bellwick hält zwei Erinnerungsplatten an den Rändern. „Die eine begrüßt jeden als Onkel. Die andere verlangt von jedem die Miete. Ich würde gern wissen, ob ich Familien oder nur schlechte Etiketten verkaufe.“",
+    "steps": [
+      {
+        "text": "Die vertauschten Hülsen.",
+        "done": {
+          "requires_clues": [
+            "k3n_secondhand_spur1"
+          ]
+        },
+        "target": {
+          "map": "ds_kalkmarkt",
+          "id": "k3n_secondhand_fund1",
+          "label": "Die vertauschten Hülsen"
+        }
+      },
+      {
+        "text": "Die stille Gegenprobe.",
+        "done": {
+          "requires_clues": [
+            "k3n_secondhand_spur2"
+          ]
+        },
+        "target": {
+          "map": "ds_pruefhaus",
+          "id": "k3n_secondhand_fund2",
+          "label": "Die stille Gegenprobe"
+        }
+      },
+      {
+        "text": "Die Beobachtungen im Gespräch gegenprüfen.",
+        "done": {
+          "requires_flags": [
+            "k3n_secondhand_befragt"
+          ]
+        },
+        "target": {
+          "map": "ds_kalkmarkt",
+          "id": "k3n_secondhaendler",
+          "label": "Gegenprobe"
+        }
+      },
+      {
+        "text": "Verbinde beide Beobachtungen im Journal.",
+        "done": {
+          "requires_conclusions": [
+            "k3n_secondhand_schluss"
+          ]
+        },
+        "target": {
+          "map": "ds_kalkmarkt",
+          "id": "k3n_secondhaendler",
+          "label": "Befunde vergleichen"
+        }
+      },
+      {
+        "text": "Entscheide über das weitere Vorgehen.",
+        "done": {
+          "requires_flags": [
+            "k3n_secondhand_done"
+          ]
+        },
+        "target": {
+          "map": "ds_kalkmarkt",
+          "id": "k3n_secondhaendler",
+          "label": "Die falsche Begrüßung"
+        }
+      }
+    ]
+  },
+  "k3n_drehscheibe": {
+    "title": "Ein Weg ohne Aufruf",
+    "kind": "side",
+    "case": "kapitel3",
+    "summary": "Oren deutet auf die überwachsene Drehscheibe. „Der Durchgang, den Pfiff kennt, reicht für Füße. Mit einem Handwagen kommt man nicht durch. Hilfst du beim seitlichen Wartungssteg? Die Lok muss dafür keinen Zoll fahren.“",
+    "steps": [
+      {
+        "text": "Die blockierte Klinke.",
+        "done": {
+          "requires_clues": [
+            "k3n_drehscheibe_spur1"
+          ]
+        },
+        "target": {
+          "map": "ds_schwellenring",
+          "id": "k3n_drehscheibe_fund1",
+          "label": "Die blockierte Klinke"
+        }
+      },
+      {
+        "text": "Das Gegenlager.",
+        "done": {
+          "requires_clues": [
+            "k3n_drehscheibe_spur2"
+          ]
+        },
+        "target": {
+          "map": "ds_bruchstufen",
+          "id": "k3n_drehscheibe_fund2",
+          "label": "Das Gegenlager"
+        }
+      },
+      {
+        "text": "Die Beobachtungen im Gespräch gegenprüfen.",
+        "done": {
+          "requires_flags": [
+            "k3n_drehscheibe_befragt"
+          ]
+        },
+        "target": {
+          "map": "ds_schwellenring",
+          "id": "k3_oren",
+          "label": "Gegenprobe"
+        }
+      },
+      {
+        "text": "Verbinde beide Beobachtungen im Journal.",
+        "done": {
+          "requires_conclusions": [
+            "k3n_drehscheibe_schluss"
+          ]
+        },
+        "target": {
+          "map": "ds_schwellenring",
+          "id": "k3_oren",
+          "label": "Befunde vergleichen"
+        }
+      },
+      {
+        "text": "Entscheide über das weitere Vorgehen.",
+        "done": {
+          "requires_flags": [
+            "k3n_drehscheibe_done"
+          ]
+        },
+        "target": {
+          "map": "ds_schwellenring",
+          "id": "k3_oren",
+          "label": "Ein Weg ohne Aufruf"
+        }
+      }
+    ]
+  },
+  "k3n_brief_aus_wexmoor": {
+    "title": "Ein Paket, das schwimmen konnte",
+    "kind": "side",
+    "case": "kapitel3",
+    "summary": "Pfiff hat ein Paket aus Wexmoor auf einen trockenen Teller gelegt. „Es roch nach Fluss. Ich wollte es nicht gleich auf dein Bett legen.“ Im Zustellfach am Endbahnhof liegt der zum Siegel passende Begleitbrief.",
+    "steps": [
+      {
+        "text": "Der Begleitbrief aus Wexmoor.",
+        "done": {
+          "requires_clues": [
+            "k3n_brief_aus_wexmoor_spur1"
+          ]
+        },
+        "target": {
+          "map": "ds_endbahnhof",
+          "id": "k3_nellie",
+          "label": "Nellies Zustellfach"
+        }
+      },
+      {
+        "text": "Die empfangsbereite Küche.",
+        "done": {
+          "requires_clues": [
+            "k3n_brief_aus_wexmoor_spur2"
+          ]
+        },
+        "target": {
+          "map": "ds_arbeiterbogen",
+          "id": "k3n_brief_aus_wexmoor_fund2",
+          "label": "Die empfangsbereite Küche"
+        }
+      },
+      {
+        "text": "Die Beobachtungen im Gespräch gegenprüfen.",
+        "done": {
+          "requires_flags": [
+            "k3n_brief_aus_wexmoor_befragt"
+          ]
+        },
+        "target": {
+          "map": "ds_speisewagen",
+          "id": "k3_pfiff",
+          "label": "Gegenprobe"
+        }
+      },
+      {
+        "text": "Verbinde beide Beobachtungen im Journal.",
+        "done": {
+          "requires_conclusions": [
+            "k3n_brief_aus_wexmoor_schluss"
+          ]
+        },
+        "target": {
+          "map": "ds_speisewagen",
+          "id": "k3_pfiff",
+          "label": "Befunde vergleichen"
+        }
+      },
+      {
+        "text": "Entscheide über das weitere Vorgehen.",
+        "done": {
+          "requires_flags": [
+            "k3n_brief_aus_wexmoor_done"
+          ]
+        },
+        "target": {
+          "map": "ds_speisewagen",
+          "id": "k3_pfiff",
+          "label": "Ein Paket, das schwimmen konnte"
+        }
+      }
+    ]
+  },
+  "k3n_kettlegate": {
+    "title": "Eine alte Rechnung reist weiter",
+    "kind": "side",
+    "case": "kapitel3",
+    "summary": "Nellie schiebt dir ein Telegramm aus Kettlegate zu. „Keine Todesnachricht. Nur eine Rechnung. Ich habe die Kategorien inzwischen getrennt.“ Ein alter Vorgang über verschwundene Kohlensäcke endet bei einer Dunscarer Liefernummer.",
+    "steps": [
+      {
+        "text": "Das Telegramm aus Kettlegate.",
+        "done": {
+          "requires_clues": [
+            "k3n_kettlegate_spur1"
+          ]
+        },
+        "target": {
+          "map": "ds_endbahnhof",
+          "id": "k3_nellie",
+          "label": "Nellies Zustellfach"
+        }
+      },
+      {
+        "text": "Der halbierte Frachtzettel.",
+        "done": {
+          "requires_clues": [
+            "k3n_kettlegate_spur2"
+          ]
+        },
+        "target": {
+          "map": "ds_schwellenring",
+          "id": "k3n_kettlegate_fund2",
+          "label": "Der halbierte Frachtzettel"
+        }
+      },
+      {
+        "text": "Die Beobachtungen im Gespräch gegenprüfen.",
+        "done": {
+          "requires_flags": [
+            "k3n_kettlegate_befragt"
+          ]
+        },
+        "target": {
+          "map": "ds_endbahnhof",
+          "id": "k3_nellie",
+          "label": "Gegenprobe"
+        }
+      },
+      {
+        "text": "Verbinde beide Beobachtungen im Journal.",
+        "done": {
+          "requires_conclusions": [
+            "k3n_kettlegate_schluss"
+          ]
+        },
+        "target": {
+          "map": "ds_endbahnhof",
+          "id": "k3_nellie",
+          "label": "Befunde vergleichen"
+        }
+      },
+      {
+        "text": "Entscheide über das weitere Vorgehen.",
+        "done": {
+          "requires_flags": [
+            "k3n_kettlegate_done"
+          ]
+        },
+        "target": {
+          "map": "ds_endbahnhof",
+          "id": "k3_nellie",
+          "label": "Eine alte Rechnung reist weiter"
+        }
+      }
+    ]
+  },
+  "k3n_kalkkinder": {
+    "title": "Feierabend im Kreidekreis",
+    "kind": "side",
+    "case": "kapitel3",
+    "summary": "Pfiff zeigt auf ein Kreidespiel. „Die Kinder rufen echte Haltestellen. Das muss ihnen jemand beigebracht haben. Frag erst, bevor du einen ganzen Schulhof unter Verdacht stellst.“ Die Kinder wollen ihre Regeln zeigen.",
+    "steps": [
+      {
+        "text": "Der Kreidekreis.",
+        "done": {
+          "requires_clues": [
+            "k3n_kalkkinder_spur1"
+          ]
+        },
+        "target": {
+          "map": "ds_arbeiterbogen",
+          "id": "k3n_kalkkinder_fund1",
+          "label": "Der Kreidekreis"
+        }
+      },
+      {
+        "text": "Die verkaufte Reimseite.",
+        "done": {
+          "requires_clues": [
+            "k3n_kalkkinder_spur2"
+          ]
+        },
+        "target": {
+          "map": "ds_kalkmarkt",
+          "id": "k3n_kalkkinder_fund2",
+          "label": "Die verkaufte Reimseite"
+        }
+      },
+      {
+        "text": "Die Beobachtungen im Gespräch gegenprüfen.",
+        "done": {
+          "requires_flags": [
+            "k3n_kalkkinder_befragt"
+          ]
+        },
+        "target": {
+          "map": "ds_arbeiterbogen",
+          "id": "k3_pfiff",
+          "label": "Gegenprobe"
+        }
+      },
+      {
+        "text": "Verbinde beide Beobachtungen im Journal.",
+        "done": {
+          "requires_conclusions": [
+            "k3n_kalkkinder_schluss"
+          ]
+        },
+        "target": {
+          "map": "ds_arbeiterbogen",
+          "id": "k3_pfiff",
+          "label": "Befunde vergleichen"
+        }
+      },
+      {
+        "text": "Entscheide über das weitere Vorgehen.",
+        "done": {
+          "requires_flags": [
+            "k3n_kalkkinder_done"
+          ]
+        },
+        "target": {
+          "map": "ds_arbeiterbogen",
+          "id": "k3_pfiff",
+          "label": "Feierabend im Kreidekreis"
+        }
+      }
+    ]
+  },
+  "k3n_letzte_lohnliste": {
+    "title": "Die letzte Lohnliste",
+    "kind": "side",
+    "case": "kapitel3",
+    "summary": "Esther will vier Familien ihre geprüften Lohnblätter zurückgeben. Die Blätter belegen Arbeit und ausstehende Beträge, keine Rückkehr und keine bereits bewilligte Entschädigung.",
+    "steps": [
+      {
+        "text": "Die versiegelten Abschriften übernehmen.",
+        "done": {
+          "requires_flags": [
+            "k3n_letzte_lohnliste_begonnen"
+          ]
+        },
+        "target": {
+          "map": "ds_lohnbuero",
+          "id": "k3_esther",
+          "label": "Esther"
+        }
+      },
+      {
+        "text": "Die Schublade der Vennicks: persönlich zustellen.",
+        "done": {
+          "requires_flags": [
+            "k3n_letzte_lohnliste_familie1"
+          ]
+        },
+        "target": {
+          "map": "ds_arbeiterbogen",
+          "id": "k3n_letzte_lohnliste_familie1",
+          "label": "Die Schublade der Vennicks"
+        }
+      },
+      {
+        "text": "Die Werkbank der Rells: persönlich zustellen.",
+        "done": {
+          "requires_flags": [
+            "k3n_letzte_lohnliste_familie2"
+          ]
+        },
+        "target": {
+          "map": "ds_kalkmarkt",
+          "id": "k3n_letzte_lohnliste_familie2",
+          "label": "Die Werkbank der Rells"
+        }
+      },
+      {
+        "text": "Die Tür der Dorrs: persönlich zustellen.",
+        "done": {
+          "requires_flags": [
+            "k3n_letzte_lohnliste_familie3"
+          ]
+        },
+        "target": {
+          "map": "ds_schwellenring",
+          "id": "k3n_letzte_lohnliste_familie3",
+          "label": "Die Tür der Dorrs"
+        }
+      },
+      {
+        "text": "Der Stuhl der Eames: persönlich zustellen.",
+        "done": {
+          "requires_flags": [
+            "k3n_letzte_lohnliste_familie4"
+          ]
+        },
+        "target": {
+          "map": "ds_signalhang",
+          "id": "k3n_letzte_lohnliste_familie4",
+          "label": "Der Stuhl der Eames"
+        }
+      },
+      {
+        "text": "Über den erlaubten öffentlichen Auszug entscheiden.",
+        "done": {
+          "requires_flags": [
+            "k3n_letzte_lohnliste_done"
+          ]
+        },
+        "target": {
+          "map": "ds_lohnbuero",
+          "id": "k3_esther",
+          "label": "Esther"
+        }
+      }
+    ]
+  }
+}

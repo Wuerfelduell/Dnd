@@ -1,0 +1,731 @@
+[
+  {
+    "map": "ds_arbeiterbogen",
+    "tile": [
+      2,
+      3
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k3n_tischgedeck"
+      ]
+    },
+    "interactable": {
+      "id": "k3n_tischgedeck_fund1",
+      "kind": "read",
+      "sprite": "paper",
+      "prompt": "Der abgeräumte Teller",
+      "title": "Der abgeräumte Teller",
+      "text": "Du findest einen frischen Suppenrand und einen geflickten Handschuh unter dem Tisch. Die Naht ist aus blauem Garn, das am Mantel eines lebenden Nachtarbeiters fehlt. Niemand hat einen Toten gesehen.",
+      "footer": "Du notierst nur, was sich hier überprüfen lässt.",
+      "done_flag": "k3n_tischgedeck_fund1_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k3n_tischgedeck_spur1"
+        ]
+      }
+    }
+  },
+  {
+    "map": "ds_teesaal",
+    "tile": [
+      2,
+      3
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k3n_tischgedeck"
+      ]
+    },
+    "interactable": {
+      "id": "k3n_tischgedeck_fund2",
+      "kind": "read",
+      "sprite": "paper",
+      "prompt": "Die Küchenrechnung",
+      "title": "Die Küchenrechnung",
+      "text": "Mabel zeigt dir eine heutige Essensliste. Der Nachtarbeiter Evin hat seine Mahlzeit abgeholt, aber kaum gegessen. Auf Nachfrage gibt er zu, im Halbschlaf dem Ruf „Suppe wird kalt“ gefolgt zu sein. Er weiß weder den Namen des Toten noch eine Geschichte der Familie.",
+      "footer": "Du notierst nur, was sich hier überprüfen lässt.",
+      "done_flag": "k3n_tischgedeck_fund2_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k3n_tischgedeck_spur2"
+        ]
+      }
+    }
+  },
+  {
+    "map": "ds_kalkmarkt",
+    "tile": [
+      2,
+      3
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k3n_grabstein_ohne_namen"
+      ]
+    },
+    "interactable": {
+      "id": "k3n_grabstein_ohne_namen_fund1",
+      "kind": "read",
+      "sprite": "paper",
+      "prompt": "Der nasse Schriftzug",
+      "title": "Der nasse Schriftzug",
+      "text": "Die Buchstaben stehen in abwaschbarer Setzfarbe auf dem Stein. Darunter ist noch keine Meißelspur. Der frische Frachtstempel trägt dieselbe beschädigte Ecke wie das Durchschlagpapier am Bahnhof.",
+      "footer": "Du notierst nur, was sich hier überprüfen lässt.",
+      "done_flag": "k3n_grabstein_ohne_namen_fund1_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k3n_grabstein_ohne_namen_spur1"
+        ]
+      }
+    }
+  },
+  {
+    "map": "ds_endbahnhof",
+    "tile": [
+      2,
+      3
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k3n_grabstein_ohne_namen"
+      ]
+    },
+    "interactable": {
+      "id": "k3n_grabstein_ohne_namen_fund2",
+      "kind": "read",
+      "sprite": "paper",
+      "prompt": "Der falsche Durchschlag",
+      "title": "Der falsche Durchschlag",
+      "text": "Im offenen Ablagefach liegt eine Grabmalbestellung unter einer Fahrkartenkopie. Kohlepapier übertrug deinen Reisendenvermerk in das Namensfeld; eine alte Schichtnummer steht im Feld für den Besteller. Der Irrtum erklärt den Schriftzug, aber nicht, wer die alte Bestellung erneut einwarf.",
+      "footer": "Du notierst nur, was sich hier überprüfen lässt.",
+      "done_flag": "k3n_grabstein_ohne_namen_fund2_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k3n_grabstein_ohne_namen_spur2"
+        ]
+      }
+    }
+  },
+  {
+    "map": "ds_endbahnhof",
+    "tile": [
+      3,
+      3
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k3n_falsche_zeit"
+      ]
+    },
+    "interactable": {
+      "id": "k3n_falsche_zeit_fund1",
+      "kind": "read",
+      "sprite": "paper",
+      "prompt": "Der gesperrte Probestreifen",
+      "title": "Der gesperrte Probestreifen",
+      "text": "Nellies ungesendeter Streifen trägt 25 Uhr 61. Im mechanischen Gegenabdruck wird genau diese Zeit wiederholt. Das zeigt eine blinde Abschrift, aber keinen sicheren Schutz für einen Menschen.",
+      "footer": "Du notierst nur, was sich hier überprüfen lässt.",
+      "done_flag": "k3n_falsche_zeit_fund1_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k3n_falsche_zeit_spur1"
+        ]
+      }
+    }
+  },
+  {
+    "map": "ds_signalhang",
+    "tile": [
+      2,
+      3
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k3n_falsche_zeit"
+      ]
+    },
+    "interactable": {
+      "id": "k3n_falsche_zeit_fund2",
+      "kind": "read",
+      "sprite": "paper",
+      "prompt": "Der Rücklaufkasten",
+      "title": "Der Rücklaufkasten",
+      "text": "Du vergleichst einen alten Test mit dem heutigen Kontrollzettel. Eine ausgesparte Nummer wurde beim nächsten Umlauf erneut angefordert. Der Arbeiter darf also nicht am folgenden Abend unbegleitet ans Signal zurückkehren.",
+      "footer": "Du notierst nur, was sich hier überprüfen lässt.",
+      "done_flag": "k3n_falsche_zeit_fund2_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k3n_falsche_zeit_spur2"
+        ]
+      }
+    }
+  },
+  {
+    "map": "ds_arbeiterbogen",
+    "tile": [
+      3,
+      3
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k3n_attest"
+      ]
+    },
+    "interactable": {
+      "id": "k3n_attest_fund1",
+      "kind": "read",
+      "sprite": "paper",
+      "prompt": "Die Messblätter",
+      "title": "Die Messblätter",
+      "text": "Die privaten Messblätter zeigen fallende Griffkraft nach den Nachtfahrten. Auf den Attesten derselben Tage steht „vollständig erholt“. Huxfords Unterschrift steht unter beiden Reihen.",
+      "footer": "Du notierst nur, was sich hier überprüfen lässt.",
+      "done_flag": "k3n_attest_fund1_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k3n_attest_spur1"
+        ]
+      }
+    }
+  },
+  {
+    "map": "ds_kalkmarkt",
+    "tile": [
+      3,
+      3
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k3n_attest"
+      ]
+    },
+    "interactable": {
+      "id": "k3n_attest_fund2",
+      "kind": "read",
+      "sprite": "paper",
+      "prompt": "Die Steinmetzin am offenen Fenster",
+      "title": "Die Steinmetzin am offenen Fenster",
+      "text": "Eine Werkstattgehilfin legt ihr Nachtbuch neben Pelhams Lieferbuch. Sie war während der beobachteten Fahrten an der durchgehend besetzten Steinpolitur und hat keinen Zug bestiegen. Sie will eine Berichtigung bezeugen, keine Vermutung über den Bruch unterschreiben.",
+      "footer": "Du notierst nur, was sich hier überprüfen lässt.",
+      "done_flag": "k3n_attest_fund2_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k3n_attest_spur2"
+        ]
+      }
+    }
+  },
+  {
+    "map": "ds_bruchstufen",
+    "tile": [
+      2,
+      3
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k3n_vermessung"
+      ]
+    },
+    "interactable": {
+      "id": "k3n_vermessung_fund1",
+      "kind": "read",
+      "sprite": "paper",
+      "prompt": "Die Marken an der Treppe",
+      "title": "Die Marken an der Treppe",
+      "text": "Zwei eingelassene Messbolzen stehen unverändert in ihren alten Bohrungen. Der hölzerne Zielrahmen zeigt jedoch auf eine andere Nische. Sein Schatten fällt nach, obwohl du die Lampe still hältst.",
+      "footer": "Du notierst nur, was sich hier überprüfen lässt.",
+      "done_flag": "k3n_vermessung_fund1_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k3n_vermessung_spur1"
+        ]
+      }
+    }
+  },
+  {
+    "map": "ds_signalhang",
+    "tile": [
+      3,
+      3
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k3n_vermessung"
+      ]
+    },
+    "interactable": {
+      "id": "k3n_vermessung_fund2",
+      "kind": "read",
+      "sprite": "paper",
+      "prompt": "Die gegengezeichnete Peilung",
+      "title": "Die gegengezeichnete Peilung",
+      "text": "Vom sicheren Hang aus visierst du dieselben Bolzen an. Adaines Linien stimmen; nur die Antwort aus dem Zielrahmen versetzt die scheinbare Tiefe. Die gemessene Abweichung beweist eine örtliche Rufstörung, noch keine Ausdehnung der gesamten Schlucht.",
+      "footer": "Du notierst nur, was sich hier überprüfen lässt.",
+      "done_flag": "k3n_vermessung_fund2_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k3n_vermessung_spur2"
+        ]
+      }
+    }
+  },
+  {
+    "map": "ds_teesaal",
+    "tile": [
+      3,
+      3
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k3n_schichtmarke"
+      ]
+    },
+    "interactable": {
+      "id": "k3n_schichtmarke_fund1",
+      "kind": "read",
+      "sprite": "paper",
+      "prompt": "Die weiche Kante",
+      "title": "Die weiche Kante",
+      "text": "Die Marke ist dünnes Zinn über einer alten Unterlegscheibe. Ein Teelöffel hinterlässt dieselbe graue Spur. Der Gast hat sie von einer Reparaturbank am Schwellenring, nicht aus dem Nachtzug.",
+      "footer": "Du notierst nur, was sich hier überprüfen lässt.",
+      "done_flag": "k3n_schichtmarke_fund1_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k3n_schichtmarke_spur1"
+        ]
+      }
+    }
+  },
+  {
+    "map": "ds_schwellenring",
+    "tile": [
+      2,
+      3
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k3n_schichtmarke"
+      ]
+    },
+    "interactable": {
+      "id": "k3n_schichtmarke_fund2",
+      "kind": "read",
+      "sprite": "paper",
+      "prompt": "Die Handpresse",
+      "title": "Die Handpresse",
+      "text": "Neben einer öffentlich zugänglichen Werkbank liegen Zinnreste und eine Liste ausgegebener Essensmarken. Eine handschriftliche Notiz erklärt: „Lohn kommt nicht. Essen muss trotzdem kommen.“ Das heutige Datum dient der Essensausgabe, doch die absichtlich alte Form verschweigt Mabel das Risiko.",
+      "footer": "Du notierst nur, was sich hier überprüfen lässt.",
+      "done_flag": "k3n_schichtmarke_fund2_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k3n_schichtmarke_spur2"
+        ]
+      }
+    }
+  },
+  {
+    "map": "ds_kalkmarkt",
+    "tile": [
+      4,
+      3
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k3n_secondhand"
+      ]
+    },
+    "interactable": {
+      "id": "k3n_secondhand_fund1",
+      "kind": "read",
+      "sprite": "paper",
+      "prompt": "Die vertauschten Hülsen",
+      "title": "Die vertauschten Hülsen",
+      "text": "Unter frischen Preisschildern findest du alte Inventarnummern. Die Nummern passen zur jeweils anderen Hülse. Eine abgewischte Garantie behauptet nachträglich, die Platte erkenne ihren rechtmäßigen Besitzer.",
+      "footer": "Du notierst nur, was sich hier überprüfen lässt.",
+      "done_flag": "k3n_secondhand_fund1_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k3n_secondhand_spur1"
+        ]
+      }
+    }
+  },
+  {
+    "map": "ds_pruefhaus",
+    "tile": [
+      2,
+      3
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k3n_secondhand"
+      ]
+    },
+    "interactable": {
+      "id": "k3n_secondhand_fund2",
+      "kind": "read",
+      "sprite": "paper",
+      "prompt": "Die stille Gegenprobe",
+      "title": "Die stille Gegenprobe",
+      "text": "Willa lässt die Platte hinter einem Tuch abspielen. Ruth bleibt draußen, du wechselst den Platz, und die Begrüßung bleibt wortgleich. Eine neue Frage erzeugt keine neue Antwort. Hier reagieren verkaufte Aufnahmen, keine erkannten Angehörigen.",
+      "footer": "Du notierst nur, was sich hier überprüfen lässt.",
+      "done_flag": "k3n_secondhand_fund2_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k3n_secondhand_spur2"
+        ]
+      }
+    }
+  },
+  {
+    "map": "ds_schwellenring",
+    "tile": [
+      3,
+      3
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k3n_drehscheibe"
+      ]
+    },
+    "interactable": {
+      "id": "k3n_drehscheibe_fund1",
+      "kind": "read",
+      "sprite": "paper",
+      "prompt": "Die blockierte Klinke",
+      "title": "Die blockierte Klinke",
+      "text": "Unter der Klinke steckt ein verbogener Kohlenhaken. Die von Hand bewegte Scheibe lässt sich in Wartungsstellung sichern. Der Nachtzug ist auf einem anderen Gleis; seine Bremsen bleiben unberührt.",
+      "footer": "Du notierst nur, was sich hier überprüfen lässt.",
+      "done_flag": "k3n_drehscheibe_fund1_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k3n_drehscheibe_spur1"
+        ]
+      }
+    }
+  },
+  {
+    "map": "ds_bruchstufen",
+    "tile": [
+      3,
+      3
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k3n_drehscheibe"
+      ]
+    },
+    "interactable": {
+      "id": "k3n_drehscheibe_fund2",
+      "kind": "read",
+      "sprite": "paper",
+      "prompt": "Das Gegenlager",
+      "title": "Das Gegenlager",
+      "text": "Am anderen Ende des Stegs hält der Steinanker noch, die hölzerne Brüstung fehlt. Oren bringt Material für genau eine Konstruktion: einen breiten Laststeg mit Geländer oder einen schmalen, geschützten Fußsteg.",
+      "footer": "Du notierst nur, was sich hier überprüfen lässt.",
+      "done_flag": "k3n_drehscheibe_fund2_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k3n_drehscheibe_spur2"
+        ]
+      }
+    }
+  },
+  {
+    "map": "ds_arbeiterbogen",
+    "tile": [
+      4,
+      3
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k3n_brief_aus_wexmoor"
+      ]
+    },
+    "interactable": {
+      "id": "k3n_brief_aus_wexmoor_fund2",
+      "kind": "read",
+      "sprite": "paper",
+      "prompt": "Die empfangsbereite Küche",
+      "title": "Die empfangsbereite Küche",
+      "text": "Mabel vergleicht den beiliegenden Lieferzettel mit ihrer offenen Bestellung. Gewünscht waren trockene Dochte für die Familienküche. Der Frachtlohn ist vorausbezahlt, aber der angekreuzte Empfänger darf zwischen Küche und Vorratsstelle am Bahnhof wählen.",
+      "footer": "Du notierst nur, was sich hier überprüfen lässt.",
+      "done_flag": "k3n_brief_aus_wexmoor_fund2_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k3n_brief_aus_wexmoor_spur2"
+        ]
+      }
+    }
+  },
+  {
+    "map": "ds_schwellenring",
+    "tile": [
+      4,
+      3
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k3n_kettlegate"
+      ]
+    },
+    "interactable": {
+      "id": "k3n_kettlegate_fund2",
+      "kind": "read",
+      "sprite": "paper",
+      "prompt": "Der halbierte Frachtzettel",
+      "title": "Der halbierte Frachtzettel",
+      "text": "Orens offen ausliegendes Reparaturbuch enthält die zweite Hälfte desselben Frachtzettels. Die Säcke wurden bezahlt, aber zweimal als Verlust gebucht. Die Kohle wärmte eine Arbeiterküche; wer die doppelte Erstattung behielt, ist ohne die Kettlegater Kassenbücher nicht feststellbar.",
+      "footer": "Du notierst nur, was sich hier überprüfen lässt.",
+      "done_flag": "k3n_kettlegate_fund2_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k3n_kettlegate_spur2"
+        ]
+      }
+    }
+  },
+  {
+    "map": "ds_arbeiterbogen",
+    "tile": [
+      5,
+      3
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k3n_kalkkinder"
+      ]
+    },
+    "interactable": {
+      "id": "k3n_kalkkinder_fund1",
+      "kind": "read",
+      "sprite": "paper",
+      "prompt": "Der Kreidekreis",
+      "title": "Der Kreidekreis",
+      "text": "Die Kinder treten beim Wort „Schicht“ auf einen gemalten Kreis und beim Wort „Feierabend“ heraus. Niemand nennt einen Personennamen. Ein kleiner Pfeil zeigt auf eine alte Druckseite, aus der sie die Haltestellen abgeschrieben haben.",
+      "footer": "Du notierst nur, was sich hier überprüfen lässt.",
+      "done_flag": "k3n_kalkkinder_fund1_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k3n_kalkkinder_spur1"
+        ]
+      }
+    }
+  },
+  {
+    "map": "ds_kalkmarkt",
+    "tile": [
+      5,
+      3
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k3n_kalkkinder"
+      ]
+    },
+    "interactable": {
+      "id": "k3n_kalkkinder_fund2",
+      "kind": "read",
+      "sprite": "paper",
+      "prompt": "Die verkaufte Reimseite",
+      "title": "Die verkaufte Reimseite",
+      "text": "Im Altpapierkorb liegt die zweite Hälfte eines Arbeiterreims. Der letzte Vers untersagt eine Antwort nach Sonnenuntergang; dieser Rand fehlte den Kindern. Die Haltestellennamen allein lösen bei Tageslicht nichts aus, doch ein nächtlicher Aufruf wäre eine andere Situation.",
+      "footer": "Du notierst nur, was sich hier überprüfen lässt.",
+      "done_flag": "k3n_kalkkinder_fund2_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k3n_kalkkinder_spur2"
+        ]
+      }
+    }
+  },
+  {
+    "map": "ds_kalkmarkt",
+    "tile": [
+      10,
+      6
+    ],
+    "npc": "k3n_secondhaendler",
+    "visible_if": {
+      "requires_flags": [
+        "k3_arrived"
+      ]
+    }
+  },
+  {
+    "map": "ds_endbahnhof",
+    "tile": [
+      5,
+      3
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k3n_brief_aus_wexmoor"
+      ]
+    },
+    "interactable": {
+      "id": "k3n_brief_aus_wexmoor_fund1",
+      "kind": "read",
+      "sprite": "paper",
+      "prompt": "Zustellfach: Ein Paket, das schwimmen konnte",
+      "title": "Zustellfach: Ein Paket, das schwimmen konnte",
+      "text": "Das Siegel und die Liefernummer sind lesbar. Nellie hält den Begleittext bereit; bitte sie, dir die für dich eingegangene Nachricht auszuhändigen.",
+      "footer": "Du notierst nur, was sich hier überprüfen lässt.",
+      "done_flag": "k3n_brief_aus_wexmoor_fund1_gelesen"
+    }
+  },
+  {
+    "map": "ds_endbahnhof",
+    "tile": [
+      5,
+      3
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k3n_kettlegate"
+      ]
+    },
+    "interactable": {
+      "id": "k3n_kettlegate_fund1",
+      "kind": "read",
+      "sprite": "paper",
+      "prompt": "Zustellfach: Eine alte Rechnung reist weiter",
+      "title": "Zustellfach: Eine alte Rechnung reist weiter",
+      "text": "Das Siegel und die Liefernummer sind lesbar. Nellie hält den Begleittext bereit; bitte sie, dir die für dich eingegangene Nachricht auszuhändigen.",
+      "footer": "Du notierst nur, was sich hier überprüfen lässt.",
+      "done_flag": "k3n_kettlegate_fund1_gelesen"
+    }
+  },
+  {
+    "map": "ds_arbeiterbogen",
+    "tile": [
+      6,
+      3
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k3n_letzte_lohnliste"
+      ],
+      "hide_if_flags": [
+        "k3n_letzte_lohnliste_familie1"
+      ]
+    },
+    "interactable": {
+      "id": "k3n_letzte_lohnliste_familie1",
+      "kind": "read",
+      "sprite": "paper",
+      "prompt": "Die Schublade der Vennicks",
+      "title": "Die Schublade der Vennicks",
+      "text": "Eine Angehörige liest den Betrag dreimal. „Ich dachte, er hätte uns gar nichts hinterlassen wollen.“ Sie bittet dich, das Blatt unter die alten Tischdecken zu legen. Den Erhalt bestätigt sie, einer öffentlichen Namensnennung stimmt sie nicht zu.",
+      "footer": "Du notierst nur, was sich hier überprüfen lässt.",
+      "done_flag": "k3n_letzte_lohnliste_familie1_gelesen",
+      "effects": {
+        "sets_flags": [
+          "k3n_letzte_lohnliste_familie1"
+        ],
+        "gives_clues": [
+          "k3n_letzte_lohnliste_familie1_beleg"
+        ]
+      }
+    }
+  },
+  {
+    "map": "ds_kalkmarkt",
+    "tile": [
+      7,
+      3
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k3n_letzte_lohnliste"
+      ],
+      "hide_if_flags": [
+        "k3n_letzte_lohnliste_familie2"
+      ]
+    },
+    "interactable": {
+      "id": "k3n_letzte_lohnliste_familie2",
+      "kind": "read",
+      "sprite": "paper",
+      "prompt": "Die Werkbank der Rells",
+      "title": "Die Werkbank der Rells",
+      "text": "Der Enkel schiebt die Lohnabschrift neben sein heutiges Auftragsbuch. „Also hat er gearbeitet. Das haben sie meiner Großmutter abgesprochen.“ Er erlaubt einen anonymisierten Aushang über den Gesamtbetrag, aber keine Veröffentlichung seiner Adresse.",
+      "footer": "Du notierst nur, was sich hier überprüfen lässt.",
+      "done_flag": "k3n_letzte_lohnliste_familie2_gelesen",
+      "effects": {
+        "sets_flags": [
+          "k3n_letzte_lohnliste_familie2"
+        ],
+        "gives_clues": [
+          "k3n_letzte_lohnliste_familie2_beleg"
+        ]
+      }
+    }
+  },
+  {
+    "map": "ds_schwellenring",
+    "tile": [
+      5,
+      3
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k3n_letzte_lohnliste"
+      ],
+      "hide_if_flags": [
+        "k3n_letzte_lohnliste_familie3"
+      ]
+    },
+    "interactable": {
+      "id": "k3n_letzte_lohnliste_familie3",
+      "kind": "read",
+      "sprite": "paper",
+      "prompt": "Die Tür der Dorrs",
+      "title": "Die Tür der Dorrs",
+      "text": "Die Familie möchte das Siegel nicht brechen. „Heute können wir das nicht lesen.“ Auf ihre Bitte legst du den Umschlag in den beschrifteten Hauskasten und nimmst eine Empfangsnotiz mit. Niemand schuldet dir eine sichtbare Trauer.",
+      "footer": "Du notierst nur, was sich hier überprüfen lässt.",
+      "done_flag": "k3n_letzte_lohnliste_familie3_gelesen",
+      "effects": {
+        "sets_flags": [
+          "k3n_letzte_lohnliste_familie3"
+        ],
+        "gives_clues": [
+          "k3n_letzte_lohnliste_familie3_beleg"
+        ]
+      }
+    }
+  },
+  {
+    "map": "ds_signalhang",
+    "tile": [
+      4,
+      3
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k3n_letzte_lohnliste"
+      ],
+      "hide_if_flags": [
+        "k3n_letzte_lohnliste_familie4"
+      ]
+    },
+    "interactable": {
+      "id": "k3n_letzte_lohnliste_familie4",
+      "kind": "read",
+      "sprite": "paper",
+      "prompt": "Der Stuhl der Eames",
+      "title": "Der Stuhl der Eames",
+      "text": "Eine alte Frau lacht beim Anblick der Spesenzeile. „Den kaputten Stiefel hat er ihnen doch noch berechnet.“ Dann weint sie, ohne den Stift abzusetzen. Sie erlaubt eine anonyme Gesamtsumme, möchte aber keine Rede halten.",
+      "footer": "Du notierst nur, was sich hier überprüfen lässt.",
+      "done_flag": "k3n_letzte_lohnliste_familie4_gelesen",
+      "effects": {
+        "sets_flags": [
+          "k3n_letzte_lohnliste_familie4"
+        ],
+        "gives_clues": [
+          "k3n_letzte_lohnliste_familie4_beleg"
+        ]
+      }
+    }
+  }
+]
