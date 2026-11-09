@@ -1,0 +1,363 @@
+{
+  "sedge": {
+    "choices_add": [
+      {
+        "text": "Wer bewahrt die Täfelchen, wenn du nicht mehr schnitzt?",
+        "next": "k2g_aufnahme_angebot",
+        "requires_flags": [
+          "k2_akt2_done"
+        ],
+        "hide_if_quests": [
+          "k2g_aufnahme"
+        ]
+      },
+      {
+        "text": "Ich habe die drei Namen samt ihren Spuren.",
+        "next": "k2g_aufnahme_wahl",
+        "requires_quests_active": [
+          "k2g_aufnahme"
+        ],
+        "requires_clues": [
+          "k2g_name_torf",
+          "k2g_name_pfahl",
+          "k2g_name_watt"
+        ],
+        "hide_if_flags": [
+          "k2g_aufnahme_done"
+        ]
+      },
+      {
+        "text": "Wo sollte ich die drei Namen suchen?",
+        "next": "k2g_aufnahme_hilfe",
+        "requires_quests_active": [
+          "k2g_aufnahme"
+        ]
+      },
+      {
+        "text": "Wann öffnet der Schrein der Gilde?",
+        "next": "k2g_aufnahme_weg",
+        "requires_flags": [
+          "treffen_namensgilde"
+        ]
+      }
+    ],
+    "nodes_add": {
+      "k2g_aufnahme_angebot": {
+        "text": "Sedge hebt drei leere Halter vom Boden. „Runa, Bennet, Ida. Ich weiß noch, dass dort jemand war, aber das Moor hat den Rest genommen. Such den Griff im Torfstich, die Werkbank hier und die Doppelschale am Wattzugang.“\n\n„Bring keine geratenen Namen. Wenn du ihre Spuren zurückbringst, bürge ich für dich bei der Täfelchengilde.“",
+        "choices": [
+          {
+            "text": "Ich suche nach Spuren.",
+            "next": "k2g_aufnahme_annehmen"
+          },
+          {
+            "text": "Noch nicht.",
+            "next": "start"
+          }
+        ]
+      },
+      "k2g_aufnahme_annehmen": {
+        "text": "„Du findest sie ohne das Lichtamt“, sagt Sedge. „Und ohne jemandem seinen Namen wegzunehmen. Das ist der Teil, den die Herren gern überspringen.“",
+        "start_quests": [
+          "k2g_aufnahme"
+        ],
+        "choices": [
+          {
+            "text": "Noch etwas.",
+            "next": "start"
+          }
+        ]
+      },
+      "k2g_aufnahme_hilfe": {
+        "text": "„Im Torfstich der alte Schubkarrengriff neben dem Stichgraben. Hier im Dorf die Werkbank westlich von meinem Schemel. Im Salzwatt liegen zwei Schalen ineinander, gleich am landseitigen Zugang.“\n\nSedge tippt auf dein Notizbuch. „Nimm mit, woran der Name hing. Auf Papier, meine ich. Meine Stube ist voll genug.“",
+        "choices": [
+          {
+            "text": "Noch etwas.",
+            "next": "start"
+          }
+        ]
+      },
+      "k2g_aufnahme_wahl": {
+        "text": "Sedge liest Namen, Berufe und Zeichen zusammen. „Nun haben sie wieder Nachbarn, nicht bloß Buchstaben.“ Sie legt zwei Schnüre bereit.\n\n„Offen an den Schrein, damit jeder die Geschichten ergänzen kann? Oder in die Gildenlade, wo das Lichtamt sie nicht abschreibt? Beides bewahrt sie, aber auf andere Weise.“",
+        "choices": [
+          {
+            "text": "Offen bewahren. Die Nachbarn sollen mitreden.",
+            "next": "k2g_aufnahme_offen",
+            "requires_quests_active": [
+              "k2g_aufnahme"
+            ],
+            "hide_if_flags": [
+              "k2g_aufnahme_done"
+            ]
+          },
+          {
+            "text": "Geschützt in der Lade. Keine Liste für das Amt.",
+            "next": "k2g_aufnahme_lade",
+            "requires_quests_active": [
+              "k2g_aufnahme"
+            ],
+            "hide_if_flags": [
+              "k2g_aufnahme_done"
+            ]
+          }
+        ]
+      },
+      "k2g_aufnahme_offen": {
+        "text": "Sedge hängt die Abschriften in geschützten Rahmen auf. „Ich bürge für dich. Unter Pfahldorf liegt unser trockener Schrein. Auf der Stadtkarte findest du ihn, sobald unsere Runde öffnet.“ Sie schiebt dir Reisegeld zu. „Erinnerung ist unbezahlbar. Deine Schuhe leider nicht.“",
+        "sets_flags": [
+          "k2g_aufnahme_done",
+          "k2g_namen_offen",
+          "treffen_namensgilde"
+        ],
+        "complete_quests": [
+          "k2g_aufnahme"
+        ],
+        "gives_money": 24,
+        "honor": 3,
+        "choices": [
+          {
+            "text": "Noch etwas.",
+            "next": "start"
+          }
+        ]
+      },
+      "k2g_aufnahme_lade": {
+        "text": "Sedge legt die Abschriften in eine Lade und schreibt die Fundorte auf den Deckel. „Wer fragt, darf nachsehen. Nur mitnehmen darf die Liste keiner.“ Sie gibt dir Reisegeld und nennt den Schrein unter Pfahldorf. „Ich bürge für dich. Der Treffpunkt erscheint auf der Stadtkarte, wenn die Runde öffnet.“",
+        "sets_flags": [
+          "k2g_aufnahme_done",
+          "k2g_namen_lade",
+          "treffen_namensgilde"
+        ],
+        "complete_quests": [
+          "k2g_aufnahme"
+        ],
+        "gives_money": 24,
+        "honor": 1,
+        "choices": [
+          {
+            "text": "Noch etwas.",
+            "next": "start"
+          }
+        ]
+      },
+      "k2g_aufnahme_weg": {
+        "text": "„Wenn nach den Lichtlosen und den Salzbrüdern unsere Runde kommt, öffnet der trockene Schrein unter Pfahldorf. Die Stadtkarte zeigt ihn nur während des Treffens.“ Sedge hebt einen Span auf. „Ist die Auktion vorüber, bleib für Gespräche. Wenn du gehst, kommst du zur nächsten Runde wieder hinein.“",
+        "choices": [
+          {
+            "text": "Noch etwas.",
+            "next": "start"
+          }
+        ]
+      }
+    }
+  },
+  "k2g_esse": {
+    "choices_add": [
+      {
+        "text": "Was bedeutet das Ende am Turm für euch?",
+        "next": "k2g_esse_ende_rein",
+        "requires_flags": [
+          "k2_end_rein"
+        ]
+      },
+      {
+        "text": "Was bedeutet das Ende am Turm für euch?",
+        "next": "k2g_esse_ende_moor",
+        "requires_flags": [
+          "k2_end_moor"
+        ]
+      },
+      {
+        "text": "Was bedeutet das Ende am Turm für euch?",
+        "next": "k2g_esse_ende_lichtmeister",
+        "requires_flags": [
+          "k2_end_lichtmeister"
+        ]
+      },
+      {
+        "text": "Was bedeutet das Ende am Turm für euch?",
+        "next": "k2g_esse_ende_meer",
+        "requires_flags": [
+          "k2_end_meer"
+        ]
+      }
+    ],
+    "nodes_add": {
+      "k2g_esse_ende_rein": {
+        "text": "„Brandt sitzt ein. Die Klammern ihrer Listen sind noch dieselben. Ich schmiede neue, und diesmal kann jeder prüfen, was dazwischenliegt.“ Wanda legt gewöhnliches Lampenöl neben den Hammer.",
+        "choices": [
+          {
+            "text": "Noch etwas.",
+            "next": "start"
+          }
+        ]
+      },
+      "k2g_esse_ende_moor": {
+        "text": "„Dann bauen wir höhere Stege. Namenstäfelchen ersetzen keine Balken, aber Balken erinnern sich auch an niemanden.“ Wanda zählt Nägel statt Schuldige.",
+        "choices": [
+          {
+            "text": "Noch etwas.",
+            "next": "start"
+          }
+        ]
+      },
+      "k2g_esse_ende_lichtmeister": {
+        "text": "„Dein Siegel macht die Menschen in deinen Listen nicht zu Brennstoff.“ Wanda bleibt am Tisch, den Hammer unter der Hand. „Wir halten hier Wort. Beifall kannst du nicht ersteigern.“",
+        "choices": [
+          {
+            "text": "Noch etwas.",
+            "next": "start"
+          }
+        ]
+      },
+      "k2g_esse_ende_meer": {
+        "text": "„Du bist fortgekommen. Die anderen wachen noch unter demselben Licht auf.“ Wanda legt einen unbenutzten Fahrkartennagel beiseite. „Wenn du wiederkommst, bring Hände zum Arbeiten mit.“",
+        "choices": [
+          {
+            "text": "Noch etwas.",
+            "next": "start"
+          }
+        ]
+      }
+    }
+  },
+  "k2g_kerbe": {
+    "choices_add": [
+      {
+        "text": "Was bedeutet das Ende am Turm für euch?",
+        "next": "k2g_kerbe_ende_rein",
+        "requires_flags": [
+          "k2_end_rein"
+        ]
+      },
+      {
+        "text": "Was bedeutet das Ende am Turm für euch?",
+        "next": "k2g_kerbe_ende_moor",
+        "requires_flags": [
+          "k2_end_moor"
+        ]
+      },
+      {
+        "text": "Was bedeutet das Ende am Turm für euch?",
+        "next": "k2g_kerbe_ende_lichtmeister",
+        "requires_flags": [
+          "k2_end_lichtmeister"
+        ]
+      },
+      {
+        "text": "Was bedeutet das Ende am Turm für euch?",
+        "next": "k2g_kerbe_ende_meer",
+        "requires_flags": [
+          "k2_end_meer"
+        ]
+      }
+    ],
+    "nodes_add": {
+      "k2g_kerbe_ende_rein": {
+        "text": "„Ein Freispruch ist eine gute Zeile. Darunter gehören die Namen derer, die keinen mehr bekommen haben.“ Abel schneidet langsam weiter, ohne das Urteil kleinzureden.",
+        "choices": [
+          {
+            "text": "Noch etwas.",
+            "next": "start"
+          }
+        ]
+      },
+      "k2g_kerbe_ende_moor": {
+        "text": "„Jetzt fragen alle nach Täfelchen. Ich verspreche ihnen keine vierzig sicheren Jahre.“ Abel prüft die Maserung. „Ich verspreche nur, keinen absichtlich falsch zu schreiben.“",
+        "choices": [
+          {
+            "text": "Noch etwas.",
+            "next": "start"
+          }
+        ]
+      },
+      "k2g_kerbe_ende_lichtmeister": {
+        "text": "„Dein Name passt auf ein Brett wie jeder andere. Ich werde ihn nicht größer schnitzen, nur weil er jetzt unter Befehlen steht.“ Abel schiebt die Preistafel zu dir, nicht die Hand.",
+        "choices": [
+          {
+            "text": "Noch etwas.",
+            "next": "start"
+          }
+        ]
+      },
+      "k2g_kerbe_ende_meer": {
+        "text": "„In unserer Lade steht dein Name noch bei den Lebenden. Das ist gut.“ Abel legt ein leeres Blatt daneben. „Was unter deinen Taten steht, bleibt trotzdem unvollständig.“",
+        "choices": [
+          {
+            "text": "Noch etwas.",
+            "next": "start"
+          }
+        ]
+      }
+    }
+  },
+  "k2g_mulde": {
+    "choices_add": [
+      {
+        "text": "Was bedeutet das Ende am Turm für euch?",
+        "next": "k2g_mulde_ende_rein",
+        "requires_flags": [
+          "k2_end_rein"
+        ]
+      },
+      {
+        "text": "Was bedeutet das Ende am Turm für euch?",
+        "next": "k2g_mulde_ende_moor",
+        "requires_flags": [
+          "k2_end_moor"
+        ]
+      },
+      {
+        "text": "Was bedeutet das Ende am Turm für euch?",
+        "next": "k2g_mulde_ende_lichtmeister",
+        "requires_flags": [
+          "k2_end_lichtmeister"
+        ]
+      },
+      {
+        "text": "Was bedeutet das Ende am Turm für euch?",
+        "next": "k2g_mulde_ende_meer",
+        "requires_flags": [
+          "k2_end_meer"
+        ]
+      }
+    ],
+    "nodes_add": {
+      "k2g_mulde_ende_rein": {
+        "text": "„Heute haben zwei Eltern gefragt, ob sie ihren Kindern endlich einen Namen ohne Anmeldung geben dürfen. Ich habe zuerst Wasser aufgesetzt.“ Hanne lächelt. „Vor Gericht gebracht ist ein Anfang, kein Ende unserer Arbeit.“",
+        "choices": [
+          {
+            "text": "Noch etwas.",
+            "next": "start"
+          }
+        ]
+      },
+      "k2g_mulde_ende_moor": {
+        "text": "„Die Kinder werden höhere Schuhe brauchen. Und Erwachsene, die ihnen ehrlich sagen, warum.“ Hanne faltet eine Decke. „Ich bin froh über die freien Lichter. Angst vor dem sinkenden Haus habe ich trotzdem.“",
+        "choices": [
+          {
+            "text": "Noch etwas.",
+            "next": "start"
+          }
+        ]
+      },
+      "k2g_mulde_ende_lichtmeister": {
+        "text": "„Ich schreibe keinen Namen für deine Sammelfahrten auf. Auch keinen, dessen Familie du nicht kennst.“ Hanne lässt den dritten Becher leer. „Ein leerer Platz ist keine Bestellung.“",
+        "choices": [
+          {
+            "text": "Noch etwas.",
+            "next": "start"
+          }
+        ]
+      },
+      "k2g_mulde_ende_meer": {
+        "text": "„Ich verstehe, dass du leben wolltest. Das wollen die Menschen hier auch.“ Hanne deckt den übrigen Becher ab. „Wenn du zurückkommst, können wir reden. Deine Abfahrt hat Brandt nicht aufgehalten.“",
+        "choices": [
+          {
+            "text": "Noch etwas.",
+            "next": "start"
+          }
+        ]
+      }
+    }
+  }
+}

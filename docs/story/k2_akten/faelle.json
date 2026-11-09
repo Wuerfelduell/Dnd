@@ -1,0 +1,86 @@
+[
+  {
+    "id": "k2a_tinte",
+    "title": "Die Tinte des Telegrafisten",
+    "summary": "Nachts antwortet eine seit dreißig Jahren versunkene Station. Rimmel möchte wissen, wer am anderen Ende sitzt, bevor die Wache seinen Namen auf einen Steckbrief setzt.",
+    "requires_flags": [
+      "k2_akt1_done"
+    ],
+    "hide_if_flags": [
+      "kapitel2_done"
+    ],
+    "done": {
+      "requires_flags": [
+        "k2a_tinte_done"
+      ]
+    },
+    "target": {
+      "map": "wx_bahnhof",
+      "id": "wxn_telegrafist",
+      "label": "Eustace Rimmel"
+    }
+  },
+  {
+    "id": "k2a_bittere_mittel",
+    "title": "Bittere Mittel",
+    "summary": "Drei Alte aus Pfahldorf sind nach derselben Hustensaftlieferung gestorben. Minna Sorrel bittet dich, ihre Arbeit zu prüfen, auch wenn sie dabei alles verlieren könnte.",
+    "requires_flags": [
+      "k2_akt2_done"
+    ],
+    "hide_if_flags": [
+      "kapitel2_done"
+    ],
+    "done": {
+      "requires_flags": [
+        "k2a_bittere_mittel_done"
+      ]
+    },
+    "target": {
+      "map": "wx_salzmarkt",
+      "id": "wxn_apothekerin",
+      "label": "Minna Sorrel"
+    }
+  },
+  {
+    "id": "k2a_hafenrecht",
+    "title": "Hafenrecht",
+    "summary": "Ein Boot treibt mit drei Toten ein. Auf jedem Arm steht derselbe Name. Dora Kell will drei Menschen bestatten, bevor die Hafenkasse aus ihnen einen einzigen Versicherungsfall macht.",
+    "requires_flags": [
+      "k2_akt2_done"
+    ],
+    "hide_if_flags": [
+      "kapitel2_done"
+    ],
+    "done": {
+      "requires_flags": [
+        "k2a_hafenrecht_done"
+      ]
+    },
+    "target": {
+      "map": "wx_bojenhafen",
+      "id": "wxn_hafenmeisterin",
+      "label": "Dora Kell"
+    }
+  },
+  {
+    "id": "k2a_letztes_bild",
+    "title": "Das letzte Bild",
+    "summary": "In Vanes neuen Totenbildern steht dieselbe unbekannte Frau. Menschen, die beim Malen noch lebten, verschwinden sieben Tage später. Der Maler bittet um Hilfe, verschweigt aber, wer für ihn als tot gilt.",
+    "requires_flags": [
+      "k2_akt3_done"
+    ],
+    "hide_if_flags": [
+      "kapitel2_done"
+    ],
+    "done": {
+      "requires_flags": [
+        "k2a_letztes_bild_done"
+      ]
+    },
+    "target": {
+      "map": "wx_oberstadt",
+      "id": "wxn_maler",
+      "label": "Lionel Vane"
+    }
+  }
+]

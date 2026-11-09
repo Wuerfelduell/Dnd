@@ -1131,3 +1131,75 @@ und unveränderte Referenzen. Alle 32 Sheets wurden in der Vergleichsvorschau vi
 kontrolliert; bei Ivy, Price, Druce und Brack wurden Zuschnitte nachjustiert.
 35 bestehende Sprite-Tests bestehen. Asset-Lieferung ohne Spielcodeänderung;
 Dialogzuordnung und Prüfung der Darstellung im laufenden Spiel erfolgen separat.
+
+## Batch AH – Eigene Figur für Spieler 2 (`spieler2`)
+
+33 PNGs für zwei unterscheidbare Koop-Figuren: `p2a` mit Schiebermütze,
+kurzem grünem Mantel, senfgelbem Halstuch und Notizbuch; `p2b` mit Melone,
+ockerbraunem langem Mantel, Bart und runder Brille. Je Variante acht
+Karten-Sheets einschließlich Torfkittel, Fischerjacke und Akademierobe,
+drei Kampf-Sheets, zwei Emotions-Sheets, HUD-Kopf und Zugportrait.
+Dazu Koop-Oberfläche, Kombiangriff und deckendes Auswahlbild (240×135).
+
+Manifest: `public/sprites/manifest-spieler2.json`. Tatsächlich verwendete
+Prompts, Referenzen, Quellprüfsummen, Zuschnitte und Korrekturen:
+`batch-spieler2-generation.json`. Erzeugung mit `image_gen`; 29 Hauptbilder
+und drei gezielte Korrekturbilder. Zwei verworfene Waffenfassungen sind im
+Protokoll unter `replaces` dokumentiert. Die Köpfe sind Ausschnitte der
+Neutralportraits. Die Generatororiginale sind keine Laufzeitassets.
+
+Karten: 16×32 pro Frame, Laufen unten/links/rechts/oben; Raster und
+Animationsfolgen folgen den Hauptfigur-Referenzen. Kampf: 48×48, sechs
+Spalten, Blick nach rechts, mindestens zwei Pixel Luft oben. Die Reihen der
+Fähigkeiten sind `lantern`, `thread`, `mask`, `echo`, `cauldron`, `iron`,
+`key`, `sq_waage`, `sq_moor`, `sq_uhr`. Unbenutzte Kampf- und
+Untersuchen-Zellen sind transparent. `baseline` bezeichnet die exklusive
+Unterkante, der letzte belegte Pixel liegt bei `baseline - 1`.
+Die Platzierung acht Pixel höher im Koop erfolgt später durch die Engine.
+
+Portraits: je 256×64. Erstes Sheet neutral/misstrauisch/erschrocken/lächelnd,
+zweites wütend/traurig/nachdenklich/entschlossen. Köpfe 24×24, Zugportraits
+16×16. `AH_koop.png` ist ein 96×48-Atlas; `regions` sind `[x,y,w,h]`,
+`regionAnimations` beschreiben die zwei Wimpelphasen. Der 48×16-HUD-Rahmen
+hat 4-Pixel-Nine-Slice-Ränder. Alle fünf Icons liegen in 16×16-Regionen.
+`AH_kombi.png` enthält acht 64×48-Frames bei vorgeschlagenen 12 fps.
+
+Nachbearbeitung: gemessene Zellzuschnitte an transparenten Zwischenräumen,
+Nearest Neighbor, einheitliche Skalierung pro Animationssheet, Ausrichtung
+auf die Referenz-Grundlinie, Alpha-Schwelle 128, gemeinsame Palette mit
+höchstens 32 sichtbaren Farben (31 genutzt). Portraits und Auswahlbild
+sind deckend, übrige Dateien haben binäres Alpha.
+
+```sh
+# SOURCE_MAP.json: {"p2a_walk":"/pfad/original.png", ...}
+# Für die zusätzliche Türkorrektur auch p2a_extras_door_repair angeben.
+# UI-Zuschnitte aus dem Generierungsprotokoll übernehmen; Export akzeptiert
+# alternativ eine Job-Liste mit id, source und sourceBoxes.
+# Benötigt Pillow und NumPy.
+python docs/art/export-spieler2.py SOURCE_MAP.json
+python docs/art/verify-spieler2.py
+node --test tests/sprites.test.js
+```
+
+Prüfbericht: `validation-spieler2.json`. Sichtübersichten:
+[Figuren](preview-spieler2-figures.png),
+[Portraits](preview-spieler2-portraits.png),
+[Kampf p2a](preview-spieler2-battle-a.png),
+[Kampf p2b](preview-spieler2-battle-b.png),
+[Koop und Auswahl](preview-spieler2-ui.png).
+Grafiklieferung ohne Spielcodeänderung. Einbindung und Prüfung von Timing,
+HUD-Skalierung und gemeinsamer Kampfaufstellung im laufenden Spiel erfolgen separat.
+
+## Batch AE – Oberfläche und Leben in Wexmoor (`oberflaeche`)
+
+20 neue PNG-Dateien; noch nicht in den Spielcode eingebunden. Enthalten sind 16 Einstellungs-Symbole, Regler/Checkboxen, zehn Touch-Aktionen in je zwei Zuständen, ein Steuerkreuz, neun Titelbild-Dateien, drei Kapitelkarten, Zeitungs- und Sprechblasen-Elemente sowie acht Tierarten und fünf Wetter-/Licht-Effekte für Wexmoor.
+
+- Manifest: [`manifest-oberflaeche.json`](../../public/sprites/manifest-oberflaeche.json). Einheitliches Raster bei normalen Sheets; Tiere und Wetter verwenden benannte `regions`, deren Animationen **region-lokale** Frame-Indizes besitzen (`frameIndexSpace: "region"`). Erst die Region ausschneiden, dann ihre `frameWidth`, `frameHeight`, `columns` und `frames` verwenden. Alle Koordinaten sind Pixel ab links oben.
+- Vorschau: [`preview-oberflaeche.html`](preview-oberflaeche.html), über einen lokalen HTTP-Server öffnen. Enthält zusammengesetztes Titelbild, alle Tier-/Wetteranimationen, Kapitelkarten und Bediengrafiken.
+- Titelbild: alle großen Ebenen mit Ursprung `(0,0)`, 480×270; die Flamme wird separat bei `(64,96)` aufgesetzt. Fensterlichter sind aus der Häuser-Ebene maskiert, deren Fensterscheiben unbeleuchtet bleiben. Mond 2 Frames, Fenster 4, Flamme 4, Regen 4. Nebel horizontal, Regen in beiden Achsen kachelbar; Parallax-Verschiebungen der Architektur klein halten, da die Häuser keine umlaufenden Texturen sind.
+- `AE_zeitung.png` (320×160): Seite 48×48 mit 16px-Schnitten; Sprech-/Gedankenblase 24×24 mit 8px-Schnitten; zwei separat ankoppelbare 8×8-Zipfel; zwei Ornamente 160×24 und vier Sepia-Fotos 64×48. Exakte Grenzen in `regions`. Der mittlere 9-slice-Bereich wird gestreckt, nicht als wiederholte Papierkachel eingesetzt.
+- `AE_wexmoor_tiere.png` (128×272): 11 Reihen à 16px für kleine Tiere, danach drei 32px-Reihen für den Graureiher. Nicht belegte Zellen bleiben transparent. 14 Animationsclips; Auffliegen einmalig abspielen und anschließend ausblenden oder in eine Flugbewegung übergeben.
+- `AE_wexmoor_wetter.png` (1920×350): Gischt 8×8 und Pfützenkringel 16×16 bei y=0; Nieselregen 4×240×135 ab y=16; zwei separat kachelbare Nebelbänke 240×135 ab y=151; Leuchtturmstrahl 8×240×64 ab y=286, Drehpunkt pro Frame `(120,32)`. Beide Nebelbänke lassen sich unabhängig verschieben. Transparenz entsteht durch Pixel-Lücken, nicht durch Teilalpha.
+- Palette: 25 Farben aus dem vorhandenen Titelbild plus sechs gezielte Papier-/Nebel-/Okkultfarben, insgesamt 31 sichtbare Farben und ein transparenter Index. Alle PNGs sind indiziert, Alpha ist 0 oder 255. Kapitelkarten und Himmel sind deckend.
+- Erzeugung: [`batch-oberflaeche-generation.json`](batch-oberflaeche-generation.json) enthält die tatsächlichen Bildprompts, Referenzbasis, Quell-Hashes, verworfene Varianten und die Ableitung von Fenster-, Regen- und Lichtstrahlanimationen. Das Exportskript [`tools/art/oberflaeche/export.py`](../../tools/art/oberflaeche/export.py) nimmt eine lokale JSON-Zuordnung von Prompt-IDs zu Originalbildern entgegen; diese großen Generator-Originale sind nicht Teil des Laufzeitpakets. Es benötigt Pillow, NumPy und SciPy. Für die Prüfung der fertigen Dateien sind nur Pillow und NumPy nötig.
+- Prüfung: `python tools/art/oberflaeche/validate.py` kontrolliert Pflichtdateien, Maße, gemeinsame Palette, Alpha, Region-Grenzen, Überlappungen, sämtliche 82 Animationsframes, Kachelnähte und die Ausrichtung der Fensterlichter. Ergebnis: [`batch-oberflaeche-validation.json`](batch-oberflaeche-validation.json). Zusätzlich: `node --test tests/sprites.test.js` (35 Tests bestanden, nach Abgleich mit `main`).

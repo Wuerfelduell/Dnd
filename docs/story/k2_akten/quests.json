@@ -1,0 +1,422 @@
+{
+  "k2a_tinte": {
+    "title": "Die Tinte des Telegrafisten",
+    "kind": "side",
+    "case": "k2a_tinte",
+    "summary": "Nachts antwortet eine seit dreißig Jahren versunkene Station. Rimmel möchte wissen, wer am anderen Ende sitzt, bevor die Wache seinen Namen auf einen Steckbrief setzt.",
+    "steps": [
+      {
+        "text": "Untersuche die erste Spur und sprich mit dem Auftraggeber.",
+        "done": {
+          "requires_clues": [
+            "k2a_tinte_h_a1",
+            "k2a_tinte_h_a2"
+          ]
+        },
+        "target": {
+          "map": "wx_bahnhof",
+          "id": "k2a_tinte_ort_a1",
+          "label": "Der Nachtstreifen"
+        }
+      },
+      {
+        "text": "Sichere den Zugang trotz der Grauspäherkontrolle.",
+        "done": {
+          "requires_flags": [
+            "k2a_tinte_kontrolle_done"
+          ]
+        },
+        "target": {
+          "map": "wx_bahnhof",
+          "id": "k2a_tinte_polizei",
+          "label": "Kontrollstelle"
+        }
+      },
+      {
+        "text": "Prüfe Aussagen und Schriftstücke an den weiteren Schauplätzen.",
+        "done": {
+          "requires_clues": [
+            "k2a_tinte_h_b1",
+            "k2a_tinte_h_b2",
+            "k2a_tinte_h_c1",
+            "k2a_tinte_h_c2"
+          ]
+        },
+        "target": {
+          "map": "wx_bahnhof",
+          "id": "k2a_tinte_ort_b1",
+          "label": "Blankes Lötzinn"
+        }
+      },
+      {
+        "text": "Verbinde Tatablauf und Verantwortlichkeit im Notizbuch.",
+        "done": {
+          "requires_conclusions": [
+            "k2a_tinte_d_leitung",
+            "k2a_tinte_d_ware",
+            "k2a_tinte_d_taeter"
+          ]
+        },
+        "target": {
+          "map": "wx_salzmarkt",
+          "id": "k2a_senn",
+          "label": "Ivo Senn"
+        }
+      },
+      {
+        "text": "Widerlege die Aussage im Verhör mit den gefundenen Belegen.",
+        "done": {
+          "requires_flags": [
+            "k2a_tinte_gestellt"
+          ]
+        },
+        "target": {
+          "map": "wx_salzmarkt",
+          "id": "k2a_senn",
+          "label": "Ivo Senn"
+        }
+      },
+      {
+        "text": "Bestehe den Showdown. Eine Niederlage lässt die Akte offen.",
+        "done": {
+          "requires_flags": [
+            "won_k2a_tinte_kampf"
+          ]
+        },
+        "target": {
+          "map": "wx_torfstich",
+          "id": "k2a_tinte_finale",
+          "label": "Leitungsverkäufer Ivo Senn"
+        }
+      },
+      {
+        "text": "Entscheide über Belege, Betroffene und Abschluss.",
+        "done": {
+          "requires_flags": [
+            "k2a_tinte_done"
+          ]
+        },
+        "target": {
+          "map": "wx_torfstich",
+          "id": "k2a_tinte_finale",
+          "label": "Abschlussbericht"
+        }
+      }
+    ]
+  },
+  "k2a_bittere_mittel": {
+    "title": "Bittere Mittel",
+    "kind": "side",
+    "case": "k2a_bittere_mittel",
+    "summary": "Drei Alte aus Pfahldorf sind nach derselben Hustensaftlieferung gestorben. Minna Sorrel bittet dich, ihre Arbeit zu prüfen, auch wenn sie dabei alles verlieren könnte.",
+    "steps": [
+      {
+        "text": "Untersuche die erste Spur und sprich mit dem Auftraggeber.",
+        "done": {
+          "requires_clues": [
+            "k2a_bittere_mittel_h_a1",
+            "k2a_bittere_mittel_h_a2"
+          ]
+        },
+        "target": {
+          "map": "wx_pfahldorf",
+          "id": "k2a_bittere_mittel_ort_a1",
+          "label": "Drei gleiche Chargenzeichen"
+        }
+      },
+      {
+        "text": "Sichere den Zugang trotz der Grauspäherkontrolle.",
+        "done": {
+          "requires_flags": [
+            "k2a_bittere_mittel_kontrolle_done"
+          ]
+        },
+        "target": {
+          "map": "wx_salzmarkt",
+          "id": "k2a_bittere_mittel_polizei",
+          "label": "Kontrollstelle"
+        }
+      },
+      {
+        "text": "Prüfe Aussagen und Schriftstücke an den weiteren Schauplätzen.",
+        "done": {
+          "requires_clues": [
+            "k2a_bittere_mittel_h_b1",
+            "k2a_bittere_mittel_h_b2",
+            "k2a_bittere_mittel_h_c1",
+            "k2a_bittere_mittel_h_c2"
+          ]
+        },
+        "target": {
+          "map": "wx_salzmarkt",
+          "id": "k2a_bittere_mittel_ort_b1",
+          "label": "Weiße Blattadern"
+        }
+      },
+      {
+        "text": "Verbinde Tatablauf und Verantwortlichkeit im Notizbuch.",
+        "done": {
+          "requires_conclusions": [
+            "k2a_bittere_mittel_d_charge",
+            "k2a_bittere_mittel_d_folgen",
+            "k2a_bittere_mittel_d_taeter"
+          ]
+        },
+        "target": {
+          "map": "wx_oberstadt",
+          "id": "k2a_veit",
+          "label": "Dr. Oren Veit"
+        }
+      },
+      {
+        "text": "Widerlege die Aussage im Verhör mit den gefundenen Belegen.",
+        "done": {
+          "requires_flags": [
+            "k2a_bittere_mittel_gestellt"
+          ]
+        },
+        "target": {
+          "map": "wx_oberstadt",
+          "id": "k2a_veit",
+          "label": "Dr. Oren Veit"
+        }
+      },
+      {
+        "text": "Bestehe den Showdown. Eine Niederlage lässt die Akte offen.",
+        "done": {
+          "requires_flags": [
+            "won_k2a_bittere_mittel_kampf"
+          ]
+        },
+        "target": {
+          "map": "wx_torfstich",
+          "id": "k2a_bittere_mittel_finale",
+          "label": "Dr. Oren Veit und der Probenschrank"
+        }
+      },
+      {
+        "text": "Entscheide über Belege, Betroffene und Abschluss.",
+        "done": {
+          "requires_flags": [
+            "k2a_bittere_mittel_done"
+          ]
+        },
+        "target": {
+          "map": "wx_torfstich",
+          "id": "k2a_bittere_mittel_finale",
+          "label": "Abschlussbericht"
+        }
+      }
+    ]
+  },
+  "k2a_hafenrecht": {
+    "title": "Hafenrecht",
+    "kind": "side",
+    "case": "k2a_hafenrecht",
+    "summary": "Ein Boot treibt mit drei Toten ein. Auf jedem Arm steht derselbe Name. Dora Kell will drei Menschen bestatten, bevor die Hafenkasse aus ihnen einen einzigen Versicherungsfall macht.",
+    "steps": [
+      {
+        "text": "Untersuche die erste Spur und sprich mit dem Auftraggeber.",
+        "done": {
+          "requires_clues": [
+            "k2a_hafenrecht_h_a1",
+            "k2a_hafenrecht_h_a2"
+          ]
+        },
+        "target": {
+          "map": "wx_bojenhafen",
+          "id": "k2a_hafenrecht_ort_a1",
+          "label": "Dreimal Rooke"
+        }
+      },
+      {
+        "text": "Sichere den Zugang trotz der Grauspäherkontrolle.",
+        "done": {
+          "requires_flags": [
+            "k2a_hafenrecht_kontrolle_done"
+          ]
+        },
+        "target": {
+          "map": "wx_bojenhafen",
+          "id": "k2a_hafenrecht_polizei",
+          "label": "Kontrollstelle"
+        }
+      },
+      {
+        "text": "Prüfe Aussagen und Schriftstücke an den weiteren Schauplätzen.",
+        "done": {
+          "requires_clues": [
+            "k2a_hafenrecht_h_b1",
+            "k2a_hafenrecht_h_b2",
+            "k2a_hafenrecht_h_c1",
+            "k2a_hafenrecht_h_c2"
+          ]
+        },
+        "target": {
+          "map": "wx_salzmarkt",
+          "id": "k2a_hafenrecht_ort_b1",
+          "label": "Drei Prämien, ein Empfänger"
+        }
+      },
+      {
+        "text": "Verbinde Tatablauf und Verantwortlichkeit im Notizbuch.",
+        "done": {
+          "requires_conclusions": [
+            "k2a_hafenrecht_d_menschen",
+            "k2a_hafenrecht_d_motiv",
+            "k2a_hafenrecht_d_taeter"
+          ]
+        },
+        "target": {
+          "map": "wx_salzmarkt",
+          "id": "k2a_noll",
+          "label": "Clem Noll"
+        }
+      },
+      {
+        "text": "Widerlege die Aussage im Verhör mit den gefundenen Belegen.",
+        "done": {
+          "requires_flags": [
+            "k2a_hafenrecht_gestellt"
+          ]
+        },
+        "target": {
+          "map": "wx_salzmarkt",
+          "id": "k2a_noll",
+          "label": "Clem Noll"
+        }
+      },
+      {
+        "text": "Bestehe den Showdown. Eine Niederlage lässt die Akte offen.",
+        "done": {
+          "requires_flags": [
+            "won_k2a_hafenrecht_kampf"
+          ]
+        },
+        "target": {
+          "map": "wx_salzwatt",
+          "id": "k2a_hafenrecht_finale",
+          "label": "Clem Noll auf dem Bergungskahn"
+        }
+      },
+      {
+        "text": "Entscheide über Belege, Betroffene und Abschluss.",
+        "done": {
+          "requires_flags": [
+            "k2a_hafenrecht_done"
+          ]
+        },
+        "target": {
+          "map": "wx_salzwatt",
+          "id": "k2a_hafenrecht_finale",
+          "label": "Abschlussbericht"
+        }
+      }
+    ]
+  },
+  "k2a_letztes_bild": {
+    "title": "Das letzte Bild",
+    "kind": "side",
+    "case": "k2a_letztes_bild",
+    "summary": "In Vanes neuen Totenbildern steht dieselbe unbekannte Frau. Menschen, die beim Malen noch lebten, verschwinden sieben Tage später. Der Maler bittet um Hilfe, verschweigt aber, wer für ihn als tot gilt.",
+    "steps": [
+      {
+        "text": "Untersuche die erste Spur und sprich mit dem Auftraggeber.",
+        "done": {
+          "requires_clues": [
+            "k2a_letztes_bild_h_a1",
+            "k2a_letztes_bild_h_a2"
+          ]
+        },
+        "target": {
+          "map": "wx_oberstadt",
+          "id": "k2a_letztes_bild_ort_a1",
+          "label": "Sieben Tage Abstand"
+        }
+      },
+      {
+        "text": "Sichere den Zugang trotz der Grauspäherkontrolle.",
+        "done": {
+          "requires_flags": [
+            "k2a_letztes_bild_kontrolle_done"
+          ]
+        },
+        "target": {
+          "map": "wx_oberstadt",
+          "id": "k2a_letztes_bild_polizei",
+          "label": "Kontrollstelle"
+        }
+      },
+      {
+        "text": "Prüfe Aussagen und Schriftstücke an den weiteren Schauplätzen.",
+        "done": {
+          "requires_clues": [
+            "k2a_letztes_bild_h_b1",
+            "k2a_letztes_bild_h_b2",
+            "k2a_letztes_bild_h_c1",
+            "k2a_letztes_bild_h_c2"
+          ]
+        },
+        "target": {
+          "map": "wx_salzmarkt",
+          "id": "k2a_letztes_bild_ort_b2",
+          "label": "Unterschrift nach dem Tod"
+        }
+      },
+      {
+        "text": "Verbinde Tatablauf und Verantwortlichkeit im Notizbuch.",
+        "done": {
+          "requires_conclusions": [
+            "k2a_letztes_bild_d_frist",
+            "k2a_letztes_bild_d_ursprung",
+            "k2a_letztes_bild_d_taeter"
+          ]
+        },
+        "target": {
+          "map": "wx_oberstadt",
+          "id": "wxn_maler",
+          "label": "Lionel Vane"
+        }
+      },
+      {
+        "text": "Widerlege die Aussage im Verhör mit den gefundenen Belegen.",
+        "done": {
+          "requires_flags": [
+            "k2a_letztes_bild_gestellt"
+          ]
+        },
+        "target": {
+          "map": "wx_oberstadt",
+          "id": "wxn_maler",
+          "label": "Lionel Vane"
+        }
+      },
+      {
+        "text": "Bestehe den Showdown. Eine Niederlage lässt die Akte offen.",
+        "done": {
+          "requires_flags": [
+            "won_k2a_letztes_bild_kampf"
+          ]
+        },
+        "target": {
+          "map": "wx_oberstadt",
+          "id": "k2a_letztes_bild_finale",
+          "label": "Die gemalte Frau"
+        }
+      },
+      {
+        "text": "Entscheide über Belege, Betroffene und Abschluss.",
+        "done": {
+          "requires_flags": [
+            "k2a_letztes_bild_done"
+          ]
+        },
+        "target": {
+          "map": "wx_oberstadt",
+          "id": "k2a_letztes_bild_finale",
+          "label": "Abschlussbericht"
+        }
+      }
+    ]
+  }
+}
