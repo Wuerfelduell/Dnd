@@ -6,10 +6,11 @@ import { wantedMethods } from './Wanted.js';
 import { bondMethods } from './Bonds.js';
 import { artifactMethods } from './Artifacts.js';
 import { partyMethods } from './Party.js';
+import { gearMethods } from './Gear.js';
 
 /** Tragkraft in Pfund. Gegenstände ohne eigenes "weight" wiegen je nach Art so viel. */
 export const BASE_CARRY = 40;
-export const KIND_WEIGHT = { weapon: 4, artifact: 2, consumable: 1, potion: 1, ingredient: 0.5, trophy: 2, formula: 0, key: 0 };
+export const KIND_WEIGHT = { weapon: 4, gear: 2, artifact: 2, consumable: 1, potion: 1, ingredient: 0.5, trophy: 2, formula: 0, key: 0 };
 //
 // Begriffe:
 // - Hinweis (clue): eine einzelne Quelle, z. B. eine Spur oder eine Zeugenaussage.
@@ -54,6 +55,7 @@ export class GameState {
     this.storage = {}; // Lagerschrank im eigenen Büro: id -> Anzahl
     this.stashes = {}; // weitere Verstecke (z. B. der Torfkahn in Wexmoor): ort -> { id -> Anzahl }
     this.weapon = s.weapon ?? null;
+    this.gear = { hut: null, mantel: null, amulett: null }; // angelegte Kleidung (Gear.js)
     this.pendingCombat = null;
     this.tracked = null; // verfolgter Auftrag (Journal-Wegweiser)
     this.random = Math.random; // in Tests austauschbar
@@ -364,6 +366,7 @@ export class GameState {
     this.inventory[id] = had + n;
     // Bessere Waffe automatisch ausrüsten
     if (it.kind === 'weapon' && (!this.weapon || it.atk > this.item(this.weapon).atk)) this.weapon = id;
+    if (n > 0) this.gearPickedUp(id);
     this.emit('item', { id, delta: n });
     if (it.kind === 'artifact' && !had && n > 0) this.artifactPickedUp(id);
     // Beute geht nie verloren: wer zu viel trägt, wird nur langsamer.
@@ -375,6 +378,7 @@ export class GameState {
     this.inventory[id] -= n;
     if (this.inventory[id] <= 0) delete this.inventory[id];
     if (this.weapon === id && !this.inventory[id]) this.weapon = null;
+    this.gearDropped(id);
     if (!this.inventory[id] && this.item(id)?.kind === 'artifact') this.dropArtifactIfGone(id);
     this.emit('item', { id, delta: -n });
     return true;
@@ -598,6 +602,7 @@ export class GameState {
       storage: this.storage,
       stashes: this.stashes,
       weapon: this.weapon,
+      gear: this.gear,
       tracked: this.tracked,
       ...this.serializePathway(),
       ...this.serializeGatherings(),
@@ -631,6 +636,7 @@ export class GameState {
       this.hp = Math.max(1, Math.min(this.maxHp, data.hp ?? this.maxHp));
       this.inventory = Object.fromEntries(Object.entries(data.inventory ?? {}).filter(([i, n]) => this.item(i) && n > 0));
       this.weapon = this.inventory[data.weapon] ? data.weapon : null;
+      this.gear = this.cleanGear(data.gear, this.inventory);
       this.storage = Object.fromEntries(Object.entries(data.storage ?? {}).filter(([i, n]) => this.item(i) && n > 0));
       this.stashes = Object.fromEntries(Object.entries(data.stashes ?? {}).map(([w, st]) => [w, Object.fromEntries(Object.entries(st ?? {}).filter(([i, n]) => this.item(i) && n > 0))]));
     }
@@ -645,4 +651,4 @@ export class GameState {
   }
 }
 
-Object.assign(GameState.prototype, partyMethods, pathwayMethods, artifactMethods, gatheringMethods, wantedMethods, bondMethods, auctionMethods);
+Object.assign(GameState.prototype, partyMethods, gearMethods, pathwayMethods, artifactMethods, gatheringMethods, wantedMethods, bondMethods, auctionMethods);

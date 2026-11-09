@@ -1,4 +1,5 @@
 import { DIGEST_LABELS } from '../core/Pathways.js';
+import { GEAR_SLOT_NAMES } from '../core/Gear.js';
 import { lootList, itemRarity, RARITY_NAMES, lootPreview, chanceWord } from '../core/Loot.js';
 import {
   itemIconUrl, itemIcon32Url, pathwayEmblemUrl, pathwayCardUrl, COIN_URL, moneyIconUrl, UI_SKINS, UI_SHEETS, UI_REGIONS, DAMAGE_FONT, STATUS_ICONS, STATUS_ICONS_URL,
@@ -21,6 +22,25 @@ const itemIcon = (id) => (PULSE_ICONS[id] ? `<span class="item-icon pulse" style
 const itemIconBig = (id) => `<img class="item-icon big" src="${itemIcon32Url(id) ?? itemIconUrl(id)}" alt="" width="32" height="32" onerror="this.remove()">`;
 /** Vor- und Nachteile eines Artefakts als kleine Liste. */
 const artifactEffectsHtml = (it) => `<span class="arteffects">${(it.boons ?? []).map((x) => `<span class="boon"><i class="artmark plus"></i>${esc(x.text)}</span>`).join('')}${(it.curses ?? []).map((x) => `<span class="curse"><i class="artmark minus"></i>${esc(x.text)}</span>`).join('')}</span>`;
+/** Im Laden: Angriff von Waffen, Platz und Wirkung von Kleidung. */
+const shopStats = (it) => (it?.kind === 'weapon' ? `<br><span class="muted">Angriff ${it.atk}${it.occult ? ', stark gegen Okkultes' : ''}</span>`
+  : it?.kind === 'gear' ? `<br><span class="muted">${GEAR_SLOT_NAMES[it.slot]}</span>${artifactEffectsHtml(it)}` : '');
+/** Ausrüstung (F_07): Figur mit vier Plätzen; ein Klick auf ein angelegtes Stück legt es ab. Plätze in Pixeln des Bogens. */
+const DOLL_SLOTS = [['hut', 69, 4], ['amulett', 69, 30], ['mantel', 69, 55], ['waffe', 73, 82]];
+const paperDoll = (s) => {
+  const k = 1 / 8;
+  const slots = DOLL_SLOTS.map(([slot, x, y]) => {
+    const id = slot === 'waffe' ? s.weapon : s.gear?.[slot];
+    const it = id && s.itemCount(id) ? s.item(id) : null;
+    const tip = it ? `${it.name}${(it.boons ?? []).map((b) => ` · ${b.text}`).join('')}${it.atk ? ` · Angriff ${it.atk}` : ''}` : `${GEAR_SLOT_NAMES[slot]}: leer`;
+    const inner = it ? `<img src="${itemIcon32Url(id) ?? itemIconUrl(id)}" alt="">` : '';
+    const attr = it && slot !== 'waffe' ? ` data-takeoff="${slot}"` : '';
+    return `<button class="dollslot${it ? ' filled' : ''}"${attr} title="${esc(tip)}" style="left:${x * k}em;top:${y * k}em;width:${20 * k}em;height:${20 * k}em">${inner}</button>`;
+  }).join('');
+  const worn = [...DOLL_SLOTS.map(([slot]) => slot).filter((x) => x !== 'waffe').map((slot) => s.gear?.[slot]).filter((id) => id && s.itemCount(id))];
+  const list = worn.length ? worn.map((id) => `<li>${itemIcon(id)}<strong>${esc(s.item(id).name)}</strong>${artifactEffectsHtml(s.item(id))}</li>`).join('') : '<li class="muted">Noch nichts angelegt. Hüte, Mäntel und Amulette wirken nur, solange du sie trägst.</li>';
+  return `<div class="paperdoll"><div class="doll">${uiSprite('equip', 'doll', k)}${slots}</div><ul class="worn">${list}</ul></div>`;
+};
 const emblem = (pid, size = 16) => `<img class="emblem" src="${pathwayEmblemUrl(pid, size)}" alt="" width="${size}" height="${size}" onerror="this.remove()">`;
 /** 16x16-Zelle aus einem Icon-Atlas (Fähigkeiten: 7 Spalten, Zustände: 12 Spalten). */
 const atlasIcon = (url, index, cols, title = '') => (index === undefined ? ''
@@ -211,6 +231,7 @@ export const STATUS_LABEL = { suspected: 'Vermutung', likely: 'sehr wahrscheinli
 const ITEM_CATS = [
   { id: 'alle', title: 'Alle' },
   { id: 'waffen', title: 'Waffen', kinds: ['weapon'] },
+  { id: 'kleidung', title: 'Kleidung & Schmuck', kinds: ['gear'] },
   { id: 'artefakte', title: 'Artefakte', kinds: ['artifact'] },
   { id: 'traenke', title: 'Tränke & Heilmittel', kinds: ['potion', 'consumable'] },
   { id: 'zutaten', title: 'Zutaten & Rezepte', kinds: ['ingredient', 'formula'] },
@@ -957,6 +978,8 @@ export class Ui {
     const inv = (fn) => this.as(fn, this.tab === 'items' ? this.invPlayer : 1);
     el.querySelectorAll('[data-use]').forEach((b) => { b.onclick = () => this.renderNotebook(esc(inv(() => this.state.useItem(b.dataset.use)) ?? '')); });
     el.querySelectorAll('[data-equip]').forEach((b) => { b.onclick = () => { inv(() => this.state.equip(b.dataset.equip)); this.renderNotebook(''); }; });
+    el.querySelectorAll('[data-wear]').forEach((b) => { b.onclick = () => { inv(() => this.state.wear(b.dataset.wear)); this.renderNotebook(''); }; });
+    el.querySelectorAll('[data-takeoff]').forEach((b) => { b.onclick = () => { inv(() => this.state.takeOff(b.dataset.takeoff)); this.renderNotebook(''); }; });
     el.querySelectorAll('[data-invplayer]').forEach((b) => { b.onclick = () => { this.invPlayer = Number(b.dataset.invplayer); this.renderNotebook(''); }; });
     el.querySelectorAll('[data-give]').forEach((b) => { b.onclick = () => this.renderNotebook(esc(this.state.giveItem(b.dataset.give, this.invPlayer).text)); });
     // Wegwerfen braucht einen zweiten Klick, damit nichts aus Versehen verschwindet
@@ -1063,7 +1086,7 @@ export class Ui {
     const s = this.state;
     const p2 = s.hasP2();
     const other = s.acting === 2 ? 1 : 2;
-    const kindOrder = { weapon: 0, artifact: 1, consumable: 2, potion: 3, formula: 4, ingredient: 5, trophy: 6, key: 7 };
+    const kindOrder = { weapon: 0, gear: 0.5, artifact: 1, consumable: 2, potion: 3, formula: 4, ingredient: 5, trophy: 6, key: 7 };
     const all = s.items().sort((a, b) => kindOrder[a.kind] - kindOrder[b.kind]);
     const cats = ITEM_CATS.map((c) => ({ ...c, n: c.kinds ? all.filter((it) => c.kinds.includes(it.kind)).length : all.length }));
     if (!cats.some((c) => c.id === this.itemCat && c.n)) this.itemCat = 'alle';
@@ -1075,6 +1098,7 @@ export class Ui {
     const rows = list.map((it) => {
       let action = '';
       if (it.kind === 'weapon') action = s.weapon === it.id ? '<span class="badge likely">ausgerüstet</span>' : `<button class="small" data-equip="${it.id}">Ausrüsten</button>`;
+      else if (it.kind === 'gear') action = s.isWorn(it.id) ? `<span class="badge likely">angelegt</span><br><button class="small" data-takeoff="${it.slot}">Ablegen</button>` : `<button class="small" data-wear="${it.id}">Anlegen</button>`;
       else if (it.kind === 'consumable' && !it.combat_only) action = `<button class="small" data-use="${it.id}">Benutzen</button>`;
       else if (it.combat_only) action = '<span class="muted">nur im Kampf</span>';
       else if (it.kind === 'potion' && s.acting === 2) action = '<span class="muted">nur der Ermittler trinkt Tränke</span>';
@@ -1092,8 +1116,9 @@ export class Ui {
       if (wt > 0) action += `${action ? '<br>' : ''}<span class="muted weight">${fmtLb(wt * it.count)} Pfd.</span>`;
       if (p2 && it.kind !== 'key') action += ` <button class="small give" data-give="${it.id}" title="Eins an Spieler ${other} geben">→ Sp. ${other}</button>`;
       if (s.canDrop(it.id) && !(it.kind === 'weapon' && s.weapon === it.id)) action += ` <button class="small drop" data-drop="${it.id}" title="Wegwerfen (eins)">×</button>`;
-      const stat = it.kind === 'weapon' ? ` <span class="muted">Angriff ${it.atk}${it.occult ? ', stark gegen Okkultes' : ''}</span>` : '';
-      const effects = it.kind === 'artifact' ? artifactEffectsHtml(it) : '';
+      const stat = it.kind === 'weapon' ? ` <span class="muted">Angriff ${it.atk}${it.occult ? ', stark gegen Okkultes' : ''}</span>`
+        : it.kind === 'gear' ? ` <span class="muted">${GEAR_SLOT_NAMES[it.slot]}</span>` : '';
+      const effects = it.kind === 'artifact' || it.kind === 'gear' ? artifactEffectsHtml(it) : '';
       return `<li class="item"><div>${it.kind === 'potion' || it.kind === 'formula' ? itemIconBig(it.id) : itemIcon(it.id)}<strong>${esc(it.name)}</strong>${it.count > 1 ? ` ×${it.count}` : ''}${stat}<br><span class="desc">${esc(it.desc)}</span>${effects}</div><div>${action}</div></li>`;
     }).join('');
     const carried = s.activeArtifacts();
@@ -1103,6 +1128,7 @@ export class Ui {
     return `
       ${carryHtml(s)}
       <div class="status">Leben <strong>${s.hp}/${s.maxHp}</strong> · Nerven <strong>${Math.round(s.composure)}/${s.maxComposure()}</strong> · Waffe <strong>${esc(w.name)}</strong> (Angriff ${w.atk}) · ${coin}<strong>${s.money}</strong> Schilling</div>
+      ${cat.id === 'alle' || cat.id === 'waffen' || cat.id === 'kleidung' ? paperDoll(s) : ''}
       ${cat.id === 'alle' || cat.id === 'artefakte' ? arts : ''}
       ${subtabs}
       <ul class="items">${rows || '<li class="empty">Deine Taschen sind leer.</li>'}</ul>`;
@@ -1351,7 +1377,7 @@ export class Ui {
       this.shop.entries = stock.map((e) => ({ id: e.item, disabled: !!e.locked || e.owned || s.money < e.price }));
       // Paket A: Ladenfächer, Schlösser und Preisschilder (A_10_shop.png)
       rows = stock.map((e, i) => `<li class="item ${e.locked ? 'lockedrow' : ''}"><div><span class="shopslot ${e.locked ? 'locked' : e.owned ? 'sold' : ''}">${itemIconBig(e.item)}</span><strong>${esc(e.name)}</strong>${s.itemCount(e.item) ? ` <span class="muted">(hast ${s.itemCount(e.item)})</span>` : ''}<br>
-        <span class="desc">${e.locked ? uiSprite('shop', /Rang|Ansehen/.test(e.locked) ? 'locked_rank' : 'locked_pathway', 1 / 12, 'shopico') : ''}${esc(e.locked ?? e.desc)}</span></div>
+        <span class="desc">${e.locked ? uiSprite('shop', /Rang|Ansehen/.test(e.locked) ? 'locked_rank' : 'locked_pathway', 1 / 12, 'shopico') : ''}${esc(e.locked ?? e.desc)}</span>${e.locked ? '' : shopStats(s.item(e.item))}</div>
         <div>${e.owned ? `<span class="badge likely">${uiSprite('shop', 'only_once', 1 / 16, 'shopico')}${e.soldOut ? 'vergriffen' : 'gekauft'}</span>` : `${e.left ? `<span class="muted">noch ${e.left}</span> ` : ''}<button class="small pricetag" data-buy="${i}" ${this.shop.entries[i].disabled ? 'disabled' : ''}>${i < 9 ? `<span class="key">${i + 1}</span> ` : ''}${e.price} Sch.</button>`}</div></li>`).join('');
     } else {
       const sellable = s.items().filter((it) => s.sellPrice(it.id) !== null);

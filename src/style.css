@@ -694,3 +694,15 @@ button.small.give { color: #9ab8ff; }
 
 /* Stadtkarte: Bild des Ziels (J_giesserei_aussen) neben der Beschreibung */
 .citymap .info .placepic { float: left; width: 6em; height: auto; margin: -0.6em 0.6em 0 0; image-rendering: pixelated; filter: drop-shadow(0 0.1em 0.2em rgba(0, 0, 0, 0.6)); }
+
+/* Ausrüstung (F_07): Figur mit Plätzen für Hut, Amulett, Mantel und Waffe */
+.paperdoll { display: flex; gap: 1em; align-items: flex-start; margin: 0.4em 0 0.8em; }
+.paperdoll .doll { position: relative; width: 12em; height: 16em; flex: none; }
+.paperdoll .doll > .auk { position: absolute; left: 0; top: 0; image-rendering: pixelated; }
+.paperdoll .dollslot { position: absolute; padding: 0; border: 0; background: none; cursor: default; display: grid; place-items: center; }
+.paperdoll .dollslot.filled[data-takeoff] { cursor: pointer; }
+.paperdoll .dollslot img { width: 78%; height: 78%; image-rendering: pixelated; }
+.paperdoll .dollslot.filled:hover img { filter: brightness(1.25) drop-shadow(0 0 0.2em #f0b040); }
+.paperdoll .worn { list-style: none; margin: 0; padding: 0; flex: 1; display: grid; gap: 0.5em; }
+.paperdoll .worn li { line-height: 1.4; }
+.paperdoll .worn .arteffects { display: block; }

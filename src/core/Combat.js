@@ -273,6 +273,8 @@ export class Combat {
       const dmg = this.hurtEnemy(it.damage * (this.enemy.occult ? 2 : 1));
       parts.push(`${dmg} Schaden`);
     }
+    // Blitzpulver: grelles Licht, der Gegner setzt eine Runde aus
+    if (it.stun && !this.outcome) { this.stunned = true; parts.push('geblendet'); }
     const text = `${it.name}: ${parts.join(', ')}`;
     this.log.push(text);
     return { text };

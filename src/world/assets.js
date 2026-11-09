@@ -502,7 +502,7 @@ export const UI_REGIONS = {
   shop: { price_tag: [64, 0, 16, 8], buy: [64, 24, 16, 16], sell: [80, 24, 16, 16], locked_pathway: [96, 24, 16, 16], locked_rank: [112, 24, 16, 16],
     only_once: [128, 24, 16, 16], slot: [0, 64, 20, 20], slot_hi: [24, 64, 20, 20], slot_sel: [48, 64, 20, 20], slot_sold: [72, 64, 20, 20], slot_locked: [96, 64, 20, 20] },
   digest: { ...Object.fromEntries([0, 20, 40, 60, 80, 100].map((p, i) => [`fill${p}`, [0, i * 10, 64, 10]])), warning: [72, 0, 16, 16], digested: [72, 24, 16, 16] },
-  equip: { slot: [112, 0, 20, 20], slot_hi: [144, 0, 20, 20], slot_filled: [112, 32, 20, 20],
+  equip: { doll: [0, 0, 96, 128], slot: [112, 0, 20, 20], slot_hi: [144, 0, 20, 20], slot_filled: [112, 32, 20, 20],
     hat: [112, 64, 8, 8], coat: [128, 64, 8, 8], amulet: [144, 64, 8, 8], weapon: [160, 64, 8, 8] },
   loot: { take_all: [144, 0, 16, 16], full: [160, 0, 16, 16], ...steps('pickup', 0, 0, 16, 32, 6, 16) },
   frak: { ...Object.fromEntries([0, 1, 2, 3, 4, 5].flatMap((i) => [[`rostbrueder${i}`, [0, i * 8, 64, 8]], [`schleierschwestern${i}`, [64, i * 8, 64, 8]]])),
@@ -976,7 +976,10 @@ export function playCaseAnim(sprite, sheet, then) {
 export const itemIconUrl = (id) => `${BASE}items/${id}.png`;
 /** 32x32-Fassung (gibt es für Tränke und die Stimmphiole). */
 const ICON32 = ['stimmphiole', 'verlorenes_gesangbuch', 'spiegelscherbe', ...F_EQUIPMENT,
-  'rostwasser', 'schleierpuder', 'ankerhaken', 'schleierdolch', 'rostanker', 'porzellanmaske', 'rost_zeichen', 'schleier_zeichen'];
+  'rostwasser', 'schleierpuder', 'ankerhaken', 'schleierdolch', 'rostanker', 'porzellanmaske', 'rost_zeichen', 'schleier_zeichen',
+  // Ausrüstung aus Paket G, J und K
+  'mantel_moor', 'hut_schnabel', 'amulett_moorperle', 'knochenmesser', 'wachsamulett', 'glasfibel', 'sternglasdolch', 'geweihreif',
+  'amulett_wiegenlied', 'mantel_giesser', 'taktstock_vey', 'hut_chor', 'amulett_schatten', 'hut_maskenball', 'mantel_frack', 'blitzpulver'];
 export const itemIcon32Url = (id) => (id.startsWith('trank_') || ICON32.includes(id) ? `${BASE}items/32/${id}.png` : null);
 
 const srcKey = (sheet) => `src_${sheet}`;
