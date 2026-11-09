@@ -1083,6 +1083,7 @@ export function preloadSprites(scene) {
   if (!scene.cache.json.exists('manifestWexmoor4')) scene.load.json('manifestWexmoor4', `${BASE}manifest-wexmoor4.json`);
   if (!scene.cache.json.exists('manifestWexmoor5')) scene.load.json('manifestWexmoor5', `${BASE}manifest-wexmoor5.json`);
   if (!scene.cache.json.exists('manifestPlatzhalter')) scene.load.json('manifestPlatzhalter', `${BASE}manifest-platzhalter.json`);
+  if (!scene.cache.json.exists('manifestSpieler2')) scene.load.json('manifestSpieler2', `${BASE}manifest-spieler2.json`);
   if (!scene.cache.json.exists('manifestWexmoor')) scene.load.json('manifestWexmoor', `${BASE}manifest-wexmoor.json`);
   if (!scene.cache.json.exists('manifestSequenzen2')) scene.load.json('manifestSequenzen2', `${BASE}manifest-sequenzen2.json`);
   if (!scene.cache.json.exists('manifestTreffen')) scene.load.json('manifestTreffen', `${BASE}manifest-treffen.json`);
@@ -1105,7 +1106,7 @@ export function playSheetAnim(sprite, sheet, name, then) {
   const key = `${sheet}-${name}`;
   if (!scene.anims.exists(key)) {
     const id = MANIFEST_IDS[sheet] ?? sheet;
-    const def = ['manifestPfade', 'manifestWelt', 'manifestJournal'].map((m) => scene.cache.json.get(m)?.assets?.find((a) => a.id === id)?.animations?.[name]).find(Boolean);
+    const def = ['manifestPfade', 'manifestWelt', 'manifestJournal', 'manifestSpieler2'].map((m) => scene.cache.json.get(m)?.assets?.find((a) => a.id === id)?.animations?.[name]).find(Boolean);
     if (!def) return false;
     scene.anims.create({ key, frames: def.frames.map((frame) => ({ key: sheet, frame })), frameRate: def.frameRate, repeat: def.repeat });
   }
@@ -1124,7 +1125,7 @@ function battleAnimDef(scene, sheet, name) {
   return null;
 }
 /** Manifeste mit Kampf-Sheets; spätere Pakete nennen ihre Einträge nicht nach dem Sheet, darum auch über die Datei. */
-const BATTLE_MANIFESTS = ['manifest14b', 'manifestKampf', 'manifestKampf2', 'manifestReise', 'manifestWildnis', 'manifestGegner3', 'manifestFall5', 'manifestFall6', 'manifestFall78', 'manifestSequenzen2', 'manifestWexmoor2', 'manifestWexmoor3', 'manifestWexmoor4', 'manifestWexmoor5', 'manifestPlatzhalter'];
+const BATTLE_MANIFESTS = ['manifest14b', 'manifestKampf', 'manifestKampf2', 'manifestReise', 'manifestWildnis', 'manifestGegner3', 'manifestFall5', 'manifestFall6', 'manifestFall78', 'manifestSequenzen2', 'manifestWexmoor2', 'manifestWexmoor3', 'manifestWexmoor4', 'manifestWexmoor5', 'manifestPlatzhalter', 'manifestSpieler2'];
 export function battleSheetDef(scene, sheet) {
   const file = BATTLE_SHEETS[sheet]?.[0];
   for (const m of BATTLE_MANIFESTS) {
@@ -1893,3 +1894,37 @@ export const AK_FIGURES = new Set(['player', 'marlowe', 'holt', 'pimm', 'greta',
 export const AK_MOODS_EN = { angry: 0, sad: 1, thoughtful: 2, determined: 3 };
 export const AK_MOODS_DE = { wuetend: 0, zornig: 0, traurig: 1, nachdenklich: 2, entschlossen: 3 };
 const akUrl = (id) => `${BASE}portraits/AK_${id}_emotions2.png`;
+
+// --- Paket AH: eigene Figur für Spieler 2 (manifest-spieler2.json) ------------------------------------
+/** Zwei Figuren zur Wahl: Laufen, Verkleidungen, Trinken, Kampf, Zugportrait und HUD-Kopf. */
+export const P2_LOOKS = {
+  p2a: { name: 'Schiebermütze', desc: 'Kurzer grüner Mantel, senfgelbes Halstuch, Notizbuch' },
+  p2b: { name: 'Melone', desc: 'Langer ockerbrauner Mantel, Bart, runde Brille' },
+};
+export const P2_DEFAULT_LOOK = 'p2a';
+for (const look of Object.keys(P2_LOOKS)) {
+  SHEETS[`ah_${look}_walk`] = `characters/${look}_walk.png`;
+  CHARACTER_SHEETS[look] = `ah_${look}_walk`;
+  for (const id of Object.keys(DISGUISE_SHEETS)) {
+    SHEETS[`ah_${look}_${id}`] = `characters/${look}_${id}.png`;
+    CHARACTER_SHEETS[`${look}_${id}`] = `ah_${look}_${id}`;
+  }
+  ANIM_SHEETS[`${look}_drink`] = [`characters/${look}_drink.png`, 16, 32];
+  BATTLE_SHEETS[`${look}_battle`] = [`battle/${look}_battle.png`, 48];
+  BATTLE_SHEETS[`${look}_skills`] = [`battle/${look}_skills.png`, 48];
+  BATTLE_SHEETS[`${look}_weapons`] = [`battle/${look}_weapons.png`, 48];
+  TURN_PORTRAITS[look] = 0;
+  TURN_PORTRAIT_URLS[look] = [`${BASE}ui/${look}_zug.png`, 1];
+}
+/** Lauf-Sheet einer Figur in Verkleidung (Texturschlüssel), sonst ihr Mantel. */
+export const skinKeyOf = (base, worn) => (worn && DISGUISE_SHEETS[worn] ? `${base}_${worn}` : base);
+/** Kampf-Sheets einer Figur: Grund, Zauberposen, Waffen. */
+export const battleSheetsOf = (look) => (look ? { base: `${look}_battle`, skills: `${look}_skills`, weapons: `${look}_weapons` }
+  : { base: 'battle_player', skills: 'battle_player_skills', weapons: 'battle_player_weapons' });
+export const p2HeadUrl = (look) => `${BASE}ui/heads/${look}.png`;
+export const p2PortraitUrl = (look) => `${BASE}portraits/${look}_emotions.png`;
+/** Koop-Oberfläche (ui/AH_koop.png, 96x48) und Auswahlbild (ui/AH_wahl.png, 240x135). */
+UI_SHEETS.ahkoop = ['ui/AH_koop.png', 96, 48];
+UI_REGIONS.ahkoop = { beitreten: [0, 32, 16, 16], verlassen: [16, 32, 16, 16], tauschen: [32, 32, 16, 16], wiederbeleben: [48, 32, 16, 16], zusammen: [64, 32, 16, 16],
+  p1_flag: [0, 0, 8, 8], p2_flag: [16, 0, 8, 8] };
+export const P2_CHOICE_URL = `${BASE}ui/AH_wahl.png`;

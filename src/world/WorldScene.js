@@ -3,7 +3,7 @@ import { questTarget, nextHop } from '../core/Guide.js';
 import { createTextures, createCharacterSheet, hash2, TILE, TILE_INDEX, SOLID_KEYS } from './textures.js';
 import { Lighting, DEPTH } from './Lighting.js';
 import { WexmoorLife, preloadWexmoorLife, speechBubble } from './WexmoorLife.js';
-import { preloadSprites, playSheetAnim, themeKeys, facadeKeys, PROP_ORIGINS, MAP_WEATHER, DISGUISE_SHEETS, pathwayArt } from './assets.js';
+import { preloadSprites, playSheetAnim, themeKeys, facadeKeys, PROP_ORIGINS, MAP_WEATHER, DISGUISE_SHEETS, pathwayArt, P2_LOOKS, skinKeyOf } from './assets.js';
 import { Roamers } from './Roamers.js';
 import { Critters } from './Critters.js';
 import { Patrols } from './Patrols.js';
@@ -861,7 +861,9 @@ export class WorldScene extends Phaser.Scene {
   buildPlayer() {
     createCharacterSheet(this, 'player', PLAYER_PALETTE);
     // Lauf-Animationen für den Mantel und jede Verkleidung (Paket R), Schlüssel <sheet>-walk-<dir>
-    for (const key of ['player', ...Object.values(DISGUISE_SHEETS)]) {
+    // Paket AH: dazu die beiden Figuren von Spieler 2 mit ihren Verkleidungen
+    const worn = Object.keys(DISGUISE_SHEETS);
+    for (const key of ['player', ...Object.keys(P2_LOOKS)].flatMap((b) => [b, ...worn.map((w) => skinKeyOf(b, w))])) {
       if (!this.textures.exists(key)) continue;
       DIRS.forEach((dir, row) => {
         if (this.anims.exists(`${key}-walk-${dir}`)) return;
@@ -914,7 +916,9 @@ export class WorldScene extends Phaser.Scene {
     const p = this.player;
     const x = p.x + 14;
     const y = p.y + 2;
-    this.p2 = this.physics.add.sprite(x, y, 'player', 0).setOrigin(0.5, 1).setTint(P2_TINT);
+    this.p2Key = this.p2SkinKey();
+    this.p2 = this.physics.add.sprite(x, y, this.p2Key, 0).setOrigin(0.5, 1);
+    if (this.p2Key === 'player') this.p2.setTint(P2_TINT);
     this.p2.body.setSize(10, 6).setOffset(3, 26);
     this.p2.setCollideWorldBounds(true);
     this.p2Colliders = [this.physics.add.collider(this.p2, this.groundLayer), this.physics.add.collider(this.p2, this.blockers)];
@@ -1119,9 +1123,16 @@ export class WorldScene extends Phaser.Scene {
 
   /** Sheet der Spielerfigur: getragene Verkleidung (falls ihr Sheet geladen ist), sonst der Mantel. */
   skinKey() {
-    const worn = this.state.disguise?.();
-    const key = worn && DISGUISE_SHEETS[worn];
-    return key && this.textures.exists(key) ? key : 'player';
+    const key = skinKeyOf('player', this.state.disguise?.());
+    return this.textures.exists(key) ? key : 'player';
+  }
+
+  /** Paket AH: Sheet von Spieler 2 (gewählte Figur, ggf. verkleidet); ohne Sheet der getönte Ermittler. */
+  p2SkinKey() {
+    const look = this.state.p2Look?.();
+    if (!look || !this.textures.exists(look)) return 'player';
+    const key = skinKeyOf(look, this.state.withPlayer(2, () => this.state.disguise?.(), { quiet: true }));
+    return this.textures.exists(key) ? key : look;
   }
 
   updateMovement(blocked) {
@@ -1187,7 +1198,7 @@ export class WorldScene extends Phaser.Scene {
     if (!p) return;
     let vx = 0;
     let vy = 0;
-    if (!blocked && !this.playerBusy) {
+    if (!blocked && !this.playerBusy && !this.p2Busy) {
       const k = this.keys;
       vx = (k.RIGHT.isDown ? 1 : 0) - (k.LEFT.isDown ? 1 : 0);
       vy = (k.DOWN.isDown ? 1 : 0) - (k.UP.isDown ? 1 : 0);
@@ -1203,9 +1214,18 @@ export class WorldScene extends Phaser.Scene {
     const heavy = this.state.withPlayer(2, () => this.state.isOverloaded(), { quiet: true });
     const v = new Phaser.Math.Vector2(vx, vy).normalize().scale(PLAYER_SPEED * (heavy ? OVERLOAD_SPEED : 1));
     p.setVelocity(v.x, v.y);
-    if (vx || vy) {
+    const skin = this.p2Busy ? this.p2Key : this.p2SkinKey();
+    if (skin !== this.p2Key) { // andere Figur gewählt oder Verkleidung gewechselt
+      this.p2Key = skin;
+      p.anims.stop();
+      p.setTexture(skin, DIRS.indexOf(this.p2Facing) * 4);
+      if (skin === 'player') p.setTint(P2_TINT); else p.clearTint();
+    }
+    if (this.p2Busy) {
+      // Trinkanimation läuft
+    } else if (vx || vy) {
       this.p2Facing = Math.abs(vx) > Math.abs(vy) ? (vx > 0 ? 'right' : 'left') : vy > 0 ? 'down' : 'up';
-      p.anims.play(`player-walk-${this.p2Facing}`, true);
+      p.anims.play(`${this.p2Key}-walk-${this.p2Facing}`, true);
     } else {
       p.anims.stop();
       p.setFrame(DIRS.indexOf(this.p2Facing) * 4);
@@ -1225,6 +1245,10 @@ export class WorldScene extends Phaser.Scene {
       const done = () => { this.playerBusy = false; p.setTexture(this.playerKey, DIRS.indexOf(this.facing) * 4); this.updateAura(); };
       if (playSheetAnim(p, 'player_drink', 'drink', done)) this.playerBusy = true;
       else this.updateAura();
+    } else if (this.p2Key !== 'player') {
+      // Paket AH: Spieler 2 trinkt mit seiner eigenen Figur
+      const done = () => { this.p2Busy = false; p.setTexture(this.p2Key, DIRS.indexOf(this.p2Facing ?? 'down') * 4); };
+      if (playSheetAnim(p, `${this.state.p2Look()}_drink`, 'drink', done)) this.p2Busy = true;
     }
     if (!this.textures.exists('potion_ascend')) return;
     const fx = this.add.sprite(p.x, p.y - 12, 'potion_ascend').setDepth(p.depth + 1).setBlendMode(Phaser.BlendModes.ADD);
