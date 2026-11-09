@@ -198,6 +198,19 @@ Paket C (`manifest-welt.json`): `THEME_TILES` beschreibt Kartenthemen über bena
 und `MAP_WEATHER` (oder Map-Feld `"weather"`) ergänzen Figuren, Portraits, Marker und Wetter.
 Tiere laufen als Deko mit `"sprite": "creatures", "anim": ["creatures", "rat"]`.
 
+Paket D (`manifest-stadt.json`) und E (`manifest-faelle.json`): Jede benannte Region aus
+`REGION_SHEETS` wird zur Deko-Texture `<prefix>_<region>`, Animationen laufen automatisch
+(z. B. `d_strassenmoebel_police_box`, `d_elend_props_oil_drum_fire`, `e_felix_versteck_shimmer`).
+Läden heißen `d_shop_<laden>`, Spuren und Fall-4-Hinweise `e_spur_<name>` bzw. `e_hinweis_<name>`,
+die Turmuhr `e_turmuhr` (Deko-Feld `"frame": 1` = okkult beleuchtet). Außenkarten wählen mit
+`"facade": "putz|holz|stein|slum|fabrik"` die Hausfassaden. Die 16 Auftragsfiguren aus
+`E_CHARACTERS` haben Lauf-Sheet und Portrait, sobald sie als NPC auftauchen. Fall-4-Figuren
+haben Sonder-Stimmungen (`PORTRAIT_SPECIAL`, z. B. `"mood": "stumm"` bei der Diva). Dialogknoten
+und Lesetexte zeigen mit `"scene": "turmuhr|brief|rook|chor|marlowe|felix"` ein Zwischenbild.
+Schlussbilder (`ENDING_IMAGES`), Fallakten im Notizbuch (`CASE_FILES`), Auftragsbanner und
+das Zielzeichen über Figuren kommen aus Paket E; die Stadtkarte nutzt `map_image` und
+`fog_image` aus `travel.json`, der Nebel lichtet sich um freigeschaltete Orte.
+
 Karten können mit `"tiles": "nachtmarkt"` ein Tile-Thema wählen (`THEMES` in
 `WorldScene.js`) und unter `decor` Deko mit `origin`, `offset`, `ysort`, `solid`
 und `light` platzieren.

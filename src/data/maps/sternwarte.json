@@ -88,5 +88,116 @@
       "facing": "left"
     }
   ],
-  "tiles": "sternwarte"
+  "tiles": "sternwarte",
+  "decor": [
+    {
+      "sprite": "d_sternwarte_props_telescope",
+      "tile": [
+        10,
+        5
+      ],
+      "offset": [
+        0,
+        8
+      ],
+      "origin": [
+        0.5,
+        1
+      ],
+      "alpha": 1,
+      "ysort": true
+    },
+    {
+      "sprite": "d_sternwarte_props_meteorite",
+      "tile": [
+        4,
+        7
+      ],
+      "offset": [
+        0,
+        8
+      ],
+      "origin": [
+        0.5,
+        1
+      ],
+      "alpha": 1,
+      "ysort": true,
+      "solid": [
+        26,
+        10,
+        0,
+        -5
+      ],
+      "light": {
+        "dy": -10,
+        "radius": 36,
+        "intensity": 0.6,
+        "color": "#6fe0d0",
+        "flicker": 0.2
+      }
+    },
+    {
+      "sprite": "d_sternwarte_props_weather_vane",
+      "tile": [
+        15,
+        9
+      ],
+      "offset": [
+        0,
+        8
+      ],
+      "origin": [
+        0.5,
+        1
+      ],
+      "alpha": 1,
+      "ysort": true
+    },
+    {
+      "sprite": "d_sternwarte_props_survey_stakes",
+      "tile": [
+        6,
+        11
+      ],
+      "offset": [
+        0,
+        0
+      ],
+      "alpha": 1,
+      "depth": 5
+    },
+    {
+      "sprite": "d_sternwarte_props_supply_crate",
+      "tile": [
+        13,
+        11
+      ],
+      "offset": [
+        0,
+        0
+      ],
+      "alpha": 1,
+      "depth": 5
+    },
+    {
+      "sprite": "d_sternwarte_star_glass",
+      "tile": [
+        8,
+        9
+      ],
+      "offset": [
+        0,
+        0
+      ],
+      "alpha": 1,
+      "depth": 5,
+      "light": {
+        "radius": 30,
+        "intensity": 0.6,
+        "color": "#6fe0d0",
+        "flicker": 0.3
+      }
+    }
+  ]
 }

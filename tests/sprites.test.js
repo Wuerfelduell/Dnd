@@ -2,7 +2,9 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { existsSync, readFileSync } from 'node:fs';
 import { loadContent } from './helpers.js';
-import { SHEETS, BATTLE_SHEETS, ANIM_SHEETS, TILE_CELLS, PROP_CELLS, PROP_ANIMS, CHARACTER_SHEETS, ENCOUNTER_SHEETS, ENEMY_BATTLE_SHEETS, THEME_TILE_LIST, PORTRAITS, MAP_MARKERS, C_CHARACTERS, BATTLE_BACKGROUNDS, ENCOUNTER_BACKGROUNDS, SKILL_FX, SKILL_ICONS, STATUS_ICONS, PATHWAY_POSES, WEAPON_POSES, itemIconUrl, itemIcon32Url, pathwayEmblemUrl, pathwayCardUrl, COIN_URL } from '../src/world/assets.js';
+import { SHEETS, BATTLE_SHEETS, ANIM_SHEETS, TILE_CELLS, PROP_CELLS, PROP_ANIMS, CHARACTER_SHEETS, ENCOUNTER_SHEETS, ENEMY_BATTLE_SHEETS, THEME_TILE_LIST, PORTRAITS, MAP_MARKERS, C_CHARACTERS, BATTLE_BACKGROUNDS, ENCOUNTER_BACKGROUNDS, SKILL_FX, SKILL_ICONS, STATUS_ICONS, PATHWAY_POSES, WEAPON_POSES, itemIconUrl, itemIcon32Url, pathwayEmblemUrl, pathwayCardUrl, COIN_URL,
+  REGION_SHEETS, ICON_STRIPS, CASE_SHEETS, WHOLE_PROPS, FACADES, E_CHARACTERS, PORTRAIT_SPECIAL, PORTRAIT_MOODS, ENDING_IMAGES, endingImageUrl,
+  caseFileUrl, SCENES, sceneUrl, CITY_MAP_URL, CITY_FOG_URL, QUEST_UI_URL } from '../src/world/assets.js';
 import { TILE_KEYS } from '../src/world/textures.js';
 
 // Spiel-URLs ('./sprites/...') zeigen auf public/sprites/
@@ -123,4 +125,74 @@ test('Paket C: Portraits, Lauf-Sheets und Kartenmarker sind vollständig', () =>
     if (existsSync(sprite(`portraits/C_${id}_emotions.png`))) assert.ok(PORTRAITS[id], `Portrait nicht zugeordnet: ${id}`);
   }
   for (const t of content.travel) if (!['crypt'].includes(t.map)) assert.ok(MAP_MARKERS[t.map] !== undefined, `Marker fehlt: ${t.map}`);
+});
+
+// --- Paket D (Stadt) und E (Fälle) -------------------------------------------------
+const manifest = (name) => JSON.parse(readFileSync(sprite(`manifest-${name}.json`), 'utf8'));
+const MANIFEST_FILES = { manifestStadt: manifest('stadt'), manifestFaelle: manifest('faelle') };
+const regionNames = (def) => {
+  const regions = Array.isArray(def.regions) ? def.regions.map((r) => r.name) : Object.keys(def.regions ?? {});
+  return [...regions, ...Object.keys(def.animations ?? {}), ...Object.keys(def.regionAnimations ?? {})];
+};
+
+test('Paket D/E: Region-Sheets passen zu ihren Manifesten', () => {
+  for (const [prefix, [m, id]] of Object.entries(REGION_SHEETS)) {
+    const def = MANIFEST_FILES[m].assets.find((a) => a.id === id);
+    assert.ok(def, `${prefix}: ${id} fehlt in ${m}`);
+    assert.equal(SHEETS[prefix], def.file, prefix);
+  }
+  for (const [prefix, [path, id]] of Object.entries(ICON_STRIPS)) {
+    assert.equal(MANIFEST_FILES.manifestFaelle.assets.find((a) => a.id === id)?.file, path, prefix);
+  }
+  for (const [key, [path, , , id]] of Object.entries(CASE_SHEETS)) {
+    assert.ok(existsSync(sprite(path)), key);
+    assert.equal(MANIFEST_FILES.manifestFaelle.assets.find((a) => a.id === id)?.file, path, key);
+  }
+});
+
+test('Paket D/E: Karten-Deko nutzt nur vorhandene Regionen', () => {
+  const known = new Set([...Object.keys(WHOLE_PROPS), ...Object.keys(CASE_SHEETS)]);
+  for (const [prefix, [m, id]] of Object.entries(REGION_SHEETS)) {
+    for (const n of regionNames(MANIFEST_FILES[m].assets.find((a) => a.id === id))) known.add(`${prefix}_${n}`);
+  }
+  for (const [prefix, [, id]] of Object.entries(ICON_STRIPS)) {
+    for (const n of Object.keys(MANIFEST_FILES.manifestFaelle.assets.find((a) => a.id === id).icons)) known.add(`${prefix}_${n}`);
+  }
+  for (const map of Object.values(content.maps)) {
+    for (const d of map.decor ?? []) if (/^[de]_/.test(d.sprite)) assert.ok(known.has(d.sprite), `${map.id}: ${d.sprite}`);
+    for (const d of map.interactables ?? []) if (/^[de]_/.test(d.sprite ?? '')) assert.ok(known.has(d.sprite), `${map.id}: ${d.sprite}`);
+    if (map.facade) assert.ok(FACADES.includes(map.facade), `${map.id}: Fassade ${map.facade}`);
+  }
+});
+
+test('Paket D/E: Figuren, Portraits, Schlussbilder, Akten und Szenen liegen bereit', () => {
+  for (const id of E_CHARACTERS) {
+    assert.ok(existsSync(sprite(SHEETS[CHARACTER_SHEETS[`npc_${id}`]])), id);
+    assert.ok(existsSync(sprite(`portraits/${PORTRAITS[id]}`)), id);
+  }
+  for (const [id, [f, moods]] of Object.entries(PORTRAIT_SPECIAL)) {
+    assert.ok(existsSync(sprite(`portraits/${f}`)), f);
+    assert.ok(Object.values(moods).every((c) => c >= 0 && c < 4), id);
+  }
+  // Stimmungen in Dialogen gibt es als Portrait-Spalte
+  for (const [tid, tree] of Object.entries(content.dialogues)) {
+    for (const [nid, node] of Object.entries(tree.nodes ?? {})) {
+      if (node.scene) assert.ok(sceneUrl(node.scene), `${tid}.${nid}: Szene ${node.scene}`);
+      if (!node.mood) continue;
+      const npcMoods = Object.values(PORTRAIT_SPECIAL).flatMap(([, m]) => Object.keys(m));
+      assert.ok(node.mood in PORTRAIT_MOODS || npcMoods.includes(node.mood), `${tid}.${nid}: ${node.mood}`);
+    }
+  }
+  for (const id of Object.keys(ENDING_IMAGES)) assert.ok(content.endings[id], `Ende ${id}`);
+  for (const [id, end] of Object.entries(content.endings)) {
+    const url = endingImageUrl(id, end.case);
+    if (url) assert.ok(existsSync(file(url)), url);
+  }
+  for (const c of content.cases) assert.ok(existsSync(file(caseFileUrl(c.id))), c.id);
+  for (const id of SCENES) assert.ok(existsSync(file(sceneUrl(id))), id);
+  for (const map of Object.values(content.maps)) for (const d of map.interactables ?? []) if (d.scene) assert.ok(sceneUrl(d.scene), `${map.id}: ${d.scene}`);
+  assert.ok(existsSync(sprite(content.travelRules.map_image)));
+  if (content.travelRules.fog_image) assert.ok(existsSync(sprite(content.travelRules.fog_image)));
+  for (const url of [CITY_MAP_URL, CITY_FOG_URL, QUEST_UI_URL]) assert.ok(existsSync(file(url)), url);
+  for (const [, pin] of Object.entries(content.travelRules.pins)) assert.ok(pin[0] >= 0 && pin[0] <= 480 && pin[1] >= 0 && pin[1] <= 270);
 });

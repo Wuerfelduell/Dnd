@@ -367,3 +367,14 @@ ul.loot .rar { margin-left: auto; font-size: 0.8em; }
 .citymap .pin .goaltag { position: absolute; left: 50%; bottom: 2.1em; transform: translateX(-50%); font-size: 0.65em; color: #1a1420; background: var(--gold);
   padding: 0 0.3em; border-radius: 0.2em; pointer-events: none; }
 .goal .gstep { display: block; color: var(--muted); font-size: 0.85em; padding-left: 1em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+/* Paket D und E: Stadtkarte mit Nebel, Auftragsbanner, Schlussbilder, Fallakten, Zwischensequenzen */
+.citymap .map canvas.fog { position: absolute; inset: 0; width: 100%; height: 100%; image-rendering: pixelated; pointer-events: none; opacity: 0.9; }
+.citymap .pin .qpin { position: absolute; left: 50%; top: -0.6em; width: 1em; height: 1em; transform: translateX(-50%); image-rendering: pixelated; background-repeat: no-repeat; }
+.toast.with-banner { display: flex; flex-direction: column; align-items: center; padding-top: 0.2em; }
+.toast .qbanner { display: block; width: 10em; height: 2em; image-rendering: pixelated; background-repeat: no-repeat; margin-bottom: 0.1em; }
+.panel.ending.with-image { background-size: cover; background-position: center; image-rendering: pixelated; }
+.panel.ending.with-image h1, .panel.ending.with-image .text, .panel.ending.with-image .sub { text-shadow: 0 0.125em 0 #000; }
+.notebook .detail .casefile { float: right; width: 8em; height: 6em; margin: 0 0 0.3em 0.6em; image-rendering: pixelated; }
+img.scene { display: block; width: 30em; height: 16.875em; margin: 0 auto 0.6em; image-rendering: pixelated; border: 0.125em solid #2a2630; }
+.panel.dialogue img.scene { width: 20em; height: 11.25em; }

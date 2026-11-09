@@ -1,6 +1,7 @@
 {
   "id": "docks",
   "name": "Kanalhafen",
+  "facade": "fabrik",
   "ambient": {
     "night": 0.84,
     "fog": 0.55
@@ -120,6 +121,123 @@
           "case_03_raid"
         ]
       }
+    }
+  ],
+  "decor": [
+    {
+      "sprite": "d_bruecken_narrowboat",
+      "tile": [
+        5,
+        12
+      ],
+      "offset": [
+        8,
+        0
+      ],
+      "alpha": 1,
+      "depth": 5
+    },
+    {
+      "sprite": "d_bruecken_rowboat",
+      "tile": [
+        21,
+        11
+      ],
+      "offset": [
+        0,
+        0
+      ],
+      "alpha": 1,
+      "depth": 5
+    },
+    {
+      "sprite": "d_bruecken_winch",
+      "tile": [
+        9,
+        9
+      ],
+      "offset": [
+        0,
+        8
+      ],
+      "origin": [
+        0.5,
+        1
+      ],
+      "alpha": 1,
+      "ysort": true
+    },
+    {
+      "sprite": "d_bruecken_steps",
+      "tile": [
+        14,
+        10
+      ],
+      "offset": [
+        0,
+        0
+      ],
+      "alpha": 1,
+      "depth": 5
+    },
+    {
+      "sprite": "d_gaswerk_props_coal_cart",
+      "tile": [
+        15,
+        5
+      ],
+      "offset": [
+        0,
+        8
+      ],
+      "origin": [
+        0.5,
+        1
+      ],
+      "alpha": 1,
+      "ysort": true,
+      "solid": [
+        28,
+        8,
+        0,
+        -4
+      ]
+    },
+    {
+      "sprite": "d_gaswerk_props_shovels_coal",
+      "tile": [
+        17,
+        6
+      ],
+      "offset": [
+        0,
+        0
+      ],
+      "alpha": 1,
+      "depth": 5
+    },
+    {
+      "sprite": "d_nordtor_props_salt_barrels",
+      "tile": [
+        25,
+        5
+      ],
+      "offset": [
+        0,
+        8
+      ],
+      "origin": [
+        0.5,
+        1
+      ],
+      "alpha": 1,
+      "ysort": true,
+      "solid": [
+        12,
+        8,
+        0,
+        -4
+      ]
     }
   ]
 }

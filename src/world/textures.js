@@ -2,7 +2,7 @@
 // Alles hält sich an die Asset-Maße (Tiles 16x16, Figuren 16x32, Sheets 64x128),
 // damit echte PNGs später 1:1 die Platzhalter ersetzen können (siehe README).
 
-import { createSpriteTextures, drawTileFromSheet, THEME_TILE_LIST } from './assets.js';
+import { createSpriteTextures, drawTileFromSheet, THEME_TILE_LIST, FACADE_TILE_LIST } from './assets.js';
 
 export const TILE = 16;
 
@@ -26,6 +26,8 @@ export const TILE_KEYS = [
   'nmWall0', 'nmWall1', 'nmChalk', 'nmLedge', 'nmQuay', 'nmRail',
   // Paket C: Kartenthemen (assets.js THEME_TILES)
   ...THEME_TILE_LIST.map((t) => t.key),
+  // Paket D: Hausfassaden (assets.js FACADES)
+  ...FACADE_TILE_LIST.map((t) => t.key),
 ];
 export const TILE_INDEX = Object.fromEntries(TILE_KEYS.map((k, i) => [k, i]));
 export const SOLID_KEYS = [
@@ -35,6 +37,7 @@ export const SOLID_KEYS = [
   'quay', 'crate', 'barrel',
   'nmArch', 'nmArchDrip', 'nmWall0', 'nmWall1', 'nmChalk', 'nmLedge', 'nmQuay', 'nmRail',
   ...THEME_TILE_LIST.filter((t) => t.solid).map((t) => t.key),
+  ...FACADE_TILE_LIST.map((t) => t.key),
 ];
 
 /** Deterministischer Hash für Variationen pro Tile. */
@@ -353,6 +356,7 @@ const TILE_PAINTERS = {
 
 // Themen-Tiles ohne PNG fallen auf einen passenden Platzhalter zurück
 for (const t of THEME_TILE_LIST) TILE_PAINTERS[t.key] = (p) => TILE_PAINTERS[t.fallback](p);
+for (const t of FACADE_TILE_LIST) TILE_PAINTERS[t.key] = (p) => TILE_PAINTERS[t.fallback](p);
 
 
 // --- Figuren ---------------------------------------------------------------
