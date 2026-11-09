@@ -384,3 +384,14 @@ img.scene { display: block; width: 30em; height: 16.875em; margin: 0 auto 0.6em;
 .feedback .hint { border-left: 0.25em solid var(--gold); padding: 0.2em 0.6em; background: #0000004d; color: var(--ink); }
 .feedback .hint p { margin: 0 0 0.25em; }
 .notebook .fact.hinted { border-color: var(--gold); box-shadow: 0 0 0.4em #e8c07066; }
+
+/* Archiv und Personen im Notizbuch */
+.archive-list { display: flex; flex-wrap: wrap; gap: 0.3em; margin-bottom: 0.7em; }
+.archive-list .tab { font-size: 0.85em; }
+.notebook .people { grid-template-columns: 1fr 1fr; gap: 0.35em; max-height: 21em; overflow-y: auto; }
+.notebook .people li { display: flex; gap: 0.5em; align-items: flex-start; font-size: 0.85em; padding: 0.3em 0.5em; border: 0.125em solid #2a2630; }
+.notebook .people li.busy { border-color: #8a6a40; }
+.notebook .people .where { color: var(--muted); }
+.notebook .people .qtag { color: var(--gold); font-size: 0.9em; }
+.closed-quests { margin-top: 0.7em; }
+.closed-quests summary { cursor: pointer; color: var(--muted); font-size: 0.9em; margin-bottom: 0.4em; }
