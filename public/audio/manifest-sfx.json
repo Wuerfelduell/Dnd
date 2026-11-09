@@ -1,0 +1,669 @@
+{
+  "batch": "sfx",
+  "base": "audio/sfx/",
+  "formats": [
+    "ogg",
+    "mp3"
+  ],
+  "sounds": {
+    "ui_klick": {
+      "group": "ui",
+      "volume": 0.55,
+      "duration": 0.16,
+      "note": "Weicher Messingknopf."
+    },
+    "ui_hover": {
+      "group": "ui",
+      "volume": 0.14,
+      "duration": 0.08,
+      "note": "Leises Tick beim Überfahren."
+    },
+    "ui_oeffnen": {
+      "group": "ui",
+      "volume": 0.55,
+      "duration": 0.5,
+      "note": "Ledermappe aufschlagen."
+    },
+    "ui_schliessen": {
+      "group": "ui",
+      "volume": 0.55,
+      "duration": 0.32,
+      "note": "Ledermappe schließen."
+    },
+    "ui_seite": {
+      "group": "ui",
+      "volume": 0.55,
+      "duration": 0.4,
+      "note": "Papierseite umblättern.",
+      "variants": 3
+    },
+    "ui_tab": {
+      "group": "ui",
+      "volume": 0.55,
+      "duration": 0.18,
+      "note": "Registerkarte wechseln."
+    },
+    "ui_fehler": {
+      "group": "ui",
+      "volume": 0.55,
+      "duration": 0.42,
+      "note": "Aktion nicht möglich."
+    },
+    "ui_bestaetigen": {
+      "group": "ui",
+      "volume": 0.55,
+      "duration": 0.75,
+      "note": "Auswahl bestätigen."
+    },
+    "ui_schreiben": {
+      "group": "ui",
+      "volume": 0.55,
+      "duration": 0.38,
+      "note": "Notiz mit Bleistift."
+    },
+    "ui_hinweis_neu": {
+      "group": "ui",
+      "volume": 0.55,
+      "duration": 1,
+      "note": "Neuer Hinweis im Notizbuch."
+    },
+    "ui_schlussfolgerung": {
+      "group": "ui",
+      "volume": 0.55,
+      "duration": 1.3,
+      "note": "Zwei Notizen mit Faden verbinden."
+    },
+    "ui_quest_neu": {
+      "group": "ui",
+      "volume": 0.55,
+      "duration": 1,
+      "note": "Auftrag ins Notizbuch stempeln."
+    },
+    "ui_quest_fertig": {
+      "group": "ui",
+      "volume": 0.55,
+      "duration": 1.4,
+      "note": "Auftrag abgeschlossen."
+    },
+    "ui_geld": {
+      "group": "ui",
+      "volume": 0.55,
+      "duration": 0.65,
+      "note": "Einzelne Münzen.",
+      "variants": 3
+    },
+    "ui_geld_viel": {
+      "group": "ui",
+      "volume": 0.55,
+      "duration": 0.85,
+      "note": "Münzbeutel abstellen."
+    },
+    "ui_item": {
+      "group": "ui",
+      "volume": 0.55,
+      "duration": 0.42,
+      "note": "Gegenstand aufnehmen."
+    },
+    "ui_item_selten": {
+      "group": "ui",
+      "volume": 0.55,
+      "duration": 1.4,
+      "note": "Seltenen Gegenstand aufnehmen."
+    },
+    "ui_speichern": {
+      "group": "ui",
+      "volume": 0.55,
+      "duration": 0.36,
+      "note": "Zwei Uhrwerkticks beim Speichern."
+    },
+    "ui_stufe": {
+      "group": "ui",
+      "volume": 0.55,
+      "duration": 2.5,
+      "note": "Neue Sequenz: Gong und Glas."
+    },
+    "ui_dialog_tick": {
+      "group": "ui",
+      "volume": 0.12,
+      "duration": 0.055,
+      "note": "Leiser Schreibmaschinentick pro Buchstabe.",
+      "variants": 3
+    },
+    "ui_karte": {
+      "group": "ui",
+      "volume": 0.55,
+      "duration": 0.8,
+      "note": "Stadtkarte entfalten."
+    },
+    "ui_tuer_gesperrt": {
+      "group": "ui",
+      "volume": 0.55,
+      "duration": 0.65,
+      "note": "Verschlossene Klinke rüttelt."
+    },
+    "schritt_pflaster": {
+      "group": "schritte",
+      "volume": 0.35,
+      "duration": 0.18,
+      "note": "Harter Steintritt.",
+      "variants": 3
+    },
+    "schritt_holz": {
+      "group": "schritte",
+      "volume": 0.35,
+      "duration": 0.21,
+      "note": "Bohle unter dem Schuh.",
+      "variants": 3
+    },
+    "schritt_schlick": {
+      "group": "schritte",
+      "volume": 0.35,
+      "duration": 0.24,
+      "note": "Nasser Moorboden schmatzt.",
+      "variants": 3
+    },
+    "schritt_wasser": {
+      "group": "schritte",
+      "volume": 0.35,
+      "duration": 0.23,
+      "note": "Schritt in flaches Wasser.",
+      "variants": 3
+    },
+    "schritt_gras": {
+      "group": "schritte",
+      "volume": 0.35,
+      "duration": 0.18,
+      "note": "Gras unter dem Schuh.",
+      "variants": 3
+    },
+    "schritt_teppich": {
+      "group": "schritte",
+      "volume": 0.35,
+      "duration": 0.15,
+      "note": "Gedämpfter Schritt innen.",
+      "variants": 3
+    },
+    "schritt_metall": {
+      "group": "schritte",
+      "volume": 0.35,
+      "duration": 0.22,
+      "note": "Tritt auf Gitter oder Treppe.",
+      "variants": 3
+    },
+    "schritt_kies": {
+      "group": "schritte",
+      "volume": 0.35,
+      "duration": 0.23,
+      "note": "Kies knirscht.",
+      "variants": 3
+    },
+    "tuer_auf": {
+      "group": "welt",
+      "volume": 0.45,
+      "duration": 1,
+      "note": "Schwere Holztür öffnen."
+    },
+    "tuer_zu": {
+      "group": "welt",
+      "volume": 0.45,
+      "duration": 0.75,
+      "note": "Schwere Holztür schließen."
+    },
+    "tuer_metall": {
+      "group": "welt",
+      "volume": 0.45,
+      "duration": 1.2,
+      "note": "Gittertür quietscht."
+    },
+    "truhe_auf": {
+      "group": "welt",
+      "volume": 0.45,
+      "duration": 0.85,
+      "note": "Holzkiste öffnen."
+    },
+    "schublade": {
+      "group": "welt",
+      "volume": 0.45,
+      "duration": 0.7,
+      "note": "Schublade aufziehen."
+    },
+    "laterne_an": {
+      "group": "welt",
+      "volume": 0.45,
+      "duration": 0.65,
+      "note": "Gaslaterne zündet."
+    },
+    "untersuchen": {
+      "group": "welt",
+      "volume": 0.45,
+      "duration": 0.8,
+      "note": "Rascheln und tiefer Hinweiston ohne Stimme."
+    },
+    "ruhe_schlaf": {
+      "group": "welt",
+      "volume": 0.45,
+      "duration": 3,
+      "note": "Ausatmen und leises Uhrwerk."
+    },
+    "glocke_fern": {
+      "group": "welt",
+      "volume": 0.35,
+      "duration": 3.8,
+      "note": "Ferner Kirchenglockenschlag."
+    },
+    "moewe": {
+      "group": "welt",
+      "volume": 0.45,
+      "duration": 0.95,
+      "note": "Synthetische Möwe am Hafen.",
+      "variants": 2
+    },
+    "frosch": {
+      "group": "welt",
+      "volume": 0.45,
+      "duration": 0.7,
+      "note": "Moorfrosch quakt zweimal.",
+      "variants": 2
+    },
+    "kraehe": {
+      "group": "welt",
+      "volume": 0.45,
+      "duration": 0.8,
+      "note": "Synthetische Krähe.",
+      "variants": 2
+    },
+    "ratte": {
+      "group": "welt",
+      "volume": 0.45,
+      "duration": 0.65,
+      "note": "Huschen und leises Fiepen."
+    },
+    "wasser_platsch": {
+      "group": "welt",
+      "volume": 0.45,
+      "duration": 0.85,
+      "note": "Gegenstand fällt ins Wasser."
+    },
+    "zug_pfeife": {
+      "group": "welt",
+      "volume": 0.45,
+      "duration": 2.8,
+      "note": "Dampfpfeife bei Ankunft."
+    },
+    "zug_fahrt": {
+      "group": "welt",
+      "volume": 0.45,
+      "duration": 4,
+      "note": "Rattern auf Schienen.",
+      "loop": true
+    },
+    "ruder": {
+      "group": "welt",
+      "volume": 0.45,
+      "duration": 3,
+      "note": "Ruder tauchen ins Wasser.",
+      "loop": true
+    },
+    "kutsche": {
+      "group": "welt",
+      "volume": 0.45,
+      "duration": 3,
+      "note": "Hufe auf Pflaster und Räder.",
+      "loop": true
+    },
+    "leuchtfeuer": {
+      "group": "welt",
+      "volume": 0.3,
+      "duration": 4,
+      "note": "Brummen und Knistern des Leuchtfeuers.",
+      "loop": true
+    },
+    "polizei_entdeckt": {
+      "group": "polizei",
+      "volume": 0.6,
+      "duration": 0.9,
+      "note": "Entdeckung durch Grauspäher."
+    },
+    "polizei_verdacht": {
+      "group": "polizei",
+      "volume": 0.6,
+      "duration": 0.8,
+      "note": "Grauspäher schöpft Verdacht."
+    },
+    "polizei_pfeife": {
+      "group": "polizei",
+      "volume": 0.6,
+      "duration": 0.85,
+      "note": "Zwei Trillerpfiffe."
+    },
+    "polizei_verloren": {
+      "group": "polizei",
+      "volume": 0.35,
+      "duration": 0.85,
+      "note": "Verfolger verliert die Spur."
+    },
+    "fahndung_hoch": {
+      "group": "polizei",
+      "volume": 0.6,
+      "duration": 1.2,
+      "note": "Fahndungsstufe steigt."
+    },
+    "zelle_zu": {
+      "group": "polizei",
+      "volume": 0.6,
+      "duration": 1.8,
+      "note": "Zellentür schließt, Schlüssel dreht."
+    },
+    "verkleidung": {
+      "group": "polizei",
+      "volume": 0.6,
+      "duration": 0.8,
+      "note": "Kleidung wechseln und zuknöpfen."
+    },
+    "kampf_start": {
+      "group": "kampf",
+      "volume": 0.55,
+      "duration": 1.2,
+      "note": "Rückwärtsglas und Kampfschlag."
+    },
+    "treffer": {
+      "group": "kampf",
+      "volume": 0.55,
+      "duration": 0.32,
+      "note": "Dumpfer Treffer.",
+      "variants": 3
+    },
+    "treffer_krit": {
+      "group": "kampf",
+      "volume": 0.55,
+      "duration": 0.7,
+      "note": "Kritischer Treffer mit Klirren."
+    },
+    "treffer_spieler": {
+      "group": "kampf",
+      "volume": 0.55,
+      "duration": 0.32,
+      "note": "Spieler wird getroffen."
+    },
+    "block": {
+      "group": "kampf",
+      "volume": 0.55,
+      "duration": 0.4,
+      "note": "Holz trifft Metall bei Abwehr."
+    },
+    "parade": {
+      "group": "kampf",
+      "volume": 0.55,
+      "duration": 0.9,
+      "note": "Perfekte Parade mit Metallschimmer."
+    },
+    "ausweichen": {
+      "group": "kampf",
+      "volume": 0.55,
+      "duration": 0.4,
+      "note": "Schneller Luftzug beim Ausweichen."
+    },
+    "verfehlt": {
+      "group": "kampf",
+      "volume": 0.32,
+      "duration": 0.4,
+      "note": "Angriff geht ins Leere."
+    },
+    "ausholen": {
+      "group": "kampf",
+      "volume": 0.75,
+      "duration": 0.65,
+      "note": "Klares Doppelglas-Warnsignal vor Gegnerangriff."
+    },
+    "heilen": {
+      "group": "kampf",
+      "volume": 0.55,
+      "duration": 1.3,
+      "note": "Aufsteigender Heilungsschimmer."
+    },
+    "trank": {
+      "group": "kampf",
+      "volume": 0.55,
+      "duration": 0.9,
+      "note": "Korken und Gluckern ohne Stimme."
+    },
+    "verband": {
+      "group": "kampf",
+      "volume": 0.55,
+      "duration": 0.7,
+      "note": "Stoffverband wickeln."
+    },
+    "buff": {
+      "group": "kampf",
+      "volume": 0.55,
+      "duration": 1.1,
+      "note": "Kraft steigt mit Luft und Akkord."
+    },
+    "debuff": {
+      "group": "kampf",
+      "volume": 0.55,
+      "duration": 1,
+      "note": "Verstimmtes Absinken bei Schwäche."
+    },
+    "nerven": {
+      "group": "kampf",
+      "volume": 0.55,
+      "duration": 0.9,
+      "note": "Zwei dumpfe Herzschläge."
+    },
+    "gift": {
+      "group": "kampf",
+      "volume": 0.55,
+      "duration": 0.65,
+      "note": "Kurzes giftiges Blubbern."
+    },
+    "feuer": {
+      "group": "kampf",
+      "volume": 0.55,
+      "duration": 0.85,
+      "note": "Flammenstoß."
+    },
+    "eis_salz": {
+      "group": "kampf",
+      "volume": 0.55,
+      "duration": 0.8,
+      "note": "Salzkristalle knistern und splittern."
+    },
+    "geist_angriff": {
+      "group": "kampf",
+      "volume": 0.55,
+      "duration": 1.3,
+      "note": "Wortloses Flüstern mit Hall."
+    },
+    "glocke_angriff": {
+      "group": "kampf",
+      "volume": 0.55,
+      "duration": 1.5,
+      "note": "Dröhnender Glockenschlag."
+    },
+    "licht_angriff": {
+      "group": "kampf",
+      "volume": 0.55,
+      "duration": 0.95,
+      "note": "Lichtstrahl schwillt an und bricht ab."
+    },
+    "gegner_tod": {
+      "group": "kampf",
+      "volume": 0.55,
+      "duration": 1,
+      "note": "Zusammensacken mit verhallendem Ton."
+    },
+    "geist_tod": {
+      "group": "kampf",
+      "volume": 0.55,
+      "duration": 1.5,
+      "note": "Geist löst sich in Glas und Luft auf."
+    },
+    "boss_auftritt": {
+      "group": "kampf",
+      "volume": 0.55,
+      "duration": 2.5,
+      "note": "Tiefer Boss-Drone und Glocke."
+    },
+    "sieg": {
+      "group": "kampf",
+      "volume": 0.55,
+      "duration": 2,
+      "note": "Warmer kurzer Siegabschluss."
+    },
+    "niederlage": {
+      "group": "kampf",
+      "volume": 0.55,
+      "duration": 2.5,
+      "note": "Dunkles absteigendes Ende."
+    },
+    "flucht": {
+      "group": "kampf",
+      "volume": 0.55,
+      "duration": 1.1,
+      "note": "Schnelle Schritte und Tür."
+    },
+    "geistsicht_an": {
+      "group": "okkult",
+      "volume": 0.42,
+      "duration": 1.4,
+      "note": "Gläserner Übergang in Geistsicht."
+    },
+    "geistsicht_aus": {
+      "group": "okkult",
+      "volume": 0.42,
+      "duration": 1.3,
+      "note": "Rückkehr aus Geistsicht."
+    },
+    "geistsicht_schleife": {
+      "group": "okkult",
+      "volume": 0.16,
+      "duration": 6,
+      "note": "Leises wortloses Schweben.",
+      "loop": true
+    },
+    "ritual_kerze": {
+      "group": "okkult",
+      "volume": 0.42,
+      "duration": 0.4,
+      "note": "Kleine Ritualkerze anzünden."
+    },
+    "ritual_start": {
+      "group": "okkult",
+      "volume": 0.42,
+      "duration": 1.8,
+      "note": "Ritualdrone und Glocken."
+    },
+    "ritual_erfolg": {
+      "group": "okkult",
+      "volume": 0.42,
+      "duration": 1.6,
+      "note": "Ritual gelingt gläsern."
+    },
+    "ritual_fehlschlag": {
+      "group": "okkult",
+      "volume": 0.42,
+      "duration": 1.4,
+      "note": "Verzerrung und Riss, danach Stille."
+    },
+    "artefakt_aufnehmen": {
+      "group": "okkult",
+      "volume": 0.42,
+      "duration": 1.4,
+      "note": "Wortloses Flüstern und kaltes Glas."
+    },
+    "artefakt_unruhe": {
+      "group": "okkult",
+      "volume": 0.42,
+      "duration": 1.4,
+      "note": "Pochen und verstimmte Spieluhr."
+    },
+    "trank_brauen": {
+      "group": "okkult",
+      "volume": 0.42,
+      "duration": 1.4,
+      "note": "Brodeln im Glas."
+    },
+    "trank_verdauen": {
+      "group": "okkult",
+      "volume": 0.42,
+      "duration": 2,
+      "note": "Herzschlag beruhigt sich zum Akkord."
+    },
+    "kontrolle_verlust": {
+      "group": "okkult",
+      "volume": 0.42,
+      "duration": 2,
+      "note": "Riss und anschwellendes wortloses Flüstern."
+    },
+    "auktion_hammer": {
+      "group": "okkult",
+      "volume": 0.42,
+      "duration": 0.8,
+      "note": "Auktionshammer mit Raumhall."
+    },
+    "atmo_regen": {
+      "group": "atmo",
+      "volume": 0.2,
+      "duration": 10,
+      "note": "Regen auf Stein und Dach.",
+      "loop": true
+    },
+    "atmo_wind_nebel": {
+      "group": "atmo",
+      "volume": 0.2,
+      "duration": 12,
+      "note": "Langsamer Nebelwind.",
+      "loop": true
+    },
+    "atmo_kanal": {
+      "group": "atmo",
+      "volume": 0.2,
+      "duration": 10,
+      "note": "Wasser schwappt an Kanalmauern.",
+      "loop": true
+    },
+    "atmo_moor": {
+      "group": "atmo",
+      "volume": 0.2,
+      "duration": 12,
+      "note": "Moor mit fernen Fröschen und Insekten.",
+      "loop": true
+    },
+    "atmo_hafen": {
+      "group": "atmo",
+      "volume": 0.2,
+      "duration": 12,
+      "note": "Wellen, knarrendes Holz und Tau.",
+      "loop": true
+    },
+    "atmo_taverne": {
+      "group": "atmo",
+      "volume": 0.2,
+      "duration": 10,
+      "note": "Wortloses gedämpftes Murmeln und Gläser.",
+      "loop": true
+    },
+    "atmo_fabrik": {
+      "group": "atmo",
+      "volume": 0.2,
+      "duration": 10,
+      "note": "Dampf und ferne Hämmer.",
+      "loop": true
+    },
+    "atmo_kirche": {
+      "group": "atmo",
+      "volume": 0.2,
+      "duration": 12,
+      "note": "Großer Kirchenraum mit Tropfen.",
+      "loop": true
+    },
+    "atmo_feuer": {
+      "group": "atmo",
+      "volume": 0.2,
+      "duration": 10,
+      "note": "Ofen im Torfkahn.",
+      "loop": true
+    }
+  }
+}

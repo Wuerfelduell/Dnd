@@ -1,0 +1,967 @@
+{
+  "kg_schlot": {
+    "start": "kg_schornstein_ort",
+    "nodes": {
+      "kg_schornstein_ort": {
+        "text": "Aus der Putztür ruft eine heisere Stimme Namen wie bei einer Anwesenheitsliste. Der letzte gehört einem Jungen, der erst seit gestern bei Ben arbeitet.",
+        "choices": [
+          {
+            "text": "Drei Kerzen setzen und die Schicht beenden.",
+            "next": "kg_schornstein_ritual",
+            "requires_quests_active": [
+              "kg_schornstein"
+            ],
+            "requires_flags": [
+              "kg_kehrbuch_gelesen"
+            ],
+            "requires_items": [
+              "kg_kerzenbund"
+            ],
+            "hide_if_flags": [
+              "kg_schornstein_ruhig",
+              "won_kg_schlotgeist"
+            ]
+          },
+          {
+            "text": "Den Rußgeist austreiben.",
+            "next": "kg_schornstein_kampf",
+            "requires_quests_active": [
+              "kg_schornstein"
+            ],
+            "requires_flags": [
+              "kg_kehrbuch_gelesen"
+            ],
+            "hide_if_flags": [
+              "kg_schornstein_ruhig",
+              "won_kg_schlotgeist"
+            ]
+          },
+          {
+            "text": "Die Putztür schließen."
+          }
+        ]
+      },
+      "kg_schornstein_ritual": {
+        "text": "Du liest die Namen und sagst jedem Feierabend zu. Die drei Flammen neigen sich zur Tür, dann ruft niemand mehr. Unten in der Asche liegt ein sauberer Handabdruck.",
+        "takes_items": {
+          "kg_kerzenbund": 1
+        },
+        "sets_flags": [
+          "kg_schornstein_ruhig",
+          "kg_schornstein_friedlich"
+        ],
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      },
+      "kg_schornstein_kampf": {
+        "text": "Du schlägst gegen das Rohr. Schwarze Finger schieben sich aus der Putztür und versuchen, deinen Namen zu formen.",
+        "combat": "kg_schlotgeist",
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      }
+    }
+  },
+  "kg_pratt_post": {
+    "start": [
+      {
+        "node": "kg_gezinkt_nachher",
+        "requires_quests_done": [
+          "kg_gezinkt"
+        ]
+      },
+      {
+        "node": "kg_gezinkt_stand",
+        "requires_quests_active": [
+          "kg_gezinkt"
+        ]
+      },
+      {
+        "node": "kg_gezinkt_angebot",
+        "requires_flags": [
+          "case_06_closed"
+        ],
+        "hide_if_flags": [
+          "kapitel1_done"
+        ],
+        "hide_if_quests": [
+          "kg_gezinkt"
+        ]
+      },
+      {
+        "node": "kg_keine_neue_post"
+      }
+    ],
+    "nodes": {
+      "kg_gezinkt_angebot": {
+        "text": "Beim Standvermieter liegt ein an dich adressierter Brief von Pratt. Er schreibt, dass Voss eine erfundene Krankenhauslotterie betreibt und sogar ihn um seine Einlage gebracht hat. „Ob du mich hier noch antriffst oder nicht: Antworten nimmt der Standvermieter an.“",
+        "choices": [
+          {
+            "text": "Ich kümmere mich darum.",
+            "next": "kg_gezinkt_annehmen",
+            "hide_if_quests": [
+              "kg_gezinkt"
+            ]
+          },
+          {
+            "text": "Ein anderes Mal."
+          }
+        ]
+      },
+      "kg_gezinkt_annehmen": {
+        "text": "„Sein Zeichnungsbuch liegt am Nachtmarkt. Im Revier kannst du prüfen, ob die angebliche Zulassung existiert. Danach müssen wir uns nur noch über die Verwendung des Geldes einig werden.“",
+        "start_quests": [
+          "kg_gezinkt"
+        ],
+        "sets_flags": [
+          "kg_gezinkt_angenommen"
+        ],
+        "choices": [
+          {
+            "text": "Den nächsten Schritt besprechen.",
+            "next": "kg_gezinkt_stand"
+          }
+        ]
+      },
+      "kg_gezinkt_stand": {
+        "text": "„Sein Zeichnungsbuch liegt am Nachtmarkt. Im Revier kannst du prüfen, ob die angebliche Zulassung existiert. Danach müssen wir uns nur noch über die Verwendung des Geldes einig werden.“",
+        "choices": [
+          {
+            "text": "Voss die Rückzahlung abnehmen und alle Anleger entschädigen.",
+            "next": "kg_gezinkt_rueckzahlung",
+            "requires_quests_active": [
+              "kg_gezinkt"
+            ],
+            "requires_flags": [
+              "kg_lotteriebuch_gelesen",
+              "kg_zulassung_gelesen"
+            ]
+          },
+          {
+            "text": "Mit Pratts fingiertem Großauftrag die Kasse kassieren und teilen.",
+            "next": "kg_gezinkt_anteil",
+            "requires_quests_active": [
+              "kg_gezinkt"
+            ],
+            "requires_flags": [
+              "kg_lotteriebuch_gelesen",
+              "kg_zulassung_gelesen"
+            ]
+          },
+          {
+            "text": "Erst die Zulassung prüfen."
+          }
+        ]
+      },
+      "kg_gezinkt_nachher": {
+        "text": "Auf Pratts Papier steht: „Ein gutes Geschäft erkennt man daran, wer hinterher klagt.“ Darunter ist ein Fleck grüner Tinte. Eine Unterschrift fehlt.",
+        "choices": [
+          {
+            "text": "Noch einmal das Ergebnis ansehen.",
+            "next": "kg_gezinkt_rueckblick"
+          },
+          {
+            "text": "Weiter."
+          }
+        ]
+      },
+      "kg_gezinkt_rueckzahlung": {
+        "text": "Du legst Voss die widersprüchlichen Zusagen vor und lässt die Anleger einzeln quittieren. Pratt erhält nur seine Einlage zurück und nennt das einen Angriff auf die freie Wirtschaft. Die Anleger geben dir zusammen 12 Schilling.",
+        "sets_flags": [
+          "kg_gezinkt_done",
+          "kg_gezinkt_rueckzahlung"
+        ],
+        "complete_quests": [
+          "kg_gezinkt"
+        ],
+        "gives_money": 12,
+        "honor": 5,
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      },
+      "kg_gezinkt_anteil": {
+        "text": "Voss kauft Pratts fingierte Vorzugsrechte aus seiner Kasse zurück, um den vermeintlichen Großauftrag zu retten. Du erhältst 48 Schilling; die kleinen Anleger finden am nächsten Tag einen leeren Tisch. Pratt bedankt sich schriftlich, damit es keine Zeugen gibt.",
+        "sets_flags": [
+          "kg_gezinkt_done",
+          "kg_gezinkt_anteil"
+        ],
+        "complete_quests": [
+          "kg_gezinkt"
+        ],
+        "gives_money": 48,
+        "honor": -6,
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      },
+      "kg_keine_neue_post": {
+        "text": "Es liegt kein neuer Auftrag für dich bereit. Die vorhandenen Unterlagen bleiben geordnet an ihrem Platz.",
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      },
+      "kg_gezinkt_rueckblick": {
+        "text": "Du gehst die Entscheidung noch einmal im Kopf durch. Die Rechnung ist bereits bezahlt.",
+        "choices": [
+          {
+            "text": "Ergebnis: rueckzahlung",
+            "next": "kg_gezinkt_rueckzahlung_erinnerung",
+            "requires_flags": [
+              "kg_gezinkt_rueckzahlung"
+            ]
+          },
+          {
+            "text": "Ergebnis: anteil",
+            "next": "kg_gezinkt_anteil_erinnerung",
+            "requires_flags": [
+              "kg_gezinkt_anteil"
+            ]
+          },
+          {
+            "text": "Zurück zum Alltag."
+          }
+        ]
+      },
+      "kg_gezinkt_rueckzahlung_erinnerung": {
+        "text": "Du legst Voss die widersprüchlichen Zusagen vor und lässt die Anleger einzeln quittieren. Pratt erhält nur seine Einlage zurück und nennt das einen Angriff auf die freie Wirtschaft. Die Anleger geben dir zusammen 12 Schilling.",
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      },
+      "kg_gezinkt_anteil_erinnerung": {
+        "text": "Voss kauft Pratts fingierte Vorzugsrechte aus seiner Kasse zurück, um den vermeintlichen Großauftrag zu retten. Du erhieltest 48 Schilling; die kleinen Anleger finden am nächsten Tag einen leeren Tisch. Pratt bedankt sich schriftlich, damit es keine Zeugen gibt.",
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      }
+    }
+  },
+  "kg_orsolya_besuch": {
+    "start": [
+      {
+        "node": "kg_kartenlegerin_nachher",
+        "requires_quests_done": [
+          "kg_kartenlegerin"
+        ]
+      },
+      {
+        "node": "kg_kartenlegerin_stand",
+        "requires_quests_active": [
+          "kg_kartenlegerin"
+        ]
+      },
+      {
+        "node": "kg_kartenlegerin_angebot",
+        "requires_flags": [
+          "case_06_closed"
+        ],
+        "hide_if_flags": [
+          "kapitel1_done"
+        ],
+        "hide_if_quests": [
+          "kg_kartenlegerin"
+        ]
+      },
+      {
+        "node": "kg_keine_neue_post"
+      }
+    ],
+    "nodes": {
+      "kg_kartenlegerin_angebot": {
+        "text": "Orsolya schiebt beim beaufsichtigten Besuch fünf gleiche Karten über den Tisch. „Price hat mich eingesperrt, und meine Karten tun jetzt dasselbe mit jedem, der sie fragt.“ Ihr altes Kartenbrett liegt bei einem Standvermieter am Nachtmarkt; sie bittet dich, dort nachzusehen.",
+        "choices": [
+          {
+            "text": "Ich kümmere mich darum.",
+            "next": "kg_kartenlegerin_annehmen",
+            "hide_if_quests": [
+              "kg_kartenlegerin"
+            ]
+          },
+          {
+            "text": "Ein anderes Mal."
+          }
+        ]
+      },
+      "kg_kartenlegerin_annehmen": {
+        "text": "„Unter meinem Kartenbrett steckt ein neuer Bleidruck. Schau ihn dir an und prüfe die Warenliste am Nachtmarkt. Danach will ich wissen, ob ich die Karten noch anfassen darf.“",
+        "start_quests": [
+          "kg_kartenlegerin"
+        ],
+        "sets_flags": [
+          "kg_kartenlegerin_angenommen"
+        ],
+        "choices": [
+          {
+            "text": "Den nächsten Schritt besprechen.",
+            "next": "kg_kartenlegerin_stand"
+          }
+        ]
+      },
+      "kg_kartenlegerin_stand": {
+        "text": "„Unter meinem Kartenbrett steckt ein neuer Bleidruck. Schau ihn dir an und prüfe die Warenliste am Nachtmarkt. Danach will ich wissen, ob ich die Karten noch anfassen darf.“",
+        "choices": [
+          {
+            "text": "Den Bleidruck versiegelt als Asservat abgeben.",
+            "next": "kg_kartenlegerin_versiegelt",
+            "requires_quests_active": [
+              "kg_kartenlegerin"
+            ],
+            "requires_flags": [
+              "kg_kartenbrett_gelesen",
+              "kg_bleiliste_gelesen"
+            ],
+            "requires_items": [
+              "kg_bleiorakel"
+            ]
+          },
+          {
+            "text": "Die Platte vor den früheren Kunden unbrauchbar machen.",
+            "next": "kg_kartenlegerin_oeffentlich",
+            "requires_quests_active": [
+              "kg_kartenlegerin"
+            ],
+            "requires_flags": [
+              "kg_kartenbrett_gelesen",
+              "kg_bleiliste_gelesen"
+            ],
+            "requires_items": [
+              "kg_bleiorakel"
+            ]
+          },
+          {
+            "text": "Ich prüfe erst das Brett."
+          }
+        ]
+      },
+      "kg_kartenlegerin_nachher": {
+        "text": "Orsolya legt eine Karte mit offenem Weg auf den Tisch. „Nicht alles, was sich wiederholt, ist Schicksal.“ Dann schiebt sie sie zurück ins Spiel.",
+        "choices": [
+          {
+            "text": "Noch einmal das Ergebnis ansehen.",
+            "next": "kg_kartenlegerin_rueckblick"
+          },
+          {
+            "text": "Weiter."
+          }
+        ]
+      },
+      "kg_kartenlegerin_versiegelt": {
+        "text": "Du gibst die Platte in einer versiegelten Dose im Revier ab. Orsolya zahlt 24 Schilling, und ihre Karten zeigen wieder verschiedene Bilder. Niemand erfährt, welche Warnungen nur von einer Druckplatte kamen.",
+        "sets_flags": [
+          "kg_kartenlegerin_done",
+          "kg_kartenlegerin_versiegelt"
+        ],
+        "complete_quests": [
+          "kg_kartenlegerin"
+        ],
+        "gives_money": 24,
+        "honor": 0,
+        "takes_items": {
+          "kg_bleiorakel": 1
+        },
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      },
+      "kg_kartenlegerin_oeffentlich": {
+        "text": "Du ritzt den Türrahmen im Beisein zweier früherer Kunden vollständig durch. Orsolya lässt eine Erklärung aushängen, zahlt ihnen den letzten Kartenlohn zurück und dir 12 Schilling. Als sie neu mischt, nimmt sie sich Zeit für jede einzelne Karte.",
+        "sets_flags": [
+          "kg_kartenlegerin_done",
+          "kg_kartenlegerin_oeffentlich"
+        ],
+        "complete_quests": [
+          "kg_kartenlegerin"
+        ],
+        "gives_money": 12,
+        "honor": 4,
+        "takes_items": {
+          "kg_bleiorakel": 1
+        },
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      },
+      "kg_keine_neue_post": {
+        "text": "Es liegt kein neuer Auftrag für dich bereit. Die vorhandenen Unterlagen bleiben geordnet an ihrem Platz.",
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      },
+      "kg_kartenlegerin_rueckblick": {
+        "text": "Du gehst die Entscheidung noch einmal im Kopf durch. Die Rechnung ist bereits bezahlt.",
+        "choices": [
+          {
+            "text": "Ergebnis: versiegelt",
+            "next": "kg_kartenlegerin_versiegelt_erinnerung",
+            "requires_flags": [
+              "kg_kartenlegerin_versiegelt"
+            ]
+          },
+          {
+            "text": "Ergebnis: oeffentlich",
+            "next": "kg_kartenlegerin_oeffentlich_erinnerung",
+            "requires_flags": [
+              "kg_kartenlegerin_oeffentlich"
+            ]
+          },
+          {
+            "text": "Zurück zum Alltag."
+          }
+        ]
+      },
+      "kg_kartenlegerin_versiegelt_erinnerung": {
+        "text": "Du gibst die Platte in einer versiegelten Dose im Revier ab. Orsolya zahlt 24 Schilling, und ihre Karten zeigen wieder verschiedene Bilder. Niemand erfährt, welche Warnungen nur von einer Druckplatte kamen.",
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      },
+      "kg_kartenlegerin_oeffentlich_erinnerung": {
+        "text": "Du ritzt den Türrahmen im Beisein zweier früherer Kunden vollständig durch. Orsolya lässt eine Erklärung aushängen, zahlt ihnen den letzten Kartenlohn zurück und dir 12 Schilling. Als sie neu mischt, nimmt sie sich Zeit für jede einzelne Karte.",
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      }
+    }
+  },
+  "kg_edmund_besuch": {
+    "start": [
+      {
+        "node": "kg_kodizill_nachher",
+        "requires_quests_done": [
+          "kg_kodizill"
+        ]
+      },
+      {
+        "node": "kg_kodizill_stand",
+        "requires_quests_active": [
+          "kg_kodizill"
+        ]
+      },
+      {
+        "node": "kg_kodizill_angebot",
+        "requires_flags": [
+          "case_08_closed"
+        ],
+        "hide_if_flags": [
+          "kapitel1_done"
+        ],
+        "hide_if_quests": [
+          "kg_kodizill"
+        ]
+      },
+      {
+        "node": "kg_keine_neue_post"
+      }
+    ],
+    "nodes": {
+      "kg_kodizill_angebot": {
+        "text": "Edmund wird zum Besuchstisch gebracht; die Handschellen bleiben an. „Mein Nachlassverwalter hat einen neuen Nachtrag gefunden. Wenn ich schon hier sitze, sollen wenigstens die Kohlen nicht ebenfalls eingesperrt bleiben.“ Er lässt dich den blauen Umschlag öffnen und schildert Wrens persönlichen Anspruch auf den Brenngeldfonds.",
+        "choices": [
+          {
+            "text": "Ich kümmere mich darum.",
+            "next": "kg_kodizill_annehmen",
+            "hide_if_quests": [
+              "kg_kodizill"
+            ]
+          },
+          {
+            "text": "Ein anderes Mal."
+          }
+        ]
+      },
+      "kg_kodizill_annehmen": {
+        "text": "„Im Kontor liegt der Nachtrag, im Waisenhaus die alte Empfangskopie. Hör dir Wrens Anspruch an und verbinde das Begünstigtenblatt mit ihrem Wortlaut. Es geht um Brenngeld, nicht um die bereits verhandelte Räumung.“",
+        "start_quests": [
+          "kg_kodizill"
+        ],
+        "sets_flags": [
+          "kg_kodizill_angenommen"
+        ],
+        "choices": [
+          {
+            "text": "Den nächsten Schritt besprechen.",
+            "next": "kg_kodizill_stand"
+          }
+        ]
+      },
+      "kg_kodizill_stand": {
+        "text": "„Im Kontor liegt der Nachtrag, im Waisenhaus die alte Empfangskopie. Hör dir Wrens Anspruch an und verbinde das Begünstigtenblatt mit ihrem Wortlaut. Es geht um Brenngeld, nicht um die bereits verhandelte Räumung.“",
+        "choices": [
+          {
+            "text": "Den ganzen Wortlaut offenlegen und einen unabhängigen Verwalter bestellen lassen.",
+            "next": "kg_kodizill_offen",
+            "requires_quests_active": [
+              "kg_kodizill"
+            ],
+            "requires_flags": [
+              "kg_kodizill_original_gelesen",
+              "kg_kodizill_kopie_gelesen",
+              "kg_wren_befragt"
+            ],
+            "requires_conclusions": [
+              "kg_kodizill_schluss"
+            ]
+          },
+          {
+            "text": "Die Kohle direkt bezahlen lassen und beide Täuschungen vertraulich lassen.",
+            "next": "kg_kodizill_vergleich",
+            "requires_quests_active": [
+              "kg_kodizill"
+            ],
+            "requires_flags": [
+              "kg_kodizill_original_gelesen",
+              "kg_kodizill_kopie_gelesen",
+              "kg_wren_befragt"
+            ],
+            "requires_conclusions": [
+              "kg_kodizill_schluss"
+            ]
+          },
+          {
+            "text": "Ich prüfe beide Ansprüche."
+          }
+        ]
+      },
+      "kg_kodizill_nachher": {
+        "text": "Im Kontor brennt eine kleine Lampe für jemanden, dessen Name nicht in der Bilanz steht. Edmund hat die Rechnung dafür trotzdem aufgehoben. Dreißig Abende lassen sich zählen, Anstand schwerer.",
+        "choices": [
+          {
+            "text": "Noch einmal das Ergebnis ansehen.",
+            "next": "kg_kodizill_rueckblick"
+          },
+          {
+            "text": "Weiter."
+          }
+        ]
+      },
+      "kg_kodizill_offen": {
+        "text": "Du lässt den vollständigen Nachtrag beim Revier hinterlegen. Ein unabhängiger Verwalter bezahlt die Kohle und übernimmt die dreißig Lichterabende; Edmund zahlt dir 24 Schilling für die Prüfung. Wren erhält weder das Geld noch eine Entlastung in ihren anderen Verfahren.",
+        "sets_flags": [
+          "kg_kodizill_done",
+          "kg_kodizill_offen"
+        ],
+        "complete_quests": [
+          "kg_kodizill"
+        ],
+        "gives_money": 24,
+        "honor": 5,
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      },
+      "kg_kodizill_vergleich": {
+        "text": "Du lässt den Fonds unmittelbar an den Kohlenhändler auszahlen und die dreißig Abende quittieren. Edmund zahlt dir 38 Schilling für eine vertrauliche Regelung, Wren verzichtet schriftlich auf ihre Verfügung. Die Kinder erhalten Wärme, aber niemand liest öffentlich, wie beide den Wortlaut benutzt haben.",
+        "sets_flags": [
+          "kg_kodizill_done",
+          "kg_kodizill_vergleich"
+        ],
+        "complete_quests": [
+          "kg_kodizill"
+        ],
+        "gives_money": 38,
+        "honor": -2,
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      },
+      "kg_keine_neue_post": {
+        "text": "Es liegt kein neuer Auftrag für dich bereit. Die vorhandenen Unterlagen bleiben geordnet an ihrem Platz.",
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      },
+      "kg_kodizill_rueckblick": {
+        "text": "Du gehst die Entscheidung noch einmal im Kopf durch. Die Rechnung ist bereits bezahlt.",
+        "choices": [
+          {
+            "text": "Ergebnis: offen",
+            "next": "kg_kodizill_offen_erinnerung",
+            "requires_flags": [
+              "kg_kodizill_offen"
+            ]
+          },
+          {
+            "text": "Ergebnis: vergleich",
+            "next": "kg_kodizill_vergleich_erinnerung",
+            "requires_flags": [
+              "kg_kodizill_vergleich"
+            ]
+          },
+          {
+            "text": "Zurück zum Alltag."
+          }
+        ]
+      },
+      "kg_kodizill_offen_erinnerung": {
+        "text": "Du lässt den vollständigen Nachtrag beim Revier hinterlegen. Ein unabhängiger Verwalter bezahlt die Kohle und übernimmt die dreißig Lichterabende; Edmund zahlt dir 24 Schilling für die Prüfung. Wren erhält weder das Geld noch eine Entlastung in ihren anderen Verfahren.",
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      },
+      "kg_kodizill_vergleich_erinnerung": {
+        "text": "Du lässt den Fonds unmittelbar an den Kohlenhändler auszahlen und die dreißig Abende quittieren. Edmund zahlt dir 38 Schilling für eine vertrauliche Regelung, Wren verzichtet schriftlich auf ihre Verfügung. Die Kinder erhalten Wärme, aber niemand liest öffentlich, wie beide den Wortlaut benutzt haben.",
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      }
+    }
+  },
+  "kg_wren_besuch": {
+    "start": "kg_wren_besuch_start",
+    "nodes": {
+      "kg_wren_besuch_start": {
+        "text": "Wren wartet am beaufsichtigten Besuchstisch. Über das Verfahren will sie nicht sprechen, über den Brenngeldfonds schon. Ihre Festnahme bleibt von dieser Auskunft unberührt.",
+        "choices": [
+          {
+            "text": "Den Anspruch zu Protokoll nehmen.",
+            "next": "kg_wren_anspruch",
+            "requires_quests_active": [
+              "kg_kodizill"
+            ],
+            "hide_if_flags": [
+              "kg_wren_befragt"
+            ]
+          },
+          {
+            "text": "Das Gespräch beenden."
+          }
+        ]
+      },
+      "kg_wren_anspruch": {
+        "text": "Wren faltet die Hände. „Der Nachtrag nennt meine Verwaltung, also nennt er mich. Ich bestimme, wer das Geld verwahrt, auch wenn andere über meinen Platz im Haus befinden.“ Du notierst die Behauptung wörtlich, ohne ihre früheren Taten damit zu entschuldigen.",
+        "sets_flags": [
+          "kg_wren_befragt"
+        ],
+        "gives_clues": [
+          "kg_wren_fonds"
+        ],
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      }
+    }
+  },
+  "kg_rattengitter": {
+    "start": "kg_ratten_wahl",
+    "nodes": {
+      "kg_ratten_wahl": {
+        "text": "Das Wartungsgitter lässt sich anheben. Der Schwarm drängt ins Licht und zerrt dabei die kleineren Tiere mit.",
+        "choices": [
+          {
+            "text": "Draht lösen und den Ablauf öffnen.",
+            "next": "kg_ratten_frei",
+            "requires_quests_active": [
+              "kg_rattenkoenig"
+            ],
+            "requires_flags": [
+              "kg_rattennest_gelesen"
+            ],
+            "hide_if_flags": [
+              "kg_rattenkoenig_geloest"
+            ]
+          },
+          {
+            "text": "Den aggressiven Schwarm vertreiben.",
+            "next": "kg_ratten_kampf",
+            "requires_quests_active": [
+              "kg_rattenkoenig"
+            ],
+            "requires_flags": [
+              "kg_rattennest_gelesen"
+            ],
+            "hide_if_flags": [
+              "kg_rattenkoenig_geloest"
+            ]
+          },
+          {
+            "text": "Das Gitter ablegen."
+          }
+        ]
+      },
+      "kg_ratten_frei": {
+        "text": "Du hältst den Draht mit der Zange, während die Tiere einzeln in die Ablaufrinne schlüpfen. Am Ende bleibt ein warmer, schmutziger Reifen, viel zu klein für eine Krone.",
+        "sets_flags": [
+          "kg_rattenkoenig_geloest",
+          "kg_rattenkoenig_verschont"
+        ],
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      },
+      "kg_ratten_kampf": {
+        "text": "Du hebst das Gitter und treibst den Schwarm aus seinem Versteck. Draht schlägt gegen die Fliesen, als die Tiere sich auf dich stürzen.",
+        "combat": "kg_rattenschwarm",
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      }
+    }
+  },
+  "kg_jasper_besuch": {
+    "start": [
+      {
+        "node": "kg_rattenkoenig_nachher",
+        "requires_quests_done": [
+          "kg_rattenkoenig"
+        ]
+      },
+      {
+        "node": "kg_rattenkoenig_stand",
+        "requires_quests_active": [
+          "kg_rattenkoenig"
+        ]
+      },
+      {
+        "node": "kg_rattenkoenig_angebot",
+        "requires_flags": [
+          "case_08_closed"
+        ],
+        "hide_if_flags": [
+          "kapitel1_done"
+        ],
+        "hide_if_quests": [
+          "kg_rattenkoenig"
+        ]
+      },
+      {
+        "node": "kg_keine_neue_post"
+      }
+    ],
+    "nodes": {
+      "kg_rattenkoenig_angebot": {
+        "text": "Jasper sitzt hinter dem Besuchsgitter und zeigt dir den Arbeitsauftrag, den sein Vermieter vorbeigebracht hat. „Ich komme hier nicht heraus, aber die Ratten unter dem Schlachthof vielleicht. Man nennt sie einen König, weil keiner genau hinsehen will.“ Er erklärt dir den Weg zum Wartungsgitter.",
+        "choices": [
+          {
+            "text": "Ich kümmere mich darum.",
+            "next": "kg_rattenkoenig_annehmen",
+            "hide_if_quests": [
+              "kg_rattenkoenig"
+            ]
+          },
+          {
+            "text": "Ein anderes Mal."
+          }
+        ]
+      },
+      "kg_rattenkoenig_annehmen": {
+        "text": "„Am Wartungsgitter kannst du sehen, was sie zusammenhält. Du kannst den Schwarm vertreiben oder die Drähte lösen und ihn durch die Ablaufrinne hinauslassen. Meine Rechnung fällt verschieden aus.“",
+        "start_quests": [
+          "kg_rattenkoenig"
+        ],
+        "sets_flags": [
+          "kg_rattenkoenig_angenommen"
+        ],
+        "choices": [
+          {
+            "text": "Den nächsten Schritt besprechen.",
+            "next": "kg_rattenkoenig_stand"
+          }
+        ]
+      },
+      "kg_rattenkoenig_stand": {
+        "text": "„Am Wartungsgitter kannst du sehen, was sie zusammenhält. Du kannst den Schwarm vertreiben oder die Drähte lösen und ihn durch die Ablaufrinne hinauslassen. Meine Rechnung fällt verschieden aus.“",
+        "choices": [
+          {
+            "text": "Der Draht ist gelöst, die Tiere sind fort.",
+            "next": "kg_rattenkoenig_lohn_frei",
+            "requires_quests_active": [
+              "kg_rattenkoenig"
+            ],
+            "requires_flags": [
+              "kg_rattenkoenig_verschont"
+            ]
+          },
+          {
+            "text": "Der Schwarm wurde vertrieben.",
+            "next": "kg_rattenkoenig_lohn_kampf",
+            "requires_quests_active": [
+              "kg_rattenkoenig"
+            ],
+            "requires_flags": [
+              "kg_rattenkoenig_vertrieben"
+            ]
+          },
+          {
+            "text": "Ich gehe zum Wartungsgitter."
+          }
+        ]
+      },
+      "kg_rattenkoenig_nachher": {
+        "text": "Jasper hat den Drahtreifen geradegebogen. „Manchmal ist die Krone das, was einen festhält.“ Mit seiner Flöte spielt er heute nur einen einzigen Ton.",
+        "choices": [
+          {
+            "text": "Noch einmal das Ergebnis ansehen.",
+            "next": "kg_rattenkoenig_rueckblick"
+          },
+          {
+            "text": "Weiter."
+          }
+        ]
+      },
+      "kg_rattenkoenig_lohn_frei": {
+        "text": "Jasper legt den Reifen in seinen Sack. „Kein König, keine Prämie. Aber gute Arbeit.“ Er zahlt dir 16 Schilling aus eigener Tasche und gibt dir einen Verband für die zerkratzten Hände.",
+        "sets_flags": [
+          "kg_rattenkoenig_done",
+          "kg_rattenkoenig_lohn_frei"
+        ],
+        "complete_quests": [
+          "kg_rattenkoenig"
+        ],
+        "gives_money": 16,
+        "honor": 4,
+        "gives_items": {
+          "verband": 1
+        },
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      },
+      "kg_rattenkoenig_lohn_kampf": {
+        "text": "Der Schlachthof bestätigt die Beseitigung, Jasper reicht dir 32 Schilling weiter. „Vernichtet steht hier. Fort reicht mir.“ Er legt den Draht in den Sack, bevor ihn jemand als Trophäe nimmt.",
+        "sets_flags": [
+          "kg_rattenkoenig_done",
+          "kg_rattenkoenig_lohn_kampf"
+        ],
+        "complete_quests": [
+          "kg_rattenkoenig"
+        ],
+        "gives_money": 32,
+        "honor": 0,
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      },
+      "kg_keine_neue_post": {
+        "text": "Es liegt kein neuer Auftrag für dich bereit. Die vorhandenen Unterlagen bleiben geordnet an ihrem Platz.",
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      },
+      "kg_rattenkoenig_rueckblick": {
+        "text": "Du gehst die Entscheidung noch einmal im Kopf durch. Die Rechnung ist bereits bezahlt.",
+        "choices": [
+          {
+            "text": "Ergebnis: lohn frei",
+            "next": "kg_rattenkoenig_lohn_frei_erinnerung",
+            "requires_flags": [
+              "kg_rattenkoenig_lohn_frei"
+            ]
+          },
+          {
+            "text": "Ergebnis: lohn kampf",
+            "next": "kg_rattenkoenig_lohn_kampf_erinnerung",
+            "requires_flags": [
+              "kg_rattenkoenig_lohn_kampf"
+            ]
+          },
+          {
+            "text": "Zurück zum Alltag."
+          }
+        ]
+      },
+      "kg_rattenkoenig_lohn_frei_erinnerung": {
+        "text": "Jasper legt den Reifen in seinen Sack. „Kein König, keine Prämie. Aber gute Arbeit.“ Er zahlt dir 16 Schilling aus eigener Tasche und gibt dir einen Verband für die zerkratzten Hände.",
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      },
+      "kg_rattenkoenig_lohn_kampf_erinnerung": {
+        "text": "Der Schlachthof bestätigt die Beseitigung, Jasper reicht dir 32 Schilling weiter. „Vernichtet steht hier. Fort reicht mir.“ Er legt den Draht in den Sack, bevor ihn jemand als Trophäe nimmt.",
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      }
+    }
+  },
+  "kg_kopfgeld_siegelbrecher": {
+    "start": "kg_kopfgeld_siegelbrecher_beschreibung",
+    "nodes": {
+      "kg_kopfgeld_siegelbrecher_beschreibung": {
+        "text": "Hebt amtliche Sperrsiegel ab und verkauft geräumte Lager an mehrere Käufer. Leda arbeitet am Ankerhof unter dem schiefen Verladekran. Lebend vorzuführen, 42 Schilling. Die Angaben dienen der Identifizierung; die Festnahme erfolgt am markierten Fundort.",
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      }
+    }
+  },
+  "kg_kopfgeld_schichtdieb": {
+    "start": "kg_kopfgeld_schichtdieb_beschreibung",
+    "nodes": {
+      "kg_kopfgeld_schichtdieb_beschreibung": {
+        "text": "Fälscht Anwesenheitsmarken und kassiert die Löhne ausgefallener Arbeiter. Er prüft seine Marken in der Gießerei. Lebend vorzuführen, 52 Schilling. Die Angaben dienen der Identifizierung; die Festnahme erfolgt am markierten Fundort.",
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      }
+    }
+  },
+  "kg_kopfgeld_pfandvogt": {
+    "start": "kg_kopfgeld_pfandvogt_beschreibung",
+    "nodes": {
+      "kg_kopfgeld_pfandvogt_beschreibung": {
+        "text": "Beschlagnahmt mit erfundenen Quarantänebefehlen Wintermäntel und verkauft sie weiter. Am Nordtor lagert ihre nächste Fuhre. Lebend vorzuführen, 64 Schilling. Die Angaben dienen der Identifizierung; die Festnahme erfolgt am markierten Fundort.",
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,112 @@
+{
+  "facts": {
+    "kg_hemd_tier": {
+      "case": "side",
+      "text": "Das Hemd wurde bei der Versorgung verletzter Vögel beschmutzt."
+    },
+    "kg_fallow_hilfe": {
+      "case": "side",
+      "text": "Len hilft heimlich Tieren und ist kein Gewalttäter."
+    },
+    "kg_augen_retusche": {
+      "case": "side",
+      "text": "Die offenen Augen sind eine bestellte Retusche, kein Zeichen neuen Lebens."
+    },
+    "kg_tern_wille": {
+      "case": "side",
+      "text": "Der Verstorbene wollte mit geschlossenen Augen erinnert werden."
+    },
+    "kg_fonds_haus": {
+      "case": "side",
+      "text": "Das Vermächtnis gehört dem Haus, nicht Edmund oder einer bestimmten Leiterin."
+    },
+    "kg_wren_auslegung": {
+      "case": "side",
+      "text": "Wren deutet einen zweckgebundenen Hausfonds als persönliches Recht um."
+    }
+  },
+  "clues": {
+    "kg_hemd_spur": {
+      "fact": "kg_hemd_tier",
+      "name": "Ein Federkiel",
+      "source": "Wäschekorb",
+      "text": "Zwischen den Blutflecken steckt eine Vogelfeder. Die Innenseite der Manschette ist sauber."
+    },
+    "kg_futter_spur": {
+      "fact": "kg_hemd_tier",
+      "name": "Ordentlich bezahlt",
+      "source": "Schlachthofbuch",
+      "text": "Len bezahlt kleine Futterportionen für verletzte Tauben aus eigener Tasche."
+    },
+    "kg_fallow_spur": {
+      "fact": "kg_fallow_hilfe",
+      "name": "Unterm Kohlensteg",
+      "source": "Len Fallow",
+      "text": "Len versorgt verletzte Tauben unter dem rußigen Kohlensteg. Er fürchtet, seine Stelle zu verlieren."
+    },
+    "kg_retusche": {
+      "fact": "kg_augen_retusche",
+      "name": "Kratzer über dem Firnis",
+      "source": "Adas Abzug",
+      "text": "Die Pupillen wurden nachträglich in den Abzug geritzt; die Glasplatte zeigt geschlossene Lider."
+    },
+    "kg_rechnung": {
+      "fact": "kg_augen_retusche",
+      "name": "Die bezahlten Augen",
+      "source": "Nachlassrechnung",
+      "text": "Terns Schwester bestellte die Retusche zum Trost ihrer Mutter, ohne Adas Wissen."
+    },
+    "kg_verfuegung": {
+      "fact": "kg_tern_wille",
+      "name": "Endlich die Augen schließen",
+      "source": "Bezeugte Verfügung",
+      "text": "Tern hat künstlich geöffnete Augen ausdrücklich abgelehnt."
+    },
+    "kg_kodizill_fonds": {
+      "fact": "kg_fonds_haus",
+      "name": "Der verschwiegene Fonds",
+      "source": "Bezeugter Nachtrag",
+      "text": "Edmund hat den Brenngeldfonds verschwiegen, obwohl er St. Brigid ausdrücklich zusteht."
+    },
+    "kg_kodizill_zweck": {
+      "fact": "kg_fonds_haus",
+      "name": "An die jeweilige Verwaltung",
+      "source": "Ältere Empfangskopie",
+      "text": "Die ältere Abschrift bindet das Geld an Kohlen und Brennholz, unabhängig von der Person der Leitung."
+    },
+    "kg_wren_fonds": {
+      "fact": "kg_wren_auslegung",
+      "name": "Wren beansprucht persönliche Verfügung",
+      "source": "Miss Imogen Wren",
+      "text": "Wren erklärt „meine Verwaltung“ zur eigenen Person und beansprucht weiterhin das Verfügungsrecht."
+    }
+  },
+  "deductions": [
+    {
+      "id": "kg_totenbild_schluss",
+      "case": "side",
+      "pairs": [
+        [
+          "kg_augen_retusche",
+          "kg_tern_wille"
+        ]
+      ],
+      "name": "Trost gegen letzten Willen",
+      "text": "Die Retusche hilft den Lebenden, widerspricht aber Terns Verfügung. Ada wurde nicht von einem Spuk getäuscht; die Entscheidung betrifft den Umgang mit dem Bild.",
+      "honor": 0
+    },
+    {
+      "id": "kg_kodizill_schluss",
+      "case": "side",
+      "pairs": [
+        [
+          "kg_fonds_haus",
+          "kg_wren_auslegung"
+        ]
+      ],
+      "name": "Zwei Ansprüche, kein Eigentümer",
+      "text": "Edmund verschweigt einen echten Fonds, Wren verdreht dessen Begünstigung. Das Geld gehört zweckgebunden St. Brigid; beide haben über ihren Anspruch getäuscht.",
+      "honor": 0
+    }
+  ]
+}

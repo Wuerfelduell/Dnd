@@ -1,0 +1,19 @@
+# Grafikwünsche für Paket AA
+
+Die IDs bezeichnen neue Inhalte. `platzhalter` ist ausschließlich eine Empfehlung in dieser Liste, kein zusätzliches Feld in den Spieldaten. Alle genannten vorhandenen Figuren-/Item-IDs wurden im Quellenstand geprüft. Vorhandene Auftraggeber, Gasgeist, Rußgeist und Rattenschwarm verwenden ihre bestehenden Darstellungen. Lesestellen brauchen kein neues Bild.
+
+| ID | Art | Beschreibung | platzhalter | Englischer Bild-Prompt |
+|---|---|---|---|---|
+| `kg_kerzenbund` | Item-Icon 16x16 | Drei kurze elfenbeinfarbene Kerzen mit Leinenband, eine etwas schief. | Item `lampenoel` | Three short ivory candles tied with a frayed linen ribbon, one leaning slightly. No writing, digits or symbols. |
+| `kg_bleiorakel` | Item-Icon 16x16 | Matte Bleiplatte mit mehrfach eingeritztem leerem Türrahmen und abgeschnittenem Eck. | Item `spiegelscherbe` | A dull lead printing plate with repeated empty doorframe grooves and one clipped corner. No letters or numbers. |
+| `kg_kopfgeld_siegelbrecher` | Lauf-Sheet 64x128 | Leda Marn mit kurzen grauen Haaren, violettbraunem Arbeitsmantel und Siegelzange. | NPC `kaminkehrer` | A compact middle-aged warehouse burglar with cropped grey hair, a dusty plum-brown work coat and seal-cutting pliers at her belt. Keep her hands and practical boots readable. |
+| `kg_kopfgeld_siegelbrecher` | Portrait 64x64 | Ledas trockener, prüfender Blick unter rußigen Brauen. | Portrait `kaminkehrer` | A middle-aged woman with cropped grey hair, soot along her brow and an appraising expression. Her high work-coat collar is frayed. |
+| `kg_kopfgeld_siegelbrecher` | Kampf-Gegner 64x64, 6 Spalten | Leda mit Brechstange, beweglich und ohne militärische Pose. | Kampfdarstellung `kopfgeld_laternendieb` | A warehouse seal breaker wielding a short crowbar, wearing a plum-brown work coat. Six combat phases with a wary stance and surrender, no gore. |
+| `kg_kopfgeld_schichtdieb` | Lauf-Sheet 64x128 | Bramwell Silt im olivbraunen Vorarbeitermantel, mit Markenring und Kerbzange. | NPC `nachtwaechter` | A heavyset payroll cheat in an olive-brown foreman's coat carrying a ring of blank shift tokens and a notching tool. No text on the tokens. |
+| `kg_kopfgeld_schichtdieb` | Portrait 64x64 | Bramwell mit tief sitzender Kappe und nervösem Mund. | Portrait `nachtwaechter` | A broad-faced foreman with a low cap, tired eyes and a nervous tight mouth. A few blank brass tokens hang near his collar. |
+| `kg_kopfgeld_schichtdieb` | Kampf-Gegner 64x64, 6 Spalten | Silt benutzt einen kurzen Kettenzug und verliert am Ende seine Zange. | Kampfdarstellung `pfandeintreiber` | A foreman in an olive-brown coat swinging a short hoist chain. Six combat phases ending in surrender with his tool lowered, no gore. |
+| `kg_kopfgeld_pfandvogt` | Lauf-Sheet 64x128 | Nessa Rusk im blaugrauen Mantel mit Pfandhaken und zusammengerollten Befehlen. | NPC `sufragette` | A tall woman in a blue-grey collection coat, carrying a blunt property hook and rolled blank orders. Practical boots and a severe posture. |
+| `kg_kopfgeld_pfandvogt` | Portrait 64x64 | Nessas ruhiger Geschäftsblick, enger Kragen, ordentliche dunkle Haare. | Portrait `sufragette` | A stern woman with neatly pinned dark hair, a narrow coat collar and a businesslike gaze. She holds a rolled blank document below her chin. |
+| `kg_kopfgeld_pfandvogt` | Kampf-Gegner 64x64, 6 Spalten | Nessa blockt mit einem Bündel Mäntel und zieht den stumpfen Pfandhaken zurück. | Kampfdarstellung `schlachtergehilfe` | A fraudulent property collector with a blunt hook and a bundle of winter coats. Six combat phases including guarding and surrender, no gore. |
+
+Keine neue Einzelgrafik nötig für Len, Orrin, Tern oder Voss: Sie erscheinen ausschließlich im Text der untersuchten Objekte und abgeschlossenen Szenen. Falls später eigenständige sprechende NPCs daraus werden, sind dafür gesonderte IDs und Grafiken nötig.

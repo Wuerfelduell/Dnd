@@ -1,0 +1,1433 @@
+{
+  "laterne": {
+    "seqs": {
+      "4": {
+        "name": "Dochtgezeichneter",
+        "desc": "Durch deine Handflächen scheint ein Docht, den kein Verband verdeckt. Du trägst das Prinzip deines Pfades nun sichtbar mit dir. Menschen bemerken den Preis, bevor sie die Gabe verstehen.",
+        "ingredients": {
+          "sq_zutat_laterne_4": 1,
+          "nebeltau": 2,
+          "geisteressenz": 2,
+          "silberstaub": 2
+        },
+        "skill": {
+          "id": "laterne_hoch_4",
+          "name": "Dochtgericht",
+          "cost": 5,
+          "hits": 1,
+          "flat": 45,
+          "holy": true,
+          "stun": true,
+          "burn": [
+            8,
+            3
+          ],
+          "composure": 18,
+          "desc": "1 Treffer mit je 45 Grundschaden. Grundschaden gegen Okkultes verdoppelt. Lässt nach einem Treffer den nächsten Gegnerzug ausfallen. 3 Runden je 8 Folgeschaden; ersetzt vorhandenen Brand. Kostet vor Passiven 18 Nerven."
+        },
+        "passives": [
+          {
+            "key": "vision_cost",
+            "value": 0.9,
+            "text": "Geistsicht nochmals 10 % günstiger."
+          },
+          {
+            "key": "price",
+            "value": 1.15,
+            "text": "Händler fürchten dein Licht: Preise ×1,15."
+          }
+        ],
+        "ritual": {
+          "name": "Dochtgezeichneter: die offene Probe",
+          "map": "gaskanaele",
+          "vision": true,
+          "consumes": {
+            "nebeltau": 2,
+            "silberstaub": 1
+          },
+          "requires": {
+            "requires_flags": [
+              "case_09_closed",
+              "kapitel2_done"
+            ]
+          },
+          "desc": "Du entzündest eine beschlagnahmte Lampe und liest daneben eine von dir widerlegte Lüge vor. Du lässt das Licht stehen, damit auch andere sie prüfen können."
+        },
+        "honor": 90,
+        "growth_steps": 2,
+        "digest_rate": 0.2,
+        "veraenderung": "Durch deine Handflächen scheint ein Docht, den kein Verband verdeckt."
+      },
+      "3": {
+        "name": "Aschenprotokollant",
+        "desc": "Unter deinen Nägeln sammelt sich Asche in der Form verschwiegener Wörter. Deine Gabe greift über einzelne Begegnungen hinaus. Sie entbindet dich nicht davon, nach Belegen zu suchen.",
+        "ingredients": {
+          "sq_zutat_laterne_3": 1,
+          "nebeltau": 2,
+          "geisteressenz": 3,
+          "silberstaub": 3
+        },
+        "skill": {
+          "id": "laterne_hoch_3",
+          "name": "Aschenlesung",
+          "cost": 6,
+          "hits": 1,
+          "flat": 59,
+          "holy": true,
+          "stun": true,
+          "burn": [
+            10,
+            3
+          ],
+          "composure": 24,
+          "desc": "1 Treffer mit je 59 Grundschaden. Grundschaden gegen Okkultes verdoppelt. Lässt nach einem Treffer den nächsten Gegnerzug ausfallen. 3 Runden je 10 Folgeschaden; ersetzt vorhandenen Brand. Kostet vor Passiven 24 Nerven."
+        },
+        "passives": [
+          {
+            "key": "max_nerves",
+            "value": 8,
+            "text": "+8 Nerven."
+          }
+        ],
+        "ritual": {
+          "name": "Aschenprotokollant: die offene Probe",
+          "map": "wx_leuchtturm",
+          "vision": true,
+          "consumes": {
+            "nebeltau": 2,
+            "silberstaub": 2
+          },
+          "requires": {
+            "requires_flags": [
+              "case_09_closed",
+              "kapitel2_done"
+            ]
+          },
+          "desc": "Du legst die Asche zweier widersprechender Berichte auf die Linse und benennst den Irrtum in deinem eigenen Bericht zuerst. Das Licht frisst nur die falsche Zeile."
+        },
+        "honor": 110,
+        "growth_steps": 2,
+        "digest_rate": 0.16,
+        "veraenderung": "Unter deinen Nägeln sammelt sich Asche in der Form verschwiegener Wörter."
+      },
+      "2": {
+        "name": "Rußhorizont",
+        "desc": "Dein Schatten endet in einem grauen Horizont, unabhängig von der nächsten Wand. Deine Anwesenheit verändert einen Ort, doch seine Bewohner behalten ihre eigenen Gründe.",
+        "ingredients": {
+          "sq_zutat_laterne_2": 1,
+          "nebeltau": 2,
+          "geisteressenz": 4,
+          "silberstaub": 4
+        },
+        "skill": {
+          "id": "laterne_hoch_2",
+          "name": "Horizontschnitt",
+          "cost": 6,
+          "hits": 1,
+          "flat": 76,
+          "holy": true,
+          "stun": true,
+          "burn": [
+            13,
+            3
+          ],
+          "composure": 32,
+          "desc": "1 Treffer mit je 76 Grundschaden. Grundschaden gegen Okkultes verdoppelt. Lässt nach einem Treffer den nächsten Gegnerzug ausfallen. 3 Runden je 13 Folgeschaden; ersetzt vorhandenen Brand. Kostet vor Passiven 32 Nerven."
+        },
+        "passives": [
+          {
+            "key": "conclusion_honor",
+            "value": 1,
+            "text": "+1 Ansehen für aufgedeckte Zusammenhänge."
+          }
+        ],
+        "ritual": {
+          "name": "Rußhorizont: die offene Probe",
+          "map": "neu:Grenzbezirk für Laterne",
+          "vision": true,
+          "consumes": {
+            "nebeltau": 2,
+            "silberstaub": 3
+          },
+          "requires": {
+            "requires_flags": [
+              "case_09_closed",
+              "kapitel2_done"
+            ]
+          },
+          "desc": "Du stellst entlang eines stillgelegten Gasrings Lampen für Menschen auf, deren Spuren man beseitigt hat. Eine Lampe bleibt für deinen eigenen blinden Fleck dunkel."
+        },
+        "honor": 135,
+        "growth_steps": 3,
+        "digest_rate": 0.13,
+        "veraenderung": "Dein Schatten endet in einem grauen Horizont, unabhängig von der nächsten Wand."
+      },
+      "1": {
+        "name": "Das unbequeme Licht",
+        "desc": "In deinen Augen stehen auch bei geschlossenen Lidern die Fenster unbeleuchteter Häuser. Man erzählt von dieser Stufe, als wäre sie ein Amt, das niemand lange ausübt. Du bleibst für jede einzelne Handlung verantwortlich.",
+        "ingredients": {
+          "sq_zutat_laterne_1": 1,
+          "nebeltau": 2,
+          "geisteressenz": 5,
+          "silberstaub": 5
+        },
+        "skill": {
+          "id": "laterne_hoch_1",
+          "name": "Offene Beleuchtung",
+          "cost": 6,
+          "hits": 1,
+          "flat": 99,
+          "holy": true,
+          "stun": true,
+          "burn": [
+            16,
+            3
+          ],
+          "composure": 42,
+          "desc": "1 Treffer mit je 99 Grundschaden. Grundschaden gegen Okkultes verdoppelt. Lässt nach einem Treffer den nächsten Gegnerzug ausfallen. 3 Runden je 16 Folgeschaden; ersetzt vorhandenen Brand. Kostet vor Passiven 42 Nerven."
+        },
+        "passives": [
+          {
+            "key": "max_hp",
+            "value": 6,
+            "text": "+6 Leben."
+          }
+        ],
+        "ritual": {
+          "name": "Das unbequeme Licht: die offene Probe",
+          "map": "neu:Letztes Register für Laterne",
+          "vision": true,
+          "consumes": {
+            "nebeltau": 2,
+            "silberstaub": 4
+          },
+          "requires": {
+            "requires_flags": [
+              "case_09_closed",
+              "kapitel2_done"
+            ]
+          },
+          "desc": "Du öffnest die letzte Lampe vor Zeugen aus beiden Städten und veröffentlichst auch den Beleg, der dich belastet. Niemand darf zum Brennstoff werden."
+        },
+        "honor": 160,
+        "growth_steps": 3,
+        "digest_rate": 0.1,
+        "veraenderung": "In deinen Augen stehen auch bei geschlossenen Lidern die Fenster unbeleuchteter Häuser."
+      }
+    }
+  },
+  "faden": {
+    "seqs": {
+      "4": {
+        "name": "Nahtträger",
+        "desc": "Über deine Haut laufen sichtbare Nähte zwischen Stellen, die nie verletzt waren. Du trägst das Prinzip deines Pfades nun sichtbar mit dir. Menschen bemerken den Preis, bevor sie die Gabe verstehen.",
+        "ingredients": {
+          "sq_zutat_faden_4": 1,
+          "nebeltau": 2,
+          "geisteressenz": 2,
+          "silberstaub": 2
+        },
+        "skill": {
+          "id": "faden_hoch_4",
+          "name": "Nahtbefund",
+          "cost": 5,
+          "hits": 4,
+          "mult": 1.35,
+          "sure": true,
+          "weak": true,
+          "desc": "4 Treffer mit je 135 % Waffenschaden. Verfehlter Takt zählt als normaler Treffer. Deckt nach einem Treffer die Schwachstelle für weitere Angriffe auf. Kostet vor Passiven 18 Nerven.",
+          "composure": 18
+        },
+        "passives": [
+          {
+            "key": "max_nerves",
+            "value": 8,
+            "text": "+8 Nerven."
+          },
+          {
+            "key": "honor_loss",
+            "value": 1.2,
+            "text": "Deine öffentlich sichtbaren Irrtümer kosten 20 % mehr Ansehen."
+          }
+        ],
+        "ritual": {
+          "name": "Nahtträger: die offene Probe",
+          "map": "revier",
+          "vision": true,
+          "consumes": {
+            "nebeltau": 2,
+            "silberstaub": 1
+          },
+          "requires": {
+            "requires_flags": [
+              "case_09_closed",
+              "kapitel2_done"
+            ]
+          },
+          "desc": "Du verbindest zwei belegte Aussagen mit einem Faden und lässt für eine ungeprüfte Behauptung eine Lücke. Der Knoten hält nur, wenn du die Lücke zugibst."
+        },
+        "honor": 90,
+        "growth_steps": 2,
+        "digest_rate": 0.2,
+        "veraenderung": "Über deine Haut laufen sichtbare Nähte zwischen Stellen, die nie verletzt waren."
+      },
+      "3": {
+        "name": "Bruchhefter",
+        "desc": "Deine Fingerspitzen werfen die Schatten mehrerer abgebrochener Finger. Deine Gabe greift über einzelne Begegnungen hinaus. Sie entbindet dich nicht davon, nach Belegen zu suchen.",
+        "ingredients": {
+          "sq_zutat_faden_3": 1,
+          "nebeltau": 2,
+          "geisteressenz": 3,
+          "silberstaub": 3
+        },
+        "skill": {
+          "id": "faden_hoch_3",
+          "name": "Bruchvermerk",
+          "cost": 6,
+          "hits": 4,
+          "mult": 1.755,
+          "sure": true,
+          "weak": true,
+          "desc": "4 Treffer mit je 175.5 % Waffenschaden. Verfehlter Takt zählt als normaler Treffer. Deckt nach einem Treffer die Schwachstelle für weitere Angriffe auf. Kostet vor Passiven 24 Nerven.",
+          "composure": 24
+        },
+        "passives": [
+          {
+            "key": "conclusion_honor",
+            "value": 1,
+            "text": "+1 Ansehen für belegte Verbindungen."
+          }
+        ],
+        "ritual": {
+          "name": "Bruchhefter: die offene Probe",
+          "map": "wx_akademie",
+          "vision": true,
+          "consumes": {
+            "nebeltau": 2,
+            "silberstaub": 2
+          },
+          "requires": {
+            "requires_flags": [
+              "case_09_closed",
+              "kapitel2_done"
+            ]
+          },
+          "desc": "Du heftest eine Kettlegater Aussage an einen Wexmoorer Befund und trennst eine verlockende falsche Verbindung wieder auf. Das lose Ende bleibt an deiner Hand."
+        },
+        "honor": 110,
+        "growth_steps": 2,
+        "digest_rate": 0.16,
+        "veraenderung": "Deine Fingerspitzen werfen die Schatten mehrerer abgebrochener Finger."
+      },
+      "2": {
+        "name": "Stadtversäumer",
+        "desc": "Zwischen deinem Mantel und deinem Körper bleibt ein fingerbreiter leerer Saum. Deine Anwesenheit verändert einen Ort, doch seine Bewohner behalten ihre eigenen Gründe.",
+        "ingredients": {
+          "sq_zutat_faden_2": 1,
+          "nebeltau": 2,
+          "geisteressenz": 4,
+          "silberstaub": 4
+        },
+        "skill": {
+          "id": "faden_hoch_2",
+          "name": "Saumzug",
+          "cost": 6,
+          "hits": 4,
+          "mult": 2.282,
+          "sure": true,
+          "weak": true,
+          "desc": "4 Treffer mit je 228.2 % Waffenschaden. Verfehlter Takt zählt als normaler Treffer. Deckt nach einem Treffer die Schwachstelle für weitere Angriffe auf. Kostet vor Passiven 32 Nerven.",
+          "composure": 32
+        },
+        "passives": [
+          {
+            "key": "vision_cost",
+            "value": 0.9,
+            "text": "Geistsicht 10 % günstiger."
+          }
+        ],
+        "ritual": {
+          "name": "Stadtversäumer: die offene Probe",
+          "map": "neu:Grenzbezirk für Faden",
+          "vision": true,
+          "consumes": {
+            "nebeltau": 2,
+            "silberstaub": 3
+          },
+          "requires": {
+            "requires_flags": [
+              "case_09_closed",
+              "kapitel2_done"
+            ]
+          },
+          "desc": "Du spannst durch ein leeres Amtsviertel ein Netz aus nachprüfbaren Wegen. Du schneidest den bequemsten Weg heraus, weil er auf einer falschen Aussage beruht."
+        },
+        "honor": 135,
+        "growth_steps": 3,
+        "digest_rate": 0.13,
+        "veraenderung": "Zwischen deinem Mantel und deinem Körper bleibt ein fingerbreiter leerer Saum."
+      },
+      "1": {
+        "name": "Der offene Zusammenhang",
+        "desc": "Dein Umriss enthält eine sichtbare Unterbrechung, die kein Licht schließen kann. Man erzählt von dieser Stufe, als wäre sie ein Amt, das niemand lange ausübt. Du bleibst für jede einzelne Handlung verantwortlich.",
+        "ingredients": {
+          "sq_zutat_faden_1": 1,
+          "nebeltau": 2,
+          "geisteressenz": 5,
+          "silberstaub": 5
+        },
+        "skill": {
+          "id": "faden_hoch_1",
+          "name": "Offener Knoten",
+          "cost": 6,
+          "hits": 4,
+          "mult": 2.966,
+          "sure": true,
+          "weak": true,
+          "desc": "4 Treffer mit je 296.6 % Waffenschaden. Verfehlter Takt zählt als normaler Treffer. Deckt nach einem Treffer die Schwachstelle für weitere Angriffe auf. Kostet vor Passiven 42 Nerven.",
+          "composure": 42
+        },
+        "passives": [
+          {
+            "key": "max_hp",
+            "value": 6,
+            "text": "+6 Leben."
+          }
+        ],
+        "ritual": {
+          "name": "Der offene Zusammenhang: die offene Probe",
+          "map": "neu:Letztes Register für Faden",
+          "vision": true,
+          "consumes": {
+            "nebeltau": 2,
+            "silberstaub": 4
+          },
+          "requires": {
+            "requires_flags": [
+              "case_09_closed",
+              "kapitel2_done"
+            ]
+          },
+          "desc": "Du knüpfst die geretteten Register beider Städte zusammen und lässt den unbekannten Ursprung offen. Du verpflichtest dich, einen späteren Gegenbeweis nicht zu vernichten."
+        },
+        "honor": 160,
+        "growth_steps": 3,
+        "digest_rate": 0.1,
+        "veraenderung": "Dein Umriss enthält eine sichtbare Unterbrechung, die kein Licht schließen kann."
+      }
+    }
+  },
+  "maske": {
+    "seqs": {
+      "4": {
+        "name": "Gesichtsvermieter",
+        "desc": "Dein Spiegelbild trägt die letzte Miene, die du jemandem nur vorgespielt hast. Du trägst das Prinzip deines Pfades nun sichtbar mit dir. Menschen bemerken den Preis, bevor sie die Gabe verstehen.",
+        "ingredients": {
+          "sq_zutat_maske_4": 1,
+          "nebeltau": 2,
+          "geisteressenz": 2,
+          "silberstaub": 2
+        },
+        "skill": {
+          "id": "maske_hoch_4",
+          "name": "Fremde Miene",
+          "cost": 5,
+          "hits": 3,
+          "mult": 1.58,
+          "evade": true,
+          "confuse": true,
+          "desc": "3 Treffer mit je 158 % Waffenschaden. Du weichst im nächsten Gegnerzug aus. Der nächste nicht ausgesetzte Gegnerzug trifft den Gegner selbst. Kostet vor Passiven 18 Nerven.",
+          "composure": 18
+        },
+        "passives": [
+          {
+            "key": "max_nerves",
+            "value": 8,
+            "text": "+8 Nerven."
+          },
+          {
+            "key": "max_nerves",
+            "value": -12,
+            "text": "Die geliehene Miene kostet dauerhaft 12 maximale Nerven."
+          }
+        ],
+        "ritual": {
+          "name": "Gesichtsvermieter: die offene Probe",
+          "map": "theater",
+          "vision": false,
+          "consumes": {
+            "nebeltau": 2,
+            "silberstaub": 1
+          },
+          "requires": {
+            "requires_flags": [
+              "case_09_closed",
+              "kapitel2_done"
+            ]
+          },
+          "desc": "Du spielst auf leerer Bühne einen Menschen, der dir widersprochen hat. Zum Schluss trittst du ohne dessen Stimme vor das einzige besetzte Parkett."
+        },
+        "honor": 90,
+        "growth_steps": 2,
+        "digest_rate": 0.2,
+        "veraenderung": "Dein Spiegelbild trägt die letzte Miene, die du jemandem nur vorgespielt hast."
+      },
+      "3": {
+        "name": "Rollenverwahrer",
+        "desc": "Dein Gesicht bleibt für einen Atemzug an der Stelle stehen, an der du gerade warst. Deine Gabe greift über einzelne Begegnungen hinaus. Sie entbindet dich nicht davon, nach Belegen zu suchen.",
+        "ingredients": {
+          "sq_zutat_maske_3": 1,
+          "nebeltau": 2,
+          "geisteressenz": 3,
+          "silberstaub": 3
+        },
+        "skill": {
+          "id": "maske_hoch_3",
+          "name": "Rollenwechsel",
+          "cost": 6,
+          "hits": 3,
+          "mult": 1.95,
+          "evade": true,
+          "confuse": true,
+          "desc": "3 Treffer mit je 195 % Waffenschaden. Du weichst im nächsten Gegnerzug aus. Der nächste nicht ausgesetzte Gegnerzug trifft den Gegner selbst. Kostet vor Passiven 24 Nerven.",
+          "composure": 24
+        },
+        "passives": [
+          {
+            "key": "conclusion_honor",
+            "value": 1,
+            "text": "+1 Ansehen für belegte Rollenwechsel."
+          }
+        ],
+        "ritual": {
+          "name": "Rollenverwahrer: die offene Probe",
+          "map": "wx_oberstadt",
+          "vision": false,
+          "consumes": {
+            "nebeltau": 2,
+            "silberstaub": 2
+          },
+          "requires": {
+            "requires_flags": [
+              "case_09_closed",
+              "kapitel2_done"
+            ]
+          },
+          "desc": "Du sprichst vor einem stillen Spiegel drei Geständnisse in fremden Rollen und ein eigenes mit deiner Stimme. Nur das eigene darf im Glas zurückbleiben."
+        },
+        "honor": 110,
+        "growth_steps": 2,
+        "digest_rate": 0.16,
+        "veraenderung": "Dein Gesicht bleibt für einen Atemzug an der Stelle stehen, an der du gerade warst."
+      },
+      "2": {
+        "name": "Publikumsfremder",
+        "desc": "Selbst im Gedränge bleibt dein Gesicht einen Augenblick zu spät im Blick anderer. Deine Anwesenheit verändert einen Ort, doch seine Bewohner behalten ihre eigenen Gründe.",
+        "ingredients": {
+          "sq_zutat_maske_2": 1,
+          "nebeltau": 2,
+          "geisteressenz": 4,
+          "silberstaub": 4
+        },
+        "skill": {
+          "id": "maske_hoch_2",
+          "name": "Leeres Parkett",
+          "cost": 6,
+          "hits": 3,
+          "mult": 2.535,
+          "evade": true,
+          "confuse": true,
+          "desc": "3 Treffer mit je 253.5 % Waffenschaden. Du weichst im nächsten Gegnerzug aus. Der nächste nicht ausgesetzte Gegnerzug trifft den Gegner selbst. Kostet vor Passiven 32 Nerven.",
+          "composure": 32
+        },
+        "passives": [
+          {
+            "key": "dodge_window",
+            "value": 1.05,
+            "text": "Ausweichfenster 5 % größer."
+          }
+        ],
+        "ritual": {
+          "name": "Publikumsfremder: die offene Probe",
+          "map": "neu:Grenzbezirk für Maske",
+          "vision": false,
+          "consumes": {
+            "nebeltau": 2,
+            "silberstaub": 3
+          },
+          "requires": {
+            "requires_flags": [
+              "case_09_closed",
+              "kapitel2_done"
+            ]
+          },
+          "desc": "Du spielst im geschlossenen Lichtamt dieselbe Szene für zwei einander feindliche Zuschauer. Du änderst die Rolle, aber keine der belegbaren Tatsachen."
+        },
+        "honor": 135,
+        "growth_steps": 3,
+        "digest_rate": 0.13,
+        "veraenderung": "Selbst im Gedränge bleibt dein Gesicht einen Augenblick zu spät im Blick anderer."
+      },
+      "1": {
+        "name": "Das unvermietete Gesicht",
+        "desc": "Dein Spiegelbild lässt den Platz deines Gesichts frei und wartet auf deine Entscheidung. Man erzählt von dieser Stufe, als wäre sie ein Amt, das niemand lange ausübt. Du bleibst für jede einzelne Handlung verantwortlich.",
+        "ingredients": {
+          "sq_zutat_maske_1": 1,
+          "nebeltau": 2,
+          "geisteressenz": 5,
+          "silberstaub": 5
+        },
+        "skill": {
+          "id": "maske_hoch_1",
+          "name": "Eigener Auftritt",
+          "cost": 6,
+          "hits": 3,
+          "mult": 3.296,
+          "evade": true,
+          "confuse": true,
+          "desc": "3 Treffer mit je 329.6 % Waffenschaden. Du weichst im nächsten Gegnerzug aus. Der nächste nicht ausgesetzte Gegnerzug trifft den Gegner selbst. Kostet vor Passiven 42 Nerven.",
+          "composure": 42
+        },
+        "passives": [
+          {
+            "key": "max_hp",
+            "value": 6,
+            "text": "+6 Leben."
+          }
+        ],
+        "ritual": {
+          "name": "Das unvermietete Gesicht: die offene Probe",
+          "map": "neu:Letztes Register für Maske",
+          "vision": false,
+          "consumes": {
+            "nebeltau": 2,
+            "silberstaub": 4
+          },
+          "requires": {
+            "requires_flags": [
+              "case_09_closed",
+              "kapitel2_done"
+            ]
+          },
+          "desc": "Du führst alle geliehenen Rollen auf ihre Besitzer zurück. Vor dem letzten Vorhang sagst du deinen Namen, ohne dafür eine Antwort oder Vergebung zu verlangen."
+        },
+        "honor": 160,
+        "growth_steps": 3,
+        "digest_rate": 0.1,
+        "veraenderung": "Dein Spiegelbild lässt den Platz deines Gesichts frei und wartet auf deine Entscheidung."
+      }
+    }
+  },
+  "echo": {
+    "seqs": {
+      "4": {
+        "name": "Stilleverwahrer",
+        "desc": "Deine gesprochenen Wörter beschlagen Glas, obwohl dein Atem es nicht mehr tut. Du trägst das Prinzip deines Pfades nun sichtbar mit dir. Menschen bemerken den Preis, bevor sie die Gabe verstehen.",
+        "ingredients": {
+          "sq_zutat_echo_4": 1,
+          "nebeltau": 2,
+          "geisteressenz": 2,
+          "silberstaub": 2
+        },
+        "skill": {
+          "id": "echo_hoch_4",
+          "name": "Restton",
+          "cost": 5,
+          "hits": 1,
+          "flat": 36,
+          "drain": 0.6,
+          "stun": true,
+          "composure": 45,
+          "desc": "1 Treffer mit je 36 Grundschaden. Lässt nach einem Treffer den nächsten Gegnerzug ausfallen. Heilt 60 % des tatsächlich verursachten Direktschadens. Kostet vor Passiven 45 Nerven."
+        },
+        "passives": [
+          {
+            "key": "max_hp",
+            "value": 6,
+            "text": "+6 Leben."
+          },
+          {
+            "key": "composure_regen",
+            "value": 0.85,
+            "text": "Die fremden Stimmen verlangsamen deine Nervenerholung um 15 %."
+          }
+        ],
+        "ritual": {
+          "name": "Stilleverwahrer: die offene Probe",
+          "map": "katakomben",
+          "vision": true,
+          "consumes": {
+            "nebeltau": 2,
+            "silberstaub": 1
+          },
+          "requires": {
+            "requires_flags": [
+              "case_09_closed",
+              "kapitel2_done"
+            ]
+          },
+          "desc": "Du hörst am verschlossenen Grab eine ganze Aussage an, ohne den fehlenden Satz für den Toten zu ergänzen. Erst danach schlägst du die Glocke an."
+        },
+        "honor": 90,
+        "growth_steps": 2,
+        "digest_rate": 0.2,
+        "veraenderung": "Deine gesprochenen Wörter beschlagen Glas, obwohl dein Atem es nicht mehr tut."
+      },
+      "3": {
+        "name": "Nachrufgefäß",
+        "desc": "Wenn du schweigst, bewegen sich an deinem Hals die Umrisse fremder Kehlköpfe. Deine Gabe greift über einzelne Begegnungen hinaus. Sie entbindet dich nicht davon, nach Belegen zu suchen.",
+        "ingredients": {
+          "sq_zutat_echo_3": 1,
+          "nebeltau": 2,
+          "geisteressenz": 3,
+          "silberstaub": 3
+        },
+        "skill": {
+          "id": "echo_hoch_3",
+          "name": "Nachrufzug",
+          "cost": 6,
+          "hits": 1,
+          "flat": 47,
+          "drain": 0.6,
+          "stun": true,
+          "composure": 60,
+          "desc": "1 Treffer mit je 47 Grundschaden. Lässt nach einem Treffer den nächsten Gegnerzug ausfallen. Heilt 60 % des tatsächlich verursachten Direktschadens. Kostet vor Passiven 60 Nerven."
+        },
+        "passives": [
+          {
+            "key": "max_nerves",
+            "value": 8,
+            "text": "+8 Nerven."
+          }
+        ],
+        "ritual": {
+          "name": "Nachrufgefäß: die offene Probe",
+          "map": "wx_altstadt",
+          "vision": true,
+          "consumes": {
+            "nebeltau": 2,
+            "silberstaub": 2
+          },
+          "requires": {
+            "requires_flags": [
+              "case_09_closed",
+              "kapitel2_done"
+            ]
+          },
+          "desc": "Du liest einen Nachruf in der versunkenen Stadt und streichst das Lob, das der Verstorbene nie verdient hat. Seine Stimme bleibt trotzdem bei dir."
+        },
+        "honor": 110,
+        "growth_steps": 2,
+        "digest_rate": 0.16,
+        "veraenderung": "Wenn du schweigst, bewegen sich an deinem Hals die Umrisse fremder Kehlköpfe."
+      },
+      "2": {
+        "name": "Schweigeufer",
+        "desc": "Schritte in deiner Nähe enden hörbar an einer Küste, die niemand sehen kann. Deine Anwesenheit verändert einen Ort, doch seine Bewohner behalten ihre eigenen Gründe.",
+        "ingredients": {
+          "sq_zutat_echo_2": 1,
+          "nebeltau": 2,
+          "geisteressenz": 4,
+          "silberstaub": 4
+        },
+        "skill": {
+          "id": "echo_hoch_2",
+          "name": "Uferlaut",
+          "cost": 6,
+          "hits": 1,
+          "flat": 61,
+          "drain": 0.6,
+          "stun": true,
+          "composure": 80,
+          "desc": "1 Treffer mit je 61 Grundschaden. Lässt nach einem Treffer den nächsten Gegnerzug ausfallen. Heilt 60 % des tatsächlich verursachten Direktschadens. Kostet vor Passiven 80 Nerven."
+        },
+        "passives": [
+          {
+            "key": "vision_cost",
+            "value": 0.9,
+            "text": "Geistsicht nochmals 10 % günstiger."
+          }
+        ],
+        "ritual": {
+          "name": "Schweigeufer: die offene Probe",
+          "map": "neu:Grenzbezirk für Echo",
+          "vision": true,
+          "consumes": {
+            "nebeltau": 2,
+            "silberstaub": 3
+          },
+          "requires": {
+            "requires_flags": [
+              "case_09_closed",
+              "kapitel2_done"
+            ]
+          },
+          "desc": "Du ordnest die Stimmen eines verlassenen Fährhauses nach ihren eigenen Namen. Die Stimme ohne Namen bekommt einen Platz, keine erfundene Geschichte."
+        },
+        "honor": 135,
+        "growth_steps": 3,
+        "digest_rate": 0.13,
+        "veraenderung": "Schritte in deiner Nähe enden hörbar an einer Küste, die niemand sehen kann."
+      },
+      "1": {
+        "name": "Die letzte Zuhörstelle",
+        "desc": "Dein Ohr wirft einen Schatten auf Geräusche, nicht auf Wände. Man erzählt von dieser Stufe, als wäre sie ein Amt, das niemand lange ausübt. Du bleibst für jede einzelne Handlung verantwortlich.",
+        "ingredients": {
+          "sq_zutat_echo_1": 1,
+          "nebeltau": 2,
+          "geisteressenz": 5,
+          "silberstaub": 5
+        },
+        "skill": {
+          "id": "echo_hoch_1",
+          "name": "Ausgehört",
+          "cost": 6,
+          "hits": 1,
+          "flat": 79,
+          "drain": 0.6,
+          "stun": true,
+          "composure": 105,
+          "desc": "1 Treffer mit je 79 Grundschaden. Lässt nach einem Treffer den nächsten Gegnerzug ausfallen. Heilt 60 % des tatsächlich verursachten Direktschadens. Kostet vor Passiven 105 Nerven."
+        },
+        "passives": [
+          {
+            "key": "max_hp",
+            "value": 6,
+            "text": "+6 Leben."
+          }
+        ],
+        "ritual": {
+          "name": "Die letzte Zuhörstelle: die offene Probe",
+          "map": "neu:Letztes Register für Echo",
+          "vision": true,
+          "consumes": {
+            "nebeltau": 2,
+            "silberstaub": 4
+          },
+          "requires": {
+            "requires_flags": [
+              "case_09_closed",
+              "kapitel2_done"
+            ]
+          },
+          "desc": "Du hörst die Aussage aus dem verschlossenen Stadtregister bis zum Ende. Du lässt die Stimme anschließend gehen, auch wenn sie dir keine Lösung gegeben hat."
+        },
+        "honor": 160,
+        "growth_steps": 3,
+        "digest_rate": 0.1,
+        "veraenderung": "Dein Ohr wirft einen Schatten auf Geräusche, nicht auf Wände."
+      }
+    }
+  },
+  "kessel": {
+    "seqs": {
+      "4": {
+        "name": "Rückstandsbrauer",
+        "desc": "Unter deiner durchscheinenden Haut setzen sich verschiedenfarbige Flüssigkeiten ab. Du trägst das Prinzip deines Pfades nun sichtbar mit dir. Menschen bemerken den Preis, bevor sie die Gabe verstehen.",
+        "ingredients": {
+          "sq_zutat_kessel_4": 1,
+          "nebeltau": 2,
+          "geisteressenz": 2,
+          "silberstaub": 2
+        },
+        "skill": {
+          "id": "kessel_hoch_4",
+          "name": "Rückstandslauge",
+          "cost": 5,
+          "hits": 2,
+          "flat": 18,
+          "burn": [
+            12,
+            3
+          ],
+          "weak": true,
+          "desc": "2 Treffer mit je 18 Grundschaden. Deckt nach einem Treffer die Schwachstelle für weitere Angriffe auf. 3 Runden je 12 Folgeschaden; ersetzt vorhandenen Brand. Kostet vor Passiven 18 Nerven.",
+          "composure": 18
+        },
+        "passives": [
+          {
+            "key": "carry",
+            "value": 5,
+            "text": "+5 Pfund Tragkraft."
+          },
+          {
+            "key": "price",
+            "value": 1.15,
+            "text": "Deine sichtbaren Rückstände erhöhen Händlerpreise um 15 %."
+          }
+        ],
+        "ritual": {
+          "name": "Rückstandsbrauer: die offene Probe",
+          "map": "nachtmarkt",
+          "vision": false,
+          "consumes": {
+            "nebeltau": 2,
+            "silberstaub": 1
+          },
+          "requires": {
+            "requires_flags": [
+              "case_09_closed",
+              "kapitel2_done"
+            ]
+          },
+          "desc": "Du destillierst die Rückstände einer misslungenen Heilung und benennst ihren Schaden. Du bewahrst eine Probe auf, statt den Fehler wegzukochen."
+        },
+        "honor": 90,
+        "growth_steps": 2,
+        "digest_rate": 0.2,
+        "veraenderung": "Unter deiner durchscheinenden Haut setzen sich verschiedenfarbige Flüssigkeiten ab."
+      },
+      "3": {
+        "name": "Kreislaufgefäß",
+        "desc": "Dein Puls schiebt kleine Schlieren durch die Haut statt einzelne Schläge zu setzen. Deine Gabe greift über einzelne Begegnungen hinaus. Sie entbindet dich nicht davon, nach Belegen zu suchen.",
+        "ingredients": {
+          "sq_zutat_kessel_3": 1,
+          "nebeltau": 2,
+          "geisteressenz": 3,
+          "silberstaub": 3
+        },
+        "skill": {
+          "id": "kessel_hoch_3",
+          "name": "Rücklauf",
+          "cost": 6,
+          "hits": 2,
+          "flat": 23,
+          "burn": [
+            16,
+            3
+          ],
+          "weak": true,
+          "desc": "2 Treffer mit je 23 Grundschaden. Deckt nach einem Treffer die Schwachstelle für weitere Angriffe auf. 3 Runden je 16 Folgeschaden; ersetzt vorhandenen Brand. Kostet vor Passiven 24 Nerven.",
+          "composure": 24
+        },
+        "passives": [
+          {
+            "key": "max_nerves",
+            "value": 8,
+            "text": "+8 Nerven."
+          }
+        ],
+        "ritual": {
+          "name": "Kreislaufgefäß: die offene Probe",
+          "map": "wx_torfstich",
+          "vision": false,
+          "consumes": {
+            "nebeltau": 2,
+            "silberstaub": 2
+          },
+          "requires": {
+            "requires_flags": [
+              "case_09_closed",
+              "kapitel2_done"
+            ]
+          },
+          "desc": "Du trennst am Torfkessel Heilmittel und Abwasser derselben Charge und führst beides einem sicheren Kreislauf zu. Nichts darf unbemerkt im Moor verschwinden."
+        },
+        "honor": 110,
+        "growth_steps": 2,
+        "digest_rate": 0.16,
+        "veraenderung": "Dein Puls schiebt kleine Schlieren durch die Haut statt einzelne Schläge zu setzen."
+      },
+      "2": {
+        "name": "Abwärmesammler",
+        "desc": "Aus deinem Kragen steigt Dampf, der an kaltem Eisen wieder zu Hautfarbe kondensiert. Deine Anwesenheit verändert einen Ort, doch seine Bewohner behalten ihre eigenen Gründe.",
+        "ingredients": {
+          "sq_zutat_kessel_2": 1,
+          "nebeltau": 2,
+          "geisteressenz": 4,
+          "silberstaub": 4
+        },
+        "skill": {
+          "id": "kessel_hoch_2",
+          "name": "Abwärmesud",
+          "cost": 6,
+          "hits": 2,
+          "flat": 30,
+          "burn": [
+            20,
+            3
+          ],
+          "weak": true,
+          "desc": "2 Treffer mit je 30 Grundschaden. Deckt nach einem Treffer die Schwachstelle für weitere Angriffe auf. 3 Runden je 20 Folgeschaden; ersetzt vorhandenen Brand. Kostet vor Passiven 32 Nerven.",
+          "composure": 32
+        },
+        "passives": [
+          {
+            "key": "max_hp",
+            "value": 6,
+            "text": "+6 Leben."
+          }
+        ],
+        "ritual": {
+          "name": "Abwärmesammler: die offene Probe",
+          "map": "neu:Grenzbezirk für Kessel",
+          "vision": false,
+          "consumes": {
+            "nebeltau": 2,
+            "silberstaub": 3
+          },
+          "requires": {
+            "requires_flags": [
+              "case_09_closed",
+              "kapitel2_done"
+            ]
+          },
+          "desc": "Du wärmst ein stillgelegtes Armenbad mit der Abwärme deiner eigenen Destillation. Du misst das Abwasser, bevor jemand das erste Becken betritt."
+        },
+        "honor": 135,
+        "growth_steps": 3,
+        "digest_rate": 0.13,
+        "veraenderung": "Aus deinem Kragen steigt Dampf, der an kaltem Eisen wieder zu Hautfarbe kondensiert."
+      },
+      "1": {
+        "name": "Der unverlorene Rest",
+        "desc": "Von deinem Körper fällt kein Staub mehr ab; er kehrt als feiner Dampf zurück. Man erzählt von dieser Stufe, als wäre sie ein Amt, das niemand lange ausübt. Du bleibst für jede einzelne Handlung verantwortlich.",
+        "ingredients": {
+          "sq_zutat_kessel_1": 1,
+          "nebeltau": 2,
+          "geisteressenz": 5,
+          "silberstaub": 5
+        },
+        "skill": {
+          "id": "kessel_hoch_1",
+          "name": "Letzte Fraktion",
+          "cost": 6,
+          "hits": 2,
+          "flat": 40,
+          "burn": [
+            26,
+            3
+          ],
+          "weak": true,
+          "desc": "2 Treffer mit je 40 Grundschaden. Deckt nach einem Treffer die Schwachstelle für weitere Angriffe auf. 3 Runden je 26 Folgeschaden; ersetzt vorhandenen Brand. Kostet vor Passiven 42 Nerven.",
+          "composure": 42
+        },
+        "passives": [
+          {
+            "key": "use_calm",
+            "value": 4,
+            "text": "Heilmittel senken Unruhe um weitere 4."
+          }
+        ],
+        "ritual": {
+          "name": "Der unverlorene Rest: die offene Probe",
+          "map": "neu:Letztes Register für Kessel",
+          "vision": false,
+          "consumes": {
+            "nebeltau": 2,
+            "silberstaub": 4
+          },
+          "requires": {
+            "requires_flags": [
+              "case_09_closed",
+              "kapitel2_done"
+            ]
+          },
+          "desc": "Du schließt den letzten Kreislauf, ohne das kranke Ausgangsmaterial zu leugnen. Einen Rest lässt du beschriftet stehen, damit die nächste Hand weiß, womit sie arbeitet."
+        },
+        "honor": 160,
+        "growth_steps": 3,
+        "digest_rate": 0.1,
+        "veraenderung": "Von deinem Körper fällt kein Staub mehr ab; er kehrt als feiner Dampf zurück."
+      }
+    }
+  },
+  "eisen": {
+    "seqs": {
+      "4": {
+        "name": "Lastnieter",
+        "desc": "Über deinen Gelenken liegen Nietköpfe, die von innen gegen die Haut drücken. Du trägst das Prinzip deines Pfades nun sichtbar mit dir. Menschen bemerken den Preis, bevor sie die Gabe verstehen.",
+        "ingredients": {
+          "sq_zutat_eisen_4": 1,
+          "nebeltau": 2,
+          "geisteressenz": 2,
+          "silberstaub": 2
+        },
+        "skill": {
+          "id": "eisen_hoch_4",
+          "name": "Lastschlag",
+          "cost": 5,
+          "hits": 2,
+          "mult": 3.3,
+          "stun": true,
+          "desc": "2 Treffer mit je 330 % Waffenschaden. Lässt nach einem Treffer den nächsten Gegnerzug ausfallen. Kostet vor Passiven 18 Nerven.",
+          "composure": 18
+        },
+        "passives": [
+          {
+            "key": "carry",
+            "value": 5,
+            "text": "+5 Pfund Tragkraft."
+          },
+          {
+            "key": "vision_cost",
+            "value": 1.2,
+            "text": "Das Gewicht in deinem Körper macht Geistsicht 20 % teurer."
+          }
+        ],
+        "ritual": {
+          "name": "Lastnieter: die offene Probe",
+          "map": "docks",
+          "vision": false,
+          "consumes": {
+            "nebeltau": 2,
+            "silberstaub": 1
+          },
+          "requires": {
+            "requires_flags": [
+              "case_09_closed",
+              "kapitel2_done"
+            ]
+          },
+          "desc": "Du hältst einen beschädigten Steg, während die letzten Menschen darüber gehen. Erst nachdem die Last verteilt ist, löst du den Stützbalken."
+        },
+        "honor": 90,
+        "growth_steps": 2,
+        "digest_rate": 0.2,
+        "veraenderung": "Über deinen Gelenken liegen Nietköpfe, die von innen gegen die Haut drücken."
+      },
+      "3": {
+        "name": "Gegenlast",
+        "desc": "Deine Fußspuren bleiben auch auf trockenem Stein eine Weile eingedrückt. Deine Gabe greift über einzelne Begegnungen hinaus. Sie entbindet dich nicht davon, nach Belegen zu suchen.",
+        "ingredients": {
+          "sq_zutat_eisen_3": 1,
+          "nebeltau": 2,
+          "geisteressenz": 3,
+          "silberstaub": 3
+        },
+        "skill": {
+          "id": "eisen_hoch_3",
+          "name": "Widerlager",
+          "cost": 6,
+          "hits": 2,
+          "mult": 4.29,
+          "stun": true,
+          "desc": "2 Treffer mit je 429 % Waffenschaden. Lässt nach einem Treffer den nächsten Gegnerzug ausfallen. Kostet vor Passiven 24 Nerven.",
+          "composure": 24
+        },
+        "passives": [
+          {
+            "key": "max_nerves",
+            "value": 8,
+            "text": "+8 Nerven."
+          }
+        ],
+        "ritual": {
+          "name": "Gegenlast: die offene Probe",
+          "map": "wx_bojenhafen",
+          "vision": false,
+          "consumes": {
+            "nebeltau": 2,
+            "silberstaub": 2
+          },
+          "requires": {
+            "requires_flags": [
+              "case_09_closed",
+              "kapitel2_done"
+            ]
+          },
+          "desc": "Du hebst am Dock ein festgeklemmtes Gegengewicht und gibst den Arbeitern Zeit zum Rückzug. Du wartest nicht auf einen Befehl, der nie kommen wird."
+        },
+        "honor": 110,
+        "growth_steps": 2,
+        "digest_rate": 0.16,
+        "veraenderung": "Deine Fußspuren bleiben auch auf trockenem Stein eine Weile eingedrückt."
+      },
+      "2": {
+        "name": "Stadtwiderlager",
+        "desc": "Dein Rücken zeichnet unter jedem Stoff das Muster eines genieteten Brückenträgers. Deine Anwesenheit verändert einen Ort, doch seine Bewohner behalten ihre eigenen Gründe.",
+        "ingredients": {
+          "sq_zutat_eisen_2": 1,
+          "nebeltau": 2,
+          "geisteressenz": 4,
+          "silberstaub": 4
+        },
+        "skill": {
+          "id": "eisen_hoch_2",
+          "name": "Tragwerkstoß",
+          "cost": 6,
+          "hits": 2,
+          "mult": 5.577,
+          "stun": true,
+          "desc": "2 Treffer mit je 557.7 % Waffenschaden. Lässt nach einem Treffer den nächsten Gegnerzug ausfallen. Kostet vor Passiven 32 Nerven.",
+          "composure": 32
+        },
+        "passives": [
+          {
+            "key": "max_hp",
+            "value": 6,
+            "text": "+6 Leben."
+          }
+        ],
+        "ritual": {
+          "name": "Stadtwiderlager: die offene Probe",
+          "map": "neu:Grenzbezirk für Eisen",
+          "vision": false,
+          "consumes": {
+            "nebeltau": 2,
+            "silberstaub": 3
+          },
+          "requires": {
+            "requires_flags": [
+              "case_09_closed",
+              "kapitel2_done"
+            ]
+          },
+          "desc": "Du stützt das letzte offene Stadttor einer geräumten Fabriksiedlung. Du hältst auch für jene, die dich nicht mehr passieren lassen wollten."
+        },
+        "honor": 135,
+        "growth_steps": 3,
+        "digest_rate": 0.13,
+        "veraenderung": "Dein Rücken zeichnet unter jedem Stoff das Muster eines genieteten Brückenträgers."
+      },
+      "1": {
+        "name": "Die bleibende Stütze",
+        "desc": "Dein Schatten bleibt noch stehen, wenn du dich längst hingesetzt hast. Man erzählt von dieser Stufe, als wäre sie ein Amt, das niemand lange ausübt. Du bleibst für jede einzelne Handlung verantwortlich.",
+        "ingredients": {
+          "sq_zutat_eisen_1": 1,
+          "nebeltau": 2,
+          "geisteressenz": 5,
+          "silberstaub": 5
+        },
+        "skill": {
+          "id": "eisen_hoch_1",
+          "name": "Standhalten",
+          "cost": 6,
+          "hits": 2,
+          "mult": 7.25,
+          "stun": true,
+          "desc": "2 Treffer mit je 725 % Waffenschaden. Lässt nach einem Treffer den nächsten Gegnerzug ausfallen. Kostet vor Passiven 42 Nerven.",
+          "composure": 42
+        },
+        "passives": [
+          {
+            "key": "max_nerves",
+            "value": 8,
+            "text": "+8 Nerven."
+          }
+        ],
+        "ritual": {
+          "name": "Die bleibende Stütze: die offene Probe",
+          "map": "neu:Letztes Register für Eisen",
+          "vision": false,
+          "consumes": {
+            "nebeltau": 2,
+            "silberstaub": 4
+          },
+          "requires": {
+            "requires_flags": [
+              "case_09_closed",
+              "kapitel2_done"
+            ]
+          },
+          "desc": "Du verteilst die Last des stillen Pumpwerks auf viele tragfähige Stellen. Zuletzt nimmst du deine Hand fort und beweist, dass Standhalten andere nicht abhängig machen muss."
+        },
+        "honor": 160,
+        "growth_steps": 3,
+        "digest_rate": 0.1,
+        "veraenderung": "Dein Schatten bleibt noch stehen, wenn du dich längst hingesetzt hast."
+      }
+    }
+  },
+  "schluessel": {
+    "seqs": {
+      "4": {
+        "name": "Schwellenlücke",
+        "desc": "Zwischen deinen Fingern liegt stets der Schatten eines offenen Schlüssellochs. Du trägst das Prinzip deines Pfades nun sichtbar mit dir. Menschen bemerken den Preis, bevor sie die Gabe verstehen.",
+        "ingredients": {
+          "sq_zutat_schluessel_4": 1,
+          "nebeltau": 2,
+          "geisteressenz": 2,
+          "silberstaub": 2
+        },
+        "skill": {
+          "id": "schluessel_hoch_4",
+          "name": "Schwellenschnitt",
+          "cost": 5,
+          "hits": 3,
+          "mult": 2.1,
+          "sure": true,
+          "evade": true,
+          "desc": "3 Treffer mit je 210 % Waffenschaden. Verfehlter Takt zählt als normaler Treffer. Du weichst im nächsten Gegnerzug aus. Kostet vor Passiven 18 Nerven.",
+          "composure": 18
+        },
+        "passives": [
+          {
+            "key": "lock_bonus",
+            "value": 5,
+            "text": "Schlösser verlangen weitere 5 Ansehen weniger."
+          },
+          {
+            "key": "honor_loss",
+            "value": 1.2,
+            "text": "Jeder Fehltritt an fremden Schwellen kostet 20 % mehr Ansehen."
+          }
+        ],
+        "ritual": {
+          "name": "Schwellenlücke: die offene Probe",
+          "map": "crypt",
+          "vision": false,
+          "consumes": {
+            "nebeltau": 2,
+            "silberstaub": 1
+          },
+          "requires": {
+            "requires_flags": [
+              "case_09_closed",
+              "kapitel2_done"
+            ]
+          },
+          "desc": "Du öffnest ein vergessenes Zolltor und lässt den ersten Fund bei seinem rechtmäßigen Besitzer. Du nimmst nur den Zugang, den man allen verwehrt hat."
+        },
+        "honor": 90,
+        "growth_steps": 2,
+        "digest_rate": 0.2,
+        "veraenderung": "Zwischen deinen Fingern liegt stets der Schatten eines offenen Schlüssellochs."
+      },
+      "3": {
+        "name": "Riegelabwesenheit",
+        "desc": "Deine Hand erscheint im Spiegel bereits auf der anderen Seite jeder Scheibe. Deine Gabe greift über einzelne Begegnungen hinaus. Sie entbindet dich nicht davon, nach Belegen zu suchen.",
+        "ingredients": {
+          "sq_zutat_schluessel_3": 1,
+          "nebeltau": 2,
+          "geisteressenz": 3,
+          "silberstaub": 3
+        },
+        "skill": {
+          "id": "schluessel_hoch_3",
+          "name": "Leerriegel",
+          "cost": 6,
+          "hits": 3,
+          "mult": 2.73,
+          "sure": true,
+          "evade": true,
+          "desc": "3 Treffer mit je 273 % Waffenschaden. Verfehlter Takt zählt als normaler Treffer. Du weichst im nächsten Gegnerzug aus. Kostet vor Passiven 24 Nerven.",
+          "composure": 24
+        },
+        "passives": [
+          {
+            "key": "max_nerves",
+            "value": 8,
+            "text": "+8 Nerven."
+          }
+        ],
+        "ritual": {
+          "name": "Riegelabwesenheit: die offene Probe",
+          "map": "wx_altstadt",
+          "vision": false,
+          "consumes": {
+            "nebeltau": 2,
+            "silberstaub": 2
+          },
+          "requires": {
+            "requires_flags": [
+              "case_09_closed",
+              "kapitel2_done"
+            ]
+          },
+          "desc": "Du öffnest im alten Ratssaal die Lade mit den beschlagnahmten Namen und gibst jedem Täfelchen seinen Platz zurück. Eine leere Lade darf leer bleiben."
+        },
+        "honor": 110,
+        "growth_steps": 2,
+        "digest_rate": 0.16,
+        "veraenderung": "Deine Hand erscheint im Spiegel bereits auf der anderen Seite jeder Scheibe."
+      },
+      "2": {
+        "name": "Innenrand",
+        "desc": "Deine Kontur liegt in Türrahmen stets auf der abgewandten Seite. Deine Anwesenheit verändert einen Ort, doch seine Bewohner behalten ihre eigenen Gründe.",
+        "ingredients": {
+          "sq_zutat_schluessel_2": 1,
+          "nebeltau": 2,
+          "geisteressenz": 4,
+          "silberstaub": 4
+        },
+        "skill": {
+          "id": "schluessel_hoch_2",
+          "name": "Randsprung",
+          "cost": 6,
+          "hits": 3,
+          "mult": 3.549,
+          "sure": true,
+          "evade": true,
+          "desc": "3 Treffer mit je 354.9 % Waffenschaden. Verfehlter Takt zählt als normaler Treffer. Du weichst im nächsten Gegnerzug aus. Kostet vor Passiven 32 Nerven.",
+          "composure": 32
+        },
+        "passives": [
+          {
+            "key": "carry",
+            "value": 5,
+            "text": "+5 Pfund Tragkraft."
+          }
+        ],
+        "ritual": {
+          "name": "Innenrand: die offene Probe",
+          "map": "neu:Grenzbezirk für Schlüssel",
+          "vision": false,
+          "consumes": {
+            "nebeltau": 2,
+            "silberstaub": 3
+          },
+          "requires": {
+            "requires_flags": [
+              "case_09_closed",
+              "kapitel2_done"
+            ]
+          },
+          "desc": "Du schaffst im verschlossenen Grenzhaus einen Ausgang, den auch deine Verfolger benutzen könnten. Du verbrennst den Schlüssel nicht hinter dir."
+        },
+        "honor": 135,
+        "growth_steps": 3,
+        "digest_rate": 0.13,
+        "veraenderung": "Deine Kontur liegt in Türrahmen stets auf der abgewandten Seite."
+      },
+      "1": {
+        "name": "Die unverwehrte Tür",
+        "desc": "Dein Schatten hat in seiner Brust einen Durchgang, hinter dem es nicht dunkel wird. Man erzählt von dieser Stufe, als wäre sie ein Amt, das niemand lange ausübt. Du bleibst für jede einzelne Handlung verantwortlich.",
+        "ingredients": {
+          "sq_zutat_schluessel_1": 1,
+          "nebeltau": 2,
+          "geisteressenz": 5,
+          "silberstaub": 5
+        },
+        "skill": {
+          "id": "schluessel_hoch_1",
+          "name": "Offene Schwelle",
+          "cost": 6,
+          "hits": 3,
+          "mult": 4.614,
+          "sure": true,
+          "evade": true,
+          "desc": "3 Treffer mit je 461.4 % Waffenschaden. Verfehlter Takt zählt als normaler Treffer. Du weichst im nächsten Gegnerzug aus. Kostet vor Passiven 42 Nerven.",
+          "composure": 42
+        },
+        "passives": [
+          {
+            "key": "max_hp",
+            "value": 6,
+            "text": "+6 Leben."
+          }
+        ],
+        "ritual": {
+          "name": "Die unverwehrte Tür: die offene Probe",
+          "map": "neu:Letztes Register für Schlüssel",
+          "vision": false,
+          "consumes": {
+            "nebeltau": 2,
+            "silberstaub": 4
+          },
+          "requires": {
+            "requires_flags": [
+              "case_09_closed",
+              "kapitel2_done"
+            ]
+          },
+          "desc": "Du öffnest das letzte Tor ohne einen Namen als Pfand zu hinterlassen. Dann legst du den Schlüssel von innen auf die Schwelle und trittst ohne ihn zurück."
+        },
+        "honor": 160,
+        "growth_steps": 3,
+        "digest_rate": 0.1,
+        "veraenderung": "Dein Schatten hat in seiner Brust einen Durchgang, hinter dem es nicht dunkel wird."
+      }
+    }
+  }
+}

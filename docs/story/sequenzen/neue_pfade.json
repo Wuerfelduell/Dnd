@@ -1,0 +1,1243 @@
+{
+  "sq_waage": {
+    "name": "Pfad der Waage",
+    "short": "Waage",
+    "color": "#b4a079",
+    "lore": "In Kettlegates Pfandhäusern legt man bei jeder Einlösung ein leeres Gewicht neben die Waage. Es steht für den Anteil, den keine Quittung nennt. Wer den Sud der Pfänder trinkt, lernt diesen Anteil zu tragen, statt ihn heimlich weiterzugeben.",
+    "principle": "Trage deinen Anteil, bevor du fremde Schuld wiegst.",
+    "digest_hint": "Handeln, Belohnungen abrechnen und falsche Forderungen widerlegen. Reines Kaufen und Zurückverkaufen ist kein redlicher Ausgleich.",
+    "digest": {
+      "trade": 6,
+      "loot": 3,
+      "fact_refuted": 10,
+      "side_quest": 10
+    },
+    "growth": {
+      "hp": 6,
+      "nerves": 5
+    },
+    "seqs": {
+      "9": {
+        "name": "Pfandleser",
+        "desc": "Du erkennst an Druckstellen, welcher Gegenstand lange als Sicherheit lag.",
+        "ingredients": {
+          "sq_zutat_waage_9": 1,
+          "nebeltau": 1
+        },
+        "skill": {
+          "id": "waage_stufe_9",
+          "name": "Pfanddruck",
+          "cost": 2,
+          "hits": 1,
+          "flat": 7,
+          "shield": 4,
+          "desc": "1 Treffer mit je 7 Grundschaden. Gewährt 4 Schutz."
+        },
+        "passives": [
+          {
+            "key": "money_bonus",
+            "value": 1.1,
+            "text": "Beutegeld ×1,10."
+          }
+        ],
+        "honor": 0,
+        "growth_steps": 1,
+        "digest_rate": 1,
+        "veraenderung": "Du erkennst an Druckstellen, welcher Gegenstand lange als Sicherheit lag."
+      },
+      "8": {
+        "name": "Gewichtschreiber",
+        "desc": "Bei einer falschen Forderung schmeckt deine Zunge nach Blei.",
+        "ingredients": {
+          "sq_zutat_waage_8": 1,
+          "nebeltau": 1,
+          "silberstaub": 1
+        },
+        "skill": {
+          "id": "waage_stufe_8",
+          "name": "Gegengewicht",
+          "cost": 3,
+          "hits": 1,
+          "flat": 10,
+          "shield": 6,
+          "desc": "1 Treffer mit je 10 Grundschaden. Gewährt 6 Schutz."
+        },
+        "passives": [
+          {
+            "key": "max_nerves",
+            "value": 5,
+            "text": "+5 Nerven für das Prüfen von Forderungen."
+          }
+        ],
+        "honor": 15,
+        "growth_steps": 1,
+        "digest_rate": 0.7,
+        "veraenderung": "Bei einer falschen Forderung schmeckt deine Zunge nach Blei."
+      },
+      "7": {
+        "name": "Fristenhalter",
+        "desc": "Du lässt dich bei einer Forderung nicht mehr vom lautesten Gläubiger treiben.",
+        "ingredients": {
+          "sq_zutat_waage_7": 1,
+          "nebeltau": 1,
+          "silberstaub": 1,
+          "geisteressenz": 1
+        },
+        "skill": {
+          "id": "waage_stufe_7",
+          "name": "Fristpfand",
+          "cost": 4,
+          "hits": 2,
+          "flat": 8,
+          "shield": 8,
+          "desc": "2 Treffer mit je 8 Grundschaden. Gewährt 8 Schutz."
+        },
+        "passives": [
+          {
+            "key": "conclusion_honor",
+            "value": 1,
+            "text": "+1 Ansehen für belegte Schlussfolgerungen."
+          },
+          {
+            "key": "ap_start",
+            "value": 1,
+            "text": "Durchbruch: +1 Konzentration zum Kampfbeginn."
+          },
+          {
+            "key": "dmg_mult",
+            "value": 1.1,
+            "text": "Durchbruch: Schaden ×1,10."
+          }
+        ],
+        "honor": 30,
+        "growth_steps": 2,
+        "digest_rate": 0.5,
+        "veraenderung": "Du lässt dich bei einer Forderung nicht mehr vom lautesten Gläubiger treiben."
+      },
+      "6": {
+        "name": "Ausgleichsführer",
+        "desc": "Deine Hand bleibt ruhig, wenn du den eigenen Anteil bezahlen musst.",
+        "ingredients": {
+          "sq_zutat_waage_6": 1,
+          "nebeltau": 1,
+          "silberstaub": 2,
+          "geisteressenz": 1
+        },
+        "skill": {
+          "id": "waage_stufe_6",
+          "name": "Ausgleichshieb",
+          "cost": 4,
+          "hits": 2,
+          "flat": 10,
+          "shield": 10,
+          "desc": "2 Treffer mit je 10 Grundschaden. Gewährt 10 Schutz."
+        },
+        "passives": [
+          {
+            "key": "carry",
+            "value": 8,
+            "text": "+8 Pfund Tragkraft für verwahrte Pfänder."
+          },
+          {
+            "key": "ap_start",
+            "value": 1,
+            "text": "Durchbruch: +1 Konzentration zum Kampfbeginn."
+          },
+          {
+            "key": "dmg_mult",
+            "value": 1.15,
+            "text": "Durchbruch: Schaden ×1,15."
+          }
+        ],
+        "honor": 50,
+        "growth_steps": 2,
+        "digest_rate": 0.35,
+        "veraenderung": "Deine Hand bleibt ruhig, wenn du den eigenen Anteil bezahlen musst.",
+        "ritual": {
+          "name": "Die Probe des Ausgleichsführer",
+          "map": "nachtmarkt",
+          "vision": false,
+          "consumes": {
+            "silberstaub": 1,
+            "nebeltau": 1
+          },
+          "requires": {
+            "requires_flags": [
+              "case_01_closed"
+            ]
+          },
+          "desc": "Du prüfst eine offene Pfandforderung und berichtigst den Betrag zu deinen Ungunsten. Du legst die Quittung neben den Kessel."
+        }
+      },
+      "5": {
+        "name": "Schuldenverwahrer",
+        "desc": "Du hältst einen offenen Saldo aus, ohne ihn dem nächsten Schwächeren aufzubürden.",
+        "ingredients": {
+          "sq_zutat_waage_5": 1,
+          "nebeltau": 1,
+          "silberstaub": 2,
+          "geisteressenz": 2,
+          "nebelherz": 1
+        },
+        "skill": {
+          "id": "waage_stufe_5",
+          "name": "Pfandsaldo",
+          "cost": 5,
+          "hits": 2,
+          "flat": 13,
+          "shield": 12,
+          "composure": 10,
+          "desc": "2 Treffer mit je 13 Grundschaden. Gewährt 12 Schutz. Kostet vor Passiven 10 Nerven."
+        },
+        "passives": [
+          {
+            "key": "money_bonus",
+            "value": 1.1,
+            "text": "Beutegeld nochmals ×1,10."
+          }
+        ],
+        "honor": 70,
+        "growth_steps": 1,
+        "digest_rate": 0.25,
+        "veraenderung": "Du hältst einen offenen Saldo aus, ohne ihn dem nächsten Schwächeren aufzubürden.",
+        "ritual": {
+          "name": "Die Probe des Schuldenverwahrer",
+          "map": "nachtmarkt",
+          "vision": false,
+          "consumes": {
+            "silberstaub": 1,
+            "nebeltau": 1
+          },
+          "requires": {
+            "requires_flags": [
+              "case_09_closed"
+            ]
+          },
+          "desc": "Du bewahrst das Pfand eines Fremden während der Abrechnung. Erst nach seiner Einlösung nimmst du den eigenen Lohn."
+        }
+      },
+      "4": {
+        "name": "Pfandkörper",
+        "desc": "An deinen Handgelenken hängen Schatten von Gewichten, auch wenn du nichts trägst. Du trägst das Prinzip deines Pfades nun sichtbar mit dir. Menschen bemerken den Preis, bevor sie die Gabe verstehen.",
+        "ingredients": {
+          "sq_zutat_waage_4": 1,
+          "nebeltau": 2,
+          "geisteressenz": 2,
+          "silberstaub": 2
+        },
+        "skill": {
+          "id": "waage_hoch_4",
+          "name": "Pfandabruf",
+          "cost": 5,
+          "hits": 2,
+          "flat": 20,
+          "shield": 18,
+          "composure": 18,
+          "desc": "2 Treffer mit je 20 Grundschaden. Gewährt 18 Schutz. Kostet vor Passiven 18 Nerven."
+        },
+        "passives": [
+          {
+            "key": "carry",
+            "value": 5,
+            "text": "+5 Pfund Tragkraft."
+          },
+          {
+            "key": "honor_loss",
+            "value": 1.3,
+            "text": "Gebrochene Zusagen kosten 30 % mehr Ansehen."
+          }
+        ],
+        "ritual": {
+          "name": "Pfandkörper: die offene Probe",
+          "map": "nachtmarkt",
+          "vision": false,
+          "consumes": {
+            "nebeltau": 2,
+            "silberstaub": 1
+          },
+          "requires": {
+            "requires_flags": [
+              "case_09_closed",
+              "kapitel2_done"
+            ]
+          },
+          "desc": "Du legst eine eigene Schuld neben die eines Fremden und gibst beiden dieselbe Frist. Das günstigere Gewicht legst du offen auf den Tisch."
+        },
+        "honor": 90,
+        "growth_steps": 2,
+        "digest_rate": 0.2,
+        "veraenderung": "An deinen Handgelenken hängen Schatten von Gewichten, auch wenn du nichts trägst."
+      },
+      "3": {
+        "name": "Saldenhüter",
+        "desc": "Deine Stimme klingt bei jeder unbezahlten Zusage um einen halben Ton tiefer. Deine Gabe greift über einzelne Begegnungen hinaus. Sie entbindet dich nicht davon, nach Belegen zu suchen.",
+        "ingredients": {
+          "sq_zutat_waage_3": 1,
+          "nebeltau": 2,
+          "geisteressenz": 3,
+          "silberstaub": 3
+        },
+        "skill": {
+          "id": "waage_hoch_3",
+          "name": "Saldenstoß",
+          "cost": 6,
+          "hits": 2,
+          "flat": 25,
+          "shield": 23,
+          "composure": 24,
+          "desc": "2 Treffer mit je 25 Grundschaden. Gewährt 23 Schutz. Kostet vor Passiven 24 Nerven."
+        },
+        "passives": [
+          {
+            "key": "conclusion_honor",
+            "value": 1,
+            "text": "+1 Ansehen für geprüfte Forderungen."
+          }
+        ],
+        "ritual": {
+          "name": "Saldenhüter: die offene Probe",
+          "map": "wx_salzmarkt",
+          "vision": false,
+          "consumes": {
+            "nebeltau": 2,
+            "silberstaub": 2
+          },
+          "requires": {
+            "requires_flags": [
+              "case_09_closed",
+              "kapitel2_done"
+            ]
+          },
+          "desc": "Du vergleichst ein Kettlegater Pfandbuch mit dem Wexmoorer Abgabenregister und streichst die doppelt erhobene Forderung. Den Verlust buchst du öffentlich."
+        },
+        "honor": 110,
+        "growth_steps": 2,
+        "digest_rate": 0.16,
+        "veraenderung": "Deine Stimme klingt bei jeder unbezahlten Zusage um einen halben Ton tiefer."
+      },
+      "2": {
+        "name": "Schuldgegengewicht",
+        "desc": "Dein Schatten senkt sich unter Zusagen, die niemand sonst hören kann. Deine Anwesenheit verändert einen Ort, doch seine Bewohner behalten ihre eigenen Gründe.",
+        "ingredients": {
+          "sq_zutat_waage_2": 1,
+          "nebeltau": 2,
+          "geisteressenz": 4,
+          "silberstaub": 4
+        },
+        "skill": {
+          "id": "waage_hoch_2",
+          "name": "Gegenbuchung",
+          "cost": 6,
+          "hits": 2,
+          "flat": 33,
+          "shield": 30,
+          "composure": 32,
+          "desc": "2 Treffer mit je 33 Grundschaden. Gewährt 30 Schutz. Kostet vor Passiven 32 Nerven."
+        },
+        "passives": [
+          {
+            "key": "max_nerves",
+            "value": 8,
+            "text": "+8 Nerven."
+          }
+        ],
+        "ritual": {
+          "name": "Schuldgegengewicht: die offene Probe",
+          "map": "neu:Grenzbezirk für Waage",
+          "vision": false,
+          "consumes": {
+            "nebeltau": 2,
+            "silberstaub": 3
+          },
+          "requires": {
+            "requires_flags": [
+              "case_09_closed",
+              "kapitel2_done"
+            ]
+          },
+          "desc": "Du übernimmst im stillen Pfandhaus die Haftung für einen offen belegten Fehlbetrag. Du verweigerst die bequeme Lösung, eine unbekannte Familie dafür einzutragen."
+        },
+        "honor": 135,
+        "growth_steps": 3,
+        "digest_rate": 0.13,
+        "veraenderung": "Dein Schatten senkt sich unter Zusagen, die niemand sonst hören kann."
+      },
+      "1": {
+        "name": "Die quittierte Last",
+        "desc": "In deinen Handflächen erscheinen Quittungen, sobald jemand freiwillig eine Schuld erlässt. Man erzählt von dieser Stufe, als wäre sie ein Amt, das niemand lange ausübt. Du bleibst für jede einzelne Handlung verantwortlich.",
+        "ingredients": {
+          "sq_zutat_waage_1": 1,
+          "nebeltau": 2,
+          "geisteressenz": 5,
+          "silberstaub": 5
+        },
+        "skill": {
+          "id": "waage_hoch_1",
+          "name": "Letzte Quittung",
+          "cost": 6,
+          "hits": 2,
+          "flat": 43,
+          "shield": 40,
+          "composure": 42,
+          "desc": "2 Treffer mit je 43 Grundschaden. Gewährt 40 Schutz. Kostet vor Passiven 42 Nerven."
+        },
+        "passives": [
+          {
+            "key": "max_hp",
+            "value": 6,
+            "text": "+6 Leben."
+          }
+        ],
+        "ritual": {
+          "name": "Die quittierte Last: die offene Probe",
+          "map": "neu:Letztes Register für Waage",
+          "vision": false,
+          "consumes": {
+            "nebeltau": 2,
+            "silberstaub": 4
+          },
+          "requires": {
+            "requires_flags": [
+              "case_09_closed",
+              "kapitel2_done"
+            ]
+          },
+          "desc": "Du quittierst die letzte Forderung und gibst das Pfand zurück, bevor du deinen Lohn erhältst. Kein Vertrag bindet die nächste Generation."
+        },
+        "honor": 160,
+        "growth_steps": 3,
+        "digest_rate": 0.1,
+        "veraenderung": "In deinen Handflächen erscheinen Quittungen, sobald jemand freiwillig eine Schuld erlässt."
+      }
+    }
+  },
+  "sq_moor": {
+    "name": "Pfad des Moores",
+    "short": "Moor",
+    "color": "#7d927e",
+    "lore": "Unter Wexmoor liegt kein ordentliches Archiv. Namen stecken in Torf, zerbrechen in Pfählen und kehren in falscher Reihenfolge wieder. Die Hüter der Fundschichten bewahren Herkunft und Lücken gleichermaßen. Ein sauberer Irrtum ist ihnen unheimlicher als Schlick.",
+    "principle": "Bewahre die Herkunft, auch wenn der Name fehlt.",
+    "digest_hint": "Verborgene Spuren bergen, Aussagen bestätigen und Nebenaufträge für Vergessene abschließen.",
+    "digest": {
+      "hidden_clue": 12,
+      "fact_likely": 8,
+      "side_quest": 12,
+      "quest": 4
+    },
+    "growth": {
+      "hp": 7,
+      "nerves": 5
+    },
+    "seqs": {
+      "9": {
+        "name": "Torfleser",
+        "desc": "Du unterscheidest eine alte Spur von einem frischen Tritt, ohne sie trockenzureiben.",
+        "ingredients": {
+          "sq_zutat_moor_9": 1,
+          "nebeltau": 1
+        },
+        "skill": {
+          "id": "moor_stufe_9",
+          "name": "Schlickgriff",
+          "cost": 2,
+          "hits": 1,
+          "flat": 6,
+          "heal": 4,
+          "desc": "1 Treffer mit je 6 Grundschaden. Heilt 4 Leben."
+        },
+        "passives": [
+          {
+            "key": "max_hp",
+            "value": 5,
+            "text": "+5 Leben."
+          }
+        ],
+        "honor": 0,
+        "growth_steps": 1,
+        "digest_rate": 1,
+        "veraenderung": "Du unterscheidest eine alte Spur von einem frischen Tritt, ohne sie trockenzureiben."
+      },
+      "8": {
+        "name": "Namenberger",
+        "desc": "Vergessene Namen fallen dir auf, doch du weißt noch nicht, wem sie gehören.",
+        "ingredients": {
+          "sq_zutat_moor_8": 1,
+          "nebeltau": 1,
+          "silberstaub": 1
+        },
+        "skill": {
+          "id": "moor_stufe_8",
+          "name": "Namenslast",
+          "cost": 3,
+          "hits": 1,
+          "flat": 9,
+          "heal": 7,
+          "desc": "1 Treffer mit je 9 Grundschaden. Heilt 7 Leben."
+        },
+        "passives": [
+          {
+            "key": "max_nerves",
+            "value": 8,
+            "text": "+8 Nerven beim Bewahren unvollständiger Spuren."
+          }
+        ],
+        "honor": 15,
+        "growth_steps": 1,
+        "digest_rate": 0.7,
+        "veraenderung": "Vergessene Namen fallen dir auf, doch du weißt noch nicht, wem sie gehören."
+      },
+      "7": {
+        "name": "Schichtzeuge",
+        "desc": "Du erkennst, wenn eine Geschichte auf eine ältere gelegt wurde.",
+        "ingredients": {
+          "sq_zutat_moor_7": 1,
+          "nebeltau": 1,
+          "silberstaub": 1,
+          "geisteressenz": 1
+        },
+        "skill": {
+          "id": "moor_stufe_7",
+          "name": "Torfdruck",
+          "cost": 4,
+          "hits": 2,
+          "flat": 7,
+          "heal": 9,
+          "desc": "2 Treffer mit je 7 Grundschaden. Heilt 9 Leben."
+        },
+        "passives": [
+          {
+            "key": "vision_cost",
+            "value": 0.85,
+            "text": "Geistsicht kostet 15 % weniger Nerven."
+          },
+          {
+            "key": "ap_start",
+            "value": 1,
+            "text": "Durchbruch: +1 Konzentration zum Kampfbeginn."
+          },
+          {
+            "key": "dmg_mult",
+            "value": 1.1,
+            "text": "Durchbruch: Schaden ×1,10."
+          }
+        ],
+        "honor": 30,
+        "growth_steps": 2,
+        "digest_rate": 0.5,
+        "veraenderung": "Du erkennst, wenn eine Geschichte auf eine ältere gelegt wurde."
+      },
+      "6": {
+        "name": "Namensbank",
+        "desc": "Du hältst Namen auseinander, die andere längst miteinander verwechseln.",
+        "ingredients": {
+          "sq_zutat_moor_6": 1,
+          "nebeltau": 1,
+          "silberstaub": 2,
+          "geisteressenz": 1
+        },
+        "skill": {
+          "id": "moor_stufe_6",
+          "name": "Uferhand",
+          "cost": 4,
+          "hits": 2,
+          "flat": 9,
+          "heal": 11,
+          "desc": "2 Treffer mit je 9 Grundschaden. Heilt 11 Leben."
+        },
+        "passives": [
+          {
+            "key": "damage_taken",
+            "value": 0.95,
+            "text": "Eingehender Schaden ×0,95."
+          },
+          {
+            "key": "ap_start",
+            "value": 1,
+            "text": "Durchbruch: +1 Konzentration zum Kampfbeginn."
+          },
+          {
+            "key": "dmg_mult",
+            "value": 1.15,
+            "text": "Durchbruch: Schaden ×1,15."
+          }
+        ],
+        "honor": 50,
+        "growth_steps": 2,
+        "digest_rate": 0.35,
+        "veraenderung": "Du hältst Namen auseinander, die andere längst miteinander verwechseln.",
+        "ritual": {
+          "name": "Die Probe des Namensbank",
+          "map": "wx_pfahldorf",
+          "vision": true,
+          "consumes": {
+            "silberstaub": 1,
+            "nebeltau": 1
+          },
+          "requires": {
+            "requires_flags": [
+              "case_01_closed"
+            ]
+          },
+          "desc": "Du verzeichnest die Fundschicht eines unbekannten Täfelchens. Du lässt das Namensfeld offen."
+        }
+      },
+      "5": {
+        "name": "Torfgedächtnis",
+        "desc": "Du kannst eine Lücke offenlassen, ohne die Geschichte darum zu verlieren.",
+        "ingredients": {
+          "sq_zutat_moor_5": 1,
+          "nebeltau": 1,
+          "silberstaub": 2,
+          "geisteressenz": 2,
+          "nebelherz": 1
+        },
+        "skill": {
+          "id": "moor_stufe_5",
+          "name": "Schichtschluss",
+          "cost": 5,
+          "hits": 2,
+          "flat": 12,
+          "heal": 14,
+          "composure": 10,
+          "desc": "2 Treffer mit je 12 Grundschaden. Heilt 14 Leben. Kostet vor Passiven 10 Nerven."
+        },
+        "passives": [
+          {
+            "key": "max_hp",
+            "value": 8,
+            "text": "+8 Leben."
+          }
+        ],
+        "honor": 70,
+        "growth_steps": 1,
+        "digest_rate": 0.25,
+        "veraenderung": "Du kannst eine Lücke offenlassen, ohne die Geschichte darum zu verlieren.",
+        "ritual": {
+          "name": "Die Probe des Torfgedächtnis",
+          "map": "wx_pfahldorf",
+          "vision": true,
+          "consumes": {
+            "silberstaub": 1,
+            "nebeltau": 1
+          },
+          "requires": {
+            "requires_flags": [
+              "case_09_closed"
+            ]
+          },
+          "desc": "Du bringst zwei gleichlautende Namen an getrennte Plätze am Schrein. Niemand muss dafür seine Geschichte verlieren."
+        }
+      },
+      "4": {
+        "name": "Schichtträger",
+        "desc": "In deiner Haut liegen lesbare Torfschichten mit älteren Namen unter jüngeren. Du trägst das Prinzip deines Pfades nun sichtbar mit dir. Menschen bemerken den Preis, bevor sie die Gabe verstehen.",
+        "ingredients": {
+          "sq_zutat_moor_4": 1,
+          "nebeltau": 2,
+          "geisteressenz": 2,
+          "silberstaub": 2
+        },
+        "skill": {
+          "id": "moor_hoch_4",
+          "name": "Schichtdruck",
+          "cost": 5,
+          "hits": 2,
+          "flat": 18,
+          "heal": 21,
+          "composure": 18,
+          "desc": "2 Treffer mit je 18 Grundschaden. Heilt 21 Leben. Kostet vor Passiven 18 Nerven."
+        },
+        "passives": [
+          {
+            "key": "max_hp",
+            "value": 6,
+            "text": "+6 Leben."
+          },
+          {
+            "key": "price",
+            "value": 1.15,
+            "text": "Händler verlangen für deinen Schlickgeruch 15 % mehr."
+          }
+        ],
+        "ritual": {
+          "name": "Schichtträger: die offene Probe",
+          "map": "wx_pfahldorf",
+          "vision": true,
+          "consumes": {
+            "nebeltau": 2,
+            "silberstaub": 1
+          },
+          "requires": {
+            "requires_flags": [
+              "case_09_closed",
+              "kapitel2_done"
+            ]
+          },
+          "desc": "Du hebst ein Namenstäfelchen aus dem Schlick und verzeichnest seine Fundschicht, bevor du es reinigst. Die Lücke im Holz bekommt keinen Ersatznamen."
+        },
+        "honor": 90,
+        "growth_steps": 2,
+        "digest_rate": 0.2,
+        "veraenderung": "In deiner Haut liegen lesbare Torfschichten mit älteren Namen unter jüngeren."
+      },
+      "3": {
+        "name": "Namensediment",
+        "desc": "Auf deinen Fußsohlen stehen Namen, die der Boden noch kennt. Deine Gabe greift über einzelne Begegnungen hinaus. Sie entbindet dich nicht davon, nach Belegen zu suchen.",
+        "ingredients": {
+          "sq_zutat_moor_3": 1,
+          "nebeltau": 2,
+          "geisteressenz": 3,
+          "silberstaub": 3
+        },
+        "skill": {
+          "id": "moor_hoch_3",
+          "name": "Sedimentgriff",
+          "cost": 6,
+          "hits": 2,
+          "flat": 23,
+          "heal": 27,
+          "composure": 24,
+          "desc": "2 Treffer mit je 23 Grundschaden. Heilt 27 Leben. Kostet vor Passiven 24 Nerven."
+        },
+        "passives": [
+          {
+            "key": "max_nerves",
+            "value": 8,
+            "text": "+8 Nerven."
+          }
+        ],
+        "ritual": {
+          "name": "Namensediment: die offene Probe",
+          "map": "wx_vergessmoor",
+          "vision": true,
+          "consumes": {
+            "nebeltau": 2,
+            "silberstaub": 2
+          },
+          "requires": {
+            "requires_flags": [
+              "case_09_closed",
+              "kapitel2_done"
+            ]
+          },
+          "desc": "Du vergleichst eine Kettlegater Vermisstenliste mit den Täfelchen am Wexmoorer Schrein. Gleiche Schreibweise gilt dir nicht als Beweis für dieselbe Person."
+        },
+        "honor": 110,
+        "growth_steps": 2,
+        "digest_rate": 0.16,
+        "veraenderung": "Auf deinen Fußsohlen stehen Namen, die der Boden noch kennt."
+      },
+      "2": {
+        "name": "Vergessensufer",
+        "desc": "In deiner Nähe bleiben vergessene Wörter als dunkle Ränder auf Wasser stehen. Deine Anwesenheit verändert einen Ort, doch seine Bewohner behalten ihre eigenen Gründe.",
+        "ingredients": {
+          "sq_zutat_moor_2": 1,
+          "nebeltau": 2,
+          "geisteressenz": 4,
+          "silberstaub": 4
+        },
+        "skill": {
+          "id": "moor_hoch_2",
+          "name": "Uferschlick",
+          "cost": 6,
+          "hits": 2,
+          "flat": 30,
+          "heal": 35,
+          "composure": 32,
+          "desc": "2 Treffer mit je 30 Grundschaden. Heilt 35 Leben. Kostet vor Passiven 32 Nerven."
+        },
+        "passives": [
+          {
+            "key": "vision_cost",
+            "value": 0.9,
+            "text": "Geistsicht nochmals 10 % günstiger."
+          }
+        ],
+        "ritual": {
+          "name": "Vergessensufer: die offene Probe",
+          "map": "neu:Grenzbezirk für Moor",
+          "vision": true,
+          "consumes": {
+            "nebeltau": 2,
+            "silberstaub": 3
+          },
+          "requires": {
+            "requires_flags": [
+              "case_09_closed",
+              "kapitel2_done"
+            ]
+          },
+          "desc": "Du legst am unterirdischen Ufer einen Namen nieder, den sein Träger nicht mehr öffentlich tragen will. Eine versiegelte Herkunftsnotiz bleibt erhalten."
+        },
+        "honor": 135,
+        "growth_steps": 3,
+        "digest_rate": 0.13,
+        "veraenderung": "In deiner Nähe bleiben vergessene Wörter als dunkle Ränder auf Wasser stehen."
+      },
+      "1": {
+        "name": "Das erinnerte Fehlende",
+        "desc": "Dein Umriss trägt eine leere Stelle, an der andere ihren vergessenen Namen hören. Man erzählt von dieser Stufe, als wäre sie ein Amt, das niemand lange ausübt. Du bleibst für jede einzelne Handlung verantwortlich.",
+        "ingredients": {
+          "sq_zutat_moor_1": 1,
+          "nebeltau": 2,
+          "geisteressenz": 5,
+          "silberstaub": 5
+        },
+        "skill": {
+          "id": "moor_hoch_1",
+          "name": "Fehlstellenruf",
+          "cost": 6,
+          "hits": 2,
+          "flat": 40,
+          "heal": 46,
+          "composure": 42,
+          "desc": "2 Treffer mit je 40 Grundschaden. Heilt 46 Leben. Kostet vor Passiven 42 Nerven."
+        },
+        "passives": [
+          {
+            "key": "max_hp",
+            "value": 6,
+            "text": "+6 Leben."
+          }
+        ],
+        "ritual": {
+          "name": "Das erinnerte Fehlende: die offene Probe",
+          "map": "neu:Letztes Register für Moor",
+          "vision": true,
+          "consumes": {
+            "nebeltau": 2,
+            "silberstaub": 4
+          },
+          "requires": {
+            "requires_flags": [
+              "case_09_closed",
+              "kapitel2_done"
+            ]
+          },
+          "desc": "Du bewahrst die fehlende Seite des Stadtbuchs als Lücke und gibst den lebenden Namensträgern ihre Wahl zurück. Bewahren heißt diesmal, nicht alles auszusprechen."
+        },
+        "honor": 160,
+        "growth_steps": 3,
+        "digest_rate": 0.1,
+        "veraenderung": "Dein Umriss trägt eine leere Stelle, an der andere ihren vergessenen Namen hören."
+      }
+    }
+  },
+  "sq_uhr": {
+    "name": "Pfad der Uhr",
+    "short": "Uhr",
+    "color": "#92a6b2",
+    "lore": "Die Regulatoren am Kettlegater Uhrturm hörten früher die ganze Stadt über ein einziges Gestänge ticken. Ein fehlender Schlag verriet den Ort des Schadens. Ihre Nachfolger hören dieselbe Lücke in Aussagen und Bewegungen. Die Zeit selbst gehorcht ihnen nicht.",
+    "principle": "Erkenne die Abweichung, ohne den Ablauf zu leugnen.",
+    "digest_hint": "Schläge parieren, zeitliche Widersprüche widerlegen und Abläufe im Notizbuch verknüpfen.",
+    "digest": {
+      "parry": 4,
+      "fact_refuted": 12,
+      "conclusion": 12,
+      "quest": 4
+    },
+    "growth": {
+      "hp": 5,
+      "nerves": 7
+    },
+    "seqs": {
+      "9": {
+        "name": "Ganghörer",
+        "desc": "Du hörst, wenn zwischen zwei Schritten eine Absicht fehlt.",
+        "ingredients": {
+          "sq_zutat_uhr_9": 1,
+          "nebeltau": 1
+        },
+        "skill": {
+          "id": "uhr_stufe_9",
+          "name": "Taktschlag",
+          "cost": 2,
+          "hits": 1,
+          "flat": 7,
+          "sure": true,
+          "desc": "1 Treffer mit je 7 Grundschaden. Verfehlter Takt zählt als normaler Treffer."
+        },
+        "passives": [
+          {
+            "key": "dodge_window",
+            "value": 1.1,
+            "text": "Ausweichfenster ×1,10."
+          }
+        ],
+        "honor": 0,
+        "growth_steps": 1,
+        "digest_rate": 1,
+        "veraenderung": "Du hörst, wenn zwischen zwei Schritten eine Absicht fehlt."
+      },
+      "8": {
+        "name": "Taktmerker",
+        "desc": "Du setzt deinen Fuß früher, ohne schneller zu gehen.",
+        "ingredients": {
+          "sq_zutat_uhr_8": 1,
+          "nebeltau": 1,
+          "silberstaub": 1
+        },
+        "skill": {
+          "id": "uhr_stufe_8",
+          "name": "Vortritt",
+          "cost": 3,
+          "hits": 1,
+          "flat": 10,
+          "evade": true,
+          "desc": "1 Treffer mit je 10 Grundschaden. Du weichst im nächsten Gegnerzug aus."
+        },
+        "passives": [
+          {
+            "key": "parry_ap",
+            "value": 1,
+            "text": "Paraden geben +1 Konzentration."
+          }
+        ],
+        "honor": 15,
+        "growth_steps": 1,
+        "digest_rate": 0.7,
+        "veraenderung": "Du setzt deinen Fuß früher, ohne schneller zu gehen."
+      },
+      "7": {
+        "name": "Pendelprüfer",
+        "desc": "Du erkennst im Zögern eines Zeugen die Stelle, an der seine Reihenfolge kippt.",
+        "ingredients": {
+          "sq_zutat_uhr_7": 1,
+          "nebeltau": 1,
+          "silberstaub": 1,
+          "geisteressenz": 1
+        },
+        "skill": {
+          "id": "uhr_stufe_7",
+          "name": "Pendelkehr",
+          "cost": 4,
+          "hits": 2,
+          "flat": 8,
+          "sure": true,
+          "desc": "2 Treffer mit je 8 Grundschaden. Verfehlter Takt zählt als normaler Treffer."
+        },
+        "passives": [
+          {
+            "key": "conclusion_honor",
+            "value": 1,
+            "text": "+1 Ansehen für rekonstruierte Abläufe."
+          },
+          {
+            "key": "ap_start",
+            "value": 1,
+            "text": "Durchbruch: +1 Konzentration zum Kampfbeginn."
+          },
+          {
+            "key": "dmg_mult",
+            "value": 1.1,
+            "text": "Durchbruch: Schaden ×1,10."
+          }
+        ],
+        "honor": 30,
+        "growth_steps": 2,
+        "digest_rate": 0.5,
+        "veraenderung": "Du erkennst im Zögern eines Zeugen die Stelle, an der seine Reihenfolge kippt."
+      },
+      "6": {
+        "name": "Gangbewahrer",
+        "desc": "Du bleibst bei einem gestörten Ablauf, bis sein wirklicher Takt hörbar wird.",
+        "ingredients": {
+          "sq_zutat_uhr_6": 1,
+          "nebeltau": 1,
+          "silberstaub": 2,
+          "geisteressenz": 1
+        },
+        "skill": {
+          "id": "uhr_stufe_6",
+          "name": "Gangausgleich",
+          "cost": 4,
+          "hits": 2,
+          "flat": 10,
+          "evade": true,
+          "desc": "2 Treffer mit je 10 Grundschaden. Du weichst im nächsten Gegnerzug aus."
+        },
+        "passives": [
+          {
+            "key": "dodge_window",
+            "value": 1.1,
+            "text": "Ausweichfenster nochmals ×1,10."
+          },
+          {
+            "key": "ap_start",
+            "value": 1,
+            "text": "Durchbruch: +1 Konzentration zum Kampfbeginn."
+          },
+          {
+            "key": "dmg_mult",
+            "value": 1.15,
+            "text": "Durchbruch: Schaden ×1,15."
+          }
+        ],
+        "honor": 50,
+        "growth_steps": 2,
+        "digest_rate": 0.35,
+        "veraenderung": "Du bleibst bei einem gestörten Ablauf, bis sein wirklicher Takt hörbar wird.",
+        "ritual": {
+          "name": "Die Probe des Gangbewahrer",
+          "map": "uhrturm",
+          "vision": false,
+          "consumes": {
+            "silberstaub": 1,
+            "nebeltau": 1
+          },
+          "requires": {
+            "requires_flags": [
+              "case_01_closed"
+            ]
+          },
+          "desc": "Du hörst das Uhrwerk einen ganzen Umlauf lang ab und kennzeichnest den fehlenden Schlag. Du ersetzt kein Zahnrad nach bloßem Verdacht."
+        }
+      },
+      "5": {
+        "name": "Fristzeuge",
+        "desc": "Du siehst den nächsten Schlag kommen, aber nicht die Entscheidung dahinter.",
+        "ingredients": {
+          "sq_zutat_uhr_5": 1,
+          "nebeltau": 1,
+          "silberstaub": 2,
+          "geisteressenz": 2,
+          "nebelherz": 1
+        },
+        "skill": {
+          "id": "uhr_stufe_5",
+          "name": "Fristkehr",
+          "cost": 5,
+          "hits": 2,
+          "flat": 13,
+          "sure": true,
+          "evade": true,
+          "composure": 10,
+          "desc": "2 Treffer mit je 13 Grundschaden. Verfehlter Takt zählt als normaler Treffer. Du weichst im nächsten Gegnerzug aus. Kostet vor Passiven 10 Nerven."
+        },
+        "passives": [
+          {
+            "key": "max_nerves",
+            "value": 10,
+            "text": "+10 Nerven."
+          }
+        ],
+        "honor": 70,
+        "growth_steps": 1,
+        "digest_rate": 0.25,
+        "veraenderung": "Du siehst den nächsten Schlag kommen, aber nicht die Entscheidung dahinter.",
+        "ritual": {
+          "name": "Die Probe des Fristzeuge",
+          "map": "uhrturm",
+          "vision": false,
+          "consumes": {
+            "silberstaub": 1,
+            "nebeltau": 1
+          },
+          "requires": {
+            "requires_flags": [
+              "case_09_closed"
+            ]
+          },
+          "desc": "Du rekonstruierst eine verpasste Abfahrt aus zwei unabhängigen Zeitangaben. Dann gibst du dem Wartenden seine Fahrkarte zurück."
+        }
+      },
+      "4": {
+        "name": "Zwischentakter",
+        "desc": "Dein Sekundenzeiger-Schatten bewegt sich zwischen den Schlägen jeder Uhr. Du trägst das Prinzip deines Pfades nun sichtbar mit dir. Menschen bemerken den Preis, bevor sie die Gabe verstehen.",
+        "ingredients": {
+          "sq_zutat_uhr_4": 1,
+          "nebeltau": 2,
+          "geisteressenz": 2,
+          "silberstaub": 2
+        },
+        "skill": {
+          "id": "uhr_hoch_4",
+          "name": "Taktlücke",
+          "cost": 5,
+          "hits": 2,
+          "flat": 20,
+          "sure": true,
+          "evade": true,
+          "composure": 18,
+          "desc": "2 Treffer mit je 20 Grundschaden. Verfehlter Takt zählt als normaler Treffer. Du weichst im nächsten Gegnerzug aus. Kostet vor Passiven 18 Nerven."
+        },
+        "passives": [
+          {
+            "key": "max_nerves",
+            "value": 8,
+            "text": "+8 Nerven."
+          },
+          {
+            "key": "composure_regen",
+            "value": 0.85,
+            "text": "Der fremde Takt verlangsamt Nervenerholung um 15 %."
+          }
+        ],
+        "ritual": {
+          "name": "Zwischentakter: die offene Probe",
+          "map": "uhrturm",
+          "vision": false,
+          "consumes": {
+            "nebeltau": 2,
+            "silberstaub": 1
+          },
+          "requires": {
+            "requires_flags": [
+              "case_09_closed",
+              "kapitel2_done"
+            ]
+          },
+          "desc": "Du vergleichst den Schlag zweier öffentlicher Uhren mit dem Atem eines Wartenden. Du stellst die Zeiger richtig, nicht den Menschen schneller."
+        },
+        "honor": 90,
+        "growth_steps": 2,
+        "digest_rate": 0.2,
+        "veraenderung": "Dein Sekundenzeiger-Schatten bewegt sich zwischen den Schlägen jeder Uhr."
+      },
+      "3": {
+        "name": "Fristlauscher",
+        "desc": "Dein Blinzeln kommt sichtbar einen Schlag vor dem Geräusch, das es auslöst. Deine Gabe greift über einzelne Begegnungen hinaus. Sie entbindet dich nicht davon, nach Belegen zu suchen.",
+        "ingredients": {
+          "sq_zutat_uhr_3": 1,
+          "nebeltau": 2,
+          "geisteressenz": 3,
+          "silberstaub": 3
+        },
+        "skill": {
+          "id": "uhr_hoch_3",
+          "name": "Friststoß",
+          "cost": 6,
+          "hits": 2,
+          "flat": 25,
+          "sure": true,
+          "evade": true,
+          "composure": 24,
+          "desc": "2 Treffer mit je 25 Grundschaden. Verfehlter Takt zählt als normaler Treffer. Du weichst im nächsten Gegnerzug aus. Kostet vor Passiven 24 Nerven."
+        },
+        "passives": [
+          {
+            "key": "dodge_window",
+            "value": 1.05,
+            "text": "Ausweichfenster nochmals 5 % größer."
+          }
+        ],
+        "ritual": {
+          "name": "Fristlauscher: die offene Probe",
+          "map": "wx_bahnhof",
+          "vision": false,
+          "consumes": {
+            "nebeltau": 2,
+            "silberstaub": 2
+          },
+          "requires": {
+            "requires_flags": [
+              "case_09_closed",
+              "kapitel2_done"
+            ]
+          },
+          "desc": "Du legst zwei falsch gestempelte Fahrkarten nebeneinander und rekonstruierst die Verspätung. Den verpassten Zug erklärst du nicht zum Fehler des Reisenden."
+        },
+        "honor": 110,
+        "growth_steps": 2,
+        "digest_rate": 0.16,
+        "veraenderung": "Dein Blinzeln kommt sichtbar einen Schlag vor dem Geräusch, das es auslöst."
+      },
+      "2": {
+        "name": "Wiederkehrsaum",
+        "desc": "Deine Bewegungen hinterlassen einen kurzen zweiten Umriss, der nicht schneller werden kann. Deine Anwesenheit verändert einen Ort, doch seine Bewohner behalten ihre eigenen Gründe.",
+        "ingredients": {
+          "sq_zutat_uhr_2": 1,
+          "nebeltau": 2,
+          "geisteressenz": 4,
+          "silberstaub": 4
+        },
+        "skill": {
+          "id": "uhr_hoch_2",
+          "name": "Wiederkehrschlag",
+          "cost": 6,
+          "hits": 2,
+          "flat": 33,
+          "sure": true,
+          "evade": true,
+          "composure": 32,
+          "desc": "2 Treffer mit je 33 Grundschaden. Verfehlter Takt zählt als normaler Treffer. Du weichst im nächsten Gegnerzug aus. Kostet vor Passiven 32 Nerven."
+        },
+        "passives": [
+          {
+            "key": "max_hp",
+            "value": 6,
+            "text": "+6 Leben."
+          }
+        ],
+        "ritual": {
+          "name": "Wiederkehrsaum: die offene Probe",
+          "map": "neu:Grenzbezirk für Uhr",
+          "vision": false,
+          "consumes": {
+            "nebeltau": 2,
+            "silberstaub": 3
+          },
+          "requires": {
+            "requires_flags": [
+              "case_09_closed",
+              "kapitel2_done"
+            ]
+          },
+          "desc": "Du gehst den Rundgang eines stillgelegten Stellwerks dreimal und vermerkst jede Abweichung. Beim vierten Mal lässt du den Zug fahren, ohne die Welt zurückzuwünschen."
+        },
+        "honor": 135,
+        "growth_steps": 3,
+        "digest_rate": 0.13,
+        "veraenderung": "Deine Bewegungen hinterlassen einen kurzen zweiten Umriss, der nicht schneller werden kann."
+      },
+      "1": {
+        "name": "Die gewährte Minute",
+        "desc": "Um dich herum zeigen Uhren denselben fehlenden Strich, ohne stehenzubleiben. Man erzählt von dieser Stufe, als wäre sie ein Amt, das niemand lange ausübt. Du bleibst für jede einzelne Handlung verantwortlich.",
+        "ingredients": {
+          "sq_zutat_uhr_1": 1,
+          "nebeltau": 2,
+          "geisteressenz": 5,
+          "silberstaub": 5
+        },
+        "skill": {
+          "id": "uhr_hoch_1",
+          "name": "Minutenfreigabe",
+          "cost": 6,
+          "hits": 2,
+          "flat": 43,
+          "sure": true,
+          "evade": true,
+          "composure": 42,
+          "desc": "2 Treffer mit je 43 Grundschaden. Verfehlter Takt zählt als normaler Treffer. Du weichst im nächsten Gegnerzug aus. Kostet vor Passiven 42 Nerven."
+        },
+        "passives": [
+          {
+            "key": "max_nerves",
+            "value": 8,
+            "text": "+8 Nerven."
+          }
+        ],
+        "ritual": {
+          "name": "Die gewährte Minute: die offene Probe",
+          "map": "neu:Letztes Register für Uhr",
+          "vision": false,
+          "consumes": {
+            "nebeltau": 2,
+            "silberstaub": 4
+          },
+          "requires": {
+            "requires_flags": [
+              "case_09_closed",
+              "kapitel2_done"
+            ]
+          },
+          "desc": "Du gibst die letzte geborgte Minute an den Menschen zurück, dessen Frist sie war. Du bleibst bei dem Ergebnis, auch wenn dein eigener Weg länger wird."
+        },
+        "honor": 160,
+        "growth_steps": 3,
+        "digest_rate": 0.1,
+        "veraenderung": "Um dich herum zeigen Uhren denselben fehlenden Strich, ohne stehenzubleiben."
+      }
+    }
+  }
+}
