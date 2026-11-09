@@ -40,6 +40,11 @@ export function guideIndex(content) {
         addEffects(enc?.first_win, src);
       }
     }
+    // Gegner auf der Karte (Gefahrengebiete, Stadtgegner, Kopfgeld-Ziele)
+    for (const def of map.roamers ?? []) {
+      const enc = content.encounters[def.encounter];
+      add('flag', `won_${def.encounter}`, { map: mapId, id: def.encounter, kind: 'combat', name: enc?.name ?? def.encounter, def });
+    }
   }
   indexCache.set(content, idx);
   return idx;

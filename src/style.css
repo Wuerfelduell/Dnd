@@ -446,3 +446,8 @@ img.scene { display: block; width: 30em; height: 16.875em; margin: 0 auto 0.6em;
 .arteffects .boon, .arteffects .curse { display: block; font-size: 0.9em; }
 .boon { color: #8fd07a; }
 .curse { color: #e07a6a; }
+
+/* Paket L: Steckbriefe am Kopfgeld-Brett und im Auftrag */
+.wanted { width: 8em; height: 10em; margin: 0 auto 0.6em; background-size: 16em 10em; background-position: 0 0; background-repeat: no-repeat; image-rendering: pixelated; }
+.wanted.caught { background-position: -8em 0; }
+.qsum .wanted { float: right; width: 4em; height: 5em; background-size: 8em 5em; margin: 0 0 0.3em 0.5em; }

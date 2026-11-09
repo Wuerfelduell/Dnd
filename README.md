@@ -97,6 +97,12 @@ Auf dem **Nachtmarkt** unter der Krähenbrücke (Stadtkarte) kann man aufsteigen
   Man wacht mit wenig Leben wieder auf. Kämpfe bisher: Übungskampf mit Sergeant Holt,
   der Nebelhund am Kanal (Nebenauftrag), der Aschewächter in der Krypta (Fall 2), Ratten im Archiv,
   der Chor und Rook im Lagerhaus 7 (Fall 3), Silas der Falschspieler und der Spiegelschatten.
+- **Stadtgegner und Kopfgelder:** Nach Fall 1 treiben sich Laternendiebe, Schmuggler, Nachtkrämer und
+  Falschgeldpräger in den Vierteln herum, nach Fall 2 auch Rußgeister, Glockenhunde, Papierkrähen, Wachsmänner,
+  Fadenspinnen und Nebelaale. Manchmal kommt eine Elite-Variante mit besserer Beute. Wer verliert, wacht im
+  Revier auf und hat ein Zehntel seines Geldes verloren. Am Kopfgeld-Brett im Revier hängen Steckbriefe:
+  „Funzel“ Moe Harker, Silas Penn, Dr. Quincy Vale und die Schmugglerkönigin Mag Ashdown. Die Königin legt
+  nur an den Docks an, und wer vorher einen Schmuggler verhört, kennt ihre Schwachstelle.
 - **Aufträge** stehen im Notizbuch mit abhakbaren Schritten. Der Spielstand wird
   automatisch im Browser gespeichert (Titelbildschirm: Fortsetzen / Neues Spiel).
 
@@ -192,6 +198,8 @@ Variante in `next`/`start` mit `"chance": 0.6` greift nur mit dieser Wahrscheinl
 Hinweise können mit `"by"` (Figuren-ID oder `note`, `vision`, `police` …) ihr Quellenbild festlegen, sonst
 errät `core/sources.js` es aus dem Quellennamen. Kartenobjekte mit `"kind": "combat"` sind Gegner,
 `"auto"` löst sie beim Näherkommen aus, `"kind": "rest"` heilt.
+Stadtgegner stehen in `stadtgegner.json`: Werte, Beute und Elite-Variante je Gegner, dazu die Streifen
+(`roamers`) je Viertel mit `visible_if`. Die Steckbriefe am Brett liegen in `dialogues/kopfgeld.json`.
 `npm test` meldet kaputte Verweise und prüft, dass beide Fälle lösbar bleiben.
 
 ### Pixel-Art

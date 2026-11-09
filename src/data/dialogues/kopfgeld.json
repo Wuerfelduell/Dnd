@@ -1,0 +1,337 @@
+{
+  "kopfgeldbrett": {
+    "start": "start",
+    "nodes": {
+      "start": {
+        "text": "Ein Korkbrett neben der Treppe, voller Steckbriefe. Die meisten sind vergilbt und durchgestrichen. Vier sind frisch, mit rotem Polizeisiegel.",
+        "choices": [
+          {
+            "text": "Steckbrief: „Funzel“ Moe Harker",
+            "next": "kopfgeld_laternendieb",
+            "requires_flags": [
+              "case_01_closed"
+            ],
+            "hide_if_flags": [
+              "kopfgeld_laternendieb_paid"
+            ]
+          },
+          {
+            "text": "Kopfgeld kassieren: „Funzel“ Moe Harker",
+            "next": "kopfgeld_laternendieb_pay",
+            "requires_flags": [
+              "won_kopfgeld_laternendieb"
+            ],
+            "requires_quests_active": [
+              "kopfgeld_laternendieb"
+            ]
+          },
+          {
+            "text": "Steckbrief: Silas Penn, der Präger",
+            "next": "kopfgeld_falschgeldpraeger",
+            "requires_flags": [
+              "case_02_closed"
+            ],
+            "hide_if_flags": [
+              "kopfgeld_falschgeldpraeger_paid"
+            ]
+          },
+          {
+            "text": "Kopfgeld kassieren: Silas Penn, der Präger",
+            "next": "kopfgeld_falschgeldpraeger_pay",
+            "requires_flags": [
+              "won_kopfgeld_falschgeldpraeger"
+            ],
+            "requires_quests_active": [
+              "kopfgeld_falschgeldpraeger"
+            ]
+          },
+          {
+            "text": "Steckbrief: Dr. Quincy Vale",
+            "next": "kopfgeld_nachtkraemer",
+            "requires_flags": [
+              "case_03_closed"
+            ],
+            "hide_if_flags": [
+              "kopfgeld_nachtkraemer_paid"
+            ]
+          },
+          {
+            "text": "Kopfgeld kassieren: Dr. Quincy Vale",
+            "next": "kopfgeld_nachtkraemer_pay",
+            "requires_flags": [
+              "won_kopfgeld_nachtkraemer"
+            ],
+            "requires_quests_active": [
+              "kopfgeld_nachtkraemer"
+            ]
+          },
+          {
+            "text": "Steckbrief: Die Schmugglerkönigin",
+            "next": "kopfgeld_koenigin",
+            "requires_flags": [
+              "case_04_closed"
+            ],
+            "hide_if_flags": [
+              "kopfgeld_koenigin_paid"
+            ]
+          },
+          {
+            "text": "Kopfgeld kassieren: Die Schmugglerkönigin",
+            "next": "kopfgeld_koenigin_pay",
+            "requires_flags": [
+              "won_schmugglerkoenigin"
+            ],
+            "requires_quests_active": [
+              "kopfgeld_koenigin"
+            ]
+          },
+          {
+            "text": "Weggehen."
+          }
+        ]
+      },
+      "kopfgeld_laternendieb": {
+        "text": "GESUCHT: „Funzel“ Moe Harker. Laternendieb, Altmarkt. Stiehlt Gasstrümpfe und lässt die Gassen im Dunkeln. 25 Schilling.",
+        "wanted": "laternendieb",
+        "choices": [
+          {
+            "text": "Steckbrief abnehmen.",
+            "next": "kopfgeld_laternendieb_take",
+            "hide_if_quests": [
+              "kopfgeld_laternendieb"
+            ]
+          },
+          {
+            "text": "Zurück.",
+            "next": "start"
+          }
+        ]
+      },
+      "kopfgeld_laternendieb_take": {
+        "text": "Du steckst den Steckbrief ein. Darunter steht in Marlowes Schrift: „Lebend. Price will ihn sehen.“",
+        "wanted": "laternendieb",
+        "start_quests": [
+          "kopfgeld_laternendieb"
+        ],
+        "choices": [
+          {
+            "text": "Zurück zum Brett.",
+            "next": "start"
+          }
+        ]
+      },
+      "kopfgeld_laternendieb_pay": {
+        "text": "Dunn stempelt den Steckbrief und zählt dir 25 Schilling auf die Hand. „Die Laternen am Altmarkt brennen wieder, Sir. Meine Frau dankt Ihnen.“",
+        "wanted": "laternendieb",
+        "wanted_caught": true,
+        "sets_flags": [
+          "kopfgeld_laternendieb_paid"
+        ],
+        "complete_quests": [
+          "kopfgeld_laternendieb"
+        ],
+        "gives_money": 25,
+        "honor": 2,
+        "honor_reason": "Kopfgeld: Laternendieb",
+        "choices": [
+          {
+            "text": "Zurück zum Brett.",
+            "next": "start"
+          }
+        ]
+      },
+      "kopfgeld_falschgeldpraeger": {
+        "text": "GESUCHT: Silas Penn, „der Präger“. Falschgeld auf dem Nachtmarkt. Hat eine Druckerei in einem Fass. 35 Schilling, echte.",
+        "wanted": "falschgeldpraeger",
+        "choices": [
+          {
+            "text": "Steckbrief abnehmen.",
+            "next": "kopfgeld_falschgeldpraeger_take",
+            "hide_if_quests": [
+              "kopfgeld_falschgeldpraeger"
+            ]
+          },
+          {
+            "text": "Zurück.",
+            "next": "start"
+          }
+        ]
+      },
+      "kopfgeld_falschgeldpraeger_take": {
+        "text": "Du steckst den Steckbrief ein. Darunter steht in Marlowes Schrift: „Lebend. Price will ihn sehen.“",
+        "wanted": "falschgeldpraeger",
+        "start_quests": [
+          "kopfgeld_falschgeldpraeger"
+        ],
+        "choices": [
+          {
+            "text": "Zurück zum Brett.",
+            "next": "start"
+          }
+        ]
+      },
+      "kopfgeld_falschgeldpraeger_pay": {
+        "text": "Dunn beißt auf jede Münze, bevor er sie dir gibt. „Man weiß ja nie.“ 35 Schilling.",
+        "wanted": "falschgeldpraeger",
+        "wanted_caught": true,
+        "sets_flags": [
+          "kopfgeld_falschgeldpraeger_paid"
+        ],
+        "complete_quests": [
+          "kopfgeld_falschgeldpraeger"
+        ],
+        "gives_money": 35,
+        "honor": 2,
+        "honor_reason": "Kopfgeld: Falschgeldpräger",
+        "choices": [
+          {
+            "text": "Zurück zum Brett.",
+            "next": "start"
+          }
+        ]
+      },
+      "kopfgeld_nachtkraemer": {
+        "text": "GESUCHT: Dr. Quincy Vale. Kein Doktor. Verkauft am Nordtor „Mut in Flaschen“, drei Tote. 45 Schilling und ein Fernrohr aus der Asservatenkammer.",
+        "wanted": "nachtkraemer",
+        "choices": [
+          {
+            "text": "Steckbrief abnehmen.",
+            "next": "kopfgeld_nachtkraemer_take",
+            "hide_if_quests": [
+              "kopfgeld_nachtkraemer"
+            ]
+          },
+          {
+            "text": "Zurück.",
+            "next": "start"
+          }
+        ]
+      },
+      "kopfgeld_nachtkraemer_take": {
+        "text": "Du steckst den Steckbrief ein. Darunter steht in Marlowes Schrift: „Lebend. Price will ihn sehen.“",
+        "wanted": "nachtkraemer",
+        "start_quests": [
+          "kopfgeld_nachtkraemer"
+        ],
+        "choices": [
+          {
+            "text": "Zurück zum Brett.",
+            "next": "start"
+          }
+        ]
+      },
+      "kopfgeld_nachtkraemer_pay": {
+        "text": "Marlowe kommt selbst herunter und legt ein Messingfernrohr auf den Tisch. „Aus Vales Kiste. Er hat damit nach Kunden Ausschau gehalten. Sie sehen damit hoffentlich weiter.“",
+        "wanted": "nachtkraemer",
+        "wanted_caught": true,
+        "sets_flags": [
+          "kopfgeld_nachtkraemer_paid"
+        ],
+        "complete_quests": [
+          "kopfgeld_nachtkraemer"
+        ],
+        "gives_money": 45,
+        "gives_items": {
+          "fernrohr_messing": 1
+        },
+        "honor": 3,
+        "honor_reason": "Kopfgeld: Nachtkrämer",
+        "choices": [
+          {
+            "text": "Zurück zum Brett.",
+            "next": "start"
+          }
+        ]
+      },
+      "kopfgeld_koenigin": {
+        "text": "GESUCHT: Mag Ashdown, „die Schmugglerkönigin“. Schmuggel, Bestechung, versenkte Zollboote. Gefährlich. 120 Schilling.",
+        "wanted": "schmugglerkoenigin",
+        "choices": [
+          {
+            "text": "Steckbrief abnehmen.",
+            "next": "kopfgeld_koenigin_take",
+            "hide_if_quests": [
+              "kopfgeld_koenigin"
+            ]
+          },
+          {
+            "text": "Zurück.",
+            "next": "start"
+          }
+        ]
+      },
+      "kopfgeld_koenigin_take": {
+        "text": "Du steckst den Steckbrief ein. Darunter steht in Marlowes Schrift: „Lebend. Price will ihn sehen.“",
+        "wanted": "schmugglerkoenigin",
+        "start_quests": [
+          "kopfgeld_koenigin"
+        ],
+        "choices": [
+          {
+            "text": "Zurück zum Brett.",
+            "next": "start"
+          }
+        ]
+      },
+      "kopfgeld_koenigin_pay": {
+        "text": "Marlowe heftet dir eine goldene Marke an den Mantel, vor der ganzen Wachstube. „Für besondere Verdienste.“ Dazu 120 Schilling, ein Ölzeugmantel aus der Beute und das Entermesser der Königin. Price klatscht als Letzter.",
+        "wanted": "schmugglerkoenigin",
+        "wanted_caught": true,
+        "sets_flags": [
+          "kopfgeld_koenigin_paid"
+        ],
+        "complete_quests": [
+          "kopfgeld_koenigin"
+        ],
+        "gives_money": 120,
+        "gives_items": {
+          "polizeimarke_gold": 1,
+          "mantel_oelzeug": 1,
+          "entermesser": 1
+        },
+        "honor": 6,
+        "honor_reason": "Kopfgeld: Schmugglerkönigin",
+        "choices": [
+          {
+            "text": "Zurück zum Brett.",
+            "next": "start"
+          }
+        ]
+      }
+    }
+  },
+  "schmuggler_verhoer": {
+    "start": "start",
+    "nodes": {
+      "start": {
+        "text": "Der Schmuggler liegt auf den Planken und hält sich die Rippen. „Schon gut, schon gut! Was willst du?“",
+        "choices": [
+          {
+            "text": "Wo legt die Königin an?",
+            "next": "route",
+            "requires_quests_active": [
+              "kopfgeld_koenigin"
+            ],
+            "hide_if_flags": [
+              "koenigin_route"
+            ]
+          },
+          {
+            "text": "Verschwinde."
+          }
+        ]
+      },
+      "route": {
+        "text": "„Unter der dritten Brücke, wenn die Glocke vom Nordtor zwölf schlägt. Sie hat immer einen zweiten Kahn hinter dem Lagerhaus. Wenn du den losmachst, sitzt sie fest.“ Er spuckt aus. „Sag ihr nicht, dass ich es war.“",
+        "sets_flags": [
+          "koenigin_route"
+        ],
+        "choices": [
+          {
+            "text": "…"
+          }
+        ]
+      }
+    }
+  }
+}

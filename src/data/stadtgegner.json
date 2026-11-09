@@ -1,0 +1,1196 @@
+{
+  "_info": "Stadtgegner (Paket L): streifen nachts durch die Viertel. Besiegte Gegner kommen beim nächsten Betreten wieder, Kopfgeld-Ziele nicht.",
+  "lose_to": {
+    "map": "revier",
+    "spawn": "default"
+  },
+  "lose_money": 0.1,
+  "lose_text": "Constable Dunn hat dich auf einer Bank in der Wachstube abgelegt. „Man hat Sie in der Gosse gefunden, Sir. Ohne Geldbörse. Na ja, fast ohne.“",
+  "flee_text": "Du tauchst in einer Seitengasse unter, bis die Schritte verklingen.",
+  "elite_drops": [
+    {
+      "item": "spinnfaden_lila",
+      "chance": 0.25
+    }
+  ],
+  "elite_chance": 0.1,
+  "elite_hp": 1.4,
+  "elite_dmg": 1.2,
+  "items": {
+    "gasgluehstrumpf": {
+      "name": "Gasglühstrumpf",
+      "kind": "trophy",
+      "rarity": "gewoehnlich",
+      "price": 5,
+      "desc": "Ein kleiner Glühstrumpf in einem Drahtkorb. Glimmt noch, wenn man pustet."
+    },
+    "schmuggelware": {
+      "name": "Schmuggelware",
+      "kind": "trophy",
+      "rarity": "gewoehnlich",
+      "price": 9,
+      "desc": "Ein Päckchen in geteertem Bindfaden. Riecht nach Tabak und Ärger."
+    },
+    "falschgeld": {
+      "name": "Falschgeld",
+      "kind": "trophy",
+      "rarity": "gewoehnlich",
+      "price": 2,
+      "desc": "Ein Stapel Münzen, fast richtig. Der König darauf schielt."
+    },
+    "russklumpen": {
+      "name": "Rußklumpen",
+      "kind": "trophy",
+      "rarity": "ungewoehnlich",
+      "price": 12,
+      "desc": "Ein Klumpen Ruß mit einer glimmenden Glut darin. Er wird nie kalt."
+    },
+    "bronzeglocke_klein": {
+      "name": "Kleine Bronzeglocke",
+      "kind": "trophy",
+      "rarity": "ungewoehnlich",
+      "price": 14,
+      "desc": "Gesprungen. Wenn man sie schüttelt, bellt sie leise."
+    },
+    "papierfeder": {
+      "name": "Papierfeder",
+      "kind": "trophy",
+      "rarity": "gewoehnlich",
+      "price": 6,
+      "desc": "Eine Feder aus Zeitungspapier. Die Schlagzeile darauf ist von morgen."
+    },
+    "wachsdocht": {
+      "name": "Brennender Docht",
+      "kind": "trophy",
+      "rarity": "ungewoehnlich",
+      "price": 12,
+      "desc": "Ein Docht in grauem Wachs, der brennt, ohne kürzer zu werden."
+    },
+    "spinnfaden_lila": {
+      "name": "Lila Spinnfaden",
+      "kind": "trophy",
+      "rarity": "selten",
+      "price": 22,
+      "desc": "Eine Spule glimmendes Garn. Mrs. Gorse würde viel dafür geben, sagt sie."
+    },
+    "entermesser": {
+      "name": "Entermesser der Königin",
+      "kind": "weapon",
+      "rarity": "selten",
+      "atk": 9,
+      "price": 60,
+      "desc": "Mag Ashdowns Entermesser mit Messingkorb. Kurz, schwer und erstaunlich gut gepflegt."
+    },
+    "fernrohr_messing": {
+      "name": "Messingfernrohr",
+      "kind": "trophy",
+      "rarity": "selten",
+      "price": 45,
+      "desc": "Ein Fernrohr aus der Beute der Schmuggler. Wer hindurchsieht, erkennt die Lampen am anderen Kanalufer."
+    },
+    "mantel_oelzeug": {
+      "name": "Ölzeugmantel",
+      "kind": "trophy",
+      "rarity": "selten",
+      "price": 40,
+      "desc": "Ein schwerer Mantel aus Ölzeug, wie ihn die Schmuggler tragen. Hält Regen ab und, sagt man, auch neugierige Blicke."
+    },
+    "polizeimarke_gold": {
+      "name": "Goldene Polizeimarke",
+      "kind": "key",
+      "rarity": "selten",
+      "desc": "Von Marlowe persönlich überreicht. „Für besondere Verdienste um die Sicherheit von Kettlegate.“ Price ist neidisch."
+    }
+  },
+  "encounters": {
+    "laternendieb": {
+      "name": "Laternendieb",
+      "occult": false,
+      "hp": 30,
+      "intro": "Ein Schatten mit Schal vor dem Gesicht löst sich von einem Laternenpfahl. Am Gürtel baumelt ein glühender Gasstrumpf. „Die Taschen, Herr Ermittler. Oder das Licht geht aus.“",
+      "attacks": [
+        {
+          "name": "Hakenstange",
+          "damage": 5,
+          "hits": [
+            900
+          ]
+        },
+        {
+          "name": "Stolperfalle",
+          "damage": 3,
+          "hits": [
+            600,
+            900
+          ]
+        },
+        {
+          "name": "Gaslicht zerschlagen",
+          "damage": 9,
+          "hits": [
+            1800
+          ],
+          "nerves": 3
+        }
+      ],
+      "win_text": "Er lässt den Gasstrumpf fallen und verschwindet über eine Mauer.",
+      "loot": {
+        "money": [
+          3,
+          8
+        ],
+        "drops": [
+          {
+            "item": "gasgluehstrumpf",
+            "chance": 0.6
+          },
+          {
+            "item": "verband",
+            "chance": 0.15
+          }
+        ]
+      },
+      "roam": {
+        "speed": 30,
+        "chase": 58,
+        "aggro": 60
+      },
+      "elite": {
+        "name": "Lampenkönig der Gasse"
+      }
+    },
+    "kanalschmuggler": {
+      "name": "Kanalschmuggler",
+      "occult": false,
+      "hp": 36,
+      "intro": "Ein Mann in Ölzeug stellt eine Kiste ab und greift nach dem Bootshaken. „Falscher Steg, Freundchen.“",
+      "attacks": [
+        {
+          "name": "Bootshaken",
+          "damage": 6,
+          "hits": [
+            1000
+          ]
+        },
+        {
+          "name": "Bleinetz",
+          "damage": 3,
+          "hits": [
+            700,
+            1000,
+            1300
+          ]
+        },
+        {
+          "name": "Kistenwurf",
+          "damage": 10,
+          "hits": [
+            1900
+          ]
+        }
+      ],
+      "win_text": "Der Schmuggler springt in den Kanal. Die Kiste bleibt stehen.",
+      "loot": {
+        "money": [
+          4,
+          10
+        ],
+        "drops": [
+          {
+            "item": "schmuggelware",
+            "chance": 0.55
+          },
+          {
+            "item": "tonikum",
+            "chance": 0.08
+          }
+        ]
+      },
+      "roam": {
+        "speed": 26,
+        "chase": 50,
+        "aggro": 60
+      },
+      "elite": {
+        "name": "Bootsmann der Königin"
+      }
+    },
+    "nachtkraemer": {
+      "name": "Nachtkrämer",
+      "occult": false,
+      "hp": 30,
+      "intro": "Ein Mann mit schiefem Zylinder öffnet den Mantel: hundert kleine Flaschen. „Ein Mittelchen gegen Schmerzen? Gleich werden Sie eins brauchen.“",
+      "attacks": [
+        {
+          "name": "Farbrauch",
+          "damage": 4,
+          "hits": [
+            700,
+            1000
+          ],
+          "nerves": 2
+        },
+        {
+          "name": "Billiges Fläschchen",
+          "damage": 7,
+          "hits": [
+            1100
+          ]
+        },
+        {
+          "name": "Eigene Medizin",
+          "action": "heal",
+          "value": 5,
+          "text": "Er trinkt ein leuchtendes Fläschchen. +5 Leben."
+        },
+        {
+          "name": "Ganze Kiste",
+          "damage": 10,
+          "hits": [
+            1900
+          ]
+        }
+      ],
+      "win_text": "Er rafft seine Flaschen zusammen und hinkt davon.",
+      "loot": {
+        "money": [
+          5,
+          12
+        ],
+        "drops": [
+          {
+            "item": "tonikum",
+            "chance": 0.2
+          },
+          {
+            "item": "riechsalz",
+            "chance": 0.25
+          }
+        ]
+      },
+      "roam": {
+        "speed": 24,
+        "chase": 46,
+        "aggro": 54
+      },
+      "elite": {
+        "name": "Wunderkrämer"
+      }
+    },
+    "falschgeldpraeger": {
+      "name": "Falschgeldpräger",
+      "occult": false,
+      "hp": 28,
+      "intro": "Ein nervöser Mann mit Lupenbrille drückt einen Beutel an sich. Münzen rieseln heraus. „Die sind echt! Echt echt!“",
+      "attacks": [
+        {
+          "name": "Prägehebel",
+          "damage": 6,
+          "hits": [
+            1000
+          ]
+        },
+        {
+          "name": "Heiße Münzen",
+          "damage": 2,
+          "hits": [
+            500,
+            750,
+            1000,
+            1250
+          ]
+        },
+        {
+          "name": "Panikschlag",
+          "damage": 10,
+          "hits": [
+            1700
+          ]
+        }
+      ],
+      "win_text": "Er stolpert davon und lässt eine Handvoll Münzen liegen, die fast echt aussehen.",
+      "loot": {
+        "money": [
+          2,
+          6
+        ],
+        "drops": [
+          {
+            "item": "falschgeld",
+            "chance": 0.7
+          }
+        ]
+      },
+      "roam": {
+        "speed": 32,
+        "chase": 40,
+        "aggro": 50
+      },
+      "elite": {
+        "name": "Meisterpräger"
+      }
+    },
+    "russgeist": {
+      "name": "Rußgeist",
+      "occult": true,
+      "hp": 32,
+      "intro": "Aus einem Kamin quillt eine schwarze Wolke mit zwei glühenden Augen. Sie greift mit langen, rauchigen Armen nach dir.",
+      "attacks": [
+        {
+          "name": "Ersticken",
+          "damage": 5,
+          "hits": [
+            1000
+          ]
+        },
+        {
+          "name": "Rußwolke",
+          "damage": 3,
+          "hits": [
+            600,
+            900,
+            1200
+          ],
+          "nerves": 2
+        },
+        {
+          "name": "Glutstoß",
+          "damage": 11,
+          "hits": [
+            2000
+          ]
+        }
+      ],
+      "win_text": "Die Wolke zerfasert. Zurück bleibt ein warmer Klumpen Ruß.",
+      "loot": {
+        "money": [
+          2,
+          5
+        ],
+        "drops": [
+          {
+            "item": "russklumpen",
+            "chance": 0.6
+          }
+        ]
+      },
+      "roam": {
+        "speed": 22,
+        "chase": 44,
+        "aggro": 62
+      },
+      "elite": {
+        "name": "Schlotgeist"
+      }
+    },
+    "glockenhund": {
+      "name": "Glockenhund",
+      "occult": true,
+      "hp": 34,
+      "intro": "Ein magerer Hund aus Bronze, um den Hals eine gesprungene Glocke. Als er bellt, siehst du den Ton als türkisen Ring.",
+      "attacks": [
+        {
+          "name": "Biss",
+          "damage": 6,
+          "hits": [
+            800
+          ]
+        },
+        {
+          "name": "Glockengeheul",
+          "damage": 2,
+          "hits": [
+            500,
+            750,
+            1000,
+            1250
+          ],
+          "nerves": 3
+        },
+        {
+          "name": "Sprung",
+          "damage": 11,
+          "hits": [
+            1800
+          ]
+        }
+      ],
+      "win_text": "Die Glocke um seinen Hals schlägt ein letztes Mal, dann ist der Hund nur noch kaltes Metall.",
+      "loot": {
+        "money": [
+          3,
+          7
+        ],
+        "drops": [
+          {
+            "item": "bronzeglocke_klein",
+            "chance": 0.55
+          }
+        ]
+      },
+      "roam": {
+        "speed": 34,
+        "chase": 64,
+        "aggro": 70
+      },
+      "elite": {
+        "name": "Leithund vom Glockenturm"
+      }
+    },
+    "papierkraehe": {
+      "name": "Papierkrähe",
+      "occult": true,
+      "hp": 24,
+      "intro": "Eine Krähe aus gefalteten Zeitungen hüpft dir vor die Füße. Auf ihrem Flügel liest du das Wort „morgen“.",
+      "attacks": [
+        {
+          "name": "Papierschnitt",
+          "damage": 3,
+          "hits": [
+            500,
+            750,
+            1000
+          ]
+        },
+        {
+          "name": "Papierwirbel",
+          "action": "veil",
+          "value": 0,
+          "text": "Ein Wirbel aus Fetzen verbirgt sie. Nur ein präziser Treffer findet sie."
+        },
+        {
+          "name": "Sturzflug",
+          "damage": 9,
+          "hits": [
+            1600
+          ]
+        }
+      ],
+      "win_text": "Die Krähe faltet sich auseinander. Nur eine alte Zeitung, und eine Feder aus Papier.",
+      "loot": {
+        "money": [
+          1,
+          4
+        ],
+        "drops": [
+          {
+            "item": "papierfeder",
+            "chance": 0.6
+          }
+        ]
+      },
+      "roam": {
+        "speed": 36,
+        "chase": 60,
+        "aggro": 58
+      },
+      "elite": {
+        "name": "Schlagzeilenkrähe"
+      }
+    },
+    "wachsmann": {
+      "name": "Wachsmann",
+      "occult": true,
+      "hp": 34,
+      "intro": "Eine zusammengesunkene Gestalt aus grauem Kerzenwachs schlurft heran. Auf ihrem Kopf brennt ein Docht, und ihr Gesicht tropft.",
+      "attacks": [
+        {
+          "name": "Heißes Wachs",
+          "damage": 7,
+          "hits": [
+            1100
+          ]
+        },
+        {
+          "name": "Neu gießen",
+          "action": "heal",
+          "value": 4,
+          "text": "Das Wachs schmilzt und formt sich neu. +4 Leben."
+        },
+        {
+          "name": "Wachsfaust",
+          "damage": 4,
+          "hits": [
+            700,
+            1000
+          ]
+        },
+        {
+          "name": "Dochtflamme",
+          "damage": 11,
+          "hits": [
+            2000
+          ]
+        }
+      ],
+      "win_text": "Der Docht erlischt. Der Wachsmann sackt zu einer Pfütze zusammen.",
+      "loot": {
+        "money": [
+          2,
+          6
+        ],
+        "drops": [
+          {
+            "item": "wachsdocht",
+            "chance": 0.55
+          }
+        ]
+      },
+      "roam": {
+        "speed": 16,
+        "chase": 30,
+        "aggro": 50
+      },
+      "elite": {
+        "name": "Totenkerze"
+      }
+    },
+    "fadenspinne": {
+      "name": "Fadenspinne",
+      "occult": true,
+      "hp": 34,
+      "intro": "Eine Spinne aus lila Garn und Messingnadeln krabbelt eine Hauswand herab. Ihr Auge ist eine einzelne glühende Perle.",
+      "attacks": [
+        {
+          "name": "Nadelstich",
+          "damage": 4,
+          "hits": [
+            600,
+            850,
+            1100
+          ]
+        },
+        {
+          "name": "Fadennetz",
+          "damage": 6,
+          "hits": [
+            1200
+          ],
+          "nerves": 2
+        },
+        {
+          "name": "Durchbohren",
+          "damage": 12,
+          "hits": [
+            2000
+          ]
+        }
+      ],
+      "win_text": "Die Spinne zerfällt zu einem Knäuel Garn. Es glimmt noch.",
+      "loot": {
+        "money": [
+          3,
+          7
+        ],
+        "drops": [
+          {
+            "item": "spinnfaden_lila",
+            "chance": 0.5
+          }
+        ]
+      },
+      "roam": {
+        "speed": 30,
+        "chase": 56,
+        "aggro": 60
+      },
+      "elite": {
+        "name": "Webmutter"
+      }
+    },
+    "nebelaal": {
+      "name": "Nebelaal",
+      "occult": true,
+      "hp": 22,
+      "intro": "Ein bleicher Aal aus Nebel schwimmt durch die Luft auf dich zu. Entlang seiner Wirbelsäule glimmt es türkis.",
+      "attacks": [
+        {
+          "name": "Umschlingen",
+          "damage": 5,
+          "hits": [
+            900,
+            1200
+          ]
+        },
+        {
+          "name": "Auflösen",
+          "action": "veil",
+          "value": 0,
+          "text": "Er löst sich in Nebel auf und taucht hinter dir wieder auf."
+        },
+        {
+          "name": "Saugender Biss",
+          "damage": 10,
+          "hits": [
+            1900
+          ]
+        }
+      ],
+      "win_text": "Der Aal verweht. Es riecht nach Kanal und kaltem Glas.",
+      "loot": {
+        "money": [
+          3,
+          7
+        ],
+        "drops": [
+          {
+            "item": "spinnfaden_lila",
+            "chance": 0.1
+          },
+          {
+            "item": "russklumpen",
+            "chance": 0.1
+          }
+        ]
+      },
+      "roam": {
+        "speed": 28,
+        "chase": 54,
+        "aggro": 66
+      },
+      "elite": {
+        "name": "Großer Nebelaal"
+      }
+    },
+    "kopfgeld_laternendieb": {
+      "name": "„Funzel“ Moe Harker",
+      "sheet": "enemy_laternendieb",
+      "occult": false,
+      "hp": 40,
+      "armor": 1,
+      "fleeable": true,
+      "intro": "Moe Harker, der Mann vom Steckbrief, sitzt auf einem Laternenmast und schraubt in aller Ruhe den Gasstrumpf ab. „Ach, der Neue von Marlowe. Wollen Sie mich festnehmen? Dann kommen Sie hoch.“",
+      "attacks": [
+        {
+          "name": "Hakenstange",
+          "damage": 6,
+          "hits": [
+            900
+          ]
+        },
+        {
+          "name": "Stolperfalle",
+          "damage": 4,
+          "hits": [
+            600,
+            900
+          ]
+        },
+        {
+          "name": "Gaslicht zerschlagen",
+          "damage": 11,
+          "hits": [
+            1800
+          ],
+          "nerves": 4
+        },
+        {
+          "name": "Vom Mast",
+          "damage": 8,
+          "hits": [
+            1300
+          ]
+        }
+      ],
+      "win_text": "Harker hebt die Hände. „Schon gut, schon gut. Sagen Sie Marlowe, ich hab nur geklaut, nie gestochen.“",
+      "loot": {
+        "money": [
+          8,
+          8
+        ],
+        "drops": [
+          {
+            "item": "gasgluehstrumpf",
+            "chance": 1
+          }
+        ]
+      }
+    },
+    "kopfgeld_falschgeldpraeger": {
+      "name": "Silas Penn, der Präger",
+      "sheet": "enemy_falschgeldpraeger",
+      "occult": false,
+      "hp": 38,
+      "armor": 1,
+      "fleeable": true,
+      "intro": "Silas Penn zieht die Lupenbrille hoch und lächelt dünn. „Wissen Sie, wie viel Arbeit in einer guten Fälschung steckt? Mehr als in Ihrem Gehalt.“",
+      "attacks": [
+        {
+          "name": "Prägehebel",
+          "damage": 7,
+          "hits": [
+            1000
+          ]
+        },
+        {
+          "name": "Heiße Münzen",
+          "damage": 3,
+          "hits": [
+            500,
+            750,
+            1000,
+            1250
+          ]
+        },
+        {
+          "name": "Säurebad",
+          "damage": 12,
+          "hits": [
+            1900
+          ],
+          "nerves": 3
+        }
+      ],
+      "win_text": "Penn lässt den Hebel fallen. „Echte Handschellen. Wie enttäuschend.“",
+      "loot": {
+        "money": [
+          4,
+          4
+        ],
+        "drops": [
+          {
+            "item": "falschgeld",
+            "chance": 1
+          }
+        ]
+      }
+    },
+    "kopfgeld_nachtkraemer": {
+      "name": "Dr. Quincy Vale",
+      "sheet": "enemy_nachtkraemer",
+      "occult": false,
+      "hp": 40,
+      "armor": 1,
+      "fleeable": true,
+      "intro": "Dr. Quincy Vale verkauft am Nordtor „Mut in Flaschen“. Drei Menschen sind daran gestorben. Er lächelt mit allen Zähnen. „Ein Gratismuster für den Herrn von der Polizei?“",
+      "attacks": [
+        {
+          "name": "Farbrauch",
+          "damage": 5,
+          "hits": [
+            700,
+            1000
+          ],
+          "nerves": 3
+        },
+        {
+          "name": "Giftfläschchen",
+          "damage": 8,
+          "hits": [
+            1100
+          ]
+        },
+        {
+          "name": "Mut in Flaschen",
+          "action": "heal",
+          "value": 6,
+          "text": "Er trinkt seine eigene Medizin. +6 Leben."
+        },
+        {
+          "name": "Ganze Kiste",
+          "damage": 12,
+          "hits": [
+            1900
+          ]
+        }
+      ],
+      "win_text": "Vale sinkt auf seine Kiste. Die Fläschchen klirren.",
+      "loot": {
+        "money": [
+          10,
+          10
+        ],
+        "drops": [
+          {
+            "item": "tonikum",
+            "chance": 1
+          }
+        ]
+      }
+    },
+    "schmugglerkoenigin": {
+      "name": "Die Schmugglerkönigin",
+      "occult": false,
+      "boss": true,
+      "hp": 48,
+      "fleeable": false,
+      "intro": "Ein flacher Kahn gleitet aus dem Nebel, beladen mit Kisten, zwei Laternen am Bug. Darauf steht eine große Frau in Ölzeug, eine Narbe durch die Augenbraue, das Entermesser locker in der Hand.\n\n„Mag Ashdown. Marlowe hat einen hübschen Preis auf meinen Kopf gesetzt, hab ich gehört. Komm und hol ihn dir.“",
+      "attacks": [
+        {
+          "name": "Entermesser",
+          "damage": 8,
+          "hits": [
+            900,
+            1300
+          ]
+        },
+        {
+          "name": "Kistentritt",
+          "damage": 4,
+          "hits": [
+            600,
+            850,
+            1100,
+            1350
+          ]
+        },
+        {
+          "name": "Pfiff",
+          "action": "guard",
+          "value": 6,
+          "text": "Sie pfeift, und zwei Schmuggler klettern auf den Kahn. Panzer 6."
+        },
+        {
+          "name": "Flachmann",
+          "action": "heal",
+          "value": 4,
+          "text": "Sie nimmt einen Schluck und lacht. +4 Leben."
+        },
+        {
+          "name": "Breitseite",
+          "damage": 11,
+          "hits": [
+            2100
+          ]
+        }
+      ],
+      "weak_if": {
+        "requires_flags": [
+          "koenigin_route"
+        ]
+      },
+      "weak_text": "Du kennst ihren Fluchtweg. Ihre Leute halten den Kahn nicht mehr ruhig.",
+      "win_text": "Mag Ashdown lässt das Entermesser fallen und hebt die Hände. Der Kahn treibt ein Stück ab. „Gut gekämpft, Ermittler. Sag Marlowe, ich will eine Zelle mit Fenster.“",
+      "loot": {
+        "money": [
+          30,
+          30
+        ],
+        "drops": []
+      },
+      "armor": 1
+    }
+  },
+  "roamers": {
+    "docks": [
+      {
+        "encounter": "kanalschmuggler",
+        "tile": [
+          32,
+          5
+        ],
+        "visible_if": {
+          "requires_flags": [
+            "case_01_closed"
+          ]
+        },
+        "elite_chance": 0.1
+      },
+      {
+        "encounter": "kanalschmuggler",
+        "tile": [
+          26,
+          8
+        ],
+        "visible_if": {
+          "requires_flags": [
+            "case_01_closed"
+          ]
+        },
+        "elite_chance": 0.1
+      },
+      {
+        "encounter": "nebelaal",
+        "tile": [
+          30,
+          7
+        ],
+        "visible_if": {
+          "requires_flags": [
+            "case_02_closed"
+          ]
+        },
+        "elite_chance": 0.1
+      },
+      {
+        "encounter": "schmugglerkoenigin",
+        "tile": [
+          27,
+          11
+        ],
+        "boss": true,
+        "visible_if": {
+          "requires_quests_active": [
+            "kopfgeld_koenigin"
+          ]
+        }
+      }
+    ],
+    "altmarkt": [
+      {
+        "encounter": "laternendieb",
+        "tile": [
+          28,
+          21
+        ],
+        "visible_if": {
+          "requires_flags": [
+            "case_01_closed"
+          ]
+        },
+        "elite_chance": 0.1
+      },
+      {
+        "encounter": "papierkraehe",
+        "tile": [
+          8,
+          24
+        ],
+        "visible_if": {
+          "requires_flags": [
+            "case_02_closed"
+          ]
+        },
+        "elite_chance": 0.1
+      },
+      {
+        "encounter": "falschgeldpraeger",
+        "tile": [
+          22,
+          5
+        ],
+        "visible_if": {
+          "requires_flags": [
+            "case_01_closed"
+          ]
+        },
+        "elite_chance": 0.1
+      },
+      {
+        "encounter": "kopfgeld_laternendieb",
+        "tile": [
+          40,
+          13
+        ],
+        "boss": true,
+        "visible_if": {
+          "requires_quests_active": [
+            "kopfgeld_laternendieb"
+          ]
+        }
+      }
+    ],
+    "nachtmarkt": [
+      {
+        "encounter": "nachtkraemer",
+        "tile": [
+          10,
+          4
+        ],
+        "visible_if": {
+          "requires_flags": [
+            "case_01_closed"
+          ]
+        },
+        "elite_chance": 0.1
+      },
+      {
+        "encounter": "kopfgeld_falschgeldpraeger",
+        "tile": [
+          21,
+          4
+        ],
+        "boss": true,
+        "visible_if": {
+          "requires_quests_active": [
+            "kopfgeld_falschgeldpraeger"
+          ]
+        }
+      }
+    ],
+    "ashgrove": [
+      {
+        "encounter": "russgeist",
+        "tile": [
+          31,
+          21
+        ],
+        "visible_if": {
+          "requires_flags": [
+            "case_02_closed"
+          ]
+        },
+        "elite_chance": 0.1
+      },
+      {
+        "encounter": "wachsmann",
+        "tile": [
+          16,
+          4
+        ],
+        "visible_if": {
+          "requires_flags": [
+            "case_02_closed"
+          ]
+        },
+        "elite_chance": 0.1
+      },
+      {
+        "encounter": "laternendieb",
+        "tile": [
+          53,
+          22
+        ],
+        "visible_if": {
+          "requires_flags": [
+            "case_01_closed"
+          ]
+        },
+        "elite_chance": 0.1
+      },
+      {
+        "encounter": "glockenhund",
+        "tile": [
+          55,
+          13
+        ],
+        "visible_if": {
+          "requires_flags": [
+            "case_02_closed"
+          ]
+        },
+        "elite_chance": 0.1
+      }
+    ],
+    "nordtor": [
+      {
+        "encounter": "glockenhund",
+        "tile": [
+          44,
+          9
+        ],
+        "visible_if": {
+          "requires_flags": [
+            "case_02_closed"
+          ]
+        },
+        "elite_chance": 0.1
+      },
+      {
+        "encounter": "fadenspinne",
+        "tile": [
+          23,
+          22
+        ],
+        "visible_if": {
+          "requires_flags": [
+            "case_02_closed"
+          ]
+        },
+        "elite_chance": 0.1
+      },
+      {
+        "encounter": "papierkraehe",
+        "tile": [
+          1,
+          18
+        ],
+        "visible_if": {
+          "requires_flags": [
+            "case_02_closed"
+          ]
+        },
+        "elite_chance": 0.1
+      },
+      {
+        "encounter": "russgeist",
+        "tile": [
+          55,
+          17
+        ],
+        "visible_if": {
+          "requires_flags": [
+            "case_02_closed"
+          ]
+        },
+        "elite_chance": 0.1
+      },
+      {
+        "encounter": "nebelaal",
+        "tile": [
+          59,
+          24
+        ],
+        "visible_if": {
+          "requires_flags": [
+            "case_02_closed"
+          ]
+        },
+        "elite_chance": 0.1
+      },
+      {
+        "encounter": "kopfgeld_nachtkraemer",
+        "tile": [
+          21,
+          7
+        ],
+        "boss": true,
+        "visible_if": {
+          "requires_quests_active": [
+            "kopfgeld_nachtkraemer"
+          ]
+        }
+      }
+    ]
+  },
+  "interactables": {
+    "revier": [
+      {
+        "id": "kopfgeldbrett",
+        "kind": "dialogue",
+        "dialogue": "kopfgeldbrett",
+        "title": "Kopfgeld-Brett",
+        "role": "Steckbriefe",
+        "tile": [
+          17,
+          2
+        ],
+        "sprite": "paper",
+        "marker": true,
+        "prompt": "Die Steckbriefe am Kopfgeld-Brett ansehen",
+        "visible_if": {
+          "requires_flags": [
+            "case_01_closed"
+          ]
+        }
+      }
+    ],
+    "docks": [
+      {
+        "id": "verhoer",
+        "kind": "dialogue",
+        "dialogue": "schmuggler_verhoer",
+        "title": "Gefesselter Schmuggler",
+        "role": "Leute der Königin",
+        "tile": [
+          13,
+          4
+        ],
+        "sprite": "npc:cultist",
+        "marker": true,
+        "prompt": "Den gefesselten Schmuggler verhören",
+        "visible_if": {
+          "requires_quests_active": [
+            "kopfgeld_koenigin"
+          ],
+          "requires_flags": [
+            "won_kanalschmuggler"
+          ],
+          "hide_if_flags": [
+            "koenigin_route"
+          ]
+        }
+      }
+    ]
+  }
+}

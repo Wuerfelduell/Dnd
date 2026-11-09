@@ -33,6 +33,7 @@ export class Roamers {
     const encs = this.state.content.encounters;
     for (const def of defs) {
       if (def.boss && this.state.flags.has(`won_${def.encounter}`)) continue; // Bosse bleiben besiegt
+      if (def.visible_if && !this.state.meets(def.visible_if)) continue; // Stadtgegner: erst ab einem Fall, Kopfgeld-Ziele nur mit Auftrag
       const eliteId = `${def.encounter}_elite`;
       const elite = !def.boss && !!encs[eliteId] && Math.random() < (def.elite_chance ?? s.mapDef.elite_chance ?? ELITE_CHANCE);
       const id = elite ? eliteId : def.encounter;
