@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="de"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Nebelakten – Batch AE</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#1a1c2c;color:#ded6bc;font:16px/1.5 system-ui,sans-serif}main{max-width:1120px;margin:auto;padding:32px 20px}h1{font:42px/1.1 Georgia,serif;margin:8px 0 16px}h2{font:26px Georgia,serif;margin:32px 0 16px}p{color:#a1a9b1;max-width:72ch}.tag{letter-spacing:.16em;font-size:12px;color:#d5ad68}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}.card{background:#252b3b;border:1px solid #475568;border-radius:8px;padding:16px;overflow:auto}.card h3{margin:0 0 12px;font-size:15px;font-weight:500;color:#ded6bc}canvas,img{image-rendering:pixelated;max-width:100%;display:block}#title{width:960px}button{background:#d5ad68;color:#1a1c2c;border:0;border-radius:4px;padding:10px 16px;cursor:pointer}.scene img{width:100%}.atlas img{width:100%;max-width:960px}.checker{background:repeating-conic-gradient(#303f3c 0% 25%,#252b3b 0% 50%) 0/16px 16px}.note{font-size:13px}#error{color:#ebcd8d}
+</style>
+<main><div class="tag">NEBELAKTEN / GRAFIKPAKET AE</div><h1>Oberfläche & Leben in Wexmoor</h1>
+<p>20 PNGs · 31 gemeinsame sichtbare Farben · binäres Alpha. Die Vorschau verwendet direkt das Manifest. Das Paket ist für die spätere Integration vorbereitet.</p>
+<button id="pause" type="button">Animationen pausieren</button><p id="error" role="status"></p>
+<h2>Kettlegate in Ebenen</h2><div class="card"><canvas id="title" width="480" height="270"></canvas></div>
+<p class="note">Gemeinsamer Ursprung (0, 0); Fenster liegen exakt auf den dunklen Fensterscheiben. Die Flamme sitzt bei (64, 96). Nebel und Regen sind separate Ebenen.</p>
+<h2>Kapitelkarten</h2><div id="chapters" class="grid"></div>
+<h2>Bedienoberfläche</h2><div id="ui" class="grid"></div>
+<h2>Zeitungen & Gerede</h2><div class="card atlas"><img src="../../public/sprites/ui/AE_zeitung.png" alt="Zeitungsseite, Sprechblasen, Ornamente und vier Sepia-Fotos"></div>
+<div class="card" style="margin-top:16px"><img style="width:256px" src="../../public/sprites/props/AE_zeitung.png" alt="Zeitungsständer, Kiste, Anschlagpfahl und Papierfetzen"></div>
+<h2>Tiere in Wexmoor</h2><div id="animals" class="grid"></div>
+<h2>Wetter & Licht</h2><div id="weather" class="grid"></div>
+<p class="note">Vorschau über einen lokalen HTTP-Server öffnen, z. B. <code>python -m http.server 8000</code> im Repo und dann <code>/docs/art/preview-oberflaeche.html</code>. Alle Abhängigkeiten liegen im Repository.</p>
+</main>
+<script type="module">
+const base='../../public/sprites/';let paused=false,elapsed=0,previous=performance.now();const jobs=[];
+document.querySelector('#pause').onclick=()=>{paused=!paused;document.querySelector('#pause').textContent=paused?'Animationen fortsetzen':'Animationen pausieren'};
+function card(parent,title){const c=document.createElement('div');c.className='card';const h=document.createElement('h3');h.textContent=title;c.append(h);document.querySelector(parent).append(c);return c}
+function load(file){return new Promise((resolve,reject)=>{const im=new Image;im.onload=()=>resolve(im);im.onerror=()=>reject(new Error('Bild nicht geladen: '+file));im.src=base+file})}
+try{
+const response=await fetch(base+'manifest-oberflaeche.json');if(!response.ok)throw new Error('Manifest nicht geladen');
+const manifest=await response.json(),images=new Map(await Promise.all(manifest.assets.map(async a=>[a.file,await load(a.file)])));
+const get=file=>images.get(file),title='ui/AE_titel/',ctx=document.querySelector('#title').getContext('2d');
+function layer(file,frame=0){ctx.drawImage(get(title+file),frame*480,0,480,270,0,0,480,270)}
+jobs.push(t=>{ctx.clearRect(0,0,480,270);layer('ebene_0_himmel.png');layer('ebene_1_mond.png',Math.floor(t*.6)%2);layer('ebene_2_ferne.png');const fog=get(title+'ebene_3_nebel.png'),shift=Math.floor(t*4)%480;ctx.drawImage(fog,-shift,0);ctx.drawImage(fog,480-shift,0);layer('ebene_4_stadt.png');layer('ebene_4_fenster.png',Math.floor(t*.4)%4);layer('ebene_5_vorne.png');ctx.drawImage(get(title+'ebene_5_laterne.png'),Math.floor(t*8)%4*16,0,16,16,64,96,16,16);layer('ebene_6_regen.png',Math.floor(t*10)%4)});
+for(const [file,label] of [['kapitel1_karte.png','Kapitel 1 · Kettlegate'],['kapitel2_karte.png','Kapitel 2 · Wexmoor'],['kapitel_ende.png','Kapitel-Ende']]){const c=card('#chapters',label);c.classList.add('scene');const im=get('ui/scenes/'+file);im.alt=label;c.append(im)}
+for(const [file,label,scale] of [['AE_einstellungen.png','Einstellungs-Symbole',4],['AE_regler.png','Regler & Auswahlfelder',4],['AE_touch.png','Touch-Knöpfe · normal / gedrückt',3],['AE_stick.png','Steuerkreuz',3]]){const c=card('#ui',label),im=get('ui/'+file);im.alt=label;im.style.width=im.width*scale+'px';c.append(im)}
+function animationCards(file,parent){const a=manifest.assets.find(a=>a.file===file),im=get(file);for(const [name,clip] of Object.entries(a.animations)){const c=card(parent,name.replaceAll('_',' ')),canvas=document.createElement('canvas'),fw=clip.frameWidth,fh=clip.frameHeight,r=a.regions[clip.region];canvas.width=fw;canvas.height=fh;canvas.className='checker';canvas.style.width=(fw<=32?fw*5:fw*2)+'px';c.append(canvas);const cx=canvas.getContext('2d');jobs.push(t=>{const count=clip.frames.length,i=clip.frames[Math.floor(t*clip.frameRate)%(clip.repeat===0?count+5:count)]??clip.frames[count-1];cx.clearRect(0,0,fw,fh);cx.drawImage(im,r.x+i%clip.columns*fw,r.y+Math.floor(i/clip.columns)*fh,fw,fh,0,0,fw,fh)})}}
+animationCards('fx/AE_wexmoor_tiere.png','#animals');animationCards('fx/AE_wexmoor_wetter.png','#weather');
+const wa=manifest.assets.find(a=>a.file==='fx/AE_wexmoor_wetter.png');for(const name of ['nebelbank_1','nebelbank_2']){const r=wa.regions[name],c=card('#weather',name.replaceAll('_',' ')),cv=document.createElement('canvas');cv.width=480;cv.height=270;cv.className='checker';c.append(cv);const cx=cv.getContext('2d');jobs.push(t=>{cx.clearRect(0,0,480,270);const dx=Math.floor(t*(name.endsWith('1')?4:7))%240,dy=Math.floor(t*2)%135;for(let x=-dx;x<480;x+=240)for(let y=-dy;y<270;y+=135)cx.drawImage(get(wa.file),r.x,r.y,240,135,x,y,240,135)})}
+function tick(now){if(!paused)elapsed+=(now-previous)/1000;previous=now;for(const job of jobs)job(elapsed);requestAnimationFrame(tick)}requestAnimationFrame(tick);
+}catch(error){document.querySelector('#error').textContent=error.message+' – Bitte über einen lokalen HTTP-Server öffnen.'}
+</script></html>
