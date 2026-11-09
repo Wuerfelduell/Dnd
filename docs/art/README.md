@@ -756,6 +756,50 @@ Mews ohne Brille, eindeutige Fotoplatten-Stufen und die Fotografin im Schlussbil
 Grafikpaket und Dokumentation sind fertig; Einbau und Timing-Abgleich im laufenden
 Spiel erfolgen separat. Kein Spielcode wurde geändert.
 
+## Grafikpaket O – Geheime Treffen
+
+Batch `treffen`: 20 neue PNGs nach `codex_O_geheime_treffen.md`, erzeugt mit
+`image_gen`. Vier NPCs (Schleierbote, Tresswell, Vellacourt, Kohlenjem) erhalten
+je ein 64×128-Laufsheet, vier 64×64-Emotionsportraits und einen 24×24-Journalkopf.
+Dazu kommen je drei 128×64-Tileatlanten und 192×192-Prop-Sheets, die Stadtmarker
+(48×64) und ein gemischter Zirkel-Atlas (128×64).
+
+`manifest-treffen.json` dokumentiert Framegrößen, Spalten/Zeilen, nullbasierte
+Animationen und die maßgeblichen Rechtecke für Props und Zirkel-Symbole.
+Props liegen in 48×48-Packslots; ihre Entnahmerechtecke haben die im Brief
+geforderten Maße (16×16 bis 48×16 bzw. 32×32). Laufreihen: down/left/right/up,
+Grundlinie als exklusive Unterkante bei 31. Portraits: neutral/suspicious/
+shocked/smiling. Der Schleierbote bleibt auch bei Emotionen vollständig verhüllt.
+Die Köpfe werden aus dem neutralen Portrait ausgeschnitten.
+
+Drei Kerzenvarianten, Waage, Lampen, Kreidestaub, Ofen, Laterne und Käfig haben
+benannte Animationsregionen. Marker folgen waage/kreide/russ; Reihen sind normal,
+bernsteinfarben, aktiv Phase 1 und aktiv Phase 2. Die acht Timerframes liegen
+in der unteren Reihe des Zirkel-Atlas. Der letzte Timerframe ist vollständig leer und beendet den Countdown. Die Embleme liegen
+oben, die drei Einladungen darunter. Keine lesbaren Beschriftungen.
+
+16 Generatorbilder wurden zellweise zugeschnitten, per Nearest Neighbor skaliert
+und auf 31 gemeinsame sichtbare Farben plus Transparenz indiziert. Palette aus
+14b, mit tiefem Violett statt des hellsten Ambertons. Alpha ist binär; Kreidestaub
+nutzt ein Checker-Muster für simulierte Transparenz. Plain-Floor-Varianten teilen
+Randpixel. Tilegruppen sind im Manifest angegeben; die komplexen Wand-, Kreis-
+und Türelemente sind keine vollständigen Autotile-Sätze und müssen beim Mapbau
+passend kombiniert werden. Die großen Generatororiginale sind keine Spielassets.
+
+Die tatsächlichen Prompts und Quellbild-Hashes stehen in
+`batch-treffen-generation.json`; die genauen technischen Zuschnitte im Exporter.
+
+```sh
+python docs/art/export-treffen.py /pfad/zu/generatorbildern
+python docs/art/verify-treffen.py
+```
+
+Pillow und NumPy erforderlich. Die Prüfung kontrolliert alle 20 Dateien, Maße,
+Palette, binäres Alpha, Framebelegung, Regionsgrenzen/-überlappungen,
+Animationsvariation, Laufränder und Grundlinien. Bericht: `validation-treffen.json`.
+Die finalen Exporte wurden visuell geprüft. Kein Spielcode geändert;
+Einbindung, Tileübergänge und Animationstiming im Spiel erfolgen separat.
+
 ## Grafikpaket N – Sequenz 6/5 und Asservatenkammer
 
 Batch `sequenzen2`, erstellt am 9. November 2026 nach
