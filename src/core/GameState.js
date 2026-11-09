@@ -1,6 +1,7 @@
 // Reiner Spielzustand ohne Phaser-Abhängigkeit, damit er auch in Node-Tests läuft.
 import { pathwayMethods } from './Pathways.js';
 import { gatheringMethods } from './Gatherings.js';
+import { auctionMethods } from './Auction.js';
 import { wantedMethods } from './Wanted.js';
 import { bondMethods } from './Bonds.js';
 import { artifactMethods } from './Artifacts.js';
@@ -631,4 +632,4 @@ export class GameState {
   }
 }
 
-Object.assign(GameState.prototype, pathwayMethods, artifactMethods, gatheringMethods, wantedMethods, bondMethods);
+Object.assign(GameState.prototype, pathwayMethods, artifactMethods, gatheringMethods, wantedMethods, bondMethods, auctionMethods);

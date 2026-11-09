@@ -567,11 +567,12 @@ export class Ui {
   choose(i) {
     const choice = this.dialogue?.choices[i];
     if (!choice || choice.locked) return;
-    if (choice.shop || choice.vault || choice.expert) {
+    if (choice.shop || choice.vault || choice.expert || choice.auction) {
       const { onClose } = this.dialogue;
       this.dialogue = null;
       onClose?.();
-      if (choice.shop) this.openShop(choice.shop);
+      if (choice.auction) this.openAuction(choice.auction);
+      else if (choice.shop) this.openShop(choice.shop);
       else if (choice.vault) this.openVault();
       else this.openExpert();
       return;
@@ -1187,6 +1188,88 @@ export class Ui {
     this.openShop(sh.id, sh.mode, `<span class="${r.ok ? 'good' : ''}">${esc(r.text)}</span>`);
   }
 
+  // --- Geheime Treffen: die Runde (core/Auction.js) ---------------------------------------
+
+  openAuction(circleId) {
+    const r = this.state.startSession(circleId);
+    if (!r.ok) { this.showMessage(this.state.gatheringDef(circleId)?.name ?? 'Treffen', r.text); return; }
+    this.renderAuction();
+  }
+
+  renderAuction(feedback = '') {
+    const s = this.state;
+    const a = s.auction;
+    if (!a) { this.close(); return; }
+    const g = s.gatheringDef(a.circle);
+    const speaker = s.auctionSpeaker();
+    const [emblem] = ZIRKEL_ICONS[a.circle] ?? [];
+    const seats = a.members.map((m, i) => `<li class="seat ${m === speaker ? 'active' : ''} ${i < a.turn ? 'done' : ''}">${headFace(m, s.memberName(m))}<span>${esc(s.memberName(m))}</span></li>`).join('')
+      + `<li class="seat you ${a.phase.startsWith('own') ? 'active' : ''}">${headFace('player', 'Du')}<span>Du</span></li>`;
+    const acts = [];
+    let stage = '';
+    const who = (id) => (id === 'player' ? 'dir' : id ? esc(s.memberName(id)) : 'niemandem');
+    if (a.phase === 'lot') {
+      const l = a.lot;
+      const it = s.item(l.item);
+      const next = s.nextBid();
+      stage = `${portrait(l.seller)}<div class="speaker">${esc(s.memberName(l.seller))} <span class="role">${esc(s.content.npcs[l.seller]?.role ?? '')}</span></div>
+        <div class="lot">${itemIconBig(l.item)}<strong>${esc(it.name)}</strong>${s.itemCount(l.item) ? ` <span class="muted">(hast ${s.itemCount(l.item)})</span>` : ''}<br><span class="desc">${esc(it.desc ?? '')}</span></div>
+        <p class="bidline">Gebot: <b>${l.price} Sch.</b> · führt: ${who(l.leader)}</p>`;
+      if (l.leader !== 'player') acts.push({ label: `${l.leader ? 'Überbieten' : 'Bieten'}: ${next} Sch.`, fn: () => s.bid(), off: s.money < next });
+      acts.push({ label: 'Aussteigen', fn: () => s.passLot() });
+    } else if (a.phase === 'request') {
+      const q = a.request;
+      const it = s.item(q.item);
+      const have = s.itemCount(q.item);
+      stage = `${portrait(q.member)}<div class="speaker">${esc(s.memberName(q.member))} <span class="role">Gesuch</span></div>
+        <div class="lot">${itemIconBig(q.item)}<strong>Sucht: ${esc(it.name)}</strong> <span class="muted">(du hast ${have})</span><br><span class="desc">Zahlt ${q.price} Schilling.</span></div>`;
+      acts.push({ label: `Abgeben für ${q.price} Sch.`, fn: () => s.fulfillRequest(), off: !have });
+      acts.push({ label: have ? 'Behalten' : 'Habe ich nicht dabei', fn: () => s.declineRequest() });
+    } else if (a.phase === 'own') {
+      const list = s.ownOfferables();
+      stage = `<div class="speaker">Dein Angebot <span class="role">Artefakte und Formeln</span></div>
+        ${list.length ? '<p class="lead">Was legst du auf den Tisch?</p>' : '<p class="lead">Du hast keine Artefakte oder Formeln dabei, die du anbieten könntest.</p>'}`;
+      for (const o of list.slice(0, 8)) acts.push({ label: `${o.name} anbieten`, fn: () => s.offerOwn(o.id), icon: o.id });
+      acts.push({ label: 'Runde beenden', fn: () => this.finishAuction() });
+    } else if (a.phase === 'own_bids') {
+      const o = a.own;
+      const it = s.item(o.item);
+      stage = `<div class="speaker">Dein Los <span class="role">${esc(it.name)}</span></div>
+        <div class="lot">${itemIconBig(o.item)}<strong>${esc(it.name)}</strong><br><span class="desc">${o.bids.length ? o.bids.map((b) => `${esc(s.memberName(b.member))}: ${b.price} Sch.`).join(' · ') : 'Kein Gebot.'}</span></div>`;
+      if (o.bids.length) acts.push({ label: `Zuschlag an ${s.memberName(o.bids[0].member)}: ${o.bids[0].price} Sch.`, fn: () => s.acceptOwn() });
+      acts.push({ label: 'Zurückziehen', fn: () => s.withdrawOwn() });
+    }
+    this.auctionActs = acts;
+    let n = 0;
+    const el = this.open('auction', `
+      <h3>${emblem !== undefined ? atlasIcon(ZIRKEL_URL, emblem, 8) : ''}${esc(g.name)} <span class="muted">${a.phase.startsWith('own') ? 'Eigenes Angebot' : `Runde ${Math.min(a.turn + 1, a.members.length)} von ${a.members.length}`}</span></h3>
+      <ul class="seats">${seats}</ul>
+      <div class="stage">${stage}</div>
+      <ul class="alog">${a.log.map((t) => `<li>${esc(t)}</li>`).join('')}</ul>
+      ${feedback ? `<p class="feedback">${feedback}</p>` : ''}
+      <div class="actions"><span class="purse">${coin}${s.money} Schilling</span>
+        ${acts.map((x, i) => `<button class="small" data-act-i="${i}" ${x.off ? 'disabled' : ''}><span class="key">${++n}</span> ${x.icon ? itemIcon(x.icon) : ''}${esc(x.label)}</button>`).join('')}
+        <button data-act="leave">Gehen <span class="key">Esc</span></button></div>`, 'notebook auction');
+    el.querySelectorAll('[data-act-i]').forEach((b) => { b.onclick = () => this.auctionPick(Number(b.dataset.actI)); });
+    el.querySelector('[data-act=leave]').onclick = () => this.finishAuction();
+  }
+
+  auctionPick(i) {
+    const x = this.auctionActs?.[i];
+    if (!x || x.off) return;
+    const r = x.fn();
+    if (!this.state.auction) return;
+    this.renderAuction(r?.text ? esc(r.text) : '');
+  }
+
+  finishAuction() {
+    const sum = this.state.endSession();
+    this.close();
+    if (!sum) return;
+    const line = (l, verb) => l.map((x) => `${this.state.item(x.item).name} (${x.price} Sch.)`).join(', ') || 'nichts';
+    this.showMessage('Die Runde löst sich auf', `Gekauft: ${line(sum.bought)}\n\nVerkauft: ${line(sum.sold)}`, { footer: 'Bis zum nächsten Treffen.' });
+  }
+
   // --- Eigenes Büro: Lagerschrank und Fallwand -------------------------------------------
 
   /** Zwei Spalten: was du dabeihast und was im Lager liegt. where: 'buero' oder ein anderes Versteck. */
@@ -1421,6 +1504,8 @@ export class Ui {
     else if (this.modal === 'travel' && k === 'escape') { if (this.travelPick) this.openTravel(this.travelFrom); else this.close(); }
     else if (this.modal === 'notebook' && (k === 'j' || k === 'i' || k === 'p' || k === 'tab' || k === 'escape')) this.close();
     else if (this.modal === 'shop' && num >= 0) this.shopPick(num);
+    else if (this.modal === 'auction' && num >= 0) this.auctionPick(num);
+    else if (this.modal === 'auction' && k === 'escape') this.finishAuction();
     else if (this.modal === 'shop' && k === 'v' && this.state.merchant(this.shop.id).buys) this.openShop(this.shop.id, this.shop.mode === 'buy' ? 'sell' : 'buy');
     else if ((this.modal === 'shop' || this.modal === 'brew' || this.modal === 'storage' || this.modal === 'vault') && (k === 'escape' || k === 'e')) this.close();
     else if (this.modal === 'vault' && num >= 0) this.vaultPick(num);
