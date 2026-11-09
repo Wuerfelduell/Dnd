@@ -1,7 +1,7 @@
 {
   "id": "atelier",
   "name": "Atelier Whitlock am Altmarkt",
-  "tiles": "tavern",
+  "tiles": "k_atelier",
   "ambient": {
     "night": 0.66,
     "fog": 0.05
@@ -123,7 +123,7 @@
         20,
         9
       ],
-      "sprite": "apparition",
+      "sprite": "ow_negativ_geist",
       "marker": false,
       "prompt": "Das helle Ding in der Dunkelkammer ansehen",
       "visible_if": {
@@ -134,6 +134,226 @@
           "negativ_geist_defeated"
         ]
       }
+    }
+  ],
+  "decor": [
+    {
+      "sprite": "k_atelier_props_photo_wall",
+      "tile": [
+        11,
+        1
+      ],
+      "offset": [
+        8,
+        8
+      ],
+      "origin": [
+        0.5,
+        1
+      ],
+      "alpha": 1,
+      "depth": 40
+    },
+    {
+      "sprite": "k_atelier_props_safelight",
+      "tile": [
+        18,
+        1
+      ],
+      "offset": [
+        0,
+        8
+      ],
+      "origin": [
+        0.5,
+        1
+      ],
+      "alpha": 1,
+      "depth": 40,
+      "light": {
+        "radius": 40,
+        "intensity": 0.7,
+        "color": "#c83a2a",
+        "flicker": 0.05
+      }
+    },
+    {
+      "sprite": "k_atelier_props_backdrop_garden",
+      "tile": [
+        6,
+        3
+      ],
+      "offset": [
+        0,
+        8
+      ],
+      "origin": [
+        0.5,
+        1
+      ],
+      "ysort": true,
+      "alpha": 1
+    },
+    {
+      "sprite": "k_atelier_props_posing_chair",
+      "tile": [
+        5,
+        4
+      ],
+      "offset": [
+        0,
+        8
+      ],
+      "origin": [
+        0.5,
+        1
+      ],
+      "ysort": true,
+      "alpha": 1
+    },
+    {
+      "sprite": "k_atelier_props_camera_down",
+      "tile": [
+        8,
+        5
+      ],
+      "offset": [
+        0,
+        8
+      ],
+      "origin": [
+        0.5,
+        1
+      ],
+      "ysort": true,
+      "alpha": 1,
+      "solid": [
+        10,
+        6
+      ]
+    },
+    {
+      "sprite": "k_atelier_props_flash_idle",
+      "tile": [
+        10,
+        4
+      ],
+      "offset": [
+        0,
+        8
+      ],
+      "origin": [
+        0.5,
+        1
+      ],
+      "ysort": true,
+      "alpha": 1,
+      "solid": [
+        6,
+        4
+      ]
+    },
+    {
+      "sprite": "k_atelier_props_plate_rack",
+      "tile": [
+        13,
+        5
+      ],
+      "offset": [
+        0,
+        8
+      ],
+      "origin": [
+        0.5,
+        1
+      ],
+      "ysort": true,
+      "alpha": 1,
+      "solid": [
+        24,
+        8
+      ]
+    },
+    {
+      "sprite": "k_atelier_props_reception",
+      "tile": [
+        11,
+        11
+      ],
+      "offset": [
+        8,
+        0
+      ],
+      "ysort": true,
+      "alpha": 1,
+      "solid": [
+        28,
+        10
+      ]
+    },
+    {
+      "sprite": "k_atelier_props_chemicals",
+      "tile": [
+        18,
+        3
+      ],
+      "offset": [
+        8,
+        0
+      ],
+      "ysort": true,
+      "alpha": 1
+    },
+    {
+      "sprite": "k_atelier_props_drying_line",
+      "tile": [
+        19,
+        7
+      ],
+      "offset": [
+        8,
+        0
+      ],
+      "ysort": true,
+      "alpha": 1
+    },
+    {
+      "sprite": "k_atelier_props_cabinet_closed",
+      "tile": [
+        22,
+        5
+      ],
+      "offset": [
+        0,
+        8
+      ],
+      "origin": [
+        0.5,
+        1
+      ],
+      "ysort": true,
+      "alpha": 1,
+      "solid": [
+        12,
+        6
+      ]
+    },
+    {
+      "sprite": "k_atelier_props_sink",
+      "tile": [
+        17,
+        11
+      ],
+      "offset": [
+        8,
+        0
+      ],
+      "ysort": true,
+      "alpha": 1,
+      "solid": [
+        28,
+        10
+      ]
     }
   ]
 }

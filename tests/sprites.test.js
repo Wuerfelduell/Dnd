@@ -136,7 +136,7 @@ test('Paket C: Portraits, Lauf-Sheets und Kartenmarker sind vollständig', () =>
 
 // --- Paket D (Stadt) und E (Fälle) -------------------------------------------------
 const manifest = (name) => JSON.parse(readFileSync(sprite(`manifest-${name}.json`), 'utf8'));
-const MANIFEST_FILES = { manifestStadt: manifest('stadt'), manifestFaelle: manifest('faelle'), manifestJournal: manifest('journal'), manifestReise: manifest('reise'), manifestWildnis: manifest('wildnis'), manifestGegner3: manifest('gegner3'), manifestFall5: manifest('fall5') };
+const MANIFEST_FILES = { manifestStadt: manifest('stadt'), manifestFaelle: manifest('faelle'), manifestJournal: manifest('journal'), manifestReise: manifest('reise'), manifestWildnis: manifest('wildnis'), manifestGegner3: manifest('gegner3'), manifestFall5: manifest('fall5'), manifestFall6: manifest('fall6') };
 const regionNames = (def) => {
   const regions = Array.isArray(def.regions) ? def.regions.map((r) => r.name) : Object.keys(def.regions ?? {});
   return [...regions, ...Object.keys(def.animations ?? {}), ...Object.keys(def.regionAnimations ?? {})];
@@ -158,7 +158,7 @@ test('Paket D/E: Region-Sheets passen zu ihren Manifesten', () => {
 });
 
 test('Paket D/E: Karten-Deko nutzt nur vorhandene Regionen', () => {
-  const known = new Set([...Object.keys(WHOLE_PROPS), ...Object.keys(CASE_SHEETS)]);
+  const known = new Set([...Object.keys(WHOLE_PROPS), ...Object.keys(CASE_SHEETS), ...Object.keys(ANIM_SHEETS)]);
   for (const [prefix, [m, id]] of Object.entries(REGION_SHEETS)) {
     for (const n of regionNames(MANIFEST_FILES[m].assets.find((a) => a.id === id))) known.add(`${prefix}_${n}`);
   }
@@ -166,8 +166,8 @@ test('Paket D/E: Karten-Deko nutzt nur vorhandene Regionen', () => {
     for (const n of Object.keys(MANIFEST_FILES.manifestFaelle.assets.find((a) => a.id === id).icons)) known.add(`${prefix}_${n}`);
   }
   for (const map of Object.values(content.maps)) {
-    for (const d of map.decor ?? []) if (/^[dehigj]_/.test(d.sprite)) assert.ok(known.has(d.sprite), `${map.id}: ${d.sprite}`);
-    for (const d of map.interactables ?? []) if (/^[dehigj]_/.test(d.sprite ?? '')) assert.ok(known.has(d.sprite), `${map.id}: ${d.sprite}`);
+    for (const d of map.decor ?? []) if (/^[dehigjk]_/.test(d.sprite)) assert.ok(known.has(d.sprite), `${map.id}: ${d.sprite}`);
+    for (const d of map.interactables ?? []) if (/^[dehigjk]_/.test(d.sprite ?? '')) assert.ok(known.has(d.sprite), `${map.id}: ${d.sprite}`);
     if (map.facade) assert.ok(FACADES.includes(map.facade), `${map.id}: Fassade ${map.facade}`);
   }
 });
@@ -262,7 +262,7 @@ test('Paket I: Sektengegner, Verwandlungen, Figuren, Reisebilder und Wappen lieg
     assert.ok(existsSync(sprite(SHEETS[CHARACTER_SHEETS[`npc_${id}`]])), id);
   }
   for (const id of ['rost_streife', 'schleier_schatten']) assert.ok(I.BATTLE_SHEETS[I.ENCOUNTER_SHEETS[id]], id);
-  for (const [id, sheet] of Object.entries(I.BOSS_FORMS).filter(([id]) => id !== 'miriam')) { // Miriam: Paket J
+  for (const [id, sheet] of Object.entries(I.BOSS_FORMS).filter(([id]) => I.I_ENEMIES.includes(id))) { // spätere Pakete: eigene Tests
     assert.ok(byFile(I.BATTLE_SHEETS[sheet][0])?.animations?.phase2, id);
     assert.ok(content.encounters[id], id);
   }
@@ -365,4 +365,34 @@ test('Paket J: Fall 5 nutzt die echten Grafiken', async () => {
   assert.ok(existsSync(file(J.caseFileUrl('case_05'))));
   for (const map of Object.keys(J.J_MAP_MARKERS)) assert.ok(content.maps[map], map);
   for (const map of ['giesserei', 'haus_vey', 'resonanzkammer']) assert.match(content.maps[map].tiles, /^j_/);
+});
+
+test('Paket K: Fall 6 nutzt die echten Grafiken', async () => {
+  const K = await import('../src/world/assets.js');
+  const m = JSON.parse(readFileSync(sprite('manifest-fall6.json'), 'utf8'));
+  const byFile = (path) => m.assets.find((a) => a.file === path);
+  const order = m.assets.find((a) => a.id === 'turn_portraits').frameNames;
+  for (const [id, [w, ow]] of Object.entries(K.K_ENEMIES)) {
+    const def = byFile(K.BATTLE_SHEETS[`enemy_${id}`][0]);
+    assert.equal(def?.frameWidth, w, id);
+    assert.ok(def.animations.hurt && def.animations.defeated, id);
+    assert.equal(byFile(K.OVERWORLD_SHEETS[id][0])?.frameWidth, ow, id);
+    assert.ok(existsSync(file(K.bestiaryUrl(id))), id);
+    assert.equal(order[K.TURN_PORTRAITS[id]], id);
+    assert.ok(content.encounters[id], id);
+  }
+  const gast = byFile(K.BATTLE_SHEETS.enemy_dreizehnter_gast[0]).animations;
+  for (const n of ['belichtung', 'schattenschnitt', 'gruppenbild', 'phase2']) assert.ok(gast[n], n);
+  assert.ok(existsSync(sprite(K.bossIntroImage(K.BOSS_INTROS.dreizehnter_gast)[1])));
+  for (const fx of Object.values(K.ENCOUNTER_FX).flatMap((f) => Object.values(f)).filter((s) => /^fx_/.test(s))) assert.ok(existsSync(sprite(K.BATTLE_SHEETS[fx][0])), fx);
+  for (const id of ['ashcombe', 'mews']) {
+    assert.ok(content.npcs[id], id);
+    assert.ok(existsSync(sprite(SHEETS[CHARACTER_SHEETS[`npc_${id}`]])), id);
+  }
+  for (const id of K.K_ITEMS) assert.ok(existsSync(file(itemIcon32Url(id))), id);
+  for (const id of K.K_SCENES) assert.ok(existsSync(file(K.sceneUrl(id))), id);
+  for (const id of ['c6_perfect', 'c6_good', 'c6_early', 'c6_seer']) assert.ok(existsSync(file(K.endingImageUrl(id, 'case_06'))), id);
+  assert.ok(existsSync(file(K.inspectUrl('fotoplatte'))) && existsSync(file(K.inspectUrl('fotoplatte', true))));
+  assert.ok(existsSync(file(K.caseFileUrl('case_06'))));
+  for (const map of ['atelier', 'ballsaal', 'spiegelkabinett']) assert.match(content.maps[map].tiles, /^k_/);
 });
