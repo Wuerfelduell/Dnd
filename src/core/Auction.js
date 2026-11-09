@@ -18,7 +18,11 @@ export const auctionMethods = {
     const it = this.item(id);
     if (!it) return 0;
     if (it.kind === 'formula') return FORMULA_VALUE[it.seq] ?? 50;
-    if (it.kind === 'artifact') return this.artifactDef?.(id)?.price ?? it.price ?? 80;
+    if (it.kind === 'artifact') {
+      // Auf den Treffen sind gute Artefakte ein paar hundert Schilling wert
+      const lot = Math.max(0, ...Object.values(this.content.gatherings?.circles ?? {}).flatMap((c) => (c.members ?? []).flatMap((m) => m.offers.filter((e) => e.item === id).map((e) => e.price))));
+      return lot || Math.round((this.artifactDef?.(id)?.price ?? it.price ?? 80) * 3.5);
+    }
     let best = 0;
     for (const m of Object.values(this.content.market?.merchants ?? {})) {
       for (const e of m.stock ?? []) if (e.item === id) best = Math.max(best, e.price);

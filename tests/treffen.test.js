@@ -370,3 +370,24 @@ test('Besuchte Treffen verschwinden sofort und die Anzeige zählt auf das nächs
   jumpTo(s, 'waage');
   assert.ok(s.gatheringOpen('waage'));
 });
+
+test('Auf den Treffen gibt es nur seltene Dinge fürs große Geld, nichts vom normalen Markt', () => {
+  const regular = new Set(Object.values(content.market.merchants).filter((m) => !m.gathering)
+    .flatMap((m) => m.stock.filter((e) => e.rare === undefined).map((e) => e.item)));
+  const arts = [];
+  for (const [id, c] of Object.entries(content.gatherings.circles)) {
+    for (const m of c.members) {
+      for (const e of m.offers) {
+        assert.ok(!regular.has(e.item), `${id}/${m.id} bietet ${e.item} an, das gibt es auch so`);
+        assert.ok(e.price >= 90, `${id}/${m.id}: ${e.item} für ${e.price} ist zu billig`);
+        if (content.items[e.item].kind === 'artifact') arts.push(e);
+      }
+      for (const w of m.wants) assert.ok(!regular.has(w), `${id}/${m.id} sucht ${w}, das gibt es auch so`);
+    }
+  }
+  assert.ok(arts.length >= 8, 'Artefakte als Lose');
+  for (const e of arts) assert.ok(e.price >= 300 && e.price <= 500, `${e.item}: ${e.price}`);
+  // Eigene Artefakte bringen beim Versteigern auch ordentlich Geld
+  const s = new GameState(content);
+  assert.ok(s.itemValue('hungriger_ring') >= 300);
+});
