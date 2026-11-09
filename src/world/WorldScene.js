@@ -2,7 +2,7 @@ import Phaser from 'phaser';
 import { questTarget, nextHop } from '../core/Guide.js';
 import { createTextures, createCharacterSheet, hash2, TILE, TILE_INDEX, SOLID_KEYS } from './textures.js';
 import { Lighting, DEPTH } from './Lighting.js';
-import { preloadSprites, playSheetAnim, themeKeys, facadeKeys, PROP_ORIGINS, MAP_WEATHER } from './assets.js';
+import { preloadSprites, playSheetAnim, themeKeys, facadeKeys, PROP_ORIGINS, MAP_WEATHER, DISGUISE_SHEETS } from './assets.js';
 import { Roamers } from './Roamers.js';
 import { Critters } from './Critters.js';
 import { Patrols } from './Patrols.js';
@@ -48,6 +48,39 @@ const runOf = (at, ch) => {
   while (at(r + 1, 0) === ch) r += 1;
   return { l, r, len: l + r + 1 };
 };
+
+/**
+ * Paket R (Wexmoor): Stege auf Pfählen über schwarzem Wasser. `ground` liefert den Belag für
+ * Straße ('.') und Gehweg (','), Wasser bekommt an Stegen eine Kante mit Pfählen, der Kai eine Steinkante.
+ */
+function rWexmoor(ground) {
+  const deck = 'P.,L=CV';
+  return (ch, at, v, x, y) => {
+    const k = (g, seed = 0, theme = 'r_wexmoor') => pickKey(themeKeys(theme, g), x, y, seed);
+    switch (ch) {
+      case '.': case ',': case 'L': return ground(ch, k, x, y);
+      case 'P': {
+        const run = at(-1, 0) === 'P' || at(1, 0) === 'P';
+        return run ? k('floor', 1) : k('wood', 1);
+      }
+      case 'p': return k('floor', 3, 'r_torf');
+      case '=': {
+        const [h, vert] = themeKeys('r_wexmoor', 'bridge');
+        return at(-1, 0) === '=' || at(1, 0) === '=' ? h : vert;
+      }
+      case 'Q': return k(at(0, 1) === '~' ? 'quayS' : at(0, -1) === '~' ? 'quayN' : at(-1, 0) === '~' ? 'quayW' : 'quayE', 4);
+      case '~': {
+        const near = (dx, dy) => deck.includes(at(dx, dy) ?? '~');
+        if (near(0, -1)) return k('edgeN', 5);
+        if (near(0, 1)) return k('edgeS', 5);
+        if (near(-1, 0)) return k('edgeW', 5);
+        if (near(1, 0)) return k('edgeE', 5);
+        return hash2(x, y, 61) > 0.94 ? k('reeds', 6) : k('water', 6);
+      }
+      default: return null;
+    }
+  };
+}
 
 /** Kartenthemen: ersetzen einzelne Zeichen durch eigene Tiles (Map-Feld "tiles"). */
 const THEMES = {
@@ -273,6 +306,50 @@ const THEMES = {
         return k('wallDark', 5);
       }
       default: return null;
+    }
+  },
+  // Paket R (Wexmoor): Stege, Markt, Oberstadt, Torfstich, Innenräume, Vergessmoor, Leuchtturm
+  r_wexmoor: rWexmoor((ch, k) => (ch === '.' ? k('floor') : k('wood', 2))),
+  r_salzmarkt: rWexmoor((ch, k, x, y) => (ch === '.' ? (hash2(x, y, 62) > 0.8 ? k('sand', 2, 'r_salzmarkt') : k('floor')) : k('wood', 2))),
+  r_oberstadt(ch, at, v, x, y) {
+    if ('.,L'.includes(ch)) return pickKey(themeKeys('r_oberstadt', 'floor'), x, y, ch === '.' ? 0 : 2);
+    return null;
+  },
+  r_torf(ch, at, v, x, y) {
+    const k = (g, seed = 0) => pickKey(themeKeys('r_torf', g), x, y, seed);
+    if (ch === 'p') return hash2(x, y, 63) > 0.88 ? k('wet', 1) : k('floor');
+    if (ch === 'P') return pickKey(themeKeys('r_wexmoor', at(-1, 0) === 'P' || at(1, 0) === 'P' ? 'floor' : 'wood'), x, y, 1);
+    if (ch === '~' && ['P'].some((c) => [at(0, -1), at(0, 1), at(-1, 0), at(1, 0)].includes(c))) return THEMES.r_wexmoor(ch, at, v, x, y);
+    if (ch === '~' && !['g', 'p', 'Y', 'r'].some((c) => [at(0, -1), at(0, 1)].includes(c))) return pickKey(themeKeys('r_wexmoor', 'water'), x, y, 6);
+    return THEMES.g_marsch(ch, at, v, x, y);
+  },
+  r_akademie: roomTheme('r_akademie', { floorChars: 'wO.' }),
+  r_lucent: roomTheme('r_lucent', { floorChars: 'wO.' }),
+  r_wachhaus: roomTheme('r_wachhaus', { floorChars: 'wO.', extra: (ch) => (ch === 'H' ? themeKeys('r_zelle', 'bars')[0] : null) }),
+  r_zelle: roomTheme('r_zelle', { floorChars: 'wO.', extra: (ch) => (ch === 'H' ? themeKeys('r_zelle', 'bars')[0] : null) }),
+  r_vergessmoor(ch, at, v, x, y) {
+    const k = (g, seed = 0) => pickKey(themeKeys('r_vergessmoor', g), x, y, seed);
+    if (ch === 'P') return k('floor');
+    if (ch === '~') return hash2(x, y, 64) > 0.95 ? k('ghost', 1) : k('water', 1);
+    return THEMES.g_marsch(ch, at, v, x, y);
+  },
+  r_leuchtturm(ch, at, v, x, y) {
+    const k = (g, seed = 0) => pickKey(themeKeys('r_leuchtturm', g), x, y, seed);
+    switch (ch) {
+      case 's': {
+        if (x < 10 && y > 23) return hash2(x, y, 65) > 0.5 ? k('sand', 1) : k('floor');
+        const r = hash2(x, y, 66);
+        return r > 0.96 ? k('ring', 1) : r > 0.93 ? k('glow', 1) : k('floor');
+      }
+      case 'I': {
+        const below = at(0, 1);
+        if (below === undefined || below === 'I') {
+          const below2 = at(0, 2);
+          return below2 !== undefined && below2 !== 'I' ? k('wallTop', 2) : null;
+        }
+        return hash2(x, y, 67) > 0.8 ? k('niche', 3) : k('wallFace', 3);
+      }
+      default: return THEMES.g_katakomben(ch, at, v, x, y);
     }
   },
   // Paket Q (Wexmoor): Zunders Kahn mit Bullaugen in der Bordwand
@@ -656,10 +733,15 @@ export class WorldScene extends Phaser.Scene {
 
   buildPlayer() {
     createCharacterSheet(this, 'player', PLAYER_PALETTE);
-    DIRS.forEach((dir, row) => {
-      if (this.anims.exists(`walk-${dir}`)) return;
-      this.anims.create({ key: `walk-${dir}`, frames: this.anims.generateFrameNumbers('player', { start: row * 4, end: row * 4 + 3 }), frameRate: 8, repeat: -1 });
-    });
+    // Lauf-Animationen für den Mantel und jede Verkleidung (Paket R), Schlüssel <sheet>-walk-<dir>
+    for (const key of ['player', ...Object.values(DISGUISE_SHEETS)]) {
+      if (!this.textures.exists(key)) continue;
+      DIRS.forEach((dir, row) => {
+        if (this.anims.exists(`${key}-walk-${dir}`)) return;
+        this.anims.create({ key: `${key}-walk-${dir}`, frames: this.anims.generateFrameNumbers(key, { start: row * 4, end: row * 4 + 3 }), frameRate: 8, repeat: -1 });
+      });
+    }
+    this.playerKey = this.skinKey();
     let px;
     let py;
     if (this.state.position) {
@@ -671,7 +753,7 @@ export class WorldScene extends Phaser.Scene {
       px = tx * TILE + 8;
       py = ty * TILE + 15;
     }
-    this.player = this.physics.add.sprite(px, py, 'player', 0).setOrigin(0.5, 1);
+    this.player = this.physics.add.sprite(px, py, this.playerKey, 0).setOrigin(0.5, 1);
     this.player.body.setSize(10, 6).setOffset(3, 26);
     this.player.setCollideWorldBounds(true);
     this.facing = 'down';
@@ -724,7 +806,7 @@ export class WorldScene extends Phaser.Scene {
   playPlayerAction(name) {
     const p = this.player;
     if (this.playerBusy || !this.textures.exists('player_extras')) return;
-    const done = () => { this.playerBusy = false; p.setTexture('player', DIRS.indexOf(this.facing) * 4); };
+    const done = () => { this.playerBusy = false; p.setTexture(this.playerKey, DIRS.indexOf(this.facing) * 4); };
     if (playSheetAnim(p, 'player_extras', name, done)) this.playerBusy = true;
   }
 
@@ -840,6 +922,13 @@ export class WorldScene extends Phaser.Scene {
     this.fogB.setTilePosition(cam.scrollX * 1.1 - time * 0.004, cam.scrollY * 1.1);
   }
 
+  /** Sheet der Spielerfigur: getragene Verkleidung (falls ihr Sheet geladen ist), sonst der Mantel. */
+  skinKey() {
+    const worn = this.state.disguise?.();
+    const key = worn && DISGUISE_SHEETS[worn];
+    return key && this.textures.exists(key) ? key : 'player';
+  }
+
   updateMovement(blocked) {
     if (this.playerBusy) { this.player.setVelocity(0, 0); return; }
     const k = this.keys;
@@ -849,11 +938,17 @@ export class WorldScene extends Phaser.Scene {
       vx = (k.RIGHT.isDown || k.D.isDown ? 1 : 0) - (k.LEFT.isDown || k.A.isDown ? 1 : 0);
       vy = (k.DOWN.isDown || k.S.isDown ? 1 : 0) - (k.UP.isDown || k.W.isDown ? 1 : 0);
     }
+    const skin = this.skinKey();
+    if (skin !== this.playerKey) { // Verkleidung an- oder abgelegt
+      this.playerKey = skin;
+      this.player.anims.stop();
+      this.player.setTexture(skin, DIRS.indexOf(this.facing) * 4);
+    }
     const v = new Phaser.Math.Vector2(vx, vy).normalize().scale(PLAYER_SPEED * (this.state.isOverloaded() ? OVERLOAD_SPEED : 1));
     this.player.setVelocity(v.x, v.y);
     if (vx || vy) {
       this.facing = Math.abs(vx) > Math.abs(vy) ? (vx > 0 ? 'right' : 'left') : vy > 0 ? 'down' : 'up';
-      this.player.anims.play(`walk-${this.facing}`, true);
+      this.player.anims.play(`${this.playerKey}-walk-${this.facing}`, true);
     } else {
       this.player.anims.stop();
       this.player.setFrame(DIRS.indexOf(this.facing) * 4);
@@ -869,7 +964,7 @@ export class WorldScene extends Phaser.Scene {
   /** Trinkanimation und Aufstiegs-Funken (nach erfolgreichem Trank). */
   playDrinkFx(pathway) {
     const p = this.player;
-    const done = () => { this.playerBusy = false; p.setTexture('player', DIRS.indexOf(this.facing) * 4); this.updateAura(); };
+    const done = () => { this.playerBusy = false; p.setTexture(this.playerKey, DIRS.indexOf(this.facing) * 4); this.updateAura(); };
     if (playSheetAnim(p, 'player_drink', 'drink', done)) this.playerBusy = true;
     else this.updateAura();
     if (!this.textures.exists('potion_ascend')) return;
@@ -893,7 +988,7 @@ export class WorldScene extends Phaser.Scene {
   playInspect(name) {
     const p = this.player;
     if (!p || this.leaving) return;
-    const done = () => { this.playerBusy = false; p.setTexture('player', DIRS.indexOf(this.facing) * 4); };
+    const done = () => { this.playerBusy = false; p.setTexture(this.playerKey, DIRS.indexOf(this.facing) * 4); };
     if (playSheetAnim(p, 'player_inspect', name, done)) this.playerBusy = true;
   }
 

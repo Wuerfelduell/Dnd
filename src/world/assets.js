@@ -80,6 +80,8 @@ export const SHEETS = {
   k_spiegelkabinett: 'tilesets/K_spiegelkabinett_tiles.png',
   m_kontor: 'tilesets/M_kontor_tiles.png', m_waisenhaus: 'tilesets/M_waisenhaus_tiles.png', m_traumkeller: 'tilesets/M_traumkeller_tiles.png',
   q_kajuete: 'tilesets/Q_kajuete_tiles.png',
+  r_wexmoor: 'tilesets/R_wexmoor_tiles.png', r_innen: 'tilesets/R_innen_tiles.png', r_vergessmoor: 'tilesets/R_vergessmoor_tiles.png',
+  r_leuchtturm: 'tilesets/R_leuchtturm_tiles.png',
   o_waage: 'tilesets/O_waage_tiles.png', o_kreide: 'tilesets/O_kreide_tiles.png', o_russ: 'tilesets/O_russ_tiles.png',
 };
 /** Paket C: Lauf-Sheets (characters/C_<id>_walk.png), Key = Figuren-Id. */
@@ -159,6 +161,22 @@ export const THEME_TILES = {
   // Paket Q (Wexmoor): Zunders Kahn (8x3-Raster)
   q_kajuete: { sheet: 'q_kajuete', fallback: 'wood0', floor: [0, 1, 2, 3], wet: [6, 7], wallTop: [8], wallFace: [9, 15, 16],
     porthole: [12] },
+  // Paket R (Wexmoor): Stege, Wasser, Schilf, Torf, Pflaster der Oberstadt, Kai (8x8-Raster)
+  r_wexmoor: { sheet: 'r_wexmoor', fallback: 'wood0', floor: [0, 1, 2, 3], wood: [4, 5, 6, 7], edgeN: [8], edgeE: [9], edgeS: [10], edgeW: [11],
+    water: [20, 22, 24, 26], reeds: [28, 29], mud: [42, 43, 44, 45], wet: [46, 47], path: [48, 49, 50, 51], bridge: [52, 53],
+    sand: [56, 57], quayN: [58], quayE: [59], quayS: [60], quayW: [61] },
+  // Varianten auf demselben Blatt: Oberstadt-Pflaster, Salzkruste am Markt, Torfschlamm
+  r_oberstadt: { sheet: 'r_wexmoor', fallback: 'cobble0', floor: [48, 49, 50, 51] },
+  r_salzmarkt: { sheet: 'r_wexmoor', fallback: 'wood0', floor: [0, 1, 2, 3], sand: [56, 57] },
+  r_torf: { sheet: 'r_wexmoor', fallback: 'path', floor: [42, 43, 44, 45], wet: [46, 47] },
+  // Innenräume: Akademie, Haus Lucent, Wachhaus, Zelle (je Boden 4, Wand oben/vorn/links/rechts)
+  r_akademie: { sheet: 'r_innen', fallback: 'wood0', floor: [0, 1, 2, 3], wallTop: [4], wallFace: [5], wallSide: [6, 7] },
+  r_lucent: { sheet: 'r_innen', fallback: 'wood0', floor: [8, 9, 10, 11], wallTop: [12], wallFace: [13], wallSide: [14, 15] },
+  r_wachhaus: { sheet: 'r_innen', fallback: 'stone', floor: [16, 17, 18, 19], wallTop: [20], wallFace: [21], wallSide: [22, 23] },
+  r_zelle: { sheet: 'r_innen', fallback: 'stone', floor: [24, 25, 26, 27], wallTop: [28], wallFace: [29], wallSide: [30, 31], bars: [32] },
+  r_vergessmoor: { sheet: 'r_vergessmoor', fallback: 'water0', water: [0, 1, 2, 3], ghost: [4], floor: [6, 7, 8, 9] },
+  r_leuchtturm: { sheet: 'r_leuchtturm', fallback: 'stone', floor: [0, 1, 2, 3], ring: [4, 6], wallTop: [8], wallFace: [9],
+    niche: [16, 17, 18, 19], glow: [24, 25, 26, 27], sand: [28, 29, 30, 31] },
   // Paket O (Geheime Treffen): Gewölbe der Stillen Waage, Hinterzimmer des Kreidezirkels, Kohlenschuppen (8x4-Raster)
   o_waage: { sheet: 'o_waage', fallback: 'stone', floor: [0, 1, 2, 3], wet: [4, 7], wallTop: [17, 20, 21], wallFace: [16, 22, 23],
     niche: [19], grate: [24] },
@@ -209,7 +227,7 @@ export const THEME_TILES = {
   },
 };
 /** Gruppen, die begehbar bleiben; alles andere blockiert. */
-const WALKABLE_GROUPS = ['floor', 'debris', 'wet', 'wood', 'mud', 'moss', 'tufts', 'path', 'ash', 'shards', 'weeds', 'sand', 'slag', 'wear', 'ring',
+const WALKABLE_GROUPS = ['floor', 'bridge', 'glow', 'debris', 'wet', 'wood', 'mud', 'moss', 'tufts', 'path', 'ash', 'shards', 'weeds', 'sand', 'slag', 'wear', 'ring',
   'dark', 'stain', 'checker', 'parquet', 'carpet', 'arrow', 'chalk', 'stone', 'dorm', 'threads'];
 /** Ersatz-Painter (textures.js) je Gruppe, falls das PNG fehlt. */
 const GROUP_FALLBACK = { wallFace: 'wallFace', wallTop: 'wallTop', bar: 'desk', shelf: 'shelf', barrel: 'barrel', seat: 'desk', water: 'water0' };
@@ -572,7 +590,12 @@ export const REGION_SHEETS = {
   m_traumkeller_props: ['manifestFall78', 'M_traumkeller_props'],
   o_waage_props: ['manifestTreffen', 'waage_props'], o_kreide_props: ['manifestTreffen', 'kreide_props'],
   o_russ_props: ['manifestTreffen', 'russ_props'], o_zirkel: ['manifestTreffen', 'zirkel'],
-  q_kajuete_props: ['manifestWexmoor', 'kajuete_props'], q_lichtkegel: ['manifestWexmoor', 'lichtkegel'],
+  q_kajuete_props: ['manifestWexmoor', 'kajuete_props'],
+  r_fassaden: ['manifestWexmoor2', 'R_wexmoor_fassaden'], r_bahnhof: ['manifestWexmoor2', 'R_bahnhof_props'],
+  r_torfstich: ['manifestWexmoor2', 'R_torfstich_props'], r_salzmarkt: ['manifestWexmoor2', 'R_salzmarkt_props'],
+  r_bojenhafen: ['manifestWexmoor2', 'R_bojenhafen_props'], r_oberstadt: ['manifestWexmoor2', 'R_oberstadt_props'],
+  r_pfahldorf: ['manifestWexmoor2', 'R_pfahldorf_props'], r_innen_props: ['manifestWexmoor2', 'R_innen_props'],
+  r_vergessmoor_props: ['manifestWexmoor2', 'R_vergessmoor_props'], r_leuchtturm_props: ['manifestWexmoor2', 'R_leuchtturm_props'], q_lichtkegel: ['manifestWexmoor', 'lichtkegel'],
 };
 /** Animationen aus benannten Regionen, die das Manifest nicht selbst mitbringt (Prefix → Name → Regionen). */
 export const REGION_ANIMS = {
@@ -605,7 +628,11 @@ const REGION_FILES = {
   k_spiegelkabinett_props: 'props/K_spiegelkabinett_props.png', k_jahrmarkt: 'props/K_jahrmarkt_aussen.png', k_schatten: 'fx/K_schatten.png',
   o_waage_props: 'props/O_waage_props.png', o_kreide_props: 'props/O_kreide_props.png', o_russ_props: 'props/O_russ_props.png',
   o_zirkel: 'ui/O_zirkel.png',
-  q_kajuete_props: 'props/Q_kajuete_props.png', q_lichtkegel: 'fx/Q_lichtkegel.png',
+  q_kajuete_props: 'props/Q_kajuete_props.png',
+  r_fassaden: 'props/R_wexmoor_fassaden.png', r_bahnhof: 'props/R_bahnhof_props.png', r_torfstich: 'props/R_torfstich_props.png',
+  r_salzmarkt: 'props/R_salzmarkt_props.png', r_bojenhafen: 'props/R_bojenhafen_props.png', r_oberstadt: 'props/R_oberstadt_props.png',
+  r_pfahldorf: 'props/R_pfahldorf_props.png', r_innen_props: 'props/R_innen_props.png', r_vergessmoor_props: 'props/R_vergessmoor_props.png',
+  r_leuchtturm_props: 'props/R_leuchtturm_props.png', q_lichtkegel: 'fx/Q_lichtkegel.png',
   m_kontor_props: 'props/M_kontor_props.png', m_waisenhaus_props: 'props/M_waisenhaus_props.png', m_traumkeller_props: 'props/M_traumkeller_props.png',
 };
 for (const z of ['marsch', 'pestgassen', 'katakomben', 'kraterwald']) REGION_FILES[`g_${z}_props`] = `props/G_01_${z}_props.png`;
@@ -700,7 +727,10 @@ export const sceneUrl = (id) => (SCENES.includes(id) ? `${BASE}ui/scenes/E_szene
   : TRAVEL_SCENES.includes(id) ? `${BASE}ui/scenes/I_${id}.png`
     : J_SCENES.includes(id) ? `${BASE}ui/scenes/J_szene_${id}.png`
       : K_SCENES.includes(id) ? `${BASE}ui/scenes/K_szene_${id}.png`
-        : M_SCENES.includes(id) ? `${BASE}ui/scenes/M_szene_${id}.png` : null);
+        : M_SCENES.includes(id) ? `${BASE}ui/scenes/M_szene_${id}.png`
+          : R_SCENES.includes(id) ? `${BASE}ui/scenes/R_szene_${id.slice(2)}.png` : null);
+/** Paket R: Kapitel 2 (Ids mit Präfix r_, damit sie nicht mit älteren kollidieren). */
+export const R_SCENES = ['r_ankunft', 'r_lichter', 'r_lucent', 'r_schrein', 'r_brandt', 'r_ueberfahrt'];
 
 /** Große Stadtkarte mit Nebel über unbesuchten Gegenden. */
 export const CITY_MAP_URL = `${BASE}ui/D_09_stadtkarte_gross.png`;
@@ -866,6 +896,7 @@ export function preloadSprites(scene) {
   if (!scene.cache.json.exists('manifestWildnis')) scene.load.json('manifestWildnis', `${BASE}manifest-wildnis.json`);
   if (!scene.cache.json.exists('manifestReise')) scene.load.json('manifestReise', `${BASE}manifest-reise.json`);
   if (!scene.cache.json.exists('manifestJournal')) scene.load.json('manifestJournal', `${BASE}manifest-journal.json`);
+  if (!scene.cache.json.exists('manifestWexmoor2')) scene.load.json('manifestWexmoor2', `${BASE}manifest-wexmoor2.json`);
   if (!scene.cache.json.exists('manifestWexmoor')) scene.load.json('manifestWexmoor', `${BASE}manifest-wexmoor.json`);
   if (!scene.cache.json.exists('manifestSequenzen2')) scene.load.json('manifestSequenzen2', `${BASE}manifest-sequenzen2.json`);
   if (!scene.cache.json.exists('manifestTreffen')) scene.load.json('manifestTreffen', `${BASE}manifest-treffen.json`);
@@ -905,7 +936,7 @@ function battleAnimDef(scene, sheet, name) {
   return null;
 }
 /** Manifeste mit Kampf-Sheets; spätere Pakete nennen ihre Einträge nicht nach dem Sheet, darum auch über die Datei. */
-const BATTLE_MANIFESTS = ['manifest14b', 'manifestKampf', 'manifestKampf2', 'manifestReise', 'manifestWildnis', 'manifestGegner3', 'manifestFall5', 'manifestFall6', 'manifestFall78', 'manifestSequenzen2'];
+const BATTLE_MANIFESTS = ['manifest14b', 'manifestKampf', 'manifestKampf2', 'manifestReise', 'manifestWildnis', 'manifestGegner3', 'manifestFall5', 'manifestFall6', 'manifestFall78', 'manifestSequenzen2', 'manifestWexmoor2'];
 export function battleSheetDef(scene, sheet) {
   const file = BATTLE_SHEETS[sheet]?.[0];
   for (const m of BATTLE_MANIFESTS) {
@@ -1418,3 +1449,49 @@ PORTRAITS.grauspaeher = 'Q_grauspaeher_emotions.png';
 export const RITUAL_PATHS = ['laterne', 'faden', 'maske', 'echo', 'kessel', 'eisen', 'schluessel'];
 for (const p of RITUAL_PATHS) ANIM_SHEETS[`ritual_${p}`] = [`fx/ritual_${p}.png`, 64, 64];
 export const ritualCardUrl = (pid) => (RITUAL_PATHS.includes(pid) ? `${BASE}pathways/ritual_${pid}.png` : null);
+
+// --- Paket R: Wexmoor-Orte, Figuren, Bosse und Bilder von Kapitel 2 (manifest-wexmoor2.json) ----
+/** Acht Figuren mit Lauf-Sheet, Emotionsportrait und Notizbuchkopf. */
+export const R_FIGURES = ['hesper', 'brack', 'pedell', 'sedge', 'wyle', 'lichtmann', 'hale', 'brandt'];
+for (const id of R_FIGURES) {
+  SHEETS[`r_${id}`] = `characters/R_${id}_walk.png`;
+  CHARACTER_SHEETS[`npc_${id}`] = `r_${id}`;
+  PORTRAITS[id] = `R_${id}_emotions.png`;
+  HEADS.push(id);
+}
+/** Starling verblasst: zweites Portrait-Set (gleiche Reihenfolge der Stimmungen). */
+PORTRAIT_SPECIAL.lichtmann_verblassend = ['R_lichtmann_verblassend_emotions.png', { neutral: 0, suspicious: 1, shocked: 2, smile: 3, faint_smile: 3 }];
+/** Verkleidungen des Spielers: Lauf-Sheet je Kleidungsstück (Key player_<item>). */
+export const DISGUISE_SHEETS = { torfkittel: 'r_spieler_torfkittel', fischerjacke: 'r_spieler_fischerjacke', akademierobe: 'r_spieler_akademierobe' };
+for (const [id, key] of Object.entries(DISGUISE_SHEETS)) {
+  SHEETS[key] = `characters/R_spieler_${id}.png`;
+  CHARACTER_SHEETS[`player_${id}`] = key;
+}
+ICON32.push(...Object.keys(DISGUISE_SHEETS));
+/** Constable Dunn (Revierflügel) trägt bis zu seiner eigenen Figur die Uniform der Constables. */
+CHARACTER_SHEETS.npc_dunn = 'constable';
+/** Bosse: die Namenlose (Vergessmoor) und das Leuchtfeuer (Finale, in Rage zweite Phase im selben Sheet). */
+for (const id of ['namenlose', 'leuchtfeuer']) {
+  BATTLE_SHEETS[`enemy_${id}`] = [`battle/enemy_${id}.png`, 96];
+  ENCOUNTER_SHEETS[id] = `enemy_${id}`;
+  ANIM_ALIASES[`enemy_${id}`] = { attack: 'attack_a', special: 'attack_b', cast: 'skill' };
+  BOSS_INTROS[id] = `${id}_r`;
+  BOSS_INTRO_IMAGES[`${id}_r`] = [`R_08_boss_${id}`, `ui/R_08_boss_${id}.png`];
+}
+ANIM_ALIASES.enemy_namenlose.phase2 = 'summon';
+BOSS_FORMS.leuchtfeuer = 'enemy_leuchtfeuer';
+BOSS_FORM_BACKGROUNDS.leuchtfeuer = 'bg_leuchtturm_oben';
+const R_FX = { namenstafel: [32], moor_steigt: [96, 48], leuchtstrahl: [96, 32], ernte: [64], blendung: [96], lichter_frei: [96] };
+for (const [id, [w, h = w]] of Object.entries(R_FX)) BATTLE_SHEETS[`fx_${id}`] = [`fx/fx_${id}.png`, w, h];
+Object.assign(ENCOUNTER_FX, {
+  namenlose: { attack: 'fx_namenstafel', multi: 'fx_moor_steigt', heavy: 'fx_ernte', won: 'fx_namenstafel' },
+  leuchtfeuer: { attack: 'fx_leuchtstrahl', multi: 'fx_leuchtstrahl', heavy: 'fx_blendung', won: 'fx_lichter_frei' },
+});
+/** Kampfhintergründe der Wexmoor-Orte. */
+for (const m of ['wx_bahnhof', 'wx_torfstich', 'wx_salzmarkt', 'wx_bojenhafen', 'wx_pfahldorf', 'wx_salzwatt', 'wx_kahn']) BATTLE_BACKGROUNDS[m] = 'bg_wx_stege';
+for (const m of ['wx_oberstadt', 'wx_akademie', 'wx_lucent', 'wx_wachhaus', 'wx_zelle']) BATTLE_BACKGROUNDS[m] = 'bg_wx_oberstadt';
+Object.assign(BATTLE_BACKGROUNDS, { wx_vergessmoor: 'bg_vergessmoor', wx_leuchtturm: 'bg_leuchtturm' });
+Object.assign(ENCOUNTER_BACKGROUNDS, { namenlose: 'bg_vergessmoor', leuchtfeuer: 'bg_leuchtturm' });
+/** Fallakte und Enden von Kapitel 2. */
+CASE_FILES.kapitel2 = 'R_akte_kapitel2';
+for (const id of ['k2_rein', 'k2_moor', 'k2_lichtmeister', 'k2_meer']) ENDING_IMAGES[id] = id;
