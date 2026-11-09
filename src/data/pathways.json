@@ -120,7 +120,17 @@
               "value": 1.2,
               "text": "+20 % Schaden gegen Okkultes."
             }
-          ]
+          ],
+          "ritual": {
+            "name": "Die Wache im Gaskanal",
+            "map": "gaskanaele",
+            "vision": true,
+            "consumes": {
+              "lampenoel": 2,
+              "leuchtmoos": 1
+            },
+            "desc": "Steig in die alten Gaskanäle, entzünde zwei Lampen gegen die Dunkelheit und halte die Geistsicht offen, bis der Nebel vor dir zurückweicht. Dann trink."
+          }
         },
         "5": {
           "name": "Flammenzeuge",
@@ -158,7 +168,22 @@
               "value": 0.9,
               "text": "Du nimmst 10 % weniger Schaden."
             }
-          ]
+          ],
+          "ritual": {
+            "name": "Das Feuer im Krater",
+            "map": "kraterwald",
+            "vision": true,
+            "consumes": {
+              "sternglas": 2,
+              "geisteressenz": 1
+            },
+            "requires": {
+              "requires_flags": [
+                "won_sternhirsch"
+              ]
+            },
+            "desc": "Im Krater, wo der Sternhirsch fiel, legst du zwei Splitter Sternglas in einen Kreis. Sie fangen dein Licht und geben es tausendfach zurück."
+          }
         }
       },
       "growth": {
@@ -283,7 +308,16 @@
               "value": 1.15,
               "text": "Ausweichfenster +15 %."
             }
-          ]
+          ],
+          "ritual": {
+            "name": "Der rote Faden",
+            "map": "revier",
+            "min_conclusions": 12,
+            "consumes": {
+              "spinnenseide": 3
+            },
+            "desc": "Spann an der Fallwand im Revier Fäden zwischen allen Schlüssen, die du je gezogen hast. Erst wenn das Netz trägt, darfst du trinken."
+          }
         },
         "5": {
           "name": "Knotenmeister",
@@ -316,7 +350,17 @@
               "value": 15,
               "text": "+15 Nerven."
             }
-          ]
+          ],
+          "ritual": {
+            "name": "Das Netz über der Stadt",
+            "map": "uhrturm",
+            "min_conclusions": 22,
+            "consumes": {
+              "eulenfeder": 2,
+              "spiegelquecksilber": 1
+            },
+            "desc": "Oben im Uhrturm, zwischen den Zahnrädern, knüpfst du jeden Fall der Stadt an einen einzigen Knoten. Wenn die Uhr schlägt, zieh."
+          }
         }
       },
       "growth": {
@@ -437,7 +481,17 @@
               "value": 0.9,
               "text": "Händler verlangen noch einmal 10 % weniger."
             }
-          ]
+          ],
+          "ritual": {
+            "name": "Ein fremdes Gesicht",
+            "map": "theater",
+            "min_nerves": 60,
+            "consumes": {
+              "wachsbluete": 2,
+              "puppenglas": 1
+            },
+            "desc": "Hinter der Bühne des Theaters formst du aus Wachsblüten ein Gesicht, das nicht deines ist. Setz es auf, ohne zu zittern, und trink durch seinen Mund."
+          }
         },
         "5": {
           "name": "Hundertgesicht",
@@ -470,7 +524,17 @@
               "value": 1.2,
               "text": "Gorse zahlt 20 % mehr."
             }
-          ]
+          ],
+          "ritual": {
+            "name": "Hundert Gesichter im Gedränge",
+            "map": "altmarkt",
+            "min_nerves": 70,
+            "consumes": {
+              "mondmohn": 2,
+              "spiegelquecksilber": 1
+            },
+            "desc": "Mitten im Gedränge des Altmarkts wechselst du so oft das Gesicht, bis dich niemand mehr kennt. Nicht einmal du selbst. Halte deine Nerven fest."
+          }
         }
       },
       "growth": {
@@ -594,7 +658,17 @@
               "value": 0.7,
               "text": "Fertigkeiten kosten 30 % weniger Nerven."
             }
-          ]
+          ],
+          "ritual": {
+            "name": "Die Stimmen zählen",
+            "map": "ebba",
+            "vision": true,
+            "consumes": {
+              "grabmoos": 3,
+              "glockenstaub": 1
+            },
+            "desc": "In St. Ebba streust du Glockenstaub auf den Boden und lauschst in der Geistsicht, bis du jede Stimme der Toten beim Namen kennst."
+          }
         },
         "5": {
           "name": "Stillsänger",
@@ -628,7 +702,22 @@
               "value": 20,
               "text": "+20 Nerven."
             }
-          ]
+          ],
+          "ritual": {
+            "name": "Die stille Messe",
+            "map": "katakomben",
+            "vision": true,
+            "consumes": {
+              "seufzerstein": 2,
+              "geisteressenz": 1
+            },
+            "requires": {
+              "requires_flags": [
+                "won_ossuarwaechter"
+              ]
+            },
+            "desc": "Tief in den Katakomben, wo der Ossuarwächter fiel, hältst du eine Messe ohne Worte. Wenn die Steine aufhören zu seufzen, ist es Zeit."
+          }
         }
       },
       "growth": {
@@ -760,7 +849,17 @@
               "value": 1.3,
               "text": "Heilmittel wirken noch einmal 30 % stärker."
             }
-          ]
+          ],
+          "ritual": {
+            "name": "Der Dreifachsud",
+            "map": "nachtmarkt",
+            "consumes": {
+              "bitterwurz": 2,
+              "kroetenschleim": 2,
+              "tonikum": 1
+            },
+            "desc": "Am Braukessel des Nachtmarkts kochst du dreimal denselben Sud: einmal als Gift, einmal als Arznei, einmal als beides. Der Trank muss im dritten Dampf getrunken werden."
+          }
         },
         "5": {
           "name": "Wandlungsmeister",
@@ -796,7 +895,17 @@
               "value": 10,
               "text": "Heilmittel senken die Unruhe um weitere 10."
             }
-          ]
+          ],
+          "ritual": {
+            "name": "Die Wandlung im Pesthauch",
+            "map": "pestgassen",
+            "consumes": {
+              "hustenstaub": 3,
+              "schwarzbernstein": 1,
+              "geisteressenz": 1
+            },
+            "desc": "In den Pestgassen verwandelst du die Krankheit selbst in eine Zutat. Atme den Rauch, bis er süß schmeckt."
+          }
         }
       },
       "growth": {
@@ -914,7 +1023,17 @@
               "value": 2,
               "text": "+2 Angriff."
             }
-          ]
+          ],
+          "ritual": {
+            "name": "Die Blutprobe",
+            "map": "schlachthof",
+            "max_hp_pct": 0.5,
+            "consumes": {
+              "ochsenblut": 2,
+              "eisenkraut": 2
+            },
+            "desc": "Im Schlachthof trinkst du nur verwundet, mit Ochsenblut an den Händen. Wer sich an Schmerz gewöhnt hat, kann ihn tragen. Unter der Hälfte deines Lebens."
+          }
         },
         "5": {
           "name": "Sturmbrecher",
@@ -946,7 +1065,20 @@
               "value": 0.85,
               "text": "Du nimmst 15 % weniger Schaden."
             }
-          ]
+          ],
+          "ritual": {
+            "name": "Der Sturm an der Mole",
+            "map": "docks",
+            "max_hp_pct": 0.4,
+            "consumes": {
+              "sternschlacke": 2,
+              "tonikum": 1
+            },
+            "requires": {
+              "min_wins": 30
+            },
+            "desc": "Am Kanalhafen stellst du dich mit Sternenschlacke in den Fäusten gegen den Wind. Erst nach dreißig gewonnenen Kämpfen und schwer verwundet hält dein Körper den Trank."
+          }
         }
       },
       "growth": {
@@ -1071,7 +1203,17 @@
               "value": 1.15,
               "text": "+15 % Schilling aus Beute."
             }
-          ]
+          ],
+          "ritual": {
+            "name": "Die hundert Schlösser",
+            "map": "warehouse",
+            "consumes": {
+              "kraehenfeder": 3,
+              "schattenpilz": 1
+            },
+            "tribute": 100,
+            "desc": "Im Lagerhaus 7 öffnest du jedes Schloss, das du findest, und legst 100 Schilling als Tribut in die letzte Kiste. Was man nimmt, muss man auch geben."
+          }
         },
         "5": {
           "name": "Siegelbrecher",
@@ -1099,7 +1241,18 @@
               "value": 15,
               "text": "Schlösser öffnen sich noch früher (Ansehen -15)."
             }
-          ]
+          ],
+          "ritual": {
+            "name": "Der Siegelbruch",
+            "map": "crypt",
+            "vision": true,
+            "consumes": {
+              "nachtfalterstaub": 2,
+              "geisteressenz": 1
+            },
+            "tribute": 200,
+            "desc": "In der Krypta unter St. Ebba brichst du in der Geistsicht ein Siegel, das seit hundert Jahren hält. 200 Schilling für den Wächter, der es nicht verhindert."
+          }
         }
       },
       "growth": {
@@ -1774,5 +1927,10 @@
         "locked_text": "Erst nach Fall 6: Der dreizehnte Gast"
       }
     }
+  },
+  "ritual_rules": {
+    "min_seq": 6,
+    "unruhe": 20,
+    "nerves": 20
   }
 }
