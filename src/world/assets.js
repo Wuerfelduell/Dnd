@@ -82,6 +82,7 @@ export const SHEETS = {
   q_kajuete: 'tilesets/Q_kajuete_tiles.png',
   r_wexmoor: 'tilesets/R_wexmoor_tiles.png', r_innen: 'tilesets/R_innen_tiles.png', r_vergessmoor: 'tilesets/R_vergessmoor_tiles.png',
   r_leuchtturm: 'tilesets/R_leuchtturm_tiles.png',
+  v_glocke: 'tilesets/V_01_glocke_tiles.png',
   s_salzwatt: 'tilesets/S_salzwatt_tiles.png', s_lichtlose: 'tilesets/S_lichtlose_tiles.png', s_salz: 'tilesets/S_salz_tiles.png',
   // Grundpaket und Paket D: bisher ungenutzte Innenraum-Tilesets (8 Spalten à 16 px)
   d_wohnung_tiles: 'tilesets/D_08_wohnung_tiles.png', b_interieur: 'tilesets/02_07_interiors.png', b_keller: 'tilesets/02_08_occult_basement.png',
@@ -194,6 +195,8 @@ export const THEME_TILES = {
   r_vergessmoor: { sheet: 'r_vergessmoor', fallback: 'water0', water: [0, 1, 2, 3], ghost: [4], floor: [6, 7, 8, 9] },
   r_leuchtturm: { sheet: 'r_leuchtturm', fallback: 'stone', floor: [0, 1, 2, 3], ring: [4, 6], wallTop: [8], wallFace: [9],
     niche: [16, 17, 18, 19], glow: [24, 25, 26, 27], sand: [28, 29, 30, 31] },
+  // Paket V: Gasthaus „Zur Ertrunkenen Glocke“ (8x3-Raster)
+  v_glocke: { sheet: 'v_glocke', fallback: 'wood0', floor: [0, 1, 2, 3], wallTop: [4], wallFace: [5, 6], porthole: [18], curtain: [20], carpet: [21] },
   // Paket S: Salzwatt (Schlick, Salzkruste, Priele, Meer, Pfähle, Damm), Keller der Lichtlosen, Salzspeicher (8x4-Raster)
   s_salzwatt: { sheet: 's_salzwatt', fallback: 'path', floor: [0, 1, 2, 3], sand: [4, 5, 6, 7], debris: [22], water: [30, 31], deep: [20, 21],
     stakes: [23], path: [24, 25, 26, 27] },
@@ -708,6 +711,7 @@ export const REGION_SHEETS = {
   r_bojenhafen: ['manifestWexmoor2', 'R_bojenhafen_props'], r_oberstadt: ['manifestWexmoor2', 'R_oberstadt_props'],
   r_pfahldorf: ['manifestWexmoor2', 'R_pfahldorf_props'], r_innen_props: ['manifestWexmoor2', 'R_innen_props'],
   r_vergessmoor_props: ['manifestWexmoor2', 'R_vergessmoor_props'], r_leuchtturm_props: ['manifestWexmoor2', 'R_leuchtturm_props'],
+  v_glocke_props: ['manifestWexmoor4', 'V_glocke_props'],
   s_salzwatt_props: ['manifestWexmoor3', 'salzwatt_props'], s_lichtlose_props: ['manifestWexmoor3', 'lichtlose_props'], s_salz_props: ['manifestWexmoor3', 'salz_props'], q_lichtkegel: ['manifestWexmoor', 'lichtkegel'],
 };
 /** Animationen aus benannten Regionen, die das Manifest nicht selbst mitbringt (Prefix → Name → Regionen). */
@@ -746,6 +750,7 @@ const REGION_FILES = {
   r_salzmarkt: 'props/R_salzmarkt_props.png', r_bojenhafen: 'props/R_bojenhafen_props.png', r_oberstadt: 'props/R_oberstadt_props.png',
   r_pfahldorf: 'props/R_pfahldorf_props.png', r_innen_props: 'props/R_innen_props.png', r_vergessmoor_props: 'props/R_vergessmoor_props.png',
   r_leuchtturm_props: 'props/R_leuchtturm_props.png', q_lichtkegel: 'fx/Q_lichtkegel.png',
+  v_glocke_props: 'props/V_glocke_props.png',
   s_salzwatt_props: 'props/S_salzwatt_props.png', s_lichtlose_props: 'props/S_lichtlose_props.png', s_salz_props: 'props/S_salz_props.png',
   m_kontor_props: 'props/M_kontor_props.png', m_waisenhaus_props: 'props/M_waisenhaus_props.png', m_traumkeller_props: 'props/M_traumkeller_props.png',
 };
@@ -1022,6 +1027,7 @@ export function preloadSprites(scene) {
   if (!scene.cache.json.exists('manifestJournal')) scene.load.json('manifestJournal', `${BASE}manifest-journal.json`);
   if (!scene.cache.json.exists('manifestWexmoor2')) scene.load.json('manifestWexmoor2', `${BASE}manifest-wexmoor2.json`);
   if (!scene.cache.json.exists('manifestWexmoor3')) scene.load.json('manifestWexmoor3', `${BASE}manifest-wexmoor3.json`);
+  if (!scene.cache.json.exists('manifestWexmoor4')) scene.load.json('manifestWexmoor4', `${BASE}manifest-wexmoor4.json`);
   if (!scene.cache.json.exists('manifestWexmoor')) scene.load.json('manifestWexmoor', `${BASE}manifest-wexmoor.json`);
   if (!scene.cache.json.exists('manifestSequenzen2')) scene.load.json('manifestSequenzen2', `${BASE}manifest-sequenzen2.json`);
   if (!scene.cache.json.exists('manifestTreffen')) scene.load.json('manifestTreffen', `${BASE}manifest-treffen.json`);
@@ -1061,7 +1067,7 @@ function battleAnimDef(scene, sheet, name) {
   return null;
 }
 /** Manifeste mit Kampf-Sheets; spätere Pakete nennen ihre Einträge nicht nach dem Sheet, darum auch über die Datei. */
-const BATTLE_MANIFESTS = ['manifest14b', 'manifestKampf', 'manifestKampf2', 'manifestReise', 'manifestWildnis', 'manifestGegner3', 'manifestFall5', 'manifestFall6', 'manifestFall78', 'manifestSequenzen2', 'manifestWexmoor2', 'manifestWexmoor3'];
+const BATTLE_MANIFESTS = ['manifest14b', 'manifestKampf', 'manifestKampf2', 'manifestReise', 'manifestWildnis', 'manifestGegner3', 'manifestFall5', 'manifestFall6', 'manifestFall78', 'manifestSequenzen2', 'manifestWexmoor2', 'manifestWexmoor3', 'manifestWexmoor4'];
 export function battleSheetDef(scene, sheet) {
   const file = BATTLE_SHEETS[sheet]?.[0];
   for (const m of BATTLE_MANIFESTS) {
@@ -1716,4 +1722,16 @@ export const LONER_SEALS = { laterne: [0, 40], faden: [8, 40], maske: [16, 40], 
 /** Zirkel aus Wexmoor (ui/S_zirkel.png): Emblem 32x32 und Einladung 16x16. */
 export const S_ZIRKEL_URL = `${BASE}ui/S_zirkel.png`;
 export const S_ZIRKEL = { lichtlose: { emblem: [0, 0, 32, 32], invite: [64, 0, 16, 16] }, salz: { emblem: [32, 0, 32, 32], invite: [80, 0, 16, 16] } };
+
+// --- Paket V: Elsbeth, Gasthaus Glocke, Price als Gegner (manifest-wexmoor4.json) --------------------
+/** Elsbeth Rowe mit eigener Figur; Portrait-Spalten benommen, besorgt, erschrocken, erleichtert. */
+SHEETS.v_elsbeth = 'characters/V_elsbeth_walk.png';
+CHARACTER_SHEETS.npc_elsbeth = 'v_elsbeth';
+PORTRAITS.elsbeth = 'V_elsbeth_emotions.png';
+PORTRAIT_SPECIAL.elsbeth = ['V_elsbeth_emotions.png', { dazed: 0, neutral: 0, worried: 1, suspicious: 1, sad: 1, shocked: 2, relieved: 3, smile: 3, faint_smile: 3 }];
+HEADS.push('elsbeth');
+/** Constable Price in Wexmoor: eigenes Kampf-Sheet (Schlagstock, Laternenblitz, Pfeife). */
+BATTLE_SHEETS.enemy_price = ['battle/enemy_price.png', 48];
+ENCOUNTER_SHEETS.price_wx_fight = 'enemy_price';
+ANIM_ALIASES.enemy_price = { attack: 'truncheon', special: 'lantern_flash', cast: 'whistle', phase2: 'whistle' };
 

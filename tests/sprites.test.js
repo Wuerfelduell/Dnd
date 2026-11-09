@@ -136,7 +136,7 @@ test('Paket C: Portraits, Lauf-Sheets und Kartenmarker sind vollständig', () =>
 
 // --- Paket D (Stadt) und E (Fälle) -------------------------------------------------
 const manifest = (name) => JSON.parse(readFileSync(sprite(`manifest-${name}.json`), 'utf8'));
-const MANIFEST_FILES = { manifestStadt: manifest('stadt'), manifestFaelle: manifest('faelle'), manifestJournal: manifest('journal'), manifestReise: manifest('reise'), manifestWildnis: manifest('wildnis'), manifestGegner3: manifest('gegner3'), manifestFall5: manifest('fall5'), manifestFall6: manifest('fall6'), manifestFall78: manifest('fall78'), manifestTreffen: manifest('treffen'), manifestSequenzen2: manifest('sequenzen2'), manifestWexmoor: manifest('wexmoor'), manifestRituale: manifest('rituale'), manifestWexmoor2: manifest('wexmoor2'), manifestWexmoor3: manifest('wexmoor3') };
+const MANIFEST_FILES = { manifestStadt: manifest('stadt'), manifestFaelle: manifest('faelle'), manifestJournal: manifest('journal'), manifestReise: manifest('reise'), manifestWildnis: manifest('wildnis'), manifestGegner3: manifest('gegner3'), manifestFall5: manifest('fall5'), manifestFall6: manifest('fall6'), manifestFall78: manifest('fall78'), manifestTreffen: manifest('treffen'), manifestSequenzen2: manifest('sequenzen2'), manifestWexmoor: manifest('wexmoor'), manifestRituale: manifest('rituale'), manifestWexmoor2: manifest('wexmoor2'), manifestWexmoor3: manifest('wexmoor3'), manifestWexmoor4: manifest('wexmoor4') };
 const regionNames = (def) => {
   const regions = Array.isArray(def.regions) ? def.regions.map((r) => r.name) : Object.keys(def.regions ?? {});
   return [...regions, ...Object.keys(def.animations ?? {}), ...Object.keys(def.regionAnimations ?? {})];
@@ -579,4 +579,15 @@ test('Liegengebliebene Tiles und Requisiten: Räume nutzen ihre Bögen, Deko lie
     const [x, y] = d.tile;
     assert.ok(!'I#E'.includes(m.rows[y][x]), `${m.id}: ${d.sprite} steht in der Wand`);
   }
+});
+
+// --- Paket V (Elsbeth, Gasthaus Glocke, Price) ---------------------------------------
+test('Paket V: Elsbeth, die Ertrunkene Glocke und Prices Kampf nutzen die neue Kunst', () => {
+  assert.equal(CHARACTER_SHEETS.npc_elsbeth, 'v_elsbeth');
+  assert.ok(existsSync(sprite(SHEETS.v_elsbeth)));
+  assert.ok(existsSync(sprite(`portraits/${PORTRAITS.elsbeth}`)));
+  assert.ok(existsSync(sprite('ui/heads/elsbeth.png')));
+  assert.equal(content.maps.wx_glocke.tiles, 'v_glocke');
+  assert.equal(content.encounters.price_wx_fight.sheet, 'enemy_price');
+  assert.ok(existsSync(sprite(BATTLE_SHEETS.enemy_price[0])));
 });
