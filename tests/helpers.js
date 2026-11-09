@@ -29,7 +29,11 @@ export function loadContent({ sequenzen = true, without = [] } = {}) {
     packs: PACKS.filter((name) => !without.includes(name)).map((name) => ({ name, ...Object.fromEntries(PACK_FILES.map((f) => [f, load(`packs/${name}/${f}.json`)])),
       ...(name === 'wx_nebenquests' ? { kahn_ausbau: load('packs/wx_nebenquests/kahn_ausbau.json') } : {}),
       ...(name === 'k2_akten' ? { faelle: load('packs/k2_akten/faelle.json'), zeitung: load('packs/k2_akten/zeitung.json') } : {}),
-      ...(name === 'k2_akte' ? { epiloge: load('packs/k2_akte/epiloge.json') } : {}),
+      ...(name === 'k2_akte' ? (() => {
+        const akt5 = load('packs/k2_akte/akt5_neu.json');
+        return { epiloge: load('packs/k2_akte/epiloge.json'), quests: { ...load('packs/k2_akte/quests.json'), ...akt5.quests }, dialogues: { ...load('packs/k2_akte/dialogues.json'), ...akt5.dialogues },
+          platzierung: [...load('packs/k2_akte/platzierung.json'), ...akt5.platzierung, ...load('packs/k2_akte/turm_sperren.json')] };
+      })() : {}),
       ...(name === 'k2_orte' ? Object.fromEntries(['artifacts', 'maps', 'travel', 'zone', 'pins'].map((f) => [f, load(`packs/k2_orte/${f}.json`)])) : {}),
       ...(name === 'k3_orte' ? Object.fromEntries(['maps', 'travel', 'zones', 'bosses', 'phasen', 'artifacts', 'city'].map((f) => [f, load(`packs/k3_orte/${f}.json`)])) : {}),
       ...(name === 'k3_akte' ? { zeitung: load('packs/k3_akte/zeitung.json'), boss_texte: load('packs/k3_akte/boss_texte.json'), epiloge: load('packs/k3_akte/epiloge.json') } : {}),

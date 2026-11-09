@@ -6,7 +6,7 @@ import { fileURLToPath } from 'node:url';
 const here = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(here, '../../..');
 const read = p => JSON.parse(fs.readFileSync(p, 'utf8'));
-// Seit dem Einbau liegen die acht Standarddateien unter src/data/packs/k2_akte; akt5_neu und epiloge bleiben hier.
+// Seit dem Einbau liegen alle Spieldateien (auch akt5_neu und epiloge) unter src/data/packs/k2_akte.
 const pkgDir = path.join(root, 'src/data/packs/k2_akte');
 const files = [...fs.readdirSync(pkgDir).filter(f => f.endsWith('.json')).map(f => path.join(pkgDir, f)),
   ...fs.readdirSync(here).filter(f => f.endsWith('.json')).map(f => path.join(here, f))];

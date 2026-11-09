@@ -150,6 +150,8 @@ import k3a_platzierung from './packs/k3_akte/platzierung.json';
 import k3a_zeitung from './packs/k3_akte/zeitung.json';
 import k3a_epiloge from './packs/k3_akte/epiloge.json';
 import k2v_epiloge from './packs/k2_akte/epiloge.json';
+import k2v_akt5 from './packs/k2_akte/akt5_neu.json';
+import k2v_turm_sperren from './packs/k2_akte/turm_sperren.json';
 import k3p_quests from './packs/k3_pruefungen/quests.json';
 import k3p_items from './packs/k3_pruefungen/items.json';
 import k3p_encounters from './packs/k3_pruefungen/encounters.json';
@@ -204,7 +206,8 @@ const koop = { name: 'koop', quests: koop_quests, items: koop_items, encounters:
 /** Paket AL: vier Wexmoorer Akten. */
 const k2Akten = { name: 'k2_akten', quests: k2a_quests, items: k2a_items, encounters: k2a_encounters, dialogues: k2a_dialogues, npcs: k2a_npcs, case: k2a_case, dialog_zusaetze: k2a_dialog_zusaetze, platzierung: k2a_platzierung, faelle: k2a_faelle, zeitung: k2a_zeitung };
 const k2Orte = { name: 'k2_orte', quests: k2o_quests, items: k2o_items, encounters: k2o_encounters, dialogues: k2o_dialogues, npcs: k2o_npcs, case: k2o_case, dialog_zusaetze: k2o_dialog_zusaetze, platzierung: k2o_platzierung, artifacts: k2o_artifacts, maps: k2o_maps, travel: k2o_travel, zone: k2o_zone, pins: k2o_pins };
-const k2Akte = { name: 'k2_akte', quests: k2v_quests, items: k2v_items, encounters: k2v_encounters, dialogues: k2v_dialogues, npcs: k2v_npcs, case: k2v_case, dialog_zusaetze: k2v_dialog_zusaetze, platzierung: k2v_platzierung, epiloge: k2v_epiloge };
+// AP Akt V: Überfahrt, Keller, Winde und Abschied ersetzen die alte Akt-V-Quest; Sperren im Turm erzwingen die Reihenfolge
+const k2Akte = { name: 'k2_akte', quests: { ...k2v_quests, ...k2v_akt5.quests }, items: k2v_items, encounters: k2v_encounters, dialogues: { ...k2v_dialogues, ...k2v_akt5.dialogues }, npcs: k2v_npcs, case: k2v_case, dialog_zusaetze: k2v_dialog_zusaetze, platzierung: [...k2v_platzierung, ...k2v_akt5.platzierung, ...k2v_turm_sperren], epiloge: k2v_epiloge };
 const k3Orte = { name: 'k3_orte', quests: k3o_quests, items: k3o_items, encounters: k3o_encounters, dialogues: { ...k3o_dialogues, ...k3o_beute }, npcs: k3o_npcs, case: k3o_case, dialog_zusaetze: k3o_dialog_zusaetze, platzierung: k3o_platzierung, maps: k3o_maps, travel: k3o_travel, zones: k3o_zones, bosses: k3o_bosses, phasen: k3o_phasen, artifacts: k3o_artifacts, city: k3o_city };
 const k3Nebenquests = { name: 'k3_nebenquests', quests: k3n_quests, items: k3n_items, encounters: k3n_encounters, dialogues: k3n_dialogues, npcs: k3n_npcs, case: k3n_case, dialog_zusaetze: k3n_dialog_zusaetze, platzierung: k3n_platzierung, zeitung: k3n_zeitung, gerede: k3n_gerede, bestiarium: k3n_bestiarium, lesestuecke: k3n_lesestuecke };
 const k3Pruefungen = { name: 'k3_pruefungen', quests: k3p_quests, items: k3p_items, encounters: k3p_encounters, dialogues: k3p_dialogues, npcs: k3p_npcs, case: k3p_case, dialog_zusaetze: k3p_dialog_zusaetze, platzierung: k3p_platzierung };

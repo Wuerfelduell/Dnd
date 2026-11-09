@@ -675,6 +675,10 @@ export class GameState {
     for (const id of Object.values(this.endings)) {
       for (const f of this.content.endings[id]?.sets_flags ?? []) if (f.startsWith('travel_')) this.flags.add(f);
     }
+    // AP Akt V: alte Stände mit besiegtem Leuchtfeuer überspringen die neuen Turmschritte (ohne Belohnungen
+    // oder Zunders Vertrauen); wer die Insel schon erreicht hat, behält die Überfahrt
+    if (this.flags.has('won_leuchtfeuer') || this.flags.has('kapitel2_done')) for (const f of K2_AKT5_STEPS) this.flags.add(f);
+    else if (this.flags.has('k2_am_turm')) this.flags.add('k2v_boot_bereit');
     this.tracked = this.quests[data.tracked] === 'active' ? data.tracked : null;
     // Ab Version 3: Leben und Inventar (ältere Stände behalten die Startausrüstung)
     if (data.v >= 3) {
@@ -696,5 +700,8 @@ export class GameState {
     return true;
   }
 }
+
+/** Fortschrittsflags der verlängerten Akt-V-Fassung (AP), in Spielreihenfolge. */
+export const K2_AKT5_STEPS = ['k2v_boot_bereit', 'k2v_keller_passiert', 'k2v_aufstieg_passiert', 'k2v_abschied_done'];
 
 Object.assign(GameState.prototype, partyMethods, gearMethods, pathwayMethods, artifactMethods, gatheringMethods, wantedMethods, bondMethods, auctionMethods, kahnMethods, newspaperMethods);

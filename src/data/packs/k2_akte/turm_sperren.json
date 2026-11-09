@@ -1,0 +1,92 @@
+[
+  {
+    "map": "wx_leuchtturm",
+    "tile": [
+      18,
+      22
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k2_am_turm"
+      ],
+      "hide_if_flags": [
+        "k2v_aufstieg_passiert",
+        "won_leuchtfeuer",
+        "kapitel2_done"
+      ]
+    },
+    "interactable": {
+      "id": "k2v_sperre_klappe_west",
+      "kind": "read",
+      "sprite": "chain_hoist",
+      "solid": [
+        48,
+        16
+      ],
+      "marker": false,
+      "title": "Zugefallene Klappe",
+      "prompt": "Zugefallene Klappe",
+      "text": "Die Gegengewichtsklappe ist zugefallen. Ihre Kette hängt straff über dem Aufgang, und darunter ist kein Durchkommen. Unten am Treppenfuß sitzt die alte Handwinde."
+    }
+  },
+  {
+    "map": "wx_leuchtturm",
+    "tile": [
+      42,
+      22
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k2_am_turm"
+      ],
+      "hide_if_flags": [
+        "k2v_aufstieg_passiert",
+        "won_leuchtfeuer",
+        "kapitel2_done"
+      ]
+    },
+    "interactable": {
+      "id": "k2v_sperre_klappe_ost",
+      "kind": "read",
+      "sprite": "chain_hoist",
+      "solid": [
+        48,
+        16
+      ],
+      "marker": false,
+      "title": "Zugefallene Klappe",
+      "prompt": "Zugefallene Klappe",
+      "text": "Die Gegengewichtsklappe ist zugefallen. Ihre Kette hängt straff über dem Aufgang, und darunter ist kein Durchkommen. Unten am Treppenfuß sitzt die alte Handwinde."
+    }
+  },
+  {
+    "map": "wx_leuchtturm",
+    "tile": [
+      6,
+      11
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k2_am_turm"
+      ],
+      "hide_if_flags": [
+        "k2v_abschied_done",
+        "won_leuchtfeuer",
+        "kapitel2_done"
+      ]
+    },
+    "interactable": {
+      "id": "k2v_sperre_treppe",
+      "kind": "read",
+      "sprite": "crate_stack",
+      "solid": [
+        48,
+        16
+      ],
+      "marker": false,
+      "title": "Flüsternde Treppe",
+      "prompt": "Flüsternde Treppe",
+      "text": "Vor dem letzten Treppenlauf stapeln sich Kisten mit offenen Kreisen. Dahinter flüstert jede Stufe. Zunder wartet unten am Treppenfuß, bevor du weitergehst."
+    }
+  }
+]
