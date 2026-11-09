@@ -391,3 +391,14 @@ img.scene { display: block; width: 30em; height: 16.875em; margin: 0 auto 0.6em;
 .bestiary img { width: 12em; height: 16em; image-rendering: pixelated; }
 .turnface { display: inline-block; width: 2em; height: 2em; background-size: 38em 2em; background-repeat: no-repeat; image-rendering: pixelated; vertical-align: middle; margin-right: 0.4em; }
 .cb-enemy > .turnface { float: left; }
+
+/* Archiv und Personen im Notizbuch */
+.archive-list { display: flex; flex-wrap: wrap; gap: 0.3em; margin-bottom: 0.7em; }
+.archive-list .tab { font-size: 0.85em; }
+.notebook .people { grid-template-columns: 1fr 1fr; gap: 0.35em; max-height: 21em; overflow-y: auto; }
+.notebook .people li { display: flex; gap: 0.5em; align-items: flex-start; font-size: 0.85em; padding: 0.3em 0.5em; border: 0.125em solid #2a2630; }
+.notebook .people li.busy { border-color: #8a6a40; }
+.notebook .people .where { color: var(--muted); }
+.notebook .people .qtag { color: var(--gold); font-size: 0.9em; }
+.closed-quests { margin-top: 0.7em; }
+.closed-quests summary { cursor: pointer; color: var(--muted); font-size: 0.9em; margin-bottom: 0.4em; }

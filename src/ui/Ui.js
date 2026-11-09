@@ -8,6 +8,7 @@ import {
 } from '../world/assets.js';
 import { sourceOf } from '../core/sources.js';
 import { caseHints, nextDeduction } from '../core/hints.js';
+import { isSolved, knownPeople } from '../core/journal.js';
 import { canHurry, travelSafe, travelFast, afterHurryFight } from '../core/Travel.js';
 import { questTarget } from '../core/Guide.js';
 
@@ -565,16 +566,25 @@ export class Ui {
   }
 
   renderNotebook(feedback) {
-    const cases = this.visibleCases();
+    const all = this.visibleCases();
+    const solved = all.filter((c) => isSolved(this.state, c.id));
+    const cases = all.filter((c) => !solved.includes(c));
     const beasts = this.knownBeasts();
-    const fixed = ['quests', 'items', 'pfad', 'bestiar'];
+    const fixed = ['quests', 'items', 'pfad', 'personen', 'bestiar', 'archiv'];
+    if (this.tab === 'archiv' && !solved.length) this.tab = 'quests';
     if (this.tab === 'bestiar' && !beasts.length) this.tab = 'quests';
+    // Ein gelöster Fall wird im Archiv geöffnet
+    if (solved.some((c) => c.id === this.tab)) { this.archiveCase = this.tab; this.tab = 'archiv'; }
     if (!fixed.includes(this.tab) && !cases.some((c) => c.id === this.tab)) this.tab = 'quests';
-    const tabs = [{ id: 'quests', title: 'Aufträge' }, { id: 'items', title: 'Inventar' }, { id: 'pfad', title: 'Pfad' },
-      ...(beasts.length ? [{ id: 'bestiar', title: 'Bestiarium' }] : []), ...cases.map((c) => ({ id: c.id, title: c.title.replace(/:.*/, '') }))];
+    if (this.tab === 'archiv' && !solved.some((c) => c.id === this.archiveCase)) this.archiveCase = solved.at(-1)?.id;
+    const tabs = [{ id: 'quests', title: 'Aufträge' }, { id: 'items', title: 'Inventar' }, { id: 'pfad', title: 'Pfad' }, { id: 'personen', title: 'Personen' },
+      ...(beasts.length ? [{ id: 'bestiar', title: 'Bestiarium' }] : []),
+      ...cases.map((c) => ({ id: c.id, title: c.title.replace(/:.*/, '') })), ...(solved.length ? [{ id: 'archiv', title: `Archiv (${solved.length})` }] : [])];
+    const caseId = this.currentCase();
     const body = this.tab === 'quests' ? this.questsHtml() : this.tab === 'items' ? this.itemsHtml() : this.tab === 'pfad' ? this.pathwayHtml()
-      : this.tab === 'bestiar' ? this.bestiaryHtml(beasts) : this.caseHtml(this.tab);
-    const isCase = !fixed.includes(this.tab);
+      : this.tab === 'personen' ? this.peopleHtml() : this.tab === 'bestiar' ? this.bestiaryHtml(beasts)
+      : this.tab === 'archiv' ? this.archiveHtml(solved) : this.caseHtml(this.tab);
+    const isCase = !!caseId;
     const hint = String(feedback ?? '').startsWith('<div class="hint">') ? feedback : '';
     const el = this.open('notebook', `
       <div class="tabs">${tabs.map((t, i) => `<button class="tab ${t.id === this.tab ? 'sel' : ''}" data-tab="${t.id}"><span class="key">${i + 1}</span> ${esc(t.title)}</button>`).join('')}
@@ -583,13 +593,14 @@ export class Ui {
       ${body}
       <div class="feedback">${hint ? '' : feedback}</div>
       <div class="actions">
-        ${isCase ? `<button data-act="hint" title="Jeder Klick verrät etwas mehr">Tipp${this.hintStage(this.tab) ? ` ${this.hintStage(this.tab)}/3` : ''} <span class="key">T</span></button>` : ''}
+        ${isCase ? `<button data-act="hint" title="Jeder Klick verrät etwas mehr">Tipp${this.hintStage(caseId) ? ` ${this.hintStage(caseId)}/3` : ''} <span class="key">T</span></button>` : ''}
         ${isCase ? `<button class="primary" data-act="combine" ${this.selected.length === 2 ? '' : 'disabled'}>Verknüpfen <span class="key">V</span></button>` : ''}
         <button data-act="close">Schließen <span class="key">J</span></button>
       </div>`, 'notebook');
     this.notebookTabs = tabs;
     el.querySelectorAll('[data-tab]').forEach((b) => { b.onclick = () => { this.tab = b.dataset.tab; this.selected = []; this.renderNotebook(''); }; });
     el.querySelectorAll('[data-fact]').forEach((b) => { b.onclick = () => this.toggleFact(b.dataset.fact); });
+    el.querySelectorAll('[data-archive]').forEach((b) => { b.onclick = () => { this.archiveCase = b.dataset.archive; this.selected = []; this.renderNotebook(''); }; });
     el.querySelector('[data-act=combine]')?.addEventListener('click', () => this.combine());
     el.querySelector('[data-act=hint]')?.addEventListener('click', () => this.showHint());
     el.querySelectorAll('[data-use]').forEach((b) => { b.onclick = () => this.renderNotebook(esc(this.state.useItem(b.dataset.use) ?? '')); });
@@ -626,7 +637,7 @@ export class Ui {
     const order = (q) => (s.quests[q] === 'active' ? 0 : 1) * 10 + (s.quest(q).kind === 'main' ? 0 : 1);
     ids.sort((a, b) => order(a) - order(b));
     if (!ids.length) return '<p class="empty">Noch keine Aufträge.</p>';
-    return `<p class="hintline">Klicke auf einen Auftrag, um ihn zu verfolgen. Ein Pfeil zeigt dir dann den Weg.</p><ul class="quests">${ids.map((id) => {
+    const row = (id) => {
       const q = s.quest(id);
       const st = s.quests[id];
       const active = st === 'active';
@@ -636,7 +647,13 @@ export class Ui {
       const goal = active ? `<div class="qgoal">➤ ${t ? esc(this.goalText(t)) : 'Kein fester Ort bekannt'}</div>` : '';
       return `<li class="quest ${st} ${tracked ? 'tracked' : ''}" ${active ? `data-track="${id}"` : ''}><div class="qtitle"><span class="qkind">${q.kind === 'main' ? 'Hauptfall' : 'Nebenauftrag'}</span> ${esc(q.title)} ${!active ? '<span class="badge likely">erledigt</span>' : ''}${tracked ? '<span class="badge track">verfolgt</span>' : ''}</div>
         ${active ? `<div class="qsum">${esc(q.summary)}</div>` : ''}${steps}${goal}</li>`;
-    }).join('')}</ul>`;
+    };
+    // Erledigte Aufträge zusammengeklappt, damit die offenen oben sichtbar bleiben
+    const open = ids.filter((id) => s.quests[id] === 'active');
+    const closed = ids.filter((id) => s.quests[id] !== 'active');
+    return `<p class="hintline">Klicke auf einen Auftrag, um ihn zu verfolgen. Ein Pfeil zeigt dir dann den Weg.</p>
+      <ul class="quests">${open.map(row).join('') || '<li class="empty">Gerade keine offenen Aufträge.</li>'}</ul>
+      ${closed.length ? `<details class="closed-quests"><summary>Erledigt (${closed.length})</summary><ul class="quests">${closed.map(row).join('')}</ul></details>` : ''}`;
   }
 
   itemsHtml() {
@@ -719,6 +736,34 @@ export class Ui {
     this.renderNotebook('');
   }
 
+  /** Der Fall, der gerade im Notizbuch offen ist (auch im Archiv), sonst null. */
+  currentCase() {
+    if (this.tab === 'archiv') return this.archiveCase ?? null;
+    return ['quests', 'items', 'pfad', 'personen', 'bestiar'].includes(this.tab) ? null : this.tab;
+  }
+
+  /** Archiv: gelöste Fälle mit ihrem Ende; ein Klick öffnet die alten Informationen. */
+  archiveHtml(solved) {
+    const s = this.state;
+    const list = solved.map((c) => {
+      const end = s.content.endings[s.endings[c.id]];
+      return `<button class="tab ${c.id === this.archiveCase ? 'sel' : ''}" data-archive="${c.id}">${esc(c.title)}${end ? ` <span class="muted">· ${esc(end.title ?? '')}</span>` : ''}</button>`;
+    }).join('');
+    return `<div class="archive-list">${list}</div>${this.archiveCase ? this.caseHtml(this.archiveCase) : ''}`;
+  }
+
+  /** Personen, mit denen man gesprochen hat: Gesicht, Rolle, Ort, laufende Aufträge. */
+  peopleHtml() {
+    const people = knownPeople(this.state);
+    if (!people.length) return '<p class="empty">Du hast noch mit niemandem gesprochen.</p>';
+    return `<ul class="people">${people.map((p) => {
+      const url = portraitUrl(p.id);
+      const face = url ? `<span class="srcface face" style="background-image:url(${url})"></span>` : '<span class="srcface"></span>';
+      return `<li class="${p.quests.length ? 'busy' : ''}">${face}<div><strong>${esc(p.name)}</strong> <span class="muted">${esc(p.role)}</span>
+        <br><span class="where">${esc(p.places.join(', ') || 'unterwegs')}</span>${p.quests.map((q) => `<br><span class="qtag">${esc(q)}</span>`).join('')}</div></li>`;
+    }).join('')}</ul>`;
+  }
+
   /** Aktuelle Tipp-Stufe eines Falls (0 = noch kein Tipp). Ändert sich das Ziel, beginnt es von vorn. */
   hintStage(caseId) {
     const h = this.hints?.[caseId];
@@ -728,7 +773,8 @@ export class Ui {
 
   /** Gestufter Tipp: jeder Klick verrät etwas mehr über die nächste offene Schlussfolgerung. */
   showHint() {
-    const caseId = this.tab;
+    const caseId = this.currentCase();
+    if (!caseId) return;
     this.hints ??= {};
     const level = Math.min(3, this.hintStage(caseId) + 1);
     const h = caseHints(this.state, caseId, level);
@@ -1052,7 +1098,7 @@ export class Ui {
     else if ((this.modal === 'shop' || this.modal === 'brew') && (k === 'escape' || k === 'e')) this.close();
     else if (this.modal === 'brew' && num >= 0 && this.brewList?.[num]) this.brew(this.brewList[num].formula);
     else if (this.modal === 'notebook' && k === 'v') this.combine();
-    else if (this.modal === 'notebook' && k === 't' && !['quests', 'items', 'pfad'].includes(this.tab)) this.showHint();
+    else if (this.modal === 'notebook' && k === 't') this.showHint();
     else if (this.modal === 'notebook' && num >= 0 && this.notebookTabs[num]) { this.tab = this.notebookTabs[num].id; this.selected = []; this.renderNotebook(''); }
     else handled = false;
     if (handled) { e.preventDefault(); e.stopPropagation(); }
