@@ -1,0 +1,1025 @@
+{
+  "rules": {
+    "orders": {
+      "wexmoor": [
+        "lichtlose",
+        "salz",
+        "namensgilde"
+      ]
+    }
+  },
+  "circles": {
+    "namensgilde": {
+      "name": "Die Täfelchengilde",
+      "member_flag": "treffen_namensgilde",
+      "map": "treffen_namensgilde",
+      "short": "Namen und Nachklang",
+      "city": "wexmoor",
+      "invite": "Ein frischer Holzspan liegt in deiner Manteltasche. Die Täfelchengilde öffnet den trockenen Schrein unter Pfahldorf. Der Treffpunkt steht jetzt auf der Stadtkarte.",
+      "members": [
+        {
+          "id": "tm_esse",
+          "offers": [
+            {
+              "item": "sternschlacke",
+              "price": 120,
+              "chance": 0.4
+            },
+            {
+              "item": "ambossstaub",
+              "price": 200,
+              "chance": 0.25
+            },
+            {
+              "item": "k2g_moorharz",
+              "price": 48,
+              "chance": 0.65
+            },
+            {
+              "item": "k2g_zeugenklammer",
+              "price": 470,
+              "chance": 0.3
+            },
+            {
+              "item": "formel_eisen_6",
+              "price": 640,
+              "chance": 0.4,
+              "once": true,
+              "requires_pathway": [
+                "eisen",
+                7
+              ],
+              "locked_text": "Erst ab Sequenz 7 dieses Pfades"
+            },
+            {
+              "item": "formel_eisen_5",
+              "price": 900,
+              "chance": 0.25,
+              "once": true,
+              "requires_pathway": [
+                "eisen",
+                6
+              ],
+              "locked_text": "Erst ab Sequenz 6 dieses Pfades"
+            },
+            {
+              "item": "torfasche",
+              "price": 14,
+              "chance": 0.75
+            }
+          ],
+          "wants": [
+            "pfahlholz",
+            "torfasche"
+          ]
+        },
+        {
+          "id": "tm_kerbe",
+          "offers": [
+            {
+              "item": "k2g_kerbstaub",
+              "price": 36,
+              "chance": 0.7
+            },
+            {
+              "item": "madenwachs",
+              "price": 64,
+              "chance": 0.35
+            },
+            {
+              "item": "knotengarn",
+              "price": 200,
+              "chance": 0.25
+            },
+            {
+              "item": "k2g_nachhallspule",
+              "price": 510,
+              "chance": 0.3
+            },
+            {
+              "item": "formel_faden_6",
+              "price": 640,
+              "chance": 0.4,
+              "once": true,
+              "requires_pathway": [
+                "faden",
+                7
+              ],
+              "locked_text": "Erst ab Sequenz 7 dieses Pfades"
+            },
+            {
+              "item": "formel_faden_5",
+              "price": 900,
+              "chance": 0.25,
+              "once": true,
+              "requires_pathway": [
+                "faden",
+                6
+              ],
+              "locked_text": "Erst ab Sequenz 6 dieses Pfades"
+            },
+            {
+              "item": "namenstaefelchen",
+              "price": 460,
+              "chance": 0.3
+            }
+          ],
+          "wants": [
+            "pfahlholz",
+            "madenwachs"
+          ]
+        },
+        {
+          "id": "tm_mulde",
+          "offers": [
+            {
+              "item": "k2g_rufpastille",
+              "price": 18,
+              "chance": 0.8
+            },
+            {
+              "item": "k2g_schreinbruehe",
+              "price": 24,
+              "chance": 0.8
+            },
+            {
+              "item": "seufzerstein",
+              "price": 120,
+              "chance": 0.4
+            },
+            {
+              "item": "glockenerz",
+              "price": 200,
+              "chance": 0.25
+            },
+            {
+              "item": "formel_echo_6",
+              "price": 640,
+              "chance": 0.4,
+              "once": true,
+              "requires_pathway": [
+                "echo",
+                7
+              ],
+              "locked_text": "Erst ab Sequenz 7 dieses Pfades"
+            },
+            {
+              "item": "formel_echo_5",
+              "price": 900,
+              "chance": 0.25,
+              "once": true,
+              "requires_pathway": [
+                "echo",
+                6
+              ],
+              "locked_text": "Erst ab Sequenz 6 dieses Pfades"
+            },
+            {
+              "item": "stille_glocke",
+              "price": 460,
+              "chance": 0.3
+            }
+          ],
+          "wants": [
+            "reetfaser",
+            "salzkristall"
+          ]
+        }
+      ],
+      "host": "tm_esse"
+    }
+  },
+  "pins": {
+    "treffen_namensgilde": [
+      364,
+      230
+    ]
+  },
+  "travel": [
+    {
+      "map": "treffen_namensgilde",
+      "spawn": "default",
+      "name": "Die Täfelchengilde",
+      "desc": "Trockener Schrein unter Pfahldorf. Namen bezeugen, mit zurückgegebenen Dingen handeln. Nur für Mitglieder während eines offenen Treffens.",
+      "requires_gathering": "namensgilde",
+      "requires_flags": [
+        "treffen_namensgilde"
+      ],
+      "city": "wexmoor"
+    }
+  ],
+  "placements": [],
+  "npcs": {
+    "tm_esse": {
+      "name": "Wanda Esse",
+      "role": "Schmiedin und Gastgeberin",
+      "dialogue": "k2g_esse",
+      "palette": {
+        "coat": "#59483a",
+        "hat": "#292c24",
+        "skin": "#d0ad88",
+        "hair": "#c6c1af",
+        "legs": "#292c24"
+      }
+    },
+    "tm_kerbe": {
+      "name": "Abel Kerbe",
+      "role": "Schnitzer der Täfelchengilde",
+      "dialogue": "k2g_kerbe",
+      "palette": {
+        "coat": "#586044",
+        "hat": "#292c24",
+        "skin": "#d0ad88",
+        "hair": "#c6c1af",
+        "legs": "#292c24"
+      }
+    },
+    "tm_mulde": {
+      "name": "Hanne Mulde",
+      "role": "Moorhebamme und Namenszeugin",
+      "dialogue": "k2g_mulde",
+      "palette": {
+        "coat": "#5b485f",
+        "hat": "#292c24",
+        "skin": "#d0ad88",
+        "hair": "#c6c1af",
+        "legs": "#292c24"
+      }
+    }
+  },
+  "dialogues": {
+    "k2g_esse": {
+      "start": [
+        {
+          "node": "start",
+          "requires_flags": [
+            "treffen_namensgilde"
+          ]
+        },
+        {
+          "node": "k2g_esse_geschlossen"
+        }
+      ],
+      "nodes": {
+        "start": {
+          "text": "Wanda legt den Hammer auf ein gefaltetes Tuch. „Hier wird geboten, nicht befohlen. Für Befehle haben wir oben ein ganzes Amt.“",
+          "choices": [
+            {
+              "text": "Die Runde eröffnen.",
+              "auction": "namensgilde",
+              "requires_gathering": "namensgilde"
+            },
+            {
+              "text": "Wie kamst du zu diesem Handwerk?",
+              "next": "k2g_esse_wer"
+            },
+            {
+              "text": "Was hältst du vom Lichtamt?",
+              "next": "k2g_esse_amt"
+            },
+            {
+              "text": "Was behältst du für dich?",
+              "next": "k2g_esse_geheimnis"
+            },
+            {
+              "text": "Du wolltest mich um etwas bitten.",
+              "next": "k2g_esse_auftrag",
+              "hide_if_quests": [
+                "k2g_esse_stempel"
+              ]
+            },
+            {
+              "text": "Ich habe beide Spuren verglichen.",
+              "next": "k2g_esse_wahl",
+              "requires_quests_active": [
+                "k2g_esse_stempel"
+              ],
+              "requires_clues": [
+                "k2g_esse_abdruck",
+                "k2g_esse_karte"
+              ],
+              "hide_if_flags": [
+                "k2g_esse_stempel_done"
+              ]
+            },
+            {
+              "text": "Erinnere mich an die Fundorte.",
+              "next": "k2g_esse_hilfe",
+              "requires_quests_active": [
+                "k2g_esse_stempel"
+              ]
+            },
+            {
+              "text": "Bis später."
+            }
+          ]
+        },
+        "k2g_esse_wer": {
+          "text": "„Ich schmiede Klammern für Holz, das älter ist als meine Werkstatt. Mein Vater nannte das Flickarbeit. Sein Amboss steht jetzt auf meinen Flicken.“",
+          "choices": [
+            {
+              "text": "Noch etwas.",
+              "next": "start"
+            }
+          ]
+        },
+        "k2g_esse_amt": {
+          "text": "„Das Lichtamt wollte alle alten Werkzeichen durch Nummern ersetzen. Eine Nummer passt auf jeden Kasten. Genau das macht sie so bequem, wenn jemand den falschen fortträgt.“",
+          "choices": [
+            {
+              "text": "Noch etwas.",
+              "next": "start"
+            }
+          ]
+        },
+        "k2g_esse_geheimnis": {
+          "text": "Wanda hält den linken Daumen unter der Schürze. „Ich habe die erste Matrize selbst gemacht. Damals sollte sie nur Ölkannen zählen. Wenn ich die Form sehe, erinnere ich mich sehr genau an meinen Lohn.“",
+          "choices": [
+            {
+              "text": "Noch etwas.",
+              "next": "start"
+            }
+          ]
+        },
+        "k2g_esse_auftrag": {
+          "text": "„Eine ausgemusterte Matrize liegt bei den alten Kisten am Bojenhafen. Jemand hat mein Zeichen nachgeschlagen. Vergleiche den Abdruck mit der Wartungskarte im Torfstich, bevor wir das falsche Stück vernichten.“",
+          "start_quests": [
+            "k2g_esse_stempel"
+          ],
+          "choices": [
+            {
+              "text": "Ich sehe nach.",
+              "next": "start"
+            },
+            {
+              "text": "Ich komme später wieder."
+            }
+          ]
+        },
+        "k2g_esse_hilfe": {
+          "text": "„Der kalte Abdruck zuerst, dann Die Wartungskarte. Ohne beide Spuren entscheiden wir nichts.“ Wanda Esse legt dir einen leeren Bogen hin. „Die Abschriften bleiben bei dir, auch wenn du zwischendurch gehen musst.“",
+          "choices": [
+            {
+              "text": "Noch etwas.",
+              "next": "start"
+            }
+          ]
+        },
+        "k2g_esse_wahl": {
+          "text": "Wanda vergleicht deine Abreibungen. „Das Stück ist meines, der neue Schlag nicht. Ich kann die Matrize unbrauchbar machen und beide Abdrücke aufheben. Oder wir sichern das Original als Beleg, dann bleibt auch ein brauchbarer Stempel im Schrank.“",
+          "choices": [
+            {
+              "text": "Druckfläche zerstören, Abdrücke aufheben.",
+              "next": "k2g_esse_a",
+              "requires_quests_active": [
+                "k2g_esse_stempel"
+              ],
+              "hide_if_flags": [
+                "k2g_esse_stempel_done"
+              ]
+            },
+            {
+              "text": "Original versiegelt als Beleg behalten.",
+              "next": "k2g_esse_b",
+              "requires_quests_active": [
+                "k2g_esse_stempel"
+              ],
+              "hide_if_flags": [
+                "k2g_esse_stempel_done"
+              ]
+            }
+          ]
+        },
+        "k2g_esse_geschlossen": {
+          "text": "Der Stuhl ist leer, die Werkzeuge sind eingepackt. Du musst aufgenommen sein, um hier mitzureden. Ein leerer Schrein gibt keine Aufträge.",
+          "choices": [
+            {
+              "text": "Bis später."
+            }
+          ]
+        },
+        "k2g_esse_a": {
+          "text": "Wanda kreuzt die Druckfläche mit zwei tiefen Schnitten. „Jetzt kann damit keiner mehr zählen, was ihm nicht gehört.“ Sie legt dir eine versiegelte Probe Moorharz hin und vermerkt deine Hilfe für den Gildenpreis.",
+          "sets_flags": [
+            "k2g_esse_stempel_done",
+            "k2g_esse_entwertet",
+            "k2g_gildenrabatt"
+          ],
+          "complete_quests": [
+            "k2g_esse_stempel"
+          ],
+          "gives_items": {
+            "k2g_moorharz": 1
+          },
+          "honor": 2,
+          "choices": [
+            {
+              "text": "Noch etwas.",
+              "next": "start"
+            }
+          ]
+        },
+        "k2g_esse_b": {
+          "text": "Wanda legt den Stempel unter zwei Siegel. „Beweisstücke sind Werkzeuge, denen man misstraut. Ich kann mit beidem umgehen.“ Sie gibt dir eine Probe Moorharz und vermerkt deine Hilfe für den Gildenpreis.",
+          "sets_flags": [
+            "k2g_esse_stempel_done",
+            "k2g_esse_beleg",
+            "k2g_gildenrabatt"
+          ],
+          "complete_quests": [
+            "k2g_esse_stempel"
+          ],
+          "gives_items": {
+            "k2g_moorharz": 1
+          },
+          "honor": 3,
+          "choices": [
+            {
+              "text": "Noch etwas.",
+              "next": "start"
+            }
+          ]
+        }
+      }
+    },
+    "k2g_kerbe": {
+      "start": [
+        {
+          "node": "start",
+          "requires_flags": [
+            "treffen_namensgilde"
+          ]
+        },
+        {
+          "node": "k2g_kerbe_geschlossen"
+        }
+      ],
+      "nodes": {
+        "start": {
+          "text": "Abel streicht Holzspäne vom freien Stuhl. „Setz dich. Wer beim Handeln steht, hält seine Ungeduld leicht für eine Meinung.“",
+          "choices": [
+            {
+              "text": "Die Runde eröffnen.",
+              "auction": "namensgilde",
+              "requires_gathering": "namensgilde"
+            },
+            {
+              "text": "Wie kamst du zu diesem Handwerk?",
+              "next": "k2g_kerbe_wer"
+            },
+            {
+              "text": "Was hältst du vom Lichtamt?",
+              "next": "k2g_kerbe_amt"
+            },
+            {
+              "text": "Was behältst du für dich?",
+              "next": "k2g_kerbe_geheimnis"
+            },
+            {
+              "text": "Du wolltest mich um etwas bitten.",
+              "next": "k2g_kerbe_auftrag",
+              "hide_if_quests": [
+                "k2g_kerbe_hand"
+              ]
+            },
+            {
+              "text": "Ich habe beide Spuren verglichen.",
+              "next": "k2g_kerbe_wahl",
+              "requires_quests_active": [
+                "k2g_kerbe_hand"
+              ],
+              "requires_clues": [
+                "k2g_kerbe_muster",
+                "k2g_kerbe_rechnung"
+              ],
+              "hide_if_flags": [
+                "k2g_kerbe_hand_done"
+              ]
+            },
+            {
+              "text": "Erinnere mich an die Fundorte.",
+              "next": "k2g_kerbe_hilfe",
+              "requires_quests_active": [
+                "k2g_kerbe_hand"
+              ]
+            },
+            {
+              "text": "Bis später."
+            }
+          ]
+        },
+        "k2g_kerbe_wer": {
+          "text": "„Ich schnitze Namen so, dass Regen sie lesen kann und trotzdem stehen lässt. Bei langen Namen nehme ich breitere Bretter. Billiger als Streit mit den Eltern.“",
+          "choices": [
+            {
+              "text": "Noch etwas.",
+              "next": "start"
+            }
+          ]
+        },
+        "k2g_kerbe_amt": {
+          "text": "„Das Amt fragt nach sauberer Schrift. Ich frage, wer sie lesen soll. Ein Name, der nur auf einer Liste vorkommt, hat schlechte Gesellschaft.“",
+          "choices": [
+            {
+              "text": "Noch etwas.",
+              "next": "start"
+            }
+          ]
+        },
+        "k2g_kerbe_geheimnis": {
+          "text": "Abel zieht ein dünnes Probebrett hervor. „Meine Schwester hat die Zierbuchstaben erfunden, die alle für meine halten. Als sie fortzog, nahm ich ihre Aufträge an. Ihren Namen habe ich unter keinem stehen lassen.“",
+          "choices": [
+            {
+              "text": "Noch etwas.",
+              "next": "start"
+            }
+          ]
+        },
+        "k2g_kerbe_auftrag": {
+          "text": "„Im Pfahldorf hängt noch ihr Musterbrett. Am Salzmarkt liegt meine erste Rechnung. Vergleiche beides. Ich will wissen, ob ich nur ihren Schwung geliehen habe oder auch ihre Arbeit verkauft.“",
+          "start_quests": [
+            "k2g_kerbe_hand"
+          ],
+          "choices": [
+            {
+              "text": "Ich sehe nach.",
+              "next": "start"
+            },
+            {
+              "text": "Ich komme später wieder."
+            }
+          ]
+        },
+        "k2g_kerbe_hilfe": {
+          "text": "„Das Musterbrett zuerst, dann Die Rechnung mit dem R. Ohne beide Spuren entscheiden wir nichts.“ Abel Kerbe legt dir einen leeren Bogen hin. „Die Abschriften bleiben bei dir, auch wenn du zwischendurch gehen musst.“",
+          "choices": [
+            {
+              "text": "Noch etwas.",
+              "next": "start"
+            }
+          ]
+        },
+        "k2g_kerbe_wahl": {
+          "text": "Abel liest die Nachricht zweimal. „Marta hat mir das Handwerk nicht verboten. Nur das Alleinverdienen am Lob.“ Er holt ein neues Schild. „Öffentliche Berichtigung oder zuerst ein Brief an sie, mit ihrem Namen auf jedem künftigen Stück? Beides muss ehrlich sein.“",
+          "choices": [
+            {
+              "text": "Öffentlich berichtigen, auch die alten Rechnungen.",
+              "next": "k2g_kerbe_a",
+              "requires_quests_active": [
+                "k2g_kerbe_hand"
+              ],
+              "hide_if_flags": [
+                "k2g_kerbe_hand_done"
+              ]
+            },
+            {
+              "text": "Zuerst Marta schreiben, künftig gemeinsam zeichnen.",
+              "next": "k2g_kerbe_b",
+              "requires_quests_active": [
+                "k2g_kerbe_hand"
+              ],
+              "hide_if_flags": [
+                "k2g_kerbe_hand_done"
+              ]
+            }
+          ]
+        },
+        "k2g_kerbe_geschlossen": {
+          "text": "Der Stuhl ist leer, die Werkzeuge sind eingepackt. Du musst aufgenommen sein, um hier mitzureden. Ein leerer Schrein gibt keine Aufträge.",
+          "choices": [
+            {
+              "text": "Bis später."
+            }
+          ]
+        },
+        "k2g_kerbe_a": {
+          "text": "Abel schneidet „Marta und Abel Kerbe“ in das Schild und legt Korrekturzettel zu den Rechnungen. „Das längere Brett hätte ich früher kaufen sollen.“ Als Lohn gibt er dir seine Zeugenklammer. Sie stärkt die Parade, kostet getragen aber zehn maximales Leben.",
+          "sets_flags": [
+            "k2g_kerbe_hand_done",
+            "k2g_kerbe_oeffentlich"
+          ],
+          "complete_quests": [
+            "k2g_kerbe_hand"
+          ],
+          "gives_items": {
+            "k2g_zeugenklammer": 1
+          },
+          "honor": 3,
+          "choices": [
+            {
+              "text": "Noch etwas.",
+              "next": "start"
+            }
+          ]
+        },
+        "k2g_kerbe_b": {
+          "text": "Abel schreibt einen Brief mit einem Anteil seines letzten Lohns und zeichnet das neue Schild mit beiden Namen. Die alten Rechnungen bleiben vorerst liegen. Er gibt dir seine Zeugenklammer: bessere Paraden, aber zehn maximales Leben weniger, solange du sie trägst.",
+          "sets_flags": [
+            "k2g_kerbe_hand_done",
+            "k2g_kerbe_brief"
+          ],
+          "complete_quests": [
+            "k2g_kerbe_hand"
+          ],
+          "gives_items": {
+            "k2g_zeugenklammer": 1
+          },
+          "honor": 1,
+          "choices": [
+            {
+              "text": "Noch etwas.",
+              "next": "start"
+            }
+          ]
+        }
+      }
+    },
+    "k2g_mulde": {
+      "start": [
+        {
+          "node": "start",
+          "requires_flags": [
+            "treffen_namensgilde"
+          ]
+        },
+        {
+          "node": "k2g_mulde_geschlossen"
+        }
+      ],
+      "nodes": {
+        "start": {
+          "text": "Hanne stellt drei Becher hin, obwohl nur du vor ihr stehst. „Einer für den Gast, einer für mich, einer für jemanden, der sich noch nicht traut.“",
+          "choices": [
+            {
+              "text": "Die Runde eröffnen.",
+              "auction": "namensgilde",
+              "requires_gathering": "namensgilde"
+            },
+            {
+              "text": "Wie kamst du zu diesem Handwerk?",
+              "next": "k2g_mulde_wer"
+            },
+            {
+              "text": "Was hältst du vom Lichtamt?",
+              "next": "k2g_mulde_amt"
+            },
+            {
+              "text": "Was behältst du für dich?",
+              "next": "k2g_mulde_geheimnis"
+            },
+            {
+              "text": "Du wolltest mich um etwas bitten.",
+              "next": "k2g_mulde_auftrag",
+              "hide_if_quests": [
+                "k2g_mulde_ruf"
+              ]
+            },
+            {
+              "text": "Ich habe beide Spuren verglichen.",
+              "next": "k2g_mulde_wahl",
+              "requires_quests_active": [
+                "k2g_mulde_ruf"
+              ],
+              "requires_clues": [
+                "k2g_mulde_tafel",
+                "k2g_mulde_zusatz"
+              ],
+              "hide_if_flags": [
+                "k2g_mulde_ruf_done"
+              ]
+            },
+            {
+              "text": "Erinnere mich an die Fundorte.",
+              "next": "k2g_mulde_hilfe",
+              "requires_quests_active": [
+                "k2g_mulde_ruf"
+              ]
+            },
+            {
+              "text": "Bis später."
+            }
+          ]
+        },
+        "k2g_mulde_wer": {
+          "text": "„Ich helfe Kindern in die Welt und ihren Eltern zu einem Namen. Die Kinder dürfen später anderer Meinung sein. Dafür führen wir ein zweites, ziemlich dickes Buch.“",
+          "choices": [
+            {
+              "text": "Noch etwas.",
+              "next": "start"
+            }
+          ]
+        },
+        "k2g_mulde_amt": {
+          "text": "„Das Lichtamt will Namen vor der ersten Mahlzeit. Ich bestehe auf der Mahlzeit. Mit einem hungrigen Kind lässt sich über Ordnung schlecht verhandeln.“",
+          "choices": [
+            {
+              "text": "Noch etwas.",
+              "next": "start"
+            }
+          ]
+        },
+        "k2g_mulde_geheimnis": {
+          "text": "Hanne dreht einen Becher um. „Meinen ersten Eintrag habe ich doppelt gemacht. Zwei Familien wollten denselben Ruf für ihre gemeinsame Werkstatt, und ich schrieb eine davon heraus. Ich habe Ordnung geschaffen und einen Streit gleich mit.“",
+          "choices": [
+            {
+              "text": "Noch etwas.",
+              "next": "start"
+            }
+          ]
+        },
+        "k2g_mulde_auftrag": {
+          "text": "„Die Werkstatt ist längst versunken, aber ihre Ruftafel liegt im Torfstich. Ein freiwilliger Zusatz beider Familien hängt beim Pfahldorfsteg. Bring die Texte zusammen. Ich möchte den alten Fehler berichtigen, ohne wieder für andere zu entscheiden.“",
+          "start_quests": [
+            "k2g_mulde_ruf"
+          ],
+          "choices": [
+            {
+              "text": "Ich sehe nach.",
+              "next": "start"
+            },
+            {
+              "text": "Ich komme später wieder."
+            }
+          ]
+        },
+        "k2g_mulde_hilfe": {
+          "text": "„Die Ruftafel der Werkstatt zuerst, dann Der Zusatz der Nachkommen. Ohne beide Spuren entscheiden wir nichts.“ Hanne Mulde legt dir einen leeren Bogen hin. „Die Abschriften bleiben bei dir, auch wenn du zwischendurch gehen musst.“",
+          "choices": [
+            {
+              "text": "Noch etwas.",
+              "next": "start"
+            }
+          ]
+        },
+        "k2g_mulde_wahl": {
+          "text": "Hanne legt die beiden Zeichen nebeneinander. „Diesmal hat jeder zugestimmt. Das Original kann hier von unserem Fehler erzählen oder beim Gedenken ins Moor gehen. Die Abschriften bleiben bei den Familien, und ich schreibe beide Namen hinein.“",
+          "choices": [
+            {
+              "text": "Original am Schrein bewahren.",
+              "next": "k2g_mulde_a",
+              "requires_quests_active": [
+                "k2g_mulde_ruf"
+              ],
+              "hide_if_flags": [
+                "k2g_mulde_ruf_done"
+              ]
+            },
+            {
+              "text": "Original beim Gedenken dem Moor schenken.",
+              "next": "k2g_mulde_b",
+              "requires_quests_active": [
+                "k2g_mulde_ruf"
+              ],
+              "hide_if_flags": [
+                "k2g_mulde_ruf_done"
+              ]
+            }
+          ]
+        },
+        "k2g_mulde_geschlossen": {
+          "text": "Der Stuhl ist leer, die Werkzeuge sind eingepackt. Du musst aufgenommen sein, um hier mitzureden. Ein leerer Schrein gibt keine Aufträge.",
+          "choices": [
+            {
+              "text": "Bis später."
+            }
+          ]
+        },
+        "k2g_mulde_a": {
+          "text": "Hanne befestigt die berichtigte Abschrift neben der alten Tafel. „Wer von uns lernt, soll auch unsere Fehler sehen.“ Sie schenkt dir eine Formel des Echos aus ihrem Lehrkasten. „Eine Stimme kann man weitergeben, ohne ihren Besitzer einzutragen.“",
+          "sets_flags": [
+            "k2g_mulde_ruf_done",
+            "k2g_mulde_bewahrt"
+          ],
+          "complete_quests": [
+            "k2g_mulde_ruf"
+          ],
+          "gives_items": {
+            "formel_echo_7": 1
+          },
+          "honor": 2,
+          "choices": [
+            {
+              "text": "Noch etwas.",
+              "next": "start"
+            }
+          ]
+        },
+        "k2g_mulde_b": {
+          "text": "Hanne wickelt die Tafel für das gemeinsame Gedenken ein und trägt beide Familien in ihr Buch. „Das Moor bekommt Holz. Niemand bekommt einen Menschen.“ Sie überlässt dir eine Formel des Echos aus ihrem Lehrkasten, während die Abschriften bei den Familien bleiben.",
+          "sets_flags": [
+            "k2g_mulde_ruf_done",
+            "k2g_mulde_geschenkt"
+          ],
+          "complete_quests": [
+            "k2g_mulde_ruf"
+          ],
+          "gives_items": {
+            "formel_echo_7": 1
+          },
+          "honor": 2,
+          "choices": [
+            {
+              "text": "Noch etwas.",
+              "next": "start"
+            }
+          ]
+        }
+      }
+    }
+  },
+  "maps": [
+    {
+      "id": "treffen_namensgilde",
+      "name": "Der trockene Namensschrein",
+      "city": "wexmoor",
+      "tiles": "s_lichtlose",
+      "ambient": {
+        "night": 0.78,
+        "fog": 0.08
+      },
+      "rows": [
+        "IIIIIIIIIIIIIIIIIIII",
+        "IIIIIIIIIIIIIIIIIIII",
+        "IwwwwwwwwwwwwwwwwwwI",
+        "IwwwwwwwwwwwwwwwwwwI",
+        "IwwwwwwwwwwwwwwwwwwI",
+        "IwwwwwwwwwwwwwwwwwwI",
+        "IwwwwwwwwwwwwwwwwwwI",
+        "IwwwwwwwwwwwwwwwwwwI",
+        "IwwwwwwwwwwwwwwwwwwI",
+        "IwwwwwwwwwwwwwwwwwwI",
+        "IwwwwwwwwwwwwwwwwwwI",
+        "IIIIIIIIIEEIIIIIIIII"
+      ],
+      "spawns": {
+        "default": [
+          10,
+          10
+        ]
+      },
+      "lights": [
+        {
+          "tile": [
+            10,
+            4
+          ],
+          "radius": 72,
+          "intensity": 0.75,
+          "color": "#dab782",
+          "glow": 0.2,
+          "flicker": 0.1
+        }
+      ],
+      "npcs": [
+        {
+          "id": "tm_esse",
+          "tile": [
+            10,
+            3
+          ],
+          "facing": "down",
+          "reach": 40
+        },
+        {
+          "id": "tm_kerbe",
+          "tile": [
+            5,
+            6
+          ],
+          "facing": "right",
+          "reach": 34
+        },
+        {
+          "id": "tm_mulde",
+          "tile": [
+            14,
+            6
+          ],
+          "facing": "left",
+          "reach": 34
+        }
+      ],
+      "interactables": [
+        {
+          "id": "k2g_ausgang",
+          "kind": "travel",
+          "tile": [
+            10,
+            11
+          ],
+          "prompt": "Hinauf nach Wexmoor",
+          "marker": false,
+          "reach": 22
+        },
+        {
+          "id": "k2g_schreinregel",
+          "kind": "read",
+          "tile": [
+            3,
+            3
+          ],
+          "sprite": "file",
+          "prompt": "Die Schreinordnung lesen",
+          "marker": false,
+          "title": "Was hier gehandelt wird",
+          "text": "Ein Los, ein Gebot, ein Zuschlag. Danach darf das Mitglied nach einer Zutat fragen. Wer nichts mitgebracht hat, darf trotzdem bleiben.\n\nWir verkaufen Material, Formeln und zurückgegebene Dinge. Ein erinnerter Name wird bezeugt, nicht erworben. Niemand kann hier einen Anspruch auf einen Menschen ersteigern.\n\nUnter der letzten Zeile steht: „Auch nicht gegen Quittung.“"
+        },
+        {
+          "id": "k2g_lade_offen",
+          "kind": "read",
+          "tile": [
+            16,
+            3
+          ],
+          "sprite": "file",
+          "prompt": "Die offenen Abschriften ansehen",
+          "marker": false,
+          "title": "Drei Rahmen, viele Hände",
+          "text": "Runa Vale, Bennet Siel und Ida Rusk stehen auf drei Abschriften. Daneben ist Platz für die Erinnerungen ihrer Nachbarn. Jemand hat bei Ida bereits „gab die bessere Schale ab“ ergänzt.",
+          "visible_if": {
+            "requires_flags": [
+              "k2g_namen_offen"
+            ]
+          }
+        },
+        {
+          "id": "k2g_lade_zu",
+          "kind": "read",
+          "tile": [
+            16,
+            3
+          ],
+          "sprite": "file",
+          "prompt": "Die geschützte Lade ansehen",
+          "marker": false,
+          "title": "Lesen, nicht mitnehmen",
+          "text": "In der Lade liegen die Abschriften für Runa Vale, Bennet Siel und Ida Rusk mit ihren Fundorten. Wer zu einem Namen etwas weiß, darf hier lesen und ergänzen. Die vollständige Liste bleibt im Schrein.",
+          "visible_if": {
+            "requires_flags": [
+              "k2g_namen_lade"
+            ]
+          }
+        }
+      ],
+      "decor": [
+        {
+          "sprite": "s_lichtlose_props_table",
+          "tile": [
+            10,
+            5
+          ],
+          "offset": [
+            0,
+            8
+          ],
+          "origin": [
+            0.5,
+            1
+          ],
+          "alpha": 1,
+          "ysort": true,
+          "solid": [
+            28,
+            6,
+            0,
+            -2
+          ]
+        },
+        {
+          "sprite": "s_lichtlose_props_ash_shelves",
+          "tile": [
+            5,
+            2
+          ],
+          "offset": [
+            0,
+            8
+          ],
+          "origin": [
+            0.5,
+            1
+          ],
+          "alpha": 1,
+          "ysort": true
+        },
+        {
+          "sprite": "s_lichtlose_props_carving",
+          "tile": [
+            14,
+            2
+          ],
+          "offset": [
+            0,
+            8
+          ],
+          "origin": [
+            0.5,
+            1
+          ],
+          "alpha": 1,
+          "ysort": true
+        }
+      ]
+    }
+  ]
+}
