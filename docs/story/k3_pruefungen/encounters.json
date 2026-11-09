@@ -1,0 +1,412 @@
+{
+  "k3p_lampengutachter": {
+    "name": "Lampengutachter",
+    "hp": 220,
+    "fleeable": true,
+    "intro": "Lampengutachter: Die zwei Spuren bleiben auch nach einer Flucht erhalten. Achte auf den langen einzelnen Schlag nach der Prüfpause.",
+    "attacks": [
+      {
+        "name": "Blendpendel",
+        "damage": 10,
+        "hits": [
+          800,
+          1500
+        ]
+      },
+      {
+        "name": "Prüfpause",
+        "action": "veil",
+        "value": 0,
+        "text": "Die Blende schließt sich. Präzision statt bloßer Helligkeit."
+      },
+      {
+        "name": "Angekündigt: Prüfstempel",
+        "damage": 14,
+        "hits": [
+          2200
+        ]
+      }
+    ],
+    "on_win": {
+      "sets_flags": [
+        "k3p_laterne_bewaeltigt"
+      ]
+    },
+    "lose_to": {
+      "map": "ds_speisewagen",
+      "spawn": "default"
+    },
+    "lose_text": "Hedda und Pfiff bringen dich hinter die Schallschleuse. Die Aufzeichnungen bleiben erhalten; die Probe wartet auf einen neuen Versuch.",
+    "win_text": "Der Hüter senkt sein Werkzeug. Die Kernprobe liegt für dich bei Hedda bereit.",
+    "chapter": 3
+  },
+  "k3p_gegenzeugenknuepfer": {
+    "name": "Gegenzeugenknüpfer",
+    "hp": 175,
+    "fleeable": true,
+    "intro": "Gegenzeugenknüpfer: Die zwei Spuren bleiben auch nach einer Flucht erhalten. Achte auf den langen einzelnen Schlag nach der Prüfpause.",
+    "attacks": [
+      {
+        "name": "Fadenzug",
+        "damage": 11,
+        "hits": [
+          900,
+          1700
+        ]
+      },
+      {
+        "name": "Prüfpause",
+        "action": "taunt",
+        "value": 6,
+        "text": "Zwei widersprechende Fragen kosten 6 Nerven."
+      },
+      {
+        "name": "Angekündigt: Nahtschnitt",
+        "damage": 14,
+        "hits": [
+          2240
+        ]
+      }
+    ],
+    "on_win": {
+      "sets_flags": [
+        "k3p_faden_bewaeltigt"
+      ]
+    },
+    "lose_to": {
+      "map": "ds_speisewagen",
+      "spawn": "default"
+    },
+    "lose_text": "Hedda und Pfiff bringen dich hinter die Schallschleuse. Die Aufzeichnungen bleiben erhalten; die Probe wartet auf einen neuen Versuch.",
+    "win_text": "Der Hüter senkt sein Werkzeug. Die Kernprobe liegt für dich bei Hedda bereit.",
+    "chapter": 3
+  },
+  "k3p_garderobenpfaender": {
+    "name": "Garderobenpfänder",
+    "hp": 170,
+    "fleeable": true,
+    "intro": "Garderobenpfänder: Die zwei Spuren bleiben auch nach einer Flucht erhalten. Achte auf den langen einzelnen Schlag nach der Prüfpause.",
+    "attacks": [
+      {
+        "name": "Ärmelgriff",
+        "damage": 12,
+        "hits": [
+          650,
+          1350
+        ]
+      },
+      {
+        "name": "Prüfpause",
+        "action": "guard",
+        "value": 6,
+        "text": "Der leere Mantel fängt den nächsten Druck ab."
+      },
+      {
+        "name": "Angekündigt: Vorhangfall",
+        "damage": 14,
+        "hits": [
+          2280
+        ]
+      }
+    ],
+    "on_win": {
+      "sets_flags": [
+        "k3p_maske_bewaeltigt"
+      ]
+    },
+    "lose_to": {
+      "map": "ds_speisewagen",
+      "spawn": "default"
+    },
+    "lose_text": "Hedda und Pfiff bringen dich hinter die Schallschleuse. Die Aufzeichnungen bleiben erhalten; die Probe wartet auf einen neuen Versuch.",
+    "win_text": "Der Hüter senkt sein Werkzeug. Die Kernprobe liegt für dich bei Hedda bereit.",
+    "chapter": 3
+  },
+  "k3p_pausenfischer": {
+    "name": "Pausenfischer",
+    "hp": 180,
+    "fleeable": true,
+    "intro": "Pausenfischer: Die zwei Spuren bleiben auch nach einer Flucht erhalten. Achte auf den langen einzelnen Schlag nach der Prüfpause.",
+    "attacks": [
+      {
+        "name": "Leerschlag",
+        "damage": 10,
+        "hits": [
+          1000,
+          1900
+        ]
+      },
+      {
+        "name": "Prüfpause",
+        "action": "taunt",
+        "value": 8,
+        "text": "Die fremde Pause bleibt leer. Du verlierst 8 Nerven."
+      },
+      {
+        "name": "Angekündigt: Pausenschlag",
+        "damage": 14,
+        "hits": [
+          2320
+        ]
+      }
+    ],
+    "on_win": {
+      "sets_flags": [
+        "k3p_echo_bewaeltigt"
+      ]
+    },
+    "lose_to": {
+      "map": "ds_speisewagen",
+      "spawn": "default"
+    },
+    "lose_text": "Hedda und Pfiff bringen dich hinter die Schallschleuse. Die Aufzeichnungen bleiben erhalten; die Probe wartet auf einen neuen Versuch.",
+    "win_text": "Der Hüter senkt sein Werkzeug. Die Kernprobe liegt für dich bei Hedda bereit.",
+    "chapter": 3
+  },
+  "k3p_chargenpruefer": {
+    "name": "Chargenprüfer",
+    "hp": 205,
+    "fleeable": true,
+    "intro": "Chargenprüfer: Die zwei Spuren bleiben auch nach einer Flucht erhalten. Achte auf den langen einzelnen Schlag nach der Prüfpause.",
+    "attacks": [
+      {
+        "name": "Kolbenstoß",
+        "damage": 11,
+        "hits": [
+          850,
+          1600
+        ]
+      },
+      {
+        "name": "Prüfpause",
+        "action": "guard",
+        "value": 8,
+        "text": "Der Prüfer schließt den Kesseldeckel."
+      },
+      {
+        "name": "Angekündigt: Deckelschlag",
+        "damage": 14,
+        "hits": [
+          2360
+        ]
+      }
+    ],
+    "on_win": {
+      "sets_flags": [
+        "k3p_kessel_bewaeltigt"
+      ]
+    },
+    "lose_to": {
+      "map": "ds_speisewagen",
+      "spawn": "default"
+    },
+    "lose_text": "Hedda und Pfiff bringen dich hinter die Schallschleuse. Die Aufzeichnungen bleiben erhalten; die Probe wartet auf einen neuen Versuch.",
+    "win_text": "Der Hüter senkt sein Werkzeug. Die Kernprobe liegt für dich bei Hedda bereit.",
+    "chapter": 3
+  },
+  "k3p_brueckenpresser": {
+    "name": "Brückenpresser",
+    "hp": 215,
+    "fleeable": true,
+    "intro": "Brückenpresser: Die zwei Spuren bleiben auch nach einer Flucht erhalten. Achte auf den langen einzelnen Schlag nach der Prüfpause.",
+    "attacks": [
+      {
+        "name": "Lastwechsel",
+        "damage": 12,
+        "hits": [
+          1100,
+          1800
+        ]
+      },
+      {
+        "name": "Prüfpause",
+        "action": "taunt",
+        "value": 6,
+        "text": "Der Presser fordert einen unmöglichen Alleingang."
+      },
+      {
+        "name": "Angekündigt: Presshub",
+        "damage": 14,
+        "hits": [
+          2400
+        ]
+      }
+    ],
+    "on_win": {
+      "sets_flags": [
+        "k3p_eisen_bewaeltigt"
+      ]
+    },
+    "lose_to": {
+      "map": "ds_speisewagen",
+      "spawn": "default"
+    },
+    "lose_text": "Hedda und Pfiff bringen dich hinter die Schallschleuse. Die Aufzeichnungen bleiben erhalten; die Probe wartet auf einen neuen Versuch.",
+    "win_text": "Der Hüter senkt sein Werkzeug. Die Kernprobe liegt für dich bei Hedda bereit.",
+    "chapter": 3
+  },
+  "k3p_zollriegel": {
+    "name": "Zollriegel",
+    "hp": 175,
+    "fleeable": true,
+    "intro": "Zollriegel: Die zwei Spuren bleiben auch nach einer Flucht erhalten. Achte auf den langen einzelnen Schlag nach der Prüfpause.",
+    "attacks": [
+      {
+        "name": "Riegelschub",
+        "damage": 10,
+        "hits": [
+          700,
+          1450
+        ]
+      },
+      {
+        "name": "Prüfpause",
+        "action": "veil",
+        "value": 0,
+        "text": "Der Riegel verbirgt seine schmale Angriffsfläche."
+      },
+      {
+        "name": "Angekündigt: Zollstempel",
+        "damage": 14,
+        "hits": [
+          2440
+        ]
+      }
+    ],
+    "on_win": {
+      "sets_flags": [
+        "k3p_schluessel_bewaeltigt"
+      ]
+    },
+    "lose_to": {
+      "map": "ds_speisewagen",
+      "spawn": "default"
+    },
+    "lose_text": "Hedda und Pfiff bringen dich hinter die Schallschleuse. Die Aufzeichnungen bleiben erhalten; die Probe wartet auf einen neuen Versuch.",
+    "win_text": "Der Hüter senkt sein Werkzeug. Die Kernprobe liegt für dich bei Hedda bereit.",
+    "chapter": 3
+  },
+  "k3p_fristpfaender": {
+    "name": "Fristpfänder",
+    "hp": 185,
+    "fleeable": true,
+    "intro": "Fristpfänder: Die zwei Spuren bleiben auch nach einer Flucht erhalten. Achte auf den langen einzelnen Schlag nach der Prüfpause.",
+    "attacks": [
+      {
+        "name": "Pfandzug",
+        "damage": 11,
+        "hits": [
+          950,
+          1550
+        ]
+      },
+      {
+        "name": "Prüfpause",
+        "action": "guard",
+        "value": 10,
+        "text": "Das Pfand liegt als Gegengewicht auf der Schale."
+      },
+      {
+        "name": "Angekündigt: Fristfall",
+        "damage": 14,
+        "hits": [
+          2480
+        ]
+      }
+    ],
+    "on_win": {
+      "sets_flags": [
+        "k3p_waage_bewaeltigt"
+      ]
+    },
+    "lose_to": {
+      "map": "ds_speisewagen",
+      "spawn": "default"
+    },
+    "lose_text": "Hedda und Pfiff bringen dich hinter die Schallschleuse. Die Aufzeichnungen bleiben erhalten; die Probe wartet auf einen neuen Versuch.",
+    "win_text": "Der Hüter senkt sein Werkzeug. Die Kernprobe liegt für dich bei Hedda bereit.",
+    "chapter": 3
+  },
+  "k3p_schichtsammler": {
+    "name": "Schichtsammler",
+    "hp": 195,
+    "fleeable": true,
+    "intro": "Schichtsammler: Die zwei Spuren bleiben auch nach einer Flucht erhalten. Achte auf den langen einzelnen Schlag nach der Prüfpause.",
+    "attacks": [
+      {
+        "name": "Schichtdruck",
+        "damage": 12,
+        "hits": [
+          1000,
+          1800
+        ]
+      },
+      {
+        "name": "Prüfpause",
+        "action": "taunt",
+        "value": 5,
+        "text": "Zwei Namen fallen ineinander. Du verlierst 5 Nerven."
+      },
+      {
+        "name": "Angekündigt: Torfgewicht",
+        "damage": 14,
+        "hits": [
+          2520
+        ]
+      }
+    ],
+    "on_win": {
+      "sets_flags": [
+        "k3p_moor_bewaeltigt"
+      ]
+    },
+    "lose_to": {
+      "map": "ds_speisewagen",
+      "spawn": "default"
+    },
+    "lose_text": "Hedda und Pfiff bringen dich hinter die Schallschleuse. Die Aufzeichnungen bleiben erhalten; die Probe wartet auf einen neuen Versuch.",
+    "win_text": "Der Hüter senkt sein Werkzeug. Die Kernprobe liegt für dich bei Hedda bereit.",
+    "chapter": 3
+  },
+  "k3p_gangaufseher": {
+    "name": "Gangaufseher",
+    "hp": 180,
+    "fleeable": true,
+    "intro": "Gangaufseher: Die zwei Spuren bleiben auch nach einer Flucht erhalten. Achte auf den langen einzelnen Schlag nach der Prüfpause.",
+    "attacks": [
+      {
+        "name": "Doppeltakt",
+        "damage": 10,
+        "hits": [
+          750,
+          1800
+        ]
+      },
+      {
+        "name": "Prüfpause",
+        "action": "guard",
+        "value": 5,
+        "text": "Der Aufseher wartet hinter dem Pendel."
+      },
+      {
+        "name": "Angekündigt: Nachschlag",
+        "damage": 14,
+        "hits": [
+          2560
+        ]
+      }
+    ],
+    "on_win": {
+      "sets_flags": [
+        "k3p_uhr_bewaeltigt"
+      ]
+    },
+    "lose_to": {
+      "map": "ds_speisewagen",
+      "spawn": "default"
+    },
+    "lose_text": "Hedda und Pfiff bringen dich hinter die Schallschleuse. Die Aufzeichnungen bleiben erhalten; die Probe wartet auf einen neuen Versuch.",
+    "win_text": "Der Hüter senkt sein Werkzeug. Die Kernprobe liegt für dich bei Hedda bereit.",
+    "chapter": 3
+  }
+}
