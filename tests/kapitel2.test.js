@@ -3,7 +3,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { GameState } from '../src/core/GameState.js';
 import { travelDestinations, travelFast, cityOf } from '../src/core/Travel.js';
-import { loadContent, talk, use, fight, EXPERT } from './helpers.js';
+import { loadContent, talk, use, fight, EXPERT, SKILLED } from './helpers.js';
 
 const content = loadContent();
 
@@ -52,7 +52,7 @@ test('Ankunft: Steckbrief, Zunder, Unterschlupf und die erste Schlussfolgerung',
   // Unterschlupf
   s.flags.add('k2_hideout');
   assert.ok(names(s, 'wx_torfstich').includes('docks'), 'Nachtzug zurück nach Kettlegate');
-  assert.deepEqual(s.questSteps('k2_akt1').map((x) => x.done), [true, true, true, true, false, false, false]);
+  assert.deepEqual(s.questSteps('k2_akt1').map((x) => x.done), [true, true, true, true, false, false, false, false]);
 });
 
 test('Schnelle Reisen in Wexmoor würfeln nur Wexmoorer Ereignisse', () => {
@@ -149,6 +149,11 @@ test('Akt I komplett: sechs Viertel, Lichter und Öl, Abschluss bei Zunder', () 
   assert.equal(s.factStatus('wx_lights'), 'likely');
   assert.equal(s.factStatus('wx_no_oil'), 'likely');
   assert.equal(s.combine('wx_lights', 'wx_no_oil').result, 'new');
+  // Ohne die Nachtzug-Liste noch kein Abschluss
+  assert.throws(() => talk(s, 'zunder', ['alle Viertel']));
+  talk(s, 'druce', ['Nachtzug']);
+  use(s, 'wx_glocke', 'gaestebuch');
+  assert.equal(s.combine('wx_fremde_zug', 'wx_expected').result, 'new');
   talk(s, 'zunder', ['alle Viertel']);
   assert.equal(s.quests.k2_akt1, 'done');
   assert.equal(s.quests.k2_akt2, 'active');
@@ -187,6 +192,9 @@ function afterAct1() {
   talk(s, 'zunder', ['Leuchtturm']);
   use(s, 'wx_oberstadt', 'lichtamt_tafel');
   s.combine('wx_lights', 'wx_no_oil');
+  talk(s, 'druce', ['Nachtzug']);
+  use(s, 'wx_glocke', 'gaestebuch');
+  s.combine('wx_fremde_zug', 'wx_expected');
   talk(s, 'zunder', ['alle Viertel']);
   return s;
 }
@@ -213,6 +221,11 @@ test('Akt II: Akademie nur mit Robe, Starlings Tod widerlegt, Mr. Lucent entlarv
   talk(s, 'hesper', ['Linsen']);
   assert.equal(s.factStatus('wx_starling_dead'), 'refuted');
   assert.equal(s.combine('wx_lucent', 'wx_lights').result, 'new');
+  // Brandts Rechnung: Die Stadt sinkt nicht mehr
+  assert.throws(() => talk(s, 'zunder', ['Mr. Lucent']));
+  talk(s, 'wyle', ['Brandt']);
+  use(s, 'wx_bojenhafen', 'pegel');
+  assert.equal(s.combine('wx_sinking', 'wx_lights').result, 'new');
   talk(s, 'zunder', ['Mr. Lucent']);
   assert.equal(s.quests.k2_akt2, 'done');
   assert.equal(s.quests.k2_akt3, 'active');
@@ -239,6 +252,12 @@ function afterAct3() {
   const { result } = fight(s, 'namenlose', { defend: EXPERT, skill: 'double', healBelow: 18 });
   assert.equal(result.outcome, 'won');
   assert.ok(s.flags.has('won_namenlose'));
+  // Price aus Kettlegate: Brief von L., gegen Geld zurück in den Zug
+  talk(s, 'price_wexmoor', ['Wer hat']);
+  assert.ok(s.hasClue('wx_price_brief'));
+  s.money += 40;
+  talk(s, 'price_wexmoor', ['Vierzig']);
+  assert.ok(s.flags.has('k2_price_done'));
   talk(s, 'lichtmann', ['Wofür', 'Zeuge']);
   assert.equal(s.factStatus('wx_collector'), 'suspected');
   assert.ok(s.flags.has('k2_starling_witness'));
@@ -290,6 +309,10 @@ function afterAct4({ ally = true } = {}) {
     talk(s, 'marlowe_wexmoor', ['Lichtmeisterin']);
     assert.ok(s.flags.has('k2_hale_ally') && s.flags.has('k2_marlowe_here'));
   }
+  // Was mit den verhafteten Fremden geschah
+  use(s, 'wx_wachhaus', 'register');
+  talk(s, 'hale', ['Fremden']);
+  assert.equal(s.combine('wx_ausgeliefert', 'wx_fremde_zug').result, 'new');
   talk(s, 'zunder', ['Es ist Brandt']);
   assert.equal(s.quests.k2_akt4, 'done');
   assert.equal(s.quests.k2_akt5, 'active');
@@ -346,4 +369,64 @@ test('Akt V: ohne Verbündete bleiben Löschen, Übernehmen oder Flucht mit Kit'
     assert.equal(content.endings[id].case, 'kapitel2');
     assert.ok(content.endings[id].chapter.text);
   }
+});
+
+test('Price lässt sich auch überzeugen oder verprügeln', () => {
+  const s = afterAct1();
+  s.startQuest('k2_akt3');
+  ['wx_akte_starling', 'wx_briefe_L'].forEach((c) => s.addClue(c));
+  s.combine('wx_starling_student', 'wx_letters_L');
+  talk(s, 'price_wexmoor', ['Wer hat']);
+  talk(s, 'price_wexmoor', ['benutzt']);
+  assert.ok(s.flags.has('k2_price_ally'));
+  const t = afterAct1();
+  t.addItem('egelhaken');
+  t.equip('egelhaken');
+  t.addItem('tonikum', 3);
+  t.addItem('verband', 2);
+  talk(t, 'price_wexmoor', ['holen']);
+  const { result } = fight(t, 'price_wx_fight', { defend: SKILLED, healBelow: 18 });
+  assert.equal(result.outcome, 'won');
+  assert.ok(t.flags.has('k2_price_done'));
+  assert.ok(t.wanted >= 1, 'Prügelei macht dich bekannter');
+});
+
+test('Nebenauftrag Zimmer 3: Elsbeth Rowe aus der Torfwand holen', () => {
+  const s = afterAct1();
+  talk(s, 'hesper', ['besorgt']);
+  assert.equal(s.quests.k2_s_zimmer3, 'active');
+  use(s, 'wx_glocke', 'tagebuch');
+  talk(s, 'sedge', ['Elsbeth']);
+  assert.equal(s.combine('wx_rowe_moor', 'wx_fremde_zug').result, 'new');
+  const els = content.maps.wx_torfstich.npcs.find((n) => n.id === 'elsbeth');
+  assert.ok(s.meets(els.visible_if));
+  talk(s, 'elsbeth', ['Elsbeth', 'Zug']);
+  assert.ok(s.hasClue('wx_rowe_turm'));
+  const money = s.money;
+  talk(s, 'hesper', ['lebt']);
+  assert.equal(s.quests.k2_s_zimmer3, 'done');
+  assert.ok(s.money >= money + 30);
+});
+
+test('Nebenaufträge: Stille Bojen, Kits Ladung, Zunders Mutter, Paket aus Kettlegate', () => {
+  const s = afterAct1();
+  talk(s, 'brack', ['helfen']);
+  s.flags.add('won_glockenmutter');
+  talk(s, 'brack', ['schweigt']);
+  assert.equal(s.quests.k2_s_bojen, 'done');
+  talk(s, 'kit_wexmoor', ['Hilfe']);
+  s.addItem('salzkristall', 3);
+  talk(s, 'kit_wexmoor', ['Salzkristalle']);
+  assert.equal(s.quests.k2_s_kit, 'done');
+  assert.ok(s.flags.has('k2_kit_boot'));
+  s.flags.add('k2_akt4_done');
+  talk(s, 'zunder', ['Mutter']);
+  assert.equal(s.quests.k2_s_fenn, 'active');
+  s.flags.add('k2_fenn_found');
+  talk(s, 'zunder', ['Namen deiner Mutter']);
+  assert.equal(s.quests.k2_s_fenn, 'done');
+  s.flags.add('k2_akt2_done');
+  const t = s.itemCount('tonikum');
+  use(s, 'wx_kahn', 'paket');
+  assert.equal(s.itemCount('tonikum'), t + 2);
 });
