@@ -230,6 +230,17 @@ test('Revier: Dr. Varga gibt Tränke für Laterne, Faden und Eisen nach gelöste
   assert.ok(offers[0].locked, 'Sequenz 8 erst nach Fall 2');
   s.quests.case_02 = 'done';
   assert.equal(s.takeRevierPotion('faden').ok, true);
+  // Nur bis Sequenz 7: danach gibt das Revier nichts mehr aus
+  s.drink('trank_faden_8', never);
+  s.quests.case_04 = 'done';
+  assert.equal(s.takeRevierPotion('faden').ok, true);
+  s.drink('trank_faden_7', never);
+  for (const q of ['case_05', 'case_06', 'case_07', 'case_08', 'case_09']) s.quests[q] = 'done';
+  offers = s.revierOffers();
+  assert.deepEqual(offers.map((o) => [o.pathway, o.seq]), [['faden', 6]]);
+  assert.ok(offers[0].locked && !offers[0].potion, 'Sequenz 6 nie vom Revier');
+  assert.equal(s.takeRevierPotion('faden').ok, false);
+  assert.deepEqual(Object.keys(content.revierSupply.seqs).sort(), ['7', '8', '9']);
   // Fremde Pfade bekommen nichts
   const m = new GameState(content);
   m.addItem('trank_maske_9');

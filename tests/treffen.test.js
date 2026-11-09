@@ -337,3 +337,14 @@ test('Wegweiser: Während ein eigenes Treffen läuft, zeigt der Pfeil dorthin', 
   s.playTime += rules.open_min * MIN;
   assert.equal(s.gatheringTarget(), null);
 });
+
+test('Formeln für Sequenz 6 und 5: nur auf geheimen Treffen oder als seltener Fund', () => {
+  const pids = Object.keys(content.pathways);
+  // In Wexmoor bieten Lichtlose und Salzbrüder zusammen jeden Pfad an
+  const wx = ['lichtlose', 'salz'].flatMap((c) => content.gatherings.circles[c].members.flatMap((m) => m.offers.map((o) => o.item)));
+  for (const pid of pids) for (const q of [6, 5]) assert.ok(wx.includes(`formel_${pid}_${q}`), `Wexmoor-Treffen: formel_${pid}_${q}`);
+  // Seltene Funde in späten Gefahrengebieten, jeweils mit kleiner Chance
+  const drops = Object.values(content.loot).flatMap((t) => t.drops ?? []).filter((d) => /^formel_\w+_[65]$/.test(d.item));
+  for (const pid of pids) for (const q of [6, 5]) assert.ok(drops.some((d) => d.item === `formel_${pid}_${q}`), `Fund: formel_${pid}_${q}`);
+  assert.ok(drops.every((d) => d.chance <= 0.05), 'Formel-Funde bleiben selten');
+});
