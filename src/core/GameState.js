@@ -2,6 +2,7 @@
 import { pathwayMethods } from './Pathways.js';
 import { gatheringMethods } from './Gatherings.js';
 import { wantedMethods } from './Wanted.js';
+import { bondMethods } from './Bonds.js';
 import { artifactMethods } from './Artifacts.js';
 
 /** Tragkraft in Pfund. Gegenstände ohne eigenes "weight" wiegen je nach Art so viel. */
@@ -59,6 +60,7 @@ export class GameState {
     this.resetPathway();
     this.resetGatherings();
     this.resetWanted();
+    this.resetBonds();
     this.pendingTravel = null;
   }
 
@@ -249,7 +251,8 @@ export class GameState {
       (o.requires_nerves === undefined || this.composure >= o.requires_nerves) &&
       (o.max_nerves === undefined || this.composure < o.max_nerves) &&
       (o.requires_gathering === undefined || this.gatheringOpen(o.requires_gathering) && this.isMember(o.requires_gathering)) &&
-      (o.requires_gatherings_unlocked === undefined || this.gatheringsUnlocked() === o.requires_gatherings_unlocked)
+      (o.requires_gatherings_unlocked === undefined || this.gatheringsUnlocked() === o.requires_gatherings_unlocked) &&
+      this.meetsBond(o)
     );
   }
 
@@ -282,6 +285,7 @@ export class GameState {
     if (e.unruhe) { if (this.isBeyonder()) this.setUnruhe(this.unruhe + e.unruhe); else this.setComposure(this.composure - e.unruhe); }
     if (e.combat) this.startCombat(e.combat);
     if (Number.isFinite(e.wanted) && this.content.police) this.setWanted(Math.max(this.wanted, e.wanted), e.wanted_reason ?? ''); // Fahndung hochsetzen (Ausbruch, Flucht)
+    for (const [id, n] of Object.entries(e.bond ?? {})) this.changeBond(id, n); // Einzelgänger: Freund oder Feind
     if (e.travel) this.pendingTravel = e.travel; // Ortswechsel nach dem Fenster (z. B. aus der Zelle)
     if (gained.length || e.sets_flags || e.start_quests || e.complete_quests || e.honor || e.gives_items || e.takes_items || e.gives_money || e.takes_money) this.emit('changed');
     return gained;
@@ -591,6 +595,7 @@ export class GameState {
       ...this.serializePathway(),
       ...this.serializeGatherings(),
       ...this.serializeWanted(),
+      bonds: this.serializeBonds(),
     };
   }
 
@@ -620,9 +625,10 @@ export class GameState {
     if (data.v >= 4) this.loadPathway(data);
     this.loadGatherings(data);
     this.loadWanted(data);
+    this.loadBonds(data.bonds);
     if (!this.content.maps[this.map]) { this.map = this.content.start.map; this.position = null; }
     return true;
   }
 }
 
-Object.assign(GameState.prototype, pathwayMethods, artifactMethods, gatheringMethods, wantedMethods);
+Object.assign(GameState.prototype, pathwayMethods, artifactMethods, gatheringMethods, wantedMethods, bondMethods);

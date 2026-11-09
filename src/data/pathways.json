@@ -1754,7 +1754,8 @@
         "name": "Die stille Glocke",
         "source": "wild",
         "zones": [
-          "katakomben"
+          "katakomben",
+          "wx_salzwatt"
         ],
         "price": 90,
         "icon": "glocke",
@@ -1879,6 +1880,124 @@
             "key": "calm_decay",
             "value": 0.4,
             "text": "Unruhe klingt kaum noch ab."
+          }
+        ]
+      },
+      "namenstaefelchen": {
+        "name": "Das Namenstäfelchen",
+        "source": "wild",
+        "zones": [
+          "wx_vergessmoor"
+        ],
+        "price": 90,
+        "icon": "glasfibel",
+        "desc": "Ein Holztäfelchen mit deinem Namen. Solange du es trägst, kann dir niemand den Namen nehmen. Nur dein Gesicht verschwimmt.",
+        "boons": [
+          {
+            "key": "max_nerves",
+            "value": 15,
+            "text": "+15 Nerven."
+          },
+          {
+            "key": "composure_regen",
+            "value": 1.5,
+            "text": "Nerven erholen sich 50 % schneller."
+          }
+        ],
+        "curses": [
+          {
+            "key": "honor_loss",
+            "value": 2,
+            "text": "Ansehensverluste verdoppeln sich. Niemand erinnert sich an deine guten Taten."
+          }
+        ]
+      },
+      "leuchtturmlinse": {
+        "name": "Splitter der Leuchtturmlinse",
+        "source": "wild",
+        "zones": [
+          "wx_leuchtturm"
+        ],
+        "price": 150,
+        "icon": "glasauge",
+        "desc": "Ein Stück der großen Linse. Es bündelt alles, was du siehst, zu einem einzigen hellen Punkt.",
+        "boons": [
+          {
+            "key": "occult_mult",
+            "value": 1.3,
+            "text": "Okkulte Fähigkeiten treffen 30 % härter."
+          },
+          {
+            "key": "vision_cost",
+            "value": 0.5,
+            "text": "Geistsicht kostet nur die Hälfte."
+          }
+        ],
+        "curses": [
+          {
+            "key": "max_hp",
+            "value": -8,
+            "text": "-8 Leben. Das Licht brennt dich von innen."
+          },
+          {
+            "key": "unruhe_tick",
+            "value": 0.3,
+            "text": "Die Unruhe steigt von selbst."
+          }
+        ]
+      },
+      "bojenglocke_klein": {
+        "name": "Die kleine Bojenglocke",
+        "source": "wild",
+        "zones": [
+          "wx_salzwatt"
+        ],
+        "price": 110,
+        "icon": "glocke",
+        "desc": "Eine Glocke von einer Boje, die es nicht mehr gibt. Sie läutet eine Sekunde, bevor dich etwas trifft.",
+        "boons": [
+          {
+            "key": "dodge_window",
+            "value": 1.25,
+            "text": "Das Ausweichfenster ist 25 % größer."
+          },
+          {
+            "key": "parry_ap",
+            "value": 1,
+            "text": "Paraden bringen +1 Konzentration."
+          }
+        ],
+        "curses": [
+          {
+            "key": "composure_regen",
+            "value": 0.5,
+            "text": "Nerven erholen sich nur halb so schnell. Sie läutet auch nachts."
+          }
+        ]
+      },
+      "torfmesser_alt": {
+        "name": "Das alte Torfmesser",
+        "source": "quest",
+        "price": 120,
+        "icon": "glockenzunge",
+        "desc": "Hagen Wisps Messer, mit dem er seit sechzig Jahren Reet schneidet. Es schneidet auch, was zwischen zwei Dingen ist.",
+        "boons": [
+          {
+            "key": "atk",
+            "value": 4,
+            "text": "+4 Angriff."
+          },
+          {
+            "key": "heal_bonus",
+            "value": 1.25,
+            "text": "Heilmittel wirken 25 % stärker."
+          }
+        ],
+        "curses": [
+          {
+            "key": "price",
+            "value": 1.2,
+            "text": "Händler riechen das Moor an dir: alles 20 % teurer."
           }
         ]
       }

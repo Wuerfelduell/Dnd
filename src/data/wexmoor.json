@@ -828,6 +828,97 @@
         "legs": "#a89060",
         "scarf": "#d0a040"
       }
+    },
+    "ez_reetkoenig": {
+      "name": "Hagen Wisp, der Reetkönig",
+      "role": "Einzelgänger · Pfad des Kessels, Sequenz 6: Destillateur",
+      "dialogue": "ez_reetkoenig",
+      "palette": {
+        "coat": "#5a6a30",
+        "hat": "#c8b060",
+        "skin": "#c8a080",
+        "hair": "#e0e0d0",
+        "legs": "#3a3a20",
+        "scarf": "#8a7a30"
+      }
+    },
+    "ez_brennerin": {
+      "name": "Mara Docht, die Brennerin",
+      "role": "Einzelgänger · Pfad der Laterne, Sequenz 7: Leuchtfeuer",
+      "dialogue": "ez_brennerin",
+      "palette": {
+        "coat": "#3a2a20",
+        "hat": "#1a1410",
+        "skin": "#e0b890",
+        "hair": "#e07030",
+        "legs": "#2a2018",
+        "scarf": "#e0a040"
+      }
+    },
+    "ez_spinnerin": {
+      "name": "Agathe Garn, die Spinnerin",
+      "role": "Einzelgänger · Pfad des Fadens, Sequenz 5: Knotenmeister",
+      "dialogue": "ez_spinnerin",
+      "palette": {
+        "coat": "#2a2430",
+        "hat": "#18141c",
+        "skin": "#e8d8c8",
+        "hair": "#d0d0d8",
+        "legs": "#18141c",
+        "scarf": "#8a8090"
+      }
+    },
+    "ez_baender": {
+      "name": "Tobin Krell, der Bänder",
+      "role": "Einzelgänger · Pfad des Eisens, Sequenz 7: Klingenmeister",
+      "dialogue": "ez_baender",
+      "palette": {
+        "coat": "#4a4a50",
+        "hat": "#2a2a30",
+        "skin": "#b08060",
+        "hair": "#2a2018",
+        "legs": "#2a2a30",
+        "scarf": "#808088"
+      }
+    },
+    "ez_maskenwirt": {
+      "name": "Ambrose Fell, der Maskenwirt",
+      "role": "Einzelgänger · Pfad der Maske, Sequenz 6: Zweitgesicht",
+      "dialogue": "ez_maskenwirt",
+      "palette": {
+        "coat": "#5a2030",
+        "hat": "#2a1018",
+        "skin": "#f0e0d0",
+        "hair": "#1a1010",
+        "legs": "#2a1018",
+        "scarf": "#e0d0b0"
+      }
+    },
+    "ez_glockenfischer": {
+      "name": "Ole Tamsen, der Glockenfischer",
+      "role": "Einzelgänger · Pfad des Echos, Sequenz 7: Seelenrufer",
+      "dialogue": "ez_glockenfischer",
+      "palette": {
+        "coat": "#c0a030",
+        "hat": "#806820",
+        "skin": "#c89070",
+        "hair": "#a0a0a0",
+        "legs": "#3a3a40",
+        "scarf": "#304060"
+      }
+    },
+    "ez_schleusendieb": {
+      "name": "Fitz Hallow, der Schleusendieb",
+      "role": "Einzelgänger · Pfad des Schlüssels, Sequenz 7: Schattengänger",
+      "dialogue": "ez_schleusendieb",
+      "palette": {
+        "coat": "#30303a",
+        "hat": "#18181e",
+        "skin": "#d8b898",
+        "hair": "#6a4a2a",
+        "legs": "#18181e",
+        "scarf": "#5a5a20"
+      }
     }
   },
   "travel": [
@@ -1114,6 +1205,22 @@
             14
           ],
           "facing": "down"
+        },
+        {
+          "id": "ez_schleusendieb",
+          "tile": [
+            38,
+            14
+          ],
+          "facing": "down",
+          "visible_if": {
+            "requires_flags": [
+              "k2_met_zunder"
+            ],
+            "hide_if_flags": [
+              "ez_schleusendieb_besiegt"
+            ]
+          }
         }
       ],
       "decor": [
@@ -1494,6 +1601,40 @@
           ],
           "alpha": 1,
           "depth": 5
+        }
+      ],
+      "npcs": [
+        {
+          "id": "ez_reetkoenig",
+          "tile": [
+            5,
+            3
+          ],
+          "facing": "down",
+          "visible_if": {
+            "requires_flags": [
+              "k2_met_zunder"
+            ],
+            "hide_if_flags": [
+              "ez_reetkoenig_besiegt"
+            ]
+          }
+        },
+        {
+          "id": "ez_brennerin",
+          "tile": [
+            15,
+            12
+          ],
+          "facing": "down",
+          "visible_if": {
+            "requires_flags": [
+              "k2_met_zunder"
+            ],
+            "hide_if_flags": [
+              "ez_brennerin_besiegt"
+            ]
+          }
         }
       ]
     },
@@ -1932,6 +2073,22 @@
               "kapitel2_done"
             ]
           }
+        },
+        {
+          "id": "ez_maskenwirt",
+          "tile": [
+            34,
+            4
+          ],
+          "facing": "down",
+          "visible_if": {
+            "requires_flags": [
+              "k2_met_zunder"
+            ],
+            "hide_if_flags": [
+              "ez_maskenwirt_besiegt"
+            ]
+          }
         }
       ],
       "patrols": [
@@ -2255,6 +2412,38 @@
               "k2_akt3"
             ]
           }
+        },
+        {
+          "id": "ez_baender",
+          "tile": [
+            30,
+            3
+          ],
+          "facing": "down",
+          "visible_if": {
+            "requires_flags": [
+              "k2_met_zunder"
+            ],
+            "hide_if_flags": [
+              "ez_baender_besiegt"
+            ]
+          }
+        },
+        {
+          "id": "ez_glockenfischer",
+          "tile": [
+            7,
+            7
+          ],
+          "facing": "down",
+          "visible_if": {
+            "requires_flags": [
+              "k2_met_zunder"
+            ],
+            "hide_if_flags": [
+              "ez_glockenfischer_besiegt"
+            ]
+          }
         }
       ],
       "patrols": [
@@ -2526,6 +2715,22 @@
             4
           ],
           "facing": "down"
+        },
+        {
+          "id": "ez_spinnerin",
+          "tile": [
+            12,
+            6
+          ],
+          "facing": "down",
+          "visible_if": {
+            "requires_flags": [
+              "k2_met_zunder"
+            ],
+            "hide_if_flags": [
+              "ez_spinnerin_besiegt"
+            ]
+          }
         }
       ],
       "patrols": [
@@ -3078,112 +3283,112 @@
       ],
       "roamers": [
         {
-          "encounter": "vg_namenloser",
+          "encounter": "torfgaenger",
           "tile": [
             35,
             15
           ]
         },
         {
-          "encounter": "vg_fremdlicht",
+          "encounter": "weisslicht",
           "tile": [
             19,
             7
           ]
         },
         {
-          "encounter": "vg_namenloser",
+          "encounter": "torfgaenger",
           "tile": [
             16,
             4
           ]
         },
         {
-          "encounter": "vg_fremdlicht",
+          "encounter": "weisslicht",
           "tile": [
             40,
             6
           ]
         },
         {
-          "encounter": "schlammegel",
+          "encounter": "reetmann",
           "tile": [
             39,
             20
           ]
         },
         {
-          "encounter": "vg_namenloser",
+          "encounter": "torfgaenger",
           "tile": [
             30,
             12
           ]
         },
         {
-          "encounter": "vg_fremdlicht",
+          "encounter": "weisslicht",
           "tile": [
             42,
             23
           ]
         },
         {
-          "encounter": "vg_namenloser",
+          "encounter": "torfgaenger",
           "tile": [
             14,
             17
           ]
         },
         {
-          "encounter": "vg_fremdlicht",
+          "encounter": "weisslicht",
           "tile": [
             4,
             4
           ]
         },
         {
-          "encounter": "schlammegel",
+          "encounter": "reetmann",
           "tile": [
             9,
             5
           ]
         },
         {
-          "encounter": "vg_namenloser",
+          "encounter": "torfgaenger",
           "tile": [
             47,
             11
           ]
         },
         {
-          "encounter": "vg_fremdlicht",
+          "encounter": "weisslicht",
           "tile": [
             24,
             12
           ]
         },
         {
-          "encounter": "vg_namenloser",
+          "encounter": "torfgaenger",
           "tile": [
             16,
             26
           ]
         },
         {
-          "encounter": "vg_fremdlicht",
+          "encounter": "weisslicht",
           "tile": [
             33,
             2
           ]
         },
         {
-          "encounter": "schlammegel",
+          "encounter": "reetmann",
           "tile": [
             19,
             15
           ]
         },
         {
-          "encounter": "vg_namenloser",
+          "encounter": "torfgaenger",
           "tile": [
             52,
             14
@@ -3598,119 +3803,119 @@
       ],
       "roamers": [
         {
-          "encounter": "lt_glasmoewe",
+          "encounter": "glasmoewe",
           "tile": [
             32,
             9
           ]
         },
         {
-          "encounter": "lt_lichtbrut",
+          "encounter": "lichtbrut",
           "tile": [
             25,
             16
           ]
         },
         {
-          "encounter": "lt_linsensplitter",
+          "encounter": "linsensplitter",
           "tile": [
             7,
             8
           ]
         },
         {
-          "encounter": "lt_glasmoewe",
+          "encounter": "glasmoewe",
           "tile": [
             10,
             17
           ]
         },
         {
-          "encounter": "lt_lichtbrut",
+          "encounter": "lichtbrut",
           "tile": [
             18,
             28
           ]
         },
         {
-          "encounter": "lt_linsensplitter",
+          "encounter": "linsensplitter",
           "tile": [
             15,
             20
           ]
         },
         {
-          "encounter": "lt_glasmoewe",
+          "encounter": "glasmoewe",
           "tile": [
             42,
             13
           ]
         },
         {
-          "encounter": "lt_lichtbrut",
+          "encounter": "lichtbrut",
           "tile": [
             32,
             27
           ]
         },
         {
-          "encounter": "lt_linsensplitter",
+          "encounter": "linsensplitter",
           "tile": [
             46,
             27
           ]
         },
         {
-          "encounter": "lt_glasmoewe",
+          "encounter": "glasmoewe",
           "tile": [
             16,
             15
           ]
         },
         {
-          "encounter": "lt_lichtbrut",
+          "encounter": "lichtbrut",
           "tile": [
             23,
             6
           ]
         },
         {
-          "encounter": "lt_linsensplitter",
+          "encounter": "linsensplitter",
           "tile": [
             20,
             17
           ]
         },
         {
-          "encounter": "lt_glasmoewe",
+          "encounter": "glasmoewe",
           "tile": [
             38,
             15
           ]
         },
         {
-          "encounter": "lt_lichtbrut",
+          "encounter": "lichtbrut",
           "tile": [
             19,
             2
           ]
         },
         {
-          "encounter": "lt_linsensplitter",
+          "encounter": "linsensplitter",
           "tile": [
             38,
             28
           ]
         },
         {
-          "encounter": "lt_glasmoewe",
+          "encounter": "glasmoewe",
           "tile": [
             4,
             16
           ]
         },
         {
-          "encounter": "lt_lichtbrut",
+          "encounter": "lichtbrut",
           "tile": [
             30,
             4
@@ -3787,6 +3992,216 @@
           }
         }
       ],
+      "decor": []
+    },
+    {
+      "id": "wx_salzwatt",
+      "name": "Das Salzwatt",
+      "city": "wexmoor",
+      "tiles": "g_marsch",
+      "danger": 3,
+      "ambient": {
+        "night": 0.7,
+        "fog": 0.45
+      },
+      "rows": [
+        "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~",
+        "~ggg~ggg~~gYg~~ggggg~ggggggggggg~ggggg~~gg~~~~ggggggg~",
+        "~ggg~gggYgggg~g~g~ggggggggggg~~g~gg~~g~gggggggggggggg~",
+        "~gYgggggg~ggggYg~ggYgggg~gg~g~g~gg~gggggggg~ggggggggg~",
+        "~gggggggggg~~ggg~g~gggggYgg~ggg~g~gggg~gg~gg~~g~ggggg~",
+        "~gggg~~g~ggggggPPPPPPPPPPPPPPPPPPPPPggggYggg~gggggggg~",
+        "~ggg~ggg~~gggggP~g~ggg~~g~gggggg~ggPgggggg~ggg~ggg~gg~",
+        "~~g~~ggggggggggPgg~g~~~g~g~gggggg~gPggggg~gggg~gg~~gg~",
+        "~ggggggggggggggPg~gg~ggg~Yggg~gY~ggPg~gggg~gggggg~ggg~",
+        "~gggg~gg~ggg~ggPgggg~ggggggggggggg~Pgg~ggggggg~gYgggY~",
+        "~~gggggggg~ggggPgg~ggg~~~~ggg~gggggPgggggggggggggg~gg~",
+        "~gggYgg~~gg~gggPgg~ggg~~g~ggg~gYYggP~~~g~g~g~gg~gggg~~",
+        "~ggg~~~~Y~~ggggP~~g~ggg~ggg~gggggggP~ggggggggYYg~gggg~",
+        "~g~~gYg~~g~gg~gP~g~g~ggg~ggg~gggg~gP~gY~gggggg~ggggg~~",
+        "PPPPPPPPPPPPPPPPg~~~gggYg~ggggYggg~Pgggg~ggggg~gggggg~",
+        "~~~~g~g~gg~gggggggggggg~ggY~g~g~gg~Pgggg~gY~ggggYg~Yg~",
+        "~gggggg~gggggggggggggg~g~ggggggggYgPgg~gggggggggggg~Y~",
+        "~~~ggg~Yggggg~~gggggggg~~ggg~ggggggPg~g~~g~gggggggggg~",
+        "~gYggYgggg~Ygggggggggg~gggg~g~~~~ggPgggggY~gggggggggg~",
+        "~~g~gggggggggggg~~ggggg~gggggggggg~Pg~ggggggggggggggg~",
+        "~gg~ggggg~Y~ggg~g~gggg~ggggg~~g~gggPggg~g~g~ggggggggg~",
+        "~gggYgg~~~~~ggggg~gg~ggg~gggg~gg~~gPPPPPPPPPggggggggg~",
+        "~g~gggggggYYgg~g~gggg~g~~gg~~~g~g~gggg~gggggggggggggg~",
+        "~gggggggg~ggg~gg~ggggggYggg~~g~gggggggg~ggggggggggggg~",
+        "~gg~g~g~~gg~gggggggggggg~gggg~gg~~~~~gggggggggggggggg~",
+        "~gggggggggggggggggggggg~~~~ggggggggg~~ggggggggggggggg~",
+        "~gggggg~gg~g~g~~gggggggggg~ggggggY~ggggg~gggg~ggggggg~",
+        "~ggg~~g~gYggggg~Ygggggg~g~ggYg~g~gggg~~YgggggYggggggg~",
+        "~~~gggg~~g~g~ggggggggg~~gggggg~gggggggggggg~gggggggg~~",
+        "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+      ],
+      "spawns": {
+        "default": [
+          1,
+          14
+        ]
+      },
+      "lights": [
+        {
+          "tile": [
+            48,
+            21
+          ],
+          "radius": 60,
+          "intensity": 0.6,
+          "color": "#e0c890",
+          "glow": 0.3,
+          "flicker": 0.12
+        }
+      ],
+      "roamers": [
+        {
+          "encounter": "salzgeist",
+          "tile": [
+            18,
+            15
+          ]
+        },
+        {
+          "encounter": "bojenglocke",
+          "tile": [
+            45,
+            8
+          ]
+        },
+        {
+          "encounter": "nebelfischer",
+          "tile": [
+            31,
+            25
+          ]
+        },
+        {
+          "encounter": "schlickaal",
+          "tile": [
+            12,
+            24
+          ]
+        },
+        {
+          "encounter": "salzgeist",
+          "tile": [
+            46,
+            15
+          ]
+        },
+        {
+          "encounter": "bojenglocke",
+          "tile": [
+            21,
+            3
+          ]
+        },
+        {
+          "encounter": "nebelfischer",
+          "tile": [
+            7,
+            3
+          ]
+        },
+        {
+          "encounter": "schlickaal",
+          "tile": [
+            42,
+            2
+          ]
+        },
+        {
+          "encounter": "salzgeist",
+          "tile": [
+            16,
+            21
+          ]
+        },
+        {
+          "encounter": "bojenglocke",
+          "tile": [
+            51,
+            11
+          ]
+        },
+        {
+          "encounter": "nebelfischer",
+          "tile": [
+            50,
+            5
+          ]
+        },
+        {
+          "encounter": "schlickaal",
+          "tile": [
+            34,
+            8
+          ]
+        },
+        {
+          "encounter": "salzgeist",
+          "tile": [
+            35,
+            17
+          ]
+        },
+        {
+          "encounter": "bojenglocke",
+          "tile": [
+            27,
+            14
+          ]
+        },
+        {
+          "encounter": "nebelfischer",
+          "tile": [
+            29,
+            9
+          ]
+        },
+        {
+          "encounter": "schlickaal",
+          "tile": [
+            22,
+            8
+          ]
+        },
+        {
+          "encounter": "glockenmutter",
+          "tile": [
+            48,
+            21
+          ],
+          "boss": true
+        }
+      ],
+      "interactables": [
+        {
+          "id": "exit",
+          "kind": "travel",
+          "tile": [
+            0,
+            14
+          ],
+          "prompt": "Zurück zum Bojenhafen (Stadtkarte)",
+          "marker": false
+        },
+        {
+          "id": "pfahl",
+          "kind": "read",
+          "tile": [
+            15,
+            9
+          ],
+          "prompt": "Den Pegelpfahl ansehen",
+          "marker": false,
+          "title": "Der Pegelpfahl",
+          "text": "Ein Pfahl mit Kerben für jede Sturmflut. Ganz oben, über allen anderen, hat jemand eine Glocke eingeritzt und daneben: „Sie zählt mit.“"
+        }
+      ],
+      "npcs": [],
       "decor": []
     }
   ],
@@ -3964,6 +4379,13 @@
               ]
             },
             {
+              "text": "Gibt es hier Leute wie mich? Beyonder ohne Zirkel?",
+              "next": "einzel",
+              "requires_flags": [
+                "k2_hideout"
+              ]
+            },
+            {
               "text": "Bis später."
             }
           ]
@@ -4103,6 +4525,15 @@
           "choices": [
             {
               "text": "Verstanden.",
+              "next": "start"
+            }
+          ]
+        },
+        "einzel": {
+          "text": "„Einzelgänger, meinst du.“ Zunder zählt an den Fingern. „Hagen, der Reetkönig, und Mara die Brennerin am Torfstich. Die alte Garn in der Oberstadt, mit der redet man vorsichtig. Tobin und der alte Ole am Bojenhafen. Der Maskenwirt am Salzmarkt. Und Fitz, der Dieb am Bahnhof.“\n\n„Wer sich mit denen gut stellt, kommt in die Zirkel hier. Die Lichtlosen nehmen nur, wen Mara oder Fitz schicken. Die Salzbrüder nur über Tobin oder Ole. Und wer sich mit ihnen anlegt …“ Sie zieht eine Grimasse. „Die haben alle ihre Sequenz nicht vom Jahrmarkt.“",
+          "choices": [
+            {
+              "text": "Danke.",
               "next": "start"
             }
           ]
@@ -5273,6 +5704,1898 @@
           ]
         }
       }
+    },
+    "ez_reetkoenig": {
+      "start": [
+        {
+          "node": "freund",
+          "requires_flags": [
+            "ez_reetkoenig_freund"
+          ]
+        },
+        {
+          "node": "feind",
+          "requires_flags": [
+            "ez_reetkoenig_feind"
+          ]
+        },
+        {
+          "node": "hub",
+          "requires_flags": [
+            "ez_reetkoenig_getroffen"
+          ]
+        },
+        {
+          "node": "erst"
+        }
+      ],
+      "nodes": {
+        "erst": {
+          "text": "Ein alter Mann sitzt im Schilf, eine Krone aus geflochtenem Reet auf dem Kopf, und rührt in einem Kupferkessel. Es riecht nach Moorminze und etwas Verbranntem.\n\n„Noch einer aus dem Zug. Ihr kommt alle mit demselben Blick. Als würdet ihr erwarten, dass euch das Moor die Hand gibt.“",
+          "sets_flags": [
+            "ez_reetkoenig_getroffen"
+          ],
+          "choices": [
+            {
+              "text": "Den Hut ziehen. „Eure Majestät.“",
+              "next": "nett"
+            },
+            {
+              "text": "„Was brauen Sie da? Sieht illegal aus.“",
+              "next": "grob"
+            }
+          ]
+        },
+        "nett": {
+          "text": "Hagen lacht, bis er husten muss. „Majestät! Das hat seit dem Krieg keiner mehr gesagt. Setz dich, aber nicht in den Kessel.“",
+          "bond": {
+            "ez_reetkoenig": 1
+          },
+          "choices": [
+            {
+              "text": "Weiter.",
+              "next": "hub"
+            }
+          ]
+        },
+        "grob": {
+          "text": "Hagen sieht dich lange an. „Illegal ist, was das Lichtamt nicht versteht. Und das Lichtamt versteht nichts, was nicht brennt.“",
+          "bond": {
+            "ez_reetkoenig": -1
+          },
+          "choices": [
+            {
+              "text": "Weiter.",
+              "next": "hub"
+            }
+          ]
+        },
+        "hub": {
+          "text": "Hagen Wisp wartet ab.",
+          "choices": [
+            {
+              "text": "Kann ich etwas für Sie tun?",
+              "next": "auftrag",
+              "hide_if_flags": [
+                "ez_reetkoenig_auftrag",
+                "ez_reetkoenig_freund",
+                "ez_reetkoenig_feind"
+              ]
+            },
+            {
+              "text": "Hier, 3× Reetfaser.",
+              "next": [
+                {
+                  "node": "dank2",
+                  "requires_flags": [
+                    "ez_reetkoenig_erledigt"
+                  ]
+                },
+                {
+                  "node": "dank"
+                }
+              ],
+              "requires_flags": [
+                "ez_reetkoenig_auftrag"
+              ],
+              "requires_items": [
+                "reetfaser"
+              ],
+              "hide_if_flags": [
+                "ez_reetkoenig_freund",
+                "ez_reetkoenig_feind"
+              ]
+            },
+            {
+              "text": "Was sind Sie, wenn ich fragen darf?",
+              "next": "pfad"
+            },
+            {
+              "text": "Den Torfstechern erzählen, dass er ihr Wasser vergiftet.",
+              "next": [
+                {
+                  "node": "kampf",
+                  "requires_bond_max": {
+                    "ez_reetkoenig": -1
+                  }
+                },
+                {
+                  "node": "verrat"
+                }
+              ],
+              "hide_if_flags": [
+                "ez_reetkoenig_freund",
+                "ez_reetkoenig_feind"
+              ]
+            },
+            {
+              "text": "Bis später."
+            }
+          ]
+        },
+        "auftrag": {
+          "text": "„Mein Dach leckt, und meine Hände wollen nicht mehr. Bring mir drei Reetfasern aus dem Vergessmoor. Die Reetmänner tragen die guten.“",
+          "sets_flags": [
+            "ez_reetkoenig_auftrag"
+          ],
+          "choices": [
+            {
+              "text": "Mach ich.",
+              "next": "hub"
+            }
+          ]
+        },
+        "dank": {
+          "text": "Hagen flicht die Fasern in seine Krone, nicht ins Dach. „Das Dach kann warten. Hier.“ Er drückt dir ein Messer mit Hirschhorngriff in die Hand, die Klinge schwarz vom Torf. „Damit habe ich sechzig Jahre geschnitten. Es weiß, wo die Dinge zusammenhängen.“",
+          "takes_items": {
+            "reetfaser": 3
+          },
+          "bond": {
+            "ez_reetkoenig": 2
+          },
+          "gives_items": {
+            "torfmesser_alt": 1,
+            "salamanderoel": 1
+          },
+          "sets_flags": [
+            "ez_reetkoenig_erledigt"
+          ],
+          "choices": [
+            {
+              "text": "Danke.",
+              "next": [
+                {
+                  "node": "freund",
+                  "requires_flags": [
+                    "ez_reetkoenig_freund"
+                  ]
+                },
+                {
+                  "node": "hub"
+                }
+              ]
+            }
+          ]
+        },
+        "dank2": {
+          "text": "Hagen Wisp nimmt es diesmal ohne große Worte. Aber der Blick ist ein anderer. „Du bleibst dran. Das merke ich mir.“",
+          "takes_items": {
+            "reetfaser": 3
+          },
+          "bond": {
+            "ez_reetkoenig": 2
+          },
+          "choices": [
+            {
+              "text": "Gern.",
+              "next": [
+                {
+                  "node": "freund",
+                  "requires_flags": [
+                    "ez_reetkoenig_freund"
+                  ]
+                },
+                {
+                  "node": "hub"
+                }
+              ]
+            }
+          ]
+        },
+        "pfad": {
+          "text": "„Pfad des Kessels. Sequenz 6, Destillateur. Ich gehöre zu keinem Zirkel, und kein Zirkel gehört zu mir.“",
+          "choices": [
+            {
+              "text": "Verstehe.",
+              "next": "hub"
+            }
+          ]
+        },
+        "verrat": {
+          "text": "Am nächsten Morgen stehen drei Torfstecher mit Spaten vor Hagens Kessel. Er sieht dich über ihre Schultern hinweg an und sagt nichts.",
+          "bond": {
+            "ez_reetkoenig": -2
+          },
+          "nerves": -5,
+          "choices": [
+            {
+              "text": "Weiter."
+            }
+          ]
+        },
+        "kampf": {
+          "text": "Am nächsten Morgen stehen drei Torfstecher mit Spaten vor Hagens Kessel. Er sieht dich über ihre Schultern hinweg an und sagt nichts.\n\nHagen stellt den Kessel ab. „Du hast es ihnen erzählt.“ Der Dampf aus dem Kessel wird grün und dick. „Dann zeig ich dir, was ich wirklich braue.“",
+          "bond": {
+            "ez_reetkoenig": -3
+          },
+          "combat": "ez_reetkoenig",
+          "choices": [
+            {
+              "text": "Kämpfen."
+            }
+          ]
+        },
+        "freund": {
+          "text": "Hagen nickt dir zu, ohne aufzusehen. „Der Kessel ist warm. Bedien dich, wenn du Moorminze brauchst.“",
+          "choices": [
+            {
+              "text": "Bis später."
+            }
+          ]
+        },
+        "feind": {
+          "text": "Hagen Wisp dreht dir den Rücken zu. Kein Wort, kein Blick.",
+          "choices": [
+            {
+              "text": "Es wird Zeit, das zu klären.",
+              "next": "rache"
+            },
+            {
+              "text": "Gehen."
+            }
+          ]
+        },
+        "rache": {
+          "text": "Hagen stellt den Kessel ab. „Du hast es ihnen erzählt.“ Der Dampf aus dem Kessel wird grün und dick. „Dann zeig ich dir, was ich wirklich braue.“",
+          "combat": "ez_reetkoenig",
+          "choices": [
+            {
+              "text": "Kämpfen."
+            }
+          ]
+        }
+      }
+    },
+    "ez_brennerin": {
+      "start": [
+        {
+          "node": "freund",
+          "requires_flags": [
+            "ez_brennerin_freund"
+          ]
+        },
+        {
+          "node": "feind",
+          "requires_flags": [
+            "ez_brennerin_feind"
+          ]
+        },
+        {
+          "node": "hub",
+          "requires_flags": [
+            "ez_brennerin_getroffen"
+          ]
+        },
+        {
+          "node": "erst"
+        }
+      ],
+      "nodes": {
+        "erst": {
+          "text": "Hinter einem Torfstapel brennt eine Laterne, die nicht wie eine Laterne aussieht: Draht, Glas, ein Herz aus etwas Weißem. Eine junge Frau mit rußigen Handschuhen schraubt daran.\n\n„Wenn du vom Lichtamt bist, bist du sehr schlecht verkleidet.“",
+          "sets_flags": [
+            "ez_brennerin_getroffen"
+          ],
+          "choices": [
+            {
+              "text": "„Ich bin vom Lichtamt gesucht. Zählt das?“",
+              "next": "nett"
+            },
+            {
+              "text": "„Wer hat dir erlaubt, hier Licht zu machen?“",
+              "next": "grob"
+            }
+          ]
+        },
+        "nett": {
+          "text": "Mara grinst. „Das zählt doppelt. Ich bin Mara. Ich mache Licht, das niemandem gehört. Das Lichtamt findet das unhöflich.“",
+          "bond": {
+            "ez_brennerin": 1
+          },
+          "choices": [
+            {
+              "text": "Weiter.",
+              "next": "hub"
+            }
+          ]
+        },
+        "grob": {
+          "text": "Mara zieht eine Augenbraue hoch. „Niemand. Genau darum geht es.“",
+          "bond": {
+            "ez_brennerin": -1
+          },
+          "choices": [
+            {
+              "text": "Weiter.",
+              "next": "hub"
+            }
+          ]
+        },
+        "hub": {
+          "text": "Mara Docht wartet ab.",
+          "choices": [
+            {
+              "text": "Kann ich etwas für Sie tun?",
+              "next": "auftrag",
+              "hide_if_flags": [
+                "ez_brennerin_auftrag",
+                "ez_brennerin_freund",
+                "ez_brennerin_feind"
+              ]
+            },
+            {
+              "text": "Hier, 2× Phiole Fremdlicht.",
+              "next": [
+                {
+                  "node": "dank2",
+                  "requires_flags": [
+                    "ez_brennerin_erledigt"
+                  ]
+                },
+                {
+                  "node": "dank"
+                }
+              ],
+              "requires_flags": [
+                "ez_brennerin_auftrag"
+              ],
+              "requires_items": [
+                "fremdlicht_phiole"
+              ],
+              "hide_if_flags": [
+                "ez_brennerin_freund",
+                "ez_brennerin_feind"
+              ]
+            },
+            {
+              "text": "Was sind Sie, wenn ich fragen darf?",
+              "next": "pfad"
+            },
+            {
+              "text": "Ihre Werkstatt den Grauspähern melden.",
+              "next": [
+                {
+                  "node": "kampf",
+                  "requires_bond_max": {
+                    "ez_brennerin": -1
+                  }
+                },
+                {
+                  "node": "verrat"
+                }
+              ],
+              "hide_if_flags": [
+                "ez_brennerin_freund",
+                "ez_brennerin_feind"
+              ]
+            },
+            {
+              "text": "Bis später."
+            }
+          ]
+        },
+        "auftrag": {
+          "text": "„Die Weißlichter im Vergessmoor. Das ist gestohlenes Licht, aus Kettlegate. Fang mir zwei in Phiolen. Ich lasse sie frei, auf meine Art.“",
+          "sets_flags": [
+            "ez_brennerin_auftrag"
+          ],
+          "choices": [
+            {
+              "text": "Mach ich.",
+              "next": "hub"
+            }
+          ]
+        },
+        "dank": {
+          "text": "Mara hält die Phiolen gegen ihre Laterne. Das Licht darin wird warm, golden, und dann fliegt es davon, nach Süden. „Nach Hause.“ Sie wischt sich über die Augen. „Die Lichtlosen sollten dich kennenlernen. Ich bürge für dich.“",
+          "takes_items": {
+            "fremdlicht_phiole": 2
+          },
+          "bond": {
+            "ez_brennerin": 2
+          },
+          "gives_items": {
+            "sternglas": 1,
+            "lampenoel": 2
+          },
+          "sets_flags": [
+            "ez_brennerin_erledigt"
+          ],
+          "choices": [
+            {
+              "text": "Danke.",
+              "next": [
+                {
+                  "node": "freund",
+                  "requires_flags": [
+                    "ez_brennerin_freund"
+                  ]
+                },
+                {
+                  "node": "hub"
+                }
+              ]
+            }
+          ]
+        },
+        "dank2": {
+          "text": "Mara Docht nimmt es diesmal ohne große Worte. Aber der Blick ist ein anderer. „Du bleibst dran. Das merke ich mir.“",
+          "takes_items": {
+            "fremdlicht_phiole": 2
+          },
+          "bond": {
+            "ez_brennerin": 2
+          },
+          "choices": [
+            {
+              "text": "Gern.",
+              "next": [
+                {
+                  "node": "freund",
+                  "requires_flags": [
+                    "ez_brennerin_freund"
+                  ]
+                },
+                {
+                  "node": "hub"
+                }
+              ]
+            }
+          ]
+        },
+        "pfad": {
+          "text": "„Pfad der Laterne. Sequenz 7, Leuchtfeuer. Ich gehöre zu keinem Zirkel, und kein Zirkel gehört zu mir.“",
+          "choices": [
+            {
+              "text": "Verstehe.",
+              "next": "hub"
+            }
+          ]
+        },
+        "verrat": {
+          "text": "Du sagst einem Grauspäher, wo nachts Licht brennt, das nicht vom Amt ist. Am nächsten Abend ist der Torfstapel verkohlt.",
+          "bond": {
+            "ez_brennerin": -2
+          },
+          "nerves": -5,
+          "choices": [
+            {
+              "text": "Weiter."
+            }
+          ]
+        },
+        "kampf": {
+          "text": "Du sagst einem Grauspäher, wo nachts Licht brennt, das nicht vom Amt ist. Am nächsten Abend ist der Torfstapel verkohlt.\n\nMara steht zwischen den verkohlten Resten ihrer Werkstatt. „Du warst das.“ Ihre Laterne flammt auf, weiß und blendend. „Dann sieh mal ins Licht.“",
+          "bond": {
+            "ez_brennerin": -3
+          },
+          "combat": "ez_brennerin",
+          "choices": [
+            {
+              "text": "Kämpfen."
+            }
+          ]
+        },
+        "freund": {
+          "text": "Mara wirft dir einen Funken zu, der in deiner Hand warm bleibt. „Die Lichtlosen fragen nach dir. Gutes Zeichen.“",
+          "choices": [
+            {
+              "text": "Bring mich zu den Lichtlosen.",
+              "next": "zirkel",
+              "hide_if_flags": [
+                "treffen_lichtlose"
+              ]
+            },
+            {
+              "text": "Bis später."
+            }
+          ]
+        },
+        "feind": {
+          "text": "Mara Docht dreht dir den Rücken zu. Kein Wort, kein Blick.",
+          "choices": [
+            {
+              "text": "Es wird Zeit, das zu klären.",
+              "next": "rache"
+            },
+            {
+              "text": "Gehen."
+            }
+          ]
+        },
+        "rache": {
+          "text": "Mara steht zwischen den verkohlten Resten ihrer Werkstatt. „Du warst das.“ Ihre Laterne flammt auf, weiß und blendend. „Dann sieh mal ins Licht.“",
+          "combat": "ez_brennerin",
+          "choices": [
+            {
+              "text": "Kämpfen."
+            }
+          ]
+        },
+        "zirkel": {
+          "text": "„Gern.“ Mara Docht schreibt dir eine Adresse und eine Zeit auf die Hand. „Die Treffen sind kurz. Wenn sie rufen, sei da.“",
+          "sets_flags": [
+            "treffen_lichtlose"
+          ],
+          "choices": [
+            {
+              "text": "Danke."
+            }
+          ]
+        }
+      }
+    },
+    "ez_spinnerin": {
+      "start": [
+        {
+          "node": "freund",
+          "requires_flags": [
+            "ez_spinnerin_freund"
+          ]
+        },
+        {
+          "node": "feind",
+          "requires_flags": [
+            "ez_spinnerin_feind"
+          ]
+        },
+        {
+          "node": "hub",
+          "requires_flags": [
+            "ez_spinnerin_getroffen"
+          ]
+        },
+        {
+          "node": "erst"
+        }
+      ],
+      "nodes": {
+        "erst": {
+          "text": "In einem Hauseingang der Oberstadt sitzt eine alte Witwe an einem Spinnrad aus gebleichtem Knochen. Der Faden, den sie spinnt, ist grau und dünn und kommt aus dem Nebel.\n\n„Du bist voller loser Enden“, sagt sie, ohne aufzusehen. „Das hört man.“",
+          "sets_flags": [
+            "ez_spinnerin_getroffen"
+          ],
+          "choices": [
+            {
+              "text": "„Können Sie sie verknoten?“",
+              "next": "nett"
+            },
+            {
+              "text": "„Was spinnen Sie da? Haare von Toten?“",
+              "next": "grob"
+            }
+          ]
+        },
+        "nett": {
+          "text": "Agathe lächelt mit wenigen Zähnen. „Kann ich. Will ich auch. Aber Knoten kosten.“",
+          "bond": {
+            "ez_spinnerin": 1
+          },
+          "choices": [
+            {
+              "text": "Weiter.",
+              "next": "hub"
+            }
+          ]
+        },
+        "grob": {
+          "text": "„Erinnerungen“, sagt Agathe. „Die Toten brauchen sie nicht mehr. Du schon, wie es aussieht.“",
+          "bond": {
+            "ez_spinnerin": -1
+          },
+          "choices": [
+            {
+              "text": "Weiter.",
+              "next": "hub"
+            }
+          ]
+        },
+        "hub": {
+          "text": "Agathe Garn wartet ab.",
+          "choices": [
+            {
+              "text": "Kann ich etwas für Sie tun?",
+              "next": "auftrag",
+              "hide_if_flags": [
+                "ez_spinnerin_auftrag",
+                "ez_spinnerin_freund",
+                "ez_spinnerin_feind"
+              ]
+            },
+            {
+              "text": "Hier, 2× Linsenscherbe.",
+              "next": [
+                {
+                  "node": "dank2",
+                  "requires_flags": [
+                    "ez_spinnerin_erledigt"
+                  ]
+                },
+                {
+                  "node": "dank"
+                }
+              ],
+              "requires_flags": [
+                "ez_spinnerin_auftrag"
+              ],
+              "requires_items": [
+                "linsenscherbe"
+              ],
+              "hide_if_flags": [
+                "ez_spinnerin_freund",
+                "ez_spinnerin_feind"
+              ]
+            },
+            {
+              "text": "Was sind Sie, wenn ich fragen darf?",
+              "next": "pfad"
+            },
+            {
+              "text": "Ihr Spinnrad stehlen und dem Pedell der Akademie verkaufen.",
+              "next": [
+                {
+                  "node": "kampf",
+                  "requires_bond_max": {
+                    "ez_spinnerin": -1
+                  }
+                },
+                {
+                  "node": "verrat"
+                }
+              ],
+              "hide_if_flags": [
+                "ez_spinnerin_freund",
+                "ez_spinnerin_feind"
+              ]
+            },
+            {
+              "text": "Bis später."
+            }
+          ]
+        },
+        "auftrag": {
+          "text": "„Mein Rad läuft nur mit Licht im Holz. Bring mir zwei Scherben von der großen Linse im Leuchtturm. Dann spinne ich dir etwas, das hält.“",
+          "sets_flags": [
+            "ez_spinnerin_auftrag"
+          ],
+          "choices": [
+            {
+              "text": "Mach ich.",
+              "next": "hub"
+            }
+          ]
+        },
+        "dank": {
+          "text": "Agathe schiebt die Scherben in die Speichen. Das Rad dreht sich von allein, und der Faden wird silbern. Sie schneidet ein Stück ab und legt es dir in die Hand, dazu einen kleinen Knochen. „Für später. Wenn du so weit bist.“",
+          "takes_items": {
+            "linsenscherbe": 2
+          },
+          "bond": {
+            "ez_spinnerin": 2
+          },
+          "gives_items": {
+            "knotengarn": 1,
+            "spindelknochen": 1
+          },
+          "sets_flags": [
+            "ez_spinnerin_erledigt"
+          ],
+          "choices": [
+            {
+              "text": "Danke.",
+              "next": [
+                {
+                  "node": "freund",
+                  "requires_flags": [
+                    "ez_spinnerin_freund"
+                  ]
+                },
+                {
+                  "node": "hub"
+                }
+              ]
+            }
+          ]
+        },
+        "dank2": {
+          "text": "Agathe Garn nimmt es diesmal ohne große Worte. Aber der Blick ist ein anderer. „Du bleibst dran. Das merke ich mir.“",
+          "takes_items": {
+            "linsenscherbe": 2
+          },
+          "bond": {
+            "ez_spinnerin": 2
+          },
+          "choices": [
+            {
+              "text": "Gern.",
+              "next": [
+                {
+                  "node": "freund",
+                  "requires_flags": [
+                    "ez_spinnerin_freund"
+                  ]
+                },
+                {
+                  "node": "hub"
+                }
+              ]
+            }
+          ]
+        },
+        "pfad": {
+          "text": "„Pfad des Fadens. Sequenz 5, Knotenmeister. Ich gehöre zu keinem Zirkel, und kein Zirkel gehört zu mir.“",
+          "choices": [
+            {
+              "text": "Verstehe.",
+              "next": "hub"
+            }
+          ]
+        },
+        "verrat": {
+          "text": "Das Rad ist leichter, als es aussieht. Der Pedell zahlt nicht viel und fragt nicht, woher.",
+          "bond": {
+            "ez_spinnerin": -2
+          },
+          "nerves": -5,
+          "choices": [
+            {
+              "text": "Weiter."
+            }
+          ]
+        },
+        "kampf": {
+          "text": "Das Rad ist leichter, als es aussieht. Der Pedell zahlt nicht viel und fragt nicht, woher.\n\nAgathe steht vor dir, ohne Rad, aber mit tausend grauen Fäden zwischen den Fingern. „Du hast mir das Rad genommen“, sagt sie ruhig. „Dann nehme ich mir deine Erinnerungen.“",
+          "bond": {
+            "ez_spinnerin": -3
+          },
+          "combat": "ez_spinnerin",
+          "choices": [
+            {
+              "text": "Kämpfen."
+            }
+          ]
+        },
+        "freund": {
+          "text": "Agathe spinnt weiter. „Deine Enden sind ordentlicher geworden. Weiter so.“",
+          "choices": [
+            {
+              "text": "Bis später."
+            }
+          ]
+        },
+        "feind": {
+          "text": "Agathe Garn dreht dir den Rücken zu. Kein Wort, kein Blick.",
+          "choices": [
+            {
+              "text": "Es wird Zeit, das zu klären.",
+              "next": "rache"
+            },
+            {
+              "text": "Gehen."
+            }
+          ]
+        },
+        "rache": {
+          "text": "Agathe steht vor dir, ohne Rad, aber mit tausend grauen Fäden zwischen den Fingern. „Du hast mir das Rad genommen“, sagt sie ruhig. „Dann nehme ich mir deine Erinnerungen.“",
+          "combat": "ez_spinnerin",
+          "choices": [
+            {
+              "text": "Kämpfen."
+            }
+          ]
+        }
+      }
+    },
+    "ez_baender": {
+      "start": [
+        {
+          "node": "freund",
+          "requires_flags": [
+            "ez_baender_freund"
+          ]
+        },
+        {
+          "node": "feind",
+          "requires_flags": [
+            "ez_baender_feind"
+          ]
+        },
+        {
+          "node": "hub",
+          "requires_flags": [
+            "ez_baender_getroffen"
+          ]
+        },
+        {
+          "node": "erst"
+        }
+      ],
+      "nodes": {
+        "erst": {
+          "text": "Am Kai stemmt ein Mann eine Kiste, die eigentlich zwei bräuchte. Um seine Unterarme sind Ketten gewickelt, nicht als Fessel, sondern wie Verband.\n\n„Wenn du gucken willst, trag mit.“",
+          "sets_flags": [
+            "ez_baender_getroffen"
+          ],
+          "choices": [
+            {
+              "text": "Mit anfassen.",
+              "next": "nett"
+            },
+            {
+              "text": "„Gegen Bezahlung vielleicht.“",
+              "next": "grob"
+            }
+          ]
+        },
+        "nett": {
+          "text": "Ihr tragt die Kiste zusammen auf den Kahn. Tobin nickt. „Krell. Tobin. Die Salzbrüder bezahlen mich für sowas, aber du hast es einfach gemacht.“",
+          "bond": {
+            "ez_baender": 1
+          },
+          "choices": [
+            {
+              "text": "Weiter.",
+              "next": "hub"
+            }
+          ]
+        },
+        "grob": {
+          "text": "Tobin stellt die Kiste ab. „Bezahlung. Das sagen alle aus Kettlegate. Bei uns hilft man erst und rechnet dann.“",
+          "bond": {
+            "ez_baender": -1
+          },
+          "choices": [
+            {
+              "text": "Weiter.",
+              "next": "hub"
+            }
+          ]
+        },
+        "hub": {
+          "text": "Tobin Krell wartet ab.",
+          "choices": [
+            {
+              "text": "Kann ich etwas für Sie tun?",
+              "next": "auftrag",
+              "hide_if_flags": [
+                "ez_baender_auftrag",
+                "ez_baender_freund",
+                "ez_baender_feind"
+              ]
+            },
+            {
+              "text": "Hier, 4× Salzkristall.",
+              "next": [
+                {
+                  "node": "dank2",
+                  "requires_flags": [
+                    "ez_baender_erledigt"
+                  ]
+                },
+                {
+                  "node": "dank"
+                }
+              ],
+              "requires_flags": [
+                "ez_baender_auftrag"
+              ],
+              "requires_items": [
+                "salzkristall"
+              ],
+              "hide_if_flags": [
+                "ez_baender_freund",
+                "ez_baender_feind"
+              ]
+            },
+            {
+              "text": "Was sind Sie, wenn ich fragen darf?",
+              "next": "pfad"
+            },
+            {
+              "text": "Ihn bei der Hafenwache als Schmuggler anzeigen.",
+              "next": [
+                {
+                  "node": "kampf",
+                  "requires_bond_max": {
+                    "ez_baender": -1
+                  }
+                },
+                {
+                  "node": "verrat"
+                }
+              ],
+              "hide_if_flags": [
+                "ez_baender_freund",
+                "ez_baender_feind"
+              ]
+            },
+            {
+              "text": "Bis später."
+            }
+          ]
+        },
+        "auftrag": {
+          "text": "„Die Salzbrüder brauchen Kristall aus dem Watt, und die Bojenglocken lassen keinen raus. Bring mir vier Salzkristalle, und ich sag den Brüdern, dass du was taugst.“",
+          "sets_flags": [
+            "ez_baender_auftrag"
+          ],
+          "choices": [
+            {
+              "text": "Mach ich.",
+              "next": "hub"
+            }
+          ]
+        },
+        "dank": {
+          "text": "Tobin wiegt die Kristalle in der Hand, als wären sie Münzen. „Vier. Ohne Murren.“ Er löst ein Glied von seiner Kette und gibt es dir. „Zeig das am Salzspeicher. Die Brüder lassen dich rein.“",
+          "takes_items": {
+            "salzkristall": 4
+          },
+          "bond": {
+            "ez_baender": 2
+          },
+          "gives_items": {
+            "sternschlacke": 1,
+            "tonikum": 2
+          },
+          "sets_flags": [
+            "ez_baender_erledigt"
+          ],
+          "choices": [
+            {
+              "text": "Danke.",
+              "next": [
+                {
+                  "node": "freund",
+                  "requires_flags": [
+                    "ez_baender_freund"
+                  ]
+                },
+                {
+                  "node": "hub"
+                }
+              ]
+            }
+          ]
+        },
+        "dank2": {
+          "text": "Tobin Krell nimmt es diesmal ohne große Worte. Aber der Blick ist ein anderer. „Du bleibst dran. Das merke ich mir.“",
+          "takes_items": {
+            "salzkristall": 4
+          },
+          "bond": {
+            "ez_baender": 2
+          },
+          "choices": [
+            {
+              "text": "Gern.",
+              "next": [
+                {
+                  "node": "freund",
+                  "requires_flags": [
+                    "ez_baender_freund"
+                  ]
+                },
+                {
+                  "node": "hub"
+                }
+              ]
+            }
+          ]
+        },
+        "pfad": {
+          "text": "„Pfad des Eisens. Sequenz 7, Klingenmeister. Ich gehöre zu keinem Zirkel, und kein Zirkel gehört zu mir.“",
+          "choices": [
+            {
+              "text": "Verstehe.",
+              "next": "hub"
+            }
+          ]
+        },
+        "verrat": {
+          "text": "Am Abend fehlt eine Kiste am Kai, und Tobin sitzt mit dem Rücken zur Wand und sieht jeden an, der vorbeigeht.",
+          "bond": {
+            "ez_baender": -2
+          },
+          "nerves": -5,
+          "choices": [
+            {
+              "text": "Weiter."
+            }
+          ]
+        },
+        "kampf": {
+          "text": "Am Abend fehlt eine Kiste am Kai, und Tobin sitzt mit dem Rücken zur Wand und sieht jeden an, der vorbeigeht.\n\nTobin wickelt die Ketten von seinen Armen. „Hafenwache. Ich weiß, wer geredet hat.“ Die Ketten klirren, als hätten sie Hunger.",
+          "bond": {
+            "ez_baender": -3
+          },
+          "combat": "ez_baender",
+          "choices": [
+            {
+              "text": "Kämpfen."
+            }
+          ]
+        },
+        "freund": {
+          "text": "Tobin hebt eine Hand voll Ketten zum Gruß. „Die Brüder reden gut von dir. Fast zu gut.“",
+          "choices": [
+            {
+              "text": "Bring mich zu den Salzbrüdern.",
+              "next": "zirkel",
+              "hide_if_flags": [
+                "treffen_salz"
+              ]
+            },
+            {
+              "text": "Bis später."
+            }
+          ]
+        },
+        "feind": {
+          "text": "Tobin Krell dreht dir den Rücken zu. Kein Wort, kein Blick.",
+          "choices": [
+            {
+              "text": "Es wird Zeit, das zu klären.",
+              "next": "rache"
+            },
+            {
+              "text": "Gehen."
+            }
+          ]
+        },
+        "rache": {
+          "text": "Tobin wickelt die Ketten von seinen Armen. „Hafenwache. Ich weiß, wer geredet hat.“ Die Ketten klirren, als hätten sie Hunger.",
+          "combat": "ez_baender",
+          "choices": [
+            {
+              "text": "Kämpfen."
+            }
+          ]
+        },
+        "zirkel": {
+          "text": "„Gern.“ Tobin Krell schreibt dir eine Adresse und eine Zeit auf die Hand. „Die Treffen sind kurz. Wenn sie rufen, sei da.“",
+          "sets_flags": [
+            "treffen_salz"
+          ],
+          "choices": [
+            {
+              "text": "Danke."
+            }
+          ]
+        }
+      }
+    },
+    "ez_maskenwirt": {
+      "start": [
+        {
+          "node": "freund",
+          "requires_flags": [
+            "ez_maskenwirt_freund"
+          ]
+        },
+        {
+          "node": "feind",
+          "requires_flags": [
+            "ez_maskenwirt_feind"
+          ]
+        },
+        {
+          "node": "hub",
+          "requires_flags": [
+            "ez_maskenwirt_getroffen"
+          ]
+        },
+        {
+          "node": "erst"
+        }
+      ],
+      "nodes": {
+        "erst": {
+          "text": "In einem Kellereingang am Salzmarkt lehnt ein Mann mit einer Halbmaske aus Porzellan. Die andere Hälfte seines Gesichts lächelt. Die Maske auch, aber anders.\n\n„Ein Gast! Wir haben geschlossen, aber für Gesuchte machen wir auf.“",
+          "sets_flags": [
+            "ez_maskenwirt_getroffen"
+          ],
+          "choices": [
+            {
+              "text": "„Was schenkt man hier aus?“",
+              "next": "nett"
+            },
+            {
+              "text": "„Nehmen Sie die Maske ab.“",
+              "next": "grob"
+            }
+          ]
+        },
+        "nett": {
+          "text": "„Gesichter“, sagt Ambrose. „Wer bei mir trinkt, geht mit einem anderen nach Hause. Für eine Nacht. Wexmoor braucht das.“",
+          "bond": {
+            "ez_maskenwirt": 1
+          },
+          "choices": [
+            {
+              "text": "Weiter.",
+              "next": "hub"
+            }
+          ]
+        },
+        "grob": {
+          "text": "Ambrose hebt die Maske an. Darunter ist dieselbe Maske. „Zufrieden?“",
+          "bond": {
+            "ez_maskenwirt": -1
+          },
+          "choices": [
+            {
+              "text": "Weiter.",
+              "next": "hub"
+            }
+          ]
+        },
+        "hub": {
+          "text": "Ambrose Fell wartet ab.",
+          "choices": [
+            {
+              "text": "Kann ich etwas für Sie tun?",
+              "next": "auftrag",
+              "hide_if_flags": [
+                "ez_maskenwirt_auftrag",
+                "ez_maskenwirt_freund",
+                "ez_maskenwirt_feind"
+              ]
+            },
+            {
+              "text": "Hier, 3× Torfasche.",
+              "next": [
+                {
+                  "node": "dank2",
+                  "requires_flags": [
+                    "ez_maskenwirt_erledigt"
+                  ]
+                },
+                {
+                  "node": "dank"
+                }
+              ],
+              "requires_flags": [
+                "ez_maskenwirt_auftrag"
+              ],
+              "requires_items": [
+                "torfasche"
+              ],
+              "hide_if_flags": [
+                "ez_maskenwirt_freund",
+                "ez_maskenwirt_feind"
+              ]
+            },
+            {
+              "text": "Was sind Sie, wenn ich fragen darf?",
+              "next": "pfad"
+            },
+            {
+              "text": "Ihn erpressen: Gesichter gegen Schweigen.",
+              "next": [
+                {
+                  "node": "kampf",
+                  "requires_bond_max": {
+                    "ez_maskenwirt": -1
+                  }
+                },
+                {
+                  "node": "verrat"
+                }
+              ],
+              "hide_if_flags": [
+                "ez_maskenwirt_freund",
+                "ez_maskenwirt_feind"
+              ]
+            },
+            {
+              "text": "Bis später."
+            }
+          ]
+        },
+        "auftrag": {
+          "text": "„Mir gehen die Gesichter aus. Bring mir drei Hände Torfasche aus dem Vergessmoor, daraus brenne ich neues Porzellan.“",
+          "sets_flags": [
+            "ez_maskenwirt_auftrag"
+          ],
+          "choices": [
+            {
+              "text": "Mach ich.",
+              "next": "hub"
+            }
+          ]
+        },
+        "dank": {
+          "text": "Ambrose rührt die Asche in Wachs und formt mit zwei Griffen ein Gesicht, das deinem sehr ähnlich sieht, nur freundlicher. „Ein Geschenk. Und ein Rat: Die Grauspäher sehen auf Gesichter, nicht auf Schuhe.“",
+          "takes_items": {
+            "torfasche": 3
+          },
+          "bond": {
+            "ez_maskenwirt": 2
+          },
+          "gives_items": {
+            "spiegelwachs": 1,
+            "riechsalz": 2
+          },
+          "sets_flags": [
+            "ez_maskenwirt_erledigt"
+          ],
+          "choices": [
+            {
+              "text": "Danke.",
+              "next": [
+                {
+                  "node": "freund",
+                  "requires_flags": [
+                    "ez_maskenwirt_freund"
+                  ]
+                },
+                {
+                  "node": "hub"
+                }
+              ]
+            }
+          ]
+        },
+        "dank2": {
+          "text": "Ambrose Fell nimmt es diesmal ohne große Worte. Aber der Blick ist ein anderer. „Du bleibst dran. Das merke ich mir.“",
+          "takes_items": {
+            "torfasche": 3
+          },
+          "bond": {
+            "ez_maskenwirt": 2
+          },
+          "choices": [
+            {
+              "text": "Gern.",
+              "next": [
+                {
+                  "node": "freund",
+                  "requires_flags": [
+                    "ez_maskenwirt_freund"
+                  ]
+                },
+                {
+                  "node": "hub"
+                }
+              ]
+            }
+          ]
+        },
+        "pfad": {
+          "text": "„Pfad der Maske. Sequenz 6, Zweitgesicht. Ich gehöre zu keinem Zirkel, und kein Zirkel gehört zu mir.“",
+          "choices": [
+            {
+              "text": "Verstehe.",
+              "next": "hub"
+            }
+          ]
+        },
+        "verrat": {
+          "text": "Ambrose zahlt, ohne zu zögern. Die Maske lächelt dabei. Das andere halbe Gesicht nicht.",
+          "bond": {
+            "ez_maskenwirt": -2
+          },
+          "nerves": -5,
+          "choices": [
+            {
+              "text": "Weiter."
+            }
+          ]
+        },
+        "kampf": {
+          "text": "Ambrose zahlt, ohne zu zögern. Die Maske lächelt dabei. Das andere halbe Gesicht nicht.\n\nAmbrose kommt aus dem Keller, und er hat dein Gesicht. „Du wolltest Schweigegeld. Das kostet. Ich hole mir dafür was Neues.“",
+          "bond": {
+            "ez_maskenwirt": -3
+          },
+          "combat": "ez_maskenwirt",
+          "choices": [
+            {
+              "text": "Kämpfen."
+            }
+          ]
+        },
+        "freund": {
+          "text": "Ambrose verbeugt sich. „Für dich ist der Keller immer offen. Mit jedem Gesicht.“",
+          "choices": [
+            {
+              "text": "Bis später."
+            }
+          ]
+        },
+        "feind": {
+          "text": "Ambrose Fell dreht dir den Rücken zu. Kein Wort, kein Blick.",
+          "choices": [
+            {
+              "text": "Es wird Zeit, das zu klären.",
+              "next": "rache"
+            },
+            {
+              "text": "Gehen."
+            }
+          ]
+        },
+        "rache": {
+          "text": "Ambrose kommt aus dem Keller, und er hat dein Gesicht. „Du wolltest Schweigegeld. Das kostet. Ich hole mir dafür was Neues.“",
+          "combat": "ez_maskenwirt",
+          "choices": [
+            {
+              "text": "Kämpfen."
+            }
+          ]
+        }
+      }
+    },
+    "ez_glockenfischer": {
+      "start": [
+        {
+          "node": "freund",
+          "requires_flags": [
+            "ez_glockenfischer_freund"
+          ]
+        },
+        {
+          "node": "feind",
+          "requires_flags": [
+            "ez_glockenfischer_feind"
+          ]
+        },
+        {
+          "node": "hub",
+          "requires_flags": [
+            "ez_glockenfischer_getroffen"
+          ]
+        },
+        {
+          "node": "erst"
+        }
+      ],
+      "nodes": {
+        "erst": {
+          "text": "Ganz am Ende des Stegs sitzt ein alter Fischer mit einem Hörrohr am Ohr, das ins Wasser hängt. Neben ihm eine kleine Glocke an einer Schnur.\n\n„Psst. Die Bojen reden.“",
+          "sets_flags": [
+            "ez_glockenfischer_getroffen"
+          ],
+          "choices": [
+            {
+              "text": "Sich hinsetzen und mithören.",
+              "next": "nett"
+            },
+            {
+              "text": "„Bojen reden nicht, alter Mann.“",
+              "next": "grob"
+            }
+          ]
+        },
+        "nett": {
+          "text": "Ihr hört zusammen. Nach einer Weile hörst du es auch: ganz tief unten, wie ein Herzschlag aus Bronze. Ole nickt zufrieden. „Du hast Ohren. Selten bei Leuten aus Kettlegate.“",
+          "bond": {
+            "ez_glockenfischer": 1
+          },
+          "choices": [
+            {
+              "text": "Weiter.",
+              "next": "hub"
+            }
+          ]
+        },
+        "grob": {
+          "text": "„Deine reden auch nicht“, sagt Ole. „Darum hörst du nichts.“",
+          "bond": {
+            "ez_glockenfischer": -1
+          },
+          "choices": [
+            {
+              "text": "Weiter.",
+              "next": "hub"
+            }
+          ]
+        },
+        "hub": {
+          "text": "Ole Tamsen wartet ab.",
+          "choices": [
+            {
+              "text": "Kann ich etwas für Sie tun?",
+              "next": "auftrag",
+              "hide_if_flags": [
+                "ez_glockenfischer_auftrag",
+                "ez_glockenfischer_freund",
+                "ez_glockenfischer_feind"
+              ]
+            },
+            {
+              "text": "Hier, 1× Schlickperle.",
+              "next": [
+                {
+                  "node": "dank2",
+                  "requires_flags": [
+                    "ez_glockenfischer_erledigt"
+                  ]
+                },
+                {
+                  "node": "dank"
+                }
+              ],
+              "requires_flags": [
+                "ez_glockenfischer_auftrag"
+              ],
+              "requires_items": [
+                "schlickperle"
+              ],
+              "hide_if_flags": [
+                "ez_glockenfischer_freund",
+                "ez_glockenfischer_feind"
+              ]
+            },
+            {
+              "text": "Was sind Sie, wenn ich fragen darf?",
+              "next": "pfad"
+            },
+            {
+              "text": "Seine Glocke ins Hafenbecken werfen.",
+              "next": [
+                {
+                  "node": "kampf",
+                  "requires_bond_max": {
+                    "ez_glockenfischer": -1
+                  }
+                },
+                {
+                  "node": "verrat"
+                }
+              ],
+              "hide_if_flags": [
+                "ez_glockenfischer_freund",
+                "ez_glockenfischer_feind"
+              ]
+            },
+            {
+              "text": "Bis später."
+            }
+          ]
+        },
+        "auftrag": {
+          "text": "„Draußen im Watt frisst ein Schlickaal Perlen, und in jeder Perle steckt ein Glockenschlag. Bring mir eine Schlickperle, dann weiß ich, was die Glockenmutter vorhat.“",
+          "sets_flags": [
+            "ez_glockenfischer_auftrag"
+          ],
+          "choices": [
+            {
+              "text": "Mach ich.",
+              "next": "hub"
+            }
+          ]
+        },
+        "dank": {
+          "text": "Ole hält die Perle ins Hörrohr und lauscht lange. „Sie zählt. Sie zählt die Ertrunkenen.“ Er gibt dir einen grauen Stein, der leise seufzt. „Für deine Ohren. Und sag den Salzbrüdern, Ole schickt dich.“",
+          "takes_items": {
+            "schlickperle": 1
+          },
+          "bond": {
+            "ez_glockenfischer": 2
+          },
+          "gives_items": {
+            "seufzerstein": 1,
+            "glockenerz": 1
+          },
+          "sets_flags": [
+            "ez_glockenfischer_erledigt"
+          ],
+          "choices": [
+            {
+              "text": "Danke.",
+              "next": [
+                {
+                  "node": "freund",
+                  "requires_flags": [
+                    "ez_glockenfischer_freund"
+                  ]
+                },
+                {
+                  "node": "hub"
+                }
+              ]
+            }
+          ]
+        },
+        "dank2": {
+          "text": "Ole Tamsen nimmt es diesmal ohne große Worte. Aber der Blick ist ein anderer. „Du bleibst dran. Das merke ich mir.“",
+          "takes_items": {
+            "schlickperle": 1
+          },
+          "bond": {
+            "ez_glockenfischer": 2
+          },
+          "choices": [
+            {
+              "text": "Gern.",
+              "next": [
+                {
+                  "node": "freund",
+                  "requires_flags": [
+                    "ez_glockenfischer_freund"
+                  ]
+                },
+                {
+                  "node": "hub"
+                }
+              ]
+            }
+          ]
+        },
+        "pfad": {
+          "text": "„Pfad des Echos. Sequenz 7, Seelenrufer. Ich gehöre zu keinem Zirkel, und kein Zirkel gehört zu mir.“",
+          "choices": [
+            {
+              "text": "Verstehe.",
+              "next": "hub"
+            }
+          ]
+        },
+        "verrat": {
+          "text": "Die Glocke versinkt mit einem letzten Ton. Ole sieht ihr nach und spricht kein Wort mehr.",
+          "bond": {
+            "ez_glockenfischer": -2
+          },
+          "nerves": -5,
+          "choices": [
+            {
+              "text": "Weiter."
+            }
+          ]
+        },
+        "kampf": {
+          "text": "Die Glocke versinkt mit einem letzten Ton. Ole sieht ihr nach und spricht kein Wort mehr.\n\nOle steht auf, und das Wasser unter dem Steg steht mit ihm auf. „Du hast sie ertränkt“, sagt er. „Jetzt hörst du, was sie gehört hat.“",
+          "bond": {
+            "ez_glockenfischer": -3
+          },
+          "combat": "ez_glockenfischer",
+          "choices": [
+            {
+              "text": "Kämpfen."
+            }
+          ]
+        },
+        "freund": {
+          "text": "Ole hält dir das Hörrohr hin. „Die Glockenmutter ist unruhig. Hör selbst.“",
+          "choices": [
+            {
+              "text": "Bring mich zu den Salzbrüdern.",
+              "next": "zirkel",
+              "hide_if_flags": [
+                "treffen_salz"
+              ]
+            },
+            {
+              "text": "Bis später."
+            }
+          ]
+        },
+        "feind": {
+          "text": "Ole Tamsen dreht dir den Rücken zu. Kein Wort, kein Blick.",
+          "choices": [
+            {
+              "text": "Es wird Zeit, das zu klären.",
+              "next": "rache"
+            },
+            {
+              "text": "Gehen."
+            }
+          ]
+        },
+        "rache": {
+          "text": "Ole steht auf, und das Wasser unter dem Steg steht mit ihm auf. „Du hast sie ertränkt“, sagt er. „Jetzt hörst du, was sie gehört hat.“",
+          "combat": "ez_glockenfischer",
+          "choices": [
+            {
+              "text": "Kämpfen."
+            }
+          ]
+        },
+        "zirkel": {
+          "text": "„Gern.“ Ole Tamsen schreibt dir eine Adresse und eine Zeit auf die Hand. „Die Treffen sind kurz. Wenn sie rufen, sei da.“",
+          "sets_flags": [
+            "treffen_salz"
+          ],
+          "choices": [
+            {
+              "text": "Danke."
+            }
+          ]
+        }
+      }
+    },
+    "ez_schleusendieb": {
+      "start": [
+        {
+          "node": "freund",
+          "requires_flags": [
+            "ez_schleusendieb_freund"
+          ]
+        },
+        {
+          "node": "feind",
+          "requires_flags": [
+            "ez_schleusendieb_feind"
+          ]
+        },
+        {
+          "node": "hub",
+          "requires_flags": [
+            "ez_schleusendieb_getroffen"
+          ]
+        },
+        {
+          "node": "erst"
+        }
+      ],
+      "nodes": {
+        "erst": {
+          "text": "Zwischen zwei Güterwagen sitzt ein dürrer Mann und probiert Dietriche an einem Vorhängeschloss, das an nichts hängt. Sein Schlüsselbund ist größer als sein Kopf.\n\n„Nicht hinsehen. Ich arbeite.“",
+          "sets_flags": [
+            "ez_schleusendieb_getroffen"
+          ],
+          "choices": [
+            {
+              "text": "„An was?“",
+              "next": "nett"
+            },
+            {
+              "text": "„Ich kenne Leute bei der Wache.“",
+              "next": "grob"
+            }
+          ]
+        },
+        "nett": {
+          "text": "„An dem Schloss, das die Schleusen aufhält. Wer es knackt, lässt das Moor in die Oberstadt.“ Fitz grinst. „Scherz. Halb. Ich bin Fitz.“",
+          "bond": {
+            "ez_schleusendieb": 1
+          },
+          "choices": [
+            {
+              "text": "Weiter.",
+              "next": "hub"
+            }
+          ]
+        },
+        "grob": {
+          "text": "„Ich auch“, sagt Fitz. „Die meisten davon schulden mir was.“",
+          "bond": {
+            "ez_schleusendieb": -1
+          },
+          "choices": [
+            {
+              "text": "Weiter.",
+              "next": "hub"
+            }
+          ]
+        },
+        "hub": {
+          "text": "Fitz Hallow wartet ab.",
+          "choices": [
+            {
+              "text": "Kann ich etwas für Sie tun?",
+              "next": "auftrag",
+              "hide_if_flags": [
+                "ez_schleusendieb_auftrag",
+                "ez_schleusendieb_freund",
+                "ez_schleusendieb_feind"
+              ]
+            },
+            {
+              "text": "Hier sind 25 Schilling für die Kaution.",
+              "next": [
+                {
+                  "node": "dank2",
+                  "requires_flags": [
+                    "ez_schleusendieb_erledigt"
+                  ]
+                },
+                {
+                  "node": "dank"
+                }
+              ],
+              "requires_flags": [
+                "ez_schleusendieb_auftrag"
+              ],
+              "requires_money": 25,
+              "hide_if_flags": [
+                "ez_schleusendieb_freund",
+                "ez_schleusendieb_feind"
+              ]
+            },
+            {
+              "text": "Was sind Sie, wenn ich fragen darf?",
+              "next": "pfad"
+            },
+            {
+              "text": "Ihn an die Streife am Güterbahnhof verpfeifen.",
+              "next": [
+                {
+                  "node": "kampf",
+                  "requires_bond_max": {
+                    "ez_schleusendieb": -1
+                  }
+                },
+                {
+                  "node": "verrat"
+                }
+              ],
+              "hide_if_flags": [
+                "ez_schleusendieb_freund",
+                "ez_schleusendieb_feind"
+              ]
+            },
+            {
+              "text": "Bis später."
+            }
+          ]
+        },
+        "auftrag": {
+          "text": "„Mein Bruder sitzt im Wachhaus, Kaution fünfundzwanzig Schilling. Ich hab achtzehn. Leih mir den Rest, und du hast einen Freund bei jeder Tür in Wexmoor.“",
+          "sets_flags": [
+            "ez_schleusendieb_auftrag"
+          ],
+          "choices": [
+            {
+              "text": "Mach ich.",
+              "next": "hub"
+            }
+          ]
+        },
+        "dank": {
+          "text": "Fitz zählt die Münzen zweimal, dann umarmt er dich kurz und hart. „Ich zahl's zurück. Nicht in Geld.“ Er legt dir eine Prise grauen Staub in die Hand. „Nachtfalter. Für Türen, die nicht aufgehen wollen. Und die Lichtlosen erfahren, dass du in Ordnung bist.“",
+          "takes_money": 25,
+          "bond": {
+            "ez_schleusendieb": 2
+          },
+          "gives_items": {
+            "nachtfalterstaub": 1
+          },
+          "sets_flags": [
+            "ez_schleusendieb_erledigt"
+          ],
+          "choices": [
+            {
+              "text": "Danke.",
+              "next": [
+                {
+                  "node": "freund",
+                  "requires_flags": [
+                    "ez_schleusendieb_freund"
+                  ]
+                },
+                {
+                  "node": "hub"
+                }
+              ]
+            }
+          ]
+        },
+        "dank2": {
+          "text": "Fitz Hallow nimmt es diesmal ohne große Worte. Aber der Blick ist ein anderer. „Du bleibst dran. Das merke ich mir.“",
+          "takes_money": 25,
+          "bond": {
+            "ez_schleusendieb": 2
+          },
+          "choices": [
+            {
+              "text": "Gern.",
+              "next": [
+                {
+                  "node": "freund",
+                  "requires_flags": [
+                    "ez_schleusendieb_freund"
+                  ]
+                },
+                {
+                  "node": "hub"
+                }
+              ]
+            }
+          ]
+        },
+        "pfad": {
+          "text": "„Pfad des Schlüssels. Sequenz 7, Schattengänger. Ich gehöre zu keinem Zirkel, und kein Zirkel gehört zu mir.“",
+          "choices": [
+            {
+              "text": "Verstehe.",
+              "next": "hub"
+            }
+          ]
+        },
+        "verrat": {
+          "text": "Die Streife holt Fitz noch am selben Abend. Als sie ihn abführen, sieht er sich nach dir um, als wüsste er es schon.",
+          "bond": {
+            "ez_schleusendieb": -2
+          },
+          "nerves": -5,
+          "choices": [
+            {
+              "text": "Weiter."
+            }
+          ]
+        },
+        "kampf": {
+          "text": "Die Streife holt Fitz noch am selben Abend. Als sie ihn abführen, sieht er sich nach dir um, als wüsste er es schon.\n\nFitz steht vor dir, aus dem Wachhaus raus, wie auch immer. „Die Tür war nicht abgeschlossen“, sagt er. „Keine ist das bei mir.“ Er zieht zwei Dietriche wie Messer.",
+          "bond": {
+            "ez_schleusendieb": -3
+          },
+          "combat": "ez_schleusendieb",
+          "choices": [
+            {
+              "text": "Kämpfen."
+            }
+          ]
+        },
+        "freund": {
+          "text": "Fitz tippt sich an die Mütze. „Brauchst du eine Tür? Ich kenne jede.“",
+          "choices": [
+            {
+              "text": "Bring mich zu den Lichtlosen.",
+              "next": "zirkel",
+              "hide_if_flags": [
+                "treffen_lichtlose"
+              ]
+            },
+            {
+              "text": "Bis später."
+            }
+          ]
+        },
+        "feind": {
+          "text": "Fitz Hallow dreht dir den Rücken zu. Kein Wort, kein Blick.",
+          "choices": [
+            {
+              "text": "Es wird Zeit, das zu klären.",
+              "next": "rache"
+            },
+            {
+              "text": "Gehen."
+            }
+          ]
+        },
+        "rache": {
+          "text": "Fitz steht vor dir, aus dem Wachhaus raus, wie auch immer. „Die Tür war nicht abgeschlossen“, sagt er. „Keine ist das bei mir.“ Er zieht zwei Dietriche wie Messer.",
+          "combat": "ez_schleusendieb",
+          "choices": [
+            {
+              "text": "Kämpfen."
+            }
+          ]
+        },
+        "zirkel": {
+          "text": "„Gern.“ Fitz Hallow schreibt dir eine Adresse und eine Zeit auf die Hand. „Die Treffen sind kurz. Wenn sie rufen, sei da.“",
+          "sets_flags": [
+            "treffen_lichtlose"
+          ],
+          "choices": [
+            {
+              "text": "Danke."
+            }
+          ]
+        }
+      }
     }
   },
   "police": {
@@ -5342,6 +7665,70 @@
       "name": "Akademie-Robe",
       "kind": "key",
       "desc": "Schwarze Robe mit Sternstickerei. In der Oberstadt halten dich die Grauspäher für einen Studenten. Anziehen am Kleiderhaken im Unterschlupf."
+    },
+    "torfasche": {
+      "name": "Torfasche",
+      "kind": "trophy",
+      "rarity": "gewoehnlich",
+      "price": 7,
+      "weight": 0.5,
+      "desc": "Graue Asche aus dem Leib eines Torfgängers. Sie riecht nach Herdfeuer, das seit hundert Jahren aus ist."
+    },
+    "fremdlicht_phiole": {
+      "name": "Phiole Fremdlicht",
+      "kind": "trophy",
+      "rarity": "ungewoehnlich",
+      "price": 18,
+      "weight": 0.5,
+      "desc": "Weißes Licht in einer Phiole. Es summt eine Melodie, die du aus Kettlegate kennst."
+    },
+    "reetfaser": {
+      "name": "Reetfaser",
+      "kind": "trophy",
+      "rarity": "gewoehnlich",
+      "price": 6,
+      "weight": 0.5,
+      "desc": "Zäh wie Draht und nass, egal wie lange sie trocknet. Aus ihr flechten die Moorleute Dächer und Fallen."
+    },
+    "schlickperle": {
+      "name": "Schlickperle",
+      "kind": "trophy",
+      "rarity": "selten",
+      "price": 30,
+      "weight": 0.2,
+      "desc": "Eine graue Perle aus dem Bauch eines Schlickaals. Hält man sie ans Ohr, hört man das Watt atmen."
+    },
+    "salzkristall": {
+      "name": "Salzkristall",
+      "kind": "trophy",
+      "rarity": "gewoehnlich",
+      "price": 9,
+      "weight": 0.5,
+      "desc": "Ein Kristall aus dem Salzwatt, scharfkantig und kalt. In ihm sind winzige Luftblasen eingeschlossen, wie Seufzer."
+    },
+    "moewenglas": {
+      "name": "Möwenglas",
+      "kind": "trophy",
+      "rarity": "ungewoehnlich",
+      "price": 20,
+      "weight": 0.5,
+      "desc": "Eine gläserne Feder. Wenn Licht hindurchfällt, wirft sie den Schatten eines Vogels, der nicht da ist."
+    },
+    "linsenscherbe": {
+      "name": "Linsenscherbe",
+      "kind": "trophy",
+      "rarity": "selten",
+      "price": 34,
+      "weight": 0.5,
+      "desc": "Geschliffenes Glas aus der Linse des Leuchtturms. Wer hindurchsieht, sieht die Dinge ein wenig heller, als sie sind."
+    },
+    "laternenoel_alt": {
+      "name": "Altes Laternenöl",
+      "kind": "trophy",
+      "rarity": "ungewoehnlich",
+      "price": 16,
+      "weight": 1,
+      "desc": "Öl aus den Laternen ertrunkener Fischer. Es brennt nur, wenn niemand hinsieht."
     }
   },
   "zones": {
@@ -5371,137 +7758,6 @@
       ],
       "loot_tables": {},
       "encounters": {
-        "vg_namenloser": {
-          "name": "Namenloser Torfstecher",
-          "sprite": "wild",
-          "sheet": "enemy_moorleiche",
-          "occult": true,
-          "hp": 44,
-          "intro": "Ein Mann im Torfkittel steht bis zur Hüfte im Moor. Er dreht sich um. Wo sein Gesicht sein sollte, ist nur glatter, nasser Torf.",
-          "attacks": [
-            {
-              "name": "Griff aus dem Schlamm",
-              "damage": 8,
-              "hits": [
-                1000
-              ]
-            },
-            {
-              "name": "Schlurfender Hieb",
-              "damage": 6,
-              "hits": [
-                800,
-                1150
-              ]
-            },
-            {
-              "name": "Moorwürgen",
-              "damage": 14,
-              "hits": [
-                1900
-              ]
-            }
-          ],
-          "on_win": {},
-          "win_text": "Der Namenlose sinkt zurück. Im Schlamm bleibt ein Spaten, in den Griff ist ein Name geritzt, den du nicht lesen kannst.",
-          "loot": {
-            "money": [
-              2,
-              6
-            ],
-            "drops": [
-              {
-                "item": "moorwasser",
-                "chance": 0.7
-              },
-              {
-                "item": "grabmoos",
-                "chance": 0.35
-              },
-              {
-                "item": "verband",
-                "chance": 0.15
-              },
-              {
-                "item": "moorperle",
-                "chance": 0.03
-              }
-            ]
-          },
-          "roam": {
-            "speed": 26,
-            "chase": 52,
-            "aggro": 72
-          },
-          "elite": {
-            "name": "Uralter Namenloser"
-          }
-        },
-        "vg_fremdlicht": {
-          "name": "Fremdes Licht",
-          "sprite": "wild",
-          "sheet": "enemy_irrlicht",
-          "occult": true,
-          "hp": 32,
-          "intro": "Ein Licht, das nicht grün ist wie die Irrlichter, sondern weiß. Es summt eine Melodie aus Kettlegate.",
-          "attacks": [
-            {
-              "name": "Flackern",
-              "damage": 4,
-              "hits": [
-                600,
-                900,
-                1200,
-                1500
-              ]
-            },
-            {
-              "name": "Blendstoß",
-              "damage": 10,
-              "hits": [
-                950
-              ]
-            },
-            {
-              "name": "Locken ... Brennen",
-              "damage": 13,
-              "hits": [
-                2000
-              ]
-            }
-          ],
-          "on_win": {},
-          "win_text": "Das Licht zerfällt. Für einen Moment hörst du eine Frau lachen, irgendwo weit weg in einem Theater.",
-          "loot": {
-            "money": [
-              1,
-              4
-            ],
-            "drops": [
-              {
-                "item": "irrlichtfunke",
-                "chance": 0.55
-              },
-              {
-                "item": "gluehwurmasche",
-                "chance": 0.3
-              },
-              {
-                "item": "riechsalz",
-                "chance": 0.12
-              }
-            ]
-          },
-          "roam": {
-            "speed": 34,
-            "chase": 66,
-            "aggro": 96
-          },
-          "elite": {
-            "name": "Gestohlenes Licht"
-          },
-          "tint": "#d8e0ff"
-        },
         "namenlose": {
           "name": "Die Namenlose",
           "sprite": "wild",
@@ -5573,6 +7829,187 @@
           },
           "boss": true,
           "fleeable": false
+        },
+        "torfgaenger": {
+          "name": "Torfgänger",
+          "sprite": "wild",
+          "sheet": "enemy_moorleiche",
+          "occult": true,
+          "hp": 44,
+          "intro": "Ein Mann im Torfkittel steht bis zur Hüfte im Moor. Er dreht sich um. Wo sein Gesicht sein sollte, ist nur glatter, nasser Torf.",
+          "attacks": [
+            {
+              "name": "Griff aus dem Schlamm",
+              "damage": 8,
+              "hits": [
+                1000
+              ]
+            },
+            {
+              "name": "Schlurfender Hieb",
+              "damage": 6,
+              "hits": [
+                800,
+                1150
+              ]
+            },
+            {
+              "name": "Moorwürgen",
+              "damage": 14,
+              "hits": [
+                1900
+              ]
+            }
+          ],
+          "on_win": {},
+          "win_text": "Der Namenlose sinkt zurück. Im Schlamm bleibt ein Spaten, in den Griff ist ein Name geritzt, den du nicht lesen kannst.",
+          "loot": {
+            "money": [
+              2,
+              6
+            ],
+            "drops": [
+              {
+                "item": "torfasche",
+                "chance": 0.7
+              },
+              {
+                "item": "moorwasser",
+                "chance": 0.3
+              },
+              {
+                "item": "silberstaub",
+                "chance": 0.15
+              }
+            ]
+          },
+          "roam": {
+            "speed": 26,
+            "chase": 52,
+            "aggro": 72
+          },
+          "elite": {
+            "name": "Uralter Torfgänger"
+          }
+        },
+        "weisslicht": {
+          "name": "Weißlicht",
+          "sprite": "wild",
+          "sheet": "enemy_irrlicht",
+          "occult": true,
+          "hp": 32,
+          "intro": "Ein Licht, das nicht grün ist wie die Irrlichter, sondern weiß. Es summt eine Melodie aus Kettlegate.",
+          "attacks": [
+            {
+              "name": "Flackern",
+              "damage": 4,
+              "hits": [
+                600,
+                900,
+                1200,
+                1500
+              ]
+            },
+            {
+              "name": "Blendstoß",
+              "damage": 10,
+              "hits": [
+                950
+              ]
+            },
+            {
+              "name": "Locken ... Brennen",
+              "damage": 13,
+              "hits": [
+                2000
+              ]
+            }
+          ],
+          "on_win": {},
+          "win_text": "Das Licht zerfällt. Für einen Moment hörst du eine Frau lachen, irgendwo weit weg in einem Theater.",
+          "loot": {
+            "money": [
+              1,
+              4
+            ],
+            "drops": [
+              {
+                "item": "fremdlicht_phiole",
+                "chance": 0.55
+              },
+              {
+                "item": "nebeltau",
+                "chance": 0.25
+              }
+            ]
+          },
+          "roam": {
+            "speed": 34,
+            "chase": 66,
+            "aggro": 96
+          },
+          "elite": {
+            "name": "Gestohlenes Weißlicht"
+          },
+          "tint": "#d8e0ff"
+        },
+        "reetmann": {
+          "name": "Reetmann",
+          "sprite": "wild",
+          "sheet": "enemy_wachsmann",
+          "occult": true,
+          "hp": 40,
+          "intro": "Ein Bündel Schilf richtet sich auf, mannshoch, mit Armen aus geflochtenem Reet. Wo ein Kopf sein sollte, nickt ein Rohrkolben.",
+          "attacks": [
+            {
+              "name": "Saugen",
+              "damage": 6,
+              "hits": [
+                850,
+                1250
+              ]
+            },
+            {
+              "name": "Peitschen",
+              "damage": 8,
+              "hits": [
+                1050
+              ]
+            },
+            {
+              "name": "Verschlingen",
+              "damage": 13,
+              "hits": [
+                1750
+              ]
+            }
+          ],
+          "on_win": {},
+          "win_text": "Der Reetmann fällt auseinander. Zwischen den Halmen liegt ein Knoten aus Haar, sorgfältig geflochten.",
+          "loot": {
+            "money": [
+              1,
+              5
+            ],
+            "drops": [
+              {
+                "item": "reetfaser",
+                "chance": 0.75
+              },
+              {
+                "item": "bitterwurz",
+                "chance": 0.3
+              }
+            ]
+          },
+          "roam": {
+            "speed": 20,
+            "chase": 46,
+            "aggro": 60
+          },
+          "elite": {
+            "name": "Reetkönigs Wächter"
+          }
         }
       }
     },
@@ -5602,204 +8039,6 @@
       ],
       "loot_tables": {},
       "encounters": {
-        "lt_glasmoewe": {
-          "name": "Glasmöwe",
-          "sprite": "wild",
-          "sheet": "enemy_glaskraehe",
-          "occult": true,
-          "hp": 48,
-          "intro": "Eine Möwe aus Glas schlägt mit den Flügeln. In ihr flackert ein gefangenes Licht, das gegen die Wände ihres Körpers schlägt.",
-          "attacks": [
-            {
-              "name": "Splitterflug",
-              "damage": 5,
-              "hits": [
-                650,
-                950,
-                1250
-              ]
-            },
-            {
-              "name": "Schnabelstoß",
-              "damage": 10,
-              "hits": [
-                1000
-              ]
-            },
-            {
-              "name": "Sturzflug ...",
-              "damage": 15,
-              "hits": [
-                1900
-              ]
-            }
-          ],
-          "on_win": {},
-          "win_text": "Die Möwe zerspringt. Das Licht in ihr fliegt nach oben, zum Feuer, als hätte es keine Wahl.",
-          "loot": {
-            "money": [
-              5,
-              12
-            ],
-            "drops": [
-              {
-                "item": "glasfeder",
-                "chance": 0.6
-              },
-              {
-                "item": "eulenfeder",
-                "chance": 0.2
-              },
-              {
-                "item": "sternglas",
-                "chance": 0.12
-              }
-            ]
-          },
-          "roam": {
-            "speed": 36,
-            "chase": 70,
-            "aggro": 110
-          },
-          "elite": {
-            "name": "Leuchtmöwe"
-          }
-        },
-        "lt_lichtbrut": {
-          "name": "Lichtbrut",
-          "sprite": "wild",
-          "sheet": "enemy_kraterbrut",
-          "occult": true,
-          "hp": 60,
-          "intro": "Etwas Weiches, Leuchtendes kriecht aus einer Nische voller Täfelchen. Es trägt fremde Gesichter wie Mäntel.",
-          "attacks": [
-            {
-              "name": "Klauen",
-              "damage": 7,
-              "hits": [
-                850,
-                1250
-              ]
-            },
-            {
-              "name": "Sprung",
-              "damage": 11,
-              "hits": [
-                1100
-              ]
-            },
-            {
-              "name": "Glimmen",
-              "damage": 5,
-              "hits": [
-                700,
-                1000,
-                1300
-              ]
-            },
-            {
-              "name": "Zerreißen ...",
-              "damage": 16,
-              "hits": [
-                2000
-              ]
-            }
-          ],
-          "on_win": {},
-          "win_text": "Die Brut zerfließt. Zurück bleibt ein Täfelchen, auf dem ein Name langsam verblasst.",
-          "loot": {
-            "money": [
-              6,
-              13
-            ],
-            "drops": [
-              {
-                "item": "brutschale",
-                "chance": 0.6
-              },
-              {
-                "item": "sternschlacke",
-                "chance": 0.15
-              },
-              {
-                "item": "tonikum",
-                "chance": 0.2
-              }
-            ]
-          },
-          "roam": {
-            "speed": 24,
-            "chase": 60,
-            "aggro": 80
-          },
-          "elite": {
-            "name": "Alte Lichtbrut"
-          }
-        },
-        "lt_linsensplitter": {
-          "name": "Linsensplitter",
-          "sprite": "wild",
-          "sheet": "enemy_splitterling",
-          "occult": true,
-          "hp": 54,
-          "intro": "Ein Scherbenhaufen aus geschliffenem Glas setzt sich zusammen. Jede Scherbe zeigt dein Gesicht, aber älter.",
-          "attacks": [
-            {
-              "name": "Scherbenregen",
-              "damage": 4,
-              "hits": [
-                600,
-                850,
-                1100,
-                1350
-              ]
-            },
-            {
-              "name": "Stich",
-              "damage": 10,
-              "hits": [
-                950
-              ]
-            },
-            {
-              "name": "Bersten ...",
-              "damage": 15,
-              "hits": [
-                1950
-              ]
-            }
-          ],
-          "on_win": {},
-          "win_text": "Die Scherben fallen auseinander und bleiben liegen. Eine zeigt noch immer dich, mit geschlossenen Augen.",
-          "loot": {
-            "money": [
-              5,
-              12
-            ],
-            "drops": [
-              {
-                "item": "sternglas",
-                "chance": 0.35
-              },
-              {
-                "item": "spiegelquecksilber",
-                "chance": 0.12
-              },
-              {
-                "item": "riechsalz",
-                "chance": 0.2
-              }
-            ]
-          },
-          "roam": {
-            "speed": 28,
-            "chase": 62,
-            "aggro": 84
-          },
-          "elite": {
-            "name": "Großer Linsensplitter"
-          }
-        },
         "leuchtfeuer": {
           "name": "Das Leuchtfeuer",
           "sprite": "wild",
@@ -5883,7 +8122,1093 @@
           },
           "boss": true,
           "fleeable": false
+        },
+        "glasmoewe": {
+          "name": "Glasmöwe",
+          "sprite": "wild",
+          "sheet": "enemy_glaskraehe",
+          "occult": true,
+          "hp": 48,
+          "intro": "Eine Möwe aus Glas schlägt mit den Flügeln. In ihr flackert ein gefangenes Licht, das gegen die Wände ihres Körpers schlägt.",
+          "attacks": [
+            {
+              "name": "Splitterflug",
+              "damage": 5,
+              "hits": [
+                650,
+                950,
+                1250
+              ]
+            },
+            {
+              "name": "Schnabelstoß",
+              "damage": 10,
+              "hits": [
+                1000
+              ]
+            },
+            {
+              "name": "Sturzflug ...",
+              "damage": 15,
+              "hits": [
+                1900
+              ]
+            }
+          ],
+          "on_win": {},
+          "win_text": "Die Möwe zerspringt. Das Licht in ihr fliegt nach oben, zum Feuer, als hätte es keine Wahl.",
+          "loot": {
+            "money": [
+              5,
+              12
+            ],
+            "drops": [
+              {
+                "item": "moewenglas",
+                "chance": 0.6
+              },
+              {
+                "item": "sternglas",
+                "chance": 0.12
+              }
+            ]
+          },
+          "roam": {
+            "speed": 36,
+            "chase": 70,
+            "aggro": 110
+          },
+          "elite": {
+            "name": "Leuchtmöwe"
+          }
+        },
+        "lichtbrut": {
+          "name": "Lichtbrut",
+          "sprite": "wild",
+          "sheet": "enemy_kraterbrut",
+          "occult": true,
+          "hp": 60,
+          "intro": "Etwas Weiches, Leuchtendes kriecht aus einer Nische voller Täfelchen. Es trägt fremde Gesichter wie Mäntel.",
+          "attacks": [
+            {
+              "name": "Klauen",
+              "damage": 7,
+              "hits": [
+                850,
+                1250
+              ]
+            },
+            {
+              "name": "Sprung",
+              "damage": 11,
+              "hits": [
+                1100
+              ]
+            },
+            {
+              "name": "Glimmen",
+              "damage": 5,
+              "hits": [
+                700,
+                1000,
+                1300
+              ]
+            },
+            {
+              "name": "Zerreißen ...",
+              "damage": 16,
+              "hits": [
+                2000
+              ]
+            }
+          ],
+          "on_win": {},
+          "win_text": "Die Brut zerfließt. Zurück bleibt ein Täfelchen, auf dem ein Name langsam verblasst.",
+          "loot": {
+            "money": [
+              6,
+              13
+            ],
+            "drops": [
+              {
+                "item": "laternenoel_alt",
+                "chance": 0.6
+              },
+              {
+                "item": "fremdlicht_phiole",
+                "chance": 0.3
+              },
+              {
+                "item": "geisteressenz",
+                "chance": 0.1
+              }
+            ]
+          },
+          "roam": {
+            "speed": 24,
+            "chase": 60,
+            "aggro": 80
+          },
+          "elite": {
+            "name": "Alte Lichtbrut"
+          }
+        },
+        "linsensplitter": {
+          "name": "Linsensplitter",
+          "sprite": "wild",
+          "sheet": "enemy_splitterling",
+          "occult": true,
+          "hp": 54,
+          "intro": "Ein Scherbenhaufen aus geschliffenem Glas setzt sich zusammen. Jede Scherbe zeigt dein Gesicht, aber älter.",
+          "attacks": [
+            {
+              "name": "Scherbenregen",
+              "damage": 4,
+              "hits": [
+                600,
+                850,
+                1100,
+                1350
+              ]
+            },
+            {
+              "name": "Stich",
+              "damage": 10,
+              "hits": [
+                950
+              ]
+            },
+            {
+              "name": "Bersten ...",
+              "damage": 15,
+              "hits": [
+                1950
+              ]
+            }
+          ],
+          "on_win": {},
+          "win_text": "Die Scherben fallen auseinander und bleiben liegen. Eine zeigt noch immer dich, mit geschlossenen Augen.",
+          "loot": {
+            "money": [
+              5,
+              12
+            ],
+            "drops": [
+              {
+                "item": "linsenscherbe",
+                "chance": 0.5
+              },
+              {
+                "item": "silberstaub",
+                "chance": 0.3
+              }
+            ]
+          },
+          "roam": {
+            "speed": 28,
+            "chase": 62,
+            "aggro": 84
+          },
+          "elite": {
+            "name": "Großer Linsensplitter"
+          }
         }
+      }
+    },
+    "wx_salzwatt": {
+      "name": "Das Salzwatt",
+      "tier": 3,
+      "travel": {
+        "name": "Das Salzwatt",
+        "desc": "Gefahr ☠☠☠. Bei Ebbe läuft man vom Bojenhafen hinaus aufs Watt. Bei Flut läuft das Watt hinter dir her.",
+        "requires_flags": [
+          "k2_known_hafen"
+        ],
+        "city": "wexmoor"
+      },
+      "lose_to": {
+        "map": "wx_kahn",
+        "spawn": "default"
+      },
+      "lose_money": 0.2,
+      "lose_text": "Ein Fischer zieht dich halb ertrunken ins Boot und setzt dich am Torfstich ab. Zunder flucht eine halbe Stunde und kocht dann Tee.",
+      "flee_text": "Du rennst zum Bohlenweg zurück. Hinter dir läutet eine Glocke, immer genau einen Schritt entfernt.",
+      "elite_drops": [
+        {
+          "item": "schlickperle",
+          "chance": 0.35
+        }
+      ],
+      "loot_tables": {},
+      "encounters": {
+        "salzgeist": {
+          "name": "Salzgeist",
+          "sprite": "wild",
+          "sheet": "enemy_gasgeist",
+          "occult": true,
+          "hp": 46,
+          "intro": "Eine Gestalt aus weißem Salz, die über das Watt treibt. Wo sie hintritt, trocknet der Schlick zu Kristallen. Sie weint, und ihre Tränen klirren.",
+          "attacks": [
+            {
+              "name": "Husten",
+              "damage": 4,
+              "hits": [
+                600,
+                850,
+                1100,
+                1350
+              ]
+            },
+            {
+              "name": "Umklammern",
+              "damage": 9,
+              "hits": [
+                1200
+              ]
+            },
+            {
+              "name": "Ausbruch",
+              "damage": 14,
+              "hits": [
+                1900
+              ]
+            }
+          ],
+          "on_win": {},
+          "win_text": "Der Salzgeist zerfällt zu einem kleinen Haufen. Darin glitzert etwas, das wie ein Ehering aussieht.",
+          "loot": {
+            "money": [
+              4,
+              9
+            ],
+            "drops": [
+              {
+                "item": "salzkristall",
+                "chance": 0.8
+              },
+              {
+                "item": "seufzerstein",
+                "chance": 0.08
+              }
+            ]
+          },
+          "roam": {
+            "speed": 18,
+            "chase": 50,
+            "aggro": 70
+          },
+          "elite": {
+            "name": "Salzweiße Witwe"
+          }
+        },
+        "bojenglocke": {
+          "name": "Bojenglocke",
+          "sprite": "wild",
+          "sheet": "enemy_glockenecho",
+          "occult": false,
+          "hp": 46,
+          "intro": "Eine Boje rollt über den Schlick auf dich zu, obwohl kein Wasser sie trägt. Die Glocke in ihr schlägt im Takt deines Herzens.",
+          "attacks": [
+            {
+              "name": "Skalpell",
+              "damage": 6,
+              "hits": [
+                700,
+                1000
+              ]
+            },
+            {
+              "name": "Aderlass",
+              "damage": 8,
+              "hits": [
+                1100
+              ]
+            },
+            {
+              "name": "Räuchern",
+              "damage": 4,
+              "hits": [
+                800,
+                1100,
+                1400
+              ]
+            },
+            {
+              "name": "Diagnose ...",
+              "damage": 12,
+              "hits": [
+                2000
+              ]
+            }
+          ],
+          "on_win": {},
+          "win_text": "Die Boje kippt und bleibt liegen. Die Glocke schlägt noch einmal, dann ist sie still.",
+          "loot": {
+            "money": [
+              5,
+              10
+            ],
+            "drops": [
+              {
+                "item": "salzkristall",
+                "chance": 0.5
+              },
+              {
+                "item": "glockenerz",
+                "chance": 0.08
+              },
+              {
+                "item": "silberstaub",
+                "chance": 0.2
+              }
+            ]
+          },
+          "roam": {
+            "speed": 26,
+            "chase": 58,
+            "aggro": 84
+          },
+          "elite": {
+            "name": "Sturmglocke"
+          }
+        },
+        "nebelfischer": {
+          "name": "Nebelfischer",
+          "sprite": "wild",
+          "sheet": "enemy_ertrunkener",
+          "occult": true,
+          "hp": 40,
+          "intro": "Ein Fischer im Ölzeug steht bis zu den Knien im Watt und wirft sein Netz nach dir aus. Seine Laterne brennt, obwohl sie voller Wasser ist.",
+          "attacks": [
+            {
+              "name": "Nagen",
+              "damage": 4,
+              "hits": [
+                600,
+                850,
+                1100
+              ]
+            },
+            {
+              "name": "Sprung",
+              "damage": 8,
+              "hits": [
+                950
+              ]
+            },
+            {
+              "name": "Seuchenbiss",
+              "damage": 13,
+              "hits": [
+                1800
+              ]
+            }
+          ],
+          "on_win": {},
+          "win_text": "Der Fischer sinkt in den Schlick. Seine Laterne bleibt stehen und brennt weiter.",
+          "loot": {
+            "money": [
+              4,
+              9
+            ],
+            "drops": [
+              {
+                "item": "laternenoel_alt",
+                "chance": 0.55
+              },
+              {
+                "item": "nebeltau",
+                "chance": 0.3
+              }
+            ]
+          },
+          "roam": {
+            "speed": 32,
+            "chase": 64,
+            "aggro": 80
+          },
+          "elite": {
+            "name": "Ertrunkener Kapitän"
+          }
+        },
+        "schlickaal": {
+          "name": "Schlickaal",
+          "sprite": "wild",
+          "sheet": "enemy_nebelaal",
+          "occult": false,
+          "hp": 42,
+          "intro": "Der Schlick vor dir wölbt sich. Ein Aal, so dick wie ein Mann, schießt heraus, das Maul voller Perlen statt Zähnen.",
+          "attacks": [
+            {
+              "name": "Skalpell",
+              "damage": 6,
+              "hits": [
+                700,
+                1000
+              ]
+            },
+            {
+              "name": "Aderlass",
+              "damage": 8,
+              "hits": [
+                1100
+              ]
+            },
+            {
+              "name": "Räuchern",
+              "damage": 4,
+              "hits": [
+                800,
+                1100,
+                1400
+              ]
+            },
+            {
+              "name": "Diagnose ...",
+              "damage": 12,
+              "hits": [
+                2000
+              ]
+            }
+          ],
+          "on_win": {},
+          "win_text": "Der Aal windet sich ein letztes Mal und erstarrt. In seinem Maul glänzt es grau.",
+          "loot": {
+            "money": [
+              5,
+              10
+            ],
+            "drops": [
+              {
+                "item": "schlickperle",
+                "chance": 0.4
+              },
+              {
+                "item": "salzkristall",
+                "chance": 0.3
+              }
+            ]
+          },
+          "roam": {
+            "speed": 26,
+            "chase": 58,
+            "aggro": 84
+          },
+          "elite": {
+            "name": "Alter Schlickaal"
+          }
+        },
+        "glockenmutter": {
+          "name": "Die Glockenmutter",
+          "sprite": "wild",
+          "sheet": "enemy_bronzeengel",
+          "occult": true,
+          "hp": 140,
+          "intro": "Draußen am Priel steht die größte Boje, die du je gesehen hast. Als die Flut steigt, öffnet sie sich wie ein Mantel. Darin ein Gesicht aus Bronze, das jede Glocke im Hafen gleichzeitig läuten lässt.\n\n„Wer hat meine Kinder gezählt?“",
+          "attacks": [
+            {
+              "name": "Schwanzknoten",
+              "damage": 8,
+              "hits": [
+                900,
+                1400
+              ]
+            },
+            {
+              "name": "Rattenflut",
+              "damage": 4,
+              "hits": [
+                600,
+                850,
+                1100,
+                1350,
+                1600
+              ]
+            },
+            {
+              "name": "Kronenbiss",
+              "damage": 10,
+              "hits": [
+                1100
+              ]
+            },
+            {
+              "name": "Pestgesang ...",
+              "damage": 16,
+              "hits": [
+                2200
+              ]
+            }
+          ],
+          "on_win": {},
+          "win_text": "Die Glockenmutter neigt sich langsam zur Seite und versinkt im Schlick. Über dem ganzen Bojenhafen schweigen die Glocken, zum ersten Mal seit Jahren.",
+          "loot": {
+            "money": [
+              45,
+              60
+            ],
+            "drops": [
+              {
+                "item": "schlickperle",
+                "chance": 1
+              },
+              {
+                "item": "glockenerz",
+                "chance": 0.6
+              },
+              {
+                "item": "geisteressenz",
+                "chance": 0.6
+              },
+              {
+                "item": "tonikum",
+                "chance": 0.6
+              }
+            ]
+          },
+          "roam": {
+            "speed": 0,
+            "chase": 56,
+            "aggro": 90
+          },
+          "boss": true,
+          "fleeable": false
+        }
+      }
+    }
+  },
+  "encounters": {
+    "ez_reetkoenig": {
+      "name": "Hagen Wisp, der Reetkönig",
+      "sprite": "npc:ez_reetkoenig",
+      "sheet": "enemy_rost_schmied",
+      "loner": true,
+      "occult": true,
+      "fleeable": false,
+      "hp": 90,
+      "intro": "Hagen stellt den Kessel ab. „Du hast es ihnen erzählt.“ Der Dampf aus dem Kessel wird grün und dick. „Dann zeig ich dir, was ich wirklich braue.“\n\nEinzelgänger · Pfad des Kessels, Sequenz 6: Destillateur",
+      "attacks": [
+        {
+          "name": "Erster Schlag",
+          "damage": 7,
+          "hits": [
+            800,
+            1200
+          ]
+        },
+        {
+          "name": "Sequenz 6",
+          "damage": 10,
+          "hits": [
+            1100
+          ]
+        },
+        {
+          "name": "Wut",
+          "action": "taunt",
+          "value": 8,
+          "text": "Hagen Wisp sieht dich an, und plötzlich weißt du wieder genau, was du getan hast. -8 Nerven."
+        },
+        {
+          "name": "Alles oder nichts",
+          "damage": 16,
+          "hits": [
+            1800
+          ]
+        }
+      ],
+      "on_win": {
+        "sets_flags": [
+          "ez_reetkoenig_besiegt"
+        ]
+      },
+      "lose_to": {
+        "map": "wx_kahn",
+        "spawn": "default"
+      },
+      "lose_text": "Du wachst im Kahn auf, Zunder tupft dir die Stirn. „Hagen Wisp? Mit dem legt man sich nicht an. Das weiß hier jedes Kind.“",
+      "win_text": "Hagen Wisp geht in die Knie. „Gut“, keucht es aus dem Dunkel. „Nimm, was du willst. Aber komm nie wieder.“\n\nDann ist da niemand mehr, nur das, was zurückblieb."
+    },
+    "ez_brennerin": {
+      "name": "Mara Docht, die Brennerin",
+      "sprite": "npc:ez_brennerin",
+      "sheet": "enemy_laternendieb",
+      "loner": true,
+      "occult": true,
+      "fleeable": false,
+      "hp": 85,
+      "intro": "Mara steht zwischen den verkohlten Resten ihrer Werkstatt. „Du warst das.“ Ihre Laterne flammt auf, weiß und blendend. „Dann sieh mal ins Licht.“\n\nEinzelgänger · Pfad der Laterne, Sequenz 7: Leuchtfeuer",
+      "attacks": [
+        {
+          "name": "Erster Schlag",
+          "damage": 8,
+          "hits": [
+            800,
+            1200
+          ]
+        },
+        {
+          "name": "Sequenz 7",
+          "damage": 11,
+          "hits": [
+            1100
+          ]
+        },
+        {
+          "name": "Wut",
+          "action": "taunt",
+          "value": 8,
+          "text": "Mara Docht sieht dich an, und plötzlich weißt du wieder genau, was du getan hast. -8 Nerven."
+        },
+        {
+          "name": "Alles oder nichts",
+          "damage": 16,
+          "hits": [
+            1800
+          ]
+        }
+      ],
+      "on_win": {
+        "sets_flags": [
+          "ez_brennerin_besiegt"
+        ]
+      },
+      "lose_to": {
+        "map": "wx_kahn",
+        "spawn": "default"
+      },
+      "lose_text": "Du wachst im Kahn auf, Zunder tupft dir die Stirn. „Mara Docht? Mit dem legt man sich nicht an. Das weiß hier jedes Kind.“",
+      "win_text": "Mara Docht geht in die Knie. „Gut“, keucht es aus dem Dunkel. „Nimm, was du willst. Aber komm nie wieder.“\n\nDann ist da niemand mehr, nur das, was zurückblieb."
+    },
+    "ez_spinnerin": {
+      "name": "Agathe Garn, die Spinnerin",
+      "sprite": "npc:ez_spinnerin",
+      "sheet": "enemy_miss_wren",
+      "loner": true,
+      "occult": true,
+      "fleeable": false,
+      "hp": 110,
+      "intro": "Agathe steht vor dir, ohne Rad, aber mit tausend grauen Fäden zwischen den Fingern. „Du hast mir das Rad genommen“, sagt sie ruhig. „Dann nehme ich mir deine Erinnerungen.“\n\nEinzelgänger · Pfad des Fadens, Sequenz 5: Knotenmeister",
+      "attacks": [
+        {
+          "name": "Erster Schlag",
+          "damage": 8,
+          "hits": [
+            800,
+            1200
+          ]
+        },
+        {
+          "name": "Sequenz 5",
+          "damage": 12,
+          "hits": [
+            1100
+          ]
+        },
+        {
+          "name": "Wut",
+          "action": "taunt",
+          "value": 8,
+          "text": "Agathe Garn sieht dich an, und plötzlich weißt du wieder genau, was du getan hast. -8 Nerven."
+        },
+        {
+          "name": "Alles oder nichts",
+          "damage": 18,
+          "hits": [
+            1800
+          ]
+        }
+      ],
+      "on_win": {
+        "sets_flags": [
+          "ez_spinnerin_besiegt"
+        ]
+      },
+      "lose_to": {
+        "map": "wx_kahn",
+        "spawn": "default"
+      },
+      "lose_text": "Du wachst im Kahn auf, Zunder tupft dir die Stirn. „Agathe Garn? Mit dem legt man sich nicht an. Das weiß hier jedes Kind.“",
+      "win_text": "Agathe Garn geht in die Knie. „Gut“, keucht es aus dem Dunkel. „Nimm, was du willst. Aber komm nie wieder.“\n\nDann ist da niemand mehr, nur das, was zurückblieb."
+    },
+    "ez_baender": {
+      "name": "Tobin Krell, der Bänder",
+      "sprite": "npc:ez_baender",
+      "sheet": "enemy_rost_schlaeger",
+      "loner": true,
+      "occult": true,
+      "fleeable": false,
+      "hp": 85,
+      "intro": "Tobin wickelt die Ketten von seinen Armen. „Hafenwache. Ich weiß, wer geredet hat.“ Die Ketten klirren, als hätten sie Hunger.\n\nEinzelgänger · Pfad des Eisens, Sequenz 7: Klingenmeister",
+      "attacks": [
+        {
+          "name": "Erster Schlag",
+          "damage": 8,
+          "hits": [
+            800,
+            1200
+          ]
+        },
+        {
+          "name": "Sequenz 7",
+          "damage": 11,
+          "hits": [
+            1100
+          ]
+        },
+        {
+          "name": "Wut",
+          "action": "taunt",
+          "value": 8,
+          "text": "Tobin Krell sieht dich an, und plötzlich weißt du wieder genau, was du getan hast. -8 Nerven."
+        },
+        {
+          "name": "Alles oder nichts",
+          "damage": 16,
+          "hits": [
+            1800
+          ]
+        }
+      ],
+      "on_win": {
+        "sets_flags": [
+          "ez_baender_besiegt"
+        ]
+      },
+      "lose_to": {
+        "map": "wx_kahn",
+        "spawn": "default"
+      },
+      "lose_text": "Du wachst im Kahn auf, Zunder tupft dir die Stirn. „Tobin Krell? Mit dem legt man sich nicht an. Das weiß hier jedes Kind.“",
+      "win_text": "Tobin Krell geht in die Knie. „Gut“, keucht es aus dem Dunkel. „Nimm, was du willst. Aber komm nie wieder.“\n\nDann ist da niemand mehr, nur das, was zurückblieb."
+    },
+    "ez_maskenwirt": {
+      "name": "Ambrose Fell, der Maskenwirt",
+      "sprite": "npc:ez_maskenwirt",
+      "sheet": "enemy_maskenspieler",
+      "loner": true,
+      "occult": true,
+      "fleeable": false,
+      "hp": 90,
+      "intro": "Ambrose kommt aus dem Keller, und er hat dein Gesicht. „Du wolltest Schweigegeld. Das kostet. Ich hole mir dafür was Neues.“\n\nEinzelgänger · Pfad der Maske, Sequenz 6: Zweitgesicht",
+      "attacks": [
+        {
+          "name": "Erster Schlag",
+          "damage": 7,
+          "hits": [
+            800,
+            1200
+          ]
+        },
+        {
+          "name": "Sequenz 6",
+          "damage": 10,
+          "hits": [
+            1100
+          ]
+        },
+        {
+          "name": "Wut",
+          "action": "taunt",
+          "value": 8,
+          "text": "Ambrose Fell sieht dich an, und plötzlich weißt du wieder genau, was du getan hast. -8 Nerven."
+        },
+        {
+          "name": "Alles oder nichts",
+          "damage": 16,
+          "hits": [
+            1800
+          ]
+        }
+      ],
+      "on_win": {
+        "sets_flags": [
+          "ez_maskenwirt_besiegt"
+        ]
+      },
+      "lose_to": {
+        "map": "wx_kahn",
+        "spawn": "default"
+      },
+      "lose_text": "Du wachst im Kahn auf, Zunder tupft dir die Stirn. „Ambrose Fell? Mit dem legt man sich nicht an. Das weiß hier jedes Kind.“",
+      "win_text": "Ambrose Fell geht in die Knie. „Gut“, keucht es aus dem Dunkel. „Nimm, was du willst. Aber komm nie wieder.“\n\nDann ist da niemand mehr, nur das, was zurückblieb."
+    },
+    "ez_glockenfischer": {
+      "name": "Ole Tamsen, der Glockenfischer",
+      "sprite": "npc:ez_glockenfischer",
+      "sheet": "enemy_kanalschmuggler",
+      "loner": true,
+      "occult": true,
+      "fleeable": false,
+      "hp": 85,
+      "intro": "Ole steht auf, und das Wasser unter dem Steg steht mit ihm auf. „Du hast sie ertränkt“, sagt er. „Jetzt hörst du, was sie gehört hat.“\n\nEinzelgänger · Pfad des Echos, Sequenz 7: Seelenrufer",
+      "attacks": [
+        {
+          "name": "Erster Schlag",
+          "damage": 8,
+          "hits": [
+            800,
+            1200
+          ]
+        },
+        {
+          "name": "Sequenz 7",
+          "damage": 11,
+          "hits": [
+            1100
+          ]
+        },
+        {
+          "name": "Wut",
+          "action": "taunt",
+          "value": 8,
+          "text": "Ole Tamsen sieht dich an, und plötzlich weißt du wieder genau, was du getan hast. -8 Nerven."
+        },
+        {
+          "name": "Alles oder nichts",
+          "damage": 16,
+          "hits": [
+            1800
+          ]
+        }
+      ],
+      "on_win": {
+        "sets_flags": [
+          "ez_glockenfischer_besiegt"
+        ]
+      },
+      "lose_to": {
+        "map": "wx_kahn",
+        "spawn": "default"
+      },
+      "lose_text": "Du wachst im Kahn auf, Zunder tupft dir die Stirn. „Ole Tamsen? Mit dem legt man sich nicht an. Das weiß hier jedes Kind.“",
+      "win_text": "Ole Tamsen geht in die Knie. „Gut“, keucht es aus dem Dunkel. „Nimm, was du willst. Aber komm nie wieder.“\n\nDann ist da niemand mehr, nur das, was zurückblieb."
+    },
+    "ez_schleusendieb": {
+      "name": "Fitz Hallow, der Schleusendieb",
+      "sprite": "npc:ez_schleusendieb",
+      "sheet": "enemy_nachtkraemer",
+      "loner": true,
+      "occult": true,
+      "fleeable": false,
+      "hp": 85,
+      "intro": "Fitz steht vor dir, aus dem Wachhaus raus, wie auch immer. „Die Tür war nicht abgeschlossen“, sagt er. „Keine ist das bei mir.“ Er zieht zwei Dietriche wie Messer.\n\nEinzelgänger · Pfad des Schlüssels, Sequenz 7: Schattengänger",
+      "attacks": [
+        {
+          "name": "Erster Schlag",
+          "damage": 8,
+          "hits": [
+            800,
+            1200
+          ]
+        },
+        {
+          "name": "Sequenz 7",
+          "damage": 11,
+          "hits": [
+            1100
+          ]
+        },
+        {
+          "name": "Wut",
+          "action": "taunt",
+          "value": 8,
+          "text": "Fitz Hallow sieht dich an, und plötzlich weißt du wieder genau, was du getan hast. -8 Nerven."
+        },
+        {
+          "name": "Alles oder nichts",
+          "damage": 16,
+          "hits": [
+            1800
+          ]
+        }
+      ],
+      "on_win": {
+        "sets_flags": [
+          "ez_schleusendieb_besiegt"
+        ]
+      },
+      "lose_to": {
+        "map": "wx_kahn",
+        "spawn": "default"
+      },
+      "lose_text": "Du wachst im Kahn auf, Zunder tupft dir die Stirn. „Fitz Hallow? Mit dem legt man sich nicht an. Das weiß hier jedes Kind.“",
+      "win_text": "Fitz Hallow geht in die Knie. „Gut“, keucht es aus dem Dunkel. „Nimm, was du willst. Aber komm nie wieder.“\n\nDann ist da niemand mehr, nur das, was zurückblieb."
+    }
+  },
+  "loot": {
+    "ez_reetkoenig": {
+      "money": [
+        15,
+        28
+      ],
+      "drops": [
+        {
+          "item": "salamanderoel",
+          "chance": 1
+        },
+        {
+          "item": "geisteressenz",
+          "chance": 0.5
+        }
+      ]
+    },
+    "ez_brennerin": {
+      "money": [
+        10,
+        20
+      ],
+      "drops": [
+        {
+          "item": "sternglas",
+          "chance": 1
+        },
+        {
+          "item": "geisteressenz",
+          "chance": 0.5
+        }
+      ]
+    },
+    "ez_spinnerin": {
+      "money": [
+        20,
+        36
+      ],
+      "drops": [
+        {
+          "item": "spindelknochen",
+          "chance": 1
+        },
+        {
+          "item": "geisteressenz",
+          "chance": 0.5
+        }
+      ]
+    },
+    "ez_baender": {
+      "money": [
+        10,
+        20
+      ],
+      "drops": [
+        {
+          "item": "sternschlacke",
+          "chance": 1
+        },
+        {
+          "item": "geisteressenz",
+          "chance": 0.5
+        }
+      ]
+    },
+    "ez_maskenwirt": {
+      "money": [
+        15,
+        28
+      ],
+      "drops": [
+        {
+          "item": "spiegelwachs",
+          "chance": 1
+        },
+        {
+          "item": "geisteressenz",
+          "chance": 0.5
+        }
+      ]
+    },
+    "ez_glockenfischer": {
+      "money": [
+        10,
+        20
+      ],
+      "drops": [
+        {
+          "item": "seufzerstein",
+          "chance": 1
+        },
+        {
+          "item": "geisteressenz",
+          "chance": 0.5
+        }
+      ]
+    },
+    "ez_schleusendieb": {
+      "money": [
+        10,
+        20
+      ],
+      "drops": [
+        {
+          "item": "nachtfalterstaub",
+          "chance": 1
+        },
+        {
+          "item": "geisteressenz",
+          "chance": 0.5
+        }
+      ]
+    }
+  },
+  "loners": {
+    "friend_at": 3,
+    "foe_at": -3,
+    "list": {
+      "ez_reetkoenig": {
+        "name": "Hagen Wisp",
+        "title": "der Reetkönig",
+        "pathway": "kessel",
+        "seq": 6,
+        "map": "wx_torfstich",
+        "circle": null
+      },
+      "ez_brennerin": {
+        "name": "Mara Docht",
+        "title": "die Brennerin",
+        "pathway": "laterne",
+        "seq": 7,
+        "map": "wx_torfstich",
+        "circle": "lichtlose"
+      },
+      "ez_spinnerin": {
+        "name": "Agathe Garn",
+        "title": "die Spinnerin",
+        "pathway": "faden",
+        "seq": 5,
+        "map": "wx_oberstadt",
+        "circle": null
+      },
+      "ez_baender": {
+        "name": "Tobin Krell",
+        "title": "der Bänder",
+        "pathway": "eisen",
+        "seq": 7,
+        "map": "wx_bojenhafen",
+        "circle": "salz"
+      },
+      "ez_maskenwirt": {
+        "name": "Ambrose Fell",
+        "title": "der Maskenwirt",
+        "pathway": "maske",
+        "seq": 6,
+        "map": "wx_salzmarkt",
+        "circle": null
+      },
+      "ez_glockenfischer": {
+        "name": "Ole Tamsen",
+        "title": "der Glockenfischer",
+        "pathway": "echo",
+        "seq": 7,
+        "map": "wx_bojenhafen",
+        "circle": "salz"
+      },
+      "ez_schleusendieb": {
+        "name": "Fitz Hallow",
+        "title": "der Schleusendieb",
+        "pathway": "schluessel",
+        "seq": 7,
+        "map": "wx_bahnhof",
+        "circle": "lichtlose"
       }
     }
   }

@@ -207,6 +207,12 @@ export class Ui {
       this.updateWanted();
       this.toast(`Fahndungsstufe ${level}${reason ? `: ${reason}` : ''}`, delta > 0 ? 'warn' : 'item');
     });
+    state.on('bond', ({ name, value, delta, status }) => {
+      const max = state.lonerRules()?.friend_at ?? 3;
+      if (status === 'freund') this.toast(`${name} ist jetzt dein Freund.`, 'item');
+      else if (status === 'feind') this.toast(`${name} ist jetzt dein Feind.`, 'warn');
+      else this.toast(`${name}: ${delta > 0 ? 'Vertrauen' : 'Misstrauen'} (${value > 0 ? '+' : ''}${value} von ±${max})`, delta > 0 ? 'item' : 'warn');
+    });
     this.digestAcc = {};
     state.on('digest', ({ delta, kind }) => {
       this.updateUnruhe();

@@ -12,6 +12,12 @@
       "requires_flags": [
         "briefed_04"
       ]
+    },
+    "orders": {
+      "wexmoor": [
+        "lichtlose",
+        "salz"
+      ]
     }
   },
   "circles": {
@@ -35,6 +41,22 @@
       "map": "treffen_russ",
       "short": "Raritäten",
       "invite": "Rußige Fingerabdrücke an deinem Ärmel, die vorher nicht da waren. Die Rußgesellschaft handelt jetzt, Kohlenschuppen hinter der Gießerei."
+    },
+    "lichtlose": {
+      "name": "Die Lichtlosen",
+      "member_flag": "treffen_lichtlose",
+      "map": "treffen_lichtlose",
+      "short": "Schwarzlicht",
+      "city": "wexmoor",
+      "invite": "In deiner Manteltasche ist plötzlich ein Streichholz, das schwarz brennt. Die Lichtlosen treffen sich, im Keller unter dem Torfstich."
+    },
+    "salz": {
+      "name": "Die Salzbrüder",
+      "member_flag": "treffen_salz",
+      "map": "treffen_salz",
+      "short": "Salzhandel",
+      "city": "wexmoor",
+      "invite": "Auf deinem Ärmel liegt eine Spur Salz in Form eines Pfeils. Die Salzbrüder öffnen ihren Speicher am Bojenhafen."
     }
   },
   "pins": {
@@ -72,6 +94,22 @@
       "name": "Die Rußgesellschaft",
       "desc": "Geheimes Treffen im Kohlenschuppen hinter der Gießerei. Raritäten aus den Gefahrengebieten. Nur solange es läuft.",
       "requires_gathering": "russ"
+    },
+    {
+      "map": "treffen_lichtlose",
+      "spawn": "default",
+      "name": "Die Lichtlosen",
+      "desc": "Geheimes Treffen im Keller unter dem Torfstich. Wer dort handelt, hasst das Lichtamt. Nur solange es läuft.",
+      "requires_gathering": "lichtlose",
+      "city": "wexmoor"
+    },
+    {
+      "map": "treffen_salz",
+      "spawn": "default",
+      "name": "Die Salzbrüder",
+      "desc": "Geheimes Treffen im Salzspeicher am Bojenhafen. Zutaten aus dem Watt und von See. Nur solange es läuft.",
+      "requires_gathering": "salz",
+      "city": "wexmoor"
     }
   ],
   "placements": [
@@ -144,6 +182,32 @@
         "hair": "#141210",
         "legs": "#1a1816",
         "scarf": "#8a3a20"
+      }
+    },
+    "zirkel_lichtlose": {
+      "name": "Schwester Asche",
+      "role": "Wortführerin der Lichtlosen",
+      "dialogue": "zirkel_lichtlose",
+      "palette": {
+        "coat": "#141214",
+        "hat": "#0a080a",
+        "skin": "#d8c8b8",
+        "hair": "#0a080a",
+        "legs": "#0a080a",
+        "scarf": "#3a2a40"
+      }
+    },
+    "zirkel_salzbruder": {
+      "name": "Bruder Kliff",
+      "role": "Speichermeister der Salzbrüder",
+      "dialogue": "zirkel_salzbruder",
+      "palette": {
+        "coat": "#e8e4dc",
+        "hat": "#a0a090",
+        "skin": "#c8a080",
+        "hair": "#e8e8e0",
+        "legs": "#5a5a60",
+        "scarf": "#305070"
       }
     }
   },
@@ -1012,6 +1076,130 @@
           "limit": 2
         }
       ]
+    },
+    "zirkel_lichtlose": {
+      "name": "Schwester Asche",
+      "title": "Die Lichtlosen: Schwarzlicht",
+      "gathering": "lichtlose",
+      "greeting": "Hier unten brennt nichts, was das Amt verkauft.",
+      "stock": [
+        {
+          "item": "fremdlicht_phiole",
+          "price": 30,
+          "chance": 0.8,
+          "limit": 2
+        },
+        {
+          "item": "laternenoel_alt",
+          "price": 26,
+          "chance": 0.7,
+          "limit": 2
+        },
+        {
+          "item": "sternglas",
+          "price": 55,
+          "chance": 0.4,
+          "limit": 1
+        },
+        {
+          "item": "nachtfalterstaub",
+          "price": 55,
+          "chance": 0.4,
+          "limit": 1
+        },
+        {
+          "item": "flammenkern",
+          "price": 100,
+          "chance": 0.25,
+          "limit": 1
+        },
+        {
+          "item": "dietrichsilber",
+          "price": 100,
+          "chance": 0.25,
+          "limit": 1
+        },
+        {
+          "item": "geisteressenz",
+          "price": 45,
+          "chance": 0.6,
+          "limit": 2
+        },
+        {
+          "item": "lichtperle",
+          "price": 180,
+          "chance": 0.1,
+          "limit": 1
+        },
+        {
+          "item": "schattenseide",
+          "price": 180,
+          "chance": 0.1,
+          "limit": 1
+        }
+      ]
+    },
+    "zirkel_salzbruder": {
+      "name": "Bruder Kliff",
+      "title": "Die Salzbrüder: Salzhandel",
+      "gathering": "salz",
+      "greeting": "Gewogen wird in Salz. Bezahlt in Schilling.",
+      "stock": [
+        {
+          "item": "salzkristall",
+          "price": 14,
+          "chance": 0.9,
+          "limit": 4
+        },
+        {
+          "item": "schlickperle",
+          "price": 50,
+          "chance": 0.5,
+          "limit": 1
+        },
+        {
+          "item": "sternschlacke",
+          "price": 55,
+          "chance": 0.4,
+          "limit": 1
+        },
+        {
+          "item": "seufzerstein",
+          "price": 55,
+          "chance": 0.4,
+          "limit": 1
+        },
+        {
+          "item": "ambossstaub",
+          "price": 100,
+          "chance": 0.25,
+          "limit": 1
+        },
+        {
+          "item": "glockenerz",
+          "price": 100,
+          "chance": 0.25,
+          "limit": 1
+        },
+        {
+          "item": "nebelherz",
+          "price": 160,
+          "chance": 0.15,
+          "limit": 1
+        },
+        {
+          "item": "schwertsplitter",
+          "price": 180,
+          "chance": 0.1,
+          "limit": 1
+        },
+        {
+          "item": "atemglas",
+          "price": 180,
+          "chance": 0.1,
+          "limit": 1
+        }
+      ]
     }
   },
   "dialogues": {
@@ -1263,6 +1451,72 @@
         },
         "closed": {
           "text": "Die Säcke sind fort, die Glut ist aus. Kohlen-Jem schultert eine Kiste. „Vorbei für heute. Wer zu lange bleibt, fällt auf.“",
+          "choices": [
+            {
+              "text": "Gut."
+            }
+          ]
+        }
+      }
+    },
+    "zirkel_lichtlose": {
+      "start": [
+        {
+          "node": "open",
+          "requires_gathering": "lichtlose"
+        },
+        {
+          "node": "closed"
+        }
+      ],
+      "nodes": {
+        "open": {
+          "text": "Im Keller brennt kein Licht. Trotzdem siehst du alles, als würde die Dunkelheit selbst leuchten. Eine Frau in Schwarz breitet Phiolen auf einem Tuch aus. „Das Amt verbrennt Menschen. Wir verkaufen nur, was übrig bleibt.“",
+          "choices": [
+            {
+              "text": "Ware ansehen.",
+              "shop": "zirkel_lichtlose"
+            },
+            {
+              "text": "Ich gehe."
+            }
+          ]
+        },
+        "closed": {
+          "text": "Der Keller ist leer, nur ein schwarzes Streichholz liegt auf dem Boden. Die Lichtlosen sind fort.",
+          "choices": [
+            {
+              "text": "Gut."
+            }
+          ]
+        }
+      }
+    },
+    "zirkel_salzbruder": {
+      "start": [
+        {
+          "node": "open",
+          "requires_gathering": "salz"
+        },
+        {
+          "node": "closed"
+        }
+      ],
+      "nodes": {
+        "open": {
+          "text": "Zwischen Salzbergen steht ein Mann in weißer Schürze an einer Waage. „Bruder Kliff. Die Brüder haben gesagt, dass du kommst. Wiegen wir.“",
+          "choices": [
+            {
+              "text": "Ware ansehen.",
+              "shop": "zirkel_salzbruder"
+            },
+            {
+              "text": "Ich gehe."
+            }
+          ]
+        },
+        "closed": {
+          "text": "Die Waage ist abgedeckt, die Salzberge sind festgetreten. „Nächste Flut“, sagt ein Lehrjunge und fegt dich hinaus.",
           "choices": [
             {
               "text": "Gut."
@@ -2183,6 +2437,210 @@
             7
           ],
           "alpha": 1,
+          "ysort": true
+        }
+      ]
+    },
+    {
+      "id": "treffen_lichtlose",
+      "name": "Keller der Lichtlosen",
+      "city": "wexmoor",
+      "tiles": "o_russ",
+      "ambient": {
+        "night": 0.86,
+        "fog": 0.2
+      },
+      "rows": [
+        "IIIIIIIIIIIIIIIIIIII",
+        "IIIIIIIIIIIIIIIIIIII",
+        "IwwwwwwwwwwwwwwwwwwI",
+        "IwwwwwwwwwwwwwwwwwwI",
+        "IwwwwwwwwwwwwwwwwwwI",
+        "IwwwwwwwwwwwwwwwwwwI",
+        "IwwwwwwwwwwwwwwwwwwI",
+        "IwwwwwwwwwwwwwwwwwwI",
+        "IwwwwwwwwwwwwwwwwwwI",
+        "IwwwwwwwwwwwwwwwwwwI",
+        "IIIIIIIIIIEEIIIIIIII"
+      ],
+      "spawns": {
+        "default": [
+          10,
+          9
+        ]
+      },
+      "lights": [
+        {
+          "tile": [
+            10,
+            5
+          ],
+          "radius": 50,
+          "intensity": 0.7,
+          "color": "#6050a0",
+          "glow": 0.25,
+          "flicker": 0.3
+        }
+      ],
+      "npcs": [
+        {
+          "id": "zirkel_lichtlose",
+          "tile": [
+            10,
+            3
+          ],
+          "facing": "down",
+          "reach": 40
+        }
+      ],
+      "interactables": [
+        {
+          "id": "out",
+          "kind": "travel",
+          "tile": [
+            10,
+            10
+          ],
+          "prompt": "Hinaus in die Moorstadt",
+          "marker": false,
+          "reach": 22
+        },
+        {
+          "id": "notiz",
+          "kind": "read",
+          "tile": [
+            4,
+            4
+          ],
+          "sprite": "file",
+          "prompt": "Den Zettel an der Wand lesen",
+          "marker": false,
+          "title": "Keller der Lichtlosen",
+          "text": "„Regeln: Kein Licht vom Amt. Keine Namen. Wer eine Laterne mitbringt, lässt sie draußen.“\n\nDarunter in kleinerer Schrift: „Mara bürgt für die Neuen. Fitz auch, aber Fitz bürgt für jeden.“"
+        }
+      ],
+      "decor": [
+        {
+          "sprite": "o_russ_props_counter",
+          "tile": [
+            10,
+            4
+          ],
+          "alpha": 1,
+          "solid": [
+            44,
+            8
+          ],
+          "offset": [
+            0,
+            8
+          ],
+          "origin": [
+            0.5,
+            1
+          ],
+          "ysort": true
+        }
+      ]
+    },
+    {
+      "id": "treffen_salz",
+      "name": "Salzspeicher der Salzbrüder",
+      "city": "wexmoor",
+      "tiles": "o_russ",
+      "ambient": {
+        "night": 0.86,
+        "fog": 0.2
+      },
+      "rows": [
+        "IIIIIIIIIIIIIIIIIIII",
+        "IIIIIIIIIIIIIIIIIIII",
+        "IwwwwwwwwwwwwwwwwwwI",
+        "IwwwwwwwwwwwwwwwwwwI",
+        "IwwwwwwwwwwwwwwwwwwI",
+        "IwwwwwwwwwwwwwwwwwwI",
+        "IwwwwwwwwwwwwwwwwwwI",
+        "IwwwwwwwwwwwwwwwwwwI",
+        "IwwwwwwwwwwwwwwwwwwI",
+        "IwwwwwwwwwwwwwwwwwwI",
+        "IIIIIIIIIIEEIIIIIIII"
+      ],
+      "spawns": {
+        "default": [
+          10,
+          9
+        ]
+      },
+      "lights": [
+        {
+          "tile": [
+            10,
+            5
+          ],
+          "radius": 50,
+          "intensity": 0.7,
+          "color": "#e0d8b0",
+          "glow": 0.25,
+          "flicker": 0.3
+        }
+      ],
+      "npcs": [
+        {
+          "id": "zirkel_salzbruder",
+          "tile": [
+            10,
+            3
+          ],
+          "facing": "down",
+          "reach": 40
+        }
+      ],
+      "interactables": [
+        {
+          "id": "out",
+          "kind": "travel",
+          "tile": [
+            10,
+            10
+          ],
+          "prompt": "Hinaus in die Moorstadt",
+          "marker": false,
+          "reach": 22
+        },
+        {
+          "id": "notiz",
+          "kind": "read",
+          "tile": [
+            4,
+            4
+          ],
+          "sprite": "file",
+          "prompt": "Den Zettel an der Wand lesen",
+          "marker": false,
+          "title": "Salzspeicher der Salzbrüder",
+          "text": "Eine Tafel mit Preisen in Salz statt Schilling. Ganz unten: „Wer im Watt eine Glocke läuten hört, kommt nicht wieder. Wer zweimal läuten hört, soll Ole fragen.“"
+        }
+      ],
+      "decor": [
+        {
+          "sprite": "o_russ_props_counter",
+          "tile": [
+            10,
+            4
+          ],
+          "alpha": 1,
+          "solid": [
+            44,
+            8
+          ],
+          "offset": [
+            0,
+            8
+          ],
+          "origin": [
+            0.5,
+            1
+          ],
           "ysort": true
         }
       ]
