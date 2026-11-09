@@ -1,7 +1,7 @@
 {
   "id": "haus_vey",
   "name": "Haus Vey in Ashgrove",
-  "tiles": "tavern",
+  "tiles": "j_haus_vey",
   "ambient": {
     "night": 0.84,
     "fog": 0.1
@@ -125,7 +125,8 @@
         "requires_quests_active": [
           "case_05"
         ]
-      }
+      },
+      "sprite": "npc:lilian_echo"
     },
     {
       "id": "box",
@@ -150,7 +151,8 @@
         "requires_quests_active": [
           "case_05"
         ]
-      }
+      },
+      "scene": "kinderzimmer"
     },
     {
       "id": "eater",
@@ -160,7 +162,7 @@
         15,
         9
       ],
-      "sprite": "apparition",
+      "sprite": "ow_stimmenfresser",
       "marker": false,
       "prompt": "Dem Flüstern im Schatten folgen",
       "visible_if": {
@@ -171,6 +173,246 @@
           "stimmenfresser_defeated"
         ]
       }
+    }
+  ],
+  "decor": [
+    {
+      "sprite": "j_haus_vey_props_fireplace",
+      "tile": [
+        7,
+        2
+      ],
+      "offset": [
+        8,
+        8
+      ],
+      "origin": [
+        0.5,
+        1
+      ],
+      "ysort": true,
+      "alpha": 1,
+      "solid": [
+        28,
+        8
+      ]
+    },
+    {
+      "sprite": "j_haus_vey_props_grandfather_clock",
+      "tile": [
+        9,
+        3
+      ],
+      "offset": [
+        0,
+        8
+      ],
+      "origin": [
+        0.5,
+        1
+      ],
+      "ysort": true,
+      "alpha": 1,
+      "solid": [
+        10,
+        6
+      ]
+    },
+    {
+      "sprite": "j_haus_vey_props_desk_open",
+      "tile": [
+        5,
+        4
+      ],
+      "offset": [
+        8,
+        0
+      ],
+      "ysort": true,
+      "alpha": 1
+    },
+    {
+      "sprite": "j_haus_vey_props_music_stand_2",
+      "tile": [
+        4,
+        3
+      ],
+      "offset": [
+        0,
+        8
+      ],
+      "origin": [
+        0.5,
+        1
+      ],
+      "ysort": true,
+      "alpha": 1
+    },
+    {
+      "sprite": "j_haus_vey_props_covered_sofa",
+      "tile": [
+        4,
+        7
+      ],
+      "offset": [
+        8,
+        0
+      ],
+      "ysort": true,
+      "alpha": 1,
+      "solid": [
+        28,
+        10
+      ]
+    },
+    {
+      "sprite": "j_haus_vey_props_covered_armchair",
+      "tile": [
+        7,
+        8
+      ],
+      "ysort": true,
+      "alpha": 1,
+      "solid": [
+        12,
+        10
+      ]
+    },
+    {
+      "sprite": "j_haus_vey_props_covered_piano",
+      "tile": [
+        2,
+        10
+      ],
+      "offset": [
+        8,
+        8
+      ],
+      "origin": [
+        0.5,
+        1
+      ],
+      "ysort": true,
+      "alpha": 1,
+      "solid": [
+        28,
+        12
+      ]
+    },
+    {
+      "sprite": "j_haus_vey_props_mirror_covered",
+      "tile": [
+        1,
+        6
+      ],
+      "offset": [
+        0,
+        8
+      ],
+      "origin": [
+        0.5,
+        1
+      ],
+      "ysort": true,
+      "alpha": 1
+    },
+    {
+      "sprite": "j_haus_vey_props_child_bed",
+      "tile": [
+        18,
+        4
+      ],
+      "offset": [
+        0,
+        8
+      ],
+      "origin": [
+        0.5,
+        1
+      ],
+      "ysort": true,
+      "alpha": 1
+    },
+    {
+      "sprite": "j_haus_vey_props_music_wall",
+      "tile": [
+        16,
+        1
+      ],
+      "offset": [
+        0,
+        8
+      ],
+      "origin": [
+        0.5,
+        1
+      ],
+      "alpha": 1,
+      "depth": 40
+    },
+    {
+      "sprite": "j_haus_vey_props_dollhouse",
+      "tile": [
+        15,
+        4
+      ],
+      "offset": [
+        0,
+        8
+      ],
+      "origin": [
+        0.5,
+        1
+      ],
+      "ysort": true,
+      "alpha": 1,
+      "solid": [
+        24,
+        10
+      ]
+    },
+    {
+      "sprite": "j_haus_vey_props_rocking_horse",
+      "tile": [
+        15,
+        10
+      ],
+      "ysort": true,
+      "alpha": 1
+    },
+    {
+      "sprite": "j_haus_vey_props_wardrobe",
+      "tile": [
+        20,
+        8
+      ],
+      "offset": [
+        0,
+        8
+      ],
+      "origin": [
+        0.5,
+        1
+      ],
+      "ysort": true,
+      "alpha": 1,
+      "solid": [
+        12,
+        6
+      ]
+    },
+    {
+      "sprite": "j_haus_vey_props_window_seat",
+      "tile": [
+        13,
+        11
+      ],
+      "offset": [
+        8,
+        0
+      ],
+      "ysort": true,
+      "alpha": 1
     }
   ]
 }
