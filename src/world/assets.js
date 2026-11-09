@@ -1016,7 +1016,8 @@ export function playCaseAnim(sprite, sheet, then) {
 
 /** 16x16-Icon unter public/sprites/items/<id>.png (tests/sprites.test.js prüft, dass es zu jedem Item eins gibt). */
 /** Items ohne eigenes Bild (noch): Platzhalter aus einem ähnlichen Item. */
-export const ITEM_ICON_ALIASES = {}; // Paket AA/AB haben seit AJ eigene Symbole
+export const ITEM_ICON_ALIASES = { // Paket AA/AB haben seit AJ eigene Symbole
+  k2a_tinte_abschrift: 'pfaendungsbrief', k2a_bittere_mittel_abschrift: 'pfaendungsbrief', k2a_hafenrecht_abschrift: 'pfaendungsbrief', k2a_letztes_bild_abschrift: 'pfaendungsbrief' }; // Paket AL
 /** Zutaten und Artefakte aus Paket AF: Platzhalter laut docs/story/sequenzen/grafikwuensche.md. */
 const AF_ICONS = { sq_offene_blende: 'glasauge', sq_gegenakte: 'papierfeder', sq_ruecklaufbecher: 'brutschale', sq_stegbolzen: 'glockenzunge',
   sq_fristpendel: 'taschenuhr', sq_torfsiegel: 'glasfibel' };
@@ -1083,6 +1084,7 @@ export function preloadSprites(scene) {
   if (!scene.cache.json.exists('manifestWexmoor4')) scene.load.json('manifestWexmoor4', `${BASE}manifest-wexmoor4.json`);
   if (!scene.cache.json.exists('manifestWexmoor5')) scene.load.json('manifestWexmoor5', `${BASE}manifest-wexmoor5.json`);
   if (!scene.cache.json.exists('manifestPlatzhalter')) scene.load.json('manifestPlatzhalter', `${BASE}manifest-platzhalter.json`);
+  if (!scene.cache.json.exists('manifestWexmoor7')) scene.load.json('manifestWexmoor7', `${BASE}manifest-wexmoor7.json`);
   if (!scene.cache.json.exists('manifestNebenquests')) scene.load.json('manifestNebenquests', `${BASE}manifest-nebenquests.json`);
   if (!scene.cache.json.exists('manifestSpieler2')) scene.load.json('manifestSpieler2', `${BASE}manifest-spieler2.json`);
   if (!scene.cache.json.exists('manifestWexmoor')) scene.load.json('manifestWexmoor', `${BASE}manifest-wexmoor.json`);
@@ -1126,7 +1128,7 @@ function battleAnimDef(scene, sheet, name) {
   return null;
 }
 /** Manifeste mit Kampf-Sheets; spätere Pakete nennen ihre Einträge nicht nach dem Sheet, darum auch über die Datei. */
-const BATTLE_MANIFESTS = ['manifest14b', 'manifestKampf', 'manifestKampf2', 'manifestReise', 'manifestWildnis', 'manifestGegner3', 'manifestFall5', 'manifestFall6', 'manifestFall78', 'manifestSequenzen2', 'manifestWexmoor2', 'manifestWexmoor3', 'manifestWexmoor4', 'manifestWexmoor5', 'manifestPlatzhalter', 'manifestSpieler2', 'manifestNebenquests'];
+const BATTLE_MANIFESTS = ['manifest14b', 'manifestKampf', 'manifestKampf2', 'manifestReise', 'manifestWildnis', 'manifestGegner3', 'manifestFall5', 'manifestFall6', 'manifestFall78', 'manifestSequenzen2', 'manifestWexmoor2', 'manifestWexmoor3', 'manifestWexmoor4', 'manifestWexmoor5', 'manifestPlatzhalter', 'manifestSpieler2', 'manifestNebenquests', 'manifestWexmoor7'];
 export function battleSheetDef(scene, sheet) {
   const file = BATTLE_SHEETS[sheet]?.[0];
   for (const m of BATTLE_MANIFESTS) {
@@ -1950,3 +1952,12 @@ UI_SHEETS.ahkoop = ['ui/AH_koop.png', 96, 48];
 UI_REGIONS.ahkoop = { beitreten: [0, 32, 16, 16], verlassen: [16, 32, 16, 16], tauschen: [32, 32, 16, 16], wiederbeleben: [48, 32, 16, 16], zusammen: [64, 32, 16, 16],
   p1_flag: [0, 0, 8, 8], p2_flag: [16, 0, 8, 8] };
 export const P2_CHOICE_URL = `${BASE}ui/AH_wahl.png`;
+
+// --- Paket AL: vier Wexmoorer Akten (data/packs/k2_akten) ---------------------------------------------
+/** Senn, Veit und Noll kämpfen vorerst mit vorhandenen Sheets (docs/story/k2_akten/grafikwuensche.md); Vane und die gemalte Frau aus AO. */
+Object.assign(ENCOUNTER_SHEETS, { k2a_tinte_kampf: 'enemy_kanalschmuggler', k2a_bittere_mittel_kampf: 'enemy_price', k2a_hafenrecht_kampf: 'enemy_kanalschmuggler' });
+BATTLE_SHEETS.enemy_wxn_maler = ['battle/enemy_wxn_maler.png', 48];
+BATTLE_SHEETS.enemy_gemalte_frau = ['battle/enemy_gemalte_frau.png', 64];
+ANIM_ALIASES.enemy_wxn_maler = { attack: 'brush_slash', special: 'paint_throw' };
+ANIM_ALIASES.enemy_gemalte_frau = { cast: 'emerge' };
+FADING_SHEETS.push('enemy_gemalte_frau');

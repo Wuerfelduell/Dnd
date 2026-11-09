@@ -9,9 +9,11 @@ import { GameState } from '../../../src/core/GameState.js';
 import { Combat } from '../../../src/core/Combat.js';
 const dir=dirname(fileURLToPath(import.meta.url)), root=resolve(dir,'../../..');
 const read=(p)=>JSON.parse(readFileSync(p,'utf8'));
-const filenames=readdirSync(dir).filter(f=>f.endsWith('.json'));
-const data=Object.fromEntries(filenames.map(f=>[f.slice(0,-5),read(join(dir,f))]));
-const base=loadContent(), pack={name:'k2_akten',...data};
+// Seit dem Einbau liegen die Daten in src/data/packs/k2_akten; der Bestand wird ohne dieses Paket geladen
+const pkgDir=join(root,'src/data/packs/k2_akten');
+const filenames=readdirSync(pkgDir).filter(f=>f.endsWith('.json'));
+const data=Object.fromEntries(filenames.map(f=>[f.slice(0,-5),read(join(pkgDir,f))]));
+const base=loadContent({without:['k2_akten']}), pack={name:'k2_akten',...data};
 const errors=[];const check=(ok,msg)=>{if(!ok)errors.push(msg)};
 const own=s=>typeof s==='string'&&s.startsWith('k2a_');
 const reserved=new Set(['wxn_apothekerin','wxn_telegrafist','wxn_hafenmeisterin','wxn_maler']);

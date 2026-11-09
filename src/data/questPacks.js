@@ -33,6 +33,15 @@ export function applyQuestPack(content, pack) {
   Object.assign(content.facts, cas.facts ?? {});
   Object.assign(content.clues, cas.clues ?? {});
   content.deductions = [...content.deductions, ...(cas.deductions ?? [])];
+  // Paket AL: Fall-Enden und Fallregister (Titel fürs Notizbuch)
+  for (const [id, e] of Object.entries(cas.endings ?? {})) {
+    if (content.endings[id]) throw new Error(`Paket überschreibt Ende ${id}`);
+    content.endings[id] = e;
+  }
+  for (const f of pack.faelle ?? []) {
+    if (content.cases.some((c) => c.id === f.id)) throw new Error(`Paket überschreibt Fall ${f.id}`);
+    content.cases = [...content.cases, { id: f.id, title: f.title }];
+  }
   // Neue Optionen vor die letzte (Abschieds-)Option des Startknotens, neue Knoten anhängen
   for (const [id, a] of Object.entries(extra)) {
     const d = content.dialogues[id];
