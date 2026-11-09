@@ -1,7 +1,7 @@
 import { DIGEST_LABELS } from '../core/Pathways.js';
 import { lootList, itemRarity, RARITY_NAMES, lootPreview, chanceWord } from '../core/Loot.js';
 import {
-  itemIconUrl, itemIcon32Url, pathwayEmblemUrl, pathwayCardUrl, COIN_URL, STATUS_ICONS, STATUS_ICONS_URL,
+  itemIconUrl, itemIcon32Url, pathwayEmblemUrl, pathwayCardUrl, COIN_URL, moneyIconUrl, UI_SKINS, STATUS_ICONS, STATUS_ICONS_URL,
   portraitUrl, portraitFor, mapMarkerOf, LOG_MARKERS, LOG_MARKERS_URL, SOURCE_ICONS, SPRITE_BASE,
   endingImageUrl, caseFileUrl, sceneUrl, wantedUrl, QUEST_UI_URL, QUEST_PINS, QUEST_BANNERS,
   TURN_PORTRAITS, TURN_PORTRAITS_URL, TURN_PORTRAIT_URLS, BESTIARY, bestiaryUrl,
@@ -137,10 +137,11 @@ const rarityGem = (r) => {
   return x === undefined ? '' : `<span class="raritygem" style="background-image:url(${RARITY_SHEET_URL});background-position:-${x / 8}em -${y / 8}em"></span>`;
 };
 const coin = '<img class="coin" src="' + COIN_URL + '" alt="" width="16" height="16" onerror="this.remove()">';
+const moneyIcon = (n) => `<img class="coin" src="${moneyIconUrl(n)}" alt="" width="16" height="16" onerror="this.remove()">`;
 /** Beute als Liste mit Icon, Anzahl und Seltenheit (Farbe). */
 const lootHtml = (loot, items) => {
   const rows = lootList(loot, items).map((e) => `<li class="loot-row rar-${e.rarity}">${itemIcon(e.id)}<strong>${esc(e.name)}</strong>${e.n > 1 ? ` ×${e.n}` : ''} <span class="rar">${rarityGem(e.rarity)}${RARITY_NAMES[e.rarity]}</span></li>`);
-  if (loot?.money) rows.unshift(`<li class="loot-row">${coin}<strong>${loot.money} Schilling</strong></li>`);
+  if (loot?.money) rows.unshift(`<li class="loot-row">${moneyIcon(loot.money)}<strong>${loot.money} Schilling</strong></li>`);
   return rows.length ? `<ul class="loot">${rows.join('')}</ul>` : '';
 };
 
@@ -176,6 +177,7 @@ export class Ui {
   constructor(root, state, { onNewGame, onContinue, hasSave }) {
     this.root = root;
     root.style.setProperty('--artui', `url(${new URL(ARTIFACT_UI_URL, document.baseURI).href})`);
+    for (const [v, path] of Object.entries(UI_SKINS)) root.style.setProperty(`--${v}`, `url(${new URL(SPRITE_BASE + path, document.baseURI).href})`);
     this.state = state;
     this.onNewGame = onNewGame;
     this.onContinue = onContinue;
@@ -373,7 +375,11 @@ export class Ui {
   }
 
   updateMoney() {
-    this.$('.money').innerHTML = `${coin}${this.state.money} Schilling`;
+    const m = this.state.money;
+    const changed = this.lastMoney !== undefined && this.lastMoney !== m;
+    this.lastMoney = m;
+    // Paket A: Münze dreht sich kurz, wenn sich das Geld ändert
+    this.$('.money').innerHTML = `${changed ? '<span class="coinspin"></span>' : coin}${m} Schilling`;
   }
 
   updateUnruhe() {
@@ -514,6 +520,9 @@ export class Ui {
     el.querySelector('[data-act=new]').onclick = this.titleNew;
     el.querySelector('[data-act=continue]')?.addEventListener('click', this.titleContinue);
   }
+
+  /** Dialogportrait als HTML (z. B. für Meldungen außerhalb von Gesprächen). */
+  portraitHtml(id, mood) { return portrait(id, mood); }
 
   showMessage(title, text, { footer = '', extra = '', face = '', onClose = null, scene = null, aside = '' } = {}) {
     if (onClose) this.afterClose = onClose;
@@ -891,7 +900,7 @@ export class Ui {
     const rows = p.items.map((e) => `<li class="loot-row rar-${e.rarity}" title="${esc(RARITY_NAMES[e.rarity])}">${itemIcon(e.id)}<span>${esc(e.name)}</span>
       <span class="rar">${e.first ? 'erster Sieg' : chanceWord(e.chance)}${e.elite ? ' · Elite' : ''}</span></li>`);
     const [lo, hi] = p.money;
-    if (hi) rows.unshift(`<li class="loot-row">${coin}<span>${lo === hi ? lo : `${lo}–${hi}`} Schilling</span></li>`);
+    if (hi) rows.unshift(`<li class="loot-row">${moneyIcon(hi)}<span>${lo === hi ? lo : `${lo}–${hi}`} Schilling</span></li>`);
     if (!rows.length) return '<p class="beast-noloot">Keine Beute bekannt.</p>';
     return `<h5>Beute${p.repeat ? '' : ' <span class="muted">(nur einmal)</span>'}</h5><ul class="loot beast-loot">${rows.join('')}</ul>`;
   }
@@ -1197,7 +1206,7 @@ export class Ui {
       ${m.buys ? `<div class="tabs"><button class="tab ${mode === 'buy' ? 'sel' : ''}" data-mode="buy">Kaufen</button><button class="tab ${mode === 'sell' ? 'sel' : ''}" data-mode="sell">Verkaufen</button> <span class="muted">Wechseln mit <span class="key">V</span></span></div>` : ''}
       <ul class="items shoplist">${rows}</ul>
       <div class="feedback">${feedback}</div>
-      <div class="actions"><span class="purse">${coin}${s.money} Schilling</span><button data-act="close">Gehen <span class="key">Esc</span></button></div>`, 'notebook shop');
+      <div class="actions"><span class="purse">${moneyIcon(s.money)}${s.money} Schilling</span><button data-act="close">Gehen <span class="key">Esc</span></button></div>`, 'notebook shop');
     el.querySelectorAll('[data-buy]').forEach((b) => { b.onclick = () => this.shopPick(Number(b.dataset.buy)); });
     el.querySelectorAll('[data-sell]').forEach((b) => { b.onclick = () => this.shopPick(Number(b.dataset.sell)); });
     el.querySelectorAll('[data-mode]').forEach((b) => { b.onclick = () => this.openShop(merchantId, b.dataset.mode); });
@@ -1333,7 +1342,7 @@ export class Ui {
       <div class="stage">${stage}</div>
       <ul class="alog">${a.log.map((t) => `<li>${t.startsWith('Zuschlag') ? auktionIcon('sold', 'sold', 1 / 12) : ''}${esc(t)}</li>`).join('')}</ul>
       ${feedback ? `<p class="feedback">${feedback}</p>` : ''}
-      <div class="actions"><span class="purse">${coin}${s.money} Schilling</span>
+      <div class="actions"><span class="purse">${moneyIcon(s.money)}${s.money} Schilling</span>
         ${acts.map((x, i) => `<button class="small" data-act-i="${i}" ${x.off ? 'disabled' : ''}><span class="key">${++n}</span> ${x.icon ? itemIcon(x.icon) : ''}${esc(x.label)}</button>`).join('')}
         <button data-act="leave">Gehen <span class="key">Esc</span></button></div>`, 'notebook auction');
     el.querySelectorAll('[data-act-i]').forEach((b) => { b.onclick = () => this.auctionPick(Number(b.dataset.actI)); });

@@ -327,7 +327,7 @@ export const CHARACTER_SHEETS = {
   npc_miriam: 'miriam',
   npc_fenwick: 'doctor', npc_agnes: 'widow', npc_pip: 'newsboy', npc_tobias: 'dockworker', npc_cultist: 'cultist',
   npc_maud: 'tavernkeeper', npc_silas: 'stranger', npc_ned: 'beggar', npc_quill: 'antique', npc_ambrose: 'priest',
-  npc_wick: 'lamplighter', npc_grimes: 'constable',
+  npc_wick: 'lamplighter', npc_grimes: 'constable', npc_elsbeth: 'widow', npc_price_wx: 'price',
   npc_nell: 'nell', npc_kittering: 'kittering', npc_gorse: 'gorse', npc_sabeth: 'sabeth', npc_grubenwirt: 'brock',
 };
 // Paket C ersetzt die älteren Lauf-Sheets und bringt Miss Pimm, Nate und die Figuren der neuen Orte.
@@ -342,6 +342,10 @@ export const PORTRAITS = {
   nell: 'A_nell_emotions.png', kittering: 'A_kittering_emotions.png', gorse: 'A_gorse_emotions.png',
   sabeth: 'A_sabeth_emotions.png', grubenwirt: 'A_brock_emotions.png',
   marlowe: '12_agatha_marlowe_police_emotions.png', player: '06_investigator_emotions.png',
+  // Kapitel 2: Price reist nach Wexmoor, Elsbeth Rowe trägt die Witwentracht aus dem Grundpaket.
+  price_wx: 'C_price_emotions.png', elsbeth: '06_widow_emotions.png',
+  // Streife der Fahndung (Festnahme): Constable aus dem Grundpaket.
+  streife: '06_constable_emotions.png',
 };
 /** Ausdruck (Dialogknoten-Feld "mood") → Spalte im Portrait-Streifen. */
 export const PORTRAIT_MOODS = { neutral: 0, suspicious: 1, skeptical: 1, shocked: 2, smile: 3, faint_smile: 3, approving: 2, angry: 3, bidding: 3 };
@@ -419,6 +423,16 @@ const MANIFEST_IDS = { player_drink: 'A_player_drink', control_cracks: 'A_11_con
 export const pathwayEmblemUrl = (pid, size = 32) => `${BASE}pathways/emblem_${pid}_${size}.png`;
 export const pathwayCardUrl = (pid) => `${BASE}pathways/card_${pid}.png`;
 export const COIN_URL = `${BASE}items/schilling.png`;
+/**
+ * Oberflächen-Bögen, die das UI als CSS-Variablen bekommt (--<name>: url(...)), siehe style.css.
+ * Pakete: Grundpaket (07_*, 14_*), A (Laden, Verdauung, Münze), B (Kampf-HUD), C (Notizbuch), F (Ausrüstung),
+ * G (Beute), I (Fraktionen, Routen).
+ */
+export const UI_SKINS = {
+  coinspin: 'ui/coin_spin.png',
+};
+/** Geld-Symbol nach Betrag: einzelne Münze, Stapel, Haufen, Geldbeutel (Paket A). */
+export const moneyIconUrl = (n) => `${BASE}items/${n >= 60 ? 'geldbeutel' : n >= 25 ? 'schilling_haufen' : n >= 10 ? 'schilling_stapel' : 'schilling'}.png`;
 
 // --- Kampf (Paket 14b) ----------------------------------------------------------
 // Animierte Seitenansichts-Sheets; Frames und Animationen stehen in manifest-14b.json.
@@ -703,10 +717,20 @@ export const PORTRAIT_SPECIAL = {
   maskenmacher: ['E_maskenmacher_maske.png', { maske: 0, ohne_maske: 1, beleidigt: 2, dankbar: 3 }],
   turmwaechter: ['E_turmwaechter_hoeren.png', { watte: 0, erschrocken: 1, erleichtert: 2, lauschen: 3 }],
 };
+/**
+ * Weitere Sonder-Streifen aus Paket C (manifest-welt.json), zusätzlich zu PORTRAIT_SPECIAL:
+ * Hester in Trance, Rook ohne Maske, Miriam mit leuchtenden Augen.
+ */
+export const PORTRAIT_EXTRA = {
+  hester: ['C_hester_states.png', { trance: 0, verwirrt: 1, erleichtert: 2, zaghaft: 3 }],
+  rook: ['C_rook_reveal.png', { maske: 0, laecheln_bricht: 1, kalt: 2, leuchtend: 3 }],
+  miriam: ['C_miriam_special.png', { gelassen: 0, amuesiert: 1, verachtung: 2, leuchtend: 3 }],
+};
 /** Portrait-URL und Spalte für Figur + Stimmung (oder null). */
 export function portraitFor(id, mood) {
-  const special = PORTRAIT_SPECIAL[id];
-  if (special && special[1][mood] !== undefined) return { url: `${BASE}portraits/${special[0]}`, col: special[1][mood] };
+  for (const special of [PORTRAIT_SPECIAL[id], PORTRAIT_EXTRA[id]]) {
+    if (special && special[1][mood] !== undefined) return { url: `${BASE}portraits/${special[0]}`, col: special[1][mood] };
+  }
   const url = portraitUrl(id);
   return url ? { url, col: PORTRAIT_MOODS[mood] ?? 0 } : null;
 }
@@ -1057,7 +1081,7 @@ export const HEADS = ['marlowe', 'holt', 'pimm', 'rook', 'price', 'barnaby', 'fe
   'hester', 'anselm', 'moll', 'agnes', 'pip', 'tobias', 'maud', 'silas', 'ned', 'quill', 'ambrose', 'wick', 'grimes', 'nell',
   'kittering', 'gorse', 'sabeth', 'brock', 'diva', 'souffleur', 'maskenmacher', 'uhrmacherin', 'turmwaechter', 'schlachtermeister',
   'lehrling', 'gaswerker', 'astronom', 'miriam', 'schleierbote', 'tresswell', 'vellacourt', 'kohlenjem', 'player', 'cultist', 'nate', 'unknown_man', 'unknown_woman', 'anonymous', 'crowd', 'spirit'];
-const HEAD_ALIASES = { grubenwirt: 'brock' };
+const HEAD_ALIASES = { grubenwirt: 'brock', price_wx: 'price' };
 export const headUrl = (id) => {
   const h = HEAD_ALIASES[id] ?? id;
   return HEADS.includes(h) ? `${BASE}ui/heads/${h}.png` : null;

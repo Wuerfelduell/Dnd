@@ -568,3 +568,8 @@ button.small.drop.armed { border-color: #c8826a; color: #ffb09a; }
 .tabs.subtabs .tab.sel .muted { color: var(--gold); }
 .tabs.subtabs .tab:disabled { opacity: 0.35; cursor: default; }
 .tabs.subtabs .subkeys { margin-left: auto; font-size: 0.75em; }
+
+/* Paket A: Münze dreht sich, wenn sich das Geld ändert (ui/coin_spin.png, 6 Frames à 8x8) */
+.coinspin { display: inline-block; width: 1em; height: 1em; margin-right: 0.3em; vertical-align: -0.15em; image-rendering: pixelated;
+  background: var(--coinspin) 0 0 / 600% 100% no-repeat; animation: coinspin 0.5s steps(6) 3; }
+@keyframes coinspin { to { background-position: -6em 0; } }
