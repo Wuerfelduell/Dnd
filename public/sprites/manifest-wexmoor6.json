@@ -1,0 +1,1558 @@
+{
+  "version": 1,
+  "batch": "wexmoor6",
+  "status": "exported; game integration separate",
+  "paletteMaxVisibleColors": 32,
+  "paletteSource": "tilesets/R_wexmoor_tiles.png",
+  "assets": [
+    {
+      "id": "tiles_floss",
+      "file": "tilesets/AN_flossfriedhof.png",
+      "kind": "tiles",
+      "transparent": false,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 8,
+      "rows": 8,
+      "tileNames": [
+        "wasser_1_0",
+        "wasser_1_1",
+        "wasser_2_0",
+        "wasser_2_1",
+        "wasser_3_0",
+        "wasser_3_1",
+        "wasser_4_0",
+        "wasser_4_1",
+        "planken_h_1",
+        "planken_v_1",
+        "planken_h_2",
+        "planken_v_2",
+        "planken_h_3",
+        "planken_v_3",
+        "moos_h",
+        "moos_v",
+        "rand_oben",
+        "rand_unten",
+        "rand_links",
+        "rand_rechts",
+        "ecke_ol",
+        "ecke_or",
+        "ecke_ul",
+        "ecke_ur",
+        "steg_h",
+        "steg_v",
+        "seilsteg_h",
+        "seilsteg_v",
+        "steg_kreuz",
+        "steg_t",
+        "seilsteg_1",
+        "seilsteg_2",
+        "pfahl_links",
+        "pfahl_rechts",
+        "pfahl_mitte",
+        "pfahl_doppel",
+        "reet_1",
+        "reet_2",
+        "reet_3",
+        "reet_4",
+        "moos_planken_0",
+        "moos_planken_1",
+        "moos_planken_2",
+        "moos_planken_3",
+        "moos_planken_4",
+        "moos_planken_5",
+        "moos_planken_6",
+        "moos_planken_7",
+        "nebel_1",
+        "nebel_2",
+        "nebel_3",
+        "nebel_4",
+        "nebel_reet_1",
+        "nebel_reet_2",
+        "nebel_reet_3",
+        "nebel_reet_4",
+        "seilecke_ol",
+        "seilecke_or",
+        "seilecke_ul",
+        "seilecke_ur",
+        "steg_ende_1",
+        "steg_ende_2",
+        "steg_ende_3",
+        "steg_ende_4"
+      ],
+      "animations": {
+        "wasser_1": {
+          "frames": [
+            0,
+            1
+          ],
+          "frameRate": 2,
+          "repeat": -1
+        },
+        "wasser_2": {
+          "frames": [
+            2,
+            3
+          ],
+          "frameRate": 2,
+          "repeat": -1
+        },
+        "wasser_3": {
+          "frames": [
+            4,
+            5
+          ],
+          "frameRate": 2,
+          "repeat": -1
+        },
+        "wasser_4": {
+          "frames": [
+            6,
+            7
+          ],
+          "frameRate": 2,
+          "repeat": -1
+        }
+      },
+      "gameId": "wx_flossfriedhof",
+      "width": 128,
+      "height": 128
+    },
+    {
+      "id": "tiles_licht",
+      "file": "tilesets/AN_lichtamt.png",
+      "kind": "tiles",
+      "transparent": false,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 8,
+      "rows": 8,
+      "tileNames": [
+        "stein_intarsie_1",
+        "stein_intarsie_2",
+        "stein_1",
+        "stein_2",
+        "stein_3",
+        "stein_4",
+        "stein_5",
+        "stein_6",
+        "mosaik_ol",
+        "mosaik_or",
+        "parkett_1",
+        "parkett_2",
+        "parkett_3",
+        "parkett_4",
+        "parkett_5",
+        "parkett_6",
+        "mosaik_ul",
+        "mosaik_ur",
+        "parkett_7",
+        "parkett_8",
+        "parkett_9",
+        "parkett_10",
+        "parkett_rand_1",
+        "parkett_rand_2",
+        "wand_oben_1",
+        "wand_oben_2",
+        "wand_flaeche_1",
+        "wand_flaeche_2",
+        "wand_links",
+        "wand_rechts",
+        "wand_ecke_1",
+        "wand_ecke_2",
+        "halterung_1",
+        "halterung_2",
+        "halterung_3",
+        "halterung_4",
+        "fenster_1",
+        "fenster_2",
+        "fenster_3",
+        "fenster_4",
+        "teppich_mitte_1",
+        "teppich_mitte_2",
+        "teppich_ende_1",
+        "teppich_ende_2",
+        "teppich_rand_1",
+        "teppich_rand_2",
+        "teppich_ecke_1",
+        "teppich_ecke_2",
+        "fenster_unten",
+        "fenster_oben",
+        "steinbord_1",
+        "steinbord_2",
+        "steinbord_3",
+        "steinbord_4",
+        "steinbord_5",
+        "steinbord_6",
+        "schwelle_1",
+        "schwelle_2",
+        "uebergang_1",
+        "uebergang_2",
+        "uebergang_3",
+        "uebergang_4",
+        "uebergang_5",
+        "uebergang_6"
+      ],
+      "animations": {},
+      "gameId": "wx_lichtamt",
+      "regions": {
+        "leuchtturm_mosaik": {
+          "x": 0,
+          "y": 16,
+          "width": 32,
+          "height": 32
+        }
+      },
+      "width": 128,
+      "height": 128
+    },
+    {
+      "id": "tiles_torf",
+      "file": "tilesets/AN_torfbrueche.png",
+      "kind": "tiles",
+      "transparent": false,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 8,
+      "rows": 8,
+      "tileNames": [
+        "torfboden_1",
+        "torfboden_2",
+        "torfboden_3",
+        "torfboden_4",
+        "feucht_1",
+        "feucht_2",
+        "feucht_3",
+        "feucht_4",
+        "wand_oben",
+        "wand_flaeche",
+        "wand_links",
+        "wand_rechts",
+        "wand_ecke_ol",
+        "wand_ecke_or",
+        "wand_ecke_ul",
+        "wand_ecke_ur",
+        "balken_v",
+        "balken_h",
+        "balken_kreuz",
+        "balken_diagonal",
+        "balken_fuss_1",
+        "balken_fuss_2",
+        "balken_stuetze",
+        "balken_decke",
+        "schutt_1",
+        "schutt_2",
+        "schutt_3",
+        "grubenwasser_0",
+        "grubenwasser_1",
+        "feuchtrand_1",
+        "feuchtrand_2",
+        "feuchtrand_3",
+        "gasnest_0",
+        "gasnest_1",
+        "gasnest_2",
+        "gasnest_3",
+        "gasboden_1",
+        "gasboden_2",
+        "gasboden_3",
+        "gasboden_4",
+        "schiene_h",
+        "schiene_v",
+        "schiene_ecke_1",
+        "schiene_ecke_2",
+        "schiene_kreuz",
+        "schiene_t",
+        "schiene_ende_1",
+        "schiene_ende_2",
+        "wurzel_1",
+        "wurzel_2",
+        "wurzel_3",
+        "wurzel_4",
+        "torf_schuh",
+        "torf_loeffel",
+        "torf_taefelchen",
+        "wurzel_5",
+        "unterkante_1",
+        "unterkante_2",
+        "uebergang_1",
+        "uebergang_2",
+        "uebergang_3",
+        "uebergang_4",
+        "wurzel_6",
+        "wurzel_7"
+      ],
+      "animations": {
+        "grubenwasser": {
+          "frames": [
+            27,
+            28
+          ],
+          "frameRate": 3,
+          "repeat": -1
+        },
+        "gasnest": {
+          "frames": [
+            32,
+            33,
+            34,
+            35
+          ],
+          "frameRate": 5,
+          "repeat": -1
+        }
+      },
+      "gameId": "wx_torfbrueche",
+      "width": 128,
+      "height": 128
+    },
+    {
+      "id": "props_floss",
+      "file": "props/AN_flossfriedhof.png",
+      "kind": "props",
+      "transparent": true,
+      "regions": {
+        "kreuz_1": {
+          "x": 0,
+          "y": 0,
+          "width": 16,
+          "height": 32
+        },
+        "kreuz_2": {
+          "x": 64,
+          "y": 0,
+          "width": 16,
+          "height": 32
+        },
+        "kreuz_3": {
+          "x": 128,
+          "y": 0,
+          "width": 16,
+          "height": 32
+        },
+        "torfgrabstein": {
+          "x": 192,
+          "y": 0,
+          "width": 32,
+          "height": 32
+        },
+        "namenstaefelchen": {
+          "x": 0,
+          "y": 48,
+          "width": 32,
+          "height": 32
+        },
+        "leichenhaus_floss": {
+          "x": 64,
+          "y": 48,
+          "width": 64,
+          "height": 48
+        },
+        "stakkahn": {
+          "x": 128,
+          "y": 48,
+          "width": 32,
+          "height": 32
+        },
+        "grablicht_0": {
+          "x": 192,
+          "y": 48,
+          "width": 16,
+          "height": 32
+        },
+        "grablicht_1": {
+          "x": 0,
+          "y": 96,
+          "width": 16,
+          "height": 32
+        },
+        "moorblumenkranz": {
+          "x": 64,
+          "y": 96,
+          "width": 32,
+          "height": 32
+        },
+        "leeres_grab": {
+          "x": 128,
+          "y": 96,
+          "width": 32,
+          "height": 32
+        },
+        "bojenglocke": {
+          "x": 192,
+          "y": 96,
+          "width": 16,
+          "height": 32
+        },
+        "kraehe_0": {
+          "x": 0,
+          "y": 144,
+          "width": 16,
+          "height": 32
+        },
+        "kraehe_1": {
+          "x": 64,
+          "y": 144,
+          "width": 16,
+          "height": 32
+        }
+      },
+      "regionAnimations": {
+        "grablicht": {
+          "regions": [
+            "grablicht_0",
+            "grablicht_1"
+          ],
+          "frameRate": 3,
+          "repeat": -1
+        },
+        "kraehe": {
+          "regions": [
+            "kraehe_0",
+            "kraehe_1"
+          ],
+          "frameRate": 3,
+          "repeat": -1
+        }
+      },
+      "gameId": "wx_flossfriedhof",
+      "width": 256,
+      "height": 192
+    },
+    {
+      "id": "props_licht",
+      "file": "props/AN_lichtamt.png",
+      "kind": "props",
+      "transparent": true,
+      "regions": {
+        "pfoertnerloge": {
+          "x": 0,
+          "y": 0,
+          "width": 32,
+          "height": 32
+        },
+        "aktenregal_1": {
+          "x": 64,
+          "y": 0,
+          "width": 32,
+          "height": 32
+        },
+        "aktenregal_2": {
+          "x": 128,
+          "y": 0,
+          "width": 32,
+          "height": 32
+        },
+        "aktenregal_3": {
+          "x": 192,
+          "y": 0,
+          "width": 32,
+          "height": 32
+        },
+        "rollleiter": {
+          "x": 0,
+          "y": 32,
+          "width": 16,
+          "height": 32
+        },
+        "kartentisch": {
+          "x": 64,
+          "y": 32,
+          "width": 64,
+          "height": 32
+        },
+        "brandt_schreibtisch": {
+          "x": 128,
+          "y": 32,
+          "width": 48,
+          "height": 32
+        },
+        "linsenmodell_0": {
+          "x": 192,
+          "y": 32,
+          "width": 32,
+          "height": 32
+        },
+        "linsenmodell_1": {
+          "x": 0,
+          "y": 64,
+          "width": 32,
+          "height": 32
+        },
+        "siegelpresse": {
+          "x": 64,
+          "y": 64,
+          "width": 16,
+          "height": 32
+        },
+        "rohrpost": {
+          "x": 128,
+          "y": 64,
+          "width": 32,
+          "height": 32
+        },
+        "wartebank": {
+          "x": 192,
+          "y": 64,
+          "width": 32,
+          "height": 32
+        },
+        "uhr": {
+          "x": 0,
+          "y": 96,
+          "width": 16,
+          "height": 32
+        },
+        "aktenstapel": {
+          "x": 64,
+          "y": 96,
+          "width": 16,
+          "height": 32
+        },
+        "papierkorb": {
+          "x": 128,
+          "y": 96,
+          "width": 16,
+          "height": 32
+        },
+        "wache_garderobe": {
+          "x": 192,
+          "y": 96,
+          "width": 32,
+          "height": 32
+        }
+      },
+      "regionAnimations": {
+        "linsenmodell": {
+          "regions": [
+            "linsenmodell_0",
+            "linsenmodell_1"
+          ],
+          "frameRate": 3,
+          "repeat": -1
+        }
+      },
+      "gameId": "wx_lichtamt",
+      "width": 256,
+      "height": 128
+    },
+    {
+      "id": "props_torf",
+      "file": "props/AN_torfbrueche.png",
+      "kind": "props",
+      "transparent": true,
+      "regions": {
+        "lore_umgekippt": {
+          "x": 0,
+          "y": 0,
+          "width": 32,
+          "height": 32
+        },
+        "lore_stehend": {
+          "x": 64,
+          "y": 0,
+          "width": 32,
+          "height": 32
+        },
+        "grubenlampe_0": {
+          "x": 128,
+          "y": 0,
+          "width": 16,
+          "height": 32
+        },
+        "grubenlampe_1": {
+          "x": 192,
+          "y": 0,
+          "width": 16,
+          "height": 32
+        },
+        "spitzhacke": {
+          "x": 0,
+          "y": 32,
+          "width": 32,
+          "height": 32
+        },
+        "holzleiter": {
+          "x": 64,
+          "y": 32,
+          "width": 16,
+          "height": 32
+        },
+        "seilwinde": {
+          "x": 128,
+          "y": 32,
+          "width": 32,
+          "height": 32
+        },
+        "kreidetafel": {
+          "x": 192,
+          "y": 32,
+          "width": 32,
+          "height": 32
+        },
+        "brautschleier_balken": {
+          "x": 0,
+          "y": 64,
+          "width": 32,
+          "height": 32
+        },
+        "torfaltar": {
+          "x": 64,
+          "y": 64,
+          "width": 64,
+          "height": 32
+        }
+      },
+      "regionAnimations": {
+        "grubenlampe": {
+          "regions": [
+            "grubenlampe_0",
+            "grubenlampe_1"
+          ],
+          "frameRate": 3,
+          "repeat": -1
+        }
+      },
+      "gameId": "wx_torfbrueche",
+      "width": 256,
+      "height": 96
+    },
+    {
+      "id": "bg_torfbrueche",
+      "file": "battle/bg_torfbrueche.png",
+      "kind": "background",
+      "transparent": false,
+      "frameWidth": 480,
+      "frameHeight": 270,
+      "columns": 1,
+      "rows": 1,
+      "groundStrip": {
+        "x": 0,
+        "y": 200,
+        "width": 480,
+        "height": 70
+      },
+      "width": 480,
+      "height": 270
+    },
+    {
+      "id": "bg_brautkammer",
+      "file": "battle/bg_brautkammer.png",
+      "kind": "background",
+      "transparent": false,
+      "frameWidth": 480,
+      "frameHeight": 270,
+      "columns": 1,
+      "rows": 1,
+      "groundStrip": {
+        "x": 0,
+        "y": 200,
+        "width": 480,
+        "height": 70
+      },
+      "width": 480,
+      "height": 270
+    },
+    {
+      "id": "enemy_torfleiche",
+      "file": "battle/enemy_torfleiche.png",
+      "kind": "battle",
+      "transparent": true,
+      "gameId": "torfleiche",
+      "facing": "left",
+      "heldRows": [
+        1,
+        2
+      ],
+      "windupRows": [
+        1,
+        2
+      ],
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 6,
+      "rows": 5,
+      "baseline": 62,
+      "occupiedCounts": [
+        4,
+        6,
+        6,
+        3,
+        6
+      ],
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 5,
+          "repeat": -1
+        },
+        "attack_a": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "attack_b": {
+          "frames": [
+            12,
+            13,
+            14,
+            15,
+            16,
+            17
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            18,
+            19,
+            20
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            24,
+            25,
+            26,
+            27,
+            28,
+            29
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      },
+      "width": 384,
+      "height": 320
+    },
+    {
+      "id": "F_ow_torfleiche",
+      "file": "characters/F_ow_torfleiche.png",
+      "kind": "walk",
+      "transparent": true,
+      "gameId": "torfleiche",
+      "facing": "down-left",
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 1,
+      "baseline": 30,
+      "occupiedCounts": [
+        4
+      ],
+      "animations": {
+        "move": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        }
+      },
+      "width": 64,
+      "height": 32
+    },
+    {
+      "id": "bestiary_torfleiche",
+      "file": "ui/bestiary/AN_torfleiche.png",
+      "kind": "bestiary",
+      "transparent": false,
+      "gameId": "torfleiche",
+      "frameWidth": 96,
+      "frameHeight": 128,
+      "columns": 1,
+      "rows": 1,
+      "width": 96,
+      "height": 128
+    },
+    {
+      "id": "enemy_grubenlicht",
+      "file": "battle/enemy_grubenlicht.png",
+      "kind": "battle",
+      "transparent": true,
+      "gameId": "grubenlicht",
+      "facing": "left",
+      "heldRows": [
+        1,
+        2
+      ],
+      "windupRows": [
+        1,
+        2
+      ],
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 6,
+      "rows": 5,
+      "baseline": 62,
+      "occupiedCounts": [
+        4,
+        6,
+        6,
+        3,
+        6
+      ],
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 5,
+          "repeat": -1
+        },
+        "attack_a": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "attack_b": {
+          "frames": [
+            12,
+            13,
+            14,
+            15,
+            16,
+            17
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            18,
+            19,
+            20
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            24,
+            25,
+            26,
+            27,
+            28,
+            29
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      },
+      "width": 384,
+      "height": 320
+    },
+    {
+      "id": "F_ow_grubenlicht",
+      "file": "characters/F_ow_grubenlicht.png",
+      "kind": "walk",
+      "transparent": true,
+      "gameId": "grubenlicht",
+      "facing": "down-left",
+      "frameWidth": 32,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 1,
+      "baseline": 30,
+      "occupiedCounts": [
+        4
+      ],
+      "animations": {
+        "move": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        }
+      },
+      "width": 128,
+      "height": 32
+    },
+    {
+      "id": "bestiary_grubenlicht",
+      "file": "ui/bestiary/AN_grubenlicht.png",
+      "kind": "bestiary",
+      "transparent": false,
+      "gameId": "grubenlicht",
+      "frameWidth": 96,
+      "frameHeight": 128,
+      "columns": 1,
+      "rows": 1,
+      "width": 96,
+      "height": 128
+    },
+    {
+      "id": "enemy_torfwurm",
+      "file": "battle/enemy_torfwurm.png",
+      "kind": "battle",
+      "transparent": true,
+      "gameId": "torfwurm",
+      "facing": "left",
+      "heldRows": [
+        1,
+        2
+      ],
+      "windupRows": [
+        1,
+        2
+      ],
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 6,
+      "rows": 5,
+      "baseline": 62,
+      "occupiedCounts": [
+        4,
+        6,
+        6,
+        3,
+        6
+      ],
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 5,
+          "repeat": -1
+        },
+        "attack_a": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "attack_b": {
+          "frames": [
+            12,
+            13,
+            14,
+            15,
+            16,
+            17
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            18,
+            19,
+            20
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            24,
+            25,
+            26,
+            27,
+            28,
+            29
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      },
+      "width": 384,
+      "height": 320
+    },
+    {
+      "id": "F_ow_torfwurm",
+      "file": "characters/F_ow_torfwurm.png",
+      "kind": "walk",
+      "transparent": true,
+      "gameId": "torfwurm",
+      "facing": "down-left",
+      "frameWidth": 32,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 1,
+      "baseline": 30,
+      "occupiedCounts": [
+        4
+      ],
+      "animations": {
+        "move": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        }
+      },
+      "width": 128,
+      "height": 32
+    },
+    {
+      "id": "bestiary_torfwurm",
+      "file": "ui/bestiary/AN_torfwurm.png",
+      "kind": "bestiary",
+      "transparent": false,
+      "gameId": "torfwurm",
+      "frameWidth": 96,
+      "frameHeight": 128,
+      "columns": 1,
+      "rows": 1,
+      "width": 96,
+      "height": 128
+    },
+    {
+      "id": "enemy_schlickhund",
+      "file": "battle/enemy_schlickhund.png",
+      "kind": "battle",
+      "transparent": true,
+      "gameId": "schlickhund",
+      "facing": "left",
+      "heldRows": [
+        1,
+        2
+      ],
+      "windupRows": [
+        1,
+        2
+      ],
+      "frameWidth": 48,
+      "frameHeight": 48,
+      "columns": 6,
+      "rows": 5,
+      "baseline": 46,
+      "occupiedCounts": [
+        4,
+        6,
+        6,
+        3,
+        6
+      ],
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 5,
+          "repeat": -1
+        },
+        "attack_a": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "attack_b": {
+          "frames": [
+            12,
+            13,
+            14,
+            15,
+            16,
+            17
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            18,
+            19,
+            20
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            24,
+            25,
+            26,
+            27,
+            28,
+            29
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      },
+      "width": 288,
+      "height": 240
+    },
+    {
+      "id": "F_ow_schlickhund",
+      "file": "characters/F_ow_schlickhund.png",
+      "kind": "walk",
+      "transparent": true,
+      "gameId": "schlickhund",
+      "facing": "down-left",
+      "frameWidth": 32,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 1,
+      "baseline": 30,
+      "occupiedCounts": [
+        4
+      ],
+      "animations": {
+        "move": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        }
+      },
+      "width": 128,
+      "height": 32
+    },
+    {
+      "id": "bestiary_schlickhund",
+      "file": "ui/bestiary/AN_schlickhund.png",
+      "kind": "bestiary",
+      "transparent": false,
+      "gameId": "schlickhund",
+      "frameWidth": 96,
+      "frameHeight": 128,
+      "columns": 1,
+      "rows": 1,
+      "width": 96,
+      "height": 128
+    },
+    {
+      "id": "enemy_moorbraut",
+      "file": "battle/enemy_moorbraut.png",
+      "kind": "battle",
+      "transparent": true,
+      "gameId": "moorbraut",
+      "facing": "left",
+      "heldRows": [
+        1,
+        2
+      ],
+      "windupRows": [
+        1,
+        2
+      ],
+      "phase2": {
+        "transition": "phase2",
+        "idleFrames": [
+          34,
+          35
+        ],
+        "frameRate": 4
+      },
+      "frameWidth": 96,
+      "frameHeight": 96,
+      "columns": 6,
+      "rows": 6,
+      "baseline": 94,
+      "occupiedCounts": [
+        4,
+        6,
+        6,
+        3,
+        6,
+        6
+      ],
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 5,
+          "repeat": -1
+        },
+        "attack_a": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "attack_b": {
+          "frames": [
+            12,
+            13,
+            14,
+            15,
+            16,
+            17
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            18,
+            19,
+            20
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            24,
+            25,
+            26,
+            27,
+            28,
+            29
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "phase2": {
+          "frames": [
+            30,
+            31,
+            32,
+            33,
+            34,
+            35
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      },
+      "width": 576,
+      "height": 576
+    },
+    {
+      "id": "F_ow_moorbraut",
+      "file": "characters/F_ow_moorbraut.png",
+      "kind": "walk",
+      "transparent": true,
+      "gameId": "moorbraut",
+      "facing": "down-left",
+      "frameWidth": 32,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 1,
+      "baseline": 30,
+      "occupiedCounts": [
+        4
+      ],
+      "animations": {
+        "move": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        }
+      },
+      "width": 128,
+      "height": 32
+    },
+    {
+      "id": "bestiary_moorbraut",
+      "file": "ui/bestiary/AN_moorbraut.png",
+      "kind": "bestiary",
+      "transparent": false,
+      "gameId": "moorbraut",
+      "frameWidth": 96,
+      "frameHeight": 128,
+      "columns": 1,
+      "rows": 1,
+      "width": 96,
+      "height": 128
+    },
+    {
+      "id": "boss_moorbraut",
+      "file": "ui/AN_boss_moorbraut.png",
+      "kind": "boss",
+      "transparent": true,
+      "frameWidth": 160,
+      "frameHeight": 160,
+      "columns": 1,
+      "rows": 1,
+      "width": 160,
+      "height": 160
+    },
+    {
+      "id": "schlickzahn",
+      "file": "items/schlickzahn.png",
+      "kind": "item",
+      "transparent": true,
+      "gameId": "schlickzahn",
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 1,
+      "rows": 1,
+      "width": 16,
+      "height": 16
+    },
+    {
+      "id": "schlickzahn_32",
+      "file": "items/32/schlickzahn.png",
+      "kind": "item",
+      "transparent": true,
+      "gameId": "schlickzahn",
+      "frameWidth": 32,
+      "frameHeight": 32,
+      "columns": 1,
+      "rows": 1,
+      "width": 32,
+      "height": 32
+    },
+    {
+      "id": "wurmseide",
+      "file": "items/wurmseide.png",
+      "kind": "item",
+      "transparent": true,
+      "gameId": "wurmseide",
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 1,
+      "rows": 1,
+      "width": 16,
+      "height": 16
+    },
+    {
+      "id": "wurmseide_32",
+      "file": "items/32/wurmseide.png",
+      "kind": "item",
+      "transparent": true,
+      "gameId": "wurmseide",
+      "frameWidth": 32,
+      "frameHeight": 32,
+      "columns": 1,
+      "rows": 1,
+      "width": 32,
+      "height": 32
+    },
+    {
+      "id": "grubenglas",
+      "file": "items/grubenglas.png",
+      "kind": "item",
+      "transparent": true,
+      "gameId": "grubenglas",
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 1,
+      "rows": 1,
+      "width": 16,
+      "height": 16
+    },
+    {
+      "id": "grubenglas_32",
+      "file": "items/32/grubenglas.png",
+      "kind": "item",
+      "transparent": true,
+      "gameId": "grubenglas",
+      "frameWidth": 32,
+      "frameHeight": 32,
+      "columns": 1,
+      "rows": 1,
+      "width": 32,
+      "height": 32
+    },
+    {
+      "id": "torfbernstein",
+      "file": "items/torfbernstein.png",
+      "kind": "item",
+      "transparent": true,
+      "gameId": "torfbernstein",
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 1,
+      "rows": 1,
+      "width": 16,
+      "height": 16
+    },
+    {
+      "id": "torfbernstein_32",
+      "file": "items/32/torfbernstein.png",
+      "kind": "item",
+      "transparent": true,
+      "gameId": "torfbernstein",
+      "frameWidth": 32,
+      "frameHeight": 32,
+      "columns": 1,
+      "rows": 1,
+      "width": 32,
+      "height": 32
+    },
+    {
+      "id": "brautschleier",
+      "file": "items/brautschleier.png",
+      "kind": "item",
+      "transparent": true,
+      "gameId": "brautschleier",
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 1,
+      "rows": 1,
+      "width": 16,
+      "height": 16
+    },
+    {
+      "id": "brautschleier_32",
+      "file": "items/32/brautschleier.png",
+      "kind": "item",
+      "transparent": true,
+      "gameId": "brautschleier",
+      "frameWidth": 32,
+      "frameHeight": 32,
+      "columns": 1,
+      "rows": 1,
+      "width": 32,
+      "height": 32
+    },
+    {
+      "id": "brautring",
+      "file": "items/brautring.png",
+      "kind": "item",
+      "transparent": true,
+      "gameId": "brautring",
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 1,
+      "rows": 1,
+      "width": 16,
+      "height": 16
+    },
+    {
+      "id": "brautring_32",
+      "file": "items/32/brautring.png",
+      "kind": "item",
+      "transparent": true,
+      "gameId": "brautring",
+      "frameWidth": 32,
+      "frameHeight": 32,
+      "columns": 1,
+      "rows": 1,
+      "width": 32,
+      "height": 32
+    },
+    {
+      "id": "brautkranz",
+      "file": "items/brautkranz.png",
+      "kind": "item",
+      "transparent": true,
+      "gameId": "brautkranz",
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 1,
+      "rows": 1,
+      "width": 16,
+      "height": 16
+    },
+    {
+      "id": "brautkranz_32",
+      "file": "items/32/brautkranz.png",
+      "kind": "item",
+      "transparent": true,
+      "gameId": "brautkranz",
+      "frameWidth": 32,
+      "frameHeight": 32,
+      "columns": 1,
+      "rows": 1,
+      "width": 32,
+      "height": 32
+    },
+    {
+      "id": "AN_marker",
+      "file": "ui/AN_marker.png",
+      "kind": "markers",
+      "transparent": true,
+      "regions": {
+        "wx_flossfriedhof": {
+          "x": 0,
+          "y": 0,
+          "width": 16,
+          "height": 32
+        },
+        "wx_lichtamt": {
+          "x": 16,
+          "y": 0,
+          "width": 16,
+          "height": 32
+        },
+        "wx_torfbrueche": {
+          "x": 32,
+          "y": 0,
+          "width": 16,
+          "height": 32
+        }
+      },
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 3,
+      "rows": 1,
+      "baseline": 30,
+      "occupiedCounts": [
+        3
+      ],
+      "animations": {},
+      "width": 48,
+      "height": 32
+    }
+  ]
+}

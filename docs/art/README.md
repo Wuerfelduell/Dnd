@@ -1257,3 +1257,47 @@ Ergebnis: `validation-nebenquests.json`, alle Prüfungen bestanden;
 [Items und Kahn](preview-nebenquests-objects.png).
 
 Asset-Lieferung zur separaten Einbindung; Spielcode und Storydaten unverändert.
+
+## Batch AN — Floßfriedhof, Lichtamt und Torfbrüche (`wexmoor6`)
+
+39 PNGs gemäß `codex_AN_k2_orte_grafik.md`: drei Tilesets mit insgesamt 192 benannten
+16×16-Kacheln, drei Prop-Atlanten mit 40 Regionen, zwei Kampf-Hintergründe,
+fünf Kampf-Sheets, fünf Karten-Sheets, fünf Bestiarium-Karten, Moorbraut-Büste,
+sieben Beute-Icons in jeweils 16×16 und 32×32 sowie drei Stadtmarker in einem Sheet.
+
+- Manifest: `public/sprites/manifest-wexmoor6.json`. Orts- und Gegner-IDs bleiben
+  wie im Auftrag vergeben. Props stehen unter `regions`; ihre Animationen unter
+  `regionAnimations`. Das Leuchtturm-Mosaik im Lichtamt ist als 32×32-Region erfasst.
+- Kampf: sechs Spalten; Reihen `idle`, `attack_a`, `attack_b`, `hurt`, `defeated`.
+  Die Moorbraut besitzt zusätzlich `phase2` (Schleier hebt sich, gesichtsloses
+  türkises Licht). `phase2.idleFrames` nennt die zwei vollständig enthüllten Posen.
+  Beide Angriffe beginnen mit exakt zwei gleichen Ausholframes. Leere Zellen sind
+  transparent, Grundlinien einheitlich, Gegner blicken nach links.
+- Karten-Sheets: vier Bewegungsframes in einer Reihe; Torfleiche 16×32, die
+  übrigen Kreaturen 32×32. Die Moorbraut behält auf der Karte den geschlossenen Schleier.
+- Bildgenerierung mit dem integrierten `image_gen`-Werkzeug. Tatsächliche Prompts,
+  Korrekturen, Referenzen, Quellnamen und SHA-256-Prüfsummen stehen in
+  `batch-wexmoor6-generation.json`. Die Generatorquellen werden nicht als
+  Runtime-Dateien mitgeliefert.
+- Export: Nearest Neighbor, gemeinsame bestehende Wexmoor-Palette mit 31
+  sichtbaren Farben, binäres Alpha, deckende Terrain- und Hintergrundbilder.
+  Die unteren 70 Pixel beider 480×270-Kampfhintergründe bleiben freier Boden.
+
+```sh
+# SOURCE_DIRECTORY enthält die im Generierungsprotokoll benannten Originale.
+python docs/art/export-wexmoor6.py SOURCE_DIRECTORY
+# Prüfung benötigt nur die exportierten Dateien (Pillow; Export zusätzlich NumPy).
+python docs/art/verify-wexmoor6.py --preview
+node --test tests/sprites.test.js
+```
+
+Prüfbericht: [validation-wexmoor6.json](validation-wexmoor6.json).
+Sichtkontrolle: [Übersicht](preview-wexmoor6-overview.png),
+[Torfleiche](preview-wexmoor6-torfleiche.png),
+[Grubenlicht](preview-wexmoor6-grubenlicht.png),
+[Torfwurm](preview-wexmoor6-torfwurm.png),
+[Schlickhund](preview-wexmoor6-schlickhund.png),
+[Moorbraut](preview-wexmoor6-moorbraut.png).
+
+Grafiklieferung für Paket AM; Spielcode und andere Pakete bleiben unverändert.
+Einbindung und Timing-Abstimmung im laufenden Spiel erfolgen separat.
