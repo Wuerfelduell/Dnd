@@ -1,5 +1,19 @@
 # Grafikpaket 14b – Kampf und erste Items
 
+
+## Batch AO — Neue Wexmoor-Figuren (`wexmoor7`)
+
+57 PNGs für die elf festgelegten Figuren aus `codex_AO_k2_figuren.md`: elf Lauf-Sheets (64×128), 22 Emotions-Sheets (256×64, acht Stimmungen je Figur), elf Köpfe (24×24), neun Sonderposen-Sheets (16×32 je Frame), zwei Kampf-Sheets und zwei Staffeleien (32×32). Die zweite Staffelei heißt `props/AO_staffelei_portraet.png`.
+
+- Manifest: [`manifest-wexmoor7.json`](../../public/sprites/manifest-wexmoor7.json), mit Figuren-IDs, Frame-Listen, Tempo und Leerfeldern. Laufrichtungen: unten, links, rechts, oben; Portraits: neutral, misstrauisch, erschrocken, lächelnd; zweite Reihe: wütend, traurig, nachdenklich, entschlossen.
+- Kampf: `enemy_wxn_maler.png` (288×240; idle, brush_slash, paint_throw, hurt, defeated) und `enemy_gemalte_frau.png` (384×320; idle, emerge, attack, hurt, defeated). Je sechs Spalten. Angriffe halten die erste Ausholpose in zwei identischen Frames. `emerge` vor der ersten Bereitschaftsanimation der gemalten Frau abspielen. Kürzere Reihen haben vollständig transparente Restfelder.
+- Nachbearbeitung: gemeinsame Palette mit höchstens 32 sichtbaren Farben, indizierte PNGs, binäres Alpha, Nearest Neighbor, transparente Zellränder. Kartenfiguren haben Grundlinie y=30; Krabbe ist kleiner als die Erwachsenen. Portrait-Köpfe wurden aus dem neutralen Ausdruck abgeleitet. Die kleinen Arbeitsgeräte sind in den Sonderposen enthalten.
+- Erzeugung: [`batch-wexmoor7-generation.json`](batch-wexmoor7-generation.json) enthält die tatsächlich verwendeten Bildprompts, Referenzen, Korrekturen, Quellbild-Dateinamen und SHA-256. Die hochauflösenden Originale gehören nicht zum Laufzeitpaket.
+- Prüfung: `python docs/art/validate-wexmoor7.py` (Pillow); alle 57 Dateien und 371 belegten Frames bestehen die Prüfung von Pflichtumfang, Maßen, Palette, Alpha, Grundlinien, Zellrändern, Animationsverweisen, unterschiedlichen Ausdrücken/Laufschritten und doppelten Ausholframes. Bericht: [`batch-wexmoor7-validation.json`](batch-wexmoor7-validation.json). Sichtprüfung: [`batch-wexmoor7-preview.png`](batch-wexmoor7-preview.png).
+
+Grafiklieferung; die Einbindung und Timing-Abstimmung im laufenden Spiel erfolgen separat.
+
+
 Erzeugt am 9. November 2026 mit dem integrierten Bildgenerator (`image_gen`).
 Quelle der Aufgaben: `prompts.md`; die tatsächlich verwendeten Prompts stehen in
 `batch-14b-generation.json`. Die dortigen Quelldateinamen bezeichnen die ursprünglichen
