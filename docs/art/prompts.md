@@ -2,24 +2,27 @@
 
 Jede Datei ist **eigenständig** (Regeln, Formate, Ablage stehen drin). Codex braucht immer nur **eine** Datei. Alle Pakete schreiben in getrennte Ordner und können **gleichzeitig** laufen. Jedes Paket endet mit einem eigenen Pull Request.
 
-## Läuft gerade
-| Datei | Inhalt |
-|---|---|
-| `codex_X_artefakte_platzhalter.md` | Grafik: Treffen-Artefakte, restliche Platzhalter, Fall 9 |
-| `codex_W_altstadt_nebengeschichten.md` | Grafik: Versunkene Altstadt (Kapitel 2) |
-
-## Neu, parallel startbar
+## Neu (Runde 2), parallel startbar
 | Datei | Art | Inhalt | schreibt nach |
 |---|---|---|---|
-| `codex_Y_soundeffekte.md` | Ton | ca. 110 Soundeffekte (Oberfläche, Schritte, Welt, Polizei, Kampf, Okkultes, Atmo-Schleifen), selbst synthetisiert, + Audio-Grundgerüst | `public/audio/sfx/`, `tools/audio/sfx/`, `src/core/Audio.js` (nicht eingebunden) |
-| `codex_Z_musik.md` | Ton | 26 Musikstücke mit Leitmotiven für Kettlegate und Wexmoor, im Skript komponiert | `public/audio/musik/`, `tools/audio/musik/` |
-| `codex_AA_nebenquests_kettlegate.md` | Quests | 11 Nebenaufträge für die Auftragsfiguren + 3 Steckbriefe | `docs/story/kg_nebenquests/` |
-| `codex_AB_nebenquests_wexmoor.md` | Quests | 10 Nebenaufträge in Wexmoor + 6 Ausbauten für den Torfkahn | `docs/story/wx_nebenquests/` |
-| `codex_AC_kapitel3_story.md` | Story | Kapitel 3: drei komplette Geschichten zur Auswahl, passend zu Kapitel 1 und 2, mit Vergleich | `docs/story/kapitel3/` |
-| `codex_AD_lesetexte_lore.md` | Texte | Zeitungen nach jedem Fall/Akt, 40 Lesestücke, Passanten-Gerede, Item-Texte, Bestiarium | `docs/story/lore/` |
-| `codex_AE_oberflaeche_wexmoor_leben.md` | Grafik | Einstellungs-Symbole, Touch-Knöpfe, Titelbild in Ebenen, Kapitelkarten, Zeitungs-UI, Tiere und Wetter für Wexmoor | `public/sprites/…`, Batch `oberflaeche` |
-| `codex_AF_sequenzen.md` | Pfade | Sequenz 4 bis 1 für alle 7 Pfade, 3 neue Pfade (9 bis 1), Zutaten, Rituale, Balancing | `docs/story/sequenzen/` |
+| `codex_AG_sequenzen_grafik.md` | Grafik | alles aus der AF-Wunschliste: 55 Kampf-Effekte, 55 Zutaten-Icons, 6 Artefakt-Icons, Embleme/Karten/Rituale/Auren für Waage, Moor, Uhr, Spieler-Kampfposen für die neuen Pfade | Batch `sequenzen3` |
+| `codex_AH_spieler2_figur.md` | Grafik | eigene Figur für Spieler 2 in zwei Varianten: Karte, Verkleidungen, Kampf (alle 10 Pfade), Portraits, Koop-Oberfläche | Batch `spieler2` |
+| `codex_AI_koop_texte.md` | Texte/Quests | Spieler 2: Hintergrund, 80 Gespräche unterwegs, Kampfsprüche, Reaktionen von 12 Figuren, 3 Aufträge nur zu zweit | `docs/story/koop/` |
+| `codex_AJ_nebenquests_grafik.md` | Grafik | alles aus den Wunschlisten von AA und AB: neue Figuren, Gegner, Items, Torfkahn-Ausbauten | Batch `nebenquests` |
+| `codex_AK_emotionen.md` | Grafik | 4 neue Stimmungen (wütend, traurig, nachdenklich, entschlossen) für 32 Hauptfiguren | Batch `emotionen2` |
 
-Größte Brocken: Z (Musik), AF (Sequenzen), AC (Kapitel 3), Y (Sounds). Die Text-Pakete liefern fertige Spieldaten als Entwurf; das Einbauen ins Spiel macht Claude danach.
+## Runde 1
+| Datei | Stand 2026-11-09 17:00 |
+|---|---|
+| `codex_W_altstadt_nebengeschichten.md` | geliefert (PR #109), Einbau offen |
+| `codex_X_artefakte_platzhalter.md` | geliefert (PR #114), Einbau offen |
+| `codex_Y_soundeffekte.md` | geliefert (PR #120), Einbau offen |
+| `codex_Z_musik.md` | noch nicht geliefert |
+| `codex_AA_nebenquests_kettlegate.md` | geliefert, Entwurf in `docs/story/kg_nebenquests/` |
+| `codex_AB_nebenquests_wexmoor.md` | geliefert, Entwurf in `docs/story/wx_nebenquests/` |
+| `codex_AC_kapitel3_story.md` | noch nicht geliefert (3 Geschichten zur Auswahl) |
+| `codex_AD_lesetexte_lore.md` | geliefert, Entwurf in `docs/story/lore/` |
+| `codex_AE_oberflaeche_wexmoor_leben.md` | noch nicht geliefert |
+| `codex_AF_sequenzen.md` | geliefert, Entwurf in `docs/story/sequenzen/` |
 
 Die erledigten Dateien (A bis V) liegen in `erledigt/`, alle älteren Prompts in `prompts_komplett.md`.
