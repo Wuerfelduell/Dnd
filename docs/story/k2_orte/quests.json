@@ -1,0 +1,190 @@
+{
+  "k2o_ring_im_torf": {
+    "title": "Ein Siegel im Torf",
+    "kind": "side",
+    "case": "kapitel2",
+    "summary": "Jonas Peck hat eine unverwest gebliebene Braut mit einem Amtsring gesehen. Prüfe seine Beobachtung, bevor du Agathe Mulch beunruhigst.",
+    "steps": [
+      {
+        "text": "Prüfe den Ringabdruck am Sichtsteg.",
+        "done": {
+          "requires_flags": [
+            "k2o_ring_spur"
+          ]
+        },
+        "target": {
+          "map": "wx_torfbrueche",
+          "id": "k2o_ringabdruck",
+          "label": "Prüfe den Ringabdruck am Sichtsteg."
+        }
+      },
+      {
+        "text": "Vergleiche die Fährmarke.",
+        "done": {
+          "requires_flags": [
+            "k2o_faehre_spur"
+          ]
+        },
+        "target": {
+          "map": "wx_torfbrueche",
+          "id": "k2o_faehrmarke",
+          "label": "Vergleiche die Fährmarke."
+        }
+      },
+      {
+        "text": "Berichte Agathe vom Siegel und der Nummer 17.",
+        "done": {
+          "requires_flags": [
+            "k2o_ring_im_torf_done"
+          ]
+        },
+        "target": {
+          "map": "wx_flossfriedhof",
+          "id": "wxn_bestatterin",
+          "label": "Berichte Agathe vom Siegel und der Nummer 17."
+        }
+      }
+    ]
+  },
+  "k2o_leeres_floss": {
+    "title": "Das leere Floß",
+    "kind": "side",
+    "case": "kapitel2",
+    "summary": "Floß 17 trägt ein leeres Grab und ein abgeschabtes Täfelchen. Zwei Spuren zeigen, ob das Moor oder ein Mensch die Tote fortbrachte.",
+    "steps": [
+      {
+        "text": "Untersuche das abgekratzte Täfelchen.",
+        "done": {
+          "requires_flags": [
+            "k2o_grab_spur"
+          ]
+        },
+        "target": {
+          "map": "wx_flossfriedhof",
+          "id": "k2o_taefelchen",
+          "label": "Untersuche das abgekratzte Täfelchen."
+        }
+      },
+      {
+        "text": "Lies die alte Überführungsquittung.",
+        "done": {
+          "requires_flags": [
+            "k2o_quittung_spur"
+          ]
+        },
+        "target": {
+          "map": "wx_flossfriedhof",
+          "id": "k2o_quittung",
+          "label": "Lies die alte Überführungsquittung."
+        }
+      },
+      {
+        "text": "Lass Agathe die beiden Spuren vergleichen.",
+        "done": {
+          "requires_flags": [
+            "k2o_leeres_floss_done"
+          ]
+        },
+        "target": {
+          "map": "wx_flossfriedhof",
+          "id": "wxn_bestatterin",
+          "label": "Lass Agathe die beiden Spuren vergleichen."
+        }
+      }
+    ]
+  },
+  "k2o_gestrichene_braut": {
+    "title": "Die gestrichene Braut",
+    "kind": "side",
+    "case": "kapitel2",
+    "summary": "Das Lichtamt verwahrt die Überführung als Verwaltungsfall. Entscheide, ob du Corvin schützt oder unter Druck setzt, und sichere die beiden Aktenblätter.",
+    "steps": [
+      {
+        "text": "Entscheide, wie du Corvin behandelst.",
+        "done": {
+          "requires_flags": [
+            "k2o_corvin_entschieden"
+          ]
+        },
+        "target": {
+          "map": "wx_lichtamt",
+          "id": "wxn_lichtschreiber",
+          "label": "Entscheide, wie du Corvin behandelst."
+        }
+      },
+      {
+        "text": "Lies den gestrichenen Traueintrag.",
+        "done": {
+          "requires_flags": [
+            "k2o_name_gelesen"
+          ]
+        },
+        "target": {
+          "map": "wx_lichtamt",
+          "id": "k2o_trauregister",
+          "label": "Lies den gestrichenen Traueintrag."
+        }
+      },
+      {
+        "text": "Prüfe die spätere Fortgeltungsverfügung.",
+        "done": {
+          "requires_flags": [
+            "k2o_verfuegung_gelesen"
+          ]
+        },
+        "target": {
+          "map": "wx_lichtamt",
+          "id": "k2o_verfuegung",
+          "label": "Prüfe die spätere Fortgeltungsverfügung."
+        }
+      },
+      {
+        "text": "Berichte Jonas, wer die Braut war.",
+        "done": {
+          "requires_flags": [
+            "k2o_gestrichene_braut_done"
+          ]
+        },
+        "target": {
+          "map": "wx_torfstich",
+          "id": "wxn_torfgraeber",
+          "label": "Berichte Jonas, wer die Braut war."
+        }
+      }
+    ]
+  },
+  "k2o_grab_ohne_namen": {
+    "title": "Das Grab ohne Namen",
+    "kind": "side",
+    "case": "kapitel2",
+    "summary": "Marta Vennick wartet seit zweihundert Jahren unter dem Moor. Löse den Bann ihres Rings und entscheide dann über Namen, Ruhe oder Schweigegeld.",
+    "steps": [
+      {
+        "text": "Stelle dich der Moorbraut am Brautbecken.",
+        "done": {
+          "requires_flags": [
+            "won_moorbraut"
+          ]
+        },
+        "target": {
+          "map": "wx_torfbrueche",
+          "id": "k2o_brautbecken",
+          "label": "Stelle dich der Moorbraut am Brautbecken."
+        }
+      },
+      {
+        "text": "Wähle bei Agathe einen Abschluss: Täfelchen setzen, Ring ins Moor zurückbringen oder im Lichtamt verkaufen.",
+        "done": {
+          "requires_flags": [
+            "k2o_ende"
+          ]
+        },
+        "target": {
+          "map": "wx_flossfriedhof",
+          "id": "wxn_bestatterin",
+          "label": "Wähle bei Agathe einen Abschluss: Täfelchen setzen, Ring ins Moor zurückbringen oder im Lichtamt verkaufen."
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,1179 @@
+[
+  {
+    "id": "wx_flossfriedhof",
+    "name": "Der Floßfriedhof",
+    "city": "wexmoor",
+    "tiles": "r_torf",
+    "police": true,
+    "ambient": {
+      "night": 0.74,
+      "fog": 0.38
+    },
+    "rows": [
+      "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~",
+      "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~",
+      "~~~~~PPPPPPP~~~~PPPPPPPP~~~~PPPPPPPPP~~~",
+      "~~~~~PPPPPPP~~~~PPPPPPPP~~~~PPPPPPPPP~~~",
+      "~~~~~PPPPPPP~~~~PPPPPPPP~~~~PPPPPPPPP~~~",
+      "~~~~~PPPPPPP~~~~PPPPPPPP~~~~PPPPPPPPP~~~",
+      "~~~~~PPPPPPP~~~~PPPPPPPP~~~~PPPPPPPPP~~~",
+      "~~~~~~~PPP~~~~~~~~PPP~~~~~~~~~PPP~~~~~~~",
+      "PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP~~",
+      "PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP~~",
+      "PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP~~",
+      "~~~~~~~~~~PPP~~~~~~~~~~PPP~~~~~~~~~~~~~~",
+      "~~~~~~~~PPPPPPPP~~~~~PPPPPPPPP~~~~~~~~~~",
+      "~~~~~~~~PPPPPPPP~~~~~PPPPPPPPP~~~~~~~~~~",
+      "~~~~~~~~PPPPPPPP~~~~~PPPPPPPPP~~~~~~~~~~",
+      "~~~~~~~~PPPPPPPP~~~~~PPPPPPPPP~~~~~~~~~~",
+      "~~~~~~~~PPPPPPPP~~~~~PPPPPPPPP~~~~~~~~~~",
+      "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+    ],
+    "spawns": {
+      "default": [
+        2,
+        9
+      ]
+    },
+    "lights": [
+      {
+        "tile": [
+          4,
+          9
+        ],
+        "radius": 54,
+        "intensity": 0.55,
+        "color": "#d8bc85",
+        "glow": 0.25,
+        "flicker": 0.14
+      },
+      {
+        "tile": [
+          19,
+          5
+        ],
+        "radius": 54,
+        "intensity": 0.55,
+        "color": "#d8bc85",
+        "glow": 0.25,
+        "flicker": 0.14
+      },
+      {
+        "tile": [
+          31,
+          4
+        ],
+        "radius": 54,
+        "intensity": 0.55,
+        "color": "#d8bc85",
+        "glow": 0.25,
+        "flicker": 0.14
+      }
+    ],
+    "npcs": [
+      {
+        "id": "wxn_bestatterin",
+        "tile": [
+          30,
+          5
+        ],
+        "facing": "left"
+      }
+    ],
+    "patrols": [
+      {
+        "id": "k2o_stegstreife",
+        "route": [
+          [
+            3,
+            9
+          ],
+          [
+            25,
+            9
+          ],
+          [
+            25,
+            10
+          ],
+          [
+            3,
+            10
+          ]
+        ],
+        "speed": 20,
+        "wait": 1800
+      }
+    ],
+    "decor": [
+      {
+        "sprite": "b_grab_grabstein",
+        "tile": [
+          7,
+          3
+        ],
+        "offset": [
+          0,
+          8
+        ],
+        "origin": [
+          0.5,
+          1
+        ],
+        "alpha": 1,
+        "ysort": true,
+        "cover": true,
+        "solid": [
+          10,
+          8,
+          0,
+          -2
+        ]
+      },
+      {
+        "sprite": "b_grab_stele",
+        "tile": [
+          19,
+          3
+        ],
+        "offset": [
+          0,
+          8
+        ],
+        "origin": [
+          0.5,
+          1
+        ],
+        "alpha": 1,
+        "ysort": true,
+        "cover": true,
+        "solid": [
+          10,
+          8,
+          0,
+          -2
+        ]
+      },
+      {
+        "sprite": "b_grab_kreuz",
+        "tile": [
+          10,
+          14
+        ],
+        "offset": [
+          0,
+          8
+        ],
+        "origin": [
+          0.5,
+          1
+        ],
+        "alpha": 1,
+        "ysort": true,
+        "cover": true,
+        "solid": [
+          10,
+          8,
+          0,
+          -2
+        ]
+      },
+      {
+        "sprite": "b_grab_grabstein",
+        "tile": [
+          24,
+          14
+        ],
+        "offset": [
+          0,
+          8
+        ],
+        "origin": [
+          0.5,
+          1
+        ],
+        "alpha": 1,
+        "ysort": true,
+        "cover": true,
+        "solid": [
+          10,
+          8,
+          0,
+          -2
+        ]
+      },
+      {
+        "sprite": "b_grab_huette",
+        "tile": [
+          33,
+          3
+        ],
+        "offset": [
+          0,
+          8
+        ],
+        "origin": [
+          0.5,
+          1
+        ],
+        "alpha": 1,
+        "ysort": true,
+        "cover": true,
+        "solid": [
+          10,
+          8,
+          0,
+          -2
+        ]
+      }
+    ],
+    "interactables": [
+      {
+        "id": "k2o_friedhof_ausgang",
+        "kind": "door",
+        "tile": [
+          0,
+          9
+        ],
+        "to": "wx_pfahldorf",
+        "spawn": "default",
+        "prompt": "Zurück ins Pfahldorf",
+        "marker": true
+      },
+      {
+        "id": "k2o_taefelchen",
+        "kind": "read",
+        "tile": [
+          19,
+          5
+        ],
+        "prompt": "Das abgeschabte Täfelchen",
+        "title": "Das abgeschabte Täfelchen",
+        "text": "Unter der hellen Schicht liegen gerade Schnitte. Auf der Rückseite steht noch die Nummer 17. Der Haken darüber ist alt, der abgeschabte Name verschwand also, während das Täfelchen schon am Grab hing.",
+        "marker": true,
+        "done_flag": "k2o_grab_spur",
+        "visible_if": {
+          "requires_quests_active": [
+            "k2o_leeres_floss"
+          ]
+        }
+      },
+      {
+        "id": "k2o_quittung",
+        "kind": "read",
+        "tile": [
+          31,
+          5
+        ],
+        "prompt": "Überführungsschein 17",
+        "title": "Überführungsschein 17",
+        "text": "Im Leichenhaus liegt ein Schein aus der Zeit vor zweihundert Jahren: „Leib zurück an den Fundort. Eintrag C/17 sperren.“ Das Lichtamt-Siegel hat einen abgebrochenen Strahl. Eine Bestatterin hat darunter geschrieben: „Grab leer übergeben, Kosten offen.“",
+        "marker": true,
+        "done_flag": "k2o_quittung_spur",
+        "effects": {
+          "gives_clues": [
+            "k2o_quittungsbeleg"
+          ]
+        },
+        "visible_if": {
+          "requires_quests_active": [
+            "k2o_leeres_floss"
+          ]
+        }
+      },
+      {
+        "id": "k2o_leergrab",
+        "kind": "read",
+        "tile": [
+          21,
+          5
+        ],
+        "prompt": "Ein Grab ohne Gewicht",
+        "title": "Ein Grab ohne Gewicht",
+        "text": "Das Floß liegt höher als die anderen. Die Mulde im Torf ist sauber ausgekleidet, kein Pfahl wurde herausgerissen. Wer hier lag, wurde gehoben, nicht vom Wasser genommen.",
+        "marker": false
+      },
+      {
+        "id": "k2o_leinen",
+        "kind": "read",
+        "tile": [
+          5,
+          9
+        ],
+        "prompt": "Fünf Knoten",
+        "title": "Fünf Knoten",
+        "text": "Jedes Tau hat fünf Knoten. Agathe erklärt Besuchern, das sei für die fünf Finger, die eine Hand beim Abschied öffnet. Dem Amt gegenüber nennt sie es eine Sicherung gegen Sturm.",
+        "marker": false
+      },
+      {
+        "id": "k2o_gebuehr",
+        "kind": "read",
+        "tile": [
+          8,
+          5
+        ],
+        "prompt": "Gebührenordnung",
+        "title": "Gebührenordnung",
+        "text": "„Liegeplatz für Verstorbene: unbefristet. Verlängerungsanträge werden nicht angenommen.“ Jemand hat „endlich“ daruntergeschrieben.",
+        "marker": false
+      },
+      {
+        "id": "k2o_kinderschuhe",
+        "kind": "read",
+        "tile": [
+          12,
+          15
+        ],
+        "prompt": "Die trockenen Schuhe",
+        "title": "Die trockenen Schuhe",
+        "text": "Ein Paar kleine Stiefel steht auf einem Grab, sorgfältig mit Torf gefüllt. Nicht jeder, der fehlt, liegt unter seinen Sachen. Der Name auf dem Täfelchen ist noch lesbar.",
+        "marker": false
+      },
+      {
+        "id": "k2o_wache",
+        "kind": "read",
+        "tile": [
+          23,
+          10
+        ],
+        "prompt": "Ein nasser Dienstzettel",
+        "title": "Ein nasser Dienstzettel",
+        "text": "Die Streife soll verhindern, dass Holz ohne Amtsstempel den Friedhof verlässt. Auf dem Zettel steht nichts darüber, wer Namen abkratzen darf. Die Tinte ist an dieser Stelle trocken.",
+        "marker": false
+      },
+      {
+        "id": "k2o_heimkehr",
+        "kind": "read",
+        "tile": [
+          27,
+          15
+        ],
+        "prompt": "Der Heimkehrpfahl",
+        "title": "Der Heimkehrpfahl",
+        "text": "Eine Reihe Kerben zeigt die Höhe der Flöße bei Sturm. Neben der letzten steht: „Wenn eines fehlt, zuerst nach dem Tau suchen. Nicht nach einer Schuld.“",
+        "marker": false
+      },
+      {
+        "id": "k2o_grabplatz",
+        "kind": "dialogue",
+        "dialogue": "k2o_grab",
+        "tile": [
+          20,
+          6
+        ],
+        "title": "Floß 17",
+        "prompt": "Über Martas Täfelchen entscheiden",
+        "marker": true,
+        "visible_if": {
+          "requires_flags": [
+            "won_moorbraut"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "wx_lichtamt",
+    "name": "Das Lichtamt",
+    "city": "wexmoor",
+    "tiles": "r_wachhaus",
+    "police": true,
+    "ambient": {
+      "night": 0.65,
+      "fog": 0.04
+    },
+    "rows": [
+      "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII",
+      "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII",
+      "IwwwwwwwwwwwwwwwIwwwwwwwwwwwwwwI",
+      "IwwwwwwwwwwwwwwwIwwwwwwwwwwwwwwI",
+      "IwwwwwwwwwwwwwwwIwwwwwwwwwwwwwwI",
+      "IwwwwwwwwwwwwwwwIwwwwwwwwwwwwwwI",
+      "IwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwI",
+      "IwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwI",
+      "IwwwwwwwwwwwwwwwIwwwwwwwwwwwwwwI",
+      "IwwwwwwwwwwwwwwwIwwwwwwwwwwwwwwI",
+      "IIIIIIwwwIIIIIIIIIIIIIIwwwIIIIII",
+      "IwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwI",
+      "IwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwI",
+      "IwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwI",
+      "IwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwI",
+      "IwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwI",
+      "IwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwI",
+      "IwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwI",
+      "IwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwI",
+      "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII"
+    ],
+    "spawns": {
+      "default": [
+        4,
+        17
+      ],
+      "seite": [
+        28,
+        17
+      ]
+    },
+    "lights": [
+      {
+        "tile": [
+          6,
+          14
+        ],
+        "radius": 54,
+        "intensity": 0.55,
+        "color": "#d8bc85",
+        "glow": 0.25,
+        "flicker": 0.14
+      },
+      {
+        "tile": [
+          7,
+          6
+        ],
+        "radius": 54,
+        "intensity": 0.55,
+        "color": "#d8bc85",
+        "glow": 0.25,
+        "flicker": 0.14
+      },
+      {
+        "tile": [
+          24,
+          6
+        ],
+        "radius": 54,
+        "intensity": 0.55,
+        "color": "#d8bc85",
+        "glow": 0.25,
+        "flicker": 0.14
+      },
+      {
+        "tile": [
+          26,
+          15
+        ],
+        "radius": 54,
+        "intensity": 0.55,
+        "color": "#d8bc85",
+        "glow": 0.25,
+        "flicker": 0.14
+      }
+    ],
+    "npcs": [
+      {
+        "id": "wxn_lichtschreiber",
+        "tile": [
+          10,
+          14
+        ],
+        "facing": "down"
+      },
+      {
+        "id": "grauspaeher",
+        "tile": [
+          3,
+          15
+        ],
+        "facing": "down"
+      }
+    ],
+    "patrols": [
+      {
+        "id": "k2o_hallenwache",
+        "route": [
+          [
+            6,
+            16
+          ],
+          [
+            24,
+            16
+          ],
+          [
+            24,
+            12
+          ],
+          [
+            6,
+            12
+          ]
+        ],
+        "speed": 24,
+        "wait": 1000
+      },
+      {
+        "id": "k2o_archivwache",
+        "route": [
+          [
+            6,
+            4
+          ],
+          [
+            12,
+            4
+          ],
+          [
+            12,
+            8
+          ],
+          [
+            6,
+            8
+          ]
+        ],
+        "speed": 18,
+        "wait": 900
+      },
+      {
+        "id": "k2o_kartenwache",
+        "route": [
+          [
+            21,
+            4
+          ],
+          [
+            28,
+            4
+          ],
+          [
+            28,
+            8
+          ],
+          [
+            21,
+            8
+          ]
+        ],
+        "speed": 22,
+        "wait": 1200
+      }
+    ],
+    "decor": [
+      {
+        "sprite": "r_innen_props_aktenschrank_0",
+        "tile": [
+          3,
+          3
+        ],
+        "offset": [
+          0,
+          8
+        ],
+        "origin": [
+          0.5,
+          1
+        ],
+        "alpha": 1,
+        "ysort": true,
+        "cover": true,
+        "solid": [
+          10,
+          8,
+          0,
+          -2
+        ]
+      },
+      {
+        "sprite": "r_innen_props_aktenschrank_1",
+        "tile": [
+          3,
+          7
+        ],
+        "offset": [
+          0,
+          8
+        ],
+        "origin": [
+          0.5,
+          1
+        ],
+        "alpha": 1,
+        "ysort": true,
+        "cover": true,
+        "solid": [
+          10,
+          8,
+          0,
+          -2
+        ]
+      },
+      {
+        "sprite": "r_innen_props_stadtplan",
+        "tile": [
+          25,
+          3
+        ],
+        "offset": [
+          0,
+          8
+        ],
+        "origin": [
+          0.5,
+          1
+        ],
+        "alpha": 1,
+        "ysort": true
+      },
+      {
+        "sprite": "r_innen_props_schreibtisch_hale",
+        "tile": [
+          25,
+          7
+        ],
+        "offset": [
+          0,
+          8
+        ],
+        "origin": [
+          0.5,
+          1
+        ],
+        "alpha": 1,
+        "ysort": true,
+        "cover": true,
+        "solid": [
+          10,
+          8,
+          0,
+          -2
+        ]
+      }
+    ],
+    "interactables": [
+      {
+        "id": "k2o_amt_hauptausgang",
+        "kind": "door",
+        "tile": [
+          4,
+          18
+        ],
+        "to": "wx_oberstadt",
+        "spawn": "default",
+        "prompt": "Hinaus in die Oberstadt",
+        "marker": true
+      },
+      {
+        "id": "k2o_amt_seitenausgang",
+        "kind": "door",
+        "tile": [
+          28,
+          18
+        ],
+        "to": "wx_oberstadt",
+        "spawn": "default",
+        "prompt": "Hinaus in die Oberstadt",
+        "marker": true
+      },
+      {
+        "id": "k2o_trauregister",
+        "kind": "read",
+        "tile": [
+          5,
+          3
+        ],
+        "prompt": "Trauregister C, Blatt 17",
+        "title": "Trauregister C, Blatt 17",
+        "text": "Marta Vennick, Grubenvermesserin. Gestorben am Morgen ihrer Trauung vor zweihundert Jahren. Ihre Warnung vor ungestütztem Abbau wurde als „unzuordenbare Eingabe“ abgelegt, nachdem das Lichtamt ihren Namen tilgen ließ. Das Kleid sollte ihre Familie zurückerhalten. Die Empfangszeile blieb leer.",
+        "marker": true,
+        "done_flag": "k2o_name_gelesen",
+        "effects": {
+          "gives_clues": [
+            "k2o_traueintrag"
+          ]
+        },
+        "visible_if": {
+          "requires_flags": [
+            "k2o_index"
+          ]
+        }
+      },
+      {
+        "id": "k2o_verfuegung",
+        "kind": "read",
+        "tile": [
+          27,
+          7
+        ],
+        "prompt": "Fortgeltung der Sperre C/17",
+        "title": "Fortgeltung der Sperre C/17",
+        "text": "Vor zwölf Jahren: „Geltende Ordnung bleibt bestehen. Keine Wiederaufnahme ohne Siegelrückführung.“ Darunter Ilse Brandts Unterschrift. Der ursprüngliche Befehl ist zweihundert Jahre alt. Brandt hat ihn nicht erlassen, aber sie hat entschieden, ihn bestehen zu lassen.",
+        "marker": true,
+        "done_flag": "k2o_verfuegung_gelesen",
+        "effects": {
+          "gives_clues": [
+            "k2o_fortgeltung"
+          ]
+        },
+        "visible_if": {
+          "requires_flags": [
+            "k2o_index"
+          ]
+        }
+      },
+      {
+        "id": "k2o_amt_empfang",
+        "kind": "read",
+        "tile": [
+          7,
+          17
+        ],
+        "prompt": "Die Besucherglocke",
+        "title": "Die Besucherglocke",
+        "text": "Ein Schild bittet, nur einmal zu läuten. Darunter liegen drei Anträge auf Ersatz eines Klöppels. Der Pförtner hat seinen Stuhl so gestellt, dass er keinen davon sieht.",
+        "marker": false
+      },
+      {
+        "id": "k2o_amt_katalog",
+        "kind": "read",
+        "tile": [
+          11,
+          6
+        ],
+        "prompt": "Ein Katalog mit Lücken",
+        "title": "Ein Katalog mit Lücken",
+        "text": "Die Nummern sind vollständig, die Namen nicht. Unter C/17 ist ein Rechteck blank geschabt. Ohne Corvins Auskunft könntest du den Unterschied für einen Druckfehler halten.",
+        "marker": false
+      },
+      {
+        "id": "k2o_amt_schreibtisch",
+        "kind": "read",
+        "tile": [
+          24,
+          8
+        ],
+        "prompt": "Brandts Schreibtisch",
+        "title": "Brandts Schreibtisch",
+        "text": "Die Schreibunterlage ist glatt, an einer Ecke liegt feiner Torfstaub. Auf dem Kalender stehen Termine, keine Erklärungen. Der Stuhl ist leer. Die Lichtmeisterin arbeitet heute anderswo.",
+        "marker": false
+      },
+      {
+        "id": "k2o_amt_karte",
+        "kind": "read",
+        "tile": [
+          24,
+          3
+        ],
+        "prompt": "Wexmoor von oben",
+        "title": "Wexmoor von oben",
+        "text": "Auf der großen Karte wirken die Torfbrüche wie ein sauberer Fleck. Ein Bleistiftstrich verbindet den alten Bruch mit Floß 17. Darüber steht: „Überführung erledigt.“",
+        "marker": false
+      },
+      {
+        "id": "k2o_amt_mittag",
+        "kind": "read",
+        "tile": [
+          18,
+          13
+        ],
+        "prompt": "Pausenregel",
+        "title": "Pausenregel",
+        "text": "„Lampen während der Pause abdecken. Unbeleuchtete Tische gelten nicht als unbesetzt.“ Am Rand hat jemand einen winzigen Schlafenden gezeichnet.",
+        "marker": false
+      },
+      {
+        "id": "k2o_amt_sand",
+        "kind": "read",
+        "tile": [
+          12,
+          17
+        ],
+        "prompt": "Der Löschsand",
+        "title": "Der Löschsand",
+        "text": "Im Sandkasten glitzern alte Tintenschuppen. Man trocknet hier nicht nur Schrift. Man bewahrt auch die Reste davon auf, ordentlich nachgefüllt.",
+        "marker": false
+      }
+    ]
+  },
+  {
+    "id": "wx_torfbrueche",
+    "name": "Die Torfbrüche",
+    "city": "wexmoor",
+    "tiles": "g_katakomben",
+    "danger": 3,
+    "ambient": {
+      "night": 0.86,
+      "fog": 0.4
+    },
+    "rows": [
+      "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII",
+      "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII",
+      "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII",
+      "IIIsssssss~~~~IIIIIsssssssss~~~IIIIIIIIIIIIIIIII",
+      "IIIsssssss~~~~IIIIIsssssssss~~~IIIIssssssss~~~II",
+      "IIIsssssss~~~~IIIIIsssssssss~~~IIIIssssssss~~~II",
+      "IIIsssssssssssIIIIIssssssssssssIIIIssssssss~~~II",
+      "IIIsssssssssssIIIIIrrssssssssssIIIIsssssssssssII",
+      "IIIsssssssssssIIIIIrrssssssssssIIIIsssssssssssII",
+      "IIIsssssssssssIIIIIrrssssssssssIIIIsssssssssssII",
+      "IIIsssssssssssIIIIIssssssssssssIIIIsssssssssssII",
+      "IIIIIIssssIIIIIIIIIIIIIssssIIIIIIIIsssssssssssII",
+      "IIIIIIssssIIIIIIIIIIIIIssssIIIIIIIIIIIssssIIIIII",
+      "sssssssssssssssssssssssssssssssssssssssssssssIII",
+      "sssssssssssssssssssssssssssssssssssssssssssssIII",
+      "sssssssssssssssssssssssssssssssssssssssssssssIII",
+      "sssssssssssssssssssssssssssssssssssssssssssssIII",
+      "IIIIIIIIIIIIssssIIIIIIIIIIIIIIIIIIssssIIIIIIIIII",
+      "IIIIIIIIIIIIssssIIIIIIIIIIIIIIIIIIssssIIIIIIIIII",
+      "IIIIIIIIIIIIssssIIIIIIIIIIIIIIIIIIssssIIIIIIIIII",
+      "IIIIIIIIssssssssssssssIIIIIIIIssssssssssssssssII",
+      "IIIIIIIIssssssssssssssIIIIIIIIssrrssssssssssssII",
+      "IIIIIIIIssssssssssssssIIIIIIIIssrrssssssssssssII",
+      "IIIIIIIIssssssssssssssIIIIIIIIssssssssssssssssII",
+      "IIIIIIIIssssssssssssssIIIIIIIIssssssssssss~~~~II",
+      "IIIIIIII~~~sssssssrrrsIIIIIIIIssssssssssss~~~~II",
+      "IIIIIIII~~~sssssssrrrsIIIIIIIIssssssssssss~~~~II",
+      "IIIIIIII~~~sssssssssssIIIIIIIIssssssssssss~~~~II",
+      "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII",
+      "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII"
+    ],
+    "spawns": {
+      "default": [
+        2,
+        14
+      ]
+    },
+    "lights": [
+      {
+        "tile": [
+          5,
+          14
+        ],
+        "radius": 54,
+        "intensity": 0.55,
+        "color": "#d8bc85",
+        "glow": 0.25,
+        "flicker": 0.14
+      },
+      {
+        "tile": [
+          8,
+          8
+        ],
+        "radius": 54,
+        "intensity": 0.55,
+        "color": "#93b6a0",
+        "glow": 0.25,
+        "flicker": 0.14
+      },
+      {
+        "tile": [
+          24,
+          7
+        ],
+        "radius": 54,
+        "intensity": 0.55,
+        "color": "#7eae8a",
+        "glow": 0.25,
+        "flicker": 0.14
+      },
+      {
+        "tile": [
+          37,
+          23
+        ],
+        "radius": 54,
+        "intensity": 0.55,
+        "color": "#bbd0a1",
+        "glow": 0.25,
+        "flicker": 0.14
+      }
+    ],
+    "npcs": [],
+    "decor": [
+      {
+        "sprite": "b_grab_laterne",
+        "tile": [
+          8,
+          6
+        ],
+        "offset": [
+          0,
+          8
+        ],
+        "origin": [
+          0.5,
+          1
+        ],
+        "alpha": 1,
+        "ysort": true
+      },
+      {
+        "sprite": "b_grab_truemmer",
+        "tile": [
+          20,
+          8
+        ],
+        "offset": [
+          0,
+          8
+        ],
+        "origin": [
+          0.5,
+          1
+        ],
+        "alpha": 1,
+        "ysort": true
+      },
+      {
+        "sprite": "b_grab_laterne",
+        "tile": [
+          24,
+          5
+        ],
+        "offset": [
+          0,
+          8
+        ],
+        "origin": [
+          0.5,
+          1
+        ],
+        "alpha": 1,
+        "ysort": true
+      },
+      {
+        "sprite": "b_grab_truemmer",
+        "tile": [
+          19,
+          26
+        ],
+        "offset": [
+          0,
+          8
+        ],
+        "origin": [
+          0.5,
+          1
+        ],
+        "alpha": 1,
+        "ysort": true
+      },
+      {
+        "sprite": "b_grab_laterne",
+        "tile": [
+          39,
+          23
+        ],
+        "offset": [
+          0,
+          8
+        ],
+        "origin": [
+          0.5,
+          1
+        ],
+        "alpha": 1,
+        "ysort": true
+      }
+    ],
+    "roamers": [
+      {
+        "encounter": "torfleiche",
+        "tile": [
+          11,
+          8
+        ]
+      },
+      {
+        "encounter": "grubenlicht",
+        "tile": [
+          28,
+          8
+        ]
+      },
+      {
+        "encounter": "torfwurm",
+        "tile": [
+          41,
+          8
+        ]
+      },
+      {
+        "encounter": "schlickhund",
+        "tile": [
+          18,
+          23
+        ]
+      },
+      {
+        "encounter": "torfleiche",
+        "tile": [
+          37,
+          20
+        ]
+      },
+      {
+        "encounter": "grubenlicht",
+        "tile": [
+          40,
+          23
+        ]
+      }
+    ],
+    "interactables": [
+      {
+        "id": "k2o_torf_ausgang",
+        "kind": "door",
+        "tile": [
+          0,
+          14
+        ],
+        "to": "wx_torfstich",
+        "spawn": "default",
+        "prompt": "Zurück zum Torfstich",
+        "marker": true
+      },
+      {
+        "id": "k2o_ringabdruck",
+        "kind": "read",
+        "tile": [
+          6,
+          14
+        ],
+        "prompt": "Ein Siegel im weichen Torf",
+        "title": "Ein Siegel im weichen Torf",
+        "text": "Jonas hat sich nicht getäuscht. Neben einer schmalen Handspur liegt der Kreis eines Rings: ein Leuchtturm, ein abgebrochener Strahl. Weiter unten im Becken glänzt Metall an der Hand einer stillen Braut. Von hier erreichst du sie nicht.",
+        "marker": true,
+        "done_flag": "k2o_ring_spur",
+        "effects": {
+          "gives_clues": [
+            "k2o_siegelabdruck"
+          ]
+        },
+        "visible_if": {
+          "requires_flags": [
+            "k2o_aufbruch"
+          ]
+        }
+      },
+      {
+        "id": "k2o_faehrmarke",
+        "kind": "read",
+        "tile": [
+          8,
+          14
+        ],
+        "prompt": "Die Fährmarke",
+        "title": "Die Fährmarke",
+        "text": "Am Sicherungsseil hängt ein gebranntes Holzstück mit der Nummer 17. Unter der Nummer steht „Floßfriedhof“. Es ist eine Transportmarke, kein Name.",
+        "marker": true,
+        "done_flag": "k2o_faehre_spur",
+        "visible_if": {
+          "requires_flags": [
+            "k2o_aufbruch"
+          ]
+        }
+      },
+      {
+        "id": "k2o_schichtbuch",
+        "kind": "read",
+        "tile": [
+          6,
+          5
+        ],
+        "prompt": "Letzte Schicht",
+        "title": "Letzte Schicht",
+        "text": "„Stützbalken beantragt. Stützbalken vertagt. Vermessung wiederholt.“ Die letzte Zeile besteht nur aus einem langen Tintenstrich. Der Einband hat den Einsturz besser überstanden als sein Schreiber.",
+        "marker": false
+      },
+      {
+        "id": "k2o_gasnest",
+        "kind": "read",
+        "tile": [
+          25,
+          7
+        ],
+        "prompt": "Das grüne Gasnest",
+        "title": "Das grüne Gasnest",
+        "text": "Über dem Grubenwasser steht grünes Licht. Jonas hat den Rand mit Kreide markiert: „Lampe unten halten, Kopf oben.“ Der sichere Weg führt außen vorbei. Kein Geruch warnt dich vor dem Gas.",
+        "marker": false
+      },
+      {
+        "id": "k2o_stollenlampe",
+        "kind": "read",
+        "tile": [
+          39,
+          7
+        ],
+        "prompt": "Eine wartende Lampe",
+        "title": "Eine wartende Lampe",
+        "text": "Das Glas ist innen beschlagen. Wenn du es abwischst, erscheint der Abdruck wieder von der anderen Seite. Im Stollen ist kein Luftzug.",
+        "marker": false
+      },
+      {
+        "id": "k2o_messlatte",
+        "kind": "read",
+        "tile": [
+          15,
+          23
+        ],
+        "prompt": "Die abgebrochene Messlatte",
+        "title": "Die abgebrochene Messlatte",
+        "text": "An der Latte stehen zwei Reihen Zahlen. Die erste ist tief eingeritzt, die zweite nur aufgemalt und niedriger. Jemand hat die Grube auf dem Papier kleiner gemacht als unter der Erde.",
+        "marker": false
+      },
+      {
+        "id": "k2o_brautstoff",
+        "kind": "read",
+        "tile": [
+          34,
+          24
+        ],
+        "prompt": "Weißer Stoff",
+        "title": "Weißer Stoff",
+        "text": "Ein Streifen liegt zwischen zwei Torfziegeln. Die Naht ist von Hand gesetzt, ungleichmäßig und fest. Was immer das Amt hier vermessen hat, dieses Kleid war für einen Menschen gemacht.",
+        "marker": false
+      },
+      {
+        "id": "k2o_rueckweg",
+        "kind": "read",
+        "tile": [
+          5,
+          16
+        ],
+        "prompt": "Jonas’ Sicherungsseil",
+        "title": "Jonas’ Sicherungsseil",
+        "text": "Das Seil führt ohne Abzweig zum Torfstich. Alle paar Schritte steckt ein neuer Pflock neben einem alten. Jonas vertraut dem Boden nicht zweimal dieselbe Stelle an.",
+        "marker": false
+      },
+      {
+        "id": "k2o_brautbecken",
+        "kind": "dialogue",
+        "dialogue": "k2o_braut",
+        "tile": [
+          39,
+          25
+        ],
+        "title": "Das Brautbecken",
+        "prompt": "Die Moorbraut ansprechen",
+        "marker": true,
+        "visible_if": {
+          "requires_flags": [
+            "k2o_braut_bereit"
+          ],
+          "hide_if_flags": [
+            "k2o_ende"
+          ]
+        }
+      },
+      {
+        "id": "k2o_braut_nach_name",
+        "kind": "read",
+        "tile": [
+          39,
+          25
+        ],
+        "prompt": "Ein leerer Platz",
+        "title": "Ein leerer Platz",
+        "text": "Das Wasser ist klar genug, um den Boden zu sehen. Auf dem Torf liegt kein Kleid mehr. Von weit oben kommt das Knarren einer Vertäuung.",
+        "marker": false,
+        "visible_if": {
+          "requires_flags": [
+            "k2o_ende_name"
+          ]
+        }
+      }
+    ]
+  }
+]
