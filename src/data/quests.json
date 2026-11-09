@@ -491,10 +491,10 @@
     "title": "Die Schlagzeile",
     "kind": "side",
     "case": "side",
-    "summary": "Pip, der Zeitungsjunge, braucht eine Geschichte für die Morgenausgabe. Sonst bekommt er keinen Lohn.",
+    "summary": "Benji, der Zeitungsjunge, braucht eine Geschichte für die Morgenausgabe. Sonst bekommt er keinen Lohn.",
     "steps": [
       {
-        "text": "Gib Pip eine Geschichte (überleg dir, welche)",
+        "text": "Gib Benji eine Geschichte (überleg dir, welche)",
         "done": {
           "requires_flags": [
             "pip_story"
@@ -1111,5 +1111,106 @@
       "honor": 3,
       "honor_reason": "Einen Quacksalber entlarvt"
     }
+  },
+  "case_07": {
+    "title": "Fall 7: Ertrunken im Trockenen",
+    "kind": "main",
+    "case": "case_07",
+    "summary": "Der Bankier Josiah Thorne ist in seinem verschlossenen Kontor am Altmarkt ertrunken. Seine Kleidung ist trocken. Price hält den Neffen für schuldig.",
+    "steps": [
+      {
+        "text": "Sieh dir das Kontor Thorne am Altmarkt an",
+        "done": {
+          "requires_any_clues": [
+            "finch_found",
+            "water_glass",
+            "chute_prints"
+          ]
+        }
+      },
+      {
+        "text": "Finde heraus, wie jemand in das verschlossene Kontor kam",
+        "done": {
+          "requires_conclusions": [
+            "d7_child"
+          ]
+        }
+      },
+      {
+        "text": "Finde heraus, woher das Wasser stammt",
+        "done": {
+          "requires_conclusions": [
+            "d7_canal"
+          ]
+        }
+      },
+      {
+        "text": "Wer hatte einen Grund? Lies Thornes Briefe",
+        "done": {
+          "requires_any_clues": [
+            "pfaendung_letter",
+            "clara_protest"
+          ]
+        }
+      },
+      {
+        "text": "Berichte Marlowe, wer Thorne getötet hat",
+        "done": {
+          "requires_flags": [
+            "case_07_closed"
+          ]
+        }
+      }
+    ]
+  },
+  "case_08": {
+    "title": "Fall 8: Die Schlafwandler von St. Brigid",
+    "kind": "main",
+    "case": "case_08",
+    "summary": "Nan Kettle sagt, die Kinder aus dem Waisenhaus St. Brigid in Ashgrove wandeln nachts im Schlaf. Ein Junge namens Benji ist verschwunden.",
+    "steps": [
+      {
+        "text": "Besuche das Waisenhaus St. Brigid in Ashgrove",
+        "done": {
+          "requires_any_clues": [
+            "molly_walk",
+            "tea_tin",
+            "benji_bed"
+          ]
+        }
+      },
+      {
+        "text": "Finde heraus, was die Kinder wandeln lässt",
+        "done": {
+          "requires_conclusions": [
+            "d8_tea"
+          ]
+        }
+      },
+      {
+        "text": "Finde heraus, wohin die Kinder gehen und wer sie führt",
+        "done": {
+          "requires_conclusions": [
+            "d8_thread"
+          ]
+        }
+      },
+      {
+        "text": "Optional: Hängen deine beiden offenen Fälle zusammen?",
+        "done": {
+          "requires_conclusions": [
+            "link_benji"
+          ]
+        }
+      },
+      {
+        "text": "Berichte Marlowe, was in St. Brigid geschieht",
+        "done": {
+          "requires_flags": [
+            "case_08_closed"
+          ]
+        }
+      }
+    ]
   }
 }

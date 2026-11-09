@@ -1,0 +1,120 @@
+{
+  "id": "traumkeller",
+  "name": "Keller unter St. Brigid",
+  "tiles": "gaskanaele",
+  "ambient": {
+    "night": 0.92,
+    "fog": 0.22
+  },
+  "spawns": {
+    "default": [
+      3,
+      11
+    ]
+  },
+  "lights": [
+    {
+      "tile": [
+        10,
+        4
+      ],
+      "radius": 64,
+      "intensity": 0.45,
+      "color": "#a8b8f0",
+      "glow": 0.35
+    }
+  ],
+  "rows": [
+    "IIIIIIIIIIIIIIIIIIII",
+    "IIIIIIIIIIIIIIIIIIII",
+    "IssssssssssssssssssI",
+    "IsOsssssCCCCsssssOsI",
+    "IsssssssCCCCsssssssI",
+    "IssssssssssssssssssI",
+    "IssssssssssssssssssI",
+    "IssssssssssssssssssI",
+    "IssssssssssssssssssI",
+    "IssssssssssssssssssI",
+    "IsOssssssssssssssOsI",
+    "IssssssssssssssssssI",
+    "IssssssssssssssssssI",
+    "IIIEEIIIIIIIIIIIIIII"
+  ],
+  "interactables": [
+    {
+      "id": "up",
+      "kind": "door",
+      "to": "waisenhaus",
+      "spawn": "keller",
+      "tile": [
+        3,
+        12
+      ],
+      "prompt": "Hinauf ins Waisenhaus",
+      "marker": false,
+      "reach": 22
+    },
+    {
+      "id": "threads",
+      "kind": "combat",
+      "encounter": "traumfaden",
+      "tile": [
+        10,
+        9
+      ],
+      "sprite": "apparition",
+      "marker": false,
+      "prompt": "Durch die Fäden gehen",
+      "visible_if": {
+        "requires_flags": [
+          "case_78_showdown"
+        ],
+        "hide_if_flags": [
+          "traumfaden_defeated"
+        ]
+      }
+    },
+    {
+      "id": "wren",
+      "kind": "combat",
+      "encounter": "miss_wren",
+      "tile": [
+        10,
+        6
+      ],
+      "sprite": "npc:gouvernante",
+      "marker": true,
+      "prompt": "Miss Wren stellen",
+      "visible_if": {
+        "requires_flags": [
+          "case_78_showdown",
+          "traumfaden_defeated"
+        ],
+        "hide_if_flags": [
+          "wren_beaten"
+        ]
+      }
+    },
+    {
+      "id": "loom",
+      "kind": "dialogue",
+      "dialogue": "webstuhl8",
+      "title": "Der Webstuhl",
+      "role": "",
+      "tile": [
+        10,
+        5
+      ],
+      "marker": true,
+      "prompt": "Vor den Webstuhl treten",
+      "visible_if": {
+        "requires_flags": [
+          "wren_beaten"
+        ],
+        "hide_if_flags": [
+          "case_08_closed"
+        ]
+      }
+    }
+  ]
+}

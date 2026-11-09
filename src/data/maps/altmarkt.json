@@ -49,6 +49,10 @@
     "atelier": [
       30,
       3
+    ],
+    "kontor": [
+      39,
+      3
     ]
   },
   "decor": [
@@ -864,6 +868,23 @@
           "briefed_06"
         ]
       }
+    },
+    {
+      "id": "kontor_door",
+      "kind": "door",
+      "to": "kontor_thorne",
+      "spawn": "default",
+      "tile": [
+        39,
+        2
+      ],
+      "prompt": "Das Kontor Thorne betreten",
+      "marker": true,
+      "visible_if": {
+        "requires_flags": [
+          "briefed_07"
+        ]
+      }
     }
   ],
   "npcs": [
@@ -936,6 +957,19 @@
       "visible_if": {
         "requires_quests_active": [
           "case_05"
+        ]
+      }
+    },
+    {
+      "id": "sufragette",
+      "tile": [
+        38,
+        6
+      ],
+      "facing": "down",
+      "visible_if": {
+        "requires_flags": [
+          "briefed_07"
         ]
       }
     }

@@ -136,6 +136,10 @@ export class Ui {
     state.on('vision', (on) => root.classList.toggle('vision', on));
     state.on('notice', (t) => this.toast(t, 'warn'));
     state.on('clue', (id) => this.toast(`Neuer Hinweis: ${state.clue(id).name}`));
+    state.on('cross', ({ fact, case: c }) => {
+      const title = state.content.cases.find((x) => x.id === c)?.title.split(':')[0] ?? 'einem anderen Fall';
+      this.toast(`Querverbindung: „${state.fact(fact).text}“ gehört auch zu ${title}`, 'gold');
+    });
     state.on('fact', ({ id, status }) => {
       if (status === 'likely') this.toast(`Bestätigt: ${state.fact(id).text}`, 'gold');
       if (status === 'refuted') this.toast(`Widerlegt: ${state.fact(id).text}`, 'warn');
@@ -749,7 +753,7 @@ export class Ui {
       const st = s.factStatus(f);
       const n = s.factSources(f).length;
       return `<li><button class="fact ${st} ${this.selected.includes(f) ? 'sel' : ''} ${hinted.has(f) ? 'hinted' : ''}" data-fact="${f}" ${st === 'refuted' ? 'data-refuted="1"' : ''}>
-        ${this.badge(st)} ${linkable.has(f) ? `${journalMark('string_pin', 'Lässt sich verknüpfen')} ` : ''}${esc(s.fact(f).text)} <span class="src">${n}×</span></button></li>`;
+        ${this.badge(st)} ${linkable.has(f) ? `${journalMark('string_pin', 'Lässt sich verknüpfen')} ` : ''}${esc(s.fact(f).text)} <span class="src">${n}×</span>${s.fact(f).case !== caseId ? `<span class="cross">Spur aus ${esc(s.content.cases.find((c) => c.id === s.fact(f).case)?.title.split(':')[0] ?? 'einem anderen Fall')}</span>` : ''}</button></li>`;
     }).join('');
     const ded = s.content.deductions.filter((d) => d.case === caseId && s.hasConclusion(d.id));
     const concl = ded.map((d) => `<li><strong>${esc(d.name)}</strong> ${s.isCertain(d.id) ? '<span class="badge likely">gesichert</span>' : '<span class="badge suspected">Vermutung</span>'}<br>${esc(d.text)}</li>`).join('');

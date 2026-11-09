@@ -1,0 +1,187 @@
+{
+  "facts": {
+    "drowned_dry": {
+      "case": "case_07",
+      "text": "Josiah Thorne ist in seinem verschlossenen, trockenen Kontor ertrunken."
+    },
+    "heir_motive": {
+      "case": "case_07",
+      "text": "Edmund Thorne hat seinen Onkel getötet, um zu erben.",
+      "refuted_by": [
+        "hale_alibi"
+      ]
+    },
+    "coal_prints": {
+      "case": "case_07",
+      "text": "Durch den Kohlenschacht führen kleine, nackte Fußspuren. Ein Kind war im Kontor.",
+      "also": [
+        {
+          "case": "case_08",
+          "requires_any_clues": [
+            "benji_bed",
+            "molly_benji"
+          ]
+        }
+      ]
+    },
+    "canal_water": {
+      "case": "case_07",
+      "text": "Das Wasser in Thornes Lunge stammt aus dem Kanal von Ashgrove.",
+      "also": [
+        {
+          "case": "case_08",
+          "requires_any_clues": [
+            "muddy_gowns"
+          ]
+        }
+      ]
+    },
+    "foreclosure": {
+      "case": "case_07",
+      "text": "Thorne wollte das Waisenhaus St. Brigid zum Monatsende räumen lassen.",
+      "also": [
+        {
+          "case": "case_08",
+          "requires_flags": [
+            "briefed_08"
+          ]
+        }
+      ]
+    }
+  },
+  "clues": {
+    "police_thorne": {
+      "fact": "drowned_dry",
+      "source": "Polizeibericht (Price)",
+      "name": "Der Tote im Kontor",
+      "text": "Price schreibt: „J. Thorne, Bankier, tot im Kontor. Tür von innen verriegelt. Lunge voll Wasser, Kleidung trocken. Der Neffe erbt alles. Verdacht: Neffe.“"
+    },
+    "police_heir": {
+      "fact": "heir_motive",
+      "source": "Polizeibericht (Price)",
+      "name": "Der Neffe",
+      "text": "„Edmund Thorne, Neffe, Spielschulden bis zum Hals. Erbt Kontor und Vermögen. War in der Nacht angeblich ‚unterwegs‘.“"
+    },
+    "finch_found": {
+      "fact": "drowned_dry",
+      "source": "Mr. Ambrose Finch",
+      "name": "Am Morgen",
+      "text": "„Ich hab aufgeschlossen, wie jeden Morgen. Er saß am Schreibtisch, die Feder noch in der Hand. Und auf dem Teppich war kein Tropfen. Kein einziger.“"
+    },
+    "edmund_inherit": {
+      "fact": "heir_motive",
+      "source": "Edmund Thorne",
+      "name": "Ich erbe, na und?",
+      "text": "„Ja, ich erbe. Ja, ich hab Schulden. Und ja, ich hab ihn gehasst. Aber ich war die ganze Nacht im Hafen und hab getrunken, fragen Sie wen Sie wollen.“"
+    },
+    "hale_alibi": {
+      "fact": "heir_motive",
+      "source": "Tobias Hale",
+      "name": "Der Neffe am Hafen",
+      "text": "„Der feine Pinkel mit dem lila Rock? Saß die ganze Nacht im Ankerhof und hat verloren. Um vier hab ich ihn in den Kanal kotzen sehen. Der war nirgends sonst.“"
+    },
+    "chute_prints": {
+      "fact": "coal_prints",
+      "source": "Eigene Beobachtung",
+      "name": "Spuren im Kohlenstaub",
+      "text": "Unter dem Kohlenschacht sind Abdrücke im Staub: kleine, nackte Füße, kaum länger als deine Hand. Sie gehen zur Kellertür und wieder zurück. Ohne Eile."
+    },
+    "finch_coal": {
+      "fact": "coal_prints",
+      "source": "Mr. Ambrose Finch",
+      "name": "Der offene Schacht",
+      "text": "„Die Klappe vom Kohlenschacht stand offen. Da passt kein Erwachsener durch, Sir. Ich dachte, der Kohlenmann war schlampig.“"
+    },
+    "water_glass": {
+      "fact": "canal_water",
+      "source": "Eigene Beobachtung",
+      "name": "Das Wasserglas",
+      "text": "Auf dem Schreibtisch steht ein Glas Wasser. Darin treiben grüne Fäden, Entengrütze. Das ist kein Leitungswasser."
+    },
+    "hale_weed": {
+      "fact": "canal_water",
+      "source": "Tobias Hale",
+      "name": "Grünes Wasser",
+      "text": "Hale hält das Glas gegen die Laterne. „Entengrütze. Die gibt’s nur im alten Kanal von Ashgrove, wo das Wasser steht. Im Hafen frisst das Salz sie auf.“"
+    },
+    "pfaendung_letter": {
+      "fact": "foreclosure",
+      "source": "Brief auf Thornes Pult",
+      "name": "Die Räumung",
+      "text": "„An die Leitung von St. Brigid, Ashgrove. Die Schuld ist nicht beglichen. Räumung zum Monatsende. J. Thorne.“ Darunter, fremde Schrift: „Sie werden schlafen, wo Sie uns hinstellen.“"
+    },
+    "clara_protest": {
+      "fact": "foreclosure",
+      "source": "Clara Benning",
+      "name": "Vor dem Kontor",
+      "text": "„Wir haben vor seinem Kontor gestanden, mit Schildern. Er wollte das Waisenhaus räumen. Am Tag vor seinem Tod kam die Leiterin heraus, ganz ruhig. Sie hat gesagt: Er wird es sich überlegen. Im Schlaf.“"
+    }
+  },
+  "deductions": [
+    {
+      "id": "d7_child",
+      "case": "case_07",
+      "pairs": [
+        [
+          "coal_prints",
+          "drowned_dry"
+        ]
+      ],
+      "name": "Ein Kind im Kontor",
+      "text": "Durch den Kohlenschacht kam ein Kind in den verschlossenen Raum. Ein Kind, das jemand geschickt hat."
+    },
+    {
+      "id": "d7_canal",
+      "case": "case_07",
+      "pairs": [
+        [
+          "canal_water",
+          "drowned_dry"
+        ]
+      ],
+      "name": "Kanalwasser",
+      "text": "Thorne ist nicht im Kontor ertrunken. Das Wasser kam aus Ashgrove, und es kam zu ihm."
+    },
+    {
+      "id": "heir_guilty",
+      "case": "case_07",
+      "honor": 0,
+      "pairs": [
+        [
+          "heir_motive",
+          "drowned_dry"
+        ]
+      ],
+      "name": "Der Erbe",
+      "text": "Edmund wollte das Geld und hat seinen Onkel ertränkt."
+    },
+    {
+      "id": "link_canal",
+      "case": "case_07",
+      "pairs": [
+        [
+          "canal_water",
+          "canal_walk"
+        ]
+      ],
+      "name": "Dasselbe Wasser",
+      "text": "Die Schlafwandler von St. Brigid tauchen nachts die Hände in den Kanal von Ashgrove. Dasselbe Wasser stand in Thornes Lunge. Die beiden Fälle sind einer."
+    }
+  ],
+  "endings": {
+    "c7_heir": {
+      "case": "case_07",
+      "title": "Der falsche Erbe",
+      "honor": -8,
+      "sets_flags": [
+        "case_07_closed",
+        "c7_wrong",
+        "edmund_arrested"
+      ],
+      "complete_quests": [
+        "case_07"
+      ],
+      "text": "Price führt Edmund Thorne in Handschellen aus dem Kontor. Er schreit, dass er im Hafen war. Niemand hört zu.\n\nIn derselben Nacht geht in Ashgrove ein Kind barfuß zum Kanal. Niemand sieht es."
+    }
+  }
+}
