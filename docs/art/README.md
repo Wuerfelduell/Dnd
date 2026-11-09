@@ -55,3 +55,48 @@ Die bestehende Spielmechanik wurde nicht geändert.
 Als Nächstes laut Aufgabenliste: Abschnitt 18 (Fall 3 / Lagerhaus 7), dann 19,
 die Reste aus 12–14 und schließlich 15–17, ohne die hier erledigten Assets doppelt
 zu erzeugen. Laufzeit-Animationen müssen beim Einbau noch im Spiel geprüft werden.
+
+## Grafikpaket A – Pfade, Tränke und Nachtmarkt
+
+Batch `pfade`, erzeugt am 9. November 2026 mit `image_gen` nach
+`codex_A_pfade_traenke_nachtmarkt.md`: **155 PNGs** unter `public/sprites/`.
+
+| Gruppe | PNGs |
+|---|---:|
+| Sieben Embleme in drei Größen, sieben Karten, Leiter und Sockel | 30 |
+| 21 Tränke jeweils in 16×16 und 32×32 | 42 |
+| 21 Formeln und Atlas | 22 |
+| 29 Zutaten/Gegenstände und vier Atlanten | 33 |
+| Vier Schilling-Icons und Münzanimation | 5 |
+| Braukessel mit drei Animationen | 4 |
+| Nachtmarkt-Tileset, Marktstände und Kampfgrube | 3 |
+| Fünf Händler: Lauf-Sheets und Emotionsporträts | 10 |
+| Laden-UI, Verdauungsanzeige, Kontrollverlust, Trinken, Aufstieg und Auren | 6 |
+
+`manifest-pfade.json` enthält die exakten Framegrößen, Spalten/Zeilen,
+Animationslisten, Geschwindigkeiten sowie benannte Ausschnitte für gemischte
+UI-/Prop-Atlanten. Die Leiter ist 16×112; ihre separat gelieferten 24×24-Sockel
+ragen beim Zusammensetzen seitlich jeweils vier Pixel über. Händler-Laufanimationen
+verwenden unten/links/rechts/oben; Porträts neutral/misstrauisch/erschrocken/lächelnd.
+
+Die verwendeten Prompts, Quellbild-Prüfsummen, Referenzdateien und Exportziele
+stehen in `batch-pfade-generation.json`. 51 Generatorbilder wurden zugeschnitten,
+mit Nearest Neighbor auf das Zielraster gebracht und auf dieselben 31 sichtbaren
+Farben plus einen transparenten Paletteneintrag indiziert. Die Palette übernimmt
+Grundtöne von 14b und ergänzt die sieben vorgeschriebenen Pfadakzente. Alpha ist
+binär. UI und Props wurden nach Sichtprüfung in die dokumentierten Regionen
+gepackt; Bodenvarianten haben gemeinsame Randpixel. Der mittlere Bereich der
+Kontrollverlust-Overlays bleibt vollständig transparent.
+
+```sh
+# source-map.json: {"emblem_laterne": "/pfad/original.png", ...}
+# Export benötigt Pillow, numpy und scipy; Prüfung benötigt Pillow und numpy.
+python docs/art/export-pfade.py /pfad/source-map.json
+python docs/art/verify-pfade.py
+```
+
+Die Prüfung deckt Vollständigkeit, Größen, Palette, Alpha, Frame-/Regiongrenzen,
+belegte Animationen, Grundlinien, Formel-Atlas-Korrespondenz und Bodenränder ab.
+Die fertigen Exporte wurden visuell geprüft. Vorschau: `pfade-preview.png`.
+Die Einbindung und Animationstests im laufenden Spiel erfolgen separat;
+dieser Batch verändert keinen Spielcode.
