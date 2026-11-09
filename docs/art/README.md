@@ -946,3 +946,19 @@ Prüfbericht: `validation-wexmoor2.json`. Übersicht: `batch-wexmoor2-preview.pn
 Der Prüfer kontrolliert Vollständigkeit, Maße, Farben, Alpha, leere Rasterfelder,
 Grundlinien, Ausholposen, Animationsvariation, Prop-Regionen und Varianten,
 Portrait-/Item-Ableitungen sowie das kalte Weiß der Lichteffekte.
+
+
+## Batch T – Zirkelmitglieder
+
+55 PNGs für die Treffen-Auktionen: alle 18 Mitglieder mit Lauf-Sheet (64×128, 16×32 je Frame), Emotions-Sheet (256×64) und neutralem Sitzleistenkopf (24×24), dazu der optionale Auktionsatlas. Die Cobb-Zwillinge haben auch im Kopficon beide Köpfe in einem gemeinsamen Mantel.
+
+Manifest: `public/sprites/manifest-zirkel.json`. Prompts, Referenzen, Quell-Hashes und Zuschnitte: `batch-zirkel-generation.json`. Vorschau: [alle Mitglieder](batch-zirkel-preview.png). Gemeinsame 32-Farben-Palette, indizierte PNGs, Nearest Neighbor, binäres Alpha; Portraits und daraus abgeleitete Köpfe haben deckenden Schieferhintergrund.
+
+Laufreihen: down / left / right / up, jeweils vier Frames bei 8 fps. Portraitzustände: neutral / suspicious / shocked / bidding; die vierte Pose hebt Hand, Haken oder Bietermarke. `T_auktion.png` ist ein 128×64-Atlas mit benannten `regions`: zwei 16×16-Bietehände, fünf 12×12-Zirkelmarken, vier 24×24-Hammerschlagframes und ein 24×24-Wachssiegel ohne Schrift. `regionAnimations` beschreiben Bieten (4 fps) und Zuschlag (10 fps).
+
+```sh
+python docs/art/export-zirkel.py SOURCE_MAP.json
+python docs/art/verify-zirkel.py
+```
+
+Die Source Map ordnet die 37 Job-IDs den ursprünglichen Generator-PNGs zu. Die Prüfung bestätigt 55 Dateien, 288 Laufbilder, 72 Portraitzustände, 18 identische Kopfableitungen, 12 Atlasregionen, Maße, Palette, Transparenz und Framegrenzen. Sichtprüfung erfolgte auch im Zielraster. Keine Spielcodeänderung; Einbindung und Prüfung der Darstellung im laufenden Spiel erfolgen separat. Vorhandene Gastgeber, weitere Zirkelpersonen und Treffen-Räume werden nicht ersetzt.
