@@ -7,7 +7,14 @@
 // Konter; wer alle Schläge einer Attacke pariert, setzt zum Gegenschlag an.
 // Konzentration (K) bezahlt Fertigkeiten.
 
-export const WINDOW = { parry: 110, dodge: 220 }; // ± Millisekunden um den Einschlag
+export const WINDOW = { parry: 90, dodge: 150 }; // ± Millisekunden um den Einschlag
+// Schwierigkeit: echte Gegner (keine Übung) halten mehr aus und schlagen härter.
+export const ENEMY_HP_MULT = 1.25;
+export const ENEMY_DMG_MULT = 1.3;
+export const JITTER = 140; // Schläge kommen zufällig bis zu so viel früher/später
+export const DODGE_COST = 3; // Ausweichen kostet Nerven, Paraden geben welche zurück
+export const PARRY_GAIN = 2;
+export const ENRAGE_AT = 0.4; // unter 40 % Leben wird der Gegner schneller und härter
 export const EARLY_LIMIT = 450; // frühere Tastendrücke zählen noch nicht
 export const AP_MAX = 6;
 export const AP_START = 1;
@@ -45,7 +52,13 @@ export class Combat {
     this.state = state;
     this.id = encounterId;
     this.enc = enc;
-    this.enemy = { name: enc.name, hp: enc.hp, maxHp: enc.hp, occult: !!enc.occult };
+    const hp = enc.practice ? enc.hp : Math.round(enc.hp * ENEMY_HP_MULT);
+    this.enemy = { name: enc.name, hp, maxHp: hp, occult: !!enc.occult };
+    this.rng = state.rng ?? Math.random;
+    // Die härteste Einzelattacke kann man nicht parieren, nur ausweichen (außer die Daten sagen es anders)
+    const flagged = enc.attacks.some((a) => a.unparryable !== undefined);
+    const heavy = enc.attacks.filter((a) => a.hits.length === 1).sort((a, b) => b.damage - a.damage)[0];
+    this.unparryable = new Set(enc.attacks.filter((a) => (flagged ? a.unparryable : a === heavy && enc.attacks.length > 2)).map((a) => a.name));
     this.weak = !!enc.weak_if && state.meets(enc.weak_if);
     this.ap = AP_START;
     this.stunned = false;
@@ -183,7 +196,29 @@ export class Combat {
       this.hurtEnemy(this.selfHit);
       return null;
     }
-    return atk;
+    return this.prepareAttack(atk);
+  }
+
+  /** Ist der Gegner in Rage (wenig Leben)? */
+  enraged() {
+    return !this.enc.practice && this.enemy.hp <= this.enemy.maxHp * ENRAGE_AT;
+  }
+
+  /**
+   * Macht aus einer Attacke der Daten den konkreten Angriff dieser Runde:
+   * Schaden skaliert, Takt mit Zufall (man kann ihn nicht auswendig lernen), in Rage schneller.
+   */
+  prepareAttack(atk) {
+    const rage = this.enraged();
+    const dmgMult = this.enc.practice ? 1 : ENEMY_DMG_MULT * (rage ? 1.2 : 1);
+    const speed = rage ? 0.85 : 1;
+    const hits = [];
+    for (const h of atk.hits) {
+      let t = h * speed + (this.rng() * 2 - 1) * JITTER;
+      t = Math.max(450, t, (hits.at(-1) ?? 0) + 230);
+      hits.push(Math.round(t));
+    }
+    return { ...atk, damage: Math.max(1, Math.round(atk.damage * dmgMult)), hits, unparryable: this.unparryable.has(atk.name), enraged: rage };
   }
 
   /**
@@ -191,9 +226,16 @@ export class Combat {
    * Ergebnis: { damage, counter }
    */
   resolveHit(attack, given) {
-    const result = this.evading && given === 'miss' ? 'dodge' : given;
+    let result = this.evading && given === 'miss' ? 'dodge' : given;
+    let note = null;
+    if (result === 'parry' && attack.unparryable) { result = 'miss'; note = 'unparryable'; }
+    if (result === 'dodge' && given === 'dodge' && !this.evading) {
+      if (this.state.composure < DODGE_COST) { result = 'miss'; note = 'exhausted'; }
+      else this.state.setComposure(this.state.composure - DODGE_COST);
+    }
     if (result === 'parry') {
       if (!this.enc.practice) this.state.act('parry');
+      this.state.setComposure(this.state.composure + PARRY_GAIN);
       this.gainAp(1 + this.state.passive('parry_ap'));
       const counter = this.hitDamage(0.5, 'good');
       this.hurtEnemy(counter);
@@ -206,7 +248,7 @@ export class Combat {
     incoming -= absorbed;
     const damage = this.state.damage(incoming);
     if (this.state.hp === 0) this.outcome = 'lost';
-    return { damage, counter: 0, result, absorbed };
+    return { damage, counter: 0, result, absorbed, note };
   }
 
   /** Ende des gegnerischen Zuges: Ausweichen verfällt. */

@@ -53,6 +53,9 @@ export function use(state, mapId, objectId) {
   return 'ok';
 }
 
+/** Geübte Spielweise: von drei Schlägen einer ausgewichen, einer pariert, einer kassiert. */
+export const SKILLED = (i) => ['dodge', 'parry', 'miss'][i % 3];
+
 /**
  * Spielt einen Kampf mit festen Ergebnissen durch (wie CombatScene, ohne Timing).
  * attack: Bewertung der Angriffe, defend(i): Ergebnis des i-ten gegnerischen Schlags.

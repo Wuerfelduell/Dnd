@@ -2,7 +2,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { GameState } from '../src/core/GameState.js';
-import { loadContent, talk, use, fight } from './helpers.js';
+import { loadContent, talk, use, fight, SKILLED } from './helpers.js';
 
 const content = loadContent();
 
@@ -12,7 +12,7 @@ function passWarden(s) {
   assert.ok(!s.meets(hester.lock), 'Hester ist vor dem Kampf unerreichbar');
   talk(s, 'anselm', ['Unheiliges']);
   assert.equal(s.itemCount('bannsalz'), 2);
-  const { result } = fight(s, 'ash_warden', { defend: (i) => (i % 2 ? 'miss' : 'dodge'), items: ['bannsalz', 'bannsalz'], healBelow: 15 });
+  const { result } = fight(s, 'ash_warden', { defend: SKILLED, items: ['bannsalz', 'bannsalz'], healBelow: 15 });
   assert.equal(result.outcome, 'won');
   assert.ok(s.meets(hester.lock));
 }

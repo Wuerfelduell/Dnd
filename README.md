@@ -52,6 +52,8 @@ Auf dem **Nachtmarkt** unter der Krähenbrücke (Stadtkarte) kann man aufsteigen
 - **Formel** bei Cornelius Kittering kaufen, **Zutaten** bei Nell Rauhfuß, am **Braukessel** brauen, im Inventar **trinken**.
 - **Verdauen**: Jeder Pfad hat einen Grundsatz. Wer danach handelt (Faden: Schlussfolgerungen ziehen, Eisen: Kämpfe gewinnen,
   Schlüssel: gesperrte Akten öffnen, ...), verdaut den Trank. Erst bei 100 % verträgt man die nächste Sequenz gefahrlos.
+  Die Verdauung steht im HUD, jede passende Handlung meldet sich mit „+N % verdaut“, und die Pfad-Seite (`P`) listet,
+  welche Handlungen den eigenen Pfad wie stark verdauen.
 - **Unruhe**: kommt mit jedem Trank und mit Geistsicht, klingt mit der Zeit und durch passendes Handeln ab. Ruhetee senkt sie.
   Bei 100 Unruhe oder einem zu früh getrunkenen Trank droht der **Kontrollverlust**: Ohnmacht, Verlust von Leben,
   Schilling und Verdauung (nie Game Over).

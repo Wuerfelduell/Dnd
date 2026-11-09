@@ -290,3 +290,11 @@ button.small { font-size: 0.8em; padding: 0.1em 0.5em; }
   image-rendering: pixelated; border: 0.125em solid #2a2630; }
 .panel.dialogue.with-portrait .choices { clear: both; }
 .badge .atlas-icon { margin-right: 3px; vertical-align: -4px; }
+
+.meter.digest .dfill { height: 100%; background: var(--gold); transition: width 0.3s linear; }
+.meter.digest .dfill.full { background: #9ad06a; animation: pulse 1s infinite alternate; }
+.meter.digest em { font-style: normal; color: var(--ink); font-size: 0.9em; }
+.toast.digest { border-color: var(--gold); color: var(--gold); }
+.notebook .digestlist { grid-template-columns: 1fr 1fr; }
+.notebook .digestlist li { display: flex; justify-content: space-between; font-size: 0.85em; padding: 0.15em 0.5em; border: 0.125em solid #2a2630; }
+.notebook .digestlist li.muted { grid-column: 1 / -1; border: none; }
