@@ -410,3 +410,11 @@ img.scene { display: block; width: 30em; height: 16.875em; margin: 0 auto 0.6em;
 .notebook .fact .jmark { width: 1.25em; height: 1.25em; background-size: 10em 5em; background-position: -7.5em -1.25em !important; vertical-align: -0.2em; }
 .riskicon { display: inline-block; background-repeat: no-repeat; image-rendering: pixelated; vertical-align: middle; margin-right: 0.3em; }
 .panel.dialogue img.scene.inspect { width: 16em; height: 12em; }
+
+/* Paket I: Reise und Sekten */
+.citymap .mode { position: relative; padding-left: 4.6em; }
+.modeicon { position: absolute; left: 0.5em; top: 0.5em; width: 4em; height: 4em; background-size: 8em 4em; background-repeat: no-repeat; image-rendering: pixelated; }
+.citymap .youmark { position: absolute; left: 50%; bottom: 100%; width: 2em; height: 2em; transform: translateX(-50%); background-size: 8em 2em; image-rendering: pixelated;
+  animation: youmark 0.8s steps(4) infinite; pointer-events: none; }
+@keyframes youmark { from { background-position: 0 0; } to { background-position: -8em 0; } }
+.emblem16 { display: inline-block; width: 1.5em; height: 1.5em; background-size: 10.5em 6em; background-position: 0 0; background-repeat: no-repeat; image-rendering: pixelated; vertical-align: -0.35em; margin-right: 0.3em; }

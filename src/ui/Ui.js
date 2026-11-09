@@ -6,6 +6,7 @@ import {
   endingImageUrl, caseFileUrl, sceneUrl, QUEST_UI_URL, QUEST_PINS, QUEST_BANNERS,
   TURN_PORTRAITS, TURN_PORTRAITS_URL, BESTIARY, bestiaryUrl,
   headUrl, sourceKind, sourceKindUrl, inspectUrl, RISK_ICONS, RISK_ICONS_URL, JOURNAL_FRAME, JOURNAL_FRAME_URL, choiceRisk, riskOf,
+  factionEmblemUrl, TRAVEL_MODES_URL, TRAVEL_MODE_ICONS, TRAVEL_MARKER_URL,
 } from '../world/assets.js';
 import { sourceOf } from '../core/sources.js';
 import { caseHints, nextDeduction } from '../core/hints.js';
@@ -65,6 +66,8 @@ const riskIcon = (id, title = '') => {
   return `<span class="riskicon" title="${title}" style="width:${n * k}em;height:${n * k}em;background-image:url(${RISK_ICONS_URL});`
     + `background-size:${80 * k}em ${24 * k}em;background-position:-${x * k}em -${y * k}em"></span>`;
 };
+/** Paket I: Symbol der Reiseart (32x32). */
+const modeIcon = (id) => `<span class="modeicon" style="background-image:url(${TRAVEL_MODES_URL});background-position:-${TRAVEL_MODE_ICONS[id] * 4}em 0"></span>`;
 const RISK_TITLES = { risk_low: 'Wenig Risiko', risk_medium: 'Riskant', risk_high: 'Gefährlich' };
 const sourceFace = (content, clue, unreliable = false) => {
   const src = sourceOf(content, clue);
@@ -480,7 +483,7 @@ export class Ui {
       return `<button class="pin ${cls}" ${attrs} style="left:${x / 8}em;top:${y / 8}em">
         <span class="mk" style="--c:${col};background-image:url(${MAP_MARKERS_URL})"></span>${inner}</button>`;
     };
-    const here = pins[current] ? pin(current, 'here', '<span class="tag">Du bist hier</span>', 'disabled') : '';
+    const here = pins[current] ? pin(current, 'here', `<span class="youmark" style="background-image:url(${TRAVEL_MARKER_URL})"></span><span class="tag">Du bist hier</span>`, 'disabled') : '';
     const destPins = dests.map((d, i) => (pins[d.map] ? pin(d.map, '', `<span class="num">${i + 1}</span><span class="tag">${esc(d.name)}</span>`, `data-i="${i}"`) : '')).join('');
     const unpinned = dests.map((d, i) => (pins[d.map] ? '' : `<button data-i="${i}"><span class="key">${i + 1}</span> ${esc(d.name)}</button>`)).join('');
     const el = this.open('travel', `
@@ -543,9 +546,9 @@ export class Ui {
     const modes = el.querySelector('.modes');
     modes.classList.remove('hidden');
     modes.innerHTML = `
-      <button class="mode safe" data-mode="sicher"><b><span class="key">1</span> ${esc(safe.name)}</b>
+      <button class="mode safe" data-mode="sicher">${modeIcon('sicher')}<b><span class="key">1</span> ${esc(safe.name)}</b>
         <span class="muted">${esc(safe.desc)}</span><span class="gain">+${Math.round(s.maxHp * safe.heal_pct)} Leben · +${safe.nerves} Nerven · Journal</span></button>
-      <button class="mode fast" data-mode="schnell" ${hurry ? '' : 'disabled'}><b><span class="key">2</span> ${esc(fast.name)}</b>
+      <button class="mode fast" data-mode="schnell" ${hurry ? '' : 'disabled'}>${modeIcon('schnell')}<b><span class="key">2</span> ${esc(fast.name)}</b>
         <span class="muted">${esc(fast.desc)}</span><span class="cost">${hurry ? `−${fast.nerves_cost} Nerven · Monster · Beute` : `Zu wenig Nerven (mind. ${fast.nerves_cost})`}</span></button>`;
     modes.querySelectorAll('[data-mode]').forEach((b) => { b.onclick = () => this.travelMode(b.dataset.mode); });
     el.querySelector('[data-act=stay] .key').nextSibling.textContent = ' Anderes Ziel';
@@ -570,6 +573,7 @@ export class Ui {
     const ev = travelFast(s);
     if (ev.encounter) {
       this.showMessage(ev.title, ev.text, {
+        scene: ev.id,
         footer: 'Ein Kampf steht bevor.',
         onClose: () => this.scene.startCombat(ev.encounter, (result) => {
           const loot = afterHurryFight(s, ev, result.outcome);
@@ -585,7 +589,7 @@ export class Ui {
     const lines = [ev.text];
     if (ev.loot?.length) lines.push(`Gefunden:\n${ev.loot.join('\n')}`);
     const footer = ev.lostMoney ? `−${ev.lostMoney} Schilling` : '';
-    this.showMessage(ev.title, lines.join('\n\n'), { footer, onClose: go });
+    this.showMessage(ev.title, lines.join('\n\n'), { footer, onClose: go, scene: ev.id });
   }
 
   // --- Notizbuch ---------------------------------------------------------------
@@ -989,7 +993,7 @@ export class Ui {
       c.confused ? `<span class="badge suspected">${statusIcon('verwirrt')}verwirrt</span>` : '',
       c.enemyGuard ? `<span class="badge refuted">${statusIcon('eisenhaut')}Panzer ${c.enemyGuard}</span>` : '',
       c.veiled ? `<span class="badge refuted">${statusIcon('schatten')}verschleiert</span>` : '',
-      c.enc.faction ? `<span class="badge">${c.state.content.factions?.[c.enc.faction]?.name ?? ''}</span>` : ''].join(' ');
+      c.enc.faction ? `<span class="badge"><span class="emblem16" style="background-image:url(${factionEmblemUrl(c.enc.faction)})"></span>${c.state.content.factions?.[c.enc.faction]?.name ?? ''}</span>` : ''].join(' ');
     q('.cb-status').innerHTML = [c.shield ? statusIcon('eisenhaut', `Schutz ${c.shield}`) + c.shield : '', c.evading ? statusIcon('vorahnung', 'Nächster Angriff geht ins Leere') : '',
       c.bleed ? statusIcon('blutung', `Blutung: ${c.bleed.damage} pro Runde, noch ${c.bleed.rounds}`) + c.bleed.rounds : ''].join(' ');
     q('.pfill').style.width = `${(s.hp / s.maxHp) * 100}%`;
