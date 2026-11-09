@@ -48,16 +48,15 @@ export const auctionMethods = {
     return this.content.npcs[id]?.name ?? id;
   },
 
-  /** Das Los eines Mitglieds in dieser Runde (oder null). Formeln nur für den eigenen Pfad. */
+  /**
+   * Das Los eines Mitglieds in dieser Runde (oder null). Formeln aller Pfade kommen vor, eine
+   * für den eigenen Pfad ist also selten (fremde lassen sich am Ende weiterversteigern).
+   */
   memberLot(circleId, cycle, memberId) {
     const mem = this.circleMembers(circleId).find((m) => m.id === memberId);
     const rng = this.sessionRng(circleId, cycle, `lot:${memberId}`);
-    const fits = (e) => !e.requires_pathway || this.pathway?.id === e.requires_pathway[0];
-    const pool = mem.offers.filter((e) => fits(e) && rng() < (e.chance ?? 1));
-    if (!pool.length) {
-      const any = mem.offers.filter(fits);
-      return any.length ? { ...any[Math.floor(rng() * any.length)] } : null;
-    }
+    const pool = mem.offers.filter((e) => rng() < (e.chance ?? 1));
+    if (!pool.length) return mem.offers.length ? { ...mem.offers[Math.floor(rng() * mem.offers.length)] } : null;
     return { ...pool[Math.floor(rng() * pool.length)] };
   },
 

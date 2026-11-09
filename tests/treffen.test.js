@@ -275,21 +275,37 @@ test('Eigenes Angebot: eigene Artefakte und Formeln, geliehene nicht', () => {
   assert.ok(best > 0);
 });
 
-test('Formeln für Sequenz 7 des eigenen Pfades kommen im Kreidezirkel als Los, fremde nicht', () => {
+test('Formeln kommen auf Treffen oft vor, die für den eigenen Pfad aber selten', () => {
   const s = fall4();
   s.pathway = { id: 'eisen', seq: 8, digestion: 100 };
-  talk(s, 'schleierbote', ['Kreidezirkel beitreten']);
-  let hits = 0;
-  for (let i = 0; i < 30; i++) {
-    jumpTo(s, 'kreide');
-    for (const m of content.gatherings.circles.kreide.members) {
-      const lot = s.memberLot('kreide', s.marketCycle(), m.id);
-      if (!lot) continue;
-      if (lot.item === 'formel_eisen_7') hits++;
-      assert.ok(!/formel_(?!eisen)/.test(lot.item), `fremde Formel ${lot.item}`);
+  let lots = 0;
+  let formulas = 0;
+  let own = 0;
+  for (let cycle = 0; cycle < 300; cycle++) {
+    for (const [cid, c] of Object.entries(content.gatherings.circles)) {
+      for (const m of c.members) {
+        const lot = s.memberLot(cid, cycle, m.id);
+        if (!lot) continue;
+        lots++;
+        if (lot.item.startsWith('formel_')) formulas++;
+        if (lot.item.startsWith('formel_eisen_')) own++;
+      }
     }
   }
-  assert.ok(hits >= 3, `nur ${hits}`);
+  assert.ok(formulas / lots > 0.3, `Formeln ${formulas}/${lots}`);
+  assert.ok(own / lots < 0.08, `eigener Pfad ${own}/${lots}`);
+  assert.ok(own > 0, 'kommt aber vor');
+});
+
+test('Neue Artefakte sind auf den Treffen im Umlauf', () => {
+  const fromMeetings = Object.entries(content.artifacts.list).filter(([, a]) => a.source === 'treffen').map(([id]) => id);
+  assert.ok(fromMeetings.length >= 10);
+  const offered = new Set(Object.values(content.gatherings.circles).flatMap((c) => c.members.flatMap((m) => m.offers.map((e) => e.item))));
+  for (const id of fromMeetings) {
+    assert.ok(offered.has(id), `${id} wird nirgends angeboten`);
+    assert.equal(content.items[id].kind, 'artifact');
+    assert.ok(content.items[id].boons.length && content.items[id].curses.length, `${id}: Vor- und Nachteile`);
+  }
 });
 
 test('Gehaltene Runden überstehen Speichern und Laden', () => {
