@@ -17,12 +17,12 @@ Jede Datei ist **eigenständig** (Regeln, Formate, Ablage stehen drin). Codex br
 | `codex_W_altstadt_nebengeschichten.md` | geliefert (PR #109), Einbau offen |
 | `codex_X_artefakte_platzhalter.md` | geliefert (PR #114), Einbau offen |
 | `codex_Y_soundeffekte.md` | geliefert (PR #120), Einbau offen |
-| `codex_Z_musik.md` | läuft |
+| `codex_Z_musik.md` | noch nicht geliefert |
 | `codex_AA_nebenquests_kettlegate.md` | geliefert, Entwurf in `docs/story/kg_nebenquests/` |
 | `codex_AB_nebenquests_wexmoor.md` | geliefert, Entwurf in `docs/story/wx_nebenquests/` |
-| `codex_AC_kapitel3_story.md` | läuft (3 Geschichten zur Auswahl) |
+| `codex_AC_kapitel3_story.md` | noch nicht geliefert (3 Geschichten zur Auswahl) |
 | `codex_AD_lesetexte_lore.md` | geliefert, Entwurf in `docs/story/lore/` |
-| `codex_AE_oberflaeche_wexmoor_leben.md` | läuft |
+| `codex_AE_oberflaeche_wexmoor_leben.md` | noch nicht geliefert |
 | `codex_AF_sequenzen.md` | geliefert, Entwurf in `docs/story/sequenzen/` |
 
 Die erledigten Dateien (A bis V) liegen in `erledigt/`, alle älteren Prompts in `prompts_komplett.md`.
