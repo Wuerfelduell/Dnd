@@ -1,7 +1,7 @@
 {
   "id": "giesserei",
   "name": "Glockengießerei Brannock",
-  "tiles": "warehouse",
+  "tiles": "j_giesserei",
   "ambient": {
     "night": 0.78,
     "fog": 0.12
@@ -161,7 +161,7 @@
         10,
         11
       ],
-      "sprite": "npc:cultist",
+      "sprite": "ow_chorwaechter",
       "marker": false,
       "prompt": "Den Mann in der Chorrobe stellen",
       "visible_if": {
@@ -182,7 +182,7 @@
         24,
         13
       ],
-      "sprite": "stairs",
+      "sprite": "j_giesserei_props_hatch_open",
       "marker": true,
       "prompt": "In die Resonanzkammer hinabsteigen",
       "visible_if": {
@@ -193,6 +193,179 @@
           "case_05_closed"
         ]
       }
+    }
+  ],
+  "decor": [
+    {
+      "sprite": "j_giesserei_props_furnace",
+      "tile": [
+        3,
+        3
+      ],
+      "offset": [
+        8,
+        8
+      ],
+      "origin": [
+        0.5,
+        1
+      ],
+      "ysort": true,
+      "alpha": 1,
+      "solid": [
+        40,
+        12,
+        0,
+        -6
+      ]
+    },
+    {
+      "sprite": "j_giesserei_props_crane",
+      "tile": [
+        29,
+        3
+      ],
+      "offset": [
+        8,
+        8
+      ],
+      "origin": [
+        0.5,
+        1
+      ],
+      "ysort": true,
+      "alpha": 1,
+      "solid": [
+        24,
+        10,
+        0,
+        -5
+      ]
+    },
+    {
+      "sprite": "j_giesserei_props_sand_sacks",
+      "tile": [
+        28,
+        3
+      ],
+      "ysort": true,
+      "alpha": 1
+    },
+    {
+      "sprite": "j_giesserei_props_bronze_ingots",
+      "tile": [
+        31,
+        3
+      ],
+      "ysort": true,
+      "alpha": 1
+    },
+    {
+      "sprite": "j_giesserei_props_coal_heap",
+      "tile": [
+        6,
+        3
+      ],
+      "offset": [
+        8,
+        0
+      ],
+      "ysort": true,
+      "alpha": 1,
+      "solid": [
+        28,
+        10
+      ]
+    },
+    {
+      "sprite": "j_giesserei_props_bronze_bell",
+      "tile": [
+        16,
+        8
+      ],
+      "offset": [
+        8,
+        8
+      ],
+      "origin": [
+        0.5,
+        1
+      ],
+      "ysort": true,
+      "alpha": 1
+    },
+    {
+      "sprite": "j_giesserei_props_mould",
+      "tile": [
+        17,
+        10
+      ],
+      "offset": [
+        0,
+        0
+      ],
+      "ysort": true,
+      "alpha": 1
+    },
+    {
+      "sprite": "j_giesserei_props_blackboard",
+      "tile": [
+        20,
+        1
+      ],
+      "offset": [
+        8,
+        8
+      ],
+      "origin": [
+        0.5,
+        1
+      ],
+      "alpha": 1,
+      "depth": 40
+    },
+    {
+      "sprite": "j_giesserei_props_workbench",
+      "tile": [
+        28,
+        8
+      ],
+      "offset": [
+        0,
+        0
+      ],
+      "ysort": true,
+      "alpha": 1
+    },
+    {
+      "sprite": "j_giesserei_props_ladle_rack",
+      "tile": [
+        5,
+        10
+      ],
+      "offset": [
+        0,
+        8
+      ],
+      "origin": [
+        0.5,
+        1
+      ],
+      "ysort": true,
+      "alpha": 1,
+      "solid": [
+        10,
+        6
+      ]
+    },
+    {
+      "sprite": "j_giesserei_props_sample_shimmer",
+      "tile": [
+        21,
+        12
+      ],
+      "ysort": true,
+      "alpha": 1
     }
   ]
 }

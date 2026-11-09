@@ -2,7 +2,7 @@ import { DIGEST_LABELS } from '../core/Pathways.js';
 import { lootList, itemRarity, RARITY_NAMES } from '../core/Loot.js';
 import {
   itemIconUrl, itemIcon32Url, pathwayEmblemUrl, pathwayCardUrl, COIN_URL, SKILL_ICONS, SKILL_ICONS_URL, STATUS_ICONS, STATUS_ICONS_URL,
-  portraitUrl, portraitFor, MAP_MARKERS, MAP_MARKERS_URL, LOG_MARKERS, LOG_MARKERS_URL, SOURCE_ICONS, SPRITE_BASE,
+  portraitUrl, portraitFor, mapMarkerOf, LOG_MARKERS, LOG_MARKERS_URL, SOURCE_ICONS, SPRITE_BASE,
   endingImageUrl, caseFileUrl, sceneUrl, QUEST_UI_URL, QUEST_PINS, QUEST_BANNERS,
   TURN_PORTRAITS, TURN_PORTRAITS_URL, TURN_PORTRAIT_URLS, BESTIARY, bestiaryUrl,
   headUrl, sourceKind, sourceKindUrl, inspectUrl, RISK_ICONS, RISK_ICONS_URL, JOURNAL_FRAME, JOURNAL_FRAME_URL, choiceRisk, riskOf,
@@ -33,7 +33,7 @@ const turnFace = (id) => {
 };
 const skillIcon = (id) => atlasIcon(SKILL_ICONS_URL, SKILL_ICONS[id], 7);
 const statusIcon = (id, title) => atlasIcon(STATUS_ICONS_URL, STATUS_ICONS[id], 12, title);
-const mapMarker = (map) => atlasIcon(MAP_MARKERS_URL, MAP_MARKERS[map], 13);
+const mapMarker = (map) => atlasIcon(...mapMarkerOf(map), 13);
 /** Portrait (64x64 aus einem 256x64-Streifen) für den Dialog. */
 const portrait = (id, mood) => {
   const p = portraitFor(id, mood);
@@ -532,10 +532,10 @@ export class Ui {
     const pin = (map, cls, inner, attrs = '') => {
       if (map === goalMap) { cls += ' goal'; inner += `${questUi('qpin', QUEST_PINS.amber)}<span class="goaltag">Ziel</span>`; }
       const [x, y] = pins[map];
-      const cell = MAP_MARKERS[map] ?? 0;
+      const [url, cell = 0] = mapMarkerOf(map);
       const col = cell % 13;
       return `<button class="pin ${cls}" ${attrs} style="left:${x / 8}em;top:${y / 8}em">
-        <span class="mk" style="--c:${col};background-image:url(${MAP_MARKERS_URL})"></span>${inner}</button>`;
+        <span class="mk" style="--c:${col};background-image:url(${url})"></span>${inner}</button>`;
     };
     const here = pins[current] ? pin(current, 'here', `<span class="youmark" style="background-image:url(${TRAVEL_MARKER_URL})"></span><span class="tag">Du bist hier</span>`, 'disabled') : '';
     const destPins = dests.map((d, i) => (pins[d.map] ? pin(d.map, '', `<span class="num">${i + 1}</span><span class="tag">${esc(d.name)}</span>`, `data-i="${i}"`) : '')).join('');
