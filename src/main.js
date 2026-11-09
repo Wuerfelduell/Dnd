@@ -7,6 +7,8 @@ import { Ui } from './ui/Ui.js';
 import { CombatScene } from './world/CombatScene.js';
 import { Audio } from './core/Audio.js';
 import { wireSounds } from './core/sounds.js';
+import { MusicDirector } from './core/MusicDirector.js';
+import { cityOf } from './core/Travel.js';
 
 const SAVE_KEY = 'nebelakten-save';
 const state = new GameState(content);
@@ -56,6 +58,27 @@ const ui = new Ui(uiRoot, state, {
 });
 
 ui.audio = audio;
+
+// Paket Z: Musik aus Notendaten (Web Audio), startet mit der ersten Eingabe
+const music = new MusicDirector({ audio });
+const setVolumes = audio.setVolumes.bind(audio);
+audio.setVolumes = (v) => { const out = setVolumes(v); music.applyVolume(); return out; };
+const startMusic = () => music.start();
+for (const type of ['pointerdown', 'keydown', 'touchend']) document.addEventListener(type, startMusic, { once: true });
+document.addEventListener('visibilitychange', () => (document.hidden ? music.pause() : music.resume()));
+setInterval(() => {
+  if (document.hidden || !game) return;
+  const combat = game.scene.isActive('combat') ? game.scene.getScene('combat') : null;
+  music.update({
+    title: !started,
+    combat: combat?.combat ? { id: combat.encounterId, enc: combat.combat.enc } : null,
+    vision: state.spiritVision,
+    map: state.map,
+    city: cityOf(state, state.map),
+    zone: content.zones?.[state.map] ? state.map : null,
+    playTime: state.playTime,
+  });
+}, 500);
 
 game = new Phaser.Game({
   type: Phaser.AUTO,
@@ -108,4 +131,4 @@ fit();
 ui.showTitle();
 
 // Für Tests und Debugging in der Browser-Konsole.
-window.__nebel = { game, state, ui, content, audio, scene: () => game.scene.getScene('world') };
+window.__nebel = { game, state, ui, content, audio, music, scene: () => game.scene.getScene('world') };

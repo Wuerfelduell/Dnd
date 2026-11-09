@@ -167,7 +167,7 @@ synth.zerstoere();
 
 Scheduler: alle 25 ms, 120 ms Vorlauf, AudioContext-Zeit als Uhr. Nach einem verspäteten Tick werden verpasste Anschläge übersprungen statt gebündelt nachgeholt. Pro Instanz maximal 24 überlappende Notenstimmen, auch während Überblendungen; bei Bedarf wird die älteste mit kurzer Ausblendung freigegeben. Alle Knoten werden nach dem Ausklang getrennt. Pro Wiedergabeschicht ein gemeinsamer Faltungshall mit selbst erzeugter Stereo-Impulsantwort; optionaler Echo-Feedbackzweig und Tiefpass. Ein Kompressor schützt den Ausgang bei dichter Instrumentierung.
 
-Die bestehende `Audio.js` hat `levels.master`, `levels.musik` und `music(id)`. Dort später denselben Context teilen, Musikbus auf das Produkt der beiden Pegel setzen und die neue Klasse für JSON-Musik verwenden. `main.js` steht weiterhin auf `kinds: ['sfx']`. Diese Lieferung ändert keine bestehende Integration.
+Die bestehende `Audio.js` hat `levels.master`, `levels.musik` und `music(id)`. Dort später denselben Context teilen, Musikbus auf das Produkt der beiden Pegel setzen und die neue Klasse für JSON-Musik verwenden. Eingebaut: `src/core/MusicDirector.js` wählt das Stück (Titel, Kampf, Geistsicht, Karte mit Tag/Nacht im 15-Minuten-Wechsel, Stadt), `main.js` startet die Musik mit der ersten Eingabe.
 
 ## Neues Stück
 
