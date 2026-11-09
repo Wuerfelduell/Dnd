@@ -414,11 +414,15 @@ export const Q_MAP_MARKERS_URL = `${BASE}ui/Q_wexmoor_marker.png`;
 /** Batch X: Marker der Wexmoor-Zirkel (2 Spalten, Zeilen wie Paket O). */
 export const X_MAP_MARKERS = { treffen_lichtlose: 0, treffen_salz: 1, treffen_namensgilde: 0 }; // Täfelchengilde: Marker der Lichtlosen, bis es einen eigenen gibt
 export const X_MAP_MARKERS_URL = `${BASE}ui/X_map_markers_zirkel.png`;
-/** Marker eines Ortes: [Bild-URL, Spalte, Spalten im Bild, live]. */
+/** Paket AN: Floßfriedhof, Lichtamt, Torfbrüche (3 Spalten, eine Zeile; Bild unten in der 16x32-Zelle). */
+export const AN_MAP_MARKERS = { wx_flossfriedhof: 0, wx_lichtamt: 1, wx_torfbrueche: 2 };
+export const AN_MAP_MARKERS_URL = `${BASE}ui/AN_marker.png`;
+/** Marker eines Ortes: [Bild-URL, Spalte, Spalten im Bild, live, nur eine Zeile]. */
 export const mapMarkerOf = (map) => {
   if (O_MAP_MARKERS[map] !== undefined) return [O_MAP_MARKERS_URL, O_MAP_MARKERS[map], 3, true];
   if (X_MAP_MARKERS[map] !== undefined) return [X_MAP_MARKERS_URL, X_MAP_MARKERS[map], 2, true];
   if (Q_MAP_MARKERS[map] !== undefined) return [Q_MAP_MARKERS_URL, Q_MAP_MARKERS[map], 7];
+  if (AN_MAP_MARKERS[map] !== undefined) return [AN_MAP_MARKERS_URL, AN_MAP_MARKERS[map], 3, false, true];
   if (J_MAP_MARKERS[map] !== undefined) return [J_MAP_MARKERS_URL, J_MAP_MARKERS[map], 13];
   return [MAP_MARKERS_URL, MAP_MARKERS[map], 13];
 };
@@ -1983,3 +1987,25 @@ for (const id of ['AO_staffelei', 'AO_staffelei_portraet']) {
 /** Paket AQ: Waren der Täfelchengilde nutzen bis zu eigenen Icons die vorgeschlagenen Platzhalter. */
 Object.assign(ITEM_ICON_ALIASES, { k2g_kerbstaub: 'torfasche', k2g_moorharz: 'salamanderoel', k2g_rufpastille: 'riechsalz',
   k2g_schreinbruehe: 'moortee', k2g_zeugenklammer: 'amulett_eisen', k2g_nachhallspule: 'spindelknochen' });
+
+// --- Paket AN: Torfbrüche, Floßfriedhof, Lichtamt (manifest-wexmoor6.json) ----------------------------
+/** Monster der Torfbrüche: [Kampf-Frame, Karten-Frame-Breite]. Kartenfiguren haben nur eine Laufreihe. */
+export const AN_ENEMIES = { torfleiche: [64, 16], grubenlicht: [64, 32], torfwurm: [64, 32], schlickhund: [48, 32], moorbraut: [96, 32] };
+for (const [id, [w, ow]] of Object.entries(AN_ENEMIES)) {
+  BATTLE_SHEETS[`enemy_${id}`] = [`battle/enemy_${id}.png`, w];
+  ENCOUNTER_SHEETS[id] = `enemy_${id}`;
+  OVERWORLD_SHEETS[id] = [`characters/F_ow_${id}.png`, ow, 32];
+  PROP_ORIGINS[`ow_${id}`] = 0.85;
+  ANIM_ALIASES[`enemy_${id}`] = { attack: 'attack_a', special: 'attack_b' };
+  BESTIARY_FILES[id] = `AN_${id}`;
+  if (!BESTIARY.includes(id)) BESTIARY.push(id);
+}
+FADING_SHEETS.push('enemy_grubenlicht');
+ANIM_ALIASES.enemy_moorbraut.phase2 = 'phase2';
+BOSS_INTROS.moorbraut = 'moorbraut_an';
+BOSS_INTRO_IMAGES.moorbraut_an = ['AN_boss_moorbraut', 'ui/AN_boss_moorbraut.png'];
+BATTLE_BACKGROUNDS.wx_torfbrueche = 'bg_torfbrueche';
+ENCOUNTER_BACKGROUNDS.moorbraut = 'bg_brautkammer';
+/** Beute der Torfbrüche und der Brautkranz (16er und 32er). */
+ICON32.push('schlickzahn', 'wurmseide', 'grubenglas', 'torfbernstein', 'brautschleier', 'brautring', 'brautkranz');
+ITEM_ICON_ALIASES.k2o_amtsschluessel = 'amulett_schluessel';

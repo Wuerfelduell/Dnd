@@ -939,10 +939,10 @@ export class Ui {
       if (map === meetMap) { cls += ' goal meet'; inner += `${questUi('qpin', QUEST_PINS.amber)}<span class="goaltag">Treffen</span>`; }
       else if (map === goalMap) { cls += ' goal'; inner += `${questUi('qpin', QUEST_PINS.amber)}<span class="goaltag">Ziel</span>`; }
       const [x, y] = pins[map];
-      const [url, cell = 0, cols = 13, live = false] = mapMarkerOf(map);
+      const [url, cell = 0, cols = 13, live = false, one = false] = mapMarkerOf(map);
       const col = cell % cols;
       return `<button class="pin ${cls}${live ? ' live' : ''}" ${attrs} style="left:${x / 8}em;top:${y / 8}em">
-        <span class="mk" style="--c:${col};background-image:url(${url});background-size:${cols * 2}em ${live ? 8 : 4}em"></span>${inner}</button>`;
+        <span class="mk${one ? ' one' : ''}" style="--c:${col};background-image:url(${url});background-size:${cols * 2}em ${live ? 8 : 4}em"></span>${inner}</button>`;
     };
     const here = pins[current] ? pin(current, 'here', `<span class="youmark" style="background-image:url(${TRAVEL_MARKER_URL})"></span><span class="tag">Du bist hier</span>`, 'disabled') : '';
     const destPins = dests.map((d, i) => (pins[d.map] ? pin(d.map, '', `<span class="num">${i + 1}</span><span class="tag">${esc(d.name)}</span>`, `data-i="${i}"`) : '')).join('');

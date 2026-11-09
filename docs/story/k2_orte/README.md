@@ -1,5 +1,7 @@
 # Paket AM: Drei Orte und „Das Grab ohne Namen“
 
+> **Eingebaut** (zusammen mit den Grafiken aus AN): Die JSON-Dateien liegen unter `src/data/packs/k2_orte/`, dazu `pins.json` mit den vorgeschlagenen Pins. `buildContent` hängt `maps`, `zone`, `travel` und `pins` an Wexmoor und `artifacts.list` an die Artefakte. Auftragsgegenstände sind `kind: key`. Die Torfbrüche lassen zusätzlich das Namenstäfelchen fallen (wie alle Gefahrengebiete). Offen: AN-Tilesets und -Props sind noch nicht auf die Karten gelegt, die Karten nutzen weiter vorhandene Kacheln.
+
 Fertige Inhaltsdaten zur separaten Integration. Basis und abschließend abgeglichener Stand: `main` bei `e90e5b040f9c3b6ae66c0edd55bad3f7de29a867`, Prompt `docs/art/codex_AM_k2_orte.md` mit Blob `4db1bd5396d307b2b0d2c6708e5d84f36feec07e`. Alle Änderungen dieses Pakets liegen in diesem Ordner. Keine Laufzeitdateien, Grafiken oder fremden Pakete werden geändert.
 
 ## Inhalt

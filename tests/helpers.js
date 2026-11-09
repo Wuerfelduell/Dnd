@@ -4,7 +4,7 @@ import { buildContent } from '../src/data/buildContent.js';
 
 const load = (p) => JSON.parse(readFileSync(new URL(`../src/data/${p}`, import.meta.url), 'utf8'));
 
-const PACKS = ['kg_nebenquests', 'wx_nebenquests', 'koop', 'k2_akten', 'k2_gilde'];
+const PACKS = ['kg_nebenquests', 'wx_nebenquests', 'koop', 'k2_akten', 'k2_orte', 'k2_gilde'];
 const PACK_FILES = ['quests', 'items', 'encounters', 'dialogues', 'npcs', 'case', 'dialog_zusaetze', 'platzierung'];
 
 /** sequenzen: false lädt den Stand ohne Paket AF (für docs/story/sequenzen/pruefen.mjs). */
@@ -29,6 +29,7 @@ export function loadContent({ sequenzen = true, without = [] } = {}) {
     packs: PACKS.filter((name) => !without.includes(name)).map((name) => ({ name, ...Object.fromEntries(PACK_FILES.map((f) => [f, load(`packs/${name}/${f}.json`)])),
       ...(name === 'wx_nebenquests' ? { kahn_ausbau: load('packs/wx_nebenquests/kahn_ausbau.json') } : {}),
       ...(name === 'k2_akten' ? { faelle: load('packs/k2_akten/faelle.json'), zeitung: load('packs/k2_akten/zeitung.json') } : {}),
+      ...(name === 'k2_orte' ? Object.fromEntries(['artifacts', 'maps', 'travel', 'zone', 'pins'].map((f) => [f, load(`packs/k2_orte/${f}.json`)])) : {}),
       ...(name === 'k2_gilde' ? { artefakte: load('packs/k2_gilde/artefakte.json'), treffen: load('packs/k2_gilde/treffen_namensgilde.json') } : {}),
       ...(name === 'koop' ? { geplauder: load('packs/koop/geplauder.json'), kampf: load('packs/koop/kampf.json') } : {}) })),
     lore: Object.fromEntries(['bestiarium', 'gerede', 'item_texte', 'lesestuecke', 'zeitungen'].map((f) => [f, load(`packs/lore/${f}.json`)])),
