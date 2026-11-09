@@ -83,6 +83,9 @@ export const SHEETS = {
   q_kajuete: 'tilesets/Q_kajuete_tiles.png',
   r_wexmoor: 'tilesets/R_wexmoor_tiles.png', r_innen: 'tilesets/R_innen_tiles.png', r_vergessmoor: 'tilesets/R_vergessmoor_tiles.png',
   r_leuchtturm: 'tilesets/R_leuchtturm_tiles.png',
+  // Paket AV (Kapitel 3, Dunscar): Straßen, Bahn, Steinbruch, Schlucht, Innenräume, Zug (8 Spalten à 16 px)
+  ds_stadt: 'tilesets/ds_stadt.png', ds_bahn: 'tilesets/ds_bahn.png', ds_bruch: 'tilesets/ds_bruch.png', ds_schlucht: 'tilesets/ds_schlucht.png',
+  ds_innen: 'tilesets/ds_innen.png', ds_zug: 'tilesets/ds_zug.png',
   v_glocke: 'tilesets/V_01_glocke_tiles.png',
   w_altstadt: 'tilesets/W_01_altstadt_tiles.png',
   s_salzwatt: 'tilesets/S_salzwatt_tiles.png', s_lichtlose: 'tilesets/S_lichtlose_tiles.png', s_salz: 'tilesets/S_salz_tiles.png',
@@ -214,6 +217,14 @@ export const THEME_TILES = {
     wallTop: [16, 17, 21], wallFace: [18, 20, 22], board: [19], shelf: [26, 28] },
   o_russ: { sheet: 'o_russ', fallback: 'stone', floor: [0, 1, 2, 3], ash: [6], wallTop: [16, 17], wallFace: [20, 21, 23],
     door: [18, 19] },
+  // Paket AV (Kapitel 3, Dunscar): Zellindex im 8er-Raster laut manifest-dunscar1.json
+  ds_stadt: { sheet: 'ds_stadt', fallback: 'cobble0', floor: [0, 1, 2], chalk: [4], debris: [5, 6, 7], wallTop: [8], wallFace: [9], window: [12, 13] },
+  ds_bahn: { sheet: 'ds_bahn', fallback: 'stone', floor: [9, 45], debris: [31, 46, 47], rails: [0] },
+  ds_bruch: { sheet: 'ds_bruch', fallback: 'stone', floor: [0, 1, 2, 3], debris: [4, 5], wet: [6, 7], wallTop: [8], wallFace: [9] },
+  ds_schlucht: { sheet: 'ds_schlucht', fallback: 'stone', floor: [16, 17, 18, 19], debris: [22], wallTop: [20], wallFace: [0, 1], grooves: [2, 3] },
+  ds_innen: { sheet: 'ds_innen', fallback: 'wood0', floor: [0, 1, 2, 3], wear: [4, 5], wallTop: [8], wallFace: [9] },
+  ds_teesaal: { sheet: 'ds_innen', fallback: 'wood0', floor: [0, 1, 2, 3], carpet: [6, 7], wallTop: [12], wallFace: [13] },
+  ds_zug: { sheet: 'ds_zug', fallback: 'wood0', floor: [0, 1], wallTop: [31], wallFace: [11], window: [12, 13, 14, 15] },
   warehouse: {
     sheet: 'lagerhaus', base: 'floor_1', fallback: 'wood0',
     floor: ['floor_1', 'floor_2', 'floor_3'], debris: ['floor_broken', 'tile_04', 'tile_05', 'tile_06', 'tile_07'],

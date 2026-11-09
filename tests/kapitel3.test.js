@@ -166,3 +166,7 @@ test('Epiloge (AP/AR): jedes Kapitel-2/3-Ende zeigt seine Szenen in Dateireihenf
   s.setEnding('k2_rein');
   assert.ok(s.epilogue('k2_rein').some((e) => e.requires_flags.includes('k2v_zunder_vertraut')));
 });
+
+test('AV: Dunscarer Karten nutzen die eigenen Tilesets', () => {
+  for (const id of DS_MAPS) assert.match(content.maps[id].tiles, /^ds_/, id);
+});
