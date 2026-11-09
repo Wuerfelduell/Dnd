@@ -3,7 +3,7 @@ import { Combat, WINDOW, EARLY_LIMIT, DODGE_COST, RING_CURVES, judgeDefense, jud
 import { createTextures, createCharacterSheet } from './textures.js';
 import {
   BATTLE_BACKGROUNDS, ENCOUNTER_BACKGROUNDS, ENEMY_BATTLE_SHEETS, ENCOUNTER_SHEETS, FADING_SHEETS,
-  SKILL_FX, SELF_FX, PATHWAY_POSES, WEAPON_POSES, battleSheetsOf, ENCOUNTER_FX, BOSS_INTROS, bossIntroImage, BOSS_FORMS, BOSS_FORM_BACKGROUNDS, BOSS_FORM_INTROS, battleSheetDef, CASE_SHEETS, playBattleAnim, playCaseAnim,
+  SKILL_FX, SELF_FX, AG_SKILL_FX, PATHWAY_POSES, WEAPON_POSES, battleSheetsOf, ENCOUNTER_FX, BOSS_INTROS, bossIntroImage, BOSS_FORMS, BOSS_FORM_BACKGROUNDS, BOSS_FORM_INTROS, battleSheetDef, CASE_SHEETS, playBattleAnim, playCaseAnim,
 } from './assets.js';
 import { VIEW_W, VIEW_H, PLAYER_PALETTE } from './WorldScene.js';
 import { koopBark } from '../core/Koop.js';
@@ -154,14 +154,18 @@ export class CombatScene extends Phaser.Scene {
 
   /** Effekt einer Pfad-Fähigkeit, am Spieler oder am Gegner. */
   skillFx(skillId) {
+    const def = this.combat?.skillDef(skillId);
     skillId = this.fxId(skillId);
     if (!SKILL_FX[skillId]) return;
-    const p = SELF_FX.includes(skillId) ? this.playerCenter() : this.enemyCenter();
+    // Paket AG: Stufen ohne Treffer (Schutz, Heilung, Ruhe) wirken am Spieler
+    const self = SELF_FX.includes(skillId) || (AG_SKILL_FX.includes(skillId) && def && !def.hits);
+    const p = self ? this.playerCenter() : this.enemyCenter();
     this.playFx(`fx_${skillId}`, 'cast', p.x, p.y);
   }
 
   /** Effekt-Id einer Fähigkeit: neue Fähigkeiten leihen sich bis zur eigenen Grafik einen Effekt (fx). */
   fxId(skillId) {
+    if (AG_SKILL_FX.includes(skillId)) return skillId; // Paket AG: eigener Effekt statt des geliehenen
     return this.combat?.skillDef(skillId)?.fx ?? skillId;
   }
 
@@ -177,6 +181,8 @@ export class CombatScene extends Phaser.Scene {
     const pid = this.combat.on(this.combat.actor, () => this.state.pathway?.id);
     const sheets = this.sheetsOf(this.player);
     // Paket AH: Spieler 2 hat eigene Posen auch für die neuen Pfade (sq_waage, sq_moor, sq_uhr)
+    // Paket AG: eigene Posen der neuen Pfade für die Hauptfigur (vor der geliehenen Pose)
+    if (!sheets.own && pid?.startsWith('sq_') && playBattleAnim(this.player, pid, () => this.idle(this.player), 'battle_player_skills2')) return true;
     for (const pose of [sheets.own && pid?.startsWith('sq_') && pid, PATHWAY_POSES[pid]]) {
       if (pose && playBattleAnim(this.player, pose, () => this.idle(this.player), sheets.skills)) return true;
     }

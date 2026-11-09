@@ -472,8 +472,9 @@ const MANIFEST_IDS = { player_drink: 'A_player_drink', control_cracks: 'A_11_con
 /** Pfad-Embleme und Karten (public/sprites/pathways/). */
 /** Neue Pfade (Paket AF) zeigen bis zur eigenen Grafik die eines Bestandspfads. */
 export const pathwayArt = (pid) => PATHWAY_STANDIN[pid] ?? pid;
-export const pathwayEmblemUrl = (pid, size = 32) => `${BASE}pathways/emblem_${pathwayArt(pid)}_${size}.png`;
-export const pathwayCardUrl = (pid) => `${BASE}pathways/card_${pathwayArt(pid)}.png`;
+// Paket AG: Waage, Moor und Uhr haben eigene Embleme und Karten; pathwayArt bleibt für die Aura-Platzhalter
+export const pathwayEmblemUrl = (pid, size = 32) => `${BASE}pathways/emblem_${pid}_${size}.png`;
+export const pathwayCardUrl = (pid) => `${BASE}pathways/card_${pid}.png`;
 export const COIN_URL = `${BASE}items/schilling.png`;
 /**
  * Oberflächen-Bögen, die das UI als CSS-Variablen bekommt (--<name>: url(...)), siehe style.css.
@@ -1022,14 +1023,12 @@ export function playCaseAnim(sprite, sheet, then) {
 /** Items ohne eigenes Bild (noch): Platzhalter aus einem ähnlichen Item. */
 export const ITEM_ICON_ALIASES = { // Paket AA/AB haben seit AJ eigene Symbole
   k2a_tinte_abschrift: 'pfaendungsbrief', k2a_bittere_mittel_abschrift: 'pfaendungsbrief', k2a_hafenrecht_abschrift: 'pfaendungsbrief', k2a_letztes_bild_abschrift: 'pfaendungsbrief' }; // Paket AL
-/** Zutaten und Artefakte aus Paket AF: Platzhalter laut docs/story/sequenzen/grafikwuensche.md. */
-const AF_ICONS = { sq_offene_blende: 'glasauge', sq_gegenakte: 'papierfeder', sq_ruecklaufbecher: 'brutschale', sq_stegbolzen: 'glockenzunge',
-  sq_fristpendel: 'taschenuhr', sq_torfsiegel: 'glasfibel' };
-/** Trank/Formel eines neuen Pfads → Bild des Bestandspfads gleicher Stufe; Zutaten sq_zutat_* → Silberstaub (9–6) oder Geisteressenz (Kern). */
+/** Zutaten und Artefakte aus Paket AF haben seit AG eigene Bilder (16 und 32). */
+const AF_ARTIFACTS = ['sq_offene_blende', 'sq_gegenakte', 'sq_ruecklaufbecher', 'sq_stegbolzen', 'sq_fristpendel', 'sq_torfsiegel'];
+const AG_ICONS = (id) => AF_ARTIFACTS.includes(id) || /^sq_zutat_\w+_\d$/.test(id);
+/** Trank/Formel eines neuen Pfads → Bild des Bestandspfads gleicher Stufe. */
 const standinIcon = (id) => {
-  if (AF_ICONS[id]) return AF_ICONS[id];
-  const z = /^sq_zutat_\w+_(\d)$/.exec(id);
-  if (z) return Number(z[1]) >= 6 ? 'silberstaub' : 'geisteressenz';
+  if (AG_ICONS(id)) return id; // Paket AG: eigene Bilder für Zutaten und Artefakte
   const t = /^(trank|formel)_(sq_\w+)_(\d)$/.exec(id);
   return t && PATHWAY_STANDIN[t[2]] ? `${t[1]}_${PATHWAY_STANDIN[t[2]]}_${t[3]}` : id;
 };
@@ -1040,7 +1039,7 @@ const ICON32 = ['stimmphiole', 'verlorenes_gesangbuch', 'spiegelscherbe', ...F_E
   // Ausrüstung aus Paket G, J und K
   'mantel_moor', 'hut_schnabel', 'amulett_moorperle', 'knochenmesser', 'wachsamulett', 'glasfibel', 'sternglasdolch', 'geweihreif',
   'amulett_wiegenlied', 'mantel_giesser', 'taktstock_vey', 'hut_chor', 'amulett_schatten', 'hut_maskenball', 'mantel_frack', 'blitzpulver'];
-export const itemIcon32Url = (id) => (id.startsWith('trank_') || ICON32.includes(id) ? `${BASE}items/32/${standinIcon(id)}.png` : null);
+export const itemIcon32Url = (id) => (id.startsWith('trank_') || ICON32.includes(id) || AG_ICONS(id) ? `${BASE}items/32/${standinIcon(id)}.png` : null);
 
 const srcKey = (sheet) => `src_${sheet}`;
 
@@ -1089,6 +1088,8 @@ export function preloadSprites(scene) {
   if (!scene.cache.json.exists('manifestWexmoor5')) scene.load.json('manifestWexmoor5', `${BASE}manifest-wexmoor5.json`);
   if (!scene.cache.json.exists('manifestPlatzhalter')) scene.load.json('manifestPlatzhalter', `${BASE}manifest-platzhalter.json`);
   if (!scene.cache.json.exists('manifestWexmoor7')) scene.load.json('manifestWexmoor7', `${BASE}manifest-wexmoor7.json`);
+  if (!scene.cache.json.exists('manifestWexmoor6')) scene.load.json('manifestWexmoor6', `${BASE}manifest-wexmoor6.json`);
+  if (!scene.cache.json.exists('manifestSequenzen3')) scene.load.json('manifestSequenzen3', `${BASE}manifest-sequenzen3.json`);
   if (!scene.cache.json.exists('manifestNebenquests')) scene.load.json('manifestNebenquests', `${BASE}manifest-nebenquests.json`);
   if (!scene.cache.json.exists('manifestSpieler2')) scene.load.json('manifestSpieler2', `${BASE}manifest-spieler2.json`);
   if (!scene.cache.json.exists('manifestWexmoor')) scene.load.json('manifestWexmoor', `${BASE}manifest-wexmoor.json`);
@@ -1113,7 +1114,7 @@ export function playSheetAnim(sprite, sheet, name, then) {
   const key = `${sheet}-${name}`;
   if (!scene.anims.exists(key)) {
     const id = MANIFEST_IDS[sheet] ?? sheet;
-    const def = ['manifestPfade', 'manifestWelt', 'manifestJournal', 'manifestSpieler2'].map((m) => scene.cache.json.get(m)?.assets?.find((a) => a.id === id)?.animations?.[name]).find(Boolean);
+    const def = ['manifestPfade', 'manifestWelt', 'manifestJournal', 'manifestSpieler2', 'manifestSequenzen3'].map((m) => scene.cache.json.get(m)?.assets?.find((a) => a.id === id)?.animations?.[name]).find(Boolean);
     if (!def) return false;
     scene.anims.create({ key, frames: def.frames.map((frame) => ({ key: sheet, frame })), frameRate: def.frameRate, repeat: def.repeat });
   }
@@ -1132,7 +1133,7 @@ function battleAnimDef(scene, sheet, name) {
   return null;
 }
 /** Manifeste mit Kampf-Sheets; spätere Pakete nennen ihre Einträge nicht nach dem Sheet, darum auch über die Datei. */
-const BATTLE_MANIFESTS = ['manifest14b', 'manifestKampf', 'manifestKampf2', 'manifestReise', 'manifestWildnis', 'manifestGegner3', 'manifestFall5', 'manifestFall6', 'manifestFall78', 'manifestSequenzen2', 'manifestWexmoor2', 'manifestWexmoor3', 'manifestWexmoor4', 'manifestWexmoor5', 'manifestPlatzhalter', 'manifestSpieler2', 'manifestNebenquests', 'manifestWexmoor7'];
+export const BATTLE_MANIFESTS = ['manifest14b', 'manifestKampf', 'manifestKampf2', 'manifestReise', 'manifestWildnis', 'manifestGegner3', 'manifestFall5', 'manifestFall6', 'manifestFall78', 'manifestSequenzen2', 'manifestWexmoor2', 'manifestWexmoor3', 'manifestWexmoor4', 'manifestWexmoor5', 'manifestPlatzhalter', 'manifestSpieler2', 'manifestNebenquests', 'manifestWexmoor7', 'manifestWexmoor6', 'manifestSequenzen3'];
 export function battleSheetDef(scene, sheet) {
   const file = BATTLE_SHEETS[sheet]?.[0];
   for (const m of BATTLE_MANIFESTS) {
@@ -1642,8 +1643,10 @@ PORTRAITS.grauspaeher = 'Q_grauspaeher_emotions.png';
 // --- Paket P: Rituale für Sequenz 6/5 (manifest-rituale.json) -----------------------------------
 /** Ritualkreis pro Pfad (8 Frames à 64x64: 0–2 Aufbau, 3–7 Schleife) und Szenenkarte (96x128) für die Meldung. */
 export const RITUAL_PATHS = ['laterne', 'faden', 'maske', 'echo', 'kessel', 'eisen', 'schluessel'];
+/** Paket AG: Ritualbilder auch für Waage, Moor und Uhr (ohne Ritual-Animation). */
+const RITUAL_CARDS = [...RITUAL_PATHS, 'sq_waage', 'sq_moor', 'sq_uhr'];
 for (const p of RITUAL_PATHS) ANIM_SHEETS[`ritual_${p}`] = [`fx/ritual_${p}.png`, 64, 64];
-export const ritualCardUrl = (pid) => (RITUAL_PATHS.includes(pid) ? `${BASE}pathways/ritual_${pid}.png` : null);
+export const ritualCardUrl = (pid) => (RITUAL_CARDS.includes(pid) ? `${BASE}pathways/ritual_${pid}.png` : null);
 
 // --- Paket R: Wexmoor-Orte, Figuren, Bosse und Bilder von Kapitel 2 (manifest-wexmoor2.json) ----
 /** Acht Figuren mit Lauf-Sheet, Emotionsportrait und Notizbuchkopf. */
@@ -2012,3 +2015,17 @@ ITEM_ICON_ALIASES.k2o_amtsschluessel = 'amulett_schluessel';
 /** Paket AP: Krabbes Fundstücke nutzen bis zu eigenen Icons die vorgeschlagenen Platzhalter. */
 Object.assign(ITEM_ICON_ALIASES, { k2v_drucksplitter: 'schreintaefelchen', k2v_messingknopf: 'taschenuhr', k2v_fahrkartenhaelfte: 'fahrkarte_wexmoor',
   k2v_saumbrief: 'liebesbrief', k2v_tonnenholz: 'schreintaefelchen' });
+
+// --- Paket AG: höhere Sequenzen und die drei neuen Pfade (manifest-sequenzen3.json) ---------------------
+/** Effekte der Fähigkeiten: Seq 4–1 der sieben Pfade (<pfad>_hoch_<n>, auch für die neuen) und Seq 9–5 der neuen Pfade (<pfad>_stufe_<n>). Id = Fähigkeits-Id. */
+export const AG_SKILL_FX = [];
+for (const p of ['laterne', 'faden', 'maske', 'echo', 'kessel', 'eisen', 'schluessel', 'waage', 'moor', 'uhr']) for (const n of [4, 3, 2, 1]) AG_SKILL_FX.push(`${p}_hoch_${n}`);
+for (const p of ['waage', 'moor', 'uhr']) for (let n = 9; n >= 5; n--) AG_SKILL_FX.push(`${p}_stufe_${n}`);
+for (const id of AG_SKILL_FX) {
+  SKILL_FX[id] = 48;
+  BATTLE_SHEETS[`fx_${id}`] = [`fx/sq_${id}.png`, 48];
+}
+/** Zauberposen der neuen Pfade (gleiche Figur wie battle_player_skills, Animation = Pfad-Id). */
+BATTLE_SHEETS.battle_player_skills2 = ['battle/battle_player_skills2.png', 48];
+/** Aura der neuen Pfade (Geistsicht), 48x64, Animation 'loop'. */
+for (const p of ['waage', 'moor', 'uhr']) ANIM_SHEETS[`sq_aura_${p}`] = [`fx/sq_aura_${p}.png`, 48, 64];

@@ -1297,8 +1297,14 @@ export class WorldScene extends Phaser.Scene {
     const show = pid && this.state.spiritVision && this.textures.exists('aura_pfade');
     if (!show) { this.aura?.setVisible(false); return; }
     if (!this.aura) this.aura = this.add.sprite(0, 0, 'aura_pfade').setOrigin(0.5, 1).setAlpha(0.7).setBlendMode(Phaser.BlendModes.ADD).setDepth(DEPTH.dark + 1); // über der Dunkelheit, wie ein Leuchten
-    const art = pathwayArt(pid); // neue Pfade leihen sich die Aura eines Bestandspfads
-    if (this.aura.anims.currentAnim?.key !== `aura_pfade-${art}`) playSheetAnim(this.aura, 'aura_pfade', art);
+    // Paket AG: Waage, Moor und Uhr haben eine eigene Aura (48x64), sonst die eines Bestandspfads
+    const own = pid.startsWith('sq_') ? `sq_aura_${pid.slice(3)}` : null;
+    if (own && this.textures.exists(own)) {
+      if (this.aura.anims.currentAnim?.key !== `${own}-loop`) playSheetAnim(this.aura, own, 'loop');
+    } else {
+      const art = pathwayArt(pid);
+      if (this.aura.anims.currentAnim?.key !== `aura_pfade-${art}`) playSheetAnim(this.aura, 'aura_pfade', art);
+    }
     this.aura.setVisible(true).setPosition(this.player.x, this.player.y + 2);
   }
 
