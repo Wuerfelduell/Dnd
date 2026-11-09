@@ -74,6 +74,12 @@ export const SHEETS = {
   sternwarte: 'tilesets/C_09_sternwarte.png',
   g_marsch: 'tilesets/G_01_marsch.png', g_pestgassen: 'tilesets/G_01_pestgassen.png',
   g_katakomben: 'tilesets/G_01_katakomben.png', g_kraterwald: 'tilesets/G_01_kraterwald.png',
+  j_giesserei: 'tilesets/J_giesserei_tiles.png', j_haus_vey: 'tilesets/J_haus_vey_tiles.png',
+  j_resonanzkammer: 'tilesets/J_resonanzkammer_tiles.png',
+  k_atelier: 'tilesets/K_atelier_tiles.png', k_ballsaal: 'tilesets/K_ballsaal_tiles.png',
+  k_spiegelkabinett: 'tilesets/K_spiegelkabinett_tiles.png',
+  m_kontor: 'tilesets/M_kontor_tiles.png', m_waisenhaus: 'tilesets/M_waisenhaus_tiles.png', m_traumkeller: 'tilesets/M_traumkeller_tiles.png',
+  o_waage: 'tilesets/O_waage_tiles.png', o_kreide: 'tilesets/O_kreide_tiles.png', o_russ: 'tilesets/O_russ_tiles.png',
 };
 /** Paket C: Lauf-Sheets (characters/C_<id>_walk.png), Key = Figuren-Id. */
 export const C_CHARACTERS = ['pimm', 'fenwick', 'agnes', 'pip', 'tobias', 'cultist', 'maud', 'silas', 'ned', 'quill', 'ambrose',
@@ -124,6 +130,38 @@ export const THEME_TILES = {
     path: [17, 24, 25, 34], ash: [33, 35, 42, 43, 50], shards: [9, 15, 21, 22, 40, 41, 47], rocks: [4, 5, 12, 13], trees: [6, 7, 14, 48] },
   g_pestgassen: { sheet: 'g_pestgassen', fallback: 'cobble0', floor: [0, 1, 8, 9, 12, 13, 14, 15], weeds: [2, 3, 10, 11],
     rubble: [37, 38, 39], barricade: [41, 42, 43] },
+  // Paket J (Fall 5): Gießerei, Haus Vey, Resonanzkammer (8x8-Raster)
+  j_giesserei: { sheet: 'j_giesserei', fallback: 'stone', floor: [0, 1, 2, 3], sand: [12, 13, 56, 57], slag: [52, 53, 54, 55],
+    wallFace: [20, 22, 23, 24, 25, 26, 27], window: [28], wallTop: [4, 5, 8, 9], crate: [33, 34, 35, 36], shelf: [42, 43], bench: [41] },
+  j_haus_vey: { sheet: 'j_haus_vey', fallback: 'wood0', floor: [0, 1, 5, 6, 56, 57, 61, 62], wear: [4, 58, 60, 63],
+    wallTop: [17, 18, 21, 22], wallFace: [24, 25, 26, 27, 29, 30], picture: [28], cabinet: [32, 33, 34, 35] },
+  j_resonanzkammer: { sheet: 'j_resonanzkammer', fallback: 'stone', floor: [0, 7, 8, 15, 56, 63],
+    ring: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 56, 57, 58, 59, 60, 61, 62, 63], wallTop: [16, 17, 18, 19, 20, 21, 22, 23],
+    wallFace: [24, 25, 26, 27, 28, 29, 30, 31], wallDark: [32, 33, 37, 38, 39], dais: [34, 35, 36, 44, 45, 46, 47], steps: [41, 42] },
+  // Paket K (Fall 6): Atelier, Ballsaal, Spiegelkabinett (8x8-Raster)
+  k_atelier: { sheet: 'k_atelier', fallback: 'wood0', floor: [0, 0, 0, 1], dark: [4, 5, 6, 7], stain: [11, 12, 13, 14, 15],
+    checker: [8, 9, 10, 16, 17, 18, 24, 25, 26], wallTop: [32, 35, 36], wallFace: [40, 41, 42, 43, 44, 46], skylight: [48, 49, 50, 51],
+    wallDark: [27, 28, 30], curtain: [52], grate: [53] },
+  k_ballsaal: { sheet: 'k_ballsaal', fallback: 'stone', floor: [0, 1, 0, 1, 2], parquet: [8, 9, 10, 16, 17, 18, 24, 25, 26],
+    carpet: [11, 12, 13, 19, 20, 21, 27, 28, 29], wallTop: [14, 15], wallFace: [22, 30, 56, 57, 58], mirrorTop: [32, 33],
+    mirrorFace: [40, 41], curtainTop: [34, 35], curtainFace: [42, 43], wallSide: [48, 49], stage: [60, 61, 62, 63], railing: [39, 47, 55] },
+  k_spiegelkabinett: { sheet: 'k_spiegelkabinett', fallback: 'wood0', floor: [0, 1, 2, 3, 4, 5, 6, 7, 48, 50, 52, 54], arrow: [40],
+    chalk: [41, 42, 43, 45, 46, 47], wallTop: [8, 9, 10, 11, 12, 13, 14, 15], wallFace: [16, 17, 18, 19, 20, 21, 22, 23],
+    mirror: [32, 33, 34, 35] },
+  // Paket M (Fall 7/8): Kontor Thorne mit Kohlenkeller, Waisenhaus, Traumkeller (8x6-Raster)
+  m_kontor: { sheet: 'm_kontor', fallback: 'wood0', floor: [0, 1, 2, 3], stone: [24, 25, 26, 28, 29, 30], wet: [27, 41, 43],
+    wallTop: [16, 17, 18], wallFace: [8, 9, 11, 12, 15], cellarTop: [31], cellarFace: [40, 42], coal: [33, 34, 35] },
+  m_waisenhaus: { sheet: 'm_waisenhaus', fallback: 'wood0', floor: [0, 1, 2, 3], dorm: [8, 9, 10, 11], under: [9],
+    wallTop: [24, 25, 26, 27, 28], window: [29], wallFace: [32, 33, 34, 35, 40, 41, 42, 43] },
+  m_traumkeller: { sheet: 'm_traumkeller', fallback: 'stone', floor: [0, 1, 2, 3, 22, 23, 30, 31], threads: [4, 5, 6, 7, 35, 37, 39],
+    wallTop: [8, 10], wallFace: [16, 17, 18, 19, 20, 21], wallDark: [45, 46, 47], dais: [24, 25, 26, 27, 28, 29] },
+  // Paket O (Geheime Treffen): Gewölbe der Stillen Waage, Hinterzimmer des Kreidezirkels, Kohlenschuppen (8x4-Raster)
+  o_waage: { sheet: 'o_waage', fallback: 'stone', floor: [0, 1, 2, 3], wet: [4, 7], wallTop: [17, 20, 21], wallFace: [16, 22, 23],
+    niche: [19], grate: [24] },
+  o_kreide: { sheet: 'o_kreide', fallback: 'wood0', floor: [0, 1, 2, 3], chalk: [4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
+    wallTop: [16, 17, 21], wallFace: [18, 20, 22], board: [19], shelf: [26, 28] },
+  o_russ: { sheet: 'o_russ', fallback: 'stone', floor: [0, 1, 2, 3], ash: [6], wallTop: [16, 17], wallFace: [20, 21, 23],
+    door: [18, 19] },
   warehouse: {
     sheet: 'lagerhaus', base: 'floor_1', fallback: 'wood0',
     floor: ['floor_1', 'floor_2', 'floor_3'], debris: ['floor_broken', 'tile_04', 'tile_05', 'tile_06', 'tile_07'],
@@ -167,7 +205,8 @@ export const THEME_TILES = {
   },
 };
 /** Gruppen, die begehbar bleiben; alles andere blockiert. */
-const WALKABLE_GROUPS = ['floor', 'debris', 'wet', 'wood', 'mud', 'moss', 'tufts', 'path', 'ash', 'shards', 'weeds'];
+const WALKABLE_GROUPS = ['floor', 'debris', 'wet', 'wood', 'mud', 'moss', 'tufts', 'path', 'ash', 'shards', 'weeds', 'sand', 'slag', 'wear', 'ring',
+  'dark', 'stain', 'checker', 'parquet', 'carpet', 'arrow', 'chalk', 'stone', 'dorm', 'threads'];
 /** Ersatz-Painter (textures.js) je Gruppe, falls das PNG fehlt. */
 const GROUP_FALLBACK = { wallFace: 'wallFace', wallTop: 'wallTop', bar: 'desk', shelf: 'shelf', barrel: 'barrel', seat: 'desk', water: 'water0' };
 
@@ -293,6 +332,19 @@ export const MAP_MARKERS = {
   wx_bahnhof: 3, wx_torfstich: 3, wx_salzmarkt: 4, wx_bojenhafen: 3, wx_oberstadt: 0, wx_pfahldorf: 2, wx_vergessmoor: 3, wx_leuchtturm: 12, // Kapitel 2 (Wexmoor): Platzhalter
 };
 export const MAP_MARKERS_URL = `${BASE}ui/C_08_map_markers.png`;
+/** Paket J: eigene Marker (gleiches Raster, 13 Spalten) für spätere Orte. */
+export const J_MAP_MARKERS = Object.fromEntries(['giesserei', 'ballsaal', 'nordtor', 'marsch', 'katakomben', 'pestgassen', 'kraterwald',
+  'ankerhof', 'haus_morrow', 'schleierhaus', 'rostkapelle', 'atelier', 'spiegelkabinett'].map((id, i) => [id, i]));
+export const J_MAP_MARKERS_URL = `${BASE}ui/J_map_markers.png`;
+/** Paket O: Treffen-Marker (3 Spalten; Zeile 2 hervorgehoben, Zeilen 3/4 = Treffen läuft, pulsierend). */
+export const O_MAP_MARKERS = { treffen_waage: 0, treffen_kreide: 1, treffen_russ: 2 };
+export const O_MAP_MARKERS_URL = `${BASE}ui/O_map_markers.png`;
+/** Marker eines Ortes: [Bild-URL, Spalte, Spalten im Bild, live]. */
+export const mapMarkerOf = (map) => {
+  if (O_MAP_MARKERS[map] !== undefined) return [O_MAP_MARKERS_URL, O_MAP_MARKERS[map], 3, true];
+  if (J_MAP_MARKERS[map] !== undefined) return [J_MAP_MARKERS_URL, J_MAP_MARKERS[map], 13];
+  return [MAP_MARKERS_URL, MAP_MARKERS[map], 13];
+};
 /** Notizbuch: Status → Zelle in ui/C_07_log_markers.png. */
 export const LOG_MARKERS = { suspected: 0, likely: 1, refuted: 2 };
 export const LOG_MARKERS_URL = `${BASE}ui/C_07_log_markers.png`;
@@ -502,6 +554,22 @@ export const REGION_SHEETS = {
   g_rast: ['manifestWildnis', 'rest'], g_gefahr: ['manifestWildnis', 'danger'], g_monster_fx: ['manifestWildnis', 'monster_fx'],
   g_beute: ['manifestWildnis', 'loot_extras'], g_selten: ['manifestWildnis', 'rarity'],
   l_marker: ['manifestGegner3', 'L_marker'],
+  j_giesserei_props: ['manifestFall5', 'J_giesserei_props'], j_haus_vey_props: ['manifestFall5', 'J_haus_vey_props'],
+  j_resonanzkammer_props: ['manifestFall5', 'J_resonanzkammer_props'],
+  k_atelier_props: ['manifestFall6', 'props_atelier'], k_ballsaal_props: ['manifestFall6', 'props_ballsaal'],
+  k_spiegelkabinett_props: ['manifestFall6', 'props_spiegelkabinett'], k_jahrmarkt: ['manifestFall6', 'props_jahrmarkt_aussen'],
+  k_schatten: ['manifestFall6', 'shadows'],
+  m_kontor_props: ['manifestFall78', 'M_kontor_props'], m_waisenhaus_props: ['manifestFall78', 'M_waisenhaus_props'],
+  m_traumkeller_props: ['manifestFall78', 'M_traumkeller_props'],
+  o_waage_props: ['manifestTreffen', 'waage_props'], o_kreide_props: ['manifestTreffen', 'kreide_props'],
+  o_russ_props: ['manifestTreffen', 'russ_props'], o_zirkel: ['manifestTreffen', 'zirkel'],
+};
+/** Animationen aus benannten Regionen, die das Manifest nicht selbst mitbringt (Prefix → Name → Regionen). */
+export const REGION_ANIMS = {
+  o_waage_props: { scale: [['scale_0', 'scale_1', 'scale_2', 'scale_3', 'scale_2', 'scale_1'], 3],
+    candles: [['candles_0', 'candles_1', 'candles_2', 'candles_3', 'candles_4', 'candles_5'], 6] },
+  o_kreide_props: { lamp: [['lamp_0', 'lamp_1'], 3], dust: [['dust_0', 'dust_1', 'dust_2', 'dust_3'], 4] },
+  o_russ_props: { stove: [['stove_0', 'stove_1'], 4], lantern: [['lantern_0', 'lantern_1'], 3], cage: [['cage_0', 'cage_1'], 2] },
 };
 /** Dateien der Region-Sheets (die Manifeste kommen erst nach dem Laden der Bilder an). */
 const REGION_FILES = {
@@ -515,6 +583,13 @@ const REGION_FILES = {
   g_rast: 'props/G_06_rast.png', g_gefahr: 'ui/G_01_gefahr.png', g_monster_fx: 'fx/G_02_monster_fx.png',
   g_beute: 'props/G_03_loot_extras.png', g_selten: 'ui/G_03_seltenheit.png',
   l_marker: 'ui/L_marker.png',
+  j_giesserei_props: 'props/J_giesserei_props.png', j_haus_vey_props: 'props/J_haus_vey_props.png',
+  j_resonanzkammer_props: 'props/J_resonanzkammer_props.png',
+  k_atelier_props: 'props/K_atelier_props.png', k_ballsaal_props: 'props/K_ballsaal_props.png',
+  k_spiegelkabinett_props: 'props/K_spiegelkabinett_props.png', k_jahrmarkt: 'props/K_jahrmarkt_aussen.png', k_schatten: 'fx/K_schatten.png',
+  o_waage_props: 'props/O_waage_props.png', o_kreide_props: 'props/O_kreide_props.png', o_russ_props: 'props/O_russ_props.png',
+  o_zirkel: 'ui/O_zirkel.png',
+  m_kontor_props: 'props/M_kontor_props.png', m_waisenhaus_props: 'props/M_waisenhaus_props.png', m_traumkeller_props: 'props/M_traumkeller_props.png',
 };
 for (const z of ['marsch', 'pestgassen', 'katakomben', 'kraterwald']) REGION_FILES[`g_${z}_props`] = `props/G_01_${z}_props.png`;
 for (const id of ['theater', 'uhrturm', 'nordtor', 'gaswerk', 'sternwarte', 'villen', 'elend']) REGION_FILES[`d_${id}_props`] = `props/D_05_${id}_props.png`;
@@ -592,14 +667,23 @@ export const endingImageUrl = (id, caseId) => {
   return f ? `${BASE}ui/endings/${f}.png` : null;
 };
 /** Fallakten (128x96) als Kopf im Notizbuch. */
-export const CASE_FILES = { case_01: 'E_akte_fall1', case_02: 'E_akte_fall2', case_03: 'E_akte_fall3', case_04: 'E_akte_fall4', side: 'E_akte_altmarkt' };
+export const CASE_FILES = { case_01: 'E_akte_fall1', case_02: 'E_akte_fall2', case_03: 'E_akte_fall3', case_04: 'E_akte_fall4', case_05: 'J_akte_fall5', side: 'E_akte_altmarkt' };
 export const caseFileUrl = (caseId) => `${BASE}ui/cases/${CASE_FILES[caseId] ?? 'E_akte_leer'}.png`;
 /** Zwischensequenzbilder (240x135): Dialogknoten und Lesetexte mit `"scene": "<id>"`. */
 export const SCENES = ['turmuhr', 'brief', 'rook', 'chor', 'marlowe', 'felix'];
 /** Paket I: Bilder zu Ereignissen auf dem schnellen Reiseweg (travel.json, Ereignis-Id = Bild-Id). */
 export const TRAVEL_SCENES = ['reise_nebel', 'reise_ratten', 'reise_irrlicht', 'reise_kultpatrouille', 'reise_ueberfall', 'reise_fund', 'reise_taschendieb'];
+/** Paket J: Bilder zu Fall 5. */
+export const J_SCENES = ['giessgrube', 'kinderzimmer', 'oda', 'lilian', 'glocke_sinkt', 'stimmen_frei'];
+/** Paket K: Bilder zu Fall 6. */
+export const K_SCENES = ['abzuege', 'schattenlos', 'maskenball', 'dunkelkammer', 'spiegel', 'schatten_frei'];
+/** Paket M: Bilder zu Fall 7 und 8. */
+export const M_SCENES = ['kanal', 'finch', 'schlafsaal', 'molly', 'webstuhl', 'morgen'];
 export const sceneUrl = (id) => (SCENES.includes(id) ? `${BASE}ui/scenes/E_szene_${id}.png`
-  : TRAVEL_SCENES.includes(id) ? `${BASE}ui/scenes/I_${id}.png` : null);
+  : TRAVEL_SCENES.includes(id) ? `${BASE}ui/scenes/I_${id}.png`
+    : J_SCENES.includes(id) ? `${BASE}ui/scenes/J_szene_${id}.png`
+      : K_SCENES.includes(id) ? `${BASE}ui/scenes/K_szene_${id}.png`
+        : M_SCENES.includes(id) ? `${BASE}ui/scenes/M_szene_${id}.png` : null);
 
 /** Große Stadtkarte mit Nebel über unbesuchten Gegenden. */
 export const CITY_MAP_URL = `${BASE}ui/D_09_stadtkarte_gross.png`;
@@ -636,6 +720,7 @@ function createRegionTextures(scene) {
     for (const [name, r] of Object.entries(regions)) cut(`${prefix}_${name}`, img, [rect(r)]);
     const anims = { ...(def.animations ?? {}) };
     for (const [name, a] of Object.entries(def.regionAnimations ?? {})) anims[name] = { ...a, frames: a.regions.map((n) => regions[n]) };
+    for (const [name, [frames, frameRate]] of Object.entries(REGION_ANIMS[prefix] ?? {})) anims[name] = { frames, frameRate };
     for (const [name, a] of Object.entries(anims)) {
       if (Array.isArray(a) || !a.frames?.length) continue;
       const cols = Math.floor(img.width / 16);
@@ -751,9 +836,11 @@ export function preloadSprites(scene) {
   for (const [key, [path, w, h]] of Object.entries(F_UI_SHEETS)) {
     if (!scene.textures.exists(key)) scene.load.spritesheet(key, BASE + path, { frameWidth: w, frameHeight: h });
   }
-  for (const id of Object.values(BOSS_INTROS)) {
-    const [key, path] = bossIntroImage(id);
+  for (const [key, path] of [...Object.values(BOSS_INTROS).map(bossIntroImage), ...Object.values(BOSS_FORM_INTROS)]) {
     if (!scene.textures.exists(key)) scene.load.image(key, BASE + path);
+  }
+  for (const key of Object.values(BOSS_FORM_BACKGROUNDS)) {
+    if (!scene.textures.exists(key)) scene.load.image(key, `${BASE}battle/${key}.png`);
   }
   if (!scene.cache.json.exists('manifestWelt')) scene.load.json('manifestWelt', `${BASE}manifest-welt.json`);
   if (!scene.cache.json.exists('manifestPfade')) scene.load.json('manifestPfade', `${BASE}manifest-pfade.json`);
@@ -762,6 +849,11 @@ export function preloadSprites(scene) {
   if (!scene.cache.json.exists('manifestWildnis')) scene.load.json('manifestWildnis', `${BASE}manifest-wildnis.json`);
   if (!scene.cache.json.exists('manifestReise')) scene.load.json('manifestReise', `${BASE}manifest-reise.json`);
   if (!scene.cache.json.exists('manifestJournal')) scene.load.json('manifestJournal', `${BASE}manifest-journal.json`);
+  if (!scene.cache.json.exists('manifestSequenzen2')) scene.load.json('manifestSequenzen2', `${BASE}manifest-sequenzen2.json`);
+  if (!scene.cache.json.exists('manifestTreffen')) scene.load.json('manifestTreffen', `${BASE}manifest-treffen.json`);
+  if (!scene.cache.json.exists('manifestFall78')) scene.load.json('manifestFall78', `${BASE}manifest-fall78.json`);
+  if (!scene.cache.json.exists('manifestFall6')) scene.load.json('manifestFall6', `${BASE}manifest-fall6.json`);
+  if (!scene.cache.json.exists('manifestFall5')) scene.load.json('manifestFall5', `${BASE}manifest-fall5.json`);
   if (!scene.cache.json.exists('manifestGegner3')) scene.load.json('manifestGegner3', `${BASE}manifest-gegner3.json`);
   for (const [key, [path, w, h]] of Object.entries(CASE_SHEETS)) {
     if (!scene.textures.exists(key)) scene.load.spritesheet(key, BASE + path, { frameWidth: w, frameHeight: h });
@@ -790,11 +882,18 @@ export function playSheetAnim(sprite, sheet, name, then) {
 
 /** Animationsdefinition aus manifest-14b.json oder manifest-kampf.json. */
 function battleAnimDef(scene, sheet, name) {
-  for (const n of [name, ANIM_ALIASES[sheet]?.[name]].filter(Boolean)) {
-    for (const m of ['manifest14b', 'manifestKampf', 'manifestKampf2', 'manifestReise', 'manifestWildnis', 'manifestGegner3']) {
-      const def = scene.cache.json.get(m)?.assets?.find((a) => a.id === sheet)?.animations?.[n];
-      if (def) return def;
-    }
+  const def = battleSheetDef(scene, sheet);
+  for (const n of [name, ANIM_ALIASES[sheet]?.[name]].filter(Boolean)) if (def?.animations?.[n]) return def.animations[n];
+  return null;
+}
+/** Manifeste mit Kampf-Sheets; spätere Pakete nennen ihre Einträge nicht nach dem Sheet, darum auch über die Datei. */
+const BATTLE_MANIFESTS = ['manifest14b', 'manifestKampf', 'manifestKampf2', 'manifestReise', 'manifestWildnis', 'manifestGegner3', 'manifestFall5', 'manifestFall6', 'manifestFall78', 'manifestSequenzen2'];
+export function battleSheetDef(scene, sheet) {
+  const file = BATTLE_SHEETS[sheet]?.[0];
+  for (const m of BATTLE_MANIFESTS) {
+    const assets = scene.cache.json.get(m)?.assets ?? [];
+    const def = assets.find((a) => a.id === sheet && a.animations) ?? (file && assets.find((a) => a.file === file && a.animations));
+    if (def) return def;
   }
   return null;
 }
@@ -899,7 +998,7 @@ export function createSpriteTextures(scene) {
 export const HEADS = ['marlowe', 'holt', 'pimm', 'rook', 'price', 'barnaby', 'fenwick', 'kit', 'elias', 'greta', 'halloway', 'ivy',
   'hester', 'anselm', 'moll', 'agnes', 'pip', 'tobias', 'maud', 'silas', 'ned', 'quill', 'ambrose', 'wick', 'grimes', 'nell',
   'kittering', 'gorse', 'sabeth', 'brock', 'diva', 'souffleur', 'maskenmacher', 'uhrmacherin', 'turmwaechter', 'schlachtermeister',
-  'lehrling', 'gaswerker', 'astronom', 'miriam', 'player', 'cultist', 'nate', 'unknown_man', 'unknown_woman', 'anonymous', 'crowd', 'spirit'];
+  'lehrling', 'gaswerker', 'astronom', 'miriam', 'schleierbote', 'tresswell', 'vellacourt', 'kohlenjem', 'player', 'cultist', 'nate', 'unknown_man', 'unknown_woman', 'anonymous', 'crowd', 'spirit'];
 const HEAD_ALIASES = { grubenwirt: 'brock' };
 export const headUrl = (id) => {
   const h = HEAD_ALIASES[id] ?? id;
@@ -925,7 +1024,12 @@ export const sourceKindUrl = (kind) => `${BASE}ui/sources/24/${kind}.png`;
 
 /** Nahansicht (160x120) eines Fundstücks, mit Fluch-Fassung. */
 export const INSPECT_VIEWS = ['verlorenes_gesangbuch', 'spiegelscherbe', 'glocke', 'stimmphiole', 'sternsplitter', 'taschenuhr'];
-export const inspectUrl = (item, curse = false) => (INSPECT_VIEWS.includes(item) ? `${BASE}ui/inspect/${item}${curse ? '_fluch' : ''}.png` : null);
+/** Nahansichten mit anderem Dateinamen: Fundstück → [normal, verflucht]. */
+export const INSPECT_FILES = {};
+export const inspectUrl = (item, curse = false) => {
+  if (INSPECT_FILES[item]) return `${BASE}ui/inspect/${INSPECT_FILES[item][curse ? 1 : 0]}.png`;
+  return INSPECT_VIEWS.includes(item) ? `${BASE}ui/inspect/${item}${curse ? '_fluch' : ''}.png` : null;
+};
 
 /** Risiko-Symbole (ui/H_06_risiko_icons.png, 80x24): Name → [x, y, Größe]. */
 export const RISK_ICONS_URL = `${BASE}ui/H_06_risiko_icons.png`;
@@ -1074,3 +1178,207 @@ ICON32.push(...L_ITEMS);
 /** Steckbriefe (64x80, Spalte 0 gesucht, 1 gefasst); ohne eigenen Steckbrief der leere. */
 export const WANTED = ['laternendieb', 'falschgeldpraeger', 'nachtkraemer', 'schmugglerkoenigin'];
 export const wantedUrl = (id) => `${BASE}ui/wanted/L_steckbrief_${WANTED.includes(id) ? id : 'leer'}.png`;
+
+// --- Paket J: Fall 5, Miriam und die Glocke (manifest-fall5.json) ---------------------------------
+
+/** Gegner aus Fall 5: [Kampf-Frame, Karten-Frame-Breite]. */
+export const J_ENEMIES = { chorwaechter: [48, 16], stimmenfresser: [64, 16], bronzeengel: [64, 32], glockenecho: [64, 32] };
+Object.keys(J_ENEMIES).forEach((id, i) => {
+  const [w, ow] = J_ENEMIES[id];
+  BATTLE_SHEETS[`enemy_${id}`] = [`battle/enemy_${id}.png`, w];
+  ENCOUNTER_SHEETS[id] = `enemy_${id}`;
+  OVERWORLD_SHEETS[id] = [`characters/J_ow_${id}.png`, ow, 32];
+  PROP_ORIGINS[`ow_${id}`] = 0.85;
+  ANIM_ALIASES[`enemy_${id}`] = { attack: 'attack_a', special: 'attack_b' };
+  if (id !== 'chorwaechter') FADING_SHEETS.push(`enemy_${id}`);
+  TURN_PORTRAITS[id] = i;
+  TURN_PORTRAIT_URLS[id] = [`${BASE}ui/J_zug_portraits.png`, 5];
+  BESTIARY_PACK[id] = 'J';
+  if (!BESTIARY.includes(id)) BESTIARY.push(id);
+});
+/** Miriams Glockenphase: in Rage wird sie zur Glocke, die Kammer bricht auf. */
+BATTLE_SHEETS.enemy_miriam_glocke = ['battle/enemy_miriam_glocke.png', 96];
+BOSS_FORMS.miriam = 'enemy_miriam_glocke';
+ANIM_ALIASES.enemy_miriam_glocke = { attack: 'grabgelaeut', special: 'chor_stimmen', cast: 'summon', phase2: 'summon' };
+export const BOSS_FORM_BACKGROUNDS = { miriam: 'bg_resonanzkammer_2' };
+export const BOSS_FORM_INTROS = { miriam: ['J_08_boss_miriam_glocke', 'ui/J_08_boss_miriam_glocke.png'] };
+/** Effekte: Gegner beim Angriff; Miriam auch beim Sieg (die Stimmen kommen frei). */
+const J_FX = { glocke_schlag: [48], stimme_sog: [64, 32], bronze_welle: [64, 32], echo_kopie: [48], status_stumm: [16],
+  grabgelaeut: [96], chor_stimmen: [96, 48], wiegenlied: [64], stimmen_frei: [96] };
+for (const [id, [w, h = w]] of Object.entries(J_FX)) BATTLE_SHEETS[`fx_${id}`] = [`fx/fx_${id}.png`, w, h];
+Object.assign(ENCOUNTER_FX, {
+  chorwaechter: { attack: 'fx_glocke_schlag' }, stimmenfresser: { attack: 'fx_stimme_sog' },
+  bronzeengel: { attack: 'fx_bronze_welle' }, glockenecho: { attack: 'fx_echo_kopie' },
+  miriam: { attack: 'fx_wiegenlied', multi: 'fx_chor_stimmen', heavy: 'fx_grabgelaeut', won: 'fx_stimmen_frei' },
+});
+/** Kampfkulissen der drei Orte. */
+for (const id of ['giesserei', 'haus_vey', 'resonanzkammer']) BATTLE_BACKGROUNDS[id] = `bg_${id}`;
+Object.assign(ENCOUNTER_BACKGROUNDS, { bronzeengel: 'bg_resonanzkammer', glockenecho: 'bg_resonanzkammer', miriam: 'bg_resonanzkammer' });
+/** Figuren mit Lauf-Sheet und Portrait. */
+for (const id of ['brannock', 'oda_vey', 'lilian_echo']) {
+  SHEETS[`j_${id}`] = `characters/J_${id}_walk.png`;
+  CHARACTER_SHEETS[`npc_${id}`] = `j_${id}`;
+  PORTRAITS[id] = `J_${id}_emotions.png`;
+}
+PORTRAIT_SPECIAL.lilian_echo = ['J_lilian_echo_emotions.png', { neutral: 0, traurig: 1, sad: 1, aengstlich: 2, frightened: 2, smile: 3, laechelnd: 3 }];
+PORTRAIT_SPECIAL.miriam = ['J_miriam_glocke_emotions.png', { kalt: 0, flehend: 1, wuetend: 2, gebrochen: 3 }];
+/** Fallgegenstände und Belohnungen (16er und 32er), Nahansichten, Hinweis-Marker. */
+export const J_ITEMS = ['lilians_spieluhr', 'stimmgabel_silber', 'glockenzunge', 'veys_tagebuch', 'giessform', 'chorliste',
+  'amulett_wiegenlied', 'mantel_giesser', 'taktstock_vey', 'hut_chor'];
+ICON32.push(...J_ITEMS);
+INSPECT_VIEWS.push('lilians_spieluhr', 'veys_tagebuch', 'stimmgabel_silber');
+for (const id of ['c5_perfect', 'c5_good', 'c5_early', 'c5_rust']) ENDING_IMAGES[id] = id;
+ANIM_SHEETS.j_hinweise = ['props/J_fall5_hinweise.png', 16, 16];
+export const J_HINTS = ['bronze_shaving', 'chalk_bell', 'burned_score', 'white_lily', 'cracked_phial', 'robe_threads', 'sand_handprint',
+  'candle_ring', 'bronze_dust', 'tally_door'];
+
+// --- Paket K: Fall 6, der dreizehnte Gast (manifest-fall6.json) -----------------------------------
+
+/** Gegner aus Fall 6: [Kampf-Frame, Karten-Frame-Breite]. Der Gast ist der Boss. */
+export const K_ENEMIES = { schattenabzug: [48, 16], negativ_geist: [64, 16], silberbad_schleim: [64, 32], dreizehnter_gast: [96, 16] };
+Object.keys(K_ENEMIES).forEach((id, i) => {
+  const [w, ow] = K_ENEMIES[id];
+  BATTLE_SHEETS[`enemy_${id}`] = [`battle/enemy_${id}.png`, w];
+  ENCOUNTER_SHEETS[id] = `enemy_${id}`;
+  OVERWORLD_SHEETS[id] = [`characters/K_ow_${id}.png`, ow, 32];
+  PROP_ORIGINS[`ow_${id}`] = 0.85;
+  if (id !== 'dreizehnter_gast') FADING_SHEETS.push(`enemy_${id}`);
+  TURN_PORTRAITS[id] = i;
+  TURN_PORTRAIT_URLS[id] = [`${BASE}ui/K_zug_portraits.png`, 4];
+  BESTIARY_PACK[id] = 'K';
+  if (!BESTIARY.includes(id)) BESTIARY.push(id);
+});
+/** Der Gast: eigene Angriffsnamen, in Rage die zweite Phase im selben Sheet, dazu das zerbrochene Kabinett. */
+ANIM_ALIASES.enemy_dreizehnter_gast = { attack: 'belichtung', special: 'schattenschnitt', cast: 'gruppenbild' };
+BOSS_FORMS.dreizehnter_gast = 'enemy_dreizehnter_gast';
+BOSS_FORM_BACKGROUNDS.dreizehnter_gast = 'bg_spiegelkabinett_2';
+BOSS_INTROS.dreizehnter_gast = 'gast_k';
+BOSS_INTRO_IMAGES.gast_k = ['K_08_boss_gast', 'ui/K_08_boss_gast.png'];
+const K_FX = { blitzlicht: [48], bilderrahmen: [48], silberspritzer: [32], schattenraub: [48, 32], status_schattenlos: [16],
+  status_geblendet: [16], belichtung: [96], gruppenbild: [96], schatten_frei: [96] };
+for (const [id, [w, h = w]] of Object.entries(K_FX)) BATTLE_SHEETS[`fx_${id}`] = [`fx/fx_${id}.png`, w, h];
+Object.assign(ENCOUNTER_FX, {
+  schattenabzug: { attack: 'fx_schattenraub' }, negativ_geist: { attack: 'fx_blitzlicht' }, silberbad_schleim: { attack: 'fx_silberspritzer' },
+  dreizehnter_gast: { attack: 'fx_bilderrahmen', multi: 'fx_gruppenbild', heavy: 'fx_belichtung', won: 'fx_schatten_frei' },
+});
+for (const id of ['atelier', 'ballsaal', 'spiegelkabinett']) BATTLE_BACKGROUNDS[id] = `bg_${id}`;
+Object.assign(ENCOUNTER_BACKGROUNDS, { silberbad_schleim: 'bg_spiegelkabinett', dreizehnter_gast: 'bg_spiegelkabinett' });
+/** Figuren: Lady Ashcombe und Lucan Mews (enthüllt mit eigenen Stimmungen), dazu vier Ballgäste als Deko. */
+for (const id of ['ashcombe', 'mews']) {
+  SHEETS[`k_${id}`] = `characters/K_${id}_walk.png`;
+  CHARACTER_SHEETS[`npc_${id}`] = `k_${id}`;
+  PORTRAITS[id] = `K_${id}_emotions.png`;
+}
+PORTRAIT_SPECIAL.mews = ['K_mews_enthuellt_emotions.png', { kalt: 0, triumph: 1, panisch: 2, gebrochen: 3 }];
+for (const n of [1, 2, 3, 4]) ANIM_SHEETS[`k_gast_${n}`] = [`characters/K_gast_${n}_walk.png`, 16, 32];
+/** Fallgegenstände und Belohnungen, Nahansicht der Fotoplatte, Hinweis-Marker. */
+export const K_ITEMS = ['belichtungsmesser', 'gaesteliste', 'silbernitrat', 'schattenrest', 'kamera_alt',
+  'amulett_schatten', 'hut_maskenball', 'mantel_frack', 'blitzpulver'];
+ICON32.push(...K_ITEMS);
+INSPECT_FILES.fotoplatte = ['fotoplatte_1', 'fotoplatte_fluch'];
+ANIM_SHEETS.k_hinweise = ['props/K_fall6_hinweise.png', 16, 16];
+CASE_FILES.case_06 = 'K_akte_fall6';
+for (const id of ['c6_perfect', 'c6_good', 'c6_early', 'c6_seer']) ENDING_IMAGES[id] = id;
+
+// --- Paket M: Fall 7 und 8, Miss Wren (manifest-fall78.json) ---------------------------------------
+
+/** Gegner aus Fall 7/8: [Kampf-Frame, Karten-Frame-Breite]. Miss Wren ist der Boss (zwei Sheets). */
+export const M_ENEMIES = { ertrunkener: [64, 16], pfandeintreiber: [48, 16], traumfaden: [64, 16], miss_wren: [96, 0] };
+Object.keys(M_ENEMIES).forEach((id, i) => {
+  const [w, ow] = M_ENEMIES[id];
+  BATTLE_SHEETS[`enemy_${id}`] = [`battle/enemy_${id}.png`, w];
+  ENCOUNTER_SHEETS[id] = `enemy_${id}`;
+  if (ow) {
+    OVERWORLD_SHEETS[id] = [`characters/M_ow_${id}.png`, ow, 32];
+    PROP_ORIGINS[`ow_${id}`] = 0.85;
+  }
+  if (['ertrunkener', 'traumfaden'].includes(id)) FADING_SHEETS.push(`enemy_${id}`);
+  TURN_PORTRAITS[id] = i;
+  TURN_PORTRAIT_URLS[id] = [`${BASE}ui/M_zug_portraits.png`, 5];
+  BESTIARY_PACK[id] = 'M';
+  if (!BESTIARY.includes(id)) BESTIARY.push(id);
+});
+/** Miss Wren: Gouvernante, in Rage das Netz aus Schuldfäden; der Keller reißt auf. */
+BATTLE_SHEETS.enemy_miss_wren_netz = ['battle/enemy_miss_wren_netz.png', 96];
+ANIM_ALIASES.enemy_miss_wren = { attack: 'zurechtstutzen', special: 'strafe', cast: 'bettruhe', defeated: 'phase_transition' };
+ANIM_ALIASES.enemy_miss_wren_netz = { attack: 'schere', special: 'schuldnetz', cast: 'albtraum', phase2: 'weak_point' };
+BOSS_FORMS.miss_wren = 'enemy_miss_wren_netz';
+BOSS_FORM_BACKGROUNDS.miss_wren = 'bg_traumkeller_2';
+BOSS_INTROS.miss_wren = 'wren_m';
+BOSS_INTRO_IMAGES.wren_m = ['M_08_boss_wren', 'ui/M_08_boss_wren.png'];
+/** Effekte (Animation heißt hier "effect"). */
+const M_FX = { kanalwelle: [64, 32], schuldsiegel: [48], fadenpeitsche: [48, 32], schattennaht: [48, 32], status_schlaf: [16],
+  status_schuld: [16], scherenschnitt: [48], schuldnetz: [96], albtraum: [96], traeume_frei: [96] };
+for (const [id, [w, h = w]] of Object.entries(M_FX)) {
+  BATTLE_SHEETS[`fx_${id}`] = [`fx/fx_${id}.png`, w, h];
+  ANIM_ALIASES[`fx_${id}`] = { play: 'effect' };
+}
+Object.assign(ENCOUNTER_FX, {
+  ertrunkener: { attack: 'fx_kanalwelle' }, pfandeintreiber: { attack: 'fx_schuldsiegel' }, traumfaden: { attack: 'fx_fadenpeitsche' },
+  miss_wren: { attack: 'fx_scherenschnitt', multi: 'fx_schuldnetz', heavy: 'fx_albtraum', won: 'fx_traeume_frei' },
+});
+Object.assign(BATTLE_BACKGROUNDS, { kontor_thorne: 'bg_kontor', waisenhaus: 'bg_waisenhaus', traumkeller: 'bg_traumkeller' });
+Object.assign(ENCOUNTER_BACKGROUNDS, { ertrunkener: 'bg_kontor', traumfaden: 'bg_traumkeller', miss_wren: 'bg_traumkeller' });
+/** Figuren: Finch und Molly (Lauf-Sheet, Portrait), Benji (Portrait), drei schlafwandelnde Kinder als Deko. */
+for (const id of ['finch', 'molly']) {
+  SHEETS[`m_${id}`] = `characters/M_${id}_walk.png`;
+  CHARACTER_SHEETS[`npc_${id}`] = `m_${id}`;
+  PORTRAITS[id] = `M_${id}_emotions.png`;
+}
+PORTRAITS.benji = 'M_benji_emotions.png';
+for (const n of [1, 2, 3]) ANIM_SHEETS[`m_schlafkind_${n}`] = [`characters/M_schlafkind_${n}_walk.png`, 16, 32];
+ANIM_SHEETS.m_benji = ['characters/M_benji_walk.png', 16, 32];
+/** Fallgegenstände, Nahansichten, Hinweis-Marker, Fallakten und Enden. */
+export const M_ITEMS = ['wasserprobe', 'pfaendungsbrief', 'kinder_murmel', 'schlaftee', 'schuldbuch', 'traumspule', 'silberschere'];
+ICON32.push(...M_ITEMS);
+INSPECT_VIEWS.push('schuldbuch', 'traumspule');
+ANIM_SHEETS.m_hinweise = ['props/M_hinweise.png', 16, 16];
+Object.assign(CASE_FILES, { case_07: 'M_akte_fall7', case_08: 'M_akte_fall8' });
+for (const id of ['c7_heir', 'c7_wren', 'c8_perfect', 'c8_good', 'c8_early', 'c8_piper']) ENDING_IMAGES[id] = id;
+
+// --- Paket O: Geheime Treffen (manifest-treffen.json) -----------------------------------------
+/** Bote und die drei Gastgeber: Lauf-Sheet, Emotionsportrait (Kopf steht in HEADS). */
+for (const id of ['schleierbote', 'tresswell', 'vellacourt', 'kohlenjem']) {
+  SHEETS[`o_${id}`] = `characters/O_${id}_walk.png`;
+  CHARACTER_SHEETS[`npc_${id}`] = `o_${id}`;
+  PORTRAITS[id] = `O_${id}_emotions.png`;
+}
+/** Zirkel → Emblem/Einladung in ui/O_zirkel.png. */
+export const ZIRKEL_URL = `${BASE}ui/O_zirkel.png`;
+export const ZIRKEL_ICONS = { waage: [0, 2], kreide: [1, 3], russ: [2, 4] }; // [Emblem 32er-Spalte, Einladung 16er-Spalte]
+
+// --- Paket N: Sequenz 6/5, Artefakte und Asservatenkammer (manifest-sequenzen2.json) -------------
+// Tränke, Formeln und 16er-Icons ersetzen die Platzhalter unter gleichem Namen; hier kommt nur Neues dazu.
+/** Fähigkeiten der Sequenzen 6 und 5: Effekt-Streifen (Animation "cast") und Icons in ui/skill_icons_2.png. */
+Object.assign(SKILL_FX, {
+  lichtbann: 48, fangnetz: 48, spiegelbild: 48, totenchor: 48, lebenselixier: 32, unbeugsam: 48, taschenspiel: 48,
+  weissglut: 64, zerreissen: 64, maskenball: 64, stillgesang: 64, zersetzung: 48, hammerfall: 64, kehlschnitt: 48,
+});
+for (const id of ['lichtbann', 'fangnetz', 'spiegelbild', 'totenchor', 'lebenselixier', 'unbeugsam', 'taschenspiel',
+  'weissglut', 'zerreissen', 'maskenball', 'stillgesang', 'zersetzung', 'hammerfall', 'kehlschnitt']) BATTLE_SHEETS[`fx_${id}`] = [`fx/fx_${id}.png`, SKILL_FX[id]];
+SELF_FX.push('spiegelbild', 'lebenselixier', 'unbeugsam');
+/** Fähigkeit → Zelle in ui/skill_icons_2.png (7 Pfadspalten x Sequenz 6/5). */
+export const SKILL_ICONS_2 = Object.fromEntries([
+  'lichtbann', 'fangnetz', 'spiegelbild', 'totenchor', 'lebenselixier', 'unbeugsam', 'taschenspiel',
+  'weissglut', 'zerreissen', 'maskenball', 'stillgesang', 'zersetzung', 'hammerfall', 'kehlschnitt'].map((id, i) => [id, i]));
+export const SKILL_ICONS_2_URL = `${BASE}ui/skill_icons_2.png`;
+/** Icon einer Fähigkeit: [Bild-URL, Zelle] oder null. */
+export const skillIconOf = (id) => (SKILL_ICONS[id] !== undefined ? [SKILL_ICONS_URL, SKILL_ICONS[id]]
+  : SKILL_ICONS_2[id] !== undefined ? [SKILL_ICONS_2_URL, SKILL_ICONS_2[id]] : null);
+/** Verfluchte Artefakte und hohe Zutaten bekommen 32er-Icons (items/32/<id>.png). */
+export const N_ARTIFACTS = ['uhr_ertrunkener', 'richterhammer', 'augenbinde_odile', 'bleiamulett', 'rahmenloser_spiegel', 'zahnkette',
+  'hungriger_ring', 'knochenwuerfel', 'stille_glocke', 'kupferkrone', 'wachshand', 'schwarzes_herz'];
+export const N_INGREDIENTS = ['flammenkern', 'lichtperle', 'knotengarn', 'spindelknochen', 'spiegelwachs', 'schminkasche', 'glockenerz',
+  'atemglas', 'salamanderoel', 'goldschimmel', 'ambossstaub', 'schwertsplitter', 'dietrichsilber', 'schattenseide', 'nebelherz'];
+ICON32.push(...N_ARTIFACTS, ...N_INGREDIENTS);
+/** Pulsierende 16er-Icons (2 Frames nebeneinander). */
+export const PULSE_ICONS = { nebelherz: `${BASE}items/nebelherz_pulse.png`, schwarzes_herz: `${BASE}items/schwarzes_herz_pulse.png` };
+/** Artefakt-Oberfläche: Slots, Vor-/Nachteil-Marken, Unruhe-Leiste (ui/N_artefakt_ui.png, 128x64). */
+export const ARTIFACT_UI_URL = `${BASE}ui/N_artefakt_ui.png`;
+/** Asservatenwart Thale und Gutachterin Varga. */
+for (const id of ['thale', 'varga']) {
+  SHEETS[`n_${id}`] = `characters/N_${id}_walk.png`;
+  CHARACTER_SHEETS[`npc_${id}`] = `n_${id}`;
+  PORTRAITS[id] = `N_${id}_emotions.png`;
+  HEADS.push(id);
+}

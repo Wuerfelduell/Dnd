@@ -3,7 +3,7 @@ import { Combat, WINDOW, EARLY_LIMIT, DODGE_COST, RING_CURVES, judgeDefense, jud
 import { createTextures, createCharacterSheet } from './textures.js';
 import {
   BATTLE_BACKGROUNDS, ENCOUNTER_BACKGROUNDS, ENEMY_BATTLE_SHEETS, ENCOUNTER_SHEETS, FADING_SHEETS,
-  SKILL_FX, SELF_FX, PATHWAY_POSES, WEAPON_POSES, ENCOUNTER_FX, BOSS_INTROS, bossIntroImage, BOSS_FORMS, CASE_SHEETS, playBattleAnim, playCaseAnim,
+  SKILL_FX, SELF_FX, PATHWAY_POSES, WEAPON_POSES, ENCOUNTER_FX, BOSS_INTROS, bossIntroImage, BOSS_FORMS, BOSS_FORM_BACKGROUNDS, BOSS_FORM_INTROS, battleSheetDef, CASE_SHEETS, playBattleAnim, playCaseAnim,
 } from './assets.js';
 import { VIEW_W, VIEW_H, PLAYER_PALETTE } from './WorldScene.js';
 
@@ -92,8 +92,9 @@ export class CombatScene extends Phaser.Scene {
     const a = this.cache.json.get('manifestKampf')?.assets?.find((x) => x.id === sheet);
     if (a?.origin) return a.origin[1];
     // Paket F: Fußlinie als Pixelzeile
-    const b = ['manifestKampf2', 'manifestReise', 'manifestGegner3'].map((m) => this.cache.json.get(m)?.assets?.find((x) => x.id === sheet)).find(Boolean);
-    return b?.baseline ? (b.baseline + 1) / b.frameHeight : 1;
+    const b = battleSheetDef(this, sheet);
+    const base = b?.baseline ?? b?.baselineY;
+    return base ? (base + 1) / b.frameHeight : 1;
   }
 
   /** Effekt-Streifen an einer Position abspielen und danach entfernen. */
@@ -151,8 +152,9 @@ export class CombatScene extends Phaser.Scene {
   buildStage() {
     const map = this.state.content.maps[this.state.map];
     const bg = [ENCOUNTER_BACKGROUNDS[this.encounterId], BATTLE_BACKGROUNDS[map.id]].find((k) => k && this.textures.exists(k));
+    this.bgImage = null;
     if (bg && this.textures.exists(bg)) {
-      this.add.image(0, 0, bg).setOrigin(0);
+      this.bgImage = this.add.image(0, 0, bg).setOrigin(0);
     } else {
       const ground = { revier: 0x3a2e24, crypt: 0x2e2e36, ebba: 0x26301e }[map.id] ?? 0x343744;
       this.add.rectangle(0, 0, VIEW_W, VIEW_H, 0x080a12).setOrigin(0);
@@ -389,6 +391,14 @@ export class CombatScene extends Phaser.Scene {
     this.cameras.main.flash(200, 120, 60, 40);
     this.float('Verwandlung!', 'enemy', 'crit');
     if (!this.anim(this.enemy, 'phase2')) this.idle(this.enemy);
+    // Paket J: die Kulisse bricht auf, die Büste der neuen Gestalt blitzt auf
+    const bg = BOSS_FORM_BACKGROUNDS[this.encounterId];
+    if (bg && this.bgImage && this.textures.exists(bg)) this.bgImage.setTexture(bg);
+    const [bust] = BOSS_FORM_INTROS[this.encounterId] ?? [];
+    if (bust && this.textures.exists(bust)) {
+      const img = this.add.image(VIEW_W - 90, 135, bust).setDepth(91).setScale(0.75).setAlpha(0);
+      this.tweens.add({ targets: img, alpha: 1, duration: 200, yoyo: true, hold: 700, onComplete: () => img.destroy() });
+    }
     return 900;
   }
 

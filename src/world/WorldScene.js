@@ -118,6 +118,203 @@ const THEMES = {
       default: return null;
     }
   },
+  // Paket J (Fall 5): Gießerei, Haus Vey und Resonanzkammer
+  j_giesserei(ch, at, v, x, y) {
+    const k = (g, seed = 0) => pickKey(themeKeys('j_giesserei', g), x, y, seed);
+    switch (ch) {
+      case 's': { const r = hash2(x, y, 51); return r > 0.94 ? k('slag', 1) : r > 0.86 ? k('sand', 1) : k('floor'); }
+      case 'I': {
+        const below = at(0, 1);
+        if (below === undefined || 'IE'.includes(below)) return k('wallTop', 2);
+        return hash2(x, y, 52) > 0.9 ? k('window', 3) : k('wallFace', 3);
+      }
+      case 'C': return runOf(at, 'C').len >= 6 ? k('sand', 4) : k('crate', 4); // breite Blöcke sind die Gießgrube
+      case 'B': return k('shelf', 5);
+      case 'T': return k('bench', 6);
+      default: return null;
+    }
+  },
+  j_haus_vey(ch, at, v, x, y) {
+    const k = (g, seed = 0) => pickKey(themeKeys('j_haus_vey', g), x, y, seed);
+    switch (ch) {
+      case 'w': return hash2(x, y, 53) > 0.9 ? k('wear', 1) : k('floor');
+      case 'I': {
+        const below = at(0, 1);
+        if (below === undefined || 'IE'.includes(below)) return k('wallTop', 2);
+        return hash2(x, y, 54) > 0.9 ? k('picture', 3) : k('wallFace', 3);
+      }
+      case 'B': return k('cabinet', 4);
+      default: return THEMES.tavern(ch, at, v, x, y);
+    }
+  },
+  j_resonanzkammer(ch, at, v, x, y) {
+    const keys = (g) => themeKeys('j_resonanzkammer', g);
+    const k = (g, seed = 0) => pickKey(keys(g), x, y, seed);
+    switch (ch) {
+      case 's': {
+        // Kreidekreis um den Platz vor der Glocke (8x3 Zellen aus dem Raster)
+        const cx = x - 6, cy = y - 9;
+        if (cx >= 0 && cx < 8 && cy >= 0 && cy < 3) return `j_resonanzkammer_ring_${cx + [0, 8, 56][cy]}`;
+        return k('floor');
+      }
+      case 'I': {
+        const below = at(0, 1);
+        if (below !== undefined && !'IE'.includes(below)) return keys('wallFace')[x % 8];
+        if (at(0, 2) !== undefined && !'IE'.includes(at(0, 2))) return keys('wallTop')[x % 8];
+        return k('wallDark', 2);
+      }
+      case 'C': return k('dais', 3);
+      case 'V': return k('steps', 4);
+      default: return null;
+    }
+  },
+  // Paket K (Fall 6): Atelier (rechts die Dunkelkammer), Ballsaal, Spiegelkabinett
+  k_atelier(ch, at, v, x, y) {
+    const keys = (g) => themeKeys('k_atelier', g);
+    const k = (g, seed = 0) => pickKey(keys(g), x, y, seed);
+    const dark = x >= 16;
+    if ('wC'.includes(ch) && x >= 3 && x <= 5 && y >= 3 && y <= 5) return keys('checker')[(x - 3) + (y - 3) * 3]; // Posierfläche
+    switch (ch) {
+      case 'w': return dark ? (hash2(x, y, 61) > 0.8 ? k('stain', 1) : k('dark')) : k('floor');
+      case 'I': {
+        const below = at(0, 1);
+        if (below !== undefined && !'IE'.includes(below)) return !dark && y === 1 && x >= 6 && x <= 9 ? keys('skylight')[x - 6] : k('wallFace', 2);
+        if (at(0, 2) !== undefined && !'IE'.includes(at(0, 2))) return k('wallTop', 3);
+        return k('wallDark', 4);
+      }
+      default: return THEMES.tavern(ch, at, v, x, y);
+    }
+  },
+  k_ballsaal(ch, at, v, x, y) {
+    const keys = (g) => themeKeys('k_ballsaal', g);
+    const k = (g, seed = 0) => pickKey(keys(g), x, y, seed);
+    const nine = (g, x0, x1, y0, y1) => keys(g)[(x === x0 ? 0 : x === x1 ? 2 : 1) + (y === y0 ? 0 : y === y1 ? 2 : 1) * 3];
+    switch (ch) {
+      case 'w':
+        if (x >= 13 && x <= 22 && y >= 6 && y <= 13) return nine('parquet', 13, 22, 6, 13); // Tanzfläche
+        if (x >= 16 && x <= 19 && y >= 14) return nine('carpet', 16, 19, 14, 18); // Läufer zur Tür
+        return k('floor');
+      case 'I': {
+        const below = at(0, 1);
+        const side = x === 0 || x === 35;
+        if (below !== undefined && !'IE'.includes(below) && !side) {
+          const r = hash2(x, y, 62);
+          return r > 0.85 ? keys('mirrorFace')[x % 2] : r > 0.72 ? keys('curtainFace')[x % 2] : k('wallFace', 2);
+        }
+        if (!side && at(0, 2) !== undefined && !'IE'.includes(at(0, 2))) {
+          const r = hash2(x, y + 1, 62);
+          return r > 0.85 ? keys('mirrorTop')[x % 2] : r > 0.72 ? keys('curtainTop')[x % 2] : k('wallTop', 3);
+        }
+        return k('wallSide', 4);
+      }
+      case 'C': return k('stage', 5);
+      case 'B': return k('railing', 6);
+      default: return THEMES.tavern(ch, at, v, x, y);
+    }
+  },
+  k_spiegelkabinett(ch, at, v, x, y) {
+    const keys = (g) => themeKeys('k_spiegelkabinett', g);
+    const k = (g, seed = 0) => pickKey(keys(g), x, y, seed);
+    switch (ch) {
+      case 'w':
+        if (y >= 2 && y <= 3 && x >= 10 && x <= 14) return k('chalk', 1); // Kreidezeichen um den Gast
+        return hash2(x, y, 63) > 0.97 ? keys('arrow')[0] : k('floor');
+      case 'I': {
+        const below = at(0, 1);
+        if (below !== undefined && !'IE'.includes(below)) return k('wallFace', 2);
+        return keys('wallTop')[x % 8];
+      }
+      case 'B': return k('mirror', 3);
+      default: return null;
+    }
+  },
+  // Paket M (Fall 7/8): Kontor mit Kohlenkeller, Waisenhaus (rechts der Schlafsaal), Traumkeller
+  m_kontor(ch, at, v, x, y) {
+    const k = (g, seed = 0) => pickKey(themeKeys('m_kontor', g), x, y, seed);
+    const cellar = x >= 16;
+    switch (ch) {
+      case 'w': return k('floor');
+      case 's': return hash2(x, y, 71) > 0.88 ? k('wet', 1) : k('stone');
+      case 'C': return k('coal', 2);
+      case 'I': {
+        const below = at(0, 1);
+        const face = below !== undefined && !'IE'.includes(below);
+        if (cellar && x > 16) return face ? k('cellarFace', 3) : k('cellarTop', 3);
+        return face ? k('wallFace', 3) : k('wallTop', 4);
+      }
+      default: return THEMES.tavern(ch, at, v, x, y);
+    }
+  },
+  m_waisenhaus(ch, at, v, x, y) {
+    const k = (g, seed = 0) => pickKey(themeKeys('m_waisenhaus', g), x, y, seed);
+    const dorm = x >= 16;
+    switch (ch) {
+      case 'w': return dorm ? k('dorm') : k('floor');
+      case 'T': return dorm ? k('under', 1) : THEMES.tavern(ch, at, v, x, y); // Betten stehen als Deko darauf
+      case 'I': {
+        const below = at(0, 1);
+        if (below !== undefined && !'IE'.includes(below)) return k('wallFace', 2);
+        if (at(0, 2) !== undefined && !'IE'.includes(at(0, 2))) return hash2(x, y, 72) > 0.85 ? k('window', 3) : k('wallTop', 3);
+        return k('wallTop', 4);
+      }
+      default: return THEMES.tavern(ch, at, v, x, y);
+    }
+  },
+  m_traumkeller(ch, at, v, x, y) {
+    const k = (g, seed = 0) => pickKey(themeKeys('m_traumkeller', g), x, y, seed);
+    switch (ch) {
+      case 's': return hash2(x, y, 73) > 0.85 ? k('threads', 1) : k('floor');
+      case 'C': return k('dais', 2);
+      case 'I': {
+        const below = at(0, 1);
+        if (below !== undefined && !'IE'.includes(below)) return k('wallFace', 3);
+        if (at(0, 2) !== undefined && !'IE'.includes(at(0, 2))) return k('wallTop', 4);
+        return k('wallDark', 5);
+      }
+      default: return null;
+    }
+  },
+  // Paket O (Geheime Treffen): Gewölbe der Stillen Waage, Hinterzimmer des Kreidezirkels, Kohlenschuppen
+  o_waage(ch, at, v, x, y) {
+    const k = (g, seed = 0) => pickKey(themeKeys('o_waage', g), x, y, seed);
+    switch (ch) {
+      case 's': case 'K': return hash2(x, y, 81) > 0.88 ? k('wet', 1) : k('floor');
+      case '|': {
+        const below = at(0, 1);
+        if (below !== undefined && below !== '|') {
+          const r = hash2(x, y, 82);
+          return r > 0.9 ? k('grate', 2) : r > 0.75 ? k('niche', 2) : k('wallFace', 3);
+        }
+        return k('wallTop', 4);
+      }
+      default: return null;
+    }
+  },
+  o_kreide(ch, at, v, x, y) {
+    const k = (g, seed = 0) => pickKey(themeKeys('o_kreide', g), x, y, seed);
+    switch (ch) {
+      case 'w': return hash2(x, y, 83) > 0.9 ? k('chalk', 1) : k('floor');
+      case 'B': return k('shelf', 2);
+      case 'I': {
+        const below = at(0, 1);
+        if (below !== undefined && !'IE'.includes(below)) return k('wallFace', 3);
+        return k('wallTop', 4);
+      }
+      default: return THEMES.tavern(ch, at, v, x, y);
+    }
+  },
+  o_russ(ch, at, v, x, y) {
+    const k = (g, seed = 0) => pickKey(themeKeys('o_russ', g), x, y, seed);
+    switch (ch) {
+      case 'w': return hash2(x, y, 84) > 0.97 ? k('ash', 1) : k('floor');
+      case 'I': {
+        const below = at(0, 1);
+        if (below !== undefined && !'IE'.includes(below)) return k('wallFace', 3);
+        return k('wallTop', 4);
+      }
+      default: return THEMES.warehouse?.(ch, at, v, x, y) ?? null;
+    }
+  },
   g_kraterwald(ch, at, v, x, y) {
     const k = (g, seed = 0) => pickKey(themeKeys('g_kraterwald', g), x, y, seed);
     switch (ch) {
@@ -381,7 +578,7 @@ export class WorldScene extends Phaser.Scene {
         item.sprite = this.add.sprite(x, y + 7, `npc_${id}`, 0).setOrigin(0.5, 1).setDepth(100 + y + 7);
         item.parts.push(item.sprite);
       } else if (def.sprite) {
-        item.sprite = this.add.sprite(x, y, def.sprite).setDepth(50);
+        item.sprite = this.add.sprite(x, y, def.sprite, def.frame).setDepth(50);
         if (PROP_ORIGINS[def.sprite]) item.sprite.setOrigin(0.5, PROP_ORIGINS[def.sprite]).setDepth(100 + y + 8);
         // Animiertes PNG (z. B. blubbernder Kessel); fehlt es, bleibt das Standbild
         if (def.anim) {

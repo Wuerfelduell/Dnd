@@ -673,15 +673,20 @@ const ENEMIES = {
   }],
 };
 
+const TILE_COLS = 64;
+
 export function createTextures(scene) {
   // Echte PNGs (assets.js) zuerst anlegen; alles Fehlende wird unten prozedural ergänzt.
   createSpriteTextures(scene);
-  // Tileset als Streifen (16px pro Tile): PNG-Zelle, sonst Platzhalter.
+  // Tileset als Raster (16px pro Tile, TILE_COLS Spalten, damit die Textur auch auf kleinen GPUs passt):
+  // PNG-Zelle, sonst Platzhalter. Phaser zählt die Zellen zeilenweise, der Index bleibt die Position in TILE_KEYS.
   if (!scene.textures.exists('tiles')) {
-    const { c, ctx } = makeCanvas(TILE_KEYS.length * TILE, TILE);
+    const { c, ctx } = makeCanvas(TILE_COLS * TILE, Math.ceil(TILE_KEYS.length / TILE_COLS) * TILE);
     TILE_KEYS.forEach((k, i) => {
-      const fallback = (key) => TILE_PAINTERS[key](painter(ctx, i * TILE, 0));
-      if (!drawTileFromSheet(scene, ctx, k, i * TILE, 0, fallback)) fallback(k);
+      const x = (i % TILE_COLS) * TILE;
+      const y = Math.floor(i / TILE_COLS) * TILE;
+      const fallback = (key) => TILE_PAINTERS[key](painter(ctx, x, y));
+      if (!drawTileFromSheet(scene, ctx, k, x, y, fallback)) fallback(k);
     });
     scene.textures.addCanvas('tiles', c);
   }

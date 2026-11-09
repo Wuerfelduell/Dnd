@@ -651,3 +651,212 @@ python docs/art/preview-fall5.py
 Die Source-Map ordnet Job-IDs den protokollierten Generatororiginalen zu.
 Nur Grafikdateien und Dokumentation; der Einbau und die Prüfung im laufenden
 Spiel erfolgen separat.
+
+## Grafikpaket M – Fall 7/8 und Miss Wren
+
+Batch `fall78`, erstellt am 9. November 2026 aus `codex_M_fall7_8_wren.md`:
+**70 neue PNGs**, dazu sieben bereits vorhandene 16×16-Itembilder im Manifest.
+66 Generierungen mit dem integrierten Bildgenerator, einschließlich drei
+verworfener Fassungen (Pfandeintreiber, Schuldsiegel, Ende `c7_wren`).
+
+- Drei Gegner-Sheets und Miss Wren in zwei Phasen; sechs Spalten, fünf bzw.
+  sieben Reihen. Wren verwendet 96×96-Frames und 576×672-Sheets.
+- Zehn Effektstreifen, Bossbüste, fünf Zugporträts und vier Bestiariumkarten.
+- Drei Innenraum-Tilesets mit je 48 Kacheln, drei Prop-Atlanten und vier
+  Kampfkulissen mit freiem Bodenstreifen bei y=200–269.
+- Finch, Molly und Benji mit Lauf-Sheets und vier Emotionen; drei Schlafwandler
+  und drei Kartengegner mit vier Laufrichtungen.
+- Sieben neue 32×32-Itembilder, gemischter Itematlas, zehn Hinweise,
+  vier Nahansichten, zwei Fallakten, sechs Zwischensequenzen und sechs Enden.
+
+`public/sprites/manifest-fall78.json` beschreibt alle 77 Dateien mit Zielmaßen,
+Framegrößen, Spalten/Zeilen, nullbasierten Animationslisten und Geschwindigkeiten.
+Laufreihen: unten/links/rechts/oben. Kampfgegner schauen nach links; die ersten
+zwei Frames der beiden normalen Angriffe sind identische Ausholposen. Kürzere
+Reihen haben transparente Restfelder. Die Grundlinie ist als exklusive
+Unterkante angegeben: 30 bei Lauf-Sheets, 46/62/94 bei Kampf-Sheets.
+
+Prop-Atlanten liegen in 64×48-Packfeldern; die benannten `regions` enthalten
+die eigentlichen 16er-Raster-Rechtecke, etwa 16×32 oder 64×48.
+`regionAnimations` beschreibt Manteltropfen, Herd, Webstuhl, Tretrad und
+hängende Fäden. Vier Faden-Schimmerpaare stehen im Traumkeller-Tileset.
+Der gemischte Itematlas ist 256×48: sieben 16×16-Icons ab y=0 und sieben
+32×32-Icons ab y=16; übrige Felder transparent. Die vorhandenen 16×16-Dateien
+sind als `sharedExisting` markiert und bleiben unverändert; ihre Darstellung
+im Atlas wird auf die gemeinsame Palette normalisiert.
+
+Alle neuen PNGs sind mit denselben 32 sichtbaren Farben plus transparentem
+Index palettenindiziert. Export: Nearest Neighbor, Zellzuschnitt, Grundlinien-
+ausrichtung, binäres Alpha und Bereinigung weißer Matten bei Waisenhaus-Props
+und Albtraum-Effekt. Die Generator-Trennränder der Terrainzellen wurden entfernt.
+Die Fluch-Nahansichten wurden aus den jeweiligen normalen Ansichten abgeleitet.
+Die vorhandene Gouvernante dient als Identitätsreferenz; ihr Lauf-Sheet und
+ihre Dialogporträts werden nicht ersetzt.
+
+Tatsächliche Prompts, Referenzen, Originaldateinamen, SHA-256-Prüfsummen und
+Exportoptionen stehen in `batch-fall78-generation.json`. Die großen
+Generatororiginale werden zum Spielimport nicht benötigt.
+
+```sh
+# Pillow und numpy; SOURCE_DIRECTORY enthält die protokollierten Original-PNGs.
+python docs/art/export-fall78.py SOURCE_DIRECTORY
+python docs/art/verify-fall78.py
+```
+
+`validation-fall78.json` dokumentiert die Prüfung von Vollständigkeit, Maßen,
+Palette, Alpha, belegten Animationsframes, leeren Restfeldern, Grundlinien,
+Ausholframes und Atlasgrenzen. Sichtkontrollen: `fall78-combat-preview.png`,
+`fall78-world-preview.png` und `fall78-story-preview.png`.
+
+Nur Grafikassets und Grafikdokumentation; kein Spielcode geändert. Einbindung,
+Tile-Zusammensetzung und Animationstiming im laufenden Spiel erfolgen separat.
+
+
+## Batch K – Fall 6: Der dreizehnte Gast
+
+81 PNGs für Atelier/Dunkelkammer, Ballsaal und Spiegelkabinett: drei Gegner und
+Boss mit acht Animationsreihen, neun Effekte, vier Maskenballgäste,
+Ashcombe/Mews, vier Kartengegner, vier Kampfkulissen, Bestiarium, Items,
+Hinweise, fünf Fotoplatten-Zustände, sechs Zwischenszenen und vier Enden.
+Die fünf vorhandenen 16×16-Fallgegenstände werden durch die passenden neuen
+Icons ersetzt; die bestehenden E-Figuren, Fotoplatte-Icons und anderen Batches
+werden weiterverwendet.
+
+- Manifest: `public/sprites/manifest-fall6.json`
+- Tatsächliche Prompts, Referenzen, Quell-Hashes und Zuschnitte: `batch-fall6-generation.json`
+- Prüfbericht: `batch-fall6-validation.json` (81 PNGs, 2.519 Prüfungen)
+- Sieben Übersichten und Boss-Animation: `previews/batch-fall6-*`
+
+31 gemeinsame sichtbare Farben plus transparenter Index; binäres Alpha.
+Kampf-Sheets haben sechs Spalten, transparente Restzellen und eine einheitliche
+Grundlinie je Sheet. `baselineY` ist die inklusive letzte sichtbare Pixelzeile:
+46/62/94 im Kampf, 30 bzw. 30 bei 16×32-/32×32-Kartensprites.
+Angriffe halten die erste Ausholpose für zwei Frames. Laufrichtungen: unten,
+links, rechts, oben. Effekte und Emotionsporträts liegen als horizontale Streifen vor.
+
+Variable Prop-Atlanten verwenden benannte `regions` und `regionAnimations`.
+Kamera, Schrank, Plattenentwicklung und Schattenablösung laufen einmal;
+Lampen, Kronleuchter, Tank und Karussell wiederholen ihre Animation.
+Die 13 Stühle sind separat benannt, die Tafel hat sechs plus sieben Gedecke.
+Terrain hat 8×8 Tiles à 16 Pixel, benannte Tile-IDs und größere `tileRegions`;
+die vier Basisboden-Varianten haben passende Randpixel für freie Kombination.
+Die Item-Atlanten enthalten 16×16-Icons oben und 32×32-Icons ab y=16.
+
+```sh
+# Pillow und numpy; SOURCE_DIR enthält die protokollierten Generatororiginale.
+python docs/art/export-fall6.py SOURCE_DIR .
+python docs/art/verify-fall6.py .
+python docs/art/preview-fall6.py .
+```
+
+Die Prüfung umfasst Vollständigkeit, Maße, gemeinsame Palette, Alpha,
+Atlasregionen, Animationsindizes, Zellenränder, Grundlinien, Ausholposen und
+Bodenübergänge. Bildkorrekturen betreffen unter anderem transparente Hintergründe,
+Mews ohne Brille, eindeutige Fotoplatten-Stufen und die Fotografin im Schlussbild.
+Grafikpaket und Dokumentation sind fertig; Einbau und Timing-Abgleich im laufenden
+Spiel erfolgen separat. Kein Spielcode wurde geändert.
+
+## Grafikpaket O – Geheime Treffen
+
+Batch `treffen`: 20 neue PNGs nach `codex_O_geheime_treffen.md`, erzeugt mit
+`image_gen`. Vier NPCs (Schleierbote, Tresswell, Vellacourt, Kohlenjem) erhalten
+je ein 64×128-Laufsheet, vier 64×64-Emotionsportraits und einen 24×24-Journalkopf.
+Dazu kommen je drei 128×64-Tileatlanten und 192×192-Prop-Sheets, die Stadtmarker
+(48×64) und ein gemischter Zirkel-Atlas (128×64).
+
+`manifest-treffen.json` dokumentiert Framegrößen, Spalten/Zeilen, nullbasierte
+Animationen und die maßgeblichen Rechtecke für Props und Zirkel-Symbole.
+Props liegen in 48×48-Packslots; ihre Entnahmerechtecke haben die im Brief
+geforderten Maße (16×16 bis 48×16 bzw. 32×32). Laufreihen: down/left/right/up,
+Grundlinie als exklusive Unterkante bei 31. Portraits: neutral/suspicious/
+shocked/smiling. Der Schleierbote bleibt auch bei Emotionen vollständig verhüllt.
+Die Köpfe werden aus dem neutralen Portrait ausgeschnitten.
+
+Drei Kerzenvarianten, Waage, Lampen, Kreidestaub, Ofen, Laterne und Käfig haben
+benannte Animationsregionen. Marker folgen waage/kreide/russ; Reihen sind normal,
+bernsteinfarben, aktiv Phase 1 und aktiv Phase 2. Die acht Timerframes liegen
+in der unteren Reihe des Zirkel-Atlas. Der letzte Timerframe ist vollständig leer und beendet den Countdown. Die Embleme liegen
+oben, die drei Einladungen darunter. Keine lesbaren Beschriftungen.
+
+16 Generatorbilder wurden zellweise zugeschnitten, per Nearest Neighbor skaliert
+und auf 31 gemeinsame sichtbare Farben plus Transparenz indiziert. Palette aus
+14b, mit tiefem Violett statt des hellsten Ambertons. Alpha ist binär; Kreidestaub
+nutzt ein Checker-Muster für simulierte Transparenz. Plain-Floor-Varianten teilen
+Randpixel. Tilegruppen sind im Manifest angegeben; die komplexen Wand-, Kreis-
+und Türelemente sind keine vollständigen Autotile-Sätze und müssen beim Mapbau
+passend kombiniert werden. Die großen Generatororiginale sind keine Spielassets.
+
+Die tatsächlichen Prompts und Quellbild-Hashes stehen in
+`batch-treffen-generation.json`; die genauen technischen Zuschnitte im Exporter.
+
+```sh
+python docs/art/export-treffen.py /pfad/zu/generatorbildern
+python docs/art/verify-treffen.py
+```
+
+Pillow und NumPy erforderlich. Die Prüfung kontrolliert alle 20 Dateien, Maße,
+Palette, binäres Alpha, Framebelegung, Regionsgrenzen/-überlappungen,
+Animationsvariation, Laufränder und Grundlinien. Bericht: `validation-treffen.json`.
+Die finalen Exporte wurden visuell geprüft. Kein Spielcode geändert;
+Einbindung, Tileübergänge und Animationstiming im Spiel erfolgen separat.
+
+## Grafikpaket N – Sequenz 6/5 und Asservatenkammer
+
+Batch `sequenzen2`, erstellt am 9. November 2026 nach
+`codex_N_sequenzen_artefakte.md` mit dem integrierten Bildgenerator: **127 PNGs**
+aus 34 Generatorausgaben. 69 bestehende Platzhalter werden unter identischen
+Dateinamen ersetzt; 58 PNGs kommen neu hinzu. Kein Spielcode wurde geändert.
+
+- 14 Tränke für Sequenz 6 und 5, jeweils 16×16 und 32×32.
+- 14 Formeln sowie der Atlas `items/formeln_2.png` (112×32).
+- `ui/skill_icons_2.png` (112×32) und 14 einreihige Fähigkeitseffekte.
+- Zwölf verfluchte Artefakte und 15 Zutaten in jeweils zwei Größen, vier Atlanten.
+- Zwei zusätzliche Herz-Pulsstreifen in beiden Größen.
+- Artefakt-UI: drei 20×20-Slots, zwei 8×8-Marker, leere 64×8-Unruheanzeige
+  und vier separate 64×8-Füllstreifen.
+- Thale und Varga: je 64×128-Lauf-Sheet, 256×64-Emotionsportrait und
+  24×24-Notizbuchkopf aus dem neutralen Portrait.
+
+`public/sprites/manifest-sequenzen2.json` enthält alle Maße, Framegrößen,
+Spalten/Zeilen, nullbasierte Animationslisten, vorgeschlagene Geschwindigkeiten
+und die Zielzuordnung der Effekte. 64×64-Effekte haben acht Frames;
+48×48- und 32×32-Effekte haben sechs. `spiegelbild`, `lebenselixier` und
+`unbeugsam` sind Selbst-Effekte. Laufreihen: down, left, right, up;
+Fußgrundlinie: exklusive Unterkante 31. Portraits: neutral, suspicious,
+shocked, faint_smile. Nur Laufzyklen, Herzpuls und Unruhefüllung sind Schleifen.
+
+Die Pfadspalten sind laterne, faden, maske, echo, kessel, eisen, schluessel;
+Sequenzreihen sind 6, 5. Gemischte Atlanten verwenden benannte `regions`
+mit `[x,y,width,height]`. Itematlanten: kleine Icons ab y=0, große ab y=16;
+der rechte Teil der kleinen Zeile bleibt transparent. Die Herzanimationen
+liegen zusätzlich unter `<id>_pulse.png` und `32/<id>_pulse.png`, damit die
+bestehenden statischen Itemdateien weiterhin genau 16×16 bzw. 32×32 bleiben.
+Die UI-Füllanimation referenziert benannte Regionen; die Slotöffnung ist
+`[4,4,12,12]`. Notizbuchköpfe behalten den deckenden Portrait-Hintergrund.
+
+Die tatsächlich verwendeten Prompts, Referenzen, Quellbild-Dateinamen,
+SHA-256-Hashes und Zuschnitte stehen in `batch-sequenzen2-generation.json`.
+Technische Nachbearbeitung: individuelle Zellzuschnitte, Nearest Neighbor,
+gemeinsame Palette mit 32 sichtbaren Farben plus transparentem Index,
+binäres Alpha. Die Palette übernimmt Batch A und ergänzt den geforderten
+Artefakt-Randton #6a4a8a. Animationen verwenden eine gemeinsame Skalierung
+pro Sheet, damit Expansion und Bewegung erhalten bleiben. Große
+Generatororiginale sind keine Laufzeitassets und nicht im Repo enthalten.
+
+```sh
+# SOURCE_MAP.json: {"trank_laterne": "/pfad/original.png", ...}
+# Export: Pillow, numpy, scipy; Prüfung: Pillow, numpy.
+python docs/art/export-sequenzen2.py SOURCE_MAP.json
+python docs/art/verify-sequenzen2.py
+```
+
+Die Prüfung kontrolliert 127 Dateien, Zielmaße, gemeinsame Palette, Alpha,
+142 Animations-Frame-Referenzen, Animationsvariation, Fußlinien, Regionsgrenzen,
+transparente Restflächen, Atlas-/Einzeldatei-Gleichheit und Portrait-Kopfausschnitte.
+Ergebnis: `validation-sequenzen2.json` (1536 Prüfungen erfolgreich).
+Sichtkontrolle: [Items und UI](sequenzen2-items-preview.png),
+[Effektstreifen](sequenzen2-fx-preview.png), [Figuren](sequenzen2-npc-preview.png).
+
+Die Einbindung sowie die Prüfung von Timing und Lesbarkeit im laufenden Spiel
+bleiben ein separater Arbeitsschritt. Vorhandene Sequenzen 9–7, Pfadkarten,
+Statusicons und die bisherigen 21 Fähigkeitseffekte bleiben unverändert.

@@ -1,7 +1,7 @@
 {
   "id": "traumkeller",
   "name": "Keller unter St. Brigid",
-  "tiles": "gaskanaele",
+  "tiles": "m_traumkeller",
   "ambient": {
     "night": 0.92,
     "fog": 0.22
@@ -62,7 +62,7 @@
         10,
         9
       ],
-      "sprite": "apparition",
+      "sprite": "ow_traumfaden",
       "marker": false,
       "prompt": "Durch die Fäden gehen",
       "visible_if": {
@@ -111,6 +111,263 @@
         "requires_flags": [
           "wren_beaten"
         ],
+        "hide_if_flags": [
+          "case_08_closed"
+        ]
+      }
+    }
+  ],
+  "decor": [
+    {
+      "sprite": "m_traumkeller_props_loom",
+      "tile": [
+        9,
+        4
+      ],
+      "offset": [
+        8,
+        8
+      ],
+      "origin": [
+        0.5,
+        1
+      ],
+      "ysort": true,
+      "alpha": 1
+    },
+    {
+      "sprite": "m_traumkeller_props_wheel",
+      "tile": [
+        4,
+        6
+      ],
+      "offset": [
+        0,
+        8
+      ],
+      "origin": [
+        0.5,
+        1
+      ],
+      "ysort": true,
+      "alpha": 1,
+      "solid": [
+        24,
+        10
+      ]
+    },
+    {
+      "sprite": "m_traumkeller_props_spool_rack",
+      "tile": [
+        15,
+        5
+      ],
+      "offset": [
+        8,
+        0
+      ],
+      "ysort": true,
+      "alpha": 1
+    },
+    {
+      "sprite": "m_traumkeller_props_sewing_table",
+      "tile": [
+        4,
+        11
+      ],
+      "offset": [
+        8,
+        0
+      ],
+      "ysort": true,
+      "alpha": 1,
+      "solid": [
+        28,
+        10
+      ]
+    },
+    {
+      "sprite": "m_traumkeller_props_debt_papers",
+      "tile": [
+        12,
+        8
+      ],
+      "ysort": true,
+      "alpha": 1
+    },
+    {
+      "sprite": "m_traumkeller_props_dream_jar",
+      "tile": [
+        7,
+        8
+      ],
+      "ysort": true,
+      "alpha": 1
+    },
+    {
+      "sprite": "m_traumkeller_props_dream_jar",
+      "tile": [
+        13,
+        11
+      ],
+      "ysort": true,
+      "alpha": 1
+    },
+    {
+      "sprite": "m_traumkeller_props_slipper",
+      "tile": [
+        9,
+        12
+      ],
+      "ysort": true,
+      "alpha": 1
+    },
+    {
+      "sprite": "m_traumkeller_props_mirror",
+      "tile": [
+        16,
+        4
+      ],
+      "offset": [
+        0,
+        8
+      ],
+      "origin": [
+        0.5,
+        1
+      ],
+      "ysort": true,
+      "alpha": 1
+    },
+    {
+      "sprite": "m_traumkeller_props_hanging_threads",
+      "tile": [
+        6,
+        2
+      ],
+      "offset": [
+        0,
+        8
+      ],
+      "origin": [
+        0.5,
+        1
+      ],
+      "ysort": true,
+      "alpha": 1
+    },
+    {
+      "sprite": "m_traumkeller_props_hanging_threads",
+      "tile": [
+        13,
+        2
+      ],
+      "offset": [
+        0,
+        8
+      ],
+      "origin": [
+        0.5,
+        1
+      ],
+      "ysort": true,
+      "alpha": 1
+    },
+    {
+      "sprite": "m_traumkeller_props_hanging_threads",
+      "tile": [
+        3,
+        9
+      ],
+      "offset": [
+        0,
+        8
+      ],
+      "origin": [
+        0.5,
+        1
+      ],
+      "ysort": true,
+      "alpha": 1
+    },
+    {
+      "sprite": "m_traumkeller_props_hanging_threads",
+      "tile": [
+        16,
+        9
+      ],
+      "offset": [
+        0,
+        8
+      ],
+      "origin": [
+        0.5,
+        1
+      ],
+      "ysort": true,
+      "alpha": 1
+    },
+    {
+      "sprite": "m_schlafkind_1",
+      "tile": [
+        6,
+        7
+      ],
+      "offset": [
+        0,
+        8
+      ],
+      "origin": [
+        0.5,
+        1
+      ],
+      "ysort": true,
+      "alpha": 1,
+      "visible_if": {
+        "hide_if_flags": [
+          "case_08_closed"
+        ]
+      }
+    },
+    {
+      "sprite": "m_schlafkind_2",
+      "tile": [
+        14,
+        7
+      ],
+      "offset": [
+        0,
+        8
+      ],
+      "origin": [
+        0.5,
+        1
+      ],
+      "ysort": true,
+      "alpha": 1,
+      "visible_if": {
+        "hide_if_flags": [
+          "case_08_closed"
+        ]
+      }
+    },
+    {
+      "sprite": "m_schlafkind_3",
+      "tile": [
+        12,
+        11
+      ],
+      "offset": [
+        0,
+        8
+      ],
+      "origin": [
+        0.5,
+        1
+      ],
+      "ysort": true,
+      "alpha": 1,
+      "visible_if": {
         "hide_if_flags": [
           "case_08_closed"
         ]

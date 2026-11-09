@@ -315,6 +315,11 @@ button.small { font-size: 0.8em; padding: 0.1em 0.5em; }
 .citymap .pin .mk { display: block; width: 2em; height: 2em; image-rendering: pixelated; background-repeat: no-repeat;
   background-size: 26em 4em; background-position: calc(var(--c) * -2em) 0; filter: drop-shadow(0 0.125em 0 #000); }
 .citymap .pin:hover .mk, .citymap .pin.sel .mk, .citymap .pin.here .mk { background-position: calc(var(--c) * -2em) -2em; }
+/* Paket O: Treffen-Marker (3x4-Raster), Zeilen 3/4 pulsieren, solange das Treffen läuft */
+.citymap .pin.live .mk { background-size: 6em 8em; animation: treffenpulse 0.66s steps(1) infinite; }
+.citymap .pin.live:hover .mk, .citymap .pin.live.sel .mk, .citymap .pin.live.here .mk { animation: none; background-position: calc(var(--c) * -2em) -2em; }
+@keyframes treffenpulse { 0% { background-position: calc(var(--c) * -2em) -4em; } 50% { background-position: calc(var(--c) * -2em) -6em; } }
+.treffen .atlas-icon { vertical-align: middle; margin-right: 0.2em; }
 .citymap .pin.here:disabled { opacity: 1; cursor: default; }
 .citymap .pin .num { position: absolute; right: -0.6em; top: -0.5em; font-size: 0.75em; color: var(--gold); background: #1a1420; border: 0.125em solid var(--brass); border-radius: 0.3em; padding: 0 0.25em; line-height: 1.1; }
 .citymap .pin .tag { position: absolute; left: 50%; top: 2.1em; transform: translateX(-50%); white-space: nowrap; font-size: 0.7em; color: var(--ink);
@@ -460,3 +465,20 @@ img.scene { display: block; width: 30em; height: 16.875em; margin: 0 auto 0.6em;
 .ritual { border: 0.125em solid #4a3a5a; padding: 0.4em 0.6em; margin: 0.5em 0; }
 .ritual h4 { margin: 0 0 0.3em; color: var(--occult); }
 .ritual .steps { margin: 0.3em 0; }
+
+/* Paket N: Artefakt-Oberfläche (ui/N_artefakt_ui.png, 128x64) */
+.item-icon.pulse { display: inline-block; background-size: 32px 16px; background-repeat: no-repeat; animation: iconpulse 0.66s steps(1) infinite; }
+@keyframes iconpulse { 0% { background-position: 0 0; } 50% { background-position: -16px 0; } }
+.artmark { display: inline-block; width: 8px; height: 8px; margin-right: 4px; vertical-align: 0; image-rendering: pixelated;
+  background: var(--artui) no-repeat; }
+.artmark.plus { background-position: -64px 0; }
+.artmark.minus { background-position: -72px 0; }
+.artslots { display: inline-flex; gap: 2px; vertical-align: middle; margin-right: 0.5em; }
+.artslot { position: relative; display: inline-block; width: 20px; height: 20px; image-rendering: pixelated; background: var(--artui) no-repeat 0 0; }
+.artslot.equipped { background-position: -20px 0; }
+.artslot.overloaded { background-position: -40px 0; }
+.artslot img { position: absolute; left: 4px; top: 4px; image-rendering: pixelated; }
+.meter.unruhe .bar { width: 8em; height: 1em; border: none; image-rendering: pixelated; background: var(--artui) no-repeat 0 -3em / 16em 8em; }
+.meter.unruhe .ufill { background: var(--artui) no-repeat 0 -5em / 16em 8em; animation: unrestfill 0.5s steps(1) infinite; }
+.meter.unruhe .ufill.low { filter: brightness(1.25) saturate(1.3); }
+@keyframes unrestfill { 0% { background-position: 0 -5em; } 25% { background-position: -8em -5em; } 50% { background-position: 0 -6em; } 75% { background-position: -8em -6em; } }

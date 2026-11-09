@@ -1,7 +1,7 @@
 {
   "id": "waisenhaus",
   "name": "Waisenhaus St. Brigid",
-  "tiles": "tavern",
+  "tiles": "m_waisenhaus",
   "ambient": {
     "night": 0.86,
     "fog": 0.08
@@ -174,7 +174,7 @@
         3,
         13
       ],
-      "sprite": "stairs",
+      "sprite": "m_waisenhaus_props_locked_cellar_door",
       "marker": true,
       "prompt": "In den Keller hinabsteigen",
       "visible_if": {
@@ -185,6 +185,441 @@
           "case_08_closed"
         ]
       }
+    }
+  ],
+  "decor": [
+    {
+      "sprite": "m_waisenhaus_props_dining_table",
+      "tile": [
+        9,
+        6
+      ],
+      "offset": [
+        0,
+        8
+      ],
+      "ysort": true,
+      "alpha": 1
+    },
+    {
+      "sprite": "m_waisenhaus_props_range",
+      "tile": [
+        8,
+        3
+      ],
+      "offset": [
+        8,
+        8
+      ],
+      "origin": [
+        0.5,
+        1
+      ],
+      "ysort": true,
+      "alpha": 1,
+      "solid": [
+        28,
+        10
+      ],
+      "light": {
+        "radius": 40,
+        "intensity": 0.5,
+        "color": "#ff9a40",
+        "flicker": 0.2
+      }
+    },
+    {
+      "sprite": "m_waisenhaus_props_sink",
+      "tile": [
+        11,
+        3
+      ],
+      "offset": [
+        0,
+        8
+      ],
+      "origin": [
+        0.5,
+        1
+      ],
+      "ysort": true,
+      "alpha": 1,
+      "solid": [
+        10,
+        6
+      ]
+    },
+    {
+      "sprite": "m_waisenhaus_props_tea_jar",
+      "tile": [
+        3,
+        4
+      ],
+      "ysort": true,
+      "alpha": 1
+    },
+    {
+      "sprite": "m_waisenhaus_props_matron_desk",
+      "tile": [
+        12,
+        10
+      ],
+      "offset": [
+        8,
+        0
+      ],
+      "ysort": true,
+      "alpha": 1,
+      "solid": [
+        28,
+        10
+      ]
+    },
+    {
+      "sprite": "m_waisenhaus_props_uniform_cupboard",
+      "tile": [
+        13,
+        14
+      ],
+      "offset": [
+        0,
+        8
+      ],
+      "origin": [
+        0.5,
+        1
+      ],
+      "ysort": true,
+      "alpha": 1,
+      "solid": [
+        12,
+        6
+      ]
+    },
+    {
+      "sprite": "m_waisenhaus_props_mending_basket",
+      "tile": [
+        11,
+        11
+      ],
+      "ysort": true,
+      "alpha": 1
+    },
+    {
+      "sprite": "m_waisenhaus_props_hopscotch",
+      "tile": [
+        8,
+        14
+      ],
+      "offset": [
+        8,
+        0
+      ],
+      "ysort": true,
+      "alpha": 1
+    },
+    {
+      "sprite": "m_waisenhaus_props_rag_doll",
+      "tile": [
+        19,
+        6
+      ],
+      "ysort": true,
+      "alpha": 1
+    },
+    {
+      "sprite": "m_waisenhaus_props_black_footprints",
+      "tile": [
+        22,
+        11
+      ],
+      "offset": [
+        8,
+        0
+      ],
+      "ysort": true,
+      "alpha": 1
+    },
+    {
+      "sprite": "m_waisenhaus_props_chest",
+      "tile": [
+        28,
+        13
+      ],
+      "ysort": true,
+      "alpha": 1
+    },
+    {
+      "sprite": "m_waisenhaus_props_bed_slept",
+      "tile": [
+        17,
+        4
+      ],
+      "offset": [
+        0,
+        8
+      ],
+      "origin": [
+        0.5,
+        1
+      ],
+      "ysort": true,
+      "alpha": 1
+    },
+    {
+      "sprite": "m_waisenhaus_props_bed_made",
+      "tile": [
+        18,
+        4
+      ],
+      "offset": [
+        0,
+        8
+      ],
+      "origin": [
+        0.5,
+        1
+      ],
+      "ysort": true,
+      "alpha": 1
+    },
+    {
+      "sprite": "m_waisenhaus_props_bed_slept",
+      "tile": [
+        20,
+        4
+      ],
+      "offset": [
+        0,
+        8
+      ],
+      "origin": [
+        0.5,
+        1
+      ],
+      "ysort": true,
+      "alpha": 1
+    },
+    {
+      "sprite": "m_waisenhaus_props_bed_made",
+      "tile": [
+        21,
+        4
+      ],
+      "offset": [
+        0,
+        8
+      ],
+      "origin": [
+        0.5,
+        1
+      ],
+      "ysort": true,
+      "alpha": 1
+    },
+    {
+      "sprite": "m_waisenhaus_props_bed_slept",
+      "tile": [
+        23,
+        4
+      ],
+      "offset": [
+        0,
+        8
+      ],
+      "origin": [
+        0.5,
+        1
+      ],
+      "ysort": true,
+      "alpha": 1
+    },
+    {
+      "sprite": "m_waisenhaus_props_bed_made",
+      "tile": [
+        24,
+        4
+      ],
+      "offset": [
+        0,
+        8
+      ],
+      "origin": [
+        0.5,
+        1
+      ],
+      "ysort": true,
+      "alpha": 1
+    },
+    {
+      "sprite": "m_waisenhaus_props_bed_empty_warm",
+      "tile": [
+        26,
+        4
+      ],
+      "offset": [
+        0,
+        8
+      ],
+      "origin": [
+        0.5,
+        1
+      ],
+      "ysort": true,
+      "alpha": 1
+    },
+    {
+      "sprite": "m_waisenhaus_props_bed_made",
+      "tile": [
+        27,
+        4
+      ],
+      "offset": [
+        0,
+        8
+      ],
+      "origin": [
+        0.5,
+        1
+      ],
+      "ysort": true,
+      "alpha": 1
+    },
+    {
+      "sprite": "m_waisenhaus_props_bed_made",
+      "tile": [
+        17,
+        9
+      ],
+      "offset": [
+        0,
+        8
+      ],
+      "origin": [
+        0.5,
+        1
+      ],
+      "ysort": true,
+      "alpha": 1
+    },
+    {
+      "sprite": "m_waisenhaus_props_bed_slept",
+      "tile": [
+        18,
+        9
+      ],
+      "offset": [
+        0,
+        8
+      ],
+      "origin": [
+        0.5,
+        1
+      ],
+      "ysort": true,
+      "alpha": 1
+    },
+    {
+      "sprite": "m_waisenhaus_props_bed_made",
+      "tile": [
+        20,
+        9
+      ],
+      "offset": [
+        0,
+        8
+      ],
+      "origin": [
+        0.5,
+        1
+      ],
+      "ysort": true,
+      "alpha": 1
+    },
+    {
+      "sprite": "m_waisenhaus_props_bed_slept",
+      "tile": [
+        21,
+        9
+      ],
+      "offset": [
+        0,
+        8
+      ],
+      "origin": [
+        0.5,
+        1
+      ],
+      "ysort": true,
+      "alpha": 1
+    },
+    {
+      "sprite": "m_waisenhaus_props_bed_made",
+      "tile": [
+        23,
+        9
+      ],
+      "offset": [
+        0,
+        8
+      ],
+      "origin": [
+        0.5,
+        1
+      ],
+      "ysort": true,
+      "alpha": 1
+    },
+    {
+      "sprite": "m_waisenhaus_props_bed_slept",
+      "tile": [
+        24,
+        9
+      ],
+      "offset": [
+        0,
+        8
+      ],
+      "origin": [
+        0.5,
+        1
+      ],
+      "ysort": true,
+      "alpha": 1
+    },
+    {
+      "sprite": "m_waisenhaus_props_bed_made",
+      "tile": [
+        26,
+        9
+      ],
+      "offset": [
+        0,
+        8
+      ],
+      "origin": [
+        0.5,
+        1
+      ],
+      "ysort": true,
+      "alpha": 1
+    },
+    {
+      "sprite": "m_waisenhaus_props_bed_slept",
+      "tile": [
+        27,
+        9
+      ],
+      "offset": [
+        0,
+        8
+      ],
+      "origin": [
+        0.5,
+        1
+      ],
+      "ysort": true,
+      "alpha": 1
     }
   ]
 }

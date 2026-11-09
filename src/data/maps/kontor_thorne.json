@@ -1,7 +1,7 @@
 {
   "id": "kontor_thorne",
   "name": "Kontor Thorne am Altmarkt",
-  "tiles": "tavern",
+  "tiles": "m_kontor",
   "ambient": {
     "night": 0.82,
     "fog": 0.06
@@ -181,7 +181,7 @@
         20,
         12
       ],
-      "sprite": "apparition",
+      "sprite": "ow_ertrunkener",
       "marker": false,
       "prompt": "Der nassen Gestalt folgen",
       "visible_if": {
@@ -192,6 +192,231 @@
           "ertrunkener_defeated"
         ]
       }
+    }
+  ],
+  "decor": [
+    {
+      "sprite": "m_kontor_props_banker_portrait",
+      "tile": [
+        8,
+        1
+      ],
+      "offset": [
+        8,
+        8
+      ],
+      "origin": [
+        0.5,
+        1
+      ],
+      "alpha": 1,
+      "depth": 40
+    },
+    {
+      "sprite": "m_kontor_props_clock",
+      "tile": [
+        12,
+        1
+      ],
+      "offset": [
+        0,
+        0
+      ],
+      "alpha": 1,
+      "depth": 40
+    },
+    {
+      "sprite": "m_kontor_props_coal_stove",
+      "tile": [
+        6,
+        3
+      ],
+      "offset": [
+        0,
+        8
+      ],
+      "origin": [
+        0.5,
+        1
+      ],
+      "ysort": true,
+      "alpha": 1,
+      "solid": [
+        10,
+        6
+      ]
+    },
+    {
+      "sprite": "m_kontor_props_safe_closed",
+      "tile": [
+        14,
+        4
+      ],
+      "offset": [
+        0,
+        8
+      ],
+      "origin": [
+        0.5,
+        1
+      ],
+      "ysort": true,
+      "alpha": 1,
+      "solid": [
+        24,
+        10
+      ]
+    },
+    {
+      "sprite": "m_kontor_props_coat_stand",
+      "tile": [
+        1,
+        11
+      ],
+      "offset": [
+        0,
+        8
+      ],
+      "origin": [
+        0.5,
+        1
+      ],
+      "ysort": true,
+      "alpha": 1,
+      "solid": [
+        8,
+        6
+      ]
+    },
+    {
+      "sprite": "m_kontor_props_letter_rack",
+      "tile": [
+        12,
+        9
+      ],
+      "ysort": true,
+      "alpha": 1
+    },
+    {
+      "sprite": "m_kontor_props_strapped_chair",
+      "tile": [
+        9,
+        7
+      ],
+      "ysort": true,
+      "alpha": 1
+    },
+    {
+      "sprite": "m_kontor_props_ledger_shelves",
+      "tile": [
+        2,
+        12
+      ],
+      "offset": [
+        8,
+        8
+      ],
+      "origin": [
+        0.5,
+        1
+      ],
+      "ysort": true,
+      "alpha": 1,
+      "solid": [
+        24,
+        10
+      ]
+    },
+    {
+      "sprite": "m_kontor_props_coal_chute",
+      "tile": [
+        22,
+        6
+      ],
+      "offset": [
+        0,
+        8
+      ],
+      "origin": [
+        0.5,
+        1
+      ],
+      "ysort": true,
+      "alpha": 1,
+      "solid": [
+        10,
+        6
+      ]
+    },
+    {
+      "sprite": "m_kontor_props_coal_sack",
+      "tile": [
+        18,
+        3
+      ],
+      "ysort": true,
+      "alpha": 1
+    },
+    {
+      "sprite": "m_kontor_props_coal_sack",
+      "tile": [
+        24,
+        6
+      ],
+      "ysort": true,
+      "alpha": 1
+    },
+    {
+      "sprite": "m_kontor_props_wet_footprints",
+      "tile": [
+        21,
+        9
+      ],
+      "offset": [
+        8,
+        0
+      ],
+      "ysort": true,
+      "alpha": 1
+    },
+    {
+      "sprite": "m_kontor_props_wet_footprints",
+      "tile": [
+        18,
+        11
+      ],
+      "offset": [
+        8,
+        0
+      ],
+      "ysort": true,
+      "alpha": 1
+    },
+    {
+      "sprite": "m_kontor_props_wet_coat",
+      "tile": [
+        24,
+        10
+      ],
+      "offset": [
+        0,
+        8
+      ],
+      "origin": [
+        0.5,
+        1
+      ],
+      "ysort": true,
+      "alpha": 1
+    },
+    {
+      "sprite": "m_kontor_props_ledger_crate",
+      "tile": [
+        18,
+        13
+      ],
+      "ysort": true,
+      "alpha": 1
     }
   ]
 }
