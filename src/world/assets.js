@@ -498,6 +498,7 @@ export const REGION_SHEETS = {
   g_katakomben_props: ['manifestWildnis', 'props_katakomben'], g_kraterwald_props: ['manifestWildnis', 'props_kraterwald'],
   g_rast: ['manifestWildnis', 'rest'], g_gefahr: ['manifestWildnis', 'danger'], g_monster_fx: ['manifestWildnis', 'monster_fx'],
   g_beute: ['manifestWildnis', 'loot_extras'], g_selten: ['manifestWildnis', 'rarity'],
+  l_marker: ['manifestGegner3', 'L_marker'],
 };
 /** Dateien der Region-Sheets (die Manifeste kommen erst nach dem Laden der Bilder an). */
 const REGION_FILES = {
@@ -510,6 +511,7 @@ const REGION_FILES = {
   i_rost: 'tilesets/I_rostbrueder_versteck.png', i_schleier: 'tilesets/I_schleierschwestern_versteck.png', i_orte: 'props/I_ankerhof_haus_morrow.png',
   g_rast: 'props/G_06_rast.png', g_gefahr: 'ui/G_01_gefahr.png', g_monster_fx: 'fx/G_02_monster_fx.png',
   g_beute: 'props/G_03_loot_extras.png', g_selten: 'ui/G_03_seltenheit.png',
+  l_marker: 'ui/L_marker.png',
 };
 for (const z of ['marsch', 'pestgassen', 'katakomben', 'kraterwald']) REGION_FILES[`g_${z}_props`] = `props/G_01_${z}_props.png`;
 for (const id of ['theater', 'uhrturm', 'nordtor', 'gaswerk', 'sternwarte', 'villen', 'elend']) REGION_FILES[`d_${id}_props`] = `props/D_05_${id}_props.png`;
@@ -667,7 +669,11 @@ export const F_UI_SHEETS = {
 };
 /** Boss-Einblendung zu Kampfbeginn: Begegnung → Büste (ui/F_08_boss_<id>.png, 160x160). */
 export const BOSS_INTROS = { felix_fight: 'felix', miriam: 'miriam' };
-/** Zug-Portraits (16x16) in ui/F_05_zug_portraits.png: Begegnung → Spalte. */
+/** Boss-Büsten aus späteren Paketen: Büste → [Textur-Key, Pfad]; sonst ui/F_08_boss_<id>.png. */
+export const BOSS_INTRO_IMAGES = {};
+export const bossIntroImage = (id) => BOSS_INTRO_IMAGES[id] ?? [`F_08_boss_${id}`, `ui/F_08_boss_${id}.png`];
+/** Zug-Portraits (16x16) in ui/F_05_zug_portraits.png: Begegnung → Spalte. Andere Streifen: TURN_PORTRAIT_URLS (Begegnung → [URL, Spalten]). */
+export const TURN_PORTRAIT_URLS = {};
 export const TURN_PORTRAITS_URL = `${BASE}ui/F_05_zug_portraits.png`;
 export const TURN_PORTRAITS = Object.fromEntries(['player', 'sparring', 'fog_hound', 'ash_warden', 'archive_rats', 'choir_zealots', 'rook_fight',
   'silas_fight', 'mirror_shade', 'schattenpuppe', 'grubenkampf', 'kanalkroete', 'gasgeist', 'uhrwerkwaechter', 'maskenspieler',
@@ -681,7 +687,9 @@ export const G_MONSTERS = {
   glaskraehe: [64, 16, 16], kraterbrut: [64, 32, 32], splitterling: [48, 16, 32], sternhirsch: [96, 32, 32],
 };
 export const BESTIARY = [...Object.keys(TURN_PORTRAITS).filter((id) => id !== 'player'), ...Object.keys(G_MONSTERS)];
-export const bestiaryUrl = (id) => `${BASE}ui/bestiary/${G_MONSTERS[id] ? 'G' : 'F'}_${id}.png`;
+/** Paket → Präfix der Bestiariumsseite (Rest: F). */
+const BESTIARY_PACK = {};
+export const bestiaryUrl = (id) => `${BASE}ui/bestiary/${BESTIARY_PACK[id] ?? (G_MONSTERS[id] ? 'G' : 'F')}_${id}.png`;
 /** Ausrüstung aus Paket F: Items mit 16er- und 32er-Icon unter items/ (Werte kommen mit den Daten). */
 export const F_EQUIPMENT = ['mantel_wolle', 'mantel_gewachst', 'mantel_polizei', 'mantel_samt', 'mantel_flicken', 'mantel_leder', 'mantel_chor',
   'mantel_nebel', 'hut_schirmmuetze', 'hut_melone', 'hut_zylinder', 'hut_helm', 'hut_kapuze', 'hut_schutzbrille', 'hut_witwenschleier', 'hut_maske',
@@ -741,7 +749,8 @@ export function preloadSprites(scene) {
     if (!scene.textures.exists(key)) scene.load.spritesheet(key, BASE + path, { frameWidth: w, frameHeight: h });
   }
   for (const id of Object.values(BOSS_INTROS)) {
-    if (!scene.textures.exists(`F_08_boss_${id}`)) scene.load.image(`F_08_boss_${id}`, `${BASE}ui/F_08_boss_${id}.png`);
+    const [key, path] = bossIntroImage(id);
+    if (!scene.textures.exists(key)) scene.load.image(key, BASE + path);
   }
   if (!scene.cache.json.exists('manifestWelt')) scene.load.json('manifestWelt', `${BASE}manifest-welt.json`);
   if (!scene.cache.json.exists('manifestPfade')) scene.load.json('manifestPfade', `${BASE}manifest-pfade.json`);
@@ -750,6 +759,7 @@ export function preloadSprites(scene) {
   if (!scene.cache.json.exists('manifestWildnis')) scene.load.json('manifestWildnis', `${BASE}manifest-wildnis.json`);
   if (!scene.cache.json.exists('manifestReise')) scene.load.json('manifestReise', `${BASE}manifest-reise.json`);
   if (!scene.cache.json.exists('manifestJournal')) scene.load.json('manifestJournal', `${BASE}manifest-journal.json`);
+  if (!scene.cache.json.exists('manifestGegner3')) scene.load.json('manifestGegner3', `${BASE}manifest-gegner3.json`);
   for (const [key, [path, w, h]] of Object.entries(CASE_SHEETS)) {
     if (!scene.textures.exists(key)) scene.load.spritesheet(key, BASE + path, { frameWidth: w, frameHeight: h });
   }
@@ -778,7 +788,7 @@ export function playSheetAnim(sprite, sheet, name, then) {
 /** Animationsdefinition aus manifest-14b.json oder manifest-kampf.json. */
 function battleAnimDef(scene, sheet, name) {
   for (const n of [name, ANIM_ALIASES[sheet]?.[name]].filter(Boolean)) {
-    for (const m of ['manifest14b', 'manifestKampf', 'manifestKampf2', 'manifestReise', 'manifestWildnis']) {
+    for (const m of ['manifest14b', 'manifestKampf', 'manifestKampf2', 'manifestReise', 'manifestWildnis', 'manifestGegner3']) {
       const def = scene.cache.json.get(m)?.assets?.find((a) => a.id === sheet)?.animations?.[n];
       if (def) return def;
     }
@@ -1010,3 +1020,54 @@ export const RARITY_GEMS = { common: [224, 48], uncommon: [240, 48], rare: [0, 9
 export const DANGER_URL = `${BASE}ui/G_01_gefahr.png`;
 export const DANGER_ICONS = [[0, 0], [16, 0], [32, 0], [48, 0], [64, 0]];
 export const DANGER_BANNER = [80, 0, 192, 32];
+
+// --- Paket L: Stadtgegner, Kopfgelder und Nachtmarker (manifest-gegner3.json) -----------------
+
+/** Stadtgegner: [Kampf-Frame, Karten-Frame-Breite]. Die Königin der Schmuggler ist der Boss. */
+export const L_ENEMIES = {
+  laternendieb: [48, 16], kanalschmuggler: [48, 16], nachtkraemer: [48, 16], falschgeldpraeger: [48, 16],
+  russgeist: [64, 32], glockenhund: [64, 32], papierkraehe: [64, 32], wachsmann: [64, 16],
+  fadenspinne: [64, 32], nebelaal: [64, 32], schmugglerkoenigin: [96, 16],
+};
+/** Wesen, die nach der Niederlage vergehen. */
+const L_FADING = ['russgeist', 'papierkraehe', 'wachsmann', 'nebelaal'];
+Object.keys(L_ENEMIES).forEach((id, i) => {
+  const [w, ow] = L_ENEMIES[id];
+  BATTLE_SHEETS[`enemy_${id}`] = [`battle/enemy_${id}.png`, w];
+  ENCOUNTER_SHEETS[id] = `enemy_${id}`;
+  ENCOUNTER_SHEETS[`${id}_elite`] = `enemy_${id}`;
+  OVERWORLD_SHEETS[id] = [id === 'schmugglerkoenigin' ? 'characters/L_schmugglerkoenigin_walk.png' : `characters/L_ow_${id}.png`, ow, 32];
+  OVERWORLD_SHEETS[`${id}_elite`] = OVERWORLD_SHEETS[id];
+  if (L_FADING.includes(id)) FADING_SHEETS.push(`enemy_${id}`);
+  TURN_PORTRAITS[id] = i;
+  TURN_PORTRAIT_URLS[id] = [`${BASE}ui/L_zug_portraits.png`, 11];
+  BESTIARY_PACK[id] = 'L';
+  BESTIARY.push(id);
+});
+/** Die Gewöhnlichen schlagen mit attack_a, die Spezialattacke ist attack_b; die Königin hat eigene Namen. */
+for (const id of Object.keys(L_ENEMIES)) ANIM_ALIASES[`enemy_${id}`] = { attack: 'attack_a', special: 'attack_b' };
+ANIM_ALIASES.enemy_schmugglerkoenigin = { attack: 'attack_cutlass', special: 'attack_crate', cast: 'summon' };
+/** Boss-Einblendung, Portrait und Lauf-Sheet der Schmugglerkönigin. */
+BOSS_INTROS.schmugglerkoenigin = 'schmugglerkoenigin_l';
+BOSS_INTRO_IMAGES.schmugglerkoenigin_l = ['L_08_boss_schmugglerkoenigin', 'ui/L_08_boss_schmugglerkoenigin.png'];
+SHEETS.l_schmugglerkoenigin = 'characters/L_schmugglerkoenigin_walk.png';
+CHARACTER_SHEETS.npc_schmugglerkoenigin = 'l_schmugglerkoenigin';
+PORTRAITS.schmugglerkoenigin = 'L_schmugglerkoenigin_emotions.png';
+PORTRAIT_SPECIAL.schmugglerkoenigin = ['L_schmugglerkoenigin_emotions.png', { neutral: 0, suspicious: 1, angry: 2, smiling: 3 }];
+/** Neue Kampfkulissen der Stadt. */
+Object.assign(BATTLE_BACKGROUNDS, { daecher: 'bg_daecher', markthalle: 'bg_markthalle' });
+Object.assign(ENCOUNTER_BACKGROUNDS, { schmugglerkoenigin: 'bg_markthalle', papierkraehe: 'bg_daecher', russgeist: 'bg_daecher' });
+/** Gegner-Effekte (fx/fx_<id>.png, Animation "play"): beim Angriff am Spieler. */
+const L_FX = { russ: 48, glockenheulen: 48, papierwirbel: 48, wachs: 32, fadennetz: 48, farbrauch: 32, status_gefesselt: 16 };
+for (const [id, size] of Object.entries(L_FX)) BATTLE_SHEETS[`fx_${id}`] = [`fx/fx_${id}.png`, size];
+Object.assign(ENCOUNTER_FX, {
+  russgeist: { attack: 'fx_russ' }, glockenhund: { attack: 'fx_glockenheulen' }, papierkraehe: { attack: 'fx_papierwirbel' },
+  wachsmann: { attack: 'fx_wachs' }, fadenspinne: { attack: 'fx_fadennetz' }, falschgeldpraeger: { attack: 'fx_farbrauch' },
+});
+/** Beute und Kopfgeld-Belohnungen (16er und 32er). */
+export const L_ITEMS = ['gasgluehstrumpf', 'schmuggelware', 'falschgeld', 'russklumpen', 'bronzeglocke_klein', 'papierfeder', 'wachsdocht',
+  'spinnfaden_lila', 'entermesser', 'fernrohr_messing', 'mantel_oelzeug', 'polizeimarke_gold'];
+ICON32.push(...L_ITEMS);
+/** Steckbriefe (64x80, Spalte 0 gesucht, 1 gefasst); ohne eigenen Steckbrief der leere. */
+export const WANTED = ['laternendieb', 'falschgeldpraeger', 'nachtkraemer', 'schmugglerkoenigin'];
+export const wantedUrl = (id) => `${BASE}ui/wanted/L_steckbrief_${WANTED.includes(id) ? id : 'leer'}.png`;

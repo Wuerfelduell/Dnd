@@ -3,7 +3,7 @@ import { Combat, WINDOW, EARLY_LIMIT, DODGE_COST, RING_CURVES, judgeDefense, jud
 import { createTextures, createCharacterSheet } from './textures.js';
 import {
   BATTLE_BACKGROUNDS, ENCOUNTER_BACKGROUNDS, ENEMY_BATTLE_SHEETS, ENCOUNTER_SHEETS, FADING_SHEETS,
-  SKILL_FX, SELF_FX, PATHWAY_POSES, WEAPON_POSES, ENCOUNTER_FX, BOSS_INTROS, BOSS_FORMS, CASE_SHEETS, playBattleAnim, playCaseAnim,
+  SKILL_FX, SELF_FX, PATHWAY_POSES, WEAPON_POSES, ENCOUNTER_FX, BOSS_INTROS, bossIntroImage, BOSS_FORMS, CASE_SHEETS, playBattleAnim, playCaseAnim,
 } from './assets.js';
 import { VIEW_W, VIEW_H, PLAYER_PALETTE } from './WorldScene.js';
 
@@ -61,7 +61,7 @@ export class CombatScene extends Phaser.Scene {
     }
     band.play(key);
     const parts = [band];
-    const bustKey = `F_08_boss_${bust}`;
+    const [bustKey] = bossIntroImage(bust);
     if (this.textures.exists(bustKey)) {
       const img = this.add.image(VIEW_W + 80, 135, bustKey).setDepth(91).setScale(0.75);
       this.tweens.add({ targets: img, x: VIEW_W - 90, duration: 380, delay: 200, ease: 'Cubic.out' });
@@ -92,7 +92,7 @@ export class CombatScene extends Phaser.Scene {
     const a = this.cache.json.get('manifestKampf')?.assets?.find((x) => x.id === sheet);
     if (a?.origin) return a.origin[1];
     // Paket F: Fußlinie als Pixelzeile
-    const b = ['manifestKampf2', 'manifestReise'].map((m) => this.cache.json.get(m)?.assets?.find((x) => x.id === sheet)).find(Boolean);
+    const b = ['manifestKampf2', 'manifestReise', 'manifestGegner3'].map((m) => this.cache.json.get(m)?.assets?.find((x) => x.id === sheet)).find(Boolean);
     return b?.baseline ? (b.baseline + 1) / b.frameHeight : 1;
   }
 
