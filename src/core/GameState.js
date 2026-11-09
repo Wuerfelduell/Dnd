@@ -276,8 +276,19 @@ export class GameState {
       (o.max_nerves === undefined || this.composure < o.max_nerves) &&
       (o.requires_gathering === undefined || this.gatheringOpen(o.requires_gathering) && this.isMember(o.requires_gathering)) &&
       (o.requires_gatherings_unlocked === undefined || this.gatheringsUnlocked() === o.requires_gatherings_unlocked) &&
+      this.meetsPathway(o.requires_pathway) &&
       this.meetsBond(o)
     );
+  }
+
+  /**
+   * Kapitel 3 (AU/AS): `requires_pathway: [pfad, grenze]` verlangt diesen Pfad mit Sequenz grenze oder besser,
+   * ein bloßer Pfadname nur den Pfad. Ohne Pfad gilt die Bedingung als nicht erfüllt.
+   */
+  meetsPathway(req) {
+    if (req === undefined) return true;
+    const [pid, max] = Array.isArray(req) ? req : [req, 9];
+    return this.pathway?.id === pid && this.pathway.seq <= max;
   }
 
   /** Erste passende Variante aus einer Liste [{node, ...bedingungen}] oder ein fester String. */

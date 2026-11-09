@@ -4,8 +4,11 @@ import { fileURLToPath } from 'node:url';
 import assert from 'node:assert/strict';
 const dir=path.dirname(fileURLToPath(import.meta.url)), root=path.resolve(dir,'../../..');
 const read=p=>JSON.parse(fs.readFileSync(p,'utf8'));
-const files=fs.readdirSync(dir).filter(f=>f.endsWith('.json'));
-const pack=Object.fromEntries(files.map(f=>[f.slice(0,-5),read(path.join(dir,f))]));
+// Eingebaut: Spieldaten in src/data/packs/k3_pruefungen, Herkunftstabelle bleibt hier
+const pkgDir=path.join(root,'src/data/packs/k3_pruefungen');
+const rd=d=>fs.readdirSync(d).filter(f=>f.endsWith('.json')).map(f=>[f.slice(0,-5),read(path.join(d,f))]);
+const pack=Object.fromEntries([...rd(dir),...rd(pkgDir)]);
+const files=Object.keys(pack).map(k=>k+'.json');
 const failures=[], pending=new Set();
 const check=(ok,msg)=>{if(!ok)failures.push(msg);};
 const walk=(o,fn)=>{if(!o||typeof o!=='object')return;if(!Array.isArray(o))fn(o);for(const v of Object.values(o))walk(v,fn);};

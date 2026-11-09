@@ -4,7 +4,7 @@ import { existsSync } from 'node:fs';
 import { GameState } from '../src/core/GameState.js';
 import { COMPANIONS } from '../src/core/Bonds.js';
 import { DS_FIGURES, DS_ENEMIES, DS_MAP_MARKERS_URL, SHEETS, PORTRAITS, BATTLE_SHEETS, ENCOUNTER_SHEETS, OVERWORLD_SHEETS, bestiaryUrl, mapMarkerOf, CHAPTER_CARDS } from '../src/world/assets.js';
-import { loadContent, fight, EXPERT, SKILLED } from './helpers.js';
+import { loadContent, fight, talk, use, EXPERT, SKILLED } from './helpers.js';
 
 // Kapitel 3 „Der letzte Zug nach Dunscar“ (Codex AR Akte, AS Orte/Gegner, AV/AW/AX Grafik)
 const content = loadContent();
@@ -112,4 +112,38 @@ test('Paket AT: der Wartungssteg verbindet Schwellenring und Bruchstufen erst na
   }
   s.flags.add('k3n_drehscheibe_offen');
   assert.ok(content.maps.ds_schwellenring.interactables.filter((i) => i.id.startsWith('k3o_steg')).every((d) => s.meets(d.visible_if)));
+});
+
+test('Paket AU: Hedda gibt die Prüfung nur dem eigenen Pfad ab Sequenz 5, die Zutat für Sequenz 4 einmal', () => {
+  const s = seq(5);
+  s.flags.add('k3a_akt2_done');
+  assert.throws(() => talk(s, 'k3p_hedda', ['Über den Pfad Laterne', 'Prüfung an']), /keine verfügbare Option/);
+  talk(s, 'k3p_hedda', ['Über den Pfad Eisen', 'Prüfung an']);
+  assert.equal(s.quests.k3p_eisen_pruefung, 'active');
+  use(s, 'ds_bruchstufen', 'k3p_eisen_spur_a');
+  use(s, 'ds_bruchstufen', 'k3p_eisen_spur_b');
+  talk(s, 'k3p_eisen_probe_dialog', ['leeren Steg']);
+  assert.ok(s.flags.has('k3p_eisen_bewaeltigt'));
+  talk(s, 'k3p_hedda', ['ist bewältigt']);
+  assert.equal(s.itemCount('sq_zutat_eisen_4'), 1);
+  assert.equal(s.quests.k3p_eisen_pruefung, 'done');
+  assert.throws(() => talk(s, 'k3p_hedda', ['ist bewältigt']), /keine verfügbare Option/);
+});
+
+test('Balance Paket AU: jeder Prüfungsgegner ist mit Sequenz 5 schaffbar', () => {
+  for (const id of Object.keys(content.encounters).filter((e) => e.startsWith('k3p_'))) {
+    const { result, combat } = fight(seq(5), id, { defend: EXPERT, skill: 'double', healBelow: 18 });
+    assert.equal(result.outcome, 'won', `${id}: verloren in Runde ${combat.round}`);
+  }
+});
+
+test('Kapitel 3: das Kernfach des Vorhauers gibt nur die Zutat des eigenen Pfads, einmal', () => {
+  const s = seq(4);
+  const fach = content.maps.ds_klopfbruch.interactables.find((i) => i.id === 'k3o_vorhauer_beute');
+  assert.equal(fach.kind, 'dialogue');
+  assert.throws(() => talk(s, fach.dialogue, ['Kernzutat']), /keine verfügbare Option/);
+  s.flags.add('k3o_vorhauer_geloest');
+  talk(s, fach.dialogue, ['Kernzutat']);
+  assert.equal(s.itemCount('sq_zutat_eisen_3'), 1);
+  assert.throws(() => talk(s, fach.dialogue, ['Kernzutat']), /keine verfügbare Option/);
 });

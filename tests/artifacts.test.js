@@ -22,7 +22,7 @@ function withOffer(s, merchant, item) {
 /** Kauft Formel und Zutaten bei den Händlern und braut (Geld und Ansehen werden aufgefüllt). */
 function brew(s, pid, seq) {
   s.money = 5000;
-  s.honor = Math.max(s.honor, 75);
+  s.honor = Math.max(s.honor, 165); // Formeln für 4 bis 1 verlangen bis zu 160 Ehre
   withOffer(s, 'kittering', `formel_${pid}_${seq}`);
   assert.equal(s.buy('kittering', `formel_${pid}_${seq}`).ok, true, `Formel ${pid} ${seq}`);
   for (const [id, n] of Object.entries(content.items[`formel_${pid}_${seq}`].ingredients)) {
@@ -63,14 +63,14 @@ function ascend(s, pid, seq) {
   return s.drink(potion, never);
 }
 
-test('Jeder Pfad lässt sich bis Sequenz 5 brauen und trinken, Leben und Nerven wachsen mit', () => {
-  assert.equal(SEQ_MAX, 5);
+test('Jeder Pfad lässt sich bis Sequenz 1 brauen und trinken, Leben und Nerven wachsen mit', () => {
+  assert.equal(SEQ_MAX, 1);
   for (const pid of Object.keys(content.pathways)) {
     const s = new GameState(content);
     let lastHp = s.maxHp;
     let lastNerves = s.maxComposure();
     assert.equal(lastNerves, 100);
-    for (const seq of [9, 8, 7, 6, 5]) {
+    for (const seq of [9, 8, 7, 6, 5, 4, 3, 2, 1]) {
       assert.equal(ascend(s, pid, seq).ok, true, `${pid} ${seq}`);
       assert.equal(s.pathway.seq, seq);
       assert.ok(s.maxHp > lastHp, `${pid} ${seq}: mehr Leben (${s.maxHp})`);
@@ -78,12 +78,12 @@ test('Jeder Pfad lässt sich bis Sequenz 5 brauen und trinken, Leben und Nerven 
       lastHp = s.maxHp;
       lastNerves = s.maxComposure();
     }
-    // Alle fünf Fähigkeiten im Kampf verfügbar
-    assert.equal(Object.keys(s.pathwaySkills()).length, 5, pid);
+    // Alle neun Fähigkeiten im Kampf verfügbar
+    assert.equal(Object.keys(s.pathwaySkills()).length, 9, pid);
     const c = new Combat(s, 'moorleiche');
     c.ap = 6;
     for (const id of Object.keys(s.pathwaySkills())) assert.ok(c.skillDef(id), id);
-    // Weiter als Sequenz 5 geht es nicht
+    // Weiter als Sequenz 1 geht es nicht
     digestAll(s);
     assert.match(s.pathwayReport(), /Weiter kommst du hier unten nicht/);
   }
