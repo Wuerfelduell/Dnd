@@ -1,5 +1,7 @@
 # AQ · Die Täfelchengilde
 
+> **Eingebaut:** Die JSON-Dateien liegen jetzt unter `src/data/packs/k2_gilde/`. `buildContent` mischt `treffen` (Zirkel, Karte, Pin auch auf der Wexmoorer Stadtkarte, Reiseziel, `orders.wexmoor`) und `artefakte` vor dem Build ein; die Spiegel `npcs`/`dialogues` im Treffen-Ausschnitt bleiben weg. Günstige Lose wurden auf mindestens 90 Schilling angehoben (Treffen-Regel). Offen: Gildenrabatt, `once`/`requires_pathway` in der Auktion, eigene Icons und Schrein-Props.
+
 Inhaltspaket für den dritten Wexmoorer Zirkel `namensgilde`. Grundlage: `docs/art/codex_AQ_k2_gilde.md`, Repo-Stand `1ecfc2df1facaacfd4e6e0caf7a554a08db20d41`. Noch nicht im Spiel eingebaut. Alle Änderungen liegen in diesem Ordner.
 
 Die Gilde bewahrt die alten Namensbräuche, ohne deren Wirksamkeit gegen das gesamte Moor zu beweisen. Sie bezeugt Namen, bewahrt Erinnerungen und versteigert Gegenstände, keine Menschen. Sedge bleibt eine widersprüchliche Bürgin: Ihre Rolle bei Elsbeth Rowe wird weder umgeschrieben noch durch die Aufnahme entschuldigt. Die Geschichte verrät vor Akt IV keine zusätzlichen Hauptfall-Beweise.

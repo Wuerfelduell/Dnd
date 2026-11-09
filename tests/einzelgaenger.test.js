@@ -119,10 +119,10 @@ test('Nett anfangen und einmal verraten reicht noch nicht für einen Kampf', () 
 
 test('Zirkel in Wexmoor: Lichtlose und Salzbrüder nur über befreundete Einzelgänger', () => {
   const s = inWexmoor();
-  assert.deepEqual(content.gatherings.rules.orders.wexmoor, ['lichtlose', 'salz']);
+  assert.deepEqual(content.gatherings.rules.orders.wexmoor, ['lichtlose', 'salz', 'namensgilde']); // Paket AQ: Täfelchengilde
   // In Wexmoor wechseln sich nur die Wexmoorer Zirkel ab, in Kettlegate die alten
   const ids = (n) => Array.from({ length: n }, (_, c) => s.gatheringSlot(c).id);
-  assert.deepEqual([...new Set(ids(4))].sort(), ['lichtlose', 'salz']);
+  assert.deepEqual([...new Set(ids(6))].sort(), ['lichtlose', 'namensgilde', 'salz']);
   s.map = 'revier';
   assert.deepEqual([...new Set(ids(6))].sort(), ['kreide', 'russ', 'waage']);
   s.map = 'wx_kahn';

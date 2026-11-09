@@ -13,6 +13,7 @@ export function buildContent({ campaign, quests, cases, maps, dialogues, items =
   // Paket AF: neue Pfade, Zutaten und Artefakte gehören vor der Erzeugung der Trank-/Formel-Items dazu
   const sq = withSequenzen(pathways, sequenzen);
   pathways = sq.pathways;
+  ({ gatherings, pathways, wexmoor } = withPackTreffen(packs, gatherings, pathways, wexmoor));
   const merge = (list, key) => Object.assign({}, ...list.map((x) => x[key] ?? {}));
   const b = buildings ?? {};
   const g = gatherings ?? {};
@@ -158,6 +159,35 @@ function pathwayItems(pathways) {
 }
 
 /** Artefakte (pathways.json → artifacts.list) werden Gegenstände der Art 'artifact'. */
+/**
+ * Paket AQ: Ein Pack kann einen Treffen-Ausschnitt (`treffen`: Zirkel, Karten, Pins, Reiseziele, Reihenfolge je Stadt)
+ * und Artefakte (`artefakte`) mitbringen. Beides gehört vor den Build; die Spiegel `npcs`/`dialogues` im Ausschnitt
+ * bleiben weg, weil das Pack sie selbst einbringt. Pins einer Stadt landen auch auf deren Stadtkarte.
+ */
+function withPackTreffen(packs, gatherings, pathways, wexmoor) {
+  for (const pack of packs) {
+    const t = pack.treffen;
+    if (t) {
+      const g = gatherings ?? {};
+      gatherings = {
+        ...g,
+        rules: { ...g.rules, orders: { ...(g.rules?.orders ?? {}), ...(t.rules?.orders ?? {}) } },
+        circles: { ...(g.circles ?? {}), ...(t.circles ?? {}) },
+        pins: { ...(g.pins ?? {}), ...(t.pins ?? {}) },
+        travel: [...(g.travel ?? []), ...(t.travel ?? [])],
+        maps: [...(g.maps ?? []), ...(t.maps ?? [])],
+        placements: [...(g.placements ?? []), ...(t.placements ?? [])],
+      };
+      const cityPins = Object.fromEntries(Object.entries(t.pins ?? {}).filter(([id]) => t.travel?.some((x) => x.map === id && x.city === wexmoor?.city?.id)));
+      if (Object.keys(cityPins).length) wexmoor = { ...wexmoor, city: { ...wexmoor.city, pins: { ...(wexmoor.city.pins ?? {}), ...cityPins } } };
+    }
+    if (pack.artefakte && pathways?.artifacts) {
+      pathways = { ...pathways, artifacts: { ...pathways.artifacts, list: { ...pathways.artifacts.list, ...pack.artefakte } } };
+    }
+  }
+  return { gatherings, pathways, wexmoor };
+}
+
 function artifactItems(artifacts) {
   const out = {};
   for (const [id, a] of Object.entries(artifacts?.list ?? {})) {

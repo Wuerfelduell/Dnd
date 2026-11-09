@@ -7,9 +7,11 @@ import { loadContent } from '../../../tests/helpers.js';
 import { GameState } from '../../../src/core/GameState.js';
 import { applyQuestPack } from '../../../src/data/questPacks.js';
 const dir = fileURLToPath(new URL('.', import.meta.url));
-const files = readdirSync(dir).filter(f => f.endsWith('.json')).sort();
-const data = Object.fromEntries(files.map(f => [f.slice(0,-5), JSON.parse(readFileSync(dir+f, 'utf8'))]));
-const base = loadContent();
+// Seit dem Einbau liegen die JSON-Dateien unter src/data/packs/k2_gilde; geprüft wird gegen den Stand ohne dieses Paket.
+const pkgDir = fileURLToPath(new URL('../../../src/data/packs/k2_gilde/', import.meta.url));
+const files = readdirSync(pkgDir).filter(f => f.endsWith('.json')).sort();
+const data = Object.fromEntries(files.map(f => [f.slice(0,-5), JSON.parse(readFileSync(pkgDir+f, 'utf8'))]));
+const base = loadContent({ without: ['k2_gilde'] });
 const content = structuredClone(base);
 const g = data.treffen_namensgilde;
 const ownDialogs = data.dialogues;
