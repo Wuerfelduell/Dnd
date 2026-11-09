@@ -1,0 +1,514 @@
+{
+  "quests": {
+    "k2_akt5": {
+      "title": "Akt V: Das Leuchtfeuer",
+      "kind": "main",
+      "case": "kapitel2",
+      "summary": "L. ist Ilse Brandt, und der Turm brennt mit Fremden. Du bist der nächste. Zeit, zum Leuchtturm zu fahren. Wer mit Zeugen, Haftbefehl und der Wache kommt, kann Brandt vor Gericht bringen. Bereite am Hafen die Überfahrt vor, prüfe den Keller und die Winde und sprich vor dem letzten Aufstieg mit Zunder.",
+      "steps": [
+        {
+          "text": "Bereite Boot, Polizeikontrolle und Wetterfenster vor.",
+          "done": {
+            "requires_flags": [
+              "k2v_boot_bereit"
+            ]
+          },
+          "target": {
+            "map": "wx_bojenhafen",
+            "id": "k2v_inselboot",
+            "label": "Bracks Inselboot"
+          }
+        },
+        {
+          "text": "Fahr zum Leuchtturm",
+          "done": {
+            "requires_flags": [
+              "k2_am_turm"
+            ]
+          },
+          "target": {
+            "map": "wx_leuchtturm",
+            "id": "exit",
+            "label": "Der Leuchtturm"
+          }
+        },
+        {
+          "text": "Sichere den Weg durch den Keller.",
+          "done": {
+            "requires_flags": [
+              "k2v_keller_passiert"
+            ]
+          },
+          "target": {
+            "map": "wx_leuchtturm",
+            "id": "k2v_kellerszene_ort",
+            "label": "Keller unter der Treppe"
+          }
+        },
+        {
+          "text": "Öffne die Gegengewichtsklappe im Aufstieg.",
+          "done": {
+            "requires_flags": [
+              "k2v_aufstieg_passiert"
+            ]
+          },
+          "target": {
+            "map": "wx_leuchtturm",
+            "id": "k2v_windenszene_ort",
+            "label": "Alte Handwinde"
+          }
+        },
+        {
+          "text": "Sprich ein letztes Mal mit Zunder und geh durch den flüsternden Treppenlauf.",
+          "done": {
+            "requires_flags": [
+              "k2v_abschied_done"
+            ]
+          },
+          "target": {
+            "map": "wx_leuchtturm",
+            "id": "k2v_abschied_ort",
+            "label": "Zunder am inneren Treppenfuß"
+          }
+        },
+        {
+          "text": "Bezwinge das Leuchtfeuer",
+          "done": {
+            "requires_flags": [
+              "won_leuchtfeuer"
+            ]
+          }
+        },
+        {
+          "text": "Stell Ilse Brandt",
+          "done": {
+            "requires_flags": [
+              "kapitel2_done"
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "dialogues": {
+    "k2v_ueberfahrt": {
+      "start": "k2v_boot_start",
+      "nodes": {
+        "k2v_boot_start": {
+          "text": "Bracks Boot liegt vertäut, Zunder prüft die Dollen. Draußen zieht ein Regenband quer über die Bucht. Am Kai wartet eine graue Laterne auf die nächste Ausfahrt.",
+          "choices": [
+            {
+              "text": "Einsteigen und die Ausfahrt vorbereiten.",
+              "next": "k2v_boot_polizei",
+              "hide_if_flags": [
+                "k2v_boot_bereit"
+              ],
+              "requires_quests_active": [
+                "k2_akt5"
+              ]
+            },
+            {
+              "text": "Die bereits vorbereitete Überfahrt antreten.",
+              "next": "k2v_boot_wieder",
+              "requires_flags": [
+                "k2v_boot_bereit"
+              ]
+            },
+            {
+              "text": "Noch in der Stadt bleiben."
+            }
+          ]
+        },
+        "k2v_boot_polizei": {
+          "text": "Der Grauspäher fragt nach dem Ziel und hebt die Laterne. Zunder hält die Hände offen auf den Rudern. Du kannst Hales bekanntes Zeichen zeigen oder die Fahrt während der gewöhnlichen Frachtkontrolle abwarten.",
+          "choices": [
+            {
+              "text": "Hales vereinbartes Dienstzeichen zeigen.",
+              "next": "k2v_boot_hale",
+              "requires_flags": [
+                "k2_hale_ally"
+              ]
+            },
+            {
+              "text": "Unter der Kaimauer warten, bis der Frachtzug geprüft ist.",
+              "next": "k2v_boot_warten"
+            }
+          ]
+        },
+        "k2v_boot_hale": {
+          "text": "Die Laterne senkt sich. „Nur die Ausfahrt“, sagt der Grauspäher. „Was auf der Insel geschieht, steht auf einem anderen Blatt.“ Zunder löst die erste Leine.",
+          "choices": [
+            {
+              "text": "Das Wetter prüfen.",
+              "next": "k2v_boot_wetter"
+            }
+          ]
+        },
+        "k2v_boot_warten": {
+          "text": "Ihr wartet unter der Kaimauer, bis die Laterne zum Frachtzug wandert. Zunder zählt die Ruderschläge einer entfernten Fähre, statt über die Wartezeit zu schimpfen. Dann ist die Fahrrinne frei.",
+          "choices": [
+            {
+              "text": "Das Wetter prüfen.",
+              "next": "k2v_boot_wetter"
+            }
+          ]
+        },
+        "k2v_boot_wetter": {
+          "text": "Der Regen schiebt eine weiße Wand vor die Insel. Brack zeigt auf die Böen zwischen den Pfählen. „Ihr könnt die Lücke abwarten oder jetzt gegenhalten. Die Insel läuft euch leider nicht davon.“",
+          "choices": [
+            {
+              "text": "Die Böenlücke abwarten.",
+              "next": "k2v_boot_ruhig",
+              "hide_if_flags": [
+                "k2v_boot_bereit"
+              ]
+            },
+            {
+              "text": "Gemeinsam gegenhalten und sofort ablegen. (3 Nerven)",
+              "next": "k2v_boot_nass",
+              "hide_if_flags": [
+                "k2v_boot_bereit"
+              ]
+            }
+          ]
+        },
+        "k2v_boot_ruhig": {
+          "text": "Die Böen werden kürzer. Ihr schiebt das Boot in einer Lücke aus dem Schutz der Mauer. Zunder rudert, du hältst die Leine klar, und hinter euch wird die Stadt zu wenigen gelben Punkten.",
+          "sets_flags": [
+            "k2v_boot_bereit"
+          ],
+          "travel": {
+            "map": "wx_leuchtturm",
+            "spawn": "default"
+          },
+          "choices": [
+            {
+              "text": "Zur Insel."
+            }
+          ]
+        },
+        "k2v_boot_nass": {
+          "text": "Ihr nehmt die erste Welle schräg, die zweite über den Bug. Du schöpfst Wasser, bis dir die Hände zittern. Zunder hält den Kurs; die Insel erscheint unvermittelt dicht vor euch.",
+          "sets_flags": [
+            "k2v_boot_bereit"
+          ],
+          "nerves": -3,
+          "travel": {
+            "map": "wx_leuchtturm",
+            "spawn": "default"
+          },
+          "choices": [
+            {
+              "text": "Zur Insel."
+            }
+          ]
+        },
+        "k2v_boot_wieder": {
+          "text": "Brack hat die Leine wieder bereitgelegt. „Die Ausfahrt kennt ihr jetzt.“ Zunder wartet die nächste Böenlücke ab und bringt dich erneut zum Riss im Fels.",
+          "travel": {
+            "map": "wx_leuchtturm",
+            "spawn": "default"
+          },
+          "choices": [
+            {
+              "text": "Zur Insel."
+            }
+          ]
+        }
+      }
+    },
+    "k2v_kellerszene": {
+      "start": "k2v_keller_start",
+      "nodes": {
+        "k2v_keller_start": {
+          "text": "Unter der Treppe stehen Kisten mit offenen Kreisen. Aus dem Gang dahinter klingt ein Schritt zurück, bevor du ihn machst. Du prüfst erst den Boden und dann die Ladung.",
+          "choices": [
+            {
+              "text": "Die bekannte Nothilfe nehmen.",
+              "next": "k2v_keller_hilfe",
+              "requires_flags": [
+                "k2v_keller_bonus"
+              ],
+              "hide_if_flags": [
+                "k2v_keller_passiert"
+              ]
+            },
+            {
+              "text": "Den trockenen Gang sichern und weitergehen.",
+              "next": "k2v_keller_weiter",
+              "hide_if_flags": [
+                "k2v_keller_passiert"
+              ]
+            }
+          ]
+        },
+        "k2v_keller_hilfe": {
+          "text": "In der bezeichneten Kiste liegen trockene Tücher. Du versorgst die aufgeriebenen Hände und ziehst eine Decke über die nassen Schultern. Das Wasser im Nachbargang wiederholt deine Schritte nun im richtigen Abstand.",
+          "sets_flags": [
+            "k2v_keller_passiert",
+            "k2v_keller_genutzt"
+          ],
+          "heal": 12,
+          "choices": [
+            {
+              "text": "Weiter."
+            }
+          ]
+        },
+        "k2v_keller_weiter": {
+          "text": "Du tastest den Rand mit einem losen Brett ab und markierst die tragfähigen Steine mit Kreide. Die verschlossenen Kisten lässt du stehen. Der Weg nach oben ist begehbar, auch ohne zu wissen, wer diesen Vorrat bestellt hat.",
+          "sets_flags": [
+            "k2v_keller_passiert"
+          ],
+          "choices": [
+            {
+              "text": "Weiter."
+            }
+          ]
+        }
+      }
+    },
+    "k2v_windenszene": {
+      "start": "k2v_winde_start",
+      "nodes": {
+        "k2v_winde_start": {
+          "text": "Über dem Keller hängt eine Wartungsklappe an einer Handwinde. Die Kette spannt sich bei jedem Atemzug des Turms. Neben der Winde steckt ein Rastbolzen, blank auf einer Seite.",
+          "choices": [
+            {
+              "text": "Nach der alten Wärteranleitung sichern.",
+              "next": "k2v_winde_plan",
+              "requires_flags": [
+                "k2v_waerter_bonus"
+              ],
+              "hide_if_flags": [
+                "k2v_aufstieg_passiert"
+              ]
+            },
+            {
+              "text": "Die Last vorsichtig von Hand halten und den Bolzen ertasten. (5 Nerven)",
+              "next": "k2v_winde_hand",
+              "hide_if_flags": [
+                "k2v_aufstieg_passiert"
+              ]
+            }
+          ]
+        },
+        "k2v_winde_plan": {
+          "text": "Du setzt den Antrieb still, legst die Last auf den Bolzen und löst erst dann den Griff. Die Klappe bleibt offen. Auf der nächsten Stufe murmelt etwas deinen Namen, aber du kennst wenigstens das Geräusch, das die Kette machen soll.",
+          "sets_flags": [
+            "k2v_aufstieg_passiert",
+            "k2v_waerter_genutzt"
+          ],
+          "choices": [
+            {
+              "text": "Weiter."
+            }
+          ]
+        },
+        "k2v_winde_hand": {
+          "text": "Du hältst die Last, bis der Bolzen in die richtige Kerbe fällt. Deine Arme zittern, und du wartest, bis das Zittern nachlässt. Auf der nächsten Stufe murmelt etwas deinen Namen; du antwortest ihm nicht.",
+          "sets_flags": [
+            "k2v_aufstieg_passiert"
+          ],
+          "nerves": -5,
+          "choices": [
+            {
+              "text": "Weiter."
+            }
+          ]
+        }
+      }
+    },
+    "k2v_abschied": {
+      "start": "k2v_abschied_start",
+      "nodes": {
+        "k2v_abschied_start": {
+          "text": "An der inneren Treppe flüstert jede Stufe eine andere Silbe. Zunder ist vom Boot bis an den Treppenfuß gekommen und hält die Rückleine fest. „Ich geh gleich wieder ans Ruder. Erst will ich hören, dass du noch du bist.“",
+          "choices": [
+            {
+              "text": "Mit ihr vor dem letzten Aufstieg sprechen.",
+              "next": [
+                {
+                  "node": "k2v_abschied_fenn",
+                  "requires_flags": [
+                    "k2_fenn_found"
+                  ]
+                },
+                {
+                  "node": "k2v_abschied_nah",
+                  "requires_bond": {
+                    "zunder": 3
+                  }
+                },
+                {
+                  "node": "k2v_abschied_sachlich"
+                }
+              ]
+            }
+          ]
+        },
+        "k2v_abschied_fenn": {
+          "text": "Du sagst Zunder, dass du Marens Namen an der Wand gelesen hast. Sie greift die Leine fester und nickt. „Dann fehlt heute wenigstens ein Name weniger.“ Sie geht zum Boot zurück; das ausführliche Gespräch über ihre Mutter bleibt für den Kahn.",
+          "choices": [
+            {
+              "text": "Ein letztes Wort wechseln.",
+              "next": [
+                {
+                  "node": "k2v_abschied_vertrauen",
+                  "requires_bond": {
+                    "zunder": 3
+                  }
+                },
+                {
+                  "node": "k2v_abschied_respekt"
+                }
+              ]
+            }
+          ]
+        },
+        "k2v_abschied_nah": {
+          "text": "Zunder drückt dir kurz die Schulter. „Wenn du oben etwas entscheiden musst, denk nicht daran, wem du gefallen könntest.“ Sie schiebt die Leine in deine Hand. „Denk daran, mit welcher Entscheidung du wieder herunterkommen kannst.“",
+          "choices": [
+            {
+              "text": "Ihr versprechen, mit offenen Augen zu entscheiden.",
+              "next": "k2v_abschied_vertrauen"
+            }
+          ]
+        },
+        "k2v_abschied_sachlich": {
+          "text": "Zunder kontrolliert den Knoten und hält Abstand. „Du musst mir nichts versprechen. Aber ich rudere niemanden freiwillig in einen Ofen.“ Sie wartet, bis du selbst den Knoten geprüft hast.",
+          "choices": [
+            {
+              "text": "Den Rückweg gemeinsam prüfen.",
+              "next": "k2v_abschied_respekt"
+            }
+          ]
+        },
+        "k2v_abschied_vertrauen": {
+          "text": "Ihr vereinbart zwei kurze Züge als Zeichen. Zunder kehrt ans Boot zurück, bevor du den oberen Gang betrittst. Was dort mit dem Feuer geschieht, entscheidest du selbst.",
+          "sets_flags": [
+            "k2v_abschied_done",
+            "k2v_zunder_vertraut"
+          ],
+          "choices": [
+            {
+              "text": "Weiter."
+            }
+          ]
+        },
+        "k2v_abschied_respekt": {
+          "text": "Ihr vereinbart zwei kurze Züge als Zeichen. Zunder kehrt ans Boot zurück, bevor du den oberen Gang betrittst. Ein verlässlicher Knoten muss kein Versprechen von Freundschaft sein.",
+          "sets_flags": [
+            "k2v_abschied_done"
+          ],
+          "choices": [
+            {
+              "text": "Weiter."
+            }
+          ]
+        }
+      }
+    }
+  },
+  "platzierung": [
+    {
+      "map": "wx_bojenhafen",
+      "tile": [
+        21,
+        9
+      ],
+      "visible_if": {
+        "requires_quests_active": [
+          "k2_akt5"
+        ],
+        "hide_if_flags": [
+          "kapitel2_done"
+        ]
+      },
+      "interactable": {
+        "id": "k2v_inselboot",
+        "kind": "dialogue",
+        "dialogue": "k2v_ueberfahrt",
+        "title": "Das Inselboot",
+        "role": "Überfahrt",
+        "prompt": "Mit Zunder zur Insel übersetzen",
+        "marker": true
+      }
+    },
+    {
+      "map": "wx_leuchtturm",
+      "tile": [
+        16,
+        28
+      ],
+      "visible_if": {
+        "requires_flags": [
+          "k2_am_turm"
+        ],
+        "hide_if_flags": [
+          "k2v_keller_passiert",
+          "kapitel2_done"
+        ]
+      },
+      "interactable": {
+        "id": "k2v_kellerszene_ort",
+        "kind": "dialogue",
+        "dialogue": "k2v_kellerszene",
+        "title": "Unter der Treppe stehen Kisten mit offenen Kreisen",
+        "role": "Im Leuchtturm",
+        "prompt": "Den trockenen Gang prüfen",
+        "marker": true
+      }
+    },
+    {
+      "map": "wx_leuchtturm",
+      "tile": [
+        19,
+        20
+      ],
+      "visible_if": {
+        "requires_flags": [
+          "k2v_keller_passiert"
+        ],
+        "hide_if_flags": [
+          "k2v_aufstieg_passiert",
+          "kapitel2_done"
+        ]
+      },
+      "interactable": {
+        "id": "k2v_windenszene_ort",
+        "kind": "dialogue",
+        "dialogue": "k2v_windenszene",
+        "title": "Über dem Keller hängt eine Wartungsklappe an einer Handwinde",
+        "role": "Im Leuchtturm",
+        "prompt": "Die alte Winde untersuchen",
+        "marker": true
+      }
+    },
+    {
+      "map": "wx_leuchtturm",
+      "tile": [
+        7,
+        12
+      ],
+      "visible_if": {
+        "requires_flags": [
+          "k2v_aufstieg_passiert"
+        ],
+        "hide_if_flags": [
+          "k2v_abschied_done",
+          "kapitel2_done"
+        ]
+      },
+      "interactable": {
+        "id": "k2v_abschied_ort",
+        "kind": "dialogue",
+        "dialogue": "k2v_abschied",
+        "title": "An der inneren Treppe flüstert jede Stufe eine andere Silbe",
+        "role": "Im Leuchtturm",
+        "prompt": "Zunder am Treppenfuß treffen",
+        "marker": true
+      }
+    }
+  ]
+}

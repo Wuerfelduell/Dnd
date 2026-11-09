@@ -1,0 +1,1210 @@
+{
+  "druce": {
+    "choices_add": [
+      {
+        "text": "Akt I · Der Kleister war noch warm",
+        "next": "k2v_kleister_auftrag",
+        "requires_quests_active": [
+          "k2_akt1"
+        ],
+        "hide_if_flags": [
+          "kapitel2_done"
+        ],
+        "hide_if_quests": [
+          "k2v_kleister"
+        ]
+      },
+      {
+        "text": "Die vier Spuren zu „Der Kleister war noch warm“ ergeben ein Bild.",
+        "next": "k2v_kleister_wahl",
+        "requires_quests_active": [
+          "k2v_kleister",
+          "k2_akt1"
+        ],
+        "requires_conclusions": [
+          "k2v_kleister_schluss"
+        ],
+        "requires_clues": [
+          "k2v_kleister_spur1",
+          "k2v_kleister_spur2",
+          "k2v_kleister_spur3",
+          "k2v_kleister_spur4"
+        ],
+        "hide_if_flags": [
+          "k2v_kleister_done",
+          "kapitel2_done"
+        ]
+      },
+      {
+        "text": "Die zugesagte Hilfe nutzen: Bahnhofsrunde.",
+        "next": "k2v_kleister_hilfe",
+        "requires_flags": [
+          "k2v_kleister_bonus"
+        ],
+        "requires_quests_active": [
+          "k2_akt1"
+        ],
+        "hide_if_flags": [
+          "k2v_kleister_genutzt",
+          "kapitel2_done"
+        ]
+      }
+    ],
+    "nodes_add": {
+      "k2v_kleister_auftrag": {
+        "text": "Druce löst einen Fetzen Packpapier vom Rad. „Der Steckbrief kam zu früh. Aber jemand hat die Kleisterwagen noch früher bestellt.“ Er zeigt zur Güterablage. „Prüf die Fracht, nicht wieder die Nase auf dem Bild.“",
+        "start_quests": [
+          "k2v_kleister"
+        ],
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      },
+      "k2v_kleister_wahl": {
+        "text": "Druce legt den Frachtbeleg neben sein Dienstbuch. „Wenn der hier liegt, kann die Wache ihn finden. Wenn du ihn mitnimmst, muss ich künftig ohne ihn beweisen, was ich gefahren habe.“",
+        "choices": [
+          {
+            "text": "Eine Abschrift auslegen, das Original trocken verwahren.",
+            "next": "k2v_kleister_wahl0"
+          },
+          {
+            "text": "Das Original zu den übrigen Stationsbelegen geben.",
+            "next": "k2v_kleister_wahl1"
+          },
+          {
+            "text": "Noch nicht entscheiden."
+          }
+        ]
+      },
+      "k2v_kleister_wahl0": {
+        "text": "Druce nagelt deine Abschrift neben die Transporttarife. „Die lesen sie wenigstens, wenn sie Geld wollen.“ Das Original wickelt er in Wachstuch.",
+        "sets_flags": [
+          "k2v_kleister_done",
+          "k2v_kleister_bonus",
+          "k2v_kleister_entscheidung0"
+        ],
+        "complete_quests": [
+          "k2v_kleister"
+        ],
+        "honor": 2,
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      },
+      "k2v_kleister_wahl1": {
+        "text": "Druce heftet das Original ein und notiert die Blattnummer in deinem Heft. „Dann muss wenigstens jemand eine ganze Seite herausreißen.“ Für die ordentliche Ablage zahlt er dir einen kleinen Lohn.",
+        "sets_flags": [
+          "k2v_kleister_done",
+          "k2v_kleister_bonus",
+          "k2v_kleister_entscheidung1"
+        ],
+        "complete_quests": [
+          "k2v_kleister"
+        ],
+        "gives_money": 8,
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      },
+      "k2v_kleister_hilfe": {
+        "text": "Druce hält einen leer zurückfahrenden Wagen neben dir an. „Die Laternen schauen gerade auf die Ladepapiere.“ Du erreichst die nächste Deckung, bevor die Streife ihren Fehler bemerkt.",
+        "sets_flags": [
+          "k2v_kleister_genutzt"
+        ],
+        "wanted": -1,
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      }
+    }
+  },
+  "zunder": {
+    "choices_add": [
+      {
+        "text": "Akt I · Zwei Uhren für eine Nachricht",
+        "next": "k2v_telegramm_auftrag",
+        "requires_quests_active": [
+          "k2_akt1"
+        ],
+        "hide_if_flags": [
+          "kapitel2_done"
+        ],
+        "hide_if_quests": [
+          "k2v_telegramm"
+        ]
+      },
+      {
+        "text": "Die vier Spuren zu „Zwei Uhren für eine Nachricht“ ergeben ein Bild.",
+        "next": "k2v_telegramm_wahl",
+        "requires_quests_active": [
+          "k2v_telegramm",
+          "k2_akt1"
+        ],
+        "requires_conclusions": [
+          "k2v_telegramm_schluss"
+        ],
+        "requires_clues": [
+          "k2v_telegramm_spur1",
+          "k2v_telegramm_spur2",
+          "k2v_telegramm_spur3",
+          "k2v_telegramm_spur4"
+        ],
+        "hide_if_flags": [
+          "k2v_telegramm_done",
+          "kapitel2_done"
+        ]
+      },
+      {
+        "text": "Die zugesagte Hilfe nutzen: Ruhige Lagebesprechung.",
+        "next": "k2v_telegramm_hilfe",
+        "requires_flags": [
+          "k2v_telegramm_bonus"
+        ],
+        "requires_quests_active": [
+          "k2_akt1"
+        ],
+        "hide_if_flags": [
+          "k2v_telegramm_genutzt",
+          "kapitel2_done"
+        ]
+      },
+      {
+        "text": "Akt V · Der Vorrat, der nie brannte",
+        "next": "k2v_keller_auftrag",
+        "requires_quests_active": [
+          "k2_akt5"
+        ],
+        "hide_if_flags": [
+          "kapitel2_done"
+        ],
+        "hide_if_quests": [
+          "k2v_keller"
+        ]
+      },
+      {
+        "text": "Die vier Spuren zu „Der Vorrat, der nie brannte“ ergeben ein Bild.",
+        "next": "k2v_keller_wahl",
+        "requires_quests_active": [
+          "k2v_keller",
+          "k2_akt5"
+        ],
+        "requires_conclusions": [
+          "k2v_keller_schluss"
+        ],
+        "requires_clues": [
+          "k2v_keller_spur1",
+          "k2v_keller_spur2",
+          "k2v_keller_spur3",
+          "k2v_keller_spur4"
+        ],
+        "hide_if_flags": [
+          "k2v_keller_done",
+          "kapitel2_done"
+        ]
+      }
+    ],
+    "nodes_add": {
+      "k2v_telegramm_auftrag": {
+        "text": "Zunder legt Jems Telegramm neben einen Frachtstempel. „Du willst wissen, wer dich erwartet hat. Fang damit an, Hilfe und Bestellung nicht in dieselbe Schublade zu stecken.“ Am Bahnhof liegt der öffentliche Zustellnachweis.",
+        "start_quests": [
+          "k2v_telegramm"
+        ],
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      },
+      "k2v_telegramm_wahl": {
+        "text": "„Die Namen der Boten stehen hinten“, sagt Zunder. „Du darfst den Ablauf belegen. Du musst dafür nicht jeden zeigen, der ein Stück Papier getragen hat.“",
+        "choices": [
+          {
+            "text": "Nur Zeiten und Nummern abschreiben.",
+            "next": "k2v_telegramm_wahl0"
+          },
+          {
+            "text": "Die vollständige Abschrift versiegelt bei Zunder lassen.",
+            "next": "k2v_telegramm_wahl1"
+          },
+          {
+            "text": "Noch nicht entscheiden."
+          }
+        ]
+      },
+      "k2v_telegramm_wahl0": {
+        "text": "Du lässt die Botennamen unter dem Umschlag. Zunder liest deine Zeitleiste und schiebt dir ihren Becher hin. „So erkennt man Hilfe, ohne sie auszustellen.“",
+        "sets_flags": [
+          "k2v_telegramm_done",
+          "k2v_telegramm_bonus",
+          "k2v_telegramm_entscheidung0"
+        ],
+        "complete_quests": [
+          "k2v_telegramm"
+        ],
+        "bond": {
+          "zunder": 1
+        },
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      },
+      "k2v_telegramm_wahl1": {
+        "text": "Zunder versiegelt die Liste selbst. „Falls später jemand fragt, machen wir sie zusammen auf.“ Sie bezahlt dir Papier und die Wege zum Schalter.",
+        "sets_flags": [
+          "k2v_telegramm_done",
+          "k2v_telegramm_bonus",
+          "k2v_telegramm_entscheidung1"
+        ],
+        "complete_quests": [
+          "k2v_telegramm"
+        ],
+        "gives_money": 6,
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      },
+      "k2v_telegramm_hilfe": {
+        "text": "Zunder legt beide Zeitreihen vor dich. „Eine Einladung vom Feind und ein Brief vom Freund. Du darfst trotzdem Freunde haben.“ Beim Ordnen deiner Beobachtungen wird dein Atem ruhiger.",
+        "sets_flags": [
+          "k2v_telegramm_genutzt"
+        ],
+        "nerves": 8,
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      },
+      "k2v_keller_auftrag": {
+        "text": "Zunder liest eine Packliste ohne Ölposition. „Ich dachte, im Turmkeller lagert nur, was brennen soll. Hier stehen trockene Decken und Waschzeug.“ Sie tippt auf die Versandnummer. „Wir sollten unterscheiden, bevor wir jedes Fass verfluchen.“",
+        "start_quests": [
+          "k2v_keller"
+        ],
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      },
+      "k2v_keller_wahl": {
+        "text": "Zunder streicht die Liste glatt. „Ich kann den Werkleuten sagen, dass ihre Decken noch jemandem helfen. Oder wir halten den Beleg trocken, bis klar ist, wer da oben entscheidet.“",
+        "choices": [
+          {
+            "text": "Den Hilfszweck den Werkleuten bestätigen.",
+            "next": "k2v_keller_wahl0"
+          },
+          {
+            "text": "Den Beleg für eine spätere Bestandsaufnahme bewahren.",
+            "next": "k2v_keller_wahl1"
+          },
+          {
+            "text": "Noch nicht entscheiden."
+          }
+        ]
+      },
+      "k2v_keller_wahl0": {
+        "text": "Zunder steckt eine Abschrift in die offene Liefermappe. „Vielleicht liefern sie dann weiter an Menschen, statt nur an ein Amt.“ Sie notiert, welche Kisten du suchen sollst.",
+        "sets_flags": [
+          "k2v_keller_done",
+          "k2v_keller_bonus",
+          "k2v_keller_entscheidung0"
+        ],
+        "complete_quests": [
+          "k2v_keller"
+        ],
+        "honor": 2,
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      },
+      "k2v_keller_wahl1": {
+        "text": "Zunder legt den versiegelten Beleg in deine Ermittlungsmappe. „Auch bei den guten Dingen will ich wissen, wer sie bezahlt hat.“ Für deine Laufwege legt sie Münzen dazu.",
+        "sets_flags": [
+          "k2v_keller_done",
+          "k2v_keller_bonus",
+          "k2v_keller_entscheidung1"
+        ],
+        "complete_quests": [
+          "k2v_keller"
+        ],
+        "gives_money": 8,
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      }
+    }
+  },
+  "wyle": {
+    "choices_add": [
+      {
+        "text": "Akt II · Die leeren Plätze",
+        "next": "k2v_hoersaale_auftrag",
+        "requires_quests_active": [
+          "k2_akt2"
+        ],
+        "hide_if_flags": [
+          "kapitel2_done"
+        ],
+        "hide_if_quests": [
+          "k2v_hoersaale"
+        ]
+      },
+      {
+        "text": "Die vier Spuren zu „Die leeren Plätze“ ergeben ein Bild.",
+        "next": "k2v_hoersaale_wahl",
+        "requires_quests_active": [
+          "k2v_hoersaale",
+          "k2_akt2"
+        ],
+        "requires_conclusions": [
+          "k2v_hoersaale_schluss"
+        ],
+        "requires_clues": [
+          "k2v_hoersaale_spur1",
+          "k2v_hoersaale_spur2",
+          "k2v_hoersaale_spur3",
+          "k2v_hoersaale_spur4"
+        ],
+        "hide_if_flags": [
+          "k2v_hoersaale_done",
+          "kapitel2_done"
+        ]
+      },
+      {
+        "text": "Die zugesagte Hilfe nutzen: Pause vor der Befragung.",
+        "next": "k2v_hoersaale_hilfe",
+        "requires_flags": [
+          "k2v_hoersaale_bonus"
+        ],
+        "requires_quests_active": [
+          "k2_akt2"
+        ],
+        "hide_if_flags": [
+          "k2v_hoersaale_genutzt",
+          "kapitel2_done"
+        ]
+      }
+    ],
+    "nodes_add": {
+      "k2v_hoersaale_auftrag": {
+        "text": "Wyle zeigt auf vier unbesetzte Plätze in einem alten Kursplan. „Man nennt sie verschwunden. Ich habe keine Gräber gesehen.“ Ihre Stimme wird scharf. „Prüf, ob hier Menschen fehlen oder nur ihre Erlaubnis zu sprechen.“",
+        "start_quests": [
+          "k2v_hoersaale"
+        ],
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      },
+      "k2v_hoersaale_wahl": {
+        "text": "Wyle hält die Kurshefte fest. „Wenn ich sie auslege, können andere daraus lernen. Wenn ich sie verschließe, bleiben die vier Unterschriften schwerer zu finden.“",
+        "choices": [
+          {
+            "text": "Nur die Messanleitung öffentlich auslegen.",
+            "next": "k2v_hoersaale_wahl0"
+          },
+          {
+            "text": "Die Originalhefte versiegelt verwahren.",
+            "next": "k2v_hoersaale_wahl1"
+          },
+          {
+            "text": "Noch nicht entscheiden."
+          }
+        ]
+      },
+      "k2v_hoersaale_wahl0": {
+        "text": "Wyle trennt die Anleitung von den Namensseiten. „So kann sogar eine Akademie etwas lernen.“ Sie vermerkt deinen Beitrag, ohne dich als Student einzuschreiben.",
+        "sets_flags": [
+          "k2v_hoersaale_done",
+          "k2v_hoersaale_bonus",
+          "k2v_hoersaale_entscheidung0"
+        ],
+        "complete_quests": [
+          "k2v_hoersaale"
+        ],
+        "honor": 2,
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      },
+      "k2v_hoersaale_wahl1": {
+        "text": "Wyle schließt die Hefte in ihren Schrank und lässt dich die Methode abschreiben. „Ein Archiv ist nur dann gut, wenn jemand weiß, was darin fehlt.“ Sie erstattet deine Fahrtkosten.",
+        "sets_flags": [
+          "k2v_hoersaale_done",
+          "k2v_hoersaale_bonus",
+          "k2v_hoersaale_entscheidung1"
+        ],
+        "complete_quests": [
+          "k2v_hoersaale"
+        ],
+        "gives_money": 10,
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      },
+      "k2v_hoersaale_hilfe": {
+        "text": "Wyle führt dich durch die erhaltene Messanleitung. „Erst beobachten, dann urteilen. Auch bei einem Professor, den man gern anschreien möchte.“ Sie lässt dir Zeit, die Hände ruhig auf den Tisch zu legen.",
+        "sets_flags": [
+          "k2v_hoersaale_genutzt"
+        ],
+        "nerves": 8,
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      }
+    }
+  },
+  "pedell": {
+    "choices_add": [
+      {
+        "text": "Akt II · Das falsche Mittagslicht",
+        "next": "k2v_schattenmass_auftrag",
+        "requires_quests_active": [
+          "k2_akt2"
+        ],
+        "hide_if_flags": [
+          "kapitel2_done"
+        ],
+        "hide_if_quests": [
+          "k2v_schattenmass"
+        ]
+      },
+      {
+        "text": "Die vier Spuren zu „Das falsche Mittagslicht“ ergeben ein Bild.",
+        "next": "k2v_schattenmass_wahl",
+        "requires_quests_active": [
+          "k2v_schattenmass",
+          "k2_akt2"
+        ],
+        "requires_conclusions": [
+          "k2v_schattenmass_schluss"
+        ],
+        "requires_clues": [
+          "k2v_schattenmass_spur1",
+          "k2v_schattenmass_spur2",
+          "k2v_schattenmass_spur3",
+          "k2v_schattenmass_spur4"
+        ],
+        "hide_if_flags": [
+          "k2v_schattenmass_done",
+          "kapitel2_done"
+        ]
+      },
+      {
+        "text": "Die zugesagte Hilfe nutzen: Vorrat für die Akademie.",
+        "next": "k2v_schattenmass_hilfe",
+        "requires_flags": [
+          "k2v_schattenmass_bonus"
+        ],
+        "requires_quests_active": [
+          "k2_akt2"
+        ],
+        "hide_if_flags": [
+          "k2v_schattenmass_genutzt",
+          "kapitel2_done"
+        ]
+      }
+    ],
+    "nodes_add": {
+      "k2v_schattenmass_auftrag": {
+        "text": "Lamm schiebt eine Kiste mit Übungsblenden über den Hof. „Die Studenten messen mittags Sterne. Dann beschweren sie sich über den Himmel.“ Eine Anleitung in der Akademie beschreibt eine verdächtig alltägliche Fehlerquelle.",
+        "start_quests": [
+          "k2v_schattenmass"
+        ],
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      },
+      "k2v_schattenmass_wahl": {
+        "text": "Lamm schaut zur Akademietür. „Der Kasten muss repariert werden. Die Frage ist, ob ich den alten Fehler vor allen anschlage oder die Kiste erst einmal still aus dem Unterricht nehme.“",
+        "choices": [
+          {
+            "text": "Den Fehler samt Kontrollzeichnung anschlagen.",
+            "next": "k2v_schattenmass_wahl0"
+          },
+          {
+            "text": "Die Kiste sperren und Wyle vertraulich informieren.",
+            "next": "k2v_schattenmass_wahl1"
+          },
+          {
+            "text": "Noch nicht entscheiden."
+          }
+        ]
+      },
+      "k2v_schattenmass_wahl0": {
+        "text": "Lamm hängt die beiden Zeichnungen nebeneinander. „Wenn ich nur eine aufhänge, nennt es jemand Kunst.“ Er schließt die Kiste für die Reparatur.",
+        "sets_flags": [
+          "k2v_schattenmass_done",
+          "k2v_schattenmass_bonus",
+          "k2v_schattenmass_entscheidung0"
+        ],
+        "complete_quests": [
+          "k2v_schattenmass"
+        ],
+        "honor": 2,
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      },
+      "k2v_schattenmass_wahl1": {
+        "text": "Lamm wickelt eine rote Schnur um den Kasten und schickt Wyle den Vermerk. „Ein unbenutztes Gerät kann wenigstens niemanden überzeugen.“ Er zahlt dir aus der Reparaturkasse.",
+        "sets_flags": [
+          "k2v_schattenmass_done",
+          "k2v_schattenmass_bonus",
+          "k2v_schattenmass_entscheidung1"
+        ],
+        "complete_quests": [
+          "k2v_schattenmass"
+        ],
+        "gives_money": 8,
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      },
+      "k2v_schattenmass_hilfe": {
+        "text": "Lamm gibt dir seine verschlossene Flasche Moortee. „Für den nächsten Besuch. Keine Geheimmethode, nur etwas Warmes.“ Die Robe und die üblichen Einlassregeln brauchst du weiterhin.",
+        "sets_flags": [
+          "k2v_schattenmass_genutzt"
+        ],
+        "gives_items": {
+          "moortee": 1
+        },
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      }
+    }
+  },
+  "hesper": {
+    "choices_add": [
+      {
+        "text": "Akt III · Die Briefe, die zurückkamen",
+        "next": "k2v_umschlaege_auftrag",
+        "requires_quests_active": [
+          "k2_akt3"
+        ],
+        "hide_if_flags": [
+          "kapitel2_done"
+        ],
+        "hide_if_quests": [
+          "k2v_umschlaege"
+        ]
+      },
+      {
+        "text": "Die vier Spuren zu „Die Briefe, die zurückkamen“ ergeben ein Bild.",
+        "next": "k2v_umschlaege_wahl",
+        "requires_quests_active": [
+          "k2v_umschlaege",
+          "k2_akt3"
+        ],
+        "requires_conclusions": [
+          "k2v_umschlaege_schluss"
+        ],
+        "requires_clues": [
+          "k2v_umschlaege_spur1",
+          "k2v_umschlaege_spur2",
+          "k2v_umschlaege_spur3",
+          "k2v_umschlaege_spur4"
+        ],
+        "hide_if_flags": [
+          "k2v_umschlaege_done",
+          "kapitel2_done"
+        ]
+      },
+      {
+        "text": "Die zugesagte Hilfe nutzen: Öl vor der Moorjagd.",
+        "next": "k2v_umschlaege_hilfe",
+        "requires_flags": [
+          "k2v_umschlaege_bonus"
+        ],
+        "requires_quests_active": [
+          "k2_akt3"
+        ],
+        "hide_if_flags": [
+          "k2v_umschlaege_genutzt",
+          "kapitel2_done"
+        ]
+      }
+    ],
+    "nodes_add": {
+      "k2v_umschlaege_auftrag": {
+        "text": "Hesper zieht leere Umschläge aus einer Schublade. „Der durchscheinende Herr hat nicht nur Öl gebraucht. Er wollte einen Brief zurückhaben, den niemand angenommen hat.“ In seinem Haus könnten die Gegenstücke liegen.",
+        "start_quests": [
+          "k2v_umschlaege"
+        ],
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      },
+      "k2v_umschlaege_wahl": {
+        "text": "Hesper legt die leeren Hüllen nebeneinander. „Du kannst sie mitnehmen. Oder ich bewahre sie hier auf. Bei mir werden Briefe wenigstens nicht als Brennstoff berechnet.“",
+        "choices": [
+          {
+            "text": "Die Hüllen als Belege bei Hesper verwahren.",
+            "next": "k2v_umschlaege_wahl0"
+          },
+          {
+            "text": "Die Hüllen für das spätere Verhör mitnehmen.",
+            "next": "k2v_umschlaege_wahl1"
+          },
+          {
+            "text": "Noch nicht entscheiden."
+          }
+        ]
+      },
+      "k2v_umschlaege_wahl0": {
+        "text": "Hesper schreibt deinen Verwahrungsvermerk auf die Schublade. „Nur gegen Unterschrift. Das gilt jetzt auch für durchsichtige Herren.“ Du bekommst ein trockenes Protokoll der Maße.",
+        "sets_flags": [
+          "k2v_umschlaege_done",
+          "k2v_umschlaege_bonus",
+          "k2v_umschlaege_entscheidung0"
+        ],
+        "complete_quests": [
+          "k2v_umschlaege"
+        ],
+        "honor": 2,
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      },
+      "k2v_umschlaege_wahl1": {
+        "text": "Du legst die Hüllen zwischen zwei Brettchen in deine Ermittlungsmappe. Hesper gibt dir etwas Wegegeld. „Damit du nicht jeden Satz gegen ein Fass Öl eintauschst.“",
+        "sets_flags": [
+          "k2v_umschlaege_done",
+          "k2v_umschlaege_bonus",
+          "k2v_umschlaege_entscheidung1"
+        ],
+        "complete_quests": [
+          "k2v_umschlaege"
+        ],
+        "gives_money": 10,
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      },
+      "k2v_umschlaege_hilfe": {
+        "text": "Hesper stellt eine kleine Flasche auf den Tisch. „Du weißt jetzt, wie knapp er rechnet. Geh vorbereitet ins Moor.“ Sie streicht den Vorrat aus ihrer Liste, damit du ihn nicht zweimal abholst.",
+        "sets_flags": [
+          "k2v_umschlaege_genutzt"
+        ],
+        "gives_items": {
+          "lampenoel": 1
+        },
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      }
+    }
+  },
+  "brack": {
+    "choices_add": [
+      {
+        "text": "Akt III · Ein Bett ohne Abdruck",
+        "next": "k2v_quartier_auftrag",
+        "requires_quests_active": [
+          "k2_akt3"
+        ],
+        "hide_if_flags": [
+          "kapitel2_done"
+        ],
+        "hide_if_quests": [
+          "k2v_quartier"
+        ]
+      },
+      {
+        "text": "Die vier Spuren zu „Ein Bett ohne Abdruck“ ergeben ein Bild.",
+        "next": "k2v_quartier_wahl",
+        "requires_quests_active": [
+          "k2v_quartier",
+          "k2_akt3"
+        ],
+        "requires_conclusions": [
+          "k2v_quartier_schluss"
+        ],
+        "requires_clues": [
+          "k2v_quartier_spur1",
+          "k2v_quartier_spur2",
+          "k2v_quartier_spur3",
+          "k2v_quartier_spur4"
+        ],
+        "hide_if_flags": [
+          "k2v_quartier_done",
+          "kapitel2_done"
+        ]
+      },
+      {
+        "text": "Die zugesagte Hilfe nutzen: Vorbereitung auf die Namenlose.",
+        "next": "k2v_quartier_hilfe",
+        "requires_flags": [
+          "k2v_quartier_bonus"
+        ],
+        "requires_quests_active": [
+          "k2_akt3"
+        ],
+        "hide_if_flags": [
+          "k2v_quartier_genutzt",
+          "kapitel2_done"
+        ]
+      },
+      {
+        "text": "Akt IV · Die Laterne am falschen Haken",
+        "next": "k2v_dienstwechsel_auftrag",
+        "requires_quests_active": [
+          "k2_akt4"
+        ],
+        "hide_if_flags": [
+          "kapitel2_done"
+        ],
+        "hide_if_quests": [
+          "k2v_dienstwechsel"
+        ]
+      },
+      {
+        "text": "Die vier Spuren zu „Die Laterne am falschen Haken“ ergeben ein Bild.",
+        "next": "k2v_dienstwechsel_wahl",
+        "requires_quests_active": [
+          "k2v_dienstwechsel",
+          "k2_akt4"
+        ],
+        "requires_conclusions": [
+          "k2v_dienstwechsel_schluss"
+        ],
+        "requires_clues": [
+          "k2v_dienstwechsel_spur1",
+          "k2v_dienstwechsel_spur2",
+          "k2v_dienstwechsel_spur3",
+          "k2v_dienstwechsel_spur4"
+        ],
+        "hide_if_flags": [
+          "k2v_dienstwechsel_done",
+          "kapitel2_done"
+        ]
+      },
+      {
+        "text": "Die zugesagte Hilfe nutzen: Verband vor der Befreiung.",
+        "next": "k2v_dienstwechsel_hilfe",
+        "requires_flags": [
+          "k2v_dienstwechsel_bonus"
+        ],
+        "requires_quests_active": [
+          "k2_akt4"
+        ],
+        "hide_if_flags": [
+          "k2v_dienstwechsel_genutzt",
+          "kapitel2_done"
+        ]
+      },
+      {
+        "text": "Akt V · Die Hände vor Brandt",
+        "next": "k2v_waerter_auftrag",
+        "requires_quests_active": [
+          "k2_akt5"
+        ],
+        "hide_if_flags": [
+          "kapitel2_done"
+        ],
+        "hide_if_quests": [
+          "k2v_waerter"
+        ]
+      },
+      {
+        "text": "Die vier Spuren zu „Die Hände vor Brandt“ ergeben ein Bild.",
+        "next": "k2v_waerter_wahl",
+        "requires_quests_active": [
+          "k2v_waerter",
+          "k2_akt5"
+        ],
+        "requires_conclusions": [
+          "k2v_waerter_schluss"
+        ],
+        "requires_clues": [
+          "k2v_waerter_spur1",
+          "k2v_waerter_spur2",
+          "k2v_waerter_spur3",
+          "k2v_waerter_spur4"
+        ],
+        "hide_if_flags": [
+          "k2v_waerter_done",
+          "kapitel2_done"
+        ]
+      }
+    ],
+    "nodes_add": {
+      "k2v_quartier_auftrag": {
+        "text": "Brack hat den Bezug eines geliehenen Boots gefunden. „Lucents Haus ist voller Öl, aber sein Bett sieht aus wie neu.“ Sie will wissen, wo er die Stunden zwischen den Lieferungen verbracht hat.",
+        "start_quests": [
+          "k2v_quartier"
+        ],
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      },
+      "k2v_quartier_wahl": {
+        "text": "„Die Nische liegt hinter Wohnungen“, sagt Brack. „Eine öffentliche Anschrift zieht Leute an. Ein verschlossener Vermerk zieht höchstens einen ordentlichen Ermittler an, falls es den gibt.“",
+        "choices": [
+          {
+            "text": "Nur Lucents Gewohnheiten notieren.",
+            "next": "k2v_quartier_wahl0"
+          },
+          {
+            "text": "Die genaue Nische versiegelt zur späteren Prüfung markieren.",
+            "next": "k2v_quartier_wahl1"
+          },
+          {
+            "text": "Noch nicht entscheiden."
+          }
+        ]
+      },
+      "k2v_quartier_wahl0": {
+        "text": "Du beschreibst Tuch, Öl und Zeitfolge, ohne die Nachbartüren zu nummerieren. Brack nickt. „Die wohnen da noch, wenn dein Professor fort ist.“",
+        "sets_flags": [
+          "k2v_quartier_done",
+          "k2v_quartier_bonus",
+          "k2v_quartier_entscheidung0"
+        ],
+        "complete_quests": [
+          "k2v_quartier"
+        ],
+        "honor": 2,
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      },
+      "k2v_quartier_wahl1": {
+        "text": "Brack drückt ihr Siegel auf deinen Lagezettel. „Wer den aufmacht, soll wenigstens seinen Namen dazuschreiben.“ Sie zahlt dir für die getrennten Bootsdaten.",
+        "sets_flags": [
+          "k2v_quartier_done",
+          "k2v_quartier_bonus",
+          "k2v_quartier_entscheidung1"
+        ],
+        "complete_quests": [
+          "k2v_quartier"
+        ],
+        "gives_money": 10,
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      },
+      "k2v_quartier_hilfe": {
+        "text": "Brack prüft dein Tau und setzt dich für eine Minute hinter den Windschutz. „Verfolg einen Mann nicht mit seiner Angst im Kopf.“ Du gehst mit ruhigerem Atem an die Vorbereitung der Moorfahrt.",
+        "sets_flags": [
+          "k2v_quartier_genutzt"
+        ],
+        "nerves": 10,
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      },
+      "k2v_dienstwechsel_auftrag": {
+        "text": "Brack zieht einen Reparaturzettel aus dem Netzkorb. „Im Wachhaus lässt jemand absichtlich eine Lampe unten. Ich weiß nicht, ob aus Anstand oder weil die Leiter wackelt.“ Du kannst die Schichtzettel an der Oberstadt vergleichen.",
+        "start_quests": [
+          "k2v_dienstwechsel"
+        ],
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      },
+      "k2v_dienstwechsel_wahl": {
+        "text": "Brack dreht den Zettel um. „Wenn du den Haken in jede Abschrift zeichnest, hört die Hilfe auf. Ganz ohne Beleg bleibt sie ein Gerücht.“",
+        "choices": [
+          {
+            "text": "Nur den anonymen Nachrichtenweg nutzen.",
+            "next": "k2v_dienstwechsel_wahl0"
+          },
+          {
+            "text": "Den Ablauf ohne Ort in die Ermittlungsmappe aufnehmen.",
+            "next": "k2v_dienstwechsel_wahl1"
+          },
+          {
+            "text": "Noch nicht entscheiden."
+          }
+        ]
+      },
+      "k2v_dienstwechsel_wahl0": {
+        "text": "Du lässt eine leere, trockene Hülle als Empfangszeichen zurück. Niemand muss sich nennen. Brack merkt sich, dass du nach Hilfe gefragt hast und nicht nach einem Schuldigen.",
+        "sets_flags": [
+          "k2v_dienstwechsel_done",
+          "k2v_dienstwechsel_bonus",
+          "k2v_dienstwechsel_entscheidung0"
+        ],
+        "complete_quests": [
+          "k2v_dienstwechsel"
+        ],
+        "honor": 2,
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      },
+      "k2v_dienstwechsel_wahl1": {
+        "text": "Du notierst, dass nicht jede Hand in der Wache denselben Willen hat. Die genaue Nische bleibt unbeschrieben. Brack erstattet deine Papierkosten.",
+        "sets_flags": [
+          "k2v_dienstwechsel_done",
+          "k2v_dienstwechsel_bonus",
+          "k2v_dienstwechsel_entscheidung1"
+        ],
+        "complete_quests": [
+          "k2v_dienstwechsel"
+        ],
+        "gives_money": 8,
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      },
+      "k2v_dienstwechsel_hilfe": {
+        "text": "In der Antworttasche liegt ein sauberer Verband. Auf dem Zettel steht nur „für den Rückweg“. Brack reicht ihn dir, ohne nach der Handschrift zu fragen.",
+        "sets_flags": [
+          "k2v_dienstwechsel_genutzt"
+        ],
+        "gives_items": {
+          "verband": 1
+        },
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      },
+      "k2v_waerter_auftrag": {
+        "text": "Brack besitzt Abschriften alter Turmdienste. „Rinn kennt den Weg zur Insel. Das hier ist älter und betrifft die Treppe darin.“ Die Wärter haben notiert, wie man die Wartungsklappe ohne Gewalt bewegt.",
+        "start_quests": [
+          "k2v_waerter"
+        ],
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      },
+      "k2v_waerter_wahl": {
+        "text": "Brack hält zwei Abschriften hoch. „Eine für dich. Die zweite für spätere Wärter oder für die Werkleute, die jemand dorthin schickt?“",
+        "choices": [
+          {
+            "text": "Die zweite Anleitung bei den Werkleuten lassen.",
+            "next": "k2v_waerter_wahl0"
+          },
+          {
+            "text": "Die zweite Anleitung als Wartungsbeleg archivieren.",
+            "next": "k2v_waerter_wahl1"
+          },
+          {
+            "text": "Noch nicht entscheiden."
+          }
+        ]
+      },
+      "k2v_waerter_wahl0": {
+        "text": "Brack schreibt „auch ohne Amtssiegel gültig“ darunter. Ein Werkzeugmann steckt sie ein, ohne zu lächeln. Er hat schon zu viele Anleitungen erst nach der Arbeit gesehen.",
+        "sets_flags": [
+          "k2v_waerter_done",
+          "k2v_waerter_bonus",
+          "k2v_waerter_entscheidung0"
+        ],
+        "complete_quests": [
+          "k2v_waerter"
+        ],
+        "honor": 2,
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      },
+      "k2v_waerter_wahl1": {
+        "text": "Brack versieht sie mit Quelle und Datum. „Papier trägt keine Treppe. Aber es kann verhindern, dass der Nächste dieselbe falsch anfasst.“ Sie bezahlt die saubere Kopie.",
+        "sets_flags": [
+          "k2v_waerter_done",
+          "k2v_waerter_bonus",
+          "k2v_waerter_entscheidung1"
+        ],
+        "complete_quests": [
+          "k2v_waerter"
+        ],
+        "gives_money": 8,
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      }
+    }
+  },
+  "hale": {
+    "choices_add": [
+      {
+        "text": "Akt IV · Die erste verweigerte Unterschrift",
+        "next": "k2v_hale_auftrag",
+        "requires_quests_active": [
+          "k2_akt4"
+        ],
+        "hide_if_flags": [
+          "kapitel2_done"
+        ],
+        "hide_if_quests": [
+          "k2v_hale"
+        ]
+      },
+      {
+        "text": "Die vier Spuren zu „Die erste verweigerte Unterschrift“ ergeben ein Bild.",
+        "next": "k2v_hale_wahl",
+        "requires_quests_active": [
+          "k2v_hale",
+          "k2_akt4"
+        ],
+        "requires_conclusions": [
+          "k2v_hale_schluss"
+        ],
+        "requires_clues": [
+          "k2v_hale_spur1",
+          "k2v_hale_spur2",
+          "k2v_hale_spur3",
+          "k2v_hale_spur4"
+        ],
+        "hide_if_flags": [
+          "k2v_hale_done",
+          "kapitel2_done"
+        ]
+      },
+      {
+        "text": "Die zugesagte Hilfe nutzen: Ruhe vor dem Wachhaus.",
+        "next": "k2v_hale_hilfe",
+        "requires_flags": [
+          "k2v_hale_bonus"
+        ],
+        "requires_quests_active": [
+          "k2_akt4"
+        ],
+        "hide_if_flags": [
+          "k2v_hale_genutzt",
+          "kapitel2_done"
+        ]
+      }
+    ],
+    "nodes_add": {
+      "k2v_hale_auftrag": {
+        "text": "Hale knickt eine Ecke ihres alten Dienstbuchs um. „Ich habe einmal eine falsche Uhrzeit nicht unterschrieben. Darauf bin ich lange stolz gewesen.“ Sie sieht weg. „Vielleicht zu lange.“",
+        "start_quests": [
+          "k2v_hale"
+        ],
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      },
+      "k2v_hale_wahl": {
+        "text": "Hale legt den Auszug auf das Fass. „Als Entlastung taugt er nicht. Als Anfang vielleicht. Soll ich ihn selbst vorlegen oder soll Ihre Abschrift zuerst zu den Unterlagen?“",
+        "choices": [
+          {
+            "text": "Hale soll den vollständigen Vorgang selbst vorlegen.",
+            "next": "k2v_hale_wahl0"
+          },
+          {
+            "text": "Eine unabhängige Abschrift sichern.",
+            "next": "k2v_hale_wahl1"
+          },
+          {
+            "text": "Noch nicht entscheiden."
+          }
+        ]
+      },
+      "k2v_hale_wahl0": {
+        "text": "Hale unterschreibt auch den Absatz über ihr Wegsehen. „Diesmal nicht nur die Uhrzeit.“ Du behältst eine Gegenzeichnung, ohne ihr Vergebung zu versprechen.",
+        "sets_flags": [
+          "k2v_hale_done",
+          "k2v_hale_bonus",
+          "k2v_hale_entscheidung0"
+        ],
+        "complete_quests": [
+          "k2v_hale"
+        ],
+        "honor": 3,
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      },
+      "k2v_hale_wahl1": {
+        "text": "Du schreibst Weigerung und spätere Zustimmung gleich groß ab. Hale bezahlt das Papier. „Wenn ich später etwas beschönige, legen Sie es daneben.“",
+        "sets_flags": [
+          "k2v_hale_done",
+          "k2v_hale_bonus",
+          "k2v_hale_entscheidung1"
+        ],
+        "complete_quests": [
+          "k2v_hale"
+        ],
+        "gives_money": 8,
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      },
+      "k2v_hale_hilfe": {
+        "text": "Hale erklärt dir die damaligen Einträge, bis du sie ohne Zorn auseinanderhalten kannst. „Im Wachhaus brauchen Sie einen klaren Kopf.“ Die Übung verändert keine Befehle und ersetzt kein Bündnis.",
+        "sets_flags": [
+          "k2v_hale_genutzt"
+        ],
+        "nerves": 8,
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      }
+    }
+  }
+}
