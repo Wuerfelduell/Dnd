@@ -273,6 +273,47 @@ const THEMES = {
       default: return null;
     }
   },
+  // Paket O (Geheime Treffen): Gewölbe der Stillen Waage, Hinterzimmer des Kreidezirkels, Kohlenschuppen
+  o_waage(ch, at, v, x, y) {
+    const k = (g, seed = 0) => pickKey(themeKeys('o_waage', g), x, y, seed);
+    switch (ch) {
+      case 's': case 'K': return hash2(x, y, 81) > 0.88 ? k('wet', 1) : k('floor');
+      case '|': {
+        const below = at(0, 1);
+        if (below !== undefined && below !== '|') {
+          const r = hash2(x, y, 82);
+          return r > 0.9 ? k('grate', 2) : r > 0.75 ? k('niche', 2) : k('wallFace', 3);
+        }
+        return k('wallTop', 4);
+      }
+      default: return null;
+    }
+  },
+  o_kreide(ch, at, v, x, y) {
+    const k = (g, seed = 0) => pickKey(themeKeys('o_kreide', g), x, y, seed);
+    switch (ch) {
+      case 'w': return hash2(x, y, 83) > 0.9 ? k('chalk', 1) : k('floor');
+      case 'B': return k('shelf', 2);
+      case 'I': {
+        const below = at(0, 1);
+        if (below !== undefined && !'IE'.includes(below)) return k('wallFace', 3);
+        return k('wallTop', 4);
+      }
+      default: return THEMES.tavern(ch, at, v, x, y);
+    }
+  },
+  o_russ(ch, at, v, x, y) {
+    const k = (g, seed = 0) => pickKey(themeKeys('o_russ', g), x, y, seed);
+    switch (ch) {
+      case 'w': return hash2(x, y, 84) > 0.97 ? k('ash', 1) : k('floor');
+      case 'I': {
+        const below = at(0, 1);
+        if (below !== undefined && !'IE'.includes(below)) return k('wallFace', 3);
+        return k('wallTop', 4);
+      }
+      default: return THEMES.warehouse?.(ch, at, v, x, y) ?? null;
+    }
+  },
   g_kraterwald(ch, at, v, x, y) {
     const k = (g, seed = 0) => pickKey(themeKeys('g_kraterwald', g), x, y, seed);
     switch (ch) {

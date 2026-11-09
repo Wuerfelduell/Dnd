@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { existsSync, readFileSync } from 'node:fs';
 import { loadContent } from './helpers.js';
 import { SHEETS, BATTLE_SHEETS, ANIM_SHEETS, TILE_CELLS, PROP_CELLS, PROP_ANIMS, CHARACTER_SHEETS, ENCOUNTER_SHEETS, ENEMY_BATTLE_SHEETS, THEME_TILE_LIST, PORTRAITS, MAP_MARKERS, C_CHARACTERS, BATTLE_BACKGROUNDS, ENCOUNTER_BACKGROUNDS, SKILL_FX, SKILL_ICONS, STATUS_ICONS, PATHWAY_POSES, WEAPON_POSES, itemIconUrl, itemIcon32Url, pathwayEmblemUrl, pathwayCardUrl, COIN_URL, bossIntroImage,
-  REGION_SHEETS, ICON_STRIPS, CASE_SHEETS, WHOLE_PROPS, FACADES, E_CHARACTERS, PORTRAIT_SPECIAL, PORTRAIT_MOODS, ENDING_IMAGES, endingImageUrl,
+  REGION_SHEETS, REGION_ANIMS, ICON_STRIPS, CASE_SHEETS, WHOLE_PROPS, FACADES, E_CHARACTERS, PORTRAIT_SPECIAL, PORTRAIT_MOODS, ENDING_IMAGES, endingImageUrl,
   caseFileUrl, SCENES, sceneUrl, CITY_MAP_URL, CITY_FOG_URL, QUEST_UI_URL,
   OVERWORLD_SHEETS, BESTIARY, bestiaryUrl, F_EQUIPMENT, BOSS_INTROS, F_UI_SHEETS, overworldIdFor } from '../src/world/assets.js';
 import { TILE_KEYS } from '../src/world/textures.js';
@@ -136,7 +136,7 @@ test('Paket C: Portraits, Lauf-Sheets und Kartenmarker sind vollständig', () =>
 
 // --- Paket D (Stadt) und E (Fälle) -------------------------------------------------
 const manifest = (name) => JSON.parse(readFileSync(sprite(`manifest-${name}.json`), 'utf8'));
-const MANIFEST_FILES = { manifestStadt: manifest('stadt'), manifestFaelle: manifest('faelle'), manifestJournal: manifest('journal'), manifestReise: manifest('reise'), manifestWildnis: manifest('wildnis'), manifestGegner3: manifest('gegner3'), manifestFall5: manifest('fall5'), manifestFall6: manifest('fall6'), manifestFall78: manifest('fall78') };
+const MANIFEST_FILES = { manifestStadt: manifest('stadt'), manifestFaelle: manifest('faelle'), manifestJournal: manifest('journal'), manifestReise: manifest('reise'), manifestWildnis: manifest('wildnis'), manifestGegner3: manifest('gegner3'), manifestFall5: manifest('fall5'), manifestFall6: manifest('fall6'), manifestFall78: manifest('fall78'), manifestTreffen: manifest('treffen') };
 const regionNames = (def) => {
   const regions = Array.isArray(def.regions) ? def.regions.map((r) => r.name) : Object.keys(def.regions ?? {});
   return [...regions, ...Object.keys(def.animations ?? {}), ...Object.keys(def.regionAnimations ?? {})];
@@ -161,13 +161,14 @@ test('Paket D/E: Karten-Deko nutzt nur vorhandene Regionen', () => {
   const known = new Set([...Object.keys(WHOLE_PROPS), ...Object.keys(CASE_SHEETS), ...Object.keys(ANIM_SHEETS)]);
   for (const [prefix, [m, id]] of Object.entries(REGION_SHEETS)) {
     for (const n of regionNames(MANIFEST_FILES[m].assets.find((a) => a.id === id))) known.add(`${prefix}_${n}`);
+    for (const n of Object.keys(REGION_ANIMS[prefix] ?? {})) known.add(`${prefix}_${n}`);
   }
   for (const [prefix, [, id]] of Object.entries(ICON_STRIPS)) {
     for (const n of Object.keys(MANIFEST_FILES.manifestFaelle.assets.find((a) => a.id === id).icons)) known.add(`${prefix}_${n}`);
   }
   for (const map of Object.values(content.maps)) {
-    for (const d of map.decor ?? []) if (/^[dehigjkm]_/.test(d.sprite)) assert.ok(known.has(d.sprite), `${map.id}: ${d.sprite}`);
-    for (const d of map.interactables ?? []) if (/^[dehigjkm]_/.test(d.sprite ?? '')) assert.ok(known.has(d.sprite), `${map.id}: ${d.sprite}`);
+    for (const d of map.decor ?? []) if (/^[dehigjkmo]_/.test(d.sprite)) assert.ok(known.has(d.sprite), `${map.id}: ${d.sprite}`);
+    for (const d of map.interactables ?? []) if (/^[dehigjkmo]_/.test(d.sprite ?? '')) assert.ok(known.has(d.sprite), `${map.id}: ${d.sprite}`);
     if (map.facade) assert.ok(FACADES.includes(map.facade), `${map.id}: Fassade ${map.facade}`);
   }
 });
@@ -419,4 +420,26 @@ test('Paket M: Fall 7 und 8 nutzen die echten Grafiken', async () => {
   for (const id of ['c7_heir', 'c7_wren', 'c8_perfect', 'c8_good', 'c8_early', 'c8_piper']) assert.ok(existsSync(file(M.endingImageUrl(id, 'case_08'))), id);
   for (const c of ['case_07', 'case_08']) assert.ok(existsSync(file(M.caseFileUrl(c))), c);
   for (const map of ['kontor_thorne', 'waisenhaus', 'traumkeller']) assert.match(content.maps[map].tiles, /^m_/);
+});
+
+test('Paket O: Geheime Treffen nutzen die echten Grafiken', async () => {
+  const O = await import('../src/world/assets.js');
+  const m = JSON.parse(readFileSync(sprite('manifest-treffen.json'), 'utf8'));
+  for (const a of m.assets) assert.ok(existsSync(sprite(a.file)), a.file);
+  for (const id of ['schleierbote', 'tresswell', 'vellacourt', 'kohlenjem']) {
+    assert.ok(existsSync(sprite(SHEETS[CHARACTER_SHEETS[`npc_${id}`]])), id);
+    assert.ok(existsSync(file(O.portraitUrl(id))), id);
+    assert.ok(O.headUrl(id), id);
+  }
+  const regions = Object.fromEntries(m.assets.filter((a) => a.regions).map((a) => [a.id, Object.keys(a.regions)]));
+  for (const map of ['treffen_waage', 'treffen_kreide', 'treffen_russ']) {
+    assert.match(content.maps[map].tiles, /^o_/, map);
+    assert.equal(O.mapMarkerOf(map)[0], O.O_MAP_MARKERS_URL, map);
+    for (const d of content.maps[map].decor) {
+      const hit = /^o_(waage|kreide|russ)_props_(.+)$/.exec(d.sprite);
+      if (!hit) continue;
+      const names = regions[`${hit[1]}_props`];
+      assert.ok(names.includes(hit[2]) || names.some((n) => n.startsWith(`${hit[2]}_`)), d.sprite);
+    }
+  }
 });

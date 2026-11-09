@@ -79,6 +79,7 @@ export const SHEETS = {
   k_atelier: 'tilesets/K_atelier_tiles.png', k_ballsaal: 'tilesets/K_ballsaal_tiles.png',
   k_spiegelkabinett: 'tilesets/K_spiegelkabinett_tiles.png',
   m_kontor: 'tilesets/M_kontor_tiles.png', m_waisenhaus: 'tilesets/M_waisenhaus_tiles.png', m_traumkeller: 'tilesets/M_traumkeller_tiles.png',
+  o_waage: 'tilesets/O_waage_tiles.png', o_kreide: 'tilesets/O_kreide_tiles.png', o_russ: 'tilesets/O_russ_tiles.png',
 };
 /** Paket C: Lauf-Sheets (characters/C_<id>_walk.png), Key = Figuren-Id. */
 export const C_CHARACTERS = ['pimm', 'fenwick', 'agnes', 'pip', 'tobias', 'cultist', 'maud', 'silas', 'ned', 'quill', 'ambrose',
@@ -154,6 +155,13 @@ export const THEME_TILES = {
     wallTop: [24, 25, 26, 27, 28], window: [29], wallFace: [32, 33, 34, 35, 40, 41, 42, 43] },
   m_traumkeller: { sheet: 'm_traumkeller', fallback: 'stone', floor: [0, 1, 2, 3, 22, 23, 30, 31], threads: [4, 5, 6, 7, 35, 37, 39],
     wallTop: [8, 10], wallFace: [16, 17, 18, 19, 20, 21], wallDark: [45, 46, 47], dais: [24, 25, 26, 27, 28, 29] },
+  // Paket O (Geheime Treffen): Gewölbe der Stillen Waage, Hinterzimmer des Kreidezirkels, Kohlenschuppen (8x4-Raster)
+  o_waage: { sheet: 'o_waage', fallback: 'stone', floor: [0, 1, 2, 3], wet: [4, 7], wallTop: [17, 20, 21], wallFace: [16, 22, 23],
+    niche: [19], grate: [24] },
+  o_kreide: { sheet: 'o_kreide', fallback: 'wood0', floor: [0, 1, 2, 3], chalk: [4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
+    wallTop: [16, 17, 21], wallFace: [18, 20, 22], board: [19], shelf: [26, 28] },
+  o_russ: { sheet: 'o_russ', fallback: 'stone', floor: [0, 1, 2, 3], ash: [6], wallTop: [16, 17], wallFace: [20, 21, 23],
+    door: [18, 19] },
   warehouse: {
     sheet: 'lagerhaus', base: 'floor_1', fallback: 'wood0',
     floor: ['floor_1', 'floor_2', 'floor_3'], debris: ['floor_broken', 'tile_04', 'tile_05', 'tile_06', 'tile_07'],
@@ -327,8 +335,15 @@ export const MAP_MARKERS_URL = `${BASE}ui/C_08_map_markers.png`;
 export const J_MAP_MARKERS = Object.fromEntries(['giesserei', 'ballsaal', 'nordtor', 'marsch', 'katakomben', 'pestgassen', 'kraterwald',
   'ankerhof', 'haus_morrow', 'schleierhaus', 'rostkapelle', 'atelier', 'spiegelkabinett'].map((id, i) => [id, i]));
 export const J_MAP_MARKERS_URL = `${BASE}ui/J_map_markers.png`;
-/** Marker eines Ortes: [Bild-URL, Spalte]. */
-export const mapMarkerOf = (map) => (J_MAP_MARKERS[map] !== undefined ? [J_MAP_MARKERS_URL, J_MAP_MARKERS[map]] : [MAP_MARKERS_URL, MAP_MARKERS[map]]);
+/** Paket O: Treffen-Marker (3 Spalten; Zeile 2 hervorgehoben, Zeilen 3/4 = Treffen läuft, pulsierend). */
+export const O_MAP_MARKERS = { treffen_waage: 0, treffen_kreide: 1, treffen_russ: 2 };
+export const O_MAP_MARKERS_URL = `${BASE}ui/O_map_markers.png`;
+/** Marker eines Ortes: [Bild-URL, Spalte, Spalten im Bild, live]. */
+export const mapMarkerOf = (map) => {
+  if (O_MAP_MARKERS[map] !== undefined) return [O_MAP_MARKERS_URL, O_MAP_MARKERS[map], 3, true];
+  if (J_MAP_MARKERS[map] !== undefined) return [J_MAP_MARKERS_URL, J_MAP_MARKERS[map], 13];
+  return [MAP_MARKERS_URL, MAP_MARKERS[map], 13];
+};
 /** Notizbuch: Status → Zelle in ui/C_07_log_markers.png. */
 export const LOG_MARKERS = { suspected: 0, likely: 1, refuted: 2 };
 export const LOG_MARKERS_URL = `${BASE}ui/C_07_log_markers.png`;
@@ -544,6 +559,15 @@ export const REGION_SHEETS = {
   k_schatten: ['manifestFall6', 'shadows'],
   m_kontor_props: ['manifestFall78', 'M_kontor_props'], m_waisenhaus_props: ['manifestFall78', 'M_waisenhaus_props'],
   m_traumkeller_props: ['manifestFall78', 'M_traumkeller_props'],
+  o_waage_props: ['manifestTreffen', 'waage_props'], o_kreide_props: ['manifestTreffen', 'kreide_props'],
+  o_russ_props: ['manifestTreffen', 'russ_props'], o_zirkel: ['manifestTreffen', 'zirkel'],
+};
+/** Animationen aus benannten Regionen, die das Manifest nicht selbst mitbringt (Prefix → Name → Regionen). */
+export const REGION_ANIMS = {
+  o_waage_props: { scale: [['scale_0', 'scale_1', 'scale_2', 'scale_3', 'scale_2', 'scale_1'], 3],
+    candles: [['candles_0', 'candles_1', 'candles_2', 'candles_3', 'candles_4', 'candles_5'], 6] },
+  o_kreide_props: { lamp: [['lamp_0', 'lamp_1'], 3], dust: [['dust_0', 'dust_1', 'dust_2', 'dust_3'], 4] },
+  o_russ_props: { stove: [['stove_0', 'stove_1'], 4], lantern: [['lantern_0', 'lantern_1'], 3], cage: [['cage_0', 'cage_1'], 2] },
 };
 /** Dateien der Region-Sheets (die Manifeste kommen erst nach dem Laden der Bilder an). */
 const REGION_FILES = {
@@ -561,6 +585,8 @@ const REGION_FILES = {
   j_resonanzkammer_props: 'props/J_resonanzkammer_props.png',
   k_atelier_props: 'props/K_atelier_props.png', k_ballsaal_props: 'props/K_ballsaal_props.png',
   k_spiegelkabinett_props: 'props/K_spiegelkabinett_props.png', k_jahrmarkt: 'props/K_jahrmarkt_aussen.png', k_schatten: 'fx/K_schatten.png',
+  o_waage_props: 'props/O_waage_props.png', o_kreide_props: 'props/O_kreide_props.png', o_russ_props: 'props/O_russ_props.png',
+  o_zirkel: 'ui/O_zirkel.png',
   m_kontor_props: 'props/M_kontor_props.png', m_waisenhaus_props: 'props/M_waisenhaus_props.png', m_traumkeller_props: 'props/M_traumkeller_props.png',
 };
 for (const z of ['marsch', 'pestgassen', 'katakomben', 'kraterwald']) REGION_FILES[`g_${z}_props`] = `props/G_01_${z}_props.png`;
@@ -692,6 +718,7 @@ function createRegionTextures(scene) {
     for (const [name, r] of Object.entries(regions)) cut(`${prefix}_${name}`, img, [rect(r)]);
     const anims = { ...(def.animations ?? {}) };
     for (const [name, a] of Object.entries(def.regionAnimations ?? {})) anims[name] = { ...a, frames: a.regions.map((n) => regions[n]) };
+    for (const [name, [frames, frameRate]] of Object.entries(REGION_ANIMS[prefix] ?? {})) anims[name] = { frames, frameRate };
     for (const [name, a] of Object.entries(anims)) {
       if (Array.isArray(a) || !a.frames?.length) continue;
       const cols = Math.floor(img.width / 16);
@@ -820,6 +847,7 @@ export function preloadSprites(scene) {
   if (!scene.cache.json.exists('manifestWildnis')) scene.load.json('manifestWildnis', `${BASE}manifest-wildnis.json`);
   if (!scene.cache.json.exists('manifestReise')) scene.load.json('manifestReise', `${BASE}manifest-reise.json`);
   if (!scene.cache.json.exists('manifestJournal')) scene.load.json('manifestJournal', `${BASE}manifest-journal.json`);
+  if (!scene.cache.json.exists('manifestTreffen')) scene.load.json('manifestTreffen', `${BASE}manifest-treffen.json`);
   if (!scene.cache.json.exists('manifestFall78')) scene.load.json('manifestFall78', `${BASE}manifest-fall78.json`);
   if (!scene.cache.json.exists('manifestFall6')) scene.load.json('manifestFall6', `${BASE}manifest-fall6.json`);
   if (!scene.cache.json.exists('manifestFall5')) scene.load.json('manifestFall5', `${BASE}manifest-fall5.json`);
@@ -967,7 +995,7 @@ export function createSpriteTextures(scene) {
 export const HEADS = ['marlowe', 'holt', 'pimm', 'rook', 'price', 'barnaby', 'fenwick', 'kit', 'elias', 'greta', 'halloway', 'ivy',
   'hester', 'anselm', 'moll', 'agnes', 'pip', 'tobias', 'maud', 'silas', 'ned', 'quill', 'ambrose', 'wick', 'grimes', 'nell',
   'kittering', 'gorse', 'sabeth', 'brock', 'diva', 'souffleur', 'maskenmacher', 'uhrmacherin', 'turmwaechter', 'schlachtermeister',
-  'lehrling', 'gaswerker', 'astronom', 'miriam', 'player', 'cultist', 'nate', 'unknown_man', 'unknown_woman', 'anonymous', 'crowd', 'spirit'];
+  'lehrling', 'gaswerker', 'astronom', 'miriam', 'schleierbote', 'tresswell', 'vellacourt', 'kohlenjem', 'player', 'cultist', 'nate', 'unknown_man', 'unknown_woman', 'anonymous', 'crowd', 'spirit'];
 const HEAD_ALIASES = { grubenwirt: 'brock' };
 export const headUrl = (id) => {
   const h = HEAD_ALIASES[id] ?? id;
@@ -1304,3 +1332,14 @@ INSPECT_VIEWS.push('schuldbuch', 'traumspule');
 ANIM_SHEETS.m_hinweise = ['props/M_hinweise.png', 16, 16];
 Object.assign(CASE_FILES, { case_07: 'M_akte_fall7', case_08: 'M_akte_fall8' });
 for (const id of ['c7_heir', 'c7_wren', 'c8_perfect', 'c8_good', 'c8_early', 'c8_piper']) ENDING_IMAGES[id] = id;
+
+// --- Paket O: Geheime Treffen (manifest-treffen.json) -----------------------------------------
+/** Bote und die drei Gastgeber: Lauf-Sheet, Emotionsportrait (Kopf steht in HEADS). */
+for (const id of ['schleierbote', 'tresswell', 'vellacourt', 'kohlenjem']) {
+  SHEETS[`o_${id}`] = `characters/O_${id}_walk.png`;
+  CHARACTER_SHEETS[`npc_${id}`] = `o_${id}`;
+  PORTRAITS[id] = `O_${id}_emotions.png`;
+}
+/** Zirkel → Emblem/Einladung in ui/O_zirkel.png. */
+export const ZIRKEL_URL = `${BASE}ui/O_zirkel.png`;
+export const ZIRKEL_ICONS = { waage: [0, 2], kreide: [1, 3], russ: [2, 4] }; // [Emblem 32er-Spalte, Einladung 16er-Spalte]
