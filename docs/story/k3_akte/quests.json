@@ -1,0 +1,367 @@
+{
+  "k3a_akt1": {
+    "title": "Akt 1: Der unbestellte Fahrgast",
+    "kind": "main",
+    "case": "kapitel3",
+    "summary": "Prüfe vier Fährten, verbinde ihre Fakten und besprich die Folgen mit Pfiff.",
+    "steps": [
+      {
+        "text": "Das unmögliche Billett",
+        "done": {
+          "requires_flags": [
+            "k3a_11_geschlossen"
+          ]
+        },
+        "target": {
+          "map": "ds_endbahnhof",
+          "id": "k3a_11_station",
+          "label": "Das unmögliche Billett"
+        }
+      },
+      {
+        "text": "Ein Pfiff aus zwei Zeiten",
+        "done": {
+          "requires_flags": [
+            "k3a_12_geschlossen"
+          ]
+        },
+        "target": {
+          "map": "ds_runddepot",
+          "id": "k3a_12_station",
+          "label": "Ein Pfiff aus zwei Zeiten"
+        }
+      },
+      {
+        "text": "Frische Sohlen",
+        "done": {
+          "requires_flags": [
+            "k3a_13_geschlossen"
+          ]
+        },
+        "target": {
+          "map": "ds_arbeiterbogen",
+          "id": "k3a_13_station",
+          "label": "Frische Sohlen"
+        }
+      },
+      {
+        "text": "Der Ruf durch die Wand",
+        "done": {
+          "requires_flags": [
+            "k3a_14_geschlossen"
+          ]
+        },
+        "target": {
+          "map": "ds_schwellenring",
+          "id": "k3a_14_station",
+          "label": "Der Ruf durch die Wand"
+        }
+      },
+      {
+        "text": "Mit Pfiff den nächsten Schritt bestätigen.",
+        "done": {
+          "requires_flags": [
+            "k3a_akt1_done"
+          ]
+        },
+        "target": {
+          "map": "ds_speisewagen",
+          "id": "k3_pfiff",
+          "label": "Pfiff"
+        }
+      }
+    ]
+  },
+  "k3a_akt2": {
+    "title": "Akt 2: Die offene Schicht",
+    "kind": "main",
+    "case": "kapitel3",
+    "summary": "Prüfe vier Fährten, verbinde ihre Fakten und besprich die Folgen mit Pfiff.",
+    "steps": [
+      {
+        "text": "Niemand ist abgereist",
+        "done": {
+          "requires_flags": [
+            "k3a_21_geschlossen"
+          ]
+        },
+        "target": {
+          "map": "ds_kalkmarkt",
+          "id": "k3a_21_station",
+          "label": "Niemand ist abgereist"
+        }
+      },
+      {
+        "text": "Die reparierte Bremse",
+        "done": {
+          "requires_flags": [
+            "k3a_22_geschlossen"
+          ]
+        },
+        "target": {
+          "map": "ds_runddepot",
+          "id": "k3a_22_station",
+          "label": "Die reparierte Bremse"
+        }
+      },
+      {
+        "text": "Falsche Empfangszeit",
+        "done": {
+          "requires_flags": [
+            "k3a_23_geschlossen"
+          ]
+        },
+        "target": {
+          "map": "ds_signalhang",
+          "id": "k3a_23_station",
+          "label": "Falsche Empfangszeit"
+        }
+      },
+      {
+        "text": "Die Liste im Hund",
+        "done": {
+          "requires_flags": [
+            "k3a_24_geschlossen"
+          ]
+        },
+        "target": {
+          "map": "ds_rangierwueste",
+          "id": "k3a_24_station",
+          "label": "Die Liste im Hund"
+        }
+      },
+      {
+        "text": "Mit Pfiff den nächsten Schritt bestätigen.",
+        "done": {
+          "requires_flags": [
+            "k3a_akt2_done"
+          ]
+        },
+        "target": {
+          "map": "ds_speisewagen",
+          "id": "k3_pfiff",
+          "label": "Pfiff"
+        }
+      }
+    ]
+  },
+  "k3a_akt3": {
+    "title": "Akt 3: Was antwortet",
+    "kind": "main",
+    "case": "kapitel3",
+    "summary": "Prüfe vier Fährten, verbinde ihre Fakten und besprich die Folgen mit Pfiff.",
+    "steps": [
+      {
+        "text": "Die Stimme der Mutter",
+        "done": {
+          "requires_flags": [
+            "k3a_31_geschlossen"
+          ]
+        },
+        "target": {
+          "map": "ds_speisewagen",
+          "id": "k3a_31_station",
+          "label": "Die Stimme der Mutter"
+        }
+      },
+      {
+        "text": "Gekaufte Stimmen",
+        "done": {
+          "requires_flags": [
+            "k3a_32_geschlossen"
+          ]
+        },
+        "target": {
+          "map": "ds_pruefhaus",
+          "id": "k3a_32_station",
+          "label": "Gekaufte Stimmen"
+        }
+      },
+      {
+        "text": "Der Vorhauer wartet",
+        "done": {
+          "requires_flags": [
+            "k3a_33_geschlossen"
+          ]
+        },
+        "target": {
+          "map": "ds_klopfbruch",
+          "id": "k3a_33_station",
+          "label": "Der Vorhauer wartet"
+        }
+      },
+      {
+        "text": "Der Fahrmeister steigt aus",
+        "done": {
+          "requires_flags": [
+            "k3a_34_geschlossen"
+          ]
+        },
+        "target": {
+          "map": "ds_letzter_bahnsteig",
+          "id": "k3a_34_station",
+          "label": "Der Fahrmeister steigt aus"
+        }
+      },
+      {
+        "text": "Mit Pfiff den nächsten Schritt bestätigen.",
+        "done": {
+          "requires_flags": [
+            "k3a_akt3_done"
+          ]
+        },
+        "target": {
+          "map": "ds_speisewagen",
+          "id": "k3_pfiff",
+          "label": "Pfiff"
+        }
+      }
+    ]
+  },
+  "k3a_akt4": {
+    "title": "Akt 4: Eine Antwort zu viel",
+    "kind": "main",
+    "case": "kapitel3",
+    "summary": "Prüfe vier Fährten, verbinde ihre Fakten und besprich die Folgen mit Pfiff.",
+    "steps": [
+      {
+        "text": "Der unterzeichnete Verschluss",
+        "done": {
+          "requires_flags": [
+            "k3a_41_geschlossen"
+          ]
+        },
+        "target": {
+          "map": "ds_lohnbuero",
+          "id": "k3a_41_station",
+          "label": "Der unterzeichnete Verschluss"
+        }
+      },
+      {
+        "text": "Die wachsende Schlucht",
+        "done": {
+          "requires_flags": [
+            "k3a_42_geschlossen"
+          ]
+        },
+        "target": {
+          "map": "ds_bruchstufen",
+          "id": "k3a_42_station",
+          "label": "Die wachsende Schlucht"
+        }
+      },
+      {
+        "text": "Der Ruf ohne Besitzer",
+        "done": {
+          "requires_flags": [
+            "k3a_43_geschlossen"
+          ]
+        },
+        "target": {
+          "map": "ds_pruefhaus",
+          "id": "k3a_43_station",
+          "label": "Der Ruf ohne Besitzer"
+        }
+      },
+      {
+        "text": "Sechs Halte zugleich",
+        "done": {
+          "requires_flags": [
+            "k3a_44_geschlossen"
+          ]
+        },
+        "target": {
+          "map": "ds_signalhang",
+          "id": "k3a_44_station",
+          "label": "Sechs Halte zugleich"
+        }
+      },
+      {
+        "text": "Mit Pfiff den nächsten Schritt bestätigen.",
+        "done": {
+          "requires_flags": [
+            "k3a_akt4_done"
+          ]
+        },
+        "target": {
+          "map": "ds_speisewagen",
+          "id": "k3_pfiff",
+          "label": "Pfiff"
+        }
+      }
+    ]
+  },
+  "k3a_akt5": {
+    "title": "Akt 5: Feierabend",
+    "kind": "main",
+    "case": "kapitel3",
+    "summary": "Prüfe vier Fährten, verbinde ihre Fakten und besprich die Folgen mit Pfiff.",
+    "steps": [
+      {
+        "text": "Die eigene Aussage",
+        "done": {
+          "requires_flags": [
+            "k3a_51_geschlossen"
+          ]
+        },
+        "target": {
+          "map": "ds_arbeiterbogen",
+          "id": "k3a_51_station",
+          "label": "Die eigene Aussage"
+        }
+      },
+      {
+        "text": "Der Vielrufer",
+        "done": {
+          "requires_flags": [
+            "k3a_52_geschlossen"
+          ]
+        },
+        "target": {
+          "map": "ds_rufschlucht",
+          "id": "k3a_52_station",
+          "label": "Der Vielrufer"
+        }
+      },
+      {
+        "text": "Wer blieb zurück",
+        "done": {
+          "requires_flags": [
+            "k3a_53_geschlossen"
+          ]
+        },
+        "target": {
+          "map": "ds_letzter_bahnsteig",
+          "id": "k3a_53_station",
+          "label": "Wer blieb zurück"
+        }
+      },
+      {
+        "text": "Die letzte Abfahrt",
+        "done": {
+          "requires_flags": [
+            "k3a_54_geschlossen"
+          ]
+        },
+        "target": {
+          "map": "ds_nachtzug_wagen",
+          "id": "k3a_54_station",
+          "label": "Die letzte Abfahrt"
+        }
+      },
+      {
+        "text": "Mit Pfiff Bilanz ziehen und am letzten Bahnsteig das Urteil wählen.",
+        "done": {
+          "requires_flags": [
+            "k3a_akt5_done"
+          ]
+        },
+        "target": {
+          "map": "ds_speisewagen",
+          "id": "k3_pfiff",
+          "label": "Pfiff"
+        }
+      }
+    ]
+  }
+}
