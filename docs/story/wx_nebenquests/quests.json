@@ -1,0 +1,577 @@
+{
+  "k2n_reetdach": {
+    "title": "Das Dach ohne Morgen",
+    "kind": "side",
+    "case": "kapitel2",
+    "summary": "Ein Reetdecker verliert jede Nacht sein frisch verlegtes Dach. Mutter Sedge kennt einen Brauch, der Häusern ihre Adresse zurückgibt.",
+    "steps": [
+      {
+        "text": "Untersuche die leere Kerbe am Türbalken.",
+        "done": {
+          "requires_clues": [
+            "k2n_reet_kerbe"
+          ]
+        },
+        "target": {
+          "map": "wx_torfstich",
+          "id": "k2n_reet_spur",
+          "label": "Türbalken"
+        }
+      },
+      {
+        "text": "Frage Sedge nach einem Hausnamen.",
+        "done": {
+          "requires_flags": [
+            "k2n_reet_brauch"
+          ]
+        },
+        "target": {
+          "map": "wx_pfahldorf",
+          "id": "sedge",
+          "label": "Mutter Sedge"
+        }
+      },
+      {
+        "text": "Erneuere das Täfelchen und beobachte das Dach.",
+        "done": {
+          "requires_flags": [
+            "k2n_reet_gehalten"
+          ]
+        },
+        "target": {
+          "map": "wx_torfstich",
+          "id": "k2n_reet_ritus",
+          "label": "Reetdecker"
+        }
+      },
+      {
+        "text": "Entscheide bei Sedge, wer die Matten bekommt.",
+        "done": {
+          "requires_flags": [
+            "k2n_reetdach_done"
+          ]
+        },
+        "target": {
+          "map": "wx_pfahldorf",
+          "id": "sedge",
+          "label": "Mutter Sedge"
+        }
+      }
+    ]
+  },
+  "k2n_salzwaage": {
+    "title": "Was vom Gewicht bleibt",
+    "kind": "side",
+    "case": "kapitel2",
+    "summary": "Adas Eichgewichte werden täglich leichter. Hesper und Brack hatten Zugang, doch weder ein Gerücht noch ein Fluch ersetzt einen Wiegeversuch.",
+    "steps": [
+      {
+        "text": "Prüfe Gewicht und Reparaturzettel.",
+        "done": {
+          "requires_clues": [
+            "k2n_waage_salz",
+            "k2n_waage_zettel"
+          ]
+        },
+        "target": {
+          "map": "wx_salzmarkt",
+          "id": "k2n_waage_probe",
+          "label": "Gewichtskasten"
+        }
+      },
+      {
+        "text": "Befrage Hesper.",
+        "done": {
+          "requires_clues": [
+            "k2n_waage_hesper"
+          ]
+        },
+        "target": {
+          "map": "wx_salzmarkt",
+          "id": "hesper",
+          "label": "Hesper"
+        }
+      },
+      {
+        "text": "Befrage Brack.",
+        "done": {
+          "requires_clues": [
+            "k2n_waage_brack"
+          ]
+        },
+        "target": {
+          "map": "wx_bojenhafen",
+          "id": "brack",
+          "label": "Brack"
+        }
+      },
+      {
+        "text": "Verbinde Salzverlust und Reparatur im Notizbuch.",
+        "done": {
+          "requires_conclusions": [
+            "k2n_waage_schluss"
+          ]
+        },
+        "target": {
+          "map": "wx_salzmarkt",
+          "id": "k2n_eichmeisterin",
+          "label": "Ada Venn"
+        }
+      },
+      {
+        "text": "Entscheide über das öffentliche Protokoll.",
+        "done": {
+          "requires_flags": [
+            "k2n_salzwaage_done"
+          ]
+        },
+        "target": {
+          "map": "wx_salzmarkt",
+          "id": "k2n_eichmeisterin",
+          "label": "Ada Venn"
+        }
+      }
+    ]
+  },
+  "k2n_bojenlied": {
+    "title": "Das Lied vom freien Platz",
+    "kind": "side",
+    "case": "kapitel2",
+    "summary": "Ole Tamsen erkennt in drei Bojen ein altes Lied. Brack leiht dir ein Reserveboot, damit du seine fehlenden Zeilen findest.",
+    "steps": [
+      {
+        "text": "Rudere zur Boje 1 und notiere ihren Takt.",
+        "done": {
+          "requires_clues": [
+            "k2n_lied_1"
+          ]
+        },
+        "target": {
+          "map": "wx_bojenhafen",
+          "id": "k2n_lied_boje1",
+          "label": "Ruderfahrt 1"
+        }
+      },
+      {
+        "text": "Rudere zur Boje 2 und notiere ihren Takt.",
+        "done": {
+          "requires_clues": [
+            "k2n_lied_2"
+          ]
+        },
+        "target": {
+          "map": "wx_bojenhafen",
+          "id": "k2n_lied_boje2",
+          "label": "Ruderfahrt 2"
+        }
+      },
+      {
+        "text": "Rudere zur Boje 3 und notiere ihren Takt.",
+        "done": {
+          "requires_clues": [
+            "k2n_lied_3"
+          ]
+        },
+        "target": {
+          "map": "wx_bojenhafen",
+          "id": "k2n_lied_boje3",
+          "label": "Ruderfahrt 3"
+        }
+      },
+      {
+        "text": "Lies das zusammengesetzte Lied.",
+        "done": {
+          "requires_flags": [
+            "k2n_lied_blatt_gelesen"
+          ]
+        },
+        "target": {
+          "map": "wx_bojenhafen",
+          "id": "k2n_lied_blatt",
+          "label": "Das Lied"
+        }
+      },
+      {
+        "text": "Entscheide bei Brack über die erste Weitergabe.",
+        "done": {
+          "requires_flags": [
+            "k2n_bojenlied_done"
+          ]
+        },
+        "target": {
+          "map": "wx_bojenhafen",
+          "id": "brack",
+          "label": "Brack"
+        }
+      }
+    ]
+  },
+  "k2n_falsches_gesicht": {
+    "title": "Das absichtlich falsche Gesicht",
+    "kind": "side",
+    "case": "kapitel2",
+    "summary": "Eine neue Oberstadtauflage zeigt dein Gesicht falsch. Der zivile Zeichner scheint darüber weniger überrascht als erleichtert.",
+    "steps": [
+      {
+        "text": "Vergleiche Probedruck und Trauerbild.",
+        "done": {
+          "requires_clues": [
+            "k2n_gesicht_druck"
+          ]
+        },
+        "target": {
+          "map": "wx_oberstadt",
+          "id": "k2n_gesicht_druck",
+          "label": "Probedruck"
+        }
+      },
+      {
+        "text": "Sprich Nils auf seinen Bruder an.",
+        "done": {
+          "requires_flags": [
+            "k2n_gesicht_motiv"
+          ]
+        },
+        "target": {
+          "map": "wx_oberstadt",
+          "id": "k2n_zeichner",
+          "label": "Nils Feder"
+        }
+      },
+      {
+        "text": "Wähle Entlastung oder einen bleibenden Helfer.",
+        "done": {
+          "requires_flags": [
+            "k2n_falsches_gesicht_done"
+          ]
+        },
+        "target": {
+          "map": "wx_oberstadt",
+          "id": "k2n_zeichner",
+          "label": "Nils Feder"
+        }
+      }
+    ]
+  },
+  "k2n_kuestengift": {
+    "title": "Was Jorin nach Hause folgt",
+    "kind": "side",
+    "case": "kapitel2",
+    "summary": "Ein Student hält sich für verfolgt. Mit Akademierobe und einer echten Vergleichsprobe lässt sich prüfen, was seine Angst verursacht.",
+    "steps": [
+      {
+        "text": "Nimm eine unbehandelte Probe im Salzwatt.",
+        "done": {
+          "requires_clues": [
+            "k2n_gift_watt"
+          ]
+        },
+        "target": {
+          "map": "wx_salzwatt",
+          "id": "k2n_gift_watt",
+          "label": "Uferprobe"
+        }
+      },
+      {
+        "text": "Prüfe den Laborabfall in Akademierobe.",
+        "done": {
+          "requires_clues": [
+            "k2n_gift_labor"
+          ]
+        },
+        "target": {
+          "map": "wx_akademie",
+          "id": "k2n_gift_labor",
+          "label": "Abfallbehälter"
+        }
+      },
+      {
+        "text": "Verbinde Tropfspur und Laborzusatz.",
+        "done": {
+          "requires_conclusions": [
+            "k2n_gift_schluss"
+          ]
+        },
+        "target": {
+          "map": "wx_akademie",
+          "id": "k2n_student",
+          "label": "Jorin Siel"
+        }
+      },
+      {
+        "text": "Entscheide über die Veröffentlichung.",
+        "done": {
+          "requires_flags": [
+            "k2n_kuestengift_done"
+          ]
+        },
+        "target": {
+          "map": "wx_akademie",
+          "id": "k2n_student",
+          "label": "Jorin Siel"
+        }
+      }
+    ]
+  },
+  "k2n_pfandzettel": {
+    "title": "Post für ein geschlossenes Büro",
+    "kind": "side",
+    "case": "kapitel2",
+    "summary": "In der Glocke liegt ein Pfandzettel mit deinem alten Büro-Siegel. Jemand in Kettlegate hat etwas aufgehoben, das du schon verloren glaubtest.",
+    "steps": [
+      {
+        "text": "Frage Hesper nach dem Überbringer.",
+        "done": {
+          "requires_flags": [
+            "k2n_pfand_bote"
+          ]
+        },
+        "target": {
+          "map": "wx_salzmarkt",
+          "id": "hesper",
+          "label": "Hesper"
+        }
+      },
+      {
+        "text": "Lies den versiegelten Brief im Gasthaus.",
+        "done": {
+          "requires_flags": [
+            "k2n_pfand_brief_gelesen"
+          ]
+        },
+        "target": {
+          "map": "wx_glocke",
+          "id": "k2n_pfand_brief",
+          "label": "Brieffach"
+        }
+      },
+      {
+        "text": "Entscheide bei Hesper über die Kassette.",
+        "done": {
+          "requires_flags": [
+            "k2n_pfandzettel_done"
+          ]
+        },
+        "target": {
+          "map": "wx_salzmarkt",
+          "id": "hesper",
+          "label": "Hesper"
+        }
+      }
+    ]
+  },
+  "k2n_schleusenwaerter": {
+    "title": "Boote ohne Laternen",
+    "kind": "side",
+    "case": "kapitel2",
+    "summary": "Druce lässt nachts unbeleuchtete Boote passieren. Prüfe die Fracht, bevor du aus Dunkelheit ein Verbrechen gegen Menschen machst.",
+    "steps": [
+      {
+        "text": "Prüfe Druces Nachtbuch.",
+        "done": {
+          "requires_clues": [
+            "k2n_schleuse_buch"
+          ]
+        },
+        "target": {
+          "map": "wx_bahnhof",
+          "id": "k2n_schleuse_buch",
+          "label": "Nachtbuch"
+        }
+      },
+      {
+        "text": "Öffne die Frachtkiste.",
+        "done": {
+          "requires_clues": [
+            "k2n_schleuse_kiste"
+          ]
+        },
+        "target": {
+          "map": "wx_bahnhof",
+          "id": "k2n_schleuse_kiste",
+          "label": "Frachtkiste"
+        }
+      },
+      {
+        "text": "Verbinde Fracht und bezahlte Durchfahrten.",
+        "done": {
+          "requires_conclusions": [
+            "k2n_schleuse_schluss"
+          ]
+        },
+        "target": {
+          "map": "wx_bahnhof",
+          "id": "druce",
+          "label": "Druce"
+        }
+      },
+      {
+        "text": "Melde, decke oder übernimm eine Fahrt.",
+        "done": {
+          "requires_flags": [
+            "k2n_schleusenwaerter_done"
+          ]
+        },
+        "target": {
+          "map": "wx_bahnhof",
+          "id": "druce",
+          "label": "Druce"
+        }
+      }
+    ]
+  },
+  "k2n_moorkind": {
+    "title": "Der Name hinter den Zähnen",
+    "kind": "side",
+    "case": "kapitel2",
+    "summary": "Ein Kind ist aus dem Vergessmoor zurückgekommen, sein Name nicht. Stimme und Knotenzeichen können ihn wiederfinden, wenn du beide ernst nimmst.",
+    "steps": [
+      {
+        "text": "Höre den erinnerten Ruf oder vereinbare mit Sedge einen vorläufigen Rufnamen.",
+        "done": {
+          "requires_flags": [
+            "k2n_kind_spur_stimme"
+          ]
+        },
+        "target": {
+          "map": "wx_pfahldorf",
+          "id": "k2n_kind_stimme",
+          "label": "Kind am Geländer"
+        }
+      },
+      {
+        "text": "Vergleiche die Täfelchen oder beende die Suche auf Wunsch des Kindes.",
+        "done": {
+          "requires_flags": [
+            "k2n_kind_spur_holz"
+          ]
+        },
+        "target": {
+          "map": "wx_vergessmoor",
+          "id": "k2n_kind_holz",
+          "label": "Gelbe Schlinge"
+        }
+      },
+      {
+        "text": "Entscheide mit Sedge und dem Kind über den Namen.",
+        "done": {
+          "requires_flags": [
+            "k2n_moorkind_done"
+          ]
+        },
+        "target": {
+          "map": "wx_pfahldorf",
+          "id": "sedge",
+          "label": "Mutter Sedge"
+        }
+      }
+    ]
+  },
+  "k2n_zunders_liste": {
+    "title": "Drei Zeilen nach der Haft",
+    "kind": "side",
+    "case": "kapitel2",
+    "summary": "Nach ihrer Befreiung bezahlt Zunder ihre Helfer. Du trägst drei versiegelte Umschläge durch eine Stadt, die gerade besonders genau hinsieht.",
+    "steps": [
+      {
+        "text": "Bezahle Hesper für die Hilfe.",
+        "done": {
+          "requires_flags": [
+            "k2n_liste_hesper"
+          ]
+        },
+        "target": {
+          "map": "wx_salzmarkt",
+          "id": "hesper",
+          "label": "Hesper"
+        }
+      },
+      {
+        "text": "Bezahle Druce für die Hilfe.",
+        "done": {
+          "requires_flags": [
+            "k2n_liste_druce"
+          ]
+        },
+        "target": {
+          "map": "wx_bahnhof",
+          "id": "druce",
+          "label": "Druce"
+        }
+      },
+      {
+        "text": "Bezahle Ruprecht Lamm für die Hilfe.",
+        "done": {
+          "requires_flags": [
+            "k2n_liste_pedell"
+          ]
+        },
+        "target": {
+          "map": "wx_oberstadt",
+          "id": "pedell",
+          "label": "Ruprecht Lamm"
+        }
+      },
+      {
+        "text": "Kehre zu Zunder zurück und richte den Ofen ein.",
+        "done": {
+          "requires_flags": [
+            "k2n_zunders_liste_done"
+          ]
+        },
+        "target": {
+          "map": "wx_kahn",
+          "id": "zunder",
+          "label": "Zunder"
+        }
+      }
+    ]
+  },
+  "k2n_letztes_licht": {
+    "title": "Das letzte Dienstlicht",
+    "kind": "side",
+    "case": "kapitel2",
+    "summary": "Der frühere Leuchtturmwärter lebt versteckt im Salzwatt. Seine alte Peilung könnte einen zweiten Weg zur Insel zeigen.",
+    "steps": [
+      {
+        "text": "Prüfe die erste Wartungsmarke.",
+        "done": {
+          "requires_clues": [
+            "k2n_licht_marke1"
+          ]
+        },
+        "target": {
+          "map": "wx_salzwatt",
+          "id": "k2n_licht_marke1",
+          "label": "Erste Wartungsmarke"
+        }
+      },
+      {
+        "text": "Prüfe die zweite Wartungsmarke.",
+        "done": {
+          "requires_clues": [
+            "k2n_licht_marke2"
+          ]
+        },
+        "target": {
+          "map": "wx_salzwatt",
+          "id": "k2n_licht_marke2",
+          "label": "Zweite Wartungsmarke"
+        }
+      },
+      {
+        "text": "Entscheide, wer Rinns Originalplan bekommen soll.",
+        "done": {
+          "requires_flags": [
+            "k2n_letztes_licht_done"
+          ]
+        },
+        "target": {
+          "map": "wx_salzwatt",
+          "id": "k2n_waerter",
+          "label": "Oskar Rinn"
+        }
+      }
+    ]
+  }
+}

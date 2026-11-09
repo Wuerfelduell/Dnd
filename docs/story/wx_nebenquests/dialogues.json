@@ -1,0 +1,429 @@
+{
+  "k2n_eichmeisterin": {
+    "start": "k2n_eichmeisterin_start",
+    "nodes": {
+      "k2n_eichmeisterin_start": {
+        "text": "Ada Venn wartet, bis du näher kommst. Hier spricht niemand gern quer über einen Platz.",
+        "choices": [
+          {
+            "text": "Du wiegst sogar deinen Kaffee ab?",
+            "next": "k2n_waage_auftrag",
+            "hide_if_quests": [
+              "k2n_salzwaage"
+            ],
+            "hide_if_flags": [
+              "kapitel2_done",
+              "k2_akt2_done"
+            ],
+            "requires_flags": [
+              "k2_met_zunder"
+            ]
+          },
+          {
+            "text": "Die Salzfüllung erklärt den Verlust. Beide Aussagen liegen vor.",
+            "next": "k2n_waage_wahl",
+            "requires_quests_active": [
+              "k2n_salzwaage"
+            ],
+            "requires_conclusions": [
+              "k2n_waage_schluss"
+            ],
+            "requires_clues": [
+              "k2n_waage_salz",
+              "k2n_waage_hesper",
+              "k2n_waage_brack",
+              "k2n_waage_zettel"
+            ]
+          },
+          {
+            "text": "Später."
+          }
+        ]
+      },
+      "k2n_waage_auftrag": {
+        "text": "„Heute weniger als gestern“, sagt Ada und hebt ein Eichgewicht. „Hesper hat die Gewichte im Trockenschrank verwahrt. Brack hat die Sockel repariert. Beide hatten sie allein.“\n\n„Finde heraus, wer hier etwas verschwinden lässt. Einen Fluch kann ich wenigstens nicht entlassen.“",
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ],
+        "start_quests": [
+          "k2n_salzwaage"
+        ]
+      },
+      "k2n_waage_wahl": {
+        "text": "Ada setzt das Gewicht ab. „Ich erstatte den Käufern die Differenz. Aber kommt Bracks Name ins öffentliche Protokoll, oder nur die mangelhafte Reparatur?“\n\nDu kannst den Fehler offen zuordnen oder Brack eine stille Nachbesserung ermöglichen.",
+        "choices": [
+          {
+            "text": "Vollständiges Protokoll. Niemand soll den Verdacht behalten.",
+            "next": "k2n_waage_offen"
+          },
+          {
+            "text": "Stille Nachbesserung, mit Erstattung an alle Käufer.",
+            "next": "k2n_waage_still"
+          }
+        ]
+      },
+      "k2n_waage_offen": {
+        "text": "Ada schreibt Bracks Verantwortung und Hespers Entlastung nebeneinander. Der Markt bekommt eine belegte Erklärung, und du bekommst deinen Lohn.",
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ],
+        "complete_quests": [
+          "k2n_salzwaage"
+        ],
+        "sets_flags": [
+          "k2n_salzwaage_done",
+          "k2n_waage_offen"
+        ],
+        "gives_money": 35,
+        "honor": 3
+      },
+      "k2n_waage_still": {
+        "text": "Ada lässt die Gewichte sperren und führt die Erstattungsliste selbst. Brack bezahlt die Reparatur und gibt dir eine trockene Vorratskiste für den Kahn, aber im öffentlichen Protokoll bleibt ihr Name frei.",
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ],
+        "complete_quests": [
+          "k2n_salzwaage"
+        ],
+        "sets_flags": [
+          "k2n_salzwaage_done",
+          "k2n_kahn_kiste"
+        ],
+        "gives_money": 25,
+        "honor": 1
+      }
+    }
+  },
+  "k2n_zeichner": {
+    "start": "k2n_zeichner_start",
+    "nodes": {
+      "k2n_zeichner_start": {
+        "text": "Nils Feder wartet, bis du näher kommst. Hier spricht niemand gern quer über einen Platz.",
+        "choices": [
+          {
+            "text": "Auf deinem neuen Steckbrief habe ich eine andere Nase.",
+            "next": "k2n_gesicht_auftrag",
+            "hide_if_quests": [
+              "k2n_falsches_gesicht"
+            ],
+            "hide_if_flags": [
+              "kapitel2_done"
+            ],
+            "requires_quests_active": [
+              "k2_akt2"
+            ]
+          },
+          {
+            "text": "Arven war dein Bruder. Warum benutzt du sein Bild?",
+            "next": "k2n_gesicht_wahl",
+            "requires_quests_active": [
+              "k2n_falsches_gesicht"
+            ],
+            "requires_clues": [
+              "k2n_gesicht_druck"
+            ]
+          },
+          {
+            "text": "Hast du einen stumpfen Bleistift für mich?",
+            "next": "k2n_gesicht_hilfe",
+            "requires_flags": [
+              "k2n_zeichner_verbuendet"
+            ],
+            "hide_if_flags": [
+              "k2n_zeichner_hilfe"
+            ]
+          },
+          {
+            "text": "Später."
+          }
+        ]
+      },
+      "k2n_gesicht_auftrag": {
+        "text": "Nils hält den Bleistift verkehrt herum. „Die alte Bahnhofsauflage ist gut getroffen. Die neue Oberstadtauflage ist von mir. Manchmal wird eine Linie beim Kopieren müde.“\n\nEr blickt zu einem Probedruck. „Prüf erst, wen ich statt deiner gezeichnet habe. Dann reden wir über Absicht.“",
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ],
+        "start_quests": [
+          "k2n_falsches_gesicht"
+        ]
+      },
+      "k2n_gesicht_wahl": {
+        "text": "„Er wurde wegen einer ähnlichen Nase festgenommen. Hinterher war es eine bedauerliche Verwechslung.“ Nils dreht das Bild um. „Einem Toten kann diese Nase nichts mehr nehmen.“\n\n„Ich kann die neue Auflage als Druckfehler einziehen lassen. Oder ich bleibe unauffällig und schreibe dir, wenn sich die Beschreibung ändert.“",
+        "choices": [
+          {
+            "text": "Zieh die fehlerhafte Auflage ein. Weniger Fahndung hilft jetzt.",
+            "next": "k2n_gesicht_senken"
+          },
+          {
+            "text": "Bleib am Zeichentisch. Ich brauche einen Verbündeten.",
+            "next": "k2n_gesicht_freund"
+          }
+        ],
+        "sets_flags": [
+          "k2n_gesicht_motiv"
+        ]
+      },
+      "k2n_gesicht_senken": {
+        "text": "Nils markiert den Stapel mit „unbrauchbar“. „Ein amtlicher Fehler braucht einen Stempel, keinen Mut. Gut, dass ich einen Stempel habe.“",
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ],
+        "complete_quests": [
+          "k2n_falsches_gesicht"
+        ],
+        "sets_flags": [
+          "k2n_falsches_gesicht_done",
+          "k2n_fahndung_entlastet"
+        ],
+        "wanted": -1,
+        "gives_money": 16
+      },
+      "k2n_gesicht_freund": {
+        "text": "Nils steckt dir seine private Korrekturliste zu. „Frag nach einem stumpfen Bleistift. Dann weiß ich, dass du es bist.“",
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ],
+        "complete_quests": [
+          "k2n_falsches_gesicht"
+        ],
+        "sets_flags": [
+          "k2n_falsches_gesicht_done",
+          "k2n_zeichner_verbuendet"
+        ],
+        "honor": 2,
+        "gives_items": {
+          "moortee": 1
+        }
+      },
+      "k2n_gesicht_hilfe": {
+        "text": "Nils deckt einen Versandbogen mit der Hand ab. „Heute suchen sie erst am Tor. Trink etwas und geh nicht mit zitternden Händen über die Allee.“ Er überlässt dir seinen Notgroschen.",
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ],
+        "sets_flags": [
+          "k2n_zeichner_hilfe"
+        ],
+        "gives_money": 12,
+        "nerves": 5
+      }
+    }
+  },
+  "k2n_student": {
+    "start": "k2n_student_start",
+    "nodes": {
+      "k2n_student_start": {
+        "text": "Jorin Siel wartet, bis du näher kommst. Hier spricht niemand gern quer über einen Platz.",
+        "choices": [
+          {
+            "text": "Du beobachtest die Tür statt deiner Proben.",
+            "next": "k2n_gift_auftrag",
+            "hide_if_quests": [
+              "k2n_kuestengift"
+            ],
+            "hide_if_flags": [
+              "kapitel2_done"
+            ],
+            "requires_quests_active": [
+              "k2_akt3"
+            ],
+            "requires_flags": [
+              "k2_wear_akademierobe"
+            ],
+            "requires_items": [
+              "akademierobe"
+            ]
+          },
+          {
+            "text": "Dein Zusatz hat die Tropfen geweckt.",
+            "next": "k2n_gift_wahl",
+            "requires_quests_active": [
+              "k2n_kuestengift"
+            ],
+            "requires_flags": [
+              "k2_wear_akademierobe"
+            ],
+            "requires_items": [
+              "akademierobe"
+            ],
+            "requires_conclusions": [
+              "k2n_gift_schluss"
+            ]
+          },
+          {
+            "text": "Später."
+          }
+        ]
+      },
+      "k2n_gift_auftrag": {
+        "text": "Jorin prüft den Saum deiner Akademierobe. „Seit ich das Moorwasser koche, folgt mir nachts etwas Nasses. Wenn ich stehen bleibe, tropft es hinter mir weiter.“\n\n„Hol eine Vergleichsprobe aus dem Salzwatt und sieh dir meinen Abfallbehälter an. Bitte unter Kollegen. Ohne Robe lasse ich dich nicht an die Versuche.“",
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ],
+        "start_quests": [
+          "k2n_kuestengift"
+        ]
+      },
+      "k2n_gift_wahl": {
+        "text": "Jorin verschließt den Abfallbehälter. „Wyle muss von dem Fehler erfahren. Aber wenn du die Messreihe mit meinem Namen auslegst, kann ich meine Prüfungen vergessen.“\n\nDie Proben werden in jedem Fall versiegelt. Du entscheidest, ob auch der misslungene Versuch öffentlich wird.",
+        "choices": [
+          {
+            "text": "Offenes Protokoll, einschließlich deines Fehlers.",
+            "next": "k2n_gift_offen"
+          },
+          {
+            "text": "Wyle vertraulich informieren und den Abfall sichern.",
+            "next": "k2n_gift_vertraulich"
+          }
+        ]
+      },
+      "k2n_gift_offen": {
+        "text": "Jorin unterschreibt das Protokoll mit zitternder Hand. Wyle lässt die Lehrproben sperren und bezahlt deine unabhängige Kontrolle.",
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ],
+        "complete_quests": [
+          "k2n_kuestengift"
+        ],
+        "sets_flags": [
+          "k2n_kuestengift_done",
+          "k2n_gift_offen"
+        ],
+        "gives_money": 45,
+        "honor": 4
+      },
+      "k2n_gift_vertraulich": {
+        "text": "Wyle nimmt den versiegelten Behälter entgegen. Jorin baut dir als Dank einen kleinen Waschtisch aus sauberem Glas, fern von seinem Linsensalz.",
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ],
+        "complete_quests": [
+          "k2n_kuestengift"
+        ],
+        "sets_flags": [
+          "k2n_kuestengift_done",
+          "k2n_kahn_waschtisch"
+        ],
+        "gives_money": 30,
+        "honor": 1
+      }
+    }
+  },
+  "k2n_waerter": {
+    "start": "k2n_waerter_start",
+    "nodes": {
+      "k2n_waerter_start": {
+        "text": "Oskar Rinn wartet, bis du näher kommst. Hier spricht niemand gern quer über einen Platz.",
+        "choices": [
+          {
+            "text": "Du hältst eine Lampe ohne Docht.",
+            "next": "k2n_licht_auftrag",
+            "hide_if_quests": [
+              "k2n_letztes_licht"
+            ],
+            "hide_if_flags": [
+              "kapitel2_done"
+            ],
+            "requires_quests_active": [
+              "k2_akt5"
+            ]
+          },
+          {
+            "text": "Beide Peilzeichen stehen noch.",
+            "next": "k2n_licht_wahl",
+            "requires_quests_active": [
+              "k2n_letztes_licht"
+            ],
+            "requires_clues": [
+              "k2n_licht_marke1",
+              "k2n_licht_marke2"
+            ]
+          },
+          {
+            "text": "Später."
+          }
+        ]
+      },
+      "k2n_licht_auftrag": {
+        "text": "„Ich habe den Turm gewartet, bevor Brandt Lichtmeisterin wurde“, sagt der alte Mann. „Nicht sein Feuer verstanden. Verwechsle das nicht.“\n\nEr hebt die leere Lampe. „Ein Wartungsweg führte bei Niedrigwasser zur Insel. Such meine zwei Peilzeichen im Watt. Wenn sie noch stehen, ist der Weg mehr als eine Erinnerung.“",
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ],
+        "start_quests": [
+          "k2n_letztes_licht"
+        ]
+      },
+      "k2n_licht_wahl": {
+        "text": "Rinn legt seinen Plan auf die Knie. „Der Steinrücken führt nur bis unter den Inselhang. Wer oben wartet, bleibt dein Problem.“\n\n„Du bekommst die Abschrift. Aber geht das Original später an die Fischer, oder bleibt es bei mir, bis die Menschen am Turm sicher sind?“",
+        "choices": [
+          {
+            "text": "Nach der Sache den Fischern geben. Ein Weg soll allen helfen.",
+            "next": "k2n_licht_teilen"
+          },
+          {
+            "text": "Das Original verborgen halten. Zuerst die Menschen schützen.",
+            "next": "k2n_licht_hueten"
+          }
+        ]
+      },
+      "k2n_licht_teilen": {
+        "text": "Rinn markiert auf dem Original die Namen der Fischerfamilien. „Dann habe ich doch noch einen Dienstplan.“ Er gibt dir eine Abschrift und einen alten Kartentisch für den Kahn.",
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ],
+        "complete_quests": [
+          "k2n_letztes_licht"
+        ],
+        "sets_flags": [
+          "k2n_letztes_licht_done",
+          "k2n_licht_teilen",
+          "k2n_zweiter_weg",
+          "k2n_kahn_kartentisch"
+        ],
+        "honor": 3,
+        "gives_money": 20
+      },
+      "k2n_licht_hueten": {
+        "text": "Rinn rollt das Original wieder ein. „Ein Geheimnis weniger wäre schön gewesen. Aber ein Mensch weniger wäre schlimmer.“ Du bekommst die Abschrift und Geld für Vorräte.",
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ],
+        "complete_quests": [
+          "k2n_letztes_licht"
+        ],
+        "sets_flags": [
+          "k2n_letztes_licht_done",
+          "k2n_licht_hueten",
+          "k2n_zweiter_weg"
+        ],
+        "honor": 1,
+        "gives_money": 45
+      }
+    }
+  }
+}

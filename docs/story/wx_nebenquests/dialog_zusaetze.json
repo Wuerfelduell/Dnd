@@ -1,0 +1,883 @@
+{
+  "sedge": {
+    "choices_add": [
+      {
+        "text": "Das Moor deckt ein Dach ab. Was schuldet ihm das Haus?",
+        "next": "k2n_reet_brauch",
+        "requires_quests_active": [
+          "k2n_reetdach"
+        ],
+        "requires_clues": [
+          "k2n_reet_kerbe"
+        ],
+        "hide_if_flags": [
+          "k2n_reet_brauch"
+        ]
+      },
+      {
+        "text": "Das Dach hält. Wohin kommen die beiden trockenen Matten?",
+        "next": "k2n_reet_wahl",
+        "requires_quests_active": [
+          "k2n_reetdach"
+        ],
+        "requires_flags": [
+          "k2n_reet_gehalten"
+        ]
+      },
+      {
+        "text": "Ich habe den Namen anhand von Stimme und Schlinge gefunden.",
+        "next": "k2n_kind_wahl",
+        "requires_quests_active": [
+          "k2n_moorkind"
+        ],
+        "requires_conclusions": [
+          "k2n_kind_schluss"
+        ]
+      },
+      {
+        "text": "Kann das Kind vorerst einen selbst gewählten Rufnamen haben?",
+        "next": "k2n_kind_abkuerzung",
+        "requires_quests_active": [
+          "k2n_moorkind"
+        ],
+        "hide_if_conclusions": [
+          "k2n_kind_schluss"
+        ]
+      }
+    ],
+    "nodes_add": {
+      "k2n_reet_brauch": {
+        "text": "Sedge fährt mit dem Finger über deine Abschrift. „Ein Haus braucht hier einen Namen, sonst hält das Moor es für Treibgut. Schnitz seine Adresse neu und gib ihm ein Bündel zurück, ohne einen Menschen dafür einzutragen.“\n\nSie legt ein Holzstück auf deinen Schoß. „Es darf auch ein neuer Hausname sein. Nur muss der Decker ihn künftig benutzen.“",
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ],
+        "sets_flags": [
+          "k2n_reet_brauch"
+        ]
+      },
+      "k2n_reet_wahl": {
+        "text": "„Im Kahn zieht es“, sagt Sedge. „Bei der Nachbarin auch. Zwei Matten sind viel, solange man nur ein Haus zählt.“",
+        "choices": [
+          {
+            "text": "Zur Nachbarin. Ich nehme den kleinen Arbeitslohn.",
+            "next": "k2n_reet_nachbarin"
+          },
+          {
+            "text": "In unseren Kahn. Wir brauchen einen trockenen Platz.",
+            "next": "k2n_reet_kahn"
+          }
+        ]
+      },
+      "k2n_reet_nachbarin": {
+        "text": "Sedge schiebt dir den Lohn zu. „Sie kann heute die Decke von den Schultern nehmen. Das wird sie merken.“",
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ],
+        "complete_quests": [
+          "k2n_reetdach"
+        ],
+        "sets_flags": [
+          "k2n_reetdach_done",
+          "k2n_reet_nachbarin"
+        ],
+        "gives_money": 18,
+        "honor": 3
+      },
+      "k2n_reet_kahn": {
+        "text": "Die Matten kommen noch vor dem Regen an. Sedge lässt ausrichten: „Ein Dach ist kein Verbrechen. Vergiss nur nicht, wer keines hat.“",
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ],
+        "complete_quests": [
+          "k2n_reetdach"
+        ],
+        "sets_flags": [
+          "k2n_reetdach_done",
+          "k2n_kahn_reet"
+        ],
+        "gives_money": 12
+      },
+      "k2n_kind_wahl": {
+        "text": "Sedge liest „Lin“ leise vor. Das Kind nickt beim zweiten Mal. „Das bin ich. Aber muss das jeder draußen hören?“\n\nSedge hält zwei Hölzer hin: ein Namenstäfelchen für den Schrein und ein kleines Zeichen für die Manteltasche.",
+        "choices": [
+          {
+            "text": "Lin offen am Schrein eintragen, mit Lins Zustimmung.",
+            "next": "k2n_kind_schrein"
+          },
+          {
+            "text": "Den Namen privat lassen und nur das Zeichen tragen.",
+            "next": "k2n_kind_privat"
+          }
+        ]
+      },
+      "k2n_kind_schrein": {
+        "text": "Lin drückt das Täfelchen selbst in den Schrein. „Jetzt weiß das Haus wieder, wen es reinlassen soll.“ Sedge bezahlt deine sorgfältige Suche und legt Tee dazu.",
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ],
+        "complete_quests": [
+          "k2n_moorkind"
+        ],
+        "sets_flags": [
+          "k2n_moorkind_done",
+          "k2n_kind_schrein"
+        ],
+        "gives_money": 45,
+        "honor": 4,
+        "gives_items": {
+          "moortee": 2
+        }
+      },
+      "k2n_kind_privat": {
+        "text": "Lin steckt das Zeichen ein und sagt den eigenen Namen nur zu dir. Sedge nickt. „Auch eine leise Antwort ist eine Antwort.“",
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ],
+        "complete_quests": [
+          "k2n_moorkind"
+        ],
+        "sets_flags": [
+          "k2n_moorkind_done",
+          "k2n_kind_privat"
+        ],
+        "gives_money": 45,
+        "honor": 4,
+        "gives_items": {
+          "moortee": 2
+        }
+      },
+      "k2n_kind_abkuerzung": {
+        "text": "„Vorerst“, sagt Sedge. „Nicht als Ersatz für ein Leben, das wir noch finden könnten.“ Das Kind wählt „Spatz“, weil Spatzen wiederkommen dürfen.\n\nDu kannst die Suche damit beenden. Die Täfelchen im Moor bleiben dann unverglichen.",
+        "choices": [
+          {
+            "text": "Die Suche beenden und den Wunsch respektieren.",
+            "next": "k2n_kind_spatz"
+          },
+          {
+            "text": "Ich suche erst die beiden Spuren."
+          }
+        ]
+      },
+      "k2n_kind_spatz": {
+        "text": "Sedge nennt das Kind Spatz und stellt eine Schale Suppe hin. Für deine Begleitung gibt sie dir einen kleinen Lohn, den verlorenen Namen habt ihr nicht zurückgeholt.",
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ],
+        "complete_quests": [
+          "k2n_moorkind"
+        ],
+        "sets_flags": [
+          "k2n_moorkind_done",
+          "k2n_kind_spatz",
+          "k2n_kind_spur_stimme",
+          "k2n_kind_spur_holz"
+        ],
+        "gives_money": 20,
+        "honor": 1
+      }
+    }
+  },
+  "hesper": {
+    "choices_add": [
+      {
+        "text": "Du hattest Adas Gewichte im Schrank.",
+        "next": "k2n_waage_hesper",
+        "requires_quests_active": [
+          "k2n_salzwaage"
+        ],
+        "hide_if_clues": [
+          "k2n_waage_hesper"
+        ]
+      },
+      {
+        "text": "Wer hat diesen Pfandzettel gebracht?",
+        "next": "k2n_pfand_bote",
+        "requires_quests_active": [
+          "k2n_pfandzettel"
+        ],
+        "requires_items": [
+          "k2n_pfandzettel"
+        ],
+        "hide_if_flags": [
+          "k2n_pfand_bote"
+        ]
+      },
+      {
+        "text": "Ivy hat meine Kassette verwahrt. Ich muss antworten.",
+        "next": "k2n_pfand_wahl",
+        "requires_quests_active": [
+          "k2n_pfandzettel"
+        ],
+        "requires_items": [
+          "k2n_pfandzettel",
+          "k2n_ivys_brief"
+        ]
+      },
+      {
+        "text": "Ich habe eine persönliche Lieferung von Zunder.",
+        "next": "k2n_liste_hesper_weg",
+        "requires_quests_active": [
+          "k2n_zunders_liste"
+        ],
+        "requires_items": [
+          "k2n_brief_hesper"
+        ],
+        "hide_if_flags": [
+          "k2n_liste_hesper"
+        ]
+      }
+    ],
+    "nodes_add": {
+      "k2n_waage_hesper": {
+        "text": "Hesper stellt den Krug ab. „Wenn ich Gäste betrüge, nehme ich kleinere Gläser. Ich höhle keine Messingklötze aus.“\n\nSie zeigt dir den trockenen Schrank und nennt den Abholtag.",
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ],
+        "gives_clues": [
+          "k2n_waage_hesper"
+        ]
+      },
+      "k2n_pfand_bote": {
+        "text": "„Ein Bahnpostschaffner, keine Geheimloge“, sagt Hesper. „Er durfte den Brief nicht öffnen und hat den Pfandzettel trotzdem unter einen Krug geschoben. Eine bemerkenswerte Auswahl an Pflichten.“\n\nSie zeigt auf das Brieffach. „Der versiegelte Umschlag liegt noch dort.“",
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ],
+        "sets_flags": [
+          "k2n_pfand_bote"
+        ]
+      },
+      "k2n_pfand_wahl": {
+        "text": "Hesper legt zwei Antwortbögen hin. „Verwahren lassen oder verkaufen. Der Schaffner nimmt beides mit, aber zurückholen lässt sich nur das erste.“\n\nSie bietet dir für die Verkaufserlaubnis einen Vorschuss an. Den Transportrest trägt sie, wenn du die Kassette behalten willst.",
+        "choices": [
+          {
+            "text": "Zurücklegen lassen. Das alte Büro soll nicht ganz verschwinden.",
+            "next": "k2n_pfand_behalten"
+          },
+          {
+            "text": "Verkauf erlauben und den Vorschuss nehmen.",
+            "next": "k2n_pfand_verkaufen"
+          }
+        ]
+      },
+      "k2n_pfand_behalten": {
+        "text": "Hesper versiegelt deine Antwort. „Ein paar Dinge dürfen warten, bis ihr Besitzer wieder Platz für sie hat.“ Sie legt dir Brot für den Heimweg hin.",
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ],
+        "complete_quests": [
+          "k2n_pfandzettel"
+        ],
+        "sets_flags": [
+          "k2n_pfandzettel_done",
+          "k2n_pfand_verwahrt"
+        ],
+        "honor": 3,
+        "gives_items": {
+          "salzbrot": 2
+        },
+        "takes_items": {
+          "k2n_pfandzettel": 1
+        }
+      },
+      "k2n_pfand_verkaufen": {
+        "text": "Du unterschreibst die Verkaufserlaubnis, nicht den alten Pfandvertrag. Hesper zahlt den vereinbarten Vorschuss aus und heftet den Zettel an deine Antwort.",
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ],
+        "complete_quests": [
+          "k2n_pfandzettel"
+        ],
+        "sets_flags": [
+          "k2n_pfandzettel_done",
+          "k2n_pfand_verkauft"
+        ],
+        "gives_money": 48,
+        "takes_items": {
+          "k2n_pfandzettel": 1
+        }
+      },
+      "k2n_liste_hesper_weg": {
+        "text": "Du erkennst den Empfänger, aber vor dem letzten freien Stück stehen neugierige Augen. Eine passende Verkleidung macht die Übergabe gewöhnlich, ein bezahlter Bote macht sie kurz. Du kannst auch die lange, dunkle Hintergasse nehmen.",
+        "choices": [
+          {
+            "text": "In passender Verkleidung persönlich übergeben.",
+            "next": "k2n_liste_hesper_maske",
+            "requires_flags": [
+              "k2_wear_fischerjacke"
+            ],
+            "requires_items": [
+              "fischerjacke"
+            ]
+          },
+          {
+            "text": "Einen Boten bezahlen. (4 Schilling)",
+            "next": "k2n_liste_hesper_bote",
+            "requires_money": 4
+          },
+          {
+            "text": "Den langen Hinterweg nehmen. (3 Nerven)",
+            "next": "k2n_liste_hesper_wegfrei"
+          }
+        ]
+      },
+      "k2n_liste_hesper_maske": {
+        "text": "Hesper zählt nicht nach. „Sie hat sogar das Brot bezahlt, das ich selbst gegessen habe. Sag ihr, die nächste Suppe geht auf mich.“",
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ],
+        "sets_flags": [
+          "k2n_liste_hesper"
+        ],
+        "takes_items": {
+          "k2n_brief_hesper": 1
+        }
+      },
+      "k2n_liste_hesper_bote": {
+        "text": "Hesper zählt nicht nach. „Sie hat sogar das Brot bezahlt, das ich selbst gegessen habe. Sag ihr, die nächste Suppe geht auf mich.“",
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ],
+        "sets_flags": [
+          "k2n_liste_hesper"
+        ],
+        "takes_items": {
+          "k2n_brief_hesper": 1
+        },
+        "takes_money": 4
+      },
+      "k2n_liste_hesper_wegfrei": {
+        "text": "Hesper zählt nicht nach. „Sie hat sogar das Brot bezahlt, das ich selbst gegessen habe. Sag ihr, die nächste Suppe geht auf mich.“",
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ],
+        "sets_flags": [
+          "k2n_liste_hesper"
+        ],
+        "takes_items": {
+          "k2n_brief_hesper": 1
+        },
+        "nerves": -3
+      }
+    }
+  },
+  "brack": {
+    "choices_add": [
+      {
+        "text": "Was hast du an Adas Gewichten repariert?",
+        "next": "k2n_waage_brack",
+        "requires_quests_active": [
+          "k2n_salzwaage"
+        ],
+        "hide_if_clues": [
+          "k2n_waage_brack"
+        ]
+      },
+      {
+        "text": "Ole hört ein Lied in den Bojen. Kann ich hinaus?",
+        "next": "k2n_lied_auftrag",
+        "hide_if_quests": [
+          "k2n_bojenlied"
+        ],
+        "hide_if_flags": [
+          "kapitel2_done"
+        ],
+        "requires_quests_active": [
+          "k2_akt2"
+        ]
+      },
+      {
+        "text": "Ich habe das ganze Lied gelesen. Wer soll es hören?",
+        "next": "k2n_lied_wahl",
+        "requires_quests_active": [
+          "k2n_bojenlied"
+        ],
+        "requires_flags": [
+          "k2n_lied_blatt_gelesen"
+        ]
+      }
+    ],
+    "nodes_add": {
+      "k2n_waage_brack": {
+        "text": "Brack legt das Netz beiseite. „Ich hätte sie behalten müssen, bis richtiges Blei da war. Stattdessen habe ich den Warnfaden abgeschnitten. Eile sieht von außen genau wie Absicht aus.“",
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ],
+        "gives_clues": [
+          "k2n_waage_brack"
+        ]
+      },
+      "k2n_lied_auftrag": {
+        "text": "„Ole sagt, diesmal ist es kein Ruf der Glockenmutter. Es sind drei Pausen, immer an denselben Stellen.“ Brack schiebt dir ein Ruder hin. „Mein Reserveboot liegt am Steg. Drei kurze Fahrten, jede endet wieder hier. Das große Boot bleibt vertäut.“",
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ],
+        "start_quests": [
+          "k2n_bojenlied"
+        ]
+      },
+      "k2n_lied_wahl": {
+        "text": "Brack legt eine kleine Messingglocke auf den Poller. „Ole will, dass die Kinder es lernen. Die Familien der Vermissten wollen vielleicht nur in Ruhe zuhören.“\n\nDie Strophen gehören niemandem. Ihre erste Aufführung kannst du trotzdem jemandem schenken.",
+        "choices": [
+          {
+            "text": "Im Hafen singen, damit es weitergegeben wird.",
+            "next": "k2n_lied_hafen"
+          },
+          {
+            "text": "Nur den wartenden Familien eine Abschrift geben.",
+            "next": "k2n_lied_familien"
+          }
+        ]
+      },
+      "k2n_lied_hafen": {
+        "text": "Am nächsten Abend summt jemand beim Netzeholen die erste Zeile. Brack lässt die kleine Glocke am Kahn aufhängen und bezahlt die drei Fahrten.",
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ],
+        "complete_quests": [
+          "k2n_bojenlied"
+        ],
+        "sets_flags": [
+          "k2n_bojenlied_done",
+          "k2n_kahn_glocke"
+        ],
+        "gives_money": 24,
+        "honor": 1
+      },
+      "k2n_lied_familien": {
+        "text": "Die Abschriften verschwinden in Manteltaschen. Niemand singt, aber eine Frau rückt auf ihrer Bank ein Stück zur Seite.",
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ],
+        "complete_quests": [
+          "k2n_bojenlied"
+        ],
+        "sets_flags": [
+          "k2n_bojenlied_done",
+          "k2n_lied_familien"
+        ],
+        "gives_money": 30,
+        "honor": 3
+      }
+    }
+  },
+  "druce": {
+    "choices_add": [
+      {
+        "text": "Warum fahren Boote ohne Licht durch deine Schleuse?",
+        "next": "k2n_schleuse_auftrag",
+        "hide_if_quests": [
+          "k2n_schleusenwaerter"
+        ],
+        "hide_if_flags": [
+          "kapitel2_done",
+          "k2_akt4_done"
+        ],
+        "requires_flags": [
+          "k2_akt2_done"
+        ]
+      },
+      {
+        "text": "Ich kenne Fracht und Zahlungen. Wir müssen über den Weg reden.",
+        "next": "k2n_schleuse_wahl",
+        "requires_quests_active": [
+          "k2n_schleusenwaerter"
+        ],
+        "requires_conclusions": [
+          "k2n_schleuse_schluss"
+        ]
+      },
+      {
+        "text": "Ich habe eine persönliche Lieferung von Zunder.",
+        "next": "k2n_liste_druce_weg",
+        "requires_quests_active": [
+          "k2n_zunders_liste"
+        ],
+        "requires_items": [
+          "k2n_brief_druce"
+        ],
+        "hide_if_flags": [
+          "k2n_liste_druce"
+        ]
+      }
+    ],
+    "nodes_add": {
+      "k2n_schleuse_auftrag": {
+        "text": "Druce legt die Hand auf das Rad. „Weil ein Licht manches anzieht. Und weil nicht jede Fracht auf einem Steuerzettel stehen sollte.“\n\n„Sieh ins Nachtbuch und prüf die Kiste am unteren Steg. Dann sag mir, ob du Menschen oder Lampen geholfen hast.“",
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ],
+        "start_quests": [
+          "k2n_schleusenwaerter"
+        ]
+      },
+      "k2n_schleuse_wahl": {
+        "text": "„Ich nehme Geld“, sagt Druce. „Meine Frau isst keine guten Absichten. Aber auf diesen Booten hat niemand um Hilfe geklopft.“\n\nDu kannst einen Beleg an die Wache schicken, den Versorgungsweg schützen oder selbst eine bezahlte Fahrt übernehmen.",
+        "choices": [
+          {
+            "text": "Den belegten Schmuggel schriftlich melden.",
+            "next": "k2n_schleuse_melden"
+          },
+          {
+            "text": "Den Weg decken, ohne einen Anteil zu verlangen.",
+            "next": "k2n_schleuse_decken"
+          },
+          {
+            "text": "Eine Fahrt übernehmen und mitverdienen.",
+            "next": "k2n_schleuse_anteil"
+          }
+        ]
+      },
+      "k2n_schleuse_melden": {
+        "text": "Du gibst eine sachliche Meldung am amtlichen Briefkasten ab. Druce schließt für diese Nacht die Schleuse, und eine versiegelte Antwort enthält die kleine Auskunftsprämie.",
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ],
+        "complete_quests": [
+          "k2n_schleusenwaerter"
+        ],
+        "sets_flags": [
+          "k2n_schleusenwaerter_done",
+          "k2n_lichtlose_gemeldet"
+        ],
+        "gives_money": 22,
+        "honor": 2
+      },
+      "k2n_schleuse_decken": {
+        "text": "Druce streicht deinen Namen aus seiner privaten Rechnung. „Dann weißt du, wo du Wärme findest.“ Er gibt dir eine Einladung der Lichtlosen und Brot für den Weg.",
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ],
+        "complete_quests": [
+          "k2n_schleusenwaerter"
+        ],
+        "sets_flags": [
+          "k2n_schleusenwaerter_done",
+          "k2n_lichtlose_gedeckt",
+          "treffen_lichtlose"
+        ],
+        "gives_items": {
+          "salzbrot": 3
+        },
+        "honor": 2
+      },
+      "k2n_schleuse_anteil": {
+        "text": "Die kurze Fahrt endet unter einer nassen Decke aus Nebel. Druce zahlt deinen einmaligen Anteil aus, und du weißt nun, wie schnell ein Gefallen zur Einnahme wird.",
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ],
+        "complete_quests": [
+          "k2n_schleusenwaerter"
+        ],
+        "sets_flags": [
+          "k2n_schleusenwaerter_done",
+          "k2n_lichtlose_anteil"
+        ],
+        "gives_money": 65,
+        "honor": -2,
+        "wanted": 2
+      },
+      "k2n_liste_druce_weg": {
+        "text": "Du erkennst den Empfänger, aber vor dem letzten freien Stück stehen neugierige Augen. Eine passende Verkleidung macht die Übergabe gewöhnlich, ein bezahlter Bote macht sie kurz. Du kannst auch die lange, dunkle Hintergasse nehmen.",
+        "choices": [
+          {
+            "text": "In passender Verkleidung persönlich übergeben.",
+            "next": "k2n_liste_druce_maske",
+            "requires_flags": [
+              "k2_wear_torfkittel"
+            ],
+            "requires_items": [
+              "torfkittel"
+            ]
+          },
+          {
+            "text": "Einen Boten bezahlen. (4 Schilling)",
+            "next": "k2n_liste_druce_bote",
+            "requires_money": 4
+          },
+          {
+            "text": "Den langen Hinterweg nehmen. (3 Nerven)",
+            "next": "k2n_liste_druce_wegfrei"
+          }
+        ]
+      },
+      "k2n_liste_druce_maske": {
+        "text": "Druce faltet den Umschlag einmal zu oft. „Nur Nachrichten, weiter nichts. Dass sie wieder selbst Rechnungen schreibt, ist das Beste daran.“",
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ],
+        "sets_flags": [
+          "k2n_liste_druce"
+        ],
+        "takes_items": {
+          "k2n_brief_druce": 1
+        }
+      },
+      "k2n_liste_druce_bote": {
+        "text": "Druce faltet den Umschlag einmal zu oft. „Nur Nachrichten, weiter nichts. Dass sie wieder selbst Rechnungen schreibt, ist das Beste daran.“",
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ],
+        "sets_flags": [
+          "k2n_liste_druce"
+        ],
+        "takes_items": {
+          "k2n_brief_druce": 1
+        },
+        "takes_money": 4
+      },
+      "k2n_liste_druce_wegfrei": {
+        "text": "Druce faltet den Umschlag einmal zu oft. „Nur Nachrichten, weiter nichts. Dass sie wieder selbst Rechnungen schreibt, ist das Beste daran.“",
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ],
+        "sets_flags": [
+          "k2n_liste_druce"
+        ],
+        "takes_items": {
+          "k2n_brief_druce": 1
+        },
+        "nerves": -3
+      }
+    }
+  },
+  "zunder": {
+    "choices_add": [
+      {
+        "text": "Du hast nach deiner Befreiung eine Liste geschrieben.",
+        "next": "k2n_liste_auftrag",
+        "hide_if_quests": [
+          "k2n_zunders_liste"
+        ],
+        "hide_if_flags": [
+          "kapitel2_done"
+        ],
+        "requires_flags": [
+          "k2_zunder_free"
+        ]
+      },
+      {
+        "text": "Alle drei Umschläge sind angekommen.",
+        "next": "k2n_liste_wahl",
+        "requires_quests_active": [
+          "k2n_zunders_liste"
+        ],
+        "requires_flags": [
+          "k2n_liste_hesper",
+          "k2n_liste_druce",
+          "k2n_liste_pedell"
+        ]
+      }
+    ],
+    "nodes_add": {
+      "k2n_liste_auftrag": {
+        "text": "Zunder schiebt dir drei versiegelte Umschläge hin. „Hesper hat gekocht, Druce hat Nachrichten getragen, Lamm hat eine Decke durch die richtige Tür geschoben. Ich zahle meine Schulden selbst.“\n\nDraußen pfeift eine Streife. „Sie suchen jetzt jeden meiner Besucher. Zwölf Schilling für Umwege gebe ich dir mit. Verkleidungen kosten weniger als Erklärungen.“",
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ],
+        "start_quests": [
+          "k2n_zunders_liste"
+        ],
+        "sets_flags": [
+          "k2n_liste_suche"
+        ],
+        "wanted": 3,
+        "gives_money": 12,
+        "gives_items": {
+          "k2n_brief_hesper": 1,
+          "k2n_brief_druce": 1,
+          "k2n_brief_pedell": 1
+        }
+      },
+      "k2n_liste_wahl": {
+        "text": "Zunder streicht drei Zeilen durch. „Jetzt kann ich wieder bei ihnen aufkreuzen, ohne zuerst auf meine Stiefel zu schauen.“\n\nEin neu abgedichteter Torfofen wartet neben der Koje. „Der ersetzt auf jeden Fall unseren zugigen alten Ofen. Aber die übrigen zwölf Schilling: Soll ich dir die Mühe bezahlen, oder legen wir sie für den nächsten Gefallen zurück?“",
+        "choices": [
+          {
+            "text": "Behalte sie als Hilfskasse.",
+            "next": "k2n_liste_kasse"
+          },
+          {
+            "text": "Bezahl mir die Mühe.",
+            "next": "k2n_liste_lohn"
+          }
+        ]
+      },
+      "k2n_liste_kasse": {
+        "text": "Zunder wirft die Münzen in eine Blechdose. „Gut. Dann heißt die Dose ab jetzt nicht Notgeld, sondern nächstes Mal.“ Der Ofen bekommt seinen ersten Torfziegel.",
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ],
+        "complete_quests": [
+          "k2n_zunders_liste"
+        ],
+        "sets_flags": [
+          "k2n_zunders_liste_done",
+          "k2n_liste_hilfskasse",
+          "k2n_kahn_ofen"
+        ],
+        "bond": {
+          "zunder": 3
+        },
+        "honor": 2
+      },
+      "k2n_liste_lohn": {
+        "text": "Zunder zählt dir den Lohn in die Hand. „Freundschaft macht Wege nicht kürzer. Ich weiß das.“ Dann schiebt sie den Ofen an seinen Platz.",
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ],
+        "complete_quests": [
+          "k2n_zunders_liste"
+        ],
+        "sets_flags": [
+          "k2n_zunders_liste_done",
+          "k2n_liste_lohn",
+          "k2n_kahn_ofen"
+        ],
+        "bond": {
+          "zunder": 2
+        },
+        "gives_money": 12
+      }
+    }
+  },
+  "pedell": {
+    "choices_add": [
+      {
+        "text": "Ich habe eine persönliche Lieferung von Zunder.",
+        "next": "k2n_liste_pedell_weg",
+        "requires_quests_active": [
+          "k2n_zunders_liste"
+        ],
+        "requires_items": [
+          "k2n_brief_pedell"
+        ],
+        "hide_if_flags": [
+          "k2n_liste_pedell"
+        ]
+      }
+    ],
+    "nodes_add": {
+      "k2n_liste_pedell_weg": {
+        "text": "Du erkennst den Empfänger, aber vor dem letzten freien Stück stehen neugierige Augen. Eine passende Verkleidung macht die Übergabe gewöhnlich, ein bezahlter Bote macht sie kurz. Du kannst auch die lange, dunkle Hintergasse nehmen.",
+        "choices": [
+          {
+            "text": "In passender Verkleidung persönlich übergeben.",
+            "next": "k2n_liste_pedell_maske",
+            "requires_flags": [
+              "k2_wear_akademierobe"
+            ],
+            "requires_items": [
+              "akademierobe"
+            ]
+          },
+          {
+            "text": "Einen Boten bezahlen. (4 Schilling)",
+            "next": "k2n_liste_pedell_bote",
+            "requires_money": 4
+          },
+          {
+            "text": "Den langen Hinterweg nehmen. (3 Nerven)",
+            "next": "k2n_liste_pedell_wegfrei"
+          }
+        ]
+      },
+      "k2n_liste_pedell_maske": {
+        "text": "Lamm versteckt den Umschlag im Besenstiel. „Die Decke war Inventar. Ihre Rückkehr offenbar auch. Ich habe nichts bemerkt.“",
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ],
+        "sets_flags": [
+          "k2n_liste_pedell"
+        ],
+        "takes_items": {
+          "k2n_brief_pedell": 1
+        }
+      },
+      "k2n_liste_pedell_bote": {
+        "text": "Lamm versteckt den Umschlag im Besenstiel. „Die Decke war Inventar. Ihre Rückkehr offenbar auch. Ich habe nichts bemerkt.“",
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ],
+        "sets_flags": [
+          "k2n_liste_pedell"
+        ],
+        "takes_items": {
+          "k2n_brief_pedell": 1
+        },
+        "takes_money": 4
+      },
+      "k2n_liste_pedell_wegfrei": {
+        "text": "Lamm versteckt den Umschlag im Besenstiel. „Die Decke war Inventar. Ihre Rückkehr offenbar auch. Ich habe nichts bemerkt.“",
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ],
+        "sets_flags": [
+          "k2n_liste_pedell"
+        ],
+        "takes_items": {
+          "k2n_brief_pedell": 1
+        },
+        "nerves": -3
+      }
+    }
+  }
+}

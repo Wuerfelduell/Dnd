@@ -1,0 +1,639 @@
+[
+  {
+    "map": "wx_torfstich",
+    "tile": [
+      8,
+      5
+    ],
+    "visible_if": {
+      "hide_if_quests": [
+        "k2n_reetdach"
+      ],
+      "hide_if_flags": [
+        "kapitel2_done"
+      ],
+      "requires_quests_active": [
+        "k2_akt1"
+      ]
+    },
+    "interactable": {
+      "id": "k2n_reet_auftrag",
+      "kind": "read",
+      "title": "Das Dach ohne Morgen",
+      "text": "Ein Reetdecker sitzt auf seiner Leiter und hält den letzten Halm fest. „Jede Nacht decke ich dasselbe Dach. Morgens liegt das Reet unten im Wasser, ordentlich gebündelt, als hätte jemand Feierabend gemacht.“\n\nEr zeigt dir die leere Kerbe über der Tür. „Mutter Sedge nennt das eine vergessene Adresse. Frag sie, bevor ich dem Haus eine Rechnung schicke.“",
+      "prompt": "Das Dach ohne Morgen",
+      "marker": true,
+      "done_flag": "k2n_reet_auftrag_gelesen",
+      "effects": {
+        "start_quests": [
+          "k2n_reetdach"
+        ]
+      }
+    }
+  },
+  {
+    "map": "wx_torfstich",
+    "tile": [
+      9,
+      4
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k2n_reetdach"
+      ]
+    },
+    "interactable": {
+      "id": "k2n_reet_spur",
+      "kind": "read",
+      "title": "Die Kerbe am Türbalken",
+      "text": "Kein Halm ist gerissen. Die Reetbündel liegen mit den Schnittenden zum Moor, und im Türbalken steckt der Rest eines ausgewaschenen Täfelchens. Darauf steht nicht der Name eines Menschen, sondern: „Haus am warmen Graben“.",
+      "prompt": "Die Kerbe am Türbalken",
+      "marker": true,
+      "done_flag": "k2n_reet_spur_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k2n_reet_kerbe"
+        ]
+      }
+    }
+  },
+  {
+    "map": "wx_torfstich",
+    "tile": [
+      8,
+      5
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k2n_reetdach"
+      ],
+      "requires_flags": [
+        "k2n_reet_brauch"
+      ]
+    },
+    "interactable": {
+      "id": "k2n_reet_ritus",
+      "kind": "read",
+      "title": "Ein Dach bekommt einen Namen",
+      "text": "Der Reetdecker will „Haus am warmen Graben“ behalten. Gemeinsam schnitzt ihr die Wörter, befestigt das Täfelchen und lasst ein einziges Bündel ins Wasser gleiten. Beim ersten Morgenlicht sitzt das übrige Reet noch auf dem Dach.\n\nDer Decker hat zwei trockene Matten übrig. „Für deinen Kahn, oder für die Nachbarin? Beides kann ich nicht versprechen. Sag Sedge Bescheid, sie bringt sie hin.“",
+      "prompt": "Ein Dach bekommt einen Namen",
+      "marker": true,
+      "done_flag": "k2n_reet_ritus_gelesen",
+      "effects": {
+        "sets_flags": [
+          "k2n_reet_gehalten"
+        ]
+      }
+    }
+  },
+  {
+    "map": "wx_salzmarkt",
+    "tile": [
+      15,
+      7
+    ],
+    "visible_if": {},
+    "npc": "k2n_eichmeisterin"
+  },
+  {
+    "map": "wx_salzmarkt",
+    "tile": [
+      16,
+      7
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k2n_salzwaage"
+      ]
+    },
+    "interactable": {
+      "id": "k2n_waage_probe",
+      "kind": "read",
+      "title": "Die leichter werdenden Gewichte",
+      "text": "Unter dem unbeschädigten Messingmantel sitzt ein weißer Pfropfen. Auf einem feuchten Tuch bildet sich darunter eine Salzblüte. Adas Kontrollgewicht aus massivem Eisen bleibt auf derselben Waage unverändert.",
+      "prompt": "Die leichter werdenden Gewichte",
+      "marker": true,
+      "done_flag": "k2n_waage_probe_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k2n_waage_salz"
+        ]
+      }
+    }
+  },
+  {
+    "map": "wx_salzmarkt",
+    "tile": [
+      16,
+      8
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k2n_salzwaage"
+      ]
+    },
+    "interactable": {
+      "id": "k2n_waage_zettel",
+      "kind": "read",
+      "title": "Den Reparaturzettel lesen",
+      "text": "Im Deckel des Kastens klebt Bracks Reparaturzettel. „Bleifüllung“ ist durchgestrichen, darunter steht „Salz, nur bis Montag“. Ada hat die Gewichte schon am Sonnabend zurückgeholt. Das kleine Blatt wurde nie nach außen gedreht.",
+      "prompt": "Den Reparaturzettel lesen",
+      "marker": true,
+      "done_flag": "k2n_waage_zettel_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k2n_waage_zettel"
+        ]
+      }
+    }
+  },
+  {
+    "map": "wx_bojenhafen",
+    "tile": [
+      18,
+      9
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k2n_bojenlied"
+      ]
+    },
+    "interactable": {
+      "id": "k2n_lied_boje1",
+      "kind": "read",
+      "title": "Zur roten Boje rudern",
+      "text": "Du ruderst zur roten Boje und legst die Hand auf das Eisen. Zwei kurze Stöße wandern durch die Kette. Auf dem alten Guss steht „Wenn kein Fenster“, danach kommt eine lange Pause. Du kehrst zum Steg zurück.",
+      "prompt": "Zur roten Boje rudern",
+      "marker": true,
+      "done_flag": "k2n_lied_boje1_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k2n_lied_1"
+        ]
+      }
+    }
+  },
+  {
+    "map": "wx_bojenhafen",
+    "tile": [
+      20,
+      9
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k2n_bojenlied"
+      ],
+      "requires_clues": [
+        "k2n_lied_1"
+      ]
+    },
+    "interactable": {
+      "id": "k2n_lied_boje2",
+      "kind": "read",
+      "title": "Zur grünen Boje rudern",
+      "text": "Die grüne Boje liegt außerhalb des Laternenscheins. Du ruderst hinüber und hörst drei dumpfe Töne durch das Holz des Boots. Unter dem Algenrand liest du „dich mehr kennt“. Am Steg bindest du das Boot wieder fest.",
+      "prompt": "Zur grünen Boje rudern",
+      "marker": true,
+      "done_flag": "k2n_lied_boje2_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k2n_lied_2"
+        ]
+      }
+    }
+  },
+  {
+    "map": "wx_bojenhafen",
+    "tile": [
+      22,
+      9
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k2n_bojenlied"
+      ],
+      "requires_clues": [
+        "k2n_lied_2"
+      ]
+    },
+    "interactable": {
+      "id": "k2n_lied_boje3",
+      "kind": "read",
+      "title": "Zur namenlosen Boje rudern",
+      "text": "Du ruderst zur kleinen Boje hinter der Sandbank. Ihre Glocke hat keinen Klöppel, doch die Kette antwortet im selben Takt. „Halt den Platz, an dem man wartet“, steht innen im Eisen. Du nimmst die letzte Zeile mit zurück.",
+      "prompt": "Zur namenlosen Boje rudern",
+      "marker": true,
+      "done_flag": "k2n_lied_boje3_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k2n_lied_3"
+        ]
+      }
+    }
+  },
+  {
+    "map": "wx_bojenhafen",
+    "tile": [
+      23,
+      9
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k2n_bojenlied"
+      ],
+      "requires_clues": [
+        "k2n_lied_1",
+        "k2n_lied_2",
+        "k2n_lied_3"
+      ]
+    },
+    "interactable": {
+      "id": "k2n_lied_blatt",
+      "kind": "read",
+      "title": "Das Lied vom freien Platz",
+      "text": "Brack hat Oles alte Notenzeile aufgeschrieben. Die drei Takte füllen ihre Lücken.\n\n„Wenn kein Fenster dich mehr kennt,\nwenn dein Name leise brennt,\nhalt den Platz, an dem man wartet,\nbis ein Boot nach Hause startet.\nStell die Schale nicht beiseit.\nEiner kommt noch. Lass ihm Zeit.“\n\nAm Rand steht: „Kein Zauber. Nur etwas, das man nicht verlernen sollte.“",
+      "prompt": "Das Lied vom freien Platz",
+      "marker": true,
+      "done_flag": "k2n_lied_blatt_gelesen"
+    }
+  },
+  {
+    "map": "wx_oberstadt",
+    "tile": [
+      17,
+      6
+    ],
+    "visible_if": {},
+    "npc": "k2n_zeichner"
+  },
+  {
+    "map": "wx_oberstadt",
+    "tile": [
+      18,
+      6
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k2n_falsches_gesicht"
+      ]
+    },
+    "interactable": {
+      "id": "k2n_gesicht_druck",
+      "kind": "read",
+      "title": "Den Probedruck vergleichen",
+      "text": "Neben dem Probedruck liegt ein abgegriffenes Trauerbild: „Arven Feder“. Die Narbe auf seiner Wange ist auf jedem neuen Steckbrief gleich. Auf deinem alten Fahndungsblatt fehlt sie.",
+      "prompt": "Den Probedruck vergleichen",
+      "marker": true,
+      "done_flag": "k2n_gesicht_druck_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k2n_gesicht_druck"
+        ]
+      }
+    }
+  },
+  {
+    "map": "wx_akademie",
+    "tile": [
+      18,
+      8
+    ],
+    "visible_if": {},
+    "npc": "k2n_student"
+  },
+  {
+    "map": "wx_salzwatt",
+    "tile": [
+      7,
+      14
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k2n_kuestengift"
+      ]
+    },
+    "interactable": {
+      "id": "k2n_gift_watt",
+      "kind": "read",
+      "title": "Die Vergleichsprobe nehmen",
+      "text": "Du füllst klares Wasser in ein sauberes Glas. Eine ältere grüne Tropfspur zieht sich daneben Richtung Stadt, ohne Fußabdrücke. Jorins Rückweg lässt sich verfolgen, sein vermeintlicher Verfolger nicht.",
+      "prompt": "Die Vergleichsprobe nehmen",
+      "marker": true,
+      "done_flag": "k2n_gift_watt_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k2n_gift_watt"
+        ]
+      }
+    }
+  },
+  {
+    "map": "wx_akademie",
+    "tile": [
+      19,
+      8
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k2n_kuestengift"
+      ],
+      "requires_flags": [
+        "k2_wear_akademierobe"
+      ],
+      "requires_items": [
+        "akademierobe"
+      ],
+      "requires_clues": [
+        "k2n_gift_watt"
+      ]
+    },
+    "interactable": {
+      "id": "k2n_gift_labor",
+      "kind": "read",
+      "title": "Den Abfallbehälter prüfen",
+      "text": "Du stellst die reine Probe neben Jorins Abfallglas. Erst ein Körnchen seines Linsensalzes lässt das saubere Wasser im Dunkeln nach dem Glas greifen. Jorin flüstert: „Ich habe das Moorwasser untersucht und meine eigene Zutat vergessen.“",
+      "prompt": "Den Abfallbehälter prüfen",
+      "marker": true,
+      "done_flag": "k2n_gift_labor_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k2n_gift_labor"
+        ]
+      }
+    }
+  },
+  {
+    "map": "wx_glocke",
+    "tile": [
+      7,
+      4
+    ],
+    "visible_if": {
+      "hide_if_quests": [
+        "k2n_pfandzettel"
+      ],
+      "hide_if_flags": [
+        "kapitel2_done"
+      ],
+      "requires_quests_active": [
+        "k2_akt3"
+      ]
+    },
+    "interactable": {
+      "id": "k2n_pfand_fund",
+      "kind": "read",
+      "title": "Der Pfandzettel unter dem Krug",
+      "text": "Unter einem Krug steckt ein Pfandzettel aus Kettlegate. Der Abdruck stammt von deinem alten Büro-Siegel, aber die Unterschrift fehlt. Auf der Rückseite steht: „An den Reisenden aus Kettlegate, nur persönlich.“\n\nHesper muss wissen, wer hier etwas für dich hinterlegt.",
+      "prompt": "Der Pfandzettel unter dem Krug",
+      "marker": true,
+      "done_flag": "k2n_pfand_fund_gelesen",
+      "effects": {
+        "start_quests": [
+          "k2n_pfandzettel"
+        ],
+        "gives_items": {
+          "k2n_pfandzettel": 1
+        }
+      }
+    }
+  },
+  {
+    "map": "wx_glocke",
+    "tile": [
+      8,
+      4
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k2n_pfandzettel"
+      ],
+      "requires_flags": [
+        "k2n_pfand_bote"
+      ]
+    },
+    "interactable": {
+      "id": "k2n_pfand_brief",
+      "kind": "read",
+      "title": "Ivys Brief öffnen",
+      "text": "„Du hast einmal zugehört. Darum schreibe ich. Als dein Büro versiegelt wurde, stand eine Messingkassette noch im Hausflur. Ich habe sie zur sicheren Verwahrung ins Pfandhaus gebracht. Dein altes Siegel lag dabei.\n\nDu kannst sie später auslösen. Wenn du das Geld jetzt brauchst, unterschreib die Verkaufserlaubnis auf der Rückseite. Ich habe nichts darin gelesen.\n\nIvy.“\n\nDer Poststempel passt zu Hespers Schaffner, die Tinte des Briefs nicht zu deinem alten Siegel.",
+      "prompt": "Ivys Brief öffnen",
+      "marker": true,
+      "done_flag": "k2n_pfand_brief_gelesen",
+      "effects": {
+        "gives_items": {
+          "k2n_ivys_brief": 1
+        }
+      }
+    }
+  },
+  {
+    "map": "wx_bahnhof",
+    "tile": [
+      20,
+      14
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k2n_schleusenwaerter"
+      ]
+    },
+    "interactable": {
+      "id": "k2n_schleuse_buch",
+      "kind": "read",
+      "title": "Druces Nachtbuch prüfen",
+      "text": "Drei Durchfahrten stehen am Rand des Nachtbuchs. Jede ist bezahlt, keine beim Zoll angemeldet. Statt eines Namens hat Druce ein schwarzes Streichholz gezeichnet.",
+      "prompt": "Druces Nachtbuch prüfen",
+      "marker": true,
+      "done_flag": "k2n_schleuse_buch_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k2n_schleuse_buch"
+        ]
+      }
+    }
+  },
+  {
+    "map": "wx_bahnhof",
+    "tile": [
+      22,
+      14
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k2n_schleusenwaerter"
+      ]
+    },
+    "interactable": {
+      "id": "k2n_schleuse_kiste",
+      "kind": "read",
+      "title": "Die lichtlose Fracht öffnen",
+      "text": "Unter einer Lage grober Dochte liegen trockene Decken, keine Fesseln und kein Mensch. Der Absender hat das schwarze Streichholzzeichen der Lichtlosen unter den Deckel gesetzt. Das Ölmonopol macht aus Wärme Schmuggelware.",
+      "prompt": "Die lichtlose Fracht öffnen",
+      "marker": true,
+      "done_flag": "k2n_schleuse_kiste_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k2n_schleuse_kiste"
+        ]
+      }
+    }
+  },
+  {
+    "map": "wx_pfahldorf",
+    "tile": [
+      18,
+      4
+    ],
+    "visible_if": {
+      "hide_if_quests": [
+        "k2n_moorkind"
+      ],
+      "hide_if_flags": [
+        "kapitel2_done"
+      ],
+      "requires_quests_active": [
+        "k2_akt4"
+      ]
+    },
+    "interactable": {
+      "id": "k2n_kind_begegnung",
+      "kind": "read",
+      "title": "Das Kind am Geländer",
+      "text": "Ein Kind sitzt am Geländer und zählt die Finger immer wieder neu. „Die stimmen noch. Aber wie ich heiße, weiß ich nicht mehr.“\n\nAm Ärmel ist eine gelbe Schlinge vernäht. Mutter Sedge hat das Kind aus dem Vergessmoor zurückgebracht und bittet dich, die verlorene Adresse zu suchen, nicht irgendeinen Namen einzusetzen.",
+      "prompt": "Das Kind am Geländer",
+      "marker": true,
+      "done_flag": "k2n_kind_begegnung_gelesen",
+      "effects": {
+        "start_quests": [
+          "k2n_moorkind"
+        ]
+      }
+    }
+  },
+  {
+    "map": "wx_pfahldorf",
+    "tile": [
+      19,
+      4
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k2n_moorkind"
+      ]
+    },
+    "interactable": {
+      "id": "k2n_kind_stimme",
+      "kind": "read",
+      "title": "Nach dem letzten Ruf fragen",
+      "text": "Du setzt dich neben das Kind und fragst nach einer Stimme statt nach einem Namen. „Li“, sagt es, dann schließt es die Lippen zu einem N. Am Ärmel zupft es an einer gelben Schlinge mit drei Knoten.",
+      "prompt": "Nach dem letzten Ruf fragen",
+      "marker": true,
+      "done_flag": "k2n_kind_stimme_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k2n_kind_stimme"
+        ],
+        "sets_flags": [
+          "k2n_kind_spur_stimme"
+        ]
+      }
+    }
+  },
+  {
+    "map": "wx_vergessmoor",
+    "tile": [
+      12,
+      15
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k2n_moorkind"
+      ],
+      "requires_clues": [
+        "k2n_kind_stimme"
+      ]
+    },
+    "interactable": {
+      "id": "k2n_kind_holz",
+      "kind": "read",
+      "title": "Die gelbe Schlinge suchen",
+      "text": "An einer Wurzel hängen drei ausgewaschene Täfelchen: Linnet, Lio und Lin. Nur das letzte trägt eine gelbe Schlinge mit drei Knoten. Du bindest die Schlinge nicht ab. Der Name soll einen Weg zurück behalten.",
+      "prompt": "Die gelbe Schlinge suchen",
+      "marker": true,
+      "done_flag": "k2n_kind_holz_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k2n_kind_holz"
+        ],
+        "sets_flags": [
+          "k2n_kind_spur_holz"
+        ]
+      }
+    }
+  },
+  {
+    "map": "wx_salzwatt",
+    "tile": [
+      8,
+      14
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k2_akt4_done"
+      ]
+    },
+    "npc": "k2n_waerter"
+  },
+  {
+    "map": "wx_salzwatt",
+    "tile": [
+      11,
+      14
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k2n_letztes_licht"
+      ]
+    },
+    "interactable": {
+      "id": "k2n_licht_marke1",
+      "kind": "read",
+      "title": "Wartungsmarke 1 prüfen",
+      "text": "Eine geteilte Sonne ist in die landseitige Wartungsmarke geschnitten. Ihr Spalt zeigt auf die zweite Marke, nicht direkt zum Turm.",
+      "prompt": "Wartungsmarke 1 prüfen",
+      "marker": true,
+      "done_flag": "k2n_licht_marke1_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k2n_licht_marke1"
+        ]
+      }
+    }
+  },
+  {
+    "map": "wx_salzwatt",
+    "tile": [
+      16,
+      14
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k2n_letztes_licht"
+      ]
+    },
+    "interactable": {
+      "id": "k2n_licht_marke2",
+      "kind": "read",
+      "title": "Wartungsmarke 2 prüfen",
+      "text": "Die zweite Marke trägt zwei Kerben und einen Pfeil zur Inselseite. Frischer Muschelbruch belegt, dass der darunterliegende Steinrücken noch freigespült wird.",
+      "prompt": "Wartungsmarke 2 prüfen",
+      "marker": true,
+      "done_flag": "k2n_licht_marke2_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k2n_licht_marke2"
+        ]
+      }
+    }
+  }
+]
