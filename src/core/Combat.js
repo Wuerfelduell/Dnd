@@ -65,6 +65,9 @@ export function judgeTiming(pos, zone) {
   return 'miss';
 }
 
+// Werte, die jeder Spieler im Kampf für sich hat (zu zweit: Spieler 1 und 2).
+const PER_FIGHTER = ['ap', 'shield', 'evading', 'bleed', 'actions', 'itemUsed'];
+
 export class Combat {
   constructor(state, encounterId) {
     const enc = state.content.encounters[encounterId];
@@ -83,30 +86,71 @@ export class Combat {
     const heavy = enc.attacks.filter((a) => a.hits?.length === 1).sort((a, b) => b.damage - a.damage)[0];
     this.unparryable = new Set(enc.attacks.filter((a) => (flagged ? a.unparryable : a === heavy && enc.attacks.length > 2)).map((a) => a.name));
     this.weak = !!enc.weak_if && state.meets(enc.weak_if);
-    this.ap = AP_START;
+    // Kämpfer: Spieler 1 und (lokaler Koop) Spieler 2, jeder mit eigener Konzentration, Schutz, Blutung, Zug.
+    // ap, shield, evading, bleed, actions, itemUsed lesen sich über Zugriffe beim gerade betroffenen Kämpfer.
+    const fighter = (hp) => ({
+      ap: AP_START, shield: 0, evading: false, bleed: null, actions: 0, itemUsed: false, down: false, hpBefore: hp, bleedTick: 0,
+    });
+    this.fighters = { 1: fighter(state.hp) };
+    if (state.hasP2?.()) this.fighters[2] = fighter(state.p2.hp);
+    this.actor = 1; // wer am Zug ist
+    this.target = 1; // wen der Gegner gerade angreift
+    this.cur = null; // für wen die Werte gerade gelten (null = wer am Zug ist)
     this.stunned = false;
     this.round = 1;
-    this.actions = 0; // Aktionen in diesem Zug
-    this.itemUsed = false; // höchstens ein Gegenstand pro Zug
     this.attackIndex = 0;
     this.outcome = null; // 'won' | 'lost' | 'fled'
-    this.hpBefore = state.hp;
     this.log = [];
-    this.shield = 0; // fängt Schaden ab (Trugbild, Eiserne Haut)
-    this.evading = false; // nächster gegnerischer Angriff geht ins Leere
     this.confused = false; // nächster gegnerischer Angriff trifft den Gegner selbst
     this.burn = null; // { damage, rounds, source } Brand oder Gift
     // Menschliche Gegner (Sekten) haben Kniffe: Panzer, Schleier, Blutung, Einschüchterung
     this.enemyGuard = 0; // fängt Schaden am Gegner ab
     this.veiled = false; // nächste Aktion des Spielers trifft nur mit präzisem Takt
-    this.bleed = null; // { damage, rounds } Blutung beim Spieler
-    this.bleedTick = 0; // Blutungsschaden dieser Runde (für die Anzeige)
     this.lastAction = null; // { name, text } Kniff des Gegners statt eines Angriffs
+  }
+
+  // --- Zwei Spieler -----------------------------------------------------------
+  /** Spielen zwei mit? */
+  get duo() {
+    return !!this.fighters[2];
+  }
+
+  fighter(n = this.cur ?? this.actor) {
+    return this.fighters[n] ?? this.fighters[1];
+  }
+
+  /** Noch stehende Spieler (1 und/oder 2). */
+  standing() {
+    return Object.keys(this.fighters).map(Number).filter((n) => !this.fighters[n].down);
+  }
+
+  /** Führt fn für Spieler n aus: Leben, Inventar, Waffe und Kampfwerte gehören dann ihm. */
+  on(n, fn) {
+    const prev = this.cur;
+    this.cur = n;
+    try {
+      return this.state.withPlayer(n, fn);
+    } finally {
+      this.cur = prev;
+    }
+  }
+
+  /** Nach dem Zug von Spieler 1 ist Spieler 2 dran (falls er steht). true = noch ein Spielerzug. */
+  passTurn() {
+    if (this.actor === 1 && this.duo && !this.fighters[2].down && !this.outcome) { this.actor = 2; return true; }
+    return false;
+  }
+
+  /** Ein Spieler geht zu Boden. Erst wenn alle liegen, ist der Kampf verloren. */
+  knockOut(n) {
+    this.fighters[n].down = true;
+    this.fighters[n].bleed = null;
+    if (!this.standing().length) this.outcome = 'lost';
   }
 
   /** Grundfertigkeiten plus die Fähigkeiten des eigenen Pfades. */
   skillDef(id) {
-    return SKILLS[id] ?? this.state.pathwaySkills()[id];
+    return this.on(this.actor, () => SKILLS[id] ?? this.state.pathwaySkills()[id]);
   }
 
   /** Nervenkosten einer Fertigkeit (Pfad des Echos halbiert sie). */
@@ -116,6 +160,10 @@ export class Combat {
 
   // --- Spieler -------------------------------------------------------------
   skills() {
+    return this.on(this.actor, () => this.skillsNow());
+  }
+
+  skillsNow() {
     const all = { ...SKILLS, ...this.state.pathwaySkills() };
     return Object.entries(all).map(([id, sk]) => ({
       id, ...sk, composure: this.composureCost(sk),
@@ -139,10 +187,10 @@ export class Combat {
     return !this.itemUsed;
   }
 
-  /** Neuer Zug des Spielers. */
+  /** Neue Runde: alle Spieler dürfen wieder handeln, Spieler 1 beginnt (wenn er steht). */
   startTurn() {
-    this.actions = 0;
-    this.itemUsed = false;
+    for (const f of Object.values(this.fighters)) { f.actions = 0; f.itemUsed = false; }
+    this.actor = this.fighters[1].down && this.duo ? 2 : 1;
   }
 
   /** Schaden eines Treffers mit Waffe und Bewertung. */
@@ -160,6 +208,10 @@ export class Combat {
    * Ergebnis: { hits: [{grade, damage}], total, stunned }
    */
   useSkill(skillId, grades = []) {
+    return this.on(this.actor, () => this.useSkillNow(skillId, grades));
+  }
+
+  useSkillNow(skillId, grades) {
     const sk = this.skillDef(skillId);
     if (!this.canUse(skillId)) throw new Error(`Fertigkeit nicht möglich: ${skillId}`);
     this.ap -= sk.cost;
@@ -207,6 +259,10 @@ export class Combat {
 
   /** Gegenstand im Kampf. Ergebnis: { text } oder null, wenn nicht möglich. */
   useItem(id) {
+    return this.on(this.actor, () => this.useItemNow(id));
+  }
+
+  useItemNow(id) {
     const it = this.state.item(id);
     if (!it || it.kind !== 'consumable' || !this.state.itemCount(id) || this.itemUsed) return null;
     this.itemUsed = true;
@@ -256,6 +312,9 @@ export class Combat {
   /** Nächste Attacke des Gegners, oder null, wenn er geblendet aussetzt. */
   nextEnemyAttack() {
     this.lastAction = null;
+    // Zu zweit greift der Gegner einen der stehenden Spieler an (allein immer dich)
+    const up = this.standing();
+    this.target = up.length > 1 ? up[Math.floor(this.rng() * up.length)] : up[0] ?? 1;
     if (this.stunned) { this.stunned = false; return null; }
     const list = this.enc.attacks;
     const atk = list[this.attackIndex % list.length];
@@ -284,7 +343,7 @@ export class Combat {
       this.enemy.hp = Math.min(this.enemy.maxHp, this.enemy.hp + v);
       text ||= `+${this.enemy.hp - before} Leben.`;
     } else if (atk.action === 'veil') { this.veiled = true; text ||= 'Nur präzise Treffer zählen.'; }
-    else if (atk.action === 'taunt') { this.state.setComposure(this.state.composure - v); text ||= `-${v} Nerven.`; }
+    else if (atk.action === 'taunt') { this.on(this.target, () => this.state.setComposure(this.state.composure - v)); text ||= `-${v} Nerven.`; }
     else throw new Error(`Unbekannter Kniff: ${atk.action}`);
     this.lastAction = { name: atk.name, action: atk.action, value: v, text };
     this.log.push(`${atk.name}: ${text}`);
@@ -335,6 +394,10 @@ export class Combat {
    * Ergebnis: { damage, counter }
    */
   resolveHit(attack, given) {
+    return this.on(this.target, () => this.resolveHitNow(attack, given));
+  }
+
+  resolveHitNow(attack, given) {
     let result = this.evading && given === 'miss' ? 'dodge' : given;
     let note = null;
     if (result === 'parry' && attack.unparryable) { result = 'miss'; note = 'unparryable'; }
@@ -357,18 +420,18 @@ export class Combat {
     const damage = this.state.damage(incoming);
     if (damage && attack.bleed) this.bleed = { damage: attack.bleed[0], rounds: attack.bleed[1] };
     if (damage && attack.nerves) this.state.setComposure(this.state.composure - attack.nerves);
-    if (this.state.hp === 0) this.outcome = 'lost';
-    return { damage, counter: 0, result, absorbed, note };
+    if (this.state.hp === 0) this.knockOut(this.target);
+    return { damage, counter: 0, result, absorbed, note, down: this.fighters[this.target].down };
   }
 
   /** Ende des gegnerischen Zuges: Ausweichen verfällt. */
   endEnemyTurn() {
-    this.evading = false;
+    for (const f of Object.values(this.fighters)) f.evading = false;
   }
 
   /** Alle Schläge pariert: Gegenschlag. */
   riposte() {
-    const dmg = this.hurtEnemy(this.hitDamage(RIPOSTE_MULT, 'good'));
+    const dmg = this.on(this.target, () => this.hurtEnemy(this.hitDamage(RIPOSTE_MULT, 'good')));
     this.log.push(`Gegenschlag: ${dmg} Schaden`);
     return dmg;
   }
@@ -376,15 +439,20 @@ export class Combat {
   /** Rundenende: Brand/Gift wirkt auf den Gegner, Blutung auf dich (bleedTick). Gibt den Schaden am Gegner zurück. */
   endRound() {
     this.round += 1;
-    this.startTurn();
-    this.bleedTick = 0;
-    if (this.outcome) return 0;
-    if (this.bleed) {
-      this.bleedTick = this.state.damage(this.bleed.damage);
-      this.bleed.rounds -= 1;
-      if (this.bleed.rounds <= 0) this.bleed = null;
-      if (this.state.hp === 0) { this.outcome = 'lost'; return 0; }
+    for (const f of Object.values(this.fighters)) f.bleedTick = 0;
+    if (this.outcome) { this.startTurn(); return 0; }
+    for (const n of this.standing()) {
+      const f = this.fighters[n];
+      if (!f.bleed) continue;
+      this.on(n, () => {
+        f.bleedTick = this.state.damage(f.bleed.damage);
+        f.bleed.rounds -= 1;
+        if (f.bleed.rounds <= 0) f.bleed = null;
+        if (this.state.hp === 0) this.knockOut(n);
+      });
     }
+    this.startTurn();
+    if (this.outcome) return 0;
     if (!this.burn) return 0;
     const dmg = this.hurtEnemy(this.burn.damage);
     this.burn.rounds -= 1;
@@ -406,7 +474,10 @@ export class Combat {
     let text = '';
     let travel = null;
     let loot = null;
-    if (enc.practice) s.hp = Math.max(s.hp, this.hpBefore);
+    const each = (fn) => { for (const n of Object.keys(this.fighters).map(Number)) this.on(n, () => fn(this.fighters[n], n)); };
+    if (enc.practice) each((f) => { s.hp = Math.max(s.hp, f.hpBefore); });
+    // Wer zu Boden ging, der Kampf aber nicht verloren ist, rappelt sich mit wenig Leben auf
+    if (this.outcome !== 'lost') each((f) => { if (f.down || s.hp <= 0) s.hp = Math.max(1, Math.round(s.maxHp * 0.25)); });
     if (this.outcome === 'won') {
       const first = !s.flags.has(firstFlag);
       s.applyEffects({ ...enc.on_win, sets_flags: [...(enc.on_win?.sets_flags ?? []), firstFlag] });
@@ -421,11 +492,11 @@ export class Combat {
       text = enc.win_text ?? `${enc.name} ist besiegt.`;
     } else if (this.outcome === 'lost') {
       if (!enc.practice) {
-        s.hp = Math.max(1, Math.round(s.maxHp * 0.4));
+        each(() => { s.hp = Math.max(1, Math.round(s.maxHp * 0.4)); });
         s.applyEffects(enc.on_lose);
         travel = enc.lose_to ?? null;
       } else {
-        s.hp = Math.max(1, this.hpBefore);
+        each((f) => { s.hp = Math.max(1, f.hpBefore); });
       }
       text = enc.lose_text ?? (enc.practice ? 'Du liegst auf dem Rücken. Holt reicht dir die Hand.' : 'Dir wird schwarz vor Augen.');
       // Gefahrengebiete: Wer dort liegen bleibt, wird ausgeraubt
@@ -438,6 +509,7 @@ export class Combat {
       text = enc.flee_text ?? 'Du ziehst dich zurück.';
     }
     s.emit('hp', { value: s.hp, delta: 0 });
+    s.emit('party', { active: s.hasP2?.() ?? false });
     s.emit('changed');
     return { outcome: this.outcome, text, travel, loot, lootDeferred: !!loot && deferLoot };
   }
@@ -457,3 +529,14 @@ export class Combat {
     return loot;
   }
 }
+
+// ap, shield, evading, bleed, actions, itemUsed: gehören dem gerade betroffenen Kämpfer
+for (const key of PER_FIGHTER) {
+  Object.defineProperty(Combat.prototype, key, {
+    get() { return this.fighter()[key]; },
+    set(v) { this.fighter()[key] = v; },
+  });
+}
+Object.defineProperty(Combat.prototype, 'bleedTick', {
+  get() { return Object.values(this.fighters).reduce((n, f) => n + (f.bleedTick ?? 0), 0); },
+});

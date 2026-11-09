@@ -1525,12 +1525,13 @@ export class Ui {
         <div class="cb-enemy">${turnFace(scene.encounterId)}<div class="cb-name"></div><div class="bar big"><div class="efill"></div></div><div class="cb-tags"></div></div>
         <div class="cb-msg"><div class="cb-text"></div><div class="cb-help"></div></div>
         <div class="cb-bottom">
-          <div class="cb-player">
-            <div class="cb-name">${turnFace('player')}Du <span class="muted cb-weapon"></span> <span class="cb-status"></span></div>
+          <div class="cb-players">${Object.keys(scene.combat.fighters).map((n) => `
+          <div class="cb-player" data-p="${n}">
+            <div class="cb-name">${turnFace('player')}${scene.combat.duo ? `Spieler ${n}` : 'Du'} <span class="muted cb-weapon"></span> <span class="cb-status"></span></div>
             <div class="meter"><span>Leben</span><div class="bar"><div class="pfill"></div></div><em class="cb-hp"></em></div>
             <div class="meter"><span>Nerven</span><div class="bar"><div class="nfill"></div></div></div>
             <div class="cb-ap"><span>Konzentration</span> <span class="pips"></span></div>
-          </div>
+          </div>`).join('')}</div>
           <div class="cb-menu"></div>
         </div>
       </div>`;
@@ -1555,14 +1556,32 @@ export class Ui {
       c.enemyGuard ? `<span class="badge refuted">${statusIcon('eisenhaut')}Panzer ${c.enemyGuard}</span>` : '',
       c.veiled ? `<span class="badge refuted">${statusIcon('schatten')}verschleiert</span>` : '',
       c.enc.faction ? `<span class="badge"><span class="emblem16" style="background-image:url(${factionEmblemUrl(c.enc.faction)})"></span>${c.state.content.factions?.[c.enc.faction]?.name ?? ''}</span>` : ''].join(' ');
-    q('.cb-status').innerHTML = [c.shield ? statusIcon('eisenhaut', `Schutz ${c.shield}`) + c.shield : '', c.evading ? statusIcon('vorahnung', 'Nächster Angriff geht ins Leere') : '',
-      c.bleed ? statusIcon('blutung', `Blutung: ${c.bleed.damage} pro Runde, noch ${c.bleed.rounds}`) + c.bleed.rounds : ''].join(' ');
-    q('.pfill').style.width = `${(s.hp / s.maxHp) * 100}%`;
-    q('.pfill').classList.toggle('low', s.hp / s.maxHp < 0.3);
-    q('.cb-hp').textContent = `${s.hp}/${s.maxHp}`;
-    q('.nfill').style.width = `${(s.composure / s.maxComposure()) * 100}%`;
-    q('.cb-weapon').textContent = s.weaponStats().name;
-    q('.pips').innerHTML = Array.from({ length: 6 }, (_, i) => `<i class="${i < c.ap ? 'on' : ''}"></i>`).join('');
+    // Ein Feld pro Spieler; zu zweit leuchtet, wer am Zug ist bzw. angegriffen wird
+    const focus = sc.phase === 'enemy' ? c.target : c.actor;
+    for (const [n, f] of Object.entries(c.fighters)) {
+      const box = this.layer.querySelector(`.cb-player[data-p="${n}"]`);
+      if (!box) continue;
+      const v = s.playerView(Number(n));
+      const b = (sel) => box.querySelector(sel);
+      box.classList.toggle('active', c.duo && Number(n) === focus && !f.down);
+      box.classList.toggle('down', f.down);
+      b('.cb-status').innerHTML = [f.down ? '<span class="curse">K.o.</span>' : '', f.shield ? statusIcon('eisenhaut', `Schutz ${f.shield}`) + f.shield : '', f.evading ? statusIcon('vorahnung', 'Nächster Angriff geht ins Leere') : '',
+        f.bleed ? statusIcon('blutung', `Blutung: ${f.bleed.damage} pro Runde, noch ${f.bleed.rounds}`) + f.bleed.rounds : ''].join(' ');
+      b('.pfill').style.width = `${(v.hp / v.maxHp) * 100}%`;
+      b('.pfill').classList.toggle('low', v.hp / v.maxHp < 0.3);
+      b('.cb-hp').textContent = `${v.hp}/${v.maxHp}`;
+      b('.nfill').style.width = `${(v.composure / v.maxComposure) * 100}%`;
+      b('.cb-weapon').textContent = v.weapon.name;
+      b('.pips').innerHTML = Array.from({ length: 6 }, (_, i) => `<i class="${i < f.ap ? 'on' : ''}"></i>`).join('');
+    }
+  }
+
+  /** Gamepad A im Menü (Spieler 2 am Zug): Angriff bzw. erster Eintrag. */
+  combatPadPick() {
+    const m = this.combatMenuOpen;
+    if (!m) return;
+    const i = m.entries.findIndex((e) => !e.disabled && !e.back);
+    if (i >= 0) this.combatPick(i);
   }
 
   /** Mögliche Beute eines Gegners als Icon-Reihe (seltenes zuerst). */
@@ -1589,8 +1608,10 @@ export class Ui {
     const sc = this.combatScene;
     const c = sc.combat;
     let entries;
+    const mine = (fn) => this.state.withPlayer(c.actor, fn, { quiet: true });
+    const turn = c.duo ? `Spieler ${c.actor} ist am Zug. ` : '';
     if (sub === 'main') {
-      const items = this.state.items().filter((i) => i.kind === 'consumable').length;
+      const items = mine(() => this.state.items().filter((i) => i.kind === 'consumable').length);
       entries = [
         { text: 'Angriff', info: '+1 K · beendet den Zug', act: { type: 'skill', id: 'attack' } },
         { text: 'Fertigkeiten', info: `${c.ap} K`, sub: 'skills' },
@@ -1599,15 +1620,15 @@ export class Ui {
       ];
       if (c.actions) entries.push({ text: 'Zug beenden', info: '', act: { type: 'end' } });
       this.layer.querySelector('.cb-text').innerHTML = c.actions
-        ? `<p>${esc(c.log.at(-1) ?? '')}.</p><p>Runde ${c.round}: Du bist noch am Zug (${c.ap} Konzentration). Fertigkeiten kosten Konzentration, ein Gegenstand pro Zug.</p>`
-        : `<p>Runde ${c.round}. Was tust du? Solange die Konzentration reicht, kannst du mehrere Fertigkeiten nacheinander einsetzen.</p>`;
+        ? `<p>${esc(c.log.at(-1) ?? '')}.</p><p>Runde ${c.round}: ${c.duo ? `Spieler ${c.actor} ist` : 'Du bist'} noch am Zug (${c.ap} Konzentration). Fertigkeiten kosten Konzentration, ein Gegenstand pro Zug.</p>`
+        : `<p>Runde ${c.round}. ${turn}Was tust du? Solange die Konzentration reicht, kannst du mehrere Fertigkeiten nacheinander einsetzen.</p>`;
       this.layer.querySelector('.cb-help').textContent = '';
     } else if (sub === 'skills') {
       entries = c.skills().filter((k) => k.id !== 'attack').map((k) => ({
         text: `${k.pathway && !skillIconOf(k.id) ? '✧ ' : ''}${k.name}`, skill: k.id, info: `${k.cost} K${k.composure ? ` · ${k.composure} Nerven` : ''}`, desc: k.desc, act: { type: 'skill', id: k.id }, disabled: !k.usable,
       }));
     } else {
-      entries = this.state.items().filter((i) => i.kind === 'consumable').map((i) => ({ text: `${i.name} ×${i.count}`, icon: i.id, desc: i.desc, act: { type: 'item', id: i.id } }));
+      entries = mine(() => this.state.items()).filter((i) => i.kind === 'consumable').map((i) => ({ text: `${i.name} ×${i.count}`, icon: i.id, desc: i.desc, act: { type: 'item', id: i.id } }));
       if (!entries.length) entries = [{ text: 'Keine Gegenstände', disabled: true }];
     }
     if (sub !== 'main') entries.push({ text: 'Zurück', back: true });
@@ -1655,6 +1676,7 @@ export class Ui {
     this.modal = null;
     this.layer.innerHTML = '';
     this.updateHp();
+    this.updateP2();
     const title = { won: 'Sieg', lost: 'Ohnmacht', fled: 'Rückzug' }[result.outcome];
     this.keysBlockedUntil = performance.now() + 400; // hastiges E-Drücken schließt die Meldung nicht sofort
     const list = result.loot ? lootHtml(result.loot, this.state.content.items) : '';
@@ -1744,8 +1766,14 @@ export class Ui {
       if (num >= 0) { this.combatPick(num); handled = true; }
       else if ((k === 'escape' || k === 'backspace') && this.combatMenuOpen.sub !== 'main') { this.combatMenu('main'); handled = true; }
     } else {
-      const kind = k === ' ' ? 'dodge' : k === 'f' ? 'parry' : (k === 'e' || k === 'enter') ? 'confirm' : null;
-      if (kind) handled = sc.onKey(kind);
+      // Zu zweit: Spieler 1 E/Leertaste/F, Spieler 2 Enter/←/→
+      let kind = k === ' ' ? 'dodge' : k === 'f' ? 'parry' : (k === 'e' || k === 'enter') ? 'confirm' : null;
+      let who = 1;
+      if (sc.combat?.duo) {
+        if (k === 'enter') who = 2;
+        else if (k === 'arrowleft') { kind = 'dodge'; who = 2; } else if (k === 'arrowright') { kind = 'parry'; who = 2; }
+      }
+      if (kind) handled = sc.onKey(kind, who);
     }
     if (handled || k === ' ' || k === 'tab') { e.preventDefault(); e.stopPropagation(); }
   }
