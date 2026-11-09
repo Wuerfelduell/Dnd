@@ -6,6 +6,8 @@ import {
   SKILL_FX, SELF_FX, PATHWAY_POSES, WEAPON_POSES, battleSheetsOf, ENCOUNTER_FX, BOSS_INTROS, bossIntroImage, BOSS_FORMS, BOSS_FORM_BACKGROUNDS, BOSS_FORM_INTROS, battleSheetDef, CASE_SHEETS, playBattleAnim, playCaseAnim,
 } from './assets.js';
 import { VIEW_W, VIEW_H, PLAYER_PALETTE } from './WorldScene.js';
+import { koopBark } from '../core/Koop.js';
+import { speechBubble } from './WexmoorLife.js';
 
 // Kampfbildschirm in Seitenansicht: Spieler links, Gegner rechts, Bodenstreifen unten.
 // Die Regeln stecken in core/Combat.js, hier nur Timing, Eingabe und Animation.
@@ -70,6 +72,8 @@ export class CombatScene extends Phaser.Scene {
   /** Paket F: Boss-Band schiebt sich ins Bild, Büste und Name, dann wieder weg. */
   bossIntro() {
     const bust = BOSS_INTROS[this.encounterId];
+    // Paket AI: zu zweit sagt einer etwas zum Kampfbeginn (Boss vor normalem Beginn)
+    if (this.combat.duo) this.time.delayedCall(bust ? 2400 : 600, () => this.bark(bust || this.combat.enc.boss ? 'koop_bossbeginn' : 'koop_kampfbeginn'));
     this.sfx(bust ? 'boss_auftritt' : 'kampf_start');
     if (!bust || !this.textures.exists('F_08_boss_band')) return;
     const band = this.add.sprite(0, 0, 'F_08_boss_band', 0).setOrigin(0).setDepth(90);
@@ -271,6 +275,30 @@ export class CombatScene extends Phaser.Scene {
   baseSheet(sprite) {
     if (Object.values(this.players ?? {}).includes(sprite)) return this.sheetsOf(sprite).base;
     return this.enemySheet ?? sprite.texture.key;
+  }
+
+  /**
+   * Paket AI: ein Kampfspruch zu zweit, als Sprechblase über dem Sprecher. Nur stehende Spieler sprechen,
+   * vier Sekunden Pause dazwischen (force: wichtige Anlässe wie K.o. oder Sieg gehen vor).
+   */
+  bark(event, speaker = null, force = false) {
+    const c = this.combat;
+    if (!c.duo) return;
+    const now = this.time.now;
+    if (!force && now - (this.barkAt ?? -Infinity) < 4000) return;
+    const standing = c.standing();
+    const n = speaker && standing.includes(speaker) ? speaker : standing[Math.floor(Math.random() * standing.length)];
+    const spr = this.players?.[n];
+    if (!spr) return;
+    const text = koopBark(this.state, event, n, this.lastBark);
+    if (!text) return;
+    this.barkAt = now;
+    this.lastBark = text;
+    this.barkBubble?.destroy();
+    const b = speechBubble(this, text, { x: spr.homeX ?? spr.x, y: (spr.homeY ?? spr.y) - 40 }, this.cameras.main.worldView).setDepth(95);
+    this.barkBubble = b;
+    this.tweens.add({ targets: b, alpha: 0.95, duration: 150 });
+    this.tweens.add({ targets: b, alpha: 0, delay: 2400, duration: 300, onComplete: () => b.destroy() });
   }
 
   /** Kampf-Sheets eines Spieler-Sprites (Paket AH). */
@@ -550,6 +578,7 @@ export class CombatScene extends Phaser.Scene {
     this.tweens.add({ targets: this.enemy, x: this.player.homeX + 70, duration: 90, yoyo: true, ease: 'Quad.in' });
     if (hit.result === 'parry') {
       this.float('Parade!', 'player', 'perfect');
+      this.bark('koop_parade', this.combat.target);
       this.anim(this.player, 'parry');
       this.hitFx('parry', 'player');
       this.time.delayedCall(90, () => { this.flash(this.enemy); this.float(`-${r.counter}`, 'enemy', 'dmg'); });
@@ -573,6 +602,7 @@ export class CombatScene extends Phaser.Scene {
   knockedOut(sprite) {
     if (sprite.downed) return;
     sprite.downed = true;
+    this.bark('koop_partner_ko', null, true);
     this.time.delayedCall(200, () => {
       if (!this.anim(sprite, 'defeated', false)) this.tweens.add({ targets: sprite, angle: -90, y: '+=4', duration: 500 });
       sprite.setAlpha(0.7);
@@ -651,6 +681,10 @@ export class CombatScene extends Phaser.Scene {
     }
     if (c.outcome === 'lost' && !this.anim(this.player, 'defeated', false)) this.tweens.add({ targets: this.player, angle: -90, y: '+=4', duration: 500 });
     if (c.outcome !== 'lost') for (const n of c.standing()) this.players[n].setAlpha(1);
+    if (c.outcome === 'won') {
+      const close = Object.keys(c.fighters).map(Number).some((n) => c.fighters[n].down || this.state.playerView(n).hp <= this.state.playerView(n).maxHp * 0.25);
+      this.bark(close ? 'koop_knapper_sieg' : 'koop_sieg', null, true);
+    } else if (c.outcome === 'fled') this.bark('koop_flucht', null, true);
     const title = { won: 'Sieg', lost: 'Ohnmacht', fled: 'Rückzug' }[c.outcome];
     this.ui.combatOver(title);
   }

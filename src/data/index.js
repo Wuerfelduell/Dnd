@@ -92,6 +92,16 @@ import lore_gerede from './packs/lore/gerede.json';
 import lore_item_texte from './packs/lore/item_texte.json';
 import lore_lesestuecke from './packs/lore/lesestuecke.json';
 import lore_zeitungen from './packs/lore/zeitungen.json';
+import koop_quests from './packs/koop/quests.json';
+import koop_items from './packs/koop/items.json';
+import koop_encounters from './packs/koop/encounters.json';
+import koop_dialogues from './packs/koop/dialogues.json';
+import koop_npcs from './packs/koop/npcs.json';
+import koop_case from './packs/koop/case.json';
+import koop_dialog_zusaetze from './packs/koop/dialog_zusaetze.json';
+import koop_platzierung from './packs/koop/platzierung.json';
+import koop_geplauder from './packs/koop/geplauder.json';
+import koop_kampf from './packs/koop/kampf.json';
 import sq_neue_pfade from './packs/sequenzen/neue_pfade.json';
 import sq_seq_4_bis_1 from './packs/sequenzen/seq_4_bis_1.json';
 import sq_zutaten from './packs/sequenzen/zutaten.json';
@@ -99,6 +109,8 @@ import sq_artefakte from './packs/sequenzen/artefakte.json';
 
 /** Nebenauftrags-Pakete (Codex AA, AB). */
 const wxNebenquests = { name: 'wx_nebenquests', quests: wx_quests, items: wx_items, encounters: wx_encounters, dialogues: wx_dialogues, npcs: wx_npcs, case: wx_case, dialog_zusaetze: wx_dialog_zusaetze, platzierung: wx_platzierung, kahn_ausbau: wx_kahn_ausbau };
+/** Paket AI: Koop-Aufträge, Geplauder und Kampfsprüche zu zweit. */
+const koop = { name: 'koop', quests: koop_quests, items: koop_items, encounters: koop_encounters, dialogues: koop_dialogues, npcs: koop_npcs, case: koop_case, dialog_zusaetze: koop_dialog_zusaetze, platzierung: koop_platzierung, geplauder: koop_geplauder, kampf: koop_kampf };
 const kgNebenquests = { name: 'kg_nebenquests', quests: kg_quests, items: kg_items, encounters: kg_encounters, dialogues: kg_dialogues, npcs: kg_npcs, case: kg_case, dialog_zusaetze: kg_dialog_zusaetze, platzierung: kg_platzierung };
 
 export const content = buildContent({
@@ -118,7 +130,7 @@ export const content = buildContent({
   gatherings,
   city,
   wexmoor,
-  packs: [kgNebenquests, wxNebenquests],
+  packs: [kgNebenquests, wxNebenquests, koop],
   lore: { bestiarium: lore_bestiarium, gerede: lore_gerede, item_texte: lore_item_texte, lesestuecke: lore_lesestuecke, zeitungen: lore_zeitungen },
   sequenzen: { neue_pfade: sq_neue_pfade, seq_4_bis_1: sq_seq_4_bis_1, zutaten: sq_zutaten, artefakte: sq_artefakte },
 });

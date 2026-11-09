@@ -3,6 +3,7 @@ import { questTarget, nextHop } from '../core/Guide.js';
 import { createTextures, createCharacterSheet, hash2, TILE, TILE_INDEX, SOLID_KEYS } from './textures.js';
 import { Lighting, DEPTH } from './Lighting.js';
 import { WexmoorLife, preloadWexmoorLife, speechBubble } from './WexmoorLife.js';
+import { KoopLife } from './Koop.js';
 import { preloadSprites, playSheetAnim, themeKeys, facadeKeys, PROP_ORIGINS, MAP_WEATHER, DISGUISE_SHEETS, pathwayArt, P2_LOOKS, skinKeyOf } from './assets.js';
 import { Roamers } from './Roamers.js';
 import { Critters } from './Critters.js';
@@ -678,6 +679,9 @@ export class WorldScene extends Phaser.Scene {
     this.buildWeather();
     this.wexLife = new WexmoorLife(this); // Paket AE: Nieselregen, Nebelbänke und Tiere in Wexmoor
     this.wexLife.build();
+    // Paket AI: Koop-Rätsel, Platz-Flags und Geplauder zu zweit (Platz-Flags fallen beim Kartenwechsel weg)
+    this.state.syncKoop?.();
+    this.koop = new KoopLife(this);
     this.bindInput();
     this.bindState();
     this.refreshVisibility();
@@ -1110,6 +1114,7 @@ export class WorldScene extends Phaser.Scene {
     this.patrols.update(time, delta, blocked || this.leaving);
     this.critters.update(time, delta, blocked);
     this.wexLife?.update(delta);
+    this.koop?.update(delta, blocked);
     this.updateFocus(blocked);
     this.checkAuto(blocked);
     this.handleKeys(blocked);
@@ -1374,6 +1379,8 @@ export class WorldScene extends Phaser.Scene {
 
   interact(it) {
     const def = it.def;
+    const refused = this.koop?.refuse(it, this.state.acting);
+    if (refused) { this.ui.showMessage(def.title ?? def.prompt, refused); return; }
     if (def.lock && !this.state.meetsLock(def.lock)) {
       this.ui.showMessage(def.title ?? def.prompt, def.lock.text, { footer: def.lock.footer ?? '' });
       return;

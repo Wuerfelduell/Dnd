@@ -11,6 +11,8 @@
 // Gemeinsame Taten (Hinweise, Gespräche, Siege ...) verdauen die Tränke beider Spieler (siehe act()).
 
 /** Persönliche Werte, die zwischen den Spielern getauscht werden. */
+/** Flüchtige Platz-Flags der Koop-Rätsel (Paket AI). */
+export const KOOP_ROLE_FLAG = /^koop_[a-z_]+_p[12]$/;
 export const PERSONAL = ['hp', 'maxHp', 'inventory', 'weapon', 'gear', 'composure', 'pathway', 'unruhe', 'spiritVision', 'visionDigest'];
 
 export const P2_COMPOSURE_REGEN = 6; // pro Sekunde
@@ -21,6 +23,18 @@ export const partyMethods = {
   resetParty() {
     this.p2 = null; // { active, hp, maxHp, inventory, weapon, composure, pathway, unruhe, spiritVision }
     this.acting = 1; // wessen Werte gerade in this.hp usw. stehen
+    this.koopSeen = new Set(); // Paket AI: schon gehörtes Geplauder
+  },
+
+  /**
+   * Paket AI: `koop_aktiv` folgt allein hasP2(); die flüchtigen Platz-Flags der Koop-Rätsel
+   * (koop_<auftrag>_p1/_p2) gelten nur, solange jemand wirklich dort steht, und fallen hier weg.
+   */
+  syncKoop() {
+    if (!this.flags) return;
+    if (this.hasP2()) this.flags.add('koop_aktiv');
+    else this.flags.delete('koop_aktiv');
+    for (const f of [...this.flags]) if (KOOP_ROLE_FLAG.test(f)) this.flags.delete(f);
   },
 
   /** Spielt Spieler 2 gerade mit? */
@@ -42,6 +56,7 @@ export const partyMethods = {
     }
     this.p2.active = true;
     this.p2.hp = Math.max(1, this.p2.hp);
+    this.syncKoop();
     this.emit('party', { active: true });
     this.emit('changed');
     return true;
@@ -64,6 +79,7 @@ export const partyMethods = {
   removeP2() {
     if (!this.p2) return false;
     this.p2.active = false;
+    this.syncKoop();
     this.emit('party', { active: false });
     this.emit('changed');
     return true;
@@ -172,12 +188,13 @@ export const partyMethods = {
   },
 
   serializeParty() {
-    return this.p2 ? { p2: { ...this.p2, inventory: { ...this.p2.inventory }, gear: { ...this.p2.gear } } } : {};
+    return { ...(this.p2 ? { p2: { ...this.p2, inventory: { ...this.p2.inventory }, gear: { ...this.p2.gear } } } : {}), koopSeen: [...this.koopSeen] };
   },
 
   loadParty(data) {
+    this.koopSeen = new Set(data?.koopSeen ?? []);
     const p = data?.p2;
-    if (!p) return;
+    if (!p) { this.syncKoop(); return; }
     const path = p.pathway;
     const inventory = Object.fromEntries(Object.entries(p.inventory ?? {}).filter(([i, n]) => this.item(i) && n > 0));
     this.p2 = {
@@ -189,5 +206,6 @@ export const partyMethods = {
     };
     // Höchstwerte aus Pfad, Artefakten und Kleidung neu rechnen
     this.withPlayer(2, () => { this.maxHp = this.calcMaxHp(); this.hp = Math.min(this.hp, this.maxHp); }, { quiet: true });
+    this.syncKoop();
   },
 };

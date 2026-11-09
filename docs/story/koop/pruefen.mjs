@@ -19,7 +19,9 @@ function walk(x, fn, at='') {
   fn(x, at);
   for (const [k,v] of entries(x)) walk(v,fn,`${at}/${k}`);
 }
-const json = files(here).filter(f => f.endsWith('.json'));
+// Seit dem Einbau liegen die Daten in src/data/packs/koop (npcs.json ist dort nur ein leerer Platzhalter für den Lader)
+const pkgDir = resolve(root, 'src/data/packs/koop');
+const json = files(pkgDir).filter(f => f.endsWith('.json') && !f.endsWith('/npcs.json'));
 const pack = Object.fromEntries(json.map(f => [f.slice(f.lastIndexOf('/')+1,-5),parse(f)]));
 const expected = ['geplauder','kampf','dialog_zusaetze','quests','dialogues','case','items','encounters','platzierung'];
 check(expected.every(k=>k in pack) && json.length===expected.length,'JSON-Lieferumfang stimmt nicht.');
@@ -40,7 +42,7 @@ function register(kind,data) {
     if (k) registries[kind].set(k,v);
   }
 }
-const sourceFiles = files(resolve(root,'src/data')).filter(f=>f.endsWith('.json'));
+const sourceFiles = files(resolve(root,'src/data')).filter(f=>f.endsWith('.json') && !f.startsWith(pkgDir));
 for (const file of sourceFiles) {
   const data=parse(file), path=relative(resolve(root,'src/data'),file).replaceAll('\\','/');
   flagsIn(data);

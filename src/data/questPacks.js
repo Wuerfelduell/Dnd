@@ -37,11 +37,14 @@ export function applyQuestPack(content, pack) {
   for (const [id, a] of Object.entries(extra)) {
     const d = content.dialogues[id];
     if (!d) throw new Error(`Zusatz für unbekannten Dialog ${id}`);
-    const start = d.nodes.start;
+    // Marlowe hat kein `start`, ihr Menü heißt `hub` (Paket AI)
+    const key = d.nodes.start ? 'start' : 'hub';
+    const start = d.nodes[key];
+    if (!start) throw new Error(`Dialog ${id} hat weder start noch hub`);
     const choices = [...(start.choices ?? [])];
     choices.splice(Math.max(0, choices.length - 1), 0, ...(a.choices_add ?? []));
     for (const n of Object.keys(a.nodes_add ?? {})) if (d.nodes[n]) throw new Error(`Paket überschreibt Knoten ${id}/${n}`);
-    content.dialogues[id] = { ...d, nodes: { ...d.nodes, start: { ...start, choices }, ...(a.nodes_add ?? {}) } };
+    content.dialogues[id] = { ...d, nodes: { ...d.nodes, [key]: { ...start, choices }, ...(a.nodes_add ?? {}) } };
   }
   // Figuren, die verhaftet werden können, verschwinden von ihrem alten Platz (Besuch dann im Revier)
   const touched = new Set();
@@ -68,6 +71,8 @@ export function applyQuestPack(content, pack) {
     m.interactables.push({ id: flag, kind: 'read', tile: spot.tile, prompt: k.name, title: k.name, text: k.deko, footer: k.wirkung,
       visible_if: { requires_flags: [flag] }, ...(spot.effects ? { effects: spot.effects, done_flag: spot.done } : {}) });
   }
+  // Paket AI: Geplauder und Kampfsprüche zu zweit
+  if (pack.geplauder || pack.kampf) content.koop = { geplauder: pack.geplauder ?? [], kampf: pack.kampf ?? {} };
   for (const p of platzierung) {
     const m = own(p.map);
     if (p.npc) m.npcs.push({ id: p.npc, tile: p.tile, ...(p.visible_if ? { visible_if: p.visible_if } : {}) });

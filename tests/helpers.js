@@ -4,7 +4,7 @@ import { buildContent } from '../src/data/buildContent.js';
 
 const load = (p) => JSON.parse(readFileSync(new URL(`../src/data/${p}`, import.meta.url), 'utf8'));
 
-const PACKS = ['kg_nebenquests', 'wx_nebenquests'];
+const PACKS = ['kg_nebenquests', 'wx_nebenquests', 'koop'];
 const PACK_FILES = ['quests', 'items', 'encounters', 'dialogues', 'npcs', 'case', 'dialog_zusaetze', 'platzierung'];
 
 /** sequenzen: false lädt den Stand ohne Paket AF (für docs/story/sequenzen/pruefen.mjs). */
@@ -27,7 +27,8 @@ export function loadContent({ sequenzen = true } = {}) {
     city: load('stadtgegner.json'),
     wexmoor: load('wexmoor.json'),
     packs: PACKS.map((name) => ({ name, ...Object.fromEntries(PACK_FILES.map((f) => [f, load(`packs/${name}/${f}.json`)])),
-      ...(name === 'wx_nebenquests' ? { kahn_ausbau: load('packs/wx_nebenquests/kahn_ausbau.json') } : {}) })),
+      ...(name === 'wx_nebenquests' ? { kahn_ausbau: load('packs/wx_nebenquests/kahn_ausbau.json') } : {}),
+      ...(name === 'koop' ? { geplauder: load('packs/koop/geplauder.json'), kampf: load('packs/koop/kampf.json') } : {}) })),
     lore: Object.fromEntries(['bestiarium', 'gerede', 'item_texte', 'lesestuecke', 'zeitungen'].map((f) => [f, load(`packs/lore/${f}.json`)])),
     sequenzen: sequenzen ? Object.fromEntries(['neue_pfade', 'seq_4_bis_1', 'zutaten', 'artefakte'].map((f) => [f, load(`packs/sequenzen/${f}.json`)])) : null,
   });

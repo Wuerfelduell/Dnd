@@ -1,5 +1,7 @@
 # Paket AI: Koop-Texte
 
+> Eingebaut: Die Daten liegen jetzt in `src/data/packs/koop/`. Rollenbindung, Platz-Flags und Geplauder steuert `src/world/Koop.js`, die Kampfsprüche `CombatScene.bark()`.
+
 Inhaltsentwurf für „Nebelakten“, nach `docs/art/codex_AI_koop_texte.md`. Nur dieser Ordner wird geliefert. Das Spiel lädt diese Dateien noch nicht. Die räumlichen Prüfungen, Stimme-Auswahl und Ereignisanbindungen sind in [offene_punkte.md](offene_punkte.md) konkret beschrieben und vor Aktivierung erforderlich.
 
 | Datei | Inhalt |
