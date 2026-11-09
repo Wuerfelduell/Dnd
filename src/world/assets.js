@@ -72,6 +72,8 @@ export const SHEETS = {
   schlachthof: 'tilesets/C_09_schlachthof.png',
   gaskanaele: 'tilesets/C_09_gaskanaele.png',
   sternwarte: 'tilesets/C_09_sternwarte.png',
+  g_marsch: 'tilesets/G_01_marsch.png', g_pestgassen: 'tilesets/G_01_pestgassen.png',
+  g_katakomben: 'tilesets/G_01_katakomben.png', g_kraterwald: 'tilesets/G_01_kraterwald.png',
 };
 /** Paket C: Lauf-Sheets (characters/C_<id>_walk.png), Key = Figuren-Id. */
 export const C_CHARACTERS = ['pimm', 'fenwick', 'agnes', 'pip', 'tobias', 'cultist', 'maud', 'silas', 'ned', 'quill', 'ambrose',
@@ -112,6 +114,16 @@ export const TILE_CELLS = {
  * Welche Kartenzeichen welche Keys nutzen, steht in THEMES (WorldScene.js).
  */
 export const THEME_TILES = {
+  // Paket G: Gefahrengebiete (tilesets/G_01_<gebiet>.png, Zahlen = Zellindex im 8x8-Raster)
+  g_marsch: { sheet: 'g_marsch', fallback: 'grass0', floor: [24, 25, 28, 30, 48, 49, 51], mud: [8, 9, 10, 11], wood: [16, 17, 18],
+    water: [0, 1, 2, 3], gas: [4, 5, 6, 7], shoreN: [32, 33, 34], shoreS: [40, 42], rocks: [52, 53, 54, 55], reeds: [13, 14, 15] },
+  g_katakomben: { sheet: 'g_katakomben', fallback: 'stone', floor: [0, 4, 5, 6, 37, 40, 42, 43, 49, 51], moss: [1, 38],
+    wallTop: [8], wallFace: [9, 10, 60, 61], niche: [11, 12, 13], candle: [14, 15], grave: [16, 17, 18, 19], pillar: [30, 31],
+    bones: [62, 63], rubble: [44, 45, 46, 47] },
+  g_kraterwald: { sheet: 'g_kraterwald', fallback: 'grass0', floor: [0, 1, 8, 16, 23], tufts: [2, 10, 20, 28],
+    path: [17, 24, 25, 34], ash: [33, 35, 42, 43, 50], shards: [9, 15, 21, 22, 40, 41, 47], rocks: [4, 5, 12, 13], trees: [6, 7, 14, 48] },
+  g_pestgassen: { sheet: 'g_pestgassen', fallback: 'cobble0', floor: [0, 1, 8, 9, 12, 13, 14, 15], weeds: [2, 3, 10, 11],
+    rubble: [37, 38, 39], barricade: [41, 42, 43] },
   warehouse: {
     sheet: 'lagerhaus', base: 'floor_1', fallback: 'wood0',
     floor: ['floor_1', 'floor_2', 'floor_3'], debris: ['floor_broken', 'tile_04', 'tile_05', 'tile_06', 'tile_07'],
@@ -155,7 +167,7 @@ export const THEME_TILES = {
   },
 };
 /** Gruppen, die begehbar bleiben; alles andere blockiert. */
-const WALKABLE_GROUPS = ['floor', 'debris', 'wet', 'wood'];
+const WALKABLE_GROUPS = ['floor', 'debris', 'wet', 'wood', 'mud', 'moss', 'tufts', 'path', 'ash', 'shards', 'weeds'];
 /** Ersatz-Painter (textures.js) je Gruppe, falls das PNG fehlt. */
 const GROUP_FALLBACK = { wallFace: 'wallFace', wallTop: 'wallTop', bar: 'desk', shelf: 'shelf', barrel: 'barrel', seat: 'desk', water: 'water0' };
 
@@ -480,6 +492,10 @@ export const REGION_SHEETS = {
   h_fundbuero: ['manifestJournal', 'H_07_fundbuero'],
   i_rost: ['manifestReise', 'I_rostbrueder_versteck'], i_schleier: ['manifestReise', 'I_schleierschwestern_versteck'],
   i_orte: ['manifestReise', 'I_ankerhof_haus_morrow'],
+  g_marsch_props: ['manifestWildnis', 'props_marsch'], g_pestgassen_props: ['manifestWildnis', 'props_pestgassen'],
+  g_katakomben_props: ['manifestWildnis', 'props_katakomben'], g_kraterwald_props: ['manifestWildnis', 'props_kraterwald'],
+  g_rast: ['manifestWildnis', 'rest'], g_gefahr: ['manifestWildnis', 'danger'], g_monster_fx: ['manifestWildnis', 'monster_fx'],
+  g_beute: ['manifestWildnis', 'loot_extras'], g_selten: ['manifestWildnis', 'rarity'],
 };
 /** Dateien der Region-Sheets (die Manifeste kommen erst nach dem Laden der Bilder an). */
 const REGION_FILES = {
@@ -490,7 +506,10 @@ const REGION_FILES = {
   e_theater: 'props/E_01_theater_buehne.png', e_felix_versteck: 'props/E_01_felix_versteck.png', e_quest: 'ui/E_04_quest_ui.png',
   h_fundbuero: 'props/H_07_fundbuero.png',
   i_rost: 'tilesets/I_rostbrueder_versteck.png', i_schleier: 'tilesets/I_schleierschwestern_versteck.png', i_orte: 'props/I_ankerhof_haus_morrow.png',
+  g_rast: 'props/G_06_rast.png', g_gefahr: 'ui/G_01_gefahr.png', g_monster_fx: 'fx/G_02_monster_fx.png',
+  g_beute: 'props/G_03_loot_extras.png', g_selten: 'ui/G_03_seltenheit.png',
 };
+for (const z of ['marsch', 'pestgassen', 'katakomben', 'kraterwald']) REGION_FILES[`g_${z}_props`] = `props/G_01_${z}_props.png`;
 for (const id of ['theater', 'uhrturm', 'nordtor', 'gaswerk', 'sternwarte', 'villen', 'elend']) REGION_FILES[`d_${id}_props`] = `props/D_05_${id}_props.png`;
 Object.assign(SHEETS, REGION_FILES);
 
@@ -615,7 +634,7 @@ function createRegionTextures(scene) {
       const cols = Math.floor(img.width / 16);
       // Zahlen = linke obere 16er-Zelle des Frames, sonst Rechtecke
       const frames = a.frames.map((f) => (typeof f === 'number'
-        ? { x: (f % cols) * 16, y: Math.floor(f / cols) * 16, w: a.frameWidth ?? 16, h: a.frameHeight ?? 16 } : rect(f)));
+        ? { x: (f % cols) * 16, y: Math.floor(f / cols) * 16, w: a.frameWidth ?? 16, h: a.frameHeight ?? 16 } : rect(typeof f === 'string' ? regions[f] : f)));
       const key = `${prefix}_${name}`;
       if (!cut(key, img, frames)) continue;
       if (!scene.anims.exists(key)) {
@@ -652,8 +671,15 @@ export const TURN_PORTRAITS = Object.fromEntries(['player', 'sparring', 'fog_hou
   'silas_fight', 'mirror_shade', 'schattenpuppe', 'grubenkampf', 'kanalkroete', 'gasgeist', 'uhrwerkwaechter', 'maskenspieler',
   'schlachtergehilfe', 'felix_fight', 'miriam', 'chorschatten'].map((id, i) => [id, i]));
 /** Bestiarium: Begegnung → Seite (ui/bestiary/F_<id>.png, 96x128). */
-export const BESTIARY = Object.keys(TURN_PORTRAITS).filter((id) => id !== 'player');
-export const bestiaryUrl = (id) => `${BASE}ui/bestiary/F_${id}.png`;
+/** Paket G: Monster der Gefahrengebiete (Kampf, Karte, Bestiarium). Wert = [Kampf-Frame, Karten-Frame B, H]. */
+export const G_MONSTERS = {
+  moorleiche: [64, 16, 32], irrlicht: [64, 16, 16], schlammegel: [64, 32, 32], moorkoenigin: [96, 32, 32],
+  schnabelmaske: [48, 16, 32], hustender: [64, 16, 32], pestratte: [64, 32, 32], rattenkoenig: [96, 32, 32],
+  knochenwurm: [64, 32, 32], kerzenfresser: [64, 16, 32], schaedelschwarm: [64, 32, 32], ossuarwaechter: [96, 32, 32],
+  glaskraehe: [64, 16, 16], kraterbrut: [64, 32, 32], splitterling: [48, 16, 32], sternhirsch: [96, 32, 32],
+};
+export const BESTIARY = [...Object.keys(TURN_PORTRAITS).filter((id) => id !== 'player'), ...Object.keys(G_MONSTERS)];
+export const bestiaryUrl = (id) => `${BASE}ui/bestiary/${G_MONSTERS[id] ? 'G' : 'F'}_${id}.png`;
 /** Ausrüstung aus Paket F: Items mit 16er- und 32er-Icon unter items/ (Werte kommen mit den Daten). */
 export const F_EQUIPMENT = ['mantel_wolle', 'mantel_gewachst', 'mantel_polizei', 'mantel_samt', 'mantel_flicken', 'mantel_leder', 'mantel_chor',
   'mantel_nebel', 'hut_schirmmuetze', 'hut_melone', 'hut_zylinder', 'hut_helm', 'hut_kapuze', 'hut_schutzbrille', 'hut_witwenschleier', 'hut_maske',
@@ -719,6 +745,7 @@ export function preloadSprites(scene) {
   if (!scene.cache.json.exists('manifestPfade')) scene.load.json('manifestPfade', `${BASE}manifest-pfade.json`);
   if (!scene.cache.json.exists('manifestStadt')) scene.load.json('manifestStadt', `${BASE}manifest-stadt.json`);
   if (!scene.cache.json.exists('manifestFaelle')) scene.load.json('manifestFaelle', `${BASE}manifest-faelle.json`);
+  if (!scene.cache.json.exists('manifestWildnis')) scene.load.json('manifestWildnis', `${BASE}manifest-wildnis.json`);
   if (!scene.cache.json.exists('manifestReise')) scene.load.json('manifestReise', `${BASE}manifest-reise.json`);
   if (!scene.cache.json.exists('manifestJournal')) scene.load.json('manifestJournal', `${BASE}manifest-journal.json`);
   for (const [key, [path, w, h]] of Object.entries(CASE_SHEETS)) {
@@ -749,7 +776,7 @@ export function playSheetAnim(sprite, sheet, name, then) {
 /** Animationsdefinition aus manifest-14b.json oder manifest-kampf.json. */
 function battleAnimDef(scene, sheet, name) {
   for (const n of [name, ANIM_ALIASES[sheet]?.[name]].filter(Boolean)) {
-    for (const m of ['manifest14b', 'manifestKampf', 'manifestKampf2', 'manifestReise']) {
+    for (const m of ['manifest14b', 'manifestKampf', 'manifestKampf2', 'manifestReise', 'manifestWildnis']) {
       const def = scene.cache.json.get(m)?.assets?.find((a) => a.id === sheet)?.animations?.[n];
       if (def) return def;
     }
@@ -952,3 +979,32 @@ export const FACTION_EMBLEM = { 16: [0, 16], 32: [16, 32], 64: [48, 64] };
 export const TRAVEL_MODES_URL = `${BASE}ui/I_reise_modes.png`;
 export const TRAVEL_MODE_ICONS = { sicher: 0, schnell: 1 };
 export const TRAVEL_MARKER_URL = `${BASE}ui/I_reise_marker.png`;
+
+// --- Paket G: Gefahrengebiete, Monster und Beute (manifest-wildnis.json) -----------------------
+
+for (const [id, [w, ow, oh]] of Object.entries(G_MONSTERS)) {
+  BATTLE_SHEETS[`enemy_${id}`] = [`battle/enemy_${id}.png`, w];
+  ENCOUNTER_SHEETS[id] = `enemy_${id}`;
+  ENCOUNTER_SHEETS[`${id}_elite`] = `enemy_${id}`;
+  OVERWORLD_SHEETS[id] = [`characters/G_ow_${id}.png`, ow, oh];
+  OVERWORLD_SHEETS[`${id}_elite`] = OVERWORLD_SHEETS[id];
+  if (!['schnabelmaske', 'hustender'].includes(id)) FADING_SHEETS.push(`enemy_${id}`);
+}
+/** Gebiet → eigener Kampfhintergrund. */
+export const ZONES = ['marsch', 'pestgassen', 'katakomben', 'kraterwald'];
+for (const z of ZONES) BATTLE_BACKGROUNDS[z] = `bg_${z}`;
+/** Beutebehälter am Boden (Frame 0 zu, 1 offen). */
+for (const k of ['beutel', 'kiste', 'truhe', 'okkulter_schrein']) LOOT_SHEETS[k] = `props/G_loot_${k}.png`;
+/** Material und Ausrüstung aus den Gebieten (16er und 32er). */
+export const G_ITEMS = ['moorwasser', 'irrlichtfunke', 'egelschleim', 'moorperle', 'schnabelfeder', 'hustenstaub', 'rattenschwanz', 'rattenkrone',
+  'knochenmehl', 'wachsherz', 'schaedelsplitter', 'ossuarschluessel', 'glasfeder', 'brutschale', 'sternhirschgeweih', 'geisterkern',
+  'mantel_moor', 'hut_schnabel', 'amulett_moorperle', 'knochenmesser', 'wachsamulett', 'glasfibel', 'sternglasdolch', 'geweihreif'];
+ICON32.push(...G_ITEMS);
+/** Seltenheit → Name im Sheet ui/G_03_seltenheit.png (Edelstein 8x8, Lichtsäule über Behältern). */
+export const RARITY_SHEET = { gewoehnlich: 'common', ungewoehnlich: 'uncommon', selten: 'rare', okkult: 'occult' };
+export const RARITY_SHEET_URL = `${BASE}ui/G_03_seltenheit.png`;
+export const RARITY_GEMS = { common: [224, 48], uncommon: [240, 48], rare: [0, 96], occult: [16, 96] };
+/** Gefahrenstufe (16x16) und Gebietsbanner (192x32) aus ui/G_01_gefahr.png. */
+export const DANGER_URL = `${BASE}ui/G_01_gefahr.png`;
+export const DANGER_ICONS = [[0, 0], [16, 0], [32, 0], [48, 0], [64, 0]];
+export const DANGER_BANNER = [80, 0, 192, 32];
