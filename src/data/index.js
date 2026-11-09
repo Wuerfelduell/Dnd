@@ -56,6 +56,7 @@ import ballsaal from './maps/ballsaal.json';
 import spiegelkabinett from './maps/spiegelkabinett.json';
 import dFall5 from './dialogues/fall5.json';
 import dFall6 from './dialogues/fall6.json';
+import buildings from './gebaeude.json';
 
 export const content = buildContent({
   campaign,
@@ -70,4 +71,5 @@ export const content = buildContent({
   travel,
   wilds,
   factions,
+  buildings,
 });
