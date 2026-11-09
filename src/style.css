@@ -533,3 +533,9 @@ button.small.drop.armed { border-color: #c8826a; color: #ffb09a; }
 .auction .actions { flex-wrap: wrap; gap: 0.4em; }
 /* Paket P: Szenenkarte neben der Ritual-Meldung (96x128) */
 .ritualcard { float: left; width: 12em; height: 16em; margin: 0 1em 0.5em 0; image-rendering: pixelated; }
+/* Paket T: Auktions-Atlas (Bietehand an der Sitzleiste, Zirkelmarke im Titel) */
+.auk { display: inline-block; background-repeat: no-repeat; image-rendering: pixelated; vertical-align: middle; flex: none; }
+.auction .seat .bidhand { animation: bidhand 0.5s steps(1) infinite; }
+@keyframes bidhand { 50% { background-position: -2em 0; } }
+.auction h3 .auk.mark { margin-right: 0.3em; }
+.auction .bidline .srcface { vertical-align: middle; margin-right: 0.3em; }

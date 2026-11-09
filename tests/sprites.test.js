@@ -2,7 +2,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { existsSync, readFileSync } from 'node:fs';
 import { loadContent } from './helpers.js';
-import { R_SCENES, SHEETS, BATTLE_SHEETS, ANIM_SHEETS, TILE_CELLS, PROP_CELLS, PROP_ANIMS, CHARACTER_SHEETS, ENCOUNTER_SHEETS, ENEMY_BATTLE_SHEETS, THEME_TILE_LIST, PORTRAITS, MAP_MARKERS, C_CHARACTERS, BATTLE_BACKGROUNDS, ENCOUNTER_BACKGROUNDS, SKILL_FX, SKILL_ICONS, STATUS_ICONS, PATHWAY_POSES, WEAPON_POSES, itemIconUrl, itemIcon32Url, pathwayEmblemUrl, pathwayCardUrl, COIN_URL, bossIntroImage,
+import { R_SCENES, T_MEMBERS, AUKTION_REGIONS, SHEETS, BATTLE_SHEETS, ANIM_SHEETS, TILE_CELLS, PROP_CELLS, PROP_ANIMS, CHARACTER_SHEETS, ENCOUNTER_SHEETS, ENEMY_BATTLE_SHEETS, THEME_TILE_LIST, PORTRAITS, MAP_MARKERS, C_CHARACTERS, BATTLE_BACKGROUNDS, ENCOUNTER_BACKGROUNDS, SKILL_FX, SKILL_ICONS, STATUS_ICONS, PATHWAY_POSES, WEAPON_POSES, itemIconUrl, itemIcon32Url, pathwayEmblemUrl, pathwayCardUrl, COIN_URL, bossIntroImage,
   REGION_SHEETS, REGION_ANIMS, ICON_STRIPS, CASE_SHEETS, WHOLE_PROPS, FACADES, E_CHARACTERS, PORTRAIT_SPECIAL, PORTRAIT_MOODS, ENDING_IMAGES, endingImageUrl,
   caseFileUrl, SCENES, sceneUrl, CITY_MAP_URL, CITY_FOG_URL, QUEST_UI_URL,
   OVERWORLD_SHEETS, BESTIARY, bestiaryUrl, F_EQUIPMENT, BOSS_INTROS, F_UI_SHEETS, overworldIdFor } from '../src/world/assets.js';
@@ -506,4 +506,18 @@ test('Paket R: Wexmoor hat eigene Böden, Figuren, Bosse, Verkleidungen und Szen
   for (const id of ['torfkittel', 'fischerjacke', 'akademierobe']) assert.ok(existsSync(sprite(`characters/R_spieler_${id}.png`)), id);
   for (const id of R_SCENES) assert.ok(existsSync(sprite(sceneUrl(id).replace(/^.*?sprites\//, ''))), id);
   assert.equal(CHARACTER_SHEETS.npc_dunn, 'constable');
+});
+
+// --- Paket T (Zirkelmitglieder) -------------------------------------------------------
+test('Paket T: alle Auktionsmitglieder haben Figur, Portrait und Kopf; Atlas-Regionen passen zum Manifest', () => {
+  const zirkel = manifest('zirkel');
+  const atlas = zirkel.assets.find((a) => a.id === 'T_auktion');
+  for (const id of Object.keys(content.npcs).filter((n) => n.startsWith('tm_'))) {
+    assert.ok(T_MEMBERS.includes(id), id);
+    assert.ok(existsSync(sprite(SHEETS[CHARACTER_SHEETS[`npc_${id}`]])), id);
+    assert.ok(existsSync(sprite(`portraits/${PORTRAITS[id]}`)), id);
+    assert.ok(existsSync(sprite(`ui/heads/${id}.png`)), id);
+  }
+  const names = { waage: 'silent_scale', kreide: 'chalk_circle', russ: 'soot_society', lichtlose: 'lightless', salz: 'salt_brothers' };
+  for (const [k, r] of Object.entries(AUKTION_REGIONS)) assert.deepEqual(r, atlas.regions[names[k] ?? k], k);
 });

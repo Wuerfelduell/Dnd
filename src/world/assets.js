@@ -338,7 +338,7 @@ export const PORTRAITS = {
   marlowe: '12_agatha_marlowe_police_emotions.png', player: '06_investigator_emotions.png',
 };
 /** Ausdruck (Dialogknoten-Feld "mood") → Spalte im Portrait-Streifen. */
-export const PORTRAIT_MOODS = { neutral: 0, suspicious: 1, skeptical: 1, shocked: 2, smile: 3, faint_smile: 3, approving: 2, angry: 3 };
+export const PORTRAIT_MOODS = { neutral: 0, suspicious: 1, skeptical: 1, shocked: 2, smile: 3, faint_smile: 3, approving: 2, angry: 3, bidding: 3 };
 export const portraitUrl = (id) => (PORTRAITS[id] ? `${BASE}portraits/${PORTRAITS[id]}` : null);
 
 /** Stadtkarte: Karte → Zelle in ui/C_08_map_markers.png (13 Spalten, Zeile 2 = hervorgehoben). */
@@ -1495,3 +1495,20 @@ Object.assign(ENCOUNTER_BACKGROUNDS, { namenlose: 'bg_vergessmoor', leuchtfeuer:
 /** Fallakte und Enden von Kapitel 2. */
 CASE_FILES.kapitel2 = 'R_akte_kapitel2';
 for (const id of ['k2_rein', 'k2_moor', 'k2_lichtmeister', 'k2_meer']) ENDING_IMAGES[id] = id;
+/** Paket T: die 18 Mitglieder der Treffen-Auktionen (Lauf-Sheet, vier Portraits mit "bidding" als viertem, Kopf). */
+export const T_MEMBERS = ['halloran', 'rusk', 'oddny', 'ferro', 'sallow', 'corve', 'ashdown', 'pemberley', 'dot', 'brann', 'cobb', 'sorrel',
+  'docht', 'mareike', 'fenn', 'gischt', 'lake', 'tam'].map((n) => `tm_${n}`);
+for (const id of T_MEMBERS) {
+  SHEETS[`t_${id}`] = `characters/T_${id}_walk.png`;
+  CHARACTER_SHEETS[`npc_${id}`] = `t_${id}`;
+  PORTRAITS[id] = `T_${id}_emotions.png`;
+  HEADS.push(id);
+}
+/** Auktions-Atlas (128x64): Bietehand, Zirkelmarken, Hammerschlag, Zuschlag. Region → [x, y, w, h]. */
+export const AUKTION_URL = `${BASE}ui/T_auktion.png`;
+export const AUKTION_REGIONS = {
+  bid_0: [0, 0, 16, 16], bid_1: [16, 0, 16, 16], sold: [104, 32, 24, 24],
+  gavel_0: [0, 32, 24, 24], gavel_1: [24, 32, 24, 24], gavel_2: [48, 32, 24, 24], gavel_3: [72, 32, 24, 24],
+  waage: [40, 0, 12, 12], kreide: [56, 0, 12, 12], russ: [72, 0, 12, 12], lichtlose: [88, 0, 12, 12], salz: [104, 0, 12, 12],
+};
+
