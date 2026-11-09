@@ -402,7 +402,7 @@ test('Auf den Treffen gibt es nur seltene Dinge fürs große Geld, nichts vom no
     }
   }
   assert.ok(arts.length >= 8, 'Artefakte als Lose');
-  for (const e of arts) assert.ok(e.price >= 300 && e.price <= 500, `${e.item}: ${e.price}`);
+  for (const e of arts) assert.ok(e.price >= 390 && e.price <= 650, `${e.item}: ${e.price}`); // seit dem Balancing teurer (vorher 300–500)
   // Eigene Artefakte bringen beim Versteigern auch ordentlich Geld
   const s = new GameState(content);
   assert.ok(s.itemValue('hungriger_ring') >= 300);

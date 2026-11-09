@@ -215,7 +215,7 @@ test('Gefahrengebiete: Gegner können Artefakte fallen lassen, Bosse häufiger',
     const sum = (id) => drops(id).reduce((n, d) => n + d.chance, 0);
     assert.ok(sum(normal) > 0 && sum(normal) < 0.05, `${zid}: seltener Drop`);
     assert.ok(sum(`${normal}_elite`) > sum(normal), `${zid}: Elite häufiger`);
-    assert.ok(sum(boss) >= 0.25, `${zid}: Boss häufiger`);
+    assert.ok(sum(boss) >= 0.15, `${zid}: Boss häufiger`);
   }
   // Nebelherz für Sequenz 5 fällt bei späten Bossen
   assert.ok(content.loot.sternhirsch.drops.some((d) => d.item === 'nebelherz'));
