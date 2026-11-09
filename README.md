@@ -160,6 +160,9 @@ mit den Reihen unten/links/rechts/oben). `src/world/assets.js` lädt sie im
 - `TILE_CELLS`: Tile-Key → Zelle im Tileset (optional mit Grund-Tile darunter)
 - `PROP_CELLS`: Prop-Key → Ausschnitt aus einem Prop-Sheet
 - `CHARACTER_SHEETS`: Figur (`player`, `npc_<id>`) → Lauf-Sheet
+- `BATTLE_SHEETS`, `ENEMY_BATTLE_SHEETS`, `BATTLE_BACKGROUNDS`: Kampf-Animationen (Frames in
+  `public/sprites/manifest-14b.json`) und Hintergründe pro Karte
+- `ITEM_ICONS`: Items mit 16x16-Icon unter `public/sprites/items/<id>.png`
 
 Alles, was dort nicht zugeordnet ist, zeichnet `textures.js` weiterhin prozedural
 (z. B. Gras, Brücke, Schreibtisch, Miss Pimm). Ein neues Asset einbauen heißt also:

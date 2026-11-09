@@ -256,3 +256,12 @@ button.small { font-size: 0.8em; padding: 0.1em 0.5em; }
 .shop .purse { color: var(--gold); margin-right: auto; }
 .notebook .thread { color: var(--occult); }
 .layer:has(.shop), .layer:has(.brew) { align-items: center; background: rgba(4, 4, 8, 0.55); }
+
+/* Item-Icons (16x16 Pixel-Art) */
+.item-icon {
+  width: 16px;
+  height: 16px;
+  image-rendering: pixelated;
+  vertical-align: -3px;
+  margin-right: 5px;
+}
