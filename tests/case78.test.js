@@ -20,6 +20,10 @@ function afterCase6() {
   s.addItem('schlagstock');
   s.equip('schlagstock');
   s.addItem('verband', 4);
+  // Bis Fall 7/8 hat man über das Revier längst Sequenz 7 erreicht (Miss Wren ist ohne Durchbruch kaum zu schaffen).
+  s.pathway = { id: 'eisen', seq: 7, digestion: 0 };
+  s.updateMaxHp();
+  s.hp = s.maxHp;
   return s;
 }
 

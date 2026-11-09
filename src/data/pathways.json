@@ -91,6 +91,16 @@
               "key": "max_hp",
               "value": 8,
               "text": "+8 Leben."
+            },
+            {
+              "key": "ap_start",
+              "value": 1,
+              "text": "Durchbruch: Jeder Kampf beginnt mit +1 Konzentration."
+            },
+            {
+              "key": "dmg_mult",
+              "value": 1.1,
+              "text": "Durchbruch: +10 % Schaden mit allen Angriffen und Fertigkeiten."
             }
           ]
         },
@@ -108,16 +118,26 @@
             "name": "Lichtbann",
             "cost": 4,
             "hits": 2,
-            "flat": 11,
+            "flat": 13,
             "holy": true,
             "weak": true,
-            "desc": "Zwei Schnitte aus Licht. Je 11 Schaden, doppelt gegen Okkultes, und die Schwachstelle liegt offen."
+            "desc": "Zwei Schnitte aus Licht. Je 13 Schaden, doppelt gegen Okkultes, und die Schwachstelle liegt offen."
           },
           "passives": [
             {
               "key": "occult_mult",
               "value": 1.2,
               "text": "+20 % Schaden gegen Okkultes."
+            },
+            {
+              "key": "ap_start",
+              "value": 1,
+              "text": "Durchbruch: Jeder Kampf beginnt mit einer weiteren Konzentration."
+            },
+            {
+              "key": "dmg_mult",
+              "value": 1.15,
+              "text": "Durchbruch: weitere +15 % Schaden mit allen Angriffen und Fertigkeiten."
             }
           ],
           "ritual": {
@@ -274,6 +294,16 @@
               "key": "link_hints",
               "value": true,
               "text": "Das Notizbuch markiert Informationen, die sich noch verknüpfen lassen."
+            },
+            {
+              "key": "ap_start",
+              "value": 1,
+              "text": "Durchbruch: Jeder Kampf beginnt mit +1 Konzentration."
+            },
+            {
+              "key": "dmg_mult",
+              "value": 1.1,
+              "text": "Durchbruch: +10 % Schaden mit allen Angriffen und Fertigkeiten."
             }
           ]
         },
@@ -289,7 +319,7 @@
           "skill": {
             "id": "fangnetz",
             "name": "Fangnetz",
-            "cost": 3,
+            "cost": 2,
             "hits": 0,
             "stun": true,
             "weak": true,
@@ -305,6 +335,16 @@
               "key": "dodge_window",
               "value": 1.15,
               "text": "Ausweichfenster +15 %."
+            },
+            {
+              "key": "ap_start",
+              "value": 1,
+              "text": "Durchbruch: Jeder Kampf beginnt mit einer weiteren Konzentration."
+            },
+            {
+              "key": "dmg_mult",
+              "value": 1.15,
+              "text": "Durchbruch: weitere +15 % Schaden mit allen Angriffen und Fertigkeiten."
             }
           ],
           "ritual": {
@@ -445,7 +485,7 @@
             "name": "Spiegelschritt",
             "cost": 4,
             "hits": 2,
-            "mult": 1.0,
+            "mult": 1.2,
             "evade": true,
             "desc": "Zwei Schläge aus zwei Richtungen, dann bist du woanders. Der nächste Angriff geht ins Leere."
           },
@@ -454,6 +494,16 @@
               "key": "honor_loss",
               "value": 0.5,
               "text": "Du verlierst nur halb so viel Ansehen."
+            },
+            {
+              "key": "ap_start",
+              "value": 1,
+              "text": "Durchbruch: Jeder Kampf beginnt mit +1 Konzentration."
+            },
+            {
+              "key": "dmg_mult",
+              "value": 1.1,
+              "text": "Durchbruch: +10 % Schaden mit allen Angriffen und Fertigkeiten."
             }
           ]
         },
@@ -471,15 +521,25 @@
             "name": "Spiegelbild",
             "cost": 3,
             "hits": 0,
-            "shield": 18,
+            "shield": 22,
             "confuse": true,
-            "desc": "Ein zweites Du tritt hervor. Es fängt 18 Schaden ab, und der Gegner schlägt beim nächsten Mal sich selbst."
+            "desc": "Ein zweites Du tritt hervor. Es fängt 22 Schaden ab, und der Gegner schlägt beim nächsten Mal sich selbst."
           },
           "passives": [
             {
               "key": "price",
               "value": 0.9,
               "text": "Händler verlangen noch einmal 10 % weniger."
+            },
+            {
+              "key": "ap_start",
+              "value": 1,
+              "text": "Durchbruch: Jeder Kampf beginnt mit einer weiteren Konzentration."
+            },
+            {
+              "key": "dmg_mult",
+              "value": 1.15,
+              "text": "Durchbruch: weitere +15 % Schaden mit allen Angriffen und Fertigkeiten."
             }
           ],
           "ritual": {
@@ -628,6 +688,16 @@
               "key": "vision_cost",
               "value": 0.75,
               "text": "Geistsicht kostet 25 % weniger Nerven."
+            },
+            {
+              "key": "ap_start",
+              "value": 1,
+              "text": "Durchbruch: Jeder Kampf beginnt mit +1 Konzentration."
+            },
+            {
+              "key": "dmg_mult",
+              "value": 1.1,
+              "text": "Durchbruch: +10 % Schaden mit allen Angriffen und Fertigkeiten."
             }
           ]
         },
@@ -645,16 +715,26 @@
             "name": "Totenchor",
             "cost": 4,
             "hits": 3,
-            "flat": 6,
+            "flat": 7,
             "holy": true,
             "composure": 10,
-            "desc": "Drei Stimmen singen mit dir. Je 6 Schaden, doppelt gegen Okkultes. Kostet 10 Nerven."
+            "desc": "Drei Stimmen singen mit dir. Je 7 Schaden, doppelt gegen Okkultes. Kostet 10 Nerven."
           },
           "passives": [
             {
               "key": "skill_composure",
               "value": 0.7,
               "text": "Fertigkeiten kosten 30 % weniger Nerven."
+            },
+            {
+              "key": "ap_start",
+              "value": 1,
+              "text": "Durchbruch: Jeder Kampf beginnt mit einer weiteren Konzentration."
+            },
+            {
+              "key": "dmg_mult",
+              "value": 1.15,
+              "text": "Durchbruch: weitere +15 % Schaden mit allen Angriffen und Fertigkeiten."
             }
           ],
           "ritual": {
@@ -818,6 +898,16 @@
               "key": "calm_decay",
               "value": 1.5,
               "text": "Unruhe klingt 50 % schneller ab."
+            },
+            {
+              "key": "ap_start",
+              "value": 1,
+              "text": "Durchbruch: Jeder Kampf beginnt mit +1 Konzentration."
+            },
+            {
+              "key": "dmg_mult",
+              "value": 1.1,
+              "text": "Durchbruch: +10 % Schaden mit allen Angriffen und Fertigkeiten."
             }
           ]
         },
@@ -836,14 +926,24 @@
             "cost": 3,
             "hits": 0,
             "heal": 30,
-            "shield": 10,
-            "desc": "Ein Schluck aus der Taschenflasche. Heilt 30 Leben und härtet die Haut (Schutz 10)."
+            "shield": 14,
+            "desc": "Ein Schluck aus der Taschenflasche. Heilt 30 Leben und härtet die Haut (Schutz 14)."
           },
           "passives": [
             {
               "key": "heal_bonus",
               "value": 1.3,
               "text": "Heilmittel wirken noch einmal 30 % stärker."
+            },
+            {
+              "key": "ap_start",
+              "value": 1,
+              "text": "Durchbruch: Jeder Kampf beginnt mit einer weiteren Konzentration."
+            },
+            {
+              "key": "dmg_mult",
+              "value": 1.15,
+              "text": "Durchbruch: weitere +15 % Schaden mit allen Angriffen und Fertigkeiten."
             }
           ],
           "ritual": {
@@ -987,7 +1087,7 @@
             "name": "Klingenwirbel",
             "cost": 4,
             "hits": 3,
-            "mult": 0.9,
+            "mult": 1.0,
             "desc": "Drei schnelle Schläge im Takt."
           },
           "passives": [
@@ -995,6 +1095,16 @@
               "key": "atk",
               "value": 2,
               "text": "+2 Angriff mit jeder Waffe."
+            },
+            {
+              "key": "ap_start",
+              "value": 1,
+              "text": "Durchbruch: Jeder Kampf beginnt mit +1 Konzentration."
+            },
+            {
+              "key": "dmg_mult",
+              "value": 1.1,
+              "text": "Durchbruch: +10 % Schaden mit allen Angriffen und Fertigkeiten."
             }
           ]
         },
@@ -1021,6 +1131,16 @@
               "key": "atk",
               "value": 2,
               "text": "+2 Angriff."
+            },
+            {
+              "key": "ap_start",
+              "value": 1,
+              "text": "Durchbruch: Jeder Kampf beginnt mit einer weiteren Konzentration."
+            },
+            {
+              "key": "dmg_mult",
+              "value": 1.15,
+              "text": "Durchbruch: weitere +15 % Schaden mit allen Angriffen und Fertigkeiten."
             }
           ],
           "ritual": {
@@ -1159,7 +1279,7 @@
             "name": "Schattenschritt",
             "cost": 4,
             "hits": 2,
-            "mult": 1.1,
+            "mult": 1.25,
             "evade": true,
             "desc": "Zwei Stiche aus dem Schatten, dann bist du fort. Der nächste Angriff geht ins Leere."
           },
@@ -1168,6 +1288,16 @@
               "key": "always_flee",
               "value": true,
               "text": "Du kannst aus jedem Kampf fliehen."
+            },
+            {
+              "key": "ap_start",
+              "value": 1,
+              "text": "Durchbruch: Jeder Kampf beginnt mit +1 Konzentration."
+            },
+            {
+              "key": "dmg_mult",
+              "value": 1.1,
+              "text": "Durchbruch: +10 % Schaden mit allen Angriffen und Fertigkeiten."
             }
           ]
         },
@@ -1185,7 +1315,7 @@
             "name": "Taschenspiel",
             "cost": 3,
             "hits": 2,
-            "mult": 1.2,
+            "mult": 1.35,
             "confuse": true,
             "desc": "Zwei flinke Stiche und ein Griff in die falsche Tasche. Der Gegner schlägt beim nächsten Mal sich selbst."
           },
@@ -1199,6 +1329,16 @@
               "key": "money_bonus",
               "value": 1.15,
               "text": "+15 % Schilling aus Beute."
+            },
+            {
+              "key": "ap_start",
+              "value": 1,
+              "text": "Durchbruch: Jeder Kampf beginnt mit einer weiteren Konzentration."
+            },
+            {
+              "key": "dmg_mult",
+              "value": 1.15,
+              "text": "Durchbruch: weitere +15 % Schaden mit allen Angriffen und Fertigkeiten."
             }
           ],
           "ritual": {

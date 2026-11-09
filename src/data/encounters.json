@@ -1187,20 +1187,20 @@
     "sprite": "apparition",
     "tint": "#7ab0a0",
     "occult": true,
-    "hp": 34,
+    "hp": 42,
     "fleeable": true,
     "intro": "Im Kohlenkeller steht eine Gestalt, aus der Wasser rinnt, ohne dass der Boden nass wird. Sie hat Thornes Gesicht, nur aufgedunsen.",
     "attacks": [
       {
         "name": "Schwall",
-        "damage": 7,
+        "damage": 8,
         "hits": [
           1100
         ]
       },
       {
         "name": "Gurgeln",
-        "damage": 3,
+        "damage": 4,
         "hits": [
           500,
           800,
@@ -1210,7 +1210,7 @@
       },
       {
         "name": "Nach unten ziehen",
-        "damage": 11,
+        "damage": 12,
         "hits": [
           1900
         ]
@@ -1227,20 +1227,20 @@
     "name": "Der Pfandeintreiber",
     "sprite": "npc:holt",
     "tint": "#a08a6a",
-    "hp": 32,
+    "hp": 44,
     "fleeable": true,
     "intro": "Ein breiter Mann mit Melone und Schuldbuch versperrt dir den Weg. „Thorne ist tot, aber die Schulden leben. Und Schnüffler zahlen extra.“",
     "attacks": [
       {
         "name": "Faustschlag",
-        "damage": 6,
+        "damage": 8,
         "hits": [
           900
         ]
       },
       {
         "name": "Schlagring",
-        "damage": 4,
+        "damage": 5,
         "hits": [
           600,
           900
@@ -1248,7 +1248,7 @@
       },
       {
         "name": "Kopfstoß",
-        "damage": 10,
+        "damage": 13,
         "hits": [
           1700
         ]
@@ -1269,13 +1269,13 @@
     "sprite": "apparition",
     "tint": "#b0b8f0",
     "occult": true,
-    "hp": 38,
+    "hp": 56,
     "fleeable": false,
     "intro": "Zwischen dir und dem Webstuhl hängen tausend Fäden. Als du näherkommst, ziehen sie sich zu einer Gestalt zusammen, die wie ein schlafendes Kind atmet.",
     "attacks": [
       {
         "name": "Umspinnen",
-        "damage": 3,
+        "damage": 4,
         "hits": [
           500,
           750,
@@ -1286,19 +1286,19 @@
       {
         "name": "Wiegenlied",
         "action": "taunt",
-        "value": 8,
-        "text": "Ein Kinderlied, ganz nah am Ohr. -8 Nerven."
+        "value": 10,
+        "text": "Ein Kinderlied, ganz nah am Ohr. -10 Nerven."
       },
       {
         "name": "Reißen",
-        "damage": 9,
+        "damage": 11,
         "hits": [
           1300
         ]
       },
       {
         "name": "Albtraum",
-        "damage": 12,
+        "damage": 15,
         "hits": [
           2000
         ]
@@ -1321,19 +1321,19 @@
     "tint": "#c8c8d8",
     "occult": true,
     "boss": true,
-    "hp": 46,
+    "hp": 72,
     "fleeable": false,
     "intro": "Miss Wren sitzt am Webstuhl und webt, ohne aufzusehen. „Sie verstehen das nicht. Er hätte sie auf die Straße gesetzt. Ich habe ihn nur im Schlaf besucht.“\n\nSie hebt die Schere.",
     "attacks": [
       {
         "name": "Schlaflied",
         "action": "taunt",
-        "value": 10,
-        "text": "Sie summt. Deine Lider werden schwer. -10 Nerven."
+        "value": 14,
+        "text": "Sie summt. Deine Lider werden schwer. -14 Nerven."
       },
       {
         "name": "Fadenhieb",
-        "damage": 4,
+        "damage": 5,
         "hits": [
           500,
           750,
@@ -1343,7 +1343,7 @@
       },
       {
         "name": "Silberschere",
-        "damage": 8,
+        "damage": 10,
         "hits": [
           900,
           1300
@@ -1351,7 +1351,7 @@
       },
       {
         "name": "Kanalwasser",
-        "damage": 12,
+        "damage": 16,
         "hits": [
           2100
         ]
@@ -1359,8 +1359,8 @@
       {
         "name": "Ein Kind als Schild",
         "action": "guard",
-        "value": 6,
-        "text": "Ein schlafender Schatten stellt sich vor sie. Panzer 6."
+        "value": 10,
+        "text": "Ein schlafender Schatten stellt sich vor sie. Panzer 10."
       }
     ],
     "weak_if": {
@@ -1383,7 +1383,8 @@
       "map": "waisenhaus",
       "spawn": "keller"
     },
-    "win_text": "Die Schere fällt. Miss Wren sinkt neben den Webstuhl und summt weiter, ganz leise."
+    "win_text": "Die Schere fällt. Miss Wren sinkt neben den Webstuhl und summt weiter, ganz leise.",
+    "armor": 3
   },
   "sternlicht": {
     "name": "Gefallenes Sternlicht",

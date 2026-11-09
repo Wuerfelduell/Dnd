@@ -16,6 +16,9 @@ export const ENEMY_HP_MULT = 1.4;
 export const ENEMY_DMG_MULT = 1.4;
 export const ELITE_HP_MULT = 1.0; // zusätzlich zu den Daten (Elite ×1,5 der Grundform)
 export const ELITE_DMG_MULT = 0.9; // Eliten haben in den Daten schon +30 % Schaden, so bleibt es bei etwa +60 %
+// Zu zweit: der Gegner hält mehr aus und schlägt etwas härter (zwei Spieler teilen sich seine Angriffe)
+export const DUO_HP_MULT = 1.6;
+export const DUO_DMG_MULT = 1.15;
 export const ARMOR = { elite: 2, boss: 3 }; // zieht jedem Treffer so viel ab (mindestens 1 bleibt)
 export const COUNTER_MULT = 0.3; // Konter nach einer Parade
 export const RIPOSTE_MULT = 1.0; // Gegenschlag nach voll parierter Attacke
@@ -75,7 +78,8 @@ export class Combat {
     this.state = state;
     this.id = encounterId;
     this.enc = enc;
-    const hp = enc.practice ? enc.hp : Math.round(enc.hp * ENEMY_HP_MULT * (enc.elite ? ELITE_HP_MULT : 1));
+    const duo = !!state.hasP2?.();
+    const hp = enc.practice ? enc.hp : Math.round(enc.hp * ENEMY_HP_MULT * (enc.elite ? ELITE_HP_MULT : 1) * (duo ? DUO_HP_MULT : 1));
     // Panzer wächst mit der Gefahrenstufe des Gebiets (Marsch 1, ...), Bosse eine Stufe mehr
     const tier = state.content.zones?.[enc.zone]?.tier ?? 2;
     this.armor = enc.practice ? 0 : enc.armor ?? (enc.boss ? Math.min(ARMOR.boss, tier) : enc.elite ? Math.min(ARMOR.elite, tier - 1) : 0);
@@ -88,11 +92,12 @@ export class Combat {
     this.weak = !!enc.weak_if && state.meets(enc.weak_if);
     // Kämpfer: Spieler 1 und (lokaler Koop) Spieler 2, jeder mit eigener Konzentration, Schutz, Blutung, Zug.
     // ap, shield, evading, bleed, actions, itemUsed lesen sich über Zugriffe beim gerade betroffenen Kämpfer.
-    const fighter = (hp) => ({
-      ap: AP_START, shield: 0, evading: false, bleed: null, actions: 0, itemUsed: false, down: false, hpBefore: hp, bleedTick: 0,
+    // Ab Sequenz 7 beginnt man den Kampf mit mehr Konzentration (Passiv ap_start)
+    const fighter = (hp, n) => ({
+      ap: Math.min(AP_MAX, AP_START + state.withPlayer(n, () => state.passive('ap_start'))), shield: 0, evading: false, bleed: null, actions: 0, itemUsed: false, down: false, hpBefore: hp, bleedTick: 0,
     });
-    this.fighters = { 1: fighter(state.hp) };
-    if (state.hasP2?.()) this.fighters[2] = fighter(state.p2.hp);
+    this.fighters = { 1: fighter(state.hp, 1) };
+    if (duo) this.fighters[2] = fighter(state.p2.hp, 2);
     this.actor = 1; // wer am Zug ist
     this.target = 1; // wen der Gegner gerade angreift
     this.cur = null; // für wen die Werte gerade gelten (null = wer am Zug ist)
@@ -200,6 +205,7 @@ export class Combat {
     if (this.enemy.occult && w.occult) dmg *= w.occult;
     if (this.enemy.occult) dmg *= this.state.passive('occult_mult');
     if (this.weak) dmg *= WEAK_MULT;
+    dmg *= this.state.passive('dmg_mult');
     return Math.max(1, Math.round(dmg));
   }
 
@@ -225,6 +231,7 @@ export class Combat {
         const holy = sk.holy || skillId === 'ward';
         damage = sk.flat * GRADE_MULT[grade] * (this.enemy.occult && holy ? 2 : 1) * (this.weak ? WEAK_MULT : 1);
         if (this.enemy.occult) damage *= this.state.passive('occult_mult');
+        damage *= this.state.passive('dmg_mult');
         damage = Math.max(1, Math.round(damage));
       } else {
         damage = this.hitDamage(sk.mult, grade);
@@ -362,7 +369,7 @@ export class Combat {
   prepareAttack(atk) {
     const rage = this.enraged();
     const tough0 = this.enc.elite;
-    const dmgMult = this.enc.practice ? 1 : ENEMY_DMG_MULT * (rage ? 1.2 : 1) * (tough0 ? ELITE_DMG_MULT : 1);
+    const dmgMult = this.enc.practice ? 1 : ENEMY_DMG_MULT * (rage ? 1.2 : 1) * (tough0 ? ELITE_DMG_MULT : 1) * (this.duo ? DUO_DMG_MULT : 1);
     const speed = rage ? 0.85 : 1;
     const hits = [];
     const src = [...atk.hits];
