@@ -2,7 +2,7 @@
 // Alles hält sich an die Asset-Maße (Tiles 16x16, Figuren 16x32, Sheets 64x128),
 // damit echte PNGs später 1:1 die Platzhalter ersetzen können (siehe README).
 
-import { createSpriteTextures, drawTileFromSheet } from './assets.js';
+import { createSpriteTextures, drawTileFromSheet, THEME_TILE_LIST } from './assets.js';
 
 export const TILE = 16;
 
@@ -24,6 +24,8 @@ export const TILE_KEYS = [
   // Nachtmarkt (Paket A); ohne PNG fallen sie auf die normalen Gegenstücke zurück
   'nmArch', 'nmArchDrip',
   'nmWall0', 'nmWall1', 'nmChalk', 'nmLedge', 'nmQuay', 'nmRail',
+  // Paket C: Kartenthemen (assets.js THEME_TILES)
+  ...THEME_TILE_LIST.map((t) => t.key),
 ];
 export const TILE_INDEX = Object.fromEntries(TILE_KEYS.map((k, i) => [k, i]));
 export const SOLID_KEYS = [
@@ -32,6 +34,7 @@ export const SOLID_KEYS = [
   'grave', 'openGrave', 'rubble', 'deadTree', 'cryptTop', 'cryptFace', 'altar',
   'quay', 'crate', 'barrel',
   'nmArch', 'nmArchDrip', 'nmWall0', 'nmWall1', 'nmChalk', 'nmLedge', 'nmQuay', 'nmRail',
+  ...THEME_TILE_LIST.filter((t) => t.solid).map((t) => t.key),
 ];
 
 /** Deterministischer Hash für Variationen pro Tile. */
@@ -347,6 +350,10 @@ const TILE_PAINTERS = {
   nmArch: drawBrick, nmArchDrip: drawBrick, nmWall0: drawBrick, nmWall1: drawBrick, nmChalk: drawBrick, nmLedge: drawWindow,
   nmQuay: drawQuay, nmRail: drawFence,
 };
+
+// Themen-Tiles ohne PNG fallen auf einen passenden Platzhalter zurück
+for (const t of THEME_TILE_LIST) TILE_PAINTERS[t.key] = (p) => TILE_PAINTERS[t.fallback](p);
+
 
 // --- Figuren ---------------------------------------------------------------
 

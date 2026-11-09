@@ -1,7 +1,7 @@
 import Phaser from 'phaser';
 import { createTextures, createCharacterSheet, hash2, TILE, TILE_INDEX, SOLID_KEYS } from './textures.js';
 import { Lighting, DEPTH } from './Lighting.js';
-import { preloadSprites, playSheetAnim } from './assets.js';
+import { preloadSprites, playSheetAnim, themeKeys, PROP_ORIGINS, MAP_WEATHER } from './assets.js';
 
 export const VIEW_W = 480;
 export const VIEW_H = 270;
@@ -14,8 +14,67 @@ export const PLAYER_PALETTE = {
   coat: '#6a5a48', hat: '#2e2a26', skin: '#e0b894', hair: '#3a2a20', legs: '#2c2a30', scarf: '#7a3a3a',
 };
 
+/** Wählt deterministisch eine Variante aus einer Liste von Tile-Keys. */
+const pickKey = (keys, x, y, seed) => keys[Math.floor(hash2(x, y, seed) * keys.length)];
+
+/**
+ * Paket-C-Themen nach gleichem Muster: Boden, Wandkrone (Wand darunter), Wandfront.
+ * `extra(ch, at, x, y)` deutet weitere Zeichen um.
+ */
+function roomTheme(theme, { floorChars = '.ws', extra = null, floorMix = null } = {}) {
+  const floor = themeKeys(theme, 'floor');
+  return (ch, at, v, x, y) => {
+    const special = extra?.(ch, at, x, y);
+    if (special) return special;
+    if (floorChars.includes(ch)) return floorMix?.(x, y) ?? pickKey(floor, x, y, 0);
+    if (ch === 'I' || ch === '#') {
+      const below = at(0, 1);
+      const top = below === undefined || below === 'I' || below === '#' || below === 'E';
+      return pickKey(themeKeys(theme, top ? 'wallTop' : 'wallFace'), x, y, 2);
+    }
+    return null;
+  };
+}
+/** Länge der waagrechten Reihe gleicher Zeichen, in der (x, y) liegt. */
+const runOf = (at, ch) => {
+  let l = 0;
+  while (at(-l - 1, 0) === ch) l += 1;
+  let r = 0;
+  while (at(r + 1, 0) === ch) r += 1;
+  return { l, r, len: l + r + 1 };
+};
+
 /** Kartenthemen: ersetzen einzelne Zeichen durch eigene Tiles (Map-Feld "tiles"). */
 const THEMES = {
+  warehouse: roomTheme('warehouse', {
+    floorMix: (x, y) => (hash2(x, y, 31) > 0.95 ? themeKeys('warehouse', 'debris')[0] : pickKey(themeKeys('warehouse', 'floor'), x, y, 0)),
+  }),
+  tavern: roomTheme('tavern', {
+    extra: (ch, at, x, y) => {
+      if (ch === 'T') {
+        const { l, r, len } = runOf(at, 'T');
+        if (len < 3) return themeKeys('tavern', 'tableBase')[0]; // kleine Tische: Deko obendrauf
+        const [left, mid, right] = themeKeys('tavern', 'bar');
+        return l === 0 ? left : r === 0 ? right : mid;
+      }
+      if (ch === 'B') return pickKey(themeKeys('tavern', 'shelf'), x, y, 7);
+      if (ch === 'V') return themeKeys('tavern', 'barrel')[0];
+      return null;
+    },
+  }),
+  altmarkt: roomTheme('altmarkt', {
+    floorChars: '.',
+    extra: (ch) => (ch === 'T' ? themeKeys('altmarkt', 'stallBase')[0] : null), // Stände kommen als Deko
+  }),
+  theater: roomTheme('theater', { extra: (ch, at, x, y) => (ch === 'T' ? pickKey(themeKeys('theater', 'seat'), x, y, 3) : null) }),
+  uhrturm: roomTheme('uhrturm'),
+  schlachthof: roomTheme('schlachthof', {
+    floorChars: '.s',
+    extra: (ch, at, x, y) => (ch === 'w' ? pickKey(themeKeys('schlachthof', 'wood'), x, y, 4) : null),
+    floorMix: (x, y) => pickKey(themeKeys('schlachthof', hash2(x, y, 8) > 0.85 ? 'wet' : 'floor'), x, y, 0),
+  }),
+  gaskanaele: roomTheme('gaskanaele', { extra: (ch) => (ch === '~' ? themeKeys('gaskanaele', 'water')[0] : null) }),
+  sternwarte: roomTheme('sternwarte'),
   nachtmarkt(ch, at, v, x, y) {
     switch (ch) {
       case '#':
@@ -117,6 +176,7 @@ export class WorldScene extends Phaser.Scene {
     this.buildNpcs();
     this.buildPlayer();
     this.buildAtmosphere(amb);
+    this.buildWeather();
     this.bindInput();
     this.bindState();
     this.refreshVisibility();
@@ -201,9 +261,12 @@ export class WorldScene extends Phaser.Scene {
       const y = ty * TILE + 8 + oy;
       const img = this.add.sprite(x, y, def.sprite, 0).setAlpha(def.alpha ?? 0.85);
       if (def.origin) img.setOrigin(...def.origin);
+      else if (PROP_ORIGINS[def.sprite]) img.setOrigin(0.5, PROP_ORIGINS[def.sprite]);
+      if (def.flip) img.setFlipX(true);
       // ysort: Tiefe nach Fußpunkt, damit Figuren davor oder dahinter stehen können
       img.setDepth(def.ysort ? 100 + img.y + img.displayHeight * (1 - img.originY) : def.depth ?? 50);
-      if (this.anims.exists(def.sprite)) img.play({ key: def.sprite, startFrame: Math.floor(hash2(tx, ty, 1) * (img.texture.frameTotal - 1)) });
+      if (def.anim) playSheetAnim(img, ...def.anim);
+      else if (this.anims.exists(def.sprite)) img.play({ key: def.sprite, startFrame: Math.floor(hash2(tx, ty, 1) * (img.texture.frameTotal - 1)) });
       if (def.solid) this.addBlocker(x + (def.solid[2] ?? 0), y + (def.solid[3] ?? 0), def.solid[0], def.solid[1]);
       if (def.light) {
         const l = def.light;
@@ -226,6 +289,7 @@ export class WorldScene extends Phaser.Scene {
         item.parts.push(item.sprite);
       } else if (def.sprite) {
         item.sprite = this.add.sprite(x, y, def.sprite).setDepth(50);
+        if (PROP_ORIGINS[def.sprite]) item.sprite.setOrigin(0.5, PROP_ORIGINS[def.sprite]).setDepth(100 + y + 8);
         // Animiertes PNG (z. B. blubbernder Kessel); fehlt es, bleibt das Standbild
         if (def.anim) {
           item.idleAnim = def.anim;
@@ -329,6 +393,28 @@ export class WorldScene extends Phaser.Scene {
     this.visionOverlay = this.add.rectangle(0, 0, VIEW_W, VIEW_H, 0x30c0a8, 0.1)
       .setOrigin(0).setScrollFactor(0).setDepth(DEPTH.vision).setBlendMode(Phaser.BlendModes.ADD).setVisible(false);
     this.applyVision(this.state.spiritVision);
+  }
+
+  /** Wetter (Paket C): Raster aus 64er-Kacheln über dem Bild, z. B. Regen am Hafen. */
+  buildWeather() {
+    const kind = this.mapDef.weather ?? MAP_WEATHER[this.mapDef.id];
+    if (!kind || !this.textures.exists('weather')) return;
+    for (let gy = 0; gy < Math.ceil(VIEW_H / 64); gy++) {
+      for (let gx = 0; gx < Math.ceil(VIEW_W / 64); gx++) {
+        const w = this.add.sprite(gx * 64, gy * 64, 'weather', 0).setOrigin(0).setScrollFactor(0).setDepth(DEPTH.dark + 2)
+          .setAlpha(kind === 'fog' ? 0.25 : 0.35);
+        if (!playSheetAnim(w, 'weather', kind)) { w.destroy(); return; }
+        w.anims.setProgress(hash2(gx, gy, 3));
+      }
+    }
+  }
+
+  /** Kurze Spieleraktion (Paket C): door, pickup, read, rest, badge. Blockiert solange die Bewegung. */
+  playPlayerAction(name) {
+    const p = this.player;
+    if (this.playerBusy || !this.textures.exists('player_extras')) return;
+    const done = () => { this.playerBusy = false; p.setTexture('player', DIRS.indexOf(this.facing) * 4); };
+    if (playSheetAnim(p, 'player_extras', name, done)) this.playerBusy = true;
   }
 
   bindInput() {
@@ -556,6 +642,7 @@ export class WorldScene extends Phaser.Scene {
         this.ui.openDialogue({ name: def.title, role: def.role ?? '', dialogue: def.dialogue });
         break;
       case 'travel':
+        this.playPlayerAction('door');
         this.ui.openTravel(this.state.map);
         break;
       case 'brew':
@@ -565,6 +652,7 @@ export class WorldScene extends Phaser.Scene {
         this.startCombat(def.encounter);
         break;
       case 'rest': {
+        this.playPlayerAction('rest');
         const healed = this.state.heal(this.state.maxHp);
         this.state.setComposure(100);
         this.ui.showMessage(def.title, def.text, { footer: healed > 0 ? `+${healed} Leben, Nerven beruhigt.` : 'Du bist ausgeruht.' });
@@ -574,6 +662,7 @@ export class WorldScene extends Phaser.Scene {
         this.travelTo(def.to, def.spawn);
         break;
       case 'read': {
+        this.playPlayerAction('read');
         const isNew = !def.done_flag || !this.state.flags.has(def.done_flag);
         this.ui.showMessage(def.title, def.text, { footer: def.footer ?? '' });
         if (isNew) this.state.applyEffects({ ...def.effects, sets_flags: [...(def.effects?.sets_flags ?? []), ...(def.done_flag ? [def.done_flag] : [])] });
@@ -581,6 +670,7 @@ export class WorldScene extends Phaser.Scene {
         break;
       }
       default: { // 'clue'
+        this.playPlayerAction('pickup');
         const clue = this.state.clue(def.clue);
         const isNew = this.state.addClue(def.clue);
         if (isNew && it.hidden) this.state.act('hidden_clue');

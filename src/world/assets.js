@@ -59,7 +59,24 @@ export const SHEETS = {
   gorse: 'characters/A_gorse_walk.png',
   sabeth: 'characters/A_sabeth_walk.png',
   brock: 'characters/A_brock_walk.png',
+  // Paket C: Orte und Props (Regionen in manifest-welt.json)
+  lagerhaus: 'tilesets/C_03_lagerhaus_tiles.png',
+  lagerhausProps: 'props/C_03_lagerhaus_props.png',
+  altmarktTiles: 'tilesets/C_04_altmarkt_tiles.png',
+  altmarktProps: 'props/C_04_altmarkt_props.png',
+  taverne: 'tilesets/C_05_taverne.png',
+  revierExtra: 'props/C_06_revier_extra.png',
+  theater: 'tilesets/C_09_theater.png',
+  uhrturm: 'tilesets/C_09_uhrturm.png',
+  schlachthof: 'tilesets/C_09_schlachthof.png',
+  gaskanaele: 'tilesets/C_09_gaskanaele.png',
+  sternwarte: 'tilesets/C_09_sternwarte.png',
 };
+/** Paket C: Lauf-Sheets (characters/C_<id>_walk.png), Key = Figuren-Id. */
+export const C_CHARACTERS = ['pimm', 'fenwick', 'agnes', 'pip', 'tobias', 'cultist', 'maud', 'silas', 'ned', 'quill', 'ambrose',
+  'wick', 'grimes', 'nate', 'diva', 'souffleur', 'maskenmacher', 'uhrmacherin', 'turmwaechter', 'schlachtermeister', 'lehrling',
+  'gaswerker', 'astronom'];
+for (const id of C_CHARACTERS) SHEETS[`c_${id}`] = `characters/C_${id}_walk.png`;
 
 /**
  * Tile-Key → Zelle in einem 16x16-Tileset (Index in Leserichtung).
@@ -87,6 +104,71 @@ export const TILE_CELLS = {
   nmWall0: ['nachtmarkt', 40], nmWall1: ['nachtmarkt', 41], nmChalk: ['nachtmarkt', 42], nmLedge: ['nachtmarkt', 48],
   nmQuay: ['nachtmarkt', 28], nmRail: ['pit', 4, 'cobble0'],
 };
+
+/**
+ * Paket C: Kartenthemen aus benannten Regionen (manifest-welt.json). Jeder Eintrag erzeugt den
+ * Tile-Key `<thema>_<name>`; `solid` blockiert, `base` liegt unter transparenten Zellen.
+ * Welche Kartenzeichen welche Keys nutzen, steht in THEMES (WorldScene.js).
+ */
+export const THEME_TILES = {
+  warehouse: {
+    sheet: 'lagerhaus', base: 'floor_1', fallback: 'wood0',
+    floor: ['floor_1', 'floor_2', 'floor_3'], debris: ['floor_broken', 'tile_04', 'tile_05', 'tile_06', 'tile_07'],
+    wallFace: ['tile_08', 'tile_09', 'tile_10', 'tile_12'], wallTop: ['tile_16', 'tile_17', 'tile_18'],
+  },
+  tavern: {
+    sheet: 'taverne', base: 'floor_1', fallback: 'wood0',
+    floor: ['floor_1', 'floor_2', 'floor_3'],
+    wallTop: ['wall_0', 'wall_3'], wallFace: ['wall_1', 'wall_2', 'wall_4', 'wall_window_0', 'wall_window_1', 'wall_window_3'],
+    bar: ['bar_0', 'bar_1', 'bar_2'], shelf: ['bar_3', 'bar_4', 'bar_5', 'bar_6'], barrel: ['barrel_side'], tableBase: ['floor_2'],
+  },
+  altmarkt: {
+    sheet: 'altmarktTiles', base: 'cobble_1', fallback: 'cobble0',
+    floor: ['cobble_1', 'cobble_2', 'cobble_3'], stallBase: ['cobble_2'],
+  },
+  theater: {
+    sheet: 'theater', base: 'floor_0', fallback: 'wood0',
+    floor: ['floor_0', 'floor_1', 'floor_2', 'floor_3', 'floor_4'], wallFace: ['backstage_0', 'backstage_1', 'backstage_2', 'backstage_3'],
+    wallTop: ['backstage_0'], seat: ['seat_0', 'seat_1', 'seat_2'],
+  },
+  uhrturm: {
+    sheet: 'uhrturm', base: 'floor_0', fallback: 'wood0',
+    floor: ['floor_0', 'floor_1', 'floor_2', 'floor_3', 'floor_4', 'floor_5', 'floor_6', 'floor_7'],
+    wallFace: ['wall_0', 'wall_1', 'wall_2', 'wall_3', 'wall_5'], wallTop: ['wall_12', 'wall_13', 'wall_14', 'wall_15'],
+  },
+  schlachthof: {
+    sheet: 'schlachthof', base: 'floor_0', fallback: 'stone',
+    floor: ['floor_0', 'floor_1', 'floor_2', 'floor_3', 'floor_4'], wet: ['wet_floor_0', 'wet_floor_1', 'wet_floor_2', 'wet_floor_3', 'wet_floor_4'],
+    wood: ['floor_5', 'floor_6', 'floor_7', 'floor_8'], wallFace: ['wall_0', 'wall_1', 'wall_2', 'wall_3', 'wall_4', 'wall_5', 'wall_6', 'wall_7'],
+    wallTop: ['wall_8', 'wall_9', 'wall_10', 'wall_11'],
+  },
+  gaskanaele: {
+    sheet: 'gaskanaele', base: 'floor_0', fallback: 'stone',
+    floor: ['floor_0', 'floor_1', 'floor_2', 'floor_3', 'floor_4', 'floor_5', 'floor_6'],
+    wallFace: ['wall_0', 'wall_1', 'wall_2', 'wall_3', 'wall_4', 'wall_5', 'wall_6', 'wall_7'],
+    wallTop: ['wall_8', 'wall_9', 'wall_10', 'wall_11'], water: ['water'],
+  },
+  sternwarte: {
+    sheet: 'sternwarte', base: 'floor_round_0', fallback: 'stone',
+    floor: ['floor_round_0', 'floor_round_1', 'floor_round_2'], wallFace: ['wall_0', 'wall_1', 'wall_2', 'wall_3'], wallTop: ['wall_4', 'wall_5', 'wall_6', 'wall_7'],
+  },
+};
+/** Gruppen, die begehbar bleiben; alles andere blockiert. */
+const WALKABLE_GROUPS = ['floor', 'debris', 'wet', 'wood'];
+/** Ersatz-Painter (textures.js) je Gruppe, falls das PNG fehlt. */
+const GROUP_FALLBACK = { wallFace: 'wallFace', wallTop: 'wallTop', bar: 'desk', shelf: 'shelf', barrel: 'barrel', seat: 'desk', water: 'water0' };
+
+/** Alle Themen-Tiles: [{ key, sheet, region, solid, fallback, theme, group }]. */
+export const THEME_TILE_LIST = Object.entries(THEME_TILES).flatMap(([theme, spec]) => Object.entries(spec)
+  .filter(([group, v]) => Array.isArray(v))
+  .flatMap(([group, regions]) => regions.map((region) => ({
+    key: `${theme}_${group}_${region}`, theme, group, sheet: spec.sheet, region,
+    solid: !WALKABLE_GROUPS.includes(group), fallback: GROUP_FALLBACK[group] ?? spec.fallback,
+    base: WALKABLE_GROUPS.includes(group) ? null : `${theme}_floor_${spec.floor[0]}`,
+  }))));
+/** Tile-Keys einer Themen-Gruppe (für tileIndexFor). */
+export const themeKeys = (theme, group) => (THEME_TILES[theme]?.[group] ?? []).map((r) => `${theme}_${group}_${r}`);
+for (const t of THEME_TILE_LIST) TILE_CELLS[t.key] = [t.sheet, t.region, t.base];
 
 /** Prop-Texture-Key → Ausschnitt [sheet, x, y, w, h, scale?]. Ausgabegröße = w x h (mal scale). */
 export const PROP_CELLS = {
@@ -116,12 +198,44 @@ export const PROP_CELLS = {
   coin_barrel: ['pit', 96, 32, 16, 32],
   pit_bench: ['pit', 0, 64, 32, 16],
   pit_floor: ['pit', 0, 0, 48, 48],
+  // Paket C
+  circle: ['lagerhausProps', 80, 0, 48, 48], // Kreidezeichen im Lagerhaus
+  altar_c: ['lagerhausProps', 0, 0, 32, 16],
+  robes: ['lagerhausProps', 32, 16, 32, 32],
+  chain_hoist: ['lagerhausProps', 64, 16, 16, 48],
+  overturned_chair: ['lagerhausProps', 16, 32, 16, 16],
+  hymn_sheets: ['lagerhausProps', 16, 16, 16, 16],
+  crate_stack: ['lagerhausProps', 0, 16, 16, 32],
+  locker: ['revierExtra', 0, 0, 16, 32],
+  bellmount: ['revierExtra', 16, 0, 32, 32],
+  boot_rack: ['revierExtra', 48, 0, 32, 16],
+  kettle_stove: ['revierExtra', 112, 0, 16, 16],
+  market_stall_0: ['altmarktTiles', 48, 48, 32, 32],
+  market_stall_1: ['altmarktTiles', 80, 48, 32, 32],
+  market_stall_2: ['altmarktTiles', 112, 48, 32, 32],
+  market_stall_3: ['altmarktTiles', 144, 48, 32, 32],
+  chapel: ['altmarktTiles', 176, 48, 48, 48],
+  veg_crate: ['altmarktTiles', 240, 0, 16, 16],
+  veg_basket: ['altmarktTiles', 240, 16, 16, 16],
+  fruit_cart: ['altmarktProps', 96, 0, 32, 16],
+  weighing_scale: ['altmarktProps', 80, 0, 16, 32],
+  table_stools: ['taverne', 64, 16, 32, 32],
+  corner_booth: ['taverne', 96, 16, 32, 32],
+  barrels_stacked: ['taverne', 128, 16, 16, 32],
+  moon_sign: ['taverne', 32, 32, 32, 16],
+  chalkboard: ['taverne', 48, 48, 16, 16],
+  mugs: ['taverne', 144, 32, 16, 16],
 };
+
+/** Senkrechter Ankerpunkt für Props, die höher als ein Tile sind (Fuß auf der Tile-Unterkante). */
+export const PROP_ORIGINS = { locker: 0.75, bellmount: 0.75 };
 
 /** Animierte Deko aus Regionen eines Sheets: Key → [sheet, [[x, y, w, h], ...], frameRate]. */
 export const PROP_ANIMS = {
   market_lanterns: ['marketProps', [[48, 48, 48, 16], [112, 48, 48, 16]], 4],
   brazier: ['marketProps', [[0, 96, 16, 32], [16, 96, 16, 32], [32, 96, 16, 32], [48, 96, 16, 32]], 6],
+  fountain: ['altmarktTiles', [[96, 0, 48, 48], [144, 0, 48, 48], [192, 0, 48, 48], [0, 16, 48, 48]], 4],
+  fireplace: ['taverne', [[160, 16, 32, 32], [192, 16, 32, 32], [224, 16, 32, 32], [0, 32, 32, 32]], 6],
 };
 
 /** Figur → Lauf-Sheet (64x128, Zeilen: unten, links, rechts, oben – wie DIRS). */
@@ -136,6 +250,34 @@ export const CHARACTER_SHEETS = {
   npc_wick: 'lamplighter', npc_grimes: 'constable',
   npc_nell: 'nell', npc_kittering: 'kittering', npc_gorse: 'gorse', npc_sabeth: 'sabeth', npc_grubenwirt: 'brock',
 };
+// Paket C ersetzt die älteren Lauf-Sheets und bringt Miss Pimm, Nate und die Figuren der neuen Orte.
+for (const id of C_CHARACTERS) CHARACTER_SHEETS[`npc_${id}`] = `c_${id}`;
+
+/** Figur → Portrait-Streifen (256x64, vier Ausdrücke à 64x64) unter public/sprites/portraits/. */
+export const PORTRAITS = {
+  ...Object.fromEntries(['holt', 'pimm', 'rook', 'barnaby', 'elias', 'greta', 'halloway', 'price', 'kit', 'ivy', 'anselm', 'moll',
+    'hester', 'fenwick', 'agnes', 'pip', 'tobias', 'cultist', 'miriam', 'maud', 'silas', 'ned', 'quill', 'ambrose', 'wick', 'grimes',
+    'nate', 'diva', 'souffleur', 'maskenmacher', 'uhrmacherin', 'turmwaechter', 'schlachtermeister', 'lehrling', 'gaswerker', 'astronom']
+    .map((id) => [id, `C_${id}_emotions.png`])),
+  nell: 'A_nell_emotions.png', kittering: 'A_kittering_emotions.png', gorse: 'A_gorse_emotions.png',
+  sabeth: 'A_sabeth_emotions.png', grubenwirt: 'A_brock_emotions.png',
+};
+/** Ausdruck (Dialogknoten-Feld "mood") → Spalte im Portrait-Streifen. */
+export const PORTRAIT_MOODS = { neutral: 0, suspicious: 1, skeptical: 1, shocked: 2, smile: 3, faint_smile: 3, approving: 2, angry: 3 };
+export const portraitUrl = (id) => (PORTRAITS[id] ? `${BASE}portraits/${PORTRAITS[id]}` : null);
+
+/** Stadtkarte: Karte → Zelle in ui/C_08_map_markers.png (13 Spalten, Zeile 2 = hervorgehoben). */
+export const MAP_MARKERS = {
+  revier: 0, ashgrove: 1, ebba: 2, docks: 3, altmarkt: 4, tavern: 5, nachtmarkt: 6, warehouse: 7,
+  theater: 8, uhrturm: 9, schlachthof: 10, gaskanaele: 11, sternwarte: 12,
+};
+export const MAP_MARKERS_URL = `${BASE}ui/C_08_map_markers.png`;
+/** Notizbuch: Status → Zelle in ui/C_07_log_markers.png. */
+export const LOG_MARKERS = { suspected: 0, likely: 1, refuted: 2 };
+export const LOG_MARKERS_URL = `${BASE}ui/C_07_log_markers.png`;
+
+/** Wetter pro Karte (Animation aus C_08_weather). */
+export const MAP_WEATHER = { docks: 'rain_light', ebba: 'ash', gaskanaele: 'fog' };
 
 // --- Paket A: animierte Sheets (Frames/Animationen in manifest-pfade.json) ----------
 
@@ -148,10 +290,14 @@ export const ANIM_SHEETS = {
   potion_ascend: ['fx/potion_ascend.png', 32, 32],
   aura_pfade: ['fx/aura_pfade.png', 24, 36],
   control_cracks: ['ui/A_11_control_cracks.png', 480, 270],
+  // Paket C
+  player_extras: ['characters/C_player_extras.png', 16, 32],
+  creatures: ['fx/C_08_creatures.png', 16, 16],
+  weather: ['fx/C_08_weather.png', 64, 64],
 };
 
 /** Manifest-Id, falls sie vom Texture-Key abweicht. */
-const MANIFEST_IDS = { player_drink: 'A_player_drink', control_cracks: 'A_11_control_cracks' };
+const MANIFEST_IDS = { player_drink: 'A_player_drink', control_cracks: 'A_11_control_cracks', creatures: 'C_08_creatures', weather: 'C_08_weather' };
 
 /** Pfad-Embleme und Karten (public/sprites/pathways/). */
 export const pathwayEmblemUrl = (pid, size = 32) => `${BASE}pathways/emblem_${pid}_${size}.png`;
@@ -210,6 +356,9 @@ export const ENCOUNTER_SHEETS = {
   archive_rats: 'enemy_aktenfresser', choir_zealots: 'enemy_chorfanatiker', rook_fight: 'enemy_rook',
   silas_fight: 'enemy_silas', mirror_shade: 'enemy_spiegelschatten', schattenpuppe: 'enemy_schattenpuppe',
   grubenkampf: 'enemy_grubenkaempfer',
+  // Bonusgegner (Begegnungen kommen mit Fall 4)
+  kanalkroete: 'enemy_kanalkroete', uhrwerkwaechter: 'enemy_uhrwerkwaechter', maskenspieler: 'enemy_maskenspieler',
+  schlachtergehilfe: 'enemy_schlachtergehilfe', gasgeist: 'enemy_gasgeist',
 };
 
 /** Gegner-Sprite aus encounters.json → Kampf-Sheet (Rückfall für Begegnungen ohne eigenen Eintrag). */
@@ -232,6 +381,8 @@ export const FADING_SHEETS = ['enemy_nebelhund', 'enemy_aschewaechter', 'enemy_a
 export const BATTLE_BACKGROUNDS = {
   revier: 'bg_revier', ashgrove: 'bg_ashgrove', crypt: 'bg_krypta', ebba: 'bg_ebba', altmarkt: 'bg_altmarkt',
   docks: 'bg_hafen', warehouse: 'bg_lagerhaus', tavern: 'bg_taverne', nachtmarkt: 'bg_nachtmarkt',
+  // Neue Orte (bis es eigene Hintergründe gibt)
+  theater: 'bg_spiegel', uhrturm: 'bg_archiv', sternwarte: 'bg_archiv', schlachthof: 'bg_lagerhaus', gaskanaele: 'bg_hafen',
 };
 /** Begegnung → eigener Hintergrund (vor dem der Karte). */
 export const ENCOUNTER_BACKGROUNDS = { archive_rats: 'bg_archiv', grubenkampf: 'bg_grube', mirror_shade: 'bg_spiegel' };
@@ -272,6 +423,7 @@ export function preloadSprites(scene) {
   }
   if (!scene.cache.json.exists('manifest14b')) scene.load.json('manifest14b', `${BASE}manifest-14b.json`);
   if (!scene.cache.json.exists('manifestKampf')) scene.load.json('manifestKampf', `${BASE}manifest-kampf.json`);
+  if (!scene.cache.json.exists('manifestWelt')) scene.load.json('manifestWelt', `${BASE}manifest-welt.json`);
   if (!scene.cache.json.exists('manifestPfade')) scene.load.json('manifestPfade', `${BASE}manifest-pfade.json`);
 }
 
@@ -285,7 +437,7 @@ export function playSheetAnim(sprite, sheet, name, then) {
   const key = `${sheet}-${name}`;
   if (!scene.anims.exists(key)) {
     const id = MANIFEST_IDS[sheet] ?? sheet;
-    const def = scene.cache.json.get('manifestPfade')?.assets?.find((a) => a.id === id)?.animations?.[name];
+    const def = ['manifestPfade', 'manifestWelt'].map((m) => scene.cache.json.get(m)?.assets?.find((a) => a.id === id)?.animations?.[name]).find(Boolean);
     if (!def) return false;
     scene.anims.create({ key, frames: def.frames.map((frame) => ({ key: sheet, frame })), frameRate: def.frameRate, repeat: def.repeat });
   }
@@ -339,8 +491,20 @@ export function drawTileFromSheet(scene, ctx, tileKey, dx, dy, drawFallback) {
   if (base) {
     if (!drawTileFromSheet(scene, ctx, base, dx, dy, drawFallback)) drawFallback(base);
   }
-  const cols = Math.floor(img.width / 16);
-  ctx.drawImage(img, (index % cols) * 16, Math.floor(index / cols) * 16, 16, 16, dx, dy, 16, 16);
+  let sx;
+  let sy;
+  if (typeof index === 'string') {
+    // Benannte Region aus manifest-welt.json
+    const r = scene.cache.json.get('manifestWelt')?.assets?.find((a) => a.file === SHEETS[sheet])?.regions?.[index];
+    if (!r) return false;
+    sx = r.x;
+    sy = r.y;
+  } else {
+    const cols = Math.floor(img.width / 16);
+    sx = (index % cols) * 16;
+    sy = Math.floor(index / cols) * 16;
+  }
+  ctx.drawImage(img, sx, sy, 16, 16, dx, dy, 16, 16);
   return true;
 }
 

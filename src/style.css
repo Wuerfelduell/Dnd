@@ -284,3 +284,9 @@ button.small { font-size: 0.8em; padding: 0.1em 0.5em; }
 /* Icon-Atlanten aus Paket B (Fähigkeiten, Zustände) */
 .atlas-icon { display: inline-block; width: 16px; height: 16px; image-rendering: pixelated; vertical-align: -3px; margin-right: 5px; background-repeat: no-repeat; }
 .cb-status .atlas-icon { margin-right: 2px; }
+
+/* Portraits im Dialog (Paket C): 64x64 aus einem 256x64-Streifen */
+.portrait { float: left; width: 4.5em; height: 4.5em; margin: 0 0.8em 0.3em 0; background-size: 400% 100%; background-repeat: no-repeat;
+  image-rendering: pixelated; border: 0.125em solid #2a2630; }
+.panel.dialogue.with-portrait .choices { clear: both; }
+.badge .atlas-icon { margin-right: 3px; vertical-align: -4px; }
