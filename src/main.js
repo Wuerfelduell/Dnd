@@ -70,13 +70,29 @@ game = new Phaser.Game({
 });
 
 // Ganzzahlige Skalierung: Pixel bleiben scharf (480x270 -> 960x540, 1440x810, ...).
+// Auf kleinen Bildschirmen (Handy) wird stattdessen stufenlos auf die volle Fläche skaliert.
 function fit() {
-  const k = Math.max(1, Math.floor(Math.min(window.innerWidth / VIEW_W, window.innerHeight / VIEW_H)));
+  const w = window.visualViewport?.width ?? window.innerWidth;
+  const h = window.visualViewport?.height ?? window.innerHeight;
+  const raw = Math.min(w / VIEW_W, h / VIEW_H);
+  const k = raw < 2 || document.documentElement.classList.contains('touch') && raw < 3
+    ? Math.max(0.5, Math.floor(raw * 20) / 20)
+    : Math.floor(raw);
   frame.style.width = `${VIEW_W * k}px`;
   frame.style.height = `${VIEW_H * k}px`;
   frame.style.setProperty('--k', k);
+  game?.scale?.refresh(); // Eingabe-Koordinaten an die neue Größe anpassen
 }
 window.addEventListener('resize', fit);
+window.visualViewport?.addEventListener('resize', fit);
+window.addEventListener('orientationchange', () => setTimeout(fit, 200));
+document.addEventListener('fullscreenchange', () => setTimeout(fit, 100));
+const rotateBtn = document.querySelector('[data-rotate-fullscreen]');
+if (ui.canFullscreen()) rotateBtn?.addEventListener('click', () => ui.toggleFullscreen());
+else rotateBtn?.remove(); // iPhone: kein Vollbild im Browser (Hinweis im Menü: „Zum Home-Bildschirm“)
+window.addEventListener('touchstart', () => setTimeout(fit, 0), { once: true, passive: true });
+// Kein Kontextmenü beim langen Drücken (Handy)
+frame.addEventListener('contextmenu', (e) => e.preventDefault());
 window.addEventListener('beforeunload', writeSave);
 fit();
 

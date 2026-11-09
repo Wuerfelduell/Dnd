@@ -273,7 +273,13 @@ export class Ui {
           <div class="goal hidden"></div>
         </div>
         <div class="hud-right">
-          <span class="key">J</span> Notizbuch &nbsp; <span class="key">I</span> Inventar &nbsp; <span class="key">P</span> Pfad &nbsp; <span class="key">Q</span> Geistsicht &nbsp; <span class="key">Esc</span> Menü
+          <div class="hudbtns">
+            <button class="hudbtn" data-hud="notebook"><span class="key">J</span> Notizbuch</button>
+            <button class="hudbtn" data-hud="inventory"><span class="key">I</span> Inventar</button>
+            <button class="hudbtn" data-hud="pathway"><span class="key">P</span> Pfad</button>
+            <button class="hudbtn" data-hud="vision"><span class="key">Q</span> Geistsicht</button>
+            <button class="hudbtn" data-hud="menu"><span class="key">Esc</span> Menü</button>
+          </div>
           <div class="hud-p2 hidden">
             <div class="p2name">Spieler 2 <span class="muted p2weapon"></span></div>
             <div class="meter life"><span>Leben</span><div class="bar"><div class="p2hp"></div></div><em class="p2hpnum"></em></div>
@@ -283,7 +289,7 @@ export class Ui {
         </div>
         <div class="vision-tag">Geistsicht</div>
       </div>
-      <div class="prompt hidden"></div>
+      <button class="prompt hidden"></button>
       <div class="toasts"></div>
       <div class="layer"></div>
       <div class="floats"></div>`;
@@ -374,11 +380,91 @@ export class Ui {
     ['item', 'changed', 'pathway'].forEach((ev) => state.on(ev, () => this.updateLoad()));
     ['party', 'hp', 'composure', 'item', 'changed'].forEach((ev) => state.on(ev, () => this.updateP2()));
     window.addEventListener('keydown', (e) => this.onKey(e), true);
+    this.bindTouch();
     this.updateComposure(state.composure);
     this.updateHonor();
     this.updateHp();
     this.updateMoney();
     this.updateUnruhe();
+  }
+
+  // --- Handy / Touch -----------------------------------------------------------
+
+  /** Touch-Modus: Tastenhinweise ausblenden, Kampfknöpfe zeigen. Schaltet sich beim ersten Fingertipp ein. */
+  setTouch(on) {
+    if (this.touch === on) return;
+    this.touch = on;
+    document.documentElement.classList.toggle('touch', on);
+  }
+
+  bindTouch() {
+    this.setTouch(!!window.matchMedia?.('(pointer: coarse)').matches);
+    window.addEventListener('touchstart', () => this.setTouch(true), { passive: true, capture: true });
+    // HUD-Knöpfe (statt J, I, P, Q, Esc)
+    this.root.querySelectorAll('[data-hud]').forEach((b) => {
+      b.onclick = () => {
+        if (!this.scene || this.isBlocking()) return;
+        const a = b.dataset.hud;
+        if (a === 'menu') this.openPause();
+        else this.scene.pending = a;
+      };
+    });
+    // Hinweis unten antippen = E
+    this.$('.prompt').onclick = () => { if (this.scene && !this.isBlocking()) this.scene.pending = 'interact'; };
+    // Jeder Knopf mit data-key wirkt wie die Taste (G Tasche wechseln, ← → Untertabs usw.)
+    this.root.addEventListener('click', (e) => {
+      const b = e.target.closest?.('[data-key]');
+      if (!b || !this.root.contains(b)) return;
+      e.preventDefault();
+      this.onKey({ key: b.dataset.key, repeat: false, preventDefault() {}, stopPropagation() {} });
+    });
+    // Ein Tipp, der in der Welt oder im Kampf etwas auslöst, darf nicht gleich im neu geöffneten Fenster weiterklicken
+    const release = () => { if (this.clickHold === Infinity) this.clickHold = performance.now() + 250; };
+    window.addEventListener('pointerup', release, true);
+    window.addEventListener('pointercancel', release, true);
+    window.addEventListener('click', (e) => {
+      if (!this.clickHold) return;
+      const live = performance.now() <= this.clickHold;
+      this.clickHold = 0; // nur den einen Klick dieses Tipps schlucken
+      if (live && this.root.contains(e.target)) { e.preventDefault(); e.stopPropagation(); }
+    }, true);
+    // Kampf: irgendwo tippen = Takt / Weiter (E). Ausweichen und Parieren haben eigene Knöpfe.
+    window.addEventListener('pointerdown', (e) => {
+      if (this.modal !== 'combat' || !this.combatScene) return;
+      if (e.button > 0 || e.target.closest?.('button, .cb-menu')) return;
+      if (this.combatScene.onKey('confirm', 1)) this.holdClicks();
+    }, true);
+    // Vollbild: Knopf aktualisieren, wenn sich der Zustand ändert
+    document.addEventListener('fullscreenchange', () => this.root.querySelectorAll('[data-act=fullscreen]').forEach((b) => { b.innerHTML = this.fullscreenLabel(); }));
+  }
+
+  /** Klicks bis kurz nach dem Loslassen schlucken (siehe bindTouch). */
+  holdClicks() { this.clickHold = Infinity; }
+
+  canFullscreen() {
+    const d = document.documentElement;
+    return !!(d.requestFullscreen || d.webkitRequestFullscreen);
+  }
+
+  isFullscreen() { return !!(document.fullscreenElement || document.webkitFullscreenElement); }
+
+  fullscreenLabel() { return this.isFullscreen() ? 'Vollbild beenden' : 'Vollbild'; }
+
+  /** Vollbild an/aus. Auf dem iPhone gibt es das im Browser nicht: dort Hinweis auf „Zum Home-Bildschirm“. */
+  toggleFullscreen() {
+    const d = document.documentElement;
+    if (this.isFullscreen()) {
+      (document.exitFullscreen ?? document.webkitExitFullscreen)?.call(document);
+      return;
+    }
+    if (!this.canFullscreen()) {
+      this.showMessage('Vollbild', 'Dein Browser erlaubt hier kein Vollbild (so ist das auf dem iPhone).\n\nSo geht es trotzdem: Tippe in Safari unten auf „Teilen“ (Viereck mit Pfeil) und dann auf „Zum Home-Bildschirm“. Starte Nebelakten danach über das neue Symbol: Dann läuft das Spiel ohne Adressleiste, im Querformat über den ganzen Bildschirm.', { footer: 'Der Spielstand bleibt erhalten.' });
+      return;
+    }
+    const req = d.requestFullscreen ?? d.webkitRequestFullscreen;
+    Promise.resolve(req.call(d, { navigationUI: 'hide' }))
+      .then(() => screen.orientation?.lock?.('landscape'))
+      .catch(() => {});
   }
 
   onSceneReady(scene) {
@@ -613,8 +699,14 @@ export class Ui {
     const el = this.open('title', `
       <h1>${esc(c.title)}</h1>
       <h2>Ein Mystery in Kettlegate</h2>
-      <div class="controls">
-        <div><span class="key">WASD</span> / <span class="key">Pfeile</span> laufen</div>
+      <div class="controls touch-only">
+        <div>Tippen: hinlaufen · auf Personen und Dinge tippen: sprechen / untersuchen</div>
+        <div>Finger halten und ziehen: die Figur folgt dem Finger</div>
+        <div>Knöpfe oben rechts: Notizbuch, Inventar, Pfad, Geistsicht, Menü</div>
+        <div>Kampf: tippen für den Takt · Knöpfe für Ausweichen und Parieren</div>
+      </div>
+      <div class="controls no-touch">
+        <div><span class="key">WASD</span> / <span class="key">Pfeile</span> laufen · oder hinklicken</div>
         <div><span class="key">E</span> untersuchen / sprechen</div>
         <div><span class="key">Q</span> Geistsicht (kostet Nerven)</div>
         <div><span class="key">J</span> Notizbuch: Aufträge, Quellen, Schlussfolgerungen</div>
@@ -623,12 +715,14 @@ export class Ui {
       <div class="actions center">
         ${save ? '<button class="primary" data-act="continue">Fortsetzen <span class="key">E</span></button>' : ''}
         <button class="${save ? '' : 'primary'}" data-act="new">Neues Spiel ${save ? '<span class="key">N</span>' : '<span class="key">E</span>'}</button>
+        <button data-act="fullscreen">${this.fullscreenLabel()}</button>
       </div>`, 'title');
+    el.querySelector('[data-act=fullscreen]').onclick = () => this.toggleFullscreen();
     this.titleContinue = save ? () => { this.close(); this.onContinue(); } : null;
     this.titleNew = () => {
       this.close();
       this.onNewGame();
-      this.showMessage(c.start.intro_title, c.start.intro, { footer: 'Tipp: Im Notizbuch (J) siehst du deine Aufträge.' });
+      this.showMessage(c.start.intro_title, c.start.intro, { footer: this.touch ? 'Tipp: Im Notizbuch (Knopf oben rechts) siehst du deine Aufträge.' : 'Tipp: Im Notizbuch (J) siehst du deine Aufträge.' });
     };
     el.querySelector('[data-act=new]').onclick = this.titleNew;
     el.querySelector('[data-act=continue]')?.addEventListener('click', this.titleContinue);
@@ -1078,7 +1172,7 @@ export class Ui {
     const s = this.state;
     if (!s.hasP2()) { this.invPlayer = 1; return this.itemsListHtml(); }
     const who = this.invPlayer;
-    const bar = `<div class="tabs playertabs">${[1, 2].map((n) => `<button class="tab ${n === who ? 'sel' : ''}" data-invplayer="${n}">Spieler ${n}${n === 1 ? ' · Ermittler' : ''}</button>`).join('')}<span class="muted subkeys">wechseln <span class="key">G</span></span></div>`;
+    const bar = `<div class="tabs playertabs">${[1, 2].map((n) => `<button class="tab ${n === who ? 'sel' : ''}" data-invplayer="${n}">Spieler ${n}${n === 1 ? ' · Ermittler' : ''}</button>`).join('')}<button class="muted subkeys keybtn" data-key="g">wechseln <span class="key">G</span></button></div>`;
     return bar + s.withPlayer(who, () => this.itemsListHtml(), { quiet: true });
   }
 
@@ -1093,7 +1187,7 @@ export class Ui {
     this.itemCats = cats.filter((c) => c.n || c.id === 'alle');
     const cat = cats.find((c) => c.id === this.itemCat);
     const list = cat.kinds ? all.filter((it) => cat.kinds.includes(it.kind)) : all;
-    const subtabs = `<div class="tabs subtabs">${cats.map((c) => `<button class="tab ${c.id === this.itemCat ? 'sel' : ''}" data-itemcat="${c.id}" ${c.n ? '' : 'disabled'}>${esc(c.title)} <span class="muted">${c.n}</span></button>`).join('')}<span class="muted subkeys"><span class="key">←</span><span class="key">→</span></span></div>`;
+    const subtabs = `<div class="tabs subtabs">${cats.map((c) => `<button class="tab ${c.id === this.itemCat ? 'sel' : ''}" data-itemcat="${c.id}" ${c.n ? '' : 'disabled'}>${esc(c.title)} <span class="muted">${c.n}</span></button>`).join('')}<span class="muted subkeys"><button class="keybtn" data-key="ArrowLeft"><span class="key">←</span></button><button class="keybtn" data-key="ArrowRight"><span class="key">→</span></button></span></div>`;
     const w = s.weaponStats();
     const rows = list.map((it) => {
       let action = '';
@@ -1386,7 +1480,7 @@ export class Ui {
         <div><button class="small pricetag" data-sell="${i}">${i < 9 ? `<span class="key">${i + 1}</span> ` : ''}${s.sellPrice(it.id)} Sch.</button></div></li>`).join('') || `<li class="empty">Nichts, was ${esc(m.name)} haben will.</li>`;
     }
     const el = this.open('shop', `
-      <h3>${esc(m.name)} <span class="muted">${esc(m.title)}</span>${s.hasP2() ? ` <span class="badge">für Spieler ${s.acting} · <span class="key">G</span> wechseln</span>` : ''}</h3>
+      <h3>${esc(m.name)} <span class="muted">${esc(m.title)}</span>${s.hasP2() ? ` <button class="badge keybtn" data-key="g">für Spieler ${s.acting} · <span class="key">G</span> wechseln</button>` : ''}</h3>
       <p class="lead">„${esc(m.greeting)}“</p>
       ${m.buys ? `<div class="tabs"><button class="tab ${mode === 'buy' ? 'sel' : ''}" data-mode="buy">${uiSprite('shop', 'buy', 1 / 16, 'tabico')}Kaufen</button><button class="tab ${mode === 'sell' ? 'sel' : ''}" data-mode="sell">${uiSprite('shop', 'sell', 1 / 16, 'tabico')}Verkaufen</button> <span class="muted">Wechseln mit <span class="key">V</span></span></div>` : ''}
       <ul class="items shoplist">${rows}</ul>
@@ -1560,7 +1654,7 @@ export class Ui {
   renderStorage(feedback, where, title) {
     const s = this.state;
     this.storageArgs = [where, title];
-    const who = s.hasP2() ? ` <span class="badge">Spieler ${s.acting} · <span class="key">G</span> wechseln</span>` : '';
+    const who = s.hasP2() ? ` <button class="badge keybtn" data-key="g">Spieler ${s.acting} · <span class="key">G</span> wechseln</button>` : '';
     const own = where === 'buero';
     const row = (it, act, label, all) => `<li class="item"><div>${itemIcon(it.id)}<strong>${esc(it.name)}</strong>${it.count > 1 ? ` ×${it.count}` : ''}${s.itemWeight(it.id) ? ` <span class="muted weight">${fmtLb(s.itemWeight(it.id) * it.count)} Pfd.</span>` : ''}</div>
       <div><button class="small" data-${act}="${it.id}">${label}</button>${it.count > 1 ? ` <button class="small" data-${act}-all="${it.id}">${all}</button>` : ''}</div></li>`;
@@ -1612,6 +1706,7 @@ export class Ui {
       <div class="pausemenu">
         <button class="primary" data-act="resume"><span class="key">Esc</span> Weiter</button>
         <button data-act="p2"><span class="key">2</span> ${label}</button>
+        <button data-act="fullscreen">${this.fullscreenLabel()}</button>
       </div>
       <div class="feedback">${feedback}</div>
       <p class="lead">${on ? 'Ihr spielt zu zweit an diesem Rechner. Die Kamera hält euch beide im Bild, jeder hat sein eigenes Inventar. Geld, Ansehen und Fälle teilt ihr.' : 'Zu zweit an einem Rechner: Spieler 2 läuft als Begleiter mit über denselben Bildschirm, mit eigenem Leben und eigenem Inventar.'}</p>
@@ -1632,6 +1727,7 @@ export class Ui {
       </div>`, 'pause');
     el.querySelector('[data-act=resume]').onclick = () => this.close();
     el.querySelector('[data-act=p2]').onclick = () => this.togglePlayer2();
+    el.querySelector('[data-act=fullscreen]').onclick = () => this.toggleFullscreen();
   }
 
   togglePlayer2() {
@@ -1669,7 +1765,21 @@ export class Ui {
           </div>`).join('')}</div>
           <div class="cb-menu"></div>
         </div>
+        <div class="cb-touch">
+          <button class="cb-def dodge" data-def="dodge">Ausweichen</button>
+          <button class="cb-def parry" data-def="parry">Parieren</button>
+        </div>
       </div>`;
+    this.layer.querySelectorAll('[data-def]').forEach((b) => {
+      // pointerdown statt click: zählt sofort, wichtig für den Takt
+      b.addEventListener('pointerdown', (e) => {
+        e.preventDefault();
+        this.holdClicks();
+        this.combatScene?.onKey(b.dataset.def, 1);
+        b.classList.add('hit');
+        setTimeout(() => b.classList.remove('hit'), 120);
+      });
+    });
     this.combatRefresh();
   }
 
@@ -1737,6 +1847,13 @@ export class Ui {
   combatMessage(text, help = '') {
     const el = this.layer.querySelector('.cb-text');
     if (!el) return;
+    if (this.touch) {
+      const t = (x) => x.replace('Weiter mit E', 'Weiter: irgendwo tippen')
+        .replace('Drücke E oder Leertaste', 'Tippe irgendwo auf den Bildschirm')
+        .replace('Leertaste: ausweichen', 'Knopf Ausweichen').replace('F: parieren', 'Knopf Parieren');
+      text = t(text);
+      help = t(help);
+    }
     el.innerHTML = paragraphs(text);
     this.layer.querySelector('.cb-help').textContent = help;
     this.layer.querySelector('.cb-menu').innerHTML = '';

@@ -6,6 +6,7 @@ import { preloadSprites, playSheetAnim, themeKeys, facadeKeys, PROP_ORIGINS, MAP
 import { Roamers } from './Roamers.js';
 import { Critters } from './Critters.js';
 import { Patrols } from './Patrols.js';
+import { TapMove } from './TapMove.js';
 
 export const VIEW_W = 480;
 export const VIEW_H = 270;
@@ -930,6 +931,9 @@ export class WorldScene extends Phaser.Scene {
     this.input.keyboard.on('keydown-TAB', queue('notebook'));
     this.input.keyboard.on('keydown-I', queue('inventory'));
     this.input.keyboard.on('keydown-P', queue('pathway'));
+    // Handy/Maus: hintippen zum Hinlaufen und Interagieren
+    this.tap = new TapMove(this);
+    this.input.mouse?.disableContextMenu();
     // Spieler 2: Enter interagiert (Pfeile laufen, siehe updateMovement)
     this.input.keyboard.on('keydown-ENTER', (e) => { if (!e.repeat && this.p2) this.pending2 = 'interact'; });
     this.input.gamepad?.on('down', (pad, button) => {
@@ -1056,8 +1060,10 @@ export class WorldScene extends Phaser.Scene {
       const arrows = !this.p2;
       vx = ((arrows && k.RIGHT.isDown) || k.D.isDown ? 1 : 0) - ((arrows && k.LEFT.isDown) || k.A.isDown ? 1 : 0);
       vy = ((arrows && k.DOWN.isDown) || k.S.isDown ? 1 : 0) - ((arrows && k.UP.isDown) || k.W.isDown ? 1 : 0);
+      if (vx || vy) this.tap?.cancel(); // Tastatur hat Vorrang
+      else if (this.tap?.active) [vx, vy] = this.tap.steer(this.game.loop.delta) ?? [0, 0];
       [vx, vy] = this.leash(this.player, this.p2, vx, vy);
-    }
+    } else this.tap?.cancel();
     const skin = this.skinKey();
     if (skin !== this.playerKey) { // Verkleidung an- oder abgelegt
       this.playerKey = skin;
@@ -1246,8 +1252,10 @@ export class WorldScene extends Phaser.Scene {
     }
     const action = this.pending;
     this.pending = null;
+    const forced = this.tap?.forced;
+    if (this.tap) this.tap.forced = null;
     if (blocked || !action) return;
-    if (action === 'interact' && this.focus) this.interact(this.focus);
+    if (action === 'interact' && (forced ?? this.focus)) this.interact(forced ?? this.focus);
     else if (action === 'vision') this.state.setSpiritVision(!this.state.spiritVision);
     else if (action === 'notebook') this.ui.openNotebook();
     else if (action === 'inventory') this.ui.openNotebook('items');
