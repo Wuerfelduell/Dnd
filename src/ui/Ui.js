@@ -824,8 +824,12 @@ export class Ui {
       this.possibleLoot(c.id),
       burn ? `<span class="badge suspected">${statusIcon(burn[0])}${burn[1]} ${c.burn.rounds}</span>` : '',
       c.stunned ? `<span class="badge suspected">${statusIcon('betaeubt')}betäubt</span>` : '',
-      c.confused ? `<span class="badge suspected">${statusIcon('verwirrt')}verwirrt</span>` : ''].join(' ');
-    q('.cb-status').innerHTML = [c.shield ? statusIcon('eisenhaut', `Schutz ${c.shield}`) + c.shield : '', c.evading ? statusIcon('vorahnung', 'Nächster Angriff geht ins Leere') : ''].join(' ');
+      c.confused ? `<span class="badge suspected">${statusIcon('verwirrt')}verwirrt</span>` : '',
+      c.enemyGuard ? `<span class="badge refuted">${statusIcon('eisenhaut')}Panzer ${c.enemyGuard}</span>` : '',
+      c.veiled ? `<span class="badge refuted">${statusIcon('schatten')}verschleiert</span>` : '',
+      c.enc.faction ? `<span class="badge">${c.state.content.factions?.[c.enc.faction]?.name ?? ''}</span>` : ''].join(' ');
+    q('.cb-status').innerHTML = [c.shield ? statusIcon('eisenhaut', `Schutz ${c.shield}`) + c.shield : '', c.evading ? statusIcon('vorahnung', 'Nächster Angriff geht ins Leere') : '',
+      c.bleed ? statusIcon('blutung', `Blutung: ${c.bleed.damage} pro Runde, noch ${c.bleed.rounds}`) + c.bleed.rounds : ''].join(' ');
     q('.pfill').style.width = `${(s.hp / s.maxHp) * 100}%`;
     q('.pfill').classList.toggle('low', s.hp / s.maxHp < 0.3);
     q('.cb-hp').textContent = `${s.hp}/${s.maxHp}`;

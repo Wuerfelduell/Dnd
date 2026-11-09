@@ -334,6 +334,17 @@ export class CombatScene extends Phaser.Scene {
         this.time.delayedCall(900, () => (c.outcome ? this.over() : this.endRound()));
         return;
       }
+      if (c.lastAction) {
+        // Kniff der Sekten: Panzer, Heilung, Schleier, Einschüchterung
+        const a = c.lastAction;
+        this.ui.combatMessage(`${c.enemy.name}: ${a.name}\n\n${a.text}`);
+        const float = { guard: [`Panzer +${a.value}`, 'good'], heal: [`+${a.value}`, 'good'], veil: ['Schleier', 'miss'], taunt: [`-${a.value} Nerven`, 'hurt'] }[a.action];
+        if (float) this.float(float[0], a.action === 'taunt' ? 'player' : 'enemy', float[1]);
+        this.anim(this.enemy, 'special');
+        this.ui.combatRefresh();
+        this.time.delayedCall(1100, () => this.endRound());
+        return;
+      }
       this.ui.combatMessage(`${c.enemy.name} taumelt und greift nicht an.`);
       this.time.delayedCall(900, () => this.endRound());
       return;
@@ -342,7 +353,7 @@ export class CombatScene extends Phaser.Scene {
     this.attack = atk;
     const t0 = now() + TELEGRAPH;
     this.hits = atk.hits.map((h) => ({ impact: t0 + h, result: null, applied: false }));
-    const tags = [atk.unparryable ? '⚠ nicht parierbar, ausweichen!' : '', atk.enraged ? 'in Rage' : ''].filter(Boolean).join(' · ');
+    const tags = [atk.unparryable ? '⚠ nicht parierbar, ausweichen!' : '', atk.enraged ? 'in Rage' : '', atk.bleed ? 'Treffer bluten nach' : '', atk.nerves ? `Treffer kosten ${atk.nerves} Nerven` : ''].filter(Boolean).join(' · ');
     this.ui.combatMessage(`${c.enemy.name}: ${atk.name}${atk.hits.length > 1 ? ` (${atk.hits.length} Schläge)` : ''}${tags ? `\n\n${tags}` : ''}${c.evading ? '\n\nDu weißt schon, wohin er schlägt.' : ''}`, `Leertaste: ausweichen (${DODGE_COST} Nerven) · F: parieren`);
     this.tweens.add({ targets: this.enemy, x: ENEMY_X + 8, duration: TELEGRAPH * 0.6, ease: 'Sine.out' });
     // Paket-B-Gegner haben zwei Angriffe: mehrteilige Attacken nutzen 'special'
@@ -408,11 +419,15 @@ export class CombatScene extends Phaser.Scene {
     this.ui.combatRefresh();
     if (this.combat.outcome) { this.over(); return; }
     const dot = this.combat.endRound();
-    if (dot) {
-      this.flash(this.enemy);
-      this.float(`-${dot}`, 'enemy', 'dmg');
+    const bleed = this.combat.bleedTick;
+    if (bleed) {
+      this.flash(this.player);
+      this.float(`-${bleed}`, 'player', 'hurt');
+    }
+    if (dot || bleed) {
+      if (dot) { this.flash(this.enemy); this.float(`-${dot}`, 'enemy', 'dmg'); }
       this.ui.combatRefresh();
-      this.ui.combatMessage(`${this.combat.enemy.name} leidet unter Brand und Gift: ${dot} Schaden.`);
+      this.ui.combatMessage([dot ? `${this.combat.enemy.name} leidet unter Brand und Gift: ${dot} Schaden.` : '', bleed ? `Deine Wunde blutet: ${bleed} Schaden.` : ''].filter(Boolean).join('\n\n'));
       this.time.delayedCall(700, () => (this.combat.outcome ? this.over() : this.toMenu()));
       return;
     }

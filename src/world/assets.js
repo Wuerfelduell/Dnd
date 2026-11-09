@@ -274,6 +274,7 @@ export const MAP_MARKERS = {
   theater: 8, uhrturm: 9, schlachthof: 10, gaskanaele: 11, sternwarte: 12, nordtor: 9,
   // Gefahrengebiete (bis es eigene Marker gibt)
   marsch: 3, katakomben: 2, pestgassen: 7, kraterwald: 12,
+  ankerhof: 3, haus_morrow: 4, schleierhaus: 8, // Sekten: Platzhalter-Marker
 };
 export const MAP_MARKERS_URL = `${BASE}ui/C_08_map_markers.png`;
 /** Notizbuch: Status → Zelle in ui/C_07_log_markers.png. */
@@ -370,6 +371,11 @@ export const ENCOUNTER_SHEETS = {
   kanalkroete: 'enemy_kanalkroete', uhrwerkwaechter: 'enemy_uhrwerkwaechter', maskenspieler: 'enemy_maskenspieler',
   schlachtergehilfe: 'enemy_schlachtergehilfe', gasgeist: 'enemy_gasgeist',
   felix_fight: 'enemy_chorfanatiker', // bis es ein eigenes Felix-Sheet gibt
+  // Sekten (factions.json): Platzhalter, bis die eigenen Sheets enemy_<id> kommen
+  rost_schlaeger: 'enemy_grubenkaempfer', rost_streife: 'enemy_grubenkaempfer', rost_werfer: 'enemy_schlachtergehilfe',
+  rost_schmied: 'enemy_schlachtergehilfe', rost_vater: 'enemy_grubenkaempfer',
+  schleier_novizin: 'enemy_maskenspieler', schleier_messerin: 'enemy_maskenspieler', schleier_schatten: 'enemy_maskenspieler',
+  schleier_seherin: 'enemy_chorfanatiker', schleier_mutter: 'enemy_chorfanatiker',
 };
 
 /** Gegner-Sprite aus encounters.json → Kampf-Sheet (Rückfall für Begegnungen ohne eigenen Eintrag). */

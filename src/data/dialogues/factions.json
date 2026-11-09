@@ -1,0 +1,582 @@
+{
+  "jory": {
+    "start": [
+      {
+        "node": "done",
+        "requires_flags": [
+          "rost_told"
+        ]
+      },
+      {
+        "node": "start"
+      }
+    ],
+    "nodes": {
+      "start": {
+        "text": "Ein Hafenarbeiter mit verbundenem Arm sitzt auf einem Poller und flickt ein Netz mit einer Hand. Er schaut dich nicht an.",
+        "choices": [
+          {
+            "text": "Was ist mit Ihrem Arm passiert?",
+            "next": "arm",
+            "hide_if_quests": [
+              "rost_im_hafen"
+            ]
+          },
+          {
+            "text": "Wo treffen sich die Rostbrüder?",
+            "next": "chapel",
+            "requires_likely": [
+              "rost_tribute"
+            ],
+            "hide_if_clues": [
+              "jory_chapel"
+            ]
+          },
+          {
+            "text": "Die Hafenwache sagt, es sind nur Betrunkene.",
+            "next": "drunk",
+            "requires_suspected": [
+              "drunk_brawlers"
+            ],
+            "requires_quests_active": [
+              "rost_im_hafen"
+            ]
+          },
+          {
+            "text": "Die Rostbrüder sind erledigt.",
+            "next": "told",
+            "requires_flags": [
+              "rost_broken"
+            ],
+            "hide_if_flags": [
+              "rost_told"
+            ]
+          },
+          {
+            "text": "Ich sehe mich um."
+          }
+        ]
+      },
+      "arm": {
+        "text": "Jory hebt den Verband ein Stück an. Darunter ist die Haut violett, und mittendrin der Abdruck eines Kettenglieds.",
+        "gives_clues": [
+          "jory_tribute"
+        ],
+        "start_quests": [
+          "rost_im_hafen"
+        ],
+        "choices": [
+          {
+            "text": "Warum zeigen Sie das nicht an?",
+            "next": "police"
+          },
+          {
+            "text": "Ich kümmere mich darum."
+          }
+        ]
+      },
+      "police": {
+        "text": "„Hab ich. Sergeant Pike hat einen Zettel an die Tür gehängt. Ausschank verboten. Als ob die Rostbrüder je Bier getrunken hätten.“",
+        "choices": [
+          {
+            "text": "Verstehe."
+          }
+        ]
+      },
+      "drunk": {
+        "text": "Jory lacht, bis er husten muss. „Dann frag Pike, warum die Betrunkenen jede Woche zur selben Stunde kommen. Und warum sie alle rote Kutten tragen.“",
+        "choices": [
+          {
+            "text": "Gute Frage."
+          }
+        ]
+      },
+      "chapel": {
+        "text": "Jory schaut sich um, bevor er antwortet.",
+        "gives_clues": [
+          "jory_chapel"
+        ],
+        "choices": [
+          {
+            "text": "Danke, Jory."
+          }
+        ]
+      },
+      "told": {
+        "text": "Jory steht vom Poller auf. Zum ersten Mal schaut er dich an. Dann ruft er etwas über den Kai, und aus den Türen kommen Leute. Jemand wischt die Anker von den Türen.\n\n„Die Leute haben gesammelt“, sagt Jory und drückt dir einen schweren Beutel in die Hand. „Kein Kettengeld. Dankgeld.“",
+        "sets_flags": [
+          "rost_told"
+        ],
+        "complete_quests": [
+          "rost_im_hafen"
+        ],
+        "gives_money": 20,
+        "honor_reason": "Dankgeld vom Ankerhof",
+        "choices": [
+          {
+            "text": "Passen Sie auf sich auf.",
+            "next": "done"
+          }
+        ]
+      },
+      "done": {
+        "text": "Jory flickt sein Netz, jetzt mit beiden Händen. Er pfeift dabei.",
+        "choices": [
+          {
+            "text": "Bis bald, Jory."
+          }
+        ]
+      }
+    }
+  },
+  "rost_bruder": {
+    "start": "start",
+    "nodes": {
+      "start": {
+        "text": "Der Rostbruder starrt dich an und knackt mit den grauen Fingern.",
+        "choices": [
+          {
+            "text": "…"
+          }
+        ]
+      }
+    }
+  },
+  "harn": {
+    "start": "start",
+    "nodes": {
+      "start": {
+        "text": "Ein breiter Mann in einem Mantel aus Kettengliedern steht vor dem Amboss. Seine Haut ist grau wie ein Schiffsrumpf. „Der Inspektor. Du hast meine Söhne verprügelt und mein Feuer gelöscht.“",
+        "choices": [
+          {
+            "text": "Das Kettengeld hört auf. Heute.",
+            "next": "fight"
+          },
+          {
+            "text": "Was ist ein Rostbruder?",
+            "next": "lore"
+          },
+          {
+            "text": "Vey hat euch nie bezahlt, oder?",
+            "next": "vey",
+            "requires_likely": [
+              "vey_unpaid"
+            ]
+          }
+        ]
+      },
+      "lore": {
+        "text": "„Fleisch rostet. Es wird alt, krank, schwach. Eisen bleibt.“ Er klopft sich auf die Brust, es klingt hohl. „Jeden Tag ein Becher Rostwasser, und eines Tages bist du Eisen. Dann kann dir Kettlegate nichts mehr.“\n\n„Bis dahin braucht es Geld. Kohle, Späne, Ketten.“",
+        "choices": [
+          {
+            "text": "Und das Geld nehmt ihr den Hafenarbeitern.",
+            "next": "fight"
+          },
+          {
+            "text": "Vey hat euch nie bezahlt, oder?",
+            "next": "vey",
+            "requires_likely": [
+              "vey_unpaid"
+            ]
+          }
+        ]
+      },
+      "vey": {
+        "text": "Harn wird still. Dann spuckt er in die kalte Esse.\n\n„Die Chorfrau. Sie hat gesagt, in dem Käfig wohnt bald eine Stimme, die uns alle zu Eisen singt. Wir haben geschmiedet, drei Wochen lang. Dann hat sie den Käfig geholt und ist verschwunden. Die Stimme hat nie für uns gesungen.“",
+        "sets_flags": [
+          "knows_vey_cage"
+        ],
+        "choices": [
+          {
+            "text": "Gib auf. Ich sorge dafür, dass die Hafenwache deine Brüder laufen lässt.",
+            "next": "surrender"
+          },
+          {
+            "text": "Trotzdem: Das Kettengeld hört auf.",
+            "next": "fight"
+          }
+        ]
+      },
+      "surrender": {
+        "text": "Harn schaut lange auf seine grauen Hände. Dann zieht er das Amulett über den Kopf, einen Anker im Kettenring, und legt es dir in die Hand.\n\n„Wenn du die Chorfrau findest, sag ihr, Odo Harn will sein Geld.“\n\nAm nächsten Morgen sind die Kreideanker am Kai abgewischt.",
+        "sets_flags": [
+          "rost_broken",
+          "harn_surrendered"
+        ],
+        "gives_items": {
+          "rostanker": 1
+        },
+        "honor": 4,
+        "honor_reason": "Vater Harn zur Aufgabe überredet",
+        "choices": [
+          {
+            "text": "(Gehen)"
+          }
+        ]
+      },
+      "fight": {
+        "text": "Harn lacht, tief wie ein Schiffshorn, und greift nach der Ankerkette.",
+        "combat": "rost_vater",
+        "choices": [
+          {
+            "text": "(Kampf beginnen)"
+          }
+        ]
+      }
+    }
+  },
+  "lavinia": {
+    "start": [
+      {
+        "node": "done",
+        "requires_flags": [
+          "veil_told"
+        ]
+      },
+      {
+        "node": "start"
+      }
+    ],
+    "nodes": {
+      "start": {
+        "text": "Eine alte Dame in Schwarz sitzt kerzengerade im Sessel, den Gehstock quer über den Knien. Ein grauer Kater schläft auf ihren Füßen.",
+        "choices": [
+          {
+            "text": "Sie haben die Polizei gerufen?",
+            "next": "call",
+            "hide_if_quests": [
+              "graue_schleier"
+            ]
+          },
+          {
+            "text": "Wohin ging Tilly donnerstags?",
+            "next": "thursday",
+            "requires_flags": [
+              "novizin_caught"
+            ],
+            "hide_if_clues": [
+              "lavinia_hats"
+            ]
+          },
+          {
+            "text": "Tilly hat gestohlen. Die Polizei hat recht.",
+            "next": "blame",
+            "requires_suspected": [
+              "tilly_thief"
+            ],
+            "requires_quests_active": [
+              "graue_schleier"
+            ],
+            "hide_if_flags": [
+              "novizin_caught"
+            ]
+          },
+          {
+            "text": "Tilly ist zurück. Die echte.",
+            "next": "told",
+            "requires_flags": [
+              "tilly_freed"
+            ],
+            "hide_if_flags": [
+              "veil_told"
+            ]
+          },
+          {
+            "text": "Guten Tag, Mrs. Morrow."
+          }
+        ]
+      },
+      "call": {
+        "text": "„Gerufen, ja. Gekommen ist ein Constable, der mich angesehen hat wie eine Uhr, die nachgeht.“ Sie beugt sich vor.",
+        "gives_clues": [
+          "lavinia_hand"
+        ],
+        "start_quests": [
+          "graue_schleier"
+        ],
+        "choices": [
+          {
+            "text": "Ich glaube Ihnen.",
+            "next": "believe"
+          },
+          {
+            "text": "Ich sehe mich um."
+          }
+        ]
+      },
+      "believe": {
+        "text": "„Dann sind Sie der Erste. Sehen Sie in ihrem Zimmer nach, hinten links. Sie lässt niemanden hinein. Tilly hat nie abgeschlossen.“",
+        "choices": [
+          {
+            "text": "Das mache ich."
+          }
+        ]
+      },
+      "thursday": {
+        "text": "Lavinia schließt die Augen.",
+        "gives_clues": [
+          "lavinia_hats"
+        ],
+        "choices": [
+          {
+            "text": "Danke."
+          }
+        ]
+      },
+      "blame": {
+        "text": "Lavinia sieht dich an, und ihr Blick wird hart wie ihr Stock. „Dann gehen Sie. Und nehmen Sie das Ding da mit, das Tillys Schürze trägt.“\n\nAm nächsten Tag führt Constable Price „Tilly“ ab. Auf der Wache ist sie nicht mehr aufzufinden.",
+        "fail_quests": [
+          "graue_schleier"
+        ],
+        "honor": -2,
+        "honor_reason": "Einer Witwe nicht geglaubt",
+        "sets_flags": [
+          "veil_fled"
+        ],
+        "choices": [
+          {
+            "text": "…"
+          }
+        ]
+      },
+      "told": {
+        "text": "Tilly steht in der Tür, mager und blass, und der Kater springt von Lavinias Füßen und streicht ihr um die Beine. Lavinia steht auf, ohne Stock.\n\n„Das ist sie“, sagt sie. „Das ist meine Tilly.“\n\nSpäter drückt sie dir einen Umschlag in die Hand. „Für die Witwenkasse der Polizei. Und das hier für Sie.“",
+        "sets_flags": [
+          "veil_told"
+        ],
+        "complete_quests": [
+          "graue_schleier"
+        ],
+        "gives_money": 25,
+        "honor_reason": "Dank von Lavinia Morrow",
+        "choices": [
+          {
+            "text": "Passen Sie gut auf sie auf.",
+            "next": "done"
+          }
+        ]
+      },
+      "done": {
+        "text": "Lavinia liest Zeitung. Tilly bringt Tee, mit der rechten Hand. Der Kater schnurrt.",
+        "choices": [
+          {
+            "text": "Auf Wiedersehen."
+          }
+        ]
+      }
+    }
+  },
+  "fake_tilly": {
+    "start": "start",
+    "nodes": {
+      "start": {
+        "text": "Ein junges Hausmädchen mit sauberer Schürze knickst. Sie lächelt einen Moment zu lange.",
+        "choices": [
+          {
+            "text": "Wie lange arbeitest du schon hier?",
+            "next": "how_long"
+          },
+          {
+            "text": "Hast du Silber genommen?",
+            "next": "silver",
+            "requires_suspected": [
+              "tilly_thief"
+            ]
+          },
+          {
+            "text": "Wer bist du wirklich?",
+            "next": "reveal",
+            "requires_likely": [
+              "tilly_replaced"
+            ]
+          },
+          {
+            "text": "Danke, Tilly."
+          }
+        ]
+      },
+      "how_long": {
+        "text": "„Seit ich sieben war, Sir. Die gnädige Frau war immer gut zu mir.“ Sie zupft an der Schürze, mit der linken Hand.",
+        "choices": [
+          {
+            "text": "Seit sieben? Interessant.",
+            "next": "start"
+          }
+        ]
+      },
+      "silver": {
+        "text": "„Ich? Die gnädige Frau verlegt alles, Sir. Sie wird alt.“ Ihre Stimme ist sanft wie Puder.",
+        "choices": [
+          {
+            "text": "Natürlich.",
+            "next": "start"
+          }
+        ]
+      },
+      "reveal": {
+        "text": "Das Lächeln bleibt. Nur die Augen werden grau, wie Rauch hinter Glas. „Wie schade. Ich mochte dieses Gesicht.“",
+        "combat": "schleier_novizin",
+        "choices": [
+          {
+            "text": "(Kampf beginnen)"
+          }
+        ]
+      }
+    }
+  },
+  "grau": {
+    "start": "start",
+    "nodes": {
+      "start": {
+        "text": "Eine Frau in grauem Kleid steckt Nadeln in einen Hut, ohne hinzusehen. „Willkommen in der Putzmacherei Grau. Hüte, Schleier ... und was immer Sie sonst suchen.“",
+        "choices": [
+          {
+            "text": "Ich suche Tilly Brooks.",
+            "next": "tilly"
+          },
+          {
+            "text": "Was ist hinter der Tür?",
+            "next": "door"
+          },
+          {
+            "text": "Ich sehe mich nur um."
+          }
+        ]
+      },
+      "door": {
+        "text": "„Die Werkstatt. Für Kundinnen nicht zugänglich.“ Sie lächelt. Ihre Zähne sind sehr weiß, wie Porzellan.",
+        "choices": [
+          {
+            "text": "Ich bin keine Kundin.",
+            "next": "tilly"
+          },
+          {
+            "text": "Natürlich."
+          }
+        ]
+      },
+      "tilly": {
+        "text": "Fräulein Grau legt den Hut weg. „Tilly“, wiederholt sie, als ob sie das Wort probiert. „Wir haben gerade keine Tilly. Aber ich kann Ihnen ein neues Gesicht machen.“",
+        "combat": "schleier_messerin",
+        "choices": [
+          {
+            "text": "(Kampf beginnen)"
+          }
+        ]
+      }
+    }
+  },
+  "ysolde": {
+    "start": "start",
+    "nodes": {
+      "start": {
+        "text": "Eine Frau im grauen Schleier sitzt an einem Schminktisch und kämmt eine Perücke. Im Spiegel wechselt ihr Gesicht, wenn du blinzelst: Lavinia, Marlowe, jemand, den du nicht kennst.\n\n„Inspektor. Setzen Sie sich. Ich habe Ihr Gesicht schon einmal getragen, wussten Sie das?“",
+        "choices": [
+          {
+            "text": "Mutter Ysolde. Es ist vorbei.",
+            "next": "fight"
+          },
+          {
+            "text": "Wozu braucht ihr fremde Gesichter?",
+            "next": "lore"
+          },
+          {
+            "text": "Was weißt du über Miriam Vey?",
+            "next": "vey"
+          }
+        ]
+      },
+      "lore": {
+        "text": "„Ein Dienstmädchen hört alles. Eine Schreiberin liest alles. Niemand sieht sie an.“ Sie legt den Kamm hin. „Wir verkaufen, was wir hören. An Banken, an Witwen, an Chöre. An die Polizei, wenn sie zahlt.“",
+        "choices": [
+          {
+            "text": "Es ist vorbei.",
+            "next": "fight"
+          },
+          {
+            "text": "Was weißt du über Miriam Vey?",
+            "next": "vey"
+          }
+        ]
+      },
+      "vey": {
+        "text": "„Alles hat seinen Preis.“ Ysolde dreht sich um. Für einen Moment trägt sie Veys Gesicht, mit dem Auge im Kreis auf der Stirn. „Lassen Sie mich gehen, und ich sage Ihnen, wo die Chorfrau schläft. Und was sie mit dem eisernen Käfig vorhat.“",
+        "choices": [
+          {
+            "text": "Abgemacht. Verschwinde aus Kettlegate.",
+            "next": "deal"
+          },
+          {
+            "text": "Nein. Du kommst mit.",
+            "next": "fight"
+          }
+        ]
+      },
+      "deal": {
+        "text": "Ysolde beugt sich vor und flüstert dir eine Adresse ins Ohr. Ihr Atem riecht nach Puder.\n\n„Unter der Glocke, die nicht mehr läutet. Sie füttert den Käfig jede Nacht mit einer Stimme.“\n\nDann legt sie dir eine halbe Porzellanmaske in die Hand. Als du aufschaust, sitzt nur noch eine Perücke auf dem Stuhl.",
+        "sets_flags": [
+          "ysolde_resolved",
+          "ysolde_deal",
+          "knows_vey_hideout"
+        ],
+        "gives_items": {
+          "porzellanmaske": 1
+        },
+        "honor": -3,
+        "honor_reason": "Eine Sektenmutter laufen lassen",
+        "choices": [
+          {
+            "text": "(Ihr nachsehen)"
+          }
+        ]
+      },
+      "fight": {
+        "text": "„Wie schade.“ Ysolde steht auf. In jedem Ärmel glänzt eine Seidenklinge.",
+        "combat": "schleier_mutter",
+        "choices": [
+          {
+            "text": "(Kampf beginnen)"
+          }
+        ]
+      }
+    }
+  },
+  "tilly_cellar": {
+    "start": "start",
+    "nodes": {
+      "start": {
+        "text": "Hinter einem Vorhang aus grauem Tüll sitzt ein Mädchen auf einem Stuhl, die Hände mit Hutband gefesselt. Ihr Gesicht ist blass, aber es ist ihres.\n\n„Sind Sie ... von Mrs. Morrow?“",
+        "choices": [
+          {
+            "text": "Du bist Tilly Brooks. Ich bringe dich nach Hause.",
+            "next": "free"
+          }
+        ]
+      },
+      "free": {
+        "text": "Du schneidest das Band durch. Tilly reibt sich die Handgelenke. „Sie haben mich jeden Tag gezeichnet. Mein Gesicht. Immer wieder. Bis sie es konnten.“\n\nSie hält sich an deinem Ärmel fest, bis ihr wieder auf der Straße seid.",
+        "sets_flags": [
+          "tilly_freed"
+        ],
+        "choices": [
+          {
+            "text": "(Nach Haus Morrow)"
+          }
+        ]
+      }
+    }
+  },
+  "tilly": {
+    "start": "start",
+    "nodes": {
+      "start": {
+        "text": "Tilly poliert Silber, mit der rechten Hand. „Danke, Sir. Wenn Sie je ein Dienstmädchen sehen, das zu lange lächelt ... dann wissen Sie Bescheid.“",
+        "choices": [
+          {
+            "text": "Das werde ich."
+          }
+        ]
+      }
+    }
+  }
+}

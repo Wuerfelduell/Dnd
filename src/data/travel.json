@@ -12,7 +12,10 @@
     "marsch": [236, 240],
     "katakomben": [320, 64],
     "pestgassen": [150, 196],
-    "kraterwald": [452, 98]
+    "kraterwald": [452, 98],
+    "ankerhof": [52, 236],
+    "haus_morrow": [222, 162],
+    "schleierhaus": [266, 130]
   },
   "modes": {
     "sicher": {
@@ -74,6 +77,18 @@
       "title": "Kultpatrouille",
       "text": "Zwei Gestalten in grauen Kutten kreuzen deinen Weg. Auf ihren Ärmeln: das Auge im Kreis. Sie erkennen dich sofort.",
       "encounter": "reise_kultist", "loot": "kultist"
+    },
+    {
+      "id": "reise_rostbrueder", "weight": 8, "requires_flags": ["won_rost_schlaeger"], "hide_if_flags": ["rost_broken"],
+      "title": "Rostbrüder-Streife",
+      "text": "Zwei Männer in rostroten Kutten lehnen an einer Hauswand und richten sich auf, als sie dich sehen. Einer wickelt sich eine Kette um die Faust.",
+      "encounter": "rost_streife", "loot": "rost"
+    },
+    {
+      "id": "reise_schleier", "weight": 8, "requires_flags": ["novizin_caught"], "hide_if_flags": ["ysolde_resolved"],
+      "title": "Grauer Schleier",
+      "text": "Eine Blumenverkäuferin folgt dir seit drei Straßen. Als du dich umdrehst, blitzt unter ihrem Schleier weißes Porzellan.",
+      "encounter": "schleier_schatten", "loot": "schleier"
     }
   ],
   "loot": {
@@ -128,6 +143,24 @@
         { "id": "silberstaub", "weight": 2 },
         { "id": "glockenstaub", "weight": 1 },
         { "id": "geisteressenz", "weight": 1 },
+        { "id": null, "weight": 2 }
+      ]
+    },
+    "rost": {
+      "money": [6, 14], "rolls": 1,
+      "items": [
+        { "id": "rostwasser", "weight": 3 },
+        { "id": "eisenkraut", "weight": 2 },
+        { "id": "ochsenblut", "weight": 1 },
+        { "id": null, "weight": 2 }
+      ]
+    },
+    "schleier": {
+      "money": [6, 14], "rolls": 1,
+      "items": [
+        { "id": "schleierpuder", "weight": 2 },
+        { "id": "wachsbluete", "weight": 2 },
+        { "id": "mondmohn", "weight": 1 },
         { "id": null, "weight": 2 }
       ]
     }

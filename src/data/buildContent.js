@@ -1,21 +1,25 @@
 // Fügt alle Inhaltsdateien zu einem Objekt zusammen (ohne JSON-Imports, damit Node-Tests es nutzen können).
 // Hinweise, Informationen, Schlussfolgerungen und Dialoge teilen sich jeweils einen Namensraum über alle Fälle.
-export function buildContent({ campaign, quests, cases, maps, dialogues, items = {}, encounters = {}, pathways = null, market = null, travel = null, wilds = null }) {
+// factions.json (Sekten) bringt eigene Figuren, Reiseziele, Gegner, Beute, Aufträge und Hinweise mit.
+export function buildContent({ campaign, quests, cases, maps, dialogues, items = {}, encounters = {}, pathways = null, market = null, travel = null, wilds = null, factions = null }) {
   const merge = (list, key) => Object.assign({}, ...list.map((x) => x[key] ?? {}));
   const wild = wildContent(wilds);
+  const f = factions ?? {};
+  if (f.facts || f.clues || f.deductions) cases = [...cases, { facts: f.facts, clues: f.clues, deductions: f.deductions }];
   return {
     ...campaign,
-    npcs: { ...campaign.npcs, ...(market?.npcs ?? {}) },
-    travel: [...(campaign.travel ?? []), ...(market?.travel ?? []), ...wild.travel],
-    quests,
-    items: { ...items, ...(pathways?.items ?? {}), ...pathwayItems(pathways?.pathways ?? {}), ...wild.items },
-    encounters: { ...encounters, ...(market?.encounters ?? {}), ...(travel?.encounters ?? {}), ...wild.encounters },
+    npcs: { ...campaign.npcs, ...(market?.npcs ?? {}), ...(f.npcs ?? {}) },
+    travel: [...(campaign.travel ?? []), ...(market?.travel ?? []), ...wild.travel, ...(f.travel ?? [])],
+    quests: { ...quests, ...(f.quests ?? {}) },
+    items: { ...items, ...(pathways?.items ?? {}), ...pathwayItems(pathways?.pathways ?? {}), ...wild.items, ...(f.items ?? {}) },
+    encounters: { ...encounters, ...(market?.encounters ?? {}), ...(travel?.encounters ?? {}), ...wild.encounters, ...(f.encounters ?? {}) },
     travelRules: travel,
     pathways: pathways?.pathways ?? {},
-    market,
-    loot: { ...(market?.loot ?? {}), ...wild.loot },
+    market: market && { ...market, sell_prices: { ...market.sell_prices, ...(f.sell_prices ?? {}) } },
+    loot: { ...(market?.loot ?? {}), ...wild.loot, ...(f.loot ?? {}) },
     zones: wild.zones,
     lootTables: wild.lootTables,
+    factions: f.factions ?? {},
     facts: merge(cases, 'facts'),
     clues: merge(cases, 'clues'),
     endings: merge(cases, 'endings'),
