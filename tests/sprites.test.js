@@ -77,7 +77,7 @@ test('Kampf: jede Pfad-Fähigkeit hat Effekt und Icon wie im Manifest', () => {
       // Neue Fähigkeiten dürfen bis zur eigenen Grafik den Effekt einer anderen leihen (fx)
       const id = sd.skill.fx ?? sd.skill.id;
       assert.ok(SKILL_FX[id], `Effekt fehlt: ${id}`);
-      const fx = kampfAsset(`fx_${id}`);
+      const fx = kampfAsset(`fx_${id}`) ?? MANIFEST_FILES.manifestSequenzen2.assets.find((a) => a.id === `fx_${id}`);
       assert.equal(fx.frameWidth, SKILL_FX[id], `Framegröße ${id}`);
       assert.ok(fx.animations.cast, id);
     }
@@ -136,7 +136,7 @@ test('Paket C: Portraits, Lauf-Sheets und Kartenmarker sind vollständig', () =>
 
 // --- Paket D (Stadt) und E (Fälle) -------------------------------------------------
 const manifest = (name) => JSON.parse(readFileSync(sprite(`manifest-${name}.json`), 'utf8'));
-const MANIFEST_FILES = { manifestStadt: manifest('stadt'), manifestFaelle: manifest('faelle'), manifestJournal: manifest('journal'), manifestReise: manifest('reise'), manifestWildnis: manifest('wildnis'), manifestGegner3: manifest('gegner3'), manifestFall5: manifest('fall5'), manifestFall6: manifest('fall6'), manifestFall78: manifest('fall78'), manifestTreffen: manifest('treffen') };
+const MANIFEST_FILES = { manifestStadt: manifest('stadt'), manifestFaelle: manifest('faelle'), manifestJournal: manifest('journal'), manifestReise: manifest('reise'), manifestWildnis: manifest('wildnis'), manifestGegner3: manifest('gegner3'), manifestFall5: manifest('fall5'), manifestFall6: manifest('fall6'), manifestFall78: manifest('fall78'), manifestTreffen: manifest('treffen'), manifestSequenzen2: manifest('sequenzen2') };
 const regionNames = (def) => {
   const regions = Array.isArray(def.regions) ? def.regions.map((r) => r.name) : Object.keys(def.regions ?? {});
   return [...regions, ...Object.keys(def.animations ?? {}), ...Object.keys(def.regionAnimations ?? {})];
@@ -441,5 +441,27 @@ test('Paket O: Geheime Treffen nutzen die echten Grafiken', async () => {
       const names = regions[`${hit[1]}_props`];
       assert.ok(names.includes(hit[2]) || names.some((n) => n.startsWith(`${hit[2]}_`)), d.sprite);
     }
+  }
+});
+
+test('Paket N: Sequenz 6/5, Artefakte und Asservatenkammer nutzen die echten Grafiken', async () => {
+  const N = await import('../src/world/assets.js');
+  const m = MANIFEST_FILES.manifestSequenzen2;
+  for (const a of m.assets) assert.ok(existsSync(sprite(a.file)), a.file);
+  const ids = m.assets.find((a) => a.id === 'skill_icons_2').skillIds.flat();
+  ids.forEach((id, i) => {
+    assert.equal(N.SKILL_ICONS_2[id], i, id);
+    assert.equal(m.assets.find((a) => a.id === `fx_${id}`).frameWidth, SKILL_FX[id], id);
+  });
+  for (const id of [...N.N_ARTIFACTS, ...N.N_INGREDIENTS]) {
+    assert.ok(content.items[id], id);
+    assert.ok(existsSync(file(itemIcon32Url(id))), id);
+  }
+  for (const url of Object.values(N.PULSE_ICONS)) assert.ok(existsSync(file(url)), url);
+  assert.ok(existsSync(file(N.ARTIFACT_UI_URL)));
+  for (const id of ['thale', 'varga']) {
+    assert.ok(existsSync(sprite(SHEETS[CHARACTER_SHEETS[`npc_${id}`]])), id);
+    assert.ok(existsSync(file(N.portraitUrl(id))), id);
+    assert.ok(existsSync(file(N.headUrl(id))), id);
   }
 });
