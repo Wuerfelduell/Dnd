@@ -44,13 +44,6 @@ export function rollLoot(table, rng = Math.random, { luck = 1, moneyMult = 1 } =
   return out;
 }
 
-/** Fügt zwei Beuteergebnisse zusammen. */
-export function mergeLoot(a, b) {
-  const out = { money: (a?.money ?? 0) + (b?.money ?? 0), items: { ...(a?.items ?? {}) } };
-  for (const [id, n] of Object.entries(b?.items ?? {})) out.items[id] = (out.items[id] ?? 0) + n;
-  return out;
-}
-
 export const isEmptyLoot = (loot) => !loot || (!loot.money && !Object.keys(loot.items ?? {}).length);
 
 /** Höchste Seltenheit in einer Beute. */
