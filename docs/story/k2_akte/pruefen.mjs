@@ -6,8 +6,11 @@ import { fileURLToPath } from 'node:url';
 const here = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(here, '../../..');
 const read = p => JSON.parse(fs.readFileSync(p, 'utf8'));
-const files = fs.readdirSync(here).filter(f => f.endsWith('.json')).sort();
-const pack = Object.fromEntries(files.map(f => [f.slice(0, -5), read(path.join(here, f))]));
+// Seit dem Einbau liegen die acht Standarddateien unter src/data/packs/k2_akte; akt5_neu und epiloge bleiben hier.
+const pkgDir = path.join(root, 'src/data/packs/k2_akte');
+const files = [...fs.readdirSync(pkgDir).filter(f => f.endsWith('.json')).map(f => path.join(pkgDir, f)),
+  ...fs.readdirSync(here).filter(f => f.endsWith('.json')).map(f => path.join(here, f))];
+const pack = Object.fromEntries(files.map(f => [path.basename(f).slice(0, -5), read(f)]));
 const w = read(path.join(root, 'src/data/wexmoor.json'));
 const campaign = read(path.join(root, 'src/data/campaign.json'));
 const stock = read(path.join(root, 'src/data/items.json'));
@@ -18,7 +21,7 @@ const srcFiles = [];
 function find(dir) {
   for (const e of fs.readdirSync(dir, {withFileTypes:true})) {
     const p = path.join(dir, e.name);
-    if (e.isDirectory()) find(p);
+    if (e.isDirectory()) { if (p !== pkgDir) find(p); }
     else if (p.endsWith('.json')) srcFiles.push(p);
   }
 }
