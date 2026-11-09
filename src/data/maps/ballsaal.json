@@ -1,7 +1,7 @@
 {
   "id": "ballsaal",
   "name": "Ballsaal der Villa Ashcombe",
-  "tiles": "theater",
+  "tiles": "k_ballsaal",
   "ambient": {
     "night": 0.6,
     "fog": 0.04
@@ -130,7 +130,7 @@
         27,
         13
       ],
-      "sprite": "apparition",
+      "sprite": "ow_schattenabzug",
       "marker": false,
       "prompt": "Dem Schatten ohne Besitzer folgen",
       "visible_if": {
@@ -141,6 +141,442 @@
           "schattenabzug_defeated"
         ]
       }
+    }
+  ],
+  "decor": [
+    {
+      "sprite": "k_ballsaal_props_chandelier",
+      "tile": [
+        15,
+        9
+      ],
+      "offset": [
+        8,
+        0
+      ],
+      "alpha": 1,
+      "depth": 900,
+      "light": {
+        "radius": 70,
+        "intensity": 0.6,
+        "color": "#ffd890",
+        "flicker": 0.08
+      }
+    },
+    {
+      "sprite": "k_ballsaal_props_chandelier",
+      "tile": [
+        20,
+        9
+      ],
+      "offset": [
+        8,
+        0
+      ],
+      "alpha": 1,
+      "depth": 900,
+      "light": {
+        "radius": 70,
+        "intensity": 0.6,
+        "color": "#ffd890",
+        "flicker": 0.08
+      }
+    },
+    {
+      "sprite": "k_ballsaal_props_quartet",
+      "tile": [
+        16,
+        4
+      ],
+      "offset": [
+        8,
+        8
+      ],
+      "origin": [
+        0.5,
+        1
+      ],
+      "ysort": true,
+      "alpha": 1
+    },
+    {
+      "sprite": "k_ballsaal_props_piano",
+      "tile": [
+        19,
+        4
+      ],
+      "offset": [
+        8,
+        8
+      ],
+      "origin": [
+        0.5,
+        1
+      ],
+      "ysort": true,
+      "alpha": 1
+    },
+    {
+      "sprite": "k_ballsaal_props_clock",
+      "tile": [
+        10,
+        1
+      ],
+      "offset": [
+        0,
+        8
+      ],
+      "origin": [
+        0.5,
+        1
+      ],
+      "alpha": 1,
+      "depth": 40
+    },
+    {
+      "sprite": "k_ballsaal_props_party_photo",
+      "tile": [
+        25,
+        1
+      ],
+      "offset": [
+        0,
+        8
+      ],
+      "origin": [
+        0.5,
+        1
+      ],
+      "alpha": 1,
+      "depth": 40
+    },
+    {
+      "sprite": "k_ballsaal_props_mirror",
+      "tile": [
+        28,
+        1
+      ],
+      "offset": [
+        0,
+        8
+      ],
+      "origin": [
+        0.5,
+        1
+      ],
+      "alpha": 1,
+      "depth": 40
+    },
+    {
+      "sprite": "k_ballsaal_props_invitations",
+      "tile": [
+        32,
+        4
+      ],
+      "offset": [
+        8,
+        0
+      ],
+      "ysort": true,
+      "alpha": 1
+    },
+    {
+      "sprite": "k_ballsaal_props_cloakroom",
+      "tile": [
+        31,
+        18
+      ],
+      "offset": [
+        8,
+        8
+      ],
+      "origin": [
+        0.5,
+        1
+      ],
+      "ysort": true,
+      "alpha": 1,
+      "solid": [
+        28,
+        10
+      ]
+    },
+    {
+      "sprite": "k_ballsaal_props_punch",
+      "tile": [
+        6,
+        7
+      ],
+      "offset": [
+        0,
+        -4
+      ],
+      "ysort": true,
+      "alpha": 1
+    },
+    {
+      "sprite": "k_ballsaal_props_palm",
+      "tile": [
+        1,
+        3
+      ],
+      "offset": [
+        0,
+        8
+      ],
+      "origin": [
+        0.5,
+        1
+      ],
+      "ysort": true,
+      "alpha": 1,
+      "solid": [
+        8,
+        6
+      ]
+    },
+    {
+      "sprite": "k_ballsaal_props_palm",
+      "tile": [
+        34,
+        3
+      ],
+      "offset": [
+        0,
+        8
+      ],
+      "origin": [
+        0.5,
+        1
+      ],
+      "ysort": true,
+      "alpha": 1,
+      "solid": [
+        8,
+        6
+      ]
+    },
+    {
+      "sprite": "k_ballsaal_props_palm",
+      "tile": [
+        1,
+        17
+      ],
+      "offset": [
+        0,
+        8
+      ],
+      "origin": [
+        0.5,
+        1
+      ],
+      "ysort": true,
+      "alpha": 1,
+      "solid": [
+        8,
+        6
+      ]
+    },
+    {
+      "sprite": "k_ballsaal_props_palm",
+      "tile": [
+        34,
+        17
+      ],
+      "offset": [
+        0,
+        8
+      ],
+      "origin": [
+        0.5,
+        1
+      ],
+      "ysort": true,
+      "alpha": 1,
+      "solid": [
+        8,
+        6
+      ]
+    },
+    {
+      "sprite": "k_ballsaal_props_chair_1",
+      "tile": [
+        4,
+        7
+      ],
+      "ysort": true,
+      "alpha": 1
+    },
+    {
+      "sprite": "k_ballsaal_props_chair_2",
+      "tile": [
+        7,
+        7
+      ],
+      "ysort": true,
+      "alpha": 1
+    },
+    {
+      "sprite": "k_ballsaal_props_chair_3",
+      "tile": [
+        11,
+        7
+      ],
+      "ysort": true,
+      "alpha": 1
+    },
+    {
+      "sprite": "k_ballsaal_props_chair_4",
+      "tile": [
+        14,
+        7
+      ],
+      "ysort": true,
+      "alpha": 1
+    },
+    {
+      "sprite": "k_ballsaal_props_chair_5",
+      "tile": [
+        21,
+        7
+      ],
+      "ysort": true,
+      "alpha": 1
+    },
+    {
+      "sprite": "k_ballsaal_props_chair_6",
+      "tile": [
+        24,
+        7
+      ],
+      "ysort": true,
+      "alpha": 1
+    },
+    {
+      "sprite": "k_ballsaal_props_chair_7",
+      "tile": [
+        28,
+        7
+      ],
+      "ysort": true,
+      "alpha": 1
+    },
+    {
+      "sprite": "k_ballsaal_props_chair_8",
+      "tile": [
+        31,
+        7
+      ],
+      "ysort": true,
+      "alpha": 1
+    },
+    {
+      "sprite": "k_ballsaal_props_chair_9",
+      "tile": [
+        7,
+        11
+      ],
+      "ysort": true,
+      "alpha": 1
+    },
+    {
+      "sprite": "k_ballsaal_props_chair_10",
+      "tile": [
+        10,
+        11
+      ],
+      "ysort": true,
+      "alpha": 1
+    },
+    {
+      "sprite": "k_ballsaal_props_chair_11",
+      "tile": [
+        25,
+        11
+      ],
+      "ysort": true,
+      "alpha": 1
+    },
+    {
+      "sprite": "k_ballsaal_props_chair_12",
+      "tile": [
+        28,
+        11
+      ],
+      "ysort": true,
+      "alpha": 1
+    },
+    {
+      "sprite": "k_gast_1",
+      "tile": [
+        10,
+        9
+      ],
+      "offset": [
+        0,
+        8
+      ],
+      "origin": [
+        0.5,
+        1
+      ],
+      "ysort": true,
+      "alpha": 0.75,
+      "hidden": true
+    },
+    {
+      "sprite": "k_gast_2",
+      "tile": [
+        24,
+        10
+      ],
+      "offset": [
+        0,
+        8
+      ],
+      "origin": [
+        0.5,
+        1
+      ],
+      "ysort": true,
+      "alpha": 0.75,
+      "hidden": true
+    },
+    {
+      "sprite": "k_gast_3",
+      "tile": [
+        14,
+        15
+      ],
+      "offset": [
+        0,
+        8
+      ],
+      "origin": [
+        0.5,
+        1
+      ],
+      "ysort": true,
+      "alpha": 0.75,
+      "hidden": true
+    },
+    {
+      "sprite": "k_gast_4",
+      "tile": [
+        27,
+        15
+      ],
+      "offset": [
+        0,
+        8
+      ],
+      "origin": [
+        0.5,
+        1
+      ],
+      "ysort": true,
+      "alpha": 0.75,
+      "hidden": true
     }
   ]
 }
