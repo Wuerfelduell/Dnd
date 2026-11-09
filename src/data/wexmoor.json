@@ -22,6 +22,38 @@
       "wx_no_oil": {
         "case": "kapitel2",
         "text": "Der Leuchtturm von Wexmoor brennt ohne Öl. Das Lichtamt kauft keinen Liter."
+      },
+      "wx_starling_student": {
+        "case": "kapitel2",
+        "text": "Starling hat an der Akademie von Wexmoor studiert, bei Magistra Brandt, und wurde vor dreißig Jahren hinausgeworfen."
+      },
+      "wx_letters_L": {
+        "case": "kapitel2",
+        "text": "Starling stand jahrelang mit jemandem in Wexmoor in Briefkontakt, der nur mit „L.“ unterschreibt und ihn bezahlt hat."
+      },
+      "wx_starling_dead": {
+        "case": "kapitel2",
+        "text": "Professor Starling ist tot, man hat ihn im Moor gefunden.",
+        "refuted_by": [
+          "wx_zunder_liste",
+          "wx_hesper_lucent"
+        ]
+      },
+      "wx_lucent": {
+        "case": "kapitel2",
+        "text": "Ein Mieter namens Mr. Lucent in der Oberstadt kauft nachts fassweise Lampenöl und geht bei Tag nie aus."
+      },
+      "wx_halblicht": {
+        "case": "kapitel2",
+        "text": "Starling ist seit der Sternwarte halb aus Licht. Er braucht Lampenöl, um sichtbar zu bleiben."
+      },
+      "wx_moor_flight": {
+        "case": "kapitel2",
+        "text": "Starling ist mit einem gestohlenen Boot ins Vergessmoor geflohen, Richtung Leuchtturminsel."
+      },
+      "wx_collector": {
+        "case": "kapitel2",
+        "text": "Starling hat nur gesammelt. Wer die Lichter im Turm verbrennt, sitzt im Lichtamt."
       }
     },
     "clues": {
@@ -72,6 +104,85 @@
         "source": "Aushang am Lichtamt",
         "name": "Haushalt des Lichtamts",
         "text": "„Haushalt des Lichtamts, öffentlich nach Stadtrecht: Lampenöl 0 Schilling. Linsenpflege 4.000 Schilling. Sammelfahrten 2.600 Schilling.“\n\nGezeichnet: Magistra I. Brandt, Lichtmeisterin. Neben der Unterschrift ein kleiner Stern."
+      },
+      "wx_akte_starling": {
+        "fact": "wx_starling_student",
+        "source": "Archiv der Akademie",
+        "name": "Exmatrikuliert",
+        "text": "„Lucius Starling, Student der Sternkunde. Betreuerin: Magistra I. Brandt. Exmatrikuliert wegen fortgesetzter Beobachtung nicht vorhandener Sterne und unerlaubter Versuche im Leuchtturm.“\n\nAm Rand, in anderer Tinte: „Hochbegabt. Schade. I. B.“"
+      },
+      "wx_wyle_student": {
+        "fact": "wx_starling_student",
+        "source": "Magistra Edda Wyle",
+        "name": "Ihr Lieblingsschüler",
+        "text": "„Lucius? Oh ja. Brandts Lieblingsschüler. Sie hat ihn rauswerfen lassen und am selben Abend geweint. Ich dachte damals, aus Enttäuschung.“"
+      },
+      "wx_briefe_L": {
+        "fact": "wx_letters_L",
+        "source": "Briefbündel unter der Diele",
+        "name": "Briefe an L.",
+        "by": "vision",
+        "text": "Ein Bündel Briefe, Starlings winzige Schrift, alle unabgeschickt oder zurückgekommen. „Liebe L., die Ernte in Kettlegate wird reif. Schicken Sie das Geld an die übliche Adresse.“\n\nDazwischen ein Antwortzettel, steile Schrift: „Lassen Sie ihn gewinnen. Dann schicken Sie ihn zu mir. L.“"
+      },
+      "wx_wyle_L": {
+        "fact": "wx_letters_L",
+        "source": "Magistra Edda Wyle",
+        "name": "Post für L.",
+        "text": "„Er hat auch nach dem Rauswurf Briefe hierher geschickt. Adressiert an ‚L., zu Händen der Akademie‘. Ich habe sie weitergegeben. Ans Lichtamt. Man fragt nicht, wenn das Lichtamt Post bekommt.“"
+      },
+      "wx_bote_tot": {
+        "fact": "wx_starling_dead",
+        "source": "Der Wexmoorer Bote",
+        "name": "Toter im Moor",
+        "text": "„TOTER ASTRONOM IM MOOR. Ein Fremder aus Kettlegate, vermutlich der flüchtige Professor L. Starling, wurde gestern tot am Rand des Vergessmoors gefunden. Das Lichtamt hat die Leiche zur Untersuchung übernommen.“"
+      },
+      "wx_pedell_tot": {
+        "fact": "wx_starling_dead",
+        "source": "Ruprecht Lamm",
+        "name": "Steht im Boten",
+        "text": "„Starling? Der ist tot, steht doch im Boten. Das Lichtamt hat ihn geholt. Gott sei Dank, sagt der Rektor.“"
+      },
+      "wx_zunder_liste": {
+        "fact": "wx_lucent",
+        "source": "Zunder",
+        "name": "Die Lieferliste",
+        "text": "Zunder blättert in einem fettigen Heft. „Oberstadt, Nummer 9. Mr. Lucent. Zwei Fass die Woche, immer nach Mitternacht, Geld liegt unter der Matte. Seit einem Monat. Und letzte Woche hat er doppelt bestellt.“\n\n„Ein Toter, der doppelt bestellt? Glaub ich nicht.“"
+      },
+      "wx_hesper_lucent": {
+        "fact": "wx_lucent",
+        "source": "Hesper Quell",
+        "name": "Der Mann, der durchscheint",
+        "text": "„Ein Herr mit Linsen war hier, vorgestern Nacht. Hat nichts getrunken, nur gefragt, wer Öl verkauft. Als er an der Lampe vorbeiging, konnte ich durch seine Hand sehen.“ Hesper bekreuzigt sich nicht. „Nennt sich Lucent. Wohnt oben.“"
+      },
+      "wx_lucent_glas": {
+        "fact": "wx_halblicht",
+        "source": "Eigene Beobachtung",
+        "name": "Kein Spiegelbild",
+        "text": "Im Spiegel siehst du dich und das Zimmer hinter dir. Auf dem Boden vor dem Spiegel liegt ein Mantel, durchtränkt von Öl. Daneben ein Rasiermesser und ein Zettel: „Ölbad 3x täglich, sonst verblasse ich.“"
+      },
+      "wx_kit_seen": {
+        "fact": "wx_halblicht",
+        "source": "Kit",
+        "name": "Er leuchtet durch",
+        "text": "„Dein Professor? Hab ihn gesehen, letzte Nacht am Kai. Wenn er rennt, leuchtet er durch, wie eine Laterne mit dünnem Papier. Und er hat geschrien, als ihn der Regen erwischt hat.“"
+      },
+      "wx_lucent_zettel": {
+        "fact": "wx_moor_flight",
+        "source": "Zettel in Lucents Haus",
+        "name": "Ins Moor",
+        "text": "„Sie kommen. Der Ermittler ist schneller, als ich dachte. Ins Moor, zur Insel, dort findet mich nur, wer seinen Namen behält. L. wird verstehen.“"
+      },
+      "wx_brack_boot": {
+        "fact": "wx_moor_flight",
+        "source": "Ottilie Brack",
+        "name": "Das gestohlene Boot",
+        "text": "„Heute Nacht hat jemand mein Ruderboot genommen. Der Dieb hat geleuchtet, als hätte er eine Laterne verschluckt. Ist rausgerudert, Richtung Vergessmoor. Da fährt sonst keiner hin.“"
+      },
+      "wx_sammler": {
+        "fact": "wx_collector",
+        "source": "Professor Starling",
+        "name": "Ich habe nur gezählt",
+        "text": "„Ich habe gezählt. Ernte um Ernte, Licht um Licht, in mein Hauptbuch. Gebrannt hat jemand anderes. Glauben Sie, ein Astronom kann einen Leuchtturm füttern? Dafür braucht man ein Amt.“"
       }
     },
     "deductions": [
@@ -98,6 +209,42 @@
         ],
         "name": "Womit der Turm brennt",
         "text": "Die Lichter, die Starling in Kettlegate geerntet hat, sind nicht verloschen. Sie brennen jetzt im Leuchtturm von Wexmoor."
+      },
+      {
+        "id": "dk2_schueler",
+        "case": "kapitel2",
+        "pairs": [
+          [
+            "wx_starling_student",
+            "wx_letters_L"
+          ]
+        ],
+        "name": "Der Schüler und L.",
+        "text": "Starling kam nicht zufällig zurück nach Wexmoor. Seit seinem Rauswurf hat ihn jemand bezahlt, der an der Akademie oder im Lichtamt sitzt und mit L. unterschreibt."
+      },
+      {
+        "id": "dk2_lucent",
+        "case": "kapitel2",
+        "pairs": [
+          [
+            "wx_lucent",
+            "wx_lights"
+          ]
+        ],
+        "name": "Mr. Lucent",
+        "text": "Starling ist nicht tot. Er lebt als Mr. Lucent in der Oberstadt, halb aus dem Licht, das er gesammelt hat."
+      },
+      {
+        "id": "dk2_jagd",
+        "case": "kapitel2",
+        "pairs": [
+          [
+            "wx_halblicht",
+            "wx_moor_flight"
+          ]
+        ],
+        "name": "Die Spur ins Moor",
+        "text": "Ohne Öl verblasst Starling. Er ist ins Vergessmoor geflohen, und dort hält er nicht lange durch. Jetzt oder nie."
       }
     ]
   },
@@ -183,15 +330,119 @@
       "summary": "Die Briefe, der Stern, der Leuchtturm: Alles führt zu Professor Starling. Und Starling hat einmal in Wexmoor studiert.",
       "steps": [
         {
-          "text": "Finde in der Akademie der Sternkunde Starlings Spur (folgt im nächsten Bauschritt)",
+          "text": "Komm in die Akademie der Sternkunde (mit Akademie-Robe)",
           "done": {
             "requires_flags": [
-              "k2_akt2_started_real"
+              "k2_in_akademie"
             ]
           },
           "target": {
             "map": "wx_oberstadt",
-            "id": "pedell"
+            "id": "akademie",
+            "label": "Tor der Akademie"
+          }
+        },
+        {
+          "text": "Finde heraus, wer Starling in Wexmoor kannte",
+          "done": {
+            "requires_conclusions": [
+              "dk2_schueler"
+            ]
+          }
+        },
+        {
+          "text": "Prüfe, ob Starling wirklich tot ist",
+          "done": {
+            "requires_likely": [
+              "wx_lucent"
+            ]
+          }
+        },
+        {
+          "text": "Finde heraus, wer Mr. Lucent ist",
+          "done": {
+            "requires_conclusions": [
+              "dk2_lucent"
+            ]
+          }
+        },
+        {
+          "text": "Sprich mit Zunder",
+          "done": {
+            "requires_flags": [
+              "k2_akt2_done"
+            ]
+          }
+        }
+      ]
+    },
+    "k2_akt3": {
+      "title": "Akt III: Der Lichtmann",
+      "kind": "main",
+      "case": "kapitel2",
+      "summary": "Starling lebt als Mr. Lucent in der Oberstadt. Er ist halb Licht und braucht Öl. Zeit, ihn zu stellen.",
+      "steps": [
+        {
+          "text": "Durchsuche das Haus von Mr. Lucent in der Oberstadt",
+          "done": {
+            "requires_any_clues": [
+              "wx_lucent_glas",
+              "wx_lucent_zettel"
+            ]
+          },
+          "target": {
+            "map": "wx_oberstadt",
+            "id": "lucent_tuer",
+            "label": "Haus von Mr. Lucent"
+          }
+        },
+        {
+          "text": "Finde heraus, wohin Starling geflohen ist",
+          "done": {
+            "requires_conclusions": [
+              "dk2_jagd"
+            ]
+          }
+        },
+        {
+          "text": "Bezwinge, was im Vergessmoor wartet",
+          "done": {
+            "requires_flags": [
+              "won_namenlose"
+            ]
+          },
+          "target": {
+            "map": "wx_vergessmoor",
+            "id": "exit",
+            "label": "Das Vergessmoor"
+          }
+        },
+        {
+          "text": "Stell Starling",
+          "done": {
+            "requires_flags": [
+              "k2_akt3_done"
+            ]
+          }
+        }
+      ]
+    },
+    "k2_akt4": {
+      "title": "Akt IV: Wer die Wache führt",
+      "kind": "main",
+      "case": "kapitel2",
+      "summary": "Starling hat nur gezählt. Gebrannt hat jemand im Lichtamt. Und dem Lichtamt gehört die Wache.",
+      "steps": [
+        {
+          "text": "Bring Zunder die Neuigkeiten (Akt IV folgt im nächsten Bauschritt)",
+          "done": {
+            "requires_flags": [
+              "k2_akt4_started_real"
+            ]
+          },
+          "target": {
+            "map": "wx_kahn",
+            "id": "zunder"
           }
         }
       ]
@@ -282,6 +533,30 @@
         "skin": "#b08a6a",
         "hair": "#e0e0d8",
         "legs": "#2a3020"
+      }
+    },
+    "wyle": {
+      "name": "Magistra Edda Wyle",
+      "role": "Emeritierte Professorin der Sternkunde",
+      "dialogue": "wyle",
+      "palette": {
+        "coat": "#3a2a4a",
+        "hat": "#22182e",
+        "skin": "#e8cab0",
+        "hair": "#f0f0f0",
+        "legs": "#22182e"
+      }
+    },
+    "lichtmann": {
+      "name": "Lucius Starling",
+      "role": "Der Sternsammler",
+      "dialogue": "lichtmann",
+      "palette": {
+        "coat": "#c8d0e0",
+        "hat": "#8890a8",
+        "skin": "#f4f0ff",
+        "hair": "#ffffff",
+        "legs": "#a0a8c0"
       }
     }
   },
@@ -1303,6 +1578,21 @@
           "marker": false,
           "title": "Marktordnung",
           "text": "„Salz, Torf und Fisch sind abgabepflichtig. Lampenöl ist abgabefrei, da im Stadtgebiet nicht benötigt (Erlass des Lichtamts).“\n\nDarunter hat jemand gekritzelt: „Und womit leuchtet IHR dann?“"
+        },
+        {
+          "id": "bote",
+          "clue": "wx_bote_tot",
+          "tile": [
+            26,
+            3
+          ],
+          "sprite": "paper",
+          "prompt": "Den Wexmoorer Boten am Zeitungsbrett lesen",
+          "visible_if": {
+            "requires_quests_active": [
+              "k2_akt2"
+            ]
+          }
         }
       ],
       "npcs": [
@@ -1622,6 +1912,20 @@
             9
           ],
           "facing": "up"
+        },
+        {
+          "id": "kit",
+          "tile": [
+            10,
+            9
+          ],
+          "facing": "right",
+          "dialogue": "kit_wexmoor",
+          "visible_if": {
+            "requires_quests_active": [
+              "k2_akt3"
+            ]
+          }
         }
       ],
       "patrols": [
@@ -1786,6 +2090,14 @@
         "default": [
           1,
           7
+        ],
+        "wx_akademie": [
+          31,
+          4
+        ],
+        "wx_lucent": [
+          8,
+          4
         ]
       },
       "interactables": [
@@ -1810,19 +2122,6 @@
           "prompt": "Den Aushang am Lichtamt lesen"
         },
         {
-          "id": "akademie",
-          "kind": "read",
-          "tile": [
-            31,
-            2
-          ],
-          "prompt": "Das Tor der Akademie der Sternkunde ansehen",
-          "marker": false,
-          "title": "Akademie der Sternkunde",
-          "text": "Über dem Tor ein Messingfernrohr und der Spruch: „Wer zählt, der herrscht.“\n\nDas Tor ist verschlossen. Durch die Gitter siehst du einen Hof mit Sonnenuhren, die alle eine andere Zeit anzeigen.",
-          "footer": "Die Akademie wird in Akt II wichtig."
-        },
-        {
           "id": "wachhaus",
           "kind": "read",
           "tile": [
@@ -1833,13 +2132,56 @@
           "marker": false,
           "title": "Wachhaus Oberstadt",
           "text": "Graue Mauern, vergitterte Fenster, eine Laterne über jeder Tür. Hier landest du, wenn ein Grauspäher dich erwischt.\n\nÜber dem Eingang hängt kein Stadtwappen, sondern ein Leuchtturm in einem Kreis."
+        },
+        {
+          "id": "akademie",
+          "kind": "door",
+          "to": "wx_akademie",
+          "spawn": "default",
+          "tile": [
+            31,
+            2
+          ],
+          "prompt": "Die Akademie der Sternkunde betreten",
+          "marker": true,
+          "reach": 26,
+          "lock": {
+            "requires_flags": [
+              "k2_wear_akademierobe"
+            ],
+            "requires_quests_active": [
+              "k2_akt2"
+            ],
+            "text": "Ein Pförtner mit Messingfernrohr am Gürtel versperrt das Tor. „Nur Studenten und Magister. Sie sind keins von beidem, das sieht man.“",
+            "footer": "Ab Akt II: Zieh im Unterschlupf die Akademie-Robe an (vom Pedell)."
+          }
+        },
+        {
+          "id": "lucent_tuer",
+          "kind": "door",
+          "to": "wx_lucent",
+          "spawn": "default",
+          "tile": [
+            8,
+            2
+          ],
+          "prompt": "Bei Mr. Lucent einsteigen",
+          "marker": true,
+          "reach": 26,
+          "lock": {
+            "requires_quests_active": [
+              "k2_akt3"
+            ],
+            "text": "Ein schmales Haus mit zugenagelten Fenstern. Kein Name an der Tür, nur ein Ölfleck auf der Schwelle.",
+            "footer": "Hier wohnt jemand, der nur nachts ausgeht."
+          }
         }
       ],
       "npcs": [
         {
           "id": "pedell",
           "tile": [
-            31,
+            34,
             4
           ],
           "facing": "down"
@@ -2077,6 +2419,455 @@
         }
       ],
       "decor": []
+    },
+    {
+      "id": "wx_akademie",
+      "name": "Akademie der Sternkunde",
+      "city": "wexmoor",
+      "ambient": {
+        "night": 0.62,
+        "fog": 0
+      },
+      "rows": [
+        "IIIIIIIIIIIIIIIIIIIIIIII",
+        "IIIIIIIIIIIIIIIIIIIIIIII",
+        "IBBBBBwwwBBBBBwwwwBBBBBI",
+        "IwwwwwwwwwwwwwwwwwwwwwwI",
+        "IwwTTwwwwTTwwwwwwwwwwwwI",
+        "IwwwwwwwwwwwwwwwwwwOwwwI",
+        "IIIIIIIwwwIIIIIIIIwwIIII",
+        "IBBwwwwwwwwwwwwwIwwwwwBI",
+        "IwwwwwwwwwwwwwwwIwwwwwwI",
+        "IwOwwwwwwwwwwwwwIwwTTwwI",
+        "IwwwwwwwwwwwwwwwIwwwwwwI",
+        "IIIIIIIIIIIEEIIIIIIIIIII"
+      ],
+      "spawns": {
+        "default": [
+          11,
+          10
+        ]
+      },
+      "interactables": [
+        {
+          "id": "raus",
+          "kind": "door",
+          "to": "wx_oberstadt",
+          "spawn": "wx_akademie",
+          "tile": [
+            11,
+            11
+          ],
+          "prompt": "Hinaus in die Oberstadt",
+          "marker": false,
+          "reach": 22
+        },
+        {
+          "id": "drin",
+          "kind": "read",
+          "tile": [
+            11,
+            9
+          ],
+          "auto": 30,
+          "marker": false,
+          "prompt": "Umsehen",
+          "visible_if": {
+            "hide_if_flags": [
+              "k2_in_akademie"
+            ]
+          },
+          "title": "In der Akademie",
+          "text": "Der Pförtner nickt dir zu, als wärst du einer von vielen. Drinnen riecht es nach Bohnerwachs und kaltem Tee. Überall hängen Sternkarten, und auf keiner stimmt der Himmel mit dem draußen überein.",
+          "footer": "Archiv oben links, die alten Studentenzimmer rechts.",
+          "done_flag": "k2_in_akademie"
+        },
+        {
+          "id": "archiv",
+          "clue": "wx_akte_starling",
+          "tile": [
+            3,
+            2
+          ],
+          "sprite": "file",
+          "prompt": "Im Archiv nach Starlings Akte suchen"
+        },
+        {
+          "id": "zimmer",
+          "clue": "wx_briefe_L",
+          "tile": [
+            21,
+            9
+          ],
+          "hidden": true,
+          "prompt": "Unter der losen Diele nachsehen"
+        },
+        {
+          "id": "zimmer_tafel",
+          "kind": "read",
+          "tile": [
+            20,
+            8
+          ],
+          "prompt": "Das alte Studentenzimmer ansehen",
+          "marker": false,
+          "title": "Zimmer 7",
+          "text": "Ein schmales Zimmer, heute ein Abstellraum. In die Fensterbank hat jemand vor langer Zeit winzige Sterne geritzt, Hunderte, in Reihen wie eine Buchhaltung.\n\nEine Diele vor dem Bett liegt etwas höher als die anderen.",
+          "footer": "Manches sieht man nur mit der Geistsicht (Q)."
+        }
+      ],
+      "npcs": [
+        {
+          "id": "wyle",
+          "tile": [
+            6,
+            8
+          ],
+          "facing": "right"
+        }
+      ],
+      "decor": [
+        {
+          "sprite": "i_orte_grandfather_clock",
+          "tile": [
+            7,
+            3
+          ],
+          "offset": [
+            0,
+            8
+          ],
+          "origin": [
+            0.5,
+            1
+          ],
+          "alpha": 1,
+          "ysort": true
+        }
+      ]
+    },
+    {
+      "id": "wx_lucent",
+      "name": "Haus von Mr. Lucent",
+      "city": "wexmoor",
+      "ambient": {
+        "night": 0.8,
+        "fog": 0
+      },
+      "rows": [
+        "IIIIIIIIIIIIII",
+        "IIIIIIIIIIIIII",
+        "IBBwwwwwwwwVVI",
+        "IwwwwwwwwwwwVI",
+        "IwwwwTTwwwwwwI",
+        "IwwwwwwwwwwwwI",
+        "IwwwwwwwwwwwwI",
+        "IIIIIIEEIIIIII"
+      ],
+      "spawns": {
+        "default": [
+          6,
+          6
+        ]
+      },
+      "interactables": [
+        {
+          "id": "raus",
+          "kind": "door",
+          "to": "wx_oberstadt",
+          "spawn": "wx_lucent",
+          "tile": [
+            6,
+            7
+          ],
+          "prompt": "Hinaus in die Oberstadt",
+          "marker": false,
+          "reach": 22
+        },
+        {
+          "id": "spiegel",
+          "clue": "wx_lucent_glas",
+          "tile": [
+            2,
+            2
+          ],
+          "sprite": "mirror",
+          "prompt": "Den Spiegel ansehen"
+        },
+        {
+          "id": "zettel",
+          "clue": "wx_lucent_zettel",
+          "tile": [
+            5,
+            4
+          ],
+          "sprite": "paper",
+          "prompt": "Den Zettel auf dem Tisch lesen"
+        },
+        {
+          "id": "faesser",
+          "kind": "read",
+          "tile": [
+            11,
+            3
+          ],
+          "prompt": "Die Ölfässer ansehen",
+          "marker": false,
+          "title": "Zwölf Fässer Lampenöl",
+          "text": "Elf sind leer. Das zwölfte ist halb voll, und darin schwimmt ein Handschuh, als hätte jemand den Arm bis zur Schulter hineingesteckt.\n\nZunders Siegel ist auf jedem Deckel."
+        }
+      ],
+      "npcs": [],
+      "decor": []
+    },
+    {
+      "id": "wx_vergessmoor",
+      "name": "Das Vergessmoor",
+      "city": "wexmoor",
+      "tiles": "g_marsch",
+      "danger": 2,
+      "ambient": {
+        "night": 0.82,
+        "fog": 0.55
+      },
+      "rows": [
+        "YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY",
+        "Yg~g~gg~g~g~~gg~Yggggg~gg~~ggYgggg~~Yggggggggrgggggg~ggY",
+        "Y~g~ggggggggggggg~ggggggg~g~~~g~rgg~gggggggggg~~YYggr~gY",
+        "Yggggggg~gggggg~g~~Y~g~~~~g~gg~rgg~gggg~~grg~~gg~g~ggggY",
+        "Yrg~ggggYggggggYgg~~grgggggggYYYYgggggg~ggggg~gggggggg~Y",
+        "Y~~gg~ggggg~~gggggggYrgrgrgpggggggggggpgY~g~ggggggg~grgY",
+        "YgggggggggggggggggrPPPPPPPPPPPPPPPPPPPPPggg~gggYgg~gg~gY",
+        "Ygg~ggg~r~gg~gggr~gPgppggpgggpgpgggggrpPY~~~Yggggg~g~r~Y",
+        "YggYgg~ggggggggggggPg~~~gr~~ggggrgg~grgPgrggg~gggYg~r~gY",
+        "Y~~gYggggggggg~gg~gPggg~gggggggggY~~g~gPgggg~ggggg~gr~rY",
+        "YgYggggggggg~~rgggpPrggggggg~gYgg~ggggrPgYg~gg~ggggYgg~Y",
+        "Y~ggg~ggg~gg~ggggggPgggg~~gggrrgYggggggPgg~ggggg~g~ggggY",
+        "Ygrgggg~~YggYggg~YpPpYrgggggggg~gg~gggYPrggggg~~gggg~ggY",
+        "Ygggr~~gggggggg~gYgPg~rgg~~gggYg~ggggggPrggg~gggrggY~ggY",
+        "YgYgggYgggYYggggYYgPg~gYg~~~gggggggYggpPggg~~ggg~gYggggY",
+        "PPPPPPPPPPPPPPPPPPPPgggrggg~gggg~YggggrPggYggggggggg~YgY",
+        "YrppgggggrppgggYgggggg~gggggYrr~ggggggYPgg~gggg~g~YggggY",
+        "Yggrgg~ggYg~YrggY~ggYgYgg~~ggg~~gggggggPggggYgY~gggggg~Y",
+        "Y~ggg~ggg~ggg~gggY~ggg~ggggg~gYgggYYgggPrgg~gg~g~ggggggY",
+        "Ygggg~ggYggg~g~~g~gg~g~ggg~ggg~ggggYgggPpgg~gg~ggg~ggYrY",
+        "Ygg~Y~ggg~g~ggggggg~ggggrggggg~g~grggggPp~~ggggggggggggY",
+        "YYggYgg~gr~~ggggr~gggggggrg~ggY~g~gg~YgPgg~gg~gggggggggY",
+        "YY~Y~gggggrggggrggYg~rYggggggYgggggggggPgggYgpgggggggggY",
+        "Ygggg~ggggg~ggg~Y~~gggggg~~gYgg~rggggggPPPPPPPgggggggggY",
+        "Ygg~gggYgggrggYgg~g~gggggggg~g~YrggggYgggggggpgggggggggY",
+        "YgYYggg~~rgg~gYgg~g~gggggYg~Yg~gggggg~gggggggggggggggggY",
+        "Ygg~ggggrggggggYggggg~g~ggg~gggggggggYggg~gg~ggggggggggY",
+        "YggYggY~gggggYgggggggg~gggrgrgY~ggrgggggggg~ggg~gg~~ggrY",
+        "Y~~Ygg~gg~gggggggYggggggrY~g~g~gggg~gggggggg~gg~gggggggY",
+        "YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY"
+      ],
+      "spawns": {
+        "default": [
+          1,
+          15
+        ]
+      },
+      "lights": [
+        {
+          "tile": [
+            50,
+            23
+          ],
+          "radius": 60,
+          "intensity": 0.6,
+          "color": "#d0e0ff",
+          "glow": 0.3,
+          "flicker": 0.15
+        },
+        {
+          "tile": [
+            30,
+            6
+          ],
+          "radius": 36,
+          "intensity": 0.5,
+          "color": "#9ad070",
+          "glow": 0.25,
+          "flicker": 0.2
+        },
+        {
+          "tile": [
+            39,
+            16
+          ],
+          "radius": 36,
+          "intensity": 0.5,
+          "color": "#9ad070",
+          "glow": 0.25,
+          "flicker": 0.2
+        }
+      ],
+      "roamers": [
+        {
+          "encounter": "vg_namenloser",
+          "tile": [
+            35,
+            15
+          ]
+        },
+        {
+          "encounter": "vg_fremdlicht",
+          "tile": [
+            19,
+            7
+          ]
+        },
+        {
+          "encounter": "vg_namenloser",
+          "tile": [
+            16,
+            4
+          ]
+        },
+        {
+          "encounter": "vg_fremdlicht",
+          "tile": [
+            40,
+            6
+          ]
+        },
+        {
+          "encounter": "schlammegel",
+          "tile": [
+            39,
+            20
+          ]
+        },
+        {
+          "encounter": "vg_namenloser",
+          "tile": [
+            30,
+            12
+          ]
+        },
+        {
+          "encounter": "vg_fremdlicht",
+          "tile": [
+            42,
+            23
+          ]
+        },
+        {
+          "encounter": "vg_namenloser",
+          "tile": [
+            14,
+            17
+          ]
+        },
+        {
+          "encounter": "vg_fremdlicht",
+          "tile": [
+            4,
+            4
+          ]
+        },
+        {
+          "encounter": "schlammegel",
+          "tile": [
+            9,
+            5
+          ]
+        },
+        {
+          "encounter": "vg_namenloser",
+          "tile": [
+            47,
+            11
+          ]
+        },
+        {
+          "encounter": "vg_fremdlicht",
+          "tile": [
+            24,
+            12
+          ]
+        },
+        {
+          "encounter": "vg_namenloser",
+          "tile": [
+            16,
+            26
+          ]
+        },
+        {
+          "encounter": "vg_fremdlicht",
+          "tile": [
+            33,
+            2
+          ]
+        },
+        {
+          "encounter": "schlammegel",
+          "tile": [
+            19,
+            15
+          ]
+        },
+        {
+          "encounter": "vg_namenloser",
+          "tile": [
+            52,
+            14
+          ]
+        },
+        {
+          "encounter": "namenlose",
+          "tile": [
+            50,
+            23
+          ],
+          "boss": true
+        }
+      ],
+      "interactables": [
+        {
+          "id": "exit",
+          "kind": "travel",
+          "tile": [
+            0,
+            15
+          ],
+          "prompt": "Zur Stadtkarte von Wexmoor",
+          "marker": false
+        },
+        {
+          "id": "taefelchen",
+          "kind": "read",
+          "tile": [
+            20,
+            10
+          ],
+          "prompt": "Das Namenstäfelchen im Schlick aufheben",
+          "marker": false,
+          "title": "Ein Täfelchen ohne Namen",
+          "text": "Ein Holztäfelchen wie am Schrein im Pfahldorf. Jemand hat einen Namen hineingeschnitzt, aber das Moor hat ihn ausgewaschen. Nur der erste Buchstabe ist noch zu lesen: ein S."
+        }
+      ],
+      "npcs": [
+        {
+          "id": "lichtmann",
+          "tile": [
+            52,
+            22
+          ],
+          "facing": "left",
+          "visible_if": {
+            "requires_flags": [
+              "won_namenlose"
+            ],
+            "hide_if_flags": [
+              "k2_akt3_done"
+            ]
+          }
+        }
+      ],
+      "decor": []
     }
   ],
   "dialogues": {
@@ -2156,6 +2947,27 @@
         "start": {
           "text": "Zunder sitzt auf einer umgedrehten Kiste und flickt einen Ölkanister. „Na, Gesuchter?“",
           "choices": [
+            {
+              "text": "Starling lebt. Er ist Mr. Lucent.",
+              "next": "akt2",
+              "requires_conclusions": [
+                "dk2_schueler",
+                "dk2_lucent"
+              ],
+              "hide_if_flags": [
+                "k2_akt2_done"
+              ]
+            },
+            {
+              "text": "Wer kauft in der Oberstadt bei dir Öl?",
+              "next": "liste",
+              "requires_quests_active": [
+                "k2_akt2"
+              ],
+              "hide_if_clues": [
+                "wx_zunder_liste"
+              ]
+            },
             {
               "text": "Ich kenne jetzt alle Viertel. Und ich weiß, womit der Turm brennt.",
               "next": "akt1",
@@ -2271,6 +3083,36 @@
           "choices": [
             {
               "text": "Dann zur Akademie.",
+              "next": "start"
+            }
+          ]
+        },
+        "liste": {
+          "text": "Zunder zieht ein Heft aus dem Stiefel.",
+          "gives_clues": [
+            "wx_zunder_liste"
+          ],
+          "choices": [
+            {
+              "text": "Noch was anderes.",
+              "next": "start"
+            }
+          ]
+        },
+        "akt2": {
+          "text": "Zunder wird blass, dann rot. „Ich hab ihm Öl verkauft. Einen Monat lang. Dem Mann, der dich reingelegt hat.“ Sie tritt gegen die Kiste. „Gut. Dann weiß ich, wo er wohnt. Oberstadt, Nummer 9. Heute Nacht steigen wir ein.“\n\n„Und L.? Wer bei der Akademie Post bekommt und mit L. unterschreibt … ich hab da einen Verdacht, und er gefällt mir nicht.“",
+          "sets_flags": [
+            "k2_akt2_done"
+          ],
+          "complete_quests": [
+            "k2_akt2"
+          ],
+          "start_quests": [
+            "k2_akt3"
+          ],
+          "choices": [
+            {
+              "text": "Heute Nacht.",
               "next": "start"
             }
           ]
@@ -2471,6 +3313,16 @@
               "next": "amt"
             },
             {
+              "text": "Kennen Sie einen Mann mit Linsen, der Öl sucht?",
+              "next": "lucent",
+              "requires_quests_active": [
+                "k2_akt2"
+              ],
+              "hide_if_clues": [
+                "wx_hesper_lucent"
+              ]
+            },
+            {
               "text": "Gehört der Steckbrief am Bahnhof zu Ihren Gesprächsthemen?",
               "next": "steck",
               "requires_clues": [
@@ -2508,6 +3360,18 @@
               "next": "start"
             }
           ]
+        },
+        "lucent": {
+          "text": "Hesper stellt den Krug ab.",
+          "gives_clues": [
+            "wx_hesper_lucent"
+          ],
+          "choices": [
+            {
+              "text": "Noch etwas.",
+              "next": "start"
+            }
+          ]
         }
       }
     },
@@ -2525,6 +3389,16 @@
               "next": "bojen",
               "hide_if_clues": [
                 "wx_brack_lights"
+              ]
+            },
+            {
+              "text": "Ist Ihnen in letzter Zeit etwas abhandengekommen?",
+              "next": "boot",
+              "requires_quests_active": [
+                "k2_akt3"
+              ],
+              "hide_if_clues": [
+                "wx_brack_boot"
               ]
             },
             {
@@ -2577,6 +3451,18 @@
               "next": "start"
             }
           ]
+        },
+        "boot": {
+          "text": "Brack spuckt ins Wasser.",
+          "gives_clues": [
+            "wx_brack_boot"
+          ],
+          "choices": [
+            {
+              "text": "Noch etwas.",
+              "next": "start"
+            }
+          ]
         }
       }
     },
@@ -2592,6 +3478,16 @@
             {
               "text": "Hat hier ein Professor Starling studiert?",
               "next": "starling"
+            },
+            {
+              "text": "Ist Starling wirklich tot?",
+              "next": "tot",
+              "requires_quests_active": [
+                "k2_akt2"
+              ],
+              "hide_if_clues": [
+                "wx_pedell_tot"
+              ]
             },
             {
               "text": "Haben Sie eine Robe übrig? (25 Schilling)",
@@ -2634,6 +3530,18 @@
         },
         "amt": {
           "text": "„Das Lichtamt hält den Turm. Die Lichtmeisterin ist Magistra Brandt. Sie war einmal Professorin hier. Die beste, sagt man. Dann ist sie ins Amt gegangen, und seitdem kommt sie nur noch zu Prüfungen.“",
+          "choices": [
+            {
+              "text": "Noch etwas.",
+              "next": "start"
+            }
+          ]
+        },
+        "tot": {
+          "text": "Lamm fegt schneller.",
+          "gives_clues": [
+            "wx_pedell_tot"
+          ],
           "choices": [
             {
               "text": "Noch etwas.",
@@ -2833,6 +3741,197 @@
           ]
         }
       }
+    },
+    "wyle": {
+      "start": "start",
+      "nodes": {
+        "start": {
+          "text": "Eine sehr alte Frau sitzt zwischen Bücherstapeln und poliert eine Linse, die schon glänzt. „Ein Student um diese Uhrzeit? Sie sind keiner. Aber setzen Sie sich, ich bekomme selten Besuch, der lügt.“",
+          "choices": [
+            {
+              "text": "Kannten Sie Lucius Starling?",
+              "next": "starling",
+              "hide_if_clues": [
+                "wx_wyle_student"
+              ]
+            },
+            {
+              "text": "Hat Starling nach dem Rauswurf noch Kontakt gehabt?",
+              "next": "post",
+              "requires_clues": [
+                "wx_wyle_student"
+              ],
+              "hide_if_clues": [
+                "wx_wyle_L"
+              ]
+            },
+            {
+              "text": "Wer ist Magistra Brandt?",
+              "next": "brandt"
+            },
+            {
+              "text": "Ich gehe."
+            }
+          ]
+        },
+        "starling": {
+          "text": "Die Linse hält inne.",
+          "gives_clues": [
+            "wx_wyle_student"
+          ],
+          "choices": [
+            {
+              "text": "Weiter.",
+              "next": "start"
+            }
+          ]
+        },
+        "post": {
+          "text": "Sie seufzt.",
+          "gives_clues": [
+            "wx_wyle_L"
+          ],
+          "choices": [
+            {
+              "text": "Weiter.",
+              "next": "start"
+            }
+          ]
+        },
+        "brandt": {
+          "text": "„Ilse Brandt. Die klügste Frau, die je an dieser Akademie gelehrt hat. Sie hat ausgerechnet, dass Wexmoor in vierzig Jahren im Moor versinkt, wenn niemand etwas tut. Dann ist sie Lichtmeisterin geworden, und die Rechnung ist nie wieder erwähnt worden.“\n\n„Die Stadt sinkt übrigens nicht mehr. Seit dreißig Jahren keinen Zoll. Komisch, nicht?“",
+          "choices": [
+            {
+              "text": "Weiter.",
+              "next": "start"
+            }
+          ]
+        }
+      }
+    },
+    "kit_wexmoor": {
+      "start": "start",
+      "nodes": {
+        "start": {
+          "text": "Auf einem Kohlekahn am Kai sitzt ein Junge mit zu großer Mütze und isst einen Hering wie einen Apfel. Kit. Aus Kettlegate.\n\n„Na, Berühmtheit? Dachtest du, du bist der Einzige, der Fahrkarten besorgen kann?“",
+          "choices": [
+            {
+              "text": "Kit! Was machst du hier?",
+              "next": "hier"
+            },
+            {
+              "text": "Hast du einen Mann gesehen, der leuchtet?",
+              "next": "gesehen",
+              "hide_if_clues": [
+                "wx_kit_seen"
+              ]
+            },
+            {
+              "text": "Bis bald, Kit."
+            }
+          ]
+        },
+        "hier": {
+          "text": "„Kohle fahren. Und gucken, ob du noch lebst. Marlowe hat mich nicht geschickt, falls du fragst.“ Er grinst. „Sie hat nur zufällig die Fahrt bezahlt.“",
+          "choices": [
+            {
+              "text": "Weiter.",
+              "next": "start"
+            }
+          ]
+        },
+        "gesehen": {
+          "text": "Kit wirft die Gräte ins Wasser.",
+          "gives_clues": [
+            "wx_kit_seen"
+          ],
+          "choices": [
+            {
+              "text": "Weiter.",
+              "next": "start"
+            }
+          ]
+        }
+      }
+    },
+    "lichtmann": {
+      "start": "start",
+      "nodes": {
+        "start": {
+          "text": "Am Ufer der Insel sitzt Professor Starling auf einem umgedrehten Boot. Durch seine Hände scheint das Licht des Leuchtturms. Neben ihm liegt ein leeres Ölfass.\n\n„Sie haben Ihren Namen behalten“, sagt er. „Ich wusste es. Sie behalten immer alles.“",
+          "choices": [
+            {
+              "text": "Warum haben Sie mir die Fälle angehängt?",
+              "next": "warum"
+            },
+            {
+              "text": "Wofür waren die Lichter?",
+              "next": "lichter"
+            }
+          ]
+        },
+        "warum": {
+          "text": "„Weil Sie gewonnen haben. Jeder Fall, den Sie lösen, macht Licht frei. Das Licht der Geretteten. Ich musste es nur auffangen.“ Er hustet, und Funken fallen aus seinem Mund. „Und dann mussten Sie hierher. Das war nicht meine Idee.“",
+          "choices": [
+            {
+              "text": "Wessen Idee?",
+              "next": "lichter"
+            }
+          ]
+        },
+        "lichter": {
+          "text": "„Für den Turm. Der Turm hält das Moor fern. Das Moor nimmt Namen. Ohne Turm wäre Wexmoor ein Dorf voller Menschen, die nicht mehr wissen, wer sie sind.“",
+          "gives_clues": [
+            "wx_sammler"
+          ],
+          "choices": [
+            {
+              "text": "Sie kommen mit. Als Zeuge.",
+              "next": "zeuge"
+            },
+            {
+              "text": "Gehen Sie. Ins Licht, wohin auch immer.",
+              "next": "gehen"
+            }
+          ]
+        },
+        "zeuge": {
+          "text": "Starling lacht, und es klingt erleichtert. „Ein Zeuge, der durchsichtig ist. Das wird ein schöner Prozess.“ Er steht auf. Ohne Öl ist er kaum mehr als ein Umriss, aber er folgt dir zum Boot.\n\nZunder wartet am Bohlenweg, das Gesicht weiß. „Den versteckst du aber nicht in meinem Kahn.“ Pause. „Doch, tust du. Ich hol mehr Öl.“",
+          "sets_flags": [
+            "k2_starling_witness",
+            "k2_akt3_done"
+          ],
+          "complete_quests": [
+            "k2_akt3"
+          ],
+          "start_quests": [
+            "k2_akt4"
+          ],
+          "choices": [
+            {
+              "text": "Zurück in die Stadt."
+            }
+          ]
+        },
+        "gehen": {
+          "text": "Starling sieht dich lange an. Dann nickt er, steht auf und geht ins Wasser, auf den Leuchtturm zu. Mit jedem Schritt wird er heller und dünner. Bevor er ganz verschwindet, dreht er sich um.\n\n„Fragen Sie im Lichtamt nach der Linsenpflege“, ruft er. Dann ist er Licht, und das Licht fliegt zum Turm.",
+          "sets_flags": [
+            "k2_starling_gone",
+            "k2_akt3_done"
+          ],
+          "complete_quests": [
+            "k2_akt3"
+          ],
+          "start_quests": [
+            "k2_akt4"
+          ],
+          "choices": [
+            {
+              "text": "Zurück in die Stadt."
+            }
+          ]
+        }
+      }
     }
   },
   "police": {
@@ -2902,6 +4001,239 @@
       "name": "Akademie-Robe",
       "kind": "key",
       "desc": "Schwarze Robe mit Sternstickerei. In der Oberstadt halten dich die Grauspäher für einen Studenten. Anziehen am Kleiderhaken im Unterschlupf."
+    }
+  },
+  "zones": {
+    "wx_vergessmoor": {
+      "name": "Das Vergessmoor",
+      "tier": 2,
+      "travel": {
+        "name": "Das Vergessmoor",
+        "desc": "Gefahr ☠☠. Hier holt sich das Moor, was zu lange stillsteht. Starling ist hierher geflohen.",
+        "requires_conclusions": [
+          "dk2_jagd"
+        ],
+        "city": "wexmoor"
+      },
+      "lose_to": {
+        "map": "wx_kahn",
+        "spawn": "default"
+      },
+      "lose_money": 0.2,
+      "lose_text": "Zunder zieht dich an einem Seil aus dem Schlick. „Du hast deinen Namen geschrien“, sagt sie. „Gut so. Wer ihn noch weiß, kommt zurück.“",
+      "flee_text": "Du rennst den Bohlenweg zurück. Hinter dir ruft etwas einen Namen, und für einen Moment ist es deiner.",
+      "elite_drops": [
+        {
+          "item": "moorperle",
+          "chance": 0.4
+        }
+      ],
+      "loot_tables": {},
+      "encounters": {
+        "vg_namenloser": {
+          "name": "Namenloser Torfstecher",
+          "sprite": "wild",
+          "sheet": "enemy_moorleiche",
+          "occult": true,
+          "hp": 44,
+          "intro": "Ein Mann im Torfkittel steht bis zur Hüfte im Moor. Er dreht sich um. Wo sein Gesicht sein sollte, ist nur glatter, nasser Torf.",
+          "attacks": [
+            {
+              "name": "Griff aus dem Schlamm",
+              "damage": 8,
+              "hits": [
+                1000
+              ]
+            },
+            {
+              "name": "Schlurfender Hieb",
+              "damage": 6,
+              "hits": [
+                800,
+                1150
+              ]
+            },
+            {
+              "name": "Moorwürgen",
+              "damage": 14,
+              "hits": [
+                1900
+              ]
+            }
+          ],
+          "on_win": {},
+          "win_text": "Der Namenlose sinkt zurück. Im Schlamm bleibt ein Spaten, in den Griff ist ein Name geritzt, den du nicht lesen kannst.",
+          "loot": {
+            "money": [
+              2,
+              6
+            ],
+            "drops": [
+              {
+                "item": "moorwasser",
+                "chance": 0.7
+              },
+              {
+                "item": "grabmoos",
+                "chance": 0.35
+              },
+              {
+                "item": "verband",
+                "chance": 0.15
+              },
+              {
+                "item": "moorperle",
+                "chance": 0.03
+              }
+            ]
+          },
+          "roam": {
+            "speed": 26,
+            "chase": 52,
+            "aggro": 72
+          },
+          "elite": {
+            "name": "Uralter Namenloser"
+          }
+        },
+        "vg_fremdlicht": {
+          "name": "Fremdes Licht",
+          "sprite": "wild",
+          "sheet": "enemy_irrlicht",
+          "occult": true,
+          "hp": 32,
+          "intro": "Ein Licht, das nicht grün ist wie die Irrlichter, sondern weiß. Es summt eine Melodie aus Kettlegate.",
+          "attacks": [
+            {
+              "name": "Flackern",
+              "damage": 4,
+              "hits": [
+                600,
+                900,
+                1200,
+                1500
+              ]
+            },
+            {
+              "name": "Blendstoß",
+              "damage": 10,
+              "hits": [
+                950
+              ]
+            },
+            {
+              "name": "Locken ... Brennen",
+              "damage": 13,
+              "hits": [
+                2000
+              ]
+            }
+          ],
+          "on_win": {},
+          "win_text": "Das Licht zerfällt. Für einen Moment hörst du eine Frau lachen, irgendwo weit weg in einem Theater.",
+          "loot": {
+            "money": [
+              1,
+              4
+            ],
+            "drops": [
+              {
+                "item": "irrlichtfunke",
+                "chance": 0.55
+              },
+              {
+                "item": "gluehwurmasche",
+                "chance": 0.3
+              },
+              {
+                "item": "riechsalz",
+                "chance": 0.12
+              }
+            ]
+          },
+          "roam": {
+            "speed": 34,
+            "chase": 66,
+            "aggro": 96
+          },
+          "elite": {
+            "name": "Gestohlenes Licht"
+          },
+          "tint": "#d8e0ff"
+        },
+        "namenlose": {
+          "name": "Die Namenlose",
+          "sprite": "wild",
+          "sheet": "enemy_moorkoenigin",
+          "occult": true,
+          "hp": 120,
+          "intro": "Aus dem Wasser vor der Insel steigt eine Torfstecherin, so groß wie ein Haus. An ihrem Leib kleben hunderte Holztäfelchen, alle ohne Namen.\n\n„Gib mir deinen“, sagt sie mit hundert Stimmen.",
+          "attacks": [
+            {
+              "name": "Schlammwelle",
+              "damage": 7,
+              "hits": [
+                900,
+                1500
+              ]
+            },
+            {
+              "name": "Wurzelgriff",
+              "damage": 5,
+              "hits": [
+                700,
+                1000,
+                1300
+              ]
+            },
+            {
+              "name": "Versinken ...",
+              "damage": 13,
+              "hits": [
+                2100
+              ]
+            },
+            {
+              "name": "Ruf des Moors",
+              "damage": 6,
+              "hits": [
+                800,
+                1300,
+                1800
+              ]
+            }
+          ],
+          "on_win": {},
+          "win_text": "Die Namenlose zerfällt in Torf und Täfelchen. Eines treibt dir vor die Füße. Diesmal steht ein Name darauf, frisch geschnitzt: deiner.",
+          "loot": {
+            "money": [
+              35,
+              50
+            ],
+            "drops": [
+              {
+                "item": "moorperle",
+                "chance": 1
+              },
+              {
+                "item": "geisteressenz",
+                "chance": 0.8
+              },
+              {
+                "item": "tonikum",
+                "chance": 0.6
+              }
+            ]
+          },
+          "roam": {
+            "speed": 0,
+            "chase": 50,
+            "aggro": 90
+          },
+          "boss": true,
+          "fleeable": false
+        }
+      }
     }
   }
 }

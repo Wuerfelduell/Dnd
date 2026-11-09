@@ -3,7 +3,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { GameState } from '../src/core/GameState.js';
 import { travelDestinations, travelFast, cityOf } from '../src/core/Travel.js';
-import { loadContent, talk, use } from './helpers.js';
+import { loadContent, talk, use, fight, EXPERT } from './helpers.js';
 
 const content = loadContent();
 
@@ -168,4 +168,80 @@ test('Verkleidung: im passenden Viertel kleiner Kegel, anderswo auffälliger', (
   assert.ok(misfit.range > plain.range && misfit.catchSec < plain.catchSec);
   talk(s, 'kleiderhaken', ['eigenen Mantel']);
   assert.equal(s.disguise(), null);
+});
+
+/** Akt I abgeschlossen (über die echten Dialoge). */
+function afterAct1() {
+  const s = afterChapter1();
+  use(s, 'wx_bahnhof', 'ankunft');
+  use(s, 'wx_bahnhof', 'steckbrief');
+  talk(s, 'zunder_ankunft', ['verstecken', 'vorher', 'Bring mich']);
+  talk(s, 'druce', ['Steckbriefe']);
+  s.combine('wx_expected', 'wx_star_paper');
+  use(s, 'wx_kahn', 'willkommen');
+  s.flags.add('k2_hideout');
+  talk(s, 'hesper', ['Salzmarkt']);
+  talk(s, 'brack', ['Bojen']);
+  talk(s, 'pedell', ['Lichtamt']);
+  talk(s, 'sedge', ['setze', 'Lichter']);
+  talk(s, 'zunder', ['Leuchtturm']);
+  use(s, 'wx_oberstadt', 'lichtamt_tafel');
+  s.combine('wx_lights', 'wx_no_oil');
+  talk(s, 'zunder', ['alle Viertel']);
+  return s;
+}
+
+test('Akt II: Akademie nur mit Robe, Starlings Tod widerlegt, Mr. Lucent entlarvt', () => {
+  const s = afterAct1();
+  s.money = 100;
+  assert.equal(use(s, 'wx_oberstadt', 'akademie'), 'locked');
+  talk(s, 'pedell', ['Robe']);
+  talk(s, 'kleiderhaken', ['Akademie-Robe']);
+  assert.equal(use(s, 'wx_oberstadt', 'akademie'), 'ok');
+  use(s, 'wx_akademie', 'drin');
+  s.flags.add('k2_in_akademie');
+  use(s, 'wx_akademie', 'archiv');
+  use(s, 'wx_akademie', 'zimmer');
+  talk(s, 'wyle', ['Kannten']);
+  talk(s, 'wyle', ['Kontakt']);
+  assert.equal(s.combine('wx_starling_student', 'wx_letters_L').result, 'new');
+  // Die Zeitung und der Pedell sagen: tot. Zunder und Hesper widerlegen es.
+  use(s, 'wx_salzmarkt', 'bote');
+  talk(s, 'pedell', ['wirklich tot']);
+  assert.equal(s.factStatus('wx_starling_dead'), 'likely');
+  talk(s, 'zunder', ['Oberstadt']);
+  talk(s, 'hesper', ['Linsen']);
+  assert.equal(s.factStatus('wx_starling_dead'), 'refuted');
+  assert.equal(s.combine('wx_lucent', 'wx_lights').result, 'new');
+  talk(s, 'zunder', ['Mr. Lucent']);
+  assert.equal(s.quests.k2_akt2, 'done');
+  assert.equal(s.quests.k2_akt3, 'active');
+  return s;
+});
+
+test('Akt III: Lucents Haus, Spur ins Vergessmoor, Die Namenlose, Starling als Zeuge', () => {
+  const s = afterAct1();
+  ['k2_in_akademie', 'k2_akt2_done'].forEach((f) => s.flags.add(f));
+  s.quests.k2_akt2 = 'done';
+  s.startQuest('k2_akt3');
+  assert.ok(!travelDestinations(s, 'wx_torfstich').some((t) => t.map === 'wx_vergessmoor'), 'Moor erst mit Spur');
+  use(s, 'wx_lucent', 'spiegel');
+  use(s, 'wx_lucent', 'zettel');
+  talk(s, 'kit_wexmoor', ['leuchtet']);
+  talk(s, 'brack', ['abhanden']);
+  assert.equal(s.combine('wx_halblicht', 'wx_moor_flight').result, 'new');
+  assert.ok(travelDestinations(s, 'wx_torfstich').some((t) => t.map === 'wx_vergessmoor'));
+  // Ausrüstung wie für Bosse der Gefahrenstufe 2 (siehe wilds.test.js)
+  s.addItem('egelhaken');
+  s.equip('egelhaken');
+  s.addItem('tonikum', 3);
+  s.addItem('verband', 2);
+  const { result } = fight(s, 'namenlose', { defend: EXPERT, skill: 'double', healBelow: 18 });
+  assert.equal(result.outcome, 'won');
+  assert.ok(s.flags.has('won_namenlose'));
+  talk(s, 'lichtmann', ['Wofür', 'Zeuge']);
+  assert.equal(s.factStatus('wx_collector'), 'suspected');
+  assert.ok(s.flags.has('k2_starling_witness'));
+  assert.equal(s.quests.k2_akt3, 'done');
+  assert.equal(s.quests.k2_akt4, 'active');
 });

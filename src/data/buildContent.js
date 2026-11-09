@@ -12,7 +12,8 @@ export function buildContent({ campaign, quests, cases, maps, dialogues, items =
   const wx = wexmoor ?? {};
   if (wx.case) cases = [...cases, wx.case];
   maps = withPlacements(withEntrances([...maps, ...(b.maps ?? []), ...(g.maps ?? []), ...(wx.maps ?? [])], b.entrances ?? []), g.placements ?? []);
-  const wild = wildContent(wilds);
+  // Kapitel 2 bringt eigene Gefahrengebiete mit (Vergessmoor)
+  const wild = wildContent(wexmoor?.zones ? { ...wilds, zones: { ...(wilds?.zones ?? {}), ...wexmoor.zones } } : wilds);
   const town = cityContent(city);
   maps = withCity(maps, city);
   const f = factions ?? {};
