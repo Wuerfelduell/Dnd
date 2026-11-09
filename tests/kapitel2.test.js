@@ -430,3 +430,74 @@ test('Nebenaufträge: Stille Bojen, Kits Ladung, Zunders Mutter, Paket aus Kettl
   use(s, 'wx_kahn', 'paket');
   assert.equal(s.itemCount('tonikum'), t + 2);
 });
+
+test('Versunkene Altstadt: unter Pfahldorf, ab Akt III, eigene Monster und ein Boss', () => {
+  const zone = Object.entries(content.encounters).filter(([, e]) => e.zone === 'wx_altstadt' && !e.elite).map(([id]) => id).sort();
+  assert.deepEqual(zone, ['buergermeister', 'kellerkrebs', 'namensmade', 'pfahlbohrer', 'ratsherr']);
+  const s = afterAct1();
+  s.flags.add('k2_known_pfahl');
+  assert.ok(!travelDestinations(s, 'wx_pfahldorf').some((t) => t.map === 'wx_altstadt'), 'erst nach Akt II');
+  s.flags.add('k2_akt2_done');
+  assert.ok(travelDestinations(s, 'wx_pfahldorf').some((t) => t.map === 'wx_altstadt'));
+  for (const i of ['moortee', 'salzbrot']) assert.equal(content.items[i].kind, 'consumable', i);
+  for (const a of ['amtskette', 'veys_stimmgabel', 'schreintaefelchen']) assert.equal(content.items[a].kind, 'artifact', a);
+});
+
+test('Nebengeschichten: Das siebte Tor, Die Namen der Versunkenen, Zunders Tee', () => {
+  const s = afterAct3();
+  talk(s, 'druce', ['sechs Tore']);
+  assert.equal(s.quests.k2_s_druce, 'active');
+  use(s, 'wx_altstadt', 'tor');
+  s.flags.add('k2_tor_zu');
+  talk(s, 'druce', ['siebte Tor ist zu']);
+  assert.equal(s.quests.k2_s_druce, 'done');
+  assert.equal(s.itemCount('salzbrot'), 3);
+  talk(s, 'sedge', ['unter Pfahldorf']);
+  s.addItem('ratssiegel', 3);
+  talk(s, 'sedge', ['drei Ratssiegel']);
+  assert.equal(s.quests.k2_s_sedge, 'done');
+  assert.equal(s.itemCount('ratssiegel'), 0);
+  assert.equal(s.itemCount('schreintaefelchen'), 1);
+  const tee = s.itemCount('moortee');
+  talk(s, 'zunder', ['Tee']);
+  talk(s, 'zunder', ['Tee']);
+  assert.equal(s.itemCount('moortee'), tee + 6, 'einmal nach Akt I, einmal nach Akt III');
+  assert.throws(() => talk(s, 'zunder', ['Tee']), /keine verfügbare Option/);
+});
+
+test('Miras Lied: Vey bekommt ihre Stimme zurück, wenn sie in Wexmoor ist', () => {
+  const s = afterAct3();
+  s.flags.add('vey_fled');
+  assert.ok(s.meets(content.maps.wx_pfahldorf.npcs.find((n) => n.id === 'miriam').visible_if));
+  talk(s, 'vey_wexmoor', ['Warum']);
+  talk(s, 'vey_wexmoor', ['Singen']);
+  use(s, 'wx_altstadt', 'kapelle');
+  s.flags.add('k2_stimmgabel');
+  talk(s, 'vey_wexmoor', ['Stimmgabel']);
+  assert.equal(s.quests.k2_s_vey, 'done');
+  assert.equal(s.itemCount('veys_stimmgabel'), 1);
+});
+
+test('Zwölf Jahre: Hale liest die Namen vor', () => {
+  const s = afterAct4();
+  talk(s, 'hale', ['bleibt']);
+  use(s, 'wx_leuchtturm', 'liste');
+  s.flags.add('k2_liste_found');
+  talk(s, 'hale', ['Ablieferliste']);
+  assert.equal(s.quests.k2_s_hale, 'done');
+});
+
+test('Das Ratsbuch: Brandt kommt auch ohne Starling als Zeugen vor Gericht', () => {
+  const s = atTheTop();
+  s.flags.delete('k2_starling_witness');
+  assert.throws(() => talk(s, 'brandt', ['Wofür', 'verhaftet']), /keine verfügbare Option/);
+  talk(s, 'marlowe_wexmoor', ['Haftbefehl']);
+  assert.throws(() => use(s, 'wx_altstadt', 'ratsbuch'), /unsichtbar/, 'erst nach dem Bürgermeister');
+  s.flags.add('won_buergermeister');
+  use(s, 'wx_altstadt', 'ratsbuch');
+  s.flags.add('k2_ratsbuch_found');
+  talk(s, 'marlowe_wexmoor', ['Ratsbuch']);
+  assert.equal(s.quests.k2_s_marlowe, 'done');
+  assert.equal(talk(s, 'brandt', ['Wofür', 'Ratsbuch']).at(-1), 'rein');
+  assert.equal(s.endings.kapitel2, 'k2_rein');
+});
