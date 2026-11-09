@@ -305,10 +305,14 @@ export const ANIM_SHEETS = {
   player_extras: ['characters/C_player_extras.png', 16, 32],
   creatures: ['fx/C_08_creatures.png', 16, 16],
   weather: ['fx/C_08_weather.png', 64, 64],
+  // Paket H
+  player_inspect: ['characters/H_player_untersuchen.png', 16, 32],
+  risk_fx: ['fx/H_06_risiko.png', 480, 270],
 };
 
 /** Manifest-Id, falls sie vom Texture-Key abweicht. */
-const MANIFEST_IDS = { player_drink: 'A_player_drink', control_cracks: 'A_11_control_cracks', creatures: 'C_08_creatures', weather: 'C_08_weather' };
+const MANIFEST_IDS = { player_drink: 'A_player_drink', control_cracks: 'A_11_control_cracks', creatures: 'C_08_creatures', weather: 'C_08_weather',
+  player_inspect: 'H_player_untersuchen', risk_fx: 'H_06_risiko' };
 
 /** Pfad-Embleme und Karten (public/sprites/pathways/). */
 export const pathwayEmblemUrl = (pid, size = 32) => `${BASE}pathways/emblem_${pid}_${size}.png`;
@@ -471,6 +475,7 @@ export const REGION_SHEETS = {
   d_strassenmoebel: ['manifestStadt', 'D_07_strassenmoebel'], d_wohnung: ['manifestStadt', 'D_08_wohnung_props'],
   e_theater: ['manifestFaelle', 'theater'], e_felix_versteck: ['manifestFaelle', 'felix_versteck'],
   e_quest: ['manifestFaelle', 'quest_ui'],
+  h_fundbuero: ['manifestJournal', 'H_07_fundbuero'],
 };
 /** Dateien der Region-Sheets (die Manifeste kommen erst nach dem Laden der Bilder an). */
 const REGION_FILES = {
@@ -479,6 +484,7 @@ const REGION_FILES = {
   d_elend: 'tilesets/D_05_elend.png', d_bruecken: 'tilesets/D_06_bruecken.png',
   d_strassenmoebel: 'props/D_07_strassenmoebel.png', d_wohnung: 'props/D_08_wohnung_props.png',
   e_theater: 'props/E_01_theater_buehne.png', e_felix_versteck: 'props/E_01_felix_versteck.png', e_quest: 'ui/E_04_quest_ui.png',
+  h_fundbuero: 'props/H_07_fundbuero.png',
 };
 for (const id of ['theater', 'uhrturm', 'nordtor', 'gaswerk', 'sternwarte', 'villen', 'elend']) REGION_FILES[`d_${id}_props`] = `props/D_05_${id}_props.png`;
 Object.assign(SHEETS, REGION_FILES);
@@ -586,7 +592,7 @@ function createRegionTextures(scene) {
     }
     return tex;
   };
-  const rect = (r) => ({ x: r.x, y: r.y, w: r.width ?? r.w, h: r.height ?? r.h });
+  const rect = (r) => (Array.isArray(r) ? { x: r[0], y: r[1], w: r[2], h: r[3] } : { x: r.x, y: r.y, w: r.width ?? r.w, h: r.height ?? r.h });
   for (const [prefix, [manifest, id]] of Object.entries(REGION_SHEETS)) {
     const img = sourceOf(scene, prefix);
     const def = scene.cache.json.get(manifest)?.assets?.find((a) => a.id === id);
@@ -666,7 +672,7 @@ export function playCaseAnim(sprite, sheet, then) {
 /** 16x16-Icon unter public/sprites/items/<id>.png (tests/sprites.test.js prüft, dass es zu jedem Item eins gibt). */
 export const itemIconUrl = (id) => `${BASE}items/${id}.png`;
 /** 32x32-Fassung (gibt es für Tränke und die Stimmphiole). */
-const ICON32 = ['stimmphiole', ...F_EQUIPMENT];
+const ICON32 = ['stimmphiole', 'verlorenes_gesangbuch', 'spiegelscherbe', ...F_EQUIPMENT];
 export const itemIcon32Url = (id) => (id.startsWith('trank_') || ICON32.includes(id) ? `${BASE}items/32/${id}.png` : null);
 
 const srcKey = (sheet) => `src_${sheet}`;
@@ -704,6 +710,7 @@ export function preloadSprites(scene) {
   if (!scene.cache.json.exists('manifestPfade')) scene.load.json('manifestPfade', `${BASE}manifest-pfade.json`);
   if (!scene.cache.json.exists('manifestStadt')) scene.load.json('manifestStadt', `${BASE}manifest-stadt.json`);
   if (!scene.cache.json.exists('manifestFaelle')) scene.load.json('manifestFaelle', `${BASE}manifest-faelle.json`);
+  if (!scene.cache.json.exists('manifestJournal')) scene.load.json('manifestJournal', `${BASE}manifest-journal.json`);
   for (const [key, [path, w, h]] of Object.entries(CASE_SHEETS)) {
     if (!scene.textures.exists(key)) scene.load.spritesheet(key, BASE + path, { frameWidth: w, frameHeight: h });
   }
@@ -719,7 +726,7 @@ export function playSheetAnim(sprite, sheet, name, then) {
   const key = `${sheet}-${name}`;
   if (!scene.anims.exists(key)) {
     const id = MANIFEST_IDS[sheet] ?? sheet;
-    const def = ['manifestPfade', 'manifestWelt'].map((m) => scene.cache.json.get(m)?.assets?.find((a) => a.id === id)?.animations?.[name]).find(Boolean);
+    const def = ['manifestPfade', 'manifestWelt', 'manifestJournal'].map((m) => scene.cache.json.get(m)?.assets?.find((a) => a.id === id)?.animations?.[name]).find(Boolean);
     if (!def) return false;
     scene.anims.create({ key, frames: def.frames.map((frame) => ({ key: sheet, frame })), frameRate: def.frameRate, repeat: def.repeat });
   }
@@ -832,4 +839,67 @@ export function createSpriteTextures(scene) {
     if (img) scene.textures.addSpriteSheet(key, img, { frameWidth: 16, frameHeight: 32 });
   }
   createRegionTextures(scene);
+}
+
+// --- Paket H: Journal-Quellen, Fundstücke, Untersuchen (manifest-journal.json) -------------
+
+/** Mini-Köpfe (24x24) für Quellen im Notizbuch. */
+export const HEADS = ['marlowe', 'holt', 'pimm', 'rook', 'price', 'barnaby', 'fenwick', 'kit', 'elias', 'greta', 'halloway', 'ivy',
+  'hester', 'anselm', 'moll', 'agnes', 'pip', 'tobias', 'maud', 'silas', 'ned', 'quill', 'ambrose', 'wick', 'grimes', 'nell',
+  'kittering', 'gorse', 'sabeth', 'brock', 'diva', 'souffleur', 'maskenmacher', 'uhrmacherin', 'turmwaechter', 'schlachtermeister',
+  'lehrling', 'gaswerker', 'astronom', 'miriam', 'player', 'cultist', 'nate', 'unknown_man', 'unknown_woman', 'anonymous', 'crowd', 'spirit'];
+const HEAD_ALIASES = { grubenwirt: 'brock' };
+export const headUrl = (id) => {
+  const h = HEAD_ALIASES[id] ?? id;
+  return HEADS.includes(h) ? `${BASE}ui/heads/${h}.png` : null;
+};
+
+/** Quellen-Symbole (24x24): Art der Quelle aus dem Quellentext, sonst aus dem Typ (core/sources.js). */
+export const SOURCE_KINDS = ['brief', 'buch', 'tagebuch', 'foto', 'archivakte', 'belauscht', 'inschrift', 'kreide', 'beleg', 'karte'];
+const SOURCE_KIND_RULES = [
+  [/tagebuch/i, 'tagebuch'], [/pfandbuch|dienstbuch|kassenbuch|logbuch/i, 'beleg'], [/foto|lichtbild|platte/i, 'foto'], [/akte|archiv|register|kirchenbuch/i, 'archivakte'],
+  [/belausch|gehört|gerücht|geflüster|getuschel/i, 'belauscht'], [/kreide|zeichen an|gekritzel/i, 'kreide'],
+  [/inschrift|gravur|grabstein|tafel|schild/i, 'inschrift'], [/beleg|quittung|rechnung|liste|lieferschein|fahrplan|bericht/i, 'beleg'],
+  [/karte|plan\b|stadtplan/i, 'karte'], [/brief|zettel|notiz|telegramm/i, 'brief'], [/buch|notenblatt|heft|chronik/i, 'buch'],
+];
+const SOURCE_KIND_BY_TYPE = { note: 'brief', archive: 'archivakte', police: 'beleg', object: 'inschrift' };
+/** 24er-Symbol für eine Quelle oder null (dann altes Symbol aus SOURCE_ICONS). */
+export function sourceKind(type, text = '') {
+  if (type === 'npc' || type === 'observation' || type === 'vision') return null;
+  for (const [re, kind] of SOURCE_KIND_RULES) if (re.test(text)) return kind;
+  return SOURCE_KIND_BY_TYPE[type] ?? null;
+}
+export const sourceKindUrl = (kind) => `${BASE}ui/sources/24/${kind}.png`;
+
+/** Nahansicht (160x120) eines Fundstücks, mit Fluch-Fassung. */
+export const INSPECT_VIEWS = ['verlorenes_gesangbuch', 'spiegelscherbe', 'glocke', 'stimmphiole', 'sternsplitter', 'taschenuhr'];
+export const inspectUrl = (item, curse = false) => (INSPECT_VIEWS.includes(item) ? `${BASE}ui/inspect/${item}${curse ? '_fluch' : ''}.png` : null);
+
+/** Risiko-Symbole (ui/H_06_risiko_icons.png, 80x24): Name → [x, y, Größe]. */
+export const RISK_ICONS_URL = `${BASE}ui/H_06_risiko_icons.png`;
+export const RISK_ICONS = { unrest: [0, 0, 16], curse: [16, 0, 16], ambush: [32, 0, 16], bonus_clue: [48, 0, 16], safe: [64, 0, 16],
+  risk_low: [0, 16, 8], risk_medium: [8, 16, 8], risk_high: [16, 16, 8] };
+
+/** Journal-Rahmen (ui/H_journal_rahmen.png, 128x64): Foto-Rahmen um Köpfe und Marker zwischen Fakten. */
+export const JOURNAL_FRAME_URL = `${BASE}ui/H_journal_rahmen.png`;
+export const JOURNAL_FRAME = { photo: [0, 0, 32, 36], photo_unreliable: [32, 0, 32, 36], document: [64, 0, 32, 32],
+  string_pin: [96, 16, 16, 16], same_source: [112, 16, 16, 16], contradicts: [96, 32, 16, 16] };
+
+/**
+ * Welcher Risiko-Effekt passt zu einem Dialogknoten beim Untersuchen?
+ * Kampf → ambush, Schaden → curse, Hinweis → bonus_clue, viel Unruhe → unrest.
+ */
+export function riskOf(node) {
+  if (node.combat) return 'ambush';
+  if (node.damage) return 'curse';
+  if (node.gives_clues?.length) return 'bonus_clue';
+  if ((node.unruhe ?? 0) >= 8 || (node.nerves ?? 0) <= -15) return 'unrest';
+  return null;
+}
+/** Risiko einer Wahl aus ihrem Text: "(gefährlich)", "(riskant)", "(wenig Risiko)". */
+export function choiceRisk(text) {
+  if (/\(gefährlich\)/i.test(text)) return 'risk_high';
+  if (/\(riskant\)/i.test(text)) return 'risk_medium';
+  if (/\(wenig risiko\)/i.test(text)) return 'risk_low';
+  return null;
 }
