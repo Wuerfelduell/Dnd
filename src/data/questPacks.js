@@ -68,7 +68,7 @@ export function applyQuestPack(content, pack) {
     const spot = KAHN_SPOTS[flag];
     if (!spot) continue;
     const m = own('wx_kahn');
-    m.interactables.push({ id: flag, kind: 'read', tile: spot.tile, prompt: k.name, title: k.name, text: k.deko, footer: k.wirkung,
+    m.interactables.push({ id: flag, kind: 'read', tile: spot.tile, sprite: flag, prompt: k.name, title: k.name, text: k.deko, footer: k.wirkung,
       visible_if: { requires_flags: [flag] }, ...(spot.effects ? { effects: spot.effects, done_flag: spot.done } : {}) });
   }
   // Paket AI: Geplauder und Kampfsprüche zu zweit

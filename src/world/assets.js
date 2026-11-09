@@ -989,7 +989,8 @@ export const G_MONSTERS = {
 export const BESTIARY = [...Object.keys(TURN_PORTRAITS).filter((id) => id !== 'player'), ...Object.keys(G_MONSTERS)];
 /** Paket → Präfix der Bestiariumsseite (Rest: F). */
 const BESTIARY_PACK = {};
-export const bestiaryUrl = (id) => `${BASE}ui/bestiary/${BESTIARY_PACK[id] ?? (G_MONSTERS[id] ? 'G' : 'F')}_${id}.png`;
+export const BESTIARY_FILES = {}; // Seiten ohne Paket-Präfix im Dateinamen (Paket AJ)
+export const bestiaryUrl = (id) => (BESTIARY_FILES[id] ? `${BASE}ui/bestiary/${BESTIARY_FILES[id]}.png` : `${BASE}ui/bestiary/${BESTIARY_PACK[id] ?? (G_MONSTERS[id] ? 'G' : 'F')}_${id}.png`);
 /** Ausrüstung aus Paket F: Items mit 16er- und 32er-Icon unter items/ (Werte kommen mit den Daten). */
 export const F_EQUIPMENT = ['mantel_wolle', 'mantel_gewachst', 'mantel_polizei', 'mantel_samt', 'mantel_flicken', 'mantel_leder', 'mantel_chor',
   'mantel_nebel', 'hut_schirmmuetze', 'hut_melone', 'hut_zylinder', 'hut_helm', 'hut_kapuze', 'hut_schutzbrille', 'hut_witwenschleier', 'hut_maske',
@@ -1015,8 +1016,7 @@ export function playCaseAnim(sprite, sheet, then) {
 
 /** 16x16-Icon unter public/sprites/items/<id>.png (tests/sprites.test.js prüft, dass es zu jedem Item eins gibt). */
 /** Items ohne eigenes Bild (noch): Platzhalter aus einem ähnlichen Item. */
-export const ITEM_ICON_ALIASES = { kg_kerzenbund: 'lampenoel', kg_bleiorakel: 'spiegelscherbe', // Paket AA
-  k2n_pfandzettel: 'pfandschein', k2n_ivys_brief: 'liebesbrief', k2n_brief_hesper: 'liebesbrief', k2n_brief_druce: 'erpresserbrief', k2n_brief_pedell: 'pfaendungsbrief' }; // Paket AB
+export const ITEM_ICON_ALIASES = {}; // Paket AA/AB haben seit AJ eigene Symbole
 /** Zutaten und Artefakte aus Paket AF: Platzhalter laut docs/story/sequenzen/grafikwuensche.md. */
 const AF_ICONS = { sq_offene_blende: 'glasauge', sq_gegenakte: 'papierfeder', sq_ruecklaufbecher: 'brutschale', sq_stegbolzen: 'glockenzunge',
   sq_fristpendel: 'taschenuhr', sq_torfsiegel: 'glasfibel' };
@@ -1083,6 +1083,7 @@ export function preloadSprites(scene) {
   if (!scene.cache.json.exists('manifestWexmoor4')) scene.load.json('manifestWexmoor4', `${BASE}manifest-wexmoor4.json`);
   if (!scene.cache.json.exists('manifestWexmoor5')) scene.load.json('manifestWexmoor5', `${BASE}manifest-wexmoor5.json`);
   if (!scene.cache.json.exists('manifestPlatzhalter')) scene.load.json('manifestPlatzhalter', `${BASE}manifest-platzhalter.json`);
+  if (!scene.cache.json.exists('manifestNebenquests')) scene.load.json('manifestNebenquests', `${BASE}manifest-nebenquests.json`);
   if (!scene.cache.json.exists('manifestSpieler2')) scene.load.json('manifestSpieler2', `${BASE}manifest-spieler2.json`);
   if (!scene.cache.json.exists('manifestWexmoor')) scene.load.json('manifestWexmoor', `${BASE}manifest-wexmoor.json`);
   if (!scene.cache.json.exists('manifestSequenzen2')) scene.load.json('manifestSequenzen2', `${BASE}manifest-sequenzen2.json`);
@@ -1125,7 +1126,7 @@ function battleAnimDef(scene, sheet, name) {
   return null;
 }
 /** Manifeste mit Kampf-Sheets; spätere Pakete nennen ihre Einträge nicht nach dem Sheet, darum auch über die Datei. */
-const BATTLE_MANIFESTS = ['manifest14b', 'manifestKampf', 'manifestKampf2', 'manifestReise', 'manifestWildnis', 'manifestGegner3', 'manifestFall5', 'manifestFall6', 'manifestFall78', 'manifestSequenzen2', 'manifestWexmoor2', 'manifestWexmoor3', 'manifestWexmoor4', 'manifestWexmoor5', 'manifestPlatzhalter', 'manifestSpieler2'];
+const BATTLE_MANIFESTS = ['manifest14b', 'manifestKampf', 'manifestKampf2', 'manifestReise', 'manifestWildnis', 'manifestGegner3', 'manifestFall5', 'manifestFall6', 'manifestFall78', 'manifestSequenzen2', 'manifestWexmoor2', 'manifestWexmoor3', 'manifestWexmoor4', 'manifestWexmoor5', 'manifestPlatzhalter', 'manifestSpieler2', 'manifestNebenquests'];
 export function battleSheetDef(scene, sheet) {
   const file = BATTLE_SHEETS[sheet]?.[0];
   for (const m of BATTLE_MANIFESTS) {
@@ -1882,9 +1883,30 @@ for (const id of ['rost_schlaeger', 'rost_werfer', 'rost_schmied', 'schleier_mes
   PORTRAIT_SPECIAL[id] = [`X_${id}_emotions.png`, X_MOODS];
 }
 
-// --- Paket AA: Kettlegate-Nebenaufträge (data/packs/kg_nebenquests) -----------------------------------
-/** Die drei neuen Gesuchten kämpfen vorerst mit vorhandenen Sheets (Grafiken kommen mit Codex AJ). */
-Object.assign(ENCOUNTER_SHEETS, { kg_kopfgeld_siegelbrecher: 'enemy_laternendieb', kg_kopfgeld_schichtdieb: 'enemy_pfandeintreiber', kg_kopfgeld_pfandvogt: 'enemy_schlachtergehilfe' });
+// --- Paket AA/AB mit Grafik aus Paket AJ (manifest-nebenquests.json) -------------------------------------
+/** Neue Figuren der Nebenaufträge: Lauf-Sheet und Portrait (neutral, misstrauisch, erschrocken, Lächeln). */
+export const AJ_FIGURES = ['kg_kopfgeld_siegelbrecher', 'kg_kopfgeld_schichtdieb', 'kg_kopfgeld_pfandvogt', 'k2n_eichmeisterin', 'k2n_zeichner', 'k2n_student', 'k2n_waerter'];
+for (const id of AJ_FIGURES) {
+  SHEETS[`aj_${id}`] = `characters/${id}_walk.png`;
+  CHARACTER_SHEETS[`npc_${id}`] = `aj_${id}`;
+  PORTRAITS[id] = `${id}_emotions.png`;
+}
+/** Die drei Gesuchten kämpfen mit eigenem Sheet (48x48) und haben eine Bestiariumsseite. */
+for (const id of ['kg_kopfgeld_siegelbrecher', 'kg_kopfgeld_schichtdieb', 'kg_kopfgeld_pfandvogt']) {
+  BATTLE_SHEETS[`enemy_${id}`] = [`battle/enemy_${id}.png`, 48];
+  ENCOUNTER_SHEETS[id] = `enemy_${id}`;
+  BESTIARY_FILES[id] = id;
+  if (!BESTIARY.includes(id)) BESTIARY.push(id);
+}
+/** Gegenstände (16er unter items/<id>.png, 32er unter items/32). */
+ICON32.push('kg_kerzenbund', 'kg_bleiorakel', 'k2n_pfandzettel', 'k2n_ivys_brief', 'k2n_brief_hesper', 'k2n_brief_druce', 'k2n_brief_pedell');
+/** Ausbauten von Zunders Kahn als Requisiten (ganzes PNG, Fuß unten). */
+export const KAHN_PROPS = ['k2n_kahn_reet', 'k2n_kahn_kiste', 'k2n_kahn_glocke', 'k2n_kahn_waschtisch', 'k2n_kahn_ofen', 'k2n_kahn_kartentisch'];
+for (const id of KAHN_PROPS) {
+  WHOLE_PROPS[id] = `props/${id}.png`;
+  SHEETS[id] = `props/${id}.png`;
+  PROP_ORIGINS[id] = 0.75;
+}
 
 // --- Paket AK: zusätzliche Gesichtsausdrücke (manifest-emotionen2.json) -----------------------------------
 /** Figuren mit portraits/AK_<id>_emotions2.png: Spalten wütend 0, traurig 1, nachdenklich 2, entschlossen 3. */
