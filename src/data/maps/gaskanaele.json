@@ -1,0 +1,188 @@
+{
+  "id": "gaskanaele",
+  "name": "Alte Gaskanäle",
+  "ambient": {
+    "night": 0.93,
+    "fog": 0.3
+  },
+  "spawns": {
+    "default": [
+      3,
+      5
+    ],
+    "theater": [
+      14,
+      4
+    ],
+    "turm": [
+      44,
+      5
+    ]
+  },
+  "lights": [
+    {
+      "tile": [
+        8,
+        4
+      ],
+      "radius": 40,
+      "intensity": 0.5,
+      "color": "#d8d070",
+      "glow": 0.2
+    },
+    {
+      "tile": [
+        26,
+        6
+      ],
+      "radius": 40,
+      "intensity": 0.5,
+      "color": "#d8d070",
+      "glow": 0.2
+    },
+    {
+      "tile": [
+        37,
+        4
+      ],
+      "radius": 40,
+      "intensity": 0.5,
+      "color": "#d8d070",
+      "glow": 0.2
+    },
+    {
+      "tile": [
+        20,
+        10
+      ],
+      "radius": 46,
+      "intensity": 0.55,
+      "color": "#a8d070",
+      "glow": 0.2
+    }
+  ],
+  "rows": [
+    "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII",
+    "IIIIIIIIIIIIIsssIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII",
+    "IIIIIIIIIIIIIsssIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII",
+    "IIIIIIIIIIIIIsssIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII",
+    "IssssssssssssssssssssssssssssssssssssssssssssssI",
+    "IssssssssssssssssssssssssssssssssssssssssssssssI",
+    "IssssssssssssssssssssssssssssssssssssssssssssssI",
+    "I~~~~~~~~~~~~~~~~~~===~~~~~~~~~~~~~~~~~~~~~~~~~I",
+    "IssssBssssssssssssssssssssssBsssssssssssBssssssI",
+    "IIIIIIIIIIIIIIIIIsssssssIIIIIIIIIIIIIIIIIIIIIIII",
+    "IIIIIIIIIIIIIIIIIsssssssIIIIIIIIIIIIIIIIIIIIIIII",
+    "IIIIIIIIIIIIIIIII~sssss~IIIIIIIIIIIIIIIIIIIIIIII",
+    "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII"
+  ],
+  "interactables": [
+    {
+      "id": "ladder",
+      "kind": "door",
+      "to": "nordtor",
+      "spawn": "kanal",
+      "tile": [
+        1,
+        4
+      ],
+      "sprite": "stairs",
+      "prompt": "Hinauf zum Nordtor",
+      "marker": false,
+      "reach": 24
+    },
+    {
+      "id": "to_theater",
+      "kind": "door",
+      "to": "theater",
+      "spawn": "trapdoor",
+      "tile": [
+        14,
+        1
+      ],
+      "sprite": "stairs",
+      "prompt": "Hinauf durch die Falltür",
+      "marker": false,
+      "reach": 24
+    },
+    {
+      "id": "to_tower",
+      "kind": "door",
+      "to": "uhrturm",
+      "spawn": "keller",
+      "tile": [
+        46,
+        4
+      ],
+      "sprite": "stairs",
+      "prompt": "Hinauf in den Uhrturm",
+      "marker": false,
+      "reach": 24
+    },
+    {
+      "id": "wall",
+      "kind": "read",
+      "tile": [
+        33,
+        5
+      ],
+      "prompt": "Die aufgebrochene Mauer ansehen",
+      "title": "Aufgebrochene Mauer",
+      "text": "Hier war der Gang zugemauert. Die Ziegel liegen ordentlich gestapelt daneben, jemand hat sich Zeit gelassen. Auf einem steht mit Kreide: „Für M.“",
+      "done_flag": "read_tunnel_wall"
+    },
+    {
+      "id": "gasgeist",
+      "kind": "combat",
+      "encounter": "gasgeist",
+      "tile": [
+        30,
+        5
+      ],
+      "sprite": "apparition",
+      "sprite_scale": 0.6,
+      "marker": false,
+      "solid": [
+        16,
+        52
+      ],
+      "prompt": "Dem Gasgeist entgegentreten",
+      "visible_if": {
+        "requires_quests_active": [
+          "case_04"
+        ],
+        "hide_if_flags": [
+          "gasgeist_defeated"
+        ]
+      }
+    },
+    {
+      "id": "toad",
+      "kind": "combat",
+      "encounter": "kanalkroete",
+      "tile": [
+        20,
+        10
+      ],
+      "sprite": "rats",
+      "sprite_scale": 0.6,
+      "marker": false,
+      "solid": [
+        24,
+        12
+      ],
+      "prompt": "Der Kröte entgegentreten",
+      "visible_if": {
+        "requires_quests_active": [
+          "toad"
+        ],
+        "hide_if_flags": [
+          "toad_defeated"
+        ]
+      }
+    }
+  ],
+  "npcs": [],
+  "tiles": "gaskanaele",
+  "weather": ""
+}

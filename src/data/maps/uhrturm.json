@@ -1,0 +1,199 @@
+{
+  "id": "uhrturm",
+  "name": "Uhrturm am Nordtor",
+  "ambient": {
+    "night": 0.72,
+    "fog": 0.05
+  },
+  "spawns": {
+    "default": [
+      9,
+      17
+    ],
+    "keller": [
+      16,
+      17
+    ]
+  },
+  "rows": [
+    "IIIIIIIIIIIIIIIIIIII",
+    "IIIIIIIIIIIIIIIIIIII",
+    "IwwwwwwwCCwwwwwwwwwI",
+    "IwwwwwwwCCwwwwwwwwwI",
+    "IwwwwwwwwwwwwwwwwwwI",
+    "IwwBBwwwwwwwwwwTTwwI",
+    "IwwwwwwwwwwwwwwwwwwI",
+    "IwwwwwwwwwwwwwwwwwwI",
+    "IIIIIIIIwwwIIIIIIIII",
+    "IKwwwwwwwwwwwwwwwwwI",
+    "IwCwwwwwwwwwwwwwwCwI",
+    "IwwwwwwwwwwwwwwwwwwI",
+    "IwwwwwwwwwwwwwwwwwwI",
+    "IwwwwwwwwwwwwwwVVwwI",
+    "IIIIIIIIIsssIIIIIIII",
+    "IOssssssssssssssssOI",
+    "IsTTsssssssssssssssI",
+    "IssssssssssssssssssI",
+    "IssssssssssssssssssI",
+    "IIIIIIIIIEEIIIIIIIII"
+  ],
+  "interactables": [
+    {
+      "id": "out",
+      "kind": "door",
+      "to": "nordtor",
+      "spawn": "uhrturm",
+      "tile": [
+        9,
+        18
+      ],
+      "prompt": "Hinaus aufs Nordtor",
+      "marker": false,
+      "reach": 26
+    },
+    {
+      "id": "cellar",
+      "kind": "door",
+      "to": "gaskanaele",
+      "spawn": "turm",
+      "tile": [
+        17,
+        18
+      ],
+      "sprite": "stairs",
+      "prompt": "In den Keller hinabsteigen",
+      "marker": true,
+      "lock": {
+        "requires_any_clues": [
+          "mott_plan",
+          "trapdoor_marks"
+        ],
+        "text": "Eine schwere Kellertür, verriegelt. Dahinter hört man Wasser tropfen und ganz leise singen. Ohne zu wissen, wohin sie führt, brichst du sie nicht auf.",
+        "footer": ""
+      }
+    },
+    {
+      "id": "vial",
+      "clue": "tower_vial",
+      "tile": [
+        10,
+        3
+      ],
+      "prompt": "Zwischen den Zahnrädern nachsehen",
+      "effects": {
+        "gives_items": {
+          "stimmphiole": 1
+        }
+      },
+      "visible_if": {
+        "requires_quests_active": [
+          "case_04"
+        ]
+      }
+    },
+    {
+      "id": "shards",
+      "kind": "read",
+      "tile": [
+        3,
+        6
+      ],
+      "sprite": "coins",
+      "prompt": "Glitzernde Splitter aufheben",
+      "title": "Splitter im Regal",
+      "text": "Zwischen Werkzeug und Spinnweben liegen drei Splitter aus dunklem Glas, in Wachstuch gewickelt. In einem summt etwas. Das müssen Starlings Splitter sein.",
+      "effects": {
+        "gives_items": {
+          "sternsplitter": 1
+        }
+      },
+      "done_flag": "shards_found",
+      "visible_if": {
+        "requires_quests_active": [
+          "starglass"
+        ]
+      }
+    },
+    {
+      "id": "guard",
+      "kind": "combat",
+      "encounter": "uhrwerkwaechter",
+      "tile": [
+        13,
+        11
+      ],
+      "sprite": "warden",
+      "sprite_scale": 0.5,
+      "marker": false,
+      "solid": [
+        16,
+        10
+      ],
+      "prompt": "Den Uhrwerkwächter anhalten",
+      "visible_if": {
+        "requires_quests_active": [
+          "clockwork"
+        ],
+        "hide_if_flags": [
+          "clockwork_stopped"
+        ]
+      }
+    },
+    {
+      "id": "felix",
+      "kind": "combat",
+      "encounter": "felix_fight",
+      "tile": [
+        12,
+        4
+      ],
+      "sprite": "npc:souffleur",
+      "marker": true,
+      "solid": [
+        12,
+        10
+      ],
+      "prompt": "Felix Dunmore stellen",
+      "visible_if": {
+        "requires_flags": [
+          "case_04_showdown"
+        ],
+        "hide_if_flags": [
+          "felix_beaten"
+        ]
+      }
+    },
+    {
+      "id": "vials",
+      "kind": "dialogue",
+      "dialogue": "vials",
+      "title": "Regal mit Phiolen",
+      "role": "",
+      "tile": [
+        12,
+        4
+      ],
+      "marker": true,
+      "prompt": "Die Phiolen betrachten",
+      "visible_if": {
+        "requires_flags": [
+          "felix_beaten"
+        ],
+        "hide_if_flags": [
+          "case_04_closed"
+        ]
+      }
+    }
+  ],
+  "npcs": [
+    {
+      "id": "uhrmacherin",
+      "tile": [
+        5,
+        17
+      ],
+      "facing": "right"
+    }
+  ],
+  "tiles": "uhrturm"
+}

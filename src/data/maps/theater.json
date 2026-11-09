@@ -1,0 +1,197 @@
+{
+  "id": "theater",
+  "name": "Lumen-Theater",
+  "ambient": {
+    "night": 0.62,
+    "fog": 0.06
+  },
+  "spawns": {
+    "default": [
+      17,
+      17
+    ],
+    "trapdoor": [
+      18,
+      5
+    ]
+  },
+  "rows": [
+    "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII",
+    "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII",
+    "IOwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwOI",
+    "IwCCwwwwwwwwwwwwwwwwwwwwwwwwwwBBwwwI",
+    "IwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwI",
+    "IwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwI",
+    "IIIIIwwwwwwwwwwwwwwwwwwwwwwwwwwIIIII",
+    "I..................................I",
+    "I....TTTTTTTTTT....TTTTTTTTTT......I",
+    "I..................................I",
+    "I....TTTTTTTTTT....TTTTTTTTTT......I",
+    "I..................................I",
+    "I....TTTTTTTTTT....TTTTTTTTTT......I",
+    "I..................................I",
+    "IIIIIIIIIIIIIIII....IIIIIIIIIIIIIIII",
+    "IO................................OI",
+    "I..BB..........................VV..I",
+    "I..................................I",
+    "I..................................I",
+    "IIIIIIIIIIIIIIIIIEEIIIIIIIIIIIIIIIII"
+  ],
+  "interactables": [
+    {
+      "id": "out",
+      "kind": "door",
+      "to": "nordtor",
+      "spawn": "theater",
+      "tile": [
+        17,
+        18
+      ],
+      "prompt": "Hinaus aufs Nordtor",
+      "marker": false,
+      "reach": 26
+    },
+    {
+      "id": "mirror_table",
+      "clue": "mirror_frost",
+      "tile": [
+        30,
+        4
+      ],
+      "prompt": "Schminkspiegel untersuchen",
+      "visible_if": {
+        "requires_quests_active": [
+          "case_04"
+        ]
+      }
+    },
+    {
+      "id": "prompter",
+      "clue": "prompter_box",
+      "tile": [
+        18,
+        6
+      ],
+      "sprite": "paper",
+      "prompt": "In den Souffleurkasten schauen",
+      "visible_if": {
+        "requires_quests_active": [
+          "case_04"
+        ]
+      }
+    },
+    {
+      "id": "trapdoor",
+      "clue": "trapdoor_marks",
+      "tile": [
+        18,
+        4
+      ],
+      "prompt": "Bühnenboden untersuchen",
+      "visible_if": {
+        "requires_quests_active": [
+          "case_04"
+        ],
+        "hide_if_clues": [
+          "trapdoor_marks"
+        ]
+      }
+    },
+    {
+      "id": "trapdoor_down",
+      "kind": "door",
+      "to": "gaskanaele",
+      "spawn": "theater",
+      "tile": [
+        18,
+        4
+      ],
+      "sprite": "stairs",
+      "prompt": "Durch die Falltür hinabsteigen",
+      "marker": true,
+      "visible_if": {
+        "requires_clues": [
+          "trapdoor_marks"
+        ]
+      }
+    },
+    {
+      "id": "rack",
+      "clue": "rack_coat",
+      "tile": [
+        4,
+        3
+      ],
+      "prompt": "Kostümständer durchsuchen",
+      "visible_if": {
+        "requires_quests_active": [
+          "masked_thief"
+        ]
+      }
+    },
+    {
+      "id": "masked",
+      "kind": "combat",
+      "encounter": "maskenspieler",
+      "tile": [
+        27,
+        9
+      ],
+      "sprite": "npc:maskenmacher",
+      "marker": true,
+      "solid": [
+        12,
+        10
+      ],
+      "prompt": "Den Maskenspieler stellen",
+      "visible_if": {
+        "requires_likely": [
+          "crabb_masks"
+        ],
+        "requires_quests_active": [
+          "masked_thief"
+        ],
+        "hide_if_flags": [
+          "crabb_caught"
+        ]
+      }
+    }
+  ],
+  "npcs": [
+    {
+      "id": "diva",
+      "tile": [
+        28,
+        4
+      ],
+      "facing": "right"
+    },
+    {
+      "id": "souffleur",
+      "tile": [
+        20,
+        5
+      ],
+      "facing": "down",
+      "visible_if": {
+        "hide_if_flags": [
+          "case_04_showdown"
+        ]
+      }
+    },
+    {
+      "id": "maskenmacher",
+      "tile": [
+        6,
+        17
+      ],
+      "facing": "right",
+      "visible_if": {
+        "hide_if_flags": [
+          "pell_arrested"
+        ]
+      }
+    }
+  ],
+  "tiles": "theater"
+}

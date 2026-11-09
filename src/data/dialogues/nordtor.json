@@ -1,0 +1,903 @@
+{
+  "diva": {
+    "start": [
+      {
+        "node": "healed",
+        "requires_flags": [
+          "voices_returned"
+        ]
+      },
+      {
+        "node": "start"
+      }
+    ],
+    "nodes": {
+      "start": {
+        "text": "Eine Frau in einem verblichenen Bühnenkleid sitzt vor dem Schminktisch. Sie öffnet den Mund, aber es kommt nur ein Hauch. Mit einem Seufzer greift sie nach Block und Bleistift.",
+        "choices": [
+          {
+            "text": "Was ist in jener Nacht passiert?",
+            "next": "night",
+            "requires_quests_active": [
+              "case_04"
+            ],
+            "hide_if_clues": [
+              "diva_singing"
+            ]
+          },
+          {
+            "text": "Wie gut kennen Sie Ihren Souffleur?",
+            "next": "felix",
+            "requires_quests_active": [
+              "case_04"
+            ],
+            "hide_if_clues": [
+              "diva_felix"
+            ]
+          },
+          {
+            "text": "Hatten Sie Feinde am Theater?",
+            "next": "crabb",
+            "requires_quests_active": [
+              "masked_thief"
+            ],
+            "hide_if_clues": [
+              "diva_crabb"
+            ]
+          },
+          {
+            "text": "Ich lasse Sie in Ruhe."
+          }
+        ]
+      },
+      "night": {
+        "text": "Sie schreibt lange. Dann dreht sie den Block zu dir um. Die Buchstaben werden zum Ende hin immer kleiner.",
+        "gives_clues": [
+          "diva_singing"
+        ],
+        "choices": [
+          {
+            "text": "Danke, Madame.",
+            "next": "start"
+          }
+        ]
+      },
+      "felix": {
+        "text": "Sie lächelt zum ersten Mal und schreibt schnell.",
+        "gives_clues": [
+          "diva_felix"
+        ],
+        "choices": [
+          {
+            "text": "Interessant.",
+            "next": "start"
+          }
+        ]
+      },
+      "crabb": {
+        "text": "Ihr Bleistift bricht ab. Sie spitzt ihn mit einem Federmesser und schreibt weiter, als wäre nichts gewesen.",
+        "gives_clues": [
+          "diva_crabb"
+        ],
+        "choices": [
+          {
+            "text": "Danke.",
+            "next": "start"
+          }
+        ]
+      },
+      "healed": {
+        "text": "„Ermittler!“ Ihre Stimme ist zurück, voll und ein wenig zu laut. „Ich singe heute Abend. Für Sie lasse ich die erste Reihe frei. Die ganze erste Reihe.“",
+        "choices": [
+          {
+            "text": "Ich werde da sein."
+          }
+        ]
+      }
+    }
+  },
+  "souffleur": {
+    "start": "start",
+    "nodes": {
+      "start": {
+        "text": "Ein kleiner Mann mit dicker Brille drückt ein Textbuch an die Brust. „Oh! Verzeihung. Ich bin nur der Souffleur. Mich bemerkt keiner, das ist sozusagen mein Beruf.“",
+        "choices": [
+          {
+            "text": "Was haben Sie in jener Nacht gesehen?",
+            "next": "night",
+            "requires_quests_active": [
+              "case_04"
+            ]
+          },
+          {
+            "text": "Kennen Sie Miriam Vey?",
+            "next": "vey",
+            "requires_likely": [
+              "felix_choir"
+            ]
+          },
+          {
+            "text": "Was summen Sie da?",
+            "next": "hum"
+          },
+          {
+            "text": "Schon gut."
+          }
+        ]
+      },
+      "night": {
+        "text": "Nichts, gar nichts! Ich war im Kasten, wie immer. Madame sang den zweiten Akt, und dann ... dann sang sie nicht mehr. Fragen Sie Pell, den Maskenmacher. Er war in der Garderobe. Er ist immer irgendwo, wo er nicht hingehört.",
+        "choices": [
+          {
+            "text": "Danke.",
+            "next": "start"
+          }
+        ]
+      },
+      "vey": {
+        "text": "Felix’ Finger krallen sich in das Textbuch. „Miriam ... Madame Vey ist eine große Künstlerin. Ich habe ihr die Noten getragen, als Junge. Sie hat mir einmal gesagt, ich hätte das Gehör eines Engels.“\n\nEr lächelt, und das Lächeln bleibt zu lange stehen. „Mehr weiß ich nicht.“",
+        "choices": [
+          {
+            "text": "Natürlich nicht.",
+            "next": "start"
+          }
+        ]
+      },
+      "hum": {
+        "text": "„Summen? Ich? Ach, eine alte Kirchenmelodie. Sie geht mir nicht aus dem Kopf.“ Er summt sie noch einmal. Drei Töne. Du kennst sie.",
+        "choices": [
+          {
+            "text": "Hübsch.",
+            "next": "start"
+          }
+        ]
+      }
+    }
+  },
+  "pell": {
+    "start": [
+      {
+        "node": "done",
+        "requires_flags": [
+          "mask_returned"
+        ]
+      },
+      {
+        "node": "start"
+      }
+    ],
+    "nodes": {
+      "start": {
+        "text": "Ein Mann mit weißer Halbmaske und Lederschürze schleift an einem Gipsgesicht. Er spricht nicht. Er nickt dir zu und deutet auf eine Schiefertafel neben sich.",
+        "choices": [
+          {
+            "text": "Man sagt, Sie hätten die Diva vergiftet.",
+            "next": "accused",
+            "requires_quests_active": [
+              "case_04"
+            ]
+          },
+          {
+            "text": "Ihnen fehlt eine Maske?",
+            "next": "mask",
+            "hide_if_quests": [
+              "masked_thief"
+            ]
+          },
+          {
+            "text": "Ich habe Ihre Maske zurück.",
+            "next": "return",
+            "requires_items": [
+              "pells_maske"
+            ]
+          },
+          {
+            "text": "Ich will nicht stören."
+          }
+        ]
+      },
+      "accused": {
+        "text": "Pell schreibt mit Kreide: „War im Turm. Bei Hettie. Die ganze Nacht.“ Dann wischt er es weg und schreibt: „Masken lügen nicht. Menschen schon.“",
+        "choices": [
+          {
+            "text": "Ich frage Hettie.",
+            "next": "start"
+          }
+        ]
+      },
+      "mask": {
+        "text": "Er schreibt: „Weiße Halbmaske, Porzellan. Gestohlen. Seitdem bestiehlt einer damit meine Kunden im Foyer. Polizei sagt: der Junge vom Schlachthof. Glaube ich nicht. Der Junge hat Angst vor Masken.“",
+        "start_quests": [
+          "masked_thief"
+        ],
+        "gives_clues": [
+          "police_finn"
+        ],
+        "choices": [
+          {
+            "text": "Ich finde den Dieb.",
+            "next": "start"
+          }
+        ]
+      },
+      "return": {
+        "text": "Pell dreht die Maske im Licht, wischt einen Ginfleck ab und legt sie behutsam in eine Schachtel. Dann schreibt er: „Danke.“ Darunter, nach einer Pause: „Für den Jungen auch.“\n\nEr schiebt dir ein kleines Päckchen hin: getrocknete Wachsblüten.",
+        "takes_items": {
+          "pells_maske": 1
+        },
+        "gives_items": {
+          "wachsbluete": 2
+        },
+        "sets_flags": [
+          "mask_returned"
+        ],
+        "complete_quests": [
+          "masked_thief"
+        ],
+        "choices": [
+          {
+            "text": "Gern geschehen.",
+            "next": "done"
+          }
+        ]
+      },
+      "done": {
+        "text": "Pell hebt grüßend den Meißel. Auf der Tafel steht: „Kommen Sie wieder. Ich mache Ihnen eine Maske. Eine ehrliche.“",
+        "choices": [
+          {
+            "text": "Vielleicht."
+          }
+        ]
+      }
+    }
+  },
+  "hettie": {
+    "start": [
+      {
+        "node": "done",
+        "requires_flags": [
+          "clockwork_told"
+        ]
+      },
+      {
+        "node": "start"
+      }
+    ],
+    "nodes": {
+      "start": {
+        "text": "Eine alte Frau mit Lupenbrille auf dem grauen Haar sortiert Zahnräder in eine Lederrolle. „Wenn Sie wegen der Uhr kommen: Ja, sie geht falsch. Nein, ich war das nicht.“",
+        "choices": [
+          {
+            "text": "Wer hat das Schlagwerk verstellt?",
+            "next": "gears",
+            "requires_quests_active": [
+              "case_04"
+            ],
+            "hide_if_clues": [
+              "hettie_gears"
+            ]
+          },
+          {
+            "text": "Wo war Jonas Pell in der Nacht der Vorstellung?",
+            "next": "pell",
+            "requires_suspected": [
+              "mask_maker"
+            ]
+          },
+          {
+            "text": "Was läuft da nachts oben herum?",
+            "next": "guard",
+            "hide_if_quests": [
+              "clockwork"
+            ]
+          },
+          {
+            "text": "Ihr Wächter steht still.",
+            "next": "stopped",
+            "requires_flags": [
+              "clockwork_stopped"
+            ],
+            "hide_if_flags": [
+              "clockwork_told"
+            ]
+          },
+          {
+            "text": "Ich sehe mich um."
+          }
+        ]
+      },
+      "gears": {
+        "text": "Sie hält ein frisch gefeiltes Stück Messing ins Licht.",
+        "gives_clues": [
+          "hettie_gears"
+        ],
+        "choices": [
+          {
+            "text": "Ein Musiker.",
+            "next": "start"
+          }
+        ]
+      },
+      "pell": {
+        "text": "„Jonas? Bei mir. Fragen Sie ihn, er schreibt’s Ihnen auf.“",
+        "gives_clues": [
+          "hettie_alibi"
+        ],
+        "choices": [
+          {
+            "text": "Danke.",
+            "next": "start"
+          }
+        ]
+      },
+      "guard": {
+        "text": "Mein alter Meister hat einen Wächter gebaut, eine Figur aus Messing, die früher zur vollen Stunde ums Zifferblatt marschierte. Seit zwanzig Jahren steht sie still. Und seit einer Woche läuft sie nachts durch den Turm, obwohl keiner sie aufzieht.\n\nWenn Sie sie anhalten wollen: Der Aufzugschlüssel sitzt im Rücken. Nach jedem Schlag stockt das Werk. Und passen Sie auf die volle Stunde auf.",
+        "start_quests": [
+          "clockwork"
+        ],
+        "sets_flags": [
+          "hettie_key_tip"
+        ],
+        "choices": [
+          {
+            "text": "Ich halte sie an.",
+            "next": "start"
+          }
+        ]
+      },
+      "stopped": {
+        "text": "Hettie steigt die Treppe hinauf und kommt mit dem Aufzugschlüssel zurück. „Jemand hat ihn aufgezogen und ihm ein Auge ins Zifferblatt geritzt. Ein Auge! In die Arbeit meines Meisters.“\n\nSie drückt dir ein paar Schilling in die Hand. „Für die Mühe. Und für die Spinnen da oben müssen Sie sich nicht bedanken.“",
+        "sets_flags": [
+          "clockwork_told"
+        ],
+        "complete_quests": [
+          "clockwork"
+        ],
+        "choices": [
+          {
+            "text": "Gern geschehen.",
+            "next": "done"
+          }
+        ]
+      },
+      "done": {
+        "text": "„Die Uhr geht immer noch falsch. Aber wenigstens läuft mir nachts keiner mehr über die Füße.“",
+        "choices": [
+          {
+            "text": "Wer hat das Schlagwerk verstellt?",
+            "next": "gears",
+            "requires_quests_active": [
+              "case_04"
+            ],
+            "hide_if_clues": [
+              "hettie_gears"
+            ]
+          },
+          {
+            "text": "Wo war Jonas Pell in der Nacht der Vorstellung?",
+            "next": "pell",
+            "requires_suspected": [
+              "mask_maker"
+            ]
+          },
+          {
+            "text": "Bis bald."
+          }
+        ]
+      }
+    }
+  },
+  "ezra": {
+    "start": "start",
+    "nodes": {
+      "start": {
+        "text": "Ein hagerer Mann mit langen Armen und Watte in den Ohren lehnt an der Turmtür. „WAS?“ Er zieht die Watte aus einem Ohr. „Ach so. Was?“",
+        "choices": [
+          {
+            "text": "Was ist mit der Turmuhr?",
+            "next": "tones",
+            "requires_quests_active": [
+              "case_04"
+            ],
+            "hide_if_clues": [
+              "ezra_tones"
+            ]
+          },
+          {
+            "text": "Warum die Watte?",
+            "next": "cotton"
+          },
+          {
+            "text": "Nichts."
+          }
+        ]
+      },
+      "tones": {
+        "text": "Er schaut nach oben, wo die Zeiger auf 3:33 stehen.",
+        "gives_clues": [
+          "ezra_tones"
+        ],
+        "choices": [
+          {
+            "text": "Danke, Ezra.",
+            "next": "start"
+          }
+        ]
+      },
+      "cotton": {
+        "text": "Vierzig Jahre Glocken. Da hört man irgendwann Dinge, die keiner hören sollte. Seit Neuestem höre ich Frauen singen. Im Uhrwerk. Lauter verschiedene.",
+        "choices": [
+          {
+            "text": "Verstehe.",
+            "next": "start"
+          }
+        ]
+      }
+    }
+  },
+  "bram": {
+    "start": [
+      {
+        "node": "done",
+        "requires_flags": [
+          "hooks_told"
+        ]
+      },
+      {
+        "node": "start"
+      }
+    ],
+    "nodes": {
+      "start": {
+        "text": "Ein riesiger Mann in einer braun fleckigen Lederschürze schaut dich an. Er wartet. Er hat Zeit.",
+        "choices": [
+          {
+            "text": "Ihnen wird etwas gestohlen?",
+            "next": "theft",
+            "hide_if_quests": [
+              "empty_hooks"
+            ]
+          },
+          {
+            "text": "Knox hat Ihr Ochsenblut verkauft.",
+            "next": "told",
+            "requires_flags": [
+              "knox_caught"
+            ],
+            "hide_if_flags": [
+              "hooks_told"
+            ]
+          },
+          {
+            "text": "Finn war es.",
+            "next": "blame",
+            "requires_suspected": [
+              "finn_steals"
+            ],
+            "requires_quests_active": [
+              "empty_hooks"
+            ]
+          },
+          {
+            "text": "Guten Tag."
+          }
+        ]
+      },
+      "theft": {
+        "text": "Bram zeigt auf die leeren Haken und die Lücke zwischen den Fässern. Er sagt drei Sätze, mehr als er sonst in einer Woche sagt.",
+        "start_quests": [
+          "empty_hooks"
+        ],
+        "gives_clues": [
+          "bram_finn"
+        ],
+        "choices": [
+          {
+            "text": "Ich sehe mich um.",
+            "next": "start"
+          }
+        ]
+      },
+      "told": {
+        "text": "Bram schaut lange auf seine Hände. Dann geht er zu Finn hinüber und legt ihm die Pranke auf die Schulter. Der Junge zuckt zusammen, dann grinst er.\n\nBram kommt zurück und stellt dir zwei Päckchen in Wachspapier hin. „Ochsenblut. Für ehrliche Leute.“",
+        "gives_items": {
+          "ochsenblut": 2
+        },
+        "sets_flags": [
+          "hooks_told"
+        ],
+        "complete_quests": [
+          "empty_hooks"
+        ],
+        "choices": [
+          {
+            "text": "Danke, Meister Okes.",
+            "next": "done"
+          }
+        ]
+      },
+      "blame": {
+        "text": "Bram nickt einmal. Am nächsten Tag steht Finn mit seinem Bündel am Nordtor und weint. Die Fässer verschwinden weiter.",
+        "fail_quests": [
+          "empty_hooks"
+        ],
+        "honor": -2,
+        "honor_reason": "Einen Lehrling beschuldigt",
+        "sets_flags": [
+          "finn_fired"
+        ],
+        "choices": [
+          {
+            "text": "…"
+          }
+        ]
+      },
+      "done": {
+        "text": "Bram nickt dir zu. Das ist bei ihm so viel wie eine Umarmung.",
+        "choices": [
+          {
+            "text": "Bis bald."
+          }
+        ]
+      }
+    }
+  },
+  "finn": {
+    "start": "start",
+    "nodes": {
+      "start": {
+        "text": "Ein Junge mit zu großer Mütze und einem Eimer zuckt zusammen, als du näherkommst. „Ich hab nichts gemacht! Was auch immer es ist, ich war’s nicht!“",
+        "choices": [
+          {
+            "text": "Was weißt du über die verschwundenen Fässer?",
+            "next": "knox",
+            "requires_quests_active": [
+              "empty_hooks"
+            ],
+            "hide_if_clues": [
+              "finn_knox"
+            ]
+          },
+          {
+            "text": "Woher hattest du die weiße Maske?",
+            "next": "mask",
+            "requires_quests_active": [
+              "masked_thief"
+            ],
+            "hide_if_clues": [
+              "finn_mask"
+            ]
+          },
+          {
+            "text": "Ganz ruhig. Ich will nur reden.",
+            "next": "calm"
+          }
+        ]
+      },
+      "knox": {
+        "text": "Finn schaut sich um, ob jemand zuhört. Dann flüstert er.",
+        "gives_clues": [
+          "finn_knox"
+        ],
+        "choices": [
+          {
+            "text": "Ich sage nichts.",
+            "next": "start"
+          }
+        ]
+      },
+      "mask": {
+        "text": "Finn wird rot bis über die Ohren.",
+        "gives_clues": [
+          "finn_mask"
+        ],
+        "choices": [
+          {
+            "text": "Ich glaube dir.",
+            "next": "start"
+          }
+        ]
+      },
+      "calm": {
+        "text": "Alle sagen immer, ich war’s. Beim Theater, beim Meister, sogar beim Bäcker. Dabei hab ich bloß ein Gesicht, auf das man gut zeigen kann.",
+        "choices": [
+          {
+            "text": "Wir werden sehen.",
+            "next": "start"
+          }
+        ]
+      }
+    }
+  },
+  "mott": {
+    "start": [
+      {
+        "node": "done",
+        "requires_flags": [
+          "toad_told"
+        ]
+      },
+      {
+        "node": "start"
+      }
+    ],
+    "nodes": {
+      "start": {
+        "text": "Ein alter Mann mit verbeultem Helm und einer Atemmaske um den Hals hockt neben einem Kanaldeckel. „Runter wollen Sie? In die alten Gaskanäle? Da geht keiner mehr runter. Nicht seit dem Quaken.“",
+        "choices": [
+          {
+            "text": "Was für ein Quaken?",
+            "next": "toad",
+            "hide_if_quests": [
+              "toad"
+            ]
+          },
+          {
+            "text": "Führt ein Kanal zum Theater?",
+            "next": "plan",
+            "requires_quests_active": [
+              "case_04"
+            ],
+            "hide_if_clues": [
+              "mott_plan"
+            ]
+          },
+          {
+            "text": "Da unten singt ein Gas.",
+            "next": "valve",
+            "requires_quests_active": [
+              "case_04"
+            ],
+            "hide_if_flags": [
+              "mott_valve_tip"
+            ]
+          },
+          {
+            "text": "Die Kröte ist weg.",
+            "next": "told",
+            "requires_flags": [
+              "toad_defeated"
+            ],
+            "hide_if_flags": [
+              "toad_told"
+            ]
+          },
+          {
+            "text": "Bis später."
+          }
+        ]
+      },
+      "toad": {
+        "text": "Meine Männer hören es aus der alten Kammer unter dem Platz. Ein Quaken wie ein Nebelhorn. Einer hat eine Zunge gesehen, so lang wie ein Gartenschlauch.\n\nKröten hassen trockenes Salz, das hat mein Vater immer gesagt. Nehmen Sie das mit. Und gehen Sie über die Planken, nicht durchs Wasser.",
+        "start_quests": [
+          "toad"
+        ],
+        "sets_flags": [
+          "mott_toad_tip"
+        ],
+        "choices": [
+          {
+            "text": "Ich sehe nach.",
+            "next": "start"
+          }
+        ]
+      },
+      "plan": {
+        "text": "Mott zieht einen zerknitterten Plan aus der Brusttasche und fährt mit einem öligen Finger eine Linie entlang.",
+        "gives_clues": [
+          "mott_plan"
+        ],
+        "choices": [
+          {
+            "text": "Danke, Mott.",
+            "next": "start"
+          }
+        ]
+      },
+      "valve": {
+        "text": "„Singt? Dann ist es das lecke Rohr im Hauptgang. Da kommt manchmal mehr raus als Gas.“ Er zeigt dir auf dem Plan ein Ventil. „Erst zudrehen, dann draufhauen.“",
+        "sets_flags": [
+          "mott_valve_tip"
+        ],
+        "choices": [
+          {
+            "text": "Merke ich mir.",
+            "next": "start"
+          }
+        ]
+      },
+      "told": {
+        "text": "Mott klopft dir auf den Rücken, dass es staubt. „Ha! Dann können meine Jungs morgen wieder runter. Hier, Leuchtmoos aus der Kammer. Bringt gutes Geld auf dem Nachtmarkt.“",
+        "gives_items": {
+          "leuchtmoos": 1
+        },
+        "sets_flags": [
+          "toad_told"
+        ],
+        "complete_quests": [
+          "toad"
+        ],
+        "choices": [
+          {
+            "text": "Danke.",
+            "next": "done"
+          }
+        ]
+      },
+      "done": {
+        "text": "„Wieder runter? Passen Sie auf die Rinne auf. Und auf alles, was singt.“",
+        "choices": [
+          {
+            "text": "Führt ein Kanal zum Theater?",
+            "next": "plan",
+            "requires_quests_active": [
+              "case_04"
+            ],
+            "hide_if_clues": [
+              "mott_plan"
+            ]
+          },
+          {
+            "text": "Da unten singt ein Gas.",
+            "next": "valve",
+            "requires_quests_active": [
+              "case_04"
+            ],
+            "hide_if_flags": [
+              "mott_valve_tip"
+            ]
+          },
+          {
+            "text": "Bis später."
+          }
+        ]
+      }
+    }
+  },
+  "starling": {
+    "start": [
+      {
+        "node": "done",
+        "requires_flags": [
+          "starglass_returned"
+        ]
+      },
+      {
+        "node": "start"
+      }
+    ],
+    "nodes": {
+      "start": {
+        "text": "Ein Mann mit wildem weißem Haar und einem Dutzend Linsen an Ketten fährt herum. „Besuch! Wie ungewöhnlich. Sind Sie wegen des Sternglases hier? Bitte sagen Sie, dass Sie wegen des Sternglases hier sind.“",
+        "choices": [
+          {
+            "text": "Was ist mit dem Sternglas?",
+            "next": "stolen",
+            "hide_if_quests": [
+              "starglass"
+            ]
+          },
+          {
+            "text": "Was kann Sternglas?",
+            "next": "glass",
+            "hide_if_clues": [
+              "starling_glass"
+            ]
+          },
+          {
+            "text": "Hier sind Ihre Splitter.",
+            "next": "return",
+            "requires_items": [
+              "sternsplitter"
+            ]
+          },
+          {
+            "text": "Ich wollte nur die Sterne sehen."
+          }
+        ]
+      },
+      "stolen": {
+        "text": "Drei Splitter aus dem Krater, aus meinem Schrank! Kein Fenster kaputt, kein Schloss aufgebrochen. Und seitdem sehe ich nachts durch das Teleskop Lichter im Uhrturm am Nordtor. Kleine, kalte Lichter, wie meine Splitter.\n\nIch bin zu alt, um auf Türme zu steigen. Sie nicht.",
+        "start_quests": [
+          "starglass"
+        ],
+        "choices": [
+          {
+            "text": "Ich sehe im Uhrturm nach.",
+            "next": "start"
+          }
+        ]
+      },
+      "glass": {
+        "text": "Er hebt einen Splitter gegen das Licht. Darin glimmt etwas, das nicht aus dem Raum kommt.",
+        "gives_clues": [
+          "starling_glass"
+        ],
+        "choices": [
+          {
+            "text": "Theoretisch.",
+            "next": "start"
+          }
+        ]
+      },
+      "return": {
+        "text": "Starling legt die Splitter auf ein Samttuch und zählt sie dreimal. „Alle drei! Und einer singt? Faszinierend. Furchtbar, aber faszinierend.“\n\nEr gibt dir einen davon zurück. „Behalten Sie den. Für Ihre ... Tränke. Ich frage nicht.“",
+        "takes_items": {
+          "sternsplitter": 1
+        },
+        "gives_items": {
+          "sternglas": 1
+        },
+        "sets_flags": [
+          "starglass_returned"
+        ],
+        "complete_quests": [
+          "starglass"
+        ],
+        "choices": [
+          {
+            "text": "Danke, Professor.",
+            "next": "done"
+          }
+        ]
+      },
+      "done": {
+        "text": "„Kommen Sie bei klarem Himmel wieder. Dann zeige ich Ihnen einen Stern, der jede Nacht ein Stück näher kommt.“",
+        "choices": [
+          {
+            "text": "Was kann Sternglas?",
+            "next": "glass",
+            "hide_if_clues": [
+              "starling_glass"
+            ]
+          },
+          {
+            "text": "Gute Nacht."
+          }
+        ]
+      }
+    }
+  },
+  "vials": {
+    "start": "start",
+    "nodes": {
+      "start": {
+        "text": "Auf einem Regal zwischen den Zahnrädern stehen Dutzende Phiolen aus Sternglas. In jeder treibt ein kleines Licht, und jede singt leise etwas anderes. Hinter dir tickt die Uhr auf 3:33 zu.",
+        "choices": [
+          {
+            "text": "Die Phiolen im Takt der Uhr öffnen, eine nach der anderen.",
+            "next": "perfect",
+            "requires_certain": [
+              "vials_choir"
+            ]
+          },
+          {
+            "text": "Die Phiolen zerschlagen.",
+            "next": "smash"
+          },
+          {
+            "text": "Noch nicht."
+          }
+        ]
+      },
+      "perfect": {
+        "text": "Du wartest auf den ersten Schlag.",
+        "ending": "c4_perfect",
+        "choices": [
+          {
+            "text": "…"
+          }
+        ]
+      },
+      "smash": {
+        "text": "Du fegst das Regal leer.",
+        "ending": "c4_good",
+        "choices": [
+          {
+            "text": "…"
+          }
+        ]
+      }
+    }
+  }
+}

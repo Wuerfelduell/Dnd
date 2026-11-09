@@ -6,9 +6,10 @@ Ermitteln, Gespräche und das Verknüpfen von Hinweisen, nicht Kämpfe.
 
 ![Screenshot](docs/screenshot.png)
 
-**Stand:** spielbarer Prototyp mit drei zusammenhängenden Fällen, sechzehn Nebenaufträgen,
-acht Orten (Polizeirevier, Ashgrove Lane mit Hinterhof, Taverne „Zum Ertrunkenen Mond“, Altmarkt,
-Friedhof St. Ebba, Krypta, Kanalhafen, Lagerhaus 7), Inventar, Leben,
+**Stand:** spielbarer Prototyp mit vier zusammenhängenden Fällen, einundzwanzig Nebenaufträgen,
+fünfzehn Orten (Polizeirevier, Ashgrove Lane mit Hinterhof, Taverne „Zum Ertrunkenen Mond“, Altmarkt,
+Nachtmarkt, Friedhof St. Ebba, Krypta, Kanalhafen, Lagerhaus 7, Nordtor-Viertel, Lumen-Theater, Uhrturm,
+alte Gaskanäle, Schlachthof, Sternwarte am Krater), Inventar, Leben,
 einem kleinen Rundenkampf mit Timing und Spielständen.
 
 ## Spielen
@@ -99,6 +100,7 @@ Auf dem **Nachtmarkt** unter der Krähenbrücke (Stadtkarte) kann man aufsteigen
 1. **Die erloschene Laterne:** Der Lampenanzünder Elias Thorne verschwindet in Ashgrove Lane. Spur: Miriam Vey, ehemalige Chorleiterin von St. Ebba.
 2. **Asche von St. Ebba:** Hester Marsh wird von einem Wiegenlied in die Krypta gelockt. Vey will ihre tote Tochter Lilian zurückholen.
 3. **Der Chor singt woanders:** Jemand im Revier hilft Vey. Falsche Fährten führen zu Sergeant Holt, die Wahrheit zu Constable Rook und zum Lagerhaus 7 am Kanalhafen. Wer herausfindet, dass Vey noch die Glocke von St. Ebba braucht, kann ihr Ritual aufhalten.
+4. **Die gestohlenen Stimmen:** Die Diva des Lumen-Theaters verliert über Nacht ihre Stimme, die Turmuhr am Nordtor schlägt um 3:33 drei falsche Töne. Der Polizeibericht beschuldigt den stummen Maskenmacher. Die Spur führt zum Souffleur Felix Dunmore, einst Veys Chorknabe, durch die alten Gaskanäle in den Uhrturm. Wer versteht, wie die Sternglas-Phiolen funktionieren, bringt die Stimmen heim.
 
 Nebenaufträge: Taschendieb, verlegte Akte, Klopfen in der Zelle, Hesters Medaillon, Nebelhund, Die Uhr ohne Besitzer, Ratten im Archiv, Barnabys Unschuld (ein falscher Polizeibericht), Der Ertrunkene vom Kanalhafen (Geistsicht), Die Schlagzeile (eine Entscheidung mit Folgen fürs Ansehen).
 
@@ -107,6 +109,9 @@ Neu am Altmarkt und in der Taverne: **Gezinkte Würfel** (die Wirtin verdächtig
 **Was der blinde Ned hört** (ein Verband gegen Wissen), **Die schwarzen Kerzen** (nicht jeder Verdacht auf den Chor
 stimmt) und **Gretas Stand** (ein korrupter Marktwart, drei Lösungswege). Wer genau hinsieht, merkt:
 Veys Chor ist noch nicht ganz verstummt.
+
+Am Nordtor: **Die Kröte im Kanal**, **Das Uhrwerk schweigt nicht**, **Der Maskenspieler** und **Leere Haken**
+(zweimal ist der Lehrling Finn der bequeme Verdächtige) sowie **Gestohlenes Sternglas** in der Sternwarte.
 
 ## Technik
 
@@ -134,6 +139,7 @@ src/
     encounters.json       Gegner: Leben, Attacken (Schlagzeiten in ms), Schwachstellen, Folgen
     case_01.json, ...     Informationen, Hinweise (Quellen), Schlussfolgerungen, Enden (Fall 1 bis 3)
     case_altmarkt.json    Informationen und Hinweise der Altmarkt-Nebenaufträge
+    case_04.json          Fall 4 und die Nebenfälle am Nordtor
     maps/*.json           Orte als Zeichenraster + Objekte + Figuren
     dialogues/*.json      Dialogbäume
 tests/                    `npm test`: Datenprüfung, Kampfregeln und Balance, beide Fälle über die echten Dialoge durchgespielt

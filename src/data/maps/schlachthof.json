@@ -1,0 +1,123 @@
+{
+  "id": "schlachthof",
+  "name": "Schlachthof am Nordtor",
+  "ambient": {
+    "night": 0.74,
+    "fog": 0.12
+  },
+  "spawns": {
+    "default": [
+      14,
+      11
+    ]
+  },
+  "rows": [
+    "IIIIIIIIIIIIIIIIIIIIIIIIIIIIII",
+    "IIIIIIIIIIIIIIIIIIIIIIIIIIIIII",
+    "IssBBBBBBBBBBssssBBBBBBBBBBEsI",
+    "IOssssssssssssssssssssssssssOI",
+    "IssVVsssssssssssssssssTTsssssI",
+    "IssVsssssssssssssssssssssssssI",
+    "IssssssssssssssssssssssssssssI",
+    "IsCCCssssssssssssssssssssCCCsI",
+    "IssssssssssssssssssssssssssssI",
+    "IsCCCssssssssssssssssssssssssI",
+    "IsssssssssssssOssssssssssssssI",
+    "IssssssssssssssssssssssssssssI",
+    "IssssssssssssssssssssssssssssI",
+    "IIIIIIIIIIIIIIEEIIIIIIIIIIIIII"
+  ],
+  "interactables": [
+    {
+      "id": "out",
+      "kind": "door",
+      "to": "nordtor",
+      "spawn": "schlachthof",
+      "tile": [
+        14,
+        12
+      ],
+      "prompt": "Hinaus aufs Nordtor",
+      "marker": false,
+      "reach": 26
+    },
+    {
+      "id": "salt",
+      "clue": "knox_slip",
+      "tile": [
+        5,
+        5
+      ],
+      "prompt": "In die Salzfässer greifen",
+      "visible_if": {
+        "requires_quests_active": [
+          "empty_hooks"
+        ]
+      }
+    },
+    {
+      "id": "knox",
+      "kind": "combat",
+      "encounter": "schlachtergehilfe",
+      "tile": [
+        26,
+        3
+      ],
+      "sprite": "npc:schlachtermeister",
+      "marker": true,
+      "solid": [
+        12,
+        10
+      ],
+      "prompt": "Knox zur Rede stellen",
+      "visible_if": {
+        "requires_likely": [
+          "knox_steals"
+        ],
+        "requires_quests_active": [
+          "empty_hooks"
+        ],
+        "hide_if_flags": [
+          "knox_caught"
+        ]
+      }
+    },
+    {
+      "id": "scale",
+      "kind": "read",
+      "tile": [
+        22,
+        5
+      ],
+      "prompt": "Die Waage ansehen",
+      "marker": false,
+      "title": "Waage und Wachspapier",
+      "text": "Auf dem Tisch liegen ordentlich gefaltete Päckchen in Wachspapier, jedes mit Gewicht und Datum. Bram schreibt in Druckbuchstaben. In der Spalte für Mittwoch fehlen sechs Einträge.",
+      "done_flag": "read_scale"
+    }
+  ],
+  "npcs": [
+    {
+      "id": "schlachtermeister",
+      "tile": [
+        20,
+        6
+      ],
+      "facing": "down"
+    },
+    {
+      "id": "lehrling",
+      "tile": [
+        8,
+        11
+      ],
+      "facing": "up",
+      "visible_if": {
+        "hide_if_flags": [
+          "finn_fired"
+        ]
+      }
+    }
+  ],
+  "tiles": "schlachthof"
+}

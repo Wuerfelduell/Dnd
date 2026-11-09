@@ -681,5 +681,228 @@
       "honor": 4,
       "honor_reason": "Greta zu ihrem Stand verholfen"
     }
+  },
+  "case_04": {
+    "title": "Fall 4: Die gestohlenen Stimmen",
+    "kind": "main",
+    "case": "case_04",
+    "summary": "Die Diva des Lumen-Theaters hat über Nacht ihre Stimme verloren. Seitdem schlägt die Turmuhr am Nordtor um 3:33 drei falsche Töne.",
+    "steps": [
+      {
+        "text": "Sieh dich im Lumen-Theater am Nordtor um",
+        "done": {
+          "requires_any_clues": [
+            "diva_singing",
+            "mirror_frost",
+            "prompter_box"
+          ]
+        }
+      },
+      {
+        "text": "Finde heraus, wer die Stimmen stiehlt",
+        "done": {
+          "requires_conclusions": [
+            "felix_thief"
+          ]
+        }
+      },
+      {
+        "text": "Finde heraus, wohin die Stimmen gebracht werden",
+        "done": {
+          "requires_conclusions": [
+            "tower_lair"
+          ]
+        }
+      },
+      {
+        "text": "Sichere beides mit je zwei Quellen ab",
+        "done": {
+          "requires_certain": [
+            "felix_thief",
+            "tower_lair"
+          ]
+        }
+      },
+      {
+        "text": "Optional: Wie bekommt man die Stimmen zurück? (Uhrturm, Sternwarte)",
+        "done": {
+          "requires_certain": [
+            "vials_choir"
+          ]
+        }
+      },
+      {
+        "text": "Berichte Inspektorin Marlowe",
+        "done": {
+          "requires_flags": [
+            "case_04_showdown"
+          ]
+        }
+      },
+      {
+        "text": "Stell den Täter im Uhrturm",
+        "done": {
+          "requires_flags": [
+            "case_04_closed"
+          ]
+        }
+      }
+    ]
+  },
+  "toad": {
+    "title": "Die Kröte im Kanal",
+    "kind": "side",
+    "case": "side",
+    "summary": "Mott Gale bekommt keinen Arbeiter mehr in die alten Gaskanäle. Dort unten quakt etwas, das größer ist als ein Hund.",
+    "steps": [
+      {
+        "text": "Finde, was in den Gaskanälen haust",
+        "done": {
+          "requires_flags": [
+            "toad_defeated"
+          ]
+        }
+      },
+      {
+        "text": "Berichte Mott",
+        "done": {
+          "requires_flags": [
+            "toad_told"
+          ]
+        }
+      }
+    ],
+    "reward": {
+      "honor": 3,
+      "honor_reason": "Die Gaskanäle gesäubert"
+    }
+  },
+  "clockwork": {
+    "title": "Das Uhrwerk schweigt nicht",
+    "kind": "side",
+    "case": "side",
+    "summary": "Der Uhrwerkwächter, den Hettie Brass’ alter Meister gebaut hat, läuft nachts durch den Turm, obwohl ihn niemand aufzieht.",
+    "steps": [
+      {
+        "text": "Halte den Uhrwerkwächter an",
+        "done": {
+          "requires_flags": [
+            "clockwork_stopped"
+          ]
+        }
+      },
+      {
+        "text": "Sprich mit Hettie",
+        "done": {
+          "requires_flags": [
+            "clockwork_told"
+          ]
+        }
+      }
+    ],
+    "reward": {
+      "honor": 3,
+      "honor_reason": "Einen Uhrwerkwächter angehalten"
+    }
+  },
+  "masked_thief": {
+    "title": "Der Maskenspieler",
+    "kind": "side",
+    "case": "side",
+    "summary": "Jemand trägt eine von Jonas Pells Masken und bestiehlt im Foyer des Lumen-Theaters die Gäste. Die Polizei verdächtigt den Schlachterlehrling Finn.",
+    "steps": [
+      {
+        "text": "Finde zwei Quellen dafür, wer hinter der Maske steckt",
+        "done": {
+          "requires_likely": [
+            "crabb_masks"
+          ]
+        }
+      },
+      {
+        "text": "Stell den Maskenspieler",
+        "done": {
+          "requires_flags": [
+            "crabb_caught"
+          ]
+        }
+      },
+      {
+        "text": "Gib Pell seine Maske zurück",
+        "done": {
+          "requires_flags": [
+            "mask_returned"
+          ]
+        }
+      }
+    ],
+    "reward": {
+      "honor": 4,
+      "honor_reason": "Den Maskenspieler enttarnt"
+    }
+  },
+  "empty_hooks": {
+    "title": "Leere Haken",
+    "kind": "side",
+    "case": "side",
+    "summary": "Im Schlachthof am Nordtor verschwinden nachts Fässer mit Ochsenblut. Meister Bram Okes verdächtigt seinen Lehrling.",
+    "steps": [
+      {
+        "text": "Finde zwei Quellen dafür, wer stiehlt",
+        "done": {
+          "requires_likely": [
+            "knox_steals"
+          ]
+        }
+      },
+      {
+        "text": "Stell den Dieb",
+        "done": {
+          "requires_flags": [
+            "knox_caught"
+          ]
+        }
+      },
+      {
+        "text": "Sprich mit Bram",
+        "done": {
+          "requires_flags": [
+            "hooks_told"
+          ]
+        }
+      }
+    ],
+    "reward": {
+      "honor": 4,
+      "honor_reason": "Einen Dieb im Schlachthof gestellt"
+    }
+  },
+  "starglass": {
+    "title": "Gestohlenes Sternglas",
+    "kind": "side",
+    "case": "side",
+    "summary": "Aus Professor Starlings Gesteinsschrank fehlen Splitter aus dem Meteoritenkrater. Sein Teleskop zeigt nachts Lichter im Uhrturm.",
+    "steps": [
+      {
+        "text": "Finde die Splitter",
+        "done": {
+          "requires_items": [
+            "sternsplitter"
+          ]
+        }
+      },
+      {
+        "text": "Bring sie Professor Starling",
+        "done": {
+          "requires_flags": [
+            "starglass_returned"
+          ]
+        }
+      }
+    ],
+    "reward": {
+      "honor": 3,
+      "honor_reason": "Sternglas zurückgebracht"
+    }
   }
 }

@@ -85,6 +85,24 @@
       "requires_flags": [
         "travel_ashgrove"
       ]
+    },
+    {
+      "map": "nordtor",
+      "spawn": "default",
+      "name": "Nordtor-Viertel",
+      "desc": "Lumen-Theater, Uhrturm, Schlachthof. Fall 4.",
+      "requires_flags": [
+        "travel_nordtor"
+      ]
+    },
+    {
+      "map": "sternwarte",
+      "spawn": "default",
+      "name": "Sternwarte am Krater",
+      "desc": "Ein Hügel vor der Stadt, ein Teleskop, ein Professor.",
+      "requires_flags": [
+        "travel_sternwarte"
+      ]
     }
   ],
   "cases": [
@@ -99,6 +117,10 @@
     {
       "id": "case_03",
       "title": "Fall 3: Der Chor singt woanders"
+    },
+    {
+      "id": "case_04",
+      "title": "Fall 4: Die gestohlenen Stimmen"
     },
     {
       "id": "side",
@@ -428,6 +450,114 @@
         "skin": "#d89a7a",
         "hair": "#5a4a3a",
         "legs": "#1f2538"
+      }
+    },
+    "diva": {
+      "name": "Madame Odile Varenne",
+      "role": "Diva des Lumen-Theaters",
+      "dialogue": "diva",
+      "palette": {
+        "coat": "#6a2a3a",
+        "hat": "#3a1a24",
+        "skin": "#ecd0c0",
+        "hair": "#3a2a2a",
+        "legs": "#3a1a24"
+      }
+    },
+    "souffleur": {
+      "name": "Felix Dunmore",
+      "role": "Souffleur",
+      "dialogue": "souffleur",
+      "palette": {
+        "coat": "#4a4a52",
+        "hat": "#2a2a30",
+        "skin": "#e0c8b0",
+        "hair": "#8a6a4a",
+        "legs": "#2a2a30"
+      }
+    },
+    "maskenmacher": {
+      "name": "Jonas Pell",
+      "role": "Maskenmacher",
+      "dialogue": "pell",
+      "palette": {
+        "coat": "#5a4632",
+        "hat": "#e8e4dc",
+        "skin": "#d0b090",
+        "hair": "#3a3a3a",
+        "legs": "#3a3028"
+      }
+    },
+    "uhrmacherin": {
+      "name": "Meisterin Hettie Brass",
+      "role": "Uhrmacherin",
+      "dialogue": "hettie",
+      "palette": {
+        "coat": "#5a4a3a",
+        "hat": "#b08a3a",
+        "skin": "#e0c0a0",
+        "hair": "#c8c8c8",
+        "legs": "#3a3028"
+      }
+    },
+    "turmwaechter": {
+      "name": "Ezra",
+      "role": "Glöckner",
+      "dialogue": "ezra",
+      "palette": {
+        "coat": "#3a3a42",
+        "hat": "#2a2a30",
+        "skin": "#d8c0a8",
+        "hair": "#6a6a6a",
+        "legs": "#2a2a30"
+      }
+    },
+    "schlachtermeister": {
+      "name": "Bram Okes",
+      "role": "Schlachtermeister",
+      "dialogue": "bram",
+      "palette": {
+        "coat": "#6a5a4a",
+        "hat": "#3a3028",
+        "skin": "#c89a7a",
+        "hair": "#3a2a1a",
+        "legs": "#2a2a2a"
+      }
+    },
+    "lehrling": {
+      "name": "Finn",
+      "role": "Schlachterlehrling",
+      "dialogue": "finn",
+      "palette": {
+        "coat": "#8a7a6a",
+        "hat": "#4a3a2a",
+        "skin": "#f0c8a0",
+        "hair": "#a06030",
+        "legs": "#3a3028"
+      }
+    },
+    "gaswerker": {
+      "name": "Mott Gale",
+      "role": "Gaswerk-Ingenieur",
+      "dialogue": "mott",
+      "palette": {
+        "coat": "#4a5040",
+        "hat": "#6a6a5a",
+        "skin": "#c8a07a",
+        "hair": "#9a9a90",
+        "legs": "#3a3a30"
+      }
+    },
+    "astronom": {
+      "name": "Professor Lucius Starling",
+      "role": "Astronom",
+      "dialogue": "starling",
+      "palette": {
+        "coat": "#2a3a5a",
+        "hat": "#1a2440",
+        "skin": "#e8d0b8",
+        "hair": "#f0f0f0",
+        "legs": "#1a2440"
       }
     }
   }
