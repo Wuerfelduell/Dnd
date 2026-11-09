@@ -559,6 +559,16 @@
             ]
           },
           {
+            "text": "Kannten Sie einen Felix Dunmore?",
+            "next": "felix",
+            "requires_quests_active": [
+              "case_04"
+            ],
+            "hide_if_clues": [
+              "agnes_felix"
+            ]
+          },
+          {
             "text": "Mein Beileid."
           }
         ]
@@ -600,6 +610,16 @@
             ]
           },
           {
+            "text": "Kannten Sie einen Felix Dunmore?",
+            "next": "felix",
+            "requires_quests_active": [
+              "case_04"
+            ],
+            "hide_if_clues": [
+              "agnes_felix"
+            ]
+          },
+          {
             "text": "Ich lasse Sie in Ruhe."
           }
         ]
@@ -636,6 +656,17 @@
         "choices": [
           {
             "text": "Nicht mehr lange."
+          }
+        ]
+      },
+      "felix": {
+        "text": "Agnes lächelt traurig.",
+        "gives_clues": [
+          "agnes_felix"
+        ],
+        "choices": [
+          {
+            "text": "Danke, Mrs. Crane."
           }
         ]
       }

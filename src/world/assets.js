@@ -269,7 +269,7 @@ export const portraitUrl = (id) => (PORTRAITS[id] ? `${BASE}portraits/${PORTRAIT
 /** Stadtkarte: Karte → Zelle in ui/C_08_map_markers.png (13 Spalten, Zeile 2 = hervorgehoben). */
 export const MAP_MARKERS = {
   revier: 0, ashgrove: 1, ebba: 2, docks: 3, altmarkt: 4, tavern: 5, nachtmarkt: 6, warehouse: 7,
-  theater: 8, uhrturm: 9, schlachthof: 10, gaskanaele: 11, sternwarte: 12,
+  theater: 8, uhrturm: 9, schlachthof: 10, gaskanaele: 11, sternwarte: 12, nordtor: 9,
 };
 export const MAP_MARKERS_URL = `${BASE}ui/C_08_map_markers.png`;
 /** Notizbuch: Status → Zelle in ui/C_07_log_markers.png. */
@@ -359,6 +359,7 @@ export const ENCOUNTER_SHEETS = {
   // Bonusgegner (Begegnungen kommen mit Fall 4)
   kanalkroete: 'enemy_kanalkroete', uhrwerkwaechter: 'enemy_uhrwerkwaechter', maskenspieler: 'enemy_maskenspieler',
   schlachtergehilfe: 'enemy_schlachtergehilfe', gasgeist: 'enemy_gasgeist',
+  felix_fight: 'enemy_chorfanatiker', // bis es ein eigenes Felix-Sheet gibt
 };
 
 /** Gegner-Sprite aus encounters.json → Kampf-Sheet (Rückfall für Begegnungen ohne eigenen Eintrag). */

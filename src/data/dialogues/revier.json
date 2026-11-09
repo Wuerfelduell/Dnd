@@ -27,16 +27,52 @@
         ]
       },
       {
+        "node": "brief_04",
+        "requires_flags": [
+          "case_03_closed",
+          "epilogue3_seen"
+        ],
+        "hide_if_flags": [
+          "briefed_04"
+        ]
+      },
+      {
+        "node": "epilogue4",
+        "requires_flags": [
+          "case_04_closed",
+          "felix_arrested"
+        ],
+        "hide_if_flags": [
+          "epilogue4_seen"
+        ]
+      },
+      {
+        "node": "epilogue4_bad",
+        "requires_flags": [
+          "case_04_closed",
+          "c4_wrong"
+        ],
+        "hide_if_flags": [
+          "epilogue4_seen"
+        ]
+      },
+      {
         "node": "epilogue3",
         "requires_flags": [
           "case_03_closed",
           "rook_arrested"
+        ],
+        "hide_if_flags": [
+          "briefed_04"
         ]
       },
       {
         "node": "epilogue3_bad",
         "requires_flags": [
           "case_03_closed"
+        ],
+        "hide_if_flags": [
+          "briefed_04"
         ]
       },
       {
@@ -213,6 +249,16 @@
             ],
             "hide_if_flags": [
               "barnaby_free"
+            ]
+          },
+          {
+            "text": "Ich weiß, wer die Stimmen stiehlt.",
+            "next": "accuse4",
+            "requires_quests_active": [
+              "case_04"
+            ],
+            "hide_if_flags": [
+              "case_04_showdown"
             ]
           },
           {
@@ -418,6 +464,9 @@
             "text": "Gute Nacht, Inspektorin.",
             "next": "hub_end"
           }
+        ],
+        "sets_flags": [
+          "epilogue3_seen"
         ]
       },
       "hub_end": {
@@ -520,6 +569,153 @@
           {
             "text": "Ich werde es beweisen.",
             "next": "hub_end"
+          }
+        ],
+        "sets_flags": [
+          "epilogue3_seen"
+        ]
+      },
+      "brief_04": {
+        "text": "Gut, dass Sie da sind. Lesen Sie das.\n\nMadame Odile Varenne, die Diva des Lumen-Theaters am Nordtor, hat mitten im zweiten Akt ihre Stimme verloren. Einfach so. Und in derselben Nacht ist die Turmuhr am Nordtor auf 3:33 stehen geblieben. Seitdem schlägt sie nachts drei Töne.\n\nPrice hat schon einen Verdächtigen, den stummen Maskenmacher. Mir ist das zu bequem. Drei Töne, Ermittler. Sie wissen, wessen Lied das ist.",
+        "sets_flags": [
+          "briefed_04",
+          "travel_nordtor",
+          "travel_sternwarte"
+        ],
+        "start_quests": [
+          "case_04"
+        ],
+        "gives_clues": [
+          "police_mask"
+        ],
+        "choices": [
+          {
+            "text": "Ich fahre zum Nordtor.",
+            "next": "hub"
+          }
+        ]
+      },
+      "epilogue4": {
+        "text": "Felix Dunmore sitzt unten in der Zelle und summt. Fenwick sagt, er wird nie wieder singen können. Ich weiß nicht, ob das eine Strafe ist oder eine Gnade.\n\nUnd die Glocke im Turm ... Price schwört, er hat sie von selbst schlagen hören. Vey ist noch da draußen, und sie hat jetzt, was sie wollte.\n\n(Ende von Fall 4. Fall 5 folgt.)",
+        "sets_flags": [
+          "epilogue4_seen"
+        ],
+        "choices": [
+          {
+            "text": "Wie stehe ich im Revier?",
+            "next": "standing"
+          },
+          {
+            "text": "Wir finden sie.",
+            "next": "hub"
+          }
+        ]
+      },
+      "epilogue4_bad": {
+        "text": "Pell ist wieder frei. Er hat mir auf seiner Tafel geschrieben, dass er Ihnen verzeiht. Ich weiß nicht, ob ich das kann.\n\nDie Turmuhr singt jede Nacht. Und jede Woche verliert eine Sängerin ihre Stimme.\n\n(Ende von Fall 4. Fall 5 folgt.)",
+        "sets_flags": [
+          "epilogue4_seen"
+        ],
+        "choices": [
+          {
+            "text": "Wie stehe ich im Revier?",
+            "next": "standing"
+          },
+          {
+            "text": "Es tut mir leid.",
+            "next": "hub"
+          }
+        ]
+      },
+      "accuse4": {
+        "text": "Marlowe legt den Füller weg. „Wer?“",
+        "choices": [
+          {
+            "text": "Der Maskenmacher Jonas Pell.",
+            "next": "end_pell"
+          },
+          {
+            "text": "Der Souffleur Felix Dunmore. Er bringt die Stimmen durch den alten Gaskanal in den Uhrturm.",
+            "next": [
+              {
+                "node": "showdown4",
+                "requires_certain": [
+                  "felix_thief",
+                  "tower_lair"
+                ]
+              },
+              {
+                "node": "unsure4"
+              }
+            ],
+            "requires_conclusions": [
+              "felix_thief",
+              "tower_lair"
+            ]
+          },
+          {
+            "text": "Der Souffleur Felix Dunmore. Wo er die Stimmen versteckt, weiß ich nicht.",
+            "next": "early4",
+            "requires_conclusions": [
+              "felix_thief"
+            ]
+          },
+          {
+            "text": "Noch nicht.",
+            "next": "hub"
+          }
+        ]
+      },
+      "end_pell": {
+        "text": "Marlowe nickt langsam. „Price wird zufrieden sein.“",
+        "ending": "c4_mask",
+        "choices": [
+          {
+            "text": "…"
+          }
+        ]
+      },
+      "unsure4": {
+        "text": "„Das klingt gut. Aber es klingt auch nach einer Geschichte.“ Marlowe tippt auf Ihre Notizen. „Bringen Sie mir für beides eine zweite Quelle, dann schicke ich Price mit.“",
+        "choices": [
+          {
+            "text": "Ich hole sie.",
+            "next": "hub"
+          }
+        ]
+      },
+      "early4": {
+        "text": "„Dann verhaften wir einen Souffleur und hoffen, dass er redet.“ Marlowe greift nach der Klingel für Price. „Sind Sie sicher, dass Sie nicht weitersuchen wollen?“",
+        "choices": [
+          {
+            "text": "Verhaften Sie ihn.",
+            "next": "early4_go"
+          },
+          {
+            "text": "Ich suche weiter.",
+            "next": "hub"
+          }
+        ]
+      },
+      "early4_go": {
+        "text": "Marlowe klingelt.",
+        "ending": "c4_early",
+        "choices": [
+          {
+            "text": "…"
+          }
+        ]
+      },
+      "showdown4": {
+        "text": "Marlowe steht auf und nimmt ihren Mantel vom Haken. „Um 3:33 schlägt die Uhr. Dann wird er dort sein, wo die Stimmen sind.“\n\n„Price sperrt das Theater ab. Sie gehen durch den Turm hinauf. Und Ermittler: Holen Sie die Stimmen zurück, wenn Sie können. Nicht nur den Mann.“",
+        "sets_flags": [
+          "case_04_showdown"
+        ],
+        "honor": 3,
+        "honor_reason": "Den Stimmendieb enttarnt",
+        "choices": [
+          {
+            "text": "Zum Uhrturm."
           }
         ]
       }
@@ -1358,6 +1554,16 @@
             ]
           },
           {
+            "text": "Haben Sie Madame Varenne untersucht?",
+            "next": "throat",
+            "requires_quests_active": [
+              "case_04"
+            ],
+            "hide_if_clues": [
+              "fenwick_throat"
+            ]
+          },
+          {
             "text": "Auf Wiedersehen."
           }
         ]
@@ -1395,6 +1601,18 @@
         "choices": [
           {
             "text": "Danke.",
+            "next": "start"
+          }
+        ]
+      },
+      "throat": {
+        "text": "Fenwick putzt seine Brille, obwohl sie sauber ist.",
+        "gives_clues": [
+          "fenwick_throat"
+        ],
+        "choices": [
+          {
+            "text": "Danke, Doktor.",
             "next": "start"
           }
         ]

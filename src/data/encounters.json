@@ -378,5 +378,312 @@
     "on_lose": {},
     "lose_text": "Du sitzt auf dem Pflaster vor Quills Laden. Im Spiegel steht noch immer jemand, der aussieht wie du, und wartet.",
     "win_text": "Der Schatten zerspringt in tausend kalte Funken. Im Spiegel ist nur noch die Straße. Ganz unten im Rahmen ist ein Riss, in Form eines Auges."
+  },
+  "kanalkroete": {
+    "name": "Kanalkröte",
+    "sprite": "rats",
+    "fleeable": true,
+    "hp": 36,
+    "intro": "Das Wasser in der Kammer wölbt sich. Eine Kröte, groß wie ein Kutschpferd, schiebt sich hervor. Ihre Haut glänzt giftig gelb im Licht des Leuchtmooses.",
+    "attacks": [
+      {
+        "name": "Zungenschlag",
+        "damage": 6,
+        "hits": [
+          700
+        ]
+      },
+      {
+        "name": "Giftspritzer",
+        "damage": 3,
+        "hits": [
+          600,
+          850,
+          1100
+        ]
+      },
+      {
+        "name": "Bauchplatscher",
+        "damage": 10,
+        "hits": [
+          1900
+        ]
+      }
+    ],
+    "weak_if": {
+      "requires_flags": [
+        "mott_toad_tip"
+      ]
+    },
+    "weak_text": "Mott hat gesagt: Kröten hassen trockenes Salz. Du hältst den Beutel bereit, und sie weicht zurück.",
+    "on_win": {
+      "sets_flags": [
+        "toad_defeated"
+      ],
+      "gives_items": {
+        "kroetenschleim": 2
+      }
+    },
+    "on_lose": {},
+    "lose_text": "Du wachst an der Leiter auf, voller Schleim. Mott hat dich herausgezogen. „Ich sagte doch, groß.“",
+    "lose_to": {
+      "map": "gaskanaele",
+      "spawn": "default"
+    },
+    "win_text": "Die Kröte gleitet zurück ins schwarze Wasser und taucht nicht wieder auf. Am Rand bleibt eine Schleimspur, die man gut verkaufen könnte."
+  },
+  "gasgeist": {
+    "name": "Gasgeist",
+    "sprite": "apparition",
+    "occult": true,
+    "fleeable": true,
+    "hp": 40,
+    "intro": "Aus einem lecken Rohr quillt blassgelbes Gas und formt ein Gesicht mit leeren Augen. Es singt drei Töne, und der Gang wird kalt.",
+    "attacks": [
+      {
+        "name": "Erstickender Hauch",
+        "damage": 5,
+        "hits": [
+          900,
+          1300
+        ]
+      },
+      {
+        "name": "Flackern",
+        "damage": 3,
+        "hits": [
+          500,
+          800,
+          1100,
+          1400
+        ]
+      },
+      {
+        "name": "Verpuffung",
+        "damage": 11,
+        "hits": [
+          2000
+        ]
+      }
+    ],
+    "weak_if": {
+      "requires_flags": [
+        "mott_valve_tip"
+      ]
+    },
+    "weak_text": "Mott hat dir das Ventil gezeigt. Du drehst es zu, und der Geist wird dünn und durchscheinend.",
+    "on_win": {
+      "sets_flags": [
+        "gasgeist_defeated"
+      ],
+      "gives_items": {
+        "leuchtmoos": 1
+      }
+    },
+    "on_lose": {},
+    "lose_to": {
+      "map": "gaskanaele",
+      "spawn": "default"
+    },
+    "lose_text": "Hustend kommst du an der Leiter wieder zu dir. Der Gang vor dir glimmt noch immer gelb.",
+    "win_text": "Der Geist zerfasert, und das Gas sinkt als feiner Staub zu Boden. Dahinter liegt der Gang zum Uhrturm frei."
+  },
+  "uhrwerkwaechter": {
+    "name": "Uhrwerkwächter",
+    "sprite": "warden",
+    "fleeable": true,
+    "hp": 36,
+    "intro": "Zahnräder rasseln. Eine Messingfigur in Wächteruniform dreht den Kopf mit einem Ruck zu dir. Auf ihrer Brust tickt ein Uhrwerk, und jemand hat ein Auge in das Zifferblatt geritzt.",
+    "attacks": [
+      {
+        "name": "Taktschlag",
+        "damage": 6,
+        "hits": [
+          1000
+        ]
+      },
+      {
+        "name": "Viertelstunde",
+        "damage": 4,
+        "hits": [
+          600,
+          900,
+          1200,
+          1500
+        ]
+      },
+      {
+        "name": "Volle Stunde",
+        "damage": 10,
+        "hits": [
+          2100
+        ]
+      }
+    ],
+    "weak_if": {
+      "requires_flags": [
+        "hettie_key_tip"
+      ]
+    },
+    "weak_text": "Hettie hat dir gesagt, wo der Aufzugschlüssel sitzt. Nach jedem Schlag stockt das Werk für einen Atemzug.",
+    "on_win": {
+      "sets_flags": [
+        "clockwork_stopped"
+      ],
+      "gives_items": {
+        "spinnenseide": 2
+      }
+    },
+    "on_lose": {},
+    "lose_to": {
+      "map": "uhrturm",
+      "spawn": "default"
+    },
+    "lose_text": "Du rollst die Treppe hinunter. Oben tickt der Wächter weiter, Schritt für Schritt.",
+    "win_text": "Die Feder springt mit einem Klang wie eine Saite. Der Wächter bleibt mitten im Schritt stehen. In seinem Werk hängt silbrige Spinnenseide."
+  },
+  "maskenspieler": {
+    "name": "Der Maskenspieler",
+    "sprite": "npc:maskenmacher",
+    "fleeable": false,
+    "hp": 34,
+    "intro": "Eine Gestalt mit weißer Halbmaske verbeugt sich übertrieben tief. „Applaus, Applaus! Leider muss der Herr Ermittler die Vorstellung früh verlassen.“",
+    "attacks": [
+      {
+        "name": "Degenstoß",
+        "damage": 6,
+        "hits": [
+          800
+        ]
+      },
+      {
+        "name": "Finte und Stoß",
+        "damage": 5,
+        "hits": [
+          600,
+          1400
+        ]
+      },
+      {
+        "name": "Großer Auftritt",
+        "damage": 9,
+        "hits": [
+          1800
+        ]
+      }
+    ],
+    "on_win": {
+      "sets_flags": [
+        "crabb_caught"
+      ],
+      "gives_items": {
+        "pells_maske": 1
+      },
+      "honor": 2,
+      "honor_reason": "Den Maskenspieler gestellt"
+    },
+    "on_lose": {},
+    "lose_text": "Der Maskenspieler tippt dir mit dem Degen an die Nase und verschwindet hinter dem Vorhang. Das Publikum, das es nicht gibt, klatscht.",
+    "win_text": "Die Maske fällt. Darunter ein rotes, verschwitztes Gesicht: Lionel Crabb. „Ich war gut, oder? Sagen Sie, dass ich gut war.“"
+  },
+  "schlachtergehilfe": {
+    "name": "Knox, der Schlachtergehilfe",
+    "sprite": "npc:schlachtermeister",
+    "fleeable": false,
+    "hp": 40,
+    "intro": "Knox wischt die Hände an der Schürze ab und greift nach einem Fleischerhaken. „Der Meister hätte dem Jungen geglaubt. Jetzt muss ich mir was überlegen.“",
+    "attacks": [
+      {
+        "name": "Hakenschwung",
+        "damage": 7,
+        "hits": [
+          1000
+        ]
+      },
+      {
+        "name": "Rempeln",
+        "damage": 4,
+        "hits": [
+          600,
+          950
+        ]
+      },
+      {
+        "name": "Fassstoß",
+        "damage": 10,
+        "hits": [
+          1900
+        ]
+      }
+    ],
+    "on_win": {
+      "sets_flags": [
+        "knox_caught"
+      ],
+      "honor": 2,
+      "honor_reason": "Einen Dieb gestellt"
+    },
+    "on_lose": {},
+    "lose_text": "Du liegst zwischen den Salzfässern. Knox ist fort, sein Karren auch. Finn hält dir einen Eimer Wasser hin.",
+    "win_text": "Knox sitzt im Sägemehl und hält sich den Arm. Bram steht in der Tür und sagt kein Wort. Das ist schlimmer als jedes Geschrei."
+  },
+  "felix_fight": {
+    "name": "Felix Dunmore",
+    "sprite": "npc:souffleur",
+    "occult": true,
+    "fleeable": false,
+    "hp": 42,
+    "intro": "Felix steht zwischen den Zahnrädern, umgeben von Phiolen voller Licht. Als er den Mund öffnet, singt nicht er, sondern ein Dutzend fremder Stimmen zugleich.",
+    "attacks": [
+      {
+        "name": "Fremde Arie",
+        "damage": 6,
+        "hits": [
+          900,
+          1500
+        ]
+      },
+      {
+        "name": "Chor",
+        "damage": 4,
+        "hits": [
+          600,
+          850,
+          1100,
+          1350
+        ]
+      },
+      {
+        "name": "Der hohe Ton",
+        "damage": 12,
+        "hits": [
+          2100
+        ]
+      },
+      {
+        "name": "Souffliert",
+        "damage": 7,
+        "hits": [
+          700
+        ]
+      }
+    ],
+    "weak_if": {
+      "requires_certain": [
+        "vials_choir"
+      ]
+    },
+    "weak_text": "Du weißt, wie die Phiolen funktionieren. Du hältst den Takt der Uhr gegen seinen Gesang, und die fremden Stimmen geraten durcheinander.",
+    "on_win": {
+      "sets_flags": [
+        "felix_beaten"
+      ]
+    },
+    "lose_to": {
+      "map": "uhrturm",
+      "spawn": "default"
+    },
+    "lose_text": "Die Stimmen drücken dich zu Boden, bis du nichts mehr hörst. Du wachst am Fuß der Treppe auf. Oben singt es noch.",
+    "win_text": "Felix sinkt gegen ein Zahnrad. Die fremden Stimmen verstummen, nur seine eigene bleibt, brüchig und klein. „Sie hat mich nie gehört“, flüstert er. „Kein einziges Mal.“"
   }
 }

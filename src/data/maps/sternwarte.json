@@ -1,0 +1,92 @@
+{
+  "id": "sternwarte",
+  "name": "Sternwarte am Krater",
+  "ambient": {
+    "night": 0.8,
+    "fog": 0.1
+  },
+  "spawns": {
+    "default": [
+      8,
+      11
+    ]
+  },
+  "lights": [
+    {
+      "tile": [
+        8,
+        3
+      ],
+      "radius": 70,
+      "intensity": 0.45,
+      "color": "#8a9ad8",
+      "glow": 0.18
+    }
+  ],
+  "rows": [
+    "IIIIIIIIIIIIIIIIII",
+    "IIIIIIIIIIIIIIIIII",
+    "IOwwwwwwwwwwwwwwOI",
+    "IwBBBwwwwwwwwTTTwI",
+    "IwwwwwwwCCwwwwwwwI",
+    "IwwwwwwwCCwwwwwwwI",
+    "IwwwwwwwwwwwwwwwwI",
+    "IwwwwwwwwwwwwwwwwI",
+    "IwwwwwwwwwwwwwwwwI",
+    "IwBwwwwwwwwwwwwwwI",
+    "IwBwwwwwwwwwwwwwwI",
+    "IwwwwwwwwwwwwwwKwI",
+    "IwwwwwwwwwwwwwwwwI",
+    "IIIIIIIIEEIIIIIIII"
+  ],
+  "interactables": [
+    {
+      "id": "exit",
+      "kind": "travel",
+      "tile": [
+        8,
+        12
+      ],
+      "prompt": "Stadtkarte öffnen",
+      "marker": false,
+      "reach": 24
+    },
+    {
+      "id": "scope",
+      "kind": "read",
+      "tile": [
+        10,
+        6
+      ],
+      "prompt": "Durch das Teleskop schauen",
+      "marker": false,
+      "title": "Teleskop",
+      "text": "Das Teleskop zeigt nicht zum Himmel, sondern auf die Stadt. Im Okular: der Uhrturm am Nordtor. Hinter dem Zifferblatt treiben kleine, kalte Lichter, wie Glühwürmchen in einem Glas.",
+      "done_flag": "read_scope"
+    },
+    {
+      "id": "charts",
+      "kind": "read",
+      "tile": [
+        5,
+        3
+      ],
+      "sprite": "paper",
+      "prompt": "Sternkarten ansehen",
+      "title": "Sternkarten",
+      "text": "Starling hat einen Stern rot eingekreist, auf jeder Karte ein Stück weiter im Zentrum. Daneben in winziger Schrift: „Kommt näher. Warum?“",
+      "done_flag": "read_charts"
+    }
+  ],
+  "npcs": [
+    {
+      "id": "astronom",
+      "tile": [
+        12,
+        7
+      ],
+      "facing": "left"
+    }
+  ],
+  "tiles": "sternwarte"
+}

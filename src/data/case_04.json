@@ -1,0 +1,315 @@
+{
+  "facts": {
+    "voice_stolen": {
+      "case": "case_04",
+      "text": "Madame Varenne ist nicht krank. Jemand hat ihr die Stimme genommen."
+    },
+    "mask_maker": {
+      "case": "case_04",
+      "text": "Der Maskenmacher Jonas Pell hat Madame Varenne vergiftet.",
+      "refuted_by": [
+        "hettie_alibi"
+      ],
+      "refuted_if_likely": [
+        "felix_choir"
+      ]
+    },
+    "felix_choir": {
+      "case": "case_04",
+      "text": "Der Souffleur Felix Dunmore sang früher in Veys Chor."
+    },
+    "tunnel_route": {
+      "case": "case_04",
+      "text": "Ein alter Gaskanal verbindet die Bühne des Theaters mit dem Uhrturm."
+    },
+    "tower_tones": {
+      "case": "case_04",
+      "text": "Das Schlagwerk der Turmuhr wurde auf Veys drei Töne umgestimmt."
+    },
+    "glass_vials": {
+      "case": "case_04",
+      "text": "Die gestohlenen Stimmen werden in Phiolen aus Sternglas eingeschlossen."
+    },
+    "finn_masks": {
+      "case": "side",
+      "text": "Der Schlachterlehrling Finn ist der Maskenspieler, der im Theater Gäste bestiehlt.",
+      "refuted_if_likely": [
+        "crabb_masks"
+      ]
+    },
+    "crabb_masks": {
+      "case": "side",
+      "text": "Der entlassene Schauspieler Lionel Crabb trägt Pells gestohlene Maske und bestiehlt die Gäste."
+    },
+    "finn_steals": {
+      "case": "side",
+      "text": "Finn stiehlt nachts das Ochsenblut aus dem Schlachthof.",
+      "refuted_if_likely": [
+        "knox_steals"
+      ]
+    },
+    "knox_steals": {
+      "case": "side",
+      "text": "Der Schlachtergehilfe Knox verkauft das Ochsenblut heimlich an den Nachtmarkt."
+    }
+  },
+  "clues": {
+    "police_mask": {
+      "fact": "mask_maker",
+      "source": "Polizeibericht (Price)",
+      "name": "Bericht über den Maskenmacher",
+      "text": "„Der Maskenmacher Pell war am Abend in der Garderobe. Er spricht nicht, trägt immer eine Maske und hantiert mit Gips und Lacken. Vermutlich Gift im Puder. Festnahme empfohlen.“"
+    },
+    "hettie_alibi": {
+      "fact": "mask_maker",
+      "source": "Meisterin Hettie Brass",
+      "name": "Pells Nacht in der Werkstatt",
+      "text": "„Jonas war die ganze Nacht bei mir oben im Turm. Wir haben das Gesicht der Turmfigur neu gegossen. Er geht erst, wenn die Glocke sechs schlägt, das weiß jeder.“"
+    },
+    "fenwick_throat": {
+      "fact": "voice_stolen",
+      "source": "Dr. Fenwick",
+      "name": "Kalte Kehle",
+      "text": "„Keine Entzündung, kein Gift, nichts. Ihre Kehle ist kalt wie bei einer Toten, aber sie lebt. Ich habe so etwas einmal gesehen: bei den Sängern aus Lagerhaus 7.“"
+    },
+    "diva_singing": {
+      "fact": "voice_stolen",
+      "source": "Madame Varenne",
+      "name": "Die eigene Stimme",
+      "text": "Sie schreibt mit zitternder Hand auf ihren Block: „Ich höre mich selbst singen. Nachts. Unter der Bühne. Es ist meine Arie, aber ich singe sie nicht.“"
+    },
+    "mirror_frost": {
+      "fact": "voice_stolen",
+      "source": "Eigene Beobachtung",
+      "name": "Bereifter Schminkspiegel",
+      "text": "Der Schminkspiegel der Diva ist von innen bereift. In den Reif ist mit dem Finger ein Auge im Kreis gezeichnet, von hinten, als hätte jemand im Spiegel gestanden."
+    },
+    "agnes_felix": {
+      "fact": "felix_choir",
+      "source": "Agnes Crane",
+      "name": "Der kleine Felix",
+      "text": "„Felix Dunmore? Die schönste Knabenstimme, die St. Ebba je hatte. Dann kam der Stimmbruch, und Miriam hat ihn nicht mehr angesehen. Er hat ihr die Noten getragen, jahrelang. Nur damit sie ihn bemerkt.“"
+    },
+    "prompter_box": {
+      "fact": "felix_choir",
+      "source": "Eigene Beobachtung",
+      "name": "Im Souffleurkasten",
+      "text": "Unter dem Textbuch im Souffleurkasten liegt ein altes Notenblatt von St. Ebba. Am Rand ein Auge im Kreis und eine Liste mit Namen von Sängerinnen. „O. Varenne“ ist sauber durchgestrichen."
+    },
+    "diva_felix": {
+      "fact": "felix_choir",
+      "source": "Madame Varenne",
+      "name": "Felix singt mit",
+      "text": "Sie schreibt: „Felix flüstert die Texte so schön. Manchmal summt er mit, ganz leise. Eine alte Kirchenmelodie, drei Töne. Ich habe ihn ausgelacht.“"
+    },
+    "trapdoor_marks": {
+      "fact": "tunnel_route",
+      "source": "Eigene Beobachtung",
+      "name": "Die Falltür unter der Bühne",
+      "text": "Unter dem Bühnenboden ist eine Falltür mit frischen Schleifspuren. Darunter riecht es nach altem Gas, und ganz leise hört man das Ticken einer großen Uhr."
+    },
+    "mott_plan": {
+      "fact": "tunnel_route",
+      "source": "Mott Gale",
+      "name": "Alter Kanalplan",
+      "text": "„Der alte Hauptstrang läuft vom Uhrturm unter dem Platz durch bis zum Theater. Den hat man vor dreißig Jahren zugemauert. Zugemauert! Und letzte Woche war die Mauer offen.“"
+    },
+    "ezra_tones": {
+      "fact": "tower_tones",
+      "source": "Ezra",
+      "name": "Drei Töne um 3:33",
+      "text": "Ezra zieht die Watte aus einem Ohr. „Die Glocke schlägt nachts falsch. Drei Töne statt der Stunde. Immer um 3:33. Ich hab die Watte drin, seit die Uhr so singt.“"
+    },
+    "hettie_gears": {
+      "fact": "tower_tones",
+      "source": "Meisterin Hettie Brass",
+      "name": "Verstellte Hämmer",
+      "text": "„Jemand hat die Schlaghämmer neu gefeilt und versetzt. Saubere Arbeit, ein Musiker, kein Uhrmacher. Die Uhr spielt jetzt kein Viertel mehr, sondern eine Melodie.“"
+    },
+    "tower_vial": {
+      "fact": "glass_vials",
+      "source": "Eigene Beobachtung",
+      "name": "Summende Phiole",
+      "text": "Zwischen den Zahnrädern steckt eine gesprungene Phiole aus dunklem Glas, in dem winzige Lichter treiben. Hältst du sie ans Ohr, hörst du eine Frau Tonleitern singen."
+    },
+    "starling_glass": {
+      "fact": "glass_vials",
+      "source": "Professor Starling",
+      "name": "Sternglas hält fest",
+      "text": "„Sternglas hält Licht fest. Und Licht ist nur eine Art von Schwingung, nicht wahr? Wer es fein genug schleift, kann darin auch einen Klang einschließen. Eine Stimme zum Beispiel. Theoretisch.“"
+    },
+    "police_finn": {
+      "fact": "finn_masks",
+      "source": "Polizeibericht (Price)",
+      "name": "Finn mit Maske gesehen",
+      "text": "„Ein Junge mit Schlachterschürze wurde nachts mit einer weißen Maske am Theater gesehen. Vermutlich der Lehrling vom Schlachthof. Kleine Diebstähle im Foyer.“"
+    },
+    "diva_crabb": {
+      "fact": "crabb_masks",
+      "source": "Madame Varenne",
+      "name": "Der entlassene Crabb",
+      "text": "Sie schreibt: „Lionel Crabb. Ich habe ihn rauswerfen lassen, weil er trank. Er hat geschworen, er kommt zurück, mit einem Gesicht, das keiner kennt.“"
+    },
+    "rack_coat": {
+      "fact": "crabb_masks",
+      "source": "Eigene Beobachtung",
+      "name": "Mantel am Kostümständer",
+      "text": "Im Futter eines Mantels am Kostümständer steckt eine Theaterkarte auf den Namen L. Crabb. Der Mantel ist voller weißem Porzellanstaub, wie in Pells Werkstatt."
+    },
+    "finn_mask": {
+      "fact": "crabb_masks",
+      "source": "Finn",
+      "name": "Die geschenkte Maske",
+      "text": "„Ein Mann hat mir die Maske geschenkt, damit ich nichts sage. Er hatte eine Schauspielerstimme, ganz tief. Ich hab sie nur einmal aufgesetzt, ehrlich!“"
+    },
+    "bram_finn": {
+      "fact": "finn_steals",
+      "source": "Bram Okes",
+      "name": "Brams Verdacht",
+      "text": "Bram sagt nicht viel. „Fässer weg. Nachts. Finn hat den Schlüssel.“ Dann schweigt er wieder."
+    },
+    "finn_knox": {
+      "fact": "knox_steals",
+      "source": "Finn",
+      "name": "Nachts am Tor",
+      "text": "„Knox lädt nachts Fässer auf einen Karren, ich hab’s gesehen. Er hat gesagt, wenn ich was sage, hänge ich als Nächstes am Haken. Bitte sagen Sie’s nicht dem Meister.“"
+    },
+    "knox_slip": {
+      "fact": "knox_steals",
+      "source": "Eigene Beobachtung",
+      "name": "Lieferzettel im Salzfass",
+      "text": "Zwischen den Salzbrocken steckt ein Lieferzettel: „6 Fass Ochsenblut, Krähenbrücke, Abholung Mittwoch. K.“ Die Krähenbrücke: dort liegt der Nachtmarkt."
+    }
+  },
+  "deductions": [
+    {
+      "id": "felix_thief",
+      "case": "case_04",
+      "honor": 4,
+      "pairs": [
+        [
+          "voice_stolen",
+          "felix_choir"
+        ]
+      ],
+      "name": "Felix stiehlt die Stimmen",
+      "text": "Die Stimmen werden genommen, nicht krank. Und der Souffleur war einst Veys Chorknabe. Er sammelt Stimmen für sie."
+    },
+    {
+      "id": "tower_lair",
+      "case": "case_04",
+      "honor": 4,
+      "pairs": [
+        [
+          "tunnel_route",
+          "tower_tones"
+        ],
+        [
+          "tunnel_route",
+          "glass_vials"
+        ]
+      ],
+      "name": "Die Stimmen wandern in den Uhrturm",
+      "text": "Durch den alten Gaskanal gelangt man ungesehen von der Bühne in den Uhrturm. Dort singt die Uhr jetzt Veys Melodie."
+    },
+    {
+      "id": "vials_choir",
+      "case": "case_04",
+      "honor": 3,
+      "pairs": [
+        [
+          "glass_vials",
+          "tower_tones"
+        ]
+      ],
+      "name": "Ein Chor aus Glas",
+      "text": "Die Turmuhr soll die gefangenen Stimmen alle zugleich zum Klingen bringen. Öffnet man die Phiolen nacheinander, im Takt der Uhr, findet jede Stimme heim."
+    },
+    {
+      "id": "pell_guilty",
+      "case": "case_04",
+      "honor": 0,
+      "pairs": [
+        [
+          "voice_stolen",
+          "mask_maker"
+        ]
+      ],
+      "name": "Pell hat die Diva vergiftet",
+      "text": "Der stumme Maskenmacher war in der Garderobe und hat ihr etwas in den Puder gemischt."
+    },
+    {
+      "id": "finn_scapegoat",
+      "case": "side",
+      "honor": 2,
+      "pairs": [
+        [
+          "crabb_masks",
+          "knox_steals"
+        ]
+      ],
+      "name": "Immer ist es Finn",
+      "text": "Zweimal haben Erwachsene ihre Taten auf den Lehrling geschoben, weil ihm sowieso keiner glaubt."
+    }
+  ],
+  "endings": {
+    "c4_perfect": {
+      "case": "case_04",
+      "title": "Die Stimmen kehren heim",
+      "honor": 30,
+      "sets_flags": [
+        "case_04_closed",
+        "felix_arrested",
+        "voices_returned"
+      ],
+      "complete_quests": [
+        "case_04"
+      ],
+      "gives_money": 40,
+      "text": "Du öffnest die Phiolen eine nach der anderen, genau wenn die Uhr schlägt. Jede Stimme steigt als kleines Licht auf und zieht über die Dächer davon.\n\nAm nächsten Abend singt Madame Varenne wieder. Felix sitzt in einer Zelle und summt, aber es klingt nur noch nach einem müden Mann.\n\nUnd ganz oben im Turm, als alle gegangen sind, schlägt die Glocke einmal von selbst. Darin eine Frauenstimme, kalt und ruhig: „Danke, Felix. Das genügt.“"
+    },
+    "c4_good": {
+      "case": "case_04",
+      "title": "Ein Chor aus Splittern",
+      "honor": 18,
+      "sets_flags": [
+        "case_04_closed",
+        "felix_arrested"
+      ],
+      "complete_quests": [
+        "case_04"
+      ],
+      "gives_money": 25,
+      "text": "Die Phiolen zerspringen auf den Dielen. Ein Wirbel aus Stimmen fegt durch den Turm, lacht, weint, singt durcheinander, dann ist es still.\n\nManche Sängerinnen finden ihre Stimme wieder, andere nur ein Krächzen. Madame Varenne flüstert seitdem. Felix wird abgeführt.\n\nIn der Nacht schlägt die Glocke einmal von selbst, ohne dass jemand am Seil zieht."
+    },
+    "c4_early": {
+      "case": "case_04",
+      "title": "Ein Souffleur in Ketten",
+      "honor": 10,
+      "sets_flags": [
+        "case_04_closed",
+        "felix_arrested",
+        "voices_lost"
+      ],
+      "complete_quests": [
+        "case_04"
+      ],
+      "gives_money": 15,
+      "text": "Price verhaftet Felix noch im Souffleurkasten. Er lächelt die ganze Zeit und sagt kein Wort.\n\nAls die Constables später den Turm durchsuchen, finden sie nur ein leeres Regal und Glasstaub. Die Stimmen bleiben verschwunden. Um 3:33 schlägt die Uhr weiter drei Töne."
+    },
+    "c4_mask": {
+      "case": "case_04",
+      "title": "Die falsche Maske",
+      "honor": -12,
+      "sets_flags": [
+        "case_04_closed",
+        "pell_arrested",
+        "c4_wrong"
+      ],
+      "complete_quests": [
+        "case_04"
+      ],
+      "text": "Jonas Pell lässt sich wortlos abführen. Unter seiner Maske ist nur ein vernarbtes, freundliches Gesicht.\n\nEine Woche später verliert die nächste Sängerin ihre Stimme. Um 3:33 singt die Turmuhr, und im Revier schaut Marlowe dich nicht mehr an."
+    }
+  }
+}

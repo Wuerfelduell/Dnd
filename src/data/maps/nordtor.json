@@ -1,0 +1,235 @@
+{
+  "id": "nordtor",
+  "name": "Nordtor-Viertel",
+  "ambient": {
+    "night": 0.86,
+    "fog": 0.45
+  },
+  "spawns": {
+    "default": [
+      1,
+      7
+    ],
+    "theater": [
+      12,
+      3
+    ],
+    "uhrturm": [
+      33,
+      3
+    ],
+    "schlachthof": [
+      53,
+      3
+    ],
+    "kanal": [
+      41,
+      21
+    ]
+  },
+  "rows": [
+    "RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR",
+    "###WW##WW##WW##WW##WW##RRRR##WW#WW#WW###RRR##WW##WW##WW##WW##WW#",
+    "############D##########RRRR######D######RRR##########D##########",
+    ",,,,L,,,,,,,,,,,,,,,L,,,,,,,L,,,,,,,,,L,,,,,,,L,,,,,,,,,,,,,L,,,",
+    "................................................................",
+    "................................................................",
+    "................................................................",
+    "................................................................",
+    "................................................................",
+    "................................................................",
+    "................................................................",
+    ",,,,,,,,,,L,,,,,,,,,,,,,,,,,,,L,,,,,,,,,,,,,,,,,,,L,,,,,,,,,,,,,",
+    "ffffffffffffffffffffffffffffff====ffffffffffffffffffffffffffffff",
+    "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~====~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~",
+    "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~====~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~",
+    "ffffffffffffffffffffffffffffff====ffffffffffffffffffffffffffffff",
+    ",,,,,,,,,,,,,,L,,,,,,,,,,,,,,,,,,,,,,,,,,,,,L,,,,,,,,,,,,,,,,,,,",
+    "................................................................",
+    "...ggggg..............................................ggggg.....",
+    "...ggYgg..........CCCC........................VV......ggYgg.....",
+    "...ggggg..........V..V................................ggggg.....",
+    "................................................................",
+    "...ggggg..............................................ggggg.....",
+    "...ggYgg..............................................ggYgg.....",
+    "...ggggg..............................................ggggg.....",
+    ",,,,,,,,L,,,,,,,,,,,,,,,L,,,,,,,,,,,,,,,L,,,,,,,,,,,,,,,L,,,,,,,",
+    "######D#############D###############D#############D#############",
+    "###WW###WW###WW###WW###WW###WW###WW###WW###WW###WW###WW###WW####",
+    "RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR",
+    "RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR"
+  ],
+  "interactables": [
+    {
+      "id": "exit",
+      "kind": "travel",
+      "tile": [
+        0,
+        7
+      ],
+      "prompt": "Stadtkarte öffnen",
+      "marker": false,
+      "reach": 20
+    },
+    {
+      "id": "theater_door",
+      "kind": "door",
+      "to": "theater",
+      "spawn": "default",
+      "tile": [
+        12,
+        2
+      ],
+      "prompt": "Ins Lumen-Theater",
+      "marker": true
+    },
+    {
+      "id": "tower_door",
+      "kind": "door",
+      "to": "uhrturm",
+      "spawn": "default",
+      "tile": [
+        33,
+        2
+      ],
+      "prompt": "In den Uhrturm",
+      "marker": true
+    },
+    {
+      "id": "slaughter_door",
+      "kind": "door",
+      "to": "schlachthof",
+      "spawn": "default",
+      "tile": [
+        53,
+        2
+      ],
+      "prompt": "In den Schlachthof",
+      "marker": true
+    },
+    {
+      "id": "manhole",
+      "kind": "door",
+      "to": "gaskanaele",
+      "spawn": "default",
+      "tile": [
+        40,
+        21
+      ],
+      "sprite": "stairs",
+      "prompt": "In die alten Gaskanäle steigen",
+      "marker": true
+    },
+    {
+      "id": "playbill",
+      "kind": "read",
+      "tile": [
+        8,
+        4
+      ],
+      "sprite": "paper",
+      "prompt": "Theaterplakat lesen",
+      "title": "Plakat am Lumen-Theater",
+      "text": "„Heute: Die Nachtigall von Kettlegate. Mit Madame Odile Varenne.“\n\nQuer darüber klebt ein Zettel: „Vorstellung fällt bis auf Weiteres aus.“ Jemand hat in die Ecke drei kleine Noten gezeichnet.",
+      "done_flag": "read_playbill"
+    },
+    {
+      "id": "clockface",
+      "kind": "read",
+      "tile": [
+        31,
+        4
+      ],
+      "prompt": "Zur Turmuhr hinaufsehen",
+      "marker": false,
+      "title": "Turmuhr am Nordtor",
+      "text": "Die Zeiger stehen auf 3:33. Das Zifferblatt ist von innen beleuchtet, obwohl seit Tagen keiner die Lampen angezündet hat. Ab und zu bewegt sich dahinter ein Schatten."
+    }
+  ],
+  "npcs": [
+    {
+      "id": "turmwaechter",
+      "tile": [
+        35,
+        5
+      ],
+      "facing": "down"
+    },
+    {
+      "id": "gaswerker",
+      "tile": [
+        42,
+        21
+      ],
+      "facing": "left"
+    },
+    {
+      "id": "lehrling",
+      "tile": [
+        50,
+        5
+      ],
+      "facing": "down",
+      "visible_if": {
+        "hide_if_flags": [
+          "finn_fired"
+        ]
+      }
+    },
+    {
+      "id": "pip",
+      "tile": [
+        16,
+        6
+      ],
+      "facing": "down"
+    }
+  ],
+  "weather": "rain_light",
+  "decor": [
+    {
+      "sprite": "creatures",
+      "anim": [
+        "creatures",
+        "pigeons"
+      ],
+      "tile": [
+        24,
+        7
+      ]
+    },
+    {
+      "sprite": "creatures",
+      "anim": [
+        "creatures",
+        "cat_walk"
+      ],
+      "tile": [
+        47,
+        22
+      ]
+    },
+    {
+      "sprite": "creatures",
+      "anim": [
+        "creatures",
+        "rat"
+      ],
+      "tile": [
+        19,
+        21
+      ]
+    },
+    {
+      "sprite": "creatures",
+      "anim": [
+        "creatures",
+        "crow_hop"
+      ],
+      "tile": [
+        36,
+        5
+      ]
+    }
+  ]
+}
