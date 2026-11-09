@@ -1,0 +1,123 @@
+{
+  "id": "tavern",
+  "name": "Zum Ertrunkenen Mond",
+  "ambient": {
+    "night": 0.7,
+    "fog": 0.08
+  },
+  "rows": [
+    "IIIIIIIIIIIIIIIIIIII",
+    "IIIIIIIIIIIIIIIIIIII",
+    "IBBBBBBwwwwwwVVVVVVI",
+    "IwwwwwwwOwwwwwwwwOwI",
+    "ITTTTTTwwwwwwwwwwwwI",
+    "IwwwwwwwwTTwwwTTwwwI",
+    "IwwwwwwwwwwwwwwwwwwI",
+    "IwwwwwwwwwwwwwwwwwwI",
+    "IwwwwwwwwTTwwwTTwwwI",
+    "IwOwwwwwwwwwwwwwwwwI",
+    "IwwwwwwwwwwwwwwwwwwI",
+    "IIIIIIIIIEEIIIIIIIII"
+  ],
+  "spawns": {
+    "default": [
+      9,
+      9
+    ]
+  },
+  "interactables": [
+    {
+      "id": "out",
+      "kind": "door",
+      "to": "ashgrove",
+      "spawn": "tavern",
+      "tile": [
+        9,
+        10
+      ],
+      "prompt": "Hinaus auf die Ashgrove Lane",
+      "marker": false,
+      "reach": 26
+    },
+    {
+      "id": "dice",
+      "clue": "dice_lead",
+      "tile": [
+        11,
+        8
+      ],
+      "sprite": "coins",
+      "prompt": "Unter den Spieltisch schauen",
+      "visible_if": {
+        "requires_quests_active": [
+          "dice"
+        ]
+      }
+    },
+    {
+      "id": "room",
+      "kind": "rest",
+      "tile": [
+        17,
+        9
+      ],
+      "sprite": "cot",
+      "prompt": "In Mauds Kammer ausruhen",
+      "marker": false,
+      "title": "Kammer über der Schankstube",
+      "text": "Das Bett ist hart, das Schloss hält. Unten singt jemand falsch, aber gut gelaunt. Als du aufwachst, ist der Nebel vor dem Fenster grau statt schwarz."
+    },
+    {
+      "id": "board",
+      "kind": "read",
+      "tile": [
+        16,
+        3
+      ],
+      "sprite": "paper",
+      "prompt": "Kreidetafel lesen",
+      "title": "Kreidetafel",
+      "text": "Gin 2 P. Bier 1 P. Gewürzwein 3 P.\n\nDarunter, in Mauds Handschrift: „Wer am Würfeltisch zankt, fliegt raus. Das gilt auch für dich, Silas.“",
+      "done_flag": "read_tavern_board"
+    }
+  ],
+  "npcs": [
+    {
+      "id": "maud",
+      "tile": [
+        3,
+        3
+      ],
+      "facing": "down",
+      "reach": 36
+    },
+    {
+      "id": "silas",
+      "tile": [
+        12,
+        5
+      ],
+      "facing": "left",
+      "visible_if": {
+        "hide_if_flags": [
+          "silas_resolved",
+          "silas_paid"
+        ]
+      }
+    },
+    {
+      "id": "tobias",
+      "tile": [
+        16,
+        6
+      ],
+      "facing": "left",
+      "dialogue": "tobias_tavern",
+      "visible_if": {
+        "requires_quests_active": [
+          "dice"
+        ]
+      }
+    }
+  ]
+}

@@ -797,6 +797,17 @@
             ]
           },
           {
+            "text": "Marktwart Grimes kassiert am Altmarkt Schutzgeld.",
+            "next": "grimes",
+            "requires_likely": [
+              "grimes_bribes"
+            ],
+            "requires_quests_active": [
+              "greta_stall"
+            ],
+            "requires_honor": 20
+          },
+          {
             "text": "Bis später."
           }
         ]
@@ -922,6 +933,24 @@
         ],
         "complete_quests": [
           "barnaby_case"
+        ]
+      },
+      "grimes": {
+        "text": "Holt liest deine Notizen zweimal. Dann steht er auf und nimmt seinen Helm vom Haken.\n\n„Grimes. Ich hab’s immer geahnt und nie beweisen können.“\n\nAm Abend hat der Altmarkt einen neuen Marktwart, und Greta bekommt ihren Stand umsonst.",
+        "sets_flags": [
+          "grimes_gone",
+          "greta_stall_open"
+        ],
+        "complete_quests": [
+          "greta_stall"
+        ],
+        "honor": 3,
+        "honor_reason": "Einen korrupten Constable gemeldet",
+        "choices": [
+          {
+            "text": "Danke, Sergeant.",
+            "next": "start"
+          }
         ]
       }
     }

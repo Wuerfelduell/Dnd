@@ -40,6 +40,15 @@ export const SHEETS = {
   newsboy: 'characters/04_newspaper_boy_walk.png',
   dockworker: 'characters/04_dock_worker_walk.png',
   cultist: 'characters/04_cultist_walk.png',
+  tavernkeeper: 'characters/04_tavern_keeper_walk.png',
+  stranger: 'characters/04_stranger_walk.png',
+  beggar: 'characters/04_beggar_walk.png',
+  antique: 'characters/04_antique_dealer_walk.png',
+  priest: 'characters/04_priest_walk.png',
+  lamplighter: 'characters/04_lamplighter_walk.png',
+  constable: 'characters/04_constable_walk.png',
+  apparition: 'characters/04_13_apparition.png',
+  auction: 'props/13_02_auction_props.png',
 };
 
 /**
@@ -64,7 +73,7 @@ export const TILE_CELLS = {
   crate: ['docks', 24, 'planks0'], barrel: ['docks', 37, 'planks1'],
 };
 
-/** Prop-Texture-Key → Ausschnitt [sheet, x, y, w, h]. Ausgabegröße = w x h. */
+/** Prop-Texture-Key → Ausschnitt [sheet, x, y, w, h, scale?]. Ausgabegröße = w x h (mal scale). */
 export const PROP_CELLS = {
   lamp_lit: ['streetProps', 16, 0, 16, 48],
   lamp_frost: ['streetProps', 64, 0, 16, 48],
@@ -77,6 +86,8 @@ export const PROP_CELLS = {
   medallion: ['clues2', 32, 0, 16, 16],
   shovel: ['clues2', 64, 0, 16, 16],
   candle: ['cryptProps', 16, 16, 16, 16],
+  mirror: ['auction', 80, 80, 32, 32],
+  apparition: ['apparition', 0, 0, 16, 32, 2], // für den Kampf auf 32x64 vergrößert
 };
 
 /** Figur → Lauf-Sheet (64x128, Zeilen: unten, links, rechts, oben – wie DIRS). */
@@ -87,6 +98,8 @@ export const CHARACTER_SHEETS = {
   npc_kit: 'kit', npc_ivy: 'ivy', npc_hester: 'hester', npc_anselm: 'anselm', npc_moll: 'moll',
   npc_miriam: 'miriam',
   npc_fenwick: 'doctor', npc_agnes: 'widow', npc_pip: 'newsboy', npc_tobias: 'dockworker', npc_cultist: 'cultist',
+  npc_maud: 'tavernkeeper', npc_silas: 'stranger', npc_ned: 'beggar', npc_quill: 'antique', npc_ambrose: 'priest',
+  npc_wick: 'lamplighter', npc_grimes: 'constable',
 };
 
 const srcKey = (sheet) => `src_${sheet}`;
@@ -121,16 +134,16 @@ export function drawTileFromSheet(scene, ctx, tileKey, dx, dy, drawFallback) {
 
 /** Legt Props und Figuren aus den PNGs unter ihren Spiel-Keys an. */
 export function createSpriteTextures(scene) {
-  for (const [key, [sheet, x, y, w, h]] of Object.entries(PROP_CELLS)) {
+  for (const [key, [sheet, x, y, w, h, scale = 1]] of Object.entries(PROP_CELLS)) {
     if (scene.textures.exists(key)) continue;
     const img = sourceOf(scene, sheet);
     if (!img) continue;
     const c = document.createElement('canvas');
-    c.width = w;
-    c.height = h;
+    c.width = w * scale;
+    c.height = h * scale;
     const ctx = c.getContext('2d');
     ctx.imageSmoothingEnabled = false;
-    ctx.drawImage(img, x, y, w, h, 0, 0, w, h);
+    ctx.drawImage(img, x, y, w, h, 0, 0, w * scale, h * scale);
     scene.textures.addCanvas(key, c);
   }
   for (const [key, sheet] of Object.entries(CHARACTER_SHEETS)) {

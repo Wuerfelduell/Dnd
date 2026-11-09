@@ -7,6 +7,10 @@ import encounters from './encounters.json';
 import case01 from './case_01.json';
 import case02 from './case_02.json';
 import case03 from './case_03.json';
+import caseAltmarkt from './case_altmarkt.json';
+import altmarkt from './maps/altmarkt.json';
+import tavern from './maps/tavern.json';
+import dAltmarkt from './dialogues/altmarkt.json';
 import docks from './maps/docks.json';
 import warehouse from './maps/warehouse.json';
 import dHafen from './dialogues/hafen.json';
@@ -23,7 +27,7 @@ export const content = buildContent({
   quests,
   items,
   encounters,
-  cases: [case01, case02, case03],
-  maps: [revier, ashgrove, ebba, crypt, docks, warehouse],
-  dialogues: [dRevier, dAshgrove, dEbba, dHafen],
+  cases: [case01, case02, case03, caseAltmarkt],
+  maps: [revier, ashgrove, ebba, crypt, docks, warehouse, altmarkt, tavern],
+  dialogues: [dRevier, dAshgrove, dEbba, dHafen, dAltmarkt],
 });

@@ -287,5 +287,96 @@
     },
     "lose_text": "Ein Schlag gegen die Schläfe, dann Kälte. Price hat dich aus dem Lagerhaus gezogen. „Rook ist noch drin. Wir müssen zurück.“",
     "win_text": "Rook lässt den Schlagstock fallen und sinkt gegen die Kisten. Hinter dem Altar raschelt ein grauer Mantel."
+  },
+  "silas_fight": {
+    "name": "Silas der Falschspieler",
+    "sprite": "npc:silas",
+    "fleeable": false,
+    "hp": 30,
+    "intro": "Silas tritt den Stuhl zurück. In seiner Hand klappt ein Messer auf. Die Gäste drücken sich an die Wand.",
+    "attacks": [
+      {
+        "name": "Messerstich",
+        "damage": 5,
+        "hits": [
+          900
+        ]
+      },
+      {
+        "name": "Finte",
+        "damage": 4,
+        "hits": [
+          500,
+          1300
+        ]
+      },
+      {
+        "name": "Stuhl",
+        "damage": 8,
+        "hits": [
+          1600
+        ]
+      }
+    ],
+    "on_win": {
+      "sets_flags": [
+        "silas_resolved",
+        "silas_beaten"
+      ],
+      "honor": 2,
+      "honor_reason": "Einen Falschspieler gestellt"
+    },
+    "on_lose": {},
+    "lose_text": "Du kommst auf den Dielen zu dir. Silas ist fort, aber sein Hut liegt noch da. Maud hält dir einen nassen Lappen hin. „Der kommt wieder. Der kann nicht anders.“",
+    "win_text": "Silas landet zwischen den Stühlen. Maud nimmt ihm die Börse ab, bevor er wieder Luft bekommt. Ein Constable führt ihn ab."
+  },
+  "mirror_shade": {
+    "name": "Spiegelschatten",
+    "sprite": "apparition",
+    "occult": true,
+    "fleeable": true,
+    "hp": 38,
+    "intro": "Dein Spiegelbild bleibt stehen, als du dich bewegst. Dann lächelt es und steigt aus dem Rahmen.",
+    "attacks": [
+      {
+        "name": "Kaltes Greifen",
+        "damage": 5,
+        "hits": [
+          800,
+          1100
+        ]
+      },
+      {
+        "name": "Splitterregen",
+        "damage": 3,
+        "hits": [
+          500,
+          750,
+          1000,
+          1250
+        ]
+      },
+      {
+        "name": "Dein eigenes Gesicht",
+        "damage": 10,
+        "hits": [
+          1900
+        ]
+      }
+    ],
+    "weak_if": {
+      "requires_clues": [
+        "quill_receipt"
+      ]
+    },
+    "weak_text": "Du sprichst laut aus, woher der Spiegel stammt: „M. V., für den Chor.“ Der Schatten zuckt zusammen, als hätte ihn jemand beim Namen gerufen.",
+    "on_win": {
+      "sets_flags": [
+        "mirror_banished"
+      ]
+    },
+    "on_lose": {},
+    "lose_text": "Du sitzt auf dem Pflaster vor Quills Laden. Im Spiegel steht noch immer jemand, der aussieht wie du, und wartet.",
+    "win_text": "Der Schatten zerspringt in tausend kalte Funken. Im Spiegel ist nur noch die Straße. Ganz unten im Rahmen ist ein Riss, in Form eines Auges."
   }
 }

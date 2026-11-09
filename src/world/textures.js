@@ -522,6 +522,9 @@ const PROPS = {
   medkit: [16, 16, (p) => {
     p(2, 4, 12, 9, '#d8d0bc'); p(2, 4, 12, 1, '#efe8d6'); p(2, 12, 12, 1, '#a8a090'); p(7, 6, 2, 5, '#a83232'); p(5, 8, 6, 1, '#a83232'); p(6, 3, 4, 1, '#5a5448');
   }],
+  mirror: [32, 32, (p) => {
+    p(4, 2, 24, 28, '#b08a3a'); p(6, 4, 20, 24, '#5a6a72'); p(8, 6, 6, 10, '#8aa0aa'); p(6, 4, 20, 1, '#d8b860');
+  }],
   cot: [32, 16, (p) => {
     p(1, 5, 30, 8, '#5a4a36'); p(2, 4, 28, 7, '#7a8a9a'); p(2, 4, 28, 1, '#9aaaba'); p(3, 5, 7, 5, '#d8d0bc'); p(12, 6, 17, 4, '#4a5a7a');
     p(1, 13, 2, 3, '#3a2e22'); p(29, 13, 2, 3, '#3a2e22');
@@ -592,6 +595,12 @@ export function outlineAll(ctx, w, h, color = [0x1a, 0x1c, 0x2c]) {
 }
 
 const ENEMIES = {
+  // Spiegelschatten: bleiche Gestalt, die aus einem Rahmen kriecht
+  apparition: [64, 64, (p) => {
+    p(22, 10, 20, 18, '#c8d8e0'); p(26, 16, 3, 3, '#141016'); p(35, 16, 3, 3, '#141016'); p(29, 23, 6, 2, '#141016');
+    p(18, 28, 28, 26, 'rgba(200,216,224,0.75)'); p(10, 32, 10, 3, '#c8d8e0'); p(44, 32, 10, 3, '#c8d8e0');
+    for (let i = 0; i < 7; i++) p(16 + i * 5, 54 + (i % 2) * 3, 3, 5, 'rgba(200,216,224,0.5)');
+  }],
   // Aktenfresser: ein Knäuel Ratten mit Papierfetzen
   rats: [64, 64, (p) => {
     const fur = '#4a4038'; const hi = '#6a5a4a';

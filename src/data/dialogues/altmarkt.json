@@ -1,0 +1,876 @@
+{
+  "maud": {
+    "start": [
+      {
+        "node": "done",
+        "requires_flags": [
+          "dice_told"
+        ]
+      },
+      {
+        "node": "start"
+      }
+    ],
+    "nodes": {
+      "start": {
+        "text": "Eine kräftige Frau poliert einen Krug, der längst sauber ist. „Willkommen im Ertrunkenen Mond. Gin, Bier oder Ärger? Ärger hab ich selbst genug.“",
+        "choices": [
+          {
+            "text": "Was für Ärger?",
+            "next": "trouble",
+            "hide_if_quests": [
+              "dice"
+            ]
+          },
+          {
+            "text": "Ich weiß, wer an Ihrem Tisch betrügt.",
+            "next": "told",
+            "requires_flags": [
+              "silas_resolved"
+            ],
+            "hide_if_flags": [
+              "dice_told"
+            ]
+          },
+          {
+            "text": "Tobias war es.",
+            "next": "accuse",
+            "requires_suspected": [
+              "tobias_cheats"
+            ],
+            "requires_quests_active": [
+              "dice"
+            ]
+          },
+          {
+            "text": "Haben Sie ein Zimmer?",
+            "next": "room"
+          },
+          {
+            "text": "Was hört man so?",
+            "next": "gossip"
+          },
+          {
+            "text": "Nichts, danke."
+          }
+        ]
+      },
+      "trouble": {
+        "text": "Jemand betrügt an meinem Würfeltisch. Seit zwei Wochen gehen meine Stammgäste mit leeren Taschen heim, und gestern hat Tobias Lowe einen Krug nach Silas geworfen.\n\nIch sag’s, wie’s ist: Ich glaube, Tobias hat die Würfel vertauscht. Er hat Schulden, seit sein Bruder tot ist. Beweisen kann ich nichts.",
+        "start_quests": [
+          "dice"
+        ],
+        "gives_clues": [
+          "maud_tobias"
+        ],
+        "choices": [
+          {
+            "text": "Ich sehe mich um.",
+            "next": "start"
+          }
+        ]
+      },
+      "room": {
+        "text": "Oben ist eine Kammer frei. Das Bett ist hart, aber die Tür hat ein Schloss. Für Sie umsonst, solange Sie mir keinen Ärger ins Haus bringen. Die Treppe ist hinten rechts.",
+        "choices": [
+          {
+            "text": "Danke.",
+            "next": "start"
+          }
+        ]
+      },
+      "gossip": {
+        "text": "Der Marktwart vom Altmarkt, Grimes, trinkt hier umsonst. Sagt, das gehört zu seinem Lohn. Der alte Wick hat Angst vor seinen eigenen Laternen. Und Pater Ambrose sieht überall den Chor.\n\nKettlegate wird komisch. Komischer als sonst.",
+        "choices": [
+          {
+            "text": "Interessant.",
+            "next": "start"
+          }
+        ]
+      },
+      "told": {
+        "text": "Maud hört zu und stellt den Krug ab. „Silas. Natürlich Silas. Der hat immer so nett gelächelt.“\n\nSie schiebt dir zwei Flaschen über den Tresen. „Gewürzwein, aufs Haus. Und Tobias kriegt sein Geld zurück. Und eine Entschuldigung. Morgen. Vielleicht.“",
+        "sets_flags": [
+          "dice_told"
+        ],
+        "complete_quests": [
+          "dice"
+        ],
+        "gives_items": {
+          "gewuerzwein": 2
+        },
+        "choices": [
+          {
+            "text": "Gern geschehen.",
+            "next": "done"
+          }
+        ]
+      },
+      "accuse": {
+        "text": "Maud nickt grimmig. „Hab ich’s doch gewusst.“ Sie wirft Tobias noch am selben Abend hinaus.\n\nZwei Tage später gewinnt Silas wieder. Jede Runde.",
+        "fail_quests": [
+          "dice"
+        ],
+        "sets_flags": [
+          "tobias_banned"
+        ],
+        "honor": -2,
+        "honor_reason": "Einen Unschuldigen beschuldigt",
+        "choices": [
+          {
+            "text": "…"
+          }
+        ]
+      },
+      "done": {
+        "text": "Maud nickt dir zu. „Der Tisch ist wieder ehrlich. Meistens.“",
+        "choices": [
+          {
+            "text": "Haben Sie ein Zimmer?",
+            "next": "room"
+          },
+          {
+            "text": "Was hört man so?",
+            "next": "gossip"
+          },
+          {
+            "text": "Bis bald."
+          }
+        ]
+      }
+    }
+  },
+  "silas": {
+    "start": "start",
+    "nodes": {
+      "start": {
+        "text": "Ein Mann mit tadellosem Halstuch lässt zwei Würfel über die Knöchel tanzen. „Ein Spielchen? Kleiner Einsatz, großes Glück.“",
+        "choices": [
+          {
+            "text": "Wie läuft das Geschäft?",
+            "next": "biz"
+          },
+          {
+            "text": "Ihre Würfel sind gezinkt.",
+            "next": "confront",
+            "requires_likely": [
+              "silas_cheats"
+            ]
+          },
+          {
+            "text": "Ihre Würfel sind gezinkt.",
+            "next": "bluff",
+            "requires_suspected": [
+              "silas_cheats"
+            ]
+          },
+          {
+            "text": "Lieber nicht."
+          }
+        ]
+      },
+      "biz": {
+        "text": "Glänzend. Das Glück liebt mich, und ich liebe es zurück. Fragen Sie Tobias, der hat es gestern sehr persönlich genommen.",
+        "choices": [
+          {
+            "text": "Verstehe.",
+            "next": "start"
+          }
+        ]
+      },
+      "bluff": {
+        "text": "Silas lächelt breiter. „Beweise? Ein Gefühl ist kein Beweis. Kommen Sie wieder, wenn Sie mehr haben als schlechte Laune.“",
+        "choices": [
+          {
+            "text": "Das werde ich.",
+            "next": "start"
+          }
+        ]
+      },
+      "confront": {
+        "text": "Du legst einen beschwerten Würfel neben seine. Ihr werft beide. Zweimal die Sechs. Silas’ Lächeln wird dünn.\n\n„Na schön. Was wollen Sie? Geld? Ich habe Geld.“",
+        "choices": [
+          {
+            "text": "Sie geben alles zurück und verschwinden aus Kettlegate.",
+            "next": "confess",
+            "requires_honor": 35
+          },
+          {
+            "text": "Sie kommen mit aufs Revier.",
+            "next": "fight"
+          },
+          {
+            "text": "Geben Sie mir die Hälfte, und ich habe nichts gesehen.",
+            "next": "bribe"
+          }
+        ]
+      },
+      "confess": {
+        "text": "Silas mustert dich lange. Dann leert er seine Taschen auf den Tisch. „Ihr Ruf eilt Ihnen voraus, Ermittler. Ich mag mein Gesicht, wie es ist.“\n\nEr geht ohne Hut. Maud wird das Geld verteilen.",
+        "sets_flags": [
+          "silas_resolved",
+          "silas_confessed"
+        ],
+        "choices": [
+          {
+            "text": "Gute Reise."
+          }
+        ]
+      },
+      "fight": {
+        "text": "„Ich glaube nicht.“ Silas tritt den Stuhl zurück. In seiner Hand blitzt ein Klappmesser.",
+        "combat": "silas_fight",
+        "choices": [
+          {
+            "text": "Kämpfen"
+          }
+        ]
+      },
+      "bribe": {
+        "text": "Silas drückt dir eine schwere Börse in die Hand und zwinkert. „Ein Mann mit Verstand. Wir werden Freunde.“\n\nAls du gehst, wirft er schon die nächste Sechs.",
+        "sets_flags": [
+          "silas_paid"
+        ],
+        "fail_quests": [
+          "dice"
+        ],
+        "honor": -4,
+        "honor_reason": "Bestechung angenommen",
+        "choices": [
+          {
+            "text": "…"
+          }
+        ]
+      }
+    }
+  },
+  "tobias_tavern": {
+    "start": "start",
+    "nodes": {
+      "start": {
+        "text": "Tobias sitzt allein vor einem leeren Krug. „Ich hab nicht betrogen. Ich hab nur verloren. Wie alle hier.“",
+        "choices": [
+          {
+            "text": "Erzählen Sie mir von Silas.",
+            "next": "silas"
+          },
+          {
+            "text": "Warum haben Sie den Krug geworfen?",
+            "next": "jug"
+          },
+          {
+            "text": "Bis später."
+          }
+        ]
+      },
+      "silas": {
+        "text": "Vor jedem Spiel geht er raus in den Hinterhof. Sagt, er muss Luft schnappen. Kommt zurück und gewinnt. Jedes Mal.\n\nDer Hof liegt hinter der Häuserzeile, durch die Gasse auf der anderen Kanalseite.",
+        "sets_flags": [
+          "yard_hint"
+        ],
+        "choices": [
+          {
+            "text": "Danke.",
+            "next": "start"
+          }
+        ]
+      },
+      "jug": {
+        "text": "Weil er gelacht hat. Über Nates letzten Wochenlohn, den ich gesetzt hab. Das war dumm von mir. Aber betrogen hab ich nicht.",
+        "choices": [
+          {
+            "text": "Ich glaube Ihnen.",
+            "next": "start"
+          }
+        ]
+      }
+    }
+  },
+  "wick": {
+    "start": [
+      {
+        "node": "done",
+        "requires_flags": [
+          "lamps_told"
+        ]
+      },
+      {
+        "node": "start"
+      }
+    ],
+    "nodes": {
+      "start": {
+        "text": "Ein alter Mann mit einer zerkratzten Anzünderstange lehnt an der Hauswand. „Vierzig Jahre zünde ich die Lichter am Altmarkt an. Und jetzt frieren sie mir unter den Händen zu.“",
+        "choices": [
+          {
+            "text": "Was ist mit den Laternen?",
+            "next": "frost",
+            "hide_if_quests": [
+              "lamp_round"
+            ]
+          },
+          {
+            "text": "Die vier Laternen am Brunnen brennen wieder.",
+            "next": "back",
+            "requires_flags": [
+              "lamp1_lit",
+              "lamp2_lit",
+              "lamp3_lit",
+              "lamp4_lit"
+            ],
+            "hide_if_flags": [
+              "lamps_told"
+            ]
+          },
+          {
+            "text": "Kannten Sie Elias Thorne?",
+            "next": "elias"
+          },
+          {
+            "text": "Sehen Sie morgens jemanden an der Kapelle?",
+            "next": "candles",
+            "requires_quests_active": [
+              "black_candles"
+            ],
+            "hide_if_clues": [
+              "wick_candles"
+            ]
+          },
+          {
+            "text": "Schönen Abend noch."
+          }
+        ]
+      },
+      "frost": {
+        "text": "Die vier Laternen um den Brunnen. Jeden Abend zünde ich sie an, jeden Morgen sind sie vereist. Im Herbst! Und meine Knie schaffen die Leiter nicht mehr so oft.\n\nNehmen Sie meinen Anzünder. Kratzen Sie den Reif ab und bringen Sie die Dochte zum Brennen. Und schauen Sie unter die Hauben. Irgendwas stimmt da nicht.",
+        "start_quests": [
+          "lamp_round"
+        ],
+        "choices": [
+          {
+            "text": "Wird gemacht.",
+            "next": "start"
+          }
+        ]
+      },
+      "elias": {
+        "text": "Elias? Mein Lehrling, vor vielen Jahren. Ein guter Junge, bis er anfing, nachts mit den Laternen zu reden. Ich hab gehört, was in Ashgrove passiert ist. Frost an der Laterne, sagen sie.\n\nGenau wie hier.",
+        "choices": [
+          {
+            "text": "Genau wie hier.",
+            "next": "start"
+          }
+        ]
+      },
+      "candles": {
+        "text": "Wick nickt langsam. Er erzählt von einer alten Frau in Schwarz, die jeden Morgen vor sechs an der Kapelle kniet.",
+        "gives_clues": [
+          "wick_candles"
+        ],
+        "choices": [
+          {
+            "text": "Danke, Wick.",
+            "next": "start"
+          }
+        ]
+      },
+      "back": {
+        "text": "Wick schaut hinüber zum Brunnen, wo das Licht warm auf dem Pflaster liegt. „Vierzig Jahre. Und zum ersten Mal hilft mir einer.“\n\nEr drückt dir zwei Blechflaschen in die Hand. „Lampenöl, meine eigene Mischung. Brennt heiß. Werfen Sie es nicht in die Nähe von Leuten, die Sie mögen.“",
+        "sets_flags": [
+          "lamps_told"
+        ],
+        "complete_quests": [
+          "lamp_round"
+        ],
+        "gives_items": {
+          "lampenoel": 2
+        },
+        "choices": [
+          {
+            "text": "Danke.",
+            "next": "done"
+          }
+        ]
+      },
+      "done": {
+        "text": "Wick tippt an seine Mütze. „Sie brennen. Alle vier.“",
+        "choices": [
+          {
+            "text": "Kannten Sie Elias Thorne?",
+            "next": "elias"
+          },
+          {
+            "text": "Sehen Sie morgens jemanden an der Kapelle?",
+            "next": "candles",
+            "requires_quests_active": [
+              "black_candles"
+            ],
+            "hide_if_clues": [
+              "wick_candles"
+            ]
+          },
+          {
+            "text": "Gute Nacht, Wick."
+          }
+        ]
+      }
+    }
+  },
+  "ned": {
+    "start": [
+      {
+        "node": "done",
+        "requires_flags": [
+          "ned_helped"
+        ]
+      },
+      {
+        "node": "start"
+      }
+    ],
+    "nodes": {
+      "start": {
+        "text": "Ein Mann mit trüben Augen sitzt am Brunnenrand, die Hände in Lumpen gewickelt. „Ihre Schritte kenne ich nicht. Neu in der Stadt? Einen Penny für einen Blinden?“",
+        "choices": [
+          {
+            "text": "Was ist mit Ihren Händen?",
+            "next": "hands",
+            "hide_if_quests": [
+              "blind_ned"
+            ]
+          },
+          {
+            "text": "Hier, ein Verband.",
+            "next": "help",
+            "requires_items": [
+              "verband"
+            ],
+            "requires_quests_active": [
+              "blind_ned"
+            ]
+          },
+          {
+            "text": "Leider nichts dabei."
+          }
+        ]
+      },
+      "hands": {
+        "text": "Erfroren, letzten Winter. Die Lumpen helfen nicht mehr. Ein richtiger Verband wäre ... na ja.\n\nDafür höre ich alles am Altmarkt. Wer flüstert, wer zahlt, wer lügt. Ich vergesse nichts.",
+        "start_quests": [
+          "blind_ned"
+        ],
+        "choices": [
+          {
+            "text": "Ich sehe, was ich tun kann.",
+            "next": "start"
+          }
+        ]
+      },
+      "help": {
+        "text": "Ned wickelt den Verband mit erstaunlich geschickten Fingern um. „Gutes Leinen. Sie sind ein anständiger Mensch.“\n\n„Dann hören Sie gut zu. Ich erzähle Ihnen, was ich weiß.“",
+        "takes_items": {
+          "verband": 1
+        },
+        "sets_flags": [
+          "ned_helped"
+        ],
+        "complete_quests": [
+          "blind_ned"
+        ],
+        "choices": [
+          {
+            "text": "Ich höre.",
+            "next": "done"
+          }
+        ]
+      },
+      "done": {
+        "text": "Ned dreht das Gesicht zu dir. „Ah, der Anständige. Was wollen Sie wissen?“",
+        "choices": [
+          {
+            "text": "Was hören Sie über den Marktwart?",
+            "next": "grimes",
+            "hide_if_clues": [
+              "ned_grimes"
+            ]
+          },
+          {
+            "text": "Was hören Sie aus dem Ertrunkenen Mond?",
+            "next": "dice",
+            "hide_if_clues": [
+              "ned_dice"
+            ]
+          },
+          {
+            "text": "Was hören Sie nachts am Brunnen?",
+            "next": "night",
+            "hide_if_clues": [
+              "ned_song"
+            ]
+          },
+          {
+            "text": "Danke, Ned."
+          }
+        ]
+      },
+      "grimes": {
+        "text": "Grimes geht jeden Freitag von Stand zu Stand und kassiert. Wer nicht zahlt, dessen Stand fällt nachts um. Die Blumenfrau aus Ashgrove hat er auch schon weggeschickt.",
+        "gives_clues": [
+          "ned_grimes"
+        ],
+        "choices": [
+          {
+            "text": "Weiter.",
+            "next": "done"
+          }
+        ]
+      },
+      "dice": {
+        "text": "Ned klappert mit zwei Kieseln in der Hand, um es dir vorzumachen. „So klingen ehrliche Würfel. Und seine nicht.“\n\n„Und Silas gibt Grimes jeden Freitag etwas ab. Damit keiner fragt.“",
+        "gives_clues": [
+          "ned_dice"
+        ],
+        "choices": [
+          {
+            "text": "Weiter.",
+            "next": "done"
+          }
+        ]
+      },
+      "night": {
+        "text": "Ned summt drei Töne, ganz leise. Dir läuft es kalt den Rücken hinunter. Du hast sie schon einmal gehört, in der Krypta von St. Ebba.",
+        "gives_clues": [
+          "ned_song"
+        ],
+        "choices": [
+          {
+            "text": "Weiter.",
+            "next": "done"
+          }
+        ]
+      }
+    }
+  },
+  "quill": {
+    "start": [
+      {
+        "node": "done",
+        "requires_flags": [
+          "quill_rewarded"
+        ]
+      },
+      {
+        "node": "start"
+      }
+    ],
+    "nodes": {
+      "start": {
+        "text": "Ein hagerer Herr mit einer Lupe im Auge wischt Staub von einer Vitrine. „Antiquitäten, Kuriositäten, Erbstücke. Alles mit Geschichte. Manches mit zu viel Geschichte.“",
+        "choices": [
+          {
+            "text": "Zu viel Geschichte?",
+            "next": "mirror",
+            "hide_if_quests": [
+              "quill_mirror"
+            ]
+          },
+          {
+            "text": "Woher haben Sie den Spiegel?",
+            "next": "receipt",
+            "requires_quests_active": [
+              "quill_mirror"
+            ],
+            "hide_if_clues": [
+              "quill_receipt"
+            ]
+          },
+          {
+            "text": "Ihr Spiegel ist still.",
+            "next": "reward",
+            "requires_flags": [
+              "mirror_banished"
+            ],
+            "hide_if_flags": [
+              "quill_rewarded"
+            ]
+          },
+          {
+            "text": "Ich schaue nur."
+          }
+        ]
+      },
+      "mirror": {
+        "text": "Quill senkt die Stimme. „Der Spiegel in meiner Auslage. Seit ich ihn habe, bleiben die Leute davor stehen und gehen nicht weiter. Gestern stand eine Frau eine ganze Stunde davor. Sie sagte, ihr Spiegelbild habe ihr etwas erzählt.\n\nVerkaufen kann ich ihn nicht, und zerschlagen ... ich traue mich nicht. Sehen Sie ihn sich an? Aber nicht zu lange.“",
+        "start_quests": [
+          "quill_mirror"
+        ],
+        "choices": [
+          {
+            "text": "Ich sehe ihn mir an.",
+            "next": "start"
+          }
+        ]
+      },
+      "receipt": {
+        "text": "Er blättert in einem dicken Kassenbuch und tippt auf eine Zeile. „Ich dachte, eine Kirchengemeinde löst sich auf. Man kauft so etwas, wenn der Preis stimmt.“",
+        "gives_clues": [
+          "quill_receipt"
+        ],
+        "choices": [
+          {
+            "text": "Danke.",
+            "next": "start"
+          }
+        ]
+      },
+      "reward": {
+        "text": "Quill tritt vor die Auslage. Im Glas ist nur noch sein eigenes Gesicht, müde und erleichtert.\n\n„Ich schulde Ihnen etwas. Nehmen Sie das hier. Geweihtes Salz, es lag in derselben Kiste wie der Spiegel. Vielleicht wollte der Chor es loswerden. Vielleicht hatte er Angst davor.“",
+        "sets_flags": [
+          "quill_rewarded"
+        ],
+        "complete_quests": [
+          "quill_mirror"
+        ],
+        "gives_items": {
+          "bannsalz": 2,
+          "riechsalz": 1
+        },
+        "choices": [
+          {
+            "text": "Danke, Mr. Quill.",
+            "next": "done"
+          }
+        ]
+      },
+      "done": {
+        "text": "„Kommen Sie wieder, wenn Ihnen etwas Merkwürdiges unterkommt. Ich kaufe Merkwürdiges. Nur keine Spiegel mehr.“",
+        "choices": [
+          {
+            "text": "Auf Wiedersehen."
+          }
+        ]
+      }
+    }
+  },
+  "ambrose": {
+    "start": [
+      {
+        "node": "done",
+        "requires_flags": [
+          "candles_told"
+        ]
+      },
+      {
+        "node": "start"
+      }
+    ],
+    "nodes": {
+      "start": {
+        "text": "Ein Priester mit Wachsflecken auf der Soutane fegt die Stufen der Kapelle. „Der Herr sei mit Ihnen. Mit mir ist er in letzter Zeit selten.“",
+        "choices": [
+          {
+            "text": "Was bedrückt Sie, Pater?",
+            "next": "candles",
+            "hide_if_quests": [
+              "black_candles"
+            ]
+          },
+          {
+            "text": "Die Kerzen stellt Agnes Crane auf.",
+            "next": "agnes",
+            "requires_likely": [
+              "candles_agnes"
+            ],
+            "requires_quests_active": [
+              "black_candles"
+            ]
+          },
+          {
+            "text": "Es war der Chor.",
+            "next": "cult",
+            "requires_suspected": [
+              "candles_cult"
+            ],
+            "requires_quests_active": [
+              "black_candles"
+            ]
+          },
+          {
+            "text": "Gott befohlen."
+          }
+        ]
+      },
+      "candles": {
+        "text": "Jeden Morgen stehen schwarze Kerzen auf meinen Stufen. Sieben Stück, im Halbkreis. Nach allem, was in St. Ebba geschehen ist ... Das ist Veys Chor, da bin ich sicher.\n\nSoll ich die Constables rufen? Finden Sie heraus, wer das tut, bevor ich es tue.",
+        "start_quests": [
+          "black_candles"
+        ],
+        "gives_clues": [
+          "ambrose_cult"
+        ],
+        "choices": [
+          {
+            "text": "Ich kümmere mich darum.",
+            "next": "start"
+          }
+        ]
+      },
+      "agnes": {
+        "text": "Ambrose setzt sich auf die Stufen. „Agnes ... Walter hat hier die Orgel gespielt, bevor er nach St. Ebba ging. Sieben Kerzen. Sieben Jahre.“\n\n„Und ich hätte beinahe eine trauernde Witwe anzeigen lassen. Ich danke Ihnen. Morgen früh knie ich mich zu ihr.“",
+        "sets_flags": [
+          "candles_told"
+        ],
+        "complete_quests": [
+          "black_candles"
+        ],
+        "choices": [
+          {
+            "text": "Das wird ihr guttun.",
+            "next": "done"
+          }
+        ]
+      },
+      "cult": {
+        "text": "Ambrose bekreuzigt sich. „Ich wusste es.“ Er eilt los, zum Revier.\n\nZwei Tage später hörst du, dass die Constables vor der Kapelle eine alte Frau festgenommen haben. Sie hatte schwarze Kerzen in der Tasche und hat kein Wort gesagt.",
+        "fail_quests": [
+          "black_candles"
+        ],
+        "sets_flags": [
+          "agnes_arrested"
+        ],
+        "honor": -3,
+        "honor_reason": "Eine trauernde Witwe beschuldigt",
+        "choices": [
+          {
+            "text": "…"
+          }
+        ]
+      },
+      "done": {
+        "text": "Pater Ambrose nickt dir zu. Auf den Stufen brennen sieben schwarze Kerzen und daneben eine weiße.",
+        "choices": [
+          {
+            "text": "Guten Abend, Pater."
+          }
+        ]
+      }
+    }
+  },
+  "grimes": {
+    "start": "start",
+    "nodes": {
+      "start": {
+        "text": "Ein Constable mit Bauch und Notizbuch versperrt dir den Weg. „Marktwart Grimes. Wer hier verkaufen will, zahlt Standgebühr. Wer hier herumschnüffelt, zahlt doppelt.“",
+        "choices": [
+          {
+            "text": "Greta aus Ashgrove möchte einen Stand.",
+            "next": "greta",
+            "requires_quests_active": [
+              "greta_stall"
+            ],
+            "hide_if_flags": [
+              "grimes_asked"
+            ]
+          },
+          {
+            "text": "Ich weiß, dass Sie Schutzgeld kassieren.",
+            "next": "evidence",
+            "requires_likely": [
+              "grimes_bribes"
+            ],
+            "requires_quests_active": [
+              "greta_stall"
+            ]
+          },
+          {
+            "text": "Für Gretas Stand: nehmen Sie das Tonikum.",
+            "next": "pay",
+            "requires_items": [
+              "tonikum"
+            ],
+            "requires_flags": [
+              "grimes_asked"
+            ],
+            "requires_quests_active": [
+              "greta_stall"
+            ]
+          },
+          {
+            "text": "Schon gut."
+          }
+        ]
+      },
+      "greta": {
+        "text": "„Die Blumenfrau? Fünf Schilling die Woche, im Voraus. Oder sie verkauft weiter bei den Ratten in Ashgrove.“ Er grinst. „Ich nehme auch Naturalien. Fenwicks Tonikum zum Beispiel. Mein Magen, wissen Sie.“",
+        "sets_flags": [
+          "grimes_asked"
+        ],
+        "choices": [
+          {
+            "text": "Ich verstehe.",
+            "next": "start"
+          }
+        ]
+      },
+      "evidence": {
+        "text": "Du zählst auf: die Freitagsrunden, die umgestoßenen Stände, das Heft unter dem Fass. Grimes’ Gesicht wird fleckig.\n\n„Und? Glauben Sie, das Revier interessiert sich für ein paar Schilling?“",
+        "choices": [
+          {
+            "text": "Sie lassen Greta umsonst verkaufen. Und alle anderen auch.",
+            "next": "yield",
+            "requires_honor": 50
+          },
+          {
+            "text": "Sergeant Holt interessiert sich bestimmt dafür.",
+            "next": "holt"
+          },
+          {
+            "text": "Wir sprechen uns noch."
+          }
+        ]
+      },
+      "yield": {
+        "text": "Grimes sieht sich um. Die Händler haben aufgehört zu verkaufen und schauen herüber. „Na schön. Na schön! Kein Grund, laut zu werden.“\n\nAm nächsten Morgen steht Gretas Stand am Brunnen.",
+        "sets_flags": [
+          "greta_stall_open"
+        ],
+        "complete_quests": [
+          "greta_stall"
+        ],
+        "choices": [
+          {
+            "text": "Schön, dass wir uns einig sind."
+          }
+        ]
+      },
+      "holt": {
+        "text": "„Holt.“ Grimes schluckt. „Holt hat keinen Humor.“\n\nEr dreht sich weg und tut, als müsse er ein Fass zählen.",
+        "choices": [
+          {
+            "text": "Wir werden sehen."
+          }
+        ]
+      },
+      "pay": {
+        "text": "Grimes steckt die Flasche ein und klopft dir auf die Schulter. „Na also. Die Blumenfrau kann morgen kommen.“\n\nEs fühlt sich nicht gut an.",
+        "takes_items": {
+          "tonikum": 1
+        },
+        "sets_flags": [
+          "greta_stall_open",
+          "grimes_paid"
+        ],
+        "complete_quests": [
+          "greta_stall"
+        ],
+        "honor": -6,
+        "honor_reason": "Einen Marktwart bestochen",
+        "choices": [
+          {
+            "text": "…"
+          }
+        ]
+      }
+    }
+  }
+}
