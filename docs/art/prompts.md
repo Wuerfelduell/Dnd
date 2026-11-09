@@ -1,6 +1,6 @@
 # Pixel-Art-Prompts für „Nebelakten“ – Übersicht
 
-Offen sind **sechs eigenständige Dateien**. Jede enthält Style-Block, Maße, Ablage-Regeln und Nachbearbeitung, Codex braucht also immer nur **eine** Datei auf einmal zu lesen. Bereits erzeugte Assets sind darin nicht enthalten.
+Offen sind **sieben eigenständige Dateien**. Jede enthält Style-Block, Maße, Ablage-Regeln und Nachbearbeitung, Codex braucht also immer nur **eine** Datei auf einmal zu lesen. Bereits erzeugte Assets sind darin nicht enthalten.
 
 | Datei | Inhalt | Umfang |
 |---|---|---|
@@ -10,7 +10,8 @@ Offen sind **sechs eigenständige Dateien**. Jede enthält Style-Block, Maße, A
 | `codex_K_fall6_dreizehnter_gast.md` | Fall 6 „Der dreizehnte Gast“: Fotoatelier, Ballsaal, Spiegelkabinett mit Jahrmarkt, Schatten-Overlays, Ballgäste, Lady Ashcombe, Lucan Mews, 3 Gegner, Boss `dreizehnter_gast`, Effekte, Items, wandernde Fotoplatte, Fallakte, Szenen, Enden | ca. 55 Sheets |
 | `codex_M_fall7_8_wren.md` | Fall 7 und 8 (Bankkontor Thorne, Waisenhaus St. Brigid, Traumkeller mit Webstuhl): Finch, Molly, Benji, schlafwandelnde Kinder, 3 Gegner, Bossin Miss Wren in zwei Phasen, Effekte, Items, Nahansichten, 2 Fallakten, Szenen, 6 Enden | ca. 50 Sheets |
 | `codex_P_rituale.md` | optional: 7 Ritualkreise (Overlay, 8 Frames) und 7 Ritual-Szenenkarten für Sequenz 6 und 5 | 14 Sheets |
+| `codex_Q_wexmoor.md` | Kapitel 2, Wexmoor (Teil 1): Zunder und Druce, Stadtwache Grauspäher mit Lichtkegel, Stadtkarte Wexmoor mit Nebel und 7 Markern, Torfkahn-Kajüte | ca. 12 Sheets |
 
-Empfohlene Reihenfolge: **N → O → J → K → M → P**. Alle laufen im Spiel schon mit Platzhaltern oder werden gerade gebaut.
+Empfohlene Reihenfolge: **N → O → J → K → M → Q → P**. Alle laufen im Spiel schon mit Platzhaltern oder werden gerade gebaut.
 
 Die erledigten Dateien (A bis I und L) liegen in `erledigt/`, alle älteren Prompts in `prompts_komplett.md`.
