@@ -522,5 +522,123 @@
         ]
       }
     }
+  },
+  "inspect_schuldbuch": {
+    "start": "start",
+    "nodes": {
+      "start": {
+        "text": "Ein dickes Buch mit Messingecken. Jede Seite ist eine Liste: Name, Betrag, Frist. Hinter manchen Namen steht ein Kreuz in roter Tinte.",
+        "choices": [
+          {
+            "text": "Die letzten Einträge lesen",
+            "next": "last"
+          },
+          {
+            "text": "Mit dem Finger den roten Kreuzen folgen (gefährlich)",
+            "next": [
+              {
+                "node": "cross_ok",
+                "chance": 0.5
+              },
+              {
+                "node": "cross_bad"
+              }
+            ]
+          },
+          {
+            "text": "Zuklappen."
+          }
+        ]
+      },
+      "last": {
+        "text": "„St. Brigid, Waisenhaus: 40 Pfund. Gezahlt? Nein.“ Darunter, in anderer Schrift: „Thorne tot. Und nun?“",
+        "choices": [
+          {
+            "text": "Weiter",
+            "next": "start"
+          }
+        ]
+      },
+      "cross_ok": {
+        "text": "Die Kreuze stehen bei Namen, die du aus den Zeitungen kennst: Leute, die im Schlaf gestorben sind. Du merkst dir die Daten.",
+        "nerves": -4,
+        "choices": [
+          {
+            "text": "Weiter",
+            "next": "start"
+          }
+        ]
+      },
+      "cross_bad": {
+        "text": "Unter deinem Finger wird die Tinte feucht. Für einen Atemzug steht dort dein eigener Name, mit einer Frist von morgen.",
+        "unruhe": 10,
+        "nerves": -15,
+        "choices": [
+          {
+            "text": "Weiter",
+            "next": "start"
+          }
+        ]
+      }
+    }
+  },
+  "inspect_traumspule": {
+    "start": "start",
+    "nodes": {
+      "start": {
+        "text": "Eine Holzspule, abgegriffen von kleinen Händen. Der Faden darauf ist nur zu sehen, wenn du nicht direkt hinschaust.",
+        "choices": [
+          {
+            "text": "Ans Ohr halten",
+            "next": "listen"
+          },
+          {
+            "text": "Ein Stück abwickeln (riskant)",
+            "next": [
+              {
+                "node": "unwind_ok",
+                "chance": 0.6
+              },
+              {
+                "node": "unwind_bad"
+              }
+            ]
+          },
+          {
+            "text": "Wieder einpacken."
+          }
+        ]
+      },
+      "listen": {
+        "text": "Ein leises Atmen, gleichmäßig und tief. Irgendwo schläft ein Kind und träumt von einem Ort, an dem es nicht frieren muss.",
+        "nerves": 4,
+        "choices": [
+          {
+            "text": "Weiter",
+            "next": "start"
+          }
+        ]
+      },
+      "unwind_ok": {
+        "text": "Der Faden glimmt kurz und zeigt einen Kellergang mit einem Webstuhl am Ende. Dann ist er wieder unsichtbar.",
+        "choices": [
+          {
+            "text": "Weiter",
+            "next": "start"
+          }
+        ]
+      },
+      "unwind_bad": {
+        "text": "Der Faden wickelt sich um dein Handgelenk und zieht. Deine Lider werden schwer, und eine strenge Stimme sagt: „Bettruhe.“",
+        "unruhe": 8,
+        "nerves": -12,
+        "choices": [
+          {
+            "text": "Weiter",
+            "next": "start"
+          }
+        ]
+      }
+    }
   }
 }

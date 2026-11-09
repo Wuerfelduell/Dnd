@@ -136,7 +136,7 @@ test('Paket C: Portraits, Lauf-Sheets und Kartenmarker sind vollständig', () =>
 
 // --- Paket D (Stadt) und E (Fälle) -------------------------------------------------
 const manifest = (name) => JSON.parse(readFileSync(sprite(`manifest-${name}.json`), 'utf8'));
-const MANIFEST_FILES = { manifestStadt: manifest('stadt'), manifestFaelle: manifest('faelle'), manifestJournal: manifest('journal'), manifestReise: manifest('reise'), manifestWildnis: manifest('wildnis'), manifestGegner3: manifest('gegner3'), manifestFall5: manifest('fall5'), manifestFall6: manifest('fall6') };
+const MANIFEST_FILES = { manifestStadt: manifest('stadt'), manifestFaelle: manifest('faelle'), manifestJournal: manifest('journal'), manifestReise: manifest('reise'), manifestWildnis: manifest('wildnis'), manifestGegner3: manifest('gegner3'), manifestFall5: manifest('fall5'), manifestFall6: manifest('fall6'), manifestFall78: manifest('fall78') };
 const regionNames = (def) => {
   const regions = Array.isArray(def.regions) ? def.regions.map((r) => r.name) : Object.keys(def.regions ?? {});
   return [...regions, ...Object.keys(def.animations ?? {}), ...Object.keys(def.regionAnimations ?? {})];
@@ -166,8 +166,8 @@ test('Paket D/E: Karten-Deko nutzt nur vorhandene Regionen', () => {
     for (const n of Object.keys(MANIFEST_FILES.manifestFaelle.assets.find((a) => a.id === id).icons)) known.add(`${prefix}_${n}`);
   }
   for (const map of Object.values(content.maps)) {
-    for (const d of map.decor ?? []) if (/^[dehigjk]_/.test(d.sprite)) assert.ok(known.has(d.sprite), `${map.id}: ${d.sprite}`);
-    for (const d of map.interactables ?? []) if (/^[dehigjk]_/.test(d.sprite ?? '')) assert.ok(known.has(d.sprite), `${map.id}: ${d.sprite}`);
+    for (const d of map.decor ?? []) if (/^[dehigjkm]_/.test(d.sprite)) assert.ok(known.has(d.sprite), `${map.id}: ${d.sprite}`);
+    for (const d of map.interactables ?? []) if (/^[dehigjkm]_/.test(d.sprite ?? '')) assert.ok(known.has(d.sprite), `${map.id}: ${d.sprite}`);
     if (map.facade) assert.ok(FACADES.includes(map.facade), `${map.id}: Fassade ${map.facade}`);
   }
 });
@@ -395,4 +395,28 @@ test('Paket K: Fall 6 nutzt die echten Grafiken', async () => {
   assert.ok(existsSync(file(K.inspectUrl('fotoplatte'))) && existsSync(file(K.inspectUrl('fotoplatte', true))));
   assert.ok(existsSync(file(K.caseFileUrl('case_06'))));
   for (const map of ['atelier', 'ballsaal', 'spiegelkabinett']) assert.match(content.maps[map].tiles, /^k_/);
+});
+
+test('Paket M: Fall 7 und 8 nutzen die echten Grafiken', async () => {
+  const M = await import('../src/world/assets.js');
+  const m = JSON.parse(readFileSync(sprite('manifest-fall78.json'), 'utf8'));
+  const byFile = (path) => m.assets.find((a) => a.file === path);
+  const order = m.assets.find((a) => a.id === 'M_zug_portraits').frameNames;
+  for (const [id, [w, ow]] of Object.entries(M.M_ENEMIES)) {
+    assert.equal(byFile(M.BATTLE_SHEETS[`enemy_${id}`][0])?.frameWidth, w, id);
+    if (ow) assert.equal(byFile(M.OVERWORLD_SHEETS[id][0])?.frameWidth, ow, id);
+    assert.ok(existsSync(file(M.bestiaryUrl(id))), id);
+    assert.equal(order[M.TURN_PORTRAITS[id]], id);
+    assert.ok(content.encounters[id], id);
+  }
+  const netz = byFile(M.BATTLE_SHEETS[M.BOSS_FORMS.miss_wren][0]).animations;
+  for (const n of ['schere', 'schuldnetz', 'albtraum', 'defeated']) assert.ok(netz[n], n);
+  assert.ok(existsSync(sprite(M.bossIntroImage(M.BOSS_INTROS.miss_wren)[1])));
+  for (const fx of Object.values(M.ENCOUNTER_FX).flatMap((f) => Object.values(f)).filter((s) => /^fx_/.test(s))) assert.ok(existsSync(sprite(M.BATTLE_SHEETS[fx][0])), fx);
+  for (const id of ['finch', 'molly']) assert.ok(existsSync(sprite(SHEETS[CHARACTER_SHEETS[`npc_${id}`]])), id);
+  for (const id of M.M_ITEMS) assert.ok(existsSync(file(itemIcon32Url(id))), id);
+  for (const id of M.M_SCENES) assert.ok(existsSync(file(M.sceneUrl(id))), id);
+  for (const id of ['c7_heir', 'c7_wren', 'c8_perfect', 'c8_good', 'c8_early', 'c8_piper']) assert.ok(existsSync(file(M.endingImageUrl(id, 'case_08'))), id);
+  for (const c of ['case_07', 'case_08']) assert.ok(existsSync(file(M.caseFileUrl(c))), c);
+  for (const map of ['kontor_thorne', 'waisenhaus', 'traumkeller']) assert.match(content.maps[map].tiles, /^m_/);
 });

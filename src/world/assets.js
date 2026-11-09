@@ -78,6 +78,7 @@ export const SHEETS = {
   j_resonanzkammer: 'tilesets/J_resonanzkammer_tiles.png',
   k_atelier: 'tilesets/K_atelier_tiles.png', k_ballsaal: 'tilesets/K_ballsaal_tiles.png',
   k_spiegelkabinett: 'tilesets/K_spiegelkabinett_tiles.png',
+  m_kontor: 'tilesets/M_kontor_tiles.png', m_waisenhaus: 'tilesets/M_waisenhaus_tiles.png', m_traumkeller: 'tilesets/M_traumkeller_tiles.png',
 };
 /** Paket C: Lauf-Sheets (characters/C_<id>_walk.png), Key = Figuren-Id. */
 export const C_CHARACTERS = ['pimm', 'fenwick', 'agnes', 'pip', 'tobias', 'cultist', 'maud', 'silas', 'ned', 'quill', 'ambrose',
@@ -146,6 +147,13 @@ export const THEME_TILES = {
   k_spiegelkabinett: { sheet: 'k_spiegelkabinett', fallback: 'wood0', floor: [0, 1, 2, 3, 4, 5, 6, 7, 48, 50, 52, 54], arrow: [40],
     chalk: [41, 42, 43, 45, 46, 47], wallTop: [8, 9, 10, 11, 12, 13, 14, 15], wallFace: [16, 17, 18, 19, 20, 21, 22, 23],
     mirror: [32, 33, 34, 35] },
+  // Paket M (Fall 7/8): Kontor Thorne mit Kohlenkeller, Waisenhaus, Traumkeller (8x6-Raster)
+  m_kontor: { sheet: 'm_kontor', fallback: 'wood0', floor: [0, 1, 2, 3], stone: [24, 25, 26, 28, 29, 30], wet: [27, 41, 43],
+    wallTop: [16, 17, 18], wallFace: [8, 9, 11, 12, 15], cellarTop: [31], cellarFace: [40, 42], coal: [33, 34, 35] },
+  m_waisenhaus: { sheet: 'm_waisenhaus', fallback: 'wood0', floor: [0, 1, 2, 3], dorm: [8, 9, 10, 11], under: [9],
+    wallTop: [24, 25, 26, 27, 28], window: [29], wallFace: [32, 33, 34, 35, 40, 41, 42, 43] },
+  m_traumkeller: { sheet: 'm_traumkeller', fallback: 'stone', floor: [0, 1, 2, 3, 22, 23, 30, 31], threads: [4, 5, 6, 7, 35, 37, 39],
+    wallTop: [8, 10], wallFace: [16, 17, 18, 19, 20, 21], wallDark: [45, 46, 47], dais: [24, 25, 26, 27, 28, 29] },
   warehouse: {
     sheet: 'lagerhaus', base: 'floor_1', fallback: 'wood0',
     floor: ['floor_1', 'floor_2', 'floor_3'], debris: ['floor_broken', 'tile_04', 'tile_05', 'tile_06', 'tile_07'],
@@ -190,7 +198,7 @@ export const THEME_TILES = {
 };
 /** Gruppen, die begehbar bleiben; alles andere blockiert. */
 const WALKABLE_GROUPS = ['floor', 'debris', 'wet', 'wood', 'mud', 'moss', 'tufts', 'path', 'ash', 'shards', 'weeds', 'sand', 'slag', 'wear', 'ring',
-  'dark', 'stain', 'checker', 'parquet', 'carpet', 'arrow', 'chalk'];
+  'dark', 'stain', 'checker', 'parquet', 'carpet', 'arrow', 'chalk', 'stone', 'dorm', 'threads'];
 /** Ersatz-Painter (textures.js) je Gruppe, falls das PNG fehlt. */
 const GROUP_FALLBACK = { wallFace: 'wallFace', wallTop: 'wallTop', bar: 'desk', shelf: 'shelf', barrel: 'barrel', seat: 'desk', water: 'water0' };
 
@@ -534,6 +542,8 @@ export const REGION_SHEETS = {
   k_atelier_props: ['manifestFall6', 'props_atelier'], k_ballsaal_props: ['manifestFall6', 'props_ballsaal'],
   k_spiegelkabinett_props: ['manifestFall6', 'props_spiegelkabinett'], k_jahrmarkt: ['manifestFall6', 'props_jahrmarkt_aussen'],
   k_schatten: ['manifestFall6', 'shadows'],
+  m_kontor_props: ['manifestFall78', 'M_kontor_props'], m_waisenhaus_props: ['manifestFall78', 'M_waisenhaus_props'],
+  m_traumkeller_props: ['manifestFall78', 'M_traumkeller_props'],
 };
 /** Dateien der Region-Sheets (die Manifeste kommen erst nach dem Laden der Bilder an). */
 const REGION_FILES = {
@@ -551,6 +561,7 @@ const REGION_FILES = {
   j_resonanzkammer_props: 'props/J_resonanzkammer_props.png',
   k_atelier_props: 'props/K_atelier_props.png', k_ballsaal_props: 'props/K_ballsaal_props.png',
   k_spiegelkabinett_props: 'props/K_spiegelkabinett_props.png', k_jahrmarkt: 'props/K_jahrmarkt_aussen.png', k_schatten: 'fx/K_schatten.png',
+  m_kontor_props: 'props/M_kontor_props.png', m_waisenhaus_props: 'props/M_waisenhaus_props.png', m_traumkeller_props: 'props/M_traumkeller_props.png',
 };
 for (const z of ['marsch', 'pestgassen', 'katakomben', 'kraterwald']) REGION_FILES[`g_${z}_props`] = `props/G_01_${z}_props.png`;
 for (const id of ['theater', 'uhrturm', 'nordtor', 'gaswerk', 'sternwarte', 'villen', 'elend']) REGION_FILES[`d_${id}_props`] = `props/D_05_${id}_props.png`;
@@ -638,10 +649,13 @@ export const TRAVEL_SCENES = ['reise_nebel', 'reise_ratten', 'reise_irrlicht', '
 export const J_SCENES = ['giessgrube', 'kinderzimmer', 'oda', 'lilian', 'glocke_sinkt', 'stimmen_frei'];
 /** Paket K: Bilder zu Fall 6. */
 export const K_SCENES = ['abzuege', 'schattenlos', 'maskenball', 'dunkelkammer', 'spiegel', 'schatten_frei'];
+/** Paket M: Bilder zu Fall 7 und 8. */
+export const M_SCENES = ['kanal', 'finch', 'schlafsaal', 'molly', 'webstuhl', 'morgen'];
 export const sceneUrl = (id) => (SCENES.includes(id) ? `${BASE}ui/scenes/E_szene_${id}.png`
   : TRAVEL_SCENES.includes(id) ? `${BASE}ui/scenes/I_${id}.png`
     : J_SCENES.includes(id) ? `${BASE}ui/scenes/J_szene_${id}.png`
-      : K_SCENES.includes(id) ? `${BASE}ui/scenes/K_szene_${id}.png` : null);
+      : K_SCENES.includes(id) ? `${BASE}ui/scenes/K_szene_${id}.png`
+        : M_SCENES.includes(id) ? `${BASE}ui/scenes/M_szene_${id}.png` : null);
 
 /** Große Stadtkarte mit Nebel über unbesuchten Gegenden. */
 export const CITY_MAP_URL = `${BASE}ui/D_09_stadtkarte_gross.png`;
@@ -806,6 +820,7 @@ export function preloadSprites(scene) {
   if (!scene.cache.json.exists('manifestWildnis')) scene.load.json('manifestWildnis', `${BASE}manifest-wildnis.json`);
   if (!scene.cache.json.exists('manifestReise')) scene.load.json('manifestReise', `${BASE}manifest-reise.json`);
   if (!scene.cache.json.exists('manifestJournal')) scene.load.json('manifestJournal', `${BASE}manifest-journal.json`);
+  if (!scene.cache.json.exists('manifestFall78')) scene.load.json('manifestFall78', `${BASE}manifest-fall78.json`);
   if (!scene.cache.json.exists('manifestFall6')) scene.load.json('manifestFall6', `${BASE}manifest-fall6.json`);
   if (!scene.cache.json.exists('manifestFall5')) scene.load.json('manifestFall5', `${BASE}manifest-fall5.json`);
   if (!scene.cache.json.exists('manifestGegner3')) scene.load.json('manifestGegner3', `${BASE}manifest-gegner3.json`);
@@ -841,7 +856,7 @@ function battleAnimDef(scene, sheet, name) {
   return null;
 }
 /** Manifeste mit Kampf-Sheets; spätere Pakete nennen ihre Einträge nicht nach dem Sheet, darum auch über die Datei. */
-const BATTLE_MANIFESTS = ['manifest14b', 'manifestKampf', 'manifestKampf2', 'manifestReise', 'manifestWildnis', 'manifestGegner3', 'manifestFall5', 'manifestFall6'];
+const BATTLE_MANIFESTS = ['manifest14b', 'manifestKampf', 'manifestKampf2', 'manifestReise', 'manifestWildnis', 'manifestGegner3', 'manifestFall5', 'manifestFall6', 'manifestFall78'];
 export function battleSheetDef(scene, sheet) {
   const file = BATTLE_SHEETS[sheet]?.[0];
   for (const m of BATTLE_MANIFESTS) {
@@ -1233,3 +1248,59 @@ INSPECT_FILES.fotoplatte = ['fotoplatte_1', 'fotoplatte_fluch'];
 ANIM_SHEETS.k_hinweise = ['props/K_fall6_hinweise.png', 16, 16];
 CASE_FILES.case_06 = 'K_akte_fall6';
 for (const id of ['c6_perfect', 'c6_good', 'c6_early', 'c6_seer']) ENDING_IMAGES[id] = id;
+
+// --- Paket M: Fall 7 und 8, Miss Wren (manifest-fall78.json) ---------------------------------------
+
+/** Gegner aus Fall 7/8: [Kampf-Frame, Karten-Frame-Breite]. Miss Wren ist der Boss (zwei Sheets). */
+export const M_ENEMIES = { ertrunkener: [64, 16], pfandeintreiber: [48, 16], traumfaden: [64, 16], miss_wren: [96, 0] };
+Object.keys(M_ENEMIES).forEach((id, i) => {
+  const [w, ow] = M_ENEMIES[id];
+  BATTLE_SHEETS[`enemy_${id}`] = [`battle/enemy_${id}.png`, w];
+  ENCOUNTER_SHEETS[id] = `enemy_${id}`;
+  if (ow) {
+    OVERWORLD_SHEETS[id] = [`characters/M_ow_${id}.png`, ow, 32];
+    PROP_ORIGINS[`ow_${id}`] = 0.85;
+  }
+  if (['ertrunkener', 'traumfaden'].includes(id)) FADING_SHEETS.push(`enemy_${id}`);
+  TURN_PORTRAITS[id] = i;
+  TURN_PORTRAIT_URLS[id] = [`${BASE}ui/M_zug_portraits.png`, 5];
+  BESTIARY_PACK[id] = 'M';
+  if (!BESTIARY.includes(id)) BESTIARY.push(id);
+});
+/** Miss Wren: Gouvernante, in Rage das Netz aus Schuldfäden; der Keller reißt auf. */
+BATTLE_SHEETS.enemy_miss_wren_netz = ['battle/enemy_miss_wren_netz.png', 96];
+ANIM_ALIASES.enemy_miss_wren = { attack: 'zurechtstutzen', special: 'strafe', cast: 'bettruhe', defeated: 'phase_transition' };
+ANIM_ALIASES.enemy_miss_wren_netz = { attack: 'schere', special: 'schuldnetz', cast: 'albtraum', phase2: 'weak_point' };
+BOSS_FORMS.miss_wren = 'enemy_miss_wren_netz';
+BOSS_FORM_BACKGROUNDS.miss_wren = 'bg_traumkeller_2';
+BOSS_INTROS.miss_wren = 'wren_m';
+BOSS_INTRO_IMAGES.wren_m = ['M_08_boss_wren', 'ui/M_08_boss_wren.png'];
+/** Effekte (Animation heißt hier "effect"). */
+const M_FX = { kanalwelle: [64, 32], schuldsiegel: [48], fadenpeitsche: [48, 32], schattennaht: [48, 32], status_schlaf: [16],
+  status_schuld: [16], scherenschnitt: [48], schuldnetz: [96], albtraum: [96], traeume_frei: [96] };
+for (const [id, [w, h = w]] of Object.entries(M_FX)) {
+  BATTLE_SHEETS[`fx_${id}`] = [`fx/fx_${id}.png`, w, h];
+  ANIM_ALIASES[`fx_${id}`] = { play: 'effect' };
+}
+Object.assign(ENCOUNTER_FX, {
+  ertrunkener: { attack: 'fx_kanalwelle' }, pfandeintreiber: { attack: 'fx_schuldsiegel' }, traumfaden: { attack: 'fx_fadenpeitsche' },
+  miss_wren: { attack: 'fx_scherenschnitt', multi: 'fx_schuldnetz', heavy: 'fx_albtraum', won: 'fx_traeume_frei' },
+});
+Object.assign(BATTLE_BACKGROUNDS, { kontor_thorne: 'bg_kontor', waisenhaus: 'bg_waisenhaus', traumkeller: 'bg_traumkeller' });
+Object.assign(ENCOUNTER_BACKGROUNDS, { ertrunkener: 'bg_kontor', traumfaden: 'bg_traumkeller', miss_wren: 'bg_traumkeller' });
+/** Figuren: Finch und Molly (Lauf-Sheet, Portrait), Benji (Portrait), drei schlafwandelnde Kinder als Deko. */
+for (const id of ['finch', 'molly']) {
+  SHEETS[`m_${id}`] = `characters/M_${id}_walk.png`;
+  CHARACTER_SHEETS[`npc_${id}`] = `m_${id}`;
+  PORTRAITS[id] = `M_${id}_emotions.png`;
+}
+PORTRAITS.benji = 'M_benji_emotions.png';
+for (const n of [1, 2, 3]) ANIM_SHEETS[`m_schlafkind_${n}`] = [`characters/M_schlafkind_${n}_walk.png`, 16, 32];
+ANIM_SHEETS.m_benji = ['characters/M_benji_walk.png', 16, 32];
+/** Fallgegenstände, Nahansichten, Hinweis-Marker, Fallakten und Enden. */
+export const M_ITEMS = ['wasserprobe', 'pfaendungsbrief', 'kinder_murmel', 'schlaftee', 'schuldbuch', 'traumspule', 'silberschere'];
+ICON32.push(...M_ITEMS);
+INSPECT_VIEWS.push('schuldbuch', 'traumspule');
+ANIM_SHEETS.m_hinweise = ['props/M_hinweise.png', 16, 16];
+Object.assign(CASE_FILES, { case_07: 'M_akte_fall7', case_08: 'M_akte_fall8' });
+for (const id of ['c7_heir', 'c7_wren', 'c8_perfect', 'c8_good', 'c8_early', 'c8_piper']) ENDING_IMAGES[id] = id;
