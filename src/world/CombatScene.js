@@ -3,7 +3,7 @@ import { Combat, WINDOW, EARLY_LIMIT, DODGE_COST, judgeDefense, judgeTiming } fr
 import { createTextures, createCharacterSheet } from './textures.js';
 import {
   BATTLE_BACKGROUNDS, ENCOUNTER_BACKGROUNDS, ENEMY_BATTLE_SHEETS, ENCOUNTER_SHEETS, FADING_SHEETS,
-  SKILL_FX, SELF_FX, PATHWAY_POSES, WEAPON_POSES, playBattleAnim,
+  SKILL_FX, SELF_FX, PATHWAY_POSES, WEAPON_POSES, ENCOUNTER_FX, playBattleAnim, playCaseAnim,
 } from './assets.js';
 import { VIEW_W, VIEW_H, PLAYER_PALETTE } from './WorldScene.js';
 
@@ -72,6 +72,14 @@ export class CombatScene extends Phaser.Scene {
     const fx = this.add.sprite(x, y, sheet, 0).setScale(scale).setDepth(30);
     if (!playBattleAnim(fx, anim, () => fx.destroy())) { fx.destroy(); return false; }
     return true;
+  }
+
+  /** Fall-Effekt (Paket E) an Spieler oder Gegner, z. B. der Stimmenraub. */
+  caseFx(sheet, who, scale = 1.5) {
+    if (!sheet) return;
+    const p = who === 'enemy' ? this.enemyCenter() : this.playerCenter();
+    const fx = this.add.sprite(p.x, p.y, sheet, 0).setScale(scale).setDepth(30);
+    if (!playCaseAnim(fx, sheet, () => fx.destroy())) fx.destroy();
   }
 
   /** Treffer-Effekt am Ziel: blunt, slash, parry, dodge, critical, heal, nerves, item, miss. */
@@ -358,6 +366,7 @@ export class CombatScene extends Phaser.Scene {
     this.tweens.add({ targets: this.enemy, x: ENEMY_X + 8, duration: TELEGRAPH * 0.6, ease: 'Sine.out' });
     // Paket-B-Gegner haben zwei Angriffe: mehrteilige Attacken nutzen 'special'
     if (!(atk.hits.length > 1 && this.anim(this.enemy, 'special'))) this.anim(this.enemy, 'attack');
+    this.caseFx(ENCOUNTER_FX[this.encounterId]?.attack, 'player');
   }
 
   pressDefense(kind, t) {
@@ -444,6 +453,7 @@ export class CombatScene extends Phaser.Scene {
       else this.tweens.add({ targets: this.enemy, alpha: 0, y: '+=10', duration: 700 });
     }
     if (c.outcome === 'won') playBattleAnim(this.player, 'victory', null, 'battle_player_weapons');
+    if (c.outcome === 'won') this.caseFx(ENCOUNTER_FX[this.encounterId]?.won, 'enemy');
     if (c.outcome === 'lost' && !this.anim(this.player, 'defeated', false)) this.tweens.add({ targets: this.player, angle: -90, y: '+=4', duration: 500 });
     const title = { won: 'Sieg', lost: 'Ohnmacht', fled: 'Rückzug' }[c.outcome];
     this.ui.combatOver(title);

@@ -2,7 +2,8 @@ import { DIGEST_LABELS } from '../core/Pathways.js';
 import { lootList, itemRarity, RARITY_NAMES } from '../core/Loot.js';
 import {
   itemIconUrl, itemIcon32Url, pathwayEmblemUrl, pathwayCardUrl, COIN_URL, SKILL_ICONS, SKILL_ICONS_URL, STATUS_ICONS, STATUS_ICONS_URL,
-  portraitUrl, PORTRAIT_MOODS, MAP_MARKERS, MAP_MARKERS_URL, LOG_MARKERS, LOG_MARKERS_URL, SOURCE_ICONS, SPRITE_BASE,
+  portraitUrl, portraitFor, MAP_MARKERS, MAP_MARKERS_URL, LOG_MARKERS, LOG_MARKERS_URL, SOURCE_ICONS, SPRITE_BASE,
+  endingImageUrl, caseFileUrl, sceneUrl, QUEST_UI_URL, QUEST_PINS, QUEST_BANNERS,
 } from '../world/assets.js';
 import { sourceOf } from '../core/sources.js';
 import { caseHints, nextDeduction } from '../core/hints.js';
@@ -22,11 +23,14 @@ const statusIcon = (id, title) => atlasIcon(STATUS_ICONS_URL, STATUS_ICONS[id], 
 const mapMarker = (map) => atlasIcon(MAP_MARKERS_URL, MAP_MARKERS[map], 13);
 /** Portrait (64x64 aus einem 256x64-Streifen) für den Dialog. */
 const portrait = (id, mood) => {
-  const url = portraitUrl(id);
-  if (!url) return '';
-  const col = PORTRAIT_MOODS[mood] ?? 0;
-  return `<div class="portrait" style="background-image:url(${url});background-position:${(col / 3) * 100}% 0"></div>`;
+  const p = portraitFor(id, mood);
+  if (!p) return '';
+  return `<div class="portrait" style="background-image:url(${p.url});background-position:${(p.col / 3) * 100}% 0"></div>`;
 };
+/** Zwischensequenzbild (240x135) über einem Text. */
+const sceneImg = (id) => { const url = id && sceneUrl(id); return url ? `<img class="scene" src="${url}" alt="" onerror="this.remove()">` : ''; };
+/** Ausschnitt aus ui/E_04_quest_ui.png (Banner, Nadeln). */
+const questUi = (cls, [x, y], k = 1 / 8) => `<span class="${cls}" style="background-image:url(${QUEST_UI_URL});background-size:${160 * k}em ${176 * k}em;background-position:-${x * k}em -${y * k}em"></span>`;
 /** Kleines Quellenbild im Notizbuch: Gesicht der erzählenden Person, sonst ein Symbol. */
 const SOURCE_LABEL = { observation: 'Eigene Beobachtung', vision: 'Geistsicht', police: 'Polizeibericht', archive: 'Akte', note: 'Gelesen', object: 'Spur am Ort', npc: 'Aussage' };
 const sourceFace = (content, clue) => {
@@ -102,8 +106,8 @@ export class Ui {
     state.on('rank', ({ rank, up }) => this.toast(`${up ? 'Neuer Rang' : 'Rang verloren'}: ${rank.name}`, up ? 'gold' : 'warn'));
     state.on('quest', ({ id, status }) => {
       const q = state.quest(id);
-      if (status === 'active') this.toast(`Neuer Auftrag: ${q.title}`, 'quest');
-      if (status === 'done') this.toast(`Auftrag erledigt: ${q.title}`, 'quest');
+      if (status === 'active') this.toast(`Neuer Auftrag: ${q.title}`, 'quest', QUEST_BANNERS.active);
+      if (status === 'done') this.toast(`Auftrag erledigt: ${q.title}`, 'quest', QUEST_BANNERS.done);
     });
     state.on('ending', (id) => { this.pendingEnding = id; });
     state.on('hp', () => this.updateHp());
@@ -245,12 +249,14 @@ export class Ui {
     el.classList.remove('hidden');
   }
 
-  toast(text, kind = '') {
+  toast(text, kind = '', banner = null) {
     const box = this.$('.toasts');
     while (box.children.length > 5) box.firstElementChild.remove();
     const el = document.createElement('div');
     el.className = `toast ${kind}`;
     el.textContent = text;
+    // Aufträge: gemaltes Banner (160x32) über dem Text
+    if (banner) { el.classList.add('with-banner'); el.insertAdjacentHTML('afterbegin', questUi('qbanner', banner, 1 / 16)); }
     box.appendChild(el);
     setTimeout(() => el.classList.add('out'), 3200);
     setTimeout(() => el.remove(), 3800);
@@ -316,9 +322,10 @@ export class Ui {
     el.querySelector('[data-act=continue]')?.addEventListener('click', this.titleContinue);
   }
 
-  showMessage(title, text, { footer = '', extra = '', face = '', onClose = null } = {}) {
+  showMessage(title, text, { footer = '', extra = '', face = '', onClose = null, scene = null } = {}) {
     if (onClose) this.afterClose = onClose;
     const el = this.open('message', `
+      ${sceneImg(scene)}
       <h3>${face}${esc(title)}</h3>
       <div class="text">${paragraphs(text)}</div>
       ${extra}
@@ -382,7 +389,7 @@ export class Ui {
     this.dialogue.choices = choices;
     let n = 0;
     const face = portrait(npc.id, node.mood);
-    const el = this.open('dialogue', `${face}
+    const el = this.open('dialogue', `${sceneImg(node.scene)}${face}
       <div class="speaker">${esc(npc.name)} <span class="role">${esc(npc.role ?? '')}</span></div>
       <div class="text">${paragraphs(text)}</div>
       <ol class="choices">${choices.map((c, i) => (c.locked
@@ -424,7 +431,7 @@ export class Ui {
     const goal = s.tracked ? questTarget(s, s.tracked) : null;
     const goalMap = goal?.district ?? null;
     const pin = (map, cls, inner, attrs = '') => {
-      if (map === goalMap) { cls += ' goal'; inner += '<span class="goaltag">Ziel</span>'; }
+      if (map === goalMap) { cls += ' goal'; inner += `${questUi('qpin', QUEST_PINS.amber)}<span class="goaltag">Ziel</span>`; }
       const [x, y] = pins[map];
       const cell = MAP_MARKERS[map] ?? 0;
       const col = cell % 13;
@@ -436,6 +443,7 @@ export class Ui {
     const unpinned = dests.map((d, i) => (pins[d.map] ? '' : `<button data-i="${i}"><span class="key">${i + 1}</span> ${esc(d.name)}</button>`)).join('');
     const el = this.open('travel', `
       <div class="map" style="background-image:url(${SPRITE_BASE}${rules.map_image})">
+        ${rules.fog_image ? '<canvas class="fog" width="480" height="270"></canvas>' : ''}
         ${here}${destPins}
         ${unpinned ? `<div class="unpinned">${unpinned}</div>` : ''}
       </div>
@@ -449,6 +457,27 @@ export class Ui {
       b.onmouseenter = () => { if (this.travelPick === null) this.travelInfo(dests[Number(b.dataset.i)]); };
     });
     el.querySelector('[data-act=stay]').onclick = () => (this.travelPick === null ? this.close() : this.openTravel(current));
+    const fog = el.querySelector('canvas.fog');
+    if (fog) this.drawFog(fog, `${SPRITE_BASE}${rules.fog_image}`, [current, ...dests.map((d) => d.map)].map((m) => pins[m]).filter(Boolean));
+  }
+
+  /** Nebel über der Stadtkarte; um bekannte Orte herum lichtet er sich. */
+  drawFog(canvas, url, spots) {
+    const img = new Image();
+    img.onload = () => {
+      const ctx = canvas.getContext('2d');
+      ctx.imageSmoothingEnabled = false;
+      ctx.drawImage(img, 0, 0);
+      ctx.globalCompositeOperation = 'destination-out';
+      for (const [x, y] of spots) {
+        const g = ctx.createRadialGradient(x, y, 18, x, y, 54);
+        g.addColorStop(0, 'rgba(0,0,0,1)');
+        g.addColorStop(1, 'rgba(0,0,0,0)');
+        ctx.fillStyle = g;
+        ctx.fillRect(x - 54, y - 54, 108, 108);
+      }
+    };
+    img.src = url;
   }
 
   travelInfo(d) {
@@ -662,7 +691,7 @@ export class Ui {
           <ul class="concl">${concl || '<li class="empty">Wähle zwei Informationen aus und verknüpfe sie.</li>'}</ul>
         </div>
       </div>
-      <div class="detail">${detail}</div>`;
+      <div class="detail">${detailId ? '' : `<img class="casefile" src="${caseFileUrl(caseId)}" alt="" onerror="this.remove()">`}${detail}</div>`;
   }
 
   toggleFact(id) {
@@ -974,6 +1003,9 @@ export class Ui {
       <div class="text">${paragraphs(end.text)}</div>
       <div class="footer">Ansehen ${end.honor > 0 ? '+' : ''}${end.honor} · Rang: ${esc(s.rank().name)}</div>
       <button class="primary" data-act="ok">Weiter <span class="key">E</span></button>`, `ending ending-${end.honor >= 15 ? 'good' : 'bad'}`);
+    // Schlussbild als Hintergrund (480x270)
+    const img = endingImageUrl(id, end.case);
+    if (img) { el.classList.add('with-image'); el.style.backgroundImage = `linear-gradient(rgba(10, 8, 14, 0.3), rgba(10, 8, 14, 0.85) 50%), url(${img})`; }
     el.querySelector('[data-act=ok]').onclick = () => this.close();
   }
 
