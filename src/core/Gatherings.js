@@ -63,7 +63,8 @@ export const gatheringMethods = {
   /** Welches Treffen gehört zur Runde `cycle`? { id, cycle, start, end } in Spielsekunden. */
   gatheringSlot(cycle) {
     const r = this.gatheringRules();
-    const order = r.order;
+    // Jede Stadt hat ihre eigenen Zirkel (rules.orders.<stadt>); sonst die Reihenfolge von Kettlegate
+    const order = r.orders?.[this.content.maps[this.map]?.city ?? 'kettlegate'] ?? r.order;
     const id = order[((cycle % order.length) + order.length) % order.length];
     const start = cycle * r.interval_min * 60;
     return { id, cycle, start, end: start + r.open_min * 60 };
