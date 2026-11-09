@@ -119,7 +119,7 @@ test('Hammerfall und Unbeugsam funktionieren im Kampf', () => {
   assert.equal(c.stunned || c.outcome === 'won', true);
 });
 
-test('Artefakte: höchstens drei, Vorteile und Nachteile wirken, Anlegen bringt Unruhe, Ablegen kostet Nerven', () => {
+test('Artefakte wirken, sobald man sie dabei hat: Vorteile und Nachteile, Aufnehmen bringt Unruhe, viele streiten sich', () => {
   const s = new GameState(content);
   const arts = Object.keys(content.artifacts.list);
   assert.ok(arts.length >= 10);
@@ -128,48 +128,51 @@ test('Artefakte: höchstens drei, Vorteile und Nachteile wirken, Anlegen bringt 
     assert.equal(it.kind, 'artifact');
     assert.ok(it.boons.length && it.curses.length, `${id}: Vor- und Nachteile`);
   }
+  assert.equal(s.equipArtifact, undefined, 'kein Anlegen mehr');
   const atk = s.weaponStats().atk;
   s.addItem('zahnkette');
-  assert.equal(s.equipArtifact('zahnkette').ok, true);
+  assert.ok(s.isArtifactActive('zahnkette'), 'wirkt sofort im Inventar');
   assert.equal(s.weaponStats().atk, atk + 2, 'Vorteil: +2 Angriff');
-  assert.equal(s.unruhe, 10, 'Anlegen bringt Unruhe');
+  assert.equal(s.unruhe, 10, 'Aufnehmen bringt Unruhe');
   assert.equal(s.maxHp, 50, '+10 Leben');
   // Nachteil: 30 % mehr Schaden
   s.hp = s.maxHp;
   assert.equal(s.damage(10), 13);
-  for (const id of ['knochenwuerfel', 'kupferkrone', 'wachshand']) s.addItem(id);
-  assert.equal(s.equipArtifact('knochenwuerfel').ok, true);
-  assert.equal(s.equipArtifact('kupferkrone').ok, true);
+  for (const id of ['knochenwuerfel', 'kupferkrone']) s.addItem(id);
   assert.equal(s.maxComposure(), 65, 'Kupferkrone: -35 Nerven');
   assert.ok(s.composure <= 65);
-  const fourth = s.equipArtifact('wachshand');
-  assert.equal(fourth.ok, false, 'viertes Artefakt verboten');
-  assert.match(fourth.text, /Mehr als 3/);
   // Mehrere Artefakte streiten sich: Unruhe steigt von selbst
-  assert.ok(s.artifactUnruhe() > 0);
+  const three = s.artifactUnruhe();
+  assert.ok(three > 0);
   const u = s.unruhe;
   s.tick(10);
   assert.ok(s.unruhe > u, 'Unruhe steigt auch ohne Pfad');
+  // Ein viertes ist erlaubt, aber der Streit wird deutlich heftiger
+  s.addItem('wachshand');
+  assert.equal(s.activeArtifacts().length, 4);
+  assert.ok(s.artifactUnruhe() - three > content.artifacts.clash_tick, 'jenseits von drei wird es teuer');
   // Preise: Knochenwürfel macht teurer
   const plain = new GameState(content);
   assert.ok(s.shopStock('gorse')[0].price > plain.shopStock('gorse')[0].price);
-  const nerves = s.composure;
-  assert.equal(s.unequipArtifact('kupferkrone').ok, true);
-  assert.equal(s.composure, nerves - 15, 'Ablegen kostet Nerven');
-  assert.equal(s.equipArtifact('wachshand').ok, true, 'jetzt ist wieder Platz');
-  // Verkaufen legt es ab
+  // Im Büro eingelagert wirkt es nicht mehr
+  assert.equal(s.storeItem('kupferkrone').ok, true);
+  assert.ok(!s.isArtifactActive('kupferkrone'));
+  assert.equal(s.maxComposure(), 100);
+  s.retrieveItem('kupferkrone');
+  assert.equal(s.maxComposure(), 65, 'wieder dabei, wirkt wieder');
+  // Verkaufen/wegwerfen beendet die Wirkung
   s.removeItem('zahnkette');
   assert.ok(!s.isArtifactActive('zahnkette'));
+  assert.equal(s.weaponStats().atk, atk);
 });
 
 test('Artefakte bleiben beim Speichern erhalten', () => {
   const s = new GameState(content);
   s.addItem('stille_glocke');
-  s.equipArtifact('stille_glocke');
   const hp = s.maxHp;
   const t = new GameState(content);
   assert.equal(t.load(JSON.parse(JSON.stringify(s.serialize()))), true);
-  assert.deepEqual(t.artifacts, ['stille_glocke']);
+  assert.deepEqual(t.activeArtifacts(), ['stille_glocke']);
   assert.equal(t.maxHp, hp);
 });
 
@@ -186,16 +189,20 @@ test('Asservatenkammer: ausleihen nach Rang, nicht verkaufen, zurückgeben; Kont
   assert.equal(s.itemCount('richterhammer'), 1);
   assert.equal(s.borrowArtifact('uhr_ertrunkener').ok, false, 'Limit erreicht');
   assert.equal(s.sellPrice('richterhammer'), null, 'Revier-Eigentum ist unverkäuflich');
-  s.equipArtifact('richterhammer');
-  // Nachteil: doppelter Ansehensverlust
+  // Nachteil wirkt schon, weil der Hammer in der Tasche ist: doppelter Ansehensverlust
   s.addHonor(-2, 'Test');
   assert.equal(s.honor, 32);
   s.honor = 40;
   s.loseControl('Test');
   assert.equal(s.honor, 34, 'Kontrollverlust mit Revier-Artefakt: -3 Ansehen, durch den Richterhammer verdoppelt');
+  // Im Büro eingelagert bleibt es Revier-Eigentum
+  s.storeItem('richterhammer');
+  assert.ok(s.borrowed.includes('richterhammer'));
+  s.retrieveItem('richterhammer');
+  assert.equal(s.sellPrice('richterhammer'), null);
   assert.equal(s.returnArtifact('richterhammer').ok, true);
   assert.equal(s.itemCount('richterhammer'), 0);
-  assert.deepEqual(s.artifacts, []);
+  assert.deepEqual(s.activeArtifacts(), []);
 });
 
 test('Gefahrengebiete: Gegner können Artefakte fallen lassen, Bosse häufiger', () => {

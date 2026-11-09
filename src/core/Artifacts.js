@@ -1,8 +1,10 @@
 // Artefakte und die Ausgabe des Reviers (ohne Phaser, in Node testbar).
 //
 // Artefakte sind Gegenstände der Art 'artifact' mit Vorteilen (boons) und schweren Nachteilen (curses).
-// Beide wirken über passive(), solange das Artefakt angelegt ist. Höchstens drei gleichzeitig.
-// - Anlegen bringt Unruhe, Ablegen kostet Nerven. Mehrere Artefakte streiten sich (Unruhe pro Sekunde).
+// Es gibt kein An- und Ablegen: Beide wirken über passive(), sobald das Artefakt im Inventar ist.
+// Wer etwas nicht spüren will, muss es im Büro (oder einem Versteck) einlagern oder zurückgeben.
+// - Ein Artefakt aufzunehmen bringt Unruhe. Mehrere Artefakte streiten sich (Unruhe pro Sekunde),
+//   jenseits von max_active wird der Streit deutlich heftiger.
 // - Herkunft: Asservatenkammer des Reviers (ausleihen, nach Rang) oder selten als Beute in Gefahrengebieten.
 // - Geliehene Artefakte kann man nicht verkaufen. Wer mit einem geliehenen Artefakt die Kontrolle verliert,
 //   verliert Ansehen.
@@ -13,7 +15,6 @@
 
 export const artifactMethods = {
   resetArtifacts() {
-    this.artifacts = []; // angelegte Artefakte (ids)
     this.borrowed = []; // vom Revier geliehen (ids)
     this.revierPotions = []; // bereits abgeholte Revier-Tränke: 'pfad_seq'
   },
@@ -26,14 +27,19 @@ export const artifactMethods = {
     return this.artifactRules().list?.[id] ?? null;
   },
 
-  isArtifactActive(id) {
-    return this.artifacts.includes(id);
+  /** Alle Artefakte, die du gerade bei dir trägst. Genau diese wirken. */
+  activeArtifacts() {
+    return Object.keys(this.inventory ?? {}).filter((id) => this.inventory[id] > 0 && this.item(id)?.kind === 'artifact');
   },
 
-  /** Alle Vor- und Nachteile der angelegten Artefakte als Listen für passive(). */
+  isArtifactActive(id) {
+    return this.item(id)?.kind === 'artifact' && this.itemCount(id) > 0;
+  },
+
+  /** Alle Vor- und Nachteile der mitgeführten Artefakte als Listen für passive(). */
   artifactEffects() {
     const out = [];
-    for (const id of this.artifacts ?? []) {
+    for (const id of this.activeArtifacts()) {
       const it = this.item(id);
       if (it) out.push(it.boons ?? [], it.curses ?? []);
     }
@@ -42,50 +48,33 @@ export const artifactMethods = {
 
   /** Unruhe pro Sekunde durch Artefakte (Flüche plus Streit zwischen mehreren). */
   artifactUnruhe() {
-    if (!this.artifacts?.length) return 0;
-    const clash = (this.artifactRules().clash_tick ?? 0.1) * Math.max(0, this.artifacts.length - 1);
-    return Math.max(0, this.passive('unruhe_tick') + clash);
+    const n = this.activeArtifacts().length;
+    if (!n) return 0;
+    const rules = this.artifactRules();
+    const clash = (rules.clash_tick ?? 0.2) * Math.max(0, n - 1);
+    const over = (rules.overload_tick ?? 0.6) * Math.max(0, n - (rules.max_active ?? 3));
+    return Math.max(0, this.passive('unruhe_tick') + clash + over);
   },
 
-  /** Kann das Artefakt jetzt angelegt werden? { ok, reason? } */
-  canEquipArtifact(id) {
-    const it = this.item(id);
-    if (it?.kind !== 'artifact') return { ok: false, reason: 'Das ist kein Artefakt.' };
-    if (!this.itemCount(id)) return { ok: false, reason: 'Das hast du nicht dabei.' };
-    if (this.isArtifactActive(id)) return { ok: false, reason: 'Das trägst du schon.' };
-    const max = this.artifactRules().max_active ?? 3;
-    if (this.artifacts.length >= max) return { ok: false, reason: `Mehr als ${max} Artefakte hält niemand aus. Leg erst eines ab.` };
-    return { ok: true };
-  },
-
-  equipArtifact(id) {
-    const chk = this.canEquipArtifact(id);
-    if (!chk.ok) return { ok: false, text: chk.reason };
-    this.artifacts.push(id);
-    const u = this.artifactRules().equip_unruhe ?? 10;
-    this.setUnruhe(this.unruhe + u);
+  /** Wird aufgerufen, wenn ein Artefakt neu ins Inventar kommt. */
+  artifactPickedUp(id) {
+    const u = this.artifactRules().pickup_unruhe ?? 10;
+    if (u) this.setUnruhe(this.unruhe + u);
     this.updateMaxHp();
     this.emit('artifact', { id, active: true });
-    this.emit('changed');
-    return { ok: true, text: `Du legst ${this.item(id).name} an. Etwas in dir zieht sich zusammen (+${u} Unruhe).` };
-  },
-
-  unequipArtifact(id, { quiet = false } = {}) {
-    if (!this.isArtifactActive(id)) return { ok: false, text: 'Das trägst du gar nicht.' };
-    this.artifacts = this.artifacts.filter((a) => a !== id);
-    const n = quiet ? 0 : this.artifactRules().unequip_nerves ?? 15;
-    if (n) this.setComposure(this.composure - n);
-    this.updateMaxHp();
-    this.emit('artifact', { id, active: false });
-    this.emit('changed');
-    return { ok: true, text: `Du legst ${this.item(id).name} ab.${n ? ` Es fühlt sich an, als würde etwas fehlen (-${n} Nerven).` : ''}` };
+    const max = this.artifactRules().max_active ?? 3;
+    const n = this.activeArtifacts().length;
+    this.emit('notice', `${this.item(id).name} wirkt jetzt, solange du es bei dir hast (+${u} Unruhe).${n > max ? ` ${n} Artefakte auf einmal: Sie zerren heftig aneinander.` : ''}`);
   },
 
   /** Wird aufgerufen, wenn ein Gegenstand das Inventar verlässt. */
   dropArtifactIfGone(id) {
     if (this.itemCount(id) > 0) return;
-    if (this.isArtifactActive(id)) this.unequipArtifact(id, { quiet: true });
-    this.borrowed = this.borrowed.filter((b) => b !== id);
+    this.updateMaxHp();
+    this.emit('artifact', { id, active: false });
+    // Eingelagert bleibt es Revier-Eigentum; nur wenn es ganz weg ist, endet die Ausleihe.
+    const kept = this.storedCount?.(id, 'buero') > 0 || Object.values(this.stashes ?? {}).some((st) => (st?.[id] ?? 0) > 0);
+    if (!kept) this.borrowed = this.borrowed.filter((b) => b !== id);
   },
 
   // --- Asservatenkammer ------------------------------------------------------------
@@ -124,7 +113,6 @@ export const artifactMethods = {
 
   returnArtifact(id) {
     if (!this.borrowed.includes(id) || !this.itemCount(id)) return { ok: false, text: 'Das gehört nicht dem Revier.' };
-    if (this.isArtifactActive(id)) this.unequipArtifact(id);
     this.borrowed = this.borrowed.filter((b) => b !== id);
     this.removeItem(id);
     this.emit('changed');
@@ -133,7 +121,7 @@ export const artifactMethods = {
 
   /** Kontrollverlust mit geliehenem Artefakt am Leib: Das Revier erfährt davon. */
   artifactShame() {
-    const worn = this.artifacts.filter((a) => this.borrowed.includes(a));
+    const worn = this.activeArtifacts().filter((a) => this.borrowed.includes(a));
     if (!worn.length) return '';
     this.addHonor(-3 * worn.length, 'Kontrollverlust mit Revier-Artefakt');
     return '\n\nEin Constable hat dich gefunden, mit Revier-Eigentum am Leib. Das spricht sich herum.';
@@ -176,13 +164,12 @@ export const artifactMethods = {
   },
 
   serializeArtifacts() {
-    return { artifacts: this.artifacts, borrowed: this.borrowed, revierPotions: this.revierPotions };
+    return { borrowed: this.borrowed, revierPotions: this.revierPotions };
   },
 
   loadArtifacts(data) {
-    const max = this.artifactRules().max_active ?? 3;
-    this.borrowed = (data.borrowed ?? []).filter((id) => this.item(id)?.kind === 'artifact' && this.itemCount(id) > 0);
-    this.artifacts = (data.artifacts ?? []).filter((id) => this.item(id)?.kind === 'artifact' && this.itemCount(id) > 0).slice(0, max);
+    const owned = (id) => this.itemCount(id) > 0 || this.storedCount?.(id, 'buero') > 0 || Object.values(this.stashes ?? {}).some((st) => (st?.[id] ?? 0) > 0);
+    this.borrowed = (data.borrowed ?? []).filter((id) => this.item(id)?.kind === 'artifact' && owned(id));
     this.revierPotions = data.revierPotions ?? [];
   },
 };

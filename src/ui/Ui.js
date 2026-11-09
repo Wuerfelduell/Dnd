@@ -39,7 +39,7 @@ const turnFace = (id) => {
   return `<span class="turnface" style="background-image:url(${url});background-size:${cols * 2}em 2em;background-position:-${TURN_PORTRAITS[id] * 2}em 0"></span>`;
 };
 const skillIcon = (id) => { const ic = skillIconOf(id); return ic ? atlasIcon(ic[0], ic[1], 7) : ''; };
-/** Artefakt-Slots (20x20 aus ui/N_artefakt_ui.png), angelegte mit Icon in der Öffnung. */
+/** Artefakt-Slots (20x20 aus ui/N_artefakt_ui.png), mitgeführte mit Icon in der Öffnung. */
 const artifactSlots = (ids, max, overloaded) => Array.from({ length: Math.max(max, ids.length) }, (_, i) => {
   const id = ids[i];
   const kind = !id ? 'empty' : overloaded ? 'overloaded' : 'equipped';
@@ -804,8 +804,6 @@ export class Ui {
         this.scene?.playRitual?.(pid);
       } else this.renderNotebook(esc(r.text));
     });
-    el.querySelectorAll('[data-wear]').forEach((b) => { b.onclick = () => this.renderNotebook(esc(this.state.equipArtifact(b.dataset.wear).text)); });
-    el.querySelectorAll('[data-unequip]').forEach((b) => { b.onclick = () => this.renderNotebook(esc(this.state.unequipArtifact(b.dataset.unequip).text)); });
     el.querySelectorAll('[data-inspect]').forEach((b) => { b.onclick = () => this.inspectItem(b.dataset.inspect); });
     el.querySelectorAll('[data-track]').forEach((b) => { b.onclick = () => { const id = b.dataset.track; this.state.track(this.state.tracked === id ? null : id); this.renderNotebook(''); }; });
     el.querySelectorAll('[data-recipe]').forEach((b) => { b.onclick = () => { this.tab = 'pfad'; this.renderNotebook(''); }; });
@@ -872,21 +870,22 @@ export class Ui {
         action = chk.ok ? `<button class="small" data-drink="${it.id}">Trinken</button><br><span class="muted">Risiko ${Math.round(chk.risk * 100)} %</span>` : chk.ritual ? '<button class="small" data-recipe="1">Ritual nötig</button>' : '<span class="muted">nicht trinkbar</span>';
       } else if (it.kind === 'formula') action = '<button class="small" data-recipe="1">Rezept</button>';
       else if (it.kind === 'artifact') {
-        action = s.isArtifactActive(it.id) ? `<span class="badge likely">angelegt</span><br><button class="small" data-unequip="${it.id}">Ablegen</button>`
-          : `<button class="small" data-wear="${it.id}" ${s.canEquipArtifact(it.id).ok ? '' : 'disabled'}>Anlegen</button>`;
+        action = '<span class="badge likely">wirkt</span>';
         if (s.borrowed.includes(it.id)) action += '<br><span class="muted">vom Revier geliehen</span>';
       } else if (it.kind === 'ingredient') action = '<span class="muted">Zutat</span>';
       else if (it.kind === 'trophy') action = `<span class="muted rar-${itemRarity(it)}">Beutestück · ${RARITY_NAMES[itemRarity(it)]}</span>`;
       if (!action && it.inspect) action = `<button class="small" data-inspect="${it.id}">Untersuchen</button>`;
       const wt = s.itemWeight(it.id);
       if (wt > 0) action += `${action ? '<br>' : ''}<span class="muted weight">${fmtLb(wt * it.count)} Pfd.</span>`;
-      if (s.canDrop(it.id) && !(it.kind === 'artifact' && s.isArtifactActive(it.id)) && !(it.kind === 'weapon' && s.weapon === it.id)) action += ` <button class="small drop" data-drop="${it.id}" title="Wegwerfen (eins)">×</button>`;
+      if (s.canDrop(it.id) && !(it.kind === 'weapon' && s.weapon === it.id)) action += ` <button class="small drop" data-drop="${it.id}" title="Wegwerfen (eins)">×</button>`;
       const stat = it.kind === 'weapon' ? ` <span class="muted">Angriff ${it.atk}${it.occult ? ', stark gegen Okkultes' : ''}</span>` : '';
       const effects = it.kind === 'artifact' ? artifactEffectsHtml(it) : '';
       return `<li class="item"><div>${it.kind === 'potion' || it.kind === 'formula' ? itemIconBig(it.id) : itemIcon(it.id)}<strong>${esc(it.name)}</strong>${it.count > 1 ? ` ×${it.count}` : ''}${stat}<br><span class="desc">${esc(it.desc)}</span>${effects}</div><div>${action}</div></li>`;
     }).join('');
-    const arts = s.artifacts.length || list.some((it) => it.kind === 'artifact')
-      ? `<div class="status"><span class="artslots">${artifactSlots(s.artifacts, s.artifactRules().max_active ?? 3, s.unruhe >= 60)}</span>Artefakte angelegt <strong>${s.artifacts.length}/${s.artifactRules().max_active ?? 3}</strong>${s.artifactUnruhe() ? ` · <span class="curse">Unruhe +${Math.round(s.artifactUnruhe() * 10) / 10} pro Sekunde</span>` : ''} · Anlegen bringt Unruhe, Ablegen kostet Nerven.</div>` : '';
+    const carried = s.activeArtifacts();
+    const maxArt = s.artifactRules().max_active ?? 3;
+    const arts = carried.length
+      ? `<div class="status"><span class="artslots">${artifactSlots(carried, maxArt, carried.length > maxArt || s.unruhe >= 60)}</span>Artefakte dabei <strong>${carried.length}</strong>${s.artifactUnruhe() ? ` · <span class="curse">Unruhe +${Math.round(s.artifactUnruhe() * 10) / 10} pro Sekunde</span>` : ''} · Alles, was du bei dir trägst, wirkt: Vorteile wie Flüche. Was du nicht brauchst, lagere im Büro ein.${carried.length > maxArt ? ` <span class="curse">Mehr als ${maxArt} zerren heftig aneinander.</span>` : ''}</div>` : '';
     return `
       ${carryHtml(s)}
       <div class="status">Leben <strong>${s.hp}/${s.maxHp}</strong> · Nerven <strong>${Math.round(s.composure)}/${s.maxComposure()}</strong> · Waffe <strong>${esc(w.name)}</strong> (Angriff ${w.atk}) · ${coin}<strong>${s.money}</strong> Schilling</div>
