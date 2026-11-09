@@ -3,7 +3,7 @@ import { Combat, WINDOW, EARLY_LIMIT, DODGE_COST, judgeDefense, judgeTiming } fr
 import { createTextures, createCharacterSheet } from './textures.js';
 import {
   BATTLE_BACKGROUNDS, ENCOUNTER_BACKGROUNDS, ENEMY_BATTLE_SHEETS, ENCOUNTER_SHEETS, FADING_SHEETS,
-  SKILL_FX, SELF_FX, PATHWAY_POSES, WEAPON_POSES, ENCOUNTER_FX, playBattleAnim, playCaseAnim,
+  SKILL_FX, SELF_FX, PATHWAY_POSES, WEAPON_POSES, ENCOUNTER_FX, BOSS_INTROS, CASE_SHEETS, playBattleAnim, playCaseAnim,
 } from './assets.js';
 import { VIEW_W, VIEW_H, PLAYER_PALETTE } from './WorldScene.js';
 
@@ -45,7 +45,33 @@ export class CombatScene extends Phaser.Scene {
     this.ui.openCombat(this);
     this.ui.combatMessage(this.combat.enc.intro + (this.combat.weak ? `\n\n${this.combat.enc.weak_text}` : ''), 'Weiter mit E');
     // transition_out deckt auf (Schwarz → Bild), transition_in deckt zu
-    this.playTransition('transition_out', () => {}) || this.cameras.main.fadeIn(250, 0, 0, 0);
+    this.playTransition('transition_out', () => this.bossIntro()) || (this.cameras.main.fadeIn(250, 0, 0, 0), this.bossIntro());
+  }
+
+  /** Paket F: Boss-Band schiebt sich ins Bild, Büste und Name, dann wieder weg. */
+  bossIntro() {
+    const bust = BOSS_INTROS[this.encounterId];
+    if (!bust || !this.textures.exists('F_08_boss_band')) return;
+    const band = this.add.sprite(0, 0, 'F_08_boss_band', 0).setOrigin(0).setDepth(90);
+    const key = 'F_08_boss_band-enter';
+    if (!this.anims.exists(key)) {
+      const def = this.cache.json.get('manifestKampf2')?.assets?.find((a) => a.id === 'F_08_boss_band')?.animations?.enter;
+      this.anims.create({ key, frames: (def?.frames ?? [0, 1, 2, 3, 4, 5]).map((frame) => ({ key: 'F_08_boss_band', frame })), frameRate: def?.frameRate ?? 12, repeat: 0 });
+    }
+    band.play(key);
+    const parts = [band];
+    const bustKey = `F_08_boss_${bust}`;
+    if (this.textures.exists(bustKey)) {
+      const img = this.add.image(VIEW_W + 80, 135, bustKey).setDepth(91).setScale(0.75);
+      this.tweens.add({ targets: img, x: VIEW_W - 90, duration: 380, delay: 200, ease: 'Cubic.out' });
+      parts.push(img);
+    }
+    const name = this.add.text(-200, 135, this.combat.enc.name.toUpperCase(), {
+      fontFamily: 'monospace', fontSize: '16px', fontStyle: 'bold', color: '#e8c070', stroke: '#1a1c2c', strokeThickness: 4,
+    }).setOrigin(0, 0.5).setDepth(92);
+    this.tweens.add({ targets: name, x: 40, duration: 380, delay: 250, ease: 'Cubic.out' });
+    parts.push(name);
+    this.tweens.add({ targets: parts, alpha: 0, delay: 1900, duration: 400, onComplete: () => parts.forEach((o) => o.destroy()) });
   }
 
   /** Vollbild-Übergang (Paket B). Liefert false, wenn das Sheet fehlt. */
@@ -63,7 +89,10 @@ export class CombatScene extends Phaser.Scene {
   /** Fußpunkt laut Manifest (Kampf-Sheets aus Paket B haben unten 3 px Luft). */
   sheetOriginY(sheet) {
     const a = this.cache.json.get('manifestKampf')?.assets?.find((x) => x.id === sheet);
-    return a?.origin?.[1] ?? 1;
+    if (a?.origin) return a.origin[1];
+    // Paket F: Fußlinie als Pixelzeile
+    const b = this.cache.json.get('manifestKampf2')?.assets?.find((x) => x.id === sheet);
+    return b?.baseline ? (b.baseline + 1) / b.frameHeight : 1;
   }
 
   /** Effekt-Streifen an einer Position abspielen und danach entfernen. */
@@ -78,6 +107,7 @@ export class CombatScene extends Phaser.Scene {
   caseFx(sheet, who, scale = 1.5) {
     if (!sheet) return;
     const p = who === 'enemy' ? this.enemyCenter() : this.playerCenter();
+    if (!CASE_SHEETS[sheet]) { this.playFx(sheet, 'play', p.x, p.y, scale); return; } // Paket-F-Effekt
     const fx = this.add.sprite(p.x, p.y, sheet, 0).setScale(scale).setDepth(30);
     if (!playCaseAnim(fx, sheet, () => fx.destroy())) fx.destroy();
   }
@@ -366,7 +396,8 @@ export class CombatScene extends Phaser.Scene {
     this.tweens.add({ targets: this.enemy, x: ENEMY_X + 8, duration: TELEGRAPH * 0.6, ease: 'Sine.out' });
     // Paket-B-Gegner haben zwei Angriffe: mehrteilige Attacken nutzen 'special'
     if (!(atk.hits.length > 1 && this.anim(this.enemy, 'special'))) this.anim(this.enemy, 'attack');
-    this.caseFx(ENCOUNTER_FX[this.encounterId]?.attack, 'player');
+    const efx = ENCOUNTER_FX[this.encounterId];
+    if (efx) this.caseFx(atk.hits.length > 2 ? efx.multi ?? efx.attack : atk.hits.length === 1 && atk.damage >= 10 ? efx.heavy ?? efx.attack : efx.attack, 'player');
   }
 
   pressDefense(kind, t) {
@@ -453,7 +484,11 @@ export class CombatScene extends Phaser.Scene {
       else this.tweens.add({ targets: this.enemy, alpha: 0, y: '+=10', duration: 700 });
     }
     if (c.outcome === 'won') playBattleAnim(this.player, 'victory', null, 'battle_player_weapons');
-    if (c.outcome === 'won') this.caseFx(ENCOUNTER_FX[this.encounterId]?.won, 'enemy');
+    if (c.outcome === 'won') {
+      const efx = ENCOUNTER_FX[this.encounterId];
+      this.caseFx(efx?.won, 'enemy');
+      if (efx?.after) this.time.delayedCall(700, () => this.caseFx(efx.after, 'enemy', 1));
+    }
     if (c.outcome === 'lost' && !this.anim(this.player, 'defeated', false)) this.tweens.add({ targets: this.player, angle: -90, y: '+=4', duration: 500 });
     const title = { won: 'Sieg', lost: 'Ohnmacht', fled: 'Rückzug' }[c.outcome];
     this.ui.combatOver(title);

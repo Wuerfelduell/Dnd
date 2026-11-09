@@ -384,3 +384,10 @@ img.scene { display: block; width: 30em; height: 16.875em; margin: 0 auto 0.6em;
 .feedback .hint { border-left: 0.25em solid var(--gold); padding: 0.2em 0.6em; background: #0000004d; color: var(--ink); }
 .feedback .hint p { margin: 0 0 0.25em; }
 .notebook .fact.hinted { border-color: var(--gold); box-shadow: 0 0 0.4em #e8c07066; }
+
+/* Paket F: Bestiarium und Zug-Portraits */
+.bestiary { list-style: none; margin: 0; padding: 0 0 0.4em; display: flex; gap: 0.8em; overflow-x: auto; }
+.bestiary li { flex: 0 0 auto; display: flex; flex-direction: column; align-items: center; gap: 0.15em; font-size: 0.85em; }
+.bestiary img { width: 12em; height: 16em; image-rendering: pixelated; }
+.turnface { display: inline-block; width: 2em; height: 2em; background-size: 38em 2em; background-repeat: no-repeat; image-rendering: pixelated; vertical-align: middle; margin-right: 0.4em; }
+.cb-enemy > .turnface { float: left; }
