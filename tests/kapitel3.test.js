@@ -170,3 +170,34 @@ test('Epiloge (AP/AR): jedes Kapitel-2/3-Ende zeigt seine Szenen in Dateireihenf
 test('AV: Dunscarer Karten nutzen die eigenen Tilesets', () => {
   for (const id of DS_MAPS) assert.match(content.maps[id].tiles, /^ds_/, id);
 });
+
+test('Rufladungen: Ruf kostet eine Ladung, Notladung einmal je Station, Pfiff füllt auf, Spielstand behält alles', () => {
+  const s = new GameState(content);
+  s.flags.add('k3o_rangierwueste_gelesen1');
+  const station = content.dialogues.k3o_schwellenhund_station;
+  const choice = (t) => station.nodes.k3o_start.choices.find((c) => c.text.startsWith(t));
+  assert.ok(!s.meets(choice('Den falschen Anfahrpfiff')), 'ohne Gerät kein Ruf');
+  s.addItem('k3a_signalgeraet');
+  assert.equal(s.signal.charges, 3);
+  assert.ok(!s.meets(choice('Die Notladung')), 'bei vollem Gerät bleibt die Notladung im Kasten');
+  s.signal.charges = 1;
+  talk(s, 'k3o_schwellenhund_station', ['Den falschen Anfahrpfiff']);
+  assert.ok(s.flags.has('k3o_falscher_pfiff'));
+  assert.equal(s.signal.charges, 0);
+  // gleiche Lage an einer anderen Station: leer, dann einmalige Notladung
+  s.flags.add('k3o_klopfbruch_gelesen1');
+  assert.throws(() => talk(s, 'k3o_vorhauer_station', ['Die originale Rettungsfolge']), /keine verfügbare Option/);
+  talk(s, 'k3o_vorhauer_station', ['Das Gerät ist leer']);
+  talk(s, 'k3o_vorhauer_station', ['Die Notladung']);
+  assert.equal(s.signal.charges, 1);
+  assert.deepEqual(s.signal.reserveUsed, ['k3o_horch_vorhauer']);
+  s.signal.charges = 0;
+  const t = new GameState(content);
+  assert.ok(t.load(JSON.parse(JSON.stringify(s.serialize()))));
+  assert.deepEqual(t.signal, { charges: 0, reserveUsed: ['k3o_horch_vorhauer'] }, 'Reserve bleibt nach dem Laden verbraucht');
+  assert.throws(() => talk(t, 'k3o_vorhauer_station', ['Die Notladung']), /keine verfügbare Option/);
+  t.flags.add('k3a_speisewagen_sicher');
+  talk(t, 'k3a_pfiff', ['Das Signalgerät füllen']);
+  assert.equal(t.signal.charges, 3);
+  assert.deepEqual(t.signal.reserveUsed, ['k3o_horch_vorhauer'], 'Pfiff setzt keine Reserven zurück');
+});

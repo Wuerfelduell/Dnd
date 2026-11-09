@@ -280,6 +280,7 @@ export class Ui {
           <div class="money"></div>
           <div class="overload hidden"></div>
           <div class="fahndung hidden"></div>
+          <div class="signal hidden"></div>
           <div class="treffen hidden"></div>
           <div class="goal hidden"></div>
         </div>
@@ -331,6 +332,7 @@ export class Ui {
     state.on('ending', (id) => { this.pendingEnding = id; });
     state.on('hp', () => this.updateHp());
     state.on('item', ({ id, delta }) => {
+      if (id === 'k3a_signalgeraet') this.updateSignal();
       if (this.modal === 'combat') return;
       const it = state.item(id);
       const who = state.acting === 2 ? 'Spieler 2: ' : '';
@@ -344,6 +346,10 @@ export class Ui {
       this.toast(`${delta > 0 ? '+' : ''}${delta} Schilling${reason ? `: ${reason}` : ''}`, delta > 0 ? 'item' : 'warn');
     });
     state.on('unruhe', () => (state.acting === 2 ? this.updateP2() : this.updateUnruhe()));
+    state.on('signal', ({ charges, delta }) => {
+      this.updateSignal();
+      this.toast(delta > 0 ? `Rufladungen aufgefüllt: ${charges} von 3` : `Rufladung verbraucht: noch ${charges} von 3`, delta > 0 ? 'item' : 'warn');
+    });
     state.on('wanted', ({ level, delta, reason }) => {
       this.updateWanted();
       this.toast(`Fahndungsstufe ${level}${reason ? `: ${reason}` : ''}`, delta > 0 ? 'warn' : 'item');
@@ -509,6 +515,7 @@ export class Ui {
     this.updateMoney();
     this.updateUnruhe();
     this.updateWanted();
+    this.updateSignal();
     this.updateGoal();
     this.updateLoad();
   }
@@ -565,6 +572,17 @@ export class Ui {
     if (!show) return;
     el.classList.toggle('hot', s.wanted > 0);
     el.textContent = `Fahndung ${'★'.repeat(s.wanted)}${'☆'.repeat(r.max_level - s.wanted)}`;
+  }
+
+  /** Kapitel 3: Rufladungen von Pfiffs Signalgerät, nur in Dunscar und solange man es trägt. */
+  updateSignal() {
+    const el = this.$('.signal');
+    const s = this.state;
+    const show = s.hasSignalDevice() && s.content.maps[s.map]?.city === 'dunscar';
+    el.classList.toggle('hidden', !show);
+    if (!show) return;
+    el.classList.toggle('empty', s.signal.charges === 0);
+    el.textContent = `Rufladungen ${'●'.repeat(s.signal.charges)}${'○'.repeat(3 - s.signal.charges)}`;
   }
 
   updateMoney() {
