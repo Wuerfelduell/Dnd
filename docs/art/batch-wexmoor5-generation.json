@@ -1,0 +1,4192 @@
+{
+  "version": 1,
+  "batch": "wexmoor5",
+  "generator": "image_gen",
+  "date": "2026-11-09",
+  "sourceBrief": "codex_W_altstadt_nebengeschichten.md",
+  "monsters": [
+    {
+      "id": "pfahlbohrer",
+      "name": "Pfahlbohrer",
+      "description": "a huge grey shipworm as thick as a barrel bursting out of a black oak stilt, a head of overlapping horn plates with a round grinding mouth, wood splinters falling; attack_a: bores forward, attack_b: whips its body and splinters fly",
+      "map": "16x32, Wurm aus einem Pfahl"
+    },
+    {
+      "id": "ratsherr",
+      "name": "Ertrunkener Ratsherr",
+      "description": "a drowned councillor in a robe of kelp over a faded green council gown, a chain of office tarnished green, sitting on a chair stuck in the mud and reading a dripping ledger, pale blue skin, empty polite face; attack_a: reads a sentence aloud (green glyph-less ripples), attack_b: slams down a wax seal",
+      "map": "16x32, sitzend auf Stuhl"
+    },
+    {
+      "id": "kellerkrebs",
+      "name": "Kellerkrebs",
+      "description": "a crayfish the size of a dog, dark rust-brown shell encrusted with shards of old wine bottles, two oversized claws, long feelers; attack_a: claw pinch, attack_b: buries itself and bursts out",
+      "map": "32x32"
+    },
+    {
+      "id": "namensmade",
+      "name": "Namensmade",
+      "description": "a pale maggot as long as an arm, glistening waxy body with faint smeared letter-like marks that are not real letters, a small round mouth that sucks; occult turquoise glow inside; attack_a: lunges and sucks, attack_b: sweats wax drops that fly up",
+      "map": "32x32, kriecht"
+    },
+    {
+      "id": "buergermeister",
+      "name": "Der Ertrunkene Bürgermeister",
+      "description": "the drowned mayor of a sunken town, a tall gaunt man in a rotten black-green mayoral coat and tricorn, a heavy gold chain of office tangled with seaweed, water running from his sleeves, behind him faint silhouettes of his drowned townsfolk standing in the mud"
+    }
+  ],
+  "jobs": [
+    {
+      "id": "card_pfahlbohrer",
+      "kind": "card",
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\nSETTING OVERRIDE: Wexmoor, a sinking coastal peat marsh town. The drowned Old Town is three centuries older: muddy cobbles, gothic stone gables, green copper, algae, black oak stilts descending from the village above. Use the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction. No actual writing, letters, numbers, labels or watermark anywhere.\n\nBestiary illustration card, logical 96x128 pixels, opaque aged bone parchment with thin ornamental border in the style reference. Show a huge grey shipworm as thick as a barrel bursting out of a black oak stilt, a head of overlapping horn plates with a round grinding mouth, wood splinters falling. Full creature facing left in upper three quarters with a hint of flooded cobbles behind it. Lower panel blank parchment. NO text, no imitated writing, no decorative lines resembling handwriting. Crisp restrained pixel art; do not copy a reference creature. Preserve distinctive anatomy and readable silhouette.",
+      "character": "pfahlbohrer",
+      "size": [
+        96,
+        128
+      ],
+      "transparent": false,
+      "source": "exec-c8ef8600-bb9e-462b-93cf-ce13c9d01918.png",
+      "sourceSize": [
+        1086,
+        1448
+      ],
+      "path": "ui/bestiary/W_pfahlbohrer.png",
+      "references": [
+        "creatures-reference.png"
+      ],
+      "alphaThreshold": 200,
+      "sha256": "2c7c2f2cac654bc10f57be9f96978e1f6d48c1a9081ec535a7420e326427495d",
+      "sourceRects": [
+        [
+          0,
+          0,
+          1086,
+          1448
+        ]
+      ]
+    },
+    {
+      "id": "card_ratsherr",
+      "kind": "card",
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\nSETTING OVERRIDE: Wexmoor, a sinking coastal peat marsh town. The drowned Old Town is three centuries older: muddy cobbles, gothic stone gables, green copper, algae, black oak stilts descending from the village above. Use the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction. No actual writing, letters, numbers, labels or watermark anywhere.\n\nBestiary illustration card, logical 96x128 pixels, opaque aged bone parchment with thin ornamental border in the style reference. Show a drowned councillor in a robe of kelp over a faded green council gown, a chain of office tarnished green, sitting on a chair stuck in the mud and reading a dripping ledger, pale blue skin, empty polite face. Full creature facing left in upper three quarters with a hint of flooded cobbles behind it. Lower panel blank parchment. NO text, no imitated writing, no decorative lines resembling handwriting. Crisp restrained pixel art; do not copy a reference creature. Preserve distinctive anatomy and readable silhouette.",
+      "character": "ratsherr",
+      "size": [
+        96,
+        128
+      ],
+      "transparent": false,
+      "source": "exec-8a5ae7ce-25c7-43d2-ab75-f080b3796694.png",
+      "sourceSize": [
+        1086,
+        1448
+      ],
+      "path": "ui/bestiary/W_ratsherr.png",
+      "references": [
+        "creatures-reference.png"
+      ],
+      "alphaThreshold": 200,
+      "sha256": "7708a20bcb87b81984d98448a3106ee5b94654d0b98db85dc095ec27512d12b6",
+      "sourceRects": [
+        [
+          0,
+          0,
+          1086,
+          1448
+        ]
+      ]
+    },
+    {
+      "id": "card_kellerkrebs",
+      "kind": "card",
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\nSETTING OVERRIDE: Wexmoor, a sinking coastal peat marsh town. The drowned Old Town is three centuries older: muddy cobbles, gothic stone gables, green copper, algae, black oak stilts descending from the village above. Use the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction. No actual writing, letters, numbers, labels or watermark anywhere.\n\nBestiary illustration card, logical 96x128 pixels, opaque aged bone parchment with thin ornamental border in the style reference. Show a crayfish the size of a dog, dark rust-brown shell encrusted with shards of old wine bottles, two oversized claws, long feelers. Full creature facing left in upper three quarters with a hint of flooded cobbles behind it. Lower panel blank parchment. NO text, no imitated writing, no decorative lines resembling handwriting. Crisp restrained pixel art; do not copy a reference creature. Preserve distinctive anatomy and readable silhouette.",
+      "character": "kellerkrebs",
+      "size": [
+        96,
+        128
+      ],
+      "transparent": false,
+      "source": "exec-509ec33b-0b97-44a4-8813-094c8cd8eaf2.png",
+      "sourceSize": [
+        1086,
+        1448
+      ],
+      "path": "ui/bestiary/W_kellerkrebs.png",
+      "references": [
+        "creatures-reference.png"
+      ],
+      "alphaThreshold": 200,
+      "sha256": "3625a16aac3560b0df8cbc2316fbcff1a7a2ab25757b0dac1d2e16f2b87824f1",
+      "sourceRects": [
+        [
+          0,
+          0,
+          1086,
+          1448
+        ]
+      ]
+    },
+    {
+      "id": "card_namensmade",
+      "kind": "card",
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\nSETTING OVERRIDE: Wexmoor, a sinking coastal peat marsh town. The drowned Old Town is three centuries older: muddy cobbles, gothic stone gables, green copper, algae, black oak stilts descending from the village above. Use the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction. No actual writing, letters, numbers, labels or watermark anywhere.\n\nBestiary illustration card, logical 96x128 pixels, opaque aged bone parchment with thin ornamental border in the style reference. Show a pale maggot as long as an arm, glistening waxy body with faint smeared letter-like marks that are not real letters, a small round mouth that sucks; occult turquoise glow inside. Full creature facing left in upper three quarters with a hint of flooded cobbles behind it. Lower panel blank parchment. NO text, no imitated writing, no decorative lines resembling handwriting. Crisp restrained pixel art; do not copy a reference creature. Preserve distinctive anatomy and readable silhouette.",
+      "character": "namensmade",
+      "size": [
+        96,
+        128
+      ],
+      "transparent": false,
+      "source": "exec-afb4d6ce-0775-4b26-aa08-b0f1f77faa68.png",
+      "sourceSize": [
+        1086,
+        1448
+      ],
+      "path": "ui/bestiary/W_namensmade.png",
+      "references": [
+        "creatures-reference.png"
+      ],
+      "alphaThreshold": 200,
+      "sha256": "806d9163158c7c402ad72c5f74c7edd0aaef6c1a5aefa64dcd276861a86d1acb",
+      "sourceRects": [
+        [
+          0,
+          0,
+          1086,
+          1448
+        ]
+      ]
+    },
+    {
+      "id": "card_buergermeister",
+      "kind": "card",
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\nSETTING OVERRIDE: Wexmoor, a sinking coastal peat marsh town. The drowned Old Town is three centuries older: muddy cobbles, gothic stone gables, green copper, algae, black oak stilts descending from the village above. Use the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction. No actual writing, letters, numbers, labels or watermark anywhere.\n\nBestiary illustration card, logical 96x128 pixels, opaque aged bone parchment with thin ornamental border in the style reference. Show the drowned mayor of a sunken town, a tall gaunt man in a rotten black-green mayoral coat and tricorn, a heavy gold chain of office tangled with seaweed, water running from his sleeves, behind him faint silhouettes of his drowned townsfolk standing in the mud. Full creature facing left in upper three quarters with a hint of flooded cobbles behind it. Lower panel blank parchment. NO text, no imitated writing, no decorative lines resembling handwriting. Crisp restrained pixel art; do not copy a reference creature. Preserve distinctive anatomy and readable silhouette.",
+      "character": "buergermeister",
+      "size": [
+        96,
+        128
+      ],
+      "transparent": false,
+      "source": "exec-06c4fbc0-af4d-4ade-8212-eabd23dd3339.png",
+      "sourceSize": [
+        1086,
+        1448
+      ],
+      "path": "ui/bestiary/W_buergermeister.png",
+      "references": [
+        "creatures-reference.png"
+      ],
+      "alphaThreshold": 200,
+      "sha256": "dd6ce1f51e5484702f610dc128283d9b59bdc8074a1e9a47e17ebd29d314a929",
+      "sourceRects": [
+        [
+          0,
+          0,
+          1086,
+          1448
+        ]
+      ]
+    },
+    {
+      "id": "battle_pfahlbohrer",
+      "kind": "battle",
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\nSETTING OVERRIDE: Wexmoor, a sinking coastal peat marsh town. The drowned Old Town is three centuries older: muddy cobbles, gothic stone gables, green copper, algae, black oak stilts descending from the village above. Use the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction. No actual writing, letters, numbers, labels or watermark anywhere.\n\nBattle enemy sprite sheet, 64x64 logical pixels per frame, 6 columns by 5 equal rows, all facing LEFT. Character: a huge grey shipworm as thick as a barrel bursting out of a black oak stilt, a head of overlapping horn plates with a round grinding mouth, wood splinters falling; attack_a: bores forward, attack_b: whips its body and splinters fly. Animation rows in exact order: [('idle', 4), ('attack_a', 6), ('attack_b', 6), ('hit', 2), ('death', 6)]. Attacks: attack_a: bores forward, attack_b: whips its body and splinters fly. First TWO frames in each attack row show IDENTICAL held wind-up pose, then four distinct action/recovery poses. Idle occupies first four cells, remaining two TRANSPARENT. Hit occupies first two cells, remaining four TRANSPARENT. All other rows six frames. Full body including props and effects inside every cell, consistent scale and floor baseline across all rows. Invisible evenly spaced grid; no lines, labels or background. Distinct successive animation poses, true alpha, no shadow ground plane. Reference 2 is this specific creature identity, reference 1 is style only.",
+      "character": "pfahlbohrer",
+      "frame": [
+        64,
+        64
+      ],
+      "cols": 6,
+      "rows": 5,
+      "counts": [
+        4,
+        6,
+        6,
+        2,
+        6
+      ],
+      "names": [
+        "idle",
+        "attack_a",
+        "attack_b",
+        "hit",
+        "death"
+      ],
+      "transparent": true,
+      "source": "exec-e90566ea-40bd-497a-b8bd-459e7498f19a.png",
+      "sourceSize": [
+        1374,
+        1145
+      ],
+      "path": "battle/enemy_pfahlbohrer.png",
+      "references": [
+        "creatures-reference.png",
+        "exec-c8ef8600-bb9e-462b-93cf-ce13c9d01918.png"
+      ],
+      "alphaThreshold": 200,
+      "sha256": "e40a96520afeb2581fe8d7e55595e3ba0ac647f3ffa6fdc39d983e6094a2e98c",
+      "sourceRects": [
+        [
+          0,
+          0,
+          229,
+          229
+        ],
+        [
+          229,
+          0,
+          458,
+          229
+        ],
+        [
+          458,
+          0,
+          687,
+          229
+        ],
+        [
+          687,
+          0,
+          916,
+          229
+        ],
+        [
+          916,
+          0,
+          1145,
+          229
+        ],
+        [
+          1145,
+          0,
+          1374,
+          229
+        ],
+        [
+          0,
+          229,
+          229,
+          458
+        ],
+        [
+          229,
+          229,
+          458,
+          458
+        ],
+        [
+          458,
+          229,
+          687,
+          458
+        ],
+        [
+          687,
+          229,
+          916,
+          458
+        ],
+        [
+          916,
+          229,
+          1145,
+          458
+        ],
+        [
+          1145,
+          229,
+          1374,
+          458
+        ],
+        [
+          0,
+          458,
+          229,
+          687
+        ],
+        [
+          229,
+          458,
+          458,
+          687
+        ],
+        [
+          458,
+          458,
+          687,
+          687
+        ],
+        [
+          687,
+          458,
+          916,
+          687
+        ],
+        [
+          916,
+          458,
+          1145,
+          687
+        ],
+        [
+          1145,
+          458,
+          1374,
+          687
+        ],
+        [
+          0,
+          687,
+          229,
+          916
+        ],
+        [
+          229,
+          687,
+          458,
+          916
+        ],
+        [
+          458,
+          687,
+          687,
+          916
+        ],
+        [
+          687,
+          687,
+          916,
+          916
+        ],
+        [
+          916,
+          687,
+          1145,
+          916
+        ],
+        [
+          1145,
+          687,
+          1374,
+          916
+        ],
+        [
+          0,
+          916,
+          229,
+          1145
+        ],
+        [
+          229,
+          916,
+          458,
+          1145
+        ],
+        [
+          458,
+          916,
+          687,
+          1145
+        ],
+        [
+          687,
+          916,
+          916,
+          1145
+        ],
+        [
+          916,
+          916,
+          1145,
+          1145
+        ],
+        [
+          1145,
+          916,
+          1374,
+          1145
+        ]
+      ],
+      "contentRects": {
+        "0": [
+          31,
+          13,
+          221,
+          217
+        ],
+        "1": [
+          29,
+          14,
+          221,
+          217
+        ],
+        "2": [
+          24,
+          14,
+          221,
+          217
+        ],
+        "3": [
+          31,
+          14,
+          221,
+          217
+        ],
+        "6": [
+          31,
+          14,
+          221,
+          217
+        ],
+        "7": [
+          30,
+          14,
+          221,
+          217
+        ],
+        "8": [
+          13,
+          14,
+          221,
+          217
+        ],
+        "9": [
+          1,
+          14,
+          221,
+          217
+        ],
+        "10": [
+          2,
+          14,
+          222,
+          217
+        ],
+        "11": [
+          33,
+          14,
+          221,
+          217
+        ],
+        "12": [
+          31,
+          14,
+          221,
+          217
+        ],
+        "13": [
+          30,
+          14,
+          221,
+          217
+        ],
+        "14": [
+          5,
+          14,
+          221,
+          217
+        ],
+        "15": [
+          11,
+          14,
+          229,
+          217
+        ],
+        "16": [
+          0,
+          14,
+          221,
+          217
+        ],
+        "17": [
+          29,
+          14,
+          221,
+          217
+        ],
+        "18": [
+          38,
+          14,
+          221,
+          217
+        ],
+        "19": [
+          22,
+          14,
+          221,
+          217
+        ],
+        "24": [
+          31,
+          15,
+          221,
+          217
+        ],
+        "25": [
+          29,
+          15,
+          221,
+          217
+        ],
+        "26": [
+          22,
+          15,
+          221,
+          217
+        ],
+        "27": [
+          19,
+          15,
+          221,
+          217
+        ],
+        "28": [
+          15,
+          15,
+          222,
+          217
+        ],
+        "29": [
+          15,
+          15,
+          221,
+          217
+        ]
+      },
+      "uniformScale": 0.27149321266968324
+    },
+    {
+      "id": "walk_pfahlbohrer",
+      "kind": "walk",
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\nSETTING OVERRIDE: Wexmoor, a sinking coastal peat marsh town. The drowned Old Town is three centuries older: muddy cobbles, gothic stone gables, green copper, algae, black oak stilts descending from the village above. Use the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction. No actual writing, letters, numbers, labels or watermark anywhere.\n\nTop-down overworld creature sheet, 4 columns x4 rows, 16x32 logical pixel cells. Exactly16 full sprites, rows face DOWN, LEFT, RIGHT, UP. Four small movement/idle phases per direction. Character: a huge grey shipworm as thick as a barrel bursting out of a black oak stilt, a head of overlapping horn plates with a round grinding mouth, wood splinters falling. 16x32, Wurm aus einem Pfahl. For a seated councillor keep the chair and subtly rock/read; for stilt worm keep the stilt and flex the worm. Do not invent legs. Consistent scale and baseline, transparent background, no floor or labels. Reference2 establishes identity; match reference1 pixel density.",
+      "character": "pfahlbohrer",
+      "frame": [
+        16,
+        32
+      ],
+      "cols": 4,
+      "rows": 4,
+      "counts": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "names": [
+        "down",
+        "left",
+        "right",
+        "up"
+      ],
+      "transparent": true,
+      "source": "exec-a7e60c28-4a21-49ba-8a1d-f2e7270acdc4.png",
+      "sourceSize": [
+        1262,
+        1246
+      ],
+      "path": "characters/W_ow_pfahlbohrer.png",
+      "references": [
+        "creatures-reference.png",
+        "exec-c8ef8600-bb9e-462b-93cf-ce13c9d01918.png"
+      ],
+      "alphaThreshold": 200,
+      "sha256": "2c455faf8c00d5dffcff3365af58d7ad89203a5a3d564ec7ee2514c45a9ad13e",
+      "sourceRects": [
+        [
+          0,
+          0,
+          316,
+          312
+        ],
+        [
+          316,
+          0,
+          631,
+          312
+        ],
+        [
+          631,
+          0,
+          946,
+          312
+        ],
+        [
+          946,
+          0,
+          1262,
+          312
+        ],
+        [
+          0,
+          312,
+          316,
+          623
+        ],
+        [
+          316,
+          312,
+          631,
+          623
+        ],
+        [
+          631,
+          312,
+          946,
+          623
+        ],
+        [
+          946,
+          312,
+          1262,
+          623
+        ],
+        [
+          0,
+          623,
+          316,
+          934
+        ],
+        [
+          316,
+          623,
+          631,
+          934
+        ],
+        [
+          631,
+          623,
+          946,
+          934
+        ],
+        [
+          946,
+          623,
+          1262,
+          934
+        ],
+        [
+          0,
+          934,
+          316,
+          1246
+        ],
+        [
+          316,
+          934,
+          631,
+          1246
+        ],
+        [
+          631,
+          934,
+          946,
+          1246
+        ],
+        [
+          946,
+          934,
+          1262,
+          1246
+        ]
+      ],
+      "contentRects": {
+        "0": [
+          89,
+          17,
+          246,
+          294
+        ],
+        "1": [
+          83,
+          17,
+          246,
+          294
+        ],
+        "2": [
+          66,
+          17,
+          246,
+          294
+        ],
+        "3": [
+          86,
+          17,
+          247,
+          294
+        ],
+        "4": [
+          49,
+          21,
+          280,
+          288
+        ],
+        "5": [
+          40,
+          21,
+          280,
+          288
+        ],
+        "6": [
+          24,
+          21,
+          280,
+          288
+        ],
+        "7": [
+          49,
+          21,
+          281,
+          288
+        ],
+        "8": [
+          38,
+          24,
+          257,
+          284
+        ],
+        "9": [
+          38,
+          23,
+          264,
+          284
+        ],
+        "10": [
+          38,
+          24,
+          285,
+          284
+        ],
+        "11": [
+          39,
+          24,
+          261,
+          284
+        ],
+        "12": [
+          77,
+          39,
+          235,
+          300
+        ],
+        "13": [
+          77,
+          31,
+          233,
+          299
+        ],
+        "14": [
+          77,
+          20,
+          247,
+          300
+        ],
+        "15": [
+          78,
+          39,
+          233,
+          299
+        ]
+      },
+      "uniformScale": 0.0546875
+    },
+    {
+      "id": "battle_ratsherr",
+      "kind": "battle",
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\nSETTING OVERRIDE: Wexmoor, a sinking coastal peat marsh town. The drowned Old Town is three centuries older: muddy cobbles, gothic stone gables, green copper, algae, black oak stilts descending from the village above. Use the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction. No actual writing, letters, numbers, labels or watermark anywhere.\n\nBattle enemy sprite sheet, 64x64 logical pixels per frame, 6 columns by 5 equal rows, all facing LEFT. Character: a drowned councillor in a robe of kelp over a faded green council gown, a chain of office tarnished green, sitting on a chair stuck in the mud and reading a dripping ledger, pale blue skin, empty polite face; attack_a: reads a sentence aloud (green glyph-less ripples), attack_b: slams down a wax seal. Animation rows in exact order: [('idle', 4), ('attack_a', 6), ('attack_b', 6), ('hit', 2), ('death', 6)]. Attacks: attack_a: reads a sentence aloud (green glyph-less ripples), attack_b: slams down a wax seal. First TWO frames in each attack row show IDENTICAL held wind-up pose, then four distinct action/recovery poses. Idle occupies first four cells, remaining two TRANSPARENT. Hit occupies first two cells, remaining four TRANSPARENT. All other rows six frames. Full body including props and effects inside every cell, consistent scale and floor baseline across all rows. Invisible evenly spaced grid; no lines, labels or background. Distinct successive animation poses, true alpha, no shadow ground plane. Reference 2 is this specific creature identity, reference 1 is style only.",
+      "character": "ratsherr",
+      "frame": [
+        64,
+        64
+      ],
+      "cols": 6,
+      "rows": 5,
+      "counts": [
+        4,
+        6,
+        6,
+        2,
+        6
+      ],
+      "names": [
+        "idle",
+        "attack_a",
+        "attack_b",
+        "hit",
+        "death"
+      ],
+      "transparent": true,
+      "source": "exec-c486b92f-43b5-4446-b113-885e98b1c0cf.png",
+      "sourceSize": [
+        1374,
+        1145
+      ],
+      "path": "battle/enemy_ratsherr.png",
+      "references": [
+        "creatures-reference.png",
+        "exec-8a5ae7ce-25c7-43d2-ab75-f080b3796694.png"
+      ],
+      "alphaThreshold": 200,
+      "sha256": "bdd85583af826c91b7ee92fdd93359e2d31f937b260f0babb4189bc8c71e6c9d",
+      "sourceRects": [
+        [
+          0,
+          0,
+          229,
+          229
+        ],
+        [
+          229,
+          0,
+          458,
+          229
+        ],
+        [
+          458,
+          0,
+          687,
+          229
+        ],
+        [
+          687,
+          0,
+          916,
+          229
+        ],
+        [
+          916,
+          0,
+          1145,
+          229
+        ],
+        [
+          1145,
+          0,
+          1374,
+          229
+        ],
+        [
+          0,
+          229,
+          229,
+          458
+        ],
+        [
+          229,
+          229,
+          458,
+          458
+        ],
+        [
+          458,
+          229,
+          687,
+          458
+        ],
+        [
+          687,
+          229,
+          916,
+          458
+        ],
+        [
+          916,
+          229,
+          1145,
+          458
+        ],
+        [
+          1145,
+          229,
+          1374,
+          458
+        ],
+        [
+          0,
+          458,
+          229,
+          687
+        ],
+        [
+          229,
+          458,
+          458,
+          687
+        ],
+        [
+          458,
+          458,
+          687,
+          687
+        ],
+        [
+          687,
+          458,
+          916,
+          687
+        ],
+        [
+          916,
+          458,
+          1145,
+          687
+        ],
+        [
+          1145,
+          458,
+          1374,
+          687
+        ],
+        [
+          0,
+          687,
+          229,
+          916
+        ],
+        [
+          229,
+          687,
+          458,
+          916
+        ],
+        [
+          458,
+          687,
+          687,
+          916
+        ],
+        [
+          687,
+          687,
+          916,
+          916
+        ],
+        [
+          916,
+          687,
+          1145,
+          916
+        ],
+        [
+          1145,
+          687,
+          1374,
+          916
+        ],
+        [
+          0,
+          916,
+          229,
+          1145
+        ],
+        [
+          229,
+          916,
+          458,
+          1145
+        ],
+        [
+          458,
+          916,
+          687,
+          1145
+        ],
+        [
+          687,
+          916,
+          916,
+          1145
+        ],
+        [
+          916,
+          916,
+          1145,
+          1145
+        ],
+        [
+          1145,
+          916,
+          1374,
+          1145
+        ]
+      ],
+      "contentRects": {
+        "0": [
+          32,
+          6,
+          219,
+          224
+        ],
+        "1": [
+          35,
+          6,
+          220,
+          224
+        ],
+        "2": [
+          34,
+          6,
+          220,
+          224
+        ],
+        "3": [
+          34,
+          6,
+          220,
+          224
+        ],
+        "6": [
+          33,
+          9,
+          219,
+          223
+        ],
+        "7": [
+          35,
+          9,
+          220,
+          223
+        ],
+        "8": [
+          35,
+          9,
+          221,
+          223
+        ],
+        "9": [
+          20,
+          9,
+          220,
+          223
+        ],
+        "10": [
+          26,
+          9,
+          219,
+          223
+        ],
+        "11": [
+          36,
+          9,
+          221,
+          223
+        ],
+        "12": [
+          34,
+          9,
+          219,
+          223
+        ],
+        "13": [
+          34,
+          9,
+          220,
+          223
+        ],
+        "14": [
+          35,
+          9,
+          221,
+          223
+        ],
+        "15": [
+          35,
+          9,
+          220,
+          223
+        ],
+        "16": [
+          35,
+          9,
+          223,
+          223
+        ],
+        "17": [
+          37,
+          9,
+          221,
+          223
+        ],
+        "18": [
+          32,
+          10,
+          227,
+          223
+        ],
+        "19": [
+          34,
+          10,
+          222,
+          223
+        ],
+        "24": [
+          30,
+          10,
+          220,
+          224
+        ],
+        "25": [
+          30,
+          10,
+          220,
+          224
+        ],
+        "26": [
+          31,
+          10,
+          221,
+          224
+        ],
+        "27": [
+          18,
+          11,
+          222,
+          225
+        ],
+        "28": [
+          14,
+          10,
+          221,
+          224
+        ],
+        "29": [
+          9,
+          10,
+          225,
+          224
+        ]
+      },
+      "uniformScale": 0.2777777777777778
+    },
+    {
+      "id": "walk_ratsherr",
+      "kind": "walk",
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\nSETTING OVERRIDE: Wexmoor, a sinking coastal peat marsh town. The drowned Old Town is three centuries older: muddy cobbles, gothic stone gables, green copper, algae, black oak stilts descending from the village above. Use the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction. No actual writing, letters, numbers, labels or watermark anywhere.\n\nTop-down overworld creature sheet, 4 columns x4 rows, 16x32 logical pixel cells. Exactly16 full sprites, rows face DOWN, LEFT, RIGHT, UP. Four small movement/idle phases per direction. Character: a drowned councillor in a robe of kelp over a faded green council gown, a chain of office tarnished green, sitting on a chair stuck in the mud and reading a dripping ledger, pale blue skin, empty polite face. 16x32, sitzend auf Stuhl. For a seated councillor keep the chair and subtly rock/read; for stilt worm keep the stilt and flex the worm. Do not invent legs. Consistent scale and baseline, transparent background, no floor or labels. Reference2 establishes identity; match reference1 pixel density.",
+      "character": "ratsherr",
+      "frame": [
+        16,
+        32
+      ],
+      "cols": 4,
+      "rows": 4,
+      "counts": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "names": [
+        "down",
+        "left",
+        "right",
+        "up"
+      ],
+      "transparent": true,
+      "source": "exec-b0dd26e6-104b-4d21-b883-d835b0dfa528.png",
+      "sourceSize": [
+        1274,
+        1235
+      ],
+      "path": "characters/W_ow_ratsherr.png",
+      "references": [
+        "creatures-reference.png",
+        "exec-8a5ae7ce-25c7-43d2-ab75-f080b3796694.png"
+      ],
+      "alphaThreshold": 200,
+      "sha256": "0fab918b56eed3600fe4385c375ed4f4d75529b675903dfc1e8af299584ec387",
+      "sourceRects": [
+        [
+          0,
+          0,
+          318,
+          309
+        ],
+        [
+          318,
+          0,
+          637,
+          309
+        ],
+        [
+          637,
+          0,
+          956,
+          309
+        ],
+        [
+          956,
+          0,
+          1274,
+          309
+        ],
+        [
+          0,
+          309,
+          318,
+          618
+        ],
+        [
+          318,
+          309,
+          637,
+          618
+        ],
+        [
+          637,
+          309,
+          956,
+          618
+        ],
+        [
+          956,
+          309,
+          1274,
+          618
+        ],
+        [
+          0,
+          618,
+          318,
+          926
+        ],
+        [
+          318,
+          618,
+          637,
+          926
+        ],
+        [
+          637,
+          618,
+          956,
+          926
+        ],
+        [
+          956,
+          618,
+          1274,
+          926
+        ],
+        [
+          0,
+          926,
+          318,
+          1235
+        ],
+        [
+          318,
+          926,
+          637,
+          1235
+        ],
+        [
+          637,
+          926,
+          956,
+          1235
+        ],
+        [
+          956,
+          926,
+          1274,
+          1235
+        ]
+      ],
+      "contentRects": {
+        "0": [
+          96,
+          3,
+          280,
+          287
+        ],
+        "1": [
+          73,
+          4,
+          259,
+          287
+        ],
+        "2": [
+          46,
+          4,
+          233,
+          287
+        ],
+        "3": [
+          19,
+          3,
+          203,
+          287
+        ],
+        "4": [
+          99,
+          5,
+          277,
+          309
+        ],
+        "5": [
+          70,
+          5,
+          256,
+          309
+        ],
+        "6": [
+          42,
+          5,
+          232,
+          309
+        ],
+        "7": [
+          18,
+          5,
+          199,
+          309
+        ],
+        "8": [
+          95,
+          0,
+          280,
+          270
+        ],
+        "9": [
+          70,
+          0,
+          255,
+          270
+        ],
+        "10": [
+          43,
+          0,
+          231,
+          273
+        ],
+        "11": [
+          13,
+          0,
+          203,
+          270
+        ],
+        "12": [
+          92,
+          18,
+          277,
+          273
+        ],
+        "13": [
+          63,
+          15,
+          254,
+          273
+        ],
+        "14": [
+          40,
+          21,
+          227,
+          273
+        ],
+        "15": [
+          10,
+          16,
+          201,
+          273
+        ]
+      },
+      "uniformScale": 0.07329842931937172
+    },
+    {
+      "id": "battle_kellerkrebs",
+      "kind": "battle",
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\nSETTING OVERRIDE: Wexmoor, a sinking coastal peat marsh town. The drowned Old Town is three centuries older: muddy cobbles, gothic stone gables, green copper, algae, black oak stilts descending from the village above. Use the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction. No actual writing, letters, numbers, labels or watermark anywhere.\n\nBattle enemy sprite sheet, 64x64 logical pixels per frame, 6 columns by 5 equal rows, all facing LEFT. Character: a crayfish the size of a dog, dark rust-brown shell encrusted with shards of old wine bottles, two oversized claws, long feelers; attack_a: claw pinch, attack_b: buries itself and bursts out. Animation rows in exact order: [('idle', 4), ('attack_a', 6), ('attack_b', 6), ('hit', 2), ('death', 6)]. Attacks: attack_a: claw pinch, attack_b: buries itself and bursts out. First TWO frames in each attack row show IDENTICAL held wind-up pose, then four distinct action/recovery poses. Idle occupies first four cells, remaining two TRANSPARENT. Hit occupies first two cells, remaining four TRANSPARENT. All other rows six frames. Full body including props and effects inside every cell, consistent scale and floor baseline across all rows. Invisible evenly spaced grid; no lines, labels or background. Distinct successive animation poses, true alpha, no shadow ground plane. Reference 2 is this specific creature identity, reference 1 is style only.",
+      "character": "kellerkrebs",
+      "frame": [
+        64,
+        64
+      ],
+      "cols": 6,
+      "rows": 5,
+      "counts": [
+        4,
+        6,
+        6,
+        2,
+        6
+      ],
+      "names": [
+        "idle",
+        "attack_a",
+        "attack_b",
+        "hit",
+        "death"
+      ],
+      "transparent": true,
+      "source": "exec-e55cd39f-4b6b-49d7-84f5-32cd73385839.png",
+      "sourceSize": [
+        1374,
+        1145
+      ],
+      "path": "battle/enemy_kellerkrebs.png",
+      "references": [
+        "creatures-reference.png",
+        "exec-509ec33b-0b97-44a4-8813-094c8cd8eaf2.png"
+      ],
+      "alphaThreshold": 200,
+      "sha256": "229eabc88642284c60f11750e018ba08c821dafb028450597dfb8fd4a942efdd",
+      "sourceRects": [
+        [
+          0,
+          0,
+          229,
+          229
+        ],
+        [
+          229,
+          0,
+          458,
+          229
+        ],
+        [
+          458,
+          0,
+          687,
+          229
+        ],
+        [
+          687,
+          0,
+          916,
+          229
+        ],
+        [
+          916,
+          0,
+          1145,
+          229
+        ],
+        [
+          1145,
+          0,
+          1374,
+          229
+        ],
+        [
+          0,
+          229,
+          229,
+          458
+        ],
+        [
+          229,
+          229,
+          458,
+          458
+        ],
+        [
+          458,
+          229,
+          687,
+          458
+        ],
+        [
+          687,
+          229,
+          916,
+          458
+        ],
+        [
+          916,
+          229,
+          1145,
+          458
+        ],
+        [
+          1145,
+          229,
+          1374,
+          458
+        ],
+        [
+          0,
+          458,
+          229,
+          687
+        ],
+        [
+          229,
+          458,
+          458,
+          687
+        ],
+        [
+          458,
+          458,
+          687,
+          687
+        ],
+        [
+          687,
+          458,
+          916,
+          687
+        ],
+        [
+          916,
+          458,
+          1145,
+          687
+        ],
+        [
+          1145,
+          458,
+          1374,
+          687
+        ],
+        [
+          0,
+          687,
+          229,
+          916
+        ],
+        [
+          229,
+          687,
+          458,
+          916
+        ],
+        [
+          458,
+          687,
+          687,
+          916
+        ],
+        [
+          687,
+          687,
+          916,
+          916
+        ],
+        [
+          916,
+          687,
+          1145,
+          916
+        ],
+        [
+          1145,
+          687,
+          1374,
+          916
+        ],
+        [
+          0,
+          916,
+          229,
+          1145
+        ],
+        [
+          229,
+          916,
+          458,
+          1145
+        ],
+        [
+          458,
+          916,
+          687,
+          1145
+        ],
+        [
+          687,
+          916,
+          916,
+          1145
+        ],
+        [
+          916,
+          916,
+          1145,
+          1145
+        ],
+        [
+          1145,
+          916,
+          1374,
+          1145
+        ]
+      ],
+      "contentRects": {
+        "0": [
+          16,
+          77,
+          226,
+          210
+        ],
+        "1": [
+          17,
+          73,
+          227,
+          210
+        ],
+        "2": [
+          18,
+          63,
+          224,
+          208
+        ],
+        "3": [
+          17,
+          77,
+          225,
+          210
+        ],
+        "6": [
+          13,
+          46,
+          227,
+          202
+        ],
+        "7": [
+          14,
+          46,
+          227,
+          202
+        ],
+        "8": [
+          12,
+          55,
+          224,
+          206
+        ],
+        "9": [
+          12,
+          61,
+          222,
+          194
+        ],
+        "10": [
+          11,
+          60,
+          222,
+          194
+        ],
+        "11": [
+          14,
+          58,
+          222,
+          196
+        ],
+        "12": [
+          15,
+          62,
+          226,
+          206
+        ],
+        "13": [
+          16,
+          62,
+          226,
+          206
+        ],
+        "14": [
+          24,
+          98,
+          219,
+          213
+        ],
+        "15": [
+          15,
+          122,
+          218,
+          213
+        ],
+        "16": [
+          10,
+          47,
+          221,
+          213
+        ],
+        "17": [
+          14,
+          57,
+          224,
+          198
+        ],
+        "18": [
+          18,
+          50,
+          226,
+          197
+        ],
+        "19": [
+          24,
+          38,
+          224,
+          189
+        ],
+        "24": [
+          18,
+          57,
+          222,
+          191
+        ],
+        "25": [
+          11,
+          69,
+          224,
+          190
+        ],
+        "26": [
+          7,
+          89,
+          223,
+          192
+        ],
+        "27": [
+          7,
+          103,
+          222,
+          194
+        ],
+        "28": [
+          6,
+          114,
+          221,
+          195
+        ],
+        "29": [
+          7,
+          116,
+          218,
+          194
+        ]
+      },
+      "uniformScale": 0.2777777777777778
+    },
+    {
+      "id": "walk_kellerkrebs",
+      "kind": "walk",
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\nSETTING OVERRIDE: Wexmoor, a sinking coastal peat marsh town. The drowned Old Town is three centuries older: muddy cobbles, gothic stone gables, green copper, algae, black oak stilts descending from the village above. Use the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction. No actual writing, letters, numbers, labels or watermark anywhere.\n\nTop-down overworld creature sheet, 4 columns x4 rows, 32x32 logical pixel cells. Exactly16 full sprites, rows face DOWN, LEFT, RIGHT, UP. Four small movement/idle phases per direction. Character: a crayfish the size of a dog, dark rust-brown shell encrusted with shards of old wine bottles, two oversized claws, long feelers. 32x32. For a seated councillor keep the chair and subtly rock/read; for stilt worm keep the stilt and flex the worm. Do not invent legs. Consistent scale and baseline, transparent background, no floor or labels. Reference2 establishes identity; match reference1 pixel density.",
+      "character": "kellerkrebs",
+      "frame": [
+        32,
+        32
+      ],
+      "cols": 4,
+      "rows": 4,
+      "counts": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "names": [
+        "down",
+        "left",
+        "right",
+        "up"
+      ],
+      "transparent": true,
+      "source": "exec-74963bae-c8c2-48ac-b019-71d3a6c4d6c9.png",
+      "sourceSize": [
+        1261,
+        1247
+      ],
+      "path": "characters/W_ow_kellerkrebs.png",
+      "references": [
+        "creatures-reference.png",
+        "exec-509ec33b-0b97-44a4-8813-094c8cd8eaf2.png"
+      ],
+      "alphaThreshold": 200,
+      "removeWhiteMatte": true,
+      "sha256": "80bfa92397290998a9d7e99e23e38a421ce7ddc78024f3c91fdef2812dec609b",
+      "sourceRects": [
+        [
+          0,
+          0,
+          315,
+          330
+        ],
+        [
+          315,
+          0,
+          630,
+          330
+        ],
+        [
+          630,
+          0,
+          946,
+          330
+        ],
+        [
+          946,
+          0,
+          1261,
+          330
+        ],
+        [
+          0,
+          330,
+          315,
+          600
+        ],
+        [
+          315,
+          330,
+          630,
+          600
+        ],
+        [
+          630,
+          330,
+          946,
+          600
+        ],
+        [
+          946,
+          330,
+          1261,
+          600
+        ],
+        [
+          0,
+          600,
+          315,
+          850
+        ],
+        [
+          315,
+          600,
+          630,
+          850
+        ],
+        [
+          630,
+          600,
+          946,
+          850
+        ],
+        [
+          946,
+          600,
+          1261,
+          850
+        ],
+        [
+          0,
+          850,
+          315,
+          1247
+        ],
+        [
+          315,
+          850,
+          630,
+          1247
+        ],
+        [
+          630,
+          850,
+          946,
+          1247
+        ],
+        [
+          946,
+          850,
+          1261,
+          1247
+        ]
+      ],
+      "contentRects": {
+        "0": [
+          45,
+          18,
+          270,
+          302
+        ],
+        "1": [
+          46,
+          18,
+          271,
+          302
+        ],
+        "2": [
+          38,
+          18,
+          279,
+          296
+        ],
+        "3": [
+          45,
+          21,
+          269,
+          308
+        ],
+        "4": [
+          17,
+          28,
+          304,
+          232
+        ],
+        "5": [
+          11,
+          28,
+          305,
+          227
+        ],
+        "6": [
+          11,
+          26,
+          305,
+          221
+        ],
+        "7": [
+          16,
+          28,
+          304,
+          227
+        ],
+        "8": [
+          15,
+          35,
+          297,
+          233
+        ],
+        "9": [
+          11,
+          32,
+          302,
+          224
+        ],
+        "10": [
+          9,
+          29,
+          302,
+          228
+        ],
+        "11": [
+          13,
+          31,
+          296,
+          233
+        ],
+        "12": [
+          37,
+          33,
+          282,
+          369
+        ],
+        "13": [
+          37,
+          28,
+          281,
+          369
+        ],
+        "14": [
+          40,
+          26,
+          276,
+          369
+        ],
+        "15": [
+          35,
+          31,
+          273,
+          365
+        ]
+      },
+      "uniformScale": 0.08454810495626822,
+      "cropNote": "Row gutters measured from source alpha projection and visually checked."
+    },
+    {
+      "id": "battle_namensmade",
+      "kind": "battle",
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\nSETTING OVERRIDE: Wexmoor, a sinking coastal peat marsh town. The drowned Old Town is three centuries older: muddy cobbles, gothic stone gables, green copper, algae, black oak stilts descending from the village above. Use the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction. No actual writing, letters, numbers, labels or watermark anywhere.\n\nBattle enemy sprite sheet, 64x64 logical pixels per frame, 6 columns by 5 equal rows, all facing LEFT. Character: a pale maggot as long as an arm, glistening waxy body with faint smeared letter-like marks that are not real letters, a small round mouth that sucks; occult turquoise glow inside; attack_a: lunges and sucks, attack_b: sweats wax drops that fly up. Animation rows in exact order: [('idle', 4), ('attack_a', 6), ('attack_b', 6), ('hit', 2), ('death', 6)]. Attacks: attack_a: lunges and sucks, attack_b: sweats wax drops that fly up. First TWO frames in each attack row show IDENTICAL held wind-up pose, then four distinct action/recovery poses. Idle occupies first four cells, remaining two TRANSPARENT. Hit occupies first two cells, remaining four TRANSPARENT. All other rows six frames. Full body including props and effects inside every cell, consistent scale and floor baseline across all rows. Invisible evenly spaced grid; no lines, labels or background. Distinct successive animation poses, true alpha, no shadow ground plane. Reference 2 is this specific creature identity, reference 1 is style only.",
+      "character": "namensmade",
+      "frame": [
+        64,
+        64
+      ],
+      "cols": 6,
+      "rows": 5,
+      "counts": [
+        4,
+        6,
+        6,
+        2,
+        6
+      ],
+      "names": [
+        "idle",
+        "attack_a",
+        "attack_b",
+        "hit",
+        "death"
+      ],
+      "transparent": true,
+      "source": "exec-cb13f1c2-2a17-4b12-b188-17eb71887faa.png",
+      "sourceSize": [
+        1374,
+        1145
+      ],
+      "path": "battle/enemy_namensmade.png",
+      "references": [
+        "creatures-reference.png",
+        "exec-afb4d6ce-0775-4b26-aa08-b0f1f77faa68.png"
+      ],
+      "alphaThreshold": 200,
+      "sha256": "e8c7179790135d2ec5d3bb8085b97714db5067edda5cfa146c2b9bbe13ce88ce",
+      "sourceRects": [
+        [
+          0,
+          0,
+          229,
+          229
+        ],
+        [
+          229,
+          0,
+          458,
+          229
+        ],
+        [
+          458,
+          0,
+          687,
+          229
+        ],
+        [
+          687,
+          0,
+          916,
+          229
+        ],
+        [
+          916,
+          0,
+          1145,
+          229
+        ],
+        [
+          1145,
+          0,
+          1374,
+          229
+        ],
+        [
+          0,
+          229,
+          229,
+          458
+        ],
+        [
+          229,
+          229,
+          458,
+          458
+        ],
+        [
+          458,
+          229,
+          687,
+          458
+        ],
+        [
+          687,
+          229,
+          916,
+          458
+        ],
+        [
+          916,
+          229,
+          1145,
+          458
+        ],
+        [
+          1145,
+          229,
+          1374,
+          458
+        ],
+        [
+          0,
+          458,
+          229,
+          687
+        ],
+        [
+          229,
+          458,
+          458,
+          687
+        ],
+        [
+          458,
+          458,
+          687,
+          687
+        ],
+        [
+          687,
+          458,
+          916,
+          687
+        ],
+        [
+          916,
+          458,
+          1145,
+          687
+        ],
+        [
+          1145,
+          458,
+          1374,
+          687
+        ],
+        [
+          0,
+          687,
+          229,
+          916
+        ],
+        [
+          229,
+          687,
+          458,
+          916
+        ],
+        [
+          458,
+          687,
+          687,
+          916
+        ],
+        [
+          687,
+          687,
+          916,
+          916
+        ],
+        [
+          916,
+          687,
+          1145,
+          916
+        ],
+        [
+          1145,
+          687,
+          1374,
+          916
+        ],
+        [
+          0,
+          916,
+          229,
+          1145
+        ],
+        [
+          229,
+          916,
+          458,
+          1145
+        ],
+        [
+          458,
+          916,
+          687,
+          1145
+        ],
+        [
+          687,
+          916,
+          916,
+          1145
+        ],
+        [
+          916,
+          916,
+          1145,
+          1145
+        ],
+        [
+          1145,
+          916,
+          1374,
+          1145
+        ]
+      ],
+      "contentRects": {
+        "0": [
+          29,
+          81,
+          216,
+          225
+        ],
+        "1": [
+          29,
+          76,
+          212,
+          225
+        ],
+        "2": [
+          23,
+          76,
+          208,
+          225
+        ],
+        "3": [
+          17,
+          78,
+          201,
+          225
+        ],
+        "6": [
+          31,
+          74,
+          216,
+          220
+        ],
+        "7": [
+          27,
+          74,
+          212,
+          220
+        ],
+        "8": [
+          8,
+          77,
+          229,
+          216
+        ],
+        "9": [
+          0,
+          77,
+          216,
+          220
+        ],
+        "10": [
+          33,
+          79,
+          207,
+          216
+        ],
+        "11": [
+          15,
+          76,
+          198,
+          220
+        ],
+        "12": [
+          28,
+          75,
+          216,
+          221
+        ],
+        "13": [
+          25,
+          75,
+          212,
+          221
+        ],
+        "14": [
+          21,
+          64,
+          213,
+          221
+        ],
+        "15": [
+          13,
+          43,
+          206,
+          221
+        ],
+        "16": [
+          13,
+          31,
+          206,
+          225
+        ],
+        "17": [
+          12,
+          68,
+          202,
+          221
+        ],
+        "18": [
+          31,
+          63,
+          217,
+          204
+        ],
+        "19": [
+          31,
+          56,
+          212,
+          193
+        ],
+        "24": [
+          28,
+          49,
+          216,
+          196
+        ],
+        "25": [
+          25,
+          60,
+          217,
+          196
+        ],
+        "26": [
+          16,
+          72,
+          214,
+          195
+        ],
+        "27": [
+          10,
+          90,
+          210,
+          190
+        ],
+        "28": [
+          10,
+          101,
+          210,
+          190
+        ],
+        "29": [
+          9,
+          109,
+          206,
+          187
+        ]
+      },
+      "uniformScale": 0.27149321266968324
+    },
+    {
+      "id": "walk_namensmade",
+      "kind": "walk",
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\nSETTING OVERRIDE: Wexmoor, a sinking coastal peat marsh town. The drowned Old Town is three centuries older: muddy cobbles, gothic stone gables, green copper, algae, black oak stilts descending from the village above. Use the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction. No actual writing, letters, numbers, labels or watermark anywhere.\n\nTop-down overworld creature sheet, 4 columns x4 rows, 32x32 logical pixel cells. Exactly16 full sprites, rows face DOWN, LEFT, RIGHT, UP. Four small movement/idle phases per direction. Character: a pale maggot as long as an arm, glistening waxy body with faint smeared letter-like marks that are not real letters, a small round mouth that sucks; occult turquoise glow inside. 32x32, kriecht. For a seated councillor keep the chair and subtly rock/read; for stilt worm keep the stilt and flex the worm. Do not invent legs. Consistent scale and baseline, transparent background, no floor or labels. Reference2 establishes identity; match reference1 pixel density.",
+      "character": "namensmade",
+      "frame": [
+        32,
+        32
+      ],
+      "cols": 4,
+      "rows": 4,
+      "counts": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "names": [
+        "down",
+        "left",
+        "right",
+        "up"
+      ],
+      "transparent": true,
+      "source": "exec-538424cc-90fc-4142-b906-d78475a80484.png",
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "path": "characters/W_ow_namensmade.png",
+      "references": [
+        "creatures-reference.png",
+        "exec-afb4d6ce-0775-4b26-aa08-b0f1f77faa68.png"
+      ],
+      "alphaThreshold": 200,
+      "sha256": "b88732f92147c1e1937e79fc15d802b5701f388e7cf01db636cd9cac5af458f8",
+      "sourceRects": [
+        [
+          0,
+          0,
+          314,
+          350
+        ],
+        [
+          314,
+          0,
+          627,
+          350
+        ],
+        [
+          627,
+          0,
+          940,
+          350
+        ],
+        [
+          940,
+          0,
+          1254,
+          350
+        ],
+        [
+          0,
+          350,
+          314,
+          630
+        ],
+        [
+          314,
+          350,
+          627,
+          630
+        ],
+        [
+          627,
+          350,
+          940,
+          630
+        ],
+        [
+          940,
+          350,
+          1254,
+          630
+        ],
+        [
+          0,
+          630,
+          314,
+          910
+        ],
+        [
+          314,
+          630,
+          627,
+          910
+        ],
+        [
+          627,
+          630,
+          940,
+          910
+        ],
+        [
+          940,
+          630,
+          1254,
+          910
+        ],
+        [
+          0,
+          910,
+          314,
+          1254
+        ],
+        [
+          314,
+          910,
+          627,
+          1254
+        ],
+        [
+          627,
+          910,
+          940,
+          1254
+        ],
+        [
+          940,
+          910,
+          1254,
+          1254
+        ]
+      ],
+      "contentRects": {
+        "0": [
+          87,
+          43,
+          248,
+          286
+        ],
+        "1": [
+          72,
+          47,
+          245,
+          289
+        ],
+        "2": [
+          68,
+          50,
+          248,
+          302
+        ],
+        "3": [
+          79,
+          47,
+          248,
+          291
+        ],
+        "4": [
+          23,
+          47,
+          290,
+          203
+        ],
+        "5": [
+          15,
+          48,
+          295,
+          212
+        ],
+        "6": [
+          6,
+          58,
+          292,
+          217
+        ],
+        "7": [
+          23,
+          48,
+          294,
+          203
+        ],
+        "8": [
+          20,
+          74,
+          290,
+          224
+        ],
+        "9": [
+          20,
+          77,
+          295,
+          227
+        ],
+        "10": [
+          16,
+          93,
+          301,
+          233
+        ],
+        "11": [
+          22,
+          74,
+          294,
+          223
+        ],
+        "12": [
+          82,
+          52,
+          226,
+          313
+        ],
+        "13": [
+          78,
+          48,
+          227,
+          315
+        ],
+        "14": [
+          72,
+          47,
+          234,
+          324
+        ],
+        "15": [
+          74,
+          47,
+          229,
+          313
+        ]
+      },
+      "uniformScale": 0.10469314079422383,
+      "cropNote": "Row gutters measured from source alpha projection and visually checked."
+    },
+    {
+      "id": "battle_buergermeister",
+      "kind": "battle",
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\nSETTING OVERRIDE: Wexmoor, a sinking coastal peat marsh town. The drowned Old Town is three centuries older: muddy cobbles, gothic stone gables, green copper, algae, black oak stilts descending from the village above. Use the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction. No actual writing, letters, numbers, labels or watermark anywhere.\n\nBattle enemy sprite sheet, 96x96 logical pixels per frame, 6 columns by 7 equal rows, all facing LEFT. Character: the drowned mayor of a sunken town, a tall gaunt man in a rotten black-green mayoral coat and tricorn, a heavy gold chain of office tangled with seaweed, water running from his sleeves, behind him faint silhouettes of his drowned townsfolk standing in the mud. Animation rows in exact order: [('idle', 4), ('chain_lash', 6), ('council_bell', 6), ('verdict', 6), ('hit', 2), ('phase2', 6), ('defeated', 6)]. Actions: chain_lash: whips heavy chain to left; council_bell: rings small bronze bell; verdict: raises hand and townsfolk shadows step forward; phase2: sinking mud beneath, green light rises; defeated: lays chain down and retreats backwards into water. First TWO frames in each attack row show IDENTICAL held wind-up pose, then four distinct action/recovery poses. Idle occupies first four cells, remaining two TRANSPARENT. Hit occupies first two cells, remaining four TRANSPARENT. All other rows six frames. Full body including props and effects inside every cell, consistent scale and floor baseline across all rows. Invisible evenly spaced grid; no lines, labels or background. Distinct successive animation poses, true alpha, no shadow ground plane. Reference 2 is this specific creature identity, reference 1 is style only.",
+      "character": "buergermeister",
+      "frame": [
+        96,
+        96
+      ],
+      "cols": 6,
+      "rows": 7,
+      "counts": [
+        4,
+        6,
+        6,
+        6,
+        2,
+        6,
+        6
+      ],
+      "names": [
+        "idle",
+        "chain_lash",
+        "council_bell",
+        "verdict",
+        "hit",
+        "phase2",
+        "defeated"
+      ],
+      "transparent": true,
+      "source": "exec-fb4d5ddd-43c6-4bb5-a7ec-3d7d74ff4315.png",
+      "sourceSize": [
+        1470,
+        1070
+      ],
+      "path": "battle/enemy_buergermeister.png",
+      "references": [
+        "creatures-reference.png",
+        "exec-06c4fbc0-af4d-4ade-8212-eabd23dd3339.png"
+      ],
+      "alphaThreshold": 200,
+      "sha256": "e09a3cb3829f139594b19a495945f7c316c795cab9c5b90fd88fa24c9a6efb36",
+      "sourceRects": [
+        [
+          0,
+          0,
+          245,
+          161
+        ],
+        [
+          245,
+          0,
+          490,
+          161
+        ],
+        [
+          490,
+          0,
+          735,
+          161
+        ],
+        [
+          735,
+          0,
+          980,
+          161
+        ],
+        [
+          980,
+          0,
+          1225,
+          161
+        ],
+        [
+          1225,
+          0,
+          1470,
+          161
+        ],
+        [
+          0,
+          161,
+          245,
+          322
+        ],
+        [
+          245,
+          161,
+          490,
+          322
+        ],
+        [
+          490,
+          161,
+          735,
+          322
+        ],
+        [
+          735,
+          161,
+          980,
+          322
+        ],
+        [
+          980,
+          161,
+          1225,
+          322
+        ],
+        [
+          1225,
+          161,
+          1470,
+          322
+        ],
+        [
+          0,
+          322,
+          245,
+          482
+        ],
+        [
+          245,
+          322,
+          490,
+          482
+        ],
+        [
+          490,
+          322,
+          735,
+          482
+        ],
+        [
+          735,
+          322,
+          980,
+          482
+        ],
+        [
+          980,
+          322,
+          1225,
+          482
+        ],
+        [
+          1225,
+          322,
+          1470,
+          482
+        ],
+        [
+          0,
+          482,
+          245,
+          644
+        ],
+        [
+          245,
+          482,
+          490,
+          644
+        ],
+        [
+          490,
+          482,
+          735,
+          644
+        ],
+        [
+          735,
+          482,
+          980,
+          644
+        ],
+        [
+          980,
+          482,
+          1225,
+          644
+        ],
+        [
+          1225,
+          482,
+          1470,
+          644
+        ],
+        [
+          0,
+          644,
+          245,
+          779
+        ],
+        [
+          245,
+          644,
+          490,
+          779
+        ],
+        [
+          490,
+          644,
+          735,
+          779
+        ],
+        [
+          735,
+          644,
+          980,
+          779
+        ],
+        [
+          980,
+          644,
+          1225,
+          779
+        ],
+        [
+          1225,
+          644,
+          1470,
+          779
+        ],
+        [
+          0,
+          779,
+          245,
+          924
+        ],
+        [
+          245,
+          779,
+          490,
+          924
+        ],
+        [
+          490,
+          779,
+          735,
+          924
+        ],
+        [
+          735,
+          779,
+          980,
+          924
+        ],
+        [
+          980,
+          779,
+          1225,
+          924
+        ],
+        [
+          1225,
+          779,
+          1470,
+          924
+        ],
+        [
+          0,
+          924,
+          245,
+          1070
+        ],
+        [
+          245,
+          924,
+          490,
+          1070
+        ],
+        [
+          490,
+          924,
+          735,
+          1070
+        ],
+        [
+          735,
+          924,
+          980,
+          1070
+        ],
+        [
+          980,
+          924,
+          1225,
+          1070
+        ],
+        [
+          1225,
+          924,
+          1470,
+          1070
+        ]
+      ],
+      "contentRects": {
+        "0": [
+          52,
+          6,
+          218,
+          155
+        ],
+        "1": [
+          48,
+          7,
+          215,
+          155
+        ],
+        "2": [
+          44,
+          3,
+          211,
+          155
+        ],
+        "3": [
+          40,
+          4,
+          208,
+          155
+        ],
+        "6": [
+          53,
+          5,
+          218,
+          154
+        ],
+        "7": [
+          49,
+          5,
+          215,
+          155
+        ],
+        "8": [
+          42,
+          6,
+          212,
+          155
+        ],
+        "9": [
+          6,
+          6,
+          245,
+          154
+        ],
+        "10": [
+          0,
+          8,
+          211,
+          153
+        ],
+        "11": [
+          34,
+          11,
+          203,
+          155
+        ],
+        "12": [
+          52,
+          6,
+          219,
+          154
+        ],
+        "13": [
+          49,
+          7,
+          215,
+          155
+        ],
+        "14": [
+          44,
+          6,
+          212,
+          153
+        ],
+        "15": [
+          39,
+          5,
+          208,
+          155
+        ],
+        "16": [
+          36,
+          6,
+          205,
+          153
+        ],
+        "17": [
+          33,
+          10,
+          203,
+          155
+        ],
+        "18": [
+          51,
+          5,
+          219,
+          154
+        ],
+        "19": [
+          48,
+          5,
+          216,
+          154
+        ],
+        "20": [
+          38,
+          5,
+          214,
+          154
+        ],
+        "21": [
+          24,
+          4,
+          215,
+          157
+        ],
+        "22": [
+          15,
+          5,
+          214,
+          155
+        ],
+        "23": [
+          5,
+          6,
+          214,
+          158
+        ],
+        "24": [
+          50,
+          3,
+          221,
+          133
+        ],
+        "25": [
+          47,
+          12,
+          215,
+          133
+        ],
+        "30": [
+          52,
+          7,
+          218,
+          140
+        ],
+        "31": [
+          48,
+          7,
+          216,
+          140
+        ],
+        "32": [
+          42,
+          3,
+          214,
+          140
+        ],
+        "33": [
+          33,
+          3,
+          214,
+          141
+        ],
+        "34": [
+          31,
+          3,
+          212,
+          143
+        ],
+        "35": [
+          24,
+          3,
+          212,
+          143
+        ],
+        "36": [
+          45,
+          2,
+          222,
+          144
+        ],
+        "37": [
+          46,
+          6,
+          220,
+          143
+        ],
+        "38": [
+          39,
+          7,
+          216,
+          143
+        ],
+        "39": [
+          29,
+          12,
+          213,
+          144
+        ],
+        "40": [
+          24,
+          20,
+          211,
+          144
+        ],
+        "41": [
+          29,
+          33,
+          208,
+          144
+        ]
+      },
+      "uniformScale": 0.38493723849372385,
+      "cropNote": "Row gutters measured from source alpha projection and visually checked."
+    },
+    {
+      "id": "bg_altstadt",
+      "kind": "bg",
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\nSETTING OVERRIDE: Wexmoor, a sinking coastal peat marsh town. The drowned Old Town is three centuries older: muddy cobbles, gothic stone gables, green copper, algae, black oak stilts descending from the village above. Use the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction. No actual writing, letters, numbers, labels or watermark anywhere.\n\nBattle background 480x270, opaque: a drowned cobblestone square under a ceiling of black wooden stilts and planks, thin grey light falling through the gaps, gothic gables half sunk in mud, still flood water reflecting a green glow from a town hall portal, bottom70px (lower26 percent) a flat unobstructed muddy cobble ground strip. No figures. Horizontal game backdrop. No smooth gradients, crisp pixel clusters.",
+      "size": [
+        480,
+        270
+      ],
+      "transparent": false,
+      "source": "exec-7f849ec8-ef7c-424f-93e4-156826b999ac.png",
+      "sourceSize": [
+        1672,
+        941
+      ],
+      "path": "battle/bg_altstadt.png",
+      "references": [
+        "environment-reference.png"
+      ],
+      "alphaThreshold": 200,
+      "sha256": "bde68be901196fc9d8eec55ef45c34269e18dad797d3b0e98d465a605307cb7b",
+      "sourceRects": [
+        [
+          0,
+          0,
+          1672,
+          941
+        ]
+      ]
+    },
+    {
+      "id": "boss_intro",
+      "kind": "bg",
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\nSETTING OVERRIDE: Wexmoor, a sinking coastal peat marsh town. The drowned Old Town is three centuries older: muddy cobbles, gothic stone gables, green copper, algae, black oak stilts descending from the village above. Use the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction. No actual writing, letters, numbers, labels or watermark anywhere.\n\nBoss introduction illustration, opaque 480x270 landscape. The drowned mayor on the old town hall steps, his sunken town behind him, black oak pillars reaching to the underside of Pfahldorf overhead. Tall gaunt man, rotten black-green mayoral coat and tricorn, gold office chain tangled in seaweed, pale face, water from his sleeves, ghostly townsfolk behind. Gothic stone buildings and green copper; salt and mud, no gore. Same identity as reference2. Pixel art no title or text.",
+      "size": [
+        480,
+        270
+      ],
+      "transparent": false,
+      "character": "buergermeister",
+      "source": "exec-85565946-5a9c-40fa-83cf-d00985a325b7.png",
+      "sourceSize": [
+        1672,
+        941
+      ],
+      "path": "ui/W_boss_buergermeister.png",
+      "references": [
+        "environment-reference.png",
+        "exec-06c4fbc0-af4d-4ade-8212-eabd23dd3339.png"
+      ],
+      "alphaThreshold": 200,
+      "sha256": "e04d4e68d0de6d314e56add0c73caf42862b50d34213ed2f82d039145ac33896",
+      "sourceRects": [
+        [
+          0,
+          0,
+          1672,
+          941
+        ]
+      ]
+    },
+    {
+      "id": "tiles",
+      "kind": "tiles",
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\nSETTING OVERRIDE: Wexmoor, a sinking coastal peat marsh town. The drowned Old Town is three centuries older: muddy cobbles, gothic stone gables, green copper, algae, black oak stilts descending from the village above. Use the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction. No actual writing, letters, numbers, labels or watermark anywhere.\n\nTerrain tileset for a drowned old town under a stilt village. Logical128x64, exactly8 columns by4 rows of16x16 tiles, no gaps/borders/labels. Exact row-major tile list: muddy_cobbles_0, muddy_cobbles_1, muddy_cobbles_2, muddy_cobbles_3, flood_0_0, flood_0_1, flood_1_0, flood_1_1, flood_2_0, flood_2_1, flood_3_0, flood_3_1, deep_water, wall_top, wall_face, wall_left, wall_right, corner_tl, corner_tr, corner_bl, corner_br, gothic_window, rubble, algae_step, stilt_h_left, stilt_h_right, stilt_v_top, stilt_v_bottom, reeds, boardwalk_h, boardwalk_v, green_copper_roof. Four flood-water variations each have two consecutive shimmer frames. Tiles are square full-cell edge-to-edge materials, not isolated perspective cubes. Repeatable cobble/water edges. The two horizontal stilt tiles form one2x1 object; two vertical stilt tiles form one1x2 object. Algae-covered stone, black oak, grey diffuse shafts of light; no outline on terrain. Opaque tile backgrounds.",
+      "cols": 8,
+      "rows": 4,
+      "size": [
+        128,
+        64
+      ],
+      "tileNames": [
+        "muddy_cobbles_0",
+        "muddy_cobbles_1",
+        "muddy_cobbles_2",
+        "muddy_cobbles_3",
+        "flood_0_0",
+        "flood_0_1",
+        "flood_1_0",
+        "flood_1_1",
+        "flood_2_0",
+        "flood_2_1",
+        "flood_3_0",
+        "flood_3_1",
+        "deep_water",
+        "wall_top",
+        "wall_face",
+        "wall_left",
+        "wall_right",
+        "corner_tl",
+        "corner_tr",
+        "corner_bl",
+        "corner_br",
+        "gothic_window",
+        "rubble",
+        "algae_step",
+        "stilt_h_left",
+        "stilt_h_right",
+        "stilt_v_top",
+        "stilt_v_bottom",
+        "reeds",
+        "boardwalk_h",
+        "boardwalk_v",
+        "green_copper_roof"
+      ],
+      "transparent": false,
+      "source": "exec-c94438e8-0b0d-49a7-90b3-b6811be0e9a2.png",
+      "sourceSize": [
+        1774,
+        887
+      ],
+      "path": "tilesets/W_01_altstadt_tiles.png",
+      "references": [
+        "environment-reference.png"
+      ],
+      "alphaThreshold": 200,
+      "sha256": "0907632c1f569ed48c370426e16b9fc19daa32e9edc5de9b3ed8f0038236ba4c",
+      "sourceRects": [
+        [
+          0,
+          0,
+          222,
+          222
+        ],
+        [
+          222,
+          0,
+          444,
+          222
+        ],
+        [
+          444,
+          0,
+          665,
+          222
+        ],
+        [
+          665,
+          0,
+          887,
+          222
+        ],
+        [
+          887,
+          0,
+          1109,
+          222
+        ],
+        [
+          1109,
+          0,
+          1330,
+          222
+        ],
+        [
+          1330,
+          0,
+          1552,
+          222
+        ],
+        [
+          1552,
+          0,
+          1774,
+          222
+        ],
+        [
+          0,
+          222,
+          222,
+          444
+        ],
+        [
+          222,
+          222,
+          444,
+          444
+        ],
+        [
+          444,
+          222,
+          665,
+          444
+        ],
+        [
+          665,
+          222,
+          887,
+          444
+        ],
+        [
+          887,
+          222,
+          1109,
+          444
+        ],
+        [
+          1109,
+          222,
+          1330,
+          444
+        ],
+        [
+          1330,
+          222,
+          1552,
+          444
+        ],
+        [
+          1552,
+          222,
+          1774,
+          444
+        ],
+        [
+          0,
+          444,
+          222,
+          665
+        ],
+        [
+          222,
+          444,
+          444,
+          665
+        ],
+        [
+          444,
+          444,
+          665,
+          665
+        ],
+        [
+          665,
+          444,
+          887,
+          665
+        ],
+        [
+          887,
+          444,
+          1109,
+          665
+        ],
+        [
+          1109,
+          444,
+          1330,
+          665
+        ],
+        [
+          1330,
+          444,
+          1552,
+          665
+        ],
+        [
+          1552,
+          444,
+          1774,
+          665
+        ],
+        [
+          0,
+          665,
+          222,
+          887
+        ],
+        [
+          222,
+          665,
+          444,
+          887
+        ],
+        [
+          444,
+          665,
+          665,
+          887
+        ],
+        [
+          665,
+          665,
+          887,
+          887
+        ],
+        [
+          887,
+          665,
+          1109,
+          887
+        ],
+        [
+          1109,
+          665,
+          1330,
+          887
+        ],
+        [
+          1330,
+          665,
+          1552,
+          887
+        ],
+        [
+          1552,
+          665,
+          1774,
+          887
+        ]
+      ]
+    },
+    {
+      "id": "props",
+      "kind": "props",
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\nSETTING OVERRIDE: Wexmoor, a sinking coastal peat marsh town. The drowned Old Town is three centuries older: muddy cobbles, gothic stone gables, green copper, algae, black oak stilts descending from the village above. Use the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction. No actual writing, letters, numbers, labels or watermark anywhere.\n\nDrowned town prop extraction atlas exactly5 columns by2 rows, TEN objects, equal spaced cells with generous transparent gutters. Row1: rusted glassless streetlamp; flooded chapel doorway bronze plaque; huge sluice gate with rusted wheel OPEN; SAME sluice gate CLOSED; old town hall steps and portal with stone tower-over-waves crest. Row2: lectern with brass-locked ledger; carved town gate stone arch with barnacles; rope ladder extending upward; square window faint green light frame1; identical window light frame2. No readable lettering on anything. Separate isolated objects, full silhouettes, same scale for pairs, no ground plane/background; true alpha. Sharp pixel clusters. Final dimensions differ per prop: [('street_lamp', 16, 32), ('chapel_door', 32, 48), ('sluice_open', 48, 48), ('sluice_closed', 48, 48), ('town_hall', 64, 48), ('lectern', 16, 32), ('town_gate', 48, 48), ('rope_ladder', 16, 48), ('window_0', 16, 16), ('window_1', 16, 16)]",
+      "cols": 5,
+      "rows": 2,
+      "regions": [
+        [
+          "street_lamp",
+          16,
+          32
+        ],
+        [
+          "chapel_door",
+          32,
+          48
+        ],
+        [
+          "sluice_open",
+          48,
+          48
+        ],
+        [
+          "sluice_closed",
+          48,
+          48
+        ],
+        [
+          "town_hall",
+          64,
+          48
+        ],
+        [
+          "lectern",
+          16,
+          32
+        ],
+        [
+          "town_gate",
+          48,
+          48
+        ],
+        [
+          "rope_ladder",
+          16,
+          48
+        ],
+        [
+          "window_0",
+          16,
+          16
+        ],
+        [
+          "window_1",
+          16,
+          16
+        ]
+      ],
+      "transparent": true,
+      "source": "exec-fd7541b3-535f-4edb-a2b4-13500809361e.png",
+      "sourceSize": [
+        1983,
+        793
+      ],
+      "path": "props/W_altstadt_props.png",
+      "sourceRects": [
+        [
+          0,
+          0,
+          320,
+          395
+        ],
+        [
+          320,
+          0,
+          690,
+          395
+        ],
+        [
+          690,
+          0,
+          1090,
+          395
+        ],
+        [
+          1090,
+          0,
+          1495,
+          395
+        ],
+        [
+          1495,
+          0,
+          1983,
+          395
+        ],
+        [
+          0,
+          395,
+          300,
+          793
+        ],
+        [
+          300,
+          395,
+          740,
+          793
+        ],
+        [
+          740,
+          395,
+          1060,
+          793
+        ],
+        [
+          1060,
+          395,
+          1500,
+          793
+        ],
+        [
+          1500,
+          395,
+          1983,
+          793
+        ]
+      ],
+      "references": [
+        "environment-reference.png"
+      ],
+      "alphaThreshold": 200,
+      "sha256": "d290c1f10ea8e11839150b7facb3404b8e2733a1af063e7f71d94c7e7a3b058b",
+      "contentRects": [
+        [
+          117,
+          59,
+          243,
+          376
+        ],
+        [
+          72,
+          15,
+          325,
+          376
+        ],
+        [
+          30,
+          52,
+          371,
+          376
+        ],
+        [
+          27,
+          52,
+          368,
+          376
+        ],
+        [
+          18,
+          12,
+          471,
+          376
+        ],
+        [
+          91,
+          97,
+          233,
+          329
+        ],
+        [
+          53,
+          28,
+          389,
+          358
+        ],
+        [
+          105,
+          19,
+          204,
+          370
+        ],
+        [
+          155,
+          102,
+          305,
+          291
+        ],
+        [
+          164,
+          102,
+          315,
+          291
+        ]
+      ]
+    },
+    {
+      "id": "fx_splitter",
+      "kind": "fx",
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\nSETTING OVERRIDE: Wexmoor, a sinking coastal peat marsh town. The drowned Old Town is three centuries older: muddy cobbles, gothic stone gables, green copper, algae, black oak stilts descending from the village above. Use the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction. No actual writing, letters, numbers, labels or watermark anywhere.\n\nBattle effect sprite strip: wood splinter burst. Exactly 6 sequential frames in ONE horizontal row, each logical 48x48. Wind up, contact, expansion, dissipation. Every frame self-contained with transparent gutters, effect remains inside cell. Preserve common origin and scale across frames. Hard-edged two-tone pixel glow, no translucency or blur, no letters. Transparent background.\nCRITICAL CORRECTION: Render on real transparent alpha, absolutely NO white background, NO checkerboard painting, NO fog layer, NO floor or scene. Exactly six equal-width cells in one row. Leave a very large invisible empty padding of at least 20 percent cell width on both sides of every effect in EVERY cell. Every outer ring, flying chip and particle must be fully contained inside its own cell with generous clear gutters. No element may touch another frame or the image edge. Keep all six effects visibly separated by equal transparent gaps. Do NOT create a contact sheet backdrop.",
+      "cols": 6,
+      "rows": 1,
+      "frame": [
+        48,
+        48
+      ],
+      "transparent": true,
+      "attempts": [
+        {
+          "source": "exec-dadd043b-0cf9-4e02-bf41-797b0e33f585.png",
+          "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\nSETTING OVERRIDE: Wexmoor, a sinking coastal peat marsh town. The drowned Old Town is three centuries older: muddy cobbles, gothic stone gables, green copper, algae, black oak stilts descending from the village above. Use the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction. No actual writing, letters, numbers, labels or watermark anywhere.\n\nBattle effect sprite strip: wood splinter burst. Exactly 6 sequential frames in ONE horizontal row, each logical 48x48. Wind up, contact, expansion, dissipation. Every frame self-contained with transparent gutters, effect remains inside cell. Preserve common origin and scale across frames. Hard-edged two-tone pixel glow, no translucency or blur, no letters. Transparent background.",
+          "rejectedReason": "White matte and fog background, not isolated transparent effect"
+        }
+      ],
+      "source": "exec-1a621ed7-b7d2-4912-a48d-31f7caded862.png",
+      "sourceSize": [
+        2155,
+        730
+      ],
+      "path": "fx/fx_splitter.png",
+      "references": [
+        "icons-reference.png"
+      ],
+      "alphaThreshold": 200,
+      "sha256": "7f51e8cf1c4d0b9d1fa69a251d74bf1b007df90b9482502bc58bf0141d654424",
+      "sourceRects": [
+        [
+          0,
+          0,
+          359,
+          730
+        ],
+        [
+          359,
+          0,
+          718,
+          730
+        ],
+        [
+          718,
+          0,
+          1078,
+          730
+        ],
+        [
+          1078,
+          0,
+          1437,
+          730
+        ],
+        [
+          1437,
+          0,
+          1796,
+          730
+        ],
+        [
+          1796,
+          0,
+          2155,
+          730
+        ]
+      ],
+      "sharedContentRect": [
+        50,
+        258,
+        297,
+        477
+      ]
+    },
+    {
+      "id": "fx_siegel",
+      "kind": "fx",
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\nSETTING OVERRIDE: Wexmoor, a sinking coastal peat marsh town. The drowned Old Town is three centuries older: muddy cobbles, gothic stone gables, green copper, algae, black oak stilts descending from the village above. Use the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction. No actual writing, letters, numbers, labels or watermark anywhere.\n\nBattle effect sprite strip: green wax seal stamp impact, tower over waves impression without letters. Exactly 5 sequential frames in ONE horizontal row, each logical 48x48. Wind up, contact, expansion, dissipation. Every frame self-contained with transparent gutters, effect remains inside cell. Preserve common origin and scale across frames. Hard-edged two-tone pixel glow, no translucency or blur, no letters. Transparent background.",
+      "cols": 5,
+      "rows": 1,
+      "frame": [
+        48,
+        48
+      ],
+      "transparent": true,
+      "source": "exec-593dd7a3-d4d6-4803-9c3c-6484b2d5eb70.png",
+      "sourceSize": [
+        2172,
+        724
+      ],
+      "path": "fx/fx_siegel.png",
+      "references": [
+        "icons-reference.png"
+      ],
+      "alphaThreshold": 200,
+      "sha256": "1cdb63e07cad9245a404c5d5af4d2d25d42d09980ebe1d612d74844a232ecd27",
+      "sourceRects": [
+        [
+          0,
+          0,
+          434,
+          724
+        ],
+        [
+          434,
+          0,
+          869,
+          724
+        ],
+        [
+          869,
+          0,
+          1303,
+          724
+        ],
+        [
+          1303,
+          0,
+          1738,
+          724
+        ],
+        [
+          1738,
+          0,
+          2172,
+          724
+        ]
+      ],
+      "sharedContentRect": [
+        0,
+        123,
+        434,
+        593
+      ]
+    },
+    {
+      "id": "fx_madenwachs",
+      "kind": "fx",
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\nSETTING OVERRIDE: Wexmoor, a sinking coastal peat marsh town. The drowned Old Town is three centuries older: muddy cobbles, gothic stone gables, green copper, algae, black oak stilts descending from the village above. Use the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction. No actual writing, letters, numbers, labels or watermark anywhere.\n\nBattle effect sprite strip: pale wax drops flying up with occult turquoise inner light. Exactly 6 sequential frames in ONE horizontal row, each logical 48x48. Wind up, contact, expansion, dissipation. Every frame self-contained with transparent gutters, effect remains inside cell. Preserve common origin and scale across frames. Hard-edged two-tone pixel glow, no translucency or blur, no letters. Transparent background.",
+      "cols": 6,
+      "rows": 1,
+      "frame": [
+        48,
+        48
+      ],
+      "transparent": true,
+      "source": "exec-2a07940f-b69d-4d62-8399-1bfc0a162fca.png",
+      "sourceSize": [
+        2172,
+        724
+      ],
+      "path": "fx/fx_madenwachs.png",
+      "references": [
+        "icons-reference.png"
+      ],
+      "alphaThreshold": 200,
+      "sha256": "669fc6f294661ecef8a439f7cd4daa804dafb17ab80d4e30b4cc3fae9f1dac50",
+      "sourceRects": [
+        [
+          0,
+          0,
+          362,
+          724
+        ],
+        [
+          362,
+          0,
+          724,
+          724
+        ],
+        [
+          724,
+          0,
+          1086,
+          724
+        ],
+        [
+          1086,
+          0,
+          1448,
+          724
+        ],
+        [
+          1448,
+          0,
+          1810,
+          724
+        ],
+        [
+          1810,
+          0,
+          2172,
+          724
+        ]
+      ],
+      "sharedContentRect": [
+        8,
+        184,
+        332,
+        520
+      ]
+    },
+    {
+      "id": "fx_ratsglocke",
+      "kind": "fx",
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\nSETTING OVERRIDE: Wexmoor, a sinking coastal peat marsh town. The drowned Old Town is three centuries older: muddy cobbles, gothic stone gables, green copper, algae, black oak stilts descending from the village above. Use the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction. No actual writing, letters, numbers, labels or watermark anywhere.\n\nBattle effect sprite strip: bronze bell toll with expanding concentric sound ring waves. Exactly 6 sequential frames in ONE horizontal row, each logical 96x48. Wind up, contact, expansion, dissipation. Every frame self-contained with transparent gutters, effect remains inside cell. Preserve common origin and scale across frames. Hard-edged two-tone pixel glow, no translucency or blur, no letters. Transparent background.\nCRITICAL CORRECTION: Render on real transparent alpha, absolutely NO white background, NO checkerboard painting, NO fog layer, NO floor or scene. Exactly six equal-width cells in one row. Leave a very large invisible empty padding of at least 20 percent cell width on both sides of every effect in EVERY cell. Every outer ring, flying chip and particle must be fully contained inside its own cell with generous clear gutters. No element may touch another frame or the image edge. Keep all six effects visibly separated by equal transparent gaps. Do NOT create a contact sheet backdrop.",
+      "cols": 6,
+      "rows": 1,
+      "frame": [
+        96,
+        48
+      ],
+      "transparent": true,
+      "attempts": [
+        {
+          "source": "exec-4521ac51-a281-4683-9b4a-0e027931faa8.png",
+          "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\nSETTING OVERRIDE: Wexmoor, a sinking coastal peat marsh town. The drowned Old Town is three centuries older: muddy cobbles, gothic stone gables, green copper, algae, black oak stilts descending from the village above. Use the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction. No actual writing, letters, numbers, labels or watermark anywhere.\n\nBattle effect sprite strip: bronze bell toll with expanding concentric sound ring waves. Exactly 6 sequential frames in ONE horizontal row, each logical 96x48. Wind up, contact, expansion, dissipation. Every frame self-contained with transparent gutters, effect remains inside cell. Preserve common origin and scale across frames. Hard-edged two-tone pixel glow, no translucency or blur, no letters. Transparent background.",
+          "rejectedReason": "Outer rings touch adjacent source cells and right image border"
+        }
+      ],
+      "source": "exec-20dab853-24b1-470b-b58f-8854ab1345c8.png",
+      "sourceSize": [
+        2172,
+        724
+      ],
+      "path": "fx/fx_ratsglocke.png",
+      "references": [
+        "icons-reference.png"
+      ],
+      "alphaThreshold": 200,
+      "sha256": "19cf696bf3bb9ad25b98f53dd934c76bc0e0fcafd3394cafd0daa2c28a77cfe7",
+      "sourceRects": [
+        [
+          0,
+          0,
+          362,
+          724
+        ],
+        [
+          362,
+          0,
+          724,
+          724
+        ],
+        [
+          724,
+          0,
+          1086,
+          724
+        ],
+        [
+          1086,
+          0,
+          1448,
+          724
+        ],
+        [
+          1448,
+          0,
+          1810,
+          724
+        ],
+        [
+          1810,
+          0,
+          2172,
+          724
+        ]
+      ],
+      "sharedContentRect": [
+        39,
+        221,
+        312,
+        497
+      ]
+    },
+    {
+      "id": "items",
+      "kind": "items",
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\nSETTING OVERRIDE: Wexmoor, a sinking coastal peat marsh town. The drowned Old Town is three centuries older: muddy cobbles, gothic stone gables, green copper, algae, black oak stilts descending from the village above. Use the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction. No actual writing, letters, numbers, labels or watermark anywhere.\n\nItem icon extraction atlas, EXACTLY3 columns by3 rows, nine separate objects. Row-major order: a piece of black wet oak riddled with round worm holes; a soft green wax seal showing a tower over waves (no letters); a dark rust-brown crayfish back shell with glass shards stuck on it; a lump of pale white wax with a faint turquoise glimmer; a dented tin field flask with a cork, steam curling out, a sprig of mint tied to it; a round hard fisherman's bread with a crust of white salt crystals; a heavy gold chain of office tangled with green seaweed, a tower medallion; a silver tuning fork with faint sound rings around the tines; a small blank wooden name tablet with a hole for a nail, carved border. Each icon designed to read at32x32 and16x16. Big chunky simple pixel forms, complete silhouette, 1px navy outline, no text or glyphs. True alpha background, generous transparent gutters, same overall visual weight, no labels. No tile backing or boxes.",
+      "cols": 3,
+      "rows": 3,
+      "items": [
+        {
+          "id": "pfahlholz",
+          "description": "a piece of black wet oak riddled with round worm holes"
+        },
+        {
+          "id": "ratssiegel",
+          "description": "a soft green wax seal showing a tower over waves (no letters)"
+        },
+        {
+          "id": "krebspanzer",
+          "description": "a dark rust-brown crayfish back shell with glass shards stuck on it"
+        },
+        {
+          "id": "madenwachs",
+          "description": "a lump of pale white wax with a faint turquoise glimmer"
+        },
+        {
+          "id": "moortee",
+          "description": "a dented tin field flask with a cork, steam curling out, a sprig of mint tied to it"
+        },
+        {
+          "id": "salzbrot",
+          "description": "a round hard fisherman's bread with a crust of white salt crystals"
+        },
+        {
+          "id": "amtskette",
+          "description": "a heavy gold chain of office tangled with green seaweed, a tower medallion"
+        },
+        {
+          "id": "veys_stimmgabel",
+          "description": "a silver tuning fork with faint sound rings around the tines"
+        },
+        {
+          "id": "schreintaefelchen",
+          "description": "a small blank wooden name tablet with a hole for a nail, carved border"
+        }
+      ],
+      "transparent": true,
+      "source": "exec-2668c4ee-be75-41ef-82e1-9e70c79c9a43.png",
+      "sourceSize": [
+        1261,
+        1247
+      ],
+      "references": [
+        "icons-reference.png"
+      ],
+      "alphaThreshold": 200,
+      "sha256": "f45dd3c69ad92da16c3b6adc13e21014083fba552bb19a7ba37370d2c445d472",
+      "sourceRects": [
+        [
+          0,
+          0,
+          420,
+          416
+        ],
+        [
+          420,
+          0,
+          841,
+          416
+        ],
+        [
+          841,
+          0,
+          1261,
+          416
+        ],
+        [
+          0,
+          416,
+          420,
+          831
+        ],
+        [
+          420,
+          416,
+          841,
+          831
+        ],
+        [
+          841,
+          416,
+          1261,
+          831
+        ],
+        [
+          0,
+          831,
+          420,
+          1247
+        ],
+        [
+          420,
+          831,
+          805,
+          1247
+        ],
+        [
+          805,
+          831,
+          1261,
+          1247
+        ]
+      ],
+      "contentRects": [
+        [
+          75,
+          86,
+          387,
+          377
+        ],
+        [
+          48,
+          73,
+          350,
+          416
+        ],
+        [
+          26,
+          84,
+          345,
+          371
+        ],
+        [
+          76,
+          69,
+          374,
+          340
+        ],
+        [
+          56,
+          0,
+          345,
+          359
+        ],
+        [
+          12,
+          74,
+          346,
+          351
+        ],
+        [
+          63,
+          21,
+          398,
+          373
+        ],
+        [
+          86,
+          20,
+          338,
+          356
+        ],
+        [
+          27,
+          77,
+          389,
+          300
+        ]
+      ],
+      "cropNote": "Bottom-row fork/tablet boundary moved to the clear gutter at x=805."
+    }
+  ],
+  "tool": "image_gen",
+  "sourceDirectoryNote": "Originals are generation inputs, not runtime assets; resolve source basenames in SOURCE_DIR.",
+  "palette": [
+    "#1a1c2c",
+    "#6b333c",
+    "#303b49",
+    "#425360",
+    "#586c78",
+    "#71858b",
+    "#95a5a5",
+    "#2d2629",
+    "#413433",
+    "#58433c",
+    "#715648",
+    "#92745a",
+    "#b3946e",
+    "#cfb18a",
+    "#e0c9a1",
+    "#494b3a",
+    "#686850",
+    "#8b8870",
+    "#b4ac91",
+    "#dbd2b3",
+    "#eee2c5",
+    "#173d40",
+    "#36817a",
+    "#8058aa",
+    "#e8f0ff",
+    "#9ad06a",
+    "#e8b860",
+    "#c8b0e8",
+    "#e07a8a",
+    "#6fe0d0",
+    "#a8b4c0",
+    "#d0a050"
+  ],
+  "postprocessing": [
+    "Documented source/cell crops and component speck cleanup",
+    "Nearest-neighbour only, common combat scale and baseline",
+    "Attack wind-up frame duplicated exactly",
+    "Shared effect origin; binary alpha; fixed 32-color palette",
+    "Cobbles/water and paired stilts: matching edge pixels",
+    "Turn portraits from first idle; 16px items from 32px icons"
+  ],
+  "referenceMontages": {
+    "creatures-reference.png": {
+      "note": "Nearest-neighbour enlarged existing repository sprites, neutral background; boss combat reference uses first idle frame.",
+      "sourceFiles": [
+        {
+          "file": "public/sprites/ui/bestiary/S_schlickaal.png",
+          "sha256": "0d46d8628a8b9147ae896d3f59b651fd2a5aff34158c90dd1d99568c816c9538"
+        },
+        {
+          "file": "public/sprites/ui/bestiary/S_nebelfischer.png",
+          "sha256": "0e62023bdd7c0c715061a0193f4b2079d9eda7d124616ec23d5dd23ba8bf5892"
+        },
+        {
+          "file": "public/sprites/ui/bestiary/S_glockenmutter.png",
+          "sha256": "05eab65b47ad012940aba1a12c2e3b3689122cc7f514d2c8d5c57faa485dfa16"
+        },
+        {
+          "file": "public/sprites/battle/enemy_glockenmutter.png",
+          "sha256": "dc776a5a8435c08a7e9f14770874ba1c12df5931f287ef41dc478a9362db6fa8"
+        },
+        {
+          "file": "public/sprites/characters/S_ow_schlickaal.png",
+          "sha256": "d0cc040f04c51d50530770146b12f877c01e8413a76a3915ba8b0507fd6284fb"
+        }
+      ]
+    },
+    "environment-reference.png": {
+      "note": "Nearest-neighbour enlarged existing repository sprites, neutral background; boss combat reference uses first idle frame.",
+      "sourceFiles": [
+        {
+          "file": "public/sprites/battle/bg_vergessmoor.png",
+          "sha256": "12025acfe6f321707e8f37ab2854447044ae26a8dba394f4eb365e1a9f572ac8"
+        },
+        {
+          "file": "public/sprites/battle/bg_wx_stege.png",
+          "sha256": "0d0eabdc46d253be745845e99604287b0b7531a3b6be812954cde8daa39aaaa6"
+        },
+        {
+          "file": "public/sprites/props/R_wexmoor_fassaden.png",
+          "sha256": "6e60c4b7a0999be54c006c125de6e81a01c92f307aafab4fd7d84efffcae2ada"
+        },
+        {
+          "file": "public/sprites/tilesets/R_wexmoor_tiles.png",
+          "sha256": "e3b81f4692132ff1f06939870e62a9b49e8ecd3e8d642a037771bdb2d9b38449"
+        }
+      ]
+    },
+    "icons-reference.png": {
+      "note": "Nearest-neighbour enlarged existing repository sprites, neutral background; boss combat reference uses first idle frame.",
+      "sourceFiles": [
+        {
+          "file": "public/sprites/items/32/reetfaser.png",
+          "sha256": "5e8a13a6717c2339871b9ad5aa8b8f6c43b4df42dfcba1830f8fc76722ae92b7"
+        },
+        {
+          "file": "public/sprites/items/32/bronzeglocke_klein.png",
+          "sha256": "abdf14e6d409e02e28b4845bb34fabdfd6ce88bcd1fef90510f9795d243c976b"
+        },
+        {
+          "file": "public/sprites/items/32/spiegelwachs.png",
+          "sha256": "b3b5acdbddf8f1f955efbfdc9db809eaa76ac40ddb8d85aba560a406103f345a"
+        },
+        {
+          "file": "public/sprites/items/32/rostanker.png",
+          "sha256": "c53428f70d97c1f99dfce070eeca72252e89306127b0c50644273be657e8e41d"
+        },
+        {
+          "file": "public/sprites/items/32/uhr_ertrunkener.png",
+          "sha256": "643709c9dd82dbfa16f3267677a48b817ccef866d1db083769d00bbeaf519d58"
+        }
+      ]
+    }
+  },
+  "visualReview": [
+    "Compared all five combat sheets and overview with source identities",
+    "Adjusted mayor and crab row gutters; removed fork neighbour fragment",
+    "Regenerated wood splinter and bell effects to remove backdrop and frame clipping",
+    "Reviewed final props, cards, overworld directions, item silhouettes and turn portrait order"
+  ]
+}

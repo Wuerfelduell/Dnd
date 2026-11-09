@@ -1036,3 +1036,50 @@ Der Notizbuchkopf wird aus dem ersten Portrait abgeleitet.
 python docs/art/export-wexmoor4.py SOURCE_DIR .
 python docs/art/verify-wexmoor4.py
 ```
+
+
+## Grafikpaket W – Versunkene Altstadt und Nebengeschichten
+
+Batch `wexmoor5`, 9. November 2026: **41 PNGs aus 23 akzeptierten image_gen-Bildern**.
+Neue Kulisse unter Pfahldorf: 32 Terrainkacheln, zehn Prop-Regionen/Zustände
+und ein deckender Kampf-Hintergrund (480×270, Bodenstreifen y=200–269).
+Vier Monster erhalten Kampf-Sheet, Kartenfigur und Bestiarium-Karte.
+Der Bürgermeister erhält sieben Kampfreihen, eine Bestiarium-Karte und ein
+deckendes Intro (480×270). Dazu fünf Zugportraits, vier Effektstreifen und
+neun Items jeweils in 16×16 und 32×32; die kleinen Icons ersetzen Platzhalter.
+
+Kampfraster: sechs Spalten, Monster 64×64, Bürgermeister 96×96.
+Reihen und Bildraten stehen im Manifest; die ersten zwei Frames beider
+Angriffe sind pixelgleich. Exklusive Grundlinien: Monster y=62, Boss y=94,
+Kartenfiguren y=31. Unbenutzte Kampffelder bleiben transparent.
+Kartenrichtungen: unten, links, rechts, oben. Zugportraits:
+Pfahlbohrer, Ratsherr, Kellerkrebs, Namensmade, Bürgermeister.
+
+Props über benannte `regions` ausschneiden: Schleuse offen/geschlossen
+unter `states`, zwei Fensterphasen unter `regionAnimations`.
+Vier Wasseranimationen haben je zwei Phasen. Pfahlstücke werden als
+`[[24,25]]` (horizontal) bzw. `[[26],[27]]` (vertikal) zusammengesetzt.
+Nachbearbeitung: dokumentierte Zellzuschnitte, gemeinsame Skalierung pro
+Animationssheet, Nearest Neighbor, binäres Alpha und gemeinsame Palette
+mit höchstens 32 sichtbaren Farben (Export verwendet 30).
+
+Manifest: `public/sprites/manifest-wexmoor5.json`.
+Prompts, Referenzen, Quellprüfsummen und Zuschnitte:
+`batch-wexmoor5-generation.json`. Prüfung: `validation-wexmoor5.json`.
+
+```sh
+# Export: Pillow, numpy, scipy; SOURCE_DIR enthält die dokumentierten Originale.
+python docs/art/export-wexmoor5.py SOURCE_DIR
+# Prüfung und Vorschauen: Pillow, numpy; keine Originale erforderlich.
+python docs/art/verify-wexmoor5.py --preview
+node --test tests/sprites.test.js
+```
+
+Sichtkontrolle: [Übersicht](preview-wexmoor5-overview.png),
+[Effekte](preview-wexmoor5-effects.png),
+[Pfahlbohrer](preview-wexmoor5-battle-pfahlbohrer.png),
+[Ratsherr](preview-wexmoor5-battle-ratsherr.png),
+[Kellerkrebs](preview-wexmoor5-battle-kellerkrebs.png),
+[Namensmade](preview-wexmoor5-battle-namensmade.png),
+[Bürgermeister](preview-wexmoor5-battle-buergermeister.png).
+Grafikexport; Einbindung und Timing-Prüfung im laufenden Spiel erfolgen separat.
