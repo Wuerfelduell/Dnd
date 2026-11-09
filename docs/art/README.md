@@ -652,6 +652,65 @@ Die Source-Map ordnet Job-IDs den protokollierten Generatororiginalen zu.
 Nur Grafikdateien und Dokumentation; der Einbau und die Prüfung im laufenden
 Spiel erfolgen separat.
 
+## Grafikpaket M – Fall 7/8 und Miss Wren
+
+Batch `fall78`, erstellt am 9. November 2026 aus `codex_M_fall7_8_wren.md`:
+**70 neue PNGs**, dazu sieben bereits vorhandene 16×16-Itembilder im Manifest.
+66 Generierungen mit dem integrierten Bildgenerator, einschließlich drei
+verworfener Fassungen (Pfandeintreiber, Schuldsiegel, Ende `c7_wren`).
+
+- Drei Gegner-Sheets und Miss Wren in zwei Phasen; sechs Spalten, fünf bzw.
+  sieben Reihen. Wren verwendet 96×96-Frames und 576×672-Sheets.
+- Zehn Effektstreifen, Bossbüste, fünf Zugporträts und vier Bestiariumkarten.
+- Drei Innenraum-Tilesets mit je 48 Kacheln, drei Prop-Atlanten und vier
+  Kampfkulissen mit freiem Bodenstreifen bei y=200–269.
+- Finch, Molly und Benji mit Lauf-Sheets und vier Emotionen; drei Schlafwandler
+  und drei Kartengegner mit vier Laufrichtungen.
+- Sieben neue 32×32-Itembilder, gemischter Itematlas, zehn Hinweise,
+  vier Nahansichten, zwei Fallakten, sechs Zwischensequenzen und sechs Enden.
+
+`public/sprites/manifest-fall78.json` beschreibt alle 77 Dateien mit Zielmaßen,
+Framegrößen, Spalten/Zeilen, nullbasierten Animationslisten und Geschwindigkeiten.
+Laufreihen: unten/links/rechts/oben. Kampfgegner schauen nach links; die ersten
+zwei Frames der beiden normalen Angriffe sind identische Ausholposen. Kürzere
+Reihen haben transparente Restfelder. Die Grundlinie ist als exklusive
+Unterkante angegeben: 30 bei Lauf-Sheets, 46/62/94 bei Kampf-Sheets.
+
+Prop-Atlanten liegen in 64×48-Packfeldern; die benannten `regions` enthalten
+die eigentlichen 16er-Raster-Rechtecke, etwa 16×32 oder 64×48.
+`regionAnimations` beschreibt Manteltropfen, Herd, Webstuhl, Tretrad und
+hängende Fäden. Vier Faden-Schimmerpaare stehen im Traumkeller-Tileset.
+Der gemischte Itematlas ist 256×48: sieben 16×16-Icons ab y=0 und sieben
+32×32-Icons ab y=16; übrige Felder transparent. Die vorhandenen 16×16-Dateien
+sind als `sharedExisting` markiert und bleiben unverändert; ihre Darstellung
+im Atlas wird auf die gemeinsame Palette normalisiert.
+
+Alle neuen PNGs sind mit denselben 32 sichtbaren Farben plus transparentem
+Index palettenindiziert. Export: Nearest Neighbor, Zellzuschnitt, Grundlinien-
+ausrichtung, binäres Alpha und Bereinigung weißer Matten bei Waisenhaus-Props
+und Albtraum-Effekt. Die Generator-Trennränder der Terrainzellen wurden entfernt.
+Die Fluch-Nahansichten wurden aus den jeweiligen normalen Ansichten abgeleitet.
+Die vorhandene Gouvernante dient als Identitätsreferenz; ihr Lauf-Sheet und
+ihre Dialogporträts werden nicht ersetzt.
+
+Tatsächliche Prompts, Referenzen, Originaldateinamen, SHA-256-Prüfsummen und
+Exportoptionen stehen in `batch-fall78-generation.json`. Die großen
+Generatororiginale werden zum Spielimport nicht benötigt.
+
+```sh
+# Pillow und numpy; SOURCE_DIRECTORY enthält die protokollierten Original-PNGs.
+python docs/art/export-fall78.py SOURCE_DIRECTORY
+python docs/art/verify-fall78.py
+```
+
+`validation-fall78.json` dokumentiert die Prüfung von Vollständigkeit, Maßen,
+Palette, Alpha, belegten Animationsframes, leeren Restfeldern, Grundlinien,
+Ausholframes und Atlasgrenzen. Sichtkontrollen: `fall78-combat-preview.png`,
+`fall78-world-preview.png` und `fall78-story-preview.png`.
+
+Nur Grafikassets und Grafikdokumentation; kein Spielcode geändert. Einbindung,
+Tile-Zusammensetzung und Animationstiming im laufenden Spiel erfolgen separat.
+
 
 ## Batch K – Fall 6: Der dreizehnte Gast
 
