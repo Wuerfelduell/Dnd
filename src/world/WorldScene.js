@@ -2,6 +2,7 @@ import Phaser from 'phaser';
 import { questTarget, nextHop } from '../core/Guide.js';
 import { createTextures, createCharacterSheet, hash2, TILE, TILE_INDEX, SOLID_KEYS } from './textures.js';
 import { Lighting, DEPTH } from './Lighting.js';
+import { WexmoorLife, preloadWexmoorLife, speechBubble } from './WexmoorLife.js';
 import { preloadSprites, playSheetAnim, themeKeys, facadeKeys, PROP_ORIGINS, MAP_WEATHER, DISGUISE_SHEETS, pathwayArt } from './assets.js';
 import { Roamers } from './Roamers.js';
 import { Critters } from './Critters.js';
@@ -583,6 +584,7 @@ export class WorldScene extends Phaser.Scene {
 
   preload() {
     preloadSprites(this);
+    preloadWexmoorLife(this); // Paket AE
     this.registry.get('audio')?.preload(this);
   }
 
@@ -616,13 +618,8 @@ export class WorldScene extends Phaser.Scene {
     this.gossipSeen = [...this.gossipSeen.slice(-6), line.text];
     const who = near[Math.floor(Math.random() * near.length)];
     this.gossipBubble?.destroy();
-    const bubble = this.add.text(who.sprite.x, who.sprite.y - 34, line.text, {
-      fontFamily: 'monospace', fontSize: '8px', color: '#1a1c2c', backgroundColor: '#e9e0c8', padding: { x: 3, y: 2 }, wordWrap: { width: 130 }, align: 'center',
-    }).setOrigin(0.5, 1).setDepth(9000).setAlpha(0);
-    // im Bild halten: oben zu knapp → unter die Figur, seitlich an den Rand schieben
-    const view = this.cameras.main.worldView;
-    if (bubble.y - bubble.height < view.y + 2) bubble.setOrigin(0.5, 0).setY(who.sprite.y + 2);
-    bubble.setX(Phaser.Math.Clamp(bubble.x, view.x + bubble.width / 2 + 2, view.right - bubble.width / 2 - 2));
+    // Paket AE: gezeichnete Sprechblase mit Zipfel, im Bild gehalten (oben zu knapp → unter die Figur)
+    const bubble = speechBubble(this, line.text, who.sprite, this.cameras.main.worldView);
     this.gossipBubble = bubble;
     this.tweens.add({ targets: bubble, alpha: 0.95, duration: 200 });
     this.tweens.add({ targets: bubble, alpha: 0, delay: 3800, duration: 400, onComplete: () => bubble.destroy() });
@@ -679,6 +676,8 @@ export class WorldScene extends Phaser.Scene {
     this.patrols.build();
     this.buildAtmosphere(amb);
     this.buildWeather();
+    this.wexLife = new WexmoorLife(this); // Paket AE: Nieselregen, Nebelbänke und Tiere in Wexmoor
+    this.wexLife.build();
     this.bindInput();
     this.bindState();
     this.refreshVisibility();
@@ -1106,6 +1105,7 @@ export class WorldScene extends Phaser.Scene {
     this.roamers.update(time, delta, blocked || this.leaving);
     this.patrols.update(time, delta, blocked || this.leaving);
     this.critters.update(time, delta, blocked);
+    this.wexLife?.update(delta);
     this.updateFocus(blocked);
     this.checkAuto(blocked);
     this.handleKeys(blocked);
