@@ -188,7 +188,7 @@ export class Combat {
       if (lost) effects.push('der Schleier schluckt jeden ungenauen Treffer');
     }
     const raw = hits.reduce((n, h) => n + h.damage, 0);
-    const total = this.hurtEnemy(raw);
+    const total = this.hurtEnemy(raw, { pierce: !!sk.pierce });
     if (raw > total) effects.push(`Panzer fängt ${raw - total} ab`);
     if (skillId === 'attack') this.gainAp(hits[0]?.grade === 'perfect' ? 2 : 1);
     const landed = sk.hits === 0 || hits.some((h) => h.grade !== 'miss' && h.damage);

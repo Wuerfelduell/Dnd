@@ -274,3 +274,16 @@ test('Mehrere Aktionen pro Zug mit Konzentration, Gegenstand nur einmal pro Zug'
   assert.equal(c.actions, 0);
   assert.ok(c.useItem('bannsalz'), 'neuer Zug, neuer Gegenstand');
 });
+
+test('Schicksalsfaden durchdringt Panzer und trifft auch bei verfehltem Takt', () => {
+  const s = fresh();
+  const c = new Combat(s, 'ash_warden');
+  const sk = content.pathways.faden.seqs['7'].skill;
+  s.pathwaySkills = () => ({ [sk.id]: sk });
+  c.ap = 6;
+  c.armor = 3;
+  c.enemy.hp = c.enemy.maxHp = 999;
+  const r = c.useSkill(sk.id, ['miss', 'good']);
+  assert.ok(r.hits.every((h) => h.grade === 'good'));
+  assert.equal(r.total, r.hits[0].damage + r.hits[1].damage, 'Panzer zieht nichts ab');
+});
