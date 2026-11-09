@@ -5,6 +5,8 @@ import { GameState } from './core/GameState.js';
 import { WorldScene, VIEW_W, VIEW_H } from './world/WorldScene.js';
 import { Ui } from './ui/Ui.js';
 import { CombatScene } from './world/CombatScene.js';
+import { Audio } from './core/Audio.js';
+import { wireSounds } from './core/sounds.js';
 
 const SAVE_KEY = 'nebelakten-save';
 const state = new GameState(content);
@@ -33,6 +35,10 @@ let started = false;
 let game;
 const restartWorld = () => game.scene.getScene('world').scene.restart();
 
+// Paket Y: Soundeffekte (eine Instanz für alle Szenen; spielt erst nach der ersten Eingabe)
+const audio = new Audio({ kinds: ['sfx'] }); // Musik (Paket Z) folgt
+wireSounds(state, audio, uiRoot);
+
 const ui = new Ui(uiRoot, state, {
   hasSave: () => [2, 3, 4].includes(readSave()?.v),
   onNewGame: () => {
@@ -48,6 +54,8 @@ const ui = new Ui(uiRoot, state, {
     restartWorld();
   },
 });
+
+ui.audio = audio;
 
 game = new Phaser.Game({
   type: Phaser.AUTO,
@@ -65,6 +73,7 @@ game = new Phaser.Game({
     preBoot: (g) => {
       g.registry.set('state', state);
       g.registry.set('ui', ui);
+      g.registry.set('audio', audio);
     },
   },
 });
@@ -99,4 +108,4 @@ fit();
 ui.showTitle();
 
 // Für Tests und Debugging in der Browser-Konsole.
-window.__nebel = { game, state, ui, content, scene: () => game.scene.getScene('world') };
+window.__nebel = { game, state, ui, content, audio, scene: () => game.scene.getScene('world') };

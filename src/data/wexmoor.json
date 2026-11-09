@@ -8876,7 +8876,7 @@
       "id": "wx_altstadt",
       "name": "Die Versunkene Altstadt",
       "city": "wexmoor",
-      "tiles": "g_marsch",
+      "tiles": "w_altstadt",
       "danger": 3,
       "ambient": {
         "night": 0.65,
@@ -9056,7 +9056,521 @@
         }
       ],
       "npcs": [],
-      "decor": [],
+      "decor": [
+        {
+          "sprite": "w_altstadt_props_rope_ladder",
+          "tile": [
+            1,
+            14
+          ],
+          "offset": [
+            0,
+            8
+          ],
+          "origin": [
+            0.5,
+            1
+          ],
+          "alpha": 1,
+          "ysort": true
+        },
+        {
+          "sprite": "w_altstadt_props_sluice_open",
+          "tile": [
+            3,
+            13
+          ],
+          "offset": [
+            0,
+            8
+          ],
+          "origin": [
+            0.5,
+            1
+          ],
+          "alpha": 1,
+          "ysort": true,
+          "visible_if": {
+            "hide_if_flags": [
+              "k2_tor_zu"
+            ]
+          }
+        },
+        {
+          "sprite": "w_altstadt_props_sluice_closed",
+          "tile": [
+            3,
+            13
+          ],
+          "offset": [
+            0,
+            8
+          ],
+          "origin": [
+            0.5,
+            1
+          ],
+          "alpha": 1,
+          "ysort": true,
+          "visible_if": {
+            "requires_flags": [
+              "k2_tor_zu"
+            ]
+          }
+        },
+        {
+          "sprite": "w_altstadt_props_chapel_door",
+          "tile": [
+            19,
+            6
+          ],
+          "offset": [
+            0,
+            8
+          ],
+          "origin": [
+            0.5,
+            1
+          ],
+          "alpha": 1,
+          "ysort": true
+        },
+        {
+          "sprite": "w_altstadt_props_town_hall",
+          "tile": [
+            46,
+            15
+          ],
+          "offset": [
+            0,
+            8
+          ],
+          "origin": [
+            0.5,
+            1
+          ],
+          "alpha": 1,
+          "ysort": true,
+          "solid": [
+            56,
+            20,
+            0,
+            -10
+          ]
+        },
+        {
+          "sprite": "w_altstadt_props_lectern",
+          "tile": [
+            46,
+            17
+          ],
+          "offset": [
+            0,
+            8
+          ],
+          "origin": [
+            0.5,
+            1
+          ],
+          "alpha": 1,
+          "ysort": true
+        },
+        {
+          "sprite": "w_altstadt_props_town_gate",
+          "tile": [
+            29,
+            4
+          ],
+          "offset": [
+            0,
+            8
+          ],
+          "origin": [
+            0.5,
+            1
+          ],
+          "alpha": 1,
+          "ysort": true
+        },
+        {
+          "sprite": "w_altstadt_props_street_lamp",
+          "tile": [
+            12,
+            7
+          ],
+          "offset": [
+            0,
+            8
+          ],
+          "origin": [
+            0.5,
+            1
+          ],
+          "alpha": 1,
+          "ysort": true,
+          "solid": [
+            6,
+            4,
+            0,
+            -2
+          ],
+          "light": {
+            "dy": -24,
+            "radius": 48,
+            "intensity": 0.7,
+            "color": "#a0e0c0",
+            "glow": 0.3,
+            "flicker": 0.15
+          }
+        },
+        {
+          "sprite": "w_altstadt_props_street_lamp",
+          "tile": [
+            28,
+            9
+          ],
+          "offset": [
+            0,
+            8
+          ],
+          "origin": [
+            0.5,
+            1
+          ],
+          "alpha": 1,
+          "ysort": true,
+          "solid": [
+            6,
+            4,
+            0,
+            -2
+          ],
+          "light": {
+            "dy": -24,
+            "radius": 48,
+            "intensity": 0.7,
+            "color": "#a0e0c0",
+            "glow": 0.3,
+            "flicker": 0.15
+          }
+        },
+        {
+          "sprite": "w_altstadt_props_street_lamp",
+          "tile": [
+            10,
+            16
+          ],
+          "offset": [
+            0,
+            8
+          ],
+          "origin": [
+            0.5,
+            1
+          ],
+          "alpha": 1,
+          "ysort": true,
+          "solid": [
+            6,
+            4,
+            0,
+            -2
+          ],
+          "light": {
+            "dy": -24,
+            "radius": 48,
+            "intensity": 0.7,
+            "color": "#a0e0c0",
+            "glow": 0.3,
+            "flicker": 0.15
+          }
+        },
+        {
+          "sprite": "w_altstadt_props_street_lamp",
+          "tile": [
+            33,
+            20
+          ],
+          "offset": [
+            0,
+            8
+          ],
+          "origin": [
+            0.5,
+            1
+          ],
+          "alpha": 1,
+          "ysort": true,
+          "solid": [
+            6,
+            4,
+            0,
+            -2
+          ],
+          "light": {
+            "dy": -24,
+            "radius": 48,
+            "intensity": 0.7,
+            "color": "#a0e0c0",
+            "glow": 0.3,
+            "flicker": 0.15
+          }
+        },
+        {
+          "sprite": "w_altstadt_props_street_lamp",
+          "tile": [
+            44,
+            21
+          ],
+          "offset": [
+            0,
+            8
+          ],
+          "origin": [
+            0.5,
+            1
+          ],
+          "alpha": 1,
+          "ysort": true,
+          "solid": [
+            6,
+            4,
+            0,
+            -2
+          ],
+          "light": {
+            "dy": -24,
+            "radius": 48,
+            "intensity": 0.7,
+            "color": "#a0e0c0",
+            "glow": 0.3,
+            "flicker": 0.15
+          }
+        },
+        {
+          "sprite": "w_altstadt_props_street_lamp",
+          "tile": [
+            38,
+            13
+          ],
+          "offset": [
+            0,
+            8
+          ],
+          "origin": [
+            0.5,
+            1
+          ],
+          "alpha": 1,
+          "ysort": true,
+          "solid": [
+            6,
+            4,
+            0,
+            -2
+          ],
+          "light": {
+            "dy": -24,
+            "radius": 48,
+            "intensity": 0.7,
+            "color": "#a0e0c0",
+            "glow": 0.3,
+            "flicker": 0.15
+          }
+        },
+        {
+          "sprite": "w_altstadt_props_street_lamp",
+          "tile": [
+            17,
+            22
+          ],
+          "offset": [
+            0,
+            8
+          ],
+          "origin": [
+            0.5,
+            1
+          ],
+          "alpha": 1,
+          "ysort": true,
+          "solid": [
+            6,
+            4,
+            0,
+            -2
+          ],
+          "light": {
+            "dy": -24,
+            "radius": 48,
+            "intensity": 0.7,
+            "color": "#a0e0c0",
+            "glow": 0.3,
+            "flicker": 0.15
+          }
+        },
+        {
+          "sprite": "w_altstadt_props_window",
+          "tile": [
+            6,
+            6
+          ],
+          "alpha": 1,
+          "depth": 40,
+          "light": {
+            "radius": 28,
+            "intensity": 0.5,
+            "color": "#c0e070",
+            "glow": 0.2,
+            "flicker": 0.2
+          }
+        },
+        {
+          "sprite": "w_altstadt_props_window",
+          "tile": [
+            15,
+            5
+          ],
+          "alpha": 1,
+          "depth": 40
+        },
+        {
+          "sprite": "w_altstadt_props_window",
+          "tile": [
+            24,
+            5
+          ],
+          "alpha": 1,
+          "depth": 40
+        },
+        {
+          "sprite": "w_altstadt_props_window",
+          "tile": [
+            33,
+            6
+          ],
+          "alpha": 1,
+          "depth": 40,
+          "light": {
+            "radius": 28,
+            "intensity": 0.5,
+            "color": "#c0e070",
+            "glow": 0.2,
+            "flicker": 0.2
+          }
+        },
+        {
+          "sprite": "w_altstadt_props_window",
+          "tile": [
+            15,
+            12
+          ],
+          "alpha": 1,
+          "depth": 40
+        },
+        {
+          "sprite": "w_altstadt_props_window",
+          "tile": [
+            25,
+            12
+          ],
+          "alpha": 1,
+          "depth": 40
+        },
+        {
+          "sprite": "w_altstadt_props_window",
+          "tile": [
+            33,
+            12
+          ],
+          "alpha": 1,
+          "depth": 40,
+          "light": {
+            "radius": 28,
+            "intensity": 0.5,
+            "color": "#c0e070",
+            "glow": 0.2,
+            "flicker": 0.2
+          }
+        },
+        {
+          "sprite": "w_altstadt_props_window",
+          "tile": [
+            6,
+            20
+          ],
+          "alpha": 1,
+          "depth": 40
+        },
+        {
+          "sprite": "w_altstadt_props_window",
+          "tile": [
+            16,
+            19
+          ],
+          "alpha": 1,
+          "depth": 40
+        },
+        {
+          "sprite": "w_altstadt_props_window",
+          "tile": [
+            24,
+            19
+          ],
+          "alpha": 1,
+          "depth": 40,
+          "light": {
+            "radius": 28,
+            "intensity": 0.5,
+            "color": "#c0e070",
+            "glow": 0.2,
+            "flicker": 0.2
+          }
+        },
+        {
+          "sprite": "w_altstadt_props_window",
+          "tile": [
+            33,
+            19
+          ],
+          "alpha": 1,
+          "depth": 40
+        },
+        {
+          "sprite": "w_altstadt_props_window",
+          "tile": [
+            7,
+            27
+          ],
+          "alpha": 1,
+          "depth": 40
+        },
+        {
+          "sprite": "w_altstadt_props_window",
+          "tile": [
+            16,
+            27
+          ],
+          "alpha": 1,
+          "depth": 40,
+          "light": {
+            "radius": 28,
+            "intensity": 0.5,
+            "color": "#c0e070",
+            "glow": 0.2,
+            "flicker": 0.2
+          }
+        },
+        {
+          "sprite": "w_altstadt_props_window",
+          "tile": [
+            32,
+            27
+          ],
+          "alpha": 1,
+          "depth": 40
+        }
+      ],
       "interactables": [
         {
           "id": "exit",
@@ -9091,8 +9605,8 @@
         {
           "kind": "read",
           "tile": [
-            20,
-            9
+            19,
+            7
           ],
           "marker": false,
           "id": "kapelle",
@@ -14511,7 +15025,7 @@
         "pfahlbohrer": {
           "name": "Pfahlbohrer",
           "sprite": "wild",
-          "sheet": "enemy_knochenwurm",
+          "sheet": "enemy_pfahlbohrer",
           "occult": true,
           "hp": 40,
           "intro": "Aus einem Pfahl, dick wie ein Fass, quillt ein grauer Wurm mit einem Kopf aus Hornplatten. Hinter ihm knirscht das Holz, und irgendwo über dir neigt sich ein Haus.",
@@ -14570,7 +15084,7 @@
         "ratsherr": {
           "name": "Ertrunkener Ratsherr",
           "sprite": "wild",
-          "sheet": "enemy_ertrunkener",
+          "sheet": "enemy_ratsherr",
           "occult": true,
           "hp": 46,
           "intro": "Ein Mann in einer Robe aus Tang sitzt auf einem Stuhl, der im Schlick steckt, und blättert in einem Buch, aus dem Wasser läuft. Er sieht auf. „Sie sind nicht auf der Tagesordnung.“",
@@ -14630,7 +15144,7 @@
         "kellerkrebs": {
           "name": "Kellerkrebs",
           "sprite": "wild",
-          "sheet": "enemy_kanalkroete",
+          "sheet": "enemy_kellerkrebs",
           "occult": false,
           "hp": 46,
           "intro": "Aus einem Kellerfenster schiebt sich eine Schere, dann noch eine. Der Krebs dahinter ist so groß wie ein Hund und trägt Scherben von Weinflaschen auf dem Rücken.",
@@ -14697,7 +15211,7 @@
         "namensmade": {
           "name": "Namensmade",
           "sprite": "wild",
-          "sheet": "enemy_stimmenfresser",
+          "sheet": "enemy_namensmade",
           "occult": true,
           "hp": 40,
           "intro": "Eine bleiche Made, lang wie ein Arm, kriecht über eine Hauswand und frisst die Buchstaben vom Türschild. Wo sie war, weißt du nicht mehr, wer hier gewohnt hat.",
@@ -14764,7 +15278,7 @@
         "buergermeister": {
           "name": "Der Ertrunkene Bürgermeister",
           "sprite": "wild",
-          "sheet": "enemy_dreizehnter_gast",
+          "sheet": "enemy_buergermeister",
           "occult": true,
           "hp": 140,
           "intro": "Auf den Stufen des alten Rathauses sitzt ein Mann mit einer Kette aus Gold und Algen. Hinter ihm stehen Hunderte im Schlamm, still, mit leeren Gesichtern: seine Stadt.\n\n„Wir haben das Moor nicht gefüttert“, sagt er. „Darum hat es uns genommen. Die da oben haben es besser gemacht.“",
