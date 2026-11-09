@@ -1,0 +1,92 @@
+{
+  "format": "nebel-musik-1",
+  "id": "wexmoor_streife",
+  "titel": "Die Grauspäher",
+  "bpm": 96,
+  "takt": [
+    4,
+    4
+  ],
+  "loop": true,
+  "lautstaerke": 0.48,
+  "hall": 0.38,
+  "spuren": {
+    "melodie": {
+      "instrument": "pizzicato",
+      "lautstaerke": 0.7,
+      "pan": -0.16
+    },
+    "takt": {
+      "instrument": "pauke",
+      "lautstaerke": 0.28,
+      "pan": 0.15
+    }
+  },
+  "muster": {
+    "motiv": {
+      "spur": "melodie",
+      "takte": 1,
+      "noten": "e2:2 r:2 b2:2 r:2 e2:2 r:6"
+    },
+    "antwort": {
+      "spur": "melodie",
+      "takte": 1,
+      "noten": "e2:2 r:6 d3:2 r:2 b2:2 r:2"
+    },
+    "atem": {
+      "spur": "melodie",
+      "takte": 3,
+      "noten": "r:16 | r:16 | r:16"
+    },
+    "puls": {
+      "spur": "takt",
+      "takte": 1,
+      "noten": "x:8@0.6 x:8@0.25"
+    }
+  },
+  "abschnitte": {
+    "intro": [
+      "atem"
+    ],
+    "A": [
+      "motiv",
+      "puls"
+    ],
+    "B": [
+      "antwort",
+      "puls"
+    ],
+    "C": [
+      "motiv",
+      "puls"
+    ]
+  },
+  "ablauf": [
+    "intro",
+    "A",
+    "B",
+    "C",
+    "A",
+    "B",
+    "C",
+    "A",
+    "B",
+    "C",
+    "A",
+    "B",
+    "C",
+    "A",
+    "B",
+    "C",
+    "A",
+    "B",
+    "C",
+    "A",
+    "B",
+    "C",
+    "A",
+    "B",
+    "C"
+  ],
+  "loop_ab": 1
+}
