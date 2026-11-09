@@ -1,10 +1,17 @@
-import { itemIconUrl, itemIcon32Url, pathwayEmblemUrl, pathwayCardUrl, COIN_URL } from '../world/assets.js';
+import {
+  itemIconUrl, itemIcon32Url, pathwayEmblemUrl, pathwayCardUrl, COIN_URL, SKILL_ICONS, SKILL_ICONS_URL, STATUS_ICONS, STATUS_ICONS_URL,
+} from '../world/assets.js';
 
 /** 16x16-Icon vor einem Item-Namen. Lädt es nicht, verschwindet es einfach. */
 const itemIcon = (id) => `<img class="item-icon" src="${itemIconUrl(id)}" alt="" width="16" height="16" onerror="this.remove()">`;
 /** Größeres Icon (Tränke in 32px, sonst das 16er doppelt). */
 const itemIconBig = (id) => `<img class="item-icon big" src="${itemIcon32Url(id) ?? itemIconUrl(id)}" alt="" width="32" height="32" onerror="this.remove()">`;
 const emblem = (pid, size = 16) => `<img class="emblem" src="${pathwayEmblemUrl(pid, size)}" alt="" width="${size}" height="${size}" onerror="this.remove()">`;
+/** 16x16-Zelle aus einem Icon-Atlas (Fähigkeiten: 7 Spalten, Zustände: 12 Spalten). */
+const atlasIcon = (url, index, cols, title = '') => (index === undefined ? ''
+  : `<span class="atlas-icon" title="${title}" style="background-image:url(${url});background-position:-${(index % cols) * 16}px -${Math.floor(index / cols) * 16}px"></span>`);
+const skillIcon = (id) => atlasIcon(SKILL_ICONS_URL, SKILL_ICONS[id], 7);
+const statusIcon = (id, title) => atlasIcon(STATUS_ICONS_URL, STATUS_ICONS[id], 12, title);
 const coin = '<img class="coin" src="' + COIN_URL + '" alt="" width="16" height="16" onerror="this.remove()">';
 
 // HTML-Oberfläche über dem Spiel-Canvas: HUD, Hinweise, Dialoge, Notizbuch,
@@ -602,7 +609,7 @@ export class Ui {
         <div class="cb-msg"><div class="cb-text"></div><div class="cb-help"></div></div>
         <div class="cb-bottom">
           <div class="cb-player">
-            <div class="cb-name">Du <span class="muted cb-weapon"></span></div>
+            <div class="cb-name">Du <span class="muted cb-weapon"></span> <span class="cb-status"></span></div>
             <div class="meter"><span>Leben</span><div class="bar"><div class="pfill"></div></div><em class="cb-hp"></em></div>
             <div class="meter"><span>Nerven</span><div class="bar"><div class="nfill"></div></div></div>
             <div class="cb-ap"><span>Konzentration</span> <span class="pips"></span></div>
@@ -621,7 +628,12 @@ export class Ui {
     const q = (sel) => this.layer.querySelector(sel);
     q('.cb-enemy .cb-name').textContent = `${c.enemy.name} · ${c.enemy.hp}/${c.enemy.maxHp}`;
     q('.efill').style.width = `${(c.enemy.hp / c.enemy.maxHp) * 100}%`;
-    q('.cb-tags').innerHTML = [c.enemy.occult ? '<span class="badge refuted">okkult</span>' : '', c.weak ? '<span class="badge likely">Schwachstelle bekannt</span>' : '', c.enc.practice ? '<span class="badge suspected">Übung</span>' : ''].join(' ');
+    const burn = c.burn ? { giftphiole: ['gift', 'Gift'], aetzwolke: ['zerfressen', 'Ätzend'] }[c.burn.source] ?? ['brennen', 'Brand'] : null;
+    q('.cb-tags').innerHTML = [c.enemy.occult ? '<span class="badge refuted">okkult</span>' : '', c.weak ? `<span class="badge likely">${statusIcon('schwachstelle')}Schwachstelle bekannt</span>` : '', c.enc.practice ? '<span class="badge suspected">Übung</span>' : '',
+      burn ? `<span class="badge suspected">${statusIcon(burn[0])}${burn[1]} ${c.burn.rounds}</span>` : '',
+      c.stunned ? `<span class="badge suspected">${statusIcon('betaeubt')}betäubt</span>` : '',
+      c.confused ? `<span class="badge suspected">${statusIcon('verwirrt')}verwirrt</span>` : ''].join(' ');
+    q('.cb-status').innerHTML = [c.shield ? statusIcon('eisenhaut', `Schutz ${c.shield}`) + c.shield : '', c.evading ? statusIcon('vorahnung', 'Nächster Angriff geht ins Leere') : ''].join(' ');
     q('.pfill').style.width = `${(s.hp / s.maxHp) * 100}%`;
     q('.pfill').classList.toggle('low', s.hp / s.maxHp < 0.3);
     q('.cb-hp').textContent = `${s.hp}/${s.maxHp}`;
@@ -655,7 +667,7 @@ export class Ui {
       this.layer.querySelector('.cb-help').textContent = '';
     } else if (sub === 'skills') {
       entries = c.skills().filter((k) => k.id !== 'attack').map((k) => ({
-        text: `${k.pathway ? '✧ ' : ''}${k.name}`, info: `${k.cost} K${k.composure ? ` · ${k.composure} Nerven` : ''}`, desc: k.desc, act: { type: 'skill', id: k.id }, disabled: !k.usable,
+        text: `${k.pathway && SKILL_ICONS[k.id] === undefined ? '✧ ' : ''}${k.name}`, skill: k.id, info: `${k.cost} K${k.composure ? ` · ${k.composure} Nerven` : ''}`, desc: k.desc, act: { type: 'skill', id: k.id }, disabled: !k.usable,
       }));
     } else {
       entries = this.state.items().filter((i) => i.kind === 'consumable').map((i) => ({ text: `${i.name} ×${i.count}`, icon: i.id, desc: i.desc, act: { type: 'item', id: i.id } }));
@@ -665,7 +677,7 @@ export class Ui {
     this.combatMenuOpen = { sub, entries };
     const menu = this.layer.querySelector('.cb-menu');
     menu.innerHTML = `<ol class="choices">${entries.map((e, i) => `<li><button data-i="${i}" ${e.disabled ? 'disabled' : ''} title="${esc(e.desc ?? '')}">
-      <span class="key">${e.back ? 'Esc' : i + 1}</span> ${e.icon ? itemIcon(e.icon) : ''}${esc(e.text)} <span class="muted">${esc(e.info ?? '')}</span></button></li>`).join('')}</ol>
+      <span class="key">${e.back ? 'Esc' : i + 1}</span> ${e.icon ? itemIcon(e.icon) : ''}${e.skill ? skillIcon(e.skill) : ''}${esc(e.text)} <span class="muted">${esc(e.info ?? '')}</span></button></li>`).join('')}</ol>
       <div class="cb-desc"></div>`;
     menu.querySelectorAll('[data-i]').forEach((b) => {
       b.onclick = () => this.combatPick(Number(b.dataset.i));

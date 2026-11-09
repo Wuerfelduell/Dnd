@@ -161,25 +161,93 @@ export const COIN_URL = `${BASE}items/schilling.png`;
 // --- Kampf (Paket 14b) ----------------------------------------------------------
 // Animierte Seitenansichts-Sheets; Frames und Animationen stehen in manifest-14b.json.
 
-/** Texture-Key → [Pfad, Framegröße]. */
+/** Texture-Key → [Pfad, Framebreite, Framehöhe = Breite]. Frames/Animationen: manifest-14b.json bzw. manifest-kampf.json. */
 export const BATTLE_SHEETS = {
   battle_player: ['battle/battle_player.png', 48],
   enemy_holt: ['battle/enemy_holt.png', 48],
   enemy_nebelhund: ['battle/enemy_nebelhund.png', 64],
   enemy_aschewaechter: ['battle/enemy_aschewaechter.png', 64],
+  // Paket B (Kampf)
+  battle_player_skills: ['battle/battle_player_skills.png', 48],
+  battle_player_weapons: ['battle/battle_player_weapons.png', 48],
+  enemy_chorfanatiker: ['battle/enemy_chorfanatiker.png', 48],
+  enemy_rook: ['battle/enemy_rook.png', 48],
+  enemy_silas: ['battle/enemy_silas.png', 48],
+  enemy_schattenpuppe: ['battle/enemy_schattenpuppe.png', 48],
+  enemy_grubenkaempfer: ['battle/enemy_grubenkaempfer.png', 48],
+  enemy_maskenspieler: ['battle/enemy_maskenspieler.png', 48],
+  enemy_schlachtergehilfe: ['battle/enemy_schlachtergehilfe.png', 48],
+  enemy_aktenfresser: ['battle/enemy_aktenfresser.png', 64],
+  enemy_spiegelschatten: ['battle/enemy_spiegelschatten.png', 64],
+  enemy_kanalkroete: ['battle/enemy_kanalkroete.png', 64],
+  enemy_uhrwerkwaechter: ['battle/enemy_uhrwerkwaechter.png', 64],
+  enemy_gasgeist: ['battle/enemy_gasgeist.png', 64],
+  hits: ['fx/hits.png', 48],
+  transition_in: ['fx/transition_in.png', 480, 270],
+  transition_out: ['fx/transition_out.png', 480, 270],
 };
 
-/** Gegner-Sprite aus encounters.json → Kampf-Sheet. Fehlt eins, bleibt die alte Darstellung. */
+/** Fähigkeit → Effekt-Streifen (fx/fx_<id>.png) mit Framegröße. */
+export const SKILL_FX = {
+  lichtstoss: 48, funkenregen: 48, leuchtfeuer: 64, schwachstelle: 48, vorahnung: 48, schicksalsfaden: 64,
+  trugbild: 48, verwirrung: 48, spiegelschritt: 48, klagelaut: 48, grabesstimme: 64, seelenzug: 64,
+  wundsalbe: 32, giftphiole: 48, aetzwolke: 64, wuchtschlag: 48, eisenhaut: 48, klingenwirbel: 64,
+  hinterhalt: 48, fallstrick: 48, schattenschritt: 48,
+};
+for (const [id, size] of Object.entries(SKILL_FX)) BATTLE_SHEETS[`fx_${id}`] = [`fx/fx_${id}.png`, size];
+
+/** Effekte, die am Spieler statt am Gegner erscheinen. */
+export const SELF_FX = ['vorahnung', 'trugbild', 'wundsalbe', 'eisenhaut', 'spiegelschritt', 'schattenschritt'];
+
+/** Pfad → Zauberpose in battle_player_skills. */
+export const PATHWAY_POSES = { laterne: 'lantern', faden: 'thread', maske: 'mask', echo: 'echo', kessel: 'cauldron', eisen: 'iron', schluessel: 'key' };
+/** Waffe → Schlaganimation in battle_player_weapons (sonst battle_player 'attack'). */
+export const WEAPON_POSES = { schlagstock: 'truncheon', stockdegen: 'cane_sword' };
+
+/** Begegnung → Kampf-Sheet. Fehlt eine, greift ENEMY_BATTLE_SHEETS über den Sprite-Key. */
+export const ENCOUNTER_SHEETS = {
+  sparring: 'enemy_holt', fog_hound: 'enemy_nebelhund', ash_warden: 'enemy_aschewaechter',
+  archive_rats: 'enemy_aktenfresser', choir_zealots: 'enemy_chorfanatiker', rook_fight: 'enemy_rook',
+  silas_fight: 'enemy_silas', mirror_shade: 'enemy_spiegelschatten', schattenpuppe: 'enemy_schattenpuppe',
+  grubenkampf: 'enemy_grubenkaempfer',
+};
+
+/** Gegner-Sprite aus encounters.json → Kampf-Sheet (Rückfall für Begegnungen ohne eigenen Eintrag). */
 export const ENEMY_BATTLE_SHEETS = {
   'npc:holt': 'enemy_holt',
   hound: 'enemy_nebelhund',
   warden: 'enemy_aschewaechter',
+  rats: 'enemy_aktenfresser',
+  apparition: 'enemy_spiegelschatten',
+  'npc:cultist': 'enemy_chorfanatiker',
+  'npc:rook': 'enemy_rook',
+  'npc:silas': 'enemy_silas',
 };
+
+/** Wesen vergehen nach der Niederlage; Menschen bleiben am Boden liegen. */
+export const FADING_SHEETS = ['enemy_nebelhund', 'enemy_aschewaechter', 'enemy_aktenfresser', 'enemy_spiegelschatten',
+  'enemy_schattenpuppe', 'enemy_kanalkroete', 'enemy_uhrwerkwaechter', 'enemy_gasgeist'];
 
 /** Karte → Kampfhintergrund (480x270). Karten ohne Eintrag behalten die gezeichnete Bühne. */
 export const BATTLE_BACKGROUNDS = {
-  revier: 'bg_revier', ashgrove: 'bg_ashgrove', altmarkt: 'bg_ashgrove', docks: 'bg_ashgrove', crypt: 'bg_krypta',
+  revier: 'bg_revier', ashgrove: 'bg_ashgrove', crypt: 'bg_krypta', ebba: 'bg_ebba', altmarkt: 'bg_altmarkt',
+  docks: 'bg_hafen', warehouse: 'bg_lagerhaus', tavern: 'bg_taverne', nachtmarkt: 'bg_nachtmarkt',
 };
+/** Begegnung → eigener Hintergrund (vor dem der Karte). */
+export const ENCOUNTER_BACKGROUNDS = { archive_rats: 'bg_archiv', grubenkampf: 'bg_grube', mirror_shade: 'bg_spiegel' };
+
+/** Fähigkeit → Zelle in ui/skill_icons.png (7 Pfadspalten x Sequenz 9/8/7). */
+export const SKILL_ICONS = {
+  lichtstoss: 0, schwachstelle: 1, trugbild: 2, klagelaut: 3, wundsalbe: 4, wuchtschlag: 5, hinterhalt: 6,
+  funkenregen: 7, vorahnung: 8, verwirrung: 9, grabesstimme: 10, giftphiole: 11, eisenhaut: 12, fallstrick: 13,
+  leuchtfeuer: 14, schicksalsfaden: 15, spiegelschritt: 16, seelenzug: 17, aetzwolke: 18, klingenwirbel: 19, schattenschritt: 20,
+};
+/** Zustand → Zelle in ui/status_icons.png. */
+export const STATUS_ICONS = {
+  brennen: 0, gift: 1, betaeubt: 2, starre: 3, schwachstelle: 4, vorahnung: 5, trugbild: 6, verwirrt: 7, eisenhaut: 8, zerfressen: 9, schatten: 10, blutung: 11,
+};
+export const SKILL_ICONS_URL = `${BASE}ui/skill_icons.png`;
+export const STATUS_ICONS_URL = `${BASE}ui/status_icons.png`;
 
 /** 16x16-Icon unter public/sprites/items/<id>.png (tests/sprites.test.js prüft, dass es zu jedem Item eins gibt). */
 export const itemIconUrl = (id) => `${BASE}items/${id}.png`;
@@ -193,16 +261,17 @@ export function preloadSprites(scene) {
   for (const [sheet, path] of Object.entries(SHEETS)) {
     if (!scene.textures.exists(srcKey(sheet))) scene.load.image(srcKey(sheet), BASE + path);
   }
-  for (const [key, [path, size]] of Object.entries(BATTLE_SHEETS)) {
-    if (!scene.textures.exists(key)) scene.load.spritesheet(key, BASE + path, { frameWidth: size, frameHeight: size });
+  for (const [key, [path, w, h = w]] of Object.entries(BATTLE_SHEETS)) {
+    if (!scene.textures.exists(key)) scene.load.spritesheet(key, BASE + path, { frameWidth: w, frameHeight: h });
   }
-  for (const key of new Set(Object.values(BATTLE_BACKGROUNDS))) {
+  for (const key of new Set([...Object.values(BATTLE_BACKGROUNDS), ...Object.values(ENCOUNTER_BACKGROUNDS)])) {
     if (!scene.textures.exists(key)) scene.load.image(key, `${BASE}battle/${key}.png`);
   }
   for (const [key, [path, w, h]] of Object.entries(ANIM_SHEETS)) {
     if (!scene.textures.exists(key)) scene.load.spritesheet(key, BASE + path, { frameWidth: w, frameHeight: h });
   }
   if (!scene.cache.json.exists('manifest14b')) scene.load.json('manifest14b', `${BASE}manifest-14b.json`);
+  if (!scene.cache.json.exists('manifestKampf')) scene.load.json('manifestKampf', `${BASE}manifest-kampf.json`);
   if (!scene.cache.json.exists('manifestPfade')) scene.load.json('manifestPfade', `${BASE}manifest-pfade.json`);
 }
 
@@ -226,17 +295,26 @@ export function playSheetAnim(sprite, sheet, name, then) {
   return true;
 }
 
+/** Animationsdefinition aus manifest-14b.json oder manifest-kampf.json. */
+function battleAnimDef(scene, sheet, name) {
+  for (const m of ['manifest14b', 'manifestKampf']) {
+    const def = scene.cache.json.get(m)?.assets?.find((a) => a.id === sheet)?.animations?.[name];
+    if (def) return def;
+  }
+  return null;
+}
+
 /**
- * Spielt eine Kampfanimation aus manifest-14b.json (z. B. 'attack', 'hurt').
+ * Spielt eine Kampfanimation (z. B. 'attack', 'hurt'). Mit `sheet` wechselt das Sprite
+ * dafür auf ein anderes Kampf-Sheet (z. B. battle_player_skills).
  * Liefert false, wenn das Sprite kein Kampf-Sheet nutzt oder die Animation fehlt.
  */
-export function playBattleAnim(sprite, name, then) {
-  const sheet = sprite.texture.key;
-  if (!BATTLE_SHEETS[sheet]) return false;
+export function playBattleAnim(sprite, name, then, sheet = sprite.texture.key) {
+  if (!BATTLE_SHEETS[sheet] || !sprite.scene.textures.exists(sheet)) return false;
   const scene = sprite.scene;
   const key = `${sheet}-${name}`;
   if (!scene.anims.exists(key)) {
-    const def = scene.cache.json.get('manifest14b')?.assets?.find((a) => a.id === sheet)?.animations?.[name];
+    const def = battleAnimDef(scene, sheet, name);
     if (!def) return false;
     scene.anims.create({ key, frames: def.frames.map((frame) => ({ key: sheet, frame })), frameRate: def.frameRate, repeat: def.repeat });
   }

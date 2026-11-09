@@ -160,8 +160,11 @@ mit den Reihen unten/links/rechts/oben). `src/world/assets.js` lädt sie im
 - `TILE_CELLS`: Tile-Key → Zelle im Tileset (optional mit Grund-Tile darunter)
 - `PROP_CELLS`: Prop-Key → Ausschnitt aus einem Prop-Sheet
 - `CHARACTER_SHEETS`: Figur (`player`, `npc_<id>`) → Lauf-Sheet
-- `BATTLE_SHEETS`, `ENEMY_BATTLE_SHEETS`, `BATTLE_BACKGROUNDS`: Kampf-Animationen (Frames in
-  `public/sprites/manifest-14b.json`) und Hintergründe pro Karte
+- `BATTLE_SHEETS`, `ENCOUNTER_SHEETS`, `ENEMY_BATTLE_SHEETS`, `BATTLE_BACKGROUNDS`, `ENCOUNTER_BACKGROUNDS`:
+  Kampf-Animationen (Frames in `manifest-14b.json` und `manifest-kampf.json`), Gegner pro
+  Begegnung und Hintergründe pro Karte bzw. Begegnung
+- `SKILL_FX`, `SELF_FX`, `PATHWAY_POSES`, `WEAPON_POSES`: Effekt pro Pfad-Fähigkeit, Zauberpose
+  pro Pfad und Schlaganimation pro Waffe; `SKILL_ICONS`/`STATUS_ICONS` für Menü und Zustände
 - Item-Icons: jedes Item hat `public/sprites/items/<id>.png` (Tränke zusätzlich in `items/32/`),
   Pfad-Embleme und -Karten liegen unter `public/sprites/pathways/`
 - `ANIM_SHEETS`: animierte Paket-A-Sheets (Kessel, Trinken, Aufstieg, Aura, Kontrollrisse);
