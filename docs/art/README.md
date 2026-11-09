@@ -872,3 +872,12 @@ Laufen: 16×32, Reihen unten/links/rechts/oben, vier Frames; beim Grauspäher f�
 Status: Grafikexport geprüft; Einbau und Animationstest im Spiel ausstehend. Keine Spielcodeänderungen. Beim Import in einen inzwischen geänderten Branch diesen Abschnitt an dessen README anhängen statt neuere Einträge zu überschreiben.
 
 
+
+## Grafikpaket P – Rituale
+
+7 Ritualkreise (512×64, acht Frames à 64×64) und 7 Szenenkarten (96×128). Reihenfolge: laterne, faden, maske, echo, kessel, eisen, schluessel.
+
+Manifest: `public/sprites/manifest-rituale.json`. Animationsindizes sind nullbasiert: draw 0–2, danach loop 3–7 bei 8 fps. Binäre Transparenz, gemeinsame Palette aus der vorhandenen Laternen-Pfadkarte. Kartenrahmen und Pergament exakt übernommen. Keine Spielcodeänderungen.
+
+
+Vorschau: `preview-rituale.png`. Technischer Prüfbericht: `validation-rituale.json`. Einbindung und Timing-Prüfung im laufenden Spiel erfolgen separat.
