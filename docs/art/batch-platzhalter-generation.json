@@ -1,0 +1,1376 @@
+{
+  "batch": "platzhalter",
+  "generator": "image_gen.imagegen",
+  "postprocessing": "Nearest-neighbor; shared 32-color palette; binary alpha; atlas packing. No procedural replacement artwork.",
+  "jobs": [
+    {
+      "id": "artefakte_0",
+      "kind": "items",
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\nUse the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction. Output only artwork. All source cells are equal, without borders, captions or dividers. Keep each subject strictly inside its cell with generous transparent gutters. No labels from reference contact sheets.\nInventory icon production sheet, 6 equal columns by 2 rows, transparent. Column 1: a small brass brooch shaped like a half-closed eye, a dull turquoise iris, a faint glow under the lid; Column 2: a tiny pocket balance scale made of dull grey lead, two shallow pans on thin chains, one pan slightly lower; Column 3: a short stub of white chalk wrapped in a strip of faded red cloth, a thin chalk circle drawn around it; Column 4: a heavy iron thimble blackened with soot, a wisp of dark smoke curling out of its opening, small rust spots; Column 5: a short loop of rough white-grey salt crystal beads on a frayed cord, a small knotted fish-hook charm at the end; Column 6: a short candle wick burning with a black flame that swallows light, a faint violet outline around the flame, no candle body. FIRST ROW: each icon specifically designed on a 16x16 logical pixel grid, use large simple shapes and very few pixels, highly readable miniature, draw intentionally simplified. SECOND ROW: same objects, identical silhouette and color family, deliberately more detailed 32x32 logical pixel versions. Each row fills exactly half canvas height. Every object centered separately; nothing outside its allotted cell. Crisp large square pixel blocks, no texture noise. Render the source enlarged with nearest-neighbor pixel appearance.",
+      "referenced_image_paths": [
+        "x-refs-0.png"
+      ],
+      "transparent": true,
+      "names": [
+        "nachtauge_brosche",
+        "bleierne_waage",
+        "kreidestummel",
+        "russfingerhut",
+        "salzrosenkranz",
+        "schwarzer_docht"
+      ],
+      "sourceColumns": 6,
+      "sourceRows": 2,
+      "dual": true,
+      "source": "exec-e18f0cbe-b5c2-4a51-bf3a-e866b3b81b54.png",
+      "sourceSha256": "0b86c13506aed259835901f450ed8304adfab0a9d623b8a6fac94b6a0eab1668",
+      "sourceSize": [
+        2172,
+        724
+      ]
+    },
+    {
+      "id": "artefakte_1",
+      "kind": "items",
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\nUse the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction. Output only artwork. All source cells are equal, without borders, captions or dividers. Keep each subject strictly inside its cell with generous transparent gutters. No labels from reference contact sheets.\nInventory icon production sheet, 6 equal columns by 2 rows, transparent. Column 1: two old gold wedding rings fused together into one, a thin dark crack along the seam, slightly tarnished; Column 2: a human ear made of thin pale-turquoise glass, translucent with light highlights, a tiny crack at the lobe; Column 3: a worn brass pawn token with a punched hole, an empty stamped emblem (no letters), a short string through the hole; Column 4: a thumb-sized iron lantern with greenish glass, a tiny pale will-o'-the-wisp light trapped inside; Column 5: the iron clapper of a church bell, heavy and pear-shaped, rusty, with a dark leather loop at the top; Column 6: a silver coin polished like a mirror on both sides, showing only a blurred reflection, a thin bright rim. FIRST ROW: each icon specifically designed on a 16x16 logical pixel grid, use large simple shapes and very few pixels, highly readable miniature, draw intentionally simplified. SECOND ROW: same objects, identical silhouette and color family, deliberately more detailed 32x32 logical pixel versions. Each row fills exactly half canvas height. Every object centered separately; nothing outside its allotted cell. Crisp large square pixel blocks, no texture noise. Render the source enlarged with nearest-neighbor pixel appearance.",
+      "referenced_image_paths": [
+        "x-refs-0.png"
+      ],
+      "transparent": true,
+      "names": [
+        "doppelter_trauring",
+        "glaesernes_ohr",
+        "pfandmarke_alt",
+        "kleine_moorlaterne",
+        "eiserne_zunge",
+        "spiegelmuenze"
+      ],
+      "sourceColumns": 6,
+      "sourceRows": 2,
+      "dual": true,
+      "source": "exec-03c1b361-5569-4cef-b86d-8199fc2c4f06.png",
+      "sourceSha256": "0d5a5ed9867526ef01c989abeb45e27283466f8d4c206aaecddd1101a6a647bc",
+      "sourceSize": [
+        2172,
+        724
+      ]
+    },
+    {
+      "id": "items16_0",
+      "kind": "items",
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\nUse the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction. Output only artwork. All source cells are equal, without borders, captions or dividers. Keep each subject strictly inside its cell with generous transparent gutters. No labels from reference contact sheets.\nInventory icon production sheet, 6 equal columns by 1 rows, transparent. Column 1: a heavy rusty boat hook with a short piece of anchor chain at the grip; Column 2: a slim dagger with a white porcelain grip and a thin grey blade; Column 3: a pair of long elegant silver scissors, a faint lilac thread caught between the blades; Column 4: a small corked glass bottle of cloudy rust-red water with iron filings at the bottom; Column 5: a small round tin of tea, lid ajar, dried poppy flowers and a silvery cobweb-like strand peeking out; Column 6: a small round porcelain powder box, lid tilted, grey powder dusting out. FIRST ROW: each icon specifically designed on a 16x16 logical pixel grid, use large simple shapes and very few pixels, highly readable miniature, draw intentionally simplified. Match the corresponding existing 32x32 icons in the reference, simplify their shape and colors to 16x16 rather than just scaling. Every object centered separately; nothing outside its allotted cell. Crisp large square pixel blocks, no texture noise. Render the source enlarged with nearest-neighbor pixel appearance.",
+      "referenced_image_paths": [
+        "x-refs-0.png"
+      ],
+      "transparent": true,
+      "names": [
+        "ankerhaken",
+        "schleierdolch",
+        "silberschere",
+        "rostwasser",
+        "schlaftee",
+        "schleierpuder"
+      ],
+      "sourceColumns": 6,
+      "sourceRows": 1,
+      "dual": false,
+      "source": "exec-54cbebf0-6c40-46c7-9ddc-b00c4f3ed2b1.png",
+      "sourceSha256": "84c3bc5676d3b016804be2fc7bdcdf3e3fe619567cc884b5855f1d3ffb0ef280",
+      "sourceSize": [
+        2172,
+        724
+      ]
+    },
+    {
+      "id": "items16_1",
+      "kind": "items",
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\nUse the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction. Output only artwork. All source cells are equal, without borders, captions or dividers. Keep each subject strictly inside its cell with generous transparent gutters. No labels from reference contact sheets.\nInventory icon production sheet, 6 equal columns by 1 rows, transparent. Column 1: a stoppered glass jar of murky water with green threads floating inside, a paper label without text; Column 2: a single green glass marble with a scratched mark (a simple line, no letter); Column 3: a thin eggshell-white porcelain half mask with a faint crack; Column 4: a thick black ledger bound with a chain and a small padlock, red ribbon bookmark; Column 5: a folded official letter with a red wax seal and a black border (eviction notice), no readable text; Column 6: a wooden spool with a faintly glowing pale lilac thread wound around it. FIRST ROW: each icon specifically designed on a 16x16 logical pixel grid, use large simple shapes and very few pixels, highly readable miniature, draw intentionally simplified. Match the corresponding existing 32x32 icons in the reference, simplify their shape and colors to 16x16 rather than just scaling. Every object centered separately; nothing outside its allotted cell. Crisp large square pixel blocks, no texture noise. Render the source enlarged with nearest-neighbor pixel appearance.",
+      "referenced_image_paths": [
+        "x-refs-0.png"
+      ],
+      "transparent": true,
+      "names": [
+        "wasserprobe",
+        "kinder_murmel",
+        "porzellanmaske",
+        "schuldbuch",
+        "pfaendungsbrief",
+        "traumspule"
+      ],
+      "sourceColumns": 6,
+      "sourceRows": 1,
+      "dual": false,
+      "source": "exec-fa93bc8a-fa5f-41fa-b13e-981a25c6069c.png",
+      "corrections": [
+        {
+          "prompt": "Remove the entire white/grey background and drop shadows from this six-item sprite sheet. Keep all six item drawings and placement exactly intact. Deliver isolated pixel-art objects with fully transparent empty space, true alpha=0 outside objects. No replacement background, no white matte, no cast shadow. Keep opaque pale highlights on glass, mask and paper. Preserve this same 6-column single-row layout.",
+          "source": "exec-aa2a4a22-eeb5-4785-bebc-329582a2fbd5.png",
+          "sourceSha256": "1988f6c805dca51fd9ce13d9a59ec73749f9ff701f9c300117bdfe06772cedb7"
+        }
+      ],
+      "sourceSha256": "5270e92f2687e8a740f095244f88b66a130620659ab19eb2557df1efce276bb2",
+      "sourceSize": [
+        2172,
+        724
+      ]
+    },
+    {
+      "id": "items_0",
+      "kind": "items",
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\nUse the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction. Output only artwork. All source cells are equal, without borders, captions or dividers. Keep each subject strictly inside its cell with generous transparent gutters. No labels from reference contact sheets.\nInventory icon production sheet, 6 equal columns by 2 rows, transparent. Column 1: a third-class railway ticket, greenish card stock with a punched hole and a small printed locomotive silhouette, no readable text (must look different from the plain city ticket); Column 2: a tall greenish medicine bottle with a gaudy label covered in fake gold medals (shapes only, no text), a cork with a red ribbon; Column 3: a white theatre half mask with a dark velvet lining visible at the edge, a black ribbon tie; Column 4: a mossy boat hook from the marsh with small pale teeth stuck in the wood, a green slimy sheen; Column 5: an old straight sword whose crossguard and grip are made of bone, a faint turquoise glint on the blade; Column 6: three small shards of dark star-glass wrapped in a scrap of oilcloth, each holding a tiny pale light. FIRST ROW: each icon specifically designed on a 16x16 logical pixel grid, use large simple shapes and very few pixels, highly readable miniature, draw intentionally simplified. SECOND ROW: same objects, identical silhouette and color family, deliberately more detailed 32x32 logical pixel versions. Each row fills exactly half canvas height. Every object centered separately; nothing outside its allotted cell. Crisp large square pixel blocks, no texture noise. Render the source enlarged with nearest-neighbor pixel appearance.",
+      "referenced_image_paths": [
+        "x-refs-0.png"
+      ],
+      "transparent": true,
+      "names": [
+        "fahrkarte_wexmoor",
+        "wundertonikum",
+        "pells_maske",
+        "egelhaken",
+        "ossuarklinge",
+        "sternsplitter"
+      ],
+      "sourceColumns": 6,
+      "sourceRows": 2,
+      "dual": true,
+      "source": "exec-42409523-8b56-4179-bdd0-b136ba5b0a5c.png",
+      "sourceSha256": "330d9eee37befd1cd851c0e0245fb6c889c88bae078c2638ba65fd466bae76e8",
+      "sourceSize": [
+        2172,
+        724
+      ]
+    },
+    {
+      "id": "items_1",
+      "kind": "items",
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\nUse the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction. Output only artwork. All source cells are equal, without borders, captions or dividers. Keep each subject strictly inside its cell with generous transparent gutters. No labels from reference contact sheets.\nInventory icon production sheet, 1 equal columns by 2 rows, transparent. Column 1: a sealed cream envelope with a dark blue police wax seal and a neat ribbon, no readable text. FIRST ROW: each icon specifically designed on a 16x16 logical pixel grid, use large simple shapes and very few pixels, highly readable miniature, draw intentionally simplified. SECOND ROW: same objects, identical silhouette and color family, deliberately more detailed 32x32 logical pixel versions. Each row fills exactly half canvas height. Every object centered separately; nothing outside its allotted cell. Crisp large square pixel blocks, no texture noise. Render the source enlarged with nearest-neighbor pixel appearance.",
+      "referenced_image_paths": [
+        "x-refs-0.png"
+      ],
+      "transparent": true,
+      "names": [
+        "empfehlungsschreiben"
+      ],
+      "sourceColumns": 1,
+      "sourceRows": 2,
+      "dual": true,
+      "source": "exec-184e7f17-6461-4245-9085-2f373b085a9e.png",
+      "sourceSha256": "19b2820f6448831426d67beb8a238e838782d863b6ada456717a9441135de7b7",
+      "sourceSize": [
+        1774,
+        887
+      ]
+    },
+    {
+      "id": "battle_pratt",
+      "kind": "battle",
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\nUse the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction. Output only artwork. All source cells are equal, without borders, captions or dividers. Keep each subject strictly inside its cell with generous transparent gutters. No labels from reference contact sheets.\nSide-view battle animation sprite sheet facing LEFT, transparent. EXACTLY SIX equal columns, all cells equal. Shared ground baseline near the bottom of each cell; no floor or opaque shadow. Do not draw a reference board or collage. Keep each complete silhouette, including effects, inside each cell with large gutters. Logical pixel density suitable for 48px square sprites. Exactly FIVE ROWS. Character: Dr. Horatio Pratt, slick quack doctor, loud checked suit, top hat, gold tooth, cane hiding a thin sword. Same person as the reference E_schwindler.. Row 1 idle four different frames then TWO EMPTY cells. Row 2 attack A six frames: draws cane sword, then lunges left; first TWO poses identical windup, then release and recover. Row 3 attack B six frames: raises then throws green tonic bottle left, bursting into a green cloud; first TWO poses identical windup. Row 4 hurt three frames then THREE EMPTY cells. Row 5 defeated six frames, progressive collapse/dissipation ending in recognisable remains. Total sheet aspect 6:5. Make the rows precisely regular.",
+      "referenced_image_paths": [
+        "x-refs-0.png",
+        "x-refs-1.png"
+      ],
+      "transparent": true,
+      "path": "battle/enemy_pratt.png",
+      "gameId": "pratt_fight",
+      "frameWidth": 48,
+      "frameHeight": 48,
+      "columns": 6,
+      "rows": 5,
+      "counts": [
+        4,
+        6,
+        6,
+        3,
+        6
+      ],
+      "animNames": [
+        "idle",
+        "attack_a",
+        "attack_b",
+        "hurt",
+        "defeated"
+      ],
+      "source": "exec-e3250768-d0a2-4c37-b42a-d01b337661e0.png",
+      "sourceRowEdges": [
+        0,
+        229,
+        458,
+        687,
+        916,
+        1145
+      ],
+      "sourceSha256": "0095a1ab0c814abbf019c9a0501f4f604f7a914ea7a3850358391fff7ba13312",
+      "sourceSize": [
+        1374,
+        1145
+      ]
+    },
+    {
+      "id": "battle_gesangbuchgeist",
+      "kind": "battle",
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\nUse the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction. Output only artwork. All source cells are equal, without borders, captions or dividers. Keep each subject strictly inside its cell with generous transparent gutters. No labels from reference contact sheets.\nSide-view battle animation sprite sheet facing LEFT, transparent. EXACTLY SIX equal columns, all cells equal. Shared ground baseline near the bottom of each cell; no floor or opaque shadow. Do not draw a reference board or collage. Keep each complete silhouette, including effects, inside each cell with large gutters. Logical pixel density suitable for 64px square sprites. Exactly FIVE ROWS. Character: Chor der Seiten, a floating old hymnal whose pages flutter open by themselves, mist from musical marks forms several pale singing mouths, loose pages orbit, occult turquoise glow. Row 1 idle four different frames then TWO EMPTY cells. Row 2 attack A six frames: mouths emit a jarring sound wave left; first TWO poses identical windup, then release and recover. Row 3 attack B six frames: pages swirl outward around an unseen target to the left; first TWO poses identical windup. Row 4 hurt three frames then THREE EMPTY cells. Row 5 defeated six frames, progressive collapse/dissipation ending in recognisable remains. Total sheet aspect 6:5. Make the rows precisely regular.",
+      "referenced_image_paths": [
+        "x-refs-0.png",
+        "x-refs-1.png"
+      ],
+      "transparent": true,
+      "path": "battle/enemy_gesangbuchgeist.png",
+      "gameId": "gesangbuchgeist",
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 6,
+      "rows": 5,
+      "counts": [
+        4,
+        6,
+        6,
+        3,
+        6
+      ],
+      "animNames": [
+        "idle",
+        "attack_a",
+        "attack_b",
+        "hurt",
+        "defeated"
+      ],
+      "source": "exec-95b2e71f-6537-487d-b57b-9dd286e51d08.png",
+      "sourceRowEdges": [
+        0,
+        229,
+        458,
+        687,
+        916,
+        1145
+      ],
+      "sourceSha256": "7a393c4772c1d5b996ca86228d08367160e5f4a495db19440e8609452e761406",
+      "sourceSize": [
+        1374,
+        1145
+      ]
+    },
+    {
+      "id": "battle_sternlicht",
+      "kind": "battle",
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\nUse the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction. Output only artwork. All source cells are equal, without borders, captions or dividers. Keep each subject strictly inside its cell with generous transparent gutters. No labels from reference contact sheets.\nSide-view battle animation sprite sheet facing LEFT, transparent. EXACTLY SIX equal columns, all cells equal. Shared ground baseline near the bottom of each cell; no floor or opaque shadow. Do not draw a reference board or collage. Keep each complete silhouette, including effects, inside each cell with large gutters. Logical pixel density suitable for 64px square sprites. Exactly FIVE ROWS. Character: Gefallenes Sternlicht, a tall shifting figure of dripping white-blue starlight, many faint ghostly faces within it, light pools at its feet. Row 1 idle four different frames then TWO EMPTY cells. Row 2 attack A six frames: raises then lashes a whip of light left; first TWO poses identical windup, then release and recover. Row 3 attack B six frames: contracts then releases a blinding light flash burst; first TWO poses identical windup. Row 4 hurt three frames then THREE EMPTY cells. Row 5 defeated six frames, progressive collapse/dissipation ending in recognisable remains. Total sheet aspect 6:5. Make the rows precisely regular.",
+      "referenced_image_paths": [
+        "x-refs-0.png",
+        "x-refs-1.png"
+      ],
+      "transparent": true,
+      "path": "battle/enemy_sternlicht.png",
+      "gameId": "sternlicht",
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 6,
+      "rows": 5,
+      "counts": [
+        4,
+        6,
+        6,
+        3,
+        6
+      ],
+      "animNames": [
+        "idle",
+        "attack_a",
+        "attack_b",
+        "hurt",
+        "defeated"
+      ],
+      "source": "exec-0c04de4f-8784-4624-8609-c82d829fe36d.png",
+      "sourceRowEdges": [
+        0,
+        229,
+        458,
+        687,
+        916,
+        1145
+      ],
+      "sourceSha256": "fbacce2b087a10846692e49709a3334b3ac36dd7fcd4b58b18dfb6b1b3444547",
+      "sourceSize": [
+        1374,
+        1145
+      ]
+    },
+    {
+      "id": "battle_starling",
+      "kind": "battle",
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\nUse the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction. Output only artwork. All source cells are equal, without borders, captions or dividers. Keep each subject strictly inside its cell with generous transparent gutters. No labels from reference contact sheets.\nSide-view battle animation sprite sheet facing LEFT, transparent. EXACTLY SIX equal columns, all cells equal. Shared ground baseline near the bottom of each cell; no floor or opaque shadow. Do not draw a reference board or collage. Keep each complete silhouette, including effects, inside each cell with large gutters. Logical pixel density suitable for 96px square sprites. Exactly SEVEN ROWS, sheet aspect 6:7. Professor Lucius Starling, same astronomer as reference C_astronom: wild white hair, long nose with ink stain, dark blue Victorian coat, star-pattern scarf, many brass lenses on chains around his neck, large brass burning glass in hand, small glass jars of captured pale lights hanging at his belt, dim violet star halo, friendly smile slightly wrong. Row 1 idle 4 frames polishing lens and smiling, jars pulsing, then 2 EMPTY cells. Row 2 Brennglas 6 frames raises burning glass and fires thin beam LEFT, first TWO windup poses held identical. Row 3 Sternregen 6 frames raises arms and star shards rain, first TWO windup poses held identical. Row 4 Gestohlene Stimme 6 frames opens jar, pale face-light emerges and shrieks at party. Row 5 Geliehener Schatten 6 frames shadow peels from floor and stands beside him. Row 6 hurt 3 frames, rattling lenses, then 3 EMPTY cells. Row 7 combined special+defeat 6 frames: first 3 call down a burning star, last 3 jars crack, lights escape upward, he kneels grey and small. Precise evenly spaced grid.",
+      "referenced_image_paths": [
+        "x-refs-0.png",
+        "x-refs-1.png"
+      ],
+      "transparent": true,
+      "path": "battle/enemy_starling.png",
+      "gameId": "starling_fight",
+      "frameWidth": 96,
+      "frameHeight": 96,
+      "columns": 6,
+      "rows": 7,
+      "counts": [
+        4,
+        6,
+        6,
+        6,
+        6,
+        3,
+        6
+      ],
+      "animNames": [
+        "idle",
+        "brennglas",
+        "sternregen",
+        "gestohlene_stimme",
+        "geliehener_schatten",
+        "hurt",
+        "fallender_stern_defeat"
+      ],
+      "source": "exec-e2b6d053-c55b-4d96-aebd-ad7d473fe376.png",
+      "sourceRowEdges": [
+        0,
+        198,
+        387,
+        580,
+        774,
+        964,
+        1137,
+        1354
+      ],
+      "sourceSha256": "810a4955ca13fb3646941b57b4109763f3c08e82d21d90a2baccd1e9979235c5",
+      "sourceSize": [
+        1161,
+        1354
+      ]
+    },
+    {
+      "id": "boss_starling",
+      "kind": "bust",
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\nUse the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction. Output only artwork. All source cells are equal, without borders, captions or dividers. Keep each subject strictly inside its cell with generous transparent gutters. No labels from reference contact sheets.\nBoss introduction bust portrait, transparent, 160x160 logical pixels, dramatic underlight, chest up. Professor Lucius Starling, same astronomer as reference C_astronom: wild white hair, long nose with ink stain, dark blue Victorian coat, star-pattern scarf, many brass lenses on chains around his neck, large brass burning glass in hand, small glass jars of captured pale lights hanging at his belt, dim violet star halo, friendly smile slightly wrong. Holds a glass jar containing a glowing face directly in front of his own smiling face, dim violet star behind head. Centered, leave safety margin for hair.",
+      "referenced_image_paths": [
+        "x-refs-0.png",
+        "x-refs-1.png"
+      ],
+      "transparent": true,
+      "path": "ui/X_08_boss_starling.png",
+      "size": [
+        160,
+        160
+      ],
+      "gameId": "starling_fight",
+      "source": "exec-131c63d9-694b-4084-bb6c-4541dc641c4b.png",
+      "sourceSha256": "379b874b6a79d3c578dea51bdc6762cd295ea540b6e8cfae943e83b91970ef65",
+      "sourceSize": [
+        1254,
+        1254
+      ]
+    },
+    {
+      "id": "boss_moorkoenigin",
+      "kind": "bust",
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\nUse the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction. Output only artwork. All source cells are equal, without borders, captions or dividers. Keep each subject strictly inside its cell with generous transparent gutters. No labels from reference contact sheets.\nBoss introduction bust portrait, 160x160 logical pixels, transparent, seen from chest up, facing slightly left, dramatic light from below: the bog queen: a regal figure of roots, peat and drowned lace, a crown of antlers and reeds, will-o'-the-wisps orbiting her head. Follow the matching battle creature in the attached reference. Fill canvas with readable bust and keep entire antlers/crown inside canvas.",
+      "referenced_image_paths": [
+        "x-refs-1.png",
+        "x-refs-2.png"
+      ],
+      "transparent": true,
+      "path": "ui/X_08_boss_moorkoenigin.png",
+      "size": [
+        160,
+        160
+      ],
+      "gameId": "moorkoenigin",
+      "source": "exec-bee34080-ccd5-45ba-ae42-511cbbc93ed4.png",
+      "sourceSha256": "602427f24b6ad716e289cdab58370ca2900a4b089a4b9402c0086c1511552c62",
+      "sourceSize": [
+        1254,
+        1254
+      ]
+    },
+    {
+      "id": "boss_rattenkoenig",
+      "kind": "bust",
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\nUse the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction. Output only artwork. All source cells are equal, without borders, captions or dividers. Keep each subject strictly inside its cell with generous transparent gutters. No labels from reference contact sheets.\nBoss introduction bust portrait, 160x160 logical pixels, transparent, seen from chest up, facing slightly left, dramatic light from below: the rat king: a knot of dozens of rats with tangled tails, a crown of bent cutlery and bottle caps, a ragged cloak, glowing turquoise eyes in the middle. Follow the matching battle creature in the attached reference. Fill canvas with readable bust and keep entire antlers/crown inside canvas.",
+      "referenced_image_paths": [
+        "x-refs-1.png",
+        "x-refs-2.png"
+      ],
+      "transparent": true,
+      "path": "ui/X_08_boss_rattenkoenig.png",
+      "size": [
+        160,
+        160
+      ],
+      "gameId": "rattenkoenig",
+      "source": "exec-8ed91548-2e81-416d-ad90-eea01967cd9d.png",
+      "sourceSha256": "737b375599a0a69db39d80d8a7a2f5b6bb4c83d7779c8f9bcbaf027dc079b0fa",
+      "sourceSize": [
+        1254,
+        1254
+      ]
+    },
+    {
+      "id": "boss_ossuarwaechter",
+      "kind": "bust",
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\nUse the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction. Output only artwork. All source cells are equal, without borders, captions or dividers. Keep each subject strictly inside its cell with generous transparent gutters. No labels from reference contact sheets.\nBoss introduction bust portrait, 160x160 logical pixels, transparent, seen from chest up, facing slightly left, dramatic light from below: the ossuary guardian: a huge knight built from bones, a church door as a shield, a lantern with a turquoise flame inside its ribcage. Follow the matching battle creature in the attached reference. Fill canvas with readable bust and keep entire antlers/crown inside canvas.",
+      "referenced_image_paths": [
+        "x-refs-1.png",
+        "x-refs-2.png"
+      ],
+      "transparent": true,
+      "path": "ui/X_08_boss_ossuarwaechter.png",
+      "size": [
+        160,
+        160
+      ],
+      "gameId": "ossuarwaechter",
+      "source": "exec-d2d8ede8-f763-48db-948a-f596e30f4b3a.png",
+      "sourceSha256": "91f06be314ab890d3a431c8dbc2f1c1220856e67f984630fe1fe02d048840e86",
+      "sourceSize": [
+        1254,
+        1254
+      ]
+    },
+    {
+      "id": "boss_sternhirsch",
+      "kind": "bust",
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\nUse the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction. Output only artwork. All source cells are equal, without borders, captions or dividers. Keep each subject strictly inside its cell with generous transparent gutters. No labels from reference contact sheets.\nBoss introduction bust portrait, 160x160 logical pixels, transparent, seen from chest up, facing slightly left, dramatic light from below: the star stag: a corrupted stag whose antlers are branching star-glass crystals, half flesh and half dark glass, a glowing star-shaped wound on its chest. Follow the matching battle creature in the attached reference. Fill canvas with readable bust and keep entire antlers/crown inside canvas.",
+      "referenced_image_paths": [
+        "x-refs-1.png",
+        "x-refs-2.png"
+      ],
+      "transparent": true,
+      "path": "ui/X_08_boss_sternhirsch.png",
+      "size": [
+        160,
+        160
+      ],
+      "gameId": "sternhirsch",
+      "source": "exec-9815e160-fc35-4e06-a3b3-13af8182072c.png",
+      "sourceSha256": "f92a66dca4016c2412e433d506f634fe394ff19de862e55964cd8b05e4b5de8a",
+      "sourceSize": [
+        1254,
+        1254
+      ]
+    },
+    {
+      "id": "turn_fall9",
+      "kind": "icons",
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\nUse the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction. Output only artwork. All source cells are equal, without borders, captions or dividers. Keep each subject strictly inside its cell with generous transparent gutters. No labels from reference contact sheets.\nTurn order circular mini portrait production sheet, 4 equal columns x 1 equal rows, transparent. Every circle designed as just 16x16 logical pixels, enlarged square pixels, brass rim and dark 1 pixel outline. Very simple readable face silhouettes, just 2-3 shades, NO tiny detail. Row-major order: 1) Dr. Horatio Pratt, slick quack doctor, loud checked suit, top hat, gold tooth, cane hiding a thin sword. Same person as the reference E_schwindler.; 2) Chor der Seiten, a floating old hymnal whose pages flutter open by themselves, mist from musical marks forms several pale singing mouths, loose pages orbit, occult turquoise glow; 3) Gefallenes Sternlicht, a tall shifting figure of dripping white-blue starlight, many faint ghostly faces within it, light pools at its feet; 4) Professor Lucius Starling, same astronomer as reference C_astronom: wild white hair, long nose with ink stain, dark blue Victorian coat, star-pattern scarf, many brass lenses on chains around his neck, large brass burning glass in hand, small glass jars of captured pale lights hanging at his belt, dim violet star halo, friendly smile slightly wrong. Match reference characters, no captions. Leave transparent space separating each circle.",
+      "referenced_image_paths": [
+        "x-refs-0.png",
+        "x-refs-1.png"
+      ],
+      "transparent": true,
+      "path": "ui/X_zug_portraits_fall9.png",
+      "names": [
+        "pratt_fight",
+        "gesangbuchgeist",
+        "sternlicht",
+        "starling_fight"
+      ],
+      "sourceColumns": 4,
+      "sourceRows": 1,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 4,
+      "rows": 1,
+      "source": "exec-ec23d553-cfad-4b77-ae39-88d3bd01b03c.png",
+      "sourceRects": [
+        [
+          27,
+          112,
+          516,
+          609
+        ],
+        [
+          570,
+          112,
+          1059,
+          609
+        ],
+        [
+          1113,
+          111,
+          1602,
+          609
+        ],
+        [
+          1656,
+          112,
+          2146,
+          609
+        ]
+      ],
+      "sourceSha256": "02da946256e8788ee56fe3d589fe7d2916cb2ee9ff35311ab471af796e44480b",
+      "sourceSize": [
+        2172,
+        724
+      ]
+    },
+    {
+      "id": "turn_sekten",
+      "kind": "icons",
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\nUse the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction. Output only artwork. All source cells are equal, without borders, captions or dividers. Keep each subject strictly inside its cell with generous transparent gutters. No labels from reference contact sheets.\nTurn order circular mini portrait production sheet, 5 equal columns x 2 equal rows, transparent. Every circle designed as just 16x16 logical pixels, enlarged square pixels, brass rim and dark 1 pixel outline. Very simple readable face silhouettes, just 2-3 shades, NO tiny detail. Row-major order: 1) burly dock brother rust-red hood with chain, grey iron skin on cheek; 2) second rust-red hooded brother wearing cap, patrol; 3) lean rust-red smock dock brother with boat hook; 4) huge bald soot-black smith with tongs and burned apron; 5) old man iron-grey beard and chain-link collar; 6) young maid white cap hairpins; 7) woman small grey veiled hat, veil half over eyes; 8) second grey veiled woman face fully hidden; 9) veiled woman one pale eye hand mirror at chin; 10) regal woman porcelain half mask and veils. Match reference characters, no captions. Leave transparent space separating each circle.",
+      "referenced_image_paths": [
+        "x-refs-1.png"
+      ],
+      "transparent": true,
+      "path": "ui/X_zug_portraits_sekten.png",
+      "names": [
+        "rost_schlaeger",
+        "rost_streife",
+        "rost_werfer",
+        "rost_schmied",
+        "rost_vater",
+        "schleier_novizin",
+        "schleier_messerin",
+        "schleier_schatten",
+        "schleier_seherin",
+        "schleier_mutter"
+      ],
+      "sourceColumns": 5,
+      "sourceRows": 2,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 10,
+      "rows": 1,
+      "source": "exec-bce1052c-50e4-4d65-b142-a736f8aeeb9b.png",
+      "sourceRects": [
+        [
+          37,
+          34,
+          376,
+          374
+        ],
+        [
+          430,
+          34,
+          768,
+          374
+        ],
+        [
+          821,
+          34,
+          1160,
+          374
+        ],
+        [
+          1215,
+          34,
+          1553,
+          374
+        ],
+        [
+          1607,
+          34,
+          1946,
+          374
+        ],
+        [
+          37,
+          429,
+          376,
+          773
+        ],
+        [
+          430,
+          429,
+          768,
+          773
+        ],
+        [
+          821,
+          429,
+          1160,
+          773
+        ],
+        [
+          1215,
+          429,
+          1553,
+          773
+        ],
+        [
+          1607,
+          429,
+          1946,
+          773
+        ]
+      ],
+      "sourceSha256": "b9f192b6aae67cc2b5c988a7cac6a56e7237155a6adebfd8a6f05784b3f32314",
+      "sourceSize": [
+        1983,
+        793
+      ]
+    },
+    {
+      "id": "turn_gebiete",
+      "kind": "icons",
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\nUse the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction. Output only artwork. All source cells are equal, without borders, captions or dividers. Keep each subject strictly inside its cell with generous transparent gutters. No labels from reference contact sheets.\nTurn order circular mini portrait production sheet, 4 equal columns x 4 equal rows, transparent. Every circle designed as just 16x16 logical pixels, enlarged square pixels, brass rim and dark 1 pixel outline. Very simple readable face silhouettes, just 2-3 shades, NO tiny detail. Row-major order: 1) bog walker reeds two pale lights for eyes; 2) pale green will-o-the-wisp tiny face; 3) black-green leech mouth; 4) bog queen antler-and-reed crown; 5) beaked plague mask round glass eyes; 6) grey dust wraith cracked porcelain face; 7) red-eyed rat paper ear tag; 8) rat king knot cutlery crown; 9) worm of vertebrae; 10) eyeless pale candle eater; 11) floating skull; 12) bone knight turquoise lantern in ribcage; 13) dark glass crow; 14) black glass egg creature; 15) faceless star-glass shard figure; 16) stag star-glass antlers. Match reference characters, no captions. Leave transparent space separating each circle.",
+      "referenced_image_paths": [
+        "x-refs-1.png",
+        "x-refs-2.png"
+      ],
+      "transparent": true,
+      "path": "ui/X_zug_portraits_gebiete.png",
+      "names": [
+        "moorleiche",
+        "irrlicht",
+        "schlammegel",
+        "moorkoenigin",
+        "schnabelmaske",
+        "hustender",
+        "pestratte",
+        "rattenkoenig",
+        "knochenwurm",
+        "kerzenfresser",
+        "schaedelschwarm",
+        "ossuarwaechter",
+        "glaskraehe",
+        "kraterbrut",
+        "splitterling",
+        "sternhirsch"
+      ],
+      "sourceColumns": 4,
+      "sourceRows": 4,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 16,
+      "rows": 1,
+      "source": "exec-0498b4ce-eb0d-4689-bb44-d13f337f8e9e.png",
+      "sourceRects": [
+        [
+          34,
+          40,
+          295,
+          298
+        ],
+        [
+          349,
+          40,
+          609,
+          298
+        ],
+        [
+          661,
+          40,
+          921,
+          298
+        ],
+        [
+          975,
+          40,
+          1236,
+          298
+        ],
+        [
+          34,
+          329,
+          295,
+          588
+        ],
+        [
+          349,
+          329,
+          609,
+          588
+        ],
+        [
+          661,
+          329,
+          921,
+          588
+        ],
+        [
+          975,
+          329,
+          1236,
+          588
+        ],
+        [
+          34,
+          619,
+          295,
+          878
+        ],
+        [
+          349,
+          619,
+          609,
+          878
+        ],
+        [
+          661,
+          619,
+          921,
+          878
+        ],
+        [
+          975,
+          619,
+          1236,
+          878
+        ],
+        [
+          34,
+          910,
+          295,
+          1168
+        ],
+        [
+          349,
+          910,
+          609,
+          1168
+        ],
+        [
+          661,
+          910,
+          921,
+          1168
+        ],
+        [
+          975,
+          910,
+          1236,
+          1168
+        ]
+      ],
+      "sourceSha256": "24d5759e26e19d68b8e0e8792cb0196a0b3170654a55fac42890f29ba0e3a479",
+      "sourceSize": [
+        1270,
+        1239
+      ]
+    },
+    {
+      "id": "turn_price",
+      "kind": "icons",
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\nUse the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction. Output only artwork. All source cells are equal, without borders, captions or dividers. Keep each subject strictly inside its cell with generous transparent gutters. No labels from reference contact sheets.\nTurn order circular mini portrait production sheet, 1 equal columns x 1 equal rows, transparent. Every circle designed as just 16x16 logical pixels, enlarged square pixels, brass rim and dark 1 pixel outline. Very simple readable face silhouettes, just 2-3 shades, NO tiny detail. Row-major order: 1) Inspector Price, stern moustached police officer wearing police helmet and travelling coat, matches existing battle sprite. Match reference characters, no captions. Leave transparent space separating each circle.",
+      "referenced_image_paths": [
+        "x-refs-1.png"
+      ],
+      "transparent": true,
+      "path": "ui/X_zug_portrait_price.png",
+      "names": [
+        "price_wx_fight"
+      ],
+      "sourceColumns": 1,
+      "sourceRows": 1,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 1,
+      "rows": 1,
+      "source": "exec-4c6c622e-6dc2-48ae-a77a-5eaec6a56ec0.png",
+      "sourceRects": [
+        [
+          864,
+          144,
+          1308,
+          592
+        ]
+      ],
+      "sourceSha256": "e21ec173469fac681b7dc430303798ae5a3e832bf3470f88ac6ff82d9f0c6cae",
+      "sourceSize": [
+        2172,
+        724
+      ]
+    },
+    {
+      "id": "cards_0",
+      "kind": "cards",
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\nUse the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction. Output only artwork. All source cells are equal, without borders, captions or dividers. Keep each subject strictly inside its cell with generous transparent gutters. No labels from reference contact sheets.\nBestiary card production atlas, EXACTLY 2 columns x 2 rows, four equally sized opaque 96x128 logical pixel cards. Every card fills entire quadrant, no gap between cards. Each is aged notebook paper with ink-and-wash PIXEL sketch of creature in upper two thirds, pinned specimen label shape and abstract illegible lines in lower third, coffee stain corner. NO letters, numbers or readable text. Row-major subjects: 1) Dr. Horatio Pratt, slick quack doctor, loud checked suit, top hat, gold tooth, cane hiding a thin sword. Same person as the reference E_schwindler.; 2) Chor der Seiten, a floating old hymnal whose pages flutter open by themselves, mist from musical marks forms several pale singing mouths, loose pages orbit, occult turquoise glow; 3) Gefallenes Sternlicht, a tall shifting figure of dripping white-blue starlight, many faint ghostly faces within it, light pools at its feet; 4) Professor Lucius Starling, same astronomer as reference C_astronom: wild white hair, long nose with ink stain, dark blue Victorian coat, star-pattern scarf, many brass lenses on chains around his neck, large brass burning glass in hand, small glass jars of captured pale lights hanging at his belt, dim violet star halo, friendly smile slightly wrong. Readable chunky pixel art with visible square pixels, not fine pencil art.",
+      "referenced_image_paths": [
+        "x-refs-0.png",
+        "x-refs-1.png"
+      ],
+      "transparent": false,
+      "names": [
+        "pratt_fight",
+        "gesangbuchgeist",
+        "sternlicht",
+        "starling_fight"
+      ],
+      "sourceColumns": 2,
+      "sourceRows": 2,
+      "size": [
+        96,
+        128
+      ],
+      "source": "exec-f1bf6b3c-205c-4568-b163-f8f2999b5c49.png",
+      "sourceSha256": "34668cc8263ced8d59de77cfdd0414a447e33df75810f1280d5aa95bd1017263",
+      "sourceSize": [
+        1086,
+        1448
+      ]
+    },
+    {
+      "id": "cards_1",
+      "kind": "cards",
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\nUse the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction. Output only artwork. All source cells are equal, without borders, captions or dividers. Keep each subject strictly inside its cell with generous transparent gutters. No labels from reference contact sheets.\nBestiary card production atlas, EXACTLY 2 columns x 2 rows, four equally sized opaque 96x128 logical pixel cards. Every card fills entire quadrant, no gap between cards. Each is aged notebook paper with ink-and-wash PIXEL sketch of creature in upper two thirds, pinned specimen label shape and abstract illegible lines in lower third, coffee stain corner. NO letters, numbers or readable text. Row-major subjects: 1) burly dock brother rust-red hood with chain, grey iron skin on cheek; 2) lean rust-red smock dock brother with boat hook; 3) huge bald soot-black smith with tongs and burned apron; 4) old man iron-grey beard and chain-link collar. Readable chunky pixel art with visible square pixels, not fine pencil art.",
+      "referenced_image_paths": [
+        "x-refs-0.png",
+        "x-refs-1.png"
+      ],
+      "transparent": false,
+      "names": [
+        "rost_schlaeger",
+        "rost_werfer",
+        "rost_schmied",
+        "rost_vater"
+      ],
+      "sourceColumns": 2,
+      "sourceRows": 2,
+      "size": [
+        96,
+        128
+      ],
+      "source": "exec-3591ccab-9755-42b3-b45e-07a534ee8f67.png",
+      "corrections": [
+        {
+          "prompt": "Recompose these four illustrated bestiary cards. First image contains the four characters to preserve in the same row-major order. Second image shows the CORRECT CARD PROPORTIONS and layout. Output a 2-column by 2-row board with OVERALL width:height ratio 3:4, exactly like second image; each card is 96x128 logical pixels (3:4), NOT tall narrow panels. Redraw each bust with natural head proportions in upper two thirds; abstract illegible note lines and label in lower third. Preserve character identity, clothing, palette, aged notebook page, coffee stains. Pixel art, opaque, no readable text. Make cards wider relative to their height, do not squeeze faces.",
+          "source": "exec-6f8cab8f-3a25-456b-b7a4-d9245466996f.png",
+          "sourceSha256": "7175b0841f2528b82c4adfbe76829e1b77f77aaef93042acc5fc64b88e2735fb"
+        }
+      ],
+      "sourceSha256": "0420be7fc2cc0c0353a055342932065a687d805dccbbe98104dd3f2d640c9ace",
+      "sourceSize": [
+        1086,
+        1448
+      ]
+    },
+    {
+      "id": "cards_2",
+      "kind": "cards",
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\nUse the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction. Output only artwork. All source cells are equal, without borders, captions or dividers. Keep each subject strictly inside its cell with generous transparent gutters. No labels from reference contact sheets.\nBestiary card production atlas, EXACTLY 2 columns x 2 rows, four equally sized opaque 96x128 logical pixel cards. Every card fills entire quadrant, no gap between cards. Each is aged notebook paper with ink-and-wash PIXEL sketch of creature in upper two thirds, pinned specimen label shape and abstract illegible lines in lower third, coffee stain corner. NO letters, numbers or readable text. Row-major subjects: 1) young maid white cap hairpins; 2) woman small grey veiled hat, veil half over eyes; 3) veiled woman one pale eye hand mirror at chin; 4) regal woman porcelain half mask and veils. Readable chunky pixel art with visible square pixels, not fine pencil art.",
+      "referenced_image_paths": [
+        "x-refs-0.png",
+        "x-refs-1.png"
+      ],
+      "transparent": false,
+      "names": [
+        "schleier_novizin",
+        "schleier_messerin",
+        "schleier_seherin",
+        "schleier_mutter"
+      ],
+      "sourceColumns": 2,
+      "sourceRows": 2,
+      "size": [
+        96,
+        128
+      ],
+      "source": "exec-1933d165-180a-4813-8f78-cdbc13cba778.png",
+      "corrections": [
+        {
+          "prompt": "Recompose these four illustrated bestiary cards. First image contains the four characters to preserve in the same row-major order. Second image shows the CORRECT CARD PROPORTIONS and layout. Output a 2-column by 2-row board with OVERALL width:height ratio 3:4, exactly like second image; each card is 96x128 logical pixels (3:4), NOT tall narrow panels. Redraw each bust with natural head proportions in upper two thirds; abstract illegible note lines and label in lower third. Preserve character identity, clothing, palette, aged notebook page, coffee stains. Pixel art, opaque, no readable text. Make cards wider relative to their height, do not squeeze faces.",
+          "source": "exec-77004a32-f341-4dd7-a8d8-a933a6f5239f.png",
+          "sourceSha256": "09e4c0d8c6a2668dc3de4ac441a7e6a528e4ec7d4d08aab16a974f40ab8e610f"
+        }
+      ],
+      "sourceSha256": "839955dae176fa205fc2951a27b10da12b47357e3af382296eed43c46c89db2a",
+      "sourceSize": [
+        1086,
+        1448
+      ]
+    },
+    {
+      "id": "case9",
+      "kind": "still",
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\nUse the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction. Output only artwork. All source cells are equal, without borders, captions or dividers. Keep each subject strictly inside its cell with generous transparent gutters. No labels from reference contact sheets.\nCase file cover illustration, opaque, target128x96, landscape4:3. Small framed pixel vignette on manila case folder background: brass telescope on observatory dome at night, single violet star unnaturally close above, small lights rising from city towards star. Paperclip and wax seal in corner. No text. Match folder shape and pixel density of reference M_akte_fall8.",
+      "referenced_image_paths": [
+        "x-refs-1.png"
+      ],
+      "transparent": false,
+      "path": "ui/cases/X_akte_fall9.png",
+      "size": [
+        128,
+        96
+      ],
+      "source": "exec-6cb52d80-3567-4997-9de4-61752321f1e8.png",
+      "corrections": [
+        {
+          "prompt": "Correct this case-folder pixel illustration. Replace EVERY white/grey checkerboard area outside and between the folder edges with flat opaque aged manila paper, warm pale parchment color. The entire canvas must be an opaque finished illustration, no transparency checkerboard anywhere, no alpha. Preserve the telescope, violet star, city, frame, clip and seal. No new text. Crisp pixel art. Fill all corners with solid aged paper.",
+          "source": "exec-3b3b36eb-b5e4-45d6-ae8f-1f546bc0c199.png",
+          "sourceSha256": "a14bf9e745f3e7d4a601f64a04adce3e2fdcad50d654df603622f4ff131b5e1a"
+        }
+      ],
+      "sourceSha256": "434e0c6944beecd448bbd5a7fb21f849b5c3b09e7d7cdabe736a2656b7e58710",
+      "sourceSize": [
+        1448,
+        1086
+      ]
+    },
+    {
+      "id": "c9_perfect",
+      "kind": "still",
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\nUse the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction. Output only artwork. All source cells are equal, without borders, captions or dividers. Keep each subject strictly inside its cell with generous transparent gutters. No labels from reference contact sheets.\nEnding illustration, opaque cinematic pixel art 480x270 logical pixels, wide16:9. inside the observatory dome at night, a large mirror turned towards the violet star in the open roof, dozens of small pale lights flying out of the star and away over the rooftops of the city towards home, the star fading, Starling small and grey in a corner. Muted palette, strong mood lighting, no text. Intentional visible square pixels, 2-3 shade steps, no smooth digital painting. Fill whole canvas.",
+      "referenced_image_paths": [
+        "x-refs-1.png"
+      ],
+      "transparent": false,
+      "path": "ui/endings/c9_perfect.png",
+      "size": [
+        480,
+        270
+      ],
+      "source": "exec-cbc49f02-05e4-4064-b486-413d82bf91ba.png",
+      "sourceSha256": "e058f66c8be455278a6b87e6793ce9a7a605010f8f01064862dcd67bc4d2b62d",
+      "sourceSize": [
+        1672,
+        941
+      ]
+    },
+    {
+      "id": "c9_good",
+      "kind": "still",
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\nUse the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction. Output only artwork. All source cells are equal, without borders, captions or dividers. Keep each subject strictly inside its cell with generous transparent gutters. No labels from reference contact sheets.\nEnding illustration, opaque cinematic pixel art 480x270 logical pixels, wide16:9. a shattered mirror on the observatory floor, shards of light raining down from the sky over the dark crater forest, some lights flying home, others going out as they fall, police lanterns climbing the hill in the distance, Starling gone. Muted palette, strong mood lighting, no text. Intentional visible square pixels, 2-3 shade steps, no smooth digital painting. Fill whole canvas.",
+      "referenced_image_paths": [
+        "x-refs-1.png"
+      ],
+      "transparent": false,
+      "path": "ui/endings/c9_good.png",
+      "size": [
+        480,
+        270
+      ],
+      "source": "exec-660a037d-9473-4d11-abf1-7c0cb078bdd3.png",
+      "sourceSha256": "f8a107a748947cfc37ded045e3ecdd16e0201472cf2b1b1be48bf9b36f493b8b",
+      "sourceSize": [
+        1672,
+        941
+      ]
+    },
+    {
+      "id": "c9_early",
+      "kind": "still",
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\nUse the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction. Output only artwork. All source cells are equal, without borders, captions or dividers. Keep each subject strictly inside its cell with generous transparent gutters. No labels from reference contact sheets.\nEnding illustration, opaque cinematic pixel art 480x270 logical pixels, wide16:9. the observatory dome in harsh midday light, completely empty, the telescope dismantled, only a dark dried circle on the wooden floor, a constable standing helplessly in the doorway. Muted palette, strong mood lighting, no text. Intentional visible square pixels, 2-3 shade steps, no smooth digital painting. Fill whole canvas.",
+      "referenced_image_paths": [
+        "x-refs-1.png"
+      ],
+      "transparent": false,
+      "path": "ui/endings/c9_early.png",
+      "size": [
+        480,
+        270
+      ],
+      "source": "exec-d1fbfcb2-35e5-46f4-8e66-5286e1cf8b37.png",
+      "corrections": [
+        {
+          "prompt": "Edit this pixel-art ending illustration: the observatory has been completely cleared out. Remove ALL shelves, bottles, books, furniture, tables, trunks and scientific ornaments from the left and right foreground. Replace them with the continuous bare wood floor and bare brick walls. Keep ONLY the dark dried circle on the wooden floor, the constable standing helplessly in the left doorway, the dome structure, railings and midday city view. No telescope, no magical objects, no clutter; harsh midday light and an empty abandoned room. Preserve precise crisp pixel-art style and full opaque landscape composition.",
+          "source": "exec-182f8f75-50bd-4acb-8eaf-40f05073dce7.png",
+          "sourceSha256": "ff241cc92d3e261a681a0e330fb9db7a082062f94802f21d18fc10b4e455ed5c"
+        }
+      ],
+      "sourceSha256": "fb354f68fbf791d25464da736c48eab4101c3b799b8a11b8fb9953d08b6eeeb9",
+      "sourceSize": [
+        1671,
+        941
+      ]
+    },
+    {
+      "id": "c9_vey",
+      "kind": "still",
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\nUse the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction. Output only artwork. All source cells are equal, without borders, captions or dividers. Keep each subject strictly inside its cell with generous transparent gutters. No labels from reference contact sheets.\nEnding illustration, opaque cinematic pixel art 480x270 logical pixels, wide16:9. foggy city street at night full of police lanterns and wanted posters of a woman's face, people searching the alleys, nobody looking up at the large violet star sinking towards the crater forest on the horizon. Muted palette, strong mood lighting, no text. Intentional visible square pixels, 2-3 shade steps, no smooth digital painting. Fill whole canvas.",
+      "referenced_image_paths": [
+        "x-refs-1.png"
+      ],
+      "transparent": false,
+      "path": "ui/endings/c9_vey.png",
+      "size": [
+        480,
+        270
+      ],
+      "source": "exec-730e064a-ae0f-4b7d-bf05-176edd45aaf9.png",
+      "corrections": [
+        {
+          "prompt": "Keep this pixel-art scene exactly the same, except remove all writing, letters and numbers from every shop sign. Make the horizontal rectangular sign above the chemistry-flask hanging sign plain weathered wood with NO marks. Keep the wanted posters as faces without text, the searchers, police lanterns, fog, violet star and city unchanged. Opaque crisp pixel art.",
+          "source": "exec-1350b20a-18f2-440f-8429-4a7a8a8178ab.png",
+          "sourceSha256": "9286c1d3f87fca12c5a794a39d7829cc43f7e8f13d4d41d23ae74c7890aaa1e3"
+        }
+      ],
+      "sourceSha256": "2cd6dd057941e7e44ae961823f8a9519b709928c83c4ad92d0e5df7c84419f6c",
+      "sourceSize": [
+        1672,
+        941
+      ]
+    },
+    {
+      "id": "X_rost_schlaeger_emotions",
+      "kind": "portraits",
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\nUse the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction. Output only artwork. All source cells are equal, without borders, captions or dividers. Keep each subject strictly inside its cell with generous transparent gutters. No labels from reference contact sheets.\nCharacter portrait emotion sheet: FOUR portraits in a precise 2x2 equal-cell source grid (will be packed into 256x64 strip). Each cell logical64x64 pixels, transparent background, same character head and shoulders facing slightly RIGHT: a burly dock brother in a rust-red hooded smock, heavy chain around his shoulder, patches of grey iron-like skin on his neck and cheek. Row major expressions neutral, suspicious, shocked, faint smile. Same clothing, size, framing, head shape and palette in all four cells. No overlap. Keep busts inside each cell with transparent margin. Show expression changes clearly using mouth, eyebrows and visible eye.",
+      "referenced_image_paths": [
+        "x-refs-1.png"
+      ],
+      "transparent": true,
+      "path": "portraits/X_rost_schlaeger_emotions.png",
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 4,
+      "rows": 1,
+      "sourceColumns": 4,
+      "sourceRows": 1,
+      "source": "exec-5500f6be-b666-481c-ac14-40a47425a97f.png",
+      "layoutNote": "Generator delivered a four-column strip instead of requested 2x2; exported in observed left-to-right expression order.",
+      "sourceSha256": "c9b669a0a228d795dfc8ba336bdc32d7cb303fbebc8a1197d2526bbb9b9db4e0",
+      "sourceSize": [
+        1983,
+        793
+      ]
+    },
+    {
+      "id": "X_rost_werfer_emotions",
+      "kind": "portraits",
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\nUse the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction. Output only artwork. All source cells are equal, without borders, captions or dividers. Keep each subject strictly inside its cell with generous transparent gutters. No labels from reference contact sheets.\nCharacter portrait emotion sheet: FOUR portraits in a precise 2x2 equal-cell source grid (will be packed into 256x64 strip). Each cell logical64x64 pixels, transparent background, same character head and shoulders facing slightly RIGHT: a lean wiry dock brother in a rust-red smock with leather bracers, a boat hook over his shoulder, narrow suspicious eyes. Row major expressions neutral, suspicious, shocked, faint smile. Same clothing, size, framing, head shape and palette in all four cells. No overlap. Keep busts inside each cell with transparent margin. Show expression changes clearly using mouth, eyebrows and visible eye.",
+      "referenced_image_paths": [
+        "x-refs-1.png"
+      ],
+      "transparent": true,
+      "path": "portraits/X_rost_werfer_emotions.png",
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 4,
+      "rows": 1,
+      "sourceColumns": 4,
+      "sourceRows": 1,
+      "source": "exec-8e6081bb-396c-4243-a39c-1e8f0365b9bd.png",
+      "layoutNote": "Generator delivered a four-column strip instead of requested 2x2; exported in observed left-to-right expression order.",
+      "sourceSha256": "1a093ee32bd2b31009c237ec7e00d1365f4f2ea939c08461321e57e7e7679f16",
+      "sourceSize": [
+        2172,
+        724
+      ]
+    },
+    {
+      "id": "X_rost_schmied_emotions",
+      "kind": "portraits",
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\nUse the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction. Output only artwork. All source cells are equal, without borders, captions or dividers. Keep each subject strictly inside its cell with generous transparent gutters. No labels from reference contact sheets.\nCharacter portrait emotion sheet: FOUR portraits in a precise 2x2 equal-cell source grid (will be packed into 256x64 strip). Each cell logical64x64 pixels, transparent background, same character head and shoulders facing slightly RIGHT: a massive smith with soot-blackened arms and face, a scorched leather apron over a rust-red smock, a bald head with a burn scar. Row major expressions neutral, suspicious, shocked, faint smile. Same clothing, size, framing, head shape and palette in all four cells. No overlap. Keep busts inside each cell with transparent margin. Show expression changes clearly using mouth, eyebrows and visible eye.",
+      "referenced_image_paths": [
+        "x-refs-1.png"
+      ],
+      "transparent": true,
+      "path": "portraits/X_rost_schmied_emotions.png",
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 4,
+      "rows": 1,
+      "sourceColumns": 4,
+      "sourceRows": 1,
+      "source": "exec-80887663-7055-4c60-9902-3d639fc9ad6c.png",
+      "layoutNote": "Generator delivered a four-column strip instead of requested 2x2; exported in observed left-to-right expression order.",
+      "sourceSha256": "265eafec10f60a186e8b2438cbeb719bd04f094467e70d4a23ca8ebebef29b3a",
+      "sourceSize": [
+        2172,
+        724
+      ]
+    },
+    {
+      "id": "X_schleier_messerin_emotions",
+      "kind": "portraits",
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\nUse the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction. Output only artwork. All source cells are equal, without borders, captions or dividers. Keep each subject strictly inside its cell with generous transparent gutters. No labels from reference contact sheets.\nCharacter portrait emotion sheet: FOUR portraits in a precise 2x2 equal-cell source grid (will be packed into 256x64 strip). Each cell logical64x64 pixels, transparent background, same character head and shoulders facing slightly RIGHT: an elegant milliner's shop assistant in a grey dress and a small grey veiled hat, the veil half over her eyes, a thin blade at her collar. Row major expressions neutral, suspicious, shocked, faint smile. Same clothing, size, framing, head shape and palette in all four cells. No overlap. Keep busts inside each cell with transparent margin. Show expression changes clearly using mouth, eyebrows and visible eye.",
+      "referenced_image_paths": [
+        "x-refs-1.png"
+      ],
+      "transparent": true,
+      "path": "portraits/X_schleier_messerin_emotions.png",
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 4,
+      "rows": 1,
+      "sourceColumns": 4,
+      "sourceRows": 1,
+      "source": "exec-5fbd2ebf-f3cc-4cb7-809f-5a23c5ac5244.png",
+      "layoutNote": "Generator delivered a four-column strip instead of requested 2x2; exported in observed left-to-right expression order.",
+      "sourceSha256": "ff697e44b20f4e5b0d9fca925d5380235821c4b71eda93cbe9907ae180dd62fe",
+      "sourceSize": [
+        2172,
+        724
+      ]
+    },
+    {
+      "id": "X_schleier_seherin_emotions",
+      "kind": "portraits",
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\nUse the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction. Output only artwork. All source cells are equal, without borders, captions or dividers. Keep each subject strictly inside its cell with generous transparent gutters. No labels from reference contact sheets.\nCharacter portrait emotion sheet: FOUR portraits in a precise 2x2 equal-cell source grid (will be packed into 256x64 strip). Each cell logical64x64 pixels, transparent background, same character head and shoulders facing slightly RIGHT: a veiled woman in layered grey silk, her face hidden behind a grey veil except for one pale eye, a hand mirror raised to her chin. Row major expressions neutral, suspicious, shocked, faint smile. Same clothing, size, framing, head shape and palette in all four cells. No overlap. Keep busts inside each cell with transparent margin. Show expression changes clearly using mouth, eyebrows and visible eye.",
+      "referenced_image_paths": [
+        "x-refs-1.png"
+      ],
+      "transparent": true,
+      "path": "portraits/X_schleier_seherin_emotions.png",
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 4,
+      "rows": 1,
+      "sourceColumns": 4,
+      "sourceRows": 1,
+      "source": "exec-f3f41597-572d-4f65-8f33-b799a37f3848.png",
+      "layoutNote": "Generator delivered a four-column strip instead of requested 2x2; exported in observed left-to-right expression order.",
+      "sourceSha256": "bdb0b95ff152698d2cb3b84fa96f49a81df52822371fa32d6009a8c21bd2cbeb",
+      "sourceSize": [
+        2172,
+        724
+      ]
+    },
+    {
+      "id": "markers",
+      "kind": "icons",
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\nUse the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction. Output only artwork. All source cells are equal, without borders, captions or dividers. Keep each subject strictly inside its cell with generous transparent gutters. No labels from reference contact sheets.\nCity map marker sheet, EXACTLY 2 columns x 4 rows, transparent. Every cell logical16x16. Column1 Lightless: a shuttered black lantern thin violet glow leaking out. Column2 Salt Brothers: small heap bone-white salt with fish hook stuck in it. Rows: 1 normal; 2 highlighted with brass rim; 3 pulse frame1; 4 pulse frame2, glow expressed using sparse checker dithering not translucency. Same object in each column, different state per row. Small clean chunky pixel shapes. Match reference O_map_markers layout and S_zirkel emblems. Clearly separated cells and no captions.",
+      "referenced_image_paths": [
+        "x-refs-1.png"
+      ],
+      "transparent": true,
+      "path": "ui/X_map_markers_zirkel.png",
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 2,
+      "rows": 4,
+      "sourceColumns": 2,
+      "sourceRows": 4,
+      "names": [
+        "treffen_lichtlose",
+        "treffen_salz"
+      ],
+      "source": "exec-6ef6f54b-7c19-47c3-95e3-d4dfa9374860.png",
+      "sourceSha256": "4980ba38b33fb26e656208e5fd7261db1ab69a4eb377f8cf420a8c3267b627dc",
+      "sourceSize": [
+        887,
+        1774
+      ]
+    }
+  ],
+  "referenceSheets": [
+    {
+      "file": "x-refs-0.png",
+      "sha256": "acfeb26ef7c7411c6353c14d502194037cb85d1197212eca5ec264969b5a16be",
+      "layout": "6 columns; 175x200 cells; first battle frame, first portrait, first overworld frame; nearest-neighbor on slate background; filename labels",
+      "sourceAssets": [
+        {
+          "file": "public/sprites/items/zahnkette.png",
+          "sha256": "2039e0c593291124f0d87fbd9f08ff22883ae050d791a7b47b7ccb61d3879e09"
+        },
+        {
+          "file": "public/sprites/items/uhr_ertrunkener.png",
+          "sha256": "3e89a2d665327eac2fb3755f77b267025287bf45922c5907b55c7f8645e842c8"
+        },
+        {
+          "file": "public/sprites/items/bleiamulett.png",
+          "sha256": "aff8a9d8aab8ea5f1a6678502a472fe65bdba4182f20934f884524f8bbbcd3cd"
+        },
+        {
+          "file": "public/sprites/items/32/ankerhaken.png",
+          "sha256": "852e74210768376db20d0af40dc5039a9a574faa3771d15f07ea74bfc695b0d4"
+        },
+        {
+          "file": "public/sprites/items/32/schleierdolch.png",
+          "sha256": "d80b4520cd43a31002dd80ea0f91b4a6b528e038b9ec6d81689811bd68b3f49f"
+        },
+        {
+          "file": "public/sprites/items/32/silberschere.png",
+          "sha256": "e9e7bf9e93e38b7265a47663f187656b260c63c4f0966ca873156a612d9a9968"
+        },
+        {
+          "file": "public/sprites/items/32/rostwasser.png",
+          "sha256": "a6b69191fb790f8bea949a5db96cf618ab3c95b26872df01eb0c5b8f1379090a"
+        },
+        {
+          "file": "public/sprites/items/32/schlaftee.png",
+          "sha256": "38d24769d7813fd637ac2f97d1a5c8f340a753436ac98e210972541301671ff0"
+        },
+        {
+          "file": "public/sprites/items/32/schleierpuder.png",
+          "sha256": "a44d010d7df8f5e495c7ef47b9ea85000ef873f88058c547bb185a2a4b775c82"
+        },
+        {
+          "file": "public/sprites/items/32/wasserprobe.png",
+          "sha256": "f08ca9eecd78fb25ed6b1581d70377ddaf59424dcf07d29b99a8be073f61ac11"
+        },
+        {
+          "file": "public/sprites/items/32/kinder_murmel.png",
+          "sha256": "531bc314e89279c93fae2115bba95595d739e1c9fbe1c7de218e202e3ce05ff8"
+        },
+        {
+          "file": "public/sprites/items/32/porzellanmaske.png",
+          "sha256": "3e02cfdfae4a6870173250031ce1eec42a1a5324899b396151d2941399665a26"
+        },
+        {
+          "file": "public/sprites/items/32/schuldbuch.png",
+          "sha256": "21af779b3d85179f3f34eedc60afbdc29d1c40eacf26a62d2ac672f78c631d5d"
+        },
+        {
+          "file": "public/sprites/items/32/pfaendungsbrief.png",
+          "sha256": "7831080e4ef8b0d6b14e2cc1006946e215a59e60093ea6b3560ce0b5129e19a6"
+        },
+        {
+          "file": "public/sprites/items/32/traumspule.png",
+          "sha256": "316eda0b2b88659d0467e503de962b3f830e563f20fbdb5e9584ef19e02e39cd"
+        },
+        {
+          "file": "public/sprites/characters/E_schwindler_walk.png",
+          "sha256": "e84fdaa5d5b12f0ea6f5d683ecc52a06408fd509388621deb62c8dafca71232e"
+        },
+        {
+          "file": "public/sprites/portraits/E_schwindler_emotions.png",
+          "sha256": "41b1bf63aa7486e019596a04dbb75d5e2f056af689a48b860180ee7d9deb293d"
+        },
+        {
+          "file": "public/sprites/characters/C_astronom_walk.png",
+          "sha256": "446ff97d4610f121fc1fd497e0f76799245f823a3bdd2cd68892c165ae0ef6b4"
+        }
+      ]
+    },
+    {
+      "file": "x-refs-1.png",
+      "sha256": "2716a067f5562fe60a579bd7a0315894d858560c116186096e338bfe34e0b026",
+      "layout": "6 columns; 175x200 cells; first battle frame, first portrait, first overworld frame; nearest-neighbor on slate background; filename labels",
+      "sourceAssets": [
+        {
+          "file": "public/sprites/portraits/C_astronom_emotions.png",
+          "sha256": "488894a385f62ae3163ca493cc1d9bd915688b3bd6c590b753e70db59562c1ce"
+        },
+        {
+          "file": "public/sprites/battle/enemy_price.png",
+          "sha256": "41f8ab5e22786ba7a909337675f20aa3f2bdc919ade144ed8ffbb388e7709b81"
+        },
+        {
+          "file": "public/sprites/ui/M_08_boss_wren.png",
+          "sha256": "8d78555d2477cf3e8d1be84683f64e3027c5b8d5ad4c02ac904cb7996c8c7f2b"
+        },
+        {
+          "file": "public/sprites/ui/cases/M_akte_fall8.png",
+          "sha256": "e0cc8dab27f0fc5ba5f93cf8171454b81f8d9c770b6732463df7439f61d7faca"
+        },
+        {
+          "file": "public/sprites/ui/endings/c8_good.png",
+          "sha256": "b29101fd5a1c7f268f661ece773c6ad2b0320383611961a4c9722b0407251ba5"
+        },
+        {
+          "file": "public/sprites/ui/O_map_markers.png",
+          "sha256": "03413ae72c1fe52c3536102513b24e9b1771f79d6ccf411f8cc119dac0b202d4"
+        },
+        {
+          "file": "public/sprites/ui/S_zirkel.png",
+          "sha256": "9b0c45a06bef2a80f69e0d4398927519b83526588f141602165e2b94c40ca8e1"
+        },
+        {
+          "file": "public/sprites/battle/enemy_rost_schlaeger.png",
+          "sha256": "1de7eb182f801e5db9bc7201b67db501abab7d33c9e794348df9ddaa011cf8b1"
+        },
+        {
+          "file": "public/sprites/battle/enemy_rost_werfer.png",
+          "sha256": "c596188488979d754ea08fbd7427c2e7d8beb32c785c35056d3aa11991accb68"
+        },
+        {
+          "file": "public/sprites/battle/enemy_rost_schmied.png",
+          "sha256": "03cb5680eb9481df95207399b28ad99a8ad741afc984b81fefe4c14b44aea77f"
+        },
+        {
+          "file": "public/sprites/battle/enemy_rost_vater.png",
+          "sha256": "9eef34a91dd5b37867f13845e26dabd57bf289dc232fecac597f0e2cb498cafa"
+        },
+        {
+          "file": "public/sprites/battle/enemy_schleier_novizin.png",
+          "sha256": "1a8aca7f6730fe4d4b18032bc5c79dfa91f763ffe8fd2565a16a676efe3fedca"
+        },
+        {
+          "file": "public/sprites/battle/enemy_schleier_messerin.png",
+          "sha256": "31d2aaa3b1ab83f768bdd084ffd85d39811b9487cf2a1e5b0af87aa0afbaabc6"
+        },
+        {
+          "file": "public/sprites/battle/enemy_schleier_seherin.png",
+          "sha256": "8ff57e450ed7209ca3722ac9c66cd25b96dd0feca26b7cd1684e50938afd0892"
+        },
+        {
+          "file": "public/sprites/battle/enemy_schleier_mutter.png",
+          "sha256": "431930ccb2379fc5d34b76ecc4117748868a6024b295b3a99b267b052e9d8aba"
+        },
+        {
+          "file": "public/sprites/battle/enemy_moorleiche.png",
+          "sha256": "15c9d498abca121e0819dee73a958540d3ad46939bf04ac8fc4f0a7872fb5b59"
+        }
+      ]
+    },
+    {
+      "file": "x-refs-2.png",
+      "sha256": "449518f98079ecac4fa3e1d232bdbf4dd4e0a5f2b8680804086c4661c077a24b",
+      "layout": "6 columns; 175x200 cells; first battle frame, first portrait, first overworld frame; nearest-neighbor on slate background; filename labels",
+      "sourceAssets": [
+        {
+          "file": "public/sprites/battle/enemy_irrlicht.png",
+          "sha256": "9c8a2a417918407c0c29df5223f46ea7d7df5d90b8cf9d63e82693d0cad4f641"
+        },
+        {
+          "file": "public/sprites/battle/enemy_schlammegel.png",
+          "sha256": "3f5d2dba0401e18e05f3d437acf5009d5f013963216d43ec74e5c5c05962fa7d"
+        },
+        {
+          "file": "public/sprites/battle/enemy_moorkoenigin.png",
+          "sha256": "9ee7d869b2cd42b161f6701db098a128ec3c0bc9dfc05dfdc92e08e8578459dd"
+        },
+        {
+          "file": "public/sprites/battle/enemy_schnabelmaske.png",
+          "sha256": "ddcd663fab95d5ed8ed0e495e1a8934034c52c5037b659b9242b57b3abe28d9f"
+        },
+        {
+          "file": "public/sprites/battle/enemy_hustender.png",
+          "sha256": "41ebc983659ca2169c16e7c91140e110932c07532ee4ebfad9b041bebabd1fe2"
+        },
+        {
+          "file": "public/sprites/battle/enemy_pestratte.png",
+          "sha256": "3dd111ac7dcb165cdd6c8118c8c90c552be66ac8f29a5cf2de4cd2702504f3c6"
+        },
+        {
+          "file": "public/sprites/battle/enemy_rattenkoenig.png",
+          "sha256": "13a01294855fcd354abf1655eead945555be456ebf747096486e51b2c0d9e349"
+        },
+        {
+          "file": "public/sprites/battle/enemy_knochenwurm.png",
+          "sha256": "2cb16f8e6ca1001c97c929552eba360b3ad84fd2cfc5fadadfa0b2f3a2d0727e"
+        },
+        {
+          "file": "public/sprites/battle/enemy_kerzenfresser.png",
+          "sha256": "4a430b7928e3ff427a56da5e725f484c6cbc9d36a836572e49e29994d54204e7"
+        },
+        {
+          "file": "public/sprites/battle/enemy_schaedelschwarm.png",
+          "sha256": "e252beabf30299f110c88770e022a84f9813b76311d1389635c3795b6a50bd1d"
+        },
+        {
+          "file": "public/sprites/battle/enemy_ossuarwaechter.png",
+          "sha256": "95cb289716c022509582f2632bb31e19e7f55911203cf91f9bec2617a6fefcf7"
+        },
+        {
+          "file": "public/sprites/battle/enemy_glaskraehe.png",
+          "sha256": "640bd64cc625eebf725d9b199716bcde6549e2ef7ae58a4daf4bb41a1439ba36"
+        },
+        {
+          "file": "public/sprites/battle/enemy_kraterbrut.png",
+          "sha256": "6ae0e035814cf3ac28d9933e4690270c2dd0ce4876202a7ffc824fe00447fabc"
+        },
+        {
+          "file": "public/sprites/battle/enemy_splitterling.png",
+          "sha256": "52645840c3c4b45c84d0539db84bcd037f631c222f0c6c673c2c95592fbce2f5"
+        },
+        {
+          "file": "public/sprites/battle/enemy_sternhirsch.png",
+          "sha256": "e3e015744851233749233bc0bc46942a5af047e0c992eb52119027164d42295b"
+        }
+      ]
+    }
+  ],
+  "referenceExceptions": [
+    "rost_streife and schleier_schatten have no separate battle PNG in the baseline; their mini portraits follow the explicitly requested cap/hidden-face variants and the corresponding cult style."
+  ],
+  "preserved32": {
+    "public/sprites/items/32/ankerhaken.png": "852e74210768376db20d0af40dc5039a9a574faa3771d15f07ea74bfc695b0d4",
+    "public/sprites/items/32/schleierdolch.png": "d80b4520cd43a31002dd80ea0f91b4a6b528e038b9ec6d81689811bd68b3f49f",
+    "public/sprites/items/32/silberschere.png": "e9e7bf9e93e38b7265a47663f187656b260c63c4f0966ca873156a612d9a9968",
+    "public/sprites/items/32/rostwasser.png": "a6b69191fb790f8bea949a5db96cf618ab3c95b26872df01eb0c5b8f1379090a",
+    "public/sprites/items/32/schlaftee.png": "38d24769d7813fd637ac2f97d1a5c8f340a753436ac98e210972541301671ff0",
+    "public/sprites/items/32/schleierpuder.png": "a44d010d7df8f5e495c7ef47b9ea85000ef873f88058c547bb185a2a4b775c82",
+    "public/sprites/items/32/wasserprobe.png": "f08ca9eecd78fb25ed6b1581d70377ddaf59424dcf07d29b99a8be073f61ac11",
+    "public/sprites/items/32/kinder_murmel.png": "531bc314e89279c93fae2115bba95595d739e1c9fbe1c7de218e202e3ce05ff8",
+    "public/sprites/items/32/porzellanmaske.png": "3e02cfdfae4a6870173250031ce1eec42a1a5324899b396151d2941399665a26",
+    "public/sprites/items/32/schuldbuch.png": "21af779b3d85179f3f34eedc60afbdc29d1c40eacf26a62d2ac672f78c631d5d",
+    "public/sprites/items/32/pfaendungsbrief.png": "7831080e4ef8b0d6b14e2cc1006946e215a59e60093ea6b3560ce0b5129e19a6",
+    "public/sprites/items/32/traumspule.png": "316eda0b2b88659d0467e503de962b3f830e563f20fbdb5e9584ef19e02e39cd"
+  }
+}

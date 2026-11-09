@@ -1083,3 +1083,14 @@ Sichtkontrolle: [Übersicht](preview-wexmoor5-overview.png),
 [Namensmade](preview-wexmoor5-battle-namensmade.png),
 [Bürgermeister](preview-wexmoor5-battle-buergermeister.png).
 Grafikexport; Einbindung und Timing-Prüfung im laufenden Spiel erfolgen separat.
+
+## Batch X — Treffen-Artefakte und restliche Platzhalter (`platzhalter`)
+
+86 PNGs gemäß `codex_X_artefakte_platzhalter.md`: 50 Item-Icons (31 kleine und 19 große), vier Fall-9-Kampf-Sheets, fünf Boss-Büsten, vier Zugporträt-Dateien mit 31 Einträgen, zwölf Bestiarium-Karten, Fallakte und vier Endbilder, fünf Emotions-Sheets und ein Zirkel-Marker-Sheet. Die zwölf vorhandenen 32er-Icons aus Abschnitt 2.1 bleiben unverändert.
+
+- Manifest: `public/sprites/manifest-platzhalter.json` mit Frame-Listen, Tempo, transparenten Auffüllfeldern, IDs/Regionen und Starling-Spezial-/Niederlagenframes.
+- Bildgenerierung: `docs/art/batch-platzhalter-generation.json` dokumentiert alle tatsächlichen Prompts, Korrekturen, Referenzen, Quellbild-Prüfsummen und gemessenen Quellausschnitte. 16er-Icons wurden als eigene vereinfachte Motive erzeugt.
+- Export: `python docs/art/export-platzhalter.py SOURCE_DIRECTORY` (Pillow, NumPy). Nearest Neighbor, gemeinsame Palette mit 32 sichtbaren Farben, binäres Alpha, einheitliche Grundlinie und exakt zwei identische Ausholframes bei Angriff A/B. Die hochauflösenden Generatorquellen sind nicht Teil des Runtime-Pakets; ihre Dateinamen und SHA-256 stehen im Generierungsprotokoll.
+- Prüfung: `python docs/art/verify-platzhalter.py` (Pillow). Prüft alle 86 Dateien, Maße, Palette, Alpha, Frame-Belegung, Ausholframes, Icon-Duplikate und die unveränderten 32er-Vorlagen. Sichtprüfung umfasst den direkten Vergleich alter/neuer Icons, Figurenidentität, Reihenfolge und Endbilder.
+
+Asset-Lieferung; die Einbindung ins Spiel erfolgt separat.
