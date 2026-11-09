@@ -616,6 +616,11 @@ export class GameState {
     this.quests = Object.fromEntries(Object.entries(data.quests).filter(([q]) => this.quest(q)));
     this.honor = data.honor;
     this.endings = data.endings ?? {};
+    // Freischaltungen aus erreichten Enden nachtragen (z. B. der Kanalhafen nach dem falschen Ende von Fall 3,
+    // das ihn in älteren Ständen nicht freigeschaltet hat). Ortsfreigaben werden nie zurückgenommen.
+    for (const id of Object.values(this.endings)) {
+      for (const f of this.content.endings[id]?.sets_flags ?? []) if (f.startsWith('travel_')) this.flags.add(f);
+    }
     this.tracked = this.quests[data.tracked] === 'active' ? data.tracked : null;
     // Ab Version 3: Leben und Inventar (ältere Stände behalten die Startausrüstung)
     if (data.v >= 3) {
