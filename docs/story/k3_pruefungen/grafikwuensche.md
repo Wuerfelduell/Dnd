@@ -1,0 +1,20 @@
+# Grafikwünsche und Platzhalter
+
+AW zeichnet Hedda, AX die zehn Prüfungsbosse. AU bestellt keine konkurrierenden Figuren. Die Zuordnung bleibt bis zur Integration außerhalb der Spieldaten. Neue Zutatenbilder sind bereits Teil von AF/AG; keine neuen Item-IDs. Ritualbilder sind optional, Text und sichtbare Prüfmodelle genügen vollständig.
+
+| ID | Art | Beschreibung | English prompt | platzhalter |
+|---|---|---|---|---|
+| `k3_weichenstellerin` | Lauf-Sheet 64×128 | Alte Weichenstellerin im ausgeblichenen Arbeitsmantel, eine kleine Waage am Gürtel. | Elderly railway points keeper with silver hair, a worn work coat and a small balance scale on her belt. Calm, watchful expression. | `npc:sedge` |
+| `k3_weichenstellerin` | Portrait 64×64 | Hedda blickt müde und aufmerksam, nicht orakelhaft. | Portrait of an elderly railway points keeper with tired attentive eyes and silver hair beneath a plain work cap. | `npc:sedge` |
+| `k3p_lampengutachter` | Kampf-Gegner 64×64, 6 Spalten | Lampengutachter als abgegrenzte Prüfanordnung, kein verletzter Arbeiter. | Depict a brass lamp inspector with a closing shutter and a cracked inspection lens. Show readable anticipation poses and a harmless defeated state. | `enemy_price` |
+| `k3p_gegenzeugenknuepfer` | Kampf-Gegner 64×64, 6 Spalten | Gegenzeugenknüpfer als abgegrenzte Prüfanordnung, kein verletzter Arbeiter. | Depict a spool mechanism carrying two dated witness slips separated by an open seam. Show readable anticipation poses and a harmless defeated state. | `enemy_price` |
+| `k3p_garderobenpfaender` | Kampf-Gegner 64×64, 6 Spalten | Garderobenpfänder als abgegrenzte Prüfanordnung, kein verletzter Arbeiter. | Depict an empty coat rack holding a borrowed coat and a blank theatre mask. Show readable anticipation poses and a harmless defeated state. | `enemy_price` |
+| `k3p_pausenfischer` | Kampf-Gegner 64×64, 6 Spalten | Pausenfischer als abgegrenzte Prüfanordnung, kein verletzter Arbeiter. | Depict a wax cylinder reader with an empty gap between its sound funnels. Show readable anticipation poses and a harmless defeated state. | `enemy_price` |
+| `k3p_chargenpruefer` | Kampf-Gegner 64×64, 6 Spalten | Chargenprüfer als abgegrenzte Prüfanordnung, kein verletzter Arbeiter. | Depict a sealed batch testing vessel with separate clear and dark reservoirs. Show readable anticipation poses and a harmless defeated state. | `enemy_price` |
+| `k3p_brueckenpresser` | Kampf-Gegner 64×64, 6 Spalten | Brückenpresser als abgegrenzte Prüfanordnung, kein verletzter Arbeiter. | Depict a riveted bridge press with two side supports and a bent central pin. Show readable anticipation poses and a harmless defeated state. | `enemy_price` |
+| `k3p_zollriegel` | Kampf-Gegner 64×64, 6 Spalten | Zollriegel als abgegrenzte Prüfanordnung, kein verletzter Arbeiter. | Depict a railway customs latch with an exposed release spring. Show readable anticipation poses and a harmless defeated state. | `enemy_price` |
+| `k3p_fristpfaender` | Kampf-Gegner 64×64, 6 Spalten | Fristpfänder als abgegrenzte Prüfanordnung, kein verletzter Arbeiter. | Depict a brass debt balance carrying duplicate receipts and a heavy pledged weight. Show readable anticipation poses and a harmless defeated state. | `enemy_price` |
+| `k3p_schichtsammler` | Kampf-Gegner 64×64, 6 Spalten | Schichtsammler als abgegrenzte Prüfanordnung, kein verletzter Arbeiter. | Depict a shallow peat collector preserving separate layers around broken name tablets. Show readable anticipation poses and a harmless defeated state. | `enemy_price` |
+| `k3p_gangaufseher` | Kampf-Gegner 64×64, 6 Spalten | Gangaufseher als abgegrenzte Prüfanordnung, kein verletzter Arbeiter. | Depict a railway clock regulator with a deliberately missing tooth and a slow pendulum. Show readable anticipation poses and a harmless defeated state. | `enemy_price` |
+
+Keine Pflichtbestellung für 40 Ritualbilder. Die Lesespuren sind Textobjekte ohne neue Grafikabhängigkeit. Gezeichnete Rufmuster dürfen nie die einzige Informationsquelle sein.

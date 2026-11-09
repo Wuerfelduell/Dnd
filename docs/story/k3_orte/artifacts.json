@@ -1,0 +1,46 @@
+{
+  "list": {
+    "k3o_stillring": {
+      "name": "Stillring",
+      "source": "quest",
+      "price": 250,
+      "icon": "amulett_eisen",
+      "desc": "Ein Filzring in einer Messingfassung. Er erleichtert die Abwehr, dämpft aber auch deine Erholung.",
+      "boons": [
+        {
+          "key": "dodge_window",
+          "value": 1.2,
+          "text": "Ausweichfenster +20 %."
+        }
+      ],
+      "curses": [
+        {
+          "key": "composure_regen",
+          "value": 0.6,
+          "text": "Nervenerholung nur 60 %."
+        }
+      ]
+    },
+    "k3o_prueflinse": {
+      "name": "Prüflinse",
+      "source": "quest",
+      "price": 250,
+      "icon": "glasauge",
+      "desc": "Die Linse macht Nachhallränder deutlich. Mit ihr im Gepäck fällt es schwer, Unwichtiges auszublenden.",
+      "boons": [
+        {
+          "key": "vision_cost",
+          "value": 0.75,
+          "text": "Geistsicht kostet 25 % weniger Nerven."
+        }
+      ],
+      "curses": [
+        {
+          "key": "max_nerves",
+          "value": -20,
+          "text": "20 weniger maximale Nerven."
+        }
+      ]
+    }
+  }
+}

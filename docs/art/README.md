@@ -1301,3 +1301,153 @@ Sichtkontrolle: [Übersicht](preview-wexmoor6-overview.png),
 
 Grafiklieferung für Paket AM; Spielcode und andere Pakete bleiben unverändert.
 Einbindung und Timing-Abstimmung im laufenden Spiel erfolgen separat.
+
+## Batch AX — Dunscar-Gegner (`dunscar3`)
+
+84 PNGs für 6 normale Gegner, 5 Story-Bosse und 10 Sequenz-Prüfungsbosse:
+21 Kampf-Sheets, 21 Vier-Richtungs-Lauf-Sheets, 21 Bestiariumsbilder,
+15 Boss-Bänder und 6 Rufmuster/HUD-Sheets. Verbindliche IDs aus
+`codex_AX_dunscar_gegner.md`, Geschichte 3 und Pfadfarben aus den Sequenzdaten.
+
+- Manifest: `public/sprites/manifest-dunscar3.json`.
+- Tatsächlich verwendete Bildgenerator-Prompts und Quellprüfsummen:
+  `batch-dunscar3-generation.json`; Motivliste: `dunscar3-source-spec.json`.
+- Gemeinsame 32-Farben-Palette, indizierte PNGs, binäres Alpha und Nearest Neighbor.
+  Kampf: 6 Spalten, idle/attack/hurt/defeated = 4/6/3/4 Frames;
+  zusätzliche Phase-2-Reihe für Vielrufer, Gallowmere und alle Prüfungsbosse.
+  Unterschicht hat zusätzlich drei eigene Phasenreihen. Erste zwei Frames
+  jeder Angriffs-/Phasenreihe halten dieselbe Ausholpose (8 fps, 250 ms).
+- Karte: 16×32, vier Frames je Richtung unten/links/rechts/oben.
+  Grundlinien exklusiv: Karte 30, Kampf Framehöhe minus 2.
+- Bestiarium: 96×128; Boss-Band: 160×160 wie `S_08_boss_glockenmutter`.
+  Beide verwenden die erste Kampf-Ruhepose; Ableitung steht im Manifest.
+- Rufmuster: 16 geometrisch unterschiedliche Zeichen in 16×16 und exakt 2×
+  vergrößert; drei Statusrahmen ebenfalls in beiden Größen. Rufladungen:
+  48×16 pro Zustand (0–3), vertikal im 48×64-Sheet. Horchen: 16×16.
+  Die Zuordnung der Bildzeichen zu Story-Rufmustern erfolgt bei der Einbindung.
+- Schichtgänger schlafen nach der Niederlage; der Nachhall besteht aus
+  türkisen Konturen. Dessen Konturmaske entfernt neutrale Generatorreste
+  und normalisiert die Strichfarbe für bessere Lesbarkeit.
+
+Prüfung ohne Generatorquellen: `python tools/art/dunscar3/validate.py`.
+Erneuter Export mit Quellbelegen: `python tools/art/dunscar3/export.py RECEIPTS_DIR`.
+Ein Beleg pro Bild enthält `id`, `kind` (`battle`/`walk`), `path` und `prompt`.
+Export benötigt Pillow und NumPy, Prüfung Pillow. Quellen sind keine Runtime-Dateien.
+Ergebnis: `batch-dunscar3-validation.json`; alle 84 Assets bestehen die Prüfung.
+
+Sichtprüfung: [Gegner](batch-dunscar3-preview-normal.png),
+[Story-Bosse](batch-dunscar3-preview-story.png),
+[Prüfungsbosse](batch-dunscar3-preview-trials.png),
+[Rufmuster und HUD](batch-dunscar3-preview-ui.png).
+Spielcode und Storydaten bleiben unverändert; Einbindung erfolgt separat.
+
+## Batch AW – Figuren von Dunscar (`dunscar2`)
+
+69 PNG-Dateien für Kapitel 3 „Der letzte Zug nach Dunscar“ nach
+`codex_AW_dunscar_figuren.md` und der verbindlichen Geschichte 3:
+elf Hauptfiguren mit Lauf-Sheet, zwei Emotions-Sheets (acht Ausdrücke),
+24×24-Kopf und Tätigkeit; Gallowmeres Stimme hinter dem Schalter;
+vier lebende Schichtgänger, sechs Einwohner und drei Szenenbilder.
+Gallowmeres Kampf-Sheet gehört zu AX und ist nicht Bestandteil von AW.
+
+- Manifest: [`manifest-dunscar2.json`](../../public/sprites/manifest-dunscar2.json).
+- Animierte Vorschau: [`preview-dunscar2.html`](preview-dunscar2.html), über einen lokalen HTTP-Server öffnen.
+- Kontaktbögen: [Figuren](preview-dunscar2-figuren.png), [Einwohner](preview-dunscar2-einwohner.png), [Szenen](preview-dunscar2-szenen.png).
+- Tatsächliche Bildprompts, Stilreferenzen, Quellprüfsummen und Zellzuschnitte: [`batch-dunscar2-generation.json`](batch-dunscar2-generation.json).
+- Prüfergebnis: [`batch-dunscar2-validation.json`](batch-dunscar2-validation.json).
+
+Laufen: 16×32 pro Frame, vier Spalten, vier Reihen in der Reihenfolge
+unten / links / rechts / oben, vorgeschlagen 7 FPS. Tätigkeiten und Schalter:
+vier Frames à 16×32 nebeneinander, 5 FPS, einmalig abspielen. Die Vorschau
+wiederholt diese Clips nur für die Sichtprüfung. Bei Gallowmere ist die
+zusätzliche Tätigkeit das Anheben der Kettenpfeife mit anschließendem Horchen.
+Portraits: vier 64×64-Zellen; erstes Sheet neutral / misstrauisch / erschrocken /
+leichtes Lächeln, zweites wütend / traurig / nachdenklich / entschlossen.
+Frames im Manifest sind nullbasiert. Untere exklusive Pixelgrenze: 31 bei
+Figuren, 63 bei Portraits. UI-Köpfe sind aus dem neutralen Portrait abgeleitet.
+
+Erzeugt mit dem eingebauten Bildgenerator. Nearest-Neighbor-Export,
+gemeinsame 31 sichtbare Farben plus transparenter Index, ausschließlich
+Alpha 0 oder 255. Gallowmeres Durchschein-Effekt entsteht durch Pixellücken;
+die drei 480×270-Szenen sind deckend. Die Palette übernimmt die Bestandsfarben
+aus `12_sexton_anselm_walk.png` und ergänzt gezielte Nachhall-/Hautfarben.
+
+```sh
+python tools/art/dunscar2/export.py /pfad/zu/sources.json
+python tools/art/dunscar2/validate.py
+node --test tests/sprites.test.js
+```
+
+Der Export benötigt Pillow und NumPy. `sources.json` enthält die Einträge
+unter `records` aus dem Generierungsprotokoll als Liste, jeweils mit `source`
+als lokalem Pfad zur über `sourceFile` und SHA-256 identifizierten Original-PNG.
+Große Generatorquellen gehören nicht zu den Laufzeitdateien. Der Prüfer
+benötigt nur Pillow und läuft direkt auf der fertigen Lieferung.
+
+Grafikpaket zur separaten Einbindung; keine Änderungen am Spielcode.
+
+## Batch dunscar1 — Codex AV: Dunscar, Orte und Nachtzug
+
+32 PNGs zur separaten Einbindung von Kapitel 3 „Der letzte Zug nach Dunscar“:
+6 Tilesets mit 208 benannten 16×16-Zellen, 8 Prop-Sheets mit 53 Regionen,
+Nachtzug mit Lok und drei Wagen (4 aktive Phasen plus Stilllegung),
+Nachhall-Ringe und Weg-Overlay, 10 Kampfkulissen, 2 Szenenbilder,
+Stadtkarte, Nebel-Overlay und Marker für alle 18 festen Karten-IDs.
+
+Manifest: `public/sprites/manifest-dunscar1.json`. Zuordnung aller Karten,
+Animationsverträge und Reproduktionsanleitung: [Übergabe AV → AS](dunscar1-uebergabe.md).
+Prompts, Bildgenerator-Korrekturen, Quellprüfsummen und Zuschnitte:
+`batch-dunscar1-generation.json`. Export mit Nearest Neighbor, gemeinsamer
+32-Farben-Palette und binärem Alpha. Spielcode und Storydaten bleiben unverändert.
+
+```sh
+python docs/art/verify-dunscar1.py
+node --test tests/sprites.test.js
+```
+
+Prüfbericht: `validation-dunscar1.json`. Sichtübersichten:
+[Tiles](preview-dunscar1-tiles.png), [Props](preview-dunscar1-props.png),
+[Kampfkulissen](preview-dunscar1-backgrounds.png),
+[Karten/Szenen](preview-dunscar1-maps-scenes.png),
+[Zug/Effekte](preview-dunscar1-train-effects.png).
+
+
+## Batch AG – sequenzen3
+
+196 PNGs: 55 Effekte, 55 Zutaten und 6 Artefakte jeweils in 16×16 und 32×32,
+9 Emblemgrößen, 3 Pfadkarten, 3 Ritualkarten, 3 Auren und ein Spieler-Sheet.
+Die tatsächliche AF-Wunschliste enthält 122 IDs (die AG-Einleitung nennt 123);
+alle 122 werden abgedeckt, ergänzt um sechs Karten und das Spieler-Sheet.
+
+- Manifest: `public/sprites/manifest-sequenzen3.json`.
+- Tatsächliche Prompts, Referenzen, Quellbild-Hashes und Zuschnitte:
+  [batch-sequenzen3-generation.json](batch-sequenzen3-generation.json).
+- Vollständige Zuordnung: [coverage-sequenzen3.json](coverage-sequenzen3.json).
+- Prüfbericht: [validation-sequenzen3.json](validation-sequenzen3.json).
+- Sichtprüfung: [Effekte 1](preview-sequenzen3-effects-1.png),
+  [Effekte 2](preview-sequenzen3-effects-2.png), [Effekte 3](preview-sequenzen3-effects-3.png),
+  [Icons 1](preview-sequenzen3-items-1.png), [Icons 2](preview-sequenzen3-items-2.png),
+  [Icons 3](preview-sequenzen3-items-3.png), [Icons 4](preview-sequenzen3-items-4.png),
+  [Pfadbilder und Spieler](preview-sequenzen3-pathways-1.png).
+
+Erzeugt mit dem eingebauten Bildgenerator, danach ausschließlich Rasterexport:
+Nearest Neighbor, gemeinsame 32-Farben-Palette und binäres Alpha.
+Effekte: 48×48, 6 bzw. 8 Frames, 12 fps; Auren: 48×64, 6 Frames, 8 fps.
+Auren liegen im unteren Zellbereich. Spieler: 6×3 Zellen à 48×48,
+Reihen Waage/Moor/Uhr, Blick rechts, Grundlinie 45 (exklusiv), 10 fps.
+Pfad- und Ritualkarten verwenden den vorhandenen 96×128-Rahmen mit leerem
+Pergament und einem eigenen generierten Motiv. Es wird kein Text eingebrannt.
+
+```sh
+python docs/art/verify-sequenzen3.py
+node --test tests/sprites.test.js
+# Optional: erneuter Export aus den protokollierten Generator-Originalen:
+python docs/art/export-sequenzen3.py docs/art/batch-sequenzen3-generation.json SOURCE_DIRECTORY
+```
+
+Export benötigt Pillow und NumPy, Prüfung nur Pillow. Die Prüfung funktioniert
+ohne Generator-Originale und kontrolliert die Lieferung direkt gegen die
+Wunschliste, Rastergrößen, Palette, Alpha, Animationen, Grundlinie und Icon-Duplikate.
+Die hochauflösenden Quellen sind über Dateiname und SHA-256 protokolliert;
+Runtime-Dateien sind ausschließlich die finalen Rasterexports.
+Einbau in das Spiel erfolgt separat.
