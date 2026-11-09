@@ -12,7 +12,8 @@ const here = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(here, '../../..');
 const read = p => JSON.parse(readFileSync(p, 'utf8'));
 const source = p => read(path.join(root, 'src/data', p));
-const pkg = Object.fromEntries(readdirSync(here).filter(f => f.endsWith('.json')).map(f => [f.slice(0, -5), read(path.join(here, f))]));
+const pkgDir = path.join(root, 'src/data/packs/kg_nebenquests'); // seit dem Einbau dort
+const pkg = Object.fromEntries(readdirSync(pkgDir).filter(f => f.endsWith('.json')).map(f => [f.slice(0, -5), read(path.join(pkgDir, f))]));
 assert.equal(Object.keys(pkg).length, 8, 'Genau acht JSON-Lieferdateien erwartet');
 const sourceFiles = [];
 function list(dir) { for (const e of readdirSync(dir, { withFileTypes: true })) { const p = path.join(dir, e.name); if (e.isDirectory()) list(p); else if (p.endsWith('.json')) sourceFiles.push(read(p)); } }

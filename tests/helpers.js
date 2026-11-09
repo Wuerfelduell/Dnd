@@ -4,6 +4,9 @@ import { buildContent } from '../src/data/buildContent.js';
 
 const load = (p) => JSON.parse(readFileSync(new URL(`../src/data/${p}`, import.meta.url), 'utf8'));
 
+const PACKS = ['kg_nebenquests'];
+const PACK_FILES = ['quests', 'items', 'encounters', 'dialogues', 'npcs', 'case', 'dialog_zusaetze', 'platzierung'];
+
 export function loadContent() {
   return buildContent({
     campaign: load('campaign.json'),
@@ -22,6 +25,7 @@ export function loadContent() {
     gatherings: load('treffen.json'),
     city: load('stadtgegner.json'),
     wexmoor: load('wexmoor.json'),
+    packs: PACKS.map((name) => ({ name, ...Object.fromEntries(PACK_FILES.map((f) => [f, load(`packs/${name}/${f}.json`)])) })),
   });
 }
 
