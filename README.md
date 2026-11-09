@@ -171,6 +171,12 @@ mit den Reihen unten/links/rechts/oben). `src/world/assets.js` lädt sie im
   Frames in `public/sprites/manifest-pfade.json`, abgespielt mit `playSheetAnim()`
 - `PROP_ANIMS`: animierte Deko aus Sheet-Regionen (Lichterketten, Kohlebecken)
 
+Paket C (`manifest-welt.json`): `THEME_TILES` beschreibt Kartenthemen über benannte Regionen
+(warehouse, tavern, altmarkt sowie theater, uhrturm, schlachthof, gaskanaele, sternwarte);
+`C_CHARACTERS`, `PORTRAITS` (Dialogknoten können `"mood"` setzen), `MAP_MARKERS`, `LOG_MARKERS`
+und `MAP_WEATHER` (oder Map-Feld `"weather"`) ergänzen Figuren, Portraits, Marker und Wetter.
+Tiere laufen als Deko mit `"sprite": "creatures", "anim": ["creatures", "rat"]`.
+
 Karten können mit `"tiles": "nachtmarkt"` ein Tile-Thema wählen (`THEMES` in
 `WorldScene.js`) und unter `decor` Deko mit `origin`, `offset`, `ysort`, `solid`
 und `light` platzieren.

@@ -1,5 +1,6 @@
 import {
   itemIconUrl, itemIcon32Url, pathwayEmblemUrl, pathwayCardUrl, COIN_URL, SKILL_ICONS, SKILL_ICONS_URL, STATUS_ICONS, STATUS_ICONS_URL,
+  portraitUrl, PORTRAIT_MOODS, MAP_MARKERS, MAP_MARKERS_URL, LOG_MARKERS, LOG_MARKERS_URL,
 } from '../world/assets.js';
 
 /** 16x16-Icon vor einem Item-Namen. Lädt es nicht, verschwindet es einfach. */
@@ -12,6 +13,14 @@ const atlasIcon = (url, index, cols, title = '') => (index === undefined ? ''
   : `<span class="atlas-icon" title="${title}" style="background-image:url(${url});background-position:-${(index % cols) * 16}px -${Math.floor(index / cols) * 16}px"></span>`);
 const skillIcon = (id) => atlasIcon(SKILL_ICONS_URL, SKILL_ICONS[id], 7);
 const statusIcon = (id, title) => atlasIcon(STATUS_ICONS_URL, STATUS_ICONS[id], 12, title);
+const mapMarker = (map) => atlasIcon(MAP_MARKERS_URL, MAP_MARKERS[map], 13);
+/** Portrait (64x64 aus einem 256x64-Streifen) für den Dialog. */
+const portrait = (id, mood) => {
+  const url = portraitUrl(id);
+  if (!url) return '';
+  const col = PORTRAIT_MOODS[mood] ?? 0;
+  return `<div class="portrait" style="background-image:url(${url});background-position:${(col / 3) * 100}% 0"></div>`;
+};
 const coin = '<img class="coin" src="' + COIN_URL + '" alt="" width="16" height="16" onerror="this.remove()">';
 
 // HTML-Oberfläche über dem Spiel-Canvas: HUD, Hinweise, Dialoge, Notizbuch,
@@ -184,7 +193,7 @@ export class Ui {
   }
 
   badge(status) {
-    return status && STATUS_LABEL[status] ? `<span class="badge ${status}">${STATUS_LABEL[status]}</span>` : '';
+    return status && STATUS_LABEL[status] ? `<span class="badge ${status}">${atlasIcon(LOG_MARKERS_URL, LOG_MARKERS[status], 7)}${STATUS_LABEL[status]}</span>` : '';
   }
 
   // --- Modale Fenster --------------------------------------------------------
@@ -296,12 +305,13 @@ export class Ui {
     if (choices.filter((c) => !c.locked).length === 0) choices.push({ text: node.ending ? 'Weiter' : 'Ende' });
     this.dialogue.choices = choices;
     let n = 0;
-    const el = this.open('dialogue', `
+    const face = portrait(npc.id, node.mood);
+    const el = this.open('dialogue', `${face}
       <div class="speaker">${esc(npc.name)} <span class="role">${esc(npc.role ?? '')}</span></div>
       <div class="text">${paragraphs(text)}</div>
       <ol class="choices">${choices.map((c, i) => (c.locked
         ? `<li><button disabled class="locked">🔒 ${esc(c.text)} <span class="lockinfo">${esc(c.locked)}</span></button></li>`
-        : `<li><button data-i="${i}"><span class="key">${++n}</span> ${esc(c.text)}</button></li>`)).join('')}</ol>`, 'dialogue');
+        : `<li><button data-i="${i}"><span class="key">${++n}</span> ${esc(c.text)}</button></li>`)).join('')}</ol>`, `dialogue${face ? ' with-portrait' : ''}`);
     this.dialogue.keyMap = choices.map((c, i) => (c.locked ? null : i)).filter((i) => i !== null);
     el.querySelectorAll('[data-i]').forEach((b) => { b.onclick = () => this.choose(Number(b.dataset.i)); });
   }
@@ -332,7 +342,7 @@ export class Ui {
     this.travelDests = dests;
     const el = this.open('travel', `
       <h3>Stadtkarte von Kettlegate</h3>
-      <ol class="choices">${dests.map((d, i) => `<li><button data-i="${i}"><span class="key">${i + 1}</span> ${esc(d.name)} <span class="muted">${esc(d.desc)}</span></button></li>`).join('')}
+      <ol class="choices">${dests.map((d, i) => `<li><button data-i="${i}"><span class="key">${i + 1}</span> ${mapMarker(d.map)}${esc(d.name)} <span class="muted">${esc(d.desc)}</span></button></li>`).join('')}
       <li><button data-act="stay"><span class="key">Esc</span> Hierbleiben</button></li></ol>`, 'travel');
     el.querySelectorAll('[data-i]').forEach((b) => { b.onclick = () => this.travel(Number(b.dataset.i)); });
     el.querySelector('[data-act=stay]').onclick = () => this.close();

@@ -5,6 +5,7 @@
     "night": 0.7,
     "fog": 0.08
   },
+  "tiles": "tavern",
   "rows": [
     "IIIIIIIIIIIIIIIIIIII",
     "IIIIIIIIIIIIIIIIIIII",
@@ -118,6 +119,145 @@
           "dice"
         ]
       }
+    }
+  ],
+  "decor": [
+    {
+      "sprite": "table_stools",
+      "tile": [
+        9,
+        5
+      ],
+      "alpha": 1,
+      "offset": [
+        8,
+        0
+      ],
+      "ysort": true
+    },
+    {
+      "sprite": "table_stools",
+      "tile": [
+        14,
+        5
+      ],
+      "alpha": 1,
+      "offset": [
+        8,
+        0
+      ],
+      "ysort": true
+    },
+    {
+      "sprite": "table_stools",
+      "tile": [
+        9,
+        8
+      ],
+      "alpha": 1,
+      "offset": [
+        8,
+        0
+      ],
+      "ysort": true
+    },
+    {
+      "sprite": "table_stools",
+      "tile": [
+        14,
+        8
+      ],
+      "alpha": 1,
+      "offset": [
+        8,
+        0
+      ],
+      "ysort": true
+    },
+    {
+      "sprite": "fireplace",
+      "tile": [
+        10,
+        1
+      ],
+      "alpha": 1,
+      "origin": [
+        0.5,
+        1
+      ],
+      "offset": [
+        0,
+        8
+      ],
+      "depth": 60,
+      "light": {
+        "dy": -10,
+        "radius": 70,
+        "intensity": 0.9,
+        "flicker": 0.2
+      }
+    },
+    {
+      "sprite": "moon_sign",
+      "tile": [
+        4,
+        1
+      ],
+      "alpha": 1,
+      "depth": 60
+    },
+    {
+      "sprite": "chalkboard",
+      "tile": [
+        16,
+        1
+      ],
+      "alpha": 1,
+      "depth": 60
+    },
+    {
+      "sprite": "barrels_stacked",
+      "tile": [
+        18,
+        9
+      ],
+      "alpha": 1,
+      "origin": [
+        0.5,
+        1
+      ],
+      "offset": [
+        0,
+        8
+      ],
+      "ysort": true,
+      "solid": [
+        12,
+        8,
+        0,
+        -4
+      ]
+    },
+    {
+      "sprite": "creatures",
+      "tile": [
+        2,
+        10
+      ],
+      "alpha": 1,
+      "anim": [
+        "creatures",
+        "cat_blink"
+      ],
+      "ysort": true,
+      "origin": [
+        0.5,
+        1
+      ],
+      "offset": [
+        0,
+        7
+      ]
     }
   ]
 }

@@ -5,6 +5,7 @@
     "night": 0.84,
     "fog": 0.2
   },
+  "tiles": "warehouse",
   "rows": [
     "IIIIIIIIIIIIIIIIIIIIII",
     "IIIIIIIIIIIIIIIIIIIIII",
@@ -82,8 +83,136 @@
         10,
         6
       ],
-      "depth": 40,
-      "alpha": 0.6
+      "alpha": 0.85,
+      "depth": 40
+    },
+    {
+      "sprite": "altar_c",
+      "tile": [
+        10,
+        4
+      ],
+      "alpha": 1,
+      "offset": [
+        8,
+        0
+      ],
+      "ysort": true
+    },
+    {
+      "sprite": "robes",
+      "tile": [
+        6,
+        2
+      ],
+      "alpha": 1,
+      "origin": [
+        0.5,
+        1
+      ],
+      "offset": [
+        0,
+        8
+      ],
+      "ysort": true,
+      "solid": [
+        24,
+        8,
+        0,
+        -4
+      ]
+    },
+    {
+      "sprite": "chain_hoist",
+      "tile": [
+        15,
+        3
+      ],
+      "alpha": 1,
+      "origin": [
+        0.5,
+        1
+      ],
+      "offset": [
+        0,
+        8
+      ],
+      "ysort": true
+    },
+    {
+      "sprite": "overturned_chair",
+      "tile": [
+        6,
+        9
+      ],
+      "alpha": 1,
+      "ysort": true
+    },
+    {
+      "sprite": "crate_stack",
+      "tile": [
+        20,
+        9
+      ],
+      "alpha": 1,
+      "origin": [
+        0.5,
+        1
+      ],
+      "offset": [
+        0,
+        8
+      ],
+      "ysort": true,
+      "solid": [
+        12,
+        8,
+        0,
+        -4
+      ]
+    },
+    {
+      "sprite": "creatures",
+      "tile": [
+        5,
+        10
+      ],
+      "alpha": 1,
+      "anim": [
+        "creatures",
+        "rat"
+      ],
+      "ysort": true,
+      "origin": [
+        0.5,
+        1
+      ],
+      "offset": [
+        0,
+        7
+      ]
+    },
+    {
+      "sprite": "creatures",
+      "tile": [
+        16,
+        9
+      ],
+      "alpha": 1,
+      "anim": [
+        "creatures",
+        "rat"
+      ],
+      "ysort": true,
+      "origin": [
+        0.5,
+        1
+      ],
+      "offset": [
+        0,
+        7
+      ],
+      "flip": true
     }
   ],
   "npcs": [
