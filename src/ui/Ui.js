@@ -109,6 +109,15 @@ const lootHtml = (loot, items) => {
 // Stadtkarte und Enden. Text als HTML bleibt bei jeder Skalierung scharf.
 
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+const fmtLb = (v) => String(Math.round(v * 10) / 10).replace('.', ',');
+/** Tragkraft-Balken: Pfund getragen / Pfund möglich, rot bei Überlast. */
+const carryHtml = (s) => {
+  const w = s.carryWeight();
+  const cap = s.carryCapacity();
+  const heavy = w > cap;
+  return `<div class="carry ${heavy ? 'heavy' : ''}"><span>Last</span><div class="bar"><div class="cfill" style="width:${Math.min(100, (w / cap) * 100)}%"></div></div>
+    <em>${fmtLb(w)}/${fmtLb(cap)} Pfund</em>${heavy ? '<span class="curse">Überladen: halbes Tempo, kein schneller Weg</span>' : ''}</div>`;
+};
 const paragraphs = (s) => esc(s).split('\n\n').map((p) => `<p>${p.replace(/\n/g, '<br>')}</p>`).join('');
 
 export const STATUS_LABEL = { suspected: 'Vermutung', likely: 'sehr wahrscheinlich', refuted: 'widerlegt' };
@@ -135,6 +144,7 @@ export class Ui {
           <div class="meter digest hidden"><span>Verdaut</span><div class="bar"><div class="dfill"></div></div><em class="dnum"></em></div>
           <div class="meter unruhe hidden"><span>Unruhe</span><div class="bar"><div class="ufill"></div></div></div>
           <div class="money"></div>
+          <div class="overload hidden"></div>
           <div class="treffen hidden"></div>
           <div class="goal hidden"></div>
         </div>
@@ -220,6 +230,7 @@ export class Ui {
     }, 22000);
 
     ['track', 'changed', 'quest', 'clue', 'conclusion', 'travel'].forEach((ev) => state.on(ev, () => this.updateGoal()));
+    ['item', 'changed', 'pathway'].forEach((ev) => state.on(ev, () => this.updateLoad()));
     window.addEventListener('keydown', (e) => this.onKey(e), true);
     this.updateComposure(state.composure);
     this.updateHonor();
@@ -240,6 +251,7 @@ export class Ui {
     this.updateMoney();
     this.updateUnruhe();
     this.updateGoal();
+    this.updateLoad();
   }
 
   /** Wegweiser im HUD: nächster Schritt des verfolgten Auftrags. */
@@ -271,6 +283,15 @@ export class Ui {
     const frac = st.open ? (g.end - this.state.playTime) / Math.max(1, g.end - g.start) : 1;
     const timer = st.open ? atlasIcon(ZIRKEL_URL, 24 + Math.min(7, Math.max(0, Math.floor((1 - frac) * 8))), 8) : '';
     el.innerHTML = `${inv !== undefined ? atlasIcon(ZIRKEL_URL, 16 + inv, 8) : (st.open ? '◆' : '◇')}${timer} ${esc(st.text)}`;
+  }
+
+  /** HUD-Hinweis nur bei Überlast, damit die Anzeige sonst ruhig bleibt. */
+  updateLoad() {
+    const el = this.$('.overload');
+    if (!el) return;
+    const heavy = this.state.isOverloaded();
+    el.classList.toggle('hidden', !heavy);
+    if (heavy) el.textContent = `Überladen · ${this.state.carryText()}`;
   }
 
   updateMoney() {
@@ -610,7 +631,7 @@ export class Ui {
       <button class="mode safe" data-mode="sicher">${modeIcon('sicher')}<b><span class="key">1</span> ${esc(safe.name)}</b>
         <span class="muted">${esc(safe.desc)}</span><span class="gain">+${Math.round(s.maxHp * safe.heal_pct)} Leben · +${safe.nerves} Nerven · Journal</span></button>
       <button class="mode fast" data-mode="schnell" ${hurry ? '' : 'disabled'}>${modeIcon('schnell')}<b><span class="key">2</span> ${esc(fast.name)}</b>
-        <span class="muted">${esc(fast.desc)}</span><span class="cost">${hurry ? `−${fast.nerves_cost} Nerven · Monster · Beute` : `Zu wenig Nerven (mind. ${fast.nerves_cost})`}</span></button>`;
+        <span class="muted">${esc(fast.desc)}</span><span class="cost">${hurry ? `−${fast.nerves_cost} Nerven · Monster · Beute` : s.isOverloaded() ? `Zu schwer beladen (${s.carryText()})` : `Zu wenig Nerven (mind. ${fast.nerves_cost})`}</span></button>`;
     modes.querySelectorAll('[data-mode]').forEach((b) => { b.onclick = () => this.travelMode(b.dataset.mode); });
     el.querySelector('[data-act=stay] .key').nextSibling.textContent = ' Anderes Ziel';
   }
@@ -707,6 +728,13 @@ export class Ui {
     el.querySelector('[data-act=hint]')?.addEventListener('click', () => this.showHint());
     el.querySelectorAll('[data-use]').forEach((b) => { b.onclick = () => this.renderNotebook(esc(this.state.useItem(b.dataset.use) ?? '')); });
     el.querySelectorAll('[data-equip]').forEach((b) => { b.onclick = () => { this.state.equip(b.dataset.equip); this.renderNotebook(''); }; });
+    // Wegwerfen braucht einen zweiten Klick, damit nichts aus Versehen verschwindet
+    el.querySelectorAll('[data-drop]').forEach((b) => {
+      b.onclick = () => {
+        if (!b.classList.contains('armed')) { b.classList.add('armed'); b.textContent = 'Wegwerfen?'; return; }
+        this.renderNotebook(esc(this.state.dropItem(b.dataset.drop, 1).text));
+      };
+    });
     el.querySelectorAll('[data-drink]').forEach((b) => { b.onclick = () => this.drink(b.dataset.drink); });
     el.querySelector('[data-ritual]')?.addEventListener('click', () => {
       const r = this.state.performRitual();
@@ -786,6 +814,9 @@ export class Ui {
       } else if (it.kind === 'ingredient') action = '<span class="muted">Zutat</span>';
       else if (it.kind === 'trophy') action = `<span class="muted rar-${itemRarity(it)}">Beutestück · ${RARITY_NAMES[itemRarity(it)]}</span>`;
       if (!action && it.inspect) action = `<button class="small" data-inspect="${it.id}">Untersuchen</button>`;
+      const wt = s.itemWeight(it.id);
+      if (wt > 0) action += `${action ? '<br>' : ''}<span class="muted weight">${fmtLb(wt * it.count)} Pfd.</span>`;
+      if (s.canDrop(it.id) && !(it.kind === 'artifact' && s.isArtifactActive(it.id)) && !(it.kind === 'weapon' && s.weapon === it.id)) action += ` <button class="small drop" data-drop="${it.id}" title="Wegwerfen (eins)">×</button>`;
       const stat = it.kind === 'weapon' ? ` <span class="muted">Angriff ${it.atk}${it.occult ? ', stark gegen Okkultes' : ''}</span>` : '';
       const effects = it.kind === 'artifact' ? artifactEffectsHtml(it) : '';
       return `<li class="item"><div>${it.kind === 'potion' || it.kind === 'formula' ? itemIconBig(it.id) : itemIcon(it.id)}<strong>${esc(it.name)}</strong>${it.count > 1 ? ` ×${it.count}` : ''}${stat}<br><span class="desc">${esc(it.desc)}</span>${effects}</div><div>${action}</div></li>`;
@@ -793,6 +824,7 @@ export class Ui {
     const arts = s.artifacts.length || list.some((it) => it.kind === 'artifact')
       ? `<div class="status">Artefakte angelegt <strong>${s.artifacts.length}/${s.artifactRules().max_active ?? 3}</strong>${s.artifactUnruhe() ? ` · <span class="curse">Unruhe +${Math.round(s.artifactUnruhe() * 10) / 10} pro Sekunde</span>` : ''} · Anlegen bringt Unruhe, Ablegen kostet Nerven.</div>` : '';
     return `
+      ${carryHtml(s)}
       <div class="status">Leben <strong>${s.hp}/${s.maxHp}</strong> · Nerven <strong>${Math.round(s.composure)}/${s.maxComposure()}</strong> · Waffe <strong>${esc(w.name)}</strong> (Angriff ${w.atk}) · ${coin}<strong>${s.money}</strong> Schilling</div>
       ${arts}
       <ul class="items">${rows || '<li class="empty">Deine Taschen sind leer.</li>'}</ul>`;
@@ -1107,30 +1139,34 @@ export class Ui {
 
   // --- Eigenes Büro: Lagerschrank und Fallwand -------------------------------------------
 
-  /** Zwei Spalten: was du dabeihast und was im Schrank liegt. */
-  openStorage(feedback = '') {
+  /** Zwei Spalten: was du dabeihast und was im Lager liegt. where: 'buero' oder ein anderes Versteck. */
+  openStorage(feedback = '', where = 'buero', title = null) {
     const s = this.state;
-    const row = (it, act, label, all) => `<li class="item"><div>${itemIcon(it.id)}<strong>${esc(it.name)}</strong>${it.count > 1 ? ` ×${it.count}` : ''}</div>
+    const own = where === 'buero';
+    const row = (it, act, label, all) => `<li class="item"><div>${itemIcon(it.id)}<strong>${esc(it.name)}</strong>${it.count > 1 ? ` ×${it.count}` : ''}${s.itemWeight(it.id) ? ` <span class="muted weight">${fmtLb(s.itemWeight(it.id) * it.count)} Pfd.</span>` : ''}</div>
       <div><button class="small" data-${act}="${it.id}">${label}</button>${it.count > 1 ? ` <button class="small" data-${act}-all="${it.id}">${all}</button>` : ''}</div></li>`;
-    const carried = s.items().filter((it) => s.canStore(it.id));
-    const stored = s.storedItems();
+    // Schwerstes zuerst: das will man meistens loswerden
+    const heavy = (a, b) => s.itemWeight(b.id) * b.count - s.itemWeight(a.id) * a.count;
+    const carried = s.items().filter((it) => s.canStore(it.id)).sort(heavy);
+    const stored = s.storedItems(where).sort(heavy);
     const el = this.open('storage', `
-      <h3>Asservatenschrank <span class="muted">Dein Büro im Revier</span></h3>
+      <h3>${own ? 'Asservatenschrank <span class="muted">Dein Büro im Revier</span>' : esc(title ?? 'Versteck')}</h3>
       <p class="lead">Was hier liegt, ist sicher, auch wenn du unterwegs ohnmächtig wirst oder ausgeraubt wirst. Beweisstücke bleiben bei dir.</p>
+      ${carryHtml(s)}
       <div class="storage">
         <div><h4>Bei dir</h4><ul class="items">${carried.map((it) => row(it, 'store', 'Einlagern', 'Alle')).join('') || '<li class="empty">Nichts zum Einlagern.</li>'}</ul></div>
-        <div><h4>Im Schrank</h4><ul class="items">${stored.map((it) => row(it, 'take', 'Nehmen', 'Alle')).join('') || '<li class="empty">Der Schrank ist leer.</li>'}</ul></div>
+        <div><h4>${own ? 'Im Schrank' : 'Im Versteck'}</h4><ul class="items">${stored.map((it) => row(it, 'take', 'Nehmen', 'Alle')).join('') || `<li class="empty">${own ? 'Der Schrank ist leer.' : 'Hier liegt nichts.'}</li>`}</ul></div>
       </div>
       <div class="feedback">${feedback}</div>
       <div class="actions"><button data-act="close">Schließen <span class="key">Esc</span></button></div>`, 'notebook shop storage-panel');
-    const act = (fn) => (b) => {
-      const r = fn(b);
-      this.openStorage(`<span class="${r.ok ? 'good' : ''}">${esc(r.text)}</span>`);
+    const act = (fn) => () => {
+      const r = fn();
+      this.openStorage(`<span class="${r.ok ? 'good' : ''}">${esc(r.text)}</span>`, where, title);
     };
-    el.querySelectorAll('[data-store]').forEach((b) => { b.onclick = () => act(() => s.storeItem(b.dataset.store, 1))(b); });
-    el.querySelectorAll('[data-store-all]').forEach((b) => { b.onclick = () => act(() => s.storeItem(b.dataset.storeAll, s.itemCount(b.dataset.storeAll)))(b); });
-    el.querySelectorAll('[data-take]').forEach((b) => { b.onclick = () => act(() => s.retrieveItem(b.dataset.take, 1))(b); });
-    el.querySelectorAll('[data-take-all]').forEach((b) => { b.onclick = () => act(() => s.retrieveItem(b.dataset.takeAll, s.storedCount(b.dataset.takeAll)))(b); });
+    el.querySelectorAll('[data-store]').forEach((b) => { b.onclick = act(() => s.storeItem(b.dataset.store, 1, where)); });
+    el.querySelectorAll('[data-store-all]').forEach((b) => { b.onclick = act(() => s.storeItem(b.dataset.storeAll, s.itemCount(b.dataset.storeAll), where)); });
+    el.querySelectorAll('[data-take]').forEach((b) => { b.onclick = act(() => s.retrieveItem(b.dataset.take, 1, where)); });
+    el.querySelectorAll('[data-take-all]').forEach((b) => { b.onclick = act(() => s.retrieveItem(b.dataset.takeAll, s.storedCount(b.dataset.takeAll, where), where)); });
     el.querySelector('[data-act=close]').onclick = () => this.close();
   }
 

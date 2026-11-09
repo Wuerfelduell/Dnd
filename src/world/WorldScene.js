@@ -10,6 +10,7 @@ export const VIEW_W = 480;
 export const VIEW_H = 270;
 
 const PLAYER_SPEED = 72;
+const OVERLOAD_SPEED = 0.5; // zu schwer beladen: halbes Tempo
 const INTERACT_RANGE = 22;
 const DIRS = ['down', 'left', 'right', 'up'];
 
@@ -828,7 +829,7 @@ export class WorldScene extends Phaser.Scene {
       vx = (k.RIGHT.isDown || k.D.isDown ? 1 : 0) - (k.LEFT.isDown || k.A.isDown ? 1 : 0);
       vy = (k.DOWN.isDown || k.S.isDown ? 1 : 0) - (k.UP.isDown || k.W.isDown ? 1 : 0);
     }
-    const v = new Phaser.Math.Vector2(vx, vy).normalize().scale(PLAYER_SPEED);
+    const v = new Phaser.Math.Vector2(vx, vy).normalize().scale(PLAYER_SPEED * (this.state.isOverloaded() ? OVERLOAD_SPEED : 1));
     this.player.setVelocity(v.x, v.y);
     if (vx || vy) {
       this.facing = Math.abs(vx) > Math.abs(vy) ? (vx > 0 ? 'right' : 'left') : vy > 0 ? 'down' : 'up';
@@ -970,7 +971,7 @@ export class WorldScene extends Phaser.Scene {
         break;
       case 'storage':
         this.playPlayerAction('pickup');
-        this.ui.openStorage();
+        this.ui.openStorage('', def.store ?? 'buero', def.store_title);
         break;
       case 'casewall':
         this.ui.showCaseWall();
