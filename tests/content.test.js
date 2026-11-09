@@ -120,6 +120,7 @@ test('Gegenstände und Kämpfe sind vollständig', () => {
   for (const [id, it] of Object.entries(content.items)) {
     assert.ok(['weapon', 'consumable', 'key', 'potion', 'formula', 'ingredient'].includes(it.kind), `${id}: Art ${it.kind}`);
     if (it.kind === 'weapon') assert.ok(it.atk > 0, `${id}: Angriff`);
+    if (it.inspect) assert.ok(content.dialogues[it.inspect], `${id}: Untersuchen-Dialog ${it.inspect}`);
     if (it.kind === 'consumable') assert.ok(it.heal || it.composure || it.damage || it.calm, `${id}: Wirkung`);
   }
   for (const [id, e] of Object.entries(content.encounters)) {

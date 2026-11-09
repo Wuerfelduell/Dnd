@@ -1,8 +1,9 @@
 import { DIGEST_LABELS } from '../core/Pathways.js';
 import {
   itemIconUrl, itemIcon32Url, pathwayEmblemUrl, pathwayCardUrl, COIN_URL, SKILL_ICONS, SKILL_ICONS_URL, STATUS_ICONS, STATUS_ICONS_URL,
-  portraitUrl, PORTRAIT_MOODS, MAP_MARKERS, MAP_MARKERS_URL, LOG_MARKERS, LOG_MARKERS_URL,
+  portraitUrl, PORTRAIT_MOODS, MAP_MARKERS, MAP_MARKERS_URL, LOG_MARKERS, LOG_MARKERS_URL, SOURCE_ICONS,
 } from '../world/assets.js';
+import { sourceOf } from '../core/sources.js';
 
 /** 16x16-Icon vor einem Item-Namen. Lädt es nicht, verschwindet es einfach. */
 const itemIcon = (id) => `<img class="item-icon" src="${itemIconUrl(id)}" alt="" width="16" height="16" onerror="this.remove()">`;
@@ -21,6 +22,16 @@ const portrait = (id, mood) => {
   if (!url) return '';
   const col = PORTRAIT_MOODS[mood] ?? 0;
   return `<div class="portrait" style="background-image:url(${url});background-position:${(col / 3) * 100}% 0"></div>`;
+};
+/** Kleines Quellenbild im Notizbuch: Gesicht der erzählenden Person, sonst ein Symbol. */
+const SOURCE_LABEL = { observation: 'Eigene Beobachtung', vision: 'Geistsicht', police: 'Polizeibericht', archive: 'Akte', note: 'Gelesen', object: 'Spur am Ort', npc: 'Aussage' };
+const sourceFace = (content, clue) => {
+  const src = sourceOf(content, clue);
+  const title = esc(`${clue.source} (${SOURCE_LABEL[src.type]})`);
+  const face = src.type === 'npc' ? portraitUrl(src.npc) : src.type === 'observation' ? portraitUrl('player') : null;
+  if (face) return `<span class="srcface face" title="${title}" style="background-image:url(${face})"></span>`;
+  const [url, cell, cols] = SOURCE_ICONS[src.type] ?? SOURCE_ICONS.object;
+  return `<span class="srcface icon" title="${title}" style="background-image:url(${url});background-size:${cols * 100}% 100%;background-position:${(cell / (cols - 1)) * 100}% 0"></span>`;
 };
 const coin = '<img class="coin" src="' + COIN_URL + '" alt="" width="16" height="16" onerror="this.remove()">';
 
@@ -269,9 +280,9 @@ export class Ui {
     el.querySelector('[data-act=continue]')?.addEventListener('click', this.titleContinue);
   }
 
-  showMessage(title, text, { footer = '', extra = '' } = {}) {
+  showMessage(title, text, { footer = '', extra = '', face = '' } = {}) {
     const el = this.open('message', `
-      <h3>${esc(title)}</h3>
+      <h3>${face}${esc(title)}</h3>
       <div class="text">${paragraphs(text)}</div>
       ${extra}
       ${footer ? `<div class="footer">${esc(footer)}</div>` : ''}
@@ -285,7 +296,7 @@ export class Ui {
     const status = s.factStatus(clue.fact);
     const n = s.factSources(clue.fact).length;
     const extra = `<div class="factline">${this.badge(status)} ${esc(s.fact(clue.fact).text)} <span class="muted">(${n} ${n === 1 ? 'Quelle' : 'Quellen'})</span></div>`;
-    this.showMessage(clue.name, clue.text, { extra, footer: isNew ? `Quelle: ${clue.source}. Im Notizbuch vermerkt.` : 'Steht bereits in deinem Notizbuch.' });
+    this.showMessage(clue.name, clue.text, { extra, face: sourceFace(s.content, clue), footer: isNew ? `Quelle: ${clue.source}. Im Notizbuch vermerkt.` : 'Steht bereits in deinem Notizbuch.' });
   }
 
   // --- Dialoge --------------------------------------------------------------
@@ -303,6 +314,7 @@ export class Ui {
     const node = tree.nodes[nodeId];
     if (!node) throw new Error(`Dialogknoten fehlt: ${npc.dialogue}.${nodeId}`);
     s.applyEffects(node);
+    if (node.combat) this.dialogue.combat = true;
     s.visitNode(npc.dialogue, nodeId);
     let text = node.text;
     if (node.pathway_report) text += `\n\n${s.pathwayReport()}`;
@@ -349,10 +361,10 @@ export class Ui {
     }
     const next = this.state.pick(choice.next);
     if (next) { this.showNode(next); return; }
-    const { onClose } = this.dialogue;
+    const { onClose, combat } = this.dialogue;
     this.dialogue = null;
     this.close();
-    onClose?.();
+    onClose?.({ combat: !!combat });
   }
 
   // --- Stadtkarte ----------------------------------------------------------------
@@ -413,8 +425,17 @@ export class Ui {
     el.querySelectorAll('[data-use]').forEach((b) => { b.onclick = () => this.renderNotebook(esc(this.state.useItem(b.dataset.use) ?? '')); });
     el.querySelectorAll('[data-equip]').forEach((b) => { b.onclick = () => { this.state.equip(b.dataset.equip); this.renderNotebook(''); }; });
     el.querySelectorAll('[data-drink]').forEach((b) => { b.onclick = () => this.drink(b.dataset.drink); });
+    el.querySelectorAll('[data-inspect]').forEach((b) => { b.onclick = () => this.inspectItem(b.dataset.inspect); });
     el.querySelectorAll('[data-recipe]').forEach((b) => { b.onclick = () => { this.tab = 'pfad'; this.renderNotebook(''); }; });
     el.querySelector('[data-act=close]').onclick = () => this.close();
+  }
+
+  /** Fundstück untersuchen: eigener Dialog mit Risiko (Unruhe, Verletzung, Kampf) und möglichen Bonus-Hinweisen. */
+  inspectItem(id) {
+    const it = this.state.item(id);
+    this.openDialogue({ name: it.name, role: 'Fundstück', dialogue: it.inspect }, ({ combat } = {}) => {
+      if (!combat && !this.modal) this.openNotebook('items');
+    });
   }
 
   questsHtml() {
@@ -447,6 +468,7 @@ export class Ui {
         action = chk.ok ? `<button class="small" data-drink="${it.id}">Trinken</button><br><span class="muted">Risiko ${Math.round(chk.risk * 100)} %</span>` : '<span class="muted">nicht trinkbar</span>';
       } else if (it.kind === 'formula') action = '<button class="small" data-recipe="1">Rezept</button>';
       else if (it.kind === 'ingredient') action = '<span class="muted">Zutat</span>';
+      if (!action && it.inspect) action = `<button class="small" data-inspect="${it.id}">Untersuchen</button>`;
       const stat = it.kind === 'weapon' ? ` <span class="muted">Angriff ${it.atk}${it.occult ? ', stark gegen Okkultes' : ''}</span>` : '';
       return `<li class="item"><div>${it.kind === 'potion' || it.kind === 'formula' ? itemIconBig(it.id) : itemIcon(it.id)}<strong>${esc(it.name)}</strong>${it.count > 1 ? ` ×${it.count}` : ''}${stat}<br><span class="desc">${esc(it.desc)}</span></div><div>${action}</div></li>`;
     }).join('');
@@ -480,7 +502,7 @@ export class Ui {
     const total = s.content.deductions.filter((d) => d.case === caseId && d.honor !== 0).length;
     const detailId = this.selected[this.selected.length - 1];
     const detail = detailId
-      ? `<strong>Quellen:</strong><ul class="sources">${s.factSources(detailId).map((c) => `<li><em>${esc(s.clue(c).source)}:</em> ${esc(s.clue(c).text)}</li>`).join('')}</ul>`
+      ? `<strong>Quellen:</strong><ul class="sources">${s.factSources(detailId).map((c) => `<li>${sourceFace(s.content, s.clue(c))}<div><em>${esc(s.clue(c).source)}:</em> ${esc(s.clue(c).text)}</div></li>`).join('')}</ul>`
       : 'Klicke eine Information an, um ihre Quellen zu sehen. Ab zwei Quellen gilt sie als sehr wahrscheinlich. Wähle zwei Informationen und verknüpfe sie.';
     return `
       <div class="cols">

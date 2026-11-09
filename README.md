@@ -6,7 +6,7 @@ Ermitteln, Gespräche und das Verknüpfen von Hinweisen, nicht Kämpfe.
 
 ![Screenshot](docs/screenshot.png)
 
-**Stand:** spielbarer Prototyp mit vier zusammenhängenden Fällen, einundzwanzig Nebenaufträgen,
+**Stand:** spielbarer Prototyp mit vier zusammenhängenden Fällen, zweiundzwanzig Nebenaufträgen,
 fünfzehn Orten (Polizeirevier, Ashgrove Lane mit Hinterhof, Taverne „Zum Ertrunkenen Mond“, Altmarkt,
 Nachtmarkt, Friedhof St. Ebba, Krypta, Kanalhafen, Lagerhaus 7, Nordtor-Viertel, Lumen-Theater, Uhrturm,
 alte Gaskanäle, Schlachthof, Sternwarte am Krater), Inventar, Leben,
@@ -66,6 +66,11 @@ Auf dem **Nachtmarkt** unter der Krähenbrücke (Stadtkarte) kann man aufsteigen
 - **Nicht alles ist wahr**: Eine Information mit einer Quelle ist nur eine
   *Vermutung*. Erst ab **zwei unabhängigen Quellen** gilt sie als *sehr wahrscheinlich*.
   Auch die Polizei liegt manchmal falsch; solche Infos werden durch Gegenbeweise *widerlegt*.
+- Im Notizbuch steht bei jeder Quelle, **woher** sie stammt: das Gesicht der Person, die es erzählt hat,
+  dein eigenes bei Beobachtungen, sonst ein Symbol für Gelesenes, Akten, Polizeiberichte oder Geistsicht.
+- **Fundstücke untersuchen**: Manche Gegenstände (Gesangbuch, Glocke, Stimmphiole, Sternglas,
+  Spiegelscherbe) lassen sich im Inventar untersuchen. Das kann Bonus-Hinweise bringen, kostet aber
+  Nerven oder Unruhe, kann verletzen oder einen Kampf auslösen. Ruhige Nerven senken das Risiko.
 - **Verknüpfen**: Im Notizbuch kombinierst du zwei Informationen zu einer
   **Schlussfolgerung**. Sie ist *gesichert*, wenn beide Informationen sehr wahrscheinlich sind.
   Für eine Auflösung wollen Price und Marlowe gesicherte Schlussfolgerungen sehen.
@@ -115,6 +120,9 @@ Veys Chor ist noch nicht ganz verstummt.
 Am Nordtor: **Die Kröte im Kanal**, **Das Uhrwerk schweigt nicht**, **Der Maskenspieler** und **Leere Haken**
 (zweimal ist der Lehrling Finn der bequeme Verdächtige) sowie **Gestohlenes Sternglas** in der Sternwarte.
 
+Nach Fall 3: **Das verschwundene Gesangbuch**. Miss Pimm vermisst ein Asservat aus St. Ebba, Mr. Quill hat es
+in der Vitrine. Man soll es nicht aufschlagen. Man kann es aber.
+
 ## Technik
 
 - [Phaser 3](https://phaser.io) (2D-Engine, WebGL) + [Vite](https://vitejs.dev) (Dev-Server & Build).
@@ -154,7 +162,12 @@ Alles Inhaltliche liegt als JSON in `src/data/`. Bedingungen funktionieren über
 `requires_likely` (≥ 2 Quellen), `requires_conclusions`, `requires_certain`, `requires_flags`,
 `requires_honor`, `max_honor`, `requires_quests_active`, `requires_items`, `hide_if_*`. Effekte genauso:
 `gives_clues`, `sets_flags`, `start_quests`, `complete_quests`, `honor`, `gives_items`, `takes_items`,
-`heal`, `combat` (startet einen Kampf), `ending`. Kartenobjekte mit `"kind": "combat"` sind Gegner,
+`heal`, `combat` (startet einen Kampf), `ending`, `damage` (nie tödlich), `nerves`, `unruhe`
+(trifft nur Beyonder, sonst Nerven). Bedingungen `requires_nerves`/`max_nerves` prüfen die Nerven, und eine
+Variante in `next`/`start` mit `"chance": 0.6` greift nur mit dieser Wahrscheinlichkeit. Gegenstände mit
+`"inspect": "<dialog>"` bekommen im Inventar den Button „Untersuchen“ (Dialoge in `dialogues/fundstuecke.json`).
+Hinweise können mit `"by"` (Figuren-ID oder `note`, `vision`, `police` …) ihr Quellenbild festlegen, sonst
+errät `core/sources.js` es aus dem Quellennamen. Kartenobjekte mit `"kind": "combat"` sind Gegner,
 `"auto"` löst sie beim Näherkommen aus, `"kind": "rest"` heilt.
 `npm test` meldet kaputte Verweise und prüft, dass beide Fälle lösbar bleiben.
 

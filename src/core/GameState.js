@@ -43,6 +43,7 @@ export class GameState {
     this.inventory = { ...(s.items ?? {}) }; // id -> Anzahl
     this.weapon = s.weapon ?? null;
     this.pendingCombat = null;
+    this.random = Math.random; // in Tests austauschbar
     for (const q of s.quests ?? []) this.quests[q] = 'active';
     this.resetPathway();
   }
@@ -212,14 +213,17 @@ export class GameState {
       (o.requires_money === undefined || this.money >= o.requires_money) &&
       (o.requires_money_below === undefined || this.money < o.requires_money_below) &&
       (o.requires_beyonder === undefined || this.isBeyonder() === o.requires_beyonder) &&
-      none(o.hide_if_items, (i) => this.itemCount(i) > 0)
+      none(o.hide_if_items, (i) => this.itemCount(i) > 0) &&
+      (o.requires_nerves === undefined || this.composure >= o.requires_nerves) &&
+      (o.max_nerves === undefined || this.composure < o.max_nerves)
     );
   }
 
   /** Erste passende Variante aus einer Liste [{node, ...bedingungen}] oder ein fester String. */
   pick(spec) {
     if (typeof spec === 'string' || spec === undefined || spec === null) return spec;
-    return spec.find((v) => this.meets(v))?.node;
+    // "chance" (0..1) macht eine Variante zum Wagnis: sie greift nur mit dieser Wahrscheinlichkeit.
+    return spec.find((v) => this.meets(v) && (v.chance === undefined || this.random() < v.chance))?.node;
   }
 
   /** Wendet Effekte an (Dialogknoten, Objekte, Enden). Gibt die neuen Hinweise zurück. */
@@ -238,6 +242,10 @@ export class GameState {
     if (e.gives_money) this.addMoney(e.gives_money, { loot: true, reason: e.honor_reason ?? '' });
     if (e.takes_money) this.addMoney(-e.takes_money);
     if (e.ending) this.setEnding(e.ending);
+    if (e.damage) this.damage(Math.min(e.damage, this.hp - 1)); // außerhalb des Kampfes nie tödlich
+    if (e.nerves) this.setComposure(this.composure + e.nerves);
+    // Unruhe trifft nur Beyonder; wer keinen Trank hat, verliert stattdessen Nerven.
+    if (e.unruhe) { if (this.isBeyonder()) this.setUnruhe(this.unruhe + e.unruhe); else this.setComposure(this.composure - e.unruhe); }
     if (e.combat) this.startCombat(e.combat);
     if (gained.length || e.sets_flags || e.start_quests || e.complete_quests || e.honor || e.gives_items || e.takes_items || e.gives_money || e.takes_money) this.emit('changed');
     return gained;

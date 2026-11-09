@@ -164,7 +164,12 @@ body { display: grid; place-items: center; }
 .notebook .fact.sel { border-color: var(--occult); }
 .notebook .fact.refuted { text-decoration: line-through; opacity: 0.6; }
 .notebook .fact .src { float: right; color: var(--muted); }
-.notebook .sources { margin: 0.3em 0 0; padding-left: 1em; display: grid; gap: 0.2em; list-style: disc; }
+.srcface { display: inline-block; flex: none; width: 2.6em; height: 2.6em; image-rendering: pixelated; background-repeat: no-repeat;
+  border: 0.125em solid #2a2630; background-color: #0000004d; vertical-align: middle; }
+.srcface.face { background-size: 400% 100%; background-position: 0 0; }
+.panel.message h3 .srcface { margin-right: 0.4em; vertical-align: -0.45em; }
+.notebook .sources li { display: flex; gap: 0.5em; align-items: flex-start; }
+.notebook .sources { margin: 0.3em 0 0; padding: 0; display: grid; gap: 0.35em; list-style: none; }
 .notebook .sources em { color: var(--gold); font-style: normal; }
 
 .quests { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.6em; }

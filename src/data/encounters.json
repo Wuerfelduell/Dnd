@@ -373,7 +373,10 @@
     "on_win": {
       "sets_flags": [
         "mirror_banished"
-      ]
+      ],
+      "gives_items": {
+        "spiegelscherbe": 1
+      }
     },
     "on_lose": {},
     "lose_text": "Du sitzt auf dem Pflaster vor Quills Laden. Im Spiegel steht noch immer jemand, der aussieht wie du, und wartet.",
@@ -685,5 +688,58 @@
     },
     "lose_text": "Die Stimmen drücken dich zu Boden, bis du nichts mehr hörst. Du wachst am Fuß der Treppe auf. Oben singt es noch.",
     "win_text": "Felix sinkt gegen ein Zahnrad. Die fremden Stimmen verstummen, nur seine eigene bleibt, brüchig und klein. „Sie hat mich nie gehört“, flüstert er. „Kein einziges Mal.“"
+  },
+  "gesangbuchgeist": {
+    "name": "Chor der Seiten",
+    "sprite": "apparition",
+    "occult": true,
+    "fleeable": true,
+    "hp": 32,
+    "intro": "Die Seiten blättern von selbst. Aus den Noten steigt Nebel und formt einen Mund, dann sieben. Sie singen alle denselben Ton.",
+    "attacks": [
+      {
+        "name": "Falscher Ton",
+        "damage": 4,
+        "hits": [
+          700,
+          1000
+        ]
+      },
+      {
+        "name": "Kanon",
+        "damage": 3,
+        "hits": [
+          500,
+          800,
+          1100,
+          1400
+        ]
+      },
+      {
+        "name": "Schlussakkord",
+        "damage": 9,
+        "hits": [
+          1800
+        ]
+      }
+    ],
+    "weak_if": {
+      "requires_clues": [
+        "hymnal_list"
+      ]
+    },
+    "weak_text": "Du liest die Namen aus dem Einband laut vor. Der Chor gerät aus dem Takt, die Münder zerfasern.",
+    "on_win": {
+      "sets_flags": [
+        "hymnal_ghost_banished",
+        "hymnal_read"
+      ],
+      "gives_clues": [
+        "hymnal_ash"
+      ]
+    },
+    "on_lose": {},
+    "lose_text": "Du wachst mit dem Buch auf dem Schoß auf. Es ist zugeklappt. Dein Hals tut weh, als hättest du stundenlang gesungen.",
+    "win_text": "Der Nebel sinkt zurück zwischen die Seiten. Auf der letzten ist etwas stehen geblieben, das vorher nicht da war."
   }
 }
