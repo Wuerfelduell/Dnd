@@ -13,7 +13,7 @@ const data = join(root, 'src/data');
 const read = p => JSON.parse(readFileSync(p, 'utf8'));
 const load = p => read(join(data, p));
 const files = dir => readdirSync(dir, { withFileTypes: true }).flatMap(e => e.isDirectory() ? files(join(dir, e.name)) : [join(dir, e.name)]);
-const sourceFiles = files(data).filter(p => p.endsWith('.json'));
+const sourceFiles = files(data).filter(p => p.endsWith('.json') && !p.includes('/packs/lore/'));
 const sources = sourceFiles.map(read);
 const content = buildContent({
   campaign: load('campaign.json'), quests: load('quests.json'), items: load('items.json'), encounters: load('encounters.json'),
@@ -23,8 +23,9 @@ const content = buildContent({
   pathways: load('pathways.json'), market: load('market.json'), travel: load('travel.json'), wilds: load('wilds.json'),
   factions: load('factions.json'), buildings: load('gebaeude.json'), gatherings: load('treffen.json'), city: load('stadtgegner.json'), wexmoor: load('wexmoor.json'),
 });
-const packageFiles = files(here).filter(p => p.endsWith('.json'));
-const docs = Object.fromEntries(packageFiles.map(p => [p.slice(here.length + 1), read(p)]));
+const pkgDir = join(root, 'src/data/packs/lore'); // seit dem Einbau dort
+const packageFiles = files(pkgDir).filter(p => p.endsWith('.json'));
+const docs = Object.fromEntries(packageFiles.map(p => [p.slice(pkgDir.length + 1), read(p)]));
 const expectedFiles = ['bestiarium.json', 'gerede.json', 'item_texte.json', 'lesestuecke.json', 'zeitungen.json'];
 assert.deepEqual(Object.keys(docs).sort(), expectedFiles.sort(), 'Unerwartete/fehlende Datendatei: Schema ergänzen');
 const news = docs['zeitungen.json'], readings = docs['lesestuecke.json'], gossip = docs['gerede.json'];

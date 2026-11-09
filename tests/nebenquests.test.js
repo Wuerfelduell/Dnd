@@ -67,3 +67,28 @@ test('Paket AB: Fahndung senken, Zunders Vertrauen und die Wirkungen des Kahn-Au
   assert.equal(s.kahnRestBonus(), 5);
   assert.equal(Math.round(s.unruhe), 7);
 });
+
+test('Paket AD: Itemtexte, Lesestücke, Bestiarium und Gerede sind im Spiel', () => {
+  assert.ok(content.items.schlagstock.desc.startsWith('Am Griff glänzt'));
+  assert.ok(content.maps.revier.interactables.some((i) => i.id === 'lore_staubordnung'));
+  assert.ok(content.bestiaryTexts.sparring.hinweis);
+  assert.ok(content.gossip.kettlegate.altmarkt.length > 3);
+  assert.equal(content.newspapers.length, 42);
+});
+
+test('Paket AD: eine Zeitungsausgabe erscheint mit dem Fallende und bleibt im Archiv', () => {
+  const s = new GameState(content);
+  const seen = [];
+  s.on('newspaper', (p) => seen.push(p.id));
+  s.applyEffects({ sets_flags: ['case_01_closed', 'elias_rescued'] });
+  assert.deepEqual(seen, ['lore_kurier_c1_good']);
+  const save = JSON.parse(JSON.stringify(s.serialize(null)));
+  const t = new GameState(content);
+  t.load(save);
+  assert.deepEqual(t.paperArchive().map((p) => p.id), ['lore_kurier_c1_good']);
+  // Alte Spielstände ohne Archiv bekommen die schon passenden Ausgaben still nachgetragen
+  delete save.papers;
+  const u = new GameState(content);
+  u.load(save);
+  assert.equal(u.papers.length, 1);
+});
