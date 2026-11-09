@@ -1,0 +1,1099 @@
+{
+  "factions": {
+    "rostbrueder": {
+      "name": "Rostbrüder",
+      "full": "Die Rostbrüder",
+      "pathway": "eisen",
+      "sigil": "Ein Anker in einem Ring aus Kettengliedern",
+      "motto": "Das Fleisch rostet, das Eisen bleibt.",
+      "desc": "Eine Bruderschaft von Hafenarbeitern am Ankerhof. Sie trinken Rostwasser, bis ihre Haut grau wird, und glauben, dass nur wer zu Eisen wird, Kettlegate überlebt. Ihr Kettengeld nehmen sie von denen, die noch Fleisch sind.",
+      "ranks": [
+        "Kettenträger",
+        "Hakenwerfer",
+        "Rostschmied",
+        "Rostvater"
+      ]
+    },
+    "schleierschwestern": {
+      "name": "Schleierschwestern",
+      "full": "Die Schleierschwestern",
+      "pathway": "maske",
+      "sigil": "Eine halbe Porzellanmaske hinter einem grauen Schleier",
+      "motto": "Ein Gesicht ist nur geliehen.",
+      "desc": "Frauen, die Gesichter tragen, die ihnen nicht gehören. Sie nehmen den Platz von Dienstmädchen, Gouvernanten und Schreiberinnen ein, sammeln Geheimnisse und verkaufen sie an jeden, der zahlt. Ihr Haus ist eine Putzmacherei am Altmarkt.",
+      "ranks": [
+        "Novizin",
+        "Messerin",
+        "Seherin",
+        "Schleiermutter"
+      ]
+    }
+  },
+  "npcs": {
+    "jory": {
+      "name": "Jory Flint",
+      "role": "Hafenarbeiter",
+      "dialogue": "jory",
+      "palette": {
+        "coat": "#5a5040",
+        "hat": "#3a3a30",
+        "skin": "#c8a07a",
+        "hair": "#6a4a2a",
+        "legs": "#3a3428"
+      }
+    },
+    "rost_schlaeger": {
+      "name": "Rostbruder",
+      "role": "Kettenträger der Rostbrüder",
+      "dialogue": "rost_bruder",
+      "palette": {
+        "coat": "#8a3a22",
+        "hat": "#5a2a1a",
+        "skin": "#a8a098",
+        "hair": "#3a2a1a",
+        "legs": "#3a2a22"
+      }
+    },
+    "rost_werfer": {
+      "name": "Rostbruder",
+      "role": "Hakenwerfer der Rostbrüder",
+      "dialogue": "rost_bruder",
+      "palette": {
+        "coat": "#7a3420",
+        "hat": "#4a2418",
+        "skin": "#a8a098",
+        "hair": "#5a3a2a",
+        "legs": "#2a2420"
+      }
+    },
+    "rost_schmied": {
+      "name": "Bellamy",
+      "role": "Rostschmied",
+      "dialogue": "rost_bruder",
+      "palette": {
+        "coat": "#5a3a2a",
+        "hat": "#2a2a2a",
+        "skin": "#9a9a94",
+        "hair": "#2a2a2a",
+        "legs": "#2a2420"
+      }
+    },
+    "rost_vater": {
+      "name": "Vater Odo Harn",
+      "role": "Rostvater der Rostbrüder",
+      "dialogue": "harn",
+      "palette": {
+        "coat": "#6a6a6a",
+        "hat": "#8a3a22",
+        "skin": "#9a9a94",
+        "hair": "#c8c8c0",
+        "legs": "#3a2a22"
+      }
+    },
+    "lavinia": {
+      "name": "Lavinia Morrow",
+      "role": "Witwe",
+      "dialogue": "lavinia",
+      "palette": {
+        "coat": "#1a1a22",
+        "hat": "#1a1a22",
+        "skin": "#e8d0c0",
+        "hair": "#d8d8e0",
+        "legs": "#1a1a22"
+      }
+    },
+    "tilly": {
+      "name": "Tilly Brooks",
+      "role": "Hausmädchen",
+      "dialogue": "tilly",
+      "palette": {
+        "coat": "#3a3a50",
+        "hat": "#e8e8e0",
+        "skin": "#e0b890",
+        "hair": "#8a5a2a",
+        "legs": "#2a2a3a"
+      }
+    },
+    "schleier_novizin": {
+      "name": "Tilly",
+      "role": "Hausmädchen",
+      "dialogue": "fake_tilly",
+      "palette": {
+        "coat": "#3a3a50",
+        "hat": "#e8e8e0",
+        "skin": "#e8d8d0",
+        "hair": "#8a5a2a",
+        "legs": "#2a2a3a"
+      }
+    },
+    "schleier_messerin": {
+      "name": "Fräulein Grau",
+      "role": "Putzmacherin",
+      "dialogue": "grau",
+      "palette": {
+        "coat": "#6a6a70",
+        "hat": "#8a8a90",
+        "skin": "#e8d8d0",
+        "hair": "#2a2a2a",
+        "legs": "#4a4a50"
+      }
+    },
+    "schleier_seherin": {
+      "name": "Schleierseherin",
+      "role": "Schleierschwester",
+      "dialogue": "grau",
+      "palette": {
+        "coat": "#7a7a84",
+        "hat": "#c8c8d0",
+        "skin": "#f0e8e0",
+        "hair": "#c8c8d0",
+        "legs": "#4a4a54"
+      }
+    },
+    "schleier_mutter": {
+      "name": "Mutter Ysolde",
+      "role": "Schleiermutter",
+      "dialogue": "ysolde",
+      "palette": {
+        "coat": "#4a4a54",
+        "hat": "#9a9aa4",
+        "skin": "#f0e8e0",
+        "hair": "#1a1a1a",
+        "legs": "#2a2a30"
+      }
+    }
+  },
+  "travel": [
+    {
+      "map": "ankerhof",
+      "spawn": "default",
+      "name": "Ankerhof",
+      "desc": "Seilerbahn und Kai hinter dem Kanalhafen. Männer in rostroten Kutten.",
+      "requires_flags": [
+        "travel_docks",
+        "case_03_closed"
+      ]
+    },
+    {
+      "map": "haus_morrow",
+      "spawn": "default",
+      "name": "Haus Morrow",
+      "desc": "Das Stadthaus einer Witwe nahe dem Altmarkt. Sie hat die Polizei gerufen.",
+      "requires_flags": [
+        "travel_ashgrove",
+        "case_02_closed"
+      ]
+    },
+    {
+      "map": "schleierhaus",
+      "spawn": "default",
+      "name": "Putzmacherei Grau",
+      "desc": "Hüte, Schleier, Gesichter nach Maß. Am Altmarkt.",
+      "requires_likely": [
+        "schleier_house"
+      ]
+    }
+  ],
+  "items": {
+    "rostwasser": {
+      "name": "Rostwasser",
+      "kind": "consumable",
+      "heal": 15,
+      "desc": "Wasser, in dem wochenlang Eisenspäne lagen. Schmeckt nach Blut. Stellt 15 Leben wieder her."
+    },
+    "schleierpuder": {
+      "name": "Schleierpuder",
+      "kind": "consumable",
+      "composure": 30,
+      "desc": "Graues Puder in einer Porzellandose. Wer es aufträgt, fühlt sich wie jemand anderes, ruhiger. +30 Nerven."
+    },
+    "ankerhaken": {
+      "name": "Ankerhaken",
+      "kind": "weapon",
+      "atk": 9,
+      "desc": "Harns Bootshaken mit einem Stück Ankerkette am Griff. Schwer, rostig und unaufhaltsam."
+    },
+    "schleierdolch": {
+      "name": "Schleierdolch",
+      "kind": "weapon",
+      "atk": 8,
+      "occult": 1.3,
+      "desc": "Ein Dolch mit Porzellangriff aus Ysoldes Haus. Er findet Lücken, auch in Dingen, die keinen Körper haben."
+    },
+    "rostanker": {
+      "name": "Rostanker",
+      "kind": "key",
+      "desc": "Harns Amulett: ein Anker im Kettenring. Jeder Rostbruder am Hafen erkennt es."
+    },
+    "porzellanmaske": {
+      "name": "Porzellanmaske",
+      "kind": "key",
+      "desc": "Eine halbe Maske, dünn wie Eierschale. Ysolde hat sie dir gegeben. Sie ist warm."
+    }
+  },
+  "sell_prices": {
+    "rostwasser": 8,
+    "schleierpuder": 10,
+    "ankerhaken": 40,
+    "schleierdolch": 45,
+    "rostanker": 15,
+    "porzellanmaske": 20
+  },
+  "encounters": {
+    "rost_schlaeger": {
+      "name": "Rostbruder-Kettenträger",
+      "sprite": "npc:rost_schlaeger",
+      "faction": "rostbrueder",
+      "fleeable": true,
+      "hp": 38,
+      "intro": "Ein Hafenarbeiter in rostroter Kutte stellt sich vor das Tor. Um seine Faust ist eine Ankerkette gewickelt. „Kettengeld oder Knochen, Inspektor?“\n\nDie Rostbrüder · Rang 1: Kettenträger",
+      "attacks": [
+        {
+          "name": "Kettenhieb",
+          "damage": 6,
+          "hits": [
+            950
+          ]
+        },
+        {
+          "name": "Faustgewitter",
+          "damage": 4,
+          "hits": [
+            700,
+            1000,
+            1300
+          ]
+        },
+        {
+          "name": "Rostwasser",
+          "action": "guard",
+          "value": 6,
+          "text": "Er kippt einen Becher rostrotes Wasser. Seine Haut wird grau wie Gusseisen. Panzer 6."
+        },
+        {
+          "name": "Schulterramme",
+          "damage": 9,
+          "hits": [
+            1700
+          ]
+        }
+      ],
+      "on_win": {
+        "sets_flags": [
+          "rost_guard_down"
+        ]
+      },
+      "flee_text": "Du weichst zurück. Der Kettenträger lacht und spuckt Rost.",
+      "lose_text": "Du wachst am Kai auf, die Taschen leer. Jemand hat dir einen Anker in den Mantelkragen geritzt.",
+      "win_text": "Der Kettenträger sackt gegen das Tor. Seine graue Haut bekommt Risse wie alte Farbe. „Der Vater ... wird dich einschmelzen“, murmelt er."
+    },
+    "rost_werfer": {
+      "name": "Rostbruder-Hakenwerfer",
+      "sprite": "npc:rost_werfer",
+      "faction": "rostbrueder",
+      "fleeable": true,
+      "hp": 36,
+      "intro": "Zwischen den Seiltrommeln wirbelt ein Bootshaken an einer Kette. Der Mann dahinter grinst mit Zähnen, die braun vor Rost sind.\n\nDie Rostbrüder · Rang 2: Hakenwerfer",
+      "attacks": [
+        {
+          "name": "Haken im Fleisch",
+          "damage": 5,
+          "hits": [
+            1000
+          ],
+          "bleed": [
+            2,
+            3
+          ]
+        },
+        {
+          "name": "Kette zurückreißen",
+          "damage": 4,
+          "hits": [
+            800,
+            1150
+          ],
+          "nerves": 4
+        },
+        {
+          "name": "Rostwasser",
+          "action": "guard",
+          "value": 5
+        },
+        {
+          "name": "Hakenwurf",
+          "damage": 8,
+          "hits": [
+            1500
+          ]
+        }
+      ],
+      "on_win": {
+        "sets_flags": [
+          "rost_werfer_down"
+        ]
+      },
+      "lose_to": {
+        "map": "ankerhof",
+        "spawn": "default"
+      },
+      "lose_text": "Ein Haken zieht dir die Beine weg. Du wachst draußen am Kai auf. Deine Wunde ist mit Teer verklebt.",
+      "win_text": "Die Kette rasselt zu Boden. Der Hakenwerfer hält sich die Schulter und kriecht hinter die Seiltrommeln."
+    },
+    "rost_schmied": {
+      "name": "Bellamy, der Rostschmied",
+      "sprite": "npc:rost_schmied",
+      "faction": "rostbrueder",
+      "fleeable": true,
+      "hp": 50,
+      "intro": "Bellamy legt den Hammer auf den Amboss, nimmt ihn wieder auf und wischt sich die Hände an der Schürze ab. „Ich mach dir ein Hufeisen aus dem Schädel.“\n\nDie Rostbrüder · Rang 3: Rostschmied",
+      "attacks": [
+        {
+          "name": "Amboss-Takt",
+          "damage": 4,
+          "hits": [
+            700,
+            1000,
+            1300,
+            1600
+          ]
+        },
+        {
+          "name": "Glühende Zange",
+          "damage": 6,
+          "hits": [
+            1100
+          ],
+          "bleed": [
+            3,
+            2
+          ]
+        },
+        {
+          "name": "Eiserne Haut",
+          "action": "guard",
+          "value": 10,
+          "text": "Bellamy hält den Arm in die Glut, bis die Haut grau wird. Panzer 10."
+        },
+        {
+          "name": "Hammerschlag",
+          "damage": 10,
+          "hits": [
+            1900
+          ]
+        }
+      ],
+      "weak_if": {
+        "requires_flags": [
+          "forge_doused"
+        ]
+      },
+      "weak_text": "Die Esse ist gelöscht. Ohne Glut wird Bellamys Eisenhaut nicht hart, sein Hammer schlägt kalt.",
+      "on_win": {
+        "sets_flags": [
+          "schmied_down"
+        ],
+        "gives_clues": [
+          "schmied_grumble"
+        ]
+      },
+      "lose_to": {
+        "map": "ankerhof",
+        "spawn": "default"
+      },
+      "lose_text": "Der Hammer trifft. Als du aufwachst, liegst du draußen auf den Planken, und deine Rippen klingen wie ein Glockenspiel.",
+      "win_text": "Bellamy setzt sich schwer auf den Amboss. „Ich hab ihm gesagt, die Chorfrau zahlt nicht. Ich hab es ihm gesagt.“"
+    },
+    "rost_vater": {
+      "name": "Vater Odo Harn",
+      "sprite": "npc:rost_vater",
+      "faction": "rostbrueder",
+      "fleeable": false,
+      "hp": 44,
+      "intro": "Harn wirft den Mantel aus Kettengliedern ab. Darunter ist seine Haut grau und genietet wie ein Schiffsrumpf. An einer Kette schwingt ein Anker so groß wie ein Kind.\n\nDie Rostbrüder · Rang 4: Rostvater",
+      "attacks": [
+        {
+          "name": "Kettensturm",
+          "damage": 4,
+          "hits": [
+            650,
+            950,
+            1250,
+            1550,
+            1850
+          ]
+        },
+        {
+          "name": "Brecher",
+          "damage": 7,
+          "hits": [
+            900,
+            1500
+          ],
+          "bleed": [
+            2,
+            3
+          ]
+        },
+        {
+          "name": "Eisenschwur",
+          "action": "guard",
+          "value": 6,
+          "text": "„Das Fleisch rostet!“ Harns Haut knirscht und wird dunkel. Panzer 6."
+        },
+        {
+          "name": "Ankerwurf",
+          "damage": 10,
+          "hits": [
+            2000
+          ]
+        },
+        {
+          "name": "Rostsegen",
+          "action": "heal",
+          "value": 6,
+          "text": "Harn trinkt aus einem Eimer voll Rostwasser. Seine Wunden schließen sich mit einem Geräusch wie Nieten."
+        }
+      ],
+      "weak_if": {
+        "requires_likely": [
+          "vey_unpaid"
+        ]
+      },
+      "weak_text": "Du weißt, dass Vey ihn betrogen hat. Er weiß, dass du es weißt. Seine Schläge kommen eine Spur zu spät.",
+      "on_win": {
+        "sets_flags": [
+          "harn_defeated",
+          "rost_broken"
+        ],
+        "honor": 4,
+        "honor_reason": "Vater Harn besiegt"
+      },
+      "lose_to": {
+        "map": "ankerhof",
+        "spawn": "default"
+      },
+      "lose_text": "Der Anker trifft dich wie eine Brandungswelle. Du wachst am Kai auf. Jory hat dich aus dem Wasser gezogen.",
+      "win_text": "Harn geht in die Knie. Der Rost blättert von seiner Haut, darunter ist sie rosa und verletzlich wie bei einem Kind. „Fleisch“, flüstert er. „Immer noch Fleisch.“\n\nDie Brüder werfen ihre Ketten in den Kanal, einer nach dem anderen."
+    },
+    "rost_streife": {
+      "name": "Rostbrüder-Streife",
+      "sprite": "npc:rost_schlaeger",
+      "faction": "rostbrueder",
+      "fleeable": true,
+      "hp": 30,
+      "intro": "Zwei Männer in rostroten Kutten treten aus einer Gasse. „Der Inspektor vom Ankerhof. Der Vater lässt grüßen.“",
+      "attacks": [
+        {
+          "name": "Kettenhieb",
+          "damage": 5,
+          "hits": [
+            950
+          ]
+        },
+        {
+          "name": "Zu zweit",
+          "damage": 4,
+          "hits": [
+            700,
+            1000,
+            1350
+          ]
+        },
+        {
+          "name": "Rostwasser",
+          "action": "guard",
+          "value": 5
+        }
+      ],
+      "on_win": {},
+      "win_text": "Die beiden rennen davon und lassen eine Kette im Rinnstein zurück.",
+      "lose_text": "Du wachst in einer Gasse auf. Dein Geldbeutel ist leichter."
+    },
+    "schleier_novizin": {
+      "name": "Schleiernovizin",
+      "sprite": "npc:schleier_novizin",
+      "faction": "schleierschwestern",
+      "fleeable": true,
+      "hp": 30,
+      "intro": "„Tilly“ lächelt weiter, aber ihre Augen werden grau wie Rauch. Sie zieht eine Haarnadel aus dem Knoten, lang wie ein Finger.\n\nDie Schleierschwestern · Rang 1: Novizin",
+      "attacks": [
+        {
+          "name": "Nadelstich",
+          "damage": 4,
+          "hits": [
+            700,
+            1000
+          ]
+        },
+        {
+          "name": "Süßes Wort",
+          "action": "taunt",
+          "value": 10,
+          "text": "„Sie sehen müde aus, Inspektor. Wer sagt Ihnen, dass ich nicht Tilly bin?“ -10 Nerven."
+        },
+        {
+          "name": "Schleier",
+          "action": "veil",
+          "value": 0,
+          "text": "Ihr Gesicht verschwimmt. Nur ein präziser Treffer findet sie."
+        },
+        {
+          "name": "Haarnadel ins Auge",
+          "damage": 8,
+          "hits": [
+            1500
+          ]
+        }
+      ],
+      "on_win": {
+        "sets_flags": [
+          "novizin_caught"
+        ],
+        "gives_clues": [
+          "veil_card"
+        ]
+      },
+      "lose_text": "Du wachst im Flur auf. Tilly wischt dir die Stirn und summt. Niemand sonst ist da.",
+      "flee_text": "Du trittst zurück. „Tilly“ steckt die Nadel ins Haar und knickst.",
+      "win_text": "Die Nadel fällt klirrend auf die Dielen. Unter Tillys Gesicht schält sich ein anderes hervor, schmal und fremd, wie Puder unter Regen. Aus ihrer Schürze fällt eine graue Karte."
+    },
+    "schleier_messerin": {
+      "name": "Fräulein Grau, Messerin",
+      "sprite": "npc:schleier_messerin",
+      "faction": "schleierschwestern",
+      "fleeable": true,
+      "hp": 36,
+      "intro": "Fräulein Grau legt die Hutnadeln beiseite. In jeder Hand liegt plötzlich eine Klinge, schmal wie ein Brieföffner.\n\nDie Schleierschwestern · Rang 2: Messerin",
+      "attacks": [
+        {
+          "name": "Doppelklinge",
+          "damage": 5,
+          "hits": [
+            700,
+            950
+          ]
+        },
+        {
+          "name": "Giftschnitt",
+          "damage": 5,
+          "hits": [
+            1100
+          ],
+          "bleed": [
+            3,
+            3
+          ]
+        },
+        {
+          "name": "Verschwinden",
+          "action": "veil",
+          "value": 0,
+          "text": "Sie tritt hinter einen Schleier und ist fort. Nur ein präziser Treffer findet sie."
+        },
+        {
+          "name": "Hinterhalt",
+          "damage": 9,
+          "hits": [
+            1800
+          ]
+        }
+      ],
+      "on_win": {
+        "sets_flags": [
+          "messerin_down"
+        ]
+      },
+      "lose_to": {
+        "map": "altmarkt",
+        "spawn": "default"
+      },
+      "lose_text": "Du wachst am Brunnen auf dem Altmarkt auf. In deiner Manteltasche steckt eine Hutnadel mit grauem Band.",
+      "win_text": "Die Klingen klirren auf den Ladentisch. Fräulein Grau lehnt am Regal und lacht leise. „Die Mutter sieht dich längst.“"
+    },
+    "schleier_seherin": {
+      "name": "Schleierseherin",
+      "sprite": "npc:schleier_seherin",
+      "faction": "schleierschwestern",
+      "fleeable": true,
+      "hp": 40,
+      "intro": "In jedem Spiegel steht eine Frau im grauen Schleier, und alle heben gleichzeitig die Hand.\n\nDie Schleierschwestern · Rang 3: Seherin",
+      "attacks": [
+        {
+          "name": "Spiegelsplitter",
+          "damage": 4,
+          "hits": [
+            700,
+            1000,
+            1300
+          ],
+          "nerves": 3
+        },
+        {
+          "name": "Fremdes Gesicht",
+          "action": "heal",
+          "value": 8,
+          "text": "Sie tauscht ihr Gesicht gegen eines aus dem Spiegel, unverletzt. +8 Leben."
+        },
+        {
+          "name": "Blick durch den Schleier",
+          "action": "taunt",
+          "value": 12,
+          "text": "„Ich sehe, wovor du Angst hast, Inspektor.“ -12 Nerven."
+        },
+        {
+          "name": "Splitterregen",
+          "damage": 8,
+          "hits": [
+            1600
+          ]
+        }
+      ],
+      "weak_if": {
+        "requires_flags": [
+          "mirrors_broken"
+        ]
+      },
+      "weak_text": "Die Spiegel sind zerschlagen. Die Seherin hat nur noch ein Gesicht, und es ist erschrocken.",
+      "on_win": {
+        "sets_flags": [
+          "seherin_down"
+        ],
+        "gives_clues": [
+          "seherin_taunt"
+        ]
+      },
+      "lose_to": {
+        "map": "altmarkt",
+        "spawn": "default"
+      },
+      "lose_text": "Du siehst dich selbst in tausend Spiegeln fallen. Du wachst am Brunnen auf dem Altmarkt auf.",
+      "win_text": "Die Seherin sinkt zwischen die Scherben. In den letzten heilen Spiegeln sieht man kurz eine andere Frau, dann nur noch dich."
+    },
+    "schleier_mutter": {
+      "name": "Mutter Ysolde",
+      "sprite": "npc:schleier_mutter",
+      "faction": "schleierschwestern",
+      "fleeable": false,
+      "hp": 42,
+      "intro": "Ysolde lässt den Schleier fallen. Darunter ist kein Gesicht, sondern viele: Lavinia, Marlowe, Tilly, du. Sie wechseln mit jedem Atemzug.\n\nDie Schleierschwestern · Rang 4: Schleiermutter",
+      "attacks": [
+        {
+          "name": "Seidenschnitt",
+          "damage": 4,
+          "hits": [
+            650,
+            900,
+            1150,
+            1400
+          ],
+          "bleed": [
+            2,
+            2
+          ]
+        },
+        {
+          "name": "Tausend Gesichter",
+          "action": "veil",
+          "value": 0,
+          "text": "Ysoldes Gesichter wirbeln. Nur ein präziser Treffer findet das echte."
+        },
+        {
+          "name": "Zwei Klingen",
+          "damage": 6,
+          "hits": [
+            800,
+            1300
+          ]
+        },
+        {
+          "name": "Lügenlied",
+          "action": "taunt",
+          "value": 12,
+          "text": "Sie singt mit Marlowes Stimme: „Du warst nie einer von uns.“ -12 Nerven."
+        },
+        {
+          "name": "Die Maske fällt",
+          "damage": 12,
+          "hits": [
+            2000
+          ]
+        },
+        {
+          "name": "Neues Gesicht",
+          "action": "heal",
+          "value": 6,
+          "text": "Sie streift eine Wunde ab wie einen Handschuh. +6 Leben."
+        }
+      ],
+      "weak_if": {
+        "requires_flags": [
+          "faces_burned"
+        ]
+      },
+      "weak_text": "Das Gesichterbuch ist verbrannt. Ysolde greift nach Gesichtern, die es nicht mehr gibt.",
+      "on_win": {
+        "sets_flags": [
+          "ysolde_resolved",
+          "ysolde_arrested"
+        ],
+        "honor": 4,
+        "honor_reason": "Mutter Ysolde gestellt"
+      },
+      "lose_to": {
+        "map": "schleierhaus",
+        "spawn": "default"
+      },
+      "lose_text": "Du wachst im Laden auf, zwischen Hutschachteln. Oben hört man Ysolde summen. Sie hat keine Eile.",
+      "win_text": "Die Gesichter fallen von Ysolde ab wie Blätter. Übrig bleibt eine alte Frau mit müden Augen, die niemand kennt. „Ich habe meins vor vierzig Jahren verloren“, sagt sie. „Ich weiß nicht mehr, wie es aussah.“"
+    },
+    "schleier_schatten": {
+      "name": "Grauer Schleier",
+      "sprite": "npc:schleier_messerin",
+      "faction": "schleierschwestern",
+      "fleeable": true,
+      "hp": 28,
+      "intro": "Eine Frau, die eben noch Blumen verkauft hat, steht plötzlich neben dir. Unter ihrem Schleier blitzt Porzellan.",
+      "attacks": [
+        {
+          "name": "Doppelklinge",
+          "damage": 4,
+          "hits": [
+            700,
+            950
+          ]
+        },
+        {
+          "name": "Verschwinden",
+          "action": "veil",
+          "value": 0
+        },
+        {
+          "name": "Giftschnitt",
+          "damage": 4,
+          "hits": [
+            1100
+          ],
+          "bleed": [
+            2,
+            2
+          ]
+        }
+      ],
+      "on_win": {},
+      "win_text": "Der Schleier sinkt leer zu Boden. Die Frau ist fort.",
+      "lose_text": "Du wachst auf einer Bank auf. Jemand hat deine Notizen gelesen und ordentlich zurückgelegt."
+    }
+  },
+  "loot": {
+    "rost_schlaeger": {
+      "money": 14,
+      "items": {
+        "eisenkraut": 1
+      }
+    },
+    "rost_werfer": {
+      "money": 14,
+      "items": {
+        "ochsenblut": 1
+      }
+    },
+    "rost_schmied": {
+      "money": 20,
+      "items": {
+        "rostwasser": 2
+      }
+    },
+    "rost_vater": {
+      "money": 40,
+      "items": {
+        "ankerhaken": 1,
+        "sternschlacke": 1
+      }
+    },
+    "schleier_novizin": {
+      "money": 10,
+      "items": {
+        "wachsbluete": 1
+      }
+    },
+    "schleier_messerin": {
+      "money": 16,
+      "items": {
+        "schleierpuder": 1
+      }
+    },
+    "schleier_seherin": {
+      "money": 18,
+      "items": {
+        "mondmohn": 1,
+        "spiegelquecksilber": 1
+      }
+    },
+    "schleier_mutter": {
+      "money": 40,
+      "items": {
+        "schleierdolch": 1,
+        "puppenglas": 1
+      }
+    }
+  },
+  "quests": {
+    "rost_im_hafen": {
+      "title": "Rost im Hafen",
+      "kind": "side",
+      "case": "side",
+      "summary": "Am Ankerhof zahlen Hafenarbeiter Kettengeld an Männer in rostroten Kutten. Die Hafenwache spricht von betrunkenen Raufbolden.",
+      "steps": [
+        {
+          "text": "Finde zwei Quellen dafür, wer hinter dem Kettengeld steckt",
+          "done": {
+            "requires_likely": [
+              "rost_tribute"
+            ]
+          }
+        },
+        {
+          "text": "Finde das Versteck der Bruderschaft",
+          "done": {
+            "requires_likely": [
+              "rost_hideout"
+            ]
+          }
+        },
+        {
+          "text": "Brich die Macht der Rostbrüder",
+          "done": {
+            "requires_flags": [
+              "rost_broken"
+            ]
+          }
+        },
+        {
+          "text": "Sag Jory Bescheid",
+          "done": {
+            "requires_flags": [
+              "rost_told"
+            ]
+          }
+        }
+      ],
+      "reward": {
+        "honor": 6,
+        "honor_reason": "Die Rostbrüder am Ankerhof zerschlagen"
+      }
+    },
+    "graue_schleier": {
+      "title": "Die grauen Schleier",
+      "kind": "side",
+      "case": "side",
+      "summary": "Witwe Lavinia Morrow schwört, ihr Hausmädchen Tilly sei nicht mehr Tilly. Die Polizei hält das Mädchen für eine Diebin.",
+      "steps": [
+        {
+          "text": "Finde zwei Quellen dafür, was mit Tilly los ist",
+          "done": {
+            "requires_likely": [
+              "tilly_replaced"
+            ]
+          }
+        },
+        {
+          "text": "Stell die falsche Tilly",
+          "done": {
+            "requires_flags": [
+              "novizin_caught"
+            ]
+          }
+        },
+        {
+          "text": "Finde das Haus der Schleierschwestern",
+          "done": {
+            "requires_likely": [
+              "schleier_house"
+            ]
+          }
+        },
+        {
+          "text": "Befreie die echte Tilly",
+          "done": {
+            "requires_flags": [
+              "tilly_freed"
+            ]
+          }
+        },
+        {
+          "text": "Bring Lavinia die Nachricht",
+          "done": {
+            "requires_flags": [
+              "veil_told"
+            ]
+          }
+        }
+      ],
+      "reward": {
+        "honor": 6,
+        "honor_reason": "Die Schleierschwestern enttarnt"
+      }
+    }
+  },
+  "facts": {
+    "rost_tribute": {
+      "case": "side",
+      "text": "Die Rostbrüder pressen den Hafenarbeitern am Ankerhof Kettengeld ab."
+    },
+    "drunk_brawlers": {
+      "case": "side",
+      "text": "Betrunkene Raufbolde verprügeln Hafenarbeiter. Mehr steckt nicht dahinter.",
+      "refuted_if_likely": [
+        "rost_tribute"
+      ]
+    },
+    "rost_hideout": {
+      "case": "side",
+      "text": "Die Rostbrüder treffen sich in der alten Seilerkapelle am Ankerhof."
+    },
+    "vey_unpaid": {
+      "case": "side",
+      "text": "Miriam Vey hat bei den Rostbrüdern einen eisernen Käfig bestellt und nie bezahlt."
+    },
+    "tilly_replaced": {
+      "case": "side",
+      "text": "Die Frau im Haus Morrow ist nicht Tilly Brooks. Jemand trägt ihr Gesicht."
+    },
+    "tilly_thief": {
+      "case": "side",
+      "text": "Das Hausmädchen Tilly stiehlt Briefe und Silber.",
+      "refuted_if_likely": [
+        "tilly_replaced"
+      ]
+    },
+    "schleier_house": {
+      "case": "side",
+      "text": "Die Schleierschwestern sitzen in der Putzmacherei Grau am Altmarkt."
+    },
+    "veil_in_police": {
+      "case": "side",
+      "text": "Eine Schleierschwester arbeitet im Polizeirevier und liest die Akten."
+    }
+  },
+  "clues": {
+    "harbor_report": {
+      "fact": "drunk_brawlers",
+      "source": "Aushang der Hafenwache",
+      "name": "Bekanntmachung am Ankerhof",
+      "text": "„Wegen wiederholter Schlägereien unter betrunkenem Hafenvolk wird der Ausschank am Ankerhof nach zehn Uhr untersagt. Gez. Hafenwache, Sergeant Pike.“"
+    },
+    "jory_tribute": {
+      "fact": "rost_tribute",
+      "source": "Jory Flint",
+      "name": "Jorys Arm",
+      "text": "„Betrunken? Die trinken nichts als Rostwasser. Jeden Freitag kommen sie mit der Kette und wollen einen Schilling pro Mann. Wer nicht zahlt, kriegt einen Anker an die Tür. Und dann kommen sie wieder.“"
+    },
+    "anchor_chalk": {
+      "fact": "rost_tribute",
+      "source": "Kreidezeichen an den Türen",
+      "name": "Anker an den Türen",
+      "text": "Auf jeder zweiten Tür am Kai ein Anker in einem Ring aus Kettengliedern, mit Kreide gemalt. Hinter manchen Ankern ein Strich. Genau diese Türen sind eingetreten."
+    },
+    "kettenbuch": {
+      "fact": "rost_tribute",
+      "source": "Kassenbuch der Rostbrüder",
+      "name": "Das Kettenbuch",
+      "text": "Spalten mit Namen von Hafenarbeitern, daneben Schillinge. Am Ende jeder Seite eine Summe und das Wort „Chor“, unterstrichen."
+    },
+    "jory_chapel": {
+      "fact": "rost_hideout",
+      "source": "Jory Flint",
+      "name": "Hammerlieder",
+      "text": "„Nachts hört man sie hinter der Seilerbahn. In der alten Kapelle, wo früher die Seiler gebetet haben. Sie singen beim Hämmern. Keiner geht da mehr hin.“"
+    },
+    "rust_trail": {
+      "fact": "rost_hideout",
+      "source": "Rostspuren am Kai",
+      "name": "Eine Spur aus Rost",
+      "text": "Rote Tropfen auf den Planken, wie Blut, aber sie riechen nach Eisen. Sie führen vom Kai zum vernagelten Tor der Seilerkapelle und hören an der Schwelle auf."
+    },
+    "order_slip": {
+      "fact": "vey_unpaid",
+      "source": "Auftragszettel in der Schmiede",
+      "name": "Ein Käfig für eine Stimme",
+      "text": "„Ein Käfig, eine Hand breit. Eisen aus Ankerketten, innen ohne Kanten. Lieferung: St. Ebba.“ Unten ein Siegel, ein Auge im Kreis. Neben „Bezahlt“ steht nichts, dreimal durchgestrichen."
+    },
+    "schmied_grumble": {
+      "fact": "vey_unpaid",
+      "source": "Bellamy, der Rostschmied",
+      "name": "Bellamys Klage",
+      "text": "„Die Chorfrau hat nie gezahlt. Der Vater sagt, sie zahlt in Stimmen, die machen uns zu Eisen. Ich will keine Stimmen. Ich will Schillinge.“"
+    },
+    "price_note": {
+      "fact": "tilly_thief",
+      "source": "Notiz von Constable Price",
+      "name": "Polizeinotiz im Sekretär",
+      "text": "„Dienstmädchen Brooks. Briefe aus dem Sekretär fehlen, vom Silber zwei Löffel. Die Witwe ist verwirrt und redet von einem fremden Gesicht. Festnahme, sobald Beweis.“"
+    },
+    "lavinia_hand": {
+      "fact": "tilly_replaced",
+      "source": "Lavinia Morrow",
+      "name": "Die falsche Hand",
+      "text": "„Tilly schreibt mit rechts, seit sie zwölf ist und zu mir kam. Die da schreibt mit links. Und mein Kater kratzt sie. Der Kater hat Tilly geliebt.“"
+    },
+    "porcelain_shard": {
+      "fact": "tilly_replaced",
+      "source": "Unter Tillys Bett",
+      "name": "Porzellansplitter",
+      "text": "Ein Stück einer weißen Halbmaske, so dünn, dass Licht hindurchscheint. Innen klebt Puder, und daran hängt ein grauer Schleierfaden."
+    },
+    "veil_card": {
+      "fact": "schleier_house",
+      "source": "Karte der falschen Tilly",
+      "name": "Eine graue Karte",
+      "text": "Grau auf grau gedruckt: „Putzmacherei Grau, Altmarkt. Hüte, Schleier, Gesichter nach Maß.“ Auf der Rückseite: „Donnerstag, Hintereingang.“"
+    },
+    "lavinia_hats": {
+      "fact": "schleier_house",
+      "source": "Lavinia Morrow",
+      "name": "Donnerstags",
+      "text": "„Donnerstags ging sie zur Putzmacherin am Altmarkt. Jede Woche, seit dem Frühjahr. Sie kam nie mit einem Hut zurück.“"
+    },
+    "ysolde_ledger": {
+      "fact": "veil_in_police",
+      "source": "Ysoldes Verzeichnis",
+      "name": "Liste der geliehenen Gesichter",
+      "text": "Häuser, Namen, Daten. Haus Morrow, Dienstmädchen. Bank Hollis, Schreiberin. Ganz unten: „Revier Kettlegate, Schreibstube, seit dem Frühjahr. Liefert Akten.“"
+    },
+    "seherin_taunt": {
+      "fact": "veil_in_police",
+      "source": "Die Schleierseherin",
+      "name": "Was die Seherin sah",
+      "text": "„Du glaubst, deine Akten sind sauber, Inspektor? Eine von uns liest sie, bevor du sie liest.“"
+    }
+  },
+  "deductions": [
+    {
+      "id": "rust_pays_choir",
+      "case": "side",
+      "honor": 3,
+      "pairs": [
+        [
+          "rost_tribute",
+          "vey_unpaid"
+        ]
+      ],
+      "name": "Das Kettengeld bezahlt den Chor",
+      "text": "Die Rostbrüder haben für Vey geschmiedet und nie Geld gesehen. Was sie den Hafenarbeitern abpressen, deckt die Schulden des Chors."
+    },
+    {
+      "id": "veil_sells_files",
+      "case": "side",
+      "honor": 3,
+      "pairs": [
+        [
+          "veil_in_police",
+          "schleier_house"
+        ]
+      ],
+      "name": "Geheimnisse aus dem Revier",
+      "text": "Die Schleierschwestern verkaufen, was im Revier steht. Wer immer dort ein geliehenes Gesicht trägt, hat Zugang zu deinen Akten."
+    }
+  ]
+}

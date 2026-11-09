@@ -303,3 +303,95 @@ button.small { font-size: 0.8em; padding: 0.1em 0.5em; }
 .notebook .digestlist { grid-template-columns: 1fr 1fr; }
 .notebook .digestlist li { display: flex; justify-content: space-between; font-size: 0.85em; padding: 0.15em 0.5em; border: 0.125em solid #2a2630; }
 .notebook .digestlist li.muted { grid-column: 1 / -1; border: none; }
+
+/* Stadtkarte mit Reisearten (travel.json): Karte 480x270 = 60em x 33.75em */
+.layer:has(.citymap) { padding: 0; align-items: stretch; background: #040408; }
+.panel.citymap { position: relative; width: 60em; height: 33.75em; padding: 0; border: none; box-shadow: none; background: #1a1712; overflow: hidden; }
+.citymap .map { position: absolute; inset: 0; background-size: 100% 100%; image-rendering: pixelated; }
+.citymap .pin { position: absolute; transform: translate(-50%, -50%); padding: 0; background: none; border: none; width: 2em; height: 2em; }
+.citymap .pin:hover:not(:disabled) { background: none; }
+.citymap .pin .mk { display: block; width: 2em; height: 2em; image-rendering: pixelated; background-repeat: no-repeat;
+  background-size: 26em 4em; background-position: calc(var(--c) * -2em) 0; filter: drop-shadow(0 0.125em 0 #000); }
+.citymap .pin:hover .mk, .citymap .pin.sel .mk, .citymap .pin.here .mk { background-position: calc(var(--c) * -2em) -2em; }
+.citymap .pin.here:disabled { opacity: 1; cursor: default; }
+.citymap .pin .num { position: absolute; right: -0.6em; top: -0.5em; font-size: 0.75em; color: var(--gold); background: #1a1420; border: 0.125em solid var(--brass); border-radius: 0.3em; padding: 0 0.25em; line-height: 1.1; }
+.citymap .pin .tag { position: absolute; left: 50%; top: 2.1em; transform: translateX(-50%); white-space: nowrap; font-size: 0.7em; color: var(--ink);
+  background: rgba(14, 12, 18, 0.85); padding: 0 0.35em; border-radius: 0.2em; opacity: 0; transition: opacity 0.15s; pointer-events: none; }
+.citymap .pin:hover .tag, .citymap .pin.sel .tag, .citymap .pin.here .tag { opacity: 1; }
+.citymap .pin.here .tag { color: var(--occult); }
+.citymap .unpinned { position: absolute; right: 0.6em; top: 0.6em; display: grid; gap: 0.2em; }
+.citymap .mapbar { position: absolute; left: 0.5em; right: 0.5em; bottom: 0.4em; display: flex; gap: 0.6em; align-items: center;
+  background: var(--panel); border: 0.125em solid var(--brass); padding: 0.15em 0.5em; }
+.citymap .mapbar .info { flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.citymap .mapbar .info h3 { display: inline; margin: 0 0.5em 0 0; font-size: 0.95em; }
+.citymap .mapbar .muted { color: var(--muted); font-size: 0.75em; }
+.citymap .mapbar > button[data-act=stay] { white-space: nowrap; font-size: 0.85em; }
+.citymap .modes { position: absolute; left: 50%; top: 0.5em; transform: translateX(-50%); width: 36em; display: grid; grid-template-columns: 1fr 1fr; gap: 0.4em;
+  background: var(--panel); border: 0.125em solid var(--brass); padding: 0.4em; }
+.citymap .modes.hidden { display: none; }
+.citymap .mode { text-align: left; display: flex; flex-direction: column; gap: 0.15em; font-size: 0.85em; }
+.citymap .mode .muted { font-size: 0.8em; color: var(--muted); }
+.citymap .mode .gain { color: #9ad06a; font-size: 0.8em; }
+.citymap .mode .cost { color: #d08a6a; font-size: 0.8em; }
+
+/* Gefahrengebiete und Beute */
+.place.danger { color: #e07a60; }
+.loot-title { margin: 0.6em 0 0.2em; color: var(--gold); }
+ul.loot { list-style: none; margin: 0.3em 0; padding: 0; }
+ul.loot .loot-row { display: flex; align-items: center; gap: 0.4em; padding: 0.15em 0.3em; border-left: 3px solid #555; margin-bottom: 0.15em; background: rgba(255, 255, 255, 0.03); }
+ul.loot .rar { margin-left: auto; font-size: 0.8em; }
+.rar-gewoehnlich { border-color: #c8c0b0 !important; }
+.rar-gewoehnlich .rar, span.rar-gewoehnlich { color: #c8c0b0; }
+.rar-ungewoehnlich { border-color: #8fd07a !important; }
+.rar-ungewoehnlich .rar, span.rar-ungewoehnlich { color: #8fd07a; }
+.rar-selten { border-color: #f0c060 !important; }
+.rar-selten .rar, span.rar-selten { color: #f0c060; }
+.rar-okkult { border-color: #6fe0d0 !important; }
+.rar-okkult .rar, span.rar-okkult { color: #6fe0d0; }
+.cb-loot { display: inline-flex; align-items: center; gap: 0.15em; font-size: 0.8em; color: var(--muted); margin-left: 0.3em; }
+.cb-loot .loot-ico { display: inline-flex; border-bottom: 2px solid #555; padding: 0 1px; }
+
+/* Wegweiser: verfolgter Auftrag (Journal → HUD, Ort, Stadtkarte) */
+.goal { margin-top: 0.35em; font-size: 0.75em; color: var(--gold); text-shadow: 0 0.125em 0 #000; max-width: 22em; }
+.goal .arrow { display: inline-block; animation: goalnudge 1.2s ease-in-out infinite; }
+.goal.hidden { display: none; }
+@keyframes goalnudge { 50% { transform: translateX(0.2em); } }
+.hintline { margin: 0 0 0.4em; font-size: 0.75em; color: var(--muted); }
+.quests li.quest[data-track] { cursor: pointer; border: 0.125em solid transparent; padding: 0.15em 0.3em; border-radius: 0.2em; }
+.quests li.quest[data-track]:hover { border-color: #4a4050; }
+.quests li.quest.tracked { border-color: var(--gold); background: rgba(232, 192, 112, 0.06); }
+.qgoal { font-size: 0.8em; color: var(--gold); margin-top: 0.15em; }
+.badge.track { color: var(--gold); border-color: var(--gold); margin-left: 0.4em; }
+.citymap .pin.goal .mk { animation: goalpulse 1s ease-in-out infinite alternate; }
+@keyframes goalpulse { to { filter: drop-shadow(0 0 0.35em var(--gold)) drop-shadow(0 0.125em 0 #000); transform: translateY(-0.2em); } }
+.citymap .pin .goaltag { position: absolute; left: 50%; bottom: 2.1em; transform: translateX(-50%); font-size: 0.65em; color: #1a1420; background: var(--gold);
+  padding: 0 0.3em; border-radius: 0.2em; pointer-events: none; }
+.goal .gstep { display: block; color: var(--muted); font-size: 0.85em; padding-left: 1em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+/* Paket D und E: Stadtkarte mit Nebel, Auftragsbanner, Schlussbilder, Fallakten, Zwischensequenzen */
+.citymap .map canvas.fog { position: absolute; inset: 0; width: 100%; height: 100%; image-rendering: pixelated; pointer-events: none; opacity: 0.9; }
+.citymap .pin .qpin { position: absolute; left: 50%; top: -0.6em; width: 1em; height: 1em; transform: translateX(-50%); image-rendering: pixelated; background-repeat: no-repeat; }
+.toast.with-banner { display: flex; flex-direction: column; align-items: center; padding-top: 0.2em; }
+.toast .qbanner { display: block; width: 10em; height: 2em; image-rendering: pixelated; background-repeat: no-repeat; margin-bottom: 0.1em; }
+.panel.ending.with-image { background-size: cover; background-position: center; image-rendering: pixelated; }
+.panel.ending.with-image h1, .panel.ending.with-image .text, .panel.ending.with-image .sub { text-shadow: 0 0.125em 0 #000; }
+.notebook .detail .casefile { float: right; width: 8em; height: 6em; margin: 0 0 0.3em 0.6em; image-rendering: pixelated; }
+img.scene { display: block; width: 30em; height: 16.875em; margin: 0 auto 0.6em; image-rendering: pixelated; border: 0.125em solid #2a2630; }
+.panel.dialogue img.scene { width: 20em; height: 11.25em; }
+
+/* Gestufte Tipps im Notizbuch */
+.feedback.hintbox { margin: 0 0 0.6em; }
+.feedback .hint { border-left: 0.25em solid var(--gold); padding: 0.2em 0.6em; background: #0000004d; color: var(--ink); }
+.feedback .hint p { margin: 0 0 0.25em; }
+.notebook .fact.hinted { border-color: var(--gold); box-shadow: 0 0 0.4em #e8c07066; }
+
+/* Archiv und Personen im Notizbuch */
+.archive-list { display: flex; flex-wrap: wrap; gap: 0.3em; margin-bottom: 0.7em; }
+.archive-list .tab { font-size: 0.85em; }
+.notebook .people { grid-template-columns: 1fr 1fr; gap: 0.35em; max-height: 21em; overflow-y: auto; }
+.notebook .people li { display: flex; gap: 0.5em; align-items: flex-start; font-size: 0.85em; padding: 0.3em 0.5em; border: 0.125em solid #2a2630; }
+.notebook .people li.busy { border-color: #8a6a40; }
+.notebook .people .where { color: var(--muted); }
+.notebook .people .qtag { color: var(--gold); font-size: 0.9em; }
+.closed-quests { margin-top: 0.7em; }
+.closed-quests summary { cursor: pointer; color: var(--muted); font-size: 0.9em; margin-bottom: 0.4em; }

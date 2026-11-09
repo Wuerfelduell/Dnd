@@ -3,7 +3,7 @@ import { Combat, WINDOW, EARLY_LIMIT, DODGE_COST, judgeDefense, judgeTiming } fr
 import { createTextures, createCharacterSheet } from './textures.js';
 import {
   BATTLE_BACKGROUNDS, ENCOUNTER_BACKGROUNDS, ENEMY_BATTLE_SHEETS, ENCOUNTER_SHEETS, FADING_SHEETS,
-  SKILL_FX, SELF_FX, PATHWAY_POSES, WEAPON_POSES, playBattleAnim,
+  SKILL_FX, SELF_FX, PATHWAY_POSES, WEAPON_POSES, ENCOUNTER_FX, playBattleAnim, playCaseAnim,
 } from './assets.js';
 import { VIEW_W, VIEW_H, PLAYER_PALETTE } from './WorldScene.js';
 
@@ -27,6 +27,7 @@ export class CombatScene extends Phaser.Scene {
   init(data) {
     this.encounterId = data.id;
     this.onDone = data.onDone;
+    this.deferLoot = !!data.deferLoot; // Gegner auf der Karte: Beute fällt als Behälter auf den Boden
   }
 
   create() {
@@ -71,6 +72,14 @@ export class CombatScene extends Phaser.Scene {
     const fx = this.add.sprite(x, y, sheet, 0).setScale(scale).setDepth(30);
     if (!playBattleAnim(fx, anim, () => fx.destroy())) { fx.destroy(); return false; }
     return true;
+  }
+
+  /** Fall-Effekt (Paket E) an Spieler oder Gegner, z. B. der Stimmenraub. */
+  caseFx(sheet, who, scale = 1.5) {
+    if (!sheet) return;
+    const p = who === 'enemy' ? this.enemyCenter() : this.playerCenter();
+    const fx = this.add.sprite(p.x, p.y, sheet, 0).setScale(scale).setDepth(30);
+    if (!playCaseAnim(fx, sheet, () => fx.destroy())) fx.destroy();
   }
 
   /** Treffer-Effekt am Ziel: blunt, slash, parry, dodge, critical, heal, nerves, item, miss. */
@@ -134,7 +143,7 @@ export class CombatScene extends Phaser.Scene {
     this.add.ellipse(PLAYER_X, GROUND_Y + 14, 34, 8, 0x000000, 0.35).setDepth(9);
 
     const spr = this.combat.enc.sprite;
-    const battleSheet = [ENCOUNTER_SHEETS[this.encounterId], ENEMY_BATTLE_SHEETS[spr]].find((k) => k && this.textures.exists(k));
+    const battleSheet = [this.combat.enc.sheet, ENCOUNTER_SHEETS[this.encounterId], ENEMY_BATTLE_SHEETS[spr]].find((k) => k && this.textures.exists(k));
     this.enemySheet = battleSheet ?? null;
     if (battleSheet) {
       this.enemy = this.add.sprite(ENEMY_X, GROUND_Y + 14, battleSheet, 0).setOrigin(0.5, this.sheetOriginY(battleSheet)).setScale(1.5);
@@ -148,6 +157,11 @@ export class CombatScene extends Phaser.Scene {
       this.tweens.add({ targets: this.enemy, y: GROUND_Y + 15, duration: 1200, yoyo: true, repeat: -1, ease: 'Sine.inOut' });
     }
     this.enemy.setDepth(10);
+    // Gefahrengebiete: Platzhalter-Sheets werden getönt, Elite und Boss sind größer
+    const enc = this.combat.enc;
+    this.enemyTint = enc.elite ? 0xff9080 : enc.tint ? Number.parseInt(enc.tint.slice(1), 16) : null;
+    if (this.enemyTint !== null) this.enemy.setTint(this.enemyTint);
+    if (enc.elite || enc.boss) this.enemy.setScale(this.enemy.scaleX * (enc.boss ? 1.35 : 1.18));
     this.add.ellipse(ENEMY_X, GROUND_Y + 14, 50, 10, 0x000000, 0.35).setDepth(9);
     if (this.combat.enemy.occult) {
       const aura = this.add.image(ENEMY_X, GROUND_Y - 30, 'glow').setScale(2.5).setTint(0x6fe0d0).setAlpha(0.25).setDepth(8);
@@ -187,7 +201,7 @@ export class CombatScene extends Phaser.Scene {
   flash(target) {
     if (this.phase !== 'over') this.anim(target, 'hurt');
     target.setTintFill(0xffffff);
-    this.time.delayedCall(80, () => target.clearTint());
+    this.time.delayedCall(80, () => (target === this.enemy && this.enemyTint !== null ? target.setTint(this.enemyTint) : target.clearTint()));
   }
 
   // --- Ablauf ------------------------------------------------------------------
@@ -328,6 +342,17 @@ export class CombatScene extends Phaser.Scene {
         this.time.delayedCall(900, () => (c.outcome ? this.over() : this.endRound()));
         return;
       }
+      if (c.lastAction) {
+        // Kniff der Sekten: Panzer, Heilung, Schleier, Einschüchterung
+        const a = c.lastAction;
+        this.ui.combatMessage(`${c.enemy.name}: ${a.name}\n\n${a.text}`);
+        const float = { guard: [`Panzer +${a.value}`, 'good'], heal: [`+${a.value}`, 'good'], veil: ['Schleier', 'miss'], taunt: [`-${a.value} Nerven`, 'hurt'] }[a.action];
+        if (float) this.float(float[0], a.action === 'taunt' ? 'player' : 'enemy', float[1]);
+        this.anim(this.enemy, 'special');
+        this.ui.combatRefresh();
+        this.time.delayedCall(1100, () => this.endRound());
+        return;
+      }
       this.ui.combatMessage(`${c.enemy.name} taumelt und greift nicht an.`);
       this.time.delayedCall(900, () => this.endRound());
       return;
@@ -336,11 +361,12 @@ export class CombatScene extends Phaser.Scene {
     this.attack = atk;
     const t0 = now() + TELEGRAPH;
     this.hits = atk.hits.map((h) => ({ impact: t0 + h, result: null, applied: false }));
-    const tags = [atk.unparryable ? '⚠ nicht parierbar, ausweichen!' : '', atk.enraged ? 'in Rage' : ''].filter(Boolean).join(' · ');
+    const tags = [atk.unparryable ? '⚠ nicht parierbar, ausweichen!' : '', atk.enraged ? 'in Rage' : '', atk.bleed ? 'Treffer bluten nach' : '', atk.nerves ? `Treffer kosten ${atk.nerves} Nerven` : ''].filter(Boolean).join(' · ');
     this.ui.combatMessage(`${c.enemy.name}: ${atk.name}${atk.hits.length > 1 ? ` (${atk.hits.length} Schläge)` : ''}${tags ? `\n\n${tags}` : ''}${c.evading ? '\n\nDu weißt schon, wohin er schlägt.' : ''}`, `Leertaste: ausweichen (${DODGE_COST} Nerven) · F: parieren`);
     this.tweens.add({ targets: this.enemy, x: ENEMY_X + 8, duration: TELEGRAPH * 0.6, ease: 'Sine.out' });
     // Paket-B-Gegner haben zwei Angriffe: mehrteilige Attacken nutzen 'special'
     if (!(atk.hits.length > 1 && this.anim(this.enemy, 'special'))) this.anim(this.enemy, 'attack');
+    this.caseFx(ENCOUNTER_FX[this.encounterId]?.attack, 'player');
   }
 
   pressDefense(kind, t) {
@@ -402,11 +428,15 @@ export class CombatScene extends Phaser.Scene {
     this.ui.combatRefresh();
     if (this.combat.outcome) { this.over(); return; }
     const dot = this.combat.endRound();
-    if (dot) {
-      this.flash(this.enemy);
-      this.float(`-${dot}`, 'enemy', 'dmg');
+    const bleed = this.combat.bleedTick;
+    if (bleed) {
+      this.flash(this.player);
+      this.float(`-${bleed}`, 'player', 'hurt');
+    }
+    if (dot || bleed) {
+      if (dot) { this.flash(this.enemy); this.float(`-${dot}`, 'enemy', 'dmg'); }
       this.ui.combatRefresh();
-      this.ui.combatMessage(`${this.combat.enemy.name} leidet unter Brand und Gift: ${dot} Schaden.`);
+      this.ui.combatMessage([dot ? `${this.combat.enemy.name} leidet unter Brand und Gift: ${dot} Schaden.` : '', bleed ? `Deine Wunde blutet: ${bleed} Schaden.` : ''].filter(Boolean).join('\n\n'));
       this.time.delayedCall(700, () => (this.combat.outcome ? this.over() : this.toMenu()));
       return;
     }
@@ -423,6 +453,7 @@ export class CombatScene extends Phaser.Scene {
       else this.tweens.add({ targets: this.enemy, alpha: 0, y: '+=10', duration: 700 });
     }
     if (c.outcome === 'won') playBattleAnim(this.player, 'victory', null, 'battle_player_weapons');
+    if (c.outcome === 'won') this.caseFx(ENCOUNTER_FX[this.encounterId]?.won, 'enemy');
     if (c.outcome === 'lost' && !this.anim(this.player, 'defeated', false)) this.tweens.add({ targets: this.player, angle: -90, y: '+=4', duration: 500 });
     const title = { won: 'Sieg', lost: 'Ohnmacht', fled: 'Rückzug' }[c.outcome];
     this.ui.combatOver(title);
@@ -431,7 +462,7 @@ export class CombatScene extends Phaser.Scene {
   leave() {
     if (this.leaving) return;
     this.leaving = true;
-    const result = this.combat.finish();
+    const result = this.combat.finish({ deferLoot: this.deferLoot });
     const done = () => {
       this.ui.closeCombat(result, this.combat.enc);
       this.onDone?.(result);

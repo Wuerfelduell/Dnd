@@ -118,14 +118,16 @@ test('Gegenstände und Kämpfe sind vollständig', () => {
   for (const id of Object.keys(start.items ?? {})) assert.ok(content.items[id], `Startgegenstand ${id}`);
   assert.ok(content.items[start.weapon]?.kind === 'weapon', 'Startwaffe');
   for (const [id, it] of Object.entries(content.items)) {
-    assert.ok(['weapon', 'consumable', 'key', 'potion', 'formula', 'ingredient'].includes(it.kind), `${id}: Art ${it.kind}`);
+    assert.ok(['weapon', 'consumable', 'key', 'potion', 'formula', 'ingredient', 'trophy'].includes(it.kind), `${id}: Art ${it.kind}`);
     if (it.kind === 'weapon') assert.ok(it.atk > 0, `${id}: Angriff`);
     if (it.inspect) assert.ok(content.dialogues[it.inspect], `${id}: Untersuchen-Dialog ${it.inspect}`);
     if (it.kind === 'consumable') assert.ok(it.heal || it.composure || it.damage || it.calm, `${id}: Wirkung`);
   }
   for (const [id, e] of Object.entries(content.encounters)) {
     assert.ok(e.hp > 0 && e.attacks.length, `${id}: Leben und Attacken`);
-    for (const a of e.attacks) assert.ok(a.damage > 0 && a.hits.length && a.hits.every((h, i) => h >= 500 && (i === 0 || h - a.hits[i - 1] >= 250)), `${id}/${a.name}: Schläge zu dicht`);
+    for (const a of e.attacks.filter((x) => x.action)) assert.ok(['guard', 'heal', 'veil', 'taunt'].includes(a.action) && !a.hits, `${id}/${a.name}: unbekannter Kniff`);
+    if (e.faction) assert.ok(content.factions[e.faction], `${id}: Fraktion ${e.faction}`);
+    for (const a of e.attacks.filter((x) => !x.action)) assert.ok(a.damage > 0 && a.hits.length && a.hits.every((h, i) => h >= 500 && (i === 0 || h - a.hits[i - 1] >= 250)), `${id}/${a.name}: Schläge zu dicht`);
     if (e.sprite.startsWith('npc:')) assert.ok(content.npcs[e.sprite.slice(4)], `${id}: Figur`);
     for (const k of ['on_win', 'on_lose', 'first_win', 'weak_if']) checkRefs(e[k], `${id}.${k}`);
     if (e.lose_to) assert.ok(content.maps[e.lose_to.map]?.spawns[e.lose_to.spawn], `${id}: lose_to`);

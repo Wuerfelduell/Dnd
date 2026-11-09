@@ -7,6 +7,8 @@
 // Konter; wer alle Schläge einer Attacke pariert, setzt zum Gegenschlag an.
 // Konzentration (K) bezahlt Fertigkeiten.
 
+import { rollLoot, takeLoot } from './Loot.js';
+
 export const WINDOW = { parry: 90, dodge: 150 }; // ± Millisekunden um den Einschlag
 // Schwierigkeit: echte Gegner (keine Übung) halten mehr aus und schlagen härter.
 export const ENEMY_HP_MULT = 1.25;
@@ -57,7 +59,7 @@ export class Combat {
     this.rng = state.rng ?? Math.random;
     // Die härteste Einzelattacke kann man nicht parieren, nur ausweichen (außer die Daten sagen es anders)
     const flagged = enc.attacks.some((a) => a.unparryable !== undefined);
-    const heavy = enc.attacks.filter((a) => a.hits.length === 1).sort((a, b) => b.damage - a.damage)[0];
+    const heavy = enc.attacks.filter((a) => a.hits?.length === 1).sort((a, b) => b.damage - a.damage)[0];
     this.unparryable = new Set(enc.attacks.filter((a) => (flagged ? a.unparryable : a === heavy && enc.attacks.length > 2)).map((a) => a.name));
     this.weak = !!enc.weak_if && state.meets(enc.weak_if);
     this.ap = AP_START;
@@ -71,6 +73,12 @@ export class Combat {
     this.evading = false; // nächster gegnerischer Angriff geht ins Leere
     this.confused = false; // nächster gegnerischer Angriff trifft den Gegner selbst
     this.burn = null; // { damage, rounds, source } Brand oder Gift
+    // Menschliche Gegner (Sekten) haben Kniffe: Panzer, Schleier, Blutung, Einschüchterung
+    this.enemyGuard = 0; // fängt Schaden am Gegner ab
+    this.veiled = false; // nächste Aktion des Spielers trifft nur mit präzisem Takt
+    this.bleed = null; // { damage, rounds } Blutung beim Spieler
+    this.bleedTick = 0; // Blutungsschaden dieser Runde (für die Anzeige)
+    this.lastAction = null; // { name, text } Kniff des Gegners statt eines Angriffs
   }
 
   /** Grundfertigkeiten plus die Fähigkeiten des eigenen Pfades. */
@@ -129,11 +137,19 @@ export class Combat {
       }
       return { grade, damage };
     });
-    const total = hits.reduce((n, h) => n + h.damage, 0);
-    this.hurtEnemy(total);
-    if (skillId === 'attack') this.gainAp(hits[0]?.grade === 'perfect' ? 2 : 1);
-    const landed = sk.hits === 0 || hits.some((h) => h.grade !== 'miss');
     const effects = [];
+    if (this.veiled && hits.length) {
+      // Schleier: nur präzise Treffer finden das echte Gesicht
+      this.veiled = false;
+      let lost = false;
+      for (const h of hits) if (h.grade !== 'perfect' && h.damage) { h.damage = 0; lost = true; }
+      if (lost) effects.push('der Schleier schluckt jeden ungenauen Treffer');
+    }
+    const raw = hits.reduce((n, h) => n + h.damage, 0);
+    const total = this.hurtEnemy(raw);
+    if (raw > total) effects.push(`Panzer fängt ${raw - total} ab`);
+    if (skillId === 'attack') this.gainAp(hits[0]?.grade === 'perfect' ? 2 : 1);
+    const landed = sk.hits === 0 || hits.some((h) => h.grade !== 'miss' && h.damage);
     let stunned = false;
     if ((skillId === 'blind' || sk.stun) && landed && !this.outcome) { this.stunned = true; stunned = true; }
     if (sk.weak && landed && !this.weak) { this.weak = true; effects.push('Schwachstelle erkannt'); }
@@ -154,8 +170,7 @@ export class Combat {
     this.state.removeItem(id);
     const parts = this.state.applyConsumable(it);
     if (it.damage) {
-      const dmg = it.damage * (this.enemy.occult ? 2 : 1);
-      this.hurtEnemy(dmg);
+      const dmg = this.hurtEnemy(it.damage * (this.enemy.occult ? 2 : 1));
       parts.push(`${dmg} Schaden`);
     }
     const text = `${it.name}: ${parts.join(', ')}`;
@@ -177,14 +192,20 @@ export class Combat {
     this.ap = Math.min(AP_MAX, this.ap + n);
   }
 
+  /** Schaden am Gegner (Panzer fängt zuerst ab). Gibt den tatsächlichen Schaden zurück. */
   hurtEnemy(n) {
-    this.enemy.hp = Math.max(0, this.enemy.hp - n);
+    const absorbed = Math.min(this.enemyGuard, n);
+    this.enemyGuard -= absorbed;
+    const dmg = n - absorbed;
+    this.enemy.hp = Math.max(0, this.enemy.hp - dmg);
     if (this.enemy.hp === 0) this.outcome = 'won';
+    return dmg;
   }
 
   // --- Gegner --------------------------------------------------------------
   /** Nächste Attacke des Gegners, oder null, wenn er geblendet aussetzt. */
   nextEnemyAttack() {
+    this.lastAction = null;
     if (this.stunned) { this.stunned = false; return null; }
     const list = this.enc.attacks;
     const atk = list[this.attackIndex % list.length];
@@ -192,11 +213,32 @@ export class Combat {
     if (this.confused) {
       // Verwirrt: der Gegner trifft sich selbst und greift diese Runde nicht an
       this.confused = false;
-      this.selfHit = atk.damage * atk.hits.length;
+      this.selfHit = atk.action ? 0 : atk.damage * atk.hits.length;
       this.hurtEnemy(this.selfHit);
       return null;
     }
+    if (atk.action) { this.enemyAct(atk); return null; }
     return this.prepareAttack(atk);
+  }
+
+  /**
+   * Kniff statt Angriff (Pfad-Fähigkeiten der Sekten). action:
+   * guard (Panzer +value), heal (+value Leben), veil (nächste Aktion nur präzise), taunt (-value Nerven).
+   */
+  enemyAct(atk) {
+    const v = atk.value ?? 0;
+    let text = atk.text ?? '';
+    if (atk.action === 'guard') { this.enemyGuard += v; text ||= `Panzer ${this.enemyGuard}.`; }
+    else if (atk.action === 'heal') {
+      const before = this.enemy.hp;
+      this.enemy.hp = Math.min(this.enemy.maxHp, this.enemy.hp + v);
+      text ||= `+${this.enemy.hp - before} Leben.`;
+    } else if (atk.action === 'veil') { this.veiled = true; text ||= 'Nur präzise Treffer zählen.'; }
+    else if (atk.action === 'taunt') { this.state.setComposure(this.state.composure - v); text ||= `-${v} Nerven.`; }
+    else throw new Error(`Unbekannter Kniff: ${atk.action}`);
+    this.lastAction = { name: atk.name, action: atk.action, value: v, text };
+    this.log.push(`${atk.name}: ${text}`);
+    return this.lastAction;
   }
 
   /** Ist der Gegner in Rage (wenig Leben)? */
@@ -237,8 +279,7 @@ export class Combat {
       if (!this.enc.practice) this.state.act('parry');
       this.state.setComposure(this.state.composure + PARRY_GAIN);
       this.gainAp(1 + this.state.passive('parry_ap'));
-      const counter = this.hitDamage(0.5, 'good');
-      this.hurtEnemy(counter);
+      const counter = this.hurtEnemy(this.hitDamage(0.5, 'good'));
       return { damage: 0, counter, result };
     }
     if (result === 'dodge') return { damage: 0, counter: 0, result };
@@ -247,6 +288,8 @@ export class Combat {
     this.shield -= absorbed;
     incoming -= absorbed;
     const damage = this.state.damage(incoming);
+    if (damage && attack.bleed) this.bleed = { damage: attack.bleed[0], rounds: attack.bleed[1] };
+    if (damage && attack.nerves) this.state.setComposure(this.state.composure - attack.nerves);
     if (this.state.hp === 0) this.outcome = 'lost';
     return { damage, counter: 0, result, absorbed, note };
   }
@@ -258,18 +301,24 @@ export class Combat {
 
   /** Alle Schläge pariert: Gegenschlag. */
   riposte() {
-    const dmg = this.hitDamage(1.5, 'perfect');
-    this.hurtEnemy(dmg);
+    const dmg = this.hurtEnemy(this.hitDamage(1.5, 'perfect'));
     this.log.push(`Gegenschlag: ${dmg} Schaden`);
     return dmg;
   }
 
-  /** Rundenende: Brand/Gift wirkt. Gibt den Schaden zurück. */
+  /** Rundenende: Brand/Gift wirkt auf den Gegner, Blutung auf dich (bleedTick). Gibt den Schaden am Gegner zurück. */
   endRound() {
     this.round += 1;
-    if (!this.burn || this.outcome) return 0;
-    const dmg = this.burn.damage;
-    this.hurtEnemy(dmg);
+    this.bleedTick = 0;
+    if (this.outcome) return 0;
+    if (this.bleed) {
+      this.bleedTick = this.state.damage(this.bleed.damage);
+      this.bleed.rounds -= 1;
+      if (this.bleed.rounds <= 0) this.bleed = null;
+      if (this.state.hp === 0) { this.outcome = 'lost'; return 0; }
+    }
+    if (!this.burn) return 0;
+    const dmg = this.hurtEnemy(this.burn.damage);
     this.burn.rounds -= 1;
     if (this.burn.rounds <= 0) this.burn = null;
     return dmg;
@@ -282,23 +331,22 @@ export class Combat {
    * - Niederlage: Ohnmacht, du wachst mit wenig Leben auf (lose_to: anderer Ort).
    * - Übungskämpfe: Leben wie vorher, keine Folgen.
    */
-  finish() {
+  finish({ deferLoot = false } = {}) {
     const s = this.state;
     const enc = this.enc;
     const firstFlag = `won_${this.id}`;
     let text = '';
     let travel = null;
+    let loot = null;
     if (enc.practice) s.hp = Math.max(s.hp, this.hpBefore);
     if (this.outcome === 'won') {
       const first = !s.flags.has(firstFlag);
       s.applyEffects({ ...enc.on_win, sets_flags: [...(enc.on_win?.sets_flags ?? []), firstFlag] });
       if (first && enc.first_win) s.applyEffects(enc.first_win);
       if (!enc.practice) {
-        const loot = s.content.loot?.[this.id];
-        if (loot && (first || loot.repeat)) {
-          if (loot.money) s.addMoney(loot.money, { loot: true, reason: enc.name });
-          if (first) for (const [id, n] of Object.entries(loot.items ?? {})) s.addItem(id, n);
-        }
+        loot = this.rollLoot(first);
+        // Bei Gegnern auf der Karte landet die Beute in einem Behälter am Boden (WorldScene)
+        if (!deferLoot) takeLoot(s, loot, enc.name);
         s.act('combat_win');
         if (enc.occult) s.act('occult_win');
       }
@@ -312,11 +360,32 @@ export class Combat {
         s.hp = Math.max(1, this.hpBefore);
       }
       text = enc.lose_text ?? (enc.practice ? 'Du liegst auf dem Rücken. Holt reicht dir die Hand.' : 'Dir wird schwarz vor Augen.');
+      // Gefahrengebiete: Wer dort liegen bleibt, wird ausgeraubt
+      if (!enc.practice && enc.lose_money && s.money > 0) {
+        const lost = Math.max(1, Math.ceil(s.money * enc.lose_money));
+        s.addMoney(-lost);
+        text += `\n\nAls du zu dir kommst, fehlen dir ${lost} Schilling.`;
+      }
     } else if (this.outcome === 'fled') {
       text = enc.flee_text ?? 'Du ziehst dich zurück.';
     }
     s.emit('hp', { value: s.hp, delta: 0 });
     s.emit('changed');
-    return { outcome: this.outcome, text, travel };
+    return { outcome: this.outcome, text, travel, loot, lootDeferred: !!loot && deferLoot };
+  }
+
+  /**
+   * Beute dieses Sieges (Tabelle `loot` aus market.json/wilds.json):
+   * Geld und Drops beim ersten Sieg oder immer (repeat), feste Items nur beim ersten Sieg.
+   */
+  rollLoot(first) {
+    const table = this.state.content.loot?.[this.id];
+    const loot = { money: 0, items: {} };
+    if (!table || !(first || table.repeat)) return loot;
+    const rolled = rollLoot(table, this.rng);
+    loot.money = rolled.money;
+    loot.items = rolled.items;
+    if (first) for (const [id, n] of Object.entries(table.items ?? {})) loot.items[id] = (loot.items[id] ?? 0) + n;
+    return loot;
   }
 }

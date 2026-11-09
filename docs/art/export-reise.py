@@ -5,6 +5,8 @@ import numpy as np
 from PIL import Image
 from scipy.ndimage import binary_propagation
 root=Path(__file__).resolve().parents[2]; doc=root/'docs/art';spec=json.loads((doc/'batch-reise-generation.json').read_text());src=Path(sys.argv[1]);assets=[]
+shared_ids=['ankerhaken','porzellanmaske','rostanker','rostwasser','schleierdolch','schleierpuder']
+shared_files={('items/'+i+'.png'):(root/'public/sprites/items'/ (i+'.png')).read_bytes() for i in shared_ids if (root/'public/sprites/items'/(i+'.png')).exists()}
 palette=spec['palette'];rgb=np.array([tuple(bytes.fromhex(c[1:])) for c in palette],dtype=np.int32);N=Image.Resampling.NEAREST
 
 def clean(im):
@@ -95,5 +97,10 @@ for j in spec['jobs']:
  if j['id']=='I_fraktionen':
   e['regions']={f'{n}_{k}':dict(x=i*64,y=k*8,width=64,height=8) for i,n in enumerate(['rostbrueder','schleierschwestern']) for k in range(6)};e['regions'].update({n:dict(x=i*16,y=64,width=16,height=16) for i,n in enumerate(['hostile','suspicious','unknown','tolerated','infiltrated'])});e['regions']['dossier']=dict(x=144,y=0,width=96,height=128);e['regions'].update({f'spotted_{i}':dict(x=i*16,y=96,width=16,height=16) for i in range(4)})
  save(out,j['path'],not j['transparent']);assets.append(e)
+for path,data in shared_files.items():
+ (root/'public/sprites'/path).write_bytes(data)
+ im=Image.open(root/'public/sprites'/path)
+ for a in assets:
+  if a['file']==path:a.update(width=im.width,height=im.height,sharedExisting=True)
 (root/'public/sprites/manifest-reise.json').write_text(json.dumps(dict(version=1,batch='reise',status='exported; runtime integration pending',paletteMaxVisibleColors=31,assets=assets),indent=2)+'\n')
 print(len(assets),'assets exported')

@@ -74,6 +74,10 @@ Auf dem **Nachtmarkt** unter der Krähenbrücke (Stadtkarte) kann man aufsteigen
 - **Verknüpfen**: Im Notizbuch kombinierst du zwei Informationen zu einer
   **Schlussfolgerung**. Sie ist *gesichert*, wenn beide Informationen sehr wahrscheinlich sind.
   Für eine Auflösung wollen Price und Marlowe gesicherte Schlussfolgerungen sehen.
+- Gelöste Fälle wandern ins **Archiv** (eigener Reiter, alte Informationen bleiben lesbar). Der Reiter **Personen** listet alle,
+  mit denen du gesprochen hast, mit Gesicht, Ort und laufenden Aufträgen. Erledigte Aufträge sind zusammengeklappt.
+- **Tipp** (Taste T im Fall-Reiter): Jeder Klick verrät etwas mehr über die nächste offene Schlussfolgerung.
+  Erst grob, was fehlt. Dann, welche Vermutung eine zweite Quelle braucht und wo es sie gibt. Zuletzt das Paar zum Verknüpfen.
 - **Ansehen bei der Polizei**: Gelöste Fälle, gestellte Gauner und Nebenaufträge bringen
   Ansehen, falsche Beschuldigungen kosten es. Fünf Ränge (Zivilist, Hilfsermittler,
   Ermittler, Vertrauter des Reviers, Geachteter Ermittler) öffnen Archivakten,
@@ -197,6 +201,19 @@ Paket C (`manifest-welt.json`): `THEME_TILES` beschreibt Kartenthemen über bena
 `C_CHARACTERS`, `PORTRAITS` (Dialogknoten können `"mood"` setzen), `MAP_MARKERS`, `LOG_MARKERS`
 und `MAP_WEATHER` (oder Map-Feld `"weather"`) ergänzen Figuren, Portraits, Marker und Wetter.
 Tiere laufen als Deko mit `"sprite": "creatures", "anim": ["creatures", "rat"]`.
+
+Paket D (`manifest-stadt.json`) und E (`manifest-faelle.json`): Jede benannte Region aus
+`REGION_SHEETS` wird zur Deko-Texture `<prefix>_<region>`, Animationen laufen automatisch
+(z. B. `d_strassenmoebel_police_box`, `d_elend_props_oil_drum_fire`, `e_felix_versteck_shimmer`).
+Läden heißen `d_shop_<laden>`, Spuren und Fall-4-Hinweise `e_spur_<name>` bzw. `e_hinweis_<name>`,
+die Turmuhr `e_turmuhr` (Deko-Feld `"frame": 1` = okkult beleuchtet). Außenkarten wählen mit
+`"facade": "putz|holz|stein|slum|fabrik"` die Hausfassaden. Die 16 Auftragsfiguren aus
+`E_CHARACTERS` haben Lauf-Sheet und Portrait, sobald sie als NPC auftauchen. Fall-4-Figuren
+haben Sonder-Stimmungen (`PORTRAIT_SPECIAL`, z. B. `"mood": "stumm"` bei der Diva). Dialogknoten
+und Lesetexte zeigen mit `"scene": "turmuhr|brief|rook|chor|marlowe|felix"` ein Zwischenbild.
+Schlussbilder (`ENDING_IMAGES`), Fallakten im Notizbuch (`CASE_FILES`), Auftragsbanner und
+das Zielzeichen über Figuren kommen aus Paket E; die Stadtkarte nutzt `map_image` und
+`fog_image` aus `travel.json`, der Nebel lichtet sich um freigeschaltete Orte.
 
 Karten können mit `"tiles": "nachtmarkt"` ein Tile-Thema wählen (`THEMES` in
 `WorldScene.js`) und unter `decor` Deko mit `origin`, `offset`, `ysort`, `solid`

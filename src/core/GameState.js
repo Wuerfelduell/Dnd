@@ -43,8 +43,10 @@ export class GameState {
     this.inventory = { ...(s.items ?? {}) }; // id -> Anzahl
     this.weapon = s.weapon ?? null;
     this.pendingCombat = null;
+    this.tracked = null; // verfolgter Auftrag (Journal-Wegweiser)
     this.random = Math.random; // in Tests austauschbar
     for (const q of s.quests ?? []) this.quests[q] = 'active';
+    this.tracked = s.quests?.[0] ?? null;
     this.resetPathway();
   }
 
@@ -260,6 +262,8 @@ export class GameState {
     if (!this.quest(id)) throw new Error(`Unbekannter Auftrag: ${id}`);
     if (this.quests[id]) return false;
     this.quests[id] = 'active';
+    // Neuer Hauptfall oder gerade nichts verfolgt: direkt als Ziel übernehmen
+    if (!this.tracked || (this.quest(id).kind === 'main' && this.quest(this.tracked)?.kind !== 'main')) this.tracked = id;
     this.emit('quest', { id, status: 'active' });
     return true;
   }
@@ -269,6 +273,7 @@ export class GameState {
     if (!q) throw new Error(`Unbekannter Auftrag: ${id}`);
     if (this.quests[id] === 'done' || this.quests[id] === 'failed') return false;
     this.quests[id] = status;
+    if (this.tracked === id) this.tracked = null;
     this.emit('quest', { id, status });
     if (status === 'done' && q.reward) this.applyEffects(q.reward);
     if (status === 'done') {
@@ -278,6 +283,12 @@ export class GameState {
       if (q.kind !== 'main') this.act('side_quest');
     }
     return true;
+  }
+
+  /** Auftrag im Journal verfolgen (Wegweiser im HUD, im Ort und auf der Stadtkarte). */
+  track(id) {
+    this.tracked = id && this.quests[id] === 'active' ? id : null;
+    this.emit('track', this.tracked);
   }
 
   questSteps(id) {
@@ -444,6 +455,7 @@ export class GameState {
       hp: this.hp,
       inventory: this.inventory,
       weapon: this.weapon,
+      tracked: this.tracked,
       ...this.serializePathway(),
     };
   }
@@ -461,6 +473,7 @@ export class GameState {
     this.quests = Object.fromEntries(Object.entries(data.quests).filter(([q]) => this.quest(q)));
     this.honor = data.honor;
     this.endings = data.endings ?? {};
+    this.tracked = this.quests[data.tracked] === 'active' ? data.tracked : null;
     // Ab Version 3: Leben und Inventar (ältere Stände behalten die Startausrüstung)
     if (data.v >= 3) {
       this.hp = Math.max(1, Math.min(this.maxHp, data.hp ?? this.maxHp));

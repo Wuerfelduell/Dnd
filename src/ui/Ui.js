@@ -1,9 +1,15 @@
 import { DIGEST_LABELS } from '../core/Pathways.js';
+import { lootList, itemRarity, RARITY_NAMES } from '../core/Loot.js';
 import {
   itemIconUrl, itemIcon32Url, pathwayEmblemUrl, pathwayCardUrl, COIN_URL, SKILL_ICONS, SKILL_ICONS_URL, STATUS_ICONS, STATUS_ICONS_URL,
-  portraitUrl, PORTRAIT_MOODS, MAP_MARKERS, MAP_MARKERS_URL, LOG_MARKERS, LOG_MARKERS_URL, SOURCE_ICONS,
+  portraitUrl, portraitFor, MAP_MARKERS, MAP_MARKERS_URL, LOG_MARKERS, LOG_MARKERS_URL, SOURCE_ICONS, SPRITE_BASE,
+  endingImageUrl, caseFileUrl, sceneUrl, QUEST_UI_URL, QUEST_PINS, QUEST_BANNERS,
 } from '../world/assets.js';
 import { sourceOf } from '../core/sources.js';
+import { caseHints, nextDeduction } from '../core/hints.js';
+import { isSolved, knownPeople } from '../core/journal.js';
+import { canHurry, travelSafe, travelFast, afterHurryFight } from '../core/Travel.js';
+import { questTarget } from '../core/Guide.js';
 
 /** 16x16-Icon vor einem Item-Namen. Lädt es nicht, verschwindet es einfach. */
 const itemIcon = (id) => `<img class="item-icon" src="${itemIconUrl(id)}" alt="" width="16" height="16" onerror="this.remove()">`;
@@ -18,11 +24,14 @@ const statusIcon = (id, title) => atlasIcon(STATUS_ICONS_URL, STATUS_ICONS[id], 
 const mapMarker = (map) => atlasIcon(MAP_MARKERS_URL, MAP_MARKERS[map], 13);
 /** Portrait (64x64 aus einem 256x64-Streifen) für den Dialog. */
 const portrait = (id, mood) => {
-  const url = portraitUrl(id);
-  if (!url) return '';
-  const col = PORTRAIT_MOODS[mood] ?? 0;
-  return `<div class="portrait" style="background-image:url(${url});background-position:${(col / 3) * 100}% 0"></div>`;
+  const p = portraitFor(id, mood);
+  if (!p) return '';
+  return `<div class="portrait" style="background-image:url(${p.url});background-position:${(p.col / 3) * 100}% 0"></div>`;
 };
+/** Zwischensequenzbild (240x135) über einem Text. */
+const sceneImg = (id) => { const url = id && sceneUrl(id); return url ? `<img class="scene" src="${url}" alt="" onerror="this.remove()">` : ''; };
+/** Ausschnitt aus ui/E_04_quest_ui.png (Banner, Nadeln). */
+const questUi = (cls, [x, y], k = 1 / 8) => `<span class="${cls}" style="background-image:url(${QUEST_UI_URL});background-size:${160 * k}em ${176 * k}em;background-position:-${x * k}em -${y * k}em"></span>`;
 /** Kleines Quellenbild im Notizbuch: Gesicht der erzählenden Person, sonst ein Symbol. */
 const SOURCE_LABEL = { observation: 'Eigene Beobachtung', vision: 'Geistsicht', police: 'Polizeibericht', archive: 'Akte', note: 'Gelesen', object: 'Spur am Ort', npc: 'Aussage' };
 const sourceFace = (content, clue) => {
@@ -34,6 +43,12 @@ const sourceFace = (content, clue) => {
   return `<span class="srcface icon" title="${title}" style="background-image:url(${url});background-size:${cols * 100}% 100%;background-position:${(cell / (cols - 1)) * 100}% 0"></span>`;
 };
 const coin = '<img class="coin" src="' + COIN_URL + '" alt="" width="16" height="16" onerror="this.remove()">';
+/** Beute als Liste mit Icon, Anzahl und Seltenheit (Farbe). */
+const lootHtml = (loot, items) => {
+  const rows = lootList(loot, items).map((e) => `<li class="loot-row rar-${e.rarity}">${itemIcon(e.id)}<strong>${esc(e.name)}</strong>${e.n > 1 ? ` ×${e.n}` : ''} <span class="rar">${RARITY_NAMES[e.rarity]}</span></li>`);
+  if (loot?.money) rows.unshift(`<li class="loot-row">${coin}<strong>${loot.money} Schilling</strong></li>`);
+  return rows.length ? `<ul class="loot">${rows.join('')}</ul>` : '';
+};
 
 // HTML-Oberfläche über dem Spiel-Canvas: HUD, Hinweise, Dialoge, Notizbuch,
 // Stadtkarte und Enden. Text als HTML bleibt bei jeder Skalierung scharf.
@@ -65,6 +80,7 @@ export class Ui {
           <div class="meter digest hidden"><span>Verdaut</span><div class="bar"><div class="dfill"></div></div><em class="dnum"></em></div>
           <div class="meter unruhe hidden"><span>Unruhe</span><div class="bar"><div class="ufill"></div></div></div>
           <div class="money"></div>
+          <div class="goal hidden"></div>
         </div>
         <div class="hud-right">
           <span class="key">J</span> Notizbuch &nbsp; <span class="key">I</span> Inventar &nbsp; <span class="key">P</span> Pfad &nbsp; <span class="key">Q</span> Geistsicht
@@ -91,8 +107,8 @@ export class Ui {
     state.on('rank', ({ rank, up }) => this.toast(`${up ? 'Neuer Rang' : 'Rang verloren'}: ${rank.name}`, up ? 'gold' : 'warn'));
     state.on('quest', ({ id, status }) => {
       const q = state.quest(id);
-      if (status === 'active') this.toast(`Neuer Auftrag: ${q.title}`, 'quest');
-      if (status === 'done') this.toast(`Auftrag erledigt: ${q.title}`, 'quest');
+      if (status === 'active') this.toast(`Neuer Auftrag: ${q.title}`, 'quest', QUEST_BANNERS.active);
+      if (status === 'done') this.toast(`Auftrag erledigt: ${q.title}`, 'quest', QUEST_BANNERS.done);
     });
     state.on('ending', (id) => { this.pendingEnding = id; });
     state.on('hp', () => this.updateHp());
@@ -136,6 +152,7 @@ export class Ui {
       this.toast(lines[Math.floor(Math.random() * lines.length)], 'warn');
     }, 22000);
 
+    ['track', 'changed', 'quest', 'clue', 'conclusion', 'travel'].forEach((ev) => state.on(ev, () => this.updateGoal()));
     window.addEventListener('keydown', (e) => this.onKey(e), true);
     this.updateComposure(state.composure);
     this.updateHonor();
@@ -146,11 +163,31 @@ export class Ui {
 
   onSceneReady(scene) {
     this.scene = scene;
-    this.$('.place').textContent = this.state.content.maps[this.state.map].name;
+    const map = this.state.content.maps[this.state.map];
+    this.$('.place').textContent = map.danger ? `${map.name} · Gefahr ${'☠'.repeat(map.danger)}` : map.name;
+    this.$('.place').classList.toggle('danger', !!map.danger);
     this.updateHonor();
     this.updateHp();
     this.updateMoney();
     this.updateUnruhe();
+    this.updateGoal();
+  }
+
+  /** Wegweiser im HUD: nächster Schritt des verfolgten Auftrags. */
+  goalText(t) {
+    if (!t) return '';
+    if (t.notebook) return `${t.notebook} (J)`;
+    const where = t.map === this.state.map ? 'hier' : (this.state.content.maps[t.district]?.name ?? t.mapName);
+    return `${t.name} · ${t.map === t.district || t.map === this.state.map ? where : `${t.mapName}, ${where}`}`;
+  }
+
+  updateGoal() {
+    const el = this.$('.goal');
+    if (!el) return;
+    const s = this.state;
+    const t = s.tracked ? questTarget(s, s.tracked) : null;
+    el.classList.toggle('hidden', !t);
+    if (t) el.innerHTML = `<span class="arrow">➤</span> ${esc(this.goalText(t))}<span class="gstep">${esc(t.step)}</span>`;
   }
 
   updateMoney() {
@@ -213,12 +250,14 @@ export class Ui {
     el.classList.remove('hidden');
   }
 
-  toast(text, kind = '') {
+  toast(text, kind = '', banner = null) {
     const box = this.$('.toasts');
     while (box.children.length > 5) box.firstElementChild.remove();
     const el = document.createElement('div');
     el.className = `toast ${kind}`;
     el.textContent = text;
+    // Aufträge: gemaltes Banner (160x32) über dem Text
+    if (banner) { el.classList.add('with-banner'); el.insertAdjacentHTML('afterbegin', questUi('qbanner', banner, 1 / 16)); }
     box.appendChild(el);
     setTimeout(() => el.classList.add('out'), 3200);
     setTimeout(() => el.remove(), 3800);
@@ -251,6 +290,10 @@ export class Ui {
       this.showMessage('Kontrollverlust', text);
     } else if (this.state.pendingCombat && this.scene) {
       this.scene.startCombat(this.state.pendingCombat);
+    } else if (this.afterClose) {
+      const after = this.afterClose;
+      this.afterClose = null;
+      after();
     }
   }
 
@@ -280,14 +323,22 @@ export class Ui {
     el.querySelector('[data-act=continue]')?.addEventListener('click', this.titleContinue);
   }
 
-  showMessage(title, text, { footer = '', extra = '', face = '' } = {}) {
+  showMessage(title, text, { footer = '', extra = '', face = '', onClose = null, scene = null } = {}) {
+    if (onClose) this.afterClose = onClose;
     const el = this.open('message', `
+      ${sceneImg(scene)}
       <h3>${face}${esc(title)}</h3>
       <div class="text">${paragraphs(text)}</div>
       ${extra}
       ${footer ? `<div class="footer">${esc(footer)}</div>` : ''}
       <button class="next" data-act="ok">Weiter <span class="key">E</span></button>`, 'message');
     el.querySelector('[data-act=ok]').onclick = () => this.close();
+  }
+
+  /** Inhalt eines Beutebehälters. */
+  showLoot(title, loot) {
+    const list = lootHtml(loot, this.state.content.items);
+    this.showMessage(title, list ? 'Du steckst ein:' : 'Leer. Jemand war schneller.', { extra: list });
   }
 
   showClue(id, isNew) {
@@ -339,7 +390,7 @@ export class Ui {
     this.dialogue.choices = choices;
     let n = 0;
     const face = portrait(npc.id, node.mood);
-    const el = this.open('dialogue', `${face}
+    const el = this.open('dialogue', `${sceneImg(node.scene)}${face}
       <div class="speaker">${esc(npc.name)} <span class="role">${esc(npc.role ?? '')}</span></div>
       <div class="text">${paragraphs(text)}</div>
       <ol class="choices">${choices.map((c, i) => (c.locked
@@ -369,23 +420,131 @@ export class Ui {
 
   // --- Stadtkarte ----------------------------------------------------------------
 
+  /** Gemalte Stadtkarte: Marker für jeden freigeschalteten Ort, danach die Reiseart. */
   openTravel(current) {
     const s = this.state;
+    const rules = s.content.travelRules;
     const dests = s.content.travel.filter((t) => t.map !== current && s.meets(t));
     this.travelDests = dests;
+    this.travelPick = null;
+    this.travelFrom = current;
+    const pins = rules.pins ?? {};
+    const goal = s.tracked ? questTarget(s, s.tracked) : null;
+    const goalMap = goal?.district ?? null;
+    const pin = (map, cls, inner, attrs = '') => {
+      if (map === goalMap) { cls += ' goal'; inner += `${questUi('qpin', QUEST_PINS.amber)}<span class="goaltag">Ziel</span>`; }
+      const [x, y] = pins[map];
+      const cell = MAP_MARKERS[map] ?? 0;
+      const col = cell % 13;
+      return `<button class="pin ${cls}" ${attrs} style="left:${x / 8}em;top:${y / 8}em">
+        <span class="mk" style="--c:${col};background-image:url(${MAP_MARKERS_URL})"></span>${inner}</button>`;
+    };
+    const here = pins[current] ? pin(current, 'here', '<span class="tag">Du bist hier</span>', 'disabled') : '';
+    const destPins = dests.map((d, i) => (pins[d.map] ? pin(d.map, '', `<span class="num">${i + 1}</span><span class="tag">${esc(d.name)}</span>`, `data-i="${i}"`) : '')).join('');
+    const unpinned = dests.map((d, i) => (pins[d.map] ? '' : `<button data-i="${i}"><span class="key">${i + 1}</span> ${esc(d.name)}</button>`)).join('');
     const el = this.open('travel', `
-      <h3>Stadtkarte von Kettlegate</h3>
-      <ol class="choices">${dests.map((d, i) => `<li><button data-i="${i}"><span class="key">${i + 1}</span> ${mapMarker(d.map)}${esc(d.name)} <span class="muted">${esc(d.desc)}</span></button></li>`).join('')}
-      <li><button data-act="stay"><span class="key">Esc</span> Hierbleiben</button></li></ol>`, 'travel');
-    el.querySelectorAll('[data-i]').forEach((b) => { b.onclick = () => this.travel(Number(b.dataset.i)); });
-    el.querySelector('[data-act=stay]').onclick = () => this.close();
+      <div class="map" style="background-image:url(${SPRITE_BASE}${rules.map_image})">
+        ${rules.fog_image ? '<canvas class="fog" width="480" height="270"></canvas>' : ''}
+        ${here}${destPins}
+        ${unpinned ? `<div class="unpinned">${unpinned}</div>` : ''}
+      </div>
+      <div class="modes hidden"></div>
+      <div class="mapbar">
+        <div class="info"><h3>Stadtkarte von Kettlegate</h3><span class="muted">${goal?.map ? `Ziel: ${esc(this.goalText(goal))}` : 'Wähle ein Ziel mit Zahl oder Klick.'}</span></div>
+        <button data-act="stay"><span class="key">Esc</span> Hierbleiben</button>
+      </div>`, 'citymap');
+    el.querySelectorAll('[data-i]').forEach((b) => {
+      b.onclick = () => this.travel(Number(b.dataset.i));
+      b.onmouseenter = () => { if (this.travelPick === null) this.travelInfo(dests[Number(b.dataset.i)]); };
+    });
+    el.querySelector('[data-act=stay]').onclick = () => (this.travelPick === null ? this.close() : this.openTravel(current));
+    const fog = el.querySelector('canvas.fog');
+    if (fog) this.drawFog(fog, `${SPRITE_BASE}${rules.fog_image}`, [current, ...dests.map((d) => d.map)].map((m) => pins[m]).filter(Boolean));
   }
 
+  /** Nebel über der Stadtkarte; um bekannte Orte herum lichtet er sich. */
+  drawFog(canvas, url, spots) {
+    const img = new Image();
+    img.onload = () => {
+      const ctx = canvas.getContext('2d');
+      ctx.imageSmoothingEnabled = false;
+      ctx.drawImage(img, 0, 0);
+      ctx.globalCompositeOperation = 'destination-out';
+      for (const [x, y] of spots) {
+        const g = ctx.createRadialGradient(x, y, 18, x, y, 54);
+        g.addColorStop(0, 'rgba(0,0,0,1)');
+        g.addColorStop(1, 'rgba(0,0,0,0)');
+        ctx.fillStyle = g;
+        ctx.fillRect(x - 54, y - 54, 108, 108);
+      }
+    };
+    img.src = url;
+  }
+
+  travelInfo(d) {
+    const info = this.layer.querySelector('.citymap .info');
+    if (info) info.innerHTML = `<h3>${esc(d.name)}</h3><span class="muted">${esc(d.desc)}</span>`;
+  }
+
+  /** Ziel gewählt: jetzt die Reiseart. */
   travel(i) {
     const d = this.travelDests?.[i];
     if (!d) return;
-    this.close();
-    this.scene.travelTo(d.map, d.spawn);
+    const s = this.state;
+    const rules = s.content.travelRules;
+    this.travelPick = d;
+    this.travelInfo(d);
+    const el = this.layer.querySelector('.citymap');
+    el.querySelectorAll('.pin[data-i]').forEach((p) => p.classList.toggle('sel', Number(p.dataset.i) === i));
+    const safe = rules.modes.sicher;
+    const fast = rules.modes.schnell;
+    const hurry = canHurry(s);
+    const modes = el.querySelector('.modes');
+    modes.classList.remove('hidden');
+    modes.innerHTML = `
+      <button class="mode safe" data-mode="sicher"><b><span class="key">1</span> ${esc(safe.name)}</b>
+        <span class="muted">${esc(safe.desc)}</span><span class="gain">+${Math.round(s.maxHp * safe.heal_pct)} Leben · +${safe.nerves} Nerven · Journal</span></button>
+      <button class="mode fast" data-mode="schnell" ${hurry ? '' : 'disabled'}><b><span class="key">2</span> ${esc(fast.name)}</b>
+        <span class="muted">${esc(fast.desc)}</span><span class="cost">${hurry ? `−${fast.nerves_cost} Nerven · Monster · Beute` : `Zu wenig Nerven (mind. ${fast.nerves_cost})`}</span></button>`;
+    modes.querySelectorAll('[data-mode]').forEach((b) => { b.onclick = () => this.travelMode(b.dataset.mode); });
+    el.querySelector('[data-act=stay] .key').nextSibling.textContent = ' Anderes Ziel';
+  }
+
+  travelMode(mode) {
+    const d = this.travelPick;
+    if (!d) return;
+    const s = this.state;
+    const go = () => this.scene.travelTo(d.map, d.spawn);
+    if (mode === 'sicher') {
+      const r = travelSafe(s);
+      const parts = [`Die Kutsche rumpelt über das Kopfsteinpflaster nach ${d.name}. Du lehnst dich zurück und schlägst dein Journal auf.`];
+      if (r.hint) parts.push(`${r.hint.quest}: ${r.hint.text}`);
+      if (r.review) parts.push(`Eine Notiz, die noch auf eine zweite Quelle wartet: „${r.review}“`);
+      if (!r.hint && !r.review) parts.push('Keine offenen Fragen. Du genießt den Blick auf die nebligen Straßen.');
+      const gains = [r.healed > 0 ? `+${r.healed} Leben` : '', r.nerves > 0 ? `+${r.nerves} Nerven` : ''].filter(Boolean).join(', ');
+      this.showMessage('Unterwegs: Journal lesen', parts.join('\n\n'), { footer: gains || 'Du bist ausgeruht.', onClose: go });
+      return;
+    }
+    if (mode !== 'schnell' || !canHurry(s)) return;
+    const ev = travelFast(s);
+    if (ev.encounter) {
+      this.showMessage(ev.title, ev.text, {
+        footer: 'Ein Kampf steht bevor.',
+        onClose: () => this.scene.startCombat(ev.encounter, (result) => {
+          const loot = afterHurryFight(s, ev, result.outcome);
+          // Nach der Kampfmeldung: Beute zeigen und weiterreisen
+          this.afterClose = () => {
+            if (loot.length) this.showMessage('Beute', `Du durchsuchst die Stelle und findest:\n${loot.join('\n')}`, { onClose: go });
+            else go();
+          };
+        }),
+      });
+      return;
+    }
+    const lines = [ev.text];
+    if (ev.loot?.length) lines.push(`Gefunden:\n${ev.loot.join('\n')}`);
+    const footer = ev.lostMoney ? `−${ev.lostMoney} Schilling` : '';
+    this.showMessage(ev.title, lines.join('\n\n'), { footer, onClose: go });
   }
 
   // --- Notizbuch ---------------------------------------------------------------
@@ -403,29 +562,44 @@ export class Ui {
   }
 
   renderNotebook(feedback) {
-    const cases = this.visibleCases();
-    const fixed = ['quests', 'items', 'pfad'];
+    const all = this.visibleCases();
+    const solved = all.filter((c) => isSolved(this.state, c.id));
+    const cases = all.filter((c) => !solved.includes(c));
+    const fixed = ['quests', 'items', 'pfad', 'personen', 'archiv'];
+    if (this.tab === 'archiv' && !solved.length) this.tab = 'quests';
+    // Ein gelöster Fall wird im Archiv geöffnet
+    if (solved.some((c) => c.id === this.tab)) { this.archiveCase = this.tab; this.tab = 'archiv'; }
     if (!fixed.includes(this.tab) && !cases.some((c) => c.id === this.tab)) this.tab = 'quests';
-    const tabs = [{ id: 'quests', title: 'Aufträge' }, { id: 'items', title: 'Inventar' }, { id: 'pfad', title: 'Pfad' }, ...cases.map((c) => ({ id: c.id, title: c.title.replace(/:.*/, '') }))];
-    const body = this.tab === 'quests' ? this.questsHtml() : this.tab === 'items' ? this.itemsHtml() : this.tab === 'pfad' ? this.pathwayHtml() : this.caseHtml(this.tab);
-    const isCase = !fixed.includes(this.tab);
+    if (this.tab === 'archiv' && !solved.some((c) => c.id === this.archiveCase)) this.archiveCase = solved.at(-1)?.id;
+    const tabs = [{ id: 'quests', title: 'Aufträge' }, { id: 'items', title: 'Inventar' }, { id: 'pfad', title: 'Pfad' }, { id: 'personen', title: 'Personen' },
+      ...cases.map((c) => ({ id: c.id, title: c.title.replace(/:.*/, '') })), ...(solved.length ? [{ id: 'archiv', title: `Archiv (${solved.length})` }] : [])];
+    const caseId = this.currentCase();
+    const body = this.tab === 'quests' ? this.questsHtml() : this.tab === 'items' ? this.itemsHtml() : this.tab === 'pfad' ? this.pathwayHtml()
+      : this.tab === 'personen' ? this.peopleHtml() : this.tab === 'archiv' ? this.archiveHtml(solved) : this.caseHtml(this.tab);
+    const isCase = !!caseId;
+    const hint = String(feedback ?? '').startsWith('<div class="hint">') ? feedback : '';
     const el = this.open('notebook', `
       <div class="tabs">${tabs.map((t, i) => `<button class="tab ${t.id === this.tab ? 'sel' : ''}" data-tab="${t.id}"><span class="key">${i + 1}</span> ${esc(t.title)}</button>`).join('')}
         <span class="rankinfo">${esc(this.state.rank().name)} · Ansehen ${this.state.honor}</span></div>
+      ${hint ? `<div class="feedback hintbox">${hint}</div>` : ''}
       ${body}
-      <div class="feedback">${feedback}</div>
+      <div class="feedback">${hint ? '' : feedback}</div>
       <div class="actions">
+        ${isCase ? `<button data-act="hint" title="Jeder Klick verrät etwas mehr">Tipp${this.hintStage(caseId) ? ` ${this.hintStage(caseId)}/3` : ''} <span class="key">T</span></button>` : ''}
         ${isCase ? `<button class="primary" data-act="combine" ${this.selected.length === 2 ? '' : 'disabled'}>Verknüpfen <span class="key">V</span></button>` : ''}
         <button data-act="close">Schließen <span class="key">J</span></button>
       </div>`, 'notebook');
     this.notebookTabs = tabs;
     el.querySelectorAll('[data-tab]').forEach((b) => { b.onclick = () => { this.tab = b.dataset.tab; this.selected = []; this.renderNotebook(''); }; });
     el.querySelectorAll('[data-fact]').forEach((b) => { b.onclick = () => this.toggleFact(b.dataset.fact); });
+    el.querySelectorAll('[data-archive]').forEach((b) => { b.onclick = () => { this.archiveCase = b.dataset.archive; this.selected = []; this.renderNotebook(''); }; });
     el.querySelector('[data-act=combine]')?.addEventListener('click', () => this.combine());
+    el.querySelector('[data-act=hint]')?.addEventListener('click', () => this.showHint());
     el.querySelectorAll('[data-use]').forEach((b) => { b.onclick = () => this.renderNotebook(esc(this.state.useItem(b.dataset.use) ?? '')); });
     el.querySelectorAll('[data-equip]').forEach((b) => { b.onclick = () => { this.state.equip(b.dataset.equip); this.renderNotebook(''); }; });
     el.querySelectorAll('[data-drink]').forEach((b) => { b.onclick = () => this.drink(b.dataset.drink); });
     el.querySelectorAll('[data-inspect]').forEach((b) => { b.onclick = () => this.inspectItem(b.dataset.inspect); });
+    el.querySelectorAll('[data-track]').forEach((b) => { b.onclick = () => { const id = b.dataset.track; this.state.track(this.state.tracked === id ? null : id); this.renderNotebook(''); }; });
     el.querySelectorAll('[data-recipe]').forEach((b) => { b.onclick = () => { this.tab = 'pfad'; this.renderNotebook(''); }; });
     el.querySelector('[data-act=close]').onclick = () => this.close();
   }
@@ -444,18 +618,28 @@ export class Ui {
     const order = (q) => (s.quests[q] === 'active' ? 0 : 1) * 10 + (s.quest(q).kind === 'main' ? 0 : 1);
     ids.sort((a, b) => order(a) - order(b));
     if (!ids.length) return '<p class="empty">Noch keine Aufträge.</p>';
-    return `<ul class="quests">${ids.map((id) => {
+    const row = (id) => {
       const q = s.quest(id);
       const st = s.quests[id];
-      const steps = st === 'active' ? `<ul class="steps">${s.questSteps(id).map((x) => `<li class="${x.done ? 'done' : ''}">${x.done ? '✓' : '○'} ${esc(x.text)}</li>`).join('')}</ul>` : '';
-      return `<li class="quest ${st}"><div class="qtitle"><span class="qkind">${q.kind === 'main' ? 'Hauptfall' : 'Nebenauftrag'}</span> ${esc(q.title)} ${st !== 'active' ? '<span class="badge likely">erledigt</span>' : ''}</div>
-        ${st === 'active' ? `<div class="qsum">${esc(q.summary)}</div>` : ''}${steps}</li>`;
-    }).join('')}</ul>`;
+      const active = st === 'active';
+      const tracked = s.tracked === id;
+      const steps = active ? `<ul class="steps">${s.questSteps(id).map((x) => `<li class="${x.done ? 'done' : ''}">${x.done ? '✓' : '○'} ${esc(x.text)}</li>`).join('')}</ul>` : '';
+      const t = active ? questTarget(s, id) : null;
+      const goal = active ? `<div class="qgoal">➤ ${t ? esc(this.goalText(t)) : 'Kein fester Ort bekannt'}</div>` : '';
+      return `<li class="quest ${st} ${tracked ? 'tracked' : ''}" ${active ? `data-track="${id}"` : ''}><div class="qtitle"><span class="qkind">${q.kind === 'main' ? 'Hauptfall' : 'Nebenauftrag'}</span> ${esc(q.title)} ${!active ? '<span class="badge likely">erledigt</span>' : ''}${tracked ? '<span class="badge track">verfolgt</span>' : ''}</div>
+        ${active ? `<div class="qsum">${esc(q.summary)}</div>` : ''}${steps}${goal}</li>`;
+    };
+    // Erledigte Aufträge zusammengeklappt, damit die offenen oben sichtbar bleiben
+    const open = ids.filter((id) => s.quests[id] === 'active');
+    const closed = ids.filter((id) => s.quests[id] !== 'active');
+    return `<p class="hintline">Klicke auf einen Auftrag, um ihn zu verfolgen. Ein Pfeil zeigt dir dann den Weg.</p>
+      <ul class="quests">${open.map(row).join('') || '<li class="empty">Gerade keine offenen Aufträge.</li>'}</ul>
+      ${closed.length ? `<details class="closed-quests"><summary>Erledigt (${closed.length})</summary><ul class="quests">${closed.map(row).join('')}</ul></details>` : ''}`;
   }
 
   itemsHtml() {
     const s = this.state;
-    const kindOrder = { weapon: 0, consumable: 1, potion: 2, formula: 3, ingredient: 4, key: 5 };
+    const kindOrder = { weapon: 0, consumable: 1, potion: 2, formula: 3, ingredient: 4, trophy: 5, key: 6 };
     const list = s.items().sort((a, b) => kindOrder[a.kind] - kindOrder[b.kind]);
     const w = s.weaponStats();
     const rows = list.map((it) => {
@@ -468,6 +652,7 @@ export class Ui {
         action = chk.ok ? `<button class="small" data-drink="${it.id}">Trinken</button><br><span class="muted">Risiko ${Math.round(chk.risk * 100)} %</span>` : '<span class="muted">nicht trinkbar</span>';
       } else if (it.kind === 'formula') action = '<button class="small" data-recipe="1">Rezept</button>';
       else if (it.kind === 'ingredient') action = '<span class="muted">Zutat</span>';
+      else if (it.kind === 'trophy') action = `<span class="muted rar-${itemRarity(it)}">Beutestück · ${RARITY_NAMES[itemRarity(it)]}</span>`;
       if (!action && it.inspect) action = `<button class="small" data-inspect="${it.id}">Untersuchen</button>`;
       const stat = it.kind === 'weapon' ? ` <span class="muted">Angriff ${it.atk}${it.occult ? ', stark gegen Okkultes' : ''}</span>` : '';
       return `<li class="item"><div>${it.kind === 'potion' || it.kind === 'formula' ? itemIconBig(it.id) : itemIcon(it.id)}<strong>${esc(it.name)}</strong>${it.count > 1 ? ` ×${it.count}` : ''}${stat}<br><span class="desc">${esc(it.desc)}</span></div><div>${action}</div></li>`;
@@ -491,10 +676,18 @@ export class Ui {
         for (const [a, b] of d.pairs) if (usable(a) && usable(b)) { linkable.add(a); linkable.add(b); }
       }
     }
+    // Tipp ab Stufe 2: schwache Information markieren, ab Stufe 3 beide des Paares
+    const hinted = new Set();
+    const stage = this.hintStage(caseId);
+    const target = stage >= 2 ? nextDeduction(s, caseId) : null;
+    if (target) {
+      const weak = Math.max(0, target.status.findIndex((x) => x !== 'likely'));
+      target.pair.forEach((f, i) => { if (stage >= 3 || i === weak) hinted.add(f); });
+    }
     const factItems = facts.map((f) => {
       const st = s.factStatus(f);
       const n = s.factSources(f).length;
-      return `<li><button class="fact ${st} ${this.selected.includes(f) ? 'sel' : ''}" data-fact="${f}" ${st === 'refuted' ? 'data-refuted="1"' : ''}>
+      return `<li><button class="fact ${st} ${this.selected.includes(f) ? 'sel' : ''} ${hinted.has(f) ? 'hinted' : ''}" data-fact="${f}" ${st === 'refuted' ? 'data-refuted="1"' : ''}>
         ${this.badge(st)} ${linkable.has(f) ? '<span class="thread" title="Lässt sich verknüpfen">✦</span> ' : ''}${esc(s.fact(f).text)} <span class="src">${n}×</span></button></li>`;
     }).join('');
     const ded = s.content.deductions.filter((d) => d.case === caseId && s.hasConclusion(d.id));
@@ -515,13 +708,59 @@ export class Ui {
           <ul class="concl">${concl || '<li class="empty">Wähle zwei Informationen aus und verknüpfe sie.</li>'}</ul>
         </div>
       </div>
-      <div class="detail">${detail}</div>`;
+      <div class="detail">${detailId ? '' : `<img class="casefile" src="${caseFileUrl(caseId)}" alt="" onerror="this.remove()">`}${detail}</div>`;
   }
 
   toggleFact(id) {
     if (this.selected.includes(id)) this.selected = this.selected.filter((x) => x !== id);
     else this.selected = [...this.selected, id].slice(-2);
     this.renderNotebook('');
+  }
+
+  /** Der Fall, der gerade im Notizbuch offen ist (auch im Archiv), sonst null. */
+  currentCase() {
+    if (this.tab === 'archiv') return this.archiveCase ?? null;
+    return ['quests', 'items', 'pfad', 'personen'].includes(this.tab) ? null : this.tab;
+  }
+
+  /** Archiv: gelöste Fälle mit ihrem Ende; ein Klick öffnet die alten Informationen. */
+  archiveHtml(solved) {
+    const s = this.state;
+    const list = solved.map((c) => {
+      const end = s.content.endings[s.endings[c.id]];
+      return `<button class="tab ${c.id === this.archiveCase ? 'sel' : ''}" data-archive="${c.id}">${esc(c.title)}${end ? ` <span class="muted">· ${esc(end.title ?? '')}</span>` : ''}</button>`;
+    }).join('');
+    return `<div class="archive-list">${list}</div>${this.archiveCase ? this.caseHtml(this.archiveCase) : ''}`;
+  }
+
+  /** Personen, mit denen man gesprochen hat: Gesicht, Rolle, Ort, laufende Aufträge. */
+  peopleHtml() {
+    const people = knownPeople(this.state);
+    if (!people.length) return '<p class="empty">Du hast noch mit niemandem gesprochen.</p>';
+    return `<ul class="people">${people.map((p) => {
+      const url = portraitUrl(p.id);
+      const face = url ? `<span class="srcface face" style="background-image:url(${url})"></span>` : '<span class="srcface"></span>';
+      return `<li class="${p.quests.length ? 'busy' : ''}">${face}<div><strong>${esc(p.name)}</strong> <span class="muted">${esc(p.role)}</span>
+        <br><span class="where">${esc(p.places.join(', ') || 'unterwegs')}</span>${p.quests.map((q) => `<br><span class="qtag">${esc(q)}</span>`).join('')}</div></li>`;
+    }).join('')}</ul>`;
+  }
+
+  /** Aktuelle Tipp-Stufe eines Falls (0 = noch kein Tipp). Ändert sich das Ziel, beginnt es von vorn. */
+  hintStage(caseId) {
+    const h = this.hints?.[caseId];
+    if (!h) return 0;
+    return caseHints(this.state, caseId, 1).key === h.key ? h.level : 0;
+  }
+
+  /** Gestufter Tipp: jeder Klick verrät etwas mehr über die nächste offene Schlussfolgerung. */
+  showHint() {
+    const caseId = this.currentCase();
+    if (!caseId) return;
+    this.hints ??= {};
+    const level = Math.min(3, this.hintStage(caseId) + 1);
+    const h = caseHints(this.state, caseId, level);
+    this.hints[caseId] = { key: h.key, level };
+    this.renderNotebook(`<div class="hint">${h.lines.map((l) => `<p>${esc(l)}</p>`).join('')}</div>`);
   }
 
   combine() {
@@ -686,16 +925,32 @@ export class Ui {
     q('.efill').style.width = `${(c.enemy.hp / c.enemy.maxHp) * 100}%`;
     const burn = c.burn ? { giftphiole: ['gift', 'Gift'], aetzwolke: ['zerfressen', 'Ätzend'] }[c.burn.source] ?? ['brennen', 'Brand'] : null;
     q('.cb-tags').innerHTML = [c.enemy.occult ? '<span class="badge refuted">okkult</span>' : '', c.weak ? `<span class="badge likely">${statusIcon('schwachstelle')}Schwachstelle bekannt</span>` : '', c.enc.practice ? '<span class="badge suspected">Übung</span>' : '',
+      c.enc.elite ? '<span class="badge refuted">★ Elite</span>' : '', c.enc.boss ? '<span class="badge refuted">☠ Boss</span>' : '',
+      this.possibleLoot(c.id),
       burn ? `<span class="badge suspected">${statusIcon(burn[0])}${burn[1]} ${c.burn.rounds}</span>` : '',
       c.stunned ? `<span class="badge suspected">${statusIcon('betaeubt')}betäubt</span>` : '',
-      c.confused ? `<span class="badge suspected">${statusIcon('verwirrt')}verwirrt</span>` : ''].join(' ');
-    q('.cb-status').innerHTML = [c.shield ? statusIcon('eisenhaut', `Schutz ${c.shield}`) + c.shield : '', c.evading ? statusIcon('vorahnung', 'Nächster Angriff geht ins Leere') : ''].join(' ');
+      c.confused ? `<span class="badge suspected">${statusIcon('verwirrt')}verwirrt</span>` : '',
+      c.enemyGuard ? `<span class="badge refuted">${statusIcon('eisenhaut')}Panzer ${c.enemyGuard}</span>` : '',
+      c.veiled ? `<span class="badge refuted">${statusIcon('schatten')}verschleiert</span>` : '',
+      c.enc.faction ? `<span class="badge">${c.state.content.factions?.[c.enc.faction]?.name ?? ''}</span>` : ''].join(' ');
+    q('.cb-status').innerHTML = [c.shield ? statusIcon('eisenhaut', `Schutz ${c.shield}`) + c.shield : '', c.evading ? statusIcon('vorahnung', 'Nächster Angriff geht ins Leere') : '',
+      c.bleed ? statusIcon('blutung', `Blutung: ${c.bleed.damage} pro Runde, noch ${c.bleed.rounds}`) + c.bleed.rounds : ''].join(' ');
     q('.pfill').style.width = `${(s.hp / s.maxHp) * 100}%`;
     q('.pfill').classList.toggle('low', s.hp / s.maxHp < 0.3);
     q('.cb-hp').textContent = `${s.hp}/${s.maxHp}`;
     q('.nfill').style.width = `${s.composure}%`;
     q('.cb-weapon').textContent = s.weaponStats().name;
     q('.pips').innerHTML = Array.from({ length: 6 }, (_, i) => `<i class="${i < c.ap ? 'on' : ''}"></i>`).join('');
+  }
+
+  /** Mögliche Beute eines Gegners als Icon-Reihe (seltenes zuerst). */
+  possibleLoot(encId) {
+    const t = this.state.content.loot?.[encId];
+    const items = this.state.content.items;
+    const ids = [...new Set([...(t?.drops ?? []).map((d) => d.item), ...Object.keys(t?.items ?? {})])];
+    if (!ids.length) return '';
+    ids.sort((a, b) => ['gewoehnlich', 'ungewoehnlich', 'selten', 'okkult'].indexOf(itemRarity(items[b])) - ['gewoehnlich', 'ungewoehnlich', 'selten', 'okkult'].indexOf(itemRarity(items[a])));
+    return `<span class="cb-loot">Beute: ${ids.map((id) => `<span class="loot-ico rar-${itemRarity(items[id])}" title="${esc(items[id]?.name ?? id)}">${itemIcon(id)}</span>`).join('')}</span>`;
   }
 
   combatMessage(text, help = '') {
@@ -776,7 +1031,10 @@ export class Ui {
     this.updateHp();
     const title = { won: 'Sieg', lost: 'Ohnmacht', fled: 'Rückzug' }[result.outcome];
     this.keysBlockedUntil = performance.now() + 400; // hastiges E-Drücken schließt die Meldung nicht sofort
-    this.showMessage(`${title}: ${enc.name}`, result.text);
+    const list = result.loot ? lootHtml(result.loot, this.state.content.items) : '';
+    const extra = list ? `<h4 class="loot-title">${result.lootDeferred ? 'Beute liegt am Boden' : 'Beute'}</h4>${list}` : '';
+    const footer = result.lootDeferred && list ? 'Geh hin und drück E, um sie aufzuheben.' : '';
+    this.showMessage(`${title}: ${enc.name}`, result.text, { extra, footer });
   }
 
   // --- Ende -------------------------------------------------------------------
@@ -791,6 +1049,9 @@ export class Ui {
       <div class="text">${paragraphs(end.text)}</div>
       <div class="footer">Ansehen ${end.honor > 0 ? '+' : ''}${end.honor} · Rang: ${esc(s.rank().name)}</div>
       <button class="primary" data-act="ok">Weiter <span class="key">E</span></button>`, `ending ending-${end.honor >= 15 ? 'good' : 'bad'}`);
+    // Schlussbild als Hintergrund (480x270)
+    const img = endingImageUrl(id, end.case);
+    if (img) { el.classList.add('with-image'); el.style.backgroundImage = `linear-gradient(rgba(10, 8, 14, 0.3), rgba(10, 8, 14, 0.85) 50%), url(${img})`; }
     el.querySelector('[data-act=ok]').onclick = () => this.close();
   }
 
@@ -809,14 +1070,16 @@ export class Ui {
     else if ((this.modal === 'message' || this.modal === 'ending') && (confirm || k === 'escape')) this.close();
     else if (this.modal === 'dialogue' && num >= 0) this.choose(this.dialogue.keyMap[num]);
     else if (this.modal === 'dialogue' && confirm && this.dialogue?.keyMap.length === 1) this.choose(this.dialogue.keyMap[0]);
-    else if (this.modal === 'travel' && num >= 0) this.travel(num);
-    else if (this.modal === 'travel' && k === 'escape') this.close();
+    else if (this.modal === 'travel' && this.travelPick && (num === 0 || num === 1)) this.travelMode(num === 0 ? 'sicher' : 'schnell');
+    else if (this.modal === 'travel' && !this.travelPick && num >= 0) this.travel(num);
+    else if (this.modal === 'travel' && k === 'escape') { if (this.travelPick) this.openTravel(this.travelFrom); else this.close(); }
     else if (this.modal === 'notebook' && (k === 'j' || k === 'i' || k === 'p' || k === 'tab' || k === 'escape')) this.close();
     else if (this.modal === 'shop' && num >= 0) this.shopPick(num);
     else if (this.modal === 'shop' && k === 'v' && this.state.merchant(this.shop.id).buys) this.openShop(this.shop.id, this.shop.mode === 'buy' ? 'sell' : 'buy');
     else if ((this.modal === 'shop' || this.modal === 'brew') && (k === 'escape' || k === 'e')) this.close();
     else if (this.modal === 'brew' && num >= 0 && this.brewList?.[num]) this.brew(this.brewList[num].formula);
     else if (this.modal === 'notebook' && k === 'v') this.combine();
+    else if (this.modal === 'notebook' && k === 't') this.showHint();
     else if (this.modal === 'notebook' && num >= 0 && this.notebookTabs[num]) { this.tab = this.notebookTabs[num].id; this.selected = []; this.renderNotebook(''); }
     else handled = false;
     if (handled) { e.preventDefault(); e.stopPropagation(); }

@@ -1,0 +1,299 @@
+{
+  "id": "haus_morrow",
+  "name": "Haus Morrow",
+  "tiles": "tavern",
+  "ambient": {
+    "night": 0.68,
+    "fog": 0.04
+  },
+  "spawns": {
+    "default": [
+      15,
+      10
+    ]
+  },
+  "rows": [
+    "IIIIIIIIIIIIIIIIIIIIII",
+    "IIIIIIIIIIIIIIIIIIIIII",
+    "IBBBwwwwwwIwwwwwwwBBwI",
+    "IwwwwwwwwwIwwwwwwwwwwI",
+    "IwTTwwwwwwIwwwwwwwwwwI",
+    "IwwwwwwwwwwwwwwwTTwwwI",
+    "IwwwwwwwwwIwwwwwwwwwwI",
+    "IIIIwIIIIIIwwwwwwwwwwI",
+    "IwwwwwwwwVIwwwwwwwwwwI",
+    "IwTwwwwwwwIwwwwwwwwwwI",
+    "IwwwwwwwwwIwwwwwwwwwwI",
+    "IIIIIIIIIIIIIIIEEIIIII"
+  ],
+  "decor": [
+    {
+      "sprite": "fireplace",
+      "tile": [
+        6,
+        1
+      ],
+      "alpha": 1,
+      "origin": [
+        0.5,
+        1
+      ],
+      "offset": [
+        0,
+        8
+      ],
+      "depth": 60,
+      "light": {
+        "dy": -10,
+        "radius": 60,
+        "intensity": 0.8,
+        "flicker": 0.2
+      }
+    },
+    {
+      "sprite": "creatures",
+      "tile": [
+        5,
+        5
+      ],
+      "alpha": 1,
+      "anim": [
+        "creatures",
+        "cat_blink"
+      ],
+      "ysort": true,
+      "origin": [
+        0.5,
+        1
+      ],
+      "offset": [
+        0,
+        7
+      ]
+    },
+    {
+      "sprite": "d_wohnung_rug",
+      "tile": [
+        6,
+        4
+      ],
+      "offset": [
+        8,
+        0
+      ],
+      "alpha": 1,
+      "depth": 4
+    },
+    {
+      "sprite": "d_wohnung_rocking_chair",
+      "tile": [
+        8,
+        3
+      ],
+      "offset": [
+        0,
+        8
+      ],
+      "origin": [
+        0.5,
+        1
+      ],
+      "alpha": 1,
+      "ysort": true
+    },
+    {
+      "sprite": "d_wohnung_birdcage",
+      "tile": [
+        20,
+        3
+      ],
+      "offset": [
+        0,
+        8
+      ],
+      "origin": [
+        0.5,
+        1
+      ],
+      "alpha": 1,
+      "ysort": true
+    },
+    {
+      "sprite": "d_wohnung_dresser",
+      "tile": [
+        13,
+        3
+      ],
+      "offset": [
+        0,
+        8
+      ],
+      "origin": [
+        0.5,
+        1
+      ],
+      "alpha": 1,
+      "ysort": true
+    },
+    {
+      "sprite": "d_wohnung_bathtub",
+      "tile": [
+        17,
+        9
+      ],
+      "offset": [
+        0,
+        8
+      ],
+      "origin": [
+        0.5,
+        1
+      ],
+      "alpha": 1,
+      "ysort": true,
+      "solid": [
+        28,
+        8,
+        0,
+        -4
+      ]
+    },
+    {
+      "sprite": "d_wohnung_washstand",
+      "tile": [
+        12,
+        8
+      ],
+      "offset": [
+        0,
+        8
+      ],
+      "origin": [
+        0.5,
+        1
+      ],
+      "alpha": 1,
+      "ysort": true
+    },
+    {
+      "sprite": "d_wohnung_strongbox",
+      "tile": [
+        7,
+        8
+      ],
+      "offset": [
+        0,
+        0
+      ],
+      "alpha": 1,
+      "depth": 5
+    },
+    {
+      "sprite": "d_wohnung_chamber_pot",
+      "tile": [
+        19,
+        10
+      ],
+      "offset": [
+        0,
+        0
+      ],
+      "alpha": 1,
+      "depth": 5
+    }
+  ],
+  "interactables": [
+    {
+      "id": "exit",
+      "kind": "travel",
+      "tile": [
+        15,
+        11
+      ],
+      "prompt": "Stadtkarte öffnen",
+      "marker": false,
+      "reach": 22
+    },
+    {
+      "id": "note",
+      "clue": "price_note",
+      "tile": [
+        16,
+        5
+      ],
+      "prompt": "Die Notiz auf dem Sekretär lesen",
+      "visible_if": {
+        "requires_quests_active": [
+          "graue_schleier"
+        ]
+      }
+    },
+    {
+      "id": "shard",
+      "clue": "porcelain_shard",
+      "tile": [
+        3,
+        9
+      ],
+      "prompt": "Unter Tillys Bett nachsehen",
+      "visible_if": {
+        "requires_quests_active": [
+          "graue_schleier"
+        ]
+      }
+    },
+    {
+      "id": "letters",
+      "kind": "read",
+      "tile": [
+        2,
+        2
+      ],
+      "prompt": "Das Regal mit den Briefen ansehen",
+      "marker": false,
+      "title": "Lücken im Regal",
+      "text": "Lavinias Briefe stehen in Bündeln, nach Jahren geordnet. Vom Bündel ihres verstorbenen Mannes, Bankier Morrow, fehlen die letzten zwei Jahre. Wer immer sie genommen hat, wusste genau, welche.",
+      "done_flag": "read_morrow_letters"
+    }
+  ],
+  "npcs": [
+    {
+      "id": "lavinia",
+      "tile": [
+        4,
+        5
+      ],
+      "facing": "right"
+    },
+    {
+      "id": "schleier_novizin",
+      "tile": [
+        14,
+        4
+      ],
+      "facing": "down",
+      "visible_if": {
+        "requires_quests_active": [
+          "graue_schleier"
+        ],
+        "hide_if_flags": [
+          "novizin_caught",
+          "veil_fled"
+        ]
+      }
+    },
+    {
+      "id": "tilly",
+      "tile": [
+        13,
+        6
+      ],
+      "facing": "down",
+      "visible_if": {
+        "requires_flags": [
+          "tilly_freed"
+        ]
+      }
+    }
+  ]
+}

@@ -121,12 +121,14 @@ test('Niederlage: Ohnmacht mit wenig Leben, im Wächterkampf zurück an die Trep
   assert.ok(!s.flags.has('warden_defeated'));
 });
 
-const LATE = ['choir_zealots', 'rook_fight', 'gasgeist', 'felix_fight', 'uhrwerkwaechter', 'kanalkroete', 'maskenspieler', 'schlachtergehilfe'];
+const LATE = ['choir_zealots', 'rook_fight', 'gasgeist', 'felix_fight', 'uhrwerkwaechter', 'kanalkroete', 'maskenspieler', 'schlachtergehilfe',
+  ...Object.keys(content.encounters).filter((id) => content.encounters[id].faction)]; // Sekten kommen nach Fall 2/3
 
 test('Balance: Geübte Spieler schaffen mit Startausrüstung jeden Kampf', () => {
   // Wer von drei Schlägen einem ausweicht, einen pariert und unter 15 Leben verbindet, gewinnt.
   // Vor dem Aschewächter gibt Küster Anselm zwei Beutel Bannsalz.
-  for (const id of Object.keys(content.encounters)) {
+  for (const [id, enc] of Object.entries(content.encounters)) {
+    if (enc.wild) continue; // Gefahrengebiete brauchen bessere Ausrüstung (tests/wilds.test.js)
     const s = fresh();
     const items = id === 'ash_warden' ? ['bannsalz', 'bannsalz'] : [];
     if (items.length) s.addItem('bannsalz', 2);
@@ -138,7 +140,7 @@ test('Balance: Geübte Spieler schaffen mit Startausrüstung jeden Kampf', () =>
 });
 
 test('Balance: Wer nur jedem zweiten Schlag ausweicht, verliert gegen die harten Gegner', () => {
-  for (const id of ['ash_warden', 'rook_fight', 'felix_fight']) {
+  for (const id of ['ash_warden', 'rook_fight', 'felix_fight', 'rost_schmied', 'rost_vater', 'schleier_mutter']) {
     const s = fresh();
     if (id === 'ash_warden') s.addItem('bannsalz', 2);
     if (LATE.includes(id)) s.addItem('schlagstock');

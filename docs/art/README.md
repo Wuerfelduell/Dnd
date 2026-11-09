@@ -196,6 +196,190 @@ Dieses Paket stellt die Grafiken und Metadaten bereit. Die Einbindung sowie
 die Beurteilung von Timing, Lesbarkeit und Übergängen im laufenden Spiel erfolgen
 separat. Es wird kein Spielcode geändert.
 
+## Grafikpaket E – Fall 4, Aufträge und Fallakten
+
+Batch `faelle`, erstellt am 9. November 2026 nach `codex_E_fall4_auftraege.md`:
+**102 PNG-Dateien** (101 neue Dateien und das erneuerte 16×16-Item `stimmphiole`).
+Die vorhandenen C-Portraits dienen als Identitätsreferenz für die bekannten Figuren.
+
+| Gruppe | PNGs | Raster |
+|---|---:|---|
+| Theater, Felix' Versteck, Turmuhr, Fall-4-Hinweise und Ortsspuren | 5 | Benannte Regionen bzw. 16×16/48×48-Zellen |
+| Stimmenraub, brechende Phiole und Miriams Glockenstimme | 3 | 8 Frames, 32×32 bzw. 48×48 |
+| Stimmenphiole als einzelnes Item | 2 | 16×16 und 32×32 |
+| Zusätzliche Porträts für Diva, Felix, Jonas und Ezra | 4 | 256×64, vier Zustände |
+| 16 Auftragsfiguren, jeweils Lauf-Sheet und Emotionsporträts | 32 | 64×128 und 256×64 |
+| 32 Auftragsgegenstände, einzeln und in vier Atlanten | 36 | 16×16 und 128×16 |
+| Auftragsmarker, Banner, Kartenpins und Belohnungsfenster | 1 | 160×176, benannte Regionen |
+| Schlussbilder | 7 | 480×270, deckend |
+| Fallakten einschließlich leerer Vorlage | 6 | 128×96, deckend |
+| Zwischensequenzbilder | 6 | 240×135, deckend |
+
+`public/sprites/manifest-faelle.json` dokumentiert Maße, Spalten/Zeilen,
+nullbasierte Frame-Listen, Bildraten, Wiederholungen, Emotionen, Item-Zuordnungen
+und Atlasrechtecke. Laufreihen sind unten/links/rechts/oben; die Fußgrundlinie liegt
+bei y=30 innerhalb einer 16×32-Zelle. Der Terrier gehört zu jedem Rattenfänger-Frame.
+Die ersten vier Regalregionen bilden den Phiolen-Schimmer. Die Turmuhr besitzt
+unbeleuchtete und türkis beleuchtete Zustände, beide auf 3:33.
+
+Die gemischten Prop-Atlanten verwenden 160×64. Auftragsmarker haben vier
+16×16-Frames; Banner je 160×32, Kartenpins je 8×8 und das Belohnungsfenster
+48×48 mit 16-Pixel-Rändern für 9-Slice. Die entsprechenden Rechtecke und
+`regionAnimations` im Manifest sind für die Entnahme maßgeblich. Das Spuren-Sheet
+hat elf Zellen, einschließlich geschlossenem und offenem Bodenfach.
+
+70 Arbeitsbilder wurden mit `image_gen` erzeugt; drei davon wurden gezielt
+korrigiert (Souffleurkasten, Alpha des Stimmenraubs und erloschene Laterne).
+`batch-faelle-generation.json` enthält die tatsächlich verwendeten Prompts,
+Referenzen, Originaldateinamen, SHA-256-Prüfsummen und gemessenen Zuschnitte.
+Der technische Export verwendet Nearest Neighbor, eine gemeinsame Palette aus
+32 sichtbaren Farben plus transparentem Index und binäres Alpha. Die Palette
+übernimmt die Grundfarben der bestehenden Sprites und enthält einen gedeckten
+Lilaton für die Auftragsmarker. Große Generatororiginale sind keine Laufzeitassets.
+
+```sh
+# SOURCE_DIRECTORY enthält die in batch-faelle-generation.json genannten Original-PNGs.
+# Benötigt Python, Pillow und numpy.
+python docs/art/export-faelle.py SOURCE_DIRECTORY
+python docs/art/verify-faelle.py
+```
+
+Die Prüfung kontrolliert alle 102 Dateien auf Vollständigkeit, Maße, gemeinsame
+Palette, Alpha, Framebelegung, Laufgrundlinien, transparente Seitenränder,
+Animationsvariation, Atlasgrenzen, überlappungsfreie Regionen und die Übereinstimmung
+von Einzel-Items mit ihren Atlanten. Ergebnis: `faelle-validation.json`.
+Die Exporte wurden zusätzlich visuell geprüft; Übersicht: `faelle-preview.png`.
+
+Es wird kein Spielcode geändert. Die Einbindung und die Beurteilung der Animationen
+im laufenden Spiel erfolgen separat. Das schon vorhandene Item `stimmphiole.png`
+wird unter derselben ID mit dem neuen Hinweis-Icon aktualisiert.
+
+## Grafikpaket F – Bonusgegner, Bosse und Ausrüstung
+
+Batch `kampf2`, erzeugt am 9. November 2026 mit `image_gen` nach
+`codex_F_kampf2_bosse.md`: **119 PNG-Dateien aus 55 Generatorbildern**.
+
+| Gruppe | Dateien | Format |
+|---|---:|---|
+| Zehn neue Kampfkulissen | 10 | 480×270, opak; Bodenstreifen y=200–269 |
+| Felix, Miriam und Chorschatten | 3 | sechs Spalten; 48×48 bzw. Miriam 96×96 pro Frame |
+| Stimmen- und Phioleneffekte | 4 | einreihig, 6 bzw. 8 Frames |
+| Sichtbare Kartengegner | 10 | vier Richtungen × vier Frames, 16×32 oder 32×32 |
+| Alarm und Zugportraits | 2 | 4×3 Zellen à 16×16; 19 Portraits in einer Reihe |
+| Bestiarium | 18 | 96×128, opake Notizbuchseiten |
+| Ausrüstung | 68 | vier gemischte Atlanten und 32 Items in je zwei Größen |
+| Ausrüstungsoberfläche | 1 | 192×160 Atlas mit 96×128 Panel, 20×20 Slots und 8×8 Glyphen |
+| Boss-Einblendung | 3 | sechs 480×270 Frames und zwei 160×160 Büsten |
+
+`public/sprites/manifest-kampf2.json` beschreibt alle Dateien, nullbasierte
+Frame-Listen, Geschwindigkeiten, Schleifen, Grundlinien und benannte Regionen.
+Die Ausrüstungsatlanten sind 256×48: acht 16×16-Icons links in der oberen Reihe,
+acht 32×32-Icons darunter. Die rechte Hälfte der oberen Reihe bleibt transparent.
+Für die Entnahme sind die benannten `regions` maßgeblich; Einzeldateien enthalten
+dieselben Pixel. `panelSlots` nennt die vier Positionen innerhalb des Papierpuppen-
+Panels; separate Slotzustände und Typglyphen können darübergelegt werden.
+
+Die Zugportraits entsprechen genau der Reihenfolge im Brief. Die Bestiariumkarten
+verwenden dieselben Begegnungs-IDs, ohne den Spieler. Felix ist `felix_fight`,
+Miriam ist `miriam`. Gegner laufen in der Reihenfolge unten, links, rechts, oben.
+Alle Kampfgegner blicken nach links. Die zwei normalen Angriffe von Felix und Miriam
+sowie der Angriff des Chorschattens halten ihre erste Ausholpose zwei Frames lang.
+Kürzere Reihen haben transparente Restfelder. Die Grundlinie ist als exklusive
+Unterkante angegeben (46, 94 bzw. 31 Pixel innerhalb der Zelle).
+
+Die Bossblende verwendet ein einziges generiertes Tintenband, das in sechs Frames
+mit ganzzahligen Versätzen von links einläuft; Frame 0 ist vollständig transparent.
+Das endgültige Band liegt zwischen y=90 und y=179. Namen werden später vom Spiel
+gesetzt, die Grafik enthält keinen Text.
+
+Alle PNGs sind palettenindiziert mit denselben 32 sichtbaren Farben wie Batch B
+und einem zusätzlichen transparenten Index. Alpha ist binär. Der technische
+Export umfasst Nearest-Neighbor-Skalierung, Zellzuschnitt, gemeinsame Skalierung
+und Grundlinienausrichtung pro Figuren-Sheet, Palettenzuordnung und Atlasmontage.
+Das Papierpuppen-Panel verwendet ausgeschnittene, exakt auf 20×20 gerasterte Slots.
+Es werden keine Illustrationen prozedural ersetzt. Der Chorschatten wurde nach
+einer ersten Fassung korrigiert, um Weihrauchfass und Fanatiker-Verzierungen zu entfernen.
+
+Die tatsächlichen Prompts, Referenzen, Korrekturen, Originaldateinamen und
+SHA-256-Prüfsummen stehen in `batch-kampf2-generation.json`. Die großen
+Generatororiginale sind keine Laufzeitassets und liegen nicht im Repository.
+
+```sh
+# Pillow und numpy werden benötigt; SOURCE_DIR enthält die Generatororiginale.
+python docs/art/export-kampf2.py SOURCE_DIR .
+python docs/art/verify-kampf2.py
+```
+
+Die Prüfung kontrolliert Vollständigkeit, Zielmaße, Palette, Alpha, Zellenbelegung,
+Grundlinien, Ausholframes, Animationsvariation, Atlas-/Einzeldatei-Gleichheit,
+Portrait-IDs und die konsistente Bossblende. Ergebnis: `validation-kampf2.json`.
+Die exportierten Grafiken sind in `batch-kampf2-preview.png` zusammengefasst.
+Die Einbindung und Timing-Abstimmung im Spiel erfolgen separat; dieses Paket
+ändert ausschließlich Grafiken, Manifest und Grafikdokumentation.
+
+## Grafikpaket D – Stadt-Erweiterung
+
+Batch `stadt`, erstellt am 9. November 2026 nach `codex_D_stadt_erweiterung.md`:
+**45 neue PNGs** mit den vorgegebenen `D_`-Dateinamen. Bestehende Tilesets bleiben erhalten.
+
+| Gruppe | PNGs | Maße / Raster |
+|---|---:|---|
+| Nachtmarkt-Boden | 1 | 64×96, 24 Kacheln à 16×16 |
+| Acht Bodenübergänge | 8 | 64×64, jeweils 16 Kacheln |
+| Fünf Fassadenmaterialien | 5 | 128×96, 8×6 Kacheln |
+| Zehn Läden | 10 | je 48×48, transparent |
+| Sieben Viertel: Außenbereiche und Props | 14 | Außenbereiche 128×96; Props mit benannten Rechtecken |
+| Kanalbaukasten und Krähenbrücke | 2 | 128×128 bzw. 96×48 |
+| Straßenmöbel | 1 | 192×240, gemischte Objektgrößen |
+| Wohnungen: Props und Tiles | 2 | 192×192 bzw. 128×128 |
+| Große Stadtkarte und Nebel | 2 | je 480×270; Karte deckend, Nebel transparent |
+
+`public/sprites/manifest-stadt.json` dokumentiert Maße, Raster, 155 benannte
+Objektrechtecke und zehn Animationen. Bei gemischten Prop-Sheets sind `regions`
+und die expliziten Animationsrechtecke maßgeblich; `frameWidth: 16` beschreibt
+das zugrunde liegende Raster. Die Props sitzen in 48×48-Packslots, ihre tatsächlichen
+Framegrößen bleiben z. B. 16×32 oder 32×16. Animationsgrundlinien sind vereinheitlicht.
+Numerische Animationsindizes der Außen-Tilesets bezeichnen die linke obere
+16×16-Kachel des jeweiligen Frames; größere Frames haben eigene Breite/Höhe.
+
+Die acht Übergänge haben dieselbe nullbasierte Reihenfolge: B-Füller, obere/untere/
+linke/rechte Kante, vier Außen-, vier Innenecken, zwei Diagonalen, A-Füller.
+Die Namen bezeichnen den Rand von B (Außenecke oben links: B erstreckt sich nach
+unten/rechts). `edgeSignatures` geben die A/B-Belegung jedes Randpixels an.
+Nur kompatible Ränder werden verbunden; dies ist der angeforderte 16er-Satz,
+kein vollständiger 47er-Blob-Autotiler. Die vom Generator erzeugten A/B-Texturen
+wurden technisch mit gemeinsamen Randprofilen zusammengesetzt. Wiederholbare
+Füllflächen und alle kompatiblen Anschlüsse werden pixelgenau geprüft.
+Die zehn Nachtmarkt-Bodenvarianten und die beiden zusätzlichen Füller teilen Randpixel.
+
+`batch-stadt-generation.json` enthält alle tatsächlich verwendeten Prompts,
+Referenzen, Quellbild-Prüfsummen und geprüften Zuschnitte. Für Villen und Elend
+verwenden die Prop-Sheets die bereits im Viertelprompt genannten Gegenstände.
+Slum- und Fabrikfassade wurden für klarere Materialunterschiede nachgeneriert.
+Die Rohbilder wurden mit Nearest Neighbor gerastert, auf 31 gemeinsame sichtbare
+Farben plus Transparenzeintrag indiziert und mit binärem Alpha exportiert.
+Die Palette entspricht dem Welt-Batch mit einer tiefvioletten Ergänzung anstelle
+seines hellsten Ambertons. Große Baugruppen wurden separat zugeschnitten und
+in die dokumentierten Atlasrechtecke gepackt.
+
+```sh
+# Python 3 mit Pillow, numpy und scipy.
+# SOURCE_MAP.json: Objekt mit Job-ID -> Pfad des ursprünglichen Generator-PNGs.
+python docs/art/export-stadt.py SOURCE_MAP.json
+python docs/art/verify-stadt.py
+```
+
+Die Prüfung kontrolliert Vollständigkeit, Maße, Farben, Alpha, belegte Regionen,
+Animationsvariation und Grundlinien sowie passende Autotile-Randpixel.
+Ergebnis: `validation-stadt.json`. Sichtprüfungen der exportierten Bilder:
+[Grundflächen](previews/stadt-ground.png), [Häuser und Läden](previews/stadt-buildings.png),
+[Viertel](previews/stadt-districts.png), [Props](previews/stadt-props.png),
+[Innenräume und Brücken](previews/stadt-interiors-bridges.png), [Karte mit/ohne Nebel](previews/stadt-map.png).
+
+Die Einbindung und die Prüfung im laufenden Spiel erfolgen separat. Dieses Paket
+ändert ausschließlich Grafikassets und ihre Dokumentation.
+
+
 ## Grafikpaket I – Reisen und Sekten
 
 Batch `reise`, am 9. November 2026 nach `codex_I_reisen_sekten.md` mit
@@ -240,3 +424,7 @@ alle 61 Dateien, Maße, Palette, Alpha, Framebelegung, Grundlinien, Padding,
 Ausholframes und Regionsgrenzen. Ergebnis: `reise-validation.json`.
 Übersicht: `reise-preview.png`. Die Einbindung, das Animationstiming und
 Tileset-Übergänge im laufenden Spiel müssen separat beurteilt werden.
+
+Beim Abgleich mit main wurden sechs dort bereits ergänzte Itemdateien beibehalten: ankerhaken, porzellanmaske, rostanker, rostwasser, schleierdolch und schleierpuder. Die 32×32-Versionen und der Batch-I-Atlas bleiben als Varianten erhalten.
+
+Die sechs gemeinsam verwendeten Dateien sind im Manifest als `sharedExisting` markiert; ihre tatsächlichen Maße bleiben erhalten (rostanker ist 32×32). Der Export bewahrt vorhandene gemeinsame Items. Die 55 neuen PNGs verwenden die 31-Farben-Palette; mit den gemeinsamen Icons umfasst das Paket 35 sichtbare Farben.

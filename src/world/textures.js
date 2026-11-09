@@ -2,7 +2,7 @@
 // Alles hält sich an die Asset-Maße (Tiles 16x16, Figuren 16x32, Sheets 64x128),
 // damit echte PNGs später 1:1 die Platzhalter ersetzen können (siehe README).
 
-import { createSpriteTextures, drawTileFromSheet, THEME_TILE_LIST } from './assets.js';
+import { createSpriteTextures, drawTileFromSheet, THEME_TILE_LIST, FACADE_TILE_LIST } from './assets.js';
 
 export const TILE = 16;
 
@@ -26,6 +26,8 @@ export const TILE_KEYS = [
   'nmWall0', 'nmWall1', 'nmChalk', 'nmLedge', 'nmQuay', 'nmRail',
   // Paket C: Kartenthemen (assets.js THEME_TILES)
   ...THEME_TILE_LIST.map((t) => t.key),
+  // Paket D: Hausfassaden (assets.js FACADES)
+  ...FACADE_TILE_LIST.map((t) => t.key),
 ];
 export const TILE_INDEX = Object.fromEntries(TILE_KEYS.map((k, i) => [k, i]));
 export const SOLID_KEYS = [
@@ -35,6 +37,7 @@ export const SOLID_KEYS = [
   'quay', 'crate', 'barrel',
   'nmArch', 'nmArchDrip', 'nmWall0', 'nmWall1', 'nmChalk', 'nmLedge', 'nmQuay', 'nmRail',
   ...THEME_TILE_LIST.filter((t) => t.solid).map((t) => t.key),
+  ...FACADE_TILE_LIST.map((t) => t.key),
 ];
 
 /** Deterministischer Hash für Variationen pro Tile. */
@@ -353,6 +356,7 @@ const TILE_PAINTERS = {
 
 // Themen-Tiles ohne PNG fallen auf einen passenden Platzhalter zurück
 for (const t of THEME_TILE_LIST) TILE_PAINTERS[t.key] = (p) => TILE_PAINTERS[t.fallback](p);
+for (const t of FACADE_TILE_LIST) TILE_PAINTERS[t.key] = (p) => TILE_PAINTERS[t.fallback](p);
 
 
 // --- Figuren ---------------------------------------------------------------
@@ -538,6 +542,19 @@ const PROPS = {
   }],
   medkit: [16, 16, (p) => {
     p(2, 4, 12, 9, '#d8d0bc'); p(2, 4, 12, 1, '#efe8d6'); p(2, 12, 12, 1, '#a8a090'); p(7, 6, 2, 5, '#a83232'); p(5, 8, 6, 1, '#a83232'); p(6, 3, 4, 1, '#5a5448');
+  }],
+  // Beutebehälter der Gefahrengebiete (Platzhalter bis props/G_loot_*.png)
+  loot_beutel: [16, 16, (p) => {
+    p(5, 6, 6, 1, '#3a2e22'); p(4, 7, 8, 7, '#7a5a3a'); p(5, 8, 3, 3, '#9a7a52'); p(6, 4, 4, 2, '#5a4430'); p(7, 3, 2, 1, '#c8a050'); p(4, 13, 8, 1, '#3a2e22');
+  }],
+  loot_kiste: [16, 16, (p) => {
+    p(2, 5, 12, 9, '#3a2a1c'); p(3, 6, 10, 7, '#8a6a42'); p(3, 9, 10, 1, '#5a4430'); p(3, 6, 10, 1, '#a8885a'); p(7, 8, 2, 3, '#c8c0a8');
+  }],
+  loot_truhe: [16, 16, (p) => {
+    p(1, 4, 14, 10, '#2a1c14'); p(2, 5, 12, 8, '#7a3a2a'); p(2, 5, 12, 3, '#9a4a32'); p(2, 8, 12, 1, '#d8a040'); p(1, 4, 1, 10, '#d8a040'); p(14, 4, 1, 10, '#d8a040'); p(7, 7, 2, 3, '#f0d070');
+  }],
+  loot_okkulter_schrein: [16, 16, (p) => {
+    p(3, 2, 10, 12, '#1a1c2c'); p(4, 3, 8, 10, '#3a3a5a'); p(5, 4, 6, 6, '#2a6a6a'); p(6, 6, 4, 2, '#6fe0d0'); p(7, 5, 2, 4, '#6fe0d0'); p(2, 13, 12, 2, '#c8c0a8'); p(4, 1, 8, 1, '#c8c0a8');
   }],
   mirror: [32, 32, (p) => {
     p(4, 2, 24, 28, '#b08a3a'); p(6, 4, 20, 24, '#5a6a72'); p(8, 6, 6, 10, '#8aa0aa'); p(6, 4, 20, 1, '#d8b860');
