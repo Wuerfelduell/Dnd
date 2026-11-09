@@ -1468,8 +1468,6 @@ for (const [id, key] of Object.entries(DISGUISE_SHEETS)) {
   CHARACTER_SHEETS[`player_${id}`] = key;
 }
 ICON32.push(...Object.keys(DISGUISE_SHEETS));
-/** Constable Dunn (Revierflügel) trägt bis zu seiner eigenen Figur die Uniform der Constables. */
-CHARACTER_SHEETS.npc_dunn = 'constable';
 /** Bosse: die Namenlose (Vergessmoor) und das Leuchtfeuer (Finale, in Rage zweite Phase im selben Sheet). */
 for (const id of ['namenlose', 'leuchtfeuer']) {
   BATTLE_SHEETS[`enemy_${id}`] = [`battle/enemy_${id}.png`, 96];
@@ -1511,4 +1509,12 @@ export const AUKTION_REGIONS = {
   gavel_0: [0, 32, 24, 24], gavel_1: [24, 32, 24, 24], gavel_2: [48, 32, 24, 24], gavel_3: [72, 32, 24, 24],
   waage: [40, 0, 12, 12], kreide: [56, 0, 12, 12], russ: [72, 0, 12, 12], lichtlose: [88, 0, 12, 12], salz: [104, 0, 12, 12],
 };
+/** Paket U: Constable Dunn (Kantine), Odile Crane und Ambrosius Quint (Gebäude) mit eigener Figur, Portrait und Kopf. */
+export const U_FIGURES = ['dunn', 'crane', 'quint'];
+for (const id of U_FIGURES) {
+  SHEETS[`u_${id}`] = `characters/U_${id}_walk.png`;
+  CHARACTER_SHEETS[`npc_${id}`] = `u_${id}`;
+  PORTRAITS[id] = `U_${id}_emotions.png`;
+  HEADS.push(id);
+}
 
