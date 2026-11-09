@@ -1079,7 +1079,8 @@ export class WorldScene extends Phaser.Scene {
   /** Weltposition des Ziels auf dieser Karte (oder der Tür/Stadtkarte dorthin). */
   findGoalPosition() {
     const s = this.state;
-    const t = s.tracked ? questTarget(s, s.tracked) : null;
+    // Ein laufendes geheimes Treffen hat Vorrang (es dauert nur ein paar Minuten)
+    const t = s.gatheringTarget?.() ?? (s.tracked ? questTarget(s, s.tracked) : null);
     if (!t || !t.map) return null;
     const id = t.map === s.map ? t.id : nextHop(s.content, s.map, t.map)?.via;
     if (!id) return null;
