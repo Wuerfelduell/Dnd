@@ -1008,7 +1008,7 @@
     "name": "Negativgeist",
     "sprite": "apparition",
     "occult": true,
-    "hp": 34,
+    "hp": 40,
     "fleeable": true,
     "intro": "Im roten Licht der Dunkelkammer steht eine Gestalt, weiß, wo sie schwarz sein sollte. Ein Mensch, umgekehrt.",
     "attacks": [
@@ -1050,7 +1050,7 @@
     "name": "Silberbadschleim",
     "sprite": "rats",
     "occult": true,
-    "hp": 32,
+    "hp": 38,
     "fleeable": true,
     "intro": "Die Pfütze glänzt wie flüssiger Spiegel. Dann richtet sie sich auf und zeigt dir dein Gesicht, falsch herum.",
     "attacks": [
@@ -1091,7 +1091,7 @@
     "sprite": "npc:cultist",
     "occult": true,
     "boss": true,
-    "hp": 46,
+    "hp": 54,
     "fleeable": false,
     "intro": "Lucan Mews tritt aus den Spiegeln, und mit ihm zwölf Schatten, die nicht seine sind. „Sie waren so schön auf den Platten. Ich wollte nur auch einmal da sein.“",
     "attacks": [
@@ -1391,13 +1391,13 @@
     "sprite": "apparition",
     "tint": "#e8f0ff",
     "occult": true,
-    "hp": 38,
+    "hp": 58,
     "fleeable": false,
     "intro": "Aus dem Okular tropft Licht auf die Dielen und richtet sich auf. Es hat viele Stimmen, und keine davon gehört ihm.",
     "attacks": [
       {
         "name": "Funkenregen",
-        "damage": 3,
+        "damage": 4,
         "hits": [
           500,
           750,
@@ -1408,19 +1408,19 @@
       {
         "name": "Fremde Stimme",
         "action": "taunt",
-        "value": 8,
-        "text": "Es singt mit Madame Varennes Stimme. -8 Nerven."
+        "value": 10,
+        "text": "Es singt mit Madame Varennes Stimme. -10 Nerven."
       },
       {
         "name": "Lichtpeitsche",
-        "damage": 9,
+        "damage": 11,
         "hits": [
           1300
         ]
       },
       {
         "name": "Gleißen",
-        "damage": 12,
+        "damage": 15,
         "hits": [
           2000
         ]
@@ -1443,13 +1443,14 @@
     "tint": "#e0e8ff",
     "occult": true,
     "boss": true,
-    "hp": 40,
+    "hp": 84,
+    "armor": 3,
     "fleeable": false,
     "intro": "Starling dreht sich vom Okular weg und lächelt, als hätte er dich zum Tee erwartet. „Mein bester Ermittler! Sie kommen genau richtig. Ohne Sie hätte ich nichts davon ernten können.“\n\nEr hebt eine Linse, und darin brennt ein Stück Stern.",
     "attacks": [
       {
         "name": "Brennglas",
-        "damage": 7,
+        "damage": 9,
         "hits": [
           900,
           1300
@@ -1457,7 +1458,7 @@
       },
       {
         "name": "Sternregen",
-        "damage": 4,
+        "damage": 5,
         "hits": [
           500,
           750,
@@ -1468,18 +1469,18 @@
       {
         "name": "Gestohlene Stimme",
         "action": "taunt",
-        "value": 6,
-        "text": "Er spricht mit Elias’ Stimme: „Hilf mir.“ -6 Nerven."
+        "value": 12,
+        "text": "Er spricht mit Elias’ Stimme: „Hilf mir.“ -12 Nerven."
       },
       {
         "name": "Geliehener Schatten",
         "action": "guard",
-        "value": 3,
-        "text": "Ein fremder Schatten legt sich wie ein Mantel um ihn. Panzer 3."
+        "value": 6,
+        "text": "Ein fremder Schatten legt sich wie ein Mantel um ihn. Panzer 6."
       },
       {
         "name": "Fallender Stern",
-        "damage": 12,
+        "damage": 17,
         "hits": [
           2100
         ]

@@ -48,6 +48,19 @@ test('Fall 7/8: Gegner halten mehr aus als in den Fällen davor', () => {
   for (const id of ['ertrunkener', 'pfandeintreiber']) assert.ok(E[id].hp >= 42, id);
 });
 
+test('Fall 9: Starling ist der härteste Boss von Kapitel 1, härter als Miss Wren', () => {
+  const E = content.encounters;
+  assert.ok(E.starling_fight.hp > E.miss_wren.hp);
+  assert.ok(E.sternlicht.hp > E.traumfaden.hp);
+  const maxHit = (id) => Math.max(...E[id].attacks.map((a) => a.damage ?? 0));
+  assert.ok(maxHit('starling_fight') > maxHit('miss_wren'));
+  for (const seq of [null, 8]) assert.equal(fight(hero(seq), 'starling_fight', { defend: EXPERT, healBelow: 15 }).result.outcome, 'lost', `Seq ${seq ?? 'ohne'}`);
+  // Mit Durchbruch zu schaffen, aber es bleibt knapper als bei Wren
+  const wren = hero(7); const star = hero(7);
+  assert.equal(fight(wren, 'miss_wren', { defend: SKILLED, skill: 'klingenwirbel', healBelow: 15 }).result.outcome, 'won');
+  assert.equal(fight(star, 'starling_fight', { defend: SKILLED, skill: 'klingenwirbel', healBelow: 15 }).result.outcome, 'won');
+});
+
 test('Fall 7/8: ohne Durchbruch verliert man gegen Miss Wren, mit Sequenz 7 gewinnt man', () => {
   for (const seq of [null, 8]) {
     const { result } = fight(hero(seq), 'miss_wren', { defend: EXPERT, healBelow: 15 });
@@ -67,4 +80,11 @@ test('Zu zweit: der Gegner hält mehr aus', () => {
   assert.equal(new Combat(hero(), 'miss_wren').enemy.maxHp, Math.round(content.encounters.miss_wren.hp * ENEMY_HP_MULT));
   // Übungskämpfe bleiben gleich
   assert.equal(new Combat(s, 'sparring').enemy.maxHp, content.encounters.sparring.hp);
+});
+
+test('Kurve: die Bosse werden von Fall zu Fall zäher', () => {
+  const E = content.encounters;
+  // Fall 2, 3, 5, 6, 8, 9 (Felix in Fall 4 ist schwächer, dafür ist man dort erst Seq 9)
+  const order = ['ash_warden', 'rook_fight', 'miriam', 'dreizehnter_gast', 'miss_wren', 'starling_fight'];
+  for (let i = 1; i < order.length; i++) assert.ok(E[order[i]].hp >= E[order[i - 1]].hp, `${order[i]} mindestens so zäh wie ${order[i - 1]}`);
 });

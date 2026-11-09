@@ -20,6 +20,10 @@ function afterCase8() {
   s.addItem('schlagstock');
   s.equip('schlagstock');
   s.addItem('verband', 4);
+  // Nach Fall 7/8 hat man Sequenz 7 längst erreicht (Starling ist ohne Durchbruch nicht zu schaffen).
+  s.pathway = { id: 'eisen', seq: 7, digestion: 0 };
+  s.updateMaxHp();
+  s.hp = s.maxHp;
   return s;
 }
 

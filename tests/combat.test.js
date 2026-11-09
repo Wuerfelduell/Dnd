@@ -130,7 +130,7 @@ const LATE = ['choir_zealots', 'rook_fight', 'gasgeist', 'felix_fight', 'uhrwerk
 const BOSSES = ['ash_warden', 'rook_fight', 'felix_fight', 'mirror_shade', 'fog_hound', 'rost_schmied', 'rost_vater', 'schleier_seherin', 'schleier_mutter',
   'bronzeengel', 'miriam', 'dreizehnter_gast', 'traumfaden', 'miss_wren', 'sternlicht', 'starling_fight'];
 
-const NEEDS_SEQ7 = ['miss_wren'];
+const NEEDS_SEQ7 = ['miss_wren', 'starling_fight'];
 
 test('Balance: Geübte Spieler (Bosse: sehr Geübte) schaffen mit Startausrüstung jeden Kampf', () => {
   // Wer von drei Schlägen einem ausweicht, einen pariert und unter 15 Leben verbindet, gewinnt.
@@ -142,11 +142,12 @@ test('Balance: Geübte Spieler (Bosse: sehr Geübte) schaffen mit Startausrüstu
     if (items.length) s.addItem('bannsalz', 2);
     // Ab Fall 3 hat man längst den Dienstschlagstock von Holt.
     if (LATE.includes(id)) s.addItem('schlagstock');
-    // Miss Wren (Fall 7/8) verlangt den Durchbruch auf Sequenz 7
+    // Miss Wren (Fall 7/8) und Starling (Fall 9) verlangen den Durchbruch auf Sequenz 7
     if (NEEDS_SEQ7.includes(id)) { s.pathway = { id: 'eisen', seq: 7, digestion: 0 }; s.updateMaxHp(); s.hp = s.maxHp; }
     // Bosse der Geschichte verlangen sauberes Timing
     const defend = BOSSES.includes(id) ? EXPERT : SKILLED;
-    const { result, combat } = fight(s, id, { defend, items, healBelow: 15 });
+    const skill = NEEDS_SEQ7.includes(id) ? 'klingenwirbel' : 'attack';
+    const { result, combat } = fight(s, id, { defend, items, skill, healBelow: 15 });
     assert.equal(result.outcome, 'won', `${id}: verloren in Runde ${combat.round}`);
   }
 });
