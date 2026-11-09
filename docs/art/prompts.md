@@ -1,16 +1,14 @@
 # Pixel-Art-Prompts für „Nebelakten“ – Übersicht
 
-Offen sind **sechs eigenständige Dateien** (Runde 2 und 3). Jede enthält Style-Block, Maße, Ablage-Regeln und Nachbearbeitung, Codex braucht also immer nur **eine** Datei auf einmal zu lesen. Bereits erzeugte Assets sind darin nicht enthalten.
+Offen sind **vier eigenständige Dateien**. Jede enthält Style-Block, Maße, Ablage-Regeln und Nachbearbeitung, Codex braucht also immer nur **eine** Datei auf einmal zu lesen. Bereits erzeugte Assets sind darin nicht enthalten.
 
 | Datei | Inhalt | Umfang |
 |---|---|---|
-| `codex_D_stadt_erweiterung.md` | neues Nachtmarkt-Pflaster, 8 Boden-Übergänge (Autotiles), 5 Fassaden-Sets, 10 Läden, Außenbereiche für Theater, Uhrturm, Nordtor/Schlachthof, Gaswerk, Sternwarte, Villen und Elendsviertel, Brücken und Schleusen, Straßenmöbel, Wohnungs-Baukasten, große Stadtkarte | ca. 50 Sheets |
-| `codex_E_fall4_auftraege.md` | Fall 4 „Die gestohlenen Stimmen“ (Bühne, Felix' Versteck, Turmuhr 3:33, Hinweise, Zusatz-Portraits, Enden), 16 neue Auftragsfiguren, 32 Auftrags-Gegenstände, Auftrags-UI, Fallakten-Deckblätter, Zwischensequenz-Bilder, Spuren-Props | ca. 75 Sheets |
-| `codex_F_kampf2_bosse.md` | 10 Kampf-Hintergründe für die neuen Orte, Boss Felix Dunmore (Fall 4), Boss Miriam Vey und Chorschatten (Fall 5), 10 Gegner auf der Karte, Zugleisten-Portraits, Bestiarium, 32 Ausrüstungs-Icons (Mäntel, Hüte, Amulette, Waffen), Ausrüstungs-UI, Boss-Einblendung | ca. 75 Sheets |
-| `codex_G_monstergebiete_loot.md` | 4 Monstergebiete (Marsch, Pestgassen, Katakomben, Kraterwald) mit Tilesets, Props, Kampf-Hintergründen und Gefahren-UI, 16 neue Monster inkl. 4 Bosse (Kampf und Karte), Loot-Behälter, Seltenheiten, Loot-UI, 16 Monster-Materialien, Ausrüstung aus Drops, Bestiarium, Rastplätze | ca. 80 Sheets |
-| `codex_H_journal_fundstuecke.md` | 48 Mini-Köpfe für Journal-Quellen, 10 neue Quellen-Symbole, Journal-Rahmen, 2 gefährliche Fundstücke + Reserve, 6 Nahansichten (normal und verflucht), Risiko- und Bonus-Effekte, Spieler-Animation beim Untersuchen, Fundbüro | ca. 35 Sheets |
-| `codex_I_reisen_sekten.md` | 2 Reisearten (sicher, schnell), Spielermarker und Routen, 7 Reise-Ereignisbilder; Sekten Rostbrüder und Schleierschwestern: Embleme, 8 Gegner (Kampf und Karte, 2 Anführer mit Boss-Sheet und Portrait), 2 Verstecke mit Kampf-Hintergrund, 8 Items, 3 neue Figuren, Fraktions-UI | ca. 45 Sheets |
+| `codex_G_monstergebiete_loot.md` | **noch offen aus Runde 3:** 4 Monstergebiete (Marsch, Pestgassen, Katakomben, Kraterwald) mit Tilesets, Props, Kampf-Hintergründen und Gefahren-UI, 16 Monster inkl. 4 Bosse, Loot-Behälter, Loot-UI, Monster-Materialien, Ausrüstung aus Drops, Bestiarium, Rastplätze | ca. 80 Sheets |
+| `codex_J_fall5_miriam.md` | Fall 5 „Der Chor in der Glocke“: Glockengießerei, Veys Haus, Resonanzkammer (Tilesets, Props, Kampf-Hintergründe), Brannock, Oda Vey, Lilians Echo, 4 neue Gegner, Boss-Phase 2 `miriam_glocke`, Effekte, Items, Nahansichten, Fallakte, Szenen, Enden, 13 neue Kartenmarker | ca. 55 Sheets |
+| `codex_K_fall6_dreizehnter_gast.md` | Fall 6 „Der dreizehnte Gast“: Fotoatelier, Ballsaal, Spiegelkabinett mit Jahrmarkt, Schatten-Overlays, Ballgäste, Lady Ashcombe, Lucan Mews, 3 Gegner, Boss `dreizehnter_gast`, Effekte, Items, wandernde Fotoplatte, Fallakte, Szenen, Enden | ca. 55 Sheets |
+| `codex_L_stadtgegner.md` | Vorrat: 10 neue Stadtgegner (Menschen und Nachtkreaturen), Kopfgeld-Bossin Schmugglerkönigin, Kartenfiguren, Bestiarium, 2 Kampf-Hintergründe, Steckbriefe, Beute, Elite- und Kopfgeld-Marker | ca. 45 Sheets |
 
-Empfohlene Reihenfolge: **G → H → I → E → F → D**. G, H und I werden gerade ins Spiel eingebaut und laufen bis dahin mit Platzhaltern; aus E und F zuerst Felix (`enemy_felix`) und die Fall-4-Hinweise.
+Empfohlene Reihenfolge: **J → G → K → L**. Fall 5 und 6 werden gerade gebaut und laufen bis dahin mit Platzhaltern; G läuft schon länger mit Platzhaltern. L ist Vorrat für einen späteren Durchgang.
 
-Die erledigten Dateien aus Runde 1 (A, B, C) liegen in `erledigt/`, alle älteren Prompts in `prompts_komplett.md`.
+Die erledigten Dateien (A bis F, H, I) liegen in `erledigt/`, alle älteren Prompts in `prompts_komplett.md`.
