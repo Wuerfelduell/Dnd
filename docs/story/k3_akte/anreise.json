@@ -1,0 +1,151 @@
+[
+  {
+    "map": "wx_kahn",
+    "tile": [
+      6,
+      6
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "kapitel2_done",
+        "k2_end_rein"
+      ],
+      "hide_if_flags": [
+        "k3_arrived"
+      ]
+    },
+    "interactable": {
+      "id": "k3a_anreise_rein_brief",
+      "kind": "read",
+      "prompt": "Marlowes Bahnhofstelegramm",
+      "title": "Marlowes Bahnhofstelegramm",
+      "text": "Marlowe schickt eine Abschrift: Ein stillgelegter Zug wiederholt Namen aus ihren Transportuntersuchungen. Sie bittet dich, Quelle und Bedeutung in Dunscar zu prüfen. Weder Starling noch das Ratsbuch werden als Beweis vorausgesetzt.",
+      "done_flag": "k3a_anreise_rein_gelesen",
+      "effects": {
+        "sets_flags": [
+          "k3a_anreise_rein_bereit"
+        ]
+      }
+    }
+  },
+  {
+    "map": "wx_kahn",
+    "tile": [
+      6,
+      6
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "kapitel2_done",
+        "k2_end_moor"
+      ],
+      "hide_if_flags": [
+        "k3_arrived"
+      ]
+    },
+    "interactable": {
+      "id": "k3a_anreise_moor_brief",
+      "kind": "read",
+      "prompt": "Die Pfeife im Güterwagen",
+      "title": "Die Pfeife im Güterwagen",
+      "text": "Ein Wexmoorer Bahnarbeiter hörte in einem leeren Wagen eine Schichtpfeife. Das Lieferschild führt zur alten Kalkbahn in Dunscar. Ob der Ruf schon vor dem Erlöschen des Turms bestand, bleibt offen; niemand hat eine Ursache bewiesen.",
+      "done_flag": "k3a_anreise_moor_gelesen",
+      "effects": {
+        "sets_flags": [
+          "k3a_anreise_moor_bereit"
+        ]
+      }
+    }
+  },
+  {
+    "map": "wx_leuchtturm",
+    "tile": [
+      6,
+      6
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "kapitel2_done",
+        "k2_end_lichtmeister"
+      ],
+      "hide_if_flags": [
+        "k3_arrived"
+      ]
+    },
+    "interactable": {
+      "id": "k3a_anreise_lichtmeister_brief",
+      "kind": "read",
+      "prompt": "Post für das Amt",
+      "title": "Post für das Amt",
+      "text": "Auf deinem Schreibtisch liegt eine alte Fahrkarte mit deiner Amtsbezeichnung. Der Fahrmeister bietet an, die offenen Namen selbst abzuholen. Du reist hin, um das Angebot zu prüfen oder zurückzuweisen. Zunder verweigert dir jede Empfehlung, Menschen verschwinden weiterhin unter deiner Amtsführung.",
+      "done_flag": "k3a_anreise_lichtmeister_gelesen",
+      "effects": {
+        "sets_flags": [
+          "k3a_anreise_lichtmeister_bereit"
+        ]
+      }
+    }
+  },
+  {
+    "map": "wx_kahn",
+    "tile": [
+      6,
+      6
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "kapitel2_done",
+        "k2_end_meer"
+      ],
+      "hide_if_flags": [
+        "k3_arrived"
+      ]
+    },
+    "interactable": {
+      "id": "k3a_anreise_meer_brief",
+      "kind": "read",
+      "prompt": "Kits Kohlenkiste",
+      "title": "Kits Kohlenkiste",
+      "text": "Beim Umladen hört Kit eine Schichtpfeife aus einer Kohlenkiste. Ein Fahrplan verspricht eine Passage für Menschen ohne sicheren Namen und führt nach Dunscar. Kit und Zunder bleiben beim Kahn. Brandt bleibt in Wexmoor im Amt; eure Flucht war kein Sieg über sie.",
+      "done_flag": "k3a_anreise_meer_gelesen",
+      "effects": {
+        "sets_flags": [
+          "k3a_anreise_meer_bereit"
+        ]
+      }
+    }
+  },
+  {
+    "map": "ds_endbahnhof",
+    "tile": [
+      6,
+      4
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "kapitel2_done"
+      ],
+      "hide_if_flags": [
+        "k3_arrived"
+      ]
+    },
+    "interactable": {
+      "id": "k3a_ankunft",
+      "kind": "read",
+      "auto": 40,
+      "marker": false,
+      "prompt": "Am Endbahnhof umsehen",
+      "title": "Kapitel 3: Der letzte Zug nach Dunscar",
+      "text": "Die Bänke sind sauber, der Fahrplan ist siebzig Jahre alt. Hinter der leeren Schalteröffnung sagt eine Stimme deinen Namen. Ein pensionierter Signalwart legt die Hand auf den Entwerter. „Pfiff“, sagt er. „Das ist eine Vorstellung, keine Dienstmeldung. Antworte dem Schalter vorerst nicht.“",
+      "done_flag": "k3_arrived",
+      "effects": {
+        "sets_flags": [
+          "k3_arrived"
+        ],
+        "start_quests": [
+          "k3a_akt1"
+        ]
+      }
+    }
+  }
+]

@@ -1,0 +1,1771 @@
+[
+  {
+    "map": "ds_speisewagen",
+    "tile": [
+      3,
+      4
+    ],
+    "npc": "k3_pfiff",
+    "visible_if": {
+      "requires_flags": [
+        "k3_arrived"
+      ]
+    }
+  },
+  {
+    "map": "ds_runddepot",
+    "tile": [
+      4,
+      5
+    ],
+    "npc": "k3_oren",
+    "visible_if": {
+      "requires_flags": [
+        "k3_arrived"
+      ]
+    }
+  },
+  {
+    "map": "ds_arbeiterbogen",
+    "tile": [
+      5,
+      4
+    ],
+    "npc": "k3_huxford",
+    "visible_if": {
+      "requires_flags": [
+        "k3_arrived"
+      ]
+    }
+  },
+  {
+    "map": "ds_kalkmarkt",
+    "tile": [
+      3,
+      5
+    ],
+    "npc": "k3_pelham",
+    "visible_if": {
+      "requires_flags": [
+        "k3_arrived"
+      ]
+    }
+  },
+  {
+    "map": "ds_endbahnhof",
+    "tile": [
+      4,
+      4
+    ],
+    "npc": "k3_nellie",
+    "visible_if": {
+      "requires_flags": [
+        "k3_arrived"
+      ]
+    }
+  },
+  {
+    "map": "ds_pruefhaus",
+    "tile": [
+      5,
+      5
+    ],
+    "npc": "k3_willa",
+    "visible_if": {
+      "requires_flags": [
+        "k3_arrived"
+      ]
+    }
+  },
+  {
+    "map": "ds_bruchstufen",
+    "tile": [
+      3,
+      4
+    ],
+    "npc": "k3_adaine",
+    "visible_if": {
+      "requires_flags": [
+        "k3_arrived"
+      ]
+    }
+  },
+  {
+    "map": "ds_lohnbuero",
+    "tile": [
+      4,
+      5
+    ],
+    "npc": "k3_esther",
+    "visible_if": {
+      "requires_flags": [
+        "k3_arrived"
+      ]
+    }
+  },
+  {
+    "map": "ds_teesaal",
+    "tile": [
+      5,
+      4
+    ],
+    "npc": "k3_mabel",
+    "visible_if": {
+      "requires_flags": [
+        "k3_arrived"
+      ]
+    }
+  },
+  {
+    "map": "ds_letzter_bahnsteig",
+    "tile": [
+      3,
+      5
+    ],
+    "npc": "k3_gallowmere",
+    "visible_if": {
+      "requires_flags": [
+        "k3_arrived"
+      ]
+    }
+  },
+  {
+    "map": "ds_endbahnhof",
+    "tile": [
+      9,
+      5
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k3_arrived"
+      ]
+    },
+    "interactable": {
+      "id": "k3a_11_obj1",
+      "kind": "read",
+      "title": "Faserbruch",
+      "prompt": "Faserbruch",
+      "text": "Das Papier zerfasert an den alten Faltungen. Das Wasserzeichen entspricht dem letzten Betriebsjahr der Kalkbahn.",
+      "done_flag": "k3a_11_gelesen1",
+      "effects": {
+        "gives_clues": [
+          "k3a_11_c1"
+        ]
+      }
+    }
+  },
+  {
+    "map": "ds_endbahnhof",
+    "tile": [
+      9,
+      7
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k3_arrived"
+      ]
+    },
+    "interactable": {
+      "id": "k3a_11_obj2",
+      "kind": "read",
+      "title": "Gesperrter Fahrplan",
+      "prompt": "Gesperrter Fahrplan",
+      "text": "Der Aushang führt die Bruchstrecke als seit siebzig Jahren eingestellt. Das aufgedruckte Gleiszeichen steht auch auf deinem Billett.",
+      "done_flag": "k3a_11_gelesen2",
+      "effects": {
+        "gives_clues": [
+          "k3a_11_c2"
+        ]
+      }
+    }
+  },
+  {
+    "map": "ds_endbahnhof",
+    "tile": [
+      7,
+      11
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k3_arrived"
+      ]
+    },
+    "interactable": {
+      "id": "k3a_11_station",
+      "kind": "dialogue",
+      "dialogue": "k3a_11_dialog",
+      "prompt": "Das unmögliche Billett"
+    }
+  },
+  {
+    "map": "ds_runddepot",
+    "tile": [
+      11,
+      5
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k3_arrived"
+      ]
+    },
+    "interactable": {
+      "id": "k3a_12_obj1",
+      "kind": "read",
+      "title": "Wachstafel",
+      "prompt": "Wachstafel",
+      "text": "Auf der Tafel ist ein langer Strich, eine Lücke und ein kurzer Bogen eingeritzt. Pfiff zeichnet das nächtliche Signal daneben: dieselbe Unterbrechung.",
+      "done_flag": "k3a_12_gelesen1",
+      "effects": {
+        "gives_clues": [
+          "k3a_12_c1"
+        ]
+      }
+    }
+  },
+  {
+    "map": "ds_runddepot",
+    "tile": [
+      11,
+      7
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k3_arrived"
+      ]
+    },
+    "interactable": {
+      "id": "k3a_12_obj2",
+      "kind": "read",
+      "title": "Prüfstreifen",
+      "prompt": "Prüfstreifen",
+      "text": "Der alte Prüfstreifen nennt die Fabriknummer dieser Lok. Bereits damals fehlte im Anfahrpfiff die mittlere Note.",
+      "done_flag": "k3a_12_gelesen2",
+      "effects": {
+        "gives_clues": [
+          "k3a_12_c2"
+        ]
+      }
+    }
+  },
+  {
+    "map": "ds_runddepot",
+    "tile": [
+      9,
+      11
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k3_arrived"
+      ]
+    },
+    "interactable": {
+      "id": "k3a_12_station",
+      "kind": "dialogue",
+      "dialogue": "k3a_12_dialog",
+      "prompt": "Ein Pfiff aus zwei Zeiten"
+    }
+  },
+  {
+    "map": "ds_arbeiterbogen",
+    "tile": [
+      13,
+      5
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k3_arrived"
+      ]
+    },
+    "interactable": {
+      "id": "k3a_13_obj1",
+      "kind": "read",
+      "title": "Warme Sohlen",
+      "prompt": "Warme Sohlen",
+      "text": "Unter einem warmen, durchbluteten Fuß steckt feuchter Kalk in der Schuhnaht. Die Schicht stammt von heute Nacht, nicht aus einem alten Grab.",
+      "done_flag": "k3a_13_gelesen1",
+      "effects": {
+        "gives_clues": [
+          "k3a_13_c1"
+        ]
+      }
+    }
+  },
+  {
+    "map": "ds_arbeiterbogen",
+    "tile": [
+      13,
+      7
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k3_arrived"
+      ]
+    },
+    "interactable": {
+      "id": "k3a_13_obj2",
+      "kind": "read",
+      "title": "Wiederkehr",
+      "prompt": "Wiederkehr",
+      "text": "Mabel erkennt ihren Gast und die gestern geflickte Sohle. Er erinnert sich an eine Leiter, seine Hände zittern vom Festhalten.",
+      "done_flag": "k3a_13_gelesen2",
+      "effects": {
+        "gives_clues": [
+          "k3a_13_c2"
+        ]
+      }
+    }
+  },
+  {
+    "map": "ds_arbeiterbogen",
+    "tile": [
+      11,
+      11
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k3_arrived"
+      ]
+    },
+    "interactable": {
+      "id": "k3a_13_station",
+      "kind": "dialogue",
+      "dialogue": "k3a_13_dialog",
+      "prompt": "Frische Sohlen"
+    }
+  },
+  {
+    "map": "ds_schwellenring",
+    "tile": [
+      15,
+      5
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k3_arrived"
+      ]
+    },
+    "interactable": {
+      "id": "k3a_14_obj1",
+      "kind": "read",
+      "title": "Streckenplan",
+      "prompt": "Streckenplan",
+      "text": "Eine dünne Wartungslinie verbindet diese Wand mit der Drehscheibe. Sie gehört nicht zum befahrbaren Hauptgleis.",
+      "done_flag": "k3a_14_gelesen1",
+      "effects": {
+        "gives_clues": [
+          "k3a_14_c1"
+        ]
+      }
+    }
+  },
+  {
+    "map": "ds_schwellenring",
+    "tile": [
+      15,
+      7
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k3_arrived"
+      ]
+    },
+    "interactable": {
+      "id": "k3a_14_obj2",
+      "kind": "read",
+      "title": "Schwellenkerbe",
+      "prompt": "Schwellenkerbe",
+      "text": "Unter dem Putz liegt eine Schwelle mit zwei kurzen Kerben und einem Bogen. Das Zeichen bedeutet laut Randlegende: Wartungsweg prüfen.",
+      "done_flag": "k3a_14_gelesen2",
+      "effects": {
+        "gives_clues": [
+          "k3a_14_c2"
+        ]
+      }
+    }
+  },
+  {
+    "map": "ds_schwellenring",
+    "tile": [
+      13,
+      11
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k3_arrived"
+      ]
+    },
+    "interactable": {
+      "id": "k3a_14_station",
+      "kind": "dialogue",
+      "dialogue": "k3a_14_dialog",
+      "prompt": "Der Ruf durch die Wand"
+    }
+  },
+  {
+    "map": "ds_kalkmarkt",
+    "tile": [
+      9,
+      5
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k3a_akt1_done"
+      ]
+    },
+    "interactable": {
+      "id": "k3a_21_obj1",
+      "kind": "read",
+      "title": "Leere Steine",
+      "prompt": "Leere Steine",
+      "text": "Die Stückliste zählt genau so viele namenlose Steine wie die alte Liste der Verschollenen. Jeder Sockel trägt dieselbe Auftragsreihe.",
+      "done_flag": "k3a_21_gelesen1",
+      "effects": {
+        "gives_clues": [
+          "k3a_21_c1"
+        ]
+      }
+    }
+  },
+  {
+    "map": "ds_kalkmarkt",
+    "tile": [
+      9,
+      7
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k3a_akt1_done"
+      ]
+    },
+    "interactable": {
+      "id": "k3a_21_obj2",
+      "kind": "read",
+      "title": "Großvaters Buch",
+      "prompt": "Großvaters Buch",
+      "text": "Pelhams Großvater vermerkte „Bruchopfer, Schrift vorerst aussetzen“. Die Namen wurden später nicht nachgetragen.",
+      "done_flag": "k3a_21_gelesen2",
+      "effects": {
+        "gives_clues": [
+          "k3a_21_c2"
+        ]
+      }
+    }
+  },
+  {
+    "map": "ds_kalkmarkt",
+    "tile": [
+      7,
+      11
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k3a_akt1_done"
+      ]
+    },
+    "interactable": {
+      "id": "k3a_21_station",
+      "kind": "dialogue",
+      "dialogue": "k3a_21_dialog",
+      "prompt": "Niemand ist abgereist"
+    }
+  },
+  {
+    "map": "ds_runddepot",
+    "tile": [
+      11,
+      5
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k3a_akt1_done"
+      ]
+    },
+    "interactable": {
+      "id": "k3a_22_obj1",
+      "kind": "read",
+      "title": "Neue Späne",
+      "prompt": "Neue Späne",
+      "text": "Unter der Bremse liegen blanke Späne auf altem Ruß. Die Schneidspuren passen zur Feile auf Orens Bank.",
+      "done_flag": "k3a_22_gelesen1",
+      "effects": {
+        "gives_clues": [
+          "k3a_22_c1"
+        ]
+      }
+    }
+  },
+  {
+    "map": "ds_runddepot",
+    "tile": [
+      11,
+      7
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k3a_akt1_done"
+      ]
+    },
+    "interactable": {
+      "id": "k3a_22_obj2",
+      "kind": "read",
+      "title": "Fehlstelle",
+      "prompt": "Fehlstelle",
+      "text": "Der Lagerzettel führt ein Bremsstück als entnommen. Form und Nummer stimmen mit dem glänzenden Teil an der Lok überein.",
+      "done_flag": "k3a_22_gelesen2",
+      "effects": {
+        "gives_clues": [
+          "k3a_22_c2"
+        ]
+      }
+    }
+  },
+  {
+    "map": "ds_runddepot",
+    "tile": [
+      9,
+      11
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k3a_akt1_done"
+      ]
+    },
+    "interactable": {
+      "id": "k3a_22_station",
+      "kind": "dialogue",
+      "dialogue": "k3a_22_dialog",
+      "prompt": "Die reparierte Bremse"
+    }
+  },
+  {
+    "map": "ds_endbahnhof",
+    "tile": [
+      13,
+      5
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k3a_akt1_done"
+      ]
+    },
+    "interactable": {
+      "id": "k3a_23_obj1",
+      "kind": "read",
+      "title": "Telegrammentwurf",
+      "prompt": "Telegrammentwurf",
+      "text": "Im Entwurf steht eine absichtlich unmögliche Empfangszeit. Nellie hat die Ziffern vor der Übermittlung eingekreist.",
+      "done_flag": "k3a_23_gelesen1",
+      "effects": {
+        "gives_clues": [
+          "k3a_23_c1"
+        ]
+      }
+    }
+  },
+  {
+    "map": "ds_signalhang",
+    "tile": [
+      13,
+      7
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k3a_akt1_done"
+      ]
+    },
+    "interactable": {
+      "id": "k3a_23_obj2",
+      "kind": "read",
+      "title": "Botinnenbuch",
+      "prompt": "Botinnenbuch",
+      "text": "Das getrennte Botinnenbuch nennt die wirkliche Zustellzeit. Zwischen beiden Einträgen liegt eine volle Stunde.",
+      "done_flag": "k3a_23_gelesen2",
+      "effects": {
+        "gives_clues": [
+          "k3a_23_c2"
+        ]
+      }
+    }
+  },
+  {
+    "map": "ds_signalhang",
+    "tile": [
+      11,
+      11
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k3a_akt1_done"
+      ]
+    },
+    "interactable": {
+      "id": "k3a_23_station",
+      "kind": "dialogue",
+      "dialogue": "k3a_23_dialog",
+      "prompt": "Falsche Empfangszeit"
+    }
+  },
+  {
+    "map": "ds_rangierwueste",
+    "tile": [
+      15,
+      5
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k3a_akt1_done"
+      ]
+    },
+    "interactable": {
+      "id": "k3a_24_obj1",
+      "kind": "read",
+      "title": "Hundesignal",
+      "prompt": "Hundesignal",
+      "text": "Auf einem Wartungsschild steht das Ablenkzeichen: langer Strich, Punkt, falscher Bogen. Es schickt das Suchlicht zu einer leeren Abfahrtsrampe.",
+      "done_flag": "k3a_24_gelesen1",
+      "effects": {
+        "gives_clues": [
+          "k3a_24_c1"
+        ]
+      }
+    }
+  },
+  {
+    "map": "ds_rangierwueste",
+    "tile": [
+      15,
+      7
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k3a_akt1_done"
+      ]
+    },
+    "interactable": {
+      "id": "k3a_24_obj2",
+      "kind": "read",
+      "title": "Walzenhülle",
+      "prompt": "Walzenhülle",
+      "text": "Auf der zugänglichen Hülle steht: Rückmeldungen der offenen Schicht. Ihr Datum stimmt mit dem Einsturz überein.",
+      "done_flag": "k3a_24_gelesen2",
+      "effects": {
+        "gives_clues": [
+          "k3a_24_c2"
+        ]
+      }
+    }
+  },
+  {
+    "map": "ds_rangierwueste",
+    "tile": [
+      13,
+      11
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k3a_akt1_done"
+      ]
+    },
+    "interactable": {
+      "id": "k3a_24_station",
+      "kind": "dialogue",
+      "dialogue": "k3a_24_dialog",
+      "prompt": "Die Liste im Hund"
+    }
+  },
+  {
+    "map": "ds_speisewagen",
+    "tile": [
+      9,
+      5
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k3a_akt2_done"
+      ]
+    },
+    "interactable": {
+      "id": "k3a_31_obj1",
+      "kind": "read",
+      "title": "Familienwalze",
+      "prompt": "Familienwalze",
+      "text": "Pfiff hat die Aufnahme selbst verwahrt. Atemzug, Satz und kleiner Husten entsprechen dem Ruf aus dem Zug.",
+      "done_flag": "k3a_31_gelesen1",
+      "effects": {
+        "gives_clues": [
+          "k3a_31_c1"
+        ]
+      }
+    }
+  },
+  {
+    "map": "ds_speisewagen",
+    "tile": [
+      9,
+      7
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k3a_akt2_done"
+      ]
+    },
+    "interactable": {
+      "id": "k3a_31_obj2",
+      "kind": "read",
+      "title": "Gleiche Rille",
+      "prompt": "Gleiche Rille",
+      "text": "Willa legt die sichtbaren Rillenabzüge nebeneinander. Beide wiederholen dieselbe beschädigte Stelle vor dem Wort „Suppe“.",
+      "done_flag": "k3a_31_gelesen2",
+      "effects": {
+        "gives_clues": [
+          "k3a_31_c2"
+        ]
+      }
+    }
+  },
+  {
+    "map": "ds_speisewagen",
+    "tile": [
+      7,
+      11
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k3a_akt2_done"
+      ]
+    },
+    "interactable": {
+      "id": "k3a_31_station",
+      "kind": "dialogue",
+      "dialogue": "k3a_31_dialog",
+      "prompt": "Die Stimme der Mutter"
+    }
+  },
+  {
+    "map": "ds_pruefhaus",
+    "tile": [
+      11,
+      5
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k3a_akt2_done"
+      ]
+    },
+    "interactable": {
+      "id": "k3a_32_obj1",
+      "kind": "read",
+      "title": "Versiegelte Lieferung",
+      "prompt": "Versiegelte Lieferung",
+      "text": "Die Zollabschrift nennt Ausschusswalzen aus alten Erntebeständen. Die Siegelnummer steht auf Willas Empfangsquittung.",
+      "done_flag": "k3a_32_gelesen1",
+      "effects": {
+        "gives_clues": [
+          "k3a_32_c1"
+        ]
+      }
+    }
+  },
+  {
+    "map": "ds_pruefhaus",
+    "tile": [
+      11,
+      7
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k3a_akt2_done"
+      ]
+    },
+    "interactable": {
+      "id": "k3a_32_obj2",
+      "kind": "read",
+      "title": "Verwurfsdatum",
+      "prompt": "Verwurfsdatum",
+      "text": "Die datierten Loszettel liegen vor den Befreiungen in Kettlegate. Sie belegen keine neuerliche Gefangennahme der damals Geretteten.",
+      "done_flag": "k3a_32_gelesen2",
+      "effects": {
+        "gives_clues": [
+          "k3a_32_c2"
+        ]
+      }
+    }
+  },
+  {
+    "map": "ds_pruefhaus",
+    "tile": [
+      9,
+      11
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k3a_akt2_done"
+      ]
+    },
+    "interactable": {
+      "id": "k3a_32_station",
+      "kind": "dialogue",
+      "dialogue": "k3a_32_dialog",
+      "prompt": "Gekaufte Stimmen"
+    }
+  },
+  {
+    "map": "ds_klopfbruch",
+    "tile": [
+      13,
+      5
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k3a_akt2_done"
+      ]
+    },
+    "interactable": {
+      "id": "k3a_33_obj1",
+      "kind": "read",
+      "title": "Rettungstafel",
+      "prompt": "Rettungstafel",
+      "text": "Die Tafel zeichnet drei Punkte, eine Pause und zwei Striche. Darunter steht: Wir hören euch. Ausgang freihalten.",
+      "done_flag": "k3a_33_gelesen1",
+      "effects": {
+        "gives_clues": [
+          "k3a_33_c1"
+        ]
+      }
+    }
+  },
+  {
+    "map": "ds_klopfbruch",
+    "tile": [
+      13,
+      7
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k3a_akt2_done"
+      ]
+    },
+    "interactable": {
+      "id": "k3a_33_obj2",
+      "kind": "read",
+      "title": "Werkzeugspur",
+      "prompt": "Werkzeugspur",
+      "text": "Die Abstände der Hiebe entsprechen der Rettungstafel. Spätere glatte Schnittspuren stammen vom Einsetzen eines Verschlusses.",
+      "done_flag": "k3a_33_gelesen2",
+      "effects": {
+        "gives_clues": [
+          "k3a_33_c2"
+        ]
+      }
+    }
+  },
+  {
+    "map": "ds_klopfbruch",
+    "tile": [
+      11,
+      11
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k3a_akt2_done"
+      ]
+    },
+    "interactable": {
+      "id": "k3a_33_station",
+      "kind": "dialogue",
+      "dialogue": "k3a_33_dialog",
+      "prompt": "Der Vorhauer wartet"
+    }
+  },
+  {
+    "map": "ds_letzter_bahnsteig",
+    "tile": [
+      15,
+      5
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k3a_akt2_done"
+      ]
+    },
+    "interactable": {
+      "id": "k3a_34_obj1",
+      "kind": "read",
+      "title": "Eigener Listeneintrag",
+      "prompt": "Eigener Listeneintrag",
+      "text": "Perrin Gallowmere steht unter den Toten. Dienstnummer und Handschrift passen zu der Rückmeldeliste in seiner Hand.",
+      "done_flag": "k3a_34_gelesen1",
+      "effects": {
+        "gives_clues": [
+          "k3a_34_c1"
+        ]
+      }
+    }
+  },
+  {
+    "map": "ds_letzter_bahnsteig",
+    "tile": [
+      15,
+      7
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k3a_akt2_done"
+      ]
+    },
+    "interactable": {
+      "id": "k3a_34_obj2",
+      "kind": "read",
+      "title": "Trauervermerk",
+      "prompt": "Trauervermerk",
+      "text": "Eine alte Todesanzeige nennt den Fahrmeister mit demselben Datum. Sie wurde vor dem Wiedererstarken des Nachtzugs gedruckt.",
+      "done_flag": "k3a_34_gelesen2",
+      "effects": {
+        "gives_clues": [
+          "k3a_34_c2"
+        ]
+      }
+    }
+  },
+  {
+    "map": "ds_letzter_bahnsteig",
+    "tile": [
+      13,
+      11
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k3a_akt2_done"
+      ]
+    },
+    "interactable": {
+      "id": "k3a_34_station",
+      "kind": "dialogue",
+      "dialogue": "k3a_34_dialog",
+      "prompt": "Der Fahrmeister steigt aus"
+    }
+  },
+  {
+    "map": "ds_lohnbuero",
+    "tile": [
+      9,
+      5
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k3a_akt3_done"
+      ]
+    },
+    "interactable": {
+      "id": "k3a_41_obj1",
+      "kind": "read",
+      "title": "Freigabevermerk",
+      "prompt": "Freigabevermerk",
+      "text": "Unter der abgelegten Deckseite liegt der unterschriebene Verschlussbefehl. Die Uhrzeit liegt nach dem letzten protokollierten Rettungsschlag.",
+      "done_flag": "k3a_41_gelesen1",
+      "effects": {
+        "gives_clues": [
+          "k3a_41_c1"
+        ]
+      }
+    }
+  },
+  {
+    "map": "ds_lohnbuero",
+    "tile": [
+      9,
+      7
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k3a_akt3_done"
+      ]
+    },
+    "interactable": {
+      "id": "k3a_41_obj2",
+      "kind": "read",
+      "title": "Vertragsklausel",
+      "prompt": "Vertragsklausel",
+      "text": "Der Vertrag erklärt die Verschollenen nachträglich zu freiwillig Abgereisten. Offene Lohnforderungen sollten damit entfallen.",
+      "done_flag": "k3a_41_gelesen2",
+      "effects": {
+        "gives_clues": [
+          "k3a_41_c2"
+        ]
+      }
+    }
+  },
+  {
+    "map": "ds_lohnbuero",
+    "tile": [
+      7,
+      11
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k3a_akt3_done"
+      ]
+    },
+    "interactable": {
+      "id": "k3a_41_station",
+      "kind": "dialogue",
+      "dialogue": "k3a_41_dialog",
+      "prompt": "Der unterzeichnete Verschluss"
+    }
+  },
+  {
+    "map": "ds_bruchstufen",
+    "tile": [
+      11,
+      5
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k3a_akt3_done"
+      ]
+    },
+    "interactable": {
+      "id": "k3a_42_obj1",
+      "kind": "read",
+      "title": "Alte Vermessung",
+      "prompt": "Alte Vermessung",
+      "text": "Die alte Karte zeigt geschlossene Schichten unter dem Arbeiterbogen. Die heutigen Hohlräume schneiden quer durch diese Schichten.",
+      "done_flag": "k3a_42_gelesen1",
+      "effects": {
+        "gives_clues": [
+          "k3a_42_c1"
+        ]
+      }
+    }
+  },
+  {
+    "map": "ds_bruchstufen",
+    "tile": [
+      11,
+      7
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k3a_akt3_done"
+      ]
+    },
+    "interactable": {
+      "id": "k3a_42_obj2",
+      "kind": "read",
+      "title": "Frische Messnägel",
+      "prompt": "Frische Messnägel",
+      "text": "Adaines unverrückte Messnägel ergeben mehr Tiefe als beim letzten Besuch. Es fehlt die passende Menge ausgebrochenen Gesteins.",
+      "done_flag": "k3a_42_gelesen2",
+      "effects": {
+        "gives_clues": [
+          "k3a_42_c2"
+        ]
+      }
+    }
+  },
+  {
+    "map": "ds_bruchstufen",
+    "tile": [
+      9,
+      11
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k3a_akt3_done"
+      ]
+    },
+    "interactable": {
+      "id": "k3a_42_station",
+      "kind": "dialogue",
+      "dialogue": "k3a_42_dialog",
+      "prompt": "Die wachsende Schlucht"
+    }
+  },
+  {
+    "map": "ds_pruefhaus",
+    "tile": [
+      13,
+      5
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k3a_akt3_done"
+      ]
+    },
+    "interactable": {
+      "id": "k3a_43_obj1",
+      "kind": "read",
+      "title": "Leerer Trichter",
+      "prompt": "Leerer Trichter",
+      "text": "Willa erzeugt mit zwei Luftströmen einen neuen Ton. Auf dem Rillenabzug fehlen Silben und Atemreste einer aufgenommenen Person.",
+      "done_flag": "k3a_43_gelesen1",
+      "effects": {
+        "gives_clues": [
+          "k3a_43_c1"
+        ]
+      }
+    }
+  },
+  {
+    "map": "ds_pruefhaus",
+    "tile": [
+      13,
+      7
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k3a_akt3_done"
+      ]
+    },
+    "interactable": {
+      "id": "k3a_43_obj2",
+      "kind": "read",
+      "title": "Blindvergleich",
+      "prompt": "Blindvergleich",
+      "text": "Du vertauschst die beschrifteten Hüllen. Willa erkennt die Personenaufnahme an ihren Wortansätzen und den Prüfton an seinem gleichmäßigen Bogen.",
+      "done_flag": "k3a_43_gelesen2",
+      "effects": {
+        "gives_clues": [
+          "k3a_43_c2"
+        ]
+      }
+    }
+  },
+  {
+    "map": "ds_pruefhaus",
+    "tile": [
+      11,
+      11
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k3a_akt3_done"
+      ]
+    },
+    "interactable": {
+      "id": "k3a_43_station",
+      "kind": "dialogue",
+      "dialogue": "k3a_43_dialog",
+      "prompt": "Der Ruf ohne Besitzer"
+    }
+  },
+  {
+    "map": "ds_signalhang",
+    "tile": [
+      15,
+      5
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k3a_akt3_done"
+      ]
+    },
+    "interactable": {
+      "id": "k3a_44_obj1",
+      "kind": "read",
+      "title": "Drahtwege",
+      "prompt": "Drahtwege",
+      "text": "Du verfolgst die Leitungen zu sechs beschrifteten Klemmen. Keine endet an einer Uhr, jede an einem Viertel.",
+      "done_flag": "k3a_44_gelesen1",
+      "effects": {
+        "gives_clues": [
+          "k3a_44_c1"
+        ]
+      }
+    }
+  },
+  {
+    "map": "ds_signalhang",
+    "tile": [
+      15,
+      7
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k3a_akt3_done"
+      ]
+    },
+    "interactable": {
+      "id": "k3a_44_obj2",
+      "kind": "read",
+      "title": "Hauptleitung",
+      "prompt": "Hauptleitung",
+      "text": "Unter dem Schaltpult vereinigt eine neue Brücke die sechs Klemmen. Hier lässt sich die Anlage dauerhaft unterbrechen.",
+      "done_flag": "k3a_44_gelesen2",
+      "effects": {
+        "gives_clues": [
+          "k3a_44_c2"
+        ]
+      }
+    }
+  },
+  {
+    "map": "ds_signalhang",
+    "tile": [
+      13,
+      11
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k3a_akt3_done"
+      ]
+    },
+    "interactable": {
+      "id": "k3a_44_station",
+      "kind": "dialogue",
+      "dialogue": "k3a_44_dialog",
+      "prompt": "Sechs Halte zugleich"
+    }
+  },
+  {
+    "map": "ds_arbeiterbogen",
+    "tile": [
+      9,
+      5
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k3a_akt4_done"
+      ]
+    },
+    "interactable": {
+      "id": "k3a_51_obj1",
+      "kind": "read",
+      "title": "Sechs Erzählungen",
+      "prompt": "Sechs Erzählungen",
+      "text": "Aus jedem Viertel liegt eine eigene Erinnerung vor. Sie handeln von Gärten, Streit und kalter Suppe, nicht von Dienstantritt.",
+      "done_flag": "k3a_51_gelesen1",
+      "effects": {
+        "gives_clues": [
+          "k3a_51_c1"
+        ]
+      }
+    }
+  },
+  {
+    "map": "ds_arbeiterbogen",
+    "tile": [
+      9,
+      7
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k3a_akt4_done"
+      ]
+    },
+    "interactable": {
+      "id": "k3a_51_obj2",
+      "kind": "read",
+      "title": "Eigene Worte",
+      "prompt": "Eigene Worte",
+      "text": "Eine Tochter berichtigt den Namen ihres Vaters im Protokoll. Eine andere Familie lässt bewusst ein Feld leer; niemand ergänzt es automatisch.",
+      "done_flag": "k3a_51_gelesen2",
+      "effects": {
+        "gives_clues": [
+          "k3a_51_c2"
+        ]
+      }
+    }
+  },
+  {
+    "map": "ds_arbeiterbogen",
+    "tile": [
+      7,
+      11
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k3a_akt4_done"
+      ]
+    },
+    "interactable": {
+      "id": "k3a_51_station",
+      "kind": "dialogue",
+      "dialogue": "k3a_51_dialog",
+      "prompt": "Die eigene Aussage"
+    }
+  },
+  {
+    "map": "ds_rufschlucht",
+    "tile": [
+      11,
+      5
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k3a_akt4_done"
+      ]
+    },
+    "interactable": {
+      "id": "k3a_52_obj1",
+      "kind": "read",
+      "title": "Verteilerzeichnung",
+      "prompt": "Verteilerzeichnung",
+      "text": "Die alte Zeichnung trennt Hin- und Rückweg. Eine jüngere Brücke verbindet alle Antworten zu einem einzigen Kreis.",
+      "done_flag": "k3a_52_gelesen1",
+      "effects": {
+        "gives_clues": [
+          "k3a_52_c1"
+        ]
+      }
+    }
+  },
+  {
+    "map": "ds_rufschlucht",
+    "tile": [
+      11,
+      7
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k3a_akt4_done"
+      ]
+    },
+    "interactable": {
+      "id": "k3a_52_obj2",
+      "kind": "read",
+      "title": "Trennzeichen",
+      "prompt": "Trennzeichen",
+      "text": "Die Wartungslegende zeigt zwei Bögen mit einer breiten Lücke. Erst Eingang schließen, dann die Rückwege einzeln freigeben.",
+      "done_flag": "k3a_52_gelesen2",
+      "effects": {
+        "gives_clues": [
+          "k3a_52_c2"
+        ]
+      }
+    }
+  },
+  {
+    "map": "ds_rufschlucht",
+    "tile": [
+      9,
+      11
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k3a_akt4_done"
+      ]
+    },
+    "interactable": {
+      "id": "k3a_52_station",
+      "kind": "dialogue",
+      "dialogue": "k3a_52_dialog",
+      "prompt": "Der Vielrufer"
+    }
+  },
+  {
+    "map": "ds_letzter_bahnsteig",
+    "tile": [
+      13,
+      5
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k3a_akt4_done"
+      ]
+    },
+    "interactable": {
+      "id": "k3a_53_obj1",
+      "kind": "read",
+      "title": "Erste Warnung",
+      "prompt": "Erste Warnung",
+      "text": "Eine Randmeldung nennt Risse im Bruch vor der letzten Einfahrt. Gallowmere bestätigte den Empfang mit seiner Dienstnummer.",
+      "done_flag": "k3a_53_gelesen1",
+      "effects": {
+        "gives_clues": [
+          "k3a_53_c1"
+        ]
+      }
+    }
+  },
+  {
+    "map": "ds_letzter_bahnsteig",
+    "tile": [
+      13,
+      7
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k3a_akt4_done"
+      ]
+    },
+    "interactable": {
+      "id": "k3a_53_obj2",
+      "kind": "read",
+      "title": "Schichtanweisung",
+      "prompt": "Schichtanweisung",
+      "text": "Unter der Warnung steht sein Befehl: Weiterfahren bis zur Ablösung. Er ging der Verschlussentscheidung der Leitung voraus.",
+      "done_flag": "k3a_53_gelesen2",
+      "effects": {
+        "gives_clues": [
+          "k3a_53_c2"
+        ]
+      }
+    }
+  },
+  {
+    "map": "ds_letzter_bahnsteig",
+    "tile": [
+      11,
+      11
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k3a_akt4_done"
+      ]
+    },
+    "interactable": {
+      "id": "k3a_53_station",
+      "kind": "dialogue",
+      "dialogue": "k3a_53_dialog",
+      "prompt": "Wer blieb zurück"
+    }
+  },
+  {
+    "map": "ds_nachtzug_wagen",
+    "tile": [
+      15,
+      5
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k3a_akt4_done"
+      ]
+    },
+    "interactable": {
+      "id": "k3a_54_obj1",
+      "kind": "read",
+      "title": "Offene Ausgänge",
+      "prompt": "Offene Ausgänge",
+      "text": "Du prüfst Wagenende, Wartungstreppe und Bahnsteigtor. Alle führen zu sicheren Fußwegen und brauchen keine Namensantwort.",
+      "done_flag": "k3a_54_gelesen1",
+      "effects": {
+        "gives_clues": [
+          "k3a_54_c1"
+        ]
+      }
+    }
+  },
+  {
+    "map": "ds_nachtzug_wagen",
+    "tile": [
+      15,
+      7
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k3a_akt4_done"
+      ]
+    },
+    "interactable": {
+      "id": "k3a_54_obj2",
+      "kind": "read",
+      "title": "Passagierabgleich",
+      "prompt": "Passagierabgleich",
+      "text": "Die Liste der Lebenden wird mit Huxfords Anwesenheitsbogen verglichen. Für jede Person steht ein erreichbarer Ausgang bereit.",
+      "done_flag": "k3a_54_gelesen2",
+      "effects": {
+        "gives_clues": [
+          "k3a_54_c2"
+        ]
+      }
+    }
+  },
+  {
+    "map": "ds_nachtzug_wagen",
+    "tile": [
+      13,
+      11
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k3a_akt4_done"
+      ]
+    },
+    "interactable": {
+      "id": "k3a_54_station",
+      "kind": "dialogue",
+      "dialogue": "k3a_54_dialog",
+      "prompt": "Die letzte Abfahrt"
+    }
+  },
+  {
+    "map": "ds_letzter_bahnsteig",
+    "tile": [
+      8,
+      13
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k3a_akt4_done"
+      ],
+      "hide_if_flags": [
+        "kapitel3_done"
+      ]
+    },
+    "interactable": {
+      "id": "k3a_urteil_station",
+      "kind": "dialogue",
+      "dialogue": "k3a_urteil",
+      "prompt": "Das Urteil über die offene Schicht"
+    }
+  },
+  {
+    "map": "wx_kahn",
+    "tile": [
+      6,
+      6
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "kapitel2_done",
+        "k2_end_rein"
+      ],
+      "hide_if_flags": [
+        "k3_arrived"
+      ]
+    },
+    "interactable": {
+      "id": "k3a_anreise_rein_brief",
+      "kind": "read",
+      "prompt": "Marlowes Bahnhofstelegramm",
+      "title": "Marlowes Bahnhofstelegramm",
+      "text": "Marlowe schickt eine Abschrift: Ein stillgelegter Zug wiederholt Namen aus ihren Transportuntersuchungen. Sie bittet dich, Quelle und Bedeutung in Dunscar zu prüfen. Weder Starling noch das Ratsbuch werden als Beweis vorausgesetzt.",
+      "done_flag": "k3a_anreise_rein_gelesen",
+      "effects": {
+        "sets_flags": [
+          "k3a_anreise_rein_bereit"
+        ]
+      }
+    }
+  },
+  {
+    "map": "wx_kahn",
+    "tile": [
+      7,
+      6
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k3a_anreise_rein_bereit"
+      ],
+      "hide_if_flags": [
+        "k3_arrived"
+      ]
+    },
+    "interactable": {
+      "id": "k3a_anreise_rein_reise",
+      "kind": "dialogue",
+      "dialogue": "k3a_anreise_rein",
+      "prompt": "Die Reise nach Dunscar"
+    }
+  },
+  {
+    "map": "wx_kahn",
+    "tile": [
+      6,
+      6
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "kapitel2_done",
+        "k2_end_moor"
+      ],
+      "hide_if_flags": [
+        "k3_arrived"
+      ]
+    },
+    "interactable": {
+      "id": "k3a_anreise_moor_brief",
+      "kind": "read",
+      "prompt": "Die Pfeife im Güterwagen",
+      "title": "Die Pfeife im Güterwagen",
+      "text": "Ein Wexmoorer Bahnarbeiter hörte in einem leeren Wagen eine Schichtpfeife. Das Lieferschild führt zur alten Kalkbahn in Dunscar. Ob der Ruf schon vor dem Erlöschen des Turms bestand, bleibt offen; niemand hat eine Ursache bewiesen.",
+      "done_flag": "k3a_anreise_moor_gelesen",
+      "effects": {
+        "sets_flags": [
+          "k3a_anreise_moor_bereit"
+        ]
+      }
+    }
+  },
+  {
+    "map": "wx_kahn",
+    "tile": [
+      7,
+      6
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k3a_anreise_moor_bereit"
+      ],
+      "hide_if_flags": [
+        "k3_arrived"
+      ]
+    },
+    "interactable": {
+      "id": "k3a_anreise_moor_reise",
+      "kind": "dialogue",
+      "dialogue": "k3a_anreise_moor",
+      "prompt": "Die Reise nach Dunscar"
+    }
+  },
+  {
+    "map": "wx_leuchtturm",
+    "tile": [
+      6,
+      6
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "kapitel2_done",
+        "k2_end_lichtmeister"
+      ],
+      "hide_if_flags": [
+        "k3_arrived"
+      ]
+    },
+    "interactable": {
+      "id": "k3a_anreise_lichtmeister_brief",
+      "kind": "read",
+      "prompt": "Post für das Amt",
+      "title": "Post für das Amt",
+      "text": "Auf deinem Schreibtisch liegt eine alte Fahrkarte mit deiner Amtsbezeichnung. Der Fahrmeister bietet an, die offenen Namen selbst abzuholen. Du reist hin, um das Angebot zu prüfen oder zurückzuweisen. Zunder verweigert dir jede Empfehlung, Menschen verschwinden weiterhin unter deiner Amtsführung.",
+      "done_flag": "k3a_anreise_lichtmeister_gelesen",
+      "effects": {
+        "sets_flags": [
+          "k3a_anreise_lichtmeister_bereit"
+        ]
+      }
+    }
+  },
+  {
+    "map": "wx_leuchtturm",
+    "tile": [
+      7,
+      6
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k3a_anreise_lichtmeister_bereit"
+      ],
+      "hide_if_flags": [
+        "k3_arrived"
+      ]
+    },
+    "interactable": {
+      "id": "k3a_anreise_lichtmeister_reise",
+      "kind": "dialogue",
+      "dialogue": "k3a_anreise_lichtmeister",
+      "prompt": "Die Reise nach Dunscar"
+    }
+  },
+  {
+    "map": "wx_kahn",
+    "tile": [
+      6,
+      6
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "kapitel2_done",
+        "k2_end_meer"
+      ],
+      "hide_if_flags": [
+        "k3_arrived"
+      ]
+    },
+    "interactable": {
+      "id": "k3a_anreise_meer_brief",
+      "kind": "read",
+      "prompt": "Kits Kohlenkiste",
+      "title": "Kits Kohlenkiste",
+      "text": "Beim Umladen hört Kit eine Schichtpfeife aus einer Kohlenkiste. Ein Fahrplan verspricht eine Passage für Menschen ohne sicheren Namen und führt nach Dunscar. Kit und Zunder bleiben beim Kahn. Brandt bleibt in Wexmoor im Amt; eure Flucht war kein Sieg über sie.",
+      "done_flag": "k3a_anreise_meer_gelesen",
+      "effects": {
+        "sets_flags": [
+          "k3a_anreise_meer_bereit"
+        ]
+      }
+    }
+  },
+  {
+    "map": "wx_kahn",
+    "tile": [
+      7,
+      6
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k3a_anreise_meer_bereit"
+      ],
+      "hide_if_flags": [
+        "k3_arrived"
+      ]
+    },
+    "interactable": {
+      "id": "k3a_anreise_meer_reise",
+      "kind": "dialogue",
+      "dialogue": "k3a_anreise_meer",
+      "prompt": "Die Reise nach Dunscar"
+    }
+  },
+  {
+    "map": "ds_endbahnhof",
+    "tile": [
+      6,
+      4
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "kapitel2_done"
+      ],
+      "hide_if_flags": [
+        "k3_arrived"
+      ]
+    },
+    "interactable": {
+      "id": "k3a_ankunft",
+      "kind": "read",
+      "auto": 40,
+      "marker": false,
+      "prompt": "Am Endbahnhof umsehen",
+      "title": "Kapitel 3: Der letzte Zug nach Dunscar",
+      "text": "Die Bänke sind sauber, der Fahrplan ist siebzig Jahre alt. Hinter der leeren Schalteröffnung sagt eine Stimme deinen Namen. Ein pensionierter Signalwart legt die Hand auf den Entwerter. „Pfiff“, sagt er. „Das ist eine Vorstellung, keine Dienstmeldung. Antworte dem Schalter vorerst nicht.“",
+      "done_flag": "k3_arrived",
+      "effects": {
+        "sets_flags": [
+          "k3_arrived"
+        ],
+        "start_quests": [
+          "k3a_akt1"
+        ]
+      }
+    }
+  },
+  {
+    "map": "ds_schwellenring",
+    "tile": [
+      14,
+      6
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k3a_akt3_done"
+      ]
+    },
+    "interactable": {
+      "id": "k3a_lagerabschrift",
+      "kind": "read",
+      "title": "Materiallager: Gegenabschrift",
+      "prompt": "Lagerabschrift prüfen",
+      "text": "Im Materiallager ist der Ziegelauftrag unter derselben Befehlsnummer abgelegt. Er wurde unabhängig vom Lohnbüro geführt.",
+      "done_flag": "k3a_lagerabschrift_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k3a_41_c3"
+        ]
+      }
+    }
+  }
+]
