@@ -142,3 +142,56 @@ Alpha, Padding, Grundlinien, gehaltene Ausholposen, Atlasgrenzen, Übergangs-End
 und alle 21 Fähigkeits-IDs gegen `src/data/pathways.json`. Die exportierten Sheets
 wurden zusätzlich visuell kontrolliert. Eine Übersicht liegt in `batch-kampf-preview.png`.
 
+
+## Grafikpaket C – Figuren, Portraits und Orte
+
+Batch `welt`, erzeugt am 9. November 2026 mit `image_gen` nach
+`codex_C_figuren_orte.md`: **85 PNG-Sheets** unter `public/sprites/`.
+
+| Gruppe | Sheets | Raster |
+|---|---:|---|
+| 23 NPCs: Laufanimationen, einschließlich Nate und neun künftiger Figuren | 23 | 64×128, 4×4 Frames à 16×32 |
+| Spieleraktionen | 1 | 64×192, sechs Reihen à vier Frames |
+| 36 Figurenportraits und acht Zusatzsets | 44 | 256×64, vier Portraits à 64×64 |
+| Lagerhaus, Altmarkt, Taverne und Bahnhof | 4 | 16er-Raster, benannte Regionen |
+| Revier-, Lagerhaus- und Altmarkt-Props | 3 | 16er-Raster, benannte Regionen |
+| Theater, Uhrturm, Schlachthof, Gaskanäle und Sternwarte | 5 | je 384×192, benannte Regionen |
+| Journalmarker, Journalstreifen und Stadtmarker | 3 | 16×16 bzw. 160×24 pro Zelle |
+| Tiere und Wetter | 2 | 16×16 bzw. 64×64 pro Zelle |
+
+`public/sprites/manifest-welt.json` enthält Dateimaße, Framegrößen, Spalten/Zeilen,
+nullbasierte Animationslisten, Geschwindigkeiten, Portraitausdrücke, UI-Namen und
+benannte Atlasregionen. `regionAnimations` verweist auf diese Regionen, insbesondere
+für Brunnen, Feuer, Rampenlicht, Zahnräder, Pendel, Gas und Moos. Diese Ausschnitte
+können über den Atlas verteilt sein; ihre Namen und Rechtecke sind maßgeblich.
+
+Laufrichtungen: unten, links, rechts, oben. Die Fußgrundlinie liegt nach der
+Rasterung bei y=30 innerhalb jeder 16×32-Zelle (exklusive Unterkante 31).
+Spieleraktionen sind einmalig, nur Schütteln ist als Schleife markiert.
+Portraits verwenden vier benannte Zustände in der angegebenen Reihenfolge.
+Wetter verwendet 6×6 Zellen: vier Regen-/Schnee-/Aschereihen mit je vier Frames,
+sechs Nebelframes, vier Spritzwasserframes; Restfelder sind leer. Die Spritzer sind
+16×16 groß und mittig in 64×64-Zellen abgelegt.
+
+Die tatsächlichen Prompts, verwendeten Referenzen, Originaldateinamen,
+Prüfsummen und Zuschnittrechtecke stehen in `batch-welt-generation.json`.
+85 Generatorbilder wurden pro Frame bzw. Objekt zugeschnitten, mit Nearest
+Neighbor gerastert und auf die 31 sichtbaren Farben von Batch 14b plus einen
+transparenten Paletteneintrag indiziert. Alpha ist binär, Portraits sind deckend.
+Bodenvarianten innerhalb der dokumentierten `seamFamilies` haben gemeinsame
+Randpixel. Die großen Generatororiginale sind keine Laufzeitassets.
+
+```sh
+# Benötigt Pillow und numpy; SOURCE_DIR enthält die Original-PNGs.
+python docs/art/export-welt.py SOURCE_DIR .
+python docs/art/verify-welt.py
+```
+
+Die Prüfung kontrolliert alle 85 PNGs auf Vollständigkeit, Maße, Palettenfarben,
+Alpha, Framebelegung, Grundlinien, Atlasgrenzen, Überlappungen, Animationsvariation,
+Wetter-Padding und Bodenränder. Ergebnis: `welt-validation.json`.
+Visuelle Übersicht: `welt-preview.png`.
+
+Dieses Paket stellt die Grafiken und Metadaten bereit. Die Einbindung sowie
+die Beurteilung von Timing, Lesbarkeit und Übergängen im laufenden Spiel erfolgen
+separat. Es wird kein Spielcode geändert.
