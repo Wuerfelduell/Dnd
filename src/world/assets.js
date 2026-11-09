@@ -76,6 +76,8 @@ export const SHEETS = {
   g_katakomben: 'tilesets/G_01_katakomben.png', g_kraterwald: 'tilesets/G_01_kraterwald.png',
   j_giesserei: 'tilesets/J_giesserei_tiles.png', j_haus_vey: 'tilesets/J_haus_vey_tiles.png',
   j_resonanzkammer: 'tilesets/J_resonanzkammer_tiles.png',
+  k_atelier: 'tilesets/K_atelier_tiles.png', k_ballsaal: 'tilesets/K_ballsaal_tiles.png',
+  k_spiegelkabinett: 'tilesets/K_spiegelkabinett_tiles.png',
 };
 /** Paket C: Lauf-Sheets (characters/C_<id>_walk.png), Key = Figuren-Id. */
 export const C_CHARACTERS = ['pimm', 'fenwick', 'agnes', 'pip', 'tobias', 'cultist', 'maud', 'silas', 'ned', 'quill', 'ambrose',
@@ -134,6 +136,16 @@ export const THEME_TILES = {
   j_resonanzkammer: { sheet: 'j_resonanzkammer', fallback: 'stone', floor: [0, 7, 8, 15, 56, 63],
     ring: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 56, 57, 58, 59, 60, 61, 62, 63], wallTop: [16, 17, 18, 19, 20, 21, 22, 23],
     wallFace: [24, 25, 26, 27, 28, 29, 30, 31], wallDark: [32, 33, 37, 38, 39], dais: [34, 35, 36, 44, 45, 46, 47], steps: [41, 42] },
+  // Paket K (Fall 6): Atelier, Ballsaal, Spiegelkabinett (8x8-Raster)
+  k_atelier: { sheet: 'k_atelier', fallback: 'wood0', floor: [0, 0, 0, 1], dark: [4, 5, 6, 7], stain: [11, 12, 13, 14, 15],
+    checker: [8, 9, 10, 16, 17, 18, 24, 25, 26], wallTop: [32, 35, 36], wallFace: [40, 41, 42, 43, 44, 46], skylight: [48, 49, 50, 51],
+    wallDark: [27, 28, 30], curtain: [52], grate: [53] },
+  k_ballsaal: { sheet: 'k_ballsaal', fallback: 'stone', floor: [0, 1, 0, 1, 2], parquet: [8, 9, 10, 16, 17, 18, 24, 25, 26],
+    carpet: [11, 12, 13, 19, 20, 21, 27, 28, 29], wallTop: [14, 15], wallFace: [22, 30, 56, 57, 58], mirrorTop: [32, 33],
+    mirrorFace: [40, 41], curtainTop: [34, 35], curtainFace: [42, 43], wallSide: [48, 49], stage: [60, 61, 62, 63], railing: [39, 47, 55] },
+  k_spiegelkabinett: { sheet: 'k_spiegelkabinett', fallback: 'wood0', floor: [0, 1, 2, 3, 4, 5, 6, 7, 48, 50, 52, 54], arrow: [40],
+    chalk: [41, 42, 43, 45, 46, 47], wallTop: [8, 9, 10, 11, 12, 13, 14, 15], wallFace: [16, 17, 18, 19, 20, 21, 22, 23],
+    mirror: [32, 33, 34, 35] },
   warehouse: {
     sheet: 'lagerhaus', base: 'floor_1', fallback: 'wood0',
     floor: ['floor_1', 'floor_2', 'floor_3'], debris: ['floor_broken', 'tile_04', 'tile_05', 'tile_06', 'tile_07'],
@@ -177,7 +189,8 @@ export const THEME_TILES = {
   },
 };
 /** Gruppen, die begehbar bleiben; alles andere blockiert. */
-const WALKABLE_GROUPS = ['floor', 'debris', 'wet', 'wood', 'mud', 'moss', 'tufts', 'path', 'ash', 'shards', 'weeds', 'sand', 'slag', 'wear', 'ring'];
+const WALKABLE_GROUPS = ['floor', 'debris', 'wet', 'wood', 'mud', 'moss', 'tufts', 'path', 'ash', 'shards', 'weeds', 'sand', 'slag', 'wear', 'ring',
+  'dark', 'stain', 'checker', 'parquet', 'carpet', 'arrow', 'chalk'];
 /** Ersatz-Painter (textures.js) je Gruppe, falls das PNG fehlt. */
 const GROUP_FALLBACK = { wallFace: 'wallFace', wallTop: 'wallTop', bar: 'desk', shelf: 'shelf', barrel: 'barrel', seat: 'desk', water: 'water0' };
 
@@ -518,6 +531,9 @@ export const REGION_SHEETS = {
   l_marker: ['manifestGegner3', 'L_marker'],
   j_giesserei_props: ['manifestFall5', 'J_giesserei_props'], j_haus_vey_props: ['manifestFall5', 'J_haus_vey_props'],
   j_resonanzkammer_props: ['manifestFall5', 'J_resonanzkammer_props'],
+  k_atelier_props: ['manifestFall6', 'props_atelier'], k_ballsaal_props: ['manifestFall6', 'props_ballsaal'],
+  k_spiegelkabinett_props: ['manifestFall6', 'props_spiegelkabinett'], k_jahrmarkt: ['manifestFall6', 'props_jahrmarkt_aussen'],
+  k_schatten: ['manifestFall6', 'shadows'],
 };
 /** Dateien der Region-Sheets (die Manifeste kommen erst nach dem Laden der Bilder an). */
 const REGION_FILES = {
@@ -533,6 +549,8 @@ const REGION_FILES = {
   l_marker: 'ui/L_marker.png',
   j_giesserei_props: 'props/J_giesserei_props.png', j_haus_vey_props: 'props/J_haus_vey_props.png',
   j_resonanzkammer_props: 'props/J_resonanzkammer_props.png',
+  k_atelier_props: 'props/K_atelier_props.png', k_ballsaal_props: 'props/K_ballsaal_props.png',
+  k_spiegelkabinett_props: 'props/K_spiegelkabinett_props.png', k_jahrmarkt: 'props/K_jahrmarkt_aussen.png', k_schatten: 'fx/K_schatten.png',
 };
 for (const z of ['marsch', 'pestgassen', 'katakomben', 'kraterwald']) REGION_FILES[`g_${z}_props`] = `props/G_01_${z}_props.png`;
 for (const id of ['theater', 'uhrturm', 'nordtor', 'gaswerk', 'sternwarte', 'villen', 'elend']) REGION_FILES[`d_${id}_props`] = `props/D_05_${id}_props.png`;
@@ -618,9 +636,12 @@ export const SCENES = ['turmuhr', 'brief', 'rook', 'chor', 'marlowe', 'felix'];
 export const TRAVEL_SCENES = ['reise_nebel', 'reise_ratten', 'reise_irrlicht', 'reise_kultpatrouille', 'reise_ueberfall', 'reise_fund', 'reise_taschendieb'];
 /** Paket J: Bilder zu Fall 5. */
 export const J_SCENES = ['giessgrube', 'kinderzimmer', 'oda', 'lilian', 'glocke_sinkt', 'stimmen_frei'];
+/** Paket K: Bilder zu Fall 6. */
+export const K_SCENES = ['abzuege', 'schattenlos', 'maskenball', 'dunkelkammer', 'spiegel', 'schatten_frei'];
 export const sceneUrl = (id) => (SCENES.includes(id) ? `${BASE}ui/scenes/E_szene_${id}.png`
   : TRAVEL_SCENES.includes(id) ? `${BASE}ui/scenes/I_${id}.png`
-    : J_SCENES.includes(id) ? `${BASE}ui/scenes/J_szene_${id}.png` : null);
+    : J_SCENES.includes(id) ? `${BASE}ui/scenes/J_szene_${id}.png`
+      : K_SCENES.includes(id) ? `${BASE}ui/scenes/K_szene_${id}.png` : null);
 
 /** Große Stadtkarte mit Nebel über unbesuchten Gegenden. */
 export const CITY_MAP_URL = `${BASE}ui/D_09_stadtkarte_gross.png`;
@@ -785,6 +806,7 @@ export function preloadSprites(scene) {
   if (!scene.cache.json.exists('manifestWildnis')) scene.load.json('manifestWildnis', `${BASE}manifest-wildnis.json`);
   if (!scene.cache.json.exists('manifestReise')) scene.load.json('manifestReise', `${BASE}manifest-reise.json`);
   if (!scene.cache.json.exists('manifestJournal')) scene.load.json('manifestJournal', `${BASE}manifest-journal.json`);
+  if (!scene.cache.json.exists('manifestFall6')) scene.load.json('manifestFall6', `${BASE}manifest-fall6.json`);
   if (!scene.cache.json.exists('manifestFall5')) scene.load.json('manifestFall5', `${BASE}manifest-fall5.json`);
   if (!scene.cache.json.exists('manifestGegner3')) scene.load.json('manifestGegner3', `${BASE}manifest-gegner3.json`);
   for (const [key, [path, w, h]] of Object.entries(CASE_SHEETS)) {
@@ -814,11 +836,18 @@ export function playSheetAnim(sprite, sheet, name, then) {
 
 /** Animationsdefinition aus manifest-14b.json oder manifest-kampf.json. */
 function battleAnimDef(scene, sheet, name) {
-  for (const n of [name, ANIM_ALIASES[sheet]?.[name]].filter(Boolean)) {
-    for (const m of ['manifest14b', 'manifestKampf', 'manifestKampf2', 'manifestReise', 'manifestWildnis', 'manifestGegner3', 'manifestFall5']) {
-      const def = scene.cache.json.get(m)?.assets?.find((a) => a.id === sheet)?.animations?.[n];
-      if (def) return def;
-    }
+  const def = battleSheetDef(scene, sheet);
+  for (const n of [name, ANIM_ALIASES[sheet]?.[name]].filter(Boolean)) if (def?.animations?.[n]) return def.animations[n];
+  return null;
+}
+/** Manifeste mit Kampf-Sheets; spätere Pakete nennen ihre Einträge nicht nach dem Sheet, darum auch über die Datei. */
+const BATTLE_MANIFESTS = ['manifest14b', 'manifestKampf', 'manifestKampf2', 'manifestReise', 'manifestWildnis', 'manifestGegner3', 'manifestFall5', 'manifestFall6'];
+export function battleSheetDef(scene, sheet) {
+  const file = BATTLE_SHEETS[sheet]?.[0];
+  for (const m of BATTLE_MANIFESTS) {
+    const assets = scene.cache.json.get(m)?.assets ?? [];
+    const def = assets.find((a) => a.id === sheet && a.animations) ?? (file && assets.find((a) => a.file === file && a.animations));
+    if (def) return def;
   }
   return null;
 }
@@ -949,7 +978,12 @@ export const sourceKindUrl = (kind) => `${BASE}ui/sources/24/${kind}.png`;
 
 /** Nahansicht (160x120) eines Fundstücks, mit Fluch-Fassung. */
 export const INSPECT_VIEWS = ['verlorenes_gesangbuch', 'spiegelscherbe', 'glocke', 'stimmphiole', 'sternsplitter', 'taschenuhr'];
-export const inspectUrl = (item, curse = false) => (INSPECT_VIEWS.includes(item) ? `${BASE}ui/inspect/${item}${curse ? '_fluch' : ''}.png` : null);
+/** Nahansichten mit anderem Dateinamen: Fundstück → [normal, verflucht]. */
+export const INSPECT_FILES = {};
+export const inspectUrl = (item, curse = false) => {
+  if (INSPECT_FILES[item]) return `${BASE}ui/inspect/${INSPECT_FILES[item][curse ? 1 : 0]}.png`;
+  return INSPECT_VIEWS.includes(item) ? `${BASE}ui/inspect/${item}${curse ? '_fluch' : ''}.png` : null;
+};
 
 /** Risiko-Symbole (ui/H_06_risiko_icons.png, 80x24): Name → [x, y, Größe]. */
 export const RISK_ICONS_URL = `${BASE}ui/H_06_risiko_icons.png`;
@@ -1151,3 +1185,51 @@ for (const id of ['c5_perfect', 'c5_good', 'c5_early', 'c5_rust']) ENDING_IMAGES
 ANIM_SHEETS.j_hinweise = ['props/J_fall5_hinweise.png', 16, 16];
 export const J_HINTS = ['bronze_shaving', 'chalk_bell', 'burned_score', 'white_lily', 'cracked_phial', 'robe_threads', 'sand_handprint',
   'candle_ring', 'bronze_dust', 'tally_door'];
+
+// --- Paket K: Fall 6, der dreizehnte Gast (manifest-fall6.json) -----------------------------------
+
+/** Gegner aus Fall 6: [Kampf-Frame, Karten-Frame-Breite]. Der Gast ist der Boss. */
+export const K_ENEMIES = { schattenabzug: [48, 16], negativ_geist: [64, 16], silberbad_schleim: [64, 32], dreizehnter_gast: [96, 16] };
+Object.keys(K_ENEMIES).forEach((id, i) => {
+  const [w, ow] = K_ENEMIES[id];
+  BATTLE_SHEETS[`enemy_${id}`] = [`battle/enemy_${id}.png`, w];
+  ENCOUNTER_SHEETS[id] = `enemy_${id}`;
+  OVERWORLD_SHEETS[id] = [`characters/K_ow_${id}.png`, ow, 32];
+  PROP_ORIGINS[`ow_${id}`] = 0.85;
+  if (id !== 'dreizehnter_gast') FADING_SHEETS.push(`enemy_${id}`);
+  TURN_PORTRAITS[id] = i;
+  TURN_PORTRAIT_URLS[id] = [`${BASE}ui/K_zug_portraits.png`, 4];
+  BESTIARY_PACK[id] = 'K';
+  if (!BESTIARY.includes(id)) BESTIARY.push(id);
+});
+/** Der Gast: eigene Angriffsnamen, in Rage die zweite Phase im selben Sheet, dazu das zerbrochene Kabinett. */
+ANIM_ALIASES.enemy_dreizehnter_gast = { attack: 'belichtung', special: 'schattenschnitt', cast: 'gruppenbild' };
+BOSS_FORMS.dreizehnter_gast = 'enemy_dreizehnter_gast';
+BOSS_FORM_BACKGROUNDS.dreizehnter_gast = 'bg_spiegelkabinett_2';
+BOSS_INTROS.dreizehnter_gast = 'gast_k';
+BOSS_INTRO_IMAGES.gast_k = ['K_08_boss_gast', 'ui/K_08_boss_gast.png'];
+const K_FX = { blitzlicht: [48], bilderrahmen: [48], silberspritzer: [32], schattenraub: [48, 32], status_schattenlos: [16],
+  status_geblendet: [16], belichtung: [96], gruppenbild: [96], schatten_frei: [96] };
+for (const [id, [w, h = w]] of Object.entries(K_FX)) BATTLE_SHEETS[`fx_${id}`] = [`fx/fx_${id}.png`, w, h];
+Object.assign(ENCOUNTER_FX, {
+  schattenabzug: { attack: 'fx_schattenraub' }, negativ_geist: { attack: 'fx_blitzlicht' }, silberbad_schleim: { attack: 'fx_silberspritzer' },
+  dreizehnter_gast: { attack: 'fx_bilderrahmen', multi: 'fx_gruppenbild', heavy: 'fx_belichtung', won: 'fx_schatten_frei' },
+});
+for (const id of ['atelier', 'ballsaal', 'spiegelkabinett']) BATTLE_BACKGROUNDS[id] = `bg_${id}`;
+Object.assign(ENCOUNTER_BACKGROUNDS, { silberbad_schleim: 'bg_spiegelkabinett', dreizehnter_gast: 'bg_spiegelkabinett' });
+/** Figuren: Lady Ashcombe und Lucan Mews (enthüllt mit eigenen Stimmungen), dazu vier Ballgäste als Deko. */
+for (const id of ['ashcombe', 'mews']) {
+  SHEETS[`k_${id}`] = `characters/K_${id}_walk.png`;
+  CHARACTER_SHEETS[`npc_${id}`] = `k_${id}`;
+  PORTRAITS[id] = `K_${id}_emotions.png`;
+}
+PORTRAIT_SPECIAL.mews = ['K_mews_enthuellt_emotions.png', { kalt: 0, triumph: 1, panisch: 2, gebrochen: 3 }];
+for (const n of [1, 2, 3, 4]) ANIM_SHEETS[`k_gast_${n}`] = [`characters/K_gast_${n}_walk.png`, 16, 32];
+/** Fallgegenstände und Belohnungen, Nahansicht der Fotoplatte, Hinweis-Marker. */
+export const K_ITEMS = ['belichtungsmesser', 'gaesteliste', 'silbernitrat', 'schattenrest', 'kamera_alt',
+  'amulett_schatten', 'hut_maskenball', 'mantel_frack', 'blitzpulver'];
+ICON32.push(...K_ITEMS);
+INSPECT_FILES.fotoplatte = ['fotoplatte_1', 'fotoplatte_fluch'];
+ANIM_SHEETS.k_hinweise = ['props/K_fall6_hinweise.png', 16, 16];
+CASE_FILES.case_06 = 'K_akte_fall6';
+for (const id of ['c6_perfect', 'c6_good', 'c6_early', 'c6_seer']) ENDING_IMAGES[id] = id;
