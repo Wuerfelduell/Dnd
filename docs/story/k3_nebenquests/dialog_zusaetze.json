@@ -1,0 +1,2149 @@
+{
+  "k3_mabel": {
+    "choices_add": [
+      {
+        "text": "Die beiden Beobachtungen gemeinsam prüfen.",
+        "next": "k3n_schichtmarke_zeugnis",
+        "requires_quests_active": [
+          "k3n_schichtmarke"
+        ],
+        "requires_clues": [
+          "k3n_schichtmarke_spur1",
+          "k3n_schichtmarke_spur2"
+        ],
+        "hide_if_flags": [
+          "k3n_schichtmarke_befragt"
+        ]
+      },
+      {
+        "text": "Die beiden Beobachtungen gemeinsam prüfen.",
+        "next": "k3n_tischgedeck_zeugnis",
+        "requires_quests_active": [
+          "k3n_tischgedeck"
+        ],
+        "requires_clues": [
+          "k3n_tischgedeck_spur1",
+          "k3n_tischgedeck_spur2"
+        ],
+        "hide_if_flags": [
+          "k3n_tischgedeck_befragt"
+        ]
+      },
+      {
+        "text": "Deine Begleitung möchte etwas ergänzen.",
+        "next": "k3n_tischgedeck_koop",
+        "requires_flags": [
+          "koop_aktiv"
+        ],
+        "requires_quests_active": [
+          "k3n_tischgedeck"
+        ],
+        "requires_clues": [
+          "k3n_tischgedeck_spur1"
+        ],
+        "hide_if_flags": [
+          "k3n_tischgedeck_koop_gehoert"
+        ]
+      },
+      {
+        "text": "Was ist aus „Heute geprägt, gestern bezahlt“ geworden?",
+        "next": "k3n_schichtmarke_verkauf_nachher",
+        "requires_flags": [
+          "k3n_schichtmarke_verkauf"
+        ]
+      },
+      {
+        "text": "Was ist aus „Heute geprägt, gestern bezahlt“ geworden?",
+        "next": "k3n_schichtmarke_fonds_nachher",
+        "requires_flags": [
+          "k3n_schichtmarke_fonds"
+        ]
+      },
+      {
+        "text": "Die Befunde zu „Heute geprägt, gestern bezahlt“ liegen vor.",
+        "next": "k3n_schichtmarke_wahl",
+        "requires_quests_active": [
+          "k3n_schichtmarke"
+        ],
+        "requires_conclusions": [
+          "k3n_schichtmarke_schluss"
+        ],
+        "hide_if_flags": [
+          "k3n_schichtmarke_done"
+        ],
+        "requires_flags": [
+          "k3n_schichtmarke_befragt"
+        ]
+      },
+      {
+        "text": "Heute geprägt, gestern bezahlt.",
+        "next": "k3n_schichtmarke_beginn",
+        "requires_flags": [
+          "k3a_akt2_done"
+        ],
+        "hide_if_quests": [
+          "k3n_schichtmarke"
+        ]
+      },
+      {
+        "text": "Was ist aus „Ein Platz seit siebzig Jahren“ geworden?",
+        "next": "k3n_tischgedeck_privat_nachher",
+        "requires_flags": [
+          "k3n_tischgedeck_privat"
+        ]
+      },
+      {
+        "text": "Was ist aus „Ein Platz seit siebzig Jahren“ geworden?",
+        "next": "k3n_tischgedeck_offen_nachher",
+        "requires_flags": [
+          "k3n_tischgedeck_offen"
+        ]
+      },
+      {
+        "text": "Die Befunde zu „Ein Platz seit siebzig Jahren“ liegen vor.",
+        "next": "k3n_tischgedeck_wahl",
+        "requires_quests_active": [
+          "k3n_tischgedeck"
+        ],
+        "requires_conclusions": [
+          "k3n_tischgedeck_schluss"
+        ],
+        "hide_if_flags": [
+          "k3n_tischgedeck_done"
+        ],
+        "requires_flags": [
+          "k3n_tischgedeck_befragt"
+        ]
+      },
+      {
+        "text": "Ein Platz seit siebzig Jahren.",
+        "next": "k3n_tischgedeck_beginn",
+        "requires_flags": [
+          "k3_arrived"
+        ],
+        "hide_if_quests": [
+          "k3n_tischgedeck"
+        ]
+      }
+    ],
+    "nodes_add": {
+      "k3n_tischgedeck_beginn": {
+        "text": "„Bei den Vennicks bleibt seit siebzig Jahren ein Teller gedeckt“, sagt Mabel. „Heute ist er leer. Bevor sie einen zweiten Stuhl kaufen, möchte ich wissen, wer Hunger hatte.“",
+        "start_quests": [
+          "k3n_tischgedeck"
+        ],
+        "sets_flags": [
+          "k3n_tischgedeck_begonnen"
+        ],
+        "choices": [
+          {
+            "text": "Ich sehe mir die Spuren an."
+          }
+        ]
+      },
+      "k3n_tischgedeck_wahl": {
+        "text": "„Evin möchte sich entschuldigen“, sagt Mabel. „Die Familie möchte noch einen Abend glauben. Du hast beides gehört. Wem sage ich jetzt was?“",
+        "choices": [
+          {
+            "text": "Die Familie mit Evins Zustimmung aufklären.",
+            "next": "k3n_tischgedeck_offen",
+            "requires_quests_active": [
+              "k3n_tischgedeck"
+            ],
+            "hide_if_flags": [
+              "k3n_tischgedeck_done"
+            ]
+          },
+          {
+            "text": "Evin privat versorgen und die Erklärung vertagen.",
+            "next": "k3n_tischgedeck_privat",
+            "requires_quests_active": [
+              "k3n_tischgedeck"
+            ],
+            "hide_if_flags": [
+              "k3n_tischgedeck_done"
+            ]
+          }
+        ]
+      },
+      "k3n_tischgedeck_offen": {
+        "text": "Evin setzt sich an einen neuen Platz und erzählt selbst. Die Vennicks lassen den alten Teller stehen, doch sie erwarten daran keinen Gast mehr. Mabel zahlt dir den vereinbarten Lohn.",
+        "complete_quests": [
+          "k3n_tischgedeck"
+        ],
+        "sets_flags": [
+          "k3n_tischgedeck_done",
+          "k3n_tischgedeck_offen"
+        ],
+        "gives_money": 18,
+        "honor": 2,
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      },
+      "k3n_tischgedeck_offen_nachher": {
+        "text": "Evin setzt sich an einen neuen Platz und erzählt selbst. Die Vennicks lassen den alten Teller stehen, doch sie erwarten daran keinen Gast mehr. Mabel zahlt dir den vereinbarten Lohn.",
+        "choices": [
+          {
+            "text": "Auf Wiedersehen."
+          }
+        ]
+      },
+      "k3n_tischgedeck_privat": {
+        "text": "Mabel bringt Evin Essen hinter die Küche. Die Familie bekommt nur die Auskunft, dass niemand aus dem Grab zurückgekehrt ist. Ihr leeres Gedeck bleibt eine Frage, und Mabel wird diese Frage wieder hören.",
+        "complete_quests": [
+          "k3n_tischgedeck"
+        ],
+        "sets_flags": [
+          "k3n_tischgedeck_done",
+          "k3n_tischgedeck_privat"
+        ],
+        "gives_money": 18,
+        "honor": 0,
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      },
+      "k3n_tischgedeck_privat_nachher": {
+        "text": "Mabel bringt Evin Essen hinter die Küche. Die Familie bekommt nur die Auskunft, dass niemand aus dem Grab zurückgekehrt ist. Ihr leeres Gedeck bleibt eine Frage, und Mabel wird diese Frage wieder hören.",
+        "choices": [
+          {
+            "text": "Auf Wiedersehen."
+          }
+        ]
+      },
+      "k3n_schichtmarke_beginn": {
+        "text": "Mabel legt eine noch warme Schichtmarke auf den Tresen. „Ungültiges Geld darf wenigstens kalt sein. Auf dieser steht das heutige Datum. Finde den Präger, bevor jemand meine Küche für eine Lohnstelle hält.“",
+        "start_quests": [
+          "k3n_schichtmarke"
+        ],
+        "sets_flags": [
+          "k3n_schichtmarke_begonnen"
+        ],
+        "choices": [
+          {
+            "text": "Ich sehe mir die Spuren an."
+          }
+        ]
+      },
+      "k3n_schichtmarke_wahl": {
+        "text": "Mabel schiebt dir die Liste zurück. „Ich koche gern für Leute ohne Lohn. Aber ich möchte gefragt werden. Machen wir neue, ehrliche Marken oder geben wir den Restwert der Werkbank aus?“",
+        "choices": [
+          {
+            "text": "Mit Mabel deutlich neue Essensmarken vereinbaren.",
+            "next": "k3n_schichtmarke_fonds",
+            "requires_quests_active": [
+              "k3n_schichtmarke"
+            ],
+            "hide_if_flags": [
+              "k3n_schichtmarke_done"
+            ]
+          },
+          {
+            "text": "Die Prägung beenden und den vorhandenen Zinnvorrat für Essen verkaufen.",
+            "next": "k3n_schichtmarke_verkauf",
+            "requires_quests_active": [
+              "k3n_schichtmarke"
+            ],
+            "hide_if_flags": [
+              "k3n_schichtmarke_done"
+            ]
+          }
+        ]
+      },
+      "k3n_schichtmarke_fonds": {
+        "text": "Der Fonds stempelt künftig „Mahlzeit, kein Lohn“ auf glatte Scheiben. Mabel legt die tägliche Menge selbst fest. Sie bezahlt dich aus ihrer Kasse; die alte Prägung wird eingelagert.",
+        "complete_quests": [
+          "k3n_schichtmarke"
+        ],
+        "sets_flags": [
+          "k3n_schichtmarke_done",
+          "k3n_schichtmarke_fonds"
+        ],
+        "gives_money": 20,
+        "honor": 2,
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      },
+      "k3n_schichtmarke_fonds_nachher": {
+        "text": "Der Fonds stempelt künftig „Mahlzeit, kein Lohn“ auf glatte Scheiben. Mabel legt die tägliche Menge selbst fest. Sie bezahlt dich aus ihrer Kasse; die alte Prägung wird eingelagert.",
+        "choices": [
+          {
+            "text": "Auf Wiedersehen."
+          }
+        ]
+      },
+      "k3n_schichtmarke_verkauf": {
+        "text": "Die Presse wird versiegelt, der Zinnvorrat bezahlt einige unmittelbare Mahlzeiten. Danach braucht der Fonds eine andere Lösung. Mabel gibt dir deinen Lohn und hängt die Abrechnung aus.",
+        "complete_quests": [
+          "k3n_schichtmarke"
+        ],
+        "sets_flags": [
+          "k3n_schichtmarke_done",
+          "k3n_schichtmarke_verkauf"
+        ],
+        "gives_money": 20,
+        "honor": 0,
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      },
+      "k3n_schichtmarke_verkauf_nachher": {
+        "text": "Die Presse wird versiegelt, der Zinnvorrat bezahlt einige unmittelbare Mahlzeiten. Danach braucht der Fonds eine andere Lösung. Mabel gibt dir deinen Lohn und hängt die Abrechnung aus.",
+        "choices": [
+          {
+            "text": "Auf Wiedersehen."
+          }
+        ]
+      },
+      "k3n_tischgedeck_koop": {
+        "text": "Deine Begleitung legt den geflickten Handschuh neben die Küchenrechnung. „Die Naht ist frisch. Vielleicht fragen wir zuerst den Mann, dessen Mantel dazu gehört.“ Mabel nickt und stellt eine zweite Tasse hin.",
+        "sets_flags": [
+          "k3n_tischgedeck_koop_gehoert"
+        ],
+        "choices": [
+          {
+            "text": "Wir prüfen das gemeinsam."
+          }
+        ]
+      },
+      "k3n_tischgedeck_zeugnis": {
+        "text": "Mabel holt die Nachbarin an die Küchentür. „Der Handschuh lag gestern noch nicht dort. Evin sah heute früh aus, als wäre er im Gehen eingeschlafen.“ Sie hat keinen Zug betreten und kann nur über diesen Morgen sprechen.",
+        "sets_flags": [
+          "k3n_tischgedeck_befragt"
+        ],
+        "choices": [
+          {
+            "text": "Warum sollte die Familie uns glauben?",
+            "next": "k3n_tischgedeck_grenze"
+          },
+          {
+            "text": "Ich vergleiche die Befunde im Journal."
+          }
+        ]
+      },
+      "k3n_tischgedeck_grenze": {
+        "text": "„Sie muss mir nichts glauben“, sagt Mabel. „Evin kann den geflickten Handschuh zeigen. Und sie darf ihn selbst fragen, statt dass wir ihr einen schönen Schluss erzählen.“",
+        "choices": [
+          {
+            "text": "Verstanden."
+          }
+        ]
+      },
+      "k3n_schichtmarke_zeugnis": {
+        "text": "Mabel lässt den Gast seine Marke selbst auf den Tisch legen. Er hat dafür Arbeit im Hilfsfonds geleistet, kein okkultes Gelöbnis. „Dann schuldet dir der Fonds eine ehrliche Erklärung“, sagt sie. „Und mir eine Frage, bevor er meine Suppe verteilt.“",
+        "sets_flags": [
+          "k3n_schichtmarke_befragt"
+        ],
+        "choices": [
+          {
+            "text": "Wird der Gast jetzt bestraft?",
+            "next": "k3n_schichtmarke_grenze"
+          },
+          {
+            "text": "Ich vergleiche die Befunde im Journal."
+          }
+        ]
+      },
+      "k3n_schichtmarke_grenze": {
+        "text": "„Er hat Hunger und einen Zettel bekommen“, sagt Mabel. „Mit dem Mann fange ich keinen Währungskrieg an. Die Abrechnung machen wir mit der Presse.“",
+        "choices": [
+          {
+            "text": "Verstanden."
+          }
+        ]
+      }
+    }
+  },
+  "k3_pelham": {
+    "choices_add": [
+      {
+        "text": "Die beiden Beobachtungen gemeinsam prüfen.",
+        "next": "k3n_grabstein_ohne_namen_zeugnis",
+        "requires_quests_active": [
+          "k3n_grabstein_ohne_namen"
+        ],
+        "requires_clues": [
+          "k3n_grabstein_ohne_namen_spur1",
+          "k3n_grabstein_ohne_namen_spur2"
+        ],
+        "hide_if_flags": [
+          "k3n_grabstein_ohne_namen_befragt"
+        ]
+      },
+      {
+        "text": "Was ist aus „Der Stein mit deinem Namen“ geworden?",
+        "next": "k3n_grabstein_ohne_namen_zeigen_nachher",
+        "requires_flags": [
+          "k3n_grabstein_ohne_namen_zeigen"
+        ]
+      },
+      {
+        "text": "Was ist aus „Der Stein mit deinem Namen“ geworden?",
+        "next": "k3n_grabstein_ohne_namen_waschen_nachher",
+        "requires_flags": [
+          "k3n_grabstein_ohne_namen_waschen"
+        ]
+      },
+      {
+        "text": "Die Befunde zu „Der Stein mit deinem Namen“ liegen vor.",
+        "next": "k3n_grabstein_ohne_namen_wahl",
+        "requires_quests_active": [
+          "k3n_grabstein_ohne_namen"
+        ],
+        "requires_conclusions": [
+          "k3n_grabstein_ohne_namen_schluss"
+        ],
+        "hide_if_flags": [
+          "k3n_grabstein_ohne_namen_done"
+        ],
+        "requires_flags": [
+          "k3n_grabstein_ohne_namen_befragt"
+        ]
+      },
+      {
+        "text": "Der Stein mit deinem Namen.",
+        "next": "k3n_grabstein_ohne_namen_beginn",
+        "requires_flags": [
+          "k3_arrived"
+        ],
+        "hide_if_quests": [
+          "k3n_grabstein_ohne_namen"
+        ]
+      }
+    ],
+    "nodes_add": {
+      "k3n_grabstein_ohne_namen_beginn": {
+        "text": "Pelham dreht einen bestellten Stein zur Wand. „Der Auftraggeber hat keinen Namen dagelassen. Deiner steht allerdings vorn. Das ist normalerweise die umgekehrte Reihenfolge.“ Er bittet dich, Bestellung und Durchschlag zu vergleichen.",
+        "start_quests": [
+          "k3n_grabstein_ohne_namen"
+        ],
+        "sets_flags": [
+          "k3n_grabstein_ohne_namen_begonnen"
+        ],
+        "choices": [
+          {
+            "text": "Ich sehe mir die Spuren an."
+          }
+        ]
+      },
+      "k3n_grabstein_ohne_namen_wahl": {
+        "text": "Pelham hält Wasser und Bürste bereit. „Ich kann die falsche Aufschrift löschen. Oder sie als Warnung mit einer Erklärung ausstellen. Als Werbung wäre sie unangenehm erfolgreich.“",
+        "choices": [
+          {
+            "text": "Den Fehler dokumentieren und den Namen abwaschen.",
+            "next": "k3n_grabstein_ohne_namen_waschen",
+            "requires_quests_active": [
+              "k3n_grabstein_ohne_namen"
+            ],
+            "hide_if_flags": [
+              "k3n_grabstein_ohne_namen_done"
+            ]
+          },
+          {
+            "text": "Den Stein mit einer sachlichen Fehlererklärung ausstellen.",
+            "next": "k3n_grabstein_ohne_namen_zeigen",
+            "requires_quests_active": [
+              "k3n_grabstein_ohne_namen"
+            ],
+            "hide_if_flags": [
+              "k3n_grabstein_ohne_namen_done"
+            ]
+          }
+        ]
+      },
+      "k3n_grabstein_ohne_namen_waschen": {
+        "text": "Pelham fertigt eine Abschrift an und wäscht den Stein blank. Dein Name bleibt nur in der verschlossenen Reklamationsmappe. Er bezahlt die Untersuchung und nimmt keine neue Bestellung vom Briefschlitz an.",
+        "complete_quests": [
+          "k3n_grabstein_ohne_namen"
+        ],
+        "sets_flags": [
+          "k3n_grabstein_ohne_namen_done",
+          "k3n_grabstein_ohne_namen_waschen"
+        ],
+        "gives_money": 22,
+        "honor": 0,
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      },
+      "k3n_grabstein_ohne_namen_waschen_nachher": {
+        "text": "Pelham fertigt eine Abschrift an und wäscht den Stein blank. Dein Name bleibt nur in der verschlossenen Reklamationsmappe. Er bezahlt die Untersuchung und nimmt keine neue Bestellung vom Briefschlitz an.",
+        "choices": [
+          {
+            "text": "Auf Wiedersehen."
+          }
+        ]
+      },
+      "k3n_grabstein_ohne_namen_zeigen": {
+        "text": "Neben dem Stein hängt nun eine Erklärung über Kohlepapier und ungeprüfte Bestellungen. Besucher lesen deinen Namen, doch niemand soll darin eine Prophezeiung sehen. Pelham bezahlt dich; deine Privatsphäre ist der Preis der Warnung.",
+        "complete_quests": [
+          "k3n_grabstein_ohne_namen"
+        ],
+        "sets_flags": [
+          "k3n_grabstein_ohne_namen_done",
+          "k3n_grabstein_ohne_namen_zeigen"
+        ],
+        "gives_money": 22,
+        "honor": 2,
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      },
+      "k3n_grabstein_ohne_namen_zeigen_nachher": {
+        "text": "Neben dem Stein hängt nun eine Erklärung über Kohlepapier und ungeprüfte Bestellungen. Besucher lesen deinen Namen, doch niemand soll darin eine Prophezeiung sehen. Pelham bezahlt dich; deine Privatsphäre ist der Preis der Warnung.",
+        "choices": [
+          {
+            "text": "Auf Wiedersehen."
+          }
+        ]
+      },
+      "k3n_grabstein_ohne_namen_zeugnis": {
+        "text": "Pelham legt seine Setzschrift daneben. „Der Besteller schrieb gar nichts mit der Hand. Die Zahlen stammen von einem alten Formular.“ Er zeigt dir die fehlende Kerbe am Stempel, ohne daraus eine Täteridentität zu machen.",
+        "sets_flags": [
+          "k3n_grabstein_ohne_namen_befragt"
+        ],
+        "choices": [
+          {
+            "text": "Kannst du den Besteller benennen?",
+            "next": "k3n_grabstein_ohne_namen_grenze"
+          },
+          {
+            "text": "Ich vergleiche die Befunde im Journal."
+          }
+        ]
+      },
+      "k3n_grabstein_ohne_namen_grenze": {
+        "text": "„Nein“, sagt Pelham. „Ich habe einen Briefschlitz und schlechte Gewohnheiten. Aus beiden zusammen wird noch kein Augenzeuge.“",
+        "choices": [
+          {
+            "text": "Verstanden."
+          }
+        ]
+      }
+    }
+  },
+  "k3_nellie": {
+    "choices_add": [
+      {
+        "text": "Die beiden Beobachtungen gemeinsam prüfen.",
+        "next": "k3n_kettlegate_zeugnis",
+        "requires_quests_active": [
+          "k3n_kettlegate"
+        ],
+        "requires_clues": [
+          "k3n_kettlegate_spur1",
+          "k3n_kettlegate_spur2"
+        ],
+        "hide_if_flags": [
+          "k3n_kettlegate_befragt"
+        ]
+      },
+      {
+        "text": "Die beiden Beobachtungen gemeinsam prüfen.",
+        "next": "k3n_falsche_zeit_zeugnis",
+        "requires_quests_active": [
+          "k3n_falsche_zeit"
+        ],
+        "requires_clues": [
+          "k3n_falsche_zeit_spur1",
+          "k3n_falsche_zeit_spur2"
+        ],
+        "hide_if_flags": [
+          "k3n_falsche_zeit_befragt"
+        ]
+      },
+      {
+        "text": "Deine Begleitung möchte etwas ergänzen.",
+        "next": "k3n_kettlegate_koop",
+        "requires_flags": [
+          "koop_aktiv"
+        ],
+        "requires_quests_active": [
+          "k3n_kettlegate"
+        ],
+        "requires_clues": [
+          "k3n_kettlegate_spur1"
+        ],
+        "hide_if_flags": [
+          "k3n_kettlegate_koop_gehoert"
+        ]
+      },
+      {
+        "text": "Die Nachricht zu „Eine alte Rechnung reist weiter“ lesen.",
+        "next": "k3n_kettlegate_brief_pimm",
+        "requires_quests_active": [
+          "k3n_kettlegate"
+        ],
+        "requires_flags": [],
+        "hide_if_flags": [
+          "marlowe_trusts",
+          "star_shattered",
+          "k3n_kettlegate_brief_pimm_gelesen"
+        ]
+      },
+      {
+        "text": "Die Nachricht zu „Eine alte Rechnung reist weiter“ lesen.",
+        "next": "k3n_kettlegate_brief_jem",
+        "requires_quests_active": [
+          "k3n_kettlegate"
+        ],
+        "requires_flags": [
+          "star_shattered"
+        ],
+        "hide_if_flags": [
+          "marlowe_trusts",
+          "k3n_kettlegate_brief_jem_gelesen"
+        ]
+      },
+      {
+        "text": "Die Nachricht zu „Eine alte Rechnung reist weiter“ lesen.",
+        "next": "k3n_kettlegate_brief_marlowe",
+        "requires_quests_active": [
+          "k3n_kettlegate"
+        ],
+        "requires_flags": [
+          "marlowe_trusts"
+        ],
+        "hide_if_flags": [
+          "k3n_kettlegate_brief_marlowe_gelesen"
+        ]
+      },
+      {
+        "text": "Die Nachricht zu „Ein Paket, das schwimmen konnte“ lesen.",
+        "next": "k3n_brief_aus_wexmoor_brief_meer",
+        "requires_quests_active": [
+          "k3n_brief_aus_wexmoor"
+        ],
+        "requires_flags": [
+          "k2_end_meer"
+        ],
+        "hide_if_flags": [
+          "k3n_brief_aus_wexmoor_brief_meer_gelesen"
+        ]
+      },
+      {
+        "text": "Die Nachricht zu „Ein Paket, das schwimmen konnte“ lesen.",
+        "next": "k3n_brief_aus_wexmoor_brief_lichtmeister",
+        "requires_quests_active": [
+          "k3n_brief_aus_wexmoor"
+        ],
+        "requires_flags": [
+          "k2_end_lichtmeister"
+        ],
+        "hide_if_flags": [
+          "k3n_brief_aus_wexmoor_brief_lichtmeister_gelesen"
+        ]
+      },
+      {
+        "text": "Die Nachricht zu „Ein Paket, das schwimmen konnte“ lesen.",
+        "next": "k3n_brief_aus_wexmoor_brief_moor",
+        "requires_quests_active": [
+          "k3n_brief_aus_wexmoor"
+        ],
+        "requires_flags": [
+          "k2_end_moor"
+        ],
+        "hide_if_flags": [
+          "k3n_brief_aus_wexmoor_brief_moor_gelesen"
+        ]
+      },
+      {
+        "text": "Die Nachricht zu „Ein Paket, das schwimmen konnte“ lesen.",
+        "next": "k3n_brief_aus_wexmoor_brief_rein",
+        "requires_quests_active": [
+          "k3n_brief_aus_wexmoor"
+        ],
+        "requires_flags": [
+          "k2_end_rein"
+        ],
+        "hide_if_flags": [
+          "k3n_brief_aus_wexmoor_brief_rein_gelesen"
+        ]
+      },
+      {
+        "text": "Was ist aus „Eine alte Rechnung reist weiter“ geworden?",
+        "next": "k3n_kettlegate_warnung_nachher",
+        "requires_flags": [
+          "k3n_kettlegate_warnung"
+        ]
+      },
+      {
+        "text": "Was ist aus „Eine alte Rechnung reist weiter“ geworden?",
+        "next": "k3n_kettlegate_pruefung_nachher",
+        "requires_flags": [
+          "k3n_kettlegate_pruefung"
+        ]
+      },
+      {
+        "text": "Die Befunde zu „Eine alte Rechnung reist weiter“ liegen vor.",
+        "next": "k3n_kettlegate_wahl",
+        "requires_quests_active": [
+          "k3n_kettlegate"
+        ],
+        "requires_conclusions": [
+          "k3n_kettlegate_schluss"
+        ],
+        "hide_if_flags": [
+          "k3n_kettlegate_done"
+        ],
+        "requires_flags": [
+          "k3n_kettlegate_befragt"
+        ]
+      },
+      {
+        "text": "Eine alte Rechnung reist weiter.",
+        "next": "k3n_kettlegate_beginn",
+        "requires_flags": [
+          "k3a_akt3_done"
+        ],
+        "hide_if_quests": [
+          "k3n_kettlegate"
+        ]
+      },
+      {
+        "text": "Was ist aus „Eine Minute außerhalb der Schicht“ geworden?",
+        "next": "k3n_falsche_zeit_stoppen_nachher",
+        "requires_flags": [
+          "k3n_falsche_zeit_stoppen"
+        ]
+      },
+      {
+        "text": "Was ist aus „Eine Minute außerhalb der Schicht“ geworden?",
+        "next": "k3n_falsche_zeit_faelschen_nachher",
+        "requires_flags": [
+          "k3n_falsche_zeit_faelschen"
+        ]
+      },
+      {
+        "text": "Die Befunde zu „Eine Minute außerhalb der Schicht“ liegen vor.",
+        "next": "k3n_falsche_zeit_wahl",
+        "requires_quests_active": [
+          "k3n_falsche_zeit"
+        ],
+        "requires_conclusions": [
+          "k3n_falsche_zeit_schluss"
+        ],
+        "hide_if_flags": [
+          "k3n_falsche_zeit_done"
+        ],
+        "requires_flags": [
+          "k3n_falsche_zeit_befragt"
+        ]
+      },
+      {
+        "text": "Eine Minute außerhalb der Schicht.",
+        "next": "k3n_falsche_zeit_beginn",
+        "requires_flags": [
+          "k3a_akt1_done"
+        ],
+        "hide_if_quests": [
+          "k3n_falsche_zeit"
+        ]
+      }
+    ],
+    "nodes_add": {
+      "k3n_falsche_zeit_beginn": {
+        "text": "Nellie hält zwei Telegrammstreifen gegen die Lampe. „Ein lebender Arbeiter antwortet jede Nacht. Ich will seine Empfangszeit so falsch melden, dass der Zug ihn übergeht. Hilfst du mir, bevor ich aus Hoffnung eine Methode mache?“",
+        "start_quests": [
+          "k3n_falsche_zeit"
+        ],
+        "sets_flags": [
+          "k3n_falsche_zeit_begonnen"
+        ],
+        "choices": [
+          {
+            "text": "Ich sehe mir die Spuren an."
+          }
+        ]
+      },
+      "k3n_falsche_zeit_wahl": {
+        "text": "„Er kennt das Risiko“, sagt Nellie. „Für diese Nacht will er zum Bruder. Wir können den falschen Streifen senden oder den Versuch streichen und ihn auf dem sicheren Fußweg begleiten.“",
+        "choices": [
+          {
+            "text": "Mit Einverständnis des Arbeiters die einmalige Fälschung senden.",
+            "next": "k3n_falsche_zeit_faelschen",
+            "requires_quests_active": [
+              "k3n_falsche_zeit"
+            ],
+            "hide_if_flags": [
+              "k3n_falsche_zeit_done"
+            ]
+          },
+          {
+            "text": "Die Fälschung stoppen und den Arbeiter begleitet nach Hause bringen.",
+            "next": "k3n_falsche_zeit_stoppen",
+            "requires_quests_active": [
+              "k3n_falsche_zeit"
+            ],
+            "hide_if_flags": [
+              "k3n_falsche_zeit_done"
+            ]
+          }
+        ]
+      },
+      "k3n_falsche_zeit_faelschen": {
+        "text": "Nellie sendet nur eine Ersatznummer, keinen fremden Namen. Der Arbeiter kommt heute zum Bruder; beide behalten den Rücklauf im Auge. Nellie zahlt dir, behält aber ihren gefährlichen Versuch für sich.",
+        "complete_quests": [
+          "k3n_falsche_zeit"
+        ],
+        "sets_flags": [
+          "k3n_falsche_zeit_done",
+          "k3n_falsche_zeit_faelschen"
+        ],
+        "gives_money": 24,
+        "honor": 0,
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      },
+      "k3n_falsche_zeit_faelschen_nachher": {
+        "text": "Nellie sendet nur eine Ersatznummer, keinen fremden Namen. Der Arbeiter kommt heute zum Bruder; beide behalten den Rücklauf im Auge. Nellie zahlt dir, behält aber ihren gefährlichen Versuch für sich.",
+        "choices": [
+          {
+            "text": "Auf Wiedersehen."
+          }
+        ]
+      },
+      "k3n_falsche_zeit_stoppen": {
+        "text": "Nellie zerreißt den Streifen vor dem Arbeiter. Ihr begleitet ihn über den Fußweg und legt seine freiwillige Aussage bei Huxford ab. Ihr verhindert heute den Einstieg, ohne den Ruf für geheilt zu erklären.",
+        "complete_quests": [
+          "k3n_falsche_zeit"
+        ],
+        "sets_flags": [
+          "k3n_falsche_zeit_done",
+          "k3n_falsche_zeit_stoppen"
+        ],
+        "gives_money": 24,
+        "honor": 2,
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      },
+      "k3n_falsche_zeit_stoppen_nachher": {
+        "text": "Nellie zerreißt den Streifen vor dem Arbeiter. Ihr begleitet ihn über den Fußweg und legt seine freiwillige Aussage bei Huxford ab. Ihr verhindert heute den Einstieg, ohne den Ruf für geheilt zu erklären.",
+        "choices": [
+          {
+            "text": "Auf Wiedersehen."
+          }
+        ]
+      },
+      "k3n_kettlegate_beginn": {
+        "text": "Nellie schiebt dir ein Telegramm aus Kettlegate zu. „Keine Todesnachricht. Nur eine Rechnung. Ich habe die Kategorien inzwischen getrennt.“ Ein alter Vorgang über verschwundene Kohlensäcke endet bei einer Dunscarer Liefernummer.",
+        "start_quests": [
+          "k3n_kettlegate"
+        ],
+        "sets_flags": [
+          "k3n_kettlegate_begonnen"
+        ],
+        "choices": [
+          {
+            "text": "Ich sehe mir die Spuren an."
+          }
+        ]
+      },
+      "k3n_kettlegate_wahl": {
+        "text": "Nellie legt zwei Umschläge bereit. „Dem Absender schicken wir in jedem Fall die Abschrift. Sollen die Kettlegater Bücher erst geprüft werden, oder warnen wir die Küchen schon jetzt vor weiteren falschen Verlustrechnungen?“",
+        "choices": [
+          {
+            "text": "Die Belege zuerst vertraulich zur Gegenprüfung schicken.",
+            "next": "k3n_kettlegate_pruefung",
+            "requires_quests_active": [
+              "k3n_kettlegate"
+            ],
+            "hide_if_flags": [
+              "k3n_kettlegate_done"
+            ]
+          },
+          {
+            "text": "Zusätzlich einen sachlichen Warnhinweis ohne Beschuldigung aushängen.",
+            "next": "k3n_kettlegate_warnung",
+            "requires_quests_active": [
+              "k3n_kettlegate"
+            ],
+            "hide_if_flags": [
+              "k3n_kettlegate_done"
+            ]
+          }
+        ]
+      },
+      "k3n_kettlegate_pruefung": {
+        "text": "Nellie versendet beide Belege mit der Bitte um Kassenprüfung. In Dunscar wird kein Verdächtiger benannt. Der Telegrammfonds bezahlt deine Auslagen; eine Antwort ist für später offen.",
+        "complete_quests": [
+          "k3n_kettlegate"
+        ],
+        "sets_flags": [
+          "k3n_kettlegate_done",
+          "k3n_kettlegate_pruefung"
+        ],
+        "gives_money": 24,
+        "honor": 1,
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      },
+      "k3n_kettlegate_pruefung_nachher": {
+        "text": "Nellie versendet beide Belege mit der Bitte um Kassenprüfung. In Dunscar wird kein Verdächtiger benannt. Der Telegrammfonds bezahlt deine Auslagen; eine Antwort ist für später offen.",
+        "choices": [
+          {
+            "text": "Auf Wiedersehen."
+          }
+        ]
+      },
+      "k3n_kettlegate_warnung": {
+        "text": "Die Küchen prüfen künftig Liefernummer und Rechnung gemeinsam. Nellie sendet dieselben Belege nach Kettlegate und zahlt deine Auslagen. Der Aushang nennt keinen Täter, einige Lieferanten nehmen die Vorsicht dennoch übel.",
+        "complete_quests": [
+          "k3n_kettlegate"
+        ],
+        "sets_flags": [
+          "k3n_kettlegate_done",
+          "k3n_kettlegate_warnung"
+        ],
+        "gives_money": 24,
+        "honor": 2,
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      },
+      "k3n_kettlegate_warnung_nachher": {
+        "text": "Die Küchen prüfen künftig Liefernummer und Rechnung gemeinsam. Nellie sendet dieselben Belege nach Kettlegate und zahlt deine Auslagen. Der Aushang nennt keinen Täter, einige Lieferanten nehmen die Vorsicht dennoch übel.",
+        "choices": [
+          {
+            "text": "Auf Wiedersehen."
+          }
+        ]
+      },
+      "k3n_brief_aus_wexmoor_brief_rein": {
+        "text": "„Brandt sitzt. Das Moor ist deswegen noch lange nicht höflich. Die Dochte sind bezahlt; bring sie ordentlich hin. Schreib, wenn du einen Brief schreiben willst, nicht erst, wenn du einen Kahn brauchst. Zunder.“ Im Paket liegt ein trockener Teebeutel.",
+        "gives_clues": [
+          "k3n_brief_aus_wexmoor_spur1"
+        ],
+        "sets_flags": [
+          "k3n_brief_aus_wexmoor_brief_rein_gelesen"
+        ],
+        "choices": [
+          {
+            "text": "Den Brief einstecken."
+          }
+        ],
+        "gives_items": {
+          "k3n_brief_aus_wexmoor_brief_rein": 1
+        }
+      },
+      "k3n_brief_aus_wexmoor_brief_moor": {
+        "text": "„Wir stapeln die Kisten höher. Das Wasser hält sich nicht an unsere Markierungen. Die Dochte sind der Rest einer bezahlten Bestellung, ich habe sie vor dem Regen verpackt. Tu nicht so, als wäre hier jetzt alles gut. Zunder.“ Ein Stück Ölzeug schützt die Ware.",
+        "gives_clues": [
+          "k3n_brief_aus_wexmoor_spur1"
+        ],
+        "sets_flags": [
+          "k3n_brief_aus_wexmoor_brief_moor_gelesen"
+        ],
+        "choices": [
+          {
+            "text": "Den Brief einstecken."
+          }
+        ],
+        "gives_items": {
+          "k3n_brief_aus_wexmoor_brief_moor": 1
+        }
+      },
+      "k3n_brief_aus_wexmoor_brief_lichtmeister": {
+        "text": "„Die Bestellung wurde vor deinem neuen Amt bezahlt. Du bekommst keinen Rat von mir und keine Empfehlung für deinen Fahrmeister. Liefere ab. Die Quittung geht an die Küche, nicht an mich. Zunder.“ Das Paket enthält Ware und Rechnung, kein persönliches Geschenk.",
+        "gives_clues": [
+          "k3n_brief_aus_wexmoor_spur1"
+        ],
+        "sets_flags": [
+          "k3n_brief_aus_wexmoor_brief_lichtmeister_gelesen"
+        ],
+        "choices": [
+          {
+            "text": "Den Brief einstecken."
+          }
+        ],
+        "gives_items": {
+          "k3n_brief_aus_wexmoor_brief_lichtmeister": 1
+        }
+      },
+      "k3n_brief_aus_wexmoor_brief_meer": {
+        "text": "„Kit hält den Kahn frei, ich halte die Rechnung trocken. Brandt sitzt noch immer in ihrem Amt; wir haben nur Abstand gewonnen. Die Dochte stammen aus der Kiste unter der Bank. Zunder.“ Ein von Kit gefalteter Papierkahn polstert das Siegel.",
+        "gives_clues": [
+          "k3n_brief_aus_wexmoor_spur1"
+        ],
+        "sets_flags": [
+          "k3n_brief_aus_wexmoor_brief_meer_gelesen"
+        ],
+        "choices": [
+          {
+            "text": "Den Brief einstecken."
+          }
+        ],
+        "gives_items": {
+          "k3n_brief_aus_wexmoor_brief_meer": 1
+        }
+      },
+      "k3n_kettlegate_brief_marlowe": {
+        "text": "„Der Abschluss des Sternfalls ersetzt keine ordentliche Rechnung. Prüfe die Dunscarer Liefernummer 47 im Werkstattbuch, bevor ich jemandem eine doppelte Erstattung vorhalte. Marlowe.“ Der Registerauszug nennt Kohlensäcke, keinen erneut gefangenen Menschen.",
+        "gives_clues": [
+          "k3n_kettlegate_spur1"
+        ],
+        "sets_flags": [
+          "k3n_kettlegate_brief_marlowe_gelesen"
+        ],
+        "choices": [
+          {
+            "text": "Den Brief einstecken."
+          }
+        ]
+      },
+      "k3n_kettlegate_brief_jem": {
+        "text": "„Seit die Sache mit dem Stern vorbei ist, zählen wir wieder kleinere schwarze Brocken. Einer meiner alten Frachtzettel führt zu Nummer 47 in Dunscar. Sieh nach, ob sie dort auch zweimal für denselben Sack kassieren. Kohlen-Jem.“",
+        "gives_clues": [
+          "k3n_kettlegate_spur1"
+        ],
+        "sets_flags": [
+          "k3n_kettlegate_brief_jem_gelesen"
+        ],
+        "choices": [
+          {
+            "text": "Den Brief einstecken."
+          }
+        ]
+      },
+      "k3n_kettlegate_brief_pimm": {
+        "text": "„In der Ablage blieb eine offene Kohlenrechnung. Ihr Kapitel-1-Abschluss ist vermerkt; diese Beilage wurde dadurch nicht bezahlt. Dunscar, Liefernummer 47. Bitte den Durchschlag zurückschicken und nichts auf dem Original unterstreichen. Miss Pimm.“",
+        "gives_clues": [
+          "k3n_kettlegate_spur1"
+        ],
+        "sets_flags": [
+          "k3n_kettlegate_brief_pimm_gelesen"
+        ],
+        "choices": [
+          {
+            "text": "Den Brief einstecken."
+          }
+        ]
+      },
+      "k3n_kettlegate_koop": {
+        "text": "Deine Begleitung legt Pauspapier auf den Frachtzettel. „Wir schicken eine Abschrift und behalten die Fundstelle. Im Archiv war das der Unterschied zwischen einer Spur und einer weiteren verlorenen Seite.“ Nellie stellt die Tinte außer Reichweite des Ofens.",
+        "sets_flags": [
+          "k3n_kettlegate_koop_gehoert"
+        ],
+        "choices": [
+          {
+            "text": "Wir prüfen das gemeinsam."
+          }
+        ]
+      },
+      "k3n_falsche_zeit_zeugnis": {
+        "text": "Nellie holt den betroffenen Arbeiter hinzu. Er versteht, dass der falsche Streifen nur Zeit kaufen könnte, und nennt seinen Bruder als sicheren Begleiter. „Eine Nacht bei ihm wäre etwas. Aber sag nicht, dass danach alles vorbei ist.“",
+        "sets_flags": [
+          "k3n_falsche_zeit_befragt"
+        ],
+        "choices": [
+          {
+            "text": "Warum nicht jeden Namen falsch schreiben?",
+            "next": "k3n_falsche_zeit_grenze"
+          },
+          {
+            "text": "Ich vergleiche die Befunde im Journal."
+          }
+        ]
+      },
+      "k3n_falsche_zeit_grenze": {
+        "text": "„Weil die Lücke wieder aufgerufen wird“, sagt Nellie. „Und weil wir sonst Menschen in ein Experiment eintragen, die nicht einmal gefragt wurden.“",
+        "choices": [
+          {
+            "text": "Verstanden."
+          }
+        ]
+      },
+      "k3n_kettlegate_zeugnis": {
+        "text": "Nellie vergleicht die beiden eingerissenen Ränder. Die Frachtzettel passen körperlich zusammen, ihre Summen aber wurden in unterschiedlichen Büchern verbucht. Sie unterstreicht die Nummer zweimal und lässt die Namen unmarkiert.",
+        "sets_flags": [
+          "k3n_kettlegate_befragt"
+        ],
+        "choices": [
+          {
+            "text": "Ist der alte Fall damit gelöst?",
+            "next": "k3n_kettlegate_grenze"
+          },
+          {
+            "text": "Ich vergleiche die Befunde im Journal."
+          }
+        ]
+      },
+      "k3n_kettlegate_grenze": {
+        "text": "„Die falsche Buchung ist belegt“, sagt Nellie. „Wer das Geld bekam, steht vielleicht in Kettlegate. Vielleicht steht dort auch erst die nächste Frage.“",
+        "choices": [
+          {
+            "text": "Verstanden."
+          }
+        ]
+      }
+    }
+  },
+  "k3_huxford": {
+    "choices_add": [
+      {
+        "text": "Die beiden Beobachtungen gemeinsam prüfen.",
+        "next": "k3n_attest_zeugnis",
+        "requires_quests_active": [
+          "k3n_attest"
+        ],
+        "requires_clues": [
+          "k3n_attest_spur1",
+          "k3n_attest_spur2"
+        ],
+        "hide_if_flags": [
+          "k3n_attest_befragt"
+        ]
+      },
+      {
+        "text": "Deine Begleitung möchte etwas ergänzen.",
+        "next": "k3n_attest_koop",
+        "requires_flags": [
+          "koop_aktiv"
+        ],
+        "requires_quests_active": [
+          "k3n_attest"
+        ],
+        "requires_clues": [
+          "k3n_attest_spur1"
+        ],
+        "hide_if_flags": [
+          "k3n_attest_koop_gehoert"
+        ]
+      },
+      {
+        "text": "Was ist aus „Ein Zeuge ohne Fahrkarte“ geworden?",
+        "next": "k3n_attest_patienten_nachher",
+        "requires_flags": [
+          "k3n_attest_patienten"
+        ]
+      },
+      {
+        "text": "Was ist aus „Ein Zeuge ohne Fahrkarte“ geworden?",
+        "next": "k3n_attest_aushang_nachher",
+        "requires_flags": [
+          "k3n_attest_aushang"
+        ]
+      },
+      {
+        "text": "Die Befunde zu „Ein Zeuge ohne Fahrkarte“ liegen vor.",
+        "next": "k3n_attest_wahl",
+        "requires_quests_active": [
+          "k3n_attest"
+        ],
+        "requires_conclusions": [
+          "k3n_attest_schluss"
+        ],
+        "hide_if_flags": [
+          "k3n_attest_done"
+        ],
+        "requires_flags": [
+          "k3n_attest_befragt"
+        ]
+      },
+      {
+        "text": "Ein Zeuge ohne Fahrkarte.",
+        "next": "k3n_attest_beginn",
+        "requires_flags": [
+          "k3a_akt1_done"
+        ],
+        "hide_if_quests": [
+          "k3n_attest"
+        ]
+      }
+    ],
+    "nodes_add": {
+      "k3n_attest_beginn": {
+        "text": "„Ich habe Erholung bescheinigt, während mir die Leute vor Müdigkeit vom Stuhl rutschten“, sagt Huxford. „Ich will es berichtigen. Aber jemand, der nie mitfuhr, soll hören, ob ich wieder Ausreden finde.“",
+        "start_quests": [
+          "k3n_attest"
+        ],
+        "sets_flags": [
+          "k3n_attest_begonnen"
+        ],
+        "choices": [
+          {
+            "text": "Ich sehe mir die Spuren an."
+          }
+        ]
+      },
+      "k3n_attest_wahl": {
+        "text": "Huxford legt ein leeres Berichtigungsblatt hin. „Die Zeugin ist da. Du kannst eine öffentliche Erklärung verlangen oder die Patienten zuerst einzeln informieren. Meine Unterschrift kommt in beiden Fällen darunter.“",
+        "choices": [
+          {
+            "text": "Die Berichtigung ohne Patientennamen öffentlich aushängen.",
+            "next": "k3n_attest_aushang",
+            "requires_quests_active": [
+              "k3n_attest"
+            ],
+            "hide_if_flags": [
+              "k3n_attest_done"
+            ]
+          },
+          {
+            "text": "Zuerst versiegelte Berichtigungen an die betroffenen Patienten geben.",
+            "next": "k3n_attest_patienten",
+            "requires_quests_active": [
+              "k3n_attest"
+            ],
+            "hide_if_flags": [
+              "k3n_attest_done"
+            ]
+          }
+        ]
+      },
+      "k3n_attest_aushang": {
+        "text": "Die Zeugin bestätigt Huxfords Erklärung mit Datum. Vor seiner Tür bildet sich eine stille Schlange; die Leute fordern ihre Originalbefunde. Er zahlt den Arbeitslohn, ohne um eine gute Meinung zu bitten.",
+        "complete_quests": [
+          "k3n_attest"
+        ],
+        "sets_flags": [
+          "k3n_attest_done",
+          "k3n_attest_aushang"
+        ],
+        "gives_money": 26,
+        "honor": 3,
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      },
+      "k3n_attest_aushang_nachher": {
+        "text": "Die Zeugin bestätigt Huxfords Erklärung mit Datum. Vor seiner Tür bildet sich eine stille Schlange; die Leute fordern ihre Originalbefunde. Er zahlt den Arbeitslohn, ohne um eine gute Meinung zu bitten.",
+        "choices": [
+          {
+            "text": "Auf Wiedersehen."
+          }
+        ]
+      },
+      "k3n_attest_patienten": {
+        "text": "Huxford schreibt jede Berichtigung selbst und behält einen überprüfbaren Durchschlag. Die Patienten bekommen ihre Befunde vor der Öffentlichkeit. Die Zeugin kündigt an, nächste Woche nach den Empfangsbelegen zu sehen.",
+        "complete_quests": [
+          "k3n_attest"
+        ],
+        "sets_flags": [
+          "k3n_attest_done",
+          "k3n_attest_patienten"
+        ],
+        "gives_money": 26,
+        "honor": 1,
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      },
+      "k3n_attest_patienten_nachher": {
+        "text": "Huxford schreibt jede Berichtigung selbst und behält einen überprüfbaren Durchschlag. Die Patienten bekommen ihre Befunde vor der Öffentlichkeit. Die Zeugin kündigt an, nächste Woche nach den Empfangsbelegen zu sehen.",
+        "choices": [
+          {
+            "text": "Auf Wiedersehen."
+          }
+        ]
+      },
+      "k3n_attest_koop": {
+        "text": "Deine Begleitung richtet zwei Messblätter nach ihrem Datum aus. „Die Zeugin bestätigt Ihre Berichtigung. Ihre damalige Untersuchung muss trotzdem aus diesen Zahlen hervorgehen.“ Huxford streicht das Wort „Missverständnis“ aus seinem Entwurf.",
+        "sets_flags": [
+          "k3n_attest_koop_gehoert"
+        ],
+        "choices": [
+          {
+            "text": "Wir prüfen das gemeinsam."
+          }
+        ]
+      },
+      "k3n_attest_zeugnis": {
+        "text": "Huxford führt die Werkstattgehilfin an seinen Tisch. Sie vergleicht Datum, Zahlen und Unterschrift und bittet ihn, seine Formulierung laut zu lesen. Beim Wort „versehentlich“ legt sie den Finger auf die zweite falsche Bescheinigung.",
+        "sets_flags": [
+          "k3n_attest_befragt"
+        ],
+        "choices": [
+          {
+            "text": "Reicht eine Entschuldigung?",
+            "next": "k3n_attest_grenze"
+          },
+          {
+            "text": "Ich vergleiche die Befunde im Journal."
+          }
+        ]
+      },
+      "k3n_attest_grenze": {
+        "text": "„Für ein Gespräch vielleicht“, sagt die Zeugin. „Für die Krankenakte brauchen wir eine Berichtigung. Seine Scham lässt sich nicht als Messwert abheften.“",
+        "choices": [
+          {
+            "text": "Verstanden."
+          }
+        ]
+      }
+    }
+  },
+  "k3_adaine": {
+    "choices_add": [
+      {
+        "text": "Den Gerüstklang herausfordern. Das ist für die Messung nicht nötig.",
+        "next": "k3n_vermessung_kampf",
+        "requires_quests_active": [
+          "k3n_vermessung"
+        ],
+        "requires_clues": [
+          "k3n_vermessung_spur1"
+        ],
+        "hide_if_flags": [
+          "k3n_vermessung_kampf_versucht"
+        ]
+      },
+      {
+        "text": "Die beiden Beobachtungen gemeinsam prüfen.",
+        "next": "k3n_vermessung_zeugnis",
+        "requires_quests_active": [
+          "k3n_vermessung"
+        ],
+        "requires_clues": [
+          "k3n_vermessung_spur1",
+          "k3n_vermessung_spur2"
+        ],
+        "hide_if_flags": [
+          "k3n_vermessung_befragt"
+        ]
+      },
+      {
+        "text": "Was ist aus „Der wandernde Nullpunkt“ geworden?",
+        "next": "k3n_vermessung_beobachten_nachher",
+        "requires_flags": [
+          "k3n_vermessung_beobachten"
+        ]
+      },
+      {
+        "text": "Was ist aus „Der wandernde Nullpunkt“ geworden?",
+        "next": "k3n_vermessung_sperren_nachher",
+        "requires_flags": [
+          "k3n_vermessung_sperren"
+        ]
+      },
+      {
+        "text": "Die Befunde zu „Der wandernde Nullpunkt“ liegen vor.",
+        "next": "k3n_vermessung_wahl",
+        "requires_quests_active": [
+          "k3n_vermessung"
+        ],
+        "requires_conclusions": [
+          "k3n_vermessung_schluss"
+        ],
+        "hide_if_flags": [
+          "k3n_vermessung_done"
+        ],
+        "requires_flags": [
+          "k3n_vermessung_befragt"
+        ]
+      },
+      {
+        "text": "Der wandernde Nullpunkt.",
+        "next": "k3n_vermessung_beginn",
+        "requires_flags": [
+          "k3a_akt2_done"
+        ],
+        "hide_if_quests": [
+          "k3n_vermessung"
+        ]
+      }
+    ],
+    "nodes_add": {
+      "k3n_vermessung_beginn": {
+        "text": "Adaine zeigt dir einen Plan voller Radierlöcher. „Wenn ich noch einmal neu messe, ist bald mehr Loch als Papier da. Geh die Marken ab, während ich die Festpunkte halte. Ruf nichts, dessen Antwort du nicht kennst.“",
+        "start_quests": [
+          "k3n_vermessung"
+        ],
+        "sets_flags": [
+          "k3n_vermessung_begonnen"
+        ],
+        "choices": [
+          {
+            "text": "Ich sehe mir die Spuren an."
+          }
+        ]
+      },
+      "k3n_vermessung_wahl": {
+        "text": "„Das Gerüst kann stillgelegt werden“, sagt Adaine. „Oder wir markieren einen sicheren Beobachtungsstand außerhalb seiner Reichweite. Ein brauchbares Ergebnis ist beides, nur lernen wir unterschiedlich viel.“",
+        "choices": [
+          {
+            "text": "Die Zielhilfe sichern und den Zugang sperren.",
+            "next": "k3n_vermessung_sperren",
+            "requires_quests_active": [
+              "k3n_vermessung"
+            ],
+            "hide_if_flags": [
+              "k3n_vermessung_done"
+            ]
+          },
+          {
+            "text": "Einen sicheren Beobachtungsstand markieren.",
+            "next": "k3n_vermessung_beobachten",
+            "requires_quests_active": [
+              "k3n_vermessung"
+            ],
+            "hide_if_flags": [
+              "k3n_vermessung_done"
+            ]
+          }
+        ]
+      },
+      "k3n_vermessung_sperren": {
+        "text": "Ihr hängt den Rahmen aus, ohne ihm zu antworten. Adaine sperrt die falsche Messlinie und bezahlt dich. Künftige Arbeiter müssen einen längeren, vermessenen Weg nehmen.",
+        "complete_quests": [
+          "k3n_vermessung"
+        ],
+        "sets_flags": [
+          "k3n_vermessung_done",
+          "k3n_vermessung_sperren"
+        ],
+        "gives_money": 28,
+        "honor": 2,
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      },
+      "k3n_vermessung_sperren_nachher": {
+        "text": "Ihr hängt den Rahmen aus, ohne ihm zu antworten. Adaine sperrt die falsche Messlinie und bezahlt dich. Künftige Arbeiter müssen einen längeren, vermessenen Weg nehmen.",
+        "choices": [
+          {
+            "text": "Auf Wiedersehen."
+          }
+        ]
+      },
+      "k3n_vermessung_beobachten": {
+        "text": "Ihr zieht eine sichtbare Grenzlinie und befestigt schriftliche Peilanweisungen. Niemand muss mehr für eine Messung rufen. Adaine bezahlt dich; sie behält die Verantwortung für jeden weiteren Versuch.",
+        "complete_quests": [
+          "k3n_vermessung"
+        ],
+        "sets_flags": [
+          "k3n_vermessung_done",
+          "k3n_vermessung_beobachten"
+        ],
+        "gives_money": 28,
+        "honor": 1,
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      },
+      "k3n_vermessung_beobachten_nachher": {
+        "text": "Ihr zieht eine sichtbare Grenzlinie und befestigt schriftliche Peilanweisungen. Niemand muss mehr für eine Messung rufen. Adaine bezahlt dich; sie behält die Verantwortung für jeden weiteren Versuch.",
+        "choices": [
+          {
+            "text": "Auf Wiedersehen."
+          }
+        ]
+      },
+      "k3n_vermessung_zeugnis": {
+        "text": "Adaine hält das Lot, während du die Sichtlinie kontrollierst. Ihr wiederholt die Messung mit abgedecktem Schalltrichter. Die Bolzen bleiben deckungsgleich; der falsche Tiefeneindruck verschwindet.",
+        "sets_flags": [
+          "k3n_vermessung_befragt"
+        ],
+        "choices": [
+          {
+            "text": "Sind damit alle Hohlräume erklärt?",
+            "next": "k3n_vermessung_grenze"
+          },
+          {
+            "text": "Ich vergleiche die Befunde im Journal."
+          }
+        ]
+      },
+      "k3n_vermessung_grenze": {
+        "text": "„Nein“, sagt Adaine. „Wir haben ein störendes Gerüst geprüft. Wer aus einem geraden Lot eine ganze sichere Schlucht macht, hat das Messen nicht verstanden.“",
+        "choices": [
+          {
+            "text": "Verstanden."
+          }
+        ]
+      },
+      "k3n_vermessung_kampf": {
+        "text": "Adaine weist dir den markierten Rückweg. „Die Sichtmessung bleibt auch ohne Kampf gültig.“ Du klopfst an den losen Rahmen; ein Gerüstklang antwortet.",
+        "sets_flags": [
+          "k3n_vermessung_kampf_versucht"
+        ],
+        "encounter": "geruestklang",
+        "choices": [
+          {
+            "text": "Zum Gerüst."
+          }
+        ]
+      }
+    }
+  },
+  "k3_oren": {
+    "choices_add": [
+      {
+        "text": "Die beiden Beobachtungen gemeinsam prüfen.",
+        "next": "k3n_drehscheibe_zeugnis",
+        "requires_quests_active": [
+          "k3n_drehscheibe"
+        ],
+        "requires_clues": [
+          "k3n_drehscheibe_spur1",
+          "k3n_drehscheibe_spur2"
+        ],
+        "hide_if_flags": [
+          "k3n_drehscheibe_befragt"
+        ]
+      },
+      {
+        "text": "Was ist aus „Ein Weg ohne Aufruf“ geworden?",
+        "next": "k3n_drehscheibe_fusssteg_nachher",
+        "requires_flags": [
+          "k3n_drehscheibe_fusssteg"
+        ]
+      },
+      {
+        "text": "Was ist aus „Ein Weg ohne Aufruf“ geworden?",
+        "next": "k3n_drehscheibe_laststeg_nachher",
+        "requires_flags": [
+          "k3n_drehscheibe_laststeg"
+        ]
+      },
+      {
+        "text": "Die Befunde zu „Ein Weg ohne Aufruf“ liegen vor.",
+        "next": "k3n_drehscheibe_wahl",
+        "requires_quests_active": [
+          "k3n_drehscheibe"
+        ],
+        "requires_conclusions": [
+          "k3n_drehscheibe_schluss"
+        ],
+        "hide_if_flags": [
+          "k3n_drehscheibe_done"
+        ],
+        "requires_flags": [
+          "k3n_drehscheibe_befragt"
+        ]
+      },
+      {
+        "text": "Ein Weg ohne Aufruf.",
+        "next": "k3n_drehscheibe_beginn",
+        "requires_flags": [
+          "k3a_akt3_done"
+        ],
+        "hide_if_quests": [
+          "k3n_drehscheibe"
+        ]
+      }
+    ],
+    "nodes_add": {
+      "k3n_drehscheibe_beginn": {
+        "text": "Oren deutet auf die überwachsene Drehscheibe. „Der Durchgang, den Pfiff kennt, reicht für Füße. Mit einem Handwagen kommt man nicht durch. Hilfst du beim seitlichen Wartungssteg? Die Lok muss dafür keinen Zoll fahren.“",
+        "start_quests": [
+          "k3n_drehscheibe"
+        ],
+        "sets_flags": [
+          "k3n_drehscheibe_begonnen"
+        ],
+        "choices": [
+          {
+            "text": "Ich sehe mir die Spuren an."
+          }
+        ]
+      },
+      "k3n_drehscheibe_wahl": {
+        "text": "„Beides trägt Menschen“, sagt Oren. „Der breite Steg trägt auch die Essenskarren. Der schmale lässt mehr Material für ein Dach. Entscheide, dann setze ich die Sicherungsstifte.“",
+        "choices": [
+          {
+            "text": "Breiten Laststeg mit Geländer bauen.",
+            "next": "k3n_drehscheibe_laststeg",
+            "requires_quests_active": [
+              "k3n_drehscheibe"
+            ],
+            "hide_if_flags": [
+              "k3n_drehscheibe_done"
+            ]
+          },
+          {
+            "text": "Geschützten Fußsteg bauen.",
+            "next": "k3n_drehscheibe_fusssteg",
+            "requires_quests_active": [
+              "k3n_drehscheibe"
+            ],
+            "hide_if_flags": [
+              "k3n_drehscheibe_done"
+            ]
+          }
+        ]
+      },
+      "k3n_drehscheibe_laststeg": {
+        "text": "Oren sichert die Scheibe und rollt einen beladenen Handwagen über den neuen Steg. Die Abkürzung ist freigegeben. Dein Lohn kommt aus dem Werkstattfonds, die ersten Helfer bringen Suppe hinüber.",
+        "complete_quests": [
+          "k3n_drehscheibe"
+        ],
+        "sets_flags": [
+          "k3n_drehscheibe_done",
+          "k3n_drehscheibe_laststeg",
+          "k3n_drehscheibe_offen"
+        ],
+        "gives_money": 30,
+        "honor": 2,
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      },
+      "k3n_drehscheibe_laststeg_nachher": {
+        "text": "Oren sichert die Scheibe und rollt einen beladenen Handwagen über den neuen Steg. Die Abkürzung ist freigegeben. Dein Lohn kommt aus dem Werkstattfonds, die ersten Helfer bringen Suppe hinüber.",
+        "choices": [
+          {
+            "text": "Auf Wiedersehen."
+          }
+        ]
+      },
+      "k3n_drehscheibe_fusssteg": {
+        "text": "Oren befestigt das Dach über dem schmalen Steg und prüft jeden Sicherungsstift. Die Abkürzung ist freigegeben. Du bekommst deinen Lohn; Lastkarren müssen weiterhin die Straße nehmen.",
+        "complete_quests": [
+          "k3n_drehscheibe"
+        ],
+        "sets_flags": [
+          "k3n_drehscheibe_done",
+          "k3n_drehscheibe_fusssteg",
+          "k3n_drehscheibe_offen"
+        ],
+        "gives_money": 30,
+        "honor": 1,
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      },
+      "k3n_drehscheibe_fusssteg_nachher": {
+        "text": "Oren befestigt das Dach über dem schmalen Steg und prüft jeden Sicherungsstift. Die Abkürzung ist freigegeben. Du bekommst deinen Lohn; Lastkarren müssen weiterhin die Straße nehmen.",
+        "choices": [
+          {
+            "text": "Auf Wiedersehen."
+          }
+        ]
+      },
+      "k3n_drehscheibe_zeugnis": {
+        "text": "Oren blockiert erst das Wartungssegment und lässt dich dann den Lastweg prüfen. Kein Signal ist angeschlossen, die Lok steht auf dem Nachbargleis. „Wenn ich von einem Steg rede, meine ich heute ausnahmsweise wirklich einen Steg.“",
+        "sets_flags": [
+          "k3n_drehscheibe_befragt"
+        ],
+        "choices": [
+          {
+            "text": "Kann der Zug die Abkürzung benutzen?",
+            "next": "k3n_drehscheibe_grenze"
+          },
+          {
+            "text": "Ich vergleiche die Befunde im Journal."
+          }
+        ]
+      },
+      "k3n_drehscheibe_grenze": {
+        "text": "„Mit diesen festen Anschlägen nicht“, sagt Oren. „Ein Handwagen hat keine Lokräder. Das ist der angenehmste Unterschied, den ich diese Woche erklären durfte.“",
+        "choices": [
+          {
+            "text": "Verstanden."
+          }
+        ]
+      }
+    }
+  },
+  "k3_pfiff": {
+    "choices_add": [
+      {
+        "text": "Die beiden Beobachtungen gemeinsam prüfen.",
+        "next": "k3n_kalkkinder_zeugnis",
+        "requires_quests_active": [
+          "k3n_kalkkinder"
+        ],
+        "requires_clues": [
+          "k3n_kalkkinder_spur1",
+          "k3n_kalkkinder_spur2"
+        ],
+        "hide_if_flags": [
+          "k3n_kalkkinder_befragt"
+        ]
+      },
+      {
+        "text": "Die beiden Beobachtungen gemeinsam prüfen.",
+        "next": "k3n_brief_aus_wexmoor_zeugnis",
+        "requires_quests_active": [
+          "k3n_brief_aus_wexmoor"
+        ],
+        "requires_clues": [
+          "k3n_brief_aus_wexmoor_spur1",
+          "k3n_brief_aus_wexmoor_spur2"
+        ],
+        "hide_if_flags": [
+          "k3n_brief_aus_wexmoor_befragt"
+        ]
+      },
+      {
+        "text": "Was ist aus „Feierabend im Kreidekreis“ geworden?",
+        "next": "k3n_kalkkinder_neues_spiel_nachher",
+        "requires_flags": [
+          "k3n_kalkkinder_neues_spiel"
+        ]
+      },
+      {
+        "text": "Was ist aus „Feierabend im Kreidekreis“ geworden?",
+        "next": "k3n_kalkkinder_warnvers_nachher",
+        "requires_flags": [
+          "k3n_kalkkinder_warnvers"
+        ]
+      },
+      {
+        "text": "Die Befunde zu „Feierabend im Kreidekreis“ liegen vor.",
+        "next": "k3n_kalkkinder_wahl",
+        "requires_quests_active": [
+          "k3n_kalkkinder"
+        ],
+        "requires_conclusions": [
+          "k3n_kalkkinder_schluss"
+        ],
+        "hide_if_flags": [
+          "k3n_kalkkinder_done"
+        ],
+        "requires_flags": [
+          "k3n_kalkkinder_befragt"
+        ]
+      },
+      {
+        "text": "Feierabend im Kreidekreis.",
+        "next": "k3n_kalkkinder_beginn",
+        "requires_flags": [
+          "k3_arrived"
+        ],
+        "hide_if_quests": [
+          "k3n_kalkkinder"
+        ]
+      },
+      {
+        "text": "Was ist aus „Ein Paket, das schwimmen konnte“ geworden?",
+        "next": "k3n_brief_aus_wexmoor_reserve_nachher",
+        "requires_flags": [
+          "k3n_brief_aus_wexmoor_reserve"
+        ]
+      },
+      {
+        "text": "Was ist aus „Ein Paket, das schwimmen konnte“ geworden?",
+        "next": "k3n_brief_aus_wexmoor_kueche_nachher",
+        "requires_flags": [
+          "k3n_brief_aus_wexmoor_kueche"
+        ]
+      },
+      {
+        "text": "Die Befunde zu „Ein Paket, das schwimmen konnte“ liegen vor.",
+        "next": "k3n_brief_aus_wexmoor_wahl",
+        "requires_quests_active": [
+          "k3n_brief_aus_wexmoor"
+        ],
+        "requires_conclusions": [
+          "k3n_brief_aus_wexmoor_schluss"
+        ],
+        "hide_if_flags": [
+          "k3n_brief_aus_wexmoor_done"
+        ],
+        "requires_flags": [
+          "k3n_brief_aus_wexmoor_befragt"
+        ]
+      },
+      {
+        "text": "Ein Paket, das schwimmen konnte.",
+        "next": "k3n_brief_aus_wexmoor_beginn",
+        "requires_flags": [
+          "k3a_akt2_done"
+        ],
+        "hide_if_quests": [
+          "k3n_brief_aus_wexmoor"
+        ]
+      }
+    ],
+    "nodes_add": {
+      "k3n_brief_aus_wexmoor_beginn": {
+        "text": "Pfiff hat ein Paket aus Wexmoor auf einen trockenen Teller gelegt. „Es roch nach Fluss. Ich wollte es nicht gleich auf dein Bett legen.“ Im Zustellfach am Endbahnhof liegt der zum Siegel passende Begleitbrief.",
+        "start_quests": [
+          "k3n_brief_aus_wexmoor"
+        ],
+        "sets_flags": [
+          "k3n_brief_aus_wexmoor_begonnen"
+        ],
+        "choices": [
+          {
+            "text": "Ich sehe mir die Spuren an."
+          }
+        ]
+      },
+      "k3n_brief_aus_wexmoor_wahl": {
+        "text": "Pfiff stellt das Paket auf die Bank. „Mabel hat heute Bedarf. Die Bahnhofsküche braucht Reserven für die nächste Ankunft. Beides steht auf dem Schein, du darfst den Empfangsort bestimmen.“",
+        "choices": [
+          {
+            "text": "Die Dochte an Mabels Familienküche liefern.",
+            "next": "k3n_brief_aus_wexmoor_kueche",
+            "requires_quests_active": [
+              "k3n_brief_aus_wexmoor"
+            ],
+            "hide_if_flags": [
+              "k3n_brief_aus_wexmoor_done"
+            ]
+          },
+          {
+            "text": "Die Dochte als Reserve an der Bahnhofsküche hinterlegen.",
+            "next": "k3n_brief_aus_wexmoor_reserve",
+            "requires_quests_active": [
+              "k3n_brief_aus_wexmoor"
+            ],
+            "hide_if_flags": [
+              "k3n_brief_aus_wexmoor_done"
+            ]
+          }
+        ]
+      },
+      "k3n_brief_aus_wexmoor_kueche": {
+        "text": "Mabel bestätigt den Empfang und hängt den Beleg an ihre Küchentür. Eine neue Lampe brennt über dem Abwasch. Pfiff händigt dir den bereits hinterlegten Frachtlohn aus.",
+        "complete_quests": [
+          "k3n_brief_aus_wexmoor"
+        ],
+        "sets_flags": [
+          "k3n_brief_aus_wexmoor_done",
+          "k3n_brief_aus_wexmoor_kueche"
+        ],
+        "gives_money": 18,
+        "honor": 2,
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      },
+      "k3n_brief_aus_wexmoor_kueche_nachher": {
+        "text": "Mabel bestätigt den Empfang und hängt den Beleg an ihre Küchentür. Eine neue Lampe brennt über dem Abwasch. Pfiff händigt dir den bereits hinterlegten Frachtlohn aus.",
+        "choices": [
+          {
+            "text": "Auf Wiedersehen."
+          }
+        ]
+      },
+      "k3n_brief_aus_wexmoor_reserve": {
+        "text": "Die Bahnhofsküche nimmt die trockenen Dochte in ihr öffentliches Vorratsbuch auf. Heute bleibt eine Ecke bei Mabel dunkler. Pfiff zahlt denselben hinterlegten Frachtlohn, ohne einen Dank von Zunder zu erfinden.",
+        "complete_quests": [
+          "k3n_brief_aus_wexmoor"
+        ],
+        "sets_flags": [
+          "k3n_brief_aus_wexmoor_done",
+          "k3n_brief_aus_wexmoor_reserve"
+        ],
+        "gives_money": 18,
+        "honor": 1,
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      },
+      "k3n_brief_aus_wexmoor_reserve_nachher": {
+        "text": "Die Bahnhofsküche nimmt die trockenen Dochte in ihr öffentliches Vorratsbuch auf. Heute bleibt eine Ecke bei Mabel dunkler. Pfiff zahlt denselben hinterlegten Frachtlohn, ohne einen Dank von Zunder zu erfinden.",
+        "choices": [
+          {
+            "text": "Auf Wiedersehen."
+          }
+        ]
+      },
+      "k3n_kalkkinder_beginn": {
+        "text": "Pfiff zeigt auf ein Kreidespiel. „Die Kinder rufen echte Haltestellen. Das muss ihnen jemand beigebracht haben. Frag erst, bevor du einen ganzen Schulhof unter Verdacht stellst.“ Die Kinder wollen ihre Regeln zeigen.",
+        "start_quests": [
+          "k3n_kalkkinder"
+        ],
+        "sets_flags": [
+          "k3n_kalkkinder_begonnen"
+        ],
+        "choices": [
+          {
+            "text": "Ich sehe mir die Spuren an."
+          }
+        ]
+      },
+      "k3n_kalkkinder_wahl": {
+        "text": "Pfiff bleibt außerhalb des Kreises. „Sie können den vollständigen Vers lernen. Oder eigene Haltestellen erfinden. Wichtig ist, dass sie den Unterschied kennen, auch wenn wir nicht danebenstehen.“",
+        "choices": [
+          {
+            "text": "Den vollständigen Warnvers gemeinsam ergänzen.",
+            "next": "k3n_kalkkinder_warnvers",
+            "requires_quests_active": [
+              "k3n_kalkkinder"
+            ],
+            "hide_if_flags": [
+              "k3n_kalkkinder_done"
+            ]
+          },
+          {
+            "text": "Ein neues Spiel mit erfundenen Haltestellen entwerfen.",
+            "next": "k3n_kalkkinder_neues_spiel",
+            "requires_quests_active": [
+              "k3n_kalkkinder"
+            ],
+            "hide_if_flags": [
+              "k3n_kalkkinder_done"
+            ]
+          }
+        ]
+      },
+      "k3n_kalkkinder_warnvers": {
+        "text": "Die Kinder schreiben den Warnvers an den Kreis und vereinbaren, abends nicht auf Signale zu antworten. Pfiff bezahlt die Kreide und deinen Weg. Das alte Spiel bleibt, jetzt mit seinem fehlenden Ende.",
+        "complete_quests": [
+          "k3n_kalkkinder"
+        ],
+        "sets_flags": [
+          "k3n_kalkkinder_done",
+          "k3n_kalkkinder_warnvers"
+        ],
+        "gives_money": 16,
+        "honor": 2,
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      },
+      "k3n_kalkkinder_warnvers_nachher": {
+        "text": "Die Kinder schreiben den Warnvers an den Kreis und vereinbaren, abends nicht auf Signale zu antworten. Pfiff bezahlt die Kreide und deinen Weg. Das alte Spiel bleibt, jetzt mit seinem fehlenden Ende.",
+        "choices": [
+          {
+            "text": "Auf Wiedersehen."
+          }
+        ]
+      },
+      "k3n_kalkkinder_neues_spiel": {
+        "text": "Die Kinder wählen „Suppentopf“ und „Schiefe Socke“ als Halte. Ihr erklärt trotzdem die Gefahr echter Nachtaufrufe. Pfiff gibt dir deinen Lohn; die alten Namen werden im Spiel nicht mehr geübt.",
+        "complete_quests": [
+          "k3n_kalkkinder"
+        ],
+        "sets_flags": [
+          "k3n_kalkkinder_done",
+          "k3n_kalkkinder_neues_spiel"
+        ],
+        "gives_money": 16,
+        "honor": 1,
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      },
+      "k3n_kalkkinder_neues_spiel_nachher": {
+        "text": "Die Kinder wählen „Suppentopf“ und „Schiefe Socke“ als Halte. Ihr erklärt trotzdem die Gefahr echter Nachtaufrufe. Pfiff gibt dir deinen Lohn; die alten Namen werden im Spiel nicht mehr geübt.",
+        "choices": [
+          {
+            "text": "Auf Wiedersehen."
+          }
+        ]
+      },
+      "k3n_brief_aus_wexmoor_zeugnis": {
+        "text": "Pfiff liest den Lieferschein gegen Mabels Bestellkopie. Betrag und Datum stimmen überein. „Du wirst fürs Tragen bezahlt“, sagt er. „Was zwischen dir und der Absenderin steht, kann ich damit nicht quittieren.“",
+        "sets_flags": [
+          "k3n_brief_aus_wexmoor_befragt"
+        ],
+        "choices": [
+          {
+            "text": "Kannst du Zunder eine Antwort versprechen?",
+            "next": "k3n_brief_aus_wexmoor_grenze"
+          },
+          {
+            "text": "Ich vergleiche die Befunde im Journal."
+          }
+        ]
+      },
+      "k3n_brief_aus_wexmoor_grenze": {
+        "text": "„Ich kann einen Brief weitergeben“, sagt Pfiff. „Ob sie ihn beantwortet, ist ihre Sache. Schreib lieber nichts, das ihre Unterschrift schon voraussetzt.“",
+        "choices": [
+          {
+            "text": "Verstanden."
+          }
+        ]
+      },
+      "k3n_kalkkinder_zeugnis": {
+        "text": "Pfiff legt beide Papierhälften nebeneinander und lässt die Kinder die Zeile suchen, die ihnen fehlte. Ein Kind sagt: „Dann ist Feierabend eine Regel und kein Verliererwort.“ Pfiff nickt, ohne für sie einen echten Ruf vorzuführen.",
+        "sets_flags": [
+          "k3n_kalkkinder_befragt"
+        ],
+        "choices": [
+          {
+            "text": "Müssen wir das Spiel verbieten?",
+            "next": "k3n_kalkkinder_grenze"
+          },
+          {
+            "text": "Ich vergleiche die Befunde im Journal."
+          }
+        ]
+      },
+      "k3n_kalkkinder_grenze": {
+        "text": "„Wir müssen erklären, weshalb man nachts nicht antwortet“, sagt Pfiff. „Ein Verbot ohne Erklärung passt schlechter in eine Manteltasche als ein guter Vers.“",
+        "choices": [
+          {
+            "text": "Verstanden."
+          }
+        ]
+      }
+    }
+  },
+  "k3_esther": {
+    "choices_add": [
+      {
+        "text": "Wie werden die Lohnblätter jetzt verwahrt?",
+        "next": "k3n_letzte_lohnliste_archiv_nachher",
+        "requires_flags": [
+          "k3n_letzte_lohnliste_archiv"
+        ]
+      },
+      {
+        "text": "Wie werden die Lohnblätter jetzt verwahrt?",
+        "next": "k3n_letzte_lohnliste_auszug_nachher",
+        "requires_flags": [
+          "k3n_letzte_lohnliste_auszug"
+        ]
+      },
+      {
+        "text": "Alle vier Familien haben die Blätter erhalten.",
+        "next": "k3n_letzte_lohnliste_wahl",
+        "requires_quests_active": [
+          "k3n_letzte_lohnliste"
+        ],
+        "requires_flags": [
+          "k3n_letzte_lohnliste_familie1",
+          "k3n_letzte_lohnliste_familie2",
+          "k3n_letzte_lohnliste_familie3",
+          "k3n_letzte_lohnliste_familie4"
+        ],
+        "hide_if_flags": [
+          "k3n_letzte_lohnliste_done"
+        ]
+      },
+      {
+        "text": "Die Lohnblätter den Familien bringen.",
+        "next": "k3n_letzte_lohnliste_beginn",
+        "requires_flags": [
+          "k3a_akt4_done"
+        ],
+        "hide_if_quests": [
+          "k3n_letzte_lohnliste"
+        ]
+      }
+    ],
+    "nodes_add": {
+      "k3n_letzte_lohnliste_beginn": {
+        "text": "Esther legt vier einzeln versiegelte Abschriften hin. „Die Originale bleiben hier. Du bringst keine frohe Nachricht, aber etwas, das ihnen gehört. Bitte niemanden, dafür einer Gedenkfeier zuzustimmen.“",
+        "start_quests": [
+          "k3n_letzte_lohnliste"
+        ],
+        "sets_flags": [
+          "k3n_letzte_lohnliste_begonnen"
+        ],
+        "choices": [
+          {
+            "text": "Ich nehme die versiegelten Abschriften."
+          }
+        ]
+      },
+      "k3n_letzte_lohnliste_wahl": {
+        "text": "Esther liest die Empfangsnotizen. „Zwei erlauben eine anonyme Gesamtsumme, zwei wollen Ruhe. Wir können die erlaubten Beträge öffentlich machen oder die Blätter ausschließlich in den Familienakten sichern. Namen gebe ich in keinem Fall heraus.“",
+        "choices": [
+          {
+            "text": "Nur den ausdrücklich erlaubten anonymen Auszug veröffentlichen.",
+            "next": "k3n_letzte_lohnliste_auszug",
+            "requires_quests_active": [
+              "k3n_letzte_lohnliste"
+            ],
+            "hide_if_flags": [
+              "k3n_letzte_lohnliste_done"
+            ]
+          },
+          {
+            "text": "Alle vier Empfangsnotizen vertraulich archivieren.",
+            "next": "k3n_letzte_lohnliste_archiv",
+            "requires_quests_active": [
+              "k3n_letzte_lohnliste"
+            ],
+            "hide_if_flags": [
+              "k3n_letzte_lohnliste_done"
+            ]
+          }
+        ]
+      },
+      "k3n_letzte_lohnliste_auszug": {
+        "text": "Esther hängt die Summe der beiden freigegebenen Blätter aus, ohne Namen oder Adressen. Die übrigen Abschriften bleiben verschlossen. Sie bezahlt deine Wege; ein Aushang ersetzt weder einen Entschädigungsbeschluss noch die Zustimmung zum Hauptstoryplan.",
+        "complete_quests": [
+          "k3n_letzte_lohnliste"
+        ],
+        "sets_flags": [
+          "k3n_letzte_lohnliste_done",
+          "k3n_letzte_lohnliste_auszug"
+        ],
+        "gives_money": 36,
+        "honor": 3,
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      },
+      "k3n_letzte_lohnliste_auszug_nachher": {
+        "text": "Esther hängt die Summe der beiden freigegebenen Blätter aus, ohne Namen oder Adressen. Die übrigen Abschriften bleiben verschlossen.",
+        "choices": [
+          {
+            "text": "Auf Wiedersehen."
+          }
+        ]
+      },
+      "k3n_letzte_lohnliste_archiv": {
+        "text": "Esther schließt die Empfangsnotizen mit den Originalen ein. Jede Familie behält ihre eigene Abschrift und entscheidet später über weitere Schritte. Sie bezahlt deine Wege; öffentlich bleibt vorerst die alte Lücke sichtbar.",
+        "complete_quests": [
+          "k3n_letzte_lohnliste"
+        ],
+        "sets_flags": [
+          "k3n_letzte_lohnliste_done",
+          "k3n_letzte_lohnliste_archiv"
+        ],
+        "gives_money": 36,
+        "honor": 1,
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      },
+      "k3n_letzte_lohnliste_archiv_nachher": {
+        "text": "Esther schließt die Empfangsnotizen mit den Originalen ein. Jede Familie behält ihre eigene Abschrift und entscheidet später über weitere Schritte.",
+        "choices": [
+          {
+            "text": "Auf Wiedersehen."
+          }
+        ]
+      }
+    }
+  }
+}

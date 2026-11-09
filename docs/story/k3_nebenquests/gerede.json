@@ -1,0 +1,556 @@
+{
+  "dunscar": {
+    "ds_endbahnhof": [
+      {
+        "text": "Die Bank ist frisch geputzt, der Fahrplan seit siebzig Jahren nicht.",
+        "requires_flags": [
+          "k3_arrived"
+        ],
+        "hide_if_flags": [
+          "k3a_akt1_done"
+        ]
+      },
+      {
+        "text": "Ein leeres Billett wäre mir lieber als eines, das mich kennt.",
+        "requires_flags": [
+          "k3_arrived"
+        ],
+        "hide_if_flags": [
+          "k3a_akt1_done"
+        ]
+      },
+      {
+        "text": "Die Botin läuft jetzt mit zwei Uhren, aber keine beruhigt sie.",
+        "requires_flags": [
+          "k3a_akt1_done"
+        ],
+        "hide_if_flags": [
+          "k3a_akt2_done"
+        ]
+      },
+      {
+        "text": "Wer nachts heimkommt, soll zuerst die Schuhe ausziehen und dann erzählen.",
+        "requires_flags": [
+          "k3a_akt1_done"
+        ],
+        "hide_if_flags": [
+          "k3a_akt2_done"
+        ]
+      },
+      {
+        "text": "Der Rücklaufkasten schluckt mehr Antworten als Briefe.",
+        "requires_flags": [
+          "k3a_akt2_done"
+        ],
+        "hide_if_flags": [
+          "k3a_akt3_done"
+        ]
+      },
+      {
+        "text": "Gestern fragte jemand nach einer stillen Fahrkarte; der Schalter blieb höflich stumm.",
+        "requires_flags": [
+          "k3a_akt2_done"
+        ],
+        "hide_if_flags": [
+          "k3a_akt3_done"
+        ]
+      },
+      {
+        "text": "Die Leitungen über dem Dach laufen alle zum Hang.",
+        "requires_flags": [
+          "k3a_akt3_done"
+        ],
+        "hide_if_flags": [
+          "k3a_akt4_done"
+        ]
+      },
+      {
+        "text": "Ein Telegramm ist erst angekommen, wenn jemand es wirklich gelesen hat.",
+        "requires_flags": [
+          "k3a_akt3_done"
+        ],
+        "hide_if_flags": [
+          "k3a_akt4_done"
+        ]
+      },
+      {
+        "text": "Ich hole meinen Bruder zu Fuß ab, Schienen hat er genug gesehen.",
+        "requires_flags": [
+          "k3a_akt4_done"
+        ],
+        "hide_if_flags": [
+          "k3a_akt5_done"
+        ]
+      },
+      {
+        "text": "Wir warten heute auf Menschen, nicht auf eine pünktliche Pfeife.",
+        "requires_flags": [
+          "k3a_akt4_done"
+        ],
+        "hide_if_flags": [
+          "k3a_akt5_done"
+        ]
+      }
+    ],
+    "ds_schwellenring": [
+      {
+        "text": "Die Drehscheibe dreht sich nicht, mein Vermieter nennt das Standorttreue.",
+        "requires_flags": [
+          "k3_arrived"
+        ],
+        "hide_if_flags": [
+          "k3a_akt1_done"
+        ]
+      },
+      {
+        "text": "Im Speisewagen darf sogar der Kessel leise sein.",
+        "requires_flags": [
+          "k3_arrived"
+        ],
+        "hide_if_flags": [
+          "k3a_akt1_done"
+        ]
+      },
+      {
+        "text": "Die frischen Späne kommen nicht von totem Werkzeug.",
+        "requires_flags": [
+          "k3a_akt1_done"
+        ],
+        "hide_if_flags": [
+          "k3a_akt2_done"
+        ]
+      },
+      {
+        "text": "Oren schläft neben seiner Werkzeugtasche, als könnte sie fortfahren.",
+        "requires_flags": [
+          "k3a_akt1_done"
+        ],
+        "hide_if_flags": [
+          "k3a_akt2_done"
+        ]
+      },
+      {
+        "text": "Der Hilfsfonds hat eine Presse, aber noch keinen ehrlichen Stempel.",
+        "requires_flags": [
+          "k3a_akt2_done"
+        ],
+        "hide_if_flags": [
+          "k3a_akt3_done"
+        ]
+      },
+      {
+        "text": "Wenn eine Mutter aus einer Pfeife ruft, hört man die Schrauben nicht mehr.",
+        "requires_flags": [
+          "k3a_akt2_done"
+        ],
+        "hide_if_flags": [
+          "k3a_akt3_done"
+        ]
+      },
+      {
+        "text": "Der Wartungssteg ist eine andere Baustelle als der alte Durchgang.",
+        "requires_flags": [
+          "k3a_akt3_done"
+        ],
+        "hide_if_flags": [
+          "k3a_akt4_done"
+        ]
+      },
+      {
+        "text": "Ein fester Anschlag ist mir lieber als ein freundliches Versprechen.",
+        "requires_flags": [
+          "k3a_akt3_done"
+        ],
+        "hide_if_flags": [
+          "k3a_akt4_done"
+        ]
+      },
+      {
+        "text": "Heute bringen wir Suppe über den Einschnitt, keine Schichtarbeiter.",
+        "requires_flags": [
+          "k3a_akt4_done"
+        ],
+        "hide_if_flags": [
+          "k3a_akt5_done"
+        ]
+      },
+      {
+        "text": "Für Feierabend gibt es keinen Ersatznagel, sagt Oren.",
+        "requires_flags": [
+          "k3a_akt4_done"
+        ],
+        "hide_if_flags": [
+          "k3a_akt5_done"
+        ]
+      }
+    ],
+    "ds_arbeiterbogen": [
+      {
+        "text": "Bei uns bleibt ein Teller frei, doch niemand spart deshalb beim Abwasch.",
+        "requires_flags": [
+          "k3_arrived"
+        ],
+        "hide_if_flags": [
+          "k3a_akt1_done"
+        ]
+      },
+      {
+        "text": "Die Kinder haben Haltestellen erfunden, die ich gern besuchen würde.",
+        "requires_flags": [
+          "k3_arrived"
+        ],
+        "hide_if_flags": [
+          "k3a_akt1_done"
+        ]
+      },
+      {
+        "text": "Der Arzt schreibt Erholung, meine Hände schreiben etwas anderes.",
+        "requires_flags": [
+          "k3a_akt1_done"
+        ],
+        "hide_if_flags": [
+          "k3a_akt2_done"
+        ]
+      },
+      {
+        "text": "Eine Unterschrift kann ordentlich sein und trotzdem nicht stimmen.",
+        "requires_flags": [
+          "k3a_akt1_done"
+        ],
+        "hide_if_flags": [
+          "k3a_akt2_done"
+        ]
+      },
+      {
+        "text": "Ein Gespräch bei Tageslicht zählt mehr als drei Rufe durchs Fenster.",
+        "requires_flags": [
+          "k3a_akt2_done"
+        ],
+        "hide_if_flags": [
+          "k3a_akt3_done"
+        ]
+      },
+      {
+        "text": "Wir fragen jetzt, wer gegessen hat, bevor wir von Heimkehr reden.",
+        "requires_flags": [
+          "k3a_akt2_done"
+        ],
+        "hide_if_flags": [
+          "k3a_akt3_done"
+        ]
+      },
+      {
+        "text": "In jedem Haus fehlt jemand anders, das passt auf keinen Sammelzettel.",
+        "requires_flags": [
+          "k3a_akt3_done"
+        ],
+        "hide_if_flags": [
+          "k3a_akt4_done"
+        ]
+      },
+      {
+        "text": "Meine Großmutter will keinen Redner, nur einen eigenen Stuhl.",
+        "requires_flags": [
+          "k3a_akt3_done"
+        ],
+        "hide_if_flags": [
+          "k3a_akt4_done"
+        ]
+      },
+      {
+        "text": "Wenn die Lohnblätter kommen, darf man den Umschlag auch geschlossen lassen.",
+        "requires_flags": [
+          "k3a_akt4_done"
+        ],
+        "hide_if_flags": [
+          "k3a_akt5_done"
+        ]
+      },
+      {
+        "text": "Niemand soll für einen Familiennamen wieder zur Schicht gehen.",
+        "requires_flags": [
+          "k3a_akt4_done"
+        ],
+        "hide_if_flags": [
+          "k3a_akt5_done"
+        ]
+      }
+    ],
+    "ds_kalkmarkt": [
+      {
+        "text": "Der Steinmetz verlangt Vorkasse, wenigstens vom Stein erwartet er keine Antwort.",
+        "requires_flags": [
+          "k3_arrived"
+        ],
+        "hide_if_flags": [
+          "k3a_akt1_done"
+        ]
+      },
+      {
+        "text": "Manche gebrauchten Erinnerungen haben noch den Preis vom ersten Irrtum.",
+        "requires_flags": [
+          "k3_arrived"
+        ],
+        "hide_if_flags": [
+          "k3a_akt1_done"
+        ]
+      },
+      {
+        "text": "Ruths Platten kennen angeblich jeden, das macht mich misstrauisch.",
+        "requires_flags": [
+          "k3a_akt1_done"
+        ],
+        "hide_if_flags": [
+          "k3a_akt2_done"
+        ]
+      },
+      {
+        "text": "Eine Garantie in frischer Tinte verjüngt keine Stimme.",
+        "requires_flags": [
+          "k3a_akt1_done"
+        ],
+        "hide_if_flags": [
+          "k3a_akt2_done"
+        ]
+      },
+      {
+        "text": "Ich behalte die Aufnahme, aber ich frage sie nichts Neues mehr.",
+        "requires_flags": [
+          "k3a_akt2_done"
+        ],
+        "hide_if_flags": [
+          "k3a_akt3_done"
+        ]
+      },
+      {
+        "text": "Ein blanker Stein ist keine Einladung, den nächsten Namen draufzusetzen.",
+        "requires_flags": [
+          "k3a_akt2_done"
+        ],
+        "hide_if_flags": [
+          "k3a_akt3_done"
+        ]
+      },
+      {
+        "text": "Der Lieferzettel nennt zwei Summen für einen Sack, ein äußerst begabter Sack.",
+        "requires_flags": [
+          "k3a_akt3_done"
+        ],
+        "hide_if_flags": [
+          "k3a_akt4_done"
+        ]
+      },
+      {
+        "text": "Ich nehme die Rechnung mit, der Nebel hat schon genug verschluckt.",
+        "requires_flags": [
+          "k3a_akt3_done"
+        ],
+        "hide_if_flags": [
+          "k3a_akt4_done"
+        ]
+      },
+      {
+        "text": "Ein anonymisierter Betrag muss nicht auch eine anonyme Schuld bedeuten.",
+        "requires_flags": [
+          "k3a_akt4_done"
+        ],
+        "hide_if_flags": [
+          "k3a_akt5_done"
+        ]
+      },
+      {
+        "text": "Heute kaufen sie Kreide für Namen, morgen hoffentlich für Einkaufslisten.",
+        "requires_flags": [
+          "k3a_akt4_done"
+        ],
+        "hide_if_flags": [
+          "k3a_akt5_done"
+        ]
+      }
+    ],
+    "ds_bruchstufen": [
+      {
+        "text": "Die Treppen sind breit genug für Angst in beiden Richtungen.",
+        "requires_flags": [
+          "k3_arrived"
+        ],
+        "hide_if_flags": [
+          "k3a_akt1_done"
+        ]
+      },
+      {
+        "text": "Wenn das Gerüst nach dem Wind antwortet, gehe ich vor der Antwort.",
+        "requires_flags": [
+          "k3_arrived"
+        ],
+        "hide_if_flags": [
+          "k3a_akt1_done"
+        ]
+      },
+      {
+        "text": "Ein Bolzen hat weniger Fantasie als ein Schalltrichter.",
+        "requires_flags": [
+          "k3a_akt1_done"
+        ],
+        "hide_if_flags": [
+          "k3a_akt2_done"
+        ]
+      },
+      {
+        "text": "Wer die Strecke kennt, muss seinen Namen nicht hineinrufen.",
+        "requires_flags": [
+          "k3a_akt1_done"
+        ],
+        "hide_if_flags": [
+          "k3a_akt2_done"
+        ]
+      },
+      {
+        "text": "Adaine misst jetzt auch die Stille zwischen zwei Peilungen.",
+        "requires_flags": [
+          "k3a_akt2_done"
+        ],
+        "hide_if_flags": [
+          "k3a_akt3_done"
+        ]
+      },
+      {
+        "text": "Ein gerader Strich auf Papier macht den Abgrund nicht flach.",
+        "requires_flags": [
+          "k3a_akt2_done"
+        ],
+        "hide_if_flags": [
+          "k3a_akt3_done"
+        ]
+      },
+      {
+        "text": "Die neue Messlinie ist sichtbar, das ist eine Verbesserung gegenüber Zuversicht.",
+        "requires_flags": [
+          "k3a_akt3_done"
+        ],
+        "hide_if_flags": [
+          "k3a_akt4_done"
+        ]
+      },
+      {
+        "text": "Den Kindern zeigen wir den sicheren Weg, nicht die lauteste Abkürzung.",
+        "requires_flags": [
+          "k3a_akt3_done"
+        ],
+        "hide_if_flags": [
+          "k3a_akt4_done"
+        ]
+      },
+      {
+        "text": "Wir holen jeden einzeln heraus, damit keiner als Summe zurückbleibt.",
+        "requires_flags": [
+          "k3a_akt4_done"
+        ],
+        "hide_if_flags": [
+          "k3a_akt5_done"
+        ]
+      },
+      {
+        "text": "Mein Vater wollte seinen Stiefel ersetzt haben, nicht seinen ganzen Menschen.",
+        "requires_flags": [
+          "k3a_akt4_done"
+        ],
+        "hide_if_flags": [
+          "k3a_akt5_done"
+        ]
+      }
+    ],
+    "ds_signalhang": [
+      {
+        "text": "Die Schaltbude hat sechs Türen und nur einen Besen.",
+        "requires_flags": [
+          "k3_arrived"
+        ],
+        "hide_if_flags": [
+          "k3a_akt1_done"
+        ]
+      },
+      {
+        "text": "Vom Prüfhaus hört man Pausen, wenn man lange genug wartet.",
+        "requires_flags": [
+          "k3_arrived"
+        ],
+        "hide_if_flags": [
+          "k3a_akt1_done"
+        ]
+      },
+      {
+        "text": "Eine falsche Empfangszeit macht noch keinen freien Abend.",
+        "requires_flags": [
+          "k3a_akt1_done"
+        ],
+        "hide_if_flags": [
+          "k3a_akt2_done"
+        ]
+      },
+      {
+        "text": "Nellie sagt, der Rücklauf prüft Zahlen gründlicher als Menschen.",
+        "requires_flags": [
+          "k3a_akt1_done"
+        ],
+        "hide_if_flags": [
+          "k3a_akt2_done"
+        ]
+      },
+      {
+        "text": "Eine Aufnahme kann wahr sein, ohne mit uns zu sprechen.",
+        "requires_flags": [
+          "k3a_akt2_done"
+        ],
+        "hide_if_flags": [
+          "k3a_akt3_done"
+        ]
+      },
+      {
+        "text": "Esther bindet die Lohnblätter einzeln, sie kennt die Leute dahinter.",
+        "requires_flags": [
+          "k3a_akt2_done"
+        ],
+        "hide_if_flags": [
+          "k3a_akt3_done"
+        ]
+      },
+      {
+        "text": "Sechs Leitungen sind sechs Gründe, zweimal hinzusehen.",
+        "requires_flags": [
+          "k3a_akt3_done"
+        ],
+        "hide_if_flags": [
+          "k3a_akt4_done"
+        ]
+      },
+      {
+        "text": "Wer hier einen Namen ruft, sollte vorher wissen, wem die Antwort gilt.",
+        "requires_flags": [
+          "k3a_akt3_done"
+        ],
+        "hide_if_flags": [
+          "k3a_akt4_done"
+        ]
+      },
+      {
+        "text": "Eine Quittung sagt angekommen, nicht einverstanden.",
+        "requires_flags": [
+          "k3a_akt4_done"
+        ],
+        "hide_if_flags": [
+          "k3a_akt5_done"
+        ]
+      },
+      {
+        "text": "Die letzte Schicht soll keine neuen Leute brauchen.",
+        "requires_flags": [
+          "k3a_akt4_done"
+        ],
+        "hide_if_flags": [
+          "k3a_akt5_done"
+        ]
+      }
+    ]
+  }
+}
