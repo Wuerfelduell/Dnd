@@ -1,0 +1,137 @@
+{
+  "k3o_kalkpastille": {
+    "name": "Kalkpastille",
+    "kind": "consumable",
+    "weight": 0.1,
+    "price": 12,
+    "desc": "Eine bittere Pastille gegen den trockenen Bruchhusten.",
+    "heal": 8,
+    "calm": 12
+  },
+  "k3o_schichttee": {
+    "name": "Schichttee",
+    "kind": "consumable",
+    "weight": 0.4,
+    "price": 20,
+    "desc": "Starker Tee. Er macht keine neue Schicht aus einem erschöpften Menschen.",
+    "heal": 12,
+    "calm": 20
+  },
+  "k3o_filzverband": {
+    "name": "Filzverband",
+    "kind": "consumable",
+    "weight": 0.2,
+    "price": 18,
+    "desc": "Sauberer Verband mit einer weichen Filzauflage.",
+    "heal": 24
+  },
+  "k3o_ventilspan": {
+    "name": "Ventilspan",
+    "kind": "ingredient",
+    "weight": 0.1,
+    "price": 8,
+    "desc": "Ein Span aus einem ausgeschlagenen Signalventil. Kein Ersatz für eine pfadspezifische Kernzutat."
+  },
+  "k3o_kreidestaub": {
+    "name": "Prüfkreide",
+    "kind": "ingredient",
+    "weight": 0.2,
+    "price": 7,
+    "desc": "Trockene Kreide für Markierungen und kleine Kreise."
+  },
+  "k3o_rufwachs": {
+    "name": "Rufwachs",
+    "kind": "ingredient",
+    "weight": 0.2,
+    "price": 14,
+    "desc": "Wachs von einer ausgehörten Prüfwalze, ohne gebundene Personenstimme."
+  },
+  "k3o_schraubenzahn": {
+    "name": "Schraubenzahn",
+    "kind": "trophy",
+    "weight": 0.3,
+    "price": 35,
+    "desc": "Ein abgenutztes Zahnrad aus dem Holzleib des Schwellenhunds."
+  },
+  "k3o_schlagkern": {
+    "name": "Schlagkern",
+    "kind": "trophy",
+    "weight": 0.5,
+    "price": 48,
+    "desc": "Stein mit einer abgeschlossenen Werkzeugfolge."
+  },
+  "k3o_trichterglas": {
+    "name": "Trichterglas",
+    "kind": "ingredient",
+    "weight": 0.2,
+    "price": 16,
+    "desc": "Milchiges Glas aus einem getrennten Antworttrichter."
+  },
+  "k3o_schichtknopf": {
+    "name": "Schichtknopf",
+    "kind": "trophy",
+    "weight": 0.1,
+    "price": 6,
+    "desc": "Ein vom Arbeitsmantel gefallener Messingknopf. Der Besitzer lebt."
+  },
+  "k3o_leitungsklemme": {
+    "name": "Leitungsklemme",
+    "kind": "ingredient",
+    "weight": 0.3,
+    "price": 12,
+    "desc": "Eine abgekühlte Klemme. Ihr Metall hält keine Stimme fest."
+  },
+  "k3o_stillkiesel": {
+    "name": "Stillkiesel",
+    "kind": "trophy",
+    "weight": 0.2,
+    "price": 65,
+    "desc": "Ein glatter Kiesel aus dem Rand der Unterschicht."
+  },
+  "k3o_stillring": {
+    "name": "Stillring",
+    "source": "quest",
+    "price": 250,
+    "icon": "amulett_eisen",
+    "desc": "Ein Filzring in einer Messingfassung. Er erleichtert die Abwehr, dämpft aber auch deine Erholung.",
+    "boons": [
+      {
+        "key": "dodge_window",
+        "value": 1.2,
+        "text": "Ausweichfenster +20 %."
+      }
+    ],
+    "curses": [
+      {
+        "key": "composure_regen",
+        "value": 0.6,
+        "text": "Nervenerholung nur 60 %."
+      }
+    ],
+    "kind": "artifact",
+    "weight": 0.3
+  },
+  "k3o_prueflinse": {
+    "name": "Prüflinse",
+    "source": "quest",
+    "price": 250,
+    "icon": "glasauge",
+    "desc": "Die Linse macht Nachhallränder deutlich. Mit ihr im Gepäck fällt es schwer, Unwichtiges auszublenden.",
+    "boons": [
+      {
+        "key": "vision_cost",
+        "value": 0.75,
+        "text": "Geistsicht kostet 25 % weniger Nerven."
+      }
+    ],
+    "curses": [
+      {
+        "key": "max_nerves",
+        "value": -20,
+        "text": "20 weniger maximale Nerven."
+      }
+    ],
+    "kind": "artifact",
+    "weight": 0.3
+  }
+}

@@ -1,0 +1,206 @@
+{
+  "schichtgaenger": {
+    "name": "Schichtgänger",
+    "sprite": "wild",
+    "sheet": "enemy_price",
+    "hp": 180,
+    "occult": false,
+    "fleeable": true,
+    "intro": "Ein Arbeiter hebt den Arm im Takt eines fernen Aufrufs. Sein Atem geht schwer. Du kannst ausweichen oder ihn ohne tödliche Gewalt stoppen.",
+    "attacks": [
+      {
+        "name": "Schichtgriff",
+        "damage": 11,
+        "hits": [
+          1100,
+          1700
+        ]
+      },
+      {
+        "name": "Taumelnder Schritt …",
+        "damage": 14,
+        "hits": [
+          2200
+        ]
+      }
+    ],
+    "on_win": {},
+    "lose_to": {
+      "map": "ds_speisewagen",
+      "spawn": "default"
+    },
+    "lose_text": "Pfiff bringt dich hinter die Schallschleuse. Wissen und Fundnotizen bleiben erhalten.",
+    "win_text": "Der Arbeiter sinkt bewusstlos zu Boden und atmet ruhig. Du legst ihn abseits der Gleise; Huxford wird verständigt.",
+    "armor": 2
+  },
+  "kalkstaubgeist": {
+    "name": "Kalkstaubgeist",
+    "sprite": "wild",
+    "sheet": "enemy_salzgeist",
+    "hp": 220,
+    "occult": true,
+    "fleeable": true,
+    "intro": "Kalk sammelt sich zu einer Gestalt. Vor jedem Husten zieht ein heller Staubring sichtbar nach innen.",
+    "attacks": [
+      {
+        "name": "Staubhusten",
+        "damage": 11,
+        "hits": [
+          1100,
+          1700
+        ]
+      },
+      {
+        "name": "Kalkmantel …",
+        "damage": 14,
+        "hits": [
+          2200
+        ]
+      }
+    ],
+    "on_win": {},
+    "lose_to": {
+      "map": "ds_speisewagen",
+      "spawn": "default"
+    },
+    "lose_text": "Pfiff bringt dich hinter die Schallschleuse. Wissen und Fundnotizen bleiben erhalten.",
+    "win_text": "Die Gestalt verliert ihren Zusammenhalt. Der sichere Rückweg bleibt still.",
+    "armor": 2
+  },
+  "signalkraehe": {
+    "name": "Signalkrähe",
+    "sprite": "wild",
+    "sheet": "enemy_bojenglocke",
+    "hp": 200,
+    "occult": false,
+    "fleeable": true,
+    "intro": "Die Krähe klappt den Schnabel wie einen Signalhebel. Vor dem Sturzflug spreizt sie beide Flügel.",
+    "attacks": [
+      {
+        "name": "Schnabelklopfen",
+        "damage": 12,
+        "hits": [
+          1100,
+          1700
+        ]
+      },
+      {
+        "name": "Flügelzeichen …",
+        "damage": 14,
+        "hits": [
+          2200
+        ]
+      }
+    ],
+    "on_win": {},
+    "lose_to": {
+      "map": "ds_speisewagen",
+      "spawn": "default"
+    },
+    "lose_text": "Pfiff bringt dich hinter die Schallschleuse. Wissen und Fundnotizen bleiben erhalten.",
+    "win_text": "Die Gestalt verliert ihren Zusammenhalt. Der sichere Rückweg bleibt still.",
+    "armor": 2
+  },
+  "lohnlistenmotte": {
+    "name": "Lohnlistenmotte",
+    "sprite": "wild",
+    "sheet": "enemy_nebelfischer",
+    "hp": 210,
+    "occult": true,
+    "fleeable": true,
+    "intro": "Aus einer Lohnliste löst sich eine Motte aus Papier. Sie faltet die Flügel vor dem nächsten Stoß sauber zusammen.",
+    "attacks": [
+      {
+        "name": "Papierflug",
+        "damage": 12,
+        "hits": [
+          1100,
+          1700
+        ]
+      },
+      {
+        "name": "Radierstaub …",
+        "damage": 15,
+        "hits": [
+          2200
+        ]
+      }
+    ],
+    "on_win": {},
+    "lose_to": {
+      "map": "ds_speisewagen",
+      "spawn": "default"
+    },
+    "lose_text": "Pfiff bringt dich hinter die Schallschleuse. Wissen und Fundnotizen bleiben erhalten.",
+    "win_text": "Die Gestalt verliert ihren Zusammenhalt. Der sichere Rückweg bleibt still.",
+    "armor": 2
+  },
+  "geruestklang": {
+    "name": "Gerüstklang",
+    "sprite": "wild",
+    "sheet": "enemy_bojenglocke",
+    "hp": 260,
+    "occult": false,
+    "fleeable": true,
+    "intro": "Eine Querstrebe schwingt ohne Wind. Schrauben klappern zweimal, bevor sich das Gerüst auf dich zubewegt.",
+    "attacks": [
+      {
+        "name": "Querstrebe",
+        "damage": 13,
+        "hits": [
+          1100,
+          1700
+        ]
+      },
+      {
+        "name": "Gerüstfall …",
+        "damage": 15,
+        "hits": [
+          2200
+        ]
+      }
+    ],
+    "on_win": {},
+    "lose_to": {
+      "map": "ds_speisewagen",
+      "spawn": "default"
+    },
+    "lose_text": "Pfiff bringt dich hinter die Schallschleuse. Wissen und Fundnotizen bleiben erhalten.",
+    "win_text": "Die Gestalt verliert ihren Zusammenhalt. Der sichere Rückweg bleibt still.",
+    "armor": 2
+  },
+  "nachhall": {
+    "name": "Nachhall",
+    "sprite": "wild",
+    "sheet": "enemy_salzgeist",
+    "hp": 280,
+    "occult": true,
+    "fleeable": true,
+    "intro": "Eine Kontur wiederholt deinen letzten Schritt. Ihr nächster Angriff erscheint als helle Linie, bevor die Antwort ertönt.",
+    "attacks": [
+      {
+        "name": "Wiederholung",
+        "damage": 13,
+        "hits": [
+          1100,
+          1700
+        ]
+      },
+      {
+        "name": "Fremde Antwort …",
+        "damage": 15,
+        "hits": [
+          2200
+        ]
+      }
+    ],
+    "on_win": {},
+    "lose_to": {
+      "map": "ds_speisewagen",
+      "spawn": "default"
+    },
+    "lose_text": "Pfiff bringt dich hinter die Schallschleuse. Wissen und Fundnotizen bleiben erhalten.",
+    "win_text": "Die Gestalt verliert ihren Zusammenhalt. Der sichere Rückweg bleibt still.",
+    "armor": 2
+  }
+}
