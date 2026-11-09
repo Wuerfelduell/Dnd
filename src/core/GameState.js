@@ -5,6 +5,7 @@ import { auctionMethods } from './Auction.js';
 import { wantedMethods } from './Wanted.js';
 import { kahnMethods } from './Kahn.js';
 import { newspaperMethods } from './Newspapers.js';
+import { signalMethods } from './Signals.js';
 import { bondMethods } from './Bonds.js';
 import { artifactMethods } from './Artifacts.js';
 import { partyMethods } from './Party.js';
@@ -72,6 +73,7 @@ export class GameState {
     this.resetBonds();
     this.resetParty();
     this.resetPapers();
+    this.resetSignal();
     this.pendingTravel = null;
   }
 
@@ -277,6 +279,7 @@ export class GameState {
       (o.requires_gathering === undefined || this.gatheringOpen(o.requires_gathering) && this.isMember(o.requires_gathering)) &&
       (o.requires_gatherings_unlocked === undefined || this.gatheringsUnlocked() === o.requires_gatherings_unlocked) &&
       this.meetsPathway(o.requires_pathway) &&
+      this.meetsSignal(o) &&
       this.meetsBond(o)
     );
   }
@@ -303,6 +306,7 @@ export class GameState {
     if (!e) return [];
     const gained = (e.gives_clues ?? []).filter((c) => this.addClue(c));
     for (const f of e.sets_flags ?? []) this.flags.add(f);
+    if (e.signal || e.signal_reserve) this.applySignal(e); // Kapitel 3: Rufladungen
     for (const f of e.clears_flags ?? []) this.flags.delete(f);
     for (const q of e.start_quests ?? []) this.startQuest(q);
     for (const q of e.complete_quests ?? []) this.finishQuest(q, 'done');
@@ -653,6 +657,7 @@ export class GameState {
       bonds: this.serializeBonds(),
       ...this.serializeParty(),
       papers: this.papers,
+      ...this.serializeSignal(),
     };
   }
 
@@ -696,6 +701,7 @@ export class GameState {
     this.loadBonds(data.bonds);
     this.loadParty(data);
     this.loadPapers(data);
+    this.loadSignal(data);
     if (!this.content.maps[this.map]) { this.map = this.content.start.map; this.position = null; }
     return true;
   }
@@ -704,4 +710,4 @@ export class GameState {
 /** Fortschrittsflags der verlängerten Akt-V-Fassung (AP), in Spielreihenfolge. */
 export const K2_AKT5_STEPS = ['k2v_boot_bereit', 'k2v_keller_passiert', 'k2v_aufstieg_passiert', 'k2v_abschied_done'];
 
-Object.assign(GameState.prototype, partyMethods, gearMethods, pathwayMethods, artifactMethods, gatheringMethods, wantedMethods, bondMethods, auctionMethods, kahnMethods, newspaperMethods);
+Object.assign(GameState.prototype, partyMethods, gearMethods, pathwayMethods, artifactMethods, gatheringMethods, wantedMethods, bondMethods, auctionMethods, kahnMethods, newspaperMethods, signalMethods);

@@ -6,14 +6,37 @@
         "text": "Du stehst an der markierten Arbeitsstelle. Prüfe zuerst die örtliche Tafel; du kannst jederzeit umkehren.",
         "choices": [
           {
-            "text": "Den falschen Anfahrpfiff am unbenutzten Gleis prüfen.",
+            "text": "Den falschen Anfahrpfiff am unbenutzten Gleis prüfen (1 Rufladung).",
             "next": "k3o_vorbereitung",
             "requires_flags": [
               "k3o_rangierwueste_gelesen1"
             ],
             "hide_if_flags": [
               "k3o_falscher_pfiff"
-            ]
+            ],
+            "requires_signal_charge": true
+          },
+          {
+            "text": "Die Notladung aus dem Stationskasten nehmen.",
+            "next": "k3o_notladung",
+            "requires_flags": [
+              "k3o_rangierwueste_gelesen1"
+            ],
+            "hide_if_flags": [
+              "k3o_falscher_pfiff"
+            ],
+            "requires_signal_reserve": "k3o_horch_hund"
+          },
+          {
+            "text": "Das Gerät ist leer. Wie komme ich weiter?",
+            "next": "k3o_leer",
+            "requires_flags": [
+              "k3o_rangierwueste_gelesen1"
+            ],
+            "hide_if_flags": [
+              "k3o_falscher_pfiff"
+            ],
+            "requires_signal_empty": true
           },
           {
             "text": "Die vorbereitete stille Passage nutzen.",
@@ -47,7 +70,8 @@
             "text": "Zurück.",
             "next": "k3o_start"
           }
-        ]
+        ],
+        "signal": "call"
       },
       "k3o_kampf": {
         "text": "Du trittst in den deutlich markierten Suchkreis. Die Angriffe werden vor jedem Treffer angekündigt.",
@@ -64,6 +88,25 @@
             "next": "k3o_start"
           }
         ]
+      },
+      "k3o_notladung": {
+        "text": "Im verplombten Kasten neben der Tafel liegt eine einzelne Ersatzkammer. Du setzt sie ein; der Kasten bleibt danach leer.",
+        "signal_reserve": "k3o_horch_hund",
+        "choices": [
+          {
+            "text": "Zurück.",
+            "next": "k3o_start"
+          }
+        ]
+      },
+      "k3o_leer": {
+        "text": "Alle Kammern sind leer. Hat der Stationskasten noch seine Notladung, nimm sie. Sonst füllt Pfiff das Gerät im Speisewagen kostenlos wieder auf. Horchen und deine Notizen kosten nichts, und der Rückweg bleibt offen.",
+        "choices": [
+          {
+            "text": "Zurück.",
+            "next": "k3o_start"
+          }
+        ]
       }
     }
   },
@@ -74,14 +117,37 @@
         "text": "Du stehst an der markierten Arbeitsstelle. Prüfe zuerst die örtliche Tafel; du kannst jederzeit umkehren.",
         "choices": [
           {
-            "text": "Die originale Rettungsfolge am Handlauf zurückgeben.",
+            "text": "Die originale Rettungsfolge am Handlauf zurückgeben (1 Rufladung).",
             "next": "k3o_vorbereitung",
             "requires_flags": [
               "k3o_klopfbruch_gelesen1"
             ],
             "hide_if_flags": [
               "k3o_originalfolge"
-            ]
+            ],
+            "requires_signal_charge": true
+          },
+          {
+            "text": "Die Notladung aus dem Stationskasten nehmen.",
+            "next": "k3o_notladung",
+            "requires_flags": [
+              "k3o_klopfbruch_gelesen1"
+            ],
+            "hide_if_flags": [
+              "k3o_originalfolge"
+            ],
+            "requires_signal_reserve": "k3o_horch_vorhauer"
+          },
+          {
+            "text": "Das Gerät ist leer. Wie komme ich weiter?",
+            "next": "k3o_leer",
+            "requires_flags": [
+              "k3o_klopfbruch_gelesen1"
+            ],
+            "hide_if_flags": [
+              "k3o_originalfolge"
+            ],
+            "requires_signal_empty": true
           },
           {
             "text": "Die vorbereitete stille Passage nutzen.",
@@ -115,7 +181,8 @@
             "text": "Zurück.",
             "next": "k3o_start"
           }
-        ]
+        ],
+        "signal": "call"
       },
       "k3o_kampf": {
         "text": "Du trittst in den deutlich markierten Suchkreis. Die Angriffe werden vor jedem Treffer angekündigt.",
@@ -132,6 +199,25 @@
             "next": "k3o_start"
           }
         ]
+      },
+      "k3o_notladung": {
+        "text": "Im verplombten Kasten neben der Tafel liegt eine einzelne Ersatzkammer. Du setzt sie ein; der Kasten bleibt danach leer.",
+        "signal_reserve": "k3o_horch_vorhauer",
+        "choices": [
+          {
+            "text": "Zurück.",
+            "next": "k3o_start"
+          }
+        ]
+      },
+      "k3o_leer": {
+        "text": "Alle Kammern sind leer. Hat der Stationskasten noch seine Notladung, nimm sie. Sonst füllt Pfiff das Gerät im Speisewagen kostenlos wieder auf. Horchen und deine Notizen kosten nichts, und der Rückweg bleibt offen.",
+        "choices": [
+          {
+            "text": "Zurück.",
+            "next": "k3o_start"
+          }
+        ]
       }
     }
   },
@@ -142,14 +228,37 @@
         "text": "Du stehst an der markierten Arbeitsstelle. Prüfe zuerst die örtliche Tafel; du kannst jederzeit umkehren.",
         "choices": [
           {
-            "text": "Rufleitung und Antwortleitung einzeln trennen.",
+            "text": "Rufleitung und Antwortleitung einzeln trennen (1 Rufladung).",
             "next": "k3o_vorbereitung",
             "requires_flags": [
               "k3o_rufschlucht_gelesen1"
             ],
             "hide_if_flags": [
               "k3o_leitungen_getrennt"
-            ]
+            ],
+            "requires_signal_charge": true
+          },
+          {
+            "text": "Die Notladung aus dem Stationskasten nehmen.",
+            "next": "k3o_notladung",
+            "requires_flags": [
+              "k3o_rufschlucht_gelesen1"
+            ],
+            "hide_if_flags": [
+              "k3o_leitungen_getrennt"
+            ],
+            "requires_signal_reserve": "k3o_horch_verteiler"
+          },
+          {
+            "text": "Das Gerät ist leer. Wie komme ich weiter?",
+            "next": "k3o_leer",
+            "requires_flags": [
+              "k3o_rufschlucht_gelesen1"
+            ],
+            "hide_if_flags": [
+              "k3o_leitungen_getrennt"
+            ],
+            "requires_signal_empty": true
           },
           {
             "text": "Die vorbereitete stille Passage nutzen.",
@@ -183,7 +292,8 @@
             "text": "Zurück.",
             "next": "k3o_start"
           }
-        ]
+        ],
+        "signal": "call"
       },
       "k3o_kampf": {
         "text": "Du trittst in den deutlich markierten Suchkreis. Die Angriffe werden vor jedem Treffer angekündigt.",
@@ -200,6 +310,25 @@
             "next": "k3o_start"
           }
         ]
+      },
+      "k3o_notladung": {
+        "text": "Im verplombten Kasten neben der Tafel liegt eine einzelne Ersatzkammer. Du setzt sie ein; der Kasten bleibt danach leer.",
+        "signal_reserve": "k3o_horch_verteiler",
+        "choices": [
+          {
+            "text": "Zurück.",
+            "next": "k3o_start"
+          }
+        ]
+      },
+      "k3o_leer": {
+        "text": "Alle Kammern sind leer. Hat der Stationskasten noch seine Notladung, nimm sie. Sonst füllt Pfiff das Gerät im Speisewagen kostenlos wieder auf. Horchen und deine Notizen kosten nichts, und der Rückweg bleibt offen.",
+        "choices": [
+          {
+            "text": "Zurück.",
+            "next": "k3o_start"
+          }
+        ]
       }
     }
   },
@@ -210,14 +339,37 @@
         "text": "Du stehst an der markierten Arbeitsstelle. Prüfe zuerst die örtliche Tafel; du kannst jederzeit umkehren.",
         "choices": [
           {
-            "text": "Rollenruf und persönliche Namensantwort auseinanderhalten.",
+            "text": "Rollenruf und persönliche Namensantwort auseinanderhalten (1 Rufladung).",
             "next": "k3o_vorbereitung",
             "requires_flags": [
               "k3o_letzter_bahnsteig_gelesen1"
             ],
             "hide_if_flags": [
               "k3o_rolle_getrennt"
-            ]
+            ],
+            "requires_signal_charge": true
+          },
+          {
+            "text": "Die Notladung aus dem Stationskasten nehmen.",
+            "next": "k3o_notladung",
+            "requires_flags": [
+              "k3o_letzter_bahnsteig_gelesen1"
+            ],
+            "hide_if_flags": [
+              "k3o_rolle_getrennt"
+            ],
+            "requires_signal_reserve": "k3o_horch_bahnsteig"
+          },
+          {
+            "text": "Das Gerät ist leer. Wie komme ich weiter?",
+            "next": "k3o_leer",
+            "requires_flags": [
+              "k3o_letzter_bahnsteig_gelesen1"
+            ],
+            "hide_if_flags": [
+              "k3o_rolle_getrennt"
+            ],
+            "requires_signal_empty": true
           },
           {
             "text": "Den Hüter herausfordern.",
@@ -256,7 +408,8 @@
             "text": "Zurück.",
             "next": "k3o_start"
           }
-        ]
+        ],
+        "signal": "call"
       },
       "k3o_kampf": {
         "text": "Du trittst in den deutlich markierten Suchkreis. Die Angriffe werden vor jedem Treffer angekündigt.",
@@ -265,6 +418,25 @@
       "k3o_phase2": {
         "text": "Der nächste Abschnitt ist deutlich markiert. Du kannst vor dem Versuch zum Unterschlupf zurückkehren.",
         "combat": "k3o_gallowmere_phase2"
+      },
+      "k3o_notladung": {
+        "text": "Im verplombten Kasten neben der Tafel liegt eine einzelne Ersatzkammer. Du setzt sie ein; der Kasten bleibt danach leer.",
+        "signal_reserve": "k3o_horch_bahnsteig",
+        "choices": [
+          {
+            "text": "Zurück.",
+            "next": "k3o_start"
+          }
+        ]
+      },
+      "k3o_leer": {
+        "text": "Alle Kammern sind leer. Hat der Stationskasten noch seine Notladung, nimm sie. Sonst füllt Pfiff das Gerät im Speisewagen kostenlos wieder auf. Horchen und deine Notizen kosten nichts, und der Rückweg bleibt offen.",
+        "choices": [
+          {
+            "text": "Zurück.",
+            "next": "k3o_start"
+          }
+        ]
       }
     }
   },
@@ -275,14 +447,37 @@
         "text": "Du stehst an der markierten Arbeitsstelle. Prüfe zuerst die örtliche Tafel; du kannst jederzeit umkehren.",
         "choices": [
           {
-            "text": "Die unzugeordneten Lücken ohne Ersatznamen begrenzen.",
+            "text": "Die unzugeordneten Lücken ohne Ersatznamen begrenzen (1 Rufladung).",
             "next": "k3o_vorbereitung",
             "requires_flags": [
               "k3o_unterschicht_gelesen1"
             ],
             "hide_if_flags": [
               "k3o_luecken_begrenzt"
-            ]
+            ],
+            "requires_signal_charge": true
+          },
+          {
+            "text": "Die Notladung aus dem Stationskasten nehmen.",
+            "next": "k3o_notladung",
+            "requires_flags": [
+              "k3o_unterschicht_gelesen1"
+            ],
+            "hide_if_flags": [
+              "k3o_luecken_begrenzt"
+            ],
+            "requires_signal_reserve": "k3o_horch_tiefe"
+          },
+          {
+            "text": "Das Gerät ist leer. Wie komme ich weiter?",
+            "next": "k3o_leer",
+            "requires_flags": [
+              "k3o_unterschicht_gelesen1"
+            ],
+            "hide_if_flags": [
+              "k3o_luecken_begrenzt"
+            ],
+            "requires_signal_empty": true
           },
           {
             "text": "Die vorbereitete stille Passage nutzen.",
@@ -339,7 +534,8 @@
             "text": "Zurück.",
             "next": "k3o_start"
           }
-        ]
+        ],
+        "signal": "call"
       },
       "k3o_kampf": {
         "text": "Du trittst in den deutlich markierten Suchkreis. Die Angriffe werden vor jedem Treffer angekündigt.",
@@ -364,6 +560,25 @@
       "k3o_phase3": {
         "text": "Der nächste Abschnitt ist deutlich markiert. Du kannst vor dem Versuch zum Unterschlupf zurückkehren.",
         "combat": "k3o_unterschicht_phase3"
+      },
+      "k3o_notladung": {
+        "text": "Im verplombten Kasten neben der Tafel liegt eine einzelne Ersatzkammer. Du setzt sie ein; der Kasten bleibt danach leer.",
+        "signal_reserve": "k3o_horch_tiefe",
+        "choices": [
+          {
+            "text": "Zurück.",
+            "next": "k3o_start"
+          }
+        ]
+      },
+      "k3o_leer": {
+        "text": "Alle Kammern sind leer. Hat der Stationskasten noch seine Notladung, nimm sie. Sonst füllt Pfiff das Gerät im Speisewagen kostenlos wieder auf. Horchen und deine Notizen kosten nichts, und der Rückweg bleibt offen.",
+        "choices": [
+          {
+            "text": "Zurück.",
+            "next": "k3o_start"
+          }
+        ]
       }
     }
   }
