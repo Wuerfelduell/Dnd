@@ -1029,13 +1029,17 @@ export class Ui {
     const c = sc.combat;
     let entries;
     if (sub === 'main') {
+      const items = this.state.items().filter((i) => i.kind === 'consumable').length;
       entries = [
-        { text: 'Angriff', info: '+1 K', act: { type: 'skill', id: 'attack' } },
+        { text: 'Angriff', info: '+1 K · beendet den Zug', act: { type: 'skill', id: 'attack' } },
         { text: 'Fertigkeiten', info: `${c.ap} K`, sub: 'skills' },
-        { text: 'Gegenstände', info: `${this.state.items().filter((i) => i.kind === 'consumable').length}`, sub: 'items' },
+        { text: 'Gegenstände', info: c.canUseItem() ? `${items}` : 'schon benutzt', sub: 'items', disabled: !c.canUseItem() },
         { text: 'Fliehen', info: c.canFlee() ? '' : 'unmöglich', act: { type: 'flee' }, disabled: !c.canFlee() },
       ];
-      this.layer.querySelector('.cb-text').innerHTML = `<p>Runde ${c.round}. Was tust du?</p>`;
+      if (c.actions) entries.push({ text: 'Zug beenden', info: '', act: { type: 'end' } });
+      this.layer.querySelector('.cb-text').innerHTML = c.actions
+        ? `<p>${esc(c.log.at(-1) ?? '')}.</p><p>Runde ${c.round}: Du bist noch am Zug (${c.ap} Konzentration). Fertigkeiten kosten Konzentration, ein Gegenstand pro Zug.</p>`
+        : `<p>Runde ${c.round}. Was tust du? Solange die Konzentration reicht, kannst du mehrere Fertigkeiten nacheinander einsetzen.</p>`;
       this.layer.querySelector('.cb-help').textContent = '';
     } else if (sub === 'skills') {
       entries = c.skills().filter((k) => k.id !== 'attack').map((k) => ({
