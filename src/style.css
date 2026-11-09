@@ -558,3 +558,11 @@ button.small.drop.armed { border-color: #c8826a; color: #ffb09a; }
 .lonerbar .pips { display: inline-flex; gap: 0.1em; }
 .lonerbar .lstate { margin-left: 0.2em; }
 .treffen .auk.invite { margin-right: 0.2em; }
+
+/* Unterkategorien im Inventar */
+.tabs.subtabs { margin: 0.5em 0 0.4em; padding-bottom: 0.35em; border-bottom: 2px solid rgba(176, 138, 82, 0.35); gap: 0.25em; }
+.tabs.subtabs .tab { font-size: 0.8em; padding: 0.2em 0.55em; }
+.tabs.subtabs .tab .muted { font-size: 0.9em; }
+.tabs.subtabs .tab.sel .muted { color: var(--gold); }
+.tabs.subtabs .tab:disabled { opacity: 0.35; cursor: default; }
+.tabs.subtabs .subkeys { margin-left: auto; font-size: 0.75em; }

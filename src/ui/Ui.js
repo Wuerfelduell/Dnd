@@ -162,6 +162,17 @@ const paragraphs = (s) => esc(s).split('\n\n').map((p) => `<p>${p.replace(/\n/g,
 
 export const STATUS_LABEL = { suspected: 'Vermutung', likely: 'sehr wahrscheinlich', refuted: 'widerlegt' };
 
+// Unterkategorien im Inventar, nach Gegenstandsart
+const ITEM_CATS = [
+  { id: 'alle', title: 'Alle' },
+  { id: 'waffen', title: 'Waffen', kinds: ['weapon'] },
+  { id: 'artefakte', title: 'Artefakte', kinds: ['artifact'] },
+  { id: 'traenke', title: 'Tränke & Heilmittel', kinds: ['potion', 'consumable'] },
+  { id: 'zutaten', title: 'Zutaten & Rezepte', kinds: ['ingredient', 'formula'] },
+  { id: 'beute', title: 'Beute', kinds: ['trophy'] },
+  { id: 'quest', title: 'Quest', kinds: ['key'] },
+];
+
 export class Ui {
   constructor(root, state, { onNewGame, onContinue, hasSave }) {
     this.root = root;
@@ -174,6 +185,7 @@ export class Ui {
     this.blockedUntil = 0;
     this.selected = [];
     this.tab = 'quests';
+    this.itemCat = 'alle';
 
     root.innerHTML = `
       <div class="hud">
@@ -808,6 +820,7 @@ export class Ui {
       </div>`, 'notebook');
     this.notebookTabs = tabs;
     el.querySelectorAll('[data-tab]').forEach((b) => { b.onclick = () => { this.tab = b.dataset.tab; this.selected = []; this.renderNotebook(''); }; });
+    el.querySelectorAll('[data-itemcat]').forEach((b) => { b.onclick = () => { this.itemCat = b.dataset.itemcat; this.renderNotebook(''); }; });
     el.querySelectorAll('[data-fact]').forEach((b) => { b.onclick = () => this.toggleFact(b.dataset.fact); });
     el.querySelectorAll('[data-archive]').forEach((b) => { b.onclick = () => { this.archiveCase = b.dataset.archive; this.selected = []; this.renderNotebook(''); }; });
     el.querySelector('[data-act=combine]')?.addEventListener('click', () => this.combine());
@@ -908,7 +921,13 @@ export class Ui {
   itemsHtml() {
     const s = this.state;
     const kindOrder = { weapon: 0, artifact: 1, consumable: 2, potion: 3, formula: 4, ingredient: 5, trophy: 6, key: 7 };
-    const list = s.items().sort((a, b) => kindOrder[a.kind] - kindOrder[b.kind]);
+    const all = s.items().sort((a, b) => kindOrder[a.kind] - kindOrder[b.kind]);
+    const cats = ITEM_CATS.map((c) => ({ ...c, n: c.kinds ? all.filter((it) => c.kinds.includes(it.kind)).length : all.length }));
+    if (!cats.some((c) => c.id === this.itemCat && c.n)) this.itemCat = 'alle';
+    this.itemCats = cats.filter((c) => c.n || c.id === 'alle');
+    const cat = cats.find((c) => c.id === this.itemCat);
+    const list = cat.kinds ? all.filter((it) => cat.kinds.includes(it.kind)) : all;
+    const subtabs = `<div class="tabs subtabs">${cats.map((c) => `<button class="tab ${c.id === this.itemCat ? 'sel' : ''}" data-itemcat="${c.id}" ${c.n ? '' : 'disabled'}>${esc(c.title)} <span class="muted">${c.n}</span></button>`).join('')}<span class="muted subkeys"><span class="key">←</span><span class="key">→</span></span></div>`;
     const w = s.weaponStats();
     const rows = list.map((it) => {
       let action = '';
@@ -939,7 +958,8 @@ export class Ui {
     return `
       ${carryHtml(s)}
       <div class="status">Leben <strong>${s.hp}/${s.maxHp}</strong> · Nerven <strong>${Math.round(s.composure)}/${s.maxComposure()}</strong> · Waffe <strong>${esc(w.name)}</strong> (Angriff ${w.atk}) · ${coin}<strong>${s.money}</strong> Schilling</div>
-      ${arts}
+      ${cat.id === 'alle' || cat.id === 'artefakte' ? arts : ''}
+      ${subtabs}
       <ul class="items">${rows || '<li class="empty">Deine Taschen sind leer.</li>'}</ul>`;
   }
 
@@ -1575,7 +1595,12 @@ export class Ui {
     else if (this.modal === 'brew' && num >= 0 && this.brewList?.[num]) this.brew(this.brewList[num].formula);
     else if (this.modal === 'notebook' && k === 'v') this.combine();
     else if (this.modal === 'notebook' && k === 't') this.showHint();
-    else if (this.modal === 'notebook' && num >= 0 && this.notebookTabs[num]) { this.tab = this.notebookTabs[num].id; this.selected = []; this.renderNotebook(''); }
+    else if (this.modal === 'notebook' && this.tab === 'items' && (k === 'arrowleft' || k === 'arrowright') && this.itemCats?.length) {
+      const i = this.itemCats.findIndex((c) => c.id === this.itemCat);
+      const n = this.itemCats.length;
+      this.itemCat = this.itemCats[(i + (k === 'arrowright' ? 1 : n - 1)) % n].id;
+      this.renderNotebook('');
+    } else if (this.modal === 'notebook' && num >= 0 && this.notebookTabs[num]) { this.tab = this.notebookTabs[num].id; this.selected = []; this.renderNotebook(''); }
     else handled = false;
     if (handled) { e.preventDefault(); e.stopPropagation(); }
   }
