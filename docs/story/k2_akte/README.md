@@ -1,6 +1,6 @@
 # AP · Die fünf Akte
 
-> **Teil 1 eingebaut:** Die acht Standarddateien liegen unter `src/data/packs/k2_akte/` (zehn Fährten, Krabbe). Zwei Plätze wurden verschoben, weil dort AL- bzw. AB-Objekte stehen: `k2v_telegramm_spur1` auf (5,7) im Kahn, Krabbe in Akt I auf (24,8) am Bojenhafen. `epiloge.json` ist eingebaut (`src/data/packs/k2_akte/`, Anzeige nach dem Schlussbild). `akt5_neu.json` liegt weiter hier und kommt in einem eigenen Schritt (Turm-Sperren).
+> **Teil 1 eingebaut:** Die acht Standarddateien liegen unter `src/data/packs/k2_akte/` (zehn Fährten, Krabbe). Zwei Plätze wurden verschoben, weil dort AL- bzw. AB-Objekte stehen: `k2v_telegramm_spur1` auf (5,7) im Kahn, Krabbe in Akt I auf (24,8) am Bojenhafen. `epiloge.json` ist eingebaut (`src/data/packs/k2_akte/`, Anzeige nach dem Schlussbild). Auch `akt5_neu.json` ist eingebaut: Überfahrt am Bojenhafen, Turmreise erst nach `k2v_boot_bereit`, Sperren in `turm_sperren.json` (Klappe öffnet nach der Winde, Treppe nach Zunders Abschied), Winde an den Fuß des Aufgangs (19,24) verschoben, alte Stände mit besiegtem Leuchtfeuer überspringen die neuen Schritte.
 
 Eigenständiger Inhaltsentwurf für „Nebelakten“, Kapitel 2. Nur dieser Ordner gehört zum PR. Der Einbau erfolgt separat. Zunächst gelesen auf `1ecfc2df1facaacfd4e6e0caf7a554a08db20d41`, abschließend gegen `e90e5b040f9c3b6ae66c0edd55bad3f7de29a867` geprüft; verbindliche Vorlage: `docs/art/codex_AP_k2_akte.md`. Die zwischenzeitlich erhöhten Bosswerte und Sequenz-Schranken bleiben unverändert.
 

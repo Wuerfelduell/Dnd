@@ -338,9 +338,20 @@ test('Vey taucht nur auf, wenn sie in Fall 5 geflohen ist', () => {
 /** Akt V: zum Leuchtturm, das Leuchtfeuer besiegen (Ausrüstung wie für Bosse der Stufe 4). */
 function atTheTop(opts) {
   const s = afterAct4(opts);
+  // AP Akt V: erst Überfahrt am Bojenhafen, dann Keller, Winde und Zunders Abschied im Turm
+  assert.ok(!travelDestinations(s, 'wx_kahn').some((t) => t.map === 'wx_leuchtturm'), 'direkte Reise erst nach der Überfahrt');
+  use(s, 'wx_bojenhafen', 'k2v_inselboot');
+  talk(s, 'k2v_ueberfahrt', ['Einsteigen', 'Unter der Kaimauer', 'Wetter', 'Böenlücke']);
+  assert.deepEqual(s.pendingTravel, { map: 'wx_leuchtturm', spawn: 'default' });
+  s.pendingTravel = null;
   assert.ok(travelDestinations(s, 'wx_kahn').some((t) => t.map === 'wx_leuchtturm'));
   use(s, 'wx_leuchtturm', 'ankunft');
   s.flags.add('k2_am_turm');
+  for (const [obj, dlg, picks] of [['k2v_kellerszene_ort', 'k2v_kellerszene', ['sichern']], ['k2v_windenszene_ort', 'k2v_windenszene', ['von Hand']], ['k2v_abschied_ort', 'k2v_abschied', ['sprechen', '']]]) {
+    use(s, 'wx_leuchtturm', obj);
+    talk(s, dlg, picks);
+  }
+  assert.ok(s.flags.has('k2v_abschied_done'));
   s.addItem('ossuarklinge');
   s.equip('ossuarklinge');
   s.pathway = { id: 'eisen', seq: 5, digestion: 0 }; // das Leuchtfeuer verlangt Sequenz 5
