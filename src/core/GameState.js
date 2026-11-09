@@ -358,10 +358,12 @@ export class GameState {
     const it = this.item(id);
     if (!it) throw new Error(`Unbekannter Gegenstand: ${id}`);
     const wasHeavy = this.isOverloaded();
-    this.inventory[id] = this.itemCount(id) + n;
+    const had = this.itemCount(id);
+    this.inventory[id] = had + n;
     // Bessere Waffe automatisch ausrüsten
     if (it.kind === 'weapon' && (!this.weapon || it.atk > this.item(this.weapon).atk)) this.weapon = id;
     this.emit('item', { id, delta: n });
+    if (it.kind === 'artifact' && !had && n > 0) this.artifactPickedUp(id);
     // Beute geht nie verloren: wer zu viel trägt, wird nur langsamer.
     if (!wasHeavy && this.isOverloaded()) this.emit('notice', `Zu schwer beladen (${this.carryText()}). Du kommst nur langsam voran. Lagere etwas ein oder wirf es weg.`);
   }
@@ -451,9 +453,10 @@ export class GameState {
     if (!this.canStore(id)) return { ok: false, text: 'Beweisstücke behältst du lieber bei dir.' };
     n = Math.min(n, this.itemCount(id));
     if (n <= 0) return { ok: false, text: 'Davon hast du nichts dabei.' };
-    this.removeItem(id, n);
+    // Erst in den Schrank, dann aus der Tasche: so bleibt ein geliehenes Artefakt Revier-Eigentum.
     const st = this.stash(where);
     st[id] = (st[id] ?? 0) + n;
+    this.removeItem(id, n);
     this.emit('changed');
     return { ok: true, text: `Eingelagert: ${this.item(id).name}${n > 1 ? ` ×${n}` : ''}.` };
   }

@@ -67,7 +67,7 @@ export const pathwayMethods = {
 
   /**
    * Wert einer passiven Fähigkeit (Multiplikatoren multiplizieren sich, sonst wird addiert).
-   * Zählt die Passiven aller erreichten Sequenzen und die Vor- und Nachteile angelegter Artefakte.
+   * Zählt die Passiven aller erreichten Sequenzen und die Vor- und Nachteile mitgeführter Artefakte.
    */
   passive(key) {
     const mult = MULT_KEYS.has(key);
