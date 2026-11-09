@@ -3,7 +3,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { GameState } from '../src/core/GameState.js';
 import { Combat } from '../src/core/Combat.js';
-import { loadContent, talk, use, fight, SKILLED } from './helpers.js';
+import { loadContent, talk, use, fight, SKILLED, EXPERT } from './helpers.js';
 
 const content = loadContent();
 const WIN = { defend: SKILLED, healBelow: 15 };
@@ -93,7 +93,7 @@ test('Rostbrüder: Kettengeld, Kapelle, Harn ergibt sich mit Beweis gegen Vey', 
   won(s, 'rost_werfer');
   s.applyEffects({ sets_flags: ['forge_doused'] }); // Löscheimer
   use(s, 'rostkapelle', 'book');
-  const smith = fight(s, 'rost_schmied', WIN);
+  const smith = fight(s, 'rost_schmied', { ...WIN, defend: EXPERT });
   assert.ok(smith.combat.weak, 'gelöschte Esse schwächt Bellamy');
   assert.equal(smith.result.outcome, 'won');
   assert.ok(s.hasClue('schmied_grumble'));
@@ -113,7 +113,7 @@ test('Rostbrüder: Harn im Kampf besiegen geht auch ohne Beweis', () => {
   s.startQuest('rost_im_hafen');
   talk(s, 'harn', ['Kettengeld hört auf']);
   assert.equal(s.flags.has('knows_vey_cage'), false);
-  const { combat, result } = fight(s, 'rost_vater', WIN);
+  const { combat, result } = fight(s, 'rost_vater', { ...WIN, defend: EXPERT });
   assert.equal(combat.weak, false);
   assert.equal(result.outcome, 'won');
   assert.ok(s.flags.has('rost_broken'));

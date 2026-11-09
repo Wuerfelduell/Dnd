@@ -1,0 +1,4344 @@
+{
+  "version": 1,
+  "batch": "wildnis",
+  "status": "exported; runtime integration pending",
+  "paletteMaxVisibleColors": 31,
+  "palette": [
+    "#1a1c2c",
+    "#252b38",
+    "#303b49",
+    "#425360",
+    "#586c78",
+    "#71858b",
+    "#95a5a5",
+    "#2d2629",
+    "#413433",
+    "#58433c",
+    "#715648",
+    "#92745a",
+    "#b3946e",
+    "#cfb18a",
+    "#e0c9a1",
+    "#494b3a",
+    "#686850",
+    "#8b8870",
+    "#b4ac91",
+    "#dbd2b3",
+    "#eee2c5",
+    "#173d40",
+    "#245b59",
+    "#36817a",
+    "#4eafa2",
+    "#6fe0d0",
+    "#5f4829",
+    "#886332",
+    "#ba8942",
+    "#dbac5d",
+    "#f0ce80"
+  ],
+  "assets": [
+    {
+      "id": "tiles_marsch",
+      "file": "tilesets/G_01_marsch.png",
+      "transparent": false,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 8,
+      "rows": 8,
+      "animations": {
+        "water": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 3,
+          "repeat": -1
+        },
+        "gas": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 4,
+          "repeat": -1
+        }
+      },
+      "width": 128,
+      "height": 128
+    },
+    {
+      "id": "props_marsch",
+      "file": "props/G_01_marsch_props.png",
+      "transparent": true,
+      "regions": {
+        "willow": {
+          "x": 0,
+          "y": 0,
+          "width": 32,
+          "height": 48
+        },
+        "cattails": {
+          "x": 32,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "boat": {
+          "x": 48,
+          "y": 0,
+          "width": 32,
+          "height": 16
+        },
+        "hut": {
+          "x": 80,
+          "y": 0,
+          "width": 48,
+          "height": 48
+        },
+        "waymarker": {
+          "x": 128,
+          "y": 0,
+          "width": 16,
+          "height": 32
+        },
+        "bones": {
+          "x": 144,
+          "y": 0,
+          "width": 32,
+          "height": 16
+        },
+        "wheel": {
+          "x": 176,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "trap": {
+          "x": 192,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "jetty": {
+          "x": 208,
+          "y": 0,
+          "width": 32,
+          "height": 16
+        }
+      },
+      "animations": {},
+      "width": 256,
+      "height": 48
+    },
+    {
+      "id": "bg_marsch",
+      "file": "battle/bg_marsch.png",
+      "transparent": false,
+      "width": 480,
+      "height": 270
+    },
+    {
+      "id": "tiles_pestgassen",
+      "file": "tilesets/G_01_pestgassen.png",
+      "transparent": false,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 8,
+      "rows": 8,
+      "width": 128,
+      "height": 128
+    },
+    {
+      "id": "props_pestgassen",
+      "file": "props/G_01_pestgassen_props.png",
+      "transparent": true,
+      "regions": {
+        "cart": {
+          "x": 0,
+          "y": 0,
+          "width": 32,
+          "height": 16
+        },
+        "coffins": {
+          "x": 32,
+          "y": 0,
+          "width": 32,
+          "height": 16
+        },
+        "board": {
+          "x": 64,
+          "y": 0,
+          "width": 16,
+          "height": 32
+        },
+        "brazier_0": {
+          "x": 80,
+          "y": 0,
+          "width": 16,
+          "height": 32
+        },
+        "brazier_1": {
+          "x": 96,
+          "y": 0,
+          "width": 16,
+          "height": 32
+        },
+        "brazier_2": {
+          "x": 112,
+          "y": 0,
+          "width": 16,
+          "height": 32
+        },
+        "brazier_3": {
+          "x": 128,
+          "y": 0,
+          "width": 16,
+          "height": 32
+        },
+        "mask": {
+          "x": 144,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "nest": {
+          "x": 160,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "bottles": {
+          "x": 176,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "horse": {
+          "x": 192,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        }
+      },
+      "animations": {
+        "brazier": {
+          "frames": [
+            "brazier_0",
+            "brazier_1",
+            "brazier_2",
+            "brazier_3"
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        }
+      },
+      "width": 256,
+      "height": 32
+    },
+    {
+      "id": "bg_pestgassen",
+      "file": "battle/bg_pestgassen.png",
+      "transparent": false,
+      "width": 480,
+      "height": 270
+    },
+    {
+      "id": "tiles_katakomben",
+      "file": "tilesets/G_01_katakomben.png",
+      "transparent": false,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 8,
+      "rows": 8,
+      "animations": {
+        "candle": {
+          "frames": [
+            14,
+            15
+          ],
+          "frameRate": 3,
+          "repeat": -1
+        }
+      },
+      "width": 128,
+      "height": 128
+    },
+    {
+      "id": "props_katakomben",
+      "file": "props/G_01_katakomben_props.png",
+      "transparent": true,
+      "regions": {
+        "sarcophagus": {
+          "x": 0,
+          "y": 0,
+          "width": 16,
+          "height": 32
+        },
+        "pillar": {
+          "x": 16,
+          "y": 0,
+          "width": 16,
+          "height": 32
+        },
+        "candelabra_0": {
+          "x": 32,
+          "y": 0,
+          "width": 16,
+          "height": 32
+        },
+        "candelabra_1": {
+          "x": 48,
+          "y": 0,
+          "width": 16,
+          "height": 32
+        },
+        "candelabra_2": {
+          "x": 64,
+          "y": 0,
+          "width": 16,
+          "height": 32
+        },
+        "candelabra_3": {
+          "x": 80,
+          "y": 0,
+          "width": 16,
+          "height": 32
+        },
+        "gate_closed": {
+          "x": 96,
+          "y": 0,
+          "width": 32,
+          "height": 32
+        },
+        "gate_open": {
+          "x": 128,
+          "y": 0,
+          "width": 32,
+          "height": 32
+        },
+        "chain": {
+          "x": 160,
+          "y": 0,
+          "width": 16,
+          "height": 32
+        },
+        "angel": {
+          "x": 176,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "offering": {
+          "x": 192,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "web": {
+          "x": 208,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        }
+      },
+      "animations": {
+        "candelabra": {
+          "frames": [
+            "candelabra_0",
+            "candelabra_1",
+            "candelabra_2",
+            "candelabra_3"
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        }
+      },
+      "width": 256,
+      "height": 32
+    },
+    {
+      "id": "bg_katakomben",
+      "file": "battle/bg_katakomben.png",
+      "transparent": false,
+      "width": 480,
+      "height": 270
+    },
+    {
+      "id": "tiles_kraterwald",
+      "file": "tilesets/G_01_kraterwald.png",
+      "transparent": false,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 8,
+      "rows": 8,
+      "animations": {
+        "star_glass": {
+          "frames": [
+            8,
+            9
+          ],
+          "frameRate": 3,
+          "repeat": -1
+        }
+      },
+      "width": 128,
+      "height": 128
+    },
+    {
+      "id": "props_kraterwald",
+      "file": "props/G_01_kraterwald_props.png",
+      "transparent": true,
+      "regions": {
+        "tree_a": {
+          "x": 0,
+          "y": 0,
+          "width": 32,
+          "height": 48
+        },
+        "tree_b": {
+          "x": 32,
+          "y": 0,
+          "width": 32,
+          "height": 48
+        },
+        "trunk": {
+          "x": 64,
+          "y": 0,
+          "width": 48,
+          "height": 16
+        },
+        "stump": {
+          "x": 112,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "cluster_0": {
+          "x": 128,
+          "y": 0,
+          "width": 16,
+          "height": 32
+        },
+        "cluster_1": {
+          "x": 144,
+          "y": 0,
+          "width": 16,
+          "height": 32
+        },
+        "cluster_2": {
+          "x": 160,
+          "y": 0,
+          "width": 16,
+          "height": 32
+        },
+        "cluster_3": {
+          "x": 176,
+          "y": 0,
+          "width": 16,
+          "height": 32
+        },
+        "camp": {
+          "x": 192,
+          "y": 0,
+          "width": 48,
+          "height": 32
+        },
+        "antlers": {
+          "x": 240,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "theodolite": {
+          "x": 0,
+          "y": 48,
+          "width": 16,
+          "height": 32
+        }
+      },
+      "animations": {
+        "cluster": {
+          "frames": [
+            "cluster_0",
+            "cluster_1",
+            "cluster_2",
+            "cluster_3"
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        }
+      },
+      "width": 256,
+      "height": 80
+    },
+    {
+      "id": "bg_kraterwald",
+      "file": "battle/bg_kraterwald.png",
+      "transparent": false,
+      "width": 480,
+      "height": 270
+    },
+    {
+      "id": "danger",
+      "file": "ui/G_01_gefahr.png",
+      "transparent": true,
+      "regions": {
+        "danger_1": {
+          "x": 0,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "danger_2": {
+          "x": 16,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "danger_3": {
+          "x": 32,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "danger_4": {
+          "x": 48,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "danger_5": {
+          "x": 64,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "entry_banner": {
+          "x": 80,
+          "y": 0,
+          "width": 192,
+          "height": 32
+        },
+        "vignette_0": {
+          "x": 0,
+          "y": 32,
+          "width": 480,
+          "height": 270
+        },
+        "vignette_1": {
+          "x": 0,
+          "y": 304,
+          "width": 480,
+          "height": 270
+        },
+        "vignette_2": {
+          "x": 0,
+          "y": 576,
+          "width": 480,
+          "height": 270
+        },
+        "vignette_3": {
+          "x": 0,
+          "y": 848,
+          "width": 480,
+          "height": 270
+        },
+        "marsch_normal": {
+          "x": 480,
+          "y": 848,
+          "width": 16,
+          "height": 16
+        },
+        "marsch_highlight": {
+          "x": 496,
+          "y": 848,
+          "width": 16,
+          "height": 16
+        },
+        "pestgassen_normal": {
+          "x": 0,
+          "y": 1120,
+          "width": 16,
+          "height": 16
+        },
+        "pestgassen_highlight": {
+          "x": 16,
+          "y": 1120,
+          "width": 16,
+          "height": 16
+        },
+        "katakomben_normal": {
+          "x": 32,
+          "y": 1120,
+          "width": 16,
+          "height": 16
+        },
+        "katakomben_highlight": {
+          "x": 48,
+          "y": 1120,
+          "width": 16,
+          "height": 16
+        },
+        "kraterwald_normal": {
+          "x": 64,
+          "y": 1120,
+          "width": 16,
+          "height": 16
+        },
+        "kraterwald_highlight": {
+          "x": 80,
+          "y": 1120,
+          "width": 16,
+          "height": 16
+        }
+      },
+      "animations": {
+        "danger": {
+          "frames": [
+            "danger_1",
+            "danger_2",
+            "danger_3",
+            "danger_4",
+            "danger_5"
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "vignette": {
+          "frames": [
+            "vignette_0",
+            "vignette_1",
+            "vignette_2",
+            "vignette_3"
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        }
+      },
+      "zoneOverlays": {
+        "marsch": "vignette",
+        "pestgassen": "vignette",
+        "katakomben": "vignette",
+        "kraterwald": "vignette"
+      },
+      "width": 512,
+      "height": 1136
+    },
+    {
+      "id": "enemy_moorleiche",
+      "file": "battle/enemy_moorleiche.png",
+      "transparent": true,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 6,
+      "rows": 5,
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "attack": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "special": {
+          "frames": [
+            12,
+            13,
+            14,
+            15,
+            16,
+            17
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            18,
+            19,
+            20
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            24,
+            25,
+            26,
+            27,
+            28,
+            29
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      },
+      "facing": "left",
+      "windupFrames": [
+        6,
+        7
+      ],
+      "width": 384,
+      "height": 320
+    },
+    {
+      "id": "ow_moorleiche",
+      "file": "characters/G_ow_moorleiche.png",
+      "transparent": true,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        }
+      },
+      "width": 64,
+      "height": 128
+    },
+    {
+      "id": "enemy_irrlicht",
+      "file": "battle/enemy_irrlicht.png",
+      "transparent": true,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 6,
+      "rows": 5,
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "attack": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "special": {
+          "frames": [
+            12,
+            13,
+            14,
+            15,
+            16,
+            17
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            18,
+            19,
+            20
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            24,
+            25,
+            26,
+            27,
+            28,
+            29
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      },
+      "facing": "left",
+      "windupFrames": [
+        6,
+        7
+      ],
+      "width": 384,
+      "height": 320
+    },
+    {
+      "id": "ow_irrlicht",
+      "file": "characters/G_ow_irrlicht.png",
+      "transparent": true,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 4,
+      "rows": 4,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        }
+      },
+      "width": 64,
+      "height": 64
+    },
+    {
+      "id": "enemy_schlammegel",
+      "file": "battle/enemy_schlammegel.png",
+      "transparent": true,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 6,
+      "rows": 5,
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "attack": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "special": {
+          "frames": [
+            12,
+            13,
+            14,
+            15,
+            16,
+            17
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            18,
+            19,
+            20
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            24,
+            25,
+            26,
+            27,
+            28,
+            29
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      },
+      "facing": "left",
+      "windupFrames": [
+        6,
+        7
+      ],
+      "width": 384,
+      "height": 320
+    },
+    {
+      "id": "ow_schlammegel",
+      "file": "characters/G_ow_schlammegel.png",
+      "transparent": true,
+      "frameWidth": 32,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        }
+      },
+      "width": 128,
+      "height": 128
+    },
+    {
+      "id": "enemy_moorkoenigin",
+      "file": "battle/enemy_moorkoenigin.png",
+      "transparent": true,
+      "frameWidth": 96,
+      "frameHeight": 96,
+      "columns": 6,
+      "rows": 7,
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "attack": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "special": {
+          "frames": [
+            12,
+            13,
+            14,
+            15,
+            16,
+            17
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            18,
+            19,
+            20
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            24,
+            25,
+            26,
+            27,
+            28,
+            29
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "phase2_transform": {
+          "frames": [
+            30,
+            31,
+            32,
+            33,
+            34,
+            35
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "phase2_idle": {
+          "frames": [
+            36,
+            37,
+            38,
+            39
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        }
+      },
+      "facing": "left",
+      "windupFrames": [
+        6,
+        7
+      ],
+      "width": 576,
+      "height": 672
+    },
+    {
+      "id": "ow_moorkoenigin",
+      "file": "characters/G_ow_moorkoenigin.png",
+      "transparent": true,
+      "frameWidth": 32,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        }
+      },
+      "width": 128,
+      "height": 128
+    },
+    {
+      "id": "enemy_schnabelmaske",
+      "file": "battle/enemy_schnabelmaske.png",
+      "transparent": true,
+      "frameWidth": 48,
+      "frameHeight": 48,
+      "columns": 6,
+      "rows": 5,
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "attack": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "special": {
+          "frames": [
+            12,
+            13,
+            14,
+            15,
+            16,
+            17
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            18,
+            19,
+            20
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            24,
+            25,
+            26,
+            27,
+            28,
+            29
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      },
+      "facing": "left",
+      "windupFrames": [
+        6,
+        7
+      ],
+      "width": 288,
+      "height": 240
+    },
+    {
+      "id": "ow_schnabelmaske",
+      "file": "characters/G_ow_schnabelmaske.png",
+      "transparent": true,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        }
+      },
+      "width": 64,
+      "height": 128
+    },
+    {
+      "id": "enemy_hustender",
+      "file": "battle/enemy_hustender.png",
+      "transparent": true,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 6,
+      "rows": 5,
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "attack": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "special": {
+          "frames": [
+            12,
+            13,
+            14,
+            15,
+            16,
+            17
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            18,
+            19,
+            20
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            24,
+            25,
+            26,
+            27,
+            28,
+            29
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      },
+      "facing": "left",
+      "windupFrames": [
+        6,
+        7
+      ],
+      "width": 384,
+      "height": 320
+    },
+    {
+      "id": "ow_hustender",
+      "file": "characters/G_ow_hustender.png",
+      "transparent": true,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        }
+      },
+      "width": 64,
+      "height": 128
+    },
+    {
+      "id": "enemy_pestratte",
+      "file": "battle/enemy_pestratte.png",
+      "transparent": true,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 6,
+      "rows": 5,
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "attack": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "special": {
+          "frames": [
+            12,
+            13,
+            14,
+            15,
+            16,
+            17
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            18,
+            19,
+            20
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            24,
+            25,
+            26,
+            27,
+            28,
+            29
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      },
+      "facing": "left",
+      "windupFrames": [
+        6,
+        7
+      ],
+      "width": 384,
+      "height": 320
+    },
+    {
+      "id": "ow_pestratte",
+      "file": "characters/G_ow_pestratte.png",
+      "transparent": true,
+      "frameWidth": 32,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        }
+      },
+      "width": 128,
+      "height": 128
+    },
+    {
+      "id": "enemy_rattenkoenig",
+      "file": "battle/enemy_rattenkoenig.png",
+      "transparent": true,
+      "frameWidth": 96,
+      "frameHeight": 96,
+      "columns": 6,
+      "rows": 7,
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "attack": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "special": {
+          "frames": [
+            12,
+            13,
+            14,
+            15,
+            16,
+            17
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            18,
+            19,
+            20
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            24,
+            25,
+            26,
+            27,
+            28,
+            29
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "phase2_transform": {
+          "frames": [
+            30,
+            31,
+            32,
+            33,
+            34,
+            35
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "phase2_idle": {
+          "frames": [
+            36,
+            37,
+            38,
+            39
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        }
+      },
+      "facing": "left",
+      "windupFrames": [
+        6,
+        7
+      ],
+      "width": 576,
+      "height": 672
+    },
+    {
+      "id": "ow_rattenkoenig",
+      "file": "characters/G_ow_rattenkoenig.png",
+      "transparent": true,
+      "frameWidth": 32,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        }
+      },
+      "width": 128,
+      "height": 128
+    },
+    {
+      "id": "enemy_knochenwurm",
+      "file": "battle/enemy_knochenwurm.png",
+      "transparent": true,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 6,
+      "rows": 5,
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "attack": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "special": {
+          "frames": [
+            12,
+            13,
+            14,
+            15,
+            16,
+            17
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            18,
+            19,
+            20
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            24,
+            25,
+            26,
+            27,
+            28,
+            29
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      },
+      "facing": "left",
+      "windupFrames": [
+        6,
+        7
+      ],
+      "width": 384,
+      "height": 320
+    },
+    {
+      "id": "ow_knochenwurm",
+      "file": "characters/G_ow_knochenwurm.png",
+      "transparent": true,
+      "frameWidth": 32,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        }
+      },
+      "width": 128,
+      "height": 128
+    },
+    {
+      "id": "enemy_kerzenfresser",
+      "file": "battle/enemy_kerzenfresser.png",
+      "transparent": true,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 6,
+      "rows": 5,
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "attack": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "special": {
+          "frames": [
+            12,
+            13,
+            14,
+            15,
+            16,
+            17
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            18,
+            19,
+            20
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            24,
+            25,
+            26,
+            27,
+            28,
+            29
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      },
+      "facing": "left",
+      "windupFrames": [
+        6,
+        7
+      ],
+      "width": 384,
+      "height": 320
+    },
+    {
+      "id": "ow_kerzenfresser",
+      "file": "characters/G_ow_kerzenfresser.png",
+      "transparent": true,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        }
+      },
+      "width": 64,
+      "height": 128
+    },
+    {
+      "id": "enemy_schaedelschwarm",
+      "file": "battle/enemy_schaedelschwarm.png",
+      "transparent": true,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 6,
+      "rows": 5,
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "attack": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "special": {
+          "frames": [
+            12,
+            13,
+            14,
+            15,
+            16,
+            17
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            18,
+            19,
+            20
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            24,
+            25,
+            26,
+            27,
+            28,
+            29
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      },
+      "facing": "left",
+      "windupFrames": [
+        6,
+        7
+      ],
+      "width": 384,
+      "height": 320
+    },
+    {
+      "id": "ow_schaedelschwarm",
+      "file": "characters/G_ow_schaedelschwarm.png",
+      "transparent": true,
+      "frameWidth": 32,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        }
+      },
+      "width": 128,
+      "height": 128
+    },
+    {
+      "id": "enemy_ossuarwaechter",
+      "file": "battle/enemy_ossuarwaechter.png",
+      "transparent": true,
+      "frameWidth": 96,
+      "frameHeight": 96,
+      "columns": 6,
+      "rows": 7,
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "attack": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "special": {
+          "frames": [
+            12,
+            13,
+            14,
+            15,
+            16,
+            17
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            18,
+            19,
+            20
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            24,
+            25,
+            26,
+            27,
+            28,
+            29
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "phase2_transform": {
+          "frames": [
+            30,
+            31,
+            32,
+            33,
+            34,
+            35
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "phase2_idle": {
+          "frames": [
+            36,
+            37,
+            38,
+            39
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        }
+      },
+      "facing": "left",
+      "windupFrames": [
+        6,
+        7
+      ],
+      "width": 576,
+      "height": 672
+    },
+    {
+      "id": "ow_ossuarwaechter",
+      "file": "characters/G_ow_ossuarwaechter.png",
+      "transparent": true,
+      "frameWidth": 32,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        }
+      },
+      "width": 128,
+      "height": 128
+    },
+    {
+      "id": "enemy_glaskraehe",
+      "file": "battle/enemy_glaskraehe.png",
+      "transparent": true,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 6,
+      "rows": 5,
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "attack": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "special": {
+          "frames": [
+            12,
+            13,
+            14,
+            15,
+            16,
+            17
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            18,
+            19,
+            20
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            24,
+            25,
+            26,
+            27,
+            28,
+            29
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      },
+      "facing": "left",
+      "windupFrames": [
+        6,
+        7
+      ],
+      "width": 384,
+      "height": 320
+    },
+    {
+      "id": "ow_glaskraehe",
+      "file": "characters/G_ow_glaskraehe.png",
+      "transparent": true,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 4,
+      "rows": 4,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        }
+      },
+      "width": 64,
+      "height": 64
+    },
+    {
+      "id": "enemy_kraterbrut",
+      "file": "battle/enemy_kraterbrut.png",
+      "transparent": true,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 6,
+      "rows": 5,
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "attack": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "special": {
+          "frames": [
+            12,
+            13,
+            14,
+            15,
+            16,
+            17
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            18,
+            19,
+            20
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            24,
+            25,
+            26,
+            27,
+            28,
+            29
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      },
+      "facing": "left",
+      "windupFrames": [
+        6,
+        7
+      ],
+      "width": 384,
+      "height": 320
+    },
+    {
+      "id": "ow_kraterbrut",
+      "file": "characters/G_ow_kraterbrut.png",
+      "transparent": true,
+      "frameWidth": 32,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        }
+      },
+      "width": 128,
+      "height": 128
+    },
+    {
+      "id": "enemy_splitterling",
+      "file": "battle/enemy_splitterling.png",
+      "transparent": true,
+      "frameWidth": 48,
+      "frameHeight": 48,
+      "columns": 6,
+      "rows": 5,
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "attack": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "special": {
+          "frames": [
+            12,
+            13,
+            14,
+            15,
+            16,
+            17
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            18,
+            19,
+            20
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            24,
+            25,
+            26,
+            27,
+            28,
+            29
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      },
+      "facing": "left",
+      "windupFrames": [
+        6,
+        7
+      ],
+      "width": 288,
+      "height": 240
+    },
+    {
+      "id": "ow_splitterling",
+      "file": "characters/G_ow_splitterling.png",
+      "transparent": true,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        }
+      },
+      "width": 64,
+      "height": 128
+    },
+    {
+      "id": "enemy_sternhirsch",
+      "file": "battle/enemy_sternhirsch.png",
+      "transparent": true,
+      "frameWidth": 96,
+      "frameHeight": 96,
+      "columns": 6,
+      "rows": 7,
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "attack": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "special": {
+          "frames": [
+            12,
+            13,
+            14,
+            15,
+            16,
+            17
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            18,
+            19,
+            20
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            24,
+            25,
+            26,
+            27,
+            28,
+            29
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "phase2_transform": {
+          "frames": [
+            30,
+            31,
+            32,
+            33,
+            34,
+            35
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "phase2_idle": {
+          "frames": [
+            36,
+            37,
+            38,
+            39
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        }
+      },
+      "facing": "left",
+      "windupFrames": [
+        6,
+        7
+      ],
+      "width": 576,
+      "height": 672
+    },
+    {
+      "id": "ow_sternhirsch",
+      "file": "characters/G_ow_sternhirsch.png",
+      "transparent": true,
+      "frameWidth": 32,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        }
+      },
+      "width": 128,
+      "height": 128
+    },
+    {
+      "id": "monster_fx",
+      "file": "fx/G_02_monster_fx.png",
+      "transparent": true,
+      "regions": {
+        "spawn_0": {
+          "x": 0,
+          "y": 0,
+          "width": 32,
+          "height": 32
+        },
+        "spawn_1": {
+          "x": 32,
+          "y": 0,
+          "width": 32,
+          "height": 32
+        },
+        "spawn_2": {
+          "x": 64,
+          "y": 0,
+          "width": 32,
+          "height": 32
+        },
+        "spawn_3": {
+          "x": 96,
+          "y": 0,
+          "width": 32,
+          "height": 32
+        },
+        "spawn_4": {
+          "x": 128,
+          "y": 0,
+          "width": 32,
+          "height": 32
+        },
+        "spawn_5": {
+          "x": 160,
+          "y": 0,
+          "width": 32,
+          "height": 32
+        },
+        "aggro_0": {
+          "x": 192,
+          "y": 0,
+          "width": 32,
+          "height": 32
+        },
+        "aggro_1": {
+          "x": 224,
+          "y": 0,
+          "width": 32,
+          "height": 32
+        },
+        "aggro_2": {
+          "x": 0,
+          "y": 32,
+          "width": 32,
+          "height": 32
+        },
+        "aggro_3": {
+          "x": 32,
+          "y": 32,
+          "width": 32,
+          "height": 32
+        },
+        "patrol_0": {
+          "x": 64,
+          "y": 32,
+          "width": 8,
+          "height": 8
+        },
+        "patrol_1": {
+          "x": 80,
+          "y": 32,
+          "width": 8,
+          "height": 8
+        },
+        "elite_0": {
+          "x": 96,
+          "y": 32,
+          "width": 32,
+          "height": 32
+        },
+        "elite_1": {
+          "x": 128,
+          "y": 32,
+          "width": 32,
+          "height": 32
+        },
+        "elite_2": {
+          "x": 160,
+          "y": 32,
+          "width": 32,
+          "height": 32
+        },
+        "elite_3": {
+          "x": 192,
+          "y": 32,
+          "width": 32,
+          "height": 32
+        },
+        "lair_0": {
+          "x": 0,
+          "y": 64,
+          "width": 48,
+          "height": 48
+        },
+        "lair_1": {
+          "x": 48,
+          "y": 64,
+          "width": 48,
+          "height": 48
+        },
+        "lair_2": {
+          "x": 96,
+          "y": 64,
+          "width": 48,
+          "height": 48
+        },
+        "lair_3": {
+          "x": 144,
+          "y": 64,
+          "width": 48,
+          "height": 48
+        }
+      },
+      "animations": {
+        "spawn": {
+          "frames": [
+            "spawn_0",
+            "spawn_1",
+            "spawn_2",
+            "spawn_3",
+            "spawn_4",
+            "spawn_5"
+          ],
+          "frameRate": 6,
+          "repeat": 0
+        },
+        "aggro": {
+          "frames": [
+            "aggro_0",
+            "aggro_1",
+            "aggro_2",
+            "aggro_3"
+          ],
+          "frameRate": 6,
+          "repeat": 0
+        },
+        "patrol": {
+          "frames": [
+            "patrol_0",
+            "patrol_1"
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "elite": {
+          "frames": [
+            "elite_0",
+            "elite_1",
+            "elite_2",
+            "elite_3"
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "lair": {
+          "frames": [
+            "lair_0",
+            "lair_1",
+            "lair_2",
+            "lair_3"
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        }
+      },
+      "width": 256,
+      "height": 112
+    },
+    {
+      "id": "loot_beutel",
+      "file": "props/G_loot_beutel.png",
+      "transparent": true,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 2,
+      "rows": 1,
+      "animations": {
+        "closed": {
+          "frames": [
+            0
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "open": {
+          "frames": [
+            1
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        }
+      },
+      "width": 32,
+      "height": 16
+    },
+    {
+      "id": "loot_kiste",
+      "file": "props/G_loot_kiste.png",
+      "transparent": true,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 2,
+      "rows": 1,
+      "animations": {
+        "closed": {
+          "frames": [
+            0
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "open": {
+          "frames": [
+            1
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        }
+      },
+      "width": 32,
+      "height": 16
+    },
+    {
+      "id": "loot_truhe",
+      "file": "props/G_loot_truhe.png",
+      "transparent": true,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 2,
+      "rows": 1,
+      "animations": {
+        "closed": {
+          "frames": [
+            0
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "open": {
+          "frames": [
+            1
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        }
+      },
+      "width": 32,
+      "height": 16
+    },
+    {
+      "id": "loot_okkulter_schrein",
+      "file": "props/G_loot_okkulter_schrein.png",
+      "transparent": true,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 2,
+      "rows": 1,
+      "animations": {
+        "closed": {
+          "frames": [
+            0
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "open": {
+          "frames": [
+            1
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        }
+      },
+      "width": 32,
+      "height": 16
+    },
+    {
+      "id": "loot_extras",
+      "file": "props/G_03_loot_extras.png",
+      "transparent": true,
+      "regions": {
+        "coins": {
+          "x": 0,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "remains": {
+          "x": 16,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "material": {
+          "x": 32,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "sparkle_0": {
+          "x": 48,
+          "y": 0,
+          "width": 8,
+          "height": 8
+        },
+        "sparkle_1": {
+          "x": 64,
+          "y": 0,
+          "width": 8,
+          "height": 8
+        },
+        "sparkle_2": {
+          "x": 80,
+          "y": 0,
+          "width": 8,
+          "height": 8
+        },
+        "sparkle_3": {
+          "x": 96,
+          "y": 0,
+          "width": 8,
+          "height": 8
+        },
+        "chest_0": {
+          "x": 112,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "chest_1": {
+          "x": 128,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "chest_2": {
+          "x": 144,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "chest_3": {
+          "x": 160,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        }
+      },
+      "animations": {
+        "sparkle": {
+          "frames": [
+            "sparkle_0",
+            "sparkle_1",
+            "sparkle_2",
+            "sparkle_3"
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "chest": {
+          "frames": [
+            "chest_0",
+            "chest_1",
+            "chest_2",
+            "chest_3"
+          ],
+          "frameRate": 6,
+          "repeat": 0
+        }
+      },
+      "width": 256,
+      "height": 16
+    },
+    {
+      "id": "rarity",
+      "file": "ui/G_03_seltenheit.png",
+      "transparent": true,
+      "regions": {
+        "frame_common_0": {
+          "x": 0,
+          "y": 0,
+          "width": 20,
+          "height": 20
+        },
+        "frame_uncommon_0": {
+          "x": 32,
+          "y": 0,
+          "width": 20,
+          "height": 20
+        },
+        "frame_rare_0": {
+          "x": 64,
+          "y": 0,
+          "width": 20,
+          "height": 20
+        },
+        "frame_occult_0": {
+          "x": 96,
+          "y": 0,
+          "width": 20,
+          "height": 20
+        },
+        "frame_occult_1": {
+          "x": 128,
+          "y": 0,
+          "width": 20,
+          "height": 20
+        },
+        "frame_occult_2": {
+          "x": 160,
+          "y": 0,
+          "width": 20,
+          "height": 20
+        },
+        "frame_occult_3": {
+          "x": 192,
+          "y": 0,
+          "width": 20,
+          "height": 20
+        },
+        "beam_common_0": {
+          "x": 224,
+          "y": 0,
+          "width": 16,
+          "height": 48
+        },
+        "beam_common_1": {
+          "x": 240,
+          "y": 0,
+          "width": 16,
+          "height": 48
+        },
+        "beam_common_2": {
+          "x": 0,
+          "y": 48,
+          "width": 16,
+          "height": 48
+        },
+        "beam_common_3": {
+          "x": 16,
+          "y": 48,
+          "width": 16,
+          "height": 48
+        },
+        "beam_uncommon_0": {
+          "x": 32,
+          "y": 48,
+          "width": 16,
+          "height": 48
+        },
+        "beam_uncommon_1": {
+          "x": 48,
+          "y": 48,
+          "width": 16,
+          "height": 48
+        },
+        "beam_uncommon_2": {
+          "x": 64,
+          "y": 48,
+          "width": 16,
+          "height": 48
+        },
+        "beam_uncommon_3": {
+          "x": 80,
+          "y": 48,
+          "width": 16,
+          "height": 48
+        },
+        "beam_rare_0": {
+          "x": 96,
+          "y": 48,
+          "width": 16,
+          "height": 48
+        },
+        "beam_rare_1": {
+          "x": 112,
+          "y": 48,
+          "width": 16,
+          "height": 48
+        },
+        "beam_rare_2": {
+          "x": 128,
+          "y": 48,
+          "width": 16,
+          "height": 48
+        },
+        "beam_rare_3": {
+          "x": 144,
+          "y": 48,
+          "width": 16,
+          "height": 48
+        },
+        "beam_occult_0": {
+          "x": 160,
+          "y": 48,
+          "width": 16,
+          "height": 48
+        },
+        "beam_occult_1": {
+          "x": 176,
+          "y": 48,
+          "width": 16,
+          "height": 48
+        },
+        "beam_occult_2": {
+          "x": 192,
+          "y": 48,
+          "width": 16,
+          "height": 48
+        },
+        "beam_occult_3": {
+          "x": 208,
+          "y": 48,
+          "width": 16,
+          "height": 48
+        },
+        "gem_common": {
+          "x": 224,
+          "y": 48,
+          "width": 8,
+          "height": 8
+        },
+        "gem_uncommon": {
+          "x": 240,
+          "y": 48,
+          "width": 8,
+          "height": 8
+        },
+        "gem_rare": {
+          "x": 0,
+          "y": 96,
+          "width": 8,
+          "height": 8
+        },
+        "gem_occult": {
+          "x": 16,
+          "y": 96,
+          "width": 8,
+          "height": 8
+        }
+      },
+      "animations": {
+        "frame_occult": {
+          "frames": [
+            "frame_occult_0",
+            "frame_occult_1",
+            "frame_occult_2",
+            "frame_occult_3"
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "beam_common": {
+          "frames": [
+            "beam_common_0",
+            "beam_common_1",
+            "beam_common_2",
+            "beam_common_3"
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "beam_uncommon": {
+          "frames": [
+            "beam_uncommon_0",
+            "beam_uncommon_1",
+            "beam_uncommon_2",
+            "beam_uncommon_3"
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "beam_rare": {
+          "frames": [
+            "beam_rare_0",
+            "beam_rare_1",
+            "beam_rare_2",
+            "beam_rare_3"
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "beam_occult": {
+          "frames": [
+            "beam_occult_0",
+            "beam_occult_1",
+            "beam_occult_2",
+            "beam_occult_3"
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        }
+      },
+      "width": 256,
+      "height": 112
+    },
+    {
+      "id": "loot_ui",
+      "file": "ui/G_03_loot_ui.png",
+      "transparent": true,
+      "regions": {
+        "pickup_0": {
+          "x": 0,
+          "y": 0,
+          "width": 16,
+          "height": 32
+        },
+        "pickup_1": {
+          "x": 16,
+          "y": 0,
+          "width": 16,
+          "height": 32
+        },
+        "pickup_2": {
+          "x": 32,
+          "y": 0,
+          "width": 16,
+          "height": 32
+        },
+        "pickup_3": {
+          "x": 48,
+          "y": 0,
+          "width": 16,
+          "height": 32
+        },
+        "pickup_4": {
+          "x": 64,
+          "y": 0,
+          "width": 16,
+          "height": 32
+        },
+        "pickup_5": {
+          "x": 80,
+          "y": 0,
+          "width": 16,
+          "height": 32
+        },
+        "window": {
+          "x": 96,
+          "y": 0,
+          "width": 48,
+          "height": 48
+        },
+        "take_all": {
+          "x": 144,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "inventory_full": {
+          "x": 160,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "coin_gain_0": {
+          "x": 176,
+          "y": 0,
+          "width": 24,
+          "height": 16
+        },
+        "coin_gain_1": {
+          "x": 208,
+          "y": 0,
+          "width": 24,
+          "height": 16
+        },
+        "coin_gain_2": {
+          "x": 0,
+          "y": 48,
+          "width": 24,
+          "height": 16
+        },
+        "coin_gain_3": {
+          "x": 32,
+          "y": 48,
+          "width": 24,
+          "height": 16
+        }
+      },
+      "animations": {
+        "pickup": {
+          "frames": [
+            "pickup_0",
+            "pickup_1",
+            "pickup_2",
+            "pickup_3",
+            "pickup_4",
+            "pickup_5"
+          ],
+          "frameRate": 6,
+          "repeat": 0
+        },
+        "coin_gain": {
+          "frames": [
+            "coin_gain_0",
+            "coin_gain_1",
+            "coin_gain_2",
+            "coin_gain_3"
+          ],
+          "frameRate": 6,
+          "repeat": 0
+        }
+      },
+      "nineSlice": {
+        "region": "window",
+        "left": 16,
+        "right": 16,
+        "top": 16,
+        "bottom": 16
+      },
+      "width": 256,
+      "height": 64
+    },
+    {
+      "id": "moorwasser",
+      "file": "items/moorwasser.png",
+      "transparent": true,
+      "width": 16,
+      "height": 16
+    },
+    {
+      "id": "moorwasser_32",
+      "file": "items/32/moorwasser.png",
+      "transparent": true,
+      "width": 32,
+      "height": 32
+    },
+    {
+      "id": "irrlichtfunke",
+      "file": "items/irrlichtfunke.png",
+      "transparent": true,
+      "width": 16,
+      "height": 16
+    },
+    {
+      "id": "irrlichtfunke_32",
+      "file": "items/32/irrlichtfunke.png",
+      "transparent": true,
+      "width": 32,
+      "height": 32
+    },
+    {
+      "id": "egelschleim",
+      "file": "items/egelschleim.png",
+      "transparent": true,
+      "width": 16,
+      "height": 16
+    },
+    {
+      "id": "egelschleim_32",
+      "file": "items/32/egelschleim.png",
+      "transparent": true,
+      "width": 32,
+      "height": 32
+    },
+    {
+      "id": "moorperle",
+      "file": "items/moorperle.png",
+      "transparent": true,
+      "width": 16,
+      "height": 16
+    },
+    {
+      "id": "moorperle_32",
+      "file": "items/32/moorperle.png",
+      "transparent": true,
+      "width": 32,
+      "height": 32
+    },
+    {
+      "id": "schnabelfeder",
+      "file": "items/schnabelfeder.png",
+      "transparent": true,
+      "width": 16,
+      "height": 16
+    },
+    {
+      "id": "schnabelfeder_32",
+      "file": "items/32/schnabelfeder.png",
+      "transparent": true,
+      "width": 32,
+      "height": 32
+    },
+    {
+      "id": "hustenstaub",
+      "file": "items/hustenstaub.png",
+      "transparent": true,
+      "width": 16,
+      "height": 16
+    },
+    {
+      "id": "hustenstaub_32",
+      "file": "items/32/hustenstaub.png",
+      "transparent": true,
+      "width": 32,
+      "height": 32
+    },
+    {
+      "id": "rattenschwanz",
+      "file": "items/rattenschwanz.png",
+      "transparent": true,
+      "width": 16,
+      "height": 16
+    },
+    {
+      "id": "rattenschwanz_32",
+      "file": "items/32/rattenschwanz.png",
+      "transparent": true,
+      "width": 32,
+      "height": 32
+    },
+    {
+      "id": "rattenkrone",
+      "file": "items/rattenkrone.png",
+      "transparent": true,
+      "width": 16,
+      "height": 16
+    },
+    {
+      "id": "rattenkrone_32",
+      "file": "items/32/rattenkrone.png",
+      "transparent": true,
+      "width": 32,
+      "height": 32
+    },
+    {
+      "id": "material_1",
+      "file": "items/G_material_1.png",
+      "transparent": true,
+      "regions": {
+        "moorwasser_16": {
+          "x": 0,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "moorwasser_32": {
+          "x": 0,
+          "y": 16,
+          "width": 32,
+          "height": 32
+        },
+        "irrlichtfunke_16": {
+          "x": 16,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "irrlichtfunke_32": {
+          "x": 32,
+          "y": 16,
+          "width": 32,
+          "height": 32
+        },
+        "egelschleim_16": {
+          "x": 32,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "egelschleim_32": {
+          "x": 64,
+          "y": 16,
+          "width": 32,
+          "height": 32
+        },
+        "moorperle_16": {
+          "x": 48,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "moorperle_32": {
+          "x": 96,
+          "y": 16,
+          "width": 32,
+          "height": 32
+        },
+        "schnabelfeder_16": {
+          "x": 64,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "schnabelfeder_32": {
+          "x": 128,
+          "y": 16,
+          "width": 32,
+          "height": 32
+        },
+        "hustenstaub_16": {
+          "x": 80,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "hustenstaub_32": {
+          "x": 160,
+          "y": 16,
+          "width": 32,
+          "height": 32
+        },
+        "rattenschwanz_16": {
+          "x": 96,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "rattenschwanz_32": {
+          "x": 192,
+          "y": 16,
+          "width": 32,
+          "height": 32
+        },
+        "rattenkrone_16": {
+          "x": 112,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "rattenkrone_32": {
+          "x": 224,
+          "y": 16,
+          "width": 32,
+          "height": 32
+        }
+      },
+      "width": 256,
+      "height": 48
+    },
+    {
+      "id": "knochenmehl",
+      "file": "items/knochenmehl.png",
+      "transparent": true,
+      "width": 16,
+      "height": 16
+    },
+    {
+      "id": "knochenmehl_32",
+      "file": "items/32/knochenmehl.png",
+      "transparent": true,
+      "width": 32,
+      "height": 32
+    },
+    {
+      "id": "wachsherz",
+      "file": "items/wachsherz.png",
+      "transparent": true,
+      "width": 16,
+      "height": 16
+    },
+    {
+      "id": "wachsherz_32",
+      "file": "items/32/wachsherz.png",
+      "transparent": true,
+      "width": 32,
+      "height": 32
+    },
+    {
+      "id": "schaedelsplitter",
+      "file": "items/schaedelsplitter.png",
+      "transparent": true,
+      "width": 16,
+      "height": 16
+    },
+    {
+      "id": "schaedelsplitter_32",
+      "file": "items/32/schaedelsplitter.png",
+      "transparent": true,
+      "width": 32,
+      "height": 32
+    },
+    {
+      "id": "ossuarschluessel",
+      "file": "items/ossuarschluessel.png",
+      "transparent": true,
+      "width": 16,
+      "height": 16
+    },
+    {
+      "id": "ossuarschluessel_32",
+      "file": "items/32/ossuarschluessel.png",
+      "transparent": true,
+      "width": 32,
+      "height": 32
+    },
+    {
+      "id": "glasfeder",
+      "file": "items/glasfeder.png",
+      "transparent": true,
+      "width": 16,
+      "height": 16
+    },
+    {
+      "id": "glasfeder_32",
+      "file": "items/32/glasfeder.png",
+      "transparent": true,
+      "width": 32,
+      "height": 32
+    },
+    {
+      "id": "brutschale",
+      "file": "items/brutschale.png",
+      "transparent": true,
+      "width": 16,
+      "height": 16
+    },
+    {
+      "id": "brutschale_32",
+      "file": "items/32/brutschale.png",
+      "transparent": true,
+      "width": 32,
+      "height": 32
+    },
+    {
+      "id": "sternhirschgeweih",
+      "file": "items/sternhirschgeweih.png",
+      "transparent": true,
+      "width": 16,
+      "height": 16
+    },
+    {
+      "id": "sternhirschgeweih_32",
+      "file": "items/32/sternhirschgeweih.png",
+      "transparent": true,
+      "width": 32,
+      "height": 32
+    },
+    {
+      "id": "geisterkern",
+      "file": "items/geisterkern.png",
+      "transparent": true,
+      "width": 16,
+      "height": 16
+    },
+    {
+      "id": "geisterkern_32",
+      "file": "items/32/geisterkern.png",
+      "transparent": true,
+      "width": 32,
+      "height": 32
+    },
+    {
+      "id": "material_2",
+      "file": "items/G_material_2.png",
+      "transparent": true,
+      "regions": {
+        "knochenmehl_16": {
+          "x": 0,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "knochenmehl_32": {
+          "x": 0,
+          "y": 16,
+          "width": 32,
+          "height": 32
+        },
+        "wachsherz_16": {
+          "x": 16,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "wachsherz_32": {
+          "x": 32,
+          "y": 16,
+          "width": 32,
+          "height": 32
+        },
+        "schaedelsplitter_16": {
+          "x": 32,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "schaedelsplitter_32": {
+          "x": 64,
+          "y": 16,
+          "width": 32,
+          "height": 32
+        },
+        "ossuarschluessel_16": {
+          "x": 48,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "ossuarschluessel_32": {
+          "x": 96,
+          "y": 16,
+          "width": 32,
+          "height": 32
+        },
+        "glasfeder_16": {
+          "x": 64,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "glasfeder_32": {
+          "x": 128,
+          "y": 16,
+          "width": 32,
+          "height": 32
+        },
+        "brutschale_16": {
+          "x": 80,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "brutschale_32": {
+          "x": 160,
+          "y": 16,
+          "width": 32,
+          "height": 32
+        },
+        "sternhirschgeweih_16": {
+          "x": 96,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "sternhirschgeweih_32": {
+          "x": 192,
+          "y": 16,
+          "width": 32,
+          "height": 32
+        },
+        "geisterkern_16": {
+          "x": 112,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "geisterkern_32": {
+          "x": 224,
+          "y": 16,
+          "width": 32,
+          "height": 32
+        }
+      },
+      "width": 256,
+      "height": 48
+    },
+    {
+      "id": "mantel_moor",
+      "file": "items/mantel_moor.png",
+      "transparent": true,
+      "width": 16,
+      "height": 16
+    },
+    {
+      "id": "mantel_moor_32",
+      "file": "items/32/mantel_moor.png",
+      "transparent": true,
+      "width": 32,
+      "height": 32
+    },
+    {
+      "id": "hut_schnabel",
+      "file": "items/hut_schnabel.png",
+      "transparent": true,
+      "width": 16,
+      "height": 16
+    },
+    {
+      "id": "hut_schnabel_32",
+      "file": "items/32/hut_schnabel.png",
+      "transparent": true,
+      "width": 32,
+      "height": 32
+    },
+    {
+      "id": "amulett_moorperle",
+      "file": "items/amulett_moorperle.png",
+      "transparent": true,
+      "width": 16,
+      "height": 16
+    },
+    {
+      "id": "amulett_moorperle_32",
+      "file": "items/32/amulett_moorperle.png",
+      "transparent": true,
+      "width": 32,
+      "height": 32
+    },
+    {
+      "id": "knochenmesser",
+      "file": "items/knochenmesser.png",
+      "transparent": true,
+      "width": 16,
+      "height": 16
+    },
+    {
+      "id": "knochenmesser_32",
+      "file": "items/32/knochenmesser.png",
+      "transparent": true,
+      "width": 32,
+      "height": 32
+    },
+    {
+      "id": "wachsamulett",
+      "file": "items/wachsamulett.png",
+      "transparent": true,
+      "width": 16,
+      "height": 16
+    },
+    {
+      "id": "wachsamulett_32",
+      "file": "items/32/wachsamulett.png",
+      "transparent": true,
+      "width": 32,
+      "height": 32
+    },
+    {
+      "id": "glasfibel",
+      "file": "items/glasfibel.png",
+      "transparent": true,
+      "width": 16,
+      "height": 16
+    },
+    {
+      "id": "glasfibel_32",
+      "file": "items/32/glasfibel.png",
+      "transparent": true,
+      "width": 32,
+      "height": 32
+    },
+    {
+      "id": "sternglasdolch",
+      "file": "items/sternglasdolch.png",
+      "transparent": true,
+      "width": 16,
+      "height": 16
+    },
+    {
+      "id": "sternglasdolch_32",
+      "file": "items/32/sternglasdolch.png",
+      "transparent": true,
+      "width": 32,
+      "height": 32
+    },
+    {
+      "id": "geweihreif",
+      "file": "items/geweihreif.png",
+      "transparent": true,
+      "width": 16,
+      "height": 16
+    },
+    {
+      "id": "geweihreif_32",
+      "file": "items/32/geweihreif.png",
+      "transparent": true,
+      "width": 32,
+      "height": 32
+    },
+    {
+      "id": "equipment",
+      "file": "items/G_04_ausruestung.png",
+      "transparent": true,
+      "regions": {
+        "mantel_moor_16": {
+          "x": 0,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "mantel_moor_32": {
+          "x": 0,
+          "y": 16,
+          "width": 32,
+          "height": 32
+        },
+        "hut_schnabel_16": {
+          "x": 16,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "hut_schnabel_32": {
+          "x": 32,
+          "y": 16,
+          "width": 32,
+          "height": 32
+        },
+        "amulett_moorperle_16": {
+          "x": 32,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "amulett_moorperle_32": {
+          "x": 64,
+          "y": 16,
+          "width": 32,
+          "height": 32
+        },
+        "knochenmesser_16": {
+          "x": 48,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "knochenmesser_32": {
+          "x": 96,
+          "y": 16,
+          "width": 32,
+          "height": 32
+        },
+        "wachsamulett_16": {
+          "x": 64,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "wachsamulett_32": {
+          "x": 128,
+          "y": 16,
+          "width": 32,
+          "height": 32
+        },
+        "glasfibel_16": {
+          "x": 80,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "glasfibel_32": {
+          "x": 160,
+          "y": 16,
+          "width": 32,
+          "height": 32
+        },
+        "sternglasdolch_16": {
+          "x": 96,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "sternglasdolch_32": {
+          "x": 192,
+          "y": 16,
+          "width": 32,
+          "height": 32
+        },
+        "geweihreif_16": {
+          "x": 112,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "geweihreif_32": {
+          "x": 224,
+          "y": 16,
+          "width": 32,
+          "height": 32
+        }
+      },
+      "width": 256,
+      "height": 48
+    },
+    {
+      "id": "bestiary_moorleiche",
+      "file": "ui/bestiary/G_moorleiche.png",
+      "transparent": false,
+      "width": 96,
+      "height": 128
+    },
+    {
+      "id": "bestiary_irrlicht",
+      "file": "ui/bestiary/G_irrlicht.png",
+      "transparent": false,
+      "width": 96,
+      "height": 128
+    },
+    {
+      "id": "bestiary_schlammegel",
+      "file": "ui/bestiary/G_schlammegel.png",
+      "transparent": false,
+      "width": 96,
+      "height": 128
+    },
+    {
+      "id": "bestiary_moorkoenigin",
+      "file": "ui/bestiary/G_moorkoenigin.png",
+      "transparent": false,
+      "width": 96,
+      "height": 128
+    },
+    {
+      "id": "bestiary_schnabelmaske",
+      "file": "ui/bestiary/G_schnabelmaske.png",
+      "transparent": false,
+      "width": 96,
+      "height": 128
+    },
+    {
+      "id": "bestiary_hustender",
+      "file": "ui/bestiary/G_hustender.png",
+      "transparent": false,
+      "width": 96,
+      "height": 128
+    },
+    {
+      "id": "bestiary_pestratte",
+      "file": "ui/bestiary/G_pestratte.png",
+      "transparent": false,
+      "width": 96,
+      "height": 128
+    },
+    {
+      "id": "bestiary_rattenkoenig",
+      "file": "ui/bestiary/G_rattenkoenig.png",
+      "transparent": false,
+      "width": 96,
+      "height": 128
+    },
+    {
+      "id": "bestiary_knochenwurm",
+      "file": "ui/bestiary/G_knochenwurm.png",
+      "transparent": false,
+      "width": 96,
+      "height": 128
+    },
+    {
+      "id": "bestiary_kerzenfresser",
+      "file": "ui/bestiary/G_kerzenfresser.png",
+      "transparent": false,
+      "width": 96,
+      "height": 128
+    },
+    {
+      "id": "bestiary_schaedelschwarm",
+      "file": "ui/bestiary/G_schaedelschwarm.png",
+      "transparent": false,
+      "width": 96,
+      "height": 128
+    },
+    {
+      "id": "bestiary_ossuarwaechter",
+      "file": "ui/bestiary/G_ossuarwaechter.png",
+      "transparent": false,
+      "width": 96,
+      "height": 128
+    },
+    {
+      "id": "bestiary_glaskraehe",
+      "file": "ui/bestiary/G_glaskraehe.png",
+      "transparent": false,
+      "width": 96,
+      "height": 128
+    },
+    {
+      "id": "bestiary_kraterbrut",
+      "file": "ui/bestiary/G_kraterbrut.png",
+      "transparent": false,
+      "width": 96,
+      "height": 128
+    },
+    {
+      "id": "bestiary_splitterling",
+      "file": "ui/bestiary/G_splitterling.png",
+      "transparent": false,
+      "width": 96,
+      "height": 128
+    },
+    {
+      "id": "bestiary_sternhirsch",
+      "file": "ui/bestiary/G_sternhirsch.png",
+      "transparent": false,
+      "width": 96,
+      "height": 128
+    },
+    {
+      "id": "rest",
+      "file": "props/G_06_rast.png",
+      "transparent": true,
+      "regions": {
+        "campfire_0": {
+          "x": 0,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "campfire_1": {
+          "x": 16,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "campfire_2": {
+          "x": 32,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "campfire_3": {
+          "x": 48,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "campfire_4": {
+          "x": 64,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "campfire_5": {
+          "x": 80,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "bedroll": {
+          "x": 96,
+          "y": 0,
+          "width": 16,
+          "height": 32
+        },
+        "lantern": {
+          "x": 112,
+          "y": 0,
+          "width": 16,
+          "height": 32
+        },
+        "shelter": {
+          "x": 128,
+          "y": 0,
+          "width": 48,
+          "height": 32
+        },
+        "waystone_0": {
+          "x": 176,
+          "y": 0,
+          "width": 16,
+          "height": 32
+        },
+        "waystone_1": {
+          "x": 192,
+          "y": 0,
+          "width": 16,
+          "height": 32
+        },
+        "waystone_2": {
+          "x": 208,
+          "y": 0,
+          "width": 16,
+          "height": 32
+        },
+        "waystone_3": {
+          "x": 224,
+          "y": 0,
+          "width": 16,
+          "height": 32
+        },
+        "cache": {
+          "x": 240,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        }
+      },
+      "animations": {
+        "campfire": {
+          "frames": [
+            "campfire_0",
+            "campfire_1",
+            "campfire_2",
+            "campfire_3",
+            "campfire_4",
+            "campfire_5"
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "waystone": {
+          "frames": [
+            "waystone_0",
+            "waystone_1",
+            "waystone_2",
+            "waystone_3"
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        }
+      },
+      "width": 256,
+      "height": 32
+    }
+  ],
+  "pending": []
+}
