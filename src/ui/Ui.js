@@ -1,7 +1,7 @@
 import { DIGEST_LABELS } from '../core/Pathways.js';
 import { lootList, itemRarity, RARITY_NAMES, lootPreview, chanceWord } from '../core/Loot.js';
 import {
-  itemIconUrl, itemIcon32Url, pathwayEmblemUrl, pathwayCardUrl, COIN_URL, moneyIconUrl, UI_SKINS, STATUS_ICONS, STATUS_ICONS_URL,
+  itemIconUrl, itemIcon32Url, pathwayEmblemUrl, pathwayCardUrl, COIN_URL, moneyIconUrl, UI_SKINS, UI_SHEETS, UI_REGIONS, DAMAGE_FONT, STATUS_ICONS, STATUS_ICONS_URL,
   portraitUrl, portraitFor, mapMarkerOf, LOG_MARKERS, LOG_MARKERS_URL, SOURCE_ICONS, SPRITE_BASE,
   endingImageUrl, caseFileUrl, sceneUrl, wantedUrl, QUEST_UI_URL, QUEST_PINS, QUEST_BANNERS,
   TURN_PORTRAITS, TURN_PORTRAITS_URL, TURN_PORTRAIT_URLS, BESTIARY, bestiaryUrl,
@@ -137,6 +137,49 @@ const rarityGem = (r) => {
   return x === undefined ? '' : `<span class="raritygem" style="background-image:url(${RARITY_SHEET_URL});background-position:-${x / 8}em -${y / 8}em"></span>`;
 };
 const coin = '<img class="coin" src="' + COIN_URL + '" alt="" width="16" height="16" onerror="this.remove()">';
+/** Ausschnitt aus einem UI-Bogen (UI_SHEETS/UI_REGIONS), k = em pro Pixel. */
+const uiSprite = (sheet, region, k = 1 / 8, cls = '', title = '') => {
+  const r = UI_REGIONS[sheet]?.[region];
+  if (!r) return '';
+  const [path, w, h] = UI_SHEETS[sheet];
+  return regionIcon(SPRITE_BASE + path, r, w, h, `ui-${sheet} ${cls}`, k, title);
+};
+const damageDigits = (text, row, k) => [...text].map((ch) => {
+  const i = DAMAGE_FONT.glyphs.indexOf(ch);
+  const r = DAMAGE_FONT.rows[row];
+  return i < 0 ? '' : regionIcon(SPRITE_BASE + UI_SHEETS.dmg[0], [i * 8, r * 10, 8, 10], 96, 50, 'glyph', k);
+}).join('');
+/**
+ * Ausschnitte für 9-Slice-Rahmen und Zeiger: werden einmal auf ein Canvas kopiert und als CSS-Variable gesetzt
+ * (border-image braucht ein eigenes Bild). Lädt ein Bogen nicht, bleibt der bisherige Rahmen.
+ */
+const CROPS = {
+  'bmenu-panel': ['bmenu', [0, 0, 48, 48]], 'bmenu-pointer': ['bmenu', [80, 0, 8, 8]],
+  'shop-frame': ['shop', [0, 0, 48, 48]], 'shop-slot': ['shop', [0, 64, 20, 20]], 'shop-slot-hi': ['shop', [24, 64, 20, 20]],
+  'shop-slot-locked': ['shop', [96, 64, 20, 20]], 'shop-tag': ['shop', [64, 0, 16, 8]],
+  'loot-window': ['loot', [96, 0, 48, 48]], 'result-loot': ['bresult', [0, 96, 48, 48]],
+  'strip-suspected': ['logstrips', [0, 0, 160, 24]], 'strip-likely': ['logstrips', [0, 24, 160, 24]],
+  'equip-slot': ['equip', [112, 0, 20, 20]], 'equip-filled': ['equip', [112, 32, 20, 20]],
+};
+function cropSkins(root) {
+  const sheets = { ...Object.fromEntries(Object.entries(UI_SHEETS).map(([k, [p]]) => [k, p])), logstrips: 'ui/C_07_log_strips.png' };
+  const byFile = {};
+  for (const [name, [sheet, r]] of Object.entries(CROPS)) (byFile[sheets[sheet]] ??= []).push([name, r]);
+  for (const [path, list] of Object.entries(byFile)) {
+    const img = new Image();
+    img.onload = () => {
+      for (const [name, [x, y, w, h]] of list) {
+        const cv = document.createElement('canvas');
+        cv.width = w; cv.height = h;
+        cv.getContext('2d').drawImage(img, x, y, w, h, 0, 0, w, h);
+        root.style.setProperty(`--${name}`, `url(${cv.toDataURL()})`);
+      }
+      root.classList.add(`skin-${path.replace(/\W/g, '_')}`);
+    };
+    img.src = SPRITE_BASE + path;
+  }
+}
+const pctStep = (frac, n) => Math.max(0, Math.min(n - 1, Math.round((1 - Math.max(0, Math.min(1, frac))) * (n - 1))));
 const moneyIcon = (n) => `<img class="coin" src="${moneyIconUrl(n)}" alt="" width="16" height="16" onerror="this.remove()">`;
 /** Beute als Liste mit Icon, Anzahl und Seltenheit (Farbe). */
 const lootHtml = (loot, items) => {
@@ -178,6 +221,7 @@ export class Ui {
     this.root = root;
     root.style.setProperty('--artui', `url(${new URL(ARTIFACT_UI_URL, document.baseURI).href})`);
     for (const [v, path] of Object.entries(UI_SKINS)) root.style.setProperty(`--${v}`, `url(${new URL(SPRITE_BASE + path, document.baseURI).href})`);
+    cropSkins(root);
     this.state = state;
     this.onNewGame = onNewGame;
     this.onContinue = onContinue;
@@ -1419,13 +1463,14 @@ export class Ui {
     this.root.classList.add('in-combat');
     this.layer.innerHTML = `
       <div class="combat">
-        <div class="cb-enemy">${turnFace(scene.encounterId)}<div class="cb-name"></div><div class="bar big"><div class="efill"></div></div><div class="cb-tags"></div></div>
+        <div class="cb-enemy">${turnFace(scene.encounterId)}<div class="cb-name"></div><div class="bar big"><div class="efill"></div></div><div class="hudbar enemy"></div><div class="cb-tags"></div></div>
+        <div class="cb-turn"></div><div class="cb-target hidden">${uiSprite('hud', 'target0', 1 / 6, 'reticle')}</div>
         <div class="cb-msg"><div class="cb-text"></div><div class="cb-help"></div></div>
         <div class="cb-bottom">
           <div class="cb-player">
             <div class="cb-name">${turnFace('player')}Du <span class="muted cb-weapon"></span> <span class="cb-status"></span></div>
-            <div class="meter"><span>Leben</span><div class="bar"><div class="pfill"></div></div><em class="cb-hp"></em></div>
-            <div class="meter"><span>Nerven</span><div class="bar"><div class="nfill"></div></div></div>
+            <div class="meter"><span>Leben</span><div class="bar"><div class="pfill"></div></div><span class="hudbar hp"></span><em class="cb-hp"></em></div>
+            <div class="meter"><span>Nerven</span><div class="bar"><div class="nfill"></div></div><span class="hudbar nerves"></span></div>
             <div class="cb-ap"><span>Konzentration</span> <span class="pips"></span></div>
           </div>
           <div class="cb-menu"></div>
@@ -1440,7 +1485,11 @@ export class Ui {
     const c = sc.combat;
     const s = this.state;
     const q = (sel) => this.layer.querySelector(sel);
-    q('.cb-enemy .cb-name').textContent = `${c.enemy.name} · ${c.enemy.hp}/${c.enemy.maxHp}`;
+    q('.cb-enemy .cb-name').innerHTML = `${c.enemy.occult ? uiSprite('hud', 'occult', 1 / 8, 'occult', 'okkult') : ''}${esc(c.enemy.name)} · ${c.enemy.hp}/${c.enemy.maxHp}`;
+    // Paket B: Leisten aus battle_hud.png (sechs Füllstände)
+    q('.hudbar.enemy').innerHTML = uiSprite('hud', `enemy${pctStep(c.enemy.hp / c.enemy.maxHp, 6)}`, 1 / 4);
+    q('.hudbar.hp').innerHTML = uiSprite('hud', `hp${pctStep(s.hp / s.maxHp, 6)}`, 1 / 6);
+    q('.hudbar.nerves').innerHTML = uiSprite('hud', `nerves${pctStep(s.composure / s.maxComposure(), 6)}`, 1 / 6);
     q('.efill').style.width = `${(c.enemy.hp / c.enemy.maxHp) * 100}%`;
     const burn = c.burn ? { giftphiole: ['gift', 'Gift'], aetzwolke: ['zerfressen', 'Ätzend'] }[c.burn.source] ?? ['brennen', 'Brand'] : null;
     q('.cb-tags').innerHTML = [c.enemy.occult ? '<span class="badge refuted">okkult</span>' : '', c.weak ? `<span class="badge likely">${statusIcon('schwachstelle')}Schwachstelle bekannt</span>` : '', c.enc.practice ? '<span class="badge suspected">Übung</span>' : '',
@@ -1459,7 +1508,7 @@ export class Ui {
     q('.cb-hp').textContent = `${s.hp}/${s.maxHp}`;
     q('.nfill').style.width = `${(s.composure / s.maxComposure()) * 100}%`;
     q('.cb-weapon').textContent = s.weaponStats().name;
-    q('.pips').innerHTML = Array.from({ length: 6 }, (_, i) => `<i class="${i < c.ap ? 'on' : ''}"></i>`).join('');
+    q('.pips').innerHTML = Array.from({ length: 6 }, (_, i) => uiSprite('hud', i >= c.ap ? 'conc_empty' : c.ap >= 6 ? 'conc_glow' : 'conc_full', 1 / 6, 'pip')).join('');
   }
 
   /** Mögliche Beute eines Gegners als Icon-Reihe (seltenes zuerst). */
@@ -1478,6 +1527,7 @@ export class Ui {
     el.innerHTML = paragraphs(text);
     this.layer.querySelector('.cb-help').textContent = help;
     this.layer.querySelector('.cb-menu').innerHTML = '';
+    this.layer.querySelector('.cb-target')?.classList.add('hidden');
     this.combatMenuOpen = null;
   }
 
@@ -1489,12 +1539,13 @@ export class Ui {
     if (sub === 'main') {
       const items = this.state.items().filter((i) => i.kind === 'consumable').length;
       entries = [
-        { text: 'Angriff', info: '+1 K · beendet den Zug', act: { type: 'skill', id: 'attack' } },
-        { text: 'Fertigkeiten', info: `${c.ap} K`, sub: 'skills' },
-        { text: 'Gegenstände', info: c.canUseItem() ? `${items}` : 'schon benutzt', sub: 'items', disabled: !c.canUseItem() },
-        { text: 'Fliehen', info: c.canFlee() ? '' : 'unmöglich', act: { type: 'flee' }, disabled: !c.canFlee() },
+        { text: 'Angriff', ui: 'attack', info: '+1 K · beendet den Zug', act: { type: 'skill', id: 'attack' } },
+        { text: 'Fertigkeiten', ui: 'skill', info: `${c.ap} K`, sub: 'skills' },
+        { text: 'Gegenstände', ui: 'item', info: c.canUseItem() ? `${items}` : 'schon benutzt', sub: 'items', disabled: !c.canUseItem() },
+        { text: 'Fliehen', ui: 'flee', info: c.canFlee() ? '' : 'unmöglich', act: { type: 'flee' }, disabled: !c.canFlee() },
       ];
-      if (c.actions) entries.push({ text: 'Zug beenden', info: '', act: { type: 'end' } });
+      if (c.actions) entries.push({ text: 'Zug beenden', ui: 'defend', info: '', act: { type: 'end' } });
+      else this.combatTurn('player');
       this.layer.querySelector('.cb-text').innerHTML = c.actions
         ? `<p>${esc(c.log.at(-1) ?? '')}.</p><p>Runde ${c.round}: Du bist noch am Zug (${c.ap} Konzentration). Fertigkeiten kosten Konzentration, ein Gegenstand pro Zug.</p>`
         : `<p>Runde ${c.round}. Was tust du? Solange die Konzentration reicht, kannst du mehrere Fertigkeiten nacheinander einsetzen.</p>`;
@@ -1509,9 +1560,10 @@ export class Ui {
     }
     if (sub !== 'main') entries.push({ text: 'Zurück', back: true });
     this.combatMenuOpen = { sub, entries };
+    this.layer.querySelector('.cb-target')?.classList.remove('hidden');
     const menu = this.layer.querySelector('.cb-menu');
     menu.innerHTML = `<ol class="choices">${entries.map((e, i) => `<li><button data-i="${i}" ${e.disabled ? 'disabled' : ''} title="${esc(e.desc ?? '')}">
-      <span class="key">${e.back ? 'Esc' : i + 1}</span> ${e.icon ? itemIcon(e.icon) : ''}${e.skill ? skillIcon(e.skill) : ''}${esc(e.text)} <span class="muted">${esc(e.info ?? '')}</span></button></li>`).join('')}</ol>
+      <span class="key">${e.back ? 'Esc' : i + 1}</span> ${e.ui ? uiSprite('bmenu', e.disabled ? `${e.ui}_off` : e.ui, 1 / 16 * 1.4, 'cbicon') : ''}${e.icon ? itemIcon(e.icon) : ''}${e.skill ? skillIcon(e.skill) : ''}${esc(e.text)} <span class="muted">${esc(e.info ?? '')}</span></button></li>`).join('')}</ol>
       <div class="cb-desc"></div>`;
     menu.querySelectorAll('[data-i]').forEach((b) => {
       b.onclick = () => this.combatPick(Number(b.dataset.i));
@@ -1532,11 +1584,24 @@ export class Ui {
     const box = this.$('.floats');
     const el = document.createElement('div');
     el.className = `float ${cls}`;
-    el.textContent = text;
+    // Paket B: Zahlen in der Schadensschrift (damage_font.png), Text bleibt Text
+    const row = /^[+-]?\d+$/.test(text) ? (text.startsWith('+') ? 'healing' : { crit: 'critical', hurt: 'player_damage', nerves: 'nerves' }[cls] ?? 'damage') : null;
+    if (row) { el.classList.add('digits'); el.innerHTML = damageDigits(text, row, 1 / 8); } else el.textContent = text;
     el.style.left = `${xPct}%`;
     el.style.top = `${yPct}%`;
     box.appendChild(el);
     setTimeout(() => el.remove(), 1100);
+  }
+
+  /** Kurzes Banner „Du bist am Zug“ / „Gegner am Zug“ (battle_hud.png). */
+  combatTurn(who) {
+    const el = this.layer.querySelector('.cb-turn');
+    if (!el) return;
+    el.innerHTML = `${uiSprite('hud', who === 'enemy' ? 'enemy_turn' : 'your_turn', 1 / 10)}<span>${who === 'enemy' ? 'Gegner am Zug' : 'Du bist am Zug'}</span>`;
+    el.classList.toggle('enemy', who === 'enemy');
+    el.classList.remove('show');
+    void el.offsetWidth; // Animation neu starten
+    el.classList.add('show');
   }
 
   combatOver(title) {
@@ -1555,9 +1620,10 @@ export class Ui {
     const title = { won: 'Sieg', lost: 'Ohnmacht', fled: 'Rückzug' }[result.outcome];
     this.keysBlockedUntil = performance.now() + 400; // hastiges E-Drücken schließt die Meldung nicht sofort
     const list = result.loot ? lootHtml(result.loot, this.state.content.items) : '';
-    const extra = list ? `<h4 class="loot-title">${result.lootDeferred ? 'Beute liegt am Boden' : 'Beute'}</h4>${list}` : '';
+    const extra = list ? `<h4 class="loot-title">${uiSprite('bresult', 'loot', 1 / 8)}${result.lootDeferred ? 'Beute liegt am Boden' : 'Beute'}</h4>${list}` : '';
     const footer = result.lootDeferred && list ? 'Geh hin und drück E, um sie aufzuheben.' : '';
-    this.showMessage(`${title}: ${enc.name}`, result.text, { extra, footer });
+    const banner = { won: uiSprite('bresult', 'victory', 1 / 8, 'result-banner'), lost: uiSprite('bresult', 'defeat', 1 / 8, 'result-banner') }[result.outcome] ?? '';
+    this.showMessage(`${title}: ${enc.name}`, result.text, { extra, footer, aside: banner });
   }
 
   // --- Ende -------------------------------------------------------------------

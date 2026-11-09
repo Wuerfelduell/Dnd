@@ -430,7 +430,70 @@ export const COIN_URL = `${BASE}items/schilling.png`;
  */
 export const UI_SKINS = {
   coinspin: 'ui/coin_spin.png',
+  title_bg: 'ui/07_06_title.png',
+  dlgframe: 'ui/07_01_dialogue_frame.png',
+  qframe: 'ui/14_05_quest_log_frame.png',
+  bmenu: 'ui/battle_menu.png',
+  shopframe: 'ui/A_10_shop.png',
+  lootframe: 'ui/G_03_loot_ui.png',
+  logstrips: 'ui/C_07_log_strips.png',
 };
+/** Bögen für Symbole aus Regionen: Name → [Pfad, Breite, Höhe]. Regionen [x, y, w, h] in UI_REGIONS. */
+export const UI_SHEETS = {
+  hud: ['ui/battle_hud.png', 384, 144],
+  bmenu: ['ui/battle_menu.png', 128, 96],
+  bresult: ['ui/battle_result.png', 192, 144],
+  dmg: ['ui/damage_font.png', 96, 50],
+  shop: ['ui/A_10_shop.png', 160, 96],
+  digest: ['ui/A_11_digestion.png', 96, 64],
+  equip: ['ui/F_07_ausruestung.png', 192, 160],
+  loot: ['ui/G_03_loot_ui.png', 256, 64],
+  frak: ['ui/I_fraktionen.png', 256, 192],
+  routes: ['ui/I_reise_routen.png', 64, 32],
+  icons: ['ui/07_03_icons.png', 128, 32],
+  vial: ['ui/07_04_sanity_vial.png', 96, 48],
+  interact: ['ui/07_05_interaction.png', 64, 48],
+  ranks: ['ui/14_01_rank_badges_small.png', 80, 16],
+  repbar: ['ui/14_02_reputation_bar.png', 64, 40],
+  reppop: ['ui/14_02_reputation_popups.png', 32, 16],
+  locked: ['ui/14_03_locked_information.png', 64, 16],
+  qstatus: ['ui/14_05_quest_status_icons.png', 112, 16],
+  ladder: ['pathways/ladder_sockets.png', 96, 24],
+};
+const cell = (i, size = 16, cols = 8) => [(i % cols) * size, Math.floor(i / cols) * size, size, size];
+const steps = (prefix, x0, y, w, h, n, dx) => Object.fromEntries(Array.from({ length: n }, (_, i) => [`${prefix}${i}`, [x0 + i * dx, y, w, h]]));
+export const UI_REGIONS = {
+  hud: { ...steps('hp', 0, 0, 64, 8, 6, 64), ...steps('nerves', 0, 16, 64, 8, 6, 64), ...steps('enemy', 0, 32, 64, 6, 6, 64),
+    conc_empty: [0, 48, 8, 8], conc_full: [8, 48, 8, 8], conc_glow: [16, 48, 8, 8], occult: [32, 48, 16, 16],
+    ...steps('target', 0, 64, 24, 24, 4, 24), your_turn: [0, 112, 160, 24], enemy_turn: [192, 112, 160, 24] },
+  bmenu: { attack: [0, 64, 16, 16], attack_off: [0, 80, 16, 16], skill: [16, 64, 16, 16], skill_off: [16, 80, 16, 16],
+    item: [32, 64, 16, 16], item_off: [32, 80, 16, 16], defend: [48, 64, 16, 16], defend_off: [48, 80, 16, 16],
+    flee: [64, 64, 16, 16], flee_off: [64, 80, 16, 16], pointer: [80, 0, 8, 8] },
+  bresult: { victory: [0, 0, 192, 40], defeat: [0, 48, 192, 40], loot: [64, 96, 16, 16] },
+  shop: { price_tag: [64, 0, 16, 8], buy: [64, 24, 16, 16], sell: [80, 24, 16, 16], locked_pathway: [96, 24, 16, 16], locked_rank: [112, 24, 16, 16],
+    only_once: [128, 24, 16, 16], slot: [0, 64, 20, 20], slot_hi: [24, 64, 20, 20], slot_sel: [48, 64, 20, 20], slot_sold: [72, 64, 20, 20], slot_locked: [96, 64, 20, 20] },
+  digest: { ...Object.fromEntries([0, 20, 40, 60, 80, 100].map((p, i) => [`fill${p}`, [0, i * 10, 64, 10]])), warning: [72, 0, 16, 16], digested: [72, 24, 16, 16] },
+  equip: { slot: [112, 0, 20, 20], slot_hi: [144, 0, 20, 20], slot_filled: [112, 32, 20, 20],
+    hat: [112, 64, 8, 8], coat: [128, 64, 8, 8], amulet: [144, 64, 8, 8], weapon: [160, 64, 8, 8] },
+  loot: { take_all: [144, 0, 16, 16], full: [160, 0, 16, 16], ...steps('pickup', 0, 0, 16, 32, 6, 16) },
+  frak: { ...Object.fromEntries([0, 1, 2, 3, 4, 5].flatMap((i) => [[`rostbrueder${i}`, [0, i * 8, 64, 8]], [`schleierschwestern${i}`, [64, i * 8, 64, 8]]])),
+    hostile: [0, 64, 16, 16], suspicious: [16, 64, 16, 16], unknown: [32, 64, 16, 16], tolerated: [48, 64, 16, 16], infiltrated: [64, 64, 16, 16],
+    dossier: [144, 0, 96, 128] },
+  routes: { sicher: [0, 0, 8, 8], schnell: [32, 0, 8, 8], dest: [0, 16, 8, 16] },
+  icons: Object.fromEntries(['notebook', 'lupe', 'sprechen', 'karte', 'schluessel', 'laterne', 'auge', 'herz', 'muenze', 'zahnrad', 'uhr', 'frage',
+    'ausruf', 'spuren', 'brief', 'tuer'].map((n, i) => [n, cell(i)])),
+  vial: steps('v', 0, 0, 16, 48, 6, 16),
+  interact: { ...steps('lupe', 0, 0, 16, 16, 4, 16), ...steps('sprechen', 0, 16, 16, 16, 4, 16), ...steps('hand', 0, 32, 16, 16, 4, 16) },
+  ranks: steps('r', 0, 0, 16, 16, 5, 16),
+  reppop: { up: [0, 0, 16, 16], down: [16, 0, 16, 16] },
+  locked: { schloss: [0, 0, 16, 16], offen: [16, 0, 16, 16], gespraech: [32, 0, 16, 16], akte: [48, 0, 16, 16] },
+  qstatus: steps('q', 0, 0, 16, 16, 7, 16),
+  ladder: { empty: [0, 0, 24, 24], unlocked: [24, 0, 24, 24], cracked: [48, 0, 24, 24], locked: [72, 0, 24, 24] },
+  // Rufleiste: fünf Füllstände untereinander
+  repbar: Object.fromEntries([3, 10, 18, 25, 33].map((y, i) => [`f${i}`, [0, y, 64, 8]])),
+};
+/** Schadensschrift (8x10, 12 Spalten): Zeile nach Art, Spalte nach Zeichen. */
+export const DAMAGE_FONT = { glyphs: '0123456789+-', rows: { damage: 0, critical: 1, player_damage: 2, nerves: 3, healing: 4 } };
 /** Geld-Symbol nach Betrag: einzelne Münze, Stapel, Haufen, Geldbeutel (Paket A). */
 export const moneyIconUrl = (n) => `${BASE}items/${n >= 60 ? 'geldbeutel' : n >= 25 ? 'schilling_haufen' : n >= 10 ? 'schilling_stapel' : 'schilling'}.png`;
 

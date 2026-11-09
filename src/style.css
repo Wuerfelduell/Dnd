@@ -573,3 +573,31 @@ button.small.drop.armed { border-color: #c8826a; color: #ffb09a; }
 .coinspin { display: inline-block; width: 1em; height: 1em; margin-right: 0.3em; vertical-align: -0.15em; image-rendering: pixelated;
   background: var(--coinspin) 0 0 / 600% 100% no-repeat; animation: coinspin 0.5s steps(6) 3; }
 @keyframes coinspin { to { background-position: -6em 0; } }
+
+/* --- Paket B: Kampf-Oberfläche aus battle_hud.png, battle_menu.png, battle_result.png, damage_font.png --- */
+.combat .bar { display: none; }
+.combat .hudbar { display: inline-block; line-height: 0; }
+.cb-enemy .hudbar.enemy { display: block; margin-top: 0.2em; text-align: right; }
+.cb-enemy .cb-name .occult { margin-right: 0.3em; vertical-align: -0.35em; }
+.pips .pip { margin-right: 0.15em; }
+.cb-menu .cbicon { margin-right: 0.3em; vertical-align: -0.3em; }
+.skin-ui_battle_menu_png .cb-menu { border: 1em solid transparent; border-image: var(--bmenu-panel) 16 fill / 1em; background: none; padding: 0; color: #2a2018; }
+.skin-ui_battle_menu_png .cb-menu .choices button { color: #2a2018; text-shadow: none; position: relative; }
+.skin-ui_battle_menu_png .cb-menu .choices button .muted, .skin-ui_battle_menu_png .cb-desc { color: #5a4a38; }
+.skin-ui_battle_menu_png .cb-menu .choices button:hover:not(:disabled) { background: rgba(255, 240, 200, 0.35); border-color: transparent; }
+.skin-ui_battle_menu_png .cb-menu .choices button:hover:not(:disabled)::before { content: ''; position: absolute; left: -1em; top: 50%; width: 1em; height: 1em;
+  transform: translateY(-50%); background: var(--bmenu-pointer) center / contain no-repeat; image-rendering: pixelated; animation: nudge 0.4s steps(2) infinite alternate; }
+@keyframes nudge { to { transform: translate(0.2em, -50%); } }
+.cb-turn { position: absolute; left: 50%; top: 22%; width: 16em; height: 2.4em; transform: translateX(-50%); opacity: 0; pointer-events: none; white-space: nowrap; }
+.cb-turn.show { animation: turnBanner 1.3s ease-out forwards; }
+@keyframes turnBanner { 0% { opacity: 0; transform: translate(-50%, -0.5em); } 15%, 70% { opacity: 1; transform: translate(-50%, 0); } 100% { opacity: 0; } }
+.cb-target { position: absolute; left: 71.9%; top: 69%; transform: translate(-50%, -50%); pointer-events: none; line-height: 0; }
+.cb-target .reticle { animation: reticle 0.66s steps(4) infinite; }
+@keyframes reticle { to { background-position-x: -16em; } }
+.float.digits { display: flex; gap: 0.05em; line-height: 0; }
+.result-banner { display: block; margin: 0 auto 0.4em; }
+.loot-title .auk { margin-right: 0.3em; vertical-align: -0.3em; }
+.skin-ui_battle_menu_png .cb-menu .key { color: #2a2018; border-color: #6a5440; background: rgba(255, 240, 200, 0.4); }
+.cb-turn .auk { display: block; }
+.cb-turn span { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; color: #2a1e10; font-weight: 600; }
+.cb-turn.enemy span { color: #d8e4ec; text-shadow: 0 0.1em 0 #000; }
