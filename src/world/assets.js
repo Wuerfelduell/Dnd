@@ -2009,3 +2009,6 @@ ENCOUNTER_BACKGROUNDS.moorbraut = 'bg_brautkammer';
 /** Beute der Torfbrüche und der Brautkranz (16er und 32er). */
 ICON32.push('schlickzahn', 'wurmseide', 'grubenglas', 'torfbernstein', 'brautschleier', 'brautring', 'brautkranz');
 ITEM_ICON_ALIASES.k2o_amtsschluessel = 'amulett_schluessel';
+/** Paket AP: Krabbes Fundstücke nutzen bis zu eigenen Icons die vorgeschlagenen Platzhalter. */
+Object.assign(ITEM_ICON_ALIASES, { k2v_drucksplitter: 'schreintaefelchen', k2v_messingknopf: 'taschenuhr', k2v_fahrkartenhaelfte: 'fahrkarte_wexmoor',
+  k2v_saumbrief: 'liebesbrief', k2v_tonnenholz: 'schreintaefelchen' });

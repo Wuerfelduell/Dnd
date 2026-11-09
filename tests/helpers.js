@@ -4,7 +4,7 @@ import { buildContent } from '../src/data/buildContent.js';
 
 const load = (p) => JSON.parse(readFileSync(new URL(`../src/data/${p}`, import.meta.url), 'utf8'));
 
-const PACKS = ['kg_nebenquests', 'wx_nebenquests', 'koop', 'k2_akten', 'k2_orte', 'k2_gilde'];
+const PACKS = ['kg_nebenquests', 'wx_nebenquests', 'koop', 'k2_akten', 'k2_orte', 'k2_gilde', 'k2_akte'];
 const PACK_FILES = ['quests', 'items', 'encounters', 'dialogues', 'npcs', 'case', 'dialog_zusaetze', 'platzierung'];
 
 /** sequenzen: false lädt den Stand ohne Paket AF (für docs/story/sequenzen/pruefen.mjs). */
