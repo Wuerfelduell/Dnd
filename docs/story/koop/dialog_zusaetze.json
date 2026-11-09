@@ -1,0 +1,636 @@
+{
+  "marlowe": {
+    "choices_add": [
+      {
+        "text": "Sie bemerken meine Begleitung.",
+        "next": "koop_reaktion_marlowe",
+        "requires_flags": [
+          "koop_aktiv"
+        ]
+      }
+    ],
+    "nodes_add": {
+      "koop_reaktion_marlowe": {
+        "text": "Marlowe legt die Feder ab. „Zwei Paar Augen können nützlich sein. Zwei Fassungen derselben Vermutung sind noch keine zwei Zeugen.“",
+        "choices": [
+          {
+            "text": "Wir vergleichen, was wir selbst sehen.",
+            "next": "koop_reaktion_marlowe_ruhig",
+            "requires_flags": [
+              "koop_aktiv"
+            ]
+          },
+          {
+            "text": "Und wenn wir uns widersprechen?",
+            "next": "koop_reaktion_marlowe_frage",
+            "requires_flags": [
+              "koop_aktiv"
+            ]
+          },
+          {
+            "text": "Wir müssen weiter."
+          }
+        ]
+      },
+      "koop_reaktion_marlowe_ruhig": {
+        "text": "„Dann halten Sie Beobachtung und Hörensagen auseinander. Ich unterschreibe lieber eine kurze, richtige Aussage als zwei lange.“ Marlowe schiebt das Tintenfass in die Tischmitte.",
+        "choices": [
+          {
+            "text": "Bis später."
+          }
+        ]
+      },
+      "koop_reaktion_marlowe_frage": {
+        "text": "„Dann schreiben Sie beides auf. Eine Abweichung verschwindet nicht, weil man sie höflich übergeht.“",
+        "choices": [
+          {
+            "text": "Verstanden."
+          }
+        ]
+      }
+    }
+  },
+  "holt": {
+    "choices_add": [
+      {
+        "text": "Wir sind heute zu zweit.",
+        "next": "koop_reaktion_holt",
+        "requires_flags": [
+          "koop_aktiv"
+        ],
+        "hide_if_flags": [
+          "holt_suspended"
+        ]
+      }
+    ],
+    "nodes_add": {
+      "koop_reaktion_holt": {
+        "text": "Holt mustert eure Stiefel. „Gut. Einer sieht nach vorn, einer achtet darauf, dass hinten niemand stehen bleibt.“ Er rückt vom Durchgang weg.",
+        "choices": [
+          {
+            "text": "Wir halten uns gegenseitig im Blick.",
+            "next": "koop_reaktion_holt_ruhig",
+            "requires_flags": [
+              "koop_aktiv"
+            ]
+          },
+          {
+            "text": "Zwei Personen machen weniger Ärger?",
+            "next": "koop_reaktion_holt_frage",
+            "requires_flags": [
+              "koop_aktiv"
+            ]
+          },
+          {
+            "text": "Wir müssen weiter."
+          }
+        ]
+      },
+      "koop_reaktion_holt_ruhig": {
+        "text": "„Mehr verlange ich nicht. Wer Hilfe braucht, sagt es, bevor er auf dem Pflaster liegt.“ Holt klopft zweimal gegen den Türrahmen.",
+        "choices": [
+          {
+            "text": "Bis später."
+          }
+        ]
+      },
+      "koop_reaktion_holt_frage": {
+        "text": "„Zwei vernünftige vielleicht. Beweisen Sie mir zuerst, dass ich richtig gezählt habe.“",
+        "choices": [
+          {
+            "text": "Verstanden."
+          }
+        ]
+      }
+    }
+  },
+  "pimm": {
+    "choices_add": [
+      {
+        "text": "Meine Begleitung kennt das Archiv.",
+        "next": "koop_reaktion_pimm",
+        "requires_flags": [
+          "koop_aktiv"
+        ]
+      }
+    ],
+    "nodes_add": {
+      "koop_reaktion_pimm": {
+        "text": "Pimm blickt an dir vorbei zu deiner Begleitung. „Der Stuhl ist nicht vergeben. Er steht nur dort, wo er bei Abwesenheit keine Tür blockiert.“ Sie streicht eine Kante ihres Registers glatt.",
+        "choices": [
+          {
+            "text": "Wir bringen alles wieder zurück.",
+            "next": "koop_reaktion_pimm_ruhig",
+            "requires_flags": [
+              "koop_aktiv"
+            ]
+          },
+          {
+            "text": "Vermissen Sie die zusätzliche Hilfe?",
+            "next": "koop_reaktion_pimm_frage",
+            "requires_flags": [
+              "koop_aktiv"
+            ]
+          },
+          {
+            "text": "Wir müssen weiter."
+          }
+        ]
+      },
+      "koop_reaktion_pimm_ruhig": {
+        "text": "„Die ausgeliehenen Unterlagen zuerst, die Personen möglichst ebenfalls. Reihenfolge bedeutet keine Wertung.“ Pimm hebt den Blick nur kurz.",
+        "choices": [
+          {
+            "text": "Bis später."
+          }
+        ]
+      },
+      "koop_reaktion_pimm_frage": {
+        "text": "„Die Bleistifte bleiben jetzt länger angespitzt. Dafür dauert das Abschreiben.“ Sie legt zwei leere Blätter bereit.",
+        "choices": [
+          {
+            "text": "Verstanden."
+          }
+        ]
+      }
+    }
+  },
+  "greta": {
+    "choices_add": [
+      {
+        "text": "Sie sehen uns beide so an.",
+        "next": "koop_reaktion_greta",
+        "requires_flags": [
+          "koop_aktiv"
+        ]
+      }
+    ],
+    "nodes_add": {
+      "koop_reaktion_greta": {
+        "text": "Greta dreht zwei Blumentöpfe aus dem Wind. „Wer zusammen unterwegs ist, merkt manchmal zuletzt, wie müde der andere ist. Schauen Sie gelegentlich genauer hin.“",
+        "choices": [
+          {
+            "text": "Das tun wir.",
+            "next": "koop_reaktion_greta_ruhig",
+            "requires_flags": [
+              "koop_aktiv"
+            ]
+          },
+          {
+            "text": "Sie bemerken so etwas schnell.",
+            "next": "koop_reaktion_greta_frage",
+            "requires_flags": [
+              "koop_aktiv"
+            ]
+          },
+          {
+            "text": "Wir müssen weiter."
+          }
+        ]
+      },
+      "koop_reaktion_greta_ruhig": {
+        "text": "„Gut. Und schauen Sie dabei ins Gesicht, nicht auf den Mantel.“ Sie zupft ein welkes Blatt ab.",
+        "choices": [
+          {
+            "text": "Bis später."
+          }
+        ]
+      },
+      "koop_reaktion_greta_frage": {
+        "text": "„Ich stehe den ganzen Tag hier. Manche halten still genug, dass man sie sehen kann.“",
+        "choices": [
+          {
+            "text": "Verstanden."
+          }
+        ]
+      }
+    }
+  },
+  "quill": {
+    "choices_add": [
+      {
+        "text": "Wir schauen heute gemeinsam.",
+        "next": "koop_reaktion_quill",
+        "requires_flags": [
+          "koop_aktiv"
+        ]
+      }
+    ],
+    "nodes_add": {
+      "koop_reaktion_quill": {
+        "text": "Quill hebt einen Finger von der Vitrine. „Ausgezeichnet. Einer betrachtet den Gegenstand, der andere beobachtet, ob der Betrachtende noch blinzelt.“ Seine Lupe fängt einen kleinen Lichtpunkt.",
+        "choices": [
+          {
+            "text": "Sie verkaufen ein seltsames Sortiment.",
+            "next": "koop_reaktion_quill_ruhig",
+            "requires_flags": [
+              "koop_aktiv"
+            ]
+          },
+          {
+            "text": "Wir halten Abstand.",
+            "next": "koop_reaktion_quill_frage",
+            "requires_flags": [
+              "koop_aktiv"
+            ]
+          },
+          {
+            "text": "Wir müssen weiter."
+          }
+        ]
+      },
+      "koop_reaktion_quill_ruhig": {
+        "text": "„Ich verkaufe Geschichte. Gelegentlich hat sie noch Ansprüche an die Gegenwart.“ Quill schiebt die Vitrinentür zu.",
+        "choices": [
+          {
+            "text": "Bis später."
+          }
+        ]
+      },
+      "koop_reaktion_quill_frage": {
+        "text": "„Eine sehr unterschätzte Art der Sachkenntnis. Fürs Erste kostet sie nichts.“",
+        "choices": [
+          {
+            "text": "Verstanden."
+          }
+        ]
+      }
+    }
+  },
+  "kit": {
+    "choices_add": [
+      {
+        "text": "Jetzt musst du zwei Leute im Blick behalten.",
+        "next": "koop_reaktion_kit",
+        "requires_flags": [
+          "koop_aktiv"
+        ]
+      }
+    ],
+    "nodes_add": {
+      "koop_reaktion_kit": {
+        "text": "Kit sieht von dir zu deiner Begleitung. „Zwei Leute haben doppelt so viele Taschen. Aber auch doppelt so viele Augen. Schlechte Rechnung.“",
+        "choices": [
+          {
+            "text": "Du könntest beim zweiten Teil bleiben.",
+            "next": "koop_reaktion_kit_ruhig",
+            "requires_flags": [
+              "koop_aktiv"
+            ]
+          },
+          {
+            "text": "Wer von uns sieht mehr?",
+            "next": "koop_reaktion_kit_frage",
+            "requires_flags": [
+              "koop_aktiv"
+            ]
+          },
+          {
+            "text": "Wir müssen weiter."
+          }
+        ]
+      },
+      "koop_reaktion_kit_ruhig": {
+        "text": "„Tu ich doch. Ich hab bloß gerechnet.“ Kit hält beide Hände sichtbar an die Mantelnähte.",
+        "choices": [
+          {
+            "text": "Bis später."
+          }
+        ]
+      },
+      "koop_reaktion_kit_frage": {
+        "text": "„Wer weniger auf mich guckt. Hinter euch passiert nämlich auch was.“ Er grinst, ohne in eine Richtung zu zeigen.",
+        "choices": [
+          {
+            "text": "Verstanden."
+          }
+        ]
+      }
+    }
+  },
+  "zunder": {
+    "choices_add": [
+      {
+        "text": "Du hast Besuch für zwei.",
+        "next": "koop_reaktion_zunder",
+        "requires_flags": [
+          "koop_aktiv"
+        ],
+        "hide_if_flags": [
+          "kapitel2_done"
+        ]
+      }
+    ],
+    "nodes_add": {
+      "koop_reaktion_zunder": {
+        "text": "Zunder zählt euch mit dem Stiel ihres Löffels. „Zwei Mäntel zum Trocknen. Wenn ihr den Kahn zum Sinken bringt, müsst ihr ihn zusammen wieder hochziehen.“",
+        "choices": [
+          {
+            "text": "Wir treten das Wasser vorher ab.",
+            "next": "koop_reaktion_zunder_ruhig",
+            "requires_flags": [
+              "koop_aktiv"
+            ]
+          },
+          {
+            "text": "Reicht der Tee?",
+            "next": "koop_reaktion_zunder_frage",
+            "requires_flags": [
+              "koop_aktiv"
+            ]
+          },
+          {
+            "text": "Wir müssen weiter."
+          }
+        ]
+      },
+      "koop_reaktion_zunder_ruhig": {
+        "text": "„Dann tretet es draußen ab. Das letzte Mal stand ich beim Teekochen in einem kleinen Hafen.“ Sie rückt den Kessel weiter nach innen.",
+        "choices": [
+          {
+            "text": "Bis später."
+          }
+        ]
+      },
+      "koop_reaktion_zunder_frage": {
+        "text": "„Für zwei schon. Ob ihr danach noch welchen wollt, ist eure Sache.“",
+        "choices": [
+          {
+            "text": "Verstanden."
+          }
+        ]
+      }
+    }
+  },
+  "sedge": {
+    "choices_add": [
+      {
+        "text": "Wir sind gemeinsam gekommen.",
+        "next": "koop_reaktion_sedge",
+        "requires_flags": [
+          "koop_aktiv"
+        ],
+        "hide_if_flags": [
+          "kapitel2_done"
+        ]
+      }
+    ],
+    "nodes_add": {
+      "koop_reaktion_sedge": {
+        "text": "Sedge legt zwei Holzspäne nebeneinander. „Dann hört auch einzeln zu. Wer immer nur dem anderen nachspricht, merkt nicht, wenn eine Stimme fehlt.“",
+        "choices": [
+          {
+            "text": "Wir sagen hier keine Namen.",
+            "next": "koop_reaktion_sedge_ruhig",
+            "requires_flags": [
+              "koop_aktiv"
+            ]
+          },
+          {
+            "text": "Und wenn wir getrennt werden?",
+            "next": "koop_reaktion_sedge_frage",
+            "requires_flags": [
+              "koop_aktiv"
+            ]
+          },
+          {
+            "text": "Wir müssen weiter."
+          }
+        ]
+      },
+      "koop_reaktion_sedge_ruhig": {
+        "text": "„Das ist gut. Ihr müsst euch nicht rufen, um aufeinander zu warten.“ Sie nimmt das Messer wieder auf.",
+        "choices": [
+          {
+            "text": "Bis später."
+          }
+        ]
+      },
+      "koop_reaktion_sedge_frage": {
+        "text": "„Geht zu einem Ort zurück, den ihr beide kennt. Der Nebel gibt selten gute Wegbeschreibungen.“",
+        "choices": [
+          {
+            "text": "Verstanden."
+          }
+        ]
+      }
+    }
+  },
+  "hale": {
+    "choices_add": [
+      {
+        "text": "Sie haben meine Begleitung gesehen.",
+        "next": "koop_reaktion_hale",
+        "requires_flags": [
+          "koop_aktiv"
+        ],
+        "hide_if_flags": [
+          "kapitel2_done"
+        ]
+      }
+    ],
+    "nodes_add": {
+      "koop_reaktion_hale": {
+        "text": "Hale hält die Laterne tief. „Ich sehe zwei Personen, die zu lange an derselben Stelle stehen. Lassen Sie mich nicht länger darüber nachdenken müssen.“",
+        "choices": [
+          {
+            "text": "Wir gehen gleich.",
+            "next": "koop_reaktion_hale_ruhig",
+            "requires_flags": [
+              "koop_aktiv"
+            ]
+          },
+          {
+            "text": "Sie zählen uns also nicht offiziell?",
+            "next": "koop_reaktion_hale_frage",
+            "requires_flags": [
+              "koop_aktiv"
+            ]
+          },
+          {
+            "text": "Wir müssen weiter."
+          }
+        ]
+      },
+      "koop_reaktion_hale_ruhig": {
+        "text": "„Dann gehen Sie mit ruhigen Schritten. Panik fällt aus größerer Entfernung auf als ein Gesicht.“ Ihr Blick wandert bereits zur Gasse.",
+        "choices": [
+          {
+            "text": "Bis später."
+          }
+        ]
+      },
+      "koop_reaktion_hale_frage": {
+        "text": "„Ich habe noch nichts aufgeschrieben. Sorgen Sie dafür, dass das eine kurze Unterlassung bleibt.“",
+        "choices": [
+          {
+            "text": "Verstanden."
+          }
+        ]
+      }
+    }
+  },
+  "brack": {
+    "choices_add": [
+      {
+        "text": "Ist am Steg Platz für zwei?",
+        "next": "koop_reaktion_brack",
+        "requires_flags": [
+          "koop_aktiv"
+        ],
+        "hide_if_flags": [
+          "kapitel2_done"
+        ]
+      }
+    ],
+    "nodes_add": {
+      "koop_reaktion_brack": {
+        "text": "Brack prüft eure Schuhsohlen. „Platz schon. Aber nicht beide auf dieselbe Kante treten, bloß weil sie trocken aussieht.“ Sie zieht ein Tau aus dem Weg.",
+        "choices": [
+          {
+            "text": "Einer nach dem anderen.",
+            "next": "koop_reaktion_brack_ruhig",
+            "requires_flags": [
+              "koop_aktiv"
+            ]
+          },
+          {
+            "text": "Wir hören auf deinen Rat.",
+            "next": "koop_reaktion_brack_frage",
+            "requires_flags": [
+              "koop_aktiv"
+            ]
+          },
+          {
+            "text": "Wir müssen weiter."
+          }
+        ]
+      },
+      "koop_reaktion_brack_ruhig": {
+        "text": "„Beim Aufsteigen. Beim Festhalten dürft ihr gern gleichzeitig anfangen.“ Das Netz auf ihren Knien bewegt sich im Wind.",
+        "choices": [
+          {
+            "text": "Bis später."
+          }
+        ]
+      },
+      "koop_reaktion_brack_frage": {
+        "text": "„Hört auch aufs Holz. Das knackt gewöhnlich, bevor ich schimpfe.“",
+        "choices": [
+          {
+            "text": "Verstanden."
+          }
+        ]
+      }
+    }
+  },
+  "druce": {
+    "choices_add": [
+      {
+        "text": "Sie haben uns beide bemerkt.",
+        "next": "koop_reaktion_druce",
+        "requires_flags": [
+          "koop_aktiv"
+        ],
+        "hide_if_flags": [
+          "kapitel2_done"
+        ]
+      }
+    ],
+    "nodes_add": {
+      "koop_reaktion_druce": {
+        "text": "Druce betrachtet beharrlich das Wasser. „Ich zähle Tore. Keine Leute.“ Sein Schlüsselbund klirrt, als du näher trittst.",
+        "choices": [
+          {
+            "text": "Dann bleiben wir außerhalb der Zählung.",
+            "next": "koop_reaktion_druce_ruhig",
+            "requires_flags": [
+              "koop_aktiv"
+            ]
+          },
+          {
+            "text": "Sie warnen uns trotzdem.",
+            "next": "koop_reaktion_druce_frage",
+            "requires_flags": [
+              "koop_aktiv"
+            ]
+          },
+          {
+            "text": "Wir müssen weiter."
+          }
+        ]
+      },
+      "koop_reaktion_druce_ruhig": {
+        "text": "„Bleibt vor allem von den Rädern weg. Zwei Hände zu viel machen noch keine Fachkenntnis.“ Er legt die Hand auf die Nabe.",
+        "choices": [
+          {
+            "text": "Bis später."
+          }
+        ]
+      },
+      "koop_reaktion_druce_frage": {
+        "text": "„Damit nachher keiner sagt, ich hätte hingesehen und nichts gesagt. Ist ein Unterschied.“",
+        "choices": [
+          {
+            "text": "Verstanden."
+          }
+        ]
+      }
+    }
+  },
+  "elsbeth": {
+    "choices_add": [
+      {
+        "text": "Du siehst uns an.",
+        "next": "koop_reaktion_elsbeth",
+        "requires_flags": [
+          "koop_aktiv"
+        ],
+        "hide_if_flags": [
+          "kapitel2_done",
+          "k2_rowe_frei"
+        ]
+      }
+    ],
+    "nodes_add": {
+      "koop_reaktion_elsbeth": {
+        "text": "Elsbeth hebt den Kopf von der Torfwand. „Ihr wartet aufeinander. Das habe ich früher auch getan.“ Ihre Finger suchen eine Naht am Ärmel.",
+        "choices": [
+          {
+            "text": "Wir können einen Augenblick bleiben.",
+            "next": "koop_reaktion_elsbeth_ruhig",
+            "requires_flags": [
+              "koop_aktiv"
+            ]
+          },
+          {
+            "text": "Wir hören dir zu.",
+            "next": "koop_reaktion_elsbeth_frage",
+            "requires_flags": [
+              "koop_aktiv"
+            ]
+          },
+          {
+            "text": "Wir müssen weiter."
+          }
+        ]
+      },
+      "koop_reaktion_elsbeth_ruhig": {
+        "text": "„Dann bleibt, bis ich wieder weiß, was ich sagen wollte. Ihr müsst nicht helfen, indem ihr redet.“ Sie atmet langsam aus.",
+        "choices": [
+          {
+            "text": "Bis später."
+          }
+        ]
+      },
+      "koop_reaktion_elsbeth_frage": {
+        "text": "„Zwei Menschen können still sein, ohne dass man allein ist. Das hatte ich vergessen.“",
+        "choices": [
+          {
+            "text": "Verstanden."
+          }
+        ]
+      }
+    }
+  }
+}

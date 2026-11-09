@@ -1,0 +1,536 @@
+[
+  {
+    "map": "revier",
+    "tile": [
+      5,
+      5
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "koop_aktiv",
+        "case_04_closed"
+      ]
+    },
+    "interactable": {
+      "id": "koop_zwei_schluessel_auftrag",
+      "kind": "dialogue",
+      "marker": true,
+      "title": "Pimms Arbeitszettel",
+      "prompt": "Pimms Arbeitszettel",
+      "role": "",
+      "dialogue": "koop_zwei_schluessel_dialog"
+    }
+  },
+  {
+    "map": "revier",
+    "tile": [
+      2,
+      5
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "koop_aktiv"
+      ],
+      "requires_quests_active": [
+        "koop_zwei_schluessel"
+      ]
+    },
+    "interactable": {
+      "id": "koop_zwei_schluessel_gravur_lesen",
+      "kind": "read",
+      "marker": true,
+      "title": "Die Gravur lesen",
+      "prompt": "Die Gravur lesen",
+      "text": "Unter dem Staub stehen zwei Pfeile, beide zur Schrankmitte gerichtet. Darunter: „Nur gemeinsam öffnen. Die Feder hält keinen Platz frei.“",
+      "done_flag": "koop_zwei_schluessel_gravur_gelesen",
+      "effects": {
+        "gives_clues": [
+          "koop_zwei_schluessel_gravur"
+        ]
+      }
+    }
+  },
+  {
+    "map": "revier",
+    "tile": [
+      1,
+      5
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "koop_aktiv"
+      ],
+      "requires_quests_active": [
+        "koop_zwei_schluessel"
+      ]
+    },
+    "interactable": {
+      "id": "koop_zwei_schluessel_p1",
+      "kind": "read",
+      "marker": true,
+      "title": "Am westlichen Schloss bleiben",
+      "prompt": "Am westlichen Schloss bleiben",
+      "text": "Der Schlüssel lässt sich drehen, solange du ihn festhältst. Sobald du loslässt, zieht die Feder ihn zurück.",
+      "effects": {
+        "sets_flags": [
+          "koop_zwei_schluessel_p1"
+        ]
+      },
+      "footer": "Halte diese Stelle, während die andere Person ihr Schloss bedient."
+    }
+  },
+  {
+    "map": "revier",
+    "tile": [
+      8,
+      2
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "koop_aktiv"
+      ],
+      "requires_quests_active": [
+        "koop_zwei_schluessel"
+      ]
+    },
+    "interactable": {
+      "id": "koop_zwei_schluessel_p2",
+      "kind": "read",
+      "marker": true,
+      "title": "Am nördlichen Schloss bleiben",
+      "prompt": "Am nördlichen Schloss bleiben",
+      "text": "Der Schlüssel lässt sich drehen, solange du ihn festhältst. Sobald du loslässt, zieht die Feder ihn zurück.",
+      "effects": {
+        "sets_flags": [
+          "koop_zwei_schluessel_p2"
+        ]
+      },
+      "footer": "Halte diese Stelle, während die andere Person ihr Schloss bedient."
+    }
+  },
+  {
+    "map": "revier",
+    "tile": [
+      1,
+      6
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "koop_aktiv"
+      ],
+      "requires_quests_active": [
+        "koop_zwei_schluessel"
+      ]
+    },
+    "interactable": {
+      "id": "koop_zwei_schluessel_drehen",
+      "kind": "dialogue",
+      "marker": true,
+      "title": "Die Schlüssel abstimmen",
+      "prompt": "Die Schlüssel abstimmen",
+      "role": "",
+      "dialogue": "koop_zwei_schluessel_oeffnen"
+    }
+  },
+  {
+    "map": "revier",
+    "tile": [
+      3,
+      5
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "koop_aktiv",
+        "koop_zwei_schluessel_offen"
+      ]
+    },
+    "interactable": {
+      "id": "koop_zwei_schluessel_inhalt",
+      "kind": "dialogue",
+      "marker": true,
+      "title": "Das Nachtlohnregister",
+      "prompt": "Das Nachtlohnregister",
+      "role": "",
+      "dialogue": "koop_zwei_schluessel_register"
+    }
+  },
+  {
+    "map": "wx_salzmarkt",
+    "tile": [
+      16,
+      9
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "koop_aktiv",
+        "k2_akt1_done"
+      ],
+      "hide_if_flags": [
+        "kapitel2_done"
+      ]
+    },
+    "interactable": {
+      "id": "koop_ablenkung_auftrag",
+      "kind": "dialogue",
+      "marker": true,
+      "title": "Die Bitte der Marktleute",
+      "prompt": "Die Bitte der Marktleute",
+      "role": "",
+      "dialogue": "koop_ablenkung_dialog"
+    }
+  },
+  {
+    "map": "wx_salzmarkt",
+    "tile": [
+      29,
+      3
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "koop_aktiv"
+      ],
+      "requires_quests_active": [
+        "koop_ablenkung"
+      ]
+    },
+    "interactable": {
+      "id": "koop_ablenkung_zettel",
+      "kind": "read",
+      "marker": true,
+      "title": "Den Kontrollzettel lesen",
+      "prompt": "Den Kontrollzettel lesen",
+      "text": "Ein feuchter Zettel erklärt die Ablage. „Anker: bereits gezahlt. Krone: noch gefordert.“ Unter derselben Nummer sind zwei Zahlungen eingetragen, am gleichen Tag.",
+      "done_flag": "koop_ablenkung_zettel_gelesen",
+      "effects": {
+        "gives_clues": [
+          "koop_ablenkung_fach"
+        ]
+      }
+    }
+  },
+  {
+    "map": "wx_salzmarkt",
+    "tile": [
+      19,
+      5
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "koop_aktiv"
+      ],
+      "requires_quests_active": [
+        "koop_ablenkung"
+      ]
+    },
+    "interactable": {
+      "id": "koop_ablenkung_p1",
+      "kind": "read",
+      "marker": true,
+      "title": "Den Grauspäher beschäftigen",
+      "prompt": "Den Grauspäher beschäftigen",
+      "text": "Du fragst nach dem Weg für eine angekündigte Salzlieferung. Der Grauspäher erklärt widerwillig die Marktordnung und richtet seine Laterne auf die Skizze in deiner Hand.",
+      "effects": {
+        "sets_flags": [
+          "koop_ablenkung_p1"
+        ]
+      },
+      "footer": "Bleibe beim Gespräch. Die andere Person muss das Kontor erreichen."
+    }
+  },
+  {
+    "map": "wx_salzmarkt",
+    "tile": [
+      21,
+      3
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "koop_aktiv",
+        "koop_ablenkung_p1"
+      ],
+      "requires_quests_active": [
+        "koop_ablenkung"
+      ]
+    },
+    "interactable": {
+      "id": "koop_ablenkung_p2",
+      "kind": "read",
+      "marker": true,
+      "title": "In den Kontoreingang schlüpfen",
+      "prompt": "In den Kontoreingang schlüpfen",
+      "text": "Du drückst dich neben den Türrahmen. Solange der Grauspäher auf die Lieferzeichnung schaut, bleibt das Ablagefach erreichbar.",
+      "effects": {
+        "sets_flags": [
+          "koop_ablenkung_p2"
+        ]
+      },
+      "footer": "Nur die zweite Person kann hier handeln, während die erste den Posten beschäftigt."
+    }
+  },
+  {
+    "map": "wx_salzmarkt",
+    "tile": [
+      21,
+      3
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "koop_aktiv",
+        "koop_ablenkung_p1",
+        "koop_ablenkung_p2"
+      ],
+      "requires_quests_active": [
+        "koop_ablenkung"
+      ]
+    },
+    "interactable": {
+      "id": "koop_ablenkung_fach_pruefen",
+      "kind": "dialogue",
+      "marker": true,
+      "title": "Das Ablagefach prüfen",
+      "prompt": "Das Ablagefach prüfen",
+      "role": "",
+      "dialogue": "koop_ablenkung_kontor"
+    }
+  },
+  {
+    "map": "wx_salzmarkt",
+    "tile": [
+      16,
+      9
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "koop_aktiv",
+        "koop_ablenkung_beleg_gesichert"
+      ]
+    },
+    "interactable": {
+      "id": "koop_ablenkung_abgabe",
+      "kind": "dialogue",
+      "marker": true,
+      "title": "Den Gegenbeleg abgeben",
+      "prompt": "Den Gegenbeleg abgeben",
+      "role": "",
+      "dialogue": "koop_ablenkung_auszahlung"
+    }
+  },
+  {
+    "map": "spiegelkabinett",
+    "tile": [
+      8,
+      13
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "koop_aktiv",
+        "case_06_closed"
+      ]
+    },
+    "interactable": {
+      "id": "koop_spiegelbild_auftrag",
+      "kind": "dialogue",
+      "marker": true,
+      "title": "Das Wartungsschild",
+      "prompt": "Das Wartungsschild",
+      "role": "",
+      "dialogue": "koop_spiegelbild_dialog"
+    }
+  },
+  {
+    "map": "spiegelkabinett",
+    "tile": [
+      6,
+      6
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "koop_aktiv"
+      ],
+      "requires_quests_active": [
+        "koop_spiegelbild"
+      ]
+    },
+    "interactable": {
+      "id": "koop_spiegelbild_p1",
+      "kind": "read",
+      "marker": true,
+      "title": "Am westlichen Standplatz bleiben",
+      "prompt": "Am westlichen Standplatz bleiben",
+      "text": "Du stellst dich auf die eingelassene Messingmarke. Das Glas zeigt nicht deinen Weg, sondern die Rückseite des gegenüberliegenden Zeichenrads.",
+      "effects": {
+        "sets_flags": [
+          "koop_spiegelbild_p1"
+        ]
+      },
+      "footer": "Nur solange beide ihre Standplätze halten, lässt sich der Weg prüfen."
+    }
+  },
+  {
+    "map": "spiegelkabinett",
+    "tile": [
+      18,
+      6
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "koop_aktiv"
+      ],
+      "requires_quests_active": [
+        "koop_spiegelbild"
+      ]
+    },
+    "interactable": {
+      "id": "koop_spiegelbild_p2",
+      "kind": "read",
+      "marker": true,
+      "title": "Am östlichen Standplatz bleiben",
+      "prompt": "Am östlichen Standplatz bleiben",
+      "text": "Du stellst dich auf die eingelassene Messingmarke. Das Glas zeigt nicht deinen Weg, sondern die Rückseite des gegenüberliegenden Zeichenrads.",
+      "effects": {
+        "sets_flags": [
+          "koop_spiegelbild_p2"
+        ]
+      },
+      "footer": "Nur solange beide ihre Standplätze halten, lässt sich der Weg prüfen."
+    }
+  },
+  {
+    "map": "spiegelkabinett",
+    "tile": [
+      18,
+      6
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "koop_aktiv",
+        "koop_spiegelbild_p1",
+        "koop_spiegelbild_p2"
+      ],
+      "requires_quests_active": [
+        "koop_spiegelbild"
+      ],
+      "hide_if_flags": [
+        "koop_spiegelbild_fertig",
+        "koop_spiegelbild_runde1"
+      ]
+    },
+    "interactable": {
+      "id": "koop_spiegelbild_blick_p2",
+      "kind": "read",
+      "marker": true,
+      "title": "Den Weg für die erste Person lesen",
+      "prompt": "Den Weg für die erste Person lesen",
+      "text": "Im östlichen Glas hängt über dem linken Zeichenrad eine erloschene Laterne. Unter ihr steht: „Nicht das Licht weist hinaus, sondern die Pause.“ Der westliche Spiegel zeigt diese Schrift nicht.",
+      "done_flag": "koop_spiegelbild_hinweis1",
+      "effects": {
+        "gives_clues": [
+          "koop_spiegelbild_laterne"
+        ]
+      }
+    }
+  },
+  {
+    "map": "spiegelkabinett",
+    "tile": [
+      6,
+      6
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "koop_aktiv",
+        "koop_spiegelbild_p1",
+        "koop_spiegelbild_p2",
+        "koop_spiegelbild_runde1"
+      ],
+      "requires_quests_active": [
+        "koop_spiegelbild"
+      ]
+    },
+    "interactable": {
+      "id": "koop_spiegelbild_blick_p1",
+      "kind": "read",
+      "marker": true,
+      "title": "Den Weg für die zweite Person lesen",
+      "prompt": "Den Weg für die zweite Person lesen",
+      "text": "Im westlichen Glas erscheint nun ein Tau mit zwei offenen Schlaufen. Unter dem Bild steht: „Zwei halten, keines bindet.“ Die östliche Person sieht nur ihr Zeichenrad.",
+      "done_flag": "koop_spiegelbild_hinweis2",
+      "effects": {
+        "gives_clues": [
+          "koop_spiegelbild_schlaufen"
+        ]
+      }
+    }
+  },
+  {
+    "map": "spiegelkabinett",
+    "tile": [
+      6,
+      7
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "koop_aktiv"
+      ],
+      "requires_quests_active": [
+        "koop_spiegelbild"
+      ]
+    },
+    "interactable": {
+      "id": "koop_spiegelbild_rad_p1",
+      "kind": "dialogue",
+      "marker": true,
+      "title": "Das linke Zeichenrad",
+      "prompt": "Das linke Zeichenrad",
+      "role": "",
+      "dialogue": "koop_spiegelbild_rad_p1"
+    }
+  },
+  {
+    "map": "spiegelkabinett",
+    "tile": [
+      18,
+      7
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "koop_aktiv",
+        "koop_spiegelbild_runde1"
+      ],
+      "requires_quests_active": [
+        "koop_spiegelbild"
+      ]
+    },
+    "interactable": {
+      "id": "koop_spiegelbild_rad_p2",
+      "kind": "dialogue",
+      "marker": true,
+      "title": "Das rechte Zeichenrad",
+      "prompt": "Das rechte Zeichenrad",
+      "role": "",
+      "dialogue": "koop_spiegelbild_rad_p2"
+    }
+  },
+  {
+    "map": "spiegelkabinett",
+    "tile": [
+      12,
+      12
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "koop_aktiv",
+        "koop_spiegelbild_offen"
+      ]
+    },
+    "interactable": {
+      "id": "koop_spiegelbild_kasse",
+      "kind": "dialogue",
+      "marker": true,
+      "title": "Die Wartungskasse",
+      "prompt": "Die Wartungskasse",
+      "role": "",
+      "dialogue": "koop_spiegelbild_abschluss"
+    }
+  }
+]
