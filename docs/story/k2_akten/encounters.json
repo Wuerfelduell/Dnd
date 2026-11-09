@@ -1,0 +1,212 @@
+{
+  "k2a_tinte_kampf": {
+    "name": "Leitungsverkäufer Ivo Senn",
+    "sprite": "npc:k2a_senn",
+    "hp": 68,
+    "fleeable": true,
+    "intro": "In der halb versunkenen Wärterhütte kniet Senn neben einem tragbaren Sender. „Für einen Fahrplan bekommt man Kupfer. Für die Lücke zwischen zwei Streifen Silber.“ Er schwingt die schwere Kabelrolle nach deiner Hand.",
+    "attacks": [
+      {
+        "name": "Abwehrstoß",
+        "damage": 6,
+        "hits": [
+          900,
+          1400
+        ]
+      },
+      {
+        "name": "Ausholen",
+        "damage": 12,
+        "hits": [
+          2000
+        ]
+      },
+      {
+        "name": "Vorstoß",
+        "damage": 5,
+        "hits": [
+          700,
+          1100,
+          1500
+        ]
+      }
+    ],
+    "on_win": {
+      "sets_flags": [
+        "k2a_tinte_showdown_done"
+      ]
+    },
+    "lose_to": {
+      "map": "wx_kahn",
+      "spawn": "default"
+    },
+    "lose_text": "Du kommst im Torfkahn wieder zu dir. Deine Notizen sind trocken geblieben. Der Gegner ist noch am Schauplatz; du kannst zurückkehren, sobald du bereit bist.",
+    "win_text": "Die Kabelrolle fällt ins Wasser. Senn sitzt unter dem Sendetisch und hält die Hände offen. Das Nachtgeschäft ist unterbrochen, aber die Abschriften und Rimmels Ruf liegen noch auf dem Tisch."
+  },
+  "k2a_bittere_mittel_kampf": {
+    "name": "Dr. Oren Veit und der Probenschrank",
+    "sprite": "npc:k2a_veit",
+    "hp": 76,
+    "fleeable": true,
+    "intro": "Veit hat seinen fahrbaren Probenschrank an den alten Torfstich gebracht. „Du hältst Erinnerungen für Beweise. Ich hielt sie für veränderlich.“ Er stößt den Schrank gegen dich und greift nach der eisernen Rührstange.",
+    "attacks": [
+      {
+        "name": "Abwehrstoß",
+        "damage": 6,
+        "hits": [
+          900,
+          1400
+        ]
+      },
+      {
+        "name": "Ausholen",
+        "damage": 12,
+        "hits": [
+          2000
+        ]
+      },
+      {
+        "name": "Vorstoß",
+        "damage": 5,
+        "hits": [
+          700,
+          1100,
+          1500
+        ]
+      }
+    ],
+    "on_win": {
+      "sets_flags": [
+        "k2a_bittere_mittel_showdown_done"
+      ]
+    },
+    "lose_to": {
+      "map": "wx_kahn",
+      "spawn": "default"
+    },
+    "lose_text": "Du kommst im Torfkahn wieder zu dir. Deine Notizen sind trocken geblieben. Der Gegner ist noch am Schauplatz; du kannst zurückkehren, sobald du bereit bist.",
+    "win_text": "Die Rührstange steckt im Torf. Du schließt den Probenschrank, bevor etwas auslaufen kann. Veit gibt dir den Schlüssel zum Lieferfach, aber keine Entschuldigung."
+  },
+  "k2a_hafenrecht_kampf": {
+    "name": "Clem Noll auf dem Bergungskahn",
+    "sprite": "npc:k2a_noll",
+    "hp": 82,
+    "fleeable": true,
+    "intro": "Im Salzwatt hängt der Bergungskahn an einem einzelnen Pfahl. Noll will die letzte Bodenplanke unter Wasser drücken. Als du über die Bordkante steigst, stößt er mit dem Bootshaken zu. Zwischen euch liegt das versiegelte Duplikat der Versicherung.",
+    "attacks": [
+      {
+        "name": "Abwehrstoß",
+        "damage": 6,
+        "hits": [
+          900,
+          1400
+        ]
+      },
+      {
+        "name": "Ausholen",
+        "damage": 12,
+        "hits": [
+          2000
+        ]
+      },
+      {
+        "name": "Vorstoß",
+        "damage": 5,
+        "hits": [
+          700,
+          1100,
+          1500
+        ]
+      }
+    ],
+    "on_win": {
+      "sets_flags": [
+        "k2a_hafenrecht_showdown_done"
+      ]
+    },
+    "lose_to": {
+      "map": "wx_kahn",
+      "spawn": "default"
+    },
+    "lose_text": "Du kommst im Torfkahn wieder zu dir. Deine Notizen sind trocken geblieben. Der Gegner ist noch am Schauplatz; du kannst zurückkehren, sobald du bereit bist.",
+    "win_text": "Du trittst den Bootshaken unter die Bank und bindest den Kahn am zweiten Tau fest. Noll kann weder die Planke noch den Vertrag versenken. Drei Namen müssen trotzdem erst wieder zu drei Familien zurückfinden."
+  },
+  "k2a_letztes_bild_kampf": {
+    "name": "Die gemalte Frau",
+    "sprite": "wild",
+    "hp": 108,
+    "fleeable": true,
+    "intro": "Die Frau tritt vom Hintergrund an den Bildrand. Hinter ihr stehen die drei Vermissten, flach wie ausgeschnittenes Papier. „Man hat mich aus der Liste genommen“, sagt sie. „Darum führe ich meine eigene.“ Ihr Rahmen klappt wie eine Tür auf.",
+    "attacks": [
+      {
+        "name": "Rahmenkante",
+        "damage": 6,
+        "hits": [
+          900,
+          1400
+        ]
+      },
+      {
+        "name": "Nasser Hintergrund",
+        "damage": 12,
+        "hits": [
+          2000
+        ]
+      },
+      {
+        "name": "Fremde Hände",
+        "damage": 5,
+        "hits": [
+          700,
+          1100,
+          1500
+        ]
+      }
+    ],
+    "on_win": {
+      "sets_flags": [
+        "k2a_letztes_bild_showdown_done"
+      ]
+    },
+    "lose_to": {
+      "map": "wx_kahn",
+      "spawn": "default"
+    },
+    "lose_text": "Du kommst im Torfkahn wieder zu dir. Deine Notizen sind trocken geblieben. Der Gegner ist noch am Schauplatz; du kannst zurückkehren, sobald du bereit bist.",
+    "win_text": "Der Rahmen fällt zurück an die Wand. Die gemalte Frau ist wieder auf der Leinwand, aber ihre Hand reicht noch bis an den Rand. Jetzt kannst du die Bindung lösen oder das Werk zerstören. Die drei Vermissten warten dahinter.",
+    "sheet": "enemy_gemalte_frau",
+    "occult": true
+  },
+  "k2a_letztes_bild_vane_kampf": {
+    "name": "Lionel Vane",
+    "sprite": "npc:wxn_maler",
+    "sheet": "enemy_wxn_maler",
+    "hp": 64,
+    "fleeable": true,
+    "intro": "Du setzt an, die Frau vom Bild zu schaben. Hinter ihr schreit jemand. Vane wirft sich zwischen dich und die Leinwand. „Du kratzt durch die einzige Tür!“ Sein Spachtel trifft den Rand deiner Lampe.",
+    "attacks": [
+      {
+        "name": "Spachtelkante",
+        "damage": 6,
+        "hits": [
+          850,
+          1300
+        ]
+      },
+      {
+        "name": "Staffeleistoß",
+        "damage": 11,
+        "hits": [
+          1900
+        ]
+      }
+    ],
+    "on_win": {},
+    "lose_to": {
+      "map": "wx_kahn",
+      "spawn": "default"
+    },
+    "lose_text": "Du ziehst dich mit schmerzenden Händen zurück. Vane schützt die Leinwand weiter; die Akte bleibt offen.",
+    "win_text": "Vane lässt den Spachtel fallen. Die Frau im Hintergrund hebt ihren eigenen. Sie war nicht die Person, die du gerade bezwungen hast."
+  }
+}

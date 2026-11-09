@@ -1,0 +1,1994 @@
+{
+  "k2a_tinte_kontakt": {
+    "start": "k2a_tinte_start",
+    "nodes": {
+      "k2a_tinte_start": {
+        "text": "Rimmel legt einen trockenen Bogen unter den Apparat. „Du darfst alles fragen. Nur bitte nicht, ob ich nachts Stimmen höre. Das steht bereits im Dienstbericht.“",
+        "choices": [
+          {
+            "text": "Die neue Akte übernehmen.",
+            "next": "k2a_tinte_auftrag",
+            "requires_flags": [
+              "k2_akt1_done"
+            ],
+            "hide_if_quests": [
+              "k2a_tinte"
+            ],
+            "hide_if_flags": [
+              "kapitel2_done"
+            ]
+          },
+          {
+            "text": "Antwort auf den Prüfruf.",
+            "next": "k2a_tinte_aussage_a2",
+            "requires_quests_active": [
+              "k2a_tinte"
+            ],
+            "hide_if_clues": [
+              "k2a_tinte_h_a2"
+            ]
+          },
+          {
+            "text": "Die falsche Tintenfarbe.",
+            "next": "k2a_tinte_aussage_e2",
+            "requires_quests_active": [
+              "k2a_tinte"
+            ],
+            "hide_if_clues": [
+              "k2a_tinte_h_e2"
+            ]
+          },
+          {
+            "text": "Was bleibt von der Akte?",
+            "next": "k2a_tinte_nach_offen",
+            "requires_flags": [
+              "k2a_tinte_ende_offen_gesetzt"
+            ]
+          },
+          {
+            "text": "Was bleibt von der Akte?",
+            "next": "k2a_tinte_nach_still",
+            "requires_flags": [
+              "k2a_tinte_ende_still_gesetzt"
+            ]
+          },
+          {
+            "text": "Was bleibt von der Akte?",
+            "next": "k2a_tinte_nach_verkauft",
+            "requires_flags": [
+              "k2a_tinte_ende_verkauft_gesetzt"
+            ]
+          },
+          {
+            "text": "Bis später."
+          }
+        ]
+      },
+      "k2a_tinte_auftrag": {
+        "text": "Rimmel nimmt die Kopfhörer ab, doch das Klicken hört nicht auf. „Station Riedwacht liegt seit dreißig Jahren unter Torf. Jede Nacht schickt sie mir Zahlen, und morgens fehlt irgendwo eine versiegelte Fracht.“ Er zeigt dir einen Ausriss aus dem Streifenblatt: „Die Wache verdächtigt mich. Einen Toten kann man schlecht verhören.“",
+        "start_quests": [
+          "k2a_tinte"
+        ],
+        "sets_flags": [
+          "k2a_tinte_offen"
+        ],
+        "gives_clues": [
+          "k2a_tinte_h_l1"
+        ],
+        "choices": [
+          {
+            "text": "Ich prüfe die Spuren.",
+            "next": "k2a_tinte_start"
+          }
+        ],
+        "gives_items": {
+          "k2a_tinte_abschrift": 1
+        }
+      },
+      "k2a_tinte_aussage_a2": {
+        "text": "„Ich habe absichtlich eine falsche Quersumme gesendet. Riedwacht hat mich verbessert. Kein Uhrwerk antwortet so, und kein alter Streifen kennt meinen Fehler.“ Du hältst die Aussage getrennt von deinen Vermutungen fest.",
+        "gives_clues": [
+          "k2a_tinte_h_a2"
+        ],
+        "choices": [
+          {
+            "text": "Weiterfragen.",
+            "next": "k2a_tinte_start"
+          }
+        ]
+      },
+      "k2a_tinte_aussage_e2": {
+        "text": "„Mein Apparat drückt trocken. Ich schreibe mit schwarzer Bahnhofstinte. Die violette Kopierflüssigkeit bekommt Senn für Durchschläge, gegen Unterschrift.“ Du hältst die Aussage getrennt von deinen Vermutungen fest.",
+        "gives_clues": [
+          "k2a_tinte_h_e2"
+        ],
+        "choices": [
+          {
+            "text": "Weiterfragen.",
+            "next": "k2a_tinte_start"
+          }
+        ]
+      },
+      "k2a_tinte_nach_offen": {
+        "text": "Du sicherst den Abzweig und gibst der Bahnverwaltung Kopien von Vorlagen und Kontobuch. Rimmel unterschreibt als Zeuge, nicht als Beschuldigter. Senn wird der Frachtaufsicht übergeben, die drei privaten Käufer verlieren ihre Lieferrechte. Druces Hilfsfahrten stehen in keiner deiner Abschriften.",
+        "choices": [
+          {
+            "text": "Ich komme wieder."
+          }
+        ]
+      },
+      "k2a_tinte_nach_still": {
+        "text": "Du ziehst die Kupferbrücke und versiegelst die Originale bei der Bahnaufsicht. Rimmel erhält eine schriftliche Berichtigung, Senn verliert den Zugang zu den Kontrollkarten. Die privaten Käufer bleiben im nichtöffentlichen Vorgang. Das schützt mögliche Zeugen, lässt aber die Hinterleute außerhalb des Marktes unbekannt.",
+        "choices": [
+          {
+            "text": "Ich komme wieder."
+          }
+        ]
+      },
+      "k2a_tinte_nach_verkauft": {
+        "text": "Du trennst den Sender, verkaufst Senn aber die einzige Käuferliste zurück. Er bezahlt aus seiner Kassette und nennt den Vorfall künftig einen Kurzschluss. Der technische Befund entlastet Rimmel nur vom Fälschen der Telegramme. Wer die Routen kaufte, bleibt frei für die nächste Leitung.",
+        "choices": [
+          {
+            "text": "Ich komme wieder."
+          }
+        ]
+      }
+    }
+  },
+  "k2a_tinte_verhoer": {
+    "start": "k2a_tinte_verhoer_start",
+    "nodes": {
+      "k2a_tinte_verhoer_start": {
+        "text": "Senn glättet Frachtzettel auf einer Kiste. „Telegramme sind Rimmels Sache. Ich kopiere nur, was Leute mir hinlegen.“ Seine Daumen sind violett, die Frachtzettel schwarz.",
+        "choices": [
+          {
+            "text": "Deine erste Erklärung noch einmal.",
+            "next": "k2a_tinte_luege",
+            "requires_quests_active": [
+              "k2a_tinte"
+            ]
+          },
+          {
+            "text": "Bar bezahlt, keine Namen.",
+            "next": "k2a_tinte_aussage_f1",
+            "requires_quests_active": [
+              "k2a_tinte"
+            ],
+            "hide_if_clues": [
+              "k2a_tinte_h_f1"
+            ]
+          },
+          {
+            "text": "Ein geliehener Anschluss.",
+            "next": "k2a_tinte_aussage_g2",
+            "requires_quests_active": [
+              "k2a_tinte"
+            ],
+            "hide_if_clues": [
+              "k2a_tinte_h_g2"
+            ]
+          },
+          {
+            "text": "Du hast die alte Leitung wieder angeschlossen und Streifenzeiten verkauft.",
+            "next": "k2a_tinte_widerlegen",
+            "requires_quests_active": [
+              "k2a_tinte"
+            ],
+            "requires_conclusions": [
+              "k2a_tinte_d_leitung",
+              "k2a_tinte_d_ware",
+              "k2a_tinte_d_taeter"
+            ],
+            "requires_clues": [
+              "k2a_tinte_h_b1",
+              "k2a_tinte_h_b2",
+              "k2a_tinte_h_l2"
+            ],
+            "requires_flags": [
+              "k2a_tinte_kontrolle_done"
+            ],
+            "hide_if_flags": [
+              "k2a_tinte_gestellt"
+            ]
+          },
+          {
+            "text": "Du bist bereits mit den Beweisen konfrontiert worden.",
+            "next": "k2a_tinte_nach_verhoer",
+            "requires_quests_active": [
+              "k2a_tinte"
+            ],
+            "requires_flags": [
+              "k2a_tinte_gestellt"
+            ]
+          },
+          {
+            "text": "Gehen."
+          }
+        ]
+      },
+      "k2a_tinte_luege": {
+        "text": "„An dieser Leitung hat seit dreißig Jahren niemand gearbeitet. Wenn etwas von dort kommt, hat Rimmel es selbst in seinen Apparat gelegt.“",
+        "gives_clues": [
+          "k2a_tinte_h_l2"
+        ],
+        "choices": [
+          {
+            "text": "Ich prüfe das.",
+            "next": "k2a_tinte_verhoer_start"
+          }
+        ]
+      },
+      "k2a_tinte_aussage_f1": {
+        "text": "„Für Abschriften zahlt man bei mir bar. Das ist am Salzmarkt erlaubt. Manche bestellen nur nachts, weil sie tagsüber eine Uniform tragen.“ Du hältst die Aussage getrennt von deinen Vermutungen fest.",
+        "gives_clues": [
+          "k2a_tinte_h_f1"
+        ],
+        "choices": [
+          {
+            "text": "Weiterfragen.",
+            "next": "k2a_tinte_verhoer_start"
+          }
+        ]
+      },
+      "k2a_tinte_aussage_g2": {
+        "text": "„Den Hauptdraht fasse ich nicht an. Ein Zusatzanschluss, mehr ist es nicht. Wer alles kappt, legt die Bahn still und nicht bloß mein Geschäft.“ Du hältst die Aussage getrennt von deinen Vermutungen fest.",
+        "gives_clues": [
+          "k2a_tinte_h_g2"
+        ],
+        "choices": [
+          {
+            "text": "Weiterfragen.",
+            "next": "k2a_tinte_verhoer_start"
+          }
+        ]
+      },
+      "k2a_tinte_widerlegen": {
+        "text": "Du legst frisches Lötzinn neben den Reparaturbeleg. Senn sieht zuerst auf das Datum, dann auf deinen Mantel. „Ich habe die Leitung verkauft, nicht die Stadt. Die Käufer sitzen in der Wärterhütte. Wenn du mich dort willst, musst du durch den Torf.“",
+        "sets_flags": [
+          "k2a_tinte_gestellt"
+        ],
+        "choices": [
+          {
+            "text": "Ich sichere den Tatort."
+          }
+        ]
+      },
+      "k2a_tinte_nach_verhoer": {
+        "text": "Die Aussage steht in deiner Akte. Am gesicherten Schauplatz kannst du die Auseinandersetzung fortsetzen; weitere Beweise bleiben bis zum Abschluss zugänglich.",
+        "choices": [
+          {
+            "text": "Ich komme wieder."
+          }
+        ]
+      }
+    }
+  },
+  "k2a_tinte_kontrolle": {
+    "start": [
+      {
+        "node": "k2a_tinte_pol_fertig",
+        "requires_flags": [
+          "k2a_tinte_kontrolle_done"
+        ]
+      },
+      {
+        "node": "k2a_tinte_pol_start"
+      }
+    ],
+    "nodes": {
+      "k2a_tinte_pol_start": {
+        "text": "Am unteren Schleusensteg sperrt eine Streife den Zugang zur Leitungsdose. Ein Grauspäher erkennt die Beschreibung auf deinem Steckbrief und hebt die Laterne. Die Dose bleibt erreichbar, wenn du dich aus der Kontrolle lösen kannst.",
+        "choices": [
+          {
+            "text": "In passender Verkleidung die öffentliche Beweissicherung verlangen.",
+            "next": "k2a_tinte_pol_maske",
+            "requires_flags": [
+              "k2_wear_torfkittel"
+            ],
+            "requires_items": [
+              "torfkittel"
+            ]
+          },
+          {
+            "text": "Hinter den Wagen warten und den sicheren Weg nehmen. (4 Nerven)",
+            "next": "k2a_tinte_pol_warten"
+          },
+          {
+            "text": "Den Zugang vor Zeugen erzwingen. (Fahndung mindestens 2)",
+            "next": "k2a_tinte_pol_laut"
+          },
+          {
+            "text": "Erst zurückziehen."
+          }
+        ]
+      },
+      "k2a_tinte_pol_maske": {
+        "text": "Die passende Kleidung macht aus deinem Besuch eine gewöhnliche Amtshandlung. Die Streife prüft die Kiste, nicht dein Gesicht. Du kannst die Beweise jetzt sichern.",
+        "sets_flags": [
+          "k2a_tinte_kontrolle_done"
+        ],
+        "choices": [
+          {
+            "text": "Ich komme wieder."
+          }
+        ]
+      },
+      "k2a_tinte_pol_warten": {
+        "text": "Du wartest im Dunkeln, bis die Laternen weiterziehen. Das kostet Geduld und Nerven, aber weder Münzen noch eine neue Lüge. Der Zugang ist nun frei.",
+        "sets_flags": [
+          "k2a_tinte_kontrolle_done"
+        ],
+        "nerves": -4,
+        "choices": [
+          {
+            "text": "Ich komme wieder."
+          }
+        ]
+      },
+      "k2a_tinte_pol_laut": {
+        "text": "Du rufst die Umstehenden herbei und lässt die Streife jeden Gegenstand laut protokollieren. Sie gibt den Zugang frei, merkt sich aber dein Gesicht. Weitere Grauspäher bekommen deine Beschreibung.",
+        "sets_flags": [
+          "k2a_tinte_kontrolle_done"
+        ],
+        "wanted": 2,
+        "choices": [
+          {
+            "text": "Ich komme wieder."
+          }
+        ]
+      },
+      "k2a_tinte_pol_fertig": {
+        "text": "Die Beweissicherung ist bereits geklärt. Die gewöhnlichen Streifen gehen weiter ihren Runden nach.",
+        "choices": [
+          {
+            "text": "Ich komme wieder."
+          }
+        ]
+      }
+    }
+  },
+  "k2a_tinte_showdown": {
+    "start": [
+      {
+        "node": "k2a_tinte_geschlossen",
+        "requires_flags": [
+          "k2a_tinte_done"
+        ]
+      },
+      {
+        "node": "k2a_tinte_wahl",
+        "requires_flags": [
+          "won_k2a_tinte_kampf"
+        ]
+      },
+      {
+        "node": "k2a_tinte_kampf_start"
+      }
+    ],
+    "nodes": {
+      "k2a_tinte_kampf_start": {
+        "text": "In der halb versunkenen Wärterhütte kniet Senn neben einem tragbaren Sender. „Für einen Fahrplan bekommt man Kupfer. Für die Lücke zwischen zwei Streifen Silber.“ Er schwingt die schwere Kabelrolle nach deiner Hand.",
+        "choices": [
+          {
+            "text": "Die Beweise sichern und den Kampf beginnen.",
+            "next": "k2a_tinte_kampf_jetzt"
+          },
+          {
+            "text": "Erst vorbereiten."
+          }
+        ]
+      },
+      "k2a_tinte_kampf_jetzt": {
+        "text": "Du trittst vor und hältst den Rückweg frei. Jetzt zählt, ob du den Angriff abfangen kannst.",
+        "combat": "k2a_tinte_kampf",
+        "choices": [
+          {
+            "text": "Kämpfen."
+          }
+        ]
+      },
+      "k2a_tinte_wahl": {
+        "text": "Die Kabelrolle fällt ins Wasser. Senn sitzt unter dem Sendetisch und hält die Hände offen. Das Nachtgeschäft ist unterbrochen, aber die Abschriften und Rimmels Ruf liegen noch auf dem Tisch.\n\nDie Entscheidung schließt diese Akte; vorher kannst du noch einmal die Spuren prüfen.",
+        "choices": [
+          {
+            "text": "Die Belege öffentlich übergeben. Rimmel entlasten, Senns Käufer benennen.",
+            "next": "k2a_tinte_ende_offen",
+            "requires_quests_active": [
+              "k2a_tinte"
+            ],
+            "requires_flags": [
+              "won_k2a_tinte_kampf"
+            ],
+            "hide_if_flags": [
+              "k2a_tinte_done"
+            ],
+            "requires_conclusions": [
+              "k2a_tinte_d_sichern"
+            ]
+          },
+          {
+            "text": "Den Abzweig stilllegen und Rimmel entlasten, Käufer vorerst nicht veröffentlichen.",
+            "next": "k2a_tinte_ende_still",
+            "requires_quests_active": [
+              "k2a_tinte"
+            ],
+            "requires_flags": [
+              "won_k2a_tinte_kampf"
+            ],
+            "hide_if_flags": [
+              "k2a_tinte_done"
+            ],
+            "requires_conclusions": [
+              "k2a_tinte_d_sichern"
+            ]
+          },
+          {
+            "text": "Senns Schweigegeld annehmen. Die Käuferliste verschwinden lassen.",
+            "next": "k2a_tinte_ende_verkauft",
+            "requires_quests_active": [
+              "k2a_tinte"
+            ],
+            "requires_flags": [
+              "won_k2a_tinte_kampf"
+            ],
+            "hide_if_flags": [
+              "k2a_tinte_done"
+            ]
+          },
+          {
+            "text": "Noch nicht entscheiden."
+          }
+        ]
+      },
+      "k2a_tinte_geschlossen": {
+        "text": "Die Akte ist abgeschlossen. Der Bericht und seine Folgen bleiben bei den Beteiligten nachlesbar.",
+        "choices": [
+          {
+            "text": "Ich komme wieder."
+          }
+        ]
+      },
+      "k2a_tinte_ende_offen": {
+        "text": "Du hältst deine Entscheidung im Abschlussbericht fest. Die Beteiligten werden mit ihren Folgen leben müssen.",
+        "ending": "k2a_tinte_ende_offen",
+        "choices": [
+          {
+            "text": "Bericht lesen."
+          }
+        ]
+      },
+      "k2a_tinte_ende_still": {
+        "text": "Du hältst deine Entscheidung im Abschlussbericht fest. Die Beteiligten werden mit ihren Folgen leben müssen.",
+        "ending": "k2a_tinte_ende_still",
+        "choices": [
+          {
+            "text": "Bericht lesen."
+          }
+        ]
+      },
+      "k2a_tinte_ende_verkauft": {
+        "text": "Du hältst deine Entscheidung im Abschlussbericht fest. Die Beteiligten werden mit ihren Folgen leben müssen.",
+        "ending": "k2a_tinte_ende_verkauft",
+        "choices": [
+          {
+            "text": "Bericht lesen."
+          }
+        ]
+      }
+    }
+  },
+  "k2a_bittere_mittel_kontakt": {
+    "start": "k2a_bittere_mittel_start",
+    "nodes": {
+      "k2a_bittere_mittel_start": {
+        "text": "Minna zählt leere Gläser, um ihre Hände zu beschäftigen. „Die ganze Lieferung bleibt gesperrt. Auch die, für die du noch keine Erklärung hast.“",
+        "choices": [
+          {
+            "text": "Die neue Akte übernehmen.",
+            "next": "k2a_bittere_mittel_auftrag",
+            "requires_flags": [
+              "k2_akt2_done"
+            ],
+            "hide_if_quests": [
+              "k2a_bittere_mittel"
+            ],
+            "hide_if_flags": [
+              "kapitel2_done"
+            ]
+          },
+          {
+            "text": "Ausgabebuch.",
+            "next": "k2a_bittere_mittel_aussage_a2",
+            "requires_quests_active": [
+              "k2a_bittere_mittel"
+            ],
+            "hide_if_clues": [
+              "k2a_bittere_mittel_h_a2"
+            ]
+          },
+          {
+            "text": "Keine Moorminze.",
+            "next": "k2a_bittere_mittel_aussage_b2",
+            "requires_quests_active": [
+              "k2a_bittere_mittel"
+            ],
+            "hide_if_clues": [
+              "k2a_bittere_mittel_h_b2"
+            ]
+          },
+          {
+            "text": "Was bleibt von der Akte?",
+            "next": "k2a_bittere_mittel_nach_offen",
+            "requires_flags": [
+              "k2a_bittere_mittel_ende_offen_gesetzt"
+            ]
+          },
+          {
+            "text": "Was bleibt von der Akte?",
+            "next": "k2a_bittere_mittel_nach_geschuetzt",
+            "requires_flags": [
+              "k2a_bittere_mittel_ende_geschuetzt_gesetzt"
+            ]
+          },
+          {
+            "text": "Was bleibt von der Akte?",
+            "next": "k2a_bittere_mittel_nach_vergleich",
+            "requires_flags": [
+              "k2a_bittere_mittel_ende_vergleich_gesetzt"
+            ]
+          },
+          {
+            "text": "Bis später."
+          }
+        ]
+      },
+      "k2a_bittere_mittel_auftrag": {
+        "text": "Minna hat alle Flaschen mit Bindfaden zugeschnürt. „Drei Tote: Alva, Nerin und der alte Pell. Ich kenne ihre Stimmen besser als meine eigene.“ Sie legt einen Beschwerdebrief hin: „Prüf die Flaschen, nicht meinen guten Ruf. Der hilft ihnen nicht mehr.“",
+        "start_quests": [
+          "k2a_bittere_mittel"
+        ],
+        "sets_flags": [
+          "k2a_bittere_mittel_offen"
+        ],
+        "gives_clues": [
+          "k2a_bittere_mittel_h_l1"
+        ],
+        "choices": [
+          {
+            "text": "Ich prüfe die Spuren.",
+            "next": "k2a_bittere_mittel_start"
+          }
+        ],
+        "gives_items": {
+          "k2a_bittere_mittel_abschrift": 1
+        }
+      },
+      "k2a_bittere_mittel_aussage_a2": {
+        "text": "„Die Charge ging nur ins Pfahldorf. Am selben Morgen gab ich am Markt Saft aus dem alten Kessel aus. Dort ist niemand auf diese Weise erkrankt.“ Du hältst die Aussage getrennt von deinen Vermutungen fest.",
+        "gives_clues": [
+          "k2a_bittere_mittel_h_a2"
+        ],
+        "choices": [
+          {
+            "text": "Weiterfragen.",
+            "next": "k2a_bittere_mittel_start"
+          }
+        ]
+      },
+      "k2a_bittere_mittel_aussage_b2": {
+        "text": "„Diese Pflanze kenne ich aus keinem meiner Beete. Der Geruch wurde mit Minzöl überdeckt. Ich habe vor dem Kochen gerochen, statt jedes Bündel zu öffnen. Das war mein Fehler, nicht mein Rezept.“ Du hältst die Aussage getrennt von deinen Vermutungen fest.",
+        "gives_clues": [
+          "k2a_bittere_mittel_h_b2"
+        ],
+        "choices": [
+          {
+            "text": "Weiterfragen.",
+            "next": "k2a_bittere_mittel_start"
+          }
+        ]
+      },
+      "k2a_bittere_mittel_nach_offen": {
+        "text": "Du gibst Proben und Lieferbelege an die städtische Heilaufsicht, mit Abschriften für die Familien. Veit wird aus dem Versuchsdienst genommen. Minna hängt ihre Entlastung neben die neue Pflicht zur Einzelkontrolle. Für Alva, Nerin und Pell kommt diese Pflicht zu spät. Die Überlebenden werden von ihren Nachbarn betreut.",
+        "choices": [
+          {
+            "text": "Ich komme wieder."
+          }
+        ]
+      },
+      "k2a_bittere_mittel_nach_geschuetzt": {
+        "text": "Du belegst Veits Eingriff öffentlich, verwahrst aber die intimen Erinnerungsprotokolle bei der Heilaufsicht unter den Namen der Angehörigen. Minna wird entlastet, der Vorrat gesperrt. Die Familien behalten die Entscheidung über ihre Aussagen. Der Nachweis einzelner zusätzlicher Übergriffe wird dadurch langsamer, nicht überflüssig.",
+        "choices": [
+          {
+            "text": "Ich komme wieder."
+          }
+        ]
+      },
+      "k2a_bittere_mittel_nach_vergleich": {
+        "text": "Veit bezahlt den Rückruf aus seinem Versuchsetat und du nimmst den zusätzlichen Vermittlungslohn. Die Charge wird vernichtet, Minna erhält eine private Entlastung, aber die Akademie spricht nur von einem Lieferfehler. Veits unterschriebene Fortsetzungsanordnung verschwindet im internen Archiv. Die Angehörigen erfahren den verantwortlichen Namen nicht aus dem amtlichen Bericht.",
+        "choices": [
+          {
+            "text": "Ich komme wieder."
+          }
+        ]
+      }
+    }
+  },
+  "k2a_bittere_mittel_verhoer": {
+    "start": "k2a_bittere_mittel_verhoer_start",
+    "nodes": {
+      "k2a_bittere_mittel_verhoer_start": {
+        "text": "Veit steht mit einem Probenschrank auf Rädern vor dem Akademietor. „Du willst eine Auskunft? Bitte ohne die Geschichten vom Moor. Für die habe ich keine Ablage.“",
+        "choices": [
+          {
+            "text": "Deine erste Erklärung noch einmal.",
+            "next": "k2a_bittere_mittel_luege",
+            "requires_quests_active": [
+              "k2a_bittere_mittel"
+            ]
+          },
+          {
+            "text": "Gedächtnis als Messwert.",
+            "next": "k2a_bittere_mittel_aussage_e1",
+            "requires_quests_active": [
+              "k2a_bittere_mittel"
+            ],
+            "hide_if_clues": [
+              "k2a_bittere_mittel_h_e1"
+            ]
+          },
+          {
+            "text": "Kein Gegenmittel im Schrank.",
+            "next": "k2a_bittere_mittel_aussage_g2",
+            "requires_quests_active": [
+              "k2a_bittere_mittel"
+            ],
+            "hide_if_clues": [
+              "k2a_bittere_mittel_h_g2"
+            ]
+          },
+          {
+            "text": "Du hast die Moorminze ausgetauscht. Dein Versuch hat Menschen getötet.",
+            "next": "k2a_bittere_mittel_widerlegen",
+            "requires_quests_active": [
+              "k2a_bittere_mittel"
+            ],
+            "requires_conclusions": [
+              "k2a_bittere_mittel_d_charge",
+              "k2a_bittere_mittel_d_folgen",
+              "k2a_bittere_mittel_d_taeter"
+            ],
+            "requires_clues": [
+              "k2a_bittere_mittel_h_d1",
+              "k2a_bittere_mittel_h_d2",
+              "k2a_bittere_mittel_h_l2"
+            ],
+            "requires_flags": [
+              "k2a_bittere_mittel_kontrolle_done"
+            ],
+            "hide_if_flags": [
+              "k2a_bittere_mittel_gestellt"
+            ]
+          },
+          {
+            "text": "Du bist bereits mit den Beweisen konfrontiert worden.",
+            "next": "k2a_bittere_mittel_nach_verhoer",
+            "requires_quests_active": [
+              "k2a_bittere_mittel"
+            ],
+            "requires_flags": [
+              "k2a_bittere_mittel_gestellt"
+            ]
+          },
+          {
+            "text": "Gehen."
+          }
+        ]
+      },
+      "k2a_bittere_mittel_luege": {
+        "text": "„Unsere Siegel gehen nur bei der Empfängerin auf. Wer etwas anderes behauptet, sollte erst lesen lernen.“ Veit zieht seinen Ärmelschoner über einen Wachsfleck.",
+        "gives_clues": [
+          "k2a_bittere_mittel_h_l2"
+        ],
+        "choices": [
+          {
+            "text": "Ich prüfe das.",
+            "next": "k2a_bittere_mittel_verhoer_start"
+          }
+        ]
+      },
+      "k2a_bittere_mittel_aussage_e1": {
+        "text": "„Die Moorarbeiter erinnern sich an verschwundene Wege. Ich prüfe, ob ihre Erinnerung dem Moor einen Halt gibt. Menschen sind für diese Reihe leider die einzigen geeigneten Beobachter.“ Du hältst die Aussage getrennt von deinen Vermutungen fest.",
+        "gives_clues": [
+          "k2a_bittere_mittel_h_e1"
+        ],
+        "choices": [
+          {
+            "text": "Weiterfragen.",
+            "next": "k2a_bittere_mittel_verhoer_start"
+          }
+        ]
+      },
+      "k2a_bittere_mittel_aussage_g2": {
+        "text": "„Ein Gegenmittel habe ich nicht. Der Vorrat im Schrank ist die nächste Versuchsreihe.“ Veit sieht zum Rad seines Wagens, als überlege er bereits den kürzesten Weg hinaus. Du hältst die Aussage getrennt von deinen Vermutungen fest.",
+        "gives_clues": [
+          "k2a_bittere_mittel_h_g2"
+        ],
+        "choices": [
+          {
+            "text": "Weiterfragen.",
+            "next": "k2a_bittere_mittel_verhoer_start"
+          }
+        ]
+      },
+      "k2a_bittere_mittel_widerlegen": {
+        "text": "Du zeigst Veit die beiden Siegel und seine eigene Entnahmeliste. „Sie sollten nur vergessen, wo sie gearbeitet hatten“, sagt er. „Ich wollte wissen, ob ein ausgelöschener Ortsname das Moor beruhigt.“ Er schiebt den Schrank fort: „Wenn du den Rest willst, komm zum alten Stich. Hier stehen zu viele Zuhörer.“",
+        "sets_flags": [
+          "k2a_bittere_mittel_gestellt"
+        ],
+        "choices": [
+          {
+            "text": "Ich sichere den Tatort."
+          }
+        ]
+      },
+      "k2a_bittere_mittel_nach_verhoer": {
+        "text": "Die Aussage steht in deiner Akte. Am gesicherten Schauplatz kannst du die Auseinandersetzung fortsetzen; weitere Beweise bleiben bis zum Abschluss zugänglich.",
+        "choices": [
+          {
+            "text": "Ich komme wieder."
+          }
+        ]
+      }
+    }
+  },
+  "k2a_bittere_mittel_kontrolle": {
+    "start": [
+      {
+        "node": "k2a_bittere_mittel_pol_fertig",
+        "requires_flags": [
+          "k2a_bittere_mittel_kontrolle_done"
+        ]
+      },
+      {
+        "node": "k2a_bittere_mittel_pol_start"
+      }
+    ],
+    "nodes": {
+      "k2a_bittere_mittel_pol_start": {
+        "text": "Vor Minnas Stand liest eine Streife die Namen ihrer Kundschaft ab. Sie verlangt die Proben und vergleicht dich mit dem Steckbrief. Minna hält die Kiste fest, ohne dich um einen Kampf zu bitten.",
+        "choices": [
+          {
+            "text": "In passender Verkleidung die öffentliche Beweissicherung verlangen.",
+            "next": "k2a_bittere_mittel_pol_maske",
+            "requires_flags": [
+              "k2_wear_fischerjacke"
+            ],
+            "requires_items": [
+              "fischerjacke"
+            ]
+          },
+          {
+            "text": "Hinter den Wagen warten und den sicheren Weg nehmen. (4 Nerven)",
+            "next": "k2a_bittere_mittel_pol_warten"
+          },
+          {
+            "text": "Den Zugang vor Zeugen erzwingen. (Fahndung mindestens 2)",
+            "next": "k2a_bittere_mittel_pol_laut"
+          },
+          {
+            "text": "Erst zurückziehen."
+          }
+        ]
+      },
+      "k2a_bittere_mittel_pol_maske": {
+        "text": "Die passende Kleidung macht aus deinem Besuch eine gewöhnliche Amtshandlung. Die Streife prüft die Kiste, nicht dein Gesicht. Du kannst die Beweise jetzt sichern.",
+        "sets_flags": [
+          "k2a_bittere_mittel_kontrolle_done"
+        ],
+        "choices": [
+          {
+            "text": "Ich komme wieder."
+          }
+        ]
+      },
+      "k2a_bittere_mittel_pol_warten": {
+        "text": "Du wartest im Dunkeln, bis die Laternen weiterziehen. Das kostet Geduld und Nerven, aber weder Münzen noch eine neue Lüge. Der Zugang ist nun frei.",
+        "sets_flags": [
+          "k2a_bittere_mittel_kontrolle_done"
+        ],
+        "nerves": -4,
+        "choices": [
+          {
+            "text": "Ich komme wieder."
+          }
+        ]
+      },
+      "k2a_bittere_mittel_pol_laut": {
+        "text": "Du rufst die Umstehenden herbei und lässt die Streife jeden Gegenstand laut protokollieren. Sie gibt den Zugang frei, merkt sich aber dein Gesicht. Weitere Grauspäher bekommen deine Beschreibung.",
+        "sets_flags": [
+          "k2a_bittere_mittel_kontrolle_done"
+        ],
+        "wanted": 2,
+        "choices": [
+          {
+            "text": "Ich komme wieder."
+          }
+        ]
+      },
+      "k2a_bittere_mittel_pol_fertig": {
+        "text": "Die Beweissicherung ist bereits geklärt. Die gewöhnlichen Streifen gehen weiter ihren Runden nach.",
+        "choices": [
+          {
+            "text": "Ich komme wieder."
+          }
+        ]
+      }
+    }
+  },
+  "k2a_bittere_mittel_showdown": {
+    "start": [
+      {
+        "node": "k2a_bittere_mittel_geschlossen",
+        "requires_flags": [
+          "k2a_bittere_mittel_done"
+        ]
+      },
+      {
+        "node": "k2a_bittere_mittel_wahl",
+        "requires_flags": [
+          "won_k2a_bittere_mittel_kampf"
+        ]
+      },
+      {
+        "node": "k2a_bittere_mittel_kampf_start"
+      }
+    ],
+    "nodes": {
+      "k2a_bittere_mittel_kampf_start": {
+        "text": "Veit hat seinen fahrbaren Probenschrank an den alten Torfstich gebracht. „Du hältst Erinnerungen für Beweise. Ich hielt sie für veränderlich.“ Er stößt den Schrank gegen dich und greift nach der eisernen Rührstange.",
+        "choices": [
+          {
+            "text": "Die Beweise sichern und den Kampf beginnen.",
+            "next": "k2a_bittere_mittel_kampf_jetzt"
+          },
+          {
+            "text": "Erst vorbereiten."
+          }
+        ]
+      },
+      "k2a_bittere_mittel_kampf_jetzt": {
+        "text": "Du trittst vor und hältst den Rückweg frei. Jetzt zählt, ob du den Angriff abfangen kannst.",
+        "combat": "k2a_bittere_mittel_kampf",
+        "choices": [
+          {
+            "text": "Kämpfen."
+          }
+        ]
+      },
+      "k2a_bittere_mittel_wahl": {
+        "text": "Die Rührstange steckt im Torf. Du schließt den Probenschrank, bevor etwas auslaufen kann. Veit gibt dir den Schlüssel zum Lieferfach, aber keine Entschuldigung.\n\nDie Entscheidung schließt diese Akte; vorher kannst du noch einmal die Spuren prüfen.",
+        "choices": [
+          {
+            "text": "Den Versuch belegen und unabhängig untersuchen lassen. Minna öffentlich entlasten.",
+            "next": "k2a_bittere_mittel_ende_offen",
+            "requires_quests_active": [
+              "k2a_bittere_mittel"
+            ],
+            "requires_flags": [
+              "won_k2a_bittere_mittel_kampf"
+            ],
+            "hide_if_flags": [
+              "k2a_bittere_mittel_done"
+            ],
+            "requires_conclusions": [
+              "k2a_bittere_mittel_d_sichern"
+            ]
+          },
+          {
+            "text": "Den Austausch offenlegen, die persönlichen Versuchsnotizen versiegelt verwahren.",
+            "next": "k2a_bittere_mittel_ende_geschuetzt",
+            "requires_quests_active": [
+              "k2a_bittere_mittel"
+            ],
+            "requires_flags": [
+              "won_k2a_bittere_mittel_kampf"
+            ],
+            "hide_if_flags": [
+              "k2a_bittere_mittel_done"
+            ],
+            "requires_conclusions": [
+              "k2a_bittere_mittel_d_sichern"
+            ]
+          },
+          {
+            "text": "Den internen Vergleich der Akademie akzeptieren. Auf öffentliche Schuldzuweisung verzichten.",
+            "next": "k2a_bittere_mittel_ende_vergleich",
+            "requires_quests_active": [
+              "k2a_bittere_mittel"
+            ],
+            "requires_flags": [
+              "won_k2a_bittere_mittel_kampf"
+            ],
+            "hide_if_flags": [
+              "k2a_bittere_mittel_done"
+            ]
+          },
+          {
+            "text": "Noch nicht entscheiden."
+          }
+        ]
+      },
+      "k2a_bittere_mittel_geschlossen": {
+        "text": "Die Akte ist abgeschlossen. Der Bericht und seine Folgen bleiben bei den Beteiligten nachlesbar.",
+        "choices": [
+          {
+            "text": "Ich komme wieder."
+          }
+        ]
+      },
+      "k2a_bittere_mittel_ende_offen": {
+        "text": "Du hältst deine Entscheidung im Abschlussbericht fest. Die Beteiligten werden mit ihren Folgen leben müssen.",
+        "ending": "k2a_bittere_mittel_ende_offen",
+        "choices": [
+          {
+            "text": "Bericht lesen."
+          }
+        ]
+      },
+      "k2a_bittere_mittel_ende_geschuetzt": {
+        "text": "Du hältst deine Entscheidung im Abschlussbericht fest. Die Beteiligten werden mit ihren Folgen leben müssen.",
+        "ending": "k2a_bittere_mittel_ende_geschuetzt",
+        "choices": [
+          {
+            "text": "Bericht lesen."
+          }
+        ]
+      },
+      "k2a_bittere_mittel_ende_vergleich": {
+        "text": "Du hältst deine Entscheidung im Abschlussbericht fest. Die Beteiligten werden mit ihren Folgen leben müssen.",
+        "ending": "k2a_bittere_mittel_ende_vergleich",
+        "choices": [
+          {
+            "text": "Bericht lesen."
+          }
+        ]
+      }
+    }
+  },
+  "k2a_hafenrecht_kontakt": {
+    "start": "k2a_hafenrecht_start",
+    "nodes": {
+      "k2a_hafenrecht_start": {
+        "text": "Dora bindet den Fundkahn ein zweites Mal fest. „Der Hafen darf die Ladung wechseln. Seine Toten darf er nicht umbenennen.“",
+        "choices": [
+          {
+            "text": "Die neue Akte übernehmen.",
+            "next": "k2a_hafenrecht_auftrag",
+            "requires_flags": [
+              "k2_akt2_done"
+            ],
+            "hide_if_quests": [
+              "k2a_hafenrecht"
+            ],
+            "hide_if_flags": [
+              "kapitel2_done"
+            ]
+          },
+          {
+            "text": "Ein Name für die Arbeit.",
+            "next": "k2a_hafenrecht_aussage_a2",
+            "requires_quests_active": [
+              "k2a_hafenrecht"
+            ],
+            "hide_if_clues": [
+              "k2a_hafenrecht_h_a2"
+            ]
+          },
+          {
+            "text": "Allein am Steuer.",
+            "next": "k2a_hafenrecht_aussage_e2",
+            "requires_quests_active": [
+              "k2a_hafenrecht"
+            ],
+            "hide_if_clues": [
+              "k2a_hafenrecht_h_e2"
+            ]
+          },
+          {
+            "text": "Was bleibt von der Akte?",
+            "next": "k2a_hafenrecht_nach_namen",
+            "requires_flags": [
+              "k2a_hafenrecht_ende_namen_gesetzt"
+            ]
+          },
+          {
+            "text": "Was bleibt von der Akte?",
+            "next": "k2a_hafenrecht_nach_still",
+            "requires_flags": [
+              "k2a_hafenrecht_ende_still_gesetzt"
+            ]
+          },
+          {
+            "text": "Was bleibt von der Akte?",
+            "next": "k2a_hafenrecht_nach_kasse",
+            "requires_flags": [
+              "k2a_hafenrecht_ende_kasse_gesetzt"
+            ]
+          },
+          {
+            "text": "Bis später."
+          }
+        ]
+      },
+      "k2a_hafenrecht_auftrag": {
+        "text": "Dora hält ihr Fernrohr verkehrt herum, ohne es zu bemerken. „Drei Tote im Boot, dreimal Silas Rooke auf dem Arm. Ich habe jeden der Männer schon gesehen, aber keiner hieß so.“ Sie legt den ersten Wachbericht hin: „Wenn ich jetzt Ritual sage, holen sie die Fischer. Wenn ich gar nichts sage, holt die Flut die Beweise.“",
+        "start_quests": [
+          "k2a_hafenrecht"
+        ],
+        "sets_flags": [
+          "k2a_hafenrecht_offen"
+        ],
+        "gives_clues": [
+          "k2a_hafenrecht_h_l1"
+        ],
+        "choices": [
+          {
+            "text": "Ich prüfe die Spuren.",
+            "next": "k2a_hafenrecht_start"
+          }
+        ],
+        "gives_items": {
+          "k2a_hafenrecht_abschrift": 1
+        }
+      },
+      "k2a_hafenrecht_aussage_a2": {
+        "text": "„Bero Ahl, Timm Fehn und Merten Koss. Alle drei durften seit Monatsanfang wieder ausfahren, aber in der neuen Liste steht nur Rooke. Ich habe die Anmeldung zurückgeschickt. Noll hat sie bestätigt.“ Du hältst die Aussage getrennt von deinen Vermutungen fest.",
+        "gives_clues": [
+          "k2a_hafenrecht_h_a2"
+        ],
+        "choices": [
+          {
+            "text": "Weiterfragen.",
+            "next": "k2a_hafenrecht_start"
+          }
+        ]
+      },
+      "k2a_hafenrecht_aussage_e2": {
+        "text": "„Noll kam allein mit dem Beiboot zurück. Seine Erklärung lautete: Die drei wollten draußen übernachten. Die Steuerriemen des Fundkahns brachte er schon mit.“ Du hältst die Aussage getrennt von deinen Vermutungen fest.",
+        "gives_clues": [
+          "k2a_hafenrecht_h_e2"
+        ],
+        "choices": [
+          {
+            "text": "Weiterfragen.",
+            "next": "k2a_hafenrecht_start"
+          }
+        ]
+      },
+      "k2a_hafenrecht_nach_namen": {
+        "text": "Dora legt drei Akten statt einer an. Du übergibst Nolls Vertrag und Auftrag an die Hafenaufsicht; die Auszahlung wird bis zur Prüfung der Familienansprüche eingefroren. Auf dem Totenbrett stehen Bero Ahl, Timm Fehn und Merten Koss. Noll bleibt als Beschuldigter vermerkt, nicht als ihr Vertreter.",
+        "choices": [
+          {
+            "text": "Ich komme wieder."
+          }
+        ]
+      },
+      "k2a_hafenrecht_nach_still": {
+        "text": "Du gibst die vollständigen Belege versiegelt an die Hafenaufsicht. Die Familien erhalten je ihre Abschrift und behalten die Entscheidung über ein öffentliches Gedenken. Nolls Auszahlung wird gesperrt. Am Kai bleibt Rooke vorläufig durchgestrichen, ohne neue Namen darunter. So schützt du die Angehörigen, lässt aber den öffentlichen Irrtum länger stehen.",
+        "choices": [
+          {
+            "text": "Ich komme wieder."
+          }
+        ]
+      },
+      "k2a_hafenrecht_nach_kasse": {
+        "text": "Du sicherst die Namen für Dora, gibst Noll aber das Duplikat ohne Anzeige zurück und nimmst einen Anteil seiner Auszahlung. Die Toten erhalten richtige Namen, ihre Familien keinen gesicherten Zugriff auf die Summe. Dora nimmt deine Abschrift an, aber nicht mehr deine Hand. Der Bergungskahn bleibt erstaunlich gut versichert.",
+        "choices": [
+          {
+            "text": "Ich komme wieder."
+          }
+        ]
+      }
+    }
+  },
+  "k2a_hafenrecht_verhoer": {
+    "start": "k2a_hafenrecht_verhoer_start",
+    "nodes": {
+      "k2a_hafenrecht_verhoer_start": {
+        "text": "Noll stellt seinen Stempel auf ein trockenes Tuch. „Eine Person, ein Vertrag. Das ist der Grundsatz der Hafenkasse. Dass du drei Leichen zählst, ist zunächst ein Problem deiner Liste.“",
+        "choices": [
+          {
+            "text": "Deine erste Erklärung noch einmal.",
+            "next": "k2a_hafenrecht_luege",
+            "requires_quests_active": [
+              "k2a_hafenrecht"
+            ]
+          },
+          {
+            "text": "Das Entgelt für Verwaltung.",
+            "next": "k2a_hafenrecht_aussage_b2",
+            "requires_quests_active": [
+              "k2a_hafenrecht"
+            ],
+            "hide_if_clues": [
+              "k2a_hafenrecht_h_b2"
+            ]
+          },
+          {
+            "text": "Ein Schalterzeichen.",
+            "next": "k2a_hafenrecht_aussage_f1",
+            "requires_quests_active": [
+              "k2a_hafenrecht"
+            ],
+            "hide_if_clues": [
+              "k2a_hafenrecht_h_f1"
+            ]
+          },
+          {
+            "text": "Du hast drei Männer unter einem Toten versichert und ihre Ausfahrt zur Auszahlung gemacht.",
+            "next": "k2a_hafenrecht_widerlegen",
+            "requires_quests_active": [
+              "k2a_hafenrecht"
+            ],
+            "requires_conclusions": [
+              "k2a_hafenrecht_d_menschen",
+              "k2a_hafenrecht_d_motiv",
+              "k2a_hafenrecht_d_taeter"
+            ],
+            "requires_clues": [
+              "k2a_hafenrecht_h_b1",
+              "k2a_hafenrecht_h_f1",
+              "k2a_hafenrecht_h_l2"
+            ],
+            "requires_flags": [
+              "k2a_hafenrecht_kontrolle_done"
+            ],
+            "hide_if_flags": [
+              "k2a_hafenrecht_gestellt"
+            ]
+          },
+          {
+            "text": "Du bist bereits mit den Beweisen konfrontiert worden.",
+            "next": "k2a_hafenrecht_nach_verhoer",
+            "requires_quests_active": [
+              "k2a_hafenrecht"
+            ],
+            "requires_flags": [
+              "k2a_hafenrecht_gestellt"
+            ]
+          },
+          {
+            "text": "Gehen."
+          }
+        ]
+      },
+      "k2a_hafenrecht_luege": {
+        "text": "„Unter derselben Nummer zahlt man nur einmal. Alles andere wäre gegen unsere eigene Ordnung.“ Seine Hand bleibt auf dem geschlossenen Kassenbuch.",
+        "gives_clues": [
+          "k2a_hafenrecht_h_l2"
+        ],
+        "choices": [
+          {
+            "text": "Ich prüfe das.",
+            "next": "k2a_hafenrecht_verhoer_start"
+          }
+        ]
+      },
+      "k2a_hafenrecht_aussage_b2": {
+        "text": "„Ich bin der Bevollmächtigte. Die Familien bekommen ihren Anteil nach Abzug meiner Verwaltungskosten. Dass ich den Betrag zuerst erhalte, ist nicht ungewöhnlich.“ Du hältst die Aussage getrennt von deinen Vermutungen fest.",
+        "gives_clues": [
+          "k2a_hafenrecht_h_b2"
+        ],
+        "choices": [
+          {
+            "text": "Weiterfragen.",
+            "next": "k2a_hafenrecht_verhoer_start"
+          }
+        ]
+      },
+      "k2a_hafenrecht_aussage_f1": {
+        "text": "„Der Haken unter dem Namen ist mein Registerzeichen. Ohne ihn hätte die Wache die alten Fahrverbote der drei erkannt.“ Noll merkt zu spät, was er damit eingeräumt hat. Du hältst die Aussage getrennt von deinen Vermutungen fest.",
+        "gives_clues": [
+          "k2a_hafenrecht_h_f1"
+        ],
+        "choices": [
+          {
+            "text": "Weiterfragen.",
+            "next": "k2a_hafenrecht_verhoer_start"
+          }
+        ]
+      },
+      "k2a_hafenrecht_widerlegen": {
+        "text": "Du legst die dreifache Zahlung neben Nolls Durchschlag. „Sie wollten Arbeit, keine Namen“, sagt er. „Unter Rooke durften sie fahren.“ Als du nach den von außen verriegelten Luken fragst, klappt er den Stempel zu. „Das klären wir am Bergungskahn, nicht vor meinen Kunden.“",
+        "sets_flags": [
+          "k2a_hafenrecht_gestellt"
+        ],
+        "choices": [
+          {
+            "text": "Ich sichere den Tatort."
+          }
+        ]
+      },
+      "k2a_hafenrecht_nach_verhoer": {
+        "text": "Die Aussage steht in deiner Akte. Am gesicherten Schauplatz kannst du die Auseinandersetzung fortsetzen; weitere Beweise bleiben bis zum Abschluss zugänglich.",
+        "choices": [
+          {
+            "text": "Ich komme wieder."
+          }
+        ]
+      }
+    }
+  },
+  "k2a_hafenrecht_kontrolle": {
+    "start": [
+      {
+        "node": "k2a_hafenrecht_pol_fertig",
+        "requires_flags": [
+          "k2a_hafenrecht_kontrolle_done"
+        ]
+      },
+      {
+        "node": "k2a_hafenrecht_pol_start"
+      }
+    ],
+    "nodes": {
+      "k2a_hafenrecht_pol_start": {
+        "text": "Am Kai will eine Streife den Fundkahn freigeben, bevor Dora die Planken untersucht hat. Dein Steckbrief steckt in der Ledermappe des Wortführers. Eine offene Auseinandersetzung würde deinen Namen zuverlässig in das Protokoll bringen.",
+        "choices": [
+          {
+            "text": "In passender Verkleidung die öffentliche Beweissicherung verlangen.",
+            "next": "k2a_hafenrecht_pol_maske",
+            "requires_flags": [
+              "k2_wear_fischerjacke"
+            ],
+            "requires_items": [
+              "fischerjacke"
+            ]
+          },
+          {
+            "text": "Hinter den Wagen warten und den sicheren Weg nehmen. (4 Nerven)",
+            "next": "k2a_hafenrecht_pol_warten"
+          },
+          {
+            "text": "Den Zugang vor Zeugen erzwingen. (Fahndung mindestens 2)",
+            "next": "k2a_hafenrecht_pol_laut"
+          },
+          {
+            "text": "Erst zurückziehen."
+          }
+        ]
+      },
+      "k2a_hafenrecht_pol_maske": {
+        "text": "Die passende Kleidung macht aus deinem Besuch eine gewöhnliche Amtshandlung. Die Streife prüft die Kiste, nicht dein Gesicht. Du kannst die Beweise jetzt sichern.",
+        "sets_flags": [
+          "k2a_hafenrecht_kontrolle_done"
+        ],
+        "choices": [
+          {
+            "text": "Ich komme wieder."
+          }
+        ]
+      },
+      "k2a_hafenrecht_pol_warten": {
+        "text": "Du wartest im Dunkeln, bis die Laternen weiterziehen. Das kostet Geduld und Nerven, aber weder Münzen noch eine neue Lüge. Der Zugang ist nun frei.",
+        "sets_flags": [
+          "k2a_hafenrecht_kontrolle_done"
+        ],
+        "nerves": -4,
+        "choices": [
+          {
+            "text": "Ich komme wieder."
+          }
+        ]
+      },
+      "k2a_hafenrecht_pol_laut": {
+        "text": "Du rufst die Umstehenden herbei und lässt die Streife jeden Gegenstand laut protokollieren. Sie gibt den Zugang frei, merkt sich aber dein Gesicht. Weitere Grauspäher bekommen deine Beschreibung.",
+        "sets_flags": [
+          "k2a_hafenrecht_kontrolle_done"
+        ],
+        "wanted": 2,
+        "choices": [
+          {
+            "text": "Ich komme wieder."
+          }
+        ]
+      },
+      "k2a_hafenrecht_pol_fertig": {
+        "text": "Die Beweissicherung ist bereits geklärt. Die gewöhnlichen Streifen gehen weiter ihren Runden nach.",
+        "choices": [
+          {
+            "text": "Ich komme wieder."
+          }
+        ]
+      }
+    }
+  },
+  "k2a_hafenrecht_showdown": {
+    "start": [
+      {
+        "node": "k2a_hafenrecht_geschlossen",
+        "requires_flags": [
+          "k2a_hafenrecht_done"
+        ]
+      },
+      {
+        "node": "k2a_hafenrecht_wahl",
+        "requires_flags": [
+          "won_k2a_hafenrecht_kampf"
+        ]
+      },
+      {
+        "node": "k2a_hafenrecht_kampf_start"
+      }
+    ],
+    "nodes": {
+      "k2a_hafenrecht_kampf_start": {
+        "text": "Im Salzwatt hängt der Bergungskahn an einem einzelnen Pfahl. Noll will die letzte Bodenplanke unter Wasser drücken. Als du über die Bordkante steigst, stößt er mit dem Bootshaken zu. Zwischen euch liegt das versiegelte Duplikat der Versicherung.",
+        "choices": [
+          {
+            "text": "Die Beweise sichern und den Kampf beginnen.",
+            "next": "k2a_hafenrecht_kampf_jetzt"
+          },
+          {
+            "text": "Erst vorbereiten."
+          }
+        ]
+      },
+      "k2a_hafenrecht_kampf_jetzt": {
+        "text": "Du trittst vor und hältst den Rückweg frei. Jetzt zählt, ob du den Angriff abfangen kannst.",
+        "combat": "k2a_hafenrecht_kampf",
+        "choices": [
+          {
+            "text": "Kämpfen."
+          }
+        ]
+      },
+      "k2a_hafenrecht_wahl": {
+        "text": "Du trittst den Bootshaken unter die Bank und bindest den Kahn am zweiten Tau fest. Noll kann weder die Planke noch den Vertrag versenken. Drei Namen müssen trotzdem erst wieder zu drei Familien zurückfinden.\n\nDie Entscheidung schließt diese Akte; vorher kannst du noch einmal die Spuren prüfen.",
+        "choices": [
+          {
+            "text": "Die echten Namen veröffentlichen und die Auszahlung für die Familien sperren.",
+            "next": "k2a_hafenrecht_ende_namen",
+            "requires_quests_active": [
+              "k2a_hafenrecht"
+            ],
+            "requires_flags": [
+              "won_k2a_hafenrecht_kampf"
+            ],
+            "hide_if_flags": [
+              "k2a_hafenrecht_done"
+            ],
+            "requires_conclusions": [
+              "k2a_hafenrecht_d_sichern"
+            ]
+          },
+          {
+            "text": "Noll anzeigen und die Ansprüche sichern, die Identitäten vorerst nur den Familien mitteilen.",
+            "next": "k2a_hafenrecht_ende_still",
+            "requires_quests_active": [
+              "k2a_hafenrecht"
+            ],
+            "requires_flags": [
+              "won_k2a_hafenrecht_kampf"
+            ],
+            "hide_if_flags": [
+              "k2a_hafenrecht_done"
+            ],
+            "requires_conclusions": [
+              "k2a_hafenrecht_d_sichern"
+            ]
+          },
+          {
+            "text": "Nolls Abfindung nehmen und das Versicherungsduplikat zurückgeben.",
+            "next": "k2a_hafenrecht_ende_kasse",
+            "requires_quests_active": [
+              "k2a_hafenrecht"
+            ],
+            "requires_flags": [
+              "won_k2a_hafenrecht_kampf"
+            ],
+            "hide_if_flags": [
+              "k2a_hafenrecht_done"
+            ]
+          },
+          {
+            "text": "Noch nicht entscheiden."
+          }
+        ]
+      },
+      "k2a_hafenrecht_geschlossen": {
+        "text": "Die Akte ist abgeschlossen. Der Bericht und seine Folgen bleiben bei den Beteiligten nachlesbar.",
+        "choices": [
+          {
+            "text": "Ich komme wieder."
+          }
+        ]
+      },
+      "k2a_hafenrecht_ende_namen": {
+        "text": "Du hältst deine Entscheidung im Abschlussbericht fest. Die Beteiligten werden mit ihren Folgen leben müssen.",
+        "ending": "k2a_hafenrecht_ende_namen",
+        "choices": [
+          {
+            "text": "Bericht lesen."
+          }
+        ]
+      },
+      "k2a_hafenrecht_ende_still": {
+        "text": "Du hältst deine Entscheidung im Abschlussbericht fest. Die Beteiligten werden mit ihren Folgen leben müssen.",
+        "ending": "k2a_hafenrecht_ende_still",
+        "choices": [
+          {
+            "text": "Bericht lesen."
+          }
+        ]
+      },
+      "k2a_hafenrecht_ende_kasse": {
+        "text": "Du hältst deine Entscheidung im Abschlussbericht fest. Die Beteiligten werden mit ihren Folgen leben müssen.",
+        "ending": "k2a_hafenrecht_ende_kasse",
+        "choices": [
+          {
+            "text": "Bericht lesen."
+          }
+        ]
+      }
+    }
+  },
+  "k2a_letztes_bild_kontakt": {
+    "start": "k2a_letztes_bild_start",
+    "nodes": {
+      "k2a_letztes_bild_start": {
+        "text": "Vane wischt sich Farbe vom Kinn und verteilt sie dabei weiter. „Totenmalerei verlangt Ruhe. Im Moment muss ich meine Kundschaft darum bitten, nicht aus dem Rahmen zu steigen.“",
+        "choices": [
+          {
+            "text": "Die neue Akte übernehmen.",
+            "next": "k2a_letztes_bild_auftrag",
+            "requires_flags": [
+              "k2_akt3_done"
+            ],
+            "hide_if_quests": [
+              "k2a_letztes_bild"
+            ],
+            "hide_if_flags": [
+              "kapitel2_done"
+            ]
+          },
+          {
+            "text": "Über deine Auftraggeber sprechen.",
+            "next": "k2a_letztes_bild_verhoer_start",
+            "requires_quests_active": [
+              "k2a_letztes_bild"
+            ]
+          },
+          {
+            "text": "Die Uhr im Firnis.",
+            "next": "k2a_letztes_bild_aussage_a2",
+            "requires_quests_active": [
+              "k2a_letztes_bild"
+            ],
+            "hide_if_clues": [
+              "k2a_letztes_bild_h_a2"
+            ]
+          },
+          {
+            "text": "Eine Stimme pro Zeile.",
+            "next": "k2a_letztes_bild_aussage_f2",
+            "requires_quests_active": [
+              "k2a_letztes_bild"
+            ],
+            "hide_if_clues": [
+              "k2a_letztes_bild_h_f2"
+            ]
+          },
+          {
+            "text": "Was bleibt von der Akte?",
+            "next": "k2a_letztes_bild_nach_rueckgabe",
+            "requires_flags": [
+              "k2a_letztes_bild_ende_rueckgabe_gesetzt"
+            ]
+          },
+          {
+            "text": "Was bleibt von der Akte?",
+            "next": "k2a_letztes_bild_nach_bruch",
+            "requires_flags": [
+              "k2a_letztes_bild_ende_bruch_gesetzt"
+            ]
+          },
+          {
+            "text": "Was bleibt von der Akte?",
+            "next": "k2a_letztes_bild_nach_geheim",
+            "requires_flags": [
+              "k2a_letztes_bild_ende_geheim_gesetzt"
+            ]
+          },
+          {
+            "text": "Bis später."
+          }
+        ]
+      },
+      "k2a_letztes_bild_auftrag": {
+        "text": "Vane hat ein Tuch über jedes Bild gelegt, doch unter einem bewegt sich etwas. „Ich male ausschließlich Tote. Trotzdem verschwinden Menschen, nachdem sie bei mir waren.“ Er zeigt dir die Beschwerde eines Erben: „Eine Frau steht in allen Hintergründen. Seit 1790 gibt es sie in keiner Liste mehr.“",
+        "start_quests": [
+          "k2a_letztes_bild"
+        ],
+        "sets_flags": [
+          "k2a_letztes_bild_offen"
+        ],
+        "gives_clues": [
+          "k2a_letztes_bild_h_l1"
+        ],
+        "choices": [
+          {
+            "text": "Ich prüfe die Spuren.",
+            "next": "k2a_letztes_bild_start"
+          }
+        ],
+        "gives_items": {
+          "k2a_letztes_bild_abschrift": 1
+        }
+      },
+      "k2a_letztes_bild_aussage_a2": {
+        "text": "„Am sechsten Abend wird der Rand weich. Am siebten ist das Zimmer hinter dem Gemalten leer. Ich habe das nächste Bild deshalb hierbehalten, bevor ein weiterer Käufer es mitnimmt.“ Du hältst die Aussage getrennt von deinen Vermutungen fest.",
+        "gives_clues": [
+          "k2a_letztes_bild_h_a2"
+        ],
+        "choices": [
+          {
+            "text": "Weiterfragen.",
+            "next": "k2a_letztes_bild_start"
+          }
+        ]
+      },
+      "k2a_letztes_bild_aussage_f2": {
+        "text": "„Als ich Noas Namen auf die Rückseite schrieb, wurde ihre Hand wieder rund. Dann griff die Frau nach meiner Feder. Sie will zuerst ihren eigenen Namen zurück.“ Du hältst die Aussage getrennt von deinen Vermutungen fest.",
+        "gives_clues": [
+          "k2a_letztes_bild_h_f2"
+        ],
+        "choices": [
+          {
+            "text": "Weiterfragen.",
+            "next": "k2a_letztes_bild_start"
+          }
+        ]
+      },
+      "k2a_letztes_bild_nach_rueckgabe": {
+        "text": "Du schreibst Elin Voss auf die Rückseite der Registertafel. Die Frau legt die Feder nieder. Danach folgen Noa Halm, Iven Dorr und Lotte Rehn, einzeln, bis drei Menschen aus drei Bildern treten. Vane unterschreibt seine Beteiligung an den falschen Todeserklärungen. Elins Umriss bleibt auf einer leeren Tafel zurück, ohne Anspruch auf fremde Leben.",
+        "choices": [
+          {
+            "text": "Ich komme wieder."
+          }
+        ]
+      },
+      "k2a_letztes_bild_nach_bruch": {
+        "text": "Du hältst die Lampe an die Bilder. Die gemalte Frau und die Verbindung zu den drei Vermissten vergehen im selben Feuer. Niemand tritt heraus. Vane bleibt für falsche Todeserklärungen verantwortlich, aber die drei Menschen lassen sich aus der Asche nicht zurückholen. Wexmoor hat eine Gefahr weniger und drei Gräber mehr.",
+        "choices": [
+          {
+            "text": "Ich komme wieder."
+          }
+        ]
+      },
+      "k2a_letztes_bild_nach_geheim": {
+        "text": "Du benennst Elin und holst die drei Vermissten einzeln aus den Hintergründen. Die Grundierung wird versiegelt, Vane verspricht, keine Lebenden mehr als Tote zu malen. Du gibst seine Abrechnungen den Betroffenen statt der Behörde. Sie gewinnen ihre Körper zurück, bleiben auf amtlichem Papier aber tot, bis sie selbst eine Berichtigung wagen.",
+        "choices": [
+          {
+            "text": "Ich komme wieder."
+          }
+        ]
+      },
+      "k2a_letztes_bild_verhoer_start": {
+        "text": "Vane rückt einen Rahmen gegen die Wand. „Tot ist auch eine Eintragung. Du solltest wissen, was eine falsche Eintragung mit einem Lebenden machen kann.“",
+        "choices": [
+          {
+            "text": "Deine erste Erklärung noch einmal.",
+            "next": "k2a_letztes_bild_luege",
+            "requires_quests_active": [
+              "k2a_letztes_bild"
+            ]
+          },
+          {
+            "text": "Eine ausgeschabte Liste.",
+            "next": "k2a_letztes_bild_aussage_d1",
+            "requires_quests_active": [
+              "k2a_letztes_bild"
+            ],
+            "hide_if_clues": [
+              "k2a_letztes_bild_h_d1"
+            ]
+          },
+          {
+            "text": "Bezahlt für ein Ende.",
+            "next": "k2a_letztes_bild_aussage_g1",
+            "requires_quests_active": [
+              "k2a_letztes_bild"
+            ],
+            "hide_if_clues": [
+              "k2a_letztes_bild_h_g1"
+            ]
+          },
+          {
+            "text": "Noa lebte beim Porträt. Du hast einen amtlichen Tod verkauft, keinen wirklichen gemalt.",
+            "next": "k2a_letztes_bild_widerlegen",
+            "requires_quests_active": [
+              "k2a_letztes_bild"
+            ],
+            "requires_conclusions": [
+              "k2a_letztes_bild_d_frist",
+              "k2a_letztes_bild_d_ursprung",
+              "k2a_letztes_bild_d_taeter"
+            ],
+            "requires_clues": [
+              "k2a_letztes_bild_h_b1",
+              "k2a_letztes_bild_h_b2",
+              "k2a_letztes_bild_h_l2"
+            ],
+            "requires_flags": [
+              "k2a_letztes_bild_kontrolle_done"
+            ],
+            "hide_if_flags": [
+              "k2a_letztes_bild_gestellt"
+            ]
+          },
+          {
+            "text": "Du bist bereits mit den Beweisen konfrontiert worden.",
+            "next": "k2a_letztes_bild_nach_verhoer",
+            "requires_quests_active": [
+              "k2a_letztes_bild"
+            ],
+            "requires_flags": [
+              "k2a_letztes_bild_gestellt"
+            ]
+          },
+          {
+            "text": "Gehen."
+          }
+        ]
+      },
+      "k2a_letztes_bild_luege": {
+        "text": "„Ich male nur Tote. Was sollte ein lebender Mensch von einem Totenbild haben?“ Er lässt das Wort amtlich absichtlich fort.",
+        "gives_clues": [
+          "k2a_letztes_bild_h_l2"
+        ],
+        "choices": [
+          {
+            "text": "Ich prüfe das.",
+            "next": "k2a_letztes_bild_verhoer_start"
+          }
+        ]
+      },
+      "k2a_letztes_bild_aussage_d1": {
+        "text": "„Das graue Pigment kam von einer alten Schreibtafel. Ihr Rahmen war billiger als neue Leinwand. Seit ich die abgeschabte Farbe als Grundierung benutze, steht die Frau in den Bildern.“ Du hältst die Aussage getrennt von deinen Vermutungen fest.",
+        "gives_clues": [
+          "k2a_letztes_bild_h_d1"
+        ],
+        "choices": [
+          {
+            "text": "Weiterfragen.",
+            "next": "k2a_letztes_bild_verhoer_start"
+          }
+        ]
+      },
+      "k2a_letztes_bild_aussage_g1": {
+        "text": "„Ich habe Menschen gemalt, die vor Gläubigern verschwinden wollten. Im Register waren sie bereits tot. Ich wusste, dass sie atmeten. Ich habe nur behauptet, das ginge mich nichts an.“ Du hältst die Aussage getrennt von deinen Vermutungen fest.",
+        "gives_clues": [
+          "k2a_letztes_bild_h_g1"
+        ],
+        "choices": [
+          {
+            "text": "Weiterfragen.",
+            "next": "k2a_letztes_bild_verhoer_start"
+          }
+        ]
+      },
+      "k2a_letztes_bild_widerlegen": {
+        "text": "Du zeigst Vane das Bestellbuch und die Rechnung, die Noa Halm persönlich unterschrieben hat. „Sie wollte ihren Gläubigern entkommen. Ich habe ihren amtlichen Tod gemalt, bevor ihr wirklicher kam.“ Er hebt die Hände: „Die Frau war nicht bestellt. Sie kam aus der Grundierung.“",
+        "sets_flags": [
+          "k2a_letztes_bild_gestellt"
+        ],
+        "choices": [
+          {
+            "text": "Ich sichere den Tatort."
+          }
+        ]
+      },
+      "k2a_letztes_bild_nach_verhoer": {
+        "text": "Die Aussage steht in deiner Akte. Am gesicherten Schauplatz kannst du die Auseinandersetzung fortsetzen; weitere Beweise bleiben bis zum Abschluss zugänglich.",
+        "choices": [
+          {
+            "text": "Ich komme wieder."
+          }
+        ]
+      }
+    }
+  },
+  "k2a_letztes_bild_kontrolle": {
+    "start": [
+      {
+        "node": "k2a_letztes_bild_pol_fertig",
+        "requires_flags": [
+          "k2a_letztes_bild_kontrolle_done"
+        ]
+      },
+      {
+        "node": "k2a_letztes_bild_pol_start"
+      }
+    ],
+    "nodes": {
+      "k2a_letztes_bild_pol_start": {
+        "text": "Vor Vanes Wandatelier verlangt eine Streife die Bilder als Beleg eines Meldevergehens. Der Wortführer erkennt dein Gesicht vom Fahndungsblatt. Ein unbedachtes Öffnen der Leinwände würde alle Anwesenden gefährden.",
+        "choices": [
+          {
+            "text": "In passender Verkleidung die öffentliche Beweissicherung verlangen.",
+            "next": "k2a_letztes_bild_pol_maske",
+            "requires_flags": [
+              "k2_wear_akademierobe"
+            ],
+            "requires_items": [
+              "akademierobe"
+            ]
+          },
+          {
+            "text": "Hinter den Wagen warten und den sicheren Weg nehmen. (4 Nerven)",
+            "next": "k2a_letztes_bild_pol_warten"
+          },
+          {
+            "text": "Den Zugang vor Zeugen erzwingen. (Fahndung mindestens 2)",
+            "next": "k2a_letztes_bild_pol_laut"
+          },
+          {
+            "text": "Erst zurückziehen."
+          }
+        ]
+      },
+      "k2a_letztes_bild_pol_maske": {
+        "text": "Die passende Kleidung macht aus deinem Besuch eine gewöhnliche Amtshandlung. Die Streife prüft die Kiste, nicht dein Gesicht. Du kannst die Beweise jetzt sichern.",
+        "sets_flags": [
+          "k2a_letztes_bild_kontrolle_done"
+        ],
+        "choices": [
+          {
+            "text": "Ich komme wieder."
+          }
+        ]
+      },
+      "k2a_letztes_bild_pol_warten": {
+        "text": "Du wartest im Dunkeln, bis die Laternen weiterziehen. Das kostet Geduld und Nerven, aber weder Münzen noch eine neue Lüge. Der Zugang ist nun frei.",
+        "sets_flags": [
+          "k2a_letztes_bild_kontrolle_done"
+        ],
+        "nerves": -4,
+        "choices": [
+          {
+            "text": "Ich komme wieder."
+          }
+        ]
+      },
+      "k2a_letztes_bild_pol_laut": {
+        "text": "Du rufst die Umstehenden herbei und lässt die Streife jeden Gegenstand laut protokollieren. Sie gibt den Zugang frei, merkt sich aber dein Gesicht. Weitere Grauspäher bekommen deine Beschreibung.",
+        "sets_flags": [
+          "k2a_letztes_bild_kontrolle_done"
+        ],
+        "wanted": 2,
+        "choices": [
+          {
+            "text": "Ich komme wieder."
+          }
+        ]
+      },
+      "k2a_letztes_bild_pol_fertig": {
+        "text": "Die Beweissicherung ist bereits geklärt. Die gewöhnlichen Streifen gehen weiter ihren Runden nach.",
+        "choices": [
+          {
+            "text": "Ich komme wieder."
+          }
+        ]
+      }
+    }
+  },
+  "k2a_letztes_bild_showdown": {
+    "start": [
+      {
+        "node": "k2a_letztes_bild_geschlossen",
+        "requires_flags": [
+          "k2a_letztes_bild_done"
+        ]
+      },
+      {
+        "node": "k2a_letztes_bild_wahl",
+        "requires_flags": [
+          "won_k2a_letztes_bild_kampf"
+        ]
+      },
+      {
+        "node": "k2a_letztes_bild_kampf_start",
+        "requires_flags": [
+          "won_k2a_letztes_bild_vane_kampf"
+        ]
+      },
+      {
+        "node": "k2a_letztes_bild_vane_retry",
+        "requires_flags": [
+          "k2a_letztes_bild_falscher_griff"
+        ]
+      },
+      {
+        "node": "k2a_letztes_bild_kampf_start",
+        "requires_flags": [
+          "k2a_letztes_bild_rahmen_bereit"
+        ]
+      },
+      {
+        "node": "k2a_letztes_bild_vorbereitung"
+      }
+    ],
+    "nodes": {
+      "k2a_letztes_bild_kampf_start": {
+        "text": "Die Frau tritt vom Hintergrund an den Bildrand. Hinter ihr stehen die drei Vermissten, flach wie ausgeschnittenes Papier. „Man hat mich aus der Liste genommen“, sagt sie. „Darum führe ich meine eigene.“ Ihr Rahmen klappt wie eine Tür auf.",
+        "choices": [
+          {
+            "text": "Die Beweise sichern und den Kampf beginnen.",
+            "next": "k2a_letztes_bild_kampf_jetzt"
+          },
+          {
+            "text": "Erst vorbereiten."
+          }
+        ]
+      },
+      "k2a_letztes_bild_kampf_jetzt": {
+        "text": "Du trittst vor und hältst den Rückweg frei. Jetzt zählt, ob du den Angriff abfangen kannst.",
+        "combat": "k2a_letztes_bild_kampf",
+        "choices": [
+          {
+            "text": "Kämpfen."
+          }
+        ]
+      },
+      "k2a_letztes_bild_wahl": {
+        "text": "Der Rahmen fällt zurück an die Wand. Die gemalte Frau ist wieder auf der Leinwand, aber ihre Hand reicht noch bis an den Rand. Jetzt kannst du die Bindung lösen oder das Werk zerstören. Die drei Vermissten warten dahinter.\n\nDie Entscheidung schließt diese Akte; vorher kannst du noch einmal die Spuren prüfen.",
+        "choices": [
+          {
+            "text": "Elin zuerst benennen, die drei Lebenden zurückholen und Vane als Zeugen melden.",
+            "next": "k2a_letztes_bild_ende_rueckgabe",
+            "requires_quests_active": [
+              "k2a_letztes_bild"
+            ],
+            "requires_flags": [
+              "won_k2a_letztes_bild_kampf"
+            ],
+            "hide_if_flags": [
+              "k2a_letztes_bild_done"
+            ],
+            "requires_conclusions": [
+              "k2a_letztes_bild_d_sichern"
+            ]
+          },
+          {
+            "text": "Die Bilder verbrennen und die Bindung beenden. Die Eingeschlossenen werden dabei verloren.",
+            "next": "k2a_letztes_bild_ende_bruch",
+            "requires_quests_active": [
+              "k2a_letztes_bild"
+            ],
+            "requires_flags": [
+              "won_k2a_letztes_bild_kampf"
+            ],
+            "hide_if_flags": [
+              "k2a_letztes_bild_done"
+            ]
+          },
+          {
+            "text": "Die drei zurückholen, Vanes falsche Todeserklärungen aber vor der Behörde verbergen.",
+            "next": "k2a_letztes_bild_ende_geheim",
+            "requires_quests_active": [
+              "k2a_letztes_bild"
+            ],
+            "requires_flags": [
+              "won_k2a_letztes_bild_kampf"
+            ],
+            "hide_if_flags": [
+              "k2a_letztes_bild_done"
+            ],
+            "requires_conclusions": [
+              "k2a_letztes_bild_d_sichern"
+            ]
+          },
+          {
+            "text": "Noch nicht entscheiden."
+          }
+        ]
+      },
+      "k2a_letztes_bild_geschlossen": {
+        "text": "Die Akte ist abgeschlossen. Der Bericht und seine Folgen bleiben bei den Beteiligten nachlesbar.",
+        "choices": [
+          {
+            "text": "Ich komme wieder."
+          }
+        ]
+      },
+      "k2a_letztes_bild_vorbereitung": {
+        "text": "Die Frau hebt eine flache Hand. Vane stellt sich neben die Leinwand, um die Eingeschlossenen zu schützen. Du erinnerst dich an die Hinweise auf die Rückseiten.",
+        "choices": [
+          {
+            "text": "Rahmen abdecken, Abstand halten und die Frau herausfordern.",
+            "next": "k2a_letztes_bild_richtig"
+          },
+          {
+            "text": "Die Frau aus der Leinwand schaben. Die Menschen dahinter könnten verletzt werden.",
+            "next": "k2a_letztes_bild_falsch"
+          },
+          {
+            "text": "Noch einmal ermitteln."
+          }
+        ]
+      },
+      "k2a_letztes_bild_richtig": {
+        "text": "Du hältst die Schichten auseinander, statt sie zu zerreißen. Vane tritt zurück, die Frau tritt vor.",
+        "sets_flags": [
+          "k2a_letztes_bild_rahmen_bereit"
+        ],
+        "choices": [
+          {
+            "text": "Jetzt gegen die Frau antreten."
+          }
+        ]
+      },
+      "k2a_letztes_bild_falsch": {
+        "text": "Du setzt den Spachtel an. Vane erkennt die Gefahr für seine eingeschlossenen Auftraggeber und hält dich gewaltsam auf.",
+        "sets_flags": [
+          "k2a_letztes_bild_falscher_griff"
+        ],
+        "combat": "k2a_letztes_bild_vane_kampf",
+        "choices": [
+          {
+            "text": "Vanes Angriff abwehren."
+          }
+        ]
+      },
+      "k2a_letztes_bild_vane_retry": {
+        "text": "Vane bewacht die angeschabte Stelle. Die Frau wartet hinter seinem Rücken. Du kannst dich weiter vorbereiten oder den begonnenen Streit beenden.",
+        "choices": [
+          {
+            "text": "Vane erneut abwehren.",
+            "next": "k2a_letztes_bild_vane_again"
+          },
+          {
+            "text": "Zurückziehen."
+          }
+        ]
+      },
+      "k2a_letztes_bild_vane_again": {
+        "text": "Du gehst erneut auf Abstand zur Leinwand. Vane hebt den Spachtel, die Frau dahinter lächelt.",
+        "combat": "k2a_letztes_bild_vane_kampf",
+        "choices": [
+          {
+            "text": "Kämpfen."
+          }
+        ]
+      },
+      "k2a_letztes_bild_ende_rueckgabe": {
+        "text": "Du hältst deine Entscheidung im Abschlussbericht fest. Die Beteiligten werden mit ihren Folgen leben müssen.",
+        "ending": "k2a_letztes_bild_ende_rueckgabe",
+        "choices": [
+          {
+            "text": "Bericht lesen."
+          }
+        ]
+      },
+      "k2a_letztes_bild_ende_bruch": {
+        "text": "Du hältst deine Entscheidung im Abschlussbericht fest. Die Beteiligten werden mit ihren Folgen leben müssen.",
+        "ending": "k2a_letztes_bild_ende_bruch",
+        "choices": [
+          {
+            "text": "Bericht lesen."
+          }
+        ]
+      },
+      "k2a_letztes_bild_ende_geheim": {
+        "text": "Du hältst deine Entscheidung im Abschlussbericht fest. Die Beteiligten werden mit ihren Folgen leben müssen.",
+        "ending": "k2a_letztes_bild_ende_geheim",
+        "choices": [
+          {
+            "text": "Bericht lesen."
+          }
+        ]
+      }
+    }
+  }
+}
