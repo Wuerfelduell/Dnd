@@ -1301,3 +1301,44 @@ Sichtkontrolle: [Übersicht](preview-wexmoor6-overview.png),
 
 Grafiklieferung für Paket AM; Spielcode und andere Pakete bleiben unverändert.
 Einbindung und Timing-Abstimmung im laufenden Spiel erfolgen separat.
+
+
+## Batch AG – sequenzen3
+
+196 PNGs: 55 Effekte, 55 Zutaten und 6 Artefakte jeweils in 16×16 und 32×32,
+9 Emblemgrößen, 3 Pfadkarten, 3 Ritualkarten, 3 Auren und ein Spieler-Sheet.
+Die tatsächliche AF-Wunschliste enthält 122 IDs (die AG-Einleitung nennt 123);
+alle 122 werden abgedeckt, ergänzt um sechs Karten und das Spieler-Sheet.
+
+- Manifest: `public/sprites/manifest-sequenzen3.json`.
+- Tatsächliche Prompts, Referenzen, Quellbild-Hashes und Zuschnitte:
+  [batch-sequenzen3-generation.json](batch-sequenzen3-generation.json).
+- Vollständige Zuordnung: [coverage-sequenzen3.json](coverage-sequenzen3.json).
+- Prüfbericht: [validation-sequenzen3.json](validation-sequenzen3.json).
+- Sichtprüfung: [Effekte 1](preview-sequenzen3-effects-1.png),
+  [Effekte 2](preview-sequenzen3-effects-2.png), [Effekte 3](preview-sequenzen3-effects-3.png),
+  [Icons 1](preview-sequenzen3-items-1.png), [Icons 2](preview-sequenzen3-items-2.png),
+  [Icons 3](preview-sequenzen3-items-3.png), [Icons 4](preview-sequenzen3-items-4.png),
+  [Pfadbilder und Spieler](preview-sequenzen3-pathways-1.png).
+
+Erzeugt mit dem eingebauten Bildgenerator, danach ausschließlich Rasterexport:
+Nearest Neighbor, gemeinsame 32-Farben-Palette und binäres Alpha.
+Effekte: 48×48, 6 bzw. 8 Frames, 12 fps; Auren: 48×64, 6 Frames, 8 fps.
+Auren liegen im unteren Zellbereich. Spieler: 6×3 Zellen à 48×48,
+Reihen Waage/Moor/Uhr, Blick rechts, Grundlinie 45 (exklusiv), 10 fps.
+Pfad- und Ritualkarten verwenden den vorhandenen 96×128-Rahmen mit leerem
+Pergament und einem eigenen generierten Motiv. Es wird kein Text eingebrannt.
+
+```sh
+python docs/art/verify-sequenzen3.py
+node --test tests/sprites.test.js
+# Optional: erneuter Export aus den protokollierten Generator-Originalen:
+python docs/art/export-sequenzen3.py docs/art/batch-sequenzen3-generation.json SOURCE_DIRECTORY
+```
+
+Export benötigt Pillow und NumPy, Prüfung nur Pillow. Die Prüfung funktioniert
+ohne Generator-Originale und kontrolliert die Lieferung direkt gegen die
+Wunschliste, Rastergrößen, Palette, Alpha, Animationen, Grundlinie und Icon-Duplikate.
+Die hochauflösenden Quellen sind über Dateiname und SHA-256 protokolliert;
+Runtime-Dateien sind ausschließlich die finalen Rasterexports.
+Einbau in das Spiel erfolgt separat.
