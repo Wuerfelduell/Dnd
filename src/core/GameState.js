@@ -4,6 +4,7 @@ import { gatheringMethods } from './Gatherings.js';
 import { auctionMethods } from './Auction.js';
 import { wantedMethods } from './Wanted.js';
 import { kahnMethods } from './Kahn.js';
+import { newspaperMethods } from './Newspapers.js';
 import { bondMethods } from './Bonds.js';
 import { artifactMethods } from './Artifacts.js';
 import { partyMethods } from './Party.js';
@@ -67,6 +68,7 @@ export class GameState {
     this.resetWanted();
     this.resetBonds();
     this.resetParty();
+    this.resetPapers();
     this.pendingTravel = null;
   }
 
@@ -294,6 +296,7 @@ export class GameState {
     if (Number.isFinite(e.wanted) && this.content.police) this.setWanted(e.wanted < 0 ? Math.max(0, this.wanted + e.wanted) : Math.max(this.wanted, e.wanted), e.wanted_reason ?? '');
     for (const [id, n] of Object.entries(e.bond ?? {})) this.changeBond(id, n); // Einzelgänger: Freund oder Feind; Gefährten (Zunder): nur Vertrauen
     if (e.travel) this.pendingTravel = e.travel; // Ortswechsel nach dem Fenster (z. B. aus der Zelle)
+    if (e.sets_flags || e.ending) this.checkPapers(); // Paket AD: neue Zeitungsausgabe?
     if (gained.length || e.sets_flags || e.start_quests || e.complete_quests || e.honor || e.gives_items || e.takes_items || e.gives_money || e.takes_money) this.emit('changed');
     return gained;
   }
@@ -612,6 +615,7 @@ export class GameState {
       ...this.serializeWanted(),
       bonds: this.serializeBonds(),
       ...this.serializeParty(),
+      papers: this.papers,
     };
   }
 
@@ -649,9 +653,10 @@ export class GameState {
     this.loadWanted(data);
     this.loadBonds(data.bonds);
     this.loadParty(data);
+    this.loadPapers(data);
     if (!this.content.maps[this.map]) { this.map = this.content.start.map; this.position = null; }
     return true;
   }
 }
 
-Object.assign(GameState.prototype, partyMethods, gearMethods, pathwayMethods, artifactMethods, gatheringMethods, wantedMethods, bondMethods, auctionMethods, kahnMethods);
+Object.assign(GameState.prototype, partyMethods, gearMethods, pathwayMethods, artifactMethods, gatheringMethods, wantedMethods, bondMethods, auctionMethods, kahnMethods, newspaperMethods);

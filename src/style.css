@@ -757,3 +757,14 @@ html.touch .cb-touch { display: flex; }
   html.touch #rotate button { font: inherit; font-size: 0.8em; color: var(--ink); background: #221d28; border: 0.125em solid var(--brass); padding: 0.3em 0.8em; }
 }
 @keyframes rotatephone { 0%, 30% { transform: rotate(0); } 60%, 100% { transform: rotate(-90deg); } }
+
+/* Paket AD: Bestiariumstexte und Zeitungsarchiv */
+.beast-text { margin: 0.3em 0; font-size: 0.9em; line-height: 1.35; }
+.beast-tip { margin: 0.2em 0 0.5em; font-size: 0.85em; color: #e8c070; }
+.papers { display: flex; flex-direction: column; gap: 1em; max-height: 100%; overflow-y: auto; }
+.paper { background: #e9e0c8; color: #2a2418; padding: 0.8em 1em; border: 2px solid #8a7a58; box-shadow: 0 2px 0 #00000055; }
+.paper .masthead { font-weight: bold; letter-spacing: 0.15em; text-transform: uppercase; text-align: center; border-bottom: 2px double #2a2418; padding-bottom: 0.2em; margin-bottom: 0.4em; font-size: 0.85em; }
+.paper-bote .masthead { color: #2a3a4a; }
+.paper h4 { margin: 0.2em 0 0.4em; font-size: 1.1em; color: #2a2418; }
+.paper .text p { margin: 0.3em 0; line-height: 1.35; }
+.paper .kurz { margin: 0.6em 0 0; padding-left: 1.2em; font-size: 0.85em; border-top: 1px solid #8a7a58; padding-top: 0.4em; }

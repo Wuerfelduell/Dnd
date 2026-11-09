@@ -1,4 +1,5 @@
 import { applyQuestPack } from './questPacks.js';
+import { applyLore } from './lore.js';
 // Fügt alle Inhaltsdateien zu einem Objekt zusammen (ohne JSON-Imports, damit Node-Tests es nutzen können).
 // Hinweise, Informationen, Schlussfolgerungen und Dialoge teilen sich jeweils einen Namensraum über alle Fälle.
 // factions.json (Sekten) bringt eigene Figuren, Reiseziele, Gegner, Beute, Aufträge und Hinweise mit.
@@ -6,7 +7,7 @@ import { applyQuestPack } from './questPacks.js';
 // stadtgegner.json (Paket L) verteilt Stadtgegner als Streifen auf die Viertel und bringt Beute und Kopfgeld-Brett mit.
 // treffen.json (geheime Treffen) bringt Zirkel, Treffpunkte, Gastgeber mit Händlern, Dialoge und Reiseziele mit.
 // wexmoor.json (Kapitel 2) bringt die zweite Stadt mit: Karten mit `city: "wexmoor"`, eigene Reiseziele und -ereignisse, Figuren, Dialoge, Auftrag und Spuren.
-export function buildContent({ campaign, quests, cases, maps, dialogues, items = {}, encounters = {}, pathways = null, market = null, travel = null, wilds = null, factions = null, buildings = null, gatherings = null, city = null, wexmoor = null, packs = [] }) {
+export function buildContent({ campaign, quests, cases, maps, dialogues, items = {}, encounters = {}, pathways = null, market = null, travel = null, wilds = null, factions = null, buildings = null, gatherings = null, city = null, wexmoor = null, packs = [], lore = null }) {
   const merge = (list, key) => Object.assign({}, ...list.map((x) => x[key] ?? {}));
   const b = buildings ?? {};
   const g = gatherings ?? {};
@@ -53,6 +54,7 @@ export function buildContent({ campaign, quests, cases, maps, dialogues, items =
   };
   // Nebenauftrags-Pakete (data/packs): eigene Aufträge, Zusatzoptionen und Platzierungen
   for (const pack of packs) applyQuestPack(content, pack);
+  applyLore(content, lore); // Paket AD: Lesestücke, Itemtexte, Bestiarium, Zeitungen, Gerede
   return content;
 }
 
