@@ -101,6 +101,47 @@ Die fertigen Exporte wurden visuell geprüft. Vorschau: `pfade-preview.png`.
 Die Einbindung und Animationstests im laufenden Spiel erfolgen separat;
 dieser Batch verändert keinen Spielcode.
 
+## Batch `kampf` – vollständiges Kampf-Assetpaket
+
+Am 9. November 2026 aus `codex_B_kampf.md` mit dem integrierten Bildgenerator
+erzeugt. **53 neue PNGs**: zwölf Gegner (einschließlich fünf Bonusgegnern), neun
+Hintergründe, 21 Fähigkeitseffekte, zwei Spieler-Sheets, sieben UI-/Treffer-Sheets
+und zwei Übergänge. Batch 14b bleibt unverändert. Der Spielcode wurde nicht geändert;
+die Laufzeiteinbindung und das Timing im Spiel stehen noch aus.
+
+`public/sprites/manifest-kampf.json` folgt dem Schema von 14b und ergänzt `rows`,
+`gameId`, Grundlinien, Icon-Zuordnungen und benannte `regions` für die gemischten
+HUD-Atlanten. Alle Frame-Indizes sind nullbasiert. Gegner haben sechs Spalten und
+fünf Reihen: `idle`, `attack`, `special` (Angriff B), `hurt`, `defeated`. Beide
+Angriffe beginnen mit zwei identischen Ausholframes. Niederlagen halten den letzten
+Frame; nur `idle` ist als Schleife vorgeschlagen.
+
+Die Effekte liegen als einreihige Streifen vor. `skill_icons.png` hat sieben
+Pfadspalten und drei Sequenzreihen (9, 8, 7). `status_icons.png` enthält zwölf
+Icons in der vorgegebenen Reihenfolge. `damage_font.png` hat zwölf 8×10-Zellen
+pro Farbreihe, einschließlich `+` und `-`. `hits.png` verwendet 48×48-Trägerzellen;
+`effectRegions` beschreibt die mittigen 32×32-Ausschnitte und den 48×48-Krit-Effekt.
+Die Atlasrechtecke, 9-Slice-Ränder, Füllstände und Cursor-Animationen stehen im Manifest.
+
+Alle PNGs sind indiziert mit einer gemeinsamen Palette aus 32 sichtbaren Farben
+und einem transparenten Index. Die Palette übernimmt die Grundfarben aus 14b und
+ergänzt die sieben vorgegebenen Pfadfarben sowie Rot. Hintergrundbilder sind opak.
+Die verwendeten Prompts, Korrekturen, Quellbild-Hashes und gemessenen Ausschnitte
+sind in `batch-kampf-generation.json` dokumentiert. Große Generator-Arbeitsbilder
+werden vom Spiel nicht benötigt und sind nicht Teil des Repos.
+
+Reproduzierbarer technischer Export mit Python, Pillow und NumPy:
+
+```sh
+python docs/art/export-kampf.py /pfad/zu/den/generatorbildern
+python docs/art/verify-kampf.py
+```
+
+Die Prüfung kontrolliert alle 53 Dateien, Zielmaße, gemeinsame Palette, binäres
+Alpha, Padding, Grundlinien, gehaltene Ausholposen, Atlasgrenzen, Übergangs-Endpunkte
+und alle 21 Fähigkeits-IDs gegen `src/data/pathways.json`. Die exportierten Sheets
+wurden zusätzlich visuell kontrolliert. Eine Übersicht liegt in `batch-kampf-preview.png`.
+
 
 ## Grafikpaket C – Figuren, Portraits und Orte
 
