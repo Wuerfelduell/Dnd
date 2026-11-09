@@ -5,7 +5,7 @@ import {
   portraitUrl, portraitFor, mapMarkerOf, LOG_MARKERS, LOG_MARKERS_URL, SOURCE_ICONS, SPRITE_BASE,
   endingImageUrl, caseFileUrl, sceneUrl, wantedUrl, QUEST_UI_URL, QUEST_PINS, QUEST_BANNERS,
   TURN_PORTRAITS, TURN_PORTRAITS_URL, TURN_PORTRAIT_URLS, BESTIARY, bestiaryUrl,
-  headUrl, ZIRKEL_URL, ZIRKEL_ICONS, skillIconOf, PULSE_ICONS, ARTIFACT_UI_URL, sourceKind, sourceKindUrl, inspectUrl, RISK_ICONS, RISK_ICONS_URL, JOURNAL_FRAME, JOURNAL_FRAME_URL, choiceRisk, riskOf,
+  headUrl, ritualCardUrl, ZIRKEL_URL, ZIRKEL_ICONS, skillIconOf, PULSE_ICONS, ARTIFACT_UI_URL, sourceKind, sourceKindUrl, inspectUrl, RISK_ICONS, RISK_ICONS_URL, JOURNAL_FRAME, JOURNAL_FRAME_URL, choiceRisk, riskOf,
   factionEmblemUrl, TRAVEL_MODES_URL, TRAVEL_MODE_ICONS, TRAVEL_MARKER_URL,
   DANGER_URL, DANGER_ICONS, DANGER_BANNER, RARITY_SHEET, RARITY_SHEET_URL, RARITY_GEMS,
 } from '../world/assets.js';
@@ -468,10 +468,10 @@ export class Ui {
     el.querySelector('[data-act=continue]')?.addEventListener('click', this.titleContinue);
   }
 
-  showMessage(title, text, { footer = '', extra = '', face = '', onClose = null, scene = null } = {}) {
+  showMessage(title, text, { footer = '', extra = '', face = '', onClose = null, scene = null, aside = '' } = {}) {
     if (onClose) this.afterClose = onClose;
     const el = this.open('message', `
-      ${sceneImg(scene)}
+      ${sceneImg(scene)}${aside}
       <h3>${face}${esc(title)}</h3>
       <div class="text">${paragraphs(text)}</div>
       ${extra}
@@ -606,7 +606,7 @@ export class Ui {
       const [url, cell = 0, cols = 13, live = false] = mapMarkerOf(map);
       const col = cell % cols;
       return `<button class="pin ${cls}${live ? ' live' : ''}" ${attrs} style="left:${x / 8}em;top:${y / 8}em">
-        <span class="mk" style="--c:${col};background-image:url(${url})"></span>${inner}</button>`;
+        <span class="mk" style="--c:${col};background-image:url(${url});background-size:${cols * 2}em ${live ? 8 : 4}em"></span>${inner}</button>`;
     };
     const here = pins[current] ? pin(current, 'here', `<span class="youmark" style="background-image:url(${TRAVEL_MARKER_URL})"></span><span class="tag">Du bist hier</span>`, 'disabled') : '';
     const destPins = dests.map((d, i) => (pins[d.map] ? pin(d.map, '', `<span class="num">${i + 1}</span><span class="tag">${esc(d.name)}</span>`, `data-i="${i}"`) : '')).join('');
@@ -786,7 +786,13 @@ export class Ui {
     el.querySelectorAll('[data-drink]').forEach((b) => { b.onclick = () => this.drink(b.dataset.drink); });
     el.querySelector('[data-ritual]')?.addEventListener('click', () => {
       const r = this.state.performRitual();
-      if (r.ok) { this.close(); this.showMessage('Ritual', r.text); } else this.renderNotebook(esc(r.text));
+      if (r.ok) {
+        const pid = this.state.pathway?.id;
+        this.close();
+        const card = ritualCardUrl(pid);
+        this.showMessage('Ritual', r.text, { aside: card ? `<img class="ritualcard" src="${card}" alt="" onerror="this.remove()">` : '' });
+        this.scene?.playRitual?.(pid);
+      } else this.renderNotebook(esc(r.text));
     });
     el.querySelectorAll('[data-wear]').forEach((b) => { b.onclick = () => this.renderNotebook(esc(this.state.equipArtifact(b.dataset.wear).text)); });
     el.querySelectorAll('[data-unequip]').forEach((b) => { b.onclick = () => this.renderNotebook(esc(this.state.unequipArtifact(b.dataset.unequip).text)); });

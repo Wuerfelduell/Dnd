@@ -2,8 +2,38 @@
   "city": {
     "id": "wexmoor",
     "title": "Stadtkarte von Wexmoor",
-    "map_image": null,
-    "fog_image": null
+    "map_image": "ui/Q_wexmoor_karte.png",
+    "fog_image": "ui/Q_wexmoor_nebel.png",
+    "pins": {
+      "wx_bahnhof": [
+        110,
+        125
+      ],
+      "wx_torfstich": [
+        83,
+        209
+      ],
+      "wx_salzmarkt": [
+        254,
+        123
+      ],
+      "wx_bojenhafen": [
+        254,
+        188
+      ],
+      "wx_oberstadt": [
+        252,
+        42
+      ],
+      "wx_pfahldorf": [
+        383,
+        209
+      ],
+      "wx_leuchtturm": [
+        405,
+        140
+      ]
+    }
   },
   "case": {
     "facts": {
@@ -1838,29 +1868,6 @@
       ],
       "decor": [
         {
-          "sprite": "fireplace",
-          "tile": [
-            5,
-            1
-          ],
-          "alpha": 1,
-          "origin": [
-            0.5,
-            1
-          ],
-          "offset": [
-            0,
-            8
-          ],
-          "depth": 60,
-          "light": {
-            "dy": -10,
-            "radius": 60,
-            "intensity": 0.8,
-            "flicker": 0.2
-          }
-        },
-        {
           "sprite": "noticeboard",
           "tile": [
             8,
@@ -1879,10 +1886,43 @@
           "depth": 6
         },
         {
-          "sprite": "locker",
+          "sprite": "q_kajuete_props_stove",
           "tile": [
-            13,
+            5,
+            2
+          ],
+          "alpha": 1,
+          "solid": [
+            10,
+            8
+          ],
+          "light": {
+            "dy": -10,
+            "radius": 60,
+            "intensity": 0.8,
+            "color": "#e09050",
+            "flicker": 0.25
+          },
+          "offset": [
+            0,
+            8
+          ],
+          "origin": [
+            0.5,
+            1
+          ],
+          "ysort": true
+        },
+        {
+          "sprite": "q_kajuete_props_bunk",
+          "tile": [
+            2,
             3
+          ],
+          "alpha": 1,
+          "solid": [
+            12,
+            10
           ],
           "offset": [
             0,
@@ -1892,8 +1932,107 @@
             0.5,
             1
           ],
+          "ysort": true
+        },
+        {
+          "sprite": "q_kajuete_props_table",
+          "tile": [
+            7,
+            4
+          ],
           "alpha": 1,
           "ysort": true
+        },
+        {
+          "sprite": "q_kajuete_props_kettle_mugs",
+          "tile": [
+            8,
+            4
+          ],
+          "alpha": 1,
+          "ysort": true
+        },
+        {
+          "sprite": "q_kajuete_props_lamp",
+          "tile": [
+            7,
+            2
+          ],
+          "alpha": 1,
+          "offset": [
+            0,
+            4
+          ],
+          "depth": 60,
+          "light": {
+            "dy": 0,
+            "radius": 50,
+            "intensity": 0.7,
+            "color": "#ffd890",
+            "flicker": 0.15
+          }
+        },
+        {
+          "sprite": "q_kajuete_props_wanted_poster",
+          "tile": [
+            11,
+            1
+          ],
+          "alpha": 1,
+          "offset": [
+            0,
+            8
+          ],
+          "depth": 40
+        },
+        {
+          "sprite": "q_kajuete_props_peat_crate",
+          "tile": [
+            13,
+            3
+          ],
+          "alpha": 1,
+          "ysort": true
+        },
+        {
+          "sprite": "q_kajuete_props_canister_1",
+          "tile": [
+            14,
+            5
+          ],
+          "alpha": 1,
+          "ysort": true
+        },
+        {
+          "sprite": "q_kajuete_props_canister_2",
+          "tile": [
+            1,
+            6
+          ],
+          "alpha": 1,
+          "ysort": true
+        },
+        {
+          "sprite": "q_kajuete_props_rope",
+          "tile": [
+            12,
+            7
+          ],
+          "alpha": 1,
+          "ysort": true
+        },
+        {
+          "sprite": "q_kajuete_props_nets",
+          "tile": [
+            3,
+            1
+          ],
+          "alpha": 1,
+          "offset": [
+            8,
+            8
+          ],
+          "depth": 40
         },
         {
           "sprite": "d_wohnung_rug",
@@ -1908,7 +2047,8 @@
             0
           ]
         }
-      ]
+      ],
+      "tiles": "q_kajuete"
     },
     {
       "id": "wx_zelle",

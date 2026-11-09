@@ -79,6 +79,7 @@ export const SHEETS = {
   k_atelier: 'tilesets/K_atelier_tiles.png', k_ballsaal: 'tilesets/K_ballsaal_tiles.png',
   k_spiegelkabinett: 'tilesets/K_spiegelkabinett_tiles.png',
   m_kontor: 'tilesets/M_kontor_tiles.png', m_waisenhaus: 'tilesets/M_waisenhaus_tiles.png', m_traumkeller: 'tilesets/M_traumkeller_tiles.png',
+  q_kajuete: 'tilesets/Q_kajuete_tiles.png',
   o_waage: 'tilesets/O_waage_tiles.png', o_kreide: 'tilesets/O_kreide_tiles.png', o_russ: 'tilesets/O_russ_tiles.png',
 };
 /** Paket C: Lauf-Sheets (characters/C_<id>_walk.png), Key = Figuren-Id. */
@@ -155,6 +156,9 @@ export const THEME_TILES = {
     wallTop: [24, 25, 26, 27, 28], window: [29], wallFace: [32, 33, 34, 35, 40, 41, 42, 43] },
   m_traumkeller: { sheet: 'm_traumkeller', fallback: 'stone', floor: [0, 1, 2, 3, 22, 23, 30, 31], threads: [4, 5, 6, 7, 35, 37, 39],
     wallTop: [8, 10], wallFace: [16, 17, 18, 19, 20, 21], wallDark: [45, 46, 47], dais: [24, 25, 26, 27, 28, 29] },
+  // Paket Q (Wexmoor): Zunders Kahn (8x3-Raster)
+  q_kajuete: { sheet: 'q_kajuete', fallback: 'wood0', floor: [0, 1, 2, 3], wet: [6, 7], wallTop: [8], wallFace: [9, 15, 16],
+    porthole: [12] },
   // Paket O (Geheime Treffen): Gewölbe der Stillen Waage, Hinterzimmer des Kreidezirkels, Kohlenschuppen (8x4-Raster)
   o_waage: { sheet: 'o_waage', fallback: 'stone', floor: [0, 1, 2, 3], wet: [4, 7], wallTop: [17, 20, 21], wallFace: [16, 22, 23],
     niche: [19], grate: [24] },
@@ -339,9 +343,14 @@ export const J_MAP_MARKERS_URL = `${BASE}ui/J_map_markers.png`;
 /** Paket O: Treffen-Marker (3 Spalten; Zeile 2 hervorgehoben, Zeilen 3/4 = Treffen läuft, pulsierend). */
 export const O_MAP_MARKERS = { treffen_waage: 0, treffen_kreide: 1, treffen_russ: 2 };
 export const O_MAP_MARKERS_URL = `${BASE}ui/O_map_markers.png`;
+/** Paket Q: Wexmoor-Marker (7 Spalten, Zeile 2 hervorgehoben). */
+export const Q_MAP_MARKERS = Object.fromEntries(['wx_bahnhof', 'wx_torfstich', 'wx_salzmarkt', 'wx_bojenhafen', 'wx_oberstadt', 'wx_pfahldorf',
+  'wx_leuchtturm'].map((id, i) => [id, i]));
+export const Q_MAP_MARKERS_URL = `${BASE}ui/Q_wexmoor_marker.png`;
 /** Marker eines Ortes: [Bild-URL, Spalte, Spalten im Bild, live]. */
 export const mapMarkerOf = (map) => {
   if (O_MAP_MARKERS[map] !== undefined) return [O_MAP_MARKERS_URL, O_MAP_MARKERS[map], 3, true];
+  if (Q_MAP_MARKERS[map] !== undefined) return [Q_MAP_MARKERS_URL, Q_MAP_MARKERS[map], 7];
   if (J_MAP_MARKERS[map] !== undefined) return [J_MAP_MARKERS_URL, J_MAP_MARKERS[map], 13];
   return [MAP_MARKERS_URL, MAP_MARKERS[map], 13];
 };
@@ -563,12 +572,19 @@ export const REGION_SHEETS = {
   m_traumkeller_props: ['manifestFall78', 'M_traumkeller_props'],
   o_waage_props: ['manifestTreffen', 'waage_props'], o_kreide_props: ['manifestTreffen', 'kreide_props'],
   o_russ_props: ['manifestTreffen', 'russ_props'], o_zirkel: ['manifestTreffen', 'zirkel'],
+  q_kajuete_props: ['manifestWexmoor', 'kajuete_props'], q_lichtkegel: ['manifestWexmoor', 'lichtkegel'],
 };
 /** Animationen aus benannten Regionen, die das Manifest nicht selbst mitbringt (Prefix → Name → Regionen). */
 export const REGION_ANIMS = {
   o_waage_props: { scale: [['scale_0', 'scale_1', 'scale_2', 'scale_3', 'scale_2', 'scale_1'], 3],
     candles: [['candles_0', 'candles_1', 'candles_2', 'candles_3', 'candles_4', 'candles_5'], 6] },
   o_kreide_props: { lamp: [['lamp_0', 'lamp_1'], 3], dust: [['dust_0', 'dust_1', 'dust_2', 'dust_3'], 4] },
+  q_kajuete_props: { stove: [['stove_1', 'stove_2', 'stove_3'], 6], lamp: [['lamp_1', 'lamp_2', 'lamp_3', 'lamp_4'], 4] },
+  // Lichtkegel der Grauspäher: Ursprung links mittig, normal 96x48, im Verdacht 96x56
+  q_lichtkegel: {
+    normal: [[0, 96, 192, 288].map((x) => ({ x, y: 4, w: 96, h: 48 })), 8],
+    suspicious: [[0, 96, 192, 288].map((x) => ({ x, y: 56, w: 96, h: 56 })), 8],
+  },
   o_russ_props: { stove: [['stove_0', 'stove_1'], 4], lantern: [['lantern_0', 'lantern_1'], 3], cage: [['cage_0', 'cage_1'], 2] },
 };
 /** Dateien der Region-Sheets (die Manifeste kommen erst nach dem Laden der Bilder an). */
@@ -589,6 +605,7 @@ const REGION_FILES = {
   k_spiegelkabinett_props: 'props/K_spiegelkabinett_props.png', k_jahrmarkt: 'props/K_jahrmarkt_aussen.png', k_schatten: 'fx/K_schatten.png',
   o_waage_props: 'props/O_waage_props.png', o_kreide_props: 'props/O_kreide_props.png', o_russ_props: 'props/O_russ_props.png',
   o_zirkel: 'ui/O_zirkel.png',
+  q_kajuete_props: 'props/Q_kajuete_props.png', q_lichtkegel: 'fx/Q_lichtkegel.png',
   m_kontor_props: 'props/M_kontor_props.png', m_waisenhaus_props: 'props/M_waisenhaus_props.png', m_traumkeller_props: 'props/M_traumkeller_props.png',
 };
 for (const z of ['marsch', 'pestgassen', 'katakomben', 'kraterwald']) REGION_FILES[`g_${z}_props`] = `props/G_01_${z}_props.png`;
@@ -849,6 +866,7 @@ export function preloadSprites(scene) {
   if (!scene.cache.json.exists('manifestWildnis')) scene.load.json('manifestWildnis', `${BASE}manifest-wildnis.json`);
   if (!scene.cache.json.exists('manifestReise')) scene.load.json('manifestReise', `${BASE}manifest-reise.json`);
   if (!scene.cache.json.exists('manifestJournal')) scene.load.json('manifestJournal', `${BASE}manifest-journal.json`);
+  if (!scene.cache.json.exists('manifestWexmoor')) scene.load.json('manifestWexmoor', `${BASE}manifest-wexmoor.json`);
   if (!scene.cache.json.exists('manifestSequenzen2')) scene.load.json('manifestSequenzen2', `${BASE}manifest-sequenzen2.json`);
   if (!scene.cache.json.exists('manifestTreffen')) scene.load.json('manifestTreffen', `${BASE}manifest-treffen.json`);
   if (!scene.cache.json.exists('manifestFall78')) scene.load.json('manifestFall78', `${BASE}manifest-fall78.json`);
@@ -1382,3 +1400,21 @@ for (const id of ['thale', 'varga']) {
   PORTRAITS[id] = `N_${id}_emotions.png`;
   HEADS.push(id);
 }
+
+// --- Paket Q: Wexmoor, erster Abschnitt von Kapitel 2 (manifest-wexmoor.json) --------------------
+/** Zunder, Druce und die Grauspäher (deren Sheet hat eine fünfte Reihe: Laterne heben). */
+for (const id of ['zunder', 'druce']) {
+  SHEETS[`q_${id}`] = `characters/Q_${id}_walk.png`;
+  CHARACTER_SHEETS[`npc_${id}`] = `q_${id}`;
+  PORTRAITS[id] = `Q_${id}_emotions.png`;
+  HEADS.push(id);
+}
+SHEETS.q_grauspaeher = 'characters/npc_grauspaeher.png';
+CHARACTER_SHEETS.npc_grauspaeher = 'q_grauspaeher';
+PORTRAITS.grauspaeher = 'Q_grauspaeher_emotions.png';
+
+// --- Paket P: Rituale für Sequenz 6/5 (manifest-rituale.json) -----------------------------------
+/** Ritualkreis pro Pfad (8 Frames à 64x64: 0–2 Aufbau, 3–7 Schleife) und Szenenkarte (96x128) für die Meldung. */
+export const RITUAL_PATHS = ['laterne', 'faden', 'maske', 'echo', 'kessel', 'eisen', 'schluessel'];
+for (const p of RITUAL_PATHS) ANIM_SHEETS[`ritual_${p}`] = [`fx/ritual_${p}.png`, 64, 64];
+export const ritualCardUrl = (pid) => (RITUAL_PATHS.includes(pid) ? `${BASE}pathways/ritual_${pid}.png` : null);

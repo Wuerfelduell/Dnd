@@ -31,12 +31,21 @@ export class Patrols {
       const key = `grauspaeher-${dir}`;
       if (!s.anims.exists(key)) s.anims.create({ key, frames: s.anims.generateFrameNumbers('npc_grauspaeher', { start: row * 4, end: row * 4 + 3 }), frameRate: 6, repeat: -1 });
     });
+    // Paket Q: fünfte Reihe = Laterne heben und umsehen (nur im echten Sheet)
+    this.lookAround = s.textures.get('npc_grauspaeher').frameTotal > 17;
+    if (this.lookAround && !s.anims.exists('grauspaeher-look')) {
+      s.anims.create({ key: 'grauspaeher-look', frames: s.anims.generateFrameNumbers('npc_grauspaeher', { start: 16, end: 19 }), frameRate: 4, repeat: -1 });
+    }
+    // Gemalter Lichtkegel (Ursprung links mittig), sonst gezeichnetes Kreissegment
+    this.coneArt = s.textures.exists('q_lichtkegel_normal') && s.textures.exists('q_lichtkegel_suspicious');
     this.graceUntil = s.time.now + START_GRACE_MS;
     for (const def of defs) {
       if (def.visible_if && !this.state.meets(def.visible_if)) continue;
       const pts = def.route.map(([tx, ty]) => ({ x: tx * TILE + 8, y: ty * TILE + 15 }));
       const sprite = s.add.sprite(pts[0].x, pts[0].y, 'npc_grauspaeher', 0).setOrigin(0.5, 1);
-      const cone = s.add.graphics().setDepth(DEPTH.dark + 1).setBlendMode(Phaser.BlendModes.ADD);
+      const cone = this.coneArt
+        ? s.add.sprite(0, 0, 'q_lichtkegel_normal', 0).setOrigin(0, 0.5).setDepth(DEPTH.dark + 1).setBlendMode(Phaser.BlendModes.ADD).play('q_lichtkegel_normal')
+        : s.add.graphics().setDepth(DEPTH.dark + 1).setBlendMode(Phaser.BlendModes.ADD);
       const alert = s.add.text(0, 0, '!', {
         fontFamily: 'monospace', fontSize: '13px', fontStyle: 'bold', color: '#ffd060', stroke: '#1a1c2c', strokeThickness: 3,
       }).setOrigin(0.5, 1).setDepth(DEPTH.dark + 3).setVisible(false);
@@ -83,7 +92,12 @@ export class Patrols {
 
   /** Läuft zum nächsten Wegpunkt, wartet dort kurz und schaut sich um. */
   walk(g, delta) {
-    if (g.wait > 0) { g.wait -= delta; g.sprite.anims.stop(); return; }
+    if (g.wait > 0) {
+      g.wait -= delta;
+      if (this.lookAround) g.sprite.anims.play('grauspaeher-look', true);
+      else g.sprite.anims.stop();
+      return;
+    }
     const t = g.pts[g.next];
     const dx = t.x - g.sprite.x;
     const dy = t.y - g.sprite.y;
@@ -143,12 +157,21 @@ export class Patrols {
     lamp.x = sprite.x + Math.cos(dir) * 10;
     lamp.y = sprite.y - 12 + Math.sin(dir) * 6;
     const half = Phaser.Math.DegToRad(cone.angle / 2);
-    const c = g.cone.clear();
     const hot = g.spotting;
-    const flick = 0.9 + 0.1 * Math.sin(time * 0.013 + sprite.x);
-    c.fillStyle(hot ? 0xff7040 : 0xffd890, (hot ? 0.22 : 0.12) * flick);
-    c.slice(sprite.x, sprite.y - 10, cone.range, dir - half, dir + half, false);
-    c.fillPath();
+    if (this.coneArt) {
+      // Länge = Reichweite, Breite = Öffnungswinkel am Ende des Kegels
+      const key = hot ? 'q_lichtkegel_suspicious' : 'q_lichtkegel_normal';
+      const c = g.cone;
+      if (c.anims.currentAnim?.key !== key) c.play(key);
+      c.setPosition(sprite.x, sprite.y - 10).setRotation(dir)
+        .setScale(cone.range / 96, (2 * cone.range * Math.tan(half)) / (hot ? 56 : 48)).setAlpha(hot ? 0.5 : 0.3);
+    } else {
+      const c = g.cone.clear();
+      const flick = 0.9 + 0.1 * Math.sin(time * 0.013 + sprite.x);
+      c.fillStyle(hot ? 0xff7040 : 0xffd890, (hot ? 0.22 : 0.12) * flick);
+      c.slice(sprite.x, sprite.y - 10, cone.range, dir - half, dir + half, false);
+      c.fillPath();
+    }
     alert.setPosition(sprite.x, sprite.y - 30).setVisible(hot);
     if (hot) alert.setText(g.seenMs > 0 && g.lostMs === 0 ? '!' : '?');
   }
