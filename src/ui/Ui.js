@@ -6,6 +6,7 @@ import {
   endingImageUrl, caseFileUrl, sceneUrl, QUEST_UI_URL, QUEST_PINS, QUEST_BANNERS,
 } from '../world/assets.js';
 import { sourceOf } from '../core/sources.js';
+import { caseHints, nextDeduction } from '../core/hints.js';
 import { canHurry, travelSafe, travelFast, afterHurryFight } from '../core/Travel.js';
 import { questTarget } from '../core/Guide.js';
 
@@ -566,12 +567,15 @@ export class Ui {
     const tabs = [{ id: 'quests', title: 'Aufträge' }, { id: 'items', title: 'Inventar' }, { id: 'pfad', title: 'Pfad' }, ...cases.map((c) => ({ id: c.id, title: c.title.replace(/:.*/, '') }))];
     const body = this.tab === 'quests' ? this.questsHtml() : this.tab === 'items' ? this.itemsHtml() : this.tab === 'pfad' ? this.pathwayHtml() : this.caseHtml(this.tab);
     const isCase = !fixed.includes(this.tab);
+    const hint = String(feedback ?? '').startsWith('<div class="hint">') ? feedback : '';
     const el = this.open('notebook', `
       <div class="tabs">${tabs.map((t, i) => `<button class="tab ${t.id === this.tab ? 'sel' : ''}" data-tab="${t.id}"><span class="key">${i + 1}</span> ${esc(t.title)}</button>`).join('')}
         <span class="rankinfo">${esc(this.state.rank().name)} · Ansehen ${this.state.honor}</span></div>
+      ${hint ? `<div class="feedback hintbox">${hint}</div>` : ''}
       ${body}
-      <div class="feedback">${feedback}</div>
+      <div class="feedback">${hint ? '' : feedback}</div>
       <div class="actions">
+        ${isCase ? `<button data-act="hint" title="Jeder Klick verrät etwas mehr">Tipp${this.hintStage(this.tab) ? ` ${this.hintStage(this.tab)}/3` : ''} <span class="key">T</span></button>` : ''}
         ${isCase ? `<button class="primary" data-act="combine" ${this.selected.length === 2 ? '' : 'disabled'}>Verknüpfen <span class="key">V</span></button>` : ''}
         <button data-act="close">Schließen <span class="key">J</span></button>
       </div>`, 'notebook');
@@ -579,6 +583,7 @@ export class Ui {
     el.querySelectorAll('[data-tab]').forEach((b) => { b.onclick = () => { this.tab = b.dataset.tab; this.selected = []; this.renderNotebook(''); }; });
     el.querySelectorAll('[data-fact]').forEach((b) => { b.onclick = () => this.toggleFact(b.dataset.fact); });
     el.querySelector('[data-act=combine]')?.addEventListener('click', () => this.combine());
+    el.querySelector('[data-act=hint]')?.addEventListener('click', () => this.showHint());
     el.querySelectorAll('[data-use]').forEach((b) => { b.onclick = () => this.renderNotebook(esc(this.state.useItem(b.dataset.use) ?? '')); });
     el.querySelectorAll('[data-equip]').forEach((b) => { b.onclick = () => { this.state.equip(b.dataset.equip); this.renderNotebook(''); }; });
     el.querySelectorAll('[data-drink]').forEach((b) => { b.onclick = () => this.drink(b.dataset.drink); });
@@ -654,10 +659,18 @@ export class Ui {
         for (const [a, b] of d.pairs) if (usable(a) && usable(b)) { linkable.add(a); linkable.add(b); }
       }
     }
+    // Tipp ab Stufe 2: schwache Information markieren, ab Stufe 3 beide des Paares
+    const hinted = new Set();
+    const stage = this.hintStage(caseId);
+    const target = stage >= 2 ? nextDeduction(s, caseId) : null;
+    if (target) {
+      const weak = Math.max(0, target.status.findIndex((x) => x !== 'likely'));
+      target.pair.forEach((f, i) => { if (stage >= 3 || i === weak) hinted.add(f); });
+    }
     const factItems = facts.map((f) => {
       const st = s.factStatus(f);
       const n = s.factSources(f).length;
-      return `<li><button class="fact ${st} ${this.selected.includes(f) ? 'sel' : ''}" data-fact="${f}" ${st === 'refuted' ? 'data-refuted="1"' : ''}>
+      return `<li><button class="fact ${st} ${this.selected.includes(f) ? 'sel' : ''} ${hinted.has(f) ? 'hinted' : ''}" data-fact="${f}" ${st === 'refuted' ? 'data-refuted="1"' : ''}>
         ${this.badge(st)} ${linkable.has(f) ? '<span class="thread" title="Lässt sich verknüpfen">✦</span> ' : ''}${esc(s.fact(f).text)} <span class="src">${n}×</span></button></li>`;
     }).join('');
     const ded = s.content.deductions.filter((d) => d.case === caseId && s.hasConclusion(d.id));
@@ -685,6 +698,23 @@ export class Ui {
     if (this.selected.includes(id)) this.selected = this.selected.filter((x) => x !== id);
     else this.selected = [...this.selected, id].slice(-2);
     this.renderNotebook('');
+  }
+
+  /** Aktuelle Tipp-Stufe eines Falls (0 = noch kein Tipp). Ändert sich das Ziel, beginnt es von vorn. */
+  hintStage(caseId) {
+    const h = this.hints?.[caseId];
+    if (!h) return 0;
+    return caseHints(this.state, caseId, 1).key === h.key ? h.level : 0;
+  }
+
+  /** Gestufter Tipp: jeder Klick verrät etwas mehr über die nächste offene Schlussfolgerung. */
+  showHint() {
+    const caseId = this.tab;
+    this.hints ??= {};
+    const level = Math.min(3, this.hintStage(caseId) + 1);
+    const h = caseHints(this.state, caseId, level);
+    this.hints[caseId] = { key: h.key, level };
+    this.renderNotebook(`<div class="hint">${h.lines.map((l) => `<p>${esc(l)}</p>`).join('')}</div>`);
   }
 
   combine() {
@@ -1003,6 +1033,7 @@ export class Ui {
     else if ((this.modal === 'shop' || this.modal === 'brew') && (k === 'escape' || k === 'e')) this.close();
     else if (this.modal === 'brew' && num >= 0 && this.brewList?.[num]) this.brew(this.brewList[num].formula);
     else if (this.modal === 'notebook' && k === 'v') this.combine();
+    else if (this.modal === 'notebook' && k === 't' && !['quests', 'items', 'pfad'].includes(this.tab)) this.showHint();
     else if (this.modal === 'notebook' && num >= 0 && this.notebookTabs[num]) { this.tab = this.notebookTabs[num].id; this.selected = []; this.renderNotebook(''); }
     else handled = false;
     if (handled) { e.preventDefault(); e.stopPropagation(); }

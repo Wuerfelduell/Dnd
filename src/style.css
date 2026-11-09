@@ -378,3 +378,9 @@ ul.loot .rar { margin-left: auto; font-size: 0.8em; }
 .notebook .detail .casefile { float: right; width: 8em; height: 6em; margin: 0 0 0.3em 0.6em; image-rendering: pixelated; }
 img.scene { display: block; width: 30em; height: 16.875em; margin: 0 auto 0.6em; image-rendering: pixelated; border: 0.125em solid #2a2630; }
 .panel.dialogue img.scene { width: 20em; height: 11.25em; }
+
+/* Gestufte Tipps im Notizbuch */
+.feedback.hintbox { margin: 0 0 0.6em; }
+.feedback .hint { border-left: 0.25em solid var(--gold); padding: 0.2em 0.6em; background: #0000004d; color: var(--ink); }
+.feedback .hint p { margin: 0 0 0.25em; }
+.notebook .fact.hinted { border-color: var(--gold); box-shadow: 0 0 0.4em #e8c07066; }
