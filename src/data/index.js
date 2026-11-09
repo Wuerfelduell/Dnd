@@ -31,6 +31,7 @@ import dAshgrove from './dialogues/ashgrove.json';
 import dEbba from './dialogues/ebba.json';
 import pathways from './pathways.json';
 import market from './market.json';
+import travel from './travel.json';
 import nachtmarkt from './maps/nachtmarkt.json';
 import dNachtmarkt from './dialogues/nachtmarkt.json';
 
@@ -44,4 +45,5 @@ export const content = buildContent({
   dialogues: [dRevier, dAshgrove, dEbba, dHafen, dAltmarkt, dNachtmarkt, dNordtor],
   pathways,
   market,
+  travel,
 });

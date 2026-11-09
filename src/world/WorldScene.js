@@ -696,8 +696,8 @@ export class WorldScene extends Phaser.Scene {
     });
   }
 
-  /** Pausiert die Welt und startet den Kampfbildschirm. */
-  startCombat(id) {
+  /** Pausiert die Welt und startet den Kampfbildschirm. `after(result)` läuft nach dem Kampf. */
+  startCombat(id, after = null) {
     if (this.leaving || this.scene.isActive('combat')) return;
     this.state.pendingCombat = null;
     this.state.setSpiritVision(false);
@@ -710,6 +710,7 @@ export class WorldScene extends Phaser.Scene {
         this.scene.resume();
         this.refreshVisibility();
         if (result.travel) this.travelTo(result.travel.map, result.travel.spawn);
+        after?.(result);
       },
     });
   }

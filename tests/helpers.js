@@ -15,6 +15,7 @@ export function loadContent() {
     dialogues: ['revier', 'ashgrove', 'ebba', 'hafen', 'altmarkt', 'nachtmarkt', 'nordtor'].map((d) => load(`dialogues/${d}.json`)),
     pathways: load('pathways.json'),
     market: load('market.json'),
+    travel: load('travel.json'),
   });
 }
 

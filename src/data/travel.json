@@ -1,0 +1,198 @@
+{
+  "map_image": "ui/13_05_city_map.png",
+  "pins": {
+    "revier": [178, 128],
+    "altmarkt": [247, 147],
+    "nachtmarkt": [328, 225],
+    "ashgrove": [367, 170],
+    "ebba": [293, 95],
+    "docks": [80, 218],
+    "nordtor": [107, 95],
+    "sternwarte": [400, 50]
+  },
+  "modes": {
+    "sicher": {
+      "name": "Langsam und sicher",
+      "desc": "Kutsche über die Hauptstraßen. Du kommst sicher an, liest im Journal und erholst dich etwas.",
+      "heal_pct": 0.25,
+      "nerves": 25
+    },
+    "schnell": {
+      "name": "Schnell und gefährlich",
+      "desc": "Durch Gassen, über Kanalstege und Dächer. Kostet Nerven, dort lauern Monster, aber auch Beute.",
+      "nerves_cost": 15
+    }
+  },
+  "events": [
+    {
+      "id": "reise_ruhig", "weight": 30,
+      "title": "Stille Gassen",
+      "text": "Die Abkürzung bleibt still. Nur deine Schritte hallen von den nassen Mauern wider, und schneller als jede Kutsche stehst du am Ziel."
+    },
+    {
+      "id": "reise_fund", "weight": 14,
+      "title": "Fundstück am Wegesrand",
+      "text": "In einem Hinterhof liegt ein umgekippter Karren. Zwischen Scherben und Lumpen glitzert etwas, das jemand in Eile zurückgelassen hat.",
+      "loot": "fund"
+    },
+    {
+      "id": "reise_taschendieb", "weight": 6, "requires_money": 6,
+      "title": "Taschendieb",
+      "text": "Im Gedränge unter einer Brücke rempelt dich ein Junge an. Erst zwei Gassen weiter merkst du, dass deine Börse leichter ist.",
+      "takes_money": [3, 8]
+    },
+    {
+      "id": "reise_ratten", "weight": 14,
+      "title": "Rattenschwarm",
+      "text": "Im Kanalsteg quietscht und wimmelt es. Ein Schwarm fetter Ratten versperrt dir den Weg und hat keine Angst vor Menschen.",
+      "encounter": "reise_ratten", "loot": "monster_klein"
+    },
+    {
+      "id": "reise_ueberfall", "weight": 12,
+      "title": "Überfall",
+      "text": "Ein Mann mit Halstuch tritt aus einem Torbogen. „Börse oder Zähne, Herr Polizist. Sie haben die Wahl.“",
+      "encounter": "reise_strassenraeuber", "loot": "raeuber"
+    },
+    {
+      "id": "reise_nebel", "weight": 10, "requires_flags": ["travel_ebba"],
+      "title": "Im Nebel verirrt",
+      "text": "Der Nebel wird so dicht, dass du die eigene Hand kaum siehst. Aus dem Grau kommt ein Hecheln, viel zu nah.",
+      "encounter": "reise_nebelhund", "loot": "monster_okkult"
+    },
+    {
+      "id": "reise_irrlicht", "weight": 8, "requires_flags": ["travel_docks"],
+      "title": "Flüstern im Kanal",
+      "text": "Über dem schwarzen Wasser tanzt ein bleiches Licht. Es flüstert deinen Namen, und dann wird es größer.",
+      "encounter": "reise_irrlicht", "loot": "monster_okkult"
+    },
+    {
+      "id": "reise_kultpatrouille", "weight": 8, "requires_flags": ["travel_docks"],
+      "title": "Kultpatrouille",
+      "text": "Zwei Gestalten in grauen Kutten kreuzen deinen Weg. Auf ihren Ärmeln: das Auge im Kreis. Sie erkennen dich sofort.",
+      "encounter": "reise_kultist", "loot": "kultist"
+    }
+  ],
+  "loot": {
+    "fund": {
+      "money": [2, 8], "rolls": 1,
+      "items": [
+        { "id": "verband", "weight": 4 },
+        { "id": "nebeltau", "weight": 4, "n": 2 },
+        { "id": "lampenoel", "weight": 2 },
+        { "id": "grabmoos", "weight": 2 },
+        { "id": "kraehenfeder", "weight": 2 },
+        { "id": "riechsalz", "weight": 1 }
+      ]
+    },
+    "monster_klein": {
+      "money": [3, 9], "rolls": 1,
+      "items": [
+        { "id": "nebeltau", "weight": 3, "n": 2 },
+        { "id": "bitterwurz", "weight": 2 },
+        { "id": "kroetenschleim", "weight": 2 },
+        { "id": "verband", "weight": 2 },
+        { "id": null, "weight": 2 }
+      ]
+    },
+    "raeuber": {
+      "money": [8, 18], "rolls": 1,
+      "items": [
+        { "id": "verband", "weight": 3 },
+        { "id": "tonikum", "weight": 2 },
+        { "id": "gewuerzwein", "weight": 2 },
+        { "id": "schlagstock", "weight": 1, "unique": true },
+        { "id": null, "weight": 2 }
+      ]
+    },
+    "monster_okkult": {
+      "money": [4, 10], "rolls": 2,
+      "items": [
+        { "id": "grabmoos", "weight": 3 },
+        { "id": "wachsbluete", "weight": 2 },
+        { "id": "spinnenseide", "weight": 2 },
+        { "id": "gluehwurmasche", "weight": 2 },
+        { "id": "leuchtmoos", "weight": 1 },
+        { "id": "geisteressenz", "weight": 1 },
+        { "id": "riechsalz", "weight": 2 }
+      ]
+    },
+    "kultist": {
+      "money": [10, 22], "rolls": 2,
+      "items": [
+        { "id": "bannsalz", "weight": 3 },
+        { "id": "tonikum", "weight": 2 },
+        { "id": "silberstaub", "weight": 2 },
+        { "id": "glockenstaub", "weight": 1 },
+        { "id": "geisteressenz", "weight": 1 },
+        { "id": null, "weight": 2 }
+      ]
+    }
+  },
+  "encounters": {
+    "reise_ratten": {
+      "name": "Rattenschwarm", "sprite": "rats", "fleeable": true, "hp": 26,
+      "intro": "Ein Teppich aus Fell und Zähnen wogt auf dich zu.",
+      "attacks": [
+        { "name": "Gewusel", "damage": 3, "hits": [600, 900, 1200] },
+        { "name": "Anspringen", "damage": 5, "hits": [1100] },
+        { "name": "Biss in die Wade", "damage": 7, "hits": [1600] }
+      ],
+      "on_win": {},
+      "win_text": "Die letzten Ratten huschen ins Wasser. Zwischen ihren Nestern liegt allerlei, das sie aus der Stadt zusammengetragen haben.",
+      "lose_text": "Du stolperst, die Ratten sind über dir. Irgendwie schleppst du dich weiter und kommst zerbissen am Ziel an."
+    },
+    "reise_strassenraeuber": {
+      "name": "Straßenräuber", "sprite": "npc:silas", "fleeable": true, "hp": 32,
+      "intro": "Er zieht ein Messer. Hinter ihm grinst ein zweiter Schatten.",
+      "attacks": [
+        { "name": "Messerstich", "damage": 5, "hits": [900] },
+        { "name": "Finte", "damage": 4, "hits": [500, 1300] },
+        { "name": "Knüppel von hinten", "damage": 9, "hits": [1700] }
+      ],
+      "on_win": {},
+      "win_text": "Die beiden machen sich davon und lassen fallen, was sie heute schon anderen abgenommen haben.",
+      "lose_text": "Ein Schlag auf den Hinterkopf. Als du aufwachst, sind sie fort. Du schleppst dich zum Ziel.",
+      "flee_text": "Du rennst. Hinter dir fluchen sie, aber sie folgen dir nicht."
+    },
+    "reise_nebelhund": {
+      "name": "Streunender Nebelhund", "sprite": "hound", "occult": true, "fleeable": true, "hp": 34,
+      "intro": "Aus dem Grau schält sich etwas mit zu vielen Zähnen und grün glühenden Augen.",
+      "attacks": [
+        { "name": "Sprung", "damage": 6, "hits": [1000] },
+        { "name": "Schnappen", "damage": 4, "hits": [650, 950, 1250] },
+        { "name": "Lauern ... Biss", "damage": 9, "hits": [1800] }
+      ],
+      "weak_if": { "requires_flags": ["hound_lore"] },
+      "weak_text": "Licht blendet die Hunde, das weißt du von Kit. Du hebst die Laterne.",
+      "on_win": {},
+      "win_text": "Der Hund zerfällt zu Nebel. Wo er stand, glitzert etwas auf dem Pflaster.",
+      "lose_text": "Zähne, Kälte, dann nichts. Du wachst am Ziel auf, an eine Hauswand gelehnt, die Rippen schmerzen."
+    },
+    "reise_irrlicht": {
+      "name": "Kanal-Irrlicht", "sprite": "apparition", "occult": true, "fleeable": true, "hp": 36,
+      "intro": "Das Licht formt ein Gesicht. Es ist das Gesicht von jemandem, der hier ertrunken ist.",
+      "attacks": [
+        { "name": "Kaltes Greifen", "damage": 5, "hits": [800, 1100] },
+        { "name": "Flackern", "damage": 3, "hits": [500, 800, 1100, 1400] },
+        { "name": "Ins Wasser ziehen", "damage": 11, "hits": [2000] }
+      ],
+      "on_win": {},
+      "win_text": "Das Licht erlischt mit einem Seufzen. Am Ufer bleibt ein schwacher Schimmer zurück.",
+      "lose_text": "Du hustest Kanalwasser. Jemand hat dich herausgezogen und am Ziel abgesetzt."
+    },
+    "reise_kultist": {
+      "name": "Chorpatrouille", "sprite": "npc:cultist", "fleeable": false, "hp": 40,
+      "intro": "„Der Chor sieht dich, Polizist.“ Sie ziehen Leuchter unter den Kutten hervor.",
+      "attacks": [
+        { "name": "Leuchterhieb", "damage": 6, "hits": [950] },
+        { "name": "Im Chor", "damage": 4, "hits": [700, 1000, 1450] },
+        { "name": "Verzögerter Schlag", "damage": 8, "hits": [1700] }
+      ],
+      "weak_if": { "requires_flags": ["sparring_won"] },
+      "weak_text": "Holts Übungsstunden zahlen sich aus: Du kennst diese Schläge.",
+      "on_win": {},
+      "win_text": "Die Kultisten fliehen in die Dunkelheit. Einer verliert seinen Beutel.",
+      "lose_text": "Gesang, dann Schwärze. Sie lassen dich liegen, eine Warnung. Du kommst angeschlagen am Ziel an."
+    }
+  }
+}
