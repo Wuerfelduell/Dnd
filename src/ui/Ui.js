@@ -6,7 +6,7 @@ import {
   itemIconUrl, itemIcon32Url, pathwayEmblemUrl, pathwayCardUrl, COIN_URL, moneyIconUrl, UI_SKINS, UI_SHEETS, UI_REGIONS, DAMAGE_FONT, STATUS_ICONS, STATUS_ICONS_URL,
   portraitUrl, portraitFor, mapMarkerOf, LOG_MARKERS, LOG_MARKERS_URL, SOURCE_ICONS, SPRITE_BASE,
   endingImageUrl, caseFileUrl, sceneUrl, wantedUrl, QUEST_UI_URL, QUEST_PINS, QUEST_BANNERS,
-  TURN_PORTRAITS, TURN_PORTRAITS_URL, TURN_PORTRAIT_URLS, BESTIARY, bestiaryUrl,
+  TURN_PORTRAITS, TURN_PORTRAITS_URL, TURN_PORTRAIT_URLS, BESTIARY, bestiaryUrl, TITLE_LAYERS,
   headUrl, ritualCardUrl, ZIRKEL_URL, ZIRKEL_ICONS, AUKTION_URL, AUKTION_REGIONS, LONER_UI_URL, LONER_UI, LONER_SEALS, S_ZIRKEL_URL, S_ZIRKEL, skillIconOf, PULSE_ICONS, ARTIFACT_UI_URL, sourceKind, sourceKindUrl, inspectUrl, RISK_ICONS, RISK_ICONS_URL, JOURNAL_FRAME, JOURNAL_FRAME_URL, choiceRisk, riskOf,
   factionEmblemUrl, PLACE_PICTURES, TRAVEL_MODES_URL, TRAVEL_MODE_ICONS, TRAVEL_MARKER_URL,
   DANGER_URL, DANGER_ICONS, DANGER_BANNER, RARITY_SHEET, RARITY_SHEET_URL, RARITY_GEMS,
@@ -104,6 +104,9 @@ const portrait = (id, mood) => {
 /** Steckbrief (Paket L): 64x80, Spalte 0 gesucht, Spalte 1 gefasst. */
 const wantedImg = (id, caught) => (id ? `<div class="wanted ${caught ? 'caught' : ''}" style="background-image:url('${wantedUrl(id)}')"></div>` : '');
 const sceneImg = (id) => { const url = id && sceneUrl(id); return url ? `<img class="scene" src="${url}" alt="" onerror="this.remove()">` : ''; };
+/** Paket AE: Die Karte zu Kapitel 1 hat unten ein leeres Band für den Kapitelnamen. */
+const CHAPTER_CAPTIONS = { kapitel1_karte: ['Kapitel 1', 'Kettlegate'] };
+const sceneHtml = (id) => (CHAPTER_CAPTIONS[id] ? `<div class="chaptercard">${sceneImg(id)}<div class="cap"><small>${CHAPTER_CAPTIONS[id][0]}</small>${CHAPTER_CAPTIONS[id][1]}</div></div>` : sceneImg(id));
 /** Ausschnitt aus ui/E_04_quest_ui.png (Banner, Nadeln). */
 const questUi = (cls, [x, y], k = 1 / 8) => `<span class="${cls}" style="background-image:url(${QUEST_UI_URL});background-size:${160 * k}em ${176 * k}em;background-position:-${x * k}em -${y * k}em"></span>`;
 /** Kleines Quellenbild im Notizbuch: Gesicht der erzählenden Person, sonst ein Symbol. */
@@ -165,6 +168,9 @@ const uiSprite = (sheet, region, k = 1 / 8, cls = '', title = '') => {
   const [path, w, h] = UI_SHEETS[sheet];
   return regionIcon(SPRITE_BASE + path, r, w, h, `ui-${sheet} ${cls}`, k, title);
 };
+/** Paket AE: gezeichneter Touch-Knopf (32x32, nur im Touch-Modus sichtbar) und Einstellungs-Symbol (16x16). */
+const touchIcon = (name) => uiSprite('aetouch', name, 1 / 16, 'touch-only aeicon');
+const setIcon = (name, cls = '') => uiSprite('aeset', name, 1 / 12, `aeicon ${cls}`);
 const damageDigits = (text, row, k) => [...text].map((ch) => {
   const i = DAMAGE_FONT.glyphs.indexOf(ch);
   const r = DAMAGE_FONT.rows[row];
@@ -181,6 +187,8 @@ const CROPS = {
   'loot-window': ['loot', [96, 0, 48, 48]], 'result-loot': ['bresult', [0, 96, 48, 48]],
   'strip-suspected': ['logstrips', [0, 0, 160, 24]], 'strip-likely': ['logstrips', [0, 24, 160, 24]],
   'equip-slot': ['equip', [112, 0, 20, 20]], 'equip-filled': ['equip', [112, 32, 20, 20]],
+  // Paket AE: Zeitungsseite (9-Slice, 16px-Ränder) und Kopfleisten der beiden Blätter
+  'paper-page': ['aezeitung', [0, 0, 48, 48]], 'paper-kopf-kurier': ['aezeitung', [0, 48, 160, 24]], 'paper-kopf-bote': ['aezeitung', [160, 48, 160, 24]],
 };
 function cropSkins(root) {
   const sheets = { ...Object.fromEntries(Object.entries(UI_SHEETS).map(([k, [p]]) => [k, p])), logstrips: 'ui/C_07_log_strips.png' };
@@ -275,11 +283,11 @@ export class Ui {
         </div>
         <div class="hud-right">
           <div class="hudbtns">
-            <button class="hudbtn" data-hud="notebook"><span class="key">J</span> Notizbuch</button>
-            <button class="hudbtn" data-hud="inventory"><span class="key">I</span> Inventar</button>
-            <button class="hudbtn" data-hud="pathway"><span class="key">P</span> Pfad</button>
-            <button class="hudbtn" data-hud="vision"><span class="key">Q</span> Geistsicht</button>
-            <button class="hudbtn" data-hud="menu"><span class="key">Esc</span> Menü</button>
+            <button class="hudbtn" data-hud="notebook">${touchIcon('notizbuch')}<span class="key">J</span> Notizbuch</button>
+            <button class="hudbtn" data-hud="inventory">${touchIcon('inventar')}<span class="key">I</span> Inventar</button>
+            <button class="hudbtn" data-hud="pathway">${touchIcon('faehigkeit')}<span class="key">P</span> Pfad</button>
+            <button class="hudbtn" data-hud="vision">${touchIcon('geistsicht')}<span class="key">Q</span> Geistsicht</button>
+            <button class="hudbtn" data-hud="menu">${setIcon('zahnrad', 'touch-only')}<span class="key">Esc</span> Menü</button>
           </div>
           <div class="hud-p2 hidden">
             <div class="p2name">Spieler 2 <span class="muted p2weapon"></span></div>
@@ -681,6 +689,8 @@ export class Ui {
 
   open(kind, html, cls = '') {
     this.modal = kind;
+    this.layer.classList.remove('has-titlescene');
+    this.layer.onpointermove = null;
     this.layer.innerHTML = `<div class="panel ${cls}">${html}</div>`;
     this.setPrompt(null);
     return this.layer.firstElementChild;
@@ -689,6 +699,8 @@ export class Ui {
   close() {
     this.modal = null;
     this.actor = 1;
+    this.layer.classList.remove('has-titlescene');
+    this.layer.onpointermove = null;
     this.layer.innerHTML = '';
     this.blockedUntil = performance.now() + 150;
     if (this.pendingEnding) {
@@ -699,7 +711,9 @@ export class Ui {
       // Kapitelende (z. B. Fall 9): eigene Tafel nach dem Schlussbild
       const ch = this.pendingChapter;
       this.pendingChapter = null;
-      this.showMessage(ch.title, ch.text, { footer: ch.footer ?? '' });
+      // Paket AE: Kapitelkarte (Ende von Kapitel 1 kündigt Kapitel 2 an, sonst die Schlusskarte)
+      const card = ch.scene ?? (/Kapitel 1\b/.test(ch.title) ? 'kapitel2_karte' : 'kapitel_ende');
+      this.showMessage(ch.title, ch.text, { footer: ch.footer ?? '', scene: card });
       this.layer.querySelector('.panel.message')?.classList.add('chapterbook'); // Grundpaket: aufgeschlagenes Notizbuch (07_02)
     } else if (this.pendingLost) {
       const { title, text } = this.pendingLost;
@@ -742,15 +756,37 @@ export class Ui {
         <button class="${save ? '' : 'primary'}" data-act="new">Neues Spiel ${save ? '<span class="key">N</span>' : '<span class="key">E</span>'}</button>
         <button data-act="fullscreen">${this.fullscreenLabel()}</button>
       </div>`, 'title');
+    this.titleScene();
     el.querySelector('[data-act=fullscreen]').onclick = () => this.toggleFullscreen();
     this.titleContinue = save ? () => { this.close(); this.onContinue(); } : null;
     this.titleNew = () => {
       this.close();
       this.onNewGame();
-      this.showMessage(c.start.intro_title, c.start.intro, { footer: this.touch ? 'Tipp: Im Notizbuch (Knopf oben rechts) siehst du deine Aufträge.' : 'Tipp: Im Notizbuch (J) siehst du deine Aufträge.' });
+      this.showMessage(c.start.intro_title, c.start.intro, { scene: 'kapitel1_karte', footer: this.touch ? 'Tipp: Im Notizbuch (Knopf oben rechts) siehst du deine Aufträge.' : 'Tipp: Im Notizbuch (J) siehst du deine Aufträge.' });
     };
     el.querySelector('[data-act=new]').onclick = this.titleNew;
     el.querySelector('[data-act=continue]')?.addEventListener('click', this.titleContinue);
+  }
+
+  /**
+   * Paket AE: Titelbild in Ebenen hinter dem Titelfenster. Mond, Fenster, Laterne und Regen laufen als Streifen,
+   * der Nebel zieht langsam, und die Häuser verschieben sich leicht mit der Maus (Parallax).
+   */
+  titleScene() {
+    const box = (l) => (l.box ? `left:${(l.box[0] / 480) * 100}%;top:${(l.box[1] / 270) * 100}%;width:${(l.box[2] / 480) * 100}%;height:${(l.box[3] / 270) * 100}%;right:auto;bottom:auto` : '');
+    const layer = (l) => `<div class="tl${l.depth ? ` d${l.depth}` : ''}" style="${box(l)}">${l.drift
+      ? `<div class="drift" style="animation-duration:${l.drift}s"><img src="${l.url}" alt=""><img src="${l.url}" alt=""></div>`
+      : `<img src="${l.url}" alt="" class="${l.frames ? `f${l.frames}` : ''}" style="${l.frames ? `width:${l.frames * 100}%;animation-duration:${l.sec}s` : ''}">`}</div>`;
+    const scene = document.createElement('div');
+    scene.className = 'titlescene';
+    scene.innerHTML = TITLE_LAYERS.map(layer).join('');
+    // Fehlt eine Ebene, bleibt das alte Titelbild sichtbar
+    scene.querySelector('img')?.addEventListener('load', () => this.layer.classList.add('has-titlescene'), { once: true });
+    this.layer.prepend(scene);
+    this.layer.onpointermove = (e) => {
+      const r = this.layer.getBoundingClientRect();
+      scene.style.setProperty('--px', ((e.clientX - r.left) / r.width - 0.5).toFixed(3));
+    };
   }
 
   /** Dialogportrait als HTML (z. B. für Meldungen außerhalb von Gesprächen). */
@@ -759,7 +795,7 @@ export class Ui {
   showMessage(title, text, { footer = '', extra = '', face = '', onClose = null, scene = null, aside = '' } = {}) {
     if (onClose) this.afterClose = onClose;
     const el = this.open('message', `
-      ${sceneImg(scene)}${aside}
+      ${sceneHtml(scene)}${aside}
       <h3>${face}${esc(title)}</h3>
       <div class="text">${paragraphs(text)}</div>
       ${extra}
@@ -1765,10 +1801,10 @@ export class Ui {
     const el = this.open('pause', `
       <h3>Pause</h3>
       <div class="pausemenu">
-        <button class="primary" data-act="resume"><span class="key">Esc</span> Weiter</button>
-        <button data-act="p2"><span class="key">2</span> ${label}</button>
-        <button data-act="fullscreen">${this.fullscreenLabel()}</button>
-        <button data-act="sound">${this.soundLabel()}</button>
+        <button class="primary" data-act="resume">${setIcon('weiter')}<span class="key">Esc</span> Weiter</button>
+        <button data-act="p2">${setIcon('steuerung')}<span class="key">2</span> ${label}</button>
+        <button data-act="fullscreen">${setIcon(this.isFullscreen() ? 'fenster' : 'vollbild')}${this.fullscreenLabel()}</button>
+        <button data-act="sound">${setIcon((this.audio?.master ?? 0) <= 0 ? 'stumm' : 'lautstaerke')}${this.soundLabel()}</button>
       </div>
       <div class="feedback">${feedback}</div>
       <p class="lead">${on ? 'Ihr spielt zu zweit an diesem Rechner. Die Kamera hält euch beide im Bild, jeder hat sein eigenes Inventar. Geld, Ansehen und Fälle teilt ihr.' : 'Zu zweit an einem Rechner: Spieler 2 läuft als Begleiter mit über denselben Bildschirm, mit eigenem Leben und eigenem Inventar.'}</p>
@@ -1829,8 +1865,8 @@ export class Ui {
           <div class="cb-menu"></div>
         </div>
         <div class="cb-touch">
-          <button class="cb-def dodge" data-def="dodge">Ausweichen</button>
-          <button class="cb-def parry" data-def="parry">Parieren</button>
+          <button class="cb-def dodge" data-def="dodge">${touchIcon('ausweichen')}Ausweichen</button>
+          <button class="cb-def parry" data-def="parry">${touchIcon('parieren')}Parieren</button>
         </div>
       </div>`;
     this.layer.querySelectorAll('[data-def]').forEach((b) => {

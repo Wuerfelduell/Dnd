@@ -1,0 +1,335 @@
+{
+  "wx_torfbrueche": {
+    "name": "Die Torfbrüche",
+    "tier": 3,
+    "travel": {
+      "name": "Die Torfbrüche",
+      "desc": "Gefahr ☠☠☠. Alte Stollen unter dem Moorrand. Jonas kennt den trockenen Eingang.",
+      "requires_flags": [
+        "k2o_torf_offen"
+      ],
+      "city": "wexmoor"
+    },
+    "lose_to": {
+      "map": "wx_torfstich",
+      "spawn": "default"
+    },
+    "lose_money": 0.2,
+    "lose_text": "Jonas zieht dich am Sicherungsseil zurück in den Torfstich. „Einmal am Tag darf man dumm sein. Für heute reicht es.“ Deine Notizen und Auftragsgegenstände bleiben bei dir.",
+    "flee_text": "Du folgst dem Seil zum Licht am Stollenmund. Hinter dir fällt ein Tropfen, dann lange keiner.",
+    "elite_drops": [
+      {
+        "item": "torfbernstein",
+        "chance": 0.15
+      }
+    ],
+    "loot_tables": {},
+    "encounters": {
+      "torfleiche": {
+        "name": "Torfleiche",
+        "sprite": "wild",
+        "sheet": "enemy_torfleiche",
+        "occult": true,
+        "hp": 50,
+        "intro": "Der Torf hebt eine Gestalt im alten Arbeitskittel auf. In der Brusttasche steckt eine Lohntüte ohne Namen.",
+        "attacks": [
+          {
+            "name": "Schwere Hände",
+            "damage": 6,
+            "hits": [
+              850,
+              1350
+            ]
+          },
+          {
+            "name": "Torfwurf",
+            "damage": 10,
+            "hits": [
+              1500
+            ]
+          },
+          {
+            "name": "Stollendruck",
+            "damage": 14,
+            "hits": [
+              2200
+            ]
+          }
+        ],
+        "on_win": {},
+        "win_text": "Der Kittel fällt in sich zusammen. Die Lohntüte bleibt geschlossen.",
+        "loot": {
+          "money": [
+            5,
+            11
+          ],
+          "drops": [
+            {
+              "item": "torfbernstein",
+              "chance": 0.06
+            }
+          ]
+        },
+        "roam": {
+          "speed": 18,
+          "chase": 46,
+          "aggro": 64
+        },
+        "elite": {
+          "name": "Der letzte Vorarbeiter"
+        }
+      },
+      "grubenlicht": {
+        "name": "Grubenlicht",
+        "sprite": "wild",
+        "sheet": "enemy_grubenlicht",
+        "occult": true,
+        "hp": 44,
+        "intro": "Eine Grubenlampe schwebt auf Augenhöhe. Ihr Glas dreht sich dir zu, obwohl kein Bügel es hält.",
+        "attacks": [
+          {
+            "name": "Flackerstöße",
+            "damage": 4,
+            "hits": [
+              700,
+              1050,
+              1400
+            ]
+          },
+          {
+            "name": "Linsensprung",
+            "damage": 9,
+            "hits": [
+              1300
+            ]
+          },
+          {
+            "name": "Weißbrand",
+            "damage": 14,
+            "hits": [
+              2200
+            ]
+          }
+        ],
+        "on_win": {},
+        "win_text": "Die Flamme faltet sich zusammen. Das Glas bleibt einen Moment länger in der Luft.",
+        "loot": {
+          "money": [
+            5,
+            11
+          ],
+          "drops": [
+            {
+              "item": "grubenglas",
+              "chance": 0.65
+            },
+            {
+              "item": "torfbernstein",
+              "chance": 0.04
+            }
+          ]
+        },
+        "roam": {
+          "speed": 22,
+          "chase": 50,
+          "aggro": 70
+        },
+        "elite": {
+          "name": "Licht der letzten Schicht"
+        }
+      },
+      "torfwurm": {
+        "name": "Torfwurm",
+        "sprite": "wild",
+        "sheet": "enemy_torfwurm",
+        "occult": false,
+        "hp": 52,
+        "intro": "Die Stollenwand zieht einen Faden über den Gang. Dahinter öffnet sich ein Maul, langsam wie eine schwere Tür.",
+        "attacks": [
+          {
+            "name": "Fadenschlag",
+            "damage": 6,
+            "hits": [
+              900,
+              1400
+            ]
+          },
+          {
+            "name": "Kieferklammer",
+            "damage": 10,
+            "hits": [
+              1500
+            ]
+          },
+          {
+            "name": "Stollenbruch",
+            "damage": 15,
+            "hits": [
+              2300
+            ]
+          }
+        ],
+        "on_win": {},
+        "win_text": "Der Wurm zieht sich in seinen Gang zurück. Der letzte Faden reißt mit einem Ton wie nasses Papier.",
+        "loot": {
+          "money": [
+            5,
+            11
+          ],
+          "drops": [
+            {
+              "item": "wurmseide",
+              "chance": 0.7
+            },
+            {
+              "item": "torfbernstein",
+              "chance": 0.04
+            }
+          ]
+        },
+        "roam": {
+          "speed": 16,
+          "chase": 44,
+          "aggro": 60
+        },
+        "elite": {
+          "name": "Alter Stollenweber"
+        }
+      },
+      "schlickhund": {
+        "name": "Schlickhund",
+        "sprite": "wild",
+        "sheet": "enemy_schlickhund",
+        "occult": false,
+        "hp": 46,
+        "intro": "Ein Hund aus Schlick schnuppert an deinen Fußspuren. Sein Halsband ist nur der Abdruck eines Halsbands.",
+        "attacks": [
+          {
+            "name": "Bissfolge",
+            "damage": 5,
+            "hits": [
+              750,
+              1100
+            ]
+          },
+          {
+            "name": "Sprung",
+            "damage": 9,
+            "hits": [
+              1300
+            ]
+          },
+          {
+            "name": "Schlicksturz",
+            "damage": 13,
+            "hits": [
+              2100
+            ]
+          }
+        ],
+        "on_win": {},
+        "win_text": "Der Hund legt sich hin. Als du blinzelst, liegt dort nur ein warmer Haufen Schlick.",
+        "loot": {
+          "money": [
+            5,
+            11
+          ],
+          "drops": [
+            {
+              "item": "schlickzahn",
+              "chance": 0.75
+            },
+            {
+              "item": "torfbernstein",
+              "chance": 0.04
+            }
+          ]
+        },
+        "roam": {
+          "speed": 30,
+          "chase": 60,
+          "aggro": 76
+        },
+        "elite": {
+          "name": "Hund der Nachtschicht"
+        }
+      },
+      "moorbraut": {
+        "name": "Die Moorbraut",
+        "sprite": "wild",
+        "sheet": "enemy_moorbraut",
+        "occult": true,
+        "boss": true,
+        "fleeable": false,
+        "hp": 154,
+        "intro": "Das Brautkleid bleibt still, während der Torf darunter aufsteigt. Zweihundert Jahre hat das Siegel einen Namen festgehalten. Jetzt schlägt es nach der Hand, die ihn zurückholen will.",
+        "attacks": [
+          {
+            "name": "Schleierschlag",
+            "damage": 8,
+            "hits": [
+              950,
+              1500
+            ]
+          },
+          {
+            "name": "Schlickfäden",
+            "damage": 4,
+            "hits": [
+              650,
+              950,
+              1250,
+              1550,
+              1850
+            ]
+          },
+          {
+            "name": "Siegelgriff",
+            "damage": 11,
+            "hits": [
+              1400
+            ]
+          },
+          {
+            "name": "Zweihundert Winter",
+            "damage": 17,
+            "hits": [
+              2400
+            ]
+          }
+        ],
+        "on_win": {
+          "sets_flags": [
+            "k2o_ring_geborgen"
+          ],
+          "gives_items": {
+            "brautring": 1
+          }
+        },
+        "win_text": "Das Siegel springt. Marta öffnet die Hand, und du kannst den Ring nehmen. Sie wartet auf deine Entscheidung.",
+        "loot": {
+          "repeat": false,
+          "money": [
+            45,
+            60
+          ],
+          "drops": [
+            {
+              "item": "brautschleier",
+              "chance": 1
+            },
+            {
+              "item": "torfbernstein",
+              "chance": 0.25
+            }
+          ]
+        },
+        "roam": {
+          "speed": 0,
+          "chase": 0,
+          "aggro": 0
+        }
+      }
+    }
+  }
+}

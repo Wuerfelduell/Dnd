@@ -1,0 +1,1227 @@
+{
+  "version": 1,
+  "batch": "nebenquests",
+  "status": "exported; runtime integration pending",
+  "paletteMaxVisibleColors": 32,
+  "palette": [
+    "#1a1c2c",
+    "#252b38",
+    "#303b49",
+    "#425360",
+    "#586c78",
+    "#71858b",
+    "#95a5a5",
+    "#a8b4c0",
+    "#2d2629",
+    "#58433c",
+    "#715648",
+    "#92745a",
+    "#b3946e",
+    "#cfb18a",
+    "#e0c9a1",
+    "#494b3a",
+    "#686850",
+    "#8b8870",
+    "#eee2c5",
+    "#173d40",
+    "#245b59",
+    "#36817a",
+    "#4eafa2",
+    "#6fe0d0",
+    "#886332",
+    "#d0a050",
+    "#e8b860",
+    "#f0ce80",
+    "#c8b0e8",
+    "#5c426a",
+    "#8c7295",
+    "#893e4e"
+  ],
+  "notes": [
+    "AJ 0.2 and section 3 specify 48x48 for human enemies; this overrides the older AA wishlist 64x64 designation.",
+    "Portraits contain four moods as required by AJ, replacing the wishlist single-portrait size.",
+    "Bestiary cards match existing 96x128 opaque parchment format.",
+    "32px item variants are exact nearest-neighbor enlargements of the 16px icons."
+  ],
+  "assets": [
+    {
+      "id": "kg_kerzenbund_item",
+      "contentId": "kg_kerzenbund",
+      "kind": "item",
+      "file": "items/kg_kerzenbund.png",
+      "width": 16,
+      "height": 16,
+      "transparent": true
+    },
+    {
+      "id": "kg_kerzenbund_item32",
+      "contentId": "kg_kerzenbund",
+      "kind": "item",
+      "file": "items/32/kg_kerzenbund.png",
+      "width": 32,
+      "height": 32,
+      "transparent": true,
+      "derivedFrom": "items/kg_kerzenbund.png",
+      "scaleMode": "nearest-neighbor"
+    },
+    {
+      "id": "kg_bleiorakel_item",
+      "contentId": "kg_bleiorakel",
+      "kind": "item",
+      "file": "items/kg_bleiorakel.png",
+      "width": 16,
+      "height": 16,
+      "transparent": true
+    },
+    {
+      "id": "kg_bleiorakel_item32",
+      "contentId": "kg_bleiorakel",
+      "kind": "item",
+      "file": "items/32/kg_bleiorakel.png",
+      "width": 32,
+      "height": 32,
+      "transparent": true,
+      "derivedFrom": "items/kg_bleiorakel.png",
+      "scaleMode": "nearest-neighbor"
+    },
+    {
+      "id": "kg_kopfgeld_siegelbrecher_walk",
+      "contentId": "kg_kopfgeld_siegelbrecher",
+      "kind": "walk",
+      "file": "characters/kg_kopfgeld_siegelbrecher_walk.png",
+      "width": 64,
+      "height": 128,
+      "transparent": true,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "baseline": 31,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        }
+      },
+      "directions": [
+        "down",
+        "left",
+        "right",
+        "up"
+      ]
+    },
+    {
+      "id": "kg_kopfgeld_siegelbrecher_portrait",
+      "contentId": "kg_kopfgeld_siegelbrecher",
+      "kind": "portrait",
+      "file": "portraits/kg_kopfgeld_siegelbrecher_emotions.png",
+      "width": 256,
+      "height": 64,
+      "transparent": true,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 4,
+      "rows": 1,
+      "baseline": 63,
+      "animations": {
+        "neutral": {
+          "frames": [
+            0
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "suspicious": {
+          "frames": [
+            1
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "startled": {
+          "frames": [
+            2
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "slightSmile": {
+          "frames": [
+            3
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "kg_kopfgeld_siegelbrecher_battle",
+      "contentId": "kg_kopfgeld_siegelbrecher",
+      "kind": "battle",
+      "file": "battle/enemy_kg_kopfgeld_siegelbrecher.png",
+      "width": 288,
+      "height": 192,
+      "transparent": true,
+      "frameWidth": 48,
+      "frameHeight": 48,
+      "columns": 6,
+      "rows": 4,
+      "baseline": 46,
+      "facing": "left",
+      "windupFrames": [
+        6,
+        7
+      ],
+      "emptyFrames": [
+        4,
+        5,
+        15,
+        16,
+        17,
+        22,
+        23
+      ],
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "attack": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            12,
+            13,
+            14
+          ],
+          "frameRate": 10,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            18,
+            19,
+            20,
+            21
+          ],
+          "frameRate": 7,
+          "repeat": 0
+        }
+      },
+      "defeatMeaning": "surrender; alive"
+    },
+    {
+      "id": "kg_kopfgeld_schichtdieb_walk",
+      "contentId": "kg_kopfgeld_schichtdieb",
+      "kind": "walk",
+      "file": "characters/kg_kopfgeld_schichtdieb_walk.png",
+      "width": 64,
+      "height": 128,
+      "transparent": true,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "baseline": 31,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        }
+      },
+      "directions": [
+        "down",
+        "left",
+        "right",
+        "up"
+      ]
+    },
+    {
+      "id": "kg_kopfgeld_schichtdieb_portrait",
+      "contentId": "kg_kopfgeld_schichtdieb",
+      "kind": "portrait",
+      "file": "portraits/kg_kopfgeld_schichtdieb_emotions.png",
+      "width": 256,
+      "height": 64,
+      "transparent": true,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 4,
+      "rows": 1,
+      "baseline": 63,
+      "animations": {
+        "neutral": {
+          "frames": [
+            0
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "suspicious": {
+          "frames": [
+            1
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "startled": {
+          "frames": [
+            2
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "slightSmile": {
+          "frames": [
+            3
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "kg_kopfgeld_schichtdieb_battle",
+      "contentId": "kg_kopfgeld_schichtdieb",
+      "kind": "battle",
+      "file": "battle/enemy_kg_kopfgeld_schichtdieb.png",
+      "width": 288,
+      "height": 192,
+      "transparent": true,
+      "frameWidth": 48,
+      "frameHeight": 48,
+      "columns": 6,
+      "rows": 4,
+      "baseline": 46,
+      "facing": "left",
+      "windupFrames": [
+        6,
+        7
+      ],
+      "emptyFrames": [
+        4,
+        5,
+        15,
+        16,
+        17,
+        22,
+        23
+      ],
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "attack": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            12,
+            13,
+            14
+          ],
+          "frameRate": 10,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            18,
+            19,
+            20,
+            21
+          ],
+          "frameRate": 7,
+          "repeat": 0
+        }
+      },
+      "defeatMeaning": "surrender; alive"
+    },
+    {
+      "id": "kg_kopfgeld_pfandvogt_walk",
+      "contentId": "kg_kopfgeld_pfandvogt",
+      "kind": "walk",
+      "file": "characters/kg_kopfgeld_pfandvogt_walk.png",
+      "width": 64,
+      "height": 128,
+      "transparent": true,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "baseline": 31,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        }
+      },
+      "directions": [
+        "down",
+        "left",
+        "right",
+        "up"
+      ]
+    },
+    {
+      "id": "kg_kopfgeld_pfandvogt_portrait",
+      "contentId": "kg_kopfgeld_pfandvogt",
+      "kind": "portrait",
+      "file": "portraits/kg_kopfgeld_pfandvogt_emotions.png",
+      "width": 256,
+      "height": 64,
+      "transparent": true,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 4,
+      "rows": 1,
+      "baseline": 63,
+      "animations": {
+        "neutral": {
+          "frames": [
+            0
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "suspicious": {
+          "frames": [
+            1
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "startled": {
+          "frames": [
+            2
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "slightSmile": {
+          "frames": [
+            3
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "kg_kopfgeld_pfandvogt_battle",
+      "contentId": "kg_kopfgeld_pfandvogt",
+      "kind": "battle",
+      "file": "battle/enemy_kg_kopfgeld_pfandvogt.png",
+      "width": 288,
+      "height": 192,
+      "transparent": true,
+      "frameWidth": 48,
+      "frameHeight": 48,
+      "columns": 6,
+      "rows": 4,
+      "baseline": 46,
+      "facing": "left",
+      "windupFrames": [
+        6,
+        7
+      ],
+      "emptyFrames": [
+        4,
+        5,
+        15,
+        16,
+        17,
+        22,
+        23
+      ],
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "attack": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            12,
+            13,
+            14
+          ],
+          "frameRate": 10,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            18,
+            19,
+            20,
+            21
+          ],
+          "frameRate": 7,
+          "repeat": 0
+        }
+      },
+      "defeatMeaning": "surrender; alive"
+    },
+    {
+      "id": "k2n_eichmeisterin_walk",
+      "contentId": "k2n_eichmeisterin",
+      "kind": "walk",
+      "file": "characters/k2n_eichmeisterin_walk.png",
+      "width": 64,
+      "height": 128,
+      "transparent": true,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "baseline": 31,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        }
+      },
+      "directions": [
+        "down",
+        "left",
+        "right",
+        "up"
+      ]
+    },
+    {
+      "id": "k2n_eichmeisterin_portrait",
+      "contentId": "k2n_eichmeisterin",
+      "kind": "portrait",
+      "file": "portraits/k2n_eichmeisterin_emotions.png",
+      "width": 256,
+      "height": 64,
+      "transparent": true,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 4,
+      "rows": 1,
+      "baseline": 63,
+      "animations": {
+        "neutral": {
+          "frames": [
+            0
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "suspicious": {
+          "frames": [
+            1
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "startled": {
+          "frames": [
+            2
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "slightSmile": {
+          "frames": [
+            3
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "k2n_zeichner_walk",
+      "contentId": "k2n_zeichner",
+      "kind": "walk",
+      "file": "characters/k2n_zeichner_walk.png",
+      "width": 64,
+      "height": 128,
+      "transparent": true,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "baseline": 31,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        }
+      },
+      "directions": [
+        "down",
+        "left",
+        "right",
+        "up"
+      ]
+    },
+    {
+      "id": "k2n_zeichner_portrait",
+      "contentId": "k2n_zeichner",
+      "kind": "portrait",
+      "file": "portraits/k2n_zeichner_emotions.png",
+      "width": 256,
+      "height": 64,
+      "transparent": true,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 4,
+      "rows": 1,
+      "baseline": 63,
+      "animations": {
+        "neutral": {
+          "frames": [
+            0
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "suspicious": {
+          "frames": [
+            1
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "startled": {
+          "frames": [
+            2
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "slightSmile": {
+          "frames": [
+            3
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "k2n_student_walk",
+      "contentId": "k2n_student",
+      "kind": "walk",
+      "file": "characters/k2n_student_walk.png",
+      "width": 64,
+      "height": 128,
+      "transparent": true,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "baseline": 31,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        }
+      },
+      "directions": [
+        "down",
+        "left",
+        "right",
+        "up"
+      ]
+    },
+    {
+      "id": "k2n_student_portrait",
+      "contentId": "k2n_student",
+      "kind": "portrait",
+      "file": "portraits/k2n_student_emotions.png",
+      "width": 256,
+      "height": 64,
+      "transparent": true,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 4,
+      "rows": 1,
+      "baseline": 63,
+      "animations": {
+        "neutral": {
+          "frames": [
+            0
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "suspicious": {
+          "frames": [
+            1
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "startled": {
+          "frames": [
+            2
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "slightSmile": {
+          "frames": [
+            3
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "k2n_waerter_walk",
+      "contentId": "k2n_waerter",
+      "kind": "walk",
+      "file": "characters/k2n_waerter_walk.png",
+      "width": 64,
+      "height": 128,
+      "transparent": true,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "baseline": 31,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        }
+      },
+      "directions": [
+        "down",
+        "left",
+        "right",
+        "up"
+      ]
+    },
+    {
+      "id": "k2n_waerter_portrait",
+      "contentId": "k2n_waerter",
+      "kind": "portrait",
+      "file": "portraits/k2n_waerter_emotions.png",
+      "width": 256,
+      "height": 64,
+      "transparent": true,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 4,
+      "rows": 1,
+      "baseline": 63,
+      "animations": {
+        "neutral": {
+          "frames": [
+            0
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "suspicious": {
+          "frames": [
+            1
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "startled": {
+          "frames": [
+            2
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "slightSmile": {
+          "frames": [
+            3
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "k2n_pfandzettel_item",
+      "contentId": "k2n_pfandzettel",
+      "kind": "item",
+      "file": "items/k2n_pfandzettel.png",
+      "width": 16,
+      "height": 16,
+      "transparent": true
+    },
+    {
+      "id": "k2n_pfandzettel_item32",
+      "contentId": "k2n_pfandzettel",
+      "kind": "item",
+      "file": "items/32/k2n_pfandzettel.png",
+      "width": 32,
+      "height": 32,
+      "transparent": true,
+      "derivedFrom": "items/k2n_pfandzettel.png",
+      "scaleMode": "nearest-neighbor"
+    },
+    {
+      "id": "k2n_ivys_brief_item",
+      "contentId": "k2n_ivys_brief",
+      "kind": "item",
+      "file": "items/k2n_ivys_brief.png",
+      "width": 16,
+      "height": 16,
+      "transparent": true
+    },
+    {
+      "id": "k2n_ivys_brief_item32",
+      "contentId": "k2n_ivys_brief",
+      "kind": "item",
+      "file": "items/32/k2n_ivys_brief.png",
+      "width": 32,
+      "height": 32,
+      "transparent": true,
+      "derivedFrom": "items/k2n_ivys_brief.png",
+      "scaleMode": "nearest-neighbor"
+    },
+    {
+      "id": "k2n_brief_hesper_item",
+      "contentId": "k2n_brief_hesper",
+      "kind": "item",
+      "file": "items/k2n_brief_hesper.png",
+      "width": 16,
+      "height": 16,
+      "transparent": true
+    },
+    {
+      "id": "k2n_brief_hesper_item32",
+      "contentId": "k2n_brief_hesper",
+      "kind": "item",
+      "file": "items/32/k2n_brief_hesper.png",
+      "width": 32,
+      "height": 32,
+      "transparent": true,
+      "derivedFrom": "items/k2n_brief_hesper.png",
+      "scaleMode": "nearest-neighbor"
+    },
+    {
+      "id": "k2n_brief_druce_item",
+      "contentId": "k2n_brief_druce",
+      "kind": "item",
+      "file": "items/k2n_brief_druce.png",
+      "width": 16,
+      "height": 16,
+      "transparent": true
+    },
+    {
+      "id": "k2n_brief_druce_item32",
+      "contentId": "k2n_brief_druce",
+      "kind": "item",
+      "file": "items/32/k2n_brief_druce.png",
+      "width": 32,
+      "height": 32,
+      "transparent": true,
+      "derivedFrom": "items/k2n_brief_druce.png",
+      "scaleMode": "nearest-neighbor"
+    },
+    {
+      "id": "k2n_brief_pedell_item",
+      "contentId": "k2n_brief_pedell",
+      "kind": "item",
+      "file": "items/k2n_brief_pedell.png",
+      "width": 16,
+      "height": 16,
+      "transparent": true
+    },
+    {
+      "id": "k2n_brief_pedell_item32",
+      "contentId": "k2n_brief_pedell",
+      "kind": "item",
+      "file": "items/32/k2n_brief_pedell.png",
+      "width": 32,
+      "height": 32,
+      "transparent": true,
+      "derivedFrom": "items/k2n_brief_pedell.png",
+      "scaleMode": "nearest-neighbor"
+    },
+    {
+      "id": "k2n_kahn_reet_prop",
+      "contentId": "k2n_kahn_reet",
+      "kind": "prop",
+      "file": "props/k2n_kahn_reet.png",
+      "width": 32,
+      "height": 32,
+      "transparent": true
+    },
+    {
+      "id": "k2n_kahn_kiste_prop",
+      "contentId": "k2n_kahn_kiste",
+      "kind": "prop",
+      "file": "props/k2n_kahn_kiste.png",
+      "width": 32,
+      "height": 32,
+      "transparent": true
+    },
+    {
+      "id": "k2n_kahn_glocke_prop",
+      "contentId": "k2n_kahn_glocke",
+      "kind": "prop",
+      "file": "props/k2n_kahn_glocke.png",
+      "width": 16,
+      "height": 32,
+      "transparent": true
+    },
+    {
+      "id": "k2n_kahn_waschtisch_prop",
+      "contentId": "k2n_kahn_waschtisch",
+      "kind": "prop",
+      "file": "props/k2n_kahn_waschtisch.png",
+      "width": 32,
+      "height": 32,
+      "transparent": true
+    },
+    {
+      "id": "k2n_kahn_ofen_prop",
+      "contentId": "k2n_kahn_ofen",
+      "kind": "prop",
+      "file": "props/k2n_kahn_ofen.png",
+      "width": 32,
+      "height": 48,
+      "transparent": true
+    },
+    {
+      "id": "k2n_kahn_kartentisch_prop",
+      "contentId": "k2n_kahn_kartentisch",
+      "kind": "prop",
+      "file": "props/k2n_kahn_kartentisch.png",
+      "width": 32,
+      "height": 32,
+      "transparent": true
+    },
+    {
+      "id": "kg_kopfgeld_siegelbrecher_bestiary",
+      "contentId": "kg_kopfgeld_siegelbrecher",
+      "kind": "bestiary",
+      "file": "ui/bestiary/kg_kopfgeld_siegelbrecher.png",
+      "width": 96,
+      "height": 128,
+      "transparent": false
+    },
+    {
+      "id": "kg_kopfgeld_schichtdieb_bestiary",
+      "contentId": "kg_kopfgeld_schichtdieb",
+      "kind": "bestiary",
+      "file": "ui/bestiary/kg_kopfgeld_schichtdieb.png",
+      "width": 96,
+      "height": 128,
+      "transparent": false
+    },
+    {
+      "id": "kg_kopfgeld_pfandvogt_bestiary",
+      "contentId": "kg_kopfgeld_pfandvogt",
+      "kind": "bestiary",
+      "file": "ui/bestiary/kg_kopfgeld_pfandvogt.png",
+      "width": 96,
+      "height": 128,
+      "transparent": false
+    }
+  ]
+}

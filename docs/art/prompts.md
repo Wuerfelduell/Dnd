@@ -2,7 +2,22 @@
 
 Jede Datei ist **eigenständig** (Regeln, Formate, Ablage stehen drin). Codex braucht immer nur **eine** Datei. Alle Pakete schreiben in getrennte Ordner und können **gleichzeitig** laufen. Jedes Paket endet mit einem eigenen Pull Request.
 
-## Neu (Runde 3: Kapitel 2 ausbauen), parallel startbar
+## Neu (Runde 4: Kapitel 3 „Der letzte Zug nach Dunscar“), parallel startbar
+Vorlage ist Geschichte 3 aus `docs/story/kapitel3/geschichte_3.md` (Geschichten 1 und 2 bleiben für später). Alle acht teilen dieselben Eckdaten mit festen IDs.
+
+| Datei | Art | Inhalt | schreibt nach |
+|---|---|---|---|
+| `codex_AR_k3_akte.md` | Story | Hauptstory: Anreise je Wexmoor-Ende, 5 Akte x 4 Fährten, Verhöre, Rufmuster, Horchstellen, 4 Enden, Epiloge | `docs/story/k3_akte/` |
+| `codex_AS_k3_orte.md` | Karten/Gegner | alle Karten (6 Viertel, 5 Innenräume, Zug, 3 Gefahrengebiete, Finale, Superboss-Gebiet), Gegner- und Bosswerte, Beute, Reise, Rufmechanik-Spezifikation + Grundgerüst | `docs/story/k3_orte/` |
+| `codex_AT_k3_nebenquests.md` | Quests | 12 Nebenaufträge, Gerede, Lesestücke, Zeitung, Bestiarium | `docs/story/k3_nebenquests/` |
+| `codex_AU_k3_pruefungen.md` | Pfade | 10 Sequenz-Prüfungen (Seq 4), Herkunft aller Kernzutaten Seq 5 bis 1, Rituale Seq 4 bis 1 | `docs/story/k3_pruefungen/` |
+| `codex_AV_dunscar_orte_grafik.md` | Grafik | Tilesets, Props, Innenräume, Nachtzug, Kampf-Hintergründe, Stadtkarte, Kapitelkarte | Batch `dunscar1` |
+| `codex_AW_dunscar_figuren.md` | Grafik | 11 Figuren, Gallowmere als Nachhall, Schichtgänger, Einwohner, Szenenbilder | Batch `dunscar2` |
+| `codex_AX_dunscar_gegner.md` | Grafik | 6 Gegner, 5 Bosse, 10 Prüfungsbosse, Rufmuster-Symbole | Batch `dunscar3` |
+| `codex_AY_dunscar_musik.md` | Ton | 17 Stücke mit Dunscar-Motiv, Rufmuster-Klänge mit Nachhall, Zug- und Boss-Klänge | `public/audio/` (Präfix `ds_`) |
+
+
+## Runde 3: Kapitel 2 ausbauen
 Alle sechs teilen dieselben Eckdaten (neue Figuren, Orte, Zirkel mit festen IDs) und passen deshalb zusammen.
 
 | Datei | Art | Inhalt | schreibt nach |

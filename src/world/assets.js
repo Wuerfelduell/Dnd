@@ -433,6 +433,12 @@ export const SOURCE_ICONS = {
 };
 
 /** Wetter pro Karte (Animation aus C_08_weather). "fog" verdichtet den vorhandenen Nebel statt Kacheln zu zeigen. */
+/** Paket AE: Titelbild in Ebenen (je 480x270; Animationen als Streifen nebeneinander). */
+export const TITLE_LAYERS = [
+  { file: 'ebene_0_himmel' }, { file: 'ebene_1_mond', frames: 2, sec: 3.3 }, { file: 'ebene_2_ferne', depth: 1 },
+  { file: 'ebene_3_nebel', drift: 70 }, { file: 'ebene_4_stadt', depth: 2 }, { file: 'ebene_4_fenster', frames: 4, sec: 10, depth: 2 },
+  { file: 'ebene_5_vorne', depth: 3 }, { file: 'ebene_5_laterne', frames: 4, sec: 0.5, depth: 3, box: [64, 96, 16, 16] }, { file: 'ebene_6_regen', frames: 4, sec: 0.4 },
+].map((l) => ({ ...l, url: `${BASE}ui/AE_titel/${l.file}.png` }));
 export const MAP_WEATHER = { docks: 'rain_light', ebba: 'ash' };
 
 // --- Paket A: animierte Sheets (Frames/Animationen in manifest-pfade.json) ----------
@@ -503,10 +509,20 @@ export const UI_SHEETS = {
   locked: ['ui/14_03_locked_information.png', 64, 16],
   qstatus: ['ui/14_05_quest_status_icons.png', 112, 16],
   ladder: ['pathways/ladder_sockets.png', 96, 24],
+  // Paket AE: Einstellungs-Symbole, Touch-Knöpfe, Zeitung
+  aeset: ['ui/AE_einstellungen.png', 128, 32],
+  aetouch: ['ui/AE_touch.png', 320, 64],
+  aezeitung: ['ui/AE_zeitung.png', 320, 160],
 };
 const cell = (i, size = 16, cols = 8) => [(i % cols) * size, Math.floor(i / cols) * size, size, size];
 const steps = (prefix, x0, y, w, h, n, dx) => Object.fromEntries(Array.from({ length: n }, (_, i) => [`${prefix}${i}`, [x0 + i * dx, y, w, h]]));
+/** Paket AE: Namen der Einstellungs-Symbole (8 Spalten) und Touch-Knöpfe (10 Spalten, Reihe 2 gedrückt). */
+const AE_SET = ['lautstaerke', 'stumm', 'musik', 'effekte', 'vollbild', 'fenster', 'steuerung', 'speichern', 'laden', 'zurueck', 'zahnrad', 'info', 'beenden', 'pause', 'weiter', 'handy'];
+const AE_TOUCH = ['aktion', 'geistsicht', 'notizbuch', 'inventar', 'karte', 'angriff', 'ausweichen', 'parieren', 'faehigkeit', 'gegenstand'];
 export const UI_REGIONS = {
+  aeset: Object.fromEntries(AE_SET.map((n, i) => [n, cell(i)])),
+  aetouch: Object.fromEntries(AE_TOUCH.flatMap((n, i) => [[n, [i * 32, 0, 32, 32]], [`${n}_down`, [i * 32, 32, 32, 32]]])),
+  aezeitung: { kopf_kurier: [0, 48, 160, 24], kopf_bote: [160, 48, 160, 24], foto_polizeiwache: [0, 80, 64, 48], foto_menschenmenge: [64, 80, 64, 48], foto_hafen: [128, 80, 64, 48], foto_leuchtturm: [192, 80, 64, 48] },
   hud: { ...steps('hp', 0, 0, 64, 8, 6, 64), ...steps('nerves', 0, 16, 64, 8, 6, 64), ...steps('enemy', 0, 32, 64, 6, 6, 64),
     conc_empty: [0, 48, 8, 8], conc_full: [8, 48, 8, 8], conc_glow: [16, 48, 8, 8], occult: [32, 48, 16, 16],
     ...steps('target', 0, 64, 24, 24, 4, 24), your_turn: [0, 112, 160, 24], enemy_turn: [192, 112, 160, 24] },
@@ -867,7 +883,9 @@ export const J_SCENES = ['giessgrube', 'kinderzimmer', 'oda', 'lilian', 'glocke_
 export const K_SCENES = ['abzuege', 'schattenlos', 'maskenball', 'dunkelkammer', 'spiegel', 'schatten_frei'];
 /** Paket M: Bilder zu Fall 7 und 8. */
 export const M_SCENES = ['kanal', 'finch', 'schlafsaal', 'molly', 'webstuhl', 'morgen'];
-export const sceneUrl = (id) => (SCENES.includes(id) ? `${BASE}ui/scenes/E_szene_${id}.png`
+/** Paket AE: Kapitelkarten (480x270) für Spielbeginn, Kapitelwechsel und Kapitelende. */
+export const CHAPTER_CARDS = ['kapitel1_karte', 'kapitel2_karte', 'kapitel_ende'];
+export const sceneUrl = (id) => (CHAPTER_CARDS.includes(id) ? `${BASE}ui/scenes/${id}.png` : SCENES.includes(id) ? `${BASE}ui/scenes/E_szene_${id}.png`
   : TRAVEL_SCENES.includes(id) ? `${BASE}ui/scenes/I_${id}.png`
     : J_SCENES.includes(id) ? `${BASE}ui/scenes/J_szene_${id}.png`
       : K_SCENES.includes(id) ? `${BASE}ui/scenes/K_szene_${id}.png`

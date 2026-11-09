@@ -768,3 +768,39 @@ html.touch .cb-touch { display: flex; }
 .paper h4 { margin: 0.2em 0 0.4em; font-size: 1.1em; color: #2a2418; }
 .paper .text p { margin: 0.3em 0; line-height: 1.35; }
 .paper .kurz { margin: 0.6em 0 0; padding-left: 1.2em; font-size: 0.85em; border-top: 1px solid #8a7a58; padding-top: 0.4em; }
+
+/* Paket AE: Titelbild in Ebenen, Kapitelkarten, Touch-Knöpfe, Einstellungs-Symbole, Zeitungsseite */
+.layer.has-titlescene { background: none; }
+.layer.has-titlescene:has(.title) { background: linear-gradient(rgba(4, 4, 8, 0.05), rgba(4, 4, 8, 0.45)); }
+.titlescene { position: absolute; inset: 0; overflow: hidden; z-index: -1; pointer-events: none; background: #1a1c2c; --px: 0; }
+.layer.has-titlescene { isolation: isolate; }
+.titlescene .tl { position: absolute; inset: 0; overflow: hidden; }
+.titlescene .tl.d1 { transform: translateX(calc(var(--px) * -0.4%)); }
+.titlescene .tl.d2 { transform: translateX(calc(var(--px) * -0.9%)); }
+.titlescene .tl.d3 { transform: translateX(calc(var(--px) * -1.6%)); }
+.titlescene img { position: absolute; left: 0; top: 0; width: 100%; height: 100%; image-rendering: pixelated; }
+.titlescene img.f2 { animation: ae-strip2 steps(2) infinite; }
+.titlescene img.f4 { animation: ae-strip4 steps(4) infinite; }
+@keyframes ae-strip2 { to { transform: translateX(-100%); } }
+@keyframes ae-strip4 { to { transform: translateX(-100%); } }
+.titlescene .drift { position: absolute; inset: 0; width: 200%; animation: ae-drift linear infinite; }
+.titlescene .drift img { width: 50%; }
+.titlescene .drift img + img { left: 50%; }
+@keyframes ae-drift { to { transform: translateX(-50%); } }
+@media (prefers-reduced-motion: reduce) { .titlescene img, .titlescene .drift { animation: none; } }
+.panel.message.chapterbook img.scene { width: 30em; height: 16.875em; }
+.aeicon { vertical-align: middle; margin-right: 0.3em; }
+.touch-only.aeicon { display: none; }
+html.touch .touch-only.aeicon { display: inline-block; }
+html.touch .hudbtn:has(.aeicon) { padding: 0.15em; line-height: 0; }
+html.touch .hudbtn:has(.aeicon) .key, html.touch .hudbtn:has(.aeicon) { font-size: 0; }
+html.touch .hudbtn .aeicon { font-size: 16px; margin: 0; }
+html.touch .cb-def .aeicon { display: block; margin: 0 auto 0.2em; font-size: 16px; }
+.pausemenu button .aeicon { margin-right: 0.45em; }
+.paper { border: 1em solid transparent; border-image: var(--paper-page) 16 fill / 1em stretch; background: #e9e0c8; image-rendering: pixelated; }
+.paper .masthead { background: var(--paper-kopf-kurier) center / contain no-repeat; padding: 0.4em 0; border-bottom: none; }
+.paper-bote .masthead { background-image: var(--paper-kopf-bote); }
+.chaptercard { position: relative; width: 30em; margin: 0 auto 0.6em; }
+.chaptercard img.scene { margin: 0; }
+.chaptercard .cap { position: absolute; left: 0; right: 0; top: 70%; bottom: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; color: var(--brass, #d5ad68); font-size: 1.6em; letter-spacing: 0.08em; text-shadow: 0 2px 0 #000; }
+.chaptercard .cap small { font-size: 0.5em; color: #bfc3bc; letter-spacing: 0.3em; text-transform: uppercase; }

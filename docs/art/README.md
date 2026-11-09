@@ -1,5 +1,19 @@
 # Grafikpaket 14b – Kampf und erste Items
 
+
+## Batch AO — Neue Wexmoor-Figuren (`wexmoor7`)
+
+57 PNGs für die elf festgelegten Figuren aus `codex_AO_k2_figuren.md`: elf Lauf-Sheets (64×128), 22 Emotions-Sheets (256×64, acht Stimmungen je Figur), elf Köpfe (24×24), neun Sonderposen-Sheets (16×32 je Frame), zwei Kampf-Sheets und zwei Staffeleien (32×32). Die zweite Staffelei heißt `props/AO_staffelei_portraet.png`.
+
+- Manifest: [`manifest-wexmoor7.json`](../../public/sprites/manifest-wexmoor7.json), mit Figuren-IDs, Frame-Listen, Tempo und Leerfeldern. Laufrichtungen: unten, links, rechts, oben; Portraits: neutral, misstrauisch, erschrocken, lächelnd; zweite Reihe: wütend, traurig, nachdenklich, entschlossen.
+- Kampf: `enemy_wxn_maler.png` (288×240; idle, brush_slash, paint_throw, hurt, defeated) und `enemy_gemalte_frau.png` (384×320; idle, emerge, attack, hurt, defeated). Je sechs Spalten. Angriffe halten die erste Ausholpose in zwei identischen Frames. `emerge` vor der ersten Bereitschaftsanimation der gemalten Frau abspielen. Kürzere Reihen haben vollständig transparente Restfelder.
+- Nachbearbeitung: gemeinsame Palette mit höchstens 32 sichtbaren Farben, indizierte PNGs, binäres Alpha, Nearest Neighbor, transparente Zellränder. Kartenfiguren haben Grundlinie y=30; Krabbe ist kleiner als die Erwachsenen. Portrait-Köpfe wurden aus dem neutralen Ausdruck abgeleitet. Die kleinen Arbeitsgeräte sind in den Sonderposen enthalten.
+- Erzeugung: [`batch-wexmoor7-generation.json`](batch-wexmoor7-generation.json) enthält die tatsächlich verwendeten Bildprompts, Referenzen, Korrekturen, Quellbild-Dateinamen und SHA-256. Die hochauflösenden Originale gehören nicht zum Laufzeitpaket.
+- Prüfung: `python docs/art/validate-wexmoor7.py` (Pillow); alle 57 Dateien und 371 belegten Frames bestehen die Prüfung von Pflichtumfang, Maßen, Palette, Alpha, Grundlinien, Zellrändern, Animationsverweisen, unterschiedlichen Ausdrücken/Laufschritten und doppelten Ausholframes. Bericht: [`batch-wexmoor7-validation.json`](batch-wexmoor7-validation.json). Sichtprüfung: [`batch-wexmoor7-preview.png`](batch-wexmoor7-preview.png).
+
+Grafiklieferung; die Einbindung und Timing-Abstimmung im laufenden Spiel erfolgen separat.
+
+
 Erzeugt am 9. November 2026 mit dem integrierten Bildgenerator (`image_gen`).
 Quelle der Aufgaben: `prompts.md`; die tatsächlich verwendeten Prompts stehen in
 `batch-14b-generation.json`. Die dortigen Quelldateinamen bezeichnen die ursprünglichen
@@ -1205,14 +1219,41 @@ HUD-Skalierung und gemeinsamer Kampfaufstellung im laufenden Spiel erfolgen sepa
 - Prüfung: `python tools/art/oberflaeche/validate.py` kontrolliert Pflichtdateien, Maße, gemeinsame Palette, Alpha, Region-Grenzen, Überlappungen, sämtliche 82 Animationsframes, Kachelnähte und die Ausrichtung der Fensterlichter. Ergebnis: [`batch-oberflaeche-validation.json`](batch-oberflaeche-validation.json). Zusätzlich: `node --test tests/sprites.test.js` (35 Tests bestanden, nach Abgleich mit `main`).
 
 
-## Batch AO — Neue Wexmoor-Figuren (`wexmoor7`)
+## Batch AJ — Nebenaufträge Kettlegate und Wexmoor (`nebenquests`)
 
-57 PNGs für die elf festgelegten Figuren aus `codex_AO_k2_figuren.md`: elf Lauf-Sheets (64×128), 22 Emotions-Sheets (256×64, acht Stimmungen je Figur), elf Köpfe (24×24), neun Sonderposen-Sheets (16×32 je Frame), zwei Kampf-Sheets und zwei Staffeleien (32×32). Die zweite Staffelei heißt `props/AO_staffelei_portraet.png`.
+40 PNGs für alle 20 neuen IDs aus den Grafikwunschlisten von AA und AB:
+sieben Lauf-Sheets, sieben Emotions-Sheets mit jeweils vier Stimmungen,
+drei menschliche Kampf-Sheets und drei Bestiariumsbilder, sieben Items
+in 16×16 und 32×32 sowie sechs Torfkahn-Ausbauten.
 
-- Manifest: [`manifest-wexmoor7.json`](../../public/sprites/manifest-wexmoor7.json), mit Figuren-IDs, Frame-Listen, Tempo und Leerfeldern. Laufrichtungen: unten, links, rechts, oben; Portraits: neutral, misstrauisch, erschrocken, lächelnd; zweite Reihe: wütend, traurig, nachdenklich, entschlossen.
-- Kampf: `enemy_wxn_maler.png` (288×240; idle, brush_slash, paint_throw, hurt, defeated) und `enemy_gemalte_frau.png` (384×320; idle, emerge, attack, hurt, defeated). Je sechs Spalten. Angriffe halten die erste Ausholpose in zwei identischen Frames. `emerge` vor der ersten Bereitschaftsanimation der gemalten Frau abspielen. Kürzere Reihen haben vollständig transparente Restfelder.
-- Nachbearbeitung: gemeinsame Palette mit höchstens 32 sichtbaren Farben, indizierte PNGs, binäres Alpha, Nearest Neighbor, transparente Zellränder. Kartenfiguren haben Grundlinie y=30; Krabbe ist kleiner als die Erwachsenen. Portrait-Köpfe wurden aus dem neutralen Ausdruck abgeleitet. Die kleinen Arbeitsgeräte sind in den Sonderposen enthalten.
-- Erzeugung: [`batch-wexmoor7-generation.json`](batch-wexmoor7-generation.json) enthält die tatsächlich verwendeten Bildprompts, Referenzen, Korrekturen, Quellbild-Dateinamen und SHA-256. Die hochauflösenden Originale gehören nicht zum Laufzeitpaket.
-- Prüfung: `python docs/art/validate-wexmoor7.py` (Pillow); alle 57 Dateien und 371 belegten Frames bestehen die Prüfung von Pflichtumfang, Maßen, Palette, Alpha, Grundlinien, Zellrändern, Animationsverweisen, unterschiedlichen Ausdrücken/Laufschritten und doppelten Ausholframes. Bericht: [`batch-wexmoor7-validation.json`](batch-wexmoor7-validation.json). Sichtprüfung: [`batch-wexmoor7-preview.png`](batch-wexmoor7-preview.png).
+Manifest: `public/sprites/manifest-nebenquests.json`. Prompts einschließlich
+Korrekturen, Stilreferenzen, Quellprüfsummen und gemessene Zellzuschnitte:
+`docs/art/batch-nebenquests-generation.json`. Erzeugt mit dem eingebauten
+Bildgenerator; Export per Nearest Neighbor, gemeinsame 32-Farben-Palette
+(26 tatsächlich verwendet), indizierte PNGs und binäres Alpha.
+Die 32er-Items sind exakte 2×-Vergrößerungen der 16er-Icons.
 
-Grafiklieferung; die Einbindung und Timing-Abstimmung im laufenden Spiel erfolgen separat.
+Menschen nutzen gemäß AJ 0.2/Abschnitt 3 **48×48** pro Kampfframe,
+auch wenn die ältere AA-Wunschliste 64×64 nennt. Layout wie `enemy_holt`:
+6 Spalten, Reihen idle / attack / hurt / defeated mit 4/6/3/4 Frames.
+Ausholframes 6 und 7 sind identisch; Niederlagen zeigen eine lebende,
+aufgebende Figur. Grundlinien (exklusiv): Lauf 31, Portrait 63, Kampf 46.
+Bestiarium: deckendes 96×128-Pergamentformat wie im Bestand.
+
+```sh
+python docs/art/export-nebenquests.py SOURCE_DIRECTORY
+python docs/art/verify-nebenquests.py --preview
+node --test tests/sprites.test.js
+```
+
+Der Export benötigt Pillow und NumPy, der Prüfer nur Pillow. Hochauflösende
+Generatorquellen werden über die protokollierten Dateinamen und SHA-256
+identifiziert; sie gehören nicht zu den Runtime-Dateien. Der Prüfer läuft
+ohne diese Quellen und gleicht die Lieferung direkt mit beiden Wunschlisten ab.
+Ergebnis: `validation-nebenquests.json`, alle Prüfungen bestanden;
+35 bestehende Sprite-Tests bestanden. Sichtprüfung der finalen Rasterexports:
+[Figuren](preview-nebenquests-characters.png),
+[Kampf und Bestiarium](preview-nebenquests-battle.png),
+[Items und Kahn](preview-nebenquests-objects.png).
+
+Asset-Lieferung zur separaten Einbindung; Spielcode und Storydaten unverändert.
