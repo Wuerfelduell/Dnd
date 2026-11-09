@@ -52,7 +52,7 @@ test('Ankunft: Steckbrief, Zunder, Unterschlupf und die erste Schlussfolgerung',
   // Unterschlupf
   s.flags.add('k2_hideout');
   assert.ok(names(s, 'wx_torfstich').includes('docks'), 'Nachtzug zurück nach Kettlegate');
-  assert.deepEqual(s.questSteps('k2_akt1').map((x) => x.done), [true, true, true, true, false]);
+  assert.deepEqual(s.questSteps('k2_akt1').map((x) => x.done), [true, true, true, true, false, false, false]);
 });
 
 test('Schnelle Reisen in Wexmoor würfeln nur Wexmoorer Ereignisse', () => {
@@ -126,4 +126,46 @@ test('Streifen stehen nur in Wexmoor und laufen über freie Felder', () => {
       }
     }
   }
+});
+
+test('Akt I komplett: sechs Viertel, Lichter und Öl, Abschluss bei Zunder', () => {
+  const s = afterChapter1();
+  use(s, 'wx_bahnhof', 'ankunft');
+  use(s, 'wx_bahnhof', 'steckbrief');
+  talk(s, 'zunder_ankunft', ['verstecken', 'vorher', 'Bring mich']);
+  talk(s, 'druce', ['Steckbriefe']);
+  s.combine('wx_expected', 'wx_star_paper');
+  use(s, 'wx_kahn', 'willkommen');
+  s.flags.add('k2_hideout');
+  for (const m of ['wx_salzmarkt', 'wx_bojenhafen', 'wx_oberstadt', 'wx_pfahldorf']) assert.ok(names(s, 'wx_torfstich').includes(m), m);
+  // Ohne alle Viertel gibt es den Abschluss noch nicht
+  assert.throws(() => talk(s, 'zunder', ['alle Viertel']));
+  talk(s, 'hesper', ['Lichtamt']);
+  talk(s, 'brack', ['Bojen']);
+  talk(s, 'pedell', ['Starling']);
+  talk(s, 'sedge', ['setze', 'Lichter']);
+  talk(s, 'zunder', ['Leuchtturm']);
+  use(s, 'wx_oberstadt', 'lichtamt_tafel');
+  assert.equal(s.factStatus('wx_lights'), 'likely');
+  assert.equal(s.factStatus('wx_no_oil'), 'likely');
+  assert.equal(s.combine('wx_lights', 'wx_no_oil').result, 'new');
+  talk(s, 'zunder', ['alle Viertel']);
+  assert.equal(s.quests.k2_akt1, 'done');
+  assert.equal(s.quests.k2_akt2, 'active');
+});
+
+test('Verkleidung: im passenden Viertel kleiner Kegel, anderswo auffälliger', () => {
+  const s = afterChapter1();
+  const plain = s.policeCone(0, 'wx_bojenhafen');
+  s.money = 50;
+  talk(s, 'brack', ['Jacke']);
+  assert.equal(s.itemCount('fischerjacke'), 1);
+  talk(s, 'kleiderhaken', ['Fischerjacke']);
+  assert.equal(s.disguise(), 'fischerjacke');
+  const fit = s.policeCone(0, 'wx_bojenhafen');
+  const misfit = s.policeCone(0, 'wx_oberstadt');
+  assert.ok(fit.range < plain.range && fit.catchSec > plain.catchSec);
+  assert.ok(misfit.range > plain.range && misfit.catchSec < plain.catchSec);
+  talk(s, 'kleiderhaken', ['eigenen Mantel']);
+  assert.equal(s.disguise(), null);
 });

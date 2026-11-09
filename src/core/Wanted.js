@@ -20,14 +20,23 @@ export const wantedMethods = {
   },
 
   /** Sichtkegel der Laterne bei der aktuellen Stufe: { range (px), angle (Grad), catchSec }. */
-  policeCone(level = this.wanted) {
+  policeCone(level = this.wanted, mapId = this.map) {
     const r = this.policeRules();
     const l = Math.min(level, r.max_level);
+    // Verkleidung: im passenden Viertel kleinerer Kegel und mehr Zeit, anderswo fällt man eher auf
+    const worn = this.disguise();
+    const mod = !worn ? { range: 1, catch: 1 } : r.disguises[worn].maps.includes(mapId) ? r.disguise_fit : r.disguise_misfit;
     return {
-      range: r.cone.range + r.cone.range_per_level * l,
+      range: (r.cone.range + r.cone.range_per_level * l) * mod.range,
       angle: r.cone.angle + r.cone.angle_per_level * l,
-      catchSec: Math.max(r.catch_min_sec, r.catch_sec - r.catch_per_level * l),
+      catchSec: Math.max(r.catch_min_sec, r.catch_sec - r.catch_per_level * l) * mod.catch,
     };
+  },
+
+  /** Getragene Verkleidung (Flag k2_wear_<id>, gesetzt am Kleiderhaken im Unterschlupf) oder null. */
+  disguise() {
+    const r = this.policeRules();
+    return Object.keys(r?.disguises ?? {}).find((id) => this.flags.has(`k2_wear_${id}`) && this.itemCount(id) > 0) ?? null;
   },
 
   setWanted(level, reason = '') {

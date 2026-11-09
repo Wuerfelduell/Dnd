@@ -22,7 +22,7 @@ export function buildContent({ campaign, quests, cases, maps, dialogues, items =
     npcs: { ...campaign.npcs, ...(market?.npcs ?? {}), ...(f.npcs ?? {}), ...(b.npcs ?? {}), ...(g.npcs ?? {}), ...(wx.npcs ?? {}) },
     travel: [...(campaign.travel ?? []), ...(market?.travel ?? []), ...wild.travel, ...(f.travel ?? []), ...(g.travel ?? []), ...(wx.travel ?? [])],
     quests: { ...quests, ...(f.quests ?? {}), ...(wx.quests ?? {}) },
-    items: { ...items, ...(pathways?.items ?? {}), ...pathwayItems(pathways?.pathways ?? {}), ...artifactItems(pathways?.artifacts), ...wild.items, ...town.items, ...(f.items ?? {}) },
+    items: { ...items, ...(pathways?.items ?? {}), ...pathwayItems(pathways?.pathways ?? {}), ...artifactItems(pathways?.artifacts), ...wild.items, ...town.items, ...(f.items ?? {}), ...(wx.items ?? {}) },
     encounters: { ...encounters, ...(market?.encounters ?? {}), ...(travel?.encounters ?? {}), ...wild.encounters, ...town.encounters, ...(f.encounters ?? {}) },
     travelRules: travel && {
       ...travel,

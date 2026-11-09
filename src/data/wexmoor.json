@@ -14,6 +14,14 @@
       "wx_star_paper": {
         "case": "kapitel2",
         "text": "Der Wexmoorer Steckbrief ist auf Papier mit Sternwasserzeichen gedruckt, wie die anonymen Briefe in Kettlegate."
+      },
+      "wx_lights": {
+        "case": "kapitel2",
+        "text": "Nachts ziehen kleine Lichter vom Meer her über das Moor zum Leuchtturm."
+      },
+      "wx_no_oil": {
+        "case": "kapitel2",
+        "text": "Der Leuchtturm von Wexmoor brennt ohne Öl. Das Lichtamt kauft keinen Liter."
       }
     },
     "clues": {
@@ -40,6 +48,30 @@
         "source": "Zunder",
         "name": "Teures Papier",
         "text": "Zunder reibt den Steckbrief zwischen den Fingern. „Das ist kein Wachhauspapier. Das ist Oberstadtpapier, mit Stern drin. So was kauft die Wache nicht.“"
+      },
+      "wx_brack_lights": {
+        "fact": "wx_lights",
+        "source": "Ottilie Brack",
+        "name": "Bojen ohne Wind",
+        "text": "„Seit ein paar Wochen läuten die Bojen nachts von selbst. Dann kommen Lichter übers Wasser, klein wie Glühwürmchen, aber sie summen. Alle fliegen zum Turm. Keins kommt zurück.“"
+      },
+      "wx_sedge_lights": {
+        "fact": "wx_lights",
+        "source": "Mutter Sedge",
+        "name": "Fremde Stimmen",
+        "text": "„Die Lichter kommen von weit her. Sie singen in Stimmen, die nicht aus dem Moor sind. Eine lacht wie ein Kind im Schlaf.“ Mutter Sedge sieht dich lange an. „Du kennst sie, nicht wahr?“"
+      },
+      "wx_zunder_oil": {
+        "fact": "wx_no_oil",
+        "source": "Zunder",
+        "name": "Kein Liter",
+        "text": "„Mein Onkel hat dreißig Jahre Lampenöl verkauft. Er hat nie einen Liter ans Lichtamt geliefert. Niemand hat das. Der Turm brennt trotzdem.“"
+      },
+      "wx_lichtamt_haushalt": {
+        "fact": "wx_no_oil",
+        "source": "Aushang am Lichtamt",
+        "name": "Haushalt des Lichtamts",
+        "text": "„Haushalt des Lichtamts, öffentlich nach Stadtrecht: Lampenöl 0 Schilling. Linsenpflege 4.000 Schilling. Sammelfahrten 2.600 Schilling.“\n\nGezeichnet: Magistra I. Brandt, Lichtmeisterin. Neben der Unterschrift ein kleiner Stern."
       }
     },
     "deductions": [
@@ -54,6 +86,18 @@
         ],
         "name": "Erwartet",
         "text": "Wer dir in Kettlegate die Briefe angehängt hat, hat dich auch hierher geschickt. Die Fahrkarte war kein Glück, sie war eine Einladung."
+      },
+      {
+        "id": "dk2_turm",
+        "case": "kapitel2",
+        "pairs": [
+          [
+            "wx_lights",
+            "wx_no_oil"
+          ]
+        ],
+        "name": "Womit der Turm brennt",
+        "text": "Die Lichter, die Starling in Kettlegate geerntet hat, sind nicht verloschen. Sie brennen jetzt im Leuchtturm von Wexmoor."
       }
     ]
   },
@@ -97,11 +141,57 @@
           }
         },
         {
-          "text": "Lerne die sechs Viertel von Wexmoor kennen (folgt bald)",
+          "text": "Lerne alle sechs Viertel kennen: Sprich in jedem mit jemandem, der sich auskennt",
           "done": {
             "requires_flags": [
-              "k2_city_known"
+              "k2_known_bahnhof",
+              "k2_known_torf",
+              "k2_known_salz",
+              "k2_known_hafen",
+              "k2_known_ober",
+              "k2_known_pfahl"
             ]
+          },
+          "target": {
+            "map": "wx_kahn",
+            "id": "zunder",
+            "label": "Zunder fragen, wo du dich umsehen sollst"
+          }
+        },
+        {
+          "text": "Finde heraus, womit der Leuchtturm brennt",
+          "done": {
+            "requires_conclusions": [
+              "dk2_turm"
+            ]
+          }
+        },
+        {
+          "text": "Erzähl Zunder, was du herausgefunden hast",
+          "done": {
+            "requires_flags": [
+              "k2_akt1_done"
+            ]
+          }
+        }
+      ]
+    },
+    "k2_akt2": {
+      "title": "Akt II: Der Schüler",
+      "kind": "main",
+      "case": "kapitel2",
+      "summary": "Die Briefe, der Stern, der Leuchtturm: Alles führt zu Professor Starling. Und Starling hat einmal in Wexmoor studiert.",
+      "steps": [
+        {
+          "text": "Finde in der Akademie der Sternkunde Starlings Spur (folgt im nächsten Bauschritt)",
+          "done": {
+            "requires_flags": [
+              "k2_akt2_started_real"
+            ]
+          },
+          "target": {
+            "map": "wx_oberstadt",
+            "id": "pedell"
           }
         }
       ]
@@ -144,6 +234,54 @@
         "hair": "#4a4440",
         "legs": "#2e3236",
         "scarf": "#b0a070"
+      }
+    },
+    "hesper": {
+      "name": "Hesper Quell",
+      "role": "Wirtin der Ertrunkenen Glocke",
+      "dialogue": "hesper",
+      "palette": {
+        "coat": "#6a3a3a",
+        "hat": "#3a2020",
+        "skin": "#e8c0a0",
+        "hair": "#d0d0c8",
+        "legs": "#2a1a1a"
+      }
+    },
+    "brack": {
+      "name": "Ottilie Brack",
+      "role": "Bojenmeisterin",
+      "dialogue": "brack",
+      "palette": {
+        "coat": "#2a4a5a",
+        "hat": "#d0a030",
+        "skin": "#c89a70",
+        "hair": "#3a2a20",
+        "legs": "#1a2a32"
+      }
+    },
+    "pedell": {
+      "name": "Ruprecht Lamm",
+      "role": "Pedell der Akademie der Sternkunde",
+      "dialogue": "pedell",
+      "palette": {
+        "coat": "#2a2a40",
+        "hat": "#18182a",
+        "skin": "#e0c0a0",
+        "hair": "#a0a0a8",
+        "legs": "#18182a"
+      }
+    },
+    "sedge": {
+      "name": "Mutter Sedge",
+      "role": "Älteste im Pfahldorf",
+      "dialogue": "sedge",
+      "palette": {
+        "coat": "#4a5a3a",
+        "hat": "#2a3a20",
+        "skin": "#b08a6a",
+        "hair": "#e0e0d8",
+        "legs": "#2a3020"
       }
     }
   },
@@ -201,6 +339,46 @@
         "k2_hideout"
       ],
       "city": "wexmoor"
+    },
+    {
+      "map": "wx_salzmarkt",
+      "spawn": "default",
+      "name": "Salzmarkt",
+      "desc": "Märkte, Pfandleihe und das Wirtshaus „Zur Ertrunkenen Glocke“. Viele Leute, viele Streifen.",
+      "city": "wexmoor",
+      "requires_flags": [
+        "k2_hideout"
+      ]
+    },
+    {
+      "map": "wx_bojenhafen",
+      "spawn": "default",
+      "name": "Bojenhafen",
+      "desc": "Glockenbojen, Fischer und Schmuggler. Von hier sieht man den Leuchtturm.",
+      "city": "wexmoor",
+      "requires_flags": [
+        "k2_hideout"
+      ]
+    },
+    {
+      "map": "wx_oberstadt",
+      "spawn": "default",
+      "name": "Oberstadt",
+      "desc": "Lichtamt, Akademie der Sternkunde und das Wachhaus. Die meisten Grauspäher der Stadt.",
+      "city": "wexmoor",
+      "requires_flags": [
+        "k2_hideout"
+      ]
+    },
+    {
+      "map": "wx_pfahldorf",
+      "spawn": "default",
+      "name": "Altes Pfahldorf",
+      "desc": "Gestelzte Hütten der Moorleute. Keine Streife wagt sich hierher.",
+      "city": "wexmoor",
+      "requires_flags": [
+        "k2_hideout"
+      ]
     }
   ],
   "events": [
@@ -865,7 +1043,52 @@
           "title": "Ein Kahn als Zuhause",
           "text": "Der Torfkahn liegt halb im Moor, schief wie ein müder Hund. Innen ist es überraschend trocken: eine Koje, ein Tisch, ein Ofen aus einem alten Ölfass und eine Kiste, auf der in Ruß „deins“ steht.\n\n„Die Ruß-Leute in Kettlegate haben deine Sachen aus dem Büro geholt, bevor die Wache drankam“, sagt Zunder. „Frag nicht, wie.“",
           "footer": "Koje: ausruhen. Kiste: dein Lager (dasselbe wie im Büro). Fallwand: deine Fälle.",
-          "done_flag": "k2_hideout"
+          "done_flag": "k2_hideout",
+          "effects": {
+            "sets_flags": [
+              "k2_known_torf"
+            ]
+          }
+        },
+        {
+          "id": "haken",
+          "kind": "dialogue",
+          "dialogue": "kleiderhaken",
+          "title": "Kleiderhaken",
+          "role": "Verkleidungen",
+          "tile": [
+            3,
+            6
+          ],
+          "prompt": "Am Kleiderhaken umziehen",
+          "marker": false,
+          "reach": 22
+        },
+        {
+          "id": "telegramm",
+          "kind": "read",
+          "tile": [
+            7,
+            4
+          ],
+          "sprite": "paper",
+          "prompt": "Das Telegramm auf dem Tisch lesen",
+          "marker": false,
+          "title": "Telegramm aus Kettlegate",
+          "text": "AN J. FENN, WEXMOOR. EINER VON UNS KOMMT MIT DEM FRÜHZUG. GESUCHT, ABER SAUBER. BEHANDLE IHN WIE KOHLE: NICHT FALLEN LASSEN. JEM.\n\nDarunter hat Zunder mit Bleistift geschrieben: „sauber??“"
+        },
+        {
+          "id": "wandkarte",
+          "kind": "read",
+          "tile": [
+            10,
+            2
+          ],
+          "prompt": "Zunders Wandkarte ansehen",
+          "marker": false,
+          "title": "Zunders Wandkarte",
+          "text": "Eine Karte von Wexmoor, mit Lampenruß auf ein Laken gemalt. Sechs Viertel, dazu die Insel mit dem Leuchtturm. Zunder hat Kreise um die Stellen gemacht, wo die Grauspäher ihre Runden drehen.\n\n„Erst wenn du jede Ecke kennst, kannst du hier jemanden jagen“, hat sie gesagt.",
+          "footer": "Ziel von Akt I: in jedem Viertel mit jemandem sprechen, der sich auskennt."
         }
       ],
       "npcs": [
@@ -1012,6 +1235,848 @@
       ],
       "npcs": [],
       "decor": []
+    },
+    {
+      "id": "wx_salzmarkt",
+      "name": "Salzmarkt",
+      "city": "wexmoor",
+      "police": true,
+      "facade": "holz",
+      "ambient": {
+        "night": 0.76,
+        "fog": 0.3
+      },
+      "rows": [
+        "RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR",
+        "#WW##WW###WWW####WW##WW###WW####WWW##WW#",
+        "###D#######D#########D########D######D##",
+        ",,,,,L,,,,,,,,,,,L,,,,,,,,,,,L,,,,,,,,,,",
+        "........................................",
+        "........................................",
+        "........................................",
+        "........................................",
+        "........................................",
+        "........................................",
+        "........................................",
+        ",,,,,L,,,,,,,,,,,L,,,,,,,,,,,L,,,,,,,,,,",
+        "PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP",
+        "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+      ],
+      "spawns": {
+        "default": [
+          1,
+          6
+        ]
+      },
+      "interactables": [
+        {
+          "id": "exit",
+          "kind": "travel",
+          "tile": [
+            0,
+            6
+          ],
+          "prompt": "Zur Stadtkarte von Wexmoor",
+          "marker": false
+        },
+        {
+          "id": "glocke",
+          "kind": "read",
+          "tile": [
+            11,
+            2
+          ],
+          "prompt": "Ins Wirtshaus „Zur Ertrunkenen Glocke“ spähen",
+          "marker": false,
+          "title": "Zur Ertrunkenen Glocke",
+          "text": "Über der Tür hängt eine grüne Bronzeglocke, die jemand aus dem Moor gezogen hat. Sie hat keinen Klöppel mehr.\n\nDrinnen ist es laut und warm. Niemand sieht zur Tür, als du hineinschaust. Das ist in Wexmoor eine Form von Höflichkeit."
+        },
+        {
+          "id": "salztafel",
+          "kind": "read",
+          "tile": [
+            30,
+            2
+          ],
+          "sprite": "paper",
+          "prompt": "Den Marktaushang lesen",
+          "marker": false,
+          "title": "Marktordnung",
+          "text": "„Salz, Torf und Fisch sind abgabepflichtig. Lampenöl ist abgabefrei, da im Stadtgebiet nicht benötigt (Erlass des Lichtamts).“\n\nDarunter hat jemand gekritzelt: „Und womit leuchtet IHR dann?“"
+        }
+      ],
+      "npcs": [
+        {
+          "id": "hesper",
+          "tile": [
+            12,
+            4
+          ],
+          "facing": "down"
+        }
+      ],
+      "patrols": [
+        {
+          "id": "markt",
+          "route": [
+            [
+              3,
+              5
+            ],
+            [
+              36,
+              5
+            ],
+            [
+              36,
+              10
+            ],
+            [
+              3,
+              10
+            ]
+          ],
+          "speed": 30,
+          "wait": 1100
+        },
+        {
+          "id": "gasse",
+          "route": [
+            [
+              20,
+              4
+            ],
+            [
+              20,
+              10
+            ]
+          ],
+          "speed": 22,
+          "wait": 2200
+        }
+      ],
+      "decor": [
+        {
+          "sprite": "market_stall_0",
+          "tile": [
+            7,
+            7
+          ],
+          "offset": [
+            0,
+            8
+          ],
+          "origin": [
+            0.5,
+            1
+          ],
+          "alpha": 1,
+          "ysort": true,
+          "solid": [
+            28,
+            8,
+            0,
+            -4
+          ],
+          "cover": true
+        },
+        {
+          "sprite": "market_stall_1",
+          "tile": [
+            13,
+            8
+          ],
+          "offset": [
+            0,
+            8
+          ],
+          "origin": [
+            0.5,
+            1
+          ],
+          "alpha": 1,
+          "ysort": true,
+          "solid": [
+            28,
+            8,
+            0,
+            -4
+          ],
+          "cover": true
+        },
+        {
+          "sprite": "market_stall_2",
+          "tile": [
+            25,
+            7
+          ],
+          "offset": [
+            0,
+            8
+          ],
+          "origin": [
+            0.5,
+            1
+          ],
+          "alpha": 1,
+          "ysort": true,
+          "solid": [
+            28,
+            8,
+            0,
+            -4
+          ],
+          "cover": true
+        },
+        {
+          "sprite": "market_stall_3",
+          "tile": [
+            31,
+            8
+          ],
+          "offset": [
+            0,
+            8
+          ],
+          "origin": [
+            0.5,
+            1
+          ],
+          "alpha": 1,
+          "ysort": true,
+          "solid": [
+            28,
+            8,
+            0,
+            -4
+          ],
+          "cover": true
+        },
+        {
+          "sprite": "d_nordtor_props_salt_barrels",
+          "tile": [
+            17,
+            7
+          ],
+          "offset": [
+            0,
+            8
+          ],
+          "origin": [
+            0.5,
+            1
+          ],
+          "alpha": 1,
+          "ysort": true,
+          "solid": [
+            12,
+            8,
+            0,
+            -4
+          ],
+          "cover": true
+        },
+        {
+          "sprite": "d_gaswerk_props_coal_cart",
+          "tile": [
+            9,
+            10
+          ],
+          "offset": [
+            0,
+            8
+          ],
+          "origin": [
+            0.5,
+            1
+          ],
+          "alpha": 1,
+          "ysort": true,
+          "solid": [
+            28,
+            8,
+            0,
+            -4
+          ],
+          "cover": true
+        },
+        {
+          "sprite": "d_nordtor_props_salt_barrels",
+          "tile": [
+            33,
+            10
+          ],
+          "offset": [
+            0,
+            8
+          ],
+          "origin": [
+            0.5,
+            1
+          ],
+          "alpha": 1,
+          "ysort": true,
+          "solid": [
+            12,
+            8,
+            0,
+            -4
+          ],
+          "cover": true
+        },
+        {
+          "sprite": "d_shop_kneipe",
+          "tile": [
+            11,
+            2
+          ],
+          "offset": [
+            0,
+            8
+          ],
+          "origin": [
+            0.5,
+            1
+          ],
+          "alpha": 1,
+          "depth": 40
+        },
+        {
+          "sprite": "d_shop_pfandhaus",
+          "tile": [
+            21,
+            2
+          ],
+          "offset": [
+            0,
+            8
+          ],
+          "origin": [
+            0.5,
+            1
+          ],
+          "alpha": 1,
+          "depth": 40
+        }
+      ]
+    },
+    {
+      "id": "wx_bojenhafen",
+      "name": "Bojenhafen",
+      "city": "wexmoor",
+      "police": true,
+      "facade": "fabrik",
+      "ambient": {
+        "night": 0.8,
+        "fog": 0.5
+      },
+      "rows": [
+        "RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR",
+        "#WW##WW###WW##D###WW####WW###WW###D##WW#",
+        ",,,L,,,,,,,,,,,,L,,,,,,,,,,,,L,,,,,,,,,,",
+        "........................................",
+        "..CC.......V............CC........V.....",
+        "........................................",
+        "QQQQQQPPPPQQQQQQQQQQQQPPPPQQQQQQQQQQQQQQ",
+        "~~~~~~PPPP~~~~~~~~~~~~PPPP~~~~~~~~~~~~~~",
+        "~~~~~~PPPP~~~~~~~~~~~~PPPP~~~~~~~~~~~~~~",
+        "~~~~~~PPPPPPPPPPPPPPPPPPPP~~~~~~~~~~~~~~",
+        "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~",
+        "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+      ],
+      "spawns": {
+        "default": [
+          1,
+          3
+        ]
+      },
+      "interactables": [
+        {
+          "id": "exit",
+          "kind": "travel",
+          "tile": [
+            0,
+            3
+          ],
+          "prompt": "Zur Stadtkarte von Wexmoor",
+          "marker": false
+        },
+        {
+          "id": "bojen",
+          "kind": "read",
+          "tile": [
+            16,
+            9
+          ],
+          "prompt": "Auf die Glockenbojen hinaushorchen",
+          "marker": false,
+          "title": "Glockenbojen",
+          "text": "Draußen im schwarzen Wasser schaukeln eiserne Bojen, jede mit einer Glocke. Sie läuten, wenn das Wasser sich bewegt.\n\nHeute Nacht läuten sie, obwohl kein Wind geht. Eine nach der anderen, als würde etwas über sie hinweggehen."
+        }
+      ],
+      "npcs": [
+        {
+          "id": "brack",
+          "tile": [
+            24,
+            9
+          ],
+          "facing": "up"
+        }
+      ],
+      "patrols": [
+        {
+          "id": "kai",
+          "route": [
+            [
+              2,
+              5
+            ],
+            [
+              37,
+              5
+            ]
+          ],
+          "speed": 26,
+          "wait": 1800
+        }
+      ],
+      "decor": [
+        {
+          "sprite": "d_bruecken_narrowboat",
+          "tile": [
+            3,
+            8
+          ],
+          "offset": [
+            8,
+            0
+          ],
+          "alpha": 1,
+          "depth": 5
+        },
+        {
+          "sprite": "d_bruecken_rowboat",
+          "tile": [
+            29,
+            9
+          ],
+          "offset": [
+            0,
+            0
+          ],
+          "alpha": 1,
+          "depth": 5
+        },
+        {
+          "sprite": "d_bruecken_winch",
+          "tile": [
+            13,
+            5
+          ],
+          "offset": [
+            0,
+            8
+          ],
+          "origin": [
+            0.5,
+            1
+          ],
+          "alpha": 1,
+          "ysort": true
+        },
+        {
+          "sprite": "d_nordtor_props_salt_barrels",
+          "tile": [
+            20,
+            3
+          ],
+          "offset": [
+            0,
+            8
+          ],
+          "origin": [
+            0.5,
+            1
+          ],
+          "alpha": 1,
+          "ysort": true,
+          "solid": [
+            12,
+            8,
+            0,
+            -4
+          ],
+          "cover": true
+        },
+        {
+          "sprite": "d_gaswerk_props_coal_cart",
+          "tile": [
+            30,
+            5
+          ],
+          "offset": [
+            0,
+            8
+          ],
+          "origin": [
+            0.5,
+            1
+          ],
+          "alpha": 1,
+          "ysort": true,
+          "solid": [
+            28,
+            8,
+            0,
+            -4
+          ],
+          "cover": true
+        },
+        {
+          "sprite": "d_nordtor_props_salt_barrels",
+          "tile": [
+            8,
+            5
+          ],
+          "offset": [
+            0,
+            8
+          ],
+          "origin": [
+            0.5,
+            1
+          ],
+          "alpha": 1,
+          "ysort": true,
+          "solid": [
+            12,
+            8,
+            0,
+            -4
+          ],
+          "cover": true
+        }
+      ]
+    },
+    {
+      "id": "wx_oberstadt",
+      "name": "Oberstadt",
+      "city": "wexmoor",
+      "police": true,
+      "facade": "stein",
+      "ambient": {
+        "night": 0.7,
+        "fog": 0.15
+      },
+      "rows": [
+        "RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR",
+        "#WW#WWW#WW##WWWWWW##WW#WWW#WW##WWW#WW#WWW#W#",
+        "##D#####D#######D#######D######D#######D####",
+        ",,,,L,,,,,,,,L,,,,,,,,,L,,,,,,,,,L,,,,,,,L,,",
+        "............................................",
+        "..gggg........gggg..........gggg........gg..",
+        "..gYgg........gggg..........ggYg........gg..",
+        "............................................",
+        "............................................",
+        ",,,,L,,,,,,,,L,,,,,,,,,L,,,,,,,,,L,,,,,,,L,,",
+        "ffffffffffffffffffffffffffffffffffffffffffff"
+      ],
+      "spawns": {
+        "default": [
+          1,
+          7
+        ]
+      },
+      "interactables": [
+        {
+          "id": "exit",
+          "kind": "travel",
+          "tile": [
+            0,
+            7
+          ],
+          "prompt": "Zur Stadtkarte von Wexmoor",
+          "marker": false
+        },
+        {
+          "id": "lichtamt_tafel",
+          "clue": "wx_lichtamt_haushalt",
+          "tile": [
+            16,
+            2
+          ],
+          "sprite": "paper",
+          "prompt": "Den Aushang am Lichtamt lesen"
+        },
+        {
+          "id": "akademie",
+          "kind": "read",
+          "tile": [
+            31,
+            2
+          ],
+          "prompt": "Das Tor der Akademie der Sternkunde ansehen",
+          "marker": false,
+          "title": "Akademie der Sternkunde",
+          "text": "Über dem Tor ein Messingfernrohr und der Spruch: „Wer zählt, der herrscht.“\n\nDas Tor ist verschlossen. Durch die Gitter siehst du einen Hof mit Sonnenuhren, die alle eine andere Zeit anzeigen.",
+          "footer": "Die Akademie wird in Akt II wichtig."
+        },
+        {
+          "id": "wachhaus",
+          "kind": "read",
+          "tile": [
+            39,
+            2
+          ],
+          "prompt": "Das Wachhaus ansehen",
+          "marker": false,
+          "title": "Wachhaus Oberstadt",
+          "text": "Graue Mauern, vergitterte Fenster, eine Laterne über jeder Tür. Hier landest du, wenn ein Grauspäher dich erwischt.\n\nÜber dem Eingang hängt kein Stadtwappen, sondern ein Leuchtturm in einem Kreis."
+        }
+      ],
+      "npcs": [
+        {
+          "id": "pedell",
+          "tile": [
+            31,
+            4
+          ],
+          "facing": "down"
+        }
+      ],
+      "patrols": [
+        {
+          "id": "allee",
+          "route": [
+            [
+              2,
+              4
+            ],
+            [
+              41,
+              4
+            ],
+            [
+              41,
+              8
+            ],
+            [
+              2,
+              8
+            ]
+          ],
+          "speed": 32,
+          "wait": 900
+        },
+        {
+          "id": "tor",
+          "route": [
+            [
+              22,
+              4
+            ],
+            [
+              22,
+              8
+            ]
+          ],
+          "speed": 20,
+          "wait": 2400
+        },
+        {
+          "id": "wache",
+          "route": [
+            [
+              38,
+              4
+            ],
+            [
+              38,
+              8
+            ],
+            [
+              26,
+              8
+            ],
+            [
+              26,
+              4
+            ]
+          ],
+          "speed": 28,
+          "wait": 1400
+        }
+      ],
+      "decor": [
+        {
+          "sprite": "d_villen_props_double_lamp",
+          "tile": [
+            10,
+            7
+          ],
+          "offset": [
+            0,
+            8
+          ],
+          "origin": [
+            0.5,
+            1
+          ],
+          "alpha": 1,
+          "ysort": true,
+          "solid": [
+            8,
+            6,
+            0,
+            -3
+          ]
+        },
+        {
+          "sprite": "d_theater_props_poster_column",
+          "tile": [
+            19,
+            7
+          ],
+          "offset": [
+            0,
+            8
+          ],
+          "origin": [
+            0.5,
+            1
+          ],
+          "alpha": 1,
+          "ysort": true,
+          "solid": [
+            10,
+            6,
+            0,
+            -3
+          ],
+          "cover": true
+        },
+        {
+          "sprite": "d_strassenmoebel_police_box",
+          "tile": [
+            36,
+            7
+          ],
+          "offset": [
+            0,
+            8
+          ],
+          "origin": [
+            0.5,
+            1
+          ],
+          "alpha": 1,
+          "ysort": true,
+          "solid": [
+            12,
+            6,
+            0,
+            -3
+          ],
+          "cover": true
+        },
+        {
+          "sprite": "d_theater_props_carriage",
+          "tile": [
+            6,
+            8
+          ],
+          "offset": [
+            0,
+            8
+          ],
+          "origin": [
+            0.5,
+            1
+          ],
+          "alpha": 1,
+          "ysort": true,
+          "cover": true
+        }
+      ]
+    },
+    {
+      "id": "wx_pfahldorf",
+      "name": "Altes Pfahldorf",
+      "city": "wexmoor",
+      "facade": "slum",
+      "ambient": {
+        "night": 0.76,
+        "fog": 0.5
+      },
+      "rows": [
+        "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~",
+        "~~~RRRR~~~~~~~RRRR~~~~~~~~RRRR~~~~~~~~",
+        "~~~#WD#~~~~~~~#DW#~~~~~~~~#WD#~~~~~~~~",
+        "~~~~P~~~~~~~~~~P~~~~~~~~~~~P~~~~~~~~~~",
+        "PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP~~~~",
+        "~~~~~~~~~~P~~~~~~~~~~~~~~P~~~~~~~P~~~~",
+        "~~~~~~~~~~P~~~~~~~~~~~~~~P~~~~~~~P~~~~",
+        "~~~RRRR~~~P~~~~~~~~~~~ggggggg~~~~P~~~~",
+        "~~~#WD#~~~P~~~~~~~~~~~gggAggg~~~~P~~~~",
+        "~~~~P~~~~~P~~~~~~~~~~~ggggggg~~~~P~~~~",
+        "~~~~PPPPPPPPPPPPPPPPPPPgggggPPPPPP~~~~",
+        "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+      ],
+      "spawns": {
+        "default": [
+          1,
+          4
+        ]
+      },
+      "lights": [
+        {
+          "tile": [
+            25,
+            8
+          ],
+          "radius": 50,
+          "intensity": 0.6,
+          "color": "#9ad070",
+          "glow": 0.3,
+          "flicker": 0.2
+        }
+      ],
+      "interactables": [
+        {
+          "id": "exit",
+          "kind": "travel",
+          "tile": [
+            0,
+            4
+          ],
+          "prompt": "Zur Stadtkarte von Wexmoor",
+          "marker": false
+        },
+        {
+          "id": "schrein",
+          "kind": "read",
+          "tile": [
+            25,
+            8
+          ],
+          "prompt": "Den Schrein ansehen",
+          "marker": true,
+          "title": "Der Namensschrein",
+          "text": "Auf einem Stein im Moor liegen hunderte Holztäfelchen. Auf jedem steht ein Name, manche frisch, manche fast verwittert.\n\n„Wer seinen Namen hier lässt, den kann das Moor nicht nehmen“, hat Zunder gesagt. „Sagen die Alten. Ich hab meinen trotzdem behalten.“"
+        }
+      ],
+      "npcs": [
+        {
+          "id": "sedge",
+          "tile": [
+            24,
+            9
+          ],
+          "facing": "down"
+        }
+      ],
+      "decor": []
     }
   ],
   "dialogues": {
@@ -1092,6 +2157,31 @@
           "text": "Zunder sitzt auf einer umgedrehten Kiste und flickt einen Ölkanister. „Na, Gesuchter?“",
           "choices": [
             {
+              "text": "Ich kenne jetzt alle Viertel. Und ich weiß, womit der Turm brennt.",
+              "next": "akt1",
+              "requires_flags": [
+                "k2_known_bahnhof",
+                "k2_known_torf",
+                "k2_known_salz",
+                "k2_known_hafen",
+                "k2_known_ober",
+                "k2_known_pfahl"
+              ],
+              "requires_conclusions": [
+                "dk2_turm"
+              ],
+              "hide_if_flags": [
+                "k2_akt1_done"
+              ]
+            },
+            {
+              "text": "Wo soll ich mich umsehen?",
+              "next": "tipps",
+              "hide_if_flags": [
+                "k2_akt1_done"
+              ]
+            },
+            {
               "text": "Erzähl mir von Wexmoor.",
               "next": "stadt"
             },
@@ -1131,6 +2221,9 @@
               "text": "Noch was anderes.",
               "next": "start"
             }
+          ],
+          "gives_clues": [
+            "wx_zunder_oil"
           ]
         },
         "wache": {
@@ -1150,6 +2243,34 @@
           "choices": [
             {
               "text": "Noch was anderes.",
+              "next": "start"
+            }
+          ]
+        },
+        "tipps": {
+          "text": "Zunder zählt an den Fingern ab. „Am Bahnhof weiß Druce alles über die Schleusen. Auf dem Salzmarkt Hesper, die Wirtin. Am Bojenhafen Ottilie Brack. In der Oberstadt der Pedell vor der Akademie, der redet, wenn man ihn lässt. Und im Pfahldorf Mutter Sedge. Sag ihr nicht deinen Namen.“\n\n„Den Torfstich kennst du ja. Und denk an Verkleidungen: Wer aussieht, als gehört er dahin, den sieht keiner an.“",
+          "choices": [
+            {
+              "text": "Noch was anderes.",
+              "next": "start"
+            }
+          ]
+        },
+        "akt1": {
+          "text": "Zunder hört zu, ohne dich zu unterbrechen. Das hast du bei ihr noch nie erlebt.\n\n„Also. Dein Professor sammelt Lichter in Kettlegate, und hier brennen sie im Turm. Und das Lichtamt kauft kein Öl, aber Linsenpflege für viertausend.“ Sie pfeift leise. „Wenn das stimmt, dann ist das Lichtamt dein Feind. Und dem gehört die Wache.“\n\n„Wenn dein Professor hier war, dann hat er an der Akademie gelernt. Dort fangen wir an.“",
+          "sets_flags": [
+            "k2_akt1_done"
+          ],
+          "complete_quests": [
+            "k2_akt1"
+          ],
+          "start_quests": [
+            "k2_akt2"
+          ],
+          "honor": 0,
+          "choices": [
+            {
+              "text": "Dann zur Akademie.",
               "next": "start"
             }
           ]
@@ -1176,6 +2297,9 @@
             {
               "text": "Schon gut."
             }
+          ],
+          "sets_flags": [
+            "k2_known_bahnhof"
           ]
         },
         "zettel": {
@@ -1328,6 +2452,387 @@
           ]
         }
       }
+    },
+    "hesper": {
+      "start": "start",
+      "nodes": {
+        "start": {
+          "text": "Eine breite Frau mit weißem Haar wischt Krüge, als hätte jeder einzelne sie beleidigt. „Neu hier? Dann trink was und hör zu. Wer in Wexmoor zuhört, lebt länger.“",
+          "sets_flags": [
+            "k2_known_salz"
+          ],
+          "choices": [
+            {
+              "text": "Erzählen Sie mir vom Salzmarkt.",
+              "next": "markt"
+            },
+            {
+              "text": "Was ist mit dem Lichtamt?",
+              "next": "amt"
+            },
+            {
+              "text": "Gehört der Steckbrief am Bahnhof zu Ihren Gesprächsthemen?",
+              "next": "steck",
+              "requires_clues": [
+                "wx_steckbrief"
+              ]
+            },
+            {
+              "text": "Bis bald."
+            }
+          ]
+        },
+        "markt": {
+          "text": "„Hier wird alles verkauft, was das Moor hergibt: Salz, Torf, Aal. Und was es nicht hergibt, kriegst du bei Zunders Leuten hinten im Hof.“ Sie zwinkert. „Die Grauspäher laufen ums Pflaster herum, nie zwischen den Ständen durch. Merk dir das.“",
+          "choices": [
+            {
+              "text": "Noch etwas.",
+              "next": "start"
+            }
+          ]
+        },
+        "amt": {
+          "text": "„Das Lichtamt hält den Turm am Brennen. Dafür darf es alles. Nachtrecht, Sammelfahrten, Steuern.“ Sie stellt einen Krug zu hart ab. „Sammelfahrten. Klingt harmlos. Mein Neffe ist mit einer mitgefahren. Kam zurück und wusste nicht mehr, wie seine Mutter heißt.“",
+          "choices": [
+            {
+              "text": "Noch etwas.",
+              "next": "start"
+            }
+          ]
+        },
+        "steck": {
+          "text": "Hesper lacht kurz. „Schätzchen, wenn ich jeden verpfeife, der hier gesucht wird, hab ich keine Gäste mehr. Aber setz dich mit dem Rücken zur Wand.“",
+          "choices": [
+            {
+              "text": "Noch etwas.",
+              "next": "start"
+            }
+          ]
+        }
+      }
+    },
+    "brack": {
+      "start": "start",
+      "nodes": {
+        "start": {
+          "text": "Eine Frau in Ölzeug sitzt auf einem Poller und flickt ein Netz, die Augen auf dem Wasser. „Wenn du schmuggeln willst, frag woanders. Wenn du zuhören willst, setz dich.“",
+          "sets_flags": [
+            "k2_known_hafen"
+          ],
+          "choices": [
+            {
+              "text": "Was läuten die Bojen?",
+              "next": "bojen",
+              "hide_if_clues": [
+                "wx_brack_lights"
+              ]
+            },
+            {
+              "text": "Ich brauche eine Jacke wie Ihre. (12 Schilling)",
+              "next": "jacke",
+              "requires_money": 12,
+              "hide_if_items": [
+                "fischerjacke"
+              ]
+            },
+            {
+              "text": "Kommt man von hier aus zum Leuchtturm?",
+              "next": "turm"
+            },
+            {
+              "text": "Bis bald."
+            }
+          ]
+        },
+        "bojen": {
+          "text": "Sie legt das Netz weg.",
+          "gives_clues": [
+            "wx_brack_lights"
+          ],
+          "choices": [
+            {
+              "text": "Noch etwas.",
+              "next": "start"
+            }
+          ]
+        },
+        "jacke": {
+          "text": "Brack zieht eine zweite Jacke unter dem Poller hervor. „Vom Mann meiner Schwester. Der braucht sie nicht mehr. Das Moor hat ihn genommen, letzten Herbst.“ Sie nimmt die Münzen, ohne zu zählen.",
+          "takes_money": 12,
+          "gives_items": {
+            "fischerjacke": 1
+          },
+          "choices": [
+            {
+              "text": "Danke.",
+              "next": "start"
+            }
+          ]
+        },
+        "turm": {
+          "text": "„Mit einem Boot. Wenn du lebensmüde bist. Das Wasser um die Insel ist nicht tief, aber es ist hungrig.“ Sie zeigt mit dem Kinn hinaus, wo das Licht kreist. „Das Lichtamt fährt einmal im Monat hin. Sammelfahrt nennen sie das.“",
+          "choices": [
+            {
+              "text": "Noch etwas.",
+              "next": "start"
+            }
+          ]
+        }
+      }
+    },
+    "pedell": {
+      "start": "start",
+      "nodes": {
+        "start": {
+          "text": "Ein dürrer Mann in fadenscheiniger Robe fegt vor dem Akademietor Laub, das es hier gar nicht gibt. „Die Akademie ist geschlossen. Für Fremde. Für Einheimische auch. Eigentlich für alle außer den Herren Magistern.“",
+          "sets_flags": [
+            "k2_known_ober"
+          ],
+          "choices": [
+            {
+              "text": "Hat hier ein Professor Starling studiert?",
+              "next": "starling"
+            },
+            {
+              "text": "Haben Sie eine Robe übrig? (25 Schilling)",
+              "next": "robe",
+              "requires_money": 25,
+              "hide_if_items": [
+                "akademierobe"
+              ]
+            },
+            {
+              "text": "Was ist das Lichtamt?",
+              "next": "amt"
+            },
+            {
+              "text": "Schon gut."
+            }
+          ]
+        },
+        "starling": {
+          "text": "Lamm hört auf zu fegen. „Den Namen sagt man hier nicht laut. Der wurde rausgeworfen, vor dreißig Jahren. Hat nachts Sterne gezählt, die es nicht gab.“ Er fegt weiter, schneller. „Fragen Sie mich das nicht nochmal. Nicht hier draußen.“",
+          "choices": [
+            {
+              "text": "Noch etwas.",
+              "next": "start"
+            }
+          ]
+        },
+        "robe": {
+          "text": "„Aus der Fundkiste. Ein Student hat sie liegen lassen. Er kommt nicht wieder.“ Lamm sieht sich um und drückt dir ein schwarzes Bündel in die Hand. „Sie haben die nie von mir.“",
+          "takes_money": 25,
+          "gives_items": {
+            "akademierobe": 1
+          },
+          "choices": [
+            {
+              "text": "Natürlich nicht.",
+              "next": "start"
+            }
+          ]
+        },
+        "amt": {
+          "text": "„Das Lichtamt hält den Turm. Die Lichtmeisterin ist Magistra Brandt. Sie war einmal Professorin hier. Die beste, sagt man. Dann ist sie ins Amt gegangen, und seitdem kommt sie nur noch zu Prüfungen.“",
+          "choices": [
+            {
+              "text": "Noch etwas.",
+              "next": "start"
+            }
+          ]
+        }
+      }
+    },
+    "sedge": {
+      "start": [
+        {
+          "node": "fremd",
+          "hide_if_flags": [
+            "k2_known_pfahl"
+          ]
+        },
+        {
+          "node": "start"
+        }
+      ],
+      "nodes": {
+        "fremd": {
+          "text": "Eine alte Frau sitzt auf einem Schemel vor dem Schrein und schnitzt einen Namen in ein Täfelchen. Sie sieht nicht auf. „Ein Fremder im Pfahldorf. Zunder hat dich angekündigt. Setz dich, aber sag nicht deinen Namen. Das Moor hört mit.“",
+          "sets_flags": [
+            "k2_known_pfahl"
+          ],
+          "choices": [
+            {
+              "text": "Ich setze mich.",
+              "next": "start"
+            }
+          ]
+        },
+        "start": {
+          "text": "Mutter Sedge schnitzt weiter.",
+          "choices": [
+            {
+              "text": "Was sind das für Lichter über dem Moor?",
+              "next": "lichter",
+              "hide_if_clues": [
+                "wx_sedge_lights"
+              ]
+            },
+            {
+              "text": "Wovor schützt der Leuchtturm?",
+              "next": "turm"
+            },
+            {
+              "text": "Haben Sie einen Kittel, wie ihn die Torfstecher tragen?",
+              "next": "kittel",
+              "hide_if_items": [
+                "torfkittel"
+              ]
+            },
+            {
+              "text": "Ich gehe."
+            }
+          ]
+        },
+        "lichter": {
+          "text": "Sie legt das Messer weg.",
+          "gives_clues": [
+            "wx_sedge_lights"
+          ],
+          "choices": [
+            {
+              "text": "Weiter.",
+              "next": "start"
+            }
+          ]
+        },
+        "turm": {
+          "text": "„Vor dem Moor. Das Moor will nichts Böses. Es will nur haben. Dinge, Häuser, Namen. Früher haben wir ihm Namen geschenkt, auf Täfelchen, und es war zufrieden. Dann kam der Turm, und die Herren in der Oberstadt sagten, jetzt braucht es keine Täfelchen mehr.“ Sie lächelt ohne Zähne. „Der Turm braucht etwas anderes.“",
+          "choices": [
+            {
+              "text": "Weiter.",
+              "next": "start"
+            }
+          ]
+        },
+        "kittel": {
+          "text": "„Nimm den von meinem Sohn. Er hat ihn am Schrein gelassen, zusammen mit seinem Namen.“ Der Kittel ist steif vor Torf und riecht nach Rauch.",
+          "gives_items": {
+            "torfkittel": 1
+          },
+          "choices": [
+            {
+              "text": "Danke, Mutter Sedge.",
+              "next": "start"
+            }
+          ]
+        }
+      }
+    },
+    "kleiderhaken": {
+      "start": "start",
+      "nodes": {
+        "start": {
+          "text": "Am Haken hängen deine Sachen und was du in Wexmoor zusammengetragen hast.",
+          "choices": [
+            {
+              "text": "Torfstecher-Kittel anziehen (Bahnhof, Torfstich, Pfahldorf)",
+              "next": "an_torf",
+              "requires_items": [
+                "torfkittel"
+              ],
+              "hide_if_flags": [
+                "k2_wear_torfkittel"
+              ]
+            },
+            {
+              "text": "Fischerjacke anziehen (Bojenhafen, Salzmarkt)",
+              "next": "an_fisch",
+              "requires_items": [
+                "fischerjacke"
+              ],
+              "hide_if_flags": [
+                "k2_wear_fischerjacke"
+              ]
+            },
+            {
+              "text": "Akademie-Robe anziehen (Oberstadt)",
+              "next": "an_robe",
+              "requires_items": [
+                "akademierobe"
+              ],
+              "hide_if_flags": [
+                "k2_wear_akademierobe"
+              ]
+            },
+            {
+              "text": "Den eigenen Mantel anziehen",
+              "next": "aus"
+            },
+            {
+              "text": "Nichts ändern."
+            }
+          ]
+        },
+        "an_torf": {
+          "text": "Der Kittel kratzt. In der Spiegelscherbe am Haken siehst du aus wie jemand, der jeden Morgen um vier aufsteht.",
+          "sets_flags": [
+            "k2_wear_torfkittel"
+          ],
+          "clears_flags": [
+            "k2_wear_fischerjacke",
+            "k2_wear_akademierobe"
+          ],
+          "choices": [
+            {
+              "text": "Gut."
+            }
+          ]
+        },
+        "an_fisch": {
+          "text": "Die Jacke ist steif vom Teer. Du riechst sofort nach Hafen.",
+          "sets_flags": [
+            "k2_wear_fischerjacke"
+          ],
+          "clears_flags": [
+            "k2_wear_torfkittel",
+            "k2_wear_akademierobe"
+          ],
+          "choices": [
+            {
+              "text": "Gut."
+            }
+          ]
+        },
+        "an_robe": {
+          "text": "Die Robe fällt bis auf die Schuhe. Mit hochgezogenen Schultern siehst du aus wie ein Student, der eine Prüfung verschlafen hat.",
+          "sets_flags": [
+            "k2_wear_akademierobe"
+          ],
+          "clears_flags": [
+            "k2_wear_torfkittel",
+            "k2_wear_fischerjacke"
+          ],
+          "choices": [
+            {
+              "text": "Gut."
+            }
+          ]
+        },
+        "aus": {
+          "text": "Dein eigener Mantel. Er passt, und er steht auf jedem Steckbrief.",
+          "clears_flags": [
+            "k2_wear_torfkittel",
+            "k2_wear_fischerjacke",
+            "k2_wear_akademierobe"
+          ],
+          "choices": [
+            {
+              "text": "Gut."
+            }
+          ]
+        }
+      }
     }
   },
   "police": {
@@ -1349,6 +2854,54 @@
       "map": "wx_zelle",
       "spawn": "default"
     },
-    "arrest_text": "„Stehen bleiben! Im Namen des Lichtamts!“\n\nZwei Hände in grauen Wachshandschuhen packen dich, eine Laterne blendet dir ins Gesicht. Jemand vergleicht dich mit einem zerknitterten Zettel und nickt.\n\nDie Fahrt im Gefängniswagen dauert nicht lange. Das Wachhaus riecht nach nassem Wachs und kaltem Ruß."
+    "arrest_text": "„Stehen bleiben! Im Namen des Lichtamts!“\n\nZwei Hände in grauen Wachshandschuhen packen dich, eine Laterne blendet dir ins Gesicht. Jemand vergleicht dich mit einem zerknitterten Zettel und nickt.\n\nDie Fahrt im Gefängniswagen dauert nicht lange. Das Wachhaus riecht nach nassem Wachs und kaltem Ruß.",
+    "disguises": {
+      "torfkittel": {
+        "name": "Torfstecher-Kittel",
+        "maps": [
+          "wx_bahnhof",
+          "wx_torfstich",
+          "wx_pfahldorf"
+        ]
+      },
+      "fischerjacke": {
+        "name": "Fischerjacke",
+        "maps": [
+          "wx_bojenhafen",
+          "wx_salzmarkt"
+        ]
+      },
+      "akademierobe": {
+        "name": "Akademie-Robe",
+        "maps": [
+          "wx_oberstadt"
+        ]
+      }
+    },
+    "disguise_fit": {
+      "range": 0.55,
+      "catch": 1.8
+    },
+    "disguise_misfit": {
+      "range": 1.15,
+      "catch": 0.85
+    }
+  },
+  "items": {
+    "torfkittel": {
+      "name": "Torfstecher-Kittel",
+      "kind": "key",
+      "desc": "Brauner Kittel voller Torfflecken. Am Güterbahnhof, im Torfstich und im Pfahldorf fällst du darin niemandem auf. Anziehen am Kleiderhaken im Unterschlupf."
+    },
+    "fischerjacke": {
+      "name": "Fischerjacke",
+      "kind": "key",
+      "desc": "Geteerte Jacke, riecht nach Hering. Am Bojenhafen und auf dem Salzmarkt bist du darin einer von vielen. Anziehen am Kleiderhaken im Unterschlupf."
+    },
+    "akademierobe": {
+      "name": "Akademie-Robe",
+      "kind": "key",
+      "desc": "Schwarze Robe mit Sternstickerei. In der Oberstadt halten dich die Grauspäher für einen Studenten. Anziehen am Kleiderhaken im Unterschlupf."
+    }
   }
 }
