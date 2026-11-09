@@ -2,10 +2,11 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { GameState } from '../src/core/GameState.js';
-import { loadContent, talk, use, fight, SKILLED } from './helpers.js';
+import { loadContent, talk, use, fight, SKILLED, EXPERT } from './helpers.js';
 
 const content = loadContent();
 const WIN = { defend: SKILLED, healBelow: 15 };
+const BOSS = { defend: EXPERT, healBelow: 15 }; // Bosse verlangen sauberes Timing
 
 /** Zustand nach Fall 4 (gutes Ende, Epilog gesehen). */
 function afterCase4() {
@@ -73,8 +74,8 @@ test('Fall 5: bestes Ende, die Glocke mit der Stimmgabel gebrochen', () => {
   talk(s, 'marlowe', ['Glocke hängt', 'Neumond']);
   assert.ok(s.flags.has('case_05_showdown'));
   assert.equal(use(s, 'giesserei', 'kammer'), 'ok');
-  assert.equal(fight(s, 'bronzeengel', WIN).result.outcome, 'won');
-  const { combat, result } = fight(s, 'miriam', WIN);
+  assert.equal(fight(s, 'bronzeengel', BOSS).result.outcome, 'won');
+  const { combat, result } = fight(s, 'miriam', BOSS);
   assert.ok(combat.weak);
   assert.equal(result.outcome, 'won');
   talk(s, 'glocke5', ['Stimmgabel']);
@@ -92,8 +93,8 @@ test('Fall 5: Lilians Bitte an Miriam weitergeben', () => {
   talk(s, 'lilian_echo', ['schlafen']);
   assert.equal(s.combine('lilian_call', 'seven_voices').result, 'new');
   talk(s, 'marlowe', ['Glocke hängt', 'Neumond']);
-  fight(s, 'bronzeengel', WIN);
-  fight(s, 'miriam', WIN);
+  fight(s, 'bronzeengel', BOSS);
+  fight(s, 'miriam', BOSS);
   talk(s, 'glocke5', ['schlafen', '…', 'Stimmgabel']);
   assert.ok(s.flags.has('lilian_told'));
   assert.equal(s.endings.case_05, 'c5_perfect');
@@ -104,8 +105,8 @@ test('Fall 5: ohne Stimmgabel bleibt nur, die Glocke zu zerschlagen, und Vey ent
   brief(s);
   investigate(s, { flaw: false });
   talk(s, 'marlowe', ['Glocke hängt', 'Neumond']);
-  fight(s, 'bronzeengel', WIN);
-  const { combat } = fight(s, 'miriam', WIN);
+  fight(s, 'bronzeengel', BOSS);
+  const { combat } = fight(s, 'miriam', BOSS);
   assert.ok(!combat.weak);
   talk(s, 'glocke5', ['Balken']);
   assert.equal(s.endings.case_05, 'c5_good');

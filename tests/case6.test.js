@@ -2,10 +2,11 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { GameState } from '../src/core/GameState.js';
-import { loadContent, talk, use, fight, SKILLED } from './helpers.js';
+import { loadContent, talk, use, fight, SKILLED, EXPERT } from './helpers.js';
 
 const content = loadContent();
 const WIN = { defend: SKILLED, healBelow: 15 };
+const BOSS = { defend: EXPERT, healBelow: 15 }; // Bosse verlangen sauberes Timing
 
 /** Zustand nach Fall 5 (Epilog gesehen). */
 function afterCase5() {
@@ -59,7 +60,7 @@ test('Fall 6: bestes Ende, die Schatten kehren zurück', () => {
   investigate(s);
   talk(s, 'marlowe', ['dreizehnte Gast', 'Spiegelkabinett']);
   assert.ok(s.flags.has('case_06_showdown'));
-  const { combat, result } = fight(s, 'dreizehnter_gast', WIN);
+  const { combat, result } = fight(s, 'dreizehnter_gast', BOSS);
   assert.ok(combat.weak);
   assert.equal(result.outcome, 'won');
   talk(s, 'kabinett6', ['Silberbad']);
@@ -74,7 +75,7 @@ test('Fall 6: ohne Wissen um den Schattenmann nur die Spiegel zerschlagen', () =
   brief(s);
   investigate(s, { plate: false });
   talk(s, 'marlowe', ['dreizehnte Gast', 'Spiegelkabinett']);
-  fight(s, 'dreizehnter_gast', WIN);
+  fight(s, 'dreizehnter_gast', BOSS);
   talk(s, 'kabinett6', ['zerschlagen']);
   assert.equal(s.endings.case_06, 'c6_good');
 });
