@@ -1,0 +1,156 @@
+// Lokaler Zwei-Spieler-Modus: Spieler 2 begleitet den Ermittler auf demselben Bildschirm.
+//
+// Spieler 1 ist der Ermittler mit Pfad, Ansehen, Fällen und Geldbeutel (alles gemeinsam).
+// Spieler 2 hat eigenes Leben, eigene Nerven, ein eigenes Inventar und eine eigene Waffe.
+// Er hinterlässt beim Entfernen nichts: seine Sachen bleiben bei ihm, bis er wieder mitspielt.
+//
+// Technik: Die Spielregeln in GameState rechnen alle mit this.hp, this.inventory usw.
+// withPlayer(2, fn) tauscht für die Dauer von fn die persönlichen Werte von Spieler 2 ein,
+// so gelten dieselben Regeln (Tragkraft, Artefakte, Heilmittel, Ausrüsten) auch für ihn.
+// Spieler 2 trinkt keine Tränke: Pfad und Unruhe bleiben Sache des Ermittlers.
+
+/** Persönliche Werte, die zwischen den Spielern getauscht werden. */
+export const PERSONAL = ['hp', 'maxHp', 'inventory', 'weapon', 'composure', 'pathway', 'unruhe', 'spiritVision'];
+
+export const P2_START = { hp: 40, items: { spazierstock: 1, verband: 2 }, weapon: 'spazierstock' };
+
+export const partyMethods = {
+  resetParty() {
+    this.p2 = null; // { active, hp, maxHp, inventory, weapon, composure, pathway, unruhe, spiritVision }
+    this.acting = 1; // wessen Werte gerade in this.hp usw. stehen
+  },
+
+  /** Spielt Spieler 2 gerade mit? */
+  hasP2() {
+    return !!this.p2?.active;
+  },
+
+  /** Spieler 2 dazuholen. Beim ersten Mal mit Startausrüstung, danach mit seinen alten Sachen. */
+  addP2() {
+    if (!this.p2) {
+      const s = this.content.start;
+      const items = { ...(this.content.party?.items ?? P2_START.items) };
+      const hp = s.hp ?? P2_START.hp;
+      this.p2 = {
+        active: true, hp, maxHp: hp, inventory: items,
+        weapon: this.content.party?.weapon ?? (items[P2_START.weapon] ? P2_START.weapon : null),
+        composure: 100, pathway: null, unruhe: 0, spiritVision: false,
+      };
+    }
+    this.p2.active = true;
+    this.p2.hp = Math.max(1, this.p2.hp);
+    this.emit('party', { active: true });
+    this.emit('changed');
+    return true;
+  },
+
+  /** Spieler 2 entfernen. Seine Sachen behält er für das nächste Mal. */
+  removeP2() {
+    if (!this.p2) return false;
+    this.p2.active = false;
+    this.emit('party', { active: false });
+    this.emit('changed');
+    return true;
+  },
+
+  swapPersonal() {
+    for (const k of PERSONAL) {
+      const mine = this[k];
+      this[k] = this.p2[k];
+      this.p2[k] = mine;
+    }
+    this.acting = this.acting === 1 ? 2 : 1;
+  },
+
+  /**
+   * Führt fn mit den Werten von Spieler n aus. Für Spieler 1 (oder ohne Spieler 2) ändert sich nichts.
+   * Beweisstücke (Art "key"), die Spieler 2 dabei bekommt, wandern sofort zum Ermittler.
+   */
+  withPlayer(n, fn, { quiet = false } = {}) {
+    if (n !== 2 || !this.p2 || this.acting === 2) return fn();
+    this.swapPersonal();
+    let out;
+    try {
+      out = fn();
+    } finally {
+      this.swapPersonal();
+      for (const [id, cnt] of Object.entries(this.p2.inventory)) {
+        if (this.item(id)?.kind !== 'key') continue;
+        delete this.p2.inventory[id];
+        this.inventory[id] = (this.inventory[id] ?? 0) + cnt;
+      }
+      if (!quiet) {
+        this.emit('hp', { value: this.hp, delta: 0 });
+        this.emit('composure', this.composure);
+        this.emit('party', { active: true });
+      }
+    }
+    return out;
+  },
+
+  /** Lesbare Werte eines Spielers (für HUD, Kampf und Inventar). */
+  playerView(n = 1) {
+    if (n === 2 && !this.p2) return null;
+    return this.withPlayer(n, () => ({
+      n, hp: this.hp, maxHp: this.maxHp, composure: this.composure, maxComposure: this.maxComposure(),
+      weapon: this.weaponStats(), overloaded: this.isOverloaded(), carry: this.carryText(),
+    }), { quiet: true });
+  },
+
+  /**
+   * Gibt einen Gegenstand an den anderen Spieler weiter. from: 1 oder 2.
+   * Beweisstücke bleiben beim Ermittler, geliehene Artefakte dürfen weitergereicht werden.
+   */
+  giveItem(id, from = 1, n = 1) {
+    if (!this.hasP2()) return { ok: false, text: 'Spieler 2 spielt gerade nicht mit.' };
+    const it = this.item(id);
+    if (!it) return { ok: false, text: 'Unbekannter Gegenstand.' };
+    if (it.kind === 'key') return { ok: false, text: 'Beweisstücke behält der Ermittler.' };
+    const to = from === 1 ? 2 : 1;
+    const have = this.withPlayer(from, () => this.itemCount(id));
+    n = Math.min(n, have);
+    if (n <= 0) return { ok: false, text: 'Davon ist nichts mehr da.' };
+    this.withPlayer(from, () => this.removeItem(id, n));
+    this.withPlayer(to, () => this.addItem(id, n));
+    this.emit('changed');
+    return { ok: true, text: `${it.name}${n > 1 ? ` ×${n}` : ''} an Spieler ${to} gegeben.` };
+  },
+
+  /** Heilung für die ganze Gruppe (Rast, sichere Reise): Spieler 2 bekommt denselben Anteil. */
+  /**
+   * Heilt den jeweils anderen Spieler mit (Rast, sichere Reise, Heil-Effekte aus Gesprächen).
+   * amount: Lebenspunkte oder 'full'; pct: Anteil an seinem Höchstwert.
+   * this.p2 hält immer die Werte des Spielers, der gerade nicht handelt.
+   */
+  healPartner(amount, { pct = null } = {}) {
+    if (!this.hasP2()) return 0;
+    const o = this.p2;
+    const add = amount === 'full' ? o.maxHp : pct !== null ? Math.max(1, Math.round(o.maxHp * pct)) : amount;
+    const before = o.hp;
+    o.hp = Math.min(o.maxHp, o.hp + Math.max(0, add));
+    if (o.hp !== before) this.emit('party', { active: true });
+    return o.hp - before;
+  },
+
+  /** Nerven von Spieler 2 erholen sich mit der Zeit (ohne Geistsicht). */
+  tickParty(dt) {
+    if (!this.hasP2()) return;
+    const p = this.p2;
+    p.composure = Math.min(100, p.composure + 6 * dt);
+  },
+
+  serializeParty() {
+    return this.p2 ? { p2: { ...this.p2, inventory: { ...this.p2.inventory } } } : {};
+  },
+
+  loadParty(data) {
+    const p = data?.p2;
+    if (!p) return;
+    const inventory = Object.fromEntries(Object.entries(p.inventory ?? {}).filter(([i, n]) => this.item(i) && n > 0));
+    this.p2 = {
+      active: !!p.active, hp: Math.max(1, p.hp ?? 40), maxHp: p.maxHp ?? 40, inventory,
+      weapon: inventory[p.weapon] ? p.weapon : null, composure: p.composure ?? 100, pathway: null, unruhe: p.unruhe ?? 0, spiritVision: false,
+    };
+    this.p2.hp = Math.min(this.p2.hp, this.p2.maxHp);
+  },
+};

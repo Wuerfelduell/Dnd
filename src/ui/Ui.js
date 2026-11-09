@@ -186,6 +186,8 @@ export class Ui {
     this.selected = [];
     this.tab = 'quests';
     this.itemCat = 'alle';
+    this.actor = 1; // wer das aktuelle Fenster bedient (Spieler 2 per Enter geöffnet)
+    this.invPlayer = 1; // wessen Inventar im Notizbuch angezeigt wird
 
     root.innerHTML = `
       <div class="hud">
@@ -203,7 +205,13 @@ export class Ui {
           <div class="goal hidden"></div>
         </div>
         <div class="hud-right">
-          <span class="key">J</span> Notizbuch &nbsp; <span class="key">I</span> Inventar &nbsp; <span class="key">P</span> Pfad &nbsp; <span class="key">Q</span> Geistsicht
+          <span class="key">J</span> Notizbuch &nbsp; <span class="key">I</span> Inventar &nbsp; <span class="key">P</span> Pfad &nbsp; <span class="key">Q</span> Geistsicht &nbsp; <span class="key">Esc</span> Menü
+          <div class="hud-p2 hidden">
+            <div class="p2name">Spieler 2 <span class="muted p2weapon"></span></div>
+            <div class="meter life"><span>Leben</span><div class="bar"><div class="p2hp"></div></div><em class="p2hpnum"></em></div>
+            <div class="meter"><span>Nerven</span><div class="bar"><div class="p2nv"></div></div></div>
+            <div class="p2load hidden"></div>
+          </div>
         </div>
         <div class="vision-tag">Geistsicht</div>
       </div>
@@ -239,8 +247,9 @@ export class Ui {
     state.on('item', ({ id, delta }) => {
       if (this.modal === 'combat') return;
       const it = state.item(id);
-      if (delta > 0) this.toast(`Erhalten: ${it.name}${delta > 1 ? ` ×${delta}` : ''}`, 'item');
-      else if (it.kind !== 'consumable') this.toast(`Abgegeben: ${it.name}`, 'warn');
+      const who = state.acting === 2 ? 'Spieler 2: ' : '';
+      if (delta > 0) this.toast(`${who}Erhalten: ${it.name}${delta > 1 ? ` ×${delta}` : ''}`, 'item');
+      else if (it.kind !== 'consumable') this.toast(`${who}Abgegeben: ${it.name}`, 'warn');
     });
 
     state.on('money', ({ delta, reason }) => {
@@ -295,6 +304,7 @@ export class Ui {
 
     ['track', 'changed', 'quest', 'clue', 'conclusion', 'travel'].forEach((ev) => state.on(ev, () => this.updateGoal()));
     ['item', 'changed', 'pathway'].forEach((ev) => state.on(ev, () => this.updateLoad()));
+    ['party', 'hp', 'composure', 'item', 'changed'].forEach((ev) => state.on(ev, () => this.updateP2()));
     window.addEventListener('keydown', (e) => this.onKey(e), true);
     this.updateComposure(state.composure);
     this.updateHonor();
@@ -355,7 +365,7 @@ export class Ui {
   /** HUD-Hinweis nur bei Überlast, damit die Anzeige sonst ruhig bleibt. */
   updateLoad() {
     const el = this.$('.overload');
-    if (!el) return;
+    if (!el || this.state.acting === 2) return;
     const heavy = this.state.isOverloaded();
     el.classList.toggle('hidden', !heavy);
     if (heavy) el.textContent = `Überladen · ${this.state.carryText()}`;
@@ -401,6 +411,7 @@ export class Ui {
   // --- HUD ------------------------------------------------------------------
 
   updateComposure(v) {
+    if (this.state.acting === 2) return;
     const fill = this.$('.fill');
     const pct = (v / this.state.maxComposure()) * 100;
     fill.style.width = `${pct}%`;
@@ -409,10 +420,35 @@ export class Ui {
 
   updateHp() {
     const s = this.state;
+    if (s.acting === 2) return;
     const fill = this.$('.lfill');
     fill.style.width = `${(s.hp / s.maxHp) * 100}%`;
     fill.classList.toggle('low', s.hp / s.maxHp < 0.3);
     this.$('.hpnum').textContent = `${s.hp}/${s.maxHp}`;
+  }
+
+  /** HUD von Spieler 2 (rechts oben), nur wenn er mitspielt. */
+  updateP2() {
+    const el = this.$('.hud-p2');
+    if (!el) return;
+    const on = this.state.hasP2();
+    el.classList.toggle('hidden', !on);
+    if (!on) return;
+    const v = this.state.playerView(2);
+    const hp = this.$('.p2hp');
+    hp.style.width = `${(v.hp / v.maxHp) * 100}%`;
+    hp.classList.toggle('low', v.hp / v.maxHp < 0.3);
+    this.$('.p2hpnum').textContent = `${v.hp}/${v.maxHp}`;
+    this.$('.p2nv').style.width = `${(v.composure / v.maxComposure) * 100}%`;
+    this.$('.p2weapon').textContent = v.weapon.name;
+    const load = this.$('.p2load');
+    load.classList.toggle('hidden', !v.overloaded);
+    if (v.overloaded) load.textContent = `Überladen · ${v.carry}`;
+  }
+
+  /** Führt fn mit den Werten des Spielers aus, der das Fenster bedient. */
+  as(fn, n = this.actor) {
+    return this.state.withPlayer(n, fn);
   }
 
   updateHonor() {
@@ -424,12 +460,13 @@ export class Ui {
     this.$('.hfill').style.width = `${Math.max(0, Math.min(100, pct))}%`;
   }
 
-  setPrompt(text) {
+  setPrompt(text, key = 'E') {
     const el = this.$('.prompt');
     if (!text || this.modal) { el.classList.add('hidden'); return; }
-    if (el.dataset.text !== text) {
+    if (el.dataset.text !== text || el.dataset.key !== key) {
       el.dataset.text = text;
-      el.innerHTML = `<span class="key">E</span> ${esc(text)}`;
+      el.dataset.key = key;
+      el.innerHTML = `<span class="key">${esc(key)}</span> ${esc(text)}`;
     }
     el.classList.remove('hidden');
   }
@@ -462,6 +499,7 @@ export class Ui {
 
   close() {
     this.modal = null;
+    this.actor = 1;
     this.layer.innerHTML = '';
     this.blockedUntil = performance.now() + 150;
     if (this.pendingEnding) {
@@ -501,6 +539,7 @@ export class Ui {
         <div><span class="key">E</span> untersuchen / sprechen</div>
         <div><span class="key">Q</span> Geistsicht (kostet Nerven)</div>
         <div><span class="key">J</span> Notizbuch: Aufträge, Quellen, Schlussfolgerungen</div>
+        <div><span class="key">Esc</span> Menü: Spieler 2 hinzufügen oder entfernen</div>
       </div>
       <div class="actions center">
         ${save ? '<button class="primary" data-act="continue">Fortsetzen <span class="key">E</span></button>' : ''}
@@ -570,7 +609,7 @@ export class Ui {
     const { npc, tree } = this.dialogue;
     const node = tree.nodes[nodeId];
     if (!node) throw new Error(`Dialogknoten fehlt: ${npc.dialogue}.${nodeId}`);
-    s.applyEffects(node);
+    this.as(() => s.applyEffects(node));
     if (node.combat) this.dialogue.combat = true;
     s.visitNode(npc.dialogue, nodeId);
     let text = node.text;
@@ -778,9 +817,10 @@ export class Ui {
 
   // --- Notizbuch ---------------------------------------------------------------
 
-  openNotebook(tab) {
+  openNotebook(tab, who = null) {
     this.selected = [];
     if (tab) this.tab = tab;
+    if (who) this.invPlayer = who;
     this.renderNotebook('');
   }
 
@@ -829,13 +869,16 @@ export class Ui {
     el.querySelectorAll('[data-archive]').forEach((b) => { b.onclick = () => { this.archiveCase = b.dataset.archive; this.selected = []; this.renderNotebook(''); }; });
     el.querySelector('[data-act=combine]')?.addEventListener('click', () => this.combine());
     el.querySelector('[data-act=hint]')?.addEventListener('click', () => this.showHint());
-    el.querySelectorAll('[data-use]').forEach((b) => { b.onclick = () => this.renderNotebook(esc(this.state.useItem(b.dataset.use) ?? '')); });
-    el.querySelectorAll('[data-equip]').forEach((b) => { b.onclick = () => { this.state.equip(b.dataset.equip); this.renderNotebook(''); }; });
+    const inv = (fn) => this.as(fn, this.tab === 'items' ? this.invPlayer : 1);
+    el.querySelectorAll('[data-use]').forEach((b) => { b.onclick = () => this.renderNotebook(esc(inv(() => this.state.useItem(b.dataset.use)) ?? '')); });
+    el.querySelectorAll('[data-equip]').forEach((b) => { b.onclick = () => { inv(() => this.state.equip(b.dataset.equip)); this.renderNotebook(''); }; });
+    el.querySelectorAll('[data-invplayer]').forEach((b) => { b.onclick = () => { this.invPlayer = Number(b.dataset.invplayer); this.renderNotebook(''); }; });
+    el.querySelectorAll('[data-give]').forEach((b) => { b.onclick = () => this.renderNotebook(esc(this.state.giveItem(b.dataset.give, this.invPlayer).text)); });
     // Wegwerfen braucht einen zweiten Klick, damit nichts aus Versehen verschwindet
     el.querySelectorAll('[data-drop]').forEach((b) => {
       b.onclick = () => {
         if (!b.classList.contains('armed')) { b.classList.add('armed'); b.textContent = 'Wegwerfen?'; return; }
-        this.renderNotebook(esc(this.state.dropItem(b.dataset.drop, 1).text));
+        this.renderNotebook(esc(inv(() => this.state.dropItem(b.dataset.drop, 1)).text));
       };
     });
     el.querySelectorAll('[data-drink]').forEach((b) => { b.onclick = () => this.drink(b.dataset.drink); });
@@ -922,8 +965,19 @@ export class Ui {
       ${closed.length ? `<details class="closed-quests"><summary>Erledigt (${closed.length})</summary><ul class="quests">${closed.map(row).join('')}</ul></details>` : ''}`;
   }
 
+  /** Inventar-Reiter: mit Spieler 2 gibt es oben eine Umschaltung (G) zwischen beiden Taschen. */
   itemsHtml() {
     const s = this.state;
+    if (!s.hasP2()) { this.invPlayer = 1; return this.itemsListHtml(); }
+    const who = this.invPlayer;
+    const bar = `<div class="tabs playertabs">${[1, 2].map((n) => `<button class="tab ${n === who ? 'sel' : ''}" data-invplayer="${n}">Spieler ${n}${n === 1 ? ' · Ermittler' : ''}</button>`).join('')}<span class="muted subkeys">wechseln <span class="key">G</span></span></div>`;
+    return bar + s.withPlayer(who, () => this.itemsListHtml(), { quiet: true });
+  }
+
+  itemsListHtml() {
+    const s = this.state;
+    const p2 = s.hasP2();
+    const other = s.acting === 2 ? 1 : 2;
     const kindOrder = { weapon: 0, artifact: 1, consumable: 2, potion: 3, formula: 4, ingredient: 5, trophy: 6, key: 7 };
     const all = s.items().sort((a, b) => kindOrder[a.kind] - kindOrder[b.kind]);
     const cats = ITEM_CATS.map((c) => ({ ...c, n: c.kinds ? all.filter((it) => c.kinds.includes(it.kind)).length : all.length }));
@@ -938,6 +992,7 @@ export class Ui {
       if (it.kind === 'weapon') action = s.weapon === it.id ? '<span class="badge likely">ausgerüstet</span>' : `<button class="small" data-equip="${it.id}">Ausrüsten</button>`;
       else if (it.kind === 'consumable' && !it.combat_only) action = `<button class="small" data-use="${it.id}">Benutzen</button>`;
       else if (it.combat_only) action = '<span class="muted">nur im Kampf</span>';
+      else if (it.kind === 'potion' && s.acting === 2) action = '<span class="muted">nur der Ermittler trinkt Tränke</span>';
       else if (it.kind === 'potion') {
         const chk = s.drinkCheck(it.id);
         action = chk.ok ? `<button class="small" data-drink="${it.id}">Trinken</button><br><span class="muted">Risiko ${Math.round(chk.risk * 100)} %</span>` : chk.ritual ? '<button class="small" data-recipe="1">Ritual nötig</button>' : '<span class="muted">nicht trinkbar</span>';
@@ -950,6 +1005,7 @@ export class Ui {
       if (!action && it.inspect) action = `<button class="small" data-inspect="${it.id}">Untersuchen</button>`;
       const wt = s.itemWeight(it.id);
       if (wt > 0) action += `${action ? '<br>' : ''}<span class="muted weight">${fmtLb(wt * it.count)} Pfd.</span>`;
+      if (p2 && it.kind !== 'key') action += ` <button class="small give" data-give="${it.id}" title="Eins an Spieler ${other} geben">→ Sp. ${other}</button>`;
       if (s.canDrop(it.id) && !(it.kind === 'weapon' && s.weapon === it.id)) action += ` <button class="small drop" data-drop="${it.id}" title="Wegwerfen (eins)">×</button>`;
       const stat = it.kind === 'weapon' ? ` <span class="muted">Angriff ${it.atk}${it.occult ? ', stark gegen Okkultes' : ''}</span>` : '';
       const effects = it.kind === 'artifact' ? artifactEffectsHtml(it) : '';
@@ -1175,6 +1231,10 @@ export class Ui {
   }
 
   openShop(merchantId, mode = 'buy', feedback = '') {
+    this.state.withPlayer(this.actor, () => this.renderShop(merchantId, mode, feedback), { quiet: true });
+  }
+
+  renderShop(merchantId, mode, feedback) {
     const s = this.state;
     const m = s.merchant(merchantId);
     if (!m) throw new Error(`Händler fehlt: ${merchantId}`);
@@ -1193,7 +1253,7 @@ export class Ui {
         <div><button class="small" data-sell="${i}">${i < 9 ? `<span class="key">${i + 1}</span> ` : ''}${s.sellPrice(it.id)} Sch.</button></div></li>`).join('') || `<li class="empty">Nichts, was ${esc(m.name)} haben will.</li>`;
     }
     const el = this.open('shop', `
-      <h3>${esc(m.name)} <span class="muted">${esc(m.title)}</span></h3>
+      <h3>${esc(m.name)} <span class="muted">${esc(m.title)}</span>${s.hasP2() ? ` <span class="badge">für Spieler ${s.acting} · <span class="key">G</span> wechseln</span>` : ''}</h3>
       <p class="lead">„${esc(m.greeting)}“</p>
       ${m.buys ? `<div class="tabs"><button class="tab ${mode === 'buy' ? 'sel' : ''}" data-mode="buy">Kaufen</button><button class="tab ${mode === 'sell' ? 'sel' : ''}" data-mode="sell">Verkaufen</button> <span class="muted">Wechseln mit <span class="key">V</span></span></div>` : ''}
       <ul class="items shoplist">${rows}</ul>
@@ -1270,7 +1330,7 @@ export class Ui {
     const sh = this.shop;
     const e = sh?.entries[i];
     if (!e) return;
-    const r = sh.mode === 'buy' ? this.state.buy(sh.id, e.id) : this.state.sell(e.id);
+    const r = this.as(() => (sh.mode === 'buy' ? this.state.buy(sh.id, e.id) : this.state.sell(e.id)));
     this.openShop(sh.id, sh.mode, `<span class="${r.ok ? 'good' : ''}">${esc(r.text)}</span>`);
   }
 
@@ -1361,7 +1421,13 @@ export class Ui {
 
   /** Zwei Spalten: was du dabeihast und was im Lager liegt. where: 'buero' oder ein anderes Versteck. */
   openStorage(feedback = '', where = 'buero', title = null) {
+    this.state.withPlayer(this.actor, () => this.renderStorage(feedback, where, title), { quiet: true });
+  }
+
+  renderStorage(feedback, where, title) {
     const s = this.state;
+    this.storageArgs = [where, title];
+    const who = s.hasP2() ? ` <span class="badge">Spieler ${s.acting} · <span class="key">G</span> wechseln</span>` : '';
     const own = where === 'buero';
     const row = (it, act, label, all) => `<li class="item"><div>${itemIcon(it.id)}<strong>${esc(it.name)}</strong>${it.count > 1 ? ` ×${it.count}` : ''}${s.itemWeight(it.id) ? ` <span class="muted weight">${fmtLb(s.itemWeight(it.id) * it.count)} Pfd.</span>` : ''}</div>
       <div><button class="small" data-${act}="${it.id}">${label}</button>${it.count > 1 ? ` <button class="small" data-${act}-all="${it.id}">${all}</button>` : ''}</div></li>`;
@@ -1370,7 +1436,7 @@ export class Ui {
     const carried = s.items().filter((it) => s.canStore(it.id)).sort(heavy);
     const stored = s.storedItems(where).sort(heavy);
     const el = this.open('storage', `
-      <h3>${own ? 'Asservatenschrank <span class="muted">Dein Büro im Revier</span>' : esc(title ?? 'Versteck')}</h3>
+      <h3>${own ? 'Asservatenschrank <span class="muted">Dein Büro im Revier</span>' : esc(title ?? 'Versteck')}${who}</h3>
       <p class="lead">Was hier liegt, ist sicher, auch wenn du unterwegs ohnmächtig wirst oder ausgeraubt wirst. Beweisstücke bleiben bei dir.</p>
       ${carryHtml(s)}
       <div class="storage">
@@ -1380,7 +1446,7 @@ export class Ui {
       <div class="feedback">${feedback}</div>
       <div class="actions"><button data-act="close">Schließen <span class="key">Esc</span></button></div>`, 'notebook shop storage-panel');
     const act = (fn) => () => {
-      const r = fn();
+      const r = this.as(fn);
       this.openStorage(`<span class="${r.ok ? 'good' : ''}">${esc(r.text)}</span>`, where, title);
     };
     el.querySelectorAll('[data-store]').forEach((b) => { b.onclick = act(() => s.storeItem(b.dataset.store, 1, where)); });
@@ -1399,6 +1465,52 @@ export class Ui {
     this.showMessage('Fallwand', cases.length
       ? 'Zeitungsausschnitte, Fotos, rote Fäden. Jeder Fall, den du abgeschlossen hast, hängt hier.'
       : 'Noch leer. Ein paar Reißzwecken warten auf deinen ersten abgeschlossenen Fall.', { extra, footer: `Rang: ${s.rank().name} · Ansehen ${s.honor}` });
+  }
+
+  // --- Pausemenü und Spieler 2 ---------------------------------------------------
+
+  openPause(feedback = '') {
+    const s = this.state;
+    const on = s.hasP2();
+    const label = on ? 'Spieler 2 entfernen' : s.p2 ? 'Spieler 2 wieder hinzufügen' : 'Spieler 2 hinzufügen';
+    const pad = typeof navigator !== 'undefined' && [...(navigator.getGamepads?.() ?? [])].some(Boolean);
+    const el = this.open('pause', `
+      <h3>Pause</h3>
+      <div class="pausemenu">
+        <button class="primary" data-act="resume"><span class="key">Esc</span> Weiter</button>
+        <button data-act="p2"><span class="key">2</span> ${label}</button>
+      </div>
+      <div class="feedback">${feedback}</div>
+      <p class="lead">${on ? 'Ihr spielt zu zweit an diesem Rechner. Die Kamera hält euch beide im Bild, jeder hat sein eigenes Inventar. Geld, Ansehen und Fälle teilt ihr.' : 'Zu zweit an einem Rechner: Spieler 2 läuft als Begleiter mit über denselben Bildschirm, mit eigenem Leben und eigenem Inventar.'}</p>
+      <div class="controls2">
+        <div><h4>Spieler 1 · Ermittler</h4>
+          <div><span class="key">WASD</span> laufen${on ? '' : ' (allein auch <span class="key">Pfeile</span>)'}</div>
+          <div><span class="key">E</span> untersuchen / sprechen</div>
+          <div><span class="key">Q</span> Geistsicht · <span class="key">J</span> Notizbuch · <span class="key">I</span> Inventar</div>
+          <div>Kampf: <span class="key">E</span> Takt · <span class="key">Leertaste</span> ausweichen · <span class="key">F</span> parieren</div>
+        </div>
+        <div><h4>Spieler 2 · Begleiter</h4>
+          <div><span class="key">Pfeile</span> laufen</div>
+          <div><span class="key">Enter</span> untersuchen / sprechen / aufheben</div>
+          <div><span class="key">I</span> dann <span class="key">G</span> eigenes Inventar</div>
+          <div>Kampf: <span class="key">Enter</span> Takt · <span class="key">←</span> ausweichen · <span class="key">→</span> parieren</div>
+          <div class="muted">Gamepad${pad ? ' (erkannt)' : ''}: Stick laufen · A Aktion/Takt · X ausweichen · B parieren · Y Inventar</div>
+        </div>
+      </div>`, 'pause');
+    el.querySelector('[data-act=resume]').onclick = () => this.close();
+    el.querySelector('[data-act=p2]').onclick = () => this.togglePlayer2();
+  }
+
+  togglePlayer2() {
+    const s = this.state;
+    if (s.hasP2()) {
+      s.removeP2();
+      this.openPause('Spieler 2 hat sich verabschiedet. Seine Sachen behält er für das nächste Mal.');
+    } else {
+      const back = !!s.p2;
+      s.addP2();
+      this.openPause(back ? 'Spieler 2 ist wieder dabei, mit seinen alten Sachen.' : 'Spieler 2 ist dabei: Spazierstock und zwei Verbände in der Tasche.');
+    }
   }
 
   // --- Kampf -----------------------------------------------------------------
@@ -1574,7 +1686,16 @@ export class Ui {
   // --- Tastatur ---------------------------------------------------------------
 
   onKey(e) {
-    if (!this.modal || e.repeat) return;
+    if (!this.modal) {
+      // Esc in der Welt: Pausemenü (Spieler 2 hinzufügen oder entfernen)
+      if (e.key === 'Escape' && !e.repeat && this.scene && !this.combatScene && performance.now() >= this.blockedUntil) {
+        this.openPause();
+        e.preventDefault();
+        e.stopPropagation();
+      }
+      return;
+    }
+    if (e.repeat) return;
     if (performance.now() < (this.keysBlockedUntil ?? 0)) { e.preventDefault(); e.stopPropagation(); return; }
     const k = e.key.toLowerCase();
     if (this.modal === 'combat') { this.onCombatKey(e, k); return; }
@@ -1584,6 +1705,8 @@ export class Ui {
     if (this.modal === 'title' && confirm) (this.titleContinue ?? this.titleNew)();
     else if (this.modal === 'title' && k === 'n') this.titleNew();
     else if ((this.modal === 'message' || this.modal === 'ending') && (confirm || k === 'escape')) this.close();
+    else if (this.modal === 'pause' && (k === 'escape' || confirm)) this.close();
+    else if (this.modal === 'pause' && k === '2') this.togglePlayer2();
     else if (this.modal === 'dialogue' && num >= 0) this.choose(this.dialogue.keyMap[num]);
     else if (this.modal === 'dialogue' && confirm && this.dialogue?.keyMap.length === 1) this.choose(this.dialogue.keyMap[0]);
     else if (this.modal === 'travel' && this.travelPick && (num === 0 || num === 1)) this.travelMode(num === 0 ? 'sicher' : 'schnell');
@@ -1597,6 +1720,10 @@ export class Ui {
     else if ((this.modal === 'shop' || this.modal === 'brew' || this.modal === 'storage' || this.modal === 'vault') && (k === 'escape' || k === 'e')) this.close();
     else if (this.modal === 'vault' && num >= 0) this.vaultPick(num);
     else if (this.modal === 'brew' && num >= 0 && this.brewList?.[num]) this.brew(this.brewList[num].formula);
+    else if ((this.modal === 'shop' || this.modal === 'storage') && k === 'g' && this.state.hasP2()) {
+      this.actor = this.actor === 1 ? 2 : 1;
+      if (this.modal === 'shop') this.openShop(this.shop.id, this.shop.mode); else this.openStorage('', ...this.storageArgs);
+    } else if (this.modal === 'notebook' && k === 'g' && this.tab === 'items' && this.state.hasP2()) { this.invPlayer = this.invPlayer === 1 ? 2 : 1; this.renderNotebook(''); }
     else if (this.modal === 'notebook' && k === 'v') this.combine();
     else if (this.modal === 'notebook' && k === 't') this.showHint();
     else if (this.modal === 'notebook' && this.tab === 'items' && (k === 'arrowleft' || k === 'arrowright') && this.itemCats?.length) {
