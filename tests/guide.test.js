@@ -54,3 +54,26 @@ test('Wege: Untergeschosse laufen über ihren Bezirk', () => {
   assert.equal(nextHop(content, 'nordtor', 'theater').via, 'theater_door');
   assert.equal(nextHop(content, 'tavern', 'revier').via, 'out');
 });
+
+test('Fall 3, falsches Ende (Holt): Kanalhafen wird trotzdem freigeschaltet, alte Stände werden repariert', () => {
+  const s = fresh();
+  s.setEnding('c3_holt');
+  assert.ok(s.flags.has('travel_docks'), 'Kanalhafen nach c3_holt erreichbar');
+  // Alter Spielstand: Ende erreicht, aber ohne Freischaltung gespeichert
+  const data = s.serialize();
+  data.flags = data.flags.filter((f) => f !== 'travel_docks');
+  const old = fresh();
+  old.load(data);
+  assert.ok(old.flags.has('travel_docks'), 'Freischaltung wird beim Laden nachgetragen');
+});
+
+test('Ziel in gesperrtem Viertel: Wegweiser sagt, dass es gesperrt ist und wer es freischaltet', () => {
+  const s = fresh();
+  s.quests.drowned = 'active';
+  const t = questTarget(s, 'drowned');
+  assert.equal(t.district, 'docks');
+  assert.equal(t.locked?.name, 'Kanalhafen');
+  assert.match(t.locked.how, /Marlowe/);
+  s.flags.add('travel_docks');
+  assert.equal(questTarget(s, 'drowned').locked, undefined);
+});
