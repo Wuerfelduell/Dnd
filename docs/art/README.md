@@ -196,6 +196,64 @@ Dieses Paket stellt die Grafiken und Metadaten bereit. Die Einbindung sowie
 die Beurteilung von Timing, Lesbarkeit und Übergängen im laufenden Spiel erfolgen
 separat. Es wird kein Spielcode geändert.
 
+## Grafikpaket E – Fall 4, Aufträge und Fallakten
+
+Batch `faelle`, erstellt am 9. November 2026 nach `codex_E_fall4_auftraege.md`:
+**102 PNG-Dateien** (101 neue Dateien und das erneuerte 16×16-Item `stimmphiole`).
+Die vorhandenen C-Portraits dienen als Identitätsreferenz für die bekannten Figuren.
+
+| Gruppe | PNGs | Raster |
+|---|---:|---|
+| Theater, Felix' Versteck, Turmuhr, Fall-4-Hinweise und Ortsspuren | 5 | Benannte Regionen bzw. 16×16/48×48-Zellen |
+| Stimmenraub, brechende Phiole und Miriams Glockenstimme | 3 | 8 Frames, 32×32 bzw. 48×48 |
+| Stimmenphiole als einzelnes Item | 2 | 16×16 und 32×32 |
+| Zusätzliche Porträts für Diva, Felix, Jonas und Ezra | 4 | 256×64, vier Zustände |
+| 16 Auftragsfiguren, jeweils Lauf-Sheet und Emotionsporträts | 32 | 64×128 und 256×64 |
+| 32 Auftragsgegenstände, einzeln und in vier Atlanten | 36 | 16×16 und 128×16 |
+| Auftragsmarker, Banner, Kartenpins und Belohnungsfenster | 1 | 160×176, benannte Regionen |
+| Schlussbilder | 7 | 480×270, deckend |
+| Fallakten einschließlich leerer Vorlage | 6 | 128×96, deckend |
+| Zwischensequenzbilder | 6 | 240×135, deckend |
+
+`public/sprites/manifest-faelle.json` dokumentiert Maße, Spalten/Zeilen,
+nullbasierte Frame-Listen, Bildraten, Wiederholungen, Emotionen, Item-Zuordnungen
+und Atlasrechtecke. Laufreihen sind unten/links/rechts/oben; die Fußgrundlinie liegt
+bei y=30 innerhalb einer 16×32-Zelle. Der Terrier gehört zu jedem Rattenfänger-Frame.
+Die ersten vier Regalregionen bilden den Phiolen-Schimmer. Die Turmuhr besitzt
+unbeleuchtete und türkis beleuchtete Zustände, beide auf 3:33.
+
+Die gemischten Prop-Atlanten verwenden 160×64. Auftragsmarker haben vier
+16×16-Frames; Banner je 160×32, Kartenpins je 8×8 und das Belohnungsfenster
+48×48 mit 16-Pixel-Rändern für 9-Slice. Die entsprechenden Rechtecke und
+`regionAnimations` im Manifest sind für die Entnahme maßgeblich. Das Spuren-Sheet
+hat elf Zellen, einschließlich geschlossenem und offenem Bodenfach.
+
+70 Arbeitsbilder wurden mit `image_gen` erzeugt; drei davon wurden gezielt
+korrigiert (Souffleurkasten, Alpha des Stimmenraubs und erloschene Laterne).
+`batch-faelle-generation.json` enthält die tatsächlich verwendeten Prompts,
+Referenzen, Originaldateinamen, SHA-256-Prüfsummen und gemessenen Zuschnitte.
+Der technische Export verwendet Nearest Neighbor, eine gemeinsame Palette aus
+32 sichtbaren Farben plus transparentem Index und binäres Alpha. Die Palette
+übernimmt die Grundfarben der bestehenden Sprites und enthält einen gedeckten
+Lilaton für die Auftragsmarker. Große Generatororiginale sind keine Laufzeitassets.
+
+```sh
+# SOURCE_DIRECTORY enthält die in batch-faelle-generation.json genannten Original-PNGs.
+# Benötigt Python, Pillow und numpy.
+python docs/art/export-faelle.py SOURCE_DIRECTORY
+python docs/art/verify-faelle.py
+```
+
+Die Prüfung kontrolliert alle 102 Dateien auf Vollständigkeit, Maße, gemeinsame
+Palette, Alpha, Framebelegung, Laufgrundlinien, transparente Seitenränder,
+Animationsvariation, Atlasgrenzen, überlappungsfreie Regionen und die Übereinstimmung
+von Einzel-Items mit ihren Atlanten. Ergebnis: `faelle-validation.json`.
+Die Exporte wurden zusätzlich visuell geprüft; Übersicht: `faelle-preview.png`.
+
+Es wird kein Spielcode geändert. Die Einbindung und die Beurteilung der Animationen
+im laufenden Spiel erfolgen separat. Das schon vorhandene Item `stimmphiole.png`
+wird unter derselben ID mit dem neuen Hinweis-Icon aktualisiert.
+
 ## Grafikpaket F – Bonusgegner, Bosse und Ausrüstung
 
 Batch `kampf2`, erzeugt am 9. November 2026 mit `image_gen` nach
