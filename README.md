@@ -32,13 +32,31 @@ einem kleinen Rundenkampf mit Timing und Spielständen.
 | `1`–`9` oder Klick | Antwort im Gespräch wählen |
 | `Q` | Geistsicht an/aus: zeigt verborgene Spuren, kostet Nerven |
 | `J` / `Tab` | Notizbuch: zwei Hinweise anklicken, mit `V` verknüpfen |
-| `I` | Inventar: Gegenstände benutzen, Waffe ausrüsten |
+| `I` | Inventar: Gegenstände benutzen, Waffe ausrüsten, Tränke trinken |
+| `P` | Pfad: Sequenz, Verdauung, Unruhe, Fähigkeiten und Formeln |
 | Kampf: `1`–`4` | Aktion wählen (Angriff, Fertigkeiten, Gegenstände, Flucht) |
 | Kampf: `E` / `Leertaste` | beim Angriff im goldenen Bereich drücken |
 | Kampf: `Leertaste` / `F` | beim gegnerischen Schlag ausweichen / parieren |
 | `R` | nach einem Ende neu starten |
 
 ## Spielmechanik
+
+### Pfade und Tränke (Nachtmarkt)
+
+Auf dem **Nachtmarkt** unter der Krähenbrücke (Stadtkarte) kann man aufsteigen:
+
+- **Sieben Pfade**, je mit Sequenz 9, 8 und 7: Laterne (Licht, Feuer, gegen Okkultes), Faden (Wahrsagen, Analyse),
+  Maske (Illusion, Täuschung), Echo (Geister, Klang), Kessel (Heilen, Gift), Eisen (Kraft, Paraden), Schlüssel (Schleichen, Fallen).
+  Jede Sequenz bringt eine **Kampffähigkeit** (im Kampf unter Fertigkeiten, mit ✧ markiert) und passive Boni.
+- **Formel** bei Cornelius Kittering kaufen, **Zutaten** bei Nell Rauhfuß, am **Braukessel** brauen, im Inventar **trinken**.
+- **Verdauen**: Jeder Pfad hat einen Grundsatz. Wer danach handelt (Faden: Schlussfolgerungen ziehen, Eisen: Kämpfe gewinnen,
+  Schlüssel: gesperrte Akten öffnen, ...), verdaut den Trank. Erst bei 100 % verträgt man die nächste Sequenz gefahrlos.
+- **Unruhe**: kommt mit jedem Trank und mit Geistsicht, klingt mit der Zeit und durch passendes Handeln ab. Ruhetee senkt sie.
+  Bei 100 Unruhe oder einem zu früh getrunkenen Trank droht der **Kontrollverlust**: Ohnmacht, Verlust von Leben,
+  Schilling und Verdauung (nie Game Over).
+- **Schilling** gibt es für Aufträge, Fallenden, besiegte Gegner und den Verkauf beim Pfandleiher Gorse.
+  In Brocks **Kampfgrube** kann man um Geld kämpfen, Sabeths **Schattenpuppe** ist ein Übungskampf für die neuen Fähigkeiten.
+- Inhalte: `src/data/pathways.json` (Pfade, Zutaten) und `src/data/market.json` (Händler, Preise, Beute).
 
 - **Hinweise** findest du in der Welt (funkelnde Stellen) oder in Gesprächen.
   Jeder Hinweis ist eine **Quelle** für eine **Information**.
@@ -142,6 +160,20 @@ mit den Reihen unten/links/rechts/oben). `src/world/assets.js` lädt sie im
 - `TILE_CELLS`: Tile-Key → Zelle im Tileset (optional mit Grund-Tile darunter)
 - `PROP_CELLS`: Prop-Key → Ausschnitt aus einem Prop-Sheet
 - `CHARACTER_SHEETS`: Figur (`player`, `npc_<id>`) → Lauf-Sheet
+- `BATTLE_SHEETS`, `ENCOUNTER_SHEETS`, `ENEMY_BATTLE_SHEETS`, `BATTLE_BACKGROUNDS`, `ENCOUNTER_BACKGROUNDS`:
+  Kampf-Animationen (Frames in `manifest-14b.json` und `manifest-kampf.json`), Gegner pro
+  Begegnung und Hintergründe pro Karte bzw. Begegnung
+- `SKILL_FX`, `SELF_FX`, `PATHWAY_POSES`, `WEAPON_POSES`: Effekt pro Pfad-Fähigkeit, Zauberpose
+  pro Pfad und Schlaganimation pro Waffe; `SKILL_ICONS`/`STATUS_ICONS` für Menü und Zustände
+- Item-Icons: jedes Item hat `public/sprites/items/<id>.png` (Tränke zusätzlich in `items/32/`),
+  Pfad-Embleme und -Karten liegen unter `public/sprites/pathways/`
+- `ANIM_SHEETS`: animierte Paket-A-Sheets (Kessel, Trinken, Aufstieg, Aura, Kontrollrisse);
+  Frames in `public/sprites/manifest-pfade.json`, abgespielt mit `playSheetAnim()`
+- `PROP_ANIMS`: animierte Deko aus Sheet-Regionen (Lichterketten, Kohlebecken)
+
+Karten können mit `"tiles": "nachtmarkt"` ein Tile-Thema wählen (`THEMES` in
+`WorldScene.js`) und unter `decor` Deko mit `origin`, `offset`, `ysort`, `solid`
+und `light` platzieren.
 
 Alles, was dort nicht zugeordnet ist, zeichnet `textures.js` weiterhin prozedural
 (z. B. Gras, Brücke, Schreibtisch, Miss Pimm). Ein neues Asset einbauen heißt also:

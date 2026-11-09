@@ -22,10 +22,10 @@ export const SKILLS = {
 };
 
 /** Bewertet einen Verteidigungsdruck. offset = Drückzeit - Einschlagzeit (ms). */
-export function judgeDefense(kind, offset) {
+export function judgeDefense(kind, offset, dodgeMult = 1) {
   const a = Math.abs(offset);
   if (kind === 'parry' && a <= WINDOW.parry) return 'parry';
-  if (kind === 'dodge' && a <= WINDOW.dodge) return 'dodge';
+  if (kind === 'dodge' && a <= WINDOW.dodge * dodgeMult) return 'dodge';
   return 'miss';
 }
 
@@ -54,13 +54,28 @@ export class Combat {
     this.outcome = null; // 'won' | 'lost' | 'fled'
     this.hpBefore = state.hp;
     this.log = [];
+    this.shield = 0; // fängt Schaden ab (Trugbild, Eiserne Haut)
+    this.evading = false; // nächster gegnerischer Angriff geht ins Leere
+    this.confused = false; // nächster gegnerischer Angriff trifft den Gegner selbst
+    this.burn = null; // { damage, rounds, source } Brand oder Gift
+  }
+
+  /** Grundfertigkeiten plus die Fähigkeiten des eigenen Pfades. */
+  skillDef(id) {
+    return SKILLS[id] ?? this.state.pathwaySkills()[id];
+  }
+
+  /** Nervenkosten einer Fertigkeit (Pfad des Echos halbiert sie). */
+  composureCost(sk) {
+    return sk.composure ? Math.round(sk.composure * this.state.passive('skill_composure')) : 0;
   }
 
   // --- Spieler -------------------------------------------------------------
   skills() {
-    return Object.entries(SKILLS).map(([id, sk]) => ({
-      id, ...sk,
-      usable: this.ap >= sk.cost && (!sk.composure || this.state.composure >= sk.composure),
+    const all = { ...SKILLS, ...this.state.pathwaySkills() };
+    return Object.entries(all).map(([id, sk]) => ({
+      id, ...sk, composure: this.composureCost(sk),
+      usable: this.ap >= sk.cost && this.state.composure >= this.composureCost(sk),
     }));
   }
 
@@ -73,6 +88,7 @@ export class Combat {
     const w = this.state.weaponStats();
     let dmg = w.atk * mult * GRADE_MULT[grade];
     if (this.enemy.occult && w.occult) dmg *= w.occult;
+    if (this.enemy.occult) dmg *= this.state.passive('occult_mult');
     if (this.weak) dmg *= WEAK_MULT;
     return Math.max(1, Math.round(dmg));
   }
@@ -81,15 +97,19 @@ export class Combat {
    * Führt eine Fertigkeit aus. grades: Bewertungen der Takt-Drücke ('perfect'|'good'|'miss').
    * Ergebnis: { hits: [{grade, damage}], total, stunned }
    */
-  useSkill(skillId, grades) {
-    const sk = SKILLS[skillId];
+  useSkill(skillId, grades = []) {
+    const sk = this.skillDef(skillId);
     if (!this.canUse(skillId)) throw new Error(`Fertigkeit nicht möglich: ${skillId}`);
     this.ap -= sk.cost;
-    if (sk.composure) this.state.setComposure(this.state.composure - sk.composure);
-    const hits = grades.slice(0, sk.hits).map((grade) => {
+    const cc = this.composureCost(sk);
+    if (cc) this.state.setComposure(this.state.composure - cc);
+    const hits = grades.slice(0, sk.hits).map((g) => {
+      const grade = sk.sure && g === 'miss' ? 'good' : g;
       let damage;
       if (sk.flat) {
-        damage = sk.flat * GRADE_MULT[grade] * (this.enemy.occult ? 2 : 1) * (this.weak ? WEAK_MULT : 1);
+        const holy = sk.holy || skillId === 'ward';
+        damage = sk.flat * GRADE_MULT[grade] * (this.enemy.occult && holy ? 2 : 1) * (this.weak ? WEAK_MULT : 1);
+        if (this.enemy.occult) damage *= this.state.passive('occult_mult');
         damage = Math.max(1, Math.round(damage));
       } else {
         damage = this.hitDamage(sk.mult, grade);
@@ -99,10 +119,19 @@ export class Combat {
     const total = hits.reduce((n, h) => n + h.damage, 0);
     this.hurtEnemy(total);
     if (skillId === 'attack') this.gainAp(hits[0]?.grade === 'perfect' ? 2 : 1);
+    const landed = sk.hits === 0 || hits.some((h) => h.grade !== 'miss');
+    const effects = [];
     let stunned = false;
-    if (skillId === 'blind' && hits[0]?.grade !== 'miss') { this.stunned = true; stunned = true; }
+    if ((skillId === 'blind' || sk.stun) && landed && !this.outcome) { this.stunned = true; stunned = true; }
+    if (sk.weak && landed && !this.weak) { this.weak = true; effects.push('Schwachstelle erkannt'); }
+    if (sk.heal) effects.push(`+${this.state.heal(sk.heal)} Leben`);
+    if (sk.drain && total) effects.push(`+${this.state.heal(Math.round(total * sk.drain))} Leben`);
+    if (sk.shield) { this.shield += sk.shield; effects.push(`Schutz ${this.shield}`); }
+    if (sk.evade) { this.evading = true; effects.push('nächster Angriff geht ins Leere'); }
+    if (sk.confuse && landed) { this.confused = true; effects.push('Gegner verwirrt'); }
+    if (sk.burn && landed) { this.burn = { damage: sk.burn[0], rounds: sk.burn[1], source: skillId }; effects.push(`${sk.burn[1]} Runden je ${sk.burn[0]} Schaden`); }
     this.log.push(`${sk.name}: ${total} Schaden`);
-    return { hits, total, stunned };
+    return { hits, total, stunned, effects };
   }
 
   /** Gegenstand im Kampf. Ergebnis: { text } oder null, wenn nicht möglich. */
@@ -110,9 +139,7 @@ export class Combat {
     const it = this.state.item(id);
     if (!it || it.kind !== 'consumable' || !this.state.itemCount(id)) return null;
     this.state.removeItem(id);
-    const parts = [];
-    if (it.heal) parts.push(`+${this.state.heal(it.heal)} Leben`);
-    if (it.composure) { this.state.setComposure(this.state.composure + it.composure); parts.push(`+${it.composure} Nerven`); }
+    const parts = this.state.applyConsumable(it);
     if (it.damage) {
       const dmg = it.damage * (this.enemy.occult ? 2 : 1);
       this.hurtEnemy(dmg);
@@ -123,8 +150,12 @@ export class Combat {
     return { text };
   }
 
+  canFlee() {
+    return !!this.enc.fleeable || !!this.state.passive('always_flee');
+  }
+
   flee() {
-    if (!this.enc.fleeable) return false;
+    if (!this.canFlee()) return false;
     this.outcome = 'fled';
     return true;
   }
@@ -145,6 +176,13 @@ export class Combat {
     const list = this.enc.attacks;
     const atk = list[this.attackIndex % list.length];
     this.attackIndex += 1;
+    if (this.confused) {
+      // Verwirrt: der Gegner trifft sich selbst und greift diese Runde nicht an
+      this.confused = false;
+      this.selfHit = atk.damage * atk.hits.length;
+      this.hurtEnemy(this.selfHit);
+      return null;
+    }
     return atk;
   }
 
@@ -152,17 +190,28 @@ export class Combat {
    * Wertet einen einzelnen Schlag aus. result: 'parry' | 'dodge' | 'miss'.
    * Ergebnis: { damage, counter }
    */
-  resolveHit(attack, result) {
+  resolveHit(attack, given) {
+    const result = this.evading && given === 'miss' ? 'dodge' : given;
     if (result === 'parry') {
-      this.gainAp(1);
+      if (!this.enc.practice) this.state.act('parry');
+      this.gainAp(1 + this.state.passive('parry_ap'));
       const counter = this.hitDamage(0.5, 'good');
       this.hurtEnemy(counter);
-      return { damage: 0, counter };
+      return { damage: 0, counter, result };
     }
-    if (result === 'dodge') return { damage: 0, counter: 0 };
-    const damage = this.state.damage(attack.damage);
+    if (result === 'dodge') return { damage: 0, counter: 0, result };
+    let incoming = attack.damage;
+    const absorbed = Math.min(this.shield, incoming);
+    this.shield -= absorbed;
+    incoming -= absorbed;
+    const damage = this.state.damage(incoming);
     if (this.state.hp === 0) this.outcome = 'lost';
-    return { damage, counter: 0 };
+    return { damage, counter: 0, result, absorbed };
+  }
+
+  /** Ende des gegnerischen Zuges: Ausweichen verfällt. */
+  endEnemyTurn() {
+    this.evading = false;
   }
 
   /** Alle Schläge pariert: Gegenschlag. */
@@ -173,8 +222,15 @@ export class Combat {
     return dmg;
   }
 
+  /** Rundenende: Brand/Gift wirkt. Gibt den Schaden zurück. */
   endRound() {
     this.round += 1;
+    if (!this.burn || this.outcome) return 0;
+    const dmg = this.burn.damage;
+    this.hurtEnemy(dmg);
+    this.burn.rounds -= 1;
+    if (this.burn.rounds <= 0) this.burn = null;
+    return dmg;
   }
 
   // --- Ende ---------------------------------------------------------------------
@@ -195,6 +251,15 @@ export class Combat {
       const first = !s.flags.has(firstFlag);
       s.applyEffects({ ...enc.on_win, sets_flags: [...(enc.on_win?.sets_flags ?? []), firstFlag] });
       if (first && enc.first_win) s.applyEffects(enc.first_win);
+      if (!enc.practice) {
+        const loot = s.content.loot?.[this.id];
+        if (loot && (first || loot.repeat)) {
+          if (loot.money) s.addMoney(loot.money, { loot: true, reason: enc.name });
+          if (first) for (const [id, n] of Object.entries(loot.items ?? {})) s.addItem(id, n);
+        }
+        s.act('combat_win');
+        if (enc.occult) s.act('occult_win');
+      }
       text = enc.win_text ?? `${enc.name} ist besiegt.`;
     } else if (this.outcome === 'lost') {
       if (!enc.practice) {

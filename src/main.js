@@ -26,7 +26,7 @@ function clearSave() {
 }
 let saveTimer = null;
 const saveSoon = () => { clearTimeout(saveTimer); saveTimer = setTimeout(writeSave, 300); };
-['changed', 'quest', 'honor', 'ending', 'travel', 'conclusion', 'item'].forEach((ev) => state.on(ev, saveSoon));
+['changed', 'quest', 'honor', 'ending', 'travel', 'conclusion', 'item', 'money', 'ascend', 'digested'].forEach((ev) => state.on(ev, saveSoon));
 setInterval(writeSave, 5000);
 
 let started = false;
@@ -34,7 +34,7 @@ let game;
 const restartWorld = () => game.scene.getScene('world').scene.restart();
 
 const ui = new Ui(uiRoot, state, {
-  hasSave: () => [2, 3].includes(readSave()?.v),
+  hasSave: () => [2, 3, 4].includes(readSave()?.v),
   onNewGame: () => {
     clearSave();
     state.reset();

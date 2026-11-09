@@ -1,0 +1,801 @@
+{
+  "pathways": {
+    "laterne": {
+      "name": "Pfad der Laterne",
+      "short": "Laterne",
+      "color": "#e8b860",
+      "lore": "Die Laternenanzünder von Kettlegate erzählen, dass das erste Gaslicht nicht mit einem Streichholz entzündet wurde, sondern mit einem Schluck. Wer diesem Pfad folgt, trägt ein Licht in sich, das Nebel und Lügen gleichermaßen verbrennt.",
+      "principle": "Bring Licht ins Verborgene.",
+      "digest_hint": "Verborgene Spuren in der Geistsicht finden, Lügen widerlegen, okkulte Wesen besiegen.",
+      "digest": {
+        "hidden_clue": 14,
+        "fact_refuted": 16,
+        "occult_win": 28,
+        "quest": 4
+      },
+      "seqs": {
+        "9": {
+          "name": "Laternenträger",
+          "desc": "Deine Augen gewöhnen sich an die Dunkelheit zwischen den Dingen. Die Geistsicht fällt dir leichter.",
+          "ingredients": {
+            "gluehwurmasche": 1,
+            "nebeltau": 1
+          },
+          "skill": {
+            "id": "lichtstoss",
+            "name": "Lichtstoß",
+            "cost": 2,
+            "hits": 1,
+            "flat": 9,
+            "holy": true,
+            "desc": "Ein Stoß gebündelten Lichts. 9 Schaden, doppelt gegen Okkultes."
+          },
+          "passives": [
+            {
+              "key": "vision_cost",
+              "value": 0.7,
+              "text": "Geistsicht kostet 30 % weniger Nerven."
+            }
+          ]
+        },
+        "8": {
+          "name": "Funkenhüter",
+          "desc": "Funken springen dir von den Fingern, wenn du zornig bist. Okkultes weicht vor dir zurück.",
+          "ingredients": {
+            "leuchtmoos": 1,
+            "nebeltau": 1,
+            "silberstaub": 1
+          },
+          "skill": {
+            "id": "funkenregen",
+            "name": "Funkenregen",
+            "cost": 3,
+            "hits": 3,
+            "flat": 4,
+            "burn": [
+              3,
+              2
+            ],
+            "desc": "Drei Funkengarben im Takt. Der Gegner brennt 2 Runden lang (3 Schaden pro Runde)."
+          },
+          "passives": [
+            {
+              "key": "occult_mult",
+              "value": 1.25,
+              "text": "+25 % Schaden gegen Okkultes."
+            }
+          ]
+        },
+        "7": {
+          "name": "Leuchtfeuer",
+          "desc": "Du bist ein wandelndes Signal. Wo du stehst, kann sich nichts verstecken, auch nicht in dir selbst.",
+          "ingredients": {
+            "sternglas": 1,
+            "nebeltau": 1,
+            "silberstaub": 1,
+            "geisteressenz": 1
+          },
+          "skill": {
+            "id": "leuchtfeuer",
+            "name": "Gleißendes Feuer",
+            "cost": 4,
+            "hits": 1,
+            "flat": 16,
+            "holy": true,
+            "stun": true,
+            "composure": 10,
+            "desc": "Ein greller Lichtblitz. 16 Schaden, doppelt gegen Okkultes, der Gegner setzt eine Runde aus. Kostet 10 Nerven."
+          },
+          "passives": [
+            {
+              "key": "max_hp",
+              "value": 8,
+              "text": "+8 Leben."
+            }
+          ]
+        }
+      }
+    },
+    "faden": {
+      "name": "Pfad des Fadens",
+      "short": "Faden",
+      "color": "#c8b0e8",
+      "lore": "Alte Wahrsagerinnen am Kanal behaupten, die Welt sei ein Gewebe und jedes Verbrechen ein gezogener Faden. Wer diesen Trank trinkt, sieht die Fäden. Erst schwach, dann so deutlich, dass er sie ziehen kann.",
+      "principle": "Verknüpfe, was getrennt scheint.",
+      "digest_hint": "Schlussfolgerungen im Notizbuch ziehen und Informationen mit zwei Quellen bestätigen.",
+      "digest": {
+        "conclusion": 20,
+        "fact_likely": 7,
+        "clue": 1,
+        "quest": 4
+      },
+      "seqs": {
+        "9": {
+          "name": "Spurenleser",
+          "desc": "Kleinigkeiten fallen dir auf: ein Kratzer, ein Zögern in der Stimme. Gute Schlüsse bringen dir mehr Ansehen.",
+          "ingredients": {
+            "spinnenseide": 1,
+            "nebeltau": 1
+          },
+          "skill": {
+            "id": "schwachstelle",
+            "name": "Schwachstelle lesen",
+            "cost": 1,
+            "hits": 0,
+            "weak": true,
+            "desc": "Du erkennst, wo der Gegner verwundbar ist. Alle weiteren Treffer machen 50 % mehr Schaden."
+          },
+          "passives": [
+            {
+              "key": "conclusion_honor",
+              "value": 1,
+              "text": "+1 Ansehen für jede Schlussfolgerung."
+            }
+          ]
+        },
+        "8": {
+          "name": "Fadenseher",
+          "desc": "Manchmal siehst du einen Herzschlag in die Zukunft. Genug, um einem Schlag auszuweichen.",
+          "ingredients": {
+            "eulenfeder": 1,
+            "nebeltau": 1,
+            "silberstaub": 1
+          },
+          "skill": {
+            "id": "vorahnung",
+            "name": "Vorahnung",
+            "cost": 2,
+            "hits": 0,
+            "evade": true,
+            "desc": "Du weißt, was kommt. Der nächste gegnerische Angriff geht komplett ins Leere."
+          },
+          "passives": [
+            {
+              "key": "dodge_window",
+              "value": 1.3,
+              "text": "Das Ausweichfenster im Kampf ist 30 % größer."
+            }
+          ]
+        },
+        "7": {
+          "name": "Musterweber",
+          "desc": "Das Gewebe zeigt dir, welche Informationen zusammengehören, bevor du sie selbst verknüpfst.",
+          "ingredients": {
+            "spiegelquecksilber": 1,
+            "nebeltau": 1,
+            "silberstaub": 1,
+            "geisteressenz": 1
+          },
+          "skill": {
+            "id": "schicksalsfaden",
+            "name": "Schicksalsfaden",
+            "cost": 4,
+            "hits": 2,
+            "mult": 1.2,
+            "sure": true,
+            "desc": "Zwei Schläge entlang der Fäden. Selbst ein verfehlter Takt trifft noch normal."
+          },
+          "passives": [
+            {
+              "key": "link_hints",
+              "value": true,
+              "text": "Das Notizbuch markiert Informationen, die sich noch verknüpfen lassen."
+            }
+          ]
+        }
+      }
+    },
+    "maske": {
+      "name": "Pfad der Maske",
+      "short": "Maske",
+      "color": "#e07a8a",
+      "lore": "Im Theaterviertel erzählt man von einer Schauspielerin, die so lange eine Rolle spielte, bis niemand mehr wusste, wer sie vorher war. Ihr Rezept wird bis heute unter der Hand weitergegeben, zusammen mit einer Warnung: Vergiss nie, wer unter der Maske steckt.",
+      "principle": "Spiele jede Rolle, aber verliere dich nicht.",
+      "digest_hint": "Viele Gespräche führen, handeln und feilschen, Nebenaufträge für die Leute der Stadt erledigen.",
+      "digest": {
+        "dialogue": 2,
+        "trade": 4,
+        "side_quest": 12,
+        "quest": 4
+      },
+      "seqs": {
+        "9": {
+          "name": "Schmeichler",
+          "desc": "Die Leute mögen dich, ohne zu wissen, warum. Händler geben dir bessere Preise.",
+          "ingredients": {
+            "wachsbluete": 1,
+            "nebeltau": 1
+          },
+          "skill": {
+            "id": "trugbild",
+            "name": "Trugbild",
+            "cost": 2,
+            "hits": 0,
+            "shield": 10,
+            "desc": "Ein Abbild von dir lenkt ab. Die nächsten 10 Schaden treffen nur die Illusion."
+          },
+          "passives": [
+            {
+              "key": "price",
+              "value": 0.85,
+              "text": "Händler verlangen 15 % weniger."
+            }
+          ]
+        },
+        "8": {
+          "name": "Täuscher",
+          "desc": "Deine Worte und Gesten verwirren. Wer dich angreift, ist sich nicht sicher, wen er eigentlich trifft.",
+          "ingredients": {
+            "mondmohn": 1,
+            "nebeltau": 1,
+            "silberstaub": 1
+          },
+          "skill": {
+            "id": "verwirrung",
+            "name": "Verwirrung",
+            "cost": 3,
+            "hits": 1,
+            "mult": 0.5,
+            "confuse": true,
+            "desc": "Ein leichter Treffer und ein falsches Bild im Kopf des Gegners. Sein nächster Angriff trifft ihn selbst."
+          },
+          "passives": [
+            {
+              "key": "sell",
+              "value": 1.3,
+              "text": "Pfandleiher zahlen dir 30 % mehr."
+            }
+          ]
+        },
+        "7": {
+          "name": "Maskenspieler",
+          "desc": "Du trägst Gesichter wie Mäntel. Peinliche Fehler perlen an deinem Ruf ab.",
+          "ingredients": {
+            "puppenglas": 1,
+            "nebeltau": 1,
+            "silberstaub": 1,
+            "geisteressenz": 1
+          },
+          "skill": {
+            "id": "spiegelschritt",
+            "name": "Spiegelschritt",
+            "cost": 4,
+            "hits": 2,
+            "mult": 1.0,
+            "evade": true,
+            "desc": "Zwei Schläge aus zwei Richtungen, dann bist du woanders. Der nächste Angriff geht ins Leere."
+          },
+          "passives": [
+            {
+              "key": "honor_loss",
+              "value": 0.5,
+              "text": "Du verlierst nur halb so viel Ansehen."
+            }
+          ]
+        }
+      }
+    },
+    "echo": {
+      "name": "Pfad des Echos",
+      "short": "Echo",
+      "color": "#6fe0d0",
+      "lore": "Unter Kettlegate liegen mehr Tote als darüber Lebende. Die Totengräber von St. Ebba kannten einen Sud, der die Ohren für ihr Flüstern öffnet. Wer zu lange zuhört, antwortet irgendwann.",
+      "principle": "Höre, was nicht mehr spricht.",
+      "digest_hint": "Die Geistsicht benutzen, verborgene Spuren finden, ruhelose Wesen zur Ruhe bringen.",
+      "digest": {
+        "vision": 0.6,
+        "hidden_clue": 9,
+        "occult_win": 18,
+        "quest": 4
+      },
+      "seqs": {
+        "9": {
+          "name": "Lauscher",
+          "desc": "Du hörst ein Wispern hinter den Wänden. Deine Nerven erholen sich schneller.",
+          "ingredients": {
+            "grabmoos": 1,
+            "nebeltau": 1
+          },
+          "skill": {
+            "id": "klagelaut",
+            "name": "Klagelaut",
+            "cost": 1,
+            "hits": 1,
+            "flat": 7,
+            "holy": true,
+            "composure": 5,
+            "desc": "Ein Ton, der nur Tote quält. 7 Schaden, doppelt gegen Okkultes. Kostet 5 Nerven."
+          },
+          "passives": [
+            {
+              "key": "composure_regen",
+              "value": 1.5,
+              "text": "Nerven erholen sich 50 % schneller."
+            }
+          ]
+        },
+        "8": {
+          "name": "Totensprecher",
+          "desc": "Die Toten antworten dir. Und manchmal lassen sie Lebende vor Angst erstarren.",
+          "ingredients": {
+            "glockenstaub": 1,
+            "nebeltau": 1,
+            "silberstaub": 1
+          },
+          "skill": {
+            "id": "grabesstimme",
+            "name": "Grabesstimme",
+            "cost": 3,
+            "hits": 0,
+            "stun": true,
+            "composure": 10,
+            "desc": "Eine Stimme aus dem Grab. Der Gegner erstarrt und setzt eine Runde aus. Kostet 10 Nerven."
+          },
+          "passives": [
+            {
+              "key": "skill_composure",
+              "value": 0.5,
+              "text": "Fertigkeiten kosten nur halb so viele Nerven."
+            }
+          ]
+        },
+        "7": {
+          "name": "Seelenrufer",
+          "desc": "Du kannst ein Stück Lebenskraft aus einem Gegner ziehen und dir selbst einverleiben.",
+          "ingredients": {
+            "seufzerstein": 1,
+            "nebeltau": 1,
+            "silberstaub": 1,
+            "geisteressenz": 1
+          },
+          "skill": {
+            "id": "seelenzug",
+            "name": "Seelenzug",
+            "cost": 4,
+            "hits": 1,
+            "flat": 14,
+            "drain": 0.5,
+            "desc": "14 Schaden. Die Hälfte davon heilt dich."
+          },
+          "passives": [
+            {
+              "key": "vision_cost",
+              "value": 0.75,
+              "text": "Geistsicht kostet 25 % weniger Nerven."
+            }
+          ]
+        }
+      }
+    },
+    "kessel": {
+      "name": "Pfad des Kessels",
+      "short": "Kessel",
+      "color": "#9ad06a",
+      "lore": "In den Hinterzimmern der Apotheken braute man schon Mittel gegen den Nebelhusten, als die Stadt noch keinen Namen hatte. Der Pfad des Kessels lehrt: Nichts vergeht, alles verwandelt sich. Auch der, der braut.",
+      "principle": "Nichts vergeht, alles verwandelt sich.",
+      "digest_hint": "Tränke und Mittel am Braukessel herstellen, Heilmittel und Tinkturen benutzen.",
+      "digest": {
+        "brew": 22,
+        "use_item": 7,
+        "quest": 4
+      },
+      "seqs": {
+        "9": {
+          "name": "Kräutermischer",
+          "desc": "Du spürst, welche Kräuter zusammenpassen. Heilmittel wirken bei dir stärker.",
+          "ingredients": {
+            "bitterwurz": 1,
+            "nebeltau": 1
+          },
+          "skill": {
+            "id": "wundsalbe",
+            "name": "Wundsalbe",
+            "cost": 2,
+            "hits": 0,
+            "heal": 14,
+            "desc": "Eine schnell aufgetragene Salbe. Heilt 14 Leben."
+          },
+          "passives": [
+            {
+              "key": "heal_bonus",
+              "value": 1.5,
+              "text": "Heilende Gegenstände wirken 50 % stärker."
+            }
+          ]
+        },
+        "8": {
+          "name": "Giftmischer",
+          "desc": "Was heilt, kann auch töten. Deine Tinkturen beruhigen zugleich die innere Unruhe.",
+          "ingredients": {
+            "kroetenschleim": 1,
+            "nebeltau": 1,
+            "silberstaub": 1
+          },
+          "skill": {
+            "id": "giftphiole",
+            "name": "Giftphiole",
+            "cost": 2,
+            "hits": 1,
+            "flat": 5,
+            "burn": [
+              4,
+              3
+            ],
+            "desc": "Eine geworfene Phiole. 5 Schaden, danach 3 Runden lang je 4 Giftschaden."
+          },
+          "passives": [
+            {
+              "key": "use_calm",
+              "value": 10,
+              "text": "Heilmittel senken die Unruhe um 10."
+            }
+          ]
+        },
+        "7": {
+          "name": "Tinkturmeister",
+          "desc": "Dein Blut ist halb Arznei. Du hältst mehr aus und findest schneller zur Ruhe.",
+          "ingredients": {
+            "schwarzbernstein": 1,
+            "nebeltau": 1,
+            "silberstaub": 1,
+            "geisteressenz": 1
+          },
+          "skill": {
+            "id": "aetzwolke",
+            "name": "Ätzende Wolke",
+            "cost": 4,
+            "hits": 1,
+            "flat": 10,
+            "burn": [
+              5,
+              3
+            ],
+            "weak": true,
+            "desc": "Eine Wolke aus Säure. 10 Schaden, 3 Runden je 5 Schaden, und die Rüstung des Gegners zerfrisst (Schwachstelle)."
+          },
+          "passives": [
+            {
+              "key": "max_hp",
+              "value": 5,
+              "text": "+5 Leben."
+            },
+            {
+              "key": "calm_decay",
+              "value": 1.5,
+              "text": "Unruhe klingt 50 % schneller ab."
+            }
+          ]
+        }
+      }
+    },
+    "eisen": {
+      "name": "Pfad des Eisens",
+      "short": "Eisen",
+      "color": "#a8b4c0",
+      "lore": "Die Hafenarbeiter nennen ihn den Ankertrunk: ein rostroter Sud, nach dem man Kisten trägt, die sonst drei Männer brauchen. Der Pfad des Eisens verlangt nur eins: dass du stehen bleibst, wenn andere fallen.",
+      "principle": "Stehe, wo andere fallen.",
+      "digest_hint": "Kämpfe gewinnen und gegnerische Schläge parieren.",
+      "digest": {
+        "combat_win": 24,
+        "parry": 3,
+        "quest": 4
+      },
+      "seqs": {
+        "9": {
+          "name": "Raufbold",
+          "desc": "Deine Knochen werden dichter, deine Fäuste schwerer.",
+          "ingredients": {
+            "eisenkraut": 1,
+            "nebeltau": 1
+          },
+          "skill": {
+            "id": "wuchtschlag",
+            "name": "Wuchtschlag",
+            "cost": 2,
+            "hits": 1,
+            "mult": 1.8,
+            "desc": "Ein Schlag mit dem ganzen Körper. 180 % Waffenschaden."
+          },
+          "passives": [
+            {
+              "key": "max_hp",
+              "value": 10,
+              "text": "+10 Leben."
+            }
+          ]
+        },
+        "8": {
+          "name": "Wachposten",
+          "desc": "Deine Haut wird hart wie gegerbtes Leder. Jede Parade gibt dir neue Kraft.",
+          "ingredients": {
+            "ochsenblut": 1,
+            "nebeltau": 1,
+            "silberstaub": 1
+          },
+          "skill": {
+            "id": "eisenhaut",
+            "name": "Eiserne Haut",
+            "cost": 2,
+            "hits": 0,
+            "shield": 16,
+            "desc": "Du spannst dich an. Die nächsten 16 Schaden prallen ab."
+          },
+          "passives": [
+            {
+              "key": "parry_ap",
+              "value": 1,
+              "text": "Paraden geben 1 Konzentration extra."
+            }
+          ]
+        },
+        "7": {
+          "name": "Klingenmeister",
+          "desc": "Jede Waffe in deiner Hand fühlt sich an, als wäre sie für dich geschmiedet.",
+          "ingredients": {
+            "sternschlacke": 1,
+            "nebeltau": 1,
+            "silberstaub": 1,
+            "geisteressenz": 1
+          },
+          "skill": {
+            "id": "klingenwirbel",
+            "name": "Klingenwirbel",
+            "cost": 4,
+            "hits": 3,
+            "mult": 0.9,
+            "desc": "Drei schnelle Schläge im Takt."
+          },
+          "passives": [
+            {
+              "key": "atk",
+              "value": 2,
+              "text": "+2 Angriff mit jeder Waffe."
+            }
+          ]
+        }
+      }
+    },
+    "schluessel": {
+      "name": "Pfad des Schlüssels",
+      "short": "Schlüssel",
+      "color": "#d0a050",
+      "lore": "Kein Schloss in Kettlegate hält ewig. Diebe, Schmuggler und Kanalratten erzählen sich von einem Trank, der Finger leicht und Schritte lautlos macht. Sein Grundsatz ist schlicht: Nimm, was man dir verwehrt.",
+      "principle": "Nimm, was man dir verwehrt.",
+      "digest_hint": "Gesperrte Akten und Verschlossenes öffnen, Beute und Belohnungen einstreichen, verborgene Spuren finden.",
+      "digest": {
+        "lock": 25,
+        "loot": 4,
+        "hidden_clue": 6,
+        "quest": 4
+      },
+      "seqs": {
+        "9": {
+          "name": "Fingerling",
+          "desc": "Münzen finden ihren Weg in deine Taschen. Du bekommst mehr Schilling für jede Belohnung.",
+          "ingredients": {
+            "kraehenfeder": 1,
+            "nebeltau": 1
+          },
+          "skill": {
+            "id": "hinterhalt",
+            "name": "Hinterhalt",
+            "cost": 1,
+            "hits": 1,
+            "mult": 1.3,
+            "desc": "Ein Stich aus dem toten Winkel. 130 % Waffenschaden für nur 1 Konzentration."
+          },
+          "passives": [
+            {
+              "key": "money_bonus",
+              "value": 1.25,
+              "text": "+25 % Schilling aus Belohnungen und Kämpfen."
+            }
+          ]
+        },
+        "8": {
+          "name": "Schlossflüsterer",
+          "desc": "Schlösser erzählen dir, wie sie aufgehen wollen. Gesperrte Akten öffnen sich dir früher.",
+          "ingredients": {
+            "schattenpilz": 1,
+            "nebeltau": 1,
+            "silberstaub": 1
+          },
+          "skill": {
+            "id": "fallstrick",
+            "name": "Fallstrick",
+            "cost": 2,
+            "hits": 0,
+            "stun": true,
+            "desc": "Eine blitzschnell gelegte Falle. Der Gegner stolpert und setzt eine Runde aus."
+          },
+          "passives": [
+            {
+              "key": "lock_bonus",
+              "value": 15,
+              "text": "Gesperrte Schränke und Türen öffnen sich mit 15 Ansehen weniger."
+            }
+          ]
+        },
+        "7": {
+          "name": "Schattengänger",
+          "desc": "Schatten nehmen dich auf wie alte Freunde. Kein Kampf hält dich fest.",
+          "ingredients": {
+            "nachtfalterstaub": 1,
+            "nebeltau": 1,
+            "silberstaub": 1,
+            "geisteressenz": 1
+          },
+          "skill": {
+            "id": "schattenschritt",
+            "name": "Schattenschritt",
+            "cost": 4,
+            "hits": 2,
+            "mult": 1.1,
+            "evade": true,
+            "desc": "Zwei Stiche aus dem Schatten, dann bist du fort. Der nächste Angriff geht ins Leere."
+          },
+          "passives": [
+            {
+              "key": "always_flee",
+              "value": true,
+              "text": "Du kannst aus jedem Kampf fliehen."
+            }
+          ]
+        }
+      }
+    }
+  },
+  "items": {
+    "ruhetee": {
+      "name": "Ruhetee",
+      "kind": "consumable",
+      "calm": 30,
+      "composure": 15,
+      "desc": "Lindenblüten und ein Schuss Mohnsirup. Senkt die Unruhe um 30 und beruhigt die Nerven (+15)."
+    },
+    "nebeltau": {
+      "name": "Nebeltau",
+      "kind": "ingredient",
+      "price": 3,
+      "desc": "In Glasschalen über dem Kanal gesammelt. Grundlage jedes Tranks."
+    },
+    "silberstaub": {
+      "name": "Silberstaub",
+      "kind": "ingredient",
+      "price": 12,
+      "desc": "Fein gemahlenes Münzsilber. Bindet stärkere Tränke."
+    },
+    "gluehwurmasche": {
+      "name": "Glühwurmasche",
+      "kind": "ingredient",
+      "price": 10,
+      "desc": "Asche aus Laternenkolben. Glimmt noch nach Tagen."
+    },
+    "spinnenseide": {
+      "name": "Spinnenseide",
+      "kind": "ingredient",
+      "price": 10,
+      "desc": "Von Spinnen, die nur in Uhrtürmen weben."
+    },
+    "wachsbluete": {
+      "name": "Wachsblüte",
+      "kind": "ingredient",
+      "price": 10,
+      "desc": "Eine Blüte, die sich jeder Farbe anpasst, in deren Nähe sie liegt."
+    },
+    "grabmoos": {
+      "name": "Grabmoos",
+      "kind": "ingredient",
+      "price": 10,
+      "desc": "Wächst nur auf Gräbern, die niemand mehr besucht."
+    },
+    "bitterwurz": {
+      "name": "Bitterwurz",
+      "kind": "ingredient",
+      "price": 10,
+      "desc": "Eine knorrige Wurzel. Bitter wie alte Medizin."
+    },
+    "eisenkraut": {
+      "name": "Eisenkraut",
+      "kind": "ingredient",
+      "price": 10,
+      "desc": "Zähe Stängel, die zwischen Hafenpflaster wachsen."
+    },
+    "kraehenfeder": {
+      "name": "Krähenfeder",
+      "kind": "ingredient",
+      "price": 10,
+      "desc": "Von einer Krähe, die einen Ring gestohlen hat."
+    },
+    "leuchtmoos": {
+      "name": "Leuchtmoos",
+      "kind": "ingredient",
+      "price": 24,
+      "desc": "Moos aus den alten Gaskanälen. Leuchtet blassgelb."
+    },
+    "eulenfeder": {
+      "name": "Eulenfeder",
+      "kind": "ingredient",
+      "price": 24,
+      "desc": "Von einer Eule, die nie blinzelt."
+    },
+    "mondmohn": {
+      "name": "Mondmohn",
+      "kind": "ingredient",
+      "price": 24,
+      "desc": "Blüht nur bei Vollmond. Macht Gedanken weich."
+    },
+    "glockenstaub": {
+      "name": "Glockenstaub",
+      "kind": "ingredient",
+      "price": 24,
+      "desc": "Abrieb von einer Glocke, die Totengeläut schlug."
+    },
+    "kroetenschleim": {
+      "name": "Krötenschleim",
+      "kind": "ingredient",
+      "price": 24,
+      "desc": "Von einer Kanalkröte. Giftig, wenn man ihn falsch dosiert."
+    },
+    "ochsenblut": {
+      "name": "Ochsenblut",
+      "kind": "ingredient",
+      "price": 24,
+      "desc": "Getrocknet, in Wachspapier. Vom Schlachthof am Nordtor."
+    },
+    "schattenpilz": {
+      "name": "Schattenpilz",
+      "kind": "ingredient",
+      "price": 24,
+      "desc": "Wächst nur dort, wo nie Licht hinfällt."
+    },
+    "sternglas": {
+      "name": "Sternglas-Splitter",
+      "kind": "ingredient",
+      "price": 45,
+      "desc": "Glas aus einem Meteoritenkrater. Hält Licht fest."
+    },
+    "spiegelquecksilber": {
+      "name": "Spiegelquecksilber",
+      "kind": "ingredient",
+      "price": 45,
+      "desc": "Quecksilber, das Dinge spiegelt, die nicht im Raum sind."
+    },
+    "puppenglas": {
+      "name": "Puppenaugen",
+      "kind": "ingredient",
+      "price": 45,
+      "desc": "Glasaugen einer Puppe, die angeblich die Augen bewegt."
+    },
+    "seufzerstein": {
+      "name": "Seufzerstein",
+      "kind": "ingredient",
+      "price": 45,
+      "desc": "Ein Kiesel, der seufzt, wenn man ihn ans Ohr hält."
+    },
+    "schwarzbernstein": {
+      "name": "Schwarzer Bernstein",
+      "kind": "ingredient",
+      "price": 45,
+      "desc": "In ihm ist ein Tropfen eines uralten Tranks eingeschlossen."
+    },
+    "sternschlacke": {
+      "name": "Sternenschlacke",
+      "kind": "ingredient",
+      "price": 45,
+      "desc": "Schlacke aus der Schmelze von Meteoreisen."
+    },
+    "nachtfalterstaub": {
+      "name": "Nachtfalterstaub",
+      "kind": "ingredient",
+      "price": 45,
+      "desc": "Staub von Flügeln, die nie ein Lampenlicht berührt haben."
+    },
+    "geisteressenz": {
+      "name": "Geisteressenz",
+      "kind": "ingredient",
+      "price": 40,
+      "desc": "Ein Rest, der von einem besiegten okkulten Wesen bleibt. Kalt und leicht wie Atem."
+    }
+  }
+}

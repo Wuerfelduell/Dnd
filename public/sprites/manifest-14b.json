@@ -1,0 +1,385 @@
+{
+  "version": 1,
+  "batch": "14b",
+  "status": "exported; runtime integration pending",
+  "paletteMaxVisibleColors": 31,
+  "assets": [
+    {
+      "id": "battle_player",
+      "file": "battle/battle_player.png",
+      "width": 288,
+      "height": 432,
+      "transparent": true,
+      "frameWidth": 48,
+      "frameHeight": 48,
+      "columns": 6,
+      "facing": "right",
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "attack": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 10,
+          "repeat": 0
+        },
+        "shoot": {
+          "frames": [
+            12,
+            13,
+            14,
+            15,
+            16
+          ],
+          "frameRate": 10,
+          "repeat": 0
+        },
+        "dodge": {
+          "frames": [
+            18,
+            19,
+            20,
+            21
+          ],
+          "frameRate": 12,
+          "repeat": 0
+        },
+        "parry": {
+          "frames": [
+            24,
+            25,
+            26,
+            27
+          ],
+          "frameRate": 10,
+          "repeat": 0
+        },
+        "item": {
+          "frames": [
+            30,
+            31,
+            32,
+            33
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            36,
+            37,
+            38
+          ],
+          "frameRate": 10,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            42,
+            43,
+            44,
+            45
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "occult": {
+          "frames": [
+            48,
+            49,
+            50,
+            51,
+            52,
+            53
+          ],
+          "frameRate": 10,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "enemy_holt",
+      "file": "battle/enemy_holt.png",
+      "width": 288,
+      "height": 192,
+      "transparent": true,
+      "frameWidth": 48,
+      "frameHeight": 48,
+      "columns": 6,
+      "facing": "left",
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "attack": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            12,
+            13,
+            14
+          ],
+          "frameRate": 10,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            18,
+            19,
+            20,
+            21
+          ],
+          "frameRate": 7,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "enemy_nebelhund",
+      "file": "battle/enemy_nebelhund.png",
+      "width": 384,
+      "height": 320,
+      "transparent": true,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 6,
+      "facing": "left",
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "attack": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "special": {
+          "frames": [
+            12,
+            13,
+            14,
+            15,
+            16,
+            17
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            18,
+            19,
+            20
+          ],
+          "frameRate": 10,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            24,
+            25,
+            26,
+            27,
+            28,
+            29
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "enemy_aschewaechter",
+      "file": "battle/enemy_aschewaechter.png",
+      "width": 384,
+      "height": 320,
+      "transparent": true,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 6,
+      "facing": "left",
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "attack": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "special": {
+          "frames": [
+            12,
+            13,
+            14,
+            15,
+            16,
+            17
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            18,
+            19,
+            20
+          ],
+          "frameRate": 10,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            24,
+            25,
+            26,
+            27,
+            28,
+            29
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "bg_revier",
+      "file": "battle/bg_revier.png",
+      "width": 480,
+      "height": 270,
+      "transparent": false
+    },
+    {
+      "id": "bg_ashgrove",
+      "file": "battle/bg_ashgrove.png",
+      "width": 480,
+      "height": 270,
+      "transparent": false
+    },
+    {
+      "id": "bg_krypta",
+      "file": "battle/bg_krypta.png",
+      "width": 480,
+      "height": 270,
+      "transparent": false
+    },
+    {
+      "id": "items_14b",
+      "file": "items/14b_items.png",
+      "width": 64,
+      "height": 32,
+      "transparent": true,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 4
+    },
+    {
+      "id": "spazierstock",
+      "file": "items/spazierstock.png",
+      "width": 16,
+      "height": 16,
+      "transparent": true
+    },
+    {
+      "id": "schlagstock",
+      "file": "items/schlagstock.png",
+      "width": 16,
+      "height": 16,
+      "transparent": true
+    },
+    {
+      "id": "stockdegen",
+      "file": "items/stockdegen.png",
+      "width": 16,
+      "height": 16,
+      "transparent": true
+    },
+    {
+      "id": "verband",
+      "file": "items/verband.png",
+      "width": 16,
+      "height": 16,
+      "transparent": true
+    },
+    {
+      "id": "tonikum",
+      "file": "items/tonikum.png",
+      "width": 16,
+      "height": 16,
+      "transparent": true
+    },
+    {
+      "id": "riechsalz",
+      "file": "items/riechsalz.png",
+      "width": 16,
+      "height": 16,
+      "transparent": true
+    },
+    {
+      "id": "bannsalz",
+      "file": "items/bannsalz.png",
+      "width": 16,
+      "height": 16,
+      "transparent": true
+    }
+  ]
+}

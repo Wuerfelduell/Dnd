@@ -235,3 +235,52 @@ button.small { font-size: 0.8em; padding: 0.1em 0.5em; }
 .float.good { color: var(--occult); }
 .float.miss { color: var(--muted); }
 @keyframes floatUp { from { opacity: 1; margin-top: 0; } 70% { opacity: 1; } to { opacity: 0; margin-top: -2.5em; } }
+
+/* --- Pfade, Händler, Kessel -------------------------------------------------- */
+.meter.unruhe .ufill, .ufill { height: 100%; background: #8a5ac8; transition: width 0.25s linear; }
+.ufill.low { background: #d04a8a; animation: pulse 1s infinite alternate; }
+.dfill { height: 100%; background: var(--gold); }
+@keyframes pulse { from { opacity: 0.6; } to { opacity: 1; } }
+.money { margin-top: 0.3em; font-size: 0.8em; color: var(--gold); }
+.notebook .lead { color: var(--ink); font-size: 0.85em; margin: 0.3em 0 0.6em; }
+.notebook .paths li, .notebook .seqs li { font-size: 0.85em; padding: 0.3em 0.5em; border: 0.125em solid #2a2630; }
+.notebook .seqs li.locked { opacity: 0.55; }
+.notebook .pathhead { font-size: 1.05em; margin-bottom: 0.4em; }
+.notebook .meters2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1em; }
+.notebook .meters2 .bar { flex: 1; }
+.notebook .meters2 em { font-style: normal; color: var(--ink); }
+.notebook h4 { margin: 0.6em 0 0.3em; }
+.notebook .recipes li { display: flex; justify-content: space-between; align-items: center; gap: 1em; font-size: 0.85em; padding: 0.3em 0.5em; border: 0.125em solid #2a2630; }
+.notebook .good { color: #9ad06a; }
+.shoplist .lockedrow { opacity: 0.6; }
+.shop .purse { color: var(--gold); margin-right: auto; }
+.notebook .thread { color: var(--occult); }
+.layer:has(.shop), .layer:has(.brew) { align-items: center; background: rgba(4, 4, 8, 0.55); }
+
+/* Item-Icons (16x16 Pixel-Art) */
+.item-icon {
+  width: 16px;
+  height: 16px;
+  image-rendering: pixelated;
+  vertical-align: -3px;
+  margin-right: 5px;
+}
+.item-icon.big { width: 2em; height: 2em; float: left; margin: 0.1em 0.5em 0 0; }
+.notebook .items li > div:first-child, .notebook .recipes li > div:first-child { overflow: hidden; }
+.coin { width: 1em; height: 1em; image-rendering: pixelated; vertical-align: -0.15em; margin-right: 0.3em; }
+
+/* Pfad-Embleme und -Karte (Paket A) */
+.emblem { width: 1.4em; height: 1.4em; image-rendering: pixelated; vertical-align: -0.35em; margin-right: 0.4em; }
+.notebook .paths .emblem { width: 2em; height: 2em; float: left; margin: 0.1em 0.5em 0.2em 0; }
+.notebook .paths li { overflow: hidden; }
+.notebook .pathhead { display: flex; align-items: flex-end; gap: 0.8em; }
+.pathcard { position: relative; width: 6em; height: 8em; flex: none; }
+.pathcard img { width: 100%; height: 100%; image-rendering: pixelated; display: block; }
+/* Textfeld der Karte laut manifest-pfade.json: [8, 68, 80, 50] von 96x128 */
+.pathcard span { position: absolute; left: 8.3%; top: 53%; width: 83.3%; height: 39%; display: flex; flex-direction: column; justify-content: center;
+  text-align: center; font-size: 0.6em; line-height: 1.3; color: #2a2016 !important; }
+.notebook .recipes .ing { white-space: nowrap; }
+
+/* Icon-Atlanten aus Paket B (Fähigkeiten, Zustände) */
+.atlas-icon { display: inline-block; width: 16px; height: 16px; image-rendering: pixelated; vertical-align: -3px; margin-right: 5px; background-repeat: no-repeat; }
+.cb-status .atlas-icon { margin-right: 2px; }

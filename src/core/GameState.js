@@ -1,4 +1,5 @@
 // Reiner Spielzustand ohne Phaser-Abhängigkeit, damit er auch in Node-Tests läuft.
+import { pathwayMethods } from './Pathways.js';
 //
 // Begriffe:
 // - Hinweis (clue): eine einzelne Quelle, z. B. eine Spur oder eine Zeugenaussage.
@@ -14,7 +15,7 @@ export const COMPOSURE_MAX = 100;
 export const VISION_DRAIN_PER_SEC = 9;
 export const VISION_REGEN_PER_SEC = 6;
 export const LIKELY_SOURCES = 2;
-export const SAVE_VERSION = 3;
+export const SAVE_VERSION = 4;
 export const DEFAULT_HP = 40;
 
 export class GameState {
@@ -43,6 +44,7 @@ export class GameState {
     this.weapon = s.weapon ?? null;
     this.pendingCombat = null;
     for (const q of s.quests ?? []) this.quests[q] = 'active';
+    this.resetPathway();
   }
 
   // --- Events -------------------------------------------------------------
@@ -115,8 +117,13 @@ export class GameState {
     // Statuswechsel aller Informationen melden (auch indirekt widerlegte)
     for (const [f, old] of before) {
       const now = this.factStatus(f);
-      if (now !== old) this.emit('fact', { id: f, status: now, previous: old });
+      if (now !== old) {
+        this.emit('fact', { id: f, status: now, previous: old });
+        if (now === 'likely') this.act('fact_likely');
+        if (now === 'refuted') this.act('fact_refuted');
+      }
     }
+    this.act('clue');
     return true;
   }
 
@@ -130,7 +137,8 @@ export class GameState {
     if (this.hasConclusion(id)) return false;
     this.conclusions.push(id);
     this.emit('conclusion', id);
-    this.addHonor(d.honor ?? 2, `Schlussfolgerung: ${d.name}`);
+    this.addHonor((d.honor ?? 2) + (d.honor === 0 ? 0 : this.passive('conclusion_honor')), `Schlussfolgerung: ${d.name}`);
+    this.act('conclusion');
     return true;
   }
 
@@ -167,6 +175,8 @@ export class GameState {
 
   addHonor(delta, reason) {
     if (!delta) return;
+    if (delta < 0) delta = Math.round(delta * this.passive('honor_loss'));
+    if (!delta) return;
     const before = this.rank();
     this.honor = Math.max(0, Math.min(100, this.honor + delta));
     this.emit('honor', { delta, reason, value: this.honor });
@@ -199,6 +209,9 @@ export class GameState {
       none(o.hide_if_conclusions, (c) => this.hasConclusion(c)) &&
       none(o.hide_if_quests, (q) => this.quests[q] !== undefined) &&
       all(o.requires_items, (i) => this.itemCount(i) > 0) &&
+      (o.requires_money === undefined || this.money >= o.requires_money) &&
+      (o.requires_money_below === undefined || this.money < o.requires_money_below) &&
+      (o.requires_beyonder === undefined || this.isBeyonder() === o.requires_beyonder) &&
       none(o.hide_if_items, (i) => this.itemCount(i) > 0)
     );
   }
@@ -222,9 +235,11 @@ export class GameState {
     for (const [id, n] of Object.entries(e.gives_items ?? {})) this.addItem(id, n);
     for (const [id, n] of Object.entries(e.takes_items ?? {})) this.removeItem(id, n);
     if (e.heal) this.heal(e.heal === 'full' ? this.maxHp : e.heal);
+    if (e.gives_money) this.addMoney(e.gives_money, { loot: true, reason: e.honor_reason ?? '' });
+    if (e.takes_money) this.addMoney(-e.takes_money);
     if (e.ending) this.setEnding(e.ending);
     if (e.combat) this.startCombat(e.combat);
-    if (gained.length || e.sets_flags || e.start_quests || e.complete_quests || e.honor || e.gives_items || e.takes_items) this.emit('changed');
+    if (gained.length || e.sets_flags || e.start_quests || e.complete_quests || e.honor || e.gives_items || e.takes_items || e.gives_money || e.takes_money) this.emit('changed');
     return gained;
   }
 
@@ -248,6 +263,12 @@ export class GameState {
     this.quests[id] = status;
     this.emit('quest', { id, status });
     if (status === 'done' && q.reward) this.applyEffects(q.reward);
+    if (status === 'done') {
+      const money = q.reward?.gives_money === undefined ? this.content.market?.quest_money?.[q.kind] ?? 0 : 0;
+      if (money) this.addMoney(money, { loot: true, reason: q.title });
+      this.act('quest');
+      if (q.kind !== 'main') this.act('side_quest');
+    }
     return true;
   }
 
@@ -299,7 +320,9 @@ export class GameState {
   }
 
   weaponStats() {
-    return this.weapon ? this.item(this.weapon) : { name: 'Fäuste', atk: 3 };
+    const w = this.weapon ? this.item(this.weapon) : { name: 'Fäuste', atk: 3 };
+    const bonus = this.passive('atk');
+    return bonus ? { ...w, atk: w.atk + bonus } : w;
   }
 
   equip(id) {
@@ -333,14 +356,23 @@ export class GameState {
     const it = this.item(id);
     if (!it || it.kind !== 'consumable' || !this.itemCount(id)) return null;
     if (it.combat_only) return `${it.name} hilft nur im Kampf.`;
-    if (it.heal && this.hp >= this.maxHp && !it.composure) return 'Du bist unverletzt.';
-    if (it.composure && this.composure >= COMPOSURE_MAX && !it.heal) return 'Deine Nerven sind ruhig.';
+    if (it.heal && this.hp >= this.maxHp && !it.composure && !it.calm) return 'Du bist unverletzt.';
+    if (it.composure && this.composure >= COMPOSURE_MAX && !it.heal && !(it.calm && this.unruhe > 0)) return 'Deine Nerven sind ruhig.';
     this.removeItem(id);
-    const parts = [];
-    if (it.heal) parts.push(`+${this.heal(it.heal)} Leben`);
-    if (it.composure) { this.setComposure(this.composure + it.composure); parts.push(`+${it.composure} Nerven`); }
+    const parts = this.applyConsumable(it);
     this.emit('changed');
     return `${it.name}: ${parts.join(', ')}`;
+  }
+
+  /** Wirkung eines Verbrauchsguts (auch im Kampf). Gibt Textteile zurück. */
+  applyConsumable(it) {
+    const parts = [];
+    if (it.heal) parts.push(`+${this.heal(Math.round(it.heal * this.passive('heal_bonus')))} Leben`);
+    if (it.composure) { this.setComposure(this.composure + it.composure); parts.push(`+${it.composure} Nerven`); }
+    const calm = (it.calm ?? 0) + (it.heal ? this.passive('use_calm') : 0);
+    if (calm && this.unruhe > 0) { this.setUnruhe(this.unruhe - calm); parts.push(`-${calm} Unruhe`); }
+    this.act('use_item');
+    return parts;
   }
 
   /** Merkt einen Kampf vor. Die Oberfläche startet ihn, sobald das aktuelle Fenster zu ist. */
@@ -357,6 +389,7 @@ export class GameState {
     this.endings[end.case] = id;
     this.emit('ending', id);
     this.applyEffects({ ...end, ending: undefined, honor_reason: end.title });
+    if (end.honor > 0) this.addMoney(end.honor * 2, { loot: true, reason: end.title });
   }
 
   // --- Geistsicht & Nerven -------------------------------------------------------------
@@ -374,15 +407,18 @@ export class GameState {
   tick(dtSeconds) {
     const before = this.composure;
     if (this.spiritVision) {
-      this.composure = Math.max(0, this.composure - VISION_DRAIN_PER_SEC * dtSeconds);
+      this.composure = Math.max(0, this.composure - VISION_DRAIN_PER_SEC * this.passive('vision_cost') * dtSeconds);
       if (this.composure === 0) {
         this.setSpiritVision(false);
         this.emit('notice', 'Ein stechender Kopfschmerz reißt dich aus der Geistsicht.');
+        if (this.pathway) this.setUnruhe(this.unruhe + 15);
       }
     } else {
-      this.composure = Math.min(COMPOSURE_MAX, this.composure + VISION_REGEN_PER_SEC * dtSeconds);
+      const calmMind = this.unruhe >= 60 ? 0.5 : 1;
+      this.composure = Math.min(COMPOSURE_MAX, this.composure + VISION_REGEN_PER_SEC * this.passive('composure_regen') * calmMind * dtSeconds);
     }
     if (this.composure !== before) this.emit('composure', this.composure);
+    this.tickPathway(dtSeconds);
   }
 
   // --- Speichern -------------------------------------------------------------------------
@@ -400,11 +436,12 @@ export class GameState {
       hp: this.hp,
       inventory: this.inventory,
       weapon: this.weapon,
+      ...this.serializePathway(),
     };
   }
 
   load(data) {
-    if (!data || (data.v !== SAVE_VERSION && data.v !== 2)) return false;
+    if (!data || ![2, 3, SAVE_VERSION].includes(data.v)) return false;
     this.reset();
     this.map = data.map;
     this.spawn = null;
@@ -422,7 +459,11 @@ export class GameState {
       this.inventory = Object.fromEntries(Object.entries(data.inventory ?? {}).filter(([i, n]) => this.item(i) && n > 0));
       this.weapon = this.inventory[data.weapon] ? data.weapon : null;
     }
+    // Ab Version 4: Schilling, Pfad und Unruhe
+    if (data.v >= 4) this.loadPathway(data);
     if (!this.content.maps[this.map]) { this.map = this.content.start.map; this.position = null; }
     return true;
   }
 }
+
+Object.assign(GameState.prototype, pathwayMethods);

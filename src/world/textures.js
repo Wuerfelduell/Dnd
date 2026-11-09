@@ -21,6 +21,9 @@ export const TILE_KEYS = [
   'grass0', 'grass1', 'path', 'grave', 'openGrave', 'charred', 'rubble', 'deadTree',
   'stone', 'cryptTop', 'cryptFace', 'altar',
   'planks0', 'planks1', 'quay', 'crate', 'barrel',
+  // Nachtmarkt (Paket A); ohne PNG fallen sie auf die normalen Gegenstücke zurück
+  'nmArch', 'nmArchDrip',
+  'nmWall0', 'nmWall1', 'nmChalk', 'nmLedge', 'nmQuay', 'nmRail',
 ];
 export const TILE_INDEX = Object.fromEntries(TILE_KEYS.map((k, i) => [k, i]));
 export const SOLID_KEYS = [
@@ -28,6 +31,7 @@ export const SOLID_KEYS = [
   'wallTop', 'wallFace', 'wallDoor', 'desk', 'shelf', 'bars',
   'grave', 'openGrave', 'rubble', 'deadTree', 'cryptTop', 'cryptFace', 'altar',
   'quay', 'crate', 'barrel',
+  'nmArch', 'nmArchDrip', 'nmWall0', 'nmWall1', 'nmChalk', 'nmLedge', 'nmQuay', 'nmRail',
 ];
 
 /** Deterministischer Hash für Variationen pro Tile. */
@@ -340,6 +344,8 @@ const TILE_PAINTERS = {
   charred: drawCharred, rubble: drawRubble, deadTree: drawDeadTree,
   stone: drawStone, cryptTop: drawCryptTop, cryptFace: drawCryptFace, altar: drawAltar,
   planks0: (p) => drawPlanks(p, 0), planks1: (p) => drawPlanks(p, 2), quay: drawQuay, crate: drawCrate, barrel: drawBarrel,
+  nmArch: drawBrick, nmArchDrip: drawBrick, nmWall0: drawBrick, nmWall1: drawBrick, nmChalk: drawBrick, nmLedge: drawWindow,
+  nmQuay: drawQuay, nmRail: drawFence,
 };
 
 // --- Figuren ---------------------------------------------------------------
@@ -508,6 +514,10 @@ const PROPS = {
   stairs: [16, 16, (p) => {
     for (let i = 0; i < 4; i++) { p(1 + i, 2 + i * 3, 14 - i * 2, 3, i % 2 ? '#2a2a32' : '#3a3a44'); }
     p(5, 13, 6, 3, '#0a0a0e');
+  }],
+  cauldron: [16, 16, (p) => {
+    p(3, 6, 10, 7, '#2a2a30'); p(2, 6, 12, 2, '#3a3a44'); p(4, 13, 2, 2, '#1a1a20'); p(10, 13, 2, 2, '#1a1a20');
+    p(4, 6, 8, 1, '#7ad06a'); p(6, 3, 2, 2, '#9ae07a'); p(9, 1, 2, 2, '#7ad06a'); p(5, 14, 6, 2, '#e07a30');
   }],
   candle: [16, 16, (p) => {
     p(6, 7, 4, 7, '#d8d0bc'); p(6, 7, 1, 7, '#efe8d6'); p(7, 4, 2, 3, '#ffd890'); p(7, 3, 1, 1, '#fff2c8'); p(5, 14, 6, 1, '#4a4440');

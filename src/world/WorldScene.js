@@ -1,7 +1,7 @@
 import Phaser from 'phaser';
 import { createTextures, createCharacterSheet, hash2, TILE, TILE_INDEX, SOLID_KEYS } from './textures.js';
 import { Lighting, DEPTH } from './Lighting.js';
-import { preloadSprites } from './assets.js';
+import { preloadSprites, playSheetAnim } from './assets.js';
 
 export const VIEW_W = 480;
 export const VIEW_H = 270;
@@ -14,11 +14,28 @@ export const PLAYER_PALETTE = {
   coat: '#6a5a48', hat: '#2e2a26', skin: '#e0b894', hair: '#3a2a20', legs: '#2c2a30', scarf: '#7a3a3a',
 };
 
+/** Kartenthemen: ersetzen einzelne Zeichen durch eigene Tiles (Map-Feld "tiles"). */
+const THEMES = {
+  nachtmarkt(ch, at, v, x, y) {
+    switch (ch) {
+      case '#':
+        if ('#WB'.includes(at(0, 1) ?? '')) return hash2(x, y, 4) > 0.7 ? 'nmArchDrip' : 'nmArch';
+        return hash2(x, y, 6) > 0.8 ? 'nmChalk' : `nmWall${v(2, 2)}`;
+      case 'W': return 'nmLedge';
+      case 'Q': return 'nmQuay';
+      case 'f': return 'nmRail';
+      default: return null;
+    }
+  },
+};
+
 /** Wählt für ein Kartenzeichen den passenden Tile-Index (inkl. Variationen). */
-export function tileIndexFor(rows, x, y) {
+export function tileIndexFor(rows, x, y, theme = null) {
   const ch = rows[y][x];
   const at = (dx, dy) => rows[y + dy]?.[x + dx];
   const v = (n, seed) => Math.floor(hash2(x, y, seed) * n);
+  const themed = theme && THEMES[theme]?.(ch, at, v, x, y);
+  if (themed) return TILE_INDEX[themed];
   switch (ch) {
     case '.': return TILE_INDEX[`cobble${v(4, 0)}`];
     case 'L': case 'X': {
@@ -84,6 +101,9 @@ export class WorldScene extends Phaser.Scene {
     this.leaving = false;
     this.focus = null;
     this.pending = null;
+    this.playerBusy = false;
+    this.aura = null;
+    this.cracks = null;
 
     createTextures(this);
     this.buildMap();
@@ -112,7 +132,7 @@ export class WorldScene extends Phaser.Scene {
     const rows = this.mapDef.rows;
     this.mapW = rows[0].length * TILE;
     this.mapH = rows.length * TILE;
-    const data = rows.map((row, y) => [...row].map((_, x) => tileIndexFor(rows, x, y)));
+    const data = rows.map((row, y) => [...row].map((_, x) => tileIndexFor(rows, x, y, this.mapDef.tiles)));
     const map = this.make.tilemap({ data, tileWidth: TILE, tileHeight: TILE });
     const tileset = map.addTilesetImage('tiles', 'tiles', TILE, TILE, 0, 0);
     this.groundLayer = map.createLayer(0, tileset, 0, 0).setDepth(0);
@@ -175,7 +195,21 @@ export class WorldScene extends Phaser.Scene {
   buildObjects() {
     for (const def of this.mapDef.decor ?? []) {
       const [tx, ty] = def.tile;
-      const img = this.add.image(tx * TILE + 8, ty * TILE + 8, def.sprite).setDepth(def.depth ?? 50).setAlpha(def.alpha ?? 0.85);
+      if (!this.textures.exists(def.sprite)) continue; // nur PNG-Deko ohne Platzhalter
+      const [ox, oy] = def.offset ?? [0, 0];
+      const x = tx * TILE + 8 + ox;
+      const y = ty * TILE + 8 + oy;
+      const img = this.add.sprite(x, y, def.sprite, 0).setAlpha(def.alpha ?? 0.85);
+      if (def.origin) img.setOrigin(...def.origin);
+      // ysort: Tiefe nach Fußpunkt, damit Figuren davor oder dahinter stehen können
+      img.setDepth(def.ysort ? 100 + img.y + img.displayHeight * (1 - img.originY) : def.depth ?? 50);
+      if (this.anims.exists(def.sprite)) img.play({ key: def.sprite, startFrame: Math.floor(hash2(tx, ty, 1) * (img.texture.frameTotal - 1)) });
+      if (def.solid) this.addBlocker(x + (def.solid[2] ?? 0), y + (def.solid[3] ?? 0), def.solid[0], def.solid[1]);
+      if (def.light) {
+        const l = def.light;
+        this.lighting.add({ x: x + (l.dx ?? 0), y: y + (l.dy ?? 0), radius: l.radius ?? 50, intensity: l.intensity ?? 0.8,
+          color: Number.parseInt((l.color ?? '#ffb060').slice(1), 16), glowAlpha: l.glow ?? 0.25, flicker: l.flicker ?? 0.12 });
+      }
       if (def.hidden) this.hidden.push(img);
       this.registerVisibility(null, def, [img]);
     }
@@ -191,7 +225,12 @@ export class WorldScene extends Phaser.Scene {
         item.sprite = this.add.sprite(x, y + 7, `npc_${id}`, 0).setOrigin(0.5, 1).setDepth(100 + y + 7);
         item.parts.push(item.sprite);
       } else if (def.sprite) {
-        item.sprite = this.add.image(x, y, def.sprite).setDepth(50);
+        item.sprite = this.add.sprite(x, y, def.sprite).setDepth(50);
+        // Animiertes PNG (z. B. blubbernder Kessel); fehlt es, bleibt das Standbild
+        if (def.anim) {
+          item.idleAnim = def.anim;
+          playSheetAnim(item.sprite, ...def.anim);
+        }
         item.parts.push(item.sprite);
         if (item.hidden) this.hidden.push(item.sprite);
       }
@@ -303,6 +342,7 @@ export class WorldScene extends Phaser.Scene {
     this.input.keyboard.on('keydown-J', queue('notebook'));
     this.input.keyboard.on('keydown-TAB', queue('notebook'));
     this.input.keyboard.on('keydown-I', queue('inventory'));
+    this.input.keyboard.on('keydown-P', queue('pathway'));
   }
 
   bindState() {
@@ -319,7 +359,10 @@ export class WorldScene extends Phaser.Scene {
       s.on('changed', refresh),
       s.on('conclusion', refresh),
       s.on('quest', refresh),
+      s.on('ascend', ({ pathway }) => this.playDrinkFx(pathway)),
+      s.on('unruhe', () => this.updateCracks()),
     );
+    this.updateCracks();
     // Bereits bekannte Hinweise: kein Funkeln mehr
     for (const it of this.interactables) {
       if ((it.def.clue && s.hasClue(it.def.clue)) || (it.def.done_flag && s.flags.has(it.def.done_flag))) {
@@ -355,6 +398,7 @@ export class WorldScene extends Phaser.Scene {
     }
     this.visionOverlay.setVisible(on);
     this.setVisionFx(on);
+    this.updateAura();
     this.lighting.nightAlpha = on ? Math.max(0.5, this.baseNight - 0.1) : this.baseNight;
   }
 
@@ -391,6 +435,7 @@ export class WorldScene extends Phaser.Scene {
   }
 
   updateMovement(blocked) {
+    if (this.playerBusy) { this.player.setVelocity(0, 0); return; }
     const k = this.keys;
     let vx = 0;
     let vy = 0;
@@ -408,6 +453,52 @@ export class WorldScene extends Phaser.Scene {
       this.player.setFrame(DIRS.indexOf(this.facing) * 4);
     }
     this.player.setDepth(100 + this.player.y);
+    if (this.aura) {
+      this.aura.setPosition(this.player.x, this.player.y + 2);
+    }
+  }
+
+  // --- Paket A: Trank, Kessel, Aura, Kontrollrisse --------------------------------------
+
+  /** Trinkanimation und Aufstiegs-Funken (nach erfolgreichem Trank). */
+  playDrinkFx(pathway) {
+    const p = this.player;
+    const done = () => { this.playerBusy = false; p.setTexture('player', DIRS.indexOf(this.facing) * 4); this.updateAura(); };
+    if (playSheetAnim(p, 'player_drink', 'drink', done)) this.playerBusy = true;
+    else this.updateAura();
+    if (!this.textures.exists('potion_ascend')) return;
+    const fx = this.add.sprite(p.x, p.y - 12, 'potion_ascend').setDepth(p.depth + 1).setBlendMode(Phaser.BlendModes.ADD);
+    const color = this.state.content.pathways[pathway]?.color;
+    if (color) fx.setTint(Number.parseInt(color.slice(1), 16));
+    this.time.delayedCall(450, () => playSheetAnim(fx, 'potion_ascend', 'ascend', () => fx.destroy()) || fx.destroy());
+  }
+
+  /** Kessel-Animation nach dem Brauen (Erfolg oder Fehlschlag), danach wieder Blubbern. */
+  playBrewFx(ok) {
+    const k = this.interactables.find((it) => it.kind === 'brew' && it.idleAnim);
+    if (!k) return;
+    const back = () => playSheetAnim(k.sprite, ...k.idleAnim);
+    playSheetAnim(k.sprite, ok ? 'cauldron_success' : 'cauldron_fail', ok ? 'success' : 'fail', back);
+  }
+
+  /** Pfad-Aura um die Figur, sichtbar mit Geistsicht. */
+  updateAura() {
+    const pid = this.state.pathway?.id;
+    const show = pid && this.state.spiritVision && this.textures.exists('aura_pfade');
+    if (!show) { this.aura?.setVisible(false); return; }
+    if (!this.aura) this.aura = this.add.sprite(0, 0, 'aura_pfade').setOrigin(0.5, 1).setAlpha(0.7).setBlendMode(Phaser.BlendModes.ADD).setDepth(DEPTH.dark + 1); // über der Dunkelheit, wie ein Leuchten
+    if (this.aura.anims.currentAnim?.key !== `aura_pfade-${pid}`) playSheetAnim(this.aura, 'aura_pfade', pid);
+    this.aura.setVisible(true).setPosition(this.player.x, this.player.y + 2);
+  }
+
+  /** Risse am Bildrand, wenn die Unruhe hoch ist (ab 50). */
+  updateCracks() {
+    if (!this.textures.exists('control_cracks')) return;
+    const u = this.state.unruhe ?? 0;
+    const frame = u >= 90 ? 3 : u >= 80 ? 2 : u >= 65 ? 1 : u >= 50 ? 0 : -1;
+    if (frame < 0) { this.cracks?.setVisible(false); return; }
+    if (!this.cracks) this.cracks = this.add.image(0, 0, 'control_cracks', 0).setOrigin(0).setScrollFactor(0).setDepth(DEPTH.vision + 1).setAlpha(0.85);
+    this.cracks.setFrame(frame).setVisible(true);
   }
 
   updateFocus(blocked) {
@@ -443,11 +534,12 @@ export class WorldScene extends Phaser.Scene {
     else if (action === 'vision') this.state.setSpiritVision(!this.state.spiritVision);
     else if (action === 'notebook') this.ui.openNotebook();
     else if (action === 'inventory') this.ui.openNotebook('items');
+    else if (action === 'pathway') this.ui.openNotebook('pfad');
   }
 
   interact(it) {
     const def = it.def;
-    if (def.lock && !this.state.meets(def.lock)) {
+    if (def.lock && !this.state.meetsLock(def.lock)) {
       this.ui.showMessage(def.title ?? def.prompt, def.lock.text, { footer: def.lock.footer ?? '' });
       return;
     }
@@ -466,6 +558,9 @@ export class WorldScene extends Phaser.Scene {
       case 'travel':
         this.ui.openTravel(this.state.map);
         break;
+      case 'brew':
+        this.ui.openBrew();
+        break;
       case 'combat':
         this.startCombat(def.encounter);
         break;
@@ -482,11 +577,13 @@ export class WorldScene extends Phaser.Scene {
         const isNew = !def.done_flag || !this.state.flags.has(def.done_flag);
         this.ui.showMessage(def.title, def.text, { footer: def.footer ?? '' });
         if (isNew) this.state.applyEffects({ ...def.effects, sets_flags: [...(def.effects?.sets_flags ?? []), ...(def.done_flag ? [def.done_flag] : [])] });
+        if (isNew && def.lock && def.done_flag) this.state.act('lock');
         break;
       }
       default: { // 'clue'
         const clue = this.state.clue(def.clue);
         const isNew = this.state.addClue(def.clue);
+        if (isNew && it.hidden) this.state.act('hidden_clue');
         this.state.applyEffects(def.effects);
         this.ui.showClue(def.clue, isNew);
         if (!isNew && !clue) throw new Error(`Hinweis fehlt: ${def.clue}`);

@@ -1,0 +1,529 @@
+{
+  "id": "nachtmarkt",
+  "name": "Nachtmarkt unter der Krähenbrücke",
+  "ambient": {
+    "night": 0.78,
+    "fog": 0.35
+  },
+  "tiles": "nachtmarkt",
+  "rows": [
+    "##############################",
+    "#BB#W####W#BB####W###W####BB##",
+    ",,,,,,,,,,,,,,,,,,,,,,,,,,,,,,",
+    "..............................",
+    "..............................",
+    "..............................",
+    "..............................",
+    "..C...........................",
+    "..CV..............ffff........",
+    ",,,,,,L,,,,,,,,,,,,,,,,,L,,,,,",
+    "QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ",
+    "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~",
+    "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+  ],
+  "spawns": {
+    "default": [
+      1,
+      6
+    ]
+  },
+  "npcs": [
+    {
+      "id": "nell",
+      "tile": [
+        3,
+        3
+      ],
+      "facing": "down",
+      "reach": 40
+    },
+    {
+      "id": "kittering",
+      "tile": [
+        13,
+        3
+      ],
+      "facing": "down",
+      "reach": 40
+    },
+    {
+      "id": "gorse",
+      "tile": [
+        23,
+        3
+      ],
+      "facing": "down",
+      "reach": 40
+    },
+    {
+      "id": "sabeth",
+      "tile": [
+        11,
+        7
+      ],
+      "facing": "right"
+    },
+    {
+      "id": "grubenwirt",
+      "tile": [
+        22,
+        7
+      ],
+      "facing": "left"
+    }
+  ],
+  "interactables": [
+    {
+      "id": "exit",
+      "kind": "travel",
+      "tile": [
+        0,
+        6
+      ],
+      "prompt": "Stadtkarte öffnen",
+      "marker": false,
+      "reach": 20
+    },
+    {
+      "id": "kessel",
+      "kind": "brew",
+      "tile": [
+        7,
+        5
+      ],
+      "prompt": "Am Braukessel brauen",
+      "sprite": "cauldron",
+      "marker": false,
+      "solid": [
+        14,
+        10
+      ],
+      "title": "Gemeinschaftskessel",
+      "anim": [
+        "cauldron_bubble",
+        "bubble"
+      ]
+    },
+    {
+      "id": "aushang",
+      "kind": "read",
+      "tile": [
+        7,
+        2
+      ],
+      "prompt": "Aushang lesen",
+      "marker": false,
+      "title": "Zettel an der Brückenmauer",
+      "text": "REGELN DES NACHTMARKTS\n\n1. Was hier verkauft wird, gibt es oben nicht.\n2. Wer einen Trank trinkt, den er nicht verdaut hat, trägt die Folgen selbst.\n3. Wer die Kontrolle verliert, wird in den Kanal getragen. Schwimmen lernen empfohlen.\n\nDarunter, in anderer Handschrift: „Fragt Sabeth, bevor ihr irgendwas trinkt.“"
+    },
+    {
+      "id": "grube",
+      "kind": "dialogue",
+      "tile": [
+        19,
+        7
+      ],
+      "prompt": "Zur Kampfgrube",
+      "marker": false,
+      "title": "Kampfgrube",
+      "role": "Sägemehl und Wetten",
+      "dialogue": "brock"
+    }
+  ],
+  "decor": [
+    {
+      "sprite": "pit_floor",
+      "tile": [
+        19,
+        6
+      ],
+      "alpha": 1,
+      "offset": [
+        8,
+        0
+      ],
+      "depth": 1
+    },
+    {
+      "sprite": "herb_stall",
+      "tile": [
+        3,
+        2
+      ],
+      "alpha": 1,
+      "origin": [
+        0.5,
+        1
+      ],
+      "offset": [
+        0,
+        12
+      ],
+      "ysort": true,
+      "solid": [
+        44,
+        10,
+        0,
+        -6
+      ],
+      "light": {
+        "dy": -14,
+        "radius": 44,
+        "intensity": 0.6,
+        "color": "#d8b060"
+      }
+    },
+    {
+      "sprite": "formula_booth",
+      "tile": [
+        13,
+        2
+      ],
+      "alpha": 1,
+      "origin": [
+        0.5,
+        1
+      ],
+      "offset": [
+        0,
+        12
+      ],
+      "ysort": true,
+      "solid": [
+        28,
+        10,
+        0,
+        -6
+      ],
+      "light": {
+        "dy": -14,
+        "radius": 40,
+        "intensity": 0.6,
+        "color": "#c8b0e8"
+      }
+    },
+    {
+      "sprite": "pawn_table",
+      "tile": [
+        23,
+        2
+      ],
+      "alpha": 1,
+      "origin": [
+        0.5,
+        1
+      ],
+      "offset": [
+        0,
+        12
+      ],
+      "ysort": true,
+      "solid": [
+        44,
+        10,
+        0,
+        -6
+      ],
+      "light": {
+        "dy": -14,
+        "radius": 44,
+        "intensity": 0.6,
+        "color": "#d8b060"
+      }
+    },
+    {
+      "sprite": "fortune_corner",
+      "tile": [
+        10,
+        7
+      ],
+      "alpha": 1,
+      "origin": [
+        0.5,
+        1
+      ],
+      "offset": [
+        -4,
+        7
+      ],
+      "ysort": true,
+      "solid": [
+        26,
+        10,
+        0,
+        -5
+      ],
+      "light": {
+        "dy": -12,
+        "radius": 36,
+        "intensity": 0.6,
+        "color": "#e07a8a"
+      }
+    },
+    {
+      "sprite": "noticeboard",
+      "tile": [
+        7,
+        2
+      ],
+      "alpha": 1,
+      "origin": [
+        0.5,
+        1
+      ],
+      "offset": [
+        0,
+        4
+      ],
+      "ysort": true
+    },
+    {
+      "sprite": "crow_sign",
+      "tile": [
+        8,
+        1
+      ],
+      "alpha": 1,
+      "depth": 60
+    },
+    {
+      "sprite": "sleeping_crows",
+      "tile": [
+        20,
+        0
+      ],
+      "alpha": 1,
+      "offset": [
+        0,
+        9
+      ],
+      "depth": 60
+    },
+    {
+      "sprite": "market_lanterns",
+      "tile": [
+        8,
+        2
+      ],
+      "alpha": 1,
+      "offset": [
+        0,
+        -3
+      ],
+      "depth": 400,
+      "light": {
+        "dy": 2,
+        "radius": 60,
+        "intensity": 0.7,
+        "flicker": 0.08
+      }
+    },
+    {
+      "sprite": "market_lanterns",
+      "tile": [
+        18,
+        2
+      ],
+      "alpha": 1,
+      "offset": [
+        0,
+        -3
+      ],
+      "depth": 400,
+      "light": {
+        "dy": 2,
+        "radius": 60,
+        "intensity": 0.7,
+        "flicker": 0.08
+      }
+    },
+    {
+      "sprite": "market_lanterns",
+      "tile": [
+        28,
+        2
+      ],
+      "alpha": 1,
+      "offset": [
+        0,
+        -3
+      ],
+      "depth": 400,
+      "light": {
+        "dy": 2,
+        "radius": 60,
+        "intensity": 0.7,
+        "flicker": 0.08
+      }
+    },
+    {
+      "sprite": "brazier",
+      "tile": [
+        9,
+        5
+      ],
+      "alpha": 1,
+      "origin": [
+        0.5,
+        1
+      ],
+      "offset": [
+        0,
+        7
+      ],
+      "ysort": true,
+      "solid": [
+        8,
+        6,
+        0,
+        -3
+      ],
+      "light": {
+        "dy": -20,
+        "radius": 56,
+        "intensity": 0.9,
+        "flicker": 0.2
+      }
+    },
+    {
+      "sprite": "brazier",
+      "tile": [
+        17,
+        7
+      ],
+      "alpha": 1,
+      "origin": [
+        0.5,
+        1
+      ],
+      "offset": [
+        0,
+        7
+      ],
+      "ysort": true,
+      "solid": [
+        8,
+        6,
+        0,
+        -3
+      ],
+      "light": {
+        "dy": -20,
+        "radius": 56,
+        "intensity": 0.9,
+        "flicker": 0.2
+      }
+    },
+    {
+      "sprite": "brazier",
+      "tile": [
+        24,
+        6
+      ],
+      "alpha": 1,
+      "origin": [
+        0.5,
+        1
+      ],
+      "offset": [
+        0,
+        7
+      ],
+      "ysort": true,
+      "solid": [
+        8,
+        6,
+        0,
+        -3
+      ],
+      "light": {
+        "dy": -20,
+        "radius": 56,
+        "intensity": 0.9,
+        "flicker": 0.2
+      }
+    },
+    {
+      "sprite": "betting_board",
+      "tile": [
+        17,
+        5
+      ],
+      "alpha": 1,
+      "origin": [
+        0.5,
+        1
+      ],
+      "offset": [
+        0,
+        7
+      ],
+      "ysort": true,
+      "solid": [
+        12,
+        6,
+        0,
+        -3
+      ]
+    },
+    {
+      "sprite": "coin_barrel",
+      "tile": [
+        23,
+        8
+      ],
+      "alpha": 1,
+      "origin": [
+        0.5,
+        1
+      ],
+      "offset": [
+        0,
+        7
+      ],
+      "ysort": true,
+      "solid": [
+        12,
+        8,
+        0,
+        -4
+      ]
+    },
+    {
+      "sprite": "pit_bench",
+      "tile": [
+        15,
+        8
+      ],
+      "alpha": 1,
+      "origin": [
+        0.5,
+        1
+      ],
+      "offset": [
+        0,
+        7
+      ],
+      "ysort": true,
+      "solid": [
+        28,
+        6,
+        0,
+        -3
+      ]
+    }
+  ],
+  "lights": [
+    {
+      "tile": [
+        7,
+        5
+      ],
+      "radius": 40,
+      "intensity": 0.7,
+      "color": "#9ad06a",
+      "glow": 0.3,
+      "flicker": 0.15
+    }
+  ]
+}
