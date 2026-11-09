@@ -428,3 +428,8 @@ img.scene { display: block; width: 30em; height: 16.875em; margin: 0 auto 0.6em;
 .casewall { list-style: none; margin: 0.5em 0 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 0.4em; max-height: 14em; overflow-y: auto; }
 .casewall li { display: flex; gap: 0.5em; align-items: center; font-size: 0.85em; }
 .casewall img { width: 32px; height: auto; image-rendering: pixelated; }
+/* Artefakte: Vorteile grün, Nachteile rot */
+.arteffects { display: block; margin-top: 0.2em; }
+.arteffects .boon, .arteffects .curse { display: block; font-size: 0.9em; }
+.boon { color: #8fd07a; }
+.curse { color: #e07a6a; }

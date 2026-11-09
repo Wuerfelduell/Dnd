@@ -74,7 +74,8 @@ test('Kampf: jede Pfad-Fähigkeit hat Effekt und Icon wie im Manifest', () => {
   assert.deepEqual(STATUS_ICONS, kampfAsset('status_icons').icons);
   for (const p of Object.values(content.pathways)) {
     for (const sd of Object.values(p.seqs)) {
-      const id = sd.skill.id;
+      // Neue Fähigkeiten dürfen bis zur eigenen Grafik den Effekt einer anderen leihen (fx)
+      const id = sd.skill.fx ?? sd.skill.id;
       assert.ok(SKILL_FX[id], `Effekt fehlt: ${id}`);
       const fx = kampfAsset(`fx_${id}`);
       assert.equal(fx.frameWidth, SKILL_FX[id], `Framegröße ${id}`);

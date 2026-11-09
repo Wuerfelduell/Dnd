@@ -1,5 +1,6 @@
 // Reiner Spielzustand ohne Phaser-Abhängigkeit, damit er auch in Node-Tests läuft.
 import { pathwayMethods } from './Pathways.js';
+import { artifactMethods } from './Artifacts.js';
 //
 // Begriffe:
 // - Hinweis (clue): eine einzelne Quelle, z. B. eine Spur oder eine Zeugenaussage.
@@ -11,7 +12,7 @@ import { pathwayMethods } from './Pathways.js';
 // - Ansehen (honor): Ruf bei der Polizei. Höhere Ränge öffnen Akten und Gespräche.
 // - Leben (hp) und Inventar: Gegenstände heilen, beruhigen die Nerven oder helfen im Kampf.
 
-export const COMPOSURE_MAX = 100;
+export const COMPOSURE_MAX = 100; // Grundwert; der echte Höchstwert ist maxComposure() (wächst mit den Sequenzen)
 export const VISION_DRAIN_PER_SEC = 9;
 export const VISION_REGEN_PER_SEC = 6;
 export const LIKELY_SOURCES = 2;
@@ -348,6 +349,7 @@ export class GameState {
     this.inventory[id] -= n;
     if (this.inventory[id] <= 0) delete this.inventory[id];
     if (this.weapon === id && !this.inventory[id]) this.weapon = null;
+    if (!this.inventory[id] && this.item(id)?.kind === 'artifact') this.dropArtifactIfGone(id);
     this.emit('item', { id, delta: -n });
     return true;
   }
@@ -413,7 +415,9 @@ export class GameState {
     return this.hp - before;
   }
 
+  /** Schaden am Spieler. Artefakte und Passive verändern ihn (damage_taken). */
   damage(n) {
+    if (n > 0) n = Math.max(1, Math.round(n * this.passive('damage_taken')));
     const before = this.hp;
     this.hp = Math.max(0, this.hp - n);
     if (this.hp !== before) this.emit('hp', { value: this.hp, delta: this.hp - before });
@@ -421,7 +425,7 @@ export class GameState {
   }
 
   setComposure(v) {
-    this.composure = Math.max(0, Math.min(COMPOSURE_MAX, v));
+    this.composure = Math.max(0, Math.min(this.maxComposure(), v));
     this.emit('composure', this.composure);
   }
 
@@ -431,7 +435,7 @@ export class GameState {
     if (!it || it.kind !== 'consumable' || !this.itemCount(id)) return null;
     if (it.combat_only) return `${it.name} hilft nur im Kampf.`;
     if (it.heal && this.hp >= this.maxHp && !it.composure && !it.calm) return 'Du bist unverletzt.';
-    if (it.composure && this.composure >= COMPOSURE_MAX && !it.heal && !(it.calm && this.unruhe > 0)) return 'Deine Nerven sind ruhig.';
+    if (it.composure && this.composure >= this.maxComposure() && !it.heal && !(it.calm && this.unruhe > 0)) return 'Deine Nerven sind ruhig.';
     this.removeItem(id);
     const parts = this.applyConsumable(it);
     this.emit('changed');
@@ -489,7 +493,7 @@ export class GameState {
       }
     } else {
       const calmMind = this.unruhe >= 60 ? 0.5 : 1;
-      this.composure = Math.min(COMPOSURE_MAX, this.composure + VISION_REGEN_PER_SEC * this.passive('composure_regen') * calmMind * dtSeconds);
+      this.composure = Math.min(this.maxComposure(), this.composure + VISION_REGEN_PER_SEC * this.passive('composure_regen') * calmMind * dtSeconds);
     }
     if (this.composure !== before) this.emit('composure', this.composure);
     this.tickPathway(dtSeconds);
@@ -544,4 +548,4 @@ export class GameState {
   }
 }
 
-Object.assign(GameState.prototype, pathwayMethods);
+Object.assign(GameState.prototype, pathwayMethods, artifactMethods);
