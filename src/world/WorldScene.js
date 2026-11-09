@@ -227,6 +227,52 @@ const THEMES = {
       default: return null;
     }
   },
+  // Paket M (Fall 7/8): Kontor mit Kohlenkeller, Waisenhaus (rechts der Schlafsaal), Traumkeller
+  m_kontor(ch, at, v, x, y) {
+    const k = (g, seed = 0) => pickKey(themeKeys('m_kontor', g), x, y, seed);
+    const cellar = x >= 16;
+    switch (ch) {
+      case 'w': return k('floor');
+      case 's': return hash2(x, y, 71) > 0.88 ? k('wet', 1) : k('stone');
+      case 'C': return k('coal', 2);
+      case 'I': {
+        const below = at(0, 1);
+        const face = below !== undefined && !'IE'.includes(below);
+        if (cellar && x > 16) return face ? k('cellarFace', 3) : k('cellarTop', 3);
+        return face ? k('wallFace', 3) : k('wallTop', 4);
+      }
+      default: return THEMES.tavern(ch, at, v, x, y);
+    }
+  },
+  m_waisenhaus(ch, at, v, x, y) {
+    const k = (g, seed = 0) => pickKey(themeKeys('m_waisenhaus', g), x, y, seed);
+    const dorm = x >= 16;
+    switch (ch) {
+      case 'w': return dorm ? k('dorm') : k('floor');
+      case 'T': return dorm ? k('under', 1) : THEMES.tavern(ch, at, v, x, y); // Betten stehen als Deko darauf
+      case 'I': {
+        const below = at(0, 1);
+        if (below !== undefined && !'IE'.includes(below)) return k('wallFace', 2);
+        if (at(0, 2) !== undefined && !'IE'.includes(at(0, 2))) return hash2(x, y, 72) > 0.85 ? k('window', 3) : k('wallTop', 3);
+        return k('wallTop', 4);
+      }
+      default: return THEMES.tavern(ch, at, v, x, y);
+    }
+  },
+  m_traumkeller(ch, at, v, x, y) {
+    const k = (g, seed = 0) => pickKey(themeKeys('m_traumkeller', g), x, y, seed);
+    switch (ch) {
+      case 's': return hash2(x, y, 73) > 0.85 ? k('threads', 1) : k('floor');
+      case 'C': return k('dais', 2);
+      case 'I': {
+        const below = at(0, 1);
+        if (below !== undefined && !'IE'.includes(below)) return k('wallFace', 3);
+        if (at(0, 2) !== undefined && !'IE'.includes(at(0, 2))) return k('wallTop', 4);
+        return k('wallDark', 5);
+      }
+      default: return null;
+    }
+  },
   g_kraterwald(ch, at, v, x, y) {
     const k = (g, seed = 0) => pickKey(themeKeys('g_kraterwald', g), x, y, seed);
     switch (ch) {
