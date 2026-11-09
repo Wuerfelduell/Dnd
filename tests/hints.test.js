@@ -47,6 +47,18 @@ test('Tipps werden stufenweise konkreter: Vermutung, Fundort, Paar', () => {
   assert.match(caseHints(s, 'case_02', 1).lines[0], /Auflösung/);
 });
 
+test('Tipps nennen nur erreichbare Fundorte (Kit nur, wenn er Informant ist)', () => {
+  const s = stuckInCase2();
+  const where = () => caseHints(s, 'case_02', 2).lines.join(' ');
+  assert.ok(!where().includes('Kit'), 'Kit wurde nicht als Informant angeworben');
+  assert.match(where(), /Ivy Marsh/);
+  s.flags.add('kit_informant');
+  assert.match(where(), /Kit/);
+  // Nach Fall 2 (Hester gerettet) erzählt Ivy nichts mehr von der Nacht
+  s.flags.add('hester_saved');
+  assert.ok(!where().includes('Ivy'));
+});
+
 test('Ohne Informationen rät der Tipp zum Umhören, Fallen werden nicht empfohlen', () => {
   const s = new GameState(content);
   assert.match(caseHints(s, 'case_02', 1).lines[0], /fehlt noch eine Information/);
