@@ -7,7 +7,7 @@ import { questTarget } from '../src/core/Guide.js';
 import { L_ENEMIES, L_ITEMS, WANTED } from '../src/world/assets.js';
 
 const content = loadContent();
-const CITY = ['docks', 'altmarkt', 'nachtmarkt', 'ashgrove', 'nordtor'];
+const CITY = ['docks', 'altmarkt', 'ashgrove', 'nordtor'];
 
 /** Mitten im Spiel: Fälle 1 bis 4 gelöst, Dienstschlagstock, etwas Heilung. */
 function midgame() {
@@ -49,6 +49,10 @@ test('Stadtgegner stehen frei, weit weg von Eingängen und erscheinen erst mit d
   assert.ok(content.maps.docks.roamers.every((r) => !s.meets(r.visible_if)), 'Zu Spielbeginn ist die Stadt ruhig');
   s.flags.add('case_01_closed');
   assert.ok(content.maps.docks.roamers.some((r) => s.meets(r.visible_if)), 'Nach Fall 1 sind Schmuggler unterwegs');
+});
+
+test('Der Nachtmarkt ist sicher: dort streifen keine Gegner herum', () => {
+  assert.equal((content.maps.nachtmarkt.roamers ?? []).length, 0);
 });
 
 test('Balance: Geübte schaffen Stadtgegner mit dem Dienstschlagstock, Eliten und Kopfgeld-Ziele verlangen sauberes Timing', () => {
