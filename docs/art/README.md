@@ -970,3 +970,23 @@ Constable Dunn, Odile Crane und Ambrosius Quint erhalten jeweils ein Lauf-Sheet 
 Laufrichtungen: unten, links, rechts, oben; je 4 Phasen mit empfohlenen 7 fps. Emotionen: neutral, misstrauisch, erschrocken, leichtes Lächeln. Die Portrait-Hintergründe bleiben deckend. Laufbilder und Köpfe besitzen ausschließlich binäres Alpha. Alle neun PNGs verwenden dieselbe Palette mit 31 sichtbaren Farben plus transparentem Index.
 
 Manifest: `public/sprites/manifest-gebaeude.json`. Tatsächlich verwendete Prompts und Exportparameter: `docs/art/batch-gebaeude-generation.json`. Prüfung: `docs/art/batch-gebaeude-validation.json`. Die Köpfe sind Ausschnitte der neutralen Portraits. Laufbilder stehen auf der lokalen Grundlinie y=30, mit transparentem Zellrand. Keine Laufzeitintegration und keine Änderungen am Spielcode.
+
+## Batch S – Wexmoor: Monster, Einzelgänger, Zirkel und Beute
+
+111 PNGs für `wexmoor3`: zehn Monster mit Kampf- und Kartenanimationen, sieben Einzelgänger mit Laufen/Emotionen/Kampf/Notizbuchkopf, Salzwatt mit Glockenmutter, zwei Zirkelräume samt Gastgebern, acht Effektstreifen, 13 Bestiariumkarten, Zugleiste und Beziehungs-UI sowie zwölf Items in 16×16 und 32×32 mit zwei Atlanten.
+
+Manifest: `public/sprites/manifest-wexmoor3.json`. Prompts und Quellen-Hashes: `batch-wexmoor3-generation.json`. Alle Animationsindizes sind nullbasiert. Kampf-Sheets haben sechs Spalten, 64×64 für Monster, 48×48 für Einzelgänger und 96×96 für die Glockenmutter. Unbenutzte Frames sind transparent; die ersten beiden Frames beider Angriffe sind identisch. Einzelgänger beenden den Kampf mit `yields`. Die Glockenmutter hat sieben Reihen.
+
+Portraitreihenfolge gemäß Abschnitt 3 des Briefings: **neutral, friendly, hostile, shocked**. Kartenfiguren: unten, links, rechts, oben. Das Weißlicht belegt höchstens 16×16 innerhalb einer 32×32-Zelle. Props und UI verwenden ausdrücklich benannte `regions` und `regionAnimations`; diese Ausschnitte beim Laden verwenden. Die Reihenfolge der 20 Zugportraits steht im Feld `ids`. Die ersten vier Bodenvarianten jedes Tilesets haben gemeinsam angeglichene Kanten.
+
+Nachbearbeitung: Zellzuschnitte, Entfernung äußerer Generatorränder, gemeinsame Skalierung je Animationssheet, Nearest Neighbor, eine Palette mit maximal 32 sichtbaren Farben plus transparentem Index, binäres Alpha. Fremdlicht wird kalt-weiß indiziert; feindselige Augen erhalten die jeweilige Pfadfarbe. Kleine Köpfe und Itemgrößen sind aus den zugehörigen Generatorgrafiken abgeleitet. Die großen Generatororiginale sind nicht Teil der Laufzeitassets.
+
+```sh
+# Original-PNGs mit den Dateinamen aus dem Generierungsprotokoll:
+python docs/art/export-wexmoor3.py /pfad/zu/originalen
+python docs/art/verify-wexmoor3.py
+```
+
+Der Prüfbericht `validation-wexmoor3.json` kontrolliert Vollständigkeit, Maße, Palette, Alpha, Animationsreferenzen und Variation, Leerframes, Ausholpose, Grundlinie, Regionsgrenzen, Atlas-/Einzeldatei-Gleichheit und Portraitausschnitte. Grafikexport; Einbindung und Timing-Prüfung im laufenden Spiel erfolgen separat. Keine Spielcodeänderungen.
+
+Vorschauen: [Kämpfe 1](preview-wexmoor3-battle-1.png), [Kämpfe 2](preview-wexmoor3-battle-2.png), [Kämpfe 3](preview-wexmoor3-battle-3.png), [Figuren](preview-wexmoor3-figures.png), [Bestiarium](preview-wexmoor3-cards.png), [Welt, UI und Effekte](preview-wexmoor3-world-ui.png).
