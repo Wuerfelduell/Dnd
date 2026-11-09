@@ -1,0 +1,544 @@
+{
+  "batch": "wexmoor7",
+  "result": "pass",
+  "assets": 57,
+  "occupiedFrames": 371,
+  "visibleColors": 31,
+  "byKind": {
+    "walk": 11,
+    "portraits": 22,
+    "head": 11,
+    "extra": 9,
+    "battle": 2,
+    "prop": 2
+  },
+  "checks": [
+    "exact required file set and dimensions",
+    "indexed PNG",
+    "binary alpha",
+    "shared 32-color palette",
+    "occupied frames and empty battle padding",
+    "one pixel transparent cell margin",
+    "uniform baselines",
+    "distinct portrait expressions",
+    "distinct walk steps in each direction",
+    "valid animation frame references",
+    "two identical attack windup frames"
+  ],
+  "visualReview": "Contact sheets inspected: identities, directions, expressions, special poses, combat rows. Runtime integration remains separate.",
+  "files": [
+    {
+      "file": "characters/wxn_bestatterin_walk.png",
+      "size": [
+        64,
+        128
+      ],
+      "colors": 23,
+      "sha256": "3310db0a65ecba735208616f7c3ebc2c0776d325c5fa7d6cec1cbf8e7abe0902"
+    },
+    {
+      "file": "portraits/wxn_bestatterin_emotions.png",
+      "size": [
+        256,
+        64
+      ],
+      "colors": 24,
+      "sha256": "f591cdd95dc3ff88c2df763a5598188f4222297f5ade94ea2fc828506a31e621"
+    },
+    {
+      "file": "portraits/AK_wxn_bestatterin_emotions2.png",
+      "size": [
+        256,
+        64
+      ],
+      "colors": 24,
+      "sha256": "83f44f122c5de94d3c640972ec2d36b6d0fd7bb5a6181e303ce9bf99bd604f96"
+    },
+    {
+      "file": "ui/heads/wxn_bestatterin.png",
+      "size": [
+        24,
+        24
+      ],
+      "colors": 23,
+      "sha256": "344d5c58acdf1434df920a96bbaf3c5d0479b878ee7fc38583e8de701d1bc67c"
+    },
+    {
+      "file": "characters/wxn_bestatterin_extra.png",
+      "size": [
+        64,
+        32
+      ],
+      "colors": 24,
+      "sha256": "460ff672744f6ded5949f6ad36f38eeb19492c49a491ee87c20137c1da5598e7"
+    },
+    {
+      "file": "characters/wxn_lichtschreiber_walk.png",
+      "size": [
+        64,
+        128
+      ],
+      "colors": 22,
+      "sha256": "113153ebe0e50dcd0dbdde348df0d9dd9851f5ebc5e68d62778dc6ece6de2356"
+    },
+    {
+      "file": "portraits/wxn_lichtschreiber_emotions.png",
+      "size": [
+        256,
+        64
+      ],
+      "colors": 24,
+      "sha256": "1de41deb2aff896eeb652cec2f414ca80666ff51746e33ab46bc68a55b55d23a"
+    },
+    {
+      "file": "portraits/AK_wxn_lichtschreiber_emotions2.png",
+      "size": [
+        256,
+        64
+      ],
+      "colors": 23,
+      "sha256": "514fdd571fd8a933a42b026042abe9619188f682ce2c371558346bed2ee4f9f1"
+    },
+    {
+      "file": "ui/heads/wxn_lichtschreiber.png",
+      "size": [
+        24,
+        24
+      ],
+      "colors": 18,
+      "sha256": "ab27efa2b503e495555ff0aaeffc2235b47eb2efe3a8ad4adbaaa253df689a55"
+    },
+    {
+      "file": "characters/wxn_lichtschreiber_extra.png",
+      "size": [
+        96,
+        32
+      ],
+      "colors": 17,
+      "sha256": "a515c8b97d39ef46795ac5f630d61f2e3c8184781ece2ab9c16cf876a95d0a33"
+    },
+    {
+      "file": "characters/wxn_torfgraeber_walk.png",
+      "size": [
+        64,
+        128
+      ],
+      "colors": 30,
+      "sha256": "9ef47799fa28e00563e086417b5860e69796e21babfccfa10016ca8b157d924b"
+    },
+    {
+      "file": "portraits/wxn_torfgraeber_emotions.png",
+      "size": [
+        256,
+        64
+      ],
+      "colors": 25,
+      "sha256": "eb0f2d87957eb9fade25a9b11e3a84b35ce282dab7f9ca828507342999ca9ff6"
+    },
+    {
+      "file": "portraits/AK_wxn_torfgraeber_emotions2.png",
+      "size": [
+        256,
+        64
+      ],
+      "colors": 25,
+      "sha256": "84e6347049445ed0edcb4f7486b227497fba63ebc18f4baf97df26cab7071b9b"
+    },
+    {
+      "file": "ui/heads/wxn_torfgraeber.png",
+      "size": [
+        24,
+        24
+      ],
+      "colors": 22,
+      "sha256": "698735c955fa13f84022bd2f3b5ea65f89165386accd0e2b32941f3774482510"
+    },
+    {
+      "file": "characters/wxn_torfgraeber_extra.png",
+      "size": [
+        112,
+        32
+      ],
+      "colors": 25,
+      "sha256": "48da08323a6aa9d04051811c380d0261849e4322fc7b6ef85f4830999be303b1"
+    },
+    {
+      "file": "characters/wxn_apothekerin_walk.png",
+      "size": [
+        64,
+        128
+      ],
+      "colors": 22,
+      "sha256": "e801851f72badbc1047fb1fd20c46a1daabdb9001a4940a10b3828cc932ccbee"
+    },
+    {
+      "file": "portraits/wxn_apothekerin_emotions.png",
+      "size": [
+        256,
+        64
+      ],
+      "colors": 27,
+      "sha256": "97c0e450ea8c9d05655389bff514141f3983c981807cd9417a7cdea18ce17d77"
+    },
+    {
+      "file": "portraits/AK_wxn_apothekerin_emotions2.png",
+      "size": [
+        256,
+        64
+      ],
+      "colors": 26,
+      "sha256": "0fdb28518b5b61f621a930f9ff12998429e7ddd38103cd049dca9331075c4842"
+    },
+    {
+      "file": "ui/heads/wxn_apothekerin.png",
+      "size": [
+        24,
+        24
+      ],
+      "colors": 18,
+      "sha256": "6f753b3bdf4b01650db8d2639f1ada0742fb120da8e48e15e8e8d959476db928"
+    },
+    {
+      "file": "characters/wxn_apothekerin_extra.png",
+      "size": [
+        64,
+        32
+      ],
+      "colors": 18,
+      "sha256": "e8fad5251a099b405016f34e5286c96c749d581ae7346e18302e9671952c94cc"
+    },
+    {
+      "file": "characters/wxn_telegrafist_walk.png",
+      "size": [
+        64,
+        128
+      ],
+      "colors": 25,
+      "sha256": "5df1ce350c1687d1d851b3e264254fe956ed3738e9e6248ad5d022d1e0069306"
+    },
+    {
+      "file": "portraits/wxn_telegrafist_emotions.png",
+      "size": [
+        256,
+        64
+      ],
+      "colors": 25,
+      "sha256": "1163d7d58d08a0524379ce3f7b0f75d93bbc9a93f818f94003a8983d9f2104c5"
+    },
+    {
+      "file": "portraits/AK_wxn_telegrafist_emotions2.png",
+      "size": [
+        256,
+        64
+      ],
+      "colors": 24,
+      "sha256": "cb06fdb0ac9551e767314edd70274dc5b709885c8558007eb4e0df18bd56be0a"
+    },
+    {
+      "file": "ui/heads/wxn_telegrafist.png",
+      "size": [
+        24,
+        24
+      ],
+      "colors": 22,
+      "sha256": "d7b3281ad030c52309de70b2dbba450e1464f643d98a43043662497ec0fec9b6"
+    },
+    {
+      "file": "characters/wxn_telegrafist_extra.png",
+      "size": [
+        96,
+        32
+      ],
+      "colors": 24,
+      "sha256": "654cf42f9de8e60be43a2fec2f45de327e0e54621573d4c554892af87d0fe131"
+    },
+    {
+      "file": "characters/wxn_hafenmeisterin_walk.png",
+      "size": [
+        64,
+        128
+      ],
+      "colors": 30,
+      "sha256": "f421df6d77a38dd74dc8fa513848799f6ae072c4232b11bd078503edb4bd8f30"
+    },
+    {
+      "file": "portraits/wxn_hafenmeisterin_emotions.png",
+      "size": [
+        256,
+        64
+      ],
+      "colors": 28,
+      "sha256": "915f7bf4c4deb0f3c56727f0e029cbf40d71a3c00cc7fd42bf63d86723271637"
+    },
+    {
+      "file": "portraits/AK_wxn_hafenmeisterin_emotions2.png",
+      "size": [
+        256,
+        64
+      ],
+      "colors": 27,
+      "sha256": "800a7ab1b53b12135563b195b65260f8675bd33425258734c65e63ce5b5cfaf9"
+    },
+    {
+      "file": "ui/heads/wxn_hafenmeisterin.png",
+      "size": [
+        24,
+        24
+      ],
+      "colors": 26,
+      "sha256": "e16642797eaa7c8a23e566560d2b4885fb5710b49ad17e8b67a8d900920ee79d"
+    },
+    {
+      "file": "characters/wxn_hafenmeisterin_extra.png",
+      "size": [
+        48,
+        32
+      ],
+      "colors": 29,
+      "sha256": "7ebafe3675ec4e4e3409071f06641c3895fe05b2c7fc1af996595d0e89cb1c52"
+    },
+    {
+      "file": "characters/wxn_krabbe_walk.png",
+      "size": [
+        64,
+        128
+      ],
+      "colors": 23,
+      "sha256": "fcd5eaad72820ea8dbc9656dc1e2cf999453a724f831aeea62cd77a0664e0f97"
+    },
+    {
+      "file": "portraits/wxn_krabbe_emotions.png",
+      "size": [
+        256,
+        64
+      ],
+      "colors": 24,
+      "sha256": "19099fb7536cea17f804fa40177392142b0d103e81807d5712edba656f3cb77a"
+    },
+    {
+      "file": "portraits/AK_wxn_krabbe_emotions2.png",
+      "size": [
+        256,
+        64
+      ],
+      "colors": 24,
+      "sha256": "c597d282566ebedcdb73f9e7071dd006f5ac3e886553b44e615a0168e9ac25a8"
+    },
+    {
+      "file": "ui/heads/wxn_krabbe.png",
+      "size": [
+        24,
+        24
+      ],
+      "colors": 20,
+      "sha256": "345a9eec226769ddfbfbc5a4b85d03b9881f98b098a06112c8ed8df3872ce755"
+    },
+    {
+      "file": "characters/wxn_krabbe_extra.png",
+      "size": [
+        128,
+        32
+      ],
+      "colors": 23,
+      "sha256": "b3580057bfd6e2fb54eea6c9e2d63122d8dcad800f40b1428e6b89f637ac96fd"
+    },
+    {
+      "file": "characters/wxn_maler_walk.png",
+      "size": [
+        64,
+        128
+      ],
+      "colors": 22,
+      "sha256": "70bc60431d43e14b4f5affc015f798ac9007ffb2f57ff88afbf72dc59728a422"
+    },
+    {
+      "file": "portraits/wxn_maler_emotions.png",
+      "size": [
+        256,
+        64
+      ],
+      "colors": 25,
+      "sha256": "ffbf21e4fad8f3fc9671fc79f8df65e8a2435a2197e5772c1559026c11fc7fa7"
+    },
+    {
+      "file": "portraits/AK_wxn_maler_emotions2.png",
+      "size": [
+        256,
+        64
+      ],
+      "colors": 25,
+      "sha256": "5f8583393309b181db9b78414ee0ee438210551ef1ad61ef5a36ca96a56d10ed"
+    },
+    {
+      "file": "ui/heads/wxn_maler.png",
+      "size": [
+        24,
+        24
+      ],
+      "colors": 19,
+      "sha256": "a56f489246c57c2881428da960180fa58cb53f728a363372d5a2c027ca75684e"
+    },
+    {
+      "file": "characters/wxn_maler_extra.png",
+      "size": [
+        64,
+        32
+      ],
+      "colors": 22,
+      "sha256": "968db843d0f748f529ea7104c58f2e52912cb2eb350882bdd025d0f5af77dfc6"
+    },
+    {
+      "file": "characters/tm_esse_walk.png",
+      "size": [
+        64,
+        128
+      ],
+      "colors": 26,
+      "sha256": "a6cb8209214e82589e01bd14e84ee063490149f8b06d56354e3cbf52be1de7c1"
+    },
+    {
+      "file": "portraits/tm_esse_emotions.png",
+      "size": [
+        256,
+        64
+      ],
+      "colors": 25,
+      "sha256": "755df35091a5cddd5a37d14fe298bb0967dcf09f16785f10e1dd14030eb0a93d"
+    },
+    {
+      "file": "portraits/AK_tm_esse_emotions2.png",
+      "size": [
+        256,
+        64
+      ],
+      "colors": 24,
+      "sha256": "b5242d3d2c6fcfe2ae08ea04331b0993c12c6680d1185e0210f26415bcf07983"
+    },
+    {
+      "file": "ui/heads/tm_esse.png",
+      "size": [
+        24,
+        24
+      ],
+      "colors": 15,
+      "sha256": "96a97f3083be44fbb705f19b8f8f63fe93462c4c7f9260befdd64deac273cd11"
+    },
+    {
+      "file": "characters/tm_kerbe_walk.png",
+      "size": [
+        64,
+        128
+      ],
+      "colors": 26,
+      "sha256": "0613451b642c8e6befe0b48f2dbea25b63a83ae57b30f484e749214bc543b397"
+    },
+    {
+      "file": "portraits/tm_kerbe_emotions.png",
+      "size": [
+        256,
+        64
+      ],
+      "colors": 27,
+      "sha256": "d9424a25ec93e0ccb4abd8256a2add4a852f8308a2efe46f340ee6f6312eaac9"
+    },
+    {
+      "file": "portraits/AK_tm_kerbe_emotions2.png",
+      "size": [
+        256,
+        64
+      ],
+      "colors": 27,
+      "sha256": "bcc61a8b9f34b306bfe5be2b2522b7ba8b94a2bb9415f5b377acad06b2b917d8"
+    },
+    {
+      "file": "ui/heads/tm_kerbe.png",
+      "size": [
+        24,
+        24
+      ],
+      "colors": 24,
+      "sha256": "eff66aa9d68ad4544125b2665623cecc8a3e796dff5edad96581ea69dc79adaf"
+    },
+    {
+      "file": "characters/tm_kerbe_extra.png",
+      "size": [
+        64,
+        32
+      ],
+      "colors": 25,
+      "sha256": "65ef69fc9faa5b5275d1fa00d359428f770eb0c609fffcd6813d456f73c0561b"
+    },
+    {
+      "file": "characters/tm_mulde_walk.png",
+      "size": [
+        64,
+        128
+      ],
+      "colors": 24,
+      "sha256": "09912d60a82d0e82582e2e23cf3851730fe94e2ffadf837a60bf981769a62590"
+    },
+    {
+      "file": "portraits/tm_mulde_emotions.png",
+      "size": [
+        256,
+        64
+      ],
+      "colors": 25,
+      "sha256": "1dfbcfd09b0626145dbae26cb3f7e188e77204eefa396d0b0e8376699f55ac5a"
+    },
+    {
+      "file": "portraits/AK_tm_mulde_emotions2.png",
+      "size": [
+        256,
+        64
+      ],
+      "colors": 27,
+      "sha256": "ade999f75fa8f44b58fb44ec20df5fa863df449fe83e976bcf597e26f6bff9d2"
+    },
+    {
+      "file": "ui/heads/tm_mulde.png",
+      "size": [
+        24,
+        24
+      ],
+      "colors": 21,
+      "sha256": "01fb7184e687e7416b3238a59318b4c82a77b9cdff8dec32b85fd10045a89a8f"
+    },
+    {
+      "file": "battle/enemy_wxn_maler.png",
+      "size": [
+        288,
+        240
+      ],
+      "colors": 27,
+      "sha256": "3f69ef2605df237b90c2ff20d6fa6fa8cc6c000e3a3b9a3fe79f21f5a3a3c8b0"
+    },
+    {
+      "file": "battle/enemy_gemalte_frau.png",
+      "size": [
+        384,
+        320
+      ],
+      "colors": 31,
+      "sha256": "d6296b2a5139288a51983a9cab450bb50ad60ea1672d023d1656ab1afc9df9e5"
+    },
+    {
+      "file": "props/AO_staffelei.png",
+      "size": [
+        32,
+        32
+      ],
+      "colors": 17,
+      "sha256": "95cde727bd2d7a9b22c45e88038165c7bb933c7a684530638d7a7207e30768a2"
+    },
+    {
+      "file": "props/AO_staffelei_portraet.png",
+      "size": [
+        32,
+        32
+      ],
+      "colors": 23,
+      "sha256": "67f1fac58916f75b0c1498983f46b012cc0cb67380002ab69ff493bc242c671b"
+    }
+  ]
+}

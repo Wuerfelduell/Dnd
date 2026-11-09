@@ -1,0 +1,1819 @@
+{
+  "version": 1,
+  "batch": "wexmoor7",
+  "status": "exported; runtime integration pending",
+  "paletteMaxVisibleColors": 32,
+  "palette": [
+    "#1a1c2c",
+    "#252b38",
+    "#303b49",
+    "#d0a050",
+    "#e8b860",
+    "#92745a",
+    "#58433c",
+    "#2d2629",
+    "#715648",
+    "#886332",
+    "#686850",
+    "#494b3a",
+    "#b3946e",
+    "#cfb18a",
+    "#f0ce80",
+    "#8b8870",
+    "#425360",
+    "#e0c9a1",
+    "#a8b4c0",
+    "#586c78",
+    "#71858b",
+    "#95a5a5",
+    "#eee2c5",
+    "#893e4e",
+    "#6fe0d0",
+    "#496b64",
+    "#334d47",
+    "#493d59",
+    "#665572",
+    "#877595",
+    "#835140",
+    "#a66c4d"
+  ],
+  "assets": [
+    {
+      "id": "wxn_bestatterin_walk",
+      "file": "characters/wxn_bestatterin_walk.png",
+      "kind": "walk",
+      "width": 64,
+      "height": 128,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "transparent": true,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        }
+      },
+      "gameId": "wxn_bestatterin",
+      "baseline": 30
+    },
+    {
+      "id": "wxn_bestatterin_emotions",
+      "file": "portraits/wxn_bestatterin_emotions.png",
+      "kind": "portraits",
+      "width": 256,
+      "height": 64,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 4,
+      "rows": 1,
+      "transparent": true,
+      "animations": {},
+      "gameId": "wxn_bestatterin",
+      "frameNames": [
+        "neutral",
+        "suspicious",
+        "shocked",
+        "smiling"
+      ]
+    },
+    {
+      "id": "AK_wxn_bestatterin_emotions2",
+      "file": "portraits/AK_wxn_bestatterin_emotions2.png",
+      "kind": "portraits",
+      "width": 256,
+      "height": 64,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 4,
+      "rows": 1,
+      "transparent": true,
+      "animations": {},
+      "gameId": "wxn_bestatterin",
+      "frameNames": [
+        "angry",
+        "sad",
+        "thoughtful",
+        "determined"
+      ]
+    },
+    {
+      "id": "wxn_bestatterin_head",
+      "file": "ui/heads/wxn_bestatterin.png",
+      "kind": "head",
+      "width": 24,
+      "height": 24,
+      "frameWidth": 24,
+      "frameHeight": 24,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "animations": {},
+      "gameId": "wxn_bestatterin",
+      "derivedFrom": "portraits/wxn_bestatterin_emotions.png",
+      "sourceRegion": {
+        "x": 10,
+        "y": 1,
+        "width": 44,
+        "height": 44
+      },
+      "inset": 1
+    },
+    {
+      "id": "wxn_bestatterin_extra",
+      "file": "characters/wxn_bestatterin_extra.png",
+      "kind": "extra",
+      "width": 64,
+      "height": 32,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 1,
+      "transparent": true,
+      "animations": {
+        "punt": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        }
+      },
+      "gameId": "wxn_bestatterin",
+      "baseline": 30
+    },
+    {
+      "id": "wxn_lichtschreiber_walk",
+      "file": "characters/wxn_lichtschreiber_walk.png",
+      "kind": "walk",
+      "width": 64,
+      "height": 128,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "transparent": true,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        }
+      },
+      "gameId": "wxn_lichtschreiber",
+      "baseline": 30
+    },
+    {
+      "id": "wxn_lichtschreiber_emotions",
+      "file": "portraits/wxn_lichtschreiber_emotions.png",
+      "kind": "portraits",
+      "width": 256,
+      "height": 64,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 4,
+      "rows": 1,
+      "transparent": true,
+      "animations": {},
+      "gameId": "wxn_lichtschreiber",
+      "frameNames": [
+        "neutral",
+        "suspicious",
+        "shocked",
+        "smiling"
+      ]
+    },
+    {
+      "id": "AK_wxn_lichtschreiber_emotions2",
+      "file": "portraits/AK_wxn_lichtschreiber_emotions2.png",
+      "kind": "portraits",
+      "width": 256,
+      "height": 64,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 4,
+      "rows": 1,
+      "transparent": true,
+      "animations": {},
+      "gameId": "wxn_lichtschreiber",
+      "frameNames": [
+        "angry",
+        "sad",
+        "thoughtful",
+        "determined"
+      ]
+    },
+    {
+      "id": "wxn_lichtschreiber_head",
+      "file": "ui/heads/wxn_lichtschreiber.png",
+      "kind": "head",
+      "width": 24,
+      "height": 24,
+      "frameWidth": 24,
+      "frameHeight": 24,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "animations": {},
+      "gameId": "wxn_lichtschreiber",
+      "derivedFrom": "portraits/wxn_lichtschreiber_emotions.png",
+      "sourceRegion": {
+        "x": 10,
+        "y": 1,
+        "width": 44,
+        "height": 44
+      },
+      "inset": 1
+    },
+    {
+      "id": "wxn_lichtschreiber_extra",
+      "file": "characters/wxn_lichtschreiber_extra.png",
+      "kind": "extra",
+      "width": 96,
+      "height": 32,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 6,
+      "rows": 1,
+      "transparent": true,
+      "animations": {
+        "write": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "hide": {
+          "frames": [
+            4,
+            5
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      },
+      "gameId": "wxn_lichtschreiber",
+      "baseline": 30
+    },
+    {
+      "id": "wxn_torfgraeber_walk",
+      "file": "characters/wxn_torfgraeber_walk.png",
+      "kind": "walk",
+      "width": 64,
+      "height": 128,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "transparent": true,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        }
+      },
+      "gameId": "wxn_torfgraeber",
+      "baseline": 30
+    },
+    {
+      "id": "wxn_torfgraeber_emotions",
+      "file": "portraits/wxn_torfgraeber_emotions.png",
+      "kind": "portraits",
+      "width": 256,
+      "height": 64,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 4,
+      "rows": 1,
+      "transparent": true,
+      "animations": {},
+      "gameId": "wxn_torfgraeber",
+      "frameNames": [
+        "neutral",
+        "suspicious",
+        "shocked",
+        "smiling"
+      ]
+    },
+    {
+      "id": "AK_wxn_torfgraeber_emotions2",
+      "file": "portraits/AK_wxn_torfgraeber_emotions2.png",
+      "kind": "portraits",
+      "width": 256,
+      "height": 64,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 4,
+      "rows": 1,
+      "transparent": true,
+      "animations": {},
+      "gameId": "wxn_torfgraeber",
+      "frameNames": [
+        "angry",
+        "sad",
+        "thoughtful",
+        "determined"
+      ]
+    },
+    {
+      "id": "wxn_torfgraeber_head",
+      "file": "ui/heads/wxn_torfgraeber.png",
+      "kind": "head",
+      "width": 24,
+      "height": 24,
+      "frameWidth": 24,
+      "frameHeight": 24,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "animations": {},
+      "gameId": "wxn_torfgraeber",
+      "derivedFrom": "portraits/wxn_torfgraeber_emotions.png",
+      "sourceRegion": {
+        "x": 10,
+        "y": 1,
+        "width": 44,
+        "height": 44
+      },
+      "inset": 1
+    },
+    {
+      "id": "wxn_torfgraeber_extra",
+      "file": "characters/wxn_torfgraeber_extra.png",
+      "kind": "extra",
+      "width": 112,
+      "height": 32,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 7,
+      "rows": 1,
+      "transparent": true,
+      "animations": {
+        "dig": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "light_pipe": {
+          "frames": [
+            4,
+            5,
+            6
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      },
+      "gameId": "wxn_torfgraeber",
+      "baseline": 30
+    },
+    {
+      "id": "wxn_apothekerin_walk",
+      "file": "characters/wxn_apothekerin_walk.png",
+      "kind": "walk",
+      "width": 64,
+      "height": 128,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "transparent": true,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        }
+      },
+      "gameId": "wxn_apothekerin",
+      "baseline": 30
+    },
+    {
+      "id": "wxn_apothekerin_emotions",
+      "file": "portraits/wxn_apothekerin_emotions.png",
+      "kind": "portraits",
+      "width": 256,
+      "height": 64,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 4,
+      "rows": 1,
+      "transparent": true,
+      "animations": {},
+      "gameId": "wxn_apothekerin",
+      "frameNames": [
+        "neutral",
+        "suspicious",
+        "shocked",
+        "smiling"
+      ]
+    },
+    {
+      "id": "AK_wxn_apothekerin_emotions2",
+      "file": "portraits/AK_wxn_apothekerin_emotions2.png",
+      "kind": "portraits",
+      "width": 256,
+      "height": 64,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 4,
+      "rows": 1,
+      "transparent": true,
+      "animations": {},
+      "gameId": "wxn_apothekerin",
+      "frameNames": [
+        "angry",
+        "sad",
+        "thoughtful",
+        "determined"
+      ]
+    },
+    {
+      "id": "wxn_apothekerin_head",
+      "file": "ui/heads/wxn_apothekerin.png",
+      "kind": "head",
+      "width": 24,
+      "height": 24,
+      "frameWidth": 24,
+      "frameHeight": 24,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "animations": {},
+      "gameId": "wxn_apothekerin",
+      "derivedFrom": "portraits/wxn_apothekerin_emotions.png",
+      "sourceRegion": {
+        "x": 10,
+        "y": 1,
+        "width": 44,
+        "height": 44
+      },
+      "inset": 1
+    },
+    {
+      "id": "wxn_apothekerin_extra",
+      "file": "characters/wxn_apothekerin_extra.png",
+      "kind": "extra",
+      "width": 64,
+      "height": 32,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 1,
+      "transparent": true,
+      "animations": {
+        "mix": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        }
+      },
+      "gameId": "wxn_apothekerin",
+      "baseline": 30
+    },
+    {
+      "id": "wxn_telegrafist_walk",
+      "file": "characters/wxn_telegrafist_walk.png",
+      "kind": "walk",
+      "width": 64,
+      "height": 128,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "transparent": true,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        }
+      },
+      "gameId": "wxn_telegrafist",
+      "baseline": 30
+    },
+    {
+      "id": "wxn_telegrafist_emotions",
+      "file": "portraits/wxn_telegrafist_emotions.png",
+      "kind": "portraits",
+      "width": 256,
+      "height": 64,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 4,
+      "rows": 1,
+      "transparent": true,
+      "animations": {},
+      "gameId": "wxn_telegrafist",
+      "frameNames": [
+        "neutral",
+        "suspicious",
+        "shocked",
+        "smiling"
+      ]
+    },
+    {
+      "id": "AK_wxn_telegrafist_emotions2",
+      "file": "portraits/AK_wxn_telegrafist_emotions2.png",
+      "kind": "portraits",
+      "width": 256,
+      "height": 64,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 4,
+      "rows": 1,
+      "transparent": true,
+      "animations": {},
+      "gameId": "wxn_telegrafist",
+      "frameNames": [
+        "angry",
+        "sad",
+        "thoughtful",
+        "determined"
+      ]
+    },
+    {
+      "id": "wxn_telegrafist_head",
+      "file": "ui/heads/wxn_telegrafist.png",
+      "kind": "head",
+      "width": 24,
+      "height": 24,
+      "frameWidth": 24,
+      "frameHeight": 24,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "animations": {},
+      "gameId": "wxn_telegrafist",
+      "derivedFrom": "portraits/wxn_telegrafist_emotions.png",
+      "sourceRegion": {
+        "x": 10,
+        "y": 1,
+        "width": 44,
+        "height": 44
+      },
+      "inset": 1
+    },
+    {
+      "id": "wxn_telegrafist_extra",
+      "file": "characters/wxn_telegrafist_extra.png",
+      "kind": "extra",
+      "width": 96,
+      "height": 32,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 6,
+      "rows": 1,
+      "transparent": true,
+      "animations": {
+        "morse": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "listen": {
+          "frames": [
+            4,
+            5
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        }
+      },
+      "gameId": "wxn_telegrafist",
+      "baseline": 30
+    },
+    {
+      "id": "wxn_hafenmeisterin_walk",
+      "file": "characters/wxn_hafenmeisterin_walk.png",
+      "kind": "walk",
+      "width": 64,
+      "height": 128,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "transparent": true,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        }
+      },
+      "gameId": "wxn_hafenmeisterin",
+      "baseline": 30
+    },
+    {
+      "id": "wxn_hafenmeisterin_emotions",
+      "file": "portraits/wxn_hafenmeisterin_emotions.png",
+      "kind": "portraits",
+      "width": 256,
+      "height": 64,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 4,
+      "rows": 1,
+      "transparent": true,
+      "animations": {},
+      "gameId": "wxn_hafenmeisterin",
+      "frameNames": [
+        "neutral",
+        "suspicious",
+        "shocked",
+        "smiling"
+      ]
+    },
+    {
+      "id": "AK_wxn_hafenmeisterin_emotions2",
+      "file": "portraits/AK_wxn_hafenmeisterin_emotions2.png",
+      "kind": "portraits",
+      "width": 256,
+      "height": 64,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 4,
+      "rows": 1,
+      "transparent": true,
+      "animations": {},
+      "gameId": "wxn_hafenmeisterin",
+      "frameNames": [
+        "angry",
+        "sad",
+        "thoughtful",
+        "determined"
+      ]
+    },
+    {
+      "id": "wxn_hafenmeisterin_head",
+      "file": "ui/heads/wxn_hafenmeisterin.png",
+      "kind": "head",
+      "width": 24,
+      "height": 24,
+      "frameWidth": 24,
+      "frameHeight": 24,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "animations": {},
+      "gameId": "wxn_hafenmeisterin",
+      "derivedFrom": "portraits/wxn_hafenmeisterin_emotions.png",
+      "sourceRegion": {
+        "x": 10,
+        "y": 1,
+        "width": 44,
+        "height": 44
+      },
+      "inset": 1
+    },
+    {
+      "id": "wxn_hafenmeisterin_extra",
+      "file": "characters/wxn_hafenmeisterin_extra.png",
+      "kind": "extra",
+      "width": 48,
+      "height": 32,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 3,
+      "rows": 1,
+      "transparent": true,
+      "animations": {
+        "telescope": {
+          "frames": [
+            0,
+            1,
+            2
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      },
+      "gameId": "wxn_hafenmeisterin",
+      "baseline": 30
+    },
+    {
+      "id": "wxn_krabbe_walk",
+      "file": "characters/wxn_krabbe_walk.png",
+      "kind": "walk",
+      "width": 64,
+      "height": 128,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "transparent": true,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        }
+      },
+      "gameId": "wxn_krabbe",
+      "baseline": 30
+    },
+    {
+      "id": "wxn_krabbe_emotions",
+      "file": "portraits/wxn_krabbe_emotions.png",
+      "kind": "portraits",
+      "width": 256,
+      "height": 64,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 4,
+      "rows": 1,
+      "transparent": true,
+      "animations": {},
+      "gameId": "wxn_krabbe",
+      "frameNames": [
+        "neutral",
+        "suspicious",
+        "shocked",
+        "smiling"
+      ]
+    },
+    {
+      "id": "AK_wxn_krabbe_emotions2",
+      "file": "portraits/AK_wxn_krabbe_emotions2.png",
+      "kind": "portraits",
+      "width": 256,
+      "height": 64,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 4,
+      "rows": 1,
+      "transparent": true,
+      "animations": {},
+      "gameId": "wxn_krabbe",
+      "frameNames": [
+        "angry",
+        "sad",
+        "thoughtful",
+        "determined"
+      ]
+    },
+    {
+      "id": "wxn_krabbe_head",
+      "file": "ui/heads/wxn_krabbe.png",
+      "kind": "head",
+      "width": 24,
+      "height": 24,
+      "frameWidth": 24,
+      "frameHeight": 24,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "animations": {},
+      "gameId": "wxn_krabbe",
+      "derivedFrom": "portraits/wxn_krabbe_emotions.png",
+      "sourceRegion": {
+        "x": 10,
+        "y": 1,
+        "width": 44,
+        "height": 44
+      },
+      "inset": 1
+    },
+    {
+      "id": "wxn_krabbe_extra",
+      "file": "characters/wxn_krabbe_extra.png",
+      "kind": "extra",
+      "width": 128,
+      "height": 32,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 8,
+      "rows": 1,
+      "transparent": true,
+      "animations": {
+        "rummage": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "run_away": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        }
+      },
+      "gameId": "wxn_krabbe",
+      "baseline": 30
+    },
+    {
+      "id": "wxn_maler_walk",
+      "file": "characters/wxn_maler_walk.png",
+      "kind": "walk",
+      "width": 64,
+      "height": 128,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "transparent": true,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        }
+      },
+      "gameId": "wxn_maler",
+      "baseline": 30
+    },
+    {
+      "id": "wxn_maler_emotions",
+      "file": "portraits/wxn_maler_emotions.png",
+      "kind": "portraits",
+      "width": 256,
+      "height": 64,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 4,
+      "rows": 1,
+      "transparent": true,
+      "animations": {},
+      "gameId": "wxn_maler",
+      "frameNames": [
+        "neutral",
+        "suspicious",
+        "shocked",
+        "smiling"
+      ]
+    },
+    {
+      "id": "AK_wxn_maler_emotions2",
+      "file": "portraits/AK_wxn_maler_emotions2.png",
+      "kind": "portraits",
+      "width": 256,
+      "height": 64,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 4,
+      "rows": 1,
+      "transparent": true,
+      "animations": {},
+      "gameId": "wxn_maler",
+      "frameNames": [
+        "angry",
+        "sad",
+        "thoughtful",
+        "determined"
+      ]
+    },
+    {
+      "id": "wxn_maler_head",
+      "file": "ui/heads/wxn_maler.png",
+      "kind": "head",
+      "width": 24,
+      "height": 24,
+      "frameWidth": 24,
+      "frameHeight": 24,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "animations": {},
+      "gameId": "wxn_maler",
+      "derivedFrom": "portraits/wxn_maler_emotions.png",
+      "sourceRegion": {
+        "x": 10,
+        "y": 1,
+        "width": 44,
+        "height": 44
+      },
+      "inset": 1
+    },
+    {
+      "id": "wxn_maler_extra",
+      "file": "characters/wxn_maler_extra.png",
+      "kind": "extra",
+      "width": 64,
+      "height": 32,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 1,
+      "transparent": true,
+      "animations": {
+        "paint": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        }
+      },
+      "gameId": "wxn_maler",
+      "baseline": 30
+    },
+    {
+      "id": "tm_esse_walk",
+      "file": "characters/tm_esse_walk.png",
+      "kind": "walk",
+      "width": 64,
+      "height": 128,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "transparent": true,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        }
+      },
+      "gameId": "tm_esse",
+      "baseline": 30
+    },
+    {
+      "id": "tm_esse_emotions",
+      "file": "portraits/tm_esse_emotions.png",
+      "kind": "portraits",
+      "width": 256,
+      "height": 64,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 4,
+      "rows": 1,
+      "transparent": true,
+      "animations": {},
+      "gameId": "tm_esse",
+      "frameNames": [
+        "neutral",
+        "suspicious",
+        "shocked",
+        "smiling"
+      ]
+    },
+    {
+      "id": "AK_tm_esse_emotions2",
+      "file": "portraits/AK_tm_esse_emotions2.png",
+      "kind": "portraits",
+      "width": 256,
+      "height": 64,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 4,
+      "rows": 1,
+      "transparent": true,
+      "animations": {},
+      "gameId": "tm_esse",
+      "frameNames": [
+        "angry",
+        "sad",
+        "thoughtful",
+        "determined"
+      ]
+    },
+    {
+      "id": "tm_esse_head",
+      "file": "ui/heads/tm_esse.png",
+      "kind": "head",
+      "width": 24,
+      "height": 24,
+      "frameWidth": 24,
+      "frameHeight": 24,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "animations": {},
+      "gameId": "tm_esse",
+      "derivedFrom": "portraits/tm_esse_emotions.png",
+      "sourceRegion": {
+        "x": 10,
+        "y": 1,
+        "width": 44,
+        "height": 44
+      },
+      "inset": 1
+    },
+    {
+      "id": "tm_kerbe_walk",
+      "file": "characters/tm_kerbe_walk.png",
+      "kind": "walk",
+      "width": 64,
+      "height": 128,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "transparent": true,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        }
+      },
+      "gameId": "tm_kerbe",
+      "baseline": 30
+    },
+    {
+      "id": "tm_kerbe_emotions",
+      "file": "portraits/tm_kerbe_emotions.png",
+      "kind": "portraits",
+      "width": 256,
+      "height": 64,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 4,
+      "rows": 1,
+      "transparent": true,
+      "animations": {},
+      "gameId": "tm_kerbe",
+      "frameNames": [
+        "neutral",
+        "suspicious",
+        "shocked",
+        "smiling"
+      ]
+    },
+    {
+      "id": "AK_tm_kerbe_emotions2",
+      "file": "portraits/AK_tm_kerbe_emotions2.png",
+      "kind": "portraits",
+      "width": 256,
+      "height": 64,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 4,
+      "rows": 1,
+      "transparent": true,
+      "animations": {},
+      "gameId": "tm_kerbe",
+      "frameNames": [
+        "angry",
+        "sad",
+        "thoughtful",
+        "determined"
+      ]
+    },
+    {
+      "id": "tm_kerbe_head",
+      "file": "ui/heads/tm_kerbe.png",
+      "kind": "head",
+      "width": 24,
+      "height": 24,
+      "frameWidth": 24,
+      "frameHeight": 24,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "animations": {},
+      "gameId": "tm_kerbe",
+      "derivedFrom": "portraits/tm_kerbe_emotions.png",
+      "sourceRegion": {
+        "x": 10,
+        "y": 1,
+        "width": 44,
+        "height": 44
+      },
+      "inset": 1
+    },
+    {
+      "id": "tm_kerbe_extra",
+      "file": "characters/tm_kerbe_extra.png",
+      "kind": "extra",
+      "width": 64,
+      "height": 32,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 1,
+      "transparent": true,
+      "animations": {
+        "carve": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        }
+      },
+      "gameId": "tm_kerbe",
+      "baseline": 30
+    },
+    {
+      "id": "tm_mulde_walk",
+      "file": "characters/tm_mulde_walk.png",
+      "kind": "walk",
+      "width": 64,
+      "height": 128,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "transparent": true,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 8,
+          "repeat": -1
+        }
+      },
+      "gameId": "tm_mulde",
+      "baseline": 30
+    },
+    {
+      "id": "tm_mulde_emotions",
+      "file": "portraits/tm_mulde_emotions.png",
+      "kind": "portraits",
+      "width": 256,
+      "height": 64,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 4,
+      "rows": 1,
+      "transparent": true,
+      "animations": {},
+      "gameId": "tm_mulde",
+      "frameNames": [
+        "neutral",
+        "suspicious",
+        "shocked",
+        "smiling"
+      ]
+    },
+    {
+      "id": "AK_tm_mulde_emotions2",
+      "file": "portraits/AK_tm_mulde_emotions2.png",
+      "kind": "portraits",
+      "width": 256,
+      "height": 64,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 4,
+      "rows": 1,
+      "transparent": true,
+      "animations": {},
+      "gameId": "tm_mulde",
+      "frameNames": [
+        "angry",
+        "sad",
+        "thoughtful",
+        "determined"
+      ]
+    },
+    {
+      "id": "tm_mulde_head",
+      "file": "ui/heads/tm_mulde.png",
+      "kind": "head",
+      "width": 24,
+      "height": 24,
+      "frameWidth": 24,
+      "frameHeight": 24,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "animations": {},
+      "gameId": "tm_mulde",
+      "derivedFrom": "portraits/tm_mulde_emotions.png",
+      "sourceRegion": {
+        "x": 10,
+        "y": 1,
+        "width": 44,
+        "height": 44
+      },
+      "inset": 1
+    },
+    {
+      "id": "enemy_wxn_maler",
+      "file": "battle/enemy_wxn_maler.png",
+      "kind": "battle",
+      "width": 288,
+      "height": 240,
+      "frameWidth": 48,
+      "frameHeight": 48,
+      "columns": 6,
+      "rows": 5,
+      "transparent": true,
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "brush_slash": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "paint_throw": {
+          "frames": [
+            12,
+            13,
+            14,
+            15,
+            16,
+            17
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            18,
+            19,
+            20
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            24,
+            25,
+            26,
+            27
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      },
+      "gameId": "wxn_maler",
+      "baseline": 46,
+      "facing": "left",
+      "occupiedCounts": [
+        4,
+        6,
+        6,
+        3,
+        4
+      ],
+      "heldRows": [
+        1,
+        2
+      ],
+      "windupFrames": {
+        "brush_slash": [
+          6,
+          7
+        ],
+        "paint_throw": [
+          12,
+          13
+        ]
+      }
+    },
+    {
+      "id": "enemy_gemalte_frau",
+      "file": "battle/enemy_gemalte_frau.png",
+      "kind": "battle",
+      "width": 384,
+      "height": 320,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 6,
+      "rows": 5,
+      "transparent": true,
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "emerge": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "attack": {
+          "frames": [
+            12,
+            13,
+            14,
+            15,
+            16,
+            17
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            18,
+            19,
+            20
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            24,
+            25,
+            26,
+            27,
+            28,
+            29
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      },
+      "gameId": "gemalte_frau",
+      "baseline": 62,
+      "facing": "left",
+      "occupiedCounts": [
+        4,
+        6,
+        6,
+        3,
+        6
+      ],
+      "heldRows": [
+        2
+      ],
+      "windupFrames": {
+        "attack": [
+          12,
+          13
+        ]
+      }
+    },
+    {
+      "id": "AO_staffelei",
+      "file": "props/AO_staffelei.png",
+      "kind": "prop",
+      "width": 32,
+      "height": 32,
+      "frameWidth": 32,
+      "frameHeight": 32,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "animations": {},
+      "frameNames": [
+        "blank"
+      ]
+    },
+    {
+      "id": "AO_staffelei_portraet",
+      "file": "props/AO_staffelei_portraet.png",
+      "kind": "prop",
+      "width": 32,
+      "height": 32,
+      "frameWidth": 32,
+      "frameHeight": 32,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "animations": {},
+      "frameNames": [
+        "painted"
+      ]
+    }
+  ]
+}
