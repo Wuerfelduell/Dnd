@@ -29,9 +29,10 @@ export function loadContent({ sequenzen = true, without = [] } = {}) {
     packs: PACKS.filter((name) => !without.includes(name)).map((name) => ({ name, ...Object.fromEntries(PACK_FILES.map((f) => [f, load(`packs/${name}/${f}.json`)])),
       ...(name === 'wx_nebenquests' ? { kahn_ausbau: load('packs/wx_nebenquests/kahn_ausbau.json') } : {}),
       ...(name === 'k2_akten' ? { faelle: load('packs/k2_akten/faelle.json'), zeitung: load('packs/k2_akten/zeitung.json') } : {}),
+      ...(name === 'k2_akte' ? { epiloge: load('packs/k2_akte/epiloge.json') } : {}),
       ...(name === 'k2_orte' ? Object.fromEntries(['artifacts', 'maps', 'travel', 'zone', 'pins'].map((f) => [f, load(`packs/k2_orte/${f}.json`)])) : {}),
       ...(name === 'k3_orte' ? Object.fromEntries(['maps', 'travel', 'zones', 'bosses', 'phasen', 'artifacts', 'city'].map((f) => [f, load(`packs/k3_orte/${f}.json`)])) : {}),
-      ...(name === 'k3_akte' ? { zeitung: load('packs/k3_akte/zeitung.json'), boss_texte: load('packs/k3_akte/boss_texte.json') } : {}),
+      ...(name === 'k3_akte' ? { zeitung: load('packs/k3_akte/zeitung.json'), boss_texte: load('packs/k3_akte/boss_texte.json'), epiloge: load('packs/k3_akte/epiloge.json') } : {}),
       // Kapitel 3: die Kernfächer der Hüter (pfadgefilterte Beute) gehören zu den Dialogen von AS
       ...(name === 'k3_orte' ? { dialogues: { ...load('packs/k3_orte/dialogues.json'), ...load('packs/k3_orte/beute_vorschlag.json') } } : {}),
       ...(name === 'k3_nebenquests' ? Object.fromEntries(['zeitung', 'gerede', 'bestiarium', 'lesestuecke'].map((f) => [f, load(`packs/k3_nebenquests/${f}.json`)])) : {}),
