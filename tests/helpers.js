@@ -21,6 +21,7 @@ export function loadContent() {
     buildings: load('gebaeude.json'),
     gatherings: load('treffen.json'),
     city: load('stadtgegner.json'),
+    wexmoor: load('wexmoor.json'),
   });
 }
 

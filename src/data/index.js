@@ -68,6 +68,7 @@ import dFall78 from './dialogues/fall78.json';
 import dFall9 from './dialogues/fall9.json';
 import buildings from './gebaeude.json';
 import gatherings from './treffen.json';
+import wexmoor from './wexmoor.json';
 
 export const content = buildContent({
   campaign,
@@ -85,4 +86,5 @@ export const content = buildContent({
   buildings,
   gatherings,
   city,
+  wexmoor,
 });

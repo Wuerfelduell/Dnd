@@ -290,6 +290,7 @@ export const MAP_MARKERS = {
   giesserei: 7, haus_vey: 1, resonanzkammer: 9, atelier: 4, ballsaal: 8, spiegelkabinett: 8, // Fall 5/6: Platzhalter
   treffen_waage: 6, treffen_kreide: 5, treffen_russ: 7, // Geheime Treffen: Platzhalter
   kontor_thorne: 4, waisenhaus: 1, traumkeller: 11, // Fall 7/8: Platzhalter
+  wx_bahnhof: 3, wx_torfstich: 3, // Kapitel 2 (Wexmoor): Platzhalter
 };
 export const MAP_MARKERS_URL = `${BASE}ui/C_08_map_markers.png`;
 /** Notizbuch: Status → Zelle in ui/C_07_log_markers.png. */

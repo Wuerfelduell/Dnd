@@ -320,6 +320,8 @@ button.small { font-size: 0.8em; padding: 0.1em 0.5em; }
 .citymap .pin:hover .tag, .citymap .pin.sel .tag, .citymap .pin.here .tag { opacity: 1; }
 .citymap .pin.here .tag { color: var(--occult); }
 .citymap .unpinned { position: absolute; right: 0.6em; top: 0.6em; display: grid; gap: 0.2em; }
+.citymap .map.plain { background: radial-gradient(ellipse at 50% 40%, #2a3328 0%, #141a14 60%, #0a0d0a 100%); }
+.citymap .map.plain .unpinned { left: 50%; right: auto; top: 45%; transform: translate(-50%, -50%); min-width: 22em; gap: 0.4em; }
 .citymap .mapbar { position: absolute; left: 0.5em; right: 0.5em; bottom: 0.4em; display: flex; gap: 0.6em; align-items: center;
   background: var(--panel); border: 0.125em solid var(--brass); padding: 0.15em 0.5em; }
 .citymap .mapbar .info { flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }

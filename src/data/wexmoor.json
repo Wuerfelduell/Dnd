@@ -1,0 +1,990 @@
+{
+  "city": {
+    "id": "wexmoor",
+    "title": "Stadtkarte von Wexmoor",
+    "map_image": null,
+    "fog_image": null
+  },
+  "case": {
+    "facts": {
+      "wx_expected": {
+        "case": "kapitel2",
+        "text": "Dein Steckbrief hing in Wexmoor schon, bevor dein Zug ankam. Jemand hier wusste, dass du kommst."
+      },
+      "wx_star_paper": {
+        "case": "kapitel2",
+        "text": "Der Wexmoorer Steckbrief ist auf Papier mit Sternwasserzeichen gedruckt, wie die anonymen Briefe in Kettlegate."
+      }
+    },
+    "clues": {
+      "wx_steckbrief": {
+        "fact": "wx_star_paper",
+        "source": "Eigene Beobachtung",
+        "name": "Gesucht in Wexmoor",
+        "text": "GESUCHT. Darunter dein Gesicht, gut getroffen, und ein falscher Name. „Mörder und Dieb aus Kettlegate. Belohnung beim Wachhaus Oberstadt.“\n\nGegen das Gaslicht gehalten zeigt das Papier ein Wasserzeichen: einen kleinen Stern."
+      },
+      "wx_zunder_poster": {
+        "fact": "wx_expected",
+        "source": "Zunder",
+        "name": "Zwei Tage zu früh",
+        "text": "„Die Zettel hängen seit Dienstag. Dein Zug kam heute. Entweder kannst du hellsehen, oder jemand anders kann es.“"
+      },
+      "wx_schleuse_poster": {
+        "fact": "wx_expected",
+        "source": "Schleusenwärter Abel Druce",
+        "name": "Frisch geklebt, aber alt",
+        "text": "„Die Grauspäher haben die Dinger Dienstagnacht geklebt. Hab mich noch gewundert. Kein Zug aus Kettlegate bis Freitag.“"
+      },
+      "wx_zunder_paper": {
+        "fact": "wx_star_paper",
+        "source": "Zunder",
+        "name": "Teures Papier",
+        "text": "Zunder reibt den Steckbrief zwischen den Fingern. „Das ist kein Wachhauspapier. Das ist Oberstadtpapier, mit Stern drin. So was kauft die Wache nicht.“"
+      }
+    },
+    "deductions": [
+      {
+        "id": "dk2_erwartet",
+        "case": "kapitel2",
+        "pairs": [
+          [
+            "wx_expected",
+            "wx_star_paper"
+          ]
+        ],
+        "name": "Erwartet",
+        "text": "Wer dir in Kettlegate die Briefe angehängt hat, hat dich auch hierher geschickt. Die Fahrkarte war kein Glück, sie war eine Einladung."
+      }
+    ]
+  },
+  "quests": {
+    "k2_akt1": {
+      "title": "Akt I: Ankunft im Moor",
+      "kind": "main",
+      "case": "kapitel2",
+      "summary": "Du bist auf der Flucht in Wexmoor angekommen. Dein Steckbrief hängt schon an den Wänden. Eine junge Frau aus der Rußgesellschaft will dir helfen.",
+      "steps": [
+        {
+          "text": "Sieh dich am Güterbahnhof um",
+          "done": {
+            "requires_any_clues": [
+              "wx_steckbrief"
+            ]
+          }
+        },
+        {
+          "text": "Sprich mit der Frau mit den rußigen Händen",
+          "done": {
+            "requires_flags": [
+              "k2_met_zunder"
+            ]
+          }
+        },
+        {
+          "text": "Folge Zunder zum Unterschlupf im Torfstich",
+          "done": {
+            "requires_flags": [
+              "k2_hideout"
+            ]
+          }
+        },
+        {
+          "text": "Finde heraus, wer wusste, dass du kommst",
+          "done": {
+            "requires_conclusions": [
+              "dk2_erwartet"
+            ]
+          }
+        },
+        {
+          "text": "Lerne die sechs Viertel von Wexmoor kennen (folgt bald)",
+          "done": {
+            "requires_flags": [
+              "k2_city_known"
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "npcs": {
+    "zunder": {
+      "name": "Juna „Zunder“ Fenn",
+      "role": "Rußgesellschaft Wexmoor",
+      "dialogue": "zunder",
+      "palette": {
+        "coat": "#4a3a2a",
+        "hat": "#2a2018",
+        "skin": "#e0b890",
+        "hair": "#c0582a",
+        "legs": "#2a2420",
+        "scarf": "#d08a30"
+      }
+    },
+    "druce": {
+      "name": "Abel Druce",
+      "role": "Schleusenwärter",
+      "dialogue": "druce",
+      "palette": {
+        "coat": "#3a4a52",
+        "hat": "#22303a",
+        "skin": "#d8b08a",
+        "hair": "#8a8a80",
+        "legs": "#22282e"
+      }
+    }
+  },
+  "travel": [
+    {
+      "map": "wx_bahnhof",
+      "spawn": "zug",
+      "name": "Zug nach Wexmoor",
+      "desc": "Kapitel 2. Mit der Fahrkarte über das Moor in eine fremde Stadt. Dort bist du ein Gesuchter.",
+      "requires_items": [
+        "fahrkarte_wexmoor"
+      ],
+      "hide_if_flags": [
+        "k2_arrived"
+      ],
+      "city": "kettlegate",
+      "direct": true
+    },
+    {
+      "map": "wx_bahnhof",
+      "spawn": "zug",
+      "name": "Nachtzug nach Wexmoor",
+      "desc": "Zurück in die Moorstadt, zu Zunder und deinem Unterschlupf.",
+      "requires_flags": [
+        "k2_arrived"
+      ],
+      "city": "kettlegate"
+    },
+    {
+      "map": "wx_bahnhof",
+      "spawn": "default",
+      "name": "Güterbahnhof & Schleusenviertel",
+      "desc": "Kohlenzüge, Lastkähne und die große Schleuse. Hier kommst du an.",
+      "requires_flags": [
+        "k2_arrived"
+      ],
+      "city": "wexmoor"
+    },
+    {
+      "map": "wx_torfstich",
+      "spawn": "default",
+      "name": "Torfstich am Moorrand",
+      "desc": "Torfstecher, versunkene Kähne und dein Unterschlupf. Keine Streife traut sich her.",
+      "requires_flags": [
+        "k2_met_zunder"
+      ],
+      "city": "wexmoor"
+    },
+    {
+      "map": "docks",
+      "spawn": "default",
+      "name": "Nachtzug nach Kettlegate",
+      "desc": "Zurück nach Kettlegate, wo Nebenaufträge und Kopfgelder warten. Auch dort sucht man dich.",
+      "requires_flags": [
+        "k2_hideout"
+      ],
+      "city": "wexmoor"
+    }
+  ],
+  "events": [
+    {
+      "id": "wx_reise_ruhig",
+      "city": "wexmoor",
+      "weight": 30,
+      "title": "Über die Stege",
+      "text": "Du nimmst die Bretterstege zwischen den Pfahlhäusern. Unter dir gluckst schwarzes Wasser, aber niemand folgt dir."
+    },
+    {
+      "id": "wx_reise_fund",
+      "city": "wexmoor",
+      "weight": 14,
+      "title": "Im Torf verloren",
+      "text": "Am Rand eines Stichgrabens ragt etwas aus dem Torf, das jemand verloren hat und das Moor noch nicht ganz verschluckt hat.",
+      "loot": "fund"
+    },
+    {
+      "id": "wx_reise_irrlicht",
+      "city": "wexmoor",
+      "weight": 12,
+      "title": "Ein Licht, das deinen Namen kennt",
+      "text": "Über dem Graben schwebt ein bleiches Licht. Es spricht mit deiner Stimme, und es weiß den Namen, den du hier nicht mehr benutzt.",
+      "encounter": "reise_irrlicht",
+      "loot": "monster_okkult"
+    },
+    {
+      "id": "wx_reise_raeuber",
+      "city": "wexmoor",
+      "weight": 10,
+      "title": "Kopfgeldjäger",
+      "text": "Ein Mann mit Torfspaten hält dir deinen eigenen Steckbrief vor die Nase. „Fünfzig Schilling. Das reicht für einen Winter.“",
+      "encounter": "reise_strassenraeuber",
+      "loot": "raeuber"
+    }
+  ],
+  "maps": [
+    {
+      "id": "wx_bahnhof",
+      "name": "Güterbahnhof Wexmoor",
+      "city": "wexmoor",
+      "facade": "fabrik",
+      "ambient": {
+        "night": 0.78,
+        "fog": 0.3
+      },
+      "rows": [
+        "RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR",
+        "#WW##D###WW##WW###D###WW##WW##D####WW###",
+        ",,,L,,,,,,,,,L,,,,,,,,,,,L,,,,,,,,,,L,,,",
+        "........................................",
+        "..CC......V..........CC.......V.....CC..",
+        "........................................",
+        "PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP",
+        "PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP",
+        "........................................",
+        "..L...........L............L............",
+        "QQQQQQQQQQQQQQPPPPQQQQQQQQQQQQQQQQQQQQQQ",
+        "~~~~~~~~~~~~~~====~~~~~~~~~~~~~~~~~~~~~~",
+        "~~~~~~~~~~~~~~====~~~~~~~~~~~~~~~~~~~~~~",
+        "QQQQQQQQQQQQQQPPPPQQQQQQQQQQQQQQQQQQQQQQ",
+        "........................................",
+        "..V..L........C.......L.........V...L...",
+        "........................................",
+        "ffffffffffffffffffffffffffffffffffffffff"
+      ],
+      "spawns": {
+        "default": [
+          1,
+          4
+        ],
+        "zug": [
+          20,
+          7
+        ]
+      },
+      "interactables": [
+        {
+          "id": "exit",
+          "kind": "travel",
+          "tile": [
+            0,
+            4
+          ],
+          "prompt": "Zur Stadtkarte von Wexmoor",
+          "marker": false,
+          "lock": {
+            "requires_flags": [
+              "k2_met_zunder"
+            ],
+            "text": "Am Ende des Bahnhofs stehen zwei Grauspäher mit Sturmlaternen und kontrollieren jeden, der hinaus will. Allein kommst du hier nicht raus.",
+            "footer": "Sprich zuerst mit der Frau am Bahnsteig."
+          }
+        },
+        {
+          "id": "ankunft",
+          "kind": "read",
+          "tile": [
+            20,
+            6
+          ],
+          "auto": 40,
+          "marker": false,
+          "prompt": "Umsehen",
+          "visible_if": {
+            "hide_if_flags": [
+              "k2_arrived"
+            ]
+          },
+          "title": "Kapitel 2: Die Moorstadt",
+          "text": "Der Zug hält mit einem langen Seufzer. Kein Bahnsteig aus Stein, nur Bretter auf Pfählen, und darunter das Glucksen von Wasser.\n\nWexmoor riecht nach Torfrauch und Salz. Über den Dächern, weit draußen im Moor, kreist das Licht eines Leuchtturms, obwohl hier kein Meer zu sehen ist.\n\nAn der Wand des Lagerhauses klebt ein frischer Zettel. Darauf ist ein Gesicht, das du jeden Morgen im Spiegel siehst.",
+          "footer": "Neuer Auftrag: Akt I – Ankunft im Moor",
+          "done_flag": "k2_arrived",
+          "effects": {
+            "start_quests": [
+              "k2_akt1"
+            ]
+          }
+        },
+        {
+          "id": "steckbrief",
+          "clue": "wx_steckbrief",
+          "tile": [
+            12,
+            2
+          ],
+          "sprite": "paper",
+          "prompt": "Den Steckbrief an der Wand lesen"
+        }
+      ],
+      "npcs": [
+        {
+          "id": "zunder",
+          "tile": [
+            30,
+            8
+          ],
+          "facing": "left",
+          "dialogue": "zunder_ankunft",
+          "visible_if": {
+            "hide_if_flags": [
+              "k2_met_zunder"
+            ]
+          }
+        },
+        {
+          "id": "druce",
+          "tile": [
+            19,
+            14
+          ],
+          "facing": "down"
+        }
+      ],
+      "decor": [
+        {
+          "sprite": "d_gaswerk_props_coal_cart",
+          "tile": [
+            7,
+            5
+          ],
+          "offset": [
+            0,
+            8
+          ],
+          "origin": [
+            0.5,
+            1
+          ],
+          "alpha": 1,
+          "ysort": true,
+          "solid": [
+            28,
+            8,
+            0,
+            -4
+          ]
+        },
+        {
+          "sprite": "d_gaswerk_props_coal_cart",
+          "tile": [
+            26,
+            5
+          ],
+          "offset": [
+            0,
+            8
+          ],
+          "origin": [
+            0.5,
+            1
+          ],
+          "alpha": 1,
+          "ysort": true,
+          "solid": [
+            28,
+            8,
+            0,
+            -4
+          ]
+        },
+        {
+          "sprite": "d_bruecken_narrowboat",
+          "tile": [
+            4,
+            11
+          ],
+          "offset": [
+            8,
+            0
+          ],
+          "alpha": 1,
+          "depth": 5
+        },
+        {
+          "sprite": "d_bruecken_narrowboat",
+          "tile": [
+            28,
+            12
+          ],
+          "offset": [
+            8,
+            0
+          ],
+          "alpha": 1,
+          "depth": 5
+        },
+        {
+          "sprite": "d_bruecken_winch",
+          "tile": [
+            13,
+            9
+          ],
+          "offset": [
+            0,
+            8
+          ],
+          "origin": [
+            0.5,
+            1
+          ],
+          "alpha": 1,
+          "ysort": true
+        },
+        {
+          "sprite": "d_bruecken_winch",
+          "tile": [
+            18,
+            9
+          ],
+          "offset": [
+            0,
+            8
+          ],
+          "origin": [
+            0.5,
+            1
+          ],
+          "alpha": 1,
+          "ysort": true
+        },
+        {
+          "sprite": "d_nordtor_props_salt_barrels",
+          "tile": [
+            33,
+            15
+          ],
+          "offset": [
+            0,
+            8
+          ],
+          "origin": [
+            0.5,
+            1
+          ],
+          "alpha": 1,
+          "ysort": true,
+          "solid": [
+            12,
+            8,
+            0,
+            -4
+          ]
+        }
+      ]
+    },
+    {
+      "id": "wx_torfstich",
+      "name": "Torfstich am Moorrand",
+      "city": "wexmoor",
+      "tiles": "g_marsch",
+      "ambient": {
+        "night": 0.72,
+        "fog": 0.4
+      },
+      "rows": [
+        "YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY",
+        "YgggYggggggrgggggYgggggg~~~~~~~~~~~~~~~Y",
+        "YggggggYgggggggggggggg~~~~~~~~~~~~~~~~~Y",
+        "YgrggggggggppppgggggYg~~~~~~~~~~~~~~~~~Y",
+        "Ygggggggggppppppggggg~~~~~~~~~~~~~~~~~~Y",
+        "YggYgggggpppggpppgggg~~~~~~~~~~~~~~~~~~Y",
+        "ggggggggppppgggppppppPPPPPPPPP~~~~~~~~~Y",
+        "pppppppppppggggggggg~~~~~~~~~P~~~~~~~~~Y",
+        "pppppppppppgggYggggg~~~~~~~~~P~~~~~~~~~Y",
+        "ggggggggpppgggggggg~~~~~~~~~~PPPPP~~~~~Y",
+        "YgggggggppppggggrYg~~~~~~~~~~~~~~P~~~~~Y",
+        "YggYgggggpppgggggggg~~~~~~~~~~~~~P~~~~~Y",
+        "YgggggggggppppgggYggg~~~~~~~~~~~~P~~~~~Y",
+        "YgrgggggggggpppgggggggY~~~~~~~~~~~~~~~~Y",
+        "YgggYgggggggggppppgggggg~~~~~~~~~~~~~~~Y",
+        "YggggggggrggggggppgggggYgg~~~~~~~~~~~~~Y",
+        "YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY"
+      ],
+      "spawns": {
+        "default": [
+          1,
+          7
+        ],
+        "wx_kahn": [
+          33,
+          11
+        ]
+      },
+      "lights": [
+        {
+          "tile": [
+            35,
+            4
+          ],
+          "radius": 40,
+          "intensity": 0.5,
+          "color": "#9ad070",
+          "glow": 0.25,
+          "flicker": 0.2
+        },
+        {
+          "tile": [
+            26,
+            13
+          ],
+          "radius": 34,
+          "intensity": 0.5,
+          "color": "#9ad070",
+          "glow": 0.25,
+          "flicker": 0.2
+        },
+        {
+          "tile": [
+            33,
+            12
+          ],
+          "radius": 50,
+          "intensity": 0.8,
+          "color": "#ffb060",
+          "glow": 0.3,
+          "flicker": 0.1
+        }
+      ],
+      "interactables": [
+        {
+          "id": "exit",
+          "kind": "travel",
+          "tile": [
+            0,
+            7
+          ],
+          "prompt": "Zur Stadtkarte von Wexmoor",
+          "marker": false
+        },
+        {
+          "id": "kahn",
+          "kind": "door",
+          "to": "wx_kahn",
+          "spawn": "default",
+          "tile": [
+            33,
+            12
+          ],
+          "prompt": "In den Torfkahn steigen (Unterschlupf)",
+          "marker": true,
+          "reach": 26
+        },
+        {
+          "id": "torfwand",
+          "kind": "read",
+          "tile": [
+            12,
+            13
+          ],
+          "prompt": "Den Stichgraben ansehen",
+          "marker": false,
+          "title": "Ein frischer Stichgraben",
+          "text": "Die Torfstecher schneiden hier lange, nasse Ziegel aus dem Moor. In der Wand des Grabens stecken Dinge, die nicht hineingehören: ein Schuh, ein Löffel, ein Bilderrahmen ohne Bild.\n\nZunder hat gesagt, das Moor nimmt sich alles, was zu lange stillsteht. Auch Namen."
+        }
+      ],
+      "decor": [
+        {
+          "sprite": "d_bruecken_narrowboat",
+          "tile": [
+            32,
+            12
+          ],
+          "offset": [
+            8,
+            0
+          ],
+          "alpha": 1,
+          "depth": 5
+        },
+        {
+          "sprite": "d_bruecken_rowboat",
+          "tile": [
+            26,
+            7
+          ],
+          "offset": [
+            0,
+            0
+          ],
+          "alpha": 1,
+          "depth": 5
+        }
+      ]
+    },
+    {
+      "id": "wx_kahn",
+      "name": "Dein Unterschlupf",
+      "city": "wexmoor",
+      "ambient": {
+        "night": 0.6,
+        "fog": 0
+      },
+      "rows": [
+        "IIIIIIIIIIIIIIII",
+        "IIIIIIIIIIIIIIII",
+        "IBBwwwwwwwwwwBBI",
+        "IwwwwwwwwwwwwwwI",
+        "IwwwwwTTwwwwwwwI",
+        "IwwwwwwwwwwwwwOI",
+        "IwOwwwwwwwwwwwwI",
+        "IwwwwwwwwwwwwwwI",
+        "IIIIIIIEEIIIIIII"
+      ],
+      "spawns": {
+        "default": [
+          7,
+          7
+        ]
+      },
+      "interactables": [
+        {
+          "id": "raus",
+          "kind": "door",
+          "to": "wx_torfstich",
+          "spawn": "wx_kahn",
+          "tile": [
+            7,
+            8
+          ],
+          "prompt": "Hinaus in den Torfstich",
+          "marker": false,
+          "reach": 22
+        },
+        {
+          "id": "koje",
+          "kind": "rest",
+          "tile": [
+            2,
+            3
+          ],
+          "sprite": "cot",
+          "prompt": "In der Koje schlafen",
+          "marker": false,
+          "title": "Deine Koje",
+          "text": "Die Koje ist zu kurz und riecht nach Lampenöl. Unter dir arbeitet das Holz des Kahns, und irgendwo gluckst Wasser. Trotzdem schläfst du, als hätte dich jemand ausgeschaltet."
+        },
+        {
+          "id": "kiste",
+          "kind": "storage",
+          "tile": [
+            13,
+            3
+          ],
+          "prompt": "Die Kiste öffnen (Lager)",
+          "marker": false,
+          "reach": 24
+        },
+        {
+          "id": "fallwand",
+          "kind": "casewall",
+          "tile": [
+            8,
+            2
+          ],
+          "prompt": "Die Fallwand ansehen",
+          "marker": false
+        },
+        {
+          "id": "willkommen",
+          "kind": "read",
+          "tile": [
+            7,
+            6
+          ],
+          "auto": 30,
+          "marker": false,
+          "prompt": "Umsehen",
+          "visible_if": {
+            "hide_if_flags": [
+              "k2_hideout"
+            ]
+          },
+          "title": "Ein Kahn als Zuhause",
+          "text": "Der Torfkahn liegt halb im Moor, schief wie ein müder Hund. Innen ist es überraschend trocken: eine Koje, ein Tisch, ein Ofen aus einem alten Ölfass und eine Kiste, auf der in Ruß „deins“ steht.\n\n„Die Ruß-Leute in Kettlegate haben deine Sachen aus dem Büro geholt, bevor die Wache drankam“, sagt Zunder. „Frag nicht, wie.“",
+          "footer": "Koje: ausruhen. Kiste: dein Lager (dasselbe wie im Büro). Fallwand: deine Fälle.",
+          "done_flag": "k2_hideout"
+        }
+      ],
+      "npcs": [
+        {
+          "id": "zunder",
+          "tile": [
+            11,
+            6
+          ],
+          "facing": "left",
+          "dialogue": "zunder",
+          "visible_if": {
+            "requires_flags": [
+              "k2_met_zunder"
+            ]
+          }
+        }
+      ],
+      "decor": [
+        {
+          "sprite": "fireplace",
+          "tile": [
+            5,
+            1
+          ],
+          "alpha": 1,
+          "origin": [
+            0.5,
+            1
+          ],
+          "offset": [
+            0,
+            8
+          ],
+          "depth": 60,
+          "light": {
+            "dy": -10,
+            "radius": 60,
+            "intensity": 0.8,
+            "flicker": 0.2
+          }
+        },
+        {
+          "sprite": "noticeboard",
+          "tile": [
+            8,
+            2
+          ],
+          "offset": [
+            0,
+            6
+          ],
+          "origin": [
+            0.5,
+            1
+          ],
+          "alpha": 1,
+          "ysort": true,
+          "depth": 6
+        },
+        {
+          "sprite": "locker",
+          "tile": [
+            13,
+            3
+          ],
+          "offset": [
+            0,
+            8
+          ],
+          "origin": [
+            0.5,
+            1
+          ],
+          "alpha": 1,
+          "ysort": true
+        },
+        {
+          "sprite": "d_wohnung_rug",
+          "tile": [
+            7,
+            5
+          ],
+          "alpha": 1,
+          "depth": 4,
+          "offset": [
+            8,
+            0
+          ]
+        }
+      ]
+    }
+  ],
+  "dialogues": {
+    "zunder_ankunft": {
+      "start": "start",
+      "nodes": {
+        "start": {
+          "text": "Eine junge Frau mit Ölkanister und rußigen Händen lehnt am Lagerhaus. Sie mustert deinen Ärmel, dann dein Gesicht, dann den Steckbrief an der Wand.\n\n„Da sind sie ja, die Fingerabdrücke. Kohlen-Jem hat telegrafiert. Einer von uns kommt, schrieb er, und er wird gesucht.“ Sie grinst. „Er hat nicht übertrieben.“",
+          "choices": [
+            {
+              "text": "Wer bist du?",
+              "next": "wer"
+            },
+            {
+              "text": "Wo kann ich mich verstecken?",
+              "next": "versteck"
+            }
+          ]
+        },
+        "wer": {
+          "text": "„Juna Fenn. Alle sagen Zunder, weil ich Lampenöl verkaufe und schnell Feuer fange. Sagt meine Mutter.“ Sie wischt sich die Hand an der Hose ab und hält sie dir hin. „Rußgesellschaft, Wexmoorer Zweig. Wir sind weniger als ihr, aber wir haben mehr Keller.“",
+          "choices": [
+            {
+              "text": "Wo kann ich mich verstecken?",
+              "next": "versteck"
+            }
+          ]
+        },
+        "versteck": {
+          "text": "„Nicht hier. Gleich kommt die Streife die Schleusenbrücke rauf, und die Grauspäher haben gute Laternen.“ Sie dreht sich zum Steckbrief. „Der hängt übrigens seit Dienstag. Dein Zug kam heute.“\n\n„Ich hab einen Kahn im Torfstich. Halb versunken, ganz trocken. Da kommt keine Streife hin, die haben Angst vorm Moor.“",
+          "gives_clues": [
+            "wx_zunder_poster"
+          ],
+          "choices": [
+            {
+              "text": "Der Steckbrief hing schon vorher?",
+              "next": "papier"
+            },
+            {
+              "text": "Bring mich hin.",
+              "next": "los"
+            }
+          ]
+        },
+        "papier": {
+          "text": "Zunder reißt den Zettel von der Wand und hält ihn gegen das Licht.",
+          "gives_clues": [
+            "wx_zunder_paper"
+          ],
+          "choices": [
+            {
+              "text": "Bring mich hin.",
+              "next": "los"
+            }
+          ]
+        },
+        "los": {
+          "text": "„Halt dich hinter mir. Wenn ich ‚Ratte‘ sage, gehst du in den nächsten Hauseingang und atmest nicht.“\n\nSie zieht dich zwischen zwei Kohlenwagen hindurch, über eine Leiter und durch ein Loch im Zaun. Der Torfstich liegt am Rand der Stadt. Wenn du die Stadtkarte öffnest, findest du ihn.",
+          "sets_flags": [
+            "k2_met_zunder"
+          ],
+          "choices": [
+            {
+              "text": "Los."
+            }
+          ]
+        }
+      }
+    },
+    "zunder": {
+      "start": [
+        {
+          "node": "start"
+        }
+      ],
+      "nodes": {
+        "start": {
+          "text": "Zunder sitzt auf einer umgedrehten Kiste und flickt einen Ölkanister. „Na, Gesuchter?“",
+          "choices": [
+            {
+              "text": "Erzähl mir von Wexmoor.",
+              "next": "stadt"
+            },
+            {
+              "text": "Was ist mit dem Leuchtturm?",
+              "next": "turm"
+            },
+            {
+              "text": "Die Grauspäher. Worauf muss ich achten?",
+              "next": "wache"
+            },
+            {
+              "text": "Wie sieht dein Steckbrief-Papier nochmal aus?",
+              "next": "papier",
+              "hide_if_clues": [
+                "wx_zunder_paper"
+              ]
+            },
+            {
+              "text": "Bis später."
+            }
+          ]
+        },
+        "stadt": {
+          "text": "„Wexmoor steht auf Torf und sinkt. Jedes Jahr ein bisschen. Unten am Güterbahnhof die Schleusen, im Salzmarkt die Händler, am Bojenhafen die Fischer und Schmuggler. Oben in der Oberstadt das Lichtamt und die Akademie, da wohnen die, die nicht nasse Füße kriegen. Und draußen das Pfahldorf, da gehst du nur hin, wenn die Alten dich lassen.“\n\n„Wenn du hier was finden willst, musst du die Stadt erst kennen. Alle sechs Ecken.“",
+          "choices": [
+            {
+              "text": "Noch was anderes.",
+              "next": "start"
+            }
+          ]
+        },
+        "turm": {
+          "text": "Zunder sieht aus dem Bullauge, dorthin, wo das Licht kreist. „Der brennt, seit es Wexmoor gibt. Ohne Öl, sagt man. Mein Onkel hat dreißig Jahre Lampenöl verkauft und nie einen Liter ans Lichtamt geliefert.“\n\n„Solange er brennt, bleibt das Moor draußen. Das sagen alle. Keiner fragt, womit.“",
+          "choices": [
+            {
+              "text": "Noch was anderes.",
+              "next": "start"
+            }
+          ]
+        },
+        "wache": {
+          "text": "„Grauspäher laufen feste Runden, immer mit Laterne. Was im Lichtkegel steht, sehen sie. Bleib im Dunkeln, geh hinter Fässer und Wagen, und lauf nie direkt auf eine Laterne zu.“\n\n„Wenn sie dich kriegen, landest du im Wachhaus. Dann hol ich dich raus. Einmal. Vielleicht zweimal. Ab dem dritten Mal kostet es.“",
+          "choices": [
+            {
+              "text": "Noch was anderes.",
+              "next": "start"
+            }
+          ]
+        },
+        "papier": {
+          "text": "Zunder zieht den zerknitterten Steckbrief aus der Tasche und hält ihn an die Lampe.",
+          "gives_clues": [
+            "wx_zunder_paper"
+          ],
+          "choices": [
+            {
+              "text": "Noch was anderes.",
+              "next": "start"
+            }
+          ]
+        }
+      }
+    },
+    "druce": {
+      "start": "start",
+      "nodes": {
+        "start": {
+          "text": "Ein alter Mann mit einem Schlüsselbund so groß wie ein Teller lehnt am Schleusenrad. Er sieht dich an, dann weg, dann wieder hin.\n\n„Ich hab nix gesehen. Ich seh nie was. Bin Schleusenwärter, ich guck aufs Wasser.“",
+          "choices": [
+            {
+              "text": "Seit wann hängen die Steckbriefe?",
+              "next": "zettel",
+              "requires_clues": [
+                "wx_steckbrief"
+              ]
+            },
+            {
+              "text": "Was macht die Schleuse?",
+              "next": "schleuse"
+            },
+            {
+              "text": "Schon gut."
+            }
+          ]
+        },
+        "zettel": {
+          "text": "Er spuckt ins Wasser.",
+          "gives_clues": [
+            "wx_schleuse_poster"
+          ],
+          "choices": [
+            {
+              "text": "Danke.",
+              "next": "start"
+            }
+          ]
+        },
+        "schleuse": {
+          "text": "„Hält das Moorwasser draußen. Sechs Tore rund um die Stadt, ich hab das größte. Wenn die Flut kommt, schließ ich, und dann ist Ruhe.“ Er klopft auf das Rad. „Früher hat das gereicht. Jetzt steigt das Wasser auch, wenn keine Flut ist. Aber der Leuchtturm hält’s schon, sagen sie oben.“",
+          "choices": [
+            {
+              "text": "Noch was.",
+              "next": "start"
+            }
+          ]
+        }
+      }
+    }
+  }
+}
