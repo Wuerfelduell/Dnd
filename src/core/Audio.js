@@ -11,7 +11,8 @@ const storageKey = 'nebelakten_audio';
 const gestures = ['pointerdown', 'touchend', 'keydown'];
 
 export class Audio {
-  constructor({ base = import.meta.env?.BASE_URL ?? './', random = Math.random } = {}) {
+  constructor({ base = import.meta.env?.BASE_URL ?? './', random = Math.random, kinds = ['sfx', 'musik'] } = {}) {
+    this.kinds = kinds; // ohne Musikpaket nur 'sfx' laden
     this.base = base.endsWith('/') ? base : `${base}/`;
     this.random = random;
     this.levels = { master: 0.8, musik: 0.65, effekte: 0.8 };
@@ -90,7 +91,7 @@ export class Audio {
       scene.load.on('loaderror', failed);
       this.listeners.push([scene.load, 'complete', complete], [scene.load, 'loaderror', failed]);
     }
-    for (const kind of ['sfx', 'musik']) {
+    for (const kind of this.kinds) {
       const key = `nebelakten:manifest:${kind}`;
       if (scene.cache.json.exists(key)) {
         this.register(scene, kind, scene.cache.json.get(key));

@@ -61,9 +61,15 @@ export class CombatScene extends Phaser.Scene {
     this.playTransition('transition_out', () => this.bossIntro()) || (this.cameras.main.fadeIn(250, 0, 0, 0), this.bossIntro());
   }
 
+  /** Paket Y: Soundeffekt (still, wenn der Ton fehlt oder noch gesperrt ist). */
+  sfx(id) {
+    this.registry.get('audio')?.play(id);
+  }
+
   /** Paket F: Boss-Band schiebt sich ins Bild, Büste und Name, dann wieder weg. */
   bossIntro() {
     const bust = BOSS_INTROS[this.encounterId];
+    this.sfx(bust ? 'boss_auftritt' : 'kampf_start');
     if (!bust || !this.textures.exists('F_08_boss_band')) return;
     const band = this.add.sprite(0, 0, 'F_08_boss_band', 0).setOrigin(0).setDepth(90);
     const key = 'F_08_boss_band-enter';
@@ -74,7 +80,12 @@ export class CombatScene extends Phaser.Scene {
     band.play(key);
     const parts = [band];
     const [bustKey] = bossIntroImage(bust);
-    if (this.textures.exists(bustKey)) {
+    if (this.textures.exists(bustKey) && this.textures.get(bustKey).getSourceImage().width >= VIEW_W) {
+      // Paket W: ganzes Intro-Bild (480x270) statt Büste, blendet hinter dem Band ein
+      const img = this.add.image(0, 0, bustKey).setOrigin(0).setDepth(89).setAlpha(0);
+      this.tweens.add({ targets: img, alpha: 1, duration: 300 });
+      parts.push(img);
+    } else if (this.textures.exists(bustKey)) {
       const img = this.add.image(VIEW_W + 80, 135, bustKey).setDepth(91).setScale(0.75);
       this.tweens.add({ targets: img, x: VIEW_W - 90, duration: 380, delay: 200, ease: 'Cubic.out' });
       parts.push(img);
@@ -129,6 +140,10 @@ export class CombatScene extends Phaser.Scene {
   /** Treffer-Effekt am Ziel: blunt, slash, parry, dodge, critical, heal, nerves, item, miss. */
   hitFx(kind, who) {
     const p = who === 'enemy' ? this.enemyCenter() : this.playerCenter();
+    // Paket Y: passender Klang zum Treffer
+    const sound = { miss: 'verfehlt', critical: 'treffer_krit', parry: 'parade', dodge: 'ausweichen', heal: 'heilen', item: 'trank', nerves: 'nerven' }[kind]
+      ?? (who === 'player' ? 'treffer_spieler' : 'treffer');
+    this.sfx(sound);
     this.playFx('hits', kind, p.x, p.y, 1);
   }
 
@@ -596,9 +611,11 @@ export class CombatScene extends Phaser.Scene {
   over() {
     this.phase = 'over';
     const c = this.combat;
+    this.sfx({ won: 'sieg', lost: 'niederlage', fled: 'flucht' }[c.outcome]);
     if (c.outcome === 'won') {
       // Menschen (z. B. Holt beim Training) geben auf und bleiben stehen, Wesen vergehen.
       const human = this.enemySheet ? !FADING_SHEETS.includes(this.enemySheet) : this.combat.enc.sprite.startsWith('npc:');
+      this.sfx(human ? 'gegner_tod' : 'geist_tod');
       if (this.anim(this.enemy, 'defeated', false)) { if (!human) this.tweens.add({ targets: this.enemy, alpha: 0, delay: 900, duration: 700 }); }
       else this.tweens.add({ targets: this.enemy, alpha: 0, y: '+=10', duration: 700 });
     }

@@ -83,6 +83,7 @@ export const SHEETS = {
   r_wexmoor: 'tilesets/R_wexmoor_tiles.png', r_innen: 'tilesets/R_innen_tiles.png', r_vergessmoor: 'tilesets/R_vergessmoor_tiles.png',
   r_leuchtturm: 'tilesets/R_leuchtturm_tiles.png',
   v_glocke: 'tilesets/V_01_glocke_tiles.png',
+  w_altstadt: 'tilesets/W_01_altstadt_tiles.png',
   s_salzwatt: 'tilesets/S_salzwatt_tiles.png', s_lichtlose: 'tilesets/S_lichtlose_tiles.png', s_salz: 'tilesets/S_salz_tiles.png',
   // Grundpaket und Paket D: bisher ungenutzte Innenraum-Tilesets (8 Spalten à 16 px)
   d_wohnung_tiles: 'tilesets/D_08_wohnung_tiles.png', b_interieur: 'tilesets/02_07_interiors.png', b_keller: 'tilesets/02_08_occult_basement.png',
@@ -197,6 +198,9 @@ export const THEME_TILES = {
     niche: [16, 17, 18, 19], glow: [24, 25, 26, 27], sand: [28, 29, 30, 31] },
   // Paket V: Gasthaus „Zur Ertrunkenen Glocke“ (8x3-Raster)
   v_glocke: { sheet: 'v_glocke', fallback: 'wood0', floor: [0, 1, 2, 3], wallTop: [4], wallFace: [5, 6], porthole: [18], curtain: [20], carpet: [21] },
+  // Paket W: Versunkene Altstadt (Pflaster im Schlick, Flutwasser, Häuser mit Kupferdach, Stege auf Pfählen; 8x4-Raster)
+  w_altstadt: { sheet: 'w_altstadt', fallback: 'path', floor: [0, 1, 2, 3], debris: [22], water: [4, 6, 8, 10], deep: [12],
+    wallTop: [13], wallFace: [14], window: [21], roof: [31], reeds: [28], wood: [29], bridge: [30] },
   // Paket S: Salzwatt (Schlick, Salzkruste, Priele, Meer, Pfähle, Damm), Keller der Lichtlosen, Salzspeicher (8x4-Raster)
   s_salzwatt: { sheet: 's_salzwatt', fallback: 'path', floor: [0, 1, 2, 3], sand: [4, 5, 6, 7], debris: [22], water: [30, 31], deep: [20, 21],
     stakes: [23], path: [24, 25, 26, 27] },
@@ -405,9 +409,13 @@ export const O_MAP_MARKERS_URL = `${BASE}ui/O_map_markers.png`;
 export const Q_MAP_MARKERS = Object.fromEntries(['wx_bahnhof', 'wx_torfstich', 'wx_salzmarkt', 'wx_bojenhafen', 'wx_oberstadt', 'wx_pfahldorf',
   'wx_leuchtturm'].map((id, i) => [id, i]));
 export const Q_MAP_MARKERS_URL = `${BASE}ui/Q_wexmoor_marker.png`;
+/** Batch X: Marker der Wexmoor-Zirkel (2 Spalten, Zeilen wie Paket O). */
+export const X_MAP_MARKERS = { treffen_lichtlose: 0, treffen_salz: 1 };
+export const X_MAP_MARKERS_URL = `${BASE}ui/X_map_markers_zirkel.png`;
 /** Marker eines Ortes: [Bild-URL, Spalte, Spalten im Bild, live]. */
 export const mapMarkerOf = (map) => {
   if (O_MAP_MARKERS[map] !== undefined) return [O_MAP_MARKERS_URL, O_MAP_MARKERS[map], 3, true];
+  if (X_MAP_MARKERS[map] !== undefined) return [X_MAP_MARKERS_URL, X_MAP_MARKERS[map], 2, true];
   if (Q_MAP_MARKERS[map] !== undefined) return [Q_MAP_MARKERS_URL, Q_MAP_MARKERS[map], 7];
   if (J_MAP_MARKERS[map] !== undefined) return [J_MAP_MARKERS_URL, J_MAP_MARKERS[map], 13];
   return [MAP_MARKERS_URL, MAP_MARKERS[map], 13];
@@ -712,6 +720,7 @@ export const REGION_SHEETS = {
   r_pfahldorf: ['manifestWexmoor2', 'R_pfahldorf_props'], r_innen_props: ['manifestWexmoor2', 'R_innen_props'],
   r_vergessmoor_props: ['manifestWexmoor2', 'R_vergessmoor_props'], r_leuchtturm_props: ['manifestWexmoor2', 'R_leuchtturm_props'],
   v_glocke_props: ['manifestWexmoor4', 'V_glocke_props'],
+  w_altstadt_props: ['manifestWexmoor5', 'props'],
   s_salzwatt_props: ['manifestWexmoor3', 'salzwatt_props'], s_lichtlose_props: ['manifestWexmoor3', 'lichtlose_props'], s_salz_props: ['manifestWexmoor3', 'salz_props'], q_lichtkegel: ['manifestWexmoor', 'lichtkegel'],
 };
 /** Animationen aus benannten Regionen, die das Manifest nicht selbst mitbringt (Prefix → Name → Regionen). */
@@ -751,6 +760,7 @@ const REGION_FILES = {
   r_pfahldorf: 'props/R_pfahldorf_props.png', r_innen_props: 'props/R_innen_props.png', r_vergessmoor_props: 'props/R_vergessmoor_props.png',
   r_leuchtturm_props: 'props/R_leuchtturm_props.png', q_lichtkegel: 'fx/Q_lichtkegel.png',
   v_glocke_props: 'props/V_glocke_props.png',
+  w_altstadt_props: 'props/W_altstadt_props.png',
   s_salzwatt_props: 'props/S_salzwatt_props.png', s_lichtlose_props: 'props/S_lichtlose_props.png', s_salz_props: 'props/S_salz_props.png',
   m_kontor_props: 'props/M_kontor_props.png', m_waisenhaus_props: 'props/M_waisenhaus_props.png', m_traumkeller_props: 'props/M_traumkeller_props.png',
 };
@@ -1031,6 +1041,8 @@ export function preloadSprites(scene) {
   if (!scene.cache.json.exists('manifestWexmoor2')) scene.load.json('manifestWexmoor2', `${BASE}manifest-wexmoor2.json`);
   if (!scene.cache.json.exists('manifestWexmoor3')) scene.load.json('manifestWexmoor3', `${BASE}manifest-wexmoor3.json`);
   if (!scene.cache.json.exists('manifestWexmoor4')) scene.load.json('manifestWexmoor4', `${BASE}manifest-wexmoor4.json`);
+  if (!scene.cache.json.exists('manifestWexmoor5')) scene.load.json('manifestWexmoor5', `${BASE}manifest-wexmoor5.json`);
+  if (!scene.cache.json.exists('manifestPlatzhalter')) scene.load.json('manifestPlatzhalter', `${BASE}manifest-platzhalter.json`);
   if (!scene.cache.json.exists('manifestWexmoor')) scene.load.json('manifestWexmoor', `${BASE}manifest-wexmoor.json`);
   if (!scene.cache.json.exists('manifestSequenzen2')) scene.load.json('manifestSequenzen2', `${BASE}manifest-sequenzen2.json`);
   if (!scene.cache.json.exists('manifestTreffen')) scene.load.json('manifestTreffen', `${BASE}manifest-treffen.json`);
@@ -1063,14 +1075,16 @@ export function playSheetAnim(sprite, sheet, name, then) {
   return true;
 }
 
+/** Übliche Reihennamen späterer Pakete (hit/death statt hurt/defeated). */
+const ANIM_FALLBACK = { hurt: 'hit', defeated: 'death' };
 /** Animationsdefinition aus manifest-14b.json oder manifest-kampf.json. */
 function battleAnimDef(scene, sheet, name) {
   const def = battleSheetDef(scene, sheet);
-  for (const n of [name, ANIM_ALIASES[sheet]?.[name]].filter(Boolean)) if (def?.animations?.[n]) return def.animations[n];
+  for (const n of [name, ANIM_ALIASES[sheet]?.[name], ANIM_FALLBACK[name]].filter(Boolean)) if (def?.animations?.[n]) return def.animations[n];
   return null;
 }
 /** Manifeste mit Kampf-Sheets; spätere Pakete nennen ihre Einträge nicht nach dem Sheet, darum auch über die Datei. */
-const BATTLE_MANIFESTS = ['manifest14b', 'manifestKampf', 'manifestKampf2', 'manifestReise', 'manifestWildnis', 'manifestGegner3', 'manifestFall5', 'manifestFall6', 'manifestFall78', 'manifestSequenzen2', 'manifestWexmoor2', 'manifestWexmoor3', 'manifestWexmoor4'];
+const BATTLE_MANIFESTS = ['manifest14b', 'manifestKampf', 'manifestKampf2', 'manifestReise', 'manifestWildnis', 'manifestGegner3', 'manifestFall5', 'manifestFall6', 'manifestFall78', 'manifestSequenzen2', 'manifestWexmoor2', 'manifestWexmoor3', 'manifestWexmoor4', 'manifestWexmoor5', 'manifestPlatzhalter'];
 export function battleSheetDef(scene, sheet) {
   const file = BATTLE_SHEETS[sheet]?.[0];
   for (const m of BATTLE_MANIFESTS) {
@@ -1738,3 +1752,91 @@ BATTLE_SHEETS.enemy_price = ['battle/enemy_price.png', 48];
 ENCOUNTER_SHEETS.price_wx_fight = 'enemy_price';
 ANIM_ALIASES.enemy_price = { attack: 'truncheon', special: 'lantern_flash', cast: 'whistle', phase2: 'whistle' };
 
+
+// --- Paket W: Versunkene Altstadt, ihre Monster und der Bürgermeister (manifest-wexmoor5.json) ------
+/** Monster der Altstadt: 64er-Kampf-Sheet, Kartenfigur 16x32. */
+export const W_ENEMIES = ['pfahlbohrer', 'ratsherr', 'kellerkrebs', 'namensmade'];
+for (const id of W_ENEMIES) {
+  BATTLE_SHEETS[`enemy_${id}`] = [`battle/enemy_${id}.png`, 64];
+  ENCOUNTER_SHEETS[id] = `enemy_${id}`;
+  OVERWORLD_SHEETS[id] = [`characters/W_ow_${id}.png`, 16, 32];
+  PROP_ORIGINS[`ow_${id}`] = 0.85;
+  ANIM_ALIASES[`enemy_${id}`] = { attack: 'attack_a', special: 'attack_b' };
+}
+FADING_SHEETS.push('enemy_ratsherr');
+/** Boss: der Ertrunkene Bürgermeister (96er-Sheet, sieben Reihen). */
+BATTLE_SHEETS.enemy_buergermeister = ['battle/enemy_buergermeister.png', 96];
+ENCOUNTER_SHEETS.buergermeister = 'enemy_buergermeister';
+ANIM_ALIASES.enemy_buergermeister = { attack: 'chain_lash', special: 'council_bell', cast: 'verdict' };
+BOSS_INTROS.buergermeister = 'buergermeister_w';
+BOSS_INTRO_IMAGES.buergermeister_w = ['W_boss_buergermeister', 'ui/W_boss_buergermeister.png'];
+for (const id of [...W_ENEMIES, 'buergermeister']) {
+  BESTIARY_PACK[id] = 'W';
+  if (!BESTIARY.includes(id)) BESTIARY.push(id);
+}
+[...W_ENEMIES, 'buergermeister'].forEach((id, i) => {
+  TURN_PORTRAITS[id] = i;
+  TURN_PORTRAIT_URLS[id] = [`${BASE}ui/W_zug_portraits.png`, 5];
+});
+/** Effekte: Holzsplitter, Ratssiegel, Madenwachs, Ratsglocke. */
+const W_FX = { splitter: [48], siegel: [48], madenwachs: [48], ratsglocke: [96, 48] };
+for (const [id, [w, h = w]] of Object.entries(W_FX)) BATTLE_SHEETS[`fx_${id}`] = [`fx/fx_${id}.png`, w, h];
+Object.assign(ENCOUNTER_FX, {
+  pfahlbohrer: { attack: 'fx_splitter' }, kellerkrebs: { attack: 'fx_splitter' }, ratsherr: { attack: 'fx_siegel' }, namensmade: { attack: 'fx_madenwachs' },
+  buergermeister: { attack: 'fx_siegel', multi: 'fx_ratsglocke', heavy: 'fx_siegel' },
+});
+/** Altstadt: eigene Kulisse. */
+BATTLE_BACKGROUNDS.wx_altstadt = 'bg_altstadt';
+ENCOUNTER_BACKGROUNDS.buergermeister = 'bg_altstadt';
+/** Beute und Questgegenstände (16er und 32er). */
+export const W_ITEMS = ['pfahlholz', 'ratssiegel', 'krebspanzer', 'madenwachs', 'moortee', 'salzbrot', 'amtskette', 'veys_stimmgabel', 'schreintaefelchen'];
+ICON32.push(...W_ITEMS);
+
+// --- Batch X: Treffen-Artefakte, Fall 9 und restliche Platzhalter (manifest-platzhalter.json) ---------
+/** Artefakte und Gegenstände mit 32er-Fassung (die 16er liegen unter items/<id>.png). */
+export const X_ITEMS = ['nachtauge_brosche', 'bleierne_waage', 'kreidestummel', 'russfingerhut', 'salzrosenkranz', 'schwarzer_docht', 'doppelter_trauring',
+  'glaesernes_ohr', 'pfandmarke_alt', 'kleine_moorlaterne', 'eiserne_zunge', 'spiegelmuenze', 'fahrkarte_wexmoor', 'wundertonikum', 'pells_maske',
+  'egelhaken', 'ossuarklinge', 'sternsplitter', 'empfehlungsschreiben'];
+ICON32.push(...X_ITEMS);
+/** Fall 9: eigene Kampf-Sheets für Pratt, den Gesangbuchgeist, das Sternlicht und Starling. */
+export const X_FIGHTS = { pratt_fight: ['pratt', 48], gesangbuchgeist: ['gesangbuchgeist', 64], sternlicht: ['sternlicht', 64], starling_fight: ['starling', 96] };
+for (const [enc, [id, w]] of Object.entries(X_FIGHTS)) {
+  BATTLE_SHEETS[`enemy_${id}`] = [`battle/enemy_${id}.png`, w];
+  ENCOUNTER_SHEETS[enc] = `enemy_${id}`;
+  ANIM_ALIASES[`enemy_${id}`] = { attack: 'attack_a', special: 'attack_b' };
+}
+FADING_SHEETS.push('enemy_gesangbuchgeist', 'enemy_sternlicht');
+ANIM_ALIASES.enemy_starling = { attack: 'brennglas', special: 'sternregen', cast: 'gestohlene_stimme', phase2: 'geliehener_schatten', defeated: 'fallender_stern_defeat' };
+/** Boss-Büsten (160x160) für Starling und die vier Gebietsbosse. */
+for (const id of ['starling_fight', 'moorkoenigin', 'rattenkoenig', 'ossuarwaechter', 'sternhirsch']) {
+  const file = `X_08_boss_${id === 'starling_fight' ? 'starling' : id}`;
+  BOSS_INTROS[id] = `${id}_x`;
+  BOSS_INTRO_IMAGES[`${id}_x`] = [file, `ui/${file}.png`];
+}
+/** Zug-Portraits, die bisher fehlten: Fall 9, Sekten, Gefahrengebiete, Price. */
+for (const [file, ids] of Object.entries({
+  X_zug_portraits_fall9: ['pratt_fight', 'gesangbuchgeist', 'sternlicht', 'starling_fight'],
+  X_zug_portraits_sekten: ['rost_schlaeger', 'rost_streife', 'rost_werfer', 'rost_schmied', 'rost_vater', 'schleier_novizin', 'schleier_messerin', 'schleier_schatten', 'schleier_seherin', 'schleier_mutter'],
+  X_zug_portraits_gebiete: ['moorleiche', 'irrlicht', 'schlammegel', 'moorkoenigin', 'schnabelmaske', 'hustender', 'pestratte', 'rattenkoenig', 'knochenwurm', 'kerzenfresser', 'schaedelschwarm', 'ossuarwaechter', 'glaskraehe', 'kraterbrut', 'splitterling', 'sternhirsch'],
+  X_zug_portrait_price: ['price_wx_fight'],
+})) {
+  ids.forEach((id, i) => {
+    TURN_PORTRAITS[id] = i;
+    TURN_PORTRAIT_URLS[id] = [`${BASE}ui/${file}.png`, ids.length];
+  });
+}
+/** Bestiarium-Karten (ui/bestiary/X_<id>.png). */
+for (const id of ['pratt_fight', 'gesangbuchgeist', 'sternlicht', 'starling_fight', 'rost_schlaeger', 'rost_werfer', 'rost_schmied', 'rost_vater',
+  'schleier_novizin', 'schleier_messerin', 'schleier_seherin', 'schleier_mutter']) {
+  BESTIARY_PACK[id] = 'X';
+  if (!BESTIARY.includes(id)) BESTIARY.push(id);
+}
+/** Fallakte und Endbilder von Fall 9. */
+CASE_FILES.case_09 = 'X_akte_fall9';
+for (const id of ['c9_perfect', 'c9_good', 'c9_early', 'c9_vey']) ENDING_IMAGES[id] = id;
+/** Sekten-Mitglieder mit eigenem Gesicht (neutral, misstrauisch, erschrocken, leichtes Lächeln). */
+const X_MOODS = { neutral: 0, suspicious: 1, angry: 1, hostile: 1, shocked: 2, faint_smile: 3, smile: 3, friendly: 3 };
+for (const id of ['rost_schlaeger', 'rost_werfer', 'rost_schmied', 'schleier_messerin', 'schleier_seherin']) {
+  PORTRAITS[id] = `X_${id}_emotions.png`;
+  PORTRAIT_SPECIAL[id] = [`X_${id}_emotions.png`, X_MOODS];
+}

@@ -448,6 +448,18 @@ export class Ui {
 
   isFullscreen() { return !!(document.fullscreenElement || document.webkitFullscreenElement); }
 
+  /** Paket Y: Ton laut, leise oder aus (Effekte und Musik gemeinsam über die Gesamtlautstärke). */
+  soundLabel() {
+    const m = this.audio?.master ?? 0;
+    return m <= 0 ? 'Ton: aus' : m < 0.6 ? 'Ton: leise' : 'Ton: an';
+  }
+
+  cycleSound() {
+    if (!this.audio) return;
+    const m = this.audio.master;
+    this.audio.master = m <= 0 ? 0.8 : m < 0.6 ? 0 : 0.4;
+  }
+
   fullscreenLabel() { return this.isFullscreen() ? 'Vollbild beenden' : 'Vollbild'; }
 
   /** Vollbild an/aus. Auf dem iPhone gibt es das im Browser nicht: dort Hinweis auf „Zum Home-Bildschirm“. */
@@ -1707,6 +1719,7 @@ export class Ui {
         <button class="primary" data-act="resume"><span class="key">Esc</span> Weiter</button>
         <button data-act="p2"><span class="key">2</span> ${label}</button>
         <button data-act="fullscreen">${this.fullscreenLabel()}</button>
+        <button data-act="sound">${this.soundLabel()}</button>
       </div>
       <div class="feedback">${feedback}</div>
       <p class="lead">${on ? 'Ihr spielt zu zweit an diesem Rechner. Die Kamera hält euch beide im Bild, jeder hat sein eigenes Inventar. Geld, Ansehen und Fälle teilt ihr.' : 'Zu zweit an einem Rechner: Spieler 2 läuft als Begleiter mit über denselben Bildschirm, mit eigenem Leben und eigenem Inventar.'}</p>
@@ -1728,6 +1741,7 @@ export class Ui {
     el.querySelector('[data-act=resume]').onclick = () => this.close();
     el.querySelector('[data-act=p2]').onclick = () => this.togglePlayer2();
     el.querySelector('[data-act=fullscreen]').onclick = () => this.toggleFullscreen();
+    el.querySelector('[data-act=sound]').onclick = (e) => { this.cycleSound(); e.currentTarget.textContent = this.soundLabel(); };
   }
 
   togglePlayer2() {

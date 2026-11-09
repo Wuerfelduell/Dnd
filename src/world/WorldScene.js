@@ -7,6 +7,7 @@ import { Roamers } from './Roamers.js';
 import { Critters } from './Critters.js';
 import { Patrols } from './Patrols.js';
 import { TapMove } from './TapMove.js';
+import { footstepSound, ambienceFor } from '../core/sounds.js';
 
 export const VIEW_W = 480;
 export const VIEW_H = 270;
@@ -398,6 +399,25 @@ const THEMES = {
       default: return THEMES.g_marsch(ch, at, v, x, y);
     }
   },
+  // Paket W: Versunkene Altstadt. Häuser ('r') bekommen Kupferdach und Fassade mit Spitzbogenfenstern,
+  // Wasser am Ufer ist Flutwasser, weiter draußen tief; 'P' sind Stege auf Pfählen.
+  w_altstadt(ch, at, v, x, y) {
+    const k = (g, seed = 0) => pickKey(themeKeys('w_altstadt', g), x, y, seed);
+    switch (ch) {
+      case 'g': return hash2(x, y, 75) > 0.95 ? k('debris', 1) : k('floor');
+      case 'P': return at(0, -1) === 'P' || at(0, 1) === 'P' ? k('bridge', 2) : k('wood', 2);
+      case 'Y': return k('reeds', 3);
+      case 'r': {
+        if (at(0, 1) !== 'r') return hash2(x, y, 76) > 0.6 ? k('window', 4) : k('wallFace', 4);
+        return at(0, -1) !== 'r' ? k('wallTop', 5) : k('roof', 5);
+      }
+      case '~': {
+        const land = [at(0, -1), at(0, 1), at(-1, 0), at(1, 0)].filter((c) => c !== undefined && c !== '~').length;
+        return land >= 1 ? k('water', 6) : k('deep', 6);
+      }
+      default: return THEMES.g_marsch(ch, at, v, x, y);
+    }
+  },
   s_lichtlose: roomTheme('s_lichtlose', { floorChars: 'wO.', floorMix: (x, y) => pickKey(themeKeys('s_lichtlose', hash2(x, y, 72) > 0.85 ? 'ash' : 'floor'), x, y, 0) }),
   s_salz: roomTheme('s_salz', { floorChars: 'wO.', floorMix: (x, y) => pickKey(themeKeys('s_salz', hash2(x, y, 73) > 0.8 ? 'sand' : 'floor'), x, y, 0) }),
   // Paket Q (Wexmoor): Zunders Kahn mit Bullaugen in der Bordwand
@@ -563,6 +583,27 @@ export class WorldScene extends Phaser.Scene {
 
   preload() {
     preloadSprites(this);
+    this.registry.get('audio')?.preload(this);
+  }
+
+  /** Paket Y: Schritte im Takt der Laufanimation, Klang je nach Boden. */
+  stepSound(delta) {
+    this.stepT = (this.stepT ?? 0) - delta;
+    if (this.stepT > 0) return;
+    this.stepT = 300;
+    const tx = Math.floor(this.player.x / TILE);
+    const ty = Math.floor(this.player.y / TILE);
+    this.registry.get('audio')?.play(footstepSound(this.mapDef.tiles, this.mapDef.rows?.[ty]?.[tx]), { volume: 0.6 });
+  }
+
+  /** Paket Y: Hintergrundgeräusch des Ortes (eine Schleife, wechselt mit der Karte). */
+  startAmbience() {
+    const audio = this.registry.get('audio');
+    if (!audio) return;
+    const id = ambienceFor(this.state.map, this.mapDef);
+    if (audio.ambience && audio.ambience !== id) audio.stopLoop(audio.ambience, 600);
+    audio.ambience = id;
+    if (id) audio.loop(id);
   }
 
   create() {
@@ -596,6 +637,7 @@ export class WorldScene extends Phaser.Scene {
     this.buildLamps();
     this.buildWindows();
     this.buildObjects();
+    this.startAmbience();
     this.buildNpcs();
     this.buildPlayer();
     this.roamers = new Roamers(this);
@@ -1075,6 +1117,7 @@ export class WorldScene extends Phaser.Scene {
     if (vx || vy) {
       this.facing = Math.abs(vx) > Math.abs(vy) ? (vx > 0 ? 'right' : 'left') : vy > 0 ? 'down' : 'up';
       this.player.anims.play(`${this.playerKey}-walk-${this.facing}`, true);
+      this.stepSound(this.game.loop.delta);
     } else {
       this.player.anims.stop();
       this.player.setFrame(DIRS.indexOf(this.facing) * 4);
