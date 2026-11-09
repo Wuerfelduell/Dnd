@@ -333,3 +333,20 @@ button.small { font-size: 0.8em; padding: 0.1em 0.5em; }
 .citymap .mode .muted { font-size: 0.8em; color: var(--muted); }
 .citymap .mode .gain { color: #9ad06a; font-size: 0.8em; }
 .citymap .mode .cost { color: #d08a6a; font-size: 0.8em; }
+
+/* Gefahrengebiete und Beute */
+.place.danger { color: #e07a60; }
+.loot-title { margin: 0.6em 0 0.2em; color: var(--gold); }
+ul.loot { list-style: none; margin: 0.3em 0; padding: 0; }
+ul.loot .loot-row { display: flex; align-items: center; gap: 0.4em; padding: 0.15em 0.3em; border-left: 3px solid #555; margin-bottom: 0.15em; background: rgba(255, 255, 255, 0.03); }
+ul.loot .rar { margin-left: auto; font-size: 0.8em; }
+.rar-gewoehnlich { border-color: #c8c0b0 !important; }
+.rar-gewoehnlich .rar, span.rar-gewoehnlich { color: #c8c0b0; }
+.rar-ungewoehnlich { border-color: #8fd07a !important; }
+.rar-ungewoehnlich .rar, span.rar-ungewoehnlich { color: #8fd07a; }
+.rar-selten { border-color: #f0c060 !important; }
+.rar-selten .rar, span.rar-selten { color: #f0c060; }
+.rar-okkult { border-color: #6fe0d0 !important; }
+.rar-okkult .rar, span.rar-okkult { color: #6fe0d0; }
+.cb-loot { display: inline-flex; align-items: center; gap: 0.15em; font-size: 0.8em; color: var(--muted); margin-left: 0.3em; }
+.cb-loot .loot-ico { display: inline-flex; border-bottom: 2px solid #555; padding: 0 1px; }

@@ -11,11 +11,12 @@ export function loadContent() {
     items: load('items.json'),
     encounters: load('encounters.json'),
     cases: [load('case_01.json'), load('case_02.json'), load('case_03.json'), load('case_altmarkt.json'), load('case_04.json')],
-    maps: ['revier', 'ashgrove', 'ebba', 'crypt', 'docks', 'warehouse', 'altmarkt', 'tavern', 'nachtmarkt', 'nordtor', 'theater', 'uhrturm', 'gaskanaele', 'schlachthof', 'sternwarte'].map((m) => load(`maps/${m}.json`)),
+    maps: ['revier', 'ashgrove', 'ebba', 'crypt', 'docks', 'warehouse', 'altmarkt', 'tavern', 'nachtmarkt', 'nordtor', 'theater', 'uhrturm', 'gaskanaele', 'schlachthof', 'sternwarte', 'marsch', 'katakomben', 'pestgassen', 'kraterwald'].map((m) => load(`maps/${m}.json`)),
     dialogues: ['revier', 'ashgrove', 'ebba', 'hafen', 'altmarkt', 'nachtmarkt', 'nordtor', 'fundstuecke'].map((d) => load(`dialogues/${d}.json`)),
     pathways: load('pathways.json'),
     market: load('market.json'),
     travel: load('travel.json'),
+    wilds: load('wilds.json'),
   });
 }
 

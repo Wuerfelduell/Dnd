@@ -1,4 +1,5 @@
 import { DIGEST_LABELS } from '../core/Pathways.js';
+import { lootList, itemRarity, RARITY_NAMES } from '../core/Loot.js';
 import {
   itemIconUrl, itemIcon32Url, pathwayEmblemUrl, pathwayCardUrl, COIN_URL, SKILL_ICONS, SKILL_ICONS_URL, STATUS_ICONS, STATUS_ICONS_URL,
   portraitUrl, PORTRAIT_MOODS, MAP_MARKERS, MAP_MARKERS_URL, LOG_MARKERS, LOG_MARKERS_URL, SOURCE_ICONS, SPRITE_BASE,
@@ -35,6 +36,12 @@ const sourceFace = (content, clue) => {
   return `<span class="srcface icon" title="${title}" style="background-image:url(${url});background-size:${cols * 100}% 100%;background-position:${(cell / (cols - 1)) * 100}% 0"></span>`;
 };
 const coin = '<img class="coin" src="' + COIN_URL + '" alt="" width="16" height="16" onerror="this.remove()">';
+/** Beute als Liste mit Icon, Anzahl und Seltenheit (Farbe). */
+const lootHtml = (loot, items) => {
+  const rows = lootList(loot, items).map((e) => `<li class="loot-row rar-${e.rarity}">${itemIcon(e.id)}<strong>${esc(e.name)}</strong>${e.n > 1 ? ` ×${e.n}` : ''} <span class="rar">${RARITY_NAMES[e.rarity]}</span></li>`);
+  if (loot?.money) rows.unshift(`<li class="loot-row">${coin}<strong>${loot.money} Schilling</strong></li>`);
+  return rows.length ? `<ul class="loot">${rows.join('')}</ul>` : '';
+};
 
 // HTML-Oberfläche über dem Spiel-Canvas: HUD, Hinweise, Dialoge, Notizbuch,
 // Stadtkarte und Enden. Text als HTML bleibt bei jeder Skalierung scharf.
@@ -147,7 +154,9 @@ export class Ui {
 
   onSceneReady(scene) {
     this.scene = scene;
-    this.$('.place').textContent = this.state.content.maps[this.state.map].name;
+    const map = this.state.content.maps[this.state.map];
+    this.$('.place').textContent = map.danger ? `${map.name} · Gefahr ${'☠'.repeat(map.danger)}` : map.name;
+    this.$('.place').classList.toggle('danger', !!map.danger);
     this.updateHonor();
     this.updateHp();
     this.updateMoney();
@@ -294,6 +303,12 @@ export class Ui {
       ${footer ? `<div class="footer">${esc(footer)}</div>` : ''}
       <button class="next" data-act="ok">Weiter <span class="key">E</span></button>`, 'message');
     el.querySelector('[data-act=ok]').onclick = () => this.close();
+  }
+
+  /** Inhalt eines Beutebehälters. */
+  showLoot(title, loot) {
+    const list = lootHtml(loot, this.state.content.items);
+    this.showMessage(title, list ? 'Du steckst ein:' : 'Leer. Jemand war schneller.', { extra: list });
   }
 
   showClue(id, isNew) {
@@ -544,7 +559,7 @@ export class Ui {
 
   itemsHtml() {
     const s = this.state;
-    const kindOrder = { weapon: 0, consumable: 1, potion: 2, formula: 3, ingredient: 4, key: 5 };
+    const kindOrder = { weapon: 0, consumable: 1, potion: 2, formula: 3, ingredient: 4, trophy: 5, key: 6 };
     const list = s.items().sort((a, b) => kindOrder[a.kind] - kindOrder[b.kind]);
     const w = s.weaponStats();
     const rows = list.map((it) => {
@@ -557,6 +572,7 @@ export class Ui {
         action = chk.ok ? `<button class="small" data-drink="${it.id}">Trinken</button><br><span class="muted">Risiko ${Math.round(chk.risk * 100)} %</span>` : '<span class="muted">nicht trinkbar</span>';
       } else if (it.kind === 'formula') action = '<button class="small" data-recipe="1">Rezept</button>';
       else if (it.kind === 'ingredient') action = '<span class="muted">Zutat</span>';
+      else if (it.kind === 'trophy') action = `<span class="muted rar-${itemRarity(it)}">Beutestück · ${RARITY_NAMES[itemRarity(it)]}</span>`;
       if (!action && it.inspect) action = `<button class="small" data-inspect="${it.id}">Untersuchen</button>`;
       const stat = it.kind === 'weapon' ? ` <span class="muted">Angriff ${it.atk}${it.occult ? ', stark gegen Okkultes' : ''}</span>` : '';
       return `<li class="item"><div>${it.kind === 'potion' || it.kind === 'formula' ? itemIconBig(it.id) : itemIcon(it.id)}<strong>${esc(it.name)}</strong>${it.count > 1 ? ` ×${it.count}` : ''}${stat}<br><span class="desc">${esc(it.desc)}</span></div><div>${action}</div></li>`;
@@ -775,6 +791,8 @@ export class Ui {
     q('.efill').style.width = `${(c.enemy.hp / c.enemy.maxHp) * 100}%`;
     const burn = c.burn ? { giftphiole: ['gift', 'Gift'], aetzwolke: ['zerfressen', 'Ätzend'] }[c.burn.source] ?? ['brennen', 'Brand'] : null;
     q('.cb-tags').innerHTML = [c.enemy.occult ? '<span class="badge refuted">okkult</span>' : '', c.weak ? `<span class="badge likely">${statusIcon('schwachstelle')}Schwachstelle bekannt</span>` : '', c.enc.practice ? '<span class="badge suspected">Übung</span>' : '',
+      c.enc.elite ? '<span class="badge refuted">★ Elite</span>' : '', c.enc.boss ? '<span class="badge refuted">☠ Boss</span>' : '',
+      this.possibleLoot(c.id),
       burn ? `<span class="badge suspected">${statusIcon(burn[0])}${burn[1]} ${c.burn.rounds}</span>` : '',
       c.stunned ? `<span class="badge suspected">${statusIcon('betaeubt')}betäubt</span>` : '',
       c.confused ? `<span class="badge suspected">${statusIcon('verwirrt')}verwirrt</span>` : ''].join(' ');
@@ -785,6 +803,16 @@ export class Ui {
     q('.nfill').style.width = `${s.composure}%`;
     q('.cb-weapon').textContent = s.weaponStats().name;
     q('.pips').innerHTML = Array.from({ length: 6 }, (_, i) => `<i class="${i < c.ap ? 'on' : ''}"></i>`).join('');
+  }
+
+  /** Mögliche Beute eines Gegners als Icon-Reihe (seltenes zuerst). */
+  possibleLoot(encId) {
+    const t = this.state.content.loot?.[encId];
+    const items = this.state.content.items;
+    const ids = [...new Set([...(t?.drops ?? []).map((d) => d.item), ...Object.keys(t?.items ?? {})])];
+    if (!ids.length) return '';
+    ids.sort((a, b) => ['gewoehnlich', 'ungewoehnlich', 'selten', 'okkult'].indexOf(itemRarity(items[b])) - ['gewoehnlich', 'ungewoehnlich', 'selten', 'okkult'].indexOf(itemRarity(items[a])));
+    return `<span class="cb-loot">Beute: ${ids.map((id) => `<span class="loot-ico rar-${itemRarity(items[id])}" title="${esc(items[id]?.name ?? id)}">${itemIcon(id)}</span>`).join('')}</span>`;
   }
 
   combatMessage(text, help = '') {
@@ -865,7 +893,10 @@ export class Ui {
     this.updateHp();
     const title = { won: 'Sieg', lost: 'Ohnmacht', fled: 'Rückzug' }[result.outcome];
     this.keysBlockedUntil = performance.now() + 400; // hastiges E-Drücken schließt die Meldung nicht sofort
-    this.showMessage(`${title}: ${enc.name}`, result.text);
+    const list = result.loot ? lootHtml(result.loot, this.state.content.items) : '';
+    const extra = list ? `<h4 class="loot-title">${result.lootDeferred ? 'Beute liegt am Boden' : 'Beute'}</h4>${list}` : '';
+    const footer = result.lootDeferred && list ? 'Geh hin und drück E, um sie aufzuheben.' : '';
+    this.showMessage(`${title}: ${enc.name}`, result.text, { extra, footer });
   }
 
   // --- Ende -------------------------------------------------------------------

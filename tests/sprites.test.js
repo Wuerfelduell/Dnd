@@ -57,7 +57,7 @@ const kampfAsset = (id) => kampf.assets.find((a) => a.id === id);
 
 test('Kampf: jede Begegnung hat ein Gegner-Sheet und jede Karte/Begegnung einen vorhandenen Hintergrund', () => {
   for (const [id, enc] of Object.entries(content.encounters)) {
-    const sheet = ENCOUNTER_SHEETS[id] ?? ENEMY_BATTLE_SHEETS[enc.sprite];
+    const sheet = enc.sheet ?? ENCOUNTER_SHEETS[id] ?? ENEMY_BATTLE_SHEETS[enc.sprite];
     assert.ok(sheet && BATTLE_SHEETS[sheet], `kein Kampf-Sheet für ${id}`);
   }
   // Einträge für Begegnungen/Karten, die es noch nicht gibt, sind erlaubt (Vorbereitung für neue Fälle)

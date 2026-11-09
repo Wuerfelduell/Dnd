@@ -2,6 +2,7 @@ import Phaser from 'phaser';
 import { createTextures, createCharacterSheet, hash2, TILE, TILE_INDEX, SOLID_KEYS } from './textures.js';
 import { Lighting, DEPTH } from './Lighting.js';
 import { preloadSprites, playSheetAnim, themeKeys, PROP_ORIGINS, MAP_WEATHER } from './assets.js';
+import { Roamers } from './Roamers.js';
 
 export const VIEW_W = 480;
 export const VIEW_H = 270;
@@ -175,6 +176,9 @@ export class WorldScene extends Phaser.Scene {
     this.buildObjects();
     this.buildNpcs();
     this.buildPlayer();
+    this.roamers = new Roamers(this);
+    this.roamers.build();
+    this.roamers.buildCaches();
     this.buildAtmosphere(amb);
     this.buildWeather();
     this.bindInput();
@@ -511,6 +515,7 @@ export class WorldScene extends Phaser.Scene {
     const blocked = this.ui.isBlocking() || this.leaving;
     if (!blocked) this.state.tick(delta / 1000);
     this.updateMovement(blocked);
+    this.roamers.update(time, delta, blocked || this.leaving);
     this.updateFocus(blocked);
     this.checkAuto(blocked);
     this.handleKeys(blocked);
@@ -651,6 +656,10 @@ export class WorldScene extends Phaser.Scene {
       case 'combat':
         this.startCombat(def.encounter);
         break;
+      case 'loot':
+        this.playPlayerAction('pickup');
+        this.roamers.open(it);
+        break;
       case 'rest': {
         this.playPlayerAction('rest');
         const healed = this.state.heal(this.state.maxHp);
@@ -696,8 +705,8 @@ export class WorldScene extends Phaser.Scene {
     });
   }
 
-  /** Pausiert die Welt und startet den Kampfbildschirm. `after(result)` läuft nach dem Kampf. */
-  startCombat(id, after = null) {
+  /** Pausiert die Welt und startet den Kampfbildschirm. `after(result)` läuft nach dem Kampf, `roamer` ist ein Gegner auf der Karte. */
+  startCombat(id, after = null, { roamer = null } = {}) {
     if (this.leaving || this.scene.isActive('combat')) return;
     this.state.pendingCombat = null;
     this.state.setSpiritVision(false);
@@ -706,8 +715,10 @@ export class WorldScene extends Phaser.Scene {
     this.scene.pause();
     this.scene.launch('combat', {
       id,
+      deferLoot: !!roamer,
       onDone: (result) => {
         this.scene.resume();
+        if (roamer) this.roamers.afterCombat(roamer, result);
         this.refreshVisibility();
         if (result.travel) this.travelTo(result.travel.map, result.travel.spawn);
         after?.(result);

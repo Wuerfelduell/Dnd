@@ -7,6 +7,8 @@
 // Konter; wer alle Schläge einer Attacke pariert, setzt zum Gegenschlag an.
 // Konzentration (K) bezahlt Fertigkeiten.
 
+import { rollLoot, takeLoot } from './Loot.js';
+
 export const WINDOW = { parry: 90, dodge: 150 }; // ± Millisekunden um den Einschlag
 // Schwierigkeit: echte Gegner (keine Übung) halten mehr aus und schlagen härter.
 export const ENEMY_HP_MULT = 1.25;
@@ -282,23 +284,22 @@ export class Combat {
    * - Niederlage: Ohnmacht, du wachst mit wenig Leben auf (lose_to: anderer Ort).
    * - Übungskämpfe: Leben wie vorher, keine Folgen.
    */
-  finish() {
+  finish({ deferLoot = false } = {}) {
     const s = this.state;
     const enc = this.enc;
     const firstFlag = `won_${this.id}`;
     let text = '';
     let travel = null;
+    let loot = null;
     if (enc.practice) s.hp = Math.max(s.hp, this.hpBefore);
     if (this.outcome === 'won') {
       const first = !s.flags.has(firstFlag);
       s.applyEffects({ ...enc.on_win, sets_flags: [...(enc.on_win?.sets_flags ?? []), firstFlag] });
       if (first && enc.first_win) s.applyEffects(enc.first_win);
       if (!enc.practice) {
-        const loot = s.content.loot?.[this.id];
-        if (loot && (first || loot.repeat)) {
-          if (loot.money) s.addMoney(loot.money, { loot: true, reason: enc.name });
-          if (first) for (const [id, n] of Object.entries(loot.items ?? {})) s.addItem(id, n);
-        }
+        loot = this.rollLoot(first);
+        // Bei Gegnern auf der Karte landet die Beute in einem Behälter am Boden (WorldScene)
+        if (!deferLoot) takeLoot(s, loot, enc.name);
         s.act('combat_win');
         if (enc.occult) s.act('occult_win');
       }
@@ -312,11 +313,32 @@ export class Combat {
         s.hp = Math.max(1, this.hpBefore);
       }
       text = enc.lose_text ?? (enc.practice ? 'Du liegst auf dem Rücken. Holt reicht dir die Hand.' : 'Dir wird schwarz vor Augen.');
+      // Gefahrengebiete: Wer dort liegen bleibt, wird ausgeraubt
+      if (!enc.practice && enc.lose_money && s.money > 0) {
+        const lost = Math.max(1, Math.ceil(s.money * enc.lose_money));
+        s.addMoney(-lost);
+        text += `\n\nAls du zu dir kommst, fehlen dir ${lost} Schilling.`;
+      }
     } else if (this.outcome === 'fled') {
       text = enc.flee_text ?? 'Du ziehst dich zurück.';
     }
     s.emit('hp', { value: s.hp, delta: 0 });
     s.emit('changed');
-    return { outcome: this.outcome, text, travel };
+    return { outcome: this.outcome, text, travel, loot, lootDeferred: !!loot && deferLoot };
+  }
+
+  /**
+   * Beute dieses Sieges (Tabelle `loot` aus market.json/wilds.json):
+   * Geld und Drops beim ersten Sieg oder immer (repeat), feste Items nur beim ersten Sieg.
+   */
+  rollLoot(first) {
+    const table = this.state.content.loot?.[this.id];
+    const loot = { money: 0, items: {} };
+    if (!table || !(first || table.repeat)) return loot;
+    const rolled = rollLoot(table, this.rng);
+    loot.money = rolled.money;
+    loot.items = rolled.items;
+    if (first) for (const [id, n] of Object.entries(table.items ?? {})) loot.items[id] = (loot.items[id] ?? 0) + n;
+    return loot;
   }
 }
