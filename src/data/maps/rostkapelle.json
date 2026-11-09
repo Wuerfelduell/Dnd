@@ -1,0 +1,190 @@
+{
+  "id": "rostkapelle",
+  "name": "Rostkapelle",
+  "tiles": "warehouse",
+  "ambient": {
+    "night": 0.88,
+    "fog": 0.15
+  },
+  "spawns": {
+    "default": [
+      11,
+      10
+    ]
+  },
+  "lights": [
+    {
+      "tile": [
+        12,
+        4
+      ],
+      "radius": 60,
+      "intensity": 0.8,
+      "color": "#ff7a3a",
+      "glow": 0.35
+    },
+    {
+      "tile": [
+        3,
+        6
+      ],
+      "radius": 36,
+      "intensity": 0.4,
+      "color": "#ffb860",
+      "glow": 0.25
+    }
+  ],
+  "rows": [
+    "IIIIIIIIIIIIIIIIIIIIIIII",
+    "IIIIIIIIIIIIIIIIIIIIIIII",
+    "IwwwCCwwwwwwwwwwwwwBBwwI",
+    "IwwwwwwwwwwwKKwwwwwwwwwI",
+    "IwVwwwwwwwwwAAwwwwwwwVwI",
+    "IwwwwwwwwwwwwwwwwwwwwwwI",
+    "IwCwwwwwwwwwwwwwwwwwwCwI",
+    "IwwwwwwwwwwwwwwwwwwwwwwI",
+    "IwwVwwwwwwwwwwwwwwwwVwwI",
+    "IwwwwwwwwwwwwwwwwwwwwwwI",
+    "IwwwwwwwwwwwwwwwwwwwwwwI",
+    "IIIIIIIIIIIEEIIIIIIIIIII"
+  ],
+  "interactables": [
+    {
+      "id": "out",
+      "kind": "door",
+      "to": "ankerhof",
+      "spawn": "kapelle",
+      "tile": [
+        11,
+        11
+      ],
+      "prompt": "Hinaus zum Ankerhof",
+      "marker": false,
+      "reach": 26
+    },
+    {
+      "id": "werfer",
+      "kind": "combat",
+      "encounter": "rost_werfer",
+      "tile": [
+        11,
+        7
+      ],
+      "sprite": "npc:rost_werfer",
+      "marker": true,
+      "solid": [
+        12,
+        10
+      ],
+      "prompt": "Dem Hakenwerfer entgegentreten",
+      "visible_if": {
+        "hide_if_flags": [
+          "rost_werfer_down"
+        ]
+      }
+    },
+    {
+      "id": "bucket",
+      "kind": "read",
+      "tile": [
+        3,
+        6
+      ],
+      "prompt": "Den Löscheimer nehmen",
+      "title": "Löschwasser",
+      "text": "Ein Eimer voll schwarzem Wasser neben der Esse. Du kippst ihn in die Glut. Es zischt, Dampf füllt die Kapelle, und das Feuer, das die Rostbrüder grau macht, ist aus.",
+      "done_flag": "forge_doused",
+      "visible_if": {
+        "requires_flags": [
+          "rost_werfer_down"
+        ],
+        "hide_if_flags": [
+          "schmied_down"
+        ]
+      }
+    },
+    {
+      "id": "smith",
+      "kind": "combat",
+      "encounter": "rost_schmied",
+      "tile": [
+        16,
+        5
+      ],
+      "sprite": "npc:rost_schmied",
+      "marker": true,
+      "solid": [
+        12,
+        10
+      ],
+      "prompt": "Bellamy am Amboss stellen",
+      "visible_if": {
+        "requires_flags": [
+          "rost_werfer_down"
+        ],
+        "hide_if_flags": [
+          "schmied_down"
+        ]
+      }
+    },
+    {
+      "id": "book",
+      "clue": "kettenbuch",
+      "tile": [
+        4,
+        2
+      ],
+      "prompt": "Das Buch auf den Kisten aufschlagen",
+      "visible_if": {
+        "requires_flags": [
+          "rost_werfer_down"
+        ]
+      }
+    },
+    {
+      "id": "slip",
+      "clue": "order_slip",
+      "tile": [
+        19,
+        2
+      ],
+      "prompt": "Den Zettel am Regal lesen",
+      "visible_if": {
+        "requires_flags": [
+          "schmied_down"
+        ]
+      }
+    },
+    {
+      "id": "hymn",
+      "kind": "read",
+      "tile": [
+        13,
+        3
+      ],
+      "prompt": "Die Inschrift am Amboss lesen",
+      "marker": false,
+      "title": "Eingeschlagen in den Amboss",
+      "text": "„Das Fleisch rostet, das Eisen bleibt.“ Darunter, kleiner und frischer: „Die Stimme wird uns singen.“",
+      "done_flag": "read_rust_hymn"
+    }
+  ],
+  "npcs": [
+    {
+      "id": "rost_vater",
+      "tile": [
+        12,
+        5
+      ],
+      "facing": "down",
+      "visible_if": {
+        "requires_flags": [
+          "schmied_down"
+        ],
+        "hide_if_flags": [
+          "rost_broken"
+        ]
+      }
+    }
+  ]
+}

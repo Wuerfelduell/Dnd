@@ -1,0 +1,159 @@
+{
+  "id": "ankerhof",
+  "name": "Ankerhof",
+  "ambient": {
+    "night": 0.86,
+    "fog": 0.5
+  },
+  "spawns": {
+    "default": [
+      1,
+      4
+    ],
+    "kapelle": [
+      17,
+      4
+    ]
+  },
+  "lights": [
+    {
+      "tile": [
+        4,
+        3
+      ],
+      "radius": 44,
+      "intensity": 0.6,
+      "color": "#ffb860",
+      "glow": 0.25
+    },
+    {
+      "tile": [
+        21,
+        3
+      ],
+      "radius": 44,
+      "intensity": 0.6,
+      "color": "#ffb860",
+      "glow": 0.25
+    }
+  ],
+  "rows": [
+    "RRRRRRRRRRRRRRRRRRRRRRRRRRRRRR",
+    "#WW##WW###WW####WW##WW###WW###",
+    "##D#######D######D#######D####",
+    ",,,,L,,,,,,,,,,,,,,,,L,,,,,,,,",
+    "..............................",
+    "..CC....V.............V....CC.",
+    "..C.......................C...",
+    "..............................",
+    "PPPPPPPPPPPPPPPPPPPPPPPPPPPPPP",
+    "QQQQQQQPPPQQQQQQQQQQQQQQQQQQQQ",
+    "~~~~~~~PPP~~~~~~~~~~~~~~~~~~~~",
+    "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+  ],
+  "interactables": [
+    {
+      "id": "exit",
+      "kind": "travel",
+      "tile": [
+        0,
+        4
+      ],
+      "prompt": "Stadtkarte öffnen",
+      "marker": false,
+      "reach": 20
+    },
+    {
+      "id": "notice",
+      "clue": "harbor_report",
+      "tile": [
+        10,
+        2
+      ],
+      "prompt": "Den Aushang an der Tür lesen"
+    },
+    {
+      "id": "chalk",
+      "clue": "anchor_chalk",
+      "tile": [
+        2,
+        2
+      ],
+      "prompt": "Das Kreidezeichen an der Tür ansehen",
+      "visible_if": {
+        "requires_quests_active": [
+          "rost_im_hafen"
+        ]
+      }
+    },
+    {
+      "id": "rust",
+      "clue": "rust_trail",
+      "tile": [
+        19,
+        4
+      ],
+      "prompt": "Die roten Tropfen auf dem Pflaster ansehen",
+      "visible_if": {
+        "requires_clues": [
+          "jory_chapel"
+        ]
+      }
+    },
+    {
+      "id": "guard",
+      "kind": "combat",
+      "encounter": "rost_schlaeger",
+      "tile": [
+        17,
+        3
+      ],
+      "sprite": "npc:rost_schlaeger",
+      "marker": true,
+      "solid": [
+        12,
+        10
+      ],
+      "prompt": "Den Kettenträger am Tor ansprechen",
+      "visible_if": {
+        "requires_likely": [
+          "rost_hideout"
+        ],
+        "hide_if_flags": [
+          "rost_guard_down"
+        ]
+      }
+    },
+    {
+      "id": "kapelle",
+      "kind": "door",
+      "to": "rostkapelle",
+      "spawn": "default",
+      "tile": [
+        17,
+        2
+      ],
+      "prompt": "Durch das Tor der Seilerkapelle",
+      "marker": false,
+      "reach": 24,
+      "lock": {
+        "requires_flags": [
+          "rost_guard_down"
+        ],
+        "text": "Ein vernageltes Tor mit einem Anker im Kettenring. Dahinter hört man Hämmern und tiefes Singen. Ohne Grund brichst du hier nicht ein.",
+        "footer": ""
+      }
+    }
+  ],
+  "npcs": [
+    {
+      "id": "jory",
+      "tile": [
+        6,
+        7
+      ],
+      "facing": "down"
+    }
+  ],
+  "weather": ""
+}
