@@ -962,3 +962,11 @@ python docs/art/verify-zirkel.py
 ```
 
 Die Source Map ordnet die 37 Job-IDs den ursprünglichen Generator-PNGs zu. Die Prüfung bestätigt 55 Dateien, 288 Laufbilder, 72 Portraitzustände, 18 identische Kopfableitungen, 12 Atlasregionen, Maße, Palette, Transparenz und Framegrenzen. Sichtprüfung erfolgte auch im Zielraster. Keine Spielcodeänderung; Einbindung und Prüfung der Darstellung im laufenden Spiel erfolgen separat. Vorhandene Gastgeber, weitere Zirkelpersonen und Treffen-Räume werden nicht ersetzt.
+
+## Paket U – Gebäudefiguren (`gebaeude`)
+
+Constable Dunn, Odile Crane und Ambrosius Quint erhalten jeweils ein Lauf-Sheet (64×128, 4×4 Frames à 16×32), ein Emotions-Sheet (256×64, vier 64×64-Portraits) und einen transparenten Notizbuchkopf (24×24).
+
+Laufrichtungen: unten, links, rechts, oben; je 4 Phasen mit empfohlenen 7 fps. Emotionen: neutral, misstrauisch, erschrocken, leichtes Lächeln. Die Portrait-Hintergründe bleiben deckend. Laufbilder und Köpfe besitzen ausschließlich binäres Alpha. Alle neun PNGs verwenden dieselbe Palette mit 31 sichtbaren Farben plus transparentem Index.
+
+Manifest: `public/sprites/manifest-gebaeude.json`. Tatsächlich verwendete Prompts und Exportparameter: `docs/art/batch-gebaeude-generation.json`. Prüfung: `docs/art/batch-gebaeude-validation.json`. Die Köpfe sind Ausschnitte der neutralen Portraits. Laufbilder stehen auf der lokalen Grundlinie y=30, mit transparentem Zellrand. Keine Laufzeitintegration und keine Änderungen am Spielcode.
