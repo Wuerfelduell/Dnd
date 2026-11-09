@@ -1095,6 +1095,43 @@ Grafikexport; Einbindung und Timing-Prüfung im laufenden Spiel erfolgen separat
 
 Asset-Lieferung; die Einbindung ins Spiel erfolgt separat.
 
+## Grafikpaket AK – zusätzliche Dialogstimmungen (`emotionen2`)
+
+32 neue Portrait-Sheets mit insgesamt 128 Ausdrücken nach `codex_AK_emotionen.md`.
+Jede Datei `public/sprites/portraits/AK_<id>_emotions2.png` ist 256×64 Pixel groß:
+vier 64×64-Zellen in der Reihenfolge **wütend, traurig, nachdenklich, entschlossen**.
+Alle 32 im Briefing genannten Referenzdateien waren vorhanden und wurden unverändert
+als Identitäts- und Stilreferenz an den integrierten Bildgenerator übergeben.
+
+Manifest: `public/sprites/manifest-emotionen2.json`, mit Figur-ID, Referenz,
+nullbasierten Frame-Indizes und deutschen/englischen Emotionsnamen.
+[Vergleichsvorschau](AK_vorschau.png): pro Figur links die vier bestehenden
+Portraits in ihrer Originalreihenfolge, rechts die vier neuen Stimmungen.
+Die alte Reihenfolge ist nicht für alle Figuren identisch (z. B. Elsbeth);
+die neue Reihenfolge ist für alle 32 Figuren gleich.
+
+`batch-emotionen2-generation.json` enthält sämtliche tatsächlich verwendeten
+Prompts, Referenz- und Quellbild-Prüfsummen sowie die finalen Zellzuschnitte.
+Nachbearbeitung: Nearest Neighbor auf das Zielraster und Indizierung ohne Dithering
+auf die gemeinsame Palette mit 31 Farben aus Batch C. Die Portrait-Hintergründe
+bleiben wie in den Vorlagen deckend; Alpha ist ausschließlich 255.
+Die Generatororiginale sind keine Laufzeitassets und werden nicht mitgeliefert.
+
+```sh
+# Export benötigt Pillow und NumPy; SOURCE_DIR enthält die dokumentierten Originale.
+python docs/art/export-emotionen2.py SOURCE_DIR
+# Prüfung und Vorschau benötigen nur Pillow; Originale nicht erforderlich.
+python docs/art/verify-emotionen2.py
+node --test tests/sprites.test.js
+```
+
+`validation-emotionen2.json` bestätigt Vollständigkeit, Maße, gemeinsame Palette,
+Alpha, vier unterschiedliche Frames/Gesichtsausschnitte je Figur, gültige Quellboxen
+und unveränderte Referenzen. Alle 32 Sheets wurden in der Vergleichsvorschau visuell
+kontrolliert; bei Ivy, Price, Druce und Brack wurden Zuschnitte nachjustiert.
+35 bestehende Sprite-Tests bestehen. Asset-Lieferung ohne Spielcodeänderung;
+Dialogzuordnung und Prüfung der Darstellung im laufenden Spiel erfolgen separat.
+
 ## Batch AH – Eigene Figur für Spieler 2 (`spieler2`)
 
 33 PNGs für zwei unterscheidbare Koop-Figuren: `p2a` mit Schiebermütze,
