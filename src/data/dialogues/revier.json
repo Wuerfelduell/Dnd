@@ -783,6 +783,33 @@
             ]
           },
           {
+            "text": "Fehlt im Archiv noch etwas?",
+            "next": "hymnal",
+            "requires_quests_done": [
+              "case_03"
+            ],
+            "hide_if_quests": [
+              "lost_hymnal"
+            ]
+          },
+          {
+            "text": "Hier ist das Gesangbuch.",
+            "next": [
+              {
+                "node": "hymnal_back_read",
+                "requires_flags": [
+                  "hymnal_opened"
+                ]
+              },
+              {
+                "node": "hymnal_back"
+              }
+            ],
+            "requires_items": [
+              "verlorenes_gesangbuch"
+            ]
+          },
+          {
             "text": "Auf Wiedersehen."
           }
         ]
@@ -871,6 +898,33 @@
             ]
           },
           {
+            "text": "Fehlt im Archiv noch etwas?",
+            "next": "hymnal",
+            "requires_quests_done": [
+              "case_03"
+            ],
+            "hide_if_quests": [
+              "lost_hymnal"
+            ]
+          },
+          {
+            "text": "Hier ist das Gesangbuch.",
+            "next": [
+              {
+                "node": "hymnal_back_read",
+                "requires_flags": [
+                  "hymnal_opened"
+                ]
+              },
+              {
+                "node": "hymnal_back"
+              }
+            ],
+            "requires_items": [
+              "verlorenes_gesangbuch"
+            ]
+          },
+          {
             "text": "Nichts, danke."
           }
         ]
@@ -912,6 +966,62 @@
         ],
         "complete_quests": [
           "archive_rats"
+        ]
+      },
+      "hymnal": {
+        "text": "Sie senkt die Stimme. „Das Gesangbuch des Hospitalchors. Beschlagnahmt in St. Ebba, Asservat Nummer 112. Letzte Woche war das Fach leer, und das Siegel lag auf dem Boden.\n\nRook hat es nicht genommen, der sitzt. Aber eine Marktfrau sagt, Mr. Quill hat so ein Buch in der Vitrine. Holen Sie es zurück, bitte. Und schlagen Sie es nicht auf. Ich meine das ernst.“",
+        "start_quests": [
+          "lost_hymnal"
+        ],
+        "choices": [
+          {
+            "text": "Ich gehe zu Quill.",
+            "next": [
+              {
+                "node": "returned",
+                "requires_flags": [
+                  "file_returned"
+                ]
+              },
+              {
+                "node": "start"
+              }
+            ]
+          }
+        ]
+      },
+      "hymnal_back": {
+        "text": "Miss Pimm nimmt das Buch mit zwei Fingern, als wäre es nass, und schließt es in eine Kassette aus Blei. „Ungeöffnet. Gut. Manche Dinge sollen einfach im Regal bleiben.“",
+        "takes_items": {
+          "verlorenes_gesangbuch": 1
+        },
+        "sets_flags": [
+          "hymnal_returned"
+        ],
+        "complete_quests": [
+          "lost_hymnal"
+        ],
+        "choices": [
+          {
+            "text": "Gern geschehen."
+          }
+        ]
+      },
+      "hymnal_back_read": {
+        "text": "Sie riecht an den Seiten und verzieht das Gesicht. „Sie haben es aufgeschlagen. Das sieht man Ihnen an, Sie summen.“ Sie schließt es in eine Kassette aus Blei. „Wenn Sie nachts Musik hören, die sonst niemand hört, kommen Sie zu mir. Nicht zu Marlowe. Zu mir.“",
+        "takes_items": {
+          "verlorenes_gesangbuch": 1
+        },
+        "sets_flags": [
+          "hymnal_returned"
+        ],
+        "complete_quests": [
+          "lost_hymnal"
+        ],
+        "choices": [
+          {
+            "text": "Ich merke es mir."
+          }
         ]
       }
     }

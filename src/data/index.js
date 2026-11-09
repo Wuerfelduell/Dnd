@@ -16,6 +16,7 @@ import gaskanaele from './maps/gaskanaele.json';
 import schlachthof from './maps/schlachthof.json';
 import sternwarte from './maps/sternwarte.json';
 import dNordtor from './dialogues/nordtor.json';
+import dFunde from './dialogues/fundstuecke.json';
 import altmarkt from './maps/altmarkt.json';
 import tavern from './maps/tavern.json';
 import dAltmarkt from './dialogues/altmarkt.json';
@@ -42,7 +43,7 @@ export const content = buildContent({
   encounters,
   cases: [case01, case02, case03, caseAltmarkt, case04],
   maps: [revier, ashgrove, ebba, crypt, docks, warehouse, altmarkt, tavern, nachtmarkt, nordtor, theater, uhrturm, gaskanaele, schlachthof, sternwarte],
-  dialogues: [dRevier, dAshgrove, dEbba, dHafen, dAltmarkt, dNachtmarkt, dNordtor],
+  dialogues: [dRevier, dAshgrove, dEbba, dHafen, dAltmarkt, dNachtmarkt, dNordtor, dFunde],
   pathways,
   market,
   travel,

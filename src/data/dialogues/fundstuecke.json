@@ -1,0 +1,380 @@
+{
+  "inspect_gesangbuch": {
+    "start": "start",
+    "nodes": {
+      "start": {
+        "text": "Das Leder ist kalt und gibt unter dem Daumen nach wie Haut. Aus dem Schnitt quillt dünner Nebel, und irgendwo zwischen den Seiten summt jemand.",
+        "choices": [
+          {
+            "text": "Den Einband absuchen (wenig Risiko)",
+            "next": "list",
+            "hide_if_clues": [
+              "hymnal_list"
+            ]
+          },
+          {
+            "text": "Die Seiten aufschlagen (gefährlich)",
+            "next": [
+              {
+                "node": "read_calm",
+                "requires_nerves": 60,
+                "chance": 0.6
+              },
+              {
+                "node": "read_curse"
+              }
+            ],
+            "hide_if_flags": [
+              "hymnal_read"
+            ]
+          },
+          {
+            "text": "Die letzte Seite noch einmal ansehen",
+            "next": "last_page",
+            "requires_clues": [
+              "hymnal_ash"
+            ]
+          },
+          {
+            "text": "Wieder einpacken."
+          }
+        ]
+      },
+      "list": {
+        "text": "Unter dem Vorsatzblatt klebt ein gefaltetes Papier. Als du es löst, wird das Summen lauter, nur einen Atemzug lang.",
+        "gives_clues": [
+          "hymnal_list"
+        ],
+        "unruhe": 4,
+        "nerves": -5,
+        "choices": [
+          {
+            "text": "Weiter",
+            "next": "start"
+          }
+        ]
+      },
+      "read_calm": {
+        "text": "Die Noten bewegen sich, wenn du nicht hinsiehst. Du merkst, dass du mitsummst, und beißt dir auf die Lippe, bis es aufhört. Auf der letzten Seite ist etwas geschrieben.",
+        "gives_clues": [
+          "hymnal_ash"
+        ],
+        "sets_flags": [
+          "hymnal_read",
+          "hymnal_opened"
+        ],
+        "unruhe": 8,
+        "nerves": -15,
+        "choices": [
+          {
+            "text": "Zuklappen. Schnell."
+          }
+        ]
+      },
+      "read_curse": {
+        "text": "Die Seiten reißen dir die Finger auf, eine nach der anderen, und das Blut bildet Noten. Der Nebel steigt dir in den Mund. Sieben Stimmen singen aus dem Buch, und es klingt, als kämen sie näher.",
+        "sets_flags": [
+          "hymnal_opened"
+        ],
+        "damage": 8,
+        "unruhe": 15,
+        "nerves": -20,
+        "combat": "gesangbuchgeist",
+        "choices": [
+          {
+            "text": "Dich wehren"
+          }
+        ]
+      },
+      "last_page": {
+        "text": "„Wer gesungen hat, singt weiter. Sie warten in der Glocke.“ Die Tinte ist noch immer nicht trocken.",
+        "choices": [
+          {
+            "text": "Wieder einpacken."
+          }
+        ]
+      }
+    }
+  },
+  "inspect_glocke": {
+    "start": "start",
+    "nodes": {
+      "start": {
+        "text": "Die Glocke ist kleiner als eine Hand und schwer wie ein Stein. Sie summt das Wiegenlied, wenn du sie bewegst, und hört auf, wenn du still hältst.",
+        "choices": [
+          {
+            "text": "Ans Ohr halten",
+            "next": [
+              {
+                "node": "vey",
+                "requires_quests_done": [
+                  "case_04"
+                ],
+                "hide_if_flags": [
+                  "bell_vey_heard"
+                ]
+              },
+              {
+                "node": "tones",
+                "requires_quests_active": [
+                  "case_04"
+                ],
+                "hide_if_clues": [
+                  "bell_tones"
+                ]
+              },
+              {
+                "node": "quiet"
+              }
+            ]
+          },
+          {
+            "text": "Mit dem Knöchel anschlagen (gefährlich)",
+            "next": [
+              {
+                "node": "strike_ok",
+                "chance": 0.5
+              },
+              {
+                "node": "strike_bad"
+              }
+            ]
+          },
+          {
+            "text": "Wieder einpacken."
+          }
+        ]
+      },
+      "quiet": {
+        "text": "Ein Wiegenlied, ganz leise. Es ist schön. Du legst die Glocke weg, bevor es zu schön wird.",
+        "nerves": -5,
+        "choices": [
+          {
+            "text": "Weiter",
+            "next": "start"
+          }
+        ]
+      },
+      "tones": {
+        "text": "Durch das Summen hörst du etwas Fernes, Antwortendes.",
+        "gives_clues": [
+          "bell_tones"
+        ],
+        "unruhe": 6,
+        "nerves": -10,
+        "choices": [
+          {
+            "text": "Weiter",
+            "next": "start"
+          }
+        ]
+      },
+      "vey": {
+        "text": "Kein Wiegenlied. Eine Frauenstimme, ganz nah und sehr zufrieden: „Genug Stimmen, Ermittler. Fast genug. Danke, dass Sie mich tragen.“\n\nDann wieder nur Summen.",
+        "sets_flags": [
+          "bell_vey_heard"
+        ],
+        "unruhe": 12,
+        "nerves": -20,
+        "choices": [
+          {
+            "text": "Die Glocke ganz tief in die Tasche stecken."
+          }
+        ]
+      },
+      "strike_ok": {
+        "text": "Ein heller, reiner Ton. Für einen Moment ist die Welt sehr klar, und der Nebel in deinem Kopf weicht.",
+        "nerves": 15,
+        "choices": [
+          {
+            "text": "Weiter",
+            "next": "start"
+          }
+        ]
+      },
+      "strike_bad": {
+        "text": "Der Ton hört nicht auf. Er wird tiefer, lauter, bis dir das Blut aus der Nase läuft und die Pflastersteine zittern. Dann ist es plötzlich still.",
+        "damage": 6,
+        "unruhe": 12,
+        "nerves": -15,
+        "choices": [
+          {
+            "text": "Nie wieder.",
+            "next": "start"
+          }
+        ]
+      }
+    }
+  },
+  "inspect_phiole": {
+    "start": "start",
+    "nodes": {
+      "start": {
+        "text": "In der Phiole treiben winzige Lichter. Eine Frauenstimme singt darin Tonleitern, immer dieselben, immer ein wenig heiserer.",
+        "choices": [
+          {
+            "text": "Den Korken lockern (gefährlich)",
+            "next": [
+              {
+                "node": "ok",
+                "requires_nerves": 50,
+                "chance": 0.7
+              },
+              {
+                "node": "bad"
+              }
+            ],
+            "hide_if_clues": [
+              "vial_voice"
+            ]
+          },
+          {
+            "text": "Wieder einpacken."
+          }
+        ]
+      },
+      "ok": {
+        "text": "Du drehst den Korken nur einen Spalt. Die Tonleiter bricht ab, und die Stimme spricht.",
+        "gives_clues": [
+          "vial_voice"
+        ],
+        "unruhe": 6,
+        "nerves": -10,
+        "choices": [
+          {
+            "text": "Den Korken festdrücken."
+          }
+        ]
+      },
+      "bad": {
+        "text": "Der Korken springt dir aus den Fingern. Die Stimme schreit, ein einziger hoher Ton, der dir in den Schläfen sticht. Mit zitternden Händen drückst du ihn zurück. Gehört hast du nichts außer dem Schrei.",
+        "damage": 5,
+        "unruhe": 10,
+        "nerves": -20,
+        "choices": [
+          {
+            "text": "Atmen."
+          }
+        ]
+      }
+    }
+  },
+  "inspect_splitter": {
+    "start": "start",
+    "nodes": {
+      "start": {
+        "text": "Drei Splitter in Wachstuch. Zwei sind still. Der dritte summt, und in seinem Inneren bewegt sich etwas, wenn du ihn schräg hältst.",
+        "choices": [
+          {
+            "text": "In den singenden Splitter sehen (gefährlich)",
+            "next": [
+              {
+                "node": "ok",
+                "chance": 0.6
+              },
+              {
+                "node": "bad"
+              }
+            ],
+            "hide_if_clues": [
+              "shard_vision"
+            ]
+          },
+          {
+            "text": "Wieder einpacken."
+          }
+        ]
+      },
+      "ok": {
+        "text": "Das Licht im Glas wird zu Wänden, die Wände zu Rohren.",
+        "gives_clues": [
+          "shard_vision"
+        ],
+        "unruhe": 5,
+        "nerves": -10,
+        "choices": [
+          {
+            "text": "Den Splitter einwickeln."
+          }
+        ]
+      },
+      "bad": {
+        "text": "Das Licht springt dir in die Augen. Minutenlang siehst du nur weiße Sterne, und jeder davon singt. Als du wieder sehen kannst, hast du dir die Hand an der Kante aufgeschnitten.",
+        "damage": 6,
+        "unruhe": 10,
+        "nerves": -15,
+        "choices": [
+          {
+            "text": "Später noch einmal."
+          }
+        ]
+      }
+    }
+  },
+  "inspect_uhr": {
+    "start": "start",
+    "nodes": {
+      "start": {
+        "text": "Du klappst den Deckel auf. Die Zeiger stehen auf zehn vor zwölf. Innen klebt ein winziges, verblasstes Bild einer Frau mit Marktschürze, die über etwas lacht, das außerhalb des Bildes liegt.\n\nGefährlich ist an dieser Uhr nur, wie traurig sie macht.",
+        "choices": [
+          {
+            "text": "Den Deckel schließen."
+          }
+        ]
+      }
+    }
+  },
+  "inspect_scherbe": {
+    "start": "start",
+    "nodes": {
+      "start": {
+        "text": "Der Rand der Scherbe ist bereift. Dein Spiegelbild darin blinzelt einen Herzschlag nach dir.",
+        "choices": [
+          {
+            "text": "Lange hineinsehen (gefährlich)",
+            "next": [
+              {
+                "node": "choir",
+                "requires_nerves": 40,
+                "chance": 0.55
+              },
+              {
+                "node": "grab"
+              }
+            ],
+            "hide_if_clues": [
+              "mirror_choir"
+            ]
+          },
+          {
+            "text": "Wieder einpacken."
+          }
+        ]
+      },
+      "choir": {
+        "text": "Hinter deinem Spiegelbild wird es voll.",
+        "gives_clues": [
+          "mirror_choir"
+        ],
+        "unruhe": 8,
+        "nerves": -15,
+        "choices": [
+          {
+            "text": "Die Scherbe umdrehen."
+          }
+        ]
+      },
+      "grab": {
+        "text": "Dein Spiegelbild greift nach dir. Eine eiskalte Hand schließt sich um dein Handgelenk, und als du dich losreißt, bleiben weiße Fingerabdrücke auf deiner Haut zurück.",
+        "damage": 5,
+        "unruhe": 10,
+        "nerves": -25,
+        "choices": [
+          {
+            "text": "Die Scherbe in ein Tuch wickeln."
+          }
+        ]
+      }
+    }
+  }
+}

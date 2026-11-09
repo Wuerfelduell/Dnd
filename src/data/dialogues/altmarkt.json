@@ -595,6 +595,16 @@
             ]
           },
           {
+            "text": "Sie haben ein Gesangbuch aus St. Ebba.",
+            "next": "hymnal",
+            "requires_quests_active": [
+              "lost_hymnal"
+            ],
+            "hide_if_flags": [
+              "hymnal_got"
+            ]
+          },
+          {
             "text": "Ich schaue nur."
           }
         ]
@@ -646,7 +656,31 @@
         "text": "„Kommen Sie wieder, wenn Ihnen etwas Merkwürdiges unterkommt. Ich kaufe Merkwürdiges. Nur keine Spiegel mehr.“",
         "choices": [
           {
+            "text": "Sie haben ein Gesangbuch aus St. Ebba.",
+            "next": "hymnal",
+            "requires_quests_active": [
+              "lost_hymnal"
+            ],
+            "hide_if_flags": [
+              "hymnal_got"
+            ]
+          },
+          {
             "text": "Auf Wiedersehen."
+          }
+        ]
+      },
+      "hymnal": {
+        "text": "Quill nimmt die Lupe aus dem Auge. „Ein Junge im grauen Mantel hat es mir verkauft, für einen Schilling. Viel zu billig, das hätte mich warnen sollen.\n\nSeitdem summt es nachts in der Vitrine. Nehmen Sie es mit, ich will keinen Penny dafür. Und, Ermittler? Es will aufgeschlagen werden. Tun Sie ihm den Gefallen nicht.“",
+        "gives_items": {
+          "verlorenes_gesangbuch": 1
+        },
+        "sets_flags": [
+          "hymnal_got"
+        ],
+        "choices": [
+          {
+            "text": "Danke, Mr. Quill."
           }
         ]
       }
