@@ -89,3 +89,36 @@ test('Kurve: die Bosse werden von Fall zu Fall zäher', () => {
   const order = ['ash_warden', 'rook_fight', 'miriam', 'dreizehnter_gast', 'miss_wren', 'starling_fight'];
   for (let i = 1; i < order.length; i++) assert.ok(E[order[i]].hp >= E[order[i - 1]].hp, `${order[i]} mindestens so zäh wie ${order[i - 1]}`);
 });
+
+// Sequenz-Schranke: die Enden der Kapitel verlangen eine Mindest-Sequenz (Seb: Kapitel 1 nicht mit Seq 8, Kapitel 2 nur mit Seq 5)
+const GATES = [
+  ['starling_fight', 7, 'revolver', 2],
+  ['namenlose', 6, 'ossuarklinge', 4],
+  ['leuchtfeuer', 5, 'ossuarklinge', 4],
+];
+for (const [boss, min, weapon, tonics] of GATES) {
+  test(`Sequenz-Schranke: ${boss} nur ab Sequenz ${min}, für jeden Pfad`, () => {
+    assert.equal(content.encounters[boss].min_seq, min);
+    const armed = (pid, seq) => {
+      const s = hero(seq, pid);
+      s.addItem(weapon);
+      s.equip(weapon);
+      s.addItem('tonikum', tonics);
+      return s;
+    };
+    for (const pid of Object.keys(content.pathways)) {
+      const skills = [...Object.keys(armed(pid, min).pathwaySkills()), 'attack'];
+      const best = (seq, defend) => skills.some((skill) => fight(armed(pid, seq), boss, { defend, skill, healBelow: 18 }).result.outcome === 'won');
+      assert.equal(best(min + 1, EXPERT), false, `${pid}: mit Sequenz ${min + 1} darf man ${boss} nicht schaffen`);
+      assert.equal(best(min, SKILLED), true, `${pid}: mit Sequenz ${min} schafft man ${boss}`);
+    }
+  });
+}
+
+test('Sequenz 5 ist der große Durchbruch: mehr Leben, mehr Schaden, weniger Schaden genommen', () => {
+  for (const [id, p] of Object.entries(content.pathways)) {
+    const keys = p.seqs['5'].passives.map((x) => x.key);
+    for (const k of ['ap_start', 'dmg_mult', 'damage_taken']) assert.ok(keys.includes(k), `${id} Seq 5: ${k} fehlt`);
+  }
+  assert.ok(hero(5).maxHp - hero(6).maxHp >= 3 * (hero(8).maxHp - hero(9).maxHp), 'Seq 5 wächst dreifach');
+});

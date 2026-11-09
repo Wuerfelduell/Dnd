@@ -147,6 +147,8 @@ test('Balance: Geübte schaffen normale Gegner ihres Gebiets, sehr Geübte auch 
     // Bosse sind für Ausrüstung der nächsten Stufe gedacht (die Waffe dafür liegt beim vorigen Boss bzw. im Schrein)
     const tier = Math.min(4, content.zones[e.zone].tier + (e.boss ? 1 : 0));
     const s = geared(tier);
+    // Höhere Wesen (Sequenz-Schranke) brauchen die passende Sequenz
+    if (e.min_seq) { s.pathway = { id: 'eisen', seq: e.min_seq, digestion: 0 }; s.updateMaxHp(); s.hp = s.maxHp; }
     // Sehr Geübte nutzen auch ihre Konzentration (Doppelschlag)
     const tough = e.elite || e.boss;
     const { result, combat } = fight(s, id, { defend: tough ? EXPERT : SKILLED, skill: tough ? 'double' : 'attack', healBelow: 18 });
