@@ -259,6 +259,13 @@
             "next": "who"
           },
           {
+            "text": "Wo bekomme ich Zutaten für Sequenz 7?",
+            "next": "secret",
+            "requires_flags": [
+              "briefed_04"
+            ]
+          },
+          {
             "text": "Bis dann."
           }
         ]
@@ -272,6 +279,18 @@
           },
           {
             "text": "Verstehe."
+          }
+        ]
+      },
+      "secret": {
+        "text": "Kittering senkt die Stimme. „Nicht hier. Seit der Sache mit dem Chor schaut die Polizei zu genau hin. Die guten Sachen gehen nur noch über die Zirkel, und eine Formel für die siebte Stufe bekomme ich selbst nur alle Jubeljahre.“ Er nickt zum hinteren Ende des Marktes. „Der mit dem Schleier. Reden Sie mit ihm. Von mir haben Sie das nicht.“",
+        "choices": [
+          {
+            "text": "Formeln ansehen.",
+            "shop": "kittering"
+          },
+          {
+            "text": "Danke."
           }
         ]
       }

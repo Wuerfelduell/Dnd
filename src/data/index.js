@@ -57,6 +57,7 @@ import spiegelkabinett from './maps/spiegelkabinett.json';
 import dFall5 from './dialogues/fall5.json';
 import dFall6 from './dialogues/fall6.json';
 import buildings from './gebaeude.json';
+import gatherings from './treffen.json';
 
 export const content = buildContent({
   campaign,
@@ -72,4 +73,5 @@ export const content = buildContent({
   wilds,
   factions,
   buildings,
+  gatherings,
 });

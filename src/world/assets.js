@@ -276,6 +276,7 @@ export const MAP_MARKERS = {
   marsch: 3, katakomben: 2, pestgassen: 7, kraterwald: 12,
   ankerhof: 3, haus_morrow: 4, schleierhaus: 8, // Sekten: Platzhalter-Marker
   giesserei: 7, haus_vey: 1, resonanzkammer: 9, atelier: 4, ballsaal: 8, spiegelkabinett: 8, // Fall 5/6: Platzhalter
+  treffen_waage: 6, treffen_kreide: 5, treffen_russ: 7, // Geheime Treffen: Platzhalter
 };
 export const MAP_MARKERS_URL = `${BASE}ui/C_08_map_markers.png`;
 /** Notizbuch: Status → Zelle in ui/C_07_log_markers.png. */

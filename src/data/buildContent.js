@@ -2,33 +2,36 @@
 // Hinweise, Informationen, Schlussfolgerungen und Dialoge teilen sich jeweils einen Namensraum über alle Fälle.
 // factions.json (Sekten) bringt eigene Figuren, Reiseziele, Gegner, Beute, Aufträge und Hinweise mit.
 // gebaeude.json bringt betretbare Häuser mit: Innenräume, Türen in den Vierteln, Figuren, Händler, Dialoge.
-export function buildContent({ campaign, quests, cases, maps, dialogues, items = {}, encounters = {}, pathways = null, market = null, travel = null, wilds = null, factions = null, buildings = null }) {
+// treffen.json (geheime Treffen) bringt Zirkel, Treffpunkte, Gastgeber mit Händlern, Dialoge und Reiseziele mit.
+export function buildContent({ campaign, quests, cases, maps, dialogues, items = {}, encounters = {}, pathways = null, market = null, travel = null, wilds = null, factions = null, buildings = null, gatherings = null }) {
   const merge = (list, key) => Object.assign({}, ...list.map((x) => x[key] ?? {}));
   const b = buildings ?? {};
-  maps = withEntrances([...maps, ...(b.maps ?? [])], b.entrances ?? []);
+  const g = gatherings ?? {};
+  maps = withPlacements(withEntrances([...maps, ...(b.maps ?? []), ...(g.maps ?? [])], b.entrances ?? []), g.placements ?? []);
   const wild = wildContent(wilds);
   const f = factions ?? {};
   if (f.facts || f.clues || f.deductions) cases = [...cases, { facts: f.facts, clues: f.clues, deductions: f.deductions }];
   return {
     ...campaign,
-    npcs: { ...campaign.npcs, ...(market?.npcs ?? {}), ...(f.npcs ?? {}), ...(b.npcs ?? {}) },
-    travel: [...(campaign.travel ?? []), ...(market?.travel ?? []), ...wild.travel, ...(f.travel ?? [])],
+    npcs: { ...campaign.npcs, ...(market?.npcs ?? {}), ...(f.npcs ?? {}), ...(b.npcs ?? {}), ...(g.npcs ?? {}) },
+    travel: [...(campaign.travel ?? []), ...(market?.travel ?? []), ...wild.travel, ...(f.travel ?? []), ...(g.travel ?? [])],
     quests: { ...quests, ...(f.quests ?? {}) },
     items: { ...items, ...(pathways?.items ?? {}), ...pathwayItems(pathways?.pathways ?? {}), ...wild.items, ...(f.items ?? {}) },
     encounters: { ...encounters, ...(market?.encounters ?? {}), ...(travel?.encounters ?? {}), ...wild.encounters, ...(f.encounters ?? {}) },
-    travelRules: travel,
+    travelRules: travel && { ...travel, pins: { ...travel.pins, ...(g.pins ?? {}) } },
     pathways: pathways?.pathways ?? {},
-    market: market && { ...market, merchants: { ...market.merchants, ...(b.merchants ?? {}) }, sell_prices: { ...market.sell_prices, ...(f.sell_prices ?? {}) } },
+    market: market && { ...market, merchants: { ...market.merchants, ...(b.merchants ?? {}), ...(g.merchants ?? {}) }, sell_prices: { ...market.sell_prices, ...(f.sell_prices ?? {}) } },
     loot: { ...(market?.loot ?? {}), ...wild.loot, ...(f.loot ?? {}) },
     zones: wild.zones,
     lootTables: wild.lootTables,
     factions: f.factions ?? {},
+    gatherings: g.rules ? { rules: g.rules, circles: g.circles ?? {} } : null,
     facts: merge(cases, 'facts'),
     clues: merge(cases, 'clues'),
     endings: merge(cases, 'endings'),
     deductions: cases.flatMap((c) => c.deductions ?? []),
     maps: Object.fromEntries(maps.map((m) => [m.id, m])),
-    dialogues: Object.assign({}, ...dialogues, b.dialogues ?? {}),
+    dialogues: Object.assign({}, ...dialogues, b.dialogues ?? {}, g.dialogues ?? {}),
   };
 }
 
@@ -48,6 +51,15 @@ function withEntrances(maps, entrances) {
         ...(e.lock ? { lock: e.lock } : {}),
       }))],
     };
+  });
+}
+
+/** Stellt zusätzliche Figuren auf bestehende Karten (z. B. den Boten der geheimen Treffen). */
+function withPlacements(maps, placements) {
+  return maps.map((m) => {
+    const own = placements.filter((p) => p.map === m.id);
+    if (!own.length) return m;
+    return { ...m, npcs: [...(m.npcs ?? []), ...own.filter((p) => p.npc).map((p) => p.npc)] };
   });
 }
 

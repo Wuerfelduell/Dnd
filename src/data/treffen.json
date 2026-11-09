@@ -1,0 +1,1232 @@
+{
+  "_info": "Geheime Treffen ab Fall 4. Alle interval_min Spielminuten beginnt reihum (order) das Treffen eines Zirkels und bleibt open_min Minuten offen. Händler mit 'gathering' würfeln je Treffen ihr Angebot ('chance' pro Eintrag, 'limit' Stück pro Treffen). Zutaten ab Sequenz 7 gibt es nur hier oder als Beute, nie auf dem normalen Markt.",
+  "rules": {
+    "interval_min": 20,
+    "open_min": 6,
+    "order": [
+      "waage",
+      "kreide",
+      "russ"
+    ],
+    "unlock": {
+      "requires_flags": [
+        "briefed_04"
+      ]
+    }
+  },
+  "circles": {
+    "waage": {
+      "name": "Die Stille Waage",
+      "member_flag": "treffen_waage",
+      "map": "treffen_waage",
+      "short": "Zutaten",
+      "invite": "Ein Zettel in deiner Manteltasche, mit Silberstaub bestreut: Die Stille Waage wiegt jetzt. Gewölbe unter der Krähenbrücke."
+    },
+    "kreide": {
+      "name": "Der Kreidezirkel",
+      "member_flag": "treffen_kreide",
+      "map": "treffen_kreide",
+      "short": "Formeln",
+      "invite": "Auf deiner Handfläche steht plötzlich ein Kreidekreis. Der Kreidezirkel tagt jetzt, Hinterzimmer am Altmarkt."
+    },
+    "russ": {
+      "name": "Die Rußgesellschaft",
+      "member_flag": "treffen_russ",
+      "map": "treffen_russ",
+      "short": "Raritäten",
+      "invite": "Rußige Fingerabdrücke an deinem Ärmel, die vorher nicht da waren. Die Rußgesellschaft handelt jetzt, Kohlenschuppen hinter der Gießerei."
+    }
+  },
+  "pins": {
+    "treffen_waage": [
+      294,
+      182
+    ],
+    "treffen_kreide": [
+      258,
+      134
+    ],
+    "treffen_russ": [
+      168,
+      232
+    ]
+  },
+  "travel": [
+    {
+      "map": "treffen_waage",
+      "spawn": "default",
+      "name": "Die Stille Waage",
+      "desc": "Geheimes Treffen im Gewölbe unter der Krähenbrücke. Zutaten ab Sequenz 7. Nur solange es läuft.",
+      "requires_gathering": "waage"
+    },
+    {
+      "map": "treffen_kreide",
+      "spawn": "default",
+      "name": "Der Kreidezirkel",
+      "desc": "Geheimes Treffen in einem Hinterzimmer am Altmarkt. Formeln. Nur solange es läuft.",
+      "requires_gathering": "kreide"
+    },
+    {
+      "map": "treffen_russ",
+      "spawn": "default",
+      "name": "Die Rußgesellschaft",
+      "desc": "Geheimes Treffen im Kohlenschuppen hinter der Gießerei. Raritäten aus den Gefahrengebieten. Nur solange es läuft.",
+      "requires_gathering": "russ"
+    }
+  ],
+  "placements": [
+    {
+      "map": "nachtmarkt",
+      "npc": {
+        "id": "schleierbote",
+        "tile": [
+          27,
+          5
+        ],
+        "facing": "left",
+        "reach": 36,
+        "visible_if": {
+          "requires_flags": [
+            "briefed_04"
+          ]
+        }
+      }
+    }
+  ],
+  "npcs": {
+    "schleierbote": {
+      "name": "Verschleierter Bote",
+      "role": "Vermittler",
+      "dialogue": "schleierbote",
+      "palette": {
+        "coat": "#1c1820",
+        "hat": "#0e0c10",
+        "skin": "#c8b8b0",
+        "hair": "#0e0c10",
+        "legs": "#141016",
+        "scarf": "#3a3040"
+      }
+    },
+    "tresswell": {
+      "name": "Ignaz Tresswell",
+      "role": "Waagemeister der Stillen Waage",
+      "dialogue": "tresswell",
+      "palette": {
+        "coat": "#3a3428",
+        "hat": "#1e1a14",
+        "skin": "#e0c8a8",
+        "hair": "#b0a898",
+        "legs": "#1e1a14",
+        "scarf": "#a08850"
+      }
+    },
+    "vellacourt": {
+      "name": "Ada Vellacourt",
+      "role": "Gastgeberin des Kreidezirkels",
+      "dialogue": "vellacourt",
+      "palette": {
+        "coat": "#e8e4dc",
+        "hat": "#c8c4bc",
+        "skin": "#ecd4bc",
+        "hair": "#3a2a28",
+        "legs": "#4a4448",
+        "scarf": "#6a2a3a"
+      }
+    },
+    "kohlenjem": {
+      "name": "Kohlen-Jem",
+      "role": "Wortführer der Rußgesellschaft",
+      "dialogue": "kohlenjem",
+      "palette": {
+        "coat": "#2a2624",
+        "hat": "#141210",
+        "skin": "#8a7464",
+        "hair": "#141210",
+        "legs": "#1a1816",
+        "scarf": "#8a3a20"
+      }
+    }
+  },
+  "merchants": {
+    "tresswell": {
+      "name": "Ignaz Tresswell",
+      "title": "Die Stille Waage: Zutaten",
+      "gathering": "waage",
+      "greeting": "Gewogen wird in Silber. Bezahlt in Schilling. Geredet wird draußen.",
+      "stock": [
+        {
+          "item": "sternglas",
+          "price": 65,
+          "chance": 0.45,
+          "limit": 1
+        },
+        {
+          "item": "spiegelquecksilber",
+          "price": 65,
+          "chance": 0.45,
+          "limit": 1
+        },
+        {
+          "item": "puppenglas",
+          "price": 65,
+          "chance": 0.45,
+          "limit": 1
+        },
+        {
+          "item": "seufzerstein",
+          "price": 65,
+          "chance": 0.45,
+          "limit": 1
+        },
+        {
+          "item": "schwarzbernstein",
+          "price": 65,
+          "chance": 0.45,
+          "limit": 1
+        },
+        {
+          "item": "sternschlacke",
+          "price": 65,
+          "chance": 0.45,
+          "limit": 1
+        },
+        {
+          "item": "nachtfalterstaub",
+          "price": 65,
+          "chance": 0.45,
+          "limit": 1
+        },
+        {
+          "item": "geisteressenz",
+          "price": 55,
+          "chance": 0.8,
+          "limit": 2
+        },
+        {
+          "item": "silberstaub",
+          "price": 14,
+          "limit": 3
+        },
+        {
+          "item": "nebeltau",
+          "price": 4,
+          "limit": 5
+        },
+        {
+          "item": "formel_laterne_7",
+          "price": 220,
+          "once": true,
+          "chance": 0.08,
+          "requires_pathway": [
+            "laterne",
+            8
+          ],
+          "locked_text": "Erst ab Sequenz 8 dieses Pfades"
+        },
+        {
+          "item": "formel_faden_7",
+          "price": 220,
+          "once": true,
+          "chance": 0.08,
+          "requires_pathway": [
+            "faden",
+            8
+          ],
+          "locked_text": "Erst ab Sequenz 8 dieses Pfades"
+        },
+        {
+          "item": "formel_maske_7",
+          "price": 220,
+          "once": true,
+          "chance": 0.08,
+          "requires_pathway": [
+            "maske",
+            8
+          ],
+          "locked_text": "Erst ab Sequenz 8 dieses Pfades"
+        },
+        {
+          "item": "formel_echo_7",
+          "price": 220,
+          "once": true,
+          "chance": 0.08,
+          "requires_pathway": [
+            "echo",
+            8
+          ],
+          "locked_text": "Erst ab Sequenz 8 dieses Pfades"
+        },
+        {
+          "item": "formel_kessel_7",
+          "price": 220,
+          "once": true,
+          "chance": 0.08,
+          "requires_pathway": [
+            "kessel",
+            8
+          ],
+          "locked_text": "Erst ab Sequenz 8 dieses Pfades"
+        },
+        {
+          "item": "formel_eisen_7",
+          "price": 220,
+          "once": true,
+          "chance": 0.08,
+          "requires_pathway": [
+            "eisen",
+            8
+          ],
+          "locked_text": "Erst ab Sequenz 8 dieses Pfades"
+        },
+        {
+          "item": "formel_schluessel_7",
+          "price": 220,
+          "once": true,
+          "chance": 0.08,
+          "requires_pathway": [
+            "schluessel",
+            8
+          ],
+          "locked_text": "Erst ab Sequenz 8 dieses Pfades"
+        }
+      ]
+    },
+    "vellacourt": {
+      "name": "Ada Vellacourt",
+      "title": "Der Kreidezirkel: Formeln",
+      "gathering": "kreide",
+      "greeting": "Wir tauschen Wissen. Gegen Geld, da Sie nichts Interessantes wissen.",
+      "stock": [
+        {
+          "item": "formel_laterne_7",
+          "price": 180,
+          "once": true,
+          "chance": 0.55,
+          "requires_pathway": [
+            "laterne",
+            8
+          ],
+          "locked_text": "Erst ab Sequenz 8 dieses Pfades"
+        },
+        {
+          "item": "formel_faden_7",
+          "price": 180,
+          "once": true,
+          "chance": 0.55,
+          "requires_pathway": [
+            "faden",
+            8
+          ],
+          "locked_text": "Erst ab Sequenz 8 dieses Pfades"
+        },
+        {
+          "item": "formel_maske_7",
+          "price": 180,
+          "once": true,
+          "chance": 0.55,
+          "requires_pathway": [
+            "maske",
+            8
+          ],
+          "locked_text": "Erst ab Sequenz 8 dieses Pfades"
+        },
+        {
+          "item": "formel_echo_7",
+          "price": 180,
+          "once": true,
+          "chance": 0.55,
+          "requires_pathway": [
+            "echo",
+            8
+          ],
+          "locked_text": "Erst ab Sequenz 8 dieses Pfades"
+        },
+        {
+          "item": "formel_kessel_7",
+          "price": 180,
+          "once": true,
+          "chance": 0.55,
+          "requires_pathway": [
+            "kessel",
+            8
+          ],
+          "locked_text": "Erst ab Sequenz 8 dieses Pfades"
+        },
+        {
+          "item": "formel_eisen_7",
+          "price": 180,
+          "once": true,
+          "chance": 0.55,
+          "requires_pathway": [
+            "eisen",
+            8
+          ],
+          "locked_text": "Erst ab Sequenz 8 dieses Pfades"
+        },
+        {
+          "item": "formel_schluessel_7",
+          "price": 180,
+          "once": true,
+          "chance": 0.55,
+          "requires_pathway": [
+            "schluessel",
+            8
+          ],
+          "locked_text": "Erst ab Sequenz 8 dieses Pfades"
+        },
+        {
+          "item": "formel_laterne_8",
+          "price": 80,
+          "once": true,
+          "chance": 0.6,
+          "requires_pathway": [
+            "laterne",
+            9
+          ],
+          "locked_text": "Erst für Anhänger dieses Pfades"
+        },
+        {
+          "item": "formel_faden_8",
+          "price": 80,
+          "once": true,
+          "chance": 0.6,
+          "requires_pathway": [
+            "faden",
+            9
+          ],
+          "locked_text": "Erst für Anhänger dieses Pfades"
+        },
+        {
+          "item": "formel_maske_8",
+          "price": 80,
+          "once": true,
+          "chance": 0.6,
+          "requires_pathway": [
+            "maske",
+            9
+          ],
+          "locked_text": "Erst für Anhänger dieses Pfades"
+        },
+        {
+          "item": "formel_echo_8",
+          "price": 80,
+          "once": true,
+          "chance": 0.6,
+          "requires_pathway": [
+            "echo",
+            9
+          ],
+          "locked_text": "Erst für Anhänger dieses Pfades"
+        },
+        {
+          "item": "formel_kessel_8",
+          "price": 80,
+          "once": true,
+          "chance": 0.6,
+          "requires_pathway": [
+            "kessel",
+            9
+          ],
+          "locked_text": "Erst für Anhänger dieses Pfades"
+        },
+        {
+          "item": "formel_eisen_8",
+          "price": 80,
+          "once": true,
+          "chance": 0.6,
+          "requires_pathway": [
+            "eisen",
+            9
+          ],
+          "locked_text": "Erst für Anhänger dieses Pfades"
+        },
+        {
+          "item": "formel_schluessel_8",
+          "price": 80,
+          "once": true,
+          "chance": 0.6,
+          "requires_pathway": [
+            "schluessel",
+            9
+          ],
+          "locked_text": "Erst für Anhänger dieses Pfades"
+        },
+        {
+          "item": "geisteressenz",
+          "price": 60,
+          "chance": 0.3,
+          "limit": 1
+        }
+      ]
+    },
+    "kohlenjem": {
+      "name": "Kohlen-Jem",
+      "title": "Die Rußgesellschaft: Raritäten",
+      "gathering": "russ",
+      "greeting": "Alles selbst geholt. Fragen kosten extra.",
+      "stock": [
+        {
+          "item": "geisteressenz",
+          "price": 45,
+          "chance": 0.7,
+          "limit": 2
+        },
+        {
+          "item": "sternglas",
+          "price": 55,
+          "chance": 0.3,
+          "limit": 1
+        },
+        {
+          "item": "spiegelquecksilber",
+          "price": 55,
+          "chance": 0.3,
+          "limit": 1
+        },
+        {
+          "item": "puppenglas",
+          "price": 55,
+          "chance": 0.3,
+          "limit": 1
+        },
+        {
+          "item": "seufzerstein",
+          "price": 55,
+          "chance": 0.3,
+          "limit": 1
+        },
+        {
+          "item": "schwarzbernstein",
+          "price": 55,
+          "chance": 0.3,
+          "limit": 1
+        },
+        {
+          "item": "sternschlacke",
+          "price": 55,
+          "chance": 0.3,
+          "limit": 1
+        },
+        {
+          "item": "nachtfalterstaub",
+          "price": 55,
+          "chance": 0.3,
+          "limit": 1
+        },
+        {
+          "item": "formel_laterne_7",
+          "price": 200,
+          "once": true,
+          "chance": 0.2,
+          "requires_pathway": [
+            "laterne",
+            8
+          ],
+          "locked_text": "Erst ab Sequenz 8 dieses Pfades"
+        },
+        {
+          "item": "formel_faden_7",
+          "price": 200,
+          "once": true,
+          "chance": 0.2,
+          "requires_pathway": [
+            "faden",
+            8
+          ],
+          "locked_text": "Erst ab Sequenz 8 dieses Pfades"
+        },
+        {
+          "item": "formel_maske_7",
+          "price": 200,
+          "once": true,
+          "chance": 0.2,
+          "requires_pathway": [
+            "maske",
+            8
+          ],
+          "locked_text": "Erst ab Sequenz 8 dieses Pfades"
+        },
+        {
+          "item": "formel_echo_7",
+          "price": 200,
+          "once": true,
+          "chance": 0.2,
+          "requires_pathway": [
+            "echo",
+            8
+          ],
+          "locked_text": "Erst ab Sequenz 8 dieses Pfades"
+        },
+        {
+          "item": "formel_kessel_7",
+          "price": 200,
+          "once": true,
+          "chance": 0.2,
+          "requires_pathway": [
+            "kessel",
+            8
+          ],
+          "locked_text": "Erst ab Sequenz 8 dieses Pfades"
+        },
+        {
+          "item": "formel_eisen_7",
+          "price": 200,
+          "once": true,
+          "chance": 0.2,
+          "requires_pathway": [
+            "eisen",
+            8
+          ],
+          "locked_text": "Erst ab Sequenz 8 dieses Pfades"
+        },
+        {
+          "item": "formel_schluessel_7",
+          "price": 200,
+          "once": true,
+          "chance": 0.2,
+          "requires_pathway": [
+            "schluessel",
+            8
+          ],
+          "locked_text": "Erst ab Sequenz 8 dieses Pfades"
+        },
+        {
+          "item": "tonikum",
+          "price": 16,
+          "limit": 2
+        },
+        {
+          "item": "bannsalz",
+          "price": 13,
+          "limit": 2
+        }
+      ]
+    }
+  },
+  "dialogues": {
+    "schleierbote": {
+      "start": "start",
+      "nodes": {
+        "start": {
+          "text": "Eine Gestalt unter einem schwarzen Schleier, reglos wie ein Laternenpfahl. „Sie sind der Polizist, der Fragen stellt, die man besser nicht stellt. Manche Leute hier würden Ihnen gern Antworten verkaufen.“",
+          "choices": [
+            {
+              "text": "Was für Leute?",
+              "next": "who"
+            },
+            {
+              "text": "Der Stillen Waage beitreten (40 Schilling).",
+              "next": "join_waage",
+              "requires_money": 40,
+              "hide_if_flags": [
+                "treffen_waage"
+              ]
+            },
+            {
+              "text": "Dem Kreidezirkel beitreten (60 Schilling).",
+              "next": "join_kreide",
+              "requires_money": 60,
+              "requires_beyonder": true,
+              "hide_if_flags": [
+                "treffen_kreide"
+              ]
+            },
+            {
+              "text": "Und der Kreidezirkel?",
+              "next": "kreide_no",
+              "requires_beyonder": false,
+              "hide_if_flags": [
+                "treffen_kreide"
+              ]
+            },
+            {
+              "text": "Der Rußgesellschaft beitreten (1 Geisteressenz und 25 Schilling).",
+              "next": "join_russ",
+              "requires_items": [
+                "geisteressenz"
+              ],
+              "requires_money": 25,
+              "hide_if_flags": [
+                "treffen_russ"
+              ]
+            },
+            {
+              "text": "Und die Rußgesellschaft?",
+              "next": "russ_no",
+              "hide_if_items": [
+                "geisteressenz"
+              ],
+              "hide_if_flags": [
+                "treffen_russ"
+              ]
+            },
+            {
+              "text": "Wann treffen sie sich?",
+              "next": "when"
+            },
+            {
+              "text": "Kein Interesse."
+            }
+          ]
+        },
+        "who": {
+          "text": "„Kittering verkauft Ihnen Reste. Was wirklich zählt, geht nicht über den Tresen. Es gibt drei Zirkel. Die Stille Waage handelt mit Zutaten, die man auf keinem Markt findet. Der Kreidezirkel tauscht Formeln. Und die Rußgesellschaft verkauft, was sie selbst aus den schlimmen Ecken der Stadt holt.“\n\nDer Schleier bewegt sich, als würde darunter jemand lächeln. „Dass Sie Polizist sind, stört dort niemanden. Solange Sie es draußen lassen.“",
+          "choices": [
+            {
+              "text": "Wie komme ich hinein?",
+              "next": "start"
+            },
+            {
+              "text": "Ich überlege es mir."
+            }
+          ]
+        },
+        "when": {
+          "text": "„Jede Glockenrunde trifft sich ein Zirkel, reihum. Etwa alle zwanzig Minuten. Ein Treffen dauert nicht lange, sechs Minuten, dann sind alle wieder fort. Wer dazugehört, wird gerufen. Sie werden es merken.“\n\nOben links unter deiner Börse siehst du, wann dein nächstes Treffen ist.",
+          "choices": [
+            {
+              "text": "Verstanden.",
+              "next": "start"
+            }
+          ]
+        },
+        "join_waage": {
+          "text": "Der Bote nimmt die Münzen, ohne sie zu zählen, und drückt dir ein kleines Bleigewicht in die Hand. „Das ist Ihr Name, ab jetzt. Wenn die Waage wiegt, wissen Sie es.“",
+          "takes_money": 40,
+          "sets_flags": [
+            "treffen_waage"
+          ],
+          "choices": [
+            {
+              "text": "Und die anderen Zirkel?",
+              "next": "start"
+            },
+            {
+              "text": "Danke."
+            }
+          ]
+        },
+        "join_kreide": {
+          "text": "Der Bote zieht mit Kreide einen Kreis auf deinen Handrücken. Er verschwindet, sobald du hinsiehst. „Der Zirkel nimmt nur, wer schon getrunken hat. Sie haben. Willkommen.“",
+          "takes_money": 60,
+          "sets_flags": [
+            "treffen_kreide"
+          ],
+          "choices": [
+            {
+              "text": "Und die anderen Zirkel?",
+              "next": "start"
+            },
+            {
+              "text": "Danke."
+            }
+          ]
+        },
+        "kreide_no": {
+          "text": "„Der Kreidezirkel nimmt nur Leute, die schon auf einem Pfad gehen. Trinken Sie erst einen Trank. Dann reden wir weiter. Es kostet 60 Schilling.“",
+          "choices": [
+            {
+              "text": "Verstehe.",
+              "next": "start"
+            }
+          ]
+        },
+        "join_russ": {
+          "text": "Der Bote hält die Phiole gegen das Licht, nickt und lässt sie unter dem Schleier verschwinden. „Ein Pfand. Damit wissen sie, dass Sie selbst schon in den dunklen Ecken waren.“ Er wischt dir mit einem rußigen Daumen über den Ärmel.",
+          "takes_money": 25,
+          "takes_items": {
+            "geisteressenz": 1
+          },
+          "sets_flags": [
+            "treffen_russ"
+          ],
+          "choices": [
+            {
+              "text": "Und die anderen Zirkel?",
+              "next": "start"
+            },
+            {
+              "text": "Danke."
+            }
+          ]
+        },
+        "russ_no": {
+          "text": "„Die Rußgesellschaft will ein Pfand. Eine Geisteressenz, aus einem Wesen, das Sie selbst erledigt haben. Und 25 Schilling. Gefahrengebiete gibt es genug.“",
+          "choices": [
+            {
+              "text": "Verstehe.",
+              "next": "start"
+            }
+          ]
+        }
+      }
+    },
+    "tresswell": {
+      "start": [
+        {
+          "node": "open",
+          "requires_gathering": "waage"
+        },
+        {
+          "node": "closed"
+        }
+      ],
+      "nodes": {
+        "open": {
+          "text": "Ein kleiner Mann mit Lupe vor dem Auge legt Ware auf eine Messingwaage. Kerzen tropfen. Niemand spricht lauter als ein Flüstern.",
+          "choices": [
+            {
+              "text": "Ware ansehen.",
+              "shop": "tresswell"
+            },
+            {
+              "text": "Ich gehe."
+            }
+          ]
+        },
+        "closed": {
+          "text": "Die Kerzen sind aus, die Waage steht leer. Tresswell packt seine Gewichte ein. „Die Waage ruht. Warten Sie auf das nächste Mal.“",
+          "choices": [
+            {
+              "text": "Gut."
+            }
+          ]
+        }
+      }
+    },
+    "vellacourt": {
+      "start": [
+        {
+          "node": "open",
+          "requires_gathering": "kreide"
+        },
+        {
+          "node": "closed"
+        }
+      ],
+      "nodes": {
+        "open": {
+          "text": "Eine Dame in hellem Kleid, Kreide an den Fingern. Auf dem Tisch liegen Formeln, jede mit einem Stein beschwert. „Lesen ist umsonst. Abschreiben nicht.“",
+          "choices": [
+            {
+              "text": "Formeln ansehen.",
+              "shop": "vellacourt"
+            },
+            {
+              "text": "Ich gehe."
+            }
+          ]
+        },
+        "closed": {
+          "text": "Die Tafel ist sauber gewischt. Ada Vellacourt zieht ihre Handschuhe an. „Der Zirkel ist geschlossen. Sie hören von uns.“",
+          "choices": [
+            {
+              "text": "Gut."
+            }
+          ]
+        }
+      }
+    },
+    "kohlenjem": {
+      "start": [
+        {
+          "node": "open",
+          "requires_gathering": "russ"
+        },
+        {
+          "node": "closed"
+        }
+      ],
+      "nodes": {
+        "open": {
+          "text": "Ein Hüne mit rußschwarzem Gesicht sitzt auf einer Kiste. Neben ihm liegen Säcke, Phiolen und Dinge, die sich noch bewegen. „Alles frisch aus dem Krater. Fast alles.“",
+          "choices": [
+            {
+              "text": "Ware ansehen.",
+              "shop": "kohlenjem"
+            },
+            {
+              "text": "Ich gehe."
+            }
+          ]
+        },
+        "closed": {
+          "text": "Die Säcke sind fort, die Glut ist aus. Kohlen-Jem schultert eine Kiste. „Vorbei für heute. Wer zu lange bleibt, fällt auf.“",
+          "choices": [
+            {
+              "text": "Gut."
+            }
+          ]
+        }
+      }
+    }
+  },
+  "maps": [
+    {
+      "id": "treffen_waage",
+      "name": "Gewölbe der Stillen Waage",
+      "ambient": {
+        "night": 0.9,
+        "fog": 0.12
+      },
+      "rows": [
+        "||||||||||||||||||",
+        "||||||||||||||||||",
+        "|ssKssssssssssKss|",
+        "|ssssssssssssssss|",
+        "|ssssssssssssssss|",
+        "|ssssssssssssssss|",
+        "|sKssssssssssssKs|",
+        "|ssssssssssssssss|",
+        "|ssssssssssssssss|",
+        "|ssssssssssssssss|",
+        "||||||||||||||||||"
+      ],
+      "spawns": {
+        "default": [
+          9,
+          8
+        ]
+      },
+      "lights": [
+        {
+          "tile": [
+            9,
+            4
+          ],
+          "radius": 60,
+          "intensity": 0.8,
+          "color": "#e0b070",
+          "glow": 0.3,
+          "flicker": 0.2
+        }
+      ],
+      "npcs": [
+        {
+          "id": "tresswell",
+          "tile": [
+            9,
+            3
+          ],
+          "facing": "down",
+          "reach": 40
+        }
+      ],
+      "interactables": [
+        {
+          "id": "out",
+          "kind": "travel",
+          "tile": [
+            9,
+            9
+          ],
+          "sprite": "stairs",
+          "prompt": "Hinauf in die Stadt",
+          "marker": false,
+          "reach": 22
+        },
+        {
+          "id": "waage_regeln",
+          "kind": "read",
+          "tile": [
+            5,
+            4
+          ],
+          "sprite": "file",
+          "prompt": "Die Tafel lesen",
+          "marker": false,
+          "title": "Regeln der Stillen Waage",
+          "text": "Erstens: Kein Name verlässt dieses Gewölbe.\nZweitens: Gewogen wird in Silber, gezahlt in Schilling.\nDrittens: Was hier liegt, liegt nur, solange die Kerzen brennen.\n\nDarunter, in anderer Schrift: „Die Waage lügt nicht. Die Händler schon.“"
+        }
+      ],
+      "decor": [
+        {
+          "sprite": "circle",
+          "tile": [
+            9,
+            5
+          ],
+          "depth": 40,
+          "alpha": 0.5
+        }
+      ]
+    },
+    {
+      "id": "treffen_kreide",
+      "name": "Hinterzimmer des Kreidezirkels",
+      "tiles": "tavern",
+      "ambient": {
+        "night": 0.74,
+        "fog": 0.05
+      },
+      "rows": [
+        "IIIIIIIIIIIIIIIIII",
+        "IIIIIIIIIIIIIIIIII",
+        "IBBBBBwwwwwwBBBBBI",
+        "IwwwwwwwwwwwwwwwwI",
+        "IwwwwwwwwwwwwwwwwI",
+        "IwwwwwwwwwwwwwwwwI",
+        "IwwwwwwwwwwwwwwwwI",
+        "IwwwwwwwwwwwwwwwwI",
+        "IwwwwwwwwwwwwwwwwI",
+        "IwwwwwwwwwwwwwwwwI",
+        "IIIIIIIIIEEIIIIIII"
+      ],
+      "spawns": {
+        "default": [
+          9,
+          9
+        ]
+      },
+      "npcs": [
+        {
+          "id": "vellacourt",
+          "tile": [
+            9,
+            3
+          ],
+          "facing": "down",
+          "reach": 40
+        }
+      ],
+      "interactables": [
+        {
+          "id": "out",
+          "kind": "travel",
+          "tile": [
+            9,
+            10
+          ],
+          "prompt": "Durch die Hintertür hinaus",
+          "marker": false,
+          "reach": 22
+        },
+        {
+          "id": "kreide_tafel",
+          "kind": "read",
+          "tile": [
+            14,
+            4
+          ],
+          "sprite": "file",
+          "prompt": "Die Kreidetafel betrachten",
+          "marker": false,
+          "title": "Kreidetafel",
+          "text": "Formeln, halb weggewischt. Nur die Überschriften sind noch zu lesen, jede in einer anderen Handschrift. Wer etwas aufschreibt, wischt es vor dem Gehen wieder weg.\n\nIn der Ecke ein Kreis aus Kreide, darin ein durchgestrichenes Auge."
+        }
+      ],
+      "decor": [
+        {
+          "sprite": "table_stools",
+          "tile": [
+            5,
+            6
+          ],
+          "alpha": 1,
+          "offset": [
+            8,
+            0
+          ],
+          "ysort": true
+        },
+        {
+          "sprite": "table_stools",
+          "tile": [
+            12,
+            6
+          ],
+          "alpha": 1,
+          "offset": [
+            8,
+            0
+          ],
+          "ysort": true
+        },
+        {
+          "sprite": "fireplace",
+          "tile": [
+            9,
+            1
+          ],
+          "alpha": 1,
+          "origin": [
+            0.5,
+            1
+          ],
+          "offset": [
+            0,
+            8
+          ],
+          "depth": 60,
+          "light": {
+            "dy": -10,
+            "radius": 70,
+            "intensity": 0.9,
+            "flicker": 0.2
+          }
+        },
+        {
+          "sprite": "chalkboard",
+          "tile": [
+            14,
+            1
+          ],
+          "alpha": 1,
+          "depth": 60
+        }
+      ]
+    },
+    {
+      "id": "treffen_russ",
+      "name": "Kohlenschuppen der Rußgesellschaft",
+      "tiles": "warehouse",
+      "ambient": {
+        "night": 0.86,
+        "fog": 0.22
+      },
+      "rows": [
+        "IIIIIIIIIIIIIIIIIIII",
+        "IIIIIIIIIIIIIIIIIIII",
+        "IwwwwwwwwwwwwwwwwwwI",
+        "IwwwwwwwwwwwwwwwwwwI",
+        "IwwwwwwwwwwwwwwwwwwI",
+        "IwwwwwwwwwwwwwwwwwwI",
+        "IwwwwwwwwwwwwwwwwwwI",
+        "IwwwwwwwwwwwwwwwwwwI",
+        "IwwwwwwwwwwwwwwwwwwI",
+        "IwwwwwwwwwwwwwwwwwwI",
+        "IIIIIIIIIIEEIIIIIIII"
+      ],
+      "spawns": {
+        "default": [
+          10,
+          9
+        ]
+      },
+      "lights": [
+        {
+          "tile": [
+            10,
+            5
+          ],
+          "radius": 50,
+          "intensity": 0.7,
+          "color": "#e07040",
+          "glow": 0.25,
+          "flicker": 0.3
+        }
+      ],
+      "npcs": [
+        {
+          "id": "kohlenjem",
+          "tile": [
+            10,
+            3
+          ],
+          "facing": "down",
+          "reach": 40
+        }
+      ],
+      "interactables": [
+        {
+          "id": "out",
+          "kind": "travel",
+          "tile": [
+            10,
+            10
+          ],
+          "prompt": "Hinaus in den Nebel",
+          "marker": false,
+          "reach": 22
+        },
+        {
+          "id": "russ_liste",
+          "kind": "read",
+          "tile": [
+            4,
+            4
+          ],
+          "sprite": "file",
+          "prompt": "Den angekohlten Zettel lesen",
+          "marker": false,
+          "title": "Angekohlter Zettel",
+          "text": "Eine Liste mit Waren und Preisen, die Hälfte verbrannt. Hinter jedem Posten steht ein Ort: „Krater“, „Pestgassen“, „Katakomben“. Wer hier verkauft, hat sich das Zeug selbst geholt. Oder jemandem abgenommen, der es sich selbst geholt hat."
+        }
+      ],
+      "decor": [
+        {
+          "sprite": "crate_stack",
+          "tile": [
+            3,
+            3
+          ],
+          "alpha": 1,
+          "origin": [
+            0.5,
+            1
+          ],
+          "offset": [
+            0,
+            8
+          ],
+          "ysort": true,
+          "solid": [
+            12,
+            8,
+            0,
+            -4
+          ]
+        },
+        {
+          "sprite": "crate_stack",
+          "tile": [
+            16,
+            3
+          ],
+          "alpha": 1,
+          "origin": [
+            0.5,
+            1
+          ],
+          "offset": [
+            0,
+            8
+          ],
+          "ysort": true,
+          "solid": [
+            12,
+            8,
+            0,
+            -4
+          ]
+        },
+        {
+          "sprite": "chain_hoist",
+          "tile": [
+            14,
+            3
+          ],
+          "alpha": 1,
+          "origin": [
+            0.5,
+            1
+          ],
+          "offset": [
+            0,
+            8
+          ],
+          "ysort": true
+        },
+        {
+          "sprite": "overturned_chair",
+          "tile": [
+            6,
+            8
+          ],
+          "alpha": 1,
+          "ysort": true
+        }
+      ]
+    }
+  ]
+}
