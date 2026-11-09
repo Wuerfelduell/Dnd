@@ -2,13 +2,16 @@
 // Hinweise, Informationen, Schlussfolgerungen und Dialoge teilen sich jeweils einen Namensraum über alle Fälle.
 // factions.json (Sekten) bringt eigene Figuren, Reiseziele, Gegner, Beute, Aufträge und Hinweise mit.
 // gebaeude.json bringt betretbare Häuser mit: Innenräume, Türen in den Vierteln, Figuren, Händler, Dialoge.
+// stadtgegner.json (Paket L) verteilt Stadtgegner als Streifen auf die Viertel und bringt Beute und Kopfgeld-Brett mit.
 // treffen.json (geheime Treffen) bringt Zirkel, Treffpunkte, Gastgeber mit Händlern, Dialoge und Reiseziele mit.
-export function buildContent({ campaign, quests, cases, maps, dialogues, items = {}, encounters = {}, pathways = null, market = null, travel = null, wilds = null, factions = null, buildings = null, gatherings = null }) {
+export function buildContent({ campaign, quests, cases, maps, dialogues, items = {}, encounters = {}, pathways = null, market = null, travel = null, wilds = null, factions = null, buildings = null, gatherings = null, city = null }) {
   const merge = (list, key) => Object.assign({}, ...list.map((x) => x[key] ?? {}));
   const b = buildings ?? {};
   const g = gatherings ?? {};
   maps = withPlacements(withEntrances([...maps, ...(b.maps ?? []), ...(g.maps ?? [])], b.entrances ?? []), g.placements ?? []);
   const wild = wildContent(wilds);
+  const town = cityContent(city);
+  maps = withCity(maps, city);
   const f = factions ?? {};
   if (f.facts || f.clues || f.deductions) cases = [...cases, { facts: f.facts, clues: f.clues, deductions: f.deductions }];
   return {
@@ -16,12 +19,12 @@ export function buildContent({ campaign, quests, cases, maps, dialogues, items =
     npcs: { ...campaign.npcs, ...(market?.npcs ?? {}), ...(f.npcs ?? {}), ...(b.npcs ?? {}), ...(g.npcs ?? {}) },
     travel: [...(campaign.travel ?? []), ...(market?.travel ?? []), ...wild.travel, ...(f.travel ?? []), ...(g.travel ?? [])],
     quests: { ...quests, ...(f.quests ?? {}) },
-    items: { ...items, ...(pathways?.items ?? {}), ...pathwayItems(pathways?.pathways ?? {}), ...artifactItems(pathways?.artifacts), ...wild.items, ...(f.items ?? {}) },
-    encounters: { ...encounters, ...(market?.encounters ?? {}), ...(travel?.encounters ?? {}), ...wild.encounters, ...(f.encounters ?? {}) },
+    items: { ...items, ...(pathways?.items ?? {}), ...pathwayItems(pathways?.pathways ?? {}), ...artifactItems(pathways?.artifacts), ...wild.items, ...town.items, ...(f.items ?? {}) },
+    encounters: { ...encounters, ...(market?.encounters ?? {}), ...(travel?.encounters ?? {}), ...wild.encounters, ...town.encounters, ...(f.encounters ?? {}) },
     travelRules: travel && { ...travel, pins: { ...travel.pins, ...(g.pins ?? {}) } },
     pathways: pathways?.pathways ?? {},
     market: market && { ...market, merchants: { ...market.merchants, ...(b.merchants ?? {}), ...(g.merchants ?? {}) }, sell_prices: { ...market.sell_prices, ...(f.sell_prices ?? {}) } },
-    loot: { ...(market?.loot ?? {}), ...artifactDrops(wild.loot, wild.encounters, pathways?.artifacts), ...(f.loot ?? {}) },
+    loot: { ...(market?.loot ?? {}), ...artifactDrops(wild.loot, wild.encounters, pathways?.artifacts), ...town.loot, ...(f.loot ?? {}) },
     artifacts: pathways?.artifacts ?? null,
     revierSupply: pathways?.revier_supply ?? null,
     ritualRules: pathways?.ritual_rules ?? null,
@@ -58,6 +61,49 @@ function withEntrances(maps, entrances) {
 }
 
 /** Stellt zusätzliche Figuren auf bestehende Karten (z. B. den Boten der geheimen Treffen). */
+/** Stadtgegner: Streifen (roamers) und zusätzliche Objekte in die Viertel einsetzen, ohne die Kartendateien anzufassen. */
+function withCity(maps, city) {
+  if (!city) return maps;
+  return maps.map((m) => {
+    const roamers = city.roamers?.[m.id] ?? [];
+    const extra = city.interactables?.[m.id] ?? [];
+    if (!roamers.length && !extra.length) return m;
+    return { ...m, roamers: [...(m.roamers ?? []), ...roamers], interactables: [...(m.interactables ?? []), ...extra] };
+  });
+}
+
+/**
+ * Stadtgegner (stadtgegner.json): wie die Gefahrengebiete mit Beute und Elite-Variante `<id>_elite`,
+ * aber ohne Gebiet; wer verliert, wacht im Revier auf.
+ */
+function cityContent(city) {
+  const out = { encounters: {}, loot: {}, items: {} };
+  if (!city) return out;
+  Object.assign(out.items, city.items ?? {});
+  for (const [id, e] of Object.entries(city.encounters ?? {})) {
+    const { loot, elite, ...enc } = e;
+    const base = {
+      sprite: 'wild', fleeable: !e.boss, city: true, lose_to: city.lose_to, lose_money: city.lose_money, lose_text: city.lose_text, flee_text: city.flee_text, ...enc,
+    };
+    out.encounters[id] = base;
+    out.loot[id] = { repeat: !e.boss && !id.startsWith('kopfgeld_'), ...loot };
+    if (!elite) continue;
+    out.encounters[`${id}_elite`] = {
+      ...base,
+      name: elite.name,
+      elite: true,
+      hp: Math.round(base.hp * (city.elite_hp ?? 1.5)),
+      attacks: base.attacks.map((a) => (a.damage ? { ...a, damage: Math.round(a.damage * (city.elite_dmg ?? 1.3)) } : a)),
+    };
+    out.loot[`${id}_elite`] = {
+      repeat: true,
+      money: (loot?.money ?? [0, 0]).map((m) => m * 2),
+      drops: [...(loot?.drops ?? []).map((d) => ({ ...d, chance: Math.min(1, d.chance * 2) })), ...(city.elite_drops ?? [])],
+    };
+  }
+  return out;
+}
+
 function withPlacements(maps, placements) {
   return maps.map((m) => {
     const own = placements.filter((p) => p.map === m.id);

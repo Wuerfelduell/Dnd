@@ -41,6 +41,8 @@ import katakomben from './maps/katakomben.json';
 import pestgassen from './maps/pestgassen.json';
 import kraterwald from './maps/kraterwald.json';
 import factions from './factions.json';
+import city from './stadtgegner.json';
+import dKopfgeld from './dialogues/kopfgeld.json';
 import ankerhof from './maps/ankerhof.json';
 import rostkapelle from './maps/rostkapelle.json';
 import hausMorrow from './maps/haus_morrow.json';
@@ -72,7 +74,7 @@ export const content = buildContent({
   encounters,
   cases: [case01, case02, case03, caseAltmarkt, case04, case05, case06, case07, case08],
   maps: [revier, ashgrove, ebba, crypt, docks, warehouse, altmarkt, tavern, nachtmarkt, nordtor, theater, uhrturm, gaskanaele, schlachthof, sternwarte, marsch, katakomben, pestgassen, kraterwald, ankerhof, rostkapelle, hausMorrow, schleierhaus, giesserei, hausVey, resonanzkammer, atelier, ballsaal, spiegelkabinett, kontorThorne, waisenhaus, traumkeller],
-  dialogues: [dRevier, dAshgrove, dEbba, dHafen, dAltmarkt, dNachtmarkt, dNordtor, dFunde, dFactions, dFall5, dFall6, dFall78],
+  dialogues: [dRevier, dAshgrove, dEbba, dHafen, dAltmarkt, dNachtmarkt, dNordtor, dFunde, dFactions, dFall5, dFall6, dFall78, dKopfgeld],
   pathways,
   market,
   travel,
@@ -80,4 +82,5 @@ export const content = buildContent({
   factions,
   buildings,
   gatherings,
+  city,
 });
