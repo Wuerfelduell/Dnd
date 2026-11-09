@@ -21,6 +21,9 @@ export const TILE_KEYS = [
   'grass0', 'grass1', 'path', 'grave', 'openGrave', 'charred', 'rubble', 'deadTree',
   'stone', 'cryptTop', 'cryptFace', 'altar',
   'planks0', 'planks1', 'quay', 'crate', 'barrel',
+  // Nachtmarkt (Paket A); ohne PNG fallen sie auf die normalen Gegenstücke zurück
+  'nmArch', 'nmArchDrip',
+  'nmWall0', 'nmWall1', 'nmChalk', 'nmLedge', 'nmQuay', 'nmRail',
 ];
 export const TILE_INDEX = Object.fromEntries(TILE_KEYS.map((k, i) => [k, i]));
 export const SOLID_KEYS = [
@@ -28,6 +31,7 @@ export const SOLID_KEYS = [
   'wallTop', 'wallFace', 'wallDoor', 'desk', 'shelf', 'bars',
   'grave', 'openGrave', 'rubble', 'deadTree', 'cryptTop', 'cryptFace', 'altar',
   'quay', 'crate', 'barrel',
+  'nmArch', 'nmArchDrip', 'nmWall0', 'nmWall1', 'nmChalk', 'nmLedge', 'nmQuay', 'nmRail',
 ];
 
 /** Deterministischer Hash für Variationen pro Tile. */
@@ -340,6 +344,8 @@ const TILE_PAINTERS = {
   charred: drawCharred, rubble: drawRubble, deadTree: drawDeadTree,
   stone: drawStone, cryptTop: drawCryptTop, cryptFace: drawCryptFace, altar: drawAltar,
   planks0: (p) => drawPlanks(p, 0), planks1: (p) => drawPlanks(p, 2), quay: drawQuay, crate: drawCrate, barrel: drawBarrel,
+  nmArch: drawBrick, nmArchDrip: drawBrick, nmWall0: drawBrick, nmWall1: drawBrick, nmChalk: drawBrick, nmLedge: drawWindow,
+  nmQuay: drawQuay, nmRail: drawFence,
 };
 
 // --- Figuren ---------------------------------------------------------------

@@ -265,3 +265,18 @@ button.small { font-size: 0.8em; padding: 0.1em 0.5em; }
   vertical-align: -3px;
   margin-right: 5px;
 }
+.item-icon.big { width: 2em; height: 2em; float: left; margin: 0.1em 0.5em 0 0; }
+.notebook .items li > div:first-child, .notebook .recipes li > div:first-child { overflow: hidden; }
+.coin { width: 1em; height: 1em; image-rendering: pixelated; vertical-align: -0.15em; margin-right: 0.3em; }
+
+/* Pfad-Embleme und -Karte (Paket A) */
+.emblem { width: 1.4em; height: 1.4em; image-rendering: pixelated; vertical-align: -0.35em; margin-right: 0.4em; }
+.notebook .paths .emblem { width: 2em; height: 2em; float: left; margin: 0.1em 0.5em 0.2em 0; }
+.notebook .paths li { overflow: hidden; }
+.notebook .pathhead { display: flex; align-items: flex-end; gap: 0.8em; }
+.pathcard { position: relative; width: 6em; height: 8em; flex: none; }
+.pathcard img { width: 100%; height: 100%; image-rendering: pixelated; display: block; }
+/* Textfeld der Karte laut manifest-pfade.json: [8, 68, 80, 50] von 96x128 */
+.pathcard span { position: absolute; left: 8.3%; top: 53%; width: 83.3%; height: 39%; display: flex; flex-direction: column; justify-content: center;
+  text-align: center; font-size: 0.6em; line-height: 1.3; color: #2a2016 !important; }
+.notebook .recipes .ing { white-space: nowrap; }

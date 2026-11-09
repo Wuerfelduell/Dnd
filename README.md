@@ -162,7 +162,15 @@ mit den Reihen unten/links/rechts/oben). `src/world/assets.js` lädt sie im
 - `CHARACTER_SHEETS`: Figur (`player`, `npc_<id>`) → Lauf-Sheet
 - `BATTLE_SHEETS`, `ENEMY_BATTLE_SHEETS`, `BATTLE_BACKGROUNDS`: Kampf-Animationen (Frames in
   `public/sprites/manifest-14b.json`) und Hintergründe pro Karte
-- `ITEM_ICONS`: Items mit 16x16-Icon unter `public/sprites/items/<id>.png`
+- Item-Icons: jedes Item hat `public/sprites/items/<id>.png` (Tränke zusätzlich in `items/32/`),
+  Pfad-Embleme und -Karten liegen unter `public/sprites/pathways/`
+- `ANIM_SHEETS`: animierte Paket-A-Sheets (Kessel, Trinken, Aufstieg, Aura, Kontrollrisse);
+  Frames in `public/sprites/manifest-pfade.json`, abgespielt mit `playSheetAnim()`
+- `PROP_ANIMS`: animierte Deko aus Sheet-Regionen (Lichterketten, Kohlebecken)
+
+Karten können mit `"tiles": "nachtmarkt"` ein Tile-Thema wählen (`THEMES` in
+`WorldScene.js`) und unter `decor` Deko mit `origin`, `offset`, `ysort`, `solid`
+und `light` platzieren.
 
 Alles, was dort nicht zugeordnet ist, zeichnet `textures.js` weiterhin prozedural
 (z. B. Gras, Brücke, Schreibtisch, Miss Pimm). Ein neues Asset einbauen heißt also:

@@ -49,6 +49,16 @@ export const SHEETS = {
   constable: 'characters/04_constable_walk.png',
   apparition: 'characters/04_13_apparition.png',
   auction: 'props/13_02_auction_props.png',
+  // Paket A: Nachtmarkt, Händler, Kessel
+  nachtmarkt: 'tilesets/A_07_nachtmarkt_tiles.png',
+  marketProps: 'props/A_08_nachtmarkt_props.png',
+  pit: 'props/A_08_kampfgrube.png',
+  cauldron: 'props/cauldron.png',
+  nell: 'characters/A_nell_walk.png',
+  kittering: 'characters/A_kittering_walk.png',
+  gorse: 'characters/A_gorse_walk.png',
+  sabeth: 'characters/A_sabeth_walk.png',
+  brock: 'characters/A_brock_walk.png',
 };
 
 /**
@@ -71,6 +81,11 @@ export const TILE_CELLS = {
   stone: ['crypt', 11], cryptFace: ['crypt', 29],
   planks0: ['docks', 0], planks1: ['docks', 1], quay: ['docks', 8],
   crate: ['docks', 24, 'planks0'], barrel: ['docks', 37, 'planks1'],
+  // Nachtmarkt (Paket A): Zeilen laut manifest-pfade.json
+  // (Das Kopfsteinpflaster aus Zeile 0 liest sich im Spiel wie Mauerwerk, daher bleibt der Boden beim normalen Pflaster.)
+  nmArch: ['nachtmarkt', 16], nmArchDrip: ['nachtmarkt', 17],
+  nmWall0: ['nachtmarkt', 40], nmWall1: ['nachtmarkt', 41], nmChalk: ['nachtmarkt', 42], nmLedge: ['nachtmarkt', 48],
+  nmQuay: ['nachtmarkt', 28], nmRail: ['pit', 4, 'cobble0'],
 };
 
 /** Prop-Texture-Key → Ausschnitt [sheet, x, y, w, h, scale?]. Ausgabegröße = w x h (mal scale). */
@@ -88,6 +103,25 @@ export const PROP_CELLS = {
   candle: ['cryptProps', 16, 16, 16, 16],
   mirror: ['auction', 80, 80, 32, 32],
   apparition: ['apparition', 0, 0, 16, 32, 2], // für den Kampf auf 32x64 vergrößert
+  cauldron: ['cauldron', 0, 0, 32, 32],
+  // Nachtmarkt-Deko (Regionen aus manifest-pfade.json)
+  herb_stall: ['marketProps', 0, 0, 48, 32],
+  formula_booth: ['marketProps', 64, 0, 32, 32],
+  pawn_table: ['marketProps', 112, 0, 48, 32],
+  fortune_corner: ['marketProps', 0, 48, 32, 32],
+  crow_sign: ['marketProps', 80, 80, 32, 16],
+  noticeboard: ['marketProps', 128, 80, 16, 32],
+  sleeping_crows: ['marketProps', 160, 80, 32, 16],
+  betting_board: ['pit', 64, 32, 16, 32],
+  coin_barrel: ['pit', 96, 32, 16, 32],
+  pit_bench: ['pit', 0, 64, 32, 16],
+  pit_floor: ['pit', 0, 0, 48, 48],
+};
+
+/** Animierte Deko aus Regionen eines Sheets: Key → [sheet, [[x, y, w, h], ...], frameRate]. */
+export const PROP_ANIMS = {
+  market_lanterns: ['marketProps', [[48, 48, 48, 16], [112, 48, 48, 16]], 4],
+  brazier: ['marketProps', [[0, 96, 16, 32], [16, 96, 16, 32], [32, 96, 16, 32], [48, 96, 16, 32]], 6],
 };
 
 /** Figur → Lauf-Sheet (64x128, Zeilen: unten, links, rechts, oben – wie DIRS). */
@@ -100,7 +134,29 @@ export const CHARACTER_SHEETS = {
   npc_fenwick: 'doctor', npc_agnes: 'widow', npc_pip: 'newsboy', npc_tobias: 'dockworker', npc_cultist: 'cultist',
   npc_maud: 'tavernkeeper', npc_silas: 'stranger', npc_ned: 'beggar', npc_quill: 'antique', npc_ambrose: 'priest',
   npc_wick: 'lamplighter', npc_grimes: 'constable',
+  npc_nell: 'nell', npc_kittering: 'kittering', npc_gorse: 'gorse', npc_sabeth: 'sabeth', npc_grubenwirt: 'brock',
 };
+
+// --- Paket A: animierte Sheets (Frames/Animationen in manifest-pfade.json) ----------
+
+/** Texture-Key → [Pfad, Framebreite, Framehöhe]. */
+export const ANIM_SHEETS = {
+  cauldron_bubble: ['props/cauldron_bubble.png', 32, 32],
+  cauldron_success: ['props/cauldron_success.png', 32, 32],
+  cauldron_fail: ['props/cauldron_fail.png', 32, 32],
+  player_drink: ['characters/A_player_drink.png', 16, 32],
+  potion_ascend: ['fx/potion_ascend.png', 32, 32],
+  aura_pfade: ['fx/aura_pfade.png', 24, 36],
+  control_cracks: ['ui/A_11_control_cracks.png', 480, 270],
+};
+
+/** Manifest-Id, falls sie vom Texture-Key abweicht. */
+const MANIFEST_IDS = { player_drink: 'A_player_drink', control_cracks: 'A_11_control_cracks' };
+
+/** Pfad-Embleme und Karten (public/sprites/pathways/). */
+export const pathwayEmblemUrl = (pid, size = 32) => `${BASE}pathways/emblem_${pid}_${size}.png`;
+export const pathwayCardUrl = (pid) => `${BASE}pathways/card_${pid}.png`;
+export const COIN_URL = `${BASE}items/schilling.png`;
 
 // --- Kampf (Paket 14b) ----------------------------------------------------------
 // Animierte Seitenansichts-Sheets; Frames und Animationen stehen in manifest-14b.json.
@@ -125,10 +181,10 @@ export const BATTLE_BACKGROUNDS = {
   revier: 'bg_revier', ashgrove: 'bg_ashgrove', altmarkt: 'bg_ashgrove', docks: 'bg_ashgrove', crypt: 'bg_krypta',
 };
 
-/** Items mit eigenem 16x16-Icon unter public/sprites/items/<id>.png. */
-export const ITEM_ICONS = ['spazierstock', 'schlagstock', 'stockdegen', 'verband', 'tonikum', 'riechsalz', 'bannsalz'];
-
-export const itemIconUrl = (id) => (ITEM_ICONS.includes(id) ? `${BASE}items/${id}.png` : null);
+/** 16x16-Icon unter public/sprites/items/<id>.png (tests/sprites.test.js prüft, dass es zu jedem Item eins gibt). */
+export const itemIconUrl = (id) => `${BASE}items/${id}.png`;
+/** 32x32-Fassung (gibt es nur für Tränke). */
+export const itemIcon32Url = (id) => (id.startsWith('trank_') ? `${BASE}items/32/${id}.png` : null);
 
 const srcKey = (sheet) => `src_${sheet}`;
 
@@ -143,7 +199,31 @@ export function preloadSprites(scene) {
   for (const key of new Set(Object.values(BATTLE_BACKGROUNDS))) {
     if (!scene.textures.exists(key)) scene.load.image(key, `${BASE}battle/${key}.png`);
   }
+  for (const [key, [path, w, h]] of Object.entries(ANIM_SHEETS)) {
+    if (!scene.textures.exists(key)) scene.load.spritesheet(key, BASE + path, { frameWidth: w, frameHeight: h });
+  }
   if (!scene.cache.json.exists('manifest14b')) scene.load.json('manifest14b', `${BASE}manifest-14b.json`);
+  if (!scene.cache.json.exists('manifestPfade')) scene.load.json('manifestPfade', `${BASE}manifest-pfade.json`);
+}
+
+/**
+ * Spielt eine Animation aus manifest-pfade.json auf einem Sprite mit Paket-A-Sheet
+ * (z. B. playSheetAnim(sprite, 'cauldron_bubble', 'bubble')). Liefert false, wenn etwas fehlt.
+ */
+export function playSheetAnim(sprite, sheet, name, then) {
+  const scene = sprite.scene;
+  if (!ANIM_SHEETS[sheet] || !scene.textures.exists(sheet)) return false;
+  const key = `${sheet}-${name}`;
+  if (!scene.anims.exists(key)) {
+    const id = MANIFEST_IDS[sheet] ?? sheet;
+    const def = scene.cache.json.get('manifestPfade')?.assets?.find((a) => a.id === id)?.animations?.[name];
+    if (!def) return false;
+    scene.anims.create({ key, frames: def.frames.map((frame) => ({ key: sheet, frame })), frameRate: def.frameRate, repeat: def.repeat });
+  }
+  sprite.setTexture(sheet);
+  sprite.play(key);
+  if (then) sprite.once(`animationcomplete-${key}`, then);
+  return true;
 }
 
 /**
@@ -199,6 +279,20 @@ export function createSpriteTextures(scene) {
     ctx.imageSmoothingEnabled = false;
     ctx.drawImage(img, x, y, w, h, 0, 0, w * scale, h * scale);
     scene.textures.addCanvas(key, c);
+  }
+  for (const [key, [sheet, frames, frameRate]] of Object.entries(PROP_ANIMS)) {
+    if (scene.textures.exists(key)) continue;
+    const img = sourceOf(scene, sheet);
+    if (!img) continue;
+    const [, , w, h] = frames[0];
+    const c = document.createElement('canvas');
+    c.width = w * frames.length;
+    c.height = h;
+    const ctx = c.getContext('2d');
+    frames.forEach(([x, y], i) => ctx.drawImage(img, x, y, w, h, i * w, 0, w, h));
+    const tex = scene.textures.addCanvas(key, c);
+    frames.forEach((_, i) => tex.add(i, 0, i * w, 0, w, h));
+    if (!scene.anims.exists(key)) scene.anims.create({ key, frames: frames.map((_, i) => ({ key, frame: i })), frameRate, repeat: -1 });
   }
   for (const [key, sheet] of Object.entries(CHARACTER_SHEETS)) {
     if (scene.textures.exists(key)) continue;
