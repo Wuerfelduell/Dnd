@@ -1,5 +1,5 @@
 import Phaser from 'phaser';
-import { Combat, WINDOW, EARLY_LIMIT, DODGE_COST, judgeDefense, judgeTiming } from '../core/Combat.js';
+import { Combat, WINDOW, EARLY_LIMIT, DODGE_COST, RING_CURVES, judgeDefense, judgeTiming } from '../core/Combat.js';
 import { createTextures, createCharacterSheet } from './textures.js';
 import {
   BATTLE_BACKGROUNDS, ENCOUNTER_BACKGROUNDS, ENEMY_BATTLE_SHEETS, ENCOUNTER_SHEETS, FADING_SHEETS,
@@ -406,8 +406,8 @@ export class CombatScene extends Phaser.Scene {
     this.phase = 'enemy';
     this.attack = atk;
     const t0 = now() + TELEGRAPH;
-    this.hits = atk.hits.map((h) => ({ impact: t0 + h, result: null, applied: false }));
-    const tags = [atk.unparryable ? '⚠ nicht parierbar, ausweichen!' : '', atk.enraged ? 'in Rage' : '', atk.bleed ? 'Treffer bluten nach' : '', atk.nerves ? `Treffer kosten ${atk.nerves} Nerven` : ''].filter(Boolean).join(' · ');
+    this.hits = atk.hits.map((h, i) => ({ impact: t0 + h, result: null, applied: false, ring: atk.rings?.[i] ?? { curve: 'linear', lead: RING_LEAD } }));
+    const tags = [atk.unparryable ? '⚠ nicht parierbar, ausweichen!' : '', atk.enraged ? 'in Rage' : '', atk.followup ? 'setzt nach!' : '', atk.bleed ? 'Treffer bluten nach' : '', atk.nerves ? `Treffer kosten ${atk.nerves} Nerven` : ''].filter(Boolean).join(' · ');
     this.ui.combatMessage(`${c.enemy.name}: ${atk.name}${atk.hits.length > 1 ? ` (${atk.hits.length} Schläge)` : ''}${tags ? `\n\n${tags}` : ''}${c.evading ? '\n\nDu weißt schon, wohin er schlägt.' : ''}`, `Leertaste: ausweichen (${DODGE_COST} Nerven) · F: parieren`);
     this.tweens.add({ targets: this.enemy, x: ENEMY_X + 8, duration: TELEGRAPH * 0.6, ease: 'Sine.out' });
     // Paket-B-Gegner haben zwei Angriffe: mehrteilige Attacken nutzen 'special'
@@ -419,7 +419,7 @@ export class CombatScene extends Phaser.Scene {
   pressDefense(kind, t) {
     const hit = this.hits.find((h) => !h.result && t >= h.impact - EARLY_LIMIT);
     if (!hit) return;
-    hit.result = judgeDefense(kind, t - hit.impact, this.state.passive('dodge_window'));
+    hit.result = judgeDefense(kind, t - hit.impact, this.state.passive('dodge_window'), this.combat.parryWindow());
     if (hit.result === 'miss') hit.early = t < hit.impact;
     else this.applyHit(hit);
   }
@@ -555,9 +555,12 @@ export class CombatScene extends Phaser.Scene {
         const left = hit.impact - t;
         if (hit.result === 'miss' && left <= 0) { this.applyHit(hit); continue; }
         if (!hit.result && left < -WINDOW.dodge) { hit.result = 'miss'; this.applyHit(hit); continue; }
-        if (left > RING_LEAD || hit.result) continue;
-        const r = 16 + Math.max(0, left / RING_LEAD) * 60;
-        const near = Math.abs(left) <= WINDOW.parry;
+        const lead = hit.ring.lead;
+        if (left > lead || hit.result) continue;
+        const u = Math.min(1, Math.max(0, 1 - left / lead));
+        const closed = (RING_CURVES[hit.ring.curve] ?? RING_CURVES.linear)(u);
+        const r = 16 + Math.max(0, 1 - closed) * 60;
+        const near = Math.abs(left) <= this.combat.parryWindow();
         const color = this.attack?.unparryable ? (near ? 0xff70ff : 0xa040e0) : near ? 0xffd890 : 0xe05050;
         g.lineStyle(this.attack?.unparryable ? 3 : 2, color, 0.95).strokeCircle(c.x, c.y, r);
       }
