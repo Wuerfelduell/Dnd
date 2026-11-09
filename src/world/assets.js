@@ -83,6 +83,13 @@ export const SHEETS = {
   r_wexmoor: 'tilesets/R_wexmoor_tiles.png', r_innen: 'tilesets/R_innen_tiles.png', r_vergessmoor: 'tilesets/R_vergessmoor_tiles.png',
   r_leuchtturm: 'tilesets/R_leuchtturm_tiles.png',
   s_salzwatt: 'tilesets/S_salzwatt_tiles.png', s_lichtlose: 'tilesets/S_lichtlose_tiles.png', s_salz: 'tilesets/S_salz_tiles.png',
+  // Grundpaket und Paket D: bisher ungenutzte Innenraum-Tilesets (8 Spalten à 16 px)
+  d_wohnung_tiles: 'tilesets/D_08_wohnung_tiles.png', b_interieur: 'tilesets/02_07_interiors.png', b_keller: 'tilesets/02_08_occult_basement.png',
+  b_auktion: 'tilesets/13_02_auction_tiles.png', b_sanatorium: 'tilesets/13_03_sanatorium_tiles.png', c_bahnhof: 'tilesets/C_06_bahnhof_tiles.png',
+  d_nachtmarkt_boden: 'tilesets/D_01_nachtmarkt_boden.png', b_friedhof: 'tilesets/02_06_cemetery.png',
+  // Grundpaket: Möbel, Okkultes, Revier, Archiv, Friedhof, Sigillen
+  b_moebel: 'props/05_03_furniture.png', b_okkult: 'props/05_04_occult_props.png', b_revier: 'props/11_02_police_station_props.png',
+  b_archiv: 'props/11_03_police_archive.png', b_friedhof_props: 'props/12b_02_st_ebba_cemetery_props.png', b_sigillen: 'props/12b_07_eye_circle_sigils.png',
   o_waage: 'tilesets/O_waage_tiles.png', o_kreide: 'tilesets/O_kreide_tiles.png', o_russ: 'tilesets/O_russ_tiles.png',
 };
 /** Paket C: Lauf-Sheets (characters/C_<id>_walk.png), Key = Figuren-Id. */
@@ -134,6 +141,15 @@ export const THEME_TILES = {
     path: [17, 24, 25, 34], ash: [33, 35, 42, 43, 50], shards: [9, 15, 21, 22, 40, 41, 47], rocks: [4, 5, 12, 13], trees: [6, 7, 14, 48] },
   g_pestgassen: { sheet: 'g_pestgassen', fallback: 'cobble0', floor: [0, 1, 8, 9, 12, 13, 14, 15], weeds: [2, 3, 10, 11],
     rubble: [37, 38, 39], barricade: [41, 42, 43] },
+  // Bisher ungenutzte Innenräume: Mietwohnung (D_08), Haus Morrow (02_07), Schleierhaus-Keller (02_08),
+  // Pfandhaus (13_02), Bestatter (13_03)
+  c_bahnhof: { sheet: 'c_bahnhof', fallback: 'stone', floor: [0, 1, 2, 3, 24, 25, 26], edge: [4, 5, 6, 7], rails: [8, 9, 10, 11] },
+  d_nachtmarkt: { sheet: 'd_nachtmarkt_boden', fallback: 'stone', floor: [0, 1, 2, 3, 22, 23], accent: [4, 5, 6, 7, 8, 9] },
+  d_wohnung: { sheet: 'd_wohnung_tiles', fallback: 'wood0', floor: [0, 1], carpet: [12, 13], wallTop: [48, 49, 50], wallFace: [16, 17, 18, 24, 25, 26] },
+  b_interieur: { sheet: 'b_interieur', fallback: 'wood0', floor: [8, 9, 10], wallTop: [24, 25, 26], wallFace: [16, 17, 18, 19, 20, 21] },
+  b_keller: { sheet: 'b_keller', fallback: 'stone', floor: [0, 1, 8, 9, 16, 17], wallTop: [28], wallFace: [3, 4, 11, 12] },
+  b_auktion: { sheet: 'b_auktion', fallback: 'wood0', floor: [0, 1, 2], wallTop: [3], wallFace: [4, 5, 6, 7] },
+  b_sanatorium: { sheet: 'b_sanatorium', fallback: 'stone', floor: [1, 4, 5, 6], wallTop: [8, 9, 10, 11], wallFace: [8, 9, 10, 11] },
   // Paket J (Fall 5): Gießerei, Haus Vey, Resonanzkammer (8x8-Raster)
   j_giesserei: { sheet: 'j_giesserei', fallback: 'stone', floor: [0, 1, 2, 3], sand: [12, 13, 56, 57], slag: [52, 53, 54, 55],
     wallFace: [20, 22, 23, 24, 25, 26, 27], window: [28], wallTop: [4, 5, 8, 9], crate: [33, 34, 35, 36], shelf: [42, 43], bench: [41] },
@@ -305,6 +321,15 @@ export const PROP_CELLS = {
   moon_sign: ['taverne', 32, 32, 32, 16],
   chalkboard: ['taverne', 48, 48, 16, 16],
   mugs: ['taverne', 144, 32, 16, 16],
+  // Grundpaket (bisher ungenutzt): Möbel, Okkultes, Revier, Archiv, Friedhof, Sigillen
+  c_bahn_bank: ['c_bahnhof', 0, 64, 32, 16], c_bahn_karren: ['c_bahnhof', 32, 64, 32, 16], c_bahn_kiosk: ['c_bahnhof', 64, 64, 32, 32], c_bahn_koffer: ['c_bahnhof', 96, 64, 32, 16],
+  c_bahn_saeule: ['c_bahnhof', 0, 80, 16, 48], c_bahn_uhr: ['c_bahnhof', 16, 80, 16, 48],
+  b_moebel_schreibtisch: ['b_moebel', 16, 16, 32, 32], b_moebel_buecherregal: ['b_moebel', 80, 16, 32, 32], b_moebel_stuhl: ['b_moebel', 144, 16, 16, 32], b_moebel_esstisch: ['b_moebel', 192, 16, 48, 32], b_moebel_bett: ['b_moebel', 16, 64, 32, 48], b_moebel_schrank: ['b_moebel', 80, 64, 32, 48], b_moebel_standuhr: ['b_moebel', 144, 64, 16, 48], b_moebel_kandelaber: ['b_moebel', 208, 81, 16, 31], b_moebel_truhe: ['b_moebel', 16, 144, 32, 16], b_moebel_staffelei: ['b_moebel', 80, 144, 16, 32], b_moebel_pflanze: ['b_moebel', 144, 144, 16, 32], b_moebel_globus: ['b_moebel', 208, 144, 16, 32],
+  b_okkult_altar: ['b_okkult', 0, 0, 32, 31], b_okkult_armillarsphaere: ['b_okkult', 64, 0, 16, 32], b_okkult_schrein: ['b_okkult', 112, 16, 16, 16], b_okkult_opferschale: ['b_okkult', 160, 16, 16, 16], b_okkult_spiegel: ['b_okkult', 16, 48, 16, 32], b_okkult_schaedel: ['b_okkult', 64, 64, 16, 16], b_okkult_kaestchen: ['b_okkult', 112, 64, 16, 16], b_okkult_tarot: ['b_okkult', 144, 64, 32, 16],
+  b_revier_tresen: ['b_revier', 0, 16, 48, 32], b_revier_schreibtisch: ['b_revier', 80, 16, 32, 32], b_revier_aktenschrank: ['b_revier', 144, 16, 16, 32], b_revier_asservaten: ['b_revier', 208, 0, 32, 48], b_revier_pinnwand: ['b_revier', 16, 80, 32, 32], b_revier_steckbriefe: ['b_revier', 80, 80, 32, 16], b_revier_telefontisch: ['b_revier', 144, 80, 16, 32], b_revier_schreibmaschine: ['b_revier', 208, 80, 16, 16], b_revier_bank: ['b_revier', 16, 144, 32, 16], b_revier_pritsche: ['b_revier', 80, 144, 16, 32], b_revier_eimer: ['b_revier', 144, 144, 16, 16], b_revier_garderobe: ['b_revier', 208, 144, 16, 32], b_revier_uhr: ['b_revier', 16, 208, 16, 16], b_revier_waffenschrank: ['b_revier', 80, 208, 16, 32], b_revier_aktenstapel: ['b_revier', 144, 208, 16, 32],
+  b_archiv_kiste: ['b_archiv', 16, 16, 16, 16], b_archiv_regal_a: ['b_archiv', 80, 0, 16, 48], b_archiv_regal_b: ['b_archiv', 144, 0, 16, 48], b_archiv_lesetisch: ['b_archiv', 16, 80, 32, 32], b_archiv_leiter: ['b_archiv', 80, 64, 16, 48], b_archiv_gitter: ['b_archiv', 144, 81, 32, 31], b_archiv_saeulen: ['b_archiv', 16, 144, 32, 32], b_archiv_akte: ['b_archiv', 80, 144, 16, 16], b_archiv_spinnweben: ['b_archiv', 144, 144, 16, 15],
+  b_grab_grabstein: ['b_friedhof_props', 16, 16, 16, 16], b_grab_stele: ['b_friedhof_props', 80, 16, 16, 32], b_grab_kreuz: ['b_friedhof_props', 145, 16, 15, 16], b_grab_obelisk: ['b_friedhof_props', 208, 16, 16, 32], b_grab_engel: ['b_friedhof_props', 16, 80, 16, 32], b_grab_grabmal_a: ['b_friedhof_props', 80, 80, 16, 32], b_grab_grabmal_b: ['b_friedhof_props', 144, 80, 16, 32], b_grab_truemmer: ['b_friedhof_props', 208, 80, 31, 16], b_grab_baum_a: ['b_friedhof_props', 16, 129, 32, 47], b_grab_baum_b: ['b_friedhof_props', 81, 128, 31, 48], b_grab_schaufel: ['b_friedhof_props', 144, 144, 15, 32], b_grab_urne: ['b_friedhof_props', 208, 144, 16, 16], b_grab_gruft: ['b_friedhof_props', 16, 208, 32, 32], b_grab_huette: ['b_friedhof_props', 64, 192, 48, 48], b_grab_laterne: ['b_friedhof_props', 144, 208, 16, 32],
+  b_sigil_auge: ['b_sigillen', 16, 16, 16, 16], b_sigil_kreis: ['b_sigillen', 80, 16, 16, 16], b_sigil_zeichen: ['b_sigillen', 144, 17, 16, 14], b_sigil_gross: ['b_sigillen', 208, 16, 32, 32],
 };
 
 /** Senkrechter Ankerpunkt für Props, die höher als ein Tile sind (Fuß auf der Tile-Unterkante). */
@@ -367,6 +392,8 @@ export const MAP_MARKERS_URL = `${BASE}ui/C_08_map_markers.png`;
 /** Paket J: eigene Marker (gleiches Raster, 13 Spalten) für spätere Orte. */
 export const J_MAP_MARKERS = Object.fromEntries(['giesserei', 'ballsaal', 'nordtor', 'marsch', 'katakomben', 'pestgassen', 'kraterwald',
   'ankerhof', 'haus_morrow', 'schleierhaus', 'rostkapelle', 'atelier', 'spiegelkabinett'].map((id, i) => [id, i]));
+/** Stadtkarte: Bild des Ziels neben der Beschreibung (Paket J: Gießerei von außen). */
+export const PLACE_PICTURES = { giesserei: `${BASE}props/J_giesserei_aussen.png` };
 export const J_MAP_MARKERS_URL = `${BASE}ui/J_map_markers.png`;
 /** Paket O: Treffen-Marker (3 Spalten; Zeile 2 hervorgehoben, Zeilen 3/4 = Treffen läuft, pulsierend). */
 export const O_MAP_MARKERS = { treffen_waage: 0, treffen_kreide: 1, treffen_russ: 2 };
