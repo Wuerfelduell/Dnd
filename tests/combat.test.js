@@ -122,6 +122,7 @@ test('Niederlage: Ohnmacht mit wenig Leben, im Wächterkampf zurück an die Trep
 });
 
 const LATE = ['choir_zealots', 'rook_fight', 'gasgeist', 'felix_fight', 'uhrwerkwaechter', 'kanalkroete', 'maskenspieler', 'schlachtergehilfe',
+  'chorwaechter', 'stimmenfresser', 'bronzeengel', 'glockenecho', 'miriam', 'schattenabzug', 'negativ_geist', 'silberbad_schleim', 'dreizehnter_gast', 'pratt_fight', // Fall 5/6
   ...Object.keys(content.encounters).filter((id) => content.encounters[id].faction)]; // Sekten kommen nach Fall 2/3
 
 test('Balance: Geübte Spieler schaffen mit Startausrüstung jeden Kampf', () => {

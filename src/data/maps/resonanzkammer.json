@@ -1,0 +1,123 @@
+{
+  "id": "resonanzkammer",
+  "name": "Resonanzkammer unter der Gießerei",
+  "tiles": "uhrturm",
+  "ambient": {
+    "night": 0.9,
+    "fog": 0.18
+  },
+  "spawns": {
+    "default": [
+      9,
+      13
+    ]
+  },
+  "lights": [
+    {
+      "tile": [
+        10,
+        4
+      ],
+      "radius": 70,
+      "intensity": 0.5,
+      "color": "#d8b86a",
+      "glow": 0.3
+    }
+  ],
+  "rows": [
+    "IIIIIIIIIIIIIIIIIIII",
+    "IIIIIIIIIIIIIIIIIIII",
+    "IssssssssssssssssssI",
+    "IsOsssssCCCCsssssOsI",
+    "IsssssssCCCCsssssssI",
+    "IsssssssCCCCsssssssI",
+    "IssssssssssssssssssI",
+    "IssssssssssssssssssI",
+    "IssVVssssssssssVVssI",
+    "IssssssssssssssssssI",
+    "IssssssssssssssssssI",
+    "IssssssssssssssssssI",
+    "IsOssssssssssssssOsI",
+    "IssssssssssssssssssI",
+    "IssssssssssssssssssI",
+    "IIIIIIIIIEEIIIIIIIII"
+  ],
+  "interactables": [
+    {
+      "id": "up",
+      "kind": "door",
+      "to": "giesserei",
+      "spawn": "kammer",
+      "tile": [
+        9,
+        14
+      ],
+      "prompt": "Hinauf in die Gießerei",
+      "marker": false,
+      "reach": 22
+    },
+    {
+      "id": "angel",
+      "kind": "combat",
+      "encounter": "bronzeengel",
+      "tile": [
+        10,
+        10
+      ],
+      "sprite": "warden",
+      "sprite_scale": 0.5,
+      "marker": false,
+      "prompt": "Den bronzenen Engel stellen",
+      "visible_if": {
+        "requires_flags": [
+          "case_05_showdown"
+        ],
+        "hide_if_flags": [
+          "bronzeengel_defeated"
+        ]
+      }
+    },
+    {
+      "id": "vey",
+      "kind": "combat",
+      "encounter": "miriam",
+      "tile": [
+        10,
+        7
+      ],
+      "sprite": "npc:miriam",
+      "marker": true,
+      "prompt": "Miriam Vey stellen",
+      "visible_if": {
+        "requires_flags": [
+          "case_05_showdown",
+          "bronzeengel_defeated"
+        ],
+        "hide_if_flags": [
+          "vey_beaten"
+        ]
+      }
+    },
+    {
+      "id": "bell",
+      "kind": "dialogue",
+      "dialogue": "glocke5",
+      "title": "Die Glocke",
+      "role": "",
+      "tile": [
+        10,
+        6
+      ],
+      "marker": true,
+      "prompt": "Vor die Glocke treten",
+      "visible_if": {
+        "requires_flags": [
+          "vey_beaten"
+        ],
+        "hide_if_flags": [
+          "case_05_closed"
+        ]
+      }
+    }
+  ]
+}

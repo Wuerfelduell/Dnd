@@ -315,6 +315,16 @@
             ]
           },
           {
+            "text": "Wie bricht man eine frisch gegossene Glocke?",
+            "next": "flaw",
+            "hide_if_clues": [
+              "hettie_flaw"
+            ],
+            "requires_quests_active": [
+              "case_05"
+            ]
+          },
+          {
             "text": "Ich sehe mich um."
           }
         ]
@@ -394,7 +404,32 @@
             ]
           },
           {
+            "text": "Wie bricht man eine frisch gegossene Glocke?",
+            "next": "flaw",
+            "hide_if_clues": [
+              "hettie_flaw"
+            ],
+            "requires_quests_active": [
+              "case_05"
+            ]
+          },
+          {
             "text": "Bis bald."
+          }
+        ]
+      },
+      "flaw": {
+        "text": "Hettie nimmt eine silberne Stimmgabel vom Haken, feilt zweimal daran und schlägt sie an. Der Ton tut weh.",
+        "gives_clues": [
+          "hettie_flaw"
+        ],
+        "gives_items": {
+          "stimmgabel_silber": 1
+        },
+        "choices": [
+          {
+            "text": "Danke, Hettie.",
+            "next": "start"
           }
         ]
       }
@@ -419,6 +454,16 @@
           {
             "text": "Warum die Watte?",
             "next": "cotton"
+          },
+          {
+            "text": "Hören Sie eine Glocke, die es nicht gibt?",
+            "next": "hum",
+            "hide_if_clues": [
+              "ezra_hum"
+            ],
+            "requires_quests_active": [
+              "case_05"
+            ]
           },
           {
             "text": "Nichts."
@@ -448,6 +493,19 @@
           }
         ],
         "mood": "erschrocken"
+      },
+      "hum": {
+        "text": "Ezra zieht beide Wattebäusche heraus.",
+        "gives_clues": [
+          "ezra_hum"
+        ],
+        "choices": [
+          {
+            "text": "Danke, Ezra.",
+            "next": "start"
+          }
+        ],
+        "mood": "lauschen"
       }
     }
   },
@@ -808,6 +866,16 @@
             ]
           },
           {
+            "text": "Was kann eine Glocke zerstören?",
+            "next": "flaw",
+            "hide_if_clues": [
+              "starling_flaw"
+            ],
+            "requires_quests_active": [
+              "case_05"
+            ]
+          },
+          {
             "text": "Ich wollte nur die Sterne sehen."
           }
         ]
@@ -868,7 +936,29 @@
             ]
           },
           {
+            "text": "Was kann eine Glocke zerstören?",
+            "next": "flaw",
+            "hide_if_clues": [
+              "starling_flaw"
+            ],
+            "requires_quests_active": [
+              "case_05"
+            ]
+          },
+          {
             "text": "Gute Nacht."
+          }
+        ]
+      },
+      "flaw": {
+        "text": "Starling reißt die Augen auf und wirbelt eine Linse herum.",
+        "gives_clues": [
+          "starling_flaw"
+        ],
+        "choices": [
+          {
+            "text": "Danke, Professor.",
+            "next": "start"
           }
         ]
       }

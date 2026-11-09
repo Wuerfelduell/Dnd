@@ -48,6 +48,10 @@
     "yard": [
       43,
       21
+    ],
+    "vey": [
+      33,
+      3
     ]
   },
   "interactables": [
@@ -213,6 +217,23 @@
       "title": "Zettel an der Hofmauer",
       "text": "„Hinterhof der Ashgrove Lane. Abstellen von Fässern nur für Anwohner. Gez. Halloway.“\n\nDarunter ist mit Kreide ein Würfel gemalt, mit sechs Augen auf jeder Seite.",
       "done_flag": "read_yard_sign"
+    },
+    {
+      "id": "vey_door",
+      "kind": "door",
+      "to": "haus_vey",
+      "spawn": "default",
+      "tile": [
+        33,
+        2
+      ],
+      "prompt": "Das Haus Vey betreten",
+      "marker": true,
+      "visible_if": {
+        "requires_flags": [
+          "briefed_05"
+        ]
+      }
     }
   ],
   "decor": [
@@ -531,6 +552,19 @@
       "visible_if": {
         "requires_flags": [
           "barnaby_free"
+        ]
+      }
+    },
+    {
+      "id": "waescherin",
+      "tile": [
+        40,
+        13
+      ],
+      "facing": "left",
+      "visible_if": {
+        "requires_quests_active": [
+          "case_05"
         ]
       }
     }

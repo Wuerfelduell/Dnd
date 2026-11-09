@@ -1,0 +1,496 @@
+{
+  "brannock": {
+    "start": "start",
+    "nodes": {
+      "start": {
+        "text": "Ein breiter Mann mit Lederschürze und versengten Augenbrauen wischt sich Ruß von den Händen. „Hugh Brannock. Die Gießerei ist zu. Seit einer Woche. Familienangelegenheit.“",
+        "choices": [
+          {
+            "text": "Wer hat Ihre Öfen gemietet?",
+            "next": "rost",
+            "hide_if_clues": [
+              "brannock_lady"
+            ],
+            "requires_quests_active": [
+              "case_05"
+            ]
+          },
+          {
+            "text": "Hier steht „M. V.“ in Ihrem Auftragsbuch. Keine Rostbrüder.",
+            "next": "lady",
+            "requires_clues": [
+              "ledger_mv"
+            ],
+            "hide_if_clues": [
+              "brannock_lady"
+            ],
+            "requires_quests_active": [
+              "case_05"
+            ]
+          },
+          {
+            "text": "Wo hängt die Glocke jetzt?",
+            "next": "hour",
+            "requires_clues": [
+              "brannock_lady"
+            ],
+            "hide_if_clues": [
+              "brannock_hour"
+            ],
+            "requires_quests_active": [
+              "case_05"
+            ]
+          },
+          {
+            "text": "Was gießen Sie sonst?",
+            "next": "trade"
+          },
+          {
+            "text": "Schon gut."
+          }
+        ]
+      },
+      "rost": {
+        "text": "Er sieht zur Seite. „Rostbrüder. Die mit den Ketten. Fragen Sie die.“ Seine Hand zittert, als er den Hammer weglegt. Er lügt, und er weiß, dass du es siehst.",
+        "choices": [
+          {
+            "text": "Ich komme wieder.",
+            "next": "start"
+          }
+        ]
+      },
+      "lady": {
+        "text": "Brannock setzt sich schwer auf einen Amboss.",
+        "gives_clues": [
+          "brannock_lady"
+        ],
+        "choices": [
+          {
+            "text": "Weiter.",
+            "next": "start"
+          }
+        ]
+      },
+      "hour": {
+        "text": "„Ich hab sie gefragt, wozu eine Glocke unter der Erde gut ist. Sie hat gelacht und gesagt: damit die Toten sie zuerst hören.“",
+        "gives_clues": [
+          "brannock_hour"
+        ],
+        "sets_flags": [
+          "kammer_known"
+        ],
+        "choices": [
+          {
+            "text": "Danke, Meister Brannock.",
+            "next": "start"
+          }
+        ]
+      },
+      "trade": {
+        "text": "„Kirchenglocken, Schiffsglocken, Türglocken. Dreihundert Jahre Brannock am Kanal. Und jetzt singt meine Grube nachts.“",
+        "choices": [
+          {
+            "text": "Verstehe.",
+            "next": "start"
+          }
+        ]
+      }
+    }
+  },
+  "oda_vey": {
+    "start": "start",
+    "nodes": {
+      "start": {
+        "text": "Eine grauhaarige Frau im Trauerkleid öffnet nur einen Spalt. „Oda Vey. Wenn Sie Miriam suchen: Sie wohnt hier nicht mehr. Seit zwölf Jahren nicht.“",
+        "choices": [
+          {
+            "text": "Haben Sie Ihre Schwester gesehen?",
+            "next": "face",
+            "hide_if_clues": [
+              "oda_face"
+            ],
+            "requires_quests_active": [
+              "case_05"
+            ]
+          },
+          {
+            "text": "Wer war Lilian?",
+            "next": "lilian",
+            "requires_quests_active": [
+              "case_05"
+            ]
+          },
+          {
+            "text": "Entschuldigen Sie die Störung."
+          }
+        ]
+      },
+      "face": {
+        "text": "Oda schließt die Augen.",
+        "gives_clues": [
+          "oda_face"
+        ],
+        "choices": [
+          {
+            "text": "Danke.",
+            "next": "start"
+          }
+        ]
+      },
+      "lilian": {
+        "text": "„Miriams Tochter. Sieben Jahre alt, als das Fieber kam. Miriam hat danach nie wieder gesungen. Nur noch zugehört. Ihr Zimmer oben ist, wie es war. Ich bringe es nicht über mich.“",
+        "choices": [
+          {
+            "text": "Darf ich mich umsehen?",
+            "next": "start"
+          }
+        ]
+      }
+    }
+  },
+  "lilian_echo": {
+    "start": "start",
+    "nodes": {
+      "start": {
+        "text": "Auf der Bettkante sitzt ein kleines Mädchen, kaum mehr als ein Schimmer. Es hält eine Spieluhr, die nicht spielt.",
+        "gives_clues": [
+          "echo_lilian"
+        ],
+        "choices": [
+          {
+            "text": "Ich werde deiner Mutter sagen, dass du schlafen willst.",
+            "next": "promise"
+          },
+          {
+            "text": "Leise zurücktreten."
+          }
+        ]
+      },
+      "promise": {
+        "text": "Das Mädchen nickt und ist fort. Nur die Spieluhr dreht sich einmal, ganz von allein.",
+        "sets_flags": [
+          "lilian_promise"
+        ],
+        "choices": [
+          {
+            "text": "…"
+          }
+        ]
+      }
+    }
+  },
+  "nachtwaechter": {
+    "start": "start",
+    "nodes": {
+      "start": {
+        "text": "Ein alter Mann mit Laterne und Ratsche stampft gegen die Kälte. „Tam Pruett, Nachtwache am Kanal. Was wollen Sie um die Zeit?“",
+        "choices": [
+          {
+            "text": "Was ist in der Gießerei passiert?",
+            "next": "night",
+            "hide_if_clues": [
+              "tam_night"
+            ],
+            "requires_quests_active": [
+              "case_05"
+            ]
+          },
+          {
+            "text": "Ruhige Nacht?",
+            "next": "calm"
+          },
+          {
+            "text": "Nichts."
+          }
+        ]
+      },
+      "night": {
+        "text": "Tam spuckt in den Kanal.",
+        "gives_clues": [
+          "tam_night"
+        ],
+        "choices": [
+          {
+            "text": "Danke.",
+            "next": "start"
+          }
+        ]
+      },
+      "calm": {
+        "text": "„Ruhig ist sie nie. Aber früher waren es Diebe. Jetzt summt das Wasser.“",
+        "choices": [
+          {
+            "text": "Gute Nacht.",
+            "next": "start"
+          }
+        ]
+      }
+    }
+  },
+  "waescherin": {
+    "start": "start",
+    "nodes": {
+      "start": {
+        "text": "Eine Frau mit roten Händen schlägt Laken gegen ein Waschbrett. „Martha Doyle. Wenn Sie Hemden haben, legen Sie sie hin. Wenn nicht, gehen Sie mir aus dem Licht.“",
+        "choices": [
+          {
+            "text": "Fehlen Ihnen Kundinnen?",
+            "next": "robes",
+            "hide_if_clues": [
+              "martha_robes"
+            ],
+            "requires_quests_active": [
+              "case_05"
+            ]
+          },
+          {
+            "text": "Viel zu tun?",
+            "next": "work"
+          },
+          {
+            "text": "Schon gut."
+          }
+        ]
+      },
+      "robes": {
+        "text": "Sie hört auf zu schlagen.",
+        "gives_clues": [
+          "martha_robes"
+        ],
+        "choices": [
+          {
+            "text": "Danke.",
+            "next": "start"
+          }
+        ]
+      },
+      "work": {
+        "text": "„In Ashgrove stirbt man viel. Und für Beerdigungen wäscht man Weiß.“",
+        "choices": [
+          {
+            "text": "Verstehe.",
+            "next": "start"
+          }
+        ]
+      }
+    }
+  },
+  "kaminkehrer": {
+    "start": "start",
+    "nodes": {
+      "start": {
+        "text": "Ein schwarzer Mann, schwarz vom Kopf bis zu den Stiefeln, grinst mit weißen Zähnen. „Ben Sotheby, Kamine und Glück. Ein Schilling für die Hand.“",
+        "choices": [
+          {
+            "text": "Waren Sie oben auf der Gießerei?",
+            "next": "slag",
+            "hide_if_clues": [
+              "ben_slag"
+            ],
+            "requires_quests_active": [
+              "case_05"
+            ]
+          },
+          {
+            "text": "Bringen Sie wirklich Glück?",
+            "next": "luck"
+          },
+          {
+            "text": "Heute nicht."
+          }
+        ]
+      },
+      "slag": {
+        "text": "Er zieht ein Stück grünliches Metall aus der Tasche und schnippt dagegen. Es klingt viel zu lange.",
+        "gives_clues": [
+          "ben_slag"
+        ],
+        "choices": [
+          {
+            "text": "Danke.",
+            "next": "start"
+          }
+        ]
+      },
+      "luck": {
+        "text": "„Mir hat's noch keins gebracht. Aber Ihnen vielleicht.“",
+        "choices": [
+          {
+            "text": "Danke, Ben.",
+            "next": "start"
+          }
+        ]
+      }
+    }
+  },
+  "kind_streuner": {
+    "start": "start",
+    "nodes": {
+      "start": {
+        "text": "Ein Mädchen in einer viel zu großen Jacke beobachtet dich von einer Kiste aus. „Nan Kettle. Für einen Penny weiß ich alles.“",
+        "choices": [
+          {
+            "text": "Ein Penny für die Schleierfrau.",
+            "next": "face",
+            "requires_money": 1,
+            "hide_if_clues": [
+              "nan_face"
+            ],
+            "requires_quests_active": [
+              "case_05"
+            ]
+          },
+          {
+            "text": "Wo wohnst du?",
+            "next": "home"
+          },
+          {
+            "text": "Lauf nach Hause."
+          }
+        ]
+      },
+      "face": {
+        "text": "Sie beißt auf die Münze und senkt die Stimme.",
+        "takes_money": 1,
+        "gives_clues": [
+          "nan_face"
+        ],
+        "choices": [
+          {
+            "text": "Danke, Nan.",
+            "next": "start"
+          }
+        ]
+      },
+      "home": {
+        "text": "„Hier. Und da. Und unter dem Fischstand, wenn's regnet.“",
+        "choices": [
+          {
+            "text": "Pass auf dich auf.",
+            "next": "start"
+          }
+        ]
+      }
+    }
+  },
+  "kuenstler": {
+    "start": "start",
+    "nodes": {
+      "start": {
+        "text": "Ein hagerer Maler mit farbigen Fingern steht vor einer Staffelei im Nebel. „Emil Varga. Bitte nicht ins Bild treten.“",
+        "choices": [
+          {
+            "text": "Was malen Sie da?",
+            "next": "fog",
+            "hide_if_clues": [
+              "emil_fog"
+            ],
+            "requires_quests_active": [
+              "case_05"
+            ]
+          },
+          {
+            "text": "Verkaufen Sie Bilder?",
+            "next": "sell"
+          },
+          {
+            "text": "Entschuldigung."
+          }
+        ]
+      },
+      "fog": {
+        "text": "„Den Nebel. Und was darin geht.“",
+        "gives_clues": [
+          "emil_fog"
+        ],
+        "choices": [
+          {
+            "text": "Danke.",
+            "next": "start"
+          }
+        ]
+      },
+      "sell": {
+        "text": "„Manchmal. Meist bezahle ich damit die Farben, mit denen ich die nächsten male.“",
+        "choices": [
+          {
+            "text": "Viel Glück.",
+            "next": "start"
+          }
+        ]
+      }
+    }
+  },
+  "glocke5": {
+    "start": "start",
+    "nodes": {
+      "start": {
+        "text": "Die Glocke hängt in der Mitte der Kammer, schwarz und warm. In ihrem Metall bewegen sich Gesichter, sieben, und ihre Münder sind offen. Miriam Vey liegt am Boden und lacht leise. „Schlag sie, Ermittler. Dann hörst du meine Tochter.“",
+        "choices": [
+          {
+            "text": "Die Stimmgabel anschlagen und an den Rand halten.",
+            "next": "perfect",
+            "requires_certain": [
+              "break_bell"
+            ],
+            "requires_items": [
+              "stimmgabel_silber"
+            ]
+          },
+          {
+            "text": "„Lilian will schlafen. Sie hat es mir selbst gesagt.“",
+            "next": "lilian",
+            "requires_conclusions": [
+              "for_lilian"
+            ],
+            "requires_flags": [
+              "lilian_promise"
+            ],
+            "hide_if_flags": [
+              "lilian_told"
+            ]
+          },
+          {
+            "text": "Die Glocke vom Balken schlagen.",
+            "next": "smash"
+          },
+          {
+            "text": "Noch nicht."
+          }
+        ]
+      },
+      "lilian": {
+        "text": "Miriam hört auf zu lachen. Lange sagt sie nichts. Dann, sehr leise: „Sie hat immer zu früh geschlafen.“ Sie wehrt sich nicht mehr.",
+        "sets_flags": [
+          "lilian_told"
+        ],
+        "honor": 2,
+        "honor_reason": "Miriam Vey die Wahrheit gesagt",
+        "choices": [
+          {
+            "text": "…",
+            "next": "start"
+          }
+        ]
+      },
+      "perfect": {
+        "text": "Der silberne Ton ist um ein Haar zu hoch.",
+        "ending": "c5_perfect",
+        "choices": [
+          {
+            "text": "…"
+          }
+        ]
+      },
+      "smash": {
+        "text": "Du stemmst dich gegen den Balken.",
+        "ending": "c5_good",
+        "choices": [
+          {
+            "text": "…"
+          }
+        ]
+      }
+    }
+  }
+}

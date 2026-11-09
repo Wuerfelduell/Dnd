@@ -1,0 +1,153 @@
+{
+  "id": "spiegelkabinett",
+  "name": "Spiegelkabinett am Nordtor",
+  "tiles": "theater",
+  "ambient": {
+    "night": 0.82,
+    "fog": 0.08
+  },
+  "spawns": {
+    "default": [
+      12,
+      13
+    ]
+  },
+  "lights": [
+    {
+      "tile": [
+        12,
+        3
+      ],
+      "radius": 60,
+      "intensity": 0.4,
+      "color": "#b8c8e8",
+      "glow": 0.3
+    }
+  ],
+  "rows": [
+    "IIIIIIIIIIIIIIIIIIIIIIIIII",
+    "IIIIIIIIIIIIIIIIIIIIIIIIII",
+    "IOwwwwwwwwwwwwwwwwwwwwwwOI",
+    "IwwwwwwwwwwwwwwwwwwwwwwwwI",
+    "IwwBBBBBBwwwBBBBwwwBBBBwwI",
+    "IwwwwwwwwwwwwwwwwwwwwwwwwI",
+    "IwwwwwwwwwwwwwwwwwwwwwwwwI",
+    "IwwwwwwwwwwwwwwwwwwwwwwwwI",
+    "IwwBBBwwwBBBBBBBwwwBBBBwwI",
+    "IwwwwwwwwwwwwwwwwwwwwwwwwI",
+    "IwwwwwwwwwwwwwwwwwwwwwwwwI",
+    "IwwwwBBBBBwwwwBBBBBBwwwwwI",
+    "IwwwwwwwwwwwwwwwwwwwwwwwwI",
+    "IOwwwwwwwwwwwwwwwwwwwwwwOI",
+    "IwwwwwwwwwwwwwwwwwwwwwwwwI",
+    "IIIIIIIIIIIIEEIIIIIIIIIIII"
+  ],
+  "npcs": [
+    {
+      "id": "wahrsagerin",
+      "tile": [
+        4,
+        13
+      ],
+      "facing": "right",
+      "visible_if": {
+        "requires_quests_active": [
+          "case_06"
+        ],
+        "hide_if_flags": [
+          "seer_arrested"
+        ]
+      }
+    }
+  ],
+  "interactables": [
+    {
+      "id": "out",
+      "kind": "door",
+      "to": "nordtor",
+      "spawn": "kabinett",
+      "tile": [
+        12,
+        14
+      ],
+      "prompt": "Hinaus zum Nordtor",
+      "marker": false,
+      "reach": 22
+    },
+    {
+      "id": "scraped",
+      "clue": "mirrors_scraped",
+      "tile": [
+        10,
+        9
+      ],
+      "prompt": "Die blinden Spiegel untersuchen",
+      "visible_if": {
+        "requires_quests_active": [
+          "case_06"
+        ]
+      }
+    },
+    {
+      "id": "slime",
+      "kind": "combat",
+      "encounter": "silberbad_schleim",
+      "tile": [
+        21,
+        6
+      ],
+      "sprite": "rats",
+      "marker": false,
+      "prompt": "Die glänzende Pfütze ansehen",
+      "visible_if": {
+        "requires_quests_active": [
+          "case_06"
+        ],
+        "hide_if_flags": [
+          "silberbad_schleim_defeated"
+        ]
+      }
+    },
+    {
+      "id": "guest",
+      "kind": "combat",
+      "encounter": "dreizehnter_gast",
+      "tile": [
+        12,
+        3
+      ],
+      "sprite": "npc:mews",
+      "marker": true,
+      "prompt": "Lucan Mews stellen",
+      "visible_if": {
+        "requires_flags": [
+          "case_06_showdown"
+        ],
+        "hide_if_flags": [
+          "mews_beaten"
+        ]
+      }
+    },
+    {
+      "id": "shadows",
+      "kind": "dialogue",
+      "dialogue": "kabinett6",
+      "title": "Die Spiegel",
+      "role": "",
+      "tile": [
+        12,
+        3
+      ],
+      "marker": true,
+      "prompt": "Vor die Spiegel treten",
+      "visible_if": {
+        "requires_flags": [
+          "mews_beaten"
+        ],
+        "hide_if_flags": [
+          "case_06_closed"
+        ]
+      }
+    }
+  ]
+}

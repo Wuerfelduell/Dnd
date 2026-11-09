@@ -57,6 +57,76 @@
         ]
       },
       {
+        "node": "epilogue5",
+        "requires_flags": [
+          "case_05_closed",
+          "vey_arrested"
+        ],
+        "hide_if_flags": [
+          "epilogue5_seen"
+        ]
+      },
+      {
+        "node": "epilogue5_fled",
+        "requires_flags": [
+          "case_05_closed",
+          "vey_fled"
+        ],
+        "hide_if_flags": [
+          "epilogue5_seen"
+        ]
+      },
+      {
+        "node": "epilogue5_bad",
+        "requires_flags": [
+          "case_05_closed",
+          "c5_wrong"
+        ],
+        "hide_if_flags": [
+          "epilogue5_seen"
+        ]
+      },
+      {
+        "node": "epilogue6",
+        "requires_flags": [
+          "case_06_closed",
+          "mews_arrested"
+        ],
+        "hide_if_flags": [
+          "epilogue6_seen"
+        ]
+      },
+      {
+        "node": "epilogue6_bad",
+        "requires_flags": [
+          "case_06_closed",
+          "c6_wrong"
+        ],
+        "hide_if_flags": [
+          "epilogue6_seen"
+        ]
+      },
+      {
+        "node": "brief_06",
+        "requires_flags": [
+          "case_05_closed",
+          "epilogue5_seen"
+        ],
+        "hide_if_flags": [
+          "briefed_06"
+        ]
+      },
+      {
+        "node": "brief_05",
+        "requires_flags": [
+          "case_04_closed",
+          "epilogue4_seen"
+        ],
+        "hide_if_flags": [
+          "briefed_05"
+        ]
+      },
+      {
         "node": "epilogue3",
         "requires_flags": [
           "case_03_closed",
@@ -259,6 +329,26 @@
             ],
             "hide_if_flags": [
               "case_04_showdown"
+            ]
+          },
+          {
+            "text": "Ich weiß, wo die Glocke hängt.",
+            "next": "accuse5",
+            "requires_quests_active": [
+              "case_05"
+            ],
+            "hide_if_flags": [
+              "case_05_showdown"
+            ]
+          },
+          {
+            "text": "Ich weiß, wer der dreizehnte Gast ist.",
+            "next": "accuse6",
+            "requires_quests_active": [
+              "case_06"
+            ],
+            "hide_if_flags": [
+              "case_06_showdown"
             ]
           },
           {
@@ -596,7 +686,7 @@
         ]
       },
       "epilogue4": {
-        "text": "Felix Dunmore sitzt unten in der Zelle und summt. Fenwick sagt, er wird nie wieder singen können. Ich weiß nicht, ob das eine Strafe ist oder eine Gnade.\n\nUnd die Glocke im Turm ... Price schwört, er hat sie von selbst schlagen hören. Vey ist noch da draußen, und sie hat jetzt, was sie wollte.\n\n(Ende von Fall 4. Fall 5 folgt.)",
+        "text": "Felix Dunmore sitzt unten in der Zelle und summt. Fenwick sagt, er wird nie wieder singen können. Ich weiß nicht, ob das eine Strafe ist oder eine Gnade.\n\nUnd die Glocke im Turm ... Price schwört, er hat sie von selbst schlagen hören. Vey ist noch da draußen, und sie hat jetzt, was sie wollte.\n\n(Ende von Fall 4. Sprich Marlowe noch einmal an.)",
         "sets_flags": [
           "epilogue4_seen"
         ],
@@ -612,7 +702,7 @@
         ]
       },
       "epilogue4_bad": {
-        "text": "Pell ist wieder frei. Er hat mir auf seiner Tafel geschrieben, dass er Ihnen verzeiht. Ich weiß nicht, ob ich das kann.\n\nDie Turmuhr singt jede Nacht. Und jede Woche verliert eine Sängerin ihre Stimme.\n\n(Ende von Fall 4. Fall 5 folgt.)",
+        "text": "Pell ist wieder frei. Er hat mir auf seiner Tafel geschrieben, dass er Ihnen verzeiht. Ich weiß nicht, ob ich das kann.\n\nDie Turmuhr singt jede Nacht. Und jede Woche verliert eine Sängerin ihre Stimme.\n\n(Ende von Fall 4. Sprich Marlowe noch einmal an.)",
         "sets_flags": [
           "epilogue4_seen"
         ],
@@ -716,6 +806,312 @@
         "choices": [
           {
             "text": "Zum Uhrturm."
+          }
+        ]
+      },
+      "brief_05": {
+        "text": "Marlowe legt eine Liste vor dich: sieben Frauennamen. „Alle aus dem alten Chor von St. Ebba. Alle verschwunden, in einer Woche. Und nachts hört man am Kanal eine Glocke, die es nicht gibt.\n\nDie Gießerei Brannock glüht seit Tagen, obwohl Brannock behauptet, sie sei zu. Price will die Rostbrüder hochnehmen. Ich will wissen, was Miriam Vey mit einer Glocke vorhat.“",
+        "sets_flags": [
+          "briefed_05",
+          "travel_giesserei"
+        ],
+        "start_quests": [
+          "case_05"
+        ],
+        "gives_clues": [
+          "police_rost"
+        ],
+        "choices": [
+          {
+            "text": "Ich fahre zur Gießerei.",
+            "next": "hub"
+          }
+        ]
+      },
+      "accuse5": {
+        "text": "Marlowe dreht die Liste mit den sieben Namen um. „Wer, und wo?“",
+        "choices": [
+          {
+            "text": "Die Rostbrüder. Price hat recht.",
+            "next": "end_rust"
+          },
+          {
+            "text": "Miriam Vey, unter fremdem Gesicht. Sie hat die Stimmen in eine Glocke gegossen, und die schlägt bei Neumond unter der Gießerei.",
+            "next": [
+              {
+                "node": "showdown5",
+                "requires_certain": [
+                  "voice_bell",
+                  "veiled_vey"
+                ]
+              },
+              {
+                "node": "unsure5"
+              }
+            ],
+            "requires_conclusions": [
+              "voice_bell",
+              "veiled_vey"
+            ],
+            "requires_any_clues": [
+              "brannock_hour",
+              "ezra_hum"
+            ]
+          },
+          {
+            "text": "Miriam Vey hat die Gießerei gemietet. Wo die Glocke ist, weiß ich nicht.",
+            "next": "early5",
+            "requires_conclusions": [
+              "veiled_vey"
+            ]
+          },
+          {
+            "text": "Noch nicht.",
+            "next": "hub"
+          }
+        ]
+      },
+      "showdown5": {
+        "text": "Marlowe ist schon auf den Beinen. „Neumond ist heute Nacht.“\n\n„Price riegelt den Kanal ab. Sie gehen in die Kammer hinunter. Und Ermittler: Diesmal entkommt sie uns nicht.“",
+        "sets_flags": [
+          "case_05_showdown"
+        ],
+        "honor": 3,
+        "honor_reason": "Miriam Veys Glocke gefunden",
+        "choices": [
+          {
+            "text": "Zur Gießerei."
+          }
+        ]
+      },
+      "unsure5": {
+        "text": "„Ich glaube Ihnen. Aber wenn wir Vey stellen und uns irren, verschwindet sie wieder für Jahre.“ Marlowe tippt zweimal auf Ihre Notizen. „Zweite Quellen. Für beides.“",
+        "choices": [
+          {
+            "text": "Ich hole sie.",
+            "next": "hub"
+          }
+        ]
+      },
+      "early5": {
+        "text": "„Dann schicke ich Price mit zwanzig Mann zur Gießerei, und wir hoffen, dass die Glocke dort hängt.“ Marlowe wartet. „Oder Sie suchen weiter.“",
+        "choices": [
+          {
+            "text": "Schicken Sie ihn.",
+            "next": "early5_go"
+          },
+          {
+            "text": "Ich suche weiter.",
+            "next": "hub"
+          }
+        ]
+      },
+      "early5_go": {
+        "text": "Marlowe klingelt nach Price.",
+        "ending": "c5_early",
+        "choices": [
+          {
+            "text": "…"
+          }
+        ]
+      },
+      "end_rust": {
+        "text": "Marlowe sieht dich lange an. „Wie Sie meinen.“",
+        "ending": "c5_rust",
+        "choices": [
+          {
+            "text": "…"
+          }
+        ]
+      },
+      "epilogue5": {
+        "text": "Miriam Vey sitzt in der tiefsten Zelle, die wir haben, und Fenwick hat Kreide auf jede Wand gezeichnet. Sie spricht kein Wort. Nur nachts summt sie ein Wiegenlied.\n\nDie sieben Frauen sind zu Hause. Sie singen wieder, sagt man in Ashgrove. Gute Arbeit, Ermittler.\n\n(Ende von Fall 5. Sprich Marlowe noch einmal an.)",
+        "sets_flags": [
+          "epilogue5_seen"
+        ],
+        "choices": [
+          {
+            "text": "Wie stehe ich im Revier?",
+            "next": "standing"
+          },
+          {
+            "text": "Danke.",
+            "next": "hub"
+          }
+        ]
+      },
+      "epilogue5_fled": {
+        "text": "Die Glocke ist zerbrochen, die Stimmen sind frei. Aber Vey ist durch den Kanal entkommen, mit einem neuen Gesicht, nehme ich an.\n\nIrgendwann sehen wir sie wieder. Ich hoffe, wir erkennen sie dann.\n\n(Ende von Fall 5. Sprich Marlowe noch einmal an.)",
+        "sets_flags": [
+          "epilogue5_seen"
+        ],
+        "choices": [
+          {
+            "text": "Wie stehe ich im Revier?",
+            "next": "standing"
+          },
+          {
+            "text": "Wir finden sie.",
+            "next": "hub"
+          }
+        ]
+      },
+      "epilogue5_bad": {
+        "text": "Price hat acht Rostbrüder eingesperrt. Und in der Neumondnacht hat die Glocke unter der Stadt geschlagen. Jeder in Ashgrove hat sie gehört.\n\nSeitdem stehen in den Fenstern Kinder, die keiner kennt. Sie winken.\n\n(Ende von Fall 5. Sprich Marlowe noch einmal an.)",
+        "sets_flags": [
+          "epilogue5_seen"
+        ],
+        "choices": [
+          {
+            "text": "Wie stehe ich im Revier?",
+            "next": "standing"
+          },
+          {
+            "text": "Es tut mir leid.",
+            "next": "hub"
+          }
+        ]
+      },
+      "brief_06": {
+        "text": "Marlowe schiebt dir eine Fotoplatte über den Tisch. „Der Ball der Ashcombes, vor vier Tagen. Zwölf Gäste. Zählen Sie.“\n\nDreizehn. „Und seitdem wirft keiner der Abgelichteten einen Schatten. Drei liegen im Bett und werden immer dünner. Price will die Wahrsagerin vom Ball einsperren, eine Madame Orsolya vom Jahrmarkt am Nordtor. Fall klar, sagt er. Ich sage: Fahren Sie zur Villa.“",
+        "sets_flags": [
+          "briefed_06",
+          "travel_ballsaal"
+        ],
+        "start_quests": [
+          "case_06"
+        ],
+        "gives_clues": [
+          "police_seer"
+        ],
+        "choices": [
+          {
+            "text": "Ich fahre zur Villa Ashcombe.",
+            "next": "hub"
+          }
+        ]
+      },
+      "accuse6": {
+        "text": "„Wer ist der dreizehnte Gast?“",
+        "choices": [
+          {
+            "text": "Madame Orsolya. Sie hat die Gäste verflucht.",
+            "next": "end_seer"
+          },
+          {
+            "text": "Lucan Mews, Whitlocks Assistent. Er stiehlt die Schatten mit Silber aus dem Spiegelkabinett am Nordtor.",
+            "next": [
+              {
+                "node": "showdown6",
+                "requires_certain": [
+                  "shadow_bath",
+                  "thirteenth"
+                ]
+              },
+              {
+                "node": "unsure6"
+              }
+            ],
+            "requires_conclusions": [
+              "shadow_bath",
+              "thirteenth"
+            ]
+          },
+          {
+            "text": "Lucan Mews. Wie er es macht, weiß ich nicht genau.",
+            "next": "early6",
+            "requires_conclusions": [
+              "thirteenth"
+            ]
+          },
+          {
+            "text": "Noch nicht.",
+            "next": "hub"
+          }
+        ]
+      },
+      "showdown6": {
+        "text": "Marlowe greift nach dem Mantel. „Price lässt die Wahrsagerin in Ruhe. Sie gehen ins Kabinett. Er wird dort sein, wo die Spiegel sind.“",
+        "sets_flags": [
+          "case_06_showdown"
+        ],
+        "honor": 3,
+        "honor_reason": "Den dreizehnten Gast enttarnt",
+        "choices": [
+          {
+            "text": "Zum Nordtor."
+          }
+        ]
+      },
+      "unsure6": {
+        "text": "„Ein Assistent, der Schatten stiehlt.“ Marlowe reibt sich die Augen. „Geben Sie mir für beides eine zweite Quelle. Dann glaube ich es auch.“",
+        "choices": [
+          {
+            "text": "Ich hole sie.",
+            "next": "hub"
+          }
+        ]
+      },
+      "early6": {
+        "text": "„Wir können ihn verhaften. Ob die Gäste ihre Schatten zurückbekommen, ist eine andere Frage.“",
+        "choices": [
+          {
+            "text": "Verhaften Sie ihn.",
+            "next": "early6_go"
+          },
+          {
+            "text": "Ich suche weiter.",
+            "next": "hub"
+          }
+        ]
+      },
+      "early6_go": {
+        "text": "Marlowe klingelt.",
+        "ending": "c6_early",
+        "choices": [
+          {
+            "text": "…"
+          }
+        ]
+      },
+      "end_seer": {
+        "text": "„Price wird zufrieden sein“, sagt Marlowe. Sie klingt nicht so.",
+        "ending": "c6_seer",
+        "choices": [
+          {
+            "text": "…"
+          }
+        ]
+      },
+      "epilogue6": {
+        "text": "Lucan Mews hat in der Zelle keinen Schatten, nicht einmal seinen eigenen. Fenwick meint, er hatte nie einen. Er sei so geboren worden und habe sich nur genommen, was ihm fehlte.\n\nDas macht es nicht besser. Aber es erklärt etwas.\n\n(Ende von Fall 6. Mehr Fälle folgen.)",
+        "sets_flags": [
+          "epilogue6_seen"
+        ],
+        "choices": [
+          {
+            "text": "Wie stehe ich im Revier?",
+            "next": "standing"
+          },
+          {
+            "text": "Danke.",
+            "next": "hub"
+          }
+        ]
+      },
+      "epilogue6_bad": {
+        "text": "Madame Orsolya sitzt in der Zelle und legt sich selbst die Karten. Gestern hat sie zu Price gesagt: „Morgen gehört dein Schatten einem anderen.“ Price lacht nicht mehr.\n\nUnd auf jeder neuen Fotoplatte in der Stadt steht ein Gast zu viel.\n\n(Ende von Fall 6. Mehr Fälle folgen.)",
+        "sets_flags": [
+          "epilogue6_seen"
+        ],
+        "choices": [
+          {
+            "text": "Wie stehe ich im Revier?",
+            "next": "standing"
+          },
+          {
+            "text": "Es tut mir leid.",
+            "next": "hub"
           }
         ]
       }

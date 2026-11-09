@@ -1,0 +1,139 @@
+{
+  "id": "atelier",
+  "name": "Atelier Whitlock am Altmarkt",
+  "tiles": "tavern",
+  "ambient": {
+    "night": 0.66,
+    "fog": 0.05
+  },
+  "spawns": {
+    "default": [
+      6,
+      11
+    ]
+  },
+  "lights": [
+    {
+      "tile": [
+        19,
+        4
+      ],
+      "radius": 40,
+      "intensity": 0.45,
+      "color": "#c83a2a",
+      "glow": 0.25
+    }
+  ],
+  "rows": [
+    "IIIIIIIIIIIIIIIIIIIIIIII",
+    "IIIIIIIIIIIIIIIIIIIIIIII",
+    "IwBBBwwwwwwwwwOIwwwwwwOI",
+    "IwwwwwwwwwwwwwwIwTTTTwwI",
+    "IwwwCCwwwwwwwwwIwwwwwwwI",
+    "IwwwCCwwwwwwwwwIwwwwwwwI",
+    "IwwwwwwwwwwwwwwIwwwwVVwI",
+    "IwwwwwwwwwwwwwwIwwwwwwwI",
+    "IwwwwwwwwwwwwwwIwwwwwwwI",
+    "IwwwwwwwwTTTwwwwwwwwwwwI",
+    "IwwwwwwwwwwwwwwIwwwwwwwI",
+    "IwwwwwwwwwwwwwwIwwwwwwwI",
+    "IwwwwwwwwwwwwwwIwwwwwwwI",
+    "IIIIIIEEIIIIIIIIIIIIIIII"
+  ],
+  "npcs": [
+    {
+      "id": "fotografin",
+      "tile": [
+        7,
+        5
+      ],
+      "facing": "down",
+      "visible_if": {
+        "requires_flags": [
+          "briefed_06"
+        ]
+      }
+    },
+    {
+      "id": "mews",
+      "tile": [
+        12,
+        10
+      ],
+      "facing": "left",
+      "visible_if": {
+        "requires_quests_active": [
+          "case_06"
+        ],
+        "hide_if_flags": [
+          "case_06_showdown"
+        ]
+      }
+    }
+  ],
+  "interactables": [
+    {
+      "id": "out",
+      "kind": "door",
+      "to": "altmarkt",
+      "spawn": "atelier",
+      "tile": [
+        6,
+        12
+      ],
+      "prompt": "Hinaus auf den Altmarkt",
+      "marker": false,
+      "reach": 22
+    },
+    {
+      "id": "bath",
+      "clue": "silver_bath",
+      "tile": [
+        18,
+        4
+      ],
+      "prompt": "Die Entwicklerwannen untersuchen",
+      "effects": {
+        "gives_items": {
+          "silbernitrat": 1
+        }
+      },
+      "visible_if": {
+        "requires_quests_active": [
+          "case_06"
+        ]
+      }
+    },
+    {
+      "id": "plates",
+      "kind": "read",
+      "tile": [
+        3,
+        3
+      ],
+      "prompt": "Die Plattenkisten durchsehen",
+      "title": "Plattenkisten",
+      "text": "Hochzeiten, Tote im Sonntagsstaat, ein Hund mit Schleife. Auf keiner älteren Platte steht ein Fremder. Erst die Platten vom Ball bei Lady Ashcombe sind anders."
+    },
+    {
+      "id": "negativ",
+      "kind": "combat",
+      "encounter": "negativ_geist",
+      "tile": [
+        20,
+        9
+      ],
+      "sprite": "apparition",
+      "marker": false,
+      "prompt": "Das helle Ding in der Dunkelkammer ansehen",
+      "visible_if": {
+        "requires_quests_active": [
+          "case_06"
+        ],
+        "hide_if_flags": [
+          "negativ_geist_defeated"
+        ]
+      }
+    }
+  ]
+}

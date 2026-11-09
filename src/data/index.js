@@ -46,15 +46,25 @@ import rostkapelle from './maps/rostkapelle.json';
 import hausMorrow from './maps/haus_morrow.json';
 import schleierhaus from './maps/schleierhaus.json';
 import dFactions from './dialogues/factions.json';
+import case05 from './case_05.json';
+import case06 from './case_06.json';
+import giesserei from './maps/giesserei.json';
+import hausVey from './maps/haus_vey.json';
+import resonanzkammer from './maps/resonanzkammer.json';
+import atelier from './maps/atelier.json';
+import ballsaal from './maps/ballsaal.json';
+import spiegelkabinett from './maps/spiegelkabinett.json';
+import dFall5 from './dialogues/fall5.json';
+import dFall6 from './dialogues/fall6.json';
 
 export const content = buildContent({
   campaign,
   quests,
   items,
   encounters,
-  cases: [case01, case02, case03, caseAltmarkt, case04],
-  maps: [revier, ashgrove, ebba, crypt, docks, warehouse, altmarkt, tavern, nachtmarkt, nordtor, theater, uhrturm, gaskanaele, schlachthof, sternwarte, marsch, katakomben, pestgassen, kraterwald, ankerhof, rostkapelle, hausMorrow, schleierhaus],
-  dialogues: [dRevier, dAshgrove, dEbba, dHafen, dAltmarkt, dNachtmarkt, dNordtor, dFunde, dFactions],
+  cases: [case01, case02, case03, caseAltmarkt, case04, case05, case06],
+  maps: [revier, ashgrove, ebba, crypt, docks, warehouse, altmarkt, tavern, nachtmarkt, nordtor, theater, uhrturm, gaskanaele, schlachthof, sternwarte, marsch, katakomben, pestgassen, kraterwald, ankerhof, rostkapelle, hausMorrow, schleierhaus, giesserei, hausVey, resonanzkammer, atelier, ballsaal, spiegelkabinett],
+  dialogues: [dRevier, dAshgrove, dEbba, dHafen, dAltmarkt, dNachtmarkt, dNordtor, dFunde, dFactions, dFall5, dFall6],
   pathways,
   market,
   travel,
