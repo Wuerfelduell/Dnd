@@ -74,3 +74,28 @@ export function lootList(loot, items) {
     .map(([id, n]) => ({ id, n, name: items[id]?.name ?? id, rarity: itemRarity(items[id]) }))
     .sort((a, b) => RARITIES.indexOf(b.rarity) - RARITIES.indexOf(a.rarity));
 }
+
+/** Häufigkeit einer Drop-Chance als Wort fürs Bestiarium. */
+export function chanceWord(chance) {
+  if (chance >= 1) return 'immer';
+  if (chance >= 0.5) return 'häufig';
+  if (chance >= 0.2) return 'gelegentlich';
+  return 'kaum';
+}
+
+/**
+ * Was ein Gegner fallen lassen kann (fürs Bestiarium): Drops mit Chance,
+ * feste Items (nur beim ersten Sieg) und Elite-Extras, seltenes zuerst.
+ * `elite` ist die Tabelle der Elite-Variante (oder null, wenn noch nicht besiegt).
+ */
+export function lootPreview(table, items, elite = null) {
+  const entries = new Map();
+  const add = (id, data) => { if (!entries.has(id)) entries.set(id, { id, name: items[id]?.name ?? id, rarity: itemRarity(items[id]), ...data }); };
+  for (const d of table?.drops ?? []) add(d.item, { chance: d.chance ?? 1 });
+  for (const id of Object.keys(table?.items ?? {})) add(id, { chance: 1, first: true });
+  for (const d of elite?.drops ?? []) add(d.item, { chance: Math.min(1, d.chance ?? 1), elite: true });
+  for (const id of Object.keys(elite?.items ?? {})) add(id, { chance: 1, first: true, elite: true });
+  const list = [...entries.values()].sort((a, b) => RARITIES.indexOf(b.rarity) - RARITIES.indexOf(a.rarity) || b.chance - a.chance);
+  const money = table?.money ?? 0;
+  return { money: Array.isArray(money) ? money : [money, money], repeat: !!table?.repeat, items: list };
+}
