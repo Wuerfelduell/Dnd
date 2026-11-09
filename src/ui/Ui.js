@@ -1,5 +1,5 @@
 import { DIGEST_LABELS } from '../core/Pathways.js';
-import { lootList, itemRarity, RARITY_NAMES } from '../core/Loot.js';
+import { lootList, itemRarity, RARITY_NAMES, lootPreview, chanceWord } from '../core/Loot.js';
 import {
   itemIconUrl, itemIcon32Url, pathwayEmblemUrl, pathwayCardUrl, COIN_URL, SKILL_ICONS, SKILL_ICONS_URL, STATUS_ICONS, STATUS_ICONS_URL,
   portraitUrl, portraitFor, mapMarkerOf, LOG_MARKERS, LOG_MARKERS_URL, SOURCE_ICONS, SPRITE_BASE,
@@ -847,15 +847,37 @@ export class Ui {
     });
   }
 
-  /** Besiegte Gegner mit Bestiariumsseite (Paket F). */
+  /** Besiegte Gegner: mit Bestiariumsseite oder mit Beute (Elite-Varianten zählen zum Grundgegner). */
   knownBeasts() {
-    return BESTIARY.filter((id) => this.state.flags.has(`won_${id}`) && this.state.content.encounters[id]);
+    const { flags } = this.state;
+    const { encounters, loot } = this.state.content;
+    const hasLoot = (id) => (loot?.[id]?.drops ?? []).length || Object.keys(loot?.[id]?.items ?? {}).length || loot?.[id]?.money;
+    const won = (id) => flags.has(`won_${id}`) || flags.has(`won_${id}_elite`);
+    const extra = Object.keys(encounters).filter((id) => !id.endsWith('_elite') && !BESTIARY.includes(id) && hasLoot(id));
+    return [...BESTIARY, ...extra].filter((id) => encounters[id] && won(id));
   }
 
   bestiaryHtml(ids) {
-    const encs = this.state.content.encounters;
-    return `<ul class="bestiary">${ids.map((id) => `<li><img src="${bestiaryUrl(id)}" alt="" onerror="this.remove()">
-      <strong>${esc(encs[id].name)}</strong><span class="muted">${encs[id].occult ? 'Okkult · ' : ''}${encs[id].hp} Leben</span></li>`).join('')}</ul>`;
+    const { encounters: encs, loot, items } = this.state.content;
+    const card = (id) => {
+      const e = encs[id];
+      const eliteWon = this.state.flags.has(`won_${id}_elite`);
+      return `<li><img src="${bestiaryUrl(id)}" alt="" onerror="this.remove()"><div class="beast-info">
+        <strong>${esc(e.name)}</strong><span class="muted">${e.occult ? 'Okkult · ' : ''}${e.hp} Leben${eliteWon ? ' · Elite besiegt' : ''}</span>
+        ${this.beastLootHtml(loot?.[id], items, eliteWon ? loot?.[`${id}_elite`] : null)}</div></li>`;
+    };
+    return `<ul class="bestiary">${ids.map(card).join('')}</ul>`;
+  }
+
+  /** Beute-Liste eines Gegners im Bestiarium. */
+  beastLootHtml(table, items, elite) {
+    const p = lootPreview(table, items, elite);
+    const rows = p.items.map((e) => `<li class="loot-row rar-${e.rarity}" title="${esc(RARITY_NAMES[e.rarity])}">${itemIcon(e.id)}<span>${esc(e.name)}</span>
+      <span class="rar">${e.first ? 'erster Sieg' : chanceWord(e.chance)}${e.elite ? ' · Elite' : ''}</span></li>`);
+    const [lo, hi] = p.money;
+    if (hi) rows.unshift(`<li class="loot-row">${coin}<span>${lo === hi ? lo : `${lo}–${hi}`} Schilling</span></li>`);
+    if (!rows.length) return '<p class="beast-noloot">Keine Beute bekannt.</p>';
+    return `<h5>Beute${p.repeat ? '' : ' <span class="muted">(nur einmal)</span>'}</h5><ul class="loot beast-loot">${rows.join('')}</ul>`;
   }
 
   questsHtml() {
