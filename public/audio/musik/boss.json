@@ -1,0 +1,139 @@
+{
+  "format": "nebel-musik-1",
+  "id": "boss",
+  "titel": "Kettlegates Schuld",
+  "bpm": 120,
+  "takt": [
+    4,
+    4
+  ],
+  "loop": true,
+  "lautstaerke": 0.72,
+  "hall": 0.38,
+  "spuren": {
+    "melodie": {
+      "instrument": "harmonium",
+      "lautstaerke": 0.7,
+      "pan": -0.16
+    },
+    "akkorde": {
+      "instrument": "streicher_tief",
+      "lautstaerke": 0.3,
+      "pan": 0.2
+    },
+    "bass": {
+      "instrument": "kontrabass",
+      "lautstaerke": 0.55,
+      "pan": -0.05
+    },
+    "takt": {
+      "instrument": "pauke",
+      "lautstaerke": 0.28,
+      "pan": 0.15
+    }
+  },
+  "muster": {
+    "motiv": {
+      "spur": "melodie",
+      "takte": 2,
+      "noten": "a4:4 f4:4 g4:4 c4:4 | c4:4 g4:4 a4:4 f4:4"
+    },
+    "antwort": {
+      "spur": "melodie",
+      "takte": 2,
+      "noten": "f4:4 a4:2 g4:2 e4:4 d4:4 | g4:4 f4:4 e4:4 d4:4"
+    },
+    "atem": {
+      "spur": "melodie",
+      "takte": 2,
+      "noten": "r:16 | r:16"
+    },
+    "bett_a": {
+      "spur": "akkorde",
+      "takte": 2,
+      "noten": "[d3,f3,a3]:16~ | [d3,f3,a3]:16"
+    },
+    "bett_b": {
+      "spur": "akkorde",
+      "takte": 2,
+      "noten": "[bb2,d3,f3]:16 | [g2,bb2,d3]:16"
+    },
+    "bett_c": {
+      "spur": "akkorde",
+      "takte": 2,
+      "noten": "[a2,c#3,e3]:16~ | [a2,c#3,e3]:16"
+    },
+    "bass_a": {
+      "spur": "bass",
+      "takte": 1,
+      "noten": "d2:2@0.65 a2:2@0.4 d2:2@0.65 a2:2@0.4 d2:2@0.65 a2:2@0.4 d2:2@0.65 a2:2@0.4"
+    },
+    "bass_b": {
+      "spur": "bass",
+      "takte": 1,
+      "noten": "bb2:8 f3:8"
+    },
+    "puls": {
+      "spur": "takt",
+      "takte": 1,
+      "noten": "x:8@0.6 x:8@0.25"
+    }
+  },
+  "abschnitte": {
+    "intro": [
+      "bett_a"
+    ],
+    "A": [
+      "motiv",
+      "bett_a",
+      "bass_a",
+      "puls"
+    ],
+    "B": [
+      "antwort",
+      "bett_b",
+      "bass_b",
+      "puls"
+    ],
+    "C": [
+      "motiv",
+      "bett_c",
+      "bass_a",
+      "puls"
+    ]
+  },
+  "ablauf": [
+    "intro",
+    "A",
+    "B",
+    "C",
+    "A",
+    "B",
+    "C",
+    "A",
+    "B",
+    "C",
+    "A",
+    "B",
+    "C",
+    "A",
+    "B",
+    "C",
+    "A",
+    "B",
+    "C",
+    "A",
+    "B",
+    "C",
+    "A",
+    "B",
+    "C",
+    "A",
+    "B",
+    "C",
+    "A",
+    "B",
+    "C"
+  ],
+  "loop_ab": 1
+}

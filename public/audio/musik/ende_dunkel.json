@@ -1,0 +1,96 @@
+{
+  "format": "nebel-musik-1",
+  "id": "ende_dunkel",
+  "titel": "Niemand antwortet",
+  "bpm": 60,
+  "takt": [
+    4,
+    4
+  ],
+  "loop": false,
+  "lautstaerke": 0.72,
+  "hall": 0.38,
+  "spuren": {
+    "melodie": {
+      "instrument": "glocke",
+      "lautstaerke": 0.7,
+      "pan": -0.16
+    },
+    "akkorde": {
+      "instrument": "streicher_tief",
+      "lautstaerke": 0.3,
+      "pan": 0.2
+    }
+  },
+  "muster": {
+    "motiv": {
+      "spur": "melodie",
+      "takte": 2,
+      "noten": "a4:4 f4:4 g4:4 c4:4 | c4:4 g4:4 a4:4 f4:4"
+    },
+    "antwort": {
+      "spur": "melodie",
+      "takte": 2,
+      "noten": "f4:4 a4:2 g4:2 e4:4 d4:4 | g4:4 f4:4 e4:4 d4:4"
+    },
+    "atem": {
+      "spur": "melodie",
+      "takte": 2,
+      "noten": "r:16 | r:16"
+    },
+    "bett_a": {
+      "spur": "akkorde",
+      "takte": 2,
+      "noten": "[d3,f3,a3]:16~ | [d3,f3,a3]:16"
+    },
+    "bett_b": {
+      "spur": "akkorde",
+      "takte": 2,
+      "noten": "[bb2,d3,f3]:16 | [g2,bb2,d3]:16"
+    },
+    "bett_c": {
+      "spur": "akkorde",
+      "takte": 2,
+      "noten": "[a2,c#3,e3]:16~ | [a2,c#3,e3]:16"
+    },
+    "dunkel": {
+      "spur": "melodie",
+      "takte": 2,
+      "noten": "d4:16 | r:16"
+    },
+    "schluss": {
+      "spur": "akkorde",
+      "takte": 2,
+      "noten": "[d3,f3,a3]:16~ | [d3,f3,a3]:16"
+    }
+  },
+  "abschnitte": {
+    "intro": [
+      "bett_a"
+    ],
+    "A": [
+      "motiv",
+      "bett_a"
+    ],
+    "B": [
+      "antwort",
+      "bett_b"
+    ],
+    "C": [
+      "motiv",
+      "bett_c"
+    ],
+    "ende": [
+      "dunkel",
+      "schluss"
+    ]
+  },
+  "ablauf": [
+    "A",
+    "B",
+    "C",
+    "B",
+    "ende"
+  ],
+  "loop_ab": 0
+}

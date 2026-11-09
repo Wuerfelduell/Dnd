@@ -1,0 +1,138 @@
+{
+  "format": "nebel-musik-1",
+  "base": "audio/musik/",
+  "instrumente": [
+    "instrumente.json"
+  ],
+  "tracks": {
+    "kettlegate_nacht": {
+      "file": "kettlegate_nacht.json",
+      "mood": "kettlegate_nacht",
+      "volume": 0.7
+    },
+    "revier": {
+      "file": "revier.json",
+      "mood": "revier",
+      "volume": 0.7
+    },
+    "nachtmarkt": {
+      "file": "nachtmarkt.json",
+      "mood": "nachtmarkt",
+      "volume": 0.7
+    },
+    "taverne": {
+      "file": "taverne.json",
+      "mood": "taverne",
+      "volume": 0.7
+    },
+    "ermittlung": {
+      "file": "ermittlung.json",
+      "mood": "ermittlung",
+      "volume": 0.7
+    },
+    "geistsicht": {
+      "file": "geistsicht.json",
+      "mood": "geistsicht",
+      "volume": 0.7
+    },
+    "ritual": {
+      "file": "ritual.json",
+      "mood": "ritual",
+      "volume": 0.7
+    },
+    "treffen": {
+      "file": "treffen.json",
+      "mood": "treffen",
+      "volume": 0.7
+    },
+    "kampf_okkult": {
+      "file": "kampf_okkult.json",
+      "mood": "kampf_okkult",
+      "volume": 0.7
+    },
+    "boss": {
+      "file": "boss.json",
+      "mood": "boss",
+      "volume": 0.7
+    },
+    "sieg": {
+      "file": "sieg.json",
+      "mood": "sieg",
+      "volume": 0.7
+    },
+    "fall_geloest": {
+      "file": "fall_geloest.json",
+      "mood": "fall_geloest",
+      "volume": 0.7
+    },
+    "ende_dunkel": {
+      "file": "ende_dunkel.json",
+      "mood": "ende_dunkel",
+      "volume": 0.7
+    }
+  },
+  "zuordnung": {
+    "maps": {
+      "altmarkt": {
+        "tag": "kettlegate_tag",
+        "nacht": "kettlegate_nacht"
+      },
+      "ankerhof": {
+        "tag": "kettlegate_tag",
+        "nacht": "kettlegate_nacht"
+      },
+      "ashgrove": {
+        "tag": "kettlegate_tag",
+        "nacht": "kettlegate_nacht"
+      },
+      "atelier": "ermittlung",
+      "ballsaal": "treffen",
+      "crypt": "geistsicht",
+      "docks": {
+        "tag": "kettlegate_tag",
+        "nacht": "kettlegate_nacht"
+      },
+      "ebba": "ritual",
+      "gaskanaele": "ermittlung",
+      "giesserei": "ermittlung",
+      "haus_morrow": "ermittlung",
+      "haus_vey": "ermittlung",
+      "katakomben": "geistsicht",
+      "kontor_thorne": "treffen",
+      "kraterwald": "geistsicht",
+      "marsch": "ermittlung",
+      "nachtmarkt": "nachtmarkt",
+      "nordtor": {
+        "tag": "kettlegate_tag",
+        "nacht": "kettlegate_nacht"
+      },
+      "pestgassen": "ermittlung",
+      "resonanzkammer": "ritual",
+      "revier": "revier",
+      "rostkapelle": "ritual",
+      "schlachthof": "ermittlung",
+      "schleierhaus": "treffen",
+      "spiegelkabinett": "geistsicht",
+      "sternwarte": "treffen",
+      "tavern": "taverne",
+      "theater": "treffen",
+      "traumkeller": "geistsicht",
+      "uhrturm": "kettlegate_nacht",
+      "waisenhaus": "ermittlung",
+      "warehouse": "ermittlung"
+    },
+    "zonen": {},
+    "kampf": {
+      "okkult": "kampf_okkult",
+      "boss_kapitel1": "boss"
+    },
+    "ereignisse": {
+      "sieg": "sieg",
+      "fall_geloest": "fall_geloest",
+      "ende_dunkel": "ende_dunkel",
+      "geistsicht": "geistsicht",
+      "ritual": "ritual",
+      "treffen": "treffen"
+    }
+  }
+}

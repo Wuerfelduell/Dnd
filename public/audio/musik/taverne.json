@@ -1,0 +1,113 @@
+{
+  "format": "nebel-musik-1",
+  "id": "taverne",
+  "titel": "Zur Glocke",
+  "bpm": 100,
+  "takt": [
+    6,
+    8
+  ],
+  "loop": true,
+  "lautstaerke": 0.72,
+  "hall": 0.38,
+  "spuren": {
+    "melodie": {
+      "instrument": "akkordeon",
+      "lautstaerke": 0.7,
+      "pan": -0.16
+    },
+    "akkorde": {
+      "instrument": "fidel",
+      "lautstaerke": 0.3,
+      "pan": 0.2
+    },
+    "bass": {
+      "instrument": "kontrabass",
+      "lautstaerke": 0.55,
+      "pan": -0.05
+    }
+  },
+  "muster": {
+    "motiv": {
+      "spur": "melodie",
+      "takte": 3,
+      "noten": "a4:4 f4:4 g4:4 | c4:4 c4:4 g4:4 | a4:4 f4:4 r:4"
+    },
+    "antwort": {
+      "spur": "melodie",
+      "takte": 3,
+      "noten": "f4:4 a4:2 g4:2 e4:4 | d4:4 g4:4 f4:4 | e4:4 d4:4 r:4"
+    },
+    "atem": {
+      "spur": "melodie",
+      "takte": 3,
+      "noten": "r:12 | r:12 | r:12"
+    },
+    "bett_a": {
+      "spur": "akkorde",
+      "takte": 3,
+      "noten": "[d3,f3,a3]:12~ | [d3,f3,a3]:12~ | [d3,f3,a3]:12"
+    },
+    "bett_b": {
+      "spur": "akkorde",
+      "takte": 3,
+      "noten": "[bb2,d3,f3]:12~ | [bb2,d3,f3]:6 [g2,bb2,d3]:6~ | [g2,bb2,d3]:12"
+    },
+    "bett_c": {
+      "spur": "akkorde",
+      "takte": 3,
+      "noten": "[a2,c#3,e3]:12~ | [a2,c#3,e3]:12~ | [a2,c#3,e3]:12"
+    },
+    "bass_a": {
+      "spur": "bass",
+      "takte": 1,
+      "noten": "d2:6@0.65 a2:6@0.4"
+    },
+    "bass_b": {
+      "spur": "bass",
+      "takte": 1,
+      "noten": "bb2:6 f3:6"
+    }
+  },
+  "abschnitte": {
+    "intro": [
+      "bett_a"
+    ],
+    "A": [
+      "motiv",
+      "bett_a",
+      "bass_a"
+    ],
+    "B": [
+      "antwort",
+      "bett_b",
+      "bass_b"
+    ],
+    "C": [
+      "motiv",
+      "bett_c",
+      "bass_a"
+    ]
+  },
+  "ablauf": [
+    "intro",
+    "A",
+    "B",
+    "C",
+    "A",
+    "B",
+    "C",
+    "A",
+    "B",
+    "C",
+    "A",
+    "B",
+    "C",
+    "A",
+    "B",
+    "C",
+    "A",
+    "B"
+  ],
+  "loop_ab": 1
+}
