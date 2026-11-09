@@ -1,6 +1,6 @@
 # Pixel-Art-Prompts für „Nebelakten“ – Übersicht
 
-Offen sind **fünf eigenständige Dateien**. Jede enthält Style-Block, Maße, Ablage-Regeln und Nachbearbeitung, Codex braucht also immer nur **eine** Datei auf einmal zu lesen. Bereits erzeugte Assets sind darin nicht enthalten.
+Offen sind **sechs eigenständige Dateien**. Jede enthält Style-Block, Maße, Ablage-Regeln und Nachbearbeitung, Codex braucht also immer nur **eine** Datei auf einmal zu lesen. Bereits erzeugte Assets sind darin nicht enthalten.
 
 | Datei | Inhalt | Umfang |
 |---|---|---|
@@ -9,7 +9,8 @@ Offen sind **fünf eigenständige Dateien**. Jede enthält Style-Block, Maße, A
 | `codex_K_fall6_dreizehnter_gast.md` | Fall 6 „Der dreizehnte Gast“: Fotoatelier, Ballsaal, Spiegelkabinett mit Jahrmarkt, Schatten-Overlays, Ballgäste, Lady Ashcombe, Lucan Mews, 3 Gegner, Boss `dreizehnter_gast`, Effekte, Items, wandernde Fotoplatte, Fallakte, Szenen, Enden | ca. 55 Sheets |
 | `codex_L_stadtgegner.md` | Vorrat: 10 neue Stadtgegner (Menschen und Nachtkreaturen), Kopfgeld-Bossin Schmugglerkönigin, Kartenfiguren, Bestiarium, 2 Kampf-Hintergründe, Steckbriefe, Beute, Elite- und Kopfgeld-Marker | ca. 45 Sheets |
 | `codex_M_fall7_8_wren.md` | Fall 7 und 8 (Bankkontor Thorne, Waisenhaus St. Brigid, Traumkeller mit Webstuhl): Finch, Molly, Benji, schlafwandelnde Kinder, 3 Gegner, Bossin Miss Wren in zwei Phasen, Effekte, Items, Nahansichten, 2 Fallakten, Szenen, 6 Enden | ca. 50 Sheets |
+| `codex_N_sequenzen_artefakte.md` | Tränke und Formeln für Sequenz 6 und 5 (alle 7 Pfade), 15 neue Zutaten, Icons und Effekte für 14 neue Fähigkeiten, 12 verfluchte Artefakte mit Artefakt-UI, Sergeant Thale und Dr. Varga | ca. 45 Sheets |
 
-Empfohlene Reihenfolge: **J → K → M → G → L**. Fall 5 bis 8 werden gerade gebaut und laufen bis dahin mit Platzhaltern; G läuft schon länger mit Platzhaltern. L ist Vorrat für einen späteren Durchgang.
+Empfohlene Reihenfolge: **N → J → K → M → G → L**. N, Fall 5 bis 8 sind schon eingebaut bzw. werden gerade gebaut und laufen bis dahin mit Platzhaltern; G läuft schon länger mit Platzhaltern. L ist Vorrat für einen späteren Durchgang.
 
 Die erledigten Dateien (A bis F, H, I) liegen in `erledigt/`, alle älteren Prompts in `prompts_komplett.md`.
