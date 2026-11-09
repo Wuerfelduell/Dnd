@@ -861,6 +861,18 @@ Die Einbindung sowie die Prüfung von Timing und Lesbarkeit im laufenden Spiel
 bleiben ein separater Arbeitsschritt. Vorhandene Sequenzen 9–7, Pfadkarten,
 Statusicons und die bisherigen 21 Fähigkeitseffekte bleiben unverändert.
 
+## Batch Q – Wexmoor
+
+14 PNG-Dateien für Kapitel 2: Zunder und Druce (Laufen, vier Emotionen, Notizbuchkopf), Grauspäher (Laufen und Laterne heben, vier Emotionen), Stadtkarte mit sieben Pin-Koordinaten, separates Nebeloverlay, sieben Marker mit Highlight, Laternenlicht, Kajüten-Tiles und Props.
+
+Manifest: `public/sprites/manifest-wexmoor.json`. Tatsächliche Prompts: `docs/art/batch-wexmoor-generation.json`. Exporte sind indizierte PNGs mit gemeinsamer Palette (31 sichtbare Farben plus Transparenz), binärem Alpha und Nearest-Neighbor-Skalierung. Eine Palette-Farbe wurde für die orange Verdachtskante ergänzt.
+
+Laufen: 16×32, Reihen unten/links/rechts/oben, vier Frames; beim Grauspäher fünfte Reihe Laterne heben. Portraits: 64×64, vier nebeneinander. FX: 384×168, vier 96×56-Zellen pro Reihe; `frameRects` definieren Normal 96×48, Verdacht 96×56 und Standlicht 32×32. Props: 160×128, fünf 32×32-Zellen pro Reihe; `regions` enthalten die tatsächlichen 16×16-, 16×32- und 32×16-Ausschnitte. Terrain: 128×48, 24 Tiles à 16×16. Pin-Koordinaten beziehen sich auf 480×270.
+
+Status: Grafikexport geprüft; Einbau und Animationstest im Spiel ausstehend. Keine Spielcodeänderungen. Beim Import in einen inzwischen geänderten Branch diesen Abschnitt an dessen README anhängen statt neuere Einträge zu überschreiben.
+
+
+
 ## Grafikpaket P – Rituale
 
 7 Ritualkreise (512×64, acht Frames à 64×64) und 7 Szenenkarten (96×128). Reihenfolge: laterne, faden, maske, echo, kessel, eisen, schluessel.
