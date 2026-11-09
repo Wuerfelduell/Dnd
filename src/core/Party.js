@@ -1,16 +1,19 @@
 // Lokaler Zwei-Spieler-Modus: Spieler 2 begleitet den Ermittler auf demselben Bildschirm.
 //
-// Spieler 1 ist der Ermittler mit Pfad, Ansehen, Fällen und Geldbeutel (alles gemeinsam).
-// Spieler 2 hat eigenes Leben, eigene Nerven, ein eigenes Inventar und eine eigene Waffe.
+// Spieler 1 ist der Ermittler mit Ansehen, Fällen und Geldbeutel (alles gemeinsam).
+// Spieler 2 hat eigenes Leben, eigene Nerven, ein eigenes Inventar, eine eigene Waffe und
+// einen eigenen Pfad: eigene Sequenz, Verdauung, Unruhe, Fähigkeiten, Tränke und Rituale.
 // Er hinterlässt beim Entfernen nichts: seine Sachen bleiben bei ihm, bis er wieder mitspielt.
 //
 // Technik: Die Spielregeln in GameState rechnen alle mit this.hp, this.inventory usw.
 // withPlayer(2, fn) tauscht für die Dauer von fn die persönlichen Werte von Spieler 2 ein,
 // so gelten dieselben Regeln (Tragkraft, Artefakte, Heilmittel, Ausrüsten) auch für ihn.
-// Spieler 2 trinkt keine Tränke: Pfad und Unruhe bleiben Sache des Ermittlers.
+// Gemeinsame Taten (Hinweise, Gespräche, Siege ...) verdauen die Tränke beider Spieler (siehe act()).
 
 /** Persönliche Werte, die zwischen den Spielern getauscht werden. */
-export const PERSONAL = ['hp', 'maxHp', 'inventory', 'weapon', 'gear', 'composure', 'pathway', 'unruhe', 'spiritVision'];
+export const PERSONAL = ['hp', 'maxHp', 'inventory', 'weapon', 'gear', 'composure', 'pathway', 'unruhe', 'spiritVision', 'visionDigest'];
+
+export const P2_COMPOSURE_REGEN = 6; // pro Sekunde
 
 export const P2_START = { hp: 40, items: { spazierstock: 1, verband: 2 }, weapon: 'spazierstock' };
 
@@ -34,7 +37,7 @@ export const partyMethods = {
       this.p2 = {
         active: true, hp, maxHp: hp, inventory: items,
         weapon: this.content.party?.weapon ?? (items[P2_START.weapon] ? P2_START.weapon : null), gear: { hut: null, mantel: null, amulett: null },
-        composure: 100, pathway: null, unruhe: 0, spiritVision: false,
+        composure: 100, pathway: null, unruhe: 0, spiritVision: false, visionDigest: { map: null, total: 0 },
       };
     }
     this.p2.active = true;
@@ -60,6 +63,17 @@ export const partyMethods = {
       this.p2[k] = mine;
     }
     this.acting = this.acting === 1 ? 2 : 1;
+  },
+
+  /** Führt fn mit den Werten des gerade nicht handelnden Spielers aus (egal ob das 1 oder 2 ist). */
+  withPartner(fn) {
+    if (!this.p2) return undefined;
+    this.swapPersonal();
+    try {
+      return fn();
+    } finally {
+      this.swapPersonal();
+    }
   },
 
   /**
@@ -94,6 +108,8 @@ export const partyMethods = {
     return this.withPlayer(n, () => ({
       n, hp: this.hp, maxHp: this.maxHp, composure: this.composure, maxComposure: this.maxComposure(),
       weapon: this.weaponStats(), overloaded: this.isOverloaded(), carry: this.carryText(),
+      pathway: this.pathway ? { ...this.pathway, name: this.pathwayDef().name, seqName: this.seqDef().name, color: this.pathwayDef().color } : null,
+      unruhe: this.unruhe,
     }), { quiet: true });
   },
 
@@ -132,11 +148,14 @@ export const partyMethods = {
     return o.hp - before;
   },
 
-  /** Nerven von Spieler 2 erholen sich mit der Zeit (ohne Geistsicht). */
+  /** Spieler 2 mit der Zeit: Nerven erholen sich (ohne Geistsicht), Unruhe klingt ab, Artefakte zerren. */
   tickParty(dt) {
-    if (!this.hasP2()) return;
-    const p = this.p2;
-    p.composure = Math.min(100, p.composure + 6 * dt);
+    if (!this.hasP2() || this.acting !== 1) return;
+    this.withPlayer(2, () => {
+      const calmMind = this.unruhe >= 60 ? 0.5 : 1;
+      this.composure = Math.min(this.maxComposure(), this.composure + P2_COMPOSURE_REGEN * this.passive('composure_regen') * calmMind * dt);
+      this.tickPathway(dt);
+    }, { quiet: true });
   },
 
   serializeParty() {
@@ -146,11 +165,15 @@ export const partyMethods = {
   loadParty(data) {
     const p = data?.p2;
     if (!p) return;
+    const path = p.pathway;
     const inventory = Object.fromEntries(Object.entries(p.inventory ?? {}).filter(([i, n]) => this.item(i) && n > 0));
     this.p2 = {
       active: !!p.active, hp: Math.max(1, p.hp ?? 40), maxHp: p.maxHp ?? 40, inventory,
-      weapon: inventory[p.weapon] ? p.weapon : null, gear: this.cleanGear(p.gear, inventory), composure: p.composure ?? 100, pathway: null, unruhe: p.unruhe ?? 0, spiritVision: false,
+      weapon: inventory[p.weapon] ? p.weapon : null, gear: this.cleanGear(p.gear, inventory), composure: p.composure ?? 100,
+      pathway: path && this.seqDef(path.id, path.seq) ? { id: path.id, seq: path.seq, digestion: path.digestion ?? 0 } : null,
+      unruhe: Math.max(0, Math.min(99, p.unruhe ?? 0)), spiritVision: false, visionDigest: { map: null, total: 0 },
     };
-    this.p2.hp = Math.min(this.p2.hp, this.p2.maxHp);
+    // Höchstwerte aus Pfad, Artefakten und Kleidung neu rechnen
+    this.withPlayer(2, () => { this.maxHp = this.calcMaxHp(); this.hp = Math.min(this.hp, this.maxHp); }, { quiet: true });
   },
 };
