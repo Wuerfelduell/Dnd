@@ -324,7 +324,8 @@ export class Ui {
     if (!t) return '';
     if (t.notebook) return `${t.notebook} (J)`;
     const where = t.map === this.state.map ? 'hier' : (this.state.content.maps[t.district]?.name ?? t.mapName);
-    return `${t.name} · ${t.map === t.district || t.map === this.state.map ? where : `${t.mapName}, ${where}`}`;
+    const text = `${t.name} · ${t.map === t.district || t.map === this.state.map ? where : `${t.mapName}, ${where}`}`;
+    return t.locked ? `${text} (gesperrt, ${t.locked.how})` : text;
   }
 
   updateGoal() {
@@ -660,11 +661,14 @@ export class Ui {
     };
     const here = pins[current] ? pin(current, 'here', `<span class="youmark" style="background-image:url(${TRAVEL_MARKER_URL})"></span><span class="tag">Du bist hier</span>`, 'disabled') : '';
     const destPins = dests.map((d, i) => (pins[d.map] ? pin(d.map, '', `<span class="num">${i + 1}</span><span class="tag">${esc(d.name)}</span>`, `data-i="${i}"`) : '')).join('');
+    // Ziel liegt in einem noch gesperrten Viertel: trotzdem zeigen, damit man weiß, wo es ist und wie man hinkommt.
+    const lockedPin = goal?.locked && pins[goalMap] && !dests.some((d) => d.map === goalMap) && goalMap !== current
+      ? pin(goalMap, 'locked', `<span class="tag">${esc(goal.locked.name)} (gesperrt)</span>`, 'disabled') : '';
     const unpinned = dests.map((d, i) => (pins[d.map] ? '' : `<button data-i="${i}"><span class="key">${i + 1}</span> ${esc(d.name)}</button>`)).join('');
     const el = this.open('travel', `
       <div class="map${rules.map_image ? '' : ' plain'}"${rules.map_image ? ` style="background-image:url(${SPRITE_BASE}${rules.map_image})"` : ''}>
         ${rules.fog_image ? '<canvas class="fog" width="480" height="270"></canvas>' : ''}
-        ${here}${destPins}
+        ${here}${destPins}${lockedPin}
         ${unpinned ? `<div class="unpinned">${unpinned}</div>` : ''}
       </div>
       <div class="modes hidden"></div>
@@ -678,7 +682,7 @@ export class Ui {
     });
     el.querySelector('[data-act=stay]').onclick = () => (this.travelPick === null ? this.close() : this.openTravel(current));
     const fog = el.querySelector('canvas.fog');
-    if (fog) this.drawFog(fog, `${SPRITE_BASE}${rules.fog_image}`, [current, ...dests.map((d) => d.map)].map((m) => pins[m]).filter(Boolean));
+    if (fog) this.drawFog(fog, `${SPRITE_BASE}${rules.fog_image}`, [current, ...dests.map((d) => d.map), ...(lockedPin ? [goalMap] : [])].map((m) => pins[m]).filter(Boolean));
   }
 
   /** Nebel über der Stadtkarte; um bekannte Orte herum lichtet er sich. */

@@ -97,6 +97,21 @@ export function districtOf(content, mapId) {
   return null;
 }
 
+/**
+ * Ist der Bezirk auf der Stadtkarte noch gesperrt? Dann { name, how } mit einem Hinweis,
+ * wer ihn freischaltet (falls die Daten das verraten), sonst null.
+ */
+export function lockedDistrict(state, district) {
+  const c = state.content;
+  const t = c.travel.find((x) => x.map === district);
+  if (!t || state.meets(t)) return null;
+  const idx = guideIndex(c);
+  const missing = (t.requires_flags ?? []).filter((f) => !state.flags.has(f));
+  const src = missing.flatMap((f) => idx.flag[f] ?? []).find((x) => x.map !== district);
+  const how = src ? `freischalten über ${src.name}` : 'wird im Lauf der Fälle frei';
+  return { name: t.name, how };
+}
+
 /** Fehlende Bausteine eines Schritts als Liste von Quellen-Suchen. */
 function needs(state, done) {
   const c = state.content;
@@ -129,10 +144,14 @@ export function questTarget(state, questId) {
   const step = (q.steps ?? []).find((s) => !state.meets(s.done));
   if (!step) return null;
   const base = { quest: questId, step: step.text };
-  const finish = (src) => ({
-    ...base, map: src.map, id: src.id, name: src.label ?? src.name,
-    mapName: c.maps[src.map]?.name ?? src.map, district: districtOf(c, src.map),
-  });
+  const finish = (src) => {
+    const district = districtOf(c, src.map);
+    const locked = district && district !== state.map ? lockedDistrict(state, district) : null;
+    return {
+      ...base, map: src.map, id: src.id, name: src.label ?? src.name,
+      mapName: c.maps[src.map]?.name ?? src.map, district, ...(locked ? { locked } : {}),
+    };
+  };
   if (step.target) {
     const def = [...(c.maps[step.target.map]?.npcs ?? []), ...(c.maps[step.target.map]?.interactables ?? [])].find((x) => x.id === step.target.id);
     return finish({ ...step.target, name: step.target.label ?? c.npcs[step.target.id]?.name ?? def?.prompt ?? step.target.id });
