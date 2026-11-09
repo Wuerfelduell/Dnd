@@ -1,0 +1,144 @@
+{
+  "k3o_gallowmere_phase2": {
+    "name": "Perrin Gallowmere: Phase 2",
+    "sprite": "wild",
+    "sheet": "enemy_glockenmutter",
+    "boss": true,
+    "fleeable": true,
+    "hp": 220,
+    "occult": true,
+    "armor": 3,
+    "intro": "Die Dienststimme zerfällt. Die eigene Schichtanweisung bleibt hörbar.",
+    "attacks": [
+      {
+        "name": "Getrennter Ruf",
+        "damage": 18,
+        "hits": [
+          1600,
+          2300
+        ]
+      },
+      {
+        "name": "Offene Schicht …",
+        "damage": 18,
+        "hits": [
+          2800
+        ]
+      }
+    ],
+    "weak_if": {
+      "requires_flags": [
+        "k3o_rolle_getrennt"
+      ]
+    },
+    "on_win": {
+      "sets_flags": [
+        "k3o_gallowmere_geloest"
+      ]
+    },
+    "win_text": "Der Aufruf bricht ab. Die Klärung der Geschichte und die Entscheidung über die Anlage bleiben bei dir.",
+    "lose_to": {
+      "map": "ds_speisewagen",
+      "spawn": "default"
+    },
+    "lose_text": "Pfiff holt dich zurück. Die Schicht ist nicht weitergerückt.",
+    "first_win": {
+      "gives_items": {
+        "k3o_leitungsklemme": 1
+      }
+    }
+  },
+  "k3o_unterschicht_phase2": {
+    "name": "Die Unterschicht: Phase 2",
+    "sprite": "wild",
+    "sheet": "enemy_glockenmutter",
+    "boss": true,
+    "fleeable": true,
+    "hp": 260,
+    "occult": true,
+    "armor": 3,
+    "intro": "Ein weiterer Ring wird sichtbar. Die leeren Stellen verlangen weiter keinen Ersatzmenschen.",
+    "attacks": [
+      {
+        "name": "Tiefenring 2",
+        "damage": 22,
+        "hits": [
+          1600,
+          2300
+        ]
+      },
+      {
+        "name": "Leere Mitte …",
+        "damage": 23,
+        "hits": [
+          2800
+        ]
+      }
+    ],
+    "weak_if": {
+      "requires_flags": [
+        "k3o_luecken_begrenzt"
+      ]
+    },
+    "on_win": {
+      "sets_flags": [
+        "k3o_unterschicht_phase2_done"
+      ]
+    },
+    "win_text": "Der Aufruf bricht ab. Die Klärung der Geschichte und die Entscheidung über die Anlage bleiben bei dir.",
+    "lose_to": {
+      "map": "ds_speisewagen",
+      "spawn": "default"
+    },
+    "lose_text": "Pfiff holt dich zurück. Die Schicht ist nicht weitergerückt."
+  },
+  "k3o_unterschicht_phase3": {
+    "name": "Die Unterschicht: Phase 3",
+    "sprite": "wild",
+    "sheet": "enemy_glockenmutter",
+    "boss": true,
+    "fleeable": true,
+    "hp": 270,
+    "occult": true,
+    "armor": 3,
+    "intro": "Ein weiterer Ring wird sichtbar. Die leeren Stellen verlangen weiter keinen Ersatzmenschen.",
+    "attacks": [
+      {
+        "name": "Tiefenring 3",
+        "damage": 23,
+        "hits": [
+          1600,
+          2300
+        ]
+      },
+      {
+        "name": "Leere Mitte …",
+        "damage": 23,
+        "hits": [
+          2800
+        ]
+      }
+    ],
+    "weak_if": {
+      "requires_flags": [
+        "k3o_luecken_begrenzt"
+      ]
+    },
+    "on_win": {
+      "sets_flags": [
+        "k3o_unterschicht_geloest"
+      ]
+    },
+    "win_text": "Der Aufruf bricht ab. Die Klärung der Geschichte und die Entscheidung über die Anlage bleiben bei dir.",
+    "lose_to": {
+      "map": "ds_speisewagen",
+      "spawn": "default"
+    },
+    "lose_text": "Pfiff holt dich zurück. Die Schicht ist nicht weitergerückt.",
+    "first_win": {
+      "gives_items": {
+        "k3o_stillkiesel": 1
+      }
+    }
+  }
+}

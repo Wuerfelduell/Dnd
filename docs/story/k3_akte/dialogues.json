@@ -1,0 +1,4149 @@
+{
+  "k3a_pfiff": {
+    "start": "k3a_start",
+    "nodes": {
+      "k3a_start": {
+        "text": "Ansel „Pfiff“ Cedrow wartet, bis du deine Unterlagen geordnet hast. Zwischen euch bleibt Platz für eine unbequeme Frage.",
+        "choices": [
+          {
+            "text": "Akt 1: Die vier Fährten besprechen.",
+            "next": "k3a_abschluss1",
+            "requires_flags": [
+              "k3a_11_geschlossen",
+              "k3a_12_geschlossen",
+              "k3a_13_geschlossen",
+              "k3a_14_geschlossen"
+            ],
+            "hide_if_flags": [
+              "k3a_akt1_done"
+            ]
+          },
+          {
+            "text": "Akt 2: Die vier Fährten besprechen.",
+            "next": "k3a_abschluss2",
+            "requires_flags": [
+              "k3a_21_geschlossen",
+              "k3a_22_geschlossen",
+              "k3a_23_geschlossen",
+              "k3a_24_geschlossen"
+            ],
+            "hide_if_flags": [
+              "k3a_akt2_done"
+            ]
+          },
+          {
+            "text": "Akt 3: Die vier Fährten besprechen.",
+            "next": "k3a_abschluss3",
+            "requires_flags": [
+              "k3a_31_geschlossen",
+              "k3a_32_geschlossen",
+              "k3a_33_geschlossen",
+              "k3a_34_geschlossen"
+            ],
+            "hide_if_flags": [
+              "k3a_akt3_done"
+            ]
+          },
+          {
+            "text": "Akt 4: Die vier Fährten besprechen.",
+            "next": "k3a_abschluss4",
+            "requires_flags": [
+              "k3a_41_geschlossen",
+              "k3a_42_geschlossen",
+              "k3a_43_geschlossen",
+              "k3a_44_geschlossen"
+            ],
+            "hide_if_flags": [
+              "k3a_akt4_done"
+            ]
+          },
+          {
+            "text": "Akt 5: Die vier Fährten besprechen.",
+            "next": "k3a_abschluss5",
+            "requires_flags": [
+              "k3a_51_geschlossen",
+              "k3a_52_geschlossen",
+              "k3a_53_geschlossen",
+              "k3a_54_geschlossen"
+            ],
+            "hide_if_flags": [
+              "k3a_bilanz5"
+            ]
+          },
+          {
+            "text": "Was kostet mich die Gegenstimme?",
+            "next": "k3a_anker_warnung",
+            "requires_conclusions": [
+              "k3a_43_d",
+              "k3a_52_d"
+            ],
+            "hide_if_flags": [
+              "kapitel3_done"
+            ]
+          },
+          {
+            "text": "Das Signalgerät füllen und an der Schallschleuse warten.",
+            "next": "k3a_nachfuellen",
+            "requires_flags": [
+              "k3a_speisewagen_sicher"
+            ]
+          },
+          {
+            "text": "Ich komme später wieder."
+          }
+        ]
+      },
+      "k3a_abschluss1": {
+        "text": "„Eine alte Lok, neue Arbeit und ein Wartungsweg“, sagt Pfiff. „Das ist schon mehr als ein Gespenst.“ Er legt dir das Signalgerät hin und zeigt auf die freie Koje. Lager, Fallwand und Ofen stehen dir offen.",
+        "choices": [
+          {
+            "text": "Den bestätigten nächsten Schritt gehen.",
+            "next": "k3a_abschluss1_ja"
+          },
+          {
+            "text": "Noch weiter ermitteln."
+          }
+        ]
+      },
+      "k3a_abschluss1_ja": {
+        "text": "Pfiff heftet eure Abschriften an die Fallwand. Erst mit deiner Bestätigung wird die nächste Fahrt vorbereitet; die Untersuchung hat keine unsichtbare Uhr.",
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ],
+        "sets_flags": [
+          "k3a_akt1_done",
+          "k3a_speisewagen_sicher"
+        ],
+        "complete_quests": [
+          "k3a_akt1"
+        ],
+        "start_quests": [
+          "k3a_akt2"
+        ],
+        "gives_items": {
+          "k3a_signalgeraet": 1
+        }
+      },
+      "k3a_abschluss2": {
+        "text": "„Oren hielt den Zug am Laufen, Nellie hat seine Regel gefunden“, sagt Pfiff. „Und die Walze verlangt Antworten von den Falschen.“ Er schiebt dir die Depotmarke zu. Reparaturen sollen künftig niemanden an eine Nachtschicht binden.",
+        "choices": [
+          {
+            "text": "Den bestätigten nächsten Schritt gehen.",
+            "next": "k3a_abschluss2_ja"
+          },
+          {
+            "text": "Noch weiter ermitteln."
+          }
+        ]
+      },
+      "k3a_abschluss2_ja": {
+        "text": "Pfiff heftet eure Abschriften an die Fallwand. Erst mit deiner Bestätigung wird die nächste Fahrt vorbereitet; die Untersuchung hat keine unsichtbare Uhr.",
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ],
+        "sets_flags": [
+          "k3a_akt2_done"
+        ],
+        "complete_quests": [
+          "k3a_akt2"
+        ],
+        "start_quests": [
+          "k3a_akt3"
+        ],
+        "gives_items": {
+          "k3a_depotmarke": 1
+        }
+      },
+      "k3a_abschluss3": {
+        "text": "Pfiff lässt den zweiten Teller im Schrank. „Du hast mir meine Mutter nicht genommen. Du hast mir gesagt, was ich da höre.“ Er setzt sich mit seiner eigenen Suppe zu dir; die Familienwalze bleibt unversehrt.",
+        "choices": [
+          {
+            "text": "Den bestätigten nächsten Schritt gehen.",
+            "next": "k3a_abschluss3_ja"
+          },
+          {
+            "text": "Noch weiter ermitteln."
+          }
+        ]
+      },
+      "k3a_abschluss3_ja": {
+        "text": "Pfiff heftet eure Abschriften an die Fallwand. Erst mit deiner Bestätigung wird die nächste Fahrt vorbereitet; die Untersuchung hat keine unsichtbare Uhr.",
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ],
+        "sets_flags": [
+          "k3a_akt3_done"
+        ],
+        "complete_quests": [
+          "k3a_akt3"
+        ],
+        "start_quests": [
+          "k3a_akt4"
+        ],
+        "bond": {
+          "k3_pfiff": 2
+        }
+      },
+      "k3a_abschluss4": {
+        "text": "Pfiff öffnet das Etui des Leitungsprüfers. „Sechs Viertel, ein Draht. Wir wissen jetzt, wo wir eingreifen können.“ Er bittet dich, die Kosten jeder Lösung auszusprechen, bevor ihr aufbrecht.",
+        "choices": [
+          {
+            "text": "Den bestätigten nächsten Schritt gehen.",
+            "next": "k3a_abschluss4_ja"
+          },
+          {
+            "text": "Noch weiter ermitteln."
+          }
+        ]
+      },
+      "k3a_abschluss4_ja": {
+        "text": "Pfiff heftet eure Abschriften an die Fallwand. Erst mit deiner Bestätigung wird die nächste Fahrt vorbereitet; die Untersuchung hat keine unsichtbare Uhr.",
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ],
+        "sets_flags": [
+          "k3a_akt4_done"
+        ],
+        "complete_quests": [
+          "k3a_akt4"
+        ],
+        "start_quests": [
+          "k3a_akt5"
+        ],
+        "gives_items": {
+          "k3a_leitungspruefer": 1
+        }
+      },
+      "k3a_abschluss5": {
+        "text": "„Die Lebenden sind draußen“, sagt Pfiff. „Die Vergangenheit nicht. Die tragen wir auf eine andere Weise hinaus.“ Ihr legt Anerkennung, Stilllegung, Gegenstimme und den ausdrücklich gewarnten Zwangsaufruf nebeneinander.",
+        "choices": [
+          {
+            "text": "Den bestätigten nächsten Schritt gehen.",
+            "next": "k3a_abschluss5_ja"
+          },
+          {
+            "text": "Noch weiter ermitteln."
+          }
+        ]
+      },
+      "k3a_abschluss5_ja": {
+        "text": "Pfiff heftet eure Abschriften an die Fallwand. Erst mit deiner Bestätigung wird die nächste Fahrt vorbereitet; die Untersuchung hat keine unsichtbare Uhr.",
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ],
+        "sets_flags": [
+          "k3a_bilanz5"
+        ]
+      },
+      "k3a_anker_warnung": {
+        "text": "„Du darfst Dunscar verlassen“, sagt Pfiff. „Aber jeder aktive Betrieb braucht deine bewusste Rückkehr. Ich verwahre den Abschaltschlüssel.“ Dein Name wird ein örtlicher Anker; das Namenstäfelchen bleibt bei dir und wird nicht verbraucht.",
+        "choices": [
+          {
+            "text": "Diese begrenzte Bindung bewusst akzeptieren.",
+            "next": "k3a_anker_ja"
+          },
+          {
+            "text": "Ich entscheide mich noch nicht."
+          }
+        ]
+      },
+      "k3a_anker_ja": {
+        "text": "Du wiederholst die Bedingungen mit eigenen Worten. Pfiff schreibt keine Vollmacht für zukünftige Opfer und keine Unsterblichkeit hinein.",
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ],
+        "sets_flags": [
+          "k3a_anker_einwilligung"
+        ]
+      },
+      "k3a_nachfuellen": {
+        "text": "Pfiff füllt alle drei Kammern kostenlos. Hinter der Schallschleuse erreicht dich kein persönlicher Ruf mehr. Im Dialogbetrieb sind sämtliche Musterproben ohnehin kostenlos; im späteren Rufsystem beginnt hier ein neuer Ausflug.",
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ],
+        "clears_flags": [
+          "k3a_privatruf_gebunden"
+        ]
+      }
+    }
+  },
+  "k3a_oren": {
+    "start": "k3a_start",
+    "nodes": {
+      "k3a_start": {
+        "text": "Oren Fallowby wartet, bis du deine Unterlagen geordnet hast. Zwischen euch bleibt Platz für eine unbequeme Frage.",
+        "choices": [
+          {
+            "text": "Ich komme später wieder."
+          }
+        ]
+      }
+    }
+  },
+  "k3a_huxford": {
+    "start": "k3a_start",
+    "nodes": {
+      "k3a_start": {
+        "text": "Dr. Corin Huxford wartet, bis du deine Unterlagen geordnet hast. Zwischen euch bleibt Platz für eine unbequeme Frage.",
+        "choices": [
+          {
+            "text": "Ich komme später wieder."
+          }
+        ]
+      }
+    }
+  },
+  "k3a_pelham": {
+    "start": "k3a_start",
+    "nodes": {
+      "k3a_start": {
+        "text": "Jonas Pelham wartet, bis du deine Unterlagen geordnet hast. Zwischen euch bleibt Platz für eine unbequeme Frage.",
+        "choices": [
+          {
+            "text": "Ich komme später wieder."
+          }
+        ]
+      }
+    }
+  },
+  "k3a_nellie": {
+    "start": "k3a_start",
+    "nodes": {
+      "k3a_start": {
+        "text": "Nellie Swarth wartet, bis du deine Unterlagen geordnet hast. Zwischen euch bleibt Platz für eine unbequeme Frage.",
+        "choices": [
+          {
+            "text": "Ich komme später wieder."
+          }
+        ]
+      }
+    }
+  },
+  "k3a_willa": {
+    "start": "k3a_start",
+    "nodes": {
+      "k3a_start": {
+        "text": "Willa Trentfold wartet, bis du deine Unterlagen geordnet hast. Zwischen euch bleibt Platz für eine unbequeme Frage.",
+        "choices": [
+          {
+            "text": "Ich komme später wieder."
+          }
+        ]
+      }
+    }
+  },
+  "k3a_adaine": {
+    "start": "k3a_start",
+    "nodes": {
+      "k3a_start": {
+        "text": "Adaine Quarrell wartet, bis du deine Unterlagen geordnet hast. Zwischen euch bleibt Platz für eine unbequeme Frage.",
+        "choices": [
+          {
+            "text": "Ich komme später wieder."
+          }
+        ]
+      }
+    }
+  },
+  "k3a_esther": {
+    "start": "k3a_start",
+    "nodes": {
+      "k3a_start": {
+        "text": "Esther Brindle wartet, bis du deine Unterlagen geordnet hast. Zwischen euch bleibt Platz für eine unbequeme Frage.",
+        "choices": [
+          {
+            "text": "Ich komme später wieder."
+          }
+        ]
+      }
+    }
+  },
+  "k3a_mabel": {
+    "start": "k3a_start",
+    "nodes": {
+      "k3a_start": {
+        "text": "Mabel Caskett wartet, bis du deine Unterlagen geordnet hast. Zwischen euch bleibt Platz für eine unbequeme Frage.",
+        "choices": [
+          {
+            "text": "Die gesicherte Vertuschung öffentlich zugänglich machen.",
+            "next": "k3a_veroeffentlichen",
+            "requires_conclusions": [
+              "k3a_41_d",
+              "k3a_53_d"
+            ],
+            "hide_if_flags": [
+              "k3a_nachweis_offen"
+            ]
+          },
+          {
+            "text": "Ich komme später wieder."
+          }
+        ]
+      },
+      "k3a_veroeffentlichen": {
+        "text": "Mabel legt Originalvergleich, Lagerabschrift und Gallowmeres Anweisung im Teesaal zur Einsicht aus. Ein Abdruck geht an das Kalkblatt. Die Anerkennung gilt der überprüfbaren Veröffentlichung, nicht bloß deinem gewählten Ende.",
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ],
+        "sets_flags": [
+          "k3a_nachweis_offen"
+        ],
+        "honor": 8
+      }
+    }
+  },
+  "k3a_gallowmere": {
+    "start": "k3a_start",
+    "nodes": {
+      "k3a_start": {
+        "text": "Perrin Gallowmere wartet, bis du deine Unterlagen geordnet hast. Zwischen euch bleibt Platz für eine unbequeme Frage.",
+        "choices": [
+          {
+            "text": "Ich komme später wieder."
+          }
+        ]
+      }
+    }
+  },
+  "k3a_11_dialog": {
+    "start": "k3a_11_start",
+    "nodes": {
+      "k3a_11_s1": {
+        "text": "Das Papier zerfasert an den alten Faltungen. Das Wasserzeichen entspricht dem letzten Betriebsjahr der Kalkbahn.\n\nDu hältst Herkunft und Beobachtung getrennt in deinem Notizbuch fest.",
+        "choices": [
+          {
+            "text": "Zur Untersuchung zurück.",
+            "next": "k3a_11_start"
+          }
+        ],
+        "gives_clues": [
+          "k3a_11_c1"
+        ]
+      },
+      "k3a_11_s2": {
+        "text": "Der Aushang führt die Bruchstrecke als seit siebzig Jahren eingestellt. Das aufgedruckte Gleiszeichen steht auch auf deinem Billett.\n\nDu hältst Herkunft und Beobachtung getrennt in deinem Notizbuch fest.",
+        "choices": [
+          {
+            "text": "Zur Untersuchung zurück.",
+            "next": "k3a_11_start"
+          }
+        ],
+        "gives_clues": [
+          "k3a_11_c2"
+        ]
+      },
+      "k3a_11_s3": {
+        "text": "An der Entwertung haftet frische violette Farbe. Ein Abdruck auf Löschpapier zeigt das heutige Datum.\n\nDu hältst Herkunft und Beobachtung getrennt in deinem Notizbuch fest.",
+        "choices": [
+          {
+            "text": "Zur Untersuchung zurück.",
+            "next": "k3a_11_start"
+          }
+        ],
+        "gives_clues": [
+          "k3a_11_c3"
+        ]
+      },
+      "k3a_11_s4": {
+        "text": "Nellie öffnet den Fahrkartenschrank vor dir. Er enthält weder Blankokarten noch Vorratsstempel, doch gerade eben ist dein Billett daraus gefallen.\n\nDu hältst Herkunft und Beobachtung getrennt in deinem Notizbuch fest.",
+        "choices": [
+          {
+            "text": "Zur Untersuchung zurück.",
+            "next": "k3a_11_start"
+          }
+        ],
+        "gives_clues": [
+          "k3a_11_c4"
+        ]
+      },
+      "k3a_11_start": {
+        "text": "Pfiff hält die Fahrkarte gegen die Gaslampe. „Papier kann warten. Ein Stempel ist meistens ungeduldiger.“",
+        "choices": [
+          {
+            "text": "Faserbruch untersuchen.",
+            "next": "k3a_11_s1"
+          },
+          {
+            "text": "Gesperrter Fahrplan untersuchen.",
+            "next": "k3a_11_s2"
+          },
+          {
+            "text": "Nasser Stempel untersuchen.",
+            "next": "k3a_11_s3"
+          },
+          {
+            "text": "Leere Schublade untersuchen.",
+            "next": "k3a_11_s4"
+          },
+          {
+            "text": "Was wäre die andere Erklärung?",
+            "next": "k3a_11_gegenprobe"
+          },
+          {
+            "text": "Die beiden Fakten verbinden.",
+            "next": "k3a_11_schluss",
+            "requires_conclusions": [
+              "k3a_11_d"
+            ]
+          },
+          {
+            "text": "Ich sehe mich weiter um."
+          }
+        ]
+      },
+      "k3a_11_gegenprobe": {
+        "text": "„Vielleicht sammelt jemand alte Karten“, sagt Pfiff. „Dann müsste er erklären, warum deine noch abfärbt.“",
+        "choices": [
+          {
+            "text": "Zurück zu den Belegen.",
+            "next": "k3a_11_start"
+          }
+        ]
+      },
+      "k3a_11_schluss": {
+        "text": "Jemand benutzt einen alten Verkehrsvorgang, um dich heute aufzurufen.\n\nDu notierst Materialalter und Zeitpunkt getrennt. Das Billett beweist eine heutige Handlung, noch keine Rückkehr der Toten.",
+        "choices": [
+          {
+            "text": "Den Befund festhalten.",
+            "next": "k3a_11_festhalten"
+          }
+        ]
+      },
+      "k3a_11_festhalten": {
+        "text": "Du notierst Materialalter und Zeitpunkt getrennt. Das Billett beweist eine heutige Handlung, noch keine Rückkehr der Toten.",
+        "choices": [
+          {
+            "text": "Zur Untersuchung zurück.",
+            "next": "k3a_11_start"
+          }
+        ],
+        "sets_flags": [
+          "k3a_11_geschlossen"
+        ]
+      }
+    }
+  },
+  "k3a_12_dialog": {
+    "start": "k3a_12_start",
+    "nodes": {
+      "k3a_12_s1": {
+        "text": "Auf der Tafel ist ein langer Strich, eine Lücke und ein kurzer Bogen eingeritzt. Pfiff zeichnet das nächtliche Signal daneben: dieselbe Unterbrechung.\n\nDu hältst Herkunft und Beobachtung getrennt in deinem Notizbuch fest.",
+        "choices": [
+          {
+            "text": "Zur Untersuchung zurück.",
+            "next": "k3a_12_start"
+          }
+        ],
+        "gives_clues": [
+          "k3a_12_c1"
+        ]
+      },
+      "k3a_12_s2": {
+        "text": "Der alte Prüfstreifen nennt die Fabriknummer dieser Lok. Bereits damals fehlte im Anfahrpfiff die mittlere Note.\n\nDu hältst Herkunft und Beobachtung getrennt in deinem Notizbuch fest.",
+        "choices": [
+          {
+            "text": "Zur Untersuchung zurück.",
+            "next": "k3a_12_start"
+          }
+        ],
+        "gives_clues": [
+          "k3a_12_c2"
+        ]
+      },
+      "k3a_12_s3": {
+        "text": "Im Ventilsitz fehlt ein keilförmiges Stück. Bei der Handprobe entweicht genau während der mittleren Note die Luft.\n\nDu hältst Herkunft und Beobachtung getrennt in deinem Notizbuch fest.",
+        "choices": [
+          {
+            "text": "Zur Untersuchung zurück.",
+            "next": "k3a_12_start"
+          }
+        ],
+        "gives_clues": [
+          "k3a_12_c3"
+        ]
+      },
+      "k3a_12_s4": {
+        "text": "Oren betätigt den Blasebalg ohne Feuer. Auch ohne Nebel und Nacht entsteht dieselbe Lücke; die Form lässt sich mit den Augen vergleichen.\n\nDu hältst Herkunft und Beobachtung getrennt in deinem Notizbuch fest.",
+        "choices": [
+          {
+            "text": "Zur Untersuchung zurück.",
+            "next": "k3a_12_start"
+          }
+        ],
+        "gives_clues": [
+          "k3a_12_c4"
+        ]
+      },
+      "k3a_12_start": {
+        "text": "Oren steht mit einer Feile vor der kalten Lok. „Wenn du etwas hörst, schreib es auf. Hier hält sich kein Ton an seinen Dienstplan.“",
+        "choices": [
+          {
+            "text": "Wachstafel untersuchen.",
+            "next": "k3a_12_s1"
+          },
+          {
+            "text": "Prüfstreifen untersuchen.",
+            "next": "k3a_12_s2"
+          },
+          {
+            "text": "Ventilsitz untersuchen.",
+            "next": "k3a_12_s3"
+          },
+          {
+            "text": "Kalte Probe untersuchen.",
+            "next": "k3a_12_s4"
+          },
+          {
+            "text": "Was wäre die andere Erklärung?",
+            "next": "k3a_12_gegenprobe"
+          },
+          {
+            "text": "Die beiden Fakten verbinden.",
+            "next": "k3a_12_schluss",
+            "requires_conclusions": [
+              "k3a_12_d"
+            ]
+          },
+          {
+            "text": "Ich sehe mich weiter um."
+          }
+        ]
+      },
+      "k3a_12_gegenprobe": {
+        "text": "„Ein Geist kann wohl jede Pfeife nachmachen“, wirfst du ein. Oren legt den beschädigten Ventilsitz daneben: „Aber nur diese hat auch die passende Schramme.“",
+        "choices": [
+          {
+            "text": "Zurück zu den Belegen.",
+            "next": "k3a_12_start"
+          }
+        ]
+      },
+      "k3a_12_schluss": {
+        "text": "Der Nachtzug gehört zu dieser konkreten Lok und nicht zu einem beliebigen Phantom.\n\nDu zeichnest den beschädigten Anfahrpfiff ab. Eine erkennbare Lok ist etwas, das sich untersuchen lässt.",
+        "choices": [
+          {
+            "text": "Den Befund festhalten.",
+            "next": "k3a_12_festhalten"
+          }
+        ]
+      },
+      "k3a_12_festhalten": {
+        "text": "Du zeichnest den beschädigten Anfahrpfiff ab. Eine erkennbare Lok ist etwas, das sich untersuchen lässt.",
+        "choices": [
+          {
+            "text": "Zur Untersuchung zurück.",
+            "next": "k3a_12_start"
+          }
+        ],
+        "sets_flags": [
+          "k3a_12_geschlossen"
+        ]
+      }
+    }
+  },
+  "k3a_13_dialog": {
+    "start": "k3a_13_start",
+    "nodes": {
+      "k3a_13_s1": {
+        "text": "Unter einem warmen, durchbluteten Fuß steckt feuchter Kalk in der Schuhnaht. Die Schicht stammt von heute Nacht, nicht aus einem alten Grab.\n\nDu hältst Herkunft und Beobachtung getrennt in deinem Notizbuch fest.",
+        "choices": [
+          {
+            "text": "Zur Untersuchung zurück.",
+            "next": "k3a_13_start"
+          }
+        ],
+        "gives_clues": [
+          "k3a_13_c1"
+        ]
+      },
+      "k3a_13_s2": {
+        "text": "Mabel erkennt ihren Gast und die gestern geflickte Sohle. Er erinnert sich an eine Leiter, seine Hände zittern vom Festhalten.\n\nDu hältst Herkunft und Beobachtung getrennt in deinem Notizbuch fest.",
+        "choices": [
+          {
+            "text": "Zur Untersuchung zurück.",
+            "next": "k3a_13_start"
+          }
+        ],
+        "gives_clues": [
+          "k3a_13_c2"
+        ]
+      },
+      "k3a_13_s3": {
+        "text": "Der Puls steigt nachts, das Körpergewicht sinkt bis zum Morgen. Huxford hat daneben wiederholt „Belastung“ vermerkt.\n\nDu hältst Herkunft und Beobachtung getrennt in deinem Notizbuch fest.",
+        "choices": [
+          {
+            "text": "Zur Untersuchung zurück.",
+            "next": "k3a_13_start"
+          }
+        ],
+        "gives_clues": [
+          "k3a_13_c3"
+        ]
+      },
+      "k3a_13_s4": {
+        "text": "Huxford legt Messbuch und Erholungsschein nebeneinander. „Die Zahlen stimmen. Der Schein nicht. Ich wollte verhindern, dass man sie wegsperrt.“\n\nDu hältst Herkunft und Beobachtung getrennt in deinem Notizbuch fest.",
+        "choices": [
+          {
+            "text": "Zur Untersuchung zurück.",
+            "next": "k3a_13_start"
+          }
+        ],
+        "gives_clues": [
+          "k3a_13_c4"
+        ]
+      },
+      "k3a_13_start": {
+        "text": "Huxford faltet eine Decke über einen schlafenden Arbeiter. „Erholung“, sagt er, bevor du eine Frage stellst. Sein Messbuch liegt noch offen.",
+        "choices": [
+          {
+            "text": "Die Aussage überprüfen.",
+            "next": "k3a_huxford_verhoer"
+          },
+          {
+            "text": "Warme Sohlen untersuchen.",
+            "next": "k3a_13_s1"
+          },
+          {
+            "text": "Wiederkehr untersuchen.",
+            "next": "k3a_13_s2"
+          },
+          {
+            "text": "Messbuch untersuchen.",
+            "next": "k3a_13_s3"
+          },
+          {
+            "text": "Ärztliche Berichtigung untersuchen.",
+            "next": "k3a_13_s4",
+            "requires_flags": [
+              "k3a_huxford_gestellt"
+            ]
+          },
+          {
+            "text": "Was wäre die andere Erklärung?",
+            "next": "k3a_13_gegenprobe"
+          },
+          {
+            "text": "Die beiden Fakten verbinden.",
+            "next": "k3a_13_schluss",
+            "requires_conclusions": [
+              "k3a_13_d"
+            ]
+          },
+          {
+            "text": "Ich sehe mich weiter um."
+          }
+        ]
+      },
+      "k3a_13_gegenprobe": {
+        "text": "„Schlechter Schlaf erklärt keinen Kalk in einer frisch geflickten Naht“, sagst du. Huxford hört auf, die Decke glattzustreichen.",
+        "choices": [
+          {
+            "text": "Zurück zu den Belegen.",
+            "next": "k3a_13_start"
+          }
+        ]
+      },
+      "k3a_13_schluss": {
+        "text": "Der Zug bringt lebende Menschen körperlich in die Brüche.\n\nDu hältst fest, dass hier Menschen zurückkehren. Ihre Erschöpfung ist kein Beweis für freiwillige Arbeit.",
+        "choices": [
+          {
+            "text": "Den Befund festhalten.",
+            "next": "k3a_13_festhalten"
+          }
+        ]
+      },
+      "k3a_13_festhalten": {
+        "text": "Du hältst fest, dass hier Menschen zurückkehren. Ihre Erschöpfung ist kein Beweis für freiwillige Arbeit.",
+        "choices": [
+          {
+            "text": "Zur Untersuchung zurück.",
+            "next": "k3a_13_start"
+          }
+        ],
+        "sets_flags": [
+          "k3a_13_geschlossen"
+        ]
+      },
+      "k3a_huxford_verhoer": {
+        "text": "„Die Schichtgänger haben sich nachts nur ausgeruht.“ Du lässt die Aussage stehen, ohne sie als gesicherte Tatsache einzutragen.",
+        "choices": [
+          {
+            "text": "Den passenden Beleg vorlegen.",
+            "next": "k3a_huxford_verhoer_beleg",
+            "requires_clues": [
+              "k3a_13_c3"
+            ]
+          },
+          {
+            "text": "Ein Verdacht ist noch kein Beweis.",
+            "next": "k3a_huxford_verhoer_offen"
+          }
+        ]
+      },
+      "k3a_huxford_verhoer_offen": {
+        "text": "Du brichst das Verhör vorerst ab. Die betreffende Quelle bleibt zugänglich; weder Geld noch Drohung können den fehlenden Beleg ersetzen.",
+        "choices": [
+          {
+            "text": "Zur Untersuchung.",
+            "next": "k3a_13_start"
+          }
+        ]
+      },
+      "k3a_huxford_verhoer_beleg": {
+        "text": "Der Puls steigt nachts, das Körpergewicht sinkt bis zum Morgen. Huxford hat daneben wiederholt „Belastung“ vermerkt.\n\nDu legst den Widerspruch offen auf den Tisch.",
+        "choices": [
+          {
+            "text": "Um Berichtigung bitten.",
+            "next": "k3a_huxford_verhoer_antwort"
+          }
+        ]
+      },
+      "k3a_huxford_verhoer_antwort": {
+        "text": "„Ich habe die Belastung gemessen und Erholung bescheinigt. Ich hatte Angst vor einer Zwangseinweisung. Den Menschen hat mein Papier nicht geholfen.“",
+        "choices": [
+          {
+            "text": "Die berichtigte Aussage protokollieren.",
+            "next": "k3a_huxford_verhoer_protokoll"
+          }
+        ]
+      },
+      "k3a_huxford_verhoer_protokoll": {
+        "text": "Du schreibst die Berichtigung neben die ursprüngliche Aussage. Der Widerspruch bleibt sichtbar, auch wenn die Person jetzt mitarbeitet.",
+        "choices": [
+          {
+            "text": "Die Untersuchung fortsetzen.",
+            "next": "k3a_13_start"
+          }
+        ],
+        "sets_flags": [
+          "k3a_huxford_gestellt"
+        ]
+      }
+    }
+  },
+  "k3a_14_dialog": {
+    "start": "k3a_14_start",
+    "nodes": {
+      "k3a_14_s1": {
+        "text": "Eine dünne Wartungslinie verbindet diese Wand mit der Drehscheibe. Sie gehört nicht zum befahrbaren Hauptgleis.\n\nDu hältst Herkunft und Beobachtung getrennt in deinem Notizbuch fest.",
+        "choices": [
+          {
+            "text": "Zur Untersuchung zurück.",
+            "next": "k3a_14_start"
+          }
+        ],
+        "gives_clues": [
+          "k3a_14_c1"
+        ]
+      },
+      "k3a_14_s2": {
+        "text": "Unter dem Putz liegt eine Schwelle mit zwei kurzen Kerben und einem Bogen. Das Zeichen bedeutet laut Randlegende: Wartungsweg prüfen.\n\nDu hältst Herkunft und Beobachtung getrennt in deinem Notizbuch fest.",
+        "choices": [
+          {
+            "text": "Zur Untersuchung zurück.",
+            "next": "k3a_14_start"
+          }
+        ],
+        "gives_clues": [
+          "k3a_14_c2"
+        ]
+      },
+      "k3a_14_s3": {
+        "text": "Auf zwei kurze Zeichen und einen Bogen antwortet es hinter der Wand. Der Nachhall kommt von rechts, genau aus Richtung der eingezeichneten Drehscheibe.\n\nDu hältst Herkunft und Beobachtung getrennt in deinem Notizbuch fest.",
+        "choices": [
+          {
+            "text": "Zur Untersuchung zurück.",
+            "next": "k3a_14_start"
+          }
+        ],
+        "gives_clues": [
+          "k3a_14_c3"
+        ]
+      },
+      "k3a_14_s4": {
+        "text": "Pfiff zeigt dir eine offene Wartungstür neben der Mauer. Dahinter liegt die im Plan bezeichnete Galerie; du musst weder durch Stein gehen noch einen Namen nennen.\n\nDu hältst Herkunft und Beobachtung getrennt in deinem Notizbuch fest.",
+        "choices": [
+          {
+            "text": "Zur Untersuchung zurück.",
+            "next": "k3a_14_start"
+          }
+        ],
+        "gives_clues": [
+          "k3a_14_c4"
+        ]
+      },
+      "k3a_14_start": {
+        "text": "Pfiff stellt einen geliehenen Signalbalg auf die Schwelle. „Erst horchen. Wer überall hineinruft, erfährt vor allem, wie laut er ist.“",
+        "choices": [
+          {
+            "text": "An der Horchstelle arbeiten.",
+            "next": "k3a_14_horchen",
+            "hide_if_flags": [
+              "k3a_14_passage"
+            ]
+          },
+          {
+            "text": "Streckenplan untersuchen.",
+            "next": "k3a_14_s1"
+          },
+          {
+            "text": "Schwellenkerbe untersuchen.",
+            "next": "k3a_14_s2"
+          },
+          {
+            "text": "Antwort hinter Kalk untersuchen.",
+            "next": "k3a_14_s3",
+            "requires_flags": [
+              "k3a_14_passage"
+            ]
+          },
+          {
+            "text": "Trockener Übergang untersuchen.",
+            "next": "k3a_14_s4",
+            "requires_flags": [
+              "k3a_14_passage"
+            ]
+          },
+          {
+            "text": "Was wäre die andere Erklärung?",
+            "next": "k3a_14_gegenprobe"
+          },
+          {
+            "text": "Die beiden Fakten verbinden.",
+            "next": "k3a_14_schluss",
+            "requires_conclusions": [
+              "k3a_14_d"
+            ]
+          },
+          {
+            "text": "Ich sehe mich weiter um."
+          }
+        ]
+      },
+      "k3a_14_gegenprobe": {
+        "text": "„Die Wand ist nicht verschwunden“, sagt Pfiff. „Wir haben endlich neben sie geschaut.“ Er lächelt, als wäre das im Bahndienst eine seltene Qualifikation.",
+        "choices": [
+          {
+            "text": "Zurück zu den Belegen.",
+            "next": "k3a_14_start"
+          }
+        ]
+      },
+      "k3a_14_schluss": {
+        "text": "Das Antwortsignal bestätigt den Wartungsweg zur Drehscheibe und öffnet die erste Abkürzung.\n\nDu markierst die Abkürzung und den sicheren Fußweg. Der Speisewagen liegt hinter einer Schallschleuse, außerhalb des Aufrufs.",
+        "choices": [
+          {
+            "text": "Den Befund festhalten.",
+            "next": "k3a_14_festhalten"
+          }
+        ]
+      },
+      "k3a_14_festhalten": {
+        "text": "Du markierst die Abkürzung und den sicheren Fußweg. Der Speisewagen liegt hinter einer Schallschleuse, außerhalb des Aufrufs.",
+        "choices": [
+          {
+            "text": "Zur Untersuchung zurück.",
+            "next": "k3a_14_start"
+          }
+        ],
+        "sets_flags": [
+          "k3a_14_geschlossen"
+        ]
+      },
+      "k3a_14_horchen": {
+        "text": "Vor dir zeigt eine Tafel Richtung und sichere Nische. Alle Zeichen werden als Form und Text angezeigt; bloßes Horchen kostet nichts. Du kannst jederzeit über den Fußweg zurück.",
+        "choices": [
+          {
+            "text": "Wartungsweg: Zwei kurze Striche und ein Bogen nach rechts",
+            "next": "k3a_14_horchen_richtig",
+            "requires_clues": [
+              "k3a_14_c2"
+            ]
+          },
+          {
+            "text": "Anfahrpfiff versuchen.",
+            "next": "k3a_14_horchen_falsch",
+            "requires_clues": [
+              "k3a_12_c1"
+            ]
+          },
+          {
+            "text": "Schweigen und in die Nische zurücktreten."
+          }
+        ]
+      },
+      "k3a_14_horchen_richtig": {
+        "text": "Hinter der Wand antwortet der Wartungsbogen. Die seitliche Tür führt auf die trockene Galerie.",
+        "choices": [
+          {
+            "text": "Die freigelegte Quelle untersuchen.",
+            "next": "k3a_14_start"
+          }
+        ],
+        "sets_flags": [
+          "k3a_14_passage"
+        ]
+      },
+      "k3a_14_horchen_falsch": {
+        "text": "Die Antwort läuft zur falschen Haltestelle. Du erkennst den Irrtum an den unpassenden Linien und kehrst in die markierte Nische zurück. Dein Journal und der sichere Fußweg bleiben erhalten.",
+        "choices": [
+          {
+            "text": "Noch einmal vergleichen.",
+            "next": "k3a_14_horchen"
+          },
+          {
+            "text": "Zu Pfiff zurück."
+          }
+        ]
+      }
+    }
+  },
+  "k3a_21_dialog": {
+    "start": "k3a_21_start",
+    "nodes": {
+      "k3a_21_s1": {
+        "text": "Die Stückliste zählt genau so viele namenlose Steine wie die alte Liste der Verschollenen. Jeder Sockel trägt dieselbe Auftragsreihe.\n\nDu hältst Herkunft und Beobachtung getrennt in deinem Notizbuch fest.",
+        "choices": [
+          {
+            "text": "Zur Untersuchung zurück.",
+            "next": "k3a_21_start"
+          }
+        ],
+        "gives_clues": [
+          "k3a_21_c1"
+        ]
+      },
+      "k3a_21_s2": {
+        "text": "Pelhams Großvater vermerkte „Bruchopfer, Schrift vorerst aussetzen“. Die Namen wurden später nicht nachgetragen.\n\nDu hältst Herkunft und Beobachtung getrennt in deinem Notizbuch fest.",
+        "choices": [
+          {
+            "text": "Zur Untersuchung zurück.",
+            "next": "k3a_21_start"
+          }
+        ],
+        "gives_clues": [
+          "k3a_21_c2"
+        ]
+      },
+      "k3a_21_s3": {
+        "text": "Die Rechnung wurde am Tag der amtlichen Abmeldung bezahlt. Als Empfänger steht die damalige Bruchleitung darauf.\n\nDu hältst Herkunft und Beobachtung getrennt in deinem Notizbuch fest.",
+        "choices": [
+          {
+            "text": "Zur Untersuchung zurück.",
+            "next": "k3a_21_start"
+          }
+        ],
+        "gives_clues": [
+          "k3a_21_c3"
+        ]
+      },
+      "k3a_21_s4": {
+        "text": "Im Abmeldebuch steht „freiwillig fortgezogen“. Es nennt weder Zielorte noch ausgezahlte Löhne, nur die Nummer der Grabsteinrechnung.\n\nDu hältst Herkunft und Beobachtung getrennt in deinem Notizbuch fest.",
+        "choices": [
+          {
+            "text": "Zur Untersuchung zurück.",
+            "next": "k3a_21_start"
+          }
+        ],
+        "gives_clues": [
+          "k3a_21_c4"
+        ]
+      },
+      "k3a_21_start": {
+        "text": "Pelham dreht einen kleinen Grabstein zur Wand. „Unverkauft“, sagt er. Auf dem Sockel steht eine Auftragsnummer statt eines Namens.",
+        "choices": [
+          {
+            "text": "Leere Steine untersuchen.",
+            "next": "k3a_21_s1"
+          },
+          {
+            "text": "Großvaters Buch untersuchen.",
+            "next": "k3a_21_s2"
+          },
+          {
+            "text": "Materialrechnung untersuchen.",
+            "next": "k3a_21_s3"
+          },
+          {
+            "text": "Abreise ohne Ziel untersuchen.",
+            "next": "k3a_21_s4"
+          },
+          {
+            "text": "Was wäre die andere Erklärung?",
+            "next": "k3a_21_gegenprobe"
+          },
+          {
+            "text": "Die beiden Fakten verbinden.",
+            "next": "k3a_21_schluss",
+            "requires_conclusions": [
+              "k3a_21_d"
+            ]
+          },
+          {
+            "text": "Ich sehe mich weiter um."
+          }
+        ]
+      },
+      "k3a_21_gegenprobe": {
+        "text": "„Vielleicht ist das ein Zufall der Buchhaltung“, sagt Pelham. Du legst die identischen Auftragsnummern aneinander; er dreht den Stein wieder zu dir.",
+        "choices": [
+          {
+            "text": "Zurück zu den Belegen.",
+            "next": "k3a_21_start"
+          }
+        ]
+      },
+      "k3a_21_schluss": {
+        "text": "Die damalige Abmeldung verdeckte Tote, keine gewöhnliche Kündigung.\n\nPelham erlaubt eine Abschrift. Du versprichst ihm keine Unschuld für das Verschweigen, aber auch keine Schuld am damaligen Einsturz.",
+        "choices": [
+          {
+            "text": "Den Befund festhalten.",
+            "next": "k3a_21_festhalten"
+          }
+        ]
+      },
+      "k3a_21_festhalten": {
+        "text": "Pelham erlaubt eine Abschrift. Du versprichst ihm keine Unschuld für das Verschweigen, aber auch keine Schuld am damaligen Einsturz.",
+        "choices": [
+          {
+            "text": "Zur Untersuchung zurück.",
+            "next": "k3a_21_start"
+          }
+        ],
+        "sets_flags": [
+          "k3a_21_geschlossen"
+        ]
+      }
+    }
+  },
+  "k3a_22_dialog": {
+    "start": "k3a_22_start",
+    "nodes": {
+      "k3a_22_s1": {
+        "text": "Unter der Bremse liegen blanke Späne auf altem Ruß. Die Schneidspuren passen zur Feile auf Orens Bank.\n\nDu hältst Herkunft und Beobachtung getrennt in deinem Notizbuch fest.",
+        "choices": [
+          {
+            "text": "Zur Untersuchung zurück.",
+            "next": "k3a_22_start"
+          }
+        ],
+        "gives_clues": [
+          "k3a_22_c1"
+        ]
+      },
+      "k3a_22_s2": {
+        "text": "Der Lagerzettel führt ein Bremsstück als entnommen. Form und Nummer stimmen mit dem glänzenden Teil an der Lok überein.\n\nDu hältst Herkunft und Beobachtung getrennt in deinem Notizbuch fest.",
+        "choices": [
+          {
+            "text": "Zur Untersuchung zurück.",
+            "next": "k3a_22_start"
+          }
+        ],
+        "gives_clues": [
+          "k3a_22_c2"
+        ]
+      },
+      "k3a_22_s3": {
+        "text": "Auf einer Karte steht Orens Kürzel neben dem Datum der letzten Nachtfahrt. Das Ersatzstück wurde lange nach der Stilllegung eingebaut.\n\nDu hältst Herkunft und Beobachtung getrennt in deinem Notizbuch fest.",
+        "choices": [
+          {
+            "text": "Zur Untersuchung zurück.",
+            "next": "k3a_22_start"
+          }
+        ],
+        "gives_clues": [
+          "k3a_22_c3"
+        ]
+      },
+      "k3a_22_s4": {
+        "text": "Oren sagt: „Sie hat mich bei meinem Kindernamen gerufen. Ich wollte nur, dass der Zug wieder hält. Ich habe ihn damit auch fahrfähig gehalten.“\n\nDu hältst Herkunft und Beobachtung getrennt in deinem Notizbuch fest.",
+        "choices": [
+          {
+            "text": "Zur Untersuchung zurück.",
+            "next": "k3a_22_start"
+          }
+        ],
+        "gives_clues": [
+          "k3a_22_c4"
+        ]
+      },
+      "k3a_22_start": {
+        "text": "Oren schiebt eine Werkzeuglade mit dem Stiefel zu. „Seit der Stilllegung hat hier niemand mehr gearbeitet.“ Auf seinem Ärmel glänzt blankes Eisen.",
+        "choices": [
+          {
+            "text": "Die Aussage überprüfen.",
+            "next": "k3a_oren_verhoer"
+          },
+          {
+            "text": "Neue Späne untersuchen.",
+            "next": "k3a_22_s1"
+          },
+          {
+            "text": "Fehlstelle untersuchen.",
+            "next": "k3a_22_s2"
+          },
+          {
+            "text": "Werkstattkarte untersuchen.",
+            "next": "k3a_22_s3"
+          },
+          {
+            "text": "Orens Eingeständnis untersuchen.",
+            "next": "k3a_22_s4",
+            "requires_flags": [
+              "k3a_oren_gestellt"
+            ]
+          },
+          {
+            "text": "Was wäre die andere Erklärung?",
+            "next": "k3a_22_gegenprobe"
+          },
+          {
+            "text": "Die beiden Fakten verbinden.",
+            "next": "k3a_22_schluss",
+            "requires_conclusions": [
+              "k3a_22_d"
+            ]
+          },
+          {
+            "text": "Ich sehe mich weiter um."
+          }
+        ]
+      },
+      "k3a_22_gegenprobe": {
+        "text": "„Hast du den Zug erschaffen?“ Oren schüttelt den Kopf. „Ich habe eine Bremse ersetzt. Das andere wäre selbst für meine Rechnung zu groß.“",
+        "choices": [
+          {
+            "text": "Zurück zu den Belegen.",
+            "next": "k3a_22_start"
+          }
+        ]
+      },
+      "k3a_22_schluss": {
+        "text": "Orens Reparaturen erklären materielle Eingriffe am Zug, nicht die Entstehung des Nachhalls.\n\nDu sicherst Werkstattkarte und Aussage getrennt. Sehnsucht erklärt Orens Entscheidung, sie macht die Fahrt nicht ungefährlich.",
+        "choices": [
+          {
+            "text": "Den Befund festhalten.",
+            "next": "k3a_22_festhalten"
+          }
+        ]
+      },
+      "k3a_22_festhalten": {
+        "text": "Du sicherst Werkstattkarte und Aussage getrennt. Sehnsucht erklärt Orens Entscheidung, sie macht die Fahrt nicht ungefährlich.",
+        "choices": [
+          {
+            "text": "Zur Untersuchung zurück.",
+            "next": "k3a_22_start"
+          }
+        ],
+        "sets_flags": [
+          "k3a_22_geschlossen"
+        ]
+      },
+      "k3a_oren_verhoer": {
+        "text": "„Seit der Stilllegung hat niemand an der Bremse gearbeitet.“ Du lässt die Aussage stehen, ohne sie als gesicherte Tatsache einzutragen.",
+        "choices": [
+          {
+            "text": "Den passenden Beleg vorlegen.",
+            "next": "k3a_oren_verhoer_beleg",
+            "requires_clues": [
+              "k3a_22_c1"
+            ]
+          },
+          {
+            "text": "Ein Verdacht ist noch kein Beweis.",
+            "next": "k3a_oren_verhoer_offen"
+          }
+        ]
+      },
+      "k3a_oren_verhoer_offen": {
+        "text": "Du brichst das Verhör vorerst ab. Die betreffende Quelle bleibt zugänglich; weder Geld noch Drohung können den fehlenden Beleg ersetzen.",
+        "choices": [
+          {
+            "text": "Zur Untersuchung.",
+            "next": "k3a_22_start"
+          }
+        ]
+      },
+      "k3a_oren_verhoer_beleg": {
+        "text": "Unter der Bremse liegen blanke Späne auf altem Ruß. Die Schneidspuren passen zur Feile auf Orens Bank.\n\nDu legst den Widerspruch offen auf den Tisch.",
+        "choices": [
+          {
+            "text": "Um Berichtigung bitten.",
+            "next": "k3a_oren_verhoer_antwort"
+          }
+        ]
+      },
+      "k3a_oren_verhoer_antwort": {
+        "text": "„Die Späne sind von mir. Als ich meine Großmutter hörte, habe ich das Lager geöffnet und das fehlende Bremsstück eingesetzt.“",
+        "choices": [
+          {
+            "text": "Die berichtigte Aussage protokollieren.",
+            "next": "k3a_oren_verhoer_protokoll"
+          }
+        ]
+      },
+      "k3a_oren_verhoer_protokoll": {
+        "text": "Du schreibst die Berichtigung neben die ursprüngliche Aussage. Der Widerspruch bleibt sichtbar, auch wenn die Person jetzt mitarbeitet.",
+        "choices": [
+          {
+            "text": "Die Untersuchung fortsetzen.",
+            "next": "k3a_22_start"
+          }
+        ],
+        "sets_flags": [
+          "k3a_oren_gestellt"
+        ]
+      }
+    }
+  },
+  "k3a_23_dialog": {
+    "start": "k3a_23_start",
+    "nodes": {
+      "k3a_23_s1": {
+        "text": "Im Entwurf steht eine absichtlich unmögliche Empfangszeit. Nellie hat die Ziffern vor der Übermittlung eingekreist.\n\nDu hältst Herkunft und Beobachtung getrennt in deinem Notizbuch fest.",
+        "choices": [
+          {
+            "text": "Zur Untersuchung zurück.",
+            "next": "k3a_23_start"
+          }
+        ],
+        "gives_clues": [
+          "k3a_23_c1"
+        ]
+      },
+      "k3a_23_s2": {
+        "text": "Das getrennte Botinnenbuch nennt die wirkliche Zustellzeit. Zwischen beiden Einträgen liegt eine volle Stunde.\n\nDu hältst Herkunft und Beobachtung getrennt in deinem Notizbuch fest.",
+        "choices": [
+          {
+            "text": "Zur Untersuchung zurück.",
+            "next": "k3a_23_start"
+          }
+        ],
+        "gives_clues": [
+          "k3a_23_c2"
+        ]
+      },
+      "k3a_23_s3": {
+        "text": "Am Signalhang kommt Nellies erfundene Uhrzeit wortgetreu zurück. Die Antwort nennt sogar die im Entwurf versehentlich doppelte Minute.\n\nDu hältst Herkunft und Beobachtung getrennt in deinem Notizbuch fest.",
+        "choices": [
+          {
+            "text": "Zur Untersuchung zurück.",
+            "next": "k3a_23_start"
+          }
+        ],
+        "gives_clues": [
+          "k3a_23_c3"
+        ]
+      },
+      "k3a_23_s4": {
+        "text": "Auf der Diensttafel steht: Empfangszeit vom bestätigten Antwortfeld übernehmen. Eine Prüfung gegen die Bahnhofsuhr ist nicht vorgesehen.\n\nDu hältst Herkunft und Beobachtung getrennt in deinem Notizbuch fest.",
+        "choices": [
+          {
+            "text": "Zur Untersuchung zurück.",
+            "next": "k3a_23_start"
+          }
+        ],
+        "gives_clues": [
+          "k3a_23_c4"
+        ]
+      },
+      "k3a_23_start": {
+        "text": "Nellie hält den Telegrammstreifen über eine kalte Lampe. „Empfangen wie gesendet“, sagt sie. Die Uhr hinter ihr hat keine Zeiger.",
+        "choices": [
+          {
+            "text": "Die sichtbare Rufprobe durchführen.",
+            "next": "k3a_23_probe"
+          },
+          {
+            "text": "Die Aussage überprüfen.",
+            "next": "k3a_nellie_verhoer"
+          },
+          {
+            "text": "Telegrammentwurf untersuchen.",
+            "next": "k3a_23_s1"
+          },
+          {
+            "text": "Botinnenbuch untersuchen.",
+            "next": "k3a_23_s2"
+          },
+          {
+            "text": "Signalantwort untersuchen.",
+            "next": "k3a_23_s3",
+            "requires_flags": [
+              "k3a_nellie_gestellt"
+            ]
+          },
+          {
+            "text": "Bestätigungsregel untersuchen.",
+            "next": "k3a_23_s4"
+          },
+          {
+            "text": "Was wäre die andere Erklärung?",
+            "next": "k3a_23_gegenprobe"
+          },
+          {
+            "text": "Die beiden Fakten verbinden.",
+            "next": "k3a_23_schluss",
+            "requires_conclusions": [
+              "k3a_23_d"
+            ]
+          },
+          {
+            "text": "Ich sehe mich weiter um."
+          }
+        ]
+      },
+      "k3a_23_gegenprobe": {
+        "text": "„Vielleicht geht bloß seine Uhr falsch“, sagst du. Nellie zeigt auf die doppelte Minute: „So falsch geht nur meine Handschrift.“",
+        "choices": [
+          {
+            "text": "Zurück zu den Belegen.",
+            "next": "k3a_23_start"
+          }
+        ]
+      },
+      "k3a_23_schluss": {
+        "text": "Der Fahrmeister überprüft keine Gegenwart, sondern verarbeitet bestätigte Antworten.\n\nDu hältst den Versuch fest. Jetzt musst du entscheiden, ob Nellies Kanal geheim bleibt oder öffentlich vor dem Verfahren gewarnt wird.",
+        "choices": [
+          {
+            "text": "Nellies Kanal geheim halten.",
+            "next": "k3a_nellie_schutz",
+            "hide_if_flags": [
+              "k3a_nellie_wahl"
+            ]
+          },
+          {
+            "text": "Öffentlich vor falschen Bestätigungen warnen.",
+            "next": "k3a_nellie_warnung",
+            "hide_if_flags": [
+              "k3a_nellie_wahl"
+            ]
+          },
+          {
+            "text": "Später entscheiden."
+          }
+        ]
+      },
+      "k3a_nellie_verhoer": {
+        "text": "„Die Empfangszeit kam genau so vom Absender.“ Du lässt die Aussage stehen, ohne sie als gesicherte Tatsache einzutragen.",
+        "choices": [
+          {
+            "text": "Den passenden Beleg vorlegen.",
+            "next": "k3a_nellie_verhoer_beleg",
+            "requires_clues": [
+              "k3a_23_c1"
+            ]
+          },
+          {
+            "text": "Ein Verdacht ist noch kein Beweis.",
+            "next": "k3a_nellie_verhoer_offen"
+          }
+        ]
+      },
+      "k3a_nellie_verhoer_offen": {
+        "text": "Du brichst das Verhör vorerst ab. Die betreffende Quelle bleibt zugänglich; weder Geld noch Drohung können den fehlenden Beleg ersetzen.",
+        "choices": [
+          {
+            "text": "Zur Untersuchung.",
+            "next": "k3a_23_start"
+          }
+        ]
+      },
+      "k3a_nellie_verhoer_beleg": {
+        "text": "Im Entwurf steht eine absichtlich unmögliche Empfangszeit. Nellie hat die Ziffern vor der Übermittlung eingekreist.\n\nDu legst den Widerspruch offen auf den Tisch.",
+        "choices": [
+          {
+            "text": "Um Berichtigung bitten.",
+            "next": "k3a_nellie_verhoer_antwort"
+          }
+        ]
+      },
+      "k3a_nellie_verhoer_antwort": {
+        "text": "„Ich habe sie erfunden. Der Fahrmeister hat meine falsche Zeit übernommen. Solange er das nicht merkt, kann ich seine Antworten prüfen.“",
+        "choices": [
+          {
+            "text": "Die berichtigte Aussage protokollieren.",
+            "next": "k3a_nellie_verhoer_protokoll"
+          }
+        ]
+      },
+      "k3a_nellie_verhoer_protokoll": {
+        "text": "Du schreibst die Berichtigung neben die ursprüngliche Aussage. Der Widerspruch bleibt sichtbar, auch wenn die Person jetzt mitarbeitet.",
+        "choices": [
+          {
+            "text": "Die Untersuchung fortsetzen.",
+            "next": "k3a_23_start"
+          }
+        ],
+        "sets_flags": [
+          "k3a_nellie_gestellt"
+        ]
+      },
+      "k3a_nellie_schutz": {
+        "text": "Nellie verwahrt ihren Versuchsplan. Der geheime Kanal bleibt offen, eine öffentliche Warnung findet noch nicht statt.",
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ],
+        "sets_flags": [
+          "k3a_nellie_wahl",
+          "k3a_nellie_geheim",
+          "k3a_23_geschlossen"
+        ]
+      },
+      "k3a_nellie_warnung": {
+        "text": "Nellie hängt eine Warnung aus und kappt den verratenen Versuchskanal. Ihre gesicherten Abschriften bleiben dir erhalten; keine spätere Hauptfährte braucht den geheimen Draht.",
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ],
+        "sets_flags": [
+          "k3a_nellie_wahl",
+          "k3a_nellie_offen",
+          "k3a_23_geschlossen"
+        ]
+      },
+      "k3a_23_probe": {
+        "text": "Die Prüfleitung bleibt vom Hauptsignal getrennt. Du siehst Form, Richtung und erwartete Antwort auf der Tafel; ein falscher Test bindet hier keinen Menschen.",
+        "choices": [
+          {
+            "text": "Bestätigte Zeit",
+            "next": "k3a_23_probe_gut",
+            "requires_clues": [
+              "k3a_23_c2"
+            ]
+          },
+          {
+            "text": "Anfahrpfiff",
+            "next": "k3a_23_probe_schlecht",
+            "requires_clues": [
+              "k3a_12_c1"
+            ]
+          },
+          {
+            "text": "Nur zuhören und gehen."
+          }
+        ]
+      },
+      "k3a_23_probe_gut": {
+        "text": "Die absichtlich falsche Zeit kommt unverändert zurück. Kein eigener Name wird übermittelt.",
+        "choices": [
+          {
+            "text": "Zur Untersuchung.",
+            "next": "k3a_23_start"
+          }
+        ]
+      },
+      "k3a_23_probe_schlecht": {
+        "text": "Am Prüfzeiger erscheint die falsche Richtung. Du lässt den getrennten Anschluss wieder los; es geht kein bestätigter Hauptaufruf hinaus.",
+        "choices": [
+          {
+            "text": "Erneut vergleichen.",
+            "next": "k3a_23_probe"
+          }
+        ]
+      }
+    }
+  },
+  "k3a_24_dialog": {
+    "start": [
+      {
+        "node": "k3a_24_horchen_sieg",
+        "requires_flags": [
+          "won_schwellenhund"
+        ],
+        "hide_if_flags": [
+          "k3a_24_passage"
+        ]
+      },
+      {
+        "node": "k3a_24_start"
+      }
+    ],
+    "nodes": {
+      "k3a_24_s1": {
+        "text": "Auf einem Wartungsschild steht das Ablenkzeichen: langer Strich, Punkt, falscher Bogen. Es schickt das Suchlicht zu einer leeren Abfahrtsrampe.\n\nDu hältst Herkunft und Beobachtung getrennt in deinem Notizbuch fest.",
+        "choices": [
+          {
+            "text": "Zur Untersuchung zurück.",
+            "next": "k3a_24_start"
+          }
+        ],
+        "gives_clues": [
+          "k3a_24_c1"
+        ]
+      },
+      "k3a_24_s2": {
+        "text": "Auf der zugänglichen Hülle steht: Rückmeldungen der offenen Schicht. Ihr Datum stimmt mit dem Einsturz überein.\n\nDu hältst Herkunft und Beobachtung getrennt in deinem Notizbuch fest.",
+        "choices": [
+          {
+            "text": "Zur Untersuchung zurück.",
+            "next": "k3a_24_start"
+          }
+        ],
+        "gives_clues": [
+          "k3a_24_c2"
+        ]
+      },
+      "k3a_24_s3": {
+        "text": "Die geborgene Walze lässt für jeden fehlenden Arbeiter ein Rückmeldefeld frei. Keines ist als Tod oder Abreise abgeschlossen.\n\nDu hältst Herkunft und Beobachtung getrennt in deinem Notizbuch fest.",
+        "choices": [
+          {
+            "text": "Zur Untersuchung zurück.",
+            "next": "k3a_24_start"
+          }
+        ],
+        "gives_clues": [
+          "k3a_24_c3"
+        ]
+      },
+      "k3a_24_s4": {
+        "text": "Ein frischer Abdruck setzt die heutige Antwort eines Arbeiters in ein siebzig Jahre altes Feld. Darunter ist der Klopfbruch als nächste Station genannt.\n\nDu hältst Herkunft und Beobachtung getrennt in deinem Notizbuch fest.",
+        "choices": [
+          {
+            "text": "Zur Untersuchung zurück.",
+            "next": "k3a_24_start"
+          }
+        ],
+        "gives_clues": [
+          "k3a_24_c4"
+        ]
+      },
+      "k3a_24_start": {
+        "text": "Zwischen Schwellen hebt sich ein Suchlicht. Pfiff deutet auf eine Walzenkiste hinter dem Schwellenhund: „Er bewacht noch immer den nächsten Auftrag.“",
+        "choices": [
+          {
+            "text": "An der Horchstelle arbeiten.",
+            "next": "k3a_24_horchen",
+            "hide_if_flags": [
+              "k3a_24_passage"
+            ]
+          },
+          {
+            "text": "Hundesignal untersuchen.",
+            "next": "k3a_24_s1"
+          },
+          {
+            "text": "Walzenhülle untersuchen.",
+            "next": "k3a_24_s2"
+          },
+          {
+            "text": "Offene Plätze untersuchen.",
+            "next": "k3a_24_s3",
+            "requires_flags": [
+              "k3a_24_passage"
+            ]
+          },
+          {
+            "text": "Nächster Halt untersuchen.",
+            "next": "k3a_24_s4",
+            "requires_flags": [
+              "k3a_24_passage"
+            ]
+          },
+          {
+            "text": "Was wäre die andere Erklärung?",
+            "next": "k3a_24_gegenprobe"
+          },
+          {
+            "text": "Die beiden Fakten verbinden.",
+            "next": "k3a_24_schluss",
+            "requires_conclusions": [
+              "k3a_24_d"
+            ]
+          },
+          {
+            "text": "Ich sehe mich weiter um."
+          }
+        ]
+      },
+      "k3a_24_gegenprobe": {
+        "text": "„Die Walze zählt keine Fahrgäste“, sagt Pfiff. „Sie zählt Antworten. Das ist eine schlechte Art, Menschen zu zählen.“",
+        "choices": [
+          {
+            "text": "Zurück zu den Belegen.",
+            "next": "k3a_24_start"
+          }
+        ]
+      },
+      "k3a_24_schluss": {
+        "text": "Der Nachtzug sucht Ersatzantworten für eine unvollendete Schicht; sein nächster Halt ist der Klopfbruch.\n\nDu überträgst die offenen Felder, ohne sie mit Namen Lebender zu füllen. Der Hund darf sein leeres Gleis weiter bewachen.",
+        "choices": [
+          {
+            "text": "Den Befund festhalten.",
+            "next": "k3a_24_festhalten"
+          }
+        ]
+      },
+      "k3a_24_festhalten": {
+        "text": "Du überträgst die offenen Felder, ohne sie mit Namen Lebender zu füllen. Der Hund darf sein leeres Gleis weiter bewachen.",
+        "choices": [
+          {
+            "text": "Zur Untersuchung zurück.",
+            "next": "k3a_24_start"
+          }
+        ],
+        "sets_flags": [
+          "k3a_24_geschlossen"
+        ]
+      },
+      "k3a_24_horchen": {
+        "text": "Vor dir zeigt eine Tafel Richtung und sichere Nische. Alle Zeichen werden als Form und Text angezeigt; bloßes Horchen kostet nichts. Du kannst jederzeit über den Fußweg zurück.",
+        "choices": [
+          {
+            "text": "Falscher Anfahrpfiff: Langer Strich, Punkt, umgekehrter Bogen",
+            "next": "k3a_24_horchen_richtig",
+            "requires_clues": [
+              "k3a_24_c1"
+            ]
+          },
+          {
+            "text": "Anfahrpfiff versuchen.",
+            "next": "k3a_24_horchen_falsch",
+            "requires_clues": [
+              "k3a_12_c1"
+            ]
+          },
+          {
+            "text": "Den Kampf beginnen.",
+            "next": "k3a_24_horchen_kampf"
+          },
+          {
+            "text": "Schweigen und in die Nische zurücktreten."
+          }
+        ]
+      },
+      "k3a_24_horchen_richtig": {
+        "text": "Das Suchlicht wendet sich zur leeren Rampe. Du birgst die Walze, ohne den Schwellenhund zu zerlegen.",
+        "choices": [
+          {
+            "text": "Die freigelegte Quelle untersuchen.",
+            "next": "k3a_24_start"
+          }
+        ],
+        "sets_flags": [
+          "k3a_24_passage",
+          "k3a_schwellenhund_friedlich"
+        ]
+      },
+      "k3a_24_horchen_falsch": {
+        "text": "Die Antwort läuft zur falschen Haltestelle. Du erkennst den Irrtum an den unpassenden Linien und kehrst in die markierte Nische zurück. Dein Journal und der sichere Fußweg bleiben erhalten.",
+        "choices": [
+          {
+            "text": "Noch einmal vergleichen.",
+            "next": "k3a_24_horchen"
+          },
+          {
+            "text": "Zu Pfiff zurück."
+          }
+        ]
+      },
+      "k3a_24_horchen_kampf": {
+        "text": "Du gibst keine private Namensantwort. Der Weg zur sicheren Nische bleibt für einen Rückzug offen.",
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ],
+        "encounter": "schwellenhund"
+      },
+      "k3a_24_horchen_sieg": {
+        "text": "Nach dem Kampf wird der Zugang frei. Das Suchlicht wendet sich zur leeren Rampe. Du birgst die Walze, zwischen den ruhenden Schwellen.",
+        "choices": [
+          {
+            "text": "Die Quelle untersuchen.",
+            "next": "k3a_24_start"
+          }
+        ],
+        "sets_flags": [
+          "k3a_24_passage"
+        ]
+      }
+    }
+  },
+  "k3a_31_dialog": {
+    "start": "k3a_31_start",
+    "nodes": {
+      "k3a_31_s1": {
+        "text": "Pfiff hat die Aufnahme selbst verwahrt. Atemzug, Satz und kleiner Husten entsprechen dem Ruf aus dem Zug.\n\nDu hältst Herkunft und Beobachtung getrennt in deinem Notizbuch fest.",
+        "choices": [
+          {
+            "text": "Zur Untersuchung zurück.",
+            "next": "k3a_31_start"
+          }
+        ],
+        "gives_clues": [
+          "k3a_31_c1"
+        ]
+      },
+      "k3a_31_s2": {
+        "text": "Willa legt die sichtbaren Rillenabzüge nebeneinander. Beide wiederholen dieselbe beschädigte Stelle vor dem Wort „Suppe“.\n\nDu hältst Herkunft und Beobachtung getrennt in deinem Notizbuch fest.",
+        "choices": [
+          {
+            "text": "Zur Untersuchung zurück.",
+            "next": "k3a_31_start"
+          }
+        ],
+        "gives_clues": [
+          "k3a_31_c2"
+        ]
+      },
+      "k3a_31_s3": {
+        "text": "Pfiff fragt, ob sein heutiger Besucher bleiben soll. Die Stimme antwortet: „Ansel, die Suppe wird kalt.“ Die Frage war bei der Aufnahme noch nicht möglich.\n\nDu hältst Herkunft und Beobachtung getrennt in deinem Notizbuch fest.",
+        "choices": [
+          {
+            "text": "Zur Untersuchung zurück.",
+            "next": "k3a_31_start"
+          }
+        ],
+        "gives_clues": [
+          "k3a_31_c3"
+        ]
+      },
+      "k3a_31_s4": {
+        "text": "Auch die Frage nach dem reparierten Ofen erzeugt denselben Satz. Pfiff kann seine Erinnerung ergänzen; die Walze kann es nicht.\n\nDu hältst Herkunft und Beobachtung getrennt in deinem Notizbuch fest.",
+        "choices": [
+          {
+            "text": "Zur Untersuchung zurück.",
+            "next": "k3a_31_start"
+          }
+        ],
+        "gives_clues": [
+          "k3a_31_c4"
+        ]
+      },
+      "k3a_31_start": {
+        "text": "Pfiff legt eine Familienwalze auf den Tisch. „Die Suppe wird kalt“, sagt sie. Er stellt trotzdem einen zweiten Teller hin.",
+        "choices": [
+          {
+            "text": "Familienwalze untersuchen.",
+            "next": "k3a_31_s1"
+          },
+          {
+            "text": "Gleiche Rille untersuchen.",
+            "next": "k3a_31_s2"
+          },
+          {
+            "text": "Neue Frage untersuchen.",
+            "next": "k3a_31_s3"
+          },
+          {
+            "text": "Keine neue Erfahrung untersuchen.",
+            "next": "k3a_31_s4"
+          },
+          {
+            "text": "Was wäre die andere Erklärung?",
+            "next": "k3a_31_gegenprobe"
+          },
+          {
+            "text": "Die beiden Fakten verbinden.",
+            "next": "k3a_31_schluss",
+            "requires_conclusions": [
+              "k3a_31_d"
+            ]
+          },
+          {
+            "text": "Den Nachhall bewusst persönlich ansprechen?",
+            "next": "k3a_namenswarnung",
+            "hide_if_flags": [
+              "k3a_privatruf_gebunden"
+            ]
+          },
+          {
+            "text": "Ich sehe mich weiter um."
+          }
+        ]
+      },
+      "k3a_31_gegenprobe": {
+        "text": "„Sie mochte keine Fremden“, sagt Pfiff. „Das weiß die Walze nicht“, sagt Willa. Pfiff sieht sie an: „Du auch nicht.“",
+        "choices": [
+          {
+            "text": "Zurück zu den Belegen.",
+            "next": "k3a_31_start"
+          }
+        ]
+      },
+      "k3a_31_schluss": {
+        "text": "Der Zug kann vertraute Stimmen verwenden, ohne die vertraute Person zurückzubringen.\n\nDu lässt die Aufnahme bei Pfiff. Sie muss kein Gespräch führen können, um ihm etwas zu bedeuten.",
+        "choices": [
+          {
+            "text": "Den Befund festhalten.",
+            "next": "k3a_31_festhalten"
+          }
+        ]
+      },
+      "k3a_31_festhalten": {
+        "text": "Du lässt die Aufnahme bei Pfiff. Sie muss kein Gespräch führen können, um ihm etwas zu bedeuten.",
+        "choices": [
+          {
+            "text": "Zur Untersuchung zurück.",
+            "next": "k3a_31_start"
+          }
+        ],
+        "sets_flags": [
+          "k3a_31_geschlossen"
+        ]
+      },
+      "k3a_namenswarnung": {
+        "text": "Du kannst einen bestimmten Nachhall mit deinem Namen ansprechen. Das bindet dich bis zur nächsten Schallschleuse an seinen Ruf, auch mit Namenstäfelchen. Es bringt die Person nicht zurück und ist für keine Fährte nötig.",
+        "choices": [
+          {
+            "text": "Ich gebe meinen Namen ausdrücklich freiwillig.",
+            "next": "k3a_namensantwort"
+          },
+          {
+            "text": "Ich schweige.",
+            "next": "k3a_31_start"
+          }
+        ]
+      },
+      "k3a_namensantwort": {
+        "text": "Du nennst deinen Namen am getrennten Hörtrichter. Der Nachhall wiederholt den alten Satz, nun mit einem Weg zu deiner Stimme. Du kannst zur Schallschleuse zurücktreten, ohne neues Wissen zu verlieren.",
+        "sets_flags": [
+          "k3a_privatruf_gebunden"
+        ],
+        "choices": [
+          {
+            "text": "Durch Pfiffs Schallschleuse zurücktreten.",
+            "next": "k3a_namensruhe"
+          },
+          {
+            "text": "Vorerst weiter zuhören."
+          }
+        ]
+      },
+      "k3a_namensruhe": {
+        "text": "Hinter der Schleuse bricht die persönliche Rufbindung ab. Dein Name und das Namenstäfelchen bleiben deine; der alte Satz bleibt eine Aufnahme.",
+        "clears_flags": [
+          "k3a_privatruf_gebunden"
+        ],
+        "choices": [
+          {
+            "text": "Zur Untersuchung.",
+            "next": "k3a_31_start"
+          }
+        ]
+      }
+    }
+  },
+  "k3a_32_dialog": {
+    "start": "k3a_32_start",
+    "nodes": {
+      "k3a_32_s1": {
+        "text": "Die Zollabschrift nennt Ausschusswalzen aus alten Erntebeständen. Die Siegelnummer steht auf Willas Empfangsquittung.\n\nDu hältst Herkunft und Beobachtung getrennt in deinem Notizbuch fest.",
+        "choices": [
+          {
+            "text": "Zur Untersuchung zurück.",
+            "next": "k3a_32_start"
+          }
+        ],
+        "gives_clues": [
+          "k3a_32_c1"
+        ]
+      },
+      "k3a_32_s2": {
+        "text": "Die datierten Loszettel liegen vor den Befreiungen in Kettlegate. Sie belegen keine neuerliche Gefangennahme der damals Geretteten.\n\nDu hältst Herkunft und Beobachtung getrennt in deinem Notizbuch fest.",
+        "choices": [
+          {
+            "text": "Zur Untersuchung zurück.",
+            "next": "k3a_32_start"
+          }
+        ],
+        "gives_clues": [
+          "k3a_32_c2"
+        ]
+      },
+      "k3a_32_s3": {
+        "text": "Eine vergilbte Beschwerde beschreibt den Nachtaufruf lange vor dem Ankauf. Damals waren nur Silben zu verstehen.\n\nDu hältst Herkunft und Beobachtung getrennt in deinem Notizbuch fest.",
+        "choices": [
+          {
+            "text": "Zur Untersuchung zurück.",
+            "next": "k3a_32_start"
+          }
+        ],
+        "gives_clues": [
+          "k3a_32_c3"
+        ]
+      },
+      "k3a_32_s4": {
+        "text": "Willa bestätigt nach dem Vergleich: Mit der Lieferung wurde der alte Ruf verständlich. Weder die Walzen noch ihr Verkauf verursachten den damaligen Einsturz.\n\nDu hältst Herkunft und Beobachtung getrennt in deinem Notizbuch fest.",
+        "choices": [
+          {
+            "text": "Zur Untersuchung zurück.",
+            "next": "k3a_32_start"
+          }
+        ],
+        "gives_clues": [
+          "k3a_32_c4"
+        ]
+      },
+      "k3a_32_start": {
+        "text": "Willa zieht ein Tuch über einen Trichter. „Alles hier stammt aus örtlichen Prüfungen.“ Unter dem Tuch klebt ein fremdes Liefersiegel.",
+        "choices": [
+          {
+            "text": "Die Aussage überprüfen.",
+            "next": "k3a_willa_verhoer"
+          },
+          {
+            "text": "Versiegelte Lieferung untersuchen.",
+            "next": "k3a_32_s1"
+          },
+          {
+            "text": "Verwurfsdatum untersuchen.",
+            "next": "k3a_32_s2"
+          },
+          {
+            "text": "Frühe Beschwerde untersuchen.",
+            "next": "k3a_32_s3"
+          },
+          {
+            "text": "Prüfprotokoll untersuchen.",
+            "next": "k3a_32_s4",
+            "requires_flags": [
+              "k3a_willa_gestellt"
+            ]
+          },
+          {
+            "text": "Was wäre die andere Erklärung?",
+            "next": "k3a_32_gegenprobe"
+          },
+          {
+            "text": "Die beiden Fakten verbinden.",
+            "next": "k3a_32_schluss",
+            "requires_conclusions": [
+              "k3a_32_d"
+            ]
+          },
+          {
+            "text": "Ich sehe mich weiter um."
+          }
+        ]
+      },
+      "k3a_32_gegenprobe": {
+        "text": "„Haben wir die befreiten Menschen wieder verloren?“ Willa schüttelt den Kopf. „Das belegen diese Reste nicht. Ein altes Los ist kein neuer Gefangener.“",
+        "choices": [
+          {
+            "text": "Zurück zu den Belegen.",
+            "next": "k3a_32_start"
+          }
+        ]
+      },
+      "k3a_32_schluss": {
+        "text": "Die gekauften Stimmreste verstärkten einen alten Nachhall, verursachten aber nicht den Einsturz.\n\nDu versiehst jedes Los mit seinem Datum. Willa muss für ihren Verkauf einstehen, ohne dass du dafür ein neues Opfer erfindest.",
+        "choices": [
+          {
+            "text": "Den Befund festhalten.",
+            "next": "k3a_32_festhalten"
+          }
+        ]
+      },
+      "k3a_32_festhalten": {
+        "text": "Du versiehst jedes Los mit seinem Datum. Willa muss für ihren Verkauf einstehen, ohne dass du dafür ein neues Opfer erfindest.",
+        "choices": [
+          {
+            "text": "Zur Untersuchung zurück.",
+            "next": "k3a_32_start"
+          }
+        ],
+        "sets_flags": [
+          "k3a_32_geschlossen"
+        ]
+      },
+      "k3a_willa_verhoer": {
+        "text": "„Ich habe keine fremden Stimmreste gekauft oder weitergegeben.“ Du lässt die Aussage stehen, ohne sie als gesicherte Tatsache einzutragen.",
+        "choices": [
+          {
+            "text": "Den passenden Beleg vorlegen.",
+            "next": "k3a_willa_verhoer_beleg",
+            "requires_clues": [
+              "k3a_32_c1"
+            ]
+          },
+          {
+            "text": "Ein Verdacht ist noch kein Beweis.",
+            "next": "k3a_willa_verhoer_offen"
+          }
+        ]
+      },
+      "k3a_willa_verhoer_offen": {
+        "text": "Du brichst das Verhör vorerst ab. Die betreffende Quelle bleibt zugänglich; weder Geld noch Drohung können den fehlenden Beleg ersetzen.",
+        "choices": [
+          {
+            "text": "Zur Untersuchung.",
+            "next": "k3a_32_start"
+          }
+        ]
+      },
+      "k3a_willa_verhoer_beleg": {
+        "text": "Die Zollabschrift nennt Ausschusswalzen aus alten Erntebeständen. Die Siegelnummer steht auf Willas Empfangsquittung.\n\nDu legst den Widerspruch offen auf den Tisch.",
+        "choices": [
+          {
+            "text": "Um Berichtigung bitten.",
+            "next": "k3a_willa_verhoer_antwort"
+          }
+        ]
+      },
+      "k3a_willa_verhoer_antwort": {
+        "text": "„Das Siegel gehört zu meiner Lieferung. Ich habe Ergänzungen verkauft, obwohl sie wie ganze Stimmen klangen. Die Quittung bleibt hier, du darfst sie abschreiben.“",
+        "choices": [
+          {
+            "text": "Die berichtigte Aussage protokollieren.",
+            "next": "k3a_willa_verhoer_protokoll"
+          }
+        ]
+      },
+      "k3a_willa_verhoer_protokoll": {
+        "text": "Du schreibst die Berichtigung neben die ursprüngliche Aussage. Der Widerspruch bleibt sichtbar, auch wenn die Person jetzt mitarbeitet.",
+        "choices": [
+          {
+            "text": "Die Untersuchung fortsetzen.",
+            "next": "k3a_32_start"
+          }
+        ],
+        "sets_flags": [
+          "k3a_willa_gestellt"
+        ]
+      }
+    }
+  },
+  "k3a_33_dialog": {
+    "start": [
+      {
+        "node": "k3a_33_horchen_sieg",
+        "requires_flags": [
+          "won_vorhauer"
+        ],
+        "hide_if_flags": [
+          "k3a_33_passage"
+        ]
+      },
+      {
+        "node": "k3a_33_start"
+      }
+    ],
+    "nodes": {
+      "k3a_33_s1": {
+        "text": "Die Tafel zeichnet drei Punkte, eine Pause und zwei Striche. Darunter steht: Wir hören euch. Ausgang freihalten.\n\nDu hältst Herkunft und Beobachtung getrennt in deinem Notizbuch fest.",
+        "choices": [
+          {
+            "text": "Zur Untersuchung zurück.",
+            "next": "k3a_33_start"
+          }
+        ],
+        "gives_clues": [
+          "k3a_33_c1"
+        ]
+      },
+      "k3a_33_s2": {
+        "text": "Die Abstände der Hiebe entsprechen der Rettungstafel. Spätere glatte Schnittspuren stammen vom Einsetzen eines Verschlusses.\n\nDu hältst Herkunft und Beobachtung getrennt in deinem Notizbuch fest.",
+        "choices": [
+          {
+            "text": "Zur Untersuchung zurück.",
+            "next": "k3a_33_start"
+          }
+        ],
+        "gives_clues": [
+          "k3a_33_c2"
+        ]
+      },
+      "k3a_33_s3": {
+        "text": "Nach der Bewältigung des Vorhauers wird das letzte Zeichen sichtbar: der offene Ausfahrtsbogen. Die Antwort lautet nicht Schichtbeginn, sondern Herauslassen.\n\nDu hältst Herkunft und Beobachtung getrennt in deinem Notizbuch fest.",
+        "choices": [
+          {
+            "text": "Zur Untersuchung zurück.",
+            "next": "k3a_33_start"
+          }
+        ],
+        "gives_clues": [
+          "k3a_33_c3"
+        ]
+      },
+      "k3a_33_s4": {
+        "text": "Der alte Verschluss sitzt außen vor den Rettungsspuren. Die Helfer auf der anderen Seite konnten ihn von innen nicht zurücknehmen.\n\nDu hältst Herkunft und Beobachtung getrennt in deinem Notizbuch fest.",
+        "choices": [
+          {
+            "text": "Zur Untersuchung zurück.",
+            "next": "k3a_33_start"
+          }
+        ],
+        "gives_clues": [
+          "k3a_33_c4"
+        ]
+      },
+      "k3a_33_start": {
+        "text": "Adaine hält eine Lampe über Werkzeugspuren. Aus dem Fels antwortet ein Schlag. Der Vorhauer wartet nicht auf Kraft, sondern auf das Ende eines Satzes.",
+        "choices": [
+          {
+            "text": "An der Horchstelle arbeiten.",
+            "next": "k3a_33_horchen",
+            "hide_if_flags": [
+              "k3a_33_passage"
+            ]
+          },
+          {
+            "text": "Rettungstafel untersuchen.",
+            "next": "k3a_33_s1"
+          },
+          {
+            "text": "Werkzeugspur untersuchen.",
+            "next": "k3a_33_s2"
+          },
+          {
+            "text": "Fehlendes Ende untersuchen.",
+            "next": "k3a_33_s3",
+            "requires_flags": [
+              "k3a_33_passage"
+            ]
+          },
+          {
+            "text": "Innenriegel untersuchen.",
+            "next": "k3a_33_s4",
+            "requires_flags": [
+              "k3a_33_passage"
+            ]
+          },
+          {
+            "text": "Was wäre die andere Erklärung?",
+            "next": "k3a_33_gegenprobe"
+          },
+          {
+            "text": "Die beiden Fakten verbinden.",
+            "next": "k3a_33_schluss",
+            "requires_conclusions": [
+              "k3a_33_d"
+            ]
+          },
+          {
+            "text": "Ich sehe mich weiter um."
+          }
+        ]
+      },
+      "k3a_33_gegenprobe": {
+        "text": "„Vielleicht war der Riegel schon vorher da“, sagst du. Adaine zeigt auf die überdeckten Hiebe: „Dann müssten die Spuren auf ihm liegen.“",
+        "choices": [
+          {
+            "text": "Zurück zu den Belegen.",
+            "next": "k3a_33_start"
+          }
+        ]
+      },
+      "k3a_33_schluss": {
+        "text": "Die Verschollenen erwarteten noch Hilfe, als der Ausgang absichtlich geschlossen wurde.\n\nDu zeichnest die ganze Schlagfolge auf. Die letzte Antwort ist eine Ausfahrt, keine Einladung zu einer neuen Schicht.",
+        "choices": [
+          {
+            "text": "Den Befund festhalten.",
+            "next": "k3a_33_festhalten"
+          }
+        ]
+      },
+      "k3a_33_festhalten": {
+        "text": "Du zeichnest die ganze Schlagfolge auf. Die letzte Antwort ist eine Ausfahrt, keine Einladung zu einer neuen Schicht.",
+        "choices": [
+          {
+            "text": "Zur Untersuchung zurück.",
+            "next": "k3a_33_start"
+          }
+        ],
+        "sets_flags": [
+          "k3a_33_geschlossen"
+        ]
+      },
+      "k3a_33_horchen": {
+        "text": "Vor dir zeigt eine Tafel Richtung und sichere Nische. Alle Zeichen werden als Form und Text angezeigt; bloßes Horchen kostet nichts. Du kannst jederzeit über den Fußweg zurück.",
+        "choices": [
+          {
+            "text": "Rettungsschläge: Drei Punkte, breite Pause, zwei Striche",
+            "next": "k3a_33_horchen_richtig",
+            "requires_clues": [
+              "k3a_33_c1"
+            ]
+          },
+          {
+            "text": "Anfahrpfiff versuchen.",
+            "next": "k3a_33_horchen_falsch",
+            "requires_clues": [
+              "k3a_12_c1"
+            ]
+          },
+          {
+            "text": "Den Kampf beginnen.",
+            "next": "k3a_33_horchen_kampf"
+          },
+          {
+            "text": "Schweigen und in die Nische zurücktreten."
+          }
+        ]
+      },
+      "k3a_33_horchen_richtig": {
+        "text": "Der Vorhauer beendet die alte Schlagfolge. Sein Steinleib weicht vor dem Ausfahrtssignal zur Seite.",
+        "choices": [
+          {
+            "text": "Die freigelegte Quelle untersuchen.",
+            "next": "k3a_33_start"
+          }
+        ],
+        "sets_flags": [
+          "k3a_33_passage",
+          "k3a_vorhauer_friedlich"
+        ]
+      },
+      "k3a_33_horchen_falsch": {
+        "text": "Die Antwort läuft zur falschen Haltestelle. Du erkennst den Irrtum an den unpassenden Linien und kehrst in die markierte Nische zurück. Dein Journal und der sichere Fußweg bleiben erhalten.",
+        "choices": [
+          {
+            "text": "Noch einmal vergleichen.",
+            "next": "k3a_33_horchen"
+          },
+          {
+            "text": "Zu Pfiff zurück."
+          }
+        ]
+      },
+      "k3a_33_horchen_kampf": {
+        "text": "Du gibst keine private Namensantwort. Der Weg zur sicheren Nische bleibt für einen Rückzug offen.",
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ],
+        "encounter": "vorhauer"
+      },
+      "k3a_33_horchen_sieg": {
+        "text": "Nach dem Kampf wird der Zugang frei. Der Vorhauer beendet die alte Schlagfolge. Sein Steinleib weicht vor dem Ausfahrtssignal zur Seite.",
+        "choices": [
+          {
+            "text": "Die Quelle untersuchen.",
+            "next": "k3a_33_start"
+          }
+        ],
+        "sets_flags": [
+          "k3a_33_passage"
+        ]
+      }
+    }
+  },
+  "k3a_34_dialog": {
+    "start": "k3a_34_start",
+    "nodes": {
+      "k3a_34_s1": {
+        "text": "Perrin Gallowmere steht unter den Toten. Dienstnummer und Handschrift passen zu der Rückmeldeliste in seiner Hand.\n\nDu hältst Herkunft und Beobachtung getrennt in deinem Notizbuch fest.",
+        "choices": [
+          {
+            "text": "Zur Untersuchung zurück.",
+            "next": "k3a_34_start"
+          }
+        ],
+        "gives_clues": [
+          "k3a_34_c1"
+        ]
+      },
+      "k3a_34_s2": {
+        "text": "Eine alte Todesanzeige nennt den Fahrmeister mit demselben Datum. Sie wurde vor dem Wiedererstarken des Nachtzugs gedruckt.\n\nDu hältst Herkunft und Beobachtung getrennt in deinem Notizbuch fest.",
+        "choices": [
+          {
+            "text": "Zur Untersuchung zurück.",
+            "next": "k3a_34_start"
+          }
+        ],
+        "gives_clues": [
+          "k3a_34_c2"
+        ]
+      },
+      "k3a_34_s3": {
+        "text": "Gallowmere folgt dir bis zum Ende der alten Schwelle. Jenseits wiederholt seine Stimme den letzten Satz, sein Bild bleibt zurück.\n\nDu hältst Herkunft und Beobachtung getrennt in deinem Notizbuch fest.",
+        "choices": [
+          {
+            "text": "Zur Untersuchung zurück.",
+            "next": "k3a_34_start"
+          }
+        ],
+        "gives_clues": [
+          "k3a_34_c3"
+        ]
+      },
+      "k3a_34_s4": {
+        "text": "Auf Fragen nach seinem Leben antwortet er mit Arbeitsvorschriften. Dann fordert er ausdrücklich lebende Stimmen für die freien Rückmeldeplätze.\n\nDu hältst Herkunft und Beobachtung getrennt in deinem Notizbuch fest.",
+        "choices": [
+          {
+            "text": "Zur Untersuchung zurück.",
+            "next": "k3a_34_start"
+          }
+        ],
+        "gives_clues": [
+          "k3a_34_c4"
+        ]
+      },
+      "k3a_34_start": {
+        "text": "Gallowmere tritt aus einem Schatten ohne Schritte. „Es fehlen noch Antworten“, sagt er. Sein Mantel endet dort, wo das alte Gleis endet.",
+        "choices": [
+          {
+            "text": "Eigener Listeneintrag untersuchen.",
+            "next": "k3a_34_s1"
+          },
+          {
+            "text": "Trauervermerk untersuchen.",
+            "next": "k3a_34_s2"
+          },
+          {
+            "text": "Grenze am Gleis untersuchen.",
+            "next": "k3a_34_s3"
+          },
+          {
+            "text": "Die neue Forderung untersuchen.",
+            "next": "k3a_34_s4"
+          },
+          {
+            "text": "Was wäre die andere Erklärung?",
+            "next": "k3a_34_gegenprobe"
+          },
+          {
+            "text": "Die beiden Fakten verbinden.",
+            "next": "k3a_34_schluss",
+            "requires_conclusions": [
+              "k3a_34_d"
+            ]
+          },
+          {
+            "text": "Ich sehe mich weiter um."
+          }
+        ]
+      },
+      "k3a_34_gegenprobe": {
+        "text": "„Wenn du tot bist, warum sprichst du?“ Er hebt die Liste. „Weil der Dienst nicht abgeschlossen ist.“ Das ist seine Erklärung, kein Beweis für eine ganze Person.",
+        "choices": [
+          {
+            "text": "Zurück zu den Belegen.",
+            "next": "k3a_34_start"
+          }
+        ]
+      },
+      "k3a_34_schluss": {
+        "text": "Du jagst einen ortsgebundenen Rest einer Person; er will die Lücken mit Lebenden schließen.\n\nDu verlässt den Bahnsteig über die sichere Treppe. Der Fahrmeister bleibt an der Grenze stehen und ruft keinen Abschiedsgruß.",
+        "choices": [
+          {
+            "text": "Den Befund festhalten.",
+            "next": "k3a_34_festhalten"
+          }
+        ]
+      },
+      "k3a_34_festhalten": {
+        "text": "Du verlässt den Bahnsteig über die sichere Treppe. Der Fahrmeister bleibt an der Grenze stehen und ruft keinen Abschiedsgruß.",
+        "choices": [
+          {
+            "text": "Zur Untersuchung zurück.",
+            "next": "k3a_34_start"
+          }
+        ],
+        "sets_flags": [
+          "k3a_34_geschlossen"
+        ]
+      }
+    }
+  },
+  "k3a_41_dialog": {
+    "start": "k3a_41_start",
+    "nodes": {
+      "k3a_41_s1": {
+        "text": "Unter der abgelegten Deckseite liegt der unterschriebene Verschlussbefehl. Die Uhrzeit liegt nach dem letzten protokollierten Rettungsschlag.\n\nDu hältst Herkunft und Beobachtung getrennt in deinem Notizbuch fest.",
+        "choices": [
+          {
+            "text": "Zur Untersuchung zurück.",
+            "next": "k3a_41_start"
+          }
+        ],
+        "gives_clues": [
+          "k3a_41_c1"
+        ]
+      },
+      "k3a_41_s2": {
+        "text": "Der Vertrag erklärt die Verschollenen nachträglich zu freiwillig Abgereisten. Offene Lohnforderungen sollten damit entfallen.\n\nDu hältst Herkunft und Beobachtung getrennt in deinem Notizbuch fest.",
+        "choices": [
+          {
+            "text": "Zur Untersuchung zurück.",
+            "next": "k3a_41_start"
+          }
+        ],
+        "gives_clues": [
+          "k3a_41_c2"
+        ]
+      },
+      "k3a_41_s3": {
+        "text": "Im Materiallager ist der Ziegelauftrag unter derselben Befehlsnummer abgelegt. Er wurde unabhängig vom Lohnbüro geführt.\n\nDu hältst Herkunft und Beobachtung getrennt in deinem Notizbuch fest.",
+        "choices": [
+          {
+            "text": "Zur Untersuchung zurück.",
+            "next": "k3a_41_start"
+          }
+        ],
+        "gives_clues": [
+          "k3a_41_c3"
+        ]
+      },
+      "k3a_41_s4": {
+        "text": "Das Lager quittiert den Auftrag mit dem Siegel der Bruchleitung. Esther bestätigt, dass sie den Originalvermerk aus Angst um die Hinterbliebenen zurückhielt.\n\nDu hältst Herkunft und Beobachtung getrennt in deinem Notizbuch fest.",
+        "choices": [
+          {
+            "text": "Zur Untersuchung zurück.",
+            "next": "k3a_41_start"
+          }
+        ],
+        "gives_clues": [
+          "k3a_41_c4"
+        ]
+      },
+      "k3a_41_start": {
+        "text": "Esther hält den Archivschlüssel fest. „Es gab keinen unterschriebenen Befehl.“ Auf ihrem Tisch liegt ein Blatt mit einer auffällig geraden Schnittkante.",
+        "choices": [
+          {
+            "text": "Die Aussage überprüfen.",
+            "next": "k3a_esther_verhoer"
+          },
+          {
+            "text": "Freigabevermerk untersuchen.",
+            "next": "k3a_41_s1"
+          },
+          {
+            "text": "Vertragsklausel untersuchen.",
+            "next": "k3a_41_s2"
+          },
+          {
+            "text": "Lagerabschrift untersuchen.",
+            "next": "k3a_41_s3",
+            "requires_clues": [
+              "k3a_41_c3"
+            ]
+          },
+          {
+            "text": "Empfangssiegel untersuchen.",
+            "next": "k3a_41_s4",
+            "requires_flags": [
+              "k3a_esther_gestellt"
+            ],
+            "requires_clues": [
+              "k3a_41_c3"
+            ]
+          },
+          {
+            "text": "Was wäre die andere Erklärung?",
+            "next": "k3a_41_gegenprobe"
+          },
+          {
+            "text": "Die beiden Fakten verbinden.",
+            "next": "k3a_41_schluss",
+            "requires_conclusions": [
+              "k3a_41_d"
+            ]
+          },
+          {
+            "text": "Ich sehe mich weiter um."
+          }
+        ]
+      },
+      "k3a_41_gegenprobe": {
+        "text": "„Wenn er in diesem Punkt recht hat, müssen wir ihm folgen?“ Esther schaut auf die Vertragsklausel. „Ein richtiges Datum unterschreibt keinen neuen Zwang.“",
+        "choices": [
+          {
+            "text": "Zurück zu den Belegen.",
+            "next": "k3a_41_start"
+          }
+        ]
+      },
+      "k3a_41_schluss": {
+        "text": "Die offizielle Erzählung war eine Vertuschung; Gallowmeres Forderung nach Anerkennung hat einen wahren Kern.\n\nDu verwahrst Original und Gegenabschrift getrennt. Ein wahrer Teil seiner Forderung entlastet Gallowmere nicht von der nächsten.",
+        "choices": [
+          {
+            "text": "Den Befund festhalten.",
+            "next": "k3a_41_festhalten"
+          }
+        ]
+      },
+      "k3a_41_festhalten": {
+        "text": "Du verwahrst Original und Gegenabschrift getrennt. Ein wahrer Teil seiner Forderung entlastet Gallowmere nicht von der nächsten.",
+        "choices": [
+          {
+            "text": "Zur Untersuchung zurück.",
+            "next": "k3a_41_start"
+          }
+        ],
+        "sets_flags": [
+          "k3a_41_geschlossen"
+        ]
+      },
+      "k3a_esther_verhoer": {
+        "text": "„Für das Verschließen gab es keinen unterschriebenen Befehl.“ Du lässt die Aussage stehen, ohne sie als gesicherte Tatsache einzutragen.",
+        "choices": [
+          {
+            "text": "Den passenden Beleg vorlegen.",
+            "next": "k3a_esther_verhoer_beleg",
+            "requires_clues": [
+              "k3a_41_c1"
+            ]
+          },
+          {
+            "text": "Ein Verdacht ist noch kein Beweis.",
+            "next": "k3a_esther_verhoer_offen"
+          }
+        ]
+      },
+      "k3a_esther_verhoer_offen": {
+        "text": "Du brichst das Verhör vorerst ab. Die betreffende Quelle bleibt zugänglich; weder Geld noch Drohung können den fehlenden Beleg ersetzen.",
+        "choices": [
+          {
+            "text": "Zur Untersuchung.",
+            "next": "k3a_41_start"
+          }
+        ]
+      },
+      "k3a_esther_verhoer_beleg": {
+        "text": "Unter der abgelegten Deckseite liegt der unterschriebene Verschlussbefehl. Die Uhrzeit liegt nach dem letzten protokollierten Rettungsschlag.\n\nDu legst den Widerspruch offen auf den Tisch.",
+        "choices": [
+          {
+            "text": "Um Berichtigung bitten.",
+            "next": "k3a_esther_verhoer_antwort"
+          }
+        ]
+      },
+      "k3a_esther_verhoer_antwort": {
+        "text": "„Ich habe das Blatt zurückgehalten. Wer noch Lohn wollte, sollte als Angehöriger freiwillig Abgereister gelten. Ich dachte, ein verborgenes Original sei besser als gar keines.“",
+        "choices": [
+          {
+            "text": "Die berichtigte Aussage protokollieren.",
+            "next": "k3a_esther_verhoer_protokoll"
+          }
+        ]
+      },
+      "k3a_esther_verhoer_protokoll": {
+        "text": "Du schreibst die Berichtigung neben die ursprüngliche Aussage. Der Widerspruch bleibt sichtbar, auch wenn die Person jetzt mitarbeitet.",
+        "choices": [
+          {
+            "text": "Die Untersuchung fortsetzen.",
+            "next": "k3a_41_start"
+          }
+        ],
+        "sets_flags": [
+          "k3a_esther_gestellt"
+        ]
+      }
+    }
+  },
+  "k3a_42_dialog": {
+    "start": "k3a_42_start",
+    "nodes": {
+      "k3a_42_s1": {
+        "text": "Die alte Karte zeigt geschlossene Schichten unter dem Arbeiterbogen. Die heutigen Hohlräume schneiden quer durch diese Schichten.\n\nDu hältst Herkunft und Beobachtung getrennt in deinem Notizbuch fest.",
+        "choices": [
+          {
+            "text": "Zur Untersuchung zurück.",
+            "next": "k3a_42_start"
+          }
+        ],
+        "gives_clues": [
+          "k3a_42_c1"
+        ]
+      },
+      "k3a_42_s2": {
+        "text": "Adaines unverrückte Messnägel ergeben mehr Tiefe als beim letzten Besuch. Es fehlt die passende Menge ausgebrochenen Gesteins.\n\nDu hältst Herkunft und Beobachtung getrennt in deinem Notizbuch fest.",
+        "choices": [
+          {
+            "text": "Zur Untersuchung zurück.",
+            "next": "k3a_42_start"
+          }
+        ],
+        "gives_clues": [
+          "k3a_42_c2"
+        ]
+      },
+      "k3a_42_s3": {
+        "text": "Nellies Abschrift nennt die Halte in derselben Reihenfolge, in der neue Hohlräume erschienen. Namen und Zeitpunkte lassen sich einzeln zuordnen.\n\nDu hältst Herkunft und Beobachtung getrennt in deinem Notizbuch fest.",
+        "choices": [
+          {
+            "text": "Zur Untersuchung zurück.",
+            "next": "k3a_42_start"
+          }
+        ],
+        "gives_clues": [
+          "k3a_42_c3"
+        ]
+      },
+      "k3a_42_s4": {
+        "text": "Bei einer örtlich unterbrochenen Leitung bleibt die Messung stabil. Sobald der fremde Halt wieder aufgerufen wird, antwortet die Tiefe von dort.\n\nDu hältst Herkunft und Beobachtung getrennt in deinem Notizbuch fest.",
+        "choices": [
+          {
+            "text": "Zur Untersuchung zurück.",
+            "next": "k3a_42_start"
+          }
+        ],
+        "gives_clues": [
+          "k3a_42_c4"
+        ]
+      },
+      "k3a_42_start": {
+        "text": "Adaine spannt einen Faden zwischen zwei Messnägeln. „Ich habe dreimal nachgerechnet. Ich hatte gehofft, beim vierten Mal wäre die Schlucht höflicher.“",
+        "choices": [
+          {
+            "text": "Die sichtbare Rufprobe durchführen.",
+            "next": "k3a_42_probe"
+          },
+          {
+            "text": "Alte Vermessung untersuchen.",
+            "next": "k3a_42_s1"
+          },
+          {
+            "text": "Frische Messnägel untersuchen.",
+            "next": "k3a_42_s2"
+          },
+          {
+            "text": "Rufprotokoll untersuchen.",
+            "next": "k3a_42_s3"
+          },
+          {
+            "text": "Unterbrochener Test untersuchen.",
+            "next": "k3a_42_s4"
+          },
+          {
+            "text": "Was wäre die andere Erklärung?",
+            "next": "k3a_42_gegenprobe"
+          },
+          {
+            "text": "Die beiden Fakten verbinden.",
+            "next": "k3a_42_schluss",
+            "requires_conclusions": [
+              "k3a_42_d"
+            ]
+          },
+          {
+            "text": "Ich sehe mich weiter um."
+          }
+        ]
+      },
+      "k3a_42_gegenprobe": {
+        "text": "„Haben wir den Hunger gefunden?“ Adaine steckt den Bleistift weg. „Wir haben seinen Zugang vermessen. Das ist weniger. Und schon schlimm genug.“",
+        "choices": [
+          {
+            "text": "Zurück zu den Belegen.",
+            "next": "k3a_42_start"
+          }
+        ]
+      },
+      "k3a_42_schluss": {
+        "text": "Die Rufverbindung erweitert den Zugriff des Hungers; der Zug transportiert mehr als Erinnerungen.\n\nDu markierst die gefährdeten Verbindungen. Die Entdeckung erklärt örtlichen Zugriff, nicht Ursprung oder Ende der Macht unter allen Städten.",
+        "choices": [
+          {
+            "text": "Den Befund festhalten.",
+            "next": "k3a_42_festhalten"
+          }
+        ]
+      },
+      "k3a_42_festhalten": {
+        "text": "Du markierst die gefährdeten Verbindungen. Die Entdeckung erklärt örtlichen Zugriff, nicht Ursprung oder Ende der Macht unter allen Städten.",
+        "choices": [
+          {
+            "text": "Zur Untersuchung zurück.",
+            "next": "k3a_42_start"
+          }
+        ],
+        "sets_flags": [
+          "k3a_42_geschlossen"
+        ]
+      },
+      "k3a_42_probe": {
+        "text": "Die Prüfleitung bleibt vom Hauptsignal getrennt. Du siehst Form, Richtung und erwartete Antwort auf der Tafel; ein falscher Test bindet hier keinen Menschen.",
+        "choices": [
+          {
+            "text": "Wartungsweg",
+            "next": "k3a_42_probe_gut",
+            "requires_clues": [
+              "k3a_14_c2"
+            ]
+          },
+          {
+            "text": "Rundruf",
+            "next": "k3a_42_probe_schlecht",
+            "requires_clues": [
+              "k3a_44_c3"
+            ]
+          },
+          {
+            "text": "Nur zuhören und gehen."
+          }
+        ]
+      },
+      "k3a_42_probe_gut": {
+        "text": "Die örtlich unterbrochene Leitung lässt die Messmarke stillstehen. Der entfernte Rundruf würde den fremden Halt erreichen.",
+        "choices": [
+          {
+            "text": "Zur Untersuchung.",
+            "next": "k3a_42_start"
+          }
+        ]
+      },
+      "k3a_42_probe_schlecht": {
+        "text": "Am Prüfzeiger erscheint die falsche Richtung. Du lässt den getrennten Anschluss wieder los; es geht kein bestätigter Hauptaufruf hinaus.",
+        "choices": [
+          {
+            "text": "Erneut vergleichen.",
+            "next": "k3a_42_probe"
+          }
+        ]
+      }
+    }
+  },
+  "k3a_43_dialog": {
+    "start": "k3a_43_start",
+    "nodes": {
+      "k3a_43_s1": {
+        "text": "Willa erzeugt mit zwei Luftströmen einen neuen Ton. Auf dem Rillenabzug fehlen Silben und Atemreste einer aufgenommenen Person.\n\nDu hältst Herkunft und Beobachtung getrennt in deinem Notizbuch fest.",
+        "choices": [
+          {
+            "text": "Zur Untersuchung zurück.",
+            "next": "k3a_43_start"
+          }
+        ],
+        "gives_clues": [
+          "k3a_43_c1"
+        ]
+      },
+      "k3a_43_s2": {
+        "text": "Du vertauschst die beschrifteten Hüllen. Willa erkennt die Personenaufnahme an ihren Wortansätzen und den Prüfton an seinem gleichmäßigen Bogen.\n\nDu hältst Herkunft und Beobachtung getrennt in deinem Notizbuch fest.",
+        "choices": [
+          {
+            "text": "Zur Untersuchung zurück.",
+            "next": "k3a_43_start"
+          }
+        ],
+        "gives_clues": [
+          "k3a_43_c2"
+        ]
+      },
+      "k3a_43_s3": {
+        "text": "Der Vermerk unterscheidet entliehene Stimme und selbst getragene Antwort. Er nennt pfadspezifische Prüfungen, keine allgemeine fertige Rezeptur.\n\nDu hältst Herkunft und Beobachtung getrennt in deinem Notizbuch fest.",
+        "choices": [
+          {
+            "text": "Zur Untersuchung zurück.",
+            "next": "k3a_43_start"
+          }
+        ],
+        "gives_clues": [
+          "k3a_43_c3"
+        ]
+      },
+      "k3a_43_s4": {
+        "text": "Du wiederholst die Luftprobe und erhältst denselben besitzerfreien Verlauf. Weder eine fremde Aufnahme noch ein Namenstäfelchen wird verbraucht.\n\nDu hältst Herkunft und Beobachtung getrennt in deinem Notizbuch fest.",
+        "choices": [
+          {
+            "text": "Zur Untersuchung zurück.",
+            "next": "k3a_43_start"
+          }
+        ],
+        "gives_clues": [
+          "k3a_43_c4"
+        ]
+      },
+      "k3a_43_start": {
+        "text": "Willa stellt einen leeren Trichter zwischen zwei bespielte. „Diesmal nehmen wir nichts von jemand anderem. Hör auf das, was dazwischen entsteht.“",
+        "choices": [
+          {
+            "text": "Die sichtbare Rufprobe durchführen.",
+            "next": "k3a_43_probe"
+          },
+          {
+            "text": "Leerer Trichter untersuchen.",
+            "next": "k3a_43_s1"
+          },
+          {
+            "text": "Blindvergleich untersuchen.",
+            "next": "k3a_43_s2"
+          },
+          {
+            "text": "Zirkelvermerk untersuchen.",
+            "next": "k3a_43_s3"
+          },
+          {
+            "text": "Eigene Wiederholung untersuchen.",
+            "next": "k3a_43_s4"
+          },
+          {
+            "text": "Was wäre die andere Erklärung?",
+            "next": "k3a_43_gegenprobe"
+          },
+          {
+            "text": "Die beiden Fakten verbinden.",
+            "next": "k3a_43_schluss",
+            "requires_conclusions": [
+              "k3a_43_d"
+            ]
+          },
+          {
+            "text": "Ich sehe mich weiter um."
+          }
+        ]
+      },
+      "k3a_43_gegenprobe": {
+        "text": "„Dann brauche ich keine Prüfung mehr?“ Willa verschließt die Walze. „Du hast eine Möglichkeit belegt. Eine Möglichkeit ist noch kein bestandener Weg.“",
+        "choices": [
+          {
+            "text": "Zurück zu den Belegen.",
+            "next": "k3a_43_start"
+          }
+        ]
+      },
+      "k3a_43_schluss": {
+        "text": "Der Weg zu Sequenz 4 kann über eine selbst erzeugte Antwort führen, nicht über den Besitz einer fremden Stimme.\n\nDu schreibst Hedda Quists Namen neben den Vermerk. Formeln, Zutaten und Prüfungen bleiben ihre eigene Untersuchung; die Hauptakte verlangt keine davon.",
+        "choices": [
+          {
+            "text": "Den Befund festhalten.",
+            "next": "k3a_43_festhalten"
+          }
+        ]
+      },
+      "k3a_43_festhalten": {
+        "text": "Du schreibst Hedda Quists Namen neben den Vermerk. Formeln, Zutaten und Prüfungen bleiben ihre eigene Untersuchung; die Hauptakte verlangt keine davon.",
+        "choices": [
+          {
+            "text": "Zur Untersuchung zurück.",
+            "next": "k3a_43_start"
+          }
+        ],
+        "sets_flags": [
+          "k3a_43_geschlossen"
+        ]
+      },
+      "k3a_43_probe": {
+        "text": "Die Prüfleitung bleibt vom Hauptsignal getrennt. Du siehst Form, Richtung und erwartete Antwort auf der Tafel; ein falscher Test bindet hier keinen Menschen.",
+        "choices": [
+          {
+            "text": "Personenfreier Ruf",
+            "next": "k3a_43_probe_gut",
+            "requires_clues": [
+              "k3a_43_c1"
+            ]
+          },
+          {
+            "text": "Alte Familienphrase",
+            "next": "k3a_43_probe_schlecht",
+            "requires_clues": [
+              "k3a_31_c1"
+            ]
+          },
+          {
+            "text": "Nur zuhören und gehen."
+          }
+        ]
+      },
+      "k3a_43_probe_gut": {
+        "text": "Der neue Luftton besitzt keine Silben. Die Familienphrase wäre nur eine alte Aufnahme, keine eigene Antwort.",
+        "choices": [
+          {
+            "text": "Zur Untersuchung.",
+            "next": "k3a_43_start"
+          }
+        ]
+      },
+      "k3a_43_probe_schlecht": {
+        "text": "Am Prüfzeiger erscheint die falsche Richtung. Du lässt den getrennten Anschluss wieder los; es geht kein bestätigter Hauptaufruf hinaus.",
+        "choices": [
+          {
+            "text": "Erneut vergleichen.",
+            "next": "k3a_43_probe"
+          }
+        ]
+      }
+    }
+  },
+  "k3a_44_dialog": {
+    "start": "k3a_44_start",
+    "nodes": {
+      "k3a_44_s1": {
+        "text": "Du verfolgst die Leitungen zu sechs beschrifteten Klemmen. Keine endet an einer Uhr, jede an einem Viertel.\n\nDu hältst Herkunft und Beobachtung getrennt in deinem Notizbuch fest.",
+        "choices": [
+          {
+            "text": "Zur Untersuchung zurück.",
+            "next": "k3a_44_start"
+          }
+        ],
+        "gives_clues": [
+          "k3a_44_c1"
+        ]
+      },
+      "k3a_44_s2": {
+        "text": "Unter dem Schaltpult vereinigt eine neue Brücke die sechs Klemmen. Hier lässt sich die Anlage dauerhaft unterbrechen.\n\nDu hältst Herkunft und Beobachtung getrennt in deinem Notizbuch fest.",
+        "choices": [
+          {
+            "text": "Zur Untersuchung zurück.",
+            "next": "k3a_44_start"
+          }
+        ],
+        "gives_clues": [
+          "k3a_44_c2"
+        ]
+      },
+      "k3a_44_s3": {
+        "text": "Alle sechs Bestätigungsfelder tragen dieselbe Freigabe. Der Schreiber hat keinen Abstand zwischen den Antworten vorgesehen.\n\nDu hältst Herkunft und Beobachtung getrennt in deinem Notizbuch fest.",
+        "choices": [
+          {
+            "text": "Zur Untersuchung zurück.",
+            "next": "k3a_44_start"
+          }
+        ],
+        "gives_clues": [
+          "k3a_44_c3"
+        ]
+      },
+      "k3a_44_s4": {
+        "text": "Eine Probe mit unbeladenen Zeigern lässt alle sechs gleichzeitig ausschlagen. Auch ohne Menschen kann die Gleichzeitigkeit sichtbar geprüft werden.\n\nDu hältst Herkunft und Beobachtung getrennt in deinem Notizbuch fest.",
+        "choices": [
+          {
+            "text": "Zur Untersuchung zurück.",
+            "next": "k3a_44_start"
+          }
+        ],
+        "gives_clues": [
+          "k3a_44_c4"
+        ]
+      },
+      "k3a_44_start": {
+        "text": "Nellie hat sechs Drahtenden mit Stoff umwickelt. „Bisher rief er nacheinander. Jemand hat ihm beigebracht, ungeduldig zu sein.“",
+        "choices": [
+          {
+            "text": "Drahtwege untersuchen.",
+            "next": "k3a_44_s1"
+          },
+          {
+            "text": "Hauptleitung untersuchen.",
+            "next": "k3a_44_s2"
+          },
+          {
+            "text": "Nellies Abschrift untersuchen.",
+            "next": "k3a_44_s3"
+          },
+          {
+            "text": "Leerlaufprobe untersuchen.",
+            "next": "k3a_44_s4"
+          },
+          {
+            "text": "Was wäre die andere Erklärung?",
+            "next": "k3a_44_gegenprobe"
+          },
+          {
+            "text": "Die beiden Fakten verbinden.",
+            "next": "k3a_44_schluss",
+            "requires_conclusions": [
+              "k3a_44_d"
+            ]
+          },
+          {
+            "text": "Ich sehe mich weiter um."
+          }
+        ]
+      },
+      "k3a_44_gegenprobe": {
+        "text": "„Welcher Plan ist der richtige?“ Nellie löst die Finger vom Draht. „Erst sagen wir den Leuten, was jeder kostet. Sonst ist das wieder nur ein Befehl.“",
+        "choices": [
+          {
+            "text": "Zurück zu den Belegen.",
+            "next": "k3a_44_start"
+          }
+        ]
+      },
+      "k3a_44_schluss": {
+        "text": "Der Rundruf erfasst sechs Viertel zugleich; örtliche Trennung, Stilllegung oder freiwillige Gegenantwort sind mögliche Pläne.\n\nDu sicherst den Schaltplan. Zerstörung kostet Aufnahmen, Trennung braucht Zustimmung und eine Gegenstimme bindet dich an jeden späteren Betrieb.",
+        "choices": [
+          {
+            "text": "Den Befund festhalten.",
+            "next": "k3a_44_festhalten"
+          }
+        ]
+      },
+      "k3a_44_festhalten": {
+        "text": "Du sicherst den Schaltplan. Zerstörung kostet Aufnahmen, Trennung braucht Zustimmung und eine Gegenstimme bindet dich an jeden späteren Betrieb.",
+        "choices": [
+          {
+            "text": "Zur Untersuchung zurück.",
+            "next": "k3a_44_start"
+          }
+        ],
+        "sets_flags": [
+          "k3a_44_geschlossen"
+        ]
+      }
+    }
+  },
+  "k3a_51_dialog": {
+    "start": "k3a_51_start",
+    "nodes": {
+      "k3a_51_s1": {
+        "text": "Aus jedem Viertel liegt eine eigene Erinnerung vor. Sie handeln von Gärten, Streit und kalter Suppe, nicht von Dienstantritt.\n\nDu hältst Herkunft und Beobachtung getrennt in deinem Notizbuch fest.",
+        "choices": [
+          {
+            "text": "Zur Untersuchung zurück.",
+            "next": "k3a_51_start"
+          }
+        ],
+        "gives_clues": [
+          "k3a_51_c1"
+        ]
+      },
+      "k3a_51_s2": {
+        "text": "Eine Tochter berichtigt den Namen ihres Vaters im Protokoll. Eine andere Familie lässt bewusst ein Feld leer; niemand ergänzt es automatisch.\n\nDu hältst Herkunft und Beobachtung getrennt in deinem Notizbuch fest.",
+        "choices": [
+          {
+            "text": "Zur Untersuchung zurück.",
+            "next": "k3a_51_start"
+          }
+        ],
+        "gives_clues": [
+          "k3a_51_c2"
+        ]
+      },
+      "k3a_51_s3": {
+        "text": "Sechs Tafeln bleiben voneinander getrennt. Jede kann gelesen werden, ohne einen Ruf an die übrigen Viertel auszulösen.\n\nDu hältst Herkunft und Beobachtung getrennt in deinem Notizbuch fest.",
+        "choices": [
+          {
+            "text": "Zur Untersuchung zurück.",
+            "next": "k3a_51_start"
+          }
+        ],
+        "gives_clues": [
+          "k3a_51_c3"
+        ]
+      },
+      "k3a_51_s4": {
+        "text": "Die Familien erhalten eine verständliche Wahl: getrennte Erinnerungsorte ohne Pflichtantwort. Mabel hält Zustimmung und Ablehnung getrennt fest.\n\nDu hältst Herkunft und Beobachtung getrennt in deinem Notizbuch fest.",
+        "choices": [
+          {
+            "text": "Zur Untersuchung zurück.",
+            "next": "k3a_51_start"
+          }
+        ],
+        "gives_clues": [
+          "k3a_51_c4"
+        ]
+      },
+      "k3a_51_start": {
+        "text": "Mabel räumt den großen Tisch frei. „Heute bezahlt niemand mit Schichtmarken. Wer sprechen will, soll vorher gegessen haben.“",
+        "choices": [
+          {
+            "text": "Sechs Erzählungen untersuchen.",
+            "next": "k3a_51_s1"
+          },
+          {
+            "text": "Eigene Worte untersuchen.",
+            "next": "k3a_51_s2"
+          },
+          {
+            "text": "Gedenkplan untersuchen.",
+            "next": "k3a_51_s3"
+          },
+          {
+            "text": "Zustimmungsbogen untersuchen.",
+            "next": "k3a_51_s4"
+          },
+          {
+            "text": "Was wäre die andere Erklärung?",
+            "next": "k3a_51_gegenprobe"
+          },
+          {
+            "text": "Die beiden Fakten verbinden.",
+            "next": "k3a_51_schluss",
+            "requires_conclusions": [
+              "k3a_51_d"
+            ]
+          },
+          {
+            "text": "Ich sehe mich weiter um."
+          }
+        ]
+      },
+      "k3a_51_gegenprobe": {
+        "text": "„Darf die Mehrheit die übrigen Namen einsetzen?“ Mabel schiebt dir den leeren Bogen hin. „Leer ist keine Zustimmung. Das solltest du inzwischen erkennen.“",
+        "choices": [
+          {
+            "text": "Zurück zu den Belegen.",
+            "next": "k3a_51_start"
+          }
+        ]
+      },
+      "k3a_51_schluss": {
+        "text": "Öffentliche Anerkennung kann die offene Schicht abschließen, ohne Lebende als Ersatz zu verpflichten.\n\nDu legst die gesicherten Dokumente zur Einsicht aus. Ob die Familien den Gedenkplan mittragen, wird ausdrücklich entschieden, nicht aus ihrem Schweigen abgeleitet.",
+        "choices": [
+          {
+            "text": "Den Familien den getrennten Gedenkplan anbieten.",
+            "next": "k3a_familien_wahl"
+          },
+          {
+            "text": "Den Befund ohne Zustimmung festhalten.",
+            "next": "k3a_51_festhalten"
+          }
+        ]
+      },
+      "k3a_51_festhalten": {
+        "text": "Du legst die gesicherten Dokumente zur Einsicht aus. Ob die Familien den Gedenkplan mittragen, wird ausdrücklich entschieden, nicht aus ihrem Schweigen abgeleitet.",
+        "choices": [
+          {
+            "text": "Zur Untersuchung zurück.",
+            "next": "k3a_51_start"
+          }
+        ],
+        "sets_flags": [
+          "k3a_51_geschlossen"
+        ]
+      },
+      "k3a_familien_wahl": {
+        "text": "Mabel liest jede Bedingung vor: keine Ersatzarbeiter, keine Pflichtantwort, sechs getrennte Orte. Die Familien erklären ihre Zustimmung zu genau diesem Plan. Du kannst sie dokumentieren oder die Entscheidung vertagen.",
+        "choices": [
+          {
+            "text": "Die ausdrücklich erklärte Zustimmung festhalten.",
+            "next": "k3a_familien_ja",
+            "hide_if_flags": [
+              "k3a_familien_zustimmung"
+            ]
+          },
+          {
+            "text": "Noch keine Zustimmung beanspruchen."
+          }
+        ]
+      },
+      "k3a_familien_ja": {
+        "text": "Jede Familie bestätigt ihren eigenen Eintrag. Nicht unterschriebene Namen werden nicht stellvertretend eingesetzt; der Plan lebt von freiwilligen Geschichten.",
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ],
+        "sets_flags": [
+          "k3a_familien_zustimmung",
+          "k3a_51_geschlossen"
+        ]
+      }
+    }
+  },
+  "k3a_52_dialog": {
+    "start": [
+      {
+        "node": "k3a_52_horchen_sieg",
+        "requires_flags": [
+          "won_vielrufer"
+        ],
+        "hide_if_flags": [
+          "k3a_52_passage"
+        ]
+      },
+      {
+        "node": "k3a_52_start"
+      }
+    ],
+    "nodes": {
+      "k3a_52_s1": {
+        "text": "Die alte Zeichnung trennt Hin- und Rückweg. Eine jüngere Brücke verbindet alle Antworten zu einem einzigen Kreis.\n\nDu hältst Herkunft und Beobachtung getrennt in deinem Notizbuch fest.",
+        "choices": [
+          {
+            "text": "Zur Untersuchung zurück.",
+            "next": "k3a_52_start"
+          }
+        ],
+        "gives_clues": [
+          "k3a_52_c1"
+        ]
+      },
+      "k3a_52_s2": {
+        "text": "Die Wartungslegende zeigt zwei Bögen mit einer breiten Lücke. Erst Eingang schließen, dann die Rückwege einzeln freigeben.\n\nDu hältst Herkunft und Beobachtung getrennt in deinem Notizbuch fest.",
+        "choices": [
+          {
+            "text": "Zur Untersuchung zurück.",
+            "next": "k3a_52_start"
+          }
+        ],
+        "gives_clues": [
+          "k3a_52_c2"
+        ]
+      },
+      "k3a_52_s3": {
+        "text": "Nach der Bewältigung des Vielrufers schlägt nur der Zeiger des gewählten Halts aus. Die fünf übrigen bleiben sichtbar still.\n\nDu hältst Herkunft und Beobachtung getrennt in deinem Notizbuch fest.",
+        "choices": [
+          {
+            "text": "Zur Untersuchung zurück.",
+            "next": "k3a_52_start"
+          }
+        ],
+        "gives_clues": [
+          "k3a_52_c3"
+        ]
+      },
+      "k3a_52_s4": {
+        "text": "Unter dem getrennten Verteiler bleibt ein tiefes Dröhnen. Die örtliche Schaltung hat den Zugriff begrenzt, nicht die Macht unter allen Städten getötet.\n\nDu hältst Herkunft und Beobachtung getrennt in deinem Notizbuch fest.",
+        "choices": [
+          {
+            "text": "Zur Untersuchung zurück.",
+            "next": "k3a_52_start"
+          }
+        ],
+        "gives_clues": [
+          "k3a_52_c4"
+        ]
+      },
+      "k3a_52_start": {
+        "text": "In der Schlucht antwortet jeder Trichter auf jeden. Willa legt die Hand auf das Geländer: „Nicht lauter werden. Wir müssen die Antworten auseinanderhalten.“",
+        "choices": [
+          {
+            "text": "An der Horchstelle arbeiten.",
+            "next": "k3a_52_horchen",
+            "hide_if_flags": [
+              "k3a_52_passage"
+            ]
+          },
+          {
+            "text": "Verteilerzeichnung untersuchen.",
+            "next": "k3a_52_s1"
+          },
+          {
+            "text": "Trennzeichen untersuchen.",
+            "next": "k3a_52_s2"
+          },
+          {
+            "text": "Einzeltest untersuchen.",
+            "next": "k3a_52_s3",
+            "requires_flags": [
+              "k3a_52_passage"
+            ]
+          },
+          {
+            "text": "Rest in der Tiefe untersuchen.",
+            "next": "k3a_52_s4",
+            "requires_flags": [
+              "k3a_52_passage"
+            ]
+          },
+          {
+            "text": "Was wäre die andere Erklärung?",
+            "next": "k3a_52_gegenprobe"
+          },
+          {
+            "text": "Die beiden Fakten verbinden.",
+            "next": "k3a_52_schluss",
+            "requires_conclusions": [
+              "k3a_52_d"
+            ]
+          },
+          {
+            "text": "Ich sehe mich weiter um."
+          }
+        ]
+      },
+      "k3a_52_gegenprobe": {
+        "text": "„Es ist noch da“, sagst du. Willa nickt. „Aber es antwortet nicht mehr durch sechs fremde Münder auf eine Frage.“",
+        "choices": [
+          {
+            "text": "Zurück zu den Belegen.",
+            "next": "k3a_52_start"
+          }
+        ]
+      },
+      "k3a_52_schluss": {
+        "text": "Der Rundruf lässt sich lokal begrenzen, ohne den Hunger unter allen Städten zu vernichten.\n\nDu verriegelst die getrennten Rückwege. Jeder Halt lässt sich nun einzeln bestätigen, ohne die Stadt mitzunehmen.",
+        "choices": [
+          {
+            "text": "Den Befund festhalten.",
+            "next": "k3a_52_festhalten"
+          }
+        ]
+      },
+      "k3a_52_festhalten": {
+        "text": "Du verriegelst die getrennten Rückwege. Jeder Halt lässt sich nun einzeln bestätigen, ohne die Stadt mitzunehmen.",
+        "choices": [
+          {
+            "text": "Zur Untersuchung zurück.",
+            "next": "k3a_52_start"
+          }
+        ],
+        "sets_flags": [
+          "k3a_52_geschlossen"
+        ]
+      },
+      "k3a_52_horchen": {
+        "text": "Vor dir zeigt eine Tafel Richtung und sichere Nische. Alle Zeichen werden als Form und Text angezeigt; bloßes Horchen kostet nichts. Du kannst jederzeit über den Fußweg zurück.",
+        "choices": [
+          {
+            "text": "Ruf und Antwort trennen: Zwei Bögen mit breiter Lücke",
+            "next": "k3a_52_horchen_richtig",
+            "requires_clues": [
+              "k3a_52_c2"
+            ]
+          },
+          {
+            "text": "Rundruf versuchen.",
+            "next": "k3a_52_horchen_falsch",
+            "requires_clues": [
+              "k3a_44_c3"
+            ]
+          },
+          {
+            "text": "Den Kampf beginnen.",
+            "next": "k3a_52_horchen_kampf"
+          },
+          {
+            "text": "Schweigen und in die Nische zurücktreten."
+          }
+        ]
+      },
+      "k3a_52_horchen_richtig": {
+        "text": "Du schließt den Eingang und öffnest sechs Rückwege einzeln. Der Vielrufer verliert seine gemeinsame Antwort, die Leitungen bleiben getrennt.",
+        "choices": [
+          {
+            "text": "Die freigelegte Quelle untersuchen.",
+            "next": "k3a_52_start"
+          }
+        ],
+        "sets_flags": [
+          "k3a_52_passage",
+          "k3a_vielrufer_friedlich"
+        ]
+      },
+      "k3a_52_horchen_falsch": {
+        "text": "Die Antwort läuft zur falschen Haltestelle. Du erkennst den Irrtum an den unpassenden Linien und kehrst in die markierte Nische zurück. Dein Journal und der sichere Fußweg bleiben erhalten.",
+        "choices": [
+          {
+            "text": "Noch einmal vergleichen.",
+            "next": "k3a_52_horchen"
+          },
+          {
+            "text": "Zu Pfiff zurück."
+          }
+        ]
+      },
+      "k3a_52_horchen_kampf": {
+        "text": "Du gibst keine private Namensantwort. Der Weg zur sicheren Nische bleibt für einen Rückzug offen.",
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ],
+        "encounter": "vielrufer"
+      },
+      "k3a_52_horchen_sieg": {
+        "text": "Nach dem Kampf wird der Zugang frei. Du schließt den Eingang und öffnest sechs Rückwege einzeln. Der Vielrufer verliert seine gemeinsame Antwort, die Leitungen bleiben getrennt.",
+        "choices": [
+          {
+            "text": "Die Quelle untersuchen.",
+            "next": "k3a_52_start"
+          }
+        ],
+        "sets_flags": [
+          "k3a_52_passage"
+        ]
+      }
+    }
+  },
+  "k3a_53_dialog": {
+    "start": [
+      {
+        "node": "k3a_gallowmere_sieg",
+        "requires_flags": [
+          "won_gallowmere"
+        ],
+        "hide_if_flags": [
+          "k3a_53_geschlossen"
+        ]
+      },
+      {
+        "node": "k3a_53_start"
+      }
+    ],
+    "nodes": {
+      "k3a_53_s1": {
+        "text": "Eine Randmeldung nennt Risse im Bruch vor der letzten Einfahrt. Gallowmere bestätigte den Empfang mit seiner Dienstnummer.\n\nDu hältst Herkunft und Beobachtung getrennt in deinem Notizbuch fest.",
+        "choices": [
+          {
+            "text": "Zur Untersuchung zurück.",
+            "next": "k3a_53_start"
+          }
+        ],
+        "gives_clues": [
+          "k3a_53_c1"
+        ]
+      },
+      "k3a_53_s2": {
+        "text": "Unter der Warnung steht sein Befehl: Weiterfahren bis zur Ablösung. Er ging der Verschlussentscheidung der Leitung voraus.\n\nDu hältst Herkunft und Beobachtung getrennt in deinem Notizbuch fest.",
+        "choices": [
+          {
+            "text": "Zur Untersuchung zurück.",
+            "next": "k3a_53_start"
+          }
+        ],
+        "gives_clues": [
+          "k3a_53_c2"
+        ]
+      },
+      "k3a_53_s3": {
+        "text": "Die Rückmeldeliste führt Gallowmere nach dem Einsturz noch bei der eingeschlossenen Schicht. Eine Fluchtmeldung fehlt nicht bloß: der Rettungsruf nennt ihn dort.\n\nDu hältst Herkunft und Beobachtung getrennt in deinem Notizbuch fest.",
+        "choices": [
+          {
+            "text": "Zur Untersuchung zurück.",
+            "next": "k3a_53_start"
+          }
+        ],
+        "gives_clues": [
+          "k3a_53_c3"
+        ]
+      },
+      "k3a_53_s4": {
+        "text": "Der gesicherte Verschlussbefehl stammt von der Leitung und ist später datiert. Er löscht Gallowmeres frühere Entscheidung nicht aus.\n\nDu hältst Herkunft und Beobachtung getrennt in deinem Notizbuch fest.",
+        "choices": [
+          {
+            "text": "Zur Untersuchung zurück.",
+            "next": "k3a_53_start"
+          }
+        ],
+        "gives_clues": [
+          "k3a_53_c4"
+        ]
+      },
+      "k3a_53_start": {
+        "text": "Gallowmere legt seine Schichtanweisung neben deinen Verschlussbefehl. „Ich bin bei ihnen geblieben“, sagt er. Das Papier widerspricht ihm nicht in allem.",
+        "choices": [
+          {
+            "text": "Erste Warnung untersuchen.",
+            "next": "k3a_53_s1"
+          },
+          {
+            "text": "Schichtanweisung untersuchen.",
+            "next": "k3a_53_s2"
+          },
+          {
+            "text": "Letzte Anwesenheit untersuchen.",
+            "next": "k3a_53_s3"
+          },
+          {
+            "text": "Zweiter Befehl untersuchen.",
+            "next": "k3a_53_s4"
+          },
+          {
+            "text": "Was wäre die andere Erklärung?",
+            "next": "k3a_53_gegenprobe"
+          },
+          {
+            "text": "Die beiden Fakten verbinden.",
+            "next": "k3a_53_schluss",
+            "requires_conclusions": [
+              "k3a_53_d"
+            ]
+          },
+          {
+            "text": "Ich sehe mich weiter um."
+          }
+        ]
+      },
+      "k3a_53_gegenprobe": {
+        "text": "„Wenn ich sie verlasse, verschwinden sie ein zweites Mal“, sagt er. Du legst die Familienberichte hin: „Erinnerung braucht keine neue Gefangenschaft.“",
+        "choices": [
+          {
+            "text": "Zurück zu den Belegen.",
+            "next": "k3a_53_start"
+          }
+        ]
+      },
+      "k3a_53_schluss": {
+        "text": "Schuld, Solidarität und Vertuschung sind verschieden; sein Bleiben gibt Gallowmere kein Recht auf neue Opfer.\n\nDu verweigerst sowohl Freispruch als auch eine bequeme Alleinschuld. Der Fahrmeister muss seine Anweisung neben dem Befehl der Leitung stehenlassen.",
+        "choices": [
+          {
+            "text": "Mit dem Ausfahrtssignal die neuen Opfer verweigern.",
+            "next": "k3a_gallowmere_konfrontation",
+            "requires_clues": [
+              "k3a_33_c3"
+            ]
+          },
+          {
+            "text": "Gallowmeres Zugriff im Kampf brechen.",
+            "next": "k3a_gallowmere_kampf"
+          },
+          {
+            "text": "Noch nicht entscheiden."
+          }
+        ]
+      },
+      "k3a_gallowmere_konfrontation": {
+        "text": "Du gibst das alte Ausfahrtssignal und legst seine Anweisung daneben. „Du bist geblieben. Du hast sie auch weitergeschickt. Niemand muss deinen Platz einnehmen.“ Gallowmere senkt die Liste und lässt dich zur letzten Kontrolle gehen.",
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ],
+        "sets_flags": [
+          "k3a_gallowmere_friedlich",
+          "k3a_53_geschlossen"
+        ]
+      },
+      "k3a_gallowmere_kampf": {
+        "text": "Gallowmere hebt den Entwerter wie einen Befehl. Du kämpfst um den Zugang zum letzten Wagen, nicht um das Recht, seine Gefangenen zu übernehmen.",
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ],
+        "encounter": "gallowmere"
+      },
+      "k3a_gallowmere_sieg": {
+        "text": "Der Entwerter fällt auf den Bahnsteig. Gallowmeres Stimme bleibt an der Schwelle zurück, doch sie kann dir den Weg nicht mehr versperren.",
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ],
+        "sets_flags": [
+          "k3a_53_geschlossen"
+        ]
+      }
+    }
+  },
+  "k3a_54_dialog": {
+    "start": "k3a_54_start",
+    "nodes": {
+      "k3a_54_s1": {
+        "text": "Du prüfst Wagenende, Wartungstreppe und Bahnsteigtor. Alle führen zu sicheren Fußwegen und brauchen keine Namensantwort.\n\nDu hältst Herkunft und Beobachtung getrennt in deinem Notizbuch fest.",
+        "choices": [
+          {
+            "text": "Zur Untersuchung zurück.",
+            "next": "k3a_54_start"
+          }
+        ],
+        "gives_clues": [
+          "k3a_54_c1"
+        ]
+      },
+      "k3a_54_s2": {
+        "text": "Die Liste der Lebenden wird mit Huxfords Anwesenheitsbogen verglichen. Für jede Person steht ein erreichbarer Ausgang bereit.\n\nDu hältst Herkunft und Beobachtung getrennt in deinem Notizbuch fest.",
+        "choices": [
+          {
+            "text": "Zur Untersuchung zurück.",
+            "next": "k3a_54_start"
+          }
+        ],
+        "gives_clues": [
+          "k3a_54_c2"
+        ]
+      },
+      "k3a_54_s3": {
+        "text": "Nach der geführten Evakuierung bestätigt Huxford jede Person außerhalb der Strecke. Die Kontrolle zählt Menschen, keine nachgesprochenen Dienstformeln.\n\nDu hältst Herkunft und Beobachtung getrennt in deinem Notizbuch fest.",
+        "choices": [
+          {
+            "text": "Zur Untersuchung zurück.",
+            "next": "k3a_54_start"
+          }
+        ],
+        "gives_clues": [
+          "k3a_54_c3"
+        ]
+      },
+      "k3a_54_s4": {
+        "text": "Du gehst mit Oren noch einmal durch die leeren Wagen. Unter den Bänken liegt Gepäck, kein zurückgelassener Mensch.\n\nDu hältst Herkunft und Beobachtung getrennt in deinem Notizbuch fest.",
+        "choices": [
+          {
+            "text": "Zur Untersuchung zurück.",
+            "next": "k3a_54_start"
+          }
+        ],
+        "gives_clues": [
+          "k3a_54_c4"
+        ]
+      },
+      "k3a_54_start": {
+        "text": "Oren hält die Wagentür offen. „Bremsen kann ich reparieren. Ob jemand aussteigen darf, soll diesmal nicht an mir hängen.“",
+        "choices": [
+          {
+            "text": "Die sichtbare Rufprobe durchführen.",
+            "next": "k3a_54_probe"
+          },
+          {
+            "text": "Offene Ausgänge untersuchen.",
+            "next": "k3a_54_s1"
+          },
+          {
+            "text": "Passagierabgleich untersuchen.",
+            "next": "k3a_54_s2"
+          },
+          {
+            "text": "Rückmeldungen draußen untersuchen.",
+            "next": "k3a_54_s3",
+            "requires_flags": [
+              "k3a_54_passage"
+            ]
+          },
+          {
+            "text": "Letzter Rundgang untersuchen.",
+            "next": "k3a_54_s4",
+            "requires_flags": [
+              "k3a_54_passage"
+            ]
+          },
+          {
+            "text": "Was wäre die andere Erklärung?",
+            "next": "k3a_54_gegenprobe"
+          },
+          {
+            "text": "Die beiden Fakten verbinden.",
+            "next": "k3a_54_schluss",
+            "requires_conclusions": [
+              "k3a_54_d"
+            ]
+          },
+          {
+            "text": "Ich sehe mich weiter um."
+          }
+        ]
+      },
+      "k3a_54_gegenprobe": {
+        "text": "„Reicht ein leeres Namensfeld?“ Oren rüttelt an jeder Tür. „Nein. Wir sehen nach. Papier hat hier genug allein entschieden.“",
+        "choices": [
+          {
+            "text": "Zurück zu den Belegen.",
+            "next": "k3a_54_start"
+          }
+        ]
+      },
+      "k3a_54_schluss": {
+        "text": "Die lebenden Schichtgänger sind vor dem Schlussruf heraus; das Urteil darf keine Menschen in der Strecke einschließen.\n\nDu versiegelst den Abgleich und gehst zum letzten Bahnsteig. Jetzt lässt sich über den Ruf entscheiden, ohne eine offene Wagentür mit einer geretteten Person zu verwechseln.",
+        "choices": [
+          {
+            "text": "Den Befund festhalten.",
+            "next": "k3a_54_festhalten"
+          }
+        ]
+      },
+      "k3a_54_festhalten": {
+        "text": "Du versiegelst den Abgleich und gehst zum letzten Bahnsteig. Jetzt lässt sich über den Ruf entscheiden, ohne eine offene Wagentür mit einer geretteten Person zu verwechseln.",
+        "choices": [
+          {
+            "text": "Zur Untersuchung zurück.",
+            "next": "k3a_54_start"
+          }
+        ],
+        "sets_flags": [
+          "k3a_54_geschlossen"
+        ]
+      },
+      "k3a_54_probe": {
+        "text": "Die Prüfleitung bleibt vom Hauptsignal getrennt. Du siehst Form, Richtung und erwartete Antwort auf der Tafel; ein falscher Test bindet hier keinen Menschen.",
+        "choices": [
+          {
+            "text": "Sicherer Halt",
+            "next": "k3a_54_probe_gut",
+            "requires_clues": [
+              "k3a_54_c1",
+              "k3a_54_c2"
+            ]
+          },
+          {
+            "text": "Rundruf",
+            "next": "k3a_54_probe_schlecht",
+            "requires_clues": [
+              "k3a_44_c3"
+            ]
+          },
+          {
+            "text": "Nur zuhören und gehen."
+          }
+        ]
+      },
+      "k3a_54_probe_gut": {
+        "text": "Das Haltesignal hält die Türen offen. Die Menschen gehen einzeln hinaus; ein Rundruf würde sie wieder in Dienst nehmen. Huxford prüft jede Person gegen den Anwesenheitsbogen, dann gehst du mit Oren durch sämtliche Wagen. Erst nach diesem Abgleich bestätigst du, dass niemand zurückbleibt.",
+        "choices": [
+          {
+            "text": "Zur Untersuchung.",
+            "next": "k3a_54_start"
+          }
+        ],
+        "sets_flags": [
+          "k3a_54_passage",
+          "k3a_lebende_draussen"
+        ]
+      },
+      "k3a_54_probe_schlecht": {
+        "text": "Am Prüfzeiger erscheint die falsche Richtung. Du lässt den getrennten Anschluss wieder los; es geht kein bestätigter Hauptaufruf hinaus.",
+        "choices": [
+          {
+            "text": "Erneut vergleichen.",
+            "next": "k3a_54_probe"
+          }
+        ]
+      }
+    }
+  },
+  "k3a_urteil": {
+    "start": "k3a_urteil_start",
+    "nodes": {
+      "k3a_urteil_start": {
+        "text": "Vor dir liegen vier Folgen, keine davon lässt sich als Versuch zurücknehmen. Du kannst den Bahnsteig noch verlassen, um Zustimmung oder Belege nachzuholen.",
+        "choices": [
+          {
+            "text": "Feierabend für die Toten",
+            "next": "k3a_urteil_feierabend",
+            "requires_flags": [
+              "k3a_bilanz5",
+              "k3a_lebende_draussen",
+              "k3a_familien_zustimmung"
+            ],
+            "requires_conclusions": [
+              "k3a_41_d",
+              "k3a_53_d",
+              "k3a_52_d"
+            ],
+            "hide_if_flags": [
+              "kapitel3_done"
+            ]
+          },
+          {
+            "text": "Stilllegung",
+            "next": "k3a_urteil_stilllegung",
+            "requires_flags": [
+              "k3a_lebende_draussen",
+              "k3a_akt4_done"
+            ],
+            "requires_conclusions": [
+              "k3a_44_d"
+            ],
+            "hide_if_flags": [
+              "kapitel3_done"
+            ]
+          },
+          {
+            "text": "Eine freiwillige Gegenstimme",
+            "next": "k3a_urteil_gegenstimme",
+            "requires_flags": [
+              "k3a_lebende_draussen",
+              "k3a_anker_einwilligung",
+              "k3a_akt4_done"
+            ],
+            "requires_conclusions": [
+              "k3a_43_d",
+              "k3a_52_d"
+            ],
+            "hide_if_flags": [
+              "kapitel3_done"
+            ]
+          },
+          {
+            "text": "Die Schicht ist vollzählig",
+            "next": "k3a_urteil_vollzaehlig",
+            "requires_flags": [
+              "k3a_akt4_done"
+            ],
+            "requires_conclusions": [
+              "k3a_44_d"
+            ],
+            "hide_if_flags": [
+              "kapitel3_done"
+            ]
+          },
+          {
+            "text": "Noch nicht entscheiden."
+          }
+        ]
+      },
+      "k3a_urteil_feierabend": {
+        "text": "Sechs getrennte Erinnerungen erreichen den letzten Bahnsteig. Gallowmere sucht nach einer gemeinsamen Dienstformel und findet keine. Du erklärst die Schicht öffentlich für beendet, ohne die Toten zurückzuholen. Der Zug bleibt als stilles Fahrzeug stehen, und die örtliche Öffnung verliert ihre Zufuhr.\n\nDies ist die endgültige Konsequenz deiner Wahl.",
+        "choices": [
+          {
+            "text": "Dieses Ende endgültig bestätigen.",
+            "next": "k3a_urteil_feierabend_ja",
+            "requires_flags": [
+              "k3a_bilanz5",
+              "k3a_lebende_draussen",
+              "k3a_familien_zustimmung"
+            ],
+            "requires_conclusions": [
+              "k3a_41_d",
+              "k3a_53_d",
+              "k3a_52_d"
+            ],
+            "hide_if_flags": [
+              "kapitel3_done"
+            ]
+          },
+          {
+            "text": "Zurück zur Entscheidung.",
+            "next": "k3a_urteil_start"
+          }
+        ]
+      },
+      "k3a_urteil_feierabend_ja": {
+        "text": "Sechs getrennte Erinnerungen erreichen den letzten Bahnsteig. Gallowmere sucht nach einer gemeinsamen Dienstformel und findet keine. Du erklärst die Schicht öffentlich für beendet, ohne die Toten zurückzuholen. Der Zug bleibt als stilles Fahrzeug stehen, und die örtliche Öffnung verliert ihre Zufuhr.",
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ],
+        "ending": "k3_feierabend"
+      },
+      "k3a_urteil_stilllegung": {
+        "text": "Du trennst die Hauptleitung endgültig und zerstörst die Rufbrücke. Stimmen verstummen, auch noch ungeprüfte Aufnahmen gehen verloren. Dunscar wird sicherer und ärmer an Erinnerung. Pfiff hilft beim letzten Kohlenfeuer, ohne zu behaupten, seine Mutter sei heute ein zweites Mal gestorben.\n\nDies ist die endgültige Konsequenz deiner Wahl.",
+        "choices": [
+          {
+            "text": "Dieses Ende endgültig bestätigen.",
+            "next": "k3a_urteil_stilllegung_ja",
+            "requires_flags": [
+              "k3a_lebende_draussen",
+              "k3a_akt4_done"
+            ],
+            "requires_conclusions": [
+              "k3a_44_d"
+            ],
+            "hide_if_flags": [
+              "kapitel3_done"
+            ]
+          },
+          {
+            "text": "Zurück zur Entscheidung.",
+            "next": "k3a_urteil_start"
+          }
+        ]
+      },
+      "k3a_urteil_stilllegung_ja": {
+        "text": "Du trennst die Hauptleitung endgültig und zerstörst die Rufbrücke. Stimmen verstummen, auch noch ungeprüfte Aufnahmen gehen verloren. Dunscar wird sicherer und ärmer an Erinnerung. Pfiff hilft beim letzten Kohlenfeuer, ohne zu behaupten, seine Mutter sei heute ein zweites Mal gestorben.",
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ],
+        "ending": "k3_stilllegung"
+      },
+      "k3a_urteil_gegenstimme": {
+        "text": "Du setzt deinen Namen bewusst als begrenzten örtlichen Anker ein. Der personenfreie Ruf trägt deine eigene Antwort, keine entnommene Stimme. Du darfst abreisen; jeder neue Betrieb verlangt deine Rückkehr und Zustimmung. Pfiff behält den Abschaltschlüssel, dein Namenstäfelchen bleibt unversehrt.\n\nDies ist die endgültige Konsequenz deiner Wahl.",
+        "choices": [
+          {
+            "text": "Dieses Ende endgültig bestätigen.",
+            "next": "k3a_urteil_gegenstimme_ja",
+            "requires_flags": [
+              "k3a_lebende_draussen",
+              "k3a_anker_einwilligung",
+              "k3a_akt4_done"
+            ],
+            "requires_conclusions": [
+              "k3a_43_d",
+              "k3a_52_d"
+            ],
+            "hide_if_flags": [
+              "kapitel3_done"
+            ]
+          },
+          {
+            "text": "Zurück zur Entscheidung.",
+            "next": "k3a_urteil_start"
+          }
+        ]
+      },
+      "k3a_urteil_gegenstimme_ja": {
+        "text": "Du setzt deinen Namen bewusst als begrenzten örtlichen Anker ein. Der personenfreie Ruf trägt deine eigene Antwort, keine entnommene Stimme. Du darfst abreisen; jeder neue Betrieb verlangt deine Rückkehr und Zustimmung. Pfiff behält den Abschaltschlüssel, dein Namenstäfelchen bleibt unversehrt.",
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ],
+        "ending": "k3_gegenstimme"
+      },
+      "k3a_urteil_vollzaehlig": {
+        "text": "Du bestätigst Gallowmeres Rundruf trotz der Warnung. Die sechs getrennten Wege werden für deinen Befehl wieder zusammengeschaltet. Einwohner verlassen ihre Häuser zur Arbeit, auch zuvor Herausgeholte bleiben von deinem neuen Befehl nicht ausgenommen. Deine Karte trägt „Aufsicht“. Am Morgen hat die Schlucht sechs neue Eingänge.\n\nDies ist die endgültige Konsequenz deiner Wahl.",
+        "choices": [
+          {
+            "text": "Dieses Ende endgültig bestätigen.",
+            "next": "k3a_urteil_vollzaehlig_ja",
+            "requires_flags": [
+              "k3a_akt4_done"
+            ],
+            "requires_conclusions": [
+              "k3a_44_d"
+            ],
+            "hide_if_flags": [
+              "kapitel3_done"
+            ]
+          },
+          {
+            "text": "Zurück zur Entscheidung.",
+            "next": "k3a_urteil_start"
+          }
+        ]
+      },
+      "k3a_urteil_vollzaehlig_ja": {
+        "text": "Du bestätigst Gallowmeres Rundruf trotz der Warnung. Die sechs getrennten Wege werden für deinen Befehl wieder zusammengeschaltet. Einwohner verlassen ihre Häuser zur Arbeit, auch zuvor Herausgeholte bleiben von deinem neuen Befehl nicht ausgenommen. Deine Karte trägt „Aufsicht“. Am Morgen hat die Schlucht sechs neue Eingänge.",
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ],
+        "ending": "k3_vollzaehlig"
+      }
+    }
+  },
+  "k3a_anreise_rein": {
+    "start": "k3a_anreise_rein_lesen",
+    "nodes": {
+      "k3a_anreise_rein_lesen": {
+        "text": "Marlowe schickt eine Abschrift: Ein stillgelegter Zug wiederholt Namen aus ihren Transportuntersuchungen. Sie bittet dich, Quelle und Bedeutung in Dunscar zu prüfen. Weder Starling noch das Ratsbuch werden als Beweis vorausgesetzt.",
+        "choices": [
+          {
+            "text": "Nach Dunscar reisen.",
+            "next": "k3a_anreise_rein_fahrt",
+            "requires_flags": [
+              "kapitel2_done",
+              "k2_end_rein"
+            ],
+            "hide_if_flags": [
+              "k3_arrived"
+            ]
+          },
+          {
+            "text": "Noch hierbleiben."
+          }
+        ]
+      },
+      "k3a_anreise_rein_fahrt": {
+        "text": "Du nimmst die reguläre Verbindung ins Landesinnere. Das alte Billett bleibt ein Beweisstück und wird nicht als Zustimmung zum Nachtzug entwertet.",
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ],
+        "sets_flags": [
+          "k3a_anreise_rein"
+        ],
+        "travel": {
+          "map": "ds_endbahnhof",
+          "spawn": "zug"
+        }
+      }
+    }
+  },
+  "k3a_anreise_moor": {
+    "start": "k3a_anreise_moor_lesen",
+    "nodes": {
+      "k3a_anreise_moor_lesen": {
+        "text": "Ein Wexmoorer Bahnarbeiter hörte in einem leeren Wagen eine Schichtpfeife. Das Lieferschild führt zur alten Kalkbahn in Dunscar. Ob der Ruf schon vor dem Erlöschen des Turms bestand, bleibt offen; niemand hat eine Ursache bewiesen.",
+        "choices": [
+          {
+            "text": "Nach Dunscar reisen.",
+            "next": "k3a_anreise_moor_fahrt",
+            "requires_flags": [
+              "kapitel2_done",
+              "k2_end_moor"
+            ],
+            "hide_if_flags": [
+              "k3_arrived"
+            ]
+          },
+          {
+            "text": "Noch hierbleiben."
+          }
+        ]
+      },
+      "k3a_anreise_moor_fahrt": {
+        "text": "Du nimmst die reguläre Verbindung ins Landesinnere. Das alte Billett bleibt ein Beweisstück und wird nicht als Zustimmung zum Nachtzug entwertet.",
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ],
+        "sets_flags": [
+          "k3a_anreise_moor"
+        ],
+        "travel": {
+          "map": "ds_endbahnhof",
+          "spawn": "zug"
+        }
+      }
+    }
+  },
+  "k3a_anreise_lichtmeister": {
+    "start": "k3a_anreise_lichtmeister_lesen",
+    "nodes": {
+      "k3a_anreise_lichtmeister_lesen": {
+        "text": "Auf deinem Schreibtisch liegt eine alte Fahrkarte mit deiner Amtsbezeichnung. Der Fahrmeister bietet an, die offenen Namen selbst abzuholen. Du reist hin, um das Angebot zu prüfen oder zurückzuweisen. Zunder verweigert dir jede Empfehlung, Menschen verschwinden weiterhin unter deiner Amtsführung.",
+        "choices": [
+          {
+            "text": "Nach Dunscar reisen.",
+            "next": "k3a_anreise_lichtmeister_fahrt",
+            "requires_flags": [
+              "kapitel2_done",
+              "k2_end_lichtmeister"
+            ],
+            "hide_if_flags": [
+              "k3_arrived"
+            ]
+          },
+          {
+            "text": "Noch hierbleiben."
+          }
+        ]
+      },
+      "k3a_anreise_lichtmeister_fahrt": {
+        "text": "Du nimmst die reguläre Verbindung ins Landesinnere. Das alte Billett bleibt ein Beweisstück und wird nicht als Zustimmung zum Nachtzug entwertet.",
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ],
+        "sets_flags": [
+          "k3a_anreise_lichtmeister"
+        ],
+        "travel": {
+          "map": "ds_endbahnhof",
+          "spawn": "zug"
+        }
+      }
+    }
+  },
+  "k3a_anreise_meer": {
+    "start": "k3a_anreise_meer_lesen",
+    "nodes": {
+      "k3a_anreise_meer_lesen": {
+        "text": "Beim Umladen hört Kit eine Schichtpfeife aus einer Kohlenkiste. Ein Fahrplan verspricht eine Passage für Menschen ohne sicheren Namen und führt nach Dunscar. Kit und Zunder bleiben beim Kahn. Brandt bleibt in Wexmoor im Amt; eure Flucht war kein Sieg über sie.",
+        "choices": [
+          {
+            "text": "Nach Dunscar reisen.",
+            "next": "k3a_anreise_meer_fahrt",
+            "requires_flags": [
+              "kapitel2_done",
+              "k2_end_meer"
+            ],
+            "hide_if_flags": [
+              "k3_arrived"
+            ]
+          },
+          {
+            "text": "Noch hierbleiben."
+          }
+        ]
+      },
+      "k3a_anreise_meer_fahrt": {
+        "text": "Du nimmst die reguläre Verbindung ins Landesinnere. Das alte Billett bleibt ein Beweisstück und wird nicht als Zustimmung zum Nachtzug entwertet.",
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ],
+        "sets_flags": [
+          "k3a_anreise_meer"
+        ],
+        "travel": {
+          "map": "ds_endbahnhof",
+          "spawn": "zug"
+        }
+      }
+    }
+  }
+}

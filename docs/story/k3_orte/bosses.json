@@ -1,0 +1,297 @@
+{
+  "schwellenhund": {
+    "name": "Schwellenhund",
+    "sprite": "wild",
+    "sheet": "enemy_glockenmutter",
+    "boss": true,
+    "fleeable": true,
+    "hp": 210,
+    "occult": false,
+    "armor": 3,
+    "intro": "Schwellenhund hält den Weg. Du erkennst den angekündigten Angriff an Bewegung, Text und Ring.",
+    "attacks": [
+      {
+        "name": "Suchlichtbogen",
+        "damage": 10,
+        "hits": [
+          1400,
+          2100
+        ]
+      },
+      {
+        "name": "Schwellensprung …",
+        "damage": 12,
+        "hits": [
+          2400
+        ]
+      }
+    ],
+    "weak_if": {
+      "requires_flags": [
+        "k3o_falscher_pfiff"
+      ]
+    },
+    "on_win": {
+      "sets_flags": [
+        "k3o_schwellenhund_geloest"
+      ]
+    },
+    "win_text": "Der Aufruf bricht ab. Die Klärung der Geschichte und die Entscheidung über die Anlage bleiben bei dir.",
+    "lose_to": {
+      "map": "ds_speisewagen",
+      "spawn": "default"
+    },
+    "lose_text": "Pfiff holt dich zurück. Die Schicht ist nicht weitergerückt.",
+    "loot": {
+      "money": [
+        40,
+        60
+      ],
+      "drops": [
+        {
+          "item": "k3o_schraubenzahn",
+          "chance": 1
+        }
+      ]
+    },
+    "roam": {
+      "speed": 0,
+      "chase": 45,
+      "aggro": 65
+    }
+  },
+  "vorhauer": {
+    "name": "Vorhauer",
+    "sprite": "wild",
+    "sheet": "enemy_glockenmutter",
+    "boss": true,
+    "fleeable": true,
+    "hp": 410,
+    "occult": false,
+    "armor": 3,
+    "intro": "Vorhauer hält den Weg. Du erkennst den angekündigten Angriff an Bewegung, Text und Ring.",
+    "attacks": [
+      {
+        "name": "Werkzeugspur",
+        "damage": 15,
+        "hits": [
+          1400,
+          2100
+        ]
+      },
+      {
+        "name": "Hammerschluss …",
+        "damage": 17,
+        "hits": [
+          2400
+        ]
+      }
+    ],
+    "weak_if": {
+      "requires_flags": [
+        "k3o_originalfolge"
+      ]
+    },
+    "on_win": {
+      "sets_flags": [
+        "k3o_vorhauer_geloest"
+      ]
+    },
+    "win_text": "Der Aufruf bricht ab. Die Klärung der Geschichte und die Entscheidung über die Anlage bleiben bei dir.",
+    "lose_to": {
+      "map": "ds_speisewagen",
+      "spawn": "default"
+    },
+    "lose_text": "Pfiff holt dich zurück. Die Schicht ist nicht weitergerückt.",
+    "loot": {
+      "money": [
+        40,
+        60
+      ],
+      "drops": [
+        {
+          "item": "k3o_schlagkern",
+          "chance": 1
+        }
+      ]
+    },
+    "roam": {
+      "speed": 0,
+      "chase": 45,
+      "aggro": 65
+    }
+  },
+  "vielrufer": {
+    "name": "Vielrufer",
+    "sprite": "wild",
+    "sheet": "enemy_glockenmutter",
+    "boss": true,
+    "fleeable": true,
+    "hp": 550,
+    "occult": true,
+    "armor": 3,
+    "intro": "Vielrufer hält den Weg. Du erkennst den angekündigten Angriff an Bewegung, Text und Ring.",
+    "attacks": [
+      {
+        "name": "Antwortfächer",
+        "damage": 17,
+        "hits": [
+          1400,
+          2100
+        ]
+      },
+      {
+        "name": "Rundruf …",
+        "damage": 19,
+        "hits": [
+          2400
+        ]
+      }
+    ],
+    "weak_if": {
+      "requires_flags": [
+        "k3o_leitungen_getrennt"
+      ]
+    },
+    "on_win": {
+      "sets_flags": [
+        "k3o_vielrufer_geloest"
+      ]
+    },
+    "win_text": "Der Aufruf bricht ab. Die Klärung der Geschichte und die Entscheidung über die Anlage bleiben bei dir.",
+    "lose_to": {
+      "map": "ds_speisewagen",
+      "spawn": "default"
+    },
+    "lose_text": "Pfiff holt dich zurück. Die Schicht ist nicht weitergerückt.",
+    "loot": {
+      "money": [
+        40,
+        60
+      ],
+      "drops": [
+        {
+          "item": "k3o_trichterglas",
+          "chance": 1
+        }
+      ]
+    },
+    "roam": {
+      "speed": 0,
+      "chase": 45,
+      "aggro": 65
+    }
+  },
+  "gallowmere": {
+    "name": "Perrin Gallowmere",
+    "sprite": "wild",
+    "sheet": "enemy_glockenmutter",
+    "boss": true,
+    "fleeable": true,
+    "hp": 220,
+    "occult": true,
+    "armor": 3,
+    "intro": "Perrin Gallowmere hält den Weg. Du erkennst den angekündigten Angriff an Bewegung, Text und Ring.",
+    "attacks": [
+      {
+        "name": "Fahrkartenprüfung",
+        "damage": 16,
+        "hits": [
+          1400,
+          2100
+        ]
+      },
+      {
+        "name": "Letzter Aufruf …",
+        "damage": 18,
+        "hits": [
+          2400
+        ]
+      }
+    ],
+    "weak_if": {
+      "requires_flags": [
+        "k3o_rolle_getrennt"
+      ]
+    },
+    "on_win": {
+      "sets_flags": [
+        "k3o_gallowmere_phase1_done"
+      ]
+    },
+    "win_text": "Der Aufruf bricht ab. Die Klärung der Geschichte und die Entscheidung über die Anlage bleiben bei dir.",
+    "lose_to": {
+      "map": "ds_speisewagen",
+      "spawn": "default"
+    },
+    "lose_text": "Pfiff holt dich zurück. Die Schicht ist nicht weitergerückt.",
+    "loot": {
+      "money": [
+        0,
+        0
+      ],
+      "drops": []
+    },
+    "roam": {
+      "speed": 0,
+      "chase": 45,
+      "aggro": 65
+    }
+  },
+  "unterschicht": {
+    "name": "Die Unterschicht",
+    "sprite": "wild",
+    "sheet": "enemy_glockenmutter",
+    "boss": true,
+    "fleeable": true,
+    "hp": 260,
+    "occult": true,
+    "armor": 3,
+    "intro": "Die Unterschicht hält den Weg. Du erkennst den angekündigten Angriff an Bewegung, Text und Ring.",
+    "attacks": [
+      {
+        "name": "Namenlücke",
+        "damage": 21,
+        "hits": [
+          1400,
+          2100
+        ]
+      },
+      {
+        "name": "Tiefenruf …",
+        "damage": 23,
+        "hits": [
+          2400
+        ]
+      }
+    ],
+    "weak_if": {
+      "requires_flags": [
+        "k3o_luecken_begrenzt"
+      ]
+    },
+    "on_win": {
+      "sets_flags": [
+        "k3o_unterschicht_phase1_done"
+      ]
+    },
+    "win_text": "Der Aufruf bricht ab. Die Klärung der Geschichte und die Entscheidung über die Anlage bleiben bei dir.",
+    "lose_to": {
+      "map": "ds_speisewagen",
+      "spawn": "default"
+    },
+    "lose_text": "Pfiff holt dich zurück. Die Schicht ist nicht weitergerückt.",
+    "loot": {
+      "money": [
+        0,
+        0
+      ],
+      "drops": []
+    },
+    "roam": {
+      "speed": 0,
+      "chase": 45,
+      "aggro": 65
+    }
+  }
+}

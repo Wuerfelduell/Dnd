@@ -1,0 +1,370 @@
+{
+  "k3o_schwellenhund_station": {
+    "start": "k3o_start",
+    "nodes": {
+      "k3o_start": {
+        "text": "Du stehst an der markierten Arbeitsstelle. Prüfe zuerst die örtliche Tafel; du kannst jederzeit umkehren.",
+        "choices": [
+          {
+            "text": "Den falschen Anfahrpfiff am unbenutzten Gleis prüfen.",
+            "next": "k3o_vorbereitung",
+            "requires_flags": [
+              "k3o_rangierwueste_gelesen1"
+            ],
+            "hide_if_flags": [
+              "k3o_falscher_pfiff"
+            ]
+          },
+          {
+            "text": "Die vorbereitete stille Passage nutzen.",
+            "next": "k3o_friedlich",
+            "requires_flags": [
+              "k3o_falscher_pfiff"
+            ],
+            "hide_if_flags": [
+              "k3o_schwellenhund_geloest"
+            ]
+          },
+          {
+            "text": "Den Hüter herausfordern.",
+            "next": "k3o_kampf",
+            "hide_if_flags": [
+              "k3o_schwellenhund_geloest"
+            ]
+          },
+          {
+            "text": "Zurück zum sicheren Weg."
+          }
+        ]
+      },
+      "k3o_vorbereitung": {
+        "text": "Das Suchlicht folgt der falschen Anfahrt. Hinter der Mauer bleibt ein stiller Zugang zum Walzenfach.",
+        "sets_flags": [
+          "k3o_falscher_pfiff"
+        ],
+        "choices": [
+          {
+            "text": "Zurück.",
+            "next": "k3o_start"
+          }
+        ]
+      },
+      "k3o_kampf": {
+        "text": "Du trittst in den deutlich markierten Suchkreis. Die Angriffe werden vor jedem Treffer angekündigt.",
+        "combat": "schwellenhund"
+      },
+      "k3o_friedlich": {
+        "text": "Das Suchlicht folgt der falschen Anfahrt. Hinter der Mauer bleibt ein stiller Zugang zum Walzenfach. Die örtliche Aufgabe ist auch ohne Sieg im Kampf bewältigt.",
+        "sets_flags": [
+          "k3o_schwellenhund_geloest"
+        ],
+        "choices": [
+          {
+            "text": "Weiter.",
+            "next": "k3o_start"
+          }
+        ]
+      }
+    }
+  },
+  "k3o_vorhauer_station": {
+    "start": "k3o_start",
+    "nodes": {
+      "k3o_start": {
+        "text": "Du stehst an der markierten Arbeitsstelle. Prüfe zuerst die örtliche Tafel; du kannst jederzeit umkehren.",
+        "choices": [
+          {
+            "text": "Die originale Rettungsfolge am Handlauf zurückgeben.",
+            "next": "k3o_vorbereitung",
+            "requires_flags": [
+              "k3o_klopfbruch_gelesen1"
+            ],
+            "hide_if_flags": [
+              "k3o_originalfolge"
+            ]
+          },
+          {
+            "text": "Die vorbereitete stille Passage nutzen.",
+            "next": "k3o_friedlich",
+            "requires_flags": [
+              "k3o_originalfolge"
+            ],
+            "hide_if_flags": [
+              "k3o_vorhauer_geloest"
+            ]
+          },
+          {
+            "text": "Den Hüter herausfordern.",
+            "next": "k3o_kampf",
+            "hide_if_flags": [
+              "k3o_vorhauer_geloest"
+            ]
+          },
+          {
+            "text": "Zurück zum sicheren Weg."
+          }
+        ]
+      },
+      "k3o_vorbereitung": {
+        "text": "Der Steinleib beendet die Folge mit dem Ausfahrtssignal. Du lässt den Rettungsweg frei.",
+        "sets_flags": [
+          "k3o_originalfolge"
+        ],
+        "choices": [
+          {
+            "text": "Zurück.",
+            "next": "k3o_start"
+          }
+        ]
+      },
+      "k3o_kampf": {
+        "text": "Du trittst in den deutlich markierten Suchkreis. Die Angriffe werden vor jedem Treffer angekündigt.",
+        "combat": "vorhauer"
+      },
+      "k3o_friedlich": {
+        "text": "Der Steinleib beendet die Folge mit dem Ausfahrtssignal. Du lässt den Rettungsweg frei. Die örtliche Aufgabe ist auch ohne Sieg im Kampf bewältigt.",
+        "sets_flags": [
+          "k3o_vorhauer_geloest"
+        ],
+        "choices": [
+          {
+            "text": "Weiter.",
+            "next": "k3o_start"
+          }
+        ]
+      }
+    }
+  },
+  "k3o_vielrufer_station": {
+    "start": "k3o_start",
+    "nodes": {
+      "k3o_start": {
+        "text": "Du stehst an der markierten Arbeitsstelle. Prüfe zuerst die örtliche Tafel; du kannst jederzeit umkehren.",
+        "choices": [
+          {
+            "text": "Rufleitung und Antwortleitung einzeln trennen.",
+            "next": "k3o_vorbereitung",
+            "requires_flags": [
+              "k3o_rufschlucht_gelesen1"
+            ],
+            "hide_if_flags": [
+              "k3o_leitungen_getrennt"
+            ]
+          },
+          {
+            "text": "Die vorbereitete stille Passage nutzen.",
+            "next": "k3o_friedlich",
+            "requires_flags": [
+              "k3o_leitungen_getrennt"
+            ],
+            "hide_if_flags": [
+              "k3o_vielrufer_geloest"
+            ]
+          },
+          {
+            "text": "Den Hüter herausfordern.",
+            "next": "k3o_kampf",
+            "hide_if_flags": [
+              "k3o_vielrufer_geloest"
+            ]
+          },
+          {
+            "text": "Zurück zum sicheren Weg."
+          }
+        ]
+      },
+      "k3o_vorbereitung": {
+        "text": "Die beiden Tests erreichen getrennte Trichter. Keine neue Personenstimme wird benötigt.",
+        "sets_flags": [
+          "k3o_leitungen_getrennt"
+        ],
+        "choices": [
+          {
+            "text": "Zurück.",
+            "next": "k3o_start"
+          }
+        ]
+      },
+      "k3o_kampf": {
+        "text": "Du trittst in den deutlich markierten Suchkreis. Die Angriffe werden vor jedem Treffer angekündigt.",
+        "combat": "vielrufer"
+      },
+      "k3o_friedlich": {
+        "text": "Die beiden Tests erreichen getrennte Trichter. Keine neue Personenstimme wird benötigt. Die örtliche Aufgabe ist auch ohne Sieg im Kampf bewältigt.",
+        "sets_flags": [
+          "k3o_vielrufer_geloest"
+        ],
+        "choices": [
+          {
+            "text": "Weiter.",
+            "next": "k3o_start"
+          }
+        ]
+      }
+    }
+  },
+  "k3o_gallowmere_station": {
+    "start": "k3o_start",
+    "nodes": {
+      "k3o_start": {
+        "text": "Du stehst an der markierten Arbeitsstelle. Prüfe zuerst die örtliche Tafel; du kannst jederzeit umkehren.",
+        "choices": [
+          {
+            "text": "Rollenruf und persönliche Namensantwort auseinanderhalten.",
+            "next": "k3o_vorbereitung",
+            "requires_flags": [
+              "k3o_letzter_bahnsteig_gelesen1"
+            ],
+            "hide_if_flags": [
+              "k3o_rolle_getrennt"
+            ]
+          },
+          {
+            "text": "Den Hüter herausfordern.",
+            "next": "k3o_kampf",
+            "hide_if_flags": [
+              "k3o_gallowmere_geloest",
+              "k3o_gallowmere_phase1_done"
+            ],
+            "requires_flags": [
+              "k3a_akt4_done"
+            ]
+          },
+          {
+            "text": "Phase 2: den nächsten Abschnitt betreten.",
+            "next": "k3o_phase2",
+            "requires_flags": [
+              "k3o_gallowmere_phase1_done"
+            ],
+            "hide_if_flags": [
+              "k3o_gallowmere_geloest",
+              "won_k3o_gallowmere_phase2"
+            ]
+          },
+          {
+            "text": "Zurück zum sicheren Weg."
+          }
+        ]
+      },
+      "k3o_vorbereitung": {
+        "text": "Du markierst die getrennten Leitungen. Das ersetzt weder die Beweise gegen den Fahrmeister noch das Urteil über die Schicht.",
+        "sets_flags": [
+          "k3o_rolle_getrennt"
+        ],
+        "choices": [
+          {
+            "text": "Zurück.",
+            "next": "k3o_start"
+          }
+        ]
+      },
+      "k3o_kampf": {
+        "text": "Du trittst in den deutlich markierten Suchkreis. Die Angriffe werden vor jedem Treffer angekündigt.",
+        "combat": "gallowmere"
+      },
+      "k3o_phase2": {
+        "text": "Der nächste Abschnitt ist deutlich markiert. Du kannst vor dem Versuch zum Unterschlupf zurückkehren.",
+        "combat": "k3o_gallowmere_phase2"
+      }
+    }
+  },
+  "k3o_unterschicht_station": {
+    "start": "k3o_start",
+    "nodes": {
+      "k3o_start": {
+        "text": "Du stehst an der markierten Arbeitsstelle. Prüfe zuerst die örtliche Tafel; du kannst jederzeit umkehren.",
+        "choices": [
+          {
+            "text": "Die unzugeordneten Lücken ohne Ersatznamen begrenzen.",
+            "next": "k3o_vorbereitung",
+            "requires_flags": [
+              "k3o_unterschicht_gelesen1"
+            ],
+            "hide_if_flags": [
+              "k3o_luecken_begrenzt"
+            ]
+          },
+          {
+            "text": "Die vorbereitete stille Passage nutzen.",
+            "next": "k3o_friedlich",
+            "requires_flags": [
+              "k3o_luecken_begrenzt"
+            ],
+            "hide_if_flags": [
+              "k3o_unterschicht_geloest"
+            ]
+          },
+          {
+            "text": "Den Hüter herausfordern.",
+            "next": "k3o_kampf",
+            "hide_if_flags": [
+              "k3o_unterschicht_geloest",
+              "k3o_unterschicht_phase1_done"
+            ]
+          },
+          {
+            "text": "Phase 2: den nächsten Abschnitt betreten.",
+            "next": "k3o_phase2",
+            "requires_flags": [
+              "k3o_unterschicht_phase1_done"
+            ],
+            "hide_if_flags": [
+              "k3o_unterschicht_geloest",
+              "won_k3o_unterschicht_phase2"
+            ]
+          },
+          {
+            "text": "Phase 3: den nächsten Abschnitt betreten.",
+            "next": "k3o_phase3",
+            "requires_flags": [
+              "k3o_unterschicht_phase2_done"
+            ],
+            "hide_if_flags": [
+              "k3o_unterschicht_geloest",
+              "won_k3o_unterschicht_phase3"
+            ]
+          },
+          {
+            "text": "Zurück zum sicheren Weg."
+          }
+        ]
+      },
+      "k3o_vorbereitung": {
+        "text": "Du markierst jede leere Stelle einzeln und gibst keine Personenstimme hinein. Die Öffnung bleibt örtlich begrenzt.",
+        "sets_flags": [
+          "k3o_luecken_begrenzt"
+        ],
+        "choices": [
+          {
+            "text": "Zurück.",
+            "next": "k3o_start"
+          }
+        ]
+      },
+      "k3o_kampf": {
+        "text": "Du trittst in den deutlich markierten Suchkreis. Die Angriffe werden vor jedem Treffer angekündigt.",
+        "combat": "unterschicht"
+      },
+      "k3o_friedlich": {
+        "text": "Du markierst jede leere Stelle einzeln und gibst keine Personenstimme hinein. Die Öffnung bleibt örtlich begrenzt. Die örtliche Aufgabe ist auch ohne Sieg im Kampf bewältigt.",
+        "sets_flags": [
+          "k3o_unterschicht_geloest"
+        ],
+        "choices": [
+          {
+            "text": "Weiter.",
+            "next": "k3o_start"
+          }
+        ]
+      },
+      "k3o_phase2": {
+        "text": "Der nächste Abschnitt ist deutlich markiert. Du kannst vor dem Versuch zum Unterschlupf zurückkehren.",
+        "combat": "k3o_unterschicht_phase2"
+      },
+      "k3o_phase3": {
+        "text": "Der nächste Abschnitt ist deutlich markiert. Du kannst vor dem Versuch zum Unterschlupf zurückkehren.",
+        "combat": "k3o_unterschicht_phase3"
+      }
+    }
+  }
+}

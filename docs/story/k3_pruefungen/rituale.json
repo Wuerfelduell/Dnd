@@ -1,0 +1,712 @@
+{
+  "laterne": {
+    "4": {
+      "name": "Dochtgezeichneter: die offene Probe",
+      "map": "ds_kalkmarkt",
+      "vision": true,
+      "consumes": {
+        "nebeltau": 2,
+        "silberstaub": 1
+      },
+      "requires": {
+        "requires_flags": [
+          "kapitel2_done",
+          "k3p_laterne_done"
+        ]
+      },
+      "desc": "Du stellst lampe und widersprechende prüftafel zusammen öffentlich aus. Du wiederholst die geprüfte Handlung bewusst mit dem gebrauten Trank. Die Antwort entsteht aus deiner Handlung, nicht aus einer fremden Stimme."
+    },
+    "3": {
+      "name": "Aschenprotokollant: die offene Probe",
+      "map": "wx_leuchtturm",
+      "vision": true,
+      "consumes": {
+        "nebeltau": 2,
+        "silberstaub": 2
+      },
+      "requires": {
+        "requires_flags": [
+          "kapitel2_done",
+          "k3p_laterne_done"
+        ]
+      },
+      "desc": "Du legst die Asche zweier widersprechender Berichte auf die Linse und benennst den Irrtum in deinem eigenen Bericht zuerst. Das Licht frisst nur die falsche Zeile. In Wexmoor arbeitest du am genannten Ort; im geschützten Speisewagen vollziehst du dieselbe Probe an einer mit Herkunft beschrifteten Abschrift oder einem gesicherten Werkmodell. Kein Bewohner muss dafür erneut gebunden werden.",
+      "also_maps": [
+        "ds_speisewagen"
+      ]
+    },
+    "2": {
+      "name": "Rußhorizont: die offene Probe",
+      "map": "ds_lohnbuero",
+      "vision": true,
+      "consumes": {
+        "nebeltau": 2,
+        "silberstaub": 3
+      },
+      "requires": {
+        "requires_flags": [
+          "kapitel2_done",
+          "k3p_laterne_done"
+        ]
+      },
+      "desc": "Im stillen Lohnbüro liegt ein tragbares Prüfmodell, von allen Rufleitungen getrennt. Eine Rußabschrift enthält deinen zu frühen Freispruch für das Gütesiegel. Du lässt die Korrektur neben dem Original stehen. Du vermerkst neben der Probe ausdrücklich, wem du keinen Gehorsam schuldest."
+    },
+    "1": {
+      "name": "Das unbequeme Licht: die offene Probe",
+      "map": "ds_speisewagen",
+      "vision": true,
+      "consumes": {
+        "nebeltau": 2,
+        "silberstaub": 4
+      },
+      "requires": {
+        "requires_flags": [
+          "kapitel2_done",
+          "k3p_laterne_done",
+          "kapitel3_done",
+          "k3p_laterne_ritual1_entscheidung"
+        ]
+      },
+      "desc": "Hinter der Schallschleuse vollziehst du die letzte Probe. Eine Rußabschrift enthält deinen zu frühen Freispruch für das Gütesiegel. Du lässt die Korrektur neben dem Original stehen. Deine Entscheidung über die Aufbewahrung bleibt bestehen. Du sprichst keinen Namen in die aktive Rufanlage."
+    }
+  },
+  "faden": {
+    "4": {
+      "name": "Nahtträger: die offene Probe",
+      "map": "ds_lohnbuero",
+      "vision": true,
+      "consumes": {
+        "nebeltau": 2,
+        "silberstaub": 1
+      },
+      "requires": {
+        "requires_flags": [
+          "kapitel2_done",
+          "k3p_faden_done"
+        ]
+      },
+      "desc": "Du verbindest die zeiten und lässt die frage nach dem öffner ausdrücklich offen. Du wiederholst die geprüfte Handlung bewusst mit dem gebrauten Trank. Die Antwort entsteht aus deiner Handlung, nicht aus einer fremden Stimme."
+    },
+    "3": {
+      "name": "Bruchhefter: die offene Probe",
+      "map": "wx_akademie",
+      "vision": true,
+      "consumes": {
+        "nebeltau": 2,
+        "silberstaub": 2
+      },
+      "requires": {
+        "requires_flags": [
+          "kapitel2_done",
+          "k3p_faden_done"
+        ]
+      },
+      "desc": "Du heftest eine Kettlegater Aussage an einen Wexmoorer Befund und trennst eine verlockende falsche Verbindung wieder auf. Das lose Ende bleibt an deiner Hand. In Wexmoor arbeitest du am genannten Ort; im geschützten Speisewagen vollziehst du dieselbe Probe an einer mit Herkunft beschrifteten Abschrift oder einem gesicherten Werkmodell. Kein Bewohner muss dafür erneut gebunden werden.",
+      "also_maps": [
+        "ds_speisewagen"
+      ]
+    },
+    "2": {
+      "name": "Stadtversäumer: die offene Probe",
+      "map": "ds_lohnbuero",
+      "vision": true,
+      "consumes": {
+        "nebeltau": 2,
+        "silberstaub": 3
+      },
+      "requires": {
+        "requires_flags": [
+          "kapitel2_done",
+          "k3p_faden_done"
+        ]
+      },
+      "desc": "Im stillen Lohnbüro liegt ein tragbares Prüfmodell, von allen Rufleitungen getrennt. Deine erste Skizze behauptet einen Öffner ohne Beleg. Du trennst diese Naht und bewahrst die beiden datierten Aussagen. Du vermerkst neben der Probe ausdrücklich, wem du keinen Gehorsam schuldest."
+    },
+    "1": {
+      "name": "Der offene Zusammenhang: die offene Probe",
+      "map": "ds_speisewagen",
+      "vision": true,
+      "consumes": {
+        "nebeltau": 2,
+        "silberstaub": 4
+      },
+      "requires": {
+        "requires_flags": [
+          "kapitel2_done",
+          "k3p_faden_done",
+          "kapitel3_done",
+          "k3p_faden_ritual1_entscheidung"
+        ]
+      },
+      "desc": "Hinter der Schallschleuse vollziehst du die letzte Probe. Deine erste Skizze behauptet einen Öffner ohne Beleg. Du trennst diese Naht und bewahrst die beiden datierten Aussagen. Deine Entscheidung über die Aufbewahrung bleibt bestehen. Du sprichst keinen Namen in die aktive Rufanlage."
+    }
+  },
+  "maske": {
+    "4": {
+      "name": "Gesichtsvermieter: die offene Probe",
+      "map": "ds_teesaal",
+      "vision": false,
+      "consumes": {
+        "nebeltau": 2,
+        "silberstaub": 1
+      },
+      "requires": {
+        "requires_flags": [
+          "kapitel2_done",
+          "k3p_maske_done"
+        ]
+      },
+      "desc": "Du spielst ihren widerspruch und legst danach mantel und fremde stimme ab. Du wiederholst die geprüfte Handlung bewusst mit dem gebrauten Trank. Die Antwort entsteht aus deiner Handlung, nicht aus einer fremden Stimme."
+    },
+    "3": {
+      "name": "Rollenverwahrer: die offene Probe",
+      "map": "wx_oberstadt",
+      "vision": false,
+      "consumes": {
+        "nebeltau": 2,
+        "silberstaub": 2
+      },
+      "requires": {
+        "requires_flags": [
+          "kapitel2_done",
+          "k3p_maske_done"
+        ]
+      },
+      "desc": "Du sprichst vor einem stillen Spiegel drei Geständnisse in fremden Rollen und ein eigenes mit deiner Stimme. Nur das eigene darf im Glas zurückbleiben. In Wexmoor arbeitest du am genannten Ort; im geschützten Speisewagen vollziehst du dieselbe Probe an einer mit Herkunft beschrifteten Abschrift oder einem gesicherten Werkmodell. Kein Bewohner muss dafür erneut gebunden werden.",
+      "also_maps": [
+        "ds_speisewagen"
+      ]
+    },
+    "2": {
+      "name": "Publikumsfremder: die offene Probe",
+      "map": "ds_lohnbuero",
+      "vision": false,
+      "consumes": {
+        "nebeltau": 2,
+        "silberstaub": 3
+      },
+      "requires": {
+        "requires_flags": [
+          "kapitel2_done",
+          "k3p_maske_done"
+        ]
+      },
+      "desc": "Im stillen Lohnbüro liegt ein tragbares Prüfmodell, von allen Rufleitungen getrennt. Dein Rollenblatt ließ die Kellnerin früher zustimmen. Du gibst ihr den Widerspruch zurück und unterschreibst nur deine eigene Bearbeitung. Du vermerkst neben der Probe ausdrücklich, wem du keinen Gehorsam schuldest."
+    },
+    "1": {
+      "name": "Das unvermietete Gesicht: die offene Probe",
+      "map": "ds_speisewagen",
+      "vision": false,
+      "consumes": {
+        "nebeltau": 2,
+        "silberstaub": 4
+      },
+      "requires": {
+        "requires_flags": [
+          "kapitel2_done",
+          "k3p_maske_done",
+          "kapitel3_done",
+          "k3p_maske_ritual1_entscheidung"
+        ]
+      },
+      "desc": "Hinter der Schallschleuse vollziehst du die letzte Probe. Dein Rollenblatt ließ die Kellnerin früher zustimmen. Du gibst ihr den Widerspruch zurück und unterschreibst nur deine eigene Bearbeitung. Deine Entscheidung über die Aufbewahrung bleibt bestehen. Du sprichst keinen Namen in die aktive Rufanlage."
+    }
+  },
+  "echo": {
+    "4": {
+      "name": "Stilleverwahrer: die offene Probe",
+      "map": "ds_pruefhaus",
+      "vision": true,
+      "consumes": {
+        "nebeltau": 2,
+        "silberstaub": 1
+      },
+      "requires": {
+        "requires_flags": [
+          "kapitel2_done",
+          "k3p_echo_done"
+        ]
+      },
+      "desc": "Du hörst die aufnahme ganz an und lässt ihre pause unbesetzt. Du wiederholst die geprüfte Handlung bewusst mit dem gebrauten Trank. Die Antwort entsteht aus deiner Handlung, nicht aus einer fremden Stimme."
+    },
+    "3": {
+      "name": "Nachrufgefäß: die offene Probe",
+      "map": "wx_altstadt",
+      "vision": true,
+      "consumes": {
+        "nebeltau": 2,
+        "silberstaub": 2
+      },
+      "requires": {
+        "requires_flags": [
+          "kapitel2_done",
+          "k3p_echo_done"
+        ]
+      },
+      "desc": "Du liest einen Nachruf in der versunkenen Stadt und streichst das Lob, das der Verstorbene nie verdient hat. Die belegten Worte bleiben trotzdem erhalten. In Wexmoor arbeitest du am genannten Ort; im geschützten Speisewagen vollziehst du dieselbe Probe an einer mit Herkunft beschrifteten Abschrift oder einem gesicherten Werkmodell. Kein Bewohner muss dafür erneut gebunden werden.",
+      "also_maps": [
+        "ds_speisewagen"
+      ]
+    },
+    "2": {
+      "name": "Schweigeufer: die offene Probe",
+      "map": "ds_lohnbuero",
+      "vision": true,
+      "consumes": {
+        "nebeltau": 2,
+        "silberstaub": 3
+      },
+      "requires": {
+        "requires_flags": [
+          "kapitel2_done",
+          "k3p_echo_done"
+        ]
+      },
+      "desc": "Im stillen Lohnbüro liegt ein tragbares Prüfmodell, von allen Rufleitungen getrennt. Deine frühere Abschrift enthielt ein erfundenes Schlusswort. Du streichst nur deinen Zusatz, nicht die erhaltene Aussage. Du vermerkst neben der Probe ausdrücklich, wem du keinen Gehorsam schuldest."
+    },
+    "1": {
+      "name": "Die letzte Zuhörstelle: die offene Probe",
+      "map": "ds_speisewagen",
+      "vision": true,
+      "consumes": {
+        "nebeltau": 2,
+        "silberstaub": 4
+      },
+      "requires": {
+        "requires_flags": [
+          "kapitel2_done",
+          "k3p_echo_done",
+          "kapitel3_done",
+          "k3p_echo_ritual1_entscheidung"
+        ]
+      },
+      "desc": "Hinter der Schallschleuse vollziehst du die letzte Probe. Deine frühere Abschrift enthielt ein erfundenes Schlusswort. Du streichst nur deinen Zusatz, nicht die erhaltene Aussage. Deine Entscheidung über die Aufbewahrung bleibt bestehen. Du sprichst keinen Namen in die aktive Rufanlage."
+    }
+  },
+  "kessel": {
+    "4": {
+      "name": "Rückstandsbrauer: die offene Probe",
+      "map": "ds_runddepot",
+      "vision": false,
+      "consumes": {
+        "nebeltau": 2,
+        "silberstaub": 1
+      },
+      "requires": {
+        "requires_flags": [
+          "kapitel2_done",
+          "k3p_kessel_done"
+        ]
+      },
+      "desc": "Du trennst die charge, sichere den rest und bewahrst eine beschriftete probe. Du wiederholst die geprüfte Handlung bewusst mit dem gebrauten Trank. Die Antwort entsteht aus deiner Handlung, nicht aus einer fremden Stimme."
+    },
+    "3": {
+      "name": "Kreislaufgefäß: die offene Probe",
+      "map": "wx_torfstich",
+      "vision": false,
+      "consumes": {
+        "nebeltau": 2,
+        "silberstaub": 2
+      },
+      "requires": {
+        "requires_flags": [
+          "kapitel2_done",
+          "k3p_kessel_done"
+        ]
+      },
+      "desc": "Du trennst am Torfkessel Heilmittel und Abwasser derselben Charge und führst beides einem sicheren Kreislauf zu. Nichts darf unbemerkt im Moor verschwinden. In Wexmoor arbeitest du am genannten Ort; im geschützten Speisewagen vollziehst du dieselbe Probe an einer mit Herkunft beschrifteten Abschrift oder einem gesicherten Werkmodell. Kein Bewohner muss dafür erneut gebunden werden.",
+      "also_maps": [
+        "ds_speisewagen"
+      ]
+    },
+    "2": {
+      "name": "Abwärmesammler: die offene Probe",
+      "map": "ds_lohnbuero",
+      "vision": false,
+      "consumes": {
+        "nebeltau": 2,
+        "silberstaub": 3
+      },
+      "requires": {
+        "requires_flags": [
+          "kapitel2_done",
+          "k3p_kessel_done"
+        ]
+      },
+      "desc": "Im stillen Lohnbüro liegt ein tragbares Prüfmodell, von allen Rufleitungen getrennt. Dein erster Reinigungsbericht verschwieg den Abfall. Du ergänzt Menge und Lagerort, bevor du die klare Fraktion freigibst. Du vermerkst neben der Probe ausdrücklich, wem du keinen Gehorsam schuldest."
+    },
+    "1": {
+      "name": "Der unverlorene Rest: die offene Probe",
+      "map": "ds_speisewagen",
+      "vision": false,
+      "consumes": {
+        "nebeltau": 2,
+        "silberstaub": 4
+      },
+      "requires": {
+        "requires_flags": [
+          "kapitel2_done",
+          "k3p_kessel_done",
+          "kapitel3_done",
+          "k3p_kessel_ritual1_entscheidung"
+        ]
+      },
+      "desc": "Hinter der Schallschleuse vollziehst du die letzte Probe. Dein erster Reinigungsbericht verschwieg den Abfall. Du ergänzt Menge und Lagerort, bevor du die klare Fraktion freigibst. Deine Entscheidung über die Aufbewahrung bleibt bestehen. Du sprichst keinen Namen in die aktive Rufanlage."
+    }
+  },
+  "eisen": {
+    "4": {
+      "name": "Lastnieter: die offene Probe",
+      "map": "ds_bruchstufen",
+      "vision": false,
+      "consumes": {
+        "nebeltau": 2,
+        "silberstaub": 1
+      },
+      "requires": {
+        "requires_flags": [
+          "kapitel2_done",
+          "k3p_eisen_done"
+        ]
+      },
+      "desc": "Du hältst den leeren steg, setzt beide keile und löst die hand erst nach der lastprobe. Du wiederholst die geprüfte Handlung bewusst mit dem gebrauten Trank. Die Antwort entsteht aus deiner Handlung, nicht aus einer fremden Stimme."
+    },
+    "3": {
+      "name": "Gegenlast: die offene Probe",
+      "map": "wx_bojenhafen",
+      "vision": false,
+      "consumes": {
+        "nebeltau": 2,
+        "silberstaub": 2
+      },
+      "requires": {
+        "requires_flags": [
+          "kapitel2_done",
+          "k3p_eisen_done"
+        ]
+      },
+      "desc": "Du hebst am Dock ein festgeklemmtes Gegengewicht und gibst den Arbeitern Zeit zum Rückzug. Du wartest nicht auf einen Befehl, der nie kommen wird. In Wexmoor arbeitest du am genannten Ort; im geschützten Speisewagen vollziehst du dieselbe Probe an einer mit Herkunft beschrifteten Abschrift oder einem gesicherten Werkmodell. Kein Bewohner muss dafür erneut gebunden werden.",
+      "also_maps": [
+        "ds_speisewagen"
+      ]
+    },
+    "2": {
+      "name": "Stadtwiderlager: die offene Probe",
+      "map": "ds_lohnbuero",
+      "vision": false,
+      "consumes": {
+        "nebeltau": 2,
+        "silberstaub": 3
+      },
+      "requires": {
+        "requires_flags": [
+          "kapitel2_done",
+          "k3p_eisen_done"
+        ]
+      },
+      "desc": "Im stillen Lohnbüro liegt ein tragbares Prüfmodell, von allen Rufleitungen getrennt. Dein erster Plan zeigte nur deine eigene Stütze. Du zeichnest die unabhängigen Auflager ein und lässt die Probe ohne deine Hand bestehen. Du vermerkst neben der Probe ausdrücklich, wem du keinen Gehorsam schuldest."
+    },
+    "1": {
+      "name": "Die bleibende Stütze: die offene Probe",
+      "map": "ds_speisewagen",
+      "vision": false,
+      "consumes": {
+        "nebeltau": 2,
+        "silberstaub": 4
+      },
+      "requires": {
+        "requires_flags": [
+          "kapitel2_done",
+          "k3p_eisen_done",
+          "kapitel3_done",
+          "k3p_eisen_ritual1_entscheidung"
+        ]
+      },
+      "desc": "Hinter der Schallschleuse vollziehst du die letzte Probe. Dein erster Plan zeigte nur deine eigene Stütze. Du zeichnest die unabhängigen Auflager ein und lässt die Probe ohne deine Hand bestehen. Deine Entscheidung über die Aufbewahrung bleibt bestehen. Du sprichst keinen Namen in die aktive Rufanlage."
+    }
+  },
+  "schluessel": {
+    "4": {
+      "name": "Schwellenlücke: die offene Probe",
+      "map": "ds_endbahnhof",
+      "vision": false,
+      "consumes": {
+        "nebeltau": 2,
+        "silberstaub": 1
+      },
+      "requires": {
+        "requires_flags": [
+          "kapitel2_done",
+          "k3p_schluessel_done"
+        ]
+      },
+      "desc": "Du entlastest die feder, öffnest das tor und lässt paket und ersatzschlüssel am ausgewiesenen platz. Du wiederholst die geprüfte Handlung bewusst mit dem gebrauten Trank. Die Antwort entsteht aus deiner Handlung, nicht aus einer fremden Stimme."
+    },
+    "3": {
+      "name": "Riegelabwesenheit: die offene Probe",
+      "map": "wx_altstadt",
+      "vision": false,
+      "consumes": {
+        "nebeltau": 2,
+        "silberstaub": 2
+      },
+      "requires": {
+        "requires_flags": [
+          "kapitel2_done",
+          "k3p_schluessel_done"
+        ]
+      },
+      "desc": "Du öffnest im alten Ratssaal die Lade mit den beschlagnahmten Namen und gibst jedem Täfelchen seinen Platz zurück. Eine leere Lade darf leer bleiben. In Wexmoor arbeitest du am genannten Ort; im geschützten Speisewagen vollziehst du dieselbe Probe an einer mit Herkunft beschrifteten Abschrift oder einem gesicherten Werkmodell. Kein Bewohner muss dafür erneut gebunden werden.",
+      "also_maps": [
+        "ds_speisewagen"
+      ]
+    },
+    "2": {
+      "name": "Innenrand: die offene Probe",
+      "map": "ds_lohnbuero",
+      "vision": false,
+      "consumes": {
+        "nebeltau": 2,
+        "silberstaub": 3
+      },
+      "requires": {
+        "requires_flags": [
+          "kapitel2_done",
+          "k3p_schluessel_done"
+        ]
+      },
+      "desc": "Im stillen Lohnbüro liegt ein tragbares Prüfmodell, von allen Rufleitungen getrennt. Dein früherer Zugangsschein beanspruchte das Gepäck. Du widerrufst den Anspruch und lässt den Ausgang auch für Menschen offen, die dir misstrauen. Du vermerkst neben der Probe ausdrücklich, wem du keinen Gehorsam schuldest."
+    },
+    "1": {
+      "name": "Die unverwehrte Tür: die offene Probe",
+      "map": "ds_speisewagen",
+      "vision": false,
+      "consumes": {
+        "nebeltau": 2,
+        "silberstaub": 4
+      },
+      "requires": {
+        "requires_flags": [
+          "kapitel2_done",
+          "k3p_schluessel_done",
+          "kapitel3_done",
+          "k3p_schluessel_ritual1_entscheidung"
+        ]
+      },
+      "desc": "Hinter der Schallschleuse vollziehst du die letzte Probe. Dein früherer Zugangsschein beanspruchte das Gepäck. Du widerrufst den Anspruch und lässt den Ausgang auch für Menschen offen, die dir misstrauen. Deine Entscheidung über die Aufbewahrung bleibt bestehen. Du sprichst keinen Namen in die aktive Rufanlage."
+    }
+  },
+  "sq_waage": {
+    "4": {
+      "name": "Pfandkörper: die offene Probe",
+      "map": "ds_lohnbuero",
+      "vision": false,
+      "consumes": {
+        "nebeltau": 2,
+        "silberstaub": 1
+      },
+      "requires": {
+        "requires_flags": [
+          "kapitel2_done",
+          "k3p_waage_done"
+        ]
+      },
+      "desc": "Du streichst doppelzahlung und prüferprämie und quittierst die rückgabe. Du wiederholst die geprüfte Handlung bewusst mit dem gebrauten Trank. Die Antwort entsteht aus deiner Handlung, nicht aus einer fremden Stimme."
+    },
+    "3": {
+      "name": "Saldenhüter: die offene Probe",
+      "map": "wx_salzmarkt",
+      "vision": false,
+      "consumes": {
+        "nebeltau": 2,
+        "silberstaub": 2
+      },
+      "requires": {
+        "requires_flags": [
+          "kapitel2_done",
+          "k3p_waage_done"
+        ]
+      },
+      "desc": "Du vergleichst ein Kettlegater Pfandbuch mit dem Wexmoorer Abgabenregister und streichst die doppelt erhobene Forderung. Den Verlust buchst du öffentlich. In Wexmoor arbeitest du am genannten Ort; im geschützten Speisewagen vollziehst du dieselbe Probe an einer mit Herkunft beschrifteten Abschrift oder einem gesicherten Werkmodell. Kein Bewohner muss dafür erneut gebunden werden.",
+      "also_maps": [
+        "ds_speisewagen"
+      ]
+    },
+    "2": {
+      "name": "Schuldgegengewicht: die offene Probe",
+      "map": "ds_lohnbuero",
+      "vision": false,
+      "consumes": {
+        "nebeltau": 2,
+        "silberstaub": 3
+      },
+      "requires": {
+        "requires_flags": [
+          "kapitel2_done",
+          "k3p_waage_done"
+        ]
+      },
+      "desc": "Im stillen Lohnbüro liegt ein tragbares Prüfmodell, von allen Rufleitungen getrennt. Deine Abrechnung enthielt eine unverdiente Prämie. Du verzichtest öffentlich darauf, ohne die Schuld einer Familie zu vergrößern. Du vermerkst neben der Probe ausdrücklich, wem du keinen Gehorsam schuldest."
+    },
+    "1": {
+      "name": "Die quittierte Last: die offene Probe",
+      "map": "ds_speisewagen",
+      "vision": false,
+      "consumes": {
+        "nebeltau": 2,
+        "silberstaub": 4
+      },
+      "requires": {
+        "requires_flags": [
+          "kapitel2_done",
+          "k3p_waage_done",
+          "kapitel3_done",
+          "k3p_waage_ritual1_entscheidung"
+        ]
+      },
+      "desc": "Hinter der Schallschleuse vollziehst du die letzte Probe. Deine Abrechnung enthielt eine unverdiente Prämie. Du verzichtest öffentlich darauf, ohne die Schuld einer Familie zu vergrößern. Deine Entscheidung über die Aufbewahrung bleibt bestehen. Du sprichst keinen Namen in die aktive Rufanlage."
+    }
+  },
+  "sq_moor": {
+    "4": {
+      "name": "Schichtträger: die offene Probe",
+      "map": "ds_kalkmarkt",
+      "vision": true,
+      "consumes": {
+        "nebeltau": 2,
+        "silberstaub": 1
+      },
+      "requires": {
+        "requires_flags": [
+          "kapitel2_done",
+          "k3p_moor_done"
+        ]
+      },
+      "desc": "Du sicherst fundtiefe und namensrest getrennt und lässt die fehlenden buchstaben offen. Du wiederholst die geprüfte Handlung bewusst mit dem gebrauten Trank. Die Antwort entsteht aus deiner Handlung, nicht aus einer fremden Stimme."
+    },
+    "3": {
+      "name": "Namensediment: die offene Probe",
+      "map": "wx_vergessmoor",
+      "vision": true,
+      "consumes": {
+        "nebeltau": 2,
+        "silberstaub": 2
+      },
+      "requires": {
+        "requires_flags": [
+          "kapitel2_done",
+          "k3p_moor_done"
+        ]
+      },
+      "desc": "Du vergleichst eine Kettlegater Vermisstenliste mit den Täfelchen am Wexmoorer Schrein. Gleiche Schreibweise gilt dir nicht als Beweis für dieselbe Person. In Wexmoor arbeitest du am genannten Ort; im geschützten Speisewagen vollziehst du dieselbe Probe an einer mit Herkunft beschrifteten Abschrift oder einem gesicherten Werkmodell. Kein Bewohner muss dafür erneut gebunden werden.",
+      "also_maps": [
+        "ds_speisewagen"
+      ]
+    },
+    "2": {
+      "name": "Vergessensufer: die offene Probe",
+      "map": "ds_lohnbuero",
+      "vision": true,
+      "consumes": {
+        "nebeltau": 2,
+        "silberstaub": 3
+      },
+      "requires": {
+        "requires_flags": [
+          "kapitel2_done",
+          "k3p_moor_done"
+        ]
+      },
+      "desc": "Im stillen Lohnbüro liegt ein tragbares Prüfmodell, von allen Rufleitungen getrennt. Dein sauberer Katalog verschmolz zwei Fundschichten. Du trennst sie und gibst dem unbekannten Namen seinen eigenen leeren Platz. Du vermerkst neben der Probe ausdrücklich, wem du keinen Gehorsam schuldest."
+    },
+    "1": {
+      "name": "Das erinnerte Fehlende: die offene Probe",
+      "map": "ds_speisewagen",
+      "vision": true,
+      "consumes": {
+        "nebeltau": 2,
+        "silberstaub": 4
+      },
+      "requires": {
+        "requires_flags": [
+          "kapitel2_done",
+          "k3p_moor_done",
+          "kapitel3_done",
+          "k3p_moor_ritual1_entscheidung"
+        ]
+      },
+      "desc": "Hinter der Schallschleuse vollziehst du die letzte Probe. Dein sauberer Katalog verschmolz zwei Fundschichten. Du trennst sie und gibst dem unbekannten Namen seinen eigenen leeren Platz. Deine Entscheidung über die Aufbewahrung bleibt bestehen. Du sprichst keinen Namen in die aktive Rufanlage."
+    }
+  },
+  "sq_uhr": {
+    "4": {
+      "name": "Zwischentakter: die offene Probe",
+      "map": "ds_signalhang",
+      "vision": false,
+      "consumes": {
+        "nebeltau": 2,
+        "silberstaub": 1
+      },
+      "requires": {
+        "requires_flags": [
+          "kapitel2_done",
+          "k3p_uhr_done"
+        ]
+      },
+      "desc": "Du stellst die voreilende uhr nach und erhältst die pause des wartenden. Du wiederholst die geprüfte Handlung bewusst mit dem gebrauten Trank. Die Antwort entsteht aus deiner Handlung, nicht aus einer fremden Stimme."
+    },
+    "3": {
+      "name": "Fristlauscher: die offene Probe",
+      "map": "wx_bahnhof",
+      "vision": false,
+      "consumes": {
+        "nebeltau": 2,
+        "silberstaub": 2
+      },
+      "requires": {
+        "requires_flags": [
+          "kapitel2_done",
+          "k3p_uhr_done"
+        ]
+      },
+      "desc": "Du legst zwei falsch gestempelte Fahrkarten nebeneinander und rekonstruierst die Verspätung. Den verpassten Zug erklärst du nicht zum Fehler des Reisenden. In Wexmoor arbeitest du am genannten Ort; im geschützten Speisewagen vollziehst du dieselbe Probe an einer mit Herkunft beschrifteten Abschrift oder einem gesicherten Werkmodell. Kein Bewohner muss dafür erneut gebunden werden.",
+      "also_maps": [
+        "ds_speisewagen"
+      ]
+    },
+    "2": {
+      "name": "Wiederkehrsaum: die offene Probe",
+      "map": "ds_lohnbuero",
+      "vision": false,
+      "consumes": {
+        "nebeltau": 2,
+        "silberstaub": 3
+      },
+      "requires": {
+        "requires_flags": [
+          "kapitel2_done",
+          "k3p_uhr_done"
+        ]
+      },
+      "desc": "Im stillen Lohnbüro liegt ein tragbares Prüfmodell, von allen Rufleitungen getrennt. Deine erste Zeitliste erklärte den Wartenden zum Verspäteten. Du korrigierst die Uhrabweichung und lässt seine Pause unangetastet. Du vermerkst neben der Probe ausdrücklich, wem du keinen Gehorsam schuldest."
+    },
+    "1": {
+      "name": "Die gewährte Minute: die offene Probe",
+      "map": "ds_speisewagen",
+      "vision": false,
+      "consumes": {
+        "nebeltau": 2,
+        "silberstaub": 4
+      },
+      "requires": {
+        "requires_flags": [
+          "kapitel2_done",
+          "k3p_uhr_done",
+          "kapitel3_done",
+          "k3p_uhr_ritual1_entscheidung"
+        ]
+      },
+      "desc": "Hinter der Schallschleuse vollziehst du die letzte Probe. Deine erste Zeitliste erklärte den Wartenden zum Verspäteten. Du korrigierst die Uhrabweichung und lässt seine Pause unangetastet. Deine Entscheidung über die Aufbewahrung bleibt bestehen. Du sprichst keinen Namen in die aktive Rufanlage."
+    }
+  }
+}

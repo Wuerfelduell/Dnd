@@ -1,0 +1,208 @@
+{
+  "k3n_secondhaendler": {
+    "start": "k3n_start",
+    "nodes": {
+      "k3n_start": {
+        "text": "Ruth Bellwick legt einen Filzstreifen unter eine rissige Platte. „Die Erinnerung ist gebraucht. Die Schachtel auch. Nur der Preis ist von heute.“",
+        "choices": [
+          {
+            "text": "Die beiden Beobachtungen gemeinsam prüfen.",
+            "next": "k3n_secondhand_zeugnis",
+            "requires_quests_active": [
+              "k3n_secondhand"
+            ],
+            "requires_clues": [
+              "k3n_secondhand_spur1",
+              "k3n_secondhand_spur2"
+            ],
+            "hide_if_flags": [
+              "k3n_secondhand_befragt"
+            ]
+          },
+          {
+            "text": "Deine Begleitung möchte etwas ergänzen.",
+            "next": "k3n_secondhand_koop",
+            "requires_flags": [
+              "koop_aktiv"
+            ],
+            "requires_quests_active": [
+              "k3n_secondhand"
+            ],
+            "requires_clues": [
+              "k3n_secondhand_spur1"
+            ],
+            "hide_if_flags": [
+              "k3n_secondhand_koop_gehoert"
+            ]
+          },
+          {
+            "text": "Was ist aus „Die falsche Begrüßung“ geworden?",
+            "next": "k3n_secondhand_etiketten_nachher",
+            "requires_flags": [
+              "k3n_secondhand_etiketten"
+            ]
+          },
+          {
+            "text": "Was ist aus „Die falsche Begrüßung“ geworden?",
+            "next": "k3n_secondhand_rueckruf_nachher",
+            "requires_flags": [
+              "k3n_secondhand_rueckruf"
+            ]
+          },
+          {
+            "text": "Die Befunde zu „Die falsche Begrüßung“ liegen vor.",
+            "next": "k3n_secondhand_wahl",
+            "requires_quests_active": [
+              "k3n_secondhand"
+            ],
+            "requires_conclusions": [
+              "k3n_secondhand_schluss"
+            ],
+            "hide_if_flags": [
+              "k3n_secondhand_done"
+            ],
+            "requires_flags": [
+              "k3n_secondhand_befragt"
+            ]
+          },
+          {
+            "text": "Die falsche Begrüßung.",
+            "next": "k3n_secondhand_beginn",
+            "requires_flags": [
+              "k3a_akt1_done"
+            ],
+            "hide_if_quests": [
+              "k3n_secondhand"
+            ]
+          },
+          {
+            "text": "Auf Wiedersehen."
+          }
+        ]
+      },
+      "k3n_secondhand_beginn": {
+        "text": "Ruth Bellwick hält zwei Erinnerungsplatten an den Rändern. „Die eine begrüßt jeden als Onkel. Die andere verlangt von jedem die Miete. Ich würde gern wissen, ob ich Familien oder nur schlechte Etiketten verkaufe.“",
+        "start_quests": [
+          "k3n_secondhand"
+        ],
+        "sets_flags": [
+          "k3n_secondhand_begonnen"
+        ],
+        "choices": [
+          {
+            "text": "Ich sehe mir die Spuren an."
+          }
+        ]
+      },
+      "k3n_secondhand_wahl": {
+        "text": "Ruth nimmt das Garantieschild ab. „Den Schaden habe ich mitverkauft. Soll ich die Platten zurückrufen oder richtig beschriften und den Kunden die Wahl lassen?“",
+        "choices": [
+          {
+            "text": "Rückruf und Erstattung aus Ruths Verkaufskasse verlangen.",
+            "next": "k3n_secondhand_rueckruf",
+            "requires_quests_active": [
+              "k3n_secondhand"
+            ],
+            "hide_if_flags": [
+              "k3n_secondhand_done"
+            ]
+          },
+          {
+            "text": "Ehrliche Beschriftung und freiwillige Rückgabe vereinbaren.",
+            "next": "k3n_secondhand_etiketten",
+            "requires_quests_active": [
+              "k3n_secondhand"
+            ],
+            "hide_if_flags": [
+              "k3n_secondhand_done"
+            ]
+          }
+        ]
+      },
+      "k3n_secondhand_rueckruf": {
+        "text": "Ruth schreibt die Käufer an und legt ihr erspartes Wechselgeld bereit. Einige bringen die Platten, andere nur die Hüllen. Deinen Lohn zahlt sie ebenfalls, aber ihre Auslage bleibt vorerst leer.",
+        "complete_quests": [
+          "k3n_secondhand"
+        ],
+        "sets_flags": [
+          "k3n_secondhand_done",
+          "k3n_secondhand_rueckruf"
+        ],
+        "gives_money": 25,
+        "honor": 3,
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      },
+      "k3n_secondhand_rueckruf_nachher": {
+        "text": "Ruth schreibt die Käufer an und legt ihr erspartes Wechselgeld bereit. Einige bringen die Platten, andere nur die Hüllen. Deinen Lohn zahlt sie ebenfalls, aber ihre Auslage bleibt vorerst leer. Du erhältst keine zweite Auszahlung.",
+        "choices": [
+          {
+            "text": "Auf Wiedersehen."
+          }
+        ]
+      },
+      "k3n_secondhand_etiketten": {
+        "text": "An jeder Platte steht nun „Aufnahme, antwortet nicht“. Ruth bietet Rückgabe an; manche Familien möchten den Rest einer Stimme behalten. Sie bezahlt dich und verspricht keine Wiederkehr mehr.",
+        "complete_quests": [
+          "k3n_secondhand"
+        ],
+        "sets_flags": [
+          "k3n_secondhand_done",
+          "k3n_secondhand_etiketten"
+        ],
+        "gives_money": 25,
+        "honor": 1,
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      },
+      "k3n_secondhand_etiketten_nachher": {
+        "text": "An jeder Platte steht nun „Aufnahme, antwortet nicht“. Ruth bietet Rückgabe an; manche Familien möchten den Rest einer Stimme behalten. Sie bezahlt dich und verspricht keine Wiederkehr mehr. Du erhältst keine zweite Auszahlung.",
+        "choices": [
+          {
+            "text": "Auf Wiedersehen."
+          }
+        ]
+      },
+      "k3n_secondhand_koop": {
+        "text": "Deine Begleitung dreht die Hülsen um, ohne eine Platte anzufassen. „Auch die falsche Begrüßung hat eine Inventarnummer. Wir sollten beides getrennt aufschreiben.“ Ruth holt einen zweiten Bleistift.",
+        "sets_flags": [
+          "k3n_secondhand_koop_gehoert"
+        ],
+        "choices": [
+          {
+            "text": "Wir prüfen das gemeinsam."
+          }
+        ]
+      },
+      "k3n_secondhand_zeugnis": {
+        "text": "Ruth liest die Garantie vor und streicht „erkennt Angehörige“ durch. Ein Kunde fragt, ob er seine Platte trotzdem behalten darf. „Ja“, antwortet sie nach einer Pause, „aber künftig verkaufe ich dir nur noch das, was sie kann.“",
+        "sets_flags": [
+          "k3n_secondhand_befragt"
+        ],
+        "choices": [
+          {
+            "text": "Sind die Stimmen kürzlich geraubt worden?",
+            "next": "k3n_secondhand_grenze"
+          },
+          {
+            "text": "Ich vergleiche die Befunde im Journal."
+          }
+        ]
+      },
+      "k3n_secondhand_grenze": {
+        "text": "„Das kann diese Platte nicht beantworten“, sagt Ruth. „Meine Hüllen belegen einen Verkauf und einen Etikettenwechsel. Herkunftsnachweise muss man gesondert prüfen.“",
+        "choices": [
+          {
+            "text": "Verstanden."
+          }
+        ]
+      }
+    }
+  }
+}

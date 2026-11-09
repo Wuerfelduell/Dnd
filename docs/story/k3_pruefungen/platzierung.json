@@ -1,0 +1,1415 @@
+[
+  {
+    "map": "ds_schwellenring",
+    "tile": [
+      6,
+      8
+    ],
+    "npc": "k3_weichenstellerin",
+    "visible_if": {
+      "requires_flags": [
+        "k3a_akt2_done"
+      ]
+    }
+  },
+  {
+    "map": "ds_kalkmarkt",
+    "tile": [
+      4,
+      5
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k3p_laterne_pruefung"
+      ],
+      "requires_pathway": [
+        "laterne",
+        5
+      ]
+    },
+    "interactable": {
+      "id": "k3p_laterne_spur_a",
+      "kind": "read",
+      "prompt": "Erste Spur: Das Licht unter dem Lack",
+      "title": "Erste Spur: Das Licht unter dem Lack",
+      "text": "Unter dem schwarzen Lack einer Prüflampe steht „Glas gesprungen“. Darüber klebt ein unbeschädigtes Gütesiegel. Die Lampe wurde nach der Prüfung übermalt.",
+      "done_flag": "k3p_laterne_spur_a_gelesen",
+      "effects": {
+        "sets_flags": [
+          "k3p_laterne_spur_a"
+        ]
+      }
+    }
+  },
+  {
+    "map": "ds_kalkmarkt",
+    "tile": [
+      5,
+      5
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k3p_laterne_pruefung"
+      ],
+      "requires_flags": [
+        "k3p_laterne_spur_a"
+      ]
+    },
+    "interactable": {
+      "id": "k3p_laterne_spur_b",
+      "kind": "read",
+      "prompt": "Gegenprobe: Das Licht unter dem Lack",
+      "title": "Gegenprobe: Das Licht unter dem Lack",
+      "text": "Im Gegenlicht zeigt die alte Prüftafel denselben Sprung wie das Glas. Der Eintrag „ohne Mangel“ ist jünger als das Siegel. Helligkeit allein beweist hier nichts.",
+      "done_flag": "k3p_laterne_spur_b_gelesen",
+      "effects": {
+        "sets_flags": [
+          "k3p_laterne_spur_b"
+        ]
+      }
+    }
+  },
+  {
+    "map": "ds_kalkmarkt",
+    "tile": [
+      5,
+      9
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k3p_laterne_pruefung"
+      ],
+      "requires_flags": [
+        "k3p_laterne_spur_a",
+        "k3p_laterne_spur_b"
+      ],
+      "hide_if_flags": [
+        "k3p_laterne_bewaeltigt"
+      ]
+    },
+    "interactable": {
+      "id": "k3p_laterne_probe",
+      "kind": "dialogue",
+      "title": "Lampengutachter",
+      "prompt": "Prüfung entscheiden",
+      "dialogue": "k3p_laterne_probe_dialog"
+    }
+  },
+  {
+    "map": "ds_speisewagen",
+    "tile": [
+      7,
+      5
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k3p_ritual1_laterne"
+      ],
+      "requires_flags": [
+        "kapitel3_done"
+      ],
+      "requires_pathway": [
+        "laterne",
+        2
+      ]
+    },
+    "interactable": {
+      "id": "k3p_laterne_ritual1_beleg",
+      "kind": "read",
+      "prompt": "Letzte Probe: Laterne",
+      "title": "Letzte Probe: Laterne",
+      "text": "Eine Rußabschrift enthält deinen zu frühen Freispruch für das Gütesiegel. Du lässt die Korrektur neben dem Original stehen.",
+      "done_flag": "k3p_laterne_ritual1_beleg_gelesen",
+      "effects": {
+        "sets_flags": [
+          "k3p_laterne_ritual1_beleg"
+        ]
+      }
+    }
+  },
+  {
+    "map": "ds_speisewagen",
+    "tile": [
+      3,
+      7
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k3p_ritual1_laterne"
+      ],
+      "requires_flags": [
+        "k3p_laterne_ritual1_beleg"
+      ],
+      "hide_if_flags": [
+        "k3p_laterne_ritual1_entscheidung"
+      ]
+    },
+    "interactable": {
+      "id": "k3p_laterne_ritual1_ablage",
+      "kind": "dialogue",
+      "title": "Umgang mit dem Gegenbeleg",
+      "prompt": "Über die Aufzeichnung entscheiden",
+      "dialogue": "k3p_laterne_ritual1_dialog"
+    }
+  },
+  {
+    "map": "ds_lohnbuero",
+    "tile": [
+      9,
+      5
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k3p_faden_pruefung"
+      ],
+      "requires_pathway": [
+        "faden",
+        5
+      ]
+    },
+    "interactable": {
+      "id": "k3p_faden_spur_a",
+      "kind": "read",
+      "prompt": "Erste Spur: Die Naht zwischen zwei Zeiten",
+      "title": "Erste Spur: Die Naht zwischen zwei Zeiten",
+      "text": "Ein Pförtner notierte „Tor geschlossen“ um sechs Uhr. Eine Heizerin notierte „Tor offen“ um sieben Uhr. Beide Blätter tragen verschiedene Uhrzeiten, aber denselben Tag.",
+      "done_flag": "k3p_faden_spur_a_gelesen",
+      "effects": {
+        "sets_flags": [
+          "k3p_faden_spur_a"
+        ]
+      }
+    }
+  },
+  {
+    "map": "ds_lohnbuero",
+    "tile": [
+      10,
+      5
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k3p_faden_pruefung"
+      ],
+      "requires_flags": [
+        "k3p_faden_spur_a"
+      ]
+    },
+    "interactable": {
+      "id": "k3p_faden_spur_b",
+      "kind": "read",
+      "prompt": "Gegenprobe: Die Naht zwischen zwei Zeiten",
+      "title": "Gegenprobe: Die Naht zwischen zwei Zeiten",
+      "text": "Die Wartungsliste vermerkt einen Riegelwechsel zwischen den Aussagen. Wer das Tor öffnete, steht nirgends. Zwei richtige Sätze ergeben noch keinen Täter.",
+      "done_flag": "k3p_faden_spur_b_gelesen",
+      "effects": {
+        "sets_flags": [
+          "k3p_faden_spur_b"
+        ]
+      }
+    }
+  },
+  {
+    "map": "ds_lohnbuero",
+    "tile": [
+      6,
+      9
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k3p_faden_pruefung"
+      ],
+      "requires_flags": [
+        "k3p_faden_spur_a",
+        "k3p_faden_spur_b"
+      ],
+      "hide_if_flags": [
+        "k3p_faden_bewaeltigt"
+      ]
+    },
+    "interactable": {
+      "id": "k3p_faden_probe",
+      "kind": "dialogue",
+      "title": "Gegenzeugenknüpfer",
+      "prompt": "Prüfung entscheiden",
+      "dialogue": "k3p_faden_probe_dialog"
+    }
+  },
+  {
+    "map": "ds_speisewagen",
+    "tile": [
+      4,
+      6
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k3p_ritual1_faden"
+      ],
+      "requires_flags": [
+        "kapitel3_done"
+      ],
+      "requires_pathway": [
+        "faden",
+        2
+      ]
+    },
+    "interactable": {
+      "id": "k3p_faden_ritual1_beleg",
+      "kind": "read",
+      "prompt": "Letzte Probe: Faden",
+      "title": "Letzte Probe: Faden",
+      "text": "Deine erste Skizze behauptet einen Öffner ohne Beleg. Du trennst diese Naht und bewahrst die beiden datierten Aussagen.",
+      "done_flag": "k3p_faden_ritual1_beleg_gelesen",
+      "effects": {
+        "sets_flags": [
+          "k3p_faden_ritual1_beleg"
+        ]
+      }
+    }
+  },
+  {
+    "map": "ds_speisewagen",
+    "tile": [
+      4,
+      7
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k3p_ritual1_faden"
+      ],
+      "requires_flags": [
+        "k3p_faden_ritual1_beleg"
+      ],
+      "hide_if_flags": [
+        "k3p_faden_ritual1_entscheidung"
+      ]
+    },
+    "interactable": {
+      "id": "k3p_faden_ritual1_ablage",
+      "kind": "dialogue",
+      "title": "Umgang mit dem Gegenbeleg",
+      "prompt": "Über die Aufzeichnung entscheiden",
+      "dialogue": "k3p_faden_ritual1_dialog"
+    }
+  },
+  {
+    "map": "ds_teesaal",
+    "tile": [
+      6,
+      6
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k3p_maske_pruefung"
+      ],
+      "requires_pathway": [
+        "maske",
+        5
+      ]
+    },
+    "interactable": {
+      "id": "k3p_maske_spur_a",
+      "kind": "read",
+      "prompt": "Erste Spur: Der Mantel des Widerspruchs",
+      "title": "Erste Spur: Der Mantel des Widerspruchs",
+      "text": "Auf einer Garderobenmarke steht „Gast, nicht Aufseher“. Im Mantel liegt ein Rollenblatt: Eine Kellnerin hat Anspruch auf ihren freien Abend. Niemand hat ihr Einverständnis zum Diensttausch notiert.",
+      "done_flag": "k3p_maske_spur_a_gelesen",
+      "effects": {
+        "sets_flags": [
+          "k3p_maske_spur_a"
+        ]
+      }
+    }
+  },
+  {
+    "map": "ds_teesaal",
+    "tile": [
+      7,
+      6
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k3p_maske_pruefung"
+      ],
+      "requires_flags": [
+        "k3p_maske_spur_a"
+      ]
+    },
+    "interactable": {
+      "id": "k3p_maske_spur_b",
+      "kind": "read",
+      "prompt": "Gegenprobe: Der Mantel des Widerspruchs",
+      "title": "Gegenprobe: Der Mantel des Widerspruchs",
+      "text": "Auf der Rückseite der Speisekarte steht ihre Einwendung: „Ich schulde euch keinen Ersatz für meine Pause.“ Die Rolle verlangt Widerspruch, keinen hübschen Tonfall.",
+      "done_flag": "k3p_maske_spur_b_gelesen",
+      "effects": {
+        "sets_flags": [
+          "k3p_maske_spur_b"
+        ]
+      }
+    }
+  },
+  {
+    "map": "ds_teesaal",
+    "tile": [
+      7,
+      9
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k3p_maske_pruefung"
+      ],
+      "requires_flags": [
+        "k3p_maske_spur_a",
+        "k3p_maske_spur_b"
+      ],
+      "hide_if_flags": [
+        "k3p_maske_bewaeltigt"
+      ]
+    },
+    "interactable": {
+      "id": "k3p_maske_probe",
+      "kind": "dialogue",
+      "title": "Garderobenpfänder",
+      "prompt": "Prüfung entscheiden",
+      "dialogue": "k3p_maske_probe_dialog"
+    }
+  },
+  {
+    "map": "ds_speisewagen",
+    "tile": [
+      9,
+      6
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k3p_ritual1_maske"
+      ],
+      "requires_flags": [
+        "kapitel3_done"
+      ],
+      "requires_pathway": [
+        "maske",
+        2
+      ]
+    },
+    "interactable": {
+      "id": "k3p_maske_ritual1_beleg",
+      "kind": "read",
+      "prompt": "Letzte Probe: Maske",
+      "title": "Letzte Probe: Maske",
+      "text": "Dein Rollenblatt ließ die Kellnerin früher zustimmen. Du gibst ihr den Widerspruch zurück und unterschreibst nur deine eigene Bearbeitung.",
+      "done_flag": "k3p_maske_ritual1_beleg_gelesen",
+      "effects": {
+        "sets_flags": [
+          "k3p_maske_ritual1_beleg"
+        ]
+      }
+    }
+  },
+  {
+    "map": "ds_speisewagen",
+    "tile": [
+      5,
+      7
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k3p_ritual1_maske"
+      ],
+      "requires_flags": [
+        "k3p_maske_ritual1_beleg"
+      ],
+      "hide_if_flags": [
+        "k3p_maske_ritual1_entscheidung"
+      ]
+    },
+    "interactable": {
+      "id": "k3p_maske_ritual1_ablage",
+      "kind": "dialogue",
+      "title": "Umgang mit dem Gegenbeleg",
+      "prompt": "Über die Aufzeichnung entscheiden",
+      "dialogue": "k3p_maske_ritual1_dialog"
+    }
+  },
+  {
+    "map": "ds_pruefhaus",
+    "tile": [
+      11,
+      6
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k3p_echo_pruefung"
+      ],
+      "requires_pathway": [
+        "echo",
+        5
+      ]
+    },
+    "interactable": {
+      "id": "k3p_echo_spur_a",
+      "kind": "read",
+      "prompt": "Erste Spur: Der Satz, der fehlen darf",
+      "title": "Erste Spur: Der Satz, der fehlen darf",
+      "text": "Eine alte, lokal verwahrte Arbeitswalze trägt die Beschriftung „E. Venn, verstorben“. Sie endet mit „Lasst meine Pause …“. Der Abbruch ist eine Bruchkante im Wachs, keine Aufforderung.",
+      "done_flag": "k3p_echo_spur_a_gelesen",
+      "effects": {
+        "sets_flags": [
+          "k3p_echo_spur_a"
+        ]
+      }
+    }
+  },
+  {
+    "map": "ds_pruefhaus",
+    "tile": [
+      4,
+      7
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k3p_echo_pruefung"
+      ],
+      "requires_flags": [
+        "k3p_echo_spur_a"
+      ]
+    },
+    "interactable": {
+      "id": "k3p_echo_spur_b",
+      "kind": "read",
+      "prompt": "Gegenprobe: Der Satz, der fehlen darf",
+      "title": "Gegenprobe: Der Satz, der fehlen darf",
+      "text": "Die Abschrift des Aufnahmebuchs endet an derselben Stelle. Danach zeigt die Linie Stille. Die Stimme kann keine neue Frage beantworten, und ihre fehlenden Wörter sind unbekannt.",
+      "done_flag": "k3p_echo_spur_b_gelesen",
+      "effects": {
+        "sets_flags": [
+          "k3p_echo_spur_b"
+        ]
+      }
+    }
+  },
+  {
+    "map": "ds_pruefhaus",
+    "tile": [
+      8,
+      9
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k3p_echo_pruefung"
+      ],
+      "requires_flags": [
+        "k3p_echo_spur_a",
+        "k3p_echo_spur_b"
+      ],
+      "hide_if_flags": [
+        "k3p_echo_bewaeltigt"
+      ]
+    },
+    "interactable": {
+      "id": "k3p_echo_probe",
+      "kind": "dialogue",
+      "title": "Pausenfischer",
+      "prompt": "Prüfung entscheiden",
+      "dialogue": "k3p_echo_probe_dialog"
+    }
+  },
+  {
+    "map": "ds_speisewagen",
+    "tile": [
+      6,
+      7
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k3p_ritual1_echo"
+      ],
+      "requires_flags": [
+        "kapitel3_done"
+      ],
+      "requires_pathway": [
+        "echo",
+        2
+      ]
+    },
+    "interactable": {
+      "id": "k3p_echo_ritual1_beleg",
+      "kind": "read",
+      "prompt": "Letzte Probe: Echo",
+      "title": "Letzte Probe: Echo",
+      "text": "Deine frühere Abschrift enthielt ein erfundenes Schlusswort. Du streichst nur deinen Zusatz, nicht die erhaltene Aussage.",
+      "done_flag": "k3p_echo_ritual1_beleg_gelesen",
+      "effects": {
+        "sets_flags": [
+          "k3p_echo_ritual1_beleg"
+        ]
+      }
+    }
+  },
+  {
+    "map": "ds_speisewagen",
+    "tile": [
+      6,
+      7
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k3p_ritual1_echo"
+      ],
+      "requires_flags": [
+        "k3p_echo_ritual1_beleg"
+      ],
+      "hide_if_flags": [
+        "k3p_echo_ritual1_entscheidung"
+      ]
+    },
+    "interactable": {
+      "id": "k3p_echo_ritual1_ablage",
+      "kind": "dialogue",
+      "title": "Umgang mit dem Gegenbeleg",
+      "prompt": "Über die Aufzeichnung entscheiden",
+      "dialogue": "k3p_echo_ritual1_dialog"
+    }
+  },
+  {
+    "map": "ds_runddepot",
+    "tile": [
+      8,
+      7
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k3p_kessel_pruefung"
+      ],
+      "requires_pathway": [
+        "kessel",
+        5
+      ]
+    },
+    "interactable": {
+      "id": "k3p_kessel_spur_a",
+      "kind": "read",
+      "prompt": "Erste Spur: Die saubere Rückstandsprobe",
+      "title": "Erste Spur: Die saubere Rückstandsprobe",
+      "text": "Ein Kühlgefäß riecht süß, doch sein Bodensatz verfärbt blankes Kupfer. Auf dem Deckel steht „Heilsud“. Ein Etikett ist keine Untersuchung.",
+      "done_flag": "k3p_kessel_spur_a_gelesen",
+      "effects": {
+        "sets_flags": [
+          "k3p_kessel_spur_a"
+        ]
+      }
+    }
+  },
+  {
+    "map": "ds_runddepot",
+    "tile": [
+      9,
+      7
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k3p_kessel_pruefung"
+      ],
+      "requires_flags": [
+        "k3p_kessel_spur_a"
+      ]
+    },
+    "interactable": {
+      "id": "k3p_kessel_spur_b",
+      "kind": "read",
+      "prompt": "Gegenprobe: Die saubere Rückstandsprobe",
+      "title": "Gegenprobe: Die saubere Rückstandsprobe",
+      "text": "Die Chargenkarte trennt klare Fraktion und belasteten Rest. Der Rest gehört in das versiegelte Fass, nicht in den Ablauf. Eine beschriftete Probe muss zur Nachprüfung bleiben.",
+      "done_flag": "k3p_kessel_spur_b_gelesen",
+      "effects": {
+        "sets_flags": [
+          "k3p_kessel_spur_b"
+        ]
+      }
+    }
+  },
+  {
+    "map": "ds_runddepot",
+    "tile": [
+      9,
+      9
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k3p_kessel_pruefung"
+      ],
+      "requires_flags": [
+        "k3p_kessel_spur_a",
+        "k3p_kessel_spur_b"
+      ],
+      "hide_if_flags": [
+        "k3p_kessel_bewaeltigt"
+      ]
+    },
+    "interactable": {
+      "id": "k3p_kessel_probe",
+      "kind": "dialogue",
+      "title": "Chargenprüfer",
+      "prompt": "Prüfung entscheiden",
+      "dialogue": "k3p_kessel_probe_dialog"
+    }
+  },
+  {
+    "map": "ds_speisewagen",
+    "tile": [
+      11,
+      7
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k3p_ritual1_kessel"
+      ],
+      "requires_flags": [
+        "kapitel3_done"
+      ],
+      "requires_pathway": [
+        "kessel",
+        2
+      ]
+    },
+    "interactable": {
+      "id": "k3p_kessel_ritual1_beleg",
+      "kind": "read",
+      "prompt": "Letzte Probe: Kessel",
+      "title": "Letzte Probe: Kessel",
+      "text": "Dein erster Reinigungsbericht verschwieg den Abfall. Du ergänzt Menge und Lagerort, bevor du die klare Fraktion freigibst.",
+      "done_flag": "k3p_kessel_ritual1_beleg_gelesen",
+      "effects": {
+        "sets_flags": [
+          "k3p_kessel_ritual1_beleg"
+        ]
+      }
+    }
+  },
+  {
+    "map": "ds_speisewagen",
+    "tile": [
+      7,
+      7
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k3p_ritual1_kessel"
+      ],
+      "requires_flags": [
+        "k3p_kessel_ritual1_beleg"
+      ],
+      "hide_if_flags": [
+        "k3p_kessel_ritual1_entscheidung"
+      ]
+    },
+    "interactable": {
+      "id": "k3p_kessel_ritual1_ablage",
+      "kind": "dialogue",
+      "title": "Umgang mit dem Gegenbeleg",
+      "prompt": "Über die Aufzeichnung entscheiden",
+      "dialogue": "k3p_kessel_ritual1_dialog"
+    }
+  },
+  {
+    "map": "ds_bruchstufen",
+    "tile": [
+      5,
+      8
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k3p_eisen_pruefung"
+      ],
+      "requires_pathway": [
+        "eisen",
+        5
+      ]
+    },
+    "interactable": {
+      "id": "k3p_eisen_spur_a",
+      "kind": "read",
+      "prompt": "Erste Spur: Die Last mit zwei Schultern",
+      "title": "Erste Spur: Die Last mit zwei Schultern",
+      "text": "Ein leerer Werkzeugsteg hängt an einem verbogenen Bolzen. Ein darunterliegender Fangbock hält ihn noch. Die Kreidestriche zeigen, dass seit dem letzten Sturm niemand darüber ging.",
+      "done_flag": "k3p_eisen_spur_a_gelesen",
+      "effects": {
+        "sets_flags": [
+          "k3p_eisen_spur_a"
+        ]
+      }
+    }
+  },
+  {
+    "map": "ds_bruchstufen",
+    "tile": [
+      6,
+      8
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k3p_eisen_pruefung"
+      ],
+      "requires_flags": [
+        "k3p_eisen_spur_a"
+      ]
+    },
+    "interactable": {
+      "id": "k3p_eisen_spur_b",
+      "kind": "read",
+      "prompt": "Gegenprobe: Die Last mit zwei Schultern",
+      "title": "Gegenprobe: Die Last mit zwei Schultern",
+      "text": "Der Montageplan nennt zwei seitliche Auflager. Erst wenn beide verkeilt sind, darf die mittlere Stütze gelöst werden. Ein einzelner starker Arm bleibt ein einzelner Fehlerpunkt.",
+      "done_flag": "k3p_eisen_spur_b_gelesen",
+      "effects": {
+        "sets_flags": [
+          "k3p_eisen_spur_b"
+        ]
+      }
+    }
+  },
+  {
+    "map": "ds_bruchstufen",
+    "tile": [
+      5,
+      10
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k3p_eisen_pruefung"
+      ],
+      "requires_flags": [
+        "k3p_eisen_spur_a",
+        "k3p_eisen_spur_b"
+      ],
+      "hide_if_flags": [
+        "k3p_eisen_bewaeltigt"
+      ]
+    },
+    "interactable": {
+      "id": "k3p_eisen_probe",
+      "kind": "dialogue",
+      "title": "Brückenpresser",
+      "prompt": "Prüfung entscheiden",
+      "dialogue": "k3p_eisen_probe_dialog"
+    }
+  },
+  {
+    "map": "ds_speisewagen",
+    "tile": [
+      8,
+      8
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k3p_ritual1_eisen"
+      ],
+      "requires_flags": [
+        "kapitel3_done"
+      ],
+      "requires_pathway": [
+        "eisen",
+        2
+      ]
+    },
+    "interactable": {
+      "id": "k3p_eisen_ritual1_beleg",
+      "kind": "read",
+      "prompt": "Letzte Probe: Eisen",
+      "title": "Letzte Probe: Eisen",
+      "text": "Dein erster Plan zeigte nur deine eigene Stütze. Du zeichnest die unabhängigen Auflager ein und lässt die Probe ohne deine Hand bestehen.",
+      "done_flag": "k3p_eisen_ritual1_beleg_gelesen",
+      "effects": {
+        "sets_flags": [
+          "k3p_eisen_ritual1_beleg"
+        ]
+      }
+    }
+  },
+  {
+    "map": "ds_speisewagen",
+    "tile": [
+      8,
+      7
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k3p_ritual1_eisen"
+      ],
+      "requires_flags": [
+        "k3p_eisen_ritual1_beleg"
+      ],
+      "hide_if_flags": [
+        "k3p_eisen_ritual1_entscheidung"
+      ]
+    },
+    "interactable": {
+      "id": "k3p_eisen_ritual1_ablage",
+      "kind": "dialogue",
+      "title": "Umgang mit dem Gegenbeleg",
+      "prompt": "Über die Aufzeichnung entscheiden",
+      "dialogue": "k3p_eisen_ritual1_dialog"
+    }
+  },
+  {
+    "map": "ds_endbahnhof",
+    "tile": [
+      10,
+      8
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k3p_schluessel_pruefung"
+      ],
+      "requires_pathway": [
+        "schluessel",
+        5
+      ]
+    },
+    "interactable": {
+      "id": "k3p_schluessel_spur_a",
+      "kind": "read",
+      "prompt": "Erste Spur: Die Tür ohne Pfand",
+      "title": "Erste Spur: Die Tür ohne Pfand",
+      "text": "Am verschlossenen Gepäcktor sitzt der Schließbart schief. Der öffentliche Wartungshinweis nennt eine Entlastungsfeder auf der zugänglichen Außenseite. Gewalt würde sie verklemmen.",
+      "done_flag": "k3p_schluessel_spur_a_gelesen",
+      "effects": {
+        "sets_flags": [
+          "k3p_schluessel_spur_a"
+        ]
+      }
+    }
+  },
+  {
+    "map": "ds_endbahnhof",
+    "tile": [
+      11,
+      8
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k3p_schluessel_pruefung"
+      ],
+      "requires_flags": [
+        "k3p_schluessel_spur_a"
+      ]
+    },
+    "interactable": {
+      "id": "k3p_schluessel_spur_b",
+      "kind": "read",
+      "prompt": "Gegenprobe: Die Tür ohne Pfand",
+      "title": "Gegenprobe: Die Tür ohne Pfand",
+      "text": "Das Gepäckbuch unterscheidet Zugang und Eigentum. Das zurückgehaltene Paket gehört seinem Absender, auch wenn du die Tür öffnest. Der Ersatzschlüssel muss erreichbar bleiben.",
+      "done_flag": "k3p_schluessel_spur_b_gelesen",
+      "effects": {
+        "sets_flags": [
+          "k3p_schluessel_spur_b"
+        ]
+      }
+    }
+  },
+  {
+    "map": "ds_endbahnhof",
+    "tile": [
+      6,
+      10
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k3p_schluessel_pruefung"
+      ],
+      "requires_flags": [
+        "k3p_schluessel_spur_a",
+        "k3p_schluessel_spur_b"
+      ],
+      "hide_if_flags": [
+        "k3p_schluessel_bewaeltigt"
+      ]
+    },
+    "interactable": {
+      "id": "k3p_schluessel_probe",
+      "kind": "dialogue",
+      "title": "Zollriegel",
+      "prompt": "Prüfung entscheiden",
+      "dialogue": "k3p_schluessel_probe_dialog"
+    }
+  },
+  {
+    "map": "ds_speisewagen",
+    "tile": [
+      5,
+      9
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k3p_ritual1_schluessel"
+      ],
+      "requires_flags": [
+        "kapitel3_done"
+      ],
+      "requires_pathway": [
+        "schluessel",
+        2
+      ]
+    },
+    "interactable": {
+      "id": "k3p_schluessel_ritual1_beleg",
+      "kind": "read",
+      "prompt": "Letzte Probe: Schluessel",
+      "title": "Letzte Probe: Schluessel",
+      "text": "Dein früherer Zugangsschein beanspruchte das Gepäck. Du widerrufst den Anspruch und lässt den Ausgang auch für Menschen offen, die dir misstrauen.",
+      "done_flag": "k3p_schluessel_ritual1_beleg_gelesen",
+      "effects": {
+        "sets_flags": [
+          "k3p_schluessel_ritual1_beleg"
+        ]
+      }
+    }
+  },
+  {
+    "map": "ds_speisewagen",
+    "tile": [
+      9,
+      7
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k3p_ritual1_schluessel"
+      ],
+      "requires_flags": [
+        "k3p_schluessel_ritual1_beleg"
+      ],
+      "hide_if_flags": [
+        "k3p_schluessel_ritual1_entscheidung"
+      ]
+    },
+    "interactable": {
+      "id": "k3p_schluessel_ritual1_ablage",
+      "kind": "dialogue",
+      "title": "Umgang mit dem Gegenbeleg",
+      "prompt": "Über die Aufzeichnung entscheiden",
+      "dialogue": "k3p_schluessel_ritual1_dialog"
+    }
+  },
+  {
+    "map": "ds_lohnbuero",
+    "tile": [
+      7,
+      9
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k3p_waage_pruefung"
+      ],
+      "requires_pathway": [
+        "sq_waage",
+        5
+      ]
+    },
+    "interactable": {
+      "id": "k3p_waage_spur_a",
+      "kind": "read",
+      "prompt": "Erste Spur: Die doppelte Forderung",
+      "title": "Erste Spur: Die doppelte Forderung",
+      "text": "Eine Werkzeugkaution wurde beim Ausleihen und bei der Rückgabe eingetragen. Nur die erste Buchung trägt einen Empfangsbeleg. Die zweite ist eine Kopie, keine neue Schuld.",
+      "done_flag": "k3p_waage_spur_a_gelesen",
+      "effects": {
+        "sets_flags": [
+          "k3p_waage_spur_a"
+        ]
+      }
+    }
+  },
+  {
+    "map": "ds_lohnbuero",
+    "tile": [
+      8,
+      9
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k3p_waage_pruefung"
+      ],
+      "requires_flags": [
+        "k3p_waage_spur_a"
+      ]
+    },
+    "interactable": {
+      "id": "k3p_waage_spur_b",
+      "kind": "read",
+      "prompt": "Gegenprobe: Die doppelte Forderung",
+      "title": "Gegenprobe: Die doppelte Forderung",
+      "text": "Die Rückgabekarte bestätigt ein unbeschädigtes Werkzeug. Auf der Kopie steht eine Prämie für den Prüfer. Wer sie streicht, verliert den eigenen bequemen Gewinn.",
+      "done_flag": "k3p_waage_spur_b_gelesen",
+      "effects": {
+        "sets_flags": [
+          "k3p_waage_spur_b"
+        ]
+      }
+    }
+  },
+  {
+    "map": "ds_lohnbuero",
+    "tile": [
+      7,
+      10
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k3p_waage_pruefung"
+      ],
+      "requires_flags": [
+        "k3p_waage_spur_a",
+        "k3p_waage_spur_b"
+      ],
+      "hide_if_flags": [
+        "k3p_waage_bewaeltigt"
+      ]
+    },
+    "interactable": {
+      "id": "k3p_waage_probe",
+      "kind": "dialogue",
+      "title": "Fristpfänder",
+      "prompt": "Prüfung entscheiden",
+      "dialogue": "k3p_waage_probe_dialog"
+    }
+  },
+  {
+    "map": "ds_speisewagen",
+    "tile": [
+      10,
+      9
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k3p_ritual1_sq_waage"
+      ],
+      "requires_flags": [
+        "kapitel3_done"
+      ],
+      "requires_pathway": [
+        "sq_waage",
+        2
+      ]
+    },
+    "interactable": {
+      "id": "k3p_waage_ritual1_beleg",
+      "kind": "read",
+      "prompt": "Letzte Probe: Waage",
+      "title": "Letzte Probe: Waage",
+      "text": "Deine Abrechnung enthielt eine unverdiente Prämie. Du verzichtest öffentlich darauf, ohne die Schuld einer Familie zu vergrößern.",
+      "done_flag": "k3p_waage_ritual1_beleg_gelesen",
+      "effects": {
+        "sets_flags": [
+          "k3p_waage_ritual1_beleg"
+        ]
+      }
+    }
+  },
+  {
+    "map": "ds_speisewagen",
+    "tile": [
+      10,
+      7
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k3p_ritual1_sq_waage"
+      ],
+      "requires_flags": [
+        "k3p_waage_ritual1_beleg"
+      ],
+      "hide_if_flags": [
+        "k3p_waage_ritual1_entscheidung"
+      ]
+    },
+    "interactable": {
+      "id": "k3p_waage_ritual1_ablage",
+      "kind": "dialogue",
+      "title": "Umgang mit dem Gegenbeleg",
+      "prompt": "Über die Aufzeichnung entscheiden",
+      "dialogue": "k3p_waage_ritual1_dialog"
+    }
+  },
+  {
+    "map": "ds_kalkmarkt",
+    "tile": [
+      4,
+      10
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k3p_moor_pruefung"
+      ],
+      "requires_pathway": [
+        "sq_moor",
+        5
+      ]
+    },
+    "interactable": {
+      "id": "k3p_moor_spur_a",
+      "kind": "read",
+      "prompt": "Erste Spur: Der Name im falschen Torf",
+      "title": "Erste Spur: Der Name im falschen Torf",
+      "text": "In einer Trödelschale liegt ein Täfelchen zwischen Torf und Kalk. Ein Fundzettel nennt Wexmoor, obere Pfahlschicht. Der Namensrest ist nur „En…“, kein vollständiger Eintrag.",
+      "done_flag": "k3p_moor_spur_a_gelesen",
+      "effects": {
+        "sets_flags": [
+          "k3p_moor_spur_a"
+        ]
+      }
+    }
+  },
+  {
+    "map": "ds_kalkmarkt",
+    "tile": [
+      5,
+      10
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k3p_moor_pruefung"
+      ],
+      "requires_flags": [
+        "k3p_moor_spur_a"
+      ]
+    },
+    "interactable": {
+      "id": "k3p_moor_spur_b",
+      "kind": "read",
+      "prompt": "Gegenprobe: Der Name im falschen Torf",
+      "title": "Gegenprobe: Der Name im falschen Torf",
+      "text": "Ein zweites Täfelchen zeigt denselben Anfang, aber eine tiefere Fundschicht. Gleich aussehende Buchstaben machen keine gleiche Person. Die beschädigte Stelle ist älter als der Kalkstaub.",
+      "done_flag": "k3p_moor_spur_b_gelesen",
+      "effects": {
+        "sets_flags": [
+          "k3p_moor_spur_b"
+        ]
+      }
+    }
+  },
+  {
+    "map": "ds_kalkmarkt",
+    "tile": [
+      8,
+      10
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k3p_moor_pruefung"
+      ],
+      "requires_flags": [
+        "k3p_moor_spur_a",
+        "k3p_moor_spur_b"
+      ],
+      "hide_if_flags": [
+        "k3p_moor_bewaeltigt"
+      ]
+    },
+    "interactable": {
+      "id": "k3p_moor_probe",
+      "kind": "dialogue",
+      "title": "Schichtsammler",
+      "prompt": "Prüfung entscheiden",
+      "dialogue": "k3p_moor_probe_dialog"
+    }
+  },
+  {
+    "map": "ds_speisewagen",
+    "tile": [
+      7,
+      10
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k3p_ritual1_sq_moor"
+      ],
+      "requires_flags": [
+        "kapitel3_done"
+      ],
+      "requires_pathway": [
+        "sq_moor",
+        2
+      ]
+    },
+    "interactable": {
+      "id": "k3p_moor_ritual1_beleg",
+      "kind": "read",
+      "prompt": "Letzte Probe: Moor",
+      "title": "Letzte Probe: Moor",
+      "text": "Dein sauberer Katalog verschmolz zwei Fundschichten. Du trennst sie und gibst dem unbekannten Namen seinen eigenen leeren Platz.",
+      "done_flag": "k3p_moor_ritual1_beleg_gelesen",
+      "effects": {
+        "sets_flags": [
+          "k3p_moor_ritual1_beleg"
+        ]
+      }
+    }
+  },
+  {
+    "map": "ds_speisewagen",
+    "tile": [
+      11,
+      7
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k3p_ritual1_sq_moor"
+      ],
+      "requires_flags": [
+        "k3p_moor_ritual1_beleg"
+      ],
+      "hide_if_flags": [
+        "k3p_moor_ritual1_entscheidung"
+      ]
+    },
+    "interactable": {
+      "id": "k3p_moor_ritual1_ablage",
+      "kind": "dialogue",
+      "title": "Umgang mit dem Gegenbeleg",
+      "prompt": "Über die Aufzeichnung entscheiden",
+      "dialogue": "k3p_moor_ritual1_dialog"
+    }
+  },
+  {
+    "map": "ds_signalhang",
+    "tile": [
+      9,
+      10
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k3p_uhr_pruefung"
+      ],
+      "requires_pathway": [
+        "sq_uhr",
+        5
+      ]
+    },
+    "interactable": {
+      "id": "k3p_uhr_spur_a",
+      "kind": "read",
+      "prompt": "Erste Spur: Die Pause im Gangrad",
+      "title": "Erste Spur: Die Pause im Gangrad",
+      "text": "Die Bahnhofsuhr schlägt kurz, kurz, Pause, lang. Vier Kreidestriche zeigen dieselbe Folge, der dritte ist offen. Die Lücke ist Teil des Umlaufs.",
+      "done_flag": "k3p_uhr_spur_a_gelesen",
+      "effects": {
+        "sets_flags": [
+          "k3p_uhr_spur_a"
+        ]
+      }
+    }
+  },
+  {
+    "map": "ds_signalhang",
+    "tile": [
+      10,
+      10
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k3p_uhr_pruefung"
+      ],
+      "requires_flags": [
+        "k3p_uhr_spur_a"
+      ]
+    },
+    "interactable": {
+      "id": "k3p_uhr_spur_b",
+      "kind": "read",
+      "prompt": "Gegenprobe: Die Pause im Gangrad",
+      "title": "Gegenprobe: Die Pause im Gangrad",
+      "text": "Ein Wartungszettel nennt eine absichtlich ausgesparte Zahnstelle. Die zweite Uhr läuft darüber hinweg und geht vor. Ein Wartender atmet langsamer, weil er müde ist, nicht weil seine Zeit falsch wäre.",
+      "done_flag": "k3p_uhr_spur_b_gelesen",
+      "effects": {
+        "sets_flags": [
+          "k3p_uhr_spur_b"
+        ]
+      }
+    }
+  },
+  {
+    "map": "ds_signalhang",
+    "tile": [
+      9,
+      10
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k3p_uhr_pruefung"
+      ],
+      "requires_flags": [
+        "k3p_uhr_spur_a",
+        "k3p_uhr_spur_b"
+      ],
+      "hide_if_flags": [
+        "k3p_uhr_bewaeltigt"
+      ]
+    },
+    "interactable": {
+      "id": "k3p_uhr_probe",
+      "kind": "dialogue",
+      "title": "Gangaufseher",
+      "prompt": "Prüfung entscheiden",
+      "dialogue": "k3p_uhr_probe_dialog"
+    }
+  },
+  {
+    "map": "ds_speisewagen",
+    "tile": [
+      4,
+      11
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k3p_ritual1_sq_uhr"
+      ],
+      "requires_flags": [
+        "kapitel3_done"
+      ],
+      "requires_pathway": [
+        "sq_uhr",
+        2
+      ]
+    },
+    "interactable": {
+      "id": "k3p_uhr_ritual1_beleg",
+      "kind": "read",
+      "prompt": "Letzte Probe: Uhr",
+      "title": "Letzte Probe: Uhr",
+      "text": "Deine erste Zeitliste erklärte den Wartenden zum Verspäteten. Du korrigierst die Uhrabweichung und lässt seine Pause unangetastet.",
+      "done_flag": "k3p_uhr_ritual1_beleg_gelesen",
+      "effects": {
+        "sets_flags": [
+          "k3p_uhr_ritual1_beleg"
+        ]
+      }
+    }
+  },
+  {
+    "map": "ds_speisewagen",
+    "tile": [
+      12,
+      7
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k3p_ritual1_sq_uhr"
+      ],
+      "requires_flags": [
+        "k3p_uhr_ritual1_beleg"
+      ],
+      "hide_if_flags": [
+        "k3p_uhr_ritual1_entscheidung"
+      ]
+    },
+    "interactable": {
+      "id": "k3p_uhr_ritual1_ablage",
+      "kind": "dialogue",
+      "title": "Umgang mit dem Gegenbeleg",
+      "prompt": "Über die Aufzeichnung entscheiden",
+      "dialogue": "k3p_uhr_ritual1_dialog"
+    }
+  }
+]
