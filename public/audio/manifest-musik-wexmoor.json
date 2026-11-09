@@ -1,0 +1,111 @@
+{
+  "format": "nebel-musik-1",
+  "base": "audio/musik/",
+  "instrumente": [
+    "instrumente.json"
+  ],
+  "tracks": {
+    "wexmoor_tag": {
+      "file": "wexmoor_tag.json",
+      "mood": "wexmoor_tag",
+      "volume": 0.7
+    },
+    "wexmoor_nacht": {
+      "file": "wexmoor_nacht.json",
+      "mood": "wexmoor_nacht",
+      "volume": 0.7
+    },
+    "wexmoor_streife": {
+      "file": "wexmoor_streife.json",
+      "mood": "wexmoor_streife",
+      "volume": 0.7
+    },
+    "wexmoor_flucht": {
+      "file": "wexmoor_flucht.json",
+      "mood": "wexmoor_flucht",
+      "volume": 0.7
+    },
+    "unterschlupf": {
+      "file": "unterschlupf.json",
+      "mood": "unterschlupf",
+      "volume": 0.7
+    },
+    "moor": {
+      "file": "moor.json",
+      "mood": "moor",
+      "volume": 0.7
+    },
+    "altstadt": {
+      "file": "altstadt.json",
+      "mood": "altstadt",
+      "volume": 0.7
+    },
+    "leuchtturm": {
+      "file": "leuchtturm.json",
+      "mood": "leuchtturm",
+      "volume": 0.7
+    },
+    "boss_wexmoor": {
+      "file": "boss_wexmoor.json",
+      "mood": "boss_wexmoor",
+      "volume": 0.7
+    },
+    "abspann": {
+      "file": "abspann.json",
+      "mood": "abspann",
+      "volume": 0.7
+    }
+  },
+  "zuordnung": {
+    "maps": {
+      "wx_bahnhof": {
+        "tag": "wexmoor_tag",
+        "nacht": "wexmoor_nacht"
+      },
+      "wx_torfstich": {
+        "tag": "wexmoor_tag",
+        "nacht": "wexmoor_nacht"
+      },
+      "wx_kahn": "unterschlupf",
+      "wx_zelle": "wexmoor_streife",
+      "wx_salzmarkt": {
+        "tag": "wexmoor_tag",
+        "nacht": "wexmoor_nacht"
+      },
+      "wx_bojenhafen": {
+        "tag": "wexmoor_tag",
+        "nacht": "wexmoor_nacht"
+      },
+      "wx_oberstadt": {
+        "tag": "wexmoor_tag",
+        "nacht": "wexmoor_nacht"
+      },
+      "wx_pfahldorf": {
+        "tag": "wexmoor_tag",
+        "nacht": "wexmoor_nacht"
+      },
+      "wx_akademie": "wexmoor_nacht",
+      "wx_lucent": "wexmoor_nacht",
+      "wx_vergessmoor": "moor",
+      "wx_wachhaus": "wexmoor_streife",
+      "wx_leuchtturm": "leuchtturm",
+      "wx_salzwatt": "moor",
+      "wx_glocke": "unterschlupf",
+      "wx_altstadt": "altstadt"
+    },
+    "zonen": {
+      "wx_vergessmoor": "moor",
+      "wx_leuchtturm": "leuchtturm",
+      "wx_salzwatt": "moor",
+      "wx_altstadt": "altstadt"
+    },
+    "kampf": {
+      "boss_kapitel2": "boss_wexmoor"
+    },
+    "ereignisse": {
+      "streife": "wexmoor_streife",
+      "flucht": "wexmoor_flucht",
+      "abspann_k2": "abspann"
+    }
+  }
+}

@@ -1,0 +1,138 @@
+{
+  "format": "nebel-musik-1",
+  "id": "wexmoor_tag",
+  "titel": "Bojen im Morgenlicht",
+  "bpm": 92,
+  "takt": [
+    6,
+    8
+  ],
+  "loop": true,
+  "lautstaerke": 0.72,
+  "hall": 0.38,
+  "spuren": {
+    "melodie": {
+      "instrument": "zither",
+      "lautstaerke": 0.7,
+      "pan": -0.16
+    },
+    "akkorde": {
+      "instrument": "akkordeon",
+      "lautstaerke": 0.3,
+      "pan": 0.2
+    },
+    "bass": {
+      "instrument": "kontrabass",
+      "lautstaerke": 0.55,
+      "pan": -0.05
+    },
+    "luft": {
+      "instrument": "wasser",
+      "lautstaerke": 0.12,
+      "pan": 0.1
+    },
+    "horn": {
+      "instrument": "nebelhorn",
+      "lautstaerke": 0.25,
+      "pan": -0.3
+    }
+  },
+  "muster": {
+    "motiv": {
+      "spur": "melodie",
+      "takte": 4,
+      "noten": "e4:6 g4:2 a4:4 | b4:6 a4:2 g4:4 | f#4:6 e4:2 d4:4 | e4:12"
+    },
+    "antwort": {
+      "spur": "melodie",
+      "takte": 4,
+      "noten": "b4:6 c#5:2 b4:4 | a4:6 g4:2 e4:4 | d4:6 f#4:2 a4:4 | e4:12"
+    },
+    "atem": {
+      "spur": "melodie",
+      "takte": 4,
+      "noten": "r:12 | r:12 | r:12 | r:12"
+    },
+    "bett_a": {
+      "spur": "akkorde",
+      "takte": 4,
+      "noten": "[e3,g3,b3]:12~ | [e3,g3,b3]:12~ | [e3,g3,b3]:12~ | [e3,g3,b3]:12"
+    },
+    "bett_b": {
+      "spur": "akkorde",
+      "takte": 4,
+      "noten": "[a2,c#3,e3]:12~ | [a2,c#3,e3]:12 | [d3,f#3,a3]:12~ | [d3,f#3,a3]:12"
+    },
+    "bett_c": {
+      "spur": "akkorde",
+      "takte": 4,
+      "noten": "[e3,g3,b3]:12~ | [e3,g3,b3]:12~ | [e3,g3,b3]:12~ | [e3,g3,b3]:12"
+    },
+    "luft": {
+      "spur": "luft",
+      "takte": 1,
+      "noten": "x:12@0.25"
+    },
+    "bass_a": {
+      "spur": "bass",
+      "takte": 1,
+      "noten": "e2:6@0.65 b2:6@0.4"
+    },
+    "bass_b": {
+      "spur": "bass",
+      "takte": 1,
+      "noten": "a2:6 e3:6"
+    },
+    "horn": {
+      "spur": "horn",
+      "takte": 4,
+      "noten": "e2:12 | r:12 | r:12 | r:12"
+    }
+  },
+  "abschnitte": {
+    "intro": [
+      "bett_a",
+      "luft"
+    ],
+    "A": [
+      "motiv",
+      "bett_a",
+      "luft",
+      "bass_a",
+      "horn"
+    ],
+    "B": [
+      "antwort",
+      "bett_b",
+      "luft",
+      "bass_b",
+      "horn"
+    ],
+    "C": [
+      "motiv",
+      "bett_c",
+      "luft",
+      "bass_a",
+      "horn"
+    ]
+  },
+  "ablauf": [
+    "intro",
+    "A",
+    "B",
+    "C",
+    "A",
+    "B",
+    "C",
+    "A",
+    "B",
+    "C",
+    "A",
+    "B",
+    "C",
+    "A",
+    "B",
+    "C"
+  ],
+  "loop_ab": 1
+}

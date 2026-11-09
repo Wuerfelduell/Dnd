@@ -1,0 +1,155 @@
+{
+  "format": "nebel-musik-1",
+  "id": "boss_wexmoor",
+  "titel": "Die Tiefe erhebt sich",
+  "bpm": 132,
+  "takt": [
+    6,
+    8
+  ],
+  "loop": true,
+  "lautstaerke": 0.72,
+  "hall": 0.38,
+  "spuren": {
+    "melodie": {
+      "instrument": "harmonium",
+      "lautstaerke": 0.7,
+      "pan": -0.16
+    },
+    "akkorde": {
+      "instrument": "chor_ah",
+      "lautstaerke": 0.3,
+      "pan": 0.2
+    },
+    "bass": {
+      "instrument": "kontrabass",
+      "lautstaerke": 0.55,
+      "pan": -0.05
+    },
+    "takt": {
+      "instrument": "pauke",
+      "lautstaerke": 0.28,
+      "pan": 0.15
+    },
+    "schatten": {
+      "instrument": "pad_glas",
+      "lautstaerke": 0.22,
+      "pan": 0.4
+    },
+    "horn": {
+      "instrument": "nebelhorn",
+      "lautstaerke": 0.25,
+      "pan": -0.3
+    }
+  },
+  "muster": {
+    "motiv": {
+      "spur": "melodie",
+      "takte": 4,
+      "noten": "e4:6 g4:2 a4:4 | b4:6 a4:2 g4:4 | f#4:6 e4:2 d4:4 | e4:12"
+    },
+    "antwort": {
+      "spur": "melodie",
+      "takte": 4,
+      "noten": "b4:6 c#5:2 b4:4 | a4:6 g4:2 e4:4 | d4:6 f#4:2 a4:4 | e4:12"
+    },
+    "atem": {
+      "spur": "melodie",
+      "takte": 4,
+      "noten": "r:12 | r:12 | r:12 | r:12"
+    },
+    "bett_a": {
+      "spur": "akkorde",
+      "takte": 4,
+      "noten": "[e3,g3,b3]:12~ | [e3,g3,b3]:12~ | [e3,g3,b3]:12~ | [e3,g3,b3]:12"
+    },
+    "bett_b": {
+      "spur": "akkorde",
+      "takte": 4,
+      "noten": "[a2,c#3,e3]:12~ | [a2,c#3,e3]:12 | [d3,f#3,a3]:12~ | [d3,f#3,a3]:12"
+    },
+    "bett_c": {
+      "spur": "akkorde",
+      "takte": 4,
+      "noten": "[e3,g3,b3]:12~ | [e3,g3,b3]:12~ | [e3,g3,b3]:12~ | [e3,g3,b3]:12"
+    },
+    "bass_a": {
+      "spur": "bass",
+      "takte": 1,
+      "noten": "e2:2@0.65 b2:2@0.4 e2:2@0.65 b2:2@0.4 e2:2@0.65 b2:2@0.4"
+    },
+    "bass_b": {
+      "spur": "bass",
+      "takte": 1,
+      "noten": "a2:6 e3:6"
+    },
+    "puls": {
+      "spur": "takt",
+      "takte": 1,
+      "noten": "x:6@0.6 x:6@0.25"
+    },
+    "okkult": {
+      "spur": "schatten",
+      "takte": 4,
+      "noten": "c5:8 f#5:4~ | f#5:4 b4:8~ | b4:8 r:4 | r:12"
+    },
+    "horn": {
+      "spur": "horn",
+      "takte": 4,
+      "noten": "e2:12 | r:12 | r:12 | r:12"
+    }
+  },
+  "abschnitte": {
+    "intro": [
+      "bett_a"
+    ],
+    "A": [
+      "motiv",
+      "bett_a",
+      "bass_a",
+      "puls",
+      "horn"
+    ],
+    "B": [
+      "antwort",
+      "bett_b",
+      "bass_b",
+      "puls",
+      "horn"
+    ],
+    "C": [
+      "motiv",
+      "bett_c",
+      "bass_a",
+      "puls",
+      "horn",
+      "okkult"
+    ]
+  },
+  "ablauf": [
+    "intro",
+    "A",
+    "B",
+    "C",
+    "A",
+    "B",
+    "C",
+    "A",
+    "B",
+    "C",
+    "A",
+    "B",
+    "C",
+    "A",
+    "B",
+    "C",
+    "A",
+    "B",
+    "C",
+    "A",
+    "B",
+    "C",
+    "A"
+  ],
+  "loop_ab": 1
+}
