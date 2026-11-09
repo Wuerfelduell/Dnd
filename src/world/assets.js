@@ -437,6 +437,8 @@ export const UI_SKINS = {
   shopframe: 'ui/A_10_shop.png',
   lootframe: 'ui/G_03_loot_ui.png',
   logstrips: 'ui/C_07_log_strips.png',
+  routes: 'ui/I_reise_routen.png',
+  notebook_bg: 'ui/07_02_notebook.png',
 };
 /** Bögen für Symbole aus Regionen: Name → [Pfad, Breite, Höhe]. Regionen [x, y, w, h] in UI_REGIONS. */
 export const UI_SHEETS = {
@@ -490,7 +492,7 @@ export const UI_REGIONS = {
   qstatus: steps('q', 0, 0, 16, 16, 7, 16),
   ladder: { empty: [0, 0, 24, 24], unlocked: [24, 0, 24, 24], cracked: [48, 0, 24, 24], locked: [72, 0, 24, 24] },
   // Rufleiste: fünf Füllstände untereinander
-  repbar: Object.fromEntries([3, 10, 18, 25, 33].map((y, i) => [`f${i}`, [0, y, 64, 8]])),
+  repbar: Object.fromEntries([3, 10, 18, 25, 33].map((y, i) => [`f${i}`, [0, y, 64, 7]])),
 };
 /** Schadensschrift (8x10, 12 Spalten): Zeile nach Art, Spalte nach Zeichen. */
 export const DAMAGE_FONT = { glyphs: '0123456789+-', rows: { damage: 0, critical: 1, player_damage: 2, nerves: 3, healing: 4 } };

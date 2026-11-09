@@ -552,3 +552,19 @@ test('Paket S: Monster, Einzelgänger, Gastgeber, Salzwatt und Zirkelräume nutz
   assert.equal(content.maps.treffen_lichtlose.tiles, 's_lichtlose');
   assert.equal(content.maps.treffen_salz.tiles, 's_salz');
 });
+
+test('Liegengebliebene Bögen: Oberflächen-Ausschnitte liegen im Bild, Fundstücke sind Beute', async () => {
+  const A = await import('../src/world/assets.js');
+  for (const path of Object.values(A.UI_SKINS)) assert.ok(existsSync(sprite(path)), path);
+  for (const [sheet, regions] of Object.entries(A.UI_REGIONS)) {
+    const [path, w, h] = A.UI_SHEETS[sheet];
+    assert.ok(existsSync(sprite(path)), path);
+    for (const [name, [x, y, rw, rh]] of Object.entries(regions)) assert.ok(x >= 0 && y >= 0 && x + rw <= w && y + rh <= h, `${sheet}.${name}`);
+  }
+  for (const n of [1, 15, 40, 100]) assert.ok(existsSync(file(A.moneyIconUrl(n))), `Geld ${n}`);
+  for (const id of ['ehering', 'liebesbrief', 'spieldose_klein', 'medaille_polizei']) {
+    assert.equal(content.items[id]?.kind, 'trophy', id);
+    assert.ok(Object.values(content.encounters).some((e) => e.loot?.drops?.some((d) => d.item === id)) || Object.values(content.loot ?? {}).some((t) => t.drops?.some((d) => d.item === id)), `${id} fällt nirgends`);
+  }
+  for (const id of ['elsbeth', 'price_wx', 'streife']) assert.ok(existsSync(sprite(`portraits/${A.PORTRAITS[id]}`)), id);
+});

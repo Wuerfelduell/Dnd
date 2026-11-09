@@ -1052,7 +1052,7 @@ export class WorldScene extends Phaser.Scene {
       }
     }
     this.focus = best;
-    this.ui.setPrompt(best ? best.prompt : null);
+    this.ui.setPrompt(best ? best.prompt : null, best?.kind);
   }
 
   /** Objekte mit "auto" lösen von selbst aus (z. B. ein Hinterhalt), sobald man nah genug ist. */
