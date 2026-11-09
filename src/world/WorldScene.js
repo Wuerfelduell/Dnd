@@ -104,7 +104,35 @@ function tavernExtra(ch, at, x, y) {
   return null;
 }
 
+/**
+ * Paket AV (Dunscar): Boden mit seltenen Varianten, Wände mit Front über dem Boden, Kante darüber,
+ * das Innere dunkel. `walls` kann die Wände aus einem anderen Blatt nehmen (Bahn nutzt die Kalksteinhäuser).
+ */
+function dsTheme(theme, { floorChars = '.sgw', walls = theme, mix = [], accent = null } = {}) {
+  return (ch, at, v, x, y) => {
+    const k = (t, g, seed = 0) => pickKey(themeKeys(t, g), x, y, seed);
+    if (floorChars.includes(ch)) {
+      const r = hash2(x, y, 81);
+      let acc = 0;
+      for (const [g, p] of mix) if (r > 1 - (acc += p)) return k(theme, g, 2);
+      return k(theme, 'floor');
+    }
+    if (ch !== 'I') return null;
+    const wall = (c) => c === undefined || c === 'I';
+    if (!wall(at(0, 1))) return accent && hash2(x, y, 82) > 0.8 ? k(walls, accent, 3) : k(walls, 'wallFace', 3);
+    if (!wall(at(0, 2))) return k(walls, 'wallTop', 4);
+    return null;
+  };
+}
+
 const THEMES = {
+  ds_stadt: dsTheme('ds_stadt', { mix: [['chalk', 0.06], ['debris', 0.06]], accent: 'window' }),
+  ds_bahn: dsTheme('ds_bahn', { walls: 'ds_stadt', mix: [['debris', 0.06]] }),
+  ds_bruch: dsTheme('ds_bruch', { mix: [['debris', 0.05], ['wet', 0.03]] }),
+  ds_schlucht: dsTheme('ds_schlucht', { mix: [['debris', 0.08]], accent: 'grooves' }),
+  ds_innen: dsTheme('ds_innen', { mix: [['wear', 0.05]] }),
+  ds_teesaal: dsTheme('ds_teesaal', { mix: [['carpet', 0.3]] }),
+  ds_zug: dsTheme('ds_zug', { accent: 'window' }),
   warehouse: roomTheme('warehouse', {
     floorMix: (x, y) => (hash2(x, y, 31) > 0.95 ? themeKeys('warehouse', 'debris')[0] : pickKey(themeKeys('warehouse', 'floor'), x, y, 0)),
   }),
