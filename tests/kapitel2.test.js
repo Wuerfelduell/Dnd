@@ -219,7 +219,7 @@ test('Akt II: Akademie nur mit Robe, Starlings Tod widerlegt, Mr. Lucent entlarv
   return s;
 });
 
-test('Akt III: Lucents Haus, Spur ins Vergessmoor, Die Namenlose, Starling als Zeuge', () => {
+function afterAct3() {
   const s = afterAct1();
   ['k2_in_akademie', 'k2_akt2_done'].forEach((f) => s.flags.add(f));
   s.quests.k2_akt2 = 'done';
@@ -244,4 +244,106 @@ test('Akt III: Lucents Haus, Spur ins Vergessmoor, Die Namenlose, Starling als Z
   assert.ok(s.flags.has('k2_starling_witness'));
   assert.equal(s.quests.k2_akt3, 'done');
   assert.equal(s.quests.k2_akt4, 'active');
+  return s;
+}
+
+test('Akt III: Lucents Haus, Spur ins Vergessmoor, Die Namenlose, Starling als Zeuge', () => { afterAct3(); });
+
+/** Akt IV bis zum Abschluss bei Zunder. ally: Hale und Marlowe auf deiner Seite. */
+function afterAct4({ ally = true } = {}) {
+  const s = afterAct3();
+  ['wx_briefe_L', 'wx_wyle_L'].forEach((c) => s.addClue(c)); // aus Akt II (Akademie)
+  talk(s, 'zunder', ['nur gezählt']);
+  assert.ok(s.flags.has('k2_akt4_talk'));
+  // Hale verrät die Befehle, in derselben Nacht wird Zunder geholt
+  talk(s, 'hale', ['Befehle', 'Zunder']);
+  assert.ok(s.hasClue('wx_hale_befehl'));
+  assert.ok(!s.meets(content.maps.wx_kahn.npcs.find((n) => n.id === 'zunder').visible_if), 'Zunder ist weg');
+  use(s, 'wx_kahn', 'leer');
+  // Aus der Zelle holt dich jetzt niemand
+  s.arrest();
+  assert.equal(talk(s, 'wx_zelle', ['warten']).at(-1), 'bail_none');
+  s.flags.delete('k2_in_cell');
+  // Einbruch ins Wachhaus
+  assert.equal(use(s, 'wx_oberstadt', 'wachhaus'), 'ok');
+  assert.equal(talk(s, 'zunder_zelle', ['Schlüssel']).at(-1), 'wie');
+  use(s, 'wx_wachhaus', 'befehl');
+  use(s, 'wx_wachhaus', 'haushalt');
+  use(s, 'wx_wachhaus', 'schluessel');
+  s.flags.add('k2_wache_schluessel'); // done_flag setzt sonst die Welt
+  talk(s, 'zunder_zelle', ['den Schlüssel']);
+  assert.ok(s.flags.has('k2_zunder_free'));
+  assert.equal(s.wanted, 3, 'Ausbruch: volle Fahndung');
+  assert.deepEqual(s.pendingTravel, { map: 'wx_kahn', spawn: 'default' });
+  assert.ok(s.meets(content.maps.wx_kahn.npcs.find((n) => n.id === 'zunder').visible_if), 'Zunder wieder im Kahn');
+  // L. ist Brandt
+  assert.equal(s.factStatus('wx_order_lichtamt'), 'likely');
+  assert.equal(s.combine('wx_order_lichtamt', 'wx_letters_L').result, 'new');
+  // Pfahldorf: Sedge und die Chronik am Schrein
+  talk(s, 'sedge', ['Seit wann']);
+  use(s, 'wx_pfahldorf', 'chronik');
+  assert.equal(s.factStatus('wx_tower_strangers'), 'likely');
+  assert.equal(s.factStatus('wx_collector'), 'likely', 'Starling und das Hauptbuch');
+  assert.equal(s.combine('wx_tower_strangers', 'wx_collector').result, 'new');
+  if (ally) {
+    talk(s, 'hale', ['Lesen Sie']);
+    talk(s, 'marlowe_wexmoor', ['Lichtmeisterin']);
+    assert.ok(s.flags.has('k2_hale_ally') && s.flags.has('k2_marlowe_here'));
+  }
+  talk(s, 'zunder', ['Es ist Brandt']);
+  assert.equal(s.quests.k2_akt4, 'done');
+  assert.equal(s.quests.k2_akt5, 'active');
+  return s;
+}
+
+test('Akt IV: Hale, Zunder im Wachhaus, Brandt ist L., der Turm frisst Fremde', () => { afterAct4(); });
+
+test('Vey taucht nur auf, wenn sie in Fall 5 geflohen ist', () => {
+  const vey = content.maps.wx_pfahldorf.npcs.find((n) => n.id === 'miriam');
+  const s = afterAct3();
+  assert.ok(!s.meets(vey.visible_if));
+  s.flags.add('vey_fled');
+  assert.ok(s.meets(vey.visible_if));
+  talk(s, 'vey_wexmoor', ['Warum']);
+  assert.ok(s.hasClue('wx_vey_turm'));
+});
+
+/** Akt V: zum Leuchtturm, das Leuchtfeuer besiegen (Ausrüstung wie für Bosse der Stufe 4). */
+function atTheTop(opts) {
+  const s = afterAct4(opts);
+  assert.ok(travelDestinations(s, 'wx_kahn').some((t) => t.map === 'wx_leuchtturm'));
+  use(s, 'wx_leuchtturm', 'ankunft');
+  s.flags.add('k2_am_turm');
+  s.addItem('ossuarklinge');
+  s.equip('ossuarklinge');
+  s.addItem('tonikum', 4);
+  s.addItem('verband', 2);
+  s.heal(s.maxHp);
+  const { result } = fight(s, 'leuchtfeuer', { defend: EXPERT, skill: 'double', healBelow: 18 });
+  assert.equal(result.outcome, 'won');
+  return s;
+}
+
+test('Akt V: mit Hale, Marlowe und Starling als Zeugen kommt Brandt vor Gericht', () => {
+  const s = atTheTop();
+  const path = talk(s, 'brandt', ['Warum ich', 'Wofür', 'verhaftet']);
+  assert.equal(path.at(-1), 'rein');
+  assert.equal(s.endings.kapitel2, 'k2_rein');
+  assert.equal(s.quests.k2_akt5, 'done');
+  assert.ok(s.flags.has('kapitel2_done'));
+  assert.match(content.endings.k2_rein.chapter.title, /Ende von Kapitel 2/);
+});
+
+test('Akt V: ohne Verbündete bleiben Löschen, Übernehmen oder Flucht mit Kit', () => {
+  for (const [pick, end] of [['lösche', 'k2_moor'], ['nicht Sie', 'k2_lichtmeister'], ['verschwinde', 'k2_meer']]) {
+    const s = atTheTop({ ally: false });
+    assert.throws(() => talk(s, 'brandt', ['Wofür', 'verhaftet']), /keine verfügbare Option/);
+    talk(s, 'brandt', ['Wofür', pick]);
+    assert.equal(s.endings.kapitel2, end);
+  }
+  // Jedes Ende schließt Kapitel 2 mit einer Kapiteltafel
+  for (const id of ['k2_rein', 'k2_moor', 'k2_lichtmeister', 'k2_meer']) {
+    assert.equal(content.endings[id].case, 'kapitel2');
+    assert.ok(content.endings[id].chapter.text);
+  }
 });

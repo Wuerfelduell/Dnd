@@ -54,6 +54,14 @@
       "wx_collector": {
         "case": "kapitel2",
         "text": "Starling hat nur gesammelt. Wer die Lichter im Turm verbrennt, sitzt im Lichtamt."
+      },
+      "wx_order_lichtamt": {
+        "case": "kapitel2",
+        "text": "Die Grauspäher verhaften Fremde auf Anweisung des Lichtamts, und das Lichtamt wollte dich lebend, nicht im Gefängnis."
+      },
+      "wx_tower_strangers": {
+        "case": "kapitel2",
+        "text": "Seit dreihundert Jahren brennt der Leuchtturm mit dem Licht von Fremden. Wexmoor holt sie her, damit das Moor sie nicht nimmt."
       }
     },
     "clues": {
@@ -183,6 +191,43 @@
         "source": "Professor Starling",
         "name": "Ich habe nur gezählt",
         "text": "„Ich habe gezählt. Ernte um Ernte, Licht um Licht, in mein Hauptbuch. Gebrannt hat jemand anderes. Glauben Sie, ein Astronom kann einen Leuchtturm füttern? Dafür braucht man ein Amt.“"
+      },
+      "wx_hale_befehl": {
+        "fact": "wx_order_lichtamt",
+        "source": "Wachtmeisterin Bryony Hale",
+        "name": "Befehl von oben",
+        "text": "„Fremde festnehmen, Kettlegater zuerst, und den einen mit dem Steckbrief niemals verletzen. Das kommt nicht vom Hauptmann. Das kommt vom Lichtamt, jede Woche ein neuer Zettel.“ Hale senkt die Stimme. „Und heute Nacht holen wir die Ölschmugglerin vom Torfstich. Sie wissen, wen ich meine.“"
+      },
+      "wx_original_befehl": {
+        "fact": "wx_order_lichtamt",
+        "source": "Aktenschrank im Wachhaus",
+        "name": "Der Originalbefehl",
+        "text": "Ein Bogen auf schwerem Papier, gesiegelt mit dem Leuchtturm im Kreis:\n\n„Der Ermittler aus Kettlegate ist bei Ankunft zu beobachten, nicht festzuhalten. Er soll die Stadt kennenlernen. Wer ihn verletzt, verliert den Dienst. Die Schmugglerin Fenn ist zu verwahren, sobald er zu viel fragt.“\n\nUnterschrift, steil und klar: I. Brandt, Lichtmeisterin. Das B hat denselben Schwung wie das L auf den Briefen."
+      },
+      "wx_linsenpflege": {
+        "fact": "wx_collector",
+        "source": "Hauptbuch des Lichtamts",
+        "name": "Posten: Linsenpflege",
+        "text": "Ein Hauptbuch, beschlagnahmt in Lucents Haus. Seit dreißig Jahren derselbe Posten, Monat für Monat: „Linsenpflege, Kettlegate, an L. S.“\n\nDie Beträge steigen mit jedem Jahr. Daneben in Starlings Schrift: „Geliefert: ein Licht. Geliefert: sieben Lichter.“ Bezahlt hat das Lichtamt, gebrannt hat der Turm."
+      },
+      "wx_sedge_fremde": {
+        "fact": "wx_tower_strangers",
+        "source": "Mutter Sedge",
+        "name": "Dreihundert Jahre",
+        "text": "„Der Turm brennt, seit meine Urgroßmutter ein Kind war, und ihre auch. Mit Öl? Hah. Mit Fremden. Alle paar Jahre kommt einer mit dem Zug, wird berühmt, wird verfolgt, und dann geht er zum Turm. Danach ist das Moor still.“ Sie legt ein frisches Täfelchen beiseite. „Das hier ist für Sie. Ich hab nur noch keinen Namen draufgeschrieben.“"
+      },
+      "wx_schrein_chronik": {
+        "fact": "wx_tower_strangers",
+        "source": "Täfelchen am Schrein",
+        "name": "Die Namen der Fremden",
+        "by": "vision",
+        "text": "Als du die ältesten Täfelchen berührst, siehst du sie: einen Seemann mit Ohrring, eine Ärztin, einen Jungen mit Geige, alle mit einem Zugticket in der Hand. Alle gehen den Bohlenweg zum Turm hinauf, und hinter jedem wird das Licht heller.\n\nAuf jedem Täfelchen steht unten dasselbe Zeichen: der Leuchtturm im Kreis."
+      },
+      "wx_vey_turm": {
+        "fact": "wx_tower_strangers",
+        "source": "Miriam Vey",
+        "name": "Ich bin auch hergeholt worden",
+        "text": "„Ich kam vor zwei Jahren her, auf der Flucht. Am ersten Abend lag ein Brief in meinem Zimmer: ‚Willkommen. Bleiben Sie, solange Sie wollen. L.‘ Ich bin am nächsten Morgen wieder abgereist.“ Vey lacht leise. „Fremde, die bleiben, sieht man hier nie wieder. Haben Sie das noch nicht gemerkt?“"
       }
     },
     "deductions": [
@@ -245,8 +290,110 @@
         ],
         "name": "Die Spur ins Moor",
         "text": "Ohne Öl verblasst Starling. Er ist ins Vergessmoor geflohen, und dort hält er nicht lange durch. Jetzt oder nie."
+      },
+      {
+        "id": "dk2_brandt",
+        "case": "kapitel2",
+        "pairs": [
+          [
+            "wx_order_lichtamt",
+            "wx_letters_L"
+          ]
+        ],
+        "name": "L. ist die Lichtmeisterin",
+        "text": "Die Briefe an Starling und die Befehle an die Wache tragen dieselbe Hand. L. ist Ilse Brandt, Lichtmeisterin von Wexmoor, Starlings alte Lehrerin. Sie hat dich herholen lassen."
+      },
+      {
+        "id": "dk2_warum",
+        "case": "kapitel2",
+        "pairs": [
+          [
+            "wx_tower_strangers",
+            "wx_collector"
+          ]
+        ],
+        "name": "Die letzte Ernte",
+        "text": "Starling hat in Kettlegate Licht gesammelt und an das Lichtamt geliefert. Der Turm brennt mit dem Licht der Fremden. Und der hellste Fremde, den Starling je gefunden hat, bist du. Du bist die letzte Ernte."
       }
-    ]
+    ],
+    "endings": {
+      "k2_rein": {
+        "case": "kapitel2",
+        "title": "Vor Gericht",
+        "honor": 45,
+        "sets_flags": [
+          "kapitel2_done",
+          "k2_end_rein"
+        ],
+        "complete_quests": [
+          "k2_akt5"
+        ],
+        "gives_money": 90,
+        "text": "Hale kommt mit vier Grauspähern die Treppe herauf, und keiner von ihnen sieht dich an. Sie sehen Brandt an. Marlowe legt den Haftbefehl auf die Linse, ein Siegel aus Kettlegate neben dem Leuchtturm im Kreis.\n\nStarling steht im Türrahmen, so durchsichtig, dass man die Treppe durch ihn sieht. „Ich bezeuge alles“, sagt er. „Jede Lieferung. Jeden Namen.“\n\nBrandt sieht von einem zum anderen und lächelt. „Sie haben es richtig gemacht. Mit Zeugen. Mit Papier.“ Sie streckt die Hände aus. „Dann sehen wir, ob das Moor Papier liest.“\n\nIm Morgengrauen lässt Hale das Feuer auf kleiner Flamme brennen, mit Öl, nur mit Öl. Die Lichter aus Kettlegate fliegen nach Hause.",
+        "chapter": {
+          "title": "Ende von Kapitel 2: Die Moorstadt",
+          "text": "Brandt sitzt im Wachhaus, in Zelle 2, und schreibt jeden Tag einen Brief an den Magistrat. Niemand öffnet sie.\n\nZunder bekommt ihr Siegel zurück. Hale bekommt das Kommando. Und du bekommst etwas, das du in Kettlegate nie hattest: einen Freispruch, schwarz auf weiß.\n\nNur das Moor ist unruhig. Nachts hörst du es atmen, unter der Stadt.",
+          "footer": "Wexmoor bleibt offen: Zunders Kahn, die Viertel und das Vergessmoor. Kapitel 3 folgt in einem späteren Bauschritt."
+        }
+      },
+      "k2_moor": {
+        "case": "kapitel2",
+        "title": "Das Feuer erlischt",
+        "honor": 25,
+        "sets_flags": [
+          "kapitel2_done",
+          "k2_end_moor"
+        ],
+        "complete_quests": [
+          "k2_akt5"
+        ],
+        "gives_money": 40,
+        "text": "Du drehst die Linse vom Meer weg, bis das Feuer sich selbst sieht, und dann löschst du es mit Brandts eigenem Mantel. Die Lichter fliegen hinaus, hunderte, tausende, über die Stadt, über das Moor, nach Kettlegate und weiter.\n\nBrandt setzt sich auf die Stufen. „Vierzig Jahre“, sagt sie. „Das hab ich ausgerechnet. Dann ist die Stadt weg.“\n\n„Dann haben sie vierzig Jahre, um sich etwas anderes auszudenken.“\n\nAls du unten ankommst, ist Brandt fort. Auf der Treppe liegt ihr Siegel, und daneben ein Täfelchen mit ihrem Namen.",
+        "chapter": {
+          "title": "Ende von Kapitel 2: Die Moorstadt",
+          "text": "Wexmoor sinkt wieder, einen Zoll im Jahr. Die Leute bauen höhere Stege und schimpfen auf das Lichtamt, das es nicht mehr gibt.\n\nDie Grauspäher hängen deinen Steckbrief ab. Zunder verkauft jetzt Öl an alle, die wollen, und du schläfst zum ersten Mal ohne Fahndungsstufe.\n\nNur manchmal, wenn der Nebel tief liegt, geht draußen auf dem Moor ein Licht an, das niemand angezündet hat.",
+          "footer": "Wexmoor bleibt offen: Zunders Kahn, die Viertel und das Vergessmoor. Kapitel 3 folgt in einem späteren Bauschritt."
+        }
+      },
+      "k2_lichtmeister": {
+        "case": "kapitel2",
+        "title": "Der neue Lichtmeister",
+        "honor": -20,
+        "sets_flags": [
+          "kapitel2_done",
+          "k2_end_lichtmeister"
+        ],
+        "complete_quests": [
+          "k2_akt5"
+        ],
+        "gives_money": 150,
+        "text": "„Sie haben recht“, sagst du. „Die Stadt braucht das Feuer. Aber nicht Sie.“\n\nBrandt sieht dich lange an. Dann nimmt sie den Siegelring ab und legt ihn dir in die Hand. „Lucius hat immer gesagt, Sie gewinnen. Er hat nie gesagt, was.“\n\nSie geht die Treppe hinunter ins Dunkel. Das Feuer dreht sich zu dir um und wird ruhig, wie ein Hund, der seinen neuen Herrn erkennt.",
+        "chapter": {
+          "title": "Ende von Kapitel 2: Die Moorstadt",
+          "text": "Am nächsten Morgen hängt dein Steckbrief nicht mehr. An seiner Stelle hängt eine Bekanntmachung des Lichtamts, und unten steht dein Name.\n\nZunder kommt nicht mehr zum Kahn. Sie schickt einen Zettel: „Ich hab dir Öl verkauft. Jetzt verkauf ich dir keins mehr.“\n\nIn Kettlegate verschwinden wieder Menschen. Du weißt, wohin.",
+          "footer": "Wexmoor bleibt offen: Zunders Kahn, die Viertel und das Vergessmoor. Kapitel 3 folgt in einem späteren Bauschritt."
+        }
+      },
+      "k2_meer": {
+        "case": "kapitel2",
+        "title": "Aufs Meer hinaus",
+        "honor": 5,
+        "sets_flags": [
+          "kapitel2_done",
+          "k2_end_meer"
+        ],
+        "complete_quests": [
+          "k2_akt5"
+        ],
+        "gives_money": 20,
+        "text": "Du siehst Brandt an, das Feuer, die Täfelchen. Dann drehst du dich um und rennst.\n\nUnten am Fels liegt ein Kohlekahn, der dort nichts zu suchen hat. Kit sitzt am Ruder und isst einen Hering. „Dachte mir, dass du schlau genug bist“, sagt er. Zunder springt als Letzte an Bord, den Ölkanister unterm Arm.\n\nHinter euch dreht sich das Leuchtfeuer und sucht. Es findet euch nicht. Auf offenem Meer gibt es keine Namen zu holen.",
+        "chapter": {
+          "title": "Ende von Kapitel 2: Die Moorstadt",
+          "text": "Wexmoor brennt weiter. Brandt bleibt Lichtmeisterin, und irgendwann kommt der nächste Fremde mit dem Zug.\n\nIhr fahrt die Küste entlang, Kit, Zunder und du, von Hafen zu Hafen. In jedem hängt ein Steckbrief, und auf keinem stimmt das Gesicht.\n\nDu hast überlebt. Das ist nicht dasselbe wie gewonnen. Aber es ist nicht nichts.",
+          "footer": "Wexmoor bleibt offen: Zunders Kahn, die Viertel und das Vergessmoor. Kapitel 3 folgt in einem späteren Bauschritt."
+        }
+      }
+    }
   },
   "quests": {
     "k2_akt1": {
@@ -434,15 +581,112 @@
       "summary": "Starling hat nur gezählt. Gebrannt hat jemand im Lichtamt. Und dem Lichtamt gehört die Wache.",
       "steps": [
         {
-          "text": "Bring Zunder die Neuigkeiten (Akt IV folgt im nächsten Bauschritt)",
+          "text": "Erzähl Zunder, was Starling gesagt hat",
           "done": {
             "requires_flags": [
-              "k2_akt4_started_real"
+              "k2_akt4_talk"
+            ]
+          },
+          "target": {
+            "map": "wx_kahn",
+            "id": "zunder",
+            "label": "Zunder im Kahn"
+          }
+        },
+        {
+          "text": "Hör dich bei Wachtmeisterin Hale um (Salzmarkt)",
+          "done": {
+            "requires_clues": [
+              "wx_hale_befehl"
+            ]
+          },
+          "target": {
+            "map": "wx_salzmarkt",
+            "id": "hale",
+            "label": "Wachtmeisterin Hale"
+          }
+        },
+        {
+          "text": "Hol Zunder aus dem Wachhaus in der Oberstadt",
+          "done": {
+            "requires_flags": [
+              "k2_zunder_free"
+            ]
+          },
+          "target": {
+            "map": "wx_oberstadt",
+            "id": "wachhaus",
+            "label": "Wachhaus"
+          }
+        },
+        {
+          "text": "Finde heraus, wer L. ist",
+          "done": {
+            "requires_conclusions": [
+              "dk2_brandt"
+            ]
+          }
+        },
+        {
+          "text": "Finde heraus, wozu der Turm Fremde braucht (Pfahldorf)",
+          "done": {
+            "requires_conclusions": [
+              "dk2_warum"
+            ]
+          },
+          "target": {
+            "map": "wx_pfahldorf",
+            "id": "sedge",
+            "label": "Mutter Sedge"
+          }
+        },
+        {
+          "text": "Sprich mit Zunder",
+          "done": {
+            "requires_flags": [
+              "k2_akt4_done"
             ]
           },
           "target": {
             "map": "wx_kahn",
             "id": "zunder"
+          }
+        }
+      ]
+    },
+    "k2_akt5": {
+      "title": "Akt V: Das Leuchtfeuer",
+      "kind": "main",
+      "case": "kapitel2",
+      "summary": "L. ist Ilse Brandt, und der Turm brennt mit Fremden. Du bist der nächste. Zeit, zum Leuchtturm zu fahren. Wer mit Zeugen, Haftbefehl und der Wache kommt, kann Brandt vor Gericht bringen.",
+      "steps": [
+        {
+          "text": "Fahr zum Leuchtturm",
+          "done": {
+            "requires_flags": [
+              "k2_am_turm"
+            ]
+          },
+          "target": {
+            "map": "wx_leuchtturm",
+            "id": "exit",
+            "label": "Der Leuchtturm"
+          }
+        },
+        {
+          "text": "Bezwinge das Leuchtfeuer",
+          "done": {
+            "requires_flags": [
+              "won_leuchtfeuer"
+            ]
+          }
+        },
+        {
+          "text": "Stell Ilse Brandt",
+          "done": {
+            "requires_flags": [
+              "kapitel2_done"
+            ]
           }
         }
       ]
@@ -557,6 +801,32 @@
         "skin": "#f4f0ff",
         "hair": "#ffffff",
         "legs": "#a0a8c0"
+      }
+    },
+    "hale": {
+      "name": "Wachtmeisterin Bryony Hale",
+      "role": "Grauspäher, Salzmarkt-Revier",
+      "dialogue": "hale",
+      "palette": {
+        "coat": "#5a6066",
+        "hat": "#33373b",
+        "skin": "#c89a78",
+        "hair": "#2a2420",
+        "legs": "#2e3236",
+        "scarf": "#c04040"
+      }
+    },
+    "brandt": {
+      "name": "Lichtmeisterin Ilse Brandt",
+      "role": "Lichtamt Wexmoor",
+      "dialogue": "brandt",
+      "palette": {
+        "coat": "#e8e0c8",
+        "hat": "#c8b070",
+        "skin": "#e8d0b8",
+        "hair": "#f4f4f4",
+        "legs": "#a89060",
+        "scarf": "#d0a040"
       }
     }
   },
@@ -1364,6 +1634,29 @@
           "title": "Zunders Wandkarte",
           "text": "Eine Karte von Wexmoor, mit Lampenruß auf ein Laken gemalt. Sechs Viertel, dazu die Insel mit dem Leuchtturm. Zunder hat Kreise um die Stellen gemacht, wo die Grauspäher ihre Runden drehen.\n\n„Erst wenn du jede Ecke kennst, kannst du hier jemanden jagen“, hat sie gesagt.",
           "footer": "Ziel von Akt I: in jedem Viertel mit jemandem sprechen, der sich auskennt."
+        },
+        {
+          "id": "leer",
+          "kind": "read",
+          "tile": [
+            11,
+            6
+          ],
+          "auto": 40,
+          "marker": false,
+          "prompt": "Umsehen",
+          "visible_if": {
+            "requires_flags": [
+              "k2_zunder_gone"
+            ],
+            "hide_if_flags": [
+              "k2_kahn_leer"
+            ]
+          },
+          "done_flag": "k2_kahn_leer",
+          "title": "Der Kahn ist leer",
+          "text": "Die Luke ist aufgebrochen. Zunders Kiste liegt umgekippt, die Ölkanister sind fort, auf dem Boden Stiefelabdrücke mit Nägeln, wie sie nur die Grauspäher tragen.\n\nAuf deinem Kissen liegt ein Zettel, Zunders Schrift, hastig: „Wachhaus Oberstadt. Nicht reinkommen, du Idiot.“\n\nDarunter, noch hastiger: „Doch. Komm rein.“",
+          "footer": "Das Wachhaus steht in der Oberstadt. Die Grauspäher sind jetzt doppelt wachsam."
         }
       ],
       "npcs": [
@@ -1378,6 +1671,26 @@
           "visible_if": {
             "requires_flags": [
               "k2_met_zunder"
+            ],
+            "hide_if_flags": [
+              "k2_zunder_gone"
+            ]
+          }
+        },
+        {
+          "id": "marlowe",
+          "tile": [
+            4,
+            4
+          ],
+          "facing": "right",
+          "dialogue": "marlowe_wexmoor",
+          "visible_if": {
+            "requires_flags": [
+              "k2_zunder_free"
+            ],
+            "hide_if_flags": [
+              "kapitel2_done"
             ]
           }
         }
@@ -1603,6 +1916,22 @@
             4
           ],
           "facing": "down"
+        },
+        {
+          "id": "hale",
+          "tile": [
+            28,
+            4
+          ],
+          "facing": "down",
+          "visible_if": {
+            "requires_flags": [
+              "k2_akt4_talk"
+            ],
+            "hide_if_flags": [
+              "kapitel2_done"
+            ]
+          }
         }
       ],
       "patrols": [
@@ -2098,6 +2427,10 @@
         "wx_lucent": [
           8,
           4
+        ],
+        "wx_wachhaus": [
+          39,
+          4
         ]
       },
       "interactables": [
@@ -2120,18 +2453,6 @@
           ],
           "sprite": "paper",
           "prompt": "Den Aushang am Lichtamt lesen"
-        },
-        {
-          "id": "wachhaus",
-          "kind": "read",
-          "tile": [
-            39,
-            2
-          ],
-          "prompt": "Das Wachhaus ansehen",
-          "marker": false,
-          "title": "Wachhaus Oberstadt",
-          "text": "Graue Mauern, vergitterte Fenster, eine Laterne über jeder Tür. Hier landest du, wenn ein Grauspäher dich erwischt.\n\nÜber dem Eingang hängt kein Stadtwappen, sondern ein Leuchtturm in einem Kreis."
         },
         {
           "id": "akademie",
@@ -2174,6 +2495,26 @@
             ],
             "text": "Ein schmales Haus mit zugenagelten Fenstern. Kein Name an der Tür, nur ein Ölfleck auf der Schwelle.",
             "footer": "Hier wohnt jemand, der nur nachts ausgeht."
+          }
+        },
+        {
+          "id": "wachhaus",
+          "kind": "door",
+          "to": "wx_wachhaus",
+          "spawn": "default",
+          "tile": [
+            39,
+            2
+          ],
+          "prompt": "Ins Wachhaus schleichen",
+          "marker": true,
+          "reach": 26,
+          "lock": {
+            "requires_flags": [
+              "k2_zunder_gone"
+            ],
+            "text": "Graue Mauern, vergitterte Fenster, eine Laterne über jeder Tür. Hier landest du, wenn ein Grauspäher dich erwischt.\n\nÜber dem Eingang hängt kein Stadtwappen, sondern ein Leuchtturm in einem Kreis.",
+            "footer": "Freiwillig gehst du da nicht rein. Noch nicht."
           }
         }
       ],
@@ -2406,6 +2747,21 @@
           "marker": true,
           "title": "Der Namensschrein",
           "text": "Auf einem Stein im Moor liegen hunderte Holztäfelchen. Auf jedem steht ein Name, manche frisch, manche fast verwittert.\n\n„Wer seinen Namen hier lässt, den kann das Moor nicht nehmen“, hat Zunder gesagt. „Sagen die Alten. Ich hab meinen trotzdem behalten.“"
+        },
+        {
+          "id": "chronik",
+          "clue": "wx_schrein_chronik",
+          "tile": [
+            23,
+            8
+          ],
+          "hidden": true,
+          "prompt": "Die ältesten Täfelchen am Schrein berühren",
+          "visible_if": {
+            "requires_quests_active": [
+              "k2_akt4"
+            ]
+          }
         }
       ],
       "npcs": [
@@ -2416,6 +2772,23 @@
             9
           ],
           "facing": "down"
+        },
+        {
+          "id": "miriam",
+          "tile": [
+            30,
+            4
+          ],
+          "facing": "left",
+          "dialogue": "vey_wexmoor",
+          "visible_if": {
+            "requires_flags": [
+              "vey_fled"
+            ],
+            "requires_quests_active": [
+              "k2_akt4"
+            ]
+          }
         }
       ],
       "decor": []
@@ -2868,6 +3241,553 @@
         }
       ],
       "decor": []
+    },
+    {
+      "id": "wx_wachhaus",
+      "name": "Wachhaus Oberstadt",
+      "city": "wexmoor",
+      "police": true,
+      "ambient": {
+        "night": 0.78,
+        "fog": 0
+      },
+      "rows": [
+        "IIIIIIIIIIIIIIIIIIIIIIIIIIIIII",
+        "IIIIIIIIIIIIIIIIIIIIIIIIIIIIII",
+        "IBBwwwwwIwwwwwwwwwwwIwwwIwwwOI",
+        "IwwwwwwwIwwwwwwwwwwwIwwwIwwwwI",
+        "IwwTTwwwIwwwwwwwwwwwIHHHIHHHHI",
+        "IwwwwwwwwwwwwwwwwwwwwwwwwwwwwI",
+        "IwwwwwwwIwwwwwwwwwwwwwwwwwwwwI",
+        "IwOwwwwwIwwwwwwwwwwwIwwwwwwwwI",
+        "IIIIIIIIIwwwwwwwwwwwIIIIIIIIII",
+        "IIIIIIIIIwwwwwwwwwwwIIIIIIIIII",
+        "IIIIIIIIIIIIIEEIIIIIIIIIIIIIII"
+      ],
+      "spawns": {
+        "default": [
+          13,
+          9
+        ]
+      },
+      "interactables": [
+        {
+          "id": "raus",
+          "kind": "door",
+          "to": "wx_oberstadt",
+          "spawn": "wx_wachhaus",
+          "tile": [
+            13,
+            10
+          ],
+          "prompt": "Hinaus in die Oberstadt",
+          "marker": false,
+          "reach": 22
+        },
+        {
+          "id": "befehl",
+          "clue": "wx_original_befehl",
+          "tile": [
+            2,
+            2
+          ],
+          "sprite": "file",
+          "prompt": "Den Aktenschrank des Amtszimmers durchsuchen"
+        },
+        {
+          "id": "haushalt",
+          "clue": "wx_linsenpflege",
+          "tile": [
+            6,
+            2
+          ],
+          "sprite": "paper",
+          "prompt": "Das beschlagnahmte Hauptbuch ansehen"
+        },
+        {
+          "id": "schluessel",
+          "kind": "read",
+          "tile": [
+            6,
+            7
+          ],
+          "prompt": "Das Schlüsselbrett ansehen",
+          "marker": true,
+          "done_flag": "k2_wache_schluessel",
+          "title": "Das Schlüsselbrett",
+          "text": "Zwölf Haken, elf Schlüssel. Am zwölften hängt ein Zettel: „Zelle 2, Ölschmugglerin, auf Anweisung des Lichtamts. Nicht verlegen.“\n\nDu nimmst den Schlüssel für Zelle 2.",
+          "footer": "Die Zellen liegen rechts hinter dem Gang."
+        },
+        {
+          "id": "asservaten",
+          "kind": "read",
+          "tile": [
+            11,
+            2
+          ],
+          "prompt": "Das Asservatenregal ansehen",
+          "marker": false,
+          "title": "Asservaten",
+          "text": "Zwölf Ölkanister mit Zunders Siegel. Ein Fernrohr mit eingravierten Initialen L. S. Und ganz oben, in einem eigenen Fach: ein Steckbrief aus Kettlegate, dein Gesicht, mit Bleistift umkreist.\n\nDaneben ein Etikett: „Bei Ankunft unverzüglich dem Lichtamt melden. Nicht verletzen.“"
+        },
+        {
+          "id": "schlaefer",
+          "kind": "read",
+          "tile": [
+            27,
+            5
+          ],
+          "prompt": "Den schlafenden Wachmann ansehen",
+          "marker": false,
+          "title": "Ein schlafender Grauspäher",
+          "text": "Er schnarcht auf einem Stuhl vor Zelle 1, die Laterne zu seinen Füßen. Auf seinem Ärmel ist ein Ölfleck in Form eines Leuchtturms."
+        }
+      ],
+      "npcs": [
+        {
+          "id": "zunder",
+          "tile": [
+            26,
+            3
+          ],
+          "facing": "down",
+          "dialogue": "zunder_zelle",
+          "visible_if": {
+            "requires_flags": [
+              "k2_zunder_gone"
+            ]
+          }
+        }
+      ],
+      "patrols": [
+        {
+          "id": "flur",
+          "route": [
+            [
+              10,
+              3
+            ],
+            [
+              18,
+              3
+            ],
+            [
+              18,
+              9
+            ],
+            [
+              10,
+              9
+            ]
+          ],
+          "speed": 26,
+          "wait": 1300
+        },
+        {
+          "id": "zellen",
+          "route": [
+            [
+              21,
+              6
+            ],
+            [
+              28,
+              6
+            ]
+          ],
+          "speed": 18,
+          "wait": 2600
+        }
+      ],
+      "decor": [
+        {
+          "sprite": "d_nordtor_props_salt_barrels",
+          "tile": [
+            13,
+            6
+          ],
+          "offset": [
+            0,
+            8
+          ],
+          "origin": [
+            0.5,
+            1
+          ],
+          "alpha": 1,
+          "ysort": true,
+          "solid": [
+            12,
+            8,
+            0,
+            -4
+          ],
+          "cover": true
+        },
+        {
+          "sprite": "d_strassenmoebel_police_box",
+          "tile": [
+            16,
+            5
+          ],
+          "offset": [
+            0,
+            8
+          ],
+          "origin": [
+            0.5,
+            1
+          ],
+          "alpha": 1,
+          "ysort": true,
+          "solid": [
+            12,
+            6,
+            0,
+            -3
+          ],
+          "cover": true
+        },
+        {
+          "sprite": "d_nordtor_props_salt_barrels",
+          "tile": [
+            7,
+            4
+          ],
+          "offset": [
+            0,
+            8
+          ],
+          "origin": [
+            0.5,
+            1
+          ],
+          "alpha": 1,
+          "ysort": true,
+          "solid": [
+            12,
+            8,
+            0,
+            -4
+          ],
+          "cover": true
+        }
+      ]
+    },
+    {
+      "id": "wx_leuchtturm",
+      "name": "Der Leuchtturm",
+      "city": "wexmoor",
+      "tiles": "g_katakomben",
+      "danger": 4,
+      "ambient": {
+        "night": 0.9,
+        "fog": 0.1
+      },
+      "rows": [
+        "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII",
+        "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII",
+        "IIssssssssIIIIssssssssIIIIsssssssssIIIsssssssIIIII",
+        "IIsrsssrssIIIIssssssssIIIIsssssssssIIIsssssssIIIII",
+        "IIssssssssIIIIsssssrssIIIIsssssssssIIIsssssssIIIII",
+        "IIssssssssIIIIssssBsssssssssssssBssIIIsssssssIIIII",
+        "IIsssssssssssssssssssssssssssssssssssssssssssIIIII",
+        "IIssssssssssssssrsssssIIIIsssssssssssssssssssIIIII",
+        "IIssssrsssIIIIssssssssIIIIsrssBssssIIIIIIIIIIIIIII",
+        "IIssssssssIIIIIIIIIIIIIIIIsssssssssIIIIIIIIIIIIIII",
+        "IIIIIIssIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII",
+        "IIIIIIssIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII",
+        "IIIIIIssIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII",
+        "IIsssssssssIIIsssssssssIIIsssssssIIIIIssssssssIIII",
+        "IIssssrssrsIIIssBsrssssIIIssssrssIIIIIssrsssssIIII",
+        "IIsssssssssIIIsssssssssIIIsssssssIIIIIssssssssIIII",
+        "IIsssssssssIIIsssssssssssssssrssssssssssssssssIIII",
+        "IIsssssssssssssssssssssssssssssssssssssBssssssIIII",
+        "IIsssssssssssssssssssssIIIsssssssIIIIIssrsssssIIII",
+        "IIsssssssssIIIssssBssssIIIIIIIIIIIIIIIssssssssIIII",
+        "IIIIIIIIIIIIIIsssssssssIIIIIIIIIIIIIIIIIIIssIIIIII",
+        "IIIIIIIIIIIIIIIIIIssIIIIIIIIIIIIIIIIIIIIIIssIIIIII",
+        "IIIIIIIIIIIIIIIIIIssIIIIIIIIIIIIIIIIIIIIIIssIIIIII",
+        "IIIIIIIIIIIIIIIIIIssIIIIIIIIIIIIIIIIIIIIIIssIIIIII",
+        "IIsssssssIIIIIsssssssssIIIsssssssssIIIsssssssssIII",
+        "IIsssssssIIIIIsssssssssIIIsssssssssIIIssssrssssIII",
+        "IIssssrssIIIIIsrsssssssIIIsrsssssssIIIsrsssssssIII",
+        "IssssssssssssssBsssssssIIIssssrssBsssssssssssssIII",
+        "IIssssrssssssssssssssssssssssssssssssssssssssssIII",
+        "IIsssssssIIIIIssssrssssssssssssssssIIIsBsssssssIII",
+        "IIIIIIIIIIIIIIsssssssssIIIIIIIIIIIIIIIsssssssssIII",
+        "IIIIIIIIIIIIIIsssssssssIIIIIIIIIIIIIIIIIIIIIIIIIII",
+        "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII",
+        "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII",
+        "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII",
+        "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII"
+      ],
+      "spawns": {
+        "default": [
+          3,
+          27
+        ]
+      },
+      "lights": [
+        {
+          "tile": [
+            41,
+            5
+          ],
+          "radius": 90,
+          "intensity": 0.9,
+          "color": "#fff0c0",
+          "glow": 0.45,
+          "flicker": 0.08
+        },
+        {
+          "tile": [
+            18,
+            28
+          ],
+          "radius": 34,
+          "intensity": 0.45,
+          "color": "#ffe0a0",
+          "glow": 0.2,
+          "flicker": 0.15
+        },
+        {
+          "tile": [
+            42,
+            27
+          ],
+          "radius": 34,
+          "intensity": 0.45,
+          "color": "#ffe0a0",
+          "glow": 0.2,
+          "flicker": 0.15
+        },
+        {
+          "tile": [
+            29,
+            16
+          ],
+          "radius": 34,
+          "intensity": 0.45,
+          "color": "#ffe0a0",
+          "glow": 0.2,
+          "flicker": 0.15
+        },
+        {
+          "tile": [
+            6,
+            16
+          ],
+          "radius": 34,
+          "intensity": 0.45,
+          "color": "#ffe0a0",
+          "glow": 0.2,
+          "flicker": 0.15
+        },
+        {
+          "tile": [
+            18,
+            5
+          ],
+          "radius": 34,
+          "intensity": 0.45,
+          "color": "#ffe0a0",
+          "glow": 0.2,
+          "flicker": 0.15
+        }
+      ],
+      "roamers": [
+        {
+          "encounter": "lt_glasmoewe",
+          "tile": [
+            32,
+            9
+          ]
+        },
+        {
+          "encounter": "lt_lichtbrut",
+          "tile": [
+            25,
+            16
+          ]
+        },
+        {
+          "encounter": "lt_linsensplitter",
+          "tile": [
+            7,
+            8
+          ]
+        },
+        {
+          "encounter": "lt_glasmoewe",
+          "tile": [
+            10,
+            17
+          ]
+        },
+        {
+          "encounter": "lt_lichtbrut",
+          "tile": [
+            18,
+            28
+          ]
+        },
+        {
+          "encounter": "lt_linsensplitter",
+          "tile": [
+            15,
+            20
+          ]
+        },
+        {
+          "encounter": "lt_glasmoewe",
+          "tile": [
+            42,
+            13
+          ]
+        },
+        {
+          "encounter": "lt_lichtbrut",
+          "tile": [
+            32,
+            27
+          ]
+        },
+        {
+          "encounter": "lt_linsensplitter",
+          "tile": [
+            46,
+            27
+          ]
+        },
+        {
+          "encounter": "lt_glasmoewe",
+          "tile": [
+            16,
+            15
+          ]
+        },
+        {
+          "encounter": "lt_lichtbrut",
+          "tile": [
+            23,
+            6
+          ]
+        },
+        {
+          "encounter": "lt_linsensplitter",
+          "tile": [
+            20,
+            17
+          ]
+        },
+        {
+          "encounter": "lt_glasmoewe",
+          "tile": [
+            38,
+            15
+          ]
+        },
+        {
+          "encounter": "lt_lichtbrut",
+          "tile": [
+            19,
+            2
+          ]
+        },
+        {
+          "encounter": "lt_linsensplitter",
+          "tile": [
+            38,
+            28
+          ]
+        },
+        {
+          "encounter": "lt_glasmoewe",
+          "tile": [
+            4,
+            16
+          ]
+        },
+        {
+          "encounter": "lt_lichtbrut",
+          "tile": [
+            30,
+            4
+          ]
+        },
+        {
+          "encounter": "leuchtfeuer",
+          "tile": [
+            41,
+            5
+          ],
+          "boss": true
+        }
+      ],
+      "interactables": [
+        {
+          "id": "exit",
+          "kind": "travel",
+          "tile": [
+            2,
+            27
+          ],
+          "prompt": "Zurück zum Boot (Stadtkarte)",
+          "marker": false
+        },
+        {
+          "id": "ankunft",
+          "kind": "read",
+          "tile": [
+            3,
+            27
+          ],
+          "auto": 30,
+          "marker": false,
+          "prompt": "Umsehen",
+          "visible_if": {
+            "hide_if_flags": [
+              "k2_am_turm"
+            ]
+          },
+          "done_flag": "k2_am_turm",
+          "title": "Unter dem Leuchtturm",
+          "text": "Bracks Boot schrammt gegen die Felsen. Zunder bleibt am Ruder. „Ich warte. Wenn das Licht ausgeht, komm ich dich holen. Wenn es heller wird, auch.“\n\nDer Turm hat keine Tür, nur einen Riss im Fels, der nach unten führt. Die Gewölbe darunter sind älter als Wexmoor. An jeder Wand Täfelchen, Tausende, und auf jedem ein Name, den niemand mehr kennt.",
+          "footer": "Das Feuer brennt ganz oben, am anderen Ende der Gewölbe."
+        },
+        {
+          "id": "taefelchen",
+          "kind": "read",
+          "tile": [
+            29,
+            16
+          ],
+          "prompt": "Die Namenswand lesen",
+          "marker": false,
+          "title": "Die Namenswand",
+          "text": "Die Namen sind nach Jahren sortiert. Ganz unten, in frischer Farbe: Elias. Odile Varenne. Molly. Benji. Die Namen aus Kettlegate.\n\nDarunter ist Platz gelassen, eine Zeile, genau so lang wie dein Name."
+        }
+      ],
+      "npcs": [
+        {
+          "id": "brandt",
+          "tile": [
+            43,
+            4
+          ],
+          "facing": "left",
+          "visible_if": {
+            "requires_flags": [
+              "won_leuchtfeuer"
+            ],
+            "hide_if_flags": [
+              "kapitel2_done"
+            ]
+          }
+        }
+      ],
+      "decor": []
     }
   ],
   "dialogues": {
@@ -2947,6 +3867,37 @@
         "start": {
           "text": "Zunder sitzt auf einer umgedrehten Kiste und flickt einen Ölkanister. „Na, Gesuchter?“",
           "choices": [
+            {
+              "text": "Wie komme ich zum Leuchtturm?",
+              "next": "akt5",
+              "requires_quests_active": [
+                "k2_akt5"
+              ]
+            },
+            {
+              "text": "Es ist Brandt. Und der Turm frisst Fremde.",
+              "next": "akt4",
+              "requires_conclusions": [
+                "dk2_brandt",
+                "dk2_warum"
+              ],
+              "requires_flags": [
+                "k2_zunder_free"
+              ],
+              "hide_if_flags": [
+                "k2_akt4_done"
+              ]
+            },
+            {
+              "text": "Starling hat nur gezählt. Gebrannt hat das Lichtamt.",
+              "next": "akt4a",
+              "requires_flags": [
+                "k2_akt3_done"
+              ],
+              "hide_if_flags": [
+                "k2_akt4_talk"
+              ]
+            },
             {
               "text": "Starling lebt. Er ist Mr. Lucent.",
               "next": "akt2",
@@ -3116,6 +4067,45 @@
               "next": "start"
             }
           ]
+        },
+        "akt4a": {
+          "text": "Zunder hört zu, ohne zu unterbrechen. Dann sagt sie: „Das Lichtamt. Dem gehören die Grauspäher, die Laternen, das Öl, das ich nicht verkaufen darf. Wenn du gegen die vorgehst, brauchst du jemanden in der Wache.“\n\n„Bryony Hale. Wachtmeisterin am Salzmarkt. Sie hat mich zweimal laufen lassen und es nie zugegeben. Frag sie, woher die Befehle kommen.“",
+          "sets_flags": [
+            "k2_akt4_talk"
+          ],
+          "choices": [
+            {
+              "text": "Ich geh zum Salzmarkt.",
+              "next": "start"
+            }
+          ]
+        },
+        "akt4": {
+          "text": "Zunder sitzt lange still, den Ölkanister auf den Knien. „Meine Mutter ist auch mal zugezogen“, sagt sie schließlich. „Aus Kettlegate. Sie ist zum Turm gegangen, als ich sechs war. Hat gesagt, sie bringt Licht mit.“\n\nSie steht auf. „Brack leiht uns das Boot. Ich rudere, du gehst rein. Und was du oben mit Brandt machst, das entscheidest du. Aber entscheide es mit offenen Augen.“",
+          "sets_flags": [
+            "k2_akt4_done"
+          ],
+          "complete_quests": [
+            "k2_akt4"
+          ],
+          "start_quests": [
+            "k2_akt5"
+          ],
+          "choices": [
+            {
+              "text": "Heute Nacht.",
+              "next": "start"
+            }
+          ]
+        },
+        "akt5": {
+          "text": "„Über die Stadtkarte, Bracks Boot liegt bereit. Unten im Fels sind Gewölbe, und da drin ist es schlimmer als im Moor.“ Sie zählt an den Fingern ab. „Nimm Tonikum mit. Und wenn du Brandt vor Gericht willst: Hale, Marlowe und Starling. Ohne alle drei glaubt dir keiner.“",
+          "choices": [
+            {
+              "text": "Verstanden.",
+              "next": "start"
+            }
+          ]
         }
       }
     },
@@ -3189,6 +4179,12 @@
             {
               "text": "Auf Zunder warten.",
               "next": [
+                {
+                  "node": "bail_none",
+                  "requires_flags": [
+                    "k2_zunder_gone"
+                  ]
+                },
                 {
                   "node": "bail_free",
                   "hide_if_flags": [
@@ -3289,6 +4285,16 @@
           "choices": [
             {
               "text": "Nochmal überlegen.",
+              "next": "start"
+            }
+          ]
+        },
+        "bail_none": {
+          "text": "Du wartest bis zum Morgen. Niemand kommt. Irgendwo weiter hinten im Gang hustet jemand, und es klingt wie Zunder.",
+          "nerves": -5,
+          "choices": [
+            {
+              "text": "Dann eben selbst.",
               "next": "start"
             }
           ]
@@ -3587,6 +4593,16 @@
               ]
             },
             {
+              "text": "Seit wann brennt der Turm, und womit?",
+              "next": "fremde",
+              "requires_quests_active": [
+                "k2_akt4"
+              ],
+              "hide_if_clues": [
+                "wx_sedge_fremde"
+              ]
+            },
+            {
               "text": "Wovor schützt der Leuchtturm?",
               "next": "turm"
             },
@@ -3631,6 +4647,18 @@
           "choices": [
             {
               "text": "Danke, Mutter Sedge.",
+              "next": "start"
+            }
+          ]
+        },
+        "fremde": {
+          "text": "Mutter Sedge legt das Messer hin.",
+          "gives_clues": [
+            "wx_sedge_fremde"
+          ],
+          "choices": [
+            {
+              "text": "Noch etwas.",
               "next": "start"
             }
           ]
@@ -3932,6 +4960,319 @@
           ]
         }
       }
+    },
+    "zunder_zelle": {
+      "start": "start",
+      "nodes": {
+        "start": {
+          "text": "Zunder sitzt in Zelle 2 auf der Pritsche und schnitzt mit dem Daumennagel an einem Holzspan. Als sie dich sieht, verdreht sie die Augen. „Ich hab doch geschrieben: nicht reinkommen.“",
+          "choices": [
+            {
+              "text": "Ich hab den Schlüssel.",
+              "next": "frei",
+              "requires_flags": [
+                "k2_wache_schluessel"
+              ]
+            },
+            {
+              "text": "Wie komme ich an den Schlüssel?",
+              "next": "wie",
+              "hide_if_flags": [
+                "k2_wache_schluessel"
+              ]
+            },
+            {
+              "text": "Halt durch."
+            }
+          ]
+        },
+        "wie": {
+          "text": "„Schlüsselbrett im Amtszimmer, links vom Flur. Der Flurwächter läuft seine Runde, immer gleich, die Leute hier haben keine Fantasie.“ Sie grinst schief. „Und schau in den Aktenschrank, wenn du schon da bist. Sie haben über dich ein ganzes Fach.“",
+          "choices": [
+            {
+              "text": "Bin gleich zurück."
+            }
+          ]
+        },
+        "frei": {
+          "text": "Das Schloss springt auf. Zunder ist schneller aus der Zelle als du hinein. Im Hof pfeift jemand, dann noch jemand, und überall gehen Laternen an.\n\n„Lauf!“ Über die Mauer, durch den Graben, durch den Torfstich, und erst im Kahn lacht Zunder wieder. „Jetzt sucht uns die ganze Stadt. Gut. Dann sieht sie uns wenigstens.“",
+          "sets_flags": [
+            "k2_zunder_free"
+          ],
+          "clears_flags": [
+            "k2_zunder_gone"
+          ],
+          "wanted": 3,
+          "wanted_reason": "Ausbruch aus dem Wachhaus",
+          "travel": {
+            "map": "wx_kahn",
+            "spawn": "default"
+          },
+          "choices": [
+            {
+              "text": "Zum Kahn."
+            }
+          ]
+        }
+      }
+    },
+    "hale": {
+      "start": "start",
+      "nodes": {
+        "start": {
+          "text": "Eine Grauspäherin mit roter Sergeantenschnur lehnt an einem Salzfass und sieht dich an, ohne die Laterne zu heben. „Der Kettlegater. Ich müsste Sie festnehmen.“ Pause. „Sagen Sie mir, warum ich es nicht tue.“",
+          "choices": [
+            {
+              "text": "Wer gibt euch die Befehle?",
+              "next": "befehl",
+              "hide_if_clues": [
+                "wx_hale_befehl"
+              ]
+            },
+            {
+              "text": "Lesen Sie das. Unterschrieben von Brandt.",
+              "next": "verbuendet",
+              "requires_clues": [
+                "wx_original_befehl"
+              ],
+              "hide_if_flags": [
+                "k2_hale_ally"
+              ]
+            },
+            {
+              "text": "Kommen Sie mit zum Leuchtturm?",
+              "next": "turm",
+              "requires_flags": [
+                "k2_hale_ally"
+              ]
+            },
+            {
+              "text": "Ich gehe."
+            }
+          ]
+        },
+        "befehl": {
+          "text": "Hale sieht sich um.",
+          "gives_clues": [
+            "wx_hale_befehl"
+          ],
+          "sets_flags": [
+            "k2_zunder_taken",
+            "k2_zunder_gone"
+          ],
+          "choices": [
+            {
+              "text": "Zunder!",
+              "next": "warnung"
+            }
+          ]
+        },
+        "warnung": {
+          "text": "„Zu spät. Die Streife ist vor einer Stunde los.“ Hale zieht die Handschuhe an. „Ich habe Ihnen nichts gesagt. Und ich habe Sie nicht gesehen. Gehen Sie, bevor ich es mir anders überlege.“",
+          "choices": [
+            {
+              "text": "Ich gehe."
+            }
+          ]
+        },
+        "verbuendet": {
+          "text": "Hale liest den Bogen zweimal. Beim zweiten Mal zittern ihre Hände. „Ich habe zwölf Jahre lang Fremde in die Zellen gesteckt, weil das Lichtamt es wollte. Ich dachte, zum Schutz der Stadt.“\n\nSie faltet den Bogen und steckt ihn in die Uniform. „Wenn Sie zum Turm gehen, schicken Sie mir Bescheid. Ich bringe Leute mit, die lesen können.“",
+          "sets_flags": [
+            "k2_hale_ally"
+          ],
+          "choices": [
+            {
+              "text": "Danke, Wachtmeisterin.",
+              "next": "start"
+            }
+          ]
+        },
+        "turm": {
+          "text": "„Sobald das Feuer unten ist, komme ich mit vier Mann die Treppe hoch. Vorher nicht, da oben verbrennt alles, was eine Uniform trägt.“",
+          "choices": [
+            {
+              "text": "Bis dann.",
+              "next": "start"
+            }
+          ]
+        }
+      }
+    },
+    "marlowe_wexmoor": {
+      "start": "start",
+      "nodes": {
+        "start": {
+          "text": "Auf deiner Koje sitzt, in Zivil und mit nassem Saum, Inspektorin Marlowe. Sie hält eine Tasse von Zunders Tee, als wäre sie hier zu Hause.\n\n„Ich bin nicht hier“, sagt sie. „Offiziell suche ich Sie in Kettlegate. Inoffiziell will ich wissen, wer meinen besten Ermittler zur Strecke bringen will.“",
+          "choices": [
+            {
+              "text": "L. ist Ilse Brandt, die Lichtmeisterin.",
+              "next": "brandt",
+              "requires_conclusions": [
+                "dk2_brandt"
+              ],
+              "hide_if_flags": [
+                "k2_marlowe_here"
+              ]
+            },
+            {
+              "text": "Wie haben Sie mich gefunden?",
+              "next": "gefunden"
+            },
+            {
+              "text": "Später."
+            }
+          ]
+        },
+        "gefunden": {
+          "text": "„Kit.“ Sie nippt. „Der Junge kann alles, nur nicht schweigen, wenn man ihm einen Hering kauft.“",
+          "choices": [
+            {
+              "text": "Weiter.",
+              "next": "start"
+            }
+          ]
+        },
+        "brandt": {
+          "text": "Marlowe hört zu, dann nimmt sie einen Umschlag aus dem Mantel. „Ein Haftbefehl des Kronrichters. Der Name ist frei gelassen. Ich habe ihn mitgebracht für den Fall, dass Sie recht haben.“\n\nSie schreibt den Namen hinein, sorgfältig. „Ich komme mit zum Turm. Aber ich brauche einen Zeugen, der dabei war, und jemanden von der hiesigen Wache. Sonst ist das hier nur Papier.“",
+          "sets_flags": [
+            "k2_marlowe_here"
+          ],
+          "choices": [
+            {
+              "text": "Ich kümmere mich darum.",
+              "next": "start"
+            }
+          ]
+        }
+      }
+    },
+    "vey_wexmoor": {
+      "start": "start",
+      "nodes": {
+        "start": {
+          "text": "Zwischen den Pfahlhäusern hängt eine Frau Wäsche auf, und als sie sich umdreht, kennst du das Gesicht nicht und die Stimme sofort. Miriam Vey.\n\n„Sie. Natürlich Sie.“ Sie wirft dir eine Klammer zu. „Hier heiße ich Mira, und ich singe nicht mehr.“",
+          "choices": [
+            {
+              "text": "Warum sind Sie in Wexmoor?",
+              "next": "warum",
+              "hide_if_clues": [
+                "wx_vey_turm"
+              ]
+            },
+            {
+              "text": "Ich verrate Sie nicht."
+            }
+          ]
+        },
+        "warum": {
+          "text": "Vey nimmt die Klammer zurück.",
+          "gives_clues": [
+            "wx_vey_turm"
+          ],
+          "choices": [
+            {
+              "text": "Danke, Mira.",
+              "next": "start"
+            }
+          ]
+        }
+      }
+    },
+    "brandt": {
+      "start": "start",
+      "nodes": {
+        "start": {
+          "text": "Ilse Brandt ist klein, weißhaarig und trägt den weißen Mantel des Lichtamts wie einen Morgenrock. Sie putzt die Linse mit einem Taschentuch.\n\n„Sie sind pünktlich“, sagt sie. „Lucius hat immer gesagt, Sie halten Termine. Setzen Sie sich, das Feuer braucht eine Weile, bis es wieder hungrig ist.“",
+          "choices": [
+            {
+              "text": "Warum ich?",
+              "next": "warum"
+            },
+            {
+              "text": "Wofür das alles?",
+              "next": "wofuer"
+            }
+          ]
+        },
+        "warum": {
+          "text": "„Weil Sie hell sind. Jeder gelöste Fall hat Sie heller gemacht, jede gerettete Seele hat ein bisschen Licht an Ihnen gelassen. Lucius hat Sie gefunden, ich habe Sie bestellt. Ein Fremder wie Sie hält das Moor zwanzig Jahre fern.“\n\nSie lächelt, fast entschuldigend. „Ich habe Sie nicht verletzen lassen. Das war mir wichtig.“",
+          "choices": [
+            {
+              "text": "Wofür das alles?",
+              "next": "wofuer"
+            }
+          ]
+        },
+        "wofuer": {
+          "text": "„Ich habe es ausgerechnet, mit zwanzig. Wexmoor versinkt. Nicht im Wasser, im Vergessen. Unter dem Moor liegt etwas, das Namen frisst, und es kommt jedes Jahr ein Stück näher. Nur Licht hält es fern. Fremdes Licht, weil unseres es schon kennt.“\n\nSie sieht aufs Moor hinaus. „Es kommt immer. Ich habe es nur aufgehalten. Was tun Sie jetzt?“",
+          "choices": [
+            {
+              "text": "Sie sind verhaftet. Hale, Marlowe und Starling warten unten.",
+              "next": "rein",
+              "requires_flags": [
+                "k2_hale_ally",
+                "k2_marlowe_here",
+                "k2_starling_witness"
+              ],
+              "requires_conclusions": [
+                "dk2_brandt",
+                "dk2_warum"
+              ]
+            },
+            {
+              "text": "Ich lösche das Feuer.",
+              "next": "moor"
+            },
+            {
+              "text": "Die Stadt braucht das Feuer. Aber nicht Sie.",
+              "next": "meister"
+            },
+            {
+              "text": "Ich verschwinde. Kit wartet am Fels.",
+              "next": "meer",
+              "requires_clues": [
+                "wx_kit_seen"
+              ]
+            }
+          ]
+        },
+        "rein": {
+          "text": "Brandt sieht zur Treppe, wo Laternen heraufkommen.",
+          "ending": "k2_rein",
+          "choices": [
+            {
+              "text": "Weiter."
+            }
+          ]
+        },
+        "moor": {
+          "text": "Brandt nickt langsam, als hätte sie es erwartet.",
+          "ending": "k2_moor",
+          "choices": [
+            {
+              "text": "Weiter."
+            }
+          ]
+        },
+        "meister": {
+          "text": "Brandt zieht die Augenbrauen hoch.",
+          "ending": "k2_lichtmeister",
+          "choices": [
+            {
+              "text": "Weiter."
+            }
+          ]
+        },
+        "meer": {
+          "text": "Brandt ruft dir nichts nach.",
+          "ending": "k2_meer",
+          "choices": [
+            {
+              "text": "Weiter."
+            }
+          ]
+        }
+      }
     }
   },
   "police": {
@@ -4229,6 +5570,316 @@
             "speed": 0,
             "chase": 50,
             "aggro": 90
+          },
+          "boss": true,
+          "fleeable": false
+        }
+      }
+    },
+    "wx_leuchtturm": {
+      "name": "Der Leuchtturm",
+      "tier": 4,
+      "travel": {
+        "name": "Der Leuchtturm",
+        "desc": "Gefahr ☠☠☠☠. Bracks Boot bringt dich zur Insel. Oben brennt das Feuer, unten liegen die Namen.",
+        "requires_flags": [
+          "k2_akt4_done"
+        ],
+        "city": "wexmoor"
+      },
+      "lose_to": {
+        "map": "wx_kahn",
+        "spawn": "default"
+      },
+      "lose_money": 0.2,
+      "lose_text": "Du wachst im Kahn auf. Zunder hat dir die Augen verbunden. „Du hast ins Licht gesehen“, sagt sie. „Das macht man nicht zweimal.“",
+      "flee_text": "Du stolperst zurück durch die Gewölbe. Das Licht folgt dir bis zur Treppe und bleibt dort stehen, als dürfte es nicht weiter.",
+      "elite_drops": [
+        {
+          "item": "sternsplitter",
+          "chance": 0.3
+        }
+      ],
+      "loot_tables": {},
+      "encounters": {
+        "lt_glasmoewe": {
+          "name": "Glasmöwe",
+          "sprite": "wild",
+          "sheet": "enemy_glaskraehe",
+          "occult": true,
+          "hp": 48,
+          "intro": "Eine Möwe aus Glas schlägt mit den Flügeln. In ihr flackert ein gefangenes Licht, das gegen die Wände ihres Körpers schlägt.",
+          "attacks": [
+            {
+              "name": "Splitterflug",
+              "damage": 5,
+              "hits": [
+                650,
+                950,
+                1250
+              ]
+            },
+            {
+              "name": "Schnabelstoß",
+              "damage": 10,
+              "hits": [
+                1000
+              ]
+            },
+            {
+              "name": "Sturzflug ...",
+              "damage": 15,
+              "hits": [
+                1900
+              ]
+            }
+          ],
+          "on_win": {},
+          "win_text": "Die Möwe zerspringt. Das Licht in ihr fliegt nach oben, zum Feuer, als hätte es keine Wahl.",
+          "loot": {
+            "money": [
+              5,
+              12
+            ],
+            "drops": [
+              {
+                "item": "glasfeder",
+                "chance": 0.6
+              },
+              {
+                "item": "eulenfeder",
+                "chance": 0.2
+              },
+              {
+                "item": "sternglas",
+                "chance": 0.12
+              }
+            ]
+          },
+          "roam": {
+            "speed": 36,
+            "chase": 70,
+            "aggro": 110
+          },
+          "elite": {
+            "name": "Leuchtmöwe"
+          }
+        },
+        "lt_lichtbrut": {
+          "name": "Lichtbrut",
+          "sprite": "wild",
+          "sheet": "enemy_kraterbrut",
+          "occult": true,
+          "hp": 60,
+          "intro": "Etwas Weiches, Leuchtendes kriecht aus einer Nische voller Täfelchen. Es trägt fremde Gesichter wie Mäntel.",
+          "attacks": [
+            {
+              "name": "Klauen",
+              "damage": 7,
+              "hits": [
+                850,
+                1250
+              ]
+            },
+            {
+              "name": "Sprung",
+              "damage": 11,
+              "hits": [
+                1100
+              ]
+            },
+            {
+              "name": "Glimmen",
+              "damage": 5,
+              "hits": [
+                700,
+                1000,
+                1300
+              ]
+            },
+            {
+              "name": "Zerreißen ...",
+              "damage": 16,
+              "hits": [
+                2000
+              ]
+            }
+          ],
+          "on_win": {},
+          "win_text": "Die Brut zerfließt. Zurück bleibt ein Täfelchen, auf dem ein Name langsam verblasst.",
+          "loot": {
+            "money": [
+              6,
+              13
+            ],
+            "drops": [
+              {
+                "item": "brutschale",
+                "chance": 0.6
+              },
+              {
+                "item": "sternschlacke",
+                "chance": 0.15
+              },
+              {
+                "item": "tonikum",
+                "chance": 0.2
+              }
+            ]
+          },
+          "roam": {
+            "speed": 24,
+            "chase": 60,
+            "aggro": 80
+          },
+          "elite": {
+            "name": "Alte Lichtbrut"
+          }
+        },
+        "lt_linsensplitter": {
+          "name": "Linsensplitter",
+          "sprite": "wild",
+          "sheet": "enemy_splitterling",
+          "occult": true,
+          "hp": 54,
+          "intro": "Ein Scherbenhaufen aus geschliffenem Glas setzt sich zusammen. Jede Scherbe zeigt dein Gesicht, aber älter.",
+          "attacks": [
+            {
+              "name": "Scherbenregen",
+              "damage": 4,
+              "hits": [
+                600,
+                850,
+                1100,
+                1350
+              ]
+            },
+            {
+              "name": "Stich",
+              "damage": 10,
+              "hits": [
+                950
+              ]
+            },
+            {
+              "name": "Bersten ...",
+              "damage": 15,
+              "hits": [
+                1950
+              ]
+            }
+          ],
+          "on_win": {},
+          "win_text": "Die Scherben fallen auseinander und bleiben liegen. Eine zeigt noch immer dich, mit geschlossenen Augen.",
+          "loot": {
+            "money": [
+              5,
+              12
+            ],
+            "drops": [
+              {
+                "item": "sternglas",
+                "chance": 0.35
+              },
+              {
+                "item": "spiegelquecksilber",
+                "chance": 0.12
+              },
+              {
+                "item": "riechsalz",
+                "chance": 0.2
+              }
+            ]
+          },
+          "roam": {
+            "speed": 28,
+            "chase": 62,
+            "aggro": 84
+          },
+          "elite": {
+            "name": "Großer Linsensplitter"
+          }
+        },
+        "leuchtfeuer": {
+          "name": "Das Leuchtfeuer",
+          "sprite": "wild",
+          "sheet": "enemy_sternhirsch",
+          "occult": true,
+          "hp": 160,
+          "intro": "Das Feuer oben im Turm ist kein Feuer. Es ist ein Wesen aus dreihundert Jahren gestohlenem Licht, und es dreht sich zu dir um wie ein Leuchtfeuer zu einem Schiff.\n\nDu hörst Stimmen darin. Elias. Odile. Molly. Sie rufen nicht um Hilfe. Sie rufen deinen Namen.",
+          "attacks": [
+            {
+              "name": "Geweihstoß",
+              "damage": 10,
+              "hits": [
+                1000
+              ]
+            },
+            {
+              "name": "Sternenregen",
+              "damage": 5,
+              "hits": [
+                650,
+                900,
+                1150,
+                1400,
+                1650
+              ]
+            },
+            {
+              "name": "Hufschlag",
+              "damage": 8,
+              "hits": [
+                900,
+                1500
+              ]
+            },
+            {
+              "name": "Lichtsturm ...",
+              "damage": 18,
+              "hits": [
+                2300
+              ]
+            }
+          ],
+          "on_win": {},
+          "win_text": "Das Leuchtfeuer fällt in sich zusammen, bis es nur noch eine Flamme in einer Linse ist. Hinter der Linse steht eine alte Frau in weißem Mantel und klatscht langsam in die Hände.",
+          "loot": {
+            "money": [
+              50,
+              70
+            ],
+            "drops": [
+              {
+                "item": "sternhirschgeweih",
+                "chance": 1
+              },
+              {
+                "item": "sternglas",
+                "chance": 1,
+                "n": [
+                  1,
+                  2
+                ]
+              },
+              {
+                "item": "geisteressenz",
+                "chance": 1,
+                "n": [
+                  1,
+                  2
+                ]
+              },
+              {
+                "item": "nebelherz",
+                "chance": 0.6
+              }
+            ]
+          },
+          "roam": {
+            "speed": 0,
+            "chase": 60,
+            "aggro": 100
           },
           "boss": true,
           "fleeable": false

@@ -276,6 +276,7 @@ export class GameState {
     // Unruhe trifft nur Beyonder; wer keinen Trank hat, verliert stattdessen Nerven.
     if (e.unruhe) { if (this.isBeyonder()) this.setUnruhe(this.unruhe + e.unruhe); else this.setComposure(this.composure - e.unruhe); }
     if (e.combat) this.startCombat(e.combat);
+    if (Number.isFinite(e.wanted) && this.content.police) this.setWanted(Math.max(this.wanted, e.wanted), e.wanted_reason ?? ''); // Fahndung hochsetzen (Ausbruch, Flucht)
     if (e.travel) this.pendingTravel = e.travel; // Ortswechsel nach dem Fenster (z. B. aus der Zelle)
     if (gained.length || e.sets_flags || e.start_quests || e.complete_quests || e.honor || e.gives_items || e.takes_items || e.gives_money || e.takes_money) this.emit('changed');
     return gained;
