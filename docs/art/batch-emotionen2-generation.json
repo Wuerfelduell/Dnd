@@ -1,0 +1,1328 @@
+{
+  "batch": "emotionen2",
+  "generator": "image_gen (built-in)",
+  "date": "2026-11-09",
+  "brief": "docs/art/codex_AK_emotionen.md",
+  "paletteSource": "docs/art/batch-welt-generation.json",
+  "palette": [
+    "#1a1c2c",
+    "#252b38",
+    "#303b49",
+    "#425360",
+    "#586c78",
+    "#71858b",
+    "#95a5a5",
+    "#2d2629",
+    "#413433",
+    "#58433c",
+    "#715648",
+    "#92745a",
+    "#b3946e",
+    "#cfb18a",
+    "#e0c9a1",
+    "#494b3a",
+    "#686850",
+    "#8b8870",
+    "#b4ac91",
+    "#dbd2b3",
+    "#eee2c5",
+    "#173d40",
+    "#245b59",
+    "#36817a",
+    "#4eafa2",
+    "#6fe0d0",
+    "#5f4829",
+    "#886332",
+    "#ba8942",
+    "#dbac5d",
+    "#f0ce80"
+  ],
+  "postprocessing": [
+    "documented per-cell crops",
+    "nearest-neighbor to 64x64",
+    "nearest RGB palette index without dithering",
+    "opaque backgrounds as in references"
+  ],
+  "jobs": [
+    {
+      "id": "player",
+      "reference": "public/sprites/portraits/06_investigator_emotions.png",
+      "name": "die Hauptfigur",
+      "prompt": "\nSTYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nUse case: identity-preserve. Create a single 4:1 horizontal four-cell portrait expression sheet for the same investigator in the attached reference. Use the attached portrait sheet as strict reference: same person, same framing, same palette, same outline; only change the facial expression and small gestures. Use the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction. Four equal SQUARE cells in ONE ROW, no gutters, no extra margin, no labels. Target 256x64 logical pixels (64x64 each), enlarged nearest-neighbor appearance. Left to right: 1 ANGRY, brows drawn together, tense closed jaw, no shouting; 2 SAD, lowered gaze, gently downturned mouth, no tears; 3 THOUGHTFUL, eyes slightly aside, one brow raised, closed mouth; 4 DETERMINED, steady forward gaze, firm brows and closed mouth, not smiling. Preserve hat, coat, facial identity, scale, position, top-left light and the original opaque dark slate background. Every face clearly different in expression, same bust baseline. No new accessories.",
+      "source": "exec-2602f891-d2dd-43b2-92ba-3cb7ab4f0ab1.png",
+      "sourceSha256": "780ca50baf853bf61d52806d49607520be2c96f3d7c2743e49553a424fc4b9c1",
+      "sourceSize": [
+        2172,
+        724
+      ],
+      "referenceSha256": "b4ffd4b8686be727aaf03a589c582226a6643d62d7b91b9987678be3199f70c6",
+      "sourceBoxes": [
+        [
+          0,
+          51,
+          543,
+          639
+        ],
+        [
+          543,
+          51,
+          1086,
+          639
+        ],
+        [
+          1086,
+          51,
+          1629,
+          639
+        ],
+        [
+          1629,
+          51,
+          2172,
+          639
+        ]
+      ],
+      "output": "portraits/AK_player_emotions2.png"
+    },
+    {
+      "id": "marlowe",
+      "reference": "public/sprites/portraits/12_agatha_marlowe_police_emotions.png",
+      "name": "Inspektorin Marlowe",
+      "prompt": "\nSTYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nUse case: identity-preserve. Create a single 4:1 horizontal four-cell portrait expression sheet for the same character Inspektorin Marlowe (marlowe) in the attached reference. Use the attached portrait sheet as strict reference: same person, same framing, same palette, same outline; only change the facial expression and small gestures. Use the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction. Four equal SQUARE cells in ONE ROW, no gutters, no extra margin, no labels. Target 256x64 logical pixels (64x64 each), enlarged nearest-neighbor appearance. Left to right: 1 ANGRY, brows drawn together, tense closed jaw, no shouting; 2 SAD, lowered gaze, gently downturned mouth, no tears; 3 THOUGHTFUL, eyes slightly aside, one brow raised, closed mouth; 4 DETERMINED, steady forward gaze, firm brows and closed mouth, not smiling. Preserve hat, coat, facial identity, scale, position, top-left light and the original opaque dark slate background. Every face clearly different in expression, same bust baseline. No new accessories.",
+      "source": "exec-4a411920-9e10-45a1-b786-01ce518ff176.png",
+      "sourceSha256": "29ff848443b217e791acfc70efebf8c9b2188f766a27092409a4815eb1fef499",
+      "sourceSize": [
+        2172,
+        724
+      ],
+      "referenceSha256": "9702b502c999454523cfc368c5d6737a7f769bbc23a2a2764f06e1b19a0a1194",
+      "sourceBoxes": [
+        [
+          0,
+          90,
+          543,
+          634
+        ],
+        [
+          543,
+          90,
+          1086,
+          634
+        ],
+        [
+          1086,
+          90,
+          1629,
+          634
+        ],
+        [
+          1629,
+          90,
+          2172,
+          634
+        ]
+      ],
+      "output": "portraits/AK_marlowe_emotions2.png"
+    },
+    {
+      "id": "holt",
+      "reference": "public/sprites/portraits/C_holt_emotions.png",
+      "name": "Sergeant Holt",
+      "prompt": "\nSTYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nUse case: identity-preserve. Create a single 4:1 horizontal four-cell portrait expression sheet for the same character Sergeant Holt (holt) in the attached reference. Use the attached portrait sheet as strict reference: same person, same framing, same palette, same outline; only change the facial expression and small gestures. Use the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction. Four equal SQUARE cells in ONE ROW, no gutters, no extra margin, no labels. Target 256x64 logical pixels (64x64 each), enlarged nearest-neighbor appearance. Left to right: 1 ANGRY, brows drawn together, tense closed jaw, no shouting; 2 SAD, lowered gaze, gently downturned mouth, no tears; 3 THOUGHTFUL, eyes slightly aside, one brow raised, closed mouth; 4 DETERMINED, steady forward gaze, firm brows and closed mouth, not smiling. Preserve hat, coat, facial identity, scale, position, top-left light and the original opaque dark slate background. Every face clearly different in expression, same bust baseline. No new accessories.",
+      "source": "exec-4948d3a9-8dc1-443a-8c8c-04508fbeb8f4.png",
+      "sourceSha256": "028087286595eebdc73bccd18750144107e16e3ff3830ad12075da9228b63824",
+      "sourceSize": [
+        2172,
+        724
+      ],
+      "referenceSha256": "ccc3b44f4a2ddc7850ab0f73d5da1d80d75a95c58453f2c663f807a828913001",
+      "sourceBoxes": [
+        [
+          0,
+          90,
+          543,
+          634
+        ],
+        [
+          543,
+          90,
+          1086,
+          634
+        ],
+        [
+          1086,
+          90,
+          1629,
+          634
+        ],
+        [
+          1629,
+          90,
+          2172,
+          634
+        ]
+      ],
+      "output": "portraits/AK_holt_emotions2.png"
+    },
+    {
+      "id": "pimm",
+      "reference": "public/sprites/portraits/C_pimm_emotions.png",
+      "name": "Miss Pimm, Archiv",
+      "prompt": "\nSTYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nUse case: identity-preserve. Create a single 4:1 horizontal four-cell portrait expression sheet for the same character Miss Pimm, Archiv (pimm) in the attached reference. Use the attached portrait sheet as strict reference: same person, same framing, same palette, same outline; only change the facial expression and small gestures. Use the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction. Four equal SQUARE cells in ONE ROW, no gutters, no extra margin, no labels. Target 256x64 logical pixels (64x64 each), enlarged nearest-neighbor appearance. Left to right: 1 ANGRY, brows drawn together, tense closed jaw, no shouting; 2 SAD, lowered gaze, gently downturned mouth, no tears; 3 THOUGHTFUL, eyes slightly aside, one brow raised, closed mouth; 4 DETERMINED, steady forward gaze, firm brows and closed mouth, not smiling. Preserve hat, coat, facial identity, scale, position, top-left light and the original opaque dark slate background. Every face clearly different in expression, same bust baseline. No new accessories.",
+      "source": "exec-8be3ee81-e985-4169-8ca6-538d00491b6c.png",
+      "sourceSha256": "b47cd526e8a0b00862e215da90cb7c81c4b141399ffec1273882b13fdb474001",
+      "sourceSize": [
+        2172,
+        724
+      ],
+      "referenceSha256": "62c1b6339e039cdb88cbe2fe33b535a9c7383847d15526fe0cc6ff36acd4fe17",
+      "sourceBoxes": [
+        [
+          0,
+          90,
+          543,
+          634
+        ],
+        [
+          543,
+          90,
+          1086,
+          634
+        ],
+        [
+          1086,
+          90,
+          1629,
+          634
+        ],
+        [
+          1629,
+          90,
+          2172,
+          634
+        ]
+      ],
+      "output": "portraits/AK_pimm_emotions2.png"
+    },
+    {
+      "id": "greta",
+      "reference": "public/sprites/portraits/C_greta_emotions.png",
+      "name": "Greta, Blumenmädchen",
+      "prompt": "\nSTYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nUse case: identity-preserve. Create a single 4:1 horizontal four-cell portrait expression sheet for the same character Greta, Blumenmädchen (greta) in the attached reference. Use the attached portrait sheet as strict reference: same person, same framing, same palette, same outline; only change the facial expression and small gestures. Use the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction. Four equal SQUARE cells in ONE ROW, no gutters, no extra margin, no labels. Target 256x64 logical pixels (64x64 each), enlarged nearest-neighbor appearance. Left to right: 1 ANGRY, brows drawn together, tense closed jaw, no shouting; 2 SAD, lowered gaze, gently downturned mouth, no tears; 3 THOUGHTFUL, eyes slightly aside, one brow raised, closed mouth; 4 DETERMINED, steady forward gaze, firm brows and closed mouth, not smiling. Preserve hat, coat, facial identity, scale, position, top-left light and the original opaque dark slate background. Every face clearly different in expression, same bust baseline. No new accessories.",
+      "source": "exec-198c8634-6f97-4d51-90db-17c96c6066c4.png",
+      "sourceSha256": "815e01fe2da907f9ea7c19030dfb91fd4f5210a80d9894aaa37ab9d2863a80f8",
+      "sourceSize": [
+        2172,
+        724
+      ],
+      "referenceSha256": "365e4a760243d2b3bcd35cb960d86d663787474e20cdc12ab6e704a985c28e83",
+      "sourceBoxes": [
+        [
+          0,
+          90,
+          543,
+          634
+        ],
+        [
+          543,
+          90,
+          1086,
+          634
+        ],
+        [
+          1086,
+          90,
+          1629,
+          634
+        ],
+        [
+          1629,
+          90,
+          2172,
+          634
+        ]
+      ],
+      "output": "portraits/AK_greta_emotions2.png"
+    },
+    {
+      "id": "quill",
+      "reference": "public/sprites/portraits/C_quill_emotions.png",
+      "name": "Mr. Quill, Antiquar",
+      "prompt": "\nSTYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nUse case: identity-preserve. Create a single 4:1 horizontal four-cell portrait expression sheet for the same character Mr. Quill, Antiquar (quill) in the attached reference. Use the attached portrait sheet as strict reference: same person, same framing, same palette, same outline; only change the facial expression and small gestures. Use the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction. Four equal SQUARE cells in ONE ROW, no gutters, no extra margin, no labels. Target 256x64 logical pixels (64x64 each), enlarged nearest-neighbor appearance. Left to right: 1 ANGRY, brows drawn together, tense closed jaw, no shouting; 2 SAD, lowered gaze, gently downturned mouth, no tears; 3 THOUGHTFUL, eyes slightly aside, one brow raised, closed mouth; 4 DETERMINED, steady forward gaze, firm brows and closed mouth, not smiling. Preserve hat, coat, facial identity, scale, position, top-left light and the original opaque dark slate background. Every face clearly different in expression, same bust baseline. No new accessories.\nKeep original character proportions, no added top or bottom margin. The four cell borders lie at 0%,25%,50%,75%,100% width. Each cell square.",
+      "source": "exec-e56c47d0-e97b-4d00-b61c-0d7b33a07827.png",
+      "sourceSha256": "a1987c644a5a87126d5d6ff653cef57904c2bbb3099292541751d4eee6c5dc8b",
+      "sourceSize": [
+        2172,
+        724
+      ],
+      "referenceSha256": "b64c66fcc56210effa2491354921fc1b9299578646ee8cc2681c55bb9529b450",
+      "sourceBoxes": [
+        [
+          0,
+          90,
+          543,
+          634
+        ],
+        [
+          543,
+          90,
+          1086,
+          634
+        ],
+        [
+          1086,
+          90,
+          1629,
+          634
+        ],
+        [
+          1629,
+          90,
+          2172,
+          634
+        ]
+      ],
+      "output": "portraits/AK_quill_emotions2.png"
+    },
+    {
+      "id": "kit",
+      "reference": "public/sprites/portraits/C_kit_emotions.png",
+      "name": "Kit",
+      "prompt": "\nSTYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nUse case: identity-preserve. Create a single 4:1 horizontal four-cell portrait expression sheet for the same character Kit (kit) in the attached reference. Use the attached portrait sheet as strict reference: same person, same framing, same palette, same outline; only change the facial expression and small gestures. Use the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction. Four equal SQUARE cells in ONE ROW, no gutters, no extra margin, no labels. Target 256x64 logical pixels (64x64 each), enlarged nearest-neighbor appearance. Left to right: 1 ANGRY, brows drawn together, tense closed jaw, no shouting; 2 SAD, lowered gaze, gently downturned mouth, no tears; 3 THOUGHTFUL, eyes slightly aside, one brow raised, closed mouth; 4 DETERMINED, steady forward gaze, firm brows and closed mouth, not smiling. Preserve hat, coat, facial identity, scale, position, top-left light and the original opaque dark slate background. Every face clearly different in expression, same bust baseline. No new accessories.\nKeep original character proportions, no added top or bottom margin. The four cell borders lie at 0%,25%,50%,75%,100% width. Each cell square.",
+      "source": "exec-c584ca4a-4ce7-4787-b87f-b309a78fa27d.png",
+      "sourceSha256": "cd476970217db393762e807368fb072751b3fa040793e60ee3961e905e2dcdba",
+      "sourceSize": [
+        2172,
+        724
+      ],
+      "referenceSha256": "36968bbebaeddd53538350ed371103da5e482a2d8c22e0bacce13b464758c63f",
+      "sourceBoxes": [
+        [
+          0,
+          90,
+          543,
+          634
+        ],
+        [
+          543,
+          90,
+          1086,
+          634
+        ],
+        [
+          1086,
+          90,
+          1629,
+          634
+        ],
+        [
+          1629,
+          90,
+          2172,
+          634
+        ]
+      ],
+      "output": "portraits/AK_kit_emotions2.png"
+    },
+    {
+      "id": "pip",
+      "reference": "public/sprites/portraits/C_pip_emotions.png",
+      "name": "Pip",
+      "prompt": "\nSTYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nUse case: identity-preserve. Create a single 4:1 horizontal four-cell portrait expression sheet for the same character Pip (pip) in the attached reference. Use the attached portrait sheet as strict reference: same person, same framing, same palette, same outline; only change the facial expression and small gestures. Use the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction. Four equal SQUARE cells in ONE ROW, no gutters, no extra margin, no labels. Target 256x64 logical pixels (64x64 each), enlarged nearest-neighbor appearance. Left to right: 1 ANGRY, brows drawn together, tense closed jaw, no shouting; 2 SAD, lowered gaze, gently downturned mouth, no tears; 3 THOUGHTFUL, eyes slightly aside, one brow raised, closed mouth; 4 DETERMINED, steady forward gaze, firm brows and closed mouth, not smiling. Preserve hat, coat, facial identity, scale, position, top-left light and the original opaque dark slate background. Every face clearly different in expression, same bust baseline. No new accessories.\nKeep original character proportions, no added top or bottom margin. The four cell borders lie at 0%,25%,50%,75%,100% width. Each cell square.",
+      "source": "exec-1f134e3a-6f43-49bb-bc4f-f8586fc7bd43.png",
+      "sourceSha256": "4aa4604e532e0ad45382f6f9c5a48a0067edc2dd909f58d88f0927bd4ed17625",
+      "sourceSize": [
+        2172,
+        724
+      ],
+      "referenceSha256": "2f1cb0d57833a99336484d1d23d6ab69f1f53cec9fff708a45a85f6d86755d21",
+      "sourceBoxes": [
+        [
+          0,
+          40,
+          543,
+          584
+        ],
+        [
+          543,
+          40,
+          1086,
+          584
+        ],
+        [
+          1086,
+          40,
+          1629,
+          584
+        ],
+        [
+          1629,
+          40,
+          2172,
+          584
+        ]
+      ],
+      "output": "portraits/AK_pip_emotions2.png"
+    },
+    {
+      "id": "hester",
+      "reference": "public/sprites/portraits/C_hester_emotions.png",
+      "name": "Hester Marsh",
+      "prompt": "\nSTYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nUse case: identity-preserve. Create a single 4:1 horizontal four-cell portrait expression sheet for the same character Hester Marsh (hester) in the attached reference. Use the attached portrait sheet as strict reference: same person, same framing, same palette, same outline; only change the facial expression and small gestures. Use the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction. Four equal SQUARE cells in ONE ROW, no gutters, no extra margin, no labels. Target 256x64 logical pixels (64x64 each), enlarged nearest-neighbor appearance. Left to right: 1 ANGRY, brows drawn together, tense closed jaw, no shouting; 2 SAD, lowered gaze, gently downturned mouth, no tears; 3 THOUGHTFUL, eyes slightly aside, one brow raised, closed mouth; 4 DETERMINED, steady forward gaze, firm brows and closed mouth, not smiling. Preserve hat, coat, facial identity, scale, position, top-left light and the original opaque dark slate background. Every face clearly different in expression, same bust baseline. No new accessories.\nKeep original character proportions, no added top or bottom margin. The four cell borders lie at 0%,25%,50%,75%,100% width. Each cell square.",
+      "source": "exec-6f847d9e-1e3d-4cc7-bc79-7cd290f12a61.png",
+      "sourceSha256": "5af867001d6c2db1c3a32e5e92a4acb42cacdf08731cc1d4adfa37d720453e50",
+      "sourceSize": [
+        2172,
+        724
+      ],
+      "referenceSha256": "614dc92f9a5fb088e439bc21171b413173e3f517f25b5977918658a4d25ef7ff",
+      "sourceBoxes": [
+        [
+          0,
+          0,
+          543,
+          544
+        ],
+        [
+          543,
+          0,
+          1086,
+          544
+        ],
+        [
+          1086,
+          0,
+          1629,
+          544
+        ],
+        [
+          1629,
+          0,
+          2172,
+          544
+        ]
+      ],
+      "output": "portraits/AK_hester_emotions2.png"
+    },
+    {
+      "id": "ivy",
+      "reference": "public/sprites/portraits/C_ivy_emotions.png",
+      "name": "Ivy Marsh",
+      "prompt": "\nSTYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nUse case: identity-preserve. Create a single 4:1 horizontal four-cell portrait expression sheet for the same character Ivy Marsh (ivy) in the attached reference. Use the attached portrait sheet as strict reference: same person, same framing, same palette, same outline; only change the facial expression and small gestures. Use the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction. Four equal SQUARE cells in ONE ROW, no gutters, no extra margin, no labels. Target 256x64 logical pixels (64x64 each), enlarged nearest-neighbor appearance. Left to right: 1 ANGRY, brows drawn together, tense closed jaw, no shouting; 2 SAD, lowered gaze, gently downturned mouth, no tears; 3 THOUGHTFUL, eyes slightly aside, one brow raised, closed mouth; 4 DETERMINED, steady forward gaze, firm brows and closed mouth, not smiling. Preserve hat, coat, facial identity, scale, position, top-left light and the original opaque dark slate background. Every face clearly different in expression, same bust baseline. No new accessories.\nKeep original character proportions, no added top or bottom margin. The four cell borders lie at 0%,25%,50%,75%,100% width. Each cell square.",
+      "source": "exec-1875b90e-ff85-4db6-a1f5-77308c18b87a.png",
+      "sourceSha256": "f5a923505f065646db106335b95f024317af037f925b6c617eadf735da2d2d1f",
+      "sourceSize": [
+        2171,
+        724
+      ],
+      "referenceSha256": "c52ce709b2bfb928e131749bf524f1ca8cc8df6a8bcdcbdae26f943e6357e6dc",
+      "sourceBoxes": [
+        [
+          0,
+          20,
+          543,
+          563
+        ],
+        [
+          543,
+          20,
+          1086,
+          563
+        ],
+        [
+          1086,
+          20,
+          1628,
+          563
+        ],
+        [
+          1628,
+          20,
+          2171,
+          563
+        ]
+      ],
+      "output": "portraits/AK_ivy_emotions2.png"
+    },
+    {
+      "id": "rook",
+      "reference": "public/sprites/portraits/C_rook_emotions.png",
+      "name": "Constable Rook",
+      "prompt": "\nSTYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nUse case: identity-preserve. Create a single 4:1 horizontal four-cell portrait expression sheet for the same character Constable Rook (rook) in the attached reference. Use the attached portrait sheet as strict reference: same person, same framing, same palette, same outline; only change the facial expression and small gestures. Use the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction. Four equal SQUARE cells in ONE ROW, no gutters, no extra margin, no labels. Target 256x64 logical pixels (64x64 each), enlarged nearest-neighbor appearance. Left to right: 1 ANGRY, brows drawn together, tense closed jaw, no shouting; 2 SAD, lowered gaze, gently downturned mouth, no tears; 3 THOUGHTFUL, eyes slightly aside, one brow raised, closed mouth; 4 DETERMINED, steady forward gaze, firm brows and closed mouth, not smiling. Preserve hat, coat, facial identity, scale, position, top-left light and the original opaque dark slate background. Every face clearly different in expression, same bust baseline. No new accessories.\nKeep original proportions. No added top/bottom margin. Four equal square cells. DETERMINED differs clearly from ANGRY: composed firm mouth and focused open eyes, head slightly raised; ANGRY has pinched inward brows and clenched jaw.",
+      "source": "exec-767bb0d7-0c36-408f-9fcb-3a72d75d77a7.png",
+      "sourceSha256": "428d375830511a35dd92ca946edfe345105661cb9fa9c15025a7ecc438d31bc4",
+      "sourceSize": [
+        2172,
+        724
+      ],
+      "referenceSha256": "4d59d3bc1d6941e25d82c765c79bf0b6ef2902ea020b32278ce757c35626640a",
+      "sourceBoxes": [
+        [
+          0,
+          90,
+          543,
+          634
+        ],
+        [
+          543,
+          90,
+          1086,
+          634
+        ],
+        [
+          1086,
+          90,
+          1629,
+          634
+        ],
+        [
+          1629,
+          90,
+          2172,
+          634
+        ]
+      ],
+      "output": "portraits/AK_rook_emotions2.png"
+    },
+    {
+      "id": "price",
+      "reference": "public/sprites/portraits/C_price_emotions.png",
+      "name": "Constable Price (auch in Wexmoor)",
+      "prompt": "\nSTYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nUse case: identity-preserve. Create a single 4:1 horizontal four-cell portrait expression sheet for the same character Constable Price (auch in Wexmoor) (price) in the attached reference. Use the attached portrait sheet as strict reference: same person, same framing, same palette, same outline; only change the facial expression and small gestures. Use the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction. Four equal SQUARE cells in ONE ROW, no gutters, no extra margin, no labels. Target 256x64 logical pixels (64x64 each), enlarged nearest-neighbor appearance. Left to right: 1 ANGRY, brows drawn together, tense closed jaw, no shouting; 2 SAD, lowered gaze, gently downturned mouth, no tears; 3 THOUGHTFUL, eyes slightly aside, one brow raised, closed mouth; 4 DETERMINED, steady forward gaze, firm brows and closed mouth, not smiling. Preserve hat, coat, facial identity, scale, position, top-left light and the original opaque dark slate background. Every face clearly different in expression, same bust baseline. No new accessories.\nKeep original proportions. No added top/bottom margin. Four equal square cells. DETERMINED differs clearly from ANGRY: composed firm mouth and focused open eyes, head slightly raised; ANGRY has pinched inward brows and clenched jaw.",
+      "source": "exec-d17ac456-140b-49d8-9ba9-f08ca0b3f7e9.png",
+      "sourceSha256": "7e51a218320ca2e2dd49ceefc2ea20e95371d58be6c805c13b0bb48a6f68bb07",
+      "sourceSize": [
+        2172,
+        724
+      ],
+      "referenceSha256": "65f87f6f18128e0ddd05aeb15767b608385f638c12895bd9f476fdc55ff08337",
+      "sourceBoxes": [
+        [
+          0,
+          55,
+          543,
+          623
+        ],
+        [
+          543,
+          55,
+          1086,
+          623
+        ],
+        [
+          1086,
+          55,
+          1629,
+          623
+        ],
+        [
+          1629,
+          55,
+          2172,
+          623
+        ]
+      ],
+      "output": "portraits/AK_price_emotions2.png"
+    },
+    {
+      "id": "barnaby",
+      "reference": "public/sprites/portraits/C_barnaby_emotions.png",
+      "name": "Barnaby",
+      "prompt": "\nSTYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nUse case: identity-preserve. Create a single 4:1 horizontal four-cell portrait expression sheet for the same character Barnaby (barnaby) in the attached reference. Use the attached portrait sheet as strict reference: same person, same framing, same palette, same outline; only change the facial expression and small gestures. Use the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction. Four equal SQUARE cells in ONE ROW, no gutters, no extra margin, no labels. Target 256x64 logical pixels (64x64 each), enlarged nearest-neighbor appearance. Left to right: 1 ANGRY, brows drawn together, tense closed jaw, no shouting; 2 SAD, lowered gaze, gently downturned mouth, no tears; 3 THOUGHTFUL, eyes slightly aside, one brow raised, closed mouth; 4 DETERMINED, steady forward gaze, firm brows and closed mouth, not smiling. Preserve hat, coat, facial identity, scale, position, top-left light and the original opaque dark slate background. Every face clearly different in expression, same bust baseline. No new accessories.\nKeep original proportions. No added top/bottom margin. Four equal square cells. DETERMINED differs clearly from ANGRY: composed firm mouth and focused open eyes, head slightly raised; ANGRY has pinched inward brows and clenched jaw.",
+      "source": "exec-20c524a0-50dd-4d3e-9de0-ebbe27a771bc.png",
+      "sourceSha256": "ee2c6267fc98bbefba7a21444f73862286f09604e6f410531c6613bc10d8f3bc",
+      "sourceSize": [
+        2172,
+        724
+      ],
+      "referenceSha256": "5a8bfe0871407f420610494d3de50ddbb5e978f30ec50299cfc6e6a0c99d4f1a",
+      "sourceBoxes": [
+        [
+          0,
+          90,
+          543,
+          634
+        ],
+        [
+          543,
+          90,
+          1086,
+          634
+        ],
+        [
+          1086,
+          90,
+          1629,
+          634
+        ],
+        [
+          1629,
+          90,
+          2172,
+          634
+        ]
+      ],
+      "output": "portraits/AK_barnaby_emotions2.png"
+    },
+    {
+      "id": "miriam",
+      "reference": "public/sprites/portraits/C_miriam_emotions.png",
+      "name": "Miriam Vey",
+      "prompt": "\nSTYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nUse case: identity-preserve. Create a single 4:1 horizontal four-cell portrait expression sheet for the same character Miriam Vey (miriam) in the attached reference. Use the attached portrait sheet as strict reference: same person, same framing, same palette, same outline; only change the facial expression and small gestures. Use the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction. Four equal SQUARE cells in ONE ROW, no gutters, no extra margin, no labels. Target 256x64 logical pixels (64x64 each), enlarged nearest-neighbor appearance. Left to right: 1 ANGRY, brows drawn together, tense closed jaw, no shouting; 2 SAD, lowered gaze, gently downturned mouth, no tears; 3 THOUGHTFUL, eyes slightly aside, one brow raised, closed mouth; 4 DETERMINED, steady forward gaze, firm brows and closed mouth, not smiling. Preserve hat, coat, facial identity, scale, position, top-left light and the original opaque dark slate background. Every face clearly different in expression, same bust baseline. No new accessories.\nKeep original proportions. No added top/bottom margin. Four equal square cells. DETERMINED differs clearly from ANGRY: composed firm mouth and focused open eyes, head slightly raised; ANGRY has pinched inward brows and clenched jaw.",
+      "source": "exec-bd930763-b43f-4bf3-957b-027cc3da7086.png",
+      "sourceSha256": "ea8ee50b2c49668b2f83784ac2a6166a92cb95127c0b6e8c41e4b901bacd3866",
+      "sourceSize": [
+        2172,
+        724
+      ],
+      "referenceSha256": "84183176f0a84fa39cc2ece5a569641f2640b07c4e5e4fbc84f8db0e7b44a5ac",
+      "sourceBoxes": [
+        [
+          0,
+          54,
+          543,
+          596
+        ],
+        [
+          543,
+          54,
+          1086,
+          596
+        ],
+        [
+          1086,
+          54,
+          1629,
+          596
+        ],
+        [
+          1629,
+          54,
+          2172,
+          596
+        ]
+      ],
+      "output": "portraits/AK_miriam_emotions2.png"
+    },
+    {
+      "id": "oda_vey",
+      "reference": "public/sprites/portraits/J_oda_vey_emotions.png",
+      "name": "Oda Vey",
+      "prompt": "\nSTYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nUse case: identity-preserve. Create a single 4:1 horizontal four-cell portrait expression sheet for the same character Oda Vey (oda_vey) in the attached reference. Use the attached portrait sheet as strict reference: same person, same framing, same palette, same outline; only change the facial expression and small gestures. Use the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction. Four equal SQUARE cells in ONE ROW, no gutters, no extra margin, no labels. Target 256x64 logical pixels (64x64 each), enlarged nearest-neighbor appearance. Left to right: 1 ANGRY, brows drawn together, tense closed jaw, no shouting; 2 SAD, lowered gaze, gently downturned mouth, no tears; 3 THOUGHTFUL, eyes slightly aside, one brow raised, closed mouth; 4 DETERMINED, steady forward gaze, firm brows and closed mouth, not smiling. Preserve hat, coat, facial identity, scale, position, top-left light and the original opaque dark slate background. Every face clearly different in expression, same bust baseline. No new accessories.\nKeep original proportions. No added top/bottom margin. Four equal square cells. DETERMINED differs clearly from ANGRY: composed firm mouth and focused open eyes, head slightly raised; ANGRY has pinched inward brows and clenched jaw.",
+      "source": "exec-7560b7a3-add8-4912-8ba5-215bfbafe89c.png",
+      "sourceSha256": "6aeb731faaf3b366294743ccf4fd51252a7f134cf8424d0c01dd20c1449b32e3",
+      "sourceSize": [
+        2172,
+        724
+      ],
+      "referenceSha256": "f21b31e94e3d4933583b8ef2e0a71d9462711c820e9a154eef3225c0efa52f7c",
+      "sourceBoxes": [
+        [
+          0,
+          90,
+          543,
+          634
+        ],
+        [
+          543,
+          90,
+          1086,
+          634
+        ],
+        [
+          1086,
+          90,
+          1629,
+          634
+        ],
+        [
+          1629,
+          90,
+          2172,
+          634
+        ]
+      ],
+      "output": "portraits/AK_oda_vey_emotions2.png"
+    },
+    {
+      "id": "mews",
+      "reference": "public/sprites/portraits/K_mews_emotions.png",
+      "name": "Lucan Mews",
+      "prompt": "\nSTYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nUse case: identity-preserve. Create a single 4:1 horizontal four-cell portrait expression sheet for the same character Lucan Mews (mews) in the attached reference. Use the attached portrait sheet as strict reference: same person, same framing, same palette, same outline; only change the facial expression and small gestures. Use the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction. Four equal SQUARE cells in ONE ROW, no gutters, no extra margin, no labels. Target 256x64 logical pixels (64x64 each), enlarged nearest-neighbor appearance. Left to right: 1 ANGRY, brows drawn together, tense closed jaw, no shouting; 2 SAD, lowered gaze, gently downturned mouth, no tears; 3 THOUGHTFUL, eyes slightly aside, one brow raised, closed mouth; 4 DETERMINED, steady forward gaze, firm brows and closed mouth, not smiling. Preserve hat, coat, facial identity, scale, position, top-left light and the original opaque dark slate background. Every face clearly different in expression, same bust baseline. No new accessories.\nKeep original proportions. No added top/bottom margin. Four equal square cells. DETERMINED differs clearly from ANGRY: composed firm mouth and focused open eyes, head slightly raised; ANGRY has pinched inward brows and clenched jaw.",
+      "source": "exec-634cc42a-4985-40f0-92d7-95abe7bd9bf2.png",
+      "sourceSha256": "94af6c46e3a33d0dd976beceb4ddd0ab6687ab54d2011ebb73f5f5e3b88b7b9a",
+      "sourceSize": [
+        2172,
+        724
+      ],
+      "referenceSha256": "0ad6ce1e8aa42be25735e92c31841ea6f94bc601775aff73c10576a630d675a5",
+      "sourceBoxes": [
+        [
+          0,
+          90,
+          543,
+          634
+        ],
+        [
+          543,
+          90,
+          1086,
+          634
+        ],
+        [
+          1086,
+          90,
+          1629,
+          634
+        ],
+        [
+          1629,
+          90,
+          2172,
+          634
+        ]
+      ],
+      "output": "portraits/AK_mews_emotions2.png"
+    },
+    {
+      "id": "astronom",
+      "reference": "public/sprites/portraits/C_astronom_emotions.png",
+      "name": "Professor Starling",
+      "prompt": "\nSTYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nUse case: identity-preserve. Create a single 4:1 horizontal four-cell portrait expression sheet for the same character Professor Starling (astronom) in the attached reference. Use the attached portrait sheet as strict reference: same person, same framing, same palette, same outline; only change the facial expression and small gestures. Use the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction. Four equal SQUARE cells in ONE ROW, no gutters, no extra margin, no labels. Target 256x64 logical pixels (64x64 each), enlarged nearest-neighbor appearance. Left to right: 1 ANGRY, brows drawn together, tense closed jaw, no shouting; 2 SAD, lowered gaze, gently downturned mouth, no tears; 3 THOUGHTFUL, eyes slightly aside, one brow raised, closed mouth; 4 DETERMINED, steady forward gaze, firm brows and closed mouth, not smiling. Preserve hat, coat, facial identity, scale, position, top-left light and the original opaque dark slate background. Every face clearly different in expression, same bust baseline. No new accessories.\nKeep original proportions. No added top/bottom margin. Four equal square cells. DETERMINED differs clearly from ANGRY: composed firm mouth and focused open eyes, head slightly raised; ANGRY has pinched inward brows and clenched jaw.",
+      "source": "exec-7a641ee1-2903-4c01-a695-19e62755aa35.png",
+      "sourceSha256": "399df1058650e19de50abd12d6b0135e6e044485dbe64015975c0482d56982e3",
+      "sourceSize": [
+        2172,
+        724
+      ],
+      "referenceSha256": "488894a385f62ae3163ca493cc1d9bd915688b3bd6c590b753e70db59562c1ce",
+      "sourceBoxes": [
+        [
+          0,
+          90,
+          543,
+          634
+        ],
+        [
+          543,
+          90,
+          1086,
+          634
+        ],
+        [
+          1086,
+          90,
+          1629,
+          634
+        ],
+        [
+          1629,
+          90,
+          2172,
+          634
+        ]
+      ],
+      "output": "portraits/AK_astronom_emotions2.png"
+    },
+    {
+      "id": "lichtmann",
+      "reference": "public/sprites/portraits/R_lichtmann_emotions.png",
+      "name": "Starling in Wexmoor („Lichtmann“)",
+      "prompt": "\nSTYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nUse case: identity-preserve. Create a single 4:1 horizontal four-cell portrait expression sheet for the same character Starling in Wexmoor („Lichtmann“) (lichtmann) in the attached reference. Use the attached portrait sheet as strict reference: same person, same framing, same palette, same outline; only change the facial expression and small gestures. Use the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction. Four equal SQUARE cells in ONE ROW, no gutters, no extra margin, no labels. Target 256x64 logical pixels (64x64 each), enlarged nearest-neighbor appearance. Left to right: 1 ANGRY, brows drawn together, tense closed jaw, no shouting; 2 SAD, lowered gaze, gently downturned mouth, no tears; 3 THOUGHTFUL, eyes slightly aside, one brow raised, closed mouth; 4 DETERMINED, steady forward gaze, firm brows and closed mouth, not smiling. Preserve hat, coat, facial identity, scale, position, top-left light and the original opaque dark slate background. Every face clearly different in expression, same bust baseline. No new accessories.\nKeep original proportions. No added top/bottom margin. Four equal square cells. DETERMINED differs clearly from ANGRY: composed firm mouth and focused open eyes, head slightly raised; ANGRY has pinched inward brows and clenched jaw. Preserve the pale spectral face and hair, grey-blue coat and occult details.",
+      "source": "exec-c7e94861-d325-4566-9fc0-cfe3b87b4f60.png",
+      "sourceSha256": "de59fd6e176a4f58b8e4cb2973f277f56e2235129da3ba5102e71cbee718e2e5",
+      "sourceSize": [
+        2172,
+        724
+      ],
+      "referenceSha256": "3a0dbed6f5791a344ffce834f8bc8b742e95f4878b2c1ac35c0c8a9faab20fb9",
+      "sourceBoxes": [
+        [
+          0,
+          90,
+          543,
+          634
+        ],
+        [
+          543,
+          90,
+          1086,
+          634
+        ],
+        [
+          1086,
+          90,
+          1629,
+          634
+        ],
+        [
+          1629,
+          90,
+          2172,
+          634
+        ]
+      ],
+      "output": "portraits/AK_lichtmann_emotions2.png"
+    },
+    {
+      "id": "maud",
+      "reference": "public/sprites/portraits/C_maud_emotions.png",
+      "name": "Wirtin Maud",
+      "prompt": "\nSTYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nUse case: identity-preserve. Create a single 4:1 horizontal four-cell portrait expression sheet for the same character Wirtin Maud (maud) in the attached reference. Use the attached portrait sheet as strict reference: same person, same framing, same palette, same outline; only change the facial expression and small gestures. Use the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction. Four equal SQUARE cells in ONE ROW, no gutters, no extra margin, no labels. Target 256x64 logical pixels (64x64 each), enlarged nearest-neighbor appearance. Left to right: 1 ANGRY, brows drawn together, tense closed jaw, no shouting; 2 SAD, lowered gaze, gently downturned mouth, no tears; 3 THOUGHTFUL, eyes slightly aside, one brow raised, closed mouth; 4 DETERMINED, steady forward gaze, firm brows and closed mouth, not smiling. Preserve hat, coat, facial identity, scale, position, top-left light and the original opaque dark slate background. Every face clearly different in expression, same bust baseline. No new accessories.\nKeep original proportions. No added top/bottom margin. Four equal square cells. DETERMINED differs clearly from ANGRY: composed firm mouth and focused open eyes, head slightly raised; ANGRY has pinched inward brows and clenched jaw.",
+      "source": "exec-0791ef10-7e44-4820-9702-264cfbe178bf.png",
+      "sourceSha256": "58a21a50c946d310a65e9e26a7b4ba1181029d74b1190368c52dc28b45b5a403",
+      "sourceSize": [
+        2172,
+        724
+      ],
+      "referenceSha256": "60b9ebe6f5c3d388d97d8086ebeebdb528136cab09c7ef2e49defacb44f29b30",
+      "sourceBoxes": [
+        [
+          0,
+          62,
+          543,
+          605
+        ],
+        [
+          543,
+          62,
+          1086,
+          605
+        ],
+        [
+          1086,
+          62,
+          1629,
+          605
+        ],
+        [
+          1629,
+          62,
+          2172,
+          605
+        ]
+      ],
+      "output": "portraits/AK_maud_emotions2.png"
+    },
+    {
+      "id": "ned",
+      "reference": "public/sprites/portraits/C_ned_emotions.png",
+      "name": "der blinde Ned",
+      "prompt": "\nSTYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nUse case: identity-preserve. Create a single 4:1 horizontal four-cell portrait expression sheet for the same character der blinde Ned (ned) in the attached reference. Use the attached portrait sheet as strict reference: same person, same framing, same palette, same outline; only change the facial expression and small gestures. Use the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction. Four equal SQUARE cells in ONE ROW, no gutters, no extra margin, no labels. Target 256x64 logical pixels (64x64 each), enlarged nearest-neighbor appearance. Left to right: 1 ANGRY, brows drawn together, tense closed jaw, no shouting; 2 SAD, lowered gaze, gently downturned mouth, no tears; 3 THOUGHTFUL, eyes slightly aside, one brow raised, closed mouth; 4 DETERMINED, steady forward gaze, firm brows and closed mouth, not smiling. Preserve hat, coat, facial identity, scale, position, top-left light and the original opaque dark slate background. Every face clearly different in expression, same bust baseline. No new accessories.\nKeep original proportions. No added top/bottom margin. Four equal square cells. DETERMINED differs clearly from ANGRY: composed firm mouth and focused open eyes, head slightly raised; ANGRY has pinched inward brows and clenched jaw. Preserve Ned's blind covered eyes: express moods through brow above blindfold, head angle and mouth; never remove blindfold.",
+      "source": "exec-867c04b1-5e34-4d15-8415-7512a1069a50.png",
+      "sourceSha256": "f5ba1a7155bacc727ab37b511d374cb5e1c72a8c6a158b965ad8f1feab322314",
+      "sourceSize": [
+        2172,
+        724
+      ],
+      "referenceSha256": "4983d23f96c978f55513a9031ac20f4bf1e3b05153b3e8640695517d2c2982bd",
+      "sourceBoxes": [
+        [
+          0,
+          64,
+          543,
+          607
+        ],
+        [
+          543,
+          64,
+          1086,
+          607
+        ],
+        [
+          1086,
+          64,
+          1629,
+          607
+        ],
+        [
+          1629,
+          64,
+          2172,
+          607
+        ]
+      ],
+      "output": "portraits/AK_ned_emotions2.png"
+    },
+    {
+      "id": "wick",
+      "reference": "public/sprites/portraits/C_wick_emotions.png",
+      "name": "Lampenanzünder Wick",
+      "prompt": "\nSTYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nUse case: identity-preserve. Create a single 4:1 horizontal four-cell portrait expression sheet for the same character Lampenanzünder Wick (wick) in the attached reference. Use the attached portrait sheet as strict reference: same person, same framing, same palette, same outline; only change the facial expression and small gestures. Use the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction. Four equal SQUARE cells in ONE ROW, no gutters, no extra margin, no labels. Target 256x64 logical pixels (64x64 each), enlarged nearest-neighbor appearance. Left to right: 1 ANGRY, brows drawn together, tense closed jaw, no shouting; 2 SAD, lowered gaze, gently downturned mouth, no tears; 3 THOUGHTFUL, eyes slightly aside, one brow raised, closed mouth; 4 DETERMINED, steady forward gaze, firm brows and closed mouth, not smiling. Preserve hat, coat, facial identity, scale, position, top-left light and the original opaque dark slate background. Every face clearly different in expression, same bust baseline. No new accessories.\nKeep original proportions. No added top/bottom margin. Four equal square cells. DETERMINED differs clearly from ANGRY: composed firm mouth and focused open eyes, head slightly raised; ANGRY has pinched inward brows and clenched jaw.",
+      "source": "exec-246f979b-7c54-488b-81fc-a020af57a3f0.png",
+      "sourceSha256": "1ad9ec804fa64f5dd186351a271f2fec2c8b64de1e91ddf9013949153344349f",
+      "sourceSize": [
+        2172,
+        724
+      ],
+      "referenceSha256": "bb7987705f0557f07076a293205fa672d7e4cf5c2381beaa27807249b1512b19",
+      "sourceBoxes": [
+        [
+          0,
+          90,
+          543,
+          634
+        ],
+        [
+          543,
+          90,
+          1086,
+          634
+        ],
+        [
+          1086,
+          90,
+          1629,
+          634
+        ],
+        [
+          1629,
+          90,
+          2172,
+          634
+        ]
+      ],
+      "output": "portraits/AK_wick_emotions2.png"
+    },
+    {
+      "id": "souffleur",
+      "reference": "public/sprites/portraits/C_souffleur_emotions.png",
+      "name": "Felix Dunmore",
+      "prompt": "\nSTYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nUse case: identity-preserve. Create a single 4:1 horizontal four-cell portrait expression sheet for the same character Felix Dunmore (souffleur) in the attached reference. Use the attached portrait sheet as strict reference: same person, same framing, same palette, same outline; only change the facial expression and small gestures. Use the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction. Four equal SQUARE cells in ONE ROW, no gutters, no extra margin, no labels. Target 256x64 logical pixels (64x64 each), enlarged nearest-neighbor appearance. Left to right: 1 ANGRY, brows drawn together, tense closed jaw, no shouting; 2 SAD, lowered gaze, gently downturned mouth, no tears; 3 THOUGHTFUL, eyes slightly aside, one brow raised, closed mouth; 4 DETERMINED, steady forward gaze, firm brows and closed mouth, not smiling. Preserve hat, coat, facial identity, scale, position, top-left light and the original opaque dark slate background. Every face clearly different in expression, same bust baseline. No new accessories.\nKeep original proportions. No added top/bottom margin. Four equal square cells. DETERMINED differs clearly from ANGRY: composed firm mouth and focused open eyes, head slightly raised; ANGRY has pinched inward brows and clenched jaw.",
+      "source": "exec-8e0bcdbe-1f5d-4c67-a3d1-4b1bf5a2f90f.png",
+      "sourceSha256": "4157b3b457bdf0ace4983b818186d454e4192c63cbbffcc19f1ff4e8adb05653",
+      "sourceSize": [
+        2172,
+        724
+      ],
+      "referenceSha256": "2fb2038695f181b4ef2c9280aaecde5fbe60a3ff63f0ad3b4c87f635cec0a3c6",
+      "sourceBoxes": [
+        [
+          0,
+          90,
+          543,
+          634
+        ],
+        [
+          543,
+          90,
+          1086,
+          634
+        ],
+        [
+          1086,
+          90,
+          1629,
+          634
+        ],
+        [
+          1629,
+          90,
+          2172,
+          634
+        ]
+      ],
+      "output": "portraits/AK_souffleur_emotions2.png"
+    },
+    {
+      "id": "zunder",
+      "reference": "public/sprites/portraits/Q_zunder_emotions.png",
+      "name": "Juna „Zunder“ Fenn",
+      "prompt": "\nSTYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nUse case: identity-preserve. Create a single 4:1 horizontal four-cell portrait expression sheet for the same character Juna „Zunder“ Fenn (zunder) in the attached reference. Use the attached portrait sheet as strict reference: same person, same framing, same palette, same outline; only change the facial expression and small gestures. Use the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction. Four equal SQUARE cells in ONE ROW, no gutters, no extra margin, no labels. Target 256x64 logical pixels (64x64 each), enlarged nearest-neighbor appearance. Left to right: 1 ANGRY, brows drawn together, tense closed jaw, no shouting; 2 SAD, lowered gaze, gently downturned mouth, no tears; 3 THOUGHTFUL, eyes slightly aside, one brow raised, closed mouth; 4 DETERMINED, steady forward gaze, firm brows and closed mouth, not smiling. Preserve hat, coat, facial identity, scale, position, top-left light and the original opaque dark slate background. Every face clearly different in expression, same bust baseline. No new accessories.\nKeep original proportions. No added top/bottom margin. Four equal square cells. DETERMINED differs clearly from ANGRY: composed firm mouth and focused open eyes, head slightly raised; ANGRY has pinched inward brows and clenched jaw.",
+      "source": "exec-ac3586bd-2621-4783-b741-a7e105de054b.png",
+      "sourceSha256": "8af9927fe4f8d1a8fb7ae6b10c3a1d462e3bc6e30f0fc14686638df492bca210",
+      "sourceSize": [
+        2172,
+        724
+      ],
+      "referenceSha256": "ec29ad92e4c9fb830c54f43a830cecef1faf1ab936e08f48be092eb75a9655cd",
+      "sourceBoxes": [
+        [
+          0,
+          0,
+          543,
+          587
+        ],
+        [
+          543,
+          0,
+          1086,
+          587
+        ],
+        [
+          1086,
+          0,
+          1629,
+          587
+        ],
+        [
+          1629,
+          0,
+          2172,
+          587
+        ]
+      ],
+      "output": "portraits/AK_zunder_emotions2.png"
+    },
+    {
+      "id": "druce",
+      "reference": "public/sprites/portraits/Q_druce_emotions.png",
+      "name": "Druce",
+      "prompt": "\nSTYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nUse case: identity-preserve. Create a single 4:1 horizontal four-cell portrait expression sheet for the same character Druce (druce) in the attached reference. Use the attached portrait sheet as strict reference: same person, same framing, same palette, same outline; only change the facial expression and small gestures. Use the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction. Four equal SQUARE cells in ONE ROW, no gutters, no extra margin, no labels. Target 256x64 logical pixels (64x64 each), enlarged nearest-neighbor appearance. Left to right: 1 ANGRY, brows drawn together, tense closed jaw, no shouting; 2 SAD, lowered gaze, gently downturned mouth, no tears; 3 THOUGHTFUL, eyes slightly aside, one brow raised, closed mouth; 4 DETERMINED, steady forward gaze, firm brows and closed mouth, not smiling. Preserve hat, coat, facial identity, scale, position, top-left light and the original opaque dark slate background. Every face clearly different in expression, same bust baseline. No new accessories.\nKeep original proportions. No added top/bottom margin. Four equal square cells. DETERMINED differs clearly from ANGRY: composed firm mouth and focused open eyes, head slightly raised; ANGRY has pinched inward brows and clenched jaw.",
+      "source": "exec-cf05e28a-47be-4546-a41b-4d6ccde9ae69.png",
+      "sourceSha256": "5cde0c000fc40ca0fbcc804681fae68d0de5704263a904463f620337b728c19f",
+      "sourceSize": [
+        2172,
+        724
+      ],
+      "referenceSha256": "e6156bd1393adf16e74d000d7d60f8b1604e072306787723fe9444eadcea0d94",
+      "sourceBoxes": [
+        [
+          0,
+          35,
+          543,
+          610
+        ],
+        [
+          543,
+          35,
+          1086,
+          610
+        ],
+        [
+          1086,
+          35,
+          1629,
+          610
+        ],
+        [
+          1629,
+          35,
+          2172,
+          610
+        ]
+      ],
+      "output": "portraits/AK_druce_emotions2.png"
+    },
+    {
+      "id": "sedge",
+      "reference": "public/sprites/portraits/R_sedge_emotions.png",
+      "name": "Mutter Sedge",
+      "prompt": "\nSTYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nUse case: identity-preserve. Create a single 4:1 horizontal four-cell portrait expression sheet for the same character Mutter Sedge (sedge) in the attached reference. Use the attached portrait sheet as strict reference: same person, same framing, same palette, same outline; only change the facial expression and small gestures. Use the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction. Four equal SQUARE cells in ONE ROW, no gutters, no extra margin, no labels. Target 256x64 logical pixels (64x64 each), enlarged nearest-neighbor appearance. Left to right: 1 ANGRY, brows drawn together, tense closed jaw, no shouting; 2 SAD, lowered gaze, gently downturned mouth, no tears; 3 THOUGHTFUL, eyes slightly aside, one brow raised, closed mouth; 4 DETERMINED, steady forward gaze, firm brows and closed mouth, not smiling. Preserve hat, coat, facial identity, scale, position, top-left light and the original opaque dark slate background. Every face clearly different in expression, same bust baseline. No new accessories.\nKeep original proportions. No added top/bottom margin. Four equal square cells. DETERMINED differs clearly from ANGRY: composed firm mouth and focused open eyes, head slightly raised; ANGRY has pinched inward brows and clenched jaw.",
+      "source": "exec-370755e7-5b74-42b1-a004-283de4b07fd8.png",
+      "sourceSha256": "c866eaff4a4c4fe2dd42bb91876e44a7d9b8bd9947041b162be96ba7b7b8c2af",
+      "sourceSize": [
+        2172,
+        724
+      ],
+      "referenceSha256": "7c302727b94d4c6786c10067af1536fdd33103254c43f8086bf269d6acfae89e",
+      "sourceBoxes": [
+        [
+          0,
+          90,
+          543,
+          634
+        ],
+        [
+          543,
+          90,
+          1086,
+          634
+        ],
+        [
+          1086,
+          90,
+          1629,
+          634
+        ],
+        [
+          1629,
+          90,
+          2172,
+          634
+        ]
+      ],
+      "output": "portraits/AK_sedge_emotions2.png"
+    },
+    {
+      "id": "hale",
+      "reference": "public/sprites/portraits/R_hale_emotions.png",
+      "name": "Hale",
+      "prompt": "\nSTYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nUse case: identity-preserve. Create a single 4:1 horizontal four-cell portrait expression sheet for the same character Hale (hale) in the attached reference. Use the attached portrait sheet as strict reference: same person, same framing, same palette, same outline; only change the facial expression and small gestures. Use the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction. Four equal SQUARE cells in ONE ROW, no gutters, no extra margin, no labels. Target 256x64 logical pixels (64x64 each), enlarged nearest-neighbor appearance. Left to right: 1 ANGRY, brows drawn together, tense closed jaw, no shouting; 2 SAD, lowered gaze, gently downturned mouth, no tears; 3 THOUGHTFUL, eyes slightly aside, one brow raised, closed mouth; 4 DETERMINED, steady forward gaze, firm brows and closed mouth, not smiling. Preserve hat, coat, facial identity, scale, position, top-left light and the original opaque dark slate background. Every face clearly different in expression, same bust baseline. No new accessories.\nKeep original proportions. No added top/bottom margin. Four equal square cells. DETERMINED differs clearly from ANGRY: composed firm mouth and focused open eyes, head slightly raised; ANGRY has pinched inward brows and clenched jaw.",
+      "source": "exec-8f86498f-d364-4637-9cc5-dd55d77940aa.png",
+      "sourceSha256": "6322877759083dd1f20fff452c0e8ba3a225701141f776f59bf1ab71bb753f68",
+      "sourceSize": [
+        2172,
+        724
+      ],
+      "referenceSha256": "7d2b9d9f1106a61503f58afbd80ea0447c1db722903887f409efdf3310c97401",
+      "sourceBoxes": [
+        [
+          0,
+          90,
+          543,
+          634
+        ],
+        [
+          543,
+          90,
+          1086,
+          634
+        ],
+        [
+          1086,
+          90,
+          1629,
+          634
+        ],
+        [
+          1629,
+          90,
+          2172,
+          634
+        ]
+      ],
+      "output": "portraits/AK_hale_emotions2.png"
+    },
+    {
+      "id": "brack",
+      "reference": "public/sprites/portraits/R_brack_emotions.png",
+      "name": "Brack",
+      "prompt": "\nSTYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nUse case: identity-preserve. Create a single 4:1 horizontal four-cell portrait expression sheet for the same character Brack (brack) in the attached reference. Use the attached portrait sheet as strict reference: same person, same framing, same palette, same outline; only change the facial expression and small gestures. Use the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction. Four equal SQUARE cells in ONE ROW, no gutters, no extra margin, no labels. Target 256x64 logical pixels (64x64 each), enlarged nearest-neighbor appearance. Left to right: 1 ANGRY, brows drawn together, tense closed jaw, no shouting; 2 SAD, lowered gaze, gently downturned mouth, no tears; 3 THOUGHTFUL, eyes slightly aside, one brow raised, closed mouth; 4 DETERMINED, steady forward gaze, firm brows and closed mouth, not smiling. Preserve hat, coat, facial identity, scale, position, top-left light and the original opaque dark slate background. Every face clearly different in expression, same bust baseline. No new accessories.\nKeep original proportions. No added top/bottom margin. Four equal square cells. DETERMINED differs clearly from ANGRY: composed firm mouth and focused open eyes, head slightly raised; ANGRY has pinched inward brows and clenched jaw.",
+      "source": "exec-108aef39-3786-4cee-9087-90f2e8511b87.png",
+      "sourceSha256": "023134352fbc8b48e60091ab699024307dcbb068d43130ee15031deb6d91bc8c",
+      "sourceSize": [
+        2172,
+        724
+      ],
+      "referenceSha256": "68faf550f0ce4c915f69da36534e46283d1ec0caeecd5a3484b37015fcc3b55b",
+      "sourceBoxes": [
+        [
+          0,
+          70,
+          543,
+          638
+        ],
+        [
+          543,
+          70,
+          1086,
+          638
+        ],
+        [
+          1086,
+          70,
+          1629,
+          638
+        ],
+        [
+          1629,
+          70,
+          2172,
+          638
+        ]
+      ],
+      "output": "portraits/AK_brack_emotions2.png"
+    },
+    {
+      "id": "hesper",
+      "reference": "public/sprites/portraits/R_hesper_emotions.png",
+      "name": "Hesper",
+      "prompt": "\nSTYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nUse case: identity-preserve. Create a single 4:1 horizontal four-cell portrait expression sheet for the same character Hesper (hesper) in the attached reference. Use the attached portrait sheet as strict reference: same person, same framing, same palette, same outline; only change the facial expression and small gestures. Use the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction. Four equal SQUARE cells in ONE ROW, no gutters, no extra margin, no labels. Target 256x64 logical pixels (64x64 each), enlarged nearest-neighbor appearance. Left to right: 1 ANGRY, brows drawn together, tense closed jaw, no shouting; 2 SAD, lowered gaze, gently downturned mouth, no tears; 3 THOUGHTFUL, eyes slightly aside, one brow raised, closed mouth; 4 DETERMINED, steady forward gaze, firm brows and closed mouth, not smiling. Preserve hat, coat, facial identity, scale, position, top-left light and the original opaque dark slate background. Every face clearly different in expression, same bust baseline. No new accessories.\nKeep original proportions. No added top/bottom margin. Four equal square cells. DETERMINED differs clearly from ANGRY: composed firm mouth and focused open eyes, head slightly raised; ANGRY has pinched inward brows and clenched jaw.",
+      "source": "exec-c0967dbe-5699-47d8-94bb-028afad29ef6.png",
+      "sourceSha256": "5e7b5f245301601377ce9ee2ca1e7b4daf83787350d9fe528081bd9817574a1e",
+      "sourceSize": [
+        2172,
+        724
+      ],
+      "referenceSha256": "9b7888bf4634df89c959e2906b65af5d5f41c3b34f2e68b276070d50589a7a14",
+      "sourceBoxes": [
+        [
+          0,
+          64,
+          543,
+          606
+        ],
+        [
+          543,
+          64,
+          1086,
+          606
+        ],
+        [
+          1086,
+          64,
+          1629,
+          606
+        ],
+        [
+          1629,
+          64,
+          2172,
+          606
+        ]
+      ],
+      "output": "portraits/AK_hesper_emotions2.png"
+    },
+    {
+      "id": "wyle",
+      "reference": "public/sprites/portraits/R_wyle_emotions.png",
+      "name": "Wyle",
+      "prompt": "\nSTYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nUse case: identity-preserve. Create a single 4:1 horizontal four-cell portrait expression sheet for the same character Wyle (wyle) in the attached reference. Use the attached portrait sheet as strict reference: same person, same framing, same palette, same outline; only change the facial expression and small gestures. Use the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction. Four equal SQUARE cells in ONE ROW, no gutters, no extra margin, no labels. Target 256x64 logical pixels (64x64 each), enlarged nearest-neighbor appearance. Left to right: 1 ANGRY, brows drawn together, tense closed jaw, no shouting; 2 SAD, lowered gaze, gently downturned mouth, no tears; 3 THOUGHTFUL, eyes slightly aside, one brow raised, closed mouth; 4 DETERMINED, steady forward gaze, firm brows and closed mouth, not smiling. Preserve hat, coat, facial identity, scale, position, top-left light and the original opaque dark slate background. Every face clearly different in expression, same bust baseline. No new accessories.\nKeep original proportions. No added top/bottom margin. Four equal square cells. DETERMINED differs clearly from ANGRY: composed firm mouth and focused open eyes, head slightly raised; ANGRY has pinched inward brows and clenched jaw.",
+      "source": "exec-e1b96305-cf1c-47c2-801a-74bf5110918e.png",
+      "sourceSha256": "0678e56768a06a8cd8e8ce564258c2f1045672d16251585c97bb6327575e9245",
+      "sourceSize": [
+        2172,
+        724
+      ],
+      "referenceSha256": "145e700c7d7f71e2527e89fbe06cbf298bf563fe24407b3197b62b893b16aef4",
+      "sourceBoxes": [
+        [
+          0,
+          65,
+          543,
+          631
+        ],
+        [
+          543,
+          65,
+          1086,
+          631
+        ],
+        [
+          1086,
+          65,
+          1629,
+          631
+        ],
+        [
+          1629,
+          65,
+          2172,
+          631
+        ]
+      ],
+      "output": "portraits/AK_wyle_emotions2.png"
+    },
+    {
+      "id": "pedell",
+      "reference": "public/sprites/portraits/R_pedell_emotions.png",
+      "name": "Ruprecht Lamm, Pedell",
+      "prompt": "\nSTYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nUse case: identity-preserve. Create a single 4:1 horizontal four-cell portrait expression sheet for the same character Ruprecht Lamm, Pedell (pedell) in the attached reference. Use the attached portrait sheet as strict reference: same person, same framing, same palette, same outline; only change the facial expression and small gestures. Use the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction. Four equal SQUARE cells in ONE ROW, no gutters, no extra margin, no labels. Target 256x64 logical pixels (64x64 each), enlarged nearest-neighbor appearance. Left to right: 1 ANGRY, brows drawn together, tense closed jaw, no shouting; 2 SAD, lowered gaze, gently downturned mouth, no tears; 3 THOUGHTFUL, eyes slightly aside, one brow raised, closed mouth; 4 DETERMINED, steady forward gaze, firm brows and closed mouth, not smiling. Preserve hat, coat, facial identity, scale, position, top-left light and the original opaque dark slate background. Every face clearly different in expression, same bust baseline. No new accessories.\nKeep original proportions. No added top/bottom margin. Four equal square cells. DETERMINED differs clearly from ANGRY: composed firm mouth and focused open eyes, head slightly raised; ANGRY has pinched inward brows and clenched jaw.",
+      "source": "exec-3a6e4095-8db4-4cab-a460-ad6bf1bac175.png",
+      "sourceSha256": "d4edf6ff7a81450787790442e44714051764022b0a398fa66d24247d5480522e",
+      "sourceSize": [
+        2172,
+        724
+      ],
+      "referenceSha256": "c8d50cd7ba3ae3026a1d87a3bb00f23f518024bc35415a4b7176dc32f7a3e095",
+      "sourceBoxes": [
+        [
+          0,
+          90,
+          543,
+          634
+        ],
+        [
+          543,
+          90,
+          1086,
+          634
+        ],
+        [
+          1086,
+          90,
+          1629,
+          634
+        ],
+        [
+          1629,
+          90,
+          2172,
+          634
+        ]
+      ],
+      "output": "portraits/AK_pedell_emotions2.png"
+    },
+    {
+      "id": "brandt",
+      "reference": "public/sprites/portraits/R_brandt_emotions.png",
+      "name": "Magistra Ilse Brandt",
+      "prompt": "\nSTYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nUse case: identity-preserve. Create a single 4:1 horizontal four-cell portrait expression sheet for the same character Magistra Ilse Brandt (brandt) in the attached reference. Use the attached portrait sheet as strict reference: same person, same framing, same palette, same outline; only change the facial expression and small gestures. Use the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction. Four equal SQUARE cells in ONE ROW, no gutters, no extra margin, no labels. Target 256x64 logical pixels (64x64 each), enlarged nearest-neighbor appearance. Left to right: 1 ANGRY, brows drawn together, tense closed jaw, no shouting; 2 SAD, lowered gaze, gently downturned mouth, no tears; 3 THOUGHTFUL, eyes slightly aside, one brow raised, closed mouth; 4 DETERMINED, steady forward gaze, firm brows and closed mouth, not smiling. Preserve hat, coat, facial identity, scale, position, top-left light and the original opaque dark slate background. Every face clearly different in expression, same bust baseline. No new accessories.\nKeep original proportions. No added top/bottom margin. Four equal square cells. DETERMINED differs clearly from ANGRY: composed firm mouth and focused open eyes, head slightly raised; ANGRY has pinched inward brows and clenched jaw.",
+      "source": "exec-0918f464-28cf-4826-8178-18b92d42f644.png",
+      "sourceSha256": "0d378e0251331abe2d9e1421287a761169a750ea3f87bbbdb88eaa795a0427e5",
+      "sourceSize": [
+        2172,
+        724
+      ],
+      "referenceSha256": "2cdea15e12b913c7e4046c98cf281e01ea4f8247152b8a287d666a3a5ab8ba3c",
+      "sourceBoxes": [
+        [
+          0,
+          90,
+          543,
+          634
+        ],
+        [
+          543,
+          90,
+          1086,
+          634
+        ],
+        [
+          1086,
+          90,
+          1629,
+          634
+        ],
+        [
+          1629,
+          90,
+          2172,
+          634
+        ]
+      ],
+      "output": "portraits/AK_brandt_emotions2.png"
+    },
+    {
+      "id": "elsbeth",
+      "reference": "public/sprites/portraits/V_elsbeth_emotions.png",
+      "name": "Elsbeth Rowe",
+      "prompt": "\nSTYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nUse case: identity-preserve. Create a single 4:1 horizontal four-cell portrait expression sheet for the same character Elsbeth Rowe (elsbeth) in the attached reference. Use the attached portrait sheet as strict reference: same person, same framing, same palette, same outline; only change the facial expression and small gestures. Use the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction. Four equal SQUARE cells in ONE ROW, no gutters, no extra margin, no labels. Target 256x64 logical pixels (64x64 each), enlarged nearest-neighbor appearance. Left to right: 1 ANGRY, brows drawn together, tense closed jaw, no shouting; 2 SAD, lowered gaze, gently downturned mouth, no tears; 3 THOUGHTFUL, eyes slightly aside, one brow raised, closed mouth; 4 DETERMINED, steady forward gaze, firm brows and closed mouth, not smiling. Preserve hat, coat, facial identity, scale, position, top-left light and the original opaque dark slate background. Every face clearly different in expression, same bust baseline. No new accessories.\nKeep original proportions. No added top/bottom margin. Four equal square cells. DETERMINED differs clearly from ANGRY: composed firm mouth and focused open eyes, head slightly raised; ANGRY has pinched inward brows and clenched jaw.",
+      "source": "exec-07988d9f-ec1f-4c61-9cf0-bb069a17f832.png",
+      "sourceSha256": "5448711bc4a5af25cf59a4b136cd799f6e59a009ca410c73360689f6015880de",
+      "sourceSize": [
+        2172,
+        724
+      ],
+      "referenceSha256": "5d2a65fd9be639a0479718f9c411ae76c56dc4285ac80b8c84113de8c8bec7fb",
+      "sourceBoxes": [
+        [
+          0,
+          90,
+          543,
+          634
+        ],
+        [
+          543,
+          90,
+          1086,
+          634
+        ],
+        [
+          1086,
+          90,
+          1629,
+          634
+        ],
+        [
+          1629,
+          90,
+          2172,
+          634
+        ]
+      ],
+      "output": "portraits/AK_elsbeth_emotions2.png"
+    }
+  ]
+}
