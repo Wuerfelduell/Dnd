@@ -1,0 +1,780 @@
+{
+  "kg_waschtag": {
+    "title": "Das Hemd vom Donnerstag",
+    "kind": "side",
+    "case": "side",
+    "summary": "Martha findet Blut und Ruß an einem Dienerhemd. Kläre, wer tatsächlich verletzt wurde.",
+    "reward": {
+      "gives_money": 0
+    },
+    "steps": [
+      {
+        "text": "Untersuche das Hemd",
+        "done": {
+          "requires_flags": [
+            "kg_hemd_gelesen"
+          ]
+        },
+        "target": {
+          "map": "ashgrove",
+          "id": "kg_hemd",
+          "label": "Wäschekorb"
+        }
+      },
+      {
+        "text": "Vergleiche das Futterbuch",
+        "done": {
+          "requires_flags": [
+            "kg_futterbuch_gelesen"
+          ]
+        },
+        "target": {
+          "map": "schlachthof",
+          "id": "kg_futterbuch",
+          "label": "Futterbuch"
+        }
+      },
+      {
+        "text": "Finde den Träger am Hafen",
+        "done": {
+          "requires_flags": [
+            "kg_taubenkiste_gelesen"
+          ]
+        },
+        "target": {
+          "map": "docks",
+          "id": "kg_taubenkiste",
+          "label": "Taubenkiste"
+        }
+      },
+      {
+        "text": "Entscheide mit Martha über Lens Namen",
+        "done": {
+          "requires_flags": [
+            "kg_waschtag_done"
+          ]
+        },
+        "target": {
+          "map": "ashgrove",
+          "id": "waescherin",
+          "label": "Martha Doyle"
+        }
+      }
+    ]
+  },
+  "kg_schornstein": {
+    "title": "Feierabend im Schornstein",
+    "kind": "side",
+    "case": "side",
+    "summary": "Ein Rußgeist liest fremde Lohnzettel wie eine endlose Anwesenheitsliste.",
+    "reward": {
+      "gives_money": 0
+    },
+    "steps": [
+      {
+        "text": "Lies Bens Kehrbuch und nimm die Kerzen",
+        "done": {
+          "requires_flags": [
+            "kg_kehrbuch_gelesen"
+          ]
+        },
+        "target": {
+          "map": "altmarkt",
+          "id": "kg_kehrbuch",
+          "label": "Kehrbuch"
+        }
+      },
+      {
+        "text": "Beruhige oder vertreibe den Rußgeist",
+        "done": {
+          "requires_flags": [
+            "kg_schornstein_ruhig"
+          ]
+        },
+        "target": {
+          "map": "altmarkt",
+          "id": "kg_putztuer",
+          "label": "Putztür"
+        }
+      },
+      {
+        "text": "Berichte Ben",
+        "done": {
+          "requires_flags": [
+            "kg_schornstein_done"
+          ]
+        },
+        "target": {
+          "map": "docks",
+          "id": "kaminkehrer",
+          "label": "Ben Sotheby"
+        }
+      }
+    ]
+  },
+  "kg_nachtschicht": {
+    "title": "Das Fenster ohne Zimmer",
+    "kind": "side",
+    "case": "side",
+    "summary": "Tam braucht Gesellschaft bei seiner Runde. Emils nächtliches Bild führt zu einer verlorenen Arbeitspause.",
+    "reward": {
+      "gives_money": 0
+    },
+    "steps": [
+      {
+        "text": "Befrage Emil",
+        "done": {
+          "requires_flags": [
+            "kg_fenster_befragt"
+          ]
+        },
+        "target": {
+          "map": "altmarkt",
+          "id": "kuenstler",
+          "label": "Emil Szabo"
+        }
+      },
+      {
+        "text": "Untersuche die Pausecke",
+        "done": {
+          "requires_flags": [
+            "kg_pausennische_gelesen"
+          ]
+        },
+        "target": {
+          "map": "giesserei",
+          "id": "kg_pausennische",
+          "label": "Pausecke"
+        }
+      },
+      {
+        "text": "Entscheide mit Tam und Emil",
+        "done": {
+          "requires_flags": [
+            "kg_nachtschicht_done"
+          ]
+        },
+        "target": {
+          "map": "giesserei",
+          "id": "nachtwaechter",
+          "label": "Tam Pruett"
+        }
+      }
+    ]
+  },
+  "kg_letzte_fahrt": {
+    "title": "Die letzte Fahrt",
+    "kind": "side",
+    "case": "side",
+    "summary": "Abels stummer Fahrgast wartet auf ein Ziel, dessen Bedeutung ihm entfallen ist.",
+    "reward": {
+      "gives_money": 0
+    },
+    "steps": [
+      {
+        "text": "Lies den Fahrschein",
+        "done": {
+          "requires_flags": [
+            "kg_fahrschein_gelesen"
+          ]
+        },
+        "target": {
+          "map": "nordtor",
+          "id": "kg_fahrschein",
+          "label": "Nordtorbank"
+        }
+      },
+      {
+        "text": "Prüfe das Gräberregister",
+        "done": {
+          "requires_flags": [
+            "kg_bell_register_gelesen"
+          ]
+        },
+        "target": {
+          "map": "ebba",
+          "id": "kg_bell_register",
+          "label": "Gräberregister"
+        }
+      },
+      {
+        "text": "Entscheide über die letzte Fahrt",
+        "done": {
+          "requires_flags": [
+            "kg_letzte_fahrt_done"
+          ]
+        },
+        "target": {
+          "map": "nordtor",
+          "id": "kutscher",
+          "label": "Abel Crouch"
+        }
+      }
+    ]
+  },
+  "kg_totenbild": {
+    "title": "Die offenen Augen",
+    "kind": "side",
+    "case": "side",
+    "summary": "Drei Orte klären eine beunruhigende Retusche und einen missachteten letzten Wunsch.",
+    "reward": {
+      "gives_money": 0
+    },
+    "steps": [
+      {
+        "text": "Untersuche den Abzug",
+        "done": {
+          "requires_flags": [
+            "kg_abzug_gelesen"
+          ]
+        },
+        "target": {
+          "map": "atelier",
+          "id": "kg_abzug",
+          "label": "Andenkenbild"
+        }
+      },
+      {
+        "text": "Lies den Retuschauftrag",
+        "done": {
+          "requires_flags": [
+            "kg_retuschauftrag_gelesen"
+          ]
+        },
+        "target": {
+          "map": "ballsaal",
+          "id": "kg_retuschauftrag",
+          "label": "Nachlassrechnung"
+        }
+      },
+      {
+        "text": "Lies Terns Verfügung",
+        "done": {
+          "requires_flags": [
+            "kg_tern_wunsch_gelesen"
+          ]
+        },
+        "target": {
+          "map": "revier",
+          "id": "kg_tern_wunsch",
+          "label": "Verfügung"
+        }
+      },
+      {
+        "text": "Verbinde Retusche und letzten Willen",
+        "done": {
+          "requires_conclusions": [
+            "kg_totenbild_schluss"
+          ]
+        },
+        "target": {
+          "map": "atelier",
+          "id": "fotografin",
+          "label": "Notizbuch: Retusche + Wille"
+        }
+      },
+      {
+        "text": "Entscheide mit Ada",
+        "done": {
+          "requires_flags": [
+            "kg_totenbild_done"
+          ]
+        },
+        "target": {
+          "map": "atelier",
+          "id": "fotografin",
+          "label": "Ada Whitlock"
+        }
+      }
+    ]
+  },
+  "kg_gezinkt": {
+    "title": "Unter Kollegen",
+    "kind": "side",
+    "case": "side",
+    "summary": "Pratt will Voss’ betrügerische Krankenhauslotterie ausnehmen. Die Anleger haben ebenfalls Ansprüche.",
+    "reward": {
+      "gives_money": 0
+    },
+    "steps": [
+      {
+        "text": "Prüfe das Zeichnungsbuch",
+        "done": {
+          "requires_flags": [
+            "kg_lotteriebuch_gelesen"
+          ]
+        },
+        "target": {
+          "map": "nachtmarkt",
+          "id": "kg_lotteriebuch",
+          "label": "Voss’ Buch"
+        }
+      },
+      {
+        "text": "Prüfe die Zulassung",
+        "done": {
+          "requires_flags": [
+            "kg_zulassung_gelesen"
+          ]
+        },
+        "target": {
+          "map": "revier",
+          "id": "kg_zulassung",
+          "label": "Sammlungsregister"
+        }
+      },
+      {
+        "text": "Bestimme, wer das Geld erhält",
+        "done": {
+          "requires_flags": [
+            "kg_gezinkt_done"
+          ]
+        },
+        "target": {
+          "map": "nachtmarkt",
+          "id": "kg_pratt_brief",
+          "label": "Pratt oder sein Brief am Stand"
+        }
+      }
+    ]
+  },
+  "kg_kartenlegerin": {
+    "title": "Das verschlossene Haus",
+    "kind": "side",
+    "case": "side",
+    "summary": "Orsolyas Karten wiederholen sich. Ein okkulter Bleidruck macht aus verschiedenen Möglichkeiten dieselbe Warnung.",
+    "reward": {
+      "gives_money": 0
+    },
+    "steps": [
+      {
+        "text": "Untersuche das verwahrte Brett",
+        "done": {
+          "requires_flags": [
+            "kg_kartenbrett_gelesen"
+          ]
+        },
+        "target": {
+          "map": "nachtmarkt",
+          "id": "kg_kartenbrett",
+          "label": "Kartenbrett"
+        }
+      },
+      {
+        "text": "Prüfe die Herkunft der Platte",
+        "done": {
+          "requires_flags": [
+            "kg_bleiliste_gelesen"
+          ]
+        },
+        "target": {
+          "map": "nachtmarkt",
+          "id": "kg_bleiliste",
+          "label": "Quittung"
+        }
+      },
+      {
+        "text": "Entscheide mit Orsolya über die Platte",
+        "done": {
+          "requires_flags": [
+            "kg_kartenlegerin_done"
+          ]
+        },
+        "target": {
+          "map": "nachtmarkt",
+          "id": "wahrsagerin",
+          "label": "Orsolya; bei Haft: Besuch im Revier"
+        }
+      }
+    ]
+  },
+  "kg_landgang": {
+    "title": "Landgang ohne Rückkehr",
+    "kind": "side",
+    "case": "side",
+    "summary": "Hales Kamerad sitzt hinter einem Gasgeist fest. Sein Arbeitsvertrag hält ihn beinahe ebenso fest.",
+    "reward": {
+      "gives_money": 0
+    },
+    "steps": [
+      {
+        "text": "Lies Orrins Auftrag",
+        "done": {
+          "requires_flags": [
+            "kg_orrin_auftrag_gelesen"
+          ]
+        },
+        "target": {
+          "map": "gaskanaele",
+          "id": "kg_orrin_auftrag",
+          "label": "Arbeitszettel"
+        }
+      },
+      {
+        "text": "Besiege den Gasgeist und rette Orrin",
+        "done": {
+          "requires_flags": [
+            "kg_landgang_gerettet"
+          ]
+        },
+        "target": {
+          "map": "gaskanaele",
+          "id": "kg_orrin_rettung",
+          "label": "Hinteres Ventil"
+        }
+      },
+      {
+        "text": "Entscheide über den Vermittler",
+        "done": {
+          "requires_flags": [
+            "kg_landgang_done"
+          ]
+        },
+        "target": {
+          "map": "docks",
+          "id": "matrose",
+          "label": "Tobias Hale"
+        }
+      }
+    ]
+  },
+  "kg_kodizill": {
+    "title": "Licht für einen Schuldner",
+    "kind": "side",
+    "case": "side",
+    "summary": "Ein Nachtrag verspricht Brenngeld unter einer seltsamen Bedingung. Edmund und Wren machen einander widersprechende Ansprüche geltend.",
+    "reward": {
+      "gives_money": 0
+    },
+    "steps": [
+      {
+        "text": "Prüfe das Original",
+        "done": {
+          "requires_flags": [
+            "kg_kodizill_original_gelesen"
+          ]
+        },
+        "target": {
+          "map": "kontor_thorne",
+          "id": "kg_kodizill_original",
+          "label": "Blauer Umschlag"
+        }
+      },
+      {
+        "text": "Prüfe die Empfangskopie",
+        "done": {
+          "requires_flags": [
+            "kg_kodizill_kopie_gelesen"
+          ]
+        },
+        "target": {
+          "map": "waisenhaus",
+          "id": "kg_kodizill_kopie",
+          "label": "Hausbuch"
+        }
+      },
+      {
+        "text": "Befrage Wren zum Anspruch",
+        "done": {
+          "requires_flags": [
+            "kg_wren_befragt"
+          ]
+        },
+        "target": {
+          "map": "revier",
+          "id": "kg_wren_besuch",
+          "label": "Wren: Revier bei Haft, sonst St. Brigid"
+        }
+      },
+      {
+        "text": "Verbinde Hausfonds und Wrens Auslegung",
+        "done": {
+          "requires_conclusions": [
+            "kg_kodizill_schluss"
+          ]
+        },
+        "target": {
+          "map": "kontor_thorne",
+          "id": "kg_kodizill_original",
+          "label": "Notizbuch: Fonds + Anspruch"
+        }
+      },
+      {
+        "text": "Regle den Fonds mit Edmund",
+        "done": {
+          "requires_flags": [
+            "kg_kodizill_done"
+          ]
+        },
+        "target": {
+          "map": "kontor_thorne",
+          "id": "erbe",
+          "label": "Edmund: Kontor, bei Haft Revier"
+        }
+      }
+    ]
+  },
+  "kg_rattenkoenig": {
+    "title": "Ein König aus Draht",
+    "kind": "side",
+    "case": "side",
+    "summary": "Unter dem Schlachthof wird ein gefangener Schwarm zum Ungeheuer erklärt.",
+    "reward": {
+      "gives_money": 0
+    },
+    "steps": [
+      {
+        "text": "Untersuche das Nest",
+        "done": {
+          "requires_flags": [
+            "kg_rattennest_gelesen"
+          ]
+        },
+        "target": {
+          "map": "schlachthof",
+          "id": "kg_rattennest",
+          "label": "Wartungsgitter"
+        }
+      },
+      {
+        "text": "Befreie oder vertreibe den Schwarm",
+        "done": {
+          "requires_flags": [
+            "kg_rattenkoenig_geloest"
+          ]
+        },
+        "target": {
+          "map": "schlachthof",
+          "id": "kg_rattengitter",
+          "label": "Gitter öffnen"
+        }
+      },
+      {
+        "text": "Rechne mit Jasper ab",
+        "done": {
+          "requires_flags": [
+            "kg_rattenkoenig_done"
+          ]
+        },
+        "target": {
+          "map": "ashgrove",
+          "id": "rattenfaenger",
+          "label": "Jasper; bei Haft: Revier"
+        }
+      }
+    ]
+  },
+  "kg_flugblatt": {
+    "title": "Die falsche Druckzeile",
+    "kind": "side",
+    "case": "side",
+    "summary": "Nan soll einen manipulierten Aufruf austragen. Kläre die Herkunft mit Owen und Clara, solange Fall 9 noch offen ist.",
+    "reward": {
+      "gives_money": 0
+    },
+    "steps": [
+      {
+        "text": "Lass Owen die Druckzeile prüfen",
+        "done": {
+          "requires_flags": [
+            "kg_owen_druck_geprueft"
+          ]
+        },
+        "target": {
+          "map": "nordtor",
+          "id": "student",
+          "label": "Owen Pike"
+        }
+      },
+      {
+        "text": "Lass Clara den Wortlaut vergleichen",
+        "done": {
+          "requires_flags": [
+            "kg_clara_text_geprueft"
+          ]
+        },
+        "target": {
+          "map": "altmarkt",
+          "id": "sufragette",
+          "label": "Clara Benning"
+        }
+      },
+      {
+        "text": "Prüfe den zweiten Stapel",
+        "done": {
+          "requires_flags": [
+            "kg_drucklieferung_gelesen"
+          ]
+        },
+        "target": {
+          "map": "altmarkt",
+          "id": "kg_drucklieferung",
+          "label": "Lieferkasten"
+        }
+      },
+      {
+        "text": "Entscheide mit Nan über die Verteilung",
+        "done": {
+          "requires_flags": [
+            "kg_flugblatt_done"
+          ]
+        },
+        "target": {
+          "map": "nachtmarkt",
+          "id": "kind_streuner",
+          "label": "Nan Kettle"
+        }
+      }
+    ]
+  },
+  "kg_kopfgeld_siegelbrecher": {
+    "title": "Kopfgeld: Leda Marn, die Siegelbrecherin",
+    "kind": "side",
+    "case": "side",
+    "summary": "Hebt amtliche Sperrsiegel ab und verkauft geräumte Lager an mehrere Käufer. Leda arbeitet am Ankerhof unter dem schiefen Verladekran. Lebend vorzuführen, 42 Schilling.",
+    "reward": {
+      "gives_money": 0
+    },
+    "steps": [
+      {
+        "text": "Prüfe den Beleg zur Identität",
+        "done": {
+          "requires_flags": [
+            "kg_kopfgeld_siegelbrecher_beleg_gelesen"
+          ]
+        },
+        "target": {
+          "map": "ankerhof",
+          "id": "kg_kopfgeld_siegelbrecher_beleg",
+          "label": "Nummerierter Beleg"
+        }
+      },
+      {
+        "text": "Stelle die gesuchte Person",
+        "done": {
+          "requires_flags": [
+            "won_kg_kopfgeld_siegelbrecher"
+          ]
+        },
+        "target": {
+          "map": "ankerhof",
+          "id": "kg_kopfgeld_siegelbrecher_fundort",
+          "label": "Leda Marn, die Siegelbrecherin"
+        }
+      },
+      {
+        "text": "Rechne am Kopfgeldbrett ab",
+        "done": {
+          "requires_flags": [
+            "kg_kopfgeld_siegelbrecher_done"
+          ]
+        },
+        "target": {
+          "map": "revier",
+          "id": "kopfgeldbrett",
+          "label": "Kopfgeldbrett"
+        }
+      }
+    ]
+  },
+  "kg_kopfgeld_schichtdieb": {
+    "title": "Kopfgeld: Bramwell Silt, der Schichtdieb",
+    "kind": "side",
+    "case": "side",
+    "summary": "Fälscht Anwesenheitsmarken und kassiert die Löhne ausgefallener Arbeiter. Er prüft seine Marken in der Gießerei. Lebend vorzuführen, 52 Schilling.",
+    "reward": {
+      "gives_money": 0
+    },
+    "steps": [
+      {
+        "text": "Prüfe den Beleg zur Identität",
+        "done": {
+          "requires_flags": [
+            "kg_kopfgeld_schichtdieb_beleg_gelesen"
+          ]
+        },
+        "target": {
+          "map": "giesserei",
+          "id": "kg_kopfgeld_schichtdieb_beleg",
+          "label": "Nummerierter Beleg"
+        }
+      },
+      {
+        "text": "Stelle die gesuchte Person",
+        "done": {
+          "requires_flags": [
+            "won_kg_kopfgeld_schichtdieb"
+          ]
+        },
+        "target": {
+          "map": "giesserei",
+          "id": "kg_kopfgeld_schichtdieb_fundort",
+          "label": "Bramwell Silt, der Schichtdieb"
+        }
+      },
+      {
+        "text": "Rechne am Kopfgeldbrett ab",
+        "done": {
+          "requires_flags": [
+            "kg_kopfgeld_schichtdieb_done"
+          ]
+        },
+        "target": {
+          "map": "revier",
+          "id": "kopfgeldbrett",
+          "label": "Kopfgeldbrett"
+        }
+      }
+    ]
+  },
+  "kg_kopfgeld_pfandvogt": {
+    "title": "Kopfgeld: Nessa Rusk, die Pfandvögtin",
+    "kind": "side",
+    "case": "side",
+    "summary": "Beschlagnahmt mit erfundenen Quarantänebefehlen Wintermäntel und verkauft sie weiter. Am Nordtor lagert ihre nächste Fuhre. Lebend vorzuführen, 64 Schilling.",
+    "reward": {
+      "gives_money": 0
+    },
+    "steps": [
+      {
+        "text": "Prüfe den Beleg zur Identität",
+        "done": {
+          "requires_flags": [
+            "kg_kopfgeld_pfandvogt_beleg_gelesen"
+          ]
+        },
+        "target": {
+          "map": "nordtor",
+          "id": "kg_kopfgeld_pfandvogt_beleg",
+          "label": "Nummerierter Beleg"
+        }
+      },
+      {
+        "text": "Stelle die gesuchte Person",
+        "done": {
+          "requires_flags": [
+            "won_kg_kopfgeld_pfandvogt"
+          ]
+        },
+        "target": {
+          "map": "nordtor",
+          "id": "kg_kopfgeld_pfandvogt_fundort",
+          "label": "Nessa Rusk, die Pfandvögtin"
+        }
+      },
+      {
+        "text": "Rechne am Kopfgeldbrett ab",
+        "done": {
+          "requires_flags": [
+            "kg_kopfgeld_pfandvogt_done"
+          ]
+        },
+        "target": {
+          "map": "revier",
+          "id": "kopfgeldbrett",
+          "label": "Kopfgeldbrett"
+        }
+      }
+    ]
+  }
+}

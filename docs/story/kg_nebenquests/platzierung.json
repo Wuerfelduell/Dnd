@@ -1,0 +1,889 @@
+[
+  {
+    "map": "ashgrove",
+    "interactable": {
+      "id": "kg_hemd",
+      "kind": "read",
+      "title": "Marthas Wäschekorb",
+      "prompt": "Marthas Wäschekorb",
+      "text": "Im blutigen Stoff steckt ein winziger Federkiel. Der Ruß sitzt außen an den Ärmeln, die Manschetten sind innen sauber. Auf dem Wäschezettel steht: „Villa Ashcombe, Hausdiener Len Fallow, Donnerstag.“",
+      "footer": "Im Notizbuch festgehalten.",
+      "done_flag": "kg_hemd_gelesen",
+      "effects": {
+        "gives_clues": [
+          "kg_hemd_spur"
+        ]
+      }
+    },
+    "tile": [
+      42,
+      14
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "kg_waschtag"
+      ]
+    }
+  },
+  {
+    "map": "schlachthof",
+    "interactable": {
+      "id": "kg_futterbuch",
+      "kind": "read",
+      "title": "Ausgabebuch für Tierfutter",
+      "prompt": "Ausgabebuch für Tierfutter",
+      "text": "Der Eintrag vom Donnerstag nennt Len Fallow: Schlachtreste für verletzte Hafentauben, bezahlt aus seinem Lohn. An der Quittung klebt derselbe dunkle Fleck wie an Marthas Hemd. Niemand hat ein Fass unterschlagen; die kleinen Portionen sind ordentlich abgerechnet.",
+      "footer": "Im Notizbuch festgehalten.",
+      "done_flag": "kg_futterbuch_gelesen",
+      "effects": {
+        "gives_clues": [
+          "kg_futter_spur"
+        ]
+      }
+    },
+    "tile": [
+      10,
+      5
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "kg_waschtag"
+      ]
+    }
+  },
+  {
+    "map": "docks",
+    "interactable": {
+      "id": "kg_taubenkiste",
+      "kind": "read",
+      "title": "Kiste unter dem Kohlensteg",
+      "prompt": "Kiste unter dem Kohlensteg",
+      "text": "Unter einer schwarzen Plane sitzen drei bandagierte Tauben. Len Fallow kniet daneben und zeigt dir seine unversehrten Hände. „Die Wunden sind von den Vögeln, der Ruß vom Steg. Meine Herrschaft duldet keine Tiere im Haus, und ich brauche den Dienst.“",
+      "footer": "Im Notizbuch festgehalten.",
+      "done_flag": "kg_taubenkiste_gelesen",
+      "effects": {
+        "gives_clues": [
+          "kg_fallow_spur"
+        ]
+      }
+    },
+    "tile": [
+      6,
+      7
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "kg_waschtag"
+      ]
+    }
+  },
+  {
+    "map": "ashgrove",
+    "npc": "waescherin",
+    "tile": [
+      40,
+      13
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "case_05_closed"
+      ]
+    }
+  },
+  {
+    "map": "altmarkt",
+    "interactable": {
+      "id": "kg_kehrbuch",
+      "kind": "read",
+      "title": "Ben Sothebys Kehrbuch",
+      "prompt": "Ben Sothebys Kehrbuch",
+      "text": "In den Schlot wurden alte Lohnzettel als Anzünder geworfen. Seitdem verlangt der Rußgeist jede Nacht die nächste Schicht. Ben notiert eine Abhilfe: Drei Kerzen um die kalte Putztür, jeden Namen einmal lesen, dann ausdrücklich Feierabend ansagen. Ein verschnürtes Kerzenbund liegt beim Buch.",
+      "footer": "Im Notizbuch festgehalten.",
+      "done_flag": "kg_kehrbuch_gelesen",
+      "effects": {
+        "gives_items": {
+          "kg_kerzenbund": 1
+        }
+      }
+    },
+    "tile": [
+      18,
+      6
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "kg_schornstein"
+      ]
+    }
+  },
+  {
+    "map": "altmarkt",
+    "interactable": {
+      "id": "kg_putztuer",
+      "kind": "dialogue",
+      "title": "Kalte Putztür",
+      "prompt": "Kalte Putztür",
+      "dialogue": "kg_schlot"
+    },
+    "tile": [
+      18,
+      7
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "kg_schornstein"
+      ]
+    }
+  },
+  {
+    "map": "docks",
+    "npc": "kaminkehrer",
+    "tile": [
+      8,
+      9
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "case_05_closed"
+      ]
+    }
+  },
+  {
+    "map": "giesserei",
+    "interactable": {
+      "id": "kg_pausennische",
+      "kind": "read",
+      "title": "Zugemauerte Pausecke",
+      "prompt": "Zugemauerte Pausecke",
+      "text": "Am Mauerfuß sind Abriebspuren einer alten Bank. Dahinter steckt ein Schichtplan: Dieser Pausenraum wurde vor Jahren zugemauert, als die Öfen vergrößert wurden. Aus dem Mörtel riecht es für einen Moment nach billigem Tee. An der Wand schlägt ein Löffel genau dort an, wo Emil die Tasse malt.",
+      "footer": "Im Notizbuch festgehalten.",
+      "done_flag": "kg_pausennische_gelesen",
+      "effects": {}
+    },
+    "tile": [
+      7,
+      8
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "kg_nachtschicht"
+      ]
+    }
+  },
+  {
+    "map": "giesserei",
+    "npc": "nachtwaechter",
+    "tile": [
+      6,
+      15
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "case_05_closed"
+      ]
+    }
+  },
+  {
+    "map": "altmarkt",
+    "npc": "kuenstler",
+    "tile": [
+      20,
+      20
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "case_05_closed"
+      ]
+    }
+  },
+  {
+    "map": "nordtor",
+    "interactable": {
+      "id": "kg_fahrschein",
+      "kind": "read",
+      "title": "Durchnässter Fahrschein",
+      "prompt": "Durchnässter Fahrschein",
+      "text": "Der Fahrschein lautet auf Enoch Bell, Linienheizer, Ziel St. Ebba. Die Rückseite trägt eine Bitte: „Wenn ich eingeschlafen bin, wecken Sie mich am Tor. Ich will beim Begräbnis meiner Frau nicht fehlen.“ Die Schrift ist zwanzig Jahre alt.",
+      "footer": "Im Notizbuch festgehalten.",
+      "done_flag": "kg_fahrschein_gelesen",
+      "effects": {}
+    },
+    "tile": [
+      24,
+      8
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "kg_letzte_fahrt"
+      ]
+    }
+  },
+  {
+    "map": "ebba",
+    "interactable": {
+      "id": "kg_bell_register",
+      "kind": "read",
+      "title": "Eintrag am Friedhofstor",
+      "prompt": "Eintrag am Friedhofstor",
+      "text": "Im öffentlich ausgehängten Gräberregister stehen Enoch und Ruth Bell in derselben Zeile. Beide starben beim Kesselbruch am Bahnhof, drei Tage vor der vorgesehenen Beisetzung. Der Fahrgast wartet auf die Ankunft bei einer Frau, die nicht mehr auf ihn warten kann.",
+      "footer": "Im Notizbuch festgehalten.",
+      "done_flag": "kg_bell_register_gelesen",
+      "effects": {}
+    },
+    "tile": [
+      14,
+      16
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "kg_letzte_fahrt"
+      ]
+    }
+  },
+  {
+    "map": "nordtor",
+    "npc": "kutscher",
+    "tile": [
+      25,
+      8
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "case_06_closed"
+      ]
+    }
+  },
+  {
+    "map": "atelier",
+    "interactable": {
+      "id": "kg_abzug",
+      "kind": "read",
+      "title": "Andenkenabzug Tern",
+      "prompt": "Andenkenabzug Tern",
+      "text": "Die offenen Pupillen spiegeln kein Fenster. Unter der Lupe liegen feine Kratzer über dem bereits trockenen Firnis; die Platte ist unverändert. Auf dem Umschlag steht eine Quittung für eine Retusche nach der Auslieferung.",
+      "footer": "Im Notizbuch festgehalten.",
+      "done_flag": "kg_abzug_gelesen",
+      "effects": {
+        "gives_clues": [
+          "kg_retusche"
+        ]
+      }
+    },
+    "tile": [
+      10,
+      7
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "kg_totenbild"
+      ]
+    }
+  },
+  {
+    "map": "ballsaal",
+    "interactable": {
+      "id": "kg_retuschauftrag",
+      "kind": "read",
+      "title": "Nachlassrechnung Tern",
+      "prompt": "Nachlassrechnung Tern",
+      "text": "Eine Rechnung an Terns Schwester: „Augen nach gelieferten Jugendbildern öffnen, ausdrücklich ohne Wissen der Fotografin.“ Daneben bittet sie um Ratenzahlung. Sie wollte ein Bild, das ihre Mutter ansehen kann, ohne wieder an den Sarg zu denken.",
+      "footer": "Im Notizbuch festgehalten.",
+      "done_flag": "kg_retuschauftrag_gelesen",
+      "effects": {
+        "gives_clues": [
+          "kg_rechnung"
+        ]
+      }
+    },
+    "tile": [
+      11,
+      11
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "kg_totenbild"
+      ]
+    }
+  },
+  {
+    "map": "revier",
+    "interactable": {
+      "id": "kg_tern_wunsch",
+      "kind": "read",
+      "title": "Hinterlegte Verfügung Tern",
+      "prompt": "Hinterlegte Verfügung Tern",
+      "text": "Tern hat seine Bestattungswünsche vor Monaten im Revier bezeugen lassen. „Keine gemalten Augen. Ich habe mein Leben lang wach ausgesehen, wenn ich schlafen wollte.“ Seine Schwester ist als Empfängerin des Andenkenbildes eingetragen.",
+      "footer": "Im Notizbuch festgehalten.",
+      "done_flag": "kg_tern_wunsch_gelesen",
+      "effects": {
+        "gives_clues": [
+          "kg_verfuegung"
+        ]
+      }
+    },
+    "tile": [
+      10,
+      4
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "kg_totenbild"
+      ]
+    }
+  },
+  {
+    "map": "nachtmarkt",
+    "interactable": {
+      "id": "kg_lotteriebuch",
+      "kind": "read",
+      "title": "Voss’ offenes Zeichnungsbuch",
+      "prompt": "Voss’ offenes Zeichnungsbuch",
+      "text": "Voss wirbt mit einem kostenfreien Krankenbett für jeden Käufer. Das Buch führt hundert verkaufte Anteile auf dieselbe Bettstelle und garantiert jedem den ersten Rang. Am Rand stehen kleine Beträge von Hafenarbeitern, neben Pratts deutlich größerer Einlage.",
+      "footer": "Im Notizbuch festgehalten.",
+      "done_flag": "kg_lotteriebuch_gelesen",
+      "effects": {}
+    },
+    "tile": [
+      25,
+      5
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "kg_gezinkt"
+      ]
+    }
+  },
+  {
+    "map": "revier",
+    "interactable": {
+      "id": "kg_zulassung",
+      "kind": "read",
+      "title": "Register der Sammlungen",
+      "prompt": "Register der Sammlungen",
+      "text": "Die angegebene Nummer gehört zur Erlaubnis für einen Leierkasten. Unter dem Namen des Krankenhauses ist weder Grundstück noch Stiftung eingetragen. Voss’ unterschriebene Rückkaufzusage lässt sich trotzdem einfordern, solange er glaubt, ein reicher Geldgeber kaufe alle Anteile auf.",
+      "footer": "Im Notizbuch festgehalten.",
+      "done_flag": "kg_zulassung_gelesen",
+      "effects": {}
+    },
+    "tile": [
+      11,
+      5
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "kg_gezinkt"
+      ]
+    }
+  },
+  {
+    "map": "nachtmarkt",
+    "interactable": {
+      "id": "kg_pratt_brief",
+      "kind": "dialogue",
+      "title": "Pratts versiegelter Brief",
+      "prompt": "Pratts versiegelter Brief",
+      "dialogue": "kg_pratt_post"
+    },
+    "tile": [
+      24,
+      6
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "case_06_closed"
+      ]
+    }
+  },
+  {
+    "map": "nachtmarkt",
+    "interactable": {
+      "id": "kg_kartenbrett",
+      "kind": "read",
+      "title": "Orsolyas verwahrtes Kartenbrett",
+      "prompt": "Orsolyas verwahrtes Kartenbrett",
+      "text": "Beim Anheben des Brettes rutschen alle Karten auf dieselbe Kante. Darunter liegt eine dünne Bleiplatte, in die immer wieder derselbe Türrahmen geschnitten wurde. Orsolya hat das Brett nach dem Ball hier beim Standvermieter verwahren lassen; niemand musste dafür in ihr Spiegelkabinett.",
+      "footer": "Im Notizbuch festgehalten.",
+      "done_flag": "kg_kartenbrett_gelesen",
+      "effects": {
+        "gives_items": {
+          "kg_bleiorakel": 1
+        }
+      }
+    },
+    "tile": [
+      9,
+      4
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "kg_kartenlegerin"
+      ]
+    }
+  },
+  {
+    "map": "nachtmarkt",
+    "interactable": {
+      "id": "kg_bleiliste",
+      "kind": "read",
+      "title": "Quittung des Bleischneiders",
+      "prompt": "Quittung des Bleischneiders",
+      "text": "Die Quittung nennt keinen Propheten, sondern einen Druckversuch für identische Hauskarten. In der Rückseite steht eine eingeritzte Arbeitsanweisung: „Was einmal passt, soll immer passen.“ Hältst du die Platte über zwei verschiedene Karten, kriechen ihre Druckschwärzen für einen Augenblick zum selben Türrahmen.",
+      "footer": "Im Notizbuch festgehalten.",
+      "done_flag": "kg_bleiliste_gelesen",
+      "effects": {}
+    },
+    "tile": [
+      10,
+      4
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "kg_kartenlegerin"
+      ]
+    }
+  },
+  {
+    "map": "revier",
+    "interactable": {
+      "id": "kg_orsolya_besuch",
+      "kind": "dialogue",
+      "title": "Besuch bei Orsolya",
+      "prompt": "Besuch bei Orsolya",
+      "dialogue": "kg_orsolya_besuch"
+    },
+    "tile": [
+      10,
+      11
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "case_06_closed",
+        "seer_arrested"
+      ]
+    }
+  },
+  {
+    "map": "nachtmarkt",
+    "npc": "wahrsagerin",
+    "tile": [
+      9,
+      5
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "case_06_closed"
+      ],
+      "hide_if_flags": [
+        "seer_arrested"
+      ]
+    }
+  },
+  {
+    "map": "gaskanaele",
+    "interactable": {
+      "id": "kg_orrin_auftrag",
+      "kind": "read",
+      "title": "Durchnässter Arbeitszettel",
+      "prompt": "Durchnässter Arbeitszettel",
+      "text": "Orrin soll am hinteren Ventil ein Leck melden, nicht reparieren. Eine Zeile darunter erklärt jeden fehlenden Arbeitstag zur neuen Schuld. Neben dem Zettel führt eine frische Schleifspur um die Ecke, und jemand hustet hinter dem Gasnebel.",
+      "footer": "Im Notizbuch festgehalten.",
+      "done_flag": "kg_orrin_auftrag_gelesen",
+      "effects": {}
+    },
+    "tile": [
+      8,
+      5
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "kg_landgang"
+      ]
+    }
+  },
+  {
+    "map": "gaskanaele",
+    "interactable": {
+      "id": "kg_orrin_rettung",
+      "kind": "combat",
+      "encounter": "kg_kanalrettung",
+      "prompt": "Orrin aus dem Gas holen"
+    },
+    "tile": [
+      36,
+      6
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "kg_landgang"
+      ],
+      "requires_flags": [
+        "kg_orrin_auftrag_gelesen"
+      ],
+      "hide_if_flags": [
+        "kg_landgang_gerettet"
+      ]
+    }
+  },
+  {
+    "map": "kontor_thorne",
+    "interactable": {
+      "id": "kg_kodizill_original",
+      "kind": "read",
+      "title": "Nachtrag mit Lichtbedingung",
+      "prompt": "Nachtrag mit Lichtbedingung",
+      "text": "Ein bezeugter Nachtrag nennt St. Brigid als Empfänger eines kleinen Brenngeldfonds. Dreißig Abende soll das Kontor ein Licht für einen abgewiesenen Schuldner tragen. Edmund hat den Fonds im Verzeichnis verschwiegen, weil er die Bedingung lächerlich findet; im Rand steht seine bestätigende Paraphe.",
+      "footer": "Im Notizbuch festgehalten.",
+      "done_flag": "kg_kodizill_original_gelesen",
+      "effects": {
+        "gives_clues": [
+          "kg_kodizill_fonds"
+        ]
+      }
+    },
+    "tile": [
+      6,
+      9
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "kg_kodizill"
+      ]
+    }
+  },
+  {
+    "map": "waisenhaus",
+    "interactable": {
+      "id": "kg_kodizill_kopie",
+      "kind": "read",
+      "title": "Empfangskopie im Hausbuch",
+      "prompt": "Empfangskopie im Hausbuch",
+      "text": "Die ältere Empfangskopie lautet: „An die jeweilige Verwaltung von St. Brigid, ausschließlich für Kohlen und Brennholz.“ Wren hat den Empfang als damalige Leiterin quittiert. Es gibt weder eine persönliche Erbin des Fonds noch eine Schuldentilgung für Edmund.",
+      "footer": "Im Notizbuch festgehalten.",
+      "done_flag": "kg_kodizill_kopie_gelesen",
+      "effects": {
+        "gives_clues": [
+          "kg_kodizill_zweck"
+        ]
+      }
+    },
+    "tile": [
+      12,
+      11
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "kg_kodizill"
+      ]
+    }
+  },
+  {
+    "map": "revier",
+    "interactable": {
+      "id": "kg_edmund_besuch",
+      "kind": "dialogue",
+      "title": "Besuch bei Edmund",
+      "prompt": "Besuch bei Edmund",
+      "dialogue": "kg_edmund_besuch"
+    },
+    "tile": [
+      11,
+      11
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "case_08_closed",
+        "edmund_arrested"
+      ]
+    }
+  },
+  {
+    "map": "revier",
+    "interactable": {
+      "id": "kg_wren_besuch",
+      "kind": "dialogue",
+      "title": "Besuch bei Wren",
+      "prompt": "Besuch bei Wren",
+      "dialogue": "kg_wren_besuch"
+    },
+    "tile": [
+      12,
+      11
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "kg_kodizill"
+      ],
+      "requires_flags": [
+        "wren_arrested"
+      ]
+    }
+  },
+  {
+    "map": "kontor_thorne",
+    "npc": "erbe",
+    "tile": [
+      4,
+      6
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "case_08_closed",
+        "case_07_closed"
+      ],
+      "hide_if_flags": [
+        "edmund_arrested"
+      ]
+    }
+  },
+  {
+    "map": "waisenhaus",
+    "npc": "gouvernante",
+    "tile": [
+      10,
+      9
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "case_08_closed",
+        "case_78_showdown"
+      ],
+      "hide_if_flags": [
+        "wren_arrested"
+      ]
+    }
+  },
+  {
+    "map": "schlachthof",
+    "interactable": {
+      "id": "kg_rattennest",
+      "kind": "read",
+      "title": "Blick durch das Wartungsgitter",
+      "prompt": "Blick durch das Wartungsgitter",
+      "text": "Unter dem Boden wühlt ein Knäuel nasser Tiere. Keine Schwänze sind verwachsen; ein gestohlener Bündeldraht zieht sich durch Talg und Lumpen. Sobald du nicht gegen das Gitter stößt, hören die Tiere auf zu beißen. Der Ablauf führt hinaus zum leeren Kohlenhof.",
+      "footer": "Im Notizbuch festgehalten.",
+      "done_flag": "kg_rattennest_gelesen",
+      "effects": {}
+    },
+    "tile": [
+      9,
+      6
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "kg_rattenkoenig"
+      ]
+    }
+  },
+  {
+    "map": "schlachthof",
+    "interactable": {
+      "id": "kg_rattengitter",
+      "kind": "dialogue",
+      "title": "Wartungsgitter unter dem Schlachthof",
+      "prompt": "Wartungsgitter unter dem Schlachthof",
+      "dialogue": "kg_rattengitter"
+    },
+    "tile": [
+      10,
+      6
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "kg_rattenkoenig"
+      ]
+    }
+  },
+  {
+    "map": "revier",
+    "interactable": {
+      "id": "kg_jasper_besuch",
+      "kind": "dialogue",
+      "title": "Besuch bei Jasper",
+      "prompt": "Besuch bei Jasper",
+      "dialogue": "kg_jasper_besuch"
+    },
+    "tile": [
+      9,
+      11
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "case_08_closed",
+        "piper_arrested"
+      ]
+    }
+  },
+  {
+    "map": "altmarkt",
+    "interactable": {
+      "id": "kg_drucklieferung",
+      "kind": "read",
+      "title": "Zweiter Stapel im Lieferkasten",
+      "prompt": "Zweiter Stapel im Lieferkasten",
+      "text": "Im Lieferkasten liegen die unveränderten Sprechstundenblätter und eine Quittung für den Austausch der Kopfzeile. Auftraggeber ist der örtliche Zimmervermittler, dessen kostenpflichtige Beratungsstunde Owen leer räumt. Er will Clara und Owen als Unruhestifter entfernen lassen, nicht den Sternsammler unterstützen.",
+      "footer": "Im Notizbuch festgehalten.",
+      "done_flag": "kg_drucklieferung_gelesen",
+      "effects": {}
+    },
+    "tile": [
+      16,
+      11
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "kg_flugblatt"
+      ]
+    }
+  },
+  {
+    "map": "nordtor",
+    "npc": "student",
+    "tile": [
+      18,
+      8
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "case_06_closed"
+      ]
+    }
+  },
+  {
+    "map": "ankerhof",
+    "interactable": {
+      "id": "kg_kopfgeld_siegelbrecher_beleg",
+      "kind": "read",
+      "title": "Beleg zum Steckbrief: Leda Marn, die Siegelbrecherin",
+      "prompt": "Beleg zum Steckbrief: Leda Marn, die Siegelbrecherin",
+      "text": "In Ledas aufgebrochenem Koffer liegen nummerierte Sperrsiegel und die zugehörigen Kaufverträge. Ihre Nummern stimmen mit dem Steckbrief überein.",
+      "footer": "Im Notizbuch festgehalten.",
+      "done_flag": "kg_kopfgeld_siegelbrecher_beleg_gelesen",
+      "effects": {}
+    },
+    "tile": [
+      13,
+      6
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "kg_kopfgeld_siegelbrecher"
+      ]
+    }
+  },
+  {
+    "map": "ankerhof",
+    "interactable": {
+      "id": "kg_kopfgeld_siegelbrecher_fundort",
+      "kind": "combat",
+      "encounter": "kg_kopfgeld_siegelbrecher",
+      "prompt": "Leda Marn, die Siegelbrecherin festnehmen"
+    },
+    "tile": [
+      12,
+      6
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "kg_kopfgeld_siegelbrecher"
+      ],
+      "requires_flags": [
+        "kg_kopfgeld_siegelbrecher_beleg_gelesen"
+      ],
+      "hide_if_flags": [
+        "won_kg_kopfgeld_siegelbrecher"
+      ]
+    }
+  },
+  {
+    "map": "giesserei",
+    "interactable": {
+      "id": "kg_kopfgeld_schichtdieb_beleg",
+      "kind": "read",
+      "title": "Beleg zum Steckbrief: Bramwell Silt, der Schichtdieb",
+      "prompt": "Beleg zum Steckbrief: Bramwell Silt, der Schichtdieb",
+      "text": "Neben Silts Tasche liegt die Auszahlungsliste. Die gestohlenen Nummern gehören zu Arbeitern auf dem Krankenblatt; die Markierungen stammen von derselben Kerbzange.",
+      "footer": "Im Notizbuch festgehalten.",
+      "done_flag": "kg_kopfgeld_schichtdieb_beleg_gelesen",
+      "effects": {}
+    },
+    "tile": [
+      6,
+      6
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "kg_kopfgeld_schichtdieb"
+      ]
+    }
+  },
+  {
+    "map": "giesserei",
+    "interactable": {
+      "id": "kg_kopfgeld_schichtdieb_fundort",
+      "kind": "combat",
+      "encounter": "kg_kopfgeld_schichtdieb",
+      "prompt": "Bramwell Silt, der Schichtdieb festnehmen"
+    },
+    "tile": [
+      5,
+      6
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "kg_kopfgeld_schichtdieb"
+      ],
+      "requires_flags": [
+        "kg_kopfgeld_schichtdieb_beleg_gelesen"
+      ],
+      "hide_if_flags": [
+        "won_kg_kopfgeld_schichtdieb"
+      ]
+    }
+  },
+  {
+    "map": "nordtor",
+    "interactable": {
+      "id": "kg_kopfgeld_pfandvogt_beleg",
+      "kind": "read",
+      "title": "Beleg zum Steckbrief: Nessa Rusk, die Pfandvögtin",
+      "prompt": "Beleg zum Steckbrief: Nessa Rusk, die Pfandvögtin",
+      "text": "Die Rückseite eines Befehls trägt den Preis eines weiterverkauften Mantels. Die angebliche Quarantänestraße hat das Gesundheitsamt am selben Tag freigegeben.",
+      "footer": "Im Notizbuch festgehalten.",
+      "done_flag": "kg_kopfgeld_pfandvogt_beleg_gelesen",
+      "effects": {}
+    },
+    "tile": [
+      49,
+      8
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "kg_kopfgeld_pfandvogt"
+      ]
+    }
+  },
+  {
+    "map": "nordtor",
+    "interactable": {
+      "id": "kg_kopfgeld_pfandvogt_fundort",
+      "kind": "combat",
+      "encounter": "kg_kopfgeld_pfandvogt",
+      "prompt": "Nessa Rusk, die Pfandvögtin festnehmen"
+    },
+    "tile": [
+      48,
+      8
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "kg_kopfgeld_pfandvogt"
+      ],
+      "requires_flags": [
+        "kg_kopfgeld_pfandvogt_beleg_gelesen"
+      ],
+      "hide_if_flags": [
+        "won_kg_kopfgeld_pfandvogt"
+      ]
+    }
+  }
+]
