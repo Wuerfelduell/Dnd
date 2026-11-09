@@ -1,0 +1,181 @@
+{
+  "format": "nebel-musik-1",
+  "base": "audio/musik/",
+  "tracks": {
+    "ds_ankunft": {
+      "file": "ds_ankunft.json",
+      "mood": "ankunft",
+      "volume": 0.65
+    },
+    "ds_stadt_tag": {
+      "file": "ds_stadt_tag.json",
+      "mood": "stadt_tag",
+      "volume": 0.65
+    },
+    "ds_stadt_nacht": {
+      "file": "ds_stadt_nacht.json",
+      "mood": "stadt_nacht",
+      "volume": 0.65
+    },
+    "ds_speisewagen": {
+      "file": "ds_speisewagen.json",
+      "mood": "speisewagen",
+      "volume": 0.65
+    },
+    "ds_pruefhaus": {
+      "file": "ds_pruefhaus.json",
+      "mood": "pruefhaus",
+      "volume": 0.65
+    },
+    "ds_horchen": {
+      "file": "ds_horchen.json",
+      "mood": "horchen",
+      "volume": 0.65
+    },
+    "ds_nachtzug": {
+      "file": "ds_nachtzug.json",
+      "mood": "nachtzug",
+      "volume": 0.65
+    },
+    "ds_brueche": {
+      "file": "ds_brueche.json",
+      "mood": "brueche",
+      "volume": 0.65
+    },
+    "ds_rufschlucht": {
+      "file": "ds_rufschlucht.json",
+      "mood": "rufschlucht",
+      "volume": 0.65
+    },
+    "ds_kampf": {
+      "file": "ds_kampf.json",
+      "mood": "kampf",
+      "volume": 0.65
+    },
+    "ds_boss": {
+      "file": "ds_boss.json",
+      "mood": "boss",
+      "volume": 0.65
+    },
+    "ds_gallowmere": {
+      "file": "ds_gallowmere.json",
+      "mood": "gallowmere",
+      "volume": 0.65
+    },
+    "ds_unterschicht": {
+      "file": "ds_unterschicht.json",
+      "mood": "unterschicht",
+      "volume": 0.65
+    },
+    "ds_pruefung": {
+      "file": "ds_pruefung.json",
+      "mood": "pruefung",
+      "volume": 0.65
+    },
+    "ds_feierabend": {
+      "file": "ds_feierabend.json",
+      "mood": "feierabend",
+      "volume": 0.65
+    },
+    "ds_stilllegung": {
+      "file": "ds_stilllegung.json",
+      "mood": "stilllegung",
+      "volume": 0.65
+    },
+    "ds_vollzaehlig": {
+      "file": "ds_vollzaehlig.json",
+      "mood": "vollzaehlig",
+      "volume": 0.65
+    }
+  },
+  "zuordnung": {
+    "maps": {
+      "ds_endbahnhof": {
+        "tag": "ds_ankunft",
+        "nacht": "ds_stadt_nacht"
+      },
+      "ds_schwellenring": {
+        "tag": "ds_stadt_tag",
+        "nacht": "ds_stadt_nacht"
+      },
+      "ds_arbeiterbogen": {
+        "tag": "ds_stadt_tag",
+        "nacht": "ds_stadt_nacht"
+      },
+      "ds_kalkmarkt": {
+        "tag": "ds_stadt_tag",
+        "nacht": "ds_stadt_nacht"
+      },
+      "ds_bruchstufen": {
+        "tag": "ds_stadt_tag",
+        "nacht": "ds_stadt_nacht"
+      },
+      "ds_signalhang": {
+        "tag": "ds_stadt_tag",
+        "nacht": "ds_stadt_nacht"
+      },
+      "ds_speisewagen": {
+        "tag": "ds_speisewagen",
+        "nacht": "ds_speisewagen"
+      },
+      "ds_runddepot": {
+        "tag": "ds_stadt_tag",
+        "nacht": "ds_stadt_nacht"
+      },
+      "ds_pruefhaus": {
+        "tag": "ds_pruefhaus",
+        "nacht": "ds_pruefhaus"
+      },
+      "ds_teesaal": {
+        "tag": "ds_speisewagen",
+        "nacht": "ds_speisewagen"
+      },
+      "ds_lohnbuero": {
+        "tag": "ds_stadt_tag",
+        "nacht": "ds_stadt_nacht"
+      },
+      "ds_nachtzug_wagen": {
+        "tag": "ds_nachtzug",
+        "nacht": "ds_nachtzug"
+      },
+      "ds_nachtzug_lok": {
+        "tag": "ds_nachtzug",
+        "nacht": "ds_nachtzug"
+      },
+      "ds_rangierwueste": {
+        "tag": "ds_brueche",
+        "nacht": "ds_brueche"
+      },
+      "ds_klopfbruch": {
+        "tag": "ds_brueche",
+        "nacht": "ds_brueche"
+      },
+      "ds_rufschlucht": {
+        "tag": "ds_rufschlucht",
+        "nacht": "ds_rufschlucht"
+      },
+      "ds_letzter_bahnsteig": {
+        "tag": "ds_gallowmere",
+        "nacht": "ds_gallowmere"
+      },
+      "ds_unterschicht": {
+        "tag": "ds_unterschicht",
+        "nacht": "ds_unterschicht"
+      }
+    },
+    "zonen": {},
+    "kampf": {
+      "standard_kapitel3": "ds_kampf",
+      "boss_kapitel3": "ds_boss",
+      "gallowmere": "ds_gallowmere",
+      "unterschicht": "ds_unterschicht",
+      "pruefung": "ds_pruefung"
+    },
+    "ereignisse": {
+      "horchen": "ds_horchen",
+      "feierabend": "ds_feierabend",
+      "stilllegung": "ds_stilllegung",
+      "vollzaehlig": "ds_vollzaehlig"
+    }
+  }
+}

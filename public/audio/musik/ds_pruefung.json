@@ -1,0 +1,157 @@
+{
+  "format": "nebel-musik-1",
+  "id": "ds_pruefung",
+  "titel": "Heddas selbst erzeugte Antwort",
+  "art": "musik",
+  "bpm": 80,
+  "takt": [
+    4,
+    4
+  ],
+  "loop": true,
+  "lautstaerke": 0.65,
+  "hall": 0.32,
+  "filter": {
+    "tiefpass": 2800
+  },
+  "spuren": {
+    "ruf": {
+      "instrument": "hackbrett",
+      "lautstaerke": 0.45,
+      "pan": -0.15
+    },
+    "antwort": {
+      "instrument": "chor_oo",
+      "lautstaerke": 0.3,
+      "pan": 0.2
+    },
+    "grund": {
+      "instrument": "kontrabass",
+      "lautstaerke": 0.36,
+      "pan": 0
+    },
+    "harmonie": {
+      "instrument": "chor_oo",
+      "lautstaerke": 0.22,
+      "pan": 0.1
+    },
+    "puls": {
+      "instrument": "amboss",
+      "lautstaerke": 0.22,
+      "pan": -0.25
+    },
+    "luft": {
+      "instrument": "wind",
+      "lautstaerke": 0.1,
+      "pan": 0.3
+    }
+  },
+  "muster": {
+    "schicht": {
+      "spur": "ruf",
+      "takte": 2,
+      "noten": "e5:3 r:1 e5:3 r:1 c5:8 | r:16"
+    },
+    "erwiderung": {
+      "spur": "antwort",
+      "takte": 2,
+      "noten": "e4:4 r:2 f#4:2 g4:4 b4:4 | a4:6 g4:2 f#4:4 r:4"
+    },
+    "frage": {
+      "spur": "antwort",
+      "takte": 1,
+      "noten": "g4:2 a4:2 c5:4 b4:8"
+    },
+    "glas": {
+      "spur": "antwort",
+      "takte": 2,
+      "noten": "c5:8 f#5:8 | b4:16"
+    },
+    "boden": {
+      "spur": "grund",
+      "takte": 2,
+      "noten": "e2:12 r:4 | a2:8 r:8"
+    },
+    "heim": {
+      "spur": "harmonie",
+      "takte": 2,
+      "noten": "[e3,g3,b3]:16@0.45 | [a2,c3,e3]:16@0.35"
+    },
+    "ferne": {
+      "spur": "harmonie",
+      "takte": 2,
+      "noten": "[a2,c3,e3]:12@0.35 r:4 | [e3,g3,b3]:8@0.3 r:8"
+    },
+    "takt": {
+      "spur": "puls",
+      "takte": 1,
+      "noten": "x:4 r:4 x:2 r:2 x:4"
+    },
+    "wind": {
+      "spur": "luft",
+      "takte": 2,
+      "noten": "x:8@0.25 r:8 | r:8 x:8@0.15"
+    },
+    "stille": {
+      "spur": "luft",
+      "takte": 1,
+      "noten": "r:16"
+    },
+    "zeit_intro": {
+      "spur": "luft",
+      "takte": 4,
+      "noten": "r:16 r:16 r:16 r:16"
+    },
+    "zeit_A": {
+      "spur": "luft",
+      "takte": 8,
+      "noten": "r:16 r:16 r:16 r:16 r:16 r:16 r:16 r:16"
+    },
+    "zeit_B": {
+      "spur": "luft",
+      "takte": 8,
+      "noten": "r:16 r:16 r:16 r:16 r:16 r:16 r:16 r:16"
+    },
+    "zeit_C": {
+      "spur": "luft",
+      "takte": 10,
+      "noten": "r:16 r:16 r:16 r:16 r:16 r:16 r:16 r:16 r:16 r:16"
+    }
+  },
+  "abschnitte": {
+    "intro": [
+      "zeit_intro",
+      "heim",
+      "wind"
+    ],
+    "A": [
+      "zeit_A",
+      "schicht",
+      "boden",
+      "heim",
+      "takt"
+    ],
+    "B": [
+      "zeit_B",
+      "erwiderung",
+      "boden",
+      "ferne",
+      "wind"
+    ],
+    "C": [
+      "zeit_C",
+      "schicht",
+      "erwiderung",
+      "heim",
+      "takt",
+      "wind"
+    ]
+  },
+  "ablauf": [
+    "intro",
+    "A",
+    "B",
+    "C"
+  ],
+  "loop_ab": 1
+}
