@@ -1042,6 +1042,175 @@
           }
         }
       ]
+    },
+    "k2_s_druce": {
+      "title": "Das siebte Tor",
+      "kind": "side",
+      "case": "kapitel2",
+      "summary": "Druce sagt, Wexmoor hatte einmal sieben Schleusentore. Das siebte liegt unter Pfahldorf in der alten Stadt und steht seit dreihundert Jahren offen. Darum sinkt Wexmoor.",
+      "steps": [
+        {
+          "text": "Schließ das siebte Tor in der Versunkenen Altstadt",
+          "done": {
+            "requires_flags": [
+              "k2_tor_zu"
+            ]
+          },
+          "target": {
+            "map": "wx_altstadt",
+            "id": "exit",
+            "label": "Die Versunkene Altstadt"
+          }
+        },
+        {
+          "text": "Erzähl es Druce",
+          "done": {
+            "requires_flags": [
+              "k2_s_druce_done"
+            ]
+          },
+          "target": {
+            "map": "wx_bahnhof",
+            "id": "druce"
+          }
+        }
+      ]
+    },
+    "k2_s_sedge": {
+      "title": "Die Namen der Versunkenen",
+      "kind": "side",
+      "case": "kapitel2",
+      "summary": "Unter Pfahldorf sitzt der alte Rat von Wexmoor noch immer zu Gericht. Mutter Sedge will ihre Namen in Täfelchen schnitzen, damit sie endlich gehen können. Dafür braucht sie ihre Siegel.",
+      "steps": [
+        {
+          "text": "Bring Mutter Sedge drei Ratssiegel aus der Versunkenen Altstadt",
+          "done": {
+            "requires_flags": [
+              "k2_s_sedge_done"
+            ]
+          },
+          "target": {
+            "map": "wx_pfahldorf",
+            "id": "sedge",
+            "label": "Mutter Sedge"
+          }
+        }
+      ]
+    },
+    "k2_s_vey": {
+      "title": "Miras Lied",
+      "kind": "side",
+      "case": "kapitel2",
+      "summary": "Miriam Vey singt nicht mehr, seit Kettlegate. In der versunkenen Kapelle unter Pfahldorf soll eine Stimmgabel liegen, die nie verstimmt ist. Vielleicht findet Vey damit ihren Ton wieder.",
+      "steps": [
+        {
+          "text": "Hol die Stimmgabel aus der versunkenen Kapelle",
+          "done": {
+            "requires_flags": [
+              "k2_stimmgabel"
+            ]
+          },
+          "target": {
+            "map": "wx_altstadt",
+            "id": "exit",
+            "label": "Die Versunkene Altstadt"
+          }
+        },
+        {
+          "text": "Bring sie Mira in Pfahldorf",
+          "done": {
+            "requires_flags": [
+              "k2_s_vey_done"
+            ]
+          },
+          "target": {
+            "map": "wx_pfahldorf",
+            "id": "miriam",
+            "label": "Mira"
+          }
+        }
+      ]
+    },
+    "k2_s_marlowe": {
+      "title": "Das Ratsbuch",
+      "kind": "side",
+      "case": "kapitel2",
+      "summary": "Marlowe braucht mehr als Worte gegen Brandt. Im Rathaus der Versunkenen Altstadt soll das Ratsbuch liegen, in dem jeder Vertrag mit dem Lichtamt steht. Es wird bewacht.",
+      "steps": [
+        {
+          "text": "Besiege den Ertrunkenen Bürgermeister",
+          "done": {
+            "requires_flags": [
+              "won_buergermeister"
+            ]
+          },
+          "target": {
+            "map": "wx_altstadt",
+            "id": "exit",
+            "label": "Die Versunkene Altstadt"
+          }
+        },
+        {
+          "text": "Nimm das Ratsbuch aus dem Rathaus",
+          "done": {
+            "requires_flags": [
+              "k2_ratsbuch_found"
+            ]
+          },
+          "target": {
+            "map": "wx_altstadt",
+            "id": "exit",
+            "label": "Die Versunkene Altstadt"
+          }
+        },
+        {
+          "text": "Gib Marlowe das Ratsbuch",
+          "done": {
+            "requires_flags": [
+              "k2_ratsbuch"
+            ]
+          },
+          "target": {
+            "map": "wx_kahn",
+            "id": "marlowe",
+            "label": "Marlowe im Kahn"
+          }
+        }
+      ]
+    },
+    "k2_s_hale": {
+      "title": "Zwölf Jahre",
+      "kind": "side",
+      "case": "kapitel2",
+      "summary": "Bryony Hale hat zwölf Jahre lang Fremde ans Lichtamt ausgeliefert, ohne zu fragen. Jetzt will sie wissen, wie sie hießen. Die Ablieferliste liegt in den Gewölben unter dem Leuchtturm.",
+      "steps": [
+        {
+          "text": "Finde die Ablieferliste in den Gewölben des Leuchtturms",
+          "done": {
+            "requires_flags": [
+              "k2_liste_found"
+            ]
+          },
+          "target": {
+            "map": "wx_leuchtturm",
+            "id": "exit",
+            "label": "Der Leuchtturm"
+          }
+        },
+        {
+          "text": "Bring Hale die Liste",
+          "done": {
+            "requires_flags": [
+              "k2_s_hale_done"
+            ]
+          },
+          "target": {
+            "map": "wx_salzmarkt",
+            "id": "hale",
+            "label": "Hale am Salzmarkt"
+          }
+        }
+      ]
     }
   },
   "npcs": {
@@ -5187,10 +5356,11 @@
           "dialogue": "vey_wexmoor",
           "visible_if": {
             "requires_flags": [
-              "vey_fled"
+              "vey_fled",
+              "k2_akt3_done"
             ],
-            "requires_quests_active": [
-              "k2_akt4"
+            "hide_if_flags": [
+              "kapitel2_done"
             ]
           }
         }
@@ -7179,6 +7349,25 @@
           "done_flag": "k2_fenn_found",
           "title": "Maren Fenn, Hutmacherin",
           "text": "Zwischen Tausenden Namen, im Licht der Geistsicht: „Maren Fenn, Hutmacherin, aus Kettlegate.“\n\nDaneben brennt ein winziges Licht in einer Nische. Als du den Namen laut liest, flackert es, wird warm und fliegt die Treppe hinunter, hinaus, über das Moor."
+        },
+        {
+          "id": "liste",
+          "kind": "read",
+          "tile": [
+            22,
+            13
+          ],
+          "prompt": "Die Ablieferliste aus dem Regal ziehen",
+          "marker": false,
+          "visible_if": {
+            "requires_quests_active": [
+              "k2_s_hale"
+            ]
+          },
+          "done_flag": "k2_liste_found",
+          "title": "Die Ablieferliste",
+          "text": "Ein Regal voller Kladden mit dem Siegel des Lichtamts. Die jüngste trägt das Datum dieses Jahres. Jede Zeile: ein Datum, ein Name, „übergeben durch Wache Wexmoor“, ein Kürzel. Ganz oft das Kürzel B. H.\n\nDu reißt die letzten zwölf Jahre heraus und steckst sie ein.",
+          "footer": "Für Bryony Hale."
         }
       ],
       "npcs": [
@@ -8330,6 +8519,296 @@
       ],
       "npcs": [],
       "decor": []
+    },
+    {
+      "id": "wx_altstadt",
+      "name": "Die Versunkene Altstadt",
+      "city": "wexmoor",
+      "tiles": "g_marsch",
+      "danger": 3,
+      "ambient": {
+        "night": 0.65,
+        "fog": 0.45
+      },
+      "rows": [
+        "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~",
+        "~gggggggggggggggggggg~g~gggggYgYggg~ggggggggggggg~Ygg~",
+        "~ggggggY~~ggg~gYggggggggggggggggggggggggggg~gg~gggggg~",
+        "~~ggrrrrrg~ggrrrrgg~ggrrrrrggggrrrrrggggggg~ggg~ggg~g~",
+        "~gggrrrrrggggrrrrgggggrrrrrggggrrrrrg~gggggg~ggggg~gg~",
+        "~gggrrrrrggggrrrrgggggrrrrrggggrrrrrgg~gggggg~ggggggg~",
+        "~~ggrrrrrggggggg~gggggggg~gggggrrrrrggggggggggggggggg~",
+        "~g~ggg~ggggggggg~g~gggg~gggggggggggg~gggggggg~ggggggg~",
+        "~gg~gggggggPPPPPPPPPPPPPPPPPPPgggggggggggg~ggg~gggggg~",
+        "~gggggg~g~gPgg~gggggg~g~gggggPggggggg~gYgggggggggggg~~",
+        "~~g~rrrrrgYPgrrrrrggggrrrrrrgPgrrrrrgggg~~gggggggg~gg~",
+        "~gggrrrrrg~Pgrrrrrgg~grrrrrrgPgrrrrrggggggggggggggggg~",
+        "~gggrrrrrggPgrrrrrg~Y~rrrrrrgPgrrrrrgggg~gggggggggggg~",
+        "~g~~~ggggggPgrrrrrggggg~gggggPgggggggggggYgg~gggggggg~",
+        "~ggggggg~ggPggg~gggggggggggggPgggggg~ggggggggYggggggg~",
+        "PgggPPPPPPPPgggYggggggggggg~gPggggggggggggggggggggg~g~",
+        "~gggggg~gggggggggggggggggggg~Pgggg~gggggg~ggggggggggg~",
+        "~gggrrrrrggggrrrrrrgggrrrrrg~Pgrrrrrggggg~ggggggggggg~",
+        "~gggrrrrrg~ggrrrrrrg~grrrrrggP~rrrrrggggggggggggggggg~",
+        "~gggrrrrrggggrrrrrrg~grrrrr~gPgrrrrr~gggggggggggggggg~",
+        "~gggrrrrrg~gg~ggggggggg~gggggPggggYggggg~gggggggggggg~",
+        "~ggggYg~ggggggYggggggggggggggPPPPPPPPPPPPPPgggggggggg~",
+        "~ggggggggggg~gg~gggggggggggggggggggggggg~gggggggggggg~",
+        "~gYggggggggYgggggg~gggggggggg~ggggggggggYgggggggggggg~",
+        "~ggYrrrrrrg~Yrrrrrrgggrrrrrrgggrrrrgg~ggggggggggggggg~",
+        "~gggrrrrrrYggrrrrrrgg~rrrrrrgggrrrrgg~g~ggggggggggggg~",
+        "~gggrrrrrrgggrrrrrrgggrrrrrrgggrrrrgggggggggggggggggg~",
+        "~gggrrrrrrgggrrrrrrgggg~gggggggrrrrgg~ggg~~gggggggggg~",
+        "~g~ggg~ggggggggggggggggg~gg~~gggg~gggg~g~ggg~g~ggg~~g~",
+        "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+      ],
+      "spawns": {
+        "default": [
+          1,
+          15
+        ]
+      },
+      "lights": [
+        {
+          "tile": [
+            48,
+            20
+          ],
+          "radius": 64,
+          "intensity": 0.6,
+          "color": "#a0e0c0",
+          "glow": 0.3,
+          "flicker": 0.1
+        }
+      ],
+      "roamers": [
+        {
+          "encounter": "pfahlbohrer",
+          "tile": [
+            19,
+            4
+          ]
+        },
+        {
+          "encounter": "ratsherr",
+          "tile": [
+            28,
+            27
+          ]
+        },
+        {
+          "encounter": "kellerkrebs",
+          "tile": [
+            41,
+            24
+          ]
+        },
+        {
+          "encounter": "namensmade",
+          "tile": [
+            38,
+            13
+          ]
+        },
+        {
+          "encounter": "pfahlbohrer",
+          "tile": [
+            41,
+            6
+          ]
+        },
+        {
+          "encounter": "ratsherr",
+          "tile": [
+            30,
+            10
+          ]
+        },
+        {
+          "encounter": "kellerkrebs",
+          "tile": [
+            23,
+            23
+          ]
+        },
+        {
+          "encounter": "namensmade",
+          "tile": [
+            32,
+            16
+          ]
+        },
+        {
+          "encounter": "pfahlbohrer",
+          "tile": [
+            16,
+            20
+          ]
+        },
+        {
+          "encounter": "ratsherr",
+          "tile": [
+            45,
+            2
+          ]
+        },
+        {
+          "encounter": "kellerkrebs",
+          "tile": [
+            51,
+            8
+          ]
+        },
+        {
+          "encounter": "namensmade",
+          "tile": [
+            11,
+            22
+          ]
+        },
+        {
+          "encounter": "pfahlbohrer",
+          "tile": [
+            10,
+            4
+          ]
+        },
+        {
+          "encounter": "ratsherr",
+          "tile": [
+            45,
+            10
+          ]
+        },
+        {
+          "encounter": "kellerkrebs",
+          "tile": [
+            31,
+            23
+          ]
+        },
+        {
+          "encounter": "namensmade",
+          "tile": [
+            13,
+            7
+          ]
+        },
+        {
+          "encounter": "buergermeister",
+          "tile": [
+            48,
+            20
+          ],
+          "boss": true
+        }
+      ],
+      "npcs": [],
+      "decor": [],
+      "interactables": [
+        {
+          "id": "exit",
+          "kind": "travel",
+          "tile": [
+            0,
+            15
+          ],
+          "prompt": "Die Leiter hinauf nach Pfahldorf (Stadtkarte)",
+          "marker": false
+        },
+        {
+          "kind": "read",
+          "tile": [
+            3,
+            14
+          ],
+          "marker": false,
+          "id": "ankunft",
+          "auto": 30,
+          "prompt": "Umsehen",
+          "visible_if": {
+            "hide_if_flags": [
+              "k2_altstadt_gesehen"
+            ]
+          },
+          "done_flag": "k2_altstadt_gesehen",
+          "title": "Unter Pfahldorf",
+          "text": "Die Leiter endet nicht im Wasser, sondern auf einer Straße. Pflaster, Bordsteine, ein Laternenpfahl ohne Glas. Über dir die Bohlen von Pfahldorf, durch die Ritzen fällt graues Licht.\n\nDas hier war Wexmoor, bevor es Wexmoor gab. Die Häuser stehen noch. In manchen Fenstern brennt Licht.",
+          "footer": "Bei Ebbe kommt man trocken bis zum Rathausplatz. Bei Flut nicht."
+        },
+        {
+          "kind": "read",
+          "tile": [
+            20,
+            9
+          ],
+          "marker": false,
+          "id": "kapelle",
+          "prompt": "Die versunkene Kapelle betreten",
+          "visible_if": {
+            "requires_quests_active": [
+              "k2_s_vey"
+            ]
+          },
+          "done_flag": "k2_stimmgabel",
+          "title": "Die Kapelle ohne Glocke",
+          "text": "Die Kapelle ist bis zu den Knien voll Wasser. Wo die Orgel war, steht ein Gestell aus Rost. Auf dem Altar liegt in einer Schale aus Blei eine Stimmgabel, trocken, als hätte jemand sie gestern hingelegt.\n\nAls du sie nimmst, summt sie einen Ton, und überall im Wasser antworten Glocken, die es nicht mehr gibt.",
+          "footer": "Die Stimmgabel für Miriam Vey."
+        },
+        {
+          "kind": "read",
+          "tile": [
+            6,
+            15
+          ],
+          "marker": false,
+          "id": "tor",
+          "prompt": "Das alte Schleusentor ansehen",
+          "visible_if": {
+            "requires_quests_active": [
+              "k2_s_druce"
+            ]
+          },
+          "done_flag": "k2_tor_zu",
+          "title": "Das siebte Tor",
+          "text": "Ein Schleusentor, größer als das von Druce, halb offen und grün vor Algen. Durch den Spalt drückt das Moorwasser in die Stadt, langsam, seit dreihundert Jahren.\n\nDas Rad ist festgefressen. Du stemmst dich dagegen, bis es knackt, und dreht. Das Tor schließt sich mit einem Seufzen. Über dir, in Pfahldorf, hörst du jemanden rufen: „Das Wasser fällt!“",
+          "footer": "Druce wird es nicht glauben."
+        },
+        {
+          "kind": "read",
+          "tile": [
+            46,
+            17
+          ],
+          "marker": false,
+          "id": "ratsbuch",
+          "prompt": "Das Ratsbuch vom Pult nehmen",
+          "visible_if": {
+            "requires_quests_active": [
+              "k2_s_marlowe"
+            ],
+            "requires_flags": [
+              "won_buergermeister"
+            ]
+          },
+          "done_flag": "k2_ratsbuch_found",
+          "title": "Das Ratsbuch von Wexmoor",
+          "text": "Im leeren Rathaus liegt auf dem Pult ein Buch mit Messingschloss, trocken wie alles, was das Moor behalten will. Die letzte Seite ist von gestern.\n\nDie Ratsherren haben über dreihundert Jahre weitergeschrieben, auch nach dem Ertrinken. Jeder Vertrag mit dem Lichtamt steht darin, jede Sammelfahrt, jede Lieferung von Fremden. Unterschrieben: I. Brandt, Lichtmeisterin.",
+          "footer": "Beweis für Marlowe."
+        },
+        {
+          "kind": "read",
+          "tile": [
+            30,
+            4
+          ],
+          "marker": false,
+          "id": "inschrift",
+          "prompt": "Die Inschrift am Stadttor lesen",
+          "title": "Inschrift am alten Stadttor",
+          "text": "In den Torbogen gemeißelt, halb unter Muscheln:\n\n„WIR GABEN DEM MOOR KEINEN NAMEN. DARUM NAHM ES UNSEREN.“\n\nDarunter, viel später und mit einem Messer eingeritzt: „Es ist noch nicht satt. Es wächst unter Kettlegate weiter.“"
+        }
+      ]
     }
   ],
   "dialogues": {
@@ -8536,6 +9015,26 @@
               ]
             },
             {
+              "text": "Hast du Tee für unterwegs?",
+              "next": "tee0",
+              "requires_flags": [
+                "k2_akt1_done"
+              ],
+              "hide_if_flags": [
+                "k2_tee_1"
+              ]
+            },
+            {
+              "text": "Hast du Tee für unterwegs?",
+              "next": "tee1",
+              "requires_flags": [
+                "k2_akt3_done"
+              ],
+              "hide_if_flags": [
+                "k2_tee_2"
+              ]
+            },
+            {
               "text": "Bis später."
             }
           ]
@@ -8719,6 +9218,36 @@
               "next": "start"
             }
           ]
+        },
+        "tee0": {
+          "text": "Zunder füllt eine verbeulte Feldflasche aus dem Kessel. „Moortee. Sumpfminze und ein Schuss Lampenöl, gegen die Kälte.“ Sie grinst. „Und gegen das, was du da draußen siehst. Trink's nicht, wenn du's riechen musst.“",
+          "sets_flags": [
+            "k2_tee_1"
+          ],
+          "gives_items": {
+            "moortee": 3
+          },
+          "choices": [
+            {
+              "text": "Danke, Zunder.",
+              "next": "start"
+            }
+          ]
+        },
+        "tee1": {
+          "text": "Zunder füllt eine verbeulte Feldflasche aus dem Kessel. „Moortee. Sumpfminze und ein Schuss Lampenöl, gegen die Kälte.“ Sie grinst. „Und gegen das, was du da draußen siehst. Trink's nicht, wenn du's riechen musst.“",
+          "sets_flags": [
+            "k2_tee_2"
+          ],
+          "gives_items": {
+            "moortee": 3
+          },
+          "choices": [
+            {
+              "text": "Danke, Zunder.",
+              "next": "start"
+            }
+          ]
         }
       }
     },
@@ -8728,6 +9257,16 @@
         "start": {
           "text": "Ein alter Mann mit einem Schlüsselbund so groß wie ein Teller lehnt am Schleusenrad. Er sieht dich an, dann weg, dann wieder hin.\n\n„Ich hab nix gesehen. Ich seh nie was. Bin Schleusenwärter, ich guck aufs Wasser.“",
           "choices": [
+            {
+              "text": "Das siebte Tor ist zu.",
+              "next": "tor7_ende",
+              "requires_flags": [
+                "k2_tor_zu"
+              ],
+              "requires_quests_active": [
+                "k2_s_druce"
+              ]
+            },
             {
               "text": "Seit wann hängen die Steckbriefe?",
               "next": "zettel",
@@ -8745,6 +9284,16 @@
             {
               "text": "Was macht die Schleuse?",
               "next": "schleuse"
+            },
+            {
+              "text": "Sie sagten sechs Tore. Gab es mal mehr?",
+              "next": "tor7",
+              "requires_flags": [
+                "k2_akt2_done"
+              ],
+              "hide_if_quests": [
+                "k2_s_druce"
+              ]
             },
             {
               "text": "Schon gut."
@@ -8783,6 +9332,39 @@
           "choices": [
             {
               "text": "Noch etwas.",
+              "next": "start"
+            }
+          ]
+        },
+        "tor7": {
+          "text": "Druce sieht dich lange an. „Sieben“, sagt er dann leise. „Mein Großvater hat's mir gesagt. Das siebte war unter der alten Stadt, und als die versank, blieb es offen. Seitdem drückt das Moor von unten.“\n\nEr klopft an sein Schleusenrad. „Ich halte sechs Tore zu, und die Stadt sinkt trotzdem jedes Jahr einen Daumen. Jetzt weißt du, warum. Unter Pfahldorf ist eine Leiter. Ich geh da nicht runter.“",
+          "start_quests": [
+            "k2_s_druce"
+          ],
+          "choices": [
+            {
+              "text": "Ich schon.",
+              "next": "start"
+            }
+          ]
+        },
+        "tor7_ende": {
+          "text": "Druce sagt nichts. Er geht zum Pegel an der Schleusenwand und starrt drauf, eine ganze Minute. Dann lacht er, ein trockenes, rostiges Lachen.\n\n„Zwei Daumen. Zwei Daumen gefallen, seit heute Mittag.“ Er drückt dir einen Beutel und ein Bündel Brot in die Hand. „Von meiner Frau. Sie backt nur für Leute, die sie mag. Sie kennt dich nicht, aber ich hab's ihr erzählt.“",
+          "sets_flags": [
+            "k2_s_druce_done"
+          ],
+          "complete_quests": [
+            "k2_s_druce"
+          ],
+          "gives_money": 40,
+          "gives_items": {
+            "salzbrot": 3
+          },
+          "honor": 4,
+          "honor_reason": "Das siebte Tor geschlossen",
+          "choices": [
+            {
+              "text": "Danke, Druce.",
               "next": "start"
             }
           ]
@@ -9324,6 +9906,16 @@
           "text": "Mutter Sedge schnitzt weiter.",
           "choices": [
             {
+              "text": "Hier sind drei Ratssiegel.",
+              "next": "rat_ende",
+              "requires_quests_active": [
+                "k2_s_sedge"
+              ],
+              "requires_items": [
+                "ratssiegel"
+              ]
+            },
+            {
               "text": "Was sind das für Lichter über dem Moor?",
               "next": "lichter",
               "hide_if_clues": [
@@ -9359,6 +9951,16 @@
               "next": "kittel",
               "hide_if_items": [
                 "torfkittel"
+              ]
+            },
+            {
+              "text": "Wer wohnt unter Pfahldorf?",
+              "next": "rat",
+              "requires_flags": [
+                "k2_akt2_done"
+              ],
+              "hide_if_quests": [
+                "k2_s_sedge"
               ]
             },
             {
@@ -9419,6 +10021,42 @@
           "choices": [
             {
               "text": "Noch etwas.",
+              "next": "start"
+            }
+          ]
+        },
+        "rat": {
+          "text": "Mutter Sedge zeigt mit dem Messer nach unten, durch die Ritzen der Bohlen. „Der alte Rat. Sie haben dem Moor nichts gegeben, keinen Namen, kein Licht, und da hat es die ganze Stadt genommen. Jetzt sitzen sie da unten und tagen und wissen nicht mehr, wie sie heißen.“\n\n„Bring mir ihre Siegel. Drei reichen für den Anfang. Auf den Siegeln stehen die Namen, und ich schnitze sie in Holz. Dann können sie gehen.“",
+          "start_quests": [
+            "k2_s_sedge"
+          ],
+          "choices": [
+            {
+              "text": "Ich bring sie Ihnen.",
+              "next": "start"
+            }
+          ]
+        },
+        "rat_ende": {
+          "text": "Sie legt die drei Siegel in eine Reihe und liest die Namen mit dem Daumen, wie Blinde lesen. Dann schnitzt sie, eine Stunde lang, und du sitzt daneben, weil sie dir mit dem Messer zeigt, dass du sitzen sollst.\n\nAls sie fertig ist, steckt sie die drei Täfelchen an den Schrein. Unter den Bohlen läutet etwas, dreimal. Dann gibt sie dir ein viertes Täfelchen, ohne Namen. „Für dich. Damit du nicht vergisst, wer du bist, und das Moor auch nicht.“",
+          "takes_items": {
+            "ratssiegel": 3
+          },
+          "sets_flags": [
+            "k2_s_sedge_done"
+          ],
+          "complete_quests": [
+            "k2_s_sedge"
+          ],
+          "gives_items": {
+            "schreintaefelchen": 1,
+            "moortee": 2
+          },
+          "honor": 5,
+          "honor_reason": "Drei Ratsherren erlöst",
+          "choices": [
+            {
+              "text": "Danke, Mutter Sedge.",
               "next": "start"
             }
           ]
@@ -9835,6 +10473,16 @@
           "text": "Eine Grauspäherin mit roter Sergeantenschnur lehnt an einem Salzfass und sieht dich an, ohne die Laterne zu heben. „Der Kettlegater. Ich müsste Sie festnehmen.“ Pause. „Sagen Sie mir, warum ich es nicht tue.“",
           "choices": [
             {
+              "text": "Die Ablieferliste aus dem Turm.",
+              "next": "zwoelf_ende",
+              "requires_flags": [
+                "k2_liste_found"
+              ],
+              "requires_quests_active": [
+                "k2_s_hale"
+              ]
+            },
+            {
               "text": "Wer gibt euch die Befehle?",
               "next": "befehl",
               "hide_if_clues": [
@@ -9866,6 +10514,16 @@
               "next": "turm",
               "requires_flags": [
                 "k2_hale_ally"
+              ]
+            },
+            {
+              "text": "Was bleibt Ihnen noch zu tun?",
+              "next": "zwoelf",
+              "requires_flags": [
+                "k2_hale_ally"
+              ],
+              "hide_if_quests": [
+                "k2_s_hale"
               ]
             },
             {
@@ -9929,6 +10587,40 @@
               "next": "start"
             }
           ]
+        },
+        "zwoelf": {
+          "text": "Hale zieht die Handschuhe aus und sieht ihre Hände an. „Zwölf Jahre. Ich weiß, wie viele. Ich habe sie gezählt, jeden Abend. Ich weiß nicht, wie sie hießen. Ich habe nie gefragt.“\n\n„Das Lichtamt führt eine Ablieferliste, unten im Turm. Wenn Sie da hinkommen … bringen Sie mir die Namen. Ich will sie vorlesen. Vor der Wache, laut.“",
+          "start_quests": [
+            "k2_s_hale"
+          ],
+          "choices": [
+            {
+              "text": "Das mache ich.",
+              "next": "start"
+            }
+          ]
+        },
+        "zwoelf_ende": {
+          "text": "Hale nimmt die Liste mit beiden Händen. Am nächsten Morgen steht die ganze Wache auf dem Salzmarkt, in Reih und Glied, und Hale liest. Zweihundertzwölf Namen. Es dauert bis Mittag. Niemand geht.\n\nDanach gibt sie dir ihre Pfeife, die silberne der Sergeanten. „Wenn Sie je Ärger mit meinen Leuten haben, pfeifen Sie. Die kennen den Ton.“",
+          "sets_flags": [
+            "k2_s_hale_done"
+          ],
+          "complete_quests": [
+            "k2_s_hale"
+          ],
+          "gives_money": 30,
+          "gives_items": {
+            "tonikum": 2,
+            "salzbrot": 2
+          },
+          "honor": 6,
+          "honor_reason": "Zweihundertzwölf Namen vorgelesen",
+          "choices": [
+            {
+              "text": "Danke, Sergeantin.",
+              "next": "start"
+            }
+          ]
         }
       }
     },
@@ -9938,6 +10630,16 @@
         "start": {
           "text": "Auf deiner Koje sitzt, in Zivil und mit nassem Saum, Inspektorin Marlowe. Sie hält eine Tasse von Zunders Tee, als wäre sie hier zu Hause.\n\n„Ich bin nicht hier“, sagt sie. „Offiziell suche ich Sie in Kettlegate. Inoffiziell will ich wissen, wer meinen besten Ermittler zur Strecke bringen will.“",
           "choices": [
+            {
+              "text": "Das Ratsbuch von Wexmoor.",
+              "next": "buch_ende",
+              "requires_flags": [
+                "k2_ratsbuch_found"
+              ],
+              "requires_quests_active": [
+                "k2_s_marlowe"
+              ]
+            },
             {
               "text": "L. ist Ilse Brandt, die Lichtmeisterin.",
               "next": "brandt",
@@ -9951,6 +10653,16 @@
             {
               "text": "Wie haben Sie mich gefunden?",
               "next": "gefunden"
+            },
+            {
+              "text": "Reicht ein Haftbefehl gegen Brandt?",
+              "next": "buch",
+              "requires_flags": [
+                "k2_marlowe_here"
+              ],
+              "hide_if_quests": [
+                "k2_s_marlowe"
+              ]
             },
             {
               "text": "Später."
@@ -9977,6 +10689,35 @@
               "next": "start"
             }
           ]
+        },
+        "buch": {
+          "text": "Marlowe dreht die Tasse in den Händen. „Ein Haftbefehl reicht für die Festnahme. Für das Gericht braucht es Papier. Brandt ist Magistra, Professorin, Lichtmeisterin. Gegen ihr Wort steht unseres.“\n\n„Mutter Sedge hat mir von einem Rathaus unter Pfahldorf erzählt. Der alte Rat soll dort noch Buch führen. Wenn Brandt je etwas unterschrieben hat, dann steht es da.“ Sie sieht dich an. „Ich bin zu alt für Leitern.“",
+          "start_quests": [
+            "k2_s_marlowe"
+          ],
+          "choices": [
+            {
+              "text": "Ich hole es.",
+              "next": "start"
+            }
+          ]
+        },
+        "buch_ende": {
+          "text": "Marlowe liest. Sie liest lange, und sie wird blass, und dann wird sie ruhig, auf die Art, auf die sie in Kettlegate ruhig wurde, kurz bevor jemand verhaftet wurde.\n\n„Dreihundert Jahre Verträge, und auf den letzten vierzig steht ihr Name.“ Sie klappt das Buch zu. „Damit brauche ich keinen Starling. Damit brauche ich nur Hale und eine Treppe.“",
+          "sets_flags": [
+            "k2_ratsbuch"
+          ],
+          "complete_quests": [
+            "k2_s_marlowe"
+          ],
+          "honor": 4,
+          "honor_reason": "Das Ratsbuch geborgen",
+          "choices": [
+            {
+              "text": "Dann los.",
+              "next": "start"
+            }
+          ]
         }
       }
     },
@@ -9988,10 +10729,30 @@
           "text": "Zwischen den Pfahlhäusern hängt eine Frau Wäsche auf, und als sie sich umdreht, kennst du das Gesicht nicht und die Stimme sofort. Miriam Vey.\n\n„Sie. Natürlich Sie.“ Sie wirft dir eine Klammer zu. „Hier heiße ich Mira, und ich singe nicht mehr.“",
           "choices": [
             {
+              "text": "Die Stimmgabel aus der Kapelle.",
+              "next": "lied_ende",
+              "requires_flags": [
+                "k2_stimmgabel"
+              ],
+              "requires_quests_active": [
+                "k2_s_vey"
+              ]
+            },
+            {
               "text": "Warum sind Sie in Wexmoor?",
               "next": "warum",
               "hide_if_clues": [
                 "wx_vey_turm"
+              ]
+            },
+            {
+              "text": "Vermissen Sie das Singen?",
+              "next": "lied",
+              "requires_clues": [
+                "wx_vey_turm"
+              ],
+              "hide_if_quests": [
+                "k2_s_vey"
               ]
             },
             {
@@ -10004,6 +10765,38 @@
           "gives_clues": [
             "wx_vey_turm"
           ],
+          "choices": [
+            {
+              "text": "Danke, Mira.",
+              "next": "start"
+            }
+          ]
+        },
+        "lied": {
+          "text": "Vey hängt ein Hemd auf, nimmt es wieder ab, hängt es wieder auf. „Jeden Tag. Aber jeder Ton, den ich anfange, klingt nach der Glocke in Kettlegate. Nach dem, was ich getan habe.“\n\n„Mutter Sedge sagt, unten in der alten Kapelle liegt eine Stimmgabel, die nie verstimmt ist. Ich trau mich nicht runter. Ich bin keine Heldin. Das waren immer Sie.“",
+          "start_quests": [
+            "k2_s_vey"
+          ],
+          "choices": [
+            {
+              "text": "Ich hole sie.",
+              "next": "start"
+            }
+          ]
+        },
+        "lied_ende": {
+          "text": "Vey schlägt die Gabel an der Wäscheleine an. Der Ton ist klar und kalt wie Brunnenwasser. Sie summt ihn nach, erst falsch, dann richtig, und dann singt sie, ganz leise, ein Wiegenlied, das du nicht kennst.\n\nIn Pfahldorf gehen Fenster auf. Unter den Bohlen wird es still. Als sie fertig ist, drückt sie dir die Gabel in die Hand. „Behalten Sie sie. Ich hab den Ton jetzt. Und Sie brauchen einen, wo Sie hingehen.“",
+          "sets_flags": [
+            "k2_s_vey_done"
+          ],
+          "complete_quests": [
+            "k2_s_vey"
+          ],
+          "gives_items": {
+            "veys_stimmgabel": 1
+          },
+          "honor": 5,
+          "honor_reason": "Mira singt wieder",
           "choices": [
             {
               "text": "Danke, Mira.",
@@ -10053,6 +10846,22 @@
               "requires_conclusions": [
                 "dk2_brandt",
                 "dk2_warum"
+              ]
+            },
+            {
+              "text": "Sie sind verhaftet. Hale und Marlowe warten unten, mit dem Ratsbuch.",
+              "next": "rein",
+              "requires_flags": [
+                "k2_hale_ally",
+                "k2_marlowe_here",
+                "k2_ratsbuch"
+              ],
+              "requires_conclusions": [
+                "dk2_brandt",
+                "dk2_warum"
+              ],
+              "hide_if_flags": [
+                "k2_starling_witness"
               ]
             },
             {
@@ -12270,6 +13079,53 @@
       "price": 16,
       "weight": 1,
       "desc": "Öl aus den Laternen ertrunkener Fischer. Es brennt nur, wenn niemand hinsieht."
+    },
+    "pfahlholz": {
+      "name": "Pfahlholz",
+      "kind": "trophy",
+      "rarity": "gewoehnlich",
+      "price": 8,
+      "weight": 0.5,
+      "desc": "Ein Stück schwarzes Eichenholz aus den Pfählen der alten Stadt, durchlöchert wie ein Sieb. Es ist schwerer, als es aussieht, und immer nass."
+    },
+    "ratssiegel": {
+      "name": "Ratssiegel",
+      "kind": "trophy",
+      "rarity": "ungewoehnlich",
+      "price": 20,
+      "weight": 0.2,
+      "desc": "Ein Siegel aus grünem Wachs mit dem Wappen des alten Wexmoor: ein Turm über Wellen. Das Wachs ist nach dreihundert Jahren unter Wasser noch weich."
+    },
+    "krebspanzer": {
+      "name": "Kellerkrebspanzer",
+      "kind": "trophy",
+      "rarity": "gewoehnlich",
+      "price": 10,
+      "weight": 1,
+      "desc": "Der Rückenschild eines Kellerkrebses, so groß wie ein Teller. Auf der Innenseite hat jemand mit Kreide Striche gezählt."
+    },
+    "madenwachs": {
+      "name": "Madenwachs",
+      "kind": "trophy",
+      "rarity": "selten",
+      "price": 32,
+      "weight": 0.2,
+      "desc": "Weißes Wachs, das eine Namensmade beim Fressen ausschwitzt. Wer es anzündet, hört ganz leise einen Namen, immer einen anderen."
+    },
+    "moortee": {
+      "name": "Zunders Moortee",
+      "kind": "consumable",
+      "heal": 12,
+      "calm": 20,
+      "weight": 0.5,
+      "desc": "Schwarzer Tee mit Sumpfminze und einem Schuss Lampenöl, sagt Zunder. Schmeckt furchtbar. Stellt 12 Leben wieder her und senkt die Unruhe um 20."
+    },
+    "salzbrot": {
+      "name": "Salzbrot",
+      "kind": "consumable",
+      "heal": 20,
+      "weight": 0.5,
+      "desc": "Hartes Fischerbrot mit einer Kruste aus Watt-Salz. Hält drei Wochen und einen Sturm. Stellt 20 Leben wieder her."
     }
   },
   "zones": {
@@ -13260,6 +14116,364 @@
               {
                 "item": "tonikum",
                 "chance": 0.6
+              }
+            ]
+          },
+          "roam": {
+            "speed": 0,
+            "chase": 56,
+            "aggro": 90
+          },
+          "boss": true,
+          "fleeable": false
+        }
+      }
+    },
+    "wx_altstadt": {
+      "name": "Die Versunkene Altstadt",
+      "tier": 3,
+      "travel": {
+        "name": "Die Versunkene Altstadt",
+        "desc": "Gefahr ☠☠☠. Unter Pfahldorf führt eine Leiter hinab in die Stadt, die zuerst versunken ist. Die Häuser stehen noch, manche sind bewohnt.",
+        "requires_flags": [
+          "k2_known_pfahl",
+          "k2_akt2_done"
+        ],
+        "city": "wexmoor"
+      },
+      "lose_to": {
+        "map": "wx_kahn",
+        "spawn": "default"
+      },
+      "lose_money": 0.2,
+      "lose_text": "Mutter Sedge zieht dich an einem Seil durch die Bohlen nach oben und gibt dir eine Ohrfeige. Zunder holt dich am Schrein ab.",
+      "flee_text": "Du kletterst an einem Pfahl hinauf, bis die Bohlen über dir sind. Unten schlägt eine Tür zu.",
+      "elite_drops": [
+        {
+          "item": "madenwachs",
+          "chance": 0.35
+        }
+      ],
+      "loot_tables": {},
+      "encounters": {
+        "pfahlbohrer": {
+          "name": "Pfahlbohrer",
+          "sprite": "wild",
+          "sheet": "enemy_knochenwurm",
+          "occult": true,
+          "hp": 40,
+          "intro": "Aus einem Pfahl, dick wie ein Fass, quillt ein grauer Wurm mit einem Kopf aus Hornplatten. Hinter ihm knirscht das Holz, und irgendwo über dir neigt sich ein Haus.",
+          "attacks": [
+            {
+              "name": "Bohren",
+              "damage": 4,
+              "hits": [
+                600,
+                850,
+                1100
+              ]
+            },
+            {
+              "name": "Durchbrechen",
+              "damage": 8,
+              "hits": [
+                950
+              ]
+            },
+            {
+              "name": "Holzfraß",
+              "damage": 13,
+              "hits": [
+                1800
+              ]
+            }
+          ],
+          "on_win": {},
+          "win_text": "Der Bohrer zieht sich zuckend in sein Loch zurück und rührt sich nicht mehr. Das Holz um ihn herum ist weich wie Brot.",
+          "loot": {
+            "money": [
+              4,
+              9
+            ],
+            "drops": [
+              {
+                "item": "pfahlholz",
+                "chance": 0.75
+              },
+              {
+                "item": "torfasche",
+                "chance": 0.2
+              }
+            ]
+          },
+          "roam": {
+            "speed": 32,
+            "chase": 64,
+            "aggro": 80
+          },
+          "elite": {
+            "name": "Alter Pfahlfresser"
+          }
+        },
+        "ratsherr": {
+          "name": "Ertrunkener Ratsherr",
+          "sprite": "wild",
+          "sheet": "enemy_ertrunkener",
+          "occult": true,
+          "hp": 46,
+          "intro": "Ein Mann in einer Robe aus Tang sitzt auf einem Stuhl, der im Schlick steckt, und blättert in einem Buch, aus dem Wasser läuft. Er sieht auf. „Sie sind nicht auf der Tagesordnung.“",
+          "attacks": [
+            {
+              "name": "Verlesen",
+              "damage": 4,
+              "hits": [
+                600,
+                850,
+                1100,
+                1350
+              ]
+            },
+            {
+              "name": "Beschluss",
+              "damage": 9,
+              "hits": [
+                1200
+              ]
+            },
+            {
+              "name": "Siegelschlag",
+              "damage": 14,
+              "hits": [
+                1900
+              ]
+            }
+          ],
+          "on_win": {},
+          "win_text": "Der Ratsherr klappt sein Buch zu und sinkt mit dem Stuhl in den Schlick. Auf der Lehne bleibt ein grünes Siegel kleben.",
+          "loot": {
+            "money": [
+              5,
+              10
+            ],
+            "drops": [
+              {
+                "item": "ratssiegel",
+                "chance": 0.65
+              },
+              {
+                "item": "nebeltau",
+                "chance": 0.25
+              }
+            ]
+          },
+          "roam": {
+            "speed": 18,
+            "chase": 50,
+            "aggro": 70
+          },
+          "elite": {
+            "name": "Ältester des Rates"
+          }
+        },
+        "kellerkrebs": {
+          "name": "Kellerkrebs",
+          "sprite": "wild",
+          "sheet": "enemy_kanalkroete",
+          "occult": false,
+          "hp": 46,
+          "intro": "Aus einem Kellerfenster schiebt sich eine Schere, dann noch eine. Der Krebs dahinter ist so groß wie ein Hund und trägt Scherben von Weinflaschen auf dem Rücken.",
+          "attacks": [
+            {
+              "name": "Kneifen",
+              "damage": 6,
+              "hits": [
+                700,
+                1000
+              ]
+            },
+            {
+              "name": "Panzerstoß",
+              "damage": 8,
+              "hits": [
+                1100
+              ]
+            },
+            {
+              "name": "Scherenschlag",
+              "damage": 4,
+              "hits": [
+                800,
+                1100,
+                1400
+              ]
+            },
+            {
+              "name": "Eingraben ...",
+              "damage": 12,
+              "hits": [
+                2000
+              ]
+            }
+          ],
+          "on_win": {},
+          "win_text": "Der Krebs kippt auf den Rücken und klappert noch eine Weile mit den Beinen. Dann ist es still im Keller.",
+          "loot": {
+            "money": [
+              5,
+              10
+            ],
+            "drops": [
+              {
+                "item": "krebspanzer",
+                "chance": 0.6
+              },
+              {
+                "item": "salzkristall",
+                "chance": 0.2
+              }
+            ]
+          },
+          "roam": {
+            "speed": 26,
+            "chase": 58,
+            "aggro": 84
+          },
+          "elite": {
+            "name": "Krebs des Ratskellers"
+          }
+        },
+        "namensmade": {
+          "name": "Namensmade",
+          "sprite": "wild",
+          "sheet": "enemy_stimmenfresser",
+          "occult": true,
+          "hp": 40,
+          "intro": "Eine bleiche Made, lang wie ein Arm, kriecht über eine Hauswand und frisst die Buchstaben vom Türschild. Wo sie war, weißt du nicht mehr, wer hier gewohnt hat.",
+          "attacks": [
+            {
+              "name": "Saugen",
+              "damage": 6,
+              "hits": [
+                700,
+                1000
+              ]
+            },
+            {
+              "name": "Vergessen",
+              "damage": 8,
+              "hits": [
+                1100
+              ]
+            },
+            {
+              "name": "Ausschwitzen",
+              "damage": 4,
+              "hits": [
+                800,
+                1100,
+                1400
+              ]
+            },
+            {
+              "name": "Namen fressen ...",
+              "damage": 12,
+              "hits": [
+                2000
+              ]
+            }
+          ],
+          "on_win": {},
+          "win_text": "Die Made platzt mit einem leisen Seufzer. Für einen Moment kannst du das Türschild wieder lesen: Familie Aldous. Dann ist auch das weg.",
+          "loot": {
+            "money": [
+              5,
+              10
+            ],
+            "drops": [
+              {
+                "item": "madenwachs",
+                "chance": 0.45
+              },
+              {
+                "item": "geisteressenz",
+                "chance": 0.05
+              }
+            ]
+          },
+          "roam": {
+            "speed": 26,
+            "chase": 58,
+            "aggro": 84
+          },
+          "elite": {
+            "name": "Fette Namensmade"
+          }
+        },
+        "buergermeister": {
+          "name": "Der Ertrunkene Bürgermeister",
+          "sprite": "wild",
+          "sheet": "enemy_dreizehnter_gast",
+          "occult": true,
+          "hp": 140,
+          "intro": "Auf den Stufen des alten Rathauses sitzt ein Mann mit einer Kette aus Gold und Algen. Hinter ihm stehen Hunderte im Schlamm, still, mit leeren Gesichtern: seine Stadt.\n\n„Wir haben das Moor nicht gefüttert“, sagt er. „Darum hat es uns genommen. Die da oben haben es besser gemacht.“",
+          "attacks": [
+            {
+              "name": "Amtskette",
+              "damage": 8,
+              "hits": [
+                900,
+                1400
+              ]
+            },
+            {
+              "name": "Ratsglocke",
+              "damage": 4,
+              "hits": [
+                600,
+                850,
+                1100,
+                1350,
+                1600
+              ]
+            },
+            {
+              "name": "Urteil",
+              "damage": 10,
+              "hits": [
+                1100
+              ]
+            },
+            {
+              "name": "Die Stadt sinkt ...",
+              "damage": 16,
+              "hits": [
+                2200
+              ]
+            }
+          ],
+          "on_win": {},
+          "win_text": "Der Bürgermeister nimmt die Kette ab und legt sie auf die Stufe. Dann geht er rückwärts ins Wasser, und seine Stadt folgt ihm, einer nach dem anderen. Das Rathaus ist leer.",
+          "loot": {
+            "money": [
+              45,
+              60
+            ],
+            "drops": [
+              {
+                "item": "ratssiegel",
+                "chance": 1
+              },
+              {
+                "item": "madenwachs",
+                "chance": 0.6
+              },
+              {
+                "item": "geisteressenz",
+                "chance": 0.6
+              },
+              {
+                "item": "moortee",
+                "chance": 0.8
               }
             ]
           },

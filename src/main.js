@@ -58,6 +58,7 @@ game = new Phaser.Game({
   roundPixels: true,
   backgroundColor: '#06070d',
   physics: { default: 'arcade', arcade: { debug: false } },
+  input: { gamepad: true }, // Gamepad steuert Spieler 2 (lokaler Koop)
   scale: { mode: Phaser.Scale.NONE },
   scene: [WorldScene, CombatScene],
   callbacks: {

@@ -310,11 +310,15 @@
           "ritual": {
             "name": "Der rote Faden",
             "map": "revier",
+            "also_maps": [
+              "revier_fluegel",
+              "buero"
+            ],
             "min_conclusions": 12,
             "consumes": {
               "spinnenseide": 3
             },
-            "desc": "Spann an der Fallwand im Revier Fäden zwischen allen Schlüssen, die du je gezogen hast. Erst wenn das Netz trägt, darfst du trinken."
+            "desc": "Spann im Revier Fäden zwischen allen Schlüssen, die du je gezogen hast: auf dem Hof, im Seitenflügel oder an der Fallwand in deinem Büro. Erst wenn das Netz trägt, darfst du trinken."
           }
         },
         "5": {
@@ -1999,6 +2003,87 @@
             "key": "price",
             "value": 1.2,
             "text": "Händler riechen das Moor an dir: alles 20 % teurer."
+          }
+        ]
+      },
+      "amtskette": {
+        "name": "Die Amtskette des Ertrunkenen",
+        "source": "wild",
+        "zones": [
+          "wx_altstadt"
+        ],
+        "price": 130,
+        "icon": "glasfibel",
+        "desc": "Die schwere Kette des letzten Bürgermeisters der alten Stadt. Wer sie trägt, spricht mit einer Stimme, der man gehorcht. Sie zieht nach unten.",
+        "boons": [
+          {
+            "key": "atk",
+            "value": 3,
+            "text": "+3 Angriff."
+          },
+          {
+            "key": "max_hp",
+            "value": 10,
+            "text": "+10 Leben."
+          }
+        ],
+        "curses": [
+          {
+            "key": "price",
+            "value": 1.15,
+            "text": "Händler halten dich für einen Beamten: alles 15 % teurer."
+          }
+        ]
+      },
+      "veys_stimmgabel": {
+        "name": "Veys Stimmgabel",
+        "source": "quest",
+        "price": 140,
+        "icon": "glockenzunge",
+        "desc": "Eine Stimmgabel aus der versunkenen Kapelle. Miriam Vey hat sie einmal angeschlagen und dann dir gegeben. Der Ton hört nicht ganz auf.",
+        "boons": [
+          {
+            "key": "composure_regen",
+            "value": 1.5,
+            "text": "Nerven erholen sich 50 % schneller."
+          },
+          {
+            "key": "parry_ap",
+            "value": 1,
+            "text": "Paraden bringen +1 Konzentration."
+          }
+        ],
+        "curses": [
+          {
+            "key": "unruhe_tick",
+            "value": 0.2,
+            "text": "Die Unruhe steigt langsam von selbst. Der Ton summt weiter."
+          }
+        ]
+      },
+      "schreintaefelchen": {
+        "name": "Mutter Sedges Täfelchen",
+        "source": "quest",
+        "price": 100,
+        "icon": "glasfibel",
+        "desc": "Ein leeres Holztäfelchen vom Schrein. Mutter Sedge sagt, das Moor lässt dich in Ruhe, solange niemand einen Namen darauf schreibt.",
+        "boons": [
+          {
+            "key": "max_nerves",
+            "value": 10,
+            "text": "+10 Nerven."
+          },
+          {
+            "key": "heal_bonus",
+            "value": 1.2,
+            "text": "Heilmittel wirken 20 % stärker."
+          }
+        ],
+        "curses": [
+          {
+            "key": "honor_loss",
+            "value": 1.5,
+            "text": "Ansehensverluste wiegen schwerer. Das Moor merkt sich, was du tust."
           }
         ]
       }

@@ -39,6 +39,29 @@ einem kleinen Rundenkampf mit Timing und Spielständen.
 | Kampf: `E` / `Leertaste` | beim Angriff im goldenen Bereich drücken |
 | Kampf: `Leertaste` / `F` | beim gegnerischen Schlag ausweichen / parieren |
 | `R` | nach einem Ende neu starten |
+| `Esc` | Menü: Spieler 2 hinzufügen oder entfernen |
+
+### Zu zweit an einem Rechner
+
+Im `Esc`-Menü kommt Spieler 2 dazu (und geht wieder). Beide laufen über denselben Bildschirm, die Kamera hält
+die Mitte zwischen euch, und niemand kann dem anderen aus dem Bild laufen. Spieler 2 hat eigenes Leben, eigene
+Nerven, ein eigenes Inventar und eine eigene Waffe; Geld, Ansehen, Fälle und der Pfad gehören dem Ermittler.
+Beweisstücke wandern immer zum Ermittler. Wer geht, behält seine Sachen für das nächste Mal.
+
+| Spieler 2 | Wirkung |
+|---|---|
+| Pfeiltasten / Gamepad-Stick | laufen (zu zweit läuft Spieler 1 nur mit `WASD`) |
+| `Enter` / Gamepad `A` | untersuchen, sprechen, Beute aufheben (landet in seiner Tasche) |
+| `I`, dann `G` / Gamepad `Y` | eigenes Inventar; `→ Sp. 1` gibt etwas weiter |
+| `G` im Laden oder Lager | zwischen den Taschen beider Spieler wechseln |
+| Kampf: `1`–`4` | Aktion wählen, wenn Spieler 2 am Zug ist (Gamepad `A` = Angriff) |
+| Kampf: `Enter` / Gamepad `A` | Takt beim eigenen Angriff |
+| Kampf: `←` / `→` (Gamepad `X` / `B`) | ausweichen / parieren, wenn der Gegner Spieler 2 angreift |
+
+Im Kampf stehen beide nebeneinander. Jede Runde handelt erst Spieler 1, dann Spieler 2, dann greift der Gegner
+einen von beiden an; abwehren muss der Angegriffene mit seinen Tasten. Jeder hat eigene Konzentration, eigene
+Gegenstände und eigene Zustände (Schutz, Blutung). Wer zu Boden geht, setzt aus; verloren ist erst, wenn beide
+liegen. Gewinnt der andere, rappelt sich der Gestürzte mit einem Viertel seines Lebens auf.
 
 ## Spielmechanik
 

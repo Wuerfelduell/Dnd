@@ -295,7 +295,7 @@ export const pathwayMethods = {
     if (!r) return null;
     const steps = [];
     const mapName = this.content.maps[r.map]?.name ?? r.map;
-    steps.push({ text: `Ort: ${mapName}`, done: this.map === r.map });
+    steps.push({ text: `Ort: ${mapName}${r.also_maps?.length ? ' (auch drinnen)' : ''}`, done: this.map === r.map || (r.also_maps ?? []).includes(this.map) });
     for (const [id, n] of Object.entries(r.consumes ?? {})) steps.push({ text: `${this.item(id).name} ×${n} (wird verbraucht)`, done: this.itemCount(id) >= n });
     if (r.vision) steps.push({ text: 'Geistsicht ist aktiv', done: !!this.spiritVision });
     if (r.min_nerves) steps.push({ text: `Mindestens ${r.min_nerves} Nerven`, done: this.composure >= r.min_nerves });

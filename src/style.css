@@ -569,6 +569,34 @@ button.small.drop.armed { border-color: #c8826a; color: #ffb09a; }
 .tabs.subtabs .tab:disabled { opacity: 0.35; cursor: default; }
 .tabs.subtabs .subkeys { margin-left: auto; font-size: 0.75em; }
 
+/* Zwei-Spieler-Modus: HUD von Spieler 2, Pausemenü, Inventar-Umschaltung */
+.hud-p2 { margin-top: 0.5em; padding: 0.3em 0.5em; border: 0.125em solid #3a4a68; background: rgba(12, 16, 28, 0.7); text-align: left; }
+.hud-p2 .p2name { color: #9ab8ff; }
+.hud-p2 .meter { margin-top: 0.2em; }
+.hud-p2 .bar { width: 6em; }
+.hud-p2 .p2hp { height: 100%; background: #6a86c8; transition: width 0.25s linear; }
+.hud-p2 .p2hp.low { background: #b85a4a; }
+.hud-p2 .p2nv { height: 100%; background: #8aa6b8; transition: width 0.2s linear; }
+.hud-p2 .p2load { color: #c8826a; margin-top: 0.2em; }
+.panel.pause { max-width: 40em; }
+.pausemenu { display: flex; gap: 0.6em; flex-wrap: wrap; margin: 0.4em 0 0.6em; }
+.controls2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1em; font-size: 0.85em; color: var(--muted); }
+.controls2 > div > div { margin-top: 0.3em; }
+.controls2 h4 { margin: 0; color: var(--ink); }
+.controls2 > div:last-child h4 { color: #9ab8ff; }
+.playertabs { margin-bottom: 0.4em; }
+.playertabs .tab[data-invplayer="2"].sel { border-color: #6a86c8; color: #9ab8ff; }
+button.small.give { color: #9ab8ff; }
+/* Kampf zu zweit: ein Feld je Spieler, wer dran ist, leuchtet */
+.cb-players { display: flex; gap: 0.5em; }
+.cb-players .cb-player { padding: 0.15em 0.3em; border: 0.125em solid transparent; }
+.cb-players .cb-player:nth-child(2) { width: 13em; }
+.cb-players .cb-player:nth-child(2) .bar, .cb-players .cb-player:first-child:not(:only-child) .bar { width: 5.5em; }
+.cb-players .cb-player:first-child:not(:only-child) { width: 13em; }
+.cb-players .cb-player[data-p="2"] .cb-name { color: #9ab8ff; }
+.cb-player.active { border-color: var(--gold); background: rgba(40, 32, 16, 0.5); }
+.cb-player.down { opacity: 0.5; }
+
 /* Paket A: Münze dreht sich, wenn sich das Geld ändert (ui/coin_spin.png, 6 Frames à 8x8) */
 .coinspin { display: inline-block; width: 1em; height: 1em; margin-right: 0.3em; vertical-align: -0.15em; image-rendering: pixelated;
   background: var(--coinspin) 0 0 / 600% 100% no-repeat; animation: coinspin 0.5s steps(6) 3; }

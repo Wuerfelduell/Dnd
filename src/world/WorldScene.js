@@ -14,6 +14,10 @@ const PLAYER_SPEED = 72;
 const OVERLOAD_SPEED = 0.5; // zu schwer beladen: halbes Tempo
 const INTERACT_RANGE = 22;
 const DIRS = ['down', 'left', 'right', 'up'];
+const P2_TINT = 0x9ab8ff; // Spieler 2: gleiche Figur, kühler Mantel
+// Beide Spieler müssen ins Bild passen: so weit dürfen sie auseinander (Pixel)
+const LEASH_X = VIEW_W - 48;
+const LEASH_Y = VIEW_H - 64;
 
 export const PLAYER_PALETTE = {
   coat: '#6a5a48', hat: '#2e2a26', skin: '#e0b894', hair: '#3a2a20', legs: '#2c2a30', scarf: '#7a3a3a',
@@ -545,6 +549,10 @@ export class WorldScene extends Phaser.Scene {
     this.focus = null;
     this.pending = null;
     this.playerBusy = false;
+    this.p2 = null; // Sprite von Spieler 2 (lokaler Koop)
+    this.p2Facing = 'down';
+    this.focus2 = null;
+    this.pending2 = null;
     this.aura = null;
     this.cracks = null;
 
@@ -781,11 +789,66 @@ export class WorldScene extends Phaser.Scene {
     if (this.mapW < VIEW_W || this.mapH < VIEW_H) {
       cam.setBounds(-(VIEW_W - Math.min(this.mapW, VIEW_W)) / 2, -(VIEW_H - Math.min(this.mapH, VIEW_H)) / 2, Math.max(this.mapW, VIEW_W), Math.max(this.mapH, VIEW_H));
     }
-    cam.startFollow(this.player, true, 0.12, 0.12);
+    // Die Kamera folgt der Mitte zwischen beiden Spielern (allein: dem Ermittler)
+    this.camTarget = { x: px, y: py };
+    cam.startFollow(this.camTarget, true, 0.12, 0.12);
     cam.setRoundPixels(true);
     cam.setBackgroundColor('#06070d');
 
     this.lighting.add({ follow: this.player, offsetX: 0, offsetY: -14, radius: 46, intensity: 0.6, color: 0xffc888, glowAlpha: 0.12, flicker: 0.06 });
+    // Spieler 2 trägt seine eigene Laterne (leuchtet nur, solange er mitspielt)
+    const scene = this;
+    this.p2Light = { get x() { return scene.p2?.x ?? scene.player.x; }, get y() { return scene.p2?.y ?? scene.player.y; } };
+    this.lighting.add({ follow: this.p2Light, offsetX: 0, offsetY: -14, radius: 40, intensity: 0.5, color: 0xc8d8ff, glowAlpha: 0.1, flicker: 0.06, active: () => !!scene.p2 });
+    if (this.state.hasP2()) this.spawnP2();
+  }
+
+  // --- Spieler 2 (lokaler Koop) -----------------------------------------------------
+
+  /** Spieler 2 erscheint neben dem Ermittler. */
+  spawnP2() {
+    if (this.p2) return;
+    const p = this.player;
+    const x = p.x + 14;
+    const y = p.y + 2;
+    this.p2 = this.physics.add.sprite(x, y, 'player', 0).setOrigin(0.5, 1).setTint(P2_TINT);
+    this.p2.body.setSize(10, 6).setOffset(3, 26);
+    this.p2.setCollideWorldBounds(true);
+    this.p2Colliders = [this.physics.add.collider(this.p2, this.groundLayer), this.physics.add.collider(this.p2, this.blockers)];
+    // Steckt er in einer Wand? Dann direkt auf den Ermittler
+    if (this.groundLayer?.getTileAtWorldXY?.(x, y - 3)?.collides) this.p2.body.reset(p.x, p.y);
+    this.p2Tag = this.add.text(x, y - 34, '2', { fontFamily: 'monospace', fontSize: '8px', color: '#9ab8ff', stroke: '#000', strokeThickness: 2 })
+      .setOrigin(0.5, 1).setResolution(2);
+    this.tweens.add({ targets: this.p2, alpha: { from: 0, to: 1 }, duration: 300 });
+  }
+
+  despawnP2() {
+    if (!this.p2) return;
+    this.p2Colliders?.forEach((c) => c.destroy());
+    this.p2Tag?.destroy();
+    this.p2.destroy();
+    this.p2 = null;
+    this.focus2 = null;
+  }
+
+  /** Alle Spielerfiguren auf der Karte. */
+  playerSprites() {
+    return this.p2 ? [this.player, this.p2] : [this.player];
+  }
+
+  /** Nächster Spieler zu einem Punkt (Gegner jagen den, der näher ist). */
+  nearestPlayer(x, y) {
+    if (!this.p2) return this.player;
+    const d1 = Phaser.Math.Distance.Between(x, y, this.player.x, this.player.y);
+    const d2 = Phaser.Math.Distance.Between(x, y, this.p2.x, this.p2.y);
+    return d2 < d1 ? this.p2 : this.player;
+  }
+
+  /** Erstes angeschlossenes Gamepad (steuert Spieler 2). */
+  pad() {
+    const gp = this.input.gamepad;
+    if (!gp || !gp.total) return null;
+    return gp.getAll().find((p) => p?.connected) ?? null;
   }
 
   buildAtmosphere(amb) {
@@ -838,6 +901,13 @@ export class WorldScene extends Phaser.Scene {
     this.input.keyboard.on('keydown-TAB', queue('notebook'));
     this.input.keyboard.on('keydown-I', queue('inventory'));
     this.input.keyboard.on('keydown-P', queue('pathway'));
+    // Spieler 2: Enter interagiert (Pfeile laufen, siehe updateMovement)
+    this.input.keyboard.on('keydown-ENTER', (e) => { if (!e.repeat && this.p2) this.pending2 = 'interact'; });
+    this.input.gamepad?.on('down', (pad, button) => {
+      if (!this.p2) return;
+      if (button.index === 0) this.pending2 = 'interact'; // A
+      else if (button.index === 3) this.pending2 = 'inventory'; // Y
+    });
   }
 
   bindState() {
@@ -856,6 +926,7 @@ export class WorldScene extends Phaser.Scene {
       s.on('quest', refresh),
       s.on('ascend', ({ pathway }) => this.playDrinkFx(pathway)),
       s.on('unruhe', () => this.updateCracks()),
+      s.on('party', () => { if (s.hasP2()) this.spawnP2(); else this.despawnP2(); }),
     );
     this.updateCracks();
     // Paket G: pulsierender Rand in Gefahrengebieten
@@ -946,13 +1017,17 @@ export class WorldScene extends Phaser.Scene {
   }
 
   updateMovement(blocked) {
-    if (this.playerBusy) { this.player.setVelocity(0, 0); return; }
+    this.updateP2Movement(blocked);
+    if (this.playerBusy) { this.player.setVelocity(0, 0); this.updateCamTarget(); return; }
     const k = this.keys;
     let vx = 0;
     let vy = 0;
     if (!blocked) {
-      vx = (k.RIGHT.isDown || k.D.isDown ? 1 : 0) - (k.LEFT.isDown || k.A.isDown ? 1 : 0);
-      vy = (k.DOWN.isDown || k.S.isDown ? 1 : 0) - (k.UP.isDown || k.W.isDown ? 1 : 0);
+      // Zu zweit gehören die Pfeiltasten Spieler 2
+      const arrows = !this.p2;
+      vx = ((arrows && k.RIGHT.isDown) || k.D.isDown ? 1 : 0) - ((arrows && k.LEFT.isDown) || k.A.isDown ? 1 : 0);
+      vy = ((arrows && k.DOWN.isDown) || k.S.isDown ? 1 : 0) - ((arrows && k.UP.isDown) || k.W.isDown ? 1 : 0);
+      [vx, vy] = this.leash(this.player, this.p2, vx, vy);
     }
     const skin = this.skinKey();
     if (skin !== this.playerKey) { // Verkleidung an- oder abgelegt
@@ -973,6 +1048,61 @@ export class WorldScene extends Phaser.Scene {
     if (this.aura) {
       this.aura.setPosition(this.player.x, this.player.y + 2);
     }
+    this.updateCamTarget();
+  }
+
+  /** Kamera auf die Mitte zwischen beiden Spielern. */
+  updateCamTarget() {
+    const t = this.camTarget;
+    if (!t) return;
+    const p = this.player;
+    t.x = this.p2 ? (p.x + this.p2.x) / 2 : p.x;
+    t.y = this.p2 ? (p.y + this.p2.y) / 2 : p.y;
+  }
+
+  /** Unsichtbares Band: niemand läuft dem anderen aus dem Bild. Gibt die erlaubte Richtung zurück. */
+  leash(me, other, vx, vy) {
+    if (!other) return [vx, vy];
+    const dx = me.x - other.x;
+    const dy = me.y - other.y;
+    if (Math.abs(dx) >= LEASH_X && Math.sign(vx) === Math.sign(dx)) vx = 0;
+    if (Math.abs(dy) >= LEASH_Y && Math.sign(vy) === Math.sign(dy)) vy = 0;
+    return [vx, vy];
+  }
+
+  /** Spieler 2: Pfeiltasten oder Gamepad (Stick/Steuerkreuz). */
+  updateP2Movement(blocked) {
+    const p = this.p2;
+    if (!p) return;
+    let vx = 0;
+    let vy = 0;
+    if (!blocked && !this.playerBusy) {
+      const k = this.keys;
+      vx = (k.RIGHT.isDown ? 1 : 0) - (k.LEFT.isDown ? 1 : 0);
+      vy = (k.DOWN.isDown ? 1 : 0) - (k.UP.isDown ? 1 : 0);
+      const pad = this.pad();
+      if (pad && !vx && !vy) {
+        const ax = pad.leftStick?.x ?? 0;
+        const ay = pad.leftStick?.y ?? 0;
+        vx = (pad.right || ax > 0.35 ? 1 : 0) - (pad.left || ax < -0.35 ? 1 : 0);
+        vy = (pad.down || ay > 0.35 ? 1 : 0) - (pad.up || ay < -0.35 ? 1 : 0);
+      }
+      [vx, vy] = this.leash(p, this.player, vx, vy);
+    }
+    const heavy = this.state.withPlayer(2, () => this.state.isOverloaded(), { quiet: true });
+    const v = new Phaser.Math.Vector2(vx, vy).normalize().scale(PLAYER_SPEED * (heavy ? OVERLOAD_SPEED : 1));
+    p.setVelocity(v.x, v.y);
+    if (vx || vy) {
+      this.p2Facing = Math.abs(vx) > Math.abs(vy) ? (vx > 0 ? 'right' : 'left') : vy > 0 ? 'down' : 'up';
+      p.anims.play(`player-walk-${this.p2Facing}`, true);
+    } else {
+      p.anims.stop();
+      p.setFrame(DIRS.indexOf(this.p2Facing) * 4);
+    }
+    p.setDepth(100 + p.y);
+    this.p2Tag?.setPosition(p.x, p.y - 33).setDepth(p.depth + 1);
+    // Abgehängt (z. B. hinter einer Tür hängen geblieben)? Zurück zum Ermittler
+    if (Math.abs(p.x - this.player.x) > LEASH_X + 40 || Math.abs(p.y - this.player.y) > LEASH_Y + 40) p.body.reset(this.player.x, this.player.y);
   }
 
   // --- Paket A: Trank, Kessel, Aura, Kontrollrisse --------------------------------------
@@ -1052,7 +1182,21 @@ export class WorldScene extends Phaser.Scene {
       }
     }
     this.focus = best;
-    this.ui.setPrompt(best ? best.prompt : null, best?.kind);
+    this.focus2 = this.p2 && !blocked ? this.nearestInteractable(this.p2.x, this.p2.y - 3) : null;
+    if (best) this.ui.setPrompt(best.prompt, 'E', best.kind);
+    else if (this.focus2) this.ui.setPrompt(`Spieler 2: ${this.focus2.prompt}`, 'Enter', this.focus2.kind);
+    else this.ui.setPrompt(null);
+  }
+
+  nearestInteractable(px, py) {
+    let best = null;
+    let bestScore = Infinity;
+    for (const it of this.interactables) {
+      if (!it.active || (it.hidden && !this.state.spiritVision)) continue;
+      const d = Phaser.Math.Distance.Between(px, py, it.x, it.y);
+      if (d < it.reach && d / it.reach < bestScore) { best = it; bestScore = d / it.reach; }
+    }
+    return best;
   }
 
   /** Objekte mit "auto" lösen von selbst aus (z. B. ein Hinterhalt), sobald man nah genug ist. */
@@ -1060,11 +1204,17 @@ export class WorldScene extends Phaser.Scene {
     if (blocked) return;
     for (const it of this.interactables) {
       if (!it.def.auto || !it.active) continue;
-      if (Phaser.Math.Distance.Between(this.player.x, this.player.y - 3, it.x, it.y) < it.def.auto) { this.interact(it); return; }
+      if (this.playerSprites().some((p) => Phaser.Math.Distance.Between(p.x, p.y - 3, it.x, it.y) < it.def.auto)) { this.interact(it); return; }
     }
   }
 
   handleKeys(blocked) {
+    const a2 = this.pending2;
+    this.pending2 = null;
+    if (!blocked && a2 && this.p2) {
+      if (a2 === 'interact' && this.focus2) this.interactAs2(this.focus2);
+      else if (a2 === 'inventory') this.ui.openNotebook('items', 2);
+    }
     const action = this.pending;
     this.pending = null;
     if (blocked || !action) return;
@@ -1073,6 +1223,13 @@ export class WorldScene extends Phaser.Scene {
     else if (action === 'notebook') this.ui.openNotebook();
     else if (action === 'inventory') this.ui.openNotebook('items');
     else if (action === 'pathway') this.ui.openNotebook('pfad');
+  }
+
+  /** Spieler 2 benutzt etwas: Beute, Käufe und Gesprächsbelohnungen landen in seiner Tasche. */
+  interactAs2(it) {
+    this.ui.actor = 2;
+    this.state.withPlayer(2, () => this.interact(it));
+    if (!this.ui.modal) this.ui.actor = 1;
   }
 
   interact(it) {
@@ -1168,6 +1325,8 @@ export class WorldScene extends Phaser.Scene {
     this.state.setSpiritVision(false);
     this.player.setVelocity(0, 0);
     this.player.anims.stop();
+    this.p2?.setVelocity(0, 0);
+    this.p2?.anims.stop();
     this.scene.pause();
     this.scene.launch('combat', {
       id,

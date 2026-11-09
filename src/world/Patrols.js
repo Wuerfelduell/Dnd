@@ -66,12 +66,14 @@ export class Patrols {
     const graced = time < this.graceUntil;
     const cone = this.state.policeCone();
     for (const g of this.list) {
-      const seen = !graced && this.sees(g, p.x, p.y - 8, cone);
+      // Zu zweit: wer zuerst gesehen wird, verrät beide
+      const spotted = graced ? null : (this.scene.playerSprites?.() ?? [p]).find((q) => this.sees(g, q.x, q.y - 8, cone));
+      const seen = !!spotted;
       if (seen) {
         g.spotting = true;
         g.lostMs = 0;
         g.seenMs += delta;
-        this.face(g, Math.atan2(p.y - g.sprite.y, p.x - g.sprite.x));
+        this.face(g, Math.atan2(spotted.y - g.sprite.y, spotted.x - g.sprite.x));
         g.sprite.anims.stop();
         if (g.seenMs >= cone.catchSec * 1000) { this.caught(); return; }
       } else if (g.spotting) {
@@ -180,6 +182,7 @@ export class Patrols {
     const s = this.scene;
     for (const g of this.list) { g.spotting = false; g.seenMs = 0; }
     s.player.setVelocity(0, 0);
+    s.p2?.setVelocity(0, 0);
     const res = this.state.arrest();
     s.ui.showMessage('Festgenommen', res.text, {
       aside: s.ui.portraitHtml('streife', 'angry'),
