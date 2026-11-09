@@ -5,11 +5,17 @@ import { fileURLToPath } from 'node:url';
 import assert from 'node:assert/strict';
 const here=path.dirname(fileURLToPath(import.meta.url));
 const root=path.resolve(here,'../../..');
-const files=fs.readdirSync(here).filter(f=>f.endsWith('.json')).sort();
-const pack=Object.fromEntries(files.map(f=>[f.replace('.json',''),JSON.parse(fs.readFileSync(path.join(here,f),'utf8'))]));
+const pkgDir=path.join(root,'src/data/packs/k3_orte');
+// Eingebaut: Spieldaten liegen in src/data/packs/k3_orte, Zusatzdateien bleiben hier. Leere Platzhalter ({}) im Spiel verdecken die Doku-Fassung nicht.
+const rd=(dir)=>fs.readdirSync(dir).filter(f=>f.endsWith('.json')).map(f=>[f.replace('.json',''),JSON.parse(fs.readFileSync(path.join(dir,f),'utf8'))]);
+const isEmpty=(v)=>v&&typeof v==='object'&&!Array.isArray(v)&&!Object.keys(v).length;
+const docPack=Object.fromEntries(rd(here));
+const pack={...docPack,...Object.fromEntries(rd(pkgDir).filter(([k,v])=>!(isEmpty(v)&&k in docPack)))};
+const files=Object.keys(pack).sort().map(k=>k+'.json');
+
 function* walk(v){if(!v||typeof v!=='object')return;yield v;for(const c of Object.values(v))yield*walk(c);}
 function jsonFiles(dir){return fs.readdirSync(dir,{withFileTypes:true}).flatMap(e=>e.isDirectory()?jsonFiles(path.join(dir,e.name)):e.name.endsWith('.json')?[path.join(dir,e.name)]:[]);}
-const sourceFiles=jsonFiles(path.join(root,'src/data'));
+const sourceFiles=jsonFiles(path.join(root,'src/data')).filter(f=>!f.startsWith(pkgDir));
 const sources=sourceFiles.map(f=>({f,v:JSON.parse(fs.readFileSync(f,'utf8'))}));
 const extFlags=new Set(['k3_arrived','k3a_akt1_done','k3a_akt2_done','k3a_akt4_done','kapitel3_done']);
 const extNPC=new Set(['k3_pfiff','k3_gallowmere','k3_willa','k3_oren','k3_mabel','k3_pelham','k3_nellie','k3_huxford','k3_esther','k3_adaine','k3_weichenstellerin']);

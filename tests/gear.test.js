@@ -7,7 +7,7 @@ import { GEAR_SLOTS } from '../src/core/Gear.js';
 import { loadContent } from './helpers.js';
 
 const content = loadContent();
-const gearIds = Object.keys(content.items).filter((id) => content.items[id].kind === 'gear');
+const gearIds = Object.keys(content.items).filter((id) => content.items[id].kind === 'gear' && !content.items[id].quest_reward); // Auftragslohn (Kapitel 3) gibt es nur dort
 
 test('Kleidung hat Icon, Platz und Wirkung', () => {
   assert.ok(gearIds.length >= 35, `${gearIds.length} Stücke`);

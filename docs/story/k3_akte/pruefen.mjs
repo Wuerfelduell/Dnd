@@ -3,13 +3,19 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import assert from 'node:assert/strict';
 const here=path.dirname(fileURLToPath(import.meta.url)), root=path.resolve(here,'../../..');
-const files=fs.readdirSync(here).filter(f=>f.endsWith('.json')).sort();
-const pack=Object.fromEntries(files.map(f=>[f.slice(0,-5),JSON.parse(fs.readFileSync(path.join(here,f),'utf8'))]));
+const pkgDir=path.join(root,'src/data/packs/k3_akte');
+// Eingebaut: Spieldaten liegen in src/data/packs/k3_akte, Zusatzdateien bleiben hier. Leere Platzhalter ({}) im Spiel verdecken die Doku-Fassung nicht.
+const rd=(dir)=>fs.readdirSync(dir).filter(f=>f.endsWith('.json')).map(f=>[f.slice(0,-5),JSON.parse(fs.readFileSync(path.join(dir,f),'utf8'))]);
+const isEmpty=(v)=>v&&typeof v==='object'&&!Array.isArray(v)&&!Object.keys(v).length;
+const docPack=Object.fromEntries(rd(here));
+const pack={...docPack,...Object.fromEntries(rd(pkgDir).filter(([k,v])=>!(isEmpty(v)&&k in docPack)))};
+const files=Object.keys(pack).sort().map(k=>k+'.json');
+
 const errors=[],pending=new Set();
 function check(ok,msg){if(!ok)errors.push(msg);}
 function walk(v,fn,p=''){if(!v||typeof v!=='object')return;fn(v,p);for(const [k,x] of Object.entries(v))walk(x,fn,p+'/'+k);}
 function jsonFiles(dir){return fs.readdirSync(dir,{withFileTypes:true}).flatMap(e=>e.isDirectory()?jsonFiles(path.join(dir,e.name)):e.name.endsWith('.json')?[path.join(dir,e.name)]:[]);}
-const src=jsonFiles(path.join(root,'src/data')).map(f=>({file:f,data:JSON.parse(fs.readFileSync(f,'utf8'))}));
+const src=jsonFiles(path.join(root,'src/data')).filter(f=>!f.startsWith(pkgDir)).map(f=>({file:f,data:JSON.parse(fs.readFileSync(f,'utf8'))}));
 const regs=Object.fromEntries(['maps','npcs','items','encounters','dialogues','quests','facts','clues','endings','deductions'].map(k=>[k,new Set()]));
 const setFlags=new Set();
 function index(data,file){

@@ -73,7 +73,7 @@ test('Paket AD: Itemtexte, Lesestücke, Bestiarium und Gerede sind im Spiel', ()
   assert.ok(content.maps.revier.interactables.some((i) => i.id === 'lore_staubordnung'));
   assert.ok(content.bestiaryTexts.sparring.hinweis);
   assert.ok(content.gossip.kettlegate.altmarkt.length > 3);
-  assert.equal(content.newspapers.length, 42 + 12); // 12 Meldungen aus Paket AL
+  assert.equal(content.newspapers.length, 42 + 12 + 9); // 12 Meldungen aus Paket AL, 9 Ausgaben des Kalkblatts (Kapitel 3)
 });
 
 test('Paket AD: eine Zeitungsausgabe erscheint mit dem Fallende und bleibt im Archiv', () => {

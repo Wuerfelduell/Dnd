@@ -2,7 +2,7 @@
   "k3o_gallowmere_phase2": {
     "name": "Perrin Gallowmere: Phase 2",
     "sprite": "wild",
-    "sheet": "enemy_glockenmutter",
+    "sheet": "enemy_gallowmere",
     "boss": true,
     "fleeable": true,
     "hp": 220,
@@ -46,12 +46,13 @@
       "gives_items": {
         "k3o_leitungsklemme": 1
       }
-    }
+    },
+    "chapter": 3
   },
   "k3o_unterschicht_phase2": {
     "name": "Die Unterschicht: Phase 2",
     "sprite": "wild",
-    "sheet": "enemy_glockenmutter",
+    "sheet": "enemy_unterschicht",
     "boss": true,
     "fleeable": true,
     "hp": 260,
@@ -90,12 +91,13 @@
       "map": "ds_speisewagen",
       "spawn": "default"
     },
-    "lose_text": "Pfiff holt dich zurück. Die Schicht ist nicht weitergerückt."
+    "lose_text": "Pfiff holt dich zurück. Die Schicht ist nicht weitergerückt.",
+    "chapter": 3
   },
   "k3o_unterschicht_phase3": {
     "name": "Die Unterschicht: Phase 3",
     "sprite": "wild",
-    "sheet": "enemy_glockenmutter",
+    "sheet": "enemy_unterschicht",
     "boss": true,
     "fleeable": true,
     "hp": 270,
@@ -139,6 +141,7 @@
       "gives_items": {
         "k3o_stillkiesel": 1
       }
-    }
+    },
+    "chapter": 3
   }
 }

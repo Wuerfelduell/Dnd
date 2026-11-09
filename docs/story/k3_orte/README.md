@@ -85,3 +85,7 @@ node --check docs/story/k3_orte/Signals.skeleton.js
 Der erste Befehl prüft Paketkonsistenz und meldet die exakt vertraglich benannten Fremdreferenzen gesondert. Ein unbekanntes zusätzliches Flag oder eine falsch geschriebene Figur ist ein Fehler. Der strikte Modus schlägt fehl, solange AR/AU ihre 16 verwendeten externen Definitionen nicht in `src/data` integriert haben. Dies ist bewusst keine stillschweigende Ausnahme mit falscher Gesamtfreigabe.
 
 Acht Negativtests beschädigen Zeilen, Spawn, Itemreferenz, Dialogziel, Flagsetzer, Türspawn, Pfad-ID und aktive Pfadfilter. Jeder Defekt muss den Validator scheitern lassen. Strukturprüfung: 18 Karten, 114 Lesestellen, alle Rückwege, alle Objekt-/Roamerpositionen, Bedingungen, Präfixe, Phasenreferenzen, 33 Belohnungszuordnungen, Artefaktgleichheit und identische Gebietskopien.
+
+## Eingebaut (Kapitel 3 Teil 1)
+
+Spieldaten liegen jetzt in `src/data/packs/<paket>/` und werden über `src/data/index.js` geladen. Hier bleiben Doku und noch nicht eingebaute Zusatzdateien (Beutevorschlag, Anreisen, Epiloge, Rufmuster, Horchstellen). `pruefen.mjs` liest beide Orte. Abweichungen beim Einbau: alle Kapitel-3-Kämpfe tragen `chapter: 3`, Gegner nutzen die AX-Sheets (`enemy_<id>`), Kernzutaten sind Trophäen, einzelne Platzierungen wurden auf freie Felder verschoben, Dunscar ist eine eigene Stadtkarte (`city.json`). Offen für Teil 2: Ruf-Ladungen, nahtlose Bossphasen, pfadgefilterte Beute, Epiloge, AV-Tilesets.

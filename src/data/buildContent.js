@@ -37,7 +37,7 @@ export function buildContent({ campaign, quests, cases, maps, dialogues, items =
       ...travel,
       pins: { ...travel.pins, ...(g.pins ?? {}) },
       events: [...(travel.events ?? []), ...(wx.events ?? [])],
-      cities: { ...(travel.cities ?? {}), ...(wx.city ? { [wx.city.id]: wx.city } : {}) },
+      cities: { ...(travel.cities ?? {}), ...(wx.city ? { [wx.city.id]: wx.city } : {}), ...(wx.cities ?? {}) },
     },
     pathways: pathways?.pathways ?? {},
     market: market && { ...market, merchants: { ...market.merchants, ...(b.merchants ?? {}), ...(g.merchants ?? {}) }, sell_prices: { ...market.sell_prices, ...(f.sell_prices ?? {}) } },
@@ -62,6 +62,7 @@ export function buildContent({ campaign, quests, cases, maps, dialogues, items =
   for (const pack of packs) applyQuestPack(content, pack);
   applyLore(content, lore); // Paket AD: Lesestücke, Itemtexte, Bestiarium, Zeitungen, Gerede
   for (const pack of packs) if (pack.zeitung) content.newspapers = [...(content.newspapers ?? []), ...pack.zeitung]; // Paket AL
+  for (const pack of packs) withPackBosses(content, pack); // Kapitel 3: Bosse, Folgeabschnitte und Kampftexte
   applySequenzen(content, sequenzen, sq); // Paket AF: Händler, Treffen und Funde für die neuen Pfade
   applyMoods(content); // Paket AK: Stimmungen für Schlüsselstellen
   return content;
@@ -186,20 +187,37 @@ function withPackTreffen(packs, gatherings, pathways, wexmoor) {
     if (arts && pathways?.artifacts) {
       pathways = { ...pathways, artifacts: { ...pathways.artifacts, list: { ...pathways.artifacts.list, ...arts } } };
     }
-    // Paket AM: neue Wexmoorer Orte (Karten, Gefahrengebiet, Reiseziele, Pins auf der Stadtkarte)
-    if (wexmoor && (pack.maps || pack.zone || pack.travel || pack.pins)) {
+    // Paket AM: neue Wexmoorer Orte (Karten, Gefahrengebiet, Reiseziele, Pins auf der Stadtkarte).
+    // Kapitel 3 (AS): ein Pack mit eigener Stadt (`city`) bringt seine Karten genauso mit; die Stadtkarte kommt zu den übrigen.
+    if (wexmoor && (pack.maps || pack.zone || pack.zones || pack.travel || pack.pins)) {
       const known = new Set((wexmoor.maps ?? []).map((m) => m.id));
       for (const m of pack.maps ?? []) if (known.has(m.id)) throw new Error(`${pack.name}: Karte ${m.id} gibt es schon`);
+      const own = pack.city ? { ...pack.city, pins: { ...(pack.city.pins ?? {}), ...(pack.pins ?? {}) } } : null;
       wexmoor = {
         ...wexmoor,
         maps: [...(wexmoor.maps ?? []), ...(pack.maps ?? [])],
-        zones: { ...(wexmoor.zones ?? {}), ...(pack.zone ?? {}) },
+        zones: { ...(wexmoor.zones ?? {}), ...(pack.zone ?? {}), ...(pack.zones ?? {}) },
         travel: [...(wexmoor.travel ?? []), ...(pack.travel ?? [])],
-        city: { ...wexmoor.city, pins: { ...(wexmoor.city?.pins ?? {}), ...(pack.pins ?? {}) } },
+        city: own ? wexmoor.city : { ...wexmoor.city, pins: { ...(wexmoor.city?.pins ?? {}), ...(pack.pins ?? {}) } },
+        cities: own ? { ...(wexmoor.cities ?? {}), [own.id]: own } : wexmoor.cities,
       };
     }
   }
   return { gatherings, pathways, wexmoor };
+}
+
+/**
+ * Kapitel 3 (AS/AR): Bosse werden an ihrer Station begonnen. Ein Boss, den schon ein Gefahrengebiet erzeugt hat,
+ * bleibt dessen Fassung (mit Beute); Folgeabschnitte (`phasen`) kommen dazu. `boss_texte` ergänzt Intro, Sieg und Niederlage.
+ */
+function withPackBosses(content, pack) {
+  for (const [id, e] of Object.entries({ ...(pack.bosses ?? {}), ...(pack.phasen ?? {}) })) {
+    if (!content.encounters[id]) content.encounters[id] = e;
+  }
+  for (const [id, t] of Object.entries(pack.boss_texte ?? {})) {
+    if (!content.encounters[id]) throw new Error(`${pack.name}: Kampftext für unbekannten Kampf ${id}`);
+    Object.assign(content.encounters[id], t);
+  }
 }
 
 function artifactItems(artifacts) {

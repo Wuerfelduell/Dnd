@@ -5,7 +5,7 @@
 // - Befreundete Einzelgänger bürgen für neue Zirkel (siehe treffen.json), Feinde greifen an und lassen ihre Zutat fallen.
 
 /** Gefährten mit eigenem Vertrauenswert (kein Einzelgänger). */
-export const COMPANIONS = ['zunder'];
+export const COMPANIONS = ['zunder', 'k3_pfiff']; // Kapitel 3: Pfiff (AR)
 
 export const bondMethods = {
   resetBonds() {
