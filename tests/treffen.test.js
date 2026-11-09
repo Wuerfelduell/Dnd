@@ -348,3 +348,25 @@ test('Formeln für Sequenz 6 und 5: nur auf geheimen Treffen oder als seltener F
   for (const pid of pids) for (const q of [6, 5]) assert.ok(drops.some((d) => d.item === `formel_${pid}_${q}`), `Fund: formel_${pid}_${q}`);
   assert.ok(drops.every((d) => d.chance <= 0.05), 'Formel-Funde bleiben selten');
 });
+
+test('Besuchte Treffen verschwinden sofort und die Anzeige zählt auf das nächste', () => {
+  const s = fall4();
+  talk(s, 'schleierbote', ['Stillen Waage']);
+  jumpTo(s, 'waage');
+  const dest = content.travel.find((t) => t.map === 'treffen_waage');
+  assert.ok(s.meets(dest));
+  const notes = [];
+  s.on('gathering', (e) => notes.push(e));
+  s.lastGatheringCycle = s.marketCycle();
+  assert.equal(s.startSession('waage').ok, true);
+  s.endSession();
+  assert.equal(s.gatheringOpen('waage'), false);
+  assert.equal(s.meets(dest), false, 'nicht mehr auf der Stadtkarte');
+  assert.equal(s.gatheringTarget(), null, 'kein Wegweiser mehr');
+  assert.match(s.gatheringStatus().text, /Stille Waage in \d+:\d\d/);
+  s.tickGatherings(1);
+  assert.deepEqual(notes.map((n) => n.open), [false], 'Meldung: aufgelöst');
+  // Das nächste Treffen läuft ganz normal
+  jumpTo(s, 'waage');
+  assert.ok(s.gatheringOpen('waage'));
+});

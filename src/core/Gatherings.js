@@ -72,10 +72,15 @@ export const gatheringMethods = {
     return { id, cycle, start, end: start + r.open_min * 60 };
   },
 
-  /** Das gerade laufende Treffen (egal ob man dazugehört) oder null. */
+  /**
+   * Das gerade laufende Treffen (egal ob man dazugehört) oder null.
+   * Wer die Runde schon besucht hat, für den ist das Treffen vorbei: Es verschwindet von der
+   * Stadtkarte und die Anzeige zählt gleich auf das nächste Treffen herunter.
+   */
   currentGathering() {
     if (!this.gatheringRules()) return null;
     const slot = this.gatheringSlot(this.marketCycle());
+    if (this.sessionHeld?.(slot.id, slot.cycle)) return null;
     return this.playTime < slot.end ? slot : null;
   },
 
