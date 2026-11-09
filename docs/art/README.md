@@ -1,5 +1,19 @@
 # Grafikpaket 14b – Kampf und erste Items
 
+
+## Batch AO — Neue Wexmoor-Figuren (`wexmoor7`)
+
+57 PNGs für die elf festgelegten Figuren aus `codex_AO_k2_figuren.md`: elf Lauf-Sheets (64×128), 22 Emotions-Sheets (256×64, acht Stimmungen je Figur), elf Köpfe (24×24), neun Sonderposen-Sheets (16×32 je Frame), zwei Kampf-Sheets und zwei Staffeleien (32×32). Die zweite Staffelei heißt `props/AO_staffelei_portraet.png`.
+
+- Manifest: [`manifest-wexmoor7.json`](../../public/sprites/manifest-wexmoor7.json), mit Figuren-IDs, Frame-Listen, Tempo und Leerfeldern. Laufrichtungen: unten, links, rechts, oben; Portraits: neutral, misstrauisch, erschrocken, lächelnd; zweite Reihe: wütend, traurig, nachdenklich, entschlossen.
+- Kampf: `enemy_wxn_maler.png` (288×240; idle, brush_slash, paint_throw, hurt, defeated) und `enemy_gemalte_frau.png` (384×320; idle, emerge, attack, hurt, defeated). Je sechs Spalten. Angriffe halten die erste Ausholpose in zwei identischen Frames. `emerge` vor der ersten Bereitschaftsanimation der gemalten Frau abspielen. Kürzere Reihen haben vollständig transparente Restfelder.
+- Nachbearbeitung: gemeinsame Palette mit höchstens 32 sichtbaren Farben, indizierte PNGs, binäres Alpha, Nearest Neighbor, transparente Zellränder. Kartenfiguren haben Grundlinie y=30; Krabbe ist kleiner als die Erwachsenen. Portrait-Köpfe wurden aus dem neutralen Ausdruck abgeleitet. Die kleinen Arbeitsgeräte sind in den Sonderposen enthalten.
+- Erzeugung: [`batch-wexmoor7-generation.json`](batch-wexmoor7-generation.json) enthält die tatsächlich verwendeten Bildprompts, Referenzen, Korrekturen, Quellbild-Dateinamen und SHA-256. Die hochauflösenden Originale gehören nicht zum Laufzeitpaket.
+- Prüfung: `python docs/art/validate-wexmoor7.py` (Pillow); alle 57 Dateien und 371 belegten Frames bestehen die Prüfung von Pflichtumfang, Maßen, Palette, Alpha, Grundlinien, Zellrändern, Animationsverweisen, unterschiedlichen Ausdrücken/Laufschritten und doppelten Ausholframes. Bericht: [`batch-wexmoor7-validation.json`](batch-wexmoor7-validation.json). Sichtprüfung: [`batch-wexmoor7-preview.png`](batch-wexmoor7-preview.png).
+
+Grafiklieferung; die Einbindung und Timing-Abstimmung im laufenden Spiel erfolgen separat.
+
+
 Erzeugt am 9. November 2026 mit dem integrierten Bildgenerator (`image_gen`).
 Quelle der Aufgaben: `prompts.md`; die tatsächlich verwendeten Prompts stehen in
 `batch-14b-generation.json`. Die dortigen Quelldateinamen bezeichnen die ursprünglichen
@@ -1243,3 +1257,47 @@ Ergebnis: `validation-nebenquests.json`, alle Prüfungen bestanden;
 [Items und Kahn](preview-nebenquests-objects.png).
 
 Asset-Lieferung zur separaten Einbindung; Spielcode und Storydaten unverändert.
+
+## Batch AN — Floßfriedhof, Lichtamt und Torfbrüche (`wexmoor6`)
+
+39 PNGs gemäß `codex_AN_k2_orte_grafik.md`: drei Tilesets mit insgesamt 192 benannten
+16×16-Kacheln, drei Prop-Atlanten mit 40 Regionen, zwei Kampf-Hintergründe,
+fünf Kampf-Sheets, fünf Karten-Sheets, fünf Bestiarium-Karten, Moorbraut-Büste,
+sieben Beute-Icons in jeweils 16×16 und 32×32 sowie drei Stadtmarker in einem Sheet.
+
+- Manifest: `public/sprites/manifest-wexmoor6.json`. Orts- und Gegner-IDs bleiben
+  wie im Auftrag vergeben. Props stehen unter `regions`; ihre Animationen unter
+  `regionAnimations`. Das Leuchtturm-Mosaik im Lichtamt ist als 32×32-Region erfasst.
+- Kampf: sechs Spalten; Reihen `idle`, `attack_a`, `attack_b`, `hurt`, `defeated`.
+  Die Moorbraut besitzt zusätzlich `phase2` (Schleier hebt sich, gesichtsloses
+  türkises Licht). `phase2.idleFrames` nennt die zwei vollständig enthüllten Posen.
+  Beide Angriffe beginnen mit exakt zwei gleichen Ausholframes. Leere Zellen sind
+  transparent, Grundlinien einheitlich, Gegner blicken nach links.
+- Karten-Sheets: vier Bewegungsframes in einer Reihe; Torfleiche 16×32, die
+  übrigen Kreaturen 32×32. Die Moorbraut behält auf der Karte den geschlossenen Schleier.
+- Bildgenerierung mit dem integrierten `image_gen`-Werkzeug. Tatsächliche Prompts,
+  Korrekturen, Referenzen, Quellnamen und SHA-256-Prüfsummen stehen in
+  `batch-wexmoor6-generation.json`. Die Generatorquellen werden nicht als
+  Runtime-Dateien mitgeliefert.
+- Export: Nearest Neighbor, gemeinsame bestehende Wexmoor-Palette mit 31
+  sichtbaren Farben, binäres Alpha, deckende Terrain- und Hintergrundbilder.
+  Die unteren 70 Pixel beider 480×270-Kampfhintergründe bleiben freier Boden.
+
+```sh
+# SOURCE_DIRECTORY enthält die im Generierungsprotokoll benannten Originale.
+python docs/art/export-wexmoor6.py SOURCE_DIRECTORY
+# Prüfung benötigt nur die exportierten Dateien (Pillow; Export zusätzlich NumPy).
+python docs/art/verify-wexmoor6.py --preview
+node --test tests/sprites.test.js
+```
+
+Prüfbericht: [validation-wexmoor6.json](validation-wexmoor6.json).
+Sichtkontrolle: [Übersicht](preview-wexmoor6-overview.png),
+[Torfleiche](preview-wexmoor6-torfleiche.png),
+[Grubenlicht](preview-wexmoor6-grubenlicht.png),
+[Torfwurm](preview-wexmoor6-torfwurm.png),
+[Schlickhund](preview-wexmoor6-schlickhund.png),
+[Moorbraut](preview-wexmoor6-moorbraut.png).
+
+Grafiklieferung für Paket AM; Spielcode und andere Pakete bleiben unverändert.
+Einbindung und Timing-Abstimmung im laufenden Spiel erfolgen separat.

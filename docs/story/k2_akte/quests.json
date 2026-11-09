@@ -1,0 +1,621 @@
+{
+  "k2v_kleister": {
+    "title": "Akt I · Der Kleister war noch warm",
+    "kind": "side",
+    "case": "kapitel2",
+    "summary": "Druce löst einen Fetzen Packpapier vom Rad. „Der Steckbrief kam zu früh. Aber jemand hat die Kleisterwagen noch früher bestellt.“ Er zeigt zur Güterablage. „Prüf die Fracht, nicht wieder die Nase auf dem Bild.“",
+    "steps": [
+      {
+        "text": "Prüfe die beiden ersten Quellen.",
+        "done": {
+          "requires_clues": [
+            "k2v_kleister_spur1",
+            "k2v_kleister_spur2"
+          ]
+        },
+        "target": {
+          "map": "wx_bahnhof",
+          "id": "k2v_kleister_spur1",
+          "label": "Fassring"
+        }
+      },
+      {
+        "text": "Vergleiche sie mit den beiden Gegenproben.",
+        "done": {
+          "requires_clues": [
+            "k2v_kleister_spur3",
+            "k2v_kleister_spur4"
+          ]
+        },
+        "target": {
+          "map": "wx_salzmarkt",
+          "id": "k2v_kleister_spur3",
+          "label": "Fuhrzettel am Anschlagbrett"
+        }
+      },
+      {
+        "text": "Verbinde die beiden Fakten im Notizbuch.",
+        "done": {
+          "requires_conclusions": [
+            "k2v_kleister_schluss"
+          ]
+        }
+      },
+      {
+        "text": "Entscheide über die Belege und erhalte die Hilfe.",
+        "done": {
+          "requires_flags": [
+            "k2v_kleister_done"
+          ]
+        },
+        "target": {
+          "map": "wx_bahnhof",
+          "id": "druce",
+          "label": "Der Kleister war noch warm"
+        }
+      }
+    ]
+  },
+  "k2v_telegramm": {
+    "title": "Akt I · Zwei Uhren für eine Nachricht",
+    "kind": "side",
+    "case": "kapitel2",
+    "summary": "Zunder legt Jems Telegramm neben einen Frachtstempel. „Du willst wissen, wer dich erwartet hat. Fang damit an, Hilfe und Bestellung nicht in dieselbe Schublade zu stecken.“ Am Bahnhof liegt der öffentliche Zustellnachweis.",
+    "steps": [
+      {
+        "text": "Prüfe die beiden ersten Quellen.",
+        "done": {
+          "requires_clues": [
+            "k2v_telegramm_spur1",
+            "k2v_telegramm_spur2"
+          ]
+        },
+        "target": {
+          "map": "wx_kahn",
+          "id": "k2v_telegramm_spur1",
+          "label": "Jems Zustellhülle"
+        }
+      },
+      {
+        "text": "Vergleiche sie mit den beiden Gegenproben.",
+        "done": {
+          "requires_clues": [
+            "k2v_telegramm_spur3",
+            "k2v_telegramm_spur4"
+          ]
+        },
+        "target": {
+          "map": "wx_torfstich",
+          "id": "k2v_telegramm_spur3",
+          "label": "Kohlenbotenbuch"
+        }
+      },
+      {
+        "text": "Verbinde die beiden Fakten im Notizbuch.",
+        "done": {
+          "requires_conclusions": [
+            "k2v_telegramm_schluss"
+          ]
+        }
+      },
+      {
+        "text": "Entscheide über die Belege und erhalte die Hilfe.",
+        "done": {
+          "requires_flags": [
+            "k2v_telegramm_done"
+          ]
+        },
+        "target": {
+          "map": "wx_kahn",
+          "id": "zunder",
+          "label": "Zwei Uhren für eine Nachricht"
+        }
+      }
+    ]
+  },
+  "k2v_hoersaale": {
+    "title": "Akt II · Die leeren Plätze",
+    "kind": "side",
+    "case": "kapitel2",
+    "summary": "Wyle zeigt auf vier unbesetzte Plätze in einem alten Kursplan. „Man nennt sie verschwunden. Ich habe keine Gräber gesehen.“ Ihre Stimme wird scharf. „Prüf, ob hier Menschen fehlen oder nur ihre Erlaubnis zu sprechen.“",
+    "steps": [
+      {
+        "text": "Prüfe die beiden ersten Quellen.",
+        "done": {
+          "requires_clues": [
+            "k2v_hoersaale_spur1",
+            "k2v_hoersaale_spur2"
+          ]
+        },
+        "target": {
+          "map": "wx_akademie",
+          "id": "k2v_hoersaale_spur1",
+          "label": "Vier durchgestrichene Sitze"
+        }
+      },
+      {
+        "text": "Vergleiche sie mit den beiden Gegenproben.",
+        "done": {
+          "requires_clues": [
+            "k2v_hoersaale_spur3",
+            "k2v_hoersaale_spur4"
+          ]
+        },
+        "target": {
+          "map": "wx_bahnhof",
+          "id": "k2v_hoersaale_spur3",
+          "label": "Vier Reisekisten"
+        }
+      },
+      {
+        "text": "Verbinde die beiden Fakten im Notizbuch.",
+        "done": {
+          "requires_conclusions": [
+            "k2v_hoersaale_schluss"
+          ]
+        }
+      },
+      {
+        "text": "Entscheide über die Belege und erhalte die Hilfe.",
+        "done": {
+          "requires_flags": [
+            "k2v_hoersaale_done"
+          ]
+        },
+        "target": {
+          "map": "wx_akademie",
+          "id": "wyle",
+          "label": "Die leeren Plätze"
+        }
+      }
+    ]
+  },
+  "k2v_schattenmass": {
+    "title": "Akt II · Das falsche Mittagslicht",
+    "kind": "side",
+    "case": "kapitel2",
+    "summary": "Lamm schiebt eine Kiste mit Übungsblenden über den Hof. „Die Studenten messen mittags Sterne. Dann beschweren sie sich über den Himmel.“ Eine Anleitung in der Akademie beschreibt eine verdächtig alltägliche Fehlerquelle.",
+    "steps": [
+      {
+        "text": "Prüfe die beiden ersten Quellen.",
+        "done": {
+          "requires_clues": [
+            "k2v_schattenmass_spur1",
+            "k2v_schattenmass_spur2"
+          ]
+        },
+        "target": {
+          "map": "wx_akademie",
+          "id": "k2v_schattenmass_spur1",
+          "label": "Offene Seitenfuge"
+        }
+      },
+      {
+        "text": "Vergleiche sie mit den beiden Gegenproben.",
+        "done": {
+          "requires_clues": [
+            "k2v_schattenmass_spur3",
+            "k2v_schattenmass_spur4"
+          ]
+        },
+        "target": {
+          "map": "wx_akademie",
+          "id": "k2v_schattenmass_spur3",
+          "label": "Messung mit Blende"
+        }
+      },
+      {
+        "text": "Verbinde die beiden Fakten im Notizbuch.",
+        "done": {
+          "requires_conclusions": [
+            "k2v_schattenmass_schluss"
+          ]
+        }
+      },
+      {
+        "text": "Entscheide über die Belege und erhalte die Hilfe.",
+        "done": {
+          "requires_flags": [
+            "k2v_schattenmass_done"
+          ]
+        },
+        "target": {
+          "map": "wx_oberstadt",
+          "id": "pedell",
+          "label": "Das falsche Mittagslicht"
+        }
+      }
+    ]
+  },
+  "k2v_umschlaege": {
+    "title": "Akt III · Die Briefe, die zurückkamen",
+    "kind": "side",
+    "case": "kapitel2",
+    "summary": "Hesper zieht leere Umschläge aus einer Schublade. „Der durchscheinende Herr hat nicht nur Öl gebraucht. Er wollte einen Brief zurückhaben, den niemand angenommen hat.“ In seinem Haus könnten die Gegenstücke liegen.",
+    "steps": [
+      {
+        "text": "Prüfe die beiden ersten Quellen.",
+        "done": {
+          "requires_clues": [
+            "k2v_umschlaege_spur1",
+            "k2v_umschlaege_spur2"
+          ]
+        },
+        "target": {
+          "map": "wx_lucent",
+          "id": "k2v_umschlaege_spur1",
+          "label": "Unberührtes Antwortfeld"
+        }
+      },
+      {
+        "text": "Vergleiche sie mit den beiden Gegenproben.",
+        "done": {
+          "requires_clues": [
+            "k2v_umschlaege_spur3",
+            "k2v_umschlaege_spur4"
+          ]
+        },
+        "target": {
+          "map": "wx_lucent",
+          "id": "k2v_umschlaege_spur3",
+          "label": "Falten über dem Fass"
+        }
+      },
+      {
+        "text": "Verbinde die beiden Fakten im Notizbuch.",
+        "done": {
+          "requires_conclusions": [
+            "k2v_umschlaege_schluss"
+          ]
+        }
+      },
+      {
+        "text": "Entscheide über die Belege und erhalte die Hilfe.",
+        "done": {
+          "requires_flags": [
+            "k2v_umschlaege_done"
+          ]
+        },
+        "target": {
+          "map": "wx_salzmarkt",
+          "id": "hesper",
+          "label": "Die Briefe, die zurückkamen"
+        }
+      }
+    ]
+  },
+  "k2v_quartier": {
+    "title": "Akt III · Ein Bett ohne Abdruck",
+    "kind": "side",
+    "case": "kapitel2",
+    "summary": "Brack hat den Bezug eines geliehenen Boots gefunden. „Lucents Haus ist voller Öl, aber sein Bett sieht aus wie neu.“ Sie will wissen, wo er die Stunden zwischen den Lieferungen verbracht hat.",
+    "steps": [
+      {
+        "text": "Prüfe die beiden ersten Quellen.",
+        "done": {
+          "requires_clues": [
+            "k2v_quartier_spur1",
+            "k2v_quartier_spur2"
+          ]
+        },
+        "target": {
+          "map": "wx_lucent",
+          "id": "k2v_quartier_spur1",
+          "label": "Ungedrückte Decke"
+        }
+      },
+      {
+        "text": "Vergleiche sie mit den beiden Gegenproben.",
+        "done": {
+          "requires_clues": [
+            "k2v_quartier_spur3",
+            "k2v_quartier_spur4"
+          ]
+        },
+        "target": {
+          "map": "wx_lucent",
+          "id": "k2v_quartier_spur3",
+          "label": "Der ältere Anlegezettel"
+        }
+      },
+      {
+        "text": "Verbinde die beiden Fakten im Notizbuch.",
+        "done": {
+          "requires_conclusions": [
+            "k2v_quartier_schluss"
+          ]
+        }
+      },
+      {
+        "text": "Entscheide über die Belege und erhalte die Hilfe.",
+        "done": {
+          "requires_flags": [
+            "k2v_quartier_done"
+          ]
+        },
+        "target": {
+          "map": "wx_bojenhafen",
+          "id": "brack",
+          "label": "Ein Bett ohne Abdruck"
+        }
+      }
+    ]
+  },
+  "k2v_hale": {
+    "title": "Akt IV · Die erste verweigerte Unterschrift",
+    "kind": "side",
+    "case": "kapitel2",
+    "summary": "Hale knickt eine Ecke ihres alten Dienstbuchs um. „Ich habe einmal eine falsche Uhrzeit nicht unterschrieben. Darauf bin ich lange stolz gewesen.“ Sie sieht weg. „Vielleicht zu lange.“",
+    "steps": [
+      {
+        "text": "Prüfe die beiden ersten Quellen.",
+        "done": {
+          "requires_clues": [
+            "k2v_hale_spur1",
+            "k2v_hale_spur2"
+          ]
+        },
+        "target": {
+          "map": "wx_salzmarkt",
+          "id": "k2v_hale_spur1",
+          "label": "Alte Dienstbuchseite"
+        }
+      },
+      {
+        "text": "Vergleiche sie mit den beiden Gegenproben.",
+        "done": {
+          "requires_clues": [
+            "k2v_hale_spur3",
+            "k2v_hale_spur4"
+          ]
+        },
+        "target": {
+          "map": "wx_salzmarkt",
+          "id": "k2v_hale_spur3",
+          "label": "Späterer Nachtrag"
+        }
+      },
+      {
+        "text": "Verbinde die beiden Fakten im Notizbuch.",
+        "done": {
+          "requires_conclusions": [
+            "k2v_hale_schluss"
+          ]
+        }
+      },
+      {
+        "text": "Entscheide über die Belege und erhalte die Hilfe.",
+        "done": {
+          "requires_flags": [
+            "k2v_hale_done"
+          ]
+        },
+        "target": {
+          "map": "wx_salzmarkt",
+          "id": "hale",
+          "label": "Die erste verweigerte Unterschrift"
+        }
+      }
+    ]
+  },
+  "k2v_dienstwechsel": {
+    "title": "Akt IV · Die Laterne am falschen Haken",
+    "kind": "side",
+    "case": "kapitel2",
+    "summary": "Brack zieht einen Reparaturzettel aus dem Netzkorb. „Im Wachhaus lässt jemand absichtlich eine Lampe unten. Ich weiß nicht, ob aus Anstand oder weil die Leiter wackelt.“ Du kannst die Schichtzettel an der Oberstadt vergleichen.",
+    "steps": [
+      {
+        "text": "Prüfe die beiden ersten Quellen.",
+        "done": {
+          "requires_clues": [
+            "k2v_dienstwechsel_spur1",
+            "k2v_dienstwechsel_spur2"
+          ]
+        },
+        "target": {
+          "map": "wx_oberstadt",
+          "id": "k2v_dienstwechsel_spur1",
+          "label": "Leiterprüfung"
+        }
+      },
+      {
+        "text": "Vergleiche sie mit den beiden Gegenproben.",
+        "done": {
+          "requires_clues": [
+            "k2v_dienstwechsel_spur3",
+            "k2v_dienstwechsel_spur4"
+          ]
+        },
+        "target": {
+          "map": "wx_bojenhafen",
+          "id": "k2v_dienstwechsel_spur3",
+          "label": "Flickauftrag"
+        }
+      },
+      {
+        "text": "Verbinde die beiden Fakten im Notizbuch.",
+        "done": {
+          "requires_conclusions": [
+            "k2v_dienstwechsel_schluss"
+          ]
+        }
+      },
+      {
+        "text": "Entscheide über die Belege und erhalte die Hilfe.",
+        "done": {
+          "requires_flags": [
+            "k2v_dienstwechsel_done"
+          ]
+        },
+        "target": {
+          "map": "wx_bojenhafen",
+          "id": "brack",
+          "label": "Die Laterne am falschen Haken"
+        }
+      }
+    ]
+  },
+  "k2v_waerter": {
+    "title": "Akt V · Die Hände vor Brandt",
+    "kind": "side",
+    "case": "kapitel2",
+    "summary": "Brack besitzt Abschriften alter Turmdienste. „Rinn kennt den Weg zur Insel. Das hier ist älter und betrifft die Treppe darin.“ Die Wärter haben notiert, wie man die Wartungsklappe ohne Gewalt bewegt.",
+    "steps": [
+      {
+        "text": "Prüfe die beiden ersten Quellen.",
+        "done": {
+          "requires_clues": [
+            "k2v_waerter_spur1",
+            "k2v_waerter_spur2"
+          ]
+        },
+        "target": {
+          "map": "wx_bojenhafen",
+          "id": "k2v_waerter_spur1",
+          "label": "Wartungsabschrift"
+        }
+      },
+      {
+        "text": "Vergleiche sie mit den beiden Gegenproben.",
+        "done": {
+          "requires_clues": [
+            "k2v_waerter_spur3",
+            "k2v_waerter_spur4"
+          ]
+        },
+        "target": {
+          "map": "wx_bojenhafen",
+          "id": "k2v_waerter_spur3",
+          "label": "Abrieb auf dem Lehrmodell"
+        }
+      },
+      {
+        "text": "Verbinde die beiden Fakten im Notizbuch.",
+        "done": {
+          "requires_conclusions": [
+            "k2v_waerter_schluss"
+          ]
+        }
+      },
+      {
+        "text": "Entscheide über die Belege und erhalte die Hilfe.",
+        "done": {
+          "requires_flags": [
+            "k2v_waerter_done"
+          ]
+        },
+        "target": {
+          "map": "wx_bojenhafen",
+          "id": "brack",
+          "label": "Die Hände vor Brandt"
+        }
+      }
+    ]
+  },
+  "k2v_keller": {
+    "title": "Akt V · Der Vorrat, der nie brannte",
+    "kind": "side",
+    "case": "kapitel2",
+    "summary": "Zunder liest eine Packliste ohne Ölposition. „Ich dachte, im Turmkeller lagert nur, was brennen soll. Hier stehen trockene Decken und Waschzeug.“ Sie tippt auf die Versandnummer. „Wir sollten unterscheiden, bevor wir jedes Fass verfluchen.“",
+    "steps": [
+      {
+        "text": "Prüfe die beiden ersten Quellen.",
+        "done": {
+          "requires_clues": [
+            "k2v_keller_spur1",
+            "k2v_keller_spur2"
+          ]
+        },
+        "target": {
+          "map": "wx_kahn",
+          "id": "k2v_keller_spur1",
+          "label": "Die trockene Packliste"
+        }
+      },
+      {
+        "text": "Vergleiche sie mit den beiden Gegenproben.",
+        "done": {
+          "requires_clues": [
+            "k2v_keller_spur3",
+            "k2v_keller_spur4"
+          ]
+        },
+        "target": {
+          "map": "wx_salzmarkt",
+          "id": "k2v_keller_spur3",
+          "label": "Waschrechnung"
+        }
+      },
+      {
+        "text": "Verbinde die beiden Fakten im Notizbuch.",
+        "done": {
+          "requires_conclusions": [
+            "k2v_keller_schluss"
+          ]
+        }
+      },
+      {
+        "text": "Entscheide über die Belege und erhalte die Hilfe.",
+        "done": {
+          "requires_flags": [
+            "k2v_keller_done"
+          ]
+        },
+        "target": {
+          "map": "wx_kahn",
+          "id": "zunder",
+          "label": "Der Vorrat, der nie brannte"
+        }
+      }
+    ]
+  },
+  "k2v_krabbe": {
+    "title": "Krabbe · Was zwei Hände behalten",
+    "kind": "side",
+    "case": "kapitel2",
+    "summary": "Ein Schlickjunge erinnert sich an seine Schwester, aber nicht an ihren Namen. Fünf Fundstücke erlauben eine vorsichtige Zuordnung, keine Behauptung über ihr Schicksal.",
+    "steps": [
+      {
+        "text": "Lerne Krabbe kennen und vereinbare die Suche.",
+        "done": {
+          "requires_flags": [
+            "k2v_krabbe_suche"
+          ]
+        }
+      },
+      {
+        "text": "Erwirb und untersuche die fünf Fundstücke; verpasste Stücke bleiben in seinem Sack.",
+        "done": {
+          "requires_flags": [
+            "k2v_krabbe_gelesen1",
+            "k2v_krabbe_gelesen2",
+            "k2v_krabbe_gelesen3",
+            "k2v_krabbe_gelesen4",
+            "k2v_krabbe_gelesen5"
+          ]
+        }
+      },
+      {
+        "text": "Vergleiche Brief, Holz und gemeinsame Erinnerungen mit Krabbe.",
+        "done": {
+          "requires_flags": [
+            "k2v_krabbe_name"
+          ]
+        }
+      },
+      {
+        "text": "Entscheide vor der Überfahrt mit Krabbe, wie Nelas Name bewahrt wird.",
+        "done": {
+          "requires_flags": [
+            "k2v_krabbe_done"
+          ]
+        },
+        "target": {
+          "map": "wx_bojenhafen",
+          "id": "wxn_krabbe",
+          "label": "Krabbe am Inselsteg"
+        }
+      }
+    ]
+  }
+}
