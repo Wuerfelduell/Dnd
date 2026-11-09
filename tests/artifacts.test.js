@@ -37,6 +37,32 @@ function brew(s, pid, seq) {
 
 const digestAll = (s) => { s.pathway.digestion = 100; };
 
+/** Erfüllt alle Bedingungen des Rituals für die nächste Sequenz und vollzieht es (ab Sequenz 6). */
+function ritual(s, pid, seq) {
+  const r = s.ritualDef(pid, seq);
+  if (!r) return;
+  s.map = r.map;
+  for (const [id, n] of Object.entries(r.consumes ?? {})) s.addItem(id, n);
+  if (r.vision) s.spiritVision = true;
+  s.composure = s.maxComposure();
+  if (r.max_hp_pct) s.hp = Math.floor(s.maxHp * r.max_hp_pct);
+  if (r.min_conclusions) s.conclusions = content.deductions.slice(0, r.min_conclusions).map((d) => d.id);
+  if (r.requires?.min_wins) s.wins = r.requires.min_wins;
+  for (const f of r.requires?.requires_flags ?? []) s.flags.add(f);
+  if (r.tribute) s.money += r.tribute;
+  const res = s.performRitual();
+  assert.equal(res.ok, true, `${pid} ${seq}: ${res.text}`);
+  s.spiritVision = false;
+}
+
+/** Trinkt den nächsten Trank (verdaut vorher, Ritual falls nötig). */
+function ascend(s, pid, seq) {
+  const potion = brew(s, pid, seq);
+  if (s.pathway) digestAll(s);
+  ritual(s, pid, seq);
+  return s.drink(potion, never);
+}
+
 test('Jeder Pfad lässt sich bis Sequenz 5 brauen und trinken, Leben und Nerven wachsen mit', () => {
   assert.equal(SEQ_MAX, 5);
   for (const pid of Object.keys(content.pathways)) {
@@ -45,9 +71,7 @@ test('Jeder Pfad lässt sich bis Sequenz 5 brauen und trinken, Leben und Nerven 
     let lastNerves = s.maxComposure();
     assert.equal(lastNerves, 100);
     for (const seq of [9, 8, 7, 6, 5]) {
-      const potion = brew(s, pid, seq);
-      if (s.pathway) digestAll(s);
-      assert.equal(s.drink(potion, never).ok, true, `${pid} ${seq}`);
+      assert.equal(ascend(s, pid, seq).ok, true, `${pid} ${seq}`);
       assert.equal(s.pathway.seq, seq);
       assert.ok(s.maxHp > lastHp, `${pid} ${seq}: mehr Leben (${s.maxHp})`);
       assert.ok(s.maxComposure() > lastNerves, `${pid} ${seq}: mehr Nerven (${s.maxComposure()})`);
@@ -76,15 +100,14 @@ test('Sequenz 6 und 5: Formeln erst mit Rang, nur für den eigenen Pfad; Verdaue
   assert.ok(!s.shopStock('kittering').find((e) => e.item === 'formel_eisen_6').locked);
   assert.ok(withOffer(s, 'kittering', 'formel_eisen_5').locked, 'Sequenz 5 braucht Sequenz 6');
   const at7 = s.digestTable().find((r) => r.kind === 'combat_win').points;
-  digestAll(s);
-  s.drink(brew(s, 'eisen', 6), never);
+  ascend(s, 'eisen', 6);
   const at6 = s.digestTable().find((r) => r.kind === 'combat_win').points;
   assert.ok(at6 < at7, `Sequenz 6 verdaut langsamer (${at6} < ${at7})`);
 });
 
 test('Hammerfall und Unbeugsam funktionieren im Kampf', () => {
   const s = new GameState(content);
-  for (const seq of [9, 8, 7, 6, 5]) { const p = brew(s, 'eisen', seq); if (s.pathway) digestAll(s); s.drink(p, never); }
+  for (const seq of [9, 8, 7, 6, 5]) ascend(s, 'eisen', seq);
   const c = new Combat(s, 'moorleiche');
   c.ap = 6;
   const r = c.useSkill('unbeugsam', []);
@@ -224,4 +247,41 @@ test('Revier-Dialoge öffnen Asservatenkammer und Gutachterin', () => {
     assert.ok(wing.npcs.some((n) => n.id === id), `${id} steht im Revierflügel`);
     assert.ok(content.npcs[id]);
   }
+});
+
+test('Ab Sequenz 6 braucht jeder Trank ein Ritual: Ort, Zutaten, Bedingung', () => {
+  for (const [pid, p] of Object.entries(content.pathways)) {
+    for (const seq of ['6', '5']) {
+      const r = p.seqs[seq].ritual;
+      assert.ok(r?.name && r.desc && content.maps[r.map], `${pid} ${seq}: Ritual mit Ort`);
+      for (const id of Object.keys(r.consumes)) assert.ok(content.items[id], `${pid} ${seq}: ${id}`);
+    }
+    for (const seq of ['9', '8', '7']) assert.ok(!p.seqs[seq].ritual, `${pid} ${seq}: kein Ritual`);
+  }
+  const s = new GameState(content);
+  for (const seq of [9, 8, 7]) assert.equal(ascend(s, 'eisen', seq).ok, true);
+  const p6 = brew(s, 'eisen', 6);
+  digestAll(s);
+  const chk = s.drinkCheck(p6);
+  assert.equal(chk.ok, false);
+  assert.ok(chk.ritual);
+  // Unverletzt am falschen Ort klappt es nicht
+  s.addItem('ochsenblut', 2);
+  s.addItem('eisenkraut', 2);
+  const fail = s.performRitual();
+  assert.equal(fail.ok, false);
+  assert.match(fail.text, /Schlachthof/);
+  s.map = 'schlachthof';
+  s.hp = Math.floor(s.maxHp / 2);
+  const unruhe = s.unruhe;
+  assert.equal(s.performRitual().ok, true);
+  assert.equal(s.itemCount('ochsenblut'), 0, 'Zutaten verbraucht');
+  assert.ok(s.unruhe > unruhe, 'Ritual bringt Unruhe');
+  assert.equal(s.drinkCheck(p6).ok, true);
+  assert.equal(s.drink(p6, never).ok, true);
+  assert.equal(s.pathway.seq, 6);
+  // Ritual bleibt im Spielstand
+  const t = new GameState(content);
+  t.load(JSON.parse(JSON.stringify(s.serialize())));
+  assert.ok(t.ritualDone('eisen', 6));
 });

@@ -40,6 +40,7 @@ export const pathwayMethods = {
     this.unruhe = 0;
     this.seenNodes = new Set();
     this.visionDigest = { map: null, total: 0 };
+    this.wins = 0; // gewonnene Kämpfe (für Rituale)
     this.resetArtifacts();
   },
 
@@ -136,6 +137,7 @@ export const pathwayMethods = {
    * Gibt die gewonnenen Verdauungspunkte zurück.
    */
   act(kind, amount = 1) {
+    if (kind === 'combat_win') this.wins = (this.wins ?? 0) + 1;
     const p = this.pathway;
     if (!p) return 0;
     const table = this.pathwayDef().digest ?? {};
@@ -225,6 +227,8 @@ export const pathwayMethods = {
     if (it.pathway !== p.id) return { ok: false, reason: 'Ein zweiter Pfad in deinem Blut? Sabeth hat dich gewarnt. Lieber nicht.' };
     if (it.seq >= p.seq) return { ok: false, reason: 'Diese Stufe hast du längst erreicht.' };
     if (it.seq !== p.seq - 1) return { ok: false, reason: 'Du kannst keine Stufe überspringen.' };
+    const rit = this.ritualDef(p.id, it.seq);
+    if (rit && !this.ritualDone(p.id, it.seq)) return { ok: false, reason: `Ohne Ritual zerreißt dich dieser Trank. Vollziehe zuerst „${rit.name}“ (siehe Pfad).`, ritual: true };
     const missing = (100 - p.digestion) / 100;
     const risk = Math.min(0.95, 0.03 + missing * 0.85 + this.unruhe / 250);
     return { ok: true, risk };
@@ -270,6 +274,63 @@ export const pathwayMethods = {
     const maxC = this.maxComposure();
     if (this.composure > maxC) this.composure = maxC;
     this.emit('composure', this.composure);
+  },
+
+  // --- Rituale ---------------------------------------------------------------------------
+  // Ab Sequenz 6 verlangt jeder Trank ein Ritual: an einem bestimmten Ort, mit Zutaten, die dabei
+  // verbraucht werden, und einer Bedingung (Geistsicht, Nerven, Wunden, Schlussfolgerungen, Siege, Tribut).
+  // Danach darf genau dieser Trank getrunken werden (Flag ritual_<pfad>_<seq>).
+
+  ritualDef(pid = this.pathway?.id, seq = (this.pathway?.seq ?? 0) - 1) {
+    return this.seqDef(pid, seq)?.ritual ?? null;
+  },
+
+  ritualDone(pid, seq) {
+    return this.flags.has(`ritual_${pid}_${seq}`);
+  },
+
+  /** Schritte des nächsten Rituals mit Status: [{text, done}] (oder null, wenn keines nötig ist). */
+  ritualSteps(pid = this.pathway?.id, seq = (this.pathway?.seq ?? 0) - 1) {
+    const r = this.ritualDef(pid, seq);
+    if (!r) return null;
+    const steps = [];
+    const mapName = this.content.maps[r.map]?.name ?? r.map;
+    steps.push({ text: `Ort: ${mapName}`, done: this.map === r.map });
+    for (const [id, n] of Object.entries(r.consumes ?? {})) steps.push({ text: `${this.item(id).name} ×${n} (wird verbraucht)`, done: this.itemCount(id) >= n });
+    if (r.vision) steps.push({ text: 'Geistsicht ist aktiv', done: !!this.spiritVision });
+    if (r.min_nerves) steps.push({ text: `Mindestens ${r.min_nerves} Nerven`, done: this.composure >= r.min_nerves });
+    if (r.max_hp_pct) steps.push({ text: `Verwundet: höchstens ${Math.round(r.max_hp_pct * 100)} % Leben`, done: this.hp <= this.maxHp * r.max_hp_pct });
+    if (r.min_conclusions) steps.push({ text: `${r.min_conclusions} Schlussfolgerungen gezogen (${this.conclusions.length})`, done: this.conclusions.length >= r.min_conclusions });
+    if (r.requires?.min_wins) steps.push({ text: `${r.requires.min_wins} Kämpfe gewonnen (${this.wins ?? 0})`, done: (this.wins ?? 0) >= r.requires.min_wins });
+    if (r.requires?.requires_flags) {
+      for (const f of r.requires.requires_flags) {
+        const enc = this.content.encounters[f.replace(/^won_/, '')];
+        steps.push({ text: enc ? `${enc.name} besiegt` : f, done: this.flags.has(f) });
+      }
+    }
+    if (r.tribute) steps.push({ text: `${r.tribute} Schilling als Tribut`, done: this.money >= r.tribute });
+    if (!this.itemCount(`trank_${pid}_${seq}`)) steps.push({ text: `Trank der Sequenz ${seq} dabei`, done: false });
+    return steps;
+  },
+
+  /** Vollzieht das Ritual für den nächsten Trank. Ergebnis: { ok, text } */
+  performRitual() {
+    const p = this.pathway;
+    const seq = (p?.seq ?? 0) - 1;
+    const r = p && this.ritualDef(p.id, seq);
+    if (!r) return { ok: false, text: 'Für deinen nächsten Trank brauchst du kein Ritual.' };
+    if (this.ritualDone(p.id, seq)) return { ok: false, text: 'Das Ritual ist schon vollzogen. Trink den Trank.' };
+    const open = this.ritualSteps(p.id, seq).filter((x) => !x.done);
+    if (open.length) return { ok: false, text: `Es fehlt noch: ${open.map((x) => x.text).join(', ')}.` };
+    for (const [id, n] of Object.entries(r.consumes ?? {})) this.removeItem(id, n);
+    if (r.tribute) this.addMoney(-r.tribute, { reason: 'Tribut' });
+    const rules = this.content.ritualRules ?? { unruhe: 20, nerves: 20 };
+    this.flags.add(`ritual_${p.id}_${seq}`);
+    this.setComposure(this.composure - (rules.nerves ?? 20));
+    this.setUnruhe(this.unruhe + (rules.unruhe ?? 20));
+    this.emit('ritual', { pathway: p.id, seq });
+    this.emit('changed');
+    return { ok: true, text: `${r.name}\n\n${r.desc}\n\nDas Ritual ist vollzogen. Die Luft um dich summt. Jetzt kannst du den Trank der Sequenz ${seq} trinken.` };
   },
 
   // --- Brauen ---------------------------------------------------------------------------
@@ -385,7 +446,7 @@ export const pathwayMethods = {
   },
 
   serializePathway() {
-    return { money: this.money, pathway: this.pathway, unruhe: Math.round(this.unruhe), seenNodes: [...this.seenNodes], ...this.serializeArtifacts() };
+    return { money: this.money, pathway: this.pathway, unruhe: Math.round(this.unruhe), seenNodes: [...this.seenNodes], wins: this.wins, ...this.serializeArtifacts() };
   },
 
   loadPathway(data) {
@@ -394,6 +455,7 @@ export const pathwayMethods = {
     this.pathway = p && this.seqDef(p.id, p.seq) ? { id: p.id, seq: p.seq, digestion: p.digestion ?? 0 } : null;
     this.unruhe = Math.max(0, Math.min(UNRUHE_MAX - 1, data.unruhe ?? 0));
     this.seenNodes = new Set(data.seenNodes ?? []);
+    this.wins = data.wins ?? 0;
     this.loadArtifacts(data);
     this.maxHp = this.calcMaxHp();
     this.hp = Math.max(1, Math.min(this.maxHp, data.hp ?? this.maxHp));
