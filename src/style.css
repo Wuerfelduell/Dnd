@@ -313,6 +313,11 @@ button.small { font-size: 0.8em; padding: 0.1em 0.5em; }
 .citymap .pin .mk { display: block; width: 2em; height: 2em; image-rendering: pixelated; background-repeat: no-repeat;
   background-size: 26em 4em; background-position: calc(var(--c) * -2em) 0; filter: drop-shadow(0 0.125em 0 #000); }
 .citymap .pin:hover .mk, .citymap .pin.sel .mk, .citymap .pin.here .mk { background-position: calc(var(--c) * -2em) -2em; }
+/* Paket O: Treffen-Marker (3x4-Raster), Zeilen 3/4 pulsieren, solange das Treffen läuft */
+.citymap .pin.live .mk { background-size: 6em 8em; animation: treffenpulse 0.66s steps(1) infinite; }
+.citymap .pin.live:hover .mk, .citymap .pin.live.sel .mk, .citymap .pin.live.here .mk { animation: none; background-position: calc(var(--c) * -2em) -2em; }
+@keyframes treffenpulse { 0% { background-position: calc(var(--c) * -2em) -4em; } 50% { background-position: calc(var(--c) * -2em) -6em; } }
+.treffen .atlas-icon { vertical-align: middle; margin-right: 0.2em; }
 .citymap .pin.here:disabled { opacity: 1; cursor: default; }
 .citymap .pin .num { position: absolute; right: -0.6em; top: -0.5em; font-size: 0.75em; color: var(--gold); background: #1a1420; border: 0.125em solid var(--brass); border-radius: 0.3em; padding: 0 0.25em; line-height: 1.1; }
 .citymap .pin .tag { position: absolute; left: 50%; top: 2.1em; transform: translateX(-50%); white-space: nowrap; font-size: 0.7em; color: var(--ink);

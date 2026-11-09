@@ -5,7 +5,7 @@ import {
   portraitUrl, portraitFor, mapMarkerOf, LOG_MARKERS, LOG_MARKERS_URL, SOURCE_ICONS, SPRITE_BASE,
   endingImageUrl, caseFileUrl, sceneUrl, wantedUrl, QUEST_UI_URL, QUEST_PINS, QUEST_BANNERS,
   TURN_PORTRAITS, TURN_PORTRAITS_URL, TURN_PORTRAIT_URLS, BESTIARY, bestiaryUrl,
-  headUrl, sourceKind, sourceKindUrl, inspectUrl, RISK_ICONS, RISK_ICONS_URL, JOURNAL_FRAME, JOURNAL_FRAME_URL, choiceRisk, riskOf,
+  headUrl, ZIRKEL_URL, ZIRKEL_ICONS, sourceKind, sourceKindUrl, inspectUrl, RISK_ICONS, RISK_ICONS_URL, JOURNAL_FRAME, JOURNAL_FRAME_URL, choiceRisk, riskOf,
   factionEmblemUrl, TRAVEL_MODES_URL, TRAVEL_MODE_ICONS, TRAVEL_MARKER_URL,
   DANGER_URL, DANGER_ICONS, DANGER_BANNER, RARITY_SHEET, RARITY_SHEET_URL, RARITY_GEMS,
 } from '../world/assets.js';
@@ -33,7 +33,7 @@ const turnFace = (id) => {
 };
 const skillIcon = (id) => atlasIcon(SKILL_ICONS_URL, SKILL_ICONS[id], 7);
 const statusIcon = (id, title) => atlasIcon(STATUS_ICONS_URL, STATUS_ICONS[id], 12, title);
-const mapMarker = (map) => atlasIcon(...mapMarkerOf(map), 13);
+const mapMarker = (map) => { const [url, i, cols] = mapMarkerOf(map); return atlasIcon(url, i, cols); };
 /** Portrait (64x64 aus einem 256x64-Streifen) für den Dialog. */
 const portrait = (id, mood) => {
   const p = portraitFor(id, mood);
@@ -265,7 +265,12 @@ export class Ui {
     const st = this.state.gatheringStatus();
     el.classList.toggle('hidden', !st);
     el.classList.toggle('open', !!st?.open);
-    if (st) el.textContent = `${st.open ? '◆' : '◇'} ${st.text}`;
+    if (!st) return;
+    const g = st.open ?? st.next;
+    const [, inv] = ZIRKEL_ICONS[g.id] ?? [];
+    const frac = st.open ? (g.end - this.state.playTime) / Math.max(1, g.end - g.start) : 1;
+    const timer = st.open ? atlasIcon(ZIRKEL_URL, 24 + Math.min(7, Math.max(0, Math.floor((1 - frac) * 8))), 8) : '';
+    el.innerHTML = `${inv !== undefined ? atlasIcon(ZIRKEL_URL, 16 + inv, 8) : (st.open ? '◆' : '◇')}${timer} ${esc(st.text)}`;
   }
 
   updateMoney() {
@@ -534,9 +539,9 @@ export class Ui {
     const pin = (map, cls, inner, attrs = '') => {
       if (map === goalMap) { cls += ' goal'; inner += `${questUi('qpin', QUEST_PINS.amber)}<span class="goaltag">Ziel</span>`; }
       const [x, y] = pins[map];
-      const [url, cell = 0] = mapMarkerOf(map);
-      const col = cell % 13;
-      return `<button class="pin ${cls}" ${attrs} style="left:${x / 8}em;top:${y / 8}em">
+      const [url, cell = 0, cols = 13, live = false] = mapMarkerOf(map);
+      const col = cell % cols;
+      return `<button class="pin ${cls}${live ? ' live' : ''}" ${attrs} style="left:${x / 8}em;top:${y / 8}em">
         <span class="mk" style="--c:${col};background-image:url(${url})"></span>${inner}</button>`;
     };
     const here = pins[current] ? pin(current, 'here', `<span class="youmark" style="background-image:url(${TRAVEL_MARKER_URL})"></span><span class="tag">Du bist hier</span>`, 'disabled') : '';
