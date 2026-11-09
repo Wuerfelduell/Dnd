@@ -1,0 +1,107 @@
+[
+  {
+    "map": "wx_torfstich",
+    "tile": [
+      6,
+      12
+    ],
+    "npc": "wxn_torfgraeber",
+    "visible_if": {
+      "requires_flags": [
+        "k2_akt3_done"
+      ]
+    }
+  },
+  {
+    "map": "wx_pfahldorf",
+    "tile": [
+      2,
+      4
+    ],
+    "interactable": {
+      "id": "k2o_friedhof_einstieg",
+      "kind": "door",
+      "to": "wx_flossfriedhof",
+      "spawn": "default",
+      "prompt": "Den Floßfriedhof betreten",
+      "marker": true,
+      "lock": {
+        "requires_flags": [
+          "k2o_friedhof_offen"
+        ],
+        "text": "Der Anlegesteg ist mit einem Tau gesperrt. Jonas Peck am Torfstich weiß, wann Agathe Besucher empfängt.",
+        "footer": "Nach Akt III: Sprich mit Jonas."
+      }
+    }
+  },
+  {
+    "map": "wx_torfstich",
+    "tile": [
+      5,
+      7
+    ],
+    "interactable": {
+      "id": "k2o_torf_einstieg",
+      "kind": "door",
+      "to": "wx_torfbrueche",
+      "spawn": "default",
+      "prompt": "In die Torfbrüche hinabsteigen",
+      "marker": true,
+      "lock": {
+        "requires_flags": [
+          "k2o_torf_offen"
+        ],
+        "text": "Der Stollen ist gesperrt. Jonas kennt einen sicheren Einstieg.",
+        "footer": "Nach Akt III: Sprich mit Jonas."
+      }
+    }
+  },
+  {
+    "map": "wx_oberstadt",
+    "tile": [
+      17,
+      4
+    ],
+    "interactable": {
+      "id": "k2o_amt_haupteingang",
+      "kind": "door",
+      "to": "wx_lichtamt",
+      "spawn": "default",
+      "prompt": "Das Lichtamt betreten",
+      "marker": true,
+      "lock": {
+        "requires_flags": [
+          "k2o_amt_offen",
+          "k2_wear_akademierobe"
+        ],
+        "text": "Der Pförtner prüft deine Kleidung. „Nur zur Akteneinsicht angemeldete Akademieangehörige.“",
+        "footer": "Erst Agathes Überführung prüfen, dann im Kahn die Akademie-Robe anziehen. Oder die Seitentür benutzen."
+      }
+    }
+  },
+  {
+    "map": "wx_oberstadt",
+    "tile": [
+      20,
+      4
+    ],
+    "interactable": {
+      "id": "k2o_amt_seiteneingang",
+      "kind": "door",
+      "to": "wx_lichtamt",
+      "spawn": "seite",
+      "prompt": "Das Lichtamt betreten",
+      "marker": true,
+      "lock": {
+        "requires_flags": [
+          "k2o_amt_offen"
+        ],
+        "requires_items": [
+          "k2o_amtsschluessel"
+        ],
+        "text": "Ein altes Bestatterschloss hält die Seitentür zu.",
+        "footer": "Agathe gibt dir nach dem leeren Grab den passenden Schlüssel."
+      }
+    }
+  }
+]

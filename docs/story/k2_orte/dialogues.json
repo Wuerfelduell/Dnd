@@ -1,0 +1,590 @@
+{
+  "k2o_jonas": {
+    "start": "k2o_jonas_start",
+    "nodes": {
+      "k2o_jonas_start": {
+        "text": "Jonas klopft seine kalte Pfeife gegen den Stiefel. „Im Moor hält sich alles. Nur der Lohn nicht.“",
+        "choices": [
+          {
+            "text": "Du hast etwas im Stollen gesehen?",
+            "next": "k2o_auftrag",
+            "requires_flags": [
+              "k2_akt3_done"
+            ],
+            "hide_if_quests": [
+              "k2o_ring_im_torf"
+            ],
+            "hide_if_flags": [
+              "kapitel2_done"
+            ]
+          },
+          {
+            "text": "Der Eintrag und die Verfügung liegen vor.",
+            "next": "k2o_bericht",
+            "requires_quests_active": [
+              "k2o_gestrichene_braut"
+            ],
+            "requires_flags": [
+              "k2o_name_gelesen",
+              "k2o_verfuegung_gelesen",
+              "k2o_corvin_entschieden"
+            ]
+          },
+          {
+            "text": "Wo muss ich jetzt suchen?",
+            "next": "k2o_weg",
+            "requires_flags": [
+              "k2o_aufbruch"
+            ]
+          },
+          {
+            "text": "Ich gehe."
+          }
+        ]
+      },
+      "k2o_auftrag": {
+        "text": "„Eine Braut, unten im alten Bruch. Nicht Knochen, eine ganze Frau im Kleid. Am Ring sitzt der Leuchtturm im Kreis.“ Jonas zeigt dir den Weg auf einem Torfziegel. „Sie hat die Hand auf den weichen Steg gelegt. Dort kannst du nachsehen, ohne zu ihr hinunterzugehen.“",
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ],
+        "sets_flags": [
+          "k2o_aufbruch",
+          "k2o_torf_offen",
+          "k2o_friedhof_offen"
+        ],
+        "start_quests": [
+          "k2o_ring_im_torf"
+        ]
+      },
+      "k2o_weg": {
+        "text": "„Erst der Abdruck am Sichtsteg und die Fährmarke daneben. Agathe erkennt die Nummern ihrer Flöße.“ Jonas zieht den Gürtel enger. „Für die Akten gehst du ins Lichtamt. Für die Braut gehst du wieder unter die Erde. Verwechsel das nicht.“",
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      },
+      "k2o_bericht": {
+        "text": "„Marta Vennick“, wiederholt Jonas. „Zweihundert Jahre, und das Amt hat jedes Jahr eine saubere Abschrift gemacht.“ Er gibt dir seinen gesparten Lohn. „Am Brautbecken hält der Ring den Schlamm zusammen. Du musst den Bann brechen, bevor du ihn tragen kannst. Danach zwingt dich niemand, ihren Namen preiszugeben.“",
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ],
+        "complete_quests": [
+          "k2o_gestrichene_braut"
+        ],
+        "start_quests": [
+          "k2o_grab_ohne_namen"
+        ],
+        "sets_flags": [
+          "k2o_gestrichene_braut_done",
+          "k2o_braut_bereit"
+        ],
+        "gives_money": 20
+      }
+    }
+  },
+  "k2o_agathe": {
+    "start": "k2o_agathe_start",
+    "nodes": {
+      "k2o_agathe_start": {
+        "text": "Agathe hält das Leichenhaus-Floß mit einer Stake vom Steg fern. „Wer liegt, zahlt keine Liegegebühr. Die Lebenden finden das ungerecht.“",
+        "choices": [
+          {
+            "text": "Jonas hat das Amtssiegel und die Nummer 17 gesehen.",
+            "next": "k2o_sichtung",
+            "requires_quests_active": [
+              "k2o_ring_im_torf"
+            ],
+            "requires_flags": [
+              "k2o_ring_spur",
+              "k2o_faehre_spur"
+            ]
+          },
+          {
+            "text": "Hier sind die Schabspuren und die Quittung.",
+            "next": "k2o_schluessel",
+            "requires_quests_active": [
+              "k2o_leeres_floss"
+            ],
+            "requires_flags": [
+              "k2o_grab_spur",
+              "k2o_quittung_spur"
+            ]
+          },
+          {
+            "text": "Wie komme ich ins Lichtamt?",
+            "next": "k2o_zugang",
+            "requires_flags": [
+              "k2o_amt_offen"
+            ]
+          },
+          {
+            "text": "Der Bann ist gebrochen. Welche Wege bleiben?",
+            "next": "k2o_abschlusswege",
+            "requires_quests_active": [
+              "k2o_grab_ohne_namen"
+            ],
+            "requires_flags": [
+              "won_moorbraut"
+            ],
+            "hide_if_flags": [
+              "k2o_ende"
+            ]
+          },
+          {
+            "text": "Ich habe den Ringschlüssel verlegt.",
+            "next": "k2o_ersatz",
+            "requires_flags": [
+              "k2o_amt_offen"
+            ],
+            "hide_if_items": [
+              "k2o_amtsschluessel"
+            ]
+          },
+          {
+            "text": "Wie liegt das Floß jetzt?",
+            "next": "k2o_nach_name",
+            "requires_flags": [
+              "k2o_ende_name"
+            ]
+          },
+          {
+            "text": "Ich habe den Ring zurückgebracht.",
+            "next": "k2o_nach_moor",
+            "requires_flags": [
+              "k2o_ende_moor"
+            ]
+          },
+          {
+            "text": "Das Lichtamt hat bezahlt.",
+            "next": "k2o_nach_verkauf",
+            "requires_flags": [
+              "k2o_ende_verkauf"
+            ]
+          },
+          {
+            "text": "Ich gehe."
+          }
+        ]
+      },
+      "k2o_sichtung": {
+        "text": "„Siebzehn. Das leere Grab.“ Agathe greift nach einem alten Kassenbeutel. „Die zwölf Schilling sind für die Suche, nicht für die Tote. Sie schuldet uns nichts.“ Sie zeigt auf das Floß hinter den beiden Grabsteinen. „Sieh dir das Holz und die Quittung im Leichenhaus an. Das Moor stellt keine Belege aus.“",
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ],
+        "complete_quests": [
+          "k2o_ring_im_torf"
+        ],
+        "start_quests": [
+          "k2o_leeres_floss"
+        ],
+        "sets_flags": [
+          "k2o_ring_im_torf_done"
+        ],
+        "gives_money": 12
+      },
+      "k2o_schluessel": {
+        "text": "„Gerade Messerschnitte, trockene Tinte. Jemand ließ den Namen abschaben und den Körper zurück ins Moor bringen.“ Agathe nimmt einen Schlüssel vom schwarzen Band. „Die Bestatter mussten früher die Seitentür benutzen. Wir durften die große Halle nicht nass machen. Corvin führt heute das Register.“",
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ],
+        "complete_quests": [
+          "k2o_leeres_floss"
+        ],
+        "start_quests": [
+          "k2o_gestrichene_braut"
+        ],
+        "sets_flags": [
+          "k2o_leeres_floss_done",
+          "k2o_amt_offen"
+        ],
+        "gives_items": {
+          "k2o_amtsschluessel": 1
+        },
+        "gives_money": 16
+      },
+      "k2o_zugang": {
+        "text": "„Der Pförtner am Haupteingang lässt die Akademie-Robe durch. Zieh sie im Kahn an, nur im Bündel hilft sie dir wenig.“ Agathe hebt ihren Schlüssel. „Oder nimm die Seitentür in der Oberstadt. Beide Wege sind bewacht. Mit einem Schlüssel wird man nicht unsichtbar.“",
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      },
+      "k2o_ersatz": {
+        "text": "Agathe holt einen zweiten Schlüssel aus dem Leichenhaus. „Der erste taucht wieder auf. Hier taucht alles wieder auf.“ Sie bindet ihn dir diesmal ans Handgelenk.",
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ],
+        "gives_items": {
+          "k2o_amtsschluessel": 1
+        }
+      },
+      "k2o_abschlusswege": {
+        "text": "„Du kannst das Täfelchen auf Floß 17 befestigen. Dann hat Marta wieder einen Platz bei uns.“ Agathe legt das Messer hin. „Oder du gibst ihr den Ring im Brautbecken zurück und lässt sie dort. Corvin nimmt ihn auch, gegen Geld und Schweigen. Erst am jeweiligen Ort entscheidest du endgültig.“",
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      },
+      "k2o_nach_name": {
+        "text": "„Es liegt tiefer“, sagt Agathe. „So, als trüge es endlich jemanden.“ Sie schiebt eine Blüte vom Steg auf das Floß. Niemand zählt sie.",
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      },
+      "k2o_nach_moor": {
+        "text": "Agathe lässt die Vertäuung von Floß 17 locker. „Dann bleibt der Platz leer. Das ist etwas anderes, als zu behaupten, es habe nie jemanden gegeben.“",
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      },
+      "k2o_nach_verkauf": {
+        "text": "Agathe sieht auf deine trockenen Handschuhe. „Ich bestatte vieles. Deine Entscheidung nicht.“ Hinter ihr stößt das leere Floß gegen denselben Pfahl wie zuvor.",
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      }
+    }
+  },
+  "k2o_corvin": {
+    "start": "k2o_corvin_start",
+    "nodes": {
+      "k2o_corvin_start": {
+        "text": "Corvin richtet seine Ärmelschoner zum dritten Mal. „Auskunft kostet nichts. Darum wird sie hier so ungern gegeben.“",
+        "choices": [
+          {
+            "text": "Ich suche Überführung 17. Dein Name bleibt aus meiner Abschrift.",
+            "next": "k2o_schuetzen",
+            "requires_quests_active": [
+              "k2o_gestrichene_braut"
+            ],
+            "hide_if_flags": [
+              "k2o_corvin_entschieden"
+            ]
+          },
+          {
+            "text": "Zeig das Register, sonst nenne ich dich öffentlich als Mitwisser.",
+            "next": "k2o_drohen",
+            "requires_quests_active": [
+              "k2o_gestrichene_braut"
+            ],
+            "hide_if_flags": [
+              "k2o_corvin_entschieden"
+            ]
+          },
+          {
+            "text": "Wo liegen die beiden Blätter?",
+            "next": "k2o_index",
+            "requires_flags": [
+              "k2o_corvin_entschieden"
+            ]
+          },
+          {
+            "text": "Das Amt kann den Ring zurückkaufen.",
+            "next": "k2o_kaufangebot",
+            "requires_quests_active": [
+              "k2o_grab_ohne_namen"
+            ],
+            "requires_flags": [
+              "won_moorbraut"
+            ],
+            "requires_items": [
+              "brautring"
+            ],
+            "hide_if_flags": [
+              "k2o_ende",
+              "k2_end_rein",
+              "k2_end_moor"
+            ]
+          },
+          {
+            "text": "Der Dienst geht weiter?",
+            "next": "k2o_nachwort",
+            "requires_flags": [
+              "k2o_ende"
+            ]
+          },
+          {
+            "text": "Ich gehe."
+          }
+        ]
+      },
+      "k2o_schuetzen": {
+        "text": "„Dann schreib, was du findest. Nicht, wer dir die Schublade gezeigt hat.“ Corvin schiebt den Katalog heran. „Trauregister C, Blatt 17. Die Fortgeltung liegt im Kartenraum. Du brauchst beide Blätter, sonst sieht es aus wie ein altes Versehen.“",
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ],
+        "sets_flags": [
+          "k2o_corvin_entschieden",
+          "k2o_corvin_hilft",
+          "k2o_index"
+        ],
+        "honor": 1
+      },
+      "k2o_drohen": {
+        "text": "„Du würdest meinen Namen nehmen, um einen anderen zurückzugeben?“ Corvin zeigt auf den Katalog. „C, Blatt 17. Fortgeltung im Kartenraum.“ Dann zieht er die Meldeschnur. Du entkommst durch den Seitengang in die Oberstadt. Die beiden Fundstellen hast du dir gemerkt.",
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ],
+        "sets_flags": [
+          "k2o_corvin_entschieden",
+          "k2o_corvin_verraet",
+          "k2o_index"
+        ],
+        "wanted": 2,
+        "honor": -2,
+        "travel": {
+          "map": "wx_oberstadt",
+          "spawn": "default"
+        }
+      },
+      "k2o_index": {
+        "text": "„Archiv, Register C. Kartenraum, Fortgeltungsmappe.“ Corvin spricht jetzt so leise, dass du nur die Anfangsbuchstaben hörst. Sie reichen.",
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      },
+      "k2o_kaufangebot": {
+        "text": "Corvin öffnet die Kasse für „Rückführung amtlicher Siegel“. „Fünfundsiebzig Schilling. Der Ring bleibt hier, Marta bleibt gestrichen.“ Er schiebt die Quittung zu dir. Deine Abschrift kann er dir nicht nehmen.",
+        "choices": [
+          {
+            "text": "Ring verkaufen. Auf Martas Namen verzichten.",
+            "next": "k2o_verkaufen",
+            "requires_items": [
+              "brautring"
+            ],
+            "hide_if_flags": [
+              "k2o_ende",
+              "k2_end_rein",
+              "k2_end_moor"
+            ]
+          },
+          {
+            "text": "Den Ring behalten."
+          }
+        ]
+      },
+      "k2o_verkaufen": {
+        "text": "Das Siegel verschwindet in einer Schublade, die Münzen in deiner Hand. Corvin streicht nur die Nummer durch, weil der Name längst fehlt. Du behältst dein Wissen. Auf Floß 17 bleibt das Holz leer.",
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ],
+        "takes_items": {
+          "brautring": 1
+        },
+        "gives_money": 75,
+        "honor": -5,
+        "sets_flags": [
+          "k2o_ende",
+          "k2o_ende_verkauf"
+        ],
+        "complete_quests": [
+          "k2o_grab_ohne_namen"
+        ]
+      },
+      "k2o_nachwort": {
+        "text": "Corvin schiebt eine saubere Seite unter den Löschsand. „Die vorige ist nicht weg. Nur unten.“ Er sieht dich an, als wüsste er selbst nicht, ob das eine Entschuldigung war.",
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      }
+    }
+  },
+  "k2o_braut": {
+    "start": "k2o_braut_start",
+    "nodes": {
+      "k2o_braut_start": {
+        "text": "Im schwarzen Wasser steht eine Frau im Brautkleid. Ihre Hand liegt offen auf dem Torf. Sie bewegt die Lippen, doch der Ring antwortet mit deiner Stimme.",
+        "choices": [
+          {
+            "text": "Den Bann des Rings brechen.",
+            "next": "k2o_kampf",
+            "requires_flags": [
+              "k2o_braut_bereit"
+            ],
+            "hide_if_flags": [
+              "won_moorbraut",
+              "k2o_ende"
+            ]
+          },
+          {
+            "text": "Den Ring in Martas Hand zurücklegen.",
+            "next": "k2o_moorwahl",
+            "requires_flags": [
+              "won_moorbraut"
+            ],
+            "requires_items": [
+              "brautring"
+            ],
+            "hide_if_flags": [
+              "k2o_ende"
+            ]
+          },
+          {
+            "text": "Zum Floßfriedhof zurückgehen."
+          },
+          {
+            "text": "Ich gehe."
+          }
+        ]
+      },
+      "k2o_kampf": {
+        "text": "Du nennst Marta beim Namen. Der Ring zieht sich zusammen, und der Schlamm hebt sich wie ein Vorhang. Nicht Marta greift nach dir. Das Siegel will seine Nummer behalten.",
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ],
+        "encounter": "moorbraut"
+      },
+      "k2o_moorwahl": {
+        "text": "Marta dreht die Handfläche nach oben. Du kannst den Ring zurückgeben und den Namen im Notizbuch behalten. Dann bleibt sie unter dem Moor, und auf dem Floß wird kein neues Täfelchen hängen.",
+        "choices": [
+          {
+            "text": "Sie hier lassen und den Ring zurückgeben.",
+            "next": "k2o_moorende",
+            "requires_items": [
+              "brautring"
+            ],
+            "hide_if_flags": [
+              "k2o_ende"
+            ]
+          },
+          {
+            "text": "Noch nicht entscheiden."
+          }
+        ]
+      },
+      "k2o_moorende": {
+        "text": "Du legst den Ring in ihre Hand, das gebrochene Siegel nach unten. Der Schlamm schließt sich langsam. Jonas wartet am Stollenausgang und gibt dir dreißig Schilling aus der gemeinsamen Bergungskasse. „Dann schreiben wir wenigstens auf, wo sie liegt.“",
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ],
+        "takes_items": {
+          "brautring": 1
+        },
+        "gives_money": 30,
+        "honor": 1,
+        "sets_flags": [
+          "k2o_ende",
+          "k2o_ende_moor"
+        ],
+        "complete_quests": [
+          "k2o_grab_ohne_namen"
+        ]
+      }
+    }
+  },
+  "k2o_grab": {
+    "start": "k2o_grab_start",
+    "nodes": {
+      "k2o_grab_start": {
+        "text": "Das Floß schlägt leise gegen seine Vertäuung. Über dem leeren Grab ist Platz für einen Namen.",
+        "choices": [
+          {
+            "text": "Marta Vennicks Namen ins Täfelchen schneiden.",
+            "next": "k2o_namenwahl",
+            "requires_flags": [
+              "won_moorbraut"
+            ],
+            "requires_items": [
+              "brautring"
+            ],
+            "hide_if_flags": [
+              "k2o_ende"
+            ]
+          },
+          {
+            "text": "Das neue Täfelchen lesen.",
+            "next": "k2o_namenruhe",
+            "requires_flags": [
+              "k2o_ende_name"
+            ]
+          },
+          {
+            "text": "Ich gehe."
+          }
+        ]
+      },
+      "k2o_namenwahl": {
+        "text": "Agathe reicht dir das Messer. „Marta Vennick. Grubenvermesserin. Nicht: Eigentum des Lichtamts.“ Wenn du das Täfelchen setzt und den Ring darunter befestigst, verzichtest du auf das Geld des Amts und auf die Rückgabe ins Moor.",
+        "choices": [
+          {
+            "text": "Täfelchen setzen und den Ring daran befestigen.",
+            "next": "k2o_namenende",
+            "requires_items": [
+              "brautring"
+            ],
+            "hide_if_flags": [
+              "k2o_ende"
+            ]
+          },
+          {
+            "text": "Das Messer zurücklegen."
+          }
+        ]
+      },
+      "k2o_namenende": {
+        "text": "Du schneidest langsam, bis kein Buchstabe dem nächsten weicht. Der Ring bleibt unter dem Täfelchen, und das Floß sinkt um eine Handbreit tiefer. Auf dem nassen Holz liegt ein Kranz aus Moorblüten. Agathe gibt dir zwanzig Schilling und lässt dich mit dem Namen allein.",
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ],
+        "takes_items": {
+          "brautring": 1
+        },
+        "gives_items": {
+          "brautkranz": 1
+        },
+        "gives_money": 20,
+        "honor": 6,
+        "sets_flags": [
+          "k2o_ende",
+          "k2o_ende_name"
+        ],
+        "complete_quests": [
+          "k2o_grab_ohne_namen"
+        ]
+      },
+      "k2o_namenruhe": {
+        "text": "„Marta Vennick, Grubenvermesserin.“ Darunter ist nichts eingetragen. Agathe hat Platz gelassen für das, was ihr nie erfahren werdet.",
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      }
+    }
+  }
+}
