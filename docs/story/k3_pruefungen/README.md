@@ -26,3 +26,19 @@ Die zehn Sequenz-1-Quests öffnen erst nach `kapitel3_done` und ab Sequenz 2. Ge
 ## Prüfung
 
 `node docs/story/k3_pruefungen/pruefen.mjs` prüft Struktur, Verweise, Freigaben, Vollständigkeit und Belohnungspfade. Noch nicht vorhandene AR/AS-Vertragsziele werden namentlich als Abhängigkeiten ausgegeben; `--strict` behandelt sie als Fehler. Das ist keine Behauptung einer bereits lauffähigen Integration.
+
+## Eingebaut
+
+Die Spieldaten liegen in `src/data/packs/k3_pruefungen/`. Die Herkunftstabelle bleibt hier.
+- `GameState.meets` wertet `requires_pathway` aus: `[pfad, grenze]` verlangt diesen Pfad mit Sequenz grenze oder besser. Ohne Pfad ist die Bedingung nicht erfüllt.
+- Sequenz 4 bis 1 sind spielbar (`SEQ_MAX = 1`). Neu sind die Verdauungsraten 0,20, 0,16, 0,13 und 0,10 und die Wachstumsschritte 2/2/3/3 auf den Bestand, wie empfohlen.
+- Die Formeln für 4 bis 1 gibt es bei Kittering ab 90/110/135/160 Ehre, zu den AF-Preisen 180/260/380/560.
+- `rituale.json` ersetzt die Rituale der Stufen 4 bis 1.
+- Die Kernzutaten 3 bis 1 (und 5 der neuen Pfade beim Schwellenhund) geben die Kernfächer der Hüter aus. Das sind die Dialoge aus `beute_vorschlag.json`, nur für den eigenen Pfad.
+- Für Trank- und Formelbilder ab Stufe 4 wird vorerst das Bild der Stufe 5 genutzt.
+
+Noch offen:
+- Ersatz nach verlorenem Trank
+- harte 100-%-Verdauung vor dem Trinken
+- Koop-Ansprüche je Spieler
+- die `k3p_*_friedlich`-Adapter der Hauptbosse

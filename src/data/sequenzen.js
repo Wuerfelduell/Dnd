@@ -6,7 +6,7 @@
  * liegen geladen unter content.highSeqs (Kernzutaten unter content.highItems), bis Kapitel 3 die Bosse für ihre Kernzutaten bringt.
  * Die sechs Artefakte sind Belohnungen dieser Seq-4-Aufgaben und stehen schon in artifacts.list.
  */
-export const SEQ_HIGHEST = 5;
+export const SEQ_HIGHEST = 1; // Kapitel 3: alle Stufen bis 1 sind spielbar
 
 /** Neue Pfade leihen sich bis zur eigenen Grafik Emblem, Karte, Pose, Trankbild und Effekte bei einem Bestandspfad. */
 export const PATHWAY_STANDIN = { sq_waage: 'eisen', sq_moor: 'kessel', sq_uhr: 'schluessel' };
@@ -17,6 +17,8 @@ const KITTERING = {
   6: { price: 260, honor: 50, rare: 0.08, rank: 'Vertrauter des Reviers' }, 5: { price: 420, honor: 70, rare: 0.05, rank: 'Geachteter Ermittler' },
 };
 const TREFFEN = { 6: 640, 5: 900 };
+/** Kapitel 3: Formeln für Sequenz 4 bis 1 aller Pfade bei Kittering (Preise und Ehre nach AF, einmaliger Kauf). */
+const KITTERING_HOCH = { 4: { price: 180, honor: 90 }, 3: { price: 260, honor: 110 }, 2: { price: 380, honor: 135 }, 1: { price: 560, honor: 160 } };
 /** Knapper Markt: Zutaten ab Sequenz 7 nur auf geheimen Treffen (7 und 6 in Kettlegate, der Kern für 5 in Wexmoor). */
 const ZUTAT_TREFFEN = { 7: { price: 120, chance: 0.45 }, 6: { price: 200, chance: 0.3 }, 5: { price: 320, chance: 0.3 } };
 /** Wer auf den Treffen Zutaten und Formeln der neuen Pfade anbietet: Kettlegate [Zirkel, Mitglied], Wexmoor [Zirkel, Mitglied]. */
@@ -36,8 +38,12 @@ export function withSequenzen(pathways, sq) {
   const live = (seqs) => Object.fromEntries(Object.entries(seqs).filter(([n]) => Number(n) >= SEQ_HIGHEST));
   const high = (seqs) => Object.fromEntries(Object.entries(seqs).filter(([n]) => Number(n) < SEQ_HIGHEST));
   const highSeqs = {};
-  for (const [pid, p] of Object.entries(sq.seq_4_bis_1 ?? {})) highSeqs[pid] = high(p.seqs);
   const added = {};
+  for (const [pid, p] of Object.entries(sq.seq_4_bis_1 ?? {})) {
+    highSeqs[pid] = high(p.seqs);
+    const old = pathways.pathways[pid];
+    if (old) added[pid] = { ...old, seqs: { ...old.seqs, ...live(p.seqs) } };
+  }
   for (const [pid, p] of Object.entries(sq.neue_pfade ?? {})) {
     highSeqs[pid] = high(p.seqs);
     const standin = pathways.pathways[PATHWAY_STANDIN[pid]];
@@ -45,6 +51,12 @@ export function withSequenzen(pathways, sq) {
       ...sd, skill: { fx: standin?.seqs[n]?.skill.id, ...sd.skill },
     }]));
     added[pid] = { ...p, seqs };
+  }
+  // Kapitel 3 (AU): die offenen Proben ersetzen die Rituale der Stufen 4 bis 1
+  for (const [pid, perSeq] of Object.entries(sq.rituale ?? {})) {
+    const p = added[pid];
+    if (!p) continue;
+    added[pid] = { ...p, seqs: Object.fromEntries(Object.entries(p.seqs).map(([n, sd]) => [n, perSeq[n] ? { ...sd, ritual: perSeq[n] } : sd])) };
   }
   const highItems = Object.fromEntries(Object.entries(sq.zutaten ?? {}).filter(([id]) => lockedIngredient(id)));
   return {
@@ -84,6 +96,14 @@ export function applySequenzen(content, sq, { highSeqs = {}, highItems = {} } = 
         kit.stock.push({ item: `formel_${pid}_${seq}`, price: k.price, once: true,
           ...(seq < 9 ? { requires_pathway: [pid, seq + 1], locked_text: `Erst ab Sequenz ${seq + 1} dieses Pfades${k.rank ? ` und Rang ${k.rank}` : ''}` } : {}),
           ...(k.honor ? { requires_honor: k.honor } : {}), ...(k.rare ? { rare: k.rare } : {}) });
+      }
+    }
+    for (const pid of Object.keys(content.pathways)) {
+      for (const [n, k] of Object.entries(KITTERING_HOCH)) {
+        const seq = Number(n);
+        if (!content.items[`formel_${pid}_${seq}`]) continue;
+        kit.stock.push({ item: `formel_${pid}_${seq}`, price: k.price, once: true, requires_honor: k.honor,
+          requires_pathway: [pid, seq + 1], locked_text: `Erst ab Sequenz ${seq + 1} dieses Pfades und ${k.honor} Ehre` });
       }
     }
     content.market = { ...m, merchants: { ...merchants, nell, kittering: kit } };

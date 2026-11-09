@@ -38,7 +38,7 @@ function validate(p){
  const maps=new Map(p.maps.map(m=>[m.id,m]));
  fail(maps.size===18&&[...fixedMaps].every(id=>maps.has(id)),'18 feste Karten-IDs');
  const encounters={...p.encounters,...p.bosses,...p.phasen};
- const registry={maps:new Set([...source.maps,...maps.keys()]),items:new Set([...source.items,...Object.keys(p.items)]),npcs:new Set([...source.npcs,...Object.keys(p.npcs)]),encounters:new Set([...source.encounters,...Object.keys(encounters)]),dialogues:new Set([...source.dialogues,...Object.keys(p.dialogues)])};
+ const registry={maps:new Set([...source.maps,...maps.keys()]),items:new Set([...source.items,...Object.keys(p.items)]),npcs:new Set([...source.npcs,...Object.keys(p.npcs)]),encounters:new Set([...source.encounters,...Object.keys(encounters)]),dialogues:new Set([...source.dialogues,...Object.keys(p.dialogues),...Object.keys(p.beute_vorschlag??{})])};
  const flags=new Set(source.flags);
  for(const data of Object.values(p))for(const o of walk(data)){
   for(const f of o.sets_flags??[]){fail(f.startsWith('k3o_'),'Fremdes Flag gesetzt: '+f);flags.add(f);}

@@ -22,12 +22,12 @@ function brewPotion(s, pid, seq) {
   return `trank_${pid}_${seq}`;
 }
 
-test('Zehn Pfade (sieben + Waage, Moor, Uhr aus Paket AF) mit je Sequenz 9 bis 5, Fertigkeit, Passiven und kaufbaren Zutaten', () => {
+test('Zehn Pfade (sieben + Waage, Moor, Uhr aus Paket AF) mit je Sequenz 9 bis 1, Fertigkeit, Passiven und kaufbaren Zutaten', () => {
   const ids = Object.keys(content.pathways);
   assert.equal(ids.length, 10);
   const skillIds = new Set();
   for (const [pid, p] of Object.entries(content.pathways)) {
-    assert.deepEqual(Object.keys(p.seqs).sort(), ['5', '6', '7', '8', '9'], pid);
+    assert.deepEqual(Object.keys(p.seqs).sort(), ['1', '2', '3', '4', '5', '6', '7', '8', '9'], pid);
     assert.ok(p.principle && p.digest_hint && Object.keys(p.digest).length >= 2, `${pid}: Grundsatz`);
     for (const [n, sd] of Object.entries(p.seqs)) {
       assert.ok(sd.name && sd.desc && sd.skill?.id && sd.skill.desc, `${pid} ${n}`);
@@ -41,7 +41,14 @@ test('Zehn Pfade (sieben + Waage, Moor, Uhr aus Paket AF) mit je Sequenz 9 bis 5
   // Jede Zutat und Formel ist irgendwo zu kaufen (bei Händlern oder als Los auf einem geheimen Treffen)
   const lots = Object.values(content.gatherings.circles).flatMap((c) => (c.members ?? []).flatMap((m) => m.offers.map((e) => e.item)));
   const sold = new Set([...Object.values(content.market.merchants).flatMap((m) => m.stock.map((e) => e.item)), ...lots]);
-  for (const [id, it] of Object.entries(content.items)) if (['ingredient', 'formula'].includes(it.kind)) assert.ok(sold.has(id), `${id} wird nirgends verkauft`);
+  // Kernzutaten für 4 bis 1 gibt es nur aus Kapitel 3: Hedda nach der Pfadprüfung (4) und die Kernfächer der Hüter (3 bis 1)
+  const given = new Set();
+  (function walk(v) { if (!v || typeof v !== 'object') return; for (const id of Object.keys(v.gives_items ?? {})) given.add(id); for (const x of Object.values(v)) walk(x); })(content.dialogues);
+  for (const [id, it] of Object.entries(content.items)) {
+    if (!['ingredient', 'formula'].includes(it.kind)) continue;
+    if (/^sq_zutat_\w+_[1-4]$/.test(id)) assert.ok(given.has(id), `${id} gibt es nirgends`);
+    else assert.ok(sold.has(id), `${id} wird nirgends verkauft`);
+  }
   for (const m of Object.values(content.market.merchants)) for (const e of m.stock) assert.ok(content.items[e.item], `Händlerware ${e.item}`);
 });
 

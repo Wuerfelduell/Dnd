@@ -1035,8 +1035,10 @@ const AG_ICONS = (id) => AF_ARTIFACTS.includes(id) || /^sq_zutat_\w+_\d$/.test(i
 /** Trank/Formel eines neuen Pfads → Bild des Bestandspfads gleicher Stufe. */
 const standinIcon = (id) => {
   if (AG_ICONS(id)) return id; // Paket AG: eigene Bilder für Zutaten und Artefakte
-  const t = /^(trank|formel)_(sq_\w+)_(\d)$/.exec(id);
-  return t && PATHWAY_STANDIN[t[2]] ? `${t[1]}_${PATHWAY_STANDIN[t[2]]}_${t[3]}` : id;
+  const t = /^(trank|formel)_(\w+)_(\d)$/.exec(id);
+  if (!t) return id;
+  // Sequenz 4 bis 1 haben noch keine eigenen Trank- und Formelbilder: das Bild der Stufe 5 des Pfads
+  return `${t[1]}_${PATHWAY_STANDIN[t[2]] ?? t[2]}_${Math.max(5, Number(t[3]))}`;
 };
 export const itemIconUrl = (id) => `${BASE}items/${ITEM_ICON_ALIASES[id] ?? standinIcon(id)}.png`;
 /** 32x32-Fassung (gibt es für Tränke und die Stimmphiole). */
@@ -2088,3 +2090,19 @@ for (const id of ['endbahnhof', 'schwellenring', 'arbeiterbogen', 'bruchstufen',
 Object.assign(BATTLE_BACKGROUNDS, { ds_kalkmarkt: 'bg_ds_arbeiterbogen', ds_signalhang: 'bg_ds_bruchstufen', ds_nachtzug_wagen: 'bg_ds_nachtzug', ds_nachtzug_lok: 'bg_ds_nachtzug' });
 // Paket AT (Kapitel 3 Nebenaufträge): Zunders vier Begleitbriefe nutzen vorerst Ivys Brief, bis eigene Icons kommen
 for (const end of ['rein', 'moor', 'lichtmeister', 'meer']) ITEM_ICON_ALIASES[`k3n_brief_aus_wexmoor_brief_${end}`] = 'k2n_ivys_brief';
+/** AU/AX: die zehn Prüfungsgegner (keine Bosse im Kampfsinn, aber mit Auftrittsbild). */
+export const K3P_ENEMIES = ['lampengutachter', 'gegenzeugenknuepfer', 'garderobenpfaender', 'pausenfischer', 'chargenpruefer', 'brueckenpresser', 'zollriegel',
+  'fristpfaender', 'schichtsammler', 'gangaufseher'].map((n) => `k3p_${n}`);
+for (const id of K3P_ENEMIES) {
+  BATTLE_SHEETS[`enemy_${id}`] = [`battle/enemy_${id}.png`, 64, 64];
+  ENCOUNTER_SHEETS[id] = `enemy_${id}`;
+  OVERWORLD_SHEETS[id] = [`characters/F_ow_${id}.png`, 16, 32];
+  PROP_ORIGINS[`ow_${id}`] = 0.85;
+  ANIM_ALIASES[`enemy_${id}`] = { special: 'attack', cast: 'attack' };
+  BESTIARY_FILES[id] = `F_${id}`;
+  if (!BESTIARY.includes(id)) BESTIARY.push(id);
+}
+for (const id of K3P_ENEMIES) {
+  BOSS_INTROS[id] = `${id}_ds`;
+  BOSS_INTRO_IMAGES[`${id}_ds`] = [`DS_boss_${id}`, `ui/DS_boss_${id}.png`];
+}

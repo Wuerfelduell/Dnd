@@ -77,7 +77,8 @@ test('Kampf: jede Pfad-Fähigkeit hat Effekt und Icon wie im Manifest', () => {
       // Neue Fähigkeiten dürfen bis zur eigenen Grafik den Effekt einer anderen leihen (fx)
       const id = sd.skill.fx ?? sd.skill.id;
       assert.ok(SKILL_FX[id], `Effekt fehlt: ${id}`);
-      const fx = kampfAsset(`fx_${id}`) ?? MANIFEST_FILES.manifestSequenzen2.assets.find((a) => a.id === `fx_${id}`);
+      const fx = kampfAsset(`fx_${id}`) ?? MANIFEST_FILES.manifestSequenzen2.assets.find((a) => a.id === `fx_${id}`)
+        ?? manifest('sequenzen3').assets.find((a) => a.id === `fx_sq_${id}` || a.id === `fx_${id}` || a.id === id); // Paket AG: Seq 4 bis 1
       assert.equal(fx.frameWidth, SKILL_FX[id], `Framegröße ${id}`);
       assert.ok(fx.animations.cast, id);
     }

@@ -10,16 +10,17 @@ const content = loadContent();
 const NEW = ['sq_waage', 'sq_moor', 'sq_uhr'];
 const file = (url) => new URL(`../public/${url.replace(/^.*?sprites\//, 'sprites/')}`, import.meta.url);
 
-test('Paket AF: drei neue Pfade spielbar bis Sequenz 5, Stufen 4 bis 1 aller zehn Pfade geladen, aber gesperrt', () => {
-  assert.equal(SEQ_MAX, 5);
-  for (const pid of NEW) {
-    assert.deepEqual(Object.keys(content.pathways[pid].seqs).sort(), ['5', '6', '7', '8', '9']);
-    assert.ok(content.items[`trank_${pid}_9`] && content.items[`formel_${pid}_5`]);
+test('Paket AF + Kapitel 3: alle zehn Pfade spielbar bis Sequenz 1, die Proben von AU ersetzen die Rituale 4 bis 1', () => {
+  assert.equal(SEQ_MAX, 1);
+  for (const pid of Object.keys(content.pathways)) {
+    assert.deepEqual(Object.keys(content.pathways[pid].seqs).sort(), ['1', '2', '3', '4', '5', '6', '7', '8', '9'], pid);
+    for (const n of [4, 3, 2, 1]) {
+      assert.ok(content.items[`trank_${pid}_${n}`] && content.items[`formel_${pid}_${n}`], `${pid} ${n}`);
+      assert.match(content.pathways[pid].seqs[n].ritual.name, /offene Probe/, `${pid} ${n}`);
+    }
   }
-  assert.equal(Object.keys(content.highSeqs).length, 10);
-  for (const p of Object.values(content.highSeqs)) assert.deepEqual(Object.keys(p).sort(), ['1', '2', '3', '4']);
-  assert.ok(!content.items.trank_laterne_4 && !content.items.sq_zutat_laterne_4, 'Seq 4 bringt noch keinen Trank und keine Zutat');
-  assert.equal(Object.keys(content.highItems).length, 40);
+  assert.ok(content.items.sq_zutat_laterne_4 && content.items.sq_zutat_uhr_1);
+  assert.deepEqual(Object.keys(content.highItems), []);
 });
 
 test('Paket AF: Grundzutat und Formel 9 für jeden kaufbar, ab 7 nur auf Treffen, Kern für 5 in Wexmoor', () => {
