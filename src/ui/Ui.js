@@ -1276,7 +1276,7 @@ export class Ui {
         <div class="meter vialm">${uiSprite('vial', `v${pctStep(s.composure / s.maxComposure(), 6)}`, 1 / 24, 'vial', 'Nerven')}<span>Nerven</span><em>${Math.round(s.composure)}/${s.maxComposure()}</em></div>
       </div>
       <p class="lead"><em>„${esc(p.principle)}“</em> ${esc(p.digest_hint)}</p>
-      <p class="muted">Jede Sequenz dieses Pfades: +${s.growth().hp} Leben, +${s.growth().nerves} Nerven. Gerade: ${s.maxHp} Leben, ${s.maxComposure()} Nerven.</p>
+      <p class="muted">Jede Sequenz dieses Pfades: +${s.growth().hp} Leben, +${s.growth().nerves} Nerven, die Durchbrüche 7 und 6 das Doppelte. Gerade: ${s.maxHp} Leben, ${s.maxComposure()} Nerven.</p>
       ${this.ritualHtml()}
       <h4>Was deinen Trank verdaut</h4>
       <ul class="digestlist">${s.digestTable().map((r) => `<li><span>${esc(r.label)}</span> <strong>+${r.points} %</strong></li>`).join('')}

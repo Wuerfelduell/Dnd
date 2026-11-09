@@ -17,6 +17,8 @@ export const SEQ_MAX = 5; // höchste erreichbare Stufe in dieser Version
 export const DIGEST_RATE = { 9: 1, 8: 0.7, 7: 0.5, 6: 0.35, 5: 0.25 };
 export const COMPOSURE_BASE = 100;
 export const DEFAULT_GROWTH = { hp: 5, nerves: 5 };
+// Durchbrüche: Sequenz 7 und 6 zählen beim Wachstum doppelt (große Sprünge an Leben und Nerven).
+export const SEQ_GROWTH_STEPS = { 7: 2, 6: 2 };
 export const UNRUHE_MAX = 100;
 export const UNRUHE_DECAY_PER_SEC = 0.25;
 export const UNRUHE_VISION_PER_SEC = 0.35;
@@ -31,7 +33,7 @@ export const DIGEST_LABELS = {
   loot: 'Belohnung eingestrichen',
 };
 const MULT_KEYS = new Set(['vision_cost', 'composure_regen', 'heal_bonus', 'price', 'sell', 'honor_loss', 'occult_mult',
-  'money_bonus', 'skill_composure', 'calm_decay', 'dodge_window', 'damage_taken', 'digest_mult']);
+  'money_bonus', 'skill_composure', 'calm_decay', 'dodge_window', 'damage_taken', 'digest_mult', 'dmg_mult']);
 
 export const pathwayMethods = {
   resetPathway() {
@@ -88,6 +90,14 @@ export const pathwayMethods = {
     return this.pathway ? SEQ_START + 1 - this.pathway.seq : 0;
   },
 
+  /** Wachstumsstufen: jede erreichte Sequenz eine, die Durchbrüche (7 und 6) zwei. */
+  growthSteps() {
+    if (!this.pathway) return 0;
+    let n = 0;
+    for (let s = SEQ_START; s >= this.pathway.seq; s--) n += SEQ_GROWTH_STEPS[s] ?? 1;
+    return n;
+  },
+
   /** Zuwachs an Leben und Nerven pro erreichter Sequenz. */
   growth() {
     return { ...DEFAULT_GROWTH, ...(this.pathwayDef()?.growth ?? {}) };
@@ -95,13 +105,13 @@ export const pathwayMethods = {
 
   /** Höchstwert der Nerven: Grundwert, Sequenzen, Passive und Artefakte. */
   maxComposure() {
-    return Math.max(20, COMPOSURE_BASE + this.growth().nerves * this.seqSteps() + this.passive('max_nerves'));
+    return Math.max(20, COMPOSURE_BASE + this.growth().nerves * this.growthSteps() + this.passive('max_nerves'));
   },
 
   /** Höchstwert des Lebens (ohne zu heilen oder zu verletzen). */
   calcMaxHp() {
     const base = this.content.start.hp ?? 40;
-    return Math.max(10, base + this.growth().hp * this.seqSteps() + this.passive('max_hp'));
+    return Math.max(10, base + this.growth().hp * this.growthSteps() + this.passive('max_hp'));
   },
 
   /** Kampffertigkeiten des eigenen Pfades: { id: skill } */
