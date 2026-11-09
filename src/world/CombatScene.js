@@ -1,6 +1,7 @@
 import Phaser from 'phaser';
 import { Combat, WINDOW, EARLY_LIMIT, judgeDefense, judgeTiming } from '../core/Combat.js';
 import { createTextures, createCharacterSheet } from './textures.js';
+import { BATTLE_BACKGROUNDS, ENEMY_BATTLE_SHEETS, playBattleAnim } from './assets.js';
 import { VIEW_W, VIEW_H, PLAYER_PALETTE } from './WorldScene.js';
 
 // Kampfbildschirm in Seitenansicht: Spieler links, Gegner rechts, Bodenstreifen unten.
@@ -46,26 +47,41 @@ export class CombatScene extends Phaser.Scene {
 
   buildStage() {
     const map = this.state.content.maps[this.state.map];
-    const ground = { revier: 0x3a2e24, crypt: 0x2e2e36, ebba: 0x26301e }[map.id] ?? 0x343744;
-    this.add.rectangle(0, 0, VIEW_W, VIEW_H, 0x080a12).setOrigin(0);
-    // Ferne Silhouetten
-    for (let i = 0; i < 12; i++) {
-      const w = 30 + ((i * 37) % 40);
-      const h = 40 + ((i * 53) % 70);
-      this.add.rectangle(i * 44 - 10, GROUND_Y - h, w, h, 0x111522).setOrigin(0);
+    const bg = BATTLE_BACKGROUNDS[map.id];
+    if (bg && this.textures.exists(bg)) {
+      this.add.image(0, 0, bg).setOrigin(0);
+    } else {
+      const ground = { revier: 0x3a2e24, crypt: 0x2e2e36, ebba: 0x26301e }[map.id] ?? 0x343744;
+      this.add.rectangle(0, 0, VIEW_W, VIEW_H, 0x080a12).setOrigin(0);
+      // Ferne Silhouetten
+      for (let i = 0; i < 12; i++) {
+        const w = 30 + ((i * 37) % 40);
+        const h = 40 + ((i * 53) % 70);
+        this.add.rectangle(i * 44 - 10, GROUND_Y - h, w, h, 0x111522).setOrigin(0);
+      }
+      this.add.rectangle(0, GROUND_Y, VIEW_W, VIEW_H - GROUND_Y, ground).setOrigin(0);
+      this.add.rectangle(0, GROUND_Y, VIEW_W, 2, 0x000000, 0.5).setOrigin(0);
     }
-    this.add.rectangle(0, GROUND_Y, VIEW_W, VIEW_H - GROUND_Y, ground).setOrigin(0);
-    this.add.rectangle(0, GROUND_Y, VIEW_W, 2, 0x000000, 0.5).setOrigin(0);
     const glow = this.add.image(VIEW_W / 2, GROUND_Y - 20, 'glow').setScale(7, 3).setAlpha(0.18).setTint(0xffb860);
     glow.setBlendMode(Phaser.BlendModes.ADD);
     this.fog = this.add.tileSprite(0, 0, VIEW_W, VIEW_H, 'fog_a').setOrigin(0).setAlpha(0.2).setDepth(40);
 
-    createCharacterSheet(this, 'player', PLAYER_PALETTE);
-    this.player = this.add.sprite(PLAYER_X, GROUND_Y + 14, 'player', 8).setOrigin(0.5, 1).setScale(2).setDepth(10);
+    if (this.textures.exists('battle_player')) {
+      // Kampf-Sheet (48x48, Blick nach rechts); Füße liegen am unteren Zellrand.
+      this.player = this.add.sprite(PLAYER_X, GROUND_Y + 14, 'battle_player', 0).setOrigin(0.5, 1).setScale(1.5).setDepth(10);
+      this.idle(this.player);
+    } else {
+      createCharacterSheet(this, 'player', PLAYER_PALETTE);
+      this.player = this.add.sprite(PLAYER_X, GROUND_Y + 14, 'player', 8).setOrigin(0.5, 1).setScale(2).setDepth(10);
+    }
     this.add.ellipse(PLAYER_X, GROUND_Y + 14, 34, 8, 0x000000, 0.35).setDepth(9);
 
     const spr = this.combat.enc.sprite;
-    if (spr.startsWith('npc:')) {
+    const battleSheet = ENEMY_BATTLE_SHEETS[spr];
+    if (battleSheet && this.textures.exists(battleSheet)) {
+      this.enemy = this.add.sprite(ENEMY_X, GROUND_Y + 14, battleSheet, 0).setOrigin(0.5, 1).setScale(1.5);
+      this.idle(this.enemy);
+    } else if (spr.startsWith('npc:')) {
       const id = spr.slice(4);
       createCharacterSheet(this, `npc_${id}`, this.state.content.npcs[id].palette);
       this.enemy = this.add.sprite(ENEMY_X, GROUND_Y + 14, `npc_${id}`, 4).setOrigin(0.5, 1).setScale(2);
@@ -82,6 +98,15 @@ export class CombatScene extends Phaser.Scene {
     }
   }
 
+  /** Kampfanimation abspielen, danach zurück in die Idle-Schleife. Ohne Kampf-Sheet: nichts. */
+  anim(sprite, name, back = true) {
+    playBattleAnim(sprite, name, back ? () => this.idle(sprite) : null);
+  }
+
+  idle(sprite) {
+    if (this.phase !== 'over' || !this.combat.outcome) playBattleAnim(sprite, 'idle');
+  }
+
   playerCenter() {
     return { x: PLAYER_X, y: GROUND_Y - 30 };
   }
@@ -96,6 +121,7 @@ export class CombatScene extends Phaser.Scene {
   }
 
   flash(target) {
+    if (this.phase !== 'over') this.anim(target, 'hurt');
     target.setTintFill(0xffffff);
     this.time.delayedCall(80, () => target.clearTint());
   }
@@ -128,7 +154,7 @@ export class CombatScene extends Phaser.Scene {
       const r = c.useItem(action.id);
       if (!r) return;
       this.ui.combatMessage(r.text);
-      this.flash(this.player);
+      if (!playBattleAnim(this.player, 'item', () => this.idle(this.player))) this.flash(this.player);
       if (c.state.item(action.id).damage) { this.flash(this.enemy); this.float(`-${c.state.item(action.id).damage * (c.enemy.occult ? 2 : 1)}`, 'enemy', 'dmg'); }
       this.afterPlayer();
     } else if (action.type === 'flee') {
@@ -184,7 +210,7 @@ export class CombatScene extends Phaser.Scene {
     const sk = c.skillDef(skillId);
     const r = c.useSkill(skillId, grades);
     if (!sk.hits) {
-      this.flash(this.player);
+      if (!playBattleAnim(this.player, 'occult', () => this.idle(this.player))) this.flash(this.player);
       this.float(sk.name, 'player', 'good');
       if (r.stunned) this.flash(this.enemy);
       this.ui.combatMessage(`${sk.name}: ${r.effects.join(', ') || 'wirkt'}.${r.stunned ? ` ${c.enemy.name} setzt eine Runde aus.` : ''}`);
@@ -192,6 +218,7 @@ export class CombatScene extends Phaser.Scene {
       this.time.delayedCall(700, () => this.afterPlayer());
       return;
     }
+    this.anim(this.player, 'attack');
     this.tweens.add({
       targets: this.player, x: ENEMY_X - 50, duration: 160, yoyo: true, ease: 'Quad.out',
       onYoyo: () => {
@@ -238,6 +265,7 @@ export class CombatScene extends Phaser.Scene {
     this.hits = atk.hits.map((h) => ({ impact: t0 + h, result: null, applied: false }));
     this.ui.combatMessage(`${c.enemy.name}: ${atk.name}${atk.hits.length > 1 ? ` (${atk.hits.length} Schläge)` : ''}${c.evading ? '\n\nDu weißt schon, wohin er schlägt.' : ''}`, 'Leertaste: ausweichen · F: parieren');
     this.tweens.add({ targets: this.enemy, x: ENEMY_X + 8, duration: TELEGRAPH * 0.6, ease: 'Sine.out' });
+    this.anim(this.enemy, 'attack');
   }
 
   pressDefense(kind, t) {
@@ -256,10 +284,12 @@ export class CombatScene extends Phaser.Scene {
     this.tweens.add({ targets: this.enemy, x: PLAYER_X + 70, duration: 90, yoyo: true, ease: 'Quad.in' });
     if (hit.result === 'parry') {
       this.float('Parade!', 'player', 'perfect');
+      this.anim(this.player, 'parry');
       this.time.delayedCall(90, () => { this.flash(this.enemy); this.float(`-${r.counter}`, 'enemy', 'dmg'); });
       this.cameras.main.flash(60, 255, 240, 200);
     } else if (hit.result === 'dodge') {
       this.float('Ausgewichen', 'player', 'good');
+      this.anim(this.player, 'dodge');
       this.tweens.add({ targets: this.player, x: PLAYER_X - 26, duration: 110, yoyo: true, ease: 'Quad.out' });
     } else {
       this.time.delayedCall(90, () => { this.flash(this.player); this.float(r.damage ? `-${r.damage}` : 'Abgefangen', 'player', r.damage ? 'hurt' : 'good'); if (r.damage) this.cameras.main.shake(120, 0.01); });
@@ -277,6 +307,7 @@ export class CombatScene extends Phaser.Scene {
     if (allParried && !c.outcome) {
       const dmg = c.riposte();
       this.ui.combatMessage(`Alles pariert! Gegenschlag: ${dmg} Schaden.`);
+      this.anim(this.player, 'attack');
       this.tweens.add({
         targets: this.player, x: ENEMY_X - 50, duration: 140, yoyo: true,
         onYoyo: () => { this.flash(this.enemy); this.float(`-${dmg}`, 'enemy', 'crit'); this.cameras.main.shake(120, 0.008); },
@@ -306,8 +337,13 @@ export class CombatScene extends Phaser.Scene {
   over() {
     this.phase = 'over';
     const c = this.combat;
-    if (c.outcome === 'won') this.tweens.add({ targets: this.enemy, alpha: 0, y: '+=10', duration: 700 });
-    if (c.outcome === 'lost') this.tweens.add({ targets: this.player, angle: -90, y: '+=4', duration: 500 });
+    if (c.outcome === 'won') {
+      // Menschen (z. B. Holt beim Training) geben auf und bleiben stehen, Wesen vergehen.
+      const human = this.combat.enc.sprite.startsWith('npc:');
+      if (playBattleAnim(this.enemy, 'defeated')) { if (!human) this.tweens.add({ targets: this.enemy, alpha: 0, delay: 900, duration: 700 }); }
+      else this.tweens.add({ targets: this.enemy, alpha: 0, y: '+=10', duration: 700 });
+    }
+    if (c.outcome === 'lost' && !playBattleAnim(this.player, 'defeated')) this.tweens.add({ targets: this.player, angle: -90, y: '+=4', duration: 500 });
     const title = { won: 'Sieg', lost: 'Ohnmacht', fled: 'Rückzug' }[c.outcome];
     this.ui.combatOver(title);
   }

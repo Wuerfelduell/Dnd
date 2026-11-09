@@ -102,6 +102,34 @@ export const CHARACTER_SHEETS = {
   npc_wick: 'lamplighter', npc_grimes: 'constable',
 };
 
+// --- Kampf (Paket 14b) ----------------------------------------------------------
+// Animierte Seitenansichts-Sheets; Frames und Animationen stehen in manifest-14b.json.
+
+/** Texture-Key → [Pfad, Framegröße]. */
+export const BATTLE_SHEETS = {
+  battle_player: ['battle/battle_player.png', 48],
+  enemy_holt: ['battle/enemy_holt.png', 48],
+  enemy_nebelhund: ['battle/enemy_nebelhund.png', 64],
+  enemy_aschewaechter: ['battle/enemy_aschewaechter.png', 64],
+};
+
+/** Gegner-Sprite aus encounters.json → Kampf-Sheet. Fehlt eins, bleibt die alte Darstellung. */
+export const ENEMY_BATTLE_SHEETS = {
+  'npc:holt': 'enemy_holt',
+  hound: 'enemy_nebelhund',
+  warden: 'enemy_aschewaechter',
+};
+
+/** Karte → Kampfhintergrund (480x270). Karten ohne Eintrag behalten die gezeichnete Bühne. */
+export const BATTLE_BACKGROUNDS = {
+  revier: 'bg_revier', ashgrove: 'bg_ashgrove', altmarkt: 'bg_ashgrove', docks: 'bg_ashgrove', crypt: 'bg_krypta',
+};
+
+/** Items mit eigenem 16x16-Icon unter public/sprites/items/<id>.png. */
+export const ITEM_ICONS = ['spazierstock', 'schlagstock', 'stockdegen', 'verband', 'tonikum', 'riechsalz', 'bannsalz'];
+
+export const itemIconUrl = (id) => (ITEM_ICONS.includes(id) ? `${BASE}items/${id}.png` : null);
+
 const srcKey = (sheet) => `src_${sheet}`;
 
 /** Im preload() der Szene aufrufen. Bereits geladene Sheets werden übersprungen. */
@@ -109,6 +137,32 @@ export function preloadSprites(scene) {
   for (const [sheet, path] of Object.entries(SHEETS)) {
     if (!scene.textures.exists(srcKey(sheet))) scene.load.image(srcKey(sheet), BASE + path);
   }
+  for (const [key, [path, size]] of Object.entries(BATTLE_SHEETS)) {
+    if (!scene.textures.exists(key)) scene.load.spritesheet(key, BASE + path, { frameWidth: size, frameHeight: size });
+  }
+  for (const key of new Set(Object.values(BATTLE_BACKGROUNDS))) {
+    if (!scene.textures.exists(key)) scene.load.image(key, `${BASE}battle/${key}.png`);
+  }
+  if (!scene.cache.json.exists('manifest14b')) scene.load.json('manifest14b', `${BASE}manifest-14b.json`);
+}
+
+/**
+ * Spielt eine Kampfanimation aus manifest-14b.json (z. B. 'attack', 'hurt').
+ * Liefert false, wenn das Sprite kein Kampf-Sheet nutzt oder die Animation fehlt.
+ */
+export function playBattleAnim(sprite, name, then) {
+  const sheet = sprite.texture.key;
+  if (!BATTLE_SHEETS[sheet]) return false;
+  const scene = sprite.scene;
+  const key = `${sheet}-${name}`;
+  if (!scene.anims.exists(key)) {
+    const def = scene.cache.json.get('manifest14b')?.assets?.find((a) => a.id === sheet)?.animations?.[name];
+    if (!def) return false;
+    scene.anims.create({ key, frames: def.frames.map((frame) => ({ key: sheet, frame })), frameRate: def.frameRate, repeat: def.repeat });
+  }
+  sprite.play(key);
+  if (then) sprite.once(`animationcomplete-${key}`, then);
+  return true;
 }
 
 function sourceOf(scene, sheet) {

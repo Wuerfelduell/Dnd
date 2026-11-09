@@ -1,3 +1,11 @@
+import { itemIconUrl } from '../world/assets.js';
+
+/** 16x16-Icon vor einem Item-Namen (falls es eins gibt). */
+const itemIcon = (id) => {
+  const url = itemIconUrl(id);
+  return url ? `<img class="item-icon" src="${url}" alt="" width="16" height="16">` : '';
+};
+
 // HTML-Oberfläche über dem Spiel-Canvas: HUD, Hinweise, Dialoge, Notizbuch,
 // Stadtkarte und Enden. Text als HTML bleibt bei jeder Skalierung scharf.
 
@@ -401,7 +409,7 @@ export class Ui {
       } else if (it.kind === 'formula') action = '<button class="small" data-recipe="1">Rezept</button>';
       else if (it.kind === 'ingredient') action = '<span class="muted">Zutat</span>';
       const stat = it.kind === 'weapon' ? ` <span class="muted">Angriff ${it.atk}${it.occult ? ', stark gegen Okkultes' : ''}</span>` : '';
-      return `<li class="item"><div><strong>${esc(it.name)}</strong>${it.count > 1 ? ` ×${it.count}` : ''}${stat}<br><span class="desc">${esc(it.desc)}</span></div><div>${action}</div></li>`;
+      return `<li class="item"><div>${itemIcon(it.id)}<strong>${esc(it.name)}</strong>${it.count > 1 ? ` ×${it.count}` : ''}${stat}<br><span class="desc">${esc(it.desc)}</span></div><div>${action}</div></li>`;
     }).join('');
     return `
       <div class="status">Leben <strong>${s.hp}/${s.maxHp}</strong> · Nerven <strong>${Math.round(s.composure)}</strong> · Waffe <strong>${esc(w.name)}</strong> (Angriff ${w.atk}) · <strong>${s.money}</strong> Schilling</div>
@@ -648,14 +656,14 @@ export class Ui {
         text: `${k.pathway ? '✧ ' : ''}${k.name}`, info: `${k.cost} K${k.composure ? ` · ${k.composure} Nerven` : ''}`, desc: k.desc, act: { type: 'skill', id: k.id }, disabled: !k.usable,
       }));
     } else {
-      entries = this.state.items().filter((i) => i.kind === 'consumable').map((i) => ({ text: `${i.name} ×${i.count}`, desc: i.desc, act: { type: 'item', id: i.id } }));
+      entries = this.state.items().filter((i) => i.kind === 'consumable').map((i) => ({ text: `${i.name} ×${i.count}`, icon: i.id, desc: i.desc, act: { type: 'item', id: i.id } }));
       if (!entries.length) entries = [{ text: 'Keine Gegenstände', disabled: true }];
     }
     if (sub !== 'main') entries.push({ text: 'Zurück', back: true });
     this.combatMenuOpen = { sub, entries };
     const menu = this.layer.querySelector('.cb-menu');
     menu.innerHTML = `<ol class="choices">${entries.map((e, i) => `<li><button data-i="${i}" ${e.disabled ? 'disabled' : ''} title="${esc(e.desc ?? '')}">
-      <span class="key">${e.back ? 'Esc' : i + 1}</span> ${esc(e.text)} <span class="muted">${esc(e.info ?? '')}</span></button></li>`).join('')}</ol>
+      <span class="key">${e.back ? 'Esc' : i + 1}</span> ${e.icon ? itemIcon(e.icon) : ''}${esc(e.text)} <span class="muted">${esc(e.info ?? '')}</span></button></li>`).join('')}</ol>
       <div class="cb-desc"></div>`;
     menu.querySelectorAll('[data-i]').forEach((b) => {
       b.onclick = () => this.combatPick(Number(b.dataset.i));
