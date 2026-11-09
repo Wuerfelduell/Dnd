@@ -904,5 +904,33 @@
       "honor": 3,
       "honor_reason": "Sternglas zurückgebracht"
     }
+  },
+  "lost_hymnal": {
+    "title": "Das verschwundene Gesangbuch",
+    "kind": "side",
+    "case": "side",
+    "summary": "Aus Miss Pimms Asservatenkammer fehlt das Gesangbuch des Hospitalchors von St. Ebba. Angeblich steht es jetzt in Mr. Quills Vitrine auf dem Altmarkt.",
+    "steps": [
+      {
+        "text": "Hol das Gesangbuch bei Mr. Quill",
+        "done": {
+          "requires_flags": [
+            "hymnal_got"
+          ]
+        }
+      },
+      {
+        "text": "Bring es Miss Pimm ins Revier",
+        "done": {
+          "requires_flags": [
+            "hymnal_returned"
+          ]
+        }
+      }
+    ],
+    "reward": {
+      "honor": 3,
+      "honor_reason": "Ein Beweisstück zurückgebracht"
+    }
   }
 }

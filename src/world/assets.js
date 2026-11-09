@@ -261,6 +261,7 @@ export const PORTRAITS = {
     .map((id) => [id, `C_${id}_emotions.png`])),
   nell: 'A_nell_emotions.png', kittering: 'A_kittering_emotions.png', gorse: 'A_gorse_emotions.png',
   sabeth: 'A_sabeth_emotions.png', grubenwirt: 'A_brock_emotions.png',
+  marlowe: '12_agatha_marlowe_police_emotions.png', player: '06_investigator_emotions.png',
 };
 /** Ausdruck (Dialogknoten-Feld "mood") → Spalte im Portrait-Streifen. */
 export const PORTRAIT_MOODS = { neutral: 0, suspicious: 1, skeptical: 1, shocked: 2, smile: 3, faint_smile: 3, approving: 2, angry: 3 };
@@ -275,6 +276,12 @@ export const MAP_MARKERS_URL = `${BASE}ui/C_08_map_markers.png`;
 /** Notizbuch: Status → Zelle in ui/C_07_log_markers.png. */
 export const LOG_MARKERS = { suspected: 0, likely: 1, refuted: 2 };
 export const LOG_MARKERS_URL = `${BASE}ui/C_07_log_markers.png`;
+/** Quellen-Symbole im Notizbuch (core/sources.js): Typ → [Atlas-URL, Zelle, Spalten]. Figuren nutzen ihr Portrait. */
+export const SOURCE_ICONS_URL = `${BASE}ui/14_06_information_source_icons.png`;
+export const SOURCE_ICONS = {
+  note: [SOURCE_ICONS_URL, 0, 7], npc: [SOURCE_ICONS_URL, 1, 7], object: [SOURCE_ICONS_URL, 2, 7],
+  archive: [SOURCE_ICONS_URL, 5, 7], vision: [SOURCE_ICONS_URL, 6, 7], police: [LOG_MARKERS_URL, 3, 7],
+};
 
 /** Wetter pro Karte (Animation aus C_08_weather). */
 export const MAP_WEATHER = { docks: 'rain_light', ebba: 'ash', gaskanaele: 'fog' };
