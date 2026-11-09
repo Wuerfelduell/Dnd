@@ -1,0 +1,978 @@
+{
+  "k3o_schwellenhund_beute": {
+    "start": "k3o_start",
+    "nodes": {
+      "k3o_sq_waage_ausgabe": {
+        "text": "Du birgst die zu deinem Pfad gehörende Kernzutat. Ob du gekämpft oder die stille Passage genutzt hast, ändert ihren Wert nicht.",
+        "gives_items": {
+          "sq_zutat_waage_5": 1
+        },
+        "sets_flags": [
+          "k3o_schwellenhund_kern_abgeholt"
+        ],
+        "choices": [
+          {
+            "text": "Fertig."
+          }
+        ]
+      },
+      "k3o_sq_moor_ausgabe": {
+        "text": "Du birgst die zu deinem Pfad gehörende Kernzutat. Ob du gekämpft oder die stille Passage genutzt hast, ändert ihren Wert nicht.",
+        "gives_items": {
+          "sq_zutat_moor_5": 1
+        },
+        "sets_flags": [
+          "k3o_schwellenhund_kern_abgeholt"
+        ],
+        "choices": [
+          {
+            "text": "Fertig."
+          }
+        ]
+      },
+      "k3o_sq_uhr_ausgabe": {
+        "text": "Du birgst die zu deinem Pfad gehörende Kernzutat. Ob du gekämpft oder die stille Passage genutzt hast, ändert ihren Wert nicht.",
+        "gives_items": {
+          "sq_zutat_uhr_5": 1
+        },
+        "sets_flags": [
+          "k3o_schwellenhund_kern_abgeholt"
+        ],
+        "choices": [
+          {
+            "text": "Fertig."
+          }
+        ]
+      },
+      "k3o_start": {
+        "text": "Im Fach liegt nur die Kernzutat für deinen eigenen Pfad bereit. Sie wird einmal pro bewältigtem Hüter ausgegeben.",
+        "choices": [
+          {
+            "text": "Kernzutat für deinen Pfad bergen.",
+            "next": "k3o_sq_waage_ausgabe",
+            "requires_flags": [
+              "k3o_schwellenhund_geloest"
+            ],
+            "hide_if_flags": [
+              "k3o_schwellenhund_kern_abgeholt"
+            ],
+            "requires_pathway": [
+              "sq_waage",
+              9
+            ]
+          },
+          {
+            "text": "Kernzutat für deinen Pfad bergen.",
+            "next": "k3o_sq_moor_ausgabe",
+            "requires_flags": [
+              "k3o_schwellenhund_geloest"
+            ],
+            "hide_if_flags": [
+              "k3o_schwellenhund_kern_abgeholt"
+            ],
+            "requires_pathway": [
+              "sq_moor",
+              9
+            ]
+          },
+          {
+            "text": "Kernzutat für deinen Pfad bergen.",
+            "next": "k3o_sq_uhr_ausgabe",
+            "requires_flags": [
+              "k3o_schwellenhund_geloest"
+            ],
+            "hide_if_flags": [
+              "k3o_schwellenhund_kern_abgeholt"
+            ],
+            "requires_pathway": [
+              "sq_uhr",
+              9
+            ]
+          },
+          {
+            "text": "Später."
+          }
+        ]
+      }
+    }
+  },
+  "k3o_vorhauer_beute": {
+    "start": "k3o_start",
+    "nodes": {
+      "k3o_laterne_ausgabe": {
+        "text": "Du birgst die zu deinem Pfad gehörende Kernzutat. Ob du gekämpft oder die stille Passage genutzt hast, ändert ihren Wert nicht.",
+        "gives_items": {
+          "sq_zutat_laterne_3": 1
+        },
+        "sets_flags": [
+          "k3o_vorhauer_kern_abgeholt"
+        ],
+        "choices": [
+          {
+            "text": "Fertig."
+          }
+        ]
+      },
+      "k3o_faden_ausgabe": {
+        "text": "Du birgst die zu deinem Pfad gehörende Kernzutat. Ob du gekämpft oder die stille Passage genutzt hast, ändert ihren Wert nicht.",
+        "gives_items": {
+          "sq_zutat_faden_3": 1
+        },
+        "sets_flags": [
+          "k3o_vorhauer_kern_abgeholt"
+        ],
+        "choices": [
+          {
+            "text": "Fertig."
+          }
+        ]
+      },
+      "k3o_maske_ausgabe": {
+        "text": "Du birgst die zu deinem Pfad gehörende Kernzutat. Ob du gekämpft oder die stille Passage genutzt hast, ändert ihren Wert nicht.",
+        "gives_items": {
+          "sq_zutat_maske_3": 1
+        },
+        "sets_flags": [
+          "k3o_vorhauer_kern_abgeholt"
+        ],
+        "choices": [
+          {
+            "text": "Fertig."
+          }
+        ]
+      },
+      "k3o_echo_ausgabe": {
+        "text": "Du birgst die zu deinem Pfad gehörende Kernzutat. Ob du gekämpft oder die stille Passage genutzt hast, ändert ihren Wert nicht.",
+        "gives_items": {
+          "sq_zutat_echo_3": 1
+        },
+        "sets_flags": [
+          "k3o_vorhauer_kern_abgeholt"
+        ],
+        "choices": [
+          {
+            "text": "Fertig."
+          }
+        ]
+      },
+      "k3o_kessel_ausgabe": {
+        "text": "Du birgst die zu deinem Pfad gehörende Kernzutat. Ob du gekämpft oder die stille Passage genutzt hast, ändert ihren Wert nicht.",
+        "gives_items": {
+          "sq_zutat_kessel_3": 1
+        },
+        "sets_flags": [
+          "k3o_vorhauer_kern_abgeholt"
+        ],
+        "choices": [
+          {
+            "text": "Fertig."
+          }
+        ]
+      },
+      "k3o_eisen_ausgabe": {
+        "text": "Du birgst die zu deinem Pfad gehörende Kernzutat. Ob du gekämpft oder die stille Passage genutzt hast, ändert ihren Wert nicht.",
+        "gives_items": {
+          "sq_zutat_eisen_3": 1
+        },
+        "sets_flags": [
+          "k3o_vorhauer_kern_abgeholt"
+        ],
+        "choices": [
+          {
+            "text": "Fertig."
+          }
+        ]
+      },
+      "k3o_schluessel_ausgabe": {
+        "text": "Du birgst die zu deinem Pfad gehörende Kernzutat. Ob du gekämpft oder die stille Passage genutzt hast, ändert ihren Wert nicht.",
+        "gives_items": {
+          "sq_zutat_schluessel_3": 1
+        },
+        "sets_flags": [
+          "k3o_vorhauer_kern_abgeholt"
+        ],
+        "choices": [
+          {
+            "text": "Fertig."
+          }
+        ]
+      },
+      "k3o_sq_waage_ausgabe": {
+        "text": "Du birgst die zu deinem Pfad gehörende Kernzutat. Ob du gekämpft oder die stille Passage genutzt hast, ändert ihren Wert nicht.",
+        "gives_items": {
+          "sq_zutat_waage_3": 1
+        },
+        "sets_flags": [
+          "k3o_vorhauer_kern_abgeholt"
+        ],
+        "choices": [
+          {
+            "text": "Fertig."
+          }
+        ]
+      },
+      "k3o_sq_moor_ausgabe": {
+        "text": "Du birgst die zu deinem Pfad gehörende Kernzutat. Ob du gekämpft oder die stille Passage genutzt hast, ändert ihren Wert nicht.",
+        "gives_items": {
+          "sq_zutat_moor_3": 1
+        },
+        "sets_flags": [
+          "k3o_vorhauer_kern_abgeholt"
+        ],
+        "choices": [
+          {
+            "text": "Fertig."
+          }
+        ]
+      },
+      "k3o_sq_uhr_ausgabe": {
+        "text": "Du birgst die zu deinem Pfad gehörende Kernzutat. Ob du gekämpft oder die stille Passage genutzt hast, ändert ihren Wert nicht.",
+        "gives_items": {
+          "sq_zutat_uhr_3": 1
+        },
+        "sets_flags": [
+          "k3o_vorhauer_kern_abgeholt"
+        ],
+        "choices": [
+          {
+            "text": "Fertig."
+          }
+        ]
+      },
+      "k3o_start": {
+        "text": "Im Fach liegt nur die Kernzutat für deinen eigenen Pfad bereit. Sie wird einmal pro bewältigtem Hüter ausgegeben.",
+        "choices": [
+          {
+            "text": "Kernzutat für deinen Pfad bergen.",
+            "next": "k3o_laterne_ausgabe",
+            "requires_flags": [
+              "k3o_vorhauer_geloest"
+            ],
+            "hide_if_flags": [
+              "k3o_vorhauer_kern_abgeholt"
+            ],
+            "requires_pathway": [
+              "laterne",
+              9
+            ]
+          },
+          {
+            "text": "Kernzutat für deinen Pfad bergen.",
+            "next": "k3o_faden_ausgabe",
+            "requires_flags": [
+              "k3o_vorhauer_geloest"
+            ],
+            "hide_if_flags": [
+              "k3o_vorhauer_kern_abgeholt"
+            ],
+            "requires_pathway": [
+              "faden",
+              9
+            ]
+          },
+          {
+            "text": "Kernzutat für deinen Pfad bergen.",
+            "next": "k3o_maske_ausgabe",
+            "requires_flags": [
+              "k3o_vorhauer_geloest"
+            ],
+            "hide_if_flags": [
+              "k3o_vorhauer_kern_abgeholt"
+            ],
+            "requires_pathway": [
+              "maske",
+              9
+            ]
+          },
+          {
+            "text": "Kernzutat für deinen Pfad bergen.",
+            "next": "k3o_echo_ausgabe",
+            "requires_flags": [
+              "k3o_vorhauer_geloest"
+            ],
+            "hide_if_flags": [
+              "k3o_vorhauer_kern_abgeholt"
+            ],
+            "requires_pathway": [
+              "echo",
+              9
+            ]
+          },
+          {
+            "text": "Kernzutat für deinen Pfad bergen.",
+            "next": "k3o_kessel_ausgabe",
+            "requires_flags": [
+              "k3o_vorhauer_geloest"
+            ],
+            "hide_if_flags": [
+              "k3o_vorhauer_kern_abgeholt"
+            ],
+            "requires_pathway": [
+              "kessel",
+              9
+            ]
+          },
+          {
+            "text": "Kernzutat für deinen Pfad bergen.",
+            "next": "k3o_eisen_ausgabe",
+            "requires_flags": [
+              "k3o_vorhauer_geloest"
+            ],
+            "hide_if_flags": [
+              "k3o_vorhauer_kern_abgeholt"
+            ],
+            "requires_pathway": [
+              "eisen",
+              9
+            ]
+          },
+          {
+            "text": "Kernzutat für deinen Pfad bergen.",
+            "next": "k3o_schluessel_ausgabe",
+            "requires_flags": [
+              "k3o_vorhauer_geloest"
+            ],
+            "hide_if_flags": [
+              "k3o_vorhauer_kern_abgeholt"
+            ],
+            "requires_pathway": [
+              "schluessel",
+              9
+            ]
+          },
+          {
+            "text": "Kernzutat für deinen Pfad bergen.",
+            "next": "k3o_sq_waage_ausgabe",
+            "requires_flags": [
+              "k3o_vorhauer_geloest"
+            ],
+            "hide_if_flags": [
+              "k3o_vorhauer_kern_abgeholt"
+            ],
+            "requires_pathway": [
+              "sq_waage",
+              9
+            ]
+          },
+          {
+            "text": "Kernzutat für deinen Pfad bergen.",
+            "next": "k3o_sq_moor_ausgabe",
+            "requires_flags": [
+              "k3o_vorhauer_geloest"
+            ],
+            "hide_if_flags": [
+              "k3o_vorhauer_kern_abgeholt"
+            ],
+            "requires_pathway": [
+              "sq_moor",
+              9
+            ]
+          },
+          {
+            "text": "Kernzutat für deinen Pfad bergen.",
+            "next": "k3o_sq_uhr_ausgabe",
+            "requires_flags": [
+              "k3o_vorhauer_geloest"
+            ],
+            "hide_if_flags": [
+              "k3o_vorhauer_kern_abgeholt"
+            ],
+            "requires_pathway": [
+              "sq_uhr",
+              9
+            ]
+          },
+          {
+            "text": "Später."
+          }
+        ]
+      }
+    }
+  },
+  "k3o_vielrufer_beute": {
+    "start": "k3o_start",
+    "nodes": {
+      "k3o_laterne_ausgabe": {
+        "text": "Du birgst die zu deinem Pfad gehörende Kernzutat. Ob du gekämpft oder die stille Passage genutzt hast, ändert ihren Wert nicht.",
+        "gives_items": {
+          "sq_zutat_laterne_2": 1
+        },
+        "sets_flags": [
+          "k3o_vielrufer_kern_abgeholt"
+        ],
+        "choices": [
+          {
+            "text": "Fertig."
+          }
+        ]
+      },
+      "k3o_faden_ausgabe": {
+        "text": "Du birgst die zu deinem Pfad gehörende Kernzutat. Ob du gekämpft oder die stille Passage genutzt hast, ändert ihren Wert nicht.",
+        "gives_items": {
+          "sq_zutat_faden_2": 1
+        },
+        "sets_flags": [
+          "k3o_vielrufer_kern_abgeholt"
+        ],
+        "choices": [
+          {
+            "text": "Fertig."
+          }
+        ]
+      },
+      "k3o_maske_ausgabe": {
+        "text": "Du birgst die zu deinem Pfad gehörende Kernzutat. Ob du gekämpft oder die stille Passage genutzt hast, ändert ihren Wert nicht.",
+        "gives_items": {
+          "sq_zutat_maske_2": 1
+        },
+        "sets_flags": [
+          "k3o_vielrufer_kern_abgeholt"
+        ],
+        "choices": [
+          {
+            "text": "Fertig."
+          }
+        ]
+      },
+      "k3o_echo_ausgabe": {
+        "text": "Du birgst die zu deinem Pfad gehörende Kernzutat. Ob du gekämpft oder die stille Passage genutzt hast, ändert ihren Wert nicht.",
+        "gives_items": {
+          "sq_zutat_echo_2": 1
+        },
+        "sets_flags": [
+          "k3o_vielrufer_kern_abgeholt"
+        ],
+        "choices": [
+          {
+            "text": "Fertig."
+          }
+        ]
+      },
+      "k3o_kessel_ausgabe": {
+        "text": "Du birgst die zu deinem Pfad gehörende Kernzutat. Ob du gekämpft oder die stille Passage genutzt hast, ändert ihren Wert nicht.",
+        "gives_items": {
+          "sq_zutat_kessel_2": 1
+        },
+        "sets_flags": [
+          "k3o_vielrufer_kern_abgeholt"
+        ],
+        "choices": [
+          {
+            "text": "Fertig."
+          }
+        ]
+      },
+      "k3o_eisen_ausgabe": {
+        "text": "Du birgst die zu deinem Pfad gehörende Kernzutat. Ob du gekämpft oder die stille Passage genutzt hast, ändert ihren Wert nicht.",
+        "gives_items": {
+          "sq_zutat_eisen_2": 1
+        },
+        "sets_flags": [
+          "k3o_vielrufer_kern_abgeholt"
+        ],
+        "choices": [
+          {
+            "text": "Fertig."
+          }
+        ]
+      },
+      "k3o_schluessel_ausgabe": {
+        "text": "Du birgst die zu deinem Pfad gehörende Kernzutat. Ob du gekämpft oder die stille Passage genutzt hast, ändert ihren Wert nicht.",
+        "gives_items": {
+          "sq_zutat_schluessel_2": 1
+        },
+        "sets_flags": [
+          "k3o_vielrufer_kern_abgeholt"
+        ],
+        "choices": [
+          {
+            "text": "Fertig."
+          }
+        ]
+      },
+      "k3o_sq_waage_ausgabe": {
+        "text": "Du birgst die zu deinem Pfad gehörende Kernzutat. Ob du gekämpft oder die stille Passage genutzt hast, ändert ihren Wert nicht.",
+        "gives_items": {
+          "sq_zutat_waage_2": 1
+        },
+        "sets_flags": [
+          "k3o_vielrufer_kern_abgeholt"
+        ],
+        "choices": [
+          {
+            "text": "Fertig."
+          }
+        ]
+      },
+      "k3o_sq_moor_ausgabe": {
+        "text": "Du birgst die zu deinem Pfad gehörende Kernzutat. Ob du gekämpft oder die stille Passage genutzt hast, ändert ihren Wert nicht.",
+        "gives_items": {
+          "sq_zutat_moor_2": 1
+        },
+        "sets_flags": [
+          "k3o_vielrufer_kern_abgeholt"
+        ],
+        "choices": [
+          {
+            "text": "Fertig."
+          }
+        ]
+      },
+      "k3o_sq_uhr_ausgabe": {
+        "text": "Du birgst die zu deinem Pfad gehörende Kernzutat. Ob du gekämpft oder die stille Passage genutzt hast, ändert ihren Wert nicht.",
+        "gives_items": {
+          "sq_zutat_uhr_2": 1
+        },
+        "sets_flags": [
+          "k3o_vielrufer_kern_abgeholt"
+        ],
+        "choices": [
+          {
+            "text": "Fertig."
+          }
+        ]
+      },
+      "k3o_start": {
+        "text": "Im Fach liegt nur die Kernzutat für deinen eigenen Pfad bereit. Sie wird einmal pro bewältigtem Hüter ausgegeben.",
+        "choices": [
+          {
+            "text": "Kernzutat für deinen Pfad bergen.",
+            "next": "k3o_laterne_ausgabe",
+            "requires_flags": [
+              "k3o_vielrufer_geloest"
+            ],
+            "hide_if_flags": [
+              "k3o_vielrufer_kern_abgeholt"
+            ],
+            "requires_pathway": [
+              "laterne",
+              9
+            ]
+          },
+          {
+            "text": "Kernzutat für deinen Pfad bergen.",
+            "next": "k3o_faden_ausgabe",
+            "requires_flags": [
+              "k3o_vielrufer_geloest"
+            ],
+            "hide_if_flags": [
+              "k3o_vielrufer_kern_abgeholt"
+            ],
+            "requires_pathway": [
+              "faden",
+              9
+            ]
+          },
+          {
+            "text": "Kernzutat für deinen Pfad bergen.",
+            "next": "k3o_maske_ausgabe",
+            "requires_flags": [
+              "k3o_vielrufer_geloest"
+            ],
+            "hide_if_flags": [
+              "k3o_vielrufer_kern_abgeholt"
+            ],
+            "requires_pathway": [
+              "maske",
+              9
+            ]
+          },
+          {
+            "text": "Kernzutat für deinen Pfad bergen.",
+            "next": "k3o_echo_ausgabe",
+            "requires_flags": [
+              "k3o_vielrufer_geloest"
+            ],
+            "hide_if_flags": [
+              "k3o_vielrufer_kern_abgeholt"
+            ],
+            "requires_pathway": [
+              "echo",
+              9
+            ]
+          },
+          {
+            "text": "Kernzutat für deinen Pfad bergen.",
+            "next": "k3o_kessel_ausgabe",
+            "requires_flags": [
+              "k3o_vielrufer_geloest"
+            ],
+            "hide_if_flags": [
+              "k3o_vielrufer_kern_abgeholt"
+            ],
+            "requires_pathway": [
+              "kessel",
+              9
+            ]
+          },
+          {
+            "text": "Kernzutat für deinen Pfad bergen.",
+            "next": "k3o_eisen_ausgabe",
+            "requires_flags": [
+              "k3o_vielrufer_geloest"
+            ],
+            "hide_if_flags": [
+              "k3o_vielrufer_kern_abgeholt"
+            ],
+            "requires_pathway": [
+              "eisen",
+              9
+            ]
+          },
+          {
+            "text": "Kernzutat für deinen Pfad bergen.",
+            "next": "k3o_schluessel_ausgabe",
+            "requires_flags": [
+              "k3o_vielrufer_geloest"
+            ],
+            "hide_if_flags": [
+              "k3o_vielrufer_kern_abgeholt"
+            ],
+            "requires_pathway": [
+              "schluessel",
+              9
+            ]
+          },
+          {
+            "text": "Kernzutat für deinen Pfad bergen.",
+            "next": "k3o_sq_waage_ausgabe",
+            "requires_flags": [
+              "k3o_vielrufer_geloest"
+            ],
+            "hide_if_flags": [
+              "k3o_vielrufer_kern_abgeholt"
+            ],
+            "requires_pathway": [
+              "sq_waage",
+              9
+            ]
+          },
+          {
+            "text": "Kernzutat für deinen Pfad bergen.",
+            "next": "k3o_sq_moor_ausgabe",
+            "requires_flags": [
+              "k3o_vielrufer_geloest"
+            ],
+            "hide_if_flags": [
+              "k3o_vielrufer_kern_abgeholt"
+            ],
+            "requires_pathway": [
+              "sq_moor",
+              9
+            ]
+          },
+          {
+            "text": "Kernzutat für deinen Pfad bergen.",
+            "next": "k3o_sq_uhr_ausgabe",
+            "requires_flags": [
+              "k3o_vielrufer_geloest"
+            ],
+            "hide_if_flags": [
+              "k3o_vielrufer_kern_abgeholt"
+            ],
+            "requires_pathway": [
+              "sq_uhr",
+              9
+            ]
+          },
+          {
+            "text": "Später."
+          }
+        ]
+      }
+    }
+  },
+  "k3o_unterschicht_beute": {
+    "start": "k3o_start",
+    "nodes": {
+      "k3o_laterne_ausgabe": {
+        "text": "Du birgst die zu deinem Pfad gehörende Kernzutat. Ob du gekämpft oder die stille Passage genutzt hast, ändert ihren Wert nicht.",
+        "gives_items": {
+          "sq_zutat_laterne_1": 1
+        },
+        "sets_flags": [
+          "k3o_unterschicht_kern_abgeholt"
+        ],
+        "choices": [
+          {
+            "text": "Fertig."
+          }
+        ]
+      },
+      "k3o_faden_ausgabe": {
+        "text": "Du birgst die zu deinem Pfad gehörende Kernzutat. Ob du gekämpft oder die stille Passage genutzt hast, ändert ihren Wert nicht.",
+        "gives_items": {
+          "sq_zutat_faden_1": 1
+        },
+        "sets_flags": [
+          "k3o_unterschicht_kern_abgeholt"
+        ],
+        "choices": [
+          {
+            "text": "Fertig."
+          }
+        ]
+      },
+      "k3o_maske_ausgabe": {
+        "text": "Du birgst die zu deinem Pfad gehörende Kernzutat. Ob du gekämpft oder die stille Passage genutzt hast, ändert ihren Wert nicht.",
+        "gives_items": {
+          "sq_zutat_maske_1": 1
+        },
+        "sets_flags": [
+          "k3o_unterschicht_kern_abgeholt"
+        ],
+        "choices": [
+          {
+            "text": "Fertig."
+          }
+        ]
+      },
+      "k3o_echo_ausgabe": {
+        "text": "Du birgst die zu deinem Pfad gehörende Kernzutat. Ob du gekämpft oder die stille Passage genutzt hast, ändert ihren Wert nicht.",
+        "gives_items": {
+          "sq_zutat_echo_1": 1
+        },
+        "sets_flags": [
+          "k3o_unterschicht_kern_abgeholt"
+        ],
+        "choices": [
+          {
+            "text": "Fertig."
+          }
+        ]
+      },
+      "k3o_kessel_ausgabe": {
+        "text": "Du birgst die zu deinem Pfad gehörende Kernzutat. Ob du gekämpft oder die stille Passage genutzt hast, ändert ihren Wert nicht.",
+        "gives_items": {
+          "sq_zutat_kessel_1": 1
+        },
+        "sets_flags": [
+          "k3o_unterschicht_kern_abgeholt"
+        ],
+        "choices": [
+          {
+            "text": "Fertig."
+          }
+        ]
+      },
+      "k3o_eisen_ausgabe": {
+        "text": "Du birgst die zu deinem Pfad gehörende Kernzutat. Ob du gekämpft oder die stille Passage genutzt hast, ändert ihren Wert nicht.",
+        "gives_items": {
+          "sq_zutat_eisen_1": 1
+        },
+        "sets_flags": [
+          "k3o_unterschicht_kern_abgeholt"
+        ],
+        "choices": [
+          {
+            "text": "Fertig."
+          }
+        ]
+      },
+      "k3o_schluessel_ausgabe": {
+        "text": "Du birgst die zu deinem Pfad gehörende Kernzutat. Ob du gekämpft oder die stille Passage genutzt hast, ändert ihren Wert nicht.",
+        "gives_items": {
+          "sq_zutat_schluessel_1": 1
+        },
+        "sets_flags": [
+          "k3o_unterschicht_kern_abgeholt"
+        ],
+        "choices": [
+          {
+            "text": "Fertig."
+          }
+        ]
+      },
+      "k3o_sq_waage_ausgabe": {
+        "text": "Du birgst die zu deinem Pfad gehörende Kernzutat. Ob du gekämpft oder die stille Passage genutzt hast, ändert ihren Wert nicht.",
+        "gives_items": {
+          "sq_zutat_waage_1": 1
+        },
+        "sets_flags": [
+          "k3o_unterschicht_kern_abgeholt"
+        ],
+        "choices": [
+          {
+            "text": "Fertig."
+          }
+        ]
+      },
+      "k3o_sq_moor_ausgabe": {
+        "text": "Du birgst die zu deinem Pfad gehörende Kernzutat. Ob du gekämpft oder die stille Passage genutzt hast, ändert ihren Wert nicht.",
+        "gives_items": {
+          "sq_zutat_moor_1": 1
+        },
+        "sets_flags": [
+          "k3o_unterschicht_kern_abgeholt"
+        ],
+        "choices": [
+          {
+            "text": "Fertig."
+          }
+        ]
+      },
+      "k3o_sq_uhr_ausgabe": {
+        "text": "Du birgst die zu deinem Pfad gehörende Kernzutat. Ob du gekämpft oder die stille Passage genutzt hast, ändert ihren Wert nicht.",
+        "gives_items": {
+          "sq_zutat_uhr_1": 1
+        },
+        "sets_flags": [
+          "k3o_unterschicht_kern_abgeholt"
+        ],
+        "choices": [
+          {
+            "text": "Fertig."
+          }
+        ]
+      },
+      "k3o_start": {
+        "text": "Im Fach liegt nur die Kernzutat für deinen eigenen Pfad bereit. Sie wird einmal pro bewältigtem Hüter ausgegeben.",
+        "choices": [
+          {
+            "text": "Kernzutat für deinen Pfad bergen.",
+            "next": "k3o_laterne_ausgabe",
+            "requires_flags": [
+              "k3o_unterschicht_geloest"
+            ],
+            "hide_if_flags": [
+              "k3o_unterschicht_kern_abgeholt"
+            ],
+            "requires_pathway": [
+              "laterne",
+              9
+            ]
+          },
+          {
+            "text": "Kernzutat für deinen Pfad bergen.",
+            "next": "k3o_faden_ausgabe",
+            "requires_flags": [
+              "k3o_unterschicht_geloest"
+            ],
+            "hide_if_flags": [
+              "k3o_unterschicht_kern_abgeholt"
+            ],
+            "requires_pathway": [
+              "faden",
+              9
+            ]
+          },
+          {
+            "text": "Kernzutat für deinen Pfad bergen.",
+            "next": "k3o_maske_ausgabe",
+            "requires_flags": [
+              "k3o_unterschicht_geloest"
+            ],
+            "hide_if_flags": [
+              "k3o_unterschicht_kern_abgeholt"
+            ],
+            "requires_pathway": [
+              "maske",
+              9
+            ]
+          },
+          {
+            "text": "Kernzutat für deinen Pfad bergen.",
+            "next": "k3o_echo_ausgabe",
+            "requires_flags": [
+              "k3o_unterschicht_geloest"
+            ],
+            "hide_if_flags": [
+              "k3o_unterschicht_kern_abgeholt"
+            ],
+            "requires_pathway": [
+              "echo",
+              9
+            ]
+          },
+          {
+            "text": "Kernzutat für deinen Pfad bergen.",
+            "next": "k3o_kessel_ausgabe",
+            "requires_flags": [
+              "k3o_unterschicht_geloest"
+            ],
+            "hide_if_flags": [
+              "k3o_unterschicht_kern_abgeholt"
+            ],
+            "requires_pathway": [
+              "kessel",
+              9
+            ]
+          },
+          {
+            "text": "Kernzutat für deinen Pfad bergen.",
+            "next": "k3o_eisen_ausgabe",
+            "requires_flags": [
+              "k3o_unterschicht_geloest"
+            ],
+            "hide_if_flags": [
+              "k3o_unterschicht_kern_abgeholt"
+            ],
+            "requires_pathway": [
+              "eisen",
+              9
+            ]
+          },
+          {
+            "text": "Kernzutat für deinen Pfad bergen.",
+            "next": "k3o_schluessel_ausgabe",
+            "requires_flags": [
+              "k3o_unterschicht_geloest"
+            ],
+            "hide_if_flags": [
+              "k3o_unterschicht_kern_abgeholt"
+            ],
+            "requires_pathway": [
+              "schluessel",
+              9
+            ]
+          },
+          {
+            "text": "Kernzutat für deinen Pfad bergen.",
+            "next": "k3o_sq_waage_ausgabe",
+            "requires_flags": [
+              "k3o_unterschicht_geloest"
+            ],
+            "hide_if_flags": [
+              "k3o_unterschicht_kern_abgeholt"
+            ],
+            "requires_pathway": [
+              "sq_waage",
+              9
+            ]
+          },
+          {
+            "text": "Kernzutat für deinen Pfad bergen.",
+            "next": "k3o_sq_moor_ausgabe",
+            "requires_flags": [
+              "k3o_unterschicht_geloest"
+            ],
+            "hide_if_flags": [
+              "k3o_unterschicht_kern_abgeholt"
+            ],
+            "requires_pathway": [
+              "sq_moor",
+              9
+            ]
+          },
+          {
+            "text": "Kernzutat für deinen Pfad bergen.",
+            "next": "k3o_sq_uhr_ausgabe",
+            "requires_flags": [
+              "k3o_unterschicht_geloest"
+            ],
+            "hide_if_flags": [
+              "k3o_unterschicht_kern_abgeholt"
+            ],
+            "requires_pathway": [
+              "sq_uhr",
+              9
+            ]
+          },
+          {
+            "text": "Später."
+          }
+        ]
+      }
+    }
+  }
+}

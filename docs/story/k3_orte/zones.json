@@ -1,0 +1,1065 @@
+{
+  "ds_rangierwueste": {
+    "name": "Rangierwüste",
+    "tier": 4,
+    "travel": {
+      "name": "Rangierwüste",
+      "desc": "Gefahr Stufe 4. Ein markierter Rückweg bleibt offen.",
+      "requires_flags": [
+        "k3a_akt1_done"
+      ],
+      "city": "dunscar"
+    },
+    "lose_to": {
+      "map": "ds_speisewagen",
+      "spawn": "default"
+    },
+    "lose_money": 0,
+    "lose_text": "Pfiff bringt dich hinter die Schallschleuse. Deine Aufzeichnungen bleiben bei dir.",
+    "flee_text": "Du folgst den hellen Rückwegmarken nach draußen.",
+    "elite_drops": [
+      {
+        "item": "k3o_rufwachs",
+        "chance": 0.3
+      },
+      {
+        "item": "k3o_filzverband",
+        "chance": 0.3
+      }
+    ],
+    "loot_tables": {},
+    "encounters": {
+      "schichtgaenger": {
+        "name": "Schichtgänger",
+        "sprite": "wild",
+        "sheet": "enemy_price",
+        "hp": 180,
+        "occult": false,
+        "fleeable": true,
+        "intro": "Ein Arbeiter hebt den Arm im Takt eines fernen Aufrufs. Sein Atem geht schwer. Du kannst ausweichen oder ihn ohne tödliche Gewalt stoppen.",
+        "attacks": [
+          {
+            "name": "Schichtgriff",
+            "damage": 11,
+            "hits": [
+              1100,
+              1700
+            ]
+          },
+          {
+            "name": "Taumelnder Schritt …",
+            "damage": 14,
+            "hits": [
+              2200
+            ]
+          }
+        ],
+        "on_win": {},
+        "lose_to": {
+          "map": "ds_speisewagen",
+          "spawn": "default"
+        },
+        "lose_text": "Pfiff bringt dich hinter die Schallschleuse. Wissen und Fundnotizen bleiben erhalten.",
+        "win_text": "Der Arbeiter sinkt bewusstlos zu Boden und atmet ruhig. Du legst ihn abseits der Gleise; Huxford wird verständigt.",
+        "loot": {
+          "money": [
+            6,
+            12
+          ],
+          "drops": [
+            {
+              "item": "k3o_schichtknopf",
+              "chance": 0.55
+            },
+            {
+              "item": "k3o_kalkpastille",
+              "chance": 0.15
+            }
+          ]
+        },
+        "roam": {
+          "speed": 20,
+          "chase": 48,
+          "aggro": 72
+        },
+        "elite": {
+          "name": "Schichtgänger der letzten Schicht"
+        },
+        "armor": 2
+      },
+      "signalkraehe": {
+        "name": "Signalkrähe",
+        "sprite": "wild",
+        "sheet": "enemy_bojenglocke",
+        "hp": 200,
+        "occult": false,
+        "fleeable": true,
+        "intro": "Die Krähe klappt den Schnabel wie einen Signalhebel. Vor dem Sturzflug spreizt sie beide Flügel.",
+        "attacks": [
+          {
+            "name": "Schnabelklopfen",
+            "damage": 12,
+            "hits": [
+              1100,
+              1700
+            ]
+          },
+          {
+            "name": "Flügelzeichen …",
+            "damage": 14,
+            "hits": [
+              2200
+            ]
+          }
+        ],
+        "on_win": {},
+        "lose_to": {
+          "map": "ds_speisewagen",
+          "spawn": "default"
+        },
+        "lose_text": "Pfiff bringt dich hinter die Schallschleuse. Wissen und Fundnotizen bleiben erhalten.",
+        "win_text": "Die Gestalt verliert ihren Zusammenhalt. Der sichere Rückweg bleibt still.",
+        "loot": {
+          "money": [
+            8,
+            14
+          ],
+          "drops": [
+            {
+              "item": "k3o_ventilspan",
+              "chance": 0.55
+            },
+            {
+              "item": "k3o_kalkpastille",
+              "chance": 0.15
+            }
+          ]
+        },
+        "roam": {
+          "speed": 24,
+          "chase": 52,
+          "aggro": 80
+        },
+        "elite": {
+          "name": "Signalkrähe der letzten Schicht"
+        },
+        "armor": 2
+      },
+      "lohnlistenmotte": {
+        "name": "Lohnlistenmotte",
+        "sprite": "wild",
+        "sheet": "enemy_nebelfischer",
+        "hp": 210,
+        "occult": true,
+        "fleeable": true,
+        "intro": "Aus einer Lohnliste löst sich eine Motte aus Papier. Sie faltet die Flügel vor dem nächsten Stoß sauber zusammen.",
+        "attacks": [
+          {
+            "name": "Papierflug",
+            "damage": 12,
+            "hits": [
+              1100,
+              1700
+            ]
+          },
+          {
+            "name": "Radierstaub …",
+            "damage": 15,
+            "hits": [
+              2200
+            ]
+          }
+        ],
+        "on_win": {},
+        "lose_to": {
+          "map": "ds_speisewagen",
+          "spawn": "default"
+        },
+        "lose_text": "Pfiff bringt dich hinter die Schallschleuse. Wissen und Fundnotizen bleiben erhalten.",
+        "win_text": "Die Gestalt verliert ihren Zusammenhalt. Der sichere Rückweg bleibt still.",
+        "loot": {
+          "money": [
+            9,
+            15
+          ],
+          "drops": [
+            {
+              "item": "k3o_rufwachs",
+              "chance": 0.55
+            },
+            {
+              "item": "k3o_kalkpastille",
+              "chance": 0.15
+            }
+          ]
+        },
+        "roam": {
+          "speed": 26,
+          "chase": 54,
+          "aggro": 84
+        },
+        "elite": {
+          "name": "Lohnlistenmotte der letzten Schicht"
+        },
+        "armor": 2
+      },
+      "schwellenhund": {
+        "name": "Schwellenhund",
+        "sprite": "wild",
+        "sheet": "enemy_glockenmutter",
+        "boss": true,
+        "fleeable": true,
+        "hp": 210,
+        "occult": false,
+        "armor": 3,
+        "intro": "Schwellenhund hält den Weg. Du erkennst den angekündigten Angriff an Bewegung, Text und Ring.",
+        "attacks": [
+          {
+            "name": "Suchlichtbogen",
+            "damage": 10,
+            "hits": [
+              1400,
+              2100
+            ]
+          },
+          {
+            "name": "Schwellensprung …",
+            "damage": 12,
+            "hits": [
+              2400
+            ]
+          }
+        ],
+        "weak_if": {
+          "requires_flags": [
+            "k3o_falscher_pfiff"
+          ]
+        },
+        "on_win": {
+          "sets_flags": [
+            "k3o_schwellenhund_geloest"
+          ]
+        },
+        "win_text": "Der Aufruf bricht ab. Die Klärung der Geschichte und die Entscheidung über die Anlage bleiben bei dir.",
+        "lose_to": {
+          "map": "ds_speisewagen",
+          "spawn": "default"
+        },
+        "lose_text": "Pfiff holt dich zurück. Die Schicht ist nicht weitergerückt.",
+        "loot": {
+          "money": [
+            40,
+            60
+          ],
+          "drops": [
+            {
+              "item": "k3o_schraubenzahn",
+              "chance": 1
+            }
+          ]
+        },
+        "roam": {
+          "speed": 0,
+          "chase": 45,
+          "aggro": 65
+        }
+      }
+    }
+  },
+  "ds_klopfbruch": {
+    "name": "Klopfbruch",
+    "tier": 4,
+    "travel": {
+      "name": "Klopfbruch",
+      "desc": "Gefahr Stufe 4. Ein markierter Rückweg bleibt offen.",
+      "requires_flags": [
+        "k3a_akt2_done"
+      ],
+      "city": "dunscar"
+    },
+    "lose_to": {
+      "map": "ds_speisewagen",
+      "spawn": "default"
+    },
+    "lose_money": 0,
+    "lose_text": "Pfiff bringt dich hinter die Schallschleuse. Deine Aufzeichnungen bleiben bei dir.",
+    "flee_text": "Du folgst den hellen Rückwegmarken nach draußen.",
+    "elite_drops": [
+      {
+        "item": "k3o_rufwachs",
+        "chance": 0.3
+      },
+      {
+        "item": "k3o_filzverband",
+        "chance": 0.3
+      }
+    ],
+    "loot_tables": {},
+    "encounters": {
+      "kalkstaubgeist": {
+        "name": "Kalkstaubgeist",
+        "sprite": "wild",
+        "sheet": "enemy_salzgeist",
+        "hp": 220,
+        "occult": true,
+        "fleeable": true,
+        "intro": "Kalk sammelt sich zu einer Gestalt. Vor jedem Husten zieht ein heller Staubring sichtbar nach innen.",
+        "attacks": [
+          {
+            "name": "Staubhusten",
+            "damage": 11,
+            "hits": [
+              1100,
+              1700
+            ]
+          },
+          {
+            "name": "Kalkmantel …",
+            "damage": 14,
+            "hits": [
+              2200
+            ]
+          }
+        ],
+        "on_win": {},
+        "lose_to": {
+          "map": "ds_speisewagen",
+          "spawn": "default"
+        },
+        "lose_text": "Pfiff bringt dich hinter die Schallschleuse. Wissen und Fundnotizen bleiben erhalten.",
+        "win_text": "Die Gestalt verliert ihren Zusammenhalt. Der sichere Rückweg bleibt still.",
+        "loot": {
+          "money": [
+            7,
+            13
+          ],
+          "drops": [
+            {
+              "item": "k3o_kreidestaub",
+              "chance": 0.55
+            },
+            {
+              "item": "k3o_kalkpastille",
+              "chance": 0.15
+            }
+          ]
+        },
+        "roam": {
+          "speed": 22,
+          "chase": 50,
+          "aggro": 76
+        },
+        "elite": {
+          "name": "Kalkstaubgeist der letzten Schicht"
+        },
+        "armor": 2
+      },
+      "geruestklang": {
+        "name": "Gerüstklang",
+        "sprite": "wild",
+        "sheet": "enemy_bojenglocke",
+        "hp": 260,
+        "occult": false,
+        "fleeable": true,
+        "intro": "Eine Querstrebe schwingt ohne Wind. Schrauben klappern zweimal, bevor sich das Gerüst auf dich zubewegt.",
+        "attacks": [
+          {
+            "name": "Querstrebe",
+            "damage": 13,
+            "hits": [
+              1100,
+              1700
+            ]
+          },
+          {
+            "name": "Gerüstfall …",
+            "damage": 15,
+            "hits": [
+              2200
+            ]
+          }
+        ],
+        "on_win": {},
+        "lose_to": {
+          "map": "ds_speisewagen",
+          "spawn": "default"
+        },
+        "lose_text": "Pfiff bringt dich hinter die Schallschleuse. Wissen und Fundnotizen bleiben erhalten.",
+        "win_text": "Die Gestalt verliert ihren Zusammenhalt. Der sichere Rückweg bleibt still.",
+        "loot": {
+          "money": [
+            10,
+            16
+          ],
+          "drops": [
+            {
+              "item": "k3o_leitungsklemme",
+              "chance": 0.55
+            },
+            {
+              "item": "k3o_kalkpastille",
+              "chance": 0.15
+            }
+          ]
+        },
+        "roam": {
+          "speed": 28,
+          "chase": 56,
+          "aggro": 88
+        },
+        "elite": {
+          "name": "Gerüstklang der letzten Schicht"
+        },
+        "armor": 2
+      },
+      "schichtgaenger": {
+        "name": "Schichtgänger",
+        "sprite": "wild",
+        "sheet": "enemy_price",
+        "hp": 180,
+        "occult": false,
+        "fleeable": true,
+        "intro": "Ein Arbeiter hebt den Arm im Takt eines fernen Aufrufs. Sein Atem geht schwer. Du kannst ausweichen oder ihn ohne tödliche Gewalt stoppen.",
+        "attacks": [
+          {
+            "name": "Schichtgriff",
+            "damage": 11,
+            "hits": [
+              1100,
+              1700
+            ]
+          },
+          {
+            "name": "Taumelnder Schritt …",
+            "damage": 14,
+            "hits": [
+              2200
+            ]
+          }
+        ],
+        "on_win": {},
+        "lose_to": {
+          "map": "ds_speisewagen",
+          "spawn": "default"
+        },
+        "lose_text": "Pfiff bringt dich hinter die Schallschleuse. Wissen und Fundnotizen bleiben erhalten.",
+        "win_text": "Der Arbeiter sinkt bewusstlos zu Boden und atmet ruhig. Du legst ihn abseits der Gleise; Huxford wird verständigt.",
+        "loot": {
+          "money": [
+            6,
+            12
+          ],
+          "drops": [
+            {
+              "item": "k3o_schichtknopf",
+              "chance": 0.55
+            },
+            {
+              "item": "k3o_kalkpastille",
+              "chance": 0.15
+            }
+          ]
+        },
+        "roam": {
+          "speed": 20,
+          "chase": 48,
+          "aggro": 72
+        },
+        "elite": {
+          "name": "Schichtgänger der letzten Schicht"
+        },
+        "armor": 2
+      },
+      "vorhauer": {
+        "name": "Vorhauer",
+        "sprite": "wild",
+        "sheet": "enemy_glockenmutter",
+        "boss": true,
+        "fleeable": true,
+        "hp": 410,
+        "occult": false,
+        "armor": 3,
+        "intro": "Vorhauer hält den Weg. Du erkennst den angekündigten Angriff an Bewegung, Text und Ring.",
+        "attacks": [
+          {
+            "name": "Werkzeugspur",
+            "damage": 15,
+            "hits": [
+              1400,
+              2100
+            ]
+          },
+          {
+            "name": "Hammerschluss …",
+            "damage": 17,
+            "hits": [
+              2400
+            ]
+          }
+        ],
+        "weak_if": {
+          "requires_flags": [
+            "k3o_originalfolge"
+          ]
+        },
+        "on_win": {
+          "sets_flags": [
+            "k3o_vorhauer_geloest"
+          ]
+        },
+        "win_text": "Der Aufruf bricht ab. Die Klärung der Geschichte und die Entscheidung über die Anlage bleiben bei dir.",
+        "lose_to": {
+          "map": "ds_speisewagen",
+          "spawn": "default"
+        },
+        "lose_text": "Pfiff holt dich zurück. Die Schicht ist nicht weitergerückt.",
+        "loot": {
+          "money": [
+            40,
+            60
+          ],
+          "drops": [
+            {
+              "item": "k3o_schlagkern",
+              "chance": 1
+            }
+          ]
+        },
+        "roam": {
+          "speed": 0,
+          "chase": 45,
+          "aggro": 65
+        }
+      }
+    }
+  },
+  "ds_rufschlucht": {
+    "name": "Rufschlucht",
+    "tier": 5,
+    "travel": {
+      "name": "Rufschlucht",
+      "desc": "Gefahr Stufe 5. Ein markierter Rückweg bleibt offen.",
+      "requires_flags": [
+        "k3a_akt4_done"
+      ],
+      "city": "dunscar"
+    },
+    "lose_to": {
+      "map": "ds_speisewagen",
+      "spawn": "default"
+    },
+    "lose_money": 0,
+    "lose_text": "Pfiff bringt dich hinter die Schallschleuse. Deine Aufzeichnungen bleiben bei dir.",
+    "flee_text": "Du folgst den hellen Rückwegmarken nach draußen.",
+    "elite_drops": [
+      {
+        "item": "k3o_rufwachs",
+        "chance": 0.3
+      },
+      {
+        "item": "k3o_filzverband",
+        "chance": 0.3
+      }
+    ],
+    "loot_tables": {},
+    "encounters": {
+      "nachhall": {
+        "name": "Nachhall",
+        "sprite": "wild",
+        "sheet": "enemy_salzgeist",
+        "hp": 280,
+        "occult": true,
+        "fleeable": true,
+        "intro": "Eine Kontur wiederholt deinen letzten Schritt. Ihr nächster Angriff erscheint als helle Linie, bevor die Antwort ertönt.",
+        "attacks": [
+          {
+            "name": "Wiederholung",
+            "damage": 13,
+            "hits": [
+              1100,
+              1700
+            ]
+          },
+          {
+            "name": "Fremde Antwort …",
+            "damage": 15,
+            "hits": [
+              2200
+            ]
+          }
+        ],
+        "on_win": {},
+        "lose_to": {
+          "map": "ds_speisewagen",
+          "spawn": "default"
+        },
+        "lose_text": "Pfiff bringt dich hinter die Schallschleuse. Wissen und Fundnotizen bleiben erhalten.",
+        "win_text": "Die Gestalt verliert ihren Zusammenhalt. Der sichere Rückweg bleibt still.",
+        "loot": {
+          "money": [
+            11,
+            17
+          ],
+          "drops": [
+            {
+              "item": "k3o_trichterglas",
+              "chance": 0.55
+            },
+            {
+              "item": "k3o_kalkpastille",
+              "chance": 0.15
+            }
+          ]
+        },
+        "roam": {
+          "speed": 30,
+          "chase": 58,
+          "aggro": 92
+        },
+        "elite": {
+          "name": "Nachhall der letzten Schicht"
+        },
+        "armor": 2
+      },
+      "signalkraehe": {
+        "name": "Signalkrähe",
+        "sprite": "wild",
+        "sheet": "enemy_bojenglocke",
+        "hp": 200,
+        "occult": false,
+        "fleeable": true,
+        "intro": "Die Krähe klappt den Schnabel wie einen Signalhebel. Vor dem Sturzflug spreizt sie beide Flügel.",
+        "attacks": [
+          {
+            "name": "Schnabelklopfen",
+            "damage": 12,
+            "hits": [
+              1100,
+              1700
+            ]
+          },
+          {
+            "name": "Flügelzeichen …",
+            "damage": 14,
+            "hits": [
+              2200
+            ]
+          }
+        ],
+        "on_win": {},
+        "lose_to": {
+          "map": "ds_speisewagen",
+          "spawn": "default"
+        },
+        "lose_text": "Pfiff bringt dich hinter die Schallschleuse. Wissen und Fundnotizen bleiben erhalten.",
+        "win_text": "Die Gestalt verliert ihren Zusammenhalt. Der sichere Rückweg bleibt still.",
+        "loot": {
+          "money": [
+            8,
+            14
+          ],
+          "drops": [
+            {
+              "item": "k3o_ventilspan",
+              "chance": 0.55
+            },
+            {
+              "item": "k3o_kalkpastille",
+              "chance": 0.15
+            }
+          ]
+        },
+        "roam": {
+          "speed": 24,
+          "chase": 52,
+          "aggro": 80
+        },
+        "elite": {
+          "name": "Signalkrähe der letzten Schicht"
+        },
+        "armor": 2
+      },
+      "geruestklang": {
+        "name": "Gerüstklang",
+        "sprite": "wild",
+        "sheet": "enemy_bojenglocke",
+        "hp": 260,
+        "occult": false,
+        "fleeable": true,
+        "intro": "Eine Querstrebe schwingt ohne Wind. Schrauben klappern zweimal, bevor sich das Gerüst auf dich zubewegt.",
+        "attacks": [
+          {
+            "name": "Querstrebe",
+            "damage": 13,
+            "hits": [
+              1100,
+              1700
+            ]
+          },
+          {
+            "name": "Gerüstfall …",
+            "damage": 15,
+            "hits": [
+              2200
+            ]
+          }
+        ],
+        "on_win": {},
+        "lose_to": {
+          "map": "ds_speisewagen",
+          "spawn": "default"
+        },
+        "lose_text": "Pfiff bringt dich hinter die Schallschleuse. Wissen und Fundnotizen bleiben erhalten.",
+        "win_text": "Die Gestalt verliert ihren Zusammenhalt. Der sichere Rückweg bleibt still.",
+        "loot": {
+          "money": [
+            10,
+            16
+          ],
+          "drops": [
+            {
+              "item": "k3o_leitungsklemme",
+              "chance": 0.55
+            },
+            {
+              "item": "k3o_kalkpastille",
+              "chance": 0.15
+            }
+          ]
+        },
+        "roam": {
+          "speed": 28,
+          "chase": 56,
+          "aggro": 88
+        },
+        "elite": {
+          "name": "Gerüstklang der letzten Schicht"
+        },
+        "armor": 2
+      },
+      "vielrufer": {
+        "name": "Vielrufer",
+        "sprite": "wild",
+        "sheet": "enemy_glockenmutter",
+        "boss": true,
+        "fleeable": true,
+        "hp": 550,
+        "occult": true,
+        "armor": 3,
+        "intro": "Vielrufer hält den Weg. Du erkennst den angekündigten Angriff an Bewegung, Text und Ring.",
+        "attacks": [
+          {
+            "name": "Antwortfächer",
+            "damage": 17,
+            "hits": [
+              1400,
+              2100
+            ]
+          },
+          {
+            "name": "Rundruf …",
+            "damage": 19,
+            "hits": [
+              2400
+            ]
+          }
+        ],
+        "weak_if": {
+          "requires_flags": [
+            "k3o_leitungen_getrennt"
+          ]
+        },
+        "on_win": {
+          "sets_flags": [
+            "k3o_vielrufer_geloest"
+          ]
+        },
+        "win_text": "Der Aufruf bricht ab. Die Klärung der Geschichte und die Entscheidung über die Anlage bleiben bei dir.",
+        "lose_to": {
+          "map": "ds_speisewagen",
+          "spawn": "default"
+        },
+        "lose_text": "Pfiff holt dich zurück. Die Schicht ist nicht weitergerückt.",
+        "loot": {
+          "money": [
+            40,
+            60
+          ],
+          "drops": [
+            {
+              "item": "k3o_trichterglas",
+              "chance": 1
+            }
+          ]
+        },
+        "roam": {
+          "speed": 0,
+          "chase": 45,
+          "aggro": 65
+        }
+      }
+    }
+  },
+  "ds_unterschicht": {
+    "name": "Unterschicht",
+    "tier": 6,
+    "travel": {
+      "name": "Unterschicht",
+      "desc": "Gefahr Stufe 6. Ein markierter Rückweg bleibt offen.",
+      "requires_flags": [
+        "kapitel3_done"
+      ],
+      "city": "dunscar"
+    },
+    "lose_to": {
+      "map": "ds_speisewagen",
+      "spawn": "default"
+    },
+    "lose_money": 0,
+    "lose_text": "Pfiff bringt dich hinter die Schallschleuse. Deine Aufzeichnungen bleiben bei dir.",
+    "flee_text": "Du folgst den hellen Rückwegmarken nach draußen.",
+    "elite_drops": [
+      {
+        "item": "k3o_rufwachs",
+        "chance": 0.3
+      },
+      {
+        "item": "k3o_filzverband",
+        "chance": 0.3
+      }
+    ],
+    "loot_tables": {},
+    "encounters": {
+      "nachhall": {
+        "name": "Nachhall",
+        "sprite": "wild",
+        "sheet": "enemy_salzgeist",
+        "hp": 280,
+        "occult": true,
+        "fleeable": true,
+        "intro": "Eine Kontur wiederholt deinen letzten Schritt. Ihr nächster Angriff erscheint als helle Linie, bevor die Antwort ertönt.",
+        "attacks": [
+          {
+            "name": "Wiederholung",
+            "damage": 13,
+            "hits": [
+              1100,
+              1700
+            ]
+          },
+          {
+            "name": "Fremde Antwort …",
+            "damage": 15,
+            "hits": [
+              2200
+            ]
+          }
+        ],
+        "on_win": {},
+        "lose_to": {
+          "map": "ds_speisewagen",
+          "spawn": "default"
+        },
+        "lose_text": "Pfiff bringt dich hinter die Schallschleuse. Wissen und Fundnotizen bleiben erhalten.",
+        "win_text": "Die Gestalt verliert ihren Zusammenhalt. Der sichere Rückweg bleibt still.",
+        "loot": {
+          "money": [
+            11,
+            17
+          ],
+          "drops": [
+            {
+              "item": "k3o_trichterglas",
+              "chance": 0.55
+            },
+            {
+              "item": "k3o_kalkpastille",
+              "chance": 0.15
+            }
+          ]
+        },
+        "roam": {
+          "speed": 30,
+          "chase": 58,
+          "aggro": 92
+        },
+        "elite": {
+          "name": "Nachhall der letzten Schicht"
+        },
+        "armor": 2
+      },
+      "kalkstaubgeist": {
+        "name": "Kalkstaubgeist",
+        "sprite": "wild",
+        "sheet": "enemy_salzgeist",
+        "hp": 220,
+        "occult": true,
+        "fleeable": true,
+        "intro": "Kalk sammelt sich zu einer Gestalt. Vor jedem Husten zieht ein heller Staubring sichtbar nach innen.",
+        "attacks": [
+          {
+            "name": "Staubhusten",
+            "damage": 11,
+            "hits": [
+              1100,
+              1700
+            ]
+          },
+          {
+            "name": "Kalkmantel …",
+            "damage": 14,
+            "hits": [
+              2200
+            ]
+          }
+        ],
+        "on_win": {},
+        "lose_to": {
+          "map": "ds_speisewagen",
+          "spawn": "default"
+        },
+        "lose_text": "Pfiff bringt dich hinter die Schallschleuse. Wissen und Fundnotizen bleiben erhalten.",
+        "win_text": "Die Gestalt verliert ihren Zusammenhalt. Der sichere Rückweg bleibt still.",
+        "loot": {
+          "money": [
+            7,
+            13
+          ],
+          "drops": [
+            {
+              "item": "k3o_kreidestaub",
+              "chance": 0.55
+            },
+            {
+              "item": "k3o_kalkpastille",
+              "chance": 0.15
+            }
+          ]
+        },
+        "roam": {
+          "speed": 22,
+          "chase": 50,
+          "aggro": 76
+        },
+        "elite": {
+          "name": "Kalkstaubgeist der letzten Schicht"
+        },
+        "armor": 2
+      },
+      "lohnlistenmotte": {
+        "name": "Lohnlistenmotte",
+        "sprite": "wild",
+        "sheet": "enemy_nebelfischer",
+        "hp": 210,
+        "occult": true,
+        "fleeable": true,
+        "intro": "Aus einer Lohnliste löst sich eine Motte aus Papier. Sie faltet die Flügel vor dem nächsten Stoß sauber zusammen.",
+        "attacks": [
+          {
+            "name": "Papierflug",
+            "damage": 12,
+            "hits": [
+              1100,
+              1700
+            ]
+          },
+          {
+            "name": "Radierstaub …",
+            "damage": 15,
+            "hits": [
+              2200
+            ]
+          }
+        ],
+        "on_win": {},
+        "lose_to": {
+          "map": "ds_speisewagen",
+          "spawn": "default"
+        },
+        "lose_text": "Pfiff bringt dich hinter die Schallschleuse. Wissen und Fundnotizen bleiben erhalten.",
+        "win_text": "Die Gestalt verliert ihren Zusammenhalt. Der sichere Rückweg bleibt still.",
+        "loot": {
+          "money": [
+            9,
+            15
+          ],
+          "drops": [
+            {
+              "item": "k3o_rufwachs",
+              "chance": 0.55
+            },
+            {
+              "item": "k3o_kalkpastille",
+              "chance": 0.15
+            }
+          ]
+        },
+        "roam": {
+          "speed": 26,
+          "chase": 54,
+          "aggro": 84
+        },
+        "elite": {
+          "name": "Lohnlistenmotte der letzten Schicht"
+        },
+        "armor": 2
+      },
+      "unterschicht": {
+        "name": "Die Unterschicht",
+        "sprite": "wild",
+        "sheet": "enemy_glockenmutter",
+        "boss": true,
+        "fleeable": true,
+        "hp": 260,
+        "occult": true,
+        "armor": 3,
+        "intro": "Die Unterschicht hält den Weg. Du erkennst den angekündigten Angriff an Bewegung, Text und Ring.",
+        "attacks": [
+          {
+            "name": "Namenlücke",
+            "damage": 21,
+            "hits": [
+              1400,
+              2100
+            ]
+          },
+          {
+            "name": "Tiefenruf …",
+            "damage": 23,
+            "hits": [
+              2400
+            ]
+          }
+        ],
+        "weak_if": {
+          "requires_flags": [
+            "k3o_luecken_begrenzt"
+          ]
+        },
+        "on_win": {
+          "sets_flags": [
+            "k3o_unterschicht_phase1_done"
+          ]
+        },
+        "win_text": "Der Aufruf bricht ab. Die Klärung der Geschichte und die Entscheidung über die Anlage bleiben bei dir.",
+        "lose_to": {
+          "map": "ds_speisewagen",
+          "spawn": "default"
+        },
+        "lose_text": "Pfiff holt dich zurück. Die Schicht ist nicht weitergerückt.",
+        "loot": {
+          "money": [
+            0,
+            0
+          ],
+          "drops": []
+        },
+        "roam": {
+          "speed": 0,
+          "chase": 45,
+          "aggro": 65
+        }
+      }
+    }
+  }
+}

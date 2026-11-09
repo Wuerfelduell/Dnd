@@ -1,0 +1,2308 @@
+{
+  "k3p_laterne_probe_dialog": {
+    "start": "k3p_start",
+    "nodes": {
+      "k3p_start": {
+        "text": "Der Lampengutachter tritt aus der stillen Prüfanordnung. Seine Stimme wiederholt deine bequemste Vermutung. Du kannst die belegte Gegenprobe ausführen oder ihn im Kampf zur Freigabe zwingen.",
+        "choices": [
+          {
+            "text": "Ich stelle Lampe und widersprechende Prüftafel zusammen öffentlich aus.",
+            "next": "k3p_frieden"
+          },
+          {
+            "text": "Ich verbrenne die Prüftafel, damit nur das Licht entscheidet.",
+            "next": "k3p_irrtum"
+          },
+          {
+            "text": "Ich stelle mich dem Hüter im Kampf.",
+            "next": "k3p_kampf"
+          },
+          {
+            "text": "Ich komme später wieder."
+          }
+        ]
+      },
+      "k3p_frieden": {
+        "text": "Du führst die belegte Handlung aus. Der Hüter lässt die Kernprobe frei, ohne eine fremde Stimme oder einen Namen zu fordern. Hedda wird die versiegelte Zutat bei deiner Rückkehr aushändigen.",
+        "sets_flags": [
+          "k3p_laterne_friedlich",
+          "k3p_laterne_bewaeltigt"
+        ],
+        "choices": [
+          {
+            "text": "Zurück zu Hedda."
+          }
+        ]
+      },
+      "k3p_irrtum": {
+        "text": "Die Prüfanordnung bleibt geschlossen. Dein Vorschlag beseitigt gerade den Unterschied, den die zwei Spuren zeigen. Du darfst sie erneut lesen und eine andere Antwort wählen.",
+        "choices": [
+          {
+            "text": "Ich prüfe meine Antwort.",
+            "next": "k3p_start"
+          }
+        ]
+      },
+      "k3p_kampf": {
+        "text": "Der Lampengutachter hebt sein Werkzeug. Jede Bewegung ist sichtbar angekündigt; die Prüfung hat keinen Zeitdruck außerhalb des Kampfes.",
+        "encounter": "k3p_lampengutachter",
+        "choices": []
+      }
+    }
+  },
+  "k3p_laterne_ritual1_dialog": {
+    "start": "k3p_start",
+    "nodes": {
+      "k3p_start": {
+        "text": "Eine Rußabschrift enthält deinen zu frühen Freispruch für das Gütesiegel. Du lässt die Korrektur neben dem Original stehen. Du kannst die Korrektur offen auslegen oder mit einer öffentlich lesbaren Herkunftsnotiz versiegeln. Beide Wege bewahren den Widerspruch; nur seine Zugänglichkeit unterscheidet sich.",
+        "choices": [
+          {
+            "text": "Offen auslegen, auch wenn mein Irrtum sichtbar bleibt.",
+            "next": "k3p_offen"
+          },
+          {
+            "text": "Versiegeln und Herkunft samt Einsichtsweg außen vermerken.",
+            "next": "k3p_siegel"
+          },
+          {
+            "text": "Noch nicht entscheiden."
+          }
+        ]
+      },
+      "k3p_offen": {
+        "text": "Du legst Original und Berichtigung nebeneinander. Künftige Leser können dir widersprechen, ohne um Erlaubnis zu bitten.",
+        "sets_flags": [
+          "k3p_laterne_ritual1_entscheidung",
+          "k3p_laterne_ritual1_offen"
+        ],
+        "choices": [
+          {
+            "text": "Ich bereite das Ritual vor."
+          }
+        ]
+      },
+      "k3p_siegel": {
+        "text": "Du versiegelst die Abschrift und notierst außen Herkunft, Irrtum und Einsichtsweg. Niemand muss dafür einen Namen als Pfand lassen.",
+        "sets_flags": [
+          "k3p_laterne_ritual1_entscheidung",
+          "k3p_laterne_ritual1_siegel"
+        ],
+        "choices": [
+          {
+            "text": "Ich bereite das Ritual vor."
+          }
+        ]
+      }
+    }
+  },
+  "k3p_faden_probe_dialog": {
+    "start": "k3p_start",
+    "nodes": {
+      "k3p_start": {
+        "text": "Der Gegenzeugenknüpfer tritt aus der stillen Prüfanordnung. Seine Stimme wiederholt deine bequemste Vermutung. Du kannst die belegte Gegenprobe ausführen oder ihn im Kampf zur Freigabe zwingen.",
+        "choices": [
+          {
+            "text": "Ich verbinde die Zeiten und lasse die Frage nach dem Öffner ausdrücklich offen.",
+            "next": "k3p_frieden"
+          },
+          {
+            "text": "Ich erkläre die Heizerin zur Lügnerin, damit die Akte ordentlich aussieht.",
+            "next": "k3p_irrtum"
+          },
+          {
+            "text": "Ich stelle mich dem Hüter im Kampf.",
+            "next": "k3p_kampf"
+          },
+          {
+            "text": "Ich komme später wieder."
+          }
+        ]
+      },
+      "k3p_frieden": {
+        "text": "Du führst die belegte Handlung aus. Der Hüter lässt die Kernprobe frei, ohne eine fremde Stimme oder einen Namen zu fordern. Hedda wird die versiegelte Zutat bei deiner Rückkehr aushändigen.",
+        "sets_flags": [
+          "k3p_faden_friedlich",
+          "k3p_faden_bewaeltigt"
+        ],
+        "choices": [
+          {
+            "text": "Zurück zu Hedda."
+          }
+        ]
+      },
+      "k3p_irrtum": {
+        "text": "Die Prüfanordnung bleibt geschlossen. Dein Vorschlag beseitigt gerade den Unterschied, den die zwei Spuren zeigen. Du darfst sie erneut lesen und eine andere Antwort wählen.",
+        "choices": [
+          {
+            "text": "Ich prüfe meine Antwort.",
+            "next": "k3p_start"
+          }
+        ]
+      },
+      "k3p_kampf": {
+        "text": "Der Gegenzeugenknüpfer hebt sein Werkzeug. Jede Bewegung ist sichtbar angekündigt; die Prüfung hat keinen Zeitdruck außerhalb des Kampfes.",
+        "encounter": "k3p_gegenzeugenknuepfer",
+        "choices": []
+      }
+    }
+  },
+  "k3p_faden_ritual1_dialog": {
+    "start": "k3p_start",
+    "nodes": {
+      "k3p_start": {
+        "text": "Deine erste Skizze behauptet einen Öffner ohne Beleg. Du trennst diese Naht und bewahrst die beiden datierten Aussagen. Du kannst die Korrektur offen auslegen oder mit einer öffentlich lesbaren Herkunftsnotiz versiegeln. Beide Wege bewahren den Widerspruch; nur seine Zugänglichkeit unterscheidet sich.",
+        "choices": [
+          {
+            "text": "Offen auslegen, auch wenn mein Irrtum sichtbar bleibt.",
+            "next": "k3p_offen"
+          },
+          {
+            "text": "Versiegeln und Herkunft samt Einsichtsweg außen vermerken.",
+            "next": "k3p_siegel"
+          },
+          {
+            "text": "Noch nicht entscheiden."
+          }
+        ]
+      },
+      "k3p_offen": {
+        "text": "Du legst Original und Berichtigung nebeneinander. Künftige Leser können dir widersprechen, ohne um Erlaubnis zu bitten.",
+        "sets_flags": [
+          "k3p_faden_ritual1_entscheidung",
+          "k3p_faden_ritual1_offen"
+        ],
+        "choices": [
+          {
+            "text": "Ich bereite das Ritual vor."
+          }
+        ]
+      },
+      "k3p_siegel": {
+        "text": "Du versiegelst die Abschrift und notierst außen Herkunft, Irrtum und Einsichtsweg. Niemand muss dafür einen Namen als Pfand lassen.",
+        "sets_flags": [
+          "k3p_faden_ritual1_entscheidung",
+          "k3p_faden_ritual1_siegel"
+        ],
+        "choices": [
+          {
+            "text": "Ich bereite das Ritual vor."
+          }
+        ]
+      }
+    }
+  },
+  "k3p_maske_probe_dialog": {
+    "start": "k3p_start",
+    "nodes": {
+      "k3p_start": {
+        "text": "Der Garderobenpfänder tritt aus der stillen Prüfanordnung. Seine Stimme wiederholt deine bequemste Vermutung. Du kannst die belegte Gegenprobe ausführen oder ihn im Kampf zur Freigabe zwingen.",
+        "choices": [
+          {
+            "text": "Ich spiele ihren Widerspruch und lege danach Mantel und fremde Stimme ab.",
+            "next": "k3p_frieden"
+          },
+          {
+            "text": "Ich spiele die gefügige Kellnerin und behalte ihren Mantel als Rangzeichen.",
+            "next": "k3p_irrtum"
+          },
+          {
+            "text": "Ich stelle mich dem Hüter im Kampf.",
+            "next": "k3p_kampf"
+          },
+          {
+            "text": "Ich komme später wieder."
+          }
+        ]
+      },
+      "k3p_frieden": {
+        "text": "Du führst die belegte Handlung aus. Der Hüter lässt die Kernprobe frei, ohne eine fremde Stimme oder einen Namen zu fordern. Hedda wird die versiegelte Zutat bei deiner Rückkehr aushändigen.",
+        "sets_flags": [
+          "k3p_maske_friedlich",
+          "k3p_maske_bewaeltigt"
+        ],
+        "choices": [
+          {
+            "text": "Zurück zu Hedda."
+          }
+        ]
+      },
+      "k3p_irrtum": {
+        "text": "Die Prüfanordnung bleibt geschlossen. Dein Vorschlag beseitigt gerade den Unterschied, den die zwei Spuren zeigen. Du darfst sie erneut lesen und eine andere Antwort wählen.",
+        "choices": [
+          {
+            "text": "Ich prüfe meine Antwort.",
+            "next": "k3p_start"
+          }
+        ]
+      },
+      "k3p_kampf": {
+        "text": "Der Garderobenpfänder hebt sein Werkzeug. Jede Bewegung ist sichtbar angekündigt; die Prüfung hat keinen Zeitdruck außerhalb des Kampfes.",
+        "encounter": "k3p_garderobenpfaender",
+        "choices": []
+      }
+    }
+  },
+  "k3p_maske_ritual1_dialog": {
+    "start": "k3p_start",
+    "nodes": {
+      "k3p_start": {
+        "text": "Dein Rollenblatt ließ die Kellnerin früher zustimmen. Du gibst ihr den Widerspruch zurück und unterschreibst nur deine eigene Bearbeitung. Du kannst die Korrektur offen auslegen oder mit einer öffentlich lesbaren Herkunftsnotiz versiegeln. Beide Wege bewahren den Widerspruch; nur seine Zugänglichkeit unterscheidet sich.",
+        "choices": [
+          {
+            "text": "Offen auslegen, auch wenn mein Irrtum sichtbar bleibt.",
+            "next": "k3p_offen"
+          },
+          {
+            "text": "Versiegeln und Herkunft samt Einsichtsweg außen vermerken.",
+            "next": "k3p_siegel"
+          },
+          {
+            "text": "Noch nicht entscheiden."
+          }
+        ]
+      },
+      "k3p_offen": {
+        "text": "Du legst Original und Berichtigung nebeneinander. Künftige Leser können dir widersprechen, ohne um Erlaubnis zu bitten.",
+        "sets_flags": [
+          "k3p_maske_ritual1_entscheidung",
+          "k3p_maske_ritual1_offen"
+        ],
+        "choices": [
+          {
+            "text": "Ich bereite das Ritual vor."
+          }
+        ]
+      },
+      "k3p_siegel": {
+        "text": "Du versiegelst die Abschrift und notierst außen Herkunft, Irrtum und Einsichtsweg. Niemand muss dafür einen Namen als Pfand lassen.",
+        "sets_flags": [
+          "k3p_maske_ritual1_entscheidung",
+          "k3p_maske_ritual1_siegel"
+        ],
+        "choices": [
+          {
+            "text": "Ich bereite das Ritual vor."
+          }
+        ]
+      }
+    }
+  },
+  "k3p_echo_probe_dialog": {
+    "start": "k3p_start",
+    "nodes": {
+      "k3p_start": {
+        "text": "Der Pausenfischer tritt aus der stillen Prüfanordnung. Seine Stimme wiederholt deine bequemste Vermutung. Du kannst die belegte Gegenprobe ausführen oder ihn im Kampf zur Freigabe zwingen.",
+        "choices": [
+          {
+            "text": "Ich höre die Aufnahme ganz an und lasse ihre Pause unbesetzt.",
+            "next": "k3p_frieden"
+          },
+          {
+            "text": "Ich ergänze „nicht enden“, damit die Stimme bei uns bleibt.",
+            "next": "k3p_irrtum"
+          },
+          {
+            "text": "Ich stelle mich dem Hüter im Kampf.",
+            "next": "k3p_kampf"
+          },
+          {
+            "text": "Ich komme später wieder."
+          }
+        ]
+      },
+      "k3p_frieden": {
+        "text": "Du führst die belegte Handlung aus. Der Hüter lässt die Kernprobe frei, ohne eine fremde Stimme oder einen Namen zu fordern. Hedda wird die versiegelte Zutat bei deiner Rückkehr aushändigen.",
+        "sets_flags": [
+          "k3p_echo_friedlich",
+          "k3p_echo_bewaeltigt"
+        ],
+        "choices": [
+          {
+            "text": "Zurück zu Hedda."
+          }
+        ]
+      },
+      "k3p_irrtum": {
+        "text": "Die Prüfanordnung bleibt geschlossen. Dein Vorschlag beseitigt gerade den Unterschied, den die zwei Spuren zeigen. Du darfst sie erneut lesen und eine andere Antwort wählen.",
+        "choices": [
+          {
+            "text": "Ich prüfe meine Antwort.",
+            "next": "k3p_start"
+          }
+        ]
+      },
+      "k3p_kampf": {
+        "text": "Der Pausenfischer hebt sein Werkzeug. Jede Bewegung ist sichtbar angekündigt; die Prüfung hat keinen Zeitdruck außerhalb des Kampfes.",
+        "encounter": "k3p_pausenfischer",
+        "choices": []
+      }
+    }
+  },
+  "k3p_echo_ritual1_dialog": {
+    "start": "k3p_start",
+    "nodes": {
+      "k3p_start": {
+        "text": "Deine frühere Abschrift enthielt ein erfundenes Schlusswort. Du streichst nur deinen Zusatz, nicht die erhaltene Aussage. Du kannst die Korrektur offen auslegen oder mit einer öffentlich lesbaren Herkunftsnotiz versiegeln. Beide Wege bewahren den Widerspruch; nur seine Zugänglichkeit unterscheidet sich.",
+        "choices": [
+          {
+            "text": "Offen auslegen, auch wenn mein Irrtum sichtbar bleibt.",
+            "next": "k3p_offen"
+          },
+          {
+            "text": "Versiegeln und Herkunft samt Einsichtsweg außen vermerken.",
+            "next": "k3p_siegel"
+          },
+          {
+            "text": "Noch nicht entscheiden."
+          }
+        ]
+      },
+      "k3p_offen": {
+        "text": "Du legst Original und Berichtigung nebeneinander. Künftige Leser können dir widersprechen, ohne um Erlaubnis zu bitten.",
+        "sets_flags": [
+          "k3p_echo_ritual1_entscheidung",
+          "k3p_echo_ritual1_offen"
+        ],
+        "choices": [
+          {
+            "text": "Ich bereite das Ritual vor."
+          }
+        ]
+      },
+      "k3p_siegel": {
+        "text": "Du versiegelst die Abschrift und notierst außen Herkunft, Irrtum und Einsichtsweg. Niemand muss dafür einen Namen als Pfand lassen.",
+        "sets_flags": [
+          "k3p_echo_ritual1_entscheidung",
+          "k3p_echo_ritual1_siegel"
+        ],
+        "choices": [
+          {
+            "text": "Ich bereite das Ritual vor."
+          }
+        ]
+      }
+    }
+  },
+  "k3p_kessel_probe_dialog": {
+    "start": "k3p_start",
+    "nodes": {
+      "k3p_start": {
+        "text": "Der Chargenprüfer tritt aus der stillen Prüfanordnung. Seine Stimme wiederholt deine bequemste Vermutung. Du kannst die belegte Gegenprobe ausführen oder ihn im Kampf zur Freigabe zwingen.",
+        "choices": [
+          {
+            "text": "Ich trenne die Charge, sichere den Rest und bewahre eine beschriftete Probe.",
+            "next": "k3p_frieden"
+          },
+          {
+            "text": "Ich verdünne alles im Abfluss, bis man nichts mehr riecht.",
+            "next": "k3p_irrtum"
+          },
+          {
+            "text": "Ich stelle mich dem Hüter im Kampf.",
+            "next": "k3p_kampf"
+          },
+          {
+            "text": "Ich komme später wieder."
+          }
+        ]
+      },
+      "k3p_frieden": {
+        "text": "Du führst die belegte Handlung aus. Der Hüter lässt die Kernprobe frei, ohne eine fremde Stimme oder einen Namen zu fordern. Hedda wird die versiegelte Zutat bei deiner Rückkehr aushändigen.",
+        "sets_flags": [
+          "k3p_kessel_friedlich",
+          "k3p_kessel_bewaeltigt"
+        ],
+        "choices": [
+          {
+            "text": "Zurück zu Hedda."
+          }
+        ]
+      },
+      "k3p_irrtum": {
+        "text": "Die Prüfanordnung bleibt geschlossen. Dein Vorschlag beseitigt gerade den Unterschied, den die zwei Spuren zeigen. Du darfst sie erneut lesen und eine andere Antwort wählen.",
+        "choices": [
+          {
+            "text": "Ich prüfe meine Antwort.",
+            "next": "k3p_start"
+          }
+        ]
+      },
+      "k3p_kampf": {
+        "text": "Der Chargenprüfer hebt sein Werkzeug. Jede Bewegung ist sichtbar angekündigt; die Prüfung hat keinen Zeitdruck außerhalb des Kampfes.",
+        "encounter": "k3p_chargenpruefer",
+        "choices": []
+      }
+    }
+  },
+  "k3p_kessel_ritual1_dialog": {
+    "start": "k3p_start",
+    "nodes": {
+      "k3p_start": {
+        "text": "Dein erster Reinigungsbericht verschwieg den Abfall. Du ergänzt Menge und Lagerort, bevor du die klare Fraktion freigibst. Du kannst die Korrektur offen auslegen oder mit einer öffentlich lesbaren Herkunftsnotiz versiegeln. Beide Wege bewahren den Widerspruch; nur seine Zugänglichkeit unterscheidet sich.",
+        "choices": [
+          {
+            "text": "Offen auslegen, auch wenn mein Irrtum sichtbar bleibt.",
+            "next": "k3p_offen"
+          },
+          {
+            "text": "Versiegeln und Herkunft samt Einsichtsweg außen vermerken.",
+            "next": "k3p_siegel"
+          },
+          {
+            "text": "Noch nicht entscheiden."
+          }
+        ]
+      },
+      "k3p_offen": {
+        "text": "Du legst Original und Berichtigung nebeneinander. Künftige Leser können dir widersprechen, ohne um Erlaubnis zu bitten.",
+        "sets_flags": [
+          "k3p_kessel_ritual1_entscheidung",
+          "k3p_kessel_ritual1_offen"
+        ],
+        "choices": [
+          {
+            "text": "Ich bereite das Ritual vor."
+          }
+        ]
+      },
+      "k3p_siegel": {
+        "text": "Du versiegelst die Abschrift und notierst außen Herkunft, Irrtum und Einsichtsweg. Niemand muss dafür einen Namen als Pfand lassen.",
+        "sets_flags": [
+          "k3p_kessel_ritual1_entscheidung",
+          "k3p_kessel_ritual1_siegel"
+        ],
+        "choices": [
+          {
+            "text": "Ich bereite das Ritual vor."
+          }
+        ]
+      }
+    }
+  },
+  "k3p_eisen_probe_dialog": {
+    "start": "k3p_start",
+    "nodes": {
+      "k3p_start": {
+        "text": "Der Brückenpresser tritt aus der stillen Prüfanordnung. Seine Stimme wiederholt deine bequemste Vermutung. Du kannst die belegte Gegenprobe ausführen oder ihn im Kampf zur Freigabe zwingen.",
+        "choices": [
+          {
+            "text": "Ich halte den leeren Steg, setze beide Keile und löse die Hand erst nach der Lastprobe.",
+            "next": "k3p_frieden"
+          },
+          {
+            "text": "Ich reiße den Fangbock weg und beweise, dass meine Kraft genügt.",
+            "next": "k3p_irrtum"
+          },
+          {
+            "text": "Ich stelle mich dem Hüter im Kampf.",
+            "next": "k3p_kampf"
+          },
+          {
+            "text": "Ich komme später wieder."
+          }
+        ]
+      },
+      "k3p_frieden": {
+        "text": "Du führst die belegte Handlung aus. Der Hüter lässt die Kernprobe frei, ohne eine fremde Stimme oder einen Namen zu fordern. Hedda wird die versiegelte Zutat bei deiner Rückkehr aushändigen.",
+        "sets_flags": [
+          "k3p_eisen_friedlich",
+          "k3p_eisen_bewaeltigt"
+        ],
+        "choices": [
+          {
+            "text": "Zurück zu Hedda."
+          }
+        ]
+      },
+      "k3p_irrtum": {
+        "text": "Die Prüfanordnung bleibt geschlossen. Dein Vorschlag beseitigt gerade den Unterschied, den die zwei Spuren zeigen. Du darfst sie erneut lesen und eine andere Antwort wählen.",
+        "choices": [
+          {
+            "text": "Ich prüfe meine Antwort.",
+            "next": "k3p_start"
+          }
+        ]
+      },
+      "k3p_kampf": {
+        "text": "Der Brückenpresser hebt sein Werkzeug. Jede Bewegung ist sichtbar angekündigt; die Prüfung hat keinen Zeitdruck außerhalb des Kampfes.",
+        "encounter": "k3p_brueckenpresser",
+        "choices": []
+      }
+    }
+  },
+  "k3p_eisen_ritual1_dialog": {
+    "start": "k3p_start",
+    "nodes": {
+      "k3p_start": {
+        "text": "Dein erster Plan zeigte nur deine eigene Stütze. Du zeichnest die unabhängigen Auflager ein und lässt die Probe ohne deine Hand bestehen. Du kannst die Korrektur offen auslegen oder mit einer öffentlich lesbaren Herkunftsnotiz versiegeln. Beide Wege bewahren den Widerspruch; nur seine Zugänglichkeit unterscheidet sich.",
+        "choices": [
+          {
+            "text": "Offen auslegen, auch wenn mein Irrtum sichtbar bleibt.",
+            "next": "k3p_offen"
+          },
+          {
+            "text": "Versiegeln und Herkunft samt Einsichtsweg außen vermerken.",
+            "next": "k3p_siegel"
+          },
+          {
+            "text": "Noch nicht entscheiden."
+          }
+        ]
+      },
+      "k3p_offen": {
+        "text": "Du legst Original und Berichtigung nebeneinander. Künftige Leser können dir widersprechen, ohne um Erlaubnis zu bitten.",
+        "sets_flags": [
+          "k3p_eisen_ritual1_entscheidung",
+          "k3p_eisen_ritual1_offen"
+        ],
+        "choices": [
+          {
+            "text": "Ich bereite das Ritual vor."
+          }
+        ]
+      },
+      "k3p_siegel": {
+        "text": "Du versiegelst die Abschrift und notierst außen Herkunft, Irrtum und Einsichtsweg. Niemand muss dafür einen Namen als Pfand lassen.",
+        "sets_flags": [
+          "k3p_eisen_ritual1_entscheidung",
+          "k3p_eisen_ritual1_siegel"
+        ],
+        "choices": [
+          {
+            "text": "Ich bereite das Ritual vor."
+          }
+        ]
+      }
+    }
+  },
+  "k3p_schluessel_probe_dialog": {
+    "start": "k3p_start",
+    "nodes": {
+      "k3p_start": {
+        "text": "Der Zollriegel tritt aus der stillen Prüfanordnung. Seine Stimme wiederholt deine bequemste Vermutung. Du kannst die belegte Gegenprobe ausführen oder ihn im Kampf zur Freigabe zwingen.",
+        "choices": [
+          {
+            "text": "Ich entlaste die Feder, öffne das Tor und lasse Paket und Ersatzschlüssel am ausgewiesenen Platz.",
+            "next": "k3p_frieden"
+          },
+          {
+            "text": "Ich breche den Riegel und behalte das Paket als Finderlohn.",
+            "next": "k3p_irrtum"
+          },
+          {
+            "text": "Ich stelle mich dem Hüter im Kampf.",
+            "next": "k3p_kampf"
+          },
+          {
+            "text": "Ich komme später wieder."
+          }
+        ]
+      },
+      "k3p_frieden": {
+        "text": "Du führst die belegte Handlung aus. Der Hüter lässt die Kernprobe frei, ohne eine fremde Stimme oder einen Namen zu fordern. Hedda wird die versiegelte Zutat bei deiner Rückkehr aushändigen.",
+        "sets_flags": [
+          "k3p_schluessel_friedlich",
+          "k3p_schluessel_bewaeltigt"
+        ],
+        "choices": [
+          {
+            "text": "Zurück zu Hedda."
+          }
+        ]
+      },
+      "k3p_irrtum": {
+        "text": "Die Prüfanordnung bleibt geschlossen. Dein Vorschlag beseitigt gerade den Unterschied, den die zwei Spuren zeigen. Du darfst sie erneut lesen und eine andere Antwort wählen.",
+        "choices": [
+          {
+            "text": "Ich prüfe meine Antwort.",
+            "next": "k3p_start"
+          }
+        ]
+      },
+      "k3p_kampf": {
+        "text": "Der Zollriegel hebt sein Werkzeug. Jede Bewegung ist sichtbar angekündigt; die Prüfung hat keinen Zeitdruck außerhalb des Kampfes.",
+        "encounter": "k3p_zollriegel",
+        "choices": []
+      }
+    }
+  },
+  "k3p_schluessel_ritual1_dialog": {
+    "start": "k3p_start",
+    "nodes": {
+      "k3p_start": {
+        "text": "Dein früherer Zugangsschein beanspruchte das Gepäck. Du widerrufst den Anspruch und lässt den Ausgang auch für Menschen offen, die dir misstrauen. Du kannst die Korrektur offen auslegen oder mit einer öffentlich lesbaren Herkunftsnotiz versiegeln. Beide Wege bewahren den Widerspruch; nur seine Zugänglichkeit unterscheidet sich.",
+        "choices": [
+          {
+            "text": "Offen auslegen, auch wenn mein Irrtum sichtbar bleibt.",
+            "next": "k3p_offen"
+          },
+          {
+            "text": "Versiegeln und Herkunft samt Einsichtsweg außen vermerken.",
+            "next": "k3p_siegel"
+          },
+          {
+            "text": "Noch nicht entscheiden."
+          }
+        ]
+      },
+      "k3p_offen": {
+        "text": "Du legst Original und Berichtigung nebeneinander. Künftige Leser können dir widersprechen, ohne um Erlaubnis zu bitten.",
+        "sets_flags": [
+          "k3p_schluessel_ritual1_entscheidung",
+          "k3p_schluessel_ritual1_offen"
+        ],
+        "choices": [
+          {
+            "text": "Ich bereite das Ritual vor."
+          }
+        ]
+      },
+      "k3p_siegel": {
+        "text": "Du versiegelst die Abschrift und notierst außen Herkunft, Irrtum und Einsichtsweg. Niemand muss dafür einen Namen als Pfand lassen.",
+        "sets_flags": [
+          "k3p_schluessel_ritual1_entscheidung",
+          "k3p_schluessel_ritual1_siegel"
+        ],
+        "choices": [
+          {
+            "text": "Ich bereite das Ritual vor."
+          }
+        ]
+      }
+    }
+  },
+  "k3p_waage_probe_dialog": {
+    "start": "k3p_start",
+    "nodes": {
+      "k3p_start": {
+        "text": "Der Fristpfänder tritt aus der stillen Prüfanordnung. Seine Stimme wiederholt deine bequemste Vermutung. Du kannst die belegte Gegenprobe ausführen oder ihn im Kampf zur Freigabe zwingen.",
+        "choices": [
+          {
+            "text": "Ich streiche Doppelzahlung und Prüferprämie und quittiere die Rückgabe.",
+            "next": "k3p_frieden"
+          },
+          {
+            "text": "Ich lasse die zweite Forderung stehen und teile die Prämie.",
+            "next": "k3p_irrtum"
+          },
+          {
+            "text": "Ich stelle mich dem Hüter im Kampf.",
+            "next": "k3p_kampf"
+          },
+          {
+            "text": "Ich komme später wieder."
+          }
+        ]
+      },
+      "k3p_frieden": {
+        "text": "Du führst die belegte Handlung aus. Der Hüter lässt die Kernprobe frei, ohne eine fremde Stimme oder einen Namen zu fordern. Hedda wird die versiegelte Zutat bei deiner Rückkehr aushändigen.",
+        "sets_flags": [
+          "k3p_waage_friedlich",
+          "k3p_waage_bewaeltigt"
+        ],
+        "choices": [
+          {
+            "text": "Zurück zu Hedda."
+          }
+        ]
+      },
+      "k3p_irrtum": {
+        "text": "Die Prüfanordnung bleibt geschlossen. Dein Vorschlag beseitigt gerade den Unterschied, den die zwei Spuren zeigen. Du darfst sie erneut lesen und eine andere Antwort wählen.",
+        "choices": [
+          {
+            "text": "Ich prüfe meine Antwort.",
+            "next": "k3p_start"
+          }
+        ]
+      },
+      "k3p_kampf": {
+        "text": "Der Fristpfänder hebt sein Werkzeug. Jede Bewegung ist sichtbar angekündigt; die Prüfung hat keinen Zeitdruck außerhalb des Kampfes.",
+        "encounter": "k3p_fristpfaender",
+        "choices": []
+      }
+    }
+  },
+  "k3p_waage_ritual1_dialog": {
+    "start": "k3p_start",
+    "nodes": {
+      "k3p_start": {
+        "text": "Deine Abrechnung enthielt eine unverdiente Prämie. Du verzichtest öffentlich darauf, ohne die Schuld einer Familie zu vergrößern. Du kannst die Korrektur offen auslegen oder mit einer öffentlich lesbaren Herkunftsnotiz versiegeln. Beide Wege bewahren den Widerspruch; nur seine Zugänglichkeit unterscheidet sich.",
+        "choices": [
+          {
+            "text": "Offen auslegen, auch wenn mein Irrtum sichtbar bleibt.",
+            "next": "k3p_offen"
+          },
+          {
+            "text": "Versiegeln und Herkunft samt Einsichtsweg außen vermerken.",
+            "next": "k3p_siegel"
+          },
+          {
+            "text": "Noch nicht entscheiden."
+          }
+        ]
+      },
+      "k3p_offen": {
+        "text": "Du legst Original und Berichtigung nebeneinander. Künftige Leser können dir widersprechen, ohne um Erlaubnis zu bitten.",
+        "sets_flags": [
+          "k3p_waage_ritual1_entscheidung",
+          "k3p_waage_ritual1_offen"
+        ],
+        "choices": [
+          {
+            "text": "Ich bereite das Ritual vor."
+          }
+        ]
+      },
+      "k3p_siegel": {
+        "text": "Du versiegelst die Abschrift und notierst außen Herkunft, Irrtum und Einsichtsweg. Niemand muss dafür einen Namen als Pfand lassen.",
+        "sets_flags": [
+          "k3p_waage_ritual1_entscheidung",
+          "k3p_waage_ritual1_siegel"
+        ],
+        "choices": [
+          {
+            "text": "Ich bereite das Ritual vor."
+          }
+        ]
+      }
+    }
+  },
+  "k3p_moor_probe_dialog": {
+    "start": "k3p_start",
+    "nodes": {
+      "k3p_start": {
+        "text": "Der Schichtsammler tritt aus der stillen Prüfanordnung. Seine Stimme wiederholt deine bequemste Vermutung. Du kannst die belegte Gegenprobe ausführen oder ihn im Kampf zur Freigabe zwingen.",
+        "choices": [
+          {
+            "text": "Ich sichere Fundtiefe und Namensrest getrennt und lasse die fehlenden Buchstaben offen.",
+            "next": "k3p_frieden"
+          },
+          {
+            "text": "Ich ergänze den bekannteren Namen und vereinige beide Lebensläufe.",
+            "next": "k3p_irrtum"
+          },
+          {
+            "text": "Ich stelle mich dem Hüter im Kampf.",
+            "next": "k3p_kampf"
+          },
+          {
+            "text": "Ich komme später wieder."
+          }
+        ]
+      },
+      "k3p_frieden": {
+        "text": "Du führst die belegte Handlung aus. Der Hüter lässt die Kernprobe frei, ohne eine fremde Stimme oder einen Namen zu fordern. Hedda wird die versiegelte Zutat bei deiner Rückkehr aushändigen.",
+        "sets_flags": [
+          "k3p_moor_friedlich",
+          "k3p_moor_bewaeltigt"
+        ],
+        "choices": [
+          {
+            "text": "Zurück zu Hedda."
+          }
+        ]
+      },
+      "k3p_irrtum": {
+        "text": "Die Prüfanordnung bleibt geschlossen. Dein Vorschlag beseitigt gerade den Unterschied, den die zwei Spuren zeigen. Du darfst sie erneut lesen und eine andere Antwort wählen.",
+        "choices": [
+          {
+            "text": "Ich prüfe meine Antwort.",
+            "next": "k3p_start"
+          }
+        ]
+      },
+      "k3p_kampf": {
+        "text": "Der Schichtsammler hebt sein Werkzeug. Jede Bewegung ist sichtbar angekündigt; die Prüfung hat keinen Zeitdruck außerhalb des Kampfes.",
+        "encounter": "k3p_schichtsammler",
+        "choices": []
+      }
+    }
+  },
+  "k3p_moor_ritual1_dialog": {
+    "start": "k3p_start",
+    "nodes": {
+      "k3p_start": {
+        "text": "Dein sauberer Katalog verschmolz zwei Fundschichten. Du trennst sie und gibst dem unbekannten Namen seinen eigenen leeren Platz. Du kannst die Korrektur offen auslegen oder mit einer öffentlich lesbaren Herkunftsnotiz versiegeln. Beide Wege bewahren den Widerspruch; nur seine Zugänglichkeit unterscheidet sich.",
+        "choices": [
+          {
+            "text": "Offen auslegen, auch wenn mein Irrtum sichtbar bleibt.",
+            "next": "k3p_offen"
+          },
+          {
+            "text": "Versiegeln und Herkunft samt Einsichtsweg außen vermerken.",
+            "next": "k3p_siegel"
+          },
+          {
+            "text": "Noch nicht entscheiden."
+          }
+        ]
+      },
+      "k3p_offen": {
+        "text": "Du legst Original und Berichtigung nebeneinander. Künftige Leser können dir widersprechen, ohne um Erlaubnis zu bitten.",
+        "sets_flags": [
+          "k3p_moor_ritual1_entscheidung",
+          "k3p_moor_ritual1_offen"
+        ],
+        "choices": [
+          {
+            "text": "Ich bereite das Ritual vor."
+          }
+        ]
+      },
+      "k3p_siegel": {
+        "text": "Du versiegelst die Abschrift und notierst außen Herkunft, Irrtum und Einsichtsweg. Niemand muss dafür einen Namen als Pfand lassen.",
+        "sets_flags": [
+          "k3p_moor_ritual1_entscheidung",
+          "k3p_moor_ritual1_siegel"
+        ],
+        "choices": [
+          {
+            "text": "Ich bereite das Ritual vor."
+          }
+        ]
+      }
+    }
+  },
+  "k3p_uhr_probe_dialog": {
+    "start": "k3p_start",
+    "nodes": {
+      "k3p_start": {
+        "text": "Der Gangaufseher tritt aus der stillen Prüfanordnung. Seine Stimme wiederholt deine bequemste Vermutung. Du kannst die belegte Gegenprobe ausführen oder ihn im Kampf zur Freigabe zwingen.",
+        "choices": [
+          {
+            "text": "Ich stelle die voreilende Uhr nach und erhalte die Pause des Wartenden.",
+            "next": "k3p_frieden"
+          },
+          {
+            "text": "Ich fülle die Zahnlücke und treibe den Wartenden schneller an.",
+            "next": "k3p_irrtum"
+          },
+          {
+            "text": "Ich stelle mich dem Hüter im Kampf.",
+            "next": "k3p_kampf"
+          },
+          {
+            "text": "Ich komme später wieder."
+          }
+        ]
+      },
+      "k3p_frieden": {
+        "text": "Du führst die belegte Handlung aus. Der Hüter lässt die Kernprobe frei, ohne eine fremde Stimme oder einen Namen zu fordern. Hedda wird die versiegelte Zutat bei deiner Rückkehr aushändigen.",
+        "sets_flags": [
+          "k3p_uhr_friedlich",
+          "k3p_uhr_bewaeltigt"
+        ],
+        "choices": [
+          {
+            "text": "Zurück zu Hedda."
+          }
+        ]
+      },
+      "k3p_irrtum": {
+        "text": "Die Prüfanordnung bleibt geschlossen. Dein Vorschlag beseitigt gerade den Unterschied, den die zwei Spuren zeigen. Du darfst sie erneut lesen und eine andere Antwort wählen.",
+        "choices": [
+          {
+            "text": "Ich prüfe meine Antwort.",
+            "next": "k3p_start"
+          }
+        ]
+      },
+      "k3p_kampf": {
+        "text": "Der Gangaufseher hebt sein Werkzeug. Jede Bewegung ist sichtbar angekündigt; die Prüfung hat keinen Zeitdruck außerhalb des Kampfes.",
+        "encounter": "k3p_gangaufseher",
+        "choices": []
+      }
+    }
+  },
+  "k3p_uhr_ritual1_dialog": {
+    "start": "k3p_start",
+    "nodes": {
+      "k3p_start": {
+        "text": "Deine erste Zeitliste erklärte den Wartenden zum Verspäteten. Du korrigierst die Uhrabweichung und lässt seine Pause unangetastet. Du kannst die Korrektur offen auslegen oder mit einer öffentlich lesbaren Herkunftsnotiz versiegeln. Beide Wege bewahren den Widerspruch; nur seine Zugänglichkeit unterscheidet sich.",
+        "choices": [
+          {
+            "text": "Offen auslegen, auch wenn mein Irrtum sichtbar bleibt.",
+            "next": "k3p_offen"
+          },
+          {
+            "text": "Versiegeln und Herkunft samt Einsichtsweg außen vermerken.",
+            "next": "k3p_siegel"
+          },
+          {
+            "text": "Noch nicht entscheiden."
+          }
+        ]
+      },
+      "k3p_offen": {
+        "text": "Du legst Original und Berichtigung nebeneinander. Künftige Leser können dir widersprechen, ohne um Erlaubnis zu bitten.",
+        "sets_flags": [
+          "k3p_uhr_ritual1_entscheidung",
+          "k3p_uhr_ritual1_offen"
+        ],
+        "choices": [
+          {
+            "text": "Ich bereite das Ritual vor."
+          }
+        ]
+      },
+      "k3p_siegel": {
+        "text": "Du versiegelst die Abschrift und notierst außen Herkunft, Irrtum und Einsichtsweg. Niemand muss dafür einen Namen als Pfand lassen.",
+        "sets_flags": [
+          "k3p_uhr_ritual1_entscheidung",
+          "k3p_uhr_ritual1_siegel"
+        ],
+        "choices": [
+          {
+            "text": "Ich bereite das Ritual vor."
+          }
+        ]
+      }
+    }
+  },
+  "k3p_hedda": {
+    "start": "k3p_start",
+    "nodes": {
+      "k3p_start": {
+        "text": "Hedda Quist sitzt neben einer stillgelegten Handweiche. „Du darfst hier weitergehen. Du darfst auch aufhören. Das zweite Schild hängt gewöhnlich zu hoch.“",
+        "choices": [
+          {
+            "text": "Warum bist du stehen geblieben?",
+            "next": "k3p_vergangenheit"
+          },
+          {
+            "text": "Über den Pfad Laterne.",
+            "next": "k3p_laterne_pfad"
+          },
+          {
+            "text": "Die Prüfung Das Licht unter dem Lack ist bewältigt.",
+            "next": "k3p_laterne_belohnung",
+            "requires_quests_active": [
+              "k3p_laterne_pruefung"
+            ],
+            "requires_flags": [
+              "k3p_laterne_bewaeltigt"
+            ],
+            "hide_if_flags": [
+              "k3p_laterne_done"
+            ],
+            "requires_pathway": [
+              "laterne",
+              5
+            ]
+          },
+          {
+            "text": "Ich bereite die letzte Probe von Laterne vor.",
+            "next": "k3p_laterne_ritual1_start",
+            "requires_flags": [
+              "kapitel3_done"
+            ],
+            "requires_pathway": [
+              "laterne",
+              2
+            ],
+            "hide_if_quests": [
+              "k3p_ritual1_laterne"
+            ]
+          },
+          {
+            "text": "Mein letztes Ritual ist vollzogen.",
+            "next": "k3p_laterne_ritual1_reward",
+            "requires_quests_active": [
+              "k3p_ritual1_laterne"
+            ],
+            "requires_flags": [
+              "ritual_laterne_1"
+            ],
+            "hide_if_flags": [
+              "k3p_laterne_ritual1_paid"
+            ],
+            "requires_pathway": [
+              "laterne",
+              2
+            ]
+          },
+          {
+            "text": "Über den Pfad Faden.",
+            "next": "k3p_faden_pfad"
+          },
+          {
+            "text": "Die Prüfung Die Naht zwischen zwei Zeiten ist bewältigt.",
+            "next": "k3p_faden_belohnung",
+            "requires_quests_active": [
+              "k3p_faden_pruefung"
+            ],
+            "requires_flags": [
+              "k3p_faden_bewaeltigt"
+            ],
+            "hide_if_flags": [
+              "k3p_faden_done"
+            ],
+            "requires_pathway": [
+              "faden",
+              5
+            ]
+          },
+          {
+            "text": "Ich bereite die letzte Probe von Faden vor.",
+            "next": "k3p_faden_ritual1_start",
+            "requires_flags": [
+              "kapitel3_done"
+            ],
+            "requires_pathway": [
+              "faden",
+              2
+            ],
+            "hide_if_quests": [
+              "k3p_ritual1_faden"
+            ]
+          },
+          {
+            "text": "Mein letztes Ritual ist vollzogen.",
+            "next": "k3p_faden_ritual1_reward",
+            "requires_quests_active": [
+              "k3p_ritual1_faden"
+            ],
+            "requires_flags": [
+              "ritual_faden_1"
+            ],
+            "hide_if_flags": [
+              "k3p_faden_ritual1_paid"
+            ],
+            "requires_pathway": [
+              "faden",
+              2
+            ]
+          },
+          {
+            "text": "Über den Pfad Maske.",
+            "next": "k3p_maske_pfad"
+          },
+          {
+            "text": "Die Prüfung Der Mantel des Widerspruchs ist bewältigt.",
+            "next": "k3p_maske_belohnung",
+            "requires_quests_active": [
+              "k3p_maske_pruefung"
+            ],
+            "requires_flags": [
+              "k3p_maske_bewaeltigt"
+            ],
+            "hide_if_flags": [
+              "k3p_maske_done"
+            ],
+            "requires_pathway": [
+              "maske",
+              5
+            ]
+          },
+          {
+            "text": "Ich bereite die letzte Probe von Maske vor.",
+            "next": "k3p_maske_ritual1_start",
+            "requires_flags": [
+              "kapitel3_done"
+            ],
+            "requires_pathway": [
+              "maske",
+              2
+            ],
+            "hide_if_quests": [
+              "k3p_ritual1_maske"
+            ]
+          },
+          {
+            "text": "Mein letztes Ritual ist vollzogen.",
+            "next": "k3p_maske_ritual1_reward",
+            "requires_quests_active": [
+              "k3p_ritual1_maske"
+            ],
+            "requires_flags": [
+              "ritual_maske_1"
+            ],
+            "hide_if_flags": [
+              "k3p_maske_ritual1_paid"
+            ],
+            "requires_pathway": [
+              "maske",
+              2
+            ]
+          },
+          {
+            "text": "Über den Pfad Echo.",
+            "next": "k3p_echo_pfad"
+          },
+          {
+            "text": "Die Prüfung Der Satz, der fehlen darf ist bewältigt.",
+            "next": "k3p_echo_belohnung",
+            "requires_quests_active": [
+              "k3p_echo_pruefung"
+            ],
+            "requires_flags": [
+              "k3p_echo_bewaeltigt"
+            ],
+            "hide_if_flags": [
+              "k3p_echo_done"
+            ],
+            "requires_pathway": [
+              "echo",
+              5
+            ]
+          },
+          {
+            "text": "Ich bereite die letzte Probe von Echo vor.",
+            "next": "k3p_echo_ritual1_start",
+            "requires_flags": [
+              "kapitel3_done"
+            ],
+            "requires_pathway": [
+              "echo",
+              2
+            ],
+            "hide_if_quests": [
+              "k3p_ritual1_echo"
+            ]
+          },
+          {
+            "text": "Mein letztes Ritual ist vollzogen.",
+            "next": "k3p_echo_ritual1_reward",
+            "requires_quests_active": [
+              "k3p_ritual1_echo"
+            ],
+            "requires_flags": [
+              "ritual_echo_1"
+            ],
+            "hide_if_flags": [
+              "k3p_echo_ritual1_paid"
+            ],
+            "requires_pathway": [
+              "echo",
+              2
+            ]
+          },
+          {
+            "text": "Über den Pfad Kessel.",
+            "next": "k3p_kessel_pfad"
+          },
+          {
+            "text": "Die Prüfung Die saubere Rückstandsprobe ist bewältigt.",
+            "next": "k3p_kessel_belohnung",
+            "requires_quests_active": [
+              "k3p_kessel_pruefung"
+            ],
+            "requires_flags": [
+              "k3p_kessel_bewaeltigt"
+            ],
+            "hide_if_flags": [
+              "k3p_kessel_done"
+            ],
+            "requires_pathway": [
+              "kessel",
+              5
+            ]
+          },
+          {
+            "text": "Ich bereite die letzte Probe von Kessel vor.",
+            "next": "k3p_kessel_ritual1_start",
+            "requires_flags": [
+              "kapitel3_done"
+            ],
+            "requires_pathway": [
+              "kessel",
+              2
+            ],
+            "hide_if_quests": [
+              "k3p_ritual1_kessel"
+            ]
+          },
+          {
+            "text": "Mein letztes Ritual ist vollzogen.",
+            "next": "k3p_kessel_ritual1_reward",
+            "requires_quests_active": [
+              "k3p_ritual1_kessel"
+            ],
+            "requires_flags": [
+              "ritual_kessel_1"
+            ],
+            "hide_if_flags": [
+              "k3p_kessel_ritual1_paid"
+            ],
+            "requires_pathway": [
+              "kessel",
+              2
+            ]
+          },
+          {
+            "text": "Über den Pfad Eisen.",
+            "next": "k3p_eisen_pfad"
+          },
+          {
+            "text": "Die Prüfung Die Last mit zwei Schultern ist bewältigt.",
+            "next": "k3p_eisen_belohnung",
+            "requires_quests_active": [
+              "k3p_eisen_pruefung"
+            ],
+            "requires_flags": [
+              "k3p_eisen_bewaeltigt"
+            ],
+            "hide_if_flags": [
+              "k3p_eisen_done"
+            ],
+            "requires_pathway": [
+              "eisen",
+              5
+            ]
+          },
+          {
+            "text": "Ich bereite die letzte Probe von Eisen vor.",
+            "next": "k3p_eisen_ritual1_start",
+            "requires_flags": [
+              "kapitel3_done"
+            ],
+            "requires_pathway": [
+              "eisen",
+              2
+            ],
+            "hide_if_quests": [
+              "k3p_ritual1_eisen"
+            ]
+          },
+          {
+            "text": "Mein letztes Ritual ist vollzogen.",
+            "next": "k3p_eisen_ritual1_reward",
+            "requires_quests_active": [
+              "k3p_ritual1_eisen"
+            ],
+            "requires_flags": [
+              "ritual_eisen_1"
+            ],
+            "hide_if_flags": [
+              "k3p_eisen_ritual1_paid"
+            ],
+            "requires_pathway": [
+              "eisen",
+              2
+            ]
+          },
+          {
+            "text": "Über den Pfad Schluessel.",
+            "next": "k3p_schluessel_pfad"
+          },
+          {
+            "text": "Die Prüfung Die Tür ohne Pfand ist bewältigt.",
+            "next": "k3p_schluessel_belohnung",
+            "requires_quests_active": [
+              "k3p_schluessel_pruefung"
+            ],
+            "requires_flags": [
+              "k3p_schluessel_bewaeltigt"
+            ],
+            "hide_if_flags": [
+              "k3p_schluessel_done"
+            ],
+            "requires_pathway": [
+              "schluessel",
+              5
+            ]
+          },
+          {
+            "text": "Ich bereite die letzte Probe von Schluessel vor.",
+            "next": "k3p_schluessel_ritual1_start",
+            "requires_flags": [
+              "kapitel3_done"
+            ],
+            "requires_pathway": [
+              "schluessel",
+              2
+            ],
+            "hide_if_quests": [
+              "k3p_ritual1_schluessel"
+            ]
+          },
+          {
+            "text": "Mein letztes Ritual ist vollzogen.",
+            "next": "k3p_schluessel_ritual1_reward",
+            "requires_quests_active": [
+              "k3p_ritual1_schluessel"
+            ],
+            "requires_flags": [
+              "ritual_schluessel_1"
+            ],
+            "hide_if_flags": [
+              "k3p_schluessel_ritual1_paid"
+            ],
+            "requires_pathway": [
+              "schluessel",
+              2
+            ]
+          },
+          {
+            "text": "Über den Pfad Waage.",
+            "next": "k3p_waage_pfad"
+          },
+          {
+            "text": "Die Prüfung Die doppelte Forderung ist bewältigt.",
+            "next": "k3p_waage_belohnung",
+            "requires_quests_active": [
+              "k3p_waage_pruefung"
+            ],
+            "requires_flags": [
+              "k3p_waage_bewaeltigt"
+            ],
+            "hide_if_flags": [
+              "k3p_waage_done"
+            ],
+            "requires_pathway": [
+              "sq_waage",
+              5
+            ]
+          },
+          {
+            "text": "Ich bereite die letzte Probe von Waage vor.",
+            "next": "k3p_waage_ritual1_start",
+            "requires_flags": [
+              "kapitel3_done"
+            ],
+            "requires_pathway": [
+              "sq_waage",
+              2
+            ],
+            "hide_if_quests": [
+              "k3p_ritual1_sq_waage"
+            ]
+          },
+          {
+            "text": "Mein letztes Ritual ist vollzogen.",
+            "next": "k3p_waage_ritual1_reward",
+            "requires_quests_active": [
+              "k3p_ritual1_sq_waage"
+            ],
+            "requires_flags": [
+              "ritual_sq_waage_1"
+            ],
+            "hide_if_flags": [
+              "k3p_waage_ritual1_paid"
+            ],
+            "requires_pathway": [
+              "sq_waage",
+              2
+            ]
+          },
+          {
+            "text": "Über den Pfad Moor.",
+            "next": "k3p_moor_pfad"
+          },
+          {
+            "text": "Die Prüfung Der Name im falschen Torf ist bewältigt.",
+            "next": "k3p_moor_belohnung",
+            "requires_quests_active": [
+              "k3p_moor_pruefung"
+            ],
+            "requires_flags": [
+              "k3p_moor_bewaeltigt"
+            ],
+            "hide_if_flags": [
+              "k3p_moor_done"
+            ],
+            "requires_pathway": [
+              "sq_moor",
+              5
+            ]
+          },
+          {
+            "text": "Ich bereite die letzte Probe von Moor vor.",
+            "next": "k3p_moor_ritual1_start",
+            "requires_flags": [
+              "kapitel3_done"
+            ],
+            "requires_pathway": [
+              "sq_moor",
+              2
+            ],
+            "hide_if_quests": [
+              "k3p_ritual1_sq_moor"
+            ]
+          },
+          {
+            "text": "Mein letztes Ritual ist vollzogen.",
+            "next": "k3p_moor_ritual1_reward",
+            "requires_quests_active": [
+              "k3p_ritual1_sq_moor"
+            ],
+            "requires_flags": [
+              "ritual_sq_moor_1"
+            ],
+            "hide_if_flags": [
+              "k3p_moor_ritual1_paid"
+            ],
+            "requires_pathway": [
+              "sq_moor",
+              2
+            ]
+          },
+          {
+            "text": "Über den Pfad Uhr.",
+            "next": "k3p_uhr_pfad"
+          },
+          {
+            "text": "Die Prüfung Die Pause im Gangrad ist bewältigt.",
+            "next": "k3p_uhr_belohnung",
+            "requires_quests_active": [
+              "k3p_uhr_pruefung"
+            ],
+            "requires_flags": [
+              "k3p_uhr_bewaeltigt"
+            ],
+            "hide_if_flags": [
+              "k3p_uhr_done"
+            ],
+            "requires_pathway": [
+              "sq_uhr",
+              5
+            ]
+          },
+          {
+            "text": "Ich bereite die letzte Probe von Uhr vor.",
+            "next": "k3p_uhr_ritual1_start",
+            "requires_flags": [
+              "kapitel3_done"
+            ],
+            "requires_pathway": [
+              "sq_uhr",
+              2
+            ],
+            "hide_if_quests": [
+              "k3p_ritual1_sq_uhr"
+            ]
+          },
+          {
+            "text": "Mein letztes Ritual ist vollzogen.",
+            "next": "k3p_uhr_ritual1_reward",
+            "requires_quests_active": [
+              "k3p_ritual1_sq_uhr"
+            ],
+            "requires_flags": [
+              "ritual_sq_uhr_1"
+            ],
+            "hide_if_flags": [
+              "k3p_uhr_ritual1_paid"
+            ],
+            "requires_pathway": [
+              "sq_uhr",
+              2
+            ]
+          },
+          {
+            "text": "Ich gehe."
+          }
+        ]
+      },
+      "k3p_vergangenheit": {
+        "text": "„Pfad der Waage, Sequenz vier. Irgendwann wog ich selbst ein freundliches Wort gegen eine alte Schuld auf. Ich legte das Amt nieder, nicht meine Verantwortung.“ Sie streicht über einen blanken Hebel. „Heute prüfe ich Wege. Menschen sind keine Weichen.“",
+        "choices": [
+          {
+            "text": "Zurück.",
+            "next": "k3p_start"
+          }
+        ]
+      },
+      "k3p_laterne_pfad": {
+        "text": "„Ich sah früher Fehler überall, nur nicht in meinen eigenen Gutachten. Deine Laterne soll auch hinter dich leuchten.“ „Die Probe heißt Das Licht unter dem Lack. Du findest sie am Ort kalkmarkt. Lies beide Spuren, bevor du dich dem Hüter stellst.“",
+        "choices": [
+          {
+            "text": "Ich nehme meine Prüfung an.",
+            "next": "k3p_laterne_annehmen",
+            "requires_pathway": [
+              "laterne",
+              5
+            ],
+            "requires_flags": [
+              "k3a_akt2_done"
+            ],
+            "hide_if_quests": [
+              "k3p_laterne_pruefung"
+            ]
+          },
+          {
+            "text": "Zurück.",
+            "next": "k3p_start"
+          }
+        ]
+      },
+      "k3p_laterne_annehmen": {
+        "text": "Hedda zeichnet zwei kleine Kästchen in dein Heft. „Erst die Beobachtung, dann ihr Gegenstück. Dein Name gehört dabei auf keinen Arbeitsaufruf.“",
+        "start_quests": [
+          "k3p_laterne_pruefung"
+        ],
+        "choices": [
+          {
+            "text": "Ich sehe nach."
+          }
+        ]
+      },
+      "k3p_laterne_belohnung": {
+        "text": "Hedda legt die versiegelte Kernprobe auf die Bank. „Ein bestandener Versuch ist keine Erlaubnis, künftig nicht mehr hinzusehen.“ Du erhältst die Zutat und 25 Schilling für deine Aufzeichnungen.",
+        "gives_items": {
+          "sq_zutat_laterne_4": 1
+        },
+        "gives_money": 25,
+        "sets_flags": [
+          "k3p_laterne_done"
+        ],
+        "complete_quests": [
+          "k3p_laterne_pruefung"
+        ],
+        "choices": [
+          {
+            "text": "Danke.",
+            "next": "k3p_start"
+          }
+        ]
+      },
+      "k3p_laterne_ritual1_start": {
+        "text": "„Die letzte Probe braucht keine neue Schuld“, sagt Hedda. „Im Speisewagen liegen deine Abschrift und ein Gegenbeleg. Entscheide, wie andere deinen Irrtum später noch erkennen können.“",
+        "start_quests": [
+          "k3p_ritual1_laterne"
+        ],
+        "choices": [
+          {
+            "text": "Ich prüfe die Unterlagen."
+          }
+        ]
+      },
+      "k3p_laterne_ritual1_reward": {
+        "text": "Hedda liest die Herkunftsnotiz und legt fünfzig Schilling daneben. „Du bist weitergegangen. Die Pflicht, dich berichtigen zu lassen, ist mitgekommen.“",
+        "sets_flags": [
+          "k3p_laterne_ritual1_paid"
+        ],
+        "gives_money": 50,
+        "complete_quests": [
+          "k3p_ritual1_laterne"
+        ],
+        "choices": [
+          {
+            "text": "Ich behalte das im Kopf.",
+            "next": "k3p_start"
+          }
+        ]
+      },
+      "k3p_faden_pfad": {
+        "text": "„Ein Faden hält auch mit einer Lücke. Nur ein Strick muss alles zuziehen.“ „Die Probe heißt Die Naht zwischen zwei Zeiten. Du findest sie am Ort lohnbuero. Lies beide Spuren, bevor du dich dem Hüter stellst.“",
+        "choices": [
+          {
+            "text": "Ich nehme meine Prüfung an.",
+            "next": "k3p_faden_annehmen",
+            "requires_pathway": [
+              "faden",
+              5
+            ],
+            "requires_flags": [
+              "k3a_akt2_done"
+            ],
+            "hide_if_quests": [
+              "k3p_faden_pruefung"
+            ]
+          },
+          {
+            "text": "Zurück.",
+            "next": "k3p_start"
+          }
+        ]
+      },
+      "k3p_faden_annehmen": {
+        "text": "Hedda zeichnet zwei kleine Kästchen in dein Heft. „Erst die Beobachtung, dann ihr Gegenstück. Dein Name gehört dabei auf keinen Arbeitsaufruf.“",
+        "start_quests": [
+          "k3p_faden_pruefung"
+        ],
+        "choices": [
+          {
+            "text": "Ich sehe nach."
+          }
+        ]
+      },
+      "k3p_faden_belohnung": {
+        "text": "Hedda legt die versiegelte Kernprobe auf die Bank. „Ein bestandener Versuch ist keine Erlaubnis, künftig nicht mehr hinzusehen.“ Du erhältst die Zutat und 25 Schilling für deine Aufzeichnungen.",
+        "gives_items": {
+          "sq_zutat_faden_4": 1
+        },
+        "gives_money": 25,
+        "sets_flags": [
+          "k3p_faden_done"
+        ],
+        "complete_quests": [
+          "k3p_faden_pruefung"
+        ],
+        "choices": [
+          {
+            "text": "Danke.",
+            "next": "k3p_start"
+          }
+        ]
+      },
+      "k3p_faden_ritual1_start": {
+        "text": "„Die letzte Probe braucht keine neue Schuld“, sagt Hedda. „Im Speisewagen liegen deine Abschrift und ein Gegenbeleg. Entscheide, wie andere deinen Irrtum später noch erkennen können.“",
+        "start_quests": [
+          "k3p_ritual1_faden"
+        ],
+        "choices": [
+          {
+            "text": "Ich prüfe die Unterlagen."
+          }
+        ]
+      },
+      "k3p_faden_ritual1_reward": {
+        "text": "Hedda liest die Herkunftsnotiz und legt fünfzig Schilling daneben. „Du bist weitergegangen. Die Pflicht, dich berichtigen zu lassen, ist mitgekommen.“",
+        "sets_flags": [
+          "k3p_faden_ritual1_paid"
+        ],
+        "gives_money": 50,
+        "complete_quests": [
+          "k3p_ritual1_faden"
+        ],
+        "choices": [
+          {
+            "text": "Ich behalte das im Kopf.",
+            "next": "k3p_start"
+          }
+        ]
+      },
+      "k3p_maske_pfad": {
+        "text": "„Eine Rolle kann eine Tür öffnen. Wohnen solltest du trotzdem in deinem eigenen Gesicht.“ „Die Probe heißt Der Mantel des Widerspruchs. Du findest sie am Ort teesaal. Lies beide Spuren, bevor du dich dem Hüter stellst.“",
+        "choices": [
+          {
+            "text": "Ich nehme meine Prüfung an.",
+            "next": "k3p_maske_annehmen",
+            "requires_pathway": [
+              "maske",
+              5
+            ],
+            "requires_flags": [
+              "k3a_akt2_done"
+            ],
+            "hide_if_quests": [
+              "k3p_maske_pruefung"
+            ]
+          },
+          {
+            "text": "Zurück.",
+            "next": "k3p_start"
+          }
+        ]
+      },
+      "k3p_maske_annehmen": {
+        "text": "Hedda zeichnet zwei kleine Kästchen in dein Heft. „Erst die Beobachtung, dann ihr Gegenstück. Dein Name gehört dabei auf keinen Arbeitsaufruf.“",
+        "start_quests": [
+          "k3p_maske_pruefung"
+        ],
+        "choices": [
+          {
+            "text": "Ich sehe nach."
+          }
+        ]
+      },
+      "k3p_maske_belohnung": {
+        "text": "Hedda legt die versiegelte Kernprobe auf die Bank. „Ein bestandener Versuch ist keine Erlaubnis, künftig nicht mehr hinzusehen.“ Du erhältst die Zutat und 25 Schilling für deine Aufzeichnungen.",
+        "gives_items": {
+          "sq_zutat_maske_4": 1
+        },
+        "gives_money": 25,
+        "sets_flags": [
+          "k3p_maske_done"
+        ],
+        "complete_quests": [
+          "k3p_maske_pruefung"
+        ],
+        "choices": [
+          {
+            "text": "Danke.",
+            "next": "k3p_start"
+          }
+        ]
+      },
+      "k3p_maske_ritual1_start": {
+        "text": "„Die letzte Probe braucht keine neue Schuld“, sagt Hedda. „Im Speisewagen liegen deine Abschrift und ein Gegenbeleg. Entscheide, wie andere deinen Irrtum später noch erkennen können.“",
+        "start_quests": [
+          "k3p_ritual1_maske"
+        ],
+        "choices": [
+          {
+            "text": "Ich prüfe die Unterlagen."
+          }
+        ]
+      },
+      "k3p_maske_ritual1_reward": {
+        "text": "Hedda liest die Herkunftsnotiz und legt fünfzig Schilling daneben. „Du bist weitergegangen. Die Pflicht, dich berichtigen zu lassen, ist mitgekommen.“",
+        "sets_flags": [
+          "k3p_maske_ritual1_paid"
+        ],
+        "gives_money": 50,
+        "complete_quests": [
+          "k3p_ritual1_maske"
+        ],
+        "choices": [
+          {
+            "text": "Ich behalte das im Kopf.",
+            "next": "k3p_start"
+          }
+        ]
+      },
+      "k3p_echo_pfad": {
+        "text": "„Zuhören macht dich nicht zum Erben einer Kehle. Auch ein Toter darf einen Satz unvollendet lassen.“ „Die Probe heißt Der Satz, der fehlen darf. Du findest sie am Ort pruefhaus. Lies beide Spuren, bevor du dich dem Hüter stellst.“",
+        "choices": [
+          {
+            "text": "Ich nehme meine Prüfung an.",
+            "next": "k3p_echo_annehmen",
+            "requires_pathway": [
+              "echo",
+              5
+            ],
+            "requires_flags": [
+              "k3a_akt2_done"
+            ],
+            "hide_if_quests": [
+              "k3p_echo_pruefung"
+            ]
+          },
+          {
+            "text": "Zurück.",
+            "next": "k3p_start"
+          }
+        ]
+      },
+      "k3p_echo_annehmen": {
+        "text": "Hedda zeichnet zwei kleine Kästchen in dein Heft. „Erst die Beobachtung, dann ihr Gegenstück. Dein Name gehört dabei auf keinen Arbeitsaufruf.“",
+        "start_quests": [
+          "k3p_echo_pruefung"
+        ],
+        "choices": [
+          {
+            "text": "Ich sehe nach."
+          }
+        ]
+      },
+      "k3p_echo_belohnung": {
+        "text": "Hedda legt die versiegelte Kernprobe auf die Bank. „Ein bestandener Versuch ist keine Erlaubnis, künftig nicht mehr hinzusehen.“ Du erhältst die Zutat und 25 Schilling für deine Aufzeichnungen.",
+        "gives_items": {
+          "sq_zutat_echo_4": 1
+        },
+        "gives_money": 25,
+        "sets_flags": [
+          "k3p_echo_done"
+        ],
+        "complete_quests": [
+          "k3p_echo_pruefung"
+        ],
+        "choices": [
+          {
+            "text": "Danke.",
+            "next": "k3p_start"
+          }
+        ]
+      },
+      "k3p_echo_ritual1_start": {
+        "text": "„Die letzte Probe braucht keine neue Schuld“, sagt Hedda. „Im Speisewagen liegen deine Abschrift und ein Gegenbeleg. Entscheide, wie andere deinen Irrtum später noch erkennen können.“",
+        "start_quests": [
+          "k3p_ritual1_echo"
+        ],
+        "choices": [
+          {
+            "text": "Ich prüfe die Unterlagen."
+          }
+        ]
+      },
+      "k3p_echo_ritual1_reward": {
+        "text": "Hedda liest die Herkunftsnotiz und legt fünfzig Schilling daneben. „Du bist weitergegangen. Die Pflicht, dich berichtigen zu lassen, ist mitgekommen.“",
+        "sets_flags": [
+          "k3p_echo_ritual1_paid"
+        ],
+        "gives_money": 50,
+        "complete_quests": [
+          "k3p_ritual1_echo"
+        ],
+        "choices": [
+          {
+            "text": "Ich behalte das im Kopf.",
+            "next": "k3p_start"
+          }
+        ]
+      },
+      "k3p_kessel_pfad": {
+        "text": "„Wer alles rein nennt, hat meist nur den Abfluss vergessen. Mein Kessel hatte auch einmal einen.“ „Die Probe heißt Die saubere Rückstandsprobe. Du findest sie am Ort runddepot. Lies beide Spuren, bevor du dich dem Hüter stellst.“",
+        "choices": [
+          {
+            "text": "Ich nehme meine Prüfung an.",
+            "next": "k3p_kessel_annehmen",
+            "requires_pathway": [
+              "kessel",
+              5
+            ],
+            "requires_flags": [
+              "k3a_akt2_done"
+            ],
+            "hide_if_quests": [
+              "k3p_kessel_pruefung"
+            ]
+          },
+          {
+            "text": "Zurück.",
+            "next": "k3p_start"
+          }
+        ]
+      },
+      "k3p_kessel_annehmen": {
+        "text": "Hedda zeichnet zwei kleine Kästchen in dein Heft. „Erst die Beobachtung, dann ihr Gegenstück. Dein Name gehört dabei auf keinen Arbeitsaufruf.“",
+        "start_quests": [
+          "k3p_kessel_pruefung"
+        ],
+        "choices": [
+          {
+            "text": "Ich sehe nach."
+          }
+        ]
+      },
+      "k3p_kessel_belohnung": {
+        "text": "Hedda legt die versiegelte Kernprobe auf die Bank. „Ein bestandener Versuch ist keine Erlaubnis, künftig nicht mehr hinzusehen.“ Du erhältst die Zutat und 25 Schilling für deine Aufzeichnungen.",
+        "gives_items": {
+          "sq_zutat_kessel_4": 1
+        },
+        "gives_money": 25,
+        "sets_flags": [
+          "k3p_kessel_done"
+        ],
+        "complete_quests": [
+          "k3p_kessel_pruefung"
+        ],
+        "choices": [
+          {
+            "text": "Danke.",
+            "next": "k3p_start"
+          }
+        ]
+      },
+      "k3p_kessel_ritual1_start": {
+        "text": "„Die letzte Probe braucht keine neue Schuld“, sagt Hedda. „Im Speisewagen liegen deine Abschrift und ein Gegenbeleg. Entscheide, wie andere deinen Irrtum später noch erkennen können.“",
+        "start_quests": [
+          "k3p_ritual1_kessel"
+        ],
+        "choices": [
+          {
+            "text": "Ich prüfe die Unterlagen."
+          }
+        ]
+      },
+      "k3p_kessel_ritual1_reward": {
+        "text": "Hedda liest die Herkunftsnotiz und legt fünfzig Schilling daneben. „Du bist weitergegangen. Die Pflicht, dich berichtigen zu lassen, ist mitgekommen.“",
+        "sets_flags": [
+          "k3p_kessel_ritual1_paid"
+        ],
+        "gives_money": 50,
+        "complete_quests": [
+          "k3p_ritual1_kessel"
+        ],
+        "choices": [
+          {
+            "text": "Ich behalte das im Kopf.",
+            "next": "k3p_start"
+          }
+        ]
+      },
+      "k3p_eisen_pfad": {
+        "text": "„Ich habe einmal eine ganze Schicht getragen. Danach konnte keiner mehr stehen, ohne mich zu fragen.“ „Die Probe heißt Die Last mit zwei Schultern. Du findest sie am Ort bruchstufen. Lies beide Spuren, bevor du dich dem Hüter stellst.“",
+        "choices": [
+          {
+            "text": "Ich nehme meine Prüfung an.",
+            "next": "k3p_eisen_annehmen",
+            "requires_pathway": [
+              "eisen",
+              5
+            ],
+            "requires_flags": [
+              "k3a_akt2_done"
+            ],
+            "hide_if_quests": [
+              "k3p_eisen_pruefung"
+            ]
+          },
+          {
+            "text": "Zurück.",
+            "next": "k3p_start"
+          }
+        ]
+      },
+      "k3p_eisen_annehmen": {
+        "text": "Hedda zeichnet zwei kleine Kästchen in dein Heft. „Erst die Beobachtung, dann ihr Gegenstück. Dein Name gehört dabei auf keinen Arbeitsaufruf.“",
+        "start_quests": [
+          "k3p_eisen_pruefung"
+        ],
+        "choices": [
+          {
+            "text": "Ich sehe nach."
+          }
+        ]
+      },
+      "k3p_eisen_belohnung": {
+        "text": "Hedda legt die versiegelte Kernprobe auf die Bank. „Ein bestandener Versuch ist keine Erlaubnis, künftig nicht mehr hinzusehen.“ Du erhältst die Zutat und 25 Schilling für deine Aufzeichnungen.",
+        "gives_items": {
+          "sq_zutat_eisen_4": 1
+        },
+        "gives_money": 25,
+        "sets_flags": [
+          "k3p_eisen_done"
+        ],
+        "complete_quests": [
+          "k3p_eisen_pruefung"
+        ],
+        "choices": [
+          {
+            "text": "Danke.",
+            "next": "k3p_start"
+          }
+        ]
+      },
+      "k3p_eisen_ritual1_start": {
+        "text": "„Die letzte Probe braucht keine neue Schuld“, sagt Hedda. „Im Speisewagen liegen deine Abschrift und ein Gegenbeleg. Entscheide, wie andere deinen Irrtum später noch erkennen können.“",
+        "start_quests": [
+          "k3p_ritual1_eisen"
+        ],
+        "choices": [
+          {
+            "text": "Ich prüfe die Unterlagen."
+          }
+        ]
+      },
+      "k3p_eisen_ritual1_reward": {
+        "text": "Hedda liest die Herkunftsnotiz und legt fünfzig Schilling daneben. „Du bist weitergegangen. Die Pflicht, dich berichtigen zu lassen, ist mitgekommen.“",
+        "sets_flags": [
+          "k3p_eisen_ritual1_paid"
+        ],
+        "gives_money": 50,
+        "complete_quests": [
+          "k3p_ritual1_eisen"
+        ],
+        "choices": [
+          {
+            "text": "Ich behalte das im Kopf.",
+            "next": "k3p_start"
+          }
+        ]
+      },
+      "k3p_schluessel_pfad": {
+        "text": "„Ein Schlüssel ist kein Eigentumsnachweis. Das musste mir einmal ein sehr höflicher Einbrecher erklären.“ „Die Probe heißt Die Tür ohne Pfand. Du findest sie am Ort endbahnhof. Lies beide Spuren, bevor du dich dem Hüter stellst.“",
+        "choices": [
+          {
+            "text": "Ich nehme meine Prüfung an.",
+            "next": "k3p_schluessel_annehmen",
+            "requires_pathway": [
+              "schluessel",
+              5
+            ],
+            "requires_flags": [
+              "k3a_akt2_done"
+            ],
+            "hide_if_quests": [
+              "k3p_schluessel_pruefung"
+            ]
+          },
+          {
+            "text": "Zurück.",
+            "next": "k3p_start"
+          }
+        ]
+      },
+      "k3p_schluessel_annehmen": {
+        "text": "Hedda zeichnet zwei kleine Kästchen in dein Heft. „Erst die Beobachtung, dann ihr Gegenstück. Dein Name gehört dabei auf keinen Arbeitsaufruf.“",
+        "start_quests": [
+          "k3p_schluessel_pruefung"
+        ],
+        "choices": [
+          {
+            "text": "Ich sehe nach."
+          }
+        ]
+      },
+      "k3p_schluessel_belohnung": {
+        "text": "Hedda legt die versiegelte Kernprobe auf die Bank. „Ein bestandener Versuch ist keine Erlaubnis, künftig nicht mehr hinzusehen.“ Du erhältst die Zutat und 25 Schilling für deine Aufzeichnungen.",
+        "gives_items": {
+          "sq_zutat_schluessel_4": 1
+        },
+        "gives_money": 25,
+        "sets_flags": [
+          "k3p_schluessel_done"
+        ],
+        "complete_quests": [
+          "k3p_schluessel_pruefung"
+        ],
+        "choices": [
+          {
+            "text": "Danke.",
+            "next": "k3p_start"
+          }
+        ]
+      },
+      "k3p_schluessel_ritual1_start": {
+        "text": "„Die letzte Probe braucht keine neue Schuld“, sagt Hedda. „Im Speisewagen liegen deine Abschrift und ein Gegenbeleg. Entscheide, wie andere deinen Irrtum später noch erkennen können.“",
+        "start_quests": [
+          "k3p_ritual1_schluessel"
+        ],
+        "choices": [
+          {
+            "text": "Ich prüfe die Unterlagen."
+          }
+        ]
+      },
+      "k3p_schluessel_ritual1_reward": {
+        "text": "Hedda liest die Herkunftsnotiz und legt fünfzig Schilling daneben. „Du bist weitergegangen. Die Pflicht, dich berichtigen zu lassen, ist mitgekommen.“",
+        "sets_flags": [
+          "k3p_schluessel_ritual1_paid"
+        ],
+        "gives_money": 50,
+        "complete_quests": [
+          "k3p_ritual1_schluessel"
+        ],
+        "choices": [
+          {
+            "text": "Ich behalte das im Kopf.",
+            "next": "k3p_start"
+          }
+        ]
+      },
+      "k3p_waage_pfad": {
+        "text": "„Ich war auf der Waage. Bei Sequenz vier merkte ich, dass ich jede Freundlichkeit schon als Vorschuss wog. Da hörte ich auf.“ „Die Probe heißt Die doppelte Forderung. Du findest sie am Ort lohnbuero. Lies beide Spuren, bevor du dich dem Hüter stellst.“",
+        "choices": [
+          {
+            "text": "Ich nehme meine Prüfung an.",
+            "next": "k3p_waage_annehmen",
+            "requires_pathway": [
+              "sq_waage",
+              5
+            ],
+            "requires_flags": [
+              "k3a_akt2_done"
+            ],
+            "hide_if_quests": [
+              "k3p_waage_pruefung"
+            ]
+          },
+          {
+            "text": "Zurück.",
+            "next": "k3p_start"
+          }
+        ]
+      },
+      "k3p_waage_annehmen": {
+        "text": "Hedda zeichnet zwei kleine Kästchen in dein Heft. „Erst die Beobachtung, dann ihr Gegenstück. Dein Name gehört dabei auf keinen Arbeitsaufruf.“",
+        "start_quests": [
+          "k3p_waage_pruefung"
+        ],
+        "choices": [
+          {
+            "text": "Ich sehe nach."
+          }
+        ]
+      },
+      "k3p_waage_belohnung": {
+        "text": "Hedda legt die versiegelte Kernprobe auf die Bank. „Ein bestandener Versuch ist keine Erlaubnis, künftig nicht mehr hinzusehen.“ Du erhältst die Zutat und 25 Schilling für deine Aufzeichnungen.",
+        "gives_items": {
+          "sq_zutat_waage_4": 1
+        },
+        "gives_money": 25,
+        "sets_flags": [
+          "k3p_waage_done"
+        ],
+        "complete_quests": [
+          "k3p_waage_pruefung"
+        ],
+        "choices": [
+          {
+            "text": "Danke.",
+            "next": "k3p_start"
+          }
+        ]
+      },
+      "k3p_waage_ritual1_start": {
+        "text": "„Die letzte Probe braucht keine neue Schuld“, sagt Hedda. „Im Speisewagen liegen deine Abschrift und ein Gegenbeleg. Entscheide, wie andere deinen Irrtum später noch erkennen können.“",
+        "start_quests": [
+          "k3p_ritual1_sq_waage"
+        ],
+        "choices": [
+          {
+            "text": "Ich prüfe die Unterlagen."
+          }
+        ]
+      },
+      "k3p_waage_ritual1_reward": {
+        "text": "Hedda liest die Herkunftsnotiz und legt fünfzig Schilling daneben. „Du bist weitergegangen. Die Pflicht, dich berichtigen zu lassen, ist mitgekommen.“",
+        "sets_flags": [
+          "k3p_waage_ritual1_paid"
+        ],
+        "gives_money": 50,
+        "complete_quests": [
+          "k3p_ritual1_sq_waage"
+        ],
+        "choices": [
+          {
+            "text": "Ich behalte das im Kopf.",
+            "next": "k3p_start"
+          }
+        ]
+      },
+      "k3p_moor_pfad": {
+        "text": "„Das Moor bewahrt keinen ordentlichen Index. Du musst deswegen keinen erfinden.“ „Die Probe heißt Der Name im falschen Torf. Du findest sie am Ort kalkmarkt. Lies beide Spuren, bevor du dich dem Hüter stellst.“",
+        "choices": [
+          {
+            "text": "Ich nehme meine Prüfung an.",
+            "next": "k3p_moor_annehmen",
+            "requires_pathway": [
+              "sq_moor",
+              5
+            ],
+            "requires_flags": [
+              "k3a_akt2_done"
+            ],
+            "hide_if_quests": [
+              "k3p_moor_pruefung"
+            ]
+          },
+          {
+            "text": "Zurück.",
+            "next": "k3p_start"
+          }
+        ]
+      },
+      "k3p_moor_annehmen": {
+        "text": "Hedda zeichnet zwei kleine Kästchen in dein Heft. „Erst die Beobachtung, dann ihr Gegenstück. Dein Name gehört dabei auf keinen Arbeitsaufruf.“",
+        "start_quests": [
+          "k3p_moor_pruefung"
+        ],
+        "choices": [
+          {
+            "text": "Ich sehe nach."
+          }
+        ]
+      },
+      "k3p_moor_belohnung": {
+        "text": "Hedda legt die versiegelte Kernprobe auf die Bank. „Ein bestandener Versuch ist keine Erlaubnis, künftig nicht mehr hinzusehen.“ Du erhältst die Zutat und 25 Schilling für deine Aufzeichnungen.",
+        "gives_items": {
+          "sq_zutat_moor_4": 1
+        },
+        "gives_money": 25,
+        "sets_flags": [
+          "k3p_moor_done"
+        ],
+        "complete_quests": [
+          "k3p_moor_pruefung"
+        ],
+        "choices": [
+          {
+            "text": "Danke.",
+            "next": "k3p_start"
+          }
+        ]
+      },
+      "k3p_moor_ritual1_start": {
+        "text": "„Die letzte Probe braucht keine neue Schuld“, sagt Hedda. „Im Speisewagen liegen deine Abschrift und ein Gegenbeleg. Entscheide, wie andere deinen Irrtum später noch erkennen können.“",
+        "start_quests": [
+          "k3p_ritual1_sq_moor"
+        ],
+        "choices": [
+          {
+            "text": "Ich prüfe die Unterlagen."
+          }
+        ]
+      },
+      "k3p_moor_ritual1_reward": {
+        "text": "Hedda liest die Herkunftsnotiz und legt fünfzig Schilling daneben. „Du bist weitergegangen. Die Pflicht, dich berichtigen zu lassen, ist mitgekommen.“",
+        "sets_flags": [
+          "k3p_moor_ritual1_paid"
+        ],
+        "gives_money": 50,
+        "complete_quests": [
+          "k3p_ritual1_sq_moor"
+        ],
+        "choices": [
+          {
+            "text": "Ich behalte das im Kopf.",
+            "next": "k3p_start"
+          }
+        ]
+      },
+      "k3p_uhr_pfad": {
+        "text": "„Zeit hält keine Versprechen. Du kannst aber aufhören, sie anderen als Schuld anzurechnen.“ „Die Probe heißt Die Pause im Gangrad. Du findest sie am Ort signalhang. Lies beide Spuren, bevor du dich dem Hüter stellst.“",
+        "choices": [
+          {
+            "text": "Ich nehme meine Prüfung an.",
+            "next": "k3p_uhr_annehmen",
+            "requires_pathway": [
+              "sq_uhr",
+              5
+            ],
+            "requires_flags": [
+              "k3a_akt2_done"
+            ],
+            "hide_if_quests": [
+              "k3p_uhr_pruefung"
+            ]
+          },
+          {
+            "text": "Zurück.",
+            "next": "k3p_start"
+          }
+        ]
+      },
+      "k3p_uhr_annehmen": {
+        "text": "Hedda zeichnet zwei kleine Kästchen in dein Heft. „Erst die Beobachtung, dann ihr Gegenstück. Dein Name gehört dabei auf keinen Arbeitsaufruf.“",
+        "start_quests": [
+          "k3p_uhr_pruefung"
+        ],
+        "choices": [
+          {
+            "text": "Ich sehe nach."
+          }
+        ]
+      },
+      "k3p_uhr_belohnung": {
+        "text": "Hedda legt die versiegelte Kernprobe auf die Bank. „Ein bestandener Versuch ist keine Erlaubnis, künftig nicht mehr hinzusehen.“ Du erhältst die Zutat und 25 Schilling für deine Aufzeichnungen.",
+        "gives_items": {
+          "sq_zutat_uhr_4": 1
+        },
+        "gives_money": 25,
+        "sets_flags": [
+          "k3p_uhr_done"
+        ],
+        "complete_quests": [
+          "k3p_uhr_pruefung"
+        ],
+        "choices": [
+          {
+            "text": "Danke.",
+            "next": "k3p_start"
+          }
+        ]
+      },
+      "k3p_uhr_ritual1_start": {
+        "text": "„Die letzte Probe braucht keine neue Schuld“, sagt Hedda. „Im Speisewagen liegen deine Abschrift und ein Gegenbeleg. Entscheide, wie andere deinen Irrtum später noch erkennen können.“",
+        "start_quests": [
+          "k3p_ritual1_sq_uhr"
+        ],
+        "choices": [
+          {
+            "text": "Ich prüfe die Unterlagen."
+          }
+        ]
+      },
+      "k3p_uhr_ritual1_reward": {
+        "text": "Hedda liest die Herkunftsnotiz und legt fünfzig Schilling daneben. „Du bist weitergegangen. Die Pflicht, dich berichtigen zu lassen, ist mitgekommen.“",
+        "sets_flags": [
+          "k3p_uhr_ritual1_paid"
+        ],
+        "gives_money": 50,
+        "complete_quests": [
+          "k3p_ritual1_sq_uhr"
+        ],
+        "choices": [
+          {
+            "text": "Ich behalte das im Kopf.",
+            "next": "k3p_start"
+          }
+        ]
+      }
+    }
+  }
+}

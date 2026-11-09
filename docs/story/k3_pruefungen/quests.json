@@ -1,0 +1,1072 @@
+{
+  "k3p_laterne_pruefung": {
+    "title": "Das Licht unter dem Lack",
+    "kind": "side",
+    "case": "kapitel3",
+    "summary": "„Ich sah früher Fehler überall, nur nicht in meinen eigenen Gutachten. Deine Laterne soll auch hinter dich leuchten.“ Finde beide Spuren und entscheide zwischen offener Gegenprobe und Kampf.",
+    "steps": [
+      {
+        "text": "Untersuche die erste Spur.",
+        "done": {
+          "requires_flags": [
+            "k3p_laterne_spur_a"
+          ]
+        },
+        "target": {
+          "map": "ds_kalkmarkt",
+          "id": "k3p_laterne_spur_a",
+          "label": "Das Licht unter dem Lack"
+        }
+      },
+      {
+        "text": "Prüfe den unabhängigen Gegenbeleg.",
+        "done": {
+          "requires_flags": [
+            "k3p_laterne_spur_b"
+          ]
+        },
+        "target": {
+          "map": "ds_kalkmarkt",
+          "id": "k3p_laterne_spur_b",
+          "label": "Das Licht unter dem Lack"
+        }
+      },
+      {
+        "text": "Löse die Probe friedlich oder besiege den Hüter.",
+        "done": {
+          "requires_flags": [
+            "k3p_laterne_bewaeltigt"
+          ]
+        },
+        "target": {
+          "map": "ds_kalkmarkt",
+          "id": "k3p_laterne_probe",
+          "label": "Lampengutachter"
+        }
+      },
+      {
+        "text": "Hole die Kernzutat bei Hedda ab.",
+        "done": {
+          "requires_flags": [
+            "k3p_laterne_done"
+          ]
+        },
+        "target": {
+          "map": "ds_schwellenring",
+          "id": "k3_weichenstellerin",
+          "label": "Hedda Quist"
+        }
+      }
+    ]
+  },
+  "k3p_ritual1_laterne": {
+    "title": "Letzte Probe: Das unbequeme Licht",
+    "kind": "side",
+    "case": "kapitel3",
+    "summary": "Nach dem Kapitelabschluss prüfst du deinen eigenen Irrtum, entscheidest über den Gegenbeleg und vollziehst das Ritual. Hedda vergütet den Abschluss mit 50 Schilling.",
+    "steps": [
+      {
+        "text": "Prüfe den Gegenbeleg zu deiner eigenen Praxis.",
+        "done": {
+          "requires_flags": [
+            "k3p_laterne_ritual1_beleg"
+          ]
+        },
+        "target": {
+          "map": "ds_speisewagen",
+          "id": "k3p_laterne_ritual1_beleg",
+          "label": "Gegenbeleg"
+        }
+      },
+      {
+        "text": "Entscheide über offene oder versiegelte Aufbewahrung.",
+        "done": {
+          "requires_flags": [
+            "k3p_laterne_ritual1_entscheidung"
+          ]
+        },
+        "target": {
+          "map": "ds_speisewagen",
+          "id": "k3p_laterne_ritual1_ablage",
+          "label": "Aufzeichnung"
+        }
+      },
+      {
+        "text": "Vollziehe das Ritual und melde dich bei Hedda.",
+        "done": {
+          "requires_flags": [
+            "k3p_laterne_ritual1_paid"
+          ]
+        },
+        "target": {
+          "map": "ds_schwellenring",
+          "id": "k3_weichenstellerin",
+          "label": "Hedda Quist"
+        }
+      }
+    ]
+  },
+  "k3p_faden_pruefung": {
+    "title": "Die Naht zwischen zwei Zeiten",
+    "kind": "side",
+    "case": "kapitel3",
+    "summary": "„Ein Faden hält auch mit einer Lücke. Nur ein Strick muss alles zuziehen.“ Finde beide Spuren und entscheide zwischen offener Gegenprobe und Kampf.",
+    "steps": [
+      {
+        "text": "Untersuche die erste Spur.",
+        "done": {
+          "requires_flags": [
+            "k3p_faden_spur_a"
+          ]
+        },
+        "target": {
+          "map": "ds_lohnbuero",
+          "id": "k3p_faden_spur_a",
+          "label": "Die Naht zwischen zwei Zeiten"
+        }
+      },
+      {
+        "text": "Prüfe den unabhängigen Gegenbeleg.",
+        "done": {
+          "requires_flags": [
+            "k3p_faden_spur_b"
+          ]
+        },
+        "target": {
+          "map": "ds_lohnbuero",
+          "id": "k3p_faden_spur_b",
+          "label": "Die Naht zwischen zwei Zeiten"
+        }
+      },
+      {
+        "text": "Löse die Probe friedlich oder besiege den Hüter.",
+        "done": {
+          "requires_flags": [
+            "k3p_faden_bewaeltigt"
+          ]
+        },
+        "target": {
+          "map": "ds_lohnbuero",
+          "id": "k3p_faden_probe",
+          "label": "Gegenzeugenknüpfer"
+        }
+      },
+      {
+        "text": "Hole die Kernzutat bei Hedda ab.",
+        "done": {
+          "requires_flags": [
+            "k3p_faden_done"
+          ]
+        },
+        "target": {
+          "map": "ds_schwellenring",
+          "id": "k3_weichenstellerin",
+          "label": "Hedda Quist"
+        }
+      }
+    ]
+  },
+  "k3p_ritual1_faden": {
+    "title": "Letzte Probe: Der offene Zusammenhang",
+    "kind": "side",
+    "case": "kapitel3",
+    "summary": "Nach dem Kapitelabschluss prüfst du deinen eigenen Irrtum, entscheidest über den Gegenbeleg und vollziehst das Ritual. Hedda vergütet den Abschluss mit 50 Schilling.",
+    "steps": [
+      {
+        "text": "Prüfe den Gegenbeleg zu deiner eigenen Praxis.",
+        "done": {
+          "requires_flags": [
+            "k3p_faden_ritual1_beleg"
+          ]
+        },
+        "target": {
+          "map": "ds_speisewagen",
+          "id": "k3p_faden_ritual1_beleg",
+          "label": "Gegenbeleg"
+        }
+      },
+      {
+        "text": "Entscheide über offene oder versiegelte Aufbewahrung.",
+        "done": {
+          "requires_flags": [
+            "k3p_faden_ritual1_entscheidung"
+          ]
+        },
+        "target": {
+          "map": "ds_speisewagen",
+          "id": "k3p_faden_ritual1_ablage",
+          "label": "Aufzeichnung"
+        }
+      },
+      {
+        "text": "Vollziehe das Ritual und melde dich bei Hedda.",
+        "done": {
+          "requires_flags": [
+            "k3p_faden_ritual1_paid"
+          ]
+        },
+        "target": {
+          "map": "ds_schwellenring",
+          "id": "k3_weichenstellerin",
+          "label": "Hedda Quist"
+        }
+      }
+    ]
+  },
+  "k3p_maske_pruefung": {
+    "title": "Der Mantel des Widerspruchs",
+    "kind": "side",
+    "case": "kapitel3",
+    "summary": "„Eine Rolle kann eine Tür öffnen. Wohnen solltest du trotzdem in deinem eigenen Gesicht.“ Finde beide Spuren und entscheide zwischen offener Gegenprobe und Kampf.",
+    "steps": [
+      {
+        "text": "Untersuche die erste Spur.",
+        "done": {
+          "requires_flags": [
+            "k3p_maske_spur_a"
+          ]
+        },
+        "target": {
+          "map": "ds_teesaal",
+          "id": "k3p_maske_spur_a",
+          "label": "Der Mantel des Widerspruchs"
+        }
+      },
+      {
+        "text": "Prüfe den unabhängigen Gegenbeleg.",
+        "done": {
+          "requires_flags": [
+            "k3p_maske_spur_b"
+          ]
+        },
+        "target": {
+          "map": "ds_teesaal",
+          "id": "k3p_maske_spur_b",
+          "label": "Der Mantel des Widerspruchs"
+        }
+      },
+      {
+        "text": "Löse die Probe friedlich oder besiege den Hüter.",
+        "done": {
+          "requires_flags": [
+            "k3p_maske_bewaeltigt"
+          ]
+        },
+        "target": {
+          "map": "ds_teesaal",
+          "id": "k3p_maske_probe",
+          "label": "Garderobenpfänder"
+        }
+      },
+      {
+        "text": "Hole die Kernzutat bei Hedda ab.",
+        "done": {
+          "requires_flags": [
+            "k3p_maske_done"
+          ]
+        },
+        "target": {
+          "map": "ds_schwellenring",
+          "id": "k3_weichenstellerin",
+          "label": "Hedda Quist"
+        }
+      }
+    ]
+  },
+  "k3p_ritual1_maske": {
+    "title": "Letzte Probe: Das unvermietete Gesicht",
+    "kind": "side",
+    "case": "kapitel3",
+    "summary": "Nach dem Kapitelabschluss prüfst du deinen eigenen Irrtum, entscheidest über den Gegenbeleg und vollziehst das Ritual. Hedda vergütet den Abschluss mit 50 Schilling.",
+    "steps": [
+      {
+        "text": "Prüfe den Gegenbeleg zu deiner eigenen Praxis.",
+        "done": {
+          "requires_flags": [
+            "k3p_maske_ritual1_beleg"
+          ]
+        },
+        "target": {
+          "map": "ds_speisewagen",
+          "id": "k3p_maske_ritual1_beleg",
+          "label": "Gegenbeleg"
+        }
+      },
+      {
+        "text": "Entscheide über offene oder versiegelte Aufbewahrung.",
+        "done": {
+          "requires_flags": [
+            "k3p_maske_ritual1_entscheidung"
+          ]
+        },
+        "target": {
+          "map": "ds_speisewagen",
+          "id": "k3p_maske_ritual1_ablage",
+          "label": "Aufzeichnung"
+        }
+      },
+      {
+        "text": "Vollziehe das Ritual und melde dich bei Hedda.",
+        "done": {
+          "requires_flags": [
+            "k3p_maske_ritual1_paid"
+          ]
+        },
+        "target": {
+          "map": "ds_schwellenring",
+          "id": "k3_weichenstellerin",
+          "label": "Hedda Quist"
+        }
+      }
+    ]
+  },
+  "k3p_echo_pruefung": {
+    "title": "Der Satz, der fehlen darf",
+    "kind": "side",
+    "case": "kapitel3",
+    "summary": "„Zuhören macht dich nicht zum Erben einer Kehle. Auch ein Toter darf einen Satz unvollendet lassen.“ Finde beide Spuren und entscheide zwischen offener Gegenprobe und Kampf.",
+    "steps": [
+      {
+        "text": "Untersuche die erste Spur.",
+        "done": {
+          "requires_flags": [
+            "k3p_echo_spur_a"
+          ]
+        },
+        "target": {
+          "map": "ds_pruefhaus",
+          "id": "k3p_echo_spur_a",
+          "label": "Der Satz, der fehlen darf"
+        }
+      },
+      {
+        "text": "Prüfe den unabhängigen Gegenbeleg.",
+        "done": {
+          "requires_flags": [
+            "k3p_echo_spur_b"
+          ]
+        },
+        "target": {
+          "map": "ds_pruefhaus",
+          "id": "k3p_echo_spur_b",
+          "label": "Der Satz, der fehlen darf"
+        }
+      },
+      {
+        "text": "Löse die Probe friedlich oder besiege den Hüter.",
+        "done": {
+          "requires_flags": [
+            "k3p_echo_bewaeltigt"
+          ]
+        },
+        "target": {
+          "map": "ds_pruefhaus",
+          "id": "k3p_echo_probe",
+          "label": "Pausenfischer"
+        }
+      },
+      {
+        "text": "Hole die Kernzutat bei Hedda ab.",
+        "done": {
+          "requires_flags": [
+            "k3p_echo_done"
+          ]
+        },
+        "target": {
+          "map": "ds_schwellenring",
+          "id": "k3_weichenstellerin",
+          "label": "Hedda Quist"
+        }
+      }
+    ]
+  },
+  "k3p_ritual1_echo": {
+    "title": "Letzte Probe: Die letzte Zuhörstelle",
+    "kind": "side",
+    "case": "kapitel3",
+    "summary": "Nach dem Kapitelabschluss prüfst du deinen eigenen Irrtum, entscheidest über den Gegenbeleg und vollziehst das Ritual. Hedda vergütet den Abschluss mit 50 Schilling.",
+    "steps": [
+      {
+        "text": "Prüfe den Gegenbeleg zu deiner eigenen Praxis.",
+        "done": {
+          "requires_flags": [
+            "k3p_echo_ritual1_beleg"
+          ]
+        },
+        "target": {
+          "map": "ds_speisewagen",
+          "id": "k3p_echo_ritual1_beleg",
+          "label": "Gegenbeleg"
+        }
+      },
+      {
+        "text": "Entscheide über offene oder versiegelte Aufbewahrung.",
+        "done": {
+          "requires_flags": [
+            "k3p_echo_ritual1_entscheidung"
+          ]
+        },
+        "target": {
+          "map": "ds_speisewagen",
+          "id": "k3p_echo_ritual1_ablage",
+          "label": "Aufzeichnung"
+        }
+      },
+      {
+        "text": "Vollziehe das Ritual und melde dich bei Hedda.",
+        "done": {
+          "requires_flags": [
+            "k3p_echo_ritual1_paid"
+          ]
+        },
+        "target": {
+          "map": "ds_schwellenring",
+          "id": "k3_weichenstellerin",
+          "label": "Hedda Quist"
+        }
+      }
+    ]
+  },
+  "k3p_kessel_pruefung": {
+    "title": "Die saubere Rückstandsprobe",
+    "kind": "side",
+    "case": "kapitel3",
+    "summary": "„Wer alles rein nennt, hat meist nur den Abfluss vergessen. Mein Kessel hatte auch einmal einen.“ Finde beide Spuren und entscheide zwischen offener Gegenprobe und Kampf.",
+    "steps": [
+      {
+        "text": "Untersuche die erste Spur.",
+        "done": {
+          "requires_flags": [
+            "k3p_kessel_spur_a"
+          ]
+        },
+        "target": {
+          "map": "ds_runddepot",
+          "id": "k3p_kessel_spur_a",
+          "label": "Die saubere Rückstandsprobe"
+        }
+      },
+      {
+        "text": "Prüfe den unabhängigen Gegenbeleg.",
+        "done": {
+          "requires_flags": [
+            "k3p_kessel_spur_b"
+          ]
+        },
+        "target": {
+          "map": "ds_runddepot",
+          "id": "k3p_kessel_spur_b",
+          "label": "Die saubere Rückstandsprobe"
+        }
+      },
+      {
+        "text": "Löse die Probe friedlich oder besiege den Hüter.",
+        "done": {
+          "requires_flags": [
+            "k3p_kessel_bewaeltigt"
+          ]
+        },
+        "target": {
+          "map": "ds_runddepot",
+          "id": "k3p_kessel_probe",
+          "label": "Chargenprüfer"
+        }
+      },
+      {
+        "text": "Hole die Kernzutat bei Hedda ab.",
+        "done": {
+          "requires_flags": [
+            "k3p_kessel_done"
+          ]
+        },
+        "target": {
+          "map": "ds_schwellenring",
+          "id": "k3_weichenstellerin",
+          "label": "Hedda Quist"
+        }
+      }
+    ]
+  },
+  "k3p_ritual1_kessel": {
+    "title": "Letzte Probe: Der unverlorene Rest",
+    "kind": "side",
+    "case": "kapitel3",
+    "summary": "Nach dem Kapitelabschluss prüfst du deinen eigenen Irrtum, entscheidest über den Gegenbeleg und vollziehst das Ritual. Hedda vergütet den Abschluss mit 50 Schilling.",
+    "steps": [
+      {
+        "text": "Prüfe den Gegenbeleg zu deiner eigenen Praxis.",
+        "done": {
+          "requires_flags": [
+            "k3p_kessel_ritual1_beleg"
+          ]
+        },
+        "target": {
+          "map": "ds_speisewagen",
+          "id": "k3p_kessel_ritual1_beleg",
+          "label": "Gegenbeleg"
+        }
+      },
+      {
+        "text": "Entscheide über offene oder versiegelte Aufbewahrung.",
+        "done": {
+          "requires_flags": [
+            "k3p_kessel_ritual1_entscheidung"
+          ]
+        },
+        "target": {
+          "map": "ds_speisewagen",
+          "id": "k3p_kessel_ritual1_ablage",
+          "label": "Aufzeichnung"
+        }
+      },
+      {
+        "text": "Vollziehe das Ritual und melde dich bei Hedda.",
+        "done": {
+          "requires_flags": [
+            "k3p_kessel_ritual1_paid"
+          ]
+        },
+        "target": {
+          "map": "ds_schwellenring",
+          "id": "k3_weichenstellerin",
+          "label": "Hedda Quist"
+        }
+      }
+    ]
+  },
+  "k3p_eisen_pruefung": {
+    "title": "Die Last mit zwei Schultern",
+    "kind": "side",
+    "case": "kapitel3",
+    "summary": "„Ich habe einmal eine ganze Schicht getragen. Danach konnte keiner mehr stehen, ohne mich zu fragen.“ Finde beide Spuren und entscheide zwischen offener Gegenprobe und Kampf.",
+    "steps": [
+      {
+        "text": "Untersuche die erste Spur.",
+        "done": {
+          "requires_flags": [
+            "k3p_eisen_spur_a"
+          ]
+        },
+        "target": {
+          "map": "ds_bruchstufen",
+          "id": "k3p_eisen_spur_a",
+          "label": "Die Last mit zwei Schultern"
+        }
+      },
+      {
+        "text": "Prüfe den unabhängigen Gegenbeleg.",
+        "done": {
+          "requires_flags": [
+            "k3p_eisen_spur_b"
+          ]
+        },
+        "target": {
+          "map": "ds_bruchstufen",
+          "id": "k3p_eisen_spur_b",
+          "label": "Die Last mit zwei Schultern"
+        }
+      },
+      {
+        "text": "Löse die Probe friedlich oder besiege den Hüter.",
+        "done": {
+          "requires_flags": [
+            "k3p_eisen_bewaeltigt"
+          ]
+        },
+        "target": {
+          "map": "ds_bruchstufen",
+          "id": "k3p_eisen_probe",
+          "label": "Brückenpresser"
+        }
+      },
+      {
+        "text": "Hole die Kernzutat bei Hedda ab.",
+        "done": {
+          "requires_flags": [
+            "k3p_eisen_done"
+          ]
+        },
+        "target": {
+          "map": "ds_schwellenring",
+          "id": "k3_weichenstellerin",
+          "label": "Hedda Quist"
+        }
+      }
+    ]
+  },
+  "k3p_ritual1_eisen": {
+    "title": "Letzte Probe: Die bleibende Stütze",
+    "kind": "side",
+    "case": "kapitel3",
+    "summary": "Nach dem Kapitelabschluss prüfst du deinen eigenen Irrtum, entscheidest über den Gegenbeleg und vollziehst das Ritual. Hedda vergütet den Abschluss mit 50 Schilling.",
+    "steps": [
+      {
+        "text": "Prüfe den Gegenbeleg zu deiner eigenen Praxis.",
+        "done": {
+          "requires_flags": [
+            "k3p_eisen_ritual1_beleg"
+          ]
+        },
+        "target": {
+          "map": "ds_speisewagen",
+          "id": "k3p_eisen_ritual1_beleg",
+          "label": "Gegenbeleg"
+        }
+      },
+      {
+        "text": "Entscheide über offene oder versiegelte Aufbewahrung.",
+        "done": {
+          "requires_flags": [
+            "k3p_eisen_ritual1_entscheidung"
+          ]
+        },
+        "target": {
+          "map": "ds_speisewagen",
+          "id": "k3p_eisen_ritual1_ablage",
+          "label": "Aufzeichnung"
+        }
+      },
+      {
+        "text": "Vollziehe das Ritual und melde dich bei Hedda.",
+        "done": {
+          "requires_flags": [
+            "k3p_eisen_ritual1_paid"
+          ]
+        },
+        "target": {
+          "map": "ds_schwellenring",
+          "id": "k3_weichenstellerin",
+          "label": "Hedda Quist"
+        }
+      }
+    ]
+  },
+  "k3p_schluessel_pruefung": {
+    "title": "Die Tür ohne Pfand",
+    "kind": "side",
+    "case": "kapitel3",
+    "summary": "„Ein Schlüssel ist kein Eigentumsnachweis. Das musste mir einmal ein sehr höflicher Einbrecher erklären.“ Finde beide Spuren und entscheide zwischen offener Gegenprobe und Kampf.",
+    "steps": [
+      {
+        "text": "Untersuche die erste Spur.",
+        "done": {
+          "requires_flags": [
+            "k3p_schluessel_spur_a"
+          ]
+        },
+        "target": {
+          "map": "ds_endbahnhof",
+          "id": "k3p_schluessel_spur_a",
+          "label": "Die Tür ohne Pfand"
+        }
+      },
+      {
+        "text": "Prüfe den unabhängigen Gegenbeleg.",
+        "done": {
+          "requires_flags": [
+            "k3p_schluessel_spur_b"
+          ]
+        },
+        "target": {
+          "map": "ds_endbahnhof",
+          "id": "k3p_schluessel_spur_b",
+          "label": "Die Tür ohne Pfand"
+        }
+      },
+      {
+        "text": "Löse die Probe friedlich oder besiege den Hüter.",
+        "done": {
+          "requires_flags": [
+            "k3p_schluessel_bewaeltigt"
+          ]
+        },
+        "target": {
+          "map": "ds_endbahnhof",
+          "id": "k3p_schluessel_probe",
+          "label": "Zollriegel"
+        }
+      },
+      {
+        "text": "Hole die Kernzutat bei Hedda ab.",
+        "done": {
+          "requires_flags": [
+            "k3p_schluessel_done"
+          ]
+        },
+        "target": {
+          "map": "ds_schwellenring",
+          "id": "k3_weichenstellerin",
+          "label": "Hedda Quist"
+        }
+      }
+    ]
+  },
+  "k3p_ritual1_schluessel": {
+    "title": "Letzte Probe: Die unverwehrte Tür",
+    "kind": "side",
+    "case": "kapitel3",
+    "summary": "Nach dem Kapitelabschluss prüfst du deinen eigenen Irrtum, entscheidest über den Gegenbeleg und vollziehst das Ritual. Hedda vergütet den Abschluss mit 50 Schilling.",
+    "steps": [
+      {
+        "text": "Prüfe den Gegenbeleg zu deiner eigenen Praxis.",
+        "done": {
+          "requires_flags": [
+            "k3p_schluessel_ritual1_beleg"
+          ]
+        },
+        "target": {
+          "map": "ds_speisewagen",
+          "id": "k3p_schluessel_ritual1_beleg",
+          "label": "Gegenbeleg"
+        }
+      },
+      {
+        "text": "Entscheide über offene oder versiegelte Aufbewahrung.",
+        "done": {
+          "requires_flags": [
+            "k3p_schluessel_ritual1_entscheidung"
+          ]
+        },
+        "target": {
+          "map": "ds_speisewagen",
+          "id": "k3p_schluessel_ritual1_ablage",
+          "label": "Aufzeichnung"
+        }
+      },
+      {
+        "text": "Vollziehe das Ritual und melde dich bei Hedda.",
+        "done": {
+          "requires_flags": [
+            "k3p_schluessel_ritual1_paid"
+          ]
+        },
+        "target": {
+          "map": "ds_schwellenring",
+          "id": "k3_weichenstellerin",
+          "label": "Hedda Quist"
+        }
+      }
+    ]
+  },
+  "k3p_waage_pruefung": {
+    "title": "Die doppelte Forderung",
+    "kind": "side",
+    "case": "kapitel3",
+    "summary": "„Ich war auf der Waage. Bei Sequenz vier merkte ich, dass ich jede Freundlichkeit schon als Vorschuss wog. Da hörte ich auf.“ Finde beide Spuren und entscheide zwischen offener Gegenprobe und Kampf.",
+    "steps": [
+      {
+        "text": "Untersuche die erste Spur.",
+        "done": {
+          "requires_flags": [
+            "k3p_waage_spur_a"
+          ]
+        },
+        "target": {
+          "map": "ds_lohnbuero",
+          "id": "k3p_waage_spur_a",
+          "label": "Die doppelte Forderung"
+        }
+      },
+      {
+        "text": "Prüfe den unabhängigen Gegenbeleg.",
+        "done": {
+          "requires_flags": [
+            "k3p_waage_spur_b"
+          ]
+        },
+        "target": {
+          "map": "ds_lohnbuero",
+          "id": "k3p_waage_spur_b",
+          "label": "Die doppelte Forderung"
+        }
+      },
+      {
+        "text": "Löse die Probe friedlich oder besiege den Hüter.",
+        "done": {
+          "requires_flags": [
+            "k3p_waage_bewaeltigt"
+          ]
+        },
+        "target": {
+          "map": "ds_lohnbuero",
+          "id": "k3p_waage_probe",
+          "label": "Fristpfänder"
+        }
+      },
+      {
+        "text": "Hole die Kernzutat bei Hedda ab.",
+        "done": {
+          "requires_flags": [
+            "k3p_waage_done"
+          ]
+        },
+        "target": {
+          "map": "ds_schwellenring",
+          "id": "k3_weichenstellerin",
+          "label": "Hedda Quist"
+        }
+      }
+    ]
+  },
+  "k3p_ritual1_sq_waage": {
+    "title": "Letzte Probe: Die quittierte Last",
+    "kind": "side",
+    "case": "kapitel3",
+    "summary": "Nach dem Kapitelabschluss prüfst du deinen eigenen Irrtum, entscheidest über den Gegenbeleg und vollziehst das Ritual. Hedda vergütet den Abschluss mit 50 Schilling.",
+    "steps": [
+      {
+        "text": "Prüfe den Gegenbeleg zu deiner eigenen Praxis.",
+        "done": {
+          "requires_flags": [
+            "k3p_waage_ritual1_beleg"
+          ]
+        },
+        "target": {
+          "map": "ds_speisewagen",
+          "id": "k3p_waage_ritual1_beleg",
+          "label": "Gegenbeleg"
+        }
+      },
+      {
+        "text": "Entscheide über offene oder versiegelte Aufbewahrung.",
+        "done": {
+          "requires_flags": [
+            "k3p_waage_ritual1_entscheidung"
+          ]
+        },
+        "target": {
+          "map": "ds_speisewagen",
+          "id": "k3p_waage_ritual1_ablage",
+          "label": "Aufzeichnung"
+        }
+      },
+      {
+        "text": "Vollziehe das Ritual und melde dich bei Hedda.",
+        "done": {
+          "requires_flags": [
+            "k3p_waage_ritual1_paid"
+          ]
+        },
+        "target": {
+          "map": "ds_schwellenring",
+          "id": "k3_weichenstellerin",
+          "label": "Hedda Quist"
+        }
+      }
+    ]
+  },
+  "k3p_moor_pruefung": {
+    "title": "Der Name im falschen Torf",
+    "kind": "side",
+    "case": "kapitel3",
+    "summary": "„Das Moor bewahrt keinen ordentlichen Index. Du musst deswegen keinen erfinden.“ Finde beide Spuren und entscheide zwischen offener Gegenprobe und Kampf.",
+    "steps": [
+      {
+        "text": "Untersuche die erste Spur.",
+        "done": {
+          "requires_flags": [
+            "k3p_moor_spur_a"
+          ]
+        },
+        "target": {
+          "map": "ds_kalkmarkt",
+          "id": "k3p_moor_spur_a",
+          "label": "Der Name im falschen Torf"
+        }
+      },
+      {
+        "text": "Prüfe den unabhängigen Gegenbeleg.",
+        "done": {
+          "requires_flags": [
+            "k3p_moor_spur_b"
+          ]
+        },
+        "target": {
+          "map": "ds_kalkmarkt",
+          "id": "k3p_moor_spur_b",
+          "label": "Der Name im falschen Torf"
+        }
+      },
+      {
+        "text": "Löse die Probe friedlich oder besiege den Hüter.",
+        "done": {
+          "requires_flags": [
+            "k3p_moor_bewaeltigt"
+          ]
+        },
+        "target": {
+          "map": "ds_kalkmarkt",
+          "id": "k3p_moor_probe",
+          "label": "Schichtsammler"
+        }
+      },
+      {
+        "text": "Hole die Kernzutat bei Hedda ab.",
+        "done": {
+          "requires_flags": [
+            "k3p_moor_done"
+          ]
+        },
+        "target": {
+          "map": "ds_schwellenring",
+          "id": "k3_weichenstellerin",
+          "label": "Hedda Quist"
+        }
+      }
+    ]
+  },
+  "k3p_ritual1_sq_moor": {
+    "title": "Letzte Probe: Das erinnerte Fehlende",
+    "kind": "side",
+    "case": "kapitel3",
+    "summary": "Nach dem Kapitelabschluss prüfst du deinen eigenen Irrtum, entscheidest über den Gegenbeleg und vollziehst das Ritual. Hedda vergütet den Abschluss mit 50 Schilling.",
+    "steps": [
+      {
+        "text": "Prüfe den Gegenbeleg zu deiner eigenen Praxis.",
+        "done": {
+          "requires_flags": [
+            "k3p_moor_ritual1_beleg"
+          ]
+        },
+        "target": {
+          "map": "ds_speisewagen",
+          "id": "k3p_moor_ritual1_beleg",
+          "label": "Gegenbeleg"
+        }
+      },
+      {
+        "text": "Entscheide über offene oder versiegelte Aufbewahrung.",
+        "done": {
+          "requires_flags": [
+            "k3p_moor_ritual1_entscheidung"
+          ]
+        },
+        "target": {
+          "map": "ds_speisewagen",
+          "id": "k3p_moor_ritual1_ablage",
+          "label": "Aufzeichnung"
+        }
+      },
+      {
+        "text": "Vollziehe das Ritual und melde dich bei Hedda.",
+        "done": {
+          "requires_flags": [
+            "k3p_moor_ritual1_paid"
+          ]
+        },
+        "target": {
+          "map": "ds_schwellenring",
+          "id": "k3_weichenstellerin",
+          "label": "Hedda Quist"
+        }
+      }
+    ]
+  },
+  "k3p_uhr_pruefung": {
+    "title": "Die Pause im Gangrad",
+    "kind": "side",
+    "case": "kapitel3",
+    "summary": "„Zeit hält keine Versprechen. Du kannst aber aufhören, sie anderen als Schuld anzurechnen.“ Finde beide Spuren und entscheide zwischen offener Gegenprobe und Kampf.",
+    "steps": [
+      {
+        "text": "Untersuche die erste Spur.",
+        "done": {
+          "requires_flags": [
+            "k3p_uhr_spur_a"
+          ]
+        },
+        "target": {
+          "map": "ds_signalhang",
+          "id": "k3p_uhr_spur_a",
+          "label": "Die Pause im Gangrad"
+        }
+      },
+      {
+        "text": "Prüfe den unabhängigen Gegenbeleg.",
+        "done": {
+          "requires_flags": [
+            "k3p_uhr_spur_b"
+          ]
+        },
+        "target": {
+          "map": "ds_signalhang",
+          "id": "k3p_uhr_spur_b",
+          "label": "Die Pause im Gangrad"
+        }
+      },
+      {
+        "text": "Löse die Probe friedlich oder besiege den Hüter.",
+        "done": {
+          "requires_flags": [
+            "k3p_uhr_bewaeltigt"
+          ]
+        },
+        "target": {
+          "map": "ds_signalhang",
+          "id": "k3p_uhr_probe",
+          "label": "Gangaufseher"
+        }
+      },
+      {
+        "text": "Hole die Kernzutat bei Hedda ab.",
+        "done": {
+          "requires_flags": [
+            "k3p_uhr_done"
+          ]
+        },
+        "target": {
+          "map": "ds_schwellenring",
+          "id": "k3_weichenstellerin",
+          "label": "Hedda Quist"
+        }
+      }
+    ]
+  },
+  "k3p_ritual1_sq_uhr": {
+    "title": "Letzte Probe: Die gewährte Minute",
+    "kind": "side",
+    "case": "kapitel3",
+    "summary": "Nach dem Kapitelabschluss prüfst du deinen eigenen Irrtum, entscheidest über den Gegenbeleg und vollziehst das Ritual. Hedda vergütet den Abschluss mit 50 Schilling.",
+    "steps": [
+      {
+        "text": "Prüfe den Gegenbeleg zu deiner eigenen Praxis.",
+        "done": {
+          "requires_flags": [
+            "k3p_uhr_ritual1_beleg"
+          ]
+        },
+        "target": {
+          "map": "ds_speisewagen",
+          "id": "k3p_uhr_ritual1_beleg",
+          "label": "Gegenbeleg"
+        }
+      },
+      {
+        "text": "Entscheide über offene oder versiegelte Aufbewahrung.",
+        "done": {
+          "requires_flags": [
+            "k3p_uhr_ritual1_entscheidung"
+          ]
+        },
+        "target": {
+          "map": "ds_speisewagen",
+          "id": "k3p_uhr_ritual1_ablage",
+          "label": "Aufzeichnung"
+        }
+      },
+      {
+        "text": "Vollziehe das Ritual und melde dich bei Hedda.",
+        "done": {
+          "requires_flags": [
+            "k3p_uhr_ritual1_paid"
+          ]
+        },
+        "target": {
+          "map": "ds_schwellenring",
+          "id": "k3_weichenstellerin",
+          "label": "Hedda Quist"
+        }
+      }
+    ]
+  }
+}
