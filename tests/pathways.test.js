@@ -22,12 +22,12 @@ function brewPotion(s, pid, seq) {
   return `trank_${pid}_${seq}`;
 }
 
-test('Sieben Pfade mit je Sequenz 9, 8, 7, Fertigkeit, Passiven und kaufbaren Zutaten', () => {
+test('Sieben Pfade mit je Sequenz 9 bis 5, Fertigkeit, Passiven und kaufbaren Zutaten', () => {
   const ids = Object.keys(content.pathways);
   assert.equal(ids.length, 7);
   const skillIds = new Set();
   for (const [pid, p] of Object.entries(content.pathways)) {
-    assert.deepEqual(Object.keys(p.seqs).sort(), ['7', '8', '9'], pid);
+    assert.deepEqual(Object.keys(p.seqs).sort(), ['5', '6', '7', '8', '9'], pid);
     assert.ok(p.principle && p.digest_hint && Object.keys(p.digest).length >= 2, `${pid}: Grundsatz`);
     for (const [n, sd] of Object.entries(p.seqs)) {
       assert.ok(sd.name && sd.desc && sd.skill?.id && sd.skill.desc, `${pid} ${n}`);
@@ -80,7 +80,7 @@ test('Trinken: Sequenz 9, Verdauen durch Handeln, dann Aufstieg auf 8 ohne Risik
 test('Zu früh getrunken: hohes Risiko, Kontrollverlust kostet Geld und Leben, nie Game Over', () => {
   const s = new GameState(content);
   s.drink(brewPotion(s, 'eisen', 9), never);
-  assert.equal(s.maxHp, 50, 'Raufbold: +10 Leben');
+  assert.equal(s.maxHp, 58, 'Raufbold: +10 Leben, dazu +8 für die erste Sequenz des Eisens');
   const p8 = brewPotion(s, 'eisen', 8);
   const { risk } = s.drinkCheck(p8);
   assert.ok(risk > 0.8, `Risiko ${risk}`);
