@@ -44,3 +44,27 @@ test('AH: Spieler 2 wählt seine Figur, sie bleibt im Spielstand', () => {
   third.load(old);
   assert.equal(third.p2Look(), 'p2a');
 });
+
+// Paket AJ: Grafik für die Nebenaufträge aus AA und AB
+import { AJ_FIGURES, KAHN_PROPS, PORTRAITS, ENCOUNTER_SHEETS, bestiaryUrl, itemIcon32Url } from '../src/world/assets.js';
+
+test('AJ: neue Figuren, Gesuchte, Gegenstände und Kahn-Ausbauten haben ihre Grafik', () => {
+  const content = loadContent();
+  for (const id of AJ_FIGURES) {
+    assert.ok(content.npcs[id], id);
+    assert.ok(existsSync(pub(SHEETS[CHARACTER_SHEETS[`npc_${id}`]])), id);
+    assert.ok(existsSync(pub(`portraits/${PORTRAITS[id]}`)), id);
+  }
+  for (const id of ['kg_kopfgeld_siegelbrecher', 'kg_kopfgeld_schichtdieb', 'kg_kopfgeld_pfandvogt']) {
+    assert.ok(content.encounters[id], id);
+    assert.ok(existsSync(pub(BATTLE_SHEETS[ENCOUNTER_SHEETS[id]][0])), id);
+    assert.ok(existsSync(pub(bestiaryUrl(id).replace(/^.*?sprites\//, ''))), id);
+  }
+  for (const id of ['kg_kerzenbund', 'kg_bleiorakel', 'k2n_pfandzettel', 'k2n_ivys_brief', 'k2n_brief_hesper', 'k2n_brief_druce', 'k2n_brief_pedell']) {
+    assert.ok(content.items[id], id);
+    assert.ok(existsSync(pub(itemIcon32Url(id).replace(/^.*?sprites\//, ''))), id);
+  }
+  const kahn = content.maps.wx_kahn.interactables.filter((i) => KAHN_PROPS.includes(i.id));
+  assert.equal(kahn.length, KAHN_PROPS.length);
+  for (const i of kahn) assert.equal(i.sprite, i.id);
+});
