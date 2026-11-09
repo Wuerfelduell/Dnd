@@ -57,7 +57,7 @@ export class Combat {
     this.shield = 0; // fängt Schaden ab (Trugbild, Eiserne Haut)
     this.evading = false; // nächster gegnerischer Angriff geht ins Leere
     this.confused = false; // nächster gegnerischer Angriff trifft den Gegner selbst
-    this.burn = null; // { damage, rounds } Brand oder Gift
+    this.burn = null; // { damage, rounds, source } Brand oder Gift
   }
 
   /** Grundfertigkeiten plus die Fähigkeiten des eigenen Pfades. */
@@ -129,7 +129,7 @@ export class Combat {
     if (sk.shield) { this.shield += sk.shield; effects.push(`Schutz ${this.shield}`); }
     if (sk.evade) { this.evading = true; effects.push('nächster Angriff geht ins Leere'); }
     if (sk.confuse && landed) { this.confused = true; effects.push('Gegner verwirrt'); }
-    if (sk.burn && landed) { this.burn = { damage: sk.burn[0], rounds: sk.burn[1] }; effects.push(`${sk.burn[1]} Runden je ${sk.burn[0]} Schaden`); }
+    if (sk.burn && landed) { this.burn = { damage: sk.burn[0], rounds: sk.burn[1], source: skillId }; effects.push(`${sk.burn[1]} Runden je ${sk.burn[0]} Schaden`); }
     this.log.push(`${sk.name}: ${total} Schaden`);
     return { hits, total, stunned, effects };
   }
