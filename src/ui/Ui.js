@@ -1179,8 +1179,8 @@ export class Ui {
         <div><button class="small" data-vault="${i}" ${this.vault[i].disabled ? 'disabled' : ''}><span class="key">${i + 1}</span> Abholen</button></div></li>`;
     }).join('');
     const intro = !s.isBeyonder()
-      ? `Das Revier führt Tränke für drei Pfade: ${names}. Jede Stufe gibt es einmal, sobald ein bestimmter Fall gelöst ist. Für alle anderen Pfade gehen Sie auf den Nachtmarkt.`
-      : offers.length ? 'Ihr Pfad gehört zu denen, die das Revier unterstützt. Jede gelöste Akte bringt Sie eine Stufe weiter. Trinken sollten Sie aber erst, wenn der letzte Trank verdaut ist.'
+      ? `Das Revier führt Tränke für drei Pfade: ${names}, und nur bis Sequenz 7. Jede Stufe gibt es einmal, sobald ein bestimmter Fall gelöst ist. Für alle anderen Pfade gehen Sie auf den Nachtmarkt.`
+      : offers.length ? 'Ihr Pfad gehört zu denen, die das Revier unterstützt, bis Sequenz 7. Danach müssen Sie sich die Formeln selbst beschaffen: bei geheimen Treffen, oder mit viel Glück irgendwo da draußen. Trinken sollten Sie erst, wenn der letzte Trank verdaut ist.'
         : `Ihr Pfad gehört nicht zu denen des Reviers (${names}). Beraten kann ich Sie trotzdem, aber Tränke bekommen Sie bei Kittering auf dem Nachtmarkt.`;
     const el = this.open('vault', `
       <h3>Dr. Ilse Varga <span class="muted">Gutachterin für Okkultes</span></h3>
