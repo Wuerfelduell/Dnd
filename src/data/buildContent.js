@@ -60,6 +60,7 @@ export function buildContent({ campaign, quests, cases, maps, dialogues, items =
   // Nebenauftrags-Pakete (data/packs): eigene Aufträge, Zusatzoptionen und Platzierungen
   for (const pack of packs) applyQuestPack(content, pack);
   applyLore(content, lore); // Paket AD: Lesestücke, Itemtexte, Bestiarium, Zeitungen, Gerede
+  for (const pack of packs) if (pack.zeitung) content.newspapers = [...(content.newspapers ?? []), ...pack.zeitung]; // Paket AL
   applySequenzen(content, sequenzen, sq); // Paket AF: Händler, Treffen und Funde für die neuen Pfade
   applyMoods(content); // Paket AK: Stimmungen für Schlüsselstellen
   return content;

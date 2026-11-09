@@ -1,5 +1,7 @@
 # AL · Vier Wexmoorer Akten
 
+> Eingebaut: Die Daten liegen jetzt in `src/data/packs/k2_akten/`. Enden, Fallregister und Zeitung übernimmt der Paketlader. Senn, Veit und Noll kämpfen bis zu eigener Grafik mit vorhandenen Sheets.
+
 Inhaltspaket für **Nebelakten**, Stand der Vorlage `docs/art/codex_AL_k2_akten.md` auf `1ecfc2df1facaacfd4e6e0caf7a554a08db20d41`. Nur dieser Ordner wird geliefert. Die Daten sind noch nicht in den Spielimport eingebunden.
 
 | Akte | Freigabe | Schauplätze | Umfang |
