@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { existsSync, readFileSync } from 'node:fs';
 import { loadContent } from './helpers.js';
 import { X_ITEMS, X_FIGHTS, mapMarkerOf, W_ENEMIES, W_ITEMS, S_ENEMIES, S_LONERS, S_HOSTS, S_ITEMS, TURN_PORTRAITS, R_SCENES, T_MEMBERS, U_FIGURES, AUKTION_REGIONS, SHEETS, BATTLE_SHEETS, ANIM_SHEETS, TILE_CELLS, PROP_CELLS, PROP_ANIMS, CHARACTER_SHEETS, ENCOUNTER_SHEETS, ENEMY_BATTLE_SHEETS, THEME_TILE_LIST, PORTRAITS, MAP_MARKERS, C_CHARACTERS, BATTLE_BACKGROUNDS, ENCOUNTER_BACKGROUNDS, SKILL_FX, SKILL_ICONS, STATUS_ICONS, PATHWAY_POSES, WEAPON_POSES, itemIconUrl, itemIcon32Url, pathwayEmblemUrl, pathwayCardUrl, COIN_URL, bossIntroImage,
-  REGION_SHEETS, REGION_ANIMS, ICON_STRIPS, CASE_SHEETS, WHOLE_PROPS, FACADES, E_CHARACTERS, PORTRAIT_SPECIAL, PORTRAIT_EXTRA, PORTRAIT_MOODS, ENDING_IMAGES, endingImageUrl,
+  REGION_SHEETS, REGION_ANIMS, ICON_STRIPS, CASE_SHEETS, WHOLE_PROPS, FACADES, E_CHARACTERS, PORTRAIT_SPECIAL, PORTRAIT_EXTRA, PORTRAIT_MOODS, AK_MOODS_EN, ENDING_IMAGES, endingImageUrl,
   caseFileUrl, SCENES, sceneUrl, CITY_MAP_URL, CITY_FOG_URL, QUEST_UI_URL,
   OVERWORLD_SHEETS, BESTIARY, bestiaryUrl, F_EQUIPMENT, BOSS_INTROS, F_UI_SHEETS, overworldIdFor } from '../src/world/assets.js';
 import { TILE_KEYS } from '../src/world/textures.js';
@@ -188,7 +188,7 @@ test('Paket D/E: Figuren, Portraits, Schlussbilder, Akten und Szenen liegen bere
       if (node.scene) assert.ok(sceneUrl(node.scene), `${tid}.${nid}: Szene ${node.scene}`);
       if (!node.mood) continue;
       const npcMoods = [...Object.values(PORTRAIT_SPECIAL), ...Object.values(PORTRAIT_EXTRA)].flatMap(([, m]) => Object.keys(m));
-      assert.ok(node.mood in PORTRAIT_MOODS || npcMoods.includes(node.mood), `${tid}.${nid}: ${node.mood}`);
+      assert.ok(node.mood in PORTRAIT_MOODS || node.mood in AK_MOODS_EN || npcMoods.includes(node.mood), `${tid}.${nid}: ${node.mood}`);
     }
   }
   for (const id of Object.keys(ENDING_IMAGES)) assert.ok(content.endings[id], `Ende ${id}`);
