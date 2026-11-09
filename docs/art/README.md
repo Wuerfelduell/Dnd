@@ -59,7 +59,7 @@ zu erzeugen. Laufzeit-Animationen müssen beim Einbau noch im Spiel geprüft wer
 ## Grafikpaket A – Pfade, Tränke und Nachtmarkt
 
 Batch `pfade`, erzeugt am 9. November 2026 mit `image_gen` nach
-`codex_A_pfade_traenke_nachtmarkt.md`: **155 PNGs** unter `public/sprites/`.
+`erledigt/codex_A_pfade_traenke_nachtmarkt.md`: **155 PNGs** unter `public/sprites/`.
 
 | Gruppe | PNGs |
 |---|---:|
@@ -103,7 +103,7 @@ dieser Batch verändert keinen Spielcode.
 
 ## Batch `kampf` – vollständiges Kampf-Assetpaket
 
-Am 9. November 2026 aus `codex_B_kampf.md` mit dem integrierten Bildgenerator
+Am 9. November 2026 aus `erledigt/codex_B_kampf.md` mit dem integrierten Bildgenerator
 erzeugt. **53 neue PNGs**: zwölf Gegner (einschließlich fünf Bonusgegnern), neun
 Hintergründe, 21 Fähigkeitseffekte, zwei Spieler-Sheets, sieben UI-/Treffer-Sheets
 und zwei Übergänge. Batch 14b bleibt unverändert. Der Spielcode wurde nicht geändert;
@@ -146,7 +146,7 @@ wurden zusätzlich visuell kontrolliert. Eine Übersicht liegt in `batch-kampf-p
 ## Grafikpaket C – Figuren, Portraits und Orte
 
 Batch `welt`, erzeugt am 9. November 2026 mit `image_gen` nach
-`codex_C_figuren_orte.md`: **85 PNG-Sheets** unter `public/sprites/`.
+`erledigt/codex_C_figuren_orte.md`: **85 PNG-Sheets** unter `public/sprites/`.
 
 | Gruppe | Sheets | Raster |
 |---|---:|---|

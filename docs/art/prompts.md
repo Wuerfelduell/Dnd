@@ -1,13 +1,13 @@
 # Pixel-Art-Prompts für „Nebelakten“ – Übersicht
 
-Alles Offene steckt jetzt in **drei eigenständigen Dateien**. Jede enthält Style-Block, Maße, Ablage-Regeln und Nachbearbeitung, Codex braucht also immer nur **eine** Datei auf einmal zu lesen. Bereits erzeugte Assets sind nirgends mehr enthalten.
+Offen sind **drei neue, eigenständige Dateien** (Runde 2). Jede enthält Style-Block, Maße, Ablage-Regeln und Nachbearbeitung, Codex braucht also immer nur **eine** Datei auf einmal zu lesen. Bereits erzeugte Assets sind darin nicht enthalten.
 
 | Datei | Inhalt | Umfang |
 |---|---|---|
-| `codex_A_pfade_traenke_nachtmarkt.md` | 7 Pfad-Embleme und Karten, 21 Tränke, 21 Formeln, 29 Zutaten/Items, Schilling, Braukessel, Nachtmarkt-Tileset, Kampfgrube, 5 Händler, Laden- und Pfad-UI, Trank-Effekte, Auren | ca. 140 Einzel-Assets |
-| `codex_B_kampf.md` | 7 Gegner aus dem Spiel + 5 Bonus-Gegner, 9 Kampf-Hintergründe, Spieler-Posen für alle 7 Pfade, 21 Fähigkeits-Effekte + Icons, Status-Icons, Treffer-Effekte, Schadenszahlen, Kampf-UI, Übergänge | ca. 90 Sheets |
-| `codex_C_figuren_orte.md` | 13 fehlende Lauf-Sheets, 27 Portrait-Sets, Lagerhaus 7, Altmarkt, Taverne, Bahnhof, Notizbuch-Marker, Tiere und Wetter, Kartensymbole, 5 Orte und 9 Figuren für kommende Fälle | ca. 120 Sheets |
+| `codex_D_stadt_erweiterung.md` | neues Nachtmarkt-Pflaster, 8 Boden-Übergänge (Autotiles), 5 Fassaden-Sets, 10 Läden, Außenbereiche für Theater, Uhrturm, Nordtor/Schlachthof, Gaswerk, Sternwarte, Villen und Elendsviertel, Brücken und Schleusen, Straßenmöbel, Wohnungs-Baukasten, große Stadtkarte | ca. 50 Sheets |
+| `codex_E_fall4_auftraege.md` | Fall 4 „Die gestohlenen Stimmen“ (Bühne, Felix' Versteck, Turmuhr 3:33, Hinweise, Zusatz-Portraits, Enden), 16 neue Auftragsfiguren, 32 Auftrags-Gegenstände, Auftrags-UI, Fallakten-Deckblätter, Zwischensequenz-Bilder, Spuren-Props | ca. 75 Sheets |
+| `codex_F_kampf2_bosse.md` | 10 Kampf-Hintergründe für die neuen Orte, Boss Felix Dunmore (Fall 4), Boss Miriam Vey und Chorschatten (Fall 5), 10 Gegner auf der Karte, Zugleisten-Portraits, Bestiarium, 32 Ausrüstungs-Icons (Mäntel, Hüte, Amulette, Waffen), Ausrüstungs-UI, Boss-Einblendung | ca. 75 Sheets |
 
-Empfohlene Reihenfolge: **B → A → C** (Kampf und Items sind im Spiel schon eingebaut und warten auf Grafik).
+Empfohlene Reihenfolge: **E → F → D** (Fall 4 und seine Kämpfe sind im Spiel als Nächstes dran).
 
-Alle älteren Prompts (auch die erledigten) stehen in `prompts_komplett.md`.
+Die erledigten Dateien aus Runde 1 (A, B, C) liegen in `erledigt/`, alle älteren Prompts in `prompts_komplett.md`.
