@@ -54,7 +54,7 @@ test('Fall 1: gutes Ende über echte Dialoge, Ansehen steigt', () => {
   assert.equal(s.endings.case_01, 'c1_good');
   assert.ok(s.flags.has('elias_rescued'));
   assert.equal(s.quests.report_01, 'active');
-  assert.ok(s.honor >= 35, `Ansehen ${s.honor}`);
+  assert.ok(s.honor >= 20 && s.honor < 35, `Ansehen ${s.honor}: nach Fall 1 Hilfsermittler, noch kein Ermittler`);
 });
 
 test('Fall 1: Vermutungen reichen Price nicht', () => {

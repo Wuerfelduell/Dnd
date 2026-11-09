@@ -57,7 +57,8 @@ test('Ansehen: Ränge, Belohnungen und Gesperrtes', () => {
   s.on('rank', (r) => ranks.push(r.rank.name));
   assert.equal(s.rank().name, 'Zivilist');
   assert.equal(s.meets({ requires_honor: 20 }), false);
-  s.addHonor(5, 'test');
+  s.addHonor(20, 'test'); // zählt zu einem Viertel: +5
+  assert.equal(s.honor, 20);
   assert.equal(s.rank().name, 'Hilfsermittler');
   assert.equal(s.meets({ requires_honor: 20 }), true);
   assert.equal(s.meets({ max_honor: 20 }), false);
@@ -75,7 +76,7 @@ test('Aufträge: Schritte haken sich ab, Belohnung kommt beim Abschluss', () => 
   assert.deepEqual(s.questSteps('lost_file').map((x) => x.done), [true, false]);
   const before = s.honor;
   s.finishQuest('lost_file', 'done');
-  assert.equal(s.honor, before + 6);
+  assert.equal(s.honor, before + 1, '+6 zählt zu einem Viertel, der Rest wird mitgenommen');
   assert.equal(s.finishQuest('lost_file', 'done'), false, 'nicht doppelt');
 });
 
@@ -84,6 +85,7 @@ test('Speichern und Laden', () => {
   s.addClue('frosted_lamp');
   s.flags.add('travel_ashgrove');
   s.addHonor(10);
+  s.addHonor(30);
   s.map = 'ashgrove';
   const data = JSON.parse(JSON.stringify(s.serialize([100, 120])));
   const t = new GameState(content);

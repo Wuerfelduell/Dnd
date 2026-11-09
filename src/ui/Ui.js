@@ -2032,7 +2032,7 @@ export class Ui {
       <div class="sub">${esc(caseTitle)}</div>
       <h1>${esc(end.title)}</h1>
       <div class="text">${paragraphs(end.text)}</div>
-      <div class="footer">Ansehen ${end.honor > 0 ? '+' : ''}${end.honor} · Rang: ${esc(s.rank().name)}</div>
+      <div class="footer">Ansehen ${(s.lastEndingHonor ?? end.honor) > 0 ? '+' : ''}${s.lastEndingHonor ?? end.honor} · Rang: ${esc(s.rank().name)}</div>
       <button class="primary" data-act="ok">Weiter <span class="key">E</span></button>`, `ending ending-${end.honor >= 15 ? 'good' : 'bad'}`);
     // Schlussbild als Hintergrund (480x270)
     const img = endingImageUrl(id, end.case);
