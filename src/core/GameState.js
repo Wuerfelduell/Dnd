@@ -28,6 +28,8 @@ export const COMPOSURE_MAX = 100; // Grundwert; der echte Höchstwert ist maxCom
 export const VISION_DRAIN_PER_SEC = 9;
 export const VISION_REGEN_PER_SEC = 6;
 export const LIKELY_SOURCES = 2;
+/** Anteil, zu dem Ansehens-Gewinne zählen (Verluste zählen voll). So kommt Rang 4 etwa ab Fall 6/7, nicht schon nach Fall 3. */
+export const HONOR_GAIN = 0.25;
 export const SAVE_VERSION = 4;
 export const DEFAULT_HP = 40;
 
@@ -47,6 +49,7 @@ export class GameState {
     this.flags = new Set();
     this.quests = {}; // id -> 'active' | 'done' | 'failed'
     this.honor = s.honor;
+    this.honorCarry = 0;
     this.composure = COMPOSURE_MAX;
     this.spiritVision = false;
     this.endings = {}; // caseId -> endingId
@@ -216,15 +219,28 @@ export class GameState {
     return this.content.ranks.find((r) => r.min > this.honor) ?? null;
   }
 
+  /**
+   * Ansehen ändern. Gewinne zählen nur zu HONOR_GAIN (Rest wird mitgenommen), damit die Ränge
+   * über das ganze Kapitel verteilt kommen und nicht schon nach Fall 3 voll sind. Verluste zählen voll.
+   * Gibt die tatsächliche Änderung zurück.
+   */
   addHonor(delta, reason) {
-    if (!delta) return;
+    if (!delta) return 0;
     if (delta < 0) delta = Math.round(delta * this.passive('honor_loss'));
-    if (!delta) return;
+    else {
+      const raw = delta * HONOR_GAIN + (this.honorCarry ?? 0);
+      delta = Math.floor(raw);
+      this.honorCarry = raw - delta;
+    }
+    if (!delta) return 0;
     const before = this.rank();
+    const old = this.honor;
     this.honor = Math.max(0, Math.min(100, this.honor + delta));
+    delta = this.honor - old;
     this.emit('honor', { delta, reason, value: this.honor });
     const after = this.rank();
     if (after !== before) this.emit('rank', { rank: after, up: after.min > before.min });
+    return delta;
   }
 
   // --- Bedingungen & Effekte -------------------------------------------------------
@@ -555,7 +571,9 @@ export class GameState {
     if (!end) throw new Error(`Unbekanntes Ende: ${id}`);
     this.endings[end.case] = id;
     this.emit('ending', id);
+    const before = this.honor;
     this.applyEffects({ ...end, ending: undefined, honor_reason: end.title });
+    this.lastEndingHonor = this.honor - before; // fürs Endbild: tatsächlich gewonnenes Ansehen
     if (end.honor > 0) this.addMoney(end.honor * 2, { loot: true, reason: end.title });
   }
 
@@ -602,6 +620,7 @@ export class GameState {
       flags: [...this.flags],
       quests: this.quests,
       honor: this.honor,
+      honorCarry: this.honorCarry,
       endings: this.endings,
       hp: this.hp,
       inventory: this.inventory,
@@ -631,6 +650,7 @@ export class GameState {
     this.flags = new Set(data.flags);
     this.quests = Object.fromEntries(Object.entries(data.quests).filter(([q]) => this.quest(q)));
     this.honor = data.honor;
+    this.honorCarry = data.honorCarry ?? 0;
     this.endings = data.endings ?? {};
     // Freischaltungen aus erreichten Enden nachtragen (z. B. der Kanalhafen nach dem falschen Ende von Fall 3,
     // das ihn in älteren Ständen nicht freigeschaltet hat). Ortsfreigaben werden nie zurückgenommen.
