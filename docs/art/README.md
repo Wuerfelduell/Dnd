@@ -1095,6 +1095,64 @@ Grafikexport; Einbindung und Timing-Prüfung im laufenden Spiel erfolgen separat
 
 Asset-Lieferung; die Einbindung ins Spiel erfolgt separat.
 
+## Batch AH – Eigene Figur für Spieler 2 (`spieler2`)
+
+33 PNGs für zwei unterscheidbare Koop-Figuren: `p2a` mit Schiebermütze,
+kurzem grünem Mantel, senfgelbem Halstuch und Notizbuch; `p2b` mit Melone,
+ockerbraunem langem Mantel, Bart und runder Brille. Je Variante acht
+Karten-Sheets einschließlich Torfkittel, Fischerjacke und Akademierobe,
+drei Kampf-Sheets, zwei Emotions-Sheets, HUD-Kopf und Zugportrait.
+Dazu Koop-Oberfläche, Kombiangriff und deckendes Auswahlbild (240×135).
+
+Manifest: `public/sprites/manifest-spieler2.json`. Tatsächlich verwendete
+Prompts, Referenzen, Quellprüfsummen, Zuschnitte und Korrekturen:
+`batch-spieler2-generation.json`. Erzeugung mit `image_gen`; 29 Hauptbilder
+und drei gezielte Korrekturbilder. Zwei verworfene Waffenfassungen sind im
+Protokoll unter `replaces` dokumentiert. Die Köpfe sind Ausschnitte der
+Neutralportraits. Die Generatororiginale sind keine Laufzeitassets.
+
+Karten: 16×32 pro Frame, Laufen unten/links/rechts/oben; Raster und
+Animationsfolgen folgen den Hauptfigur-Referenzen. Kampf: 48×48, sechs
+Spalten, Blick nach rechts, mindestens zwei Pixel Luft oben. Die Reihen der
+Fähigkeiten sind `lantern`, `thread`, `mask`, `echo`, `cauldron`, `iron`,
+`key`, `sq_waage`, `sq_moor`, `sq_uhr`. Unbenutzte Kampf- und
+Untersuchen-Zellen sind transparent. `baseline` bezeichnet die exklusive
+Unterkante, der letzte belegte Pixel liegt bei `baseline - 1`.
+Die Platzierung acht Pixel höher im Koop erfolgt später durch die Engine.
+
+Portraits: je 256×64. Erstes Sheet neutral/misstrauisch/erschrocken/lächelnd,
+zweites wütend/traurig/nachdenklich/entschlossen. Köpfe 24×24, Zugportraits
+16×16. `AH_koop.png` ist ein 96×48-Atlas; `regions` sind `[x,y,w,h]`,
+`regionAnimations` beschreiben die zwei Wimpelphasen. Der 48×16-HUD-Rahmen
+hat 4-Pixel-Nine-Slice-Ränder. Alle fünf Icons liegen in 16×16-Regionen.
+`AH_kombi.png` enthält acht 64×48-Frames bei vorgeschlagenen 12 fps.
+
+Nachbearbeitung: gemessene Zellzuschnitte an transparenten Zwischenräumen,
+Nearest Neighbor, einheitliche Skalierung pro Animationssheet, Ausrichtung
+auf die Referenz-Grundlinie, Alpha-Schwelle 128, gemeinsame Palette mit
+höchstens 32 sichtbaren Farben (31 genutzt). Portraits und Auswahlbild
+sind deckend, übrige Dateien haben binäres Alpha.
+
+```sh
+# SOURCE_MAP.json: {"p2a_walk":"/pfad/original.png", ...}
+# Für die zusätzliche Türkorrektur auch p2a_extras_door_repair angeben.
+# UI-Zuschnitte aus dem Generierungsprotokoll übernehmen; Export akzeptiert
+# alternativ eine Job-Liste mit id, source und sourceBoxes.
+# Benötigt Pillow und NumPy.
+python docs/art/export-spieler2.py SOURCE_MAP.json
+python docs/art/verify-spieler2.py
+node --test tests/sprites.test.js
+```
+
+Prüfbericht: `validation-spieler2.json`. Sichtübersichten:
+[Figuren](preview-spieler2-figures.png),
+[Portraits](preview-spieler2-portraits.png),
+[Kampf p2a](preview-spieler2-battle-a.png),
+[Kampf p2b](preview-spieler2-battle-b.png),
+[Koop und Auswahl](preview-spieler2-ui.png).
+Grafiklieferung ohne Spielcodeänderung. Einbindung und Prüfung von Timing,
+HUD-Skalierung und gemeinsamer Kampfaufstellung im laufenden Spiel erfolgen separat.
+
 ## Batch AE – Oberfläche und Leben in Wexmoor (`oberflaeche`)
 
 20 neue PNG-Dateien; noch nicht in den Spielcode eingebunden. Enthalten sind 16 Einstellungs-Symbole, Regler/Checkboxen, zehn Touch-Aktionen in je zwei Zuständen, ein Steuerkreuz, neun Titelbild-Dateien, drei Kapitelkarten, Zeitungs- und Sprechblasen-Elemente sowie acht Tierarten und fünf Wetter-/Licht-Effekte für Wexmoor.
