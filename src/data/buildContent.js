@@ -1,3 +1,4 @@
+import { applyQuestPack } from './questPacks.js';
 // Fügt alle Inhaltsdateien zu einem Objekt zusammen (ohne JSON-Imports, damit Node-Tests es nutzen können).
 // Hinweise, Informationen, Schlussfolgerungen und Dialoge teilen sich jeweils einen Namensraum über alle Fälle.
 // factions.json (Sekten) bringt eigene Figuren, Reiseziele, Gegner, Beute, Aufträge und Hinweise mit.
@@ -5,7 +6,7 @@
 // stadtgegner.json (Paket L) verteilt Stadtgegner als Streifen auf die Viertel und bringt Beute und Kopfgeld-Brett mit.
 // treffen.json (geheime Treffen) bringt Zirkel, Treffpunkte, Gastgeber mit Händlern, Dialoge und Reiseziele mit.
 // wexmoor.json (Kapitel 2) bringt die zweite Stadt mit: Karten mit `city: "wexmoor"`, eigene Reiseziele und -ereignisse, Figuren, Dialoge, Auftrag und Spuren.
-export function buildContent({ campaign, quests, cases, maps, dialogues, items = {}, encounters = {}, pathways = null, market = null, travel = null, wilds = null, factions = null, buildings = null, gatherings = null, city = null, wexmoor = null }) {
+export function buildContent({ campaign, quests, cases, maps, dialogues, items = {}, encounters = {}, pathways = null, market = null, travel = null, wilds = null, factions = null, buildings = null, gatherings = null, city = null, wexmoor = null, packs = [] }) {
   const merge = (list, key) => Object.assign({}, ...list.map((x) => x[key] ?? {}));
   const b = buildings ?? {};
   const g = gatherings ?? {};
@@ -18,7 +19,7 @@ export function buildContent({ campaign, quests, cases, maps, dialogues, items =
   maps = withCity(maps, city);
   const f = factions ?? {};
   if (f.facts || f.clues || f.deductions) cases = [...cases, { facts: f.facts, clues: f.clues, deductions: f.deductions }];
-  return {
+  const content = {
     ...campaign,
     npcs: { ...campaign.npcs, ...(market?.npcs ?? {}), ...(f.npcs ?? {}), ...(b.npcs ?? {}), ...(g.npcs ?? {}), ...(wx.npcs ?? {}) },
     travel: [...(campaign.travel ?? []), ...(market?.travel ?? []), ...wild.travel, ...(f.travel ?? []), ...(g.travel ?? []), ...(wx.travel ?? [])],
@@ -50,6 +51,9 @@ export function buildContent({ campaign, quests, cases, maps, dialogues, items =
     maps: Object.fromEntries(maps.map((m) => [m.id, m])),
     dialogues: Object.assign({}, ...dialogues, b.dialogues ?? {}, g.dialogues ?? {}, wx.dialogues ?? {}),
   };
+  // Nebenauftrags-Pakete (data/packs): eigene Aufträge, Zusatzoptionen und Platzierungen
+  for (const pack of packs) applyQuestPack(content, pack);
+  return content;
 }
 
 /**

@@ -989,7 +989,9 @@ export function playCaseAnim(sprite, sheet, then) {
 }
 
 /** 16x16-Icon unter public/sprites/items/<id>.png (tests/sprites.test.js prüft, dass es zu jedem Item eins gibt). */
-export const itemIconUrl = (id) => `${BASE}items/${id}.png`;
+/** Items ohne eigenes Bild (noch): Platzhalter aus einem ähnlichen Item. */
+export const ITEM_ICON_ALIASES = { kg_kerzenbund: 'lampenoel', kg_bleiorakel: 'spiegelscherbe' };
+export const itemIconUrl = (id) => `${BASE}items/${ITEM_ICON_ALIASES[id] ?? id}.png`;
 /** 32x32-Fassung (gibt es für Tränke und die Stimmphiole). */
 const ICON32 = ['stimmphiole', 'verlorenes_gesangbuch', 'spiegelscherbe', ...F_EQUIPMENT,
   'rostwasser', 'schleierpuder', 'ankerhaken', 'schleierdolch', 'rostanker', 'porzellanmaske', 'rost_zeichen', 'schleier_zeichen',
@@ -1841,3 +1843,7 @@ for (const id of ['rost_schlaeger', 'rost_werfer', 'rost_schmied', 'schleier_mes
   PORTRAITS[id] = `X_${id}_emotions.png`;
   PORTRAIT_SPECIAL[id] = [`X_${id}_emotions.png`, X_MOODS];
 }
+
+// --- Paket AA: Kettlegate-Nebenaufträge (data/packs/kg_nebenquests) -----------------------------------
+/** Die drei neuen Gesuchten kämpfen vorerst mit vorhandenen Sheets (Grafiken kommen mit Codex AJ). */
+Object.assign(ENCOUNTER_SHEETS, { kg_kopfgeld_siegelbrecher: 'enemy_laternendieb', kg_kopfgeld_schichtdieb: 'enemy_pfandeintreiber', kg_kopfgeld_pfandvogt: 'enemy_schlachtergehilfe' });

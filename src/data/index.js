@@ -70,6 +70,18 @@ import buildings from './gebaeude.json';
 import gatherings from './treffen.json';
 import wexmoor from './wexmoor.json';
 
+import kg_quests from './packs/kg_nebenquests/quests.json';
+import kg_items from './packs/kg_nebenquests/items.json';
+import kg_encounters from './packs/kg_nebenquests/encounters.json';
+import kg_dialogues from './packs/kg_nebenquests/dialogues.json';
+import kg_npcs from './packs/kg_nebenquests/npcs.json';
+import kg_case from './packs/kg_nebenquests/case.json';
+import kg_dialog_zusaetze from './packs/kg_nebenquests/dialog_zusaetze.json';
+import kg_platzierung from './packs/kg_nebenquests/platzierung.json';
+
+/** Nebenauftrags-Pakete (Codex AA, AB). */
+const kgNebenquests = { name: 'kg_nebenquests', quests: kg_quests, items: kg_items, encounters: kg_encounters, dialogues: kg_dialogues, npcs: kg_npcs, case: kg_case, dialog_zusaetze: kg_dialog_zusaetze, platzierung: kg_platzierung };
+
 export const content = buildContent({
   campaign,
   quests,
@@ -87,4 +99,5 @@ export const content = buildContent({
   gatherings,
   city,
   wexmoor,
+  packs: [kgNebenquests],
 });
