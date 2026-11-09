@@ -1,3 +1,4 @@
+import { DIGEST_LABELS } from '../core/Pathways.js';
 import {
   itemIconUrl, itemIcon32Url, pathwayEmblemUrl, pathwayCardUrl, COIN_URL, SKILL_ICONS, SKILL_ICONS_URL, STATUS_ICONS, STATUS_ICONS_URL,
   portraitUrl, PORTRAIT_MOODS, MAP_MARKERS, MAP_MARKERS_URL, LOG_MARKERS, LOG_MARKERS_URL,
@@ -50,6 +51,7 @@ export class Ui {
           <div class="meter life"><span>Leben</span><div class="bar"><div class="lfill"></div></div><em class="hpnum"></em></div>
           <div class="meter"><span>Nerven</span><div class="bar"><div class="fill"></div></div></div>
           <div class="meter honor"><span class="rank"></span><div class="bar"><div class="hfill"></div></div></div>
+          <div class="meter digest hidden"><span>Verdaut</span><div class="bar"><div class="dfill"></div></div><em class="dnum"></em></div>
           <div class="meter unruhe hidden"><span>Unruhe</span><div class="bar"><div class="ufill"></div></div></div>
           <div class="money"></div>
         </div>
@@ -96,6 +98,17 @@ export class Ui {
       this.toast(`${delta > 0 ? '+' : ''}${delta} Schilling${reason ? `: ${reason}` : ''}`, delta > 0 ? 'item' : 'warn');
     });
     state.on('unruhe', () => this.updateUnruhe());
+    this.digestAcc = {};
+    state.on('digest', ({ delta, kind }) => {
+      this.updateUnruhe();
+      // Rückmeldung: welche Handlung hat verdaut? Geistsicht sammelt, bis es sich lohnt.
+      this.digestAcc[kind] = (this.digestAcc[kind] ?? 0) + delta;
+      const acc = this.digestAcc[kind];
+      if (acc < (kind === 'vision' ? 5 : 1) && state.pathway.digestion < 100) return;
+      this.digestAcc[kind] = 0;
+      if (this.modal === 'combat') return;
+      this.toast(`+${Math.round(acc)} % verdaut: ${DIGEST_LABELS[kind] ?? kind}`, 'digest');
+    });
     state.on('digested', () => this.toast('Bereit für den nächsten Trank. Kittering hat die Formel.', 'gold'));
     state.on('ascend', () => { this.updateUnruhe(); this.updateHp(); });
     state.on('lostcontrol', ({ text }) => {
@@ -135,6 +148,14 @@ export class Ui {
 
   updateUnruhe() {
     const s = this.state;
+    const dm = this.$('.meter.digest');
+    dm.classList.toggle('hidden', !s.isBeyonder());
+    if (s.isBeyonder()) {
+      const d = Math.floor(s.pathway.digestion);
+      this.$('.meter.digest .dfill').style.width = `${d}%`;
+      this.$('.meter.digest .dfill').classList.toggle('full', d >= 100);
+      this.$('.dnum').textContent = `${d} %`;
+    }
     const el = this.$('.meter.unruhe');
     el.classList.toggle('hidden', !s.isBeyonder() && s.unruhe <= 0);
     const fill = this.$('.ufill');
@@ -527,6 +548,9 @@ export class Ui {
         <div class="meter"><span>Unruhe</span><div class="bar"><div class="ufill ${s.unruhe >= 60 ? 'low' : ''}" style="width:${s.unruhe}%"></div></div><em>${Math.round(s.unruhe)}</em></div>
       </div>
       <p class="lead"><em>„${esc(p.principle)}“</em> ${esc(p.digest_hint)}</p>
+      <h4>Was deinen Trank verdaut</h4>
+      <ul class="digestlist">${s.digestTable().map((r) => `<li><span>${esc(r.label)}</span> <strong>+${r.points} %</strong></li>`).join('')}
+        <li class="muted">Alles andere verdaut diesen Pfad nicht. Auf höheren Sequenzen geht es langsamer.</li></ul>
       <ul class="seqs">${rows}</ul>
       ${this.recipesHtml(false)}`;
   }

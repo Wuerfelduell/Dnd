@@ -1,5 +1,5 @@
 import Phaser from 'phaser';
-import { Combat, WINDOW, EARLY_LIMIT, judgeDefense, judgeTiming } from '../core/Combat.js';
+import { Combat, WINDOW, EARLY_LIMIT, DODGE_COST, judgeDefense, judgeTiming } from '../core/Combat.js';
 import { createTextures, createCharacterSheet } from './textures.js';
 import {
   BATTLE_BACKGROUNDS, ENCOUNTER_BACKGROUNDS, ENEMY_BATTLE_SHEETS, ENCOUNTER_SHEETS, FADING_SHEETS,
@@ -336,7 +336,8 @@ export class CombatScene extends Phaser.Scene {
     this.attack = atk;
     const t0 = now() + TELEGRAPH;
     this.hits = atk.hits.map((h) => ({ impact: t0 + h, result: null, applied: false }));
-    this.ui.combatMessage(`${c.enemy.name}: ${atk.name}${atk.hits.length > 1 ? ` (${atk.hits.length} Schläge)` : ''}${c.evading ? '\n\nDu weißt schon, wohin er schlägt.' : ''}`, 'Leertaste: ausweichen · F: parieren');
+    const tags = [atk.unparryable ? '⚠ nicht parierbar, ausweichen!' : '', atk.enraged ? 'in Rage' : ''].filter(Boolean).join(' · ');
+    this.ui.combatMessage(`${c.enemy.name}: ${atk.name}${atk.hits.length > 1 ? ` (${atk.hits.length} Schläge)` : ''}${tags ? `\n\n${tags}` : ''}${c.evading ? '\n\nDu weißt schon, wohin er schlägt.' : ''}`, `Leertaste: ausweichen (${DODGE_COST} Nerven) · F: parieren`);
     this.tweens.add({ targets: this.enemy, x: ENEMY_X + 8, duration: TELEGRAPH * 0.6, ease: 'Sine.out' });
     // Paket-B-Gegner haben zwei Angriffe: mehrteilige Attacken nutzen 'special'
     if (!(atk.hits.length > 1 && this.anim(this.enemy, 'special'))) this.anim(this.enemy, 'attack');
@@ -370,6 +371,8 @@ export class CombatScene extends Phaser.Scene {
     } else {
       this.time.delayedCall(90, () => { this.flash(this.player); if (r.damage) this.hitFx('blunt', 'player'); this.float(r.damage ? `-${r.damage}` : 'Abgefangen', 'player', r.damage ? 'hurt' : 'good'); if (r.damage) this.cameras.main.shake(120, 0.01); });
       if (hit.early) this.float('Zu früh', 'player', 'miss');
+      else if (r.note === 'unparryable') this.float('Nicht parierbar!', 'player', 'miss');
+      else if (r.note === 'exhausted') this.float('Erschöpft', 'player', 'miss');
     }
     this.ui.combatRefresh();
   }
@@ -473,7 +476,8 @@ export class CombatScene extends Phaser.Scene {
         if (left > RING_LEAD || hit.result) continue;
         const r = 16 + Math.max(0, left / RING_LEAD) * 60;
         const near = Math.abs(left) <= WINDOW.parry;
-        g.lineStyle(2, near ? 0xffd890 : 0xe05050, 0.95).strokeCircle(c.x, c.y, r);
+        const color = this.attack?.unparryable ? (near ? 0xff70ff : 0xa040e0) : near ? 0xffd890 : 0xe05050;
+        g.lineStyle(this.attack?.unparryable ? 3 : 2, color, 0.95).strokeCircle(c.x, c.y, r);
       }
       if (this.hits.every((h) => h.applied)) this.finishEnemyTurn();
     }
