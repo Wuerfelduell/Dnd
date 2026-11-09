@@ -755,3 +755,64 @@ Bodenübergänge. Bildkorrekturen betreffen unter anderem transparente Hintergr�
 Mews ohne Brille, eindeutige Fotoplatten-Stufen und die Fotografin im Schlussbild.
 Grafikpaket und Dokumentation sind fertig; Einbau und Timing-Abgleich im laufenden
 Spiel erfolgen separat. Kein Spielcode wurde geändert.
+
+## Grafikpaket N – Sequenz 6/5 und Asservatenkammer
+
+Batch `sequenzen2`, erstellt am 9. November 2026 nach
+`codex_N_sequenzen_artefakte.md` mit dem integrierten Bildgenerator: **127 PNGs**
+aus 34 Generatorausgaben. 69 bestehende Platzhalter werden unter identischen
+Dateinamen ersetzt; 58 PNGs kommen neu hinzu. Kein Spielcode wurde geändert.
+
+- 14 Tränke für Sequenz 6 und 5, jeweils 16×16 und 32×32.
+- 14 Formeln sowie der Atlas `items/formeln_2.png` (112×32).
+- `ui/skill_icons_2.png` (112×32) und 14 einreihige Fähigkeitseffekte.
+- Zwölf verfluchte Artefakte und 15 Zutaten in jeweils zwei Größen, vier Atlanten.
+- Zwei zusätzliche Herz-Pulsstreifen in beiden Größen.
+- Artefakt-UI: drei 20×20-Slots, zwei 8×8-Marker, leere 64×8-Unruheanzeige
+  und vier separate 64×8-Füllstreifen.
+- Thale und Varga: je 64×128-Lauf-Sheet, 256×64-Emotionsportrait und
+  24×24-Notizbuchkopf aus dem neutralen Portrait.
+
+`public/sprites/manifest-sequenzen2.json` enthält alle Maße, Framegrößen,
+Spalten/Zeilen, nullbasierte Animationslisten, vorgeschlagene Geschwindigkeiten
+und die Zielzuordnung der Effekte. 64×64-Effekte haben acht Frames;
+48×48- und 32×32-Effekte haben sechs. `spiegelbild`, `lebenselixier` und
+`unbeugsam` sind Selbst-Effekte. Laufreihen: down, left, right, up;
+Fußgrundlinie: exklusive Unterkante 31. Portraits: neutral, suspicious,
+shocked, faint_smile. Nur Laufzyklen, Herzpuls und Unruhefüllung sind Schleifen.
+
+Die Pfadspalten sind laterne, faden, maske, echo, kessel, eisen, schluessel;
+Sequenzreihen sind 6, 5. Gemischte Atlanten verwenden benannte `regions`
+mit `[x,y,width,height]`. Itematlanten: kleine Icons ab y=0, große ab y=16;
+der rechte Teil der kleinen Zeile bleibt transparent. Die Herzanimationen
+liegen zusätzlich unter `<id>_pulse.png` und `32/<id>_pulse.png`, damit die
+bestehenden statischen Itemdateien weiterhin genau 16×16 bzw. 32×32 bleiben.
+Die UI-Füllanimation referenziert benannte Regionen; die Slotöffnung ist
+`[4,4,12,12]`. Notizbuchköpfe behalten den deckenden Portrait-Hintergrund.
+
+Die tatsächlich verwendeten Prompts, Referenzen, Quellbild-Dateinamen,
+SHA-256-Hashes und Zuschnitte stehen in `batch-sequenzen2-generation.json`.
+Technische Nachbearbeitung: individuelle Zellzuschnitte, Nearest Neighbor,
+gemeinsame Palette mit 32 sichtbaren Farben plus transparentem Index,
+binäres Alpha. Die Palette übernimmt Batch A und ergänzt den geforderten
+Artefakt-Randton #6a4a8a. Animationen verwenden eine gemeinsame Skalierung
+pro Sheet, damit Expansion und Bewegung erhalten bleiben. Große
+Generatororiginale sind keine Laufzeitassets und nicht im Repo enthalten.
+
+```sh
+# SOURCE_MAP.json: {"trank_laterne": "/pfad/original.png", ...}
+# Export: Pillow, numpy, scipy; Prüfung: Pillow, numpy.
+python docs/art/export-sequenzen2.py SOURCE_MAP.json
+python docs/art/verify-sequenzen2.py
+```
+
+Die Prüfung kontrolliert 127 Dateien, Zielmaße, gemeinsame Palette, Alpha,
+142 Animations-Frame-Referenzen, Animationsvariation, Fußlinien, Regionsgrenzen,
+transparente Restflächen, Atlas-/Einzeldatei-Gleichheit und Portrait-Kopfausschnitte.
+Ergebnis: `validation-sequenzen2.json` (1536 Prüfungen erfolgreich).
+Sichtkontrolle: [Items und UI](sequenzen2-items-preview.png),
+[Effektstreifen](sequenzen2-fx-preview.png), [Figuren](sequenzen2-npc-preview.png).
+
+Die Einbindung sowie die Prüfung von Timing und Lesbarkeit im laufenden Spiel
+bleiben ein separater Arbeitsschritt. Vorhandene Sequenzen 9–7, Pfadkarten,
+Statusicons und die bisherigen 21 Fähigkeitseffekte bleiben unverändert.
