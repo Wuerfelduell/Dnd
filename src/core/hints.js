@@ -4,36 +4,67 @@
 
 const SCORE = { likely: 2, suspected: 1, unknown: 0 };
 
-/** Wo man einen Hinweis bekommt: [{ text }] (Gespräche, Kartenobjekte, Kämpfe). Wird pro Inhalt gecacht. */
+/**
+ * Wo man einen Hinweis bekommt: { clueId: [{ text, when: [bedingungen…] }] } (Gespräche, Kartenobjekte, Kämpfe).
+ * "when" sind Bedingungsobjekte, die alle erfüllt sein müssen (Sichtbarkeit der Figur, Sperren, Dialogoption).
+ * Wird pro Inhalt gecacht.
+ */
 const originCache = new WeakMap();
 export function clueOrigins(content) {
   if (originCache.has(content)) return originCache.get(content);
   const out = {};
-  const add = (clue, text) => { (out[clue] ??= []).some((o) => o.text === text) || out[clue].push({ text }); };
+  const add = (clue, text, when = [], via = null) => { (out[clue] ??= []).push({ text, when: when.filter(Boolean), via }); };
   const maps = Object.values(content.maps ?? {});
-  // Dialog → wer ihn spricht und wo
+  // Dialog → wer ihn spricht, wo und wann
   const speakers = {};
   for (const m of maps) {
     for (const n of m.npcs ?? []) {
       const npc = content.npcs?.[n.id];
       const dlg = n.dialogue ?? npc?.dialogue;
-      if (dlg && npc) (speakers[dlg] ??= []).push(`Sprich mit ${npc.name} (${m.name})`);
+      if (dlg && npc) (speakers[dlg] ??= []).push({ text: `Sprich mit ${npc.name} (${m.name})`, when: [n.visible_if] });
     }
     for (const i of m.interactables ?? []) {
-      if (i.dialogue) (speakers[i.dialogue] ??= []).push(`${i.prompt ?? i.title ?? 'Untersuchen'} (${m.name})`);
+      const when = [i.visible_if, i.lock];
+      if (i.dialogue) (speakers[i.dialogue] ??= []).push({ text: `${i.prompt ?? i.title ?? 'Untersuchen'} (${m.name})`, when });
       const clues = [i.clue, ...(i.effects?.gives_clues ?? [])].filter(Boolean);
-      for (const c of clues) add(c, `${i.prompt ?? i.title ?? 'Sieh dich genau um'} (${m.name})`);
+      for (const c of clues) add(c, `${i.prompt ?? i.title ?? 'Sieh dich genau um'} (${m.name})`, when);
     }
   }
   for (const [dlg, tree] of Object.entries(content.dialogues ?? {})) {
     const who = speakers[dlg] ?? [];
-    for (const node of Object.values(tree.nodes ?? {})) for (const c of node.gives_clues ?? []) for (const w of who) add(c, w);
+    for (const [nid, node] of Object.entries(tree.nodes ?? {})) {
+      for (const c of node.gives_clues ?? []) for (const w of who) add(c, w.text, w.when, { dialogue: dlg, node: nid });
+    }
   }
   for (const e of Object.values(content.encounters ?? {})) {
     for (const k of ['on_win', 'first_win']) for (const c of e[k]?.gives_clues ?? []) add(c, `Besiege ${e.name}`);
   }
   originCache.set(content, out);
   return out;
+}
+
+/** Knoten eines Dialogs, die man im aktuellen Zustand erreichen kann (ab dem gewählten Start, über erfüllte Optionen). */
+export function reachableNodes(state, dialogueId) {
+  const tree = state.content.dialogues[dialogueId];
+  const seen = new Set();
+  const queue = [state.pick(tree.start)];
+  while (queue.length) {
+    const id = queue.shift();
+    if (!id || seen.has(id) || !tree.nodes[id]) continue;
+    seen.add(id);
+    for (const ch of tree.nodes[id].choices ?? []) {
+      if (!state.meets(ch)) continue;
+      if (typeof ch.next === 'string') queue.push(ch.next);
+      else if (Array.isArray(ch.next)) ch.next.filter((v) => state.meets(v)).forEach((v) => queue.push(v.node));
+    }
+  }
+  return seen;
+}
+
+/** Ist ein Fundort gerade erreichbar? Figur/Objekt sichtbar und nicht gesperrt, Gesprächsknoten erreichbar. */
+export function originOpen(state, o) {
+  if (!o.when.every((c) => state.meets(c))) return false;
+  return !o.via || reachableNodes(state, o.via.dialogue).has(o.via.node);
 }
 
 /** Die nächste offene Schlussfolgerung und das vielversprechendste Paar dafür. */
@@ -76,7 +107,7 @@ export function caseHints(state, caseId, level = 1) {
   else {
     const missing = Object.entries(state.content.clues).filter(([id, c]) => c.fact === weak && !state.hasClue(id)).map(([id]) => id);
     const origins = clueOrigins(state.content);
-    const where = [...new Set(missing.flatMap((c) => (origins[c] ?? []).map((o) => o.text)))].slice(0, 3);
+    const where = [...new Set(missing.flatMap((c) => (origins[c] ?? []).filter((o) => originOpen(state, o)).map((o) => o.text)))].slice(0, 3);
     if (status[weakIdx] === 'suspected') lines.push(`${fact(weak)} ist erst eine Vermutung (1 Quelle).`);
     lines.push(where.length ? `Eine weitere Quelle: ${where.join('; ')}.` : 'Achte auf Orte und Gespräche, die du noch nicht ganz ausgeschöpft hast.');
   }
