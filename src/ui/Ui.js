@@ -5,7 +5,7 @@ import {
   portraitUrl, portraitFor, mapMarkerOf, LOG_MARKERS, LOG_MARKERS_URL, SOURCE_ICONS, SPRITE_BASE,
   endingImageUrl, caseFileUrl, sceneUrl, wantedUrl, QUEST_UI_URL, QUEST_PINS, QUEST_BANNERS,
   TURN_PORTRAITS, TURN_PORTRAITS_URL, TURN_PORTRAIT_URLS, BESTIARY, bestiaryUrl,
-  headUrl, ritualCardUrl, ZIRKEL_URL, ZIRKEL_ICONS, skillIconOf, PULSE_ICONS, ARTIFACT_UI_URL, sourceKind, sourceKindUrl, inspectUrl, RISK_ICONS, RISK_ICONS_URL, JOURNAL_FRAME, JOURNAL_FRAME_URL, choiceRisk, riskOf,
+  headUrl, ritualCardUrl, ZIRKEL_URL, ZIRKEL_ICONS, AUKTION_URL, AUKTION_REGIONS, skillIconOf, PULSE_ICONS, ARTIFACT_UI_URL, sourceKind, sourceKindUrl, inspectUrl, RISK_ICONS, RISK_ICONS_URL, JOURNAL_FRAME, JOURNAL_FRAME_URL, choiceRisk, riskOf,
   factionEmblemUrl, TRAVEL_MODES_URL, TRAVEL_MODE_ICONS, TRAVEL_MARKER_URL,
   DANGER_URL, DANGER_ICONS, DANGER_BANNER, RARITY_SHEET, RARITY_SHEET_URL, RARITY_GEMS,
 } from '../world/assets.js';
@@ -25,6 +25,13 @@ const emblem = (pid, size = 16) => `<img class="emblem" src="${pathwayEmblemUrl(
 /** 16x16-Zelle aus einem Icon-Atlas (Fähigkeiten: 7 Spalten, Zustände: 12 Spalten). */
 const atlasIcon = (url, index, cols, title = '') => (index === undefined ? ''
   : `<span class="atlas-icon" title="${title}" style="background-image:url(${url});background-position:-${(index % cols) * 16}px -${Math.floor(index / cols) * 16}px"></span>`);
+/** Ausschnitt aus dem Auktions-Atlas (Paket T, 128x64), k = em pro Pixel. */
+const auktionIcon = (name, cls = '', k = 1 / 8) => {
+  const r = AUKTION_REGIONS[name];
+  if (!r) return '';
+  const [x, y, w, h] = r;
+  return `<span class="auk ${cls}" style="width:${w * k}em;height:${h * k}em;background-image:url(${AUKTION_URL});background-size:${128 * k}em ${64 * k}em;background-position:-${x * k}em -${y * k}em"></span>`;
+};
 /** Zug-Portrait (16x16, Paket F) neben den Namen im Kampf. */
 const turnFace = (id) => {
   if (TURN_PORTRAITS[id] === undefined) return '';
@@ -1209,8 +1216,9 @@ export class Ui {
     const g = s.gatheringDef(a.circle);
     const speaker = s.auctionSpeaker();
     const [emblem] = ZIRKEL_ICONS[a.circle] ?? [];
-    const seats = a.members.map((m, i) => `<li class="seat ${m === speaker ? 'active' : ''} ${i < a.turn ? 'done' : ''}">${headFace(m, s.memberName(m))}<span>${esc(s.memberName(m))}</span></li>`).join('')
-      + `<li class="seat you ${a.phase.startsWith('own') ? 'active' : ''}">${headFace('player', 'Du')}<span>Du</span></li>`;
+    const leader = a.phase === 'lot' ? a.lot?.leader : null;
+    const seats = a.members.map((m, i) => `<li class="seat ${m === speaker ? 'active' : ''} ${i < a.turn ? 'done' : ''}">${headFace(m, s.memberName(m))}<span>${esc(s.memberName(m))}</span>${m === leader ? auktionIcon('bid_0', 'bidhand') : ''}</li>`).join('')
+      + `<li class="seat you ${a.phase.startsWith('own') ? 'active' : ''}">${headFace('player', 'Du')}<span>Du</span>${leader === 'player' ? auktionIcon('bid_0', 'bidhand') : ''}</li>`;
     const acts = [];
     let stage = '';
     const who = (id) => (id === 'player' ? 'dir' : id ? esc(s.memberName(id)) : 'niemandem');
@@ -1220,14 +1228,14 @@ export class Ui {
       const next = s.nextBid();
       stage = `${portrait(l.seller)}<div class="speaker">${esc(s.memberName(l.seller))} <span class="role">${esc(s.content.npcs[l.seller]?.role ?? '')}</span></div>
         <div class="lot">${itemIconBig(l.item)}<strong>${esc(it.name)}</strong>${s.itemCount(l.item) ? ` <span class="muted">(hast ${s.itemCount(l.item)})</span>` : ''}<br><span class="desc">${esc(it.desc ?? '')}</span></div>
-        <p class="bidline">Gebot: <b>${l.price} Sch.</b> · führt: ${who(l.leader)}</p>`;
+        <p class="bidline">${l.leader && l.leader !== 'player' ? headFace(l.leader, s.memberName(l.leader)) : ''}Gebot: <b>${l.price} Sch.</b> · führt: ${who(l.leader)}</p>`;
       if (l.leader !== 'player') acts.push({ label: `${l.leader ? 'Überbieten' : 'Bieten'}: ${next} Sch.`, fn: () => s.bid(), off: s.money < next });
       acts.push({ label: 'Aussteigen', fn: () => s.passLot() });
     } else if (a.phase === 'request') {
       const q = a.request;
       const it = s.item(q.item);
       const have = s.itemCount(q.item);
-      stage = `${portrait(q.member)}<div class="speaker">${esc(s.memberName(q.member))} <span class="role">Gesuch</span></div>
+      stage = `${portrait(q.member, 'bidding')}<div class="speaker">${esc(s.memberName(q.member))} <span class="role">Gesuch</span></div>
         <div class="lot">${itemIconBig(q.item)}<strong>Sucht: ${esc(it.name)}</strong> <span class="muted">(du hast ${have})</span><br><span class="desc">Zahlt ${q.price} Schilling.</span></div>`;
       acts.push({ label: `Abgeben für ${q.price} Sch.`, fn: () => s.fulfillRequest(), off: !have });
       acts.push({ label: have ? 'Behalten' : 'Habe ich nicht dabei', fn: () => s.declineRequest() });
@@ -1248,10 +1256,10 @@ export class Ui {
     this.auctionActs = acts;
     let n = 0;
     const el = this.open('auction', `
-      <h3>${emblem !== undefined ? atlasIcon(ZIRKEL_URL, emblem, 8) : ''}${esc(g.name)} <span class="muted">${a.phase.startsWith('own') ? 'Eigenes Angebot' : `Runde ${Math.min(a.turn + 1, a.members.length)} von ${a.members.length}`}</span></h3>
+      <h3>${emblem !== undefined ? atlasIcon(ZIRKEL_URL, emblem, 8) : auktionIcon(a.circle, 'mark', 1 / 6)}${esc(g.name)} <span class="muted">${a.phase.startsWith('own') ? 'Eigenes Angebot' : `Runde ${Math.min(a.turn + 1, a.members.length)} von ${a.members.length}`}</span></h3>
       <ul class="seats">${seats}</ul>
       <div class="stage">${stage}</div>
-      <ul class="alog">${a.log.map((t) => `<li>${esc(t)}</li>`).join('')}</ul>
+      <ul class="alog">${a.log.map((t) => `<li>${t.startsWith('Zuschlag') ? auktionIcon('sold', 'sold', 1 / 12) : ''}${esc(t)}</li>`).join('')}</ul>
       ${feedback ? `<p class="feedback">${feedback}</p>` : ''}
       <div class="actions"><span class="purse">${coin}${s.money} Schilling</span>
         ${acts.map((x, i) => `<button class="small" data-act-i="${i}" ${x.off ? 'disabled' : ''}><span class="key">${++n}</span> ${x.icon ? itemIcon(x.icon) : ''}${esc(x.label)}</button>`).join('')}
