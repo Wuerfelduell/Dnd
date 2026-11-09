@@ -340,6 +340,14 @@ export const BATTLE_SHEETS = {
   enemy_uhrwerkwaechter: ['battle/enemy_uhrwerkwaechter.png', 64],
   enemy_gasgeist: ['battle/enemy_gasgeist.png', 64],
   hits: ['fx/hits.png', 48],
+  // Paket F: Bosse und Fall-4-Gegner, Felix-Effekte (manifest-kampf2.json)
+  enemy_felix: ['battle/enemy_felix.png', 48],
+  enemy_miriam: ['battle/enemy_miriam.png', 96],
+  enemy_chorschatten: ['battle/enemy_chorschatten.png', 48],
+  fx_felix_stimme: ['fx/fx_felix_stimme.png', 48],
+  fx_felix_phiole: ['fx/fx_felix_phiole.png', 32],
+  fx_felix_chor: ['fx/fx_felix_chor.png', 64],
+  fx_felix_befreit: ['fx/fx_felix_befreit.png', 64],
   transition_in: ['fx/transition_in.png', 480, 270],
   transition_out: ['fx/transition_out.png', 480, 270],
 };
@@ -370,7 +378,7 @@ export const ENCOUNTER_SHEETS = {
   // Bonusgegner (Begegnungen kommen mit Fall 4)
   kanalkroete: 'enemy_kanalkroete', uhrwerkwaechter: 'enemy_uhrwerkwaechter', maskenspieler: 'enemy_maskenspieler',
   schlachtergehilfe: 'enemy_schlachtergehilfe', gasgeist: 'enemy_gasgeist',
-  felix_fight: 'enemy_chorfanatiker', // bis es ein eigenes Felix-Sheet gibt
+  felix_fight: 'enemy_felix', miriam: 'enemy_miriam', chorschatten: 'enemy_chorschatten',
   // Sekten (factions.json): Platzhalter, bis die eigenen Sheets enemy_<id> kommen
   rost_schlaeger: 'enemy_grubenkaempfer', rost_streife: 'enemy_grubenkaempfer', rost_werfer: 'enemy_schlachtergehilfe',
   rost_schmied: 'enemy_schlachtergehilfe', rost_vater: 'enemy_grubenkaempfer',
@@ -391,21 +399,23 @@ export const ENEMY_BATTLE_SHEETS = {
 };
 
 /** Wesen vergehen nach der Niederlage; Menschen bleiben am Boden liegen. */
-export const FADING_SHEETS = ['enemy_nebelhund', 'enemy_aschewaechter', 'enemy_aktenfresser', 'enemy_spiegelschatten',
+export const FADING_SHEETS = ['enemy_chorschatten', 'enemy_nebelhund', 'enemy_aschewaechter', 'enemy_aktenfresser', 'enemy_spiegelschatten',
   'enemy_schattenpuppe', 'enemy_kanalkroete', 'enemy_uhrwerkwaechter', 'enemy_gasgeist'];
 
 /** Karte → Kampfhintergrund (480x270). Karten ohne Eintrag behalten die gezeichnete Bühne. */
 export const BATTLE_BACKGROUNDS = {
   revier: 'bg_revier', ashgrove: 'bg_ashgrove', crypt: 'bg_krypta', ebba: 'bg_ebba', altmarkt: 'bg_altmarkt',
   docks: 'bg_hafen', warehouse: 'bg_lagerhaus', tavern: 'bg_taverne', nachtmarkt: 'bg_nachtmarkt',
-  // Neue Orte (bis es eigene Hintergründe gibt)
-  theater: 'bg_spiegel', uhrturm: 'bg_archiv', sternwarte: 'bg_archiv', schlachthof: 'bg_lagerhaus', gaskanaele: 'bg_hafen',
-  // Gefahrengebiete (eigene Hintergründe bg_<map-id> kommen mit dem nächsten Codex-Paket)
-  marsch: 'bg_ashgrove', katakomben: 'bg_krypta', pestgassen: 'bg_altmarkt', kraterwald: 'bg_ebba',
+  // Paket F: eigene Kulissen für die neuen Orte
+  theater: 'bg_theater', uhrturm: 'bg_uhrturm', sternwarte: 'bg_sternwarte', schlachthof: 'bg_schlachthof', gaskanaele: 'bg_gaskanaele',
+  nordtor: 'bg_nordtor', haus_morrow: 'bg_villa', schleierhaus: 'bg_villa', pestgassen: 'bg_elend', rostkapelle: 'bg_gaswerk',
+  // Gefahrengebiete ohne eigene Kulisse
+  marsch: 'bg_ashgrove', katakomben: 'bg_krypta', kraterwald: 'bg_sternwarte', ankerhof: 'bg_hafen',
 };
 /** Begegnung → eigener Hintergrund (vor dem der Karte). */
 export const ENCOUNTER_BACKGROUNDS = {
   archive_rats: 'bg_archiv', grubenkampf: 'bg_grube', mirror_shade: 'bg_spiegel',
+  felix_fight: 'bg_glockenstube', miriam: 'bg_glockenstube', gasgeist: 'bg_gaswerk',
   // Begegnungen auf dem schnellen Reiseweg (travel.json)
   reise_ratten: 'bg_hafen', reise_strassenraeuber: 'bg_ashgrove', reise_nebelhund: 'bg_ashgrove', reise_irrlicht: 'bg_hafen', reise_kultist: 'bg_altmarkt',
 };
@@ -416,6 +426,17 @@ export const ENCOUNTER_BACKGROUNDS = {
  * verkleinert und getönt als Platzhalter über die Karte.
  */
 export const OVERWORLD_SHEETS = {};
+// Paket F: zehn Kartengegner (characters/F_ow_<id>.png). Sie gelten für jede Begegnung, deren Kampf-Sheet passt.
+export const F_OVERWORLD = { nebelhund: 32, aktenfresser: 32, kanalkroete: 32, gasgeist: 16, uhrwerkwaechter: 16, maskenspieler: 16,
+  schlachtergehilfe: 16, chorfanatiker: 16, spiegelschatten: 16, chorschatten: 16 };
+for (const [id, w] of Object.entries(F_OVERWORLD)) OVERWORLD_SHEETS[id] = [`characters/F_ow_${id}.png`, w, 32];
+/** Kartengegner-Sheet für eine Begegnung: eigener Eintrag, sonst über das Kampf-Sheet (enemy_<id> → ow_<id>). */
+export const overworldIdFor = (encId, enc) => {
+  if (OVERWORLD_SHEETS[encId]) return encId;
+  const sheet = enc?.sheet ?? ENCOUNTER_SHEETS[encId];
+  const id = sheet?.replace(/^enemy_/, '');
+  return id && OVERWORLD_SHEETS[id] ? id : null;
+};
 /** Beutebehälter am Boden (props/G_loot_<behaelter>.png, 16x16, Frame 0 zu, Frame 1 offen). Fehlt einer, gibt es ein gezeichnetes Symbol. */
 export const LOOT_SHEETS = {};
 
@@ -600,7 +621,30 @@ function createRegionTextures(scene) {
 }
 
 /** Begegnung → Fall-Effekte im Kampf: beim Angriff am Spieler, beim Sieg am Gegner. */
-export const ENCOUNTER_FX = { felix_fight: { attack: 'stimme_raub', won: 'phiole_bricht' } };
+export const ENCOUNTER_FX = {
+  felix_fight: { attack: 'stimme_raub', multi: 'fx_felix_chor', heavy: 'fx_felix_stimme', won: 'fx_felix_befreit', after: 'phiole_bricht' },
+};
+
+/** Paket F: Oberflächen-Sheets [Pfad, Breite, Höhe]. Animationen aus manifest-kampf2.json. */
+export const F_UI_SHEETS = {
+  F_04_alarm: ['ui/F_04_alarm.png', 16, 16],
+  F_08_boss_band: ['ui/F_08_boss_band.png', 480, 270],
+};
+/** Boss-Einblendung zu Kampfbeginn: Begegnung → Büste (ui/F_08_boss_<id>.png, 160x160). */
+export const BOSS_INTROS = { felix_fight: 'felix', miriam: 'miriam' };
+/** Zug-Portraits (16x16) in ui/F_05_zug_portraits.png: Begegnung → Spalte. */
+export const TURN_PORTRAITS_URL = `${BASE}ui/F_05_zug_portraits.png`;
+export const TURN_PORTRAITS = Object.fromEntries(['player', 'sparring', 'fog_hound', 'ash_warden', 'archive_rats', 'choir_zealots', 'rook_fight',
+  'silas_fight', 'mirror_shade', 'schattenpuppe', 'grubenkampf', 'kanalkroete', 'gasgeist', 'uhrwerkwaechter', 'maskenspieler',
+  'schlachtergehilfe', 'felix_fight', 'miriam', 'chorschatten'].map((id, i) => [id, i]));
+/** Bestiarium: Begegnung → Seite (ui/bestiary/F_<id>.png, 96x128). */
+export const BESTIARY = Object.keys(TURN_PORTRAITS).filter((id) => id !== 'player');
+export const bestiaryUrl = (id) => `${BASE}ui/bestiary/F_${id}.png`;
+/** Ausrüstung aus Paket F: Items mit 16er- und 32er-Icon unter items/ (Werte kommen mit den Daten). */
+export const F_EQUIPMENT = ['mantel_wolle', 'mantel_gewachst', 'mantel_polizei', 'mantel_samt', 'mantel_flicken', 'mantel_leder', 'mantel_chor',
+  'mantel_nebel', 'hut_schirmmuetze', 'hut_melone', 'hut_zylinder', 'hut_helm', 'hut_kapuze', 'hut_schutzbrille', 'hut_witwenschleier', 'hut_maske',
+  'amulett_laterne', 'amulett_faden', 'amulett_maske', 'amulett_echo', 'amulett_kessel', 'amulett_eisen', 'amulett_schluessel', 'amulett_stimme',
+  'revolver', 'messingschlagring', 'brecheisen', 'regenschirmdegen', 'taktstock_silber', 'kette_rauchfass', 'laterne_kampf', 'stimmgabel_gross'];
 
 /** Spielt eine Animation eines Fall-Sheets (CASE_SHEETS) ab. Liefert false, wenn etwas fehlt. */
 export function playCaseAnim(sprite, sheet, then) {
@@ -622,7 +666,7 @@ export function playCaseAnim(sprite, sheet, then) {
 /** 16x16-Icon unter public/sprites/items/<id>.png (tests/sprites.test.js prüft, dass es zu jedem Item eins gibt). */
 export const itemIconUrl = (id) => `${BASE}items/${id}.png`;
 /** 32x32-Fassung (gibt es für Tränke und die Stimmphiole). */
-const ICON32 = ['stimmphiole'];
+const ICON32 = ['stimmphiole', ...F_EQUIPMENT];
 export const itemIcon32Url = (id) => (id.startsWith('trank_') || ICON32.includes(id) ? `${BASE}items/32/${id}.png` : null);
 
 const srcKey = (sheet) => `src_${sheet}`;
@@ -649,6 +693,13 @@ export function preloadSprites(scene) {
   }
   if (!scene.cache.json.exists('manifest14b')) scene.load.json('manifest14b', `${BASE}manifest-14b.json`);
   if (!scene.cache.json.exists('manifestKampf')) scene.load.json('manifestKampf', `${BASE}manifest-kampf.json`);
+  if (!scene.cache.json.exists('manifestKampf2')) scene.load.json('manifestKampf2', `${BASE}manifest-kampf2.json`);
+  for (const [key, [path, w, h]] of Object.entries(F_UI_SHEETS)) {
+    if (!scene.textures.exists(key)) scene.load.spritesheet(key, BASE + path, { frameWidth: w, frameHeight: h });
+  }
+  for (const id of Object.values(BOSS_INTROS)) {
+    if (!scene.textures.exists(`F_08_boss_${id}`)) scene.load.image(`F_08_boss_${id}`, `${BASE}ui/F_08_boss_${id}.png`);
+  }
   if (!scene.cache.json.exists('manifestWelt')) scene.load.json('manifestWelt', `${BASE}manifest-welt.json`);
   if (!scene.cache.json.exists('manifestPfade')) scene.load.json('manifestPfade', `${BASE}manifest-pfade.json`);
   if (!scene.cache.json.exists('manifestStadt')) scene.load.json('manifestStadt', `${BASE}manifest-stadt.json`);
@@ -680,12 +731,20 @@ export function playSheetAnim(sprite, sheet, name, then) {
 
 /** Animationsdefinition aus manifest-14b.json oder manifest-kampf.json. */
 function battleAnimDef(scene, sheet, name) {
-  for (const m of ['manifest14b', 'manifestKampf']) {
-    const def = scene.cache.json.get(m)?.assets?.find((a) => a.id === sheet)?.animations?.[name];
-    if (def) return def;
+  for (const n of [name, ANIM_ALIASES[sheet]?.[name]].filter(Boolean)) {
+    for (const m of ['manifest14b', 'manifestKampf', 'manifestKampf2']) {
+      const def = scene.cache.json.get(m)?.assets?.find((a) => a.id === sheet)?.animations?.[n];
+      if (def) return def;
+    }
   }
   return null;
 }
+/** Paket F: Bosse nennen ihre Animationen anders als der Kampfablauf. */
+const ANIM_ALIASES = {
+  enemy_felix: { attack: 'attack_a', special: 'attack_b', cast: 'special' },
+  enemy_miriam: { attack: 'attack_conduct', special: 'attack_scream', cast: 'summon' },
+  enemy_chorschatten: { special: 'attack', defeated: 'dissolve' },
+};
 
 /**
  * Spielt eine Kampfanimation (z. B. 'attack', 'hurt'). Mit `sheet` wechselt das Sprite

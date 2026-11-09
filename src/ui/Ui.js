@@ -4,6 +4,7 @@ import {
   itemIconUrl, itemIcon32Url, pathwayEmblemUrl, pathwayCardUrl, COIN_URL, SKILL_ICONS, SKILL_ICONS_URL, STATUS_ICONS, STATUS_ICONS_URL,
   portraitUrl, portraitFor, MAP_MARKERS, MAP_MARKERS_URL, LOG_MARKERS, LOG_MARKERS_URL, SOURCE_ICONS, SPRITE_BASE,
   endingImageUrl, caseFileUrl, sceneUrl, QUEST_UI_URL, QUEST_PINS, QUEST_BANNERS,
+  TURN_PORTRAITS, TURN_PORTRAITS_URL, BESTIARY, bestiaryUrl,
 } from '../world/assets.js';
 import { sourceOf } from '../core/sources.js';
 import { caseHints, nextDeduction } from '../core/hints.js';
@@ -19,6 +20,9 @@ const emblem = (pid, size = 16) => `<img class="emblem" src="${pathwayEmblemUrl(
 /** 16x16-Zelle aus einem Icon-Atlas (Fähigkeiten: 7 Spalten, Zustände: 12 Spalten). */
 const atlasIcon = (url, index, cols, title = '') => (index === undefined ? ''
   : `<span class="atlas-icon" title="${title}" style="background-image:url(${url});background-position:-${(index % cols) * 16}px -${Math.floor(index / cols) * 16}px"></span>`);
+/** Zug-Portrait (16x16, Paket F) neben den Namen im Kampf. */
+const turnFace = (id) => (TURN_PORTRAITS[id] === undefined ? ''
+  : `<span class="turnface" style="background-image:url(${TURN_PORTRAITS_URL});background-position:-${TURN_PORTRAITS[id] * 2}em 0"></span>`);
 const skillIcon = (id) => atlasIcon(SKILL_ICONS_URL, SKILL_ICONS[id], 7);
 const statusIcon = (id, title) => atlasIcon(STATUS_ICONS_URL, STATUS_ICONS[id], 12, title);
 const mapMarker = (map) => atlasIcon(MAP_MARKERS_URL, MAP_MARKERS[map], 13);
@@ -565,17 +569,21 @@ export class Ui {
     const all = this.visibleCases();
     const solved = all.filter((c) => isSolved(this.state, c.id));
     const cases = all.filter((c) => !solved.includes(c));
-    const fixed = ['quests', 'items', 'pfad', 'personen', 'archiv'];
+    const beasts = this.knownBeasts();
+    const fixed = ['quests', 'items', 'pfad', 'personen', 'bestiar', 'archiv'];
     if (this.tab === 'archiv' && !solved.length) this.tab = 'quests';
+    if (this.tab === 'bestiar' && !beasts.length) this.tab = 'quests';
     // Ein gelöster Fall wird im Archiv geöffnet
     if (solved.some((c) => c.id === this.tab)) { this.archiveCase = this.tab; this.tab = 'archiv'; }
     if (!fixed.includes(this.tab) && !cases.some((c) => c.id === this.tab)) this.tab = 'quests';
     if (this.tab === 'archiv' && !solved.some((c) => c.id === this.archiveCase)) this.archiveCase = solved.at(-1)?.id;
     const tabs = [{ id: 'quests', title: 'Aufträge' }, { id: 'items', title: 'Inventar' }, { id: 'pfad', title: 'Pfad' }, { id: 'personen', title: 'Personen' },
+      ...(beasts.length ? [{ id: 'bestiar', title: 'Bestiarium' }] : []),
       ...cases.map((c) => ({ id: c.id, title: c.title.replace(/:.*/, '') })), ...(solved.length ? [{ id: 'archiv', title: `Archiv (${solved.length})` }] : [])];
     const caseId = this.currentCase();
     const body = this.tab === 'quests' ? this.questsHtml() : this.tab === 'items' ? this.itemsHtml() : this.tab === 'pfad' ? this.pathwayHtml()
-      : this.tab === 'personen' ? this.peopleHtml() : this.tab === 'archiv' ? this.archiveHtml(solved) : this.caseHtml(this.tab);
+      : this.tab === 'personen' ? this.peopleHtml() : this.tab === 'bestiar' ? this.bestiaryHtml(beasts)
+      : this.tab === 'archiv' ? this.archiveHtml(solved) : this.caseHtml(this.tab);
     const isCase = !!caseId;
     const hint = String(feedback ?? '').startsWith('<div class="hint">') ? feedback : '';
     const el = this.open('notebook', `
@@ -610,6 +618,17 @@ export class Ui {
     this.openDialogue({ name: it.name, role: 'Fundstück', dialogue: it.inspect }, ({ combat } = {}) => {
       if (!combat && !this.modal) this.openNotebook('items');
     });
+  }
+
+  /** Besiegte Gegner mit Bestiariumsseite (Paket F). */
+  knownBeasts() {
+    return BESTIARY.filter((id) => this.state.flags.has(`won_${id}`) && this.state.content.encounters[id]);
+  }
+
+  bestiaryHtml(ids) {
+    const encs = this.state.content.encounters;
+    return `<ul class="bestiary">${ids.map((id) => `<li><img src="${bestiaryUrl(id)}" alt="" onerror="this.remove()">
+      <strong>${esc(encs[id].name)}</strong><span class="muted">${encs[id].occult ? 'Okkult · ' : ''}${encs[id].hp} Leben</span></li>`).join('')}</ul>`;
   }
 
   questsHtml() {
@@ -720,7 +739,7 @@ export class Ui {
   /** Der Fall, der gerade im Notizbuch offen ist (auch im Archiv), sonst null. */
   currentCase() {
     if (this.tab === 'archiv') return this.archiveCase ?? null;
-    return ['quests', 'items', 'pfad', 'personen'].includes(this.tab) ? null : this.tab;
+    return ['quests', 'items', 'pfad', 'personen', 'bestiar'].includes(this.tab) ? null : this.tab;
   }
 
   /** Archiv: gelöste Fälle mit ihrem Ende; ein Klick öffnet die alten Informationen. */
@@ -900,11 +919,11 @@ export class Ui {
     this.root.classList.add('in-combat');
     this.layer.innerHTML = `
       <div class="combat">
-        <div class="cb-enemy"><div class="cb-name"></div><div class="bar big"><div class="efill"></div></div><div class="cb-tags"></div></div>
+        <div class="cb-enemy">${turnFace(scene.encounterId)}<div class="cb-name"></div><div class="bar big"><div class="efill"></div></div><div class="cb-tags"></div></div>
         <div class="cb-msg"><div class="cb-text"></div><div class="cb-help"></div></div>
         <div class="cb-bottom">
           <div class="cb-player">
-            <div class="cb-name">Du <span class="muted cb-weapon"></span> <span class="cb-status"></span></div>
+            <div class="cb-name">${turnFace('player')}Du <span class="muted cb-weapon"></span> <span class="cb-status"></span></div>
             <div class="meter"><span>Leben</span><div class="bar"><div class="pfill"></div></div><em class="cb-hp"></em></div>
             <div class="meter"><span>Nerven</span><div class="bar"><div class="nfill"></div></div></div>
             <div class="cb-ap"><span>Konzentration</span> <span class="pips"></span></div>

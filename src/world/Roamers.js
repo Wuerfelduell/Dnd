@@ -1,7 +1,7 @@
 import Phaser from 'phaser';
 import { TILE } from './textures.js';
 import { DEPTH } from './Lighting.js';
-import { OVERWORLD_SHEETS, LOOT_SHEETS } from './assets.js';
+import { overworldIdFor, LOOT_SHEETS } from './assets.js';
 import { lootRarity, lootList, rollLoot, takeLoot, isEmptyLoot, RARITY_COLORS, CONTAINERS, CONTAINER_NAMES } from '../core/Loot.js';
 
 // Gefahrengebiete: Gegner, die sichtbar über die Karte streifen, dich bemerken und jagen.
@@ -53,9 +53,7 @@ export class Roamers {
       };
       this.makeSprite(r, def.encounter);
       r.shadow = s.add.ellipse(x, y + 1, r.boss ? 26 : 14, r.boss ? 8 : 5, 0x000000, 0.35);
-      r.alert = s.add.text(x, y - 30, '!', {
-        fontFamily: 'monospace', fontSize: '12px', fontStyle: 'bold', color: '#ffb040', stroke: '#1a1c2c', strokeThickness: 3,
-      }).setOrigin(0.5, 1).setDepth(DEPTH.dark + 3).setVisible(false);
+      r.alert = this.makeAlert(x, y - 30, enc.occult);
       // Leuchtende Augen bzw. Aura, damit man sie im Dunkeln kommen sieht
       const color = r.elite ? 0xff6050 : enc.tint ? hex(enc.tint) : 0x6fe0d0;
       r.light = s.lighting.add({ follow: r.sprite, offsetY: -r.sprite.displayHeight * 0.5, radius: r.boss ? 56 : r.elite ? 34 : 26, intensity: r.boss ? 0.6 : 0.42,
@@ -69,13 +67,33 @@ export class Roamers {
     }
   }
 
+  /** Bemerkt-Zeichen: gemaltes Alarm-Symbol (Paket F), sonst ein Ausrufezeichen. */
+  makeAlert(x, y, occult) {
+    const s = this.scene;
+    if (s.textures.exists('F_04_alarm')) {
+      const name = occult ? 'occult' : 'noticed';
+      const key = `F_04_alarm-${name}`;
+      if (!s.anims.exists(key)) {
+        const def = s.cache.json.get('manifestKampf2')?.assets?.find((a) => a.id === 'F_04_alarm')?.animations?.[name];
+        if (def) s.anims.create({ key, frames: def.frames.map((frame) => ({ key: 'F_04_alarm', frame })), frameRate: def.frameRate, repeat: def.repeat });
+      }
+      const spr = s.add.sprite(x, y, 'F_04_alarm', 0).setOrigin(0.5, 1).setDepth(DEPTH.dark + 3).setVisible(false);
+      if (s.anims.exists(key)) spr.play(key);
+      return spr;
+    }
+    return s.add.text(x, y, '!', {
+      fontFamily: 'monospace', fontSize: '12px', fontStyle: 'bold', color: '#ffb040', stroke: '#1a1c2c', strokeThickness: 3,
+    }).setOrigin(0.5, 1).setDepth(DEPTH.dark + 3).setVisible(false);
+  }
+
   /** Eigenes Lauf-Sheet, sonst das Kampf-Sheet verkleinert und getönt. */
   makeSprite(r, baseId) {
     const s = this.scene;
     const { x, y } = r.home;
-    const owKey = `ow_${baseId}`;
+    const owId = overworldIdFor(baseId, r.enc);
+    const owKey = `ow_${owId}`;
     const size = r.boss ? 1.5 : r.elite ? 1.2 : 1;
-    if (OVERWORLD_SHEETS[baseId] && s.textures.exists(owKey)) {
+    if (owId && s.textures.exists(owKey)) {
       r.sheet = owKey;
       r.sprite = s.add.sprite(x, y + 2, owKey, 0).setOrigin(0.5, 1).setScale(size);
       DIRS.forEach((dir, row) => {
@@ -89,7 +107,7 @@ export class Roamers {
       r.sprite.setOrigin(0.5, 0.92).setScale(((r.boss ? 46 : 30) / frameH) * (r.elite ? 1.2 : 1));
     }
     if (r.elite) r.sprite.setTint(0xff9080);
-    else if (r.enc.tint && !r.sheet) r.sprite.setTint(hex(r.enc.tint));
+    else if (r.enc.tint) r.sprite.setTint(hex(r.enc.tint)); // Varianten (z. B. Kraterbrut) bleiben erkennbar
   }
 
   // --- Spielschleife -----------------------------------------------------------

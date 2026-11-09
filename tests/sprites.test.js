@@ -4,7 +4,8 @@ import { existsSync, readFileSync } from 'node:fs';
 import { loadContent } from './helpers.js';
 import { SHEETS, BATTLE_SHEETS, ANIM_SHEETS, TILE_CELLS, PROP_CELLS, PROP_ANIMS, CHARACTER_SHEETS, ENCOUNTER_SHEETS, ENEMY_BATTLE_SHEETS, THEME_TILE_LIST, PORTRAITS, MAP_MARKERS, C_CHARACTERS, BATTLE_BACKGROUNDS, ENCOUNTER_BACKGROUNDS, SKILL_FX, SKILL_ICONS, STATUS_ICONS, PATHWAY_POSES, WEAPON_POSES, itemIconUrl, itemIcon32Url, pathwayEmblemUrl, pathwayCardUrl, COIN_URL,
   REGION_SHEETS, ICON_STRIPS, CASE_SHEETS, WHOLE_PROPS, FACADES, E_CHARACTERS, PORTRAIT_SPECIAL, PORTRAIT_MOODS, ENDING_IMAGES, endingImageUrl,
-  caseFileUrl, SCENES, sceneUrl, CITY_MAP_URL, CITY_FOG_URL, QUEST_UI_URL } from '../src/world/assets.js';
+  caseFileUrl, SCENES, sceneUrl, CITY_MAP_URL, CITY_FOG_URL, QUEST_UI_URL,
+  OVERWORLD_SHEETS, BESTIARY, bestiaryUrl, F_EQUIPMENT, BOSS_INTROS, F_UI_SHEETS, overworldIdFor } from '../src/world/assets.js';
 import { TILE_KEYS } from '../src/world/textures.js';
 
 // Spiel-URLs ('./sprites/...') zeigen auf public/sprites/
@@ -195,4 +196,24 @@ test('Paket D/E: Figuren, Portraits, Schlussbilder, Akten und Szenen liegen bere
   if (content.travelRules.fog_image) assert.ok(existsSync(sprite(content.travelRules.fog_image)));
   for (const url of [CITY_MAP_URL, CITY_FOG_URL, QUEST_UI_URL]) assert.ok(existsSync(file(url)), url);
   for (const [, pin] of Object.entries(content.travelRules.pins)) assert.ok(pin[0] >= 0 && pin[0] <= 480 && pin[1] >= 0 && pin[1] <= 270);
+});
+
+test('Paket F: Bosse, Kartengegner, Bestiarium und Ausrüstung liegen bereit', () => {
+  const m = JSON.parse(readFileSync(sprite('manifest-kampf2.json'), 'utf8'));
+  for (const [id, [path, w, h]] of Object.entries(OVERWORLD_SHEETS)) {
+    assert.ok(existsSync(sprite(path)), path);
+    const def = m.assets.find((a) => a.file === path);
+    if (def) assert.deepEqual([def.frameWidth, def.frameHeight], [w, h], id);
+  }
+  for (const id of BESTIARY) assert.ok(existsSync(file(bestiaryUrl(id))), id);
+  for (const id of F_EQUIPMENT) {
+    assert.ok(existsSync(file(itemIconUrl(id))), id);
+    assert.ok(existsSync(file(itemIcon32Url(id))), id);
+  }
+  for (const id of Object.values(BOSS_INTROS)) assert.ok(existsSync(sprite(`ui/F_08_boss_${id}.png`)), id);
+  for (const [key, [path]] of Object.entries(F_UI_SHEETS)) assert.ok(m.assets.some((a) => a.id === key && a.file === path), key);
+  // Wilde Gegner mit passendem Kampf-Sheet bekommen ein Lauf-Sheet
+  assert.equal(overworldIdFor('irrlicht', { sheet: 'enemy_gasgeist' }), 'gasgeist');
+  assert.equal(overworldIdFor('moorleiche', { sheet: 'enemy_schattenpuppe' }), null);
+  for (const key of [...Object.values(BATTLE_BACKGROUNDS), ...Object.values(ENCOUNTER_BACKGROUNDS)]) assert.ok(existsSync(sprite(`battle/${key}.png`)), key);
 });
