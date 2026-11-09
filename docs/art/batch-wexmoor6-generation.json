@@ -1,0 +1,1451 @@
+{
+  "batch": "wexmoor6",
+  "generator": "built-in image_gen.imagegen",
+  "date": "2026-11-09",
+  "promptSource": "docs/art/codex_AN_k2_orte_grafik.md",
+  "promptSourceGitBlob": "5233b6bd9ae0f9997e4afec4c694ca1cb3aa2158",
+  "paletteRGB": [
+    [
+      26,
+      28,
+      44
+    ],
+    [
+      37,
+      43,
+      56
+    ],
+    [
+      48,
+      59,
+      73
+    ],
+    [
+      66,
+      83,
+      96
+    ],
+    [
+      88,
+      108,
+      120
+    ],
+    [
+      113,
+      133,
+      139
+    ],
+    [
+      149,
+      165,
+      165
+    ],
+    [
+      168,
+      180,
+      192
+    ],
+    [
+      45,
+      38,
+      41
+    ],
+    [
+      88,
+      67,
+      60
+    ],
+    [
+      113,
+      86,
+      72
+    ],
+    [
+      146,
+      116,
+      90
+    ],
+    [
+      179,
+      148,
+      110
+    ],
+    [
+      207,
+      177,
+      138
+    ],
+    [
+      224,
+      201,
+      161
+    ],
+    [
+      73,
+      75,
+      58
+    ],
+    [
+      104,
+      104,
+      80
+    ],
+    [
+      139,
+      136,
+      112
+    ],
+    [
+      238,
+      226,
+      197
+    ],
+    [
+      23,
+      61,
+      64
+    ],
+    [
+      36,
+      91,
+      89
+    ],
+    [
+      54,
+      129,
+      122
+    ],
+    [
+      78,
+      175,
+      162
+    ],
+    [
+      111,
+      224,
+      208
+    ],
+    [
+      136,
+      99,
+      50
+    ],
+    [
+      208,
+      160,
+      80
+    ],
+    [
+      232,
+      184,
+      96
+    ],
+    [
+      240,
+      206,
+      128
+    ],
+    [
+      200,
+      176,
+      232
+    ],
+    [
+      232,
+      240,
+      255
+    ],
+    [
+      154,
+      208,
+      106
+    ]
+  ],
+  "postprocessing": [
+    "Cell-by-cell nearest-neighbor reduction; terrain inset 1.2 percent removes generated cell rules.",
+    "Shared scale per animation sheet; alpha threshold 200; common bottom baseline with 1px padding.",
+    "Exact duplicate anticipation frames in battle rows 1 and 2.",
+    "Unused frames explicitly transparent.",
+    "Indexed palette from existing R_wexmoor_tiles, 31 visible colors plus transparent index 0.",
+    "No game code modified."
+  ],
+  "jobs": [
+    {
+      "id": "tiles_floss",
+      "file": "tilesets/AN_flossfriedhof.png",
+      "kind": "tiles",
+      "cols": 8,
+      "rows": 8,
+      "w": 128,
+      "h": 128,
+      "prompt": "\nSTYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\n\nUse the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction. Setting is Wexmoor coastal peat marsh.\nCreate a single production tileset AN_flossfriedhof: exactly 8 columns x 8 rows, square canvas, edge-to-edge uniform tile cells, no gutters, no labels. Intended native size 128x128, each tile 16x16; generate enlarged crisp pixel art. Row 1: four dark still water variants each with 2 adjacent ripple animation frames. Row 2: black tarred raft planks horizontal, vertical, and four grain variations plus moss raft surfaces. Row 3: raft top/bottom/left/right edges and four corners. Row 4: narrow plank walkways horizontal/vertical, rope rail versions, junctions. Row 5: raft mooring posts on edges, reed clumps at waterline. Row 6: moss-covered raft surfaces. Row 7: mist water and reed water. Row 8: rope rail corners and walkway ends. Terrain must fill cells and have no outline. No perspective scene; strict tile atlas.",
+      "sourceFile": "exec-ef99c812-18a0-4b2f-9d6c-9bf980c393ea.png",
+      "sourceSHA256": "586dba05b800ad67c1d9cc6901639532ff655f330ed0f437411a563d0945d116",
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "referenceFiles": [
+        "public/sprites/tilesets/R_wexmoor_tiles.png",
+        "public/sprites/props/R_torfstich_props.png",
+        "public/sprites/props/W_altstadt_props.png"
+      ],
+      "tileNames": [
+        "wasser_1_0",
+        "wasser_1_1",
+        "wasser_2_0",
+        "wasser_2_1",
+        "wasser_3_0",
+        "wasser_3_1",
+        "wasser_4_0",
+        "wasser_4_1",
+        "planken_h_1",
+        "planken_v_1",
+        "planken_h_2",
+        "planken_v_2",
+        "planken_h_3",
+        "planken_v_3",
+        "moos_h",
+        "moos_v",
+        "rand_oben",
+        "rand_unten",
+        "rand_links",
+        "rand_rechts",
+        "ecke_ol",
+        "ecke_or",
+        "ecke_ul",
+        "ecke_ur",
+        "steg_h",
+        "steg_v",
+        "seilsteg_h",
+        "seilsteg_v",
+        "steg_kreuz",
+        "steg_t",
+        "seilsteg_1",
+        "seilsteg_2",
+        "pfahl_links",
+        "pfahl_rechts",
+        "pfahl_mitte",
+        "pfahl_doppel",
+        "reet_1",
+        "reet_2",
+        "reet_3",
+        "reet_4",
+        "moos_planken_0",
+        "moos_planken_1",
+        "moos_planken_2",
+        "moos_planken_3",
+        "moos_planken_4",
+        "moos_planken_5",
+        "moos_planken_6",
+        "moos_planken_7",
+        "nebel_1",
+        "nebel_2",
+        "nebel_3",
+        "nebel_4",
+        "nebel_reet_1",
+        "nebel_reet_2",
+        "nebel_reet_3",
+        "nebel_reet_4",
+        "seilecke_ol",
+        "seilecke_or",
+        "seilecke_ul",
+        "seilecke_ur",
+        "steg_ende_1",
+        "steg_ende_2",
+        "steg_ende_3",
+        "steg_ende_4"
+      ],
+      "location": "wx_flossfriedhof",
+      "animations": {
+        "wasser_1": {
+          "frames": [
+            0,
+            1
+          ],
+          "frameRate": 2,
+          "repeat": -1
+        },
+        "wasser_2": {
+          "frames": [
+            2,
+            3
+          ],
+          "frameRate": 2,
+          "repeat": -1
+        },
+        "wasser_3": {
+          "frames": [
+            4,
+            5
+          ],
+          "frameRate": 2,
+          "repeat": -1
+        },
+        "wasser_4": {
+          "frames": [
+            6,
+            7
+          ],
+          "frameRate": 2,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "tiles_licht",
+      "file": "tilesets/AN_lichtamt.png",
+      "kind": "tiles",
+      "cols": 8,
+      "rows": 8,
+      "w": 128,
+      "h": 128,
+      "desc": "8 columns x 8 rows of edge-to-edge 16x16 native tiles; no gutters. Row1 pale stone with brass lines and 4 stone variants. Row2 first two cells are upper left/right of a 2x2 lighthouse-in-circle brass floor mosaic, cells 3-8 parquet variants. Row3 first two cells are lower left/right of same mosaic, cells 3-8 archive parquet and border variants. Row4 whitewashed stone wall tops, faces, left/right edges, corners. Row5 wall gas-lamp brackets and tall fog-filled window pieces. Row6 navy carpet runner center, edges, ends, corners. Row7 tall window bottom, window top, plain stone borders. Row8 stone thresholds and parquet/stone transitions. Strict tile atlas, not an interior scene.",
+      "prompt": "\nSTYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\n\nUse the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction. Setting is Wexmoor coastal peat marsh.\nAsset: tilesets/AN_lichtamt.png. 8 columns x 8 rows of edge-to-edge 16x16 native tiles; no gutters. Row1 pale stone with brass lines and 4 stone variants. Row2 first two cells are upper left/right of a 2x2 lighthouse-in-circle brass floor mosaic, cells 3-8 parquet variants. Row3 first two cells are lower left/right of same mosaic, cells 3-8 archive parquet and border variants. Row4 whitewashed stone wall tops, faces, left/right edges, corners. Row5 wall gas-lamp brackets and tall fog-filled window pieces. Row6 navy carpet runner center, edges, ends, corners. Row7 tall window bottom, window top, plain stone borders. Row8 stone thresholds and parquet/stone transitions. Strict tile atlas, not an interior scene.",
+      "sourceFile": "exec-0eed1e2a-7426-40c8-8ad0-0641ef5c5ac9.png",
+      "sourceSHA256": "a9472a9c468bc76ed9948ff8ed328f6d59048bcbc067e85cfcd27b5d6eb55415",
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "referenceFiles": [
+        "public/sprites/tilesets/R_wexmoor_tiles.png",
+        "public/sprites/props/R_torfstich_props.png",
+        "public/sprites/props/W_altstadt_props.png"
+      ],
+      "tileNames": [
+        "stein_intarsie_1",
+        "stein_intarsie_2",
+        "stein_1",
+        "stein_2",
+        "stein_3",
+        "stein_4",
+        "stein_5",
+        "stein_6",
+        "mosaik_ol",
+        "mosaik_or",
+        "parkett_1",
+        "parkett_2",
+        "parkett_3",
+        "parkett_4",
+        "parkett_5",
+        "parkett_6",
+        "mosaik_ul",
+        "mosaik_ur",
+        "parkett_7",
+        "parkett_8",
+        "parkett_9",
+        "parkett_10",
+        "parkett_rand_1",
+        "parkett_rand_2",
+        "wand_oben_1",
+        "wand_oben_2",
+        "wand_flaeche_1",
+        "wand_flaeche_2",
+        "wand_links",
+        "wand_rechts",
+        "wand_ecke_1",
+        "wand_ecke_2",
+        "halterung_1",
+        "halterung_2",
+        "halterung_3",
+        "halterung_4",
+        "fenster_1",
+        "fenster_2",
+        "fenster_3",
+        "fenster_4",
+        "teppich_mitte_1",
+        "teppich_mitte_2",
+        "teppich_ende_1",
+        "teppich_ende_2",
+        "teppich_rand_1",
+        "teppich_rand_2",
+        "teppich_ecke_1",
+        "teppich_ecke_2",
+        "fenster_unten",
+        "fenster_oben",
+        "steinbord_1",
+        "steinbord_2",
+        "steinbord_3",
+        "steinbord_4",
+        "steinbord_5",
+        "steinbord_6",
+        "schwelle_1",
+        "schwelle_2",
+        "uebergang_1",
+        "uebergang_2",
+        "uebergang_3",
+        "uebergang_4",
+        "uebergang_5",
+        "uebergang_6"
+      ],
+      "location": "wx_lichtamt",
+      "regions": {
+        "leuchtturm_mosaik": {
+          "x": 0,
+          "y": 16,
+          "width": 32,
+          "height": 32
+        }
+      }
+    },
+    {
+      "id": "tiles_torf",
+      "file": "tilesets/AN_torfbrueche.png",
+      "kind": "tiles",
+      "cols": 8,
+      "rows": 8,
+      "w": 128,
+      "h": 128,
+      "desc": "8 columns x 8 rows, exactly 64 edge-to-edge 16x16 native tiles, no gutters. Row1 four peat floor variants then four damp floor variants. Row2 peat wall top, face, left/right, four corners. Row3 timber supports vertical/horizontal, cross joints, bases. Row4 three ceiling rubble variants, 2 mine-water animation frames, 3 damp edges. Row5 first 4 cells four bubbling green gas-pocket animation frames then four gas-covered floor variants. Row6 mine cart rails horizontal/vertical/corners/junctions/ends. Row7 hanging root networks and peat walls with embedded shoe, spoon and blank name plaque. Row8 peat wall lower edges, floor transitions, roots. Strict tile atlas not a scene.",
+      "prompt": "\nSTYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\n\nUse the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction. Setting is Wexmoor coastal peat marsh.\nAsset: tilesets/AN_torfbrueche.png. 8 columns x 8 rows, exactly 64 edge-to-edge 16x16 native tiles, no gutters. Row1 four peat floor variants then four damp floor variants. Row2 peat wall top, face, left/right, four corners. Row3 timber supports vertical/horizontal, cross joints, bases. Row4 three ceiling rubble variants, 2 mine-water animation frames, 3 damp edges. Row5 first 4 cells four bubbling green gas-pocket animation frames then four gas-covered floor variants. Row6 mine cart rails horizontal/vertical/corners/junctions/ends. Row7 hanging root networks and peat walls with embedded shoe, spoon and blank name plaque. Row8 peat wall lower edges, floor transitions, roots. Strict tile atlas not a scene.",
+      "sourceFile": "exec-a1d91e7c-986d-419a-a48f-8b649c78d152.png",
+      "sourceSHA256": "ad60931b1280591705bba8e6e9d6f42605c5e596088a58ff484c6cefaec38ff5",
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "referenceFiles": [
+        "public/sprites/tilesets/R_wexmoor_tiles.png",
+        "public/sprites/props/R_torfstich_props.png",
+        "public/sprites/props/W_altstadt_props.png"
+      ],
+      "tileNames": [
+        "torfboden_1",
+        "torfboden_2",
+        "torfboden_3",
+        "torfboden_4",
+        "feucht_1",
+        "feucht_2",
+        "feucht_3",
+        "feucht_4",
+        "wand_oben",
+        "wand_flaeche",
+        "wand_links",
+        "wand_rechts",
+        "wand_ecke_ol",
+        "wand_ecke_or",
+        "wand_ecke_ul",
+        "wand_ecke_ur",
+        "balken_v",
+        "balken_h",
+        "balken_kreuz",
+        "balken_diagonal",
+        "balken_fuss_1",
+        "balken_fuss_2",
+        "balken_stuetze",
+        "balken_decke",
+        "schutt_1",
+        "schutt_2",
+        "schutt_3",
+        "grubenwasser_0",
+        "grubenwasser_1",
+        "feuchtrand_1",
+        "feuchtrand_2",
+        "feuchtrand_3",
+        "gasnest_0",
+        "gasnest_1",
+        "gasnest_2",
+        "gasnest_3",
+        "gasboden_1",
+        "gasboden_2",
+        "gasboden_3",
+        "gasboden_4",
+        "schiene_h",
+        "schiene_v",
+        "schiene_ecke_1",
+        "schiene_ecke_2",
+        "schiene_kreuz",
+        "schiene_t",
+        "schiene_ende_1",
+        "schiene_ende_2",
+        "wurzel_1",
+        "wurzel_2",
+        "wurzel_3",
+        "wurzel_4",
+        "torf_schuh",
+        "torf_loeffel",
+        "torf_taefelchen",
+        "wurzel_5",
+        "unterkante_1",
+        "unterkante_2",
+        "uebergang_1",
+        "uebergang_2",
+        "uebergang_3",
+        "uebergang_4",
+        "wurzel_6",
+        "wurzel_7"
+      ],
+      "location": "wx_torfbrueche",
+      "animations": {
+        "grubenwasser": {
+          "frames": [
+            27,
+            28
+          ],
+          "frameRate": 3,
+          "repeat": -1
+        },
+        "gasnest": {
+          "frames": [
+            32,
+            33,
+            34,
+            35
+          ],
+          "frameRate": 5,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "props_floss",
+      "file": "props/AN_flossfriedhof.png",
+      "kind": "props",
+      "cols": 4,
+      "rows": 4,
+      "w": 256,
+      "h": 192,
+      "desc": "A prop atlas, exactly 4 columns by 4 rows of equal square cells with transparent gutters. One isolated complete object centered in each cell, large readable chunky pixel art, not a scene. Row1: crooked wooden grave cross variant1, variant2, variant3, peat-brick gravestone. Row2: bundle of blank name-plaques on stakes; mortuary raft with reed-roof hut; narrow punt with lantern; glass grave candle flicker pose1. Row3: same glass grave candle flicker pose2; wreath of marsh flowers; empty raft grave with scraped blank plaque; buoy bell hanging from chain. Row4: crow perched on cross wings folded; same crow on cross wings raised; last two cells empty. Keep each object inside cell and preserve isolation. No writing.",
+      "regions": [
+        [
+          "kreuz_1",
+          16,
+          32
+        ],
+        [
+          "kreuz_2",
+          16,
+          32
+        ],
+        [
+          "kreuz_3",
+          16,
+          32
+        ],
+        [
+          "torfgrabstein",
+          32,
+          32
+        ],
+        [
+          "namenstaefelchen",
+          32,
+          32
+        ],
+        [
+          "leichenhaus_floss",
+          64,
+          48
+        ],
+        [
+          "stakkahn",
+          32,
+          32
+        ],
+        [
+          "grablicht_0",
+          16,
+          32
+        ],
+        [
+          "grablicht_1",
+          16,
+          32
+        ],
+        [
+          "moorblumenkranz",
+          32,
+          32
+        ],
+        [
+          "leeres_grab",
+          32,
+          32
+        ],
+        [
+          "bojenglocke",
+          16,
+          32
+        ],
+        [
+          "kraehe_0",
+          16,
+          32
+        ],
+        [
+          "kraehe_1",
+          16,
+          32
+        ]
+      ],
+      "prompt": "\nSTYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\n\nUse the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction. Setting is Wexmoor coastal peat marsh.\nAsset: props/AN_flossfriedhof.png. A prop atlas, exactly 4 columns by 4 rows of equal square cells with transparent gutters. One isolated complete object centered in each cell, large readable chunky pixel art, not a scene. Row1: crooked wooden grave cross variant1, variant2, variant3, peat-brick gravestone. Row2: bundle of blank name-plaques on stakes; mortuary raft with reed-roof hut; narrow punt with lantern; glass grave candle flicker pose1. Row3: same glass grave candle flicker pose2; wreath of marsh flowers; empty raft grave with scraped blank plaque; buoy bell hanging from chain. Row4: crow perched on cross wings folded; same crow on cross wings raised; last two cells empty. Keep each object inside cell and preserve isolation. No writing.",
+      "corrections": [
+        "Remove the white background and faint grid lines from this prop atlas. Preserve all 14 objects, their exact positions, colors and proportions. Make all space between and around objects genuinely transparent with alpha zero, no white matte. Keep canvas dimensions and every object unmodified."
+      ],
+      "sourceFile": "exec-29fac0a3-9dbd-43ac-ab7e-6c1d5e2dc857.png",
+      "sourceSHA256": "3ecf039d621745b093cdd1f973cff23481b9d431cb57cfa225deefc836f06482",
+      "sourceSize": [
+        1233,
+        1275
+      ],
+      "referenceFiles": [
+        "public/sprites/tilesets/R_wexmoor_tiles.png",
+        "public/sprites/props/R_torfstich_props.png",
+        "public/sprites/props/W_altstadt_props.png"
+      ],
+      "location": "wx_flossfriedhof",
+      "regionAnimations": {
+        "grablicht": {
+          "regions": [
+            "grablicht_0",
+            "grablicht_1"
+          ],
+          "frameRate": 3,
+          "repeat": -1
+        },
+        "kraehe": {
+          "regions": [
+            "kraehe_0",
+            "kraehe_1"
+          ],
+          "frameRate": 3,
+          "repeat": -1
+        }
+      },
+      "correctionInputFile": "exec-09434c93-d2d4-477b-b91d-21446b0134a3.png"
+    },
+    {
+      "id": "props_licht",
+      "file": "props/AN_lichtamt.png",
+      "kind": "props",
+      "cols": 4,
+      "rows": 4,
+      "w": 256,
+      "h": 128,
+      "desc": "A prop atlas, exactly 4 columns by 4 rows equal square cells, transparent background and transparent gutters. Each whole object fits independently in its cell. Row1: porter's booth; file shelf variant1; file shelf variant2; file shelf variant3. Row2: rolling archive ladder; wide map table with Wexmoor waterways no writing; Brandt's wide desk with lens and seal; brass optical lens model on pedestal glow frame1. Row3: same lens model glow frame2; seal press; pneumatic tube station; waiting bench. Row4: wall clock without numerals; file pile; wastebasket; coat rack with slate-grey patrol coats. No characters. Victorian white stone, brass, navy wood, warm gas lighting, chunky native pixels.",
+      "regions": [
+        [
+          "pfoertnerloge",
+          32,
+          32
+        ],
+        [
+          "aktenregal_1",
+          32,
+          32
+        ],
+        [
+          "aktenregal_2",
+          32,
+          32
+        ],
+        [
+          "aktenregal_3",
+          32,
+          32
+        ],
+        [
+          "rollleiter",
+          16,
+          32
+        ],
+        [
+          "kartentisch",
+          64,
+          32
+        ],
+        [
+          "brandt_schreibtisch",
+          48,
+          32
+        ],
+        [
+          "linsenmodell_0",
+          32,
+          32
+        ],
+        [
+          "linsenmodell_1",
+          32,
+          32
+        ],
+        [
+          "siegelpresse",
+          16,
+          32
+        ],
+        [
+          "rohrpost",
+          32,
+          32
+        ],
+        [
+          "wartebank",
+          32,
+          32
+        ],
+        [
+          "uhr",
+          16,
+          32
+        ],
+        [
+          "aktenstapel",
+          16,
+          32
+        ],
+        [
+          "papierkorb",
+          16,
+          32
+        ],
+        [
+          "wache_garderobe",
+          32,
+          32
+        ]
+      ],
+      "prompt": "\nSTYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\n\nUse the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction. Setting is Wexmoor coastal peat marsh.\nAsset: props/AN_lichtamt.png. A prop atlas, exactly 4 columns by 4 rows equal square cells, transparent background and transparent gutters. Each whole object fits independently in its cell. Row1: porter's booth; file shelf variant1; file shelf variant2; file shelf variant3. Row2: rolling archive ladder; wide map table with Wexmoor waterways no writing; Brandt's wide desk with lens and seal; brass optical lens model on pedestal glow frame1. Row3: same lens model glow frame2; seal press; pneumatic tube station; waiting bench. Row4: wall clock without numerals; file pile; wastebasket; coat rack with slate-grey patrol coats. No characters. Victorian white stone, brass, navy wood, warm gas lighting, chunky native pixels.",
+      "sourceFile": "exec-d1d4822e-d934-4968-b5f2-ed226b7ab5ea.png",
+      "sourceSHA256": "d41c8184717c4b5c476ab21f63260e48dd134e8fda05fa247e69dcf094940fbb",
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "referenceFiles": [
+        "public/sprites/tilesets/R_wexmoor_tiles.png",
+        "public/sprites/props/R_torfstich_props.png",
+        "public/sprites/props/W_altstadt_props.png"
+      ],
+      "location": "wx_lichtamt",
+      "regionAnimations": {
+        "linsenmodell": {
+          "regions": [
+            "linsenmodell_0",
+            "linsenmodell_1"
+          ],
+          "frameRate": 3,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "props_torf",
+      "file": "props/AN_torfbrueche.png",
+      "kind": "props",
+      "cols": 4,
+      "rows": 3,
+      "w": 256,
+      "h": 96,
+      "desc": "A prop atlas, exactly 4 columns by 3 rows equal square cells with transparent gutters, one whole isolated object per cell. Row1: overturned mine cart; upright mine cart; mine lamp lit frame1; same mine lamp flicker frame2. Row2: pickaxe embedded in peat lump; wooden ladder; rope winch; chalk-sign board with only abstract diagram marks NO letters. Row3: bridal veil caught on wooden beam; peat-brick altar with candles; last two cells empty. Wexmoor damp Victorian peat mine. Chunky low-resolution silhouettes.",
+      "regions": [
+        [
+          "lore_umgekippt",
+          32,
+          32
+        ],
+        [
+          "lore_stehend",
+          32,
+          32
+        ],
+        [
+          "grubenlampe_0",
+          16,
+          32
+        ],
+        [
+          "grubenlampe_1",
+          16,
+          32
+        ],
+        [
+          "spitzhacke",
+          32,
+          32
+        ],
+        [
+          "holzleiter",
+          16,
+          32
+        ],
+        [
+          "seilwinde",
+          32,
+          32
+        ],
+        [
+          "kreidetafel",
+          32,
+          32
+        ],
+        [
+          "brautschleier_balken",
+          32,
+          32
+        ],
+        [
+          "torfaltar",
+          64,
+          32
+        ]
+      ],
+      "prompt": "\nSTYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\n\nUse the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction. Setting is Wexmoor coastal peat marsh.\nAsset: props/AN_torfbrueche.png. A prop atlas, exactly 4 columns by 3 rows equal square cells with transparent gutters, one whole isolated object per cell. Row1: overturned mine cart; upright mine cart; mine lamp lit frame1; same mine lamp flicker frame2. Row2: pickaxe embedded in peat lump; wooden ladder; rope winch; chalk-sign board with only abstract diagram marks NO letters. Row3: bridal veil caught on wooden beam; peat-brick altar with candles; last two cells empty. Wexmoor damp Victorian peat mine. Chunky low-resolution silhouettes.",
+      "sourceFile": "exec-aee1851e-e3e2-430a-a740-ca77ea1ff811.png",
+      "sourceSHA256": "985615b10040642f366f7b804b1cc2ddbe64f0cf7f38c735ddbc4fedb4a206ca",
+      "sourceSize": [
+        1448,
+        1086
+      ],
+      "referenceFiles": [
+        "public/sprites/tilesets/R_wexmoor_tiles.png",
+        "public/sprites/props/R_torfstich_props.png",
+        "public/sprites/props/W_altstadt_props.png"
+      ],
+      "location": "wx_torfbrueche",
+      "regionAnimations": {
+        "grubenlampe": {
+          "regions": [
+            "grubenlampe_0",
+            "grubenlampe_1"
+          ],
+          "frameRate": 3,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "bg_torfbrueche",
+      "file": "battle/bg_torfbrueche.png",
+      "kind": "background",
+      "w": 480,
+      "h": 270,
+      "opaque": true,
+      "desc": "Opaque 16:9 battle background native 480x270 pixel art. Collapsed Victorian peat mine, layered peat walls, timber supports, ruined mine cart rails, ceiling roots, dim gas pockets and mine lamps. Side-on battle-stage view. The entire bottom 70 native pixels (26 percent height) must be an uninterrupted flat level walkable peat floor strip, no props or obstructions there. Scenic details strictly in upper 200 pixels. No characters, no text, no vignette.",
+      "prompt": "\nSTYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\n\nUse the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction. Setting is Wexmoor coastal peat marsh.\nAsset: battle/bg_torfbrueche.png. Opaque 16:9 battle background native 480x270 pixel art. Collapsed Victorian peat mine, layered peat walls, timber supports, ruined mine cart rails, ceiling roots, dim gas pockets and mine lamps. Side-on battle-stage view. The entire bottom 70 native pixels (26 percent height) must be an uninterrupted flat level walkable peat floor strip, no props or obstructions there. Scenic details strictly in upper 200 pixels. No characters, no text, no vignette.",
+      "sourceFile": "exec-6eaa8167-d35e-43dd-be07-58fe3e064175.png",
+      "sourceSHA256": "45d8aa17667945bedb496f06d6ebb6ea1bc422e4a53728ca9e55787a4ff801f0",
+      "sourceSize": [
+        1672,
+        941
+      ],
+      "referenceFiles": [
+        "public/sprites/tilesets/R_wexmoor_tiles.png",
+        "public/sprites/props/R_torfstich_props.png",
+        "public/sprites/props/W_altstadt_props.png"
+      ]
+    },
+    {
+      "id": "bg_brautkammer",
+      "file": "battle/bg_brautkammer.png",
+      "kind": "background",
+      "w": 480,
+      "h": 270,
+      "opaque": true,
+      "desc": "Opaque 16:9 battle background native 480x270 pixel art. Underground bridal chamber in peat, an ancient wedding banquet table made of peat bricks in rear center, crooked candles, hanging roots, tattered bridal decorations and a faint turquoise supernatural alcove. Melancholic never gory. Side-on battle-stage view. The entire bottom 70 native pixels (26 percent height) must be uninterrupted flat level peat ground, no props there. All table and roots in upper 200 pixels. No characters or text.",
+      "prompt": "\nSTYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\n\nUse the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction. Setting is Wexmoor coastal peat marsh.\nAsset: battle/bg_brautkammer.png. Opaque 16:9 battle background native 480x270 pixel art. Underground bridal chamber in peat, an ancient wedding banquet table made of peat bricks in rear center, crooked candles, hanging roots, tattered bridal decorations and a faint turquoise supernatural alcove. Melancholic never gory. Side-on battle-stage view. The entire bottom 70 native pixels (26 percent height) must be uninterrupted flat level peat ground, no props there. All table and roots in upper 200 pixels. No characters or text.",
+      "sourceFile": "exec-3fac082c-e268-4511-8eb2-1e3c6263e039.png",
+      "sourceSHA256": "2de000695bf84b58e0b96ea397d98967361c0b3dc7ee9abdf52df5dbcd70185c",
+      "sourceSize": [
+        1672,
+        941
+      ],
+      "referenceFiles": [
+        "public/sprites/tilesets/R_wexmoor_tiles.png",
+        "public/sprites/props/R_torfstich_props.png",
+        "public/sprites/props/W_altstadt_props.png"
+      ]
+    },
+    {
+      "id": "enemy_torfleiche",
+      "gameId": "torfleiche",
+      "file": "battle/enemy_torfleiche.png",
+      "kind": "battle",
+      "frame": 64,
+      "cols": 6,
+      "rows": 5,
+      "w": 384,
+      "h": 320,
+      "counts": [
+        4,
+        6,
+        6,
+        3,
+        6
+      ],
+      "desc": "A production battle animation sprite sheet of a sorrowful peat-preserved human figure, leathery brown skin, rust-red hair, tattered Victorian work clothes, jerky movement, no gore. Opponent faces LEFT. Exact 6 equal columns and 5 equal rows, transparent background and clear generous transparent gaps, no grid lines. Each entire figure fully fits in its own cell, identical scale and foot baseline; native frame 64x64. Row1 idle breathing, only first 4 cells occupied, last2 blank. Row2 attack A 6 poses: anticipation, identical held anticipation, release, strike left, follow-through, recover. Row3 attack B 6 distinct poses with first two identical held wind-up poses. Row4 hurt first3 poses, last3 blank. Row5 defeated 6 poses progressively sinking/collapsing into peat.  Absolutely no shadows linking cells, no duplicate rows. Chunky readable game pixels, not tiny detailed illustration.",
+      "prompt": "\nSTYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\n\nUse the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction. Setting is Wexmoor coastal peat marsh.\nAsset: battle/enemy_torfleiche.png. A production battle animation sprite sheet of a sorrowful peat-preserved human figure, leathery brown skin, rust-red hair, tattered Victorian work clothes, jerky movement, no gore. Opponent faces LEFT. Exact 6 equal columns and 5 equal rows, transparent background and clear generous transparent gaps, no grid lines. Each entire figure fully fits in its own cell, identical scale and foot baseline; native frame 64x64. Row1 idle breathing, only first 4 cells occupied, last2 blank. Row2 attack A 6 poses: anticipation, identical held anticipation, release, strike left, follow-through, recover. Row3 attack B 6 distinct poses with first two identical held wind-up poses. Row4 hurt first3 poses, last3 blank. Row5 defeated 6 poses progressively sinking/collapsing into peat.  Absolutely no shadows linking cells, no duplicate rows. Chunky readable game pixels, not tiny detailed illustration.",
+      "sourceFile": "exec-ef110777-9c6a-4e5e-839b-e7900439736b.png",
+      "sourceSHA256": "dc16a88eaca7333cbafe17120ee022b46d967e3aabd2cbdbb6bb7e7f22124e21",
+      "sourceSize": [
+        1374,
+        1145
+      ],
+      "referenceFiles": [
+        "public/sprites/tilesets/R_wexmoor_tiles.png",
+        "public/sprites/props/R_torfstich_props.png",
+        "public/sprites/props/W_altstadt_props.png"
+      ]
+    },
+    {
+      "id": "F_ow_torfleiche",
+      "gameId": "torfleiche",
+      "file": "characters/F_ow_torfleiche.png",
+      "kind": "walk",
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "cols": 4,
+      "rows": 1,
+      "w": 64,
+      "h": 32,
+      "desc": "One overworld movement sheet of a sorrowful peat-preserved human figure, leathery brown skin, rust-red hair, tattered Victorian work clothes, jerky movement, no gore. EXACTLY FOUR equally sized cells in ONE HORIZONTAL ROW. 4:1 canvas. Each cell has one complete full-body 16x32 native pixel sprite with clear transparent margins, same proportions and same ground baseline. Four different walk/bob/crawl movement poses facing down-left. No extra rows. Crisp chunky simplified top-down 3/4 game sprites, not portraits, no scenery.",
+      "prompt": "\nSTYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\n\nUse the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction. Setting is Wexmoor coastal peat marsh.\nAsset: characters/F_ow_torfleiche.png. One overworld movement sheet of a sorrowful peat-preserved human figure, leathery brown skin, rust-red hair, tattered Victorian work clothes, jerky movement, no gore. EXACTLY FOUR equally sized cells in ONE HORIZONTAL ROW. 4:1 canvas. Each cell has one complete full-body 16x32 native pixel sprite with clear transparent margins, same proportions and same ground baseline. Four different walk/bob/crawl movement poses facing down-left. No extra rows. Crisp chunky simplified top-down 3/4 game sprites, not portraits, no scenery.\nMatch creature identity from the attached battle sheet, while drawing the new requested asset and layout.",
+      "sourceFile": "exec-82fd1e2f-f100-4e65-9c2a-27ab15149ff5.png",
+      "sourceSHA256": "a98d85845af679ccdf2e64c0ebc75e3243af5fa582782276bec940caf51d90fb",
+      "sourceSize": [
+        2172,
+        724
+      ],
+      "referenceFiles": [
+        "public/sprites/tilesets/R_wexmoor_tiles.png",
+        "public/sprites/props/R_torfstich_props.png",
+        "public/sprites/props/W_altstadt_props.png"
+      ],
+      "identityReference": "battle/enemy_torfleiche.png (generated source sheet)"
+    },
+    {
+      "id": "bestiary_torfleiche",
+      "gameId": "torfleiche",
+      "file": "ui/bestiary/AN_torfleiche.png",
+      "kind": "bestiary",
+      "w": 96,
+      "h": 128,
+      "opaque": true,
+      "desc": "One 3:4 vertical bestiary illustration card, native 96x128 pixel art. Full-body a sorrowful peat-preserved human figure, leathery brown skin, rust-red hair, tattered Victorian work clothes, jerky movement, no gore centered in a muted slate-blue and peat-brown atmospheric backdrop. Subtle thin tarnished brass rectangular frame. No text or label areas. Restrained 32-color crisp pixel illustration, larger silhouette than overworld, no gore, no bloom.",
+      "prompt": "\nSTYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\n\nUse the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction. Setting is Wexmoor coastal peat marsh.\nAsset: ui/bestiary/AN_torfleiche.png. One 3:4 vertical bestiary illustration card, native 96x128 pixel art. Full-body a sorrowful peat-preserved human figure, leathery brown skin, rust-red hair, tattered Victorian work clothes, jerky movement, no gore centered in a muted slate-blue and peat-brown atmospheric backdrop. Subtle thin tarnished brass rectangular frame. No text or label areas. Restrained 32-color crisp pixel illustration, larger silhouette than overworld, no gore, no bloom.\nMatch creature identity from the attached battle sheet, while drawing the new requested asset and layout.",
+      "sourceFile": "exec-031d0609-97e6-48f9-9bcb-935fe9d39b5c.png",
+      "sourceSHA256": "86d4d9d3c8b99ee6f5dcac15f099395b81c5c8b0dc0e5a9b236c39091f11f1e7",
+      "sourceSize": [
+        1086,
+        1448
+      ],
+      "referenceFiles": [
+        "public/sprites/tilesets/R_wexmoor_tiles.png",
+        "public/sprites/props/R_torfstich_props.png",
+        "public/sprites/props/W_altstadt_props.png"
+      ],
+      "identityReference": "battle/enemy_torfleiche.png (generated source sheet)"
+    },
+    {
+      "id": "enemy_grubenlicht",
+      "gameId": "grubenlicht",
+      "file": "battle/enemy_grubenlicht.png",
+      "kind": "battle",
+      "frame": 64,
+      "cols": 6,
+      "rows": 5,
+      "w": 384,
+      "h": 320,
+      "counts": [
+        4,
+        6,
+        6,
+        3,
+        6
+      ],
+      "desc": "A production battle animation sprite sheet of a floating broken Victorian mine lantern containing a yellow-green sentient gas flame, broken brass cage, spectral light, no face. Opponent faces LEFT. Exact 6 equal columns and 5 equal rows, transparent background and clear generous transparent gaps, no grid lines. Each entire figure fully fits in its own cell, identical scale and foot baseline; native frame 64x64. Row1 idle breathing, only first 4 cells occupied, last2 blank. Row2 attack A 6 poses: anticipation, identical held anticipation, release, strike left, follow-through, recover. Row3 attack B 6 distinct poses with first two identical held wind-up poses. Row4 hurt first3 poses, last3 blank. Row5 defeated 6 poses progressively sinking/collapsing into peat.  Absolutely no shadows linking cells, no duplicate rows. Chunky readable game pixels, not tiny detailed illustration.",
+      "prompt": "\nSTYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\n\nUse the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction. Setting is Wexmoor coastal peat marsh.\nAsset: battle/enemy_grubenlicht.png. A production battle animation sprite sheet of a floating broken Victorian mine lantern containing a yellow-green sentient gas flame, broken brass cage, spectral light, no face. Opponent faces LEFT. Exact 6 equal columns and 5 equal rows, transparent background and clear generous transparent gaps, no grid lines. Each entire figure fully fits in its own cell, identical scale and foot baseline; native frame 64x64. Row1 idle breathing, only first 4 cells occupied, last2 blank. Row2 attack A 6 poses: anticipation, identical held anticipation, release, strike left, follow-through, recover. Row3 attack B 6 distinct poses with first two identical held wind-up poses. Row4 hurt first3 poses, last3 blank. Row5 defeated 6 poses progressively sinking/collapsing into peat.  Absolutely no shadows linking cells, no duplicate rows. Chunky readable game pixels, not tiny detailed illustration.",
+      "sourceFile": "exec-32292a3d-8254-40cd-b21d-cbd791a5a174.png",
+      "sourceSHA256": "86681afcda61bd1e285978c652aa0ce566d7ad48a97a50455acc285e61fefbf7",
+      "sourceSize": [
+        1374,
+        1145
+      ],
+      "referenceFiles": [
+        "public/sprites/tilesets/R_wexmoor_tiles.png",
+        "public/sprites/props/R_torfstich_props.png",
+        "public/sprites/props/W_altstadt_props.png"
+      ]
+    },
+    {
+      "id": "F_ow_grubenlicht",
+      "gameId": "grubenlicht",
+      "file": "characters/F_ow_grubenlicht.png",
+      "kind": "walk",
+      "frameWidth": 32,
+      "frameHeight": 32,
+      "cols": 4,
+      "rows": 1,
+      "w": 128,
+      "h": 32,
+      "desc": "One overworld movement sheet of a floating broken Victorian mine lantern containing a yellow-green sentient gas flame, broken brass cage, spectral light, no face. EXACTLY FOUR equally sized cells in ONE HORIZONTAL ROW. 4:1 canvas. Each cell has one complete full-body 32x32 native pixel sprite with clear transparent margins, same proportions and same ground baseline. Four different walk/bob/crawl movement poses facing down-left. No extra rows. Crisp chunky simplified top-down 3/4 game sprites, not portraits, no scenery.",
+      "prompt": "\nSTYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\n\nUse the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction. Setting is Wexmoor coastal peat marsh.\nAsset: characters/F_ow_grubenlicht.png. One overworld movement sheet of a floating broken Victorian mine lantern containing a yellow-green sentient gas flame, broken brass cage, spectral light, no face. EXACTLY FOUR equally sized cells in ONE HORIZONTAL ROW. 4:1 canvas. Each cell has one complete full-body 32x32 native pixel sprite with clear transparent margins, same proportions and same ground baseline. Four different walk/bob/crawl movement poses facing down-left. No extra rows. Crisp chunky simplified top-down 3/4 game sprites, not portraits, no scenery.\nMatch creature identity from the attached battle sheet, while drawing the new requested asset and layout.",
+      "sourceFile": "exec-5ead650f-7508-47a3-b9ee-c6a8e5cdf892.png",
+      "sourceSHA256": "db7c917c8d7aa079ce5d206fd57ba84c6c03f6f902b23f8860e2c91de39b2a73",
+      "sourceSize": [
+        2172,
+        724
+      ],
+      "referenceFiles": [
+        "public/sprites/tilesets/R_wexmoor_tiles.png",
+        "public/sprites/props/R_torfstich_props.png",
+        "public/sprites/props/W_altstadt_props.png"
+      ],
+      "identityReference": "battle/enemy_grubenlicht.png (generated source sheet)"
+    },
+    {
+      "id": "bestiary_grubenlicht",
+      "gameId": "grubenlicht",
+      "file": "ui/bestiary/AN_grubenlicht.png",
+      "kind": "bestiary",
+      "w": 96,
+      "h": 128,
+      "opaque": true,
+      "desc": "One 3:4 vertical bestiary illustration card, native 96x128 pixel art. Full-body a floating broken Victorian mine lantern containing a yellow-green sentient gas flame, broken brass cage, spectral light, no face centered in a muted slate-blue and peat-brown atmospheric backdrop. Subtle thin tarnished brass rectangular frame. No text or label areas. Restrained 32-color crisp pixel illustration, larger silhouette than overworld, no gore, no bloom.",
+      "prompt": "\nSTYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\n\nUse the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction. Setting is Wexmoor coastal peat marsh.\nAsset: ui/bestiary/AN_grubenlicht.png. One 3:4 vertical bestiary illustration card, native 96x128 pixel art. Full-body a floating broken Victorian mine lantern containing a yellow-green sentient gas flame, broken brass cage, spectral light, no face centered in a muted slate-blue and peat-brown atmospheric backdrop. Subtle thin tarnished brass rectangular frame. No text or label areas. Restrained 32-color crisp pixel illustration, larger silhouette than overworld, no gore, no bloom.\nMatch creature identity from the attached battle sheet, while drawing the new requested asset and layout.",
+      "sourceFile": "exec-c213a3c4-2680-417b-ad13-4423eb57bd9a.png",
+      "sourceSHA256": "57f19b221e63eec4c893ae4c8f0f48b2bf2b8996c2b624c97a30fa133be9c0aa",
+      "sourceSize": [
+        1086,
+        1448
+      ],
+      "referenceFiles": [
+        "public/sprites/tilesets/R_wexmoor_tiles.png",
+        "public/sprites/props/R_torfstich_props.png",
+        "public/sprites/props/W_altstadt_props.png"
+      ],
+      "identityReference": "battle/enemy_grubenlicht.png (generated source sheet)"
+    },
+    {
+      "id": "enemy_torfwurm",
+      "gameId": "torfwurm",
+      "file": "battle/enemy_torfwurm.png",
+      "kind": "battle",
+      "frame": 64,
+      "cols": 6,
+      "rows": 5,
+      "w": 384,
+      "h": 320,
+      "counts": [
+        4,
+        6,
+        6,
+        3,
+        6
+      ],
+      "desc": "A production battle animation sprite sheet of a long thick worm made of layered brown peat and tangled roots, its body emerging from a lump of crumbled peat, organic rooted mouth. Opponent faces LEFT. Exact 6 equal columns and 5 equal rows, transparent background and clear generous transparent gaps, no grid lines. Each entire figure fully fits in its own cell, identical scale and foot baseline; native frame 64x64. Row1 idle breathing, only first 4 cells occupied, last2 blank. Row2 attack A 6 poses: anticipation, identical held anticipation, release, strike left, follow-through, recover. Row3 attack B 6 distinct poses with first two identical held wind-up poses. Row4 hurt first3 poses, last3 blank. Row5 defeated 6 poses progressively sinking/collapsing into peat.  Absolutely no shadows linking cells, no duplicate rows. Chunky readable game pixels, not tiny detailed illustration.",
+      "prompt": "\nSTYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\n\nUse the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction. Setting is Wexmoor coastal peat marsh.\nAsset: battle/enemy_torfwurm.png. A production battle animation sprite sheet of a long thick worm made of layered brown peat and tangled roots, its body emerging from a lump of crumbled peat, organic rooted mouth. Opponent faces LEFT. Exact 6 equal columns and 5 equal rows, transparent background and clear generous transparent gaps, no grid lines. Each entire figure fully fits in its own cell, identical scale and foot baseline; native frame 64x64. Row1 idle breathing, only first 4 cells occupied, last2 blank. Row2 attack A 6 poses: anticipation, identical held anticipation, release, strike left, follow-through, recover. Row3 attack B 6 distinct poses with first two identical held wind-up poses. Row4 hurt first3 poses, last3 blank. Row5 defeated 6 poses progressively sinking/collapsing into peat.  Absolutely no shadows linking cells, no duplicate rows. Chunky readable game pixels, not tiny detailed illustration.",
+      "sourceFile": "exec-c4ad58af-fdda-43d5-8826-51dd97e50352.png",
+      "sourceSHA256": "3a2194d205eb9dd9e0330c7f16ef4301e5a8613b6eca819a1d60ed7931547be5",
+      "sourceSize": [
+        1374,
+        1145
+      ],
+      "referenceFiles": [
+        "public/sprites/tilesets/R_wexmoor_tiles.png",
+        "public/sprites/props/R_torfstich_props.png",
+        "public/sprites/props/W_altstadt_props.png"
+      ]
+    },
+    {
+      "id": "F_ow_torfwurm",
+      "gameId": "torfwurm",
+      "file": "characters/F_ow_torfwurm.png",
+      "kind": "walk",
+      "frameWidth": 32,
+      "frameHeight": 32,
+      "cols": 4,
+      "rows": 1,
+      "w": 128,
+      "h": 32,
+      "desc": "One overworld movement sheet of a long thick worm made of layered brown peat and tangled roots, its body emerging from a lump of crumbled peat, organic rooted mouth. EXACTLY FOUR equally sized cells in ONE HORIZONTAL ROW. 4:1 canvas. Each cell has one complete full-body 32x32 native pixel sprite with clear transparent margins, same proportions and same ground baseline. Four different walk/bob/crawl movement poses facing down-left. No extra rows. Crisp chunky simplified top-down 3/4 game sprites, not portraits, no scenery.",
+      "prompt": "\nSTYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\n\nUse the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction. Setting is Wexmoor coastal peat marsh.\nAsset: characters/F_ow_torfwurm.png. One overworld movement sheet of a long thick worm made of layered brown peat and tangled roots, its body emerging from a lump of crumbled peat, organic rooted mouth. EXACTLY FOUR equally sized cells in ONE HORIZONTAL ROW. 4:1 canvas. Each cell has one complete full-body 32x32 native pixel sprite with clear transparent margins, same proportions and same ground baseline. Four different walk/bob/crawl movement poses facing down-left. No extra rows. Crisp chunky simplified top-down 3/4 game sprites, not portraits, no scenery.\nMatch creature identity from the attached battle sheet, while drawing the new requested asset and layout.",
+      "sourceFile": "exec-3583d6e2-8265-4039-996a-29c27352590b.png",
+      "sourceSHA256": "21ea454576f2164a597a7245f0527866f178140b194dfe5b193cd753f24f535e",
+      "sourceSize": [
+        2172,
+        724
+      ],
+      "referenceFiles": [
+        "public/sprites/tilesets/R_wexmoor_tiles.png",
+        "public/sprites/props/R_torfstich_props.png",
+        "public/sprites/props/W_altstadt_props.png"
+      ],
+      "identityReference": "battle/enemy_torfwurm.png (generated source sheet)"
+    },
+    {
+      "id": "bestiary_torfwurm",
+      "gameId": "torfwurm",
+      "file": "ui/bestiary/AN_torfwurm.png",
+      "kind": "bestiary",
+      "w": 96,
+      "h": 128,
+      "opaque": true,
+      "desc": "One 3:4 vertical bestiary illustration card, native 96x128 pixel art. Full-body a long thick worm made of layered brown peat and tangled roots, its body emerging from a lump of crumbled peat, organic rooted mouth centered in a muted slate-blue and peat-brown atmospheric backdrop. Subtle thin tarnished brass rectangular frame. No text or label areas. Restrained 32-color crisp pixel illustration, larger silhouette than overworld, no gore, no bloom.",
+      "prompt": "\nSTYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\n\nUse the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction. Setting is Wexmoor coastal peat marsh.\nAsset: ui/bestiary/AN_torfwurm.png. One 3:4 vertical bestiary illustration card, native 96x128 pixel art. Full-body a long thick worm made of layered brown peat and tangled roots, its body emerging from a lump of crumbled peat, organic rooted mouth centered in a muted slate-blue and peat-brown atmospheric backdrop. Subtle thin tarnished brass rectangular frame. No text or label areas. Restrained 32-color crisp pixel illustration, larger silhouette than overworld, no gore, no bloom.\nMatch creature identity from the attached battle sheet, while drawing the new requested asset and layout.",
+      "sourceFile": "exec-a5f686e1-1498-435f-ad55-e54a6f63d4e1.png",
+      "sourceSHA256": "6033ea6a337b9b31dfcd5b59d1de1349ae5e1b282eeee8b34fcf1c01c0c3d482",
+      "sourceSize": [
+        1086,
+        1448
+      ],
+      "referenceFiles": [
+        "public/sprites/tilesets/R_wexmoor_tiles.png",
+        "public/sprites/props/R_torfstich_props.png",
+        "public/sprites/props/W_altstadt_props.png"
+      ],
+      "identityReference": "battle/enemy_torfwurm.png (generated source sheet)"
+    },
+    {
+      "id": "enemy_schlickhund",
+      "gameId": "schlickhund",
+      "file": "battle/enemy_schlickhund.png",
+      "kind": "battle",
+      "frame": 48,
+      "cols": 6,
+      "rows": 5,
+      "w": 288,
+      "h": 240,
+      "counts": [
+        4,
+        6,
+        6,
+        3,
+        6
+      ],
+      "desc": "A production battle animation sprite sheet of a thin long-legged dog made of dripping grey-brown silt, eyes like silver water reflections, low canine stance. Opponent faces LEFT. Exact 6 equal columns and 5 equal rows, transparent background and clear generous transparent gaps, no grid lines. Each entire figure fully fits in its own cell, identical scale and foot baseline; native frame 48x48. Row1 idle breathing, only first 4 cells occupied, last2 blank. Row2 attack A 6 poses: anticipation, identical held anticipation, release, strike left, follow-through, recover. Row3 attack B 6 distinct poses with first two identical held wind-up poses. Row4 hurt first3 poses, last3 blank. Row5 defeated 6 poses progressively sinking/collapsing into peat.  Absolutely no shadows linking cells, no duplicate rows. Chunky readable game pixels, not tiny detailed illustration.",
+      "prompt": "\nSTYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\n\nUse the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction. Setting is Wexmoor coastal peat marsh.\nAsset: battle/enemy_schlickhund.png. A production battle animation sprite sheet of a thin long-legged dog made of dripping grey-brown silt, eyes like silver water reflections, low canine stance. Opponent faces LEFT. Exact 6 equal columns and 5 equal rows, transparent background and clear generous transparent gaps, no grid lines. Each entire figure fully fits in its own cell, identical scale and foot baseline; native frame 48x48. Row1 idle breathing, only first 4 cells occupied, last2 blank. Row2 attack A 6 poses: anticipation, identical held anticipation, release, strike left, follow-through, recover. Row3 attack B 6 distinct poses with first two identical held wind-up poses. Row4 hurt first3 poses, last3 blank. Row5 defeated 6 poses progressively sinking/collapsing into peat.  Absolutely no shadows linking cells, no duplicate rows. Chunky readable game pixels, not tiny detailed illustration.",
+      "sourceFile": "exec-29d753a9-4e27-4d8f-8484-77fd0d9580d8.png",
+      "sourceSHA256": "9de6f5a1643f32f673695fdb0675e3209e44e3567f0bcef1108bdd946a23384b",
+      "sourceSize": [
+        1374,
+        1145
+      ],
+      "referenceFiles": [
+        "public/sprites/tilesets/R_wexmoor_tiles.png",
+        "public/sprites/props/R_torfstich_props.png",
+        "public/sprites/props/W_altstadt_props.png"
+      ]
+    },
+    {
+      "id": "F_ow_schlickhund",
+      "gameId": "schlickhund",
+      "file": "characters/F_ow_schlickhund.png",
+      "kind": "walk",
+      "frameWidth": 32,
+      "frameHeight": 32,
+      "cols": 4,
+      "rows": 1,
+      "w": 128,
+      "h": 32,
+      "desc": "One overworld movement sheet of a thin long-legged dog made of dripping grey-brown silt, eyes like silver water reflections, low canine stance. EXACTLY FOUR equally sized cells in ONE HORIZONTAL ROW. 4:1 canvas. Each cell has one complete full-body 32x32 native pixel sprite with clear transparent margins, same proportions and same ground baseline. Four different walk/bob/crawl movement poses facing down-left. No extra rows. Crisp chunky simplified top-down 3/4 game sprites, not portraits, no scenery.",
+      "prompt": "\nSTYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\n\nUse the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction. Setting is Wexmoor coastal peat marsh.\nAsset: characters/F_ow_schlickhund.png. One overworld movement sheet of a thin long-legged dog made of dripping grey-brown silt, eyes like silver water reflections, low canine stance. EXACTLY FOUR equally sized cells in ONE HORIZONTAL ROW. 4:1 canvas. Each cell has one complete full-body 32x32 native pixel sprite with clear transparent margins, same proportions and same ground baseline. Four different walk/bob/crawl movement poses facing down-left. No extra rows. Crisp chunky simplified top-down 3/4 game sprites, not portraits, no scenery.\nMatch creature identity from the attached battle sheet, while drawing the new requested asset and layout.",
+      "sourceFile": "exec-227ca598-380e-441b-a724-dd883babe667.png",
+      "sourceSHA256": "e052424bbad7e561e6e84f7f0e180c2699e6340efd7b54ed3262f6faade12081",
+      "sourceSize": [
+        2172,
+        724
+      ],
+      "referenceFiles": [
+        "public/sprites/tilesets/R_wexmoor_tiles.png",
+        "public/sprites/props/R_torfstich_props.png",
+        "public/sprites/props/W_altstadt_props.png"
+      ],
+      "identityReference": "battle/enemy_schlickhund.png (generated source sheet)"
+    },
+    {
+      "id": "bestiary_schlickhund",
+      "gameId": "schlickhund",
+      "file": "ui/bestiary/AN_schlickhund.png",
+      "kind": "bestiary",
+      "w": 96,
+      "h": 128,
+      "opaque": true,
+      "desc": "One 3:4 vertical bestiary illustration card, native 96x128 pixel art. Full-body a thin long-legged dog made of dripping grey-brown silt, eyes like silver water reflections, low canine stance centered in a muted slate-blue and peat-brown atmospheric backdrop. Subtle thin tarnished brass rectangular frame. No text or label areas. Restrained 32-color crisp pixel illustration, larger silhouette than overworld, no gore, no bloom.",
+      "prompt": "\nSTYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\n\nUse the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction. Setting is Wexmoor coastal peat marsh.\nAsset: ui/bestiary/AN_schlickhund.png. One 3:4 vertical bestiary illustration card, native 96x128 pixel art. Full-body a thin long-legged dog made of dripping grey-brown silt, eyes like silver water reflections, low canine stance centered in a muted slate-blue and peat-brown atmospheric backdrop. Subtle thin tarnished brass rectangular frame. No text or label areas. Restrained 32-color crisp pixel illustration, larger silhouette than overworld, no gore, no bloom.\nMatch creature identity from the attached battle sheet, while drawing the new requested asset and layout.",
+      "sourceFile": "exec-08a2e1e1-d60f-49c2-9cf1-78d9c5d9e4c7.png",
+      "sourceSHA256": "c2664bc8612ae94127532c73bdc4144fc08542395786cc09fea7a1e6f3dd36b6",
+      "sourceSize": [
+        1086,
+        1448
+      ],
+      "referenceFiles": [
+        "public/sprites/tilesets/R_wexmoor_tiles.png",
+        "public/sprites/props/R_torfstich_props.png",
+        "public/sprites/props/W_altstadt_props.png"
+      ],
+      "identityReference": "battle/enemy_schlickhund.png (generated source sheet)"
+    },
+    {
+      "id": "enemy_moorbraut",
+      "gameId": "moorbraut",
+      "file": "battle/enemy_moorbraut.png",
+      "kind": "battle",
+      "frame": 96,
+      "cols": 6,
+      "rows": 6,
+      "w": 576,
+      "h": 576,
+      "counts": [
+        4,
+        6,
+        6,
+        3,
+        6,
+        6
+      ],
+      "desc": "A production battle animation sprite sheet of a 200-year-old preserved moor bride in a faded ivory Victorian wedding gown, moss veil, bouquet of white cotton grass, sad brown preserved hands. Phase two lifts the moss veil revealing no face, only turquoise light. Opponent faces LEFT. Exact 6 equal columns and 6 equal rows, transparent background and clear generous transparent gaps, no grid lines. Each entire figure fully fits in its own cell, identical scale and foot baseline; native frame 96x96. Row1 idle breathing, only first 4 cells occupied, last2 blank. Row2 attack A 6 poses: anticipation, identical held anticipation, release, strike left, follow-through, recover. Row3 attack B 6 distinct poses with first two identical held wind-up poses. Row4 hurt first3 poses, last3 blank. Row5 defeated 6 poses progressively sinking/collapsing into peat. Row6 phase2 transformation 6 poses: lifting veil, faceless turquoise glow beneath, fully revealed raised veil and threatening stance. Absolutely no shadows linking cells, no duplicate rows. Chunky readable game pixels, not tiny detailed illustration.",
+      "prompt": "\nSTYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\n\nUse the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction. Setting is Wexmoor coastal peat marsh.\nAsset: battle/enemy_moorbraut.png. A production battle animation sprite sheet of a 200-year-old preserved moor bride in a faded ivory Victorian wedding gown, moss veil, bouquet of white cotton grass, sad brown preserved hands. Phase two lifts the moss veil revealing no face, only turquoise light. Opponent faces LEFT. Exact 6 equal columns and 6 equal rows, transparent background and clear generous transparent gaps, no grid lines. Each entire figure fully fits in its own cell, identical scale and foot baseline; native frame 96x96. Row1 idle breathing, only first 4 cells occupied, last2 blank. Row2 attack A 6 poses: anticipation, identical held anticipation, release, strike left, follow-through, recover. Row3 attack B 6 distinct poses with first two identical held wind-up poses. Row4 hurt first3 poses, last3 blank. Row5 defeated 6 poses progressively sinking/collapsing into peat. Row6 phase2 transformation 6 poses: lifting veil, faceless turquoise glow beneath, fully revealed raised veil and threatening stance. Absolutely no shadows linking cells, no duplicate rows. Chunky readable game pixels, not tiny detailed illustration.",
+      "sourceFile": "exec-8682a6b6-bfce-487b-bc20-6ed48297f7ba.png",
+      "sourceSHA256": "57b7c18bc84bdbdee9e11f4c9b763e8653678a2719df200b51dab0f2a5711ce4",
+      "sourceSize": [
+        1247,
+        1261
+      ],
+      "referenceFiles": [
+        "public/sprites/tilesets/R_wexmoor_tiles.png",
+        "public/sprites/props/R_torfstich_props.png",
+        "public/sprites/props/W_altstadt_props.png"
+      ]
+    },
+    {
+      "id": "F_ow_moorbraut",
+      "gameId": "moorbraut",
+      "file": "characters/F_ow_moorbraut.png",
+      "kind": "walk",
+      "frameWidth": 32,
+      "frameHeight": 32,
+      "cols": 4,
+      "rows": 1,
+      "w": 128,
+      "h": 32,
+      "desc": "One overworld movement sheet of a 200-year-old preserved moor bride in a faded ivory Victorian wedding gown, moss veil, bouquet of white cotton grass, sad brown preserved hands. Phase two lifts the moss veil revealing no face, only turquoise light. EXACTLY FOUR equally sized cells in ONE HORIZONTAL ROW. 4:1 canvas. Each cell has one complete full-body 32x32 native pixel sprite with clear transparent margins, same proportions and same ground baseline. Four different walk/bob/crawl movement poses facing down-left. No extra rows. Crisp chunky simplified top-down 3/4 game sprites, not portraits, no scenery.",
+      "prompt": "\nSTYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\n\nUse the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction. Setting is Wexmoor coastal peat marsh.\nAsset: characters/F_ow_moorbraut.png. One overworld movement sheet of a 200-year-old preserved moor bride in a faded ivory Victorian wedding gown, moss veil, bouquet of white cotton grass, sad brown preserved hands. Phase two lifts the moss veil revealing no face, only turquoise light. EXACTLY FOUR equally sized cells in ONE HORIZONTAL ROW. 4:1 canvas. Each cell has one complete full-body 32x32 native pixel sprite with clear transparent margins, same proportions and same ground baseline. Four different walk/bob/crawl movement poses facing down-left. No extra rows. Crisp chunky simplified top-down 3/4 game sprites, not portraits, no scenery.\nMatch creature identity from the attached battle sheet, while drawing the new requested asset and layout.",
+      "corrections": [
+        "Correct this single horizontal four-frame movement sheet: keep the moss bridal veil fully CLOSED over the face in ALL FOUR frames. No turquoise face light, no hands lifting veil. All four hold the same cotton-grass bouquet. Show four subtly different walking/gliding poses with gown and moss sway. Keep figure identity, colors, 4 equal cells, same scale and baseline, fully transparent background and no other elements."
+      ],
+      "sourceFile": "exec-24fae118-151c-4b42-bc5a-4909bb1257c7.png",
+      "sourceSHA256": "5d7b9f05a8a977e0e7b1386271af814cb26b49c257794b014202d49a7ef5bab4",
+      "sourceSize": [
+        2172,
+        724
+      ],
+      "referenceFiles": [
+        "public/sprites/tilesets/R_wexmoor_tiles.png",
+        "public/sprites/props/R_torfstich_props.png",
+        "public/sprites/props/W_altstadt_props.png"
+      ],
+      "identityReference": "battle/enemy_moorbraut.png (generated source sheet)",
+      "correctionInputFile": "exec-010e6d52-d623-475a-8229-e2ead34739d5.png"
+    },
+    {
+      "id": "bestiary_moorbraut",
+      "gameId": "moorbraut",
+      "file": "ui/bestiary/AN_moorbraut.png",
+      "kind": "bestiary",
+      "w": 96,
+      "h": 128,
+      "opaque": true,
+      "desc": "One 3:4 vertical bestiary illustration card, native 96x128 pixel art. Full-body a 200-year-old preserved moor bride in a faded ivory Victorian wedding gown, moss veil, bouquet of white cotton grass, sad brown preserved hands. Phase two lifts the moss veil revealing no face, only turquoise light centered in a muted slate-blue and peat-brown atmospheric backdrop. Subtle thin tarnished brass rectangular frame. No text or label areas. Restrained 32-color crisp pixel illustration, larger silhouette than overworld, no gore, no bloom.",
+      "prompt": "\nSTYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\n\nUse the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction. Setting is Wexmoor coastal peat marsh.\nAsset: ui/bestiary/AN_moorbraut.png. One 3:4 vertical bestiary illustration card, native 96x128 pixel art. Full-body a 200-year-old preserved moor bride in a faded ivory Victorian wedding gown, moss veil, bouquet of white cotton grass, sad brown preserved hands. Phase two lifts the moss veil revealing no face, only turquoise light centered in a muted slate-blue and peat-brown atmospheric backdrop. Subtle thin tarnished brass rectangular frame. No text or label areas. Restrained 32-color crisp pixel illustration, larger silhouette than overworld, no gore, no bloom.\nMatch creature identity from the attached battle sheet, while drawing the new requested asset and layout.",
+      "sourceFile": "exec-f3817f4a-6ffc-41a6-96af-6d012d86098d.png",
+      "sourceSHA256": "cc00ea5a7b4341ed5e3dfbc8780fc6d425971893659dd3f92707e94644d08cfa",
+      "sourceSize": [
+        1086,
+        1448
+      ],
+      "referenceFiles": [
+        "public/sprites/tilesets/R_wexmoor_tiles.png",
+        "public/sprites/props/R_torfstich_props.png",
+        "public/sprites/props/W_altstadt_props.png"
+      ],
+      "identityReference": "battle/enemy_moorbraut.png (generated source sheet)"
+    },
+    {
+      "id": "boss_moorbraut",
+      "file": "ui/AN_boss_moorbraut.png",
+      "kind": "boss",
+      "w": 160,
+      "h": 160,
+      "desc": "One isolated boss portrait bust, square native 160x160 pixel art. Moorbraut, 200-year-old preserved moor bride wearing a faded ivory Victorian wedding gown, moss veil raised over a FACELESS turquoise luminous hollow, bouquet of cotton grass at lower edge. Melancholic, haunting, no gore, NO human face inside veil. Transparent background, generous margin, crisp 32-color pixel art.",
+      "prompt": "\nSTYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\n\nUse the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction. Setting is Wexmoor coastal peat marsh.\nAsset: ui/AN_boss_moorbraut.png. One isolated boss portrait bust, square native 160x160 pixel art. Moorbraut, 200-year-old preserved moor bride wearing a faded ivory Victorian wedding gown, moss veil raised over a FACELESS turquoise luminous hollow, bouquet of cotton grass at lower edge. Melancholic, haunting, no gore, NO human face inside veil. Transparent background, generous margin, crisp 32-color pixel art.\nMatch creature identity from the attached battle sheet, while drawing the new requested asset and layout.",
+      "sourceFile": "exec-7f522d06-a34e-4027-9506-3fe90c1a1f6c.png",
+      "sourceSHA256": "fba2a98f692472ea5df8099bfbe75ed0735e7e854eeb231926380c85c5228476",
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "referenceFiles": [
+        "public/sprites/tilesets/R_wexmoor_tiles.png",
+        "public/sprites/props/R_torfstich_props.png",
+        "public/sprites/props/W_altstadt_props.png"
+      ],
+      "identityReference": "battle/enemy_moorbraut.png (generated source sheet)"
+    },
+    {
+      "id": "schlickzahn",
+      "file": "items/schlickzahn.png",
+      "kind": "item",
+      "w": 32,
+      "h": 32,
+      "desc": "One isolated inventory icon of a crooked muddy canine tooth with a dark silt-stained root. Square canvas, native 32x32 with a legible 16x16 silhouette. Object centered, fills 80 percent of square, transparent background, 1 pixel deep-blue-grey outline, flat 2-3 shade steps, large chunky pixels. No surrounding panel or writing. No gradients, no realistic highlights.",
+      "prompt": "\nSTYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\n\nUse the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction. Setting is Wexmoor coastal peat marsh.\nAsset: items/schlickzahn.png. One isolated inventory icon of a crooked muddy canine tooth with a dark silt-stained root. Square canvas, native 32x32 with a legible 16x16 silhouette. Object centered, fills 80 percent of square, transparent background, 1 pixel deep-blue-grey outline, flat 2-3 shade steps, large chunky pixels. No surrounding panel or writing. No gradients, no realistic highlights.",
+      "sourceFile": "exec-dc413368-a66d-4ec0-828c-573bbf9ad962.png",
+      "sourceSHA256": "cc0c57580699748c71fccd62ad565c2f7004b5dc8e385494d14d2dcde5d4a026",
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "referenceFiles": [
+        "public/sprites/tilesets/R_wexmoor_tiles.png",
+        "public/sprites/props/R_torfstich_props.png",
+        "public/sprites/props/W_altstadt_props.png"
+      ]
+    },
+    {
+      "id": "wurmseide",
+      "file": "items/wurmseide.png",
+      "kind": "item",
+      "w": 32,
+      "h": 32,
+      "desc": "One isolated inventory icon of a neatly wound skein of pale silk threads tangled with thin brown peat roots. Square canvas, native 32x32 with a legible 16x16 silhouette. Object centered, fills 80 percent of square, transparent background, 1 pixel deep-blue-grey outline, flat 2-3 shade steps, large chunky pixels. No surrounding panel or writing. No gradients, no realistic highlights.",
+      "prompt": "\nSTYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\n\nUse the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction. Setting is Wexmoor coastal peat marsh.\nAsset: items/wurmseide.png. One isolated inventory icon of a neatly wound skein of pale silk threads tangled with thin brown peat roots. Square canvas, native 32x32 with a legible 16x16 silhouette. Object centered, fills 80 percent of square, transparent background, 1 pixel deep-blue-grey outline, flat 2-3 shade steps, large chunky pixels. No surrounding panel or writing. No gradients, no realistic highlights.",
+      "sourceFile": "exec-ac32697b-475c-4579-bed7-de2466e25c2a.png",
+      "sourceSHA256": "6c1a9686bfa143f186e82570001ffbaa948e11ca56a5e87382d1c474448ef816",
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "referenceFiles": [
+        "public/sprites/tilesets/R_wexmoor_tiles.png",
+        "public/sprites/props/R_torfstich_props.png",
+        "public/sprites/props/W_altstadt_props.png"
+      ]
+    },
+    {
+      "id": "grubenglas",
+      "file": "items/grubenglas.png",
+      "kind": "item",
+      "w": 32,
+      "h": 32,
+      "desc": "One isolated inventory icon of one jagged smoky yellow-green shard from a broken mine lantern. Square canvas, native 32x32 with a legible 16x16 silhouette. Object centered, fills 80 percent of square, transparent background, 1 pixel deep-blue-grey outline, flat 2-3 shade steps, large chunky pixels. No surrounding panel or writing. No gradients, no realistic highlights.",
+      "prompt": "\nSTYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\n\nUse the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction. Setting is Wexmoor coastal peat marsh.\nAsset: items/grubenglas.png. One isolated inventory icon of one jagged smoky yellow-green shard from a broken mine lantern. Square canvas, native 32x32 with a legible 16x16 silhouette. Object centered, fills 80 percent of square, transparent background, 1 pixel deep-blue-grey outline, flat 2-3 shade steps, large chunky pixels. No surrounding panel or writing. No gradients, no realistic highlights.",
+      "sourceFile": "exec-ca269c48-07d9-4ce6-9f3e-47ecd1b99b8f.png",
+      "sourceSHA256": "1e0355c537f04eb96f54e07280aec4a77d644d54341f36082c068421608281aa",
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "referenceFiles": [
+        "public/sprites/tilesets/R_wexmoor_tiles.png",
+        "public/sprites/props/R_torfstich_props.png",
+        "public/sprites/props/W_altstadt_props.png"
+      ]
+    },
+    {
+      "id": "torfbernstein",
+      "file": "items/torfbernstein.png",
+      "kind": "item",
+      "w": 32,
+      "h": 32,
+      "desc": "One isolated inventory icon of a warm amber nugget embedded in a little brown peat, with a tiny ancient root trapped inside. Square canvas, native 32x32 with a legible 16x16 silhouette. Object centered, fills 80 percent of square, transparent background, 1 pixel deep-blue-grey outline, flat 2-3 shade steps, large chunky pixels. No surrounding panel or writing. No gradients, no realistic highlights.",
+      "prompt": "\nSTYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\n\nUse the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction. Setting is Wexmoor coastal peat marsh.\nAsset: items/torfbernstein.png. One isolated inventory icon of a warm amber nugget embedded in a little brown peat, with a tiny ancient root trapped inside. Square canvas, native 32x32 with a legible 16x16 silhouette. Object centered, fills 80 percent of square, transparent background, 1 pixel deep-blue-grey outline, flat 2-3 shade steps, large chunky pixels. No surrounding panel or writing. No gradients, no realistic highlights.",
+      "sourceFile": "exec-ac33f524-6c75-4c0a-8dd5-57597c21680b.png",
+      "sourceSHA256": "cb99759e17f55406cf7f814d754d79170b59b0f3a412237180d9420b0a9c4d5d",
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "referenceFiles": [
+        "public/sprites/tilesets/R_wexmoor_tiles.png",
+        "public/sprites/props/R_torfstich_props.png",
+        "public/sprites/props/W_altstadt_props.png"
+      ]
+    },
+    {
+      "id": "brautschleier",
+      "file": "items/brautschleier.png",
+      "kind": "item",
+      "w": 32,
+      "h": 32,
+      "desc": "One isolated inventory icon of a folded ragged ivory bridal veil with a mossy green trim. Square canvas, native 32x32 with a legible 16x16 silhouette. Object centered, fills 80 percent of square, transparent background, 1 pixel deep-blue-grey outline, flat 2-3 shade steps, large chunky pixels. No surrounding panel or writing. No gradients, no realistic highlights.",
+      "prompt": "\nSTYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\n\nUse the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction. Setting is Wexmoor coastal peat marsh.\nAsset: items/brautschleier.png. One isolated inventory icon of a folded ragged ivory bridal veil with a mossy green trim. Square canvas, native 32x32 with a legible 16x16 silhouette. Object centered, fills 80 percent of square, transparent background, 1 pixel deep-blue-grey outline, flat 2-3 shade steps, large chunky pixels. No surrounding panel or writing. No gradients, no realistic highlights.",
+      "sourceFile": "exec-7e01a065-fdb2-414d-b19d-442297b134f8.png",
+      "sourceSHA256": "0902ef3fb87bf4ee30858d04d369b5b3996b7a2650db1756444181d5c2430889",
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "referenceFiles": [
+        "public/sprites/tilesets/R_wexmoor_tiles.png",
+        "public/sprites/props/R_torfstich_props.png",
+        "public/sprites/props/W_altstadt_props.png"
+      ]
+    },
+    {
+      "id": "brautring",
+      "file": "items/brautring.png",
+      "kind": "item",
+      "w": 32,
+      "h": 32,
+      "desc": "One isolated inventory icon of a tarnished old brass wedding band with one small dull pale stone. Square canvas, native 32x32 with a legible 16x16 silhouette. Object centered, fills 80 percent of square, transparent background, 1 pixel deep-blue-grey outline, flat 2-3 shade steps, large chunky pixels. No surrounding panel or writing. No gradients, no realistic highlights.",
+      "prompt": "\nSTYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\n\nUse the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction. Setting is Wexmoor coastal peat marsh.\nAsset: items/brautring.png. One isolated inventory icon of a tarnished old brass wedding band with one small dull pale stone. Square canvas, native 32x32 with a legible 16x16 silhouette. Object centered, fills 80 percent of square, transparent background, 1 pixel deep-blue-grey outline, flat 2-3 shade steps, large chunky pixels. No surrounding panel or writing. No gradients, no realistic highlights.",
+      "sourceFile": "exec-c60f1ad3-5c70-45d3-9e57-7d295bc73ef2.png",
+      "sourceSHA256": "dd198548d3669d85aac25def7dc5beb3c4ec3e7f54814558621441c1d3f2c0ab",
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "referenceFiles": [
+        "public/sprites/tilesets/R_wexmoor_tiles.png",
+        "public/sprites/props/R_torfstich_props.png",
+        "public/sprites/props/W_altstadt_props.png"
+      ]
+    },
+    {
+      "id": "brautkranz",
+      "file": "items/brautkranz.png",
+      "kind": "item",
+      "w": 32,
+      "h": 32,
+      "desc": "One isolated inventory icon of a slightly wilted wreath of marsh flowers and cotton grass, with a restrained turquoise supernatural shimmer. Square canvas, native 32x32 with a legible 16x16 silhouette. Object centered, fills 80 percent of square, transparent background, 1 pixel deep-blue-grey outline, flat 2-3 shade steps, large chunky pixels. No surrounding panel or writing. No gradients, no realistic highlights.",
+      "prompt": "\nSTYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\n\nUse the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction. Setting is Wexmoor coastal peat marsh.\nAsset: items/brautkranz.png. One isolated inventory icon of a slightly wilted wreath of marsh flowers and cotton grass, with a restrained turquoise supernatural shimmer. Square canvas, native 32x32 with a legible 16x16 silhouette. Object centered, fills 80 percent of square, transparent background, 1 pixel deep-blue-grey outline, flat 2-3 shade steps, large chunky pixels. No surrounding panel or writing. No gradients, no realistic highlights.",
+      "sourceFile": "exec-1a67c1b1-0564-48f6-8ddc-49e6c2e2c57a.png",
+      "sourceSHA256": "68eff160597022683a9e5aba5abf6b3faed0b66ece09b27a0af81e37924a065c",
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "referenceFiles": [
+        "public/sprites/tilesets/R_wexmoor_tiles.png",
+        "public/sprites/props/R_torfstich_props.png",
+        "public/sprites/props/W_altstadt_props.png"
+      ]
+    },
+    {
+      "id": "AN_marker",
+      "file": "ui/AN_marker.png",
+      "kind": "markers",
+      "cols": 3,
+      "rows": 1,
+      "w": 48,
+      "h": 32,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "desc": "City map marker atlas, EXACTLY THREE equal cells in one horizontal row. Native cell 16x32. First marker a tarred floating raft with crooked grave cross, second marker a whitewashed Victorian civic building with a brass circular lens, third marker an abandoned peat mine entrance framed by timber. Whole icons centered independently, 1px slate outline, transparent background and gaps, no text, no numbers.",
+      "prompt": "\nSTYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\n\nUse the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction. Setting is Wexmoor coastal peat marsh.\nAsset: ui/AN_marker.png. City map marker atlas, EXACTLY THREE equal cells in one horizontal row. Native cell 16x32. First marker a tarred floating raft with crooked grave cross, second marker a whitewashed Victorian civic building with a brass circular lens, third marker an abandoned peat mine entrance framed by timber. Whole icons centered independently, 1px slate outline, transparent background and gaps, no text, no numbers.",
+      "sourceFile": "exec-e2901346-51d3-430b-b6d4-3bae25c09443.png",
+      "sourceSHA256": "8bdacf56031a6d6aa5c0abe5554f4fadd0b46f59a18e4a9bdea52376ddebc8b8",
+      "sourceSize": [
+        2172,
+        724
+      ],
+      "referenceFiles": [
+        "public/sprites/tilesets/R_wexmoor_tiles.png",
+        "public/sprites/props/R_torfstich_props.png",
+        "public/sprites/props/W_altstadt_props.png"
+      ]
+    }
+  ]
+}
