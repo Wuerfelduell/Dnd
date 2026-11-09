@@ -1,0 +1,1202 @@
+[
+  {
+    "map": "wx_bahnhof",
+    "tile": [
+      1,
+      3
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k2v_kleister",
+        "k2_akt1"
+      ]
+    },
+    "interactable": {
+      "id": "k2v_kleister_spur1",
+      "kind": "read",
+      "title": "Fassring",
+      "prompt": "Fassring",
+      "text": "Auf einem Fassring stehen drei Straßenecken und der Vermerk „vor Dienstag bereitzustellen“. Der Drucktag des danebenliegenden Bahnhofsabzugs ist Dienstag. Der Kleister wartete bereits auf das Gesicht.",
+      "footer": "Die Beobachtung steht in deinem Notizbuch.",
+      "marker": true,
+      "done_flag": "k2v_kleister_spur1_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k2v_kleister_spur1"
+        ]
+      }
+    }
+  },
+  {
+    "map": "wx_bahnhof",
+    "tile": [
+      1,
+      5
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k2v_kleister",
+        "k2_akt1"
+      ]
+    },
+    "interactable": {
+      "id": "k2v_kleister_spur2",
+      "kind": "read",
+      "title": "Abdruck im Ladebuch",
+      "prompt": "Abdruck im Ladebuch",
+      "text": "Ein zweiter Arbeiter hat die drei Fässer einzeln quittiert. Alle gingen an den Bahnsteig, die Schleusenbrücke und den Ausgang zur Stadt. Für die Wohnstraßen wurde nichts bestellt.",
+      "footer": "Die Beobachtung steht in deinem Notizbuch.",
+      "marker": true,
+      "done_flag": "k2v_kleister_spur2_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k2v_kleister_spur2"
+        ]
+      }
+    }
+  },
+  {
+    "map": "wx_salzmarkt",
+    "tile": [
+      1,
+      5
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k2v_kleister",
+        "k2_akt1"
+      ]
+    },
+    "interactable": {
+      "id": "k2v_kleister_spur3",
+      "kind": "read",
+      "title": "Fuhrzettel am Anschlagbrett",
+      "prompt": "Fuhrzettel am Anschlagbrett",
+      "text": "Der Fuhrzettel nennt keinen Gesuchten. Er nennt einen erwarteten Reisenden und weist die Wagen an, seinen Weg vom Bahnhof zu markieren. Der Transport ist im Voraus bezahlt.",
+      "footer": "Die Beobachtung steht in deinem Notizbuch.",
+      "marker": true,
+      "done_flag": "k2v_kleister_spur3_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k2v_kleister_spur3"
+        ]
+      }
+    }
+  },
+  {
+    "map": "wx_bahnhof",
+    "tile": [
+      1,
+      2
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k2v_kleister",
+        "k2_akt1"
+      ]
+    },
+    "interactable": {
+      "id": "k2v_kleister_spur4",
+      "kind": "read",
+      "title": "Der unbenutzte Rückweg",
+      "prompt": "Der unbenutzte Rückweg",
+      "text": "Die Liste der Kleisterknechte endet am Stadtausgang. Für die Rückseite der Bretter, sichtbar bei einer Abreise, ist ausdrücklich kein Anschlag vorgesehen. Gesucht wurde ein Publikum bei deiner Ankunft.",
+      "footer": "Die Beobachtung steht in deinem Notizbuch.",
+      "marker": true,
+      "done_flag": "k2v_kleister_spur4_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k2v_kleister_spur4"
+        ]
+      }
+    }
+  },
+  {
+    "map": "wx_kahn",
+    "tile": [
+      6,
+      7
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k2v_telegramm",
+        "k2_akt1"
+      ]
+    },
+    "interactable": {
+      "id": "k2v_telegramm_spur1",
+      "kind": "read",
+      "title": "Jems Zustellhülle",
+      "prompt": "Jems Zustellhülle",
+      "text": "Die Hülle unter dem bekannten Telegramm trägt den heutigen Eingangsstempel. Das ist der Zeitpunkt der Zustellung, nicht der Zeitpunkt, an dem Jem von deiner Reise erfuhr.",
+      "footer": "Die Beobachtung steht in deinem Notizbuch.",
+      "marker": true,
+      "done_flag": "k2v_telegramm_spur1_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k2v_telegramm_spur1"
+        ]
+      }
+    }
+  },
+  {
+    "map": "wx_bahnhof",
+    "tile": [
+      2,
+      3
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k2v_telegramm",
+        "k2_akt1"
+      ]
+    },
+    "interactable": {
+      "id": "k2v_telegramm_spur2",
+      "kind": "read",
+      "title": "Schalterdurchschlag",
+      "prompt": "Schalterdurchschlag",
+      "text": "Der offene Schalterdurchschlag nennt denselben Eingangscode und den Frühzug. Der Zusteller hat persönlich unterzeichnet. Eine zweite Uhr bestätigt die heutige Auslieferung.",
+      "footer": "Die Beobachtung steht in deinem Notizbuch.",
+      "marker": true,
+      "done_flag": "k2v_telegramm_spur2_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k2v_telegramm_spur2"
+        ]
+      }
+    }
+  },
+  {
+    "map": "wx_torfstich",
+    "tile": [
+      1,
+      6
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k2v_telegramm",
+        "k2_akt1"
+      ]
+    },
+    "interactable": {
+      "id": "k2v_telegramm_spur3",
+      "kind": "read",
+      "title": "Kohlenbotenbuch",
+      "prompt": "Kohlenbotenbuch",
+      "text": "Im Botenkasten liegt ein Empfangsbuch der Rußleute. Eine einzige Ausfertigung ging an Juna Fenn. Die Spalte für amtliche Abschriften wurde vor der Übergabe durchgestrichen.",
+      "footer": "Die Beobachtung steht in deinem Notizbuch.",
+      "marker": true,
+      "done_flag": "k2v_telegramm_spur3_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k2v_telegramm_spur3"
+        ]
+      }
+    }
+  },
+  {
+    "map": "wx_bahnhof",
+    "tile": [
+      2,
+      5
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k2v_telegramm",
+        "k2_akt1"
+      ]
+    },
+    "interactable": {
+      "id": "k2v_telegramm_spur4",
+      "kind": "read",
+      "title": "Retourenstreifen",
+      "prompt": "Retourenstreifen",
+      "text": "Der abgetrennte Retourenstreifen trägt Zunders Quittung und die Weisung „nicht über Wachhaus“. Die vorgedruckte Amtszustellung blieb unbenutzt. Es gibt hier keinen Beleg, dass Jem für das Lichtamt schrieb.",
+      "footer": "Die Beobachtung steht in deinem Notizbuch.",
+      "marker": true,
+      "done_flag": "k2v_telegramm_spur4_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k2v_telegramm_spur4"
+        ]
+      }
+    }
+  },
+  {
+    "map": "wx_akademie",
+    "tile": [
+      10,
+      10
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k2v_hoersaale",
+        "k2_akt2"
+      ]
+    },
+    "interactable": {
+      "id": "k2v_hoersaale_spur1",
+      "kind": "read",
+      "title": "Vier durchgestrichene Sitze",
+      "prompt": "Vier durchgestrichene Sitze",
+      "text": "Die Sitzordnung streicht vier Namen in derselben Tinte. In ihren Übungsheften steht noch am Vortag dieselbe Aufgabe: die Abschirmung einer Linse messen. Kein Heft enthält eine Abschlussnote.",
+      "footer": "Die Beobachtung steht in deinem Notizbuch.",
+      "marker": true,
+      "done_flag": "k2v_hoersaale_spur1_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k2v_hoersaale_spur1"
+        ]
+      }
+    }
+  },
+  {
+    "map": "wx_akademie",
+    "tile": [
+      12,
+      10
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k2v_hoersaale",
+        "k2_akt2"
+      ]
+    },
+    "interactable": {
+      "id": "k2v_hoersaale_spur2",
+      "kind": "read",
+      "title": "Verbot am Messplatz",
+      "prompt": "Verbot am Messplatz",
+      "text": "Eine Anweisung untersagt genau diese Übung für auswärtige Stipendiaten. Die Nummern der entzogenen Arbeitsplätze stimmen mit den vier Sitzen überein. Als Grund steht nur „unzweckmäßige Fragen“.",
+      "footer": "Die Beobachtung steht in deinem Notizbuch.",
+      "marker": true,
+      "done_flag": "k2v_hoersaale_spur2_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k2v_hoersaale_spur2"
+        ]
+      }
+    }
+  },
+  {
+    "map": "wx_bahnhof",
+    "tile": [
+      1,
+      6
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k2v_hoersaale",
+        "k2_akt2"
+      ]
+    },
+    "interactable": {
+      "id": "k2v_hoersaale_spur3",
+      "kind": "read",
+      "title": "Vier Reisekisten",
+      "prompt": "Vier Reisekisten",
+      "text": "Vier aufgegebene Kisten tragen die Matrikelnummern aus den Heften. Die Besitzer haben sie gemeinsam am Abreisetag abgeholt. Der Tag liegt vor ihrer Streichung aus dem Kurs.",
+      "footer": "Die Beobachtung steht in deinem Notizbuch.",
+      "marker": true,
+      "done_flag": "k2v_hoersaale_spur3_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k2v_hoersaale_spur3"
+        ]
+      }
+    }
+  },
+  {
+    "map": "wx_akademie",
+    "tile": [
+      11,
+      8
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k2v_hoersaale",
+        "k2_akt2"
+      ]
+    },
+    "interactable": {
+      "id": "k2v_hoersaale_spur4",
+      "kind": "read",
+      "title": "Prüfungsgebühren zurück",
+      "prompt": "Prüfungsgebühren zurück",
+      "text": "Vier Rückzahlungen wurden durch dieselben Unterschriften bestätigt wie die Kisten. Am Rand steht „auswärts fortzusetzen“. Ein erreichter Zielort oder ein späterer Brief wird nicht genannt.",
+      "footer": "Die Beobachtung steht in deinem Notizbuch.",
+      "marker": true,
+      "done_flag": "k2v_hoersaale_spur4_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k2v_hoersaale_spur4"
+        ]
+      }
+    }
+  },
+  {
+    "map": "wx_akademie",
+    "tile": [
+      10,
+      9
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k2v_schattenmass",
+        "k2_akt2"
+      ]
+    },
+    "interactable": {
+      "id": "k2v_schattenmass_spur1",
+      "kind": "read",
+      "title": "Offene Seitenfuge",
+      "prompt": "Offene Seitenfuge",
+      "text": "Am Übungskasten fehlt ein Streifen Filz. Durch die Fuge fällt das Licht der Flurlampe auf die Innenseite der Linse. Die Lampe hängt seitlich außerhalb der Sternkarte.",
+      "footer": "Die Beobachtung steht in deinem Notizbuch.",
+      "marker": true,
+      "done_flag": "k2v_schattenmass_spur1_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k2v_schattenmass_spur1"
+        ]
+      }
+    }
+  },
+  {
+    "map": "wx_oberstadt",
+    "tile": [
+      1,
+      6
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k2v_schattenmass",
+        "k2_akt2"
+      ]
+    },
+    "interactable": {
+      "id": "k2v_schattenmass_spur2",
+      "kind": "read",
+      "title": "Ausgabezettel für Filz",
+      "prompt": "Ausgabezettel für Filz",
+      "text": "Lamms Materialzettel beschreibt denselben Spalt und dieselbe Kastennummer. Die Reparatur wurde verschoben, weil der Filz für Amtssiegel gebraucht wurde. Der Defekt war vor der Übung bekannt.",
+      "footer": "Die Beobachtung steht in deinem Notizbuch.",
+      "marker": true,
+      "done_flag": "k2v_schattenmass_spur2_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k2v_schattenmass_spur2"
+        ]
+      }
+    }
+  },
+  {
+    "map": "wx_akademie",
+    "tile": [
+      12,
+      9
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k2v_schattenmass",
+        "k2_akt2"
+      ]
+    },
+    "interactable": {
+      "id": "k2v_schattenmass_spur3",
+      "kind": "read",
+      "title": "Messung mit Blende",
+      "prompt": "Messung mit Blende",
+      "text": "Du schiebst die vorhandene Wartungsblende vor die Seitenfuge. Drei helle Punkte verschwinden, die Skala des Hauptstrahls bleibt unverändert. Beim Öffnen kehren genau diese drei zurück.",
+      "footer": "Die Beobachtung steht in deinem Notizbuch.",
+      "marker": true,
+      "done_flag": "k2v_schattenmass_spur3_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k2v_schattenmass_spur3"
+        ]
+      }
+    }
+  },
+  {
+    "map": "wx_akademie",
+    "tile": [
+      9,
+      10
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k2v_schattenmass",
+        "k2_akt2"
+      ]
+    },
+    "interactable": {
+      "id": "k2v_schattenmass_spur4",
+      "kind": "read",
+      "title": "Kontrollzeichnung",
+      "prompt": "Kontrollzeichnung",
+      "text": "Eine unbenannte studentische Zeichnung enthält dieselben beiden Zustände. Daneben steht „kein Beweis für fremdes Licht“. Die Beobachtung wurde nie in die gedruckte Anleitung übernommen.",
+      "footer": "Die Beobachtung steht in deinem Notizbuch.",
+      "marker": true,
+      "done_flag": "k2v_schattenmass_spur4_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k2v_schattenmass_spur4"
+        ]
+      }
+    }
+  },
+  {
+    "map": "wx_lucent",
+    "tile": [
+      6,
+      5
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k2v_umschlaege",
+        "k2_akt3"
+      ]
+    },
+    "interactable": {
+      "id": "k2v_umschlaege_spur1",
+      "kind": "read",
+      "title": "Unberührtes Antwortfeld",
+      "prompt": "Unberührtes Antwortfeld",
+      "text": "Ein Umschlag an L. trägt einen Rückstempel, aber keine handschriftliche Antwort. Innen haftet nur ein sauberer Papierabdruck. Der Brief wurde entfernt, bevor das Öl darüberlief.",
+      "footer": "Die Beobachtung steht in deinem Notizbuch.",
+      "marker": true,
+      "done_flag": "k2v_umschlaege_spur1_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k2v_umschlaege_spur1"
+        ]
+      }
+    }
+  },
+  {
+    "map": "wx_glocke",
+    "tile": [
+      5,
+      6
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k2v_umschlaege",
+        "k2_akt3"
+      ]
+    },
+    "interactable": {
+      "id": "k2v_umschlaege_spur2",
+      "kind": "read",
+      "title": "Hespers Rückfach",
+      "prompt": "Hespers Rückfach",
+      "text": "Hesper hat einen zweiten Rückumschlag mit derselben Handschrift aufbewahrt. „Den wollte er zurück, nicht den Inhalt.“ Der Zusteller hat „Annahme verweigert“ angekreuzt.",
+      "footer": "Die Beobachtung steht in deinem Notizbuch.",
+      "marker": true,
+      "done_flag": "k2v_umschlaege_spur2_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k2v_umschlaege_spur2"
+        ]
+      }
+    }
+  },
+  {
+    "map": "wx_lucent",
+    "tile": [
+      5,
+      6
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k2v_umschlaege",
+        "k2_akt3"
+      ]
+    },
+    "interactable": {
+      "id": "k2v_umschlaege_spur3",
+      "kind": "read",
+      "title": "Falten über dem Fass",
+      "prompt": "Falten über dem Fass",
+      "text": "Drei leere Umschläge stecken unter den Fassringen. Ihre gefalteten Ecken zeigen den noch vorhandenen Ölstand an. Auf keiner Rückseite steht eine fremde Handschrift.",
+      "footer": "Die Beobachtung steht in deinem Notizbuch.",
+      "marker": true,
+      "done_flag": "k2v_umschlaege_spur3_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k2v_umschlaege_spur3"
+        ]
+      }
+    }
+  },
+  {
+    "map": "wx_bojenhafen",
+    "tile": [
+      1,
+      2
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k2v_umschlaege",
+        "k2_akt3"
+      ]
+    },
+    "interactable": {
+      "id": "k2v_umschlaege_spur4",
+      "kind": "read",
+      "title": "Lieferers Abgleich",
+      "prompt": "Lieferers Abgleich",
+      "text": "Auf einer quittierten Fassliste entsprechen die drei Knicke drei Nachfüllmengen. Ein Lieferer hat die Größen erklärt. Die Zahlen gehören zur Versorgung eines Kunden, nicht zu neuen Opfern.",
+      "footer": "Die Beobachtung steht in deinem Notizbuch.",
+      "marker": true,
+      "done_flag": "k2v_umschlaege_spur4_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k2v_umschlaege_spur4"
+        ]
+      }
+    }
+  },
+  {
+    "map": "wx_lucent",
+    "tile": [
+      7,
+      6
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k2v_quartier",
+        "k2_akt3"
+      ]
+    },
+    "interactable": {
+      "id": "k2v_quartier_spur1",
+      "kind": "read",
+      "title": "Ungedrückte Decke",
+      "prompt": "Ungedrückte Decke",
+      "text": "Die gestärkte Decke trägt nur den Abdruck eines leeren Huts. Unter dem Bett liegt trockener Staub. Das Zimmer sah bewohnt aus, doch dort hat seit Wochen niemand gelegen.",
+      "footer": "Die Beobachtung steht in deinem Notizbuch.",
+      "marker": true,
+      "done_flag": "k2v_quartier_spur1_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k2v_quartier_spur1"
+        ]
+      }
+    }
+  },
+  {
+    "map": "wx_oberstadt",
+    "tile": [
+      2,
+      7
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k2v_quartier",
+        "k2_akt3"
+      ]
+    },
+    "interactable": {
+      "id": "k2v_quartier_spur2",
+      "kind": "read",
+      "title": "Ruß hinter dem Fallrohr",
+      "prompt": "Ruß hinter dem Fallrohr",
+      "text": "Eine Sitznische hinter Lucents Haus ist bis Schulterhöhe ölig. Darüber hängt ein schwarzes Tuch gegen die Gaslaterne. Die Scharniere der Außentür sind von innen blank gegriffen.",
+      "footer": "Die Beobachtung steht in deinem Notizbuch.",
+      "marker": true,
+      "done_flag": "k2v_quartier_spur2_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k2v_quartier_spur2"
+        ]
+      }
+    }
+  },
+  {
+    "map": "wx_lucent",
+    "tile": [
+      5,
+      5
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k2v_quartier",
+        "k2_akt3"
+      ]
+    },
+    "interactable": {
+      "id": "k2v_quartier_spur3",
+      "kind": "read",
+      "title": "Der ältere Anlegezettel",
+      "prompt": "Der ältere Anlegezettel",
+      "text": "Ein datierter Zettel beschreibt kurze nächtliche Aufenthalte am Hafen und die Rückkehr vor Tageslicht. Er ist älter als der vorhandene Fluchtzettel. Das Ziel „Vergessmoor“ kommt darin nicht vor.",
+      "footer": "Die Beobachtung steht in deinem Notizbuch.",
+      "marker": true,
+      "done_flag": "k2v_quartier_spur3_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k2v_quartier_spur3"
+        ]
+      }
+    }
+  },
+  {
+    "map": "wx_bojenhafen",
+    "tile": [
+      2,
+      3
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k2v_quartier",
+        "k2_akt3"
+      ]
+    },
+    "interactable": {
+      "id": "k2v_quartier_spur4",
+      "kind": "read",
+      "title": "Bracks Rückgabequittung",
+      "prompt": "Bracks Rückgabequittung",
+      "text": "Bracks Buch bestätigt die Rückgabe kleiner Leihboote nach jenen Nächten. Erst das später gestohlene Ruderboot fehlt. Du kannst Aufenthalt und endgültige Flucht auseinanderhalten.",
+      "footer": "Die Beobachtung steht in deinem Notizbuch.",
+      "marker": true,
+      "done_flag": "k2v_quartier_spur4_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k2v_quartier_spur4"
+        ]
+      }
+    }
+  },
+  {
+    "map": "wx_salzmarkt",
+    "tile": [
+      2,
+      6
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k2v_hale",
+        "k2_akt4"
+      ]
+    },
+    "interactable": {
+      "id": "k2v_hale_spur1",
+      "kind": "read",
+      "title": "Alte Dienstbuchseite",
+      "prompt": "Alte Dienstbuchseite",
+      "text": "Hales offene Abschrift enthält einen gestrichenen Zeitpunkt und ihre Randnotiz: „Bei Dienstbeginn nicht anwesend.“ Die betreffende Festnahme war früher erfolgt. Ihre erste Unterschrift fehlt.",
+      "footer": "Die Beobachtung steht in deinem Notizbuch.",
+      "marker": true,
+      "done_flag": "k2v_hale_spur1_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k2v_hale_spur1"
+        ]
+      }
+    }
+  },
+  {
+    "map": "wx_oberstadt",
+    "tile": [
+      1,
+      8
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k2v_hale",
+        "k2_akt4"
+      ]
+    },
+    "interactable": {
+      "id": "k2v_hale_spur2",
+      "kind": "read",
+      "title": "Rüge im Personalregister",
+      "prompt": "Rüge im Personalregister",
+      "text": "Ein ausgehängter alter Rügenauszug nennt Hales Weigerung, fremde Dienststunden zu bestätigen. Die Rüge betrifft die Korrektur einer Zeitangabe. Kein Widerstand gegen das Lichtamt wird behauptet.",
+      "footer": "Die Beobachtung steht in deinem Notizbuch.",
+      "marker": true,
+      "done_flag": "k2v_hale_spur2_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k2v_hale_spur2"
+        ]
+      }
+    }
+  },
+  {
+    "map": "wx_salzmarkt",
+    "tile": [
+      1,
+      7
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k2v_hale",
+        "k2_akt4"
+      ]
+    },
+    "interactable": {
+      "id": "k2v_hale_spur3",
+      "kind": "read",
+      "title": "Späterer Nachtrag",
+      "prompt": "Späterer Nachtrag",
+      "text": "Unter dem korrigierten Zeitpunkt steht Hales Unterschrift. Der Verweis auf eine Übergabeverfügung bleibt unkommentiert. Das Blatt enthält weder deren Empfänger noch die Namen der Betroffenen.",
+      "footer": "Die Beobachtung steht in deinem Notizbuch.",
+      "marker": true,
+      "done_flag": "k2v_hale_spur3_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k2v_hale_spur3"
+        ]
+      }
+    }
+  },
+  {
+    "map": "wx_oberstadt",
+    "tile": [
+      1,
+      5
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k2v_hale",
+        "k2_akt4"
+      ]
+    },
+    "interactable": {
+      "id": "k2v_hale_spur4",
+      "kind": "read",
+      "title": "Antwort der Registratur",
+      "prompt": "Antwort der Registratur",
+      "text": "Die Registratur bestätigte die Zeitkorrektur und erklärte die Verfügung für eine andere Zuständigkeit. Hale zeichnete den Empfang ab. Ein weiterer Einspruch liegt in diesem Vorgang nicht vor.",
+      "footer": "Die Beobachtung steht in deinem Notizbuch.",
+      "marker": true,
+      "done_flag": "k2v_hale_spur4_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k2v_hale_spur4"
+        ]
+      }
+    }
+  },
+  {
+    "map": "wx_oberstadt",
+    "tile": [
+      2,
+      6
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k2v_dienstwechsel",
+        "k2_akt4"
+      ]
+    },
+    "interactable": {
+      "id": "k2v_dienstwechsel_spur1",
+      "kind": "read",
+      "title": "Leiterprüfung",
+      "prompt": "Leiterprüfung",
+      "text": "Der öffentlich zugängliche Prüfschein erklärt die Leiter seit Wochen für sicher. Trotzdem hängt die Reserveleuchte weiter unten. Ein baulicher Defekt erklärt die Änderung nicht.",
+      "footer": "Die Beobachtung steht in deinem Notizbuch.",
+      "marker": true,
+      "done_flag": "k2v_dienstwechsel_spur1_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k2v_dienstwechsel_spur1"
+        ]
+      }
+    }
+  },
+  {
+    "map": "wx_oberstadt",
+    "tile": [
+      3,
+      7
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k2v_dienstwechsel",
+        "k2_akt4"
+      ]
+    },
+    "interactable": {
+      "id": "k2v_dienstwechsel_spur2",
+      "kind": "read",
+      "title": "Schichtkopie",
+      "prompt": "Schichtkopie",
+      "text": "Auf der Nachtkopie steht „unterer Haken belassen“, auf der Tageskopie „oben“. Beide Zettel tragen die gleiche Leuchtennummer. Es handelt sich um eine bewusste Schichtregel.",
+      "footer": "Die Beobachtung steht in deinem Notizbuch.",
+      "marker": true,
+      "done_flag": "k2v_dienstwechsel_spur2_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k2v_dienstwechsel_spur2"
+        ]
+      }
+    }
+  },
+  {
+    "map": "wx_bojenhafen",
+    "tile": [
+      1,
+      4
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k2v_dienstwechsel",
+        "k2_akt4"
+      ]
+    },
+    "interactable": {
+      "id": "k2v_dienstwechsel_spur3",
+      "kind": "read",
+      "title": "Flickauftrag",
+      "prompt": "Flickauftrag",
+      "text": "Der Reparaturzettel für eine Botentasche nennt den niedrigen Lichtkreis als Übergabestelle. Der Überbringer sollte dort auf einen trockenen Umschlag warten. Von Gefangenen oder Befreiung ist nicht die Rede.",
+      "footer": "Die Beobachtung steht in deinem Notizbuch.",
+      "marker": true,
+      "done_flag": "k2v_dienstwechsel_spur3_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k2v_dienstwechsel_spur3"
+        ]
+      }
+    }
+  },
+  {
+    "map": "wx_oberstadt",
+    "tile": [
+      2,
+      8
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k2v_dienstwechsel",
+        "k2_akt4"
+      ]
+    },
+    "interactable": {
+      "id": "k2v_dienstwechsel_spur4",
+      "kind": "read",
+      "title": "Leeres Nachrichtenfach",
+      "prompt": "Leeres Nachrichtenfach",
+      "text": "Unter dem niedrigen Haken ist ein Fach mit abgewischter Kreide. Die Abholzeiten passen zum Flickauftrag. Eine eingeritzte Warnung lautet: „Keine Namen, nur Antworten.“",
+      "footer": "Die Beobachtung steht in deinem Notizbuch.",
+      "marker": true,
+      "done_flag": "k2v_dienstwechsel_spur4_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k2v_dienstwechsel_spur4"
+        ]
+      }
+    }
+  },
+  {
+    "map": "wx_bojenhafen",
+    "tile": [
+      2,
+      2
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k2v_waerter",
+        "k2_akt5"
+      ]
+    },
+    "interactable": {
+      "id": "k2v_waerter_spur1",
+      "kind": "read",
+      "title": "Wartungsabschrift",
+      "prompt": "Wartungsabschrift",
+      "text": "Die Abschrift aus der Zeit vor Brandts Amtsantritt trennt Feuerdienst und Treppenwartung. An der Gegengewichtsklappe steht „Antrieb stillsetzen“. Über die Nahrung des Feuers sagt das Blatt nichts.",
+      "footer": "Die Beobachtung steht in deinem Notizbuch.",
+      "marker": true,
+      "done_flag": "k2v_waerter_spur1_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k2v_waerter_spur1"
+        ]
+      }
+    }
+  },
+  {
+    "map": "wx_oberstadt",
+    "tile": [
+      1,
+      9
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k2v_waerter",
+        "k2_akt5"
+      ]
+    },
+    "interactable": {
+      "id": "k2v_waerter_spur2",
+      "kind": "read",
+      "title": "Bestellung von Rastbolzen",
+      "prompt": "Bestellung von Rastbolzen",
+      "text": "Ein alter öffentlicher Beschaffungszettel nennt zwei Rastbolzen für dieselbe Klappe. Die Teile wurden für den Handbetrieb bestellt, nicht für eine neue Linse. Ihre Maße stehen am Rand.",
+      "footer": "Die Beobachtung steht in deinem Notizbuch.",
+      "marker": true,
+      "done_flag": "k2v_waerter_spur2_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k2v_waerter_spur2"
+        ]
+      }
+    }
+  },
+  {
+    "map": "wx_bojenhafen",
+    "tile": [
+      3,
+      3
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k2v_waerter",
+        "k2_akt5"
+      ]
+    },
+    "interactable": {
+      "id": "k2v_waerter_spur3",
+      "kind": "read",
+      "title": "Abrieb auf dem Lehrmodell",
+      "prompt": "Abrieb auf dem Lehrmodell",
+      "text": "Brack zeigt ein kleines ausrangiertes Windenmodell. Am Rastbolzen ist die belastete Seite blank. Der Griff allein hält das Gewicht nur, solange jemand daran zieht.",
+      "footer": "Die Beobachtung steht in deinem Notizbuch.",
+      "marker": true,
+      "done_flag": "k2v_waerter_spur3_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k2v_waerter_spur3"
+        ]
+      }
+    }
+  },
+  {
+    "map": "wx_salzmarkt",
+    "tile": [
+      1,
+      4
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k2v_waerter",
+        "k2_akt5"
+      ]
+    },
+    "interactable": {
+      "id": "k2v_waerter_spur4",
+      "kind": "read",
+      "title": "Unfallvermerk der Werkleute",
+      "prompt": "Unfallvermerk der Werkleute",
+      "text": "Ein alter Unfallvermerk warnt vor dem Loslassen vor Einrasten. Daneben hat ein Wärter geschrieben: „Erst Last setzen, dann Hände frei.“ Die Zeichnung stimmt mit Bracks Modell überein.",
+      "footer": "Die Beobachtung steht in deinem Notizbuch.",
+      "marker": true,
+      "done_flag": "k2v_waerter_spur4_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k2v_waerter_spur4"
+        ]
+      }
+    }
+  },
+  {
+    "map": "wx_kahn",
+    "tile": [
+      8,
+      7
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k2v_keller",
+        "k2_akt5"
+      ]
+    },
+    "interactable": {
+      "id": "k2v_keller_spur1",
+      "kind": "read",
+      "title": "Die trockene Packliste",
+      "prompt": "Die trockene Packliste",
+      "text": "Die alte Versandabschrift nennt Decken, Tücher und verschlossenes Wasser. Die Kisten sind mit einem offenen Kreis gekennzeichnet. Keine Zeile führt Öl oder Namen auf.",
+      "footer": "Die Beobachtung steht in deinem Notizbuch.",
+      "marker": true,
+      "done_flag": "k2v_keller_spur1_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k2v_keller_spur1"
+        ]
+      }
+    }
+  },
+  {
+    "map": "wx_bojenhafen",
+    "tile": [
+      1,
+      5
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k2v_keller",
+        "k2_akt5"
+      ]
+    },
+    "interactable": {
+      "id": "k2v_keller_spur2",
+      "kind": "read",
+      "title": "Ausgangskontrolle",
+      "prompt": "Ausgangskontrolle",
+      "text": "Bracks öffentliches Kontrollblatt bestätigt Gewicht und Inhalt derselben Kisten. Die Lieferung wurde vor dem Ablegen geöffnet und neu versiegelt. Die Nummer entspricht Zunders Abschrift.",
+      "footer": "Die Beobachtung steht in deinem Notizbuch.",
+      "marker": true,
+      "done_flag": "k2v_keller_spur2_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k2v_keller_spur2"
+        ]
+      }
+    }
+  },
+  {
+    "map": "wx_salzmarkt",
+    "tile": [
+      2,
+      5
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k2v_keller",
+        "k2_akt5"
+      ]
+    },
+    "interactable": {
+      "id": "k2v_keller_spur3",
+      "kind": "read",
+      "title": "Waschrechnung",
+      "prompt": "Waschrechnung",
+      "text": "Die Wäscherei berechnete die Reinigung der Turmdecken als Seenothilfe. Am Rand steht „auch für Fremde“. Es ist eine alte Zweckbindung, keine Aussage über Brandts heutige Praxis.",
+      "footer": "Die Beobachtung steht in deinem Notizbuch.",
+      "marker": true,
+      "done_flag": "k2v_keller_spur3_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k2v_keller_spur3"
+        ]
+      }
+    }
+  },
+  {
+    "map": "wx_oberstadt",
+    "tile": [
+      1,
+      4
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "k2v_keller",
+        "k2_akt5"
+      ]
+    },
+    "interactable": {
+      "id": "k2v_keller_spur4",
+      "kind": "read",
+      "title": "Kellerordnung",
+      "prompt": "Kellerordnung",
+      "text": "Die ausgehängte Wartungsordnung nennt das offene Kreiszeichen: trockene Hilfe für jeden durchnässten Ankömmling. Die Decken dürfen ohne Abgabe eines Namens benutzt werden. Der Hinweis wurde nie widerrufen.",
+      "footer": "Die Beobachtung steht in deinem Notizbuch.",
+      "marker": true,
+      "done_flag": "k2v_keller_spur4_gelesen",
+      "effects": {
+        "gives_clues": [
+          "k2v_keller_spur4"
+        ]
+      }
+    }
+  },
+  {
+    "map": "wx_bojenhafen",
+    "tile": [
+      8,
+      4
+    ],
+    "npc": "wxn_krabbe",
+    "visible_if": {
+      "requires_quests_active": [
+        "k2_akt1"
+      ],
+      "hide_if_flags": [
+        "kapitel2_done"
+      ]
+    }
+  },
+  {
+    "map": "wx_salzwatt",
+    "tile": [
+      2,
+      14
+    ],
+    "npc": "wxn_krabbe",
+    "visible_if": {
+      "requires_quests_active": [
+        "k2_akt2"
+      ],
+      "hide_if_flags": [
+        "kapitel2_done"
+      ]
+    }
+  },
+  {
+    "map": "wx_torfstich",
+    "tile": [
+      10,
+      8
+    ],
+    "npc": "wxn_krabbe",
+    "visible_if": {
+      "requires_quests_active": [
+        "k2_akt3"
+      ],
+      "hide_if_flags": [
+        "kapitel2_done"
+      ]
+    }
+  },
+  {
+    "map": "wx_pfahldorf",
+    "tile": [
+      17,
+      4
+    ],
+    "npc": "wxn_krabbe",
+    "visible_if": {
+      "requires_quests_active": [
+        "k2_akt4"
+      ],
+      "hide_if_flags": [
+        "kapitel2_done"
+      ]
+    }
+  },
+  {
+    "map": "wx_bojenhafen",
+    "tile": [
+      22,
+      8
+    ],
+    "npc": "wxn_krabbe",
+    "visible_if": {
+      "requires_quests_active": [
+        "k2_akt5"
+      ],
+      "hide_if_flags": [
+        "kapitel2_done"
+      ]
+    }
+  }
+]

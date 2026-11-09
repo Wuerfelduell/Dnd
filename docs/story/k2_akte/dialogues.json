@@ -1,0 +1,962 @@
+{
+  "k2v_krabbe": {
+    "start": [
+      {
+        "node": "k2v_krabbe_akt5",
+        "requires_quests_active": [
+          "k2_akt5"
+        ]
+      },
+      {
+        "node": "k2v_krabbe_akt4",
+        "requires_quests_active": [
+          "k2_akt4"
+        ]
+      },
+      {
+        "node": "k2v_krabbe_akt3",
+        "requires_quests_active": [
+          "k2_akt3"
+        ]
+      },
+      {
+        "node": "k2v_krabbe_akt2",
+        "requires_quests_active": [
+          "k2_akt2"
+        ]
+      },
+      {
+        "node": "k2v_krabbe_akt1",
+        "requires_quests_active": [
+          "k2_akt1"
+        ]
+      },
+      {
+        "node": "k2v_krabbe_ruhe"
+      }
+    ],
+    "nodes": {
+      "k2v_krabbe_ruhe": {
+        "text": "Krabbe bindet seinen Sack zu. „Heute verkaufe ich nichts mehr. Man darf auch etwas behalten, ohne zu wissen, was es wert ist.“",
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      },
+      "k2v_krabbe_auftrag": {
+        "text": "„Ich weiß, wie sie den Sack geknotet hat“, sagt Krabbe. „Aber wenn ich sie rufen will, kommt nichts.“ Ihr vereinbart, die Fundstücke zu prüfen und keinem fremden Kind einen Namen abzunehmen.",
+        "start_quests": [
+          "k2v_krabbe"
+        ],
+        "sets_flags": [
+          "k2v_krabbe_suche"
+        ],
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      },
+      "k2v_krabbe_akt1": {
+        "text": "Der Junge hält die Leiste zwischen zwei nackten Zehen fest. „Die scharfe Seite kostet extra. Nicht in Geld, in Pflaster.“ Er nennt sich Krabbe und schiebt seinen Sack vom Wasser weg.",
+        "choices": [
+          {
+            "text": "Wen suchst du in deinen Fundstücken?",
+            "next": "k2v_krabbe_auftrag",
+            "hide_if_quests": [
+              "k2v_krabbe"
+            ]
+          },
+          {
+            "text": "Fundstück ansehen: Eine abgebrochene Druckleiste.",
+            "next": "k2v_krabbe_handel1",
+            "hide_if_flags": [
+              "k2v_krabbe_gekauft1"
+            ]
+          },
+          {
+            "text": "Über Eine abgebrochene Druckleiste sprechen.",
+            "next": "k2v_krabbe_erinnerung1",
+            "requires_flags": [
+              "k2v_krabbe_gelesen1"
+            ]
+          },
+          {
+            "text": "Bis später, Krabbe."
+          }
+        ]
+      },
+      "k2v_krabbe_akt2": {
+        "text": "Im Salzwatt sitzt Krabbe auf festem Grund und zählt Knöpfe. „Das Meer hat lauter Mäntel verloren. Aber nie einen, der mir passt.“ Er bleibt auf der Landseite des Pegels.",
+        "choices": [
+          {
+            "text": "Wen suchst du in deinen Fundstücken?",
+            "next": "k2v_krabbe_auftrag",
+            "hide_if_quests": [
+              "k2v_krabbe"
+            ]
+          },
+          {
+            "text": "Fundstück ansehen: Eine abgebrochene Druckleiste.",
+            "next": "k2v_krabbe_handel1",
+            "hide_if_flags": [
+              "k2v_krabbe_gekauft1"
+            ]
+          },
+          {
+            "text": "Über Eine abgebrochene Druckleiste sprechen.",
+            "next": "k2v_krabbe_erinnerung1",
+            "requires_flags": [
+              "k2v_krabbe_gelesen1"
+            ]
+          },
+          {
+            "text": "Fundstück ansehen: Ein Knopf mit zwei Löchern.",
+            "next": "k2v_krabbe_handel2",
+            "hide_if_flags": [
+              "k2v_krabbe_gekauft2"
+            ]
+          },
+          {
+            "text": "Über Ein Knopf mit zwei Löchern sprechen.",
+            "next": "k2v_krabbe_erinnerung2",
+            "requires_flags": [
+              "k2v_krabbe_gelesen2"
+            ]
+          },
+          {
+            "text": "Bis später, Krabbe."
+          }
+        ]
+      },
+      "k2v_krabbe_akt3": {
+        "text": "Am Torfstich klaubt Krabbe Papier aus einem Brettspalt. „Das Moor gibt Tickets zurück, wenn der Zug fort ist. Sehr schlechter Kundendienst.“ Er faltet das Stück vorsichtig glatt.",
+        "choices": [
+          {
+            "text": "Wen suchst du in deinen Fundstücken?",
+            "next": "k2v_krabbe_auftrag",
+            "hide_if_quests": [
+              "k2v_krabbe"
+            ]
+          },
+          {
+            "text": "Fundstück ansehen: Eine abgebrochene Druckleiste.",
+            "next": "k2v_krabbe_handel1",
+            "hide_if_flags": [
+              "k2v_krabbe_gekauft1"
+            ]
+          },
+          {
+            "text": "Über Eine abgebrochene Druckleiste sprechen.",
+            "next": "k2v_krabbe_erinnerung1",
+            "requires_flags": [
+              "k2v_krabbe_gelesen1"
+            ]
+          },
+          {
+            "text": "Fundstück ansehen: Ein Knopf mit zwei Löchern.",
+            "next": "k2v_krabbe_handel2",
+            "hide_if_flags": [
+              "k2v_krabbe_gekauft2"
+            ]
+          },
+          {
+            "text": "Über Ein Knopf mit zwei Löchern sprechen.",
+            "next": "k2v_krabbe_erinnerung2",
+            "requires_flags": [
+              "k2v_krabbe_gelesen2"
+            ]
+          },
+          {
+            "text": "Fundstück ansehen: Die zweite Hälfte einer Fahrkarte.",
+            "next": "k2v_krabbe_handel3",
+            "hide_if_flags": [
+              "k2v_krabbe_gekauft3"
+            ]
+          },
+          {
+            "text": "Über Die zweite Hälfte einer Fahrkarte sprechen.",
+            "next": "k2v_krabbe_erinnerung3",
+            "requires_flags": [
+              "k2v_krabbe_gelesen3"
+            ]
+          },
+          {
+            "text": "Bis später, Krabbe."
+          }
+        ]
+      },
+      "k2v_krabbe_akt4": {
+        "text": "Im Pfahldorf trägt Krabbe den Sack auf dem Rücken, damit nichts an den Schrein stößt. „Was da liegt, gehört jemandem. Ich nehme nur, was frei schwimmt.“ Er zeigt dir ein Stück blauen Saum.",
+        "choices": [
+          {
+            "text": "Wen suchst du in deinen Fundstücken?",
+            "next": "k2v_krabbe_auftrag",
+            "hide_if_quests": [
+              "k2v_krabbe"
+            ]
+          },
+          {
+            "text": "Fundstück ansehen: Eine abgebrochene Druckleiste.",
+            "next": "k2v_krabbe_handel1",
+            "hide_if_flags": [
+              "k2v_krabbe_gekauft1"
+            ]
+          },
+          {
+            "text": "Über Eine abgebrochene Druckleiste sprechen.",
+            "next": "k2v_krabbe_erinnerung1",
+            "requires_flags": [
+              "k2v_krabbe_gelesen1"
+            ]
+          },
+          {
+            "text": "Fundstück ansehen: Ein Knopf mit zwei Löchern.",
+            "next": "k2v_krabbe_handel2",
+            "hide_if_flags": [
+              "k2v_krabbe_gekauft2"
+            ]
+          },
+          {
+            "text": "Über Ein Knopf mit zwei Löchern sprechen.",
+            "next": "k2v_krabbe_erinnerung2",
+            "requires_flags": [
+              "k2v_krabbe_gelesen2"
+            ]
+          },
+          {
+            "text": "Fundstück ansehen: Die zweite Hälfte einer Fahrkarte.",
+            "next": "k2v_krabbe_handel3",
+            "hide_if_flags": [
+              "k2v_krabbe_gekauft3"
+            ]
+          },
+          {
+            "text": "Über Die zweite Hälfte einer Fahrkarte sprechen.",
+            "next": "k2v_krabbe_erinnerung3",
+            "requires_flags": [
+              "k2v_krabbe_gelesen3"
+            ]
+          },
+          {
+            "text": "Fundstück ansehen: Ein Brief aus einem Mantelsaum.",
+            "next": "k2v_krabbe_handel4",
+            "hide_if_flags": [
+              "k2v_krabbe_gekauft4"
+            ]
+          },
+          {
+            "text": "Über Ein Brief aus einem Mantelsaum sprechen.",
+            "next": "k2v_krabbe_erinnerung4",
+            "requires_flags": [
+              "k2v_krabbe_gelesen4"
+            ]
+          },
+          {
+            "text": "Bis später, Krabbe."
+          }
+        ]
+      },
+      "k2v_krabbe_akt5": {
+        "text": "Am Steg zum Inselboot steht Krabbe hinter dem Poller. „Ich fahr nicht mit. Irgendwer muss schauen, ob du zurückkommst.“ Sein letzter Fund passt gerade in die offene Hand.",
+        "choices": [
+          {
+            "text": "Wen suchst du in deinen Fundstücken?",
+            "next": "k2v_krabbe_auftrag",
+            "hide_if_quests": [
+              "k2v_krabbe"
+            ]
+          },
+          {
+            "text": "Fundstück ansehen: Eine abgebrochene Druckleiste.",
+            "next": "k2v_krabbe_handel1",
+            "hide_if_flags": [
+              "k2v_krabbe_gekauft1"
+            ]
+          },
+          {
+            "text": "Über Eine abgebrochene Druckleiste sprechen.",
+            "next": "k2v_krabbe_erinnerung1",
+            "requires_flags": [
+              "k2v_krabbe_gelesen1"
+            ]
+          },
+          {
+            "text": "Fundstück ansehen: Ein Knopf mit zwei Löchern.",
+            "next": "k2v_krabbe_handel2",
+            "hide_if_flags": [
+              "k2v_krabbe_gekauft2"
+            ]
+          },
+          {
+            "text": "Über Ein Knopf mit zwei Löchern sprechen.",
+            "next": "k2v_krabbe_erinnerung2",
+            "requires_flags": [
+              "k2v_krabbe_gelesen2"
+            ]
+          },
+          {
+            "text": "Fundstück ansehen: Die zweite Hälfte einer Fahrkarte.",
+            "next": "k2v_krabbe_handel3",
+            "hide_if_flags": [
+              "k2v_krabbe_gekauft3"
+            ]
+          },
+          {
+            "text": "Über Die zweite Hälfte einer Fahrkarte sprechen.",
+            "next": "k2v_krabbe_erinnerung3",
+            "requires_flags": [
+              "k2v_krabbe_gelesen3"
+            ]
+          },
+          {
+            "text": "Fundstück ansehen: Ein Brief aus einem Mantelsaum.",
+            "next": "k2v_krabbe_handel4",
+            "hide_if_flags": [
+              "k2v_krabbe_gekauft4"
+            ]
+          },
+          {
+            "text": "Über Ein Brief aus einem Mantelsaum sprechen.",
+            "next": "k2v_krabbe_erinnerung4",
+            "requires_flags": [
+              "k2v_krabbe_gelesen4"
+            ]
+          },
+          {
+            "text": "Fundstück ansehen: Ein Span von der roten Tonne.",
+            "next": "k2v_krabbe_handel5",
+            "hide_if_flags": [
+              "k2v_krabbe_gekauft5"
+            ]
+          },
+          {
+            "text": "Über Ein Span von der roten Tonne sprechen.",
+            "next": "k2v_krabbe_erinnerung5",
+            "requires_flags": [
+              "k2v_krabbe_gelesen5"
+            ]
+          },
+          {
+            "text": "Brief und Holz nennen denselben Namen.",
+            "next": "k2v_krabbe_vergleich",
+            "requires_flags": [
+              "k2v_krabbe_suche",
+              "k2v_krabbe_gelesen1",
+              "k2v_krabbe_gelesen2",
+              "k2v_krabbe_gelesen3",
+              "k2v_krabbe_gelesen4",
+              "k2v_krabbe_gelesen5"
+            ],
+            "hide_if_flags": [
+              "k2v_krabbe_name"
+            ]
+          },
+          {
+            "text": "Wie möchtest du Nelas Namen bewahren?",
+            "next": "k2v_krabbe_wahl",
+            "requires_flags": [
+              "k2v_krabbe_name"
+            ],
+            "hide_if_flags": [
+              "k2v_krabbe_done"
+            ]
+          },
+          {
+            "text": "Bis später, Krabbe."
+          }
+        ]
+      },
+      "k2v_krabbe_handel1": {
+        "text": "Krabbe legt das Fundstück auf seinen Sack. „Drei Schilling, ein Salzbrot oder du hilfst mir beim Sortieren. Aber nur, wenn du nachher auch hinsiehst.“",
+        "choices": [
+          {
+            "text": "Drei Schilling bezahlen.",
+            "next": "k2v_krabbe_kauf1",
+            "requires_money": 3,
+            "hide_if_flags": [
+              "k2v_krabbe_gekauft1"
+            ]
+          },
+          {
+            "text": "Ein Salzbrot tauschen.",
+            "next": "k2v_krabbe_tausch1",
+            "requires_items": [
+              "salzbrot"
+            ],
+            "hide_if_flags": [
+              "k2v_krabbe_gekauft1"
+            ]
+          },
+          {
+            "text": "Eine Weile beim Sortieren helfen.",
+            "next": "k2v_krabbe_arbeit1",
+            "hide_if_flags": [
+              "k2v_krabbe_gekauft1"
+            ]
+          },
+          {
+            "text": "Später."
+          }
+        ]
+      },
+      "k2v_krabbe_kauf1": {
+        "text": "Krabbe prüft jede Münze mit dem Daumen. Dann gibt er dir das Fundstück und faltet den Sack darunter wieder glatt.",
+        "gives_items": {
+          "k2v_drucksplitter": 1
+        },
+        "sets_flags": [
+          "k2v_krabbe_gekauft1"
+        ],
+        "takes_money": 3,
+        "choices": [
+          {
+            "text": "Im Inventar untersuchen."
+          }
+        ]
+      },
+      "k2v_krabbe_tausch1": {
+        "text": "Krabbe bricht das Brot in zwei Hälften. Eine kommt in den Sack, die andere verschwindet sofort. Das Fundstück gehört dir.",
+        "gives_items": {
+          "k2v_drucksplitter": 1
+        },
+        "sets_flags": [
+          "k2v_krabbe_gekauft1"
+        ],
+        "takes_items": {
+          "salzbrot": 1
+        },
+        "choices": [
+          {
+            "text": "Im Inventar untersuchen."
+          }
+        ]
+      },
+      "k2v_krabbe_arbeit1": {
+        "text": "Ihr trennt Nägel von Glas und zählt die brauchbaren Knöpfe. Krabbe schiebt dir dafür das Fundstück zu. „Arbeit ist auch Geld. Sagt nur keiner, der welches hat.“",
+        "gives_items": {
+          "k2v_drucksplitter": 1
+        },
+        "sets_flags": [
+          "k2v_krabbe_gekauft1"
+        ],
+        "choices": [
+          {
+            "text": "Im Inventar untersuchen."
+          }
+        ]
+      },
+      "k2v_krabbe_erinnerung1": {
+        "text": "„Sie hat damit gemessen, wie groß ich werde“, sagt Krabbe. „Meine Schwester. Ich weiß noch, dass sie meine Schwester war.“ Ihren Namen weiß er nicht.",
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      },
+      "k2v_krabbe_handel2": {
+        "text": "Krabbe legt das Fundstück auf seinen Sack. „Drei Schilling, ein Salzbrot oder du hilfst mir beim Sortieren. Aber nur, wenn du nachher auch hinsiehst.“",
+        "choices": [
+          {
+            "text": "Drei Schilling bezahlen.",
+            "next": "k2v_krabbe_kauf2",
+            "requires_money": 3,
+            "hide_if_flags": [
+              "k2v_krabbe_gekauft2"
+            ]
+          },
+          {
+            "text": "Ein Salzbrot tauschen.",
+            "next": "k2v_krabbe_tausch2",
+            "requires_items": [
+              "salzbrot"
+            ],
+            "hide_if_flags": [
+              "k2v_krabbe_gekauft2"
+            ]
+          },
+          {
+            "text": "Eine Weile beim Sortieren helfen.",
+            "next": "k2v_krabbe_arbeit2",
+            "hide_if_flags": [
+              "k2v_krabbe_gekauft2"
+            ]
+          },
+          {
+            "text": "Später."
+          }
+        ]
+      },
+      "k2v_krabbe_kauf2": {
+        "text": "Krabbe prüft jede Münze mit dem Daumen. Dann gibt er dir das Fundstück und faltet den Sack darunter wieder glatt.",
+        "gives_items": {
+          "k2v_messingknopf": 1
+        },
+        "sets_flags": [
+          "k2v_krabbe_gekauft2"
+        ],
+        "takes_money": 3,
+        "choices": [
+          {
+            "text": "Im Inventar untersuchen."
+          }
+        ]
+      },
+      "k2v_krabbe_tausch2": {
+        "text": "Krabbe bricht das Brot in zwei Hälften. Eine kommt in den Sack, die andere verschwindet sofort. Das Fundstück gehört dir.",
+        "gives_items": {
+          "k2v_messingknopf": 1
+        },
+        "sets_flags": [
+          "k2v_krabbe_gekauft2"
+        ],
+        "takes_items": {
+          "salzbrot": 1
+        },
+        "choices": [
+          {
+            "text": "Im Inventar untersuchen."
+          }
+        ]
+      },
+      "k2v_krabbe_arbeit2": {
+        "text": "Ihr trennt Nägel von Glas und zählt die brauchbaren Knöpfe. Krabbe schiebt dir dafür das Fundstück zu. „Arbeit ist auch Geld. Sagt nur keiner, der welches hat.“",
+        "gives_items": {
+          "k2v_messingknopf": 1
+        },
+        "sets_flags": [
+          "k2v_krabbe_gekauft2"
+        ],
+        "choices": [
+          {
+            "text": "Im Inventar untersuchen."
+          }
+        ]
+      },
+      "k2v_krabbe_erinnerung2": {
+        "text": "Krabbe erkennt den Stich. „Sie hat meinen Ärmel gemacht. Ich durfte die Schere halten, wenn sie zugeklappt war.“ Er erinnert sich an ihre Hände, noch immer nicht an ihren Namen.",
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      },
+      "k2v_krabbe_handel3": {
+        "text": "Krabbe legt das Fundstück auf seinen Sack. „Drei Schilling, ein Salzbrot oder du hilfst mir beim Sortieren. Aber nur, wenn du nachher auch hinsiehst.“",
+        "choices": [
+          {
+            "text": "Drei Schilling bezahlen.",
+            "next": "k2v_krabbe_kauf3",
+            "requires_money": 3,
+            "hide_if_flags": [
+              "k2v_krabbe_gekauft3"
+            ]
+          },
+          {
+            "text": "Ein Salzbrot tauschen.",
+            "next": "k2v_krabbe_tausch3",
+            "requires_items": [
+              "salzbrot"
+            ],
+            "hide_if_flags": [
+              "k2v_krabbe_gekauft3"
+            ]
+          },
+          {
+            "text": "Eine Weile beim Sortieren helfen.",
+            "next": "k2v_krabbe_arbeit3",
+            "hide_if_flags": [
+              "k2v_krabbe_gekauft3"
+            ]
+          },
+          {
+            "text": "Später."
+          }
+        ]
+      },
+      "k2v_krabbe_kauf3": {
+        "text": "Krabbe prüft jede Münze mit dem Daumen. Dann gibt er dir das Fundstück und faltet den Sack darunter wieder glatt.",
+        "gives_items": {
+          "k2v_fahrkartenhaelfte": 1
+        },
+        "sets_flags": [
+          "k2v_krabbe_gekauft3"
+        ],
+        "takes_money": 3,
+        "choices": [
+          {
+            "text": "Im Inventar untersuchen."
+          }
+        ]
+      },
+      "k2v_krabbe_tausch3": {
+        "text": "Krabbe bricht das Brot in zwei Hälften. Eine kommt in den Sack, die andere verschwindet sofort. Das Fundstück gehört dir.",
+        "gives_items": {
+          "k2v_fahrkartenhaelfte": 1
+        },
+        "sets_flags": [
+          "k2v_krabbe_gekauft3"
+        ],
+        "takes_items": {
+          "salzbrot": 1
+        },
+        "choices": [
+          {
+            "text": "Im Inventar untersuchen."
+          }
+        ]
+      },
+      "k2v_krabbe_arbeit3": {
+        "text": "Ihr trennt Nägel von Glas und zählt die brauchbaren Knöpfe. Krabbe schiebt dir dafür das Fundstück zu. „Arbeit ist auch Geld. Sagt nur keiner, der welches hat.“",
+        "gives_items": {
+          "k2v_fahrkartenhaelfte": 1
+        },
+        "sets_flags": [
+          "k2v_krabbe_gekauft3"
+        ],
+        "choices": [
+          {
+            "text": "Im Inventar untersuchen."
+          }
+        ]
+      },
+      "k2v_krabbe_erinnerung3": {
+        "text": "„Wir wollten fahren, wenn ich zwölf bin“, sagt Krabbe. „Sie konnte die Stadt nicht leiden. Mich schon, glaube ich.“ Er zählt an den Fingern nach und hört bei elf auf.",
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      },
+      "k2v_krabbe_handel4": {
+        "text": "Krabbe legt das Fundstück auf seinen Sack. „Drei Schilling, ein Salzbrot oder du hilfst mir beim Sortieren. Aber nur, wenn du nachher auch hinsiehst.“",
+        "choices": [
+          {
+            "text": "Drei Schilling bezahlen.",
+            "next": "k2v_krabbe_kauf4",
+            "requires_money": 3,
+            "hide_if_flags": [
+              "k2v_krabbe_gekauft4"
+            ]
+          },
+          {
+            "text": "Ein Salzbrot tauschen.",
+            "next": "k2v_krabbe_tausch4",
+            "requires_items": [
+              "salzbrot"
+            ],
+            "hide_if_flags": [
+              "k2v_krabbe_gekauft4"
+            ]
+          },
+          {
+            "text": "Eine Weile beim Sortieren helfen.",
+            "next": "k2v_krabbe_arbeit4",
+            "hide_if_flags": [
+              "k2v_krabbe_gekauft4"
+            ]
+          },
+          {
+            "text": "Später."
+          }
+        ]
+      },
+      "k2v_krabbe_kauf4": {
+        "text": "Krabbe prüft jede Münze mit dem Daumen. Dann gibt er dir das Fundstück und faltet den Sack darunter wieder glatt.",
+        "gives_items": {
+          "k2v_saumbrief": 1
+        },
+        "sets_flags": [
+          "k2v_krabbe_gekauft4"
+        ],
+        "takes_money": 3,
+        "choices": [
+          {
+            "text": "Im Inventar untersuchen."
+          }
+        ]
+      },
+      "k2v_krabbe_tausch4": {
+        "text": "Krabbe bricht das Brot in zwei Hälften. Eine kommt in den Sack, die andere verschwindet sofort. Das Fundstück gehört dir.",
+        "gives_items": {
+          "k2v_saumbrief": 1
+        },
+        "sets_flags": [
+          "k2v_krabbe_gekauft4"
+        ],
+        "takes_items": {
+          "salzbrot": 1
+        },
+        "choices": [
+          {
+            "text": "Im Inventar untersuchen."
+          }
+        ]
+      },
+      "k2v_krabbe_arbeit4": {
+        "text": "Ihr trennt Nägel von Glas und zählt die brauchbaren Knöpfe. Krabbe schiebt dir dafür das Fundstück zu. „Arbeit ist auch Geld. Sagt nur keiner, der welches hat.“",
+        "gives_items": {
+          "k2v_saumbrief": 1
+        },
+        "sets_flags": [
+          "k2v_krabbe_gekauft4"
+        ],
+        "choices": [
+          {
+            "text": "Im Inventar untersuchen."
+          }
+        ]
+      },
+      "k2v_krabbe_erinnerung4": {
+        "text": "Krabbe liest die Unterschrift nicht laut. „Nela“, formt er nur mit den Lippen. „Ich will erst wissen, ob sich das wie sie anfühlt.“ Er bittet dich, nichts am Schrein abzulegen.",
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      },
+      "k2v_krabbe_handel5": {
+        "text": "Krabbe legt das Fundstück auf seinen Sack. „Drei Schilling, ein Salzbrot oder du hilfst mir beim Sortieren. Aber nur, wenn du nachher auch hinsiehst.“",
+        "choices": [
+          {
+            "text": "Drei Schilling bezahlen.",
+            "next": "k2v_krabbe_kauf5",
+            "requires_money": 3,
+            "hide_if_flags": [
+              "k2v_krabbe_gekauft5"
+            ]
+          },
+          {
+            "text": "Ein Salzbrot tauschen.",
+            "next": "k2v_krabbe_tausch5",
+            "requires_items": [
+              "salzbrot"
+            ],
+            "hide_if_flags": [
+              "k2v_krabbe_gekauft5"
+            ]
+          },
+          {
+            "text": "Eine Weile beim Sortieren helfen.",
+            "next": "k2v_krabbe_arbeit5",
+            "hide_if_flags": [
+              "k2v_krabbe_gekauft5"
+            ]
+          },
+          {
+            "text": "Später."
+          }
+        ]
+      },
+      "k2v_krabbe_kauf5": {
+        "text": "Krabbe prüft jede Münze mit dem Daumen. Dann gibt er dir das Fundstück und faltet den Sack darunter wieder glatt.",
+        "gives_items": {
+          "k2v_tonnenholz": 1
+        },
+        "sets_flags": [
+          "k2v_krabbe_gekauft5"
+        ],
+        "takes_money": 3,
+        "choices": [
+          {
+            "text": "Im Inventar untersuchen."
+          }
+        ]
+      },
+      "k2v_krabbe_tausch5": {
+        "text": "Krabbe bricht das Brot in zwei Hälften. Eine kommt in den Sack, die andere verschwindet sofort. Das Fundstück gehört dir.",
+        "gives_items": {
+          "k2v_tonnenholz": 1
+        },
+        "sets_flags": [
+          "k2v_krabbe_gekauft5"
+        ],
+        "takes_items": {
+          "salzbrot": 1
+        },
+        "choices": [
+          {
+            "text": "Im Inventar untersuchen."
+          }
+        ]
+      },
+      "k2v_krabbe_arbeit5": {
+        "text": "Ihr trennt Nägel von Glas und zählt die brauchbaren Knöpfe. Krabbe schiebt dir dafür das Fundstück zu. „Arbeit ist auch Geld. Sagt nur keiner, der welches hat.“",
+        "gives_items": {
+          "k2v_tonnenholz": 1
+        },
+        "sets_flags": [
+          "k2v_krabbe_gekauft5"
+        ],
+        "choices": [
+          {
+            "text": "Im Inventar untersuchen."
+          }
+        ]
+      },
+      "k2v_krabbe_erinnerung5": {
+        "text": "„Sie hat nicht meinen Namen verloren“, sagt Krabbe. „Ich habe ihren verloren.“ Er weiß nun wieder, wen er vermisst. Ob Nela lebt, wo sie ist und warum sie fortging, sagen die Fundstücke nicht.",
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      },
+      "k2v_krabbe_vergleich": {
+        "text": "Du legst Brief und roten Span nebeneinander und liest die passenden Einzelheiten vor. Krabbe nennt den Ort hinter der Tonne, bevor du die Zeile mit dem Treffpunkt erreichst. „Nela“, sagt er dann selbst. „Meine Schwester, nicht irgendeine Nela.“",
+        "sets_flags": [
+          "k2v_krabbe_name"
+        ],
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      },
+      "k2v_krabbe_wahl": {
+        "text": "Krabbe hält den Saumbrief fest. „Wenn ihr Name nur bei mir bleibt, kann ich ihn wieder verlieren. Wenn er am Steg steht, können ihn alle lesen.“ Er möchte entweder eine Suchtafel mit einem Treffpunkt oder einen geschützten Brief bei Brack. Beides verspricht keine Rückkehr.",
+        "choices": [
+          {
+            "text": "Mit seinem Einverständnis eine Suchtafel am Steg anbringen.",
+            "next": "k2v_krabbe_tafel"
+          },
+          {
+            "text": "Den Brief versiegelt bei Brack verwahren und privat weitersuchen.",
+            "next": "k2v_krabbe_brief"
+          },
+          {
+            "text": "Noch darüber nachdenken."
+          }
+        ]
+      },
+      "k2v_krabbe_tafel": {
+        "text": "Auf der Suchtafel steht Nelas Name, kein Todesdatum. Krabbe malt die rote Tonne darunter und den Treffpunkt daneben. „Wenn sie kommt, soll sie nicht fragen müssen, ob ich noch warte.“",
+        "sets_flags": [
+          "k2v_krabbe_done",
+          "k2v_krabbe_oeffentlich"
+        ],
+        "complete_quests": [
+          "k2v_krabbe"
+        ],
+        "honor": 4,
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      },
+      "k2v_krabbe_brief": {
+        "text": "Brack verwahrt den Brief unter Krabbes eigener Markierung. Nur auf seine Bitte wird sie ihn zeigen. „Wenn ich ihn vergesse, frag ich erst hier“, sagt er und legt die Hand auf den trockenen Kasten.",
+        "sets_flags": [
+          "k2v_krabbe_done",
+          "k2v_krabbe_privat"
+        ],
+        "complete_quests": [
+          "k2v_krabbe"
+        ],
+        "honor": 4,
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      }
+    }
+  },
+  "k2v_inspect_drucksplitter": {
+    "start": "k2v_inspect_drucksplitter_start",
+    "nodes": {
+      "k2v_inspect_drucksplitter_start": {
+        "text": "Du liest auf der Rückseite „Für Krabbe“. Die eingeritzte Leiste misst zwei kleine Hände, eine davon etwas größer. Auf der Druckseite steht nur ein gewöhnlicher Fahrpreis, kein Steckbrief.",
+        "gives_clues": [
+          "k2v_krabbe_spur1"
+        ],
+        "sets_flags": [
+          "k2v_krabbe_gelesen1"
+        ],
+        "choices": [
+          {
+            "text": "Wieder einpacken."
+          }
+        ]
+      }
+    }
+  },
+  "k2v_inspect_messingknopf": {
+    "start": "k2v_inspect_messingknopf_start",
+    "nodes": {
+      "k2v_inspect_messingknopf_start": {
+        "text": "Innen steht eine Zwei, außen zwei Kratzer. Zwischen den Löchern hängt blauer Faden, mit dem jemand einen zu großen Ärmel enger zog. Der Knopf gehört zu keinem amtlichen Siegel.",
+        "gives_clues": [
+          "k2v_krabbe_spur2"
+        ],
+        "sets_flags": [
+          "k2v_krabbe_gelesen2"
+        ],
+        "choices": [
+          {
+            "text": "Wieder einpacken."
+          }
+        ]
+      }
+    }
+  },
+  "k2v_inspect_fahrkartenhaelfte": {
+    "start": "k2v_inspect_fahrkartenhaelfte_start",
+    "nodes": {
+      "k2v_inspect_fahrkartenhaelfte_start": {
+        "text": "Auf der Rückseite stehen zwei halbe Kreise, zu einem Boot ergänzt. Die Entwertung ist Jahre alt. Dieses Ticket belegt weder die heutige Jagd noch eine geglückte Rückreise.",
+        "gives_clues": [
+          "k2v_krabbe_spur3"
+        ],
+        "sets_flags": [
+          "k2v_krabbe_gelesen3"
+        ],
+        "choices": [
+          {
+            "text": "Wieder einpacken."
+          }
+        ]
+      }
+    }
+  },
+  "k2v_inspect_saumbrief": {
+    "start": "k2v_inspect_saumbrief_start",
+    "nodes": {
+      "k2v_inspect_saumbrief_start": {
+        "text": "Der kleine Brief ist mit „Deine Schwester Nela“ unterschrieben. Er beschreibt den gemeinsamen Treffpunkt an einer roten Tonne und Krabbes zu langen Ärmel. Das passt zu Knopf und Leiste; ein fremder Name allein wäre kein Beweis.",
+        "gives_clues": [
+          "k2v_krabbe_spur4"
+        ],
+        "sets_flags": [
+          "k2v_krabbe_gelesen4"
+        ],
+        "choices": [
+          {
+            "text": "Wieder einpacken."
+          }
+        ]
+      }
+    }
+  },
+  "k2v_inspect_tonnenholz": {
+    "start": "k2v_inspect_tonnenholz_start",
+    "nodes": {
+      "k2v_inspect_tonnenholz_start": {
+        "text": "Auf dem Span stehen zwei Halbkreise wie auf der Fahrkarte. Darunter ist derselbe Name eingeritzt wie im Saumbrief: Nela. Die rote Farbe und eine alte Daumenkerbe passen zu Krabbes Erinnerung an ihren Treffpunkt.",
+        "gives_clues": [
+          "k2v_krabbe_spur5"
+        ],
+        "sets_flags": [
+          "k2v_krabbe_gelesen5"
+        ],
+        "choices": [
+          {
+            "text": "Wieder einpacken."
+          }
+        ]
+      }
+    }
+  }
+}
