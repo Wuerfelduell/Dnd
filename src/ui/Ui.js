@@ -6,6 +6,7 @@ import {
 } from '../world/assets.js';
 import { sourceOf } from '../core/sources.js';
 import { canHurry, travelSafe, travelFast, afterHurryFight } from '../core/Travel.js';
+import { questTarget } from '../core/Guide.js';
 
 /** 16x16-Icon vor einem Item-Namen. Lädt es nicht, verschwindet es einfach. */
 const itemIcon = (id) => `<img class="item-icon" src="${itemIconUrl(id)}" alt="" width="16" height="16" onerror="this.remove()">`;
@@ -73,6 +74,7 @@ export class Ui {
           <div class="meter digest hidden"><span>Verdaut</span><div class="bar"><div class="dfill"></div></div><em class="dnum"></em></div>
           <div class="meter unruhe hidden"><span>Unruhe</span><div class="bar"><div class="ufill"></div></div></div>
           <div class="money"></div>
+          <div class="goal hidden"></div>
         </div>
         <div class="hud-right">
           <span class="key">J</span> Notizbuch &nbsp; <span class="key">I</span> Inventar &nbsp; <span class="key">P</span> Pfad &nbsp; <span class="key">Q</span> Geistsicht
@@ -144,6 +146,7 @@ export class Ui {
       this.toast(lines[Math.floor(Math.random() * lines.length)], 'warn');
     }, 22000);
 
+    ['track', 'changed', 'quest', 'clue', 'conclusion', 'travel'].forEach((ev) => state.on(ev, () => this.updateGoal()));
     window.addEventListener('keydown', (e) => this.onKey(e), true);
     this.updateComposure(state.composure);
     this.updateHonor();
@@ -161,6 +164,24 @@ export class Ui {
     this.updateHp();
     this.updateMoney();
     this.updateUnruhe();
+    this.updateGoal();
+  }
+
+  /** Wegweiser im HUD: nächster Schritt des verfolgten Auftrags. */
+  goalText(t) {
+    if (!t) return '';
+    if (t.notebook) return `${t.notebook} (J)`;
+    const where = t.map === this.state.map ? 'hier' : (this.state.content.maps[t.district]?.name ?? t.mapName);
+    return `${t.name} · ${t.map === t.district || t.map === this.state.map ? where : `${t.mapName}, ${where}`}`;
+  }
+
+  updateGoal() {
+    const el = this.$('.goal');
+    if (!el) return;
+    const s = this.state;
+    const t = s.tracked ? questTarget(s, s.tracked) : null;
+    el.classList.toggle('hidden', !t);
+    if (t) el.innerHTML = `<span class="arrow">➤</span> ${esc(this.goalText(t))}<span class="gstep">${esc(t.step)}</span>`;
   }
 
   updateMoney() {
@@ -399,7 +420,10 @@ export class Ui {
     this.travelPick = null;
     this.travelFrom = current;
     const pins = rules.pins ?? {};
+    const goal = s.tracked ? questTarget(s, s.tracked) : null;
+    const goalMap = goal?.district ?? null;
     const pin = (map, cls, inner, attrs = '') => {
+      if (map === goalMap) { cls += ' goal'; inner += '<span class="goaltag">Ziel</span>'; }
       const [x, y] = pins[map];
       const cell = MAP_MARKERS[map] ?? 0;
       const col = cell % 13;
@@ -416,7 +440,7 @@ export class Ui {
       </div>
       <div class="modes hidden"></div>
       <div class="mapbar">
-        <div class="info"><h3>Stadtkarte von Kettlegate</h3><span class="muted">Wähle ein Ziel mit Zahl oder Klick.</span></div>
+        <div class="info"><h3>Stadtkarte von Kettlegate</h3><span class="muted">${goal?.map ? `Ziel: ${esc(this.goalText(goal))}` : 'Wähle ein Ziel mit Zahl oder Klick.'}</span></div>
         <button data-act="stay"><span class="key">Esc</span> Hierbleiben</button>
       </div>`, 'citymap');
     el.querySelectorAll('[data-i]').forEach((b) => {
@@ -530,6 +554,7 @@ export class Ui {
     el.querySelectorAll('[data-equip]').forEach((b) => { b.onclick = () => { this.state.equip(b.dataset.equip); this.renderNotebook(''); }; });
     el.querySelectorAll('[data-drink]').forEach((b) => { b.onclick = () => this.drink(b.dataset.drink); });
     el.querySelectorAll('[data-inspect]').forEach((b) => { b.onclick = () => this.inspectItem(b.dataset.inspect); });
+    el.querySelectorAll('[data-track]').forEach((b) => { b.onclick = () => { const id = b.dataset.track; this.state.track(this.state.tracked === id ? null : id); this.renderNotebook(''); }; });
     el.querySelectorAll('[data-recipe]').forEach((b) => { b.onclick = () => { this.tab = 'pfad'; this.renderNotebook(''); }; });
     el.querySelector('[data-act=close]').onclick = () => this.close();
   }
@@ -548,12 +573,16 @@ export class Ui {
     const order = (q) => (s.quests[q] === 'active' ? 0 : 1) * 10 + (s.quest(q).kind === 'main' ? 0 : 1);
     ids.sort((a, b) => order(a) - order(b));
     if (!ids.length) return '<p class="empty">Noch keine Aufträge.</p>';
-    return `<ul class="quests">${ids.map((id) => {
+    return `<p class="hintline">Klicke auf einen Auftrag, um ihn zu verfolgen. Ein Pfeil zeigt dir dann den Weg.</p><ul class="quests">${ids.map((id) => {
       const q = s.quest(id);
       const st = s.quests[id];
-      const steps = st === 'active' ? `<ul class="steps">${s.questSteps(id).map((x) => `<li class="${x.done ? 'done' : ''}">${x.done ? '✓' : '○'} ${esc(x.text)}</li>`).join('')}</ul>` : '';
-      return `<li class="quest ${st}"><div class="qtitle"><span class="qkind">${q.kind === 'main' ? 'Hauptfall' : 'Nebenauftrag'}</span> ${esc(q.title)} ${st !== 'active' ? '<span class="badge likely">erledigt</span>' : ''}</div>
-        ${st === 'active' ? `<div class="qsum">${esc(q.summary)}</div>` : ''}${steps}</li>`;
+      const active = st === 'active';
+      const tracked = s.tracked === id;
+      const steps = active ? `<ul class="steps">${s.questSteps(id).map((x) => `<li class="${x.done ? 'done' : ''}">${x.done ? '✓' : '○'} ${esc(x.text)}</li>`).join('')}</ul>` : '';
+      const t = active ? questTarget(s, id) : null;
+      const goal = active ? `<div class="qgoal">➤ ${t ? esc(this.goalText(t)) : 'Kein fester Ort bekannt'}</div>` : '';
+      return `<li class="quest ${st} ${tracked ? 'tracked' : ''}" ${active ? `data-track="${id}"` : ''}><div class="qtitle"><span class="qkind">${q.kind === 'main' ? 'Hauptfall' : 'Nebenauftrag'}</span> ${esc(q.title)} ${!active ? '<span class="badge likely">erledigt</span>' : ''}${tracked ? '<span class="badge track">verfolgt</span>' : ''}</div>
+        ${active ? `<div class="qsum">${esc(q.summary)}</div>` : ''}${steps}${goal}</li>`;
     }).join('')}</ul>`;
   }
 

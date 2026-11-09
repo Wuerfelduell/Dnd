@@ -350,3 +350,20 @@ ul.loot .rar { margin-left: auto; font-size: 0.8em; }
 .rar-okkult .rar, span.rar-okkult { color: #6fe0d0; }
 .cb-loot { display: inline-flex; align-items: center; gap: 0.15em; font-size: 0.8em; color: var(--muted); margin-left: 0.3em; }
 .cb-loot .loot-ico { display: inline-flex; border-bottom: 2px solid #555; padding: 0 1px; }
+
+/* Wegweiser: verfolgter Auftrag (Journal → HUD, Ort, Stadtkarte) */
+.goal { margin-top: 0.35em; font-size: 0.75em; color: var(--gold); text-shadow: 0 0.125em 0 #000; max-width: 22em; }
+.goal .arrow { display: inline-block; animation: goalnudge 1.2s ease-in-out infinite; }
+.goal.hidden { display: none; }
+@keyframes goalnudge { 50% { transform: translateX(0.2em); } }
+.hintline { margin: 0 0 0.4em; font-size: 0.75em; color: var(--muted); }
+.quests li.quest[data-track] { cursor: pointer; border: 0.125em solid transparent; padding: 0.15em 0.3em; border-radius: 0.2em; }
+.quests li.quest[data-track]:hover { border-color: #4a4050; }
+.quests li.quest.tracked { border-color: var(--gold); background: rgba(232, 192, 112, 0.06); }
+.qgoal { font-size: 0.8em; color: var(--gold); margin-top: 0.15em; }
+.badge.track { color: var(--gold); border-color: var(--gold); margin-left: 0.4em; }
+.citymap .pin.goal .mk { animation: goalpulse 1s ease-in-out infinite alternate; }
+@keyframes goalpulse { to { filter: drop-shadow(0 0 0.35em var(--gold)) drop-shadow(0 0.125em 0 #000); transform: translateY(-0.2em); } }
+.citymap .pin .goaltag { position: absolute; left: 50%; bottom: 2.1em; transform: translateX(-50%); font-size: 0.65em; color: #1a1420; background: var(--gold);
+  padding: 0 0.3em; border-radius: 0.2em; pointer-events: none; }
+.goal .gstep { display: block; color: var(--muted); font-size: 0.85em; padding-left: 1em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }

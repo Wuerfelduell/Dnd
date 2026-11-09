@@ -1,4 +1,5 @@
 import Phaser from 'phaser';
+import { questTarget, nextHop } from '../core/Guide.js';
 import { createTextures, createCharacterSheet, hash2, TILE, TILE_INDEX, SOLID_KEYS } from './textures.js';
 import { Lighting, DEPTH } from './Lighting.js';
 import { preloadSprites, playSheetAnim, themeKeys, PROP_ORIGINS, MAP_WEATHER } from './assets.js';
@@ -184,6 +185,7 @@ export class WorldScene extends Phaser.Scene {
     this.bindInput();
     this.bindState();
     this.refreshVisibility();
+    this.buildGoalMarker();
 
     this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => this.cleanups.forEach((fn) => fn()));
     this.cameras.main.fadeIn(350, 0, 0, 0);
@@ -520,6 +522,7 @@ export class WorldScene extends Phaser.Scene {
     this.checkAuto(blocked);
     this.handleKeys(blocked);
     this.lighting.update(time);
+    this.updateGoalMarker(time);
     const cam = this.cameras.main;
     this.fogA.setTilePosition(cam.scrollX * 0.9 + time * 0.006, cam.scrollY * 0.9 + time * 0.002);
     this.fogB.setTilePosition(cam.scrollX * 1.1 - time * 0.004, cam.scrollY * 1.1);
@@ -724,6 +727,53 @@ export class WorldScene extends Phaser.Scene {
         after?.(result);
       },
     });
+  }
+
+  // --- Wegweiser (verfolgter Auftrag aus dem Journal) -----------------------------
+
+  buildGoalMarker() {
+    if (!this.textures.exists('goal_arrow')) {
+      const g = this.make.graphics({ x: 0, y: 0 }, false);
+      g.fillStyle(0x000000, 1).fillTriangle(0, 0, 10, 0, 5, 7);
+      g.fillStyle(0xe8c070, 1).fillTriangle(2, 1, 8, 1, 5, 5);
+      g.generateTexture('goal_arrow', 10, 8);
+      g.destroy();
+    }
+    this.goalArrow = this.add.image(0, 0, 'goal_arrow').setDepth(DEPTH.vision + 2).setVisible(false);
+    this.goalPos = null;
+    this.goalCheck = 0;
+  }
+
+  /** Weltposition des Ziels auf dieser Karte (oder der Tür/Stadtkarte dorthin). */
+  findGoalPosition() {
+    const s = this.state;
+    const t = s.tracked ? questTarget(s, s.tracked) : null;
+    if (!t || !t.map) return null;
+    const id = t.map === s.map ? t.id : nextHop(s.content, s.map, t.map)?.via;
+    if (!id) return null;
+    const it = this.interactables.find((x) => x.def.id === id && x.active);
+    if (!it) return null;
+    return { x: it.x, y: it.y - (it.kind === 'npc' ? 26 : 12) };
+  }
+
+  updateGoalMarker(time) {
+    if (!this.goalArrow) return;
+    if (time > this.goalCheck) { this.goalPos = this.findGoalPosition(); this.goalCheck = time + 400; }
+    const p = this.goalPos;
+    this.goalArrow.setVisible(!!p && !this.leaving);
+    if (!p) return;
+    const view = this.cameras.main.worldView;
+    const m = 10;
+    const inside = p.x > view.x + m && p.x < view.right - m && p.y > view.y + m && p.y < view.bottom - m;
+    if (inside) {
+      this.goalArrow.setPosition(p.x, p.y + Math.sin(time / 180) * 2).setRotation(0);
+    } else {
+      // Am Bildrand, Spitze zeigt zum Ziel
+      const x = Phaser.Math.Clamp(p.x, view.x + m, view.right - m);
+      const y = Phaser.Math.Clamp(p.y, view.y + m, view.bottom - m);
+      const ang = Math.atan2(p.y - this.player.y, p.x - this.player.x);
+      this.goalArrow.setPosition(x, y).setRotation(ang - Math.PI / 2);
+    }
   }
 
   playerPosition() {
