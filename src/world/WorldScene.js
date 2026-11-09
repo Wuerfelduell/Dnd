@@ -1358,7 +1358,8 @@ export class WorldScene extends Phaser.Scene {
         const healed = this.state.heal(this.state.maxHp);
         this.state.setComposure(100);
         if (this.mapDef.city === 'wexmoor') this.state.restWanted(); // Untertauchen senkt die Fahndung
-        this.ui.showMessage(def.title, def.text, { footer: healed > 0 ? `+${healed} Leben, Nerven beruhigt.` : 'Du bist ausgeruht.' });
+        const calm = this.state.kahnRestBonus(); // Paket AB: Waschtisch im Kahn
+        this.ui.showMessage(def.title, def.text, { footer: (healed > 0 ? `+${healed} Leben, Nerven beruhigt.` : 'Du bist ausgeruht.') + (calm ? ` Am Waschtisch: -${calm} Unruhe.` : '') });
         break;
       }
       case 'door':

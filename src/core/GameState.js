@@ -3,6 +3,7 @@ import { pathwayMethods } from './Pathways.js';
 import { gatheringMethods } from './Gatherings.js';
 import { auctionMethods } from './Auction.js';
 import { wantedMethods } from './Wanted.js';
+import { kahnMethods } from './Kahn.js';
 import { bondMethods } from './Bonds.js';
 import { artifactMethods } from './Artifacts.js';
 import { partyMethods } from './Party.js';
@@ -289,8 +290,9 @@ export class GameState {
     // Unruhe trifft nur Beyonder; wer keinen Trank hat, verliert stattdessen Nerven.
     if (e.unruhe) { if (this.isBeyonder()) this.setUnruhe(this.unruhe + e.unruhe); else this.setComposure(this.composure - e.unruhe); }
     if (e.combat) this.startCombat(e.combat);
-    if (Number.isFinite(e.wanted) && this.content.police) this.setWanted(Math.max(this.wanted, e.wanted), e.wanted_reason ?? ''); // Fahndung hochsetzen (Ausbruch, Flucht)
-    for (const [id, n] of Object.entries(e.bond ?? {})) this.changeBond(id, n); // Einzelgänger: Freund oder Feind
+    // Fahndung: Zahl ≥ 0 = Mindeststufe (Ausbruch, Flucht), negative Zahl = um so viele Stufen senken (Paket AB)
+    if (Number.isFinite(e.wanted) && this.content.police) this.setWanted(e.wanted < 0 ? Math.max(0, this.wanted + e.wanted) : Math.max(this.wanted, e.wanted), e.wanted_reason ?? '');
+    for (const [id, n] of Object.entries(e.bond ?? {})) this.changeBond(id, n); // Einzelgänger: Freund oder Feind; Gefährten (Zunder): nur Vertrauen
     if (e.travel) this.pendingTravel = e.travel; // Ortswechsel nach dem Fenster (z. B. aus der Zelle)
     if (gained.length || e.sets_flags || e.start_quests || e.complete_quests || e.honor || e.gives_items || e.takes_items || e.gives_money || e.takes_money) this.emit('changed');
     return gained;
@@ -517,10 +519,11 @@ export class GameState {
     const it = this.item(id);
     if (!it || it.kind !== 'consumable' || !this.itemCount(id)) return null;
     if (it.combat_only) return `${it.name} hilft nur im Kampf.`;
-    if (it.heal && this.hp >= this.maxHp && !it.composure && !it.calm) return 'Du bist unverletzt.';
+    if (it.heal && this.hp >= this.maxHp && !it.composure && !it.calm && !this.kahnFoodHelps(id)) return 'Du bist unverletzt.';
     if (it.composure && this.composure >= this.maxComposure() && !it.heal && !(it.calm && this.unruhe > 0)) return 'Deine Nerven sind ruhig.';
     this.removeItem(id);
     const parts = this.applyConsumable(it);
+    parts.push(...this.kahnItemBonus(id));
     this.emit('changed');
     return `${it.name}: ${parts.join(', ')}`;
   }
@@ -651,4 +654,4 @@ export class GameState {
   }
 }
 
-Object.assign(GameState.prototype, partyMethods, gearMethods, pathwayMethods, artifactMethods, gatheringMethods, wantedMethods, bondMethods, auctionMethods);
+Object.assign(GameState.prototype, partyMethods, gearMethods, pathwayMethods, artifactMethods, gatheringMethods, wantedMethods, bondMethods, auctionMethods, kahnMethods);

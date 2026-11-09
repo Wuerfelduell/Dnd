@@ -28,3 +28,42 @@ test('Paket AA: Martha bietet nach Fall 5 den Waschtag an', () => {
   const choices = d.nodes[start].choices.filter((c) => s.meets(c));
   assert.ok(choices.some((c) => c.next?.startsWith('kg_')), 'Option für den neuen Auftrag sichtbar');
 });
+
+test('Paket AB: zehn Wexmoor-Nebenaufträge und sechs Kahn-Ausbauten sind im Spiel', () => {
+  const k2n = Object.keys(content.quests).filter((id) => id.startsWith('k2n_'));
+  assert.equal(k2n.length, 10);
+  const kahn = content.maps.wx_kahn.interactables.filter((i) => i.id.startsWith('k2n_kahn_'));
+  assert.equal(kahn.length, 6);
+  for (const i of kahn) assert.ok('wO'.includes(content.maps.wx_kahn.rows[i.tile[1]][i.tile[0]]), `${i.id} steht auf dem Boden`);
+});
+
+test('Paket AB: Fahndung senken, Zunders Vertrauen und die Wirkungen des Kahn-Ausbaus', () => {
+  const s = new GameState(content);
+  s.setWanted(2, '');
+  s.applyEffects({ wanted: -1 });
+  assert.equal(s.wanted, 1);
+  s.applyEffects({ wanted: -3 });
+  assert.equal(s.wanted, 0);
+  s.applyEffects({ bond: { zunder: 3 } });
+  assert.equal(s.bond('zunder'), 3);
+  // Reetmatten: Salzbrot im Kahn gibt 3 Nerven extra, anderswo nicht
+  s.map = 'wx_kahn';
+  s.flags.add('k2n_kahn_reet');
+  s.addItem('salzbrot', 2);
+  s.setComposure(50);
+  const before = s.composure;
+  s.useItem('salzbrot');
+  const inKahn = s.composure - before;
+  s.map = 'wx_salzmarkt';
+  s.setComposure(50);
+  s.useItem('salzbrot');
+  assert.equal(inKahn - (s.composure - 50), 3);
+  // Waschtisch: nur für Beyonder, nur im Kahn
+  s.map = 'wx_kahn';
+  s.flags.add('k2n_kahn_waschtisch');
+  assert.equal(s.kahnRestBonus(), 0, 'kein Beyonder');
+  s.pathway = { id: 'laterne', seq: 9, digestion: 0 };
+  s.setUnruhe(12);
+  assert.equal(s.kahnRestBonus(), 5);
+  assert.equal(Math.round(s.unruhe), 7);
+});

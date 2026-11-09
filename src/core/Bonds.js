@@ -4,6 +4,9 @@
 // - Ab `friend_at` ist man befreundet (Flag <id>_freund), ab `foe_at` verfeindet (Flag <id>_feind). Danach ändert sich nichts mehr.
 // - Befreundete Einzelgänger bürgen für neue Zirkel (siehe treffen.json), Feinde greifen an und lassen ihre Zutat fallen.
 
+/** Gefährten mit eigenem Vertrauenswert (kein Einzelgänger). */
+export const COMPANIONS = ['zunder'];
+
 export const bondMethods = {
   resetBonds() {
     this.bonds = {};
@@ -30,6 +33,14 @@ export const bondMethods = {
 
   changeBond(id, delta) {
     const r = this.lonerRules();
+    // Gefährten wie Zunder (Paket AB): Vertrauen wird gezählt, ohne Freund/Feind-Umschlag der Einzelgänger
+    if (!this.loner(id) && COMPANIONS.includes(id)) {
+      const v = this.bond(id) + delta;
+      this.bonds[id] = v;
+      this.emit('bond', { id, value: v, delta, status: null, name: this.content.npcs[id]?.name ?? id, companion: true });
+      this.emit('changed');
+      return v;
+    }
     if (!r || !this.loner(id) || this.bondStatus(id)) return this.bond(id);
     const v = Math.max(r.foe_at, Math.min(r.friend_at, this.bond(id) + delta));
     this.bonds[id] = v;

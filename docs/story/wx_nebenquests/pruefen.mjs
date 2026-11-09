@@ -8,10 +8,11 @@ const root = path.resolve(here, '../../..');
 const errors = [];
 const check = (ok, msg) => { if (!ok) errors.push(msg); };
 const read = p => JSON.parse(fs.readFileSync(p, 'utf8'));
-const files = fs.readdirSync(here).filter(f => f.endsWith('.json')).sort();
+const pkgDir = path.join(root, 'src/data/packs/wx_nebenquests'); // seit dem Einbau dort
+const files = fs.readdirSync(pkgDir).filter(f => f.endsWith('.json')).sort();
 const data = {};
 for (const f of files) {
-  try { data[f] = read(path.join(here, f)); } catch (e) { errors.push(`${f}: ${e.message}`); }
+  try { data[f] = read(path.join(pkgDir, f)); } catch (e) { errors.push(`${f}: ${e.message}`); }
 }
 if (errors.length) { console.error(errors.join('\n')); process.exit(1); }
 const [q, dialogues, additions, npcs, placements, cases, items, encounters, upgrades] =
@@ -25,7 +26,7 @@ function jsonFiles(dir) {
   return fs.readdirSync(dir, {withFileTypes:true}).flatMap(e =>
     e.isDirectory() ? jsonFiles(path.join(dir,e.name)) : e.name.endsWith('.json') ? [path.join(dir,e.name)] : []);
 }
-const source = jsonFiles(path.join(root, 'src/data')).map(read);
+const source = jsonFiles(path.join(root, 'src/data')).filter(f => !f.startsWith(pkgDir)).map(read);
 const wx = read(path.join(root,'src/data/wexmoor.json'));
 const meeting = read(path.join(root,'src/data/treffen.json'));
 const registry = {maps:new Map(),npcs:new Set(),items:new Set(),encounters:new Set(),quests:new Set(),clues:new Set(),facts:new Set(),deductions:new Set()};

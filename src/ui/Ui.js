@@ -337,7 +337,8 @@ export class Ui {
       this.updateWanted();
       this.toast(`Fahndungsstufe ${level}${reason ? `: ${reason}` : ''}`, delta > 0 ? 'warn' : 'item');
     });
-    state.on('bond', ({ name, value, delta, status }) => {
+    state.on('bond', ({ name, value, delta, status, companion }) => {
+      if (companion) { this.toast(`${name} ${delta > 0 ? 'vertraut dir mehr' : 'vertraut dir weniger'}.`, delta > 0 ? 'item' : 'warn'); return; }
       const max = state.lonerRules()?.friend_at ?? 3;
       if (status === 'freund') this.toast(`${name} ist jetzt dein Freund.`, 'item');
       else if (status === 'feind') this.toast(`${name} ist jetzt dein Feind.`, 'warn');
