@@ -246,6 +246,10 @@
       "default": [
         2,
         19
+      ],
+      "k3o_steg": [
+        19,
+        18
       ]
     },
     "lights": [
@@ -427,6 +431,23 @@
         ],
         "prompt": "Stadtkarte von Dunscar",
         "marker": false
+      },
+      {
+        "id": "k3o_steg_nach_bruchstufen",
+        "kind": "door",
+        "to": "ds_bruchstufen",
+        "spawn": "k3o_steg",
+        "prompt": "Über den Wartungssteg zu den Bruchstufen",
+        "marker": true,
+        "tile": [
+          19,
+          19
+        ],
+        "visible_if": {
+          "requires_flags": [
+            "k3n_drehscheibe_offen"
+          ]
+        }
       }
     ],
     "npcs": [],
@@ -864,6 +885,10 @@
       "default": [
         2,
         19
+      ],
+      "k3o_steg": [
+        16,
+        18
       ]
     },
     "lights": [
@@ -1038,6 +1063,23 @@
         ],
         "prompt": "Stadtkarte von Dunscar",
         "marker": false
+      },
+      {
+        "id": "k3o_steg_nach_schwellenring",
+        "kind": "door",
+        "to": "ds_schwellenring",
+        "spawn": "k3o_steg",
+        "prompt": "Über den Wartungssteg zum Schwellenring",
+        "marker": true,
+        "tile": [
+          16,
+          19
+        ],
+        "visible_if": {
+          "requires_flags": [
+            "k3n_drehscheibe_offen"
+          ]
+        }
       }
     ],
     "npcs": [

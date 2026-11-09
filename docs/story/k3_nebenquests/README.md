@@ -63,3 +63,14 @@ Vom Repository aus: `node docs/story/k3_nebenquests/pruefen.mjs`.
 Der Prüfer kontrolliert JSON, neue Präfixe, Dialogkanten und Erreichbarkeit, Flag-Erzeuger, Referenzen, Zielobjekte, Faktenpaare, Inhaltszahlen und Auszahlungssperren. Er durchläuft außerdem alle zwölf Quests in 48 Konfigurationen aus vier Wexmoor-Enden, drei Kettlegate-Absendern, Solo/Koop und beiden Ausgangsgruppen. Der Durchlauf ist ein Datenmodell, keine Ausführung der Phaser-Spielwelt.
 
 Externe Kapitel-3-IDs werden einzeln als **OFFEN** ausgegeben, nicht als implementiert ausgegeben. `--strict-integration` liefert deshalb bis zum tatsächlichen Einbau einen Fehlerstatus. Die Details stehen in [`offene_punkte.md`](offene_punkte.md). Keine Änderung an `src/`, `public/` oder `tests/` gehört zu diesem Paket.
+
+## Eingebaut
+
+Die Spieldaten liegen in `src/data/packs/k3_nebenquests/`. Gerede, Bestiarium und Lesestücke lädt `withPackLore` in `buildContent`. Beim Einbau geändert:
+- Die Dialogzusätze hängen an den AR-Dialogen (`k3a_<figur>`, jeweils am Startknoten).
+- Das Kalkblatt ist dieselbe Zeitung wie bei AR (`dunscarer_kalkblatt`).
+- Der Wartungssteg steht als zwei Türen `k3o_steg_*` mit dem Spawn `k3o_steg` auf den AS-Karten und erscheint mit `k3n_drehscheibe_offen`.
+- 16 Fundstellen wurden auf freie Felder verschoben.
+- Zunders Begleitbriefe nutzen vorerst das Icon von Ivys Brief.
+
+Die Stimmfassungen aus `koop_stimmen.md` sind noch nicht eingebaut. Die neutralen Koop-Knoten funktionieren.

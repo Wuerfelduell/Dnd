@@ -62,10 +62,21 @@ export function buildContent({ campaign, quests, cases, maps, dialogues, items =
   for (const pack of packs) applyQuestPack(content, pack);
   applyLore(content, lore); // Paket AD: Lesestücke, Itemtexte, Bestiarium, Zeitungen, Gerede
   for (const pack of packs) if (pack.zeitung) content.newspapers = [...(content.newspapers ?? []), ...pack.zeitung]; // Paket AL
+  for (const pack of packs) withPackLore(content, pack); // Paket AT: Gerede, Bestiarium und Lesestücke aus Nebenauftragspaketen
   for (const pack of packs) withPackBosses(content, pack); // Kapitel 3: Bosse, Folgeabschnitte und Kampftexte
   applySequenzen(content, sequenzen, sq); // Paket AF: Händler, Treffen und Funde für die neuen Pfade
   applyMoods(content); // Paket AK: Stimmungen für Schlüsselstellen
   return content;
+}
+
+/** Lore aus einem Paket: Gerede je Stadt und Karte anhängen, Bestiariumstexte nur ergänzen, Lesestücke platzieren. */
+function withPackLore(content, pack) {
+  for (const [city, perMap] of Object.entries(pack.gerede ?? {})) {
+    const own = (content.gossip[city] = { ...(content.gossip[city] ?? {}) });
+    for (const [map, lines] of Object.entries(perMap)) own[map] = [...(own[map] ?? []), ...lines];
+  }
+  for (const [id, t] of Object.entries(pack.bestiarium ?? {})) content.bestiaryTexts[id] ??= t;
+  if (pack.lesestuecke?.length) applyQuestPack(content, { name: `${pack.name}_lese`, platzierung: pack.lesestuecke });
 }
 
 /**
