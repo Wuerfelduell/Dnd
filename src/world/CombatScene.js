@@ -1,5 +1,5 @@
 import Phaser from 'phaser';
-import { Combat, SKILLS, WINDOW, EARLY_LIMIT, judgeDefense, judgeTiming } from '../core/Combat.js';
+import { Combat, WINDOW, EARLY_LIMIT, judgeDefense, judgeTiming } from '../core/Combat.js';
 import { createTextures, createCharacterSheet } from './textures.js';
 import { VIEW_W, VIEW_H, PLAYER_PALETTE } from './WorldScene.js';
 
@@ -139,7 +139,8 @@ export class CombatScene extends Phaser.Scene {
 
   // Angriff im Takt: ein Zeiger läuft über die Leiste, im goldenen Bereich drücken.
   startQte(skillId) {
-    const sk = SKILLS[skillId];
+    const sk = this.combat.skillDef(skillId);
+    if (!sk.hits) { this.qte = { skillId, grades: [] }; this.phase = 'anim'; this.resolveSkill(); return; }
     this.phase = 'qte';
     this.qte = { skillId, grades: [], total: sk.hits, bar: null };
     this.ui.combatMessage(`${sk.name}: Drücke E oder Leertaste, wenn der Zeiger im goldenen Bereich ist.`);
@@ -180,7 +181,17 @@ export class CombatScene extends Phaser.Scene {
     this.qte = null;
     this.phase = 'anim';
     const c = this.combat;
+    const sk = c.skillDef(skillId);
     const r = c.useSkill(skillId, grades);
+    if (!sk.hits) {
+      this.flash(this.player);
+      this.float(sk.name, 'player', 'good');
+      if (r.stunned) this.flash(this.enemy);
+      this.ui.combatMessage(`${sk.name}: ${r.effects.join(', ') || 'wirkt'}.${r.stunned ? ` ${c.enemy.name} setzt eine Runde aus.` : ''}`);
+      this.ui.combatRefresh();
+      this.time.delayedCall(700, () => this.afterPlayer());
+      return;
+    }
     this.tweens.add({
       targets: this.player, x: ENEMY_X - 50, duration: 160, yoyo: true, ease: 'Quad.out',
       onYoyo: () => {
@@ -188,8 +199,9 @@ export class CombatScene extends Phaser.Scene {
         this.cameras.main.shake(90, 0.006);
       },
     });
-    let msg = `${SKILLS[skillId].name}: ${r.total} Schaden.`;
-    if (r.stunned) msg += ` ${c.enemy.name} ist geblendet und setzt aus.`;
+    let msg = `${sk.name}: ${r.total} Schaden.`;
+    if (r.effects.length) msg += ` ${r.effects.join(', ')}.`;
+    if (r.stunned) msg += ` ${c.enemy.name} ${skillId === 'blind' ? 'ist geblendet und ' : ''}setzt aus.`;
     if (skillId === 'blind' && !r.stunned) msg += ' Die Blende verfehlt ihr Ziel.';
     this.ui.combatMessage(msg);
     this.ui.combatRefresh();
@@ -207,7 +219,16 @@ export class CombatScene extends Phaser.Scene {
     const c = this.combat;
     const atk = c.nextEnemyAttack();
     if (!atk) {
-      this.ui.combatMessage(`${c.enemy.name} taumelt geblendet und greift nicht an.`);
+      if (c.selfHit) {
+        this.ui.combatMessage(`${c.enemy.name} schlägt verwirrt nach einem Trugbild und trifft sich selbst: ${c.selfHit} Schaden.`);
+        this.flash(this.enemy);
+        this.float(`-${c.selfHit}`, 'enemy', 'dmg');
+        c.selfHit = 0;
+        this.ui.combatRefresh();
+        this.time.delayedCall(900, () => (c.outcome ? this.over() : this.endRound()));
+        return;
+      }
+      this.ui.combatMessage(`${c.enemy.name} taumelt und greift nicht an.`);
       this.time.delayedCall(900, () => this.endRound());
       return;
     }
@@ -215,14 +236,14 @@ export class CombatScene extends Phaser.Scene {
     this.attack = atk;
     const t0 = now() + TELEGRAPH;
     this.hits = atk.hits.map((h) => ({ impact: t0 + h, result: null, applied: false }));
-    this.ui.combatMessage(`${c.enemy.name}: ${atk.name}${atk.hits.length > 1 ? ` (${atk.hits.length} Schläge)` : ''}`, 'Leertaste: ausweichen · F: parieren');
+    this.ui.combatMessage(`${c.enemy.name}: ${atk.name}${atk.hits.length > 1 ? ` (${atk.hits.length} Schläge)` : ''}${c.evading ? '\n\nDu weißt schon, wohin er schlägt.' : ''}`, 'Leertaste: ausweichen · F: parieren');
     this.tweens.add({ targets: this.enemy, x: ENEMY_X + 8, duration: TELEGRAPH * 0.6, ease: 'Sine.out' });
   }
 
   pressDefense(kind, t) {
     const hit = this.hits.find((h) => !h.result && t >= h.impact - EARLY_LIMIT);
     if (!hit) return;
-    hit.result = judgeDefense(kind, t - hit.impact);
+    hit.result = judgeDefense(kind, t - hit.impact, this.state.passive('dodge_window'));
     if (hit.result === 'miss') hit.early = t < hit.impact;
     else this.applyHit(hit);
   }
@@ -231,6 +252,7 @@ export class CombatScene extends Phaser.Scene {
     if (hit.applied) return;
     hit.applied = true;
     const r = this.combat.resolveHit(this.attack, hit.result);
+    hit.result = r.result;
     this.tweens.add({ targets: this.enemy, x: PLAYER_X + 70, duration: 90, yoyo: true, ease: 'Quad.in' });
     if (hit.result === 'parry') {
       this.float('Parade!', 'player', 'perfect');
@@ -240,7 +262,7 @@ export class CombatScene extends Phaser.Scene {
       this.float('Ausgewichen', 'player', 'good');
       this.tweens.add({ targets: this.player, x: PLAYER_X - 26, duration: 110, yoyo: true, ease: 'Quad.out' });
     } else {
-      this.time.delayedCall(90, () => { this.flash(this.player); this.float(`-${r.damage}`, 'player', 'hurt'); this.cameras.main.shake(120, 0.01); });
+      this.time.delayedCall(90, () => { this.flash(this.player); this.float(r.damage ? `-${r.damage}` : 'Abgefangen', 'player', r.damage ? 'hurt' : 'good'); if (r.damage) this.cameras.main.shake(120, 0.01); });
       if (hit.early) this.float('Zu früh', 'player', 'miss');
     }
     this.ui.combatRefresh();
@@ -250,6 +272,7 @@ export class CombatScene extends Phaser.Scene {
     const c = this.combat;
     this.phase = 'anim';
     const allParried = this.hits.every((h) => h.result === 'parry');
+    c.endEnemyTurn();
     this.tweens.add({ targets: this.enemy, x: ENEMY_X, duration: 200 });
     if (allParried && !c.outcome) {
       const dmg = c.riposte();
@@ -268,7 +291,15 @@ export class CombatScene extends Phaser.Scene {
   endRound() {
     this.ui.combatRefresh();
     if (this.combat.outcome) { this.over(); return; }
-    this.combat.endRound();
+    const dot = this.combat.endRound();
+    if (dot) {
+      this.flash(this.enemy);
+      this.float(`-${dot}`, 'enemy', 'dmg');
+      this.ui.combatRefresh();
+      this.ui.combatMessage(`${this.combat.enemy.name} leidet unter Brand und Gift: ${dot} Schaden.`);
+      this.time.delayedCall(700, () => (this.combat.outcome ? this.over() : this.toMenu()));
+      return;
+    }
     this.toMenu();
   }
 

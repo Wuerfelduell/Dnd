@@ -25,9 +25,11 @@ export class Ui {
           <div class="meter life"><span>Leben</span><div class="bar"><div class="lfill"></div></div><em class="hpnum"></em></div>
           <div class="meter"><span>Nerven</span><div class="bar"><div class="fill"></div></div></div>
           <div class="meter honor"><span class="rank"></span><div class="bar"><div class="hfill"></div></div></div>
+          <div class="meter unruhe hidden"><span>Unruhe</span><div class="bar"><div class="ufill"></div></div></div>
+          <div class="money"></div>
         </div>
         <div class="hud-right">
-          <span class="key">J</span> Notizbuch &nbsp; <span class="key">I</span> Inventar &nbsp; <span class="key">Q</span> Geistsicht
+          <span class="key">J</span> Notizbuch &nbsp; <span class="key">I</span> Inventar &nbsp; <span class="key">P</span> Pfad &nbsp; <span class="key">Q</span> Geistsicht
         </div>
         <div class="vision-tag">Geistsicht</div>
       </div>
@@ -63,10 +65,34 @@ export class Ui {
       else if (it.kind !== 'consumable') this.toast(`Abgegeben: ${it.name}`, 'warn');
     });
 
+    state.on('money', ({ delta, reason }) => {
+      this.updateMoney();
+      if (this.modal === 'combat' || this.modal === 'shop') return;
+      this.toast(`${delta > 0 ? '+' : ''}${delta} Schilling${reason ? `: ${reason}` : ''}`, delta > 0 ? 'item' : 'warn');
+    });
+    state.on('unruhe', () => this.updateUnruhe());
+    state.on('digested', () => this.toast('Bereit für den nächsten Trank. Kittering hat die Formel.', 'gold'));
+    state.on('ascend', () => { this.updateUnruhe(); this.updateHp(); });
+    state.on('lostcontrol', ({ text }) => {
+      this.updateHp();
+      this.updateUnruhe();
+      if (this.modal === 'combat') return;
+      if (this.modal) { this.pendingLost = text; return; }
+      this.showMessage('Kontrollverlust', text);
+    });
+    // Flüstern bei hoher Unruhe
+    this.whisperTimer = setInterval(() => {
+      if (this.modal || state.unruhe < 60 || !this.scene) return;
+      const lines = ['Jemand flüstert deinen Namen.', 'Die Schatten am Rand deines Blicks bewegen sich.', 'Deine Hände zittern. Ein Ruhetee würde helfen.', 'Du hörst ein Lachen, das niemandem gehört.'];
+      this.toast(lines[Math.floor(Math.random() * lines.length)], 'warn');
+    }, 22000);
+
     window.addEventListener('keydown', (e) => this.onKey(e), true);
     this.updateComposure(state.composure);
     this.updateHonor();
     this.updateHp();
+    this.updateMoney();
+    this.updateUnruhe();
   }
 
   onSceneReady(scene) {
@@ -74,6 +100,21 @@ export class Ui {
     this.$('.place').textContent = this.state.content.maps[this.state.map].name;
     this.updateHonor();
     this.updateHp();
+    this.updateMoney();
+    this.updateUnruhe();
+  }
+
+  updateMoney() {
+    this.$('.money').textContent = `${this.state.money} Schilling`;
+  }
+
+  updateUnruhe() {
+    const s = this.state;
+    const el = this.$('.meter.unruhe');
+    el.classList.toggle('hidden', !s.isBeyonder() && s.unruhe <= 0);
+    const fill = this.$('.ufill');
+    fill.style.width = `${s.unruhe}%`;
+    fill.classList.toggle('low', s.unruhe >= 60);
   }
 
   isBlocking() {
@@ -147,6 +188,10 @@ export class Ui {
       const id = this.pendingEnding;
       this.pendingEnding = null;
       this.showEnding(id);
+    } else if (this.pendingLost) {
+      const text = this.pendingLost;
+      this.pendingLost = null;
+      this.showMessage('Kontrollverlust', text);
     } else if (this.state.pendingCombat && this.scene) {
       this.scene.startCombat(this.state.pendingCombat);
     }
@@ -212,7 +257,9 @@ export class Ui {
     const node = tree.nodes[nodeId];
     if (!node) throw new Error(`Dialogknoten fehlt: ${npc.dialogue}.${nodeId}`);
     s.applyEffects(node);
+    s.visitNode(npc.dialogue, nodeId);
     let text = node.text;
+    if (node.pathway_report) text += `\n\n${s.pathwayReport()}`;
     if (node.rank) {
       const r = s.rank();
       const next = s.nextRank();
@@ -246,6 +293,13 @@ export class Ui {
   choose(i) {
     const choice = this.dialogue?.choices[i];
     if (!choice || choice.locked) return;
+    if (choice.shop) {
+      const { onClose } = this.dialogue;
+      this.dialogue = null;
+      onClose?.();
+      this.openShop(choice.shop);
+      return;
+    }
     const next = this.state.pick(choice.next);
     if (next) { this.showNode(next); return; }
     const { onClose } = this.dialogue;
@@ -291,10 +345,11 @@ export class Ui {
 
   renderNotebook(feedback) {
     const cases = this.visibleCases();
-    if (!['quests', 'items'].includes(this.tab) && !cases.some((c) => c.id === this.tab)) this.tab = 'quests';
-    const tabs = [{ id: 'quests', title: 'Aufträge' }, { id: 'items', title: 'Inventar' }, ...cases.map((c) => ({ id: c.id, title: c.title.replace(/:.*/, '') }))];
-    const body = this.tab === 'quests' ? this.questsHtml() : this.tab === 'items' ? this.itemsHtml() : this.caseHtml(this.tab);
-    const isCase = !['quests', 'items'].includes(this.tab);
+    const fixed = ['quests', 'items', 'pfad'];
+    if (!fixed.includes(this.tab) && !cases.some((c) => c.id === this.tab)) this.tab = 'quests';
+    const tabs = [{ id: 'quests', title: 'Aufträge' }, { id: 'items', title: 'Inventar' }, { id: 'pfad', title: 'Pfad' }, ...cases.map((c) => ({ id: c.id, title: c.title.replace(/:.*/, '') }))];
+    const body = this.tab === 'quests' ? this.questsHtml() : this.tab === 'items' ? this.itemsHtml() : this.tab === 'pfad' ? this.pathwayHtml() : this.caseHtml(this.tab);
+    const isCase = !fixed.includes(this.tab);
     const el = this.open('notebook', `
       <div class="tabs">${tabs.map((t, i) => `<button class="tab ${t.id === this.tab ? 'sel' : ''}" data-tab="${t.id}"><span class="key">${i + 1}</span> ${esc(t.title)}</button>`).join('')}
         <span class="rankinfo">${esc(this.state.rank().name)} · Ansehen ${this.state.honor}</span></div>
@@ -310,6 +365,8 @@ export class Ui {
     el.querySelector('[data-act=combine]')?.addEventListener('click', () => this.combine());
     el.querySelectorAll('[data-use]').forEach((b) => { b.onclick = () => this.renderNotebook(esc(this.state.useItem(b.dataset.use) ?? '')); });
     el.querySelectorAll('[data-equip]').forEach((b) => { b.onclick = () => { this.state.equip(b.dataset.equip); this.renderNotebook(''); }; });
+    el.querySelectorAll('[data-drink]').forEach((b) => { b.onclick = () => this.drink(b.dataset.drink); });
+    el.querySelectorAll('[data-recipe]').forEach((b) => { b.onclick = () => { this.tab = 'pfad'; this.renderNotebook(''); }; });
     el.querySelector('[data-act=close]').onclick = () => this.close();
   }
 
@@ -330,7 +387,7 @@ export class Ui {
 
   itemsHtml() {
     const s = this.state;
-    const kindOrder = { weapon: 0, consumable: 1, key: 2 };
+    const kindOrder = { weapon: 0, consumable: 1, potion: 2, formula: 3, ingredient: 4, key: 5 };
     const list = s.items().sort((a, b) => kindOrder[a.kind] - kindOrder[b.kind]);
     const w = s.weaponStats();
     const rows = list.map((it) => {
@@ -338,11 +395,16 @@ export class Ui {
       if (it.kind === 'weapon') action = s.weapon === it.id ? '<span class="badge likely">ausgerüstet</span>' : `<button class="small" data-equip="${it.id}">Ausrüsten</button>`;
       else if (it.kind === 'consumable' && !it.combat_only) action = `<button class="small" data-use="${it.id}">Benutzen</button>`;
       else if (it.combat_only) action = '<span class="muted">nur im Kampf</span>';
+      else if (it.kind === 'potion') {
+        const chk = s.drinkCheck(it.id);
+        action = chk.ok ? `<button class="small" data-drink="${it.id}">Trinken</button><br><span class="muted">Risiko ${Math.round(chk.risk * 100)} %</span>` : '<span class="muted">nicht trinkbar</span>';
+      } else if (it.kind === 'formula') action = '<button class="small" data-recipe="1">Rezept</button>';
+      else if (it.kind === 'ingredient') action = '<span class="muted">Zutat</span>';
       const stat = it.kind === 'weapon' ? ` <span class="muted">Angriff ${it.atk}${it.occult ? ', stark gegen Okkultes' : ''}</span>` : '';
       return `<li class="item"><div><strong>${esc(it.name)}</strong>${it.count > 1 ? ` ×${it.count}` : ''}${stat}<br><span class="desc">${esc(it.desc)}</span></div><div>${action}</div></li>`;
     }).join('');
     return `
-      <div class="status">Leben <strong>${s.hp}/${s.maxHp}</strong> · Nerven <strong>${Math.round(s.composure)}</strong> · Waffe <strong>${esc(w.name)}</strong> (Angriff ${w.atk})</div>
+      <div class="status">Leben <strong>${s.hp}/${s.maxHp}</strong> · Nerven <strong>${Math.round(s.composure)}</strong> · Waffe <strong>${esc(w.name)}</strong> (Angriff ${w.atk}) · <strong>${s.money}</strong> Schilling</div>
       <ul class="items">${rows || '<li class="empty">Deine Taschen sind leer.</li>'}</ul>`;
   }
 
@@ -351,11 +413,20 @@ export class Ui {
     const facts = s.knownFacts(caseId);
     const order = { likely: 0, suspected: 1, refuted: 2 };
     facts.sort((a, b) => order[s.factStatus(a)] - order[s.factStatus(b)]);
+    // Musterweber (Faden, Sequenz 7): markiert Informationen, die sich noch verknüpfen lassen
+    const linkable = new Set();
+    if (s.passive('link_hints')) {
+      const usable = (f) => !['unknown', 'refuted'].includes(s.factStatus(f));
+      for (const d of s.content.deductions) {
+        if (s.hasConclusion(d.id)) continue;
+        for (const [a, b] of d.pairs) if (usable(a) && usable(b)) { linkable.add(a); linkable.add(b); }
+      }
+    }
     const factItems = facts.map((f) => {
       const st = s.factStatus(f);
       const n = s.factSources(f).length;
       return `<li><button class="fact ${st} ${this.selected.includes(f) ? 'sel' : ''}" data-fact="${f}" ${st === 'refuted' ? 'data-refuted="1"' : ''}>
-        ${this.badge(st)} ${esc(s.fact(f).text)} <span class="src">${n}×</span></button></li>`;
+        ${this.badge(st)} ${linkable.has(f) ? '<span class="thread" title="Lässt sich verknüpfen">✦</span> ' : ''}${esc(s.fact(f).text)} <span class="src">${n}×</span></button></li>`;
     }).join('');
     const ded = s.content.deductions.filter((d) => d.case === caseId && s.hasConclusion(d.id));
     const concl = ded.map((d) => `<li><strong>${esc(d.name)}</strong> ${s.isCertain(d.id) ? '<span class="badge likely">gesichert</span>' : '<span class="badge suspected">Vermutung</span>'}<br>${esc(d.text)}</li>`).join('');
@@ -396,6 +467,115 @@ export class Ui {
       none: 'Diese Informationen ergeben zusammen keinen Sinn.',
     }[result];
     this.renderNotebook(msg);
+  }
+
+
+  // --- Pfad, Tränke, Händler, Kessel --------------------------------------------
+
+  pathwayHtml() {
+    const s = this.state;
+    const all = s.content.pathways;
+    if (!s.isBeyonder()) {
+      return `
+        <p class="lead">Du hast noch keinen Trank getrunken. Auf dem <strong>Nachtmarkt</strong> unter der Krähenbrücke erklärt dir Sabeth Orr die Pfade, Cornelius Kittering verkauft Formeln, Nell Rauhfuß die Zutaten. Gebraut wird am Kessel.</p>
+        <ul class="paths">${Object.values(all).map((p) => `<li><strong style="color:${p.color}">${esc(p.name)}</strong> <span class="muted">${Object.keys(p.seqs).sort((a, b) => b - a).map((k) => `${k}: ${esc(p.seqs[k].name)}`).join(' · ')}</span><br><em>„${esc(p.principle)}“</em> ${esc(p.digest_hint)}</li>`).join('')}</ul>
+        ${this.recipesHtml(false)}`;
+    }
+    const p = s.pathwayDef();
+    const cur = s.pathway;
+    const seqs = Object.keys(p.seqs).map(Number).sort((a, b) => b - a);
+    const rows = seqs.map((n) => {
+      const sd = p.seqs[n];
+      const reached = n >= cur.seq;
+      if (!reached) return `<li class="seq locked"><strong>Sequenz ${n}: ${esc(sd.name)}</strong> <span class="muted">noch nicht erreicht</span></li>`;
+      return `<li class="seq"><strong>Sequenz ${n}: ${esc(sd.name)}</strong> ${n === cur.seq ? '<span class="badge likely">aktuell</span>' : ''}<br>
+        <span class="desc">${esc(sd.desc)}</span><br>
+        ⚔ <strong>${esc(sd.skill.name)}</strong> <span class="muted">(${sd.skill.cost} K)</span> ${esc(sd.skill.desc)}
+        ${(sd.passives ?? []).map((x) => `<br>✧ ${esc(x.text)}`).join('')}</li>`;
+    }).join('');
+    const d = Math.floor(cur.digestion);
+    return `
+      <div class="pathhead"><strong style="color:${p.color}">${esc(p.name)}</strong> · Sequenz ${cur.seq}: ${esc(s.seqDef().name)}</div>
+      <div class="meters2">
+        <div class="meter"><span>Verdaut</span><div class="bar"><div class="dfill" style="width:${d}%"></div></div><em>${d} %</em></div>
+        <div class="meter"><span>Unruhe</span><div class="bar"><div class="ufill ${s.unruhe >= 60 ? 'low' : ''}" style="width:${s.unruhe}%"></div></div><em>${Math.round(s.unruhe)}</em></div>
+      </div>
+      <p class="lead"><em>„${esc(p.principle)}“</em> ${esc(p.digest_hint)}</p>
+      <ul class="seqs">${rows}</ul>
+      ${this.recipesHtml(false)}`;
+  }
+
+  recipesHtml(withButtons) {
+    const list = this.state.recipes();
+    if (!list.length) return withButtons ? '<p class="empty">Du besitzt keine Formel. Cornelius Kittering verkauft welche.</p>' : '';
+    return `<h4>Formeln</h4><ul class="recipes">${list.map((r, i) => `<li><div><strong>${esc(r.name)}</strong> <span class="muted">Seq. ${r.seq}</span><br>
+      ${r.ingredients.map((x) => `<span class="${x.have >= x.need ? 'good' : 'muted'}">${esc(x.name)} ${x.have}/${x.need}</span>`).join(' · ')}</div>
+      ${withButtons ? `<div><button class="small" data-brew="${r.formula}" ${r.ready ? '' : 'disabled'}><span class="key">${i + 1}</span> Brauen</button></div>` : ''}</li>`).join('')}</ul>`;
+  }
+
+  drink(itemId) {
+    const r = this.state.drink(itemId);
+    if (r.lost) { this.close(); return; } // Meldung kommt über 'lostcontrol'
+    if (!r.ok) { this.renderNotebook(esc(r.text)); return; }
+    this.close();
+    this.showMessage(this.state.item(itemId).name, r.text);
+  }
+
+  openBrew(feedback = '') {
+    const list = this.state.recipes();
+    this.brewList = list;
+    const el = this.open('brew', `
+      <h3>Braukessel</h3>
+      <p class="lead">Der Kessel blubbert über einem Kohlebecken. Wähle eine Formel. Die Zutaten werden verbraucht.</p>
+      ${this.recipesHtml(true)}
+      <div class="feedback">${feedback}</div>
+      <div class="actions"><button data-act="close">Fertig <span class="key">Esc</span></button></div>`, 'notebook brew');
+    el.querySelectorAll('[data-brew]').forEach((b) => { b.onclick = () => this.brew(b.dataset.brew); });
+    el.querySelector('[data-act=close]').onclick = () => this.close();
+  }
+
+  brew(formulaId) {
+    const r = this.state.brew(formulaId);
+    this.openBrew(`<span class="${r.ok ? 'good' : ''}">${esc(r.text)}</span>`);
+  }
+
+  openShop(merchantId, mode = 'buy', feedback = '') {
+    const s = this.state;
+    const m = s.merchant(merchantId);
+    if (!m) throw new Error(`Händler fehlt: ${merchantId}`);
+    this.shop = { id: merchantId, mode };
+    let rows;
+    if (mode === 'buy') {
+      const stock = s.shopStock(merchantId);
+      this.shop.entries = stock.map((e) => ({ id: e.item, disabled: !!e.locked || e.owned || s.money < e.price }));
+      rows = stock.map((e, i) => `<li class="item ${e.locked ? 'lockedrow' : ''}"><div><strong>${esc(e.name)}</strong>${s.itemCount(e.item) ? ` <span class="muted">(hast ${s.itemCount(e.item)})</span>` : ''}<br>
+        <span class="desc">${esc(e.locked ? `🔒 ${e.locked}` : e.desc)}</span></div>
+        <div>${e.owned ? '<span class="badge likely">gekauft</span>' : `<button class="small" data-buy="${i}" ${this.shop.entries[i].disabled ? 'disabled' : ''}>${i < 9 ? `<span class="key">${i + 1}</span> ` : ''}${e.price} Sch.</button>`}</div></li>`).join('');
+    } else {
+      const sellable = s.items().filter((it) => s.sellPrice(it.id) !== null);
+      this.shop.entries = sellable.map((it) => ({ id: it.id }));
+      rows = sellable.map((it, i) => `<li class="item"><div><strong>${esc(it.name)}</strong>${it.count > 1 ? ` ×${it.count}` : ''}<br><span class="desc">${esc(it.desc)}</span></div>
+        <div><button class="small" data-sell="${i}">${i < 9 ? `<span class="key">${i + 1}</span> ` : ''}${s.sellPrice(it.id)} Sch.</button></div></li>`).join('') || '<li class="empty">Nichts, was Gorse haben will.</li>';
+    }
+    const el = this.open('shop', `
+      <h3>${esc(m.name)} <span class="muted">${esc(m.title)}</span></h3>
+      <p class="lead">„${esc(m.greeting)}“</p>
+      ${m.buys ? `<div class="tabs"><button class="tab ${mode === 'buy' ? 'sel' : ''}" data-mode="buy">Kaufen</button><button class="tab ${mode === 'sell' ? 'sel' : ''}" data-mode="sell">Verkaufen</button> <span class="muted">Wechseln mit <span class="key">V</span></span></div>` : ''}
+      <ul class="items shoplist">${rows}</ul>
+      <div class="feedback">${feedback}</div>
+      <div class="actions"><span class="purse">${s.money} Schilling</span><button data-act="close">Gehen <span class="key">Esc</span></button></div>`, 'notebook shop');
+    el.querySelectorAll('[data-buy]').forEach((b) => { b.onclick = () => this.shopPick(Number(b.dataset.buy)); });
+    el.querySelectorAll('[data-sell]').forEach((b) => { b.onclick = () => this.shopPick(Number(b.dataset.sell)); });
+    el.querySelectorAll('[data-mode]').forEach((b) => { b.onclick = () => this.openShop(merchantId, b.dataset.mode); });
+    el.querySelector('[data-act=close]').onclick = () => this.close();
+  }
+
+  shopPick(i) {
+    const sh = this.shop;
+    const e = sh?.entries[i];
+    if (!e) return;
+    const r = sh.mode === 'buy' ? this.state.buy(sh.id, e.id) : this.state.sell(e.id);
+    this.openShop(sh.id, sh.mode, `<span class="${r.ok ? 'good' : ''}">${esc(r.text)}</span>`);
   }
 
   // --- Kampf -----------------------------------------------------------------
@@ -459,13 +639,13 @@ export class Ui {
         { text: 'Angriff', info: '+1 K', act: { type: 'skill', id: 'attack' } },
         { text: 'Fertigkeiten', info: `${c.ap} K`, sub: 'skills' },
         { text: 'Gegenstände', info: `${this.state.items().filter((i) => i.kind === 'consumable').length}`, sub: 'items' },
-        { text: 'Fliehen', info: c.enc.fleeable ? '' : 'unmöglich', act: { type: 'flee' }, disabled: !c.enc.fleeable },
+        { text: 'Fliehen', info: c.canFlee() ? '' : 'unmöglich', act: { type: 'flee' }, disabled: !c.canFlee() },
       ];
       this.layer.querySelector('.cb-text').innerHTML = `<p>Runde ${c.round}. Was tust du?</p>`;
       this.layer.querySelector('.cb-help').textContent = '';
     } else if (sub === 'skills') {
       entries = c.skills().filter((k) => k.id !== 'attack').map((k) => ({
-        text: k.name, info: `${k.cost} K${k.composure ? ` · ${k.composure} Nerven` : ''}`, desc: k.desc, act: { type: 'skill', id: k.id }, disabled: !k.usable,
+        text: `${k.pathway ? '✧ ' : ''}${k.name}`, info: `${k.cost} K${k.composure ? ` · ${k.composure} Nerven` : ''}`, desc: k.desc, act: { type: 'skill', id: k.id }, disabled: !k.usable,
       }));
     } else {
       entries = this.state.items().filter((i) => i.kind === 'consumable').map((i) => ({ text: `${i.name} ×${i.count}`, desc: i.desc, act: { type: 'item', id: i.id } }));
@@ -553,7 +733,11 @@ export class Ui {
     else if (this.modal === 'dialogue' && confirm && this.dialogue?.keyMap.length === 1) this.choose(this.dialogue.keyMap[0]);
     else if (this.modal === 'travel' && num >= 0) this.travel(num);
     else if (this.modal === 'travel' && k === 'escape') this.close();
-    else if (this.modal === 'notebook' && (k === 'j' || k === 'i' || k === 'tab' || k === 'escape')) this.close();
+    else if (this.modal === 'notebook' && (k === 'j' || k === 'i' || k === 'p' || k === 'tab' || k === 'escape')) this.close();
+    else if (this.modal === 'shop' && num >= 0) this.shopPick(num);
+    else if (this.modal === 'shop' && k === 'v' && this.state.merchant(this.shop.id).buys) this.openShop(this.shop.id, this.shop.mode === 'buy' ? 'sell' : 'buy');
+    else if ((this.modal === 'shop' || this.modal === 'brew') && (k === 'escape' || k === 'e')) this.close();
+    else if (this.modal === 'brew' && num >= 0 && this.brewList?.[num]) this.brew(this.brewList[num].formula);
     else if (this.modal === 'notebook' && k === 'v') this.combine();
     else if (this.modal === 'notebook' && num >= 0 && this.notebookTabs[num]) { this.tab = this.notebookTabs[num].id; this.selected = []; this.renderNotebook(''); }
     else handled = false;

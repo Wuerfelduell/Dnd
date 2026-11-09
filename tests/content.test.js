@@ -118,9 +118,9 @@ test('Gegenstände und Kämpfe sind vollständig', () => {
   for (const id of Object.keys(start.items ?? {})) assert.ok(content.items[id], `Startgegenstand ${id}`);
   assert.ok(content.items[start.weapon]?.kind === 'weapon', 'Startwaffe');
   for (const [id, it] of Object.entries(content.items)) {
-    assert.ok(['weapon', 'consumable', 'key'].includes(it.kind), `${id}: Art ${it.kind}`);
+    assert.ok(['weapon', 'consumable', 'key', 'potion', 'formula', 'ingredient'].includes(it.kind), `${id}: Art ${it.kind}`);
     if (it.kind === 'weapon') assert.ok(it.atk > 0, `${id}: Angriff`);
-    if (it.kind === 'consumable') assert.ok(it.heal || it.composure || it.damage, `${id}: Wirkung`);
+    if (it.kind === 'consumable') assert.ok(it.heal || it.composure || it.damage || it.calm, `${id}: Wirkung`);
   }
   for (const [id, e] of Object.entries(content.encounters)) {
     assert.ok(e.hp > 0 && e.attacks.length, `${id}: Leben und Attacken`);

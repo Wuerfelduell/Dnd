@@ -303,6 +303,7 @@ export class WorldScene extends Phaser.Scene {
     this.input.keyboard.on('keydown-J', queue('notebook'));
     this.input.keyboard.on('keydown-TAB', queue('notebook'));
     this.input.keyboard.on('keydown-I', queue('inventory'));
+    this.input.keyboard.on('keydown-P', queue('pathway'));
   }
 
   bindState() {
@@ -443,11 +444,12 @@ export class WorldScene extends Phaser.Scene {
     else if (action === 'vision') this.state.setSpiritVision(!this.state.spiritVision);
     else if (action === 'notebook') this.ui.openNotebook();
     else if (action === 'inventory') this.ui.openNotebook('items');
+    else if (action === 'pathway') this.ui.openNotebook('pfad');
   }
 
   interact(it) {
     const def = it.def;
-    if (def.lock && !this.state.meets(def.lock)) {
+    if (def.lock && !this.state.meetsLock(def.lock)) {
       this.ui.showMessage(def.title ?? def.prompt, def.lock.text, { footer: def.lock.footer ?? '' });
       return;
     }
@@ -466,6 +468,9 @@ export class WorldScene extends Phaser.Scene {
       case 'travel':
         this.ui.openTravel(this.state.map);
         break;
+      case 'brew':
+        this.ui.openBrew();
+        break;
       case 'combat':
         this.startCombat(def.encounter);
         break;
@@ -482,11 +487,13 @@ export class WorldScene extends Phaser.Scene {
         const isNew = !def.done_flag || !this.state.flags.has(def.done_flag);
         this.ui.showMessage(def.title, def.text, { footer: def.footer ?? '' });
         if (isNew) this.state.applyEffects({ ...def.effects, sets_flags: [...(def.effects?.sets_flags ?? []), ...(def.done_flag ? [def.done_flag] : [])] });
+        if (isNew && def.lock && def.done_flag) this.state.act('lock');
         break;
       }
       default: { // 'clue'
         const clue = this.state.clue(def.clue);
         const isNew = this.state.addClue(def.clue);
+        if (isNew && it.hidden) this.state.act('hidden_clue');
         this.state.applyEffects(def.effects);
         this.ui.showClue(def.clue, isNew);
         if (!isNew && !clue) throw new Error(`Hinweis fehlt: ${def.clue}`);

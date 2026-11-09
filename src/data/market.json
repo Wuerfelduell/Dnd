@@ -1,0 +1,557 @@
+{
+  "currency": {
+    "name": "Schilling",
+    "short": "Sch."
+  },
+  "start_money": 25,
+  "quest_money": {
+    "main": 30,
+    "side": 12
+  },
+  "merchants": {
+    "nell": {
+      "name": "Nell Rauhfuß",
+      "title": "Kräuter und Zutaten",
+      "greeting": "Frisch vom Kanal, frisch vom Friedhof. Fragen Sie nicht, woher genau.",
+      "stock": [
+        {
+          "item": "nebeltau",
+          "price": 3
+        },
+        {
+          "item": "silberstaub",
+          "price": 12
+        },
+        {
+          "item": "gluehwurmasche",
+          "price": 10
+        },
+        {
+          "item": "spinnenseide",
+          "price": 10
+        },
+        {
+          "item": "wachsbluete",
+          "price": 10
+        },
+        {
+          "item": "grabmoos",
+          "price": 10
+        },
+        {
+          "item": "bitterwurz",
+          "price": 10
+        },
+        {
+          "item": "eisenkraut",
+          "price": 10
+        },
+        {
+          "item": "kraehenfeder",
+          "price": 10
+        },
+        {
+          "item": "leuchtmoos",
+          "price": 24,
+          "requires_honor": 20
+        },
+        {
+          "item": "eulenfeder",
+          "price": 24,
+          "requires_honor": 20
+        },
+        {
+          "item": "mondmohn",
+          "price": 24,
+          "requires_honor": 20
+        },
+        {
+          "item": "glockenstaub",
+          "price": 24,
+          "requires_honor": 20
+        },
+        {
+          "item": "kroetenschleim",
+          "price": 24,
+          "requires_honor": 20
+        },
+        {
+          "item": "ochsenblut",
+          "price": 24,
+          "requires_honor": 20
+        },
+        {
+          "item": "schattenpilz",
+          "price": 24,
+          "requires_honor": 20
+        }
+      ]
+    },
+    "kittering": {
+      "name": "Cornelius Kittering",
+      "title": "Formeln und seltene Zutaten",
+      "greeting": "Jede Formel nur einmal. Wer sie weitererzählt, bekommt nie wieder eine.",
+      "stock": [
+        {
+          "item": "formel_laterne_9",
+          "price": 30,
+          "once": true
+        },
+        {
+          "item": "formel_faden_9",
+          "price": 30,
+          "once": true
+        },
+        {
+          "item": "formel_maske_9",
+          "price": 30,
+          "once": true
+        },
+        {
+          "item": "formel_echo_9",
+          "price": 30,
+          "once": true
+        },
+        {
+          "item": "formel_kessel_9",
+          "price": 30,
+          "once": true
+        },
+        {
+          "item": "formel_eisen_9",
+          "price": 30,
+          "once": true
+        },
+        {
+          "item": "formel_schluessel_9",
+          "price": 30,
+          "once": true
+        },
+        {
+          "item": "formel_laterne_8",
+          "price": 70,
+          "once": true,
+          "requires_pathway": [
+            "laterne",
+            9
+          ],
+          "locked_text": "Erst für Anhänger des Pfads der Laterne"
+        },
+        {
+          "item": "formel_faden_8",
+          "price": 70,
+          "once": true,
+          "requires_pathway": [
+            "faden",
+            9
+          ],
+          "locked_text": "Erst für Anhänger des Pfads des Fadens"
+        },
+        {
+          "item": "formel_maske_8",
+          "price": 70,
+          "once": true,
+          "requires_pathway": [
+            "maske",
+            9
+          ],
+          "locked_text": "Erst für Anhänger des Pfads der Maske"
+        },
+        {
+          "item": "formel_echo_8",
+          "price": 70,
+          "once": true,
+          "requires_pathway": [
+            "echo",
+            9
+          ],
+          "locked_text": "Erst für Anhänger des Pfads des Echos"
+        },
+        {
+          "item": "formel_kessel_8",
+          "price": 70,
+          "once": true,
+          "requires_pathway": [
+            "kessel",
+            9
+          ],
+          "locked_text": "Erst für Anhänger des Pfads des Kessels"
+        },
+        {
+          "item": "formel_eisen_8",
+          "price": 70,
+          "once": true,
+          "requires_pathway": [
+            "eisen",
+            9
+          ],
+          "locked_text": "Erst für Anhänger des Pfads des Eisens"
+        },
+        {
+          "item": "formel_schluessel_8",
+          "price": 70,
+          "once": true,
+          "requires_pathway": [
+            "schluessel",
+            9
+          ],
+          "locked_text": "Erst für Anhänger des Pfads des Schlüssels"
+        },
+        {
+          "item": "formel_laterne_7",
+          "price": 140,
+          "once": true,
+          "requires_pathway": [
+            "laterne",
+            8
+          ],
+          "requires_honor": 35,
+          "locked_text": "Erst ab Sequenz 8 dieses Pfades und Rang Ermittler"
+        },
+        {
+          "item": "formel_faden_7",
+          "price": 140,
+          "once": true,
+          "requires_pathway": [
+            "faden",
+            8
+          ],
+          "requires_honor": 35,
+          "locked_text": "Erst ab Sequenz 8 dieses Pfades und Rang Ermittler"
+        },
+        {
+          "item": "formel_maske_7",
+          "price": 140,
+          "once": true,
+          "requires_pathway": [
+            "maske",
+            8
+          ],
+          "requires_honor": 35,
+          "locked_text": "Erst ab Sequenz 8 dieses Pfades und Rang Ermittler"
+        },
+        {
+          "item": "formel_echo_7",
+          "price": 140,
+          "once": true,
+          "requires_pathway": [
+            "echo",
+            8
+          ],
+          "requires_honor": 35,
+          "locked_text": "Erst ab Sequenz 8 dieses Pfades und Rang Ermittler"
+        },
+        {
+          "item": "formel_kessel_7",
+          "price": 140,
+          "once": true,
+          "requires_pathway": [
+            "kessel",
+            8
+          ],
+          "requires_honor": 35,
+          "locked_text": "Erst ab Sequenz 8 dieses Pfades und Rang Ermittler"
+        },
+        {
+          "item": "formel_eisen_7",
+          "price": 140,
+          "once": true,
+          "requires_pathway": [
+            "eisen",
+            8
+          ],
+          "requires_honor": 35,
+          "locked_text": "Erst ab Sequenz 8 dieses Pfades und Rang Ermittler"
+        },
+        {
+          "item": "formel_schluessel_7",
+          "price": 140,
+          "once": true,
+          "requires_pathway": [
+            "schluessel",
+            8
+          ],
+          "requires_honor": 35,
+          "locked_text": "Erst ab Sequenz 8 dieses Pfades und Rang Ermittler"
+        },
+        {
+          "item": "sternglas",
+          "price": 45,
+          "requires_pathway": [
+            "laterne",
+            8
+          ],
+          "locked_text": "Nur für Sequenz 8 dieses Pfades"
+        },
+        {
+          "item": "spiegelquecksilber",
+          "price": 45,
+          "requires_pathway": [
+            "faden",
+            8
+          ],
+          "locked_text": "Nur für Sequenz 8 dieses Pfades"
+        },
+        {
+          "item": "puppenglas",
+          "price": 45,
+          "requires_pathway": [
+            "maske",
+            8
+          ],
+          "locked_text": "Nur für Sequenz 8 dieses Pfades"
+        },
+        {
+          "item": "seufzerstein",
+          "price": 45,
+          "requires_pathway": [
+            "echo",
+            8
+          ],
+          "locked_text": "Nur für Sequenz 8 dieses Pfades"
+        },
+        {
+          "item": "schwarzbernstein",
+          "price": 45,
+          "requires_pathway": [
+            "kessel",
+            8
+          ],
+          "locked_text": "Nur für Sequenz 8 dieses Pfades"
+        },
+        {
+          "item": "sternschlacke",
+          "price": 45,
+          "requires_pathway": [
+            "eisen",
+            8
+          ],
+          "locked_text": "Nur für Sequenz 8 dieses Pfades"
+        },
+        {
+          "item": "nachtfalterstaub",
+          "price": 45,
+          "requires_pathway": [
+            "schluessel",
+            8
+          ],
+          "locked_text": "Nur für Sequenz 8 dieses Pfades"
+        },
+        {
+          "item": "geisteressenz",
+          "price": 40,
+          "requires_honor": 35
+        }
+      ]
+    },
+    "gorse": {
+      "name": "Pfandleiher Gorse",
+      "title": "Vorräte, An- und Verkauf",
+      "greeting": "Ich kaufe alles, was nicht festgenagelt ist. Und Nägel.",
+      "buys": true,
+      "stock": [
+        {
+          "item": "verband",
+          "price": 8
+        },
+        {
+          "item": "tonikum",
+          "price": 18
+        },
+        {
+          "item": "riechsalz",
+          "price": 12
+        },
+        {
+          "item": "bannsalz",
+          "price": 15
+        },
+        {
+          "item": "ruhetee",
+          "price": 10
+        }
+      ]
+    }
+  },
+  "sell_prices": {
+    "spazierstock": 6,
+    "schlagstock": 20,
+    "stockdegen": 60,
+    "verband": 8,
+    "tonikum": 18,
+    "riechsalz": 12,
+    "bannsalz": 15,
+    "ruhetee": 10
+  },
+  "npcs": {
+    "nell": {
+      "name": "Nell Rauhfuß",
+      "role": "Kräuterhändlerin",
+      "dialogue": "nell",
+      "palette": {
+        "coat": "#4a5a3a",
+        "hat": "#2a3020",
+        "skin": "#e0c0a0",
+        "hair": "#a05a30",
+        "legs": "#2a2a20"
+      }
+    },
+    "kittering": {
+      "name": "Cornelius Kittering",
+      "role": "Formelhändler",
+      "dialogue": "kittering",
+      "palette": {
+        "coat": "#3a2a40",
+        "hat": "#1a1420",
+        "skin": "#e8d0b8",
+        "hair": "#ccc",
+        "legs": "#1a1420"
+      }
+    },
+    "gorse": {
+      "name": "Gorse",
+      "role": "Pfandleiher",
+      "dialogue": "gorse",
+      "palette": {
+        "coat": "#5a4030",
+        "hat": "#2a2018",
+        "skin": "#d8b090",
+        "hair": "#3a2a20",
+        "legs": "#2a2018"
+      }
+    },
+    "sabeth": {
+      "name": "Sabeth Orr",
+      "role": "Wegkundige",
+      "dialogue": "sabeth",
+      "palette": {
+        "coat": "#20303a",
+        "hat": "#101820",
+        "skin": "#e0c8b0",
+        "hair": "#ddd",
+        "legs": "#101820"
+      }
+    },
+    "grubenwirt": {
+      "name": "Brock",
+      "role": "Wirt der Grube",
+      "dialogue": "brock",
+      "palette": {
+        "coat": "#6a3a2a",
+        "hat": "#2a1a10",
+        "skin": "#d0a080",
+        "hair": "#222",
+        "legs": "#2a1a10"
+      }
+    }
+  },
+  "travel": [
+    {
+      "map": "nachtmarkt",
+      "spawn": "default",
+      "name": "Nachtmarkt",
+      "desc": "Unter der Krähenbrücke. Händler, Formeln, Tränke."
+    }
+  ],
+  "encounters": {
+    "schattenpuppe": {
+      "name": "Sabeths Schattenpuppe",
+      "sprite": "npc:sabeth",
+      "practice": true,
+      "fleeable": true,
+      "hp": 40,
+      "intro": "Sabeth zeichnet mit Kreide einen Umriss auf den Boden. Er steht auf. „Probier deine Fähigkeiten aus. Die Puppe tut weh, aber sie bricht nichts.“",
+      "attacks": [
+        {
+          "name": "Schattenhieb",
+          "damage": 4,
+          "hits": [
+            900
+          ]
+        },
+        {
+          "name": "Doppelter Griff",
+          "damage": 3,
+          "hits": [
+            800,
+            1200
+          ]
+        },
+        {
+          "name": "Langer Arm",
+          "damage": 6,
+          "hits": [
+            1500
+          ]
+        }
+      ],
+      "on_win": {},
+      "win_text": "Die Puppe zerfällt zu Kreidestaub. Sabeth nickt. „Gut. Und jetzt stell dir vor, sie hätte Zähne.“"
+    },
+    "grubenkampf": {
+      "name": "Grubenkämpfer",
+      "sprite": "npc:grubenwirt",
+      "fleeable": true,
+      "hp": 36,
+      "intro": "Brock schiebt dich in die Grube. Gegenüber lockert ein Hafenarbeiter die Schultern. „Drei Schilling Einsatz, zwölf für den Sieger!“",
+      "attacks": [
+        {
+          "name": "Schwinger",
+          "damage": 5,
+          "hits": [
+            950
+          ]
+        },
+        {
+          "name": "Kombination",
+          "damage": 4,
+          "hits": [
+            700,
+            1050
+          ]
+        },
+        {
+          "name": "Kopfstoß",
+          "damage": 8,
+          "hits": [
+            1600
+          ]
+        }
+      ],
+      "on_win": {},
+      "win_text": "Dein Gegner bleibt im Sägemehl liegen. Die Menge johlt, Brock zählt dir die Schilling in die Hand.",
+      "lose_text": "Du wachst auf einer Kiste neben der Grube auf. Dein Einsatz ist weg, dein Stolz auch."
+    }
+  },
+  "loot": {
+    "fog_hound": {
+      "money": 15,
+      "items": {
+        "geisteressenz": 1
+      }
+    },
+    "ash_warden": {
+      "money": 20,
+      "items": {
+        "geisteressenz": 1
+      }
+    },
+    "archive_rats": {
+      "money": 6
+    },
+    "choir_zealots": {
+      "money": 25
+    },
+    "rook_fight": {
+      "money": 30,
+      "items": {
+        "geisteressenz": 1
+      }
+    },
+    "grubenkampf": {
+      "money": 12,
+      "repeat": true,
+      "fee": 3
+    }
+  }
+}
