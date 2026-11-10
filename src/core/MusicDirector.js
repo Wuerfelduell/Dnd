@@ -1,4 +1,5 @@
 import { MusicSynth } from './MusicSynth.js';
+import { DAY_NIGHT_SECONDS, isNightAt } from './Clock.js';
 
 /**
  * Paket Z: Hintergrundmusik aus Notendaten (MusicSynth). Wählt alle halbe Sekunde das passende Stück
@@ -13,8 +14,8 @@ const CITY_MUSIC = {
   wexmoor: { tag: 'wexmoor_tag', nacht: 'wexmoor_nacht' },
   dunscar: { tag: 'ds_stadt_tag', nacht: 'ds_stadt_nacht' },
 };
-/** Tag- und Nachtfassung wechseln alle 15 Minuten Spielzeit (das Spiel hat keine eigene Uhr). */
-export const DAY_NIGHT_SECONDS = 15 * 60;
+/** Tag- und Nachtfassung wechseln mit der Spieluhr (Clock.js). */
+export { DAY_NIGHT_SECONDS };
 /** Gegner, die keine Menschen sind, bekommen die okkulte Kampfmusik. */
 const OCCULT = /geist|leiche|schatten|nebel|egel|ruf|nachhall|wurm|braut|engel|chor|hund|kraehe|motte|phantom/;
 
@@ -26,7 +27,7 @@ const variant = (entry, night) => (entry && typeof entry === 'object' ? entry[ni
  */
 export function pickTrack(z, ctx) {
   if (ctx.title) return z.ereignisse?.titel ?? 'titel';
-  const night = Math.floor((ctx.playTime ?? 0) / DAY_NIGHT_SECONDS) % 2 === 1;
+  const night = isNightAt(ctx.playTime);
   if (ctx.combat) {
     const { id, enc } = ctx.combat;
     const k = z.kampf ?? {};

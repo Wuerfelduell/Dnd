@@ -3,6 +3,7 @@ import { questTarget, leadTarget, nextHop } from '../core/Guide.js';
 import { createTextures, createCharacterSheet, hash2, TILE, TILE_INDEX, SOLID_KEYS } from './textures.js';
 import { Lighting, DEPTH } from './Lighting.js';
 import { WexmoorLife, preloadWexmoorLife, speechBubble } from './WexmoorLife.js';
+import { DunscarLife, preloadDunscarLife } from './DunscarLife.js';
 import { KoopLife } from './Koop.js';
 import { preloadSprites, playSheetAnim, themeKeys, facadeKeys, PROP_ORIGINS, MAP_WEATHER, DISGUISE_SHEETS, pathwayArt, P2_LOOKS, skinKeyOf } from './assets.js';
 import { Roamers } from './Roamers.js';
@@ -614,6 +615,7 @@ export class WorldScene extends Phaser.Scene {
   preload() {
     preloadSprites(this);
     preloadWexmoorLife(this); // Paket AE
+    preloadDunscarLife(this); // Paket BA/BD
     this.registry.get('audio')?.preload(this);
   }
 
@@ -707,6 +709,8 @@ export class WorldScene extends Phaser.Scene {
     this.buildWeather();
     this.wexLife = new WexmoorLife(this); // Paket AE: Nieselregen, Nebelbänke und Tiere in Wexmoor
     this.wexLife.build();
+    this.dsLife = new DunscarLife(this); // Paket BA/BD: Kalkstaub, Nachtnebel, Krähen, Ziegen, Motten in Dunscar
+    this.dsLife.build();
     // Paket AI: Koop-Rätsel, Platz-Flags und Geplauder zu zweit (Platz-Flags fallen beim Kartenwechsel weg)
     this.state.syncKoop?.();
     this.koop = new KoopLife(this);
@@ -847,14 +851,6 @@ export class WorldScene extends Phaser.Scene {
       }
       if (item.kind === 'combat') {
         this.lighting.add({ x, y: y - 4, radius: 30, intensity: 0.6, color: 0x6fe0d0, glowAlpha: 0.35, flicker: 0.25, active: () => item.active });
-      }
-      // Ein Objekt, dessen Hinweis gerade eine Vermutung absichern würde (zweite Quelle), leuchtet golden,
-      // solange es noch nicht untersucht ist. So fällt der fehlende Brief auf dem Pult auf.
-      const clues = [def.clue, ...(def.effects?.gives_clues ?? [])].filter(Boolean);
-      if (clues.length) {
-        const wanted = () => item.active && !item.hidden && clues.some((c) => !this.state.hasClue(c) && this.state.factStatus(this.state.clue(c)?.fact) === 'suspected');
-        this.lighting.add({ x, y: y - 2, radius: 26, intensity: 0.75, color: 0xffd070, glowAlpha: 0.45, flicker: 0.3, active: wanted });
-        item.wanted = wanted;
       }
       if (def.solid) item.blocker = this.addBlocker(x, y + 2, def.solid[0] ?? 16, def.solid[1] ?? 12);
       if (def.sprite_scale) item.sprite?.setScale(def.sprite_scale).setOrigin(0.5, 0.75);
@@ -1073,6 +1069,7 @@ export class WorldScene extends Phaser.Scene {
       }),
       s.on('changed', refresh),
       s.on('conclusion', refresh),
+      s.on('clock', () => { this.clockDirty = true; }), // BD: Tageswechsel erst, wenn kein Gespräch/Fenster offen ist
       s.on('quest', refresh),
       s.on('ascend', ({ pathway, player }) => this.playDrinkFx(pathway, player)),
       s.on('unruhe', () => this.updateCracks()),
@@ -1094,9 +1091,19 @@ export class WorldScene extends Phaser.Scene {
     }
   }
 
+  /**
+   * Tageswechsel (BD): Einwohner stehen über das Nachtflag an ihren Tag-/Nachtplätzen, Gegner, Aufseher und
+   * Tiere werden neu aufgestellt. Läuft nur außerhalb von Dialogen und Fenstern (Kämpfe halten die Uhr ohnehin an).
+   */
+  applyClock() {
+    this.clockDirty = false;
+    this.refreshVisibility();
+    this.roamers?.rebuild();
+    this.patrols?.rebuild();
+    this.dsLife?.rebuild();
+  }
+
   refreshVisibility() {
-    // Objekte, die gerade eine Vermutung absichern würden, funkeln größer
-    for (const it of this.interactables) if (it.glint && it.wanted) it.glint.setScale(it.wanted() ? 1.6 : 1);
     for (const l of this.lamps) {
       const on = l.isLit();
       l.lit.setVisible(on);
@@ -1152,6 +1159,8 @@ export class WorldScene extends Phaser.Scene {
     this.patrols.update(time, delta, blocked || this.leaving);
     this.critters.update(time, delta, blocked);
     this.wexLife?.update(delta);
+    this.dsLife?.update(delta);
+    if (this.clockDirty && !blocked) this.applyClock();
     this.koop?.update(delta, blocked);
     this.updateFocus(blocked);
     this.checkAuto(blocked);
@@ -1513,6 +1522,7 @@ export class WorldScene extends Phaser.Scene {
   /** Pausiert die Welt und startet den Kampfbildschirm. `after(result)` läuft nach dem Kampf, `roamer` ist ein Gegner auf der Karte. */
   startCombat(id, after = null, { roamer = null } = {}) {
     if (this.leaving || this.scene.isActive('combat')) return;
+    if (!this.state.pendingCombat) this.state.combatBy = this.state.acting;
     this.state.pendingCombat = null;
     this.state.setSpiritVision(false);
     this.player.setVelocity(0, 0);

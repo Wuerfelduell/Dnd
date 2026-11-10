@@ -1,23 +1,17 @@
 import assert from 'node:assert/strict';
 import { readFileSync, readdirSync } from 'node:fs';
 import { loadContent } from '../../../tests/helpers.js';
-import { applyQuestPack } from '../../../src/data/questPacks.js';
 import { GameState } from '../../../src/core/GameState.js';
 import { Combat } from '../../../src/core/Combat.js';
-const load = name => JSON.parse(readFileSync(new URL(`${name}.json`, import.meta.url), 'utf8'));
-const files = Object.fromEntries(readdirSync(new URL('.', import.meta.url)).filter(f => f.endsWith('.json')).map(f => [f.slice(0,-5), load(f.slice(0,-5))]));
-const pack = { name:'k3_handel', ...files };
-const base = loadContent();
+const pkgDir = new URL('../../../src/data/packs/k3_handel/', import.meta.url); // seit dem Einbau liegen die Daten im Spielpaket
+const load = name => JSON.parse(readFileSync(new URL(`${name}.json`, pkgDir), 'utf8'));
+const files = Object.fromEntries(readdirSync(pkgDir).filter(f => f.endsWith('.json')).map(f => [f.slice(0,-5), load(f.slice(0,-5))]));
+const base = loadContent({ without: ['k3_handel'] });
 const t = files.treffen_schichtbund, h = files.haendler, l = files.einzelgaenger.loners;
-// Explicit preview composition only. Production integration is intentionally outside BC's scope.
-const c = structuredClone(base);
+// Der echte Spielinhalt (buildContent mit dem Paket k3_handel); die Basis ohne das Paket dient dem Kollisions- und Belegungsvergleich.
+const c = loadContent();
 for (const key of ['quests','items','encounters','dialogues','npcs']) for (const id of Object.keys(files[key])) assert(!base[key][id], `Kollision ${key}/${id}`);
-for (const m of t.maps) { assert(!c.maps[m.id]); c.maps[m.id]=structuredClone(m); }
-Object.assign(c.market.merchants,h.merchants); Object.assign(c.market.sell_prices,h.sell_prices);
-c.gatherings.rules.orders={...c.gatherings.rules.orders,...t.rules.orders}; Object.assign(c.gatherings.circles,t.circles);
-Object.assign(c.loners.list,l.list); Object.assign(c.artifacts.list,files.artifacts.list);
-Object.assign(c.travelRules.cities.dunscar.pins,t.pins); c.travel.push(...t.travel);
-applyQuestPack(c,pack);
+for (const m of t.maps) assert(!base.maps[m.id] && c.maps[m.id], `Karte ${m.id}`);
 let checks=0;
 const ok=(v,msg)=>{checks++; assert(v,msg);};
 const walk=(v,fn)=>{if(!v||typeof v!=='object')return;if(!Array.isArray(v))fn(v);for(const x of Object.values(v))walk(x,fn);};
@@ -120,4 +114,4 @@ for(const [id,item] of Object.entries(files.items).filter(([,it])=>it.kind==='co
 }
 console.log(`BC OK: ${Object.keys(files.quests).length} Aufträge vollständig durchgespielt; ${Object.keys(files.npcs).length} Figuren; 5 Freund-/Feindwege; 6 Wexmoor-Formeln; 12 Verkaufspreise.`);
 console.log(`BC OK: ${checks} Prüfungen zu Referenzen, Dialogwegen, Begehbarkeit, Preisen, Verbrauch, Belohnungssperren und Auktion.`);
-console.log('OFFENE INTEGRATION: BD-Zeitadapter k3h_nacht, BN-Horchstellenalarm, Loader/Spezialdateien, BE-Grafik. Keine Laufzeitdatei geändert.');
+console.log('OFFEN: BN-Horchstellenalarm (ez_ds_*_alarm), Auktionsmetadaten (once/requires_pathway) in Auction.memberLot. Zeitadapter (src/core/Clock.js) und BE-Grafik sind eingebaut.');

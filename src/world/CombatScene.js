@@ -6,7 +6,7 @@ import {
   SKILL_FX, SELF_FX, AG_SKILL_FX, PATHWAY_POSES, WEAPON_POSES, battleSheetsOf, ENCOUNTER_FX, BOSS_INTROS, bossIntroImage, BOSS_FORMS, BOSS_FORM_BACKGROUNDS, BOSS_FORM_INTROS, battleSheetDef, CASE_SHEETS, playBattleAnim, playCaseAnim,
 } from './assets.js';
 import { VIEW_W, VIEW_H, PLAYER_PALETTE } from './WorldScene.js';
-import { koopBark } from '../core/Koop.js';
+import { koopBark, koopStartEvent } from '../core/Koop.js';
 import { speechBubble } from './WexmoorLife.js';
 
 // Kampfbildschirm in Seitenansicht: Spieler links, Gegner rechts, Bodenstreifen unten.
@@ -73,7 +73,12 @@ export class CombatScene extends Phaser.Scene {
   bossIntro() {
     const bust = BOSS_INTROS[this.encounterId];
     // Paket AI: zu zweit sagt einer etwas zum Kampfbeginn (Boss vor normalem Beginn)
-    if (this.combat.duo) this.time.delayedCall(bust ? 2400 : 600, () => this.bark(bust || this.combat.enc.boss ? 'koop_bossbeginn' : 'koop_kampfbeginn'));
+    // Paket BF: Schichtgänger, Nachhall und Prüfungen haben eigene Anfänge; bei der Prüfung spricht, wer zuschaut
+    if (this.combat.duo) {
+      const special = koopStartEvent(this.encounterId, this.combat.enc);
+      const watcher = special === 'koop_pruefung' ? (this.state.combatBy === 2 ? 1 : 2) : null;
+      this.time.delayedCall(bust ? 2400 : 600, () => this.bark(special ?? (bust || this.combat.enc.boss ? 'koop_bossbeginn' : 'koop_kampfbeginn'), watcher));
+    }
     this.sfx(bust ? 'boss_auftritt' : 'kampf_start');
     if (!bust || !this.textures.exists('F_08_boss_band')) return;
     const band = this.add.sprite(0, 0, 'F_08_boss_band', 0).setOrigin(0).setDepth(90);
@@ -671,7 +676,7 @@ export class CombatScene extends Phaser.Scene {
   over() {
     this.phase = 'over';
     const c = this.combat;
-    this.sfx({ won: 'sieg', lost: 'niederlage', fled: 'flucht' }[c.outcome]);
+    this.sfx({ won: 'sieg', lost: 'niederlage', fled: 'flucht', escaped: 'flucht' }[c.outcome]);
     if (c.outcome === 'won') {
       // Menschen (z. B. Holt beim Training) geben auf und bleiben stehen, Wesen vergehen.
       const human = this.enemySheet ? !FADING_SHEETS.includes(this.enemySheet) : this.combat.enc.sprite.startsWith('npc:');
@@ -691,7 +696,8 @@ export class CombatScene extends Phaser.Scene {
       const close = Object.keys(c.fighters).map(Number).some((n) => c.fighters[n].down || this.state.playerView(n).hp <= this.state.playerView(n).maxHp * 0.25);
       this.bark(close ? 'koop_knapper_sieg' : 'koop_sieg', null, true);
     } else if (c.outcome === 'fled') this.bark('koop_flucht', null, true);
-    const title = { won: 'Sieg', lost: 'Ohnmacht', fled: 'Rückzug' }[c.outcome];
+    if (c.outcome === 'escaped') this.tweens.add({ targets: this.enemy, alpha: 0, x: '-=40', duration: 600 }); // BD: der Gegner macht sich davon
+    const title = { won: 'Sieg', lost: 'Ohnmacht', fled: 'Rückzug', escaped: 'Entkommen' }[c.outcome];
     this.ui.combatOver(title);
   }
 

@@ -7,6 +7,7 @@ import { wantedMethods } from './Wanted.js';
 import { kahnMethods } from './Kahn.js';
 import { newspaperMethods } from './Newspapers.js';
 import { signalMethods } from './Signals.js';
+import { clockMethods, NIGHT_FLAG } from './Clock.js';
 import { bondMethods } from './Bonds.js';
 import { relationMethods } from './Relations.js';
 import { artifactMethods } from './Artifacts.js';
@@ -16,6 +17,8 @@ import { corruptionMethods } from './Corruption.js';
 
 /** Tragkraft in Pfund. Gegenstände ohne eigenes "weight" wiegen je nach Art so viel. */
 export const BASE_CARRY = 40;
+/** Pfund Tragkraft je Wachstumsstufe des Pfades (jede Sequenz eine, Durchbrüche mehr, siehe growthSteps). */
+export const CARRY_PER_STEP = 3;
 export const KIND_WEIGHT = { weapon: 4, gear: 2, artifact: 2, consumable: 1, potion: 1, ingredient: 0.5, trophy: 2, formula: 0, key: 0 };
 //
 // Begriffe:
@@ -467,9 +470,22 @@ export class GameState {
     return Math.round(w * 10) / 10;
   }
 
-  /** Grundlast plus Boni (Pfad des Eisens). */
+  /** Was die erreichten Sequenzen an Tragkraft bringen (Spieler 2 rechnet mit seinem eigenen Pfad). */
+  carryFromSeq() {
+    return CARRY_PER_STEP * this.growthSteps();
+  }
+
+  /** Grundlast plus Sequenzen plus Boni (Pfad des Eisens, Kleidung, Artefakte). */
   carryCapacity() {
-    return BASE_CARRY + this.passive('carry');
+    return BASE_CARRY + this.carryFromSeq() + this.passive('carry');
+  }
+
+  /** Woher die Tragkraft kommt, für Inventar und Pfad: "40 Grundlast + 6 Sequenzen + 15 Boni". */
+  carryBreakdown() {
+    const parts = [`${BASE_CARRY} Grundlast`];
+    if (this.carryFromSeq()) parts.push(`${this.carryFromSeq()} Sequenzen`);
+    if (this.passive('carry')) parts.push(`${this.passive('carry')} Boni`);
+    return parts.join(' + ');
   }
 
   isOverloaded() {
@@ -607,6 +623,7 @@ export class GameState {
   startCombat(id) {
     if (!this.content.encounters[id]) throw new Error(`Unbekannter Kampf: ${id}`);
     this.pendingCombat = id;
+    this.combatBy = this.acting; // Paket BF: wer den Kampf ausgelöst hat (Prüfling), der andere schaut zu
     this.emit('combat', id);
   }
 
@@ -669,7 +686,7 @@ export class GameState {
       position: position ?? null,
       clues: this.clues,
       conclusions: this.conclusions,
-      flags: [...this.flags],
+      flags: [...this.flags].filter((f) => f !== NIGHT_FLAG),
       quests: this.quests,
       honor: this.honor,
       honorCarry: this.honorCarry,
@@ -736,6 +753,7 @@ export class GameState {
     this.loadParty(data);
     this.loadPapers(data);
     this.loadSignal(data);
+    this.syncClock(); // Tag/Nacht folgt der Spielzeit, nicht dem Spielstand
     if (!this.content.maps[this.map]) { this.map = this.content.start.map; this.position = null; }
     return true;
   }
@@ -744,4 +762,4 @@ export class GameState {
 /** Fortschrittsflags der verlängerten Akt-V-Fassung (AP), in Spielreihenfolge. */
 export const K2_AKT5_STEPS = ['k2v_boot_bereit', 'k2v_keller_passiert', 'k2v_aufstieg_passiert', 'k2v_abschied_done'];
 
-Object.assign(GameState.prototype, partyMethods, gearMethods, corruptionMethods, pathwayMethods, artifactMethods, gatheringMethods, wantedMethods, bondMethods, relationMethods, auctionMethods, artisanMethods, kahnMethods, newspaperMethods, signalMethods);
+Object.assign(GameState.prototype, partyMethods, gearMethods, corruptionMethods, pathwayMethods, artifactMethods, gatheringMethods, wantedMethods, bondMethods, relationMethods, auctionMethods, artisanMethods, kahnMethods, newspaperMethods, signalMethods, clockMethods);

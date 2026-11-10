@@ -152,6 +152,34 @@ import k3a_epiloge from './packs/k3_akte/epiloge.json';
 import k2v_epiloge from './packs/k2_akte/epiloge.json';
 import k2v_akt5 from './packs/k2_akte/akt5_neu.json';
 import k2v_turm_sperren from './packs/k2_akte/turm_sperren.json';
+import k3h_quests from './packs/k3_handel/quests.json';
+import k3h_items from './packs/k3_handel/items.json';
+import k3h_encounters from './packs/k3_handel/encounters.json';
+import k3h_dialogues from './packs/k3_handel/dialogues.json';
+import k3h_npcs from './packs/k3_handel/npcs.json';
+import k3h_case from './packs/k3_handel/case.json';
+import k3h_dialog_zusaetze from './packs/k3_handel/dialog_zusaetze.json';
+import k3h_platzierung from './packs/k3_handel/platzierung.json';
+import k3h_haendler from './packs/k3_handel/haendler.json';
+import k3h_treffen_schichtbund from './packs/k3_handel/treffen_schichtbund.json';
+import k3h_einzelgaenger from './packs/k3_handel/einzelgaenger.json';
+import k3h_artifacts from './packs/k3_handel/artifacts.json';
+// Paket BD: Leben in Dunscar (Einwohner mit Tagesplan, Kopfgeld, Aufseher, Gerede, Zeitung, Wetter und Tiere)
+import k3e_quests from './packs/k3_leben/quests.json';
+import k3e_items from './packs/k3_leben/items.json';
+import k3e_encounters from './packs/k3_leben/encounters.json';
+import k3e_dialogues from './packs/k3_leben/dialogues.json';
+import k3e_npcs from './packs/k3_leben/npcs.json';
+import k3e_case from './packs/k3_leben/case.json';
+import k3e_dialog_zusaetze from './packs/k3_leben/dialog_zusaetze.json';
+import k3e_platzierung from './packs/k3_leben/platzierung.json';
+import k3e_einwohner from './packs/k3_leben/einwohner.json';
+import k3e_stadtgegner from './packs/k3_leben/stadtgegner_dunscar.json';
+import k3e_phasen from './packs/k3_leben/phasen.json';
+import k3e_streifen from './packs/k3_leben/streifen.json';
+import k3e_gerede from './packs/k3_leben/gerede.json';
+import k3e_zeitung from './packs/k3_leben/zeitung.json';
+import k3e_leben from './packs/k3_leben/leben.json';
 import k3p_quests from './packs/k3_pruefungen/quests.json';
 import k3p_items from './packs/k3_pruefungen/items.json';
 import k3p_encounters from './packs/k3_pruefungen/encounters.json';
@@ -199,11 +227,26 @@ import sq_seq_4_bis_1 from './packs/sequenzen/seq_4_bis_1.json';
 import sq_zutaten from './packs/sequenzen/zutaten.json';
 import sq_artefakte from './packs/sequenzen/artefakte.json';
 import k3p_rituale from './packs/k3_pruefungen/rituale.json';
+import bf_quests from './packs/koop_k3/quests.json';
+import bf_items from './packs/koop_k3/items.json';
+import bf_encounters from './packs/koop_k3/encounters.json';
+import bf_dialogues from './packs/koop_k3/dialogues.json';
+import bf_npcs from './packs/koop_k3/npcs.json';
+import bf_case from './packs/koop_k3/case.json';
+import bf_dialog_zusaetze from './packs/koop_k3/dialog_zusaetze.json';
+import bf_platzierung from './packs/koop_k3/platzierung.json';
+import bf_geplauder from './packs/koop_k3/geplauder.json';
+import bf_kampf from './packs/koop_k3/kampf.json';
+import bf_bindung from './packs/koop_k3/bindung.json';
 
 /** Nebenauftrags-Pakete (Codex AA, AB). */
 const wxNebenquests = { name: 'wx_nebenquests', quests: wx_quests, items: wx_items, encounters: wx_encounters, dialogues: wx_dialogues, npcs: wx_npcs, case: wx_case, dialog_zusaetze: wx_dialog_zusaetze, platzierung: wx_platzierung, kahn_ausbau: wx_kahn_ausbau };
 /** Paket AI: Koop-Aufträge, Geplauder und Kampfsprüche zu zweit. */
 const koop = { name: 'koop', quests: koop_quests, items: koop_items, encounters: koop_encounters, dialogues: koop_dialogues, npcs: koop_npcs, case: koop_case, dialog_zusaetze: koop_dialog_zusaetze, platzierung: koop_platzierung, geplauder: koop_geplauder, kampf: koop_kampf };
+/** Paket BF: Koop in Dunscar. Geplauder, Kampfsprüche und Bindungstexte (BN) kommen zu AI dazu; der Horch-Auftrag läuft
+ *  über die Rollenplätze von AI. Die Schallschleuse wartet auf die Rufbindung aus BN und bleibt bis dahin ohne Objekte. */
+const koopK3 = { name: 'koop_k3', quests: bf_quests, items: bf_items, encounters: bf_encounters, dialogues: bf_dialogues, npcs: bf_npcs, case: bf_case, dialog_zusaetze: bf_dialog_zusaetze,
+  platzierung: bf_platzierung.filter((p) => !p.interactable.id.startsWith('koop_ds_schleuse')), geplauder: bf_geplauder, kampf: bf_kampf, bindung: bf_bindung };
 /** Paket AL: vier Wexmoorer Akten. */
 const k2Akten = { name: 'k2_akten', quests: k2a_quests, items: k2a_items, encounters: k2a_encounters, dialogues: k2a_dialogues, npcs: k2a_npcs, case: k2a_case, dialog_zusaetze: k2a_dialog_zusaetze, platzierung: k2a_platzierung, faelle: k2a_faelle, zeitung: k2a_zeitung };
 const k2Orte = { name: 'k2_orte', quests: k2o_quests, items: k2o_items, encounters: k2o_encounters, dialogues: k2o_dialogues, npcs: k2o_npcs, case: k2o_case, dialog_zusaetze: k2o_dialog_zusaetze, platzierung: k2o_platzierung, artifacts: k2o_artifacts, maps: k2o_maps, travel: k2o_travel, zone: k2o_zone, pins: k2o_pins };
@@ -212,6 +255,11 @@ const k2Akte = { name: 'k2_akte', quests: { ...k2v_quests, ...k2v_akt5.quests },
 const k3Orte = { name: 'k3_orte', quests: k3o_quests, items: k3o_items, encounters: k3o_encounters, dialogues: { ...k3o_dialogues, ...k3o_beute }, npcs: k3o_npcs, case: k3o_case, dialog_zusaetze: k3o_dialog_zusaetze, platzierung: k3o_platzierung, maps: k3o_maps, travel: k3o_travel, zones: k3o_zones, bosses: k3o_bosses, phasen: k3o_phasen, artifacts: k3o_artifacts, city: k3o_city };
 const k3Nebenquests = { name: 'k3_nebenquests', quests: k3n_quests, items: k3n_items, encounters: k3n_encounters, dialogues: k3n_dialogues, npcs: k3n_npcs, case: k3n_case, dialog_zusaetze: k3n_dialog_zusaetze, platzierung: k3n_platzierung, zeitung: k3n_zeitung, gerede: k3n_gerede, bestiarium: k3n_bestiarium, lesestuecke: k3n_lesestuecke };
 const k3Pruefungen = { name: 'k3_pruefungen', quests: k3p_quests, items: k3p_items, encounters: k3p_encounters, dialogues: k3p_dialogues, npcs: k3p_npcs, case: k3p_case, dialog_zusaetze: k3p_dialog_zusaetze, platzierung: k3p_platzierung };
+// BC: Handel in Dunscar (Händler, Schichtbund als Treffen unter dem Runddepot, Einzelgänger, Freundschaftsgaben als Artefakte)
+const k3Handel = { name: 'k3_handel', quests: k3h_quests, items: k3h_items, encounters: k3h_encounters, dialogues: k3h_dialogues, npcs: k3h_npcs, case: k3h_case, dialog_zusaetze: k3h_dialog_zusaetze, platzierung: k3h_platzierung, haendler: k3h_haendler, treffen: k3h_treffen_schichtbund, einzelgaenger: k3h_einzelgaenger, artifacts: k3h_artifacts };
+// BD: Die Tagespositionen aus platzierung.json sind nur Vorschläge; die Figuren stehen über einwohner.json (Tag/Nacht) auf den Karten.
+const k3Leben = { name: 'k3_leben', quests: k3e_quests, items: k3e_items, encounters: k3e_encounters, dialogues: k3e_dialogues, npcs: k3e_npcs, case: k3e_case, dialog_zusaetze: k3e_dialog_zusaetze,
+  platzierung: k3e_platzierung.filter((p) => !p.npc), einwohner: k3e_einwohner, stadtgegner: k3e_stadtgegner, phasen: k3e_phasen, streifen: k3e_streifen, gerede: k3e_gerede, zeitung: k3e_zeitung, leben: k3e_leben };
 const k3Akte = { name: 'k3_akte', quests: k3a_quests, items: k3a_items, encounters: k3a_encounters, dialogues: k3a_dialogues, npcs: k3a_npcs, case: k3a_case, dialog_zusaetze: k3a_dialog_zusaetze, platzierung: k3a_platzierung, zeitung: k3a_zeitung, boss_texte: k3a_boss_texte, epiloge: k3a_epiloge };
 const k2Gilde = { name: 'k2_gilde', quests: k2g_quests, items: k2g_items, encounters: k2g_encounters, dialogues: k2g_dialogues, npcs: k2g_npcs, case: k2g_case, dialog_zusaetze: k2g_dialog_zusaetze, platzierung: k2g_platzierung, artefakte: k2g_artefakte, treffen: k2g_treffen_namensgilde };
 const kgNebenquests = { name: 'kg_nebenquests', quests: kg_quests, items: kg_items, encounters: kg_encounters, dialogues: kg_dialogues, npcs: kg_npcs, case: kg_case, dialog_zusaetze: kg_dialog_zusaetze, platzierung: kg_platzierung };
@@ -233,7 +281,7 @@ export const content = buildContent({
   gatherings,
   city,
   wexmoor,
-  packs: [kgNebenquests, wxNebenquests, koop, k2Akten, k2Orte, k2Gilde, k2Akte, k3Orte, k3Akte, k3Nebenquests, k3Pruefungen],
+  packs: [kgNebenquests, wxNebenquests, koop, k2Akten, k2Orte, k2Gilde, k2Akte, k3Orte, k3Akte, k3Nebenquests, k3Pruefungen, k3Handel, k3Leben, koopK3],
   lore: { bestiarium: lore_bestiarium, gerede: lore_gerede, item_texte: lore_item_texte, lesestuecke: lore_lesestuecke, zeitungen: lore_zeitungen },
   beziehungen,
   sequenzen: { neue_pfade: sq_neue_pfade, seq_4_bis_1: sq_seq_4_bis_1, zutaten: sq_zutaten, artefakte: sq_artefakte, rituale: k3p_rituale },

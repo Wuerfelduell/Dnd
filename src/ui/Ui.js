@@ -1,11 +1,12 @@
 import { NEWSPAPERS } from '../data/lore.js';
 import { DIGEST_LABELS } from '../core/Pathways.js';
+import { CARRY_PER_STEP } from '../core/GameState.js';
 import { GEAR_SLOT_NAMES } from '../core/Gear.js';
 import { lootList, itemRarity, RARITY_NAMES, lootPreview, chanceWord } from '../core/Loot.js';
 import {
   itemIconUrl, itemIcon32Url, pathwayEmblemUrl, pathwayCardUrl, COIN_URL, moneyIconUrl, UI_SKINS, UI_SHEETS, UI_REGIONS, DAMAGE_FONT, STATUS_ICONS, STATUS_ICONS_URL,
   portraitUrl, portraitFor, AK_FIGURES, P2_LOOKS, P2_CHOICE_URL, p2HeadUrl, p2PortraitUrl, mapMarkerOf, LOG_MARKERS, LOG_MARKERS_URL, SOURCE_ICONS, SPRITE_BASE,
-  endingImageUrl, caseFileUrl, sceneUrl, wantedUrl, QUEST_UI_URL, QUEST_PINS, QUEST_BANNERS,
+  endingImageUrl, caseFileUrl, sceneUrl, wantedUrl, wantedSingle, QUEST_UI_URL, QUEST_PINS, QUEST_BANNERS,
   TURN_PORTRAITS, TURN_PORTRAITS_URL, TURN_PORTRAIT_URLS, BESTIARY, bestiaryUrl, TITLE_LAYERS,
   headUrl, ritualCardUrl, ZIRKEL_URL, ZIRKEL_ICONS, AUKTION_URL, AUKTION_REGIONS, LONER_UI_URL, LONER_UI, LONER_SEALS, S_ZIRKEL_URL, S_ZIRKEL, skillIconOf, PULSE_ICONS, ARTIFACT_UI_URL, sourceKind, sourceKindUrl, inspectUrl, RISK_ICONS, RISK_ICONS_URL, JOURNAL_FRAME, JOURNAL_FRAME_URL, choiceRisk, riskOf,
   factionEmblemUrl, PLACE_PICTURES, TRAVEL_MODES_URL, TRAVEL_MODE_ICONS, TRAVEL_MARKER_URL,
@@ -113,7 +114,16 @@ const turnFace = (id) => {
   const [url, cols] = TURN_PORTRAIT_URLS[id] ?? [TURN_PORTRAITS_URL, 19];
   return `<span class="turnface" style="background-image:url(${url});background-size:${cols * 2}em 2em;background-position:-${TURN_PORTRAITS[id] * 2}em 0"></span>`;
 };
+const BASE_SKILL_IDS = ['double', 'blind', 'ward'];
 const skillIcon = (id) => { const ic = skillIconOf(id); return ic ? atlasIcon(ic[0], ic[1], 7) : ''; };
+/** Großes Fähigkeits-Icon fürs Kampfmenü: 16er-Zelle auf 2em (skaliert mit der Oberfläche, nicht in festen Pixeln). */
+const skillIconBig = (id) => {
+  const ic = skillIconOf(id);
+  // Grundfertigkeiten ohne eigenes Bild leihen sich die Menüsymbole; neue Pfadfertigkeiten (Seq. 4 bis 1) zeigen bis zur eigenen Grafik ein Siegel
+  if (!ic) return uiSprite('bmenu', id === 'double' ? 'attack' : BASE_SKILL_IDS.includes(id) ? 'skill' : 'defend', 1 / 8, 'cbicon big');
+  const [url, index] = ic;
+  return `<span class="atlas-icon big" style="background-image:url(${url});background-size:14em auto;background-position:-${(index % 7) * 2}em -${Math.floor(index / 7) * 2}em"></span>`;
+};
 /** Artefakt-Slots (20x20 aus ui/N_artefakt_ui.png), mitgeführte mit Icon in der Öffnung. */
 const artifactSlots = (ids, max, overloaded) => Array.from({ length: Math.max(max, ids.length) }, (_, i) => {
   const id = ids[i];
@@ -129,7 +139,7 @@ const portrait = (id, mood) => {
 };
 /** Zwischensequenzbild (240x135) über einem Text. */
 /** Steckbrief (Paket L): 64x80, Spalte 0 gesucht, Spalte 1 gefasst. */
-const wantedImg = (id, caught) => (id ? `<div class="wanted ${caught ? 'caught' : ''}" style="background-image:url('${wantedUrl(id)}')"></div>` : '');
+const wantedImg = (id, caught) => (id ? `<div class="wanted ${caught ? 'caught' : ''}${wantedSingle(id) ? ' single' : ''}" style="background-image:url('${wantedUrl(id)}')"></div>` : '');
 const sceneImg = (id) => { const url = id && sceneUrl(id); return url ? `<img class="scene" src="${url}" alt="" onerror="this.remove()">` : ''; };
 /** Paket AE: Die Karte zu Kapitel 1 hat unten ein leeres Band für den Kapitelnamen. */
 const CHAPTER_CAPTIONS = { kapitel1_karte: ['Kapitel 1', 'Kettlegate'] };
@@ -256,7 +266,7 @@ const carryHtml = (s) => {
   const w = s.carryWeight();
   const cap = s.carryCapacity();
   const heavy = w > cap;
-  return `<div class="carry ${heavy ? 'heavy' : ''}"><span>Last</span><div class="bar"><div class="cfill" style="width:${Math.min(100, (w / cap) * 100)}%"></div></div>
+  return `<div class="carry ${heavy ? 'heavy' : ''}" title="Tragkraft: ${esc(s.carryBreakdown())} Pfund. Jede Sequenz trägt mehr."><span>Last</span><div class="bar"><div class="cfill" style="width:${Math.min(100, (w / cap) * 100)}%"></div></div>
     <em>${fmtLb(w)}/${fmtLb(cap)} Pfund</em>${heavy ? '<span class="curse">Überladen: halbes Tempo, kein schneller Weg</span>' : ''}</div>`;
 };
 const paragraphs = (s) => esc(s).split('\n\n').map((p) => `<p>${p.replace(/\n/g, '<br>')}</p>`).join('');
@@ -1710,7 +1720,7 @@ export class Ui {
         <div class="meter vialm">${uiSprite('vial', `v${pctStep(s.composure / s.maxComposure(), 6)}`, 1 / 24, 'vial', 'Nerven')}<span>Nerven</span><em>${Math.round(s.composure)}/${s.maxComposure()}</em></div>
       </div>
       <p class="lead"><em>„${esc(p.principle)}“</em> ${esc(p.digest_hint)}</p>
-      <p class="muted">Jede Sequenz dieses Pfades: +${s.growth().hp} Leben, +${s.growth().nerves} Nerven, die Durchbrüche 7 und 6 das Doppelte. Gerade: ${s.maxHp} Leben, ${s.maxComposure()} Nerven.</p>
+      <p class="muted">Jede Sequenz dieses Pfades: +${s.growth().hp} Leben, +${s.growth().nerves} Nerven, +${CARRY_PER_STEP} Pfund Tragkraft, die Durchbrüche 7 und 6 das Doppelte. Gerade: ${s.maxHp} Leben, ${s.maxComposure()} Nerven, ${esc(s.carryBreakdown())} = ${fmtLb(s.carryCapacity())} Pfund Tragkraft.</p>
       ${s.corruptionDrain().count ? `<p class="curse">Korruption: ${s.corruptionDrain().count} Stück an dir zehrt an Leben und Nerven (siehe Inventar). Bei 100 Unruhe wachsen die Tentakel erneut und treffen alles, was du dann trägst.</p>` : '<p class="muted">Bei 100 Unruhe verlierst du die Kontrolle: Tentakel korrumpieren Waffe, Kleidung und Artefakte am Leib, die dich danach Leben und Nerven kosten, solange du sie trägst.</p>'}
       ${this.ritualHtml()}
       <h4>Was deinen Trank verdaut</h4>
@@ -2262,9 +2272,20 @@ export class Ui {
     this.combatMenuOpen = { sub, entries };
     this.layer.querySelector('.cb-target')?.classList.remove('hidden');
     const menu = this.layer.querySelector('.cb-menu');
-    menu.innerHTML = `<ol class="choices">${entries.map((e, i) => `<li><button data-i="${i}" ${e.disabled ? 'disabled' : ''} title="${esc(e.desc ?? '')}">
-      <span class="key">${e.back ? 'Esc' : i + 1}</span> ${e.ui ? uiSprite('bmenu', e.disabled ? `${e.ui}_off` : e.ui, 1 / 16 * 1.4, 'cbicon') : ''}${e.icon ? itemIcon(e.icon) : ''}${e.skill ? skillIcon(e.skill) : ''}${esc(e.text)} <span class="muted">${esc(e.info ?? '')}</span></button></li>`).join('')}</ol>
-      <div class="cb-desc"></div>`;
+    menu.classList.toggle('tiles', sub !== 'main');
+    const key = (e, i) => (e.back ? 'Esc' : i < 9 ? i + 1 : '');
+    const btn = (e, i, inner) => `<li><button data-i="${i}" ${e.disabled ? 'disabled' : ''} title="${esc(e.desc ?? '')}">${inner}</button></li>`;
+    if (sub === 'main') {
+      menu.innerHTML = `<ol class="choices">${entries.map((e, i) => btn(e, i, `<span class="key">${key(e, i)}</span> ${e.ui ? uiSprite('bmenu', e.disabled ? `${e.ui}_off` : e.ui, 1 / 8, 'cbicon') : ''}${esc(e.text)} <span class="muted">${esc(e.info ?? '')}</span>`)).join('')}</ol>
+        <div class="cb-desc"></div>`;
+    } else {
+      // Fertigkeiten und Gegenstände: Kacheln mit großem Icon, scrollbar, wenn es viele sind (bis Sequenz 1 sind es zwölf);
+      // „Zurück“ bleibt außerhalb der Liste immer sichtbar
+      const back = entries.length - 1;
+      menu.innerHTML = `<ol class="choices">${entries.slice(0, back).map((e, i) => btn(e, i, `
+          ${e.icon ? itemIconBig(e.icon) : e.skill ? skillIconBig(e.skill) : ''}<span class="tile-text"><span class="tile-name"><span class="key">${key(e, i)}</span>${esc(e.text)}</span><span class="muted">${esc(e.info ?? '')}</span></span>`)).join('')}</ol>
+        <div class="cb-foot"><button class="cb-back" data-i="${back}"><span class="key">Esc</span> Zurück</button><div class="cb-desc"></div></div>`;
+    }
     menu.querySelectorAll('[data-i]').forEach((b) => {
       b.onclick = () => this.combatPick(Number(b.dataset.i));
       b.onmouseenter = () => { menu.querySelector('.cb-desc').textContent = entries[Number(b.dataset.i)].desc ?? ''; };
@@ -2306,7 +2327,7 @@ export class Ui {
 
   combatOver(title) {
     const c = this.combatScene.combat;
-    const text = { won: `${c.enemy.name} ist besiegt.`, lost: 'Deine Beine geben nach.', fled: 'Du bringst dich in Sicherheit.' }[c.outcome];
+    const text = { won: `${c.enemy.name} ist besiegt.`, lost: 'Deine Beine geben nach.', fled: 'Du bringst dich in Sicherheit.', escaped: `${c.enemy.name} entzieht sich.` }[c.outcome];
     this.combatMessage(`${title}! ${text}`, 'Weiter mit E');
   }
 
@@ -2318,7 +2339,7 @@ export class Ui {
     this.layer.innerHTML = '';
     this.updateHp();
     this.updateP2();
-    const title = { won: 'Sieg', lost: 'Ohnmacht', fled: 'Rückzug' }[result.outcome];
+    const title = { won: 'Sieg', lost: 'Ohnmacht', fled: 'Rückzug', escaped: 'Entkommen' }[result.outcome];
     this.keysBlockedUntil = performance.now() + 400; // hastiges E-Drücken schließt die Meldung nicht sofort
     const list = result.loot ? lootHtml(result.loot, this.state.content.items) : '';
     const extra = list ? `<h4 class="loot-title">${uiSprite('bresult', 'loot', 1 / 8)}${result.lootDeferred ? 'Beute liegt am Boden' : 'Beute'}</h4>${list}` : '';

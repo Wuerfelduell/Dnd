@@ -278,7 +278,11 @@ export function questTarget(state, questId) {
       const because = `${best.name} braucht ${easier ? 'für den besten Ausgang ' : ''}erst: ${shown}${blockers.length > 2 ? ` (und ${blockers.length - 2} weitere Lücken, siehe Notizbuch)` : ''}`;
       const clueSrcs = blockers.flatMap((b) => b.clues).flatMap((id) => idx.clue[id] ?? []).filter((x) => !(x.map === best.map && x.id === best.id));
       const sub = [...clueSrcs].sort((a, b) => rank(a) - rank(b))[0];
-      if (sub) return { ...finish(sub), because, via: best.name };
+      // Nur das Gebiet verraten, nicht den Fleck: ohne `id` gibt es in der Welt keine Markierung, nur den Weg zum Ort
+      if (sub) {
+        const t = finish(sub);
+        return { ...t, id: c.npcs[sub.id] ? t.id : null, name: c.npcs[sub.id] ? t.name : 'Genauer umsehen', vague: !c.npcs[sub.id], because, via: best.name };
+      }
       if (blockers.some((b) => b.notebook)) return { ...base, notebook: 'Im Notizbuch zwei Informationen verknüpfen', because };
       return { ...finish(best), because };
     }
@@ -303,7 +307,7 @@ export function advice(state, speaker = null) {
     const where = t.map === state.map ? 'gleich hier' : t.map === t.district ? `im ${t.mapName}`.replace('im Polizeirevier', 'hier im Revier') : `im ${t.mapName} (${c.maps[t.district]?.name ?? t.mapName})`;
     return t.locked ? `${where}. ${t.locked.name} ist noch gesperrt: ${t.locked.how}` : where;
   };
-  const goTo = (t) => (c.npcs[t.id] ? `Fragen Sie ${t.name}, ${place(t)}.` : `Sehen Sie sich das an: ${t.name}, ${place(t)}.`);
+  const goTo = (t) => (c.npcs[t.id] ? `Fragen Sie ${t.name}, ${place(t)}.` : `Sehen Sie sich ${place(t)} genauer um.`);
   const lines = [];
   const active = Object.keys(state.quests).filter((id) => state.quests[id] === 'active');
   const mains = active.filter((id) => c.quests[id].kind === 'main').sort((a, b) => (a === state.tracked ? -1 : 0) - (b === state.tracked ? -1 : 0));

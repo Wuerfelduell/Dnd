@@ -440,6 +440,7 @@ export const mapMarkerOf = (map) => {
   if (Q_MAP_MARKERS[map] !== undefined) return [Q_MAP_MARKERS_URL, Q_MAP_MARKERS[map], 7];
   if (AN_MAP_MARKERS[map] !== undefined) return [AN_MAP_MARKERS_URL, AN_MAP_MARKERS[map], 3, false, { rows: 2, row: 1 }];
   if (DS_MAP_MARKERS[map] !== undefined) return [DS_MAP_MARKERS_URL, DS_MAP_MARKERS[map], 6, false, { rows: 3, row: Math.floor(DS_MAP_MARKERS[map] / 6) }];
+  if (BE_MAP_MARKERS[map]) return BE_MAP_MARKERS[map];
   if (J_MAP_MARKERS[map] !== undefined) return [J_MAP_MARKERS_URL, J_MAP_MARKERS[map], 13];
   return [MAP_MARKERS_URL, MAP_MARKERS[map], 13];
 };
@@ -1116,6 +1117,7 @@ export function preloadSprites(scene) {
   if (!scene.cache.json.exists('manifestSequenzen3')) scene.load.json('manifestSequenzen3', `${BASE}manifest-sequenzen3.json`);
   if (!scene.cache.json.exists('manifestDunscar1')) scene.load.json('manifestDunscar1', `${BASE}manifest-dunscar1.json`);
   if (!scene.cache.json.exists('manifestDunscar3')) scene.load.json('manifestDunscar3', `${BASE}manifest-dunscar3.json`);
+  if (!scene.cache.json.exists('manifestDunscar5')) scene.load.json('manifestDunscar5', `${BASE}manifest-dunscar5.json`);
   if (!scene.cache.json.exists('manifestNebenquests')) scene.load.json('manifestNebenquests', `${BASE}manifest-nebenquests.json`);
   if (!scene.cache.json.exists('manifestSpieler2')) scene.load.json('manifestSpieler2', `${BASE}manifest-spieler2.json`);
   if (!scene.cache.json.exists('manifestWexmoor')) scene.load.json('manifestWexmoor', `${BASE}manifest-wexmoor.json`);
@@ -1159,7 +1161,7 @@ function battleAnimDef(scene, sheet, name) {
   return null;
 }
 /** Manifeste mit Kampf-Sheets; spätere Pakete nennen ihre Einträge nicht nach dem Sheet, darum auch über die Datei. */
-export const BATTLE_MANIFESTS = ['manifest14b', 'manifestKampf', 'manifestKampf2', 'manifestReise', 'manifestWildnis', 'manifestGegner3', 'manifestFall5', 'manifestFall6', 'manifestFall78', 'manifestSequenzen2', 'manifestWexmoor2', 'manifestWexmoor3', 'manifestWexmoor4', 'manifestWexmoor5', 'manifestPlatzhalter', 'manifestSpieler2', 'manifestNebenquests', 'manifestWexmoor7', 'manifestWexmoor6', 'manifestSequenzen3', 'manifestDunscar3'];
+export const BATTLE_MANIFESTS = ['manifest14b', 'manifestKampf', 'manifestKampf2', 'manifestReise', 'manifestWildnis', 'manifestGegner3', 'manifestFall5', 'manifestFall6', 'manifestFall78', 'manifestSequenzen2', 'manifestWexmoor2', 'manifestWexmoor3', 'manifestWexmoor4', 'manifestWexmoor5', 'manifestPlatzhalter', 'manifestSpieler2', 'manifestNebenquests', 'manifestWexmoor7', 'manifestWexmoor6', 'manifestSequenzen3', 'manifestDunscar3', 'manifestDunscar5'];
 export function battleSheetDef(scene, sheet) {
   const file = BATTLE_SHEETS[sheet]?.[0];
   for (const m of BATTLE_MANIFESTS) {
@@ -1448,7 +1450,9 @@ export const L_ITEMS = ['gasgluehstrumpf', 'schmuggelware', 'falschgeld', 'russk
 ICON32.push(...L_ITEMS);
 /** Steckbriefe (64x80, Spalte 0 gesucht, 1 gefasst); ohne eigenen Steckbrief der leere. */
 export const WANTED = ['laternendieb', 'falschgeldpraeger', 'nachtkraemer', 'schmugglerkoenigin'];
-export const wantedUrl = (id) => `${BASE}ui/wanted/L_steckbrief_${WANTED.includes(id) ? id : 'leer'}.png`;
+export const wantedUrl = (id) => (WANTED_SINGLE[id] ? `${BASE}${WANTED_SINGLE[id]}` : `${BASE}ui/wanted/L_steckbrief_${WANTED.includes(id) ? id : 'leer'}.png`);
+/** Steckbriefe mit nur einem Bild (BE): die Oberfläche zeigt sie ganz und graut „gefasst“. */
+export const wantedSingle = (id) => !!WANTED_SINGLE[id];
 
 // --- Paket J: Fall 5, Miriam und die Glocke (manifest-fall5.json) ---------------------------------
 
@@ -2126,3 +2130,103 @@ for (const id of K3P_ENEMIES) {
   BOSS_INTROS[id] = `${id}_ds`;
   BOSS_INTRO_IMAGES[`${id}_ds`] = [`DS_boss_${id}`, `ui/DS_boss_${id}.png`];
 }
+
+// --- Kapitel 3: Handel und Schichtbund (BC Daten, BE Kunst; manifest-dunscar5.json) -------------------------
+/** BE: die zwölf BC-Figuren mit Lauf-Sheet, Portraits (vier plus AK-Stimmungen) und Kopf (aus dem Atlas BE_koepfe geschnitten). */
+export const BC_FIGURES = ['k3h_troedlerin', 'k3h_steinmetz', 'k3h_lampenwart', 'zirkel_schichtbund', 'tm_ds_lampe', 'tm_ds_kerbholz', 'tm_ds_stimme',
+  'ez_ds_rangierer', 'ez_ds_kalkbrennerin', 'ez_ds_streckenlaeufer', 'ez_ds_walzenstimme', 'ez_ds_schrankenkind'];
+export const BC_LONERS = BC_FIGURES.filter((id) => id.startsWith('ez_ds_'));
+for (const id of BC_FIGURES) {
+  SHEETS[`be_${id}`] = `characters/${id}_walk.png`;
+  CHARACTER_SHEETS[`npc_${id}`] = `be_${id}`;
+  PORTRAITS[id] = `${id}_emotions.png`;
+  HEADS.push(id);
+  AK_FIGURES.add(id);
+  if (id.startsWith('tm_')) T_MEMBERS.push(id);
+}
+/** Die fünf Dunscarer Einzelgänger kämpfen mit eigenem Sheet (48x48, Rückzug statt Tod), Kartenfigur und Bestiariumsseite. */
+for (const id of BC_LONERS) {
+  BATTLE_SHEETS[`enemy_${id}`] = [`battle/enemy_${id}.png`, 48];
+  ENCOUNTER_SHEETS[id] = `enemy_${id}`;
+  OVERWORLD_SHEETS[id] = [`characters/F_ow_${id}.png`, 16, 32];
+  PROP_ORIGINS[`ow_${id}`] = 0.85;
+  ANIM_ALIASES[`enemy_${id}`] = { cast: 'special' };
+  BESTIARY_FILES[id] = `F_${id}`;
+}
+/** Schichtbund-Atlas (256x128): Kerbholzwand, Stempeltisch, Walzenregal, Lampenreihe, Bank, Bodenmarke, Stadtkarten-Pin. */
+export const BE_SCHICHTBUND_URL = `${BASE}props/BE_schichtbund.png`;
+export const BE_SCHICHTBUND_REGIONS = { kerbholz_wand: [0, 0, 48, 48], stempeltisch: [64, 0, 32, 32], walzenregal: [128, 0, 32, 48], lampenreihe: [192, 0, 64, 16],
+  versammlungsbank: [0, 64, 48, 16], bodenmarke: [64, 64, 16, 16], stadtkarten_pin: [128, 64, 16, 16] };
+/** Stadtkarten-Pin des Schichtbund-Treffens: Feld 72 im 16er-Raster des Atlas (Spalte 8, Zeile 4). */
+export const BE_MAP_MARKERS = { treffen_schichtbund: [BE_SCHICHTBUND_URL, 72, 16, false, { rows: 8, row: 4 }] };
+/** Drei Werkstätten der Händler als ganze Props. */
+for (const id of ['BE_troedelstand', 'BE_steinmetzwerkbank', 'BE_schaltbuden_theke', 'BE_lichtkegel']) {
+  WHOLE_PROPS[id] = `props/${id}.png`;
+  SHEETS[id] = `props/${id}.png`;
+}
+/** BC-Gegenstände ohne eigenes Bild zeigen bis BB/BE-Icons passende Bestandsbilder. */
+Object.assign(ITEM_ICON_ALIASES, {
+  k3h_schichtkappe: 'hut_schirmmuetze', k3h_staubhaube: 'hut_schutzbrille', k3h_rangiermantel: 'mantel_leder', k3h_taschenrock: 'mantel_flicken',
+  k3h_feierabendmarke: 'pfandmarke_alt', k3h_kupplungsring: 'siegelring', k3h_faeustel: 'richterhammer', k3h_steinmeissel: 'brecheisen',
+  k3h_hilfe_laterne: 'kreidestummel', k3h_hilfe_faden: 'salamanderoel', k3h_hilfe_maske: 'riechsalz', k3h_hilfe_echo: 'madenwachs',
+  k3h_hilfe_kessel: 'verband', k3h_hilfe_eisen: 'ambossstaub', k3h_hilfe_schluessel: 'lampenoel', k3h_hilfe_sq_waage: 'glockenstaub',
+  k3h_hilfe_sq_moor: 'grabmoos', k3h_hilfe_sq_uhr: 'fremdlicht_phiole', k3h_namenstaefelchen: 'schreintaefelchen', k3h_kerbholz: 'pfahlholz',
+  k3h_mantelzettel: 'k2n_pfandzettel', ez_ds_rangierer_gabe: 'ankerhaken', ez_ds_kalkbrennerin_gabe: 'amulett_eisen', ez_ds_streckenlaeufer_gabe: 'taschenuhr',
+  ez_ds_walzenstimme_gabe: 'wachszylinder', ez_ds_schrankenkind_gabe: 'knotengarn',
+});
+/** BD: Lottes gekaufte Ausgaben des Kalkblatts zeigen den Zeitungsausschnitt. */
+for (let i = 1; i <= 9; i++) ITEM_ICON_ALIASES[`k3e_ausgabe_${i}`] = 'zeitungsausschnitt';
+
+// --- Kapitel 3: Leben in Dunscar (BD Daten; BE Figuren und Kopfgeldgegner, BA Stände, Tiere und Wetter) ----------
+/** BE: acht Einwohner und zwei Aufseher (Lauf-Sheet, Kopf aus BE_koepfe); dazu die Nachtschicht-Fassungen zweier Einwohner als Schichtgänger. */
+export const BD_FIGURES = ['k3e_schichtwitwe', 'k3e_kalkjunge', 'k3e_wagenputzer', 'k3e_zeitungsfrau', 'k3e_bahnbettler', 'k3e_steinmetzgeselle', 'k3e_teesaalgast', 'k3e_signalkind',
+  'k3e_aufseher_a', 'k3e_aufseher_b'];
+for (const id of BD_FIGURES) {
+  SHEETS[`be_${id}`] = `characters/${id}_walk.png`;
+  CHARACTER_SHEETS[`npc_${id}`] = `be_${id}`;
+  HEADS.push(id);
+}
+for (const id of ['k3e_wagenputzer_schicht', 'k3e_steinmetzgeselle_schicht']) {
+  SHEETS[`be_${id}`] = `characters/${id}.png`;
+  CHARACTER_SHEETS[`npc_${id}`] = `be_${id}`;
+}
+/** BE: die sechs Kopfgeld-Ziele (Kampf-Sheet, Kartenfigur, Bestiarium, Steckbrief); der Signalbrecher ist 64 groß, der Staubschmuggler hat eine Elite-Fassung. */
+export const K3K_ENEMIES = ['k3k_kupferdieb', 'k3k_schienenlaeufer', 'k3k_lohnfaelscher', 'k3k_staubschmuggler', 'k3k_walzenhehler', 'k3k_signalbrecher'];
+for (const id of K3K_ENEMIES) {
+  const w = id === 'k3k_signalbrecher' ? 64 : 48;
+  BATTLE_SHEETS[`enemy_${id}`] = [`battle/enemy_${id}.png`, w, w];
+  ENCOUNTER_SHEETS[id] = `enemy_${id}`;
+  OVERWORLD_SHEETS[id] = [`characters/F_ow_${id}.png`, 16, 32];
+  PROP_ORIGINS[`ow_${id}`] = 0.85;
+  ANIM_ALIASES[`enemy_${id}`] = { cast: 'special' };
+  BESTIARY_FILES[id] = `F_${id}`;
+  if (!BESTIARY.includes(id)) BESTIARY.push(id);
+}
+BATTLE_SHEETS.enemy_k3k_staubschmuggler_elite = ['battle/enemy_k3k_staubschmuggler_elite.png', 48, 48];
+ENCOUNTER_SHEETS.k3k_staubschmuggler_elite = 'enemy_k3k_staubschmuggler_elite';
+OVERWORLD_SHEETS.k3k_staubschmuggler_elite = OVERWORLD_SHEETS.k3k_staubschmuggler;
+ANIM_ALIASES.enemy_k3k_staubschmuggler_elite = { cast: 'special' };
+ENCOUNTER_SHEETS.k3k_signalbrecher_phase2 = 'enemy_k3k_signalbrecher';
+/** BE: Steckbriefe der Bahnaufsicht (48x64, ein Bild; „gefasst“ wird gegraut statt mit zweitem Bild). */
+export const WANTED_SINGLE = Object.fromEntries(K3K_ENEMIES.map((id) => [id, `ui/BE_steckbrief_${id}.png`]));
+/** BA: Ruth Bellwick (k3n_secondhaendler) mit eigener Figur, Portrait, AK-Stimmungen und Kopf (bisher Hespers Figur). */
+SHEETS.ba_k3n_secondhaendler = 'characters/k3n_secondhaendler_walk.png';
+CHARACTER_SHEETS.npc_k3n_secondhaendler = 'ba_k3n_secondhaendler';
+PORTRAITS.k3n_secondhaendler = 'k3n_secondhaendler_emotions.png';
+HEADS.push('k3n_secondhaendler');
+AK_FIGURES.add('k3n_secondhaendler');
+/** BA: zehn Marktstände (32x32, zwei Bilder: offen/geschlossen) als Lesestellen auf Kalkmarkt und Arbeiterbogen. */
+ANIM_SHEETS.BA_staende = ['props/BA_staende.png', 32, 32];
+PROP_ORIGINS.BA_staende = 0.9;
+export const BA_STAENDE = ['stand_kreide', 'stand_kalkpastillen', 'stand_troedel', 'stand_stein', 'stand_tee', 'stand_werkzeug', 'stand_kartoffeln', 'stand_zeitungen', 'stand_kerzen', 'stand_flickzeug'];
+/** BA: Tiere und Wetter (fx/BA_dunscar_tiere.png, fx/BA_dunscar_wetter.png), Regionen → [x, y, w, h, Frames, fps]; genutzt in world/DunscarLife.js. */
+export const BA_LIFE_KEY = 'ba_tiere';
+export const BA_WEATHER_KEY = 'ba_wetter';
+export const BA_TIERE = {
+  ds_kraehe_sitzen: [0, 0, 16, 16, 2, 4], ds_kraehe_auffliegen: [0, 16, 16, 16, 4, 8], ds_kraehe_fliegen: [0, 32, 16, 16, 4, 8],
+  ds_kalkziege_stehen: [0, 48, 16, 16, 2, 4], ds_kalkziege_laufen: [0, 64, 16, 16, 4, 8], ds_kalkziege_klettern: [0, 80, 16, 32, 2, 8],
+  ds_staubteufel: [0, 112, 16, 32, 6, 8], ds_motte_kreisen: [0, 144, 16, 16, 4, 8],
+  ds_eidechse_sitzen: [0, 160, 16, 16, 2, 4], ds_eidechse_huschen: [0, 176, 16, 16, 4, 8],
+  ds_schwalbe_fliegen: [0, 192, 16, 16, 4, 8], ds_schwalbe_sitzen: [0, 208, 16, 16, 2, 4],
+};
+export const BA_WETTER = { kalkstaub: [0, 0, 240, 135, 4, 5], nachtnebel_1: [0, 144, 240, 135, 1, 1], nachtnebel_2: [0, 288, 240, 135, 1, 1], wind_grasbueschel: [0, 432, 16, 16, 4, 5] };

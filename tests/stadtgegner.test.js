@@ -57,7 +57,7 @@ test('Der Nachtmarkt ist sicher: dort streifen keine Gegner herum', () => {
 
 test('Balance: Geübte schaffen Stadtgegner mit dem Dienstschlagstock, Eliten und Kopfgeld-Ziele verlangen sauberes Timing', () => {
   for (const [id, e] of Object.entries(content.encounters)) {
-    if (!e.city) continue;
+    if (!e.city || e.chapter === 3) continue; // Dunscar (BD) prüft tests/k3_leben.test.js mit Kapitel-3-Ausrüstung
     const tough = e.elite || e.boss || id.startsWith('kopfgeld_');
     const { result, combat } = fight(midgame(), id, { defend: tough ? EXPERT : SKILLED, healBelow: 15 });
     assert.equal(result.outcome, 'won', `${id}: verloren in Runde ${combat.round}`);

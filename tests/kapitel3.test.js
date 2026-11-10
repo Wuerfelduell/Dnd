@@ -20,7 +20,7 @@ test('Kapitel 3: 18 Dunscarer Karten, eigene Stadtkarte mit Pins und Markern', (
   assert.ok(existsSync(pub(DS_MAP_MARKERS_URL)));
   for (const id of Object.keys(city.pins)) {
     assert.ok(content.maps[id], id);
-    assert.ok(mapMarkerOf(id)[0].includes('ds_marker'), id);
+    assert.ok(mapMarkerOf(id)[0].includes(id.startsWith('treffen_') ? 'BE_schichtbund' : 'ds_marker'), id); // Zirkelpin (BC/BE) aus dem Schichtbund-Atlas
   }
   for (const id of ['ds_endbahnhof', 'ds_schwellenring', 'ds_arbeiterbogen']) assert.ok(content.travel.some((t) => t.map === id), id);
   assert.ok(CHAPTER_CARDS.includes('kapitel3_karte'));
@@ -75,7 +75,7 @@ test('Balance Kapitel 3: mit Sequenz 5 schaffen sehr Geübte jeden Gegner und je
   const ch3 = Object.entries(content.encounters).filter(([, e]) => e.chapter === 3);
   assert.ok(ch3.length >= 20);
   for (const [id, e] of ch3) {
-    const tough = e.elite || e.boss;
+    const tough = e.elite || e.boss || e.flees_after; // BD: wer sich nach drei Runden entzieht, verlangt den Doppelschlag
     const { result, combat } = fight(seq(5), id, { defend: EXPERT, skill: tough ? 'double' : 'attack', healBelow: 18 });
     assert.equal(result.outcome, 'won', `${id}: verloren in Runde ${combat.round}`);
   }

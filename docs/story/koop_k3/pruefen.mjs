@@ -5,11 +5,13 @@ import { loadContent } from '../../../tests/helpers.js';
 import { applyQuestPack } from '../../../src/data/questPacks.js';
 import { GameState } from '../../../src/core/GameState.js';
 
+// Nach dem Einbau liegen die Daten in src/data/packs/koop_k3; geprüft wird gegen den Inhalt ohne dieses Paket.
 const dir = new URL('./', import.meta.url);
-const read = (name) => JSON.parse(readFileSync(new URL(`${name}.json`, dir), 'utf8'));
+const pkgDir = new URL('../../../src/data/packs/koop_k3/', import.meta.url);
+const read = (name) => JSON.parse(readFileSync(new URL(`${name}.json`, pkgDir), 'utf8'));
 const names = ['quests', 'items', 'encounters', 'dialogues', 'npcs', 'case', 'dialog_zusaetze', 'platzierung', 'geplauder', 'kampf', 'bindung'];
 const pack = { name: 'koop_k3', ...Object.fromEntries(names.map(n => [n, read(n)])) };
-const content = loadContent();
+const content = loadContent({ without: ['koop_k3'] });
 const walk = (v, f, path = '') => {
   if (!v || typeof v !== 'object') return;
   f(v, path);
@@ -30,7 +32,7 @@ function scan(path) {
     else if (e.name.endsWith('.json')) definitions(JSON.parse(readFileSync(p, 'utf8')));
   }
 }
-scan(fileURLToPath(new URL('../../../src/data', dir)));
+scan(fileURLToPath(new URL('../../../src/data', dir))); // enthält inzwischen auch koop_k3 selbst
 definitions(pack);
 const external = new Set(['koop_aktiv', 'koop_ds_schleuse_bindung_bestaetigt', 'koop_ds_schleuse_rueckkehr_geprueft']);
 for (const f of external) effectFlags.add(f);

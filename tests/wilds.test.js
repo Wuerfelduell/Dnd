@@ -21,7 +21,7 @@ test('dreizehn Gefahrengebiete (fünf in Wexmoor, vier in Dunscar) mit Karte, Re
     assert.ok(map, zid);
     assert.ok(map.danger >= 1, `${zid}: Gefahrenstufe`);
     assert.ok(content.travel.some((t) => t.map === zid), `${zid}: Reiseziel`);
-    const roamers = map.roamers;
+    const roamers = map.roamers.filter((r) => !content.encounters[r.encounter]?.city); // BD: Kopfgeld-Ziele am Rand der Rufschlucht zählen zur Stadt
     // Paket AM: die Torfbrüche sind ein Erzählort mit wenigen Gegnern; die Moorbraut stellt man bewusst am Brautbecken
     const story = STORY_ZONES[zid];
     assert.ok(roamers.length >= (story ? 3 : 15), `${zid}: nur ${roamers.length} Gegner`);

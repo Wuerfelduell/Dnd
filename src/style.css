@@ -216,14 +216,14 @@ button.small { font-size: 0.8em; padding: 0.1em 0.5em; }
 .cb-msg p { margin: 0 0 0.3em; }
 .cb-help { color: var(--gold); font-size: 0.9em; }
 .cb-help:empty { display: none; }
-.cb-bottom { position: absolute; left: 0; right: 0; bottom: 0; height: 7.6em; display: flex; gap: 0.6em; padding: 0.5em 0.8em; background: linear-gradient(transparent, rgba(4, 4, 8, 0.85) 30%); }
+.cb-bottom { position: absolute; left: 0; right: 0; bottom: 0; min-height: 7.6em; display: flex; align-items: flex-end; gap: 0.6em; padding: 0.5em 0.8em; background: linear-gradient(transparent, rgba(4, 4, 8, 0.85) 30%); }
 .cb-player { width: 17em; }
 .cb-player .bar { width: 8em; }
 .nfill { height: 100%; background: #8aa6b8; }
 .cb-ap { font-size: 0.8em; color: var(--muted); margin-top: 0.3em; display: flex; align-items: center; gap: 0.4em; }
 .pips i { display: inline-block; width: 0.7em; height: 0.7em; margin-right: 0.2em; border: 0.125em solid var(--brass); transform: rotate(45deg); }
 .pips i.on { background: var(--gold); box-shadow: 0 0 0.4em var(--gold); }
-.cb-menu { flex: 1; background: var(--panel); border: 0.125em solid var(--brass); padding: 0.2em 0.5em; pointer-events: auto; }
+.cb-menu { flex: 1; min-width: 0; min-height: 6.6em; background: var(--panel); border: 0.125em solid var(--brass); padding: 0.2em 0.5em; pointer-events: auto; }
 .cb-menu:empty { visibility: hidden; }
 .cb-menu .choices { grid-template-columns: 1fr 1fr; margin: 0; gap: 0.1em 0.4em; }
 .cb-menu button[disabled] { opacity: 0.45; }
@@ -468,6 +468,8 @@ img.scene { display: block; width: 30em; height: 16.875em; margin: 0 auto 0.6em;
 /* Paket L: Steckbriefe am Kopfgeld-Brett und im Auftrag */
 .wanted { width: 8em; height: 10em; margin: 0 auto 0.6em; background-size: 16em 10em; background-position: 0 0; background-repeat: no-repeat; image-rendering: pixelated; }
 .wanted.caught { background-position: -8em 0; }
+.wanted.single { background-size: 100% 100%; background-position: 0 0; } /* BE: Steckbriefe mit einem Bild (48x64) */
+.wanted.single.caught { background-position: 0 0; filter: grayscale(1) brightness(0.7); }
 .qsum .wanted { float: right; width: 4em; height: 5em; background-size: 8em 5em; margin: 0 0 0.3em 0.5em; }
 
 /* Rituale ab Sequenz 6 */
@@ -617,7 +619,25 @@ button.small.give { color: #9ab8ff; }
 .cb-enemy .hudbar.enemy { display: block; margin-top: 0.2em; text-align: right; }
 .cb-enemy .cb-name .occult { margin-right: 0.3em; vertical-align: -0.35em; }
 .pips .pip { margin-right: 0.15em; }
-.cb-menu .cbicon { margin-right: 0.3em; vertical-align: -0.3em; }
+.cb-menu .cbicon { margin-right: 0.3em; vertical-align: -0.5em; }
+/* Fertigkeiten/Gegenstände als Kacheln: großes Icon (2em = 16 Spielpixel), Name und Kosten daneben; viele Einträge scrollen,
+   das Fenster wächst dafür nach oben. Mindestens 2.8em hoch, damit es sich auch mit dem Finger gut trifft. */
+.cb-menu.tiles .choices { grid-template-columns: repeat(auto-fill, minmax(11.5em, 1fr)); gap: 0.15em 0.3em; max-height: 10.6em; overflow-y: auto; overflow-x: hidden; padding: 0.1em 0.2em 0.1em 0; }
+.cb-menu.tiles .choices button { display: flex; align-items: center; gap: 0.4em; min-height: 2.8em; padding: 0.15em 0.3em; line-height: 1.15; }
+.cb-menu.tiles .tile-text { display: flex; flex-direction: column; min-width: 0; }
+.cb-menu.tiles .tile-name { overflow-wrap: break-word; hyphens: auto; }
+.cb-menu .cbicon.big { flex: none; margin: 0; vertical-align: middle; }
+html.touch .cb-menu.tiles .choices button { min-height: 3.4em; }
+html.touch .cb-menu.tiles .choices { max-height: 11.4em; }
+.cb-menu.tiles .tile-text .muted { font-size: 0.8em; }
+.cb-menu.tiles .tile-name .key { margin-right: 0.3em; }
+.cb-menu.tiles .tile-name .key:empty { display: none; }
+.cb-menu .atlas-icon.big { width: 2em; height: 2em; flex: none; margin: 0; vertical-align: middle; }
+.cb-menu .atlas-icon.big.blank { display: inline-flex; align-items: center; justify-content: center; font-size: 1em; color: var(--occult); }
+.cb-menu .item-icon.big { width: 2em; height: 2em; flex: none; float: none; margin: 0; image-rendering: pixelated; }
+.cb-foot { display: flex; align-items: center; gap: 0.6em; margin-top: 0.15em; }
+.cb-foot .cb-back { flex: none; }
+.cb-foot .cb-desc { flex: 1; min-width: 0; }
 .skin-ui_battle_menu_png .cb-menu { border: 1em solid transparent; border-image: var(--bmenu-panel) 16 fill / 1em; background: none; padding: 0; color: #2a2018; }
 .skin-ui_battle_menu_png .cb-menu .choices button { color: #2a2018; text-shadow: none; position: relative; }
 .skin-ui_battle_menu_png .cb-menu .choices button .muted, .skin-ui_battle_menu_png .cb-desc { color: #5a4a38; }

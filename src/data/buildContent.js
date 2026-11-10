@@ -1,3 +1,4 @@
+import { NIGHT_FLAG } from '../core/Clock.js';
 import { applyQuestPack } from './questPacks.js';
 import { applyLore } from './lore.js';
 import { withSequenzen, applySequenzen } from './sequenzen.js';
@@ -23,8 +24,10 @@ export function buildContent({ campaign, quests, cases, maps, dialogues, items =
   maps = withPlacements(withEntrances([...maps, ...(b.maps ?? []), ...(g.maps ?? []), ...(wx.maps ?? [])], b.entrances ?? []), g.placements ?? []);
   // Kapitel 2 bringt eigene Gefahrengebiete mit (Vergessmoor)
   const wild = wildContent(wexmoor?.zones ? { ...wilds, zones: { ...(wilds?.zones ?? {}), ...wexmoor.zones } } : wilds);
-  const town = cityContent(city);
-  maps = withCity(maps, city);
+  // Stadtgegner: Kettlegate (stadtgegner.json) und je Paket ein eigener Stadtausschnitt mit eigenen Niederlagen-/Elitenregeln (BD: Dunscar)
+  const towns = [city, ...packs.map((p) => p.stadtgegner)].filter(Boolean).map(cityContent);
+  const town = { encounters: Object.assign({}, ...towns.map((t) => t.encounters)), loot: Object.assign({}, ...towns.map((t) => t.loot)), items: Object.assign({}, ...towns.map((t) => t.items)) };
+  for (const c of [city, ...packs.map((p) => p.stadtgegner)]) maps = withCity(maps, c);
   const f = factions ?? {};
   if (f.facts || f.clues || f.deductions) cases = [...cases, { facts: f.facts, clues: f.clues, deductions: f.deductions }];
   const content = {
@@ -41,7 +44,9 @@ export function buildContent({ campaign, quests, cases, maps, dialogues, items =
       cities: { ...(travel.cities ?? {}), ...(wx.city ? { [wx.city.id]: wx.city } : {}), ...(wx.cities ?? {}) },
     },
     pathways: pathways?.pathways ?? {},
-    market: market && { ...market, merchants: { ...market.merchants, ...(b.merchants ?? {}), ...(g.merchants ?? {}) }, sell_prices: { ...market.sell_prices, ...(f.sell_prices ?? {}) } },
+    market: market && { ...market,
+      merchants: { ...market.merchants, ...(b.merchants ?? {}), ...(g.merchants ?? {}), ...Object.assign({}, ...packs.map((p) => p.haendler?.merchants ?? {})) },
+      sell_prices: { ...market.sell_prices, ...(f.sell_prices ?? {}), ...Object.assign({}, ...packs.map((p) => p.haendler?.sell_prices ?? {})) } }, // BC: Händler und Verkaufswerte aus Paketen
     loot: { ...(market?.loot ?? {}), ...artifactDrops(wild.loot, wild.encounters, pathways?.artifacts), ...town.loot, ...(f.loot ?? {}), ...(wx.loot ?? {}) },
     artifacts: pathways?.artifacts ?? null,
     revierSupply: pathways?.revier_supply ?? null,
@@ -52,7 +57,7 @@ export function buildContent({ campaign, quests, cases, maps, dialogues, items =
     factions: f.factions ?? {},
     gatherings: g.rules ? { rules: g.rules, circles: g.circles ?? {}, artisan: g.artisan ?? null } : null,
     police: wx.police ?? null,
-    loners: wx.loners ?? null,
+    loners: wx.loners ? { ...wx.loners, list: { ...wx.loners.list, ...Object.assign({}, ...packs.map((p) => p.einzelgaenger?.loners?.list ?? {})) } } : null, // BC: Dunscarer Einzelgänger
     facts: merge(cases, 'facts'),
     clues: merge(cases, 'clues'),
     endings: merge(cases, 'endings'),
@@ -66,6 +71,7 @@ export function buildContent({ campaign, quests, cases, maps, dialogues, items =
   for (const pack of packs) if (pack.zeitung) content.newspapers = [...(content.newspapers ?? []), ...pack.zeitung]; // Paket AL
   content.epiloge = packs.flatMap((pack) => pack.epiloge ?? []); // AP/AR: Epilogszenen je Ende, in Dateireihenfolge
   for (const pack of packs) withPackLore(content, pack); // Paket AT: Gerede, Bestiarium und Lesestücke aus Nebenauftragspaketen
+  for (const pack of packs) withPackLeben(content, pack); // Paket BD: Einwohner mit Tagesplan, Aufseher-Streifen, Wetter und Tiere
   for (const pack of packs) withPackBosses(content, pack); // Kapitel 3: Bosse, Folgeabschnitte und Kampftexte
   applySequenzen(content, sequenzen, sq); // Paket AF: Händler, Treffen und Funde für die neuen Pfade
   applyMoods(content); // Paket AK: Stimmungen für Schlüsselstellen
@@ -103,11 +109,56 @@ function withEntrances(maps, entrances) {
 }
 
 /** Stellt zusätzliche Figuren auf bestehende Karten (z. B. den Boten der geheimen Treffen). */
+/**
+ * Tag und Nacht (BD): `zeit: { tag: { map?, tile } | null, nacht: { map?, tile } | null }` wird zu je einem Eintrag pro Tageszeit,
+ * sichtbar über das flüchtige Nachtflag (core/Clock.js). `null` heißt: zu dieser Tageszeit nicht da. Ohne `zeit` bleibt der Eintrag wie er ist.
+ */
+function timed(def) {
+  if (!def.zeit) return [def];
+  const { zeit, ...rest } = def;
+  const v = rest.visible_if ?? {};
+  const out = [];
+  if (zeit.tag) out.push({ ...rest, tile: zeit.tag.tile ?? rest.tile, visible_if: { ...v, hide_if_flags: [...(v.hide_if_flags ?? []), NIGHT_FLAG] } });
+  if (zeit.nacht) out.push({ ...rest, tile: zeit.nacht.tile ?? rest.tile, visible_if: { ...v, requires_flags: [...(v.requires_flags ?? []), NIGHT_FLAG] } });
+  return out;
+}
+
+/**
+ * Paket BD: Einwohner mit Tagesplan (`einwohner`: Varianten derselben Figur je Storyzustand, mit Tag-/Nachtplatz),
+ * zivile Aufseher-Streifen (`streifen.patrols`, Kartenfeld `patrols`) und Wetter/Tiere je Karte (`leben` → Kartenfeld `leben`).
+ */
+function withPackLeben(content, pack) {
+  const own = (mapId) => {
+    const m = content.maps[mapId];
+    if (!m) throw new Error(`${pack.name}: unbekannte Karte ${mapId}`);
+    return (content.maps[mapId] = { ...m, npcs: [...(m.npcs ?? [])], patrols: [...(m.patrols ?? [])] });
+  };
+  for (const e of pack.einwohner ?? []) {
+    if (!content.npcs[e.id]) throw new Error(`${pack.name}: Einwohner ${e.id} ohne Figur`);
+    for (const [when, spot] of Object.entries(e.zeit ?? {})) {
+      if (!spot) continue;
+      const v = e.visible_if ?? {};
+      const visible_if = when === 'nacht'
+        ? { ...v, requires_flags: [...(v.requires_flags ?? []), NIGHT_FLAG] }
+        : { ...v, hide_if_flags: [...(v.hide_if_flags ?? []), NIGHT_FLAG] };
+      own(spot.map).npcs.push({ id: e.id, tile: spot.tile, visible_if, ...(e.roam ? { roam: e.roam } : {}) });
+    }
+  }
+  for (const [mapId, defs] of Object.entries(pack.streifen?.patrols ?? {})) {
+    const m = own(mapId);
+    for (const def of defs) m.patrols.push(...timed({ kind: 'aufsicht', ...def }));
+  }
+  for (const [mapId, life] of Object.entries(pack.leben ?? {})) {
+    if (!content.maps[mapId]) throw new Error(`${pack.name}: Wetter für unbekannte Karte ${mapId}`);
+    content.maps[mapId] = { ...content.maps[mapId], leben: life };
+  }
+}
+
 /** Stadtgegner: Streifen (roamers) und zusätzliche Objekte in die Viertel einsetzen, ohne die Kartendateien anzufassen. */
 function withCity(maps, city) {
   if (!city) return maps;
   return maps.map((m) => {
-    const roamers = city.roamers?.[m.id] ?? [];
+    const roamers = (city.roamers?.[m.id] ?? []).flatMap(timed);
     const extra = city.interactables?.[m.id] ?? [];
     if (!roamers.length && !extra.length) return m;
     return { ...m, roamers: [...(m.roamers ?? []), ...roamers], interactables: [...(m.interactables ?? []), ...extra] };
@@ -128,7 +179,8 @@ function cityContent(city) {
       sprite: 'wild', fleeable: !e.boss, city: true, lose_to: city.lose_to, lose_money: city.lose_money, lose_text: city.lose_text, flee_text: city.flee_text, ...enc,
     };
     out.encounters[id] = base;
-    out.loot[id] = { repeat: !e.boss && !id.startsWith('kopfgeld_'), ...loot };
+    const bounty = id.startsWith('kopfgeld_') || (e.on_win?.sets_flags ?? []).some((f) => /^(won_kopfgeld_|k3k_)/.test(f)); // BD: Dunscarer Ziele heißen k3k_*
+    out.loot[id] = { repeat: !e.boss && !bounty, ...loot };
     if (!elite) continue;
     out.encounters[`${id}_elite`] = {
       ...base,
@@ -197,6 +249,11 @@ function withPackTreffen(packs, gatherings, pathways, wexmoor) {
       };
       const cityPins = Object.fromEntries(Object.entries(t.pins ?? {}).filter(([id]) => t.travel?.some((x) => x.map === id && x.city === wexmoor?.city?.id)));
       if (Object.keys(cityPins).length) wexmoor = { ...wexmoor, city: { ...wexmoor.city, pins: { ...(wexmoor.city.pins ?? {}), ...cityPins } } };
+      // BC: Pins eines Treffpunkts in einer weiteren Stadt (Dunscar) landen auf deren Stadtkarte
+      for (const [cid, c] of Object.entries(wexmoor?.cities ?? {})) {
+        const own = Object.fromEntries(Object.entries(t.pins ?? {}).filter(([id]) => t.travel?.some((x) => x.map === id && x.city === cid)));
+        if (Object.keys(own).length) wexmoor = { ...wexmoor, cities: { ...wexmoor.cities, [cid]: { ...c, pins: { ...(c.pins ?? {}), ...own } } } };
+      }
     }
     const arts = pack.artefakte ?? pack.artifacts?.list;
     if (arts && pathways?.artifacts) {

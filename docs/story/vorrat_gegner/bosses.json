@@ -1,0 +1,444 @@
+{
+  "vg_cw_boss_bleisammler": {
+    "name": "Bleisammler",
+    "sprite": "wild",
+    "sheet": "enemy_vg_cw_boss_bleisammler",
+    "boss": true,
+    "fleeable": true,
+    "hp": 533,
+    "armor": 3,
+    "occult": true,
+    "chapter": 4,
+    "intro": "Ein Leib ausgesonderter Lettern hält die Alte Setzerei besetzt.",
+    "attacks": [
+      {
+        "name": "Druckwalze: zieht die walze vor die brust",
+        "damage": 20,
+        "hits": [
+          1400,
+          2150
+        ],
+        "unparryable": false
+      },
+      {
+        "name": "Letternregen: öffnet den setzkasten über sich – ausweichen",
+        "damage": 22,
+        "hits": [
+          2600
+        ],
+        "unparryable": true
+      }
+    ],
+    "on_win": {
+      "sets_flags": [
+        "vg_cw_boss_bleisammler_phase1_done"
+      ]
+    },
+    "win_text": "Ein Abschnitt ist überwunden. Ihr könnt weitergehen oder über den gesicherten Rückweg abbrechen.",
+    "lose_text": "Ihr weicht zum gesicherten Eingang zurück. Der nächste Versuch beginnt wieder mit dem ersten Abschnitt.",
+    "loot": {
+      "money": [
+        0,
+        0
+      ],
+      "drops": []
+    },
+    "roam": {
+      "speed": 0,
+      "chase": 40,
+      "aggro": 72
+    },
+    "on_lose": {
+      "clears_flags": [
+        "vg_cw_boss_bleisammler_phase1_done"
+      ]
+    }
+  },
+  "vg_cw_boss_blinder_zusteller": {
+    "name": "Blinder Zusteller",
+    "sprite": "wild",
+    "sheet": "enemy_vg_cw_boss_blinder_zusteller",
+    "boss": true,
+    "fleeable": true,
+    "hp": 533,
+    "armor": 3,
+    "occult": true,
+    "chapter": 4,
+    "intro": "Der blinde Dienstkörper in der Sortiergrube trägt jede Sendung an die falsche Tür.",
+    "attacks": [
+      {
+        "name": "Sortiergriff: tastet die fächer von links nach rechts ab",
+        "damage": 20,
+        "hits": [
+          1400,
+          2150
+        ],
+        "unparryable": false
+      },
+      {
+        "name": "Fehlzustellung: spannt den postsack über den rücken – ausweichen",
+        "damage": 22,
+        "hits": [
+          2600
+        ],
+        "unparryable": true
+      }
+    ],
+    "on_win": {
+      "sets_flags": [
+        "vg_cw_boss_blinder_zusteller_phase1_done"
+      ]
+    },
+    "win_text": "Ein Abschnitt ist überwunden. Ihr könnt weitergehen oder über den gesicherten Rückweg abbrechen.",
+    "lose_text": "Ihr weicht zum gesicherten Eingang zurück. Der nächste Versuch beginnt wieder mit dem ersten Abschnitt.",
+    "loot": {
+      "money": [
+        0,
+        0
+      ],
+      "drops": []
+    },
+    "roam": {
+      "speed": 0,
+      "chase": 40,
+      "aggro": 72
+    },
+    "on_lose": {
+      "clears_flags": [
+        "vg_cw_boss_blinder_zusteller_phase1_done"
+      ]
+    }
+  },
+  "vg_cw_boss_nullfundament": {
+    "name": "Registerleib des Nullfundaments",
+    "sprite": "wild",
+    "sheet": "enemy_vg_cw_boss_nullfundament",
+    "boss": true,
+    "fleeable": true,
+    "hp": 715,
+    "armor": 3,
+    "occult": true,
+    "chapter": 4,
+    "intro": "Unter dem Kronenarchiv bündelt ein Registerleib die örtliche Verbindung zum Hunger.",
+    "attacks": [
+      {
+        "name": "Registergriff: klappt zwei schwere deckel auf",
+        "damage": 22,
+        "hits": [
+          1400,
+          2150
+        ],
+        "unparryable": false
+      },
+      {
+        "name": "Sammeldruck: presst alle rücken zusammen – ausweichen",
+        "damage": 25,
+        "hits": [
+          2600
+        ],
+        "unparryable": true
+      }
+    ],
+    "on_win": {
+      "sets_flags": [
+        "vg_cw_boss_nullfundament_phase1_done"
+      ]
+    },
+    "win_text": "Ein Abschnitt ist überwunden. Ihr könnt weitergehen oder über den gesicherten Rückweg abbrechen.",
+    "lose_text": "Ihr weicht zum gesicherten Eingang zurück. Der nächste Versuch beginnt wieder mit dem ersten Abschnitt.",
+    "loot": {
+      "money": [
+        0,
+        0
+      ],
+      "drops": []
+    },
+    "roam": {
+      "speed": 0,
+      "chase": 40,
+      "aggro": 72
+    },
+    "on_lose": {
+      "clears_flags": [
+        "vg_cw_boss_nullfundament_phase1_done",
+        "vg_cw_boss_nullfundament_phase2_done"
+      ]
+    }
+  },
+  "vg_bh_boss_glasgaertner": {
+    "name": "Glasgärtner",
+    "sprite": "wild",
+    "sheet": "enemy_vg_bh_boss_glasgaertner",
+    "boss": true,
+    "fleeable": true,
+    "hp": 533,
+    "armor": 3,
+    "occult": true,
+    "chapter": 4,
+    "intro": "Im kalten Palmhaus trägt eine Pflanzengestalt die zurückgelassene Veredelungsschere.",
+    "attacks": [
+      {
+        "name": "Scherengriff: öffnet die schere auf schulterhöhe",
+        "damage": 20,
+        "hits": [
+          1400,
+          2150
+        ],
+        "unparryable": false
+      },
+      {
+        "name": "Glasschnitt: spiegelt einen lichtstreifen auf den boden – ausweichen",
+        "damage": 22,
+        "hits": [
+          2600
+        ],
+        "unparryable": true
+      }
+    ],
+    "on_win": {
+      "sets_flags": [
+        "vg_bh_boss_glasgaertner_phase1_done"
+      ]
+    },
+    "win_text": "Ein Abschnitt ist überwunden. Ihr könnt weitergehen oder über den gesicherten Rückweg abbrechen.",
+    "lose_text": "Ihr weicht zum gesicherten Eingang zurück. Der nächste Versuch beginnt wieder mit dem ersten Abschnitt.",
+    "loot": {
+      "money": [
+        0,
+        0
+      ],
+      "drops": []
+    },
+    "roam": {
+      "speed": 0,
+      "chase": 40,
+      "aggro": 72
+    },
+    "on_lose": {
+      "clears_flags": [
+        "vg_bh_boss_glasgaertner_phase1_done"
+      ]
+    }
+  },
+  "vg_bh_boss_waescherei": {
+    "name": "Atemkessel der verlassenen Wäscherei",
+    "sprite": "wild",
+    "sheet": "enemy_vg_bh_boss_waescherei",
+    "boss": true,
+    "fleeable": true,
+    "hp": 533,
+    "armor": 3,
+    "occult": true,
+    "chapter": 4,
+    "intro": "Im abgeschirmten Keller der Wäscherei verdichten sich zurückgehaltene Seufzer zu einem Atemkessel.",
+    "attacks": [
+      {
+        "name": "Pressenatem: zieht die nassen tücher nach innen",
+        "damage": 20,
+        "hits": [
+          1400,
+          2150
+        ],
+        "unparryable": false
+      },
+      {
+        "name": "Dampfglocke: bläht den dampf über dem deckel – ausweichen",
+        "damage": 22,
+        "hits": [
+          2600
+        ],
+        "unparryable": true
+      }
+    ],
+    "on_win": {
+      "sets_flags": [
+        "vg_bh_boss_waescherei_phase1_done"
+      ]
+    },
+    "win_text": "Ein Abschnitt ist überwunden. Ihr könnt weitergehen oder über den gesicherten Rückweg abbrechen.",
+    "lose_text": "Ihr weicht zum gesicherten Eingang zurück. Der nächste Versuch beginnt wieder mit dem ersten Abschnitt.",
+    "loot": {
+      "money": [
+        0,
+        0
+      ],
+      "drops": []
+    },
+    "roam": {
+      "speed": 0,
+      "chase": 40,
+      "aggro": 72
+    },
+    "on_lose": {
+      "clears_flags": [
+        "vg_bh_boss_waescherei_phase1_done"
+      ]
+    }
+  },
+  "vg_bh_boss_mutterwurzel": {
+    "name": "Blütenmund der Mutterwurzel",
+    "sprite": "wild",
+    "sheet": "enemy_vg_bh_boss_mutterwurzel",
+    "boss": true,
+    "fleeable": true,
+    "hp": 715,
+    "armor": 3,
+    "occult": true,
+    "chapter": 4,
+    "intro": "Die warme Wurzelkammer ist eine örtliche Kontaktstelle zum Hunger, keine Quelle allen Lebens darunter.",
+    "attacks": [
+      {
+        "name": "Wurzelbogen: hebt zwei wurzelarme aus dem trockenen boden",
+        "damage": 22,
+        "hits": [
+          1400,
+          2150
+        ],
+        "unparryable": false
+      },
+      {
+        "name": "Blütenverschluss: schließt den blütenmund bis auf einen spalt – ausweichen",
+        "damage": 25,
+        "hits": [
+          2600
+        ],
+        "unparryable": true
+      }
+    ],
+    "on_win": {
+      "sets_flags": [
+        "vg_bh_boss_mutterwurzel_phase1_done"
+      ]
+    },
+    "win_text": "Ein Abschnitt ist überwunden. Ihr könnt weitergehen oder über den gesicherten Rückweg abbrechen.",
+    "lose_text": "Ihr weicht zum gesicherten Eingang zurück. Der nächste Versuch beginnt wieder mit dem ersten Abschnitt.",
+    "loot": {
+      "money": [
+        0,
+        0
+      ],
+      "drops": []
+    },
+    "roam": {
+      "speed": 0,
+      "chase": 40,
+      "aggro": 72
+    },
+    "on_lose": {
+      "clears_flags": [
+        "vg_bh_boss_mutterwurzel_phase1_done",
+        "vg_bh_boss_mutterwurzel_phase2_done"
+      ]
+    }
+  },
+  "vg_all_boss_landvermesser": {
+    "name": "Landvermesser",
+    "sprite": "wild",
+    "sheet": "enemy_vg_all_boss_landvermesser",
+    "boss": true,
+    "fleeable": true,
+    "hp": 533,
+    "armor": 3,
+    "occult": true,
+    "chapter": 4,
+    "intro": "Ein namenloser Vermesser zählt auf der Landstraße Schritte, die niemand mehr gegangen sein muss.",
+    "attacks": [
+      {
+        "name": "Schrittmaß: setzt den zirkel auf zwei bodenpunkte",
+        "damage": 20,
+        "hits": [
+          1400,
+          2150
+        ],
+        "unparryable": false
+      },
+      {
+        "name": "Grenzschlag: zieht das messband bis zum anschlag – ausweichen",
+        "damage": 22,
+        "hits": [
+          2600
+        ],
+        "unparryable": true
+      }
+    ],
+    "on_win": {
+      "sets_flags": [
+        "vg_all_boss_landvermesser_phase1_done"
+      ]
+    },
+    "win_text": "Ein Abschnitt ist überwunden. Ihr könnt weitergehen oder über den gesicherten Rückweg abbrechen.",
+    "lose_text": "Ihr weicht zum gesicherten Eingang zurück. Der nächste Versuch beginnt wieder mit dem ersten Abschnitt.",
+    "loot": {
+      "money": [
+        0,
+        0
+      ],
+      "drops": []
+    },
+    "roam": {
+      "speed": 0,
+      "chase": 40,
+      "aggro": 72
+    },
+    "on_lose": {
+      "clears_flags": [
+        "vg_all_boss_landvermesser_phase1_done"
+      ]
+    }
+  },
+  "vg_all_boss_schlafkutsche": {
+    "name": "Schlafkutsche",
+    "sprite": "wild",
+    "sheet": "enemy_vg_all_boss_schlafkutsche",
+    "boss": true,
+    "fleeable": true,
+    "hp": 533,
+    "armor": 3,
+    "occult": true,
+    "chapter": 4,
+    "intro": "Eine Kutsche voller schlafender Reisender fährt ohne Pferde zwischen aufgegebenen Rastplätzen.",
+    "attacks": [
+      {
+        "name": "Deichselzug: senkt die deichsel auf den boden",
+        "damage": 20,
+        "hits": [
+          1400,
+          2150
+        ],
+        "unparryable": false
+      },
+      {
+        "name": "Radbogen: dreht beide vorderräder nach außen – ausweichen",
+        "damage": 22,
+        "hits": [
+          2600
+        ],
+        "unparryable": true
+      }
+    ],
+    "on_win": {
+      "sets_flags": [
+        "vg_all_boss_schlafkutsche_phase1_done"
+      ]
+    },
+    "win_text": "Ein Abschnitt ist überwunden. Ihr könnt weitergehen oder über den gesicherten Rückweg abbrechen.",
+    "lose_text": "Ihr weicht zum gesicherten Eingang zurück. Der nächste Versuch beginnt wieder mit dem ersten Abschnitt.",
+    "loot": {
+      "money": [
+        0,
+        0
+      ],
+      "drops": []
+    },
+    "roam": {
+      "speed": 0,
+      "chase": 40,
+      "aggro": 72
+    },
+    "on_lose": {
+      "clears_flags": [
+        "vg_all_boss_schlafkutsche_phase1_done"
+      ]
+    }
+  }
+}

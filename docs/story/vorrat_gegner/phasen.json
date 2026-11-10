@@ -1,0 +1,674 @@
+{
+  "vg_cw_boss_bleisammler_phase2": {
+    "name": "Bleisammler: Phase 2",
+    "sprite": "wild",
+    "sheet": "enemy_vg_cw_boss_bleisammler",
+    "boss": true,
+    "fleeable": true,
+    "hp": 286,
+    "armor": 3,
+    "occult": true,
+    "chapter": 4,
+    "intro": "Die Walze springt aus der Führung. Einzelne Lettern sammeln sich unter dem Brustkorb.",
+    "attacks": [
+      {
+        "name": "Druckwalze: zieht die walze vor die brust",
+        "damage": 20,
+        "hits": [
+          1400,
+          2150
+        ],
+        "unparryable": false
+      },
+      {
+        "name": "Letternregen: öffnet den setzkasten über sich – ausweichen",
+        "damage": 22,
+        "hits": [
+          2600
+        ],
+        "unparryable": true
+      },
+      {
+        "name": "Satzschere: spreizt beide setzarme",
+        "damage": 20,
+        "hits": [
+          1300,
+          2050,
+          2850
+        ],
+        "unparryable": false
+      }
+    ],
+    "on_win": {
+      "sets_flags": [
+        "vg_cw_boss_bleisammler_geloest"
+      ]
+    },
+    "win_text": "Der örtliche Zugriff endet. Menschen, Aufzeichnungen und sichere Ausgänge bleiben erhalten.",
+    "lose_text": "Ihr weicht zum gesicherten Eingang zurück. Der nächste Versuch beginnt wieder mit dem ersten Abschnitt.",
+    "loot": {
+      "money": [
+        0,
+        0
+      ],
+      "drops": []
+    },
+    "roam": {
+      "speed": 0,
+      "chase": 40,
+      "aggro": 72
+    },
+    "on_lose": {
+      "clears_flags": [
+        "vg_cw_boss_bleisammler_phase1_done"
+      ]
+    }
+  },
+  "vg_cw_boss_blinder_zusteller_phase2": {
+    "name": "Blinder Zusteller: Phase 2",
+    "sprite": "wild",
+    "sheet": "enemy_vg_cw_boss_blinder_zusteller",
+    "boss": true,
+    "fleeable": true,
+    "hp": 286,
+    "armor": 3,
+    "occult": true,
+    "chapter": 4,
+    "intro": "Die falschen Fächer klappen zu. Der Zusteller richtet die leeren Versandröhren auf dich.",
+    "attacks": [
+      {
+        "name": "Sortiergriff: tastet die fächer von links nach rechts ab",
+        "damage": 20,
+        "hits": [
+          1400,
+          2150
+        ],
+        "unparryable": false
+      },
+      {
+        "name": "Fehlzustellung: spannt den postsack über den rücken – ausweichen",
+        "damage": 22,
+        "hits": [
+          2600
+        ],
+        "unparryable": true
+      },
+      {
+        "name": "Röhrenfächer: richtet drei rohrmündungen nacheinander aus",
+        "damage": 20,
+        "hits": [
+          1300,
+          2050,
+          2850
+        ],
+        "unparryable": false
+      }
+    ],
+    "on_win": {
+      "sets_flags": [
+        "vg_cw_boss_blinder_zusteller_geloest"
+      ]
+    },
+    "win_text": "Der örtliche Zugriff endet. Menschen, Aufzeichnungen und sichere Ausgänge bleiben erhalten.",
+    "lose_text": "Ihr weicht zum gesicherten Eingang zurück. Der nächste Versuch beginnt wieder mit dem ersten Abschnitt.",
+    "loot": {
+      "money": [
+        0,
+        0
+      ],
+      "drops": []
+    },
+    "roam": {
+      "speed": 0,
+      "chase": 40,
+      "aggro": 72
+    },
+    "on_lose": {
+      "clears_flags": [
+        "vg_cw_boss_blinder_zusteller_phase1_done"
+      ]
+    }
+  },
+  "vg_cw_boss_nullfundament_phase2": {
+    "name": "Registerleib des Nullfundaments: Phase 2",
+    "sprite": "wild",
+    "sheet": "enemy_vg_cw_boss_nullfundament",
+    "boss": true,
+    "fleeable": true,
+    "hp": 286,
+    "armor": 3,
+    "occult": true,
+    "chapter": 4,
+    "intro": "Die Sammelbindung reißt. Getilgte Linien richten sich als einzelne Spalten auf.",
+    "attacks": [
+      {
+        "name": "Registergriff: klappt zwei schwere deckel auf",
+        "damage": 22,
+        "hits": [
+          1400,
+          2150
+        ],
+        "unparryable": false
+      },
+      {
+        "name": "Sammeldruck: presst alle rücken zusammen – ausweichen",
+        "damage": 25,
+        "hits": [
+          2600
+        ],
+        "unparryable": true
+      },
+      {
+        "name": "Spaltenhieb: lässt drei spalten nacheinander ausschlagen",
+        "damage": 22,
+        "hits": [
+          1300,
+          2050,
+          2850
+        ],
+        "unparryable": false
+      }
+    ],
+    "on_win": {
+      "sets_flags": [
+        "vg_cw_boss_nullfundament_phase2_done"
+      ]
+    },
+    "win_text": "Ein Abschnitt ist überwunden. Ihr könnt weitergehen oder über den gesicherten Rückweg abbrechen.",
+    "lose_text": "Ihr weicht zum gesicherten Eingang zurück. Der nächste Versuch beginnt wieder mit dem ersten Abschnitt.",
+    "loot": {
+      "money": [
+        0,
+        0
+      ],
+      "drops": []
+    },
+    "roam": {
+      "speed": 0,
+      "chase": 40,
+      "aggro": 72
+    },
+    "on_lose": {
+      "clears_flags": [
+        "vg_cw_boss_nullfundament_phase1_done",
+        "vg_cw_boss_nullfundament_phase2_done"
+      ]
+    }
+  },
+  "vg_cw_boss_nullfundament_phase3": {
+    "name": "Registerleib des Nullfundaments: Phase 3",
+    "sprite": "wild",
+    "sheet": "enemy_vg_cw_boss_nullfundament",
+    "boss": true,
+    "fleeable": true,
+    "hp": 351,
+    "armor": 3,
+    "occult": true,
+    "chapter": 4,
+    "intro": "Die getrennten Teile sinken. Nur die örtliche Öffnung bleibt; ihre Ränder nähern sich vor jedem letzten Druck.",
+    "attacks": [
+      {
+        "name": "Registergriff: klappt zwei schwere deckel auf",
+        "damage": 22,
+        "hits": [
+          1400,
+          2150
+        ],
+        "unparryable": false
+      },
+      {
+        "name": "Sammeldruck: presst alle rücken zusammen – ausweichen",
+        "damage": 25,
+        "hits": [
+          2600
+        ],
+        "unparryable": true
+      },
+      {
+        "name": "Spaltenhieb: lässt drei spalten nacheinander ausschlagen",
+        "damage": 22,
+        "hits": [
+          1300,
+          2050,
+          2850
+        ],
+        "unparryable": false
+      },
+      {
+        "name": "Getrennte Öffnung: zwei Ränder nähern sich – ausweichen",
+        "damage": 25,
+        "hits": [
+          3000
+        ],
+        "unparryable": true,
+        "nerves": 5
+      }
+    ],
+    "on_win": {
+      "sets_flags": [
+        "vg_cw_boss_nullfundament_geloest"
+      ]
+    },
+    "win_text": "Der örtliche Zugriff endet. Menschen, Aufzeichnungen und sichere Ausgänge bleiben erhalten.",
+    "lose_text": "Ihr weicht zum gesicherten Eingang zurück. Der nächste Versuch beginnt wieder mit dem ersten Abschnitt.",
+    "loot": {
+      "money": [
+        0,
+        0
+      ],
+      "drops": []
+    },
+    "roam": {
+      "speed": 0,
+      "chase": 40,
+      "aggro": 72
+    },
+    "on_lose": {
+      "clears_flags": [
+        "vg_cw_boss_nullfundament_phase1_done",
+        "vg_cw_boss_nullfundament_phase2_done"
+      ]
+    }
+  },
+  "vg_bh_boss_glasgaertner_phase2": {
+    "name": "Glasgärtner: Phase 2",
+    "sprite": "wild",
+    "sheet": "enemy_vg_bh_boss_glasgaertner",
+    "boss": true,
+    "fleeable": true,
+    "hp": 286,
+    "armor": 3,
+    "occult": true,
+    "chapter": 4,
+    "intro": "Die äußeren Fäden lösen sich. Der Pflanzenkörper schwingt die Veredelungsschere nun frei.",
+    "attacks": [
+      {
+        "name": "Scherengriff: öffnet die schere auf schulterhöhe",
+        "damage": 20,
+        "hits": [
+          1400,
+          2150
+        ],
+        "unparryable": false
+      },
+      {
+        "name": "Glasschnitt: spiegelt einen lichtstreifen auf den boden – ausweichen",
+        "damage": 22,
+        "hits": [
+          2600
+        ],
+        "unparryable": true
+      },
+      {
+        "name": "Freie Schneide: dreht die schere vor dem querschlag",
+        "damage": 20,
+        "hits": [
+          1300,
+          2050,
+          2850
+        ],
+        "unparryable": false
+      }
+    ],
+    "on_win": {
+      "sets_flags": [
+        "vg_bh_boss_glasgaertner_geloest"
+      ]
+    },
+    "win_text": "Der örtliche Zugriff endet. Menschen, Aufzeichnungen und sichere Ausgänge bleiben erhalten.",
+    "lose_text": "Ihr weicht zum gesicherten Eingang zurück. Der nächste Versuch beginnt wieder mit dem ersten Abschnitt.",
+    "loot": {
+      "money": [
+        0,
+        0
+      ],
+      "drops": []
+    },
+    "roam": {
+      "speed": 0,
+      "chase": 40,
+      "aggro": 72
+    },
+    "on_lose": {
+      "clears_flags": [
+        "vg_bh_boss_glasgaertner_phase1_done"
+      ]
+    }
+  },
+  "vg_bh_boss_waescherei_phase2": {
+    "name": "Atemkessel der verlassenen Wäscherei: Phase 2",
+    "sprite": "wild",
+    "sheet": "enemy_vg_bh_boss_waescherei",
+    "boss": true,
+    "fleeable": true,
+    "hp": 286,
+    "armor": 3,
+    "occult": true,
+    "chapter": 4,
+    "intro": "Der Kessel verliert seine Hülle. Zurückgehaltene Seufzer schlagen als einzelne Druckstöße aus.",
+    "attacks": [
+      {
+        "name": "Pressenatem: zieht die nassen tücher nach innen",
+        "damage": 20,
+        "hits": [
+          1400,
+          2150
+        ],
+        "unparryable": false
+      },
+      {
+        "name": "Dampfglocke: bläht den dampf über dem deckel – ausweichen",
+        "damage": 22,
+        "hits": [
+          2600
+        ],
+        "unparryable": true
+      },
+      {
+        "name": "Rückstoß: zieht alle säume zum offenen rücklauf",
+        "damage": 20,
+        "hits": [
+          1300,
+          2050,
+          2850
+        ],
+        "unparryable": false
+      }
+    ],
+    "on_win": {
+      "sets_flags": [
+        "vg_bh_boss_waescherei_geloest"
+      ]
+    },
+    "win_text": "Der örtliche Zugriff endet. Menschen, Aufzeichnungen und sichere Ausgänge bleiben erhalten.",
+    "lose_text": "Ihr weicht zum gesicherten Eingang zurück. Der nächste Versuch beginnt wieder mit dem ersten Abschnitt.",
+    "loot": {
+      "money": [
+        0,
+        0
+      ],
+      "drops": []
+    },
+    "roam": {
+      "speed": 0,
+      "chase": 40,
+      "aggro": 72
+    },
+    "on_lose": {
+      "clears_flags": [
+        "vg_bh_boss_waescherei_phase1_done"
+      ]
+    }
+  },
+  "vg_bh_boss_mutterwurzel_phase2": {
+    "name": "Blütenmund der Mutterwurzel: Phase 2",
+    "sprite": "wild",
+    "sheet": "enemy_vg_bh_boss_mutterwurzel",
+    "boss": true,
+    "fleeable": true,
+    "hp": 286,
+    "armor": 3,
+    "occult": true,
+    "chapter": 4,
+    "intro": "Die äußeren Wurzeln geben nach. Der Mund spricht nun aus drei getrennten Blütenkelchen.",
+    "attacks": [
+      {
+        "name": "Wurzelbogen: hebt zwei wurzelarme aus dem trockenen boden",
+        "damage": 22,
+        "hits": [
+          1400,
+          2150
+        ],
+        "unparryable": false
+      },
+      {
+        "name": "Blütenverschluss: schließt den blütenmund bis auf einen spalt – ausweichen",
+        "damage": 25,
+        "hits": [
+          2600
+        ],
+        "unparryable": true
+      },
+      {
+        "name": "Kelchfolge: neigt drei kelche nacheinander zum weg",
+        "damage": 22,
+        "hits": [
+          1300,
+          2050,
+          2850
+        ],
+        "unparryable": false
+      }
+    ],
+    "on_win": {
+      "sets_flags": [
+        "vg_bh_boss_mutterwurzel_phase2_done"
+      ]
+    },
+    "win_text": "Ein Abschnitt ist überwunden. Ihr könnt weitergehen oder über den gesicherten Rückweg abbrechen.",
+    "lose_text": "Ihr weicht zum gesicherten Eingang zurück. Der nächste Versuch beginnt wieder mit dem ersten Abschnitt.",
+    "loot": {
+      "money": [
+        0,
+        0
+      ],
+      "drops": []
+    },
+    "roam": {
+      "speed": 0,
+      "chase": 40,
+      "aggro": 72
+    },
+    "on_lose": {
+      "clears_flags": [
+        "vg_bh_boss_mutterwurzel_phase1_done",
+        "vg_bh_boss_mutterwurzel_phase2_done"
+      ]
+    }
+  },
+  "vg_bh_boss_mutterwurzel_phase3": {
+    "name": "Blütenmund der Mutterwurzel: Phase 3",
+    "sprite": "wild",
+    "sheet": "enemy_vg_bh_boss_mutterwurzel",
+    "boss": true,
+    "fleeable": true,
+    "hp": 351,
+    "armor": 3,
+    "occult": true,
+    "chapter": 4,
+    "intro": "Die getrennten Teile sinken. Nur die örtliche Öffnung bleibt; ihre Ränder nähern sich vor jedem letzten Druck.",
+    "attacks": [
+      {
+        "name": "Wurzelbogen: hebt zwei wurzelarme aus dem trockenen boden",
+        "damage": 22,
+        "hits": [
+          1400,
+          2150
+        ],
+        "unparryable": false
+      },
+      {
+        "name": "Blütenverschluss: schließt den blütenmund bis auf einen spalt – ausweichen",
+        "damage": 25,
+        "hits": [
+          2600
+        ],
+        "unparryable": true
+      },
+      {
+        "name": "Kelchfolge: neigt drei kelche nacheinander zum weg",
+        "damage": 22,
+        "hits": [
+          1300,
+          2050,
+          2850
+        ],
+        "unparryable": false
+      },
+      {
+        "name": "Getrennte Öffnung: zwei Ränder nähern sich – ausweichen",
+        "damage": 25,
+        "hits": [
+          3000
+        ],
+        "unparryable": true,
+        "nerves": 5
+      }
+    ],
+    "on_win": {
+      "sets_flags": [
+        "vg_bh_boss_mutterwurzel_geloest"
+      ]
+    },
+    "win_text": "Der örtliche Zugriff endet. Menschen, Aufzeichnungen und sichere Ausgänge bleiben erhalten.",
+    "lose_text": "Ihr weicht zum gesicherten Eingang zurück. Der nächste Versuch beginnt wieder mit dem ersten Abschnitt.",
+    "loot": {
+      "money": [
+        0,
+        0
+      ],
+      "drops": []
+    },
+    "roam": {
+      "speed": 0,
+      "chase": 40,
+      "aggro": 72
+    },
+    "on_lose": {
+      "clears_flags": [
+        "vg_bh_boss_mutterwurzel_phase1_done",
+        "vg_bh_boss_mutterwurzel_phase2_done"
+      ]
+    }
+  },
+  "vg_all_boss_landvermesser_phase2": {
+    "name": "Landvermesser: Phase 2",
+    "sprite": "wild",
+    "sheet": "enemy_vg_all_boss_landvermesser",
+    "boss": true,
+    "fleeable": true,
+    "hp": 286,
+    "armor": 3,
+    "occult": true,
+    "chapter": 4,
+    "intro": "Das Band reißt. Der Vermesser zählt weiter und richtet den Zirkel auf die ungemessene Wegbucht.",
+    "attacks": [
+      {
+        "name": "Schrittmaß: setzt den zirkel auf zwei bodenpunkte",
+        "damage": 20,
+        "hits": [
+          1400,
+          2150
+        ],
+        "unparryable": false
+      },
+      {
+        "name": "Grenzschlag: zieht das messband bis zum anschlag – ausweichen",
+        "damage": 22,
+        "hits": [
+          2600
+        ],
+        "unparryable": true
+      },
+      {
+        "name": "Zirkelschere: öffnet den zirkel weit vor dem körper",
+        "damage": 20,
+        "hits": [
+          1300,
+          2050,
+          2850
+        ],
+        "unparryable": false
+      }
+    ],
+    "on_win": {
+      "sets_flags": [
+        "vg_all_boss_landvermesser_geloest"
+      ]
+    },
+    "win_text": "Der örtliche Zugriff endet. Menschen, Aufzeichnungen und sichere Ausgänge bleiben erhalten.",
+    "lose_text": "Ihr weicht zum gesicherten Eingang zurück. Der nächste Versuch beginnt wieder mit dem ersten Abschnitt.",
+    "loot": {
+      "money": [
+        0,
+        0
+      ],
+      "drops": []
+    },
+    "roam": {
+      "speed": 0,
+      "chase": 40,
+      "aggro": 72
+    },
+    "on_lose": {
+      "clears_flags": [
+        "vg_all_boss_landvermesser_phase1_done"
+      ]
+    }
+  },
+  "vg_all_boss_schlafkutsche_phase2": {
+    "name": "Schlafkutsche: Phase 2",
+    "sprite": "wild",
+    "sheet": "enemy_vg_all_boss_schlafkutsche",
+    "boss": true,
+    "fleeable": true,
+    "hp": 286,
+    "armor": 3,
+    "occult": true,
+    "chapter": 4,
+    "intro": "Die äußere Achshülle fällt ab. Die schlafenden Reisenden bleiben geschützt hinter den stillstehenden Türen.",
+    "attacks": [
+      {
+        "name": "Deichselzug: senkt die deichsel auf den boden",
+        "damage": 20,
+        "hits": [
+          1400,
+          2150
+        ],
+        "unparryable": false
+      },
+      {
+        "name": "Radbogen: dreht beide vorderräder nach außen – ausweichen",
+        "damage": 22,
+        "hits": [
+          2600
+        ],
+        "unparryable": true
+      },
+      {
+        "name": "Laternenkreis: schwingt beide laternen gegenläufig",
+        "damage": 20,
+        "hits": [
+          1300,
+          2050,
+          2850
+        ],
+        "unparryable": false
+      }
+    ],
+    "on_win": {
+      "sets_flags": [
+        "vg_all_boss_schlafkutsche_geloest"
+      ]
+    },
+    "win_text": "Der örtliche Zugriff endet. Menschen, Aufzeichnungen und sichere Ausgänge bleiben erhalten.",
+    "lose_text": "Ihr weicht zum gesicherten Eingang zurück. Der nächste Versuch beginnt wieder mit dem ersten Abschnitt.",
+    "loot": {
+      "money": [
+        0,
+        0
+      ],
+      "drops": []
+    },
+    "roam": {
+      "speed": 0,
+      "chase": 40,
+      "aggro": 72
+    },
+    "on_lose": {
+      "clears_flags": [
+        "vg_all_boss_schlafkutsche_phase1_done"
+      ]
+    }
+  }
+}

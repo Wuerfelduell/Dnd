@@ -1,0 +1,216 @@
+{
+  "vi_hut_setzerkappe": {
+    "name": "Setzerkappe",
+    "desc": "Schwarze Setzerkappe mit Bleiglanz; Schutz vor Nervenverlust durch Lesen.",
+    "weight": 1,
+    "price": 100,
+    "kind": "gear",
+    "slot": "hut",
+    "boons": [
+      {
+        "key": "max_nerves",
+        "value": 8,
+        "text": "+8 maximale Nerven."
+      },
+      {
+        "text": "Beim bestätigten Lesen eines Lesestücks 25 % weniger Nervenverlust; mindestens 1 bei einem ursprünglichen Verlust. Kein Schutz vor Gesprächs- oder Kampfkosten."
+      }
+    ]
+  },
+  "vi_hut_kurhaube": {
+    "name": "Kurhaube",
+    "desc": "Weiße Pflegehaube mit grünem Band; Leben +, Nerven-Höchstwert -.",
+    "weight": 0.5,
+    "price": 110,
+    "kind": "gear",
+    "slot": "hut",
+    "boons": [
+      {
+        "key": "max_hp",
+        "value": 10,
+        "text": "+10 maximales Leben."
+      },
+      {
+        "key": "max_nerves",
+        "value": -6,
+        "text": "−6 maximale Nerven."
+      }
+    ]
+  },
+  "vi_hut_zylinder_vermesser": {
+    "name": "Vermesserzylinder",
+    "desc": "Zylinder mit Messband als Hutband; Reise-Ereignisse günstiger.",
+    "weight": 1,
+    "price": 130,
+    "kind": "gear",
+    "slot": "hut",
+    "boons": [
+      {
+        "key": "sell",
+        "value": 1.15,
+        "text": "15 % höherer Erlös beim Verkaufen."
+      },
+      {
+        "text": "Bei einer bezahlten Reisebegegnung 20 % geringere Geldforderung, aufrunden; keine Änderung von Zeugen, Entscheidungen oder Beweisen."
+      }
+    ]
+  },
+  "vi_hut_fuhrmannshut": {
+    "name": "Fuhrmannshut",
+    "desc": "Breiter Filzhut mit Regenrand; Schutz vor Wetter-Malus.",
+    "weight": 1.2,
+    "price": 105,
+    "kind": "gear",
+    "slot": "hut",
+    "boons": [
+      {
+        "key": "max_hp",
+        "value": 6,
+        "text": "+6 maximales Leben."
+      },
+      {
+        "text": "Wetterbedingte Nerven- und Tempomali auf Reisen entfallen. Keine allgemeine Schadensimmunität, keine Wirkung gegen gegnerische Angriffe."
+      }
+    ]
+  },
+  "vi_mantel_druckerschurz": {
+    "name": "Druckerschurz",
+    "desc": "Lederschurz voller Tintenflecken; Rüstung gegen Schnitt.",
+    "weight": 3,
+    "price": 165,
+    "kind": "gear",
+    "slot": "mantel",
+    "boons": [
+      {
+        "key": "max_nerves",
+        "value": 8,
+        "text": "+8 maximale Nerven."
+      },
+      {
+        "text": "20 % weniger Schnittschaden, auf den eingehenden Schnittanteil vor Rundung. Kein Schutz gegen Dampf, Sturz oder Namenverlust."
+      }
+    ]
+  },
+  "vi_mantel_dampfmantel": {
+    "name": "Dampfmantel",
+    "desc": "Gewachster Mantel mit Kupferösen; Rüstung gegen Hitze und Dampf.",
+    "weight": 3.5,
+    "price": 180,
+    "kind": "gear",
+    "slot": "mantel",
+    "boons": [
+      {
+        "key": "max_hp",
+        "value": 8,
+        "text": "+8 maximales Leben."
+      },
+      {
+        "text": "25 % weniger Hitze- und Dampfschaden; überlappende Kennzeichnungen zählen einmal. Kein Schutz gegen andere Schadensarten."
+      }
+    ]
+  },
+  "vi_mantel_reisepelerine": {
+    "name": "Reisepelerine",
+    "desc": "Graue Pelerine mit vielen Taschen; Tragkraft +.",
+    "weight": 2,
+    "price": 140,
+    "kind": "gear",
+    "slot": "mantel",
+    "boons": [
+      {
+        "key": "carry",
+        "value": 10,
+        "text": "+10 Pfund Tragkraft."
+      }
+    ]
+  },
+  "vi_mantel_archivrobe": {
+    "name": "Archivrobe",
+    "desc": "Dunkelblaue Robe mit Siegelschnur; Ansehen bei Ämtern. Amtsschlösser sind leichter zugänglich; verlorenes Ansehen wiegt weniger. Kein dauerhaft geschenkter Amtsrang.",
+    "weight": 2,
+    "price": 170,
+    "kind": "gear",
+    "slot": "mantel",
+    "boons": [
+      {
+        "key": "lock_bonus",
+        "value": 12,
+        "text": "Amtsschlösser verlangen 12 Ansehen weniger."
+      },
+      {
+        "key": "honor_loss",
+        "value": 0.7,
+        "text": "30 % weniger Ansehensverlust."
+      }
+    ]
+  },
+  "vi_amulett_bleiletter": {
+    "name": "Bleiletter am Band",
+    "desc": "Eine einzelne Bleiletter ohne Zeichen an Schnur; Geistsicht länger.",
+    "weight": 0.3,
+    "price": 180,
+    "kind": "gear",
+    "slot": "amulett",
+    "boons": [
+      {
+        "key": "vision_cost",
+        "value": 0.7,
+        "text": "Geistsicht kostet 30 % weniger Nerven."
+      }
+    ]
+  },
+  "vi_amulett_pfirsichkern": {
+    "name": "Geschnitzter Pfirsichkern",
+    "desc": "Geschnitzter Pfirsichkern; Unruhe sinkt langsamer, Leben regeneriert.",
+    "weight": 0.2,
+    "price": 175,
+    "kind": "gear",
+    "slot": "amulett",
+    "boons": [
+      {
+        "key": "calm_decay",
+        "value": 0.75,
+        "text": "Unruhe klingt 25 % langsamer ab."
+      },
+      {
+        "key": "max_nerves",
+        "value": 8,
+        "text": "+8 maximale Nerven."
+      },
+      {
+        "text": "Außerhalb des Kampfes alle 10 aktiven Spielsekunden +1 Leben bis zum Höchstwert. Menüzeit zählt nicht; Anlegen startet keinen sofortigen Heilimpuls. Der soziale Schwerpunkt ist geduldiges Zuhören, keine erzwungene Zustimmung."
+      }
+    ]
+  },
+  "vi_amulett_grenzsteinsplitter": {
+    "name": "Grenzsteinsplitter",
+    "desc": "Splitter mit halbem Wappen; Flucht gelingt öfter.",
+    "weight": 0.5,
+    "price": 160,
+    "kind": "gear",
+    "slot": "amulett",
+    "boons": [
+      {
+        "key": "dodge_window",
+        "value": 1.25,
+        "text": "Ausweichfenster +25 %."
+      },
+      {
+        "text": "Bei ausdrücklich fliehbaren Begegnungen +20 Prozentpunkte auf eine spätere Fluchtprobe, höchstens 95 %. Der Bestand kennt nur erlaubte/verbotene Flucht und braucht hierfür eine echte Probe; niemals einen Bossausgang stillschweigend öffnen."
+      }
+    ]
+  },
+  "vi_amulett_rohrpostkapsel": {
+    "name": "Rohrpostkapsel am Band",
+    "desc": "Winzige Messingkapsel, innen ein Zettel; einmal pro Kampf ein Treffer abgewehrt.",
+    "weight": 0.3,
+    "price": 195,
+    "kind": "gear",
+    "slot": "amulett",
+    "boons": [
+      {
+        "text": "Einmal je Kampf den ersten schadensverursachenden Treffer gegen den Träger vollständig abwehren. Nur dessen Ladung verbrauchen; An- und Ablegen sowie Laden eines Spielstands geben keine zusätzliche Ladung."
+      }
+    ]
+  }
+}
