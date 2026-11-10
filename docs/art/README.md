@@ -1507,3 +1507,23 @@ node --test tests/sprites.test.js
 Der Exporter liegt unter `tools/art/dunscar5/`; Originaldateien und
 Reproduktionsablauf sind in der Übergabe dokumentiert. Steckbriefe kombinieren
 generierte Kopfzeichnungen mit einem geometrischen Papier-/Bahnsiegelrahmen.
+
+## Batch BB · icons2
+
+150 eigene Item-Motive ersetzen die geliehenen Bilder von 40 Gegenständen aus
+Kapitel 2/3 sowie 55 Tränken und 55 Formeln: Waage/Moor/Uhr ab Sequenz 9,
+alle zehn Pfade ab Sequenz 4. Lieferung: **150 PNGs in 16×16 und 65 in 32×32**.
+
+- Manifest: `public/sprites/manifest-icons2.json`.
+- Prompts, Referenzen und Herkunft: [batch-icons2-generation.json](batch-icons2-generation.json).
+- Alle Icons mit IDs und beiden Größen: [preview-icons2.png](preview-icons2.png).
+- Prüfung: `python docs/art/verify-icons2.py` (Pillow).
+
+Einzelmotive mit dem Bildgenerator erstellt, per Nearest Neighbor auf das
+Zielraster exportiert, auf die gemeinsame 32-Farben-Palette aus Batch AG
+reduziert und mit binärem Alpha versehen. Die 32er-Fassungen werden aus dem
+Original exportiert, nicht aus dem 16er-Icon hochskaliert. Statische Einzelframes,
+transparenter Sicherheitsrand. Die Prüfung kontrolliert alle 215 erwarteten
+Dateien unabhängig vom Manifest, Größen, Palette, Alpha und doppelte Bilder.
+Der separate Einbau ist in der PR-Beschreibung dokumentiert; Spielcode bleibt
+in diesem Grafikpaket unverändert.
