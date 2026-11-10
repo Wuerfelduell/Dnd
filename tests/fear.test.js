@@ -1,14 +1,14 @@
 // Ab Sequenz 7 halten gewöhnliche Gegner Abstand; Bosse, Auftragsziele und Gefahrengebiete erst bei deutlichem Stufenabstand.
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { fearsPlayer, enemySeq, FEAR_SEQ } from '../src/core/Fear.js';
+import { fearsPlayer, enemySeq, isQuestTarget, FEAR_SEQ } from '../src/core/Fear.js';
 import { loadContent } from './helpers.js';
 
 const content = loadContent();
 const all = Object.values(content.maps).flatMap((m) => (m.roamers ?? []).map((def) => ({ def, map: m })));
 
 test('Stadtgegner fürchten dich ab Sequenz 7, vorher nicht', () => {
-  const city = all.filter(({ def, map }) => !map.danger && !def.boss && !def.encounter.startsWith('kopfgeld_'));
+  const city = all.filter(({ def, map }) => !map.danger && !def.boss && !isQuestTarget(def)); // Kopfgeld-Ziele (auch Dunscar, BD) bleiben mutig
   assert.ok(city.length >= 10);
   for (const { def, map } of city) {
     for (const seq of [null, 9, 8]) assert.equal(fearsPlayer(seq, def, map), false, `${def.encounter} bei Seq ${seq}`);

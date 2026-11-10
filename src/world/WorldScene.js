@@ -3,6 +3,7 @@ import { questTarget, leadTarget, nextHop } from '../core/Guide.js';
 import { createTextures, createCharacterSheet, hash2, TILE, TILE_INDEX, SOLID_KEYS } from './textures.js';
 import { Lighting, DEPTH } from './Lighting.js';
 import { WexmoorLife, preloadWexmoorLife, speechBubble } from './WexmoorLife.js';
+import { DunscarLife, preloadDunscarLife } from './DunscarLife.js';
 import { KoopLife } from './Koop.js';
 import { preloadSprites, playSheetAnim, themeKeys, facadeKeys, PROP_ORIGINS, MAP_WEATHER, DISGUISE_SHEETS, pathwayArt, P2_LOOKS, skinKeyOf } from './assets.js';
 import { Roamers } from './Roamers.js';
@@ -614,6 +615,7 @@ export class WorldScene extends Phaser.Scene {
   preload() {
     preloadSprites(this);
     preloadWexmoorLife(this); // Paket AE
+    preloadDunscarLife(this); // Paket BA/BD
     this.registry.get('audio')?.preload(this);
   }
 
@@ -707,6 +709,8 @@ export class WorldScene extends Phaser.Scene {
     this.buildWeather();
     this.wexLife = new WexmoorLife(this); // Paket AE: Nieselregen, Nebelbänke und Tiere in Wexmoor
     this.wexLife.build();
+    this.dsLife = new DunscarLife(this); // Paket BA/BD: Kalkstaub, Nachtnebel, Krähen, Ziegen, Motten in Dunscar
+    this.dsLife.build();
     // Paket AI: Koop-Rätsel, Platz-Flags und Geplauder zu zweit (Platz-Flags fallen beim Kartenwechsel weg)
     this.state.syncKoop?.();
     this.koop = new KoopLife(this);
@@ -1073,6 +1077,7 @@ export class WorldScene extends Phaser.Scene {
       }),
       s.on('changed', refresh),
       s.on('conclusion', refresh),
+      s.on('clock', () => { this.clockDirty = true; }), // BD: Tageswechsel erst, wenn kein Gespräch/Fenster offen ist
       s.on('quest', refresh),
       s.on('ascend', ({ pathway, player }) => this.playDrinkFx(pathway, player)),
       s.on('unruhe', () => this.updateCracks()),
@@ -1092,6 +1097,18 @@ export class WorldScene extends Phaser.Scene {
         it.glint = null;
       }
     }
+  }
+
+  /**
+   * Tageswechsel (BD): Einwohner stehen über das Nachtflag an ihren Tag-/Nachtplätzen, Gegner, Aufseher und
+   * Tiere werden neu aufgestellt. Läuft nur außerhalb von Dialogen und Fenstern (Kämpfe halten die Uhr ohnehin an).
+   */
+  applyClock() {
+    this.clockDirty = false;
+    this.refreshVisibility();
+    this.roamers?.rebuild();
+    this.patrols?.rebuild();
+    this.dsLife?.rebuild();
   }
 
   refreshVisibility() {
@@ -1152,6 +1169,8 @@ export class WorldScene extends Phaser.Scene {
     this.patrols.update(time, delta, blocked || this.leaving);
     this.critters.update(time, delta, blocked);
     this.wexLife?.update(delta);
+    this.dsLife?.update(delta);
+    if (this.clockDirty && !blocked) this.applyClock();
     this.koop?.update(delta, blocked);
     this.updateFocus(blocked);
     this.checkAuto(blocked);

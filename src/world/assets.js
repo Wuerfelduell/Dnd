@@ -1450,7 +1450,9 @@ export const L_ITEMS = ['gasgluehstrumpf', 'schmuggelware', 'falschgeld', 'russk
 ICON32.push(...L_ITEMS);
 /** Steckbriefe (64x80, Spalte 0 gesucht, 1 gefasst); ohne eigenen Steckbrief der leere. */
 export const WANTED = ['laternendieb', 'falschgeldpraeger', 'nachtkraemer', 'schmugglerkoenigin'];
-export const wantedUrl = (id) => `${BASE}ui/wanted/L_steckbrief_${WANTED.includes(id) ? id : 'leer'}.png`;
+export const wantedUrl = (id) => (WANTED_SINGLE[id] ? `${BASE}${WANTED_SINGLE[id]}` : `${BASE}ui/wanted/L_steckbrief_${WANTED.includes(id) ? id : 'leer'}.png`);
+/** Steckbriefe mit nur einem Bild (BE): die Oberfläche zeigt sie ganz und graut „gefasst“. */
+export const wantedSingle = (id) => !!WANTED_SINGLE[id];
 
 // --- Paket J: Fall 5, Miriam und die Glocke (manifest-fall5.json) ---------------------------------
 
@@ -2172,3 +2174,59 @@ Object.assign(ITEM_ICON_ALIASES, {
   k3h_mantelzettel: 'k2n_pfandzettel', ez_ds_rangierer_gabe: 'ankerhaken', ez_ds_kalkbrennerin_gabe: 'amulett_eisen', ez_ds_streckenlaeufer_gabe: 'taschenuhr',
   ez_ds_walzenstimme_gabe: 'wachszylinder', ez_ds_schrankenkind_gabe: 'knotengarn',
 });
+/** BD: Lottes gekaufte Ausgaben des Kalkblatts zeigen den Zeitungsausschnitt. */
+for (let i = 1; i <= 9; i++) ITEM_ICON_ALIASES[`k3e_ausgabe_${i}`] = 'zeitungsausschnitt';
+
+// --- Kapitel 3: Leben in Dunscar (BD Daten; BE Figuren und Kopfgeldgegner, BA Stände, Tiere und Wetter) ----------
+/** BE: acht Einwohner und zwei Aufseher (Lauf-Sheet, Kopf aus BE_koepfe); dazu die Nachtschicht-Fassungen zweier Einwohner als Schichtgänger. */
+export const BD_FIGURES = ['k3e_schichtwitwe', 'k3e_kalkjunge', 'k3e_wagenputzer', 'k3e_zeitungsfrau', 'k3e_bahnbettler', 'k3e_steinmetzgeselle', 'k3e_teesaalgast', 'k3e_signalkind',
+  'k3e_aufseher_a', 'k3e_aufseher_b'];
+for (const id of BD_FIGURES) {
+  SHEETS[`be_${id}`] = `characters/${id}_walk.png`;
+  CHARACTER_SHEETS[`npc_${id}`] = `be_${id}`;
+  HEADS.push(id);
+}
+for (const id of ['k3e_wagenputzer_schicht', 'k3e_steinmetzgeselle_schicht']) {
+  SHEETS[`be_${id}`] = `characters/${id}.png`;
+  CHARACTER_SHEETS[`npc_${id}`] = `be_${id}`;
+}
+/** BE: die sechs Kopfgeld-Ziele (Kampf-Sheet, Kartenfigur, Bestiarium, Steckbrief); der Signalbrecher ist 64 groß, der Staubschmuggler hat eine Elite-Fassung. */
+export const K3K_ENEMIES = ['k3k_kupferdieb', 'k3k_schienenlaeufer', 'k3k_lohnfaelscher', 'k3k_staubschmuggler', 'k3k_walzenhehler', 'k3k_signalbrecher'];
+for (const id of K3K_ENEMIES) {
+  const w = id === 'k3k_signalbrecher' ? 64 : 48;
+  BATTLE_SHEETS[`enemy_${id}`] = [`battle/enemy_${id}.png`, w, w];
+  ENCOUNTER_SHEETS[id] = `enemy_${id}`;
+  OVERWORLD_SHEETS[id] = [`characters/F_ow_${id}.png`, 16, 32];
+  PROP_ORIGINS[`ow_${id}`] = 0.85;
+  ANIM_ALIASES[`enemy_${id}`] = { cast: 'special' };
+  BESTIARY_FILES[id] = `F_${id}`;
+  if (!BESTIARY.includes(id)) BESTIARY.push(id);
+}
+BATTLE_SHEETS.enemy_k3k_staubschmuggler_elite = ['battle/enemy_k3k_staubschmuggler_elite.png', 48, 48];
+ENCOUNTER_SHEETS.k3k_staubschmuggler_elite = 'enemy_k3k_staubschmuggler_elite';
+OVERWORLD_SHEETS.k3k_staubschmuggler_elite = OVERWORLD_SHEETS.k3k_staubschmuggler;
+ANIM_ALIASES.enemy_k3k_staubschmuggler_elite = { cast: 'special' };
+ENCOUNTER_SHEETS.k3k_signalbrecher_phase2 = 'enemy_k3k_signalbrecher';
+/** BE: Steckbriefe der Bahnaufsicht (48x64, ein Bild; „gefasst“ wird gegraut statt mit zweitem Bild). */
+export const WANTED_SINGLE = Object.fromEntries(K3K_ENEMIES.map((id) => [id, `ui/BE_steckbrief_${id}.png`]));
+/** BA: Ruth Bellwick (k3n_secondhaendler) mit eigener Figur, Portrait, AK-Stimmungen und Kopf (bisher Hespers Figur). */
+SHEETS.ba_k3n_secondhaendler = 'characters/k3n_secondhaendler_walk.png';
+CHARACTER_SHEETS.npc_k3n_secondhaendler = 'ba_k3n_secondhaendler';
+PORTRAITS.k3n_secondhaendler = 'k3n_secondhaendler_emotions.png';
+HEADS.push('k3n_secondhaendler');
+AK_FIGURES.add('k3n_secondhaendler');
+/** BA: zehn Marktstände (32x32, zwei Bilder: offen/geschlossen) als Lesestellen auf Kalkmarkt und Arbeiterbogen. */
+ANIM_SHEETS.BA_staende = ['props/BA_staende.png', 32, 32];
+PROP_ORIGINS.BA_staende = 0.9;
+export const BA_STAENDE = ['stand_kreide', 'stand_kalkpastillen', 'stand_troedel', 'stand_stein', 'stand_tee', 'stand_werkzeug', 'stand_kartoffeln', 'stand_zeitungen', 'stand_kerzen', 'stand_flickzeug'];
+/** BA: Tiere und Wetter (fx/BA_dunscar_tiere.png, fx/BA_dunscar_wetter.png), Regionen → [x, y, w, h, Frames, fps]; genutzt in world/DunscarLife.js. */
+export const BA_LIFE_KEY = 'ba_tiere';
+export const BA_WEATHER_KEY = 'ba_wetter';
+export const BA_TIERE = {
+  ds_kraehe_sitzen: [0, 0, 16, 16, 2, 4], ds_kraehe_auffliegen: [0, 16, 16, 16, 4, 8], ds_kraehe_fliegen: [0, 32, 16, 16, 4, 8],
+  ds_kalkziege_stehen: [0, 48, 16, 16, 2, 4], ds_kalkziege_laufen: [0, 64, 16, 16, 4, 8], ds_kalkziege_klettern: [0, 80, 16, 32, 2, 8],
+  ds_staubteufel: [0, 112, 16, 32, 6, 8], ds_motte_kreisen: [0, 144, 16, 16, 4, 8],
+  ds_eidechse_sitzen: [0, 160, 16, 16, 2, 4], ds_eidechse_huschen: [0, 176, 16, 16, 4, 8],
+  ds_schwalbe_fliegen: [0, 192, 16, 16, 4, 8], ds_schwalbe_sitzen: [0, 208, 16, 16, 2, 4],
+};
+export const BA_WETTER = { kalkstaub: [0, 0, 240, 135, 4, 5], nachtnebel_1: [0, 144, 240, 135, 1, 1], nachtnebel_2: [0, 288, 240, 135, 1, 1], wind_grasbueschel: [0, 432, 16, 16, 4, 5] };

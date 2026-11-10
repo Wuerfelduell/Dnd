@@ -494,6 +494,8 @@ export class Combat {
   endRound() {
     this.round += 1;
     for (const f of Object.values(this.fighters)) f.bleedTick = 0;
+    // BD: Gegner mit `flees_after` entziehen sich nach so vielen vollständigen Runden ohne Spielersieg (kein Sieg, keine Beute)
+    if (!this.outcome && this.enc.flees_after && this.round > this.enc.flees_after) this.outcome = 'escaped';
     if (this.outcome) { this.startTurn(); return 0; }
     for (const n of this.standing()) {
       const f = this.fighters[n];
@@ -561,6 +563,8 @@ export class Combat {
       }
     } else if (this.outcome === 'fled') {
       text = enc.flee_text ?? 'Du ziehst dich zurück.';
+    } else if (this.outcome === 'escaped') {
+      text = enc.escape_text ?? `${enc.name} entzieht sich dir.`;
     }
     s.emit('hp', { value: s.hp, delta: 0 });
     s.emit('party', { active: s.hasP2?.() ?? false });

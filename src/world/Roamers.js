@@ -1,7 +1,7 @@
 import Phaser from 'phaser';
 import { TILE } from './textures.js';
 import { DEPTH } from './Lighting.js';
-import { overworldIdFor, LOOT_SHEETS, RARITY_SHEET } from './assets.js';
+import { overworldIdFor, LOOT_SHEETS, RARITY_SHEET, CHARACTER_SHEETS } from './assets.js';
 import { fearsPlayer } from '../core/Fear.js';
 import { lootRarity, lootList, rollLoot, takeLoot, isEmptyLoot, RARITY_COLORS, CONTAINERS, CONTAINER_NAMES } from '../core/Loot.js';
 
@@ -101,9 +101,11 @@ export class Roamers {
     const s = this.scene;
     const { x, y } = r.home;
     const owId = overworldIdFor(baseId, r.enc);
-    const owKey = `ow_${owId}`;
+    // BD: ein Gegner mit `figur` (z. B. der Wagenputzer in der Nachtschicht) behält die Figur dieses Einwohners
+    const figur = r.def.figur && CHARACTER_SHEETS[`npc_${r.def.figur}`] && s.textures.exists(`npc_${r.def.figur}`) ? `npc_${r.def.figur}` : null;
+    const owKey = figur ?? `ow_${owId}`;
     const size = r.boss ? 1.5 : r.elite ? 1.2 : 1;
-    if (owId && s.textures.exists(owKey)) {
+    if ((owId || figur) && s.textures.exists(owKey)) {
       r.sheet = owKey;
       r.sprite = s.add.sprite(x, y + 2, owKey, 0).setOrigin(0.5, 1).setScale(size);
       const rows = Math.max(1, Math.floor((s.textures.get(owKey).frameTotal - 1) / 4)); // Paket AN: Sheets mit nur einer Reihe
@@ -264,6 +266,9 @@ export class Roamers {
       this.kill(r);
       this.graceUntil = now + 1200;
       if (result.loot && !isEmptyLoot(result.loot)) this.dropLoot(r.body.x, r.body.y + 2, result.loot, r.enc.name);
+    } else if (result.outcome === 'escaped') {
+      this.kill(r); // BD: der Gegner hat sich entzogen; beim nächsten Besuch steht er wieder da
+      this.graceUntil = now + GRACE_MS;
     } else if (result.outcome === 'fled') {
       r.stunUntil = now + STUN_MS;
       r.mode = 'wander';
@@ -274,6 +279,19 @@ export class Roamers {
       const v = new Phaser.Math.Vector2(r.body.x - p.x, r.body.y - p.y).normalize().scale(10);
       r.body.body.reset(r.body.x + v.x, r.body.y + v.y);
     }
+  }
+
+  /** Tageswechsel (BD): alle Gegner ohne Beute abräumen und nach dem neuen Nachtflag wieder aufstellen. */
+  rebuild() {
+    for (const r of this.list) {
+      if (!r.alive) continue;
+      r.alive = false;
+      r.body.body.enable = false;
+      for (const o of [r.sprite, r.shadow, r.alert, r.label, r.aura].filter(Boolean)) o.destroy();
+      if (r.light) r.light.active = () => false;
+    }
+    this.list = [];
+    this.build();
   }
 
   kill(r) {

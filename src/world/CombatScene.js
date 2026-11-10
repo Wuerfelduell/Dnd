@@ -671,7 +671,7 @@ export class CombatScene extends Phaser.Scene {
   over() {
     this.phase = 'over';
     const c = this.combat;
-    this.sfx({ won: 'sieg', lost: 'niederlage', fled: 'flucht' }[c.outcome]);
+    this.sfx({ won: 'sieg', lost: 'niederlage', fled: 'flucht', escaped: 'flucht' }[c.outcome]);
     if (c.outcome === 'won') {
       // Menschen (z. B. Holt beim Training) geben auf und bleiben stehen, Wesen vergehen.
       const human = this.enemySheet ? !FADING_SHEETS.includes(this.enemySheet) : this.combat.enc.sprite.startsWith('npc:');
@@ -691,7 +691,8 @@ export class CombatScene extends Phaser.Scene {
       const close = Object.keys(c.fighters).map(Number).some((n) => c.fighters[n].down || this.state.playerView(n).hp <= this.state.playerView(n).maxHp * 0.25);
       this.bark(close ? 'koop_knapper_sieg' : 'koop_sieg', null, true);
     } else if (c.outcome === 'fled') this.bark('koop_flucht', null, true);
-    const title = { won: 'Sieg', lost: 'Ohnmacht', fled: 'Rückzug' }[c.outcome];
+    if (c.outcome === 'escaped') this.tweens.add({ targets: this.enemy, alpha: 0, x: '-=40', duration: 600 }); // BD: der Gegner macht sich davon
+    const title = { won: 'Sieg', lost: 'Ohnmacht', fled: 'Rückzug', escaped: 'Entkommen' }[c.outcome];
     this.ui.combatOver(title);
   }
 

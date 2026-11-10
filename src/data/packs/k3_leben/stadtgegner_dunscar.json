@@ -80,7 +80,7 @@
       "sprite": "wild",
       "sheet": "enemy_k3k_schienenlaeufer",
       "chapter": 3,
-      "hp": 162,
+      "hp": 54,
       "armor": 2,
       "occult": false,
       "fleeable": true,
@@ -131,7 +131,9 @@
       },
       "lose_money": 0.05,
       "lose_text": "Pfiff bringt dich hinter die Schallschleuse. Der Auftrag bleibt offen; fünf Prozent deines Geldes fehlen.",
-      "flee_text": "Du erreichst den markierten Rückweg. Der Auftrag bleibt offen."
+      "flee_text": "Du erreichst den markierten Rückweg. Der Auftrag bleibt offen.",
+      "flees_after": 3,
+      "escape_text": "Nach der dritten Runde springt der Schienenläufer auf einen anrollenden Wagen und ist fort. Der Auftrag bleibt offen; nachts steht er wieder am Schwellenring."
     },
     "k3k_lohnfaelscher": {
       "name": "Lohnfälscher",
@@ -440,7 +442,8 @@
             "kapitel3_done"
           ]
         },
-        "elite_chance": 0
+        "elite_chance": 0,
+        "figur": "k3e_wagenputzer_schicht"
       }
     ],
     "ds_arbeiterbogen": [
@@ -531,7 +534,8 @@
             "kapitel3_done"
           ]
         },
-        "elite_chance": 0
+        "elite_chance": 0,
+        "figur": "k3e_steinmetzgeselle_schicht"
       }
     ],
     "ds_rufschlucht": [
