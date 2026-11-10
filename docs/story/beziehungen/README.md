@@ -1,8 +1,8 @@
 # AZ · Beziehungen und Stimmungen
 
-47 Figurenprofile, 24 allgemeine Begrüßungen, 104 bestehende Entscheidungsknoten und 25 Auftragsbelohnungen; 20 Figuren erhalten zusammen 40 Zusatzzweige. Alle Pflichtfiguren, die fünf Händler, zehn Dunscarer Hauptfiguren und Hedda sind enthalten. Nur redaktionelle Daten, noch nicht im Spiel eingebunden.
+47 Figurenprofile, 24 allgemeine Begrüßungen, 104 bestehende Entscheidungsknoten und 25 Auftragsbelohnungen; 20 Figuren erhalten zusammen 40 Zusatzzweige. Alle Pflichtfiguren, die fünf Händler, zehn Dunscarer Hauptfiguren und Hedda sind enthalten. **Stand nach dem Einbau (2026-11-10):** `beziehungen.json` ist jetzt die Basisdatei `src/data/beziehungen.json`; `dialog_zusaetze.json` liegt als Paket `beziehungen` unter `src/data/packs/beziehungen/` und wird einmal über `applyQuestPack` eingelesen (registriert in `src/data/index.js` und `tests/helpers.js`). Dieser Ordner enthält nur noch Dokumentation.
 
-`beziehungen.json` ersetzt beim späteren Einbau die Basisdatei vollständig; `dialog_zusaetze.json` wird einmal über `applyQuestPack` eingelesen. Nicht zusätzlich als zweites Beziehungspaket laden, sonst wird der allgemeine Begrüßungspool verdoppelt. Effekte stehen wie im vorhandenen Format direkt auf den Knoten; `requires_items` ist eine Liste, `takes_items` ein Mengenobjekt. Regeln und fünf Pflichtbeispiele bleiben unverändert.
+`beziehungen.json` ersetzt die alte Basisdatei vollständig; `dialog_zusaetze.json` wird einmal über `applyQuestPack` eingelesen. Nicht zusätzlich als zweites Beziehungspaket laden, sonst wird der allgemeine Begrüßungspool verdoppelt. Effekte stehen wie im vorhandenen Format direkt auf den Knoten; `requires_items` ist eine Liste, `takes_items` ein Mengenobjekt. Regeln und fünf Pflichtbeispiele bleiben unverändert.
 
 ## Geschenkübersicht
 

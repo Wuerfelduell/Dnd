@@ -50,6 +50,7 @@ export function loadContent({ sequenzen = true, without = [] } = {}) {
         ...Object.fromEntries(['geplauder', 'kampf', 'bindung'].map((f) => [f, load(`packs/koop_k3/${f}.json`)])) } : {}) })),
     // Paket BG bringt nur Zusätze, Ansprüche, Ersatzzeilen und Texte
     ...(without.includes('k3_ruf') ? [] : [buildK3Ruf(Object.fromEntries(['stationen', 'klang_zuordnung', 'bindungen', 'texte'].map((f) => [f, load(`packs/k3_ruf/${f}.json`)])))]),
+    ...(without.includes('beziehungen') ? [] : [{ name: 'beziehungen', dialog_zusaetze: load('packs/beziehungen/dialog_zusaetze.json') }]),
     ...(without.includes('koop_beute') ? [] : [{ name: 'koop_beute', dialog_zusaetze: load('packs/koop_beute/dialog_zusaetze.json'), ansprueche: load('packs/koop_beute/ansprueche.json'), ersatz: load('packs/koop_beute/ersatz.json'), texte: load('packs/koop_beute/texte.json') }])],
     beziehungen: load('beziehungen.json'),
     lore: Object.fromEntries(['bestiarium', 'gerede', 'item_texte', 'lesestuecke', 'zeitungen'].map((f) => [f, load(`packs/lore/${f}.json`)])),

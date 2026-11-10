@@ -42,13 +42,17 @@ test('Ereignisse melden Wechsel der Stimmung; Begrüßung nur außerhalb von neu
   s.changeRelation('holt', -3);
   assert.equal(seen.at(-1).changed, true);
   assert.equal(seen.at(-1).mood, 'feindselig');
-  assert.ok(s.greeting('holt'));
+  assert.equal(s.greeting('holt'), content.relations.figuren.holt.begruessung.feindselig); // AZ: Holt hat eigene Sätze
   s.changeRelation('holt', 1);
   assert.equal(seen.at(-1).changed, false);
   assert.equal(s.mood('holt'), 'feindselig');
   s.changeRelation('holt', 5);
   assert.equal(s.mood('holt'), 'freundlich');
-  assert.ok(content.relations.allgemein.freundlich.includes(s.greeting('holt')));
+  assert.equal(s.greeting('holt'), content.relations.figuren.holt.begruessung.freundlich);
+  // Figuren ohne eigenes Profil fallen auf den allgemeinen Pool zurück
+  const plain = Object.keys(content.npcs).find((id) => !content.relations.figuren[id] && !s.loner?.(id));
+  s.changeRelation(plain, 5);
+  assert.ok(content.relations.allgemein.freundlich.includes(s.greeting(plain)), plain);
 });
 
 test('Dialogknoten mit relation wirken nur beim ersten Besuch', () => {
