@@ -1,0 +1,662 @@
+{
+  "koop_ds_horchen_auftrag": {
+    "start": [
+      {
+        "node": "koop_ds_horchen_quittung",
+        "requires_flags": [
+          "koop_ds_horchen_fertig"
+        ]
+      },
+      {
+        "node": "koop_ds_horchen_hinweis",
+        "requires_flags": [
+          "koop_ds_horchen_angenommen"
+        ]
+      },
+      {
+        "node": "koop_ds_horchen_angebot"
+      }
+    ],
+    "nodes": {
+      "koop_ds_horchen_angebot": {
+        "text": "Pfiffs Zettel: „Zwei Hände helfen wenig, wenn sie nacheinander kommen. Übernehmt ihr die Arbeit gemeinsam?“",
+        "choices": [
+          {
+            "text": "Wir übernehmen das.",
+            "next": "koop_ds_horchen_annahme",
+            "requires_flags": [
+              "koop_aktiv",
+              "k3a_akt1_done"
+            ],
+            "hide_if_flags": [
+              "koop_ds_horchen_fertig"
+            ]
+          },
+          {
+            "text": "Später."
+          }
+        ]
+      },
+      "koop_ds_horchen_annahme": {
+        "text": "„Beim Horchen bleibt einer am Trichter und einer am Hinterzugang. Bei der Schleuse hält immer jemand innen den Hebel.“",
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ],
+        "sets_flags": [
+          "koop_ds_horchen_angenommen"
+        ],
+        "start_quests": [
+          "koop_ds_horchen"
+        ]
+      },
+      "koop_ds_horchen_hinweis": {
+        "text": "„Bleibt in Rufweite. Brecht lieber ab, als die andere Person allein draußen zu lassen.“",
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      },
+      "koop_ds_horchen_quittung": {
+        "text": "Pfiff hat den Auftrag quittiert. Die gemeinsame Arbeit ist bezahlt.",
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      }
+    }
+  },
+  "koop_ds_schleuse_auftrag": {
+    "start": [
+      {
+        "node": "koop_ds_schleuse_quittung",
+        "requires_flags": [
+          "koop_ds_schleuse_fertig"
+        ]
+      },
+      {
+        "node": "koop_ds_schleuse_hinweis",
+        "requires_flags": [
+          "koop_ds_schleuse_angenommen"
+        ]
+      },
+      {
+        "node": "koop_ds_schleuse_angebot"
+      }
+    ],
+    "nodes": {
+      "koop_ds_schleuse_angebot": {
+        "text": "Pfiffs Zettel: „Zwei Hände helfen wenig, wenn sie nacheinander kommen. Übernehmt ihr die Arbeit gemeinsam?“",
+        "choices": [
+          {
+            "text": "Wir übernehmen das.",
+            "next": "koop_ds_schleuse_annahme",
+            "requires_flags": [
+              "koop_aktiv",
+              "k3a_akt3_done"
+            ],
+            "hide_if_flags": [
+              "koop_ds_schleuse_fertig"
+            ]
+          },
+          {
+            "text": "Später."
+          }
+        ]
+      },
+      "koop_ds_schleuse_annahme": {
+        "text": "„Beim Horchen bleibt einer am Trichter und einer am Hinterzugang. Bei der Schleuse hält immer jemand innen den Hebel.“",
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ],
+        "sets_flags": [
+          "koop_ds_schleuse_angenommen"
+        ],
+        "start_quests": [
+          "koop_ds_schleuse"
+        ]
+      },
+      "koop_ds_schleuse_hinweis": {
+        "text": "„Bleibt in Rufweite. Brecht lieber ab, als die andere Person allein draußen zu lassen.“",
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      },
+      "koop_ds_schleuse_quittung": {
+        "text": "Pfiff hat den Auftrag quittiert. Die gemeinsame Arbeit ist bezahlt.",
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      }
+    }
+  },
+  "koop_ds_horchen_ruf": {
+    "start": [
+      {
+        "node": "koop_ds_horchen_quittung",
+        "requires_flags": [
+          "koop_ds_horchen_fertig"
+        ]
+      },
+      {
+        "node": "koop_ds_horchen_start"
+      }
+    ],
+    "nodes": {
+      "koop_ds_horchen_start": {
+        "text": "Ein Ruf kostet eine Ladung. Spieler 1 bedient den Trichter; Spieler 2 beobachtet den Hinterzugang.",
+        "choices": [
+          {
+            "text": "Den Depotpfiff senden. Eine Ladung.",
+            "next": "koop_ds_horchen_gesendet",
+            "requires_flags": [
+              "koop_aktiv",
+              "koop_ds_horchen_angenommen",
+              "koop_ds_horchen_p1",
+              "koop_ds_horchen_p2"
+            ],
+            "requires_signal_charge": true,
+            "hide_if_flags": [
+              "koop_ds_horchen_fertig"
+            ]
+          },
+          {
+            "text": "Kostenlos horchen.",
+            "next": "koop_ds_horchen_horchen"
+          },
+          {
+            "text": "Zu Pfiff zurück. Nachfüllen ist kostenlos."
+          }
+        ]
+      },
+      "koop_ds_horchen_horchen": {
+        "text": "Das Rohr bleibt still. Ohne Ladung könnt ihr weiter horchen oder zu Pfiff gehen. Der öffentliche Fußweg bleibt frei.",
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      },
+      "koop_ds_horchen_gesendet": {
+        "text": "Der Pfiff läuft aus dem Trichter. Spieler 2 prüft die sichtbare Antwort am Hinterzugang.",
+        "choices": [
+          {
+            "text": "Spieler 2 liest die Antwort.",
+            "next": "koop_ds_horchen_beobachtung",
+            "requires_flags": [
+              "koop_aktiv",
+              "koop_ds_horchen_angenommen",
+              "koop_ds_horchen_p1",
+              "koop_ds_horchen_p2"
+            ]
+          }
+        ],
+        "signal": "call",
+        "sets_flags": [
+          "koop_ds_horchen_ruf_laeuft"
+        ]
+      },
+      "koop_ds_horchen_beobachtung": {
+        "text": "Nur Spieler 2 liest: Der Lichtstrich endet östlich des Trichters an der Hintertür. Teilt die Richtung mit.",
+        "choices": [
+          {
+            "text": "Spieler 1 wählt die gemeldete Richtung.",
+            "next": "koop_ds_horchen_wahl",
+            "requires_flags": [
+              "koop_aktiv",
+              "koop_ds_horchen_angenommen",
+              "koop_ds_horchen_p1",
+              "koop_ds_horchen_p2",
+              "koop_ds_horchen_ruf_laeuft"
+            ]
+          }
+        ]
+      },
+      "koop_ds_horchen_wahl": {
+        "text": "Spieler 1: Aus welcher Richtung kam die Antwort am Hinterzugang?",
+        "choices": [
+          {
+            "text": "Norden.",
+            "next": "koop_ds_horchen_fehl",
+            "requires_flags": [
+              "koop_aktiv",
+              "koop_ds_horchen_angenommen",
+              "koop_ds_horchen_p1",
+              "koop_ds_horchen_p2",
+              "koop_ds_horchen_ruf_laeuft"
+            ]
+          },
+          {
+            "text": "Osten.",
+            "next": "koop_ds_horchen_erfolg",
+            "requires_flags": [
+              "koop_aktiv",
+              "koop_ds_horchen_angenommen",
+              "koop_ds_horchen_p1",
+              "koop_ds_horchen_p2",
+              "koop_ds_horchen_ruf_laeuft"
+            ],
+            "hide_if_flags": [
+              "koop_ds_horchen_fertig"
+            ]
+          },
+          {
+            "text": "Westen.",
+            "next": "koop_ds_horchen_fehl",
+            "requires_flags": [
+              "koop_aktiv",
+              "koop_ds_horchen_angenommen",
+              "koop_ds_horchen_p1",
+              "koop_ds_horchen_p2",
+              "koop_ds_horchen_ruf_laeuft"
+            ]
+          },
+          {
+            "text": "Abbrechen.",
+            "next": "koop_ds_horchen_abbruch"
+          }
+        ]
+      },
+      "koop_ds_horchen_fehl": {
+        "text": "Die Richtung passt nicht zur sichtbaren Antwort. Stellt euch neu auf. Ein neuer Ruf kostet wieder eine Ladung.",
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ],
+        "clears_flags": [
+          "koop_ds_horchen_p1",
+          "koop_ds_horchen_p2",
+          "koop_ds_horchen_ruf_laeuft"
+        ]
+      },
+      "koop_ds_horchen_abbruch": {
+        "text": "Ihr lasst die Plätze los. Der Rückweg bleibt frei; der begonnene Ruf wird nicht erstattet.",
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ],
+        "clears_flags": [
+          "koop_ds_horchen_p1",
+          "koop_ds_horchen_p2",
+          "koop_ds_horchen_ruf_laeuft"
+        ]
+      },
+      "koop_ds_horchen_erfolg": {
+        "text": "Der Hinterzugang bleibt offen. Pfiff drückt euch 40 Schilling in die Hand. „So kann ich euch wenigstens von hinten hereinlassen.“",
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ],
+        "sets_flags": [
+          "koop_ds_hinterzugang",
+          "koop_ds_horchen_fertig"
+        ],
+        "clears_flags": [
+          "koop_ds_horchen_p1",
+          "koop_ds_horchen_p2",
+          "koop_ds_horchen_ruf_laeuft"
+        ],
+        "gives_money": 40,
+        "bond": {
+          "k3_pfiff": 1
+        },
+        "complete_quests": [
+          "koop_ds_horchen"
+        ]
+      },
+      "koop_ds_horchen_quittung": {
+        "text": "Der Hinterzugang ist bereits offen. Pfiffs Prämie wurde ausgezahlt.",
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      }
+    }
+  },
+  "koop_ds_schleuse_gang": {
+    "start": [
+      {
+        "node": "koop_ds_schleuse_quittung",
+        "requires_flags": [
+          "koop_ds_schleuse_fertig"
+        ]
+      },
+      {
+        "node": "koop_ds_schleuse_start"
+      }
+    ],
+    "nodes": {
+      "koop_ds_schleuse_start": {
+        "text": "Der Hebel klemmt. Der Splitter liegt sechs Kacheln östlich. Ihr müsst vor der dritten Gegner-Runde zurück sein.",
+        "choices": [
+          {
+            "text": "Spieler 1 geht hinaus; Spieler 2 hält innen.",
+            "next": "koop_ds_schleuse_p1_plan",
+            "requires_flags": [
+              "koop_aktiv",
+              "koop_ds_schleuse_angenommen",
+              "koop_ds_schleuse_p1",
+              "koop_ds_schleuse_p2"
+            ],
+            "hide_if_flags": [
+              "koop_ds_schleuse_fertig"
+            ]
+          },
+          {
+            "text": "Rollen tauschen: Spieler 2 geht; Spieler 1 hält.",
+            "next": "koop_ds_schleuse_p2_plan",
+            "requires_flags": [
+              "koop_aktiv",
+              "koop_ds_schleuse_angenommen",
+              "koop_ds_schleuse_p1",
+              "koop_ds_schleuse_p2"
+            ],
+            "hide_if_flags": [
+              "koop_ds_schleuse_fertig"
+            ]
+          },
+          {
+            "text": "Heute nicht."
+          }
+        ]
+      },
+      "koop_ds_schleuse_p1_plan": {
+        "text": "Spieler 1 geht: „Du hältst den Hebel. Ich komme mit dem Splitter zurück.“",
+        "choices": [
+          {
+            "text": "Die persönliche Bindungswarnung lesen.",
+            "next": "koop_ds_schleuse_warnung",
+            "requires_flags": [
+              "koop_aktiv",
+              "koop_ds_schleuse_angenommen",
+              "koop_ds_schleuse_p1",
+              "koop_ds_schleuse_p2"
+            ]
+          },
+          {
+            "text": "Abbrechen.",
+            "next": "koop_ds_schleuse_abbruch"
+          }
+        ],
+        "sets_flags": [
+          "koop_ds_schleuse_p1_draussen"
+        ],
+        "clears_flags": [
+          "koop_ds_schleuse_p2_draussen",
+          "koop_ds_schleuse_bindung_bestaetigt",
+          "koop_ds_schleuse_rueckkehr_geprueft",
+          "koop_ds_schleuse_runde1",
+          "koop_ds_schleuse_runde2",
+          "koop_ds_schleuse_splitter"
+        ]
+      },
+      "koop_ds_schleuse_p2_plan": {
+        "text": "Spieler 2 geht; Spieler 1 hält: „Diesmal warte ich hier. Dein Nein gilt bis zum ersten Schritt.“",
+        "choices": [
+          {
+            "text": "Die persönliche Bindungswarnung lesen.",
+            "next": "koop_ds_schleuse_warnung",
+            "requires_flags": [
+              "koop_aktiv",
+              "koop_ds_schleuse_angenommen",
+              "koop_ds_schleuse_p1",
+              "koop_ds_schleuse_p2"
+            ]
+          },
+          {
+            "text": "Abbrechen.",
+            "next": "koop_ds_schleuse_abbruch"
+          }
+        ],
+        "sets_flags": [
+          "koop_ds_schleuse_p2_draussen"
+        ],
+        "clears_flags": [
+          "koop_ds_schleuse_p1_draussen",
+          "koop_ds_schleuse_bindung_bestaetigt",
+          "koop_ds_schleuse_rueckkehr_geprueft",
+          "koop_ds_schleuse_runde1",
+          "koop_ds_schleuse_runde2",
+          "koop_ds_schleuse_splitter"
+        ]
+      },
+      "koop_ds_schleuse_warnung": {
+        "text": "Nur die hinausgehende Person darf privat antworten. Ihr Name bindet nur sie bis zur Schleuse. Ablehnen bleibt kostenlos.",
+        "choices": [
+          {
+            "text": "Ich stimme der privaten Namensantwort ausdrücklich zu.",
+            "next": "koop_ds_schleuse_zustimmung",
+            "requires_flags": [
+              "koop_aktiv",
+              "koop_ds_schleuse_angenommen",
+              "koop_ds_schleuse_p1",
+              "koop_ds_schleuse_p2"
+            ]
+          },
+          {
+            "text": "Nein. Wir brechen ab.",
+            "next": "koop_ds_schleuse_abbruch"
+          }
+        ]
+      },
+      "koop_ds_schleuse_zustimmung": {
+        "text": "Die Zustimmung gehört der hinausgehenden Person. Erst ihre tatsächlich bestätigte Bindung erlaubt den ersten Schritt.",
+        "choices": [
+          {
+            "text": "Gebunden hinausgehen: zwei Kacheln.",
+            "next": "koop_ds_schleuse_runde_eins",
+            "requires_flags": [
+              "koop_aktiv",
+              "koop_ds_schleuse_angenommen",
+              "koop_ds_schleuse_p1",
+              "koop_ds_schleuse_p2",
+              "koop_ds_schleuse_bindung_bestaetigt"
+            ]
+          },
+          {
+            "text": "Zurückziehen.",
+            "next": "koop_ds_schleuse_abbruch"
+          }
+        ]
+      },
+      "koop_ds_schleuse_runde_eins": {
+        "text": "Erste Gegner-Runde: Im Geröll setzt ein Suchlaut ein. Die Person am Hebel hält. Zum Splitter fehlen vier Kacheln.",
+        "choices": [
+          {
+            "text": "Zum Splitter weitergehen.",
+            "next": "koop_ds_schleuse_runde_zwei",
+            "requires_flags": [
+              "koop_aktiv",
+              "koop_ds_schleuse_angenommen",
+              "koop_ds_schleuse_p1",
+              "koop_ds_schleuse_p2",
+              "koop_ds_schleuse_bindung_bestaetigt"
+            ]
+          },
+          {
+            "text": "Nach dem Suchlaut sehen.",
+            "next": "koop_ds_schleuse_zu_spaet",
+            "requires_flags": [
+              "koop_aktiv",
+              "koop_ds_schleuse_angenommen",
+              "koop_ds_schleuse_p1",
+              "koop_ds_schleuse_p2"
+            ]
+          },
+          {
+            "text": "Sofort zurück.",
+            "next": "koop_ds_schleuse_abbruch"
+          }
+        ],
+        "sets_flags": [
+          "koop_ds_schleuse_runde1"
+        ]
+      },
+      "koop_ds_schleuse_runde_zwei": {
+        "text": "Zweite Gegner-Runde: Du erreichst den Splitter, sechs Kacheln vom Hebel. Für einen Umweg bleibt keine Runde.",
+        "choices": [
+          {
+            "text": "Splitter greifen und sofort zurück.",
+            "next": "koop_ds_schleuse_rueckweg",
+            "requires_flags": [
+              "koop_aktiv",
+              "koop_ds_schleuse_angenommen",
+              "koop_ds_schleuse_p1",
+              "koop_ds_schleuse_p2",
+              "koop_ds_schleuse_bindung_bestaetigt",
+              "koop_ds_schleuse_runde1"
+            ]
+          },
+          {
+            "text": "Noch einmal ins Geröll sehen.",
+            "next": "koop_ds_schleuse_zu_spaet",
+            "requires_flags": [
+              "koop_aktiv",
+              "koop_ds_schleuse_angenommen",
+              "koop_ds_schleuse_p1",
+              "koop_ds_schleuse_p2"
+            ]
+          },
+          {
+            "text": "Ohne Splitter zurück.",
+            "next": "koop_ds_schleuse_abbruch"
+          }
+        ],
+        "sets_flags": [
+          "koop_ds_schleuse_runde2"
+        ]
+      },
+      "koop_ds_schleuse_rueckweg": {
+        "text": "Der Splitter liegt in deiner Hand. Die dritte Gegner-Runde beginnt erst nach deiner Rückkehrhandlung. Geh direkt durch die Schleuse.",
+        "choices": [
+          {
+            "text": "Die geprüfte Rückkehr abschließen.",
+            "next": "koop_ds_schleuse_erfolg",
+            "requires_flags": [
+              "koop_aktiv",
+              "koop_ds_schleuse_angenommen",
+              "koop_ds_schleuse_p1",
+              "koop_ds_schleuse_p2",
+              "koop_ds_schleuse_bindung_bestaetigt",
+              "koop_ds_schleuse_runde2",
+              "koop_ds_schleuse_splitter",
+              "koop_ds_schleuse_rueckkehr_geprueft"
+            ],
+            "hide_if_flags": [
+              "koop_ds_schleuse_fertig"
+            ]
+          },
+          {
+            "text": "Den Splitter ablegen und abbrechen.",
+            "next": "koop_ds_schleuse_abbruch"
+          }
+        ],
+        "sets_flags": [
+          "koop_ds_schleuse_splitter"
+        ]
+      },
+      "koop_ds_schleuse_erfolg": {
+        "text": "Die Schleuse schließt. Deine Bindung endet. Pfiff zahlt 60 Schilling und gibt euch den Stillring; der Splitter bleibt bei euch.",
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ],
+        "sets_flags": [
+          "koop_ds_schleuse_fertig"
+        ],
+        "clears_flags": [
+          "koop_ds_schleuse_p1",
+          "koop_ds_schleuse_p2",
+          "koop_ds_schleuse_p1_draussen",
+          "koop_ds_schleuse_p2_draussen",
+          "koop_ds_schleuse_runde1",
+          "koop_ds_schleuse_runde2",
+          "koop_ds_schleuse_splitter",
+          "koop_ds_schleuse_bindung_bestaetigt",
+          "koop_ds_schleuse_rueckkehr_geprueft"
+        ],
+        "gives_money": 60,
+        "gives_items": {
+          "k3o_stillring": 1,
+          "k3o_trichterglas": 1
+        },
+        "complete_quests": [
+          "koop_ds_schleuse"
+        ]
+      },
+      "koop_ds_schleuse_zu_spaet": {
+        "text": "Dritte Gegner-Runde: Das Geröll antwortet zu nah. Ihr zieht euch ohne Beute durch die Schleuse zurück. Ein neuer Versuch bleibt möglich.",
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ],
+        "clears_flags": [
+          "koop_ds_schleuse_p1",
+          "koop_ds_schleuse_p2",
+          "koop_ds_schleuse_p1_draussen",
+          "koop_ds_schleuse_p2_draussen",
+          "koop_ds_schleuse_runde1",
+          "koop_ds_schleuse_runde2",
+          "koop_ds_schleuse_splitter",
+          "koop_ds_schleuse_bindung_bestaetigt",
+          "koop_ds_schleuse_rueckkehr_geprueft"
+        ]
+      },
+      "koop_ds_schleuse_abbruch": {
+        "text": "Ihr zieht euch gemeinsam durch die Schleuse zurück. Eine begonnene Bindung endet erst dort. Kein Geld und kein Fund gehen verloren.",
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ],
+        "clears_flags": [
+          "koop_ds_schleuse_p1",
+          "koop_ds_schleuse_p2",
+          "koop_ds_schleuse_p1_draussen",
+          "koop_ds_schleuse_p2_draussen",
+          "koop_ds_schleuse_runde1",
+          "koop_ds_schleuse_runde2",
+          "koop_ds_schleuse_splitter",
+          "koop_ds_schleuse_bindung_bestaetigt",
+          "koop_ds_schleuse_rueckkehr_geprueft"
+        ]
+      },
+      "koop_ds_schleuse_quittung": {
+        "text": "Die Schleuse ist gerichtet. Pfiff hat Stillring und Geld bereits übergeben.",
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      }
+    }
+  },
+  "koop_ds_schleuse_fund_ansehen": {
+    "start": "koop_ds_schleuse_fund",
+    "nodes": {
+      "koop_ds_schleuse_fund": {
+        "text": "Im Geröll liegt Trichterglas. Ohne gehaltenen Hebel und gemeinsam begonnenen Schleusengang könnt ihr es nicht sicher bergen.",
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      }
+    }
+  }
+}
