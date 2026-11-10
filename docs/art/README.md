@@ -1533,3 +1533,53 @@ in diesem Grafikpaket unverändert.
 - `items/laeutersalz.png`: Kopie von `bannsalz.png`.
 - Die Tentakel auf der Karte zeichnet `WorldScene.playCorruption()` selbst, bis `fx/BP_tentakel_kontrollverlust.png` da ist.
 - Auftragsliste für die echten Grafiken: `docs/art/codex_BP_kontrollverlust_grafik.md`.
+
+## Batch BP – Kontrollverlust (`kontrollverlust`)
+
+Sieben PNGs nach `codex_BP_kontrollverlust_grafik.md`, inklusive der optionalen
+Zusammenbruch-Posen für Ermittler, p2a (Schiebermütze) und p2b (Melone):
+
+| Datei unter `public/sprites/` | Format / Verwendung |
+|---|---|
+| `fx/BP_tentakel_kontrollverlust.png` | 768×64, zwölf 64×64-Frames; `grow`, 8 FPS, einmalig |
+| `ui/scenes/kontrollverlust.png` | 240×135, deckend; ersetzt das bisherige Szenenbild |
+| `items/laeutersalz.png` | 16×16; eigener Wachspapierbeutel statt Bannsalz-Kopie |
+| `items32/laeutersalz.png` | 32×32; exakte 2×-Vergrößerung mit Nearest Neighbor |
+| `ui/BP_korruption.png` | 96×16; Knoten/Puls 0–3, gereinigt 4, beiseitegelegt 5 |
+| `ui/BP_korruption_rahmen.png` | 48×48; 9-slice mit 16 px pro Rand, transparente Mitte |
+| `characters/BP_player_korruption.png` | 64×96; drei Reihen, jeweils vier 16×32-Posen |
+
+Die Effektmitte liegt bei (32,32); der Bereich (24,16) bis (40,48) bleibt
+überwiegend frei für die Spielfigur. Phasen: Aufreißen 0–2, Wachsen 3–6,
+Zugreifen/Puls 7–9, Rückzug 10–11. Spielerposen: krümmen, Schulter greifen,
+knien, liegen; pro Reihe 4 FPS ohne Wiederholung.
+
+- [Manifest](../../public/sprites/manifest-kontrollverlust.json)
+- [Tatsächliche Bild- und Korrekturprompts](batch-kontrollverlust-generation.json)
+- [Prüfbericht](batch-kontrollverlust-validation.json)
+- [Kontaktbogen](preview-kontrollverlust.png)
+- [Tentakel über der Bestandsfigur, animiert](preview-kontrollverlust-animation.gif)
+
+Bildgenerator mit Bestands-Sprites als Stilreferenz. Gemeinsame Palette mit
+30 Grundfarben (einschließlich Türkis) und genau zwei zusätzlichen Violetttönen
+`#3a1850` / `#5a2a7a`. Nearest-Neighbor-Export und binäres Alpha. Die Quellraster
+für Effekt und Icons werden in die geforderten Einzelreihen umgepackt;
+ein gemeinsamer Maßstab je Sheet erhält die Größenentwicklung der Animation.
+Posen sind an einer gemeinsamen Grundlinie ausgerichtet.
+
+```sh
+python tools/art/kontrollverlust/export.py /pfad/zu/sources.json
+python tools/art/kontrollverlust/validate.py
+node --test tests/sprites.test.js
+```
+
+Export: Pillow und NumPy; Prüfung: Pillow. `sources.json` ist die Liste unter
+`records` aus dem Generierungsprotokoll, ergänzt um lokale `source`-Pfade zu
+den dort per Dateiname und SHA-256 bezeichneten Generatorbildern. Bei
+Korrekturen werden auch die unter `supersedes` bezeichneten Originale benötigt.
+Der Prüfer benötigt nur die fertigen Repo-Dateien und erstellt die Vorschauen.
+
+Kein Spielcode geändert. Die zwei vorhandenen PNGs werden direkt ersetzt;
+`ANIM_SHEETS`, `WorldScene.playCorruption()` und neue UI-Verwendungen werden
+separat eingebunden. Die GIF-Vorschau wiederholt den Effekt zum Prüfen;
+das Manifest spielt ihn ausdrücklich nur einmal ab.
