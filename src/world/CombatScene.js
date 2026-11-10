@@ -692,10 +692,12 @@ export class CombatScene extends Phaser.Scene {
     const bleed = this.combat.bleedTick;
     if (this.combat.drainTick) { this.focusPlayer(this.combat.actor); this.float(`-${this.combat.drainTick} Nerven`, 'player', 'hurt'); }
     for (const [n, f] of Object.entries(this.combat.fighters)) {
-      if (!f.bleedTick) continue;
+      if (!f.bleedTick && !f.focusTick && !f.focusGain) continue;
       this.focusPlayer(Number(n));
-      this.flash(this.player);
-      this.float(`-${f.bleedTick}`, 'player', 'hurt');
+      if (f.bleedTick || f.focusTick) this.flash(this.player);
+      if (f.bleedTick) this.float(`-${f.bleedTick}`, 'player', 'hurt');
+      if (f.focusTick) this.float(`-${f.focusTick} (Konzentration)`, 'player', 'hurt'); // Fluch ap_burn
+      if (f.focusGain) this.float(`+${f.focusGain} K`, 'player', 'good'); // Segen ap_round
       if (f.down) this.knockedOut(this.player);
     }
     if (dot || bleed) {

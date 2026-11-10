@@ -2356,7 +2356,8 @@ export class Ui {
       // Paket B: Leisten und Konzentration aus battle_hud.png
       b('.hudbar.hp').innerHTML = uiSprite('hud', `hp${pctStep(v.hp / v.maxHp, 6)}`, 1 / 6);
       b('.hudbar.nerves').innerHTML = uiSprite('hud', `nerves${pctStep(v.composure / v.maxComposure, 6)}`, 1 / 6);
-      b('.pips').innerHTML = Array.from({ length: 6 }, (_, i) => uiSprite('hud', i >= f.ap ? 'conc_empty' : f.ap >= 6 ? 'conc_glow' : 'conc_full', 1 / 6, 'pip')).join('');
+      const apMax = c.apMaxOf(Number(n)); // Konzentrations-Artefakte können den Höchstwert verschieben
+      b('.pips').innerHTML = Array.from({ length: apMax }, (_, i) => uiSprite('hud', i >= f.ap ? 'conc_empty' : f.ap >= apMax ? 'conc_glow' : 'conc_full', 1 / 6, 'pip')).join('');
     }
   }
 
@@ -2405,9 +2406,9 @@ export class Ui {
     if (sub === 'main') {
       const items = mine(() => this.state.items().filter((i) => i.kind === 'consumable' && !i.cleanse).length);
       entries = [
-        { text: 'Angriff', ui: 'attack', info: '+1 K · beendet den Zug', act: { type: 'skill', id: 'attack' } },
-        { text: 'Fertigkeiten', ui: 'skill', info: `${c.ap} K`, sub: 'skills' },
-        { text: 'Gegenstände', ui: 'item', info: c.canUseItem() ? `${items}` : 'schon benutzt', sub: 'items', disabled: !c.canUseItem() },
+        { text: 'Angriff', ui: 'attack', info: `+${1 + mine(() => this.state.passive('attack_ap'))} K · beendet den Zug`, act: { type: 'skill', id: 'attack' } },
+        { text: 'Fertigkeiten', ui: 'skill', info: `${c.ap}/${c.apMax} K`, sub: 'skills' },
+        { text: 'Gegenstände', ui: 'item', info: c.canUseItem() ? `${items}` : c.itemBlockedText(), sub: 'items', disabled: !c.canUseItem() },
         { text: 'Fliehen', ui: 'flee', info: c.canFlee() ? '' : 'unmöglich', act: { type: 'flee' }, disabled: !c.canFlee() },
       ];
       if (c.actions) entries.push({ text: 'Zug beenden', ui: 'defend', info: '', act: { type: 'end' } });
