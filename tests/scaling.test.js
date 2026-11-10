@@ -4,7 +4,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { GameState } from '../src/core/GameState.js';
 import { Combat, AP_START, ENEMY_HP_MULT, duoHpMult } from '../src/core/Combat.js';
-import { loadContent, fight, EXPERT, SKILLED } from './helpers.js';
+import { loadContent, fight, EXPERT, SKILLED, SKILLED_HIT } from './helpers.js';
 
 const content = loadContent();
 
@@ -111,7 +111,7 @@ for (const [boss, min, weapon, tonics] of GATES) {
     };
     for (const pid of Object.keys(content.pathways)) {
       const skills = [...Object.keys(armed(pid, min).pathwaySkills()), 'attack', 'double']; // Doppelschlag hat jeder
-      const best = (seq, defend) => skills.some((skill) => fight(armed(pid, seq), boss, { defend, skill, healBelow: 18 }).result.outcome === 'won');
+      const best = (seq, defend) => skills.some((skill) => fight(armed(pid, seq), boss, { defend, attack: SKILLED_HIT, skill, healBelow: 18 }).result.outcome === 'won');
       assert.equal(best(min + 1, EXPERT), false, `${pid}: mit Sequenz ${min + 1} darf man ${boss} nicht schaffen`);
       assert.equal(best(min, SKILLED), true, `${pid}: mit Sequenz ${min} schafft man ${boss}`);
     }

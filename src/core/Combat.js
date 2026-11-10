@@ -54,6 +54,17 @@ export const EARLY_LIMIT = 450; // frühere Tastendrücke zählen noch nicht
 export const AP_MAX = 6;
 export const AP_START = 1;
 export const GRADE_MULT = { perfect: 1.3, good: 1, miss: 0.4 };
+/**
+ * Präzise Fertigkeiten: alles, was betäubt oder richtig viel Schaden macht, wirkt nur bei einem präzisen Treffer voll.
+ * Ein guter Treffer richtet nur noch einen Bruchteil an und betäubt nicht; dafür ist das goldene Fenster auf ein Fünftel
+ * geschrumpft (PRECISE_WINDOW). So lässt sich Betäuben + Angriff nicht endlos wiederholen.
+ * Als „richtig viel Schaden“ gilt: Treffer × Waffenfaktor ≥ HEAVY_MULT oder Treffer × Grundschaden ≥ HEAVY_FLAT.
+ * In den Daten lässt sich das je Fertigkeit mit `precise: true/false` überschreiben.
+ */
+export const PRECISE_WINDOW = 0.2; // Anteil des normalen Perfect-Fensters
+export const PRECISE_GRADE_MULT = { perfect: 1.3, good: 0.45, miss: 0.25 };
+export const HEAVY_MULT = 3.5;
+export const HEAVY_FLAT = 24;
 export const WEAK_MULT = 1.5;
 /**
  * Sequenz-Schranke: Gegner mit `min_seq` (z. B. Starling 7, die Namenlose 6, das Leuchtfeuer 5) sind höhere Wesen.
@@ -64,9 +75,24 @@ export const SEQ_WARD_MULT = 0.08;
 export const SKILLS = {
   attack: { name: 'Angriff', cost: 0, hits: 1, mult: 1, desc: 'Ein Schlag im Takt. +1 Konzentration, +2 bei präzisem Treffer.' },
   double: { name: 'Doppelschlag', cost: 2, hits: 2, mult: 0.85, desc: 'Zwei schnelle Schläge, beide im Takt.' },
-  blind: { name: 'Laternenblende', cost: 2, hits: 1, mult: 0.3, desc: 'Blendet den Gegner. Trifft sie, setzt er eine Runde aus.' },
+  blind: { name: 'Laternenblende', cost: 2, hits: 1, mult: 0.3, stun: true, desc: 'Blendet den Gegner. Nur ein präziser Treffer lässt ihn eine Runde aussetzen.' },
   ward: { name: 'Bannwort', cost: 3, hits: 1, flat: 12, composure: 15, desc: 'Ein Wort aus den Archivakten. 12 Schaden, doppelt gegen Okkultes. Kostet 15 Nerven.' },
 };
+
+/** Ist die Fertigkeit präzise (voller Effekt nur bei perfektem Takt)? */
+export function isPrecise(sk) {
+  if (!sk) return false;
+  if (sk.precise !== undefined) return !!sk.precise;
+  if (sk.stun) return true;
+  const hits = sk.hits || 0;
+  if (sk.flat) return hits * sk.flat >= HEAVY_FLAT;
+  return hits * (sk.mult ?? 0) >= HEAVY_MULT;
+}
+
+/** Wie viele Takt-Drücke eine Fertigkeit verlangt: ihre Treffer, bei präzisen Fertigkeiten ohne Treffer (z. B. Fangnetz) einer für die Betäubung. */
+export function skillBars(sk) {
+  return sk.hits || (isPrecise(sk) ? 1 : 0);
+}
 
 /** Bewertet einen Verteidigungsdruck. offset = Drückzeit - Einschlagzeit (ms). */
 export function judgeDefense(kind, offset, dodgeMult = 1, parryWindow = WINDOW.parry) {
@@ -241,9 +267,9 @@ export class Combat {
   }
 
   /** Schaden eines Treffers mit Waffe und Bewertung. */
-  hitDamage(mult, grade) {
+  hitDamage(mult, grade, gradeMult = GRADE_MULT) {
     const w = this.state.weaponStats();
-    let dmg = w.atk * mult * GRADE_MULT[grade];
+    let dmg = w.atk * mult * gradeMult[grade];
     if (this.enemy.occult && w.occult) dmg *= w.occult;
     if (this.enemy.occult) dmg *= this.state.passive('occult_mult');
     if (this.weak) dmg *= WEAK_MULT;
@@ -266,17 +292,19 @@ export class Combat {
     this.actions += 1;
     const cc = this.composureCost(sk);
     if (cc) this.state.setComposure(this.state.composure - cc);
-    const hits = grades.slice(0, sk.hits).map((g) => {
-      const grade = sk.sure && g === 'miss' ? 'good' : g;
+    const precise = isPrecise(sk);
+    const gradeMult = precise ? PRECISE_GRADE_MULT : GRADE_MULT;
+    const graded = grades.slice(0, skillBars(sk)).map((g) => (sk.sure && g === 'miss' ? 'good' : g));
+    const hits = graded.slice(0, sk.hits).map((grade) => {
       let damage;
       if (sk.flat) {
         const holy = sk.holy || skillId === 'ward';
-        damage = sk.flat * GRADE_MULT[grade] * (this.enemy.occult && holy ? 2 : 1) * (this.weak ? WEAK_MULT : 1);
+        damage = sk.flat * gradeMult[grade] * (this.enemy.occult && holy ? 2 : 1) * (this.weak ? WEAK_MULT : 1);
         if (this.enemy.occult) damage *= this.state.passive('occult_mult');
         damage *= this.state.passive('dmg_mult');
         damage = Math.max(1, Math.round(damage));
       } else {
-        damage = this.hitDamage(sk.mult, grade);
+        damage = this.hitDamage(sk.mult, grade, gradeMult);
       }
       return { grade, damage };
     });
@@ -293,8 +321,13 @@ export class Combat {
     if (raw > total) effects.push(`Panzer fängt ${raw - total} ab`);
     if (skillId === 'attack') this.gainAp(hits[0]?.grade === 'perfect' ? 2 : 1);
     const landed = sk.hits === 0 || hits.some((h) => h.grade !== 'miss' && h.damage);
+    // Betäuben gelingt nur mit einem präzisen Takt; sonst bleibt der Gegner wach
     let stunned = false;
-    if ((skillId === 'blind' || sk.stun) && landed && !this.outcome) { this.stunned = true; stunned = true; }
+    let stunMissed = false;
+    if (sk.stun && !this.outcome) {
+      if (graded.some((g) => g === 'perfect')) { this.stunned = true; stunned = true; } else { stunMissed = true; effects.push('nur ein präziser Treffer hätte betäubt'); }
+    }
+    if (precise && !stunned && !stunMissed && hits.length && !graded.some((g) => g === 'perfect')) effects.push('ungenau, nur ein Bruchteil der Wucht');
     if (sk.weak && landed && !this.weak) { this.weak = true; effects.push('Schwachstelle erkannt'); }
     if (sk.heal) effects.push(`+${this.state.heal(sk.heal)} Leben`);
     if (sk.drain && total) effects.push(`+${this.state.heal(Math.round(total * sk.drain))} Leben`);
@@ -303,7 +336,7 @@ export class Combat {
     if (sk.confuse && landed) { this.confused = true; effects.push('Gegner verwirrt'); }
     if (sk.burn && landed) { this.burn = { damage: sk.burn[0], rounds: sk.burn[1], source: skillId }; effects.push(`${sk.burn[1]} Runden je ${sk.burn[0]} Schaden`); }
     this.log.push(`${sk.name}: ${total} Schaden`);
-    return { hits, total, stunned, effects };
+    return { hits, total, stunned, stunMissed, precise, effects };
   }
 
   /** Gegenstand im Kampf. Ergebnis: { text } oder null, wenn nicht möglich. */

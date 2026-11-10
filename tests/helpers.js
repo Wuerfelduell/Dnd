@@ -1,5 +1,5 @@
 import { readFileSync } from 'node:fs';
-import { Combat } from '../src/core/Combat.js';
+import { Combat, isPrecise, skillBars } from '../src/core/Combat.js';
 import { buildK3Ruf } from '../src/data/k3Ruf.js';
 import { buildContent } from '../src/data/buildContent.js';
 
@@ -112,17 +112,25 @@ export function seeded(seed) {
 
 /** Geübte Spielweise: von drei Schlägen einer ausgewichen, einer pariert, einer kassiert. */
 export const SKILLED = (i) => ['dodge', 'parry', 'miss'][i % 3];
+/**
+ * Geübter Angreifer: jeder dritte Takt sitzt präzise. Bei präzisen Fertigkeiten (Fenster ein Fünftel) nur jeder sechste.
+ * Für fight({ attack }) als Funktion (i, precise) => Bewertung.
+ */
+export const SKILLED_HIT = (i, precise) => ((precise ? i % 6 === 5 : i % 3 === 2) ? 'perfect' : 'good');
+
 /** Sehr geübt: von fünf Schlägen nur einer kassiert. So schafft man Eliten und Bosse. */
 export const EXPERT = (i) => ['dodge', 'parry', 'dodge', 'parry', 'miss'][i % 5];
 
 /**
  * Spielt einen Kampf mit festen Ergebnissen durch (wie CombatScene, ohne Timing).
- * attack: Bewertung der Angriffe, defend(i): Ergebnis des i-ten gegnerischen Schlags.
+ * attack: Bewertung der Angriffe (fest oder (i, precise) => Bewertung), defend(i): Ergebnis des i-ten gegnerischen Schlags.
  */
 export function fight(state, encounterId, { attack = 'good', defend = () => 'dodge', skill = 'attack', items = [], healBelow = 0, maxRounds = 60 } = {}) {
   const c = new Combat(state, encounterId);
   c.rng = seeded(7); // fester Zufall: Takt und Nachsetzen sind in Tests reproduzierbar
   let n = 0;
+  let bars = 0;
+  const grade = (sk) => (typeof attack === 'function' ? attack(bars++, isPrecise(sk)) : attack);
   const enemyTurn = () => {
     const atk = c.nextEnemyAttack();
     if (atk) {
@@ -141,7 +149,8 @@ export function fight(state, encounterId, { attack = 'good', defend = () => 'dod
     else if (items.length && state.itemCount(items[0])) c.useItem(items.shift());
     else {
       const sk = c.canUse(skill) ? skill : 'attack';
-      c.useSkill(sk, Array(c.skillDef(sk).hits).fill(attack));
+      const def = c.skillDef(sk);
+      c.useSkill(sk, Array.from({ length: skillBars(def) }, () => grade(def)));
     }
     if (c.outcome) break;
     enemyTurn();
