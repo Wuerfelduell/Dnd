@@ -755,15 +755,53 @@ export class Ui {
   // --- Modale Fenster --------------------------------------------------------
 
   open(kind, html, cls = '') {
+    this.rememberScroll();
     this.modal = kind;
     this.layer.classList.remove('has-titlescene');
     this.layer.onpointermove = null;
     this.layer.innerHTML = `<div class="panel ${cls}">${html}</div>`;
     this.setPrompt(null);
+    this.restoreScroll(kind);
     return this.layer.firstElementChild;
   }
 
+  /** Alle gescrollten Listen (und das Fenster selbst) eines Fensters, mit einem Schlüssel aus Tag, Klassen und laufender Nummer. */
+  scrollables(panel) {
+    const seen = {};
+    const key = (el) => {
+      const k = `${el.tagName}.${[...el.classList].filter((c) => c !== 'sel' && c !== 'armed').sort().join('.')}`;
+      seen[k] = (seen[k] ?? 0) + 1;
+      return `${k}#${seen[k]}`;
+    };
+    return [panel, ...panel.querySelectorAll('*')].map((el) => [key(el), el]);
+  }
+
+  /** Scrollposition des offenen Fensters merken, damit ein Neuaufbau (Klick auf Benutzen, Einlagern, Kaufen …) nicht nach oben springt. */
+  rememberScroll() {
+    const panel = this.layer?.firstElementChild;
+    if (!this.modal || !panel?.classList.contains('panel')) return;
+    const pos = {};
+    for (const [k, el] of this.scrollables(panel)) if (el.scrollTop || el.scrollLeft) pos[k] = [el.scrollTop, el.scrollLeft];
+    this.scrollMemo ??= {};
+    if (Object.keys(pos).length) this.scrollMemo[this.modal] = pos; else delete this.scrollMemo[this.modal];
+  }
+
+  restoreScroll(kind) {
+    const pos = this.scrollMemo?.[kind];
+    const panel = this.layer.firstElementChild;
+    if (!pos || !panel) return;
+    for (const [k, el] of this.scrollables(panel)) if (pos[k]) [el.scrollTop, el.scrollLeft] = pos[k];
+  }
+
+  /** Beim Wechsel auf eine andere Seite (Reiter) soll die neue Liste oben anfangen. */
+  forgetScroll(kind = this.modal, only = null) {
+    if (!this.scrollMemo?.[kind]) return;
+    if (!only) { delete this.scrollMemo[kind]; return; }
+    for (const k of Object.keys(this.scrollMemo[kind])) if (only.test(k)) delete this.scrollMemo[kind][k];
+  }
+
   close() {
+    this.forgetScroll();
     this.modal = null;
     this.actor = 1;
     this.layer.classList.remove('has-titlescene');
@@ -1356,10 +1394,10 @@ export class Ui {
         <button data-act="close">Schließen <span class="key">J</span></button>
       </div>`, 'notebook');
     this.notebookTabs = tabs;
-    el.querySelectorAll('[data-tab]').forEach((b) => { b.onclick = () => { this.tab = b.dataset.tab; this.selected = []; this.renderNotebook(''); }; });
-    el.querySelectorAll('[data-itemcat]').forEach((b) => { b.onclick = () => { this.itemCat = b.dataset.itemcat; this.renderNotebook(''); }; });
+    el.querySelectorAll('[data-tab]').forEach((b) => { b.onclick = () => { this.tab = b.dataset.tab; this.selected = []; this.forgetScroll(); this.renderNotebook(''); }; });
+    el.querySelectorAll('[data-itemcat]').forEach((b) => { b.onclick = () => { this.itemCat = b.dataset.itemcat; this.forgetScroll('notebook', /^UL\./); this.renderNotebook(''); }; });
     el.querySelectorAll('[data-fact]').forEach((b) => { b.onclick = () => this.toggleFact(b.dataset.fact); });
-    el.querySelectorAll('[data-archive]').forEach((b) => { b.onclick = () => { this.archiveCase = b.dataset.archive; this.selected = []; this.renderNotebook(''); }; });
+    el.querySelectorAll('[data-archive]').forEach((b) => { b.onclick = () => { this.archiveCase = b.dataset.archive; this.selected = []; this.forgetScroll(); this.renderNotebook(''); }; });
     el.querySelector('[data-act=combine]')?.addEventListener('click', () => this.combine());
     const inv = (fn) => this.as(fn, this.tab === 'items' || this.tab === 'pfad' ? this.invPlayer : 1);
     el.querySelectorAll('[data-use]').forEach((b) => { b.onclick = () => this.renderNotebook(esc(inv(() => this.state.useItem(b.dataset.use)) ?? '')); });
@@ -1393,7 +1431,7 @@ export class Ui {
     });
     el.querySelectorAll('[data-inspect]').forEach((b) => { b.onclick = () => this.inspectItem(b.dataset.inspect); });
     el.querySelectorAll('[data-track]').forEach((b) => { b.onclick = () => { const id = b.dataset.track; this.state.track(this.state.tracked === id ? null : id); this.renderNotebook(''); }; });
-    el.querySelectorAll('[data-recipe]').forEach((b) => { b.onclick = () => { this.tab = 'pfad'; this.renderNotebook(''); }; });
+    el.querySelectorAll('[data-recipe]').forEach((b) => { b.onclick = () => { this.tab = 'pfad'; this.forgetScroll(); this.renderNotebook(''); }; });
     el.querySelectorAll('[data-person]').forEach((b) => { b.onclick = () => this.openPersonMap(b.dataset.person); });
     el.querySelector('[data-act=close]').onclick = () => this.close();
   }
@@ -1830,7 +1868,7 @@ export class Ui {
       <div class="actions"><span class="purse">${moneyIcon(s.money)}${s.money} Schilling</span><button data-act="close">Gehen <span class="key">Esc</span></button></div>`, 'notebook shop');
     el.querySelectorAll('[data-buy]').forEach((b) => { b.onclick = () => this.shopPick(Number(b.dataset.buy)); });
     el.querySelectorAll('[data-sell]').forEach((b) => { b.onclick = () => this.shopPick(Number(b.dataset.sell)); });
-    el.querySelectorAll('[data-mode]').forEach((b) => { b.onclick = () => this.openShop(merchantId, b.dataset.mode); });
+    el.querySelectorAll('[data-mode]').forEach((b) => { b.onclick = () => { this.forgetScroll(); this.openShop(merchantId, b.dataset.mode); }; });
     el.querySelector('[data-act=close]').onclick = () => this.close();
   }
 
@@ -2434,8 +2472,9 @@ export class Ui {
       const i = this.itemCats.findIndex((c) => c.id === this.itemCat);
       const n = this.itemCats.length;
       this.itemCat = this.itemCats[(i + (k === 'arrowright' ? 1 : n - 1)) % n].id;
+      this.forgetScroll('notebook', /^UL\./);
       this.renderNotebook('');
-    } else if (this.modal === 'notebook' && num >= 0 && this.notebookTabs[num]) { this.tab = this.notebookTabs[num].id; this.selected = []; this.renderNotebook(''); }
+    } else if (this.modal === 'notebook' && num >= 0 && this.notebookTabs[num]) { this.tab = this.notebookTabs[num].id; this.selected = []; this.forgetScroll(); this.renderNotebook(''); }
     else handled = false;
     if (handled) { e.preventDefault(); e.stopPropagation(); }
   }
