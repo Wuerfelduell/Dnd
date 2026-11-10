@@ -1527,12 +1527,13 @@ transparenter Sicherheitsrand. Die Prüfung kontrolliert alle 215 erwarteten
 Dateien unabhängig vom Manifest, Größen, Palette, Alpha und doppelte Bilder.
 Der separate Einbau ist in der PR-Beschreibung dokumentiert; Spielcode bleibt
 in diesem Grafikpaket unverändert.
-## Platzhalter Kontrollverlust (bis Codex BP liefert)
+## Kontrollverlust: Einbau von Batch BP (2026-11-10)
 
-- `ui/scenes/kontrollverlust.png` (240x135): grob gepixeltes Zwischensequenzbild der Tentakel-Cutscene, per Skript erzeugt.
-- `items/laeutersalz.png`: Kopie von `bannsalz.png`.
-- Die Tentakel auf der Karte zeichnet `WorldScene.playCorruption()` selbst, bis `fx/BP_tentakel_kontrollverlust.png` da ist.
-- Auftragsliste für die echten Grafiken: `docs/art/codex_BP_kontrollverlust_grafik.md`.
+- `ui/scenes/kontrollverlust.png` und `items/laeutersalz.png` (+ `items32/`) sind die BP-Bilder, keine Platzhalter mehr.
+- `fx/BP_tentakel_kontrollverlust.png` läuft als `tentakel_fx` (ANIM_SHEETS) in `WorldScene.playCorruption()`; die gezeichneten Tentakel bleiben nur als Rückfall ohne Sheet.
+- `characters/BP_player_korruption.png` läuft als `player_korruption`: die Figur krümmt sich, kniet und liegt (Reihe `player`, `p2a`, `p2b`), danach steht sie wieder.
+- `ui/BP_korruption.png` ist der Bogen `bpkorr` (Abzeichen „korrumpiert“, Puls im Inventar-Hinweis, „ruht“ für beiseitegelegte Artefakte); `ui/BP_korruption_rahmen.png` ist die CSS-Variable `--korrframe` (9-slice 16 px) um korrumpierte Inventar- und Reinigungszeilen.
+- Animationen kommen aus `manifest-kontrollverlust.json` (`manifestKontrollverlust`).
 
 ## Batch BP – Kontrollverlust (`kontrollverlust`)
 

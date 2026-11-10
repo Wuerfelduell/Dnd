@@ -931,6 +931,12 @@ html.touch .cb-def .aeicon { display: block; margin: 0 auto 0.2em; font-size: 16
 .corruptlist { list-style: none; margin: 0.4em 0 0.6em; padding: 0.4em 0.6em; display: grid; gap: 0.2em; border: 0.125em solid #5a2a7a; background: rgba(40, 10, 60, 0.35); }
 .corruptlist li { display: flex; align-items: center; gap: 0.4em; }
 .notebook .item.tainted { box-shadow: inset 0.25em 0 0 #8a3a9a; background: rgba(70, 20, 90, 0.18); }
+/* Paket BP: violett angelaufener Rahmen (ui/BP_korruption_rahmen.png, 9-slice 16 px) und Faden-Knoten als Abzeichen */
+.notebook .item.tainted, .shoplist .item.tainted { border: 0.5em solid transparent; border-image: var(--korrframe) 16 / 0.5em; background-clip: padding-box; }
+.korricon { display: inline-block; vertical-align: -0.25em; margin-right: 0.2em; }
+.badge.korr { display: inline-flex; align-items: center; gap: 0.15em; }
+.taintbox .korricon { animation: korrpulse 1.2s steps(1) infinite; }
+@keyframes korrpulse { 0%, 100% { filter: brightness(1); } 50% { filter: brightness(1.35); } }
 .taintbox { border-color: #8a3a9a; }
 .paperdoll .dollslot.tainted img { filter: sepia(1) hue-rotate(230deg) saturate(2.2) brightness(0.8); }
 .paperdoll .dollslot.tainted { cursor: pointer; }

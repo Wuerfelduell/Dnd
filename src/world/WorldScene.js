@@ -1688,8 +1688,10 @@ export class WorldScene extends Phaser.Scene {
   }
 
   /**
-   * Kontrollverlust: Tentakel wachsen aus der Figur. Sobald das Sheet von Codex BP (fx/BP_tentakel_kontrollverlust.png,
-   * 64x64, als 'tentakel_fx' in ANIM_SHEETS eingetragen) da ist, läuft dessen Animation, sonst zeichnet die Szene selbst wabernde Tentakel. Dazu Bildschirmzittern und ein violetter Blitz.
+   * Kontrollverlust: Tentakel wachsen aus der Figur (Paket BP: fx/BP_tentakel_kontrollverlust.png als 'tentakel_fx',
+   * zwölf 64x64-Frames, einmal abgespielt). Die Figur selbst krümmt sich, greift sich an die Schulter, kniet und
+   * liegt (characters/BP_player_korruption.png, Reihe je Figur) und wird violett eingefärbt. Fehlt das Sheet,
+   * zeichnet die Szene selbst wabernde Tentakel. Dazu Bildschirmzittern und ein violetter Blitz.
    */
   playCorruption(player = 1) {
     if (!this.player) return;
@@ -1698,7 +1700,8 @@ export class WorldScene extends Phaser.Scene {
     cam.shake(700, 0.012);
     cam.flash(500, 70, 20, 110);
     who.setTint?.(0x9a6ad0);
-    this.time.delayedCall(3200, () => who.clearTint?.());
+    this.playCorruptionPose(who, player);
+    this.time.delayedCall(3200, () => { if (player === 2 && this.p2Key === 'player') who.setTint?.(P2_TINT); else who.clearTint?.(); });
     let lit = true;
     this.lighting?.add({ follow: { get x() { return who.x; }, get y() { return who.y - 10; } }, radius: 64, intensity: 0.9, color: 0x8a40d0, glowAlpha: 0.35, flicker: 0.3, active: () => lit });
     const done = () => { lit = false; };
@@ -1708,7 +1711,8 @@ export class WorldScene extends Phaser.Scene {
         const n = this.textures.get(key).frameTotal - 1;
         this.anims.create({ key: `${key}_grow`, frames: this.anims.generateFrameNumbers(key, { start: 0, end: Math.max(0, n - 1) }), frameRate: 8, repeat: 0 });
       }
-      const fx = this.add.sprite(who.x, who.y - 14, key, 0).setDepth(who.depth + 1);
+      // Effektmitte (32,33) laut Manifest über der Figurmitte; die Figur bleibt in der freien Mitte sichtbar
+      const fx = this.add.sprite(who.x, who.y - 15, key, 0).setDepth(who.depth + 1);
       fx.play(`${key}_grow`);
       fx.once('animationcomplete', () => this.tweens.add({ targets: fx, alpha: 0, duration: 500, onComplete: () => { fx.destroy(); done(); } }));
       return;
@@ -1744,6 +1748,20 @@ export class WorldScene extends Phaser.Scene {
         }
       },
     });
+  }
+
+  /** Paket BP: Zusammenbruch-Posen der Figur beim Kontrollverlust; danach steht sie wieder in Blickrichtung. */
+  playCorruptionPose(who, player = 1) {
+    const isP1 = who === this.player;
+    if (!isP1 && this.p2Key === 'player') return; // Spieler 2 ohne eigene Figur: nur Tönung
+    const row = isP1 ? 'player' : this.state.p2Look?.() ?? 'p2a';
+    const restore = () => {
+      if (isP1) { this.playerBusy = false; who.setTexture(this.playerKey, DIRS.indexOf(this.facing) * 4); this.updateAura?.(); }
+      else { this.p2Busy = false; who.setTexture(this.p2Key, DIRS.indexOf(this.p2Facing ?? 'down') * 4); }
+    };
+    if (!playSheetAnim(who, 'player_korruption', row, () => this.time.delayedCall(1800, restore))) return;
+    who.setVelocity?.(0, 0);
+    if (isP1) this.playerBusy = true; else this.p2Busy = true;
   }
 
   debugTeleport(tx, ty) {
