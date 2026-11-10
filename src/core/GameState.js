@@ -7,6 +7,7 @@ import { wantedMethods } from './Wanted.js';
 import { kahnMethods } from './Kahn.js';
 import { newspaperMethods } from './Newspapers.js';
 import { signalMethods } from './Signals.js';
+import { clockMethods, NIGHT_FLAG } from './Clock.js';
 import { bondMethods } from './Bonds.js';
 import { relationMethods } from './Relations.js';
 import { artifactMethods } from './Artifacts.js';
@@ -664,7 +665,7 @@ export class GameState {
       position: position ?? null,
       clues: this.clues,
       conclusions: this.conclusions,
-      flags: [...this.flags],
+      flags: [...this.flags].filter((f) => f !== NIGHT_FLAG),
       quests: this.quests,
       honor: this.honor,
       honorCarry: this.honorCarry,
@@ -729,6 +730,7 @@ export class GameState {
     this.loadParty(data);
     this.loadPapers(data);
     this.loadSignal(data);
+    this.syncClock(); // Tag/Nacht folgt der Spielzeit, nicht dem Spielstand
     if (!this.content.maps[this.map]) { this.map = this.content.start.map; this.position = null; }
     return true;
   }
@@ -737,4 +739,4 @@ export class GameState {
 /** Fortschrittsflags der verlängerten Akt-V-Fassung (AP), in Spielreihenfolge. */
 export const K2_AKT5_STEPS = ['k2v_boot_bereit', 'k2v_keller_passiert', 'k2v_aufstieg_passiert', 'k2v_abschied_done'];
 
-Object.assign(GameState.prototype, partyMethods, gearMethods, pathwayMethods, artifactMethods, gatheringMethods, wantedMethods, bondMethods, relationMethods, auctionMethods, artisanMethods, kahnMethods, newspaperMethods, signalMethods);
+Object.assign(GameState.prototype, partyMethods, gearMethods, pathwayMethods, artifactMethods, gatheringMethods, wantedMethods, bondMethods, relationMethods, auctionMethods, artisanMethods, kahnMethods, newspaperMethods, signalMethods, clockMethods);

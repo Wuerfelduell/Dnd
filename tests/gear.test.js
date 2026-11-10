@@ -5,6 +5,7 @@ import { existsSync } from 'node:fs';
 import { GameState } from '../src/core/GameState.js';
 import { GEAR_SLOTS } from '../src/core/Gear.js';
 import { loadContent } from './helpers.js';
+import { itemIconUrl } from '../src/world/assets.js';
 
 const content = loadContent();
 const gearIds = Object.keys(content.items).filter((id) => content.items[id].kind === 'gear' && !content.items[id].quest_reward); // Auftragslohn (Kapitel 3) gibt es nur dort
@@ -12,7 +13,7 @@ const gearIds = Object.keys(content.items).filter((id) => content.items[id].kind
 test('Kleidung hat Icon, Platz und Wirkung', () => {
   assert.ok(gearIds.length >= 35, `${gearIds.length} Stücke`);
   for (const id of gearIds) {
-    assert.ok(existsSync(new URL(`../public/sprites/items/${id}.png`, import.meta.url)), `${id}: Icon`);
+    assert.ok(existsSync(new URL(`../public/${itemIconUrl(id).replace(/^\.\//, '')}`, import.meta.url)), `${id}: Icon`);
     assert.ok(GEAR_SLOTS.includes(content.items[id].slot), `${id}: Platz`);
   }
   for (const slot of GEAR_SLOTS) assert.ok(gearIds.filter((id) => content.items[id].slot === slot).length >= 10, slot);

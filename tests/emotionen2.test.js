@@ -14,7 +14,7 @@ test('AK: jede Figur aus dem Manifest hat ein Sheet und ist eingetragen', () => 
     assert.ok(existsSync(new URL(`../public/sprites/${a.file}`, import.meta.url)), a.file);
     assert.deepEqual(a.emotions, ['angry', 'sad', 'thoughtful', 'determined']);
   }
-  assert.equal(AK_FIGURES.size, manifest.assets.length + 11 + 11); // + Paket AO + Dunscar AW
+  assert.equal(AK_FIGURES.size, manifest.assets.length + 11 + 11 + 12); // + Paket AO + Dunscar AW + Handel BC/BE
 });
 
 test('AK: Stimmungen wählen die neuen Spalten, Sonder-Streifen bleiben', () => {

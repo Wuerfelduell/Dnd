@@ -41,7 +41,9 @@ export function buildContent({ campaign, quests, cases, maps, dialogues, items =
       cities: { ...(travel.cities ?? {}), ...(wx.city ? { [wx.city.id]: wx.city } : {}), ...(wx.cities ?? {}) },
     },
     pathways: pathways?.pathways ?? {},
-    market: market && { ...market, merchants: { ...market.merchants, ...(b.merchants ?? {}), ...(g.merchants ?? {}) }, sell_prices: { ...market.sell_prices, ...(f.sell_prices ?? {}) } },
+    market: market && { ...market,
+      merchants: { ...market.merchants, ...(b.merchants ?? {}), ...(g.merchants ?? {}), ...Object.assign({}, ...packs.map((p) => p.haendler?.merchants ?? {})) },
+      sell_prices: { ...market.sell_prices, ...(f.sell_prices ?? {}), ...Object.assign({}, ...packs.map((p) => p.haendler?.sell_prices ?? {})) } }, // BC: Händler und Verkaufswerte aus Paketen
     loot: { ...(market?.loot ?? {}), ...artifactDrops(wild.loot, wild.encounters, pathways?.artifacts), ...town.loot, ...(f.loot ?? {}), ...(wx.loot ?? {}) },
     artifacts: pathways?.artifacts ?? null,
     revierSupply: pathways?.revier_supply ?? null,
@@ -51,7 +53,7 @@ export function buildContent({ campaign, quests, cases, maps, dialogues, items =
     factions: f.factions ?? {},
     gatherings: g.rules ? { rules: g.rules, circles: g.circles ?? {}, artisan: g.artisan ?? null } : null,
     police: wx.police ?? null,
-    loners: wx.loners ?? null,
+    loners: wx.loners ? { ...wx.loners, list: { ...wx.loners.list, ...Object.assign({}, ...packs.map((p) => p.einzelgaenger?.loners?.list ?? {})) } } : null, // BC: Dunscarer Einzelgänger
     facts: merge(cases, 'facts'),
     clues: merge(cases, 'clues'),
     endings: merge(cases, 'endings'),
@@ -196,6 +198,11 @@ function withPackTreffen(packs, gatherings, pathways, wexmoor) {
       };
       const cityPins = Object.fromEntries(Object.entries(t.pins ?? {}).filter(([id]) => t.travel?.some((x) => x.map === id && x.city === wexmoor?.city?.id)));
       if (Object.keys(cityPins).length) wexmoor = { ...wexmoor, city: { ...wexmoor.city, pins: { ...(wexmoor.city.pins ?? {}), ...cityPins } } };
+      // BC: Pins eines Treffpunkts in einer weiteren Stadt (Dunscar) landen auf deren Stadtkarte
+      for (const [cid, c] of Object.entries(wexmoor?.cities ?? {})) {
+        const own = Object.fromEntries(Object.entries(t.pins ?? {}).filter(([id]) => t.travel?.some((x) => x.map === id && x.city === cid)));
+        if (Object.keys(own).length) wexmoor = { ...wexmoor, cities: { ...wexmoor.cities, [cid]: { ...c, pins: { ...(c.pins ?? {}), ...own } } } };
+      }
     }
     const arts = pack.artefakte ?? pack.artifacts?.list;
     if (arts && pathways?.artifacts) {
