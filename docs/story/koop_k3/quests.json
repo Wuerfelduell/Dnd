@@ -1,0 +1,115 @@
+{
+  "koop_ds_horchen": {
+    "title": "Ein Echo hinter dem Depot",
+    "kind": "side",
+    "case": "kapitel3",
+    "summary": "Ruft an der Drehscheibe und prüft zu zweit den Hinterzugang.",
+    "steps": [
+      {
+        "text": "Nehmt Pfiffs gemeinsamen Auftrag an.",
+        "done": {
+          "requires_flags": [
+            "koop_ds_horchen_angenommen"
+          ]
+        },
+        "target": {
+          "map": "ds_schwellenring",
+          "id": "koop_ds_horchen_auftrag",
+          "label": "Ein Echo hinter dem Depot"
+        }
+      },
+      {
+        "text": "Besetzt Trichter und Hinterzugang und sendet einen Ruf.",
+        "done": {
+          "requires_flags": [
+            "koop_ds_horchen_fertig"
+          ]
+        },
+        "target": {
+          "map": "ds_schwellenring",
+          "id": "koop_ds_horchen_p1",
+          "label": "Trichter an der Drehscheibe"
+        }
+      },
+      {
+        "text": "Meldet die richtige Richtung und öffnet den Hinterzugang.",
+        "done": {
+          "requires_flags": [
+            "koop_ds_horchen_fertig"
+          ]
+        },
+        "target": {
+          "map": "ds_schwellenring",
+          "id": "koop_ds_horchen_ruf",
+          "label": "Gemeinsamer Ruf"
+        }
+      }
+    ],
+    "reward": {
+      "gives_money": 0
+    }
+  },
+  "koop_ds_schleuse": {
+    "title": "Sechs Schritte bis zur Stille",
+    "kind": "side",
+    "case": "kapitel3",
+    "summary": "Haltet die Schallschleuse offen und holt gebunden einen Trichterglas-Splitter.",
+    "steps": [
+      {
+        "text": "Nehmt Pfiffs gemeinsamen Auftrag an.",
+        "done": {
+          "requires_flags": [
+            "koop_ds_schleuse_angenommen"
+          ]
+        },
+        "target": {
+          "map": "ds_speisewagen",
+          "id": "koop_ds_schleuse_auftrag",
+          "label": "Sechs Schritte bis zur Stille"
+        }
+      },
+      {
+        "text": "Übernehmt an der Rufschlucht eure Rollen; tauschen ist erlaubt.",
+        "done": {
+          "requires_flags": [
+            "koop_ds_schleuse_fertig"
+          ]
+        },
+        "target": {
+          "map": "ds_rufschlucht",
+          "id": "koop_ds_schleuse_p2",
+          "label": "Innerer Hebel"
+        }
+      },
+      {
+        "text": "Holt gebunden den Splitter und kehrt vor der dritten Gegner-Runde zurück.",
+        "done": {
+          "requires_flags": [
+            "koop_ds_schleuse_fertig"
+          ]
+        },
+        "target": {
+          "map": "ds_rufschlucht",
+          "id": "koop_ds_schleuse_fund",
+          "label": "Trichterglas"
+        }
+      },
+      {
+        "text": "Schließt die Schleuse und nehmt die einmalige Prämie an.",
+        "done": {
+          "requires_flags": [
+            "koop_ds_schleuse_fertig"
+          ]
+        },
+        "target": {
+          "map": "ds_rufschlucht",
+          "id": "koop_ds_schleuse_gang",
+          "label": "Schallschleuse"
+        }
+      }
+    ],
+    "reward": {
+      "gives_money": 0
+    }
+  }
+}

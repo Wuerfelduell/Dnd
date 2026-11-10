@@ -1,0 +1,211 @@
+[
+  {
+    "map": "ds_schwellenring",
+    "tile": [
+      32,
+      4
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "koop_aktiv",
+        "k3a_akt1_done"
+      ]
+    },
+    "interactable": {
+      "id": "koop_ds_horchen_auftrag",
+      "kind": "dialogue",
+      "marker": true,
+      "title": "Ein Echo hinter dem Depot",
+      "prompt": "Ein Echo hinter dem Depot",
+      "dialogue": "koop_ds_horchen_auftrag"
+    }
+  },
+  {
+    "map": "ds_speisewagen",
+    "tile": [
+      15,
+      5
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "koop_aktiv",
+        "k3a_akt3_done"
+      ]
+    },
+    "interactable": {
+      "id": "koop_ds_schleuse_auftrag",
+      "kind": "dialogue",
+      "marker": true,
+      "title": "Sechs Schritte bis zur Stille",
+      "prompt": "Sechs Schritte bis zur Stille",
+      "dialogue": "koop_ds_schleuse_auftrag"
+    }
+  },
+  {
+    "map": "ds_schwellenring",
+    "tile": [
+      34,
+      3
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "koop_aktiv",
+        "koop_ds_horchen_angenommen"
+      ]
+    },
+    "interactable": {
+      "id": "koop_ds_horchen_p1",
+      "kind": "read",
+      "marker": true,
+      "title": "Rufplatz",
+      "prompt": "Rufplatz",
+      "text": "Halte deinen vereinbarten Platz. Beim Loslassen endet deine Belegung.",
+      "effects": {
+        "sets_flags": [
+          "koop_ds_horchen_p1"
+        ]
+      }
+    }
+  },
+  {
+    "map": "ds_schwellenring",
+    "tile": [
+      40,
+      3
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "koop_aktiv",
+        "koop_ds_horchen_angenommen"
+      ]
+    },
+    "interactable": {
+      "id": "koop_ds_horchen_p2",
+      "kind": "read",
+      "marker": true,
+      "title": "Hinterzugang halten",
+      "prompt": "Hinterzugang halten",
+      "text": "Halte deinen vereinbarten Platz. Beim Loslassen endet deine Belegung.",
+      "effects": {
+        "sets_flags": [
+          "koop_ds_horchen_p2"
+        ]
+      }
+    }
+  },
+  {
+    "map": "ds_schwellenring",
+    "tile": [
+      34,
+      4
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "koop_aktiv",
+        "koop_ds_horchen_angenommen"
+      ]
+    },
+    "interactable": {
+      "id": "koop_ds_horchen_ruf",
+      "kind": "dialogue",
+      "marker": true,
+      "title": "Den gemeinsamen Ruf prüfen",
+      "prompt": "Den gemeinsamen Ruf prüfen",
+      "dialogue": "koop_ds_horchen_ruf"
+    }
+  },
+  {
+    "map": "ds_rufschlucht",
+    "tile": [
+      2,
+      6
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "koop_aktiv",
+        "koop_ds_schleuse_angenommen"
+      ]
+    },
+    "interactable": {
+      "id": "koop_ds_schleuse_p1",
+      "kind": "read",
+      "marker": true,
+      "title": "Spieler 1: Rolle übernehmen",
+      "prompt": "Spieler 1: Rolle übernehmen",
+      "text": "Halte deinen vereinbarten Platz. Beim Loslassen endet deine Belegung.",
+      "effects": {
+        "sets_flags": [
+          "koop_ds_schleuse_p1"
+        ]
+      }
+    }
+  },
+  {
+    "map": "ds_rufschlucht",
+    "tile": [
+      2,
+      5
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "koop_aktiv",
+        "koop_ds_schleuse_angenommen"
+      ]
+    },
+    "interactable": {
+      "id": "koop_ds_schleuse_p2",
+      "kind": "read",
+      "marker": true,
+      "title": "Spieler 2: Rolle übernehmen",
+      "prompt": "Spieler 2: Rolle übernehmen",
+      "text": "Halte deinen vereinbarten Platz. Beim Loslassen endet deine Belegung.",
+      "effects": {
+        "sets_flags": [
+          "koop_ds_schleuse_p2"
+        ]
+      }
+    }
+  },
+  {
+    "map": "ds_rufschlucht",
+    "tile": [
+      3,
+      5
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "koop_aktiv",
+        "koop_ds_schleuse_angenommen"
+      ]
+    },
+    "interactable": {
+      "id": "koop_ds_schleuse_gang",
+      "kind": "dialogue",
+      "marker": true,
+      "title": "Den Schleusengang beginnen",
+      "prompt": "Den Schleusengang beginnen",
+      "dialogue": "koop_ds_schleuse_gang"
+    }
+  },
+  {
+    "map": "ds_rufschlucht",
+    "tile": [
+      8,
+      5
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "koop_aktiv",
+        "koop_ds_schleuse_angenommen"
+      ]
+    },
+    "interactable": {
+      "id": "koop_ds_schleuse_fund",
+      "kind": "dialogue",
+      "marker": true,
+      "title": "Trichterglas in sechs Kacheln Entfernung",
+      "prompt": "Trichterglas in sechs Kacheln Entfernung",
+      "dialogue": "koop_ds_schleuse_fund_ansehen"
+    }
+  }
+]
