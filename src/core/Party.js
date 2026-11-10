@@ -13,7 +13,7 @@
 /** Persönliche Werte, die zwischen den Spielern getauscht werden. */
 /** Flüchtige Platz-Flags der Koop-Rätsel (Paket AI). */
 export const KOOP_ROLE_FLAG = /^koop_[a-z_]+_p[12]$/;
-export const PERSONAL = ['hp', 'maxHp', 'inventory', 'weapon', 'gear', 'composure', 'pathway', 'unruhe', 'spiritVision', 'visionDigest', 'corrupted', 'setAside', 'corruptionAcc'];
+export const PERSONAL = ['hp', 'maxHp', 'inventory', 'weapon', 'gear', 'composure', 'pathway', 'unruhe', 'spiritVision', 'visionDigest', 'corrupted', 'setAside', 'corruptionAcc', 'talentCd', 'buffs'];
 
 export const P2_COMPOSURE_REGEN = 6; // pro Sekunde
 
@@ -52,7 +52,7 @@ export const partyMethods = {
         active: true, hp, maxHp: hp, inventory: items,
         weapon: this.content.party?.weapon ?? (items[P2_START.weapon] ? P2_START.weapon : null), gear: { hut: null, mantel: null, amulett: null },
         composure: 100, pathway: null, unruhe: 0, spiritVision: false, visionDigest: { map: null, total: 0 }, look: 'p2a',
-        corrupted: {}, setAside: [], corruptionAcc: 0,
+        corrupted: {}, setAside: [], corruptionAcc: 0, talentCd: {}, buffs: [],
       };
     }
     this.p2.active = true;
@@ -209,6 +209,7 @@ export const partyMethods = {
       unruhe: Math.max(0, Math.min(99, p.unruhe ?? 0)), spiritVision: false, visionDigest: { map: null, total: 0 },
       look: p.look === 'p2b' ? 'p2b' : 'p2a',
       corrupted: Object.fromEntries(Object.entries(p.corrupted ?? {}).filter(([i, n]) => inventory[i] && n > 0)), setAside: [], corruptionAcc: 0,
+      talentCd: { ...(p.talentCd ?? {}) }, buffs: [...(p.buffs ?? [])],
     };
     this.p2.setAside = (p.setAside ?? []).filter((id) => this.p2.corrupted[id] && this.item(id)?.kind === 'artifact');
     // Höchstwerte aus Pfad, Artefakten und Kleidung neu rechnen

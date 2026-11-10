@@ -69,7 +69,7 @@ export const wantedMethods = {
   /** Zeit verstreicht (nur ungestörte Spielzeit): alle decay_sec sinkt die Stufe um eins. */
   tickWanted(dt) {
     const r = this.policeRules();
-    if (!r || this.wanted <= 0) return;
+    if (!r || this.wanted <= 0 || this.clockStopped?.()) return;
     this.wantedClock += dt;
     if (this.wantedClock >= r.decay_sec) this.setWanted(this.wanted - 1, 'Die Wache sucht woanders');
   },

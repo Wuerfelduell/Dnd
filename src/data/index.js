@@ -228,6 +228,7 @@ import sq_neue_pfade from './packs/sequenzen/neue_pfade.json';
 import sq_seq_4_bis_1 from './packs/sequenzen/seq_4_bis_1.json';
 import sq_zutaten from './packs/sequenzen/zutaten.json';
 import sq_artefakte from './packs/sequenzen/artefakte.json';
+import sq_faehigkeiten from './packs/sequenzen/faehigkeiten2.json';
 import k3p_rituale from './packs/k3_pruefungen/rituale.json';
 import bf_quests from './packs/koop_k3/quests.json';
 import bf_items from './packs/koop_k3/items.json';
@@ -304,5 +305,5 @@ export const content = buildContent({
   packs: [k1Finale, kgNebenquests, wxNebenquests, koop, k2Akten, k2Orte, k2Gilde, k2Akte, k3Orte, k3Akte, k3Nebenquests, k3Pruefungen, k3Handel, k3Leben, koopK3, koopBeute, k3Ruf, beziehungenPack],
   lore: { bestiarium: lore_bestiarium, gerede: lore_gerede, item_texte: lore_item_texte, lesestuecke: lore_lesestuecke, zeitungen: lore_zeitungen },
   beziehungen,
-  sequenzen: { neue_pfade: sq_neue_pfade, seq_4_bis_1: sq_seq_4_bis_1, zutaten: sq_zutaten, artefakte: sq_artefakte, rituale: k3p_rituale },
+  sequenzen: { neue_pfade: sq_neue_pfade, seq_4_bis_1: sq_seq_4_bis_1, zutaten: sq_zutaten, artefakte: sq_artefakte, rituale: k3p_rituale, faehigkeiten: sq_faehigkeiten },
 });

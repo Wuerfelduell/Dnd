@@ -855,7 +855,7 @@ export class WorldScene extends Phaser.Scene {
       if (def.solid) item.blocker = this.addBlocker(x, y + 2, def.solid[0] ?? 16, def.solid[1] ?? 12);
       if (def.sprite_scale) item.sprite?.setScale(def.sprite_scale).setOrigin(0.5, 0.75);
       if (item.hidden) {
-        item.light = this.lighting.add({ x, y, radius: 22, intensity: 0.7, color: 0x6fe0d0, glowAlpha: 0.4, flicker: 0.2, active: () => this.state.spiritVision && item.active });
+        item.light = this.lighting.add({ x, y, radius: 22, intensity: 0.7, color: 0x6fe0d0, glowAlpha: 0.4, flicker: 0.2, active: () => this.state.seesHidden() && item.active });
       }
       this.interactables.push(item);
       this.registerVisibility(item, def, item.parts);
@@ -1062,6 +1062,7 @@ export class WorldScene extends Phaser.Scene {
     const refresh = () => this.refreshVisibility();
     this.cleanups.push(
       s.on('vision', (on) => this.applyVision(on)),
+      s.on('talent', (e) => { if (e.effect === 'scout') this.scoutEnemies(); }),
       s.on('clue', (id) => {
         for (const it of this.interactables) {
           if (it.def.clue === id && it.glint) { it.glint.destroy(); it.parts = it.parts.filter((p) => p !== it.glint); it.glint = null; }
@@ -1118,7 +1119,7 @@ export class WorldScene extends Phaser.Scene {
       if (c.obj) c.obj.active = on;
       for (const p of c.parts) {
         if (!p.active) continue;
-        const hiddenNow = this.hidden.includes(p) && !this.state.spiritVision;
+        const hiddenNow = this.hidden.includes(p) && !this.state.seesHidden();
         p.setVisible(on && !hiddenNow);
       }
       if (c.obj?.blocker) c.obj.blocker.body.enable = on;
@@ -1126,9 +1127,10 @@ export class WorldScene extends Phaser.Scene {
   }
 
   applyVision(on) {
+    const hiddenOn = on || this.state.seesHidden(); // Welt-Fähigkeiten zeigen Spuren auch ohne Geistsicht
     for (const o of this.hidden) {
       const owner = this.conditional.find((c) => c.parts.includes(o));
-      o.setVisible(on && (!owner || this.state.meets(owner.def.visible_if)));
+      o.setVisible(hiddenOn && (!owner || this.state.meets(owner.def.visible_if)));
     }
     this.visionOverlay.setVisible(on);
     this.setVisionFx(on);
@@ -1377,7 +1379,7 @@ export class WorldScene extends Phaser.Scene {
       const px = this.player.x;
       const py = this.player.y - 3;
       for (const it of this.interactables) {
-        if (!it.active || (it.hidden && !this.state.spiritVision)) continue;
+        if (!it.active || (it.hidden && !this.state.seesHidden())) continue;
         const d = Phaser.Math.Distance.Between(px, py, it.x, it.y);
         if (d < it.reach && d / it.reach < bestScore) { best = it; bestScore = d / it.reach; }
       }
@@ -1389,11 +1391,20 @@ export class WorldScene extends Phaser.Scene {
     else this.ui.setPrompt(null);
   }
 
+  /** Welt-Fähigkeit „scout“: zählt die Gegner dieser Karte (Streifen und Kreaturen). */
+  scoutEnemies() {
+    const list = (this.roamers?.list ?? []).filter((r) => r.alive);
+    const elites = list.filter((r) => r.elite || r.boss).length;
+    const text = !list.length ? 'Hier lauert niemand. Die Karte ist frei von Gegnern.'
+      : `${list.length} ${list.length === 1 ? 'Gegner lauert' : 'Gegner lauern'} auf dieser Karte${elites ? `, davon ${elites} ${elites === 1 ? 'Elite oder Boss' : 'Eliten oder Bosse'}` : ''}.`;
+    this.state.emit('notice', text);
+  }
+
   nearestInteractable(px, py) {
     let best = null;
     let bestScore = Infinity;
     for (const it of this.interactables) {
-      if (!it.active || (it.hidden && !this.state.spiritVision)) continue;
+      if (!it.active || (it.hidden && !this.state.seesHidden())) continue;
       const d = Phaser.Math.Distance.Between(px, py, it.x, it.y);
       if (d < it.reach && d / it.reach < bestScore) { best = it; bestScore = d / it.reach; }
     }

@@ -1,0 +1,2281 @@
+{
+  "_hinweis": "Zweite Kampffähigkeit (kampf) und eine Welt-Fähigkeit außerhalb des Kampfes (welt) für jede Sequenz jedes Pfades. Eingebaut über src/data/faehigkeiten.js. Kampf: cost = Konzentration, Nervenkosten folgen der Konzentration (Pathways.SKILL_COMPOSURE_BY_COST), fx = geliehener Effekt. Welt: nerves/unruhe = Kosten, cooldown in Sekunden Spielzeit, Wirkung über buff/calm/nerves_gain/heal_pct/hint/reveal/scare/digest/wanted/clock/review/money/scout.",
+  "laterne": {
+    "9": {
+      "kampf": {
+        "id": "dochtfunke",
+        "name": "Dochtfunke",
+        "cost": 2,
+        "hits": 1,
+        "flat": 5,
+        "holy": true,
+        "ap_gain": 1,
+        "fx": "lichtstoss",
+        "desc": "Ein kleiner Funke vom Docht. 5 Schaden, doppelt gegen Okkultes, und 1 Konzentration kommt zurück."
+      },
+      "welt": {
+        "id": "laternenschein",
+        "name": "Laternenschein",
+        "nerves": 6,
+        "unruhe": 2,
+        "cooldown": 90,
+        "reveal": 20,
+        "desc": "Du hebst die innere Laterne. 20 Sekunden lang zeigen sich verborgene Spuren auch ohne Geistsicht."
+      }
+    },
+    "8": {
+      "kampf": {
+        "id": "glutnadel",
+        "name": "Glutnadel",
+        "cost": 2,
+        "hits": 1,
+        "flat": 6,
+        "burn": [
+          3,
+          2
+        ],
+        "extend_burn": 1,
+        "fx": "funkenregen",
+        "desc": "Ein dünner Strahl, der Brand nährt. 6 Schaden, der Gegner brennt 2 Runden, ein bestehender Brand hält eine Runde länger."
+      },
+      "welt": {
+        "id": "ruhiges_licht",
+        "name": "Ruhiges Licht",
+        "nerves": 0,
+        "unruhe": 0,
+        "cooldown": 180,
+        "calm": 12,
+        "desc": "Du hältst still, bis die Flamme nicht mehr flackert. Senkt die Unruhe um 12."
+      }
+    },
+    "7": {
+      "kampf": {
+        "id": "signalfeuer",
+        "name": "Signalfeuer",
+        "cost": 2,
+        "hits": 0,
+        "weaken": [
+          0.8,
+          2
+        ],
+        "nerves_gain": 10,
+        "fx": "leuchtfeuer",
+        "desc": "Grelles Licht ohne Hitze. Der Gegner schlägt 2 Runden lang 20 % schwächer zu, und du gewinnst 10 Nerven."
+      },
+      "welt": {
+        "id": "wegleuchte",
+        "name": "Wegleuchte",
+        "nerves": 8,
+        "unruhe": 0,
+        "cooldown": 240,
+        "hint": true,
+        "desc": "Das Licht fällt auf den nächsten Schritt: Der Pfad verrät dir, was dein wichtigster Auftrag als Nächstes braucht."
+      }
+    },
+    "6": {
+      "kampf": {
+        "id": "nebelriss",
+        "name": "Nebelriss",
+        "cost": 2,
+        "hits": 1,
+        "flat": 11,
+        "holy": true,
+        "guard_break": true,
+        "fx": "lichtbann",
+        "desc": "Licht, das jeden Schleier zerreißt. 11 Schaden, doppelt gegen Okkultes, der Panzer des Gegners bricht."
+      },
+      "welt": {
+        "id": "klarer_blick",
+        "name": "Klarer Blick",
+        "nerves": 10,
+        "unruhe": 3,
+        "cooldown": 300,
+        "buff": {
+          "key": "vision_cost",
+          "value": 0.4,
+          "seconds": 90
+        },
+        "desc": "Du weitest die Augen. 90 Sekunden lang kostet die Geistsicht 60 % weniger Nerven."
+      }
+    },
+    "5": {
+      "kampf": {
+        "id": "flammenmantel",
+        "name": "Flammenmantel",
+        "cost": 3,
+        "hits": 0,
+        "shield": 16,
+        "burn": [
+          5,
+          2
+        ],
+        "fx": "weissglut",
+        "desc": "Du hüllst dich in Flammen. Schutz 16, und wer dich berührt, brennt 2 Runden lang (5 Schaden)."
+      },
+      "welt": {
+        "id": "wandelndes_signal",
+        "name": "Wandelndes Signal",
+        "nerves": 12,
+        "unruhe": 4,
+        "cooldown": 360,
+        "scare": 45,
+        "desc": "Du leuchtest wie ein Feuer im Nebel. 45 Sekunden lang weichen gewöhnliche Gegner auf der Karte vor dir zurück."
+      }
+    },
+    "4": {
+      "kampf": {
+        "id": "dochtschnitt",
+        "name": "Dochtschnitt",
+        "cost": 3,
+        "hits": 2,
+        "flat": 14,
+        "holy": true,
+        "armor_break": 1,
+        "fx": "laterne_hoch_4",
+        "desc": "Zwei Schnitte aus Licht. Je 14 Schaden, doppelt gegen Okkultes, und der Panzer des Gegners verliert eine Stufe."
+      },
+      "welt": {
+        "id": "offene_lampe",
+        "name": "Offene Lampe",
+        "nerves": 12,
+        "unruhe": 3,
+        "cooldown": 300,
+        "reveal": 60,
+        "desc": "Du nimmst den Schirm von der Lampe. Eine Minute lang sind alle verborgenen Spuren der Karte sichtbar."
+      }
+    },
+    "3": {
+      "kampf": {
+        "id": "aschenwort",
+        "name": "Aschenwort",
+        "cost": 3,
+        "hits": 1,
+        "flat": 22,
+        "holy": true,
+        "weaken": [
+          0.75,
+          2
+        ],
+        "fx": "laterne_hoch_3",
+        "desc": "Du sprichst aus, was verschwiegen wurde. 22 Schaden, doppelt gegen Okkultes, der Gegner schlägt 2 Runden lang 25 % schwächer."
+      },
+      "welt": {
+        "id": "aschenlese",
+        "name": "Aschenlese",
+        "nerves": 10,
+        "unruhe": 0,
+        "cooldown": 240,
+        "review": true,
+        "desc": "Du liest in der Asche: Eine Vermutung, der noch eine zweite Quelle fehlt, kommt dir wieder in den Sinn."
+      }
+    },
+    "2": {
+      "kampf": {
+        "id": "horizontglut",
+        "name": "Horizontglut",
+        "cost": 4,
+        "hits": 1,
+        "flat": 30,
+        "holy": true,
+        "burn": [
+          10,
+          3
+        ],
+        "ap_gain": 2,
+        "fx": "laterne_hoch_2",
+        "desc": "Der Horizont glüht auf. 30 Schaden, doppelt gegen Okkultes, 3 Runden je 10 Brand, und 2 Konzentration kehren zurück."
+      },
+      "welt": {
+        "id": "lichtschranke",
+        "name": "Lichtschranke",
+        "nerves": 14,
+        "unruhe": 4,
+        "cooldown": 420,
+        "buff": {
+          "key": "occult_mult",
+          "value": 1.3,
+          "seconds": 180
+        },
+        "desc": "Du stellst dich in dein eigenes Licht. 3 Minuten lang +30 % Schaden gegen Okkultes."
+      }
+    },
+    "1": {
+      "kampf": {
+        "id": "unbequeme_wahrheit",
+        "name": "Unbequeme Wahrheit",
+        "cost": 4,
+        "hits": 0,
+        "weak": true,
+        "weaken": [
+          0.6,
+          3
+        ],
+        "guard_break": true,
+        "fx": "laterne_hoch_1",
+        "desc": "Du zeigst dem Gegner, was er ist. Schwachstelle offen, Panzer gebrochen, 3 Runden lang 40 % weniger Schaden von ihm."
+      },
+      "welt": {
+        "id": "fensterlicht",
+        "name": "Fensterlicht",
+        "nerves": 16,
+        "unruhe": 5,
+        "cooldown": 480,
+        "reveal": 120,
+        "scare": 60,
+        "desc": "Alle Fenster der Stadt leuchten für dich. 2 Minuten lang sind verborgene Spuren sichtbar, eine Minute lang weichen gewöhnliche Gegner."
+      }
+    }
+  },
+  "faden": {
+    "9": {
+      "kampf": {
+        "id": "fadenzug",
+        "name": "Fadenzug",
+        "cost": 1,
+        "hits": 1,
+        "mult": 0.8,
+        "sure": true,
+        "fx": "schwachstelle",
+        "desc": "Du ziehst am richtigen Faden. 80 % Waffenschaden, der auch bei verfehltem Takt trifft."
+      },
+      "welt": {
+        "id": "spur_lesen",
+        "name": "Spur lesen",
+        "nerves": 5,
+        "unruhe": 0,
+        "cooldown": 180,
+        "hint": true,
+        "desc": "Du siehst die kleinen Dinge: Der Pfad sagt dir, was dein wichtigster Auftrag als Nächstes braucht."
+      }
+    },
+    "8": {
+      "kampf": {
+        "id": "vorgefuehl",
+        "name": "Vorgefühl",
+        "cost": 1,
+        "hits": 0,
+        "read": true,
+        "slow": true,
+        "fx": "vorahnung",
+        "desc": "Du spürst den nächsten Schlag. Er kommt langsamer und lässt sich parieren, auch wenn er sonst nicht zu parieren wäre."
+      },
+      "welt": {
+        "id": "fadenblick",
+        "name": "Fadenblick",
+        "nerves": 8,
+        "unruhe": 2,
+        "cooldown": 240,
+        "buff": {
+          "key": "dodge_window",
+          "value": 1.4,
+          "seconds": 240
+        },
+        "desc": "Du siehst Bewegungen einen Herzschlag voraus. 4 Minuten lang ist das Ausweichfenster im Kampf 40 % größer."
+      }
+    },
+    "7": {
+      "kampf": {
+        "id": "musterbruch",
+        "name": "Musterbruch",
+        "cost": 2,
+        "hits": 2,
+        "mult": 0.9,
+        "focus": true,
+        "fx": "schicksalsfaden",
+        "desc": "Zwei Schläge im gelesenen Muster. Deine nächste Fertigkeit trifft einen Takt genauer, als du drückst."
+      },
+      "welt": {
+        "id": "gewebe_lesen",
+        "name": "Gewebe lesen",
+        "nerves": 10,
+        "unruhe": 2,
+        "cooldown": 300,
+        "review": true,
+        "desc": "Du folgst einem losen Faden: Eine Vermutung, der eine zweite Quelle fehlt, steht dir wieder vor Augen."
+      }
+    },
+    "6": {
+      "kampf": {
+        "id": "stolperfaden",
+        "name": "Stolperfaden",
+        "cost": 2,
+        "hits": 1,
+        "mult": 1.0,
+        "slow": true,
+        "weak": true,
+        "fx": "fangnetz",
+        "desc": "Ein Faden quer über den Weg. Normaler Schaden, die Schwachstelle liegt offen, und der nächste Angriff des Gegners kommt langsam."
+      },
+      "welt": {
+        "id": "netz_spannen",
+        "name": "Netz spannen",
+        "nerves": 10,
+        "unruhe": 3,
+        "cooldown": 360,
+        "buff": {
+          "key": "conclusion_honor",
+          "value": 2,
+          "seconds": 300
+        },
+        "desc": "Du spannst Fäden zwischen allem, was du weißt. 5 Minuten lang bringt jede Schlussfolgerung +2 Ansehen mehr."
+      }
+    },
+    "5": {
+      "kampf": {
+        "id": "knotenloesung",
+        "name": "Knotenlösung",
+        "cost": 3,
+        "hits": 3,
+        "mult": 0.8,
+        "sure": true,
+        "ap_gain": 1,
+        "fx": "zerreissen",
+        "desc": "Drei Schnitte dort, wo das Gewebe nachgibt. Je 80 % Waffenschaden, kein Takt geht verloren, 1 Konzentration kehrt zurück."
+      },
+      "welt": {
+        "id": "faden_zur_spur",
+        "name": "Faden zur Spur",
+        "nerves": 12,
+        "unruhe": 3,
+        "cooldown": 300,
+        "reveal": 40,
+        "desc": "Ein Faden zieht dich zu dem, was man übersehen soll. 40 Sekunden lang zeigen sich verborgene Spuren ohne Geistsicht."
+      }
+    },
+    "4": {
+      "kampf": {
+        "id": "nahtriss",
+        "name": "Nahtriss",
+        "cost": 3,
+        "hits": 2,
+        "mult": 1.3,
+        "pierce": true,
+        "read": true,
+        "fx": "faden_hoch_4",
+        "desc": "Zwei Schläge entlang einer Naht, die kein Panzer schließt. Den nächsten Schlag des Gegners hast du schon gesehen: Er lässt sich parieren."
+      },
+      "welt": {
+        "id": "nahtgefuehl",
+        "name": "Nahtgefühl",
+        "nerves": 12,
+        "unruhe": 3,
+        "cooldown": 420,
+        "buff": {
+          "key": "dodge_window",
+          "value": 1.6,
+          "seconds": 300
+        },
+        "desc": "Du fühlst die Nähte der Welt. 5 Minuten lang ist das Ausweichfenster 60 % größer."
+      }
+    },
+    "3": {
+      "kampf": {
+        "id": "bruchvorhersage",
+        "name": "Bruchvorhersage",
+        "cost": 3,
+        "hits": 0,
+        "weak": true,
+        "evade": true,
+        "focus": true,
+        "fx": "faden_hoch_3",
+        "desc": "Du siehst, wo es brechen wird. Schwachstelle offen, der nächste Angriff geht ins Leere, deine nächste Fertigkeit trifft einen Takt genauer."
+      },
+      "welt": {
+        "id": "bruchstellen",
+        "name": "Bruchstellen",
+        "nerves": 12,
+        "unruhe": 4,
+        "cooldown": 360,
+        "scout": true,
+        "desc": "Du siehst, wo auf dieser Karte Gewalt lauert: Der Pfad zählt dir die Gegner und ihre Eliten."
+      }
+    },
+    "2": {
+      "kampf": {
+        "id": "saumschnitt",
+        "name": "Saumschnitt",
+        "cost": 4,
+        "hits": 4,
+        "mult": 1.2,
+        "sure": true,
+        "slow": true,
+        "fx": "faden_hoch_2",
+        "desc": "Vier Schnitte am Saum des Gegners. Kein Takt geht verloren, und sein nächster Angriff kommt langsam."
+      },
+      "welt": {
+        "id": "stadtgewebe",
+        "name": "Stadtgewebe",
+        "nerves": 14,
+        "unruhe": 4,
+        "cooldown": 480,
+        "buff": {
+          "key": "hurry_cost",
+          "value": 0.0,
+          "seconds": 300
+        },
+        "desc": "Du kennst jede Gasse am Faden. 5 Minuten lang kostet die schnelle Reise keine Nerven."
+      }
+    },
+    "1": {
+      "kampf": {
+        "id": "offener_knotenpunkt",
+        "name": "Offener Knotenpunkt",
+        "cost": 4,
+        "hits": 1,
+        "mult": 2.5,
+        "pierce": true,
+        "weak": true,
+        "ap_gain": 2,
+        "fx": "faden_hoch_1",
+        "desc": "Ein Stich in den Punkt, an dem alles zusammenläuft. 250 % Waffenschaden durch jeden Panzer, Schwachstelle offen, 2 Konzentration zurück."
+      },
+      "welt": {
+        "id": "zusammenhang",
+        "name": "Zusammenhang",
+        "nerves": 16,
+        "unruhe": 5,
+        "cooldown": 600,
+        "hint": true,
+        "review": true,
+        "reveal": 60,
+        "desc": "Für einen Augenblick siehst du das ganze Gewebe: nächster Schritt, offene Vermutung und eine Minute lang alle verborgenen Spuren."
+      }
+    }
+  },
+  "maske": {
+    "9": {
+      "kampf": {
+        "id": "finte",
+        "name": "Finte",
+        "cost": 1,
+        "hits": 1,
+        "mult": 0.7,
+        "slow": true,
+        "fx": "trugbild",
+        "desc": "Ein angetäuschter Schlag. 70 % Waffenschaden, der Gegner zögert: Sein nächster Angriff kommt langsam."
+      },
+      "welt": {
+        "id": "gefaellige_miene",
+        "name": "Gefällige Miene",
+        "nerves": 6,
+        "unruhe": 2,
+        "cooldown": 240,
+        "buff": {
+          "key": "price",
+          "value": 0.85,
+          "seconds": 180
+        },
+        "desc": "Du setzt das Gesicht auf, das Händler mögen. 3 Minuten lang verlangen sie 15 % weniger."
+      }
+    },
+    "8": {
+      "kampf": {
+        "id": "doppelgaenger",
+        "name": "Doppelgänger",
+        "cost": 2,
+        "hits": 0,
+        "shield": 8,
+        "evade": true,
+        "fx": "verwirrung",
+        "desc": "Ein zweites Du tritt vor. Schutz 8, und der nächste Angriff geht ins Leere."
+      },
+      "welt": {
+        "id": "fremdes_gesicht",
+        "name": "Fremdes Gesicht",
+        "nerves": 8,
+        "unruhe": 3,
+        "cooldown": 300,
+        "wanted": -1,
+        "desc": "Du streifst ein anderes Gesicht über. Die Wache sucht dich eine Stufe weniger."
+      }
+    },
+    "7": {
+      "kampf": {
+        "id": "rollentausch",
+        "name": "Rollentausch",
+        "cost": 2,
+        "hits": 1,
+        "mult": 1.0,
+        "confuse": true,
+        "cleanse": true,
+        "fx": "spiegelschritt",
+        "desc": "Du nimmst die Rolle des Gegners ein. Normaler Schaden, er schlägt beim nächsten Mal sich selbst, deine Blutung versiegt."
+      },
+      "welt": {
+        "id": "feilschergesicht",
+        "name": "Feilschergesicht",
+        "nerves": 8,
+        "unruhe": 2,
+        "cooldown": 300,
+        "buff": {
+          "key": "sell",
+          "value": 1.35,
+          "seconds": 180
+        },
+        "desc": "Das Gesicht, dem Pfandleiher gern mehr zahlen. 3 Minuten lang bekommst du 35 % mehr beim Verkauf."
+      }
+    },
+    "6": {
+      "kampf": {
+        "id": "zweite_haut",
+        "name": "Zweite Haut",
+        "cost": 2,
+        "hits": 0,
+        "shield": 14,
+        "nerves_gain": 10,
+        "fx": "spiegelbild",
+        "desc": "Die zweite Maske fängt den Schlag. Schutz 14 und 10 Nerven zurück."
+      },
+      "welt": {
+        "id": "unauffaellig",
+        "name": "Unauffällig",
+        "nerves": 10,
+        "unruhe": 3,
+        "cooldown": 360,
+        "scare": 40,
+        "desc": "Du wirst zum Hintergrund. 40 Sekunden lang verlieren gewöhnliche Gegner auf der Karte das Interesse an dir."
+      }
+    },
+    "5": {
+      "kampf": {
+        "id": "gesichterwirbel",
+        "name": "Gesichterwirbel",
+        "cost": 3,
+        "hits": 2,
+        "mult": 1.1,
+        "confuse": true,
+        "weaken": [
+          0.8,
+          2
+        ],
+        "fx": "maskenball",
+        "desc": "Zwei Schläge aus wechselnden Gesichtern. Der Gegner schlägt sich selbst und trifft 2 Runden lang 20 % schwächer."
+      },
+      "welt": {
+        "id": "gastgesicht",
+        "name": "Gastgesicht",
+        "nerves": 12,
+        "unruhe": 4,
+        "cooldown": 420,
+        "buff": {
+          "key": "lock_bonus",
+          "value": 20,
+          "seconds": 120
+        },
+        "desc": "Jede Tür hält dich für geladen. 2 Minuten lang öffnen sich gesperrte Schränke und Türen mit 20 Ansehen weniger."
+      }
+    },
+    "4": {
+      "kampf": {
+        "id": "geliehene_miene",
+        "name": "Geliehene Miene",
+        "cost": 3,
+        "hits": 1,
+        "mult": 1.6,
+        "steal": 10,
+        "evade": true,
+        "fx": "maske_hoch_4",
+        "desc": "Du trägst für einen Schlag das Gesicht des Gegners. 160 % Waffenschaden, der nächste Angriff geht ins Leere, und von Menschen fallen 10 Schilling ab."
+      },
+      "welt": {
+        "id": "mietgesicht",
+        "name": "Mietgesicht",
+        "nerves": 12,
+        "unruhe": 4,
+        "cooldown": 420,
+        "wanted": -2,
+        "buff": {
+          "key": "honor_loss",
+          "value": 0.5,
+          "seconds": 300
+        },
+        "desc": "Ein geliehenes Gesicht trägt die Schuld. Fahndung sinkt um 2 Stufen, 5 Minuten lang verlierst du nur halb so viel Ansehen."
+      }
+    },
+    "3": {
+      "kampf": {
+        "id": "stehendes_gesicht",
+        "name": "Stehendes Gesicht",
+        "cost": 3,
+        "hits": 0,
+        "shield": 22,
+        "confuse": true,
+        "cleanse": true,
+        "fx": "maske_hoch_3",
+        "desc": "Dein Gesicht bleibt stehen, wo du warst. Schutz 22, der Gegner schlägt ins alte Bild und sich selbst, deine Blutung versiegt."
+      },
+      "welt": {
+        "id": "rollenverwahrung",
+        "name": "Rollenverwahrung",
+        "nerves": 14,
+        "unruhe": 4,
+        "cooldown": 480,
+        "buff": {
+          "key": "price",
+          "value": 0.7,
+          "seconds": 240
+        },
+        "desc": "Du spielst den Stammkunden, den jeder kennt. 4 Minuten lang verlangen Händler 30 % weniger."
+      }
+    },
+    "2": {
+      "kampf": {
+        "id": "leeres_gesicht",
+        "name": "Leeres Gesicht",
+        "cost": 4,
+        "hits": 3,
+        "mult": 1.4,
+        "evade": true,
+        "slow": true,
+        "fx": "maske_hoch_2",
+        "desc": "Drei Schläge von jemandem, den der Gegner nicht sieht. Der nächste Angriff geht ins Leere, der danach kommt langsam."
+      },
+      "welt": {
+        "id": "publikum_verlieren",
+        "name": "Publikum verlieren",
+        "nerves": 14,
+        "unruhe": 5,
+        "cooldown": 600,
+        "wanted": -3,
+        "scare": 60,
+        "desc": "Du verschwindest aus jedem Blick. Die Fahndung sinkt um 3 Stufen, eine Minute lang weichen gewöhnliche Gegner."
+      }
+    },
+    "1": {
+      "kampf": {
+        "id": "eigenes_gesicht",
+        "name": "Eigenes Gesicht",
+        "cost": 4,
+        "hits": 1,
+        "mult": 2.2,
+        "confuse": true,
+        "weaken": [
+          0.6,
+          3
+        ],
+        "nerves_gain": 20,
+        "fx": "maske_hoch_1",
+        "desc": "Du zeigst dem Gegner dein wahres Gesicht. 220 % Waffenschaden, er schlägt sich selbst, 3 Runden lang 40 % schwächer, und du findest 20 Nerven wieder."
+      },
+      "welt": {
+        "id": "hundert_gesichter",
+        "name": "Hundert Gesichter",
+        "nerves": 16,
+        "unruhe": 6,
+        "cooldown": 600,
+        "buff": {
+          "key": "price",
+          "value": 0.6,
+          "seconds": 300
+        },
+        "wanted": -3,
+        "desc": "Du bist jeder Kunde, jeder Nachbar, jeder Gast. 5 Minuten lang 40 % günstigere Preise, die Fahndung sinkt um 3 Stufen."
+      }
+    }
+  },
+  "echo": {
+    "9": {
+      "kampf": {
+        "id": "fluestern",
+        "name": "Flüstern",
+        "cost": 1,
+        "hits": 0,
+        "nerves_gain": 8,
+        "fx": "klagelaut",
+        "desc": "Du lauschst nach innen. 8 Nerven kehren zurück."
+      },
+      "welt": {
+        "id": "lauschen",
+        "name": "Lauschen",
+        "nerves": 0,
+        "unruhe": 2,
+        "cooldown": 180,
+        "hint": true,
+        "desc": "Du hörst, was die Wände wissen: Der Pfad sagt dir, was dein wichtigster Auftrag als Nächstes braucht."
+      }
+    },
+    "8": {
+      "kampf": {
+        "id": "totenruf",
+        "name": "Totenruf",
+        "cost": 2,
+        "hits": 1,
+        "flat": 6,
+        "holy": true,
+        "weaken": [
+          0.8,
+          2
+        ],
+        "fx": "grabesstimme",
+        "desc": "Eine Stimme, die der Gegner kennt. 6 Schaden, doppelt gegen Okkultes, 2 Runden lang schlägt er 20 % schwächer."
+      },
+      "welt": {
+        "id": "stille_bitte",
+        "name": "Stille Bitte",
+        "nerves": 0,
+        "unruhe": 0,
+        "cooldown": 240,
+        "nerves_gain": 20,
+        "desc": "Du bittest die Stimmen um Ruhe, und sie gewähren sie. 20 Nerven kehren zurück."
+      }
+    },
+    "7": {
+      "kampf": {
+        "id": "seelenfaden",
+        "name": "Seelenfaden",
+        "cost": 2,
+        "hits": 1,
+        "flat": 8,
+        "drain": 1.0,
+        "fx": "seelenzug",
+        "desc": "Ein dünner Faden zur Seele des Gegners. 8 Schaden, die dich vollständig heilen."
+      },
+      "welt": {
+        "id": "nachhall",
+        "name": "Nachhall",
+        "nerves": 8,
+        "unruhe": 2,
+        "cooldown": 300,
+        "review": true,
+        "desc": "Der Ort wiederholt, was hier gesagt wurde: Eine Vermutung ohne zweite Quelle kommt dir in den Sinn."
+      }
+    },
+    "6": {
+      "kampf": {
+        "id": "chorschild",
+        "name": "Chorschild",
+        "cost": 2,
+        "hits": 0,
+        "shield_all": 10,
+        "nerves_gain": 10,
+        "fx": "totenchor",
+        "desc": "Die Stimmen singen um dich (und deine Begleitung). Schutz 10 für jeden Stehenden, 10 Nerven zurück."
+      },
+      "welt": {
+        "id": "grabesstille",
+        "name": "Grabesstille",
+        "nerves": 10,
+        "unruhe": 3,
+        "cooldown": 360,
+        "calm": 25,
+        "desc": "Du singst den Ton, der die Stimmen in dir schlafen legt. Senkt die Unruhe um 25."
+      }
+    },
+    "5": {
+      "kampf": {
+        "id": "stillstand",
+        "name": "Stillstand",
+        "cost": 3,
+        "hits": 1,
+        "flat": 16,
+        "holy": true,
+        "slow": true,
+        "weaken": [
+          0.7,
+          2
+        ],
+        "fx": "stillgesang",
+        "desc": "Ein Lied, das den Atem anhält. 16 Schaden, doppelt gegen Okkultes, der Gegner wird langsam und 2 Runden lang 30 % schwächer."
+      },
+      "welt": {
+        "id": "ohr_an_der_wand",
+        "name": "Ohr an der Wand",
+        "nerves": 10,
+        "unruhe": 3,
+        "cooldown": 300,
+        "scout": true,
+        "reveal": 30,
+        "desc": "Du hörst Schritte und Atem hinter allen Wänden: Gegnerzahl der Karte und 30 Sekunden lang verborgene Spuren."
+      }
+    },
+    "4": {
+      "kampf": {
+        "id": "beschlagenes_wort",
+        "name": "Beschlagenes Wort",
+        "cost": 3,
+        "hits": 1,
+        "flat": 26,
+        "holy": true,
+        "drain": 0.5,
+        "guard_break": true,
+        "fx": "echo_hoch_4",
+        "desc": "Dein Wort beschlägt den Gegner wie Glas. 26 Schaden, doppelt gegen Okkultes, die Hälfte heilt dich, sein Panzer bricht."
+      },
+      "welt": {
+        "id": "stilleverwahrung",
+        "name": "Stilleverwahrung",
+        "nerves": 0,
+        "unruhe": 0,
+        "cooldown": 480,
+        "buff": {
+          "key": "composure_regen",
+          "value": 2.0,
+          "seconds": 240
+        },
+        "desc": "Du verwahrst die Stille in dir. 4 Minuten lang erholen sich deine Nerven doppelt so schnell."
+      }
+    },
+    "3": {
+      "kampf": {
+        "id": "fremde_kehle",
+        "name": "Fremde Kehle",
+        "cost": 3,
+        "hits": 2,
+        "flat": 18,
+        "holy": true,
+        "confuse": true,
+        "fx": "echo_hoch_3",
+        "desc": "Du sprichst mit der Stimme des Gegners. Je 18 Schaden, doppelt gegen Okkultes, und er schlägt beim nächsten Mal sich selbst."
+      },
+      "welt": {
+        "id": "nachruf",
+        "name": "Nachruf",
+        "nerves": 12,
+        "unruhe": 4,
+        "cooldown": 420,
+        "review": true,
+        "hint": true,
+        "desc": "Die Toten des Ortes halten dir ihren Nachruf: nächster Schritt und eine offene Vermutung."
+      }
+    },
+    "2": {
+      "kampf": {
+        "id": "kuestenlaut",
+        "name": "Küstenlaut",
+        "cost": 4,
+        "hits": 1,
+        "flat": 40,
+        "holy": true,
+        "drain": 0.4,
+        "slow": true,
+        "fx": "echo_hoch_2",
+        "desc": "Ein Ton wie Brandung. 40 Schaden, doppelt gegen Okkultes, 40 % heilen dich, der nächste Angriff kommt langsam."
+      },
+      "welt": {
+        "id": "schweigeufer",
+        "name": "Schweigeufer",
+        "nerves": 14,
+        "unruhe": 4,
+        "cooldown": 480,
+        "scare": 60,
+        "calm": 15,
+        "desc": "Um dich wird es so still, dass niemand näherkommen mag. Eine Minute lang weichen gewöhnliche Gegner, die Unruhe sinkt um 15."
+      }
+    },
+    "1": {
+      "kampf": {
+        "id": "letztes_zuhoeren",
+        "name": "Letztes Zuhören",
+        "cost": 4,
+        "hits": 0,
+        "weak": true,
+        "weaken": [
+          0.5,
+          3
+        ],
+        "nerves_gain": 20,
+        "heal_all": 15,
+        "fx": "echo_hoch_1",
+        "desc": "Du hörst dem Gegner zu, bis er nichts mehr hat. Schwachstelle offen, 3 Runden lang halber Schaden von ihm, 20 Nerven und 15 Leben für jeden Stehenden."
+      },
+      "welt": {
+        "id": "zuhoerstelle",
+        "name": "Zuhörstelle",
+        "nerves": 0,
+        "unruhe": 0,
+        "cooldown": 600,
+        "nerves_gain": 60,
+        "calm": 30,
+        "desc": "Du setzt dich an die Stelle, an der alles gehört wird. 60 Nerven zurück, Unruhe sinkt um 30."
+      }
+    }
+  },
+  "kessel": {
+    "9": {
+      "kampf": {
+        "id": "riechsalz",
+        "name": "Riechsalz",
+        "cost": 1,
+        "hits": 0,
+        "nerves_gain": 6,
+        "cleanse": true,
+        "fx": "wundsalbe",
+        "desc": "Ein scharfer Atemzug. 6 Nerven zurück, und eine Blutung versiegt."
+      },
+      "welt": {
+        "id": "kraeuterwickel",
+        "name": "Kräuterwickel",
+        "nerves": 4,
+        "unruhe": 0,
+        "cooldown": 240,
+        "heal_pct": 0.2,
+        "desc": "Du legst dir einen Wickel aus dem an, was am Wegrand wächst. Heilt 20 % deines Lebens."
+      }
+    },
+    "8": {
+      "kampf": {
+        "id": "rauchphiole",
+        "name": "Rauchphiole",
+        "cost": 2,
+        "hits": 0,
+        "evade": true,
+        "burn": [
+          3,
+          2
+        ],
+        "fx": "giftphiole",
+        "desc": "Beißender Rauch. Der nächste Angriff geht ins Leere, der Gegner hustet 2 Runden lang (3 Schaden)."
+      },
+      "welt": {
+        "id": "beruhigender_sud",
+        "name": "Beruhigender Sud",
+        "nerves": 0,
+        "unruhe": 0,
+        "cooldown": 240,
+        "calm": 15,
+        "desc": "Du brühst dir aus der Tasche einen Schluck gegen das Flackern. Senkt die Unruhe um 15."
+      }
+    },
+    "7": {
+      "kampf": {
+        "id": "laugenwurf",
+        "name": "Laugenwurf",
+        "cost": 2,
+        "hits": 1,
+        "flat": 7,
+        "armor_break": 1,
+        "weak": true,
+        "fx": "aetzwolke",
+        "desc": "Ein Spritzer Lauge. 7 Schaden, der Panzer verliert eine Stufe, die Schwachstelle liegt offen."
+      },
+      "welt": {
+        "id": "staerkende_tinktur",
+        "name": "Stärkende Tinktur",
+        "nerves": 6,
+        "unruhe": 2,
+        "cooldown": 300,
+        "buff": {
+          "key": "heal_bonus",
+          "value": 1.5,
+          "seconds": 240
+        },
+        "desc": "Ein paar Tropfen vorab. 4 Minuten lang wirken heilende Gegenstände 50 % stärker."
+      }
+    },
+    "6": {
+      "kampf": {
+        "id": "destillat",
+        "name": "Destillat",
+        "cost": 2,
+        "hits": 0,
+        "heal": 18,
+        "ap_gain": 1,
+        "fx": "lebenselixier",
+        "desc": "Ein Schluck aus der Taschenflasche. 18 Leben, und 1 Konzentration kehrt zurück."
+      },
+      "welt": {
+        "id": "witterung",
+        "name": "Witterung",
+        "nerves": 8,
+        "unruhe": 2,
+        "cooldown": 300,
+        "reveal": 30,
+        "desc": "Du riechst, woraus die Dinge bestehen, auch die versteckten. 30 Sekunden lang zeigen sich verborgene Spuren."
+      }
+    },
+    "5": {
+      "kampf": {
+        "id": "wandlungstrunk",
+        "name": "Wandlungstrunk",
+        "cost": 3,
+        "hits": 0,
+        "shield": 12,
+        "heal": 12,
+        "nerves_gain": 14,
+        "fx": "zersetzung",
+        "desc": "Gift, Arznei, Säure in einem Schluck. Schutz 12, 12 Leben und 14 Nerven."
+      },
+      "welt": {
+        "id": "schnellbrand",
+        "name": "Schnellbrand",
+        "nerves": 10,
+        "unruhe": 3,
+        "cooldown": 360,
+        "heal_pct": 0.35,
+        "calm": 10,
+        "desc": "Du brennst dir am Feuer in der Tasche ein Elixier. Heilt 35 % deines Lebens, Unruhe sinkt um 10."
+      }
+    },
+    "4": {
+      "kampf": {
+        "id": "rueckstandsgift",
+        "name": "Rückstandsgift",
+        "cost": 3,
+        "hits": 1,
+        "flat": 12,
+        "burn": [
+          9,
+          4
+        ],
+        "extend_burn": 2,
+        "fx": "kessel_hoch_4",
+        "desc": "Was übrig bleibt, wirkt am längsten. 12 Schaden, 4 Runden je 9 Gift, ein bestehender Brand hält 2 Runden länger."
+      },
+      "welt": {
+        "id": "schichtung",
+        "name": "Schichtung",
+        "nerves": 10,
+        "unruhe": 3,
+        "cooldown": 420,
+        "buff": {
+          "key": "carry",
+          "value": 25,
+          "seconds": 300
+        },
+        "desc": "Deine Säfte setzen sich dichter. 5 Minuten lang +25 Pfund Tragkraft."
+      }
+    },
+    "3": {
+      "kampf": {
+        "id": "kreislaufsud",
+        "name": "Kreislaufsud",
+        "cost": 3,
+        "hits": 0,
+        "heal_all": 24,
+        "cleanse": true,
+        "fx": "kessel_hoch_3",
+        "desc": "Ein Sud, der durch jeden Stehenden kreist. 24 Leben für jeden, Blutungen versiegen."
+      },
+      "welt": {
+        "id": "zehrende_wandlung",
+        "name": "Zehrende Wandlung",
+        "nerves": 12,
+        "unruhe": 4,
+        "cooldown": 420,
+        "buff": {
+          "key": "damage_taken",
+          "value": 0.8,
+          "seconds": 300
+        },
+        "desc": "Deine Haut gerbt sich von innen. 5 Minuten lang nimmst du 20 % weniger Schaden."
+      }
+    },
+    "2": {
+      "kampf": {
+        "id": "dampfstoss",
+        "name": "Dampfstoß",
+        "cost": 4,
+        "hits": 2,
+        "flat": 24,
+        "burn": [
+          14,
+          3
+        ],
+        "slow": true,
+        "fx": "kessel_hoch_2",
+        "desc": "Zwei Schübe kochenden Dampfs. Je 24 Schaden, 3 Runden je 14 Brand, der nächste Angriff kommt langsam."
+      },
+      "welt": {
+        "id": "abwaerme",
+        "name": "Abwärme",
+        "nerves": 0,
+        "unruhe": 0,
+        "cooldown": 480,
+        "heal_pct": 0.5,
+        "nerves_gain": 25,
+        "desc": "Du sammelst die Wärme ein, die andere verlieren. Heilt 50 % deines Lebens und 25 Nerven."
+      }
+    },
+    "1": {
+      "kampf": {
+        "id": "letzte_fraktion",
+        "name": "Unverlorener Rest",
+        "cost": 4,
+        "hits": 0,
+        "heal_all": 40,
+        "shield_all": 20,
+        "ap_gain": 2,
+        "fx": "kessel_hoch_1",
+        "desc": "Nichts geht verloren, alles kommt zurück. 40 Leben und Schutz 20 für jeden Stehenden, 2 Konzentration zurück."
+      },
+      "welt": {
+        "id": "kreislauf",
+        "name": "Kreislauf",
+        "nerves": 0,
+        "unruhe": 0,
+        "cooldown": 600,
+        "heal_pct": 1.0,
+        "calm": 40,
+        "desc": "Dein Körper kehrt in den Zustand zurück, in dem er sein sollte. Volles Leben, Unruhe sinkt um 40."
+      }
+    }
+  },
+  "eisen": {
+    "9": {
+      "kampf": {
+        "id": "schulterstoss",
+        "name": "Schulterstoß",
+        "cost": 1,
+        "hits": 1,
+        "mult": 0.9,
+        "slow": true,
+        "fx": "wuchtschlag",
+        "desc": "Ein Stoß mit der Schulter. 90 % Waffenschaden, der Gegner taumelt: Sein nächster Angriff kommt langsam."
+      },
+      "welt": {
+        "id": "zaehne_zusammen",
+        "name": "Zähne zusammen",
+        "nerves": 0,
+        "unruhe": 0,
+        "cooldown": 240,
+        "heal_pct": 0.15,
+        "desc": "Du beißt die Zähne zusammen, bis es nicht mehr blutet. Heilt 15 % deines Lebens."
+      }
+    },
+    "8": {
+      "kampf": {
+        "id": "deckung",
+        "name": "Deckung",
+        "cost": 2,
+        "hits": 0,
+        "shield": 8,
+        "ap_gain": 1,
+        "fx": "eisenhaut",
+        "desc": "Du nimmst die Arme hoch. Schutz 8, und 1 Konzentration kehrt zurück."
+      },
+      "welt": {
+        "id": "wachstand",
+        "name": "Wachstand",
+        "nerves": 6,
+        "unruhe": 2,
+        "cooldown": 300,
+        "buff": {
+          "key": "parry_ap",
+          "value": 1,
+          "seconds": 240
+        },
+        "desc": "Du stehst, wie ein Wachposten steht. 4 Minuten lang geben Paraden 1 Konzentration mehr."
+      }
+    },
+    "7": {
+      "kampf": {
+        "id": "klingenbruch",
+        "name": "Klingenbruch",
+        "cost": 2,
+        "hits": 1,
+        "mult": 1.2,
+        "armor_break": 1,
+        "guard_break": true,
+        "fx": "klingenwirbel",
+        "desc": "Ein Hieb gegen die Deckung. 120 % Waffenschaden, Panzer und Schild des Gegners brechen."
+      },
+      "welt": {
+        "id": "waffenpflege",
+        "name": "Waffenpflege",
+        "nerves": 6,
+        "unruhe": 0,
+        "cooldown": 300,
+        "buff": {
+          "key": "atk",
+          "value": 3,
+          "seconds": 240
+        },
+        "desc": "Du schärfst und ölst, was du trägst. 4 Minuten lang +3 Angriff."
+      }
+    },
+    "6": {
+      "kampf": {
+        "id": "hafenmauer",
+        "name": "Hafenmauer",
+        "cost": 2,
+        "hits": 0,
+        "shield_all": 14,
+        "cleanse": true,
+        "fx": "unbeugsam",
+        "desc": "Du stellst dich vor alle. Schutz 14 für jeden Stehenden, deine Blutung versiegt."
+      },
+      "welt": {
+        "id": "lastentraeger",
+        "name": "Lastenträger",
+        "nerves": 8,
+        "unruhe": 2,
+        "cooldown": 360,
+        "buff": {
+          "key": "carry",
+          "value": 30,
+          "seconds": 300
+        },
+        "desc": "Du nimmst alles auf den Rücken. 5 Minuten lang +30 Pfund Tragkraft."
+      }
+    },
+    "5": {
+      "kampf": {
+        "id": "ambossschlag",
+        "name": "Ambossschlag",
+        "cost": 3,
+        "hits": 1,
+        "mult": 2.0,
+        "pierce": true,
+        "weaken": [
+          0.8,
+          2
+        ],
+        "fx": "hammerfall",
+        "desc": "Ein Schlag wie auf den Amboss. 200 % Waffenschaden durch jeden Panzer, der Gegner trifft 2 Runden lang 20 % schwächer."
+      },
+      "welt": {
+        "id": "schmerzfrei",
+        "name": "Schmerzfrei",
+        "nerves": 10,
+        "unruhe": 3,
+        "cooldown": 420,
+        "buff": {
+          "key": "damage_taken",
+          "value": 0.75,
+          "seconds": 300
+        },
+        "desc": "Dein Körper hört auf, sich zu beschweren. 5 Minuten lang nimmst du 25 % weniger Schaden."
+      }
+    },
+    "4": {
+      "kampf": {
+        "id": "nietenfaust",
+        "name": "Nietenfaust",
+        "cost": 3,
+        "hits": 2,
+        "mult": 1.5,
+        "armor_break": 2,
+        "fx": "eisen_hoch_4",
+        "desc": "Zwei Fäuste wie Nietköpfe. Je 150 % Waffenschaden, der Panzer des Gegners verliert zwei Stufen."
+      },
+      "welt": {
+        "id": "standhaft",
+        "name": "Standhaft",
+        "nerves": 10,
+        "unruhe": 3,
+        "cooldown": 420,
+        "scare": 45,
+        "heal_pct": 0.2,
+        "desc": "Du stellst dich breit hin, und die Gasse weiß Bescheid. 45 Sekunden lang weichen gewöhnliche Gegner, 20 % Leben zurück."
+      }
+    },
+    "3": {
+      "kampf": {
+        "id": "gegenlast",
+        "name": "Gegenlast",
+        "cost": 3,
+        "hits": 0,
+        "shield": 30,
+        "read": true,
+        "focus": true,
+        "fx": "eisen_hoch_3",
+        "desc": "Du setzt dein Gewicht dagegen. Schutz 30, der nächste Schlag lässt sich parieren, wie unparierbar er auch ist, und deine nächste Fertigkeit trifft einen Takt genauer."
+      },
+      "welt": {
+        "id": "eingedrueckte_spur",
+        "name": "Eingedrückte Spur",
+        "nerves": 12,
+        "unruhe": 4,
+        "cooldown": 480,
+        "buff": {
+          "key": "dmg_mult",
+          "value": 1.2,
+          "seconds": 240
+        },
+        "desc": "Jeder Schritt drückt sich in den Stein. 4 Minuten lang +20 % Schaden mit allem."
+      }
+    },
+    "2": {
+      "kampf": {
+        "id": "traegerstoss",
+        "name": "Trägerstoß",
+        "cost": 4,
+        "hits": 3,
+        "mult": 1.6,
+        "sure": true,
+        "slow": true,
+        "fx": "eisen_hoch_2",
+        "desc": "Drei Stöße mit dem Gewicht einer Brücke. Kein Takt geht verloren, der Gegner wird langsam."
+      },
+      "welt": {
+        "id": "widerlager",
+        "name": "Widerlager",
+        "nerves": 14,
+        "unruhe": 4,
+        "cooldown": 480,
+        "buff": {
+          "key": "damage_taken",
+          "value": 0.6,
+          "seconds": 240
+        },
+        "heal_pct": 0.3,
+        "desc": "Du wirst zum Teil der Stadtmauer. 4 Minuten lang 40 % weniger Schaden, 30 % Leben zurück."
+      }
+    },
+    "1": {
+      "kampf": {
+        "id": "bleibende_stuetze",
+        "name": "Bleibende Stütze",
+        "cost": 4,
+        "hits": 0,
+        "shield_all": 40,
+        "heal_all": 20,
+        "weaken": [
+          0.6,
+          3
+        ],
+        "fx": "eisen_hoch_1",
+        "desc": "Du stehst, und alles lehnt sich an dich. Schutz 40 und 20 Leben für jeden Stehenden, der Gegner trifft 3 Runden lang 40 % schwächer."
+      },
+      "welt": {
+        "id": "stehender_schatten",
+        "name": "Stehender Schatten",
+        "nerves": 16,
+        "unruhe": 5,
+        "cooldown": 600,
+        "scare": 120,
+        "buff": {
+          "key": "carry",
+          "value": 60,
+          "seconds": 300
+        },
+        "desc": "Dein Schatten bleibt stehen, und niemand wagt sich an ihm vorbei. 2 Minuten lang weichen gewöhnliche Gegner, 5 Minuten lang +60 Pfund Tragkraft."
+      }
+    }
+  },
+  "schluessel": {
+    "9": {
+      "kampf": {
+        "id": "griff_in_die_tasche",
+        "name": "Griff in die Tasche",
+        "cost": 1,
+        "hits": 1,
+        "mult": 0.7,
+        "steal": 6,
+        "fx": "hinterhalt",
+        "desc": "Ein Stich und ein Griff. 70 % Waffenschaden, und von Menschen fallen 6 Schilling ab."
+      },
+      "welt": {
+        "id": "muenzen_finden",
+        "name": "Münzen finden",
+        "nerves": 4,
+        "unruhe": 2,
+        "cooldown": 480,
+        "money": [
+          4,
+          12
+        ],
+        "desc": "Münzen finden ihren Weg zu dir: zwischen Pflastersteinen, in Rinnen, unter Bänken. 4 bis 12 Schilling."
+      }
+    },
+    "8": {
+      "kampf": {
+        "id": "riegelgriff",
+        "name": "Riegelgriff",
+        "cost": 2,
+        "hits": 1,
+        "mult": 1.0,
+        "guard_break": true,
+        "armor_break": 1,
+        "fx": "fallstrick",
+        "desc": "Du findest den Riegel in der Deckung des Gegners. Normaler Schaden, Schild und eine Stufe Panzer fallen."
+      },
+      "welt": {
+        "id": "schlossfluestern",
+        "name": "Schlossflüstern",
+        "nerves": 8,
+        "unruhe": 2,
+        "cooldown": 300,
+        "buff": {
+          "key": "lock_bonus",
+          "value": 20,
+          "seconds": 120
+        },
+        "desc": "Du fragst das Schloss, wie es aufgehen will. 2 Minuten lang öffnen sich gesperrte Schränke und Türen mit 20 Ansehen weniger."
+      }
+    },
+    "7": {
+      "kampf": {
+        "id": "schattenhaut",
+        "name": "Schattenhaut",
+        "cost": 2,
+        "hits": 0,
+        "evade": true,
+        "ap_gain": 1,
+        "fx": "schattenschritt",
+        "desc": "Du trittst in den Schatten. Der nächste Angriff geht ins Leere, und 1 Konzentration kehrt zurück."
+      },
+      "welt": {
+        "id": "schattenweg",
+        "name": "Schattenweg",
+        "nerves": 8,
+        "unruhe": 2,
+        "cooldown": 360,
+        "buff": {
+          "key": "hurry_cost",
+          "value": 0.0,
+          "seconds": 240
+        },
+        "desc": "Die Schatten tragen dich durch die Stadt. 4 Minuten lang kostet die schnelle Reise keine Nerven."
+      }
+    },
+    "6": {
+      "kampf": {
+        "id": "boersenschnitt",
+        "name": "Börsenschnitt",
+        "cost": 2,
+        "hits": 2,
+        "mult": 1.0,
+        "steal": 12,
+        "fx": "taschenspiel",
+        "desc": "Zwei Stiche, ein Schnitt am Beutel. Je normaler Schaden, und von Menschen fallen 12 Schilling ab."
+      },
+      "welt": {
+        "id": "nachtgang",
+        "name": "Nachtgang",
+        "nerves": 10,
+        "unruhe": 3,
+        "cooldown": 360,
+        "scare": 40,
+        "money": [
+          6,
+          16
+        ],
+        "desc": "Du gehst, wo niemand hinsieht. 40 Sekunden lang weichen gewöhnliche Gegner, und 6 bis 16 Schilling bleiben an dir hängen."
+      }
+    },
+    "5": {
+      "kampf": {
+        "id": "siegelstich",
+        "name": "Siegelstich",
+        "cost": 3,
+        "hits": 1,
+        "mult": 1.8,
+        "pierce": true,
+        "weak": true,
+        "fx": "kehlschnitt",
+        "desc": "Ein Stich, der jedes Siegel bricht. 180 % Waffenschaden durch jeden Panzer, die Schwachstelle liegt offen."
+      },
+      "welt": {
+        "id": "jede_tuer",
+        "name": "Jede Tür",
+        "nerves": 12,
+        "unruhe": 4,
+        "cooldown": 420,
+        "buff": {
+          "key": "lock_bonus",
+          "value": 35,
+          "seconds": 180
+        },
+        "reveal": 30,
+        "desc": "Kein Riegel hält. 3 Minuten lang öffnen sich Schlösser mit 35 Ansehen weniger, 30 Sekunden lang zeigen sich verborgene Spuren."
+      }
+    },
+    "4": {
+      "kampf": {
+        "id": "schwellentritt",
+        "name": "Schwellentritt",
+        "cost": 3,
+        "hits": 2,
+        "mult": 1.4,
+        "evade": true,
+        "steal": 15,
+        "fx": "schluessel_hoch_4",
+        "desc": "Du trittst durch die Schwelle hinter dem Gegner. Je 140 % Waffenschaden, der nächste Angriff geht ins Leere, von Menschen fallen 15 Schilling ab."
+      },
+      "welt": {
+        "id": "gute_beute",
+        "name": "Gute Beute",
+        "nerves": 10,
+        "unruhe": 3,
+        "cooldown": 420,
+        "buff": {
+          "key": "money_bonus",
+          "value": 1.5,
+          "seconds": 300
+        },
+        "desc": "Du weißt, wo das Geld liegt. 5 Minuten lang +50 % Schilling aus Belohnungen und Beute."
+      }
+    },
+    "3": {
+      "kampf": {
+        "id": "leerriegel",
+        "name": "Leerriegel",
+        "cost": 3,
+        "hits": 0,
+        "evade": true,
+        "confuse": true,
+        "guard_break": true,
+        "fx": "schluessel_hoch_3",
+        "desc": "Der Gegner schlägt gegen eine Tür, die nicht mehr da ist. Nächster Angriff ins Leere, danach trifft er sich selbst, sein Schild fällt."
+      },
+      "welt": {
+        "id": "spiegelhand",
+        "name": "Spiegelhand",
+        "nerves": 12,
+        "unruhe": 4,
+        "cooldown": 480,
+        "money": [
+          15,
+          35
+        ],
+        "wanted": -1,
+        "desc": "Deine Hand ist schon auf der anderen Seite der Scheibe. 15 bis 35 Schilling, die Fahndung sinkt um eine Stufe."
+      }
+    },
+    "2": {
+      "kampf": {
+        "id": "randsprung",
+        "name": "Randsprung",
+        "cost": 4,
+        "hits": 3,
+        "mult": 1.5,
+        "sure": true,
+        "ap_gain": 2,
+        "fx": "schluessel_hoch_2",
+        "desc": "Drei Stiche vom Rand des Türrahmens. Kein Takt geht verloren, 2 Konzentration kehren zurück."
+      },
+      "welt": {
+        "id": "innenrand",
+        "name": "Innenrand",
+        "nerves": 14,
+        "unruhe": 4,
+        "cooldown": 480,
+        "buff": {
+          "key": "always_flee",
+          "value": true,
+          "seconds": 600
+        },
+        "buff2": {
+          "key": "lock_bonus",
+          "value": 40,
+          "seconds": 300
+        },
+        "desc": "Du stehst immer auf der abgewandten Seite. 10 Minuten lang kannst du aus jedem Kampf fliehen, 5 Minuten lang öffnen sich Schlösser mit 40 Ansehen weniger."
+      }
+    },
+    "1": {
+      "kampf": {
+        "id": "offene_schwelle",
+        "name": "Offener Durchgang",
+        "cost": 4,
+        "hits": 1,
+        "mult": 3.0,
+        "pierce": true,
+        "evade": true,
+        "steal": 25,
+        "fx": "schluessel_hoch_1",
+        "desc": "Du öffnest im Gegner eine Tür. 300 % Waffenschaden durch jeden Panzer, der nächste Angriff geht ins Leere, von Menschen fallen 25 Schilling ab."
+      },
+      "welt": {
+        "id": "unverwehrte_tuer",
+        "name": "Unverwehrte Tür",
+        "nerves": 16,
+        "unruhe": 5,
+        "cooldown": 600,
+        "buff": {
+          "key": "lock_bonus",
+          "value": 80,
+          "seconds": 300
+        },
+        "money": [
+          30,
+          60
+        ],
+        "reveal": 60,
+        "desc": "Nichts ist dir verwehrt. 5 Minuten lang öffnet sich jedes Schloss, 30 bis 60 Schilling, eine Minute lang alle verborgenen Spuren."
+      }
+    }
+  },
+  "sq_waage": {
+    "9": {
+      "kampf": {
+        "id": "waage_pfandnahme",
+        "name": "Pfandnahme",
+        "cost": 1,
+        "hits": 1,
+        "flat": 5,
+        "steal": 5,
+        "fx": "waage_stufe_9",
+        "desc": "Du nimmst dir, was dir zusteht. 5 Schaden, von Menschen fallen 5 Schilling ab."
+      },
+      "welt": {
+        "id": "waage_druckstellen",
+        "name": "Druckstellen lesen",
+        "nerves": 5,
+        "unruhe": 0,
+        "cooldown": 300,
+        "buff": {
+          "key": "sell",
+          "value": 1.25,
+          "seconds": 180
+        },
+        "desc": "Du erkennst den Wert an den Druckstellen. 3 Minuten lang zahlen Pfandleiher 25 % mehr."
+      }
+    },
+    "8": {
+      "kampf": {
+        "id": "waage_bleizunge",
+        "name": "Bleizunge",
+        "cost": 2,
+        "hits": 0,
+        "weaken": [
+          0.8,
+          2
+        ],
+        "shield": 6,
+        "fx": "waage_stufe_8",
+        "desc": "Du nennst die falsche Forderung beim Namen. Schutz 6, der Gegner schlägt 2 Runden lang 20 % schwächer."
+      },
+      "welt": {
+        "id": "waage_fairer_preis",
+        "name": "Fairer Preis",
+        "nerves": 6,
+        "unruhe": 2,
+        "cooldown": 300,
+        "buff": {
+          "key": "price",
+          "value": 0.85,
+          "seconds": 180
+        },
+        "desc": "Du weißt, was etwas wert ist, und der Händler weiß, dass du es weißt. 3 Minuten lang 15 % günstiger."
+      }
+    },
+    "7": {
+      "kampf": {
+        "id": "waage_frist",
+        "name": "Frist setzen",
+        "cost": 2,
+        "hits": 0,
+        "slow": true,
+        "read": true,
+        "ap_gain": 1,
+        "fx": "waage_stufe_7",
+        "desc": "Du setzt dem Gegner eine Frist. Sein nächster Schlag kommt langsam und lässt sich parieren, 1 Konzentration kehrt zurück."
+      },
+      "welt": {
+        "id": "waage_ruhige_hand",
+        "name": "Ruhige Hand",
+        "nerves": 0,
+        "unruhe": 0,
+        "cooldown": 240,
+        "calm": 15,
+        "desc": "Du zahlst, was du schuldest, und wirst ruhig dabei. Senkt die Unruhe um 15."
+      }
+    },
+    "6": {
+      "kampf": {
+        "id": "waage_ausgleich",
+        "name": "Ausgleich",
+        "cost": 2,
+        "hits": 1,
+        "flat": 10,
+        "shield_all": 8,
+        "fx": "waage_stufe_6",
+        "desc": "Ein Schlag, ein Gegengewicht. 10 Schaden, Schutz 8 für jeden Stehenden."
+      },
+      "welt": {
+        "id": "waage_anteil",
+        "name": "Eigener Anteil",
+        "nerves": 8,
+        "unruhe": 2,
+        "cooldown": 360,
+        "buff": {
+          "key": "money_bonus",
+          "value": 1.3,
+          "seconds": 300
+        },
+        "desc": "Du nimmst deinen Anteil, nicht mehr und nicht weniger. 5 Minuten lang +30 % Schilling aus Belohnungen und Beute."
+      }
+    },
+    "5": {
+      "kampf": {
+        "id": "waage_saldo",
+        "name": "Offener Saldo",
+        "cost": 3,
+        "hits": 1,
+        "flat": 14,
+        "weaken": [
+          0.7,
+          3
+        ],
+        "shield": 10,
+        "fx": "waage_stufe_5",
+        "desc": "Du legst dem Gegner seine Schuld auf. 14 Schaden, Schutz 10, er schlägt 3 Runden lang 30 % schwächer."
+      },
+      "welt": {
+        "id": "waage_schuldschein",
+        "name": "Schuldschein",
+        "nerves": 10,
+        "unruhe": 3,
+        "cooldown": 420,
+        "money": [
+          20,
+          40
+        ],
+        "desc": "Irgendwer in dieser Stadt schuldet dir etwas, und du weißt, wer. 20 bis 40 Schilling."
+      }
+    },
+    "4": {
+      "kampf": {
+        "id": "waage_gewichtsschatten",
+        "name": "Gewichtsschatten",
+        "cost": 3,
+        "hits": 2,
+        "flat": 18,
+        "slow": true,
+        "fx": "waage_hoch_4",
+        "desc": "Die Schatten an deinen Handgelenken schlagen mit. Je 18 Schaden, der Gegner wird langsam."
+      },
+      "welt": {
+        "id": "waage_pfandkoerper",
+        "name": "Pfandkörper",
+        "nerves": 10,
+        "unruhe": 3,
+        "cooldown": 420,
+        "buff": {
+          "key": "carry",
+          "value": 35,
+          "seconds": 300
+        },
+        "desc": "Du trägst Gewichte, die niemand sieht, also trägst du auch die, die man sieht. 5 Minuten lang +35 Pfund Tragkraft."
+      }
+    },
+    "3": {
+      "kampf": {
+        "id": "waage_halber_ton",
+        "name": "Halber Ton tiefer",
+        "cost": 3,
+        "hits": 0,
+        "shield_all": 18,
+        "weaken": [
+          0.7,
+          2
+        ],
+        "nerves_gain": 14,
+        "fx": "waage_hoch_3",
+        "desc": "Deine Stimme senkt sich, und der Gegner spürt seine Schuld. Schutz 18 für jeden Stehenden, 2 Runden lang 30 % weniger Schaden von ihm, 14 Nerven zurück."
+      },
+      "welt": {
+        "id": "waage_saldenhut",
+        "name": "Saldenhut",
+        "nerves": 12,
+        "unruhe": 4,
+        "cooldown": 480,
+        "buff": {
+          "key": "conclusion_honor",
+          "value": 2,
+          "seconds": 300
+        },
+        "buff2": {
+          "key": "honor_loss",
+          "value": 0.5,
+          "seconds": 300
+        },
+        "desc": "Jede Zusage wird gewogen. 5 Minuten lang +2 Ansehen je Schlussfolgerung und nur halber Ansehensverlust."
+      }
+    },
+    "2": {
+      "kampf": {
+        "id": "waage_gegenbuchung",
+        "name": "Gegenbuchung",
+        "cost": 4,
+        "hits": 2,
+        "flat": 28,
+        "shield": 20,
+        "drain": 0.3,
+        "fx": "waage_hoch_2",
+        "desc": "Was der Gegner nimmt, buchst du zurück. Je 28 Schaden, Schutz 20, 30 % des Schadens heilen dich."
+      },
+      "welt": {
+        "id": "waage_zusagen",
+        "name": "Zusagen senken",
+        "nerves": 14,
+        "unruhe": 4,
+        "cooldown": 480,
+        "buff": {
+          "key": "price",
+          "value": 0.7,
+          "seconds": 300
+        },
+        "buff2": {
+          "key": "sell",
+          "value": 1.4,
+          "seconds": 300
+        },
+        "desc": "Dein Schatten senkt sich unter die Zusagen der Händler. 5 Minuten lang 30 % günstiger kaufen, 40 % teurer verkaufen."
+      }
+    },
+    "1": {
+      "kampf": {
+        "id": "waage_quittung",
+        "name": "Quittung",
+        "cost": 4,
+        "hits": 1,
+        "flat": 36,
+        "weak": true,
+        "shield_all": 30,
+        "ap_gain": 2,
+        "fx": "waage_hoch_1",
+        "desc": "Du stellst die letzte Quittung aus. 36 Schaden, Schwachstelle offen, Schutz 30 für jeden Stehenden, 2 Konzentration zurück."
+      },
+      "welt": {
+        "id": "waage_erlass",
+        "name": "Schuld erlassen",
+        "nerves": 16,
+        "unruhe": 5,
+        "cooldown": 600,
+        "money": [
+          50,
+          90
+        ],
+        "calm": 30,
+        "desc": "Jemand erlässt freiwillig eine Schuld, und in deiner Handfläche erscheint die Quittung. 50 bis 90 Schilling, Unruhe sinkt um 30."
+      }
+    }
+  },
+  "sq_moor": {
+    "9": {
+      "kampf": {
+        "id": "moor_torfschlag",
+        "name": "Torfschlag",
+        "cost": 1,
+        "hits": 1,
+        "flat": 5,
+        "heal": 3,
+        "fx": "moor_stufe_9",
+        "desc": "Ein feuchter, schwerer Schlag. 5 Schaden, 3 Leben zurück."
+      },
+      "welt": {
+        "id": "moor_alte_spur",
+        "name": "Alte Spur",
+        "nerves": 5,
+        "unruhe": 0,
+        "cooldown": 240,
+        "reveal": 20,
+        "desc": "Du siehst, was lange hier liegt. 20 Sekunden lang zeigen sich verborgene Spuren ohne Geistsicht."
+      }
+    },
+    "8": {
+      "kampf": {
+        "id": "moor_namenslast",
+        "name": "Vergessener Name",
+        "cost": 2,
+        "hits": 0,
+        "weaken": [
+          0.8,
+          2
+        ],
+        "nerves_gain": 10,
+        "fx": "moor_stufe_8",
+        "desc": "Du nennst dem Gegner einen Namen, den er vergessen hat. Er schlägt 2 Runden lang 20 % schwächer, dir kehren 10 Nerven zurück."
+      },
+      "welt": {
+        "id": "moor_namen_sammeln",
+        "name": "Namen sammeln",
+        "nerves": 6,
+        "unruhe": 2,
+        "cooldown": 300,
+        "review": true,
+        "desc": "Ein vergessener Name fällt dir ein: Eine Vermutung ohne zweite Quelle kommt dir wieder in den Sinn."
+      }
+    },
+    "7": {
+      "kampf": {
+        "id": "moor_schicht",
+        "name": "Schichtwechsel",
+        "cost": 2,
+        "hits": 1,
+        "flat": 8,
+        "cleanse": true,
+        "shield": 8,
+        "fx": "moor_stufe_7",
+        "desc": "Du legst eine Schicht Torf über die Wunde. 8 Schaden, Schutz 8, deine Blutung versiegt."
+      },
+      "welt": {
+        "id": "moor_aeltere_geschichte",
+        "name": "Ältere Geschichte",
+        "nerves": 8,
+        "unruhe": 2,
+        "cooldown": 300,
+        "hint": true,
+        "desc": "Du erkennst, was unter der Geschichte liegt: Der Pfad sagt dir, was dein wichtigster Auftrag als Nächstes braucht."
+      }
+    },
+    "6": {
+      "kampf": {
+        "id": "moor_uferhalt",
+        "name": "Uferhalt",
+        "cost": 2,
+        "hits": 0,
+        "heal_all": 12,
+        "shield_all": 6,
+        "fx": "moor_stufe_6",
+        "desc": "Das Ufer hält dich und deine Begleitung. 12 Leben und Schutz 6 für jeden Stehenden."
+      },
+      "welt": {
+        "id": "moor_bodenhaftung",
+        "name": "Bodenhaftung",
+        "nerves": 8,
+        "unruhe": 2,
+        "cooldown": 360,
+        "buff": {
+          "key": "damage_taken",
+          "value": 0.85,
+          "seconds": 300
+        },
+        "desc": "Du stehst im Boden wie ein alter Pfahl. 5 Minuten lang nimmst du 15 % weniger Schaden."
+      }
+    },
+    "5": {
+      "kampf": {
+        "id": "moor_luecke",
+        "name": "Offene Lücke",
+        "cost": 3,
+        "hits": 1,
+        "flat": 12,
+        "weak": true,
+        "evade": true,
+        "fx": "moor_stufe_5",
+        "desc": "Du lässt eine Lücke, in die der Gegner fällt. 12 Schaden, Schwachstelle offen, der nächste Angriff geht ins Leere."
+      },
+      "welt": {
+        "id": "moor_torfgedaechtnis",
+        "name": "Torfgedächtnis",
+        "nerves": 10,
+        "unruhe": 3,
+        "cooldown": 360,
+        "digest": 8,
+        "desc": "Du hältst eine Lücke offen und erinnerst dich an alles um sie herum. Verdaut deinen Trank um 8 %."
+      }
+    },
+    "4": {
+      "kampf": {
+        "id": "moor_schichtdruck",
+        "name": "Schichtendruck",
+        "cost": 3,
+        "hits": 2,
+        "flat": 16,
+        "heal": 10,
+        "slow": true,
+        "fx": "moor_hoch_4",
+        "desc": "Zwei Schläge, schwer wie nasser Torf. Je 16 Schaden, 10 Leben zurück, der Gegner wird langsam."
+      },
+      "welt": {
+        "id": "moor_lesbare_haut",
+        "name": "Lesbare Haut",
+        "nerves": 10,
+        "unruhe": 3,
+        "cooldown": 420,
+        "reveal": 60,
+        "review": true,
+        "desc": "Die Namen in deiner Haut zeigen dir, was hier verborgen liegt: eine Minute lang verborgene Spuren und eine offene Vermutung."
+      }
+    },
+    "3": {
+      "kampf": {
+        "id": "moor_bodennamen",
+        "name": "Namen im Boden",
+        "cost": 3,
+        "hits": 0,
+        "weaken": [
+          0.65,
+          3
+        ],
+        "heal_all": 18,
+        "fx": "moor_hoch_3",
+        "desc": "Der Boden kennt den Gegner. 3 Runden lang 35 % weniger Schaden von ihm, 18 Leben für jeden Stehenden."
+      },
+      "welt": {
+        "id": "moor_sediment",
+        "name": "Sediment",
+        "nerves": 12,
+        "unruhe": 3,
+        "cooldown": 480,
+        "digest": 15,
+        "calm": 15,
+        "desc": "Du lässt dich absetzen wie Schlick. Verdaut deinen Trank um 15 %, Unruhe sinkt um 15."
+      }
+    },
+    "2": {
+      "kampf": {
+        "id": "moor_vergessensrand",
+        "name": "Vergessensrand",
+        "cost": 4,
+        "hits": 2,
+        "flat": 26,
+        "heal": 20,
+        "confuse": true,
+        "fx": "moor_hoch_2",
+        "desc": "Der Gegner vergisst, wen er angreift. Je 26 Schaden, 20 Leben zurück, er schlägt beim nächsten Mal sich selbst."
+      },
+      "welt": {
+        "id": "moor_ufer",
+        "name": "Vergessensufer",
+        "nerves": 14,
+        "unruhe": 4,
+        "cooldown": 480,
+        "scare": 60,
+        "heal_pct": 0.4,
+        "desc": "Um dich bleiben vergessene Wörter stehen, und niemand kommt näher. Eine Minute lang weichen gewöhnliche Gegner, 40 % Leben zurück."
+      }
+    },
+    "1": {
+      "kampf": {
+        "id": "moor_fehlstelle",
+        "name": "Fehlstelle",
+        "cost": 4,
+        "hits": 1,
+        "flat": 34,
+        "heal_all": 30,
+        "weak": true,
+        "weaken": [
+          0.6,
+          3
+        ],
+        "fx": "moor_hoch_1",
+        "desc": "Der Gegner hört seinen vergessenen Namen in deiner Fehlstelle. 34 Schaden, Schwachstelle offen, 3 Runden lang 40 % weniger Schaden von ihm, 30 Leben für jeden Stehenden."
+      },
+      "welt": {
+        "id": "moor_erinnertes",
+        "name": "Das Erinnerte",
+        "nerves": 16,
+        "unruhe": 5,
+        "cooldown": 600,
+        "digest": 25,
+        "hint": true,
+        "review": true,
+        "desc": "Alles, was fehlt, ist für einen Augenblick da: 25 % Verdauung, nächster Schritt und eine offene Vermutung."
+      }
+    }
+  },
+  "sq_uhr": {
+    "9": {
+      "kampf": {
+        "id": "uhr_vorgriff",
+        "name": "Vorgriff",
+        "cost": 2,
+        "hits": 1,
+        "flat": 5,
+        "ap_gain": 1,
+        "fx": "uhr_stufe_9",
+        "desc": "Du setzt den Fuß früher. 5 Schaden, und 1 Konzentration kehrt zurück."
+      },
+      "welt": {
+        "id": "uhr_taktzaehlen",
+        "name": "Takt zählen",
+        "nerves": 5,
+        "unruhe": 0,
+        "cooldown": 240,
+        "buff": {
+          "key": "dodge_window",
+          "value": 1.3,
+          "seconds": 180
+        },
+        "desc": "Du zählst die Schläge der Stadt mit. 3 Minuten lang ist das Ausweichfenster 30 % größer."
+      }
+    },
+    "8": {
+      "kampf": {
+        "id": "uhr_nachhinken",
+        "name": "Nachhinken",
+        "cost": 2,
+        "hits": 0,
+        "slow": true,
+        "read": true,
+        "fx": "uhr_stufe_8",
+        "desc": "Du verschiebst den Takt des Gegners. Sein nächster Angriff kommt langsam und lässt sich parieren, wie unparierbar er sonst wäre."
+      },
+      "welt": {
+        "id": "uhr_fruehe_minute",
+        "name": "Frühe Minute",
+        "nerves": 6,
+        "unruhe": 2,
+        "cooldown": 300,
+        "buff": {
+          "key": "hurry_cost",
+          "value": 0.5,
+          "seconds": 300
+        },
+        "desc": "Du gehst nicht schneller, kommst aber früher an. 5 Minuten lang kostet die schnelle Reise halb so viele Nerven."
+      }
+    },
+    "7": {
+      "kampf": {
+        "id": "uhr_pendel",
+        "name": "Pendelschwung",
+        "cost": 2,
+        "hits": 2,
+        "flat": 6,
+        "focus": true,
+        "fx": "uhr_stufe_7",
+        "desc": "Zwei Schläge im Pendeltakt. Je 6 Schaden, und deine nächste Fertigkeit trifft einen Takt genauer, als du drückst."
+      },
+      "welt": {
+        "id": "uhr_zoegern",
+        "name": "Das Zögern",
+        "nerves": 8,
+        "unruhe": 2,
+        "cooldown": 300,
+        "hint": true,
+        "desc": "Du hörst im Ablauf, wo etwas fehlt: Der Pfad sagt dir, was dein wichtigster Auftrag als Nächstes braucht."
+      }
+    },
+    "6": {
+      "kampf": {
+        "id": "uhr_gangreserve",
+        "name": "Gangreserve",
+        "cost": 3,
+        "hits": 0,
+        "evade": true,
+        "ap_gain": 2,
+        "fx": "uhr_stufe_6",
+        "desc": "Du hebst dir einen Schlag auf. Der nächste Angriff geht ins Leere, 2 Konzentration kehren zurück."
+      },
+      "welt": {
+        "id": "uhr_anhalten",
+        "name": "Uhr anhalten",
+        "nerves": 10,
+        "unruhe": 3,
+        "cooldown": 480,
+        "clock": 60,
+        "desc": "Für dich laufen die Uhren der Stadt eine Minute lang nicht: Treffen, Fahndung und Tageszeit stehen still."
+      }
+    },
+    "5": {
+      "kampf": {
+        "id": "uhr_fristschlag",
+        "name": "Fristschlag",
+        "cost": 3,
+        "hits": 1,
+        "flat": 14,
+        "sure": true,
+        "slow": true,
+        "weak": true,
+        "fx": "uhr_stufe_5",
+        "desc": "Der Schlag kommt, bevor der Gegner sich entschieden hat. 14 Schaden, kein Takt geht verloren, Schwachstelle offen, der Gegner wird langsam."
+      },
+      "welt": {
+        "id": "uhr_naechster_schlag",
+        "name": "Nächster Schlag",
+        "nerves": 10,
+        "unruhe": 3,
+        "cooldown": 420,
+        "buff": {
+          "key": "ap_start",
+          "value": 2,
+          "seconds": 300
+        },
+        "desc": "Du siehst den ersten Schlag jedes Kampfes kommen. 5 Minuten lang beginnst du Kämpfe mit +2 Konzentration."
+      }
+    },
+    "4": {
+      "kampf": {
+        "id": "uhr_zwischentakt",
+        "name": "Zwischentakt",
+        "cost": 3,
+        "hits": 2,
+        "flat": 17,
+        "focus": true,
+        "evade": true,
+        "fx": "uhr_hoch_4",
+        "desc": "Du schlägst zwischen den Schlägen. Je 17 Schaden, der nächste Angriff geht ins Leere, deine nächste Fertigkeit trifft einen Takt genauer."
+      },
+      "welt": {
+        "id": "uhr_sekundenschatten",
+        "name": "Sekundenschatten",
+        "nerves": 10,
+        "unruhe": 3,
+        "cooldown": 420,
+        "buff": {
+          "key": "dodge_window",
+          "value": 1.6,
+          "seconds": 300
+        },
+        "scout": true,
+        "desc": "Dein Schatten läuft zwischen den Schlägen. 5 Minuten lang Ausweichfenster +60 %, und du zählst die Gegner der Karte."
+      }
+    },
+    "3": {
+      "kampf": {
+        "id": "uhr_fristlauscher",
+        "name": "Vorgelauscht",
+        "cost": 3,
+        "hits": 0,
+        "read": true,
+        "slow": true,
+        "weaken": [
+          0.7,
+          2
+        ],
+        "nerves_gain": 14,
+        "fx": "uhr_hoch_3",
+        "desc": "Du hörst den Schlag vor dem Geräusch. Der nächste Angriff kommt langsam und lässt sich parieren, 2 Runden lang 30 % weniger Schaden, 14 Nerven zurück."
+      },
+      "welt": {
+        "id": "uhr_fristen",
+        "name": "Fristen",
+        "nerves": 12,
+        "unruhe": 4,
+        "cooldown": 540,
+        "clock": 120,
+        "desc": "Zwei Minuten lang stehen Treffen, Fahndung und Tageszeit für dich still."
+      }
+    },
+    "2": {
+      "kampf": {
+        "id": "uhr_wiederkehr",
+        "name": "Wiederkehr",
+        "cost": 4,
+        "hits": 3,
+        "flat": 20,
+        "sure": true,
+        "ap_gain": 3,
+        "fx": "uhr_hoch_2",
+        "desc": "Dein zweiter Umriss schlägt mit. Dreimal 20 Schaden, kein Takt geht verloren, 3 Konzentration kehren zurück."
+      },
+      "welt": {
+        "id": "uhr_zweiter_umriss",
+        "name": "Zweiter Umriss",
+        "nerves": 14,
+        "unruhe": 4,
+        "cooldown": 480,
+        "scare": 60,
+        "buff": {
+          "key": "hurry_cost",
+          "value": 0.0,
+          "seconds": 300
+        },
+        "desc": "Dein Umriss geht voraus. Eine Minute lang weichen gewöhnliche Gegner, 5 Minuten lang kostet die schnelle Reise nichts."
+      }
+    },
+    "1": {
+      "kampf": {
+        "id": "uhr_gewaehrte_minute",
+        "name": "Gewährte Minute",
+        "cost": 4,
+        "hits": 0,
+        "evade": true,
+        "read": true,
+        "focus": true,
+        "weaken": [
+          0.5,
+          3
+        ],
+        "ap_gain": 3,
+        "fx": "uhr_hoch_1",
+        "desc": "Du gewährst dir eine Minute, die niemand sonst hat. Nächster Angriff ins Leere, der danach parierbar, 3 Runden lang halber Schaden, deine nächste Fertigkeit trifft einen Takt genauer, 3 Konzentration zurück."
+      },
+      "welt": {
+        "id": "uhr_fehlender_strich",
+        "name": "Fehlender Strich",
+        "nerves": 16,
+        "unruhe": 5,
+        "cooldown": 600,
+        "clock": 240,
+        "nerves_gain": 30,
+        "desc": "Alle Uhren zeigen denselben fehlenden Strich. 4 Minuten lang stehen Treffen, Fahndung und Tageszeit still, 30 Nerven kehren zurück."
+      }
+    }
+  }
+}

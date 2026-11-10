@@ -139,6 +139,7 @@ export const gatheringMethods = {
 
   /** Läuft im Spiel-Tick mit: zählt die Zeit und meldet, wenn ein eigenes Treffen beginnt oder endet. */
   tickGatherings(dt) {
+    if (this.clockStopped?.()) return; // Welt-Fähigkeit des Pfads der Uhr: die Stadt steht
     this.playTime += dt;
     this.syncClock?.();
     if (!this.gatheringRules() || !this.gatheringsUnlocked()) return;
