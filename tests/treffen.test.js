@@ -408,3 +408,38 @@ test('Auf den Treffen gibt es nur seltene Dinge fürs große Geld, nichts vom no
   const s = new GameState(content);
   assert.ok(s.itemValue('hungriger_ring') >= 300);
 });
+
+// Sebs Regel (2026-11-10): Kein Los ist ein blinder Kauf. Was auf den Treffen gehandelt wird,
+// zeigt Segen und Fluch (Artefakte, Kleidung) bzw. Pfad und Sequenz (Formeln) schon beim Angebot.
+test('offerInfo: jedes Los eines Zirkels verrät vorher, was es taugt', () => {
+  const s = new GameState(content);
+  for (const c of Object.values(content.gatherings.circles)) {
+    for (const m of c.members ?? []) {
+      for (const o of m.offers) {
+        const info = s.offerInfo(o.item);
+        assert.ok(info, `${o.item} ohne Angebotsinfo`);
+        if (['artifact', 'gear'].includes(info.kind)) assert.ok(info.boons.length + info.curses.length > 0, `${o.item}: Artefakt ohne Segen/Fluch-Text`);
+        if (info.kind === 'formula') assert.match(info.notes[0], /Pfad|Stufe/, `${o.item}: Formel ohne Hinweis zum Pfad`);
+        if (info.kind === 'weapon') assert.match(info.notes[0], /Angriff \d/);
+      }
+    }
+  }
+  // Fasser-Artefakte ebenso
+  for (const r of content.gatherings.artisan.recipes) {
+    const info = s.offerInfo(r.artifact ?? r.id);
+    assert.ok(info.boons.length + info.curses.length > 0, `${r.id}: Fasser-Artefakt ohne Segen/Fluch-Text`);
+  }
+});
+
+test('offerInfo: Formeln sagen, ob sie zum eigenen Pfad passen', () => {
+  const s = new GameState(content);
+  const fid = Object.keys(content.items).find((id) => content.items[id].kind === 'formula' && content.items[id].pathway === 'laterne' && content.items[id].seq === 8);
+  assert.ok(fid);
+  assert.match(s.offerInfo(fid).notes[0], /keinen Pfad/);
+  s.pathway = { id: 'laterne', seq: 9 };
+  assert.match(s.offerInfo(fid).notes[0], /nächste Stufe/);
+  s.pathway = { id: 'laterne', seq: 8 };
+  assert.match(s.offerInfo(fid).notes[0], /hinter dir/);
+  s.pathway = { id: 'faden', seq: 9 };
+  assert.match(s.offerInfo(fid).notes[0], /Nicht dein Pfad/);
+});

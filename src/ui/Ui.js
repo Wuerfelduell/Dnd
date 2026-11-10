@@ -37,9 +37,19 @@ const corruptionHtml = (s, id) => {
   return `<span class="arteffects"><span class="curse"><i class="artmark minus"></i>Korrumpiert${n > 1 ? ` (${n}×)` : ''}: ${using ? `kostet gerade ${fmtRate(r.hp_per_sec)} Leben und ${fmtRate(r.nerves_per_sec)} Nerven pro Sekunde` : 'ruht, solange du es nicht trägst'}</span></span>`;
 };
 const artifactEffectsHtml = (it) => `<span class="arteffects">${(it.boons ?? []).map((x) => `<span class="boon"><i class="artmark plus"></i>${esc(x.text)}</span>`).join('')}${(it.curses ?? []).map((x) => `<span class="curse"><i class="artmark minus"></i>${esc(x.text)}</span>`).join('')}</span>`;
-/** Im Laden: Angriff von Waffen, Platz und Wirkung von Kleidung. */
-const shopStats = (it) => (it?.kind === 'weapon' ? `<br><span class="muted">Angriff ${it.atk}${it.occult ? ', stark gegen Okkultes' : ''}</span>`
-  : it?.kind === 'gear' ? `<br><span class="muted">${GEAR_SLOT_NAMES[it.slot]}</span>${artifactEffectsHtml(it)}` : '');
+/**
+ * Was ein Angebot taugt, bevor man zahlt (Treffen, Läden, Fasserin): Segen und Flüche von Artefakten
+ * und Kleidung, Pfad und Sequenz von Formeln, Angriff von Waffen (core/Auction.js offerInfo).
+ */
+const offerHtml = (s, id) => {
+  const it = s.item(id);
+  const info = s.offerInfo?.(id);
+  if (!it || !info) return '';
+  const slot = it.kind === 'gear' ? `<span class="muted">${GEAR_SLOT_NAMES[it.slot]}</span>` : '';
+  const notes = info.notes.map((t) => `<span class="muted note">${esc(t)}</span>`).join('');
+  const effects = info.boons.length || info.curses.length ? artifactEffectsHtml(it) : '';
+  return slot || notes || effects ? `<span class="offerinfo">${slot}${notes}${effects}</span>` : '';
+};
 /** Ausrüstung (F_07): Figur mit vier Plätzen; ein Klick auf ein angelegtes Stück legt es ab. Plätze in Pixeln des Bogens. */
 const DOLL_SLOTS = [['hut', 69, 4], ['amulett', 69, 30], ['mantel', 69, 55], ['waffe', 73, 82]];
 const paperDoll = (s) => {
@@ -1946,12 +1956,12 @@ export class Ui {
       this.shop.entries = stock.map((e) => ({ id: e.item, disabled: !!e.locked || e.owned || s.money < e.price }));
       // Paket A: Ladenfächer, Schlösser und Preisschilder (A_10_shop.png)
       rows = stock.map((e, i) => `<li class="item ${e.locked ? 'lockedrow' : ''}"><div><span class="shopslot ${e.locked ? 'locked' : e.owned ? 'sold' : ''}">${itemIconBig(e.item)}</span><strong>${esc(e.name)}</strong>${s.itemCount(e.item) ? ` <span class="muted">(hast ${s.itemCount(e.item)})</span>` : ''}<br>
-        <span class="desc">${e.locked ? uiSprite('shop', /Rang|Ansehen/.test(e.locked) ? 'locked_rank' : 'locked_pathway', 1 / 12, 'shopico') : ''}${esc(e.locked ?? e.desc)}</span>${e.locked ? '' : shopStats(s.item(e.item))}</div>
+        <span class="desc">${e.locked ? uiSprite('shop', /Rang|Ansehen/.test(e.locked) ? 'locked_rank' : 'locked_pathway', 1 / 12, 'shopico') : ''}${esc(e.locked ?? e.desc)}</span>${e.locked ? '' : offerHtml(s, e.item)}</div>
         <div>${e.owned ? `<span class="badge likely">${uiSprite('shop', 'only_once', 1 / 16, 'shopico')}${e.soldOut ? 'vergriffen' : 'gekauft'}</span>` : `${e.left ? `<span class="muted">noch ${e.left}</span> ` : ''}<button class="small pricetag" data-buy="${i}" ${this.shop.entries[i].disabled ? 'disabled' : ''}>${i < 9 ? `<span class="key">${i + 1}</span> ` : ''}${e.price} Sch.</button>`}</div></li>`).join('');
     } else {
       const sellable = s.items().filter((it) => s.sellPrice(it.id) !== null);
       this.shop.entries = sellable.map((it) => ({ id: it.id }));
-      rows = sellable.map((it, i) => `<li class="item"><div><span class="shopslot">${itemIconBig(it.id)}</span><strong>${esc(it.name)}</strong>${it.count > 1 ? ` ×${it.count}` : ''}<br><span class="desc">${esc(it.desc)}</span></div>
+      rows = sellable.map((it, i) => `<li class="item"><div><span class="shopslot">${itemIconBig(it.id)}</span><strong>${esc(it.name)}</strong>${it.count > 1 ? ` ×${it.count}` : ''}<br><span class="desc">${esc(it.desc)}</span>${offerHtml(s, it.id)}</div>
         <div><button class="small pricetag" data-sell="${i}">${i < 9 ? `<span class="key">${i + 1}</span> ` : ''}${s.sellPrice(it.id)} Sch.</button></div></li>`).join('') || `<li class="empty">Nichts, was ${esc(m.name)} haben will.</li>`;
     }
     const el = this.open('shop', `
@@ -2078,7 +2088,7 @@ export class Ui {
       const it = s.item(l.item);
       const next = s.nextBid();
       stage = `${portrait(l.seller)}<div class="speaker">${esc(s.memberName(l.seller))} <span class="role">${esc(s.content.npcs[l.seller]?.role ?? '')}</span></div>
-        <div class="lot">${itemIconBig(l.item)}<strong>${esc(it.name)}</strong>${s.itemCount(l.item) ? ` <span class="muted">(hast ${s.itemCount(l.item)})</span>` : ''}<br><span class="desc">${esc(it.desc ?? '')}</span></div>
+        <div class="lot">${itemIconBig(l.item)}<strong>${esc(it.name)}</strong>${s.itemCount(l.item) ? ` <span class="muted">(hast ${s.itemCount(l.item)})</span>` : ''}<br><span class="desc">${esc(it.desc ?? '')}</span>${offerHtml(s, l.item)}</div>
         <p class="bidline">${l.leader && l.leader !== 'player' ? headFace(l.leader, s.memberName(l.leader)) : ''}Gebot: <b>${l.price} Sch.</b> · führt: ${who(l.leader)}</p>`;
       if (l.leader !== 'player') acts.push({ label: `${l.leader ? 'Überbieten' : 'Bieten'}: ${next} Sch.`, fn: () => s.bid(), off: s.money < next });
       acts.push({ label: 'Aussteigen', fn: () => s.passLot() });
@@ -2094,6 +2104,7 @@ export class Ui {
       const list = s.ownOfferables();
       stage = `<div class="speaker">Dein Angebot <span class="role">Artefakte und Formeln</span></div>
         ${list.length ? '<p class="lead">Was legst du auf den Tisch?</p>' : '<p class="lead">Du hast keine Artefakte oder Formeln dabei, die du anbieten könntest.</p>'}
+        ${list.length ? `<ul class="offers">${list.slice(0, 8).map((o) => `<li>${itemIcon(o.id)}<strong>${esc(o.name)}</strong> <span class="muted">etwa ${o.value} Sch.</span>${offerHtml(s, o.id)}</li>`).join('')}</ul>` : ''}
         ${a.artisan ? `<p class="lead muted">${esc(s.artisanName())} sitzt abseits und fasst Beutestücke zu Artefakten.</p>` : ''}`;
       if (a.artisan) acts.push({ label: `Zu ${s.artisanName()}: Beute fassen lassen`, fn: () => s.openArtisan() });
       for (const o of list.slice(0, 8)) acts.push({ label: `${o.name} anbieten`, fn: () => s.offerOwn(o.id), icon: o.id });
@@ -2118,7 +2129,7 @@ export class Ui {
       const o = a.own;
       const it = s.item(o.item);
       stage = `<div class="speaker">Dein Los <span class="role">${esc(it.name)}</span></div>
-        <div class="lot">${itemIconBig(o.item)}<strong>${esc(it.name)}</strong><br><span class="desc">${o.bids.length ? o.bids.map((b) => `${esc(s.memberName(b.member))}: ${b.price} Sch.`).join(' · ') : 'Kein Gebot.'}</span></div>`;
+        <div class="lot">${itemIconBig(o.item)}<strong>${esc(it.name)}</strong><br><span class="desc">${o.bids.length ? o.bids.map((b) => `${esc(s.memberName(b.member))}: ${b.price} Sch.`).join(' · ') : 'Kein Gebot.'}</span>${offerHtml(s, o.item)}</div>`;
       if (o.bids.length) acts.push({ label: `Zuschlag an ${s.memberName(o.bids[0].member)}: ${o.bids[0].price} Sch.`, fn: () => s.acceptOwn() });
       acts.push({ label: 'Zurückziehen', fn: () => s.withdrawOwn() });
     }

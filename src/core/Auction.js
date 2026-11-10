@@ -36,6 +36,29 @@ export const auctionMethods = {
     return sell ? sell * 2 : 12;
   },
 
+  /**
+   * Was ein Angebot taugt, bevor man bietet oder abgibt: Segen und Flüche von Artefakten und
+   * Kleidung, Pfad und Sequenz von Formeln, Angriff von Waffen. Damit ist kein Los ein blinder Kauf.
+   * Ergebnis { kind, boons: [text], curses: [text], notes: [text] } oder null.
+   */
+  offerInfo(id) {
+    const it = this.item(id);
+    if (!it) return null;
+    const info = { kind: it.kind, boons: (it.boons ?? []).map((b) => b.text), curses: (it.curses ?? []).map((c) => c.text), notes: [] };
+    if (it.kind === 'formula') {
+      // Pfad und Sequenz stehen schon in der Beschreibung; hier nur, ob sie einem selbst etwas nützt
+      if (!this.pathway) info.notes.push('Du hast noch keinen Pfad. Als Formel nur etwas für den Weiterverkauf, bis du einen betrittst.');
+      else if (this.pathway.id !== it.pathway) info.notes.push('Nicht dein Pfad: nur zum Weiterverkauf.');
+      else if (it.seq >= this.pathway.seq) info.notes.push('Dein Pfad, aber diese Stufe hast du schon hinter dir.');
+      else if (it.seq === this.pathway.seq - 1) info.notes.push('Dein Pfad, deine nächste Stufe.');
+      else info.notes.push(`Dein Pfad, aber erst ${this.pathway.seq - 1 - it.seq} Stufe${this.pathway.seq - 1 - it.seq === 1 ? '' : 'n'} später dran.`);
+      const ing = Object.entries(it.ingredients ?? {}).map(([iid, n]) => `${this.item(iid)?.name ?? iid}${n > 1 ? ` ×${n}` : ''}`);
+      if (ing.length) info.notes.push(`Zutaten: ${ing.join(', ')}`);
+    }
+    if (it.kind === 'weapon') info.notes.push(`Angriff ${it.atk}${it.occult ? ', stark gegen Okkultes' : ''}`);
+    return info;
+  },
+
   /** Für Lose und Gesuche: Würfel pro Treffen, Zirkel und Thema. */
   sessionRng(circleId, cycle, topic) {
     return seeded(`${cycle}|${circleId}|${topic}`);
