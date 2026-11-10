@@ -6,6 +6,13 @@
 // oder pariert werden (enges Fenster). Paraden bringen Konzentration und einen
 // Konter; wer alle Schläge einer Attacke pariert, setzt zum Gegenschlag an.
 // Konzentration (K) bezahlt Fertigkeiten.
+//
+// Konzentrations-Artefakte (pathways.json → artifacts, Passive):
+//   ap_max (+N Höchstwert), ap_round (+N zu Beginn jeder weiteren Runde), attack_ap (+N je einfachem Angriff),
+//   ap_start / parry_ap (gab es schon; negativ als Fluch).
+// Flüche: ap_blood (jeder ausgegebene Punkt kostet N Leben), ap_burn (jeder am Rundenende ungenutzte Punkt kostet N Leben),
+//   ap_reset (Konzentration verfällt am Rundenende), combat_drain (N Nerven pro Runde), enemy_ramp (Gegner +N Schaden pro Runde),
+//   no_flee (keine Flucht), no_items (keine Gegenstände im Kampf). Lebensverlust durch Flüche tötet nie (mindestens 1 Leben).
 
 import { rollLoot, takeLoot } from './Loot.js';
 
@@ -16,10 +23,12 @@ export const ENEMY_HP_MULT = 1.4;
 export const ENEMY_DMG_MULT = 1.4;
 export const ELITE_HP_MULT = 1.0; // zusätzlich zu den Daten (Elite ×1,5 der Grundform)
 export const ELITE_DMG_MULT = 0.9; // Eliten haben in den Daten schon +30 % Schaden, so bleibt es bei etwa +60 %
-// Zu zweit: der Gegner hält mehr aus, je nachdem wie stark Spieler 2 zuschlägt (gleich stark: ×1,9,
-// halb so stark: ×1,45), und er greift jede Runde jeden stehenden Spieler einmal an, dafür etwas
-// schwächer pro Schlag. So muss sich jeder selbst verteidigen, und keiner steht nur daneben.
-export const DUO_HP_SHARE = 0.9; // Anteil Zusatzleben bei gleich starkem Spieler 2
+// Zu zweit: der Gegner hält mehr aus, je nachdem wie stark Spieler 2 zuschlägt: mindestens +70 %
+// (Spieler 2 halb so stark oder schwächer), bei gleich starkem Spieler 2 +150 %, dazwischen linear,
+// bei einem stärkeren Spieler 2 bis +190 %. Er greift jede Runde jeden stehenden Spieler einmal an,
+// dafür etwas schwächer pro Schlag. So muss sich jeder selbst verteidigen, und keiner steht nur daneben.
+export const DUO_HP_SHARE_MIN = 0.7; // Zusatzleben, wenn Spieler 2 höchstens halb so stark ist
+export const DUO_HP_SHARE = 1.5; // Zusatzleben bei gleich starkem Spieler 2
 export const DUO_POWER_MIN = 0.5; // Spieler 2 zählt mindestens halb ...
 export const DUO_POWER_MAX = 1.25; // ... und höchstens so viel wie 1,25 Ermittler
 export const DUO_HP_MULT = 1 + DUO_HP_SHARE; // bei gleich starken Spielern
@@ -51,7 +60,19 @@ export const ENRAGE_AT = 0.4; // unter 40 % Leben wird der Gegner schneller und 
 export const EARLY_LIMIT = 450; // frühere Tastendrücke zählen noch nicht
 export const AP_MAX = 6;
 export const AP_START = 1;
+export const AP_MAX_CAP = 10; // mehr Pips passen nicht in die Leiste
 export const GRADE_MULT = { perfect: 1.3, good: 1, miss: 0.4 };
+/**
+ * Präzise Fertigkeiten: alles, was betäubt oder richtig viel Schaden macht, wirkt nur bei einem präzisen Treffer voll.
+ * Ein guter Treffer richtet nur noch einen Bruchteil an und betäubt nicht; dafür ist das goldene Fenster auf ein Fünftel
+ * geschrumpft (PRECISE_WINDOW). So lässt sich Betäuben + Angriff nicht endlos wiederholen.
+ * Als „richtig viel Schaden“ gilt: Treffer × Waffenfaktor ≥ HEAVY_MULT oder Treffer × Grundschaden ≥ HEAVY_FLAT.
+ * In den Daten lässt sich das je Fertigkeit mit `precise: true/false` überschreiben.
+ */
+export const PRECISE_WINDOW = 0.2; // Anteil des normalen Perfect-Fensters
+export const PRECISE_GRADE_MULT = { perfect: 1.3, good: 0.45, miss: 0.25 };
+export const HEAVY_MULT = 3.5;
+export const HEAVY_FLAT = 24;
 export const WEAK_MULT = 1.5;
 /**
  * Sequenz-Schranke: Gegner mit `min_seq` (z. B. Starling 7, die Namenlose 6, das Leuchtfeuer 5) sind höhere Wesen.
@@ -66,9 +87,24 @@ export const GRADE_UP = { miss: 'good', good: 'perfect', perfect: 'perfect' };
 export const SKILLS = {
   attack: { name: 'Angriff', cost: 0, hits: 1, mult: 1, desc: 'Ein Schlag im Takt. +1 Konzentration, +2 bei präzisem Treffer.' },
   double: { name: 'Doppelschlag', cost: 2, hits: 2, mult: 0.85, desc: 'Zwei schnelle Schläge, beide im Takt.' },
-  blind: { name: 'Laternenblende', cost: 2, hits: 1, mult: 0.3, desc: 'Blendet den Gegner. Trifft sie, setzt er eine Runde aus.' },
+  blind: { name: 'Laternenblende', cost: 2, hits: 1, mult: 0.3, stun: true, desc: 'Blendet den Gegner. Nur ein präziser Treffer lässt ihn eine Runde aussetzen.' },
   ward: { name: 'Bannwort', cost: 3, hits: 1, flat: 12, composure: 15, desc: 'Ein Wort aus den Archivakten. 12 Schaden, doppelt gegen Okkultes. Kostet 15 Nerven.' },
 };
+
+/** Ist die Fertigkeit präzise (voller Effekt nur bei perfektem Takt)? */
+export function isPrecise(sk) {
+  if (!sk) return false;
+  if (sk.precise !== undefined) return !!sk.precise;
+  if (sk.stun) return true;
+  const hits = sk.hits || 0;
+  if (sk.flat) return hits * sk.flat >= HEAVY_FLAT;
+  return hits * (sk.mult ?? 0) >= HEAVY_MULT;
+}
+
+/** Wie viele Takt-Drücke eine Fertigkeit verlangt: ihre Treffer, bei präzisen Fertigkeiten ohne Treffer (z. B. Fangnetz) einer für die Betäubung. */
+export function skillBars(sk) {
+  return sk.hits || (isPrecise(sk) ? 1 : 0);
+}
 
 /** Bewertet einen Verteidigungsdruck. offset = Drückzeit - Einschlagzeit (ms). */
 export function judgeDefense(kind, offset, dodgeMult = 1, parryWindow = WINDOW.parry) {
@@ -98,7 +134,10 @@ export function playerPower(state, n) {
 /** Zusatzleben des Gegners zu zweit: richtet sich danach, wie stark Spieler 2 im Vergleich zuschlägt. */
 export function duoHpMult(state) {
   const ratio = playerPower(state, 2) / Math.max(1, playerPower(state, 1));
-  return 1 + DUO_HP_SHARE * Math.min(DUO_POWER_MAX, Math.max(DUO_POWER_MIN, ratio));
+  const r = Math.min(DUO_POWER_MAX, Math.max(DUO_POWER_MIN, ratio));
+  // Gerade durch (0,5 | +70 %) und (1 | +150 %), darüber weiter steigend bis 1,25
+  const share = DUO_HP_SHARE_MIN + (DUO_HP_SHARE - DUO_HP_SHARE_MIN) * (r - DUO_POWER_MIN) / (1 - DUO_POWER_MIN);
+  return 1 + share;
 }
 
 export class Combat {
@@ -131,7 +170,8 @@ export class Combat {
     // ap, shield, evading, bleed, actions, itemUsed lesen sich über Zugriffe beim gerade betroffenen Kämpfer.
     // Ab Sequenz 7 beginnt man den Kampf mit mehr Konzentration (Passiv ap_start)
     const fighter = (hp, n) => ({
-      ap: Math.min(AP_MAX, AP_START + state.withPlayer(n, () => state.passive('ap_start'))), shield: 0, evading: false, bleed: null, actions: 0, itemUsed: false, down: false, hpBefore: hp, bleedTick: 0, focused: false,
+      ap: Math.max(0, Math.min(this.apMaxOf(n), AP_START + state.withPlayer(n, () => state.passive('ap_start'), { quiet: true }))), shield: 0, evading: false, bleed: null, actions: 0, itemUsed: false, down: false, hpBefore: hp, bleedTick: 0, focused: false,
+      focusTick: 0, focusGain: 0, // Konzentrations-Artefakte: Leben, das Flüche am Rundenende kosten, und Konzentration zum Rundenstart
     });
     this.fighters = { 1: fighter(state.hp, 1) };
     if (duo) this.fighters[2] = fighter(state.p2.hp, 2);
@@ -157,6 +197,8 @@ export class Combat {
     this.slowed = false; // sein nächster Angriff kommt gedehnt
     this.readNext = false; // sein nächster Angriff lässt sich parieren, auch wenn er sonst unparierbar wäre
     this.stolen = 0; // Schilling, die ihm im Kampf abgenommen wurden
+    this.roundDmg = 0; // Schaden am Gegner in dieser Runde (für max_round_dmg)
+    this.capped = 0; // davon abgeprallt, für die Meldung der nächsten Aktion
   }
 
   // --- Zwei Spieler -----------------------------------------------------------
@@ -167,6 +209,25 @@ export class Combat {
 
   fighter(n = this.cur ?? this.actor) {
     return this.fighters[n] ?? this.fighters[1];
+  }
+
+  /** Höchstwert der Konzentration eines Spielers (Grundwert plus Artefakte, höchstens AP_MAX_CAP, mindestens 1). */
+  apMaxOf(n) {
+    return Math.max(1, Math.min(AP_MAX_CAP, AP_MAX + this.state.withPlayer(n, () => this.state.passive('ap_max'), { quiet: true })));
+  }
+
+  get apMax() {
+    return this.apMaxOf(this.cur ?? this.actor);
+  }
+
+  /** Lebensverlust durch einen Konzentrations-Fluch: schwächt, tötet aber nie. Gibt den Verlust zurück. */
+  focusToll(n) {
+    if (n <= 0) return 0;
+    const s = this.state;
+    const before = s.hp;
+    s.hp = Math.max(1, s.hp - Math.round(n));
+    if (s.hp !== before) s.emit('hp', { value: s.hp, delta: s.hp - before });
+    return before - s.hp;
   }
 
   /** Noch stehende Spieler (1 und/oder 2). */
@@ -234,7 +295,12 @@ export class Combat {
   }
 
   canUseItem() {
-    return !this.itemUsed;
+    return !this.itemUsed && !this.on(this.actor, () => this.state.passive('no_items'));
+  }
+
+  /** Warum gerade kein Gegenstand geht (Oberfläche). */
+  itemBlockedText() {
+    return this.on(this.actor, () => this.state.passive('no_items')) ? 'ein Artefakt verbietet es' : 'schon benutzt';
   }
 
   /** Neue Runde: alle Spieler dürfen wieder handeln, Spieler 1 beginnt (wenn er steht). */
@@ -245,9 +311,9 @@ export class Combat {
   }
 
   /** Schaden eines Treffers mit Waffe und Bewertung. */
-  hitDamage(mult, grade) {
+  hitDamage(mult, grade, gradeMult = GRADE_MULT) {
     const w = this.state.weaponStats();
-    let dmg = w.atk * mult * GRADE_MULT[grade];
+    let dmg = w.atk * mult * gradeMult[grade];
     if (this.enemy.occult && w.occult) dmg *= w.occult;
     if (this.enemy.occult) dmg *= this.state.passive('occult_mult');
     if (this.weak) dmg *= WEAK_MULT;
@@ -268,22 +334,26 @@ export class Combat {
     if (!this.canUse(skillId)) throw new Error(`Fertigkeit nicht möglich: ${skillId}`);
     this.ap -= sk.cost;
     this.actions += 1;
+    // Fluch ap_blood: jeder ausgegebene Punkt Konzentration kostet Leben
+    const blood = sk.cost ? this.focusToll(sk.cost * this.state.passive('ap_blood')) : 0;
     const cc = this.composureCost(sk);
     if (cc) this.state.setComposure(this.state.composure - cc);
-    const focused = this.focused && sk.hits > 0;
+    const precise = isPrecise(sk);
+    const gradeMult = precise ? PRECISE_GRADE_MULT : GRADE_MULT;
+    // Fokus (zweite Pfadfertigkeiten): die nächste Fertigkeit wird eine Bewertungsstufe besser getroffen
+    const focused = this.focused && skillBars(sk) > 0;
     if (focused) this.focused = false;
-    const hits = grades.slice(0, sk.hits).map((g0) => {
-      const g = focused ? GRADE_UP[g0] ?? g0 : g0;
-      const grade = sk.sure && g === 'miss' ? 'good' : g;
+    const graded = grades.slice(0, skillBars(sk)).map((g0) => { const g = focused ? GRADE_UP[g0] ?? g0 : g0; return sk.sure && g === 'miss' ? 'good' : g; });
+    const hits = graded.slice(0, sk.hits).map((grade) => {
       let damage;
       if (sk.flat) {
         const holy = sk.holy || skillId === 'ward';
-        damage = sk.flat * GRADE_MULT[grade] * (this.enemy.occult && holy ? 2 : 1) * (this.weak ? WEAK_MULT : 1);
+        damage = sk.flat * gradeMult[grade] * (this.enemy.occult && holy ? 2 : 1) * (this.weak ? WEAK_MULT : 1);
         if (this.enemy.occult) damage *= this.state.passive('occult_mult');
         damage *= this.state.passive('dmg_mult');
         damage = Math.max(1, Math.round(damage));
       } else {
-        damage = this.hitDamage(sk.mult, grade);
+        damage = this.hitDamage(sk.mult, grade, gradeMult);
       }
       return { grade, damage };
     });
@@ -298,11 +368,18 @@ export class Combat {
     }
     const raw = hits.reduce((n, h) => n + h.damage, 0);
     const total = this.hurtEnemy(raw, { pierce: !!sk.pierce });
-    if (raw > total) effects.push(`Panzer fängt ${raw - total} ab`);
-    if (skillId === 'attack') this.gainAp(hits[0]?.grade === 'perfect' ? 2 : 1);
+    if (this.capped) { effects.push(`mehr steckt ${this.enc.name} in dieser Runde nicht weg (${this.capped} prallen ab)`); this.capped = 0; }
+    else if (raw > total) effects.push(`Panzer fängt ${raw - total} ab`);
+    if (skillId === 'attack') this.gainAp((hits[0]?.grade === 'perfect' ? 2 : 1) + this.state.passive('attack_ap'));
+    if (blood) effects.push(`${blood} Leben für die Konzentration`);
     const landed = sk.hits === 0 || hits.some((h) => h.grade !== 'miss' && h.damage);
+    // Betäuben gelingt nur mit einem präzisen Takt; sonst bleibt der Gegner wach
     let stunned = false;
-    if ((skillId === 'blind' || sk.stun) && landed && !this.outcome) { this.stunned = true; stunned = true; }
+    let stunMissed = false;
+    if (sk.stun && !this.outcome) {
+      if (graded.some((g) => g === 'perfect')) { this.stunned = true; stunned = true; } else { stunMissed = true; effects.push('nur ein präziser Treffer hätte betäubt'); }
+    }
+    if (precise && !stunned && !stunMissed && hits.length && !graded.some((g) => g === 'perfect')) effects.push('ungenau, nur ein Bruchteil der Wucht');
     if (sk.weak && landed && !this.weak) { this.weak = true; effects.push('Schwachstelle erkannt'); }
     if (sk.heal) effects.push(`+${this.state.heal(sk.heal)} Leben`);
     if (sk.drain && total) effects.push(`+${this.state.heal(Math.round(total * sk.drain))} Leben`);
@@ -335,7 +412,7 @@ export class Combat {
     if (sk.armor_break && this.armor) { const cut = Math.min(this.armor, sk.armor_break); this.armor -= cut; effects.push(`Rüstung -${cut}`); }
     if (sk.steal && landed && !this.enc.practice && !this.enemy.occult) { const got = this.state.addMoney(sk.steal, { loot: true, reason: sk.name }); this.stolen += got; effects.push(`+${got} Schilling`); }
     this.log.push(`${sk.name}: ${total} Schaden`);
-    return { hits, total, stunned, effects };
+    return { hits, total, stunned, stunMissed, precise, effects };
   }
 
   /** Gegenstand im Kampf. Ergebnis: { text } oder null, wenn nicht möglich. */
@@ -345,7 +422,7 @@ export class Combat {
 
   useItemNow(id) {
     const it = this.state.item(id);
-    if (!it || it.kind !== 'consumable' || !this.state.itemCount(id) || this.itemUsed) return null;
+    if (!it || it.kind !== 'consumable' || !this.state.itemCount(id) || this.itemUsed || this.state.passive('no_items')) return null;
     this.itemUsed = true;
     this.actions += 1;
     this.state.removeItem(id);
@@ -362,6 +439,7 @@ export class Combat {
   }
 
   canFlee() {
+    if (this.standing().some((n) => this.state.withPlayer(n, () => this.state.passive('no_flee'), { quiet: true }))) return false;
     return !!this.enc.fleeable || !!this.state.passive('always_flee');
   }
 
@@ -372,7 +450,14 @@ export class Combat {
   }
 
   gainAp(n) {
-    this.ap = Math.min(AP_MAX, this.ap + n);
+    this.ap = Math.max(0, Math.min(this.apMax, this.ap + n));
+  }
+
+  /** Gegner werden pro Runde stärker: Daten (`ramp`) plus Fluch enemy_ramp des stärksten betroffenen Spielers. */
+  rampRate() {
+    if (this.enc.practice) return this.enc.ramp ?? 0;
+    const cursed = Math.max(0, ...this.standing().map((n) => this.state.withPlayer(n, () => this.state.passive('enemy_ramp'), { quiet: true })));
+    return (this.enc.ramp ?? 0) + cursed;
   }
 
   /** Schaden am Gegner (Panzer fängt zuerst ab). Gibt den tatsächlichen Schaden zurück. */
@@ -393,7 +478,14 @@ export class Combat {
     if (this.armor && !pierce && n > 0) n = Math.max(1, n - this.armor);
     const absorbed = Math.min(this.enemyGuard, n);
     this.enemyGuard -= absorbed;
-    const dmg = n - absorbed;
+    let dmg = n - absorbed;
+    // Feld `max_round_dmg` (Anteil der Leben): ab Fall 4 steckt ein Gegner je Runde nur so viel weg,
+    // der Rest prallt ab. Kein Build erledigt ihn damit in zwei Runden, schwache Treffer bleiben unberührt.
+    if (this.enc.max_round_dmg && dmg > 0) {
+      const room = Math.max(0, Math.round(this.enemy.maxHp * this.enc.max_round_dmg) - this.roundDmg);
+      if (dmg > room) { this.capped += dmg - room; dmg = room; }
+      this.roundDmg += dmg;
+    }
     this.enemy.hp = Math.max(0, this.enemy.hp - dmg);
     if (this.enemy.hp === 0) this.outcome = 'won';
     return dmg;
@@ -502,7 +594,7 @@ export class Combat {
     const rage = this.enraged();
     const tough0 = this.enc.elite;
     // Feld `ramp`: der Gegner wird mit jeder Runde stärker (gegen endloses Abwarten hinter Schilden)
-    const ramp = 1 + (this.enc.ramp ?? 0) * Math.max(0, this.round - 1);
+    const ramp = 1 + this.rampRate() * Math.max(0, this.round - 1);
     const weak = this.weakened?.rounds > 0 ? this.weakened.mult : 1;
     const dmgMult = (this.enc.practice ? 1 : ENEMY_DMG_MULT * (rage ? 1.2 : 1) * (tough0 ? ELITE_DMG_MULT : 1) * (this.duo && !this.enc.min_seq ? DUO_DMG_MULT : 1) * (this.sweep ? SWEEP_DMG_MULT : 1) * ramp) * weak; // höhere Wesen schlagen zu zweit nicht schwächer
     const slowed = this.slowed;
@@ -586,7 +678,9 @@ export class Combat {
   /** Rundenende: Brand/Gift wirkt auf den Gegner, Blutung auf dich (bleedTick). Gibt den Schaden am Gegner zurück. */
   endRound() {
     this.round += 1;
-    for (const f of Object.values(this.fighters)) f.bleedTick = 0;
+    this.roundDmg = 0;
+    this.capped = 0;
+    for (const f of Object.values(this.fighters)) { f.bleedTick = 0; f.focusTick = 0; f.focusGain = 0; }
     if (this.weakened && --this.weakened.rounds <= 0) this.weakened = null;
     // BD: Gegner mit `flees_after` entziehen sich nach so vielen vollständigen Runden ohne Spielersieg (kein Sieg, keine Beute)
     if (!this.outcome && this.enc.flees_after && this.round > this.enc.flees_after) this.outcome = 'escaped';
@@ -603,7 +697,12 @@ export class Combat {
     }
     // Das Moor zehrt: jede Runde kosten die Gebiete von Wexmoor Nerven (ohne Nerven kein Ausweichen)
     this.drainTick = 0;
-    if (this.drain) for (const n of this.standing()) this.on(n, () => { const before = this.state.composure; this.state.setComposure(before - this.drain); this.drainTick += before - this.state.composure; });
+    for (const n of this.standing()) this.on(n, () => {
+      const drain = this.enc.practice ? 0 : this.drain + Math.max(0, this.state.passive('combat_drain'));
+      if (!drain) return;
+      const before = this.state.composure; this.state.setComposure(before - drain); this.drainTick += before - this.state.composure;
+    });
+    this.focusRound();
     this.startTurn();
     if (this.outcome) return 0;
     if (!this.burn) return 0;
@@ -611,6 +710,22 @@ export class Combat {
     this.burn.rounds -= 1;
     if (this.burn.rounds <= 0) this.burn = null;
     return dmg;
+  }
+
+  /**
+   * Konzentrations-Artefakte am Rundenwechsel (ab Runde 2), für jeden stehenden Spieler:
+   * ap_burn (ungenutzte Punkte kosten Leben), ap_reset (Konzentration verfällt), ap_round (neue Punkte).
+   */
+  focusRound() {
+    if (this.enc.practice) return;
+    for (const n of this.standing()) this.on(n, () => {
+      const f = this.fighters[n];
+      const burn = this.state.passive('ap_burn');
+      if (burn > 0 && f.ap > 0) f.focusTick = this.focusToll(f.ap * burn);
+      if (this.state.passive('ap_reset')) f.ap = 0;
+      const gain = this.state.passive('ap_round');
+      if (gain) { const before = f.ap; this.gainAp(gain); f.focusGain = f.ap - before; }
+    });
   }
 
   // --- Ende ---------------------------------------------------------------------
