@@ -121,6 +121,18 @@ export function fight(state, encounterId, { attack = 'good', defend = () => 'dod
   const c = new Combat(state, encounterId);
   c.rng = seeded(7); // fester Zufall: Takt und Nachsetzen sind in Tests reproduzierbar
   let n = 0;
+  const enemyTurn = () => {
+    const atk = c.nextEnemyAttack();
+    if (atk) {
+      // Wer Ringe lesen kann, pariert keine nicht parierbaren Angriffe, sondern weicht aus
+      const results = atk.hits.map(() => { const r = defend(n++); return r === 'parry' && atk.unparryable ? 'dodge' : r; });
+      for (const r of results) { c.resolveHit(atk, r); if (c.outcome) break; }
+      if (!c.outcome && results.every((r) => r === 'parry')) c.riposte();
+      c.endEnemyTurn();
+    }
+  };
+  // Hinterhalt (Wexmoor): der Gegner schlägt zu, bevor du handeln kannst
+  if (c.ambush()) { enemyTurn(); c.endRound(); }
   while (!c.outcome && c.round <= maxRounds) {
     const heal = ['tonikum', 'verband'].find((i) => state.itemCount(i));
     if (state.hp < healBelow && heal) c.useItem(heal);
@@ -130,14 +142,7 @@ export function fight(state, encounterId, { attack = 'good', defend = () => 'dod
       c.useSkill(sk, Array(c.skillDef(sk).hits).fill(attack));
     }
     if (c.outcome) break;
-    const atk = c.nextEnemyAttack();
-    if (atk) {
-      // Wer Ringe lesen kann, pariert keine nicht parierbaren Angriffe, sondern weicht aus
-      const results = atk.hits.map(() => { const r = defend(n++); return r === 'parry' && atk.unparryable ? 'dodge' : r; });
-      for (const r of results) { c.resolveHit(atk, r); if (c.outcome) break; }
-      if (!c.outcome && results.every((r) => r === 'parry')) c.riposte();
-      c.endEnemyTurn();
-    }
+    enemyTurn();
     c.endRound();
   }
   return { combat: c, result: c.finish() };

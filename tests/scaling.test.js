@@ -94,7 +94,7 @@ test('Kurve: die Bosse werden von Fall zu Fall zäher', () => {
 const GATES = [
   ['starling_fight', 7, 'revolver', 2],
   ['namenlose', 6, 'ossuarklinge', 4],
-  ['leuchtfeuer', 5, 'ossuarklinge', 4],
+  ['leuchtfeuer', 5, 'ossuarklinge', 5], // für den Endkampf nimmt man alles mit, was man hat
 ];
 for (const [boss, min, weapon, tonics] of GATES) {
   test(`Sequenz-Schranke: ${boss} nur ab Sequenz ${min}, für jeden Pfad`, () => {
@@ -107,7 +107,7 @@ for (const [boss, min, weapon, tonics] of GATES) {
       return s;
     };
     for (const pid of Object.keys(content.pathways)) {
-      const skills = [...Object.keys(armed(pid, min).pathwaySkills()), 'attack'];
+      const skills = [...Object.keys(armed(pid, min).pathwaySkills()), 'attack', 'double']; // Doppelschlag hat jeder
       const best = (seq, defend) => skills.some((skill) => fight(armed(pid, seq), boss, { defend, skill, healBelow: 18 }).result.outcome === 'won');
       assert.equal(best(min + 1, EXPERT), false, `${pid}: mit Sequenz ${min + 1} darf man ${boss} nicht schaffen`);
       assert.equal(best(min, SKILLED), true, `${pid}: mit Sequenz ${min} schafft man ${boss}`);

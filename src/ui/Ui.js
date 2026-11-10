@@ -1358,7 +1358,7 @@ export class Ui {
     }
     const lines = [ev.text];
     if (ev.loot?.length) lines.push(`Gefunden:\n${ev.loot.join('\n')}`);
-    const footer = ev.lostMoney ? `−${ev.lostMoney} Schilling` : '';
+    const footer = [ev.damage ? `−${ev.damage} Leben` : '', ev.lostMoney ? `−${ev.lostMoney} Schilling` : ''].filter(Boolean).join(', ');
     this.showMessage(ev.title, lines.join('\n\n'), { footer, onClose: go, scene: ev.id });
   }
 
