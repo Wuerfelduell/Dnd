@@ -1,5 +1,15 @@
 # BG – Einbau und offene Bestandsfragen
 
+## Stand nach dem Einbau (10.11.2026)
+
+- `content.claimSources` / `claimReplacements` / `claimTexts` kommen aus dem Pack `koop_beute` (`src/data/index.js`, `applyQuestPack`). `claimMethods` und der Adapter `src/core/ClaimsEinbau.js` hängen an `GameState`; `reset`, `serialize`, `load` (mit Altmigration: `_kern_abgeholt`/`k3p_*_done` → Spieler 1 eingelöst, nur wenn der Spielstand noch kein Register hat), `meets` (`meetsClaims`), `applyEffects` (`openClaims` nach `sets_flags`, `claim`/`replacement` mit `commandId` aus dem bestätigten Dialogschritt), `Party.addP2` (`syncClaims`).
+- Kampfende (`Combat.finish`): bewältigter Hüter zahlt jedem Beteiligten seine Kernzutat sofort (`claimAfterWin`, Text `k3b_claim.boss`); Prüfungen werden nur geöffnet und bleiben bei Hedda.
+- Bestandsauszahlungen bleiben bestehen: Kernfach (`beute_vorschlag.json`, jetzt zusätzlich `requires_claim`) und Heddas Belohnungsknoten geben weiter ihr `gives_items`; `settleClaims` markiert dabei den Anspruch des handelnden Spielers als eingelöst. Der Partner holt bei Hedda („Mein Anspruch“).
+- Dialogbedingungen werden jetzt im Kontext des Spielers ausgewertet, der das Gespräch führt (`Ui.showNode`/`choose` unter `as`).
+- Erwerbsquittungen: `addItem` einer Kernzutat oder eines Tranks aus `ersatz.json` ruft `recordClaimAcquisition` für den handelnden Spieler.
+- Notizbuch, Pfad-Tab: offene Ansprüche je Spieler (`openClaimTexts`).
+- Offen: Seq-9-Pfadauswahl im Verkäufer-UI (`selectClaimPathway` wird noch nicht aufgerufen, Ersatz für Seq 9 setzt deshalb einen getrunkenen Trank voraus); Artefakt-Fundquellen (`kind: fund`); Stilllegungs-Widerspruch zu AU.
+
 Basis: `d4caa233410ca23b2c60d747b6ad330c1ac722f4`, 10.11.2026. Bestehende Dateien bleiben durch BG unverändert. Die folgenden Arbeiten sind für Seb konkret vorbereitet.
 
 ## 1. Daten und Zustand anschließen

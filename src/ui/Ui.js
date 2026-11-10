@@ -941,7 +941,7 @@ export class Ui {
     const { npc, tree } = this.dialogue;
     const node = tree.nodes[nodeId];
     if (!node) throw new Error(`Dialogknoten fehlt: ${npc.dialogue}.${nodeId}`);
-    this.as(() => s.applyEffects(node, { nodeKey: `${npc.dialogue}.${nodeId}` }));
+    this.as(() => s.applyEffects(node, { nodeKey: `${npc.dialogue}.${nodeId}`, commandId: `${npc.dialogue}.${nodeId}@${Date.now()}` })); // BG: jeder bestätigte Schritt ist ein eigener Befehl
     if (node.combat) { this.dialogue.combat = true; if (npc.id) s.hostileAfterFight(npc.id, node.combat); }
     s.visitNode(npc.dialogue, nodeId);
     let text = node.text;
@@ -963,7 +963,7 @@ export class Ui {
     if (this.dialogue.blockedNote) { text += `\n\n${this.dialogue.blockedNote}`; this.dialogue.blockedNote = null; }
     // Sichtbare Optionen + wegen Ansehen gesperrte Optionen (ausgegraut mit Hinweis)
     const choices = [];
-    for (const c of node.choices ?? []) {
+    this.as(() => { for (const c of node.choices ?? []) { // Bedingungen gelten für den Spieler, der das Gespräch führt (Pfad, Tasche, Ansprüche)
       if (s.meets(c)) {
         // Die Option geht, aber ihr bester Zweig scheitert noch am Wissen (z. B. „zweite Quelle“): das steht gleich dabei
         const weak = Array.isArray(c.next) ? c.next.find((v) => !s.meets(v)) : null;
@@ -977,7 +977,7 @@ export class Ui {
         const gaps = knowledgeGaps(s, c);
         if (gaps.length) choices.push({ ...c, locked: gaps.map((g) => gapText(g)).join(' ') });
       }
-    }
+    } });
     // Beziehung: Geschenke im Menü einer Figur (Start- oder Hub-Knoten), vor der letzten Option
     const menu = nodeId === (tree.nodes.start ? 'start' : tree.start && tree.nodes[tree.start] ? tree.start : 'hub');
     if (menu && npc.id && !npc.item && s.content.npcs[npc.id] && !node.ending && !node.combat && (node.choices ?? []).length) {
@@ -1018,10 +1018,10 @@ export class Ui {
       else this.openExpert();
       return;
     }
-    const next = this.state.pick(choice.next);
+    const next = this.as(() => this.state.pick(choice.next));
     if (next) {
       if (Array.isArray(choice.next)) {
-        const chosen = choice.next.find((v) => v.node === next && this.state.meets(v));
+        const chosen = choice.next.find((v) => v.node === next && this.as(() => this.state.meets(v)));
         const skipped = choice.next.slice(0, choice.next.indexOf(chosen)).filter((v) => onlyKnowledgeMissing(this.state, v));
         const gaps = skipped.flatMap((v) => knowledgeGaps(this.state, v));
         if (gaps.length) this.dialogue.blockedNote = `Dir fehlt noch: ${[...new Set(gaps.map((g) => gapText(g)))].join(' ')}`;
@@ -1505,8 +1505,16 @@ export class Ui {
   /** Pfad-Reiter: jeder Spieler hat seinen eigenen Pfad (G wechselt). */
   pathwayTabHtml() {
     const s = this.state;
-    if (!s.hasP2()) { this.invPlayer = 1; return this.pathwayHtml(); }
-    return this.playerTabsHtml() + s.withPlayer(this.invPlayer, () => this.pathwayHtml(), { quiet: true });
+    if (!s.hasP2()) { this.invPlayer = 1; return this.pathwayHtml() + this.claimsHtml(1); }
+    return this.playerTabsHtml() + s.withPlayer(this.invPlayer, () => this.pathwayHtml(), { quiet: true }) + this.claimsHtml(this.invPlayer);
+  }
+
+  /** Paket BG: offene persönliche Ansprüche (Hüter- und Prüfungszutaten bei Hedda). */
+  claimsHtml(player) {
+    const s = this.state;
+    const open = s.openClaimTexts?.(player) ?? [];
+    if (!open.length) return '';
+    return `<h4>${esc(s.content.claimTexts.k3b_notizbuch)}</h4><ul class="claims">${open.map((t) => `<li>${esc(t)}</li>`).join('')}</ul>`;
   }
 
   itemsListHtml() {

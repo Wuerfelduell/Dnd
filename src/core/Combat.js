@@ -546,6 +546,10 @@ export class Combat {
         if (enc.occult) s.act('occult_win');
       }
       text = enc.win_text ?? `${enc.name} ist besiegt.`;
+      if (!enc.practice) { // BG: persönliche Kernzutat aus der Hüterbeute für jeden Beteiligten
+        const claimed = s.claimAfterWin?.(this.id, Object.keys(this.fighters).map(Number)) ?? [];
+        if (claimed.length) text += `\n\n${claimed.join('\n')}`;
+      }
     } else if (this.outcome === 'lost') {
       if (!enc.practice) {
         each(() => { s.hp = Math.max(1, Math.round(s.maxHp * 0.4)); });
