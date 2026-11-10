@@ -132,6 +132,9 @@ export function fight(state, encounterId, { attack = 'good', defend = () => 'dod
   let n = 0;
   let bars = 0;
   const grade = (sk) => (typeof attack === 'function' ? attack(bars++, isPrecise(sk)) : attack);
+  // Fertigkeiten kosten Nerven: Geübte halten eine Reserve fürs Ausweichen zurück (fünf Mal ausweichen)
+  const NERVE_RESERVE = 15;
+  const afford = (id) => c.canUse(id) && (id === 'attack' || state.composure - c.composureCost(c.skillDef(id)) >= NERVE_RESERVE);
   const enemyTurn = () => {
     const atk = c.nextEnemyAttack();
     if (atk) {
@@ -149,12 +152,12 @@ export function fight(state, encounterId, { attack = 'good', defend = () => 'dod
     if (state.hp < healBelow && heal) c.useItem(heal);
     else if (items.length && state.itemCount(items[0])) c.useItem(items.shift());
     else if (chain) {
-      // Wie geübte Spieler: Fertigkeit, solange Konzentration reicht, dann beendet der Angriff den Zug
+      // Wie geübte Spieler: Fertigkeit, solange Konzentration und Nerven reichen, dann beendet der Angriff den Zug
       let guard = 0;
-      while (!c.outcome && skill !== 'attack' && c.canUse(skill) && !c.endsTurn(skill) && guard++ < 5) c.useSkill(skill, Array(c.skillDef(skill).hits).fill(attack));
+      while (!c.outcome && skill !== 'attack' && afford(skill) && !c.endsTurn(skill) && guard++ < 5) c.useSkill(skill, Array(c.skillDef(skill).hits).fill(attack));
       if (!c.outcome) c.useSkill('attack', [attack]);
     } else {
-      const sk = c.canUse(skill) ? skill : 'attack';
+      const sk = afford(skill) ? skill : 'attack';
       const def = c.skillDef(sk);
       c.useSkill(sk, Array.from({ length: skillBars(def) }, () => grade(def)));
     }

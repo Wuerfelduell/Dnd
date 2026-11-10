@@ -1872,8 +1872,8 @@ export class Ui {
       const talent = sd.talent ? this.talentRowHtml(s, sd.talent) : '';
       return `<li class="seq">${socket}<strong>Sequenz ${n}: ${esc(sd.name)}</strong> ${n === cur.seq ? '<span class="badge likely">aktuell</span>' : ''}<br>
         <span class="desc">${esc(sd.desc)}</span><br>
-        ⚔ <strong>${esc(sd.skill.name)}</strong> <span class="muted">(${sd.skill.cost} K${sd.skill.composure ? ` · ${sd.skill.composure} Nerven` : ''})</span> ${esc(sd.skill.desc)}
-        ${sd.skill2 ? `<br>⚔ <strong>${esc(sd.skill2.name)}</strong> <span class="muted">(${sd.skill2.cost} K${sd.skill2.composure ? ` · ${sd.skill2.composure} Nerven` : ''})</span> ${esc(sd.skill2.desc)}` : ''}
+        ⚔ <strong>${esc(sd.skill.name)}</strong> <span class="muted">(${sd.skill.cost} K${s.skillComposureCost({ ...sd.skill, seq: n }) ? ` · ${s.skillComposureCost({ ...sd.skill, seq: n })} Nerven` : ''})</span> ${esc(sd.skill.desc)}
+        ${sd.skill2 ? `<br>⚔ <strong>${esc(sd.skill2.name)}</strong> <span class="muted">(${sd.skill2.cost} K${s.skillComposureCost({ ...sd.skill2, seq: n }) ? ` · ${s.skillComposureCost({ ...sd.skill2, seq: n })} Nerven` : ''})</span> ${esc(sd.skill2.desc)}` : ''}
         ${talent}
         ${(sd.passives ?? []).map((x) => `<br>✧ ${esc(x.text)}`).join('')}</li>`;
     }).join('');

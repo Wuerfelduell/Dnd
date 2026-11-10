@@ -1891,6 +1891,11 @@ ICON32.push(...X_ITEMS);
 export const ARTISAN_ICONS = { krone_der_sieben: 'rattenkrone', sternlicht_gespinst: 'sternhirschgeweih', glaskielfeder: 'glasfeder', herzkerze: 'wachsherz', perlenpaar: 'moorperle',
   geisterspindel: 'geisterkern', leuchtturmmonokel: 'linsenscherbe', namenssiegel: 'madenwachs', gluehglocke: 'bronzeglocke_klein', doppelsiegel: 'ratssiegel' };
 Object.assign(ITEM_ICON_ALIASES, ARTISAN_ICONS);
+/** Nerven- und Konzentrations-Artefakte: Platzhalter aus Beute- und Fundstücken, bis Codex eigene Bilder liefert. */
+export const NERVEN_ARTEFAKT_ICONS = { taktgeber_uhrturm: 'taschenuhr', kerze_der_nachtwache: 'kerze_schwarz', zahnrad_schlafwandlerin: 'taschenuhr', zweites_herz: 'wachsherz',
+  atemperle: 'moorperle', fiebermuenze: 'falschgeld', blutsalz_phiole: 'salzkristall', nadel_der_naeherin: 'glasfeder', knoechelring_preisboxer: 'siegelring',
+  metronom_komponist: 'taschenuhr', trommelfell_ausrufer: 'bronzeglocke_klein', glasnerv: 'glasfeder', nervenfaden_weberin: 'wachsdocht', moorzunder: 'irrlichtfunke' };
+Object.assign(ITEM_ICON_ALIASES, NERVEN_ARTEFAKT_ICONS);
 /** Fall 9: eigene Kampf-Sheets für Pratt, den Gesangbuchgeist, das Sternlicht und Starling. */
 export const X_FIGHTS = { pratt_fight: ['pratt', 48], gesangbuchgeist: ['gesangbuchgeist', 64], sternlicht: ['sternlicht', 64], starling_fight: ['starling', 96], starling_stern: ['starling', 96] };
 for (const [enc, [id, w]] of Object.entries(X_FIGHTS)) {

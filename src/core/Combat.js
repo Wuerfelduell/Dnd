@@ -54,8 +54,10 @@ export const RING_CURVES = {
   stocken: (u) => (u < 0.35 ? u * 1.6 : u < 0.65 ? 0.56 : 0.56 + (u - 0.65) * (0.44 / 0.35)), // hält in der Mitte an
   finte: (u) => (u < 0.45 ? u * 1.7 : u < 0.7 ? 0.765 - (u - 0.45) * 1.4 : 0.415 + (u - 0.7) * (0.585 / 0.3)), // zuckt zurück
 };
-export const DODGE_COST = 3; // Ausweichen kostet Nerven, Paraden geben welche zurück
+export const DODGE_COST = 3; // Ausweichen kostet Nerven (Artefakte: dodge_cost dazu), Paraden geben welche zurück (parry_nerves dazu)
 export const PARRY_GAIN = 2;
+export const ATTACK_NERVES = 4; // der einfache Angriff lässt dich Atem holen: Nerven zurück, mehr bei präzisem Treffer
+export const ATTACK_NERVES_PERFECT = 6;
 export const ENRAGE_AT = 0.4; // unter 40 % Leben wird der Gegner schneller und härter
 export const EARLY_LIMIT = 450; // frühere Tastendrücke zählen noch nicht
 export const AP_MAX = 6;
@@ -90,6 +92,8 @@ export const SKILLS = {
   blind: { name: 'Laternenblende', cost: 2, hits: 1, mult: 0.3, stun: true, desc: 'Blendet den Gegner. Nur ein präziser Treffer lässt ihn eine Runde aussetzen.' },
   ward: { name: 'Bannwort', cost: 3, hits: 1, flat: 12, composure: 15, desc: 'Ein Wort aus den Archivakten. 12 Schaden, doppelt gegen Okkultes. Kostet 15 Nerven.' },
 };
+// Fertigkeiten ohne eigene `composure`-Kosten zahlen nach Konzentration (Pathways.js: SKILL_COMPOSURE_BY_COST),
+// mit höherer Sequenz gewöhnt man sich an die älteren (skillHabit). Der einfache Angriff kostet nie Nerven.
 
 /** Ist die Fertigkeit präzise (voller Effekt nur bei perfektem Takt)? */
 export function isPrecise(sk) {
@@ -264,9 +268,14 @@ export class Combat {
     return this.on(this.actor, () => SKILLS[id] ?? this.state.pathwaySkills()[id]);
   }
 
-  /** Nervenkosten einer Fertigkeit (Pfad des Echos halbiert sie). */
+  /** Nervenkosten einer Fertigkeit: Grundkosten nach Konzentration, Gewöhnung der Sequenz, Passive (Pfad des Echos, Artefakte). */
   composureCost(sk) {
-    return sk.composure ? Math.round(sk.composure * this.state.passive('skill_composure')) : 0;
+    return this.state.skillComposureCost(sk);
+  }
+
+  /** Was Ausweichen gerade kostet (Artefakte: dodge_cost). */
+  dodgeCost() {
+    return Math.max(0, DODGE_COST + this.state.passive('dodge_cost'));
   }
 
   // --- Spieler -------------------------------------------------------------
@@ -338,6 +347,12 @@ export class Combat {
     const blood = sk.cost ? this.focusToll(sk.cost * this.state.passive('ap_blood')) : 0;
     const cc = this.composureCost(sk);
     if (cc) this.state.setComposure(this.state.composure - cc);
+    const priceEffects = [];
+    if (sk.cost) {
+      // Artefakt-Fluch skill_unruhe: jede Fertigkeit bringt Unruhe
+      const stir = this.state.passive('skill_unruhe');
+      if (stir > 0 && this.state.pathway && !this.enc.practice) { this.state.setUnruhe(this.state.unruhe + stir); priceEffects.push(`+${stir} Unruhe`); }
+    }
     const precise = isPrecise(sk);
     const gradeMult = precise ? PRECISE_GRADE_MULT : GRADE_MULT;
     // Fokus (zweite Pfadfertigkeiten): die nächste Fertigkeit wird eine Bewertungsstufe besser getroffen
@@ -357,7 +372,7 @@ export class Combat {
       }
       return { grade, damage };
     });
-    const effects = [];
+    const effects = [...priceEffects];
     if (focused) effects.push('im Fokus getroffen');
     if (this.veiled && hits.length) {
       // Schleier: nur präzise Treffer finden das echte Gesicht
@@ -370,7 +385,14 @@ export class Combat {
     const total = this.hurtEnemy(raw, { pierce: !!sk.pierce });
     if (this.capped) { effects.push(`mehr steckt ${this.enc.name} in dieser Runde nicht weg (${this.capped} prallen ab)`); this.capped = 0; }
     else if (raw > total) effects.push(`Panzer fängt ${raw - total} ab`);
-    if (skillId === 'attack') this.gainAp((hits[0]?.grade === 'perfect' ? 2 : 1) + this.state.passive('attack_ap'));
+    if (skillId === 'attack') {
+      this.gainAp((hits[0]?.grade === 'perfect' ? 2 : 1) + this.state.passive('attack_ap'));
+      // Atem holen: Wer nicht nur Fertigkeiten spammt, sondern im Takt schlägt, sammelt Nerven zurück
+      const breath = hits[0]?.grade === 'perfect' ? ATTACK_NERVES_PERFECT : ATTACK_NERVES;
+      const before = this.state.composure;
+      this.state.setComposure(before + breath);
+      if (this.state.composure > before) effects.push(`+${this.state.composure - before} Nerven`);
+    }
     if (blood) effects.push(`${blood} Leben für die Konzentration`);
     const landed = sk.hits === 0 || hits.some((h) => h.grade !== 'miss' && h.damage);
     // Betäuben gelingt nur mit einem präzisen Takt; sonst bleibt der Gegner wach
@@ -641,12 +663,13 @@ export class Combat {
     let note = null;
     if (result === 'parry' && attack.unparryable) { result = 'miss'; note = 'unparryable'; }
     if (result === 'dodge' && given === 'dodge' && !this.evading) {
-      if (this.state.composure < DODGE_COST) { result = 'miss'; note = 'exhausted'; }
-      else this.state.setComposure(this.state.composure - DODGE_COST);
+      const cost = this.dodgeCost();
+      if (this.state.composure < cost) { result = 'miss'; note = 'exhausted'; }
+      else this.state.setComposure(this.state.composure - cost);
     }
     if (result === 'parry') {
       if (!this.enc.practice) this.state.act('parry');
-      this.state.setComposure(this.state.composure + PARRY_GAIN);
+      this.state.setComposure(this.state.composure + Math.max(0, PARRY_GAIN + this.state.passive('parry_nerves')));
       this.gainAp(1 + this.state.passive('parry_ap'));
       const counter = this.hurtEnemy(this.hitDamage(COUNTER_MULT, 'good'));
       return { damage: 0, counter, result };
@@ -658,7 +681,9 @@ export class Combat {
     incoming -= absorbed;
     const damage = this.state.damage(incoming);
     if (damage && attack.bleed) this.bleed = { damage: attack.bleed[0], rounds: attack.bleed[1] };
-    if (damage && attack.nerves) this.state.setComposure(this.state.composure - attack.nerves);
+    // Treffer kosten Nerven: manche Angriffe von sich aus, manche Artefakte bei jedem Treffer (hit_nerves)
+    const shock = (attack.nerves ?? 0) + Math.max(0, this.state.passive('hit_nerves'));
+    if (damage && shock) this.state.setComposure(this.state.composure - shock);
     if (this.state.hp === 0) this.knockOut(n);
     return { damage, counter: 0, result, absorbed, note, down: this.fighters[n].down };
   }
@@ -695,12 +720,18 @@ export class Combat {
         if (this.state.hp === 0) this.knockOut(n);
       });
     }
-    // Das Moor zehrt: jede Runde kosten die Gebiete von Wexmoor Nerven (ohne Nerven kein Ausweichen)
+    // Das Moor zehrt: jede Runde kosten die Gebiete von Wexmoor Nerven (ohne Nerven kein Ausweichen).
+    // Artefakte wirken pro Runde dazu: combat_drain (Fluch) und round_nerves (± Nerven), Konzentration regelt focusRound().
     this.drainTick = 0;
+    this.regenTick = 0;
     for (const n of this.standing()) this.on(n, () => {
       const drain = this.enc.practice ? 0 : this.drain + Math.max(0, this.state.passive('combat_drain'));
-      if (!drain) return;
-      const before = this.state.composure; this.state.setComposure(before - drain); this.drainTick += before - this.state.composure;
+      const delta = (this.enc.practice ? 0 : this.state.passive('round_nerves')) - drain;
+      if (!delta) return;
+      const before = this.state.composure;
+      this.state.setComposure(before + delta);
+      if (delta < 0) this.drainTick += before - this.state.composure;
+      else this.regenTick += this.state.composure - before;
     });
     this.focusRound();
     this.startTurn();

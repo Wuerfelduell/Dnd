@@ -108,6 +108,7 @@ test('Sequenz 6 und 5: Formeln erst mit Rang, nur für den eigenen Pfad; Verdaue
 test('Hammerfall und Unbeugsam funktionieren im Kampf', () => {
   const s = new GameState(content);
   for (const seq of [9, 8, 7, 6, 5]) ascend(s, 'eisen', seq);
+  s.composure = s.maxComposure(); // Rituale und Tränke haben an den Nerven gezehrt
   const c = new Combat(s, 'moorleiche');
   c.ap = 6;
   const r = c.useSkill('unbeugsam', []);

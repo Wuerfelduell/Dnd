@@ -581,9 +581,10 @@ export class CombatScene extends Phaser.Scene {
     }));
     const tags = [atk.sweep ? '⚠ Flächenangriff: trifft beide!' : '', atk.unparryable ? '⚠ nicht parierbar, ausweichen!' : '', atk.enraged ? 'in Rage' : '', atk.followup ? 'setzt nach!' : '', atk.bleed ? 'Treffer bluten nach' : '', atk.nerves ? `Treffer kosten ${atk.nerves} Nerven` : ''].filter(Boolean).join(' · ');
     const evading = c.targets.every((n) => c.fighters[n].evading);
-    const help1 = `Spieler 1 · Leertaste: ausweichen (${DODGE_COST} Nerven) · F: parieren`;
-    const help2 = `Spieler 2 · ←: ausweichen (${DODGE_COST} Nerven) · →: parieren (Gamepad X / B)`;
-    const help = !c.duo ? `Leertaste: ausweichen (${DODGE_COST} Nerven) · F: parieren`
+    const dodge = (n) => c.on(n, () => c.dodgeCost());
+    const help1 = `Spieler 1 · Leertaste: ausweichen (${dodge(1)} Nerven) · F: parieren`;
+    const help2 = `Spieler 2 · ←: ausweichen (${dodge(2)} Nerven) · →: parieren (Gamepad X / B)`;
+    const help = !c.duo ? `Leertaste: ausweichen (${dodge(1)} Nerven) · F: parieren`
       : atk.sweep ? `${help1}\n${help2}` : c.target === 2 ? help2 : help1;
     const whom = !c.duo ? '' : atk.sweep ? ' → beide Spieler' : ` → ${this.who(c.target)}`;
     this.ui.combatMessage(`${c.enemy.name}: ${atk.name}${whom}${atk.hits.length > 1 ? ` (${atk.hits.length} Schläge)` : ''}${tags ? `\n\n${tags}` : ''}${evading ? '\n\nDu weißt schon, wohin er schlägt.' : ''}`, help);
@@ -691,6 +692,7 @@ export class CombatScene extends Phaser.Scene {
     const dot = this.combat.endRound();
     const bleed = this.combat.bleedTick;
     if (this.combat.drainTick) { this.focusPlayer(this.combat.actor); this.float(`-${this.combat.drainTick} Nerven`, 'player', 'hurt'); }
+    if (this.combat.regenTick) { this.focusPlayer(this.combat.actor); this.float(`+${this.combat.regenTick} Nerven`, 'player', 'good'); }
     for (const [n, f] of Object.entries(this.combat.fighters)) {
       if (!f.bleedTick && !f.focusTick && !f.focusGain) continue;
       this.focusPlayer(Number(n));
