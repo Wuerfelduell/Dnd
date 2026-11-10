@@ -1,0 +1,1897 @@
+{
+  "version": 1,
+  "batch": "dunscar4",
+  "status": "exported; runtime integration pending",
+  "paletteMaxVisibleColors": 32,
+  "palette": [
+    "#1a1c2c",
+    "#252d38",
+    "#35424a",
+    "#49535b",
+    "#626b70",
+    "#859091",
+    "#abb3ae",
+    "#d4d0bc",
+    "#e7dfc5",
+    "#c1ac84",
+    "#938365",
+    "#635744",
+    "#443d34",
+    "#704e3b",
+    "#996849",
+    "#bc9260",
+    "#d0a050",
+    "#e8b860",
+    "#b4a079",
+    "#a8b4c0",
+    "#71858b",
+    "#7d927e",
+    "#526953",
+    "#9ad06a",
+    "#e07a8a",
+    "#89596d",
+    "#c8b0e8",
+    "#78618e",
+    "#29545a",
+    "#418f91",
+    "#6fe0d0",
+    "#b1e7d5"
+  ],
+  "alpha": "binary 0/255",
+  "regionConvention": "x/y is first frame; horizontal frame stride=frameWidth; all regions independent",
+  "assets": [
+    {
+      "id": "k3n_secondhaendler_walk",
+      "file": "characters/k3n_secondhaendler_walk.png",
+      "width": 64,
+      "height": 128,
+      "transparent": true,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "baseline": 30,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "k3n_secondhaendler_emotions",
+      "file": "portraits/k3n_secondhaendler_emotions.png",
+      "width": 256,
+      "height": 64,
+      "transparent": true,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 4,
+      "rows": 1,
+      "animations": {
+        "neutral": {
+          "frames": [
+            0
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "misstrauisch": {
+          "frames": [
+            1
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "erschrocken": {
+          "frames": [
+            2
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "laecheln": {
+          "frames": [
+            3
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "AK_k3n_secondhaendler_emotions2",
+      "file": "portraits/AK_k3n_secondhaendler_emotions2.png",
+      "width": 256,
+      "height": 64,
+      "transparent": true,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 4,
+      "rows": 1,
+      "animations": {
+        "wuetend": {
+          "frames": [
+            0
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "traurig": {
+          "frames": [
+            1
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "nachdenklich": {
+          "frames": [
+            2
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "entschlossen": {
+          "frames": [
+            3
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "k3n_secondhaendler",
+      "file": "ui/heads/k3n_secondhaendler.png",
+      "width": 24,
+      "height": 24,
+      "transparent": true,
+      "frameWidth": 24,
+      "frameHeight": 24,
+      "columns": 1,
+      "rows": 1,
+      "animations": {
+        "neutral": {
+          "frames": [
+            0
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "BA_staende",
+      "file": "props/BA_staende.png",
+      "width": 64,
+      "height": 320,
+      "transparent": true,
+      "regions": [
+        {
+          "id": "stand_kreide",
+          "x": 0,
+          "y": 0,
+          "width": 32,
+          "height": 32,
+          "frameWidth": 32,
+          "frameHeight": 32,
+          "columns": 2,
+          "rows": 1,
+          "frames": [
+            0,
+            1
+          ],
+          "fps": 1,
+          "animations": {
+            "offen": {
+              "frames": [
+                0
+              ],
+              "frameRate": 1,
+              "repeat": 0
+            },
+            "geschlossen": {
+              "frames": [
+                1
+              ],
+              "frameRate": 1,
+              "repeat": 0
+            }
+          },
+          "states": {
+            "offen": 0,
+            "geschlossen": 1
+          },
+          "city": "dunscar",
+          "map": "ds_kalkmarkt"
+        },
+        {
+          "id": "stand_kalkpastillen",
+          "x": 0,
+          "y": 32,
+          "width": 32,
+          "height": 32,
+          "frameWidth": 32,
+          "frameHeight": 32,
+          "columns": 2,
+          "rows": 1,
+          "frames": [
+            0,
+            1
+          ],
+          "fps": 1,
+          "animations": {
+            "offen": {
+              "frames": [
+                0
+              ],
+              "frameRate": 1,
+              "repeat": 0
+            },
+            "geschlossen": {
+              "frames": [
+                1
+              ],
+              "frameRate": 1,
+              "repeat": 0
+            }
+          },
+          "states": {
+            "offen": 0,
+            "geschlossen": 1
+          },
+          "city": "dunscar",
+          "map": "ds_kalkmarkt"
+        },
+        {
+          "id": "stand_troedel",
+          "x": 0,
+          "y": 64,
+          "width": 32,
+          "height": 32,
+          "frameWidth": 32,
+          "frameHeight": 32,
+          "columns": 2,
+          "rows": 1,
+          "frames": [
+            0,
+            1
+          ],
+          "fps": 1,
+          "animations": {
+            "offen": {
+              "frames": [
+                0
+              ],
+              "frameRate": 1,
+              "repeat": 0
+            },
+            "geschlossen": {
+              "frames": [
+                1
+              ],
+              "frameRate": 1,
+              "repeat": 0
+            }
+          },
+          "states": {
+            "offen": 0,
+            "geschlossen": 1
+          },
+          "city": "dunscar",
+          "map": "ds_kalkmarkt"
+        },
+        {
+          "id": "stand_stein",
+          "x": 0,
+          "y": 96,
+          "width": 32,
+          "height": 32,
+          "frameWidth": 32,
+          "frameHeight": 32,
+          "columns": 2,
+          "rows": 1,
+          "frames": [
+            0,
+            1
+          ],
+          "fps": 1,
+          "animations": {
+            "offen": {
+              "frames": [
+                0
+              ],
+              "frameRate": 1,
+              "repeat": 0
+            },
+            "geschlossen": {
+              "frames": [
+                1
+              ],
+              "frameRate": 1,
+              "repeat": 0
+            }
+          },
+          "states": {
+            "offen": 0,
+            "geschlossen": 1
+          },
+          "city": "dunscar",
+          "map": "ds_kalkmarkt"
+        },
+        {
+          "id": "stand_tee",
+          "x": 0,
+          "y": 128,
+          "width": 32,
+          "height": 32,
+          "frameWidth": 32,
+          "frameHeight": 32,
+          "columns": 2,
+          "rows": 1,
+          "frames": [
+            0,
+            1
+          ],
+          "fps": 1,
+          "animations": {
+            "offen": {
+              "frames": [
+                0
+              ],
+              "frameRate": 1,
+              "repeat": 0
+            },
+            "geschlossen": {
+              "frames": [
+                1
+              ],
+              "frameRate": 1,
+              "repeat": 0
+            }
+          },
+          "states": {
+            "offen": 0,
+            "geschlossen": 1
+          },
+          "city": "dunscar",
+          "map": "ds_kalkmarkt"
+        },
+        {
+          "id": "stand_werkzeug",
+          "x": 0,
+          "y": 160,
+          "width": 32,
+          "height": 32,
+          "frameWidth": 32,
+          "frameHeight": 32,
+          "columns": 2,
+          "rows": 1,
+          "frames": [
+            0,
+            1
+          ],
+          "fps": 1,
+          "animations": {
+            "offen": {
+              "frames": [
+                0
+              ],
+              "frameRate": 1,
+              "repeat": 0
+            },
+            "geschlossen": {
+              "frames": [
+                1
+              ],
+              "frameRate": 1,
+              "repeat": 0
+            }
+          },
+          "states": {
+            "offen": 0,
+            "geschlossen": 1
+          },
+          "city": "dunscar",
+          "map": "ds_kalkmarkt"
+        },
+        {
+          "id": "stand_kartoffeln",
+          "x": 0,
+          "y": 192,
+          "width": 32,
+          "height": 32,
+          "frameWidth": 32,
+          "frameHeight": 32,
+          "columns": 2,
+          "rows": 1,
+          "frames": [
+            0,
+            1
+          ],
+          "fps": 1,
+          "animations": {
+            "offen": {
+              "frames": [
+                0
+              ],
+              "frameRate": 1,
+              "repeat": 0
+            },
+            "geschlossen": {
+              "frames": [
+                1
+              ],
+              "frameRate": 1,
+              "repeat": 0
+            }
+          },
+          "states": {
+            "offen": 0,
+            "geschlossen": 1
+          },
+          "city": "dunscar",
+          "map": "ds_arbeiterbogen"
+        },
+        {
+          "id": "stand_zeitungen",
+          "x": 0,
+          "y": 224,
+          "width": 32,
+          "height": 32,
+          "frameWidth": 32,
+          "frameHeight": 32,
+          "columns": 2,
+          "rows": 1,
+          "frames": [
+            0,
+            1
+          ],
+          "fps": 1,
+          "animations": {
+            "offen": {
+              "frames": [
+                0
+              ],
+              "frameRate": 1,
+              "repeat": 0
+            },
+            "geschlossen": {
+              "frames": [
+                1
+              ],
+              "frameRate": 1,
+              "repeat": 0
+            }
+          },
+          "states": {
+            "offen": 0,
+            "geschlossen": 1
+          },
+          "city": "dunscar",
+          "map": "ds_arbeiterbogen"
+        },
+        {
+          "id": "stand_kerzen",
+          "x": 0,
+          "y": 256,
+          "width": 32,
+          "height": 32,
+          "frameWidth": 32,
+          "frameHeight": 32,
+          "columns": 2,
+          "rows": 1,
+          "frames": [
+            0,
+            1
+          ],
+          "fps": 1,
+          "animations": {
+            "offen": {
+              "frames": [
+                0
+              ],
+              "frameRate": 1,
+              "repeat": 0
+            },
+            "geschlossen": {
+              "frames": [
+                1
+              ],
+              "frameRate": 1,
+              "repeat": 0
+            }
+          },
+          "states": {
+            "offen": 0,
+            "geschlossen": 1
+          },
+          "city": "dunscar",
+          "map": "ds_arbeiterbogen"
+        },
+        {
+          "id": "stand_flickzeug",
+          "x": 0,
+          "y": 288,
+          "width": 32,
+          "height": 32,
+          "frameWidth": 32,
+          "frameHeight": 32,
+          "columns": 2,
+          "rows": 1,
+          "frames": [
+            0,
+            1
+          ],
+          "fps": 1,
+          "animations": {
+            "offen": {
+              "frames": [
+                0
+              ],
+              "frameRate": 1,
+              "repeat": 0
+            },
+            "geschlossen": {
+              "frames": [
+                1
+              ],
+              "frameRate": 1,
+              "repeat": 0
+            }
+          },
+          "states": {
+            "offen": 0,
+            "geschlossen": 1
+          },
+          "city": "dunscar",
+          "map": "ds_arbeiterbogen"
+        }
+      ]
+    },
+    {
+      "id": "BA_dunscar_tiere",
+      "file": "fx/BA_dunscar_tiere.png",
+      "width": 96,
+      "height": 224,
+      "transparent": true,
+      "regions": [
+        {
+          "id": "ds_kraehe_sitzen",
+          "x": 0,
+          "y": 0,
+          "width": 16,
+          "height": 16,
+          "frameWidth": 16,
+          "frameHeight": 16,
+          "columns": 2,
+          "rows": 1,
+          "frames": [
+            0,
+            1
+          ],
+          "fps": 4,
+          "animations": {
+            "ds_kraehe_sitzen": {
+              "frames": [
+                0,
+                1
+              ],
+              "frameRate": 4,
+              "repeat": -1
+            }
+          }
+        },
+        {
+          "id": "ds_kraehe_auffliegen",
+          "x": 0,
+          "y": 16,
+          "width": 16,
+          "height": 16,
+          "frameWidth": 16,
+          "frameHeight": 16,
+          "columns": 4,
+          "rows": 1,
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 8,
+          "animations": {
+            "ds_kraehe_auffliegen": {
+              "frames": [
+                0,
+                1,
+                2,
+                3
+              ],
+              "frameRate": 8,
+              "repeat": -1
+            }
+          }
+        },
+        {
+          "id": "ds_kraehe_fliegen",
+          "x": 0,
+          "y": 32,
+          "width": 16,
+          "height": 16,
+          "frameWidth": 16,
+          "frameHeight": 16,
+          "columns": 4,
+          "rows": 1,
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 8,
+          "animations": {
+            "ds_kraehe_fliegen": {
+              "frames": [
+                0,
+                1,
+                2,
+                3
+              ],
+              "frameRate": 8,
+              "repeat": -1
+            }
+          }
+        },
+        {
+          "id": "ds_kalkziege_stehen",
+          "x": 0,
+          "y": 48,
+          "width": 16,
+          "height": 16,
+          "frameWidth": 16,
+          "frameHeight": 16,
+          "columns": 2,
+          "rows": 1,
+          "frames": [
+            0,
+            1
+          ],
+          "fps": 4,
+          "animations": {
+            "ds_kalkziege_stehen": {
+              "frames": [
+                0,
+                1
+              ],
+              "frameRate": 4,
+              "repeat": -1
+            }
+          }
+        },
+        {
+          "id": "ds_kalkziege_laufen",
+          "x": 0,
+          "y": 64,
+          "width": 16,
+          "height": 16,
+          "frameWidth": 16,
+          "frameHeight": 16,
+          "columns": 4,
+          "rows": 1,
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 8,
+          "animations": {
+            "ds_kalkziege_laufen": {
+              "frames": [
+                0,
+                1,
+                2,
+                3
+              ],
+              "frameRate": 8,
+              "repeat": -1
+            }
+          }
+        },
+        {
+          "id": "ds_kalkziege_klettern",
+          "x": 0,
+          "y": 80,
+          "width": 16,
+          "height": 32,
+          "frameWidth": 16,
+          "frameHeight": 32,
+          "columns": 2,
+          "rows": 1,
+          "frames": [
+            0,
+            1
+          ],
+          "fps": 8,
+          "animations": {
+            "ds_kalkziege_klettern": {
+              "frames": [
+                0,
+                1
+              ],
+              "frameRate": 8,
+              "repeat": -1
+            }
+          }
+        },
+        {
+          "id": "ds_staubteufel",
+          "x": 0,
+          "y": 112,
+          "width": 16,
+          "height": 32,
+          "frameWidth": 16,
+          "frameHeight": 32,
+          "columns": 6,
+          "rows": 1,
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "fps": 8,
+          "animations": {
+            "ds_staubteufel": {
+              "frames": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5
+              ],
+              "frameRate": 8,
+              "repeat": -1
+            }
+          }
+        },
+        {
+          "id": "ds_motte_kreisen",
+          "x": 0,
+          "y": 144,
+          "width": 16,
+          "height": 16,
+          "frameWidth": 16,
+          "frameHeight": 16,
+          "columns": 4,
+          "rows": 1,
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 8,
+          "animations": {
+            "ds_motte_kreisen": {
+              "frames": [
+                0,
+                1,
+                2,
+                3
+              ],
+              "frameRate": 8,
+              "repeat": -1
+            }
+          }
+        },
+        {
+          "id": "ds_eidechse_sitzen",
+          "x": 0,
+          "y": 160,
+          "width": 16,
+          "height": 16,
+          "frameWidth": 16,
+          "frameHeight": 16,
+          "columns": 2,
+          "rows": 1,
+          "frames": [
+            0,
+            1
+          ],
+          "fps": 4,
+          "animations": {
+            "ds_eidechse_sitzen": {
+              "frames": [
+                0,
+                1
+              ],
+              "frameRate": 4,
+              "repeat": -1
+            }
+          }
+        },
+        {
+          "id": "ds_eidechse_huschen",
+          "x": 0,
+          "y": 176,
+          "width": 16,
+          "height": 16,
+          "frameWidth": 16,
+          "frameHeight": 16,
+          "columns": 4,
+          "rows": 1,
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 8,
+          "animations": {
+            "ds_eidechse_huschen": {
+              "frames": [
+                0,
+                1,
+                2,
+                3
+              ],
+              "frameRate": 8,
+              "repeat": -1
+            }
+          }
+        },
+        {
+          "id": "ds_schwalbe_fliegen",
+          "x": 0,
+          "y": 192,
+          "width": 16,
+          "height": 16,
+          "frameWidth": 16,
+          "frameHeight": 16,
+          "columns": 4,
+          "rows": 1,
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 8,
+          "animations": {
+            "ds_schwalbe_fliegen": {
+              "frames": [
+                0,
+                1,
+                2,
+                3
+              ],
+              "frameRate": 8,
+              "repeat": -1
+            }
+          }
+        },
+        {
+          "id": "ds_schwalbe_sitzen",
+          "x": 0,
+          "y": 208,
+          "width": 16,
+          "height": 16,
+          "frameWidth": 16,
+          "frameHeight": 16,
+          "columns": 1,
+          "rows": 1,
+          "frames": [
+            0
+          ],
+          "fps": 4,
+          "animations": {
+            "ds_schwalbe_sitzen": {
+              "frames": [
+                0
+              ],
+              "frameRate": 4,
+              "repeat": -1
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "BA_dunscar_wetter",
+      "file": "fx/BA_dunscar_wetter.png",
+      "width": 960,
+      "height": 448,
+      "transparent": true,
+      "regions": [
+        {
+          "id": "kalkstaub",
+          "x": 0,
+          "y": 0,
+          "width": 240,
+          "height": 135,
+          "frameWidth": 240,
+          "frameHeight": 135,
+          "columns": 4,
+          "rows": 1,
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 5,
+          "animations": {
+            "kalkstaub": {
+              "frames": [
+                0,
+                1,
+                2,
+                3
+              ],
+              "frameRate": 5,
+              "repeat": -1
+            }
+          },
+          "tileWidth": 240,
+          "tileHeight": 135
+        },
+        {
+          "id": "nachtnebel_1",
+          "x": 0,
+          "y": 144,
+          "width": 240,
+          "height": 135,
+          "frameWidth": 240,
+          "frameHeight": 135,
+          "columns": 1,
+          "rows": 1,
+          "frames": [
+            0
+          ],
+          "fps": 1,
+          "animations": {
+            "nachtnebel_1": {
+              "frames": [
+                0
+              ],
+              "frameRate": 1,
+              "repeat": -1
+            }
+          },
+          "tileWidth": 240,
+          "tileHeight": 135
+        },
+        {
+          "id": "nachtnebel_2",
+          "x": 0,
+          "y": 288,
+          "width": 240,
+          "height": 135,
+          "frameWidth": 240,
+          "frameHeight": 135,
+          "columns": 1,
+          "rows": 1,
+          "frames": [
+            0
+          ],
+          "fps": 1,
+          "animations": {
+            "nachtnebel_2": {
+              "frames": [
+                0
+              ],
+              "frameRate": 1,
+              "repeat": -1
+            }
+          },
+          "tileWidth": 240,
+          "tileHeight": 135
+        },
+        {
+          "id": "wind_grasbueschel",
+          "x": 0,
+          "y": 432,
+          "width": 16,
+          "height": 16,
+          "frameWidth": 16,
+          "frameHeight": 16,
+          "columns": 4,
+          "rows": 1,
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 5,
+          "animations": {
+            "wind_grasbueschel": {
+              "frames": [
+                0,
+                1,
+                2,
+                3
+              ],
+              "frameRate": 5,
+              "repeat": -1
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "ds_ruflinien",
+      "file": "ui/ds_ruflinien.png",
+      "width": 192,
+      "height": 448,
+      "transparent": true,
+      "regions": [
+        {
+          "id": "linie_vorschau",
+          "x": 0,
+          "y": 0,
+          "width": 16,
+          "height": 16,
+          "frameWidth": 16,
+          "frameHeight": 16,
+          "columns": 4,
+          "rows": 1,
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 6,
+          "animations": {
+            "linie_vorschau": {
+              "frames": [
+                0,
+                1,
+                2,
+                3
+              ],
+              "frameRate": 6,
+              "repeat": -1
+            }
+          },
+          "connection": [
+            0,
+            8
+          ]
+        },
+        {
+          "id": "linie_aktiv",
+          "x": 0,
+          "y": 16,
+          "width": 16,
+          "height": 16,
+          "frameWidth": 16,
+          "frameHeight": 16,
+          "columns": 4,
+          "rows": 1,
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 6,
+          "animations": {
+            "linie_aktiv": {
+              "frames": [
+                0,
+                1,
+                2,
+                3
+              ],
+              "frameRate": 6,
+              "repeat": -1
+            }
+          },
+          "connection": [
+            0,
+            8
+          ]
+        },
+        {
+          "id": "linie_echo",
+          "x": 0,
+          "y": 32,
+          "width": 16,
+          "height": 16,
+          "frameWidth": 16,
+          "frameHeight": 16,
+          "columns": 6,
+          "rows": 1,
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "fps": 6,
+          "animations": {
+            "linie_echo": {
+              "frames": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5
+              ],
+              "frameRate": 6,
+              "repeat": -1
+            }
+          },
+          "connection": [
+            0,
+            8
+          ]
+        },
+        {
+          "id": "linie_fehl",
+          "x": 0,
+          "y": 48,
+          "width": 16,
+          "height": 16,
+          "frameWidth": 16,
+          "frameHeight": 16,
+          "columns": 4,
+          "rows": 1,
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 6,
+          "animations": {
+            "linie_fehl": {
+              "frames": [
+                0,
+                1,
+                2,
+                3
+              ],
+              "frameRate": 6,
+              "repeat": -1
+            }
+          },
+          "connection": [
+            0,
+            8
+          ]
+        },
+        {
+          "id": "ecke_vorschau",
+          "x": 0,
+          "y": 64,
+          "width": 16,
+          "height": 16,
+          "frameWidth": 16,
+          "frameHeight": 16,
+          "columns": 2,
+          "rows": 1,
+          "frames": [
+            0,
+            1
+          ],
+          "fps": 6,
+          "animations": {
+            "ecke_vorschau": {
+              "frames": [
+                0,
+                1
+              ],
+              "frameRate": 6,
+              "repeat": -1
+            }
+          },
+          "connection": [
+            0,
+            8
+          ]
+        },
+        {
+          "id": "ecke_aktiv",
+          "x": 0,
+          "y": 80,
+          "width": 16,
+          "height": 16,
+          "frameWidth": 16,
+          "frameHeight": 16,
+          "columns": 2,
+          "rows": 1,
+          "frames": [
+            0,
+            1
+          ],
+          "fps": 6,
+          "animations": {
+            "ecke_aktiv": {
+              "frames": [
+                0,
+                1
+              ],
+              "frameRate": 6,
+              "repeat": -1
+            }
+          },
+          "connection": [
+            0,
+            8
+          ]
+        },
+        {
+          "id": "ecke_fehl",
+          "x": 0,
+          "y": 96,
+          "width": 16,
+          "height": 16,
+          "frameWidth": 16,
+          "frameHeight": 16,
+          "columns": 2,
+          "rows": 1,
+          "frames": [
+            0,
+            1
+          ],
+          "fps": 6,
+          "animations": {
+            "ecke_fehl": {
+              "frames": [
+                0,
+                1
+              ],
+              "frameRate": 6,
+              "repeat": -1
+            }
+          },
+          "connection": [
+            0,
+            8
+          ]
+        },
+        {
+          "id": "ende_vorschau",
+          "x": 0,
+          "y": 112,
+          "width": 16,
+          "height": 16,
+          "frameWidth": 16,
+          "frameHeight": 16,
+          "columns": 3,
+          "rows": 1,
+          "frames": [
+            0,
+            1,
+            2
+          ],
+          "fps": 6,
+          "animations": {
+            "ende_vorschau": {
+              "frames": [
+                0,
+                1,
+                2
+              ],
+              "frameRate": 6,
+              "repeat": -1
+            }
+          },
+          "connection": [
+            0,
+            8
+          ]
+        },
+        {
+          "id": "ende_aktiv",
+          "x": 0,
+          "y": 128,
+          "width": 16,
+          "height": 16,
+          "frameWidth": 16,
+          "frameHeight": 16,
+          "columns": 3,
+          "rows": 1,
+          "frames": [
+            0,
+            1,
+            2
+          ],
+          "fps": 6,
+          "animations": {
+            "ende_aktiv": {
+              "frames": [
+                0,
+                1,
+                2
+              ],
+              "frameRate": 6,
+              "repeat": -1
+            }
+          },
+          "connection": [
+            0,
+            8
+          ]
+        },
+        {
+          "id": "nische",
+          "x": 0,
+          "y": 144,
+          "width": 16,
+          "height": 16,
+          "frameWidth": 16,
+          "frameHeight": 16,
+          "columns": 2,
+          "rows": 1,
+          "frames": [
+            0,
+            1
+          ],
+          "fps": 6,
+          "animations": {
+            "nische": {
+              "frames": [
+                0,
+                1
+              ],
+              "frameRate": 6,
+              "repeat": -1
+            }
+          },
+          "connection": [
+            0,
+            8
+          ]
+        },
+        {
+          "id": "hoerkreis",
+          "x": 0,
+          "y": 160,
+          "width": 48,
+          "height": 48,
+          "frameWidth": 48,
+          "frameHeight": 48,
+          "columns": 3,
+          "rows": 1,
+          "frames": [
+            0,
+            1,
+            2
+          ],
+          "fps": 3,
+          "animations": {
+            "hoerkreis": {
+              "frames": [
+                0,
+                1,
+                2
+              ],
+              "frameRate": 3,
+              "repeat": -1
+            }
+          },
+          "center": [
+            24,
+            24
+          ],
+          "radius": 22
+        },
+        {
+          "id": "alarm",
+          "x": 0,
+          "y": 208,
+          "width": 16,
+          "height": 16,
+          "frameWidth": 16,
+          "frameHeight": 16,
+          "columns": 4,
+          "rows": 1,
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 4,
+          "animations": {
+            "alarm": {
+              "frames": [
+                0,
+                1,
+                2,
+                3
+              ],
+              "frameRate": 4,
+              "repeat": -1
+            }
+          }
+        },
+        {
+          "id": "bindung",
+          "x": 0,
+          "y": 224,
+          "width": 16,
+          "height": 16,
+          "frameWidth": 16,
+          "frameHeight": 16,
+          "columns": 4,
+          "rows": 1,
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 4,
+          "animations": {
+            "bindung": {
+              "frames": [
+                0,
+                1,
+                2,
+                3
+              ],
+              "frameRate": 4,
+              "repeat": -1
+            }
+          }
+        },
+        {
+          "id": "bindung_p2",
+          "x": 0,
+          "y": 240,
+          "width": 16,
+          "height": 16,
+          "frameWidth": 16,
+          "frameHeight": 16,
+          "columns": 4,
+          "rows": 1,
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 4,
+          "animations": {
+            "bindung_p2": {
+              "frames": [
+                0,
+                1,
+                2,
+                3
+              ],
+              "frameRate": 4,
+              "repeat": -1
+            }
+          }
+        },
+        {
+          "id": "notladung",
+          "x": 0,
+          "y": 256,
+          "width": 16,
+          "height": 16,
+          "frameWidth": 16,
+          "frameHeight": 16,
+          "columns": 2,
+          "rows": 1,
+          "frames": [
+            0,
+            1
+          ],
+          "fps": 4,
+          "animations": {
+            "voll": {
+              "frames": [
+                0
+              ],
+              "frameRate": 1,
+              "repeat": 0
+            },
+            "leer": {
+              "frames": [
+                1
+              ],
+              "frameRate": 1,
+              "repeat": 0
+            }
+          },
+          "states": {
+            "voll": 0,
+            "leer": 1
+          }
+        },
+        {
+          "id": "schleuse_zu",
+          "x": 0,
+          "y": 272,
+          "width": 32,
+          "height": 48,
+          "frameWidth": 32,
+          "frameHeight": 48,
+          "columns": 3,
+          "rows": 1,
+          "frames": [
+            0,
+            1,
+            2
+          ],
+          "fps": 4,
+          "animations": {
+            "schleuse_zu": {
+              "frames": [
+                0,
+                1,
+                2
+              ],
+              "frameRate": 4,
+              "repeat": -1
+            }
+          }
+        },
+        {
+          "id": "schleuse_auf",
+          "x": 0,
+          "y": 320,
+          "width": 32,
+          "height": 48,
+          "frameWidth": 32,
+          "frameHeight": 48,
+          "columns": 3,
+          "rows": 1,
+          "frames": [
+            0,
+            1,
+            2
+          ],
+          "fps": 6,
+          "animations": {
+            "schleuse_auf": {
+              "frames": [
+                0,
+                1,
+                2
+              ],
+              "frameRate": 6,
+              "repeat": 0
+            }
+          },
+          "repeat": 0
+        },
+        {
+          "id": "horchtrichter",
+          "x": 0,
+          "y": 368,
+          "width": 32,
+          "height": 32,
+          "frameWidth": 32,
+          "frameHeight": 32,
+          "columns": 4,
+          "rows": 1,
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 5,
+          "animations": {
+            "horchtrichter": {
+              "frames": [
+                0,
+                1,
+                2,
+                3
+              ],
+              "frameRate": 5,
+              "repeat": -1
+            }
+          }
+        },
+        {
+          "id": "richtungspfeil",
+          "x": 0,
+          "y": 400,
+          "width": 16,
+          "height": 16,
+          "frameWidth": 16,
+          "frameHeight": 16,
+          "columns": 4,
+          "rows": 1,
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "fps": 4,
+          "animations": {
+            "richtungspfeil": {
+              "frames": [
+                0,
+                1,
+                2,
+                3
+              ],
+              "frameRate": 4,
+              "repeat": -1
+            }
+          }
+        },
+        {
+          "id": "sprecher_1",
+          "x": 0,
+          "y": 416,
+          "width": 16,
+          "height": 16,
+          "frameWidth": 16,
+          "frameHeight": 16,
+          "columns": 1,
+          "rows": 1,
+          "frames": [
+            0
+          ],
+          "fps": 4,
+          "animations": {
+            "sprecher_1": {
+              "frames": [
+                0
+              ],
+              "frameRate": 4,
+              "repeat": -1
+            }
+          }
+        },
+        {
+          "id": "sprecher_2",
+          "x": 0,
+          "y": 432,
+          "width": 16,
+          "height": 16,
+          "frameWidth": 16,
+          "frameHeight": 16,
+          "columns": 1,
+          "rows": 1,
+          "frames": [
+            0
+          ],
+          "fps": 4,
+          "animations": {
+            "sprecher_2": {
+              "frames": [
+                0
+              ],
+              "frameRate": 4,
+              "repeat": -1
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "ds_rufjournal",
+      "file": "ui/ds_rufjournal.png",
+      "width": 160,
+      "height": 192,
+      "transparent": true,
+      "regions": [
+        {
+          "id": "rahmen",
+          "x": 0,
+          "y": 0,
+          "width": 48,
+          "height": 48,
+          "frameWidth": 48,
+          "frameHeight": 48,
+          "columns": 1,
+          "rows": 1,
+          "frames": [
+            0
+          ],
+          "fps": 1,
+          "animations": {
+            "rahmen": {
+              "frames": [
+                0
+              ],
+              "frameRate": 1,
+              "repeat": -1
+            }
+          },
+          "nineSlice": {
+            "left": 16,
+            "right": 16,
+            "top": 16,
+            "bottom": 16
+          }
+        },
+        {
+          "id": "muster_bekannt",
+          "x": 0,
+          "y": 48,
+          "width": 20,
+          "height": 20,
+          "frameWidth": 20,
+          "frameHeight": 20,
+          "columns": 1,
+          "rows": 1,
+          "frames": [
+            0
+          ],
+          "fps": 1,
+          "animations": {
+            "muster_bekannt": {
+              "frames": [
+                0
+              ],
+              "frameRate": 1,
+              "repeat": -1
+            }
+          },
+          "contentRect": [
+            2,
+            2,
+            16,
+            16
+          ]
+        },
+        {
+          "id": "muster_geprueft",
+          "x": 0,
+          "y": 80,
+          "width": 20,
+          "height": 20,
+          "frameWidth": 20,
+          "frameHeight": 20,
+          "columns": 1,
+          "rows": 1,
+          "frames": [
+            0
+          ],
+          "fps": 1,
+          "animations": {
+            "muster_geprueft": {
+              "frames": [
+                0
+              ],
+              "frameRate": 1,
+              "repeat": -1
+            }
+          },
+          "contentRect": [
+            2,
+            2,
+            16,
+            16
+          ]
+        },
+        {
+          "id": "muster_falsch",
+          "x": 0,
+          "y": 112,
+          "width": 20,
+          "height": 20,
+          "frameWidth": 20,
+          "frameHeight": 20,
+          "columns": 1,
+          "rows": 1,
+          "frames": [
+            0
+          ],
+          "fps": 1,
+          "animations": {
+            "muster_falsch": {
+              "frames": [
+                0
+              ],
+              "frameRate": 1,
+              "repeat": -1
+            }
+          },
+          "contentRect": [
+            2,
+            2,
+            16,
+            16
+          ]
+        },
+        {
+          "id": "tab_icon",
+          "x": 0,
+          "y": 144,
+          "width": 16,
+          "height": 16,
+          "frameWidth": 16,
+          "frameHeight": 16,
+          "columns": 1,
+          "rows": 1,
+          "frames": [
+            0
+          ],
+          "fps": 1,
+          "animations": {
+            "tab_icon": {
+              "frames": [
+                0
+              ],
+              "frameRate": 1,
+              "repeat": -1
+            }
+          }
+        },
+        {
+          "id": "zeilenhintergrund",
+          "x": 0,
+          "y": 160,
+          "width": 160,
+          "height": 24,
+          "frameWidth": 160,
+          "frameHeight": 24,
+          "columns": 1,
+          "rows": 1,
+          "frames": [
+            0
+          ],
+          "fps": 1,
+          "animations": {
+            "zeilenhintergrund": {
+              "frames": [
+                0
+              ],
+              "frameRate": 1,
+              "repeat": -1
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

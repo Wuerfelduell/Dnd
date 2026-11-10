@@ -1451,3 +1451,25 @@ Wunschliste, Rastergrößen, Palette, Alpha, Animationen, Grundlinie und Icon-Du
 Die hochauflösenden Quellen sind über Dateiname und SHA-256 protokolliert;
 Runtime-Dateien sind ausschließlich die finalen Rasterexports.
 Einbau in das Spiel erfolgt separat.
+
+## Batch BA — dunscar4: Ruf-Oberfläche und Stadtleben
+
+Neun PNGs, 53 benannte Regionen und 165 belegte Frames. Manifest:
+`public/sprites/manifest-dunscar4.json`. Enthält Ruflinien mit unterschiedlichen
+Strichformen, Hörkreis, Bindung P1/P2 (zusätzlich eine/zwei Kerben), Notladung,
+Schallschleusen, Horchtrichter und Rufjournal; sechs Tierarten inklusive
+Staubteufel, Kalkstaub/Nachtnebel/Graswind; zehn Marktstände jeweils offen und
+abgedeckt; Ruth Bellwicks vier Laufrichtungen, acht Emotionen und 24×24-Kopf.
+
+- [Vorschau](batch-dunscar4-preview.png)
+- [Verwendete Prompts und Nachbearbeitung](batch-dunscar4-generation.json)
+- [Prüfbericht](batch-dunscar4-validation.json)
+- [Einbauhinweise / offene Punkte](dunscar4/offene_punkte.md)
+- Prüfung: `python tools/art/dunscar4/validate.py` (Pillow, NumPy).
+
+Alle Laufzeit-PNGs verwenden dieselbe Palette mit höchstens 32 sichtbaren Farben
+und binärem Alpha. Linien, Journalrahmen und Grasschwung sind pixelgenaue
+geometrische Rasterelemente; Figuren, Tiere, Marktstände, Stationsprops und Wetter
+stammen aus Bildgenerierung mit anschließender Raster-/Paletten-Nachbearbeitung.
+Die Einbindung in BN/BD und das Ersetzen von Ruths bisherigem `npc:hesper`-Alias
+bleiben separat; dieser Batch verändert keinen Spielcode.
