@@ -279,13 +279,17 @@ export const pathwayMethods = {
       return { ok: false, lost: true, text };
     }
     const first = !this.pathway;
+    const carryBefore = this.carryCapacity();
     this.pathway = { id: it.pathway, seq: it.seq, digestion: 0 };
     this.unruhe = Math.min(UNRUHE_MAX - 1, this.unruhe + 20 + premature * 0.4);
     this.updateMaxHp();
     const pd = this.pathwayDef();
+    // Aufstiegsmeldung: was der Körper dazugewonnen hat (Leben, Nerven, Tragkraft)
+    const carryGain = this.carryCapacity() - carryBefore;
+    const gains = `Dein Körper wächst mit: ${this.maxHp} Leben, ${this.maxComposure()} Nerven, Tragkraft ${this.carryText().split('/')[1]}${carryGain > 0 ? ` (+${carryGain})` : ''}.`;
     const text = first
-      ? `Du trinkst. Es schmeckt nach Nebel und Kupfer. Dann wird die Welt für einen Herzschlag zu laut, zu hell, zu nah.\n\nDu bist jetzt Sequenz 9 des ${pd.name.replace('Pfad', 'Pfads')}: ${sd.name}.\n\n${sd.desc}\n\nGrundsatz: „${pd.principle}“ Handle danach, um den Trank zu verdauen.`
-      : `Der Trank schlägt ein wie ein Blitz. Als er abklingt, bist du jemand anderes. Ein bisschen.\n\nDu bist jetzt Sequenz ${sd ? it.seq : ''}: ${sd.name}.\n\n${sd.desc}`;
+      ? `Du trinkst. Es schmeckt nach Nebel und Kupfer. Dann wird die Welt für einen Herzschlag zu laut, zu hell, zu nah.\n\nDu bist jetzt Sequenz 9 des ${pd.name.replace('Pfad', 'Pfads')}: ${sd.name}.\n\n${sd.desc}\n\n${gains}\n\nGrundsatz: „${pd.principle}“ Handle danach, um den Trank zu verdauen.`
+      : `Der Trank schlägt ein wie ein Blitz. Als er abklingt, bist du jemand anderes. Ein bisschen.\n\nDu bist jetzt Sequenz ${sd ? it.seq : ''}: ${sd.name}.\n\n${sd.desc}\n\n${gains}`;
     this.emit('unruhe', this.unruhe);
     this.emit('ascend', { pathway: it.pathway, seq: it.seq, player: this.acting ?? 1 });
     this.emit('changed');
