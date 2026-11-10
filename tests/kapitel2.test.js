@@ -87,7 +87,7 @@ test('Grauspäher: Sichtkegel wächst mit der Fahndung, Stufe sinkt beim Unterta
   assert.equal(t.wanted, s.wanted);
 });
 
-test('Festnahme: Zelle, zweimal holt Zunder dich umsonst raus, danach kostet es', () => {
+test('Festnahme: Zelle, einmal holt Zunder dich umsonst raus, danach kostet es', () => {
   const s = afterChapter1();
   s.map = 'wx_bahnhof'; // in Kettlegate gelten nach Fall 9 Prices Regeln (tests/case9.test.js)
   s.money = 100;
@@ -98,8 +98,8 @@ test('Festnahme: Zelle, zweimal holt Zunder dich umsonst raus, danach kostet es'
     assert.ok(s.flags.has('k2_in_cell'));
     const before = s.money;
     const path = talk(s, 'wx_zelle', ['Zunder']);
-    assert.equal(path.at(-1), i <= 2 ? 'bail_free' : 'bail_pay', `Festnahme ${i}`);
-    assert.equal(before - s.money, i <= 2 ? 0 : 15);
+    assert.equal(path.at(-1), i <= 1 ? 'bail_free' : 'bail_pay', `Festnahme ${i}`);
+    assert.equal(before - s.money, i <= 1 ? 0 : 15);
     assert.ok(!s.flags.has('k2_in_cell'));
     assert.deepEqual(s.pendingTravel, { map: 'wx_kahn', spawn: 'default' });
     s.pendingTravel = null;
@@ -403,6 +403,9 @@ test('Price lässt sich auch überzeugen oder verprügeln', () => {
   talk(s, 'price_wexmoor', ['benutzt']);
   assert.ok(s.flags.has('k2_price_ally'));
   const t = afterAct1();
+  t.pathway = { id: 'eisen', seq: 7, digestion: 0 }; // in Wexmoor ist man mindestens Sequenz 7 (Kettlegate war das Tutorial)
+  t.updateMaxHp();
+  t.hp = t.maxHp;
   t.addItem('egelhaken');
   t.equip('egelhaken');
   t.addItem('tonikum', 3);

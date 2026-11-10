@@ -103,7 +103,13 @@ export class Combat {
     this.duoHpMult = duo ? duoHpMult(state) : 1;
     const hp = enc.practice ? enc.hp : Math.round(enc.hp * ENEMY_HP_MULT * (enc.elite ? ELITE_HP_MULT : 1) * this.duoHpMult);
     // Panzer wächst mit der Gefahrenstufe des Gebiets (Marsch 1, ...), Bosse eine Stufe mehr
-    const tier = state.content.zones?.[enc.zone]?.tier ?? 2;
+    const zone = state.content.zones?.[enc.zone];
+    const tier = zone?.tier ?? 2;
+    // Kapitel 2 (Wexmoor): das Gebiet zehrt an den Nerven (`drain` pro Runde) und lauert auf (`ambush`: Chance, dass der Gegner zuerst zuschlägt)
+    this.drain = enc.practice ? 0 : enc.drain ?? zone?.drain ?? 0;
+    this.ambushChance = enc.practice ? 0 : enc.ambush ?? zone?.ambush ?? 0;
+    this.ambushed = null; // wird beim ersten ambush() entschieden (nach dem Setzen von rng)
+    this.drainTick = 0;
     this.armor = enc.practice ? 0 : enc.armor ?? (enc.boss ? Math.min(ARMOR.boss, tier) : enc.elite ? Math.min(ARMOR.elite, tier - 1) : 0);
     this.enemy = { name: enc.name, hp, maxHp: hp, occult: !!enc.occult };
     this.rng = state.rng ?? Math.random;
@@ -409,6 +415,12 @@ export class Combat {
     return this.lastAction;
   }
 
+  /** Hinterhalt: schlägt der Gegner zu, bevor du handeln kannst? Wird einmal pro Kampf entschieden. */
+  ambush() {
+    if (this.ambushed === null) this.ambushed = this.ambushChance > 0 && this.rng() < this.ambushChance;
+    return this.ambushed;
+  }
+
   /** Zu zweit: greift der Gegner in dieser Runde noch einen anderen Spieler an? */
   moreStrikes() {
     return this.duo && !this.outcome && this.standing().some((n) => !this.struck.includes(n));
@@ -428,7 +440,7 @@ export class Combat {
     const tough0 = this.enc.elite;
     // Feld `ramp`: der Gegner wird mit jeder Runde stärker (gegen endloses Abwarten hinter Schilden)
     const ramp = 1 + (this.enc.ramp ?? 0) * Math.max(0, this.round - 1);
-    const dmgMult = this.enc.practice ? 1 : ENEMY_DMG_MULT * (rage ? 1.2 : 1) * (tough0 ? ELITE_DMG_MULT : 1) * (this.duo ? DUO_DMG_MULT : 1) * ramp;
+    const dmgMult = this.enc.practice ? 1 : ENEMY_DMG_MULT * (rage ? 1.2 : 1) * (tough0 ? ELITE_DMG_MULT : 1) * (this.duo && !this.enc.min_seq ? DUO_DMG_MULT : 1) * ramp; // höhere Wesen schlagen zu zweit nicht schwächer
     const speed = rage ? 0.85 : 1;
     const hits = [];
     const src = [...atk.hits];
@@ -519,6 +531,9 @@ export class Combat {
         if (this.state.hp === 0) this.knockOut(n);
       });
     }
+    // Das Moor zehrt: jede Runde kosten die Gebiete von Wexmoor Nerven (ohne Nerven kein Ausweichen)
+    this.drainTick = 0;
+    if (this.drain) for (const n of this.standing()) this.on(n, () => { const before = this.state.composure; this.state.setComposure(before - this.drain); this.drainTick += before - this.state.composure; });
     this.startTurn();
     if (this.outcome) return 0;
     if (!this.burn) return 0;
