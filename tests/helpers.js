@@ -125,9 +125,10 @@ export const EXPERT = (i) => ['dodge', 'parry', 'dodge', 'parry', 'miss'][i % 5]
  * Spielt einen Kampf mit festen Ergebnissen durch (wie CombatScene, ohne Timing).
  * attack: Bewertung der Angriffe (fest oder (i, precise) => Bewertung), defend(i): Ergebnis des i-ten gegnerischen Schlags.
  */
-export function fight(state, encounterId, { attack = 'good', defend = () => 'dodge', skill = 'attack', items = [], healBelow = 0, maxRounds = 60 } = {}) {
+export function fight(state, encounterId, { attack = 'good', defend = () => 'dodge', skill = 'attack', items = [], healBelow = 0, maxRounds = 60, chain = false, weak = false } = {}) {
   const c = new Combat(state, encounterId);
   c.rng = seeded(7); // fester Zufall: Takt und Nachsetzen sind in Tests reproduzierbar
+  if (weak && c.enc.weak_if) c.weak = true; // Schwachstelle aus den Ermittlungen bekannt
   let n = 0;
   let bars = 0;
   const grade = (sk) => (typeof attack === 'function' ? attack(bars++, isPrecise(sk)) : attack);
@@ -147,7 +148,12 @@ export function fight(state, encounterId, { attack = 'good', defend = () => 'dod
     const heal = ['tonikum', 'verband'].find((i) => state.itemCount(i));
     if (state.hp < healBelow && heal) c.useItem(heal);
     else if (items.length && state.itemCount(items[0])) c.useItem(items.shift());
-    else {
+    else if (chain) {
+      // Wie geübte Spieler: Fertigkeit, solange Konzentration reicht, dann beendet der Angriff den Zug
+      let guard = 0;
+      while (!c.outcome && skill !== 'attack' && c.canUse(skill) && !c.endsTurn(skill) && guard++ < 5) c.useSkill(skill, Array(c.skillDef(skill).hits).fill(attack));
+      if (!c.outcome) c.useSkill('attack', [attack]);
+    } else {
       const sk = c.canUse(skill) ? skill : 'attack';
       const def = c.skillDef(sk);
       c.useSkill(sk, Array.from({ length: skillBars(def) }, () => grade(def)));

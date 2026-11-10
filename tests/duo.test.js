@@ -8,10 +8,12 @@ import { loadContent, seeded, SKILLED, EXPERT } from './helpers.js';
 const content = loadContent();
 const always = () => 0.99; // Zufall, der nie Kontrollverlust auslöst
 
+// Ab Fall 4 trägt man eine bessere Waffe: Stockdegen bei Sequenz 9, ab Fall 5 die Ossuarklinge
+const weaponFor = (seq) => (!seq || seq === 9 ? 'schlagstock' : 'ossuarklinge');
 function hero(seq = null, id = 'eisen') {
   const s = new GameState(content);
-  s.addItem('schlagstock');
-  s.equip('schlagstock');
+  s.addItem(weaponFor(seq));
+  s.equip(weaponFor(seq));
   s.addItem('verband', 3);
   if (seq) {
     s.pathway = { id, seq, digestion: 0 };
@@ -26,8 +28,8 @@ function pair(seq = null, seq2 = seq, id2 = 'laterne') {
   const s = hero(seq);
   s.addP2();
   s.withPlayer(2, () => {
-    s.addItem('schlagstock');
-    s.equip('schlagstock');
+    s.addItem(weaponFor(seq2));
+    s.equip(weaponFor(seq2));
     s.addItem('verband', 1);
     if (seq2) {
       s.pathway = { id: id2, seq: seq2, digestion: 0 };
@@ -230,7 +232,14 @@ function duoFight(state, enc, defend, seed = 7) {
       if (!c.fighters[p] || c.fighters[p].down || c.outcome) continue;
       c.actor = p;
       c.on(p, () => { if (state.hp < state.maxHp * 0.35 && state.itemCount('verband') && c.canUseItem()) c.useItemNow('verband'); });
-      c.useSkill('attack', ['good']);
+      // Wie geübte Spieler ab Fall 5 (Sequenz 8): die stärkste Pfad-Fertigkeit, solange Konzentration reicht, dann der Angriff
+      let guard = 0;
+      while (!c.outcome && (state.pathway?.seq ?? 9) <= 8 && guard++ < 5) {
+        const sk = c.skills().filter((x) => x.usable && x.cost > 0 && x.hits > 0 && x.id !== 'blind' && x.id !== 'ward').sort((a, b) => (b.flat ?? b.mult * 10) * b.hits - (a.flat ?? a.mult * 10) * a.hits)[0];
+        if (!sk) break;
+        c.useSkill(sk.id, Array(sk.hits).fill('good'));
+      }
+      if (!c.outcome) c.useSkill('attack', ['good']);
     }
     if (c.outcome) break;
     do {

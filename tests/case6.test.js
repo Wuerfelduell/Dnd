@@ -6,8 +6,8 @@ import { loadContent, talk, use, fight, SKILLED, EXPERT } from './helpers.js';
 
 const content = loadContent();
 // Ab Fall 5 ist man auf Sequenz 8 und schlägt mit dem Wuchtschlag zu; Bosse verlangen sauberes Timing
-const WIN = { defend: SKILLED, skill: 'wuchtschlag', healBelow: 15 };
-const BOSS = { defend: EXPERT, skill: 'wuchtschlag', healBelow: 15 };
+const WIN = { defend: SKILLED, skill: 'wuchtschlag', chain: true, healBelow: 15 };
+const BOSS = { defend: EXPERT, skill: 'wuchtschlag', chain: true, healBelow: 15 };
 
 /** Zustand nach Fall 5 (Epilog gesehen). */
 function afterCase5() {
@@ -17,8 +17,8 @@ function afterCase5() {
     'hester_saved', 'briefed_03', 'case_03_raid', 'case_03_closed', 'rook_arrested', 'epilogue3_seen', 'briefed_04', 'case_04_closed', 'felix_arrested',
     'epilogue4_seen', 'briefed_05', 'case_05_closed', 'vey_arrested', 'epilogue5_seen'].forEach((f) => s.flags.add(f));
   ['case_01', 'case_02', 'case_03', 'case_04', 'case_05'].forEach((q) => { s.quests[q] = 'done'; });
-  s.addItem('schlagstock');
-  s.equip('schlagstock');
+  s.addItem('ossuarklinge'); // aus dem Schrein der Katakomben
+  s.equip('ossuarklinge');
   s.addItem('verband', 4);
   // Nach Fall 5 hat man am Nachtmarkt Sequenz 8 erreicht (die Gegner verlangen es)
   s.pathway = { id: 'eisen', seq: 8, digestion: 0 };

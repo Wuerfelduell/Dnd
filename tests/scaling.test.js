@@ -8,10 +8,10 @@ import { loadContent, fight, EXPERT, SKILLED, SKILLED_HIT } from './helpers.js';
 
 const content = loadContent();
 
-function hero(seq = null, id = 'eisen') {
+function hero(seq = null, id = 'eisen', weapon = 'schlagstock') {
   const s = new GameState(content);
-  s.addItem('schlagstock');
-  s.equip('schlagstock');
+  s.addItem(weapon);
+  s.equip(weapon);
   s.addItem('verband', 3);
   if (seq) {
     s.pathway = { id, seq, digestion: 0 };
@@ -53,15 +53,16 @@ test('Fall 7/8: Gegner halten mehr aus als in den Fällen davor', () => {
 
 test('Fall 9: Starling ist der härteste Boss von Kapitel 1, härter als Miss Wren', () => {
   const E = content.encounters;
-  assert.ok(E.starling_fight.hp > E.miss_wren.hp);
+  // Starling kämpft in zwei Phasen: zusammen hält er mehr aus als Miss Wren
+  assert.ok(E.starling_fight.hp + E.starling_stern.hp > E.miss_wren.hp);
   assert.ok(E.sternlicht.hp > E.traumfaden.hp);
   const maxHit = (id) => Math.max(...E[id].attacks.map((a) => a.damage ?? 0));
   assert.ok(maxHit('starling_fight') > maxHit('miss_wren'));
   for (const seq of [null, 8]) assert.equal(fight(hero(seq), 'starling_fight', { defend: EXPERT, healBelow: 15 }).result.outcome, 'lost', `Seq ${seq ?? 'ohne'}`);
   // Mit Durchbruch zu schaffen, aber es bleibt knapper als bei Wren
-  const wren = hero(7); const star = hero(7);
-  assert.equal(fight(wren, 'miss_wren', { defend: SKILLED, skill: 'klingenwirbel', healBelow: 15 }).result.outcome, 'won');
-  assert.equal(fight(star, 'starling_fight', { defend: SKILLED, skill: 'klingenwirbel', healBelow: 15 }).result.outcome, 'won');
+  const wren = hero(7, 'eisen', 'ossuarklinge'); const star = hero(7, 'eisen', 'ossuarklinge');
+  assert.equal(fight(wren, 'miss_wren', { defend: SKILLED, skill: 'klingenwirbel', chain: true, weak: true, healBelow: 15 }).result.outcome, 'won');
+  assert.equal(fight(star, 'starling_fight', { defend: SKILLED, skill: 'klingenwirbel', chain: true, weak: true, healBelow: 15 }).result.outcome, 'won');
 });
 
 test('Fall 7/8: ohne Durchbruch verliert man gegen Miss Wren, mit Sequenz 7 gewinnt man', () => {
@@ -70,7 +71,7 @@ test('Fall 7/8: ohne Durchbruch verliert man gegen Miss Wren, mit Sequenz 7 gewi
     assert.equal(result.outcome, 'lost', `Seq ${seq ?? 'ohne'} sollte verlieren`);
   }
   for (const seq of [7, 6]) {
-    const { result } = fight(hero(seq), 'miss_wren', { defend: SKILLED, skill: 'klingenwirbel', healBelow: 15 });
+    const { result } = fight(hero(seq, 'eisen', 'ossuarklinge'), 'miss_wren', { defend: SKILLED, skill: 'klingenwirbel', chain: true, weak: true, healBelow: 15 });
     assert.equal(result.outcome, 'won', `Seq ${seq} sollte gewinnen`);
   }
 });
@@ -89,8 +90,9 @@ test('Zu zweit: der Gegner hält mehr aus', () => {
 test('Kurve: die Bosse werden von Fall zu Fall zäher', () => {
   const E = content.encounters;
   // Fall 2, 3, 5, 6, 8, 9 (Felix in Fall 4 ist schwächer, dafür ist man dort erst Seq 9)
+  const hp = (id) => (id === 'starling_fight' ? E.starling_fight.hp + E.starling_stern.hp : E[id].hp); // Starling: beide Phasen
   const order = ['ash_warden', 'rook_fight', 'miriam', 'dreizehnter_gast', 'miss_wren', 'starling_fight'];
-  for (let i = 1; i < order.length; i++) assert.ok(E[order[i]].hp >= E[order[i - 1]].hp, `${order[i]} mindestens so zäh wie ${order[i - 1]}`);
+  for (let i = 1; i < order.length; i++) assert.ok(hp(order[i]) >= hp(order[i - 1]), `${order[i]} mindestens so zäh wie ${order[i - 1]}`);
 });
 
 // Sequenz-Schranke: die Enden der Kapitel verlangen eine Mindest-Sequenz (Seb: Kapitel 1 nicht mit Seq 8, Kapitel 2 nur mit Seq 5)

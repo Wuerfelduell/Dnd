@@ -147,6 +147,8 @@ const NEEDS_SEQ = Object.fromEntries([
 const NEEDS_SEQ7 = Object.keys(NEEDS_SEQ).filter((id) => NEEDS_SEQ[id] === 7);
 /** Fertigkeit des Eisen-Pfads, die man auf dieser Sequenz hat (Wuchtschlag ab 9, Klingenwirbel ab 7). */
 const SEQ_SKILL = (seq) => (seq ? (seq <= 7 ? 'klingenwirbel' : 'wuchtschlag') : 'attack');
+/** Waffe, die man bis dahin hat: Fall 4 den Stockdegen (Markt), ab Fall 5 die Ossuarklinge aus den Katakomben. */
+const SEQ_WEAPON = (seq) => (seq === 9 ? 'stockdegen' : 'ossuarklinge');
 
 test('Balance: Geübte Spieler (Bosse: sehr Geübte) schaffen mit Startausrüstung jeden Kampf', () => {
   // Wer von drei Schlägen einem ausweicht, einen pariert und unter 15 Leben verbindet, gewinnt.
@@ -158,12 +160,14 @@ test('Balance: Geübte Spieler (Bosse: sehr Geübte) schaffen mit Startausrüstu
     if (items.length) s.addItem('bannsalz', 2);
     // Ab Fall 3 hat man längst den Dienstschlagstock von Holt.
     if (LATE.includes(id)) s.addItem('schlagstock');
-    // Ab Fall 4 ist man auf dem Pfad: Sequenz 9, später 8, für Fall 7 bis 9 der Durchbruch auf 7
-    if (NEEDS_SEQ[id]) { s.pathway = { id: 'eisen', seq: NEEDS_SEQ[id], digestion: 0 }; s.updateMaxHp(); s.hp = s.maxHp; }
+    // Ab Fall 4 ist man auf dem Pfad: Sequenz 9, später 8, für Fall 7 bis 9 der Durchbruch auf 7; dazu eine
+    // bessere Waffe, die Fertigkeit wird verkettet, und die Schwachstelle kennt man aus den Ermittlungen
+    const seq = NEEDS_SEQ[id];
+    if (seq) { s.pathway = { id: 'eisen', seq, digestion: 0 }; s.updateMaxHp(); s.hp = s.maxHp; s.addItem(SEQ_WEAPON(seq)); s.equip(SEQ_WEAPON(seq)); }
     // Bosse der Geschichte verlangen sauberes Timing
     const defend = BOSSES.includes(id) ? EXPERT : SKILLED;
-    const skill = SEQ_SKILL(NEEDS_SEQ[id]);
-    const { result, combat } = fight(s, id, { defend, items, skill, healBelow: 15 });
+    const skill = SEQ_SKILL(seq);
+    const { result, combat } = fight(s, id, { defend, items, skill, healBelow: 15, chain: !!seq, weak: !!seq });
     assert.equal(result.outcome, 'won', `${id}: verloren in Runde ${combat.round}`);
   }
 });
