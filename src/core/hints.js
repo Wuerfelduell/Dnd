@@ -15,7 +15,10 @@ const originCache = new WeakMap();
 export function clueOrigins(content) {
   if (originCache.has(content)) return originCache.get(content);
   const out = {};
-  const add = (clue, text, when = [], via = null) => { (out[clue] ??= []).push({ text, when: when.filter(Boolean), via }); };
+  // text = genauer Fundort (für Tests und Werkzeuge), hint = was der Spieler zu sehen bekommt: bei Objekten nur der Ort,
+  // damit das Suchen Spaß bleibt; Personen werden genannt.
+  const add = (clue, text, when = [], via = null, hint = text) => { (out[clue] ??= []).push({ text, hint, when: when.filter(Boolean), via }); };
+  const around = (m) => `im Ort „${m.name}“ umsehen`;
   const maps = Object.values(content.maps ?? {});
   // Dialog → wer ihn spricht, wo und wann
   const speakers = {};
@@ -23,23 +26,23 @@ export function clueOrigins(content) {
     for (const n of m.npcs ?? []) {
       const npc = content.npcs?.[n.id];
       const dlg = n.dialogue ?? npc?.dialogue;
-      if (dlg && npc) (speakers[dlg] ??= []).push({ text: `Sprich mit ${npc.name} (${m.name})`, when: [n.visible_if] });
+      if (dlg && npc) (speakers[dlg] ??= []).push({ text: `Sprich mit ${npc.name} (${m.name})`, hint: `${npc.name} fragen (${m.name})`, when: [n.visible_if] });
     }
     for (const i of m.interactables ?? []) {
       const when = [i.visible_if, i.lock];
-      if (i.dialogue) (speakers[i.dialogue] ??= []).push({ text: `${i.prompt ?? i.title ?? 'Untersuchen'} (${m.name})`, when });
+      if (i.dialogue) (speakers[i.dialogue] ??= []).push({ text: `${i.prompt ?? i.title ?? 'Untersuchen'} (${m.name})`, hint: around(m), when });
       const clues = [i.clue, ...(i.effects?.gives_clues ?? [])].filter(Boolean);
-      for (const c of clues) add(c, `${i.prompt ?? i.title ?? 'Sieh dich genau um'} (${m.name})`, when);
+      for (const c of clues) add(c, `${i.prompt ?? i.title ?? 'Sieh dich genau um'} (${m.name})`, when, null, around(m));
     }
   }
   // Fundstücke: „Untersuchen“ im Inventar öffnet einen eigenen Dialog (Feld `inspect`)
   for (const [id, it] of Object.entries(content.items ?? {})) {
-    if (it.inspect) (speakers[it.inspect] ??= []).push({ text: `Untersuche „${it.name}“ im Inventar`, when: [{ requires_items: [id] }] });
+    if (it.inspect) (speakers[it.inspect] ??= []).push({ text: `Untersuche „${it.name}“ im Inventar`, hint: 'Fundstücke im Inventar untersuchen', when: [{ requires_items: [id] }] });
   }
   for (const [dlg, tree] of Object.entries(content.dialogues ?? {})) {
     const who = speakers[dlg] ?? [];
     for (const [nid, node] of Object.entries(tree.nodes ?? {})) {
-      for (const c of node.gives_clues ?? []) for (const w of who) add(c, w.text, w.when, { dialogue: dlg, node: nid });
+      for (const c of node.gives_clues ?? []) for (const w of who) add(c, w.text, w.when, { dialogue: dlg, node: nid }, w.hint);
     }
   }
   for (const e of Object.values(content.encounters ?? {})) {
@@ -113,7 +116,7 @@ export function caseHints(state, caseId, level = 1) {
   else {
     const missing = Object.entries(state.content.clues).filter(([id, c]) => c.fact === weak && !state.hasClue(id)).map(([id]) => id);
     const origins = clueOrigins(state.content);
-    const where = [...new Set(missing.flatMap((c) => (origins[c] ?? []).filter((o) => originOpen(state, o)).map((o) => o.text)))].slice(0, 3);
+    const where = [...new Set(missing.flatMap((c) => (origins[c] ?? []).filter((o) => originOpen(state, o)).map((o) => o.hint)))].slice(0, 3);
     if (status[weakIdx] === 'suspected') lines.push(`${fact(weak)} ist erst eine Vermutung (1 Quelle).`);
     lines.push(where.length ? `Eine weitere Quelle: ${where.join('; ')}.` : 'Achte auf Orte und Gespräche, die du noch nicht ganz ausgeschöpft hast.');
   }
@@ -136,7 +139,7 @@ export function factGap(state, factId) {
   const status = state.factStatus(factId);
   const missing = Object.entries(state.content.clues).filter(([id, c]) => c.fact === factId && !state.hasClue(id)).map(([id]) => id);
   const origins = clueOrigins(state.content);
-  const where = [...new Set(missing.flatMap((c) => (origins[c] ?? []).filter((o) => originOpen(state, o)).map((o) => o.text)))];
+  const where = [...new Set(missing.flatMap((c) => (origins[c] ?? []).filter((o) => originOpen(state, o)).map((o) => o.hint)))];
   return { fact: factId, text: f?.text ?? factId, status, have, need: LIKELY_SOURCES, missing, where };
 }
 
