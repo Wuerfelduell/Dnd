@@ -113,7 +113,16 @@ const turnFace = (id) => {
   const [url, cols] = TURN_PORTRAIT_URLS[id] ?? [TURN_PORTRAITS_URL, 19];
   return `<span class="turnface" style="background-image:url(${url});background-size:${cols * 2}em 2em;background-position:-${TURN_PORTRAITS[id] * 2}em 0"></span>`;
 };
+const BASE_SKILL_IDS = ['double', 'blind', 'ward'];
 const skillIcon = (id) => { const ic = skillIconOf(id); return ic ? atlasIcon(ic[0], ic[1], 7) : ''; };
+/** Großes Fähigkeits-Icon fürs Kampfmenü: 16er-Zelle auf 2em (skaliert mit der Oberfläche, nicht in festen Pixeln). */
+const skillIconBig = (id) => {
+  const ic = skillIconOf(id);
+  // Grundfertigkeiten ohne eigenes Bild leihen sich die Menüsymbole; neue Pfadfertigkeiten (Seq. 4 bis 1) zeigen bis zur eigenen Grafik ein Siegel
+  if (!ic) return uiSprite('bmenu', id === 'double' ? 'attack' : BASE_SKILL_IDS.includes(id) ? 'skill' : 'defend', 1 / 8, 'cbicon big');
+  const [url, index] = ic;
+  return `<span class="atlas-icon big" style="background-image:url(${url});background-size:14em auto;background-position:-${(index % 7) * 2}em -${Math.floor(index / 7) * 2}em"></span>`;
+};
 /** Artefakt-Slots (20x20 aus ui/N_artefakt_ui.png), mitgeführte mit Icon in der Öffnung. */
 const artifactSlots = (ids, max, overloaded) => Array.from({ length: Math.max(max, ids.length) }, (_, i) => {
   const id = ids[i];
@@ -2262,9 +2271,20 @@ export class Ui {
     this.combatMenuOpen = { sub, entries };
     this.layer.querySelector('.cb-target')?.classList.remove('hidden');
     const menu = this.layer.querySelector('.cb-menu');
-    menu.innerHTML = `<ol class="choices">${entries.map((e, i) => `<li><button data-i="${i}" ${e.disabled ? 'disabled' : ''} title="${esc(e.desc ?? '')}">
-      <span class="key">${e.back ? 'Esc' : i + 1}</span> ${e.ui ? uiSprite('bmenu', e.disabled ? `${e.ui}_off` : e.ui, 1 / 16 * 1.4, 'cbicon') : ''}${e.icon ? itemIcon(e.icon) : ''}${e.skill ? skillIcon(e.skill) : ''}${esc(e.text)} <span class="muted">${esc(e.info ?? '')}</span></button></li>`).join('')}</ol>
-      <div class="cb-desc"></div>`;
+    menu.classList.toggle('tiles', sub !== 'main');
+    const key = (e, i) => (e.back ? 'Esc' : i < 9 ? i + 1 : '');
+    const btn = (e, i, inner) => `<li><button data-i="${i}" ${e.disabled ? 'disabled' : ''} title="${esc(e.desc ?? '')}">${inner}</button></li>`;
+    if (sub === 'main') {
+      menu.innerHTML = `<ol class="choices">${entries.map((e, i) => btn(e, i, `<span class="key">${key(e, i)}</span> ${e.ui ? uiSprite('bmenu', e.disabled ? `${e.ui}_off` : e.ui, 1 / 8, 'cbicon') : ''}${esc(e.text)} <span class="muted">${esc(e.info ?? '')}</span>`)).join('')}</ol>
+        <div class="cb-desc"></div>`;
+    } else {
+      // Fertigkeiten und Gegenstände: Kacheln mit großem Icon, scrollbar, wenn es viele sind (bis Sequenz 1 sind es zwölf);
+      // „Zurück“ bleibt außerhalb der Liste immer sichtbar
+      const back = entries.length - 1;
+      menu.innerHTML = `<ol class="choices">${entries.slice(0, back).map((e, i) => btn(e, i, `
+          ${e.icon ? itemIconBig(e.icon) : e.skill ? skillIconBig(e.skill) : ''}<span class="tile-text"><span class="tile-name"><span class="key">${key(e, i)}</span>${esc(e.text)}</span><span class="muted">${esc(e.info ?? '')}</span></span>`)).join('')}</ol>
+        <div class="cb-foot"><button class="cb-back" data-i="${back}"><span class="key">Esc</span> Zurück</button><div class="cb-desc"></div></div>`;
+    }
     menu.querySelectorAll('[data-i]').forEach((b) => {
       b.onclick = () => this.combatPick(Number(b.dataset.i));
       b.onmouseenter = () => { menu.querySelector('.cb-desc').textContent = entries[Number(b.dataset.i)].desc ?? ''; };
