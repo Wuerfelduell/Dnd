@@ -849,3 +849,30 @@ html.touch .cb-def .aeicon { display: block; margin: 0 auto 0.2em; font-size: 16
 .nudge.hidden { display: none; }
 .nudge .tabico { vertical-align: -0.15em; margin-right: 0.3em; }
 .nudge .key { color: #1a1420; border-color: #1a1420; }
+
+/* Personen-Wegweiser: Klick im Notizbuch zeigt alle Aufenthaltsorte einer Figur auf der Stadtkarte */
+.notebook .people li[data-person] { cursor: pointer; }
+.notebook .people li[data-person]:hover { border-color: var(--gold); background: rgba(232, 192, 112, 0.06); }
+.notebook .people li.pinned { border-color: var(--gold); }
+.notebook .people .mapbtn { margin-left: auto; align-self: center; color: var(--gold); font-size: 0.85em; white-space: nowrap; opacity: 0.7; }
+.notebook .people li:hover .mapbtn { opacity: 1; }
+.notebook .people .where .maybe { opacity: 0.6; }
+.notebook .people .where .now { color: var(--ink); }
+.notebook .peoplehint { font-size: 0.75em; margin: 0 0 0.3em; }
+.citymap .pin.person { width: 2.4em; height: 2.4em; }
+.citymap .pin.person:disabled, .citymap .pin.person.locked:disabled { opacity: 1; cursor: default; filter: none; }
+.citymap .pin.person.locked .mk { filter: grayscale(0.8); }
+.citymap .pin.person .srcface { position: absolute; left: 50%; bottom: 45%; transform: translateX(-50%) scale(0.9); transform-origin: bottom center;
+  filter: drop-shadow(0 0.125em 0 #000) drop-shadow(0 0 0.25em var(--gold)); }
+.citymap .pin.person .tag { opacity: 1; top: 1.9em; }
+.citymap .pin.person.now .srcface { animation: whopulse 1s ease-in-out infinite alternate; }
+.citymap .pin.person.maybe .srcface { filter: saturate(0.5) brightness(0.8) drop-shadow(0 0.125em 0 #000); }
+.citymap .pin.person.maybe .tag { color: var(--muted); }
+@keyframes whopulse { to { filter: drop-shadow(0 0.125em 0 #000) drop-shadow(0 0 0.6em var(--gold)) brightness(1.15); } }
+.citymap .pin .who { position: absolute; left: 1.2em; bottom: 1.2em; transform: scale(0.6); transform-origin: left bottom; pointer-events: none;
+  filter: drop-shadow(0 0.125em 0 #000) drop-shadow(0 0 0.25em var(--gold)); }
+.citymap .pin .who:not(.now) { filter: saturate(0.5) brightness(0.8) drop-shadow(0 0.125em 0 #000); }
+.citymap .pin .who.now { animation: whopulse 1s ease-in-out infinite alternate; }
+.citymap.personmap .mapbar .info .srcface { vertical-align: middle; margin-right: 0.4em; transform: scale(0.8); }
+.citymap.personmap .unpinned button:disabled { opacity: 1; display: flex; align-items: center; gap: 0.3em; }
+.citymap .mapbar > button[data-act=unpin] { white-space: nowrap; font-size: 0.85em; }

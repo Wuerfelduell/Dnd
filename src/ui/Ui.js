@@ -18,7 +18,7 @@ import { MOOD_LABEL } from '../core/Relations.js';
 import { koopGreeting } from '../core/Koop.js';
 import { isSolved, knownPeople } from '../core/journal.js';
 import { canHurry, travelSafe, travelFast, afterHurryFight, travelDestinations, cityOf } from '../core/Travel.js';
-import { questTarget, leadTarget } from '../core/Guide.js';
+import { questTarget, leadTarget, personPlaces } from '../core/Guide.js';
 
 /** 16x16-Icon vor einem Item-Namen. Lädt es nicht, verschwindet es einfach. */
 const itemIcon = (id) => (PULSE_ICONS[id] ? `<span class="item-icon pulse" style="background-image:url(${PULSE_ICONS[id]})"></span>` : `<img class="item-icon" src="${itemIconUrl(id)}" alt="" width="16" height="16" onerror="this.remove()">`);
@@ -1084,15 +1084,16 @@ export class Ui {
     const goal = s.tracked ? questTarget(s, s.tracked) : leadTarget(s, s.openLeads()[0]);
     const goalMap = goal?.district ?? null;
     const meetMap = s.gatheringTarget?.()?.district ?? null;
+    this.personMap = null;
+    // Gemerkte Person aus dem Notizbuch: ihr Gesicht hängt an jedem Bezirk, in dem sie sein kann
+    const who = this.personPin ? personPlaces(s, this.personPin).filter((p) => p.district && p.city === cityOf(s, current)) : [];
+    const whoFace = who.length ? headFace(this.personPin, esc(s.content.npcs[this.personPin]?.name ?? '')) : '';
     const pin = (map, cls, inner, attrs = '') => {
       if (map === meetMap) { cls += ' goal meet'; inner += `${questUi('qpin', QUEST_PINS.amber)}<span class="goaltag">Treffen</span>`; }
       else if (map === goalMap) { cls += ' goal'; inner += `${questUi('qpin', QUEST_PINS.amber)}<span class="goaltag">Ziel</span>`; }
-      const [x, y] = pins[map];
-      const [url, cell = 0, cols = 13, live = false, grid = null] = mapMarkerOf(map);
-      const col = cell % cols;
-      const size = grid ? `${cols * 2}em ${grid.rows * 2}em;--r:${grid.row}` : `${cols * 2}em ${live ? 8 : 4}em`;
-      return `<button class="pin ${cls}${live ? ' live' : ''}" ${attrs} style="left:${x / 8}em;top:${y / 8}em">
-        <span class="mk${grid ? ' one' : ''}" style="--c:${col};background-image:url(${url});background-size:${size}"></span>${inner}</button>`;
+      const there = who.filter((p) => p.district === map);
+      if (there.length) inner += `<span class="who${there.some((p) => p.now) ? ' now' : ''}">${whoFace}</span>`;
+      return this.mapPin(pins, map, cls, inner, attrs);
     };
     const here = pins[current] ? pin(current, 'here', `<span class="youmark" style="background-image:url(${TRAVEL_MARKER_URL})"></span><span class="tag">Du bist hier</span>`, 'disabled') : '';
     const destPins = dests.map((d, i) => (pins[d.map] ? pin(d.map, '', `<span class="num">${i + 1}</span><span class="tag">${esc(d.name)}</span>`, `data-i="${i}"`) : '')).join('');
@@ -1118,6 +1119,81 @@ export class Ui {
     el.querySelector('[data-act=stay]').onclick = () => (this.travelPick === null ? this.close() : this.openTravel(current));
     const fog = el.querySelector('canvas.fog');
     if (fog) this.drawFog(fog, `${SPRITE_BASE}${rules.fog_image}`, [current, ...dests.map((d) => d.map), ...(lockedPin ? [goalMap] : [])].map((m) => pins[m]).filter(Boolean));
+  }
+
+  /** Ein Marker auf der Stadtkarte: Ortsbild aus dem Marker-Satz, dazu beliebiger Inhalt (Nummer, Schild, Gesicht). */
+  mapPin(pins, map, cls, inner, attrs = '') {
+    const [x, y] = pins[map];
+    const [url, cell = 0, cols = 13, live = false, grid = null] = mapMarkerOf(map);
+    const col = cell % cols;
+    const size = grid ? `${cols * 2}em ${grid.rows * 2}em;--r:${grid.row}` : `${cols * 2}em ${live ? 8 : 4}em`;
+    return `<button class="pin ${cls}${live ? ' live' : ''}" ${attrs} style="left:${x / 8}em;top:${y / 8}em">
+      <span class="mk${grid ? ' one' : ''}" style="--c:${col};background-image:url(${url});background-size:${size}"></span>${inner}</button>`;
+  }
+
+  /**
+   * Wegweiser zu einer Person (Notizbuch → Personen → Klick): die Stadtkarte zeigt jeden Ort, an dem die Figur
+   * stehen kann. Orte, an denen sie gerade ist, leuchten; die übrigen stehen als „sonst“ dabei. Nur ansehen, kein Reisen.
+   * Die Person bleibt danach auf der Reisekarte markiert, bis man die Markierung im Notizbuch oder hier löscht.
+   */
+  openPersonMap(npcId) {
+    const s = this.state;
+    const npc = s.content.npcs[npcId];
+    const places = personPlaces(s, npcId);
+    if (!npc || !places.length) return;
+    this.personPin = npcId;
+    const all = s.content.travelRules;
+    const ownCity = cityOf(s, s.map);
+    const city = places.some((p) => p.city === ownCity) ? ownCity : places[0].city;
+    const cityRules = all.cities?.[city];
+    const rules = cityRules ? { ...cityRules, pins: cityRules.pins ?? {} } : all;
+    const pins = rules.pins ?? {};
+    this.travelDests = [];
+    this.travelPick = null;
+    this.travelFrom = s.map;
+    this.travelPins = pins;
+    // Ein Marker je Bezirk; mehrere Karten im selben Bezirk (z. B. Haus und Gasse) teilen sich den Marker
+    const groups = new Map();
+    for (const p of places.filter((x) => x.city === city)) {
+      const key = p.district ?? p.map;
+      const g = groups.get(key) ?? { district: p.district, now: false, names: [], locked: p.locked };
+      g.now ||= p.now;
+      if (!g.names.includes(p.mapName)) g.names.push(p.mapName);
+      groups.set(key, g);
+    }
+    const name = esc(npc.name);
+    const face = headFace(npcId, name);
+    const label = (g) => `${esc(g.names.join(' / '))}${g.locked ? ' (gesperrt)' : ''}${g.now ? '' : ' · sonst'}`;
+    const marked = [...groups.values()].filter((g) => g.district && pins[g.district]);
+    const personPins = marked.map((g) => this.mapPin(pins, g.district, `person ${g.now ? 'now' : 'maybe'}${g.locked ? ' locked' : ''}`, `${face}<span class="tag">${label(g)}</span>`, 'disabled')).join('');
+    const sameCity = city === ownCity && pins[s.map];
+    const here = sameCity ? this.mapPin(pins, s.map, 'here', `<span class="youmark" style="background-image:url(${TRAVEL_MARKER_URL})"></span><span class="tag">Du bist hier</span>`, 'disabled') : '';
+    const unpinned = [...groups.values()].filter((g) => !marked.includes(g)).map((g) => `<button disabled>${face} ${label(g)}</button>`).join('');
+    const elsewhere = places.filter((p) => p.city !== city);
+    // Stadtname aus dem Kartentitel („Stadtkarte von Wexmoor“ → Wexmoor), sonst die Kennung mit großem Anfangsbuchstaben
+    const cityName = (id) => all.cities?.[id]?.title?.replace(/^Stadtkarte von /, '') ?? (id === 'kettlegate' ? 'Kettlegate' : id[0].toUpperCase() + id.slice(1));
+    const nowNames = places.filter((p) => p.city === city && p.now).map((p) => p.mapName);
+    const laterNames = places.filter((p) => p.city === city && !p.now).map((p) => p.mapName);
+    const summary = [nowNames.length ? `jetzt: ${nowNames.join(', ')}` : 'gerade nirgends anzutreffen',
+      laterNames.length ? `sonst: ${laterNames.join(', ')}` : '',
+      elsewhere.length ? `außerdem in ${[...new Set(elsewhere.map((p) => cityName(p.city)))].join(', ')}: ${elsewhere.map((p) => p.mapName).join(', ')}` : ''].filter(Boolean).join(' · ');
+    const el = this.open('travel', `
+      <div class="map${rules.map_image ? '' : ' plain'}"${rules.map_image ? ` style="background-image:url(${SPRITE_BASE}${rules.map_image})"` : ''}>
+        ${rules.fog_image ? '<canvas class="fog" width="480" height="270"></canvas>' : ''}
+        ${here}${personPins}
+        ${unpinned ? `<div class="unpinned">${unpinned}</div>` : ''}
+      </div>
+      <div class="modes hidden"></div>
+      <div class="mapbar">
+        <div class="info">${face}<h3>Wo ist ${name}?</h3><span class="muted">${esc(summary)}</span></div>
+        <button data-act="unpin">Markierung löschen</button>
+        <button data-act="stay"><span class="key">Esc</span> Zurück zum Notizbuch</button>
+      </div>`, 'citymap personmap');
+    this.personMap = npcId;
+    el.querySelector('[data-act=stay]').onclick = () => this.openNotebook('personen');
+    el.querySelector('[data-act=unpin]').onclick = () => { this.personPin = null; this.openNotebook('personen'); };
+    const fog = el.querySelector('canvas.fog');
+    if (fog) this.drawFog(fog, `${SPRITE_BASE}${rules.fog_image}`, [...(sameCity ? [s.map] : []), ...marked.map((g) => g.district)].map((m) => pins[m]).filter(Boolean));
   }
 
   /** Paket I: gestrichelte Route vom Standort zum Ziel (I_reise_routen.png), am Ziel ein Fähnchen. */
@@ -1317,6 +1393,7 @@ export class Ui {
     el.querySelectorAll('[data-inspect]').forEach((b) => { b.onclick = () => this.inspectItem(b.dataset.inspect); });
     el.querySelectorAll('[data-track]').forEach((b) => { b.onclick = () => { const id = b.dataset.track; this.state.track(this.state.tracked === id ? null : id); this.renderNotebook(''); }; });
     el.querySelectorAll('[data-recipe]').forEach((b) => { b.onclick = () => { this.tab = 'pfad'; this.renderNotebook(''); }; });
+    el.querySelectorAll('[data-person]').forEach((b) => { b.onclick = () => this.openPersonMap(b.dataset.person); });
     el.querySelector('[data-act=close]').onclick = () => this.close();
   }
 
@@ -1584,10 +1661,14 @@ export class Ui {
   peopleHtml() {
     const people = knownPeople(this.state);
     if (!people.length) return `${this.factionsHtml()}<p class="empty">Du hast noch mit niemandem gesprochen.</p>`;
-    return `${this.factionsHtml()}<ul class="people">${people.map((p) => {
+    const hint = '<p class="muted peoplehint">Auf eine Person tippen: die Stadtkarte zeigt alle Orte, an denen sie sein kann.</p>';
+    return `${this.factionsHtml()}${hint}<ul class="people">${people.map((p) => {
       const face = headFace(p.id, esc(p.name));
-      return `<li class="${p.quests.length ? 'busy' : ''}">${face}<div><strong>${esc(p.name)}</strong> <span class="muted">${esc(p.role)}</span> ${relationBadge(this.state, p.id, this.state.mood(p.id) !== 'neutral')}
-        <br><span class="where">${esc(p.places.join(', ') || 'unterwegs')}</span>${p.quests.map((q) => `<br><span class="qtag">${esc(q)}</span>`).join('')}</div></li>`;
+      const places = personPlaces(this.state, p.id);
+      const where = places.length ? places.map((x) => `<span class="${x.now ? 'now' : 'maybe'}">${esc(x.mapName)}</span>`).join(', ') : 'unterwegs';
+      const pinned = this.personPin === p.id;
+      return `<li class="${p.quests.length ? 'busy' : ''}${pinned ? ' pinned' : ''}" data-person="${p.id}" title="Auf der Stadtkarte zeigen">${face}<div><strong>${esc(p.name)}</strong> <span class="muted">${esc(p.role)}</span> ${relationBadge(this.state, p.id, this.state.mood(p.id) !== 'neutral')}${pinned ? '<span class="badge track">auf der Karte</span>' : ''}
+        <br><span class="where">${where}</span>${p.quests.map((q) => `<br><span class="qtag">${esc(q)}</span>`).join('')}</div>${places.length ? '<span class="mapbtn">Karte ›</span>' : ''}</li>`;
     }).join('')}</ul>`;
   }
 
@@ -2302,6 +2383,7 @@ export class Ui {
     else if (this.modal === 'dialogue' && confirm && this.dialogue?.keyMap.length === 1) this.choose(this.dialogue.keyMap[0]);
     else if (this.modal === 'travel' && this.travelPick && (num === 0 || num === 1)) this.travelMode(num === 0 ? 'sicher' : 'schnell');
     else if (this.modal === 'travel' && !this.travelPick && num >= 0) this.travel(num);
+    else if (this.modal === 'travel' && this.personMap && (k === 'escape' || k === 'j')) this.openNotebook('personen');
     else if (this.modal === 'travel' && k === 'escape') { if (this.travelPick) this.openTravel(this.travelFrom); else this.close(); }
     else if (this.modal === 'notebook' && (k === 'j' || k === 'i' || k === 'p' || k === 'tab' || k === 'escape')) this.close();
     else if (this.modal === 'shop' && num >= 0) this.shopPick(num);

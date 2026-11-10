@@ -77,3 +77,22 @@ test('Ziel in gesperrtem Viertel: Wegweiser sagt, dass es gesperrt ist und wer e
   s.flags.add('travel_docks');
   assert.equal(questTarget(s, 'drowned').locked, undefined);
 });
+
+test('Personen-Wegweiser: alle Aufenthaltsorte einer Figur mit Bezirk, aktuelle zuerst', async () => {
+  const { personPlaces } = await import('../src/core/Guide.js');
+  const s = fresh();
+  // Greta steht je nach Lage am Altmarkt oder in Ashgrove; beide Orte werden genannt
+  const greta = personPlaces(s, 'greta');
+  assert.deepEqual(greta.map((p) => p.map).sort(), ['altmarkt', 'ashgrove']);
+  for (const p of greta) assert.ok(p.district && p.districtName, `${p.map} ohne Bezirk`);
+  assert.equal(greta[0].map, 'ashgrove', 'ohne offenen Stand ist Greta in Ashgrove');
+  assert.equal(greta[0].now, true);
+  assert.equal(greta.find((p) => p.map === 'altmarkt').now, false);
+  s.flags.add('greta_stall_open');
+  assert.equal(personPlaces(s, 'greta')[0].map, 'altmarkt');
+  // Jede Figur auf einer Karte hat einen Ort, der auf der Stadtkarte liegt
+  for (const [id] of Object.entries(content.npcs)) {
+    for (const p of personPlaces(s, id)) assert.ok(p.district, `${id}: ${p.map} ist über die Stadtkarte nicht erreichbar`);
+  }
+  assert.deepEqual(personPlaces(s, 'gibt_es_nicht'), []);
+});
