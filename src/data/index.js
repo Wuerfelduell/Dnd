@@ -247,6 +247,7 @@ import bn_klang from './packs/k3_ruf/klang_zuordnung.json';
 import bn_bindungen from './packs/k3_ruf/bindungen.json';
 import bn_texte from './packs/k3_ruf/texte.json';
 import { buildK3Ruf } from './k3Ruf.js';
+import bz_dialog_zusaetze from './packs/beziehungen/dialog_zusaetze.json';
 
 /** Nebenauftrags-Pakete (Codex AA, AB). */
 const wxNebenquests = { name: 'wx_nebenquests', quests: wx_quests, items: wx_items, encounters: wx_encounters, dialogues: wx_dialogues, npcs: wx_npcs, case: wx_case, dialog_zusaetze: wx_dialog_zusaetze, platzierung: wx_platzierung, kahn_ausbau: wx_kahn_ausbau };
@@ -260,6 +261,8 @@ const koopK3 = { name: 'koop_k3', quests: bf_quests, items: bf_items, encounters
 const koopBeute = { name: 'koop_beute', dialog_zusaetze: bg_dialog_zusaetze, ansprueche: bg_ansprueche, ersatz: bg_ersatz, texte: bg_texte };
 /** Paket BN: Rufwege, Hörreichweite und persönliche Bindungen (src/data/k3Ruf.js). */
 const k3Ruf = buildK3Ruf({ stationen: bn_stationen, klang_zuordnung: bn_klang, bindungen: bn_bindungen, texte: bn_texte });
+/** Paket AZ: Beziehungszweige (freundlich: Tipp oder Geschenk, feindselig: Wiedergutmachung) für 20 Figuren; die Profile stehen in beziehungen.json. */
+const beziehungenPack = { name: 'beziehungen', dialog_zusaetze: bz_dialog_zusaetze };
 /** Paket AL: vier Wexmoorer Akten. */
 const k2Akten = { name: 'k2_akten', quests: k2a_quests, items: k2a_items, encounters: k2a_encounters, dialogues: k2a_dialogues, npcs: k2a_npcs, case: k2a_case, dialog_zusaetze: k2a_dialog_zusaetze, platzierung: k2a_platzierung, faelle: k2a_faelle, zeitung: k2a_zeitung };
 const k2Orte = { name: 'k2_orte', quests: k2o_quests, items: k2o_items, encounters: k2o_encounters, dialogues: k2o_dialogues, npcs: k2o_npcs, case: k2o_case, dialog_zusaetze: k2o_dialog_zusaetze, platzierung: k2o_platzierung, artifacts: k2o_artifacts, maps: k2o_maps, travel: k2o_travel, zone: k2o_zone, pins: k2o_pins };
@@ -294,7 +297,7 @@ export const content = buildContent({
   gatherings,
   city,
   wexmoor,
-  packs: [kgNebenquests, wxNebenquests, koop, k2Akten, k2Orte, k2Gilde, k2Akte, k3Orte, k3Akte, k3Nebenquests, k3Pruefungen, k3Handel, k3Leben, koopK3, koopBeute, k3Ruf],
+  packs: [kgNebenquests, wxNebenquests, koop, k2Akten, k2Orte, k2Gilde, k2Akte, k3Orte, k3Akte, k3Nebenquests, k3Pruefungen, k3Handel, k3Leben, koopK3, koopBeute, k3Ruf, beziehungenPack],
   lore: { bestiarium: lore_bestiarium, gerede: lore_gerede, item_texte: lore_item_texte, lesestuecke: lore_lesestuecke, zeitungen: lore_zeitungen },
   beziehungen,
   sequenzen: { neue_pfade: sq_neue_pfade, seq_4_bis_1: sq_seq_4_bis_1, zutaten: sq_zutaten, artefakte: sq_artefakte, rituale: k3p_rituale },
