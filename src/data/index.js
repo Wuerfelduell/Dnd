@@ -164,6 +164,22 @@ import k3h_haendler from './packs/k3_handel/haendler.json';
 import k3h_treffen_schichtbund from './packs/k3_handel/treffen_schichtbund.json';
 import k3h_einzelgaenger from './packs/k3_handel/einzelgaenger.json';
 import k3h_artifacts from './packs/k3_handel/artifacts.json';
+// Paket BD: Leben in Dunscar (Einwohner mit Tagesplan, Kopfgeld, Aufseher, Gerede, Zeitung, Wetter und Tiere)
+import k3e_quests from './packs/k3_leben/quests.json';
+import k3e_items from './packs/k3_leben/items.json';
+import k3e_encounters from './packs/k3_leben/encounters.json';
+import k3e_dialogues from './packs/k3_leben/dialogues.json';
+import k3e_npcs from './packs/k3_leben/npcs.json';
+import k3e_case from './packs/k3_leben/case.json';
+import k3e_dialog_zusaetze from './packs/k3_leben/dialog_zusaetze.json';
+import k3e_platzierung from './packs/k3_leben/platzierung.json';
+import k3e_einwohner from './packs/k3_leben/einwohner.json';
+import k3e_stadtgegner from './packs/k3_leben/stadtgegner_dunscar.json';
+import k3e_phasen from './packs/k3_leben/phasen.json';
+import k3e_streifen from './packs/k3_leben/streifen.json';
+import k3e_gerede from './packs/k3_leben/gerede.json';
+import k3e_zeitung from './packs/k3_leben/zeitung.json';
+import k3e_leben from './packs/k3_leben/leben.json';
 import k3p_quests from './packs/k3_pruefungen/quests.json';
 import k3p_items from './packs/k3_pruefungen/items.json';
 import k3p_encounters from './packs/k3_pruefungen/encounters.json';
@@ -226,6 +242,9 @@ const k3Nebenquests = { name: 'k3_nebenquests', quests: k3n_quests, items: k3n_i
 const k3Pruefungen = { name: 'k3_pruefungen', quests: k3p_quests, items: k3p_items, encounters: k3p_encounters, dialogues: k3p_dialogues, npcs: k3p_npcs, case: k3p_case, dialog_zusaetze: k3p_dialog_zusaetze, platzierung: k3p_platzierung };
 // BC: Handel in Dunscar (Händler, Schichtbund als Treffen unter dem Runddepot, Einzelgänger, Freundschaftsgaben als Artefakte)
 const k3Handel = { name: 'k3_handel', quests: k3h_quests, items: k3h_items, encounters: k3h_encounters, dialogues: k3h_dialogues, npcs: k3h_npcs, case: k3h_case, dialog_zusaetze: k3h_dialog_zusaetze, platzierung: k3h_platzierung, haendler: k3h_haendler, treffen: k3h_treffen_schichtbund, einzelgaenger: k3h_einzelgaenger, artifacts: k3h_artifacts };
+// BD: Die Tagespositionen aus platzierung.json sind nur Vorschläge; die Figuren stehen über einwohner.json (Tag/Nacht) auf den Karten.
+const k3Leben = { name: 'k3_leben', quests: k3e_quests, items: k3e_items, encounters: k3e_encounters, dialogues: k3e_dialogues, npcs: k3e_npcs, case: k3e_case, dialog_zusaetze: k3e_dialog_zusaetze,
+  platzierung: k3e_platzierung.filter((p) => !p.npc), einwohner: k3e_einwohner, stadtgegner: k3e_stadtgegner, phasen: k3e_phasen, streifen: k3e_streifen, gerede: k3e_gerede, zeitung: k3e_zeitung, leben: k3e_leben };
 const k3Akte = { name: 'k3_akte', quests: k3a_quests, items: k3a_items, encounters: k3a_encounters, dialogues: k3a_dialogues, npcs: k3a_npcs, case: k3a_case, dialog_zusaetze: k3a_dialog_zusaetze, platzierung: k3a_platzierung, zeitung: k3a_zeitung, boss_texte: k3a_boss_texte, epiloge: k3a_epiloge };
 const k2Gilde = { name: 'k2_gilde', quests: k2g_quests, items: k2g_items, encounters: k2g_encounters, dialogues: k2g_dialogues, npcs: k2g_npcs, case: k2g_case, dialog_zusaetze: k2g_dialog_zusaetze, platzierung: k2g_platzierung, artefakte: k2g_artefakte, treffen: k2g_treffen_namensgilde };
 const kgNebenquests = { name: 'kg_nebenquests', quests: kg_quests, items: kg_items, encounters: kg_encounters, dialogues: kg_dialogues, npcs: kg_npcs, case: kg_case, dialog_zusaetze: kg_dialog_zusaetze, platzierung: kg_platzierung };
@@ -247,7 +266,7 @@ export const content = buildContent({
   gatherings,
   city,
   wexmoor,
-  packs: [kgNebenquests, wxNebenquests, koop, k2Akten, k2Orte, k2Gilde, k2Akte, k3Orte, k3Akte, k3Nebenquests, k3Pruefungen, k3Handel],
+  packs: [kgNebenquests, wxNebenquests, koop, k2Akten, k2Orte, k2Gilde, k2Akte, k3Orte, k3Akte, k3Nebenquests, k3Pruefungen, k3Handel, k3Leben],
   lore: { bestiarium: lore_bestiarium, gerede: lore_gerede, item_texte: lore_item_texte, lesestuecke: lore_lesestuecke, zeitungen: lore_zeitungen },
   beziehungen,
   sequenzen: { neue_pfade: sq_neue_pfade, seq_4_bis_1: sq_seq_4_bis_1, zutaten: sq_zutaten, artefakte: sq_artefakte, rituale: k3p_rituale },

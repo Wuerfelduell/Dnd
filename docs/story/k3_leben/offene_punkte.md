@@ -1,6 +1,8 @@
 # Einbindung und offene Punkte
 
-Dieses Paket liefert Daten, keinen produktiven Spielcode. Folgende Arbeiten sind für die Aktivierung erforderlich. Keine bestehende Datei wurde dafür geändert.
+> **Stand nach dem Einbau:** Die Daten liegen in `src/data/packs/k3_leben/` und werden über `src/data/index.js` geladen. Eingebaut sind: der Dunscar-Stadtgegnerausschnitt mit eigener Niederlagen-/Elitenregel (`buildContent.cityContent` je Paket), die Einwohner mit Tag-/Nachtplatz über das Nachtflag `k3h_nacht` (`src/core/Clock.js`, Umbau in `buildContent.withPackLeben`), der Tageswechsel in der Welt (`WorldScene.applyClock`: Figuren, Gegner, Aufseher, Tiere), die zivilen Aufseher (`src/core/Aufsicht.js`, `world/Patrols.js` mit `kind: aufsicht`), die Gegnerflucht nach drei Runden (`flees_after`/`escape_text` in Combat.js, Ergebnis `escaped`), Schichtgänger mit der Figur des Einwohners (`figur` am Roamer), Phasen, Gerede, Zeitung, Wetter/Tiere (`world/DunscarLife.js` mit BA-Sheets) und die BA-Stände. BE-Figuren, Kopfgeldgegner, Bestiarium und Steckbriefe sind in `assets.js` eingetragen. Der Schienenläufer hat 54 statt 162 Leben, damit er in drei Runden stellbar ist (Seq 6 mit Doppelschlag). **Offen:** Nachhall-Begleiter des Walzenhehlers (kein Mehrgegnerkampf) und der Lese-Snapshot gekaufter Zeitungsausgaben (Belege sind Schlüsselgegenstände).
+
+Ursprüngliche Hinweise des Pakets (Stand vor dem Einbau):
 
 ## Laden ohne Doppelungen
 

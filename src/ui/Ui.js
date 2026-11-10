@@ -5,7 +5,7 @@ import { lootList, itemRarity, RARITY_NAMES, lootPreview, chanceWord } from '../
 import {
   itemIconUrl, itemIcon32Url, pathwayEmblemUrl, pathwayCardUrl, COIN_URL, moneyIconUrl, UI_SKINS, UI_SHEETS, UI_REGIONS, DAMAGE_FONT, STATUS_ICONS, STATUS_ICONS_URL,
   portraitUrl, portraitFor, AK_FIGURES, P2_LOOKS, P2_CHOICE_URL, p2HeadUrl, p2PortraitUrl, mapMarkerOf, LOG_MARKERS, LOG_MARKERS_URL, SOURCE_ICONS, SPRITE_BASE,
-  endingImageUrl, caseFileUrl, sceneUrl, wantedUrl, QUEST_UI_URL, QUEST_PINS, QUEST_BANNERS,
+  endingImageUrl, caseFileUrl, sceneUrl, wantedUrl, wantedSingle, QUEST_UI_URL, QUEST_PINS, QUEST_BANNERS,
   TURN_PORTRAITS, TURN_PORTRAITS_URL, TURN_PORTRAIT_URLS, BESTIARY, bestiaryUrl, TITLE_LAYERS,
   headUrl, ritualCardUrl, ZIRKEL_URL, ZIRKEL_ICONS, AUKTION_URL, AUKTION_REGIONS, LONER_UI_URL, LONER_UI, LONER_SEALS, S_ZIRKEL_URL, S_ZIRKEL, skillIconOf, PULSE_ICONS, ARTIFACT_UI_URL, sourceKind, sourceKindUrl, inspectUrl, RISK_ICONS, RISK_ICONS_URL, JOURNAL_FRAME, JOURNAL_FRAME_URL, choiceRisk, riskOf,
   factionEmblemUrl, PLACE_PICTURES, TRAVEL_MODES_URL, TRAVEL_MODE_ICONS, TRAVEL_MARKER_URL,
@@ -129,7 +129,7 @@ const portrait = (id, mood) => {
 };
 /** Zwischensequenzbild (240x135) über einem Text. */
 /** Steckbrief (Paket L): 64x80, Spalte 0 gesucht, Spalte 1 gefasst. */
-const wantedImg = (id, caught) => (id ? `<div class="wanted ${caught ? 'caught' : ''}" style="background-image:url('${wantedUrl(id)}')"></div>` : '');
+const wantedImg = (id, caught) => (id ? `<div class="wanted ${caught ? 'caught' : ''}${wantedSingle(id) ? ' single' : ''}" style="background-image:url('${wantedUrl(id)}')"></div>` : '');
 const sceneImg = (id) => { const url = id && sceneUrl(id); return url ? `<img class="scene" src="${url}" alt="" onerror="this.remove()">` : ''; };
 /** Paket AE: Die Karte zu Kapitel 1 hat unten ein leeres Band für den Kapitelnamen. */
 const CHAPTER_CAPTIONS = { kapitel1_karte: ['Kapitel 1', 'Kettlegate'] };
@@ -2306,7 +2306,7 @@ export class Ui {
 
   combatOver(title) {
     const c = this.combatScene.combat;
-    const text = { won: `${c.enemy.name} ist besiegt.`, lost: 'Deine Beine geben nach.', fled: 'Du bringst dich in Sicherheit.' }[c.outcome];
+    const text = { won: `${c.enemy.name} ist besiegt.`, lost: 'Deine Beine geben nach.', fled: 'Du bringst dich in Sicherheit.', escaped: `${c.enemy.name} entzieht sich.` }[c.outcome];
     this.combatMessage(`${title}! ${text}`, 'Weiter mit E');
   }
 
@@ -2318,7 +2318,7 @@ export class Ui {
     this.layer.innerHTML = '';
     this.updateHp();
     this.updateP2();
-    const title = { won: 'Sieg', lost: 'Ohnmacht', fled: 'Rückzug' }[result.outcome];
+    const title = { won: 'Sieg', lost: 'Ohnmacht', fled: 'Rückzug', escaped: 'Entkommen' }[result.outcome];
     this.keysBlockedUntil = performance.now() + 400; // hastiges E-Drücken schließt die Meldung nicht sofort
     const list = result.loot ? lootHtml(result.loot, this.state.content.items) : '';
     const extra = list ? `<h4 class="loot-title">${uiSprite('bresult', 'loot', 1 / 8)}${result.lootDeferred ? 'Beute liegt am Boden' : 'Beute'}</h4>${list}` : '';

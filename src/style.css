@@ -468,6 +468,8 @@ img.scene { display: block; width: 30em; height: 16.875em; margin: 0 auto 0.6em;
 /* Paket L: Steckbriefe am Kopfgeld-Brett und im Auftrag */
 .wanted { width: 8em; height: 10em; margin: 0 auto 0.6em; background-size: 16em 10em; background-position: 0 0; background-repeat: no-repeat; image-rendering: pixelated; }
 .wanted.caught { background-position: -8em 0; }
+.wanted.single { background-size: 100% 100%; background-position: 0 0; } /* BE: Steckbriefe mit einem Bild (48x64) */
+.wanted.single.caught { background-position: 0 0; filter: grayscale(1) brightness(0.7); }
 .qsum .wanted { float: right; width: 4em; height: 5em; background-size: 8em 5em; margin: 0 0 0.3em 0.5em; }
 
 /* Rituale ab Sequenz 6 */

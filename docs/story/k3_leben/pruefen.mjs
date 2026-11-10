@@ -1,30 +1,21 @@
 import assert from 'node:assert/strict';
 import { readFileSync, readdirSync } from 'node:fs';
 import { loadContent, talk } from '../../../tests/helpers.js';
-import { applyQuestPack } from '../../../src/data/questPacks.js';
 import { GameState } from '../../../src/core/GameState.js';
 import { Combat } from '../../../src/core/Combat.js';
 
-const read = name => JSON.parse(readFileSync(new URL(`${name}.json`, import.meta.url), 'utf8'));
-const names = readdirSync(new URL('.', import.meta.url)).filter(f => f.endsWith('.json')).map(f => f.slice(0,-5));
+const pkgDir = new URL('../../../src/data/packs/k3_leben/', import.meta.url); // seit dem Einbau liegen die Daten im Spielpaket
+const read = name => JSON.parse(readFileSync(new URL(`${name}.json`, pkgDir), 'utf8'));
+const names = readdirSync(pkgDir).filter(f => f.endsWith('.json')).map(f => f.slice(0,-5));
 const data = Object.fromEntries(names.map(n => [n, read(n)]));
-const base = loadContent();
-const c = structuredClone(base);
+const base = loadContent({ without: ['k3_leben'] }); // Bestand ohne das Paket: für Kollisions- und Belegungsvergleich
+const c = loadContent(); // der echte Spielinhalt mit dem Paket (buildContent: Stadtgegner, Einwohner, Streifen, Leben)
 const city = data.stadtgegner_dunscar;
 function walk(v, fn) { if (!v || typeof v !== 'object') return; if (!Array.isArray(v)) fn(v); for (const x of Object.values(v)) walk(x, fn); }
 const own = ['quests','items','npcs','dialogues'];
 for (const k of own) for (const id of Object.keys(data[k])) assert.ok(!base[k][id], `Überschreibt ${k}:${id}`);
-applyQuestPack(c, { name:'k3_leben', ...data });
-// Vorhandenes cityContent-Schema im Prüfspeicher abbilden, produktiven Loader nicht ändern.
-for (const [id,e] of Object.entries({...city.encounters,...data.phasen})) {
-  assert.ok(!base.encounters[id], `Fremder Kampf ${id}`);
-  const { loot, elite, ...enc } = e;
-  c.encounters[id] = enc; c.loot[id] = {repeat:false,...loot};
-  if (elite) {
-    c.encounters[id+'_elite'] = {...enc, name:elite.name, elite:true, hp:Math.round(enc.hp*city.elite_hp), attacks:enc.attacks.map(a=>({...a,damage:a.damage ? Math.round(a.damage*city.elite_dmg):a.damage}))};
-    c.loot[id+'_elite'] = {...loot,repeat:false};
-  }
-}
+for (const id of Object.keys({...city.encounters,...data.phasen})) { assert.ok(!base.encounters[id], `Fremder Kampf ${id}`); assert.ok(c.encounters[id] && (c.loot[id] || data.phasen[id]), `Kampf ${id} geladen`); }
+assert.ok(c.encounters.k3k_staubschmuggler_elite?.elite, 'Elite-Fassung aus dem Dunscar-Stadtausschnitt');
 const flags = new Set();
 walk(c, o => { for (const f of o.sets_flags??[]) flags.add(f); if (o.done_flag) flags.add(o.done_flag); });
 for (const id of Object.keys(c.encounters)) flags.add('won_'+id);
@@ -159,4 +150,4 @@ console.log(`BD OK: ${positions} Positionsprüfungen; alle begehbar, vom Eingang
 console.log('BD OK: 8 Einwohner; 13 Storyzustände; 240 Aktvarianten + 40 Nachgespräche; genau 80 Gerede-Einträge.');
 console.log(`BD OK: ${chains}/6 Kopfgeldketten; Auszahlung exakt einmal; Flucht/Niederlage ohne Fortschritt; Faden-Alternative, Elite und zwei Phasen geprüft.`);
 console.log('BD OK: 26 Zeitungseinträge; 10 Stände; 18 Lebenszuordnungen; 2 nächtliche Aufseher; Dienste und Ausgabekäufe geprüft.');
-console.log('OFFEN (kein Laufzeittest): Zeit-/Sprechblasenrenderer, Aufseher-Sichtkontakt, Gegnerflucht Runde 3, Nachhall-Begleiter, Zeitungs-Snapshot, Grafikregistrierung.');
+console.log('EINGEBAUT: Tag/Nacht über k3h_nacht (Clock.js), Aufseher-Sichtkontakt (Patrols.js), Gegnerflucht nach Runde 3 (flees_after), BE/BA-Grafik. OFFEN: Nachhall-Begleiter des Walzenhehlers, Zeitungs-Snapshot gekaufter Ausgaben.');

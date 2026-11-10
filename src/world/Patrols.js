@@ -1,11 +1,14 @@
 import Phaser from 'phaser';
 import { TILE, TILE_INDEX, SOLID_KEYS, createCharacterSheet } from './textures.js';
 import { DEPTH } from './Lighting.js';
+import { AUFSICHT } from '../core/Aufsicht.js';
 
 // Kapitel 2 (Wexmoor): Grauspäher laufen feste Runden mit Sturmlaterne.
 // Wer im Lichtkegel steht und nicht hinter Kisten, Fässern oder Mauern verdeckt ist, wird gesehen.
 // Bleibst du zu lange drin, folgt die Festnahme; kommst du rechtzeitig raus, steigt nur die Fahndungsstufe.
 // Kartenfeld: patrols: [{ id, route: [[x, y], ...], speed?, wait?, visible_if? }] (Kacheln; die Route läuft im Kreis).
+// Kapitel 3 (BD): `kind: 'aufsicht'` sind zivile Bahnaufseher in Dunscar ohne Polizei: fester Sichtkegel, wer ohne
+// Bahnkarte oder Aufsichtsmarke gesehen wird, verliert einmal 5 Nerven und wird in den Speisewagen geschickt.
 
 const DIRS = ['down', 'left', 'right', 'up'];
 const LOSE_MS = 900; // so lange außer Sicht, dann gilt man als entkommen
@@ -23,14 +26,18 @@ export class Patrols {
 
   build() {
     const s = this.scene;
-    const defs = s.mapDef.patrols ?? [];
-    if (!defs.length || !this.state.policeRules()) return;
-    const npc = this.state.content.npcs.grauspaeher;
-    createCharacterSheet(s, 'npc_grauspaeher', npc.palette);
-    DIRS.forEach((dir, row) => {
-      const key = `grauspaeher-${dir}`;
-      if (!s.anims.exists(key)) s.anims.create({ key, frames: s.anims.generateFrameNumbers('npc_grauspaeher', { start: row * 4, end: row * 4 + 3 }), frameRate: 6, repeat: -1 });
-    });
+    const defs = (s.mapDef.patrols ?? []).filter((d) => d.kind === 'aufsicht' || this.state.policeRules());
+    if (!defs.length) return;
+    const sheets = new Set(['npc_grauspaeher', ...AUFSICHT.figures.map((id) => `npc_${id}`)]);
+    for (const key of sheets) {
+      const npc = this.state.content.npcs[key.slice(4)];
+      if (npc) createCharacterSheet(s, key, npc.palette);
+      if (!s.textures.exists(key)) continue;
+      DIRS.forEach((dir, row) => {
+        const anim = `${key.slice(4)}-${dir}`;
+        if (!s.anims.exists(anim)) s.anims.create({ key: anim, frames: s.anims.generateFrameNumbers(key, { start: row * 4, end: row * 4 + 3 }), frameRate: 6, repeat: -1 });
+      });
+    }
     // Paket Q: fünfte Reihe = Laterne heben und umsehen (nur im echten Sheet)
     this.lookAround = s.textures.get('npc_grauspaeher').frameTotal > 17;
     if (this.lookAround && !s.anims.exists('grauspaeher-look')) {
@@ -39,10 +46,13 @@ export class Patrols {
     // Gemalter Lichtkegel (Ursprung links mittig), sonst gezeichnetes Kreissegment
     this.coneArt = s.textures.exists('q_lichtkegel_normal') && s.textures.exists('q_lichtkegel_suspicious');
     this.graceUntil = s.time.now + START_GRACE_MS;
+    let n = 0;
     for (const def of defs) {
       if (def.visible_if && !this.state.meets(def.visible_if)) continue;
       const pts = def.route.map(([tx, ty]) => ({ x: tx * TILE + 8, y: ty * TILE + 15 }));
-      const sprite = s.add.sprite(pts[0].x, pts[0].y, 'npc_grauspaeher', 0).setOrigin(0.5, 1);
+      const figur = def.kind === 'aufsicht' ? (def.figur ?? AUFSICHT.figures[n++ % AUFSICHT.figures.length]) : 'grauspaeher';
+      const sheet = s.textures.exists(`npc_${figur}`) ? `npc_${figur}` : 'npc_grauspaeher';
+      const sprite = s.add.sprite(pts[0].x, pts[0].y, sheet, 0).setOrigin(0.5, 1);
       const cone = this.coneArt
         ? s.add.sprite(0, 0, 'q_lichtkegel_normal', 0).setOrigin(0, 0.5).setDepth(DEPTH.dark + 1).setBlendMode(Phaser.BlendModes.ADD).play('q_lichtkegel_normal')
         : s.add.graphics().setDepth(DEPTH.dark + 1).setBlendMode(Phaser.BlendModes.ADD);
@@ -51,7 +61,7 @@ export class Patrols {
       }).setOrigin(0.5, 1).setDepth(DEPTH.dark + 3).setVisible(false);
       const lamp = { x: pts[0].x, y: pts[0].y };
       const g = {
-        def, pts, sprite, cone, alert, lamp, next: 1 % pts.length, wait: 0, facing: 'down',
+        def, pts, sprite, cone, alert, lamp, next: 1 % pts.length, wait: 0, facing: 'down', anim: sheet.slice(4), civil: def.kind === 'aufsicht',
         speed: def.speed ?? 28, pause: def.wait ?? 900, seenMs: 0, lostMs: 0, spotting: false,
       };
       g.light = s.lighting.add({ follow: lamp, radius: 46, intensity: 0.9, color: 0xffd890, glowAlpha: 0.25, flicker: 0.1 });
@@ -59,15 +69,33 @@ export class Patrols {
     }
   }
 
+  /** Tageswechsel (BD): Streifen abbauen und nach dem neuen Nachtflag wieder aufstellen. */
+  rebuild() {
+    for (const g of this.list) {
+      for (const o of [g.sprite, g.cone, g.alert]) o.destroy();
+      g.light.active = () => false;
+      g.light.glow.setVisible(false);
+    }
+    this.list = [];
+    this.build();
+  }
+
+  /** Aufseher lassen dich mit Bahnkarte oder Aufsichtsmarke in Ruhe. */
+  exempt() {
+    return AUFSICHT.passes.some((id) => this.state.itemCount(id) > 0);
+  }
+
   update(time, delta, blocked) {
     if (!this.list.length) return;
     if (blocked) { if (this.graceUntil > time) this.graceUntil += delta; for (const g of this.list) g.sprite.anims.stop(); return; }
     const p = this.scene.player;
     const graced = time < this.graceUntil;
-    const cone = this.state.policeCone();
+    const policeCone = this.state.policeRules() ? this.state.policeCone() : null;
+    const exempt = this.exempt();
     for (const g of this.list) {
+      const cone = g.civil ? AUFSICHT.cone : policeCone;
       // Zu zweit: wer zuerst gesehen wird, verrät beide
-      const spotted = graced ? null : (this.scene.playerSprites?.() ?? [p]).find((q) => this.sees(g, q.x, q.y - 8, cone));
+      const spotted = graced || (g.civil && exempt) ? null : (this.scene.playerSprites?.() ?? [p]).find((q) => this.sees(g, q.x, q.y - 8, cone));
       const seen = !!spotted;
       if (seen) {
         g.spotting = true;
@@ -75,14 +103,14 @@ export class Patrols {
         g.seenMs += delta;
         this.face(g, Math.atan2(spotted.y - g.sprite.y, spotted.x - g.sprite.x));
         g.sprite.anims.stop();
-        if (g.seenMs >= cone.catchSec * 1000) { this.caught(); return; }
+        if (g.seenMs >= cone.catchSec * 1000) { if (g.civil) this.sentAway(); else this.caught(); return; }
       } else if (g.spotting) {
         g.lostMs += delta;
         g.sprite.anims.stop();
         if (g.lostMs >= LOSE_MS) {
           g.spotting = false;
           g.seenMs = 0;
-          this.state.escapedPatrol();
+          if (!g.civil) this.state.escapedPatrol();
           this.graceUntil = time + START_GRACE_MS;
         }
       } else {
@@ -96,7 +124,7 @@ export class Patrols {
   walk(g, delta) {
     if (g.wait > 0) {
       g.wait -= delta;
-      if (this.lookAround) g.sprite.anims.play('grauspaeher-look', true);
+      if (this.lookAround && g.anim === 'grauspaeher') g.sprite.anims.play('grauspaeher-look', true);
       else g.sprite.anims.stop();
       return;
     }
@@ -113,7 +141,7 @@ export class Patrols {
     }
     g.sprite.setPosition(g.sprite.x + (dx / d) * step, g.sprite.y + (dy / d) * step);
     this.face(g, Math.atan2(dy, dx));
-    g.sprite.anims.play(`grauspaeher-${g.facing}`, true);
+    g.sprite.anims.play(`${g.anim}-${g.facing}`, true);
   }
 
   face(g, angle) {
@@ -176,6 +204,16 @@ export class Patrols {
     }
     alert.setPosition(sprite.x, sprite.y - 30).setVisible(hot);
     if (hot) alert.setText(g.seenMs > 0 && g.lostMs === 0 ? '!' : '?');
+  }
+
+  /** Aufseher (BD): keine Fahndung, keine Strafe, keine Zelle; einmal Nerven und zurück in den Speisewagen. */
+  sentAway() {
+    const s = this.scene;
+    for (const g of this.list) { g.spotting = false; g.seenMs = 0; }
+    s.player.setVelocity(0, 0);
+    s.p2?.setVelocity(0, 0);
+    this.state.applyEffects({ nerves: AUFSICHT.nerves });
+    s.ui.showMessage('Bahnaufsicht', AUFSICHT.text, { onClose: () => s.travelTo(AUFSICHT.to.map, AUFSICHT.to.spawn) });
   }
 
   caught() {

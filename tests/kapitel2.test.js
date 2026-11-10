@@ -114,8 +114,11 @@ test('Streifen stehen nur in Wexmoor und laufen über freie Felder', () => {
   const WALK = new Set(['.', ',', '=', 'w', 'g', 'p', 'c', 's', 'P', 'L']);
   for (const m of Object.values(content.maps)) {
     for (const p of m.patrols ?? []) {
-      assert.equal(m.city, 'wexmoor', `${m.id}/${p.id}`);
-      assert.ok(m.police, `${m.id}: Karte mit Streifen braucht police: true`);
+      if (p.kind === 'aufsicht') assert.equal(m.city, 'dunscar', `${m.id}/${p.id}`); // BD: zivile Aufseher ohne Polizei
+      else {
+        assert.equal(m.city, 'wexmoor', `${m.id}/${p.id}`);
+        assert.ok(m.police, `${m.id}: Karte mit Streifen braucht police: true`);
+      }
       const pts = [...p.route, p.route[0]];
       for (let i = 0; i < pts.length - 1; i++) {
         const [[x0, y0], [x1, y1]] = [pts[i], pts[i + 1]];
