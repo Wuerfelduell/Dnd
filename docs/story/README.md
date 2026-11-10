@@ -1,1 +1,2 @@
 - `k3_leben/` – BD: acht Einwohner mit Tagesplänen, 80 Gerede-Einträge, sechs Kopfgelder (ca. 1 Stunde), Kalkblatt, Tiere/Wetter und zehn Stände; Datenpaket mit eigenem Prüfer, Laufzeit-Anbindungen dokumentiert.
+- `vorrat_items/` (BL): 72 Gegenstände, 20 Untersuchen-Dialoge und Handel für spätere Kapitel; nicht eingebaut, offene Mechaniken dokumentiert.
