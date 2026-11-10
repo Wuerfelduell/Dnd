@@ -4,7 +4,7 @@ import { buildContent } from '../src/data/buildContent.js';
 
 const load = (p) => JSON.parse(readFileSync(new URL(`../src/data/${p}`, import.meta.url), 'utf8'));
 
-const PACKS = ['kg_nebenquests', 'wx_nebenquests', 'koop', 'k2_akten', 'k2_orte', 'k2_gilde', 'k2_akte', 'k3_orte', 'k3_akte', 'k3_nebenquests', 'k3_pruefungen', 'k3_handel', 'k3_leben'];
+const PACKS = ['kg_nebenquests', 'wx_nebenquests', 'koop', 'k2_akten', 'k2_orte', 'k2_gilde', 'k2_akte', 'k3_orte', 'k3_akte', 'k3_nebenquests', 'k3_pruefungen', 'k3_handel', 'k3_leben', 'koop_k3'];
 const PACK_FILES = ['quests', 'items', 'encounters', 'dialogues', 'npcs', 'case', 'dialog_zusaetze', 'platzierung'];
 
 /** sequenzen: false lädt den Stand ohne Paket AF (für docs/story/sequenzen/pruefen.mjs). */
@@ -44,7 +44,9 @@ export function loadContent({ sequenzen = true, without = [] } = {}) {
       ...(name === 'k3_leben' ? { platzierung: load('packs/k3_leben/platzierung.json').filter((p) => !p.npc), einwohner: load('packs/k3_leben/einwohner.json'), stadtgegner: load('packs/k3_leben/stadtgegner_dunscar.json'),
         ...Object.fromEntries(['phasen', 'streifen', 'gerede', 'zeitung', 'leben'].map((f) => [f, load(`packs/k3_leben/${f}.json`)])) } : {}),
       ...(name === 'k2_gilde' ? { artefakte: load('packs/k2_gilde/artefakte.json'), treffen: load('packs/k2_gilde/treffen_namensgilde.json') } : {}),
-      ...(name === 'koop' ? { geplauder: load('packs/koop/geplauder.json'), kampf: load('packs/koop/kampf.json') } : {}) })),
+      ...(name === 'koop' ? { geplauder: load('packs/koop/geplauder.json'), kampf: load('packs/koop/kampf.json') } : {}),
+      ...(name === 'koop_k3' ? { platzierung: load('packs/koop_k3/platzierung.json').filter((p) => !p.interactable.id.startsWith('koop_ds_schleuse')),
+        ...Object.fromEntries(['geplauder', 'kampf', 'bindung'].map((f) => [f, load(`packs/koop_k3/${f}.json`)])) } : {}) })),
     beziehungen: load('beziehungen.json'),
     lore: Object.fromEntries(['bestiarium', 'gerede', 'item_texte', 'lesestuecke', 'zeitungen'].map((f) => [f, load(`packs/lore/${f}.json`)])),
     sequenzen: sequenzen ? { ...Object.fromEntries(['neue_pfade', 'seq_4_bis_1', 'zutaten', 'artefakte'].map((f) => [f, load(`packs/sequenzen/${f}.json`)])),

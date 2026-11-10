@@ -1,5 +1,16 @@
 # Einbauvertrag und offene Punkte
 
+## Stand nach dem Einbau (10.11.2026)
+
+Die Daten liegen jetzt in `src/data/packs/koop_k3/`; `pruefen.mjs` liest sie von dort. Eingebaut:
+
+- Geplauder (40) und die drei Kampfanlässe werden an `content.koop` **angehängt** (`applyQuestPack` ersetzt nicht mehr). `pickChat` prüft `requires_pathway` im Kontext von Spieler 2.
+- `koop_schichtgaenger` ersetzt den Kampfbeginn gegen `schichtgaenger`, `koop_nachhall` gegen `nachhall`, `koop_pruefung` spricht bei `k3p_`-Kämpfen die Person, die den Kampf nicht ausgelöst hat (`state.combatBy`). Siehe `koopStartEvent` in `src/core/Koop.js`.
+- `bindung.json` steht als `content.koop.bindung` bereit (Textkatalog für BN); `koop_ds_partner_gebunden` wird noch nicht ausgelöst, weil BN die Bindung noch nicht liefert.
+- Elf NPC-Zusätze aktiv; Pfiff setzt `koop_ds_koje`.
+- `koop_ds_horchen` ist spielbar: Rollenplätze laufen über die AI-Mechanik (Platz-Flags verfallen beim Weggehen, `refuse` hält den falschen Spieler fern), `signal: call` bucht eine Ladung. `koop_ds_hinterzugang` wird gesetzt, aber noch keine begehbare Verbindung daran geknüpft (AS/AR).
+- `koop_ds_schleuse`: Quest und Dialoge sind geladen, die fünf Objekte in Rufschlucht und Speisewagen werden in `src/data/index.js` **herausgefiltert**, bis BN `koop_ds_schleuse_bindung_bestaetigt` und `_rueckkehr_geprueft` liefern kann. Ohne diese Flags wäre der Auftrag annehmbar, aber nicht abschließbar.
+
 Stand: Aufgabenfassung vom 10.11.2026. BF liefert ausschließlich Inhalte in diesem Ordner. Ein erfolgreicher Datenprüfer ist keine Freigabe, die räumlichen Aufträge ohne Adapter zu aktivieren.
 
 ## Bestehendes Format und fremde Zuständigkeiten

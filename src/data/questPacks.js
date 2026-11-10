@@ -81,8 +81,11 @@ export function applyQuestPack(content, pack) {
     m.interactables.push({ id: flag, kind: 'read', tile: spot.tile, sprite: flag, prompt: k.name, title: k.name, text: k.deko, footer: k.wirkung,
       visible_if: { requires_flags: [flag] }, ...(spot.effects ? { effects: spot.effects, done_flag: spot.done } : {}) });
   }
-  // Paket AI: Geplauder und Kampfsprüche zu zweit
-  if (pack.geplauder || pack.kampf) content.koop = { geplauder: pack.geplauder ?? [], kampf: pack.kampf ?? {} };
+  // Paket AI/BF: Geplauder, Kampfsprüche und Bindungstexte zu zweit kommen aus mehreren Paketen zusammen
+  if (pack.geplauder || pack.kampf || pack.bindung) {
+    const k = content.koop ?? { geplauder: [], kampf: {}, bindung: {} };
+    content.koop = { geplauder: [...k.geplauder, ...(pack.geplauder ?? [])], kampf: { ...k.kampf, ...(pack.kampf ?? {}) }, bindung: { ...(k.bindung ?? {}), ...(pack.bindung ?? {}) } };
+  }
   for (const p of platzierung) {
     const m = own(p.map);
     if (p.npc) m.npcs.push({ id: p.npc, tile: p.tile, ...(p.visible_if ? { visible_if: p.visible_if } : {}) });

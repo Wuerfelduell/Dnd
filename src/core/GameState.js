@@ -608,6 +608,7 @@ export class GameState {
   startCombat(id) {
     if (!this.content.encounters[id]) throw new Error(`Unbekannter Kampf: ${id}`);
     this.pendingCombat = id;
+    this.combatBy = this.acting; // Paket BF: wer den Kampf ausgelöst hat (Prüfling), der andere schaut zu
     this.emit('combat', id);
   }
 

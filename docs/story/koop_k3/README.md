@@ -1,6 +1,6 @@
 # BF – Koop in Dunscar
 
-Daten- und Textpaket für beide Erscheinungen von Spieler 2. Noch nicht in den Spielinhalt geladen. Keine Änderungen an Spielcode, anderen Paketen oder Hauptentscheidungen.
+Daten- und Textpaket für beide Erscheinungen von Spieler 2. Seit dem Einbau liegen die JSON-Dateien in `src/data/packs/koop_k3/` (Stand siehe `offene_punkte.md`). Keine Änderungen an Spielcode, anderen Paketen oder Hauptentscheidungen.
 
 ## Inhalt und Spielzeit
 
