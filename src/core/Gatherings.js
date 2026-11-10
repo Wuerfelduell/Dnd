@@ -163,6 +163,19 @@ export const gatheringMethods = {
   },
 
   /**
+   * Schlafen (Koje/Pritsche) lässt Spielzeit vergehen: `rules.sleep_skip_min` Minuten (2) springen auf
+   * der Zirkel-Uhr vor, so wie die Zeit auf der Karte auch vergehen würde (Ankündigungen inklusive).
+   * Ergebnis: übersprungene Sekunden (0, wenn es noch keine Treffen gibt).
+   */
+  sleepGatherings() {
+    const r = this.gatheringRules();
+    const sec = r ? (r.sleep_skip_min ?? 0) * 60 : 0;
+    if (sec <= 0) return 0;
+    this.tickGatherings(sec);
+    return sec;
+  },
+
+  /**
    * Angebot eines Händlers für die laufende Runde.
    * - `rare` (0..1): erscheint nur in manchen Runden (normaler Markt, z. B. Formeln ab Sequenz 7).
    * - Händler mit `gathering`: jedes Treffen würfelt sein Angebot aus dem Pool (`chance` je Eintrag).
