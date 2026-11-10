@@ -1583,3 +1583,15 @@ Kein Spielcode geändert. Die zwei vorhandenen PNGs werden direkt ersetzt;
 `ANIM_SHEETS`, `WorldScene.playCorruption()` und neue UI-Verwendungen werden
 separat eingebunden. Die GIF-Vorschau wiederholt den Effekt zum Prüfen;
 das Manifest spielt ihn ausdrücklich nur einmal ab.
+## Batch BI — Gegner- und Bossvorrat (`vorrat1`)
+
+112 PNGs für spätere Kapitel: 24 Gegner und acht Bosse aus Calderwick, Briarholt und von der Landstraße. Pro Figur ein Kampf-Sheet, ein 4×4-Lauf-Sheet (16×32 je Zelle) und ein Bestiariumsbild (96×128); zusätzlich acht Boss-Bänder (160×160), sieben deckende Kampfkulissen (480×270) und sechs Effekte als 6×1-Sheet (48×48 je Zelle).
+
+Kampf-Sheets: sechs Spalten; Idle 4, Angriff 6, Treffer 3, Ende 4 Frames, übrige Zellen transparent. Normale Gegner 48×48/64×64, Bosse 96×96. Nullfundament und Mutterwurzel: 128×96, sieben Reihen inklusive dreier eigener Phasenanimationen. Die ersten zwei Frames jedes Angriffs sind identische Ausholposen. Vier nicht tödliche Enden sind im Manifest benannt. Gemeinsame 32-Farben-Palette, Nearest Neighbor, binäres Alpha und transparente Sicherheitsränder.
+
+- Manifest: `public/sprites/manifest-vorrat1.json`
+- Prompts und Provenienz: `docs/art/batch-vorrat1-generation.json`
+- Vorschauen: `docs/art/preview-vorrat1-{battle,walk,bestiary,bossBand,background,fx}.png`
+- Prüfung: `python docs/art/verify-vorrat1.py` (Pillow)
+
+Nur Vorrat, noch nicht im Spiel registriert. Verbindliche IDs: 24 normale Gegner + acht Bosse = 32; die Angabe „34 Trophäen“ in den gemeinsamen Eckdaten erweitert diese Liste nicht. Trophäen gehören zu BM.

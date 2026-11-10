@@ -1,0 +1,5381 @@
+{
+  "version": 1,
+  "batch": "vorrat1",
+  "status": "reserve; not integrated",
+  "paletteMaxVisibleColors": 32,
+  "palette": [
+    "#1a1c2c",
+    "#252d38",
+    "#35424a",
+    "#49535b",
+    "#626b70",
+    "#859091",
+    "#abb3ae",
+    "#d4d0bc",
+    "#e7dfc5",
+    "#c1ac84",
+    "#938365",
+    "#635744",
+    "#443d34",
+    "#704e3b",
+    "#996849",
+    "#bc9260",
+    "#d0a050",
+    "#e8b860",
+    "#b4a079",
+    "#a8b4c0",
+    "#92a6b2",
+    "#7d927e",
+    "#526953",
+    "#9ad06a",
+    "#e07a8a",
+    "#89596d",
+    "#c8b0e8",
+    "#78618e",
+    "#29545a",
+    "#418f91",
+    "#6fe0d0",
+    "#b1e7d5"
+  ],
+  "assets": [
+    {
+      "id": "enemy_vg_cw_letternlaeufer",
+      "file": "battle/enemy_vg_cw_letternlaeufer.png",
+      "gameId": "vg_cw_letternlaeufer",
+      "kind": "battle",
+      "width": 384,
+      "height": 256,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 6,
+      "rows": 4,
+      "transparent": true,
+      "occupiedCounts": [
+        4,
+        6,
+        3,
+        4
+      ],
+      "baseline": 62,
+      "heldRows": [
+        1
+      ],
+      "facing": "left",
+      "defeatMeaning": "non-gory collapse or dispersal",
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "attack": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            12,
+            13,
+            14
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            18,
+            19,
+            20,
+            21
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "F_ow_vg_cw_letternlaeufer",
+      "file": "characters/F_ow_vg_cw_letternlaeufer.png",
+      "gameId": "vg_cw_letternlaeufer",
+      "kind": "walk",
+      "width": 64,
+      "height": 128,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "transparent": true,
+      "occupiedCounts": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "baseline": 30,
+      "animations": {
+        "walk_down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "walk_left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "walk_right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "walk_up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "F_vg_cw_letternlaeufer",
+      "file": "ui/bestiary/F_vg_cw_letternlaeufer.png",
+      "gameId": "vg_cw_letternlaeufer",
+      "kind": "bestiary",
+      "width": 96,
+      "height": 128,
+      "frameWidth": 96,
+      "frameHeight": 128,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "animations": {
+        "idle": {
+          "frames": [
+            0
+          ],
+          "frameRate": 0,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "enemy_vg_cw_rohrpostwespe",
+      "file": "battle/enemy_vg_cw_rohrpostwespe.png",
+      "gameId": "vg_cw_rohrpostwespe",
+      "kind": "battle",
+      "width": 288,
+      "height": 192,
+      "frameWidth": 48,
+      "frameHeight": 48,
+      "columns": 6,
+      "rows": 4,
+      "transparent": true,
+      "occupiedCounts": [
+        4,
+        6,
+        3,
+        4
+      ],
+      "baseline": 46,
+      "heldRows": [
+        1
+      ],
+      "facing": "left",
+      "defeatMeaning": "non-gory collapse or dispersal",
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "attack": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            12,
+            13,
+            14
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            18,
+            19,
+            20,
+            21
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "F_ow_vg_cw_rohrpostwespe",
+      "file": "characters/F_ow_vg_cw_rohrpostwespe.png",
+      "gameId": "vg_cw_rohrpostwespe",
+      "kind": "walk",
+      "width": 64,
+      "height": 128,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "transparent": true,
+      "occupiedCounts": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "baseline": 30,
+      "animations": {
+        "walk_down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "walk_left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "walk_right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "walk_up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "F_vg_cw_rohrpostwespe",
+      "file": "ui/bestiary/F_vg_cw_rohrpostwespe.png",
+      "gameId": "vg_cw_rohrpostwespe",
+      "kind": "bestiary",
+      "width": 96,
+      "height": 128,
+      "frameWidth": 96,
+      "frameHeight": 128,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "animations": {
+        "idle": {
+          "frames": [
+            0
+          ],
+          "frameRate": 0,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "enemy_vg_cw_stempelhand",
+      "file": "battle/enemy_vg_cw_stempelhand.png",
+      "gameId": "vg_cw_stempelhand",
+      "kind": "battle",
+      "width": 288,
+      "height": 192,
+      "frameWidth": 48,
+      "frameHeight": 48,
+      "columns": 6,
+      "rows": 4,
+      "transparent": true,
+      "occupiedCounts": [
+        4,
+        6,
+        3,
+        4
+      ],
+      "baseline": 46,
+      "heldRows": [
+        1
+      ],
+      "facing": "left",
+      "defeatMeaning": "non-gory collapse or dispersal",
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "attack": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            12,
+            13,
+            14
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            18,
+            19,
+            20,
+            21
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "F_ow_vg_cw_stempelhand",
+      "file": "characters/F_ow_vg_cw_stempelhand.png",
+      "gameId": "vg_cw_stempelhand",
+      "kind": "walk",
+      "width": 64,
+      "height": 128,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "transparent": true,
+      "occupiedCounts": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "baseline": 30,
+      "animations": {
+        "walk_down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "walk_left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "walk_right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "walk_up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "F_vg_cw_stempelhand",
+      "file": "ui/bestiary/F_vg_cw_stempelhand.png",
+      "gameId": "vg_cw_stempelhand",
+      "kind": "bestiary",
+      "width": 96,
+      "height": 128,
+      "frameWidth": 96,
+      "frameHeight": 128,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "animations": {
+        "idle": {
+          "frames": [
+            0
+          ],
+          "frameRate": 0,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "enemy_vg_cw_durchschlag",
+      "file": "battle/enemy_vg_cw_durchschlag.png",
+      "gameId": "vg_cw_durchschlag",
+      "kind": "battle",
+      "width": 288,
+      "height": 192,
+      "frameWidth": 48,
+      "frameHeight": 48,
+      "columns": 6,
+      "rows": 4,
+      "transparent": true,
+      "occupiedCounts": [
+        4,
+        6,
+        3,
+        4
+      ],
+      "baseline": 46,
+      "heldRows": [
+        1
+      ],
+      "facing": "left",
+      "defeatMeaning": "dissolves into loose paper sheets, no death or blood",
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "attack": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            12,
+            13,
+            14
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            18,
+            19,
+            20,
+            21
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "F_ow_vg_cw_durchschlag",
+      "file": "characters/F_ow_vg_cw_durchschlag.png",
+      "gameId": "vg_cw_durchschlag",
+      "kind": "walk",
+      "width": 64,
+      "height": 128,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "transparent": true,
+      "occupiedCounts": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "baseline": 30,
+      "animations": {
+        "walk_down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "walk_left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "walk_right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "walk_up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "F_vg_cw_durchschlag",
+      "file": "ui/bestiary/F_vg_cw_durchschlag.png",
+      "gameId": "vg_cw_durchschlag",
+      "kind": "bestiary",
+      "width": 96,
+      "height": 128,
+      "frameWidth": 96,
+      "frameHeight": 128,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "animations": {
+        "idle": {
+          "frames": [
+            0
+          ],
+          "frameRate": 0,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "enemy_vg_cw_registerratte",
+      "file": "battle/enemy_vg_cw_registerratte.png",
+      "gameId": "vg_cw_registerratte",
+      "kind": "battle",
+      "width": 288,
+      "height": 192,
+      "frameWidth": 48,
+      "frameHeight": 48,
+      "columns": 6,
+      "rows": 4,
+      "transparent": true,
+      "occupiedCounts": [
+        4,
+        6,
+        3,
+        4
+      ],
+      "baseline": 46,
+      "heldRows": [
+        1
+      ],
+      "facing": "left",
+      "defeatMeaning": "non-gory collapse or dispersal",
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "attack": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            12,
+            13,
+            14
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            18,
+            19,
+            20,
+            21
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "F_ow_vg_cw_registerratte",
+      "file": "characters/F_ow_vg_cw_registerratte.png",
+      "gameId": "vg_cw_registerratte",
+      "kind": "walk",
+      "width": 64,
+      "height": 128,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "transparent": true,
+      "occupiedCounts": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "baseline": 30,
+      "animations": {
+        "walk_down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "walk_left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "walk_right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "walk_up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "F_vg_cw_registerratte",
+      "file": "ui/bestiary/F_vg_cw_registerratte.png",
+      "gameId": "vg_cw_registerratte",
+      "kind": "bestiary",
+      "width": 96,
+      "height": 128,
+      "frameWidth": 96,
+      "frameHeight": 128,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "animations": {
+        "idle": {
+          "frames": [
+            0
+          ],
+          "frameRate": 0,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "enemy_vg_cw_seilbahnwaechter",
+      "file": "battle/enemy_vg_cw_seilbahnwaechter.png",
+      "gameId": "vg_cw_seilbahnwaechter",
+      "kind": "battle",
+      "width": 384,
+      "height": 256,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 6,
+      "rows": 4,
+      "transparent": true,
+      "occupiedCounts": [
+        4,
+        6,
+        3,
+        4
+      ],
+      "baseline": 62,
+      "heldRows": [
+        1
+      ],
+      "facing": "left",
+      "defeatMeaning": "non-gory collapse or dispersal",
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "attack": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            12,
+            13,
+            14
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            18,
+            19,
+            20,
+            21
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "F_ow_vg_cw_seilbahnwaechter",
+      "file": "characters/F_ow_vg_cw_seilbahnwaechter.png",
+      "gameId": "vg_cw_seilbahnwaechter",
+      "kind": "walk",
+      "width": 64,
+      "height": 128,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "transparent": true,
+      "occupiedCounts": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "baseline": 30,
+      "animations": {
+        "walk_down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "walk_left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "walk_right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "walk_up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "F_vg_cw_seilbahnwaechter",
+      "file": "ui/bestiary/F_vg_cw_seilbahnwaechter.png",
+      "gameId": "vg_cw_seilbahnwaechter",
+      "kind": "bestiary",
+      "width": 96,
+      "height": 128,
+      "frameWidth": 96,
+      "frameHeight": 128,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "animations": {
+        "idle": {
+          "frames": [
+            0
+          ],
+          "frameRate": 0,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "enemy_vg_cw_tintenschatten",
+      "file": "battle/enemy_vg_cw_tintenschatten.png",
+      "gameId": "vg_cw_tintenschatten",
+      "kind": "battle",
+      "width": 384,
+      "height": 256,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 6,
+      "rows": 4,
+      "transparent": true,
+      "occupiedCounts": [
+        4,
+        6,
+        3,
+        4
+      ],
+      "baseline": 62,
+      "heldRows": [
+        1
+      ],
+      "facing": "left",
+      "defeatMeaning": "non-gory collapse or dispersal",
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "attack": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            12,
+            13,
+            14
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            18,
+            19,
+            20,
+            21
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "F_ow_vg_cw_tintenschatten",
+      "file": "characters/F_ow_vg_cw_tintenschatten.png",
+      "gameId": "vg_cw_tintenschatten",
+      "kind": "walk",
+      "width": 64,
+      "height": 128,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "transparent": true,
+      "occupiedCounts": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "baseline": 30,
+      "animations": {
+        "walk_down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "walk_left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "walk_right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "walk_up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "F_vg_cw_tintenschatten",
+      "file": "ui/bestiary/F_vg_cw_tintenschatten.png",
+      "gameId": "vg_cw_tintenschatten",
+      "kind": "bestiary",
+      "width": 96,
+      "height": 128,
+      "frameWidth": 96,
+      "frameHeight": 128,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "animations": {
+        "idle": {
+          "frames": [
+            0
+          ],
+          "frameRate": 0,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "enemy_vg_cw_leerfracht",
+      "file": "battle/enemy_vg_cw_leerfracht.png",
+      "gameId": "vg_cw_leerfracht",
+      "kind": "battle",
+      "width": 384,
+      "height": 256,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 6,
+      "rows": 4,
+      "transparent": true,
+      "occupiedCounts": [
+        4,
+        6,
+        3,
+        4
+      ],
+      "baseline": 62,
+      "heldRows": [
+        1
+      ],
+      "facing": "left",
+      "defeatMeaning": "non-gory collapse or dispersal",
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "attack": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            12,
+            13,
+            14
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            18,
+            19,
+            20,
+            21
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "F_ow_vg_cw_leerfracht",
+      "file": "characters/F_ow_vg_cw_leerfracht.png",
+      "gameId": "vg_cw_leerfracht",
+      "kind": "walk",
+      "width": 64,
+      "height": 128,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "transparent": true,
+      "occupiedCounts": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "baseline": 30,
+      "animations": {
+        "walk_down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "walk_left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "walk_right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "walk_up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "F_vg_cw_leerfracht",
+      "file": "ui/bestiary/F_vg_cw_leerfracht.png",
+      "gameId": "vg_cw_leerfracht",
+      "kind": "bestiary",
+      "width": 96,
+      "height": 128,
+      "frameWidth": 96,
+      "frameHeight": 128,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "animations": {
+        "idle": {
+          "frames": [
+            0
+          ],
+          "frameRate": 0,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "enemy_vg_cw_boss_bleisammler",
+      "file": "battle/enemy_vg_cw_boss_bleisammler.png",
+      "gameId": "vg_cw_boss_bleisammler",
+      "kind": "battle",
+      "width": 576,
+      "height": 384,
+      "frameWidth": 96,
+      "frameHeight": 96,
+      "columns": 6,
+      "rows": 4,
+      "transparent": true,
+      "occupiedCounts": [
+        4,
+        6,
+        3,
+        4
+      ],
+      "baseline": 94,
+      "heldRows": [
+        1
+      ],
+      "facing": "left",
+      "defeatMeaning": "non-gory collapse or dispersal",
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "attack": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            12,
+            13,
+            14
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            18,
+            19,
+            20,
+            21
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "F_ow_vg_cw_boss_bleisammler",
+      "file": "characters/F_ow_vg_cw_boss_bleisammler.png",
+      "gameId": "vg_cw_boss_bleisammler",
+      "kind": "walk",
+      "width": 64,
+      "height": 128,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "transparent": true,
+      "occupiedCounts": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "baseline": 30,
+      "animations": {
+        "walk_down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "walk_left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "walk_right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "walk_up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "F_vg_cw_boss_bleisammler",
+      "file": "ui/bestiary/F_vg_cw_boss_bleisammler.png",
+      "gameId": "vg_cw_boss_bleisammler",
+      "kind": "bestiary",
+      "width": 96,
+      "height": 128,
+      "frameWidth": 96,
+      "frameHeight": 128,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "animations": {
+        "idle": {
+          "frames": [
+            0
+          ],
+          "frameRate": 0,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "BI_boss_vg_cw_boss_bleisammler",
+      "file": "ui/BI_boss_vg_cw_boss_bleisammler.png",
+      "gameId": "vg_cw_boss_bleisammler",
+      "kind": "bossBand",
+      "width": 160,
+      "height": 160,
+      "frameWidth": 160,
+      "frameHeight": 160,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "animations": {
+        "idle": {
+          "frames": [
+            0
+          ],
+          "frameRate": 0,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "enemy_vg_cw_boss_blinder_zusteller",
+      "file": "battle/enemy_vg_cw_boss_blinder_zusteller.png",
+      "gameId": "vg_cw_boss_blinder_zusteller",
+      "kind": "battle",
+      "width": 576,
+      "height": 384,
+      "frameWidth": 96,
+      "frameHeight": 96,
+      "columns": 6,
+      "rows": 4,
+      "transparent": true,
+      "occupiedCounts": [
+        4,
+        6,
+        3,
+        4
+      ],
+      "baseline": 94,
+      "heldRows": [
+        1
+      ],
+      "facing": "left",
+      "defeatMeaning": "non-gory collapse or dispersal",
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "attack": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            12,
+            13,
+            14
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            18,
+            19,
+            20,
+            21
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "F_ow_vg_cw_boss_blinder_zusteller",
+      "file": "characters/F_ow_vg_cw_boss_blinder_zusteller.png",
+      "gameId": "vg_cw_boss_blinder_zusteller",
+      "kind": "walk",
+      "width": 64,
+      "height": 128,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "transparent": true,
+      "occupiedCounts": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "baseline": 30,
+      "animations": {
+        "walk_down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "walk_left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "walk_right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "walk_up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "F_vg_cw_boss_blinder_zusteller",
+      "file": "ui/bestiary/F_vg_cw_boss_blinder_zusteller.png",
+      "gameId": "vg_cw_boss_blinder_zusteller",
+      "kind": "bestiary",
+      "width": 96,
+      "height": 128,
+      "frameWidth": 96,
+      "frameHeight": 128,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "animations": {
+        "idle": {
+          "frames": [
+            0
+          ],
+          "frameRate": 0,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "BI_boss_vg_cw_boss_blinder_zusteller",
+      "file": "ui/BI_boss_vg_cw_boss_blinder_zusteller.png",
+      "gameId": "vg_cw_boss_blinder_zusteller",
+      "kind": "bossBand",
+      "width": 160,
+      "height": 160,
+      "frameWidth": 160,
+      "frameHeight": 160,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "animations": {
+        "idle": {
+          "frames": [
+            0
+          ],
+          "frameRate": 0,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "enemy_vg_cw_boss_nullfundament",
+      "file": "battle/enemy_vg_cw_boss_nullfundament.png",
+      "gameId": "vg_cw_boss_nullfundament",
+      "kind": "battle",
+      "width": 768,
+      "height": 672,
+      "frameWidth": 128,
+      "frameHeight": 96,
+      "columns": 6,
+      "rows": 7,
+      "transparent": true,
+      "occupiedCounts": [
+        4,
+        6,
+        3,
+        4,
+        6,
+        6,
+        6
+      ],
+      "baseline": 94,
+      "heldRows": [
+        1,
+        4,
+        5,
+        6
+      ],
+      "facing": "left",
+      "defeatMeaning": "non-gory collapse or dispersal",
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "attack": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            12,
+            13,
+            14
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            18,
+            19,
+            20,
+            21
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "phase1": {
+          "frames": [
+            24,
+            25,
+            26,
+            27,
+            28,
+            29
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "phase2": {
+          "frames": [
+            30,
+            31,
+            32,
+            33,
+            34,
+            35
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "phase3": {
+          "frames": [
+            36,
+            37,
+            38,
+            39,
+            40,
+            41
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "F_ow_vg_cw_boss_nullfundament",
+      "file": "characters/F_ow_vg_cw_boss_nullfundament.png",
+      "gameId": "vg_cw_boss_nullfundament",
+      "kind": "walk",
+      "width": 64,
+      "height": 128,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "transparent": true,
+      "occupiedCounts": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "baseline": 30,
+      "animations": {
+        "walk_down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "walk_left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "walk_right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "walk_up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "F_vg_cw_boss_nullfundament",
+      "file": "ui/bestiary/F_vg_cw_boss_nullfundament.png",
+      "gameId": "vg_cw_boss_nullfundament",
+      "kind": "bestiary",
+      "width": 96,
+      "height": 128,
+      "frameWidth": 96,
+      "frameHeight": 128,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "animations": {
+        "idle": {
+          "frames": [
+            0
+          ],
+          "frameRate": 0,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "BI_boss_vg_cw_boss_nullfundament",
+      "file": "ui/BI_boss_vg_cw_boss_nullfundament.png",
+      "gameId": "vg_cw_boss_nullfundament",
+      "kind": "bossBand",
+      "width": 160,
+      "height": 160,
+      "frameWidth": 160,
+      "frameHeight": 160,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "animations": {
+        "idle": {
+          "frames": [
+            0
+          ],
+          "frameRate": 0,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "enemy_vg_bh_dampfschwester",
+      "file": "battle/enemy_vg_bh_dampfschwester.png",
+      "gameId": "vg_bh_dampfschwester",
+      "kind": "battle",
+      "width": 384,
+      "height": 256,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 6,
+      "rows": 4,
+      "transparent": true,
+      "occupiedCounts": [
+        4,
+        6,
+        3,
+        4
+      ],
+      "baseline": 62,
+      "heldRows": [
+        1
+      ],
+      "facing": "left",
+      "defeatMeaning": "non-gory collapse or dispersal",
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "attack": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            12,
+            13,
+            14
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            18,
+            19,
+            20,
+            21
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "F_ow_vg_bh_dampfschwester",
+      "file": "characters/F_ow_vg_bh_dampfschwester.png",
+      "gameId": "vg_bh_dampfschwester",
+      "kind": "walk",
+      "width": 64,
+      "height": 128,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "transparent": true,
+      "occupiedCounts": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "baseline": 30,
+      "animations": {
+        "walk_down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "walk_left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "walk_right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "walk_up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "F_vg_bh_dampfschwester",
+      "file": "ui/bestiary/F_vg_bh_dampfschwester.png",
+      "gameId": "vg_bh_dampfschwester",
+      "kind": "bestiary",
+      "width": 96,
+      "height": 128,
+      "frameWidth": 96,
+      "frameHeight": 128,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "animations": {
+        "idle": {
+          "frames": [
+            0
+          ],
+          "frameRate": 0,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "enemy_vg_bh_wurzelgaenger",
+      "file": "battle/enemy_vg_bh_wurzelgaenger.png",
+      "gameId": "vg_bh_wurzelgaenger",
+      "kind": "battle",
+      "width": 384,
+      "height": 256,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 6,
+      "rows": 4,
+      "transparent": true,
+      "occupiedCounts": [
+        4,
+        6,
+        3,
+        4
+      ],
+      "baseline": 62,
+      "heldRows": [
+        1
+      ],
+      "facing": "left",
+      "defeatMeaning": "kneels then lies unconscious alive, roots relax",
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "attack": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            12,
+            13,
+            14
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            18,
+            19,
+            20,
+            21
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "F_ow_vg_bh_wurzelgaenger",
+      "file": "characters/F_ow_vg_bh_wurzelgaenger.png",
+      "gameId": "vg_bh_wurzelgaenger",
+      "kind": "walk",
+      "width": 64,
+      "height": 128,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "transparent": true,
+      "occupiedCounts": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "baseline": 30,
+      "animations": {
+        "walk_down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "walk_left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "walk_right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "walk_up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "F_vg_bh_wurzelgaenger",
+      "file": "ui/bestiary/F_vg_bh_wurzelgaenger.png",
+      "gameId": "vg_bh_wurzelgaenger",
+      "kind": "bestiary",
+      "width": 96,
+      "height": 128,
+      "frameWidth": 96,
+      "frameHeight": 128,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "animations": {
+        "idle": {
+          "frames": [
+            0
+          ],
+          "frameRate": 0,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "enemy_vg_bh_glasmotte",
+      "file": "battle/enemy_vg_bh_glasmotte.png",
+      "gameId": "vg_bh_glasmotte",
+      "kind": "battle",
+      "width": 288,
+      "height": 192,
+      "frameWidth": 48,
+      "frameHeight": 48,
+      "columns": 6,
+      "rows": 4,
+      "transparent": true,
+      "occupiedCounts": [
+        4,
+        6,
+        3,
+        4
+      ],
+      "baseline": 46,
+      "heldRows": [
+        1
+      ],
+      "facing": "left",
+      "defeatMeaning": "non-gory collapse or dispersal",
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "attack": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            12,
+            13,
+            14
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            18,
+            19,
+            20,
+            21
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "F_ow_vg_bh_glasmotte",
+      "file": "characters/F_ow_vg_bh_glasmotte.png",
+      "gameId": "vg_bh_glasmotte",
+      "kind": "walk",
+      "width": 64,
+      "height": 128,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "transparent": true,
+      "occupiedCounts": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "baseline": 30,
+      "animations": {
+        "walk_down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "walk_left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "walk_right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "walk_up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "F_vg_bh_glasmotte",
+      "file": "ui/bestiary/F_vg_bh_glasmotte.png",
+      "gameId": "vg_bh_glasmotte",
+      "kind": "bestiary",
+      "width": 96,
+      "height": 128,
+      "frameWidth": 96,
+      "frameHeight": 128,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "animations": {
+        "idle": {
+          "frames": [
+            0
+          ],
+          "frameRate": 0,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "enemy_vg_bh_bluetenkopf",
+      "file": "battle/enemy_vg_bh_bluetenkopf.png",
+      "gameId": "vg_bh_bluetenkopf",
+      "kind": "battle",
+      "width": 288,
+      "height": 192,
+      "frameWidth": 48,
+      "frameHeight": 48,
+      "columns": 6,
+      "rows": 4,
+      "transparent": true,
+      "occupiedCounts": [
+        4,
+        6,
+        3,
+        4
+      ],
+      "baseline": 46,
+      "heldRows": [
+        1
+      ],
+      "facing": "left",
+      "defeatMeaning": "non-gory collapse or dispersal",
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "attack": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            12,
+            13,
+            14
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            18,
+            19,
+            20,
+            21
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "F_ow_vg_bh_bluetenkopf",
+      "file": "characters/F_ow_vg_bh_bluetenkopf.png",
+      "gameId": "vg_bh_bluetenkopf",
+      "kind": "walk",
+      "width": 64,
+      "height": 128,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "transparent": true,
+      "occupiedCounts": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "baseline": 30,
+      "animations": {
+        "walk_down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "walk_left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "walk_right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "walk_up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "F_vg_bh_bluetenkopf",
+      "file": "ui/bestiary/F_vg_bh_bluetenkopf.png",
+      "gameId": "vg_bh_bluetenkopf",
+      "kind": "bestiary",
+      "width": 96,
+      "height": 128,
+      "frameWidth": 96,
+      "frameHeight": 128,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "animations": {
+        "idle": {
+          "frames": [
+            0
+          ],
+          "frameRate": 0,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "enemy_vg_bh_rohrwurm",
+      "file": "battle/enemy_vg_bh_rohrwurm.png",
+      "gameId": "vg_bh_rohrwurm",
+      "kind": "battle",
+      "width": 384,
+      "height": 256,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 6,
+      "rows": 4,
+      "transparent": true,
+      "occupiedCounts": [
+        4,
+        6,
+        3,
+        4
+      ],
+      "baseline": 62,
+      "heldRows": [
+        1
+      ],
+      "facing": "left",
+      "defeatMeaning": "non-gory collapse or dispersal",
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "attack": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            12,
+            13,
+            14
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            18,
+            19,
+            20,
+            21
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "F_ow_vg_bh_rohrwurm",
+      "file": "characters/F_ow_vg_bh_rohrwurm.png",
+      "gameId": "vg_bh_rohrwurm",
+      "kind": "walk",
+      "width": 64,
+      "height": 128,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "transparent": true,
+      "occupiedCounts": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "baseline": 30,
+      "animations": {
+        "walk_down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "walk_left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "walk_right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "walk_up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "F_vg_bh_rohrwurm",
+      "file": "ui/bestiary/F_vg_bh_rohrwurm.png",
+      "gameId": "vg_bh_rohrwurm",
+      "kind": "bestiary",
+      "width": 96,
+      "height": 128,
+      "frameWidth": 96,
+      "frameHeight": 128,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "animations": {
+        "idle": {
+          "frames": [
+            0
+          ],
+          "frameRate": 0,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "enemy_vg_bh_postkartenschreiber",
+      "file": "battle/enemy_vg_bh_postkartenschreiber.png",
+      "gameId": "vg_bh_postkartenschreiber",
+      "kind": "battle",
+      "width": 288,
+      "height": 192,
+      "frameWidth": 48,
+      "frameHeight": 48,
+      "columns": 6,
+      "rows": 4,
+      "transparent": true,
+      "occupiedCounts": [
+        4,
+        6,
+        3,
+        4
+      ],
+      "baseline": 46,
+      "heldRows": [
+        1
+      ],
+      "facing": "left",
+      "defeatMeaning": "sits down unconscious but alive, postcard falls",
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "attack": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            12,
+            13,
+            14
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            18,
+            19,
+            20,
+            21
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "F_ow_vg_bh_postkartenschreiber",
+      "file": "characters/F_ow_vg_bh_postkartenschreiber.png",
+      "gameId": "vg_bh_postkartenschreiber",
+      "kind": "walk",
+      "width": 64,
+      "height": 128,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "transparent": true,
+      "occupiedCounts": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "baseline": 30,
+      "animations": {
+        "walk_down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "walk_left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "walk_right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "walk_up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "F_vg_bh_postkartenschreiber",
+      "file": "ui/bestiary/F_vg_bh_postkartenschreiber.png",
+      "gameId": "vg_bh_postkartenschreiber",
+      "kind": "bestiary",
+      "width": 96,
+      "height": 128,
+      "frameWidth": 96,
+      "frameHeight": 128,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "animations": {
+        "idle": {
+          "frames": [
+            0
+          ],
+          "frameRate": 0,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "enemy_vg_bh_waeschegeist",
+      "file": "battle/enemy_vg_bh_waeschegeist.png",
+      "gameId": "vg_bh_waeschegeist",
+      "kind": "battle",
+      "width": 384,
+      "height": 256,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 6,
+      "rows": 4,
+      "transparent": true,
+      "occupiedCounts": [
+        4,
+        6,
+        3,
+        4
+      ],
+      "baseline": 62,
+      "heldRows": [
+        1
+      ],
+      "facing": "left",
+      "defeatMeaning": "non-gory collapse or dispersal",
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "attack": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            12,
+            13,
+            14
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            18,
+            19,
+            20,
+            21
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "F_ow_vg_bh_waeschegeist",
+      "file": "characters/F_ow_vg_bh_waeschegeist.png",
+      "gameId": "vg_bh_waeschegeist",
+      "kind": "walk",
+      "width": 64,
+      "height": 128,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "transparent": true,
+      "occupiedCounts": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "baseline": 30,
+      "animations": {
+        "walk_down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "walk_left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "walk_right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "walk_up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "F_vg_bh_waeschegeist",
+      "file": "ui/bestiary/F_vg_bh_waeschegeist.png",
+      "gameId": "vg_bh_waeschegeist",
+      "kind": "bestiary",
+      "width": 96,
+      "height": 128,
+      "frameWidth": 96,
+      "frameHeight": 128,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "animations": {
+        "idle": {
+          "frames": [
+            0
+          ],
+          "frameRate": 0,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "enemy_vg_bh_sudtraeger",
+      "file": "battle/enemy_vg_bh_sudtraeger.png",
+      "gameId": "vg_bh_sudtraeger",
+      "kind": "battle",
+      "width": 384,
+      "height": 256,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 6,
+      "rows": 4,
+      "transparent": true,
+      "occupiedCounts": [
+        4,
+        6,
+        3,
+        4
+      ],
+      "baseline": 62,
+      "heldRows": [
+        1
+      ],
+      "facing": "left",
+      "defeatMeaning": "non-gory collapse or dispersal",
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "attack": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            12,
+            13,
+            14
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            18,
+            19,
+            20,
+            21
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "F_ow_vg_bh_sudtraeger",
+      "file": "characters/F_ow_vg_bh_sudtraeger.png",
+      "gameId": "vg_bh_sudtraeger",
+      "kind": "walk",
+      "width": 64,
+      "height": 128,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "transparent": true,
+      "occupiedCounts": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "baseline": 30,
+      "animations": {
+        "walk_down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "walk_left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "walk_right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "walk_up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "F_vg_bh_sudtraeger",
+      "file": "ui/bestiary/F_vg_bh_sudtraeger.png",
+      "gameId": "vg_bh_sudtraeger",
+      "kind": "bestiary",
+      "width": 96,
+      "height": 128,
+      "frameWidth": 96,
+      "frameHeight": 128,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "animations": {
+        "idle": {
+          "frames": [
+            0
+          ],
+          "frameRate": 0,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "enemy_vg_bh_boss_glasgaertner",
+      "file": "battle/enemy_vg_bh_boss_glasgaertner.png",
+      "gameId": "vg_bh_boss_glasgaertner",
+      "kind": "battle",
+      "width": 576,
+      "height": 384,
+      "frameWidth": 96,
+      "frameHeight": 96,
+      "columns": 6,
+      "rows": 4,
+      "transparent": true,
+      "occupiedCounts": [
+        4,
+        6,
+        3,
+        4
+      ],
+      "baseline": 94,
+      "heldRows": [
+        1
+      ],
+      "facing": "left",
+      "defeatMeaning": "non-gory collapse or dispersal",
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "attack": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            12,
+            13,
+            14
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            18,
+            19,
+            20,
+            21
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "F_ow_vg_bh_boss_glasgaertner",
+      "file": "characters/F_ow_vg_bh_boss_glasgaertner.png",
+      "gameId": "vg_bh_boss_glasgaertner",
+      "kind": "walk",
+      "width": 64,
+      "height": 128,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "transparent": true,
+      "occupiedCounts": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "baseline": 30,
+      "animations": {
+        "walk_down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "walk_left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "walk_right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "walk_up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "F_vg_bh_boss_glasgaertner",
+      "file": "ui/bestiary/F_vg_bh_boss_glasgaertner.png",
+      "gameId": "vg_bh_boss_glasgaertner",
+      "kind": "bestiary",
+      "width": 96,
+      "height": 128,
+      "frameWidth": 96,
+      "frameHeight": 128,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "animations": {
+        "idle": {
+          "frames": [
+            0
+          ],
+          "frameRate": 0,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "BI_boss_vg_bh_boss_glasgaertner",
+      "file": "ui/BI_boss_vg_bh_boss_glasgaertner.png",
+      "gameId": "vg_bh_boss_glasgaertner",
+      "kind": "bossBand",
+      "width": 160,
+      "height": 160,
+      "frameWidth": 160,
+      "frameHeight": 160,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "animations": {
+        "idle": {
+          "frames": [
+            0
+          ],
+          "frameRate": 0,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "enemy_vg_bh_boss_waescherei",
+      "file": "battle/enemy_vg_bh_boss_waescherei.png",
+      "gameId": "vg_bh_boss_waescherei",
+      "kind": "battle",
+      "width": 576,
+      "height": 384,
+      "frameWidth": 96,
+      "frameHeight": 96,
+      "columns": 6,
+      "rows": 4,
+      "transparent": true,
+      "occupiedCounts": [
+        4,
+        6,
+        3,
+        4
+      ],
+      "baseline": 94,
+      "heldRows": [
+        1
+      ],
+      "facing": "left",
+      "defeatMeaning": "non-gory collapse or dispersal",
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "attack": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            12,
+            13,
+            14
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            18,
+            19,
+            20,
+            21
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "F_ow_vg_bh_boss_waescherei",
+      "file": "characters/F_ow_vg_bh_boss_waescherei.png",
+      "gameId": "vg_bh_boss_waescherei",
+      "kind": "walk",
+      "width": 64,
+      "height": 128,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "transparent": true,
+      "occupiedCounts": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "baseline": 30,
+      "animations": {
+        "walk_down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "walk_left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "walk_right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "walk_up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "F_vg_bh_boss_waescherei",
+      "file": "ui/bestiary/F_vg_bh_boss_waescherei.png",
+      "gameId": "vg_bh_boss_waescherei",
+      "kind": "bestiary",
+      "width": 96,
+      "height": 128,
+      "frameWidth": 96,
+      "frameHeight": 128,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "animations": {
+        "idle": {
+          "frames": [
+            0
+          ],
+          "frameRate": 0,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "BI_boss_vg_bh_boss_waescherei",
+      "file": "ui/BI_boss_vg_bh_boss_waescherei.png",
+      "gameId": "vg_bh_boss_waescherei",
+      "kind": "bossBand",
+      "width": 160,
+      "height": 160,
+      "frameWidth": 160,
+      "frameHeight": 160,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "animations": {
+        "idle": {
+          "frames": [
+            0
+          ],
+          "frameRate": 0,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "enemy_vg_bh_boss_mutterwurzel",
+      "file": "battle/enemy_vg_bh_boss_mutterwurzel.png",
+      "gameId": "vg_bh_boss_mutterwurzel",
+      "kind": "battle",
+      "width": 768,
+      "height": 672,
+      "frameWidth": 128,
+      "frameHeight": 96,
+      "columns": 6,
+      "rows": 7,
+      "transparent": true,
+      "occupiedCounts": [
+        4,
+        6,
+        3,
+        4,
+        6,
+        6,
+        6
+      ],
+      "baseline": 94,
+      "heldRows": [
+        1,
+        4,
+        5,
+        6
+      ],
+      "facing": "left",
+      "defeatMeaning": "non-gory collapse or dispersal",
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "attack": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            12,
+            13,
+            14
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            18,
+            19,
+            20,
+            21
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "phase1": {
+          "frames": [
+            24,
+            25,
+            26,
+            27,
+            28,
+            29
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "phase2": {
+          "frames": [
+            30,
+            31,
+            32,
+            33,
+            34,
+            35
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "phase3": {
+          "frames": [
+            36,
+            37,
+            38,
+            39,
+            40,
+            41
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "F_ow_vg_bh_boss_mutterwurzel",
+      "file": "characters/F_ow_vg_bh_boss_mutterwurzel.png",
+      "gameId": "vg_bh_boss_mutterwurzel",
+      "kind": "walk",
+      "width": 64,
+      "height": 128,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "transparent": true,
+      "occupiedCounts": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "baseline": 30,
+      "animations": {
+        "walk_down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "walk_left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "walk_right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "walk_up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "F_vg_bh_boss_mutterwurzel",
+      "file": "ui/bestiary/F_vg_bh_boss_mutterwurzel.png",
+      "gameId": "vg_bh_boss_mutterwurzel",
+      "kind": "bestiary",
+      "width": 96,
+      "height": 128,
+      "frameWidth": 96,
+      "frameHeight": 128,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "animations": {
+        "idle": {
+          "frames": [
+            0
+          ],
+          "frameRate": 0,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "BI_boss_vg_bh_boss_mutterwurzel",
+      "file": "ui/BI_boss_vg_bh_boss_mutterwurzel.png",
+      "gameId": "vg_bh_boss_mutterwurzel",
+      "kind": "bossBand",
+      "width": 160,
+      "height": 160,
+      "frameWidth": 160,
+      "frameHeight": 160,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "animations": {
+        "idle": {
+          "frames": [
+            0
+          ],
+          "frameRate": 0,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "enemy_vg_all_wegelagerer",
+      "file": "battle/enemy_vg_all_wegelagerer.png",
+      "gameId": "vg_all_wegelagerer",
+      "kind": "battle",
+      "width": 288,
+      "height": 192,
+      "frameWidth": 48,
+      "frameHeight": 48,
+      "columns": 6,
+      "rows": 4,
+      "transparent": true,
+      "occupiedCounts": [
+        4,
+        6,
+        3,
+        4
+      ],
+      "baseline": 46,
+      "heldRows": [
+        1
+      ],
+      "facing": "left",
+      "defeatMeaning": "non-gory collapse or dispersal",
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "attack": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            12,
+            13,
+            14
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            18,
+            19,
+            20,
+            21
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "F_ow_vg_all_wegelagerer",
+      "file": "characters/F_ow_vg_all_wegelagerer.png",
+      "gameId": "vg_all_wegelagerer",
+      "kind": "walk",
+      "width": 64,
+      "height": 128,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "transparent": true,
+      "occupiedCounts": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "baseline": 30,
+      "animations": {
+        "walk_down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "walk_left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "walk_right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "walk_up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "F_vg_all_wegelagerer",
+      "file": "ui/bestiary/F_vg_all_wegelagerer.png",
+      "gameId": "vg_all_wegelagerer",
+      "kind": "bestiary",
+      "width": 96,
+      "height": 128,
+      "frameWidth": 96,
+      "frameHeight": 128,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "animations": {
+        "idle": {
+          "frames": [
+            0
+          ],
+          "frameRate": 0,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "enemy_vg_all_kutschengeist",
+      "file": "battle/enemy_vg_all_kutschengeist.png",
+      "gameId": "vg_all_kutschengeist",
+      "kind": "battle",
+      "width": 384,
+      "height": 256,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 6,
+      "rows": 4,
+      "transparent": true,
+      "occupiedCounts": [
+        4,
+        6,
+        3,
+        4
+      ],
+      "baseline": 62,
+      "heldRows": [
+        1
+      ],
+      "facing": "left",
+      "defeatMeaning": "non-gory collapse or dispersal",
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "attack": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            12,
+            13,
+            14
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            18,
+            19,
+            20,
+            21
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "F_ow_vg_all_kutschengeist",
+      "file": "characters/F_ow_vg_all_kutschengeist.png",
+      "gameId": "vg_all_kutschengeist",
+      "kind": "walk",
+      "width": 64,
+      "height": 128,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "transparent": true,
+      "occupiedCounts": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "baseline": 30,
+      "animations": {
+        "walk_down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "walk_left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "walk_right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "walk_up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "F_vg_all_kutschengeist",
+      "file": "ui/bestiary/F_vg_all_kutschengeist.png",
+      "gameId": "vg_all_kutschengeist",
+      "kind": "bestiary",
+      "width": 96,
+      "height": 128,
+      "frameWidth": 96,
+      "frameHeight": 128,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "animations": {
+        "idle": {
+          "frames": [
+            0
+          ],
+          "frameRate": 0,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "enemy_vg_all_zollhund",
+      "file": "battle/enemy_vg_all_zollhund.png",
+      "gameId": "vg_all_zollhund",
+      "kind": "battle",
+      "width": 288,
+      "height": 192,
+      "frameWidth": 48,
+      "frameHeight": 48,
+      "columns": 6,
+      "rows": 4,
+      "transparent": true,
+      "occupiedCounts": [
+        4,
+        6,
+        3,
+        4
+      ],
+      "baseline": 46,
+      "heldRows": [
+        1
+      ],
+      "facing": "left",
+      "defeatMeaning": "non-gory collapse or dispersal",
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "attack": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            12,
+            13,
+            14
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            18,
+            19,
+            20,
+            21
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "F_ow_vg_all_zollhund",
+      "file": "characters/F_ow_vg_all_zollhund.png",
+      "gameId": "vg_all_zollhund",
+      "kind": "walk",
+      "width": 64,
+      "height": 128,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "transparent": true,
+      "occupiedCounts": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "baseline": 30,
+      "animations": {
+        "walk_down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "walk_left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "walk_right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "walk_up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "F_vg_all_zollhund",
+      "file": "ui/bestiary/F_vg_all_zollhund.png",
+      "gameId": "vg_all_zollhund",
+      "kind": "bestiary",
+      "width": 96,
+      "height": 128,
+      "frameWidth": 96,
+      "frameHeight": 128,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "animations": {
+        "idle": {
+          "frames": [
+            0
+          ],
+          "frameRate": 0,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "enemy_vg_all_nebelkraehe",
+      "file": "battle/enemy_vg_all_nebelkraehe.png",
+      "gameId": "vg_all_nebelkraehe",
+      "kind": "battle",
+      "width": 288,
+      "height": 192,
+      "frameWidth": 48,
+      "frameHeight": 48,
+      "columns": 6,
+      "rows": 4,
+      "transparent": true,
+      "occupiedCounts": [
+        4,
+        6,
+        3,
+        4
+      ],
+      "baseline": 46,
+      "heldRows": [
+        1
+      ],
+      "facing": "left",
+      "defeatMeaning": "non-gory collapse or dispersal",
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "attack": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            12,
+            13,
+            14
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            18,
+            19,
+            20,
+            21
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "F_ow_vg_all_nebelkraehe",
+      "file": "characters/F_ow_vg_all_nebelkraehe.png",
+      "gameId": "vg_all_nebelkraehe",
+      "kind": "walk",
+      "width": 64,
+      "height": 128,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "transparent": true,
+      "occupiedCounts": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "baseline": 30,
+      "animations": {
+        "walk_down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "walk_left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "walk_right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "walk_up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "F_vg_all_nebelkraehe",
+      "file": "ui/bestiary/F_vg_all_nebelkraehe.png",
+      "gameId": "vg_all_nebelkraehe",
+      "kind": "bestiary",
+      "width": 96,
+      "height": 128,
+      "frameWidth": 96,
+      "frameHeight": 128,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "animations": {
+        "idle": {
+          "frames": [
+            0
+          ],
+          "frameRate": 0,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "enemy_vg_all_marktschreier",
+      "file": "battle/enemy_vg_all_marktschreier.png",
+      "gameId": "vg_all_marktschreier",
+      "kind": "battle",
+      "width": 288,
+      "height": 192,
+      "frameWidth": 48,
+      "frameHeight": 48,
+      "columns": 6,
+      "rows": 4,
+      "transparent": true,
+      "occupiedCounts": [
+        4,
+        6,
+        3,
+        4
+      ],
+      "baseline": 46,
+      "heldRows": [
+        1
+      ],
+      "facing": "left",
+      "defeatMeaning": "drops tray and flees to the right, alive",
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "attack": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            12,
+            13,
+            14
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            18,
+            19,
+            20,
+            21
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "F_ow_vg_all_marktschreier",
+      "file": "characters/F_ow_vg_all_marktschreier.png",
+      "gameId": "vg_all_marktschreier",
+      "kind": "walk",
+      "width": 64,
+      "height": 128,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "transparent": true,
+      "occupiedCounts": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "baseline": 30,
+      "animations": {
+        "walk_down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "walk_left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "walk_right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "walk_up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "F_vg_all_marktschreier",
+      "file": "ui/bestiary/F_vg_all_marktschreier.png",
+      "gameId": "vg_all_marktschreier",
+      "kind": "bestiary",
+      "width": 96,
+      "height": 128,
+      "frameWidth": 96,
+      "frameHeight": 128,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "animations": {
+        "idle": {
+          "frames": [
+            0
+          ],
+          "frameRate": 0,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "enemy_vg_all_grenzstein",
+      "file": "battle/enemy_vg_all_grenzstein.png",
+      "gameId": "vg_all_grenzstein",
+      "kind": "battle",
+      "width": 384,
+      "height": 256,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 6,
+      "rows": 4,
+      "transparent": true,
+      "occupiedCounts": [
+        4,
+        6,
+        3,
+        4
+      ],
+      "baseline": 62,
+      "heldRows": [
+        1
+      ],
+      "facing": "left",
+      "defeatMeaning": "non-gory collapse or dispersal",
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "attack": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            12,
+            13,
+            14
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            18,
+            19,
+            20,
+            21
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "F_ow_vg_all_grenzstein",
+      "file": "characters/F_ow_vg_all_grenzstein.png",
+      "gameId": "vg_all_grenzstein",
+      "kind": "walk",
+      "width": 64,
+      "height": 128,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "transparent": true,
+      "occupiedCounts": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "baseline": 30,
+      "animations": {
+        "walk_down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "walk_left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "walk_right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "walk_up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "F_vg_all_grenzstein",
+      "file": "ui/bestiary/F_vg_all_grenzstein.png",
+      "gameId": "vg_all_grenzstein",
+      "kind": "bestiary",
+      "width": 96,
+      "height": 128,
+      "frameWidth": 96,
+      "frameHeight": 128,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "animations": {
+        "idle": {
+          "frames": [
+            0
+          ],
+          "frameRate": 0,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "enemy_vg_all_fuhrmannsschatten",
+      "file": "battle/enemy_vg_all_fuhrmannsschatten.png",
+      "gameId": "vg_all_fuhrmannsschatten",
+      "kind": "battle",
+      "width": 384,
+      "height": 256,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 6,
+      "rows": 4,
+      "transparent": true,
+      "occupiedCounts": [
+        4,
+        6,
+        3,
+        4
+      ],
+      "baseline": 62,
+      "heldRows": [
+        1
+      ],
+      "facing": "left",
+      "defeatMeaning": "non-gory collapse or dispersal",
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "attack": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            12,
+            13,
+            14
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            18,
+            19,
+            20,
+            21
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "F_ow_vg_all_fuhrmannsschatten",
+      "file": "characters/F_ow_vg_all_fuhrmannsschatten.png",
+      "gameId": "vg_all_fuhrmannsschatten",
+      "kind": "walk",
+      "width": 64,
+      "height": 128,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "transparent": true,
+      "occupiedCounts": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "baseline": 30,
+      "animations": {
+        "walk_down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "walk_left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "walk_right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "walk_up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "F_vg_all_fuhrmannsschatten",
+      "file": "ui/bestiary/F_vg_all_fuhrmannsschatten.png",
+      "gameId": "vg_all_fuhrmannsschatten",
+      "kind": "bestiary",
+      "width": 96,
+      "height": 128,
+      "frameWidth": 96,
+      "frameHeight": 128,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "animations": {
+        "idle": {
+          "frames": [
+            0
+          ],
+          "frameRate": 0,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "enemy_vg_all_brueckenzoll",
+      "file": "battle/enemy_vg_all_brueckenzoll.png",
+      "gameId": "vg_all_brueckenzoll",
+      "kind": "battle",
+      "width": 288,
+      "height": 192,
+      "frameWidth": 48,
+      "frameHeight": 48,
+      "columns": 6,
+      "rows": 4,
+      "transparent": true,
+      "occupiedCounts": [
+        4,
+        6,
+        3,
+        4
+      ],
+      "baseline": 46,
+      "heldRows": [
+        1
+      ],
+      "facing": "left",
+      "defeatMeaning": "non-gory collapse or dispersal",
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "attack": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            12,
+            13,
+            14
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            18,
+            19,
+            20,
+            21
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "F_ow_vg_all_brueckenzoll",
+      "file": "characters/F_ow_vg_all_brueckenzoll.png",
+      "gameId": "vg_all_brueckenzoll",
+      "kind": "walk",
+      "width": 64,
+      "height": 128,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "transparent": true,
+      "occupiedCounts": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "baseline": 30,
+      "animations": {
+        "walk_down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "walk_left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "walk_right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "walk_up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "F_vg_all_brueckenzoll",
+      "file": "ui/bestiary/F_vg_all_brueckenzoll.png",
+      "gameId": "vg_all_brueckenzoll",
+      "kind": "bestiary",
+      "width": 96,
+      "height": 128,
+      "frameWidth": 96,
+      "frameHeight": 128,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "animations": {
+        "idle": {
+          "frames": [
+            0
+          ],
+          "frameRate": 0,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "enemy_vg_all_boss_landvermesser",
+      "file": "battle/enemy_vg_all_boss_landvermesser.png",
+      "gameId": "vg_all_boss_landvermesser",
+      "kind": "battle",
+      "width": 576,
+      "height": 384,
+      "frameWidth": 96,
+      "frameHeight": 96,
+      "columns": 6,
+      "rows": 4,
+      "transparent": true,
+      "occupiedCounts": [
+        4,
+        6,
+        3,
+        4
+      ],
+      "baseline": 94,
+      "heldRows": [
+        1
+      ],
+      "facing": "left",
+      "defeatMeaning": "non-gory collapse or dispersal",
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "attack": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            12,
+            13,
+            14
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            18,
+            19,
+            20,
+            21
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "F_ow_vg_all_boss_landvermesser",
+      "file": "characters/F_ow_vg_all_boss_landvermesser.png",
+      "gameId": "vg_all_boss_landvermesser",
+      "kind": "walk",
+      "width": 64,
+      "height": 128,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "transparent": true,
+      "occupiedCounts": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "baseline": 30,
+      "animations": {
+        "walk_down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "walk_left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "walk_right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "walk_up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "F_vg_all_boss_landvermesser",
+      "file": "ui/bestiary/F_vg_all_boss_landvermesser.png",
+      "gameId": "vg_all_boss_landvermesser",
+      "kind": "bestiary",
+      "width": 96,
+      "height": 128,
+      "frameWidth": 96,
+      "frameHeight": 128,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "animations": {
+        "idle": {
+          "frames": [
+            0
+          ],
+          "frameRate": 0,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "BI_boss_vg_all_boss_landvermesser",
+      "file": "ui/BI_boss_vg_all_boss_landvermesser.png",
+      "gameId": "vg_all_boss_landvermesser",
+      "kind": "bossBand",
+      "width": 160,
+      "height": 160,
+      "frameWidth": 160,
+      "frameHeight": 160,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "animations": {
+        "idle": {
+          "frames": [
+            0
+          ],
+          "frameRate": 0,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "enemy_vg_all_boss_schlafkutsche",
+      "file": "battle/enemy_vg_all_boss_schlafkutsche.png",
+      "gameId": "vg_all_boss_schlafkutsche",
+      "kind": "battle",
+      "width": 576,
+      "height": 384,
+      "frameWidth": 96,
+      "frameHeight": 96,
+      "columns": 6,
+      "rows": 4,
+      "transparent": true,
+      "occupiedCounts": [
+        4,
+        6,
+        3,
+        4
+      ],
+      "baseline": 94,
+      "heldRows": [
+        1
+      ],
+      "facing": "left",
+      "defeatMeaning": "non-gory collapse or dispersal",
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "attack": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            12,
+            13,
+            14
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            18,
+            19,
+            20,
+            21
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "F_ow_vg_all_boss_schlafkutsche",
+      "file": "characters/F_ow_vg_all_boss_schlafkutsche.png",
+      "gameId": "vg_all_boss_schlafkutsche",
+      "kind": "walk",
+      "width": 64,
+      "height": 128,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "transparent": true,
+      "occupiedCounts": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "baseline": 30,
+      "animations": {
+        "walk_down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "walk_left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "walk_right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "walk_up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "F_vg_all_boss_schlafkutsche",
+      "file": "ui/bestiary/F_vg_all_boss_schlafkutsche.png",
+      "gameId": "vg_all_boss_schlafkutsche",
+      "kind": "bestiary",
+      "width": 96,
+      "height": 128,
+      "frameWidth": 96,
+      "frameHeight": 128,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "animations": {
+        "idle": {
+          "frames": [
+            0
+          ],
+          "frameRate": 0,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "BI_boss_vg_all_boss_schlafkutsche",
+      "file": "ui/BI_boss_vg_all_boss_schlafkutsche.png",
+      "gameId": "vg_all_boss_schlafkutsche",
+      "kind": "bossBand",
+      "width": 160,
+      "height": 160,
+      "frameWidth": 160,
+      "frameHeight": 160,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "animations": {
+        "idle": {
+          "frames": [
+            0
+          ],
+          "frameRate": 0,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "bg_vorrat_alte_setzerei",
+      "file": "battle/bg_vorrat_alte_setzerei.png",
+      "gameId": "bg_vorrat_alte_setzerei",
+      "kind": "background",
+      "width": 480,
+      "height": 270,
+      "frameWidth": 480,
+      "frameHeight": 270,
+      "columns": 1,
+      "rows": 1,
+      "transparent": false,
+      "animations": {
+        "idle": {
+          "frames": [
+            0
+          ],
+          "frameRate": 0,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "bg_vorrat_sortiergrube",
+      "file": "battle/bg_vorrat_sortiergrube.png",
+      "gameId": "bg_vorrat_sortiergrube",
+      "kind": "background",
+      "width": 480,
+      "height": 270,
+      "frameWidth": 480,
+      "frameHeight": 270,
+      "columns": 1,
+      "rows": 1,
+      "transparent": false,
+      "animations": {
+        "idle": {
+          "frames": [
+            0
+          ],
+          "frameRate": 0,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "bg_vorrat_nullfundament",
+      "file": "battle/bg_vorrat_nullfundament.png",
+      "gameId": "bg_vorrat_nullfundament",
+      "kind": "background",
+      "width": 480,
+      "height": 270,
+      "frameWidth": 480,
+      "frameHeight": 270,
+      "columns": 1,
+      "rows": 1,
+      "transparent": false,
+      "animations": {
+        "idle": {
+          "frames": [
+            0
+          ],
+          "frameRate": 0,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "bg_vorrat_kaltes_palmhaus",
+      "file": "battle/bg_vorrat_kaltes_palmhaus.png",
+      "gameId": "bg_vorrat_kaltes_palmhaus",
+      "kind": "background",
+      "width": 480,
+      "height": 270,
+      "frameWidth": 480,
+      "frameHeight": 270,
+      "columns": 1,
+      "rows": 1,
+      "transparent": false,
+      "animations": {
+        "idle": {
+          "frames": [
+            0
+          ],
+          "frameRate": 0,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "bg_vorrat_verlassene_waescherei",
+      "file": "battle/bg_vorrat_verlassene_waescherei.png",
+      "gameId": "bg_vorrat_verlassene_waescherei",
+      "kind": "background",
+      "width": 480,
+      "height": 270,
+      "frameWidth": 480,
+      "frameHeight": 270,
+      "columns": 1,
+      "rows": 1,
+      "transparent": false,
+      "animations": {
+        "idle": {
+          "frames": [
+            0
+          ],
+          "frameRate": 0,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "bg_vorrat_wurzelkammer",
+      "file": "battle/bg_vorrat_wurzelkammer.png",
+      "gameId": "bg_vorrat_wurzelkammer",
+      "kind": "background",
+      "width": 480,
+      "height": 270,
+      "frameWidth": 480,
+      "frameHeight": 270,
+      "columns": 1,
+      "rows": 1,
+      "transparent": false,
+      "animations": {
+        "idle": {
+          "frames": [
+            0
+          ],
+          "frameRate": 0,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "bg_vorrat_landstrasse",
+      "file": "battle/bg_vorrat_landstrasse.png",
+      "gameId": "bg_vorrat_landstrasse",
+      "kind": "background",
+      "width": 480,
+      "height": 270,
+      "frameWidth": 480,
+      "frameHeight": 270,
+      "columns": 1,
+      "rows": 1,
+      "transparent": false,
+      "animations": {
+        "idle": {
+          "frames": [
+            0
+          ],
+          "frameRate": 0,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "BI_vorrat_fx",
+      "file": "fx/BI_vorrat_fx.png",
+      "gameId": "BI_vorrat_fx",
+      "kind": "fx",
+      "width": 288,
+      "height": 48,
+      "frameWidth": 48,
+      "frameHeight": 48,
+      "columns": 6,
+      "rows": 1,
+      "transparent": true,
+      "occupiedCounts": [
+        6
+      ],
+      "baseline": 46,
+      "animations": {
+        "letternregen": {
+          "frames": [
+            0
+          ],
+          "frameRate": 0,
+          "repeat": 0
+        },
+        "rohrpost_einschlag": {
+          "frames": [
+            1
+          ],
+          "frameRate": 0,
+          "repeat": 0
+        },
+        "dampfstoss": {
+          "frames": [
+            2
+          ],
+          "frameRate": 0,
+          "repeat": 0
+        },
+        "bluetentreiben": {
+          "frames": [
+            3
+          ],
+          "frameRate": 0,
+          "repeat": 0
+        },
+        "wurzelgriff": {
+          "frames": [
+            4
+          ],
+          "frameRate": 0,
+          "repeat": 0
+        },
+        "kutschenstaub": {
+          "frames": [
+            5
+          ],
+          "frameRate": 0,
+          "repeat": 0
+        }
+      }
+    }
+  ]
+}
