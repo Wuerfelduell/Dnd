@@ -1595,3 +1595,17 @@ Kampf-Sheets: sechs Spalten; Idle 4, Angriff 6, Treffer 3, Ende 4 Frames, übrig
 - Prüfung: `python docs/art/verify-vorrat1.py` (Pillow)
 
 Nur Vorrat, noch nicht im Spiel registriert. Verbindliche IDs: 24 normale Gegner + acht Bosse = 32; die Angabe „34 Trophäen“ in den gemeinsamen Eckdaten erweitert diese Liste nicht. Trophäen gehören zu BM.
+
+
+## Batch BK — Figuren-Vorrat (`vorrat2`)
+
+28 Figuren aus Calderwick, Briarholt und von der Landstraße: je vier Laufrichtungen, acht Portraitstimmungen, vier Sonderaktionsframes und ein 24×24-Kopf. Wetherby und Greavesend erhalten außerdem je zwei Kampfphasen. Insgesamt 115 Sheets mit 880 belegten Frames. Noch kein Einbau ins laufende Spiel.
+
+- Manifest: `public/sprites/manifest-vorrat2.json` (Animationen, Framegrößen, Kopfregionen, Prüfsummen).
+- Herkunft und vollständige Prompts: [batch-vorrat2-generation.json](batch-vorrat2-generation.json).
+- Normalisierte Generatoratlanten: `tools/art/vorrat2/sources/`; Original-Hashes bleiben dokumentiert.
+- Reproduzieren: `python tools/art/vorrat2/export.py`, danach `python docs/art/validate-vorrat2.py` (Pillow).
+- Prüfbericht: [batch-vorrat2-validation.json](batch-vorrat2-validation.json).
+- Vorschauen: [Calderwick](batch-vorrat2-preview-calderwick.png), [Briarholt](batch-vorrat2-preview-briarholt.png), [Reise](batch-vorrat2-preview-reise.png), [Köpfe](batch-vorrat2-preview-heads.png), [Bosse](batch-vorrat2-preview-bosses.png).
+
+Built-in Bildgenerator mit vorhandener Sprite-Referenz; Nearest-Neighbor-Export, 31 sichtbare gemeinsame Palettenfarben plus Transparenz, binäres Alpha. Export bereinigt neutrale helle Mattierung und berücksichtigt abweichende Atlasabstände. Lauf-/Sonderframes stehen auf y=30, der Junge ist kleiner. Bossangriffe halten die Ausholpose zwei Frames. Prüfungen umfassen Vollständigkeit, Raster, Palette, Alpha, Zellränder, Grundlinien, Frameindizes, Ausdrucks-/Bewegungsvielfalt und SHA-256.
