@@ -36,7 +36,7 @@ export const DIGEST_LABELS = {
 /** Handlungen, die nur den Pfad dessen verdauen, der sie selbst tut. Alles andere verdaut beide Spieler. */
 export const PERSONAL_DIGEST = new Set(['parry', 'vision', 'use_item', 'brew']);
 const MULT_KEYS = new Set(['vision_cost', 'composure_regen', 'heal_bonus', 'price', 'sell', 'honor_loss', 'occult_mult',
-  'money_bonus', 'skill_composure', 'calm_decay', 'dodge_window', 'damage_taken', 'digest_mult', 'dmg_mult']);
+  'money_bonus', 'skill_composure', 'calm_decay', 'dodge_window', 'damage_taken', 'digest_mult', 'dmg_mult', 'hurry_cost']);
 
 export const pathwayMethods = {
   resetPathway() {
@@ -77,7 +77,7 @@ export const pathwayMethods = {
   passive(key) {
     const mult = MULT_KEYS.has(key);
     let v = mult ? 1 : 0;
-    const lists = [...this.reachedSeqs().map((s) => s.passives ?? []), ...this.artifactEffects(), ...this.gearEffects(), this.bindingPassive?.(this.acting ?? 1) ?? []]; // BN: persönliche Rufbindung
+    const lists = [...this.reachedSeqs().map((s) => s.passives ?? []), ...this.artifactEffects(), ...this.gearEffects(), this.bindingPassive?.(this.acting ?? 1) ?? [], this.buffEffects?.() ?? []]; // BN: persönliche Rufbindung; Welt-Fähigkeiten (Talents.js)
     for (const list of lists) {
       for (const p of list) {
         if (p.key !== key) continue;
@@ -117,10 +117,13 @@ export const pathwayMethods = {
     return Math.max(10, base + this.growth().hp * this.growthSteps() + this.passive('max_hp'));
   },
 
-  /** Kampffertigkeiten des eigenen Pfades: { id: skill } */
+  /** Kampffertigkeiten des eigenen Pfades: { id: skill }. Jede erreichte Sequenz bringt zwei (skill und skill2). */
   pathwaySkills() {
     const out = {};
-    for (const s of this.reachedSeqs()) if (s.skill) out[s.skill.id] = { ...s.skill, pathway: this.pathway.id };
+    for (const s of this.reachedSeqs()) {
+      if (s.skill) out[s.skill.id] = { ...s.skill, pathway: this.pathway.id, seq: s.seq };
+      if (s.skill2) out[s.skill2.id] = { ...s.skill2, pathway: this.pathway.id, seq: s.seq, second: true };
+    }
     return out;
   },
 

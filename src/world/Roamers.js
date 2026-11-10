@@ -149,7 +149,7 @@ export class Roamers {
       const aggro = (roam.aggro ?? 72) * (r.elite ? 1.15 : 1) * (s.state.spiritVision ? 1.25 : 1);
       const home = Math.hypot(r.body.x - r.home.x, r.body.y - r.home.y);
       const graced = time < this.graceUntil;
-      const afraid = fearsPlayer(s.state.pathway?.seq, r.def, s.mapDef);
+      const afraid = fearsPlayer(s.state.pathway?.seq, r.def, s.mapDef) || (s.state.scaresEnemies?.() && !r.boss); // Welt-Fähigkeiten: gewöhnliche Gegner weichen
       if (time < r.stunUntil) {
         b.setVelocity(0, 0);
         r.mode = 'wander';

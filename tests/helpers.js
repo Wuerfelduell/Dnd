@@ -57,7 +57,7 @@ export function loadContent({ sequenzen = true, without = [] } = {}) {
     beziehungen: load('beziehungen.json'),
     lore: Object.fromEntries(['bestiarium', 'gerede', 'item_texte', 'lesestuecke', 'zeitungen'].map((f) => [f, load(`packs/lore/${f}.json`)])),
     sequenzen: sequenzen ? { ...Object.fromEntries(['neue_pfade', 'seq_4_bis_1', 'zutaten', 'artefakte'].map((f) => [f, load(`packs/sequenzen/${f}.json`)])),
-      rituale: load('packs/k3_pruefungen/rituale.json') } : null,
+      rituale: load('packs/k3_pruefungen/rituale.json'), faehigkeiten: load('packs/sequenzen/faehigkeiten2.json') } : null,
   });
 }
 

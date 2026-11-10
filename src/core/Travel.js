@@ -30,10 +30,15 @@ export function travelDestinations(state, current) {
   return state.content.travel.filter((t) => t.map !== current && (t.city ?? 'kettlegate') === city && state.meets(t));
 }
 
+/** Nervenkosten der schnellen Reise (Welt-Fähigkeiten senken sie über das Passiv hurry_cost). */
+export function hurryCost(state) {
+  return Math.round(travelData(state).modes.schnell.nerves_cost * (state.passive?.('hurry_cost') ?? 1));
+}
+
 /** Darf der schnelle Weg genommen werden? */
 export function canHurry(state) {
   if (state.isOverloaded?.()) return false;
-  return state.composure >= travelData(state).modes.schnell.nerves_cost;
+  return state.composure >= hurryCost(state);
 }
 
 /**
@@ -83,7 +88,7 @@ export function rollLoot(state, tableId, rng = Math.random) {
  */
 export function travelFast(state, rng = Math.random) {
   const rules = travelData(state);
-  state.setComposure(state.composure - rules.modes.schnell.nerves_cost);
+  state.setComposure(state.composure - hurryCost(state));
   const city = cityOf(state, state.map);
   const ev = weighted(rules.events.filter((e) => (e.city ?? 'kettlegate') === city && state.meets(e)), rng);
   const out = { ...ev };

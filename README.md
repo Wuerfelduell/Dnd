@@ -24,6 +24,15 @@ einem kleinen Rundenkampf mit Timing und Spielständen.
 3. `npm run dev` starten und die angezeigte Adresse öffnen (http://localhost:5173).
    Änderungen am Code oder an den Falldaten erscheinen sofort im Browser.
 
+## Fähigkeiten der Pfade
+
+Jede erreichte Sequenz bringt drei Dinge: zwei Kampffertigkeiten (⚔, im Kampf unter „Fertigkeiten“) und eine
+Welt-Fähigkeit (☉) für draußen: verborgene Spuren ohne Geistsicht zeigen, Gegner auf der Karte verscheuchen, die
+Uhr der Stadt anhalten, feilschen, schneller reisen, den nächsten Schritt eines Auftrags erfragen und mehr. Welt-Fähigkeiten
+setzt man im Pfad-Tab (`P`) ein; sie kosten Nerven und etwas Unruhe und brauchen danach eine Pause (Spielzeit). Die zweiten
+Kampffertigkeiten sind eher Kniffe als Wucht: Konzentration zurück, Gegner dämpfen oder verlangsamen, den nächsten Schlag
+lesbar machen, Panzer brechen, Schutz und Heilung für beide Spieler. Daten: `src/data/packs/sequenzen/faehigkeiten2.json`.
+
 ## Steuerung
 
 | Taste | Wirkung |
@@ -34,7 +43,7 @@ einem kleinen Rundenkampf mit Timing und Spielständen.
 | `Q` | Geistsicht an/aus: zeigt verborgene Spuren, kostet Nerven |
 | `J` / `Tab` | Notizbuch: zwei Hinweise anklicken, mit `V` verknüpfen |
 | `I` | Inventar: Gegenstände benutzen, Waffe ausrüsten, Tränke trinken |
-| `P` | Pfad: Sequenz, Verdauung, Unruhe, Fähigkeiten und Formeln |
+| `P` | Pfad: Sequenz, Verdauung, Unruhe, Fähigkeiten und Formeln. Welt-Fähigkeiten (☉) werden hier eingesetzt |
 | Kampf: `1`–`4` | Aktion wählen (Angriff, Fertigkeiten, Gegenstände, Flucht) |
 | Kampf: `E` / `Leertaste` | beim Angriff im goldenen Bereich drücken |
 | Kampf: `Leertaste` / `F` | beim gegnerischen Schlag ausweichen / parieren |

@@ -58,6 +58,10 @@ export const WEAK_MULT = 1.5;
  * Wer eine schwächere Sequenz hat (oder gar keinen Pfad), richtet nur einen Bruchteil seines Schadens an.
  */
 export const SEQ_WARD_MULT = 0.08;
+// Zweite Pfadfertigkeiten (faehigkeiten2.json): `slow` dehnt den nächsten gegnerischen Angriff (Ringe laufen langsamer),
+// `weaken` [mult, rounds] dämpft seinen Schaden, `focus` hebt die Bewertung der nächsten eigenen Fertigkeit um eine Stufe.
+export const SLOW_MULT = 1.35;
+export const GRADE_UP = { miss: 'good', good: 'perfect', perfect: 'perfect' };
 
 export const SKILLS = {
   attack: { name: 'Angriff', cost: 0, hits: 1, mult: 1, desc: 'Ein Schlag im Takt. +1 Konzentration, +2 bei präzisem Treffer.' },
@@ -84,7 +88,7 @@ export function judgeTiming(pos, zone) {
 }
 
 // Werte, die jeder Spieler im Kampf für sich hat (zu zweit: Spieler 1 und 2).
-const PER_FIGHTER = ['ap', 'shield', 'evading', 'bleed', 'actions', 'itemUsed'];
+const PER_FIGHTER = ['ap', 'shield', 'evading', 'bleed', 'actions', 'itemUsed', 'focused'];
 
 /** Schlagkraft eines Spielers: Waffe mal Schadens-Passiven (Durchbrüche, Artefakte). */
 export function playerPower(state, n) {
@@ -127,7 +131,7 @@ export class Combat {
     // ap, shield, evading, bleed, actions, itemUsed lesen sich über Zugriffe beim gerade betroffenen Kämpfer.
     // Ab Sequenz 7 beginnt man den Kampf mit mehr Konzentration (Passiv ap_start)
     const fighter = (hp, n) => ({
-      ap: Math.min(AP_MAX, AP_START + state.withPlayer(n, () => state.passive('ap_start'))), shield: 0, evading: false, bleed: null, actions: 0, itemUsed: false, down: false, hpBefore: hp, bleedTick: 0,
+      ap: Math.min(AP_MAX, AP_START + state.withPlayer(n, () => state.passive('ap_start'))), shield: 0, evading: false, bleed: null, actions: 0, itemUsed: false, down: false, hpBefore: hp, bleedTick: 0, focused: false,
     });
     this.fighters = { 1: fighter(state.hp, 1) };
     if (duo) this.fighters[2] = fighter(state.p2.hp, 2);
@@ -148,6 +152,11 @@ export class Combat {
     this.enemyGuard = 0; // fängt Schaden am Gegner ab
     this.veiled = false; // nächste Aktion des Spielers trifft nur mit präzisem Takt
     this.lastAction = null; // { name, text } Kniff des Gegners statt eines Angriffs
+    // Zweite Pfadfertigkeiten
+    this.weakened = null; // { mult, rounds }: der Gegner schlägt schwächer zu
+    this.slowed = false; // sein nächster Angriff kommt gedehnt
+    this.readNext = false; // sein nächster Angriff lässt sich parieren, auch wenn er sonst unparierbar wäre
+    this.stolen = 0; // Schilling, die ihm im Kampf abgenommen wurden
   }
 
   // --- Zwei Spieler -----------------------------------------------------------
@@ -261,7 +270,10 @@ export class Combat {
     this.actions += 1;
     const cc = this.composureCost(sk);
     if (cc) this.state.setComposure(this.state.composure - cc);
-    const hits = grades.slice(0, sk.hits).map((g) => {
+    const focused = this.focused && sk.hits > 0;
+    if (focused) this.focused = false;
+    const hits = grades.slice(0, sk.hits).map((g0) => {
+      const g = focused ? GRADE_UP[g0] ?? g0 : g0;
       const grade = sk.sure && g === 'miss' ? 'good' : g;
       let damage;
       if (sk.flat) {
@@ -276,6 +288,7 @@ export class Combat {
       return { grade, damage };
     });
     const effects = [];
+    if (focused) effects.push('im Fokus getroffen');
     if (this.veiled && hits.length) {
       // Schleier: nur präzise Treffer finden das echte Gesicht
       this.veiled = false;
@@ -296,7 +309,31 @@ export class Combat {
     if (sk.shield) { this.shield += sk.shield; effects.push(`Schutz ${this.shield}`); }
     if (sk.evade) { this.evading = true; effects.push('nächster Angriff geht ins Leere'); }
     if (sk.confuse && landed) { this.confused = true; effects.push('Gegner verwirrt'); }
-    if (sk.burn && landed) { this.burn = { damage: sk.burn[0], rounds: sk.burn[1], source: skillId }; effects.push(`${sk.burn[1]} Runden je ${sk.burn[0]} Schaden`); }
+    if (sk.burn && landed) {
+      // Ein stärkerer oder längerer Brand ersetzt den alten, ein schwächerer verlängert ihn nur (extend_burn)
+      const old = this.burn;
+      if (!old || old.damage <= sk.burn[0]) { this.burn = { damage: sk.burn[0], rounds: Math.max(sk.burn[1], old?.rounds ?? 0), source: skillId }; effects.push(`${this.burn.rounds} Runden je ${sk.burn[0]} Schaden`); }
+    }
+    if (sk.extend_burn && this.burn && !this.outcome) { this.burn.rounds += sk.extend_burn; effects.push(`Brand hält ${sk.extend_burn} ${sk.extend_burn === 1 ? 'Runde' : 'Runden'} länger`); }
+    // Zweite Pfadfertigkeiten: Tempo, Nerven, Deckung für alle, Kniffe gegen den Gegner
+    if (sk.ap_gain) { this.gainAp(sk.ap_gain); effects.push(`+${sk.ap_gain} Konzentration`); }
+    if (sk.nerves_gain) { const before = this.state.composure; this.state.setComposure(before + sk.nerves_gain); effects.push(`+${Math.round(this.state.composure - before)} Nerven`); }
+    if (sk.calm && this.state.unruhe > 0) { this.state.setUnruhe(this.state.unruhe - sk.calm); effects.push(`-${sk.calm} Unruhe`); }
+    if (sk.cleanse && this.bleed) { this.bleed = null; effects.push('Blutung versiegt'); }
+    if (sk.shield_all) { for (const n of this.standing()) this.fighters[n].shield += sk.shield_all; effects.push(`Schutz ${sk.shield_all} für ${this.standing().length > 1 ? 'alle' : 'dich'}`); }
+    if (sk.heal_all) {
+      // Wir stehen schon in on(actor): der andere Spieler ist der Partner (withPartner), egal ob er 1 oder 2 ist
+      let got = this.state.heal(sk.heal_all);
+      for (const n of this.standing()) if (n !== this.actor) got += this.state.withPartner(() => this.state.heal(sk.heal_all)) ?? 0;
+      effects.push(`+${got} Leben${this.standing().length > 1 ? ' (alle)' : ''}`);
+    }
+    if (sk.focus) { this.focused = true; effects.push('nächste Fertigkeit im Fokus'); }
+    if (sk.read) { this.readNext = true; effects.push('nächster Angriff lesbar'); }
+    if (sk.slow && !this.outcome) { this.slowed = true; effects.push('Gegner wird langsam'); }
+    if (sk.weaken && (landed || sk.hits === 0) && !this.outcome) { this.weakened = { mult: sk.weaken[0], rounds: sk.weaken[1] }; effects.push(`Gegner ${Math.round((1 - sk.weaken[0]) * 100)} % schwächer (${sk.weaken[1]} Runden)`); }
+    if (sk.guard_break && this.enemyGuard) { effects.push(`Panzer ${this.enemyGuard} gebrochen`); this.enemyGuard = 0; }
+    if (sk.armor_break && this.armor) { const cut = Math.min(this.armor, sk.armor_break); this.armor -= cut; effects.push(`Rüstung -${cut}`); }
+    if (sk.steal && landed && !this.enc.practice && !this.enemy.occult) { const got = this.state.addMoney(sk.steal, { loot: true, reason: sk.name }); this.stolen += got; effects.push(`+${got} Schilling`); }
     this.log.push(`${sk.name}: ${total} Schaden`);
     return { hits, total, stunned, effects };
   }
@@ -466,8 +503,13 @@ export class Combat {
     const tough0 = this.enc.elite;
     // Feld `ramp`: der Gegner wird mit jeder Runde stärker (gegen endloses Abwarten hinter Schilden)
     const ramp = 1 + (this.enc.ramp ?? 0) * Math.max(0, this.round - 1);
-    const dmgMult = this.enc.practice ? 1 : ENEMY_DMG_MULT * (rage ? 1.2 : 1) * (tough0 ? ELITE_DMG_MULT : 1) * (this.duo && !this.enc.min_seq ? DUO_DMG_MULT : 1) * (this.sweep ? SWEEP_DMG_MULT : 1) * ramp; // höhere Wesen schlagen zu zweit nicht schwächer
-    const speed = rage ? 0.85 : 1;
+    const weak = this.weakened?.rounds > 0 ? this.weakened.mult : 1;
+    const dmgMult = (this.enc.practice ? 1 : ENEMY_DMG_MULT * (rage ? 1.2 : 1) * (tough0 ? ELITE_DMG_MULT : 1) * (this.duo && !this.enc.min_seq ? DUO_DMG_MULT : 1) * (this.sweep ? SWEEP_DMG_MULT : 1) * ramp) * weak; // höhere Wesen schlagen zu zweit nicht schwächer
+    const slowed = this.slowed;
+    this.slowed = false;
+    const readable = this.readNext;
+    this.readNext = false;
+    const speed = (rage ? 0.85 : 1) * (slowed ? SLOW_MULT : 1);
     const hits = [];
     const src = [...atk.hits];
     // Eliten und Bosse setzen manchmal nach
@@ -481,7 +523,7 @@ export class Combat {
       ? { curve: 'linear', lead: i ? RING_FOLLOW_LEAD : 750 }
       : {
         curve: names[Math.floor(this.rng() * names.length)],
-        lead: Math.round(i ? 380 + this.rng() * 180 : 560 + this.rng() * 360),
+        lead: Math.round((i ? 380 + this.rng() * 180 : 560 + this.rng() * 360) * (slowed ? SLOW_MULT : 1)),
       }));
     for (const [i, h] of src.entries()) {
       let t = h * speed + (this.enc.practice ? 0 : (this.rng() * 2 - 1) * JITTER);
@@ -490,7 +532,7 @@ export class Combat {
       t = Math.max(450, t, prev === undefined ? 0 : prev + rings[i].lead + RING_GAP);
       hits.push(Math.round(t));
     }
-    return { ...atk, damage: Math.max(1, Math.round(atk.damage * dmgMult)), hits, rings, followup, unparryable: this.unparryable.has(atk.name), enraged: rage, sweep: this.sweep, targets: [...this.targets] };
+    return { ...atk, damage: Math.max(1, Math.round(atk.damage * dmgMult)), hits, rings, followup, unparryable: this.unparryable.has(atk.name) && !readable, readable, slowed, weakened: weak < 1, enraged: rage, sweep: this.sweep, targets: [...this.targets] };
   }
 
   /**
@@ -545,6 +587,7 @@ export class Combat {
   endRound() {
     this.round += 1;
     for (const f of Object.values(this.fighters)) f.bleedTick = 0;
+    if (this.weakened && --this.weakened.rounds <= 0) this.weakened = null;
     // BD: Gegner mit `flees_after` entziehen sich nach so vielen vollständigen Runden ohne Spielersieg (kein Sieg, keine Beute)
     if (!this.outcome && this.enc.flees_after && this.round > this.enc.flees_after) this.outcome = 'escaped';
     if (this.outcome) { this.startTurn(); return 0; }

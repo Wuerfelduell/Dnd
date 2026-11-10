@@ -1,5 +1,6 @@
 import { NEWSPAPERS } from '../data/lore.js';
 import { DIGEST_LABELS } from '../core/Pathways.js';
+import { buffLabel, fmtSec } from '../core/Talents.js';
 import { CARRY_PER_STEP } from '../core/GameState.js';
 import { GEAR_SLOT_NAMES } from '../core/Gear.js';
 import { lootList, itemRarity, RARITY_NAMES, lootPreview, chanceWord } from '../core/Loot.js';
@@ -19,7 +20,7 @@ import { MOOD_LABEL, GIFT_KINDS } from '../core/Relations.js';
 import { koopGreeting } from '../core/Koop.js';
 import { STATION_NAMES, DIRECTION_NAMES } from '../data/k3Ruf.js';
 import { isSolved, knownPeople } from '../core/journal.js';
-import { canHurry, travelSafe, travelFast, afterHurryFight, travelDestinations, cityOf } from '../core/Travel.js';
+import { canHurry, hurryCost, travelSafe, travelFast, afterHurryFight, travelDestinations, cityOf } from '../core/Travel.js';
 import { questTarget, leadTarget, personPlaces, advice } from '../core/Guide.js';
 
 /** 16x16-Icon vor einem Item-Namen. Lädt es nicht, verschwindet es einfach. */
@@ -1316,7 +1317,7 @@ export class Ui {
       <button class="mode safe" data-mode="sicher">${modeIcon('sicher')}<b><span class="key">1</span> ${esc(safe.name)}</b>
         <span class="muted">${esc(safe.desc)}</span><span class="gain">+${Math.round(s.maxHp * safe.heal_pct)} Leben · +${safe.nerves} Nerven · Journal</span></button>
       <button class="mode fast" data-mode="schnell" ${hurry ? '' : 'disabled'}>${modeIcon('schnell')}<b><span class="key">2</span> ${esc(fast.name)}</b>
-        <span class="muted">${esc(fast.desc)}</span><span class="cost">${hurry ? `−${fast.nerves_cost} Nerven · Monster · Beute` : s.isOverloaded() ? `Zu schwer beladen (${s.carryText()})` : `Zu wenig Nerven (mind. ${fast.nerves_cost})`}</span></button>`;
+        <span class="muted">${esc(fast.desc)}</span><span class="cost">${hurry ? `−${hurryCost(s)} Nerven · Monster · Beute` : s.isOverloaded() ? `Zu schwer beladen (${s.carryText()})` : `Zu wenig Nerven (mind. ${hurryCost(s)})`}</span></button>`;
     modes.querySelectorAll('[data-mode]').forEach((b) => {
       b.onclick = () => this.travelMode(b.dataset.mode);
       b.onmouseenter = () => el.querySelector('.route')?.classList.toggle('schnell', b.dataset.mode === 'schnell');
@@ -1434,6 +1435,13 @@ export class Ui {
       };
     });
     el.querySelectorAll('[data-drink]').forEach((b) => { b.onclick = () => this.drink(b.dataset.drink); });
+    el.querySelectorAll('[data-talent]').forEach((b) => {
+      b.onclick = () => {
+        const r = inv(() => this.state.useTalent(b.dataset.talent));
+        this.renderNotebook(esc(r.text));
+        if (r.ok) this.toast(r.text, 'good');
+      };
+    });
     el.querySelector('[data-ritual]')?.addEventListener('click', () => {
       const who = this.state.hasP2() ? this.invPlayer : 1;
       const r = inv(() => this.state.performRitual());
@@ -1859,10 +1867,13 @@ export class Ui {
       const reached = n >= cur.seq;
       // Paket A: Sockel der Pfad-Leiter (leer = als Nächstes, verriegelt = später, Riss bei hoher Unruhe)
       const socket = uiSprite('ladder', !reached ? (n === cur.seq - 1 ? 'empty' : 'locked') : n === cur.seq && s.unruhe >= 60 ? 'cracked' : 'unlocked', 1 / 12, 'socket');
-      if (!reached) return `<li class="seq locked">${socket}<strong>Sequenz ${n}: ${esc(sd.name)}</strong> <span class="muted">noch nicht erreicht</span></li>`;
+      if (!reached) return `<li class="seq locked">${socket}<strong>Sequenz ${n}: ${esc(sd.name)}</strong> <span class="muted">noch nicht erreicht${sd.skill2 || sd.talent ? ` · bringt ${[sd.skill.name, sd.skill2?.name, sd.talent?.name].filter(Boolean).map(esc).join(', ')}` : ''}</span></li>`;
+      const talent = sd.talent ? this.talentRowHtml(s, sd.talent) : '';
       return `<li class="seq">${socket}<strong>Sequenz ${n}: ${esc(sd.name)}</strong> ${n === cur.seq ? '<span class="badge likely">aktuell</span>' : ''}<br>
         <span class="desc">${esc(sd.desc)}</span><br>
-        ⚔ <strong>${esc(sd.skill.name)}</strong> <span class="muted">(${sd.skill.cost} K)</span> ${esc(sd.skill.desc)}
+        ⚔ <strong>${esc(sd.skill.name)}</strong> <span class="muted">(${sd.skill.cost} K${sd.skill.composure ? ` · ${sd.skill.composure} Nerven` : ''})</span> ${esc(sd.skill.desc)}
+        ${sd.skill2 ? `<br>⚔ <strong>${esc(sd.skill2.name)}</strong> <span class="muted">(${sd.skill2.cost} K${sd.skill2.composure ? ` · ${sd.skill2.composure} Nerven` : ''})</span> ${esc(sd.skill2.desc)}` : ''}
+        ${talent}
         ${(sd.passives ?? []).map((x) => `<br>✧ ${esc(x.text)}`).join('')}</li>`;
     }).join('');
     const d = Math.floor(cur.digestion);
@@ -1876,12 +1887,30 @@ export class Ui {
       <p class="lead"><em>„${esc(p.principle)}“</em> ${esc(p.digest_hint)}</p>
       <p class="muted">Jede Sequenz dieses Pfades: +${s.growth().hp} Leben, +${s.growth().nerves} Nerven, +${CARRY_PER_STEP} Pfund Tragkraft, die Durchbrüche 7 und 6 das Doppelte. Gerade: ${s.maxHp} Leben, ${s.maxComposure()} Nerven, ${esc(s.carryBreakdown())} = ${fmtLb(s.carryCapacity())} Pfund Tragkraft.</p>
       ${s.corruptionDrain().count ? `<p class="curse">Korruption: ${s.corruptionDrain().count} Stück an dir zehrt an Leben und Nerven (siehe Inventar). Bei 100 Unruhe wachsen die Tentakel erneut und treffen alles, was du dann trägst.</p>` : '<p class="muted">Bei 100 Unruhe verlierst du die Kontrolle: Tentakel korrumpieren Waffe, Kleidung und Artefakte am Leib, die dich danach Leben und Nerven kosten, solange du sie trägst.</p>'}
+      ${this.buffsHtml(s)}
       ${this.ritualHtml()}
       <h4>Was deinen Trank verdaut</h4>
       <ul class="digestlist">${s.digestTable().map((r) => `<li><span>${esc(r.label)}</span> <strong>+${r.points} %</strong></li>`).join('')}
         <li class="muted">Alles andere verdaut diesen Pfad nicht. Auf höheren Sequenzen geht es langsamer.</li></ul>
       <ul class="seqs">${rows}</ul>
       ${this.recipesHtml(false)}`;
+  }
+
+  /** Welt-Fähigkeit einer Sequenz: Kosten, Abklingzeit und Knopf zum Einsetzen (nur außerhalb von Kämpfen). */
+  talentRowHtml(s, def) {
+    const t = s.talentDef(def.id) ?? def;
+    const cost = [def.nerves ? `${def.nerves} Nerven` : '', def.unruhe ? `+${def.unruhe} Unruhe` : '', `${fmtSec(def.cooldown)} Pause`].filter(Boolean).join(' · ');
+    const block = s.talentBlock(def.id);
+    const label = t.remaining > 0 ? `bereit in ${t.remainingText}` : block ? 'zu wenig Nerven' : 'Einsetzen';
+    return `<br>☉ <strong>${esc(def.name)}</strong> <span class="muted">(${cost})</span> ${esc(def.desc)} <button class="small talentbtn ${block ? '' : 'primary'}" data-talent="${def.id}" ${block ? 'disabled' : ''}>${label}</button>`;
+  }
+
+  /** Laufende Wirkungen der Welt-Fähigkeiten. */
+  buffsHtml(s) {
+    const list = s.activeBuffs();
+    const world = [s.revealUntil > s.talentTime ? 'verborgene Spuren sichtbar' : '', s.scaresEnemies() ? 'Gegner weichen' : '', s.clockStopped() ? 'die Uhr der Stadt steht' : ''].filter(Boolean);
+    if (!list.length && !world.length) return '<p class="muted">☉ Welt-Fähigkeiten setzt du hier im Pfad-Tab ein (nicht im Kampf). Sie kosten Nerven und brauchen danach eine Pause.</p>';
+    return `<p class="buffs">☉ Wirkt gerade: ${[...list.map((b) => `${esc(buffLabel(b))} <span class="muted">(${b.remainingText})</span>`), ...world.map(esc)].join(' · ')}</p>`;
   }
 
   /** Ritual für den nächsten Trank (ab Sequenz 6): Ort, Zutaten, Bedingungen, Knopf. */

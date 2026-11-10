@@ -17,6 +17,7 @@ import { artifactMethods } from './Artifacts.js';
 import { partyMethods } from './Party.js';
 import { gearMethods } from './Gear.js';
 import { corruptionMethods } from './Corruption.js';
+import { talentMethods } from './Talents.js';
 
 /** Tragkraft in Pfund. Gegenstände ohne eigenes "weight" wiegen je nach Art so viel. */
 export const BASE_CARRY = 40;
@@ -78,6 +79,7 @@ export class GameState {
     this.tracked = s.quests?.[0] ?? null;
     this.resetCorruption();
     this.resetPathway();
+    this.resetTalents(); // Welt-Fähigkeiten: Abklingzeiten, Buffs, Sichtbarkeit
     this.resetGatherings();
     this.resetWanted();
     this.resetBonds();
@@ -670,6 +672,7 @@ export class GameState {
   }
 
   tick(dtSeconds) {
+    this.tickTalents(dtSeconds);
     const before = this.composure;
     if (this.spiritVision) {
       this.composure = Math.max(0, this.composure - VISION_DRAIN_PER_SEC * this.passive('vision_cost') * dtSeconds);
@@ -711,6 +714,7 @@ export class GameState {
       gear: this.gear,
       tracked: this.tracked,
       ...this.serializePathway(),
+      ...this.serializeTalents(),
       ...this.serializeCorruption(),
       ...this.serializeGatherings(),
       ...this.serializeWanted(),
@@ -759,6 +763,7 @@ export class GameState {
     }
     // Ab Version 4: Schilling, Pfad und Unruhe
     if (data.v >= 4) this.loadPathway(data);
+    this.loadTalents(data);
     this.loadCorruption(data);
     this.loadGatherings(data);
     this.loadWanted(data);
@@ -779,4 +784,4 @@ export class GameState {
 /** Fortschrittsflags der verlängerten Akt-V-Fassung (AP), in Spielreihenfolge. */
 export const K2_AKT5_STEPS = ['k2v_boot_bereit', 'k2v_keller_passiert', 'k2v_aufstieg_passiert', 'k2v_abschied_done'];
 
-Object.assign(GameState.prototype, partyMethods, gearMethods, corruptionMethods, pathwayMethods, artifactMethods, gatheringMethods, wantedMethods, bondMethods, relationMethods, auctionMethods, artisanMethods, kahnMethods, newspaperMethods, signalMethods, clockMethods, claimMethods, claimEinbauMethods, signalRouteMethods);
+Object.assign(GameState.prototype, partyMethods, gearMethods, corruptionMethods, pathwayMethods, artifactMethods, gatheringMethods, wantedMethods, bondMethods, relationMethods, auctionMethods, artisanMethods, kahnMethods, newspaperMethods, signalMethods, clockMethods, claimMethods, claimEinbauMethods, signalRouteMethods, talentMethods);
