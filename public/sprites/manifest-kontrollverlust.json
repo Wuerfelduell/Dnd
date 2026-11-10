@@ -1,0 +1,366 @@
+{
+  "version": 1,
+  "batch": "kontrollverlust",
+  "status": "exported; runtime animation integration pending",
+  "paletteMaxVisibleColors": 32,
+  "palette": [
+    [
+      26,
+      28,
+      44
+    ],
+    [
+      37,
+      43,
+      56
+    ],
+    [
+      88,
+      67,
+      60
+    ],
+    [
+      48,
+      59,
+      73
+    ],
+    [
+      179,
+      148,
+      110
+    ],
+    [
+      73,
+      75,
+      58
+    ],
+    [
+      207,
+      177,
+      138
+    ],
+    [
+      66,
+      83,
+      96
+    ],
+    [
+      113,
+      86,
+      72
+    ],
+    [
+      113,
+      133,
+      139
+    ],
+    [
+      146,
+      116,
+      90
+    ],
+    [
+      88,
+      108,
+      120
+    ],
+    [
+      45,
+      38,
+      41
+    ],
+    [
+      240,
+      206,
+      128
+    ],
+    [
+      136,
+      99,
+      50
+    ],
+    [
+      208,
+      160,
+      80
+    ],
+    [
+      232,
+      184,
+      96
+    ],
+    [
+      104,
+      104,
+      80
+    ],
+    [
+      139,
+      136,
+      112
+    ],
+    [
+      224,
+      201,
+      161
+    ],
+    [
+      238,
+      226,
+      197
+    ],
+    [
+      137,
+      62,
+      78
+    ],
+    [
+      149,
+      165,
+      165
+    ],
+    [
+      54,
+      129,
+      122
+    ],
+    [
+      36,
+      91,
+      89
+    ],
+    [
+      78,
+      175,
+      162
+    ],
+    [
+      168,
+      180,
+      192
+    ],
+    [
+      65,
+      52,
+      51
+    ],
+    [
+      100,
+      120,
+      143
+    ],
+    [
+      111,
+      224,
+      208
+    ],
+    [
+      58,
+      24,
+      80
+    ],
+    [
+      90,
+      42,
+      122
+    ]
+  ],
+  "assets": [
+    {
+      "id": "kontrollverlust",
+      "file": "ui/scenes/kontrollverlust.png",
+      "width": 240,
+      "height": 135,
+      "frameWidth": 240,
+      "frameHeight": 135,
+      "columns": 1,
+      "rows": 1,
+      "transparent": false,
+      "sha256": "1f20964855bd465d4e22508b57112926e143a7a6c6e5df618710b73bf73b2e85"
+    },
+    {
+      "id": "laeutersalz",
+      "file": "items/laeutersalz.png",
+      "width": 16,
+      "height": 16,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "sha256": "cd36a04f709139fdb36a0bea1c4523ecc5de9a7bd61eafb00b33fdabacc87cb4"
+    },
+    {
+      "id": "laeutersalz_32",
+      "file": "items32/laeutersalz.png",
+      "width": 32,
+      "height": 32,
+      "frameWidth": 32,
+      "frameHeight": 32,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "derivedFrom": "items/laeutersalz.png",
+      "sha256": "6b534a896c56dd5afb37c17f01d874f0d1cf8fed1815953989c7f77516dfd89a"
+    },
+    {
+      "id": "tentakel_fx",
+      "file": "fx/BP_tentakel_kontrollverlust.png",
+      "width": 768,
+      "height": 64,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 12,
+      "rows": 1,
+      "transparent": true,
+      "sha256": "cafb4d4b5731db5c063037271e7c88238b85b057bfa9894abff2c787f39aea6b",
+      "origin": [
+        0.5,
+        0.5
+      ],
+      "effectCenter": [
+        32,
+        33
+      ],
+      "characterRegion": [
+        24,
+        16,
+        16,
+        32
+      ],
+      "animations": {
+        "grow": {
+          "frames": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "BP_player_korruption",
+      "file": "characters/BP_player_korruption.png",
+      "width": 64,
+      "height": 96,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 3,
+      "transparent": true,
+      "sha256": "326c2077749fa9fa06d4dc756bce2c93b829529d9a18534dc06171e1b0485ab3",
+      "animations": {
+        "player": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 4,
+          "repeat": 0
+        },
+        "p2a": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 4,
+          "repeat": 0
+        },
+        "p2b": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 4,
+          "repeat": 0
+        }
+      },
+      "poses": [
+        "doubled_over",
+        "clutch_shoulder",
+        "kneeling",
+        "collapsed"
+      ]
+    },
+    {
+      "id": "BP_korruption_rahmen",
+      "file": "ui/BP_korruption_rahmen.png",
+      "width": 48,
+      "height": 48,
+      "frameWidth": 48,
+      "frameHeight": 48,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "sha256": "8509a80f377587e895041c249e31fa83f0543bd1dabc14bc99f07f8a08a6c4e1",
+      "nineSlice": {
+        "left": 16,
+        "right": 16,
+        "top": 16,
+        "bottom": 16
+      }
+    },
+    {
+      "id": "BP_korruption",
+      "file": "ui/BP_korruption.png",
+      "width": 96,
+      "height": 16,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 6,
+      "rows": 1,
+      "transparent": true,
+      "sha256": "95e5cc63b4cd43be8c46aab6a72dc0fb1d3cad2dd3ea18757fb4d38a7f2c74ee",
+      "animations": {
+        "corrupted": {
+          "frames": [
+            0
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "pulse": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "cleansed": {
+          "frames": [
+            4
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "set_aside": {
+          "frames": [
+            5
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        }
+      }
+    }
+  ]
+}

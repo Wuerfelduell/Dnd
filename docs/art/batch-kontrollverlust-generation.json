@@ -1,0 +1,589 @@
+{
+  "batch": "kontrollverlust",
+  "generator": "built-in image_gen",
+  "postprocessing": "Cell alpha bounds; one shared nearest-neighbor scale per animation sheet; centered effects/icons and bottom-aligned character poses; grid repacking; shared 30 base colours plus 2 violet colours; binary alpha; 32px salt is exact 2x nearest-neighbor.",
+  "records": [
+    {
+      "id": "szene",
+      "file": "ui/scenes/kontrollverlust.png",
+      "fw": 240,
+      "fh": 135,
+      "cols": 1,
+      "rows": 1,
+      "sourceCols": 1,
+      "sourceRows": 1,
+      "opaque": true,
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\nExact corruption colors: core #3a1850, edge #5a2a7a, turquoise #6fe0d0, dark outline #1a1c2c. Use attached existing sprite as strict style reference.\nSingle 16:9 scene illustration intended for exact 240x135 pixel final image. OPAQUE background. Night wet cobblestone street, foggy Victorian industrial city. ONE gas lamp at LEFT with amber light. CENTER kneeling cloaked investigator, hands pressed to ground, fallen hat lying beside them. Six to eight long dark violet tentacles grow from back and shoulders curling upward into fog, turquoise suckers and tips. No detailed face, no blood, no text. Clear silhouettes and large pixel clusters readable at 240x135.",
+      "sourceFile": "exec-917cfe44-e4a1-4b9a-8eab-6c94a712e573.png",
+      "sourceSha256": "d106805dc76f4ce82601c76fd3b56763127998c9f6c4cfec73bc29451c315c40",
+      "sourceSize": [
+        1672,
+        941
+      ],
+      "sourceCropBoxes": [
+        [
+          0,
+          0,
+          1672,
+          941
+        ]
+      ],
+      "exportPlacements": [
+        [
+          0,
+          0,
+          240,
+          135
+        ]
+      ],
+      "styleReferences": [
+        {
+          "file": "ui/scenes/E_szene_marlowe.png",
+          "sha256": "2696d6f3f8b963aea589e1f4bd0539f713dd85e658c4db2701da3f436974f381"
+        }
+      ]
+    },
+    {
+      "id": "salz",
+      "file": "items/laeutersalz.png",
+      "fw": 16,
+      "fh": 16,
+      "cols": 1,
+      "rows": 1,
+      "sourceCols": 1,
+      "sourceRows": 1,
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\nExact corruption colors: core #3a1850, edge #5a2a7a, turquoise #6fe0d0, dark outline #1a1c2c. Use attached existing sprite as strict style reference.\nOne tiny inventory item icon, square transparent background, designed for 16x16 pixels. An open wax-paper BAG holding coarse GREY salt crystals, one corner folded open, and exactly ONE tiny turquoise spark floating just above the opening. Distinct bag silhouette, warm bone parchment, dark grey salt, no bowl or bottle, no text, centered with clear margin. Broad simple pixel clusters.",
+      "sourceTrim": [
+        325,
+        299,
+        907,
+        1013
+      ],
+      "sourceFile": "exec-67bfb642-7fd3-412b-8914-fa2c4bf21fcd.png",
+      "sourceSha256": "b8f577af1fa559181bee8bbb74fdc51d4fb952b5fec4c3533a782be0c8df17d2",
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "sourceCropBoxes": [
+        [
+          0,
+          0,
+          821,
+          821
+        ]
+      ],
+      "exportPlacements": [
+        [
+          0,
+          0,
+          16,
+          16
+        ]
+      ],
+      "styleReferences": [
+        {
+          "file": "items/bannsalz.png",
+          "sha256": "6b99cb85da58cb44248325665d132fa319d03f5d0a178e7289a061740bf58aff"
+        }
+      ]
+    },
+    {
+      "id": "tentakel",
+      "file": "fx/BP_tentakel_kontrollverlust.png",
+      "fw": 64,
+      "fh": 64,
+      "cols": 12,
+      "rows": 1,
+      "sourceCols": 4,
+      "sourceRows": 3,
+      "prompt": "Precise edit of this twelve-frame transparent4-column3-row tentacle animation. Preserve EXACT geometry, cell layout, sizes, transparent background and all phase progression. Add small TURQUOISE #6fe0d0 sucker dots on the growing tentacles in ONLY zero-based frames3,4,5,6 (top row fourth cell; middle row first three cells). Just a few small square dots along inner curves, far dimmer/sparser than the existing bright pulse on frames7,8,9. All other frames and outlines unchanged. No glow, no backdrop, no human, no text. Keep true transparent alpha.",
+      "originalPrompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\nExact corruption colors: core #3a1850, edge #5a2a7a, turquoise #6fe0d0, dark outline #1a1c2c. Use attached existing sprite as strict style reference.\nProduction sprite atlas of one tentacle effect, 12 consecutive animation frames. SOURCE LAYOUT EXACTLY 4 columns by 3 rows of equal SQUARE cells, reading left to right then down. This transport grid will be repacked to one horizontal row for the game. No drawn grid or labels. Transparent alpha background. No human body or silhouette anywhere. All frames share same fixed origin at cell center, character would occupy the central 16x32 of a 64x64 logical cell, leave this area mostly transparent. Frames 0-2 tiny violet fissures and first tips from shoulders/wrists beside central void. Frames 3-6 progressively grow SIX TO EIGHT dark violet tentacles upward and sideways, last reaching near cell edges without crossing boundaries. Frames 7-9 same tentacles curl inward with a brief turquoise sucker pulse. Frames10-11 shrink back to a few tiny purple drops near center. Keep relative scale progression, do NOT enlarge small stages to fill their cells. Wet highlights as crisp pixels, not glowing blur. No blood, no ground, no props.",
+      "supersedes": "exec-d4e54d75-a6e5-4e60-b6ea-6d7b43e99668.png",
+      "previousEditPrompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\nExact corruption colors: core #3a1850, edge #5a2a7a, turquoise #6fe0d0, dark outline #1a1c2c. Use attached existing sprite as strict style reference.\nProduction sprite atlas of one tentacle effect, 12 consecutive animation frames. SOURCE LAYOUT EXACTLY 4 columns by 3 rows of equal SQUARE cells, reading left to right then down. This transport grid will be repacked to one horizontal row for the game. No drawn grid or labels. Transparent alpha background. No human body or silhouette anywhere. All frames share same fixed origin at cell center, character would occupy the central 16x32 of a 64x64 logical cell, leave this area mostly transparent. Frames 0-2 tiny violet fissures and first tips from shoulders/wrists beside central void. Frames 3-6 progressively grow SIX TO EIGHT dark violet tentacles upward and sideways, last reaching near cell edges without crossing boundaries. Frames 7-9 same tentacles curl inward with a brief turquoise sucker pulse. Frames10-11 shrink back to a few tiny purple drops near center. Keep relative scale progression, do NOT enlarge small stages to fill their cells. Wet highlights as crisp pixels, not glowing blur. No blood, no ground, no props.\nTARGETED CORRECTION to the attached effect: the tentacle bases are too far apart. In EVERY frame, connect the two groups' bases toward the unseen figure: root points immediately beside the central character's shoulders and wrists, at logical x24 and x40 of a64x64 cell, with roots running partly INTO the central 16px-wide region. Central torso stays mostly transparent. Tiny fissures in frames0-2 must be ON the unseen central torso area, not floating far beside it. Fully grown outer curls still extend to frame edges. Six to eight individual tapered tentacles, not two detached plants. Keep all12 phases distinct, 4columns3rows. No drawn person. Preserve genuine alpha.",
+      "previousSource": "exec-d4e54d75-a6e5-4e60-b6ea-6d7b43e99668.png",
+      "initialSourceFile": "exec-6087a16e-0b2b-4521-9546-135aad23e169.png",
+      "sourceFile": "exec-7f0e1525-b344-492f-93ef-00af8c3b7d95.png",
+      "sourceSha256": "00d3b823ec31886fe2fdab766b0ac094fe6c0e2d43c31d576a744685f74f2620",
+      "sourceSize": [
+        1448,
+        1086
+      ],
+      "sourceCropBoxes": [
+        [
+          125,
+          179,
+          238,
+          264
+        ],
+        [
+          458,
+          153,
+          628,
+          267
+        ],
+        [
+          801,
+          104,
+          999,
+          273
+        ],
+        [
+          1130,
+          83,
+          1390,
+          282
+        ],
+        [
+          44,
+          426,
+          321,
+          669
+        ],
+        [
+          395,
+          415,
+          690,
+          676
+        ],
+        [
+          749,
+          420,
+          1055,
+          691
+        ],
+        [
+          1112,
+          443,
+          1411,
+          691
+        ],
+        [
+          44,
+          813,
+          313,
+          1023
+        ],
+        [
+          423,
+          829,
+          653,
+          1013
+        ],
+        [
+          819,
+          854,
+          993,
+          991
+        ],
+        [
+          1200,
+          894,
+          1327,
+          983
+        ]
+      ],
+      "exportPlacements": [
+        [
+          20,
+          24,
+          24,
+          18
+        ],
+        [
+          14,
+          21,
+          36,
+          24
+        ],
+        [
+          11,
+          15,
+          41,
+          35
+        ],
+        [
+          5,
+          12,
+          54,
+          42
+        ],
+        [
+          3,
+          7,
+          58,
+          51
+        ],
+        [
+          1,
+          5,
+          62,
+          55
+        ],
+        [
+          0,
+          4,
+          64,
+          57
+        ],
+        [
+          0,
+          7,
+          63,
+          52
+        ],
+        [
+          4,
+          11,
+          56,
+          44
+        ],
+        [
+          8,
+          14,
+          48,
+          38
+        ],
+        [
+          14,
+          18,
+          36,
+          29
+        ],
+        [
+          18,
+          23,
+          27,
+          19
+        ]
+      ],
+      "styleReferences": [
+        {
+          "file": "characters/A_player_drink.png",
+          "sha256": "905b7114ac664c99fadb2526049e15771300500517d7eab1f732d40d971b89cb"
+        }
+      ],
+      "supersededSourceSha256": "920101fa7676e9166b00278beb4afba45bdf10ac37ec26c1e51cea21542a39d4"
+    },
+    {
+      "id": "player",
+      "file": "characters/BP_player_korruption.png",
+      "fw": 16,
+      "fh": 32,
+      "cols": 4,
+      "rows": 3,
+      "sourceCols": 4,
+      "sourceRows": 3,
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\nExact corruption colors: core #3a1850, edge #5a2a7a, turquoise #6fe0d0, dark outline #1a1c2c. Use attached existing sprite as strict style reference.\nCharacter animation sheet EXACTLY FOUR columns and THREE rows of equal cells, each cell aspect1:2 (16x32 logical). Match three attached existing investigators respectively by row: top MAIN investigator in dark coat and brimmed hat; middle p2a in flat cap; bottom p2b in bowler hat. Within EACH row the same character undergoes four distinct stages left to right: doubles over, clutches own shoulder, falls to BOTH KNEES, lies collapsed curled on ground. Feet/body touch same ground baseline within each cell, maintain SAME SCALE, lying character should look lower and shorter in height not scaled up. Transparent background. No tentacles in this sheet, no furniture, no blood, no effects, no text, no separators. View top-down3/4 consistent with references.",
+      "sourceFile": "exec-23ae185b-fe48-490b-b020-866189b76aa5.png",
+      "sourceSha256": "35299def037ea57f47355a6b0f85fb2b37ed3d0e9b6d4305b06813f626183828",
+      "sourceSize": [
+        724,
+        2172
+      ],
+      "sourceCropBoxes": [
+        [
+          16,
+          374,
+          158,
+          611
+        ],
+        [
+          192,
+          352,
+          362,
+          610
+        ],
+        [
+          362,
+          421,
+          543,
+          610
+        ],
+        [
+          543,
+          513,
+          707,
+          611
+        ],
+        [
+          16,
+          1050,
+          158,
+          1290
+        ],
+        [
+          199,
+          1026,
+          362,
+          1290
+        ],
+        [
+          362,
+          1107,
+          543,
+          1290
+        ],
+        [
+          543,
+          1200,
+          707,
+          1290
+        ],
+        [
+          17,
+          1733,
+          158,
+          1969
+        ],
+        [
+          199,
+          1709,
+          362,
+          1969
+        ],
+        [
+          362,
+          1779,
+          543,
+          1969
+        ],
+        [
+          543,
+          1877,
+          706,
+          1969
+        ]
+      ],
+      "exportPlacements": [
+        [
+          2,
+          13,
+          11,
+          18
+        ],
+        [
+          1,
+          11,
+          13,
+          20
+        ],
+        [
+          1,
+          16,
+          14,
+          15
+        ],
+        [
+          1,
+          23,
+          13,
+          8
+        ],
+        [
+          2,
+          12,
+          11,
+          19
+        ],
+        [
+          1,
+          11,
+          13,
+          20
+        ],
+        [
+          1,
+          17,
+          14,
+          14
+        ],
+        [
+          1,
+          24,
+          13,
+          7
+        ],
+        [
+          2,
+          13,
+          11,
+          18
+        ],
+        [
+          1,
+          11,
+          13,
+          20
+        ],
+        [
+          1,
+          16,
+          14,
+          15
+        ],
+        [
+          1,
+          24,
+          13,
+          7
+        ]
+      ],
+      "styleReferences": [
+        {
+          "file": "characters/A_player_drink.png",
+          "sha256": "905b7114ac664c99fadb2526049e15771300500517d7eab1f732d40d971b89cb"
+        },
+        {
+          "file": "characters/p2a_drink.png",
+          "sha256": "6be7710dea267285a493b7d6dcfd245df0213bb1f142dfc8e9f2e95dfb880220"
+        },
+        {
+          "file": "characters/p2b_drink.png",
+          "sha256": "a83bcb915f417e786255cb39b20967b1699605c9b8d93f665cbb186d0816d3ea"
+        }
+      ]
+    },
+    {
+      "id": "rahmen",
+      "file": "ui/BP_korruption_rahmen.png",
+      "fw": 48,
+      "fh": 48,
+      "cols": 1,
+      "rows": 1,
+      "sourceCols": 1,
+      "sourceRows": 1,
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\nExact corruption colors: core #3a1850, edge #5a2a7a, turquoise #6fe0d0, dark outline #1a1c2c. Use attached existing sprite as strict style reference.\nSingle SQUARE 9-slice inventory frame for corrupted items, final48x48 with16px slice borders. Transparent central hole. Muted deep slate metal border stained violet, subtle black thread knots only at FOUR corners. Each side is straight and uniform in its middle third so it can stretch seamlessly. Border thickness about4 logical pixels, center16x16 entirely empty transparent. No symbols in center, no text, no shadow outside, no perspective tilt, exact front-on square UI border. Fit whole square with minimal padding.",
+      "sourceFile": "exec-2ad83d43-275f-4b6c-abd4-fda02bb3ae38.png",
+      "sourceSha256": "04ec3f2dcccbd3118dfcab3b5e1a16b2d7e1e7e9af45158916c37b028d60314e",
+      "sourceSize": [
+        1254,
+        1254
+      ],
+      "sourceCropBoxes": [
+        [
+          0,
+          0,
+          1254,
+          1254
+        ]
+      ],
+      "exportPlacements": [
+        [
+          0,
+          0,
+          48,
+          48
+        ]
+      ],
+      "styleReferences": [
+        {
+          "file": "items/bannsalz.png",
+          "sha256": "6b99cb85da58cb44248325665d132fa319d03f5d0a178e7289a061740bf58aff"
+        }
+      ]
+    },
+    {
+      "id": "icons",
+      "file": "ui/BP_korruption.png",
+      "fw": 16,
+      "fh": 16,
+      "cols": 6,
+      "rows": 1,
+      "sourceCols": 3,
+      "sourceRows": 2,
+      "prompt": "Edit this six-icon sheet. Remove ALL grey backdrop, fog, glow and shadows completely to genuine transparent alpha. Preserve only crisp pixel-art icon shapes. Maintain EXACT3 columns x2 rows and all six centers and their original sizes. Top-left knot must have no turquoise spark, top-middle and top-right knot each exactly ONE turquoise logical pixel, bottom-left knot none. Bottom-middle grey loose threads should be fully opaque solid pixels, bottom-right dark cloth bundle tied with string stays. Make true transparent empty space between and inside thread loops; no checkerboard painted into image, no grey canvas. Do not change the arrangement or silhouettes. Sharp pixels without blur.",
+      "originalPrompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\nExact corruption colors: core #3a1850, edge #5a2a7a, turquoise #6fe0d0, dark outline #1a1c2c. Use attached existing sprite as strict style reference.\nInventory icon animation atlas. EXACTLY 6 icons arranged 3 columns x2 rows equal SQUARE cells, no grid or labels, transparent. Final game repacks six frames into horizontal 96x16 sheet. Top row and bottom-left: SAME black thread parasite KNOT in four subtly different pulse stages, violet edges, a SINGLE turquoise pixel appearing in stages1 and2 and vanishing stage3. Bottom middle: thread has loosened into GREY frayed fibers. Bottom right: a small BUNDLE wrapped in dark cloth tied with string, representing a set-aside artifact. Simple legible shapes for 16x16 each, consistent centers, no background glows.",
+      "supersedes": "exec-de18099c-5992-46ea-a4e0-8722b232165b.png",
+      "sourceFile": "exec-52612606-c210-47ef-818b-3c89abe23b56.png",
+      "sourceSha256": "64cf528100e1091a9259daa69d8ca150f93fe125fe2ea4a9cb07eca636bce178",
+      "sourceSize": [
+        1536,
+        1024
+      ],
+      "sourceCropBoxes": [
+        [
+          100,
+          116,
+          432,
+          423
+        ],
+        [
+          552,
+          72,
+          972,
+          458
+        ],
+        [
+          1098,
+          103,
+          1459,
+          441
+        ],
+        [
+          101,
+          621,
+          425,
+          935
+        ],
+        [
+          568,
+          606,
+          972,
+          950
+        ],
+        [
+          1099,
+          605,
+          1454,
+          950
+        ]
+      ],
+      "exportPlacements": [
+        [
+          2,
+          3,
+          11,
+          10
+        ],
+        [
+          1,
+          1,
+          14,
+          13
+        ],
+        [
+          2,
+          2,
+          11,
+          11
+        ],
+        [
+          2,
+          3,
+          11,
+          10
+        ],
+        [
+          1,
+          2,
+          13,
+          11
+        ],
+        [
+          2,
+          2,
+          12,
+          12
+        ]
+      ],
+      "styleReferences": [
+        {
+          "file": "items/bannsalz.png",
+          "sha256": "6b99cb85da58cb44248325665d132fa319d03f5d0a178e7289a061740bf58aff"
+        }
+      ],
+      "supersededSourceSha256": "d05c844ef482c6c34d7276e56c1976b66b2bff80e3467486a18a832bb3273eef"
+    }
+  ]
+}
