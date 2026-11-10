@@ -2,6 +2,8 @@
 // Stufe 1 sagt grob, woran es hakt; Stufe 2 nennt die schwache Information und wo es eine
 // weitere Quelle gibt; Stufe 3 nennt das Paar, das verknüpft werden muss.
 
+import { LIKELY_SOURCES } from './GameState.js';
+
 const SCORE = { likely: 2, suspected: 1, unknown: 0 };
 
 /**
@@ -29,6 +31,10 @@ export function clueOrigins(content) {
       const clues = [i.clue, ...(i.effects?.gives_clues ?? [])].filter(Boolean);
       for (const c of clues) add(c, `${i.prompt ?? i.title ?? 'Sieh dich genau um'} (${m.name})`, when);
     }
+  }
+  // Fundstücke: „Untersuchen“ im Inventar öffnet einen eigenen Dialog (Feld `inspect`)
+  for (const [id, it] of Object.entries(content.items ?? {})) {
+    if (it.inspect) (speakers[it.inspect] ??= []).push({ text: `Untersuche „${it.name}“ im Inventar`, when: [{ requires_items: [id] }] });
   }
   for (const [dlg, tree] of Object.entries(content.dialogues ?? {})) {
     const who = speakers[dlg] ?? [];
@@ -115,4 +121,99 @@ export function caseHints(state, caseId, level = 1) {
   // Stufe 3
   lines.push(`Verknüpfe ${fact(pair[0])} mit ${fact(pair[1])}.`);
   return { key, lines };
+}
+
+// --- Was fehlt noch? -------------------------------------------------------------------
+// Erklärt, warum eine Information, eine Schlussfolgerung oder eine Gesprächsoption noch nicht trägt,
+// und wo die fehlende Quelle liegt. Notizbuch, Wegweiser und Gespräche greifen darauf zurück.
+
+const quote = (t) => `„${t}“`;
+
+/** Hinweise zu einer Information, die noch fehlen, und ihre gerade erreichbaren Fundorte. */
+export function factGap(state, factId) {
+  const f = state.fact(factId);
+  const have = state.factSources(factId).length;
+  const status = state.factStatus(factId);
+  const missing = Object.entries(state.content.clues).filter(([id, c]) => c.fact === factId && !state.hasClue(id)).map(([id]) => id);
+  const origins = clueOrigins(state.content);
+  const where = [...new Set(missing.flatMap((c) => (origins[c] ?? []).filter((o) => originOpen(state, o)).map((o) => o.text)))];
+  return { fact: factId, text: f?.text ?? factId, status, have, need: LIKELY_SOURCES, missing, where };
+}
+
+/**
+ * Lücke einer Schlussfolgerung: null, wenn sie gesichert ist. Sonst
+ * { deduction, drawn, pair, weak: [factGap…], combinable }:
+ *   drawn      – schon im Notizbuch verknüpft (aber noch Vermutung)
+ *   weak       – die Informationen des besten Paares, die noch nicht „sehr wahrscheinlich“ sind
+ *   combinable – beide Informationen sind bekannt, die Verknüpfung fehlt nur noch
+ */
+export function deductionGap(state, deductionId) {
+  const d = state.deduction(deductionId);
+  if (!d || state.isCertain(d.id)) return null;
+  let best = null;
+  for (const pair of d.pairs) {
+    const st = pair.map((f) => state.factStatus(f));
+    if (st.includes('refuted')) continue;
+    const score = st.reduce((s, x) => s + SCORE[x], 0);
+    if (!best || score > best.score) best = { pair, st, score };
+  }
+  if (!best) return { deduction: d, drawn: state.hasConclusion(d.id), pair: d.pairs[0], weak: [], combinable: false, refuted: true };
+  const weak = best.pair.filter((f, i) => best.st[i] !== 'likely').map((f) => factGap(state, f));
+  const combinable = !state.hasConclusion(d.id) && best.st.every((x) => x !== 'unknown');
+  return { deduction: d, drawn: state.hasConclusion(d.id), pair: best.pair, weak, combinable, refuted: false };
+}
+
+/** Kurztext zu einer Lücke: was fehlt und wo man es findet. */
+export function gapText(gap, { withWhere = true } = {}) {
+  if (!gap) return '';
+  if (gap.refuted) return `${quote(gap.deduction.name)} ist widerlegt. Such eine andere Erklärung.`;
+  if (gap.combinable) return `${quote(gap.deduction.name)}: beide Informationen liegen vor. Verknüpfe sie im Notizbuch.`;
+  const parts = gap.weak.map((w) => {
+    const head = w.status === 'unknown' ? `${quote(w.text)} ist noch unbekannt` : `${quote(w.text)} hat erst ${w.have} von ${w.need} Quellen`;
+    const where = withWhere && w.where.length ? ` → ${w.where.slice(0, 2).join('; ')}` : '';
+    return head + where;
+  });
+  const lead = gap.drawn ? `${quote(gap.deduction.name)} ist erst eine Vermutung: ` : '';
+  return lead + parts.join('. ') + '.';
+}
+
+/** Wissens-Bedingungen einer Option oder Variante, die gerade nicht erfüllt sind, als Lücken. */
+export function knowledgeGaps(state, cond) {
+  if (!cond) return [];
+  const out = [];
+  for (const d of [...(cond.requires_certain ?? []), ...(cond.requires_conclusions ?? [])]) {
+    const g = deductionGap(state, d);
+    if (g && !out.some((x) => x.deduction?.id === d)) out.push(g);
+  }
+  for (const f of cond.requires_likely ?? []) if (state.factStatus(f) !== 'likely') out.push({ weak: [factGap(state, f)], drawn: false, combinable: false, refuted: false });
+  const missingClues = [...(cond.requires_clues ?? []).filter((c) => !state.hasClue(c)),
+    ...(cond.requires_any_clues && !cond.requires_any_clues.some((c) => state.hasClue(c)) ? cond.requires_any_clues : [])];
+  for (const c of missingClues) {
+    const f = state.clue(c)?.fact;
+    if (f && !out.some((x) => x.weak?.some((w) => w.fact === f))) out.push({ weak: [factGap(state, f)], drawn: false, combinable: false, refuted: false });
+  }
+  return out;
+}
+
+/** Hat eine Bedingung Wissens-Schlüssel (Hinweise, Informationen, Schlussfolgerungen)? */
+export function hasKnowledgeKeys(cond) {
+  return !!cond && ['requires_clues', 'requires_any_clues', 'requires_likely', 'requires_conclusions', 'requires_certain'].some((k) => cond[k]);
+}
+
+/** Ist eine Bedingung nur am Wissen gescheitert (alles andere erfüllt)? */
+export function onlyKnowledgeMissing(state, cond) {
+  if (!cond || state.meets(cond)) return false;
+  const rest = { ...cond };
+  for (const k of ['requires_clues', 'requires_any_clues', 'requires_likely', 'requires_conclusions', 'requires_certain']) delete rest[k];
+  return hasKnowledgeKeys(cond) && state.meets(rest);
+}
+
+/**
+ * Offene Vermutungen eines Falls fürs Notizbuch: Schlussfolgerungen, die schon gezogen, aber noch nicht gesichert sind,
+ * jeweils mit der schwachen Information und ihren erreichbaren Fundorten.
+ */
+export function openGuesses(state, caseId) {
+  return state.content.deductions
+    .filter((d) => d.case === caseId && d.honor !== 0 && state.hasConclusion(d.id) && !state.isCertain(d.id))
+    .map((d) => deductionGap(state, d.id)).filter(Boolean);
 }

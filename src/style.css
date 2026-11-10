@@ -830,3 +830,22 @@ html.touch .cb-def .aeicon { display: block; margin: 0 auto 0.2em; font-size: 16
 .panel.gift .giftlist button { width: 100%; text-align: left; display: flex; align-items: center; gap: 0.4em; }
 .panel.gift .giftlist .empty { color: var(--muted, #a89c88); padding: 0.4em 0; }
 .panel.gift .feedback { margin: 0 0 0.5em; }
+
+/* Fehlende Quellen sichtbar machen: Warum blockiert eine Figur, was braucht eine Vermutung noch, Tipp anbieten */
+.goal .gwhy { display: block; color: #e8d8a8; font-size: 0.82em; padding-left: 1em; white-space: normal; max-width: 26em; line-height: 1.3; }
+.qwhy { font-size: 0.75em; color: #e8d8a8; margin: 0.1em 0 0.2em 1.2em; line-height: 1.3; }
+.notebook .concl li .need { font-size: 0.85em; color: var(--gold); margin-top: 0.15em; }
+.notebook .concl li.open { border-left: 0.2em solid var(--gold); padding-left: 0.4em; }
+.notebook .blockbox { border: 0.125em solid var(--gold); background: rgba(232, 192, 112, 0.08); padding: 0.3em 0.6em; margin: 0 0 0.5em; font-size: 0.78em; line-height: 1.3; }
+.notebook .facts { max-height: 17em; overflow-y: auto; }
+.notebook .blockbox .lockico { vertical-align: -0.2em; margin-right: 0.3em; }
+.choices .lockinfo.note { color: #e8d8a8; }
+.actions .tipbtn { border-color: var(--gold); color: var(--gold); }
+.actions .tipbtn .tabico { vertical-align: -0.15em; margin-right: 0.2em; }
+.actions .tipbtn.pulse { animation: tippulse 1.1s ease-in-out infinite alternate; }
+@keyframes tippulse { to { box-shadow: 0 0 0.6em var(--gold); background: rgba(232, 192, 112, 0.18); } }
+.nudge { font: inherit; margin-top: 0.35em; font-size: 0.75em; color: #1a1420; background: var(--gold); border: 0.125em solid #fff3c8; padding: 0.2em 0.6em; cursor: pointer;
+  animation: tippulse 1.1s ease-in-out infinite alternate; text-align: left; }
+.nudge.hidden { display: none; }
+.nudge .tabico { vertical-align: -0.15em; margin-right: 0.3em; }
+.nudge .key { color: #1a1420; border-color: #1a1420; }
