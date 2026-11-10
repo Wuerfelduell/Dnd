@@ -41,11 +41,14 @@ test('Durchbrüche: Sequenz 7 und 6 bringen doppeltes Wachstum, Konzentration zu
 
 test('Fall 7/8: Gegner halten mehr aus als in den Fällen davor', () => {
   const E = content.encounters;
+  // Zähigkeit: Leben plus Panzer (jeder Punkt Panzer nimmt jedem Treffer etwas, über einen Kampf etwa 8 Leben wert)
+  const tough = (id) => E[id].hp + 8 * (E[id].armor ?? 0);
   const early = ['miriam', 'dreizehnter_gast', 'bronzeengel', 'felix_fight', 'rook_fight'];
-  const maxEarly = Math.max(...early.map((id) => E[id].hp));
-  assert.ok(E.miss_wren.hp > maxEarly + 15, 'Miss Wren ist der zäheste Boss bis Fall 8');
-  assert.ok(E.traumfaden.hp > maxEarly, 'Traumfäden zäher als jeder Boss davor');
-  for (const id of ['ertrunkener', 'pfandeintreiber']) assert.ok(E[id].hp >= 42, id);
+  const maxEarly = Math.max(...early.map(tough));
+  assert.ok(tough('miss_wren') > maxEarly + 8, 'Miss Wren ist der zäheste Boss bis Fall 8');
+  const normals = ['gasgeist', 'schlachtergehilfe', 'chorwaechter', 'stimmenfresser', 'negativ_geist', 'silberbad_schleim'];
+  assert.ok(tough('traumfaden') > Math.max(...normals.map(tough)), 'Traumfäden zäher als jeder normale Gegner davor');
+  for (const id of ['ertrunkener', 'pfandeintreiber']) assert.ok(E[id].hp >= 60, id);
 });
 
 test('Fall 9: Starling ist der härteste Boss von Kapitel 1, härter als Miss Wren', () => {

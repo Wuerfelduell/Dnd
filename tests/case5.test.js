@@ -5,8 +5,9 @@ import { GameState } from '../src/core/GameState.js';
 import { loadContent, talk, use, fight, SKILLED, EXPERT } from './helpers.js';
 
 const content = loadContent();
-const WIN = { defend: SKILLED, healBelow: 15 };
-const BOSS = { defend: EXPERT, healBelow: 15 }; // Bosse verlangen sauberes Timing
+// Ab Fall 5 ist man auf Sequenz 8 und schlägt mit dem Wuchtschlag zu; Bosse verlangen sauberes Timing
+const WIN = { defend: SKILLED, skill: 'wuchtschlag', healBelow: 15 };
+const BOSS = { defend: EXPERT, skill: 'wuchtschlag', healBelow: 15 };
 
 /** Zustand nach Fall 4 (gutes Ende, Epilog gesehen). */
 function afterCase4() {
@@ -19,6 +20,10 @@ function afterCase4() {
   s.addItem('schlagstock');
   s.equip('schlagstock');
   s.addItem('verband', 4);
+  // Nach Fall 4 hat man am Nachtmarkt Sequenz 8 erreicht (die Gegner verlangen es)
+  s.pathway = { id: 'eisen', seq: 8, digestion: 0 };
+  s.updateMaxHp();
+  s.hp = s.maxHp;
   return s;
 }
 
