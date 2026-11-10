@@ -148,6 +148,8 @@ export class Combat {
     this.enemyGuard = 0; // fängt Schaden am Gegner ab
     this.veiled = false; // nächste Aktion des Spielers trifft nur mit präzisem Takt
     this.lastAction = null; // { name, text } Kniff des Gegners statt eines Angriffs
+    this.roundDmg = 0; // Schaden am Gegner in dieser Runde (für max_round_dmg)
+    this.capped = 0; // davon abgeprallt, für die Meldung der nächsten Aktion
   }
 
   // --- Zwei Spieler -----------------------------------------------------------
@@ -285,7 +287,8 @@ export class Combat {
     }
     const raw = hits.reduce((n, h) => n + h.damage, 0);
     const total = this.hurtEnemy(raw, { pierce: !!sk.pierce });
-    if (raw > total) effects.push(`Panzer fängt ${raw - total} ab`);
+    if (this.capped) { effects.push(`mehr steckt ${this.enc.name} in dieser Runde nicht weg (${this.capped} prallen ab)`); this.capped = 0; }
+    else if (raw > total) effects.push(`Panzer fängt ${raw - total} ab`);
     if (skillId === 'attack') this.gainAp(hits[0]?.grade === 'perfect' ? 2 : 1);
     const landed = sk.hits === 0 || hits.some((h) => h.grade !== 'miss' && h.damage);
     let stunned = false;
@@ -356,7 +359,14 @@ export class Combat {
     if (this.armor && !pierce && n > 0) n = Math.max(1, n - this.armor);
     const absorbed = Math.min(this.enemyGuard, n);
     this.enemyGuard -= absorbed;
-    const dmg = n - absorbed;
+    let dmg = n - absorbed;
+    // Feld `max_round_dmg` (Anteil der Leben): ab Fall 4 steckt ein Gegner je Runde nur so viel weg,
+    // der Rest prallt ab. Kein Build erledigt ihn damit in zwei Runden, schwache Treffer bleiben unberührt.
+    if (this.enc.max_round_dmg && dmg > 0) {
+      const room = Math.max(0, Math.round(this.enemy.maxHp * this.enc.max_round_dmg) - this.roundDmg);
+      if (dmg > room) { this.capped += dmg - room; dmg = room; }
+      this.roundDmg += dmg;
+    }
     this.enemy.hp = Math.max(0, this.enemy.hp - dmg);
     if (this.enemy.hp === 0) this.outcome = 'won';
     return dmg;
@@ -544,6 +554,8 @@ export class Combat {
   /** Rundenende: Brand/Gift wirkt auf den Gegner, Blutung auf dich (bleedTick). Gibt den Schaden am Gegner zurück. */
   endRound() {
     this.round += 1;
+    this.roundDmg = 0;
+    this.capped = 0;
     for (const f of Object.values(this.fighters)) f.bleedTick = 0;
     // BD: Gegner mit `flees_after` entziehen sich nach so vielen vollständigen Runden ohne Spielersieg (kein Sieg, keine Beute)
     if (!this.outcome && this.enc.flees_after && this.round > this.enc.flees_after) this.outcome = 'escaped';
