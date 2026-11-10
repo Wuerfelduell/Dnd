@@ -161,7 +161,6 @@ export class GameState {
     const before = this.snapshotFacts();
     const crossBefore = this.crossLinks();
     this.clues.push(id);
-    this.progressed();
     this.emit('clue', id);
     // Neue Querverbindungen zwischen Fällen melden
     for (const link of this.crossLinks()) if (!crossBefore.has(link)) this.emit('cross', { fact: link.split('>')[0], case: link.split('>')[1] });
@@ -187,7 +186,6 @@ export class GameState {
     if (!d) throw new Error(`Unbekannte Schlussfolgerung: ${id}`);
     if (this.hasConclusion(id)) return false;
     this.conclusions.push(id);
-    this.progressed();
     this.emit('conclusion', id);
     this.addHonor((d.honor ?? 2) + (d.honor === 0 ? 0 : this.passive('conclusion_honor')), `Schlussfolgerung: ${d.name}`);
     this.act('conclusion');
@@ -266,6 +264,7 @@ export class GameState {
       all(o.requires_certain, (c) => this.isCertain(c)) &&
       all(o.requires_flags, (f) => this.flags.has(f)) &&
       all(o.requires_quests_active, (q) => this.quests[q] === 'active') &&
+      (!o.requires_any_quests_active || o.requires_any_quests_active.some((q) => this.quests[q] === 'active')) &&
       all(o.requires_quests_done, (q) => this.quests[q] === 'done') &&
       (o.requires_honor === undefined || this.honor >= o.requires_honor) &&
       (o.max_honor === undefined || this.honor < o.max_honor) &&
@@ -313,7 +312,7 @@ export class GameState {
   applyEffects(e, { nodeKey = null } = {}) {
     if (!e) return [];
     const gained = (e.gives_clues ?? []).filter((c) => this.addClue(c));
-    for (const f of e.sets_flags ?? []) { if (!this.flags.has(f)) this.progressed(); this.flags.add(f); }
+    for (const f of e.sets_flags ?? []) this.flags.add(f);
     if (e.signal || e.signal_reserve) this.applySignal(e); // Kapitel 3: Rufladungen
     for (const f of e.clears_flags ?? []) this.flags.delete(f);
     for (const q of e.start_quests ?? []) this.startQuest(q);
@@ -352,7 +351,6 @@ export class GameState {
     this.quests[id] = 'active';
     // Neuer Hauptfall oder gerade nichts verfolgt: direkt als Ziel übernehmen
     if (!this.tracked || (this.quest(id).kind === 'main' && this.quest(this.tracked)?.kind !== 'main')) this.tracked = id;
-    this.progressed();
     this.emit('quest', { id, status: 'active' });
     return true;
   }
@@ -637,13 +635,7 @@ export class GameState {
     return true;
   }
 
-  /** Fortschritt gemacht (Hinweis, Schlussfolgerung, Auftrag, Markierung): die Wartezeit für den Tipp beginnt neu. */
-  progressed() {
-    this.idleSeconds = 0;
-  }
-
   tick(dtSeconds) {
-    this.idleSeconds = (this.idleSeconds ?? 0) + dtSeconds;
     const before = this.composure;
     if (this.spiritVision) {
       this.composure = Math.max(0, this.composure - VISION_DRAIN_PER_SEC * this.passive('vision_cost') * dtSeconds);

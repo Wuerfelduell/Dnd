@@ -3,7 +3,7 @@
 // fehlenden Hinweis oder setzt die fehlende Markierung? Ein Schritt kann das mit
 // `target: { map, id, label? }` auch selbst festlegen.
 
-import { knowledgeGaps, gapText, onlyKnowledgeMissing } from './hints.js';
+import { knowledgeGaps, gapText, onlyKnowledgeMissing, nextDeduction, factGap } from './hints.js';
 
 const indexCache = new WeakMap();
 
@@ -286,4 +286,67 @@ export function questTarget(state, questId) {
   }
   if (n.notebook) return { ...base, notebook: n.notebook };
   return null;
+}
+
+/**
+ * Rat der Inspektorin („Haben Sie einen Rat?“): konkrete Sätze in ihrer Stimme, wo man nachsehen und wen man
+ * fragen soll. Für jeden offenen Hauptfall (der verfolgte zuerst): der nächste Schritt mit Ort oder Person,
+ * was sie selbst noch braucht (zweite Quelle), welche Information noch schwach ist und welches Paar zu verknüpfen ist.
+ * Danach offene Spuren und zuletzt Nebenaufträge. `speaker` ist die sprechende Figur (ihr eigener Name wird zu „ich“).
+ */
+export function advice(state, speaker = null) {
+  const c = state.content;
+  const me = c.npcs?.[speaker]?.name;
+  const own = (text) => (me && text.startsWith(`${me} braucht `) ? text.replace(`${me} braucht `, 'Ich brauche ') : text);
+  const q = (t) => `„${t}“`;
+  const place = (t) => {
+    const where = t.map === state.map ? 'gleich hier' : t.map === t.district ? `im ${t.mapName}`.replace('im Polizeirevier', 'hier im Revier') : `im ${t.mapName} (${c.maps[t.district]?.name ?? t.mapName})`;
+    return t.locked ? `${where}. ${t.locked.name} ist noch gesperrt: ${t.locked.how}` : where;
+  };
+  const goTo = (t) => (c.npcs[t.id] ? `Fragen Sie ${t.name}, ${place(t)}.` : `Sehen Sie sich das an: ${t.name}, ${place(t)}.`);
+  const lines = [];
+  const active = Object.keys(state.quests).filter((id) => state.quests[id] === 'active');
+  const mains = active.filter((id) => c.quests[id].kind === 'main').sort((a, b) => (a === state.tracked ? -1 : 0) - (b === state.tracked ? -1 : 0));
+  for (const id of mains) {
+    const quest = c.quests[id];
+    const t = questTarget(state, id);
+    if (!t) continue;
+    let line = `${quest.title.replace(/^Fall (\d+):/, 'Fall $1,')}, als Nächstes: ${q(t.step)}.`;
+    // Ein Paar, das sich schon verknüpfen lässt (beide Informationen bekannt, nichts widerlegt)
+    const known = (f) => !['unknown', 'refuted'].includes(state.factStatus(f));
+    const pair = c.deductions.filter((d) => d.case === quest.case && d.honor !== 0 && !state.hasConclusion(d.id)).flatMap((d) => d.pairs).find((p) => p.every(known));
+    if (t.because) line += ` ${own(t.because)}`;
+    else if (t.notebook) line += pair ? ` Das klären Sie in Ihrem Notizbuch: Verknüpfen Sie ${q(state.fact(pair[0]).text)} mit ${q(state.fact(pair[1]).text)}.` : ' Das klären Sie in Ihrem Notizbuch: Zwei Ihrer Informationen gehören zusammen.';
+    else if (t.id === speaker) line += ' Dafür sind Sie bei mir richtig.';
+    else line += ` ${goTo(t)}`;
+    lines.push(line);
+    // Die nächste offene Schlussfolgerung: schwache Information und ihr Fundort, oder das Paar zum Verknüpfen
+    if (!t.because && !t.notebook && quest.case && quest.case !== 'side') {
+      const d = nextDeduction(state, quest.case);
+      if (d) {
+        const weakIdx = d.status.findIndex((x) => x !== 'likely');
+        if (weakIdx < 0) lines.push(`Verknüpfen Sie ${q(state.fact(d.pair[0]).text)} mit ${q(state.fact(d.pair[1]).text)}. Das trägt.`);
+        else {
+          const g = factGap(state, d.pair[weakIdx]);
+          const where = g.where.slice(0, 2).join('; ');
+          if (g.status === 'unknown') lines.push(`Zu ${q(g.text)} haben Sie noch nichts in der Hand.${where ? ` Versuchen Sie es hier: ${where}.` : ' Reden Sie mit den Leuten des Falls und sehen Sie sich die Orte genau an.'}`);
+          else lines.push(`${q(g.text)} steht erst auf einer Quelle. ${where ? `Eine zweite: ${where}.` : 'Eine zweite finden Sie bei Leuten und an Orten, die Sie noch nicht ganz ausgeschöpft haben.'}`);
+        }
+      } else if (c.deductions.some((x) => x.case === quest.case && x.honor !== 0 && !state.isCertain(x.id))) {
+        lines.push('Ihre Spur ist widerlegt. Suchen Sie eine andere Erklärung, und sichern Sie sie mit zwei Quellen ab.');
+      }
+    }
+  }
+  // Offene Spuren (z. B. Nan Kettle am Nachtmarkt): wer hat nach einem gefragt, und wo steht er
+  for (const lead of state.openLeads()) {
+    const t = leadTarget(state, lead);
+    lines.push(t ? `Und ${t.name} hat nach Ihnen gefragt, ${place(t)}. Es geht um ${q(c.quests[lead.quest].title.replace(/^Fall \d+: /, ''))}.` : `Und noch etwas: ${lead.text}`);
+  }
+  if (!lines.length) {
+    const side = active.find((id) => c.quests[id].kind !== 'main');
+    const t = side ? questTarget(state, side) : null;
+    if (t) lines.push(`Kein Fall auf dem Tisch. Aber ${c.quests[side].title}: ${t.step}.${t.notebook ? '' : ` ${goTo(t)}`}`);
+    else lines.push('Im Moment liegt nichts an. Genießen Sie die Ruhe, solange sie dauert.');
+  }
+  return lines;
 }

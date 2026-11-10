@@ -1,0 +1,270 @@
+{
+  "rules": {
+    "orders": {
+      "dunscar": [
+        "schichtbund"
+      ]
+    }
+  },
+  "circles": {
+    "schichtbund": {
+      "name": "Der Schichtbund",
+      "member_flag": "treffen_schichtbund",
+      "map": "treffen_schichtbund",
+      "short": "Kerbhölzer und Stimmreste",
+      "city": "dunscar",
+      "invite": "Ein Span liegt neben deinem Kerbholz. Unter dem Runddepot öffnet der Schichtbund seine Truhen. Der Treffpunkt erscheint auf der Stadtkarte.",
+      "host": "zirkel_schichtbund",
+      "members": [
+        {
+          "id": "tm_ds_lampe",
+          "offers": [
+            {
+              "item": "formel_sq_uhr_6",
+              "price": 640,
+              "chance": 0.45,
+              "once": true,
+              "requires_pathway": [
+                "sq_uhr",
+                7
+              ],
+              "locked_text": "Erst ab Sequenz 7 dieses Pfades."
+            },
+            {
+              "item": "formel_sq_uhr_5",
+              "price": 900,
+              "chance": 0.3,
+              "once": true,
+              "requires_pathway": [
+                "sq_uhr",
+                6
+              ],
+              "locked_text": "Erst ab Sequenz 6 dieses Pfades."
+            },
+            {
+              "item": "k3h_schichtkappe",
+              "price": 110,
+              "chance": 0.65
+            },
+            {
+              "item": "k3o_rufwachs",
+              "price": 28,
+              "chance": 0.65
+            },
+            {
+              "item": "k3o_schraubenzahn",
+              "price": 80,
+              "chance": 0.25
+            }
+          ],
+          "wants": [
+            "k3o_ventilspan",
+            "k3o_leitungsklemme"
+          ]
+        },
+        {
+          "id": "tm_ds_kerbholz",
+          "offers": [
+            {
+              "item": "formel_sq_waage_6",
+              "price": 640,
+              "chance": 0.45,
+              "once": true,
+              "requires_pathway": [
+                "sq_waage",
+                7
+              ],
+              "locked_text": "Erst ab Sequenz 7 dieses Pfades."
+            },
+            {
+              "item": "formel_sq_waage_5",
+              "price": 900,
+              "chance": 0.3,
+              "once": true,
+              "requires_pathway": [
+                "sq_waage",
+                6
+              ],
+              "locked_text": "Erst ab Sequenz 6 dieses Pfades."
+            },
+            {
+              "item": "k3h_taschenrock",
+              "price": 140,
+              "chance": 0.65
+            },
+            {
+              "item": "k3h_feierabendmarke",
+              "price": 150,
+              "chance": 0.65
+            },
+            {
+              "item": "k3o_schlagkern",
+              "price": 96,
+              "chance": 0.25
+            }
+          ],
+          "wants": [
+            "k3o_kreidestaub",
+            "k3o_schichtknopf"
+          ]
+        },
+        {
+          "id": "tm_ds_stimme",
+          "offers": [
+            {
+              "item": "formel_sq_moor_6",
+              "price": 640,
+              "chance": 0.45,
+              "once": true,
+              "requires_pathway": [
+                "sq_moor",
+                7
+              ],
+              "locked_text": "Erst ab Sequenz 7 dieses Pfades."
+            },
+            {
+              "item": "formel_sq_moor_5",
+              "price": 900,
+              "chance": 0.3,
+              "once": true,
+              "requires_pathway": [
+                "sq_moor",
+                6
+              ],
+              "locked_text": "Erst ab Sequenz 6 dieses Pfades."
+            },
+            {
+              "item": "k3h_kupplungsring",
+              "price": 170,
+              "chance": 0.65
+            },
+            {
+              "item": "k3o_rufwachs",
+              "price": 28,
+              "chance": 0.65
+            },
+            {
+              "item": "k3o_stillkiesel",
+              "price": 140,
+              "chance": 0.25
+            }
+          ],
+          "wants": [
+            "k3o_trichterglas",
+            "k3o_rufwachs"
+          ]
+        }
+      ]
+    }
+  },
+  "pins": {
+    "treffen_schichtbund": [
+      140,
+      125
+    ]
+  },
+  "travel": [
+    {
+      "map": "treffen_schichtbund",
+      "spawn": "default",
+      "name": "Der Schichtbund",
+      "desc": "Unter dem Runddepot. Nur für Mitglieder während eines offenen Treffens.",
+      "requires_gathering": "schichtbund",
+      "requires_flags": [
+        "treffen_schichtbund"
+      ],
+      "city": "dunscar"
+    }
+  ],
+  "maps": [
+    {
+      "id": "treffen_schichtbund",
+      "name": "Unter dem Runddepot",
+      "city": "dunscar",
+      "tiles": "ds_bahn",
+      "tiles_wunsch": "ds_runddepot",
+      "rows": [
+        "IIIIIIIIIIIIIIIIIIIIIIII",
+        "I......................I",
+        "I......................I",
+        "I......................I",
+        "I......................I",
+        "I......................I",
+        "I......................I",
+        "I......................I",
+        "I......................I",
+        "I......................I",
+        "I......................I",
+        "I......................I",
+        "I......................I",
+        "IIIIIIIIIIIIIIIIIIIIIIII"
+      ],
+      "spawns": {
+        "default": [
+          3,
+          11
+        ]
+      },
+      "lights": [
+        {
+          "tile": [
+            12,
+            6
+          ],
+          "radius": 100,
+          "intensity": 0.7,
+          "color": "#ffc782"
+        }
+      ],
+      "ambient": {
+        "night": 0.62,
+        "fog": 0
+      },
+      "npcs": [
+        {
+          "id": "zirkel_schichtbund",
+          "tile": [
+            12,
+            4
+          ]
+        },
+        {
+          "id": "tm_ds_lampe",
+          "tile": [
+            5,
+            7
+          ]
+        },
+        {
+          "id": "tm_ds_kerbholz",
+          "tile": [
+            12,
+            8
+          ]
+        },
+        {
+          "id": "tm_ds_stimme",
+          "tile": [
+            19,
+            7
+          ]
+        }
+      ],
+      "interactables": [
+        {
+          "id": "k3h_bund_ausgang",
+          "kind": "door",
+          "tile": [
+            3,
+            12
+          ],
+          "to": "ds_runddepot",
+          "spawn": "default",
+          "prompt": "Zurück ins Runddepot",
+          "marker": true
+        }
+      ],
+      "decor": []
+    }
+  ]
+}

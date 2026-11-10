@@ -1,0 +1,249 @@
+{
+  "ez_ds_rangierer": {
+    "name": "Holm Varley, der Rangierer",
+    "sprite": "npc:ez_ds_rangierer",
+    "sheet": "enemy_ez_spinnerin",
+    "loner": true,
+    "chapter": 3,
+    "occult": true,
+    "fleeable": true,
+    "hp": 155,
+    "armor": 3,
+    "intro": "Holm kuppelt einen leeren Wagen an einen zweiten. „Niemand bestellt sie. Trotzdem sollen sie sicher stehen.“",
+    "attacks": [
+      {
+        "name": "Kupplungsschlag",
+        "damage": 12,
+        "hits": [
+          1100,
+          1750
+        ]
+      },
+      {
+        "name": "Abgewarteter Schlag",
+        "damage": 18,
+        "hits": [
+          2200
+        ]
+      },
+      {
+        "name": "Nachhall",
+        "action": "taunt",
+        "value": 8,
+        "text": "Ein fremder Arbeitspfiff raubt dir 8 Nerven."
+      }
+    ],
+    "on_win": {
+      "sets_flags": [
+        "ez_ds_rangierer_besiegt"
+      ],
+      "gives_items": {
+        "k3o_schichtknopf": 1
+      }
+    },
+    "lose_to": {
+      "map": "ds_speisewagen",
+      "spawn": "default"
+    },
+    "lose_money": 0,
+    "lose_text": "Pfiff versorgt dich hinter der Schallschleuse. Der Streit bleibt offen.",
+    "win_text": "Holm Varley legt die Waffe ab. Du lässt einen sicheren Rückweg frei.",
+    "flee_text": "Du ziehst dich über den öffentlichen Fußweg zurück."
+  },
+  "ez_ds_kalkbrennerin": {
+    "name": "Senta Quill, die Kalkbrennerin",
+    "sprite": "npc:ez_ds_kalkbrennerin",
+    "sheet": "enemy_ez_spinnerin",
+    "loner": true,
+    "chapter": 3,
+    "occult": true,
+    "fleeable": true,
+    "hp": 161,
+    "armor": 3,
+    "intro": "Senta schöpft weiße Asche aus dem letzten Ofen. „Weißer Schlaf, sagen die Kunden. Es ist nur Kalk. Aber Namen verkaufen sich besser.“",
+    "attacks": [
+      {
+        "name": "Kalter Kalk",
+        "damage": 12,
+        "hits": [
+          1100,
+          1750
+        ]
+      },
+      {
+        "name": "Abgewarteter Schlag",
+        "damage": 18,
+        "hits": [
+          2200
+        ]
+      },
+      {
+        "name": "Nachhall",
+        "action": "taunt",
+        "value": 8,
+        "text": "Ein fremder Arbeitspfiff raubt dir 8 Nerven."
+      }
+    ],
+    "on_win": {
+      "sets_flags": [
+        "ez_ds_kalkbrennerin_besiegt"
+      ],
+      "gives_items": {
+        "k3o_kreidestaub": 1
+      }
+    },
+    "lose_to": {
+      "map": "ds_speisewagen",
+      "spawn": "default"
+    },
+    "lose_money": 0,
+    "lose_text": "Pfiff versorgt dich hinter der Schallschleuse. Der Streit bleibt offen.",
+    "win_text": "Senta Quill legt die Waffe ab. Du lässt einen sicheren Rückweg frei.",
+    "flee_text": "Du ziehst dich über den öffentlichen Fußweg zurück."
+  },
+  "ez_ds_streckenlaeufer": {
+    "name": "Der Streckenläufer, der Streckenläufer",
+    "sprite": "npc:ez_ds_streckenlaeufer",
+    "sheet": "enemy_ez_spinnerin",
+    "loner": true,
+    "chapter": 3,
+    "occult": true,
+    "fleeable": true,
+    "hp": 167,
+    "armor": 3,
+    "intro": "Der Streckenläufer hält neben dir an. „Sieben Minuten zu spät. Für einen Zug, der seit siebzig Jahren ausfällt, ist das ordentlich.“",
+    "attacks": [
+      {
+        "name": "Versetzter Takt",
+        "damage": 12,
+        "hits": [
+          1100,
+          1750
+        ]
+      },
+      {
+        "name": "Abgewarteter Schlag",
+        "damage": 18,
+        "hits": [
+          2200
+        ]
+      },
+      {
+        "name": "Nachhall",
+        "action": "taunt",
+        "value": 8,
+        "text": "Ein fremder Arbeitspfiff raubt dir 8 Nerven."
+      }
+    ],
+    "on_win": {
+      "sets_flags": [
+        "ez_ds_streckenlaeufer_besiegt"
+      ],
+      "gives_items": {
+        "k3o_ventilspan": 1
+      }
+    },
+    "lose_to": {
+      "map": "ds_speisewagen",
+      "spawn": "default"
+    },
+    "lose_money": 0,
+    "lose_text": "Pfiff versorgt dich hinter der Schallschleuse. Der Streit bleibt offen.",
+    "win_text": "Der Streckenläufer legt die Waffe ab. Du lässt einen sicheren Rückweg frei.",
+    "flee_text": "Du ziehst dich über den öffentlichen Fußweg zurück."
+  },
+  "ez_ds_walzenstimme": {
+    "name": "Jory Pell, die Walzenstimme",
+    "sprite": "npc:ez_ds_walzenstimme",
+    "sheet": "enemy_ez_spinnerin",
+    "loner": true,
+    "chapter": 3,
+    "occult": true,
+    "fleeable": true,
+    "hp": 173,
+    "armor": 3,
+    "intro": "Jory hebt den Phonographentrichter. Eine fremde Frau sagt: „Bitte erst klopfen.“ Er klopft selbst an das Blech.",
+    "attacks": [
+      {
+        "name": "Fremder Befehl",
+        "damage": 12,
+        "hits": [
+          1100,
+          1750
+        ]
+      },
+      {
+        "name": "Abgewarteter Schlag",
+        "damage": 18,
+        "hits": [
+          2200
+        ]
+      },
+      {
+        "name": "Nachhall",
+        "action": "taunt",
+        "value": 8,
+        "text": "Ein fremder Arbeitspfiff raubt dir 8 Nerven."
+      }
+    ],
+    "on_win": {
+      "sets_flags": [
+        "ez_ds_walzenstimme_besiegt"
+      ],
+      "gives_items": {
+        "k3o_rufwachs": 1
+      }
+    },
+    "lose_to": {
+      "map": "ds_speisewagen",
+      "spawn": "default"
+    },
+    "lose_money": 0,
+    "lose_text": "Pfiff versorgt dich hinter der Schallschleuse. Der Streit bleibt offen.",
+    "win_text": "Jory setzt den Trichter ab. Du trittst zurück. Der Junge ist unverletzt; der Streit bleibt ohne weitere Gewalt stehen.",
+    "flee_text": "Du ziehst dich über den öffentlichen Fußweg zurück."
+  },
+  "ez_ds_schrankenkind": {
+    "name": "Wenna, das Schrankenkind",
+    "sprite": "npc:ez_ds_schrankenkind",
+    "sheet": "enemy_ez_spinnerin",
+    "loner": true,
+    "chapter": 3,
+    "occult": true,
+    "fleeable": true,
+    "hp": 179,
+    "armor": 3,
+    "intro": "Wenna legt Kerbspäne auf die Schranke. „Jeder fehlende Span ist jemand, den sie nicht mehr zählen. Bitte nicht pusten.“",
+    "attacks": [
+      {
+        "name": "Kerbenwurf",
+        "damage": 12,
+        "hits": [
+          1800
+        ]
+      },
+      {
+        "name": "Ausweichschritt",
+        "action": "taunt",
+        "value": 5,
+        "text": "Wenna weicht hinter die Schranke aus. Du verlierst 5 Nerven."
+      }
+    ],
+    "on_win": {
+      "sets_flags": [
+        "ez_ds_schrankenkind_besiegt"
+      ],
+      "gives_items": {
+        "k3o_schichtknopf": 1
+      }
+    },
+    "lose_to": {
+      "map": "ds_speisewagen",
+      "spawn": "default"
+    },
+    "lose_money": 0,
+    "lose_text": "Pfiff versorgt dich hinter der Schallschleuse. Der Streit bleibt offen.",
+    "win_text": "Wenna setzt sich hinter die Schranke. Du legst den Stab außer Reichweite und lässt ihre Sammlung unberührt. Sie ist unverletzt.",
+    "flee_text": "Du ziehst dich über den öffentlichen Fußweg zurück."
+  }
+}
