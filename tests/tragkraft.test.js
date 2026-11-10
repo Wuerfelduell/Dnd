@@ -2,7 +2,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { loadContent } from './helpers.js';
-import { GameState, BASE_CARRY } from '../src/core/GameState.js';
+import { GameState, BASE_CARRY, CARRY_PER_STEP } from '../src/core/GameState.js';
 import { canHurry } from '../src/core/Travel.js';
 
 const content = loadContent();
@@ -62,4 +62,31 @@ test('Eigenes Versteck neben dem Büroschrank, beide werden gespeichert', () => 
   assert.ok(copy.load(JSON.parse(JSON.stringify(s.serialize(null)))));
   assert.deepEqual(copy.stashes, { kahn: { rattenschwanz: 2 } });
   assert.deepEqual(copy.storage, {});
+});
+
+test('Tragkraft steigt mit jeder Sequenz, Spieler 2 mit seinem eigenen Pfad', () => {
+  const s = new GameState(content);
+  assert.equal(s.carryCapacity(), BASE_CARRY);
+  s.pathway = { id: 'laterne', seq: 9, digestion: 0 };
+  assert.equal(s.carryCapacity(), BASE_CARRY + CARRY_PER_STEP);
+  s.pathway.seq = 7; // Durchbruch zählt doppelt: 9, 8, 7×2 = 4 Stufen
+  assert.equal(s.carryCapacity(), BASE_CARRY + 4 * CARRY_PER_STEP);
+  assert.match(s.carryBreakdown(), /Grundlast \+ \d+ Sequenzen/);
+  s.pathway = { id: 'eisen', seq: 9, digestion: 0 };
+  assert.equal(s.carryCapacity(), BASE_CARRY + CARRY_PER_STEP + 15, 'Eisen-Bonus kommt obendrauf');
+  if (typeof s.addP2 === 'function') {
+    s.addP2();
+    s.withPlayer(2, () => assert.equal(s.carryCapacity(), BASE_CARRY, 'Spieler 2 ohne Pfad trägt die Grundlast'));
+    assert.equal(s.carryCapacity(), BASE_CARRY + CARRY_PER_STEP + 15);
+  }
+});
+
+test('Aufstiegsmeldung nennt die neue Tragkraft', () => {
+  const s = new GameState(content);
+  const pid = Object.keys(content.pathways)[0];
+  const potion = Object.keys(content.items).find((id) => content.items[id].kind === 'potion' && content.items[id].pathway === pid && content.items[id].seq === 9);
+  s.addItem(potion);
+  const r = s.drink(potion, () => 0.99);
+  assert.equal(r.ok, true, r.text);
+  assert.match(r.text, new RegExp(`Tragkraft ${BASE_CARRY + CARRY_PER_STEP} Pfund \\(\\+${CARRY_PER_STEP}\\)`));
 });

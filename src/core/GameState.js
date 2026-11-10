@@ -17,6 +17,8 @@ import { corruptionMethods } from './Corruption.js';
 
 /** Tragkraft in Pfund. Gegenstände ohne eigenes "weight" wiegen je nach Art so viel. */
 export const BASE_CARRY = 40;
+/** Pfund Tragkraft je Wachstumsstufe des Pfades (jede Sequenz eine, Durchbrüche mehr, siehe growthSteps). */
+export const CARRY_PER_STEP = 3;
 export const KIND_WEIGHT = { weapon: 4, gear: 2, artifact: 2, consumable: 1, potion: 1, ingredient: 0.5, trophy: 2, formula: 0, key: 0 };
 //
 // Begriffe:
@@ -468,9 +470,22 @@ export class GameState {
     return Math.round(w * 10) / 10;
   }
 
-  /** Grundlast plus Boni (Pfad des Eisens). */
+  /** Was die erreichten Sequenzen an Tragkraft bringen (Spieler 2 rechnet mit seinem eigenen Pfad). */
+  carryFromSeq() {
+    return CARRY_PER_STEP * this.growthSteps();
+  }
+
+  /** Grundlast plus Sequenzen plus Boni (Pfad des Eisens, Kleidung, Artefakte). */
   carryCapacity() {
-    return BASE_CARRY + this.passive('carry');
+    return BASE_CARRY + this.carryFromSeq() + this.passive('carry');
+  }
+
+  /** Woher die Tragkraft kommt, für Inventar und Pfad: "40 Grundlast + 6 Sequenzen + 15 Boni". */
+  carryBreakdown() {
+    const parts = [`${BASE_CARRY} Grundlast`];
+    if (this.carryFromSeq()) parts.push(`${this.carryFromSeq()} Sequenzen`);
+    if (this.passive('carry')) parts.push(`${this.passive('carry')} Boni`);
+    return parts.join(' + ');
   }
 
   isOverloaded() {
