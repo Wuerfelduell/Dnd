@@ -2337,13 +2337,13 @@ export class Ui {
       c.veiled ? `<span class="badge refuted">${statusIcon('schatten')}verschleiert</span>` : '',
       c.enc.faction ? `<span class="badge"><span class="emblem16" style="background-image:url(${factionEmblemUrl(c.enc.faction)})"></span>${c.state.content.factions?.[c.enc.faction]?.name ?? ''}</span>` : ''].join(' ');
     // Ein Feld pro Spieler; zu zweit leuchtet, wer am Zug ist bzw. angegriffen wird
-    const focus = sc.phase === 'enemy' ? c.target : c.actor;
+    const focus = sc.phase === 'enemy' ? c.targets ?? [c.target] : [c.actor]; // Flächenangriff: beide leuchten
     for (const [n, f] of Object.entries(c.fighters)) {
       const box = this.layer.querySelector(`.cb-player[data-p="${n}"]`);
       if (!box) continue;
       const v = s.playerView(Number(n));
       const b = (sel) => box.querySelector(sel);
-      box.classList.toggle('active', c.duo && Number(n) === focus && !f.down);
+      box.classList.toggle('active', c.duo && focus.includes(Number(n)) && !f.down);
       box.classList.toggle('down', f.down);
       b('.cb-status').innerHTML = [f.down ? '<span class="curse">K.o.</span>' : '', f.shield ? statusIcon('eisenhaut', `Schutz ${f.shield}`) + f.shield : '', f.evading ? statusIcon('vorahnung', 'Nächster Angriff geht ins Leere') : '',
         f.bleed ? statusIcon('blutung', `Blutung: ${f.bleed.damage} pro Runde, noch ${f.bleed.rounds}`) + f.bleed.rounds : ''].join(' ');

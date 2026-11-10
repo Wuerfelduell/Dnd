@@ -24,6 +24,11 @@ export const DUO_POWER_MIN = 0.5; // Spieler 2 zählt mindestens halb ...
 export const DUO_POWER_MAX = 1.25; // ... und höchstens so viel wie 1,25 Ermittler
 export const DUO_HP_MULT = 1 + DUO_HP_SHARE; // bei gleich starken Spielern
 export const DUO_DMG_MULT = 0.85;
+// Flächenangriff: zu zweit holt der Gegner manchmal zu einem Schlag aus, der beide Spieler zugleich trifft.
+// Jeder muss dann im selben Takt für sich abwehren. Eliten und Bosse tun das öfter.
+export const SWEEP_CHANCE = 0.3;
+export const SWEEP_CHANCE_TOUGH = 0.45;
+export const SWEEP_DMG_MULT = 1.0; // Stellschraube: Schaden je Getroffenem beim Flächenangriff
 export const ARMOR = { elite: 2, boss: 3 }; // zieht jedem Treffer so viel ab (mindestens 1 bleibt)
 export const COUNTER_MULT = 0.3; // Konter nach einer Parade
 export const RIPOSTE_MULT = 1.0; // Gegenschlag nach voll parierter Attacke
@@ -127,7 +132,8 @@ export class Combat {
     this.fighters = { 1: fighter(state.hp, 1) };
     if (duo) this.fighters[2] = fighter(state.p2.hp, 2);
     this.actor = 1; // wer am Zug ist
-    this.target = 1; // wen der Gegner gerade angreift
+    this.target = 1; // wen der Gegner gerade angreift (bei Flächenangriffen der erste)
+    this.targets = [1]; // alle, die der aktuelle Angriff trifft (Flächenangriff: beide)
     this.struck = []; // wen der Gegner in dieser Runde schon angegriffen hat (zu zweit jeden einmal)
     this.cur = null; // für wen die Werte gerade gelten (null = wer am Zug ist)
     this.stunned = false;
@@ -365,12 +371,19 @@ export class Combat {
     const fresh = up.filter((n) => !this.struck.includes(n));
     const pool = fresh.length ? fresh : up;
     this.target = pool.length > 1 ? pool[Math.floor(this.rng() * pool.length)] : pool[0] ?? 1;
+    this.targets = [this.target];
     this.struck.push(this.target);
     // Geblendet oder verwirrt: die ganze Runde ist für den Gegner vorbei
     if (this.stunned) { this.stunned = false; this.struck = [...up]; return null; }
     const list = this.enc.attacks;
     const atk = list[this.attackIndex % list.length];
     this.attackIndex += 1;
+    // Flächenangriff: stehen noch beide unberührt da, trifft der Schlag manchmal beide zugleich
+    if (!atk.action && fresh.length > 1 && this.sweeps(atk)) {
+      this.targets = [...fresh].sort();
+      this.target = this.targets[0];
+      this.struck = [...up];
+    }
     if (this.confused) {
       // Verwirrt: der Gegner trifft sich selbst und greift diese Runde nicht an
       this.confused = false;
@@ -415,6 +428,19 @@ export class Combat {
     return this.lastAction;
   }
 
+  /** Wird aus dieser Attacke ein Flächenangriff auf beide Spieler? (Daten: `sweep: true` immer, `sweep: false` nie) */
+  sweeps(atk) {
+    if (!this.duo || this.enc.practice) return false;
+    if (atk.sweep !== undefined) return !!atk.sweep;
+    const chance = this.enc.sweep ?? (this.enc.elite || this.enc.boss ? SWEEP_CHANCE_TOUGH : SWEEP_CHANCE);
+    return this.rng() < chance;
+  }
+
+  /** Trifft der aktuelle Angriff beide Spieler? */
+  get sweep() {
+    return this.targets.length > 1;
+  }
+
   /** Hinterhalt: schlägt der Gegner zu, bevor du handeln kannst? Wird einmal pro Kampf entschieden. */
   ambush() {
     if (this.ambushed === null) this.ambushed = this.ambushChance > 0 && this.rng() < this.ambushChance;
@@ -440,7 +466,7 @@ export class Combat {
     const tough0 = this.enc.elite;
     // Feld `ramp`: der Gegner wird mit jeder Runde stärker (gegen endloses Abwarten hinter Schilden)
     const ramp = 1 + (this.enc.ramp ?? 0) * Math.max(0, this.round - 1);
-    const dmgMult = this.enc.practice ? 1 : ENEMY_DMG_MULT * (rage ? 1.2 : 1) * (tough0 ? ELITE_DMG_MULT : 1) * (this.duo && !this.enc.min_seq ? DUO_DMG_MULT : 1) * ramp; // höhere Wesen schlagen zu zweit nicht schwächer
+    const dmgMult = this.enc.practice ? 1 : ENEMY_DMG_MULT * (rage ? 1.2 : 1) * (tough0 ? ELITE_DMG_MULT : 1) * (this.duo && !this.enc.min_seq ? DUO_DMG_MULT : 1) * (this.sweep ? SWEEP_DMG_MULT : 1) * ramp; // höhere Wesen schlagen zu zweit nicht schwächer
     const speed = rage ? 0.85 : 1;
     const hits = [];
     const src = [...atk.hits];
@@ -464,18 +490,19 @@ export class Combat {
       t = Math.max(450, t, prev === undefined ? 0 : prev + rings[i].lead + RING_GAP);
       hits.push(Math.round(t));
     }
-    return { ...atk, damage: Math.max(1, Math.round(atk.damage * dmgMult)), hits, rings, followup, unparryable: this.unparryable.has(atk.name), enraged: rage };
+    return { ...atk, damage: Math.max(1, Math.round(atk.damage * dmgMult)), hits, rings, followup, unparryable: this.unparryable.has(atk.name), enraged: rage, sweep: this.sweep, targets: [...this.targets] };
   }
 
   /**
    * Wertet einen einzelnen Schlag aus. result: 'parry' | 'dodge' | 'miss'.
+   * n: welcher Spieler abwehrt (Flächenangriff: jeder Getroffene für sich).
    * Ergebnis: { damage, counter }
    */
-  resolveHit(attack, given) {
-    return this.on(this.target, () => this.resolveHitNow(attack, given));
+  resolveHit(attack, given, n = this.target) {
+    return this.on(n, () => this.resolveHitNow(attack, given, n));
   }
 
-  resolveHitNow(attack, given) {
+  resolveHitNow(attack, given, n = this.target) {
     let result = this.evading && given === 'miss' ? 'dodge' : given;
     let note = null;
     if (result === 'parry' && attack.unparryable) { result = 'miss'; note = 'unparryable'; }
@@ -498,8 +525,8 @@ export class Combat {
     const damage = this.state.damage(incoming);
     if (damage && attack.bleed) this.bleed = { damage: attack.bleed[0], rounds: attack.bleed[1] };
     if (damage && attack.nerves) this.state.setComposure(this.state.composure - attack.nerves);
-    if (this.state.hp === 0) this.knockOut(this.target);
-    return { damage, counter: 0, result, absorbed, note, down: this.fighters[this.target].down };
+    if (this.state.hp === 0) this.knockOut(n);
+    return { damage, counter: 0, result, absorbed, note, down: this.fighters[n].down };
   }
 
   /** Ende des gegnerischen Zuges: Ausweichen verfällt. */
@@ -507,9 +534,9 @@ export class Combat {
     for (const f of Object.values(this.fighters)) f.evading = false;
   }
 
-  /** Alle Schläge pariert: Gegenschlag. */
-  riposte() {
-    const dmg = this.on(this.target, () => this.hurtEnemy(this.hitDamage(RIPOSTE_MULT, 'good')));
+  /** Alle Schläge pariert: Gegenschlag (n: wer ihn führt). */
+  riposte(n = this.target) {
+    const dmg = this.on(n, () => this.hurtEnemy(this.hitDamage(RIPOSTE_MULT, 'good')));
     this.log.push(`Gegenschlag: ${dmg} Schaden`);
     return dmg;
   }

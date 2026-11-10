@@ -199,9 +199,12 @@ function duoFight(state, enc, defend) {
     do {
       const atk = c.nextEnemyAttack();
       if (atk) {
-        const rs = atk.hits.map(() => { const r = defend(n++); return r === 'parry' && atk.unparryable ? 'dodge' : r; });
-        for (const r of rs) { c.resolveHit(atk, r); if (c.outcome) break; }
-        if (!c.outcome && rs.every((r) => r === 'parry')) c.riposte();
+        // Flächenangriff: jeder Getroffene wehrt jeden Schlag für sich ab
+        for (const p of atk.targets) {
+          const rs = atk.hits.map(() => { const r = defend(n++); return r === 'parry' && atk.unparryable ? 'dodge' : r; });
+          for (const r of rs) { c.resolveHit(atk, r, p); if (c.outcome) break; }
+          if (!c.outcome && !c.fighters[p].down && rs.every((r) => r === 'parry')) c.riposte(p);
+        }
         c.endEnemyTurn();
       }
     } while (c.moreStrikes());
