@@ -12,7 +12,7 @@ import {
   DANGER_URL, DANGER_ICONS, DANGER_BANNER, RARITY_SHEET, RARITY_SHEET_URL, RARITY_GEMS,
 } from '../world/assets.js';
 import { sourceOf } from '../core/sources.js';
-import { caseHints, nextDeduction } from '../core/hints.js';
+import { caseHints, nextDeduction, openGuesses, gapText, knowledgeGaps, onlyKnowledgeMissing } from '../core/hints.js';
 import { guessMood } from '../core/Moods.js';
 import { MOOD_LABEL } from '../core/Relations.js';
 import { koopGreeting } from '../core/Koop.js';
@@ -266,6 +266,9 @@ const ITEM_CATS = [
   { id: 'quest', title: 'Quest', kinds: ['key'] },
 ];
 
+/** Nach so vielen Sekunden ohne Fortschritt bietet das HUD einen Tipp an. */
+export const STUCK_SECONDS = 240;
+
 export class Ui {
   constructor(root, state, { onNewGame, onContinue, hasSave }) {
     this.root = root;
@@ -299,6 +302,7 @@ export class Ui {
           <div class="signal hidden"></div>
           <div class="treffen hidden"></div>
           <div class="goal hidden"></div>
+          <button class="nudge hidden"></button>
         </div>
         <div class="hud-right">
           <div class="hudbtns">
@@ -403,6 +407,8 @@ export class Ui {
       this.toast(text, open ? 'gold' : 'warn');
     });
     this.gatheringTimer = setInterval(() => this.updateGathering(), 1000);
+    this.stuckTimer = setInterval(() => this.checkStuck(), 5000);
+    this.$('.nudge').onclick = () => this.openStuckHint();
     state.on('ascend', () => { this.updateUnruhe(); this.updateHp(); });
     state.on('lostcontrol', ({ text, player = 1 }) => {
       this.updateHp();
@@ -556,7 +562,46 @@ export class Ui {
     // Ohne verfolgten Auftrag zeigt der Wegweiser die nächste offene Spur (z. B. Nan Kettle für Fall 8).
     const t = s.tracked ? questTarget(s, s.tracked) : leadTarget(s, s.openLeads()[0]);
     el.classList.toggle('hidden', !t);
-    if (t) el.innerHTML = `<span class="arrow">➤</span> ${esc(this.goalText(t))}<span class="gstep">${esc(t.lead ? `Neue Spur: ${s.quest(t.quest).title}` : t.step)}</span>`;
+    if (t) el.innerHTML = `<span class="arrow">➤</span> ${esc(this.goalText(t))}<span class="gstep">${esc(t.lead ? `Neue Spur: ${s.quest(t.quest).title}` : t.step)}</span>${t.because ? `<span class="gwhy">${esc(t.because.length > 150 ? `${t.because.slice(0, 147)}…` : t.because)}</span>` : ''}`;
+  }
+
+  // --- Festgefahren? Tipp anbieten ------------------------------------------------
+  /** Fall, für den gerade ein Tipp sinnvoll ist: der verfolgte Hauptfall, sonst der erste offene Fall mit offenen Schlussfolgerungen. */
+  stuckCase() {
+    const s = this.state;
+    const open = (c) => caseHints(s, c, 1).key !== 'done';
+    const tracked = s.tracked ? s.quest(s.tracked)?.case : null;
+    if (tracked && tracked !== 'side' && open(tracked)) return tracked;
+    return Object.keys(s.quests).filter((q) => s.quests[q] === 'active' && s.quest(q).kind === 'main').map((q) => s.quest(q).case).find(open) ?? null;
+  }
+
+  /**
+   * Läuft lange nichts weiter (kein neuer Hinweis, keine Verknüpfung, keine Markierung), bietet das HUD einen Tipp an.
+   * Erst nach STUCK_SECONDS, danach mit wachsendem Abstand, damit es nicht nervt.
+   */
+  checkStuck() {
+    const s = this.state;
+    const el = this.$('.nudge');
+    if (!el || !this.scene) return;
+    this.nudgeAfter ??= STUCK_SECONDS;
+    const idle = s.idleSeconds ?? 0;
+    if (idle < this.nudgeAfter || this.modal || this.combatScene) { if (idle < STUCK_SECONDS) el.classList.add('hidden'); return; }
+    const caseId = this.stuckCase();
+    if (!caseId) return;
+    this.nudgeCase = caseId;
+    this.nudgeAfter = idle + this.nudgeAfter; // nächstes Mal doppelt so lange warten
+    el.innerHTML = `${uiSprite('icons', 'lupe', 1 / 16, 'tabico')}Kommst du nicht weiter? <b>Tipp ansehen</b> <span class="key">T</span>`;
+    el.classList.remove('hidden');
+    this.toast('Festgefahren? Im Notizbuch gibt es einen Tipp (T).', 'gold');
+  }
+
+  /** Tipp aus dem HUD: Notizbuch auf dem Fall öffnen und die erste Stufe gleich zeigen. */
+  openStuckHint() {
+    const caseId = this.nudgeCase ?? this.stuckCase();
+    if (!caseId || this.isBlocking()) return;
+    this.$('.nudge')?.classList.add('hidden');
+    this.openNotebook(caseId);
+    this.showHint();
   }
 
   updateGathering() {
@@ -918,12 +963,23 @@ export class Ui {
       const h = s.nextHint();
       text += h ? `\n\n„${h.quest}: ${h.text}.“` : '\n\n„Im Moment liegt nichts an. Genießen Sie die Ruhe.“';
     }
+    // Hierher kam man nur, weil der bessere Zweig am Wissen scheiterte: dann steht dabei, was genau fehlt
+    if (this.dialogue.blockedNote) { text += `\n\n${this.dialogue.blockedNote}`; this.dialogue.blockedNote = null; }
     // Sichtbare Optionen + wegen Ansehen gesperrte Optionen (ausgegraut mit Hinweis)
     const choices = [];
     for (const c of node.choices ?? []) {
-      if (s.meets(c)) choices.push({ ...c });
-      else if (c.requires_honor !== undefined && s.honor < c.requires_honor && s.meets({ ...c, requires_honor: undefined })) {
+      if (s.meets(c)) {
+        // Die Option geht, aber ihr bester Zweig scheitert noch am Wissen (z. B. „zweite Quelle“): das steht gleich dabei
+        const weak = Array.isArray(c.next) ? c.next.find((v) => !s.meets(v)) : null;
+        const chosen = Array.isArray(c.next) ? c.next.find((v) => s.meets(v)) : null;
+        const gaps = weak && chosen && c.next.indexOf(weak) < c.next.indexOf(chosen) && onlyKnowledgeMissing(s, weak) ? knowledgeGaps(s, weak) : [];
+        choices.push({ ...c, ...(gaps.length ? { note: `Noch nicht wasserdicht: ${gaps.map((g) => gapText(g)).join(' ')}` } : {}) });
+      } else if (c.requires_honor !== undefined && s.honor < c.requires_honor && s.meets({ ...c, requires_honor: undefined })) {
         choices.push({ ...c, locked: `Rang ${s.rank(c.requires_honor).name} (Ansehen ${c.requires_honor}) nötig` });
+      } else if (onlyKnowledgeMissing(s, c) && !c.hidden_lock) {
+        // Fehlt nur Wissen, bleibt die Option sichtbar und sagt, was noch fehlt
+        const gaps = knowledgeGaps(s, c);
+        if (gaps.length) choices.push({ ...c, locked: gaps.map((g) => gapText(g)).join(' ') });
       }
     }
     // Beziehung: Geschenke im Menü einer Figur (Start- oder Hub-Knoten), vor der letzten Option
@@ -947,7 +1003,7 @@ export class Ui {
       <div class="text">${paragraphs(text)}</div>
       <ol class="choices">${choices.map((c, i) => (c.locked
         ? `<li><button disabled class="locked">${uiSprite('locked', /^Rang/.test(c.locked) ? 'schloss' : 'gespraech', 1 / 16, 'lockico')}${esc(c.text)} <span class="lockinfo">${esc(c.locked)}</span></button></li>`
-        : `<li><button data-i="${i}"><span class="key">${++n}</span> ${choiceRisk(c.text) ? riskIcon(choiceRisk(c.text), RISK_TITLES[choiceRisk(c.text)]) : ''}${esc(c.text)}</button></li>`)).join('')}</ol>`, `dialogue${face ? ' with-portrait' : ''}`);
+        : `<li><button data-i="${i}"><span class="key">${++n}</span> ${choiceRisk(c.text) ? riskIcon(choiceRisk(c.text), RISK_TITLES[choiceRisk(c.text)]) : ''}${esc(c.text)}${c.note ? `<span class="lockinfo note">${esc(c.note)}</span>` : ''}</button></li>`)).join('')}</ol>`, `dialogue${face ? ' with-portrait' : ''}`);
     this.dialogue.keyMap = choices.map((c, i) => (c.locked ? null : i)).filter((i) => i !== null);
     el.querySelectorAll('[data-i]').forEach((b) => { b.onclick = () => this.choose(Number(b.dataset.i)); });
   }
@@ -967,7 +1023,16 @@ export class Ui {
       return;
     }
     const next = this.state.pick(choice.next);
-    if (next) { this.showNode(next); return; }
+    if (next) {
+      if (Array.isArray(choice.next)) {
+        const chosen = choice.next.find((v) => v.node === next && this.state.meets(v));
+        const skipped = choice.next.slice(0, choice.next.indexOf(chosen)).filter((v) => onlyKnowledgeMissing(this.state, v));
+        const gaps = skipped.flatMap((v) => knowledgeGaps(this.state, v));
+        if (gaps.length) this.dialogue.blockedNote = `Dir fehlt noch: ${[...new Set(gaps.map((g) => gapText(g)))].join(' ')}`;
+      }
+      this.showNode(next);
+      return;
+    }
     const { onClose, combat } = this.dialogue;
     this.dialogue = null;
     this.close();
@@ -1212,7 +1277,7 @@ export class Ui {
       ${body}
       <div class="feedback">${hint ? '' : feedback}</div>
       <div class="actions">
-        ${isCase ? `<button data-act="hint" title="Jeder Klick verrät etwas mehr">Tipp${this.hintStage(caseId) ? ` ${this.hintStage(caseId)}/3` : ''} <span class="key">T</span></button>` : ''}
+        ${isCase ? `<button data-act="hint" class="tipbtn ${(this.state.idleSeconds ?? 0) >= STUCK_SECONDS && !this.hintStage(caseId) ? 'pulse' : ''}" title="Jeder Klick verrät etwas mehr">${uiSprite('icons', 'lupe', 1 / 16, 'tabico')}Tipp${this.hintStage(caseId) ? ` ${this.hintStage(caseId)}/3` : ''} <span class="key">T</span></button>` : ''}
         ${isCase ? `<button class="primary" data-act="combine" ${this.selected.length === 2 ? '' : 'disabled'}>Verknüpfen <span class="key">V</span></button>` : ''}
         <button data-act="close">Schließen <span class="key">J</span></button>
       </div>`, 'notebook');
@@ -1326,7 +1391,7 @@ export class Ui {
       const tracked = s.tracked === id;
       const steps = active ? `<ul class="steps">${s.questSteps(id).map((x) => `<li class="${x.done ? 'done' : ''}">${x.done ? '✓' : '○'} ${esc(x.text)}</li>`).join('')}</ul>` : '';
       const t = active ? questTarget(s, id) : null;
-      const goal = active ? `<div class="qgoal">➤ ${t ? esc(this.goalText(t)) : 'Kein fester Ort bekannt'}</div>` : '';
+      const goal = active ? `<div class="qgoal">➤ ${t ? esc(this.goalText(t)) : 'Kein fester Ort bekannt'}</div>${t?.because ? `<div class="qwhy">${esc(t.because)}</div>` : ''}` : '';
       return `<li class="quest ${st} ${tracked ? 'tracked' : ''}" ${active ? `data-track="${id}"` : ''}><div class="qtitle">${uiSprite('qstatus', !active ? 'q1' : tracked ? 'q6' : q.kind === 'main' ? 'q5' : 'q2', 1 / 12, 'qico')}<span class="qkind">${q.kind === 'main' ? 'Hauptfall' : 'Nebenauftrag'}</span> ${esc(q.title)} ${!active ? '<span class="badge likely">erledigt</span>' : ''}${tracked ? '<span class="badge track">verfolgt</span>' : ''}</div>
         ${active ? `<div class="qsum">${q.wanted ? wantedImg(q.wanted, false) : ''}${esc(q.summary)}</div>` : ''}${steps}${goal}</li>`;
     };
@@ -1446,7 +1511,14 @@ export class Ui {
         ${this.badge(st)} ${linkable.has(f) ? `${journalMark('string_pin', 'Lässt sich verknüpfen')} ` : ''}${esc(s.fact(f).text)} <span class="src">${n}×</span>${s.fact(f).case !== caseId ? `<span class="cross">Spur aus ${esc(s.content.cases.find((c) => c.id === s.fact(f).case)?.title.split(':')[0] ?? 'einem anderen Fall')}</span>` : ''}</button></li>`;
     }).join('');
     const ded = s.content.deductions.filter((d) => d.case === caseId && s.hasConclusion(d.id));
-    const concl = ded.map((d) => `<li><strong>${esc(d.name)}</strong> ${s.isCertain(d.id) ? '<span class="badge likely">gesichert</span>' : '<span class="badge suspected">Vermutung</span>'}<br>${esc(d.text)}</li>`).join('');
+    // Eine Vermutung sagt gleich, welche Information noch eine Quelle braucht und wo es eine gibt
+    const guesses = Object.fromEntries(openGuesses(s, caseId).map((g) => [g.deduction.id, g]));
+    const needLine = (d) => (guesses[d.id] ? `<div class="need">${esc(gapText(guesses[d.id]).replace(/^„[^“]*“ ist erst eine Vermutung: /, 'Braucht noch: '))}</div>` : '');
+    const concl = ded.map((d) => `<li class="${guesses[d.id] ? 'open' : ''}"><strong>${esc(d.name)}</strong> ${s.isCertain(d.id) ? '<span class="badge likely">gesichert</span>' : '<span class="badge suspected">Vermutung</span>'}<br>${esc(d.text)}${needLine(d)}</li>`).join('');
+    // Warum blockiert der Auftraggeber? Der Wegweiser des Hauptauftrags weiß es (z. B. „Marlowe braucht erst …“)
+    const mainQuest = Object.keys(s.quests).find((q) => s.quests[q] === 'active' && s.quest(q).case === caseId && s.quest(q).kind === 'main');
+    const mainTarget = mainQuest ? questTarget(s, mainQuest) : null;
+    const blockBox = mainTarget?.because ? `<div class="blockbox">${uiSprite('locked', 'gespraech', 1 / 16, 'lockico')}<strong>Was noch fehlt:</strong> ${esc(mainTarget.because)}</div>` : '';
     const total = s.content.deductions.filter((d) => d.case === caseId && d.honor !== 0).length;
     const detailId = this.selected[this.selected.length - 1];
     const detail = detailId
@@ -1454,6 +1526,7 @@ export class Ui {
         <ul class="sources">${s.factSources(detailId).map((c) => `<li>${sourceFace(s.content, s.clue(c), s.factStatus(detailId) === 'refuted')}<div><em>${esc(s.clue(c).source)}:</em> ${esc(s.clue(c).text)}</div></li>`).join('')}</ul>`
       : 'Klicke eine Information an, um ihre Quellen zu sehen. Ab zwei Quellen gilt sie als sehr wahrscheinlich. Wähle zwei Informationen und verknüpfe sie.';
     return `
+      ${blockBox}
       <div class="cols">
         <div class="col">
           <h4>Informationen (${facts.length})</h4>
@@ -1533,7 +1606,12 @@ export class Ui {
     const level = Math.min(3, this.hintStage(caseId) + 1);
     const h = caseHints(this.state, caseId, level);
     this.hints[caseId] = { key: h.key, level };
-    this.renderNotebook(`<div class="hint">${h.lines.map((l) => `<p>${esc(l)}</p>`).join('')}</div>`);
+    // Blockiert der Auftraggeber (z. B. Marlowe will eine zweite Quelle), steht das als Erstes im Tipp
+    const s = this.state;
+    const mainQuest = Object.keys(s.quests).find((q) => s.quests[q] === 'active' && s.quest(q).case === caseId && s.quest(q).kind === 'main');
+    const because = mainQuest ? questTarget(s, mainQuest)?.because : null;
+    const lines = because ? [because, ...h.lines.filter((l) => !/^Dir fehlt noch eine Information/.test(l))] : h.lines;
+    this.renderNotebook(`<div class="hint">${lines.map((l) => `<p>${esc(l)}</p>`).join('')}</div>`);
   }
 
   combine() {
@@ -2194,6 +2272,12 @@ export class Ui {
       // Esc in der Welt: Pausemenü (Spieler 2 hinzufügen oder entfernen)
       if (e.key === 'Escape' && !e.repeat && this.scene && !this.combatScene && performance.now() >= this.blockedUntil) {
         this.openPause();
+        e.preventDefault();
+        e.stopPropagation();
+      }
+      // T in der Welt, solange der Tipp angeboten wird: Notizbuch mit dem ersten Tipp öffnen
+      if (e.key.toLowerCase() === 't' && !e.repeat && this.scene && !this.combatScene && !this.$('.nudge')?.classList.contains('hidden')) {
+        this.openStuckHint();
         e.preventDefault();
         e.stopPropagation();
       }

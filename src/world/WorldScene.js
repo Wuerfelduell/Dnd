@@ -848,6 +848,14 @@ export class WorldScene extends Phaser.Scene {
       if (item.kind === 'combat') {
         this.lighting.add({ x, y: y - 4, radius: 30, intensity: 0.6, color: 0x6fe0d0, glowAlpha: 0.35, flicker: 0.25, active: () => item.active });
       }
+      // Ein Objekt, dessen Hinweis gerade eine Vermutung absichern würde (zweite Quelle), leuchtet golden,
+      // solange es noch nicht untersucht ist. So fällt der fehlende Brief auf dem Pult auf.
+      const clues = [def.clue, ...(def.effects?.gives_clues ?? [])].filter(Boolean);
+      if (clues.length) {
+        const wanted = () => item.active && !item.hidden && clues.some((c) => !this.state.hasClue(c) && this.state.factStatus(this.state.clue(c)?.fact) === 'suspected');
+        this.lighting.add({ x, y: y - 2, radius: 26, intensity: 0.75, color: 0xffd070, glowAlpha: 0.45, flicker: 0.3, active: wanted });
+        item.wanted = wanted;
+      }
       if (def.solid) item.blocker = this.addBlocker(x, y + 2, def.solid[0] ?? 16, def.solid[1] ?? 12);
       if (def.sprite_scale) item.sprite?.setScale(def.sprite_scale).setOrigin(0.5, 0.75);
       if (item.hidden) {
@@ -1087,6 +1095,8 @@ export class WorldScene extends Phaser.Scene {
   }
 
   refreshVisibility() {
+    // Objekte, die gerade eine Vermutung absichern würden, funkeln größer
+    for (const it of this.interactables) if (it.glint && it.wanted) it.glint.setScale(it.wanted() ? 1.6 : 1);
     for (const l of this.lamps) {
       const on = l.isLit();
       l.lit.setVisible(on);

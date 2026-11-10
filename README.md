@@ -33,6 +33,7 @@ einem kleinen Rundenkampf mit Timing und Spielständen.
 | `1`–`9` oder Klick | Antwort im Gespräch wählen |
 | `Q` | Geistsicht an/aus: zeigt verborgene Spuren, kostet Nerven |
 | `J` / `Tab` | Notizbuch: zwei Hinweise anklicken, mit `V` verknüpfen |
+| `T` | Tipp: im Notizbuch gestuft (drei Stufen); in der Welt, sobald das HUD nach ein paar Minuten ohne Fortschritt einen Tipp anbietet |
 | `I` | Inventar: Gegenstände benutzen, Waffe ausrüsten, Tränke trinken |
 | `P` | Pfad: Sequenz, Verdauung, Unruhe, Fähigkeiten und Formeln |
 | Kampf: `1`–`4` | Aktion wählen (Angriff, Fertigkeiten, Gegenstände, Flucht) |
