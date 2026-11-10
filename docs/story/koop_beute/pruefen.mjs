@@ -4,7 +4,7 @@ import { loadContent } from '../../../tests/helpers.js';
 const root = new URL('../../../', import.meta.url);
 const read = path => JSON.parse(readFileSync(new URL(path, root), 'utf8'));
 const data = name => read(`src/data/packs/koop_beute/${name}.json`);
-const c = loadContent(), sources = data('ansprueche'), replacements = data('ersatz');
+const c = loadContent({ without: ['koop_beute'] }), sources = data('ansprueche'), replacements = data('ersatz');
 const texts = data('texte'), dialogs = data('dialog_zusaetze');
 const declared = new Set();
 function walk(v, fn) { fn(v); if (v && typeof v === 'object') for (const x of Object.values(v)) walk(x, fn); }

@@ -81,6 +81,10 @@ export function applyQuestPack(content, pack) {
     m.interactables.push({ id: flag, kind: 'read', tile: spot.tile, sprite: flag, prompt: k.name, title: k.name, text: k.deko, footer: k.wirkung,
       visible_if: { requires_flags: [flag] }, ...(spot.effects ? { effects: spot.effects, done_flag: spot.done } : {}) });
   }
+  // Paket BG: Anspruchsquellen, Ersatzzeilen und Kurztexte (core/Claims.js)
+  if (pack.ansprueche) content.claimSources = { ...(content.claimSources ?? {}), ...pack.ansprueche };
+  if (pack.ersatz) content.claimReplacements = [...(content.claimReplacements ?? []), ...pack.ersatz];
+  if (pack.texte) content.claimTexts = { ...(content.claimTexts ?? {}), ...pack.texte };
   // Paket AI/BF: Geplauder, Kampfsprüche und Bindungstexte zu zweit kommen aus mehreren Paketen zusammen
   if (pack.geplauder || pack.kampf || pack.bindung) {
     const k = content.koop ?? { geplauder: [], kampf: {}, bindung: {} };

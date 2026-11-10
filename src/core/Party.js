@@ -58,6 +58,7 @@ export const partyMethods = {
     this.p2.active = true;
     this.p2.hp = Math.max(1, this.p2.hp);
     this.syncKoop();
+    this.syncClaims?.(); // BG: späte Beitritte bekommen offene Ansprüche
     this.emit('party', { active: true });
     this.emit('changed');
     return true;

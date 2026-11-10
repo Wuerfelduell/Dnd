@@ -26,7 +26,7 @@ export function loadContent({ sequenzen = true, without = [] } = {}) {
     gatherings: load('treffen.json'),
     city: load('stadtgegner.json'),
     wexmoor: load('wexmoor.json'),
-    packs: PACKS.filter((name) => !without.includes(name)).map((name) => ({ name, ...Object.fromEntries(PACK_FILES.map((f) => [f, load(`packs/${name}/${f}.json`)])),
+    packs: [...PACKS.filter((name) => !without.includes(name)).map((name) => ({ name, ...Object.fromEntries(PACK_FILES.map((f) => [f, load(`packs/${name}/${f}.json`)])),
       ...(name === 'wx_nebenquests' ? { kahn_ausbau: load('packs/wx_nebenquests/kahn_ausbau.json') } : {}),
       ...(name === 'k2_akten' ? { faelle: load('packs/k2_akten/faelle.json'), zeitung: load('packs/k2_akten/zeitung.json') } : {}),
       ...(name === 'k2_akte' ? (() => {
@@ -47,6 +47,8 @@ export function loadContent({ sequenzen = true, without = [] } = {}) {
       ...(name === 'koop' ? { geplauder: load('packs/koop/geplauder.json'), kampf: load('packs/koop/kampf.json') } : {}),
       ...(name === 'koop_k3' ? { platzierung: load('packs/koop_k3/platzierung.json').filter((p) => !p.interactable.id.startsWith('koop_ds_schleuse')),
         ...Object.fromEntries(['geplauder', 'kampf', 'bindung'].map((f) => [f, load(`packs/koop_k3/${f}.json`)])) } : {}) })),
+    // Paket BG bringt nur Zusätze, Ansprüche, Ersatzzeilen und Texte
+    ...(without.includes('koop_beute') ? [] : [{ name: 'koop_beute', dialog_zusaetze: load('packs/koop_beute/dialog_zusaetze.json'), ansprueche: load('packs/koop_beute/ansprueche.json'), ersatz: load('packs/koop_beute/ersatz.json'), texte: load('packs/koop_beute/texte.json') }])],
     beziehungen: load('beziehungen.json'),
     lore: Object.fromEntries(['bestiarium', 'gerede', 'item_texte', 'lesestuecke', 'zeitungen'].map((f) => [f, load(`packs/lore/${f}.json`)])),
     sequenzen: sequenzen ? { ...Object.fromEntries(['neue_pfade', 'seq_4_bis_1', 'zutaten', 'artefakte'].map((f) => [f, load(`packs/sequenzen/${f}.json`)])),

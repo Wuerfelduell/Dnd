@@ -7,6 +7,8 @@ import { wantedMethods } from './Wanted.js';
 import { kahnMethods } from './Kahn.js';
 import { newspaperMethods } from './Newspapers.js';
 import { signalMethods } from './Signals.js';
+import { claimMethods } from './Claims.js';
+import { claimEinbauMethods } from './ClaimsEinbau.js';
 import { clockMethods, NIGHT_FLAG } from './Clock.js';
 import { bondMethods } from './Bonds.js';
 import { relationMethods } from './Relations.js';
@@ -80,6 +82,7 @@ export class GameState {
     this.resetBonds();
     this.resetRelations();
     this.resetParty();
+    this.resetClaims(); // Paket BG
     this.resetPapers();
     this.resetSignal();
     this.pendingTravel = null;
@@ -290,7 +293,8 @@ export class GameState {
       this.meetsPathway(o.requires_pathway) &&
       this.meetsSignal(o) &&
       this.meetsBond(o) &&
-      this.meetsRelation(o)
+      this.meetsRelation(o) &&
+      this.meetsClaims(o) // Paket BG: requires_claim, requires_claim_missing, requires_p2, requires_replacement
     );
   }
 
@@ -315,10 +319,10 @@ export class GameState {
    * Wendet Effekte an (Dialogknoten, Objekte, Enden). Gibt die neuen Hinweise zurück.
    * nodeKey ("dialog.knoten"): Beziehungswirkungen (`relation`) zählen nur beim ersten Besuch des Knotens.
    */
-  applyEffects(e, { nodeKey = null } = {}) {
+  applyEffects(e, { nodeKey = null, commandId = null } = {}) {
     if (!e) return [];
     const gained = (e.gives_clues ?? []).filter((c) => this.addClue(c));
-    for (const f of e.sets_flags ?? []) this.flags.add(f);
+    for (const f of e.sets_flags ?? []) { this.flags.add(f); this.openClaims(f); } // BG: bewältigte Quelle öffnet Ansprüche
     if (e.signal || e.signal_reserve) this.applySignal(e); // Kapitel 3: Rufladungen
     for (const f of e.clears_flags ?? []) this.flags.delete(f);
     for (const q of e.start_quests ?? []) this.startQuest(q);
@@ -326,6 +330,8 @@ export class GameState {
     for (const q of e.fail_quests ?? []) this.finishQuest(q, 'failed');
     if (e.honor) this.addHonor(e.honor, e.honor_reason ?? '');
     for (const [id, n] of Object.entries(e.gives_items ?? {})) this.addItem(id, n);
+    if (e.gives_items) this.settleClaims(e.gives_items); // BG: Bestandsauszahlung erfüllt den eigenen Anspruch
+    if (e.claim || e.replacement) this.applyClaims(e, { commandId }); // BG: persönliche Abholung bzw. Ersatzprobe (nur mit bestätigtem Befehl)
     for (const [id, n] of Object.entries(e.takes_items ?? {})) this.removeItem(id, n);
     if (e.heal) { this.heal(e.heal === 'full' ? this.maxHp : e.heal); this.healPartner(e.heal); }
     if (e.gives_money) this.addMoney(e.gives_money, { loot: true, reason: e.honor_reason ?? '' });
@@ -433,6 +439,7 @@ export class GameState {
     // Bessere Waffe automatisch ausrüsten
     if (it.kind === 'weapon' && (!this.weapon || it.atk > this.item(this.weapon).atk)) this.weapon = id;
     if (n > 0) this.gearPickedUp(id);
+    if (n > 0) this.recordClaimItem?.(id); // BG: Erwerbsquittung für Kernzutat oder Trank
     this.emit('item', { id, delta: n });
     if (it.kind === 'artifact' && !had && n > 0) this.artifactPickedUp(id);
     // Beute geht nie verloren: wer zu viel trägt, wird nur langsamer.
@@ -707,6 +714,7 @@ export class GameState {
       ...this.serializeParty(),
       papers: this.papers,
       ...this.serializeSignal(),
+      ...this.serializeClaims(),
     };
   }
 
@@ -751,6 +759,8 @@ export class GameState {
     this.loadBonds(data.bonds);
     this.loadRelations(data);
     this.loadParty(data);
+    this.loadClaims(data);
+    if (data.claims === undefined) this.migrateLegacyClaims(); // BG: alte Spielstände ohne Register
     this.loadPapers(data);
     this.loadSignal(data);
     this.syncClock(); // Tag/Nacht folgt der Spielzeit, nicht dem Spielstand
@@ -762,4 +772,4 @@ export class GameState {
 /** Fortschrittsflags der verlängerten Akt-V-Fassung (AP), in Spielreihenfolge. */
 export const K2_AKT5_STEPS = ['k2v_boot_bereit', 'k2v_keller_passiert', 'k2v_aufstieg_passiert', 'k2v_abschied_done'];
 
-Object.assign(GameState.prototype, partyMethods, gearMethods, corruptionMethods, pathwayMethods, artifactMethods, gatheringMethods, wantedMethods, bondMethods, relationMethods, auctionMethods, artisanMethods, kahnMethods, newspaperMethods, signalMethods, clockMethods);
+Object.assign(GameState.prototype, partyMethods, gearMethods, corruptionMethods, pathwayMethods, artifactMethods, gatheringMethods, wantedMethods, bondMethods, relationMethods, auctionMethods, artisanMethods, kahnMethods, newspaperMethods, signalMethods, clockMethods, claimMethods, claimEinbauMethods);
