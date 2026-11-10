@@ -33,7 +33,6 @@ einem kleinen Rundenkampf mit Timing und Spielständen.
 | `1`–`9` oder Klick | Antwort im Gespräch wählen |
 | `Q` | Geistsicht an/aus: zeigt verborgene Spuren, kostet Nerven |
 | `J` / `Tab` | Notizbuch: zwei Hinweise anklicken, mit `V` verknüpfen |
-| `T` | Tipp: im Notizbuch gestuft (drei Stufen); in der Welt, sobald das HUD nach ein paar Minuten ohne Fortschritt einen Tipp anbietet |
 | `I` | Inventar: Gegenstände benutzen, Waffe ausrüsten, Tränke trinken |
 | `P` | Pfad: Sequenz, Verdauung, Unruhe, Fähigkeiten und Formeln |
 | Kampf: `1`–`4` | Aktion wählen (Angriff, Fertigkeiten, Gegenstände, Flucht) |
@@ -115,8 +114,9 @@ Auf dem **Nachtmarkt** unter der Krähenbrücke (Stadtkarte) kann man aufsteigen
   Für eine Auflösung wollen Price und Marlowe gesicherte Schlussfolgerungen sehen.
 - Gelöste Fälle wandern ins **Archiv** (eigener Reiter, alte Informationen bleiben lesbar). Der Reiter **Personen** listet alle,
   mit denen du gesprochen hast, mit Gesicht, Ort und laufenden Aufträgen. Erledigte Aufträge sind zusammengeklappt.
-- **Tipp** (Taste T im Fall-Reiter): Jeder Klick verrät etwas mehr über die nächste offene Schlussfolgerung.
-  Erst grob, was fehlt. Dann, welche Vermutung eine zweite Quelle braucht und wo es sie gibt. Zuletzt das Paar zum Verknüpfen.
+- **Rat holen**: Frag Inspektorin Marlowe im Revier („Haben Sie einen Rat?“). Sie sagt konkret, was als Nächstes ansteht,
+  wo du nachsehen und wen du fragen sollst, welche Vermutung noch eine zweite Quelle braucht und was sie selbst noch
+  sehen will, bevor sie einen Fall abschließt.
 - **Ansehen bei der Polizei**: Gelöste Fälle, gestellte Gauner und Nebenaufträge bringen
   Ansehen, falsche Beschuldigungen kosten es. Fünf Ränge (Zivilist, Hilfsermittler,
   Ermittler, Vertrauter des Reviers, Geachteter Ermittler) öffnen Archivakten,

@@ -12,13 +12,13 @@ import {
   DANGER_URL, DANGER_ICONS, DANGER_BANNER, RARITY_SHEET, RARITY_SHEET_URL, RARITY_GEMS,
 } from '../world/assets.js';
 import { sourceOf } from '../core/sources.js';
-import { caseHints, nextDeduction, openGuesses, gapText, knowledgeGaps, onlyKnowledgeMissing } from '../core/hints.js';
+import { openGuesses, gapText, knowledgeGaps, onlyKnowledgeMissing } from '../core/hints.js';
 import { guessMood } from '../core/Moods.js';
 import { MOOD_LABEL, GIFT_KINDS } from '../core/Relations.js';
 import { koopGreeting } from '../core/Koop.js';
 import { isSolved, knownPeople } from '../core/journal.js';
 import { canHurry, travelSafe, travelFast, afterHurryFight, travelDestinations, cityOf } from '../core/Travel.js';
-import { questTarget, leadTarget, personPlaces } from '../core/Guide.js';
+import { questTarget, leadTarget, personPlaces, advice } from '../core/Guide.js';
 
 /** 16x16-Icon vor einem Item-Namen. Lädt es nicht, verschwindet es einfach. */
 const itemIcon = (id) => (PULSE_ICONS[id] ? `<span class="item-icon pulse" style="background-image:url(${PULSE_ICONS[id]})"></span>` : `<img class="item-icon" src="${itemIconUrl(id)}" alt="" width="16" height="16" onerror="this.remove()">`);
@@ -266,9 +266,6 @@ const ITEM_CATS = [
   { id: 'quest', title: 'Quest', kinds: ['key'] },
 ];
 
-/** Nach so vielen Sekunden ohne Fortschritt bietet das HUD einen Tipp an. */
-export const STUCK_SECONDS = 240;
-
 export class Ui {
   constructor(root, state, { onNewGame, onContinue, hasSave }) {
     this.root = root;
@@ -302,7 +299,6 @@ export class Ui {
           <div class="signal hidden"></div>
           <div class="treffen hidden"></div>
           <div class="goal hidden"></div>
-          <button class="nudge hidden"></button>
         </div>
         <div class="hud-right">
           <div class="hudbtns">
@@ -407,8 +403,6 @@ export class Ui {
       this.toast(text, open ? 'gold' : 'warn');
     });
     this.gatheringTimer = setInterval(() => this.updateGathering(), 1000);
-    this.stuckTimer = setInterval(() => this.checkStuck(), 5000);
-    this.$('.nudge').onclick = () => this.openStuckHint();
     state.on('ascend', () => { this.updateUnruhe(); this.updateHp(); });
     state.on('lostcontrol', ({ text, player = 1 }) => {
       this.updateHp();
@@ -563,45 +557,6 @@ export class Ui {
     const t = s.tracked ? questTarget(s, s.tracked) : leadTarget(s, s.openLeads()[0]);
     el.classList.toggle('hidden', !t);
     if (t) el.innerHTML = `<span class="arrow">➤</span> ${esc(this.goalText(t))}<span class="gstep">${esc(t.lead ? `Neue Spur: ${s.quest(t.quest).title}` : t.step)}</span>${t.because ? `<span class="gwhy">${esc(t.because.length > 150 ? `${t.because.slice(0, 147)}…` : t.because)}</span>` : ''}`;
-  }
-
-  // --- Festgefahren? Tipp anbieten ------------------------------------------------
-  /** Fall, für den gerade ein Tipp sinnvoll ist: der verfolgte Hauptfall, sonst der erste offene Fall mit offenen Schlussfolgerungen. */
-  stuckCase() {
-    const s = this.state;
-    const open = (c) => caseHints(s, c, 1).key !== 'done';
-    const tracked = s.tracked ? s.quest(s.tracked)?.case : null;
-    if (tracked && tracked !== 'side' && open(tracked)) return tracked;
-    return Object.keys(s.quests).filter((q) => s.quests[q] === 'active' && s.quest(q).kind === 'main').map((q) => s.quest(q).case).find(open) ?? null;
-  }
-
-  /**
-   * Läuft lange nichts weiter (kein neuer Hinweis, keine Verknüpfung, keine Markierung), bietet das HUD einen Tipp an.
-   * Erst nach STUCK_SECONDS, danach mit wachsendem Abstand, damit es nicht nervt.
-   */
-  checkStuck() {
-    const s = this.state;
-    const el = this.$('.nudge');
-    if (!el || !this.scene) return;
-    this.nudgeAfter ??= STUCK_SECONDS;
-    const idle = s.idleSeconds ?? 0;
-    if (idle < this.nudgeAfter || this.modal || this.combatScene) { if (idle < STUCK_SECONDS) el.classList.add('hidden'); return; }
-    const caseId = this.stuckCase();
-    if (!caseId) return;
-    this.nudgeCase = caseId;
-    this.nudgeAfter = idle + this.nudgeAfter; // nächstes Mal doppelt so lange warten
-    el.innerHTML = `${uiSprite('icons', 'lupe', 1 / 16, 'tabico')}Kommst du nicht weiter? <b>Tipp ansehen</b> <span class="key">T</span>`;
-    el.classList.remove('hidden');
-    this.toast('Festgefahren? Im Notizbuch gibt es einen Tipp (T).', 'gold');
-  }
-
-  /** Tipp aus dem HUD: Notizbuch auf dem Fall öffnen und die erste Stufe gleich zeigen. */
-  openStuckHint() {
-    const caseId = this.nudgeCase ?? this.stuckCase();
-    if (!caseId || this.isBlocking()) return;
-    this.$('.nudge')?.classList.add('hidden');
-    this.openNotebook(caseId);
-    this.showHint();
   }
 
   updateGathering() {
@@ -959,10 +914,8 @@ export class Ui {
       const next = s.nextRank();
       text += `\n\nRang: ${r.name} (Ansehen ${s.honor}). ${r.text}${next ? `\n\nNächster Rang: ${next.name} ab ${next.min}. ${next.text}` : ''}`;
     }
-    if (node.hint) {
-      const h = s.nextHint();
-      text += h ? `\n\n„${h.quest}: ${h.text}.“` : '\n\n„Im Moment liegt nichts an. Genießen Sie die Ruhe.“';
-    }
+    // Rat der Inspektorin: konkrete Hinweise, wo man schauen und wen man fragen soll (Guide.advice)
+    if (node.hint) text += `\n\n${advice(s, npc.id).map((l) => `„${l}“`).join('\n\n')}`;
     // Hierher kam man nur, weil der bessere Zweig am Wissen scheiterte: dann steht dabei, was genau fehlt
     if (this.dialogue.blockedNote) { text += `\n\n${this.dialogue.blockedNote}`; this.dialogue.blockedNote = null; }
     // Sichtbare Optionen + wegen Ansehen gesperrte Optionen (ausgegraut mit Hinweis)
@@ -1350,15 +1303,12 @@ export class Ui {
       : this.tab === 'personen' ? this.peopleHtml() : this.tab === 'bestiar' ? this.bestiaryHtml(beasts) : this.tab === 'zeitung' ? this.papersHtml(papers)
       : this.tab === 'archiv' ? this.archiveHtml(solved) : this.caseHtml(this.tab);
     const isCase = !!caseId;
-    const hint = String(feedback ?? '').startsWith('<div class="hint">') ? feedback : '';
     const el = this.open('notebook', `
       <div class="tabs">${tabs.map((t, i) => `<button class="tab ${t.id === this.tab ? 'sel' : ''}" data-tab="${t.id}"><span class="key">${i + 1}</span> ${uiSprite('icons', TAB_ICONS[t.id] ?? 'lupe', 1 / 16, 'tabico')}${esc(t.title)}</button>`).join('')}
         <span class="rankinfo">${uiSprite('ranks', `r${Math.max(0, Math.min(4, this.state.content.ranks.indexOf(this.state.rank())))}`, 1 / 16, 'rankbadge')}${esc(this.state.rank().name)} · Ansehen ${this.state.honor}</span></div>
-      ${hint ? `<div class="feedback hintbox">${hint}</div>` : ''}
       ${body}
-      <div class="feedback">${hint ? '' : feedback}</div>
+      <div class="feedback">${feedback}</div>
       <div class="actions">
-        ${isCase ? `<button data-act="hint" class="tipbtn ${(this.state.idleSeconds ?? 0) >= STUCK_SECONDS && !this.hintStage(caseId) ? 'pulse' : ''}" title="Jeder Klick verrät etwas mehr">${uiSprite('icons', 'lupe', 1 / 16, 'tabico')}Tipp${this.hintStage(caseId) ? ` ${this.hintStage(caseId)}/3` : ''} <span class="key">T</span></button>` : ''}
         ${isCase ? `<button class="primary" data-act="combine" ${this.selected.length === 2 ? '' : 'disabled'}>Verknüpfen <span class="key">V</span></button>` : ''}
         <button data-act="close">Schließen <span class="key">J</span></button>
       </div>`, 'notebook');
@@ -1368,7 +1318,6 @@ export class Ui {
     el.querySelectorAll('[data-fact]').forEach((b) => { b.onclick = () => this.toggleFact(b.dataset.fact); });
     el.querySelectorAll('[data-archive]').forEach((b) => { b.onclick = () => { this.archiveCase = b.dataset.archive; this.selected = []; this.renderNotebook(''); }; });
     el.querySelector('[data-act=combine]')?.addEventListener('click', () => this.combine());
-    el.querySelector('[data-act=hint]')?.addEventListener('click', () => this.showHint());
     const inv = (fn) => this.as(fn, this.tab === 'items' || this.tab === 'pfad' ? this.invPlayer : 1);
     el.querySelectorAll('[data-use]').forEach((b) => { b.onclick = () => this.renderNotebook(esc(inv(() => this.state.useItem(b.dataset.use)) ?? '')); });
     el.querySelectorAll('[data-equip]').forEach((b) => { b.onclick = () => { inv(() => this.state.equip(b.dataset.equip)); this.renderNotebook(''); }; });
@@ -1578,18 +1527,10 @@ export class Ui {
         for (const [a, b] of d.pairs) if (usable(a) && usable(b)) { linkable.add(a); linkable.add(b); }
       }
     }
-    // Tipp ab Stufe 2: schwache Information markieren, ab Stufe 3 beide des Paares
-    const hinted = new Set();
-    const stage = this.hintStage(caseId);
-    const target = stage >= 2 ? nextDeduction(s, caseId) : null;
-    if (target) {
-      const weak = Math.max(0, target.status.findIndex((x) => x !== 'likely'));
-      target.pair.forEach((f, i) => { if (stage >= 3 || i === weak) hinted.add(f); });
-    }
     const factItems = facts.map((f) => {
       const st = s.factStatus(f);
       const n = s.factSources(f).length;
-      return `<li><button class="fact ${st} ${this.selected.includes(f) ? 'sel' : ''} ${hinted.has(f) ? 'hinted' : ''}" data-fact="${f}" ${st === 'refuted' ? 'data-refuted="1"' : ''}>
+      return `<li><button class="fact ${st} ${this.selected.includes(f) ? 'sel' : ''}" data-fact="${f}" ${st === 'refuted' ? 'data-refuted="1"' : ''}>
         ${this.badge(st)} ${linkable.has(f) ? `${journalMark('string_pin', 'Lässt sich verknüpfen')} ` : ''}${esc(s.fact(f).text)} <span class="src">${n}×</span>${s.fact(f).case !== caseId ? `<span class="cross">Spur aus ${esc(s.content.cases.find((c) => c.id === s.fact(f).case)?.title.split(':')[0] ?? 'einem anderen Fall')}</span>` : ''}</button></li>`;
     }).join('');
     const ded = s.content.deductions.filter((d) => d.case === caseId && s.hasConclusion(d.id));
@@ -1675,29 +1616,6 @@ export class Ui {
       return `<li class="${p.quests.length ? 'busy' : ''}${pinned ? ' pinned' : ''}" data-person="${p.id}" title="Auf der Stadtkarte zeigen">${face}<div><strong>${esc(p.name)}</strong> <span class="muted">${esc(p.role)}</span> ${relationBadge(this.state, p.id, this.state.mood(p.id) !== 'neutral')}${pinned ? '<span class="badge track">auf der Karte</span>' : ''}
         <br><span class="where">${where}</span>${p.quests.map((q) => `<br><span class="qtag">${esc(q)}</span>`).join('')}</div>${places.length ? '<span class="mapbtn">Karte ›</span>' : ''}</li>`;
     }).join('')}</ul>`;
-  }
-
-  /** Aktuelle Tipp-Stufe eines Falls (0 = noch kein Tipp). Ändert sich das Ziel, beginnt es von vorn. */
-  hintStage(caseId) {
-    const h = this.hints?.[caseId];
-    if (!h) return 0;
-    return caseHints(this.state, caseId, 1).key === h.key ? h.level : 0;
-  }
-
-  /** Gestufter Tipp: jeder Klick verrät etwas mehr über die nächste offene Schlussfolgerung. */
-  showHint() {
-    const caseId = this.currentCase();
-    if (!caseId) return;
-    this.hints ??= {};
-    const level = Math.min(3, this.hintStage(caseId) + 1);
-    const h = caseHints(this.state, caseId, level);
-    this.hints[caseId] = { key: h.key, level };
-    // Blockiert der Auftraggeber (z. B. Marlowe will eine zweite Quelle), steht das als Erstes im Tipp
-    const s = this.state;
-    const mainQuest = Object.keys(s.quests).find((q) => s.quests[q] === 'active' && s.quest(q).case === caseId && s.quest(q).kind === 'main');
-    const because = mainQuest ? questTarget(s, mainQuest)?.because : null;
-    const lines = because ? [because, ...h.lines.filter((l) => !/^Dir fehlt noch eine Information/.test(l))] : h.lines;
-    this.renderNotebook(`<div class="hint">${lines.map((l) => `<p>${esc(l)}</p>`).join('')}</div>`);
   }
 
   combine() {
@@ -1937,7 +1855,8 @@ export class Ui {
     const [emblem] = ZIRKEL_ICONS[a.circle] ?? [];
     const leader = a.phase === 'lot' ? a.lot?.leader : null;
     const seats = a.members.map((m, i) => `<li class="seat ${m === speaker ? 'active' : ''} ${i < a.turn ? 'done' : ''}">${headFace(m, s.memberName(m))}<span>${esc(s.memberName(m))}</span>${m === leader ? auktionIcon('bid_0', 'bidhand') : ''}</li>`).join('')
-      + `<li class="seat you ${a.phase.startsWith('own') ? 'active' : ''}">${headFace('player', 'Du')}<span>Du</span>${leader === 'player' ? auktionIcon('bid_0', 'bidhand') : ''}</li>`;
+      + `<li class="seat you ${a.phase.startsWith('own') ? 'active' : ''}">${headFace('player', 'Du')}<span>Du</span>${leader === 'player' ? auktionIcon('bid_0', 'bidhand') : ''}</li>`
+      + (a.artisan ? `<li class="seat artisan ${a.phase === 'artisan' ? 'active' : ''}">${headFace(s.artisanId(), s.artisanName())}<span>${esc(s.artisanName())}</span></li>` : '');
     const acts = [];
     let stage = '';
     const who = (id) => (id === 'player' ? 'dir' : id ? esc(s.memberName(id)) : 'niemandem');
@@ -1961,9 +1880,27 @@ export class Ui {
     } else if (a.phase === 'own') {
       const list = s.ownOfferables();
       stage = `<div class="speaker">Dein Angebot <span class="role">Artefakte und Formeln</span></div>
-        ${list.length ? '<p class="lead">Was legst du auf den Tisch?</p>' : '<p class="lead">Du hast keine Artefakte oder Formeln dabei, die du anbieten könntest.</p>'}`;
+        ${list.length ? '<p class="lead">Was legst du auf den Tisch?</p>' : '<p class="lead">Du hast keine Artefakte oder Formeln dabei, die du anbieten könntest.</p>'}
+        ${a.artisan ? `<p class="lead muted">${esc(s.artisanName())} sitzt abseits und fasst Beutestücke zu Artefakten.</p>` : ''}`;
+      if (a.artisan) acts.push({ label: `Zu ${s.artisanName()}: Beute fassen lassen`, fn: () => s.openArtisan() });
       for (const o of list.slice(0, 8)) acts.push({ label: `${o.name} anbieten`, fn: () => s.offerOwn(o.id), icon: o.id });
       acts.push({ label: 'Runde beenden', fn: () => this.finishAuction() });
+    } else if (a.phase === 'artisan') {
+      const recipes = s.artisanRecipes(a.circle, a.cycle);
+      const rows = recipes.map((r) => {
+        const c = s.recipeCheck(r);
+        const it = s.item(c.artifact);
+        const needs = c.needs.map((x) => `<span class="${x.have >= x.n ? 'got' : 'lack'}">${itemIcon(x.item)}${esc(s.item(x.item)?.name ?? x.item)} ${x.have}/${x.n}</span>`).join(' · ');
+        return `<li class="recipe ${c.ok ? 'ready' : ''}">${itemIconBig(c.artifact)}<strong>${esc(it?.name ?? c.artifact)}</strong> <span class="muted">Lohn ${c.fee} Sch.</span>${artifactEffectsHtml(it ?? {})}<span class="needs">Braucht: ${needs}</span></li>`;
+      }).join('');
+      stage = `${portrait(s.artisanId())}<div class="speaker">${esc(s.artisanName())} <span class="role">${esc(s.content.npcs[s.artisanId()]?.role ?? 'Fasserin')}</span></div>
+        <p class="lead">„Ich fasse, was andere wegwerfen. Der Lohn ist fest, die Beute ist danach weg.“</p>
+        <ul class="recipes">${rows || '<li class="muted">Heute hat sie nichts auf dem Tisch.</li>'}</ul>`;
+      for (const r of recipes) {
+        const c = s.recipeCheck(r);
+        acts.push({ label: `${s.item(c.artifact)?.name ?? r.id} fassen (${c.fee} Sch.)`, fn: () => s.craftArtifact(r.id), off: !c.ok, icon: c.artifact });
+      }
+      acts.push({ label: 'Zurück zur Runde', fn: () => s.leaveArtisan() });
     } else if (a.phase === 'own_bids') {
       const o = a.own;
       const it = s.item(o.item);
@@ -1975,7 +1912,7 @@ export class Ui {
     this.auctionActs = acts;
     let n = 0;
     const el = this.open('auction', `
-      <h3>${emblem !== undefined ? atlasIcon(ZIRKEL_URL, emblem, 8) : S_ZIRKEL[a.circle] ? regionIcon(S_ZIRKEL_URL, S_ZIRKEL[a.circle].emblem, 128, 64, 'mark', 1 / 16) : auktionIcon(a.circle, 'mark', 1 / 6)}${esc(g.name)} <span class="muted">${a.phase.startsWith('own') ? 'Eigenes Angebot' : `Runde ${Math.min(a.turn + 1, a.members.length)} von ${a.members.length}`}</span></h3>
+      <h3>${emblem !== undefined ? atlasIcon(ZIRKEL_URL, emblem, 8) : S_ZIRKEL[a.circle] ? regionIcon(S_ZIRKEL_URL, S_ZIRKEL[a.circle].emblem, 128, 64, 'mark', 1 / 16) : auktionIcon(a.circle, 'mark', 1 / 6)}${esc(g.name)} <span class="muted">${a.phase === 'artisan' ? 'Bei der Fasserin' : a.phase.startsWith('own') ? 'Eigenes Angebot' : `Runde ${Math.min(a.turn + 1, a.members.length)} von ${a.members.length}`}</span></h3>
       <ul class="seats">${seats}</ul>
       <div class="stage">${stage}</div>
       <ul class="alog">${a.log.map((t) => `<li>${t.startsWith('Zuschlag') ? auktionIcon('sold', 'sold', 1 / 12) : ''}${esc(t)}</li>`).join('')}</ul>
@@ -2000,7 +1937,7 @@ export class Ui {
     this.close();
     if (!sum) return;
     const line = (l, verb) => l.map((x) => `${this.state.item(x.item).name} (${x.price} Sch.)`).join(', ') || 'nichts';
-    this.showMessage('Die Runde löst sich auf', `Gekauft: ${line(sum.bought)}\n\nVerkauft: ${line(sum.sold)}`, { footer: 'Bis zum nächsten Treffen.' });
+    this.showMessage('Die Runde löst sich auf', `Gekauft: ${line(sum.bought)}\n\nVerkauft: ${line(sum.sold)}${sum.crafted?.length ? `\n\nGefasst: ${line(sum.crafted)}` : ''}`, { footer: 'Bis zum nächsten Treffen.' });
   }
 
   // --- Eigenes Büro: Lagerschrank und Fallwand -------------------------------------------
@@ -2361,12 +2298,6 @@ export class Ui {
         e.preventDefault();
         e.stopPropagation();
       }
-      // T in der Welt, solange der Tipp angeboten wird: Notizbuch mit dem ersten Tipp öffnen
-      if (e.key.toLowerCase() === 't' && !e.repeat && this.scene && !this.combatScene && !this.$('.nudge')?.classList.contains('hidden')) {
-        this.openStuckHint();
-        e.preventDefault();
-        e.stopPropagation();
-      }
       return;
     }
     if (e.repeat) return;
@@ -2403,7 +2334,6 @@ export class Ui {
       if (this.modal === 'shop') this.openShop(this.shop.id, this.shop.mode); else this.openStorage('', ...this.storageArgs);
     } else if (this.modal === 'notebook' && k === 'g' && (this.tab === 'items' || this.tab === 'pfad') && this.state.hasP2()) { this.invPlayer = this.invPlayer === 1 ? 2 : 1; this.renderNotebook(''); }
     else if (this.modal === 'notebook' && k === 'v') this.combine();
-    else if (this.modal === 'notebook' && k === 't') this.showHint();
     else if (this.modal === 'notebook' && this.tab === 'items' && (k === 'arrowleft' || k === 'arrowright') && this.itemCats?.length) {
       const i = this.itemCats.findIndex((c) => c.id === this.itemCat);
       const n = this.itemCats.length;

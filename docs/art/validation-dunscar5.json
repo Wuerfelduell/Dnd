@@ -1,0 +1,938 @@
+{
+  "batch": "dunscar5",
+  "result": "pass",
+  "assets": 100,
+  "occupiedFrames": 988,
+  "visibleColors": 31,
+  "byKind": {
+    "walk": 24,
+    "portraits": 24,
+    "overworld": 11,
+    "battle": 12,
+    "prop": 4,
+    "atlas": 1,
+    "icon": 6,
+    "heads": 1,
+    "bestiary": 11,
+    "wanted": 6
+  },
+  "checks": [
+    "independent required file inventory",
+    "exact dimensions",
+    "indexed PNG",
+    "shared palette",
+    "binary alpha",
+    "cell margins",
+    "occupied cells and empty padding",
+    "baselines",
+    "animation ranges",
+    "walk and expression variety",
+    "two identical windup frames",
+    "both signal breaker phases",
+    "child nonlethal metadata",
+    "atlas regions",
+    "source provenance"
+  ],
+  "files": [
+    {
+      "file": "characters/k3h_troedlerin_walk.png",
+      "size": [
+        64,
+        128
+      ],
+      "visibleColors": 25,
+      "sha256": "5a890dc156276b6829a82fca706517e3b3d5d7aff56b5545877db3d037c1389b"
+    },
+    {
+      "file": "portraits/k3h_troedlerin_emotions.png",
+      "size": [
+        256,
+        64
+      ],
+      "visibleColors": 24,
+      "sha256": "1b357844e296c95e2c0fffcad8754200dab122de3895dbec3f35c06e2ef8b399"
+    },
+    {
+      "file": "portraits/AK_k3h_troedlerin_emotions2.png",
+      "size": [
+        256,
+        64
+      ],
+      "visibleColors": 23,
+      "sha256": "e2b09e4d72d8a5252f09d412c8d22be212c513497d9af0e2be0bbb03733ff6c1"
+    },
+    {
+      "file": "characters/k3h_steinmetz_walk.png",
+      "size": [
+        64,
+        128
+      ],
+      "visibleColors": 27,
+      "sha256": "6bf70ac8e4525ab381d5091b1e184ec6ee7b3e5fd2dce5ff3c1833c85b9a8b59"
+    },
+    {
+      "file": "portraits/k3h_steinmetz_emotions.png",
+      "size": [
+        256,
+        64
+      ],
+      "visibleColors": 25,
+      "sha256": "18415f4091c908b9d5f0cd32d4db9ea2e11838b1b1b1ed4be48e57806ef2a658"
+    },
+    {
+      "file": "portraits/AK_k3h_steinmetz_emotions2.png",
+      "size": [
+        256,
+        64
+      ],
+      "visibleColors": 24,
+      "sha256": "fb2344cd289defe27eff5fcfacfcf19f3743ecce8dc95f1246500f64cb4a0729"
+    },
+    {
+      "file": "characters/k3h_lampenwart_walk.png",
+      "size": [
+        64,
+        128
+      ],
+      "visibleColors": 23,
+      "sha256": "a1b200dc494fed48b69be1cb089c3f95ff53307594f3b08d8cdcaddfafa59ffa"
+    },
+    {
+      "file": "portraits/k3h_lampenwart_emotions.png",
+      "size": [
+        256,
+        64
+      ],
+      "visibleColors": 23,
+      "sha256": "f2552f17d5c3b366937e51f153d3c36737bbbde1c3df83b11a138e559fd43f43"
+    },
+    {
+      "file": "portraits/AK_k3h_lampenwart_emotions2.png",
+      "size": [
+        256,
+        64
+      ],
+      "visibleColors": 24,
+      "sha256": "a2054eb81f801b208b5b2f039e4de392cd2722fa78719f41f7fcc1ebbe401222"
+    },
+    {
+      "file": "characters/zirkel_schichtbund_walk.png",
+      "size": [
+        64,
+        128
+      ],
+      "visibleColors": 24,
+      "sha256": "4927b2f338a6f738bcde33c3380ebb4f3ea1558f55d5c79e18e8c510bf3d135d"
+    },
+    {
+      "file": "portraits/zirkel_schichtbund_emotions.png",
+      "size": [
+        256,
+        64
+      ],
+      "visibleColors": 23,
+      "sha256": "5c6a7daae8f1aeab913483087582ac4c108d9edcfdf5f70ca7046a1f6c5ecfe2"
+    },
+    {
+      "file": "portraits/AK_zirkel_schichtbund_emotions2.png",
+      "size": [
+        256,
+        64
+      ],
+      "visibleColors": 23,
+      "sha256": "5348d08a4e6e5420b39d70774cb5f05fe99f4c939b899f4f816d631b9800635b"
+    },
+    {
+      "file": "characters/tm_ds_lampe_walk.png",
+      "size": [
+        64,
+        128
+      ],
+      "visibleColors": 21,
+      "sha256": "e679f5bfa49225f9f569ce40f4d876607313effa72d55e02711b5a30baad8718"
+    },
+    {
+      "file": "portraits/tm_ds_lampe_emotions.png",
+      "size": [
+        256,
+        64
+      ],
+      "visibleColors": 21,
+      "sha256": "8fe3f1c3651b613c1cb7290845dbcb71b3196f735f350f7e12c1c369a7280431"
+    },
+    {
+      "file": "portraits/AK_tm_ds_lampe_emotions2.png",
+      "size": [
+        256,
+        64
+      ],
+      "visibleColors": 23,
+      "sha256": "752da104a7fd3745a5e81ae6c2759b697b475e129eb18c5b2a0c894e2781b4a6"
+    },
+    {
+      "file": "characters/tm_ds_kerbholz_walk.png",
+      "size": [
+        64,
+        128
+      ],
+      "visibleColors": 24,
+      "sha256": "c87946471c88df6cfa8c5c43fb6a32202ac4e3b218918eb637863a6c1126da1f"
+    },
+    {
+      "file": "portraits/tm_ds_kerbholz_emotions.png",
+      "size": [
+        256,
+        64
+      ],
+      "visibleColors": 23,
+      "sha256": "1a8e3ca0196a661db3cbb8290dc458433eeea42c1a495103c9c9967f1e93e7a3"
+    },
+    {
+      "file": "portraits/AK_tm_ds_kerbholz_emotions2.png",
+      "size": [
+        256,
+        64
+      ],
+      "visibleColors": 27,
+      "sha256": "b593b84503a21d2efb67e6817b09d39c6173a7d8a6064aae798c545bcf1b8347"
+    },
+    {
+      "file": "characters/tm_ds_stimme_walk.png",
+      "size": [
+        64,
+        128
+      ],
+      "visibleColors": 23,
+      "sha256": "8c50ef11d1df6948453bc59667a1c830fab095d6aee3262aeb2a1ceae548d607"
+    },
+    {
+      "file": "portraits/tm_ds_stimme_emotions.png",
+      "size": [
+        256,
+        64
+      ],
+      "visibleColors": 21,
+      "sha256": "d1c501cde38043b35471cdf635759fc204ce8e0bfec675cc2861d00eb526c048"
+    },
+    {
+      "file": "portraits/AK_tm_ds_stimme_emotions2.png",
+      "size": [
+        256,
+        64
+      ],
+      "visibleColors": 24,
+      "sha256": "ea283dbca7715c1a23dd5151f1ce50d7d1c697b3394483f6cfe1a570c346e610"
+    },
+    {
+      "file": "characters/ez_ds_rangierer_walk.png",
+      "size": [
+        64,
+        128
+      ],
+      "visibleColors": 22,
+      "sha256": "2e9b9ec8d681cb80b1aa418b8a18b5b1b29bf487d86417b40faa0f4a3d5b98e0"
+    },
+    {
+      "file": "portraits/ez_ds_rangierer_emotions.png",
+      "size": [
+        256,
+        64
+      ],
+      "visibleColors": 22,
+      "sha256": "d3541227672e994ebd13942608b05da56a3b6384e59081164de88068365da933"
+    },
+    {
+      "file": "portraits/AK_ez_ds_rangierer_emotions2.png",
+      "size": [
+        256,
+        64
+      ],
+      "visibleColors": 25,
+      "sha256": "7f596e5f87aad496f0844415c4b0eb889585dde3ab453edf6fcc3f3005ff4f24"
+    },
+    {
+      "file": "characters/ez_ds_kalkbrennerin_walk.png",
+      "size": [
+        64,
+        128
+      ],
+      "visibleColors": 28,
+      "sha256": "e8454feb3ed1aaca052d1a7f4ff9c9f832d7a35e970e0d484af19af8852bb9bb"
+    },
+    {
+      "file": "portraits/ez_ds_kalkbrennerin_emotions.png",
+      "size": [
+        256,
+        64
+      ],
+      "visibleColors": 27,
+      "sha256": "c71a575f29f448978309d8ac06e7ab3fdae471e479d69a0d484e637ffcb137b7"
+    },
+    {
+      "file": "portraits/AK_ez_ds_kalkbrennerin_emotions2.png",
+      "size": [
+        256,
+        64
+      ],
+      "visibleColors": 27,
+      "sha256": "c6725a492aeb019036c860ebbdec8c9fc4cdb7922efbfd75e86d4c075a98c7a6"
+    },
+    {
+      "file": "characters/ez_ds_streckenlaeufer_walk.png",
+      "size": [
+        64,
+        128
+      ],
+      "visibleColors": 22,
+      "sha256": "4cb2b296324783bb54a606d2dcbe1c8419ab649fb54bc2e8ccb796ef90286da3"
+    },
+    {
+      "file": "portraits/ez_ds_streckenlaeufer_emotions.png",
+      "size": [
+        256,
+        64
+      ],
+      "visibleColors": 22,
+      "sha256": "21dfe67ae5fd6118d97d2c58cba2b55f71dc9ad576f2fba30d3802b28f087dae"
+    },
+    {
+      "file": "portraits/AK_ez_ds_streckenlaeufer_emotions2.png",
+      "size": [
+        256,
+        64
+      ],
+      "visibleColors": 23,
+      "sha256": "a5248dfea5bbf49d84fe01a9a1ce82689c48cada6fff3c38a6ccc11bd5c2c1dc"
+    },
+    {
+      "file": "characters/ez_ds_walzenstimme_walk.png",
+      "size": [
+        64,
+        128
+      ],
+      "visibleColors": 23,
+      "sha256": "ac55e6978f7f5c08e0b3bd62ab452548423dd8a39177cb64c81cb8900c04724a"
+    },
+    {
+      "file": "portraits/ez_ds_walzenstimme_emotions.png",
+      "size": [
+        256,
+        64
+      ],
+      "visibleColors": 23,
+      "sha256": "7003c23659dc98ad493c1e274cbd8c59f1d650a2999298abe71e3c04e04bbaf5"
+    },
+    {
+      "file": "portraits/AK_ez_ds_walzenstimme_emotions2.png",
+      "size": [
+        256,
+        64
+      ],
+      "visibleColors": 29,
+      "sha256": "1a1a7680e891d734cc825e0edbd466f99428bf51ddbafe4ce6eda11910bf68fa"
+    },
+    {
+      "file": "characters/ez_ds_schrankenkind_walk.png",
+      "size": [
+        64,
+        128
+      ],
+      "visibleColors": 23,
+      "sha256": "b40fc575d9752d224a651967a655453152682811abdbde6069258167c1ffee9c"
+    },
+    {
+      "file": "portraits/ez_ds_schrankenkind_emotions.png",
+      "size": [
+        256,
+        64
+      ],
+      "visibleColors": 22,
+      "sha256": "61ed1a4cf4df1ea18bbc47fc3e0010f888160feb9afb0fdc752ea5f6f1a25093"
+    },
+    {
+      "file": "portraits/AK_ez_ds_schrankenkind_emotions2.png",
+      "size": [
+        256,
+        64
+      ],
+      "visibleColors": 22,
+      "sha256": "4eaaec17f3863c4535f01a657082087407799f93b612a5aef5baf3b72dada1a0"
+    },
+    {
+      "file": "characters/k3e_schichtwitwe_walk.png",
+      "size": [
+        64,
+        128
+      ],
+      "visibleColors": 22,
+      "sha256": "e3e99ee3d93e3cc272ccdb150c528537a8d0d370faf2d5f889a057e2cb35c81f"
+    },
+    {
+      "file": "characters/k3e_kalkjunge_walk.png",
+      "size": [
+        64,
+        128
+      ],
+      "visibleColors": 26,
+      "sha256": "88786db893d1e4044137e748ae8dc33616a67ecac520a19ad9957b9fcc171ad5"
+    },
+    {
+      "file": "characters/k3e_wagenputzer_walk.png",
+      "size": [
+        64,
+        128
+      ],
+      "visibleColors": 23,
+      "sha256": "d69fe0bc66529570da6425c0df00f31d599aa01d3360212e1ec8a746cdac196a"
+    },
+    {
+      "file": "characters/k3e_zeitungsfrau_walk.png",
+      "size": [
+        64,
+        128
+      ],
+      "visibleColors": 27,
+      "sha256": "d9224963a474b5fe83426e76234c03e827c3c3abf025715e2095d2966f3a6f8e"
+    },
+    {
+      "file": "characters/k3e_bahnbettler_walk.png",
+      "size": [
+        64,
+        128
+      ],
+      "visibleColors": 24,
+      "sha256": "ecb16f4cc15bcecbe05cc43f2fd1887765d73012bda23e4ae00ed8aff2fc9487"
+    },
+    {
+      "file": "characters/k3e_steinmetzgeselle_walk.png",
+      "size": [
+        64,
+        128
+      ],
+      "visibleColors": 22,
+      "sha256": "6c023076d8fe49f4d989a09c0ea0f506c94f126b61cde1c822ac83b550a54e61"
+    },
+    {
+      "file": "characters/k3e_teesaalgast_walk.png",
+      "size": [
+        64,
+        128
+      ],
+      "visibleColors": 22,
+      "sha256": "d1332b36d610efb47ea2f8c302e7369142a0935e8fec9a7fe50d453fc8313a93"
+    },
+    {
+      "file": "characters/k3e_signalkind_walk.png",
+      "size": [
+        64,
+        128
+      ],
+      "visibleColors": 23,
+      "sha256": "5a8751bd66abecd6b79be8ab5e4aa2d3d99a854942f25d912ef9fb0f208e0ee1"
+    },
+    {
+      "file": "characters/k3e_aufseher_a_walk.png",
+      "size": [
+        64,
+        128
+      ],
+      "visibleColors": 23,
+      "sha256": "e0639dffcd4ddca4d48d87e7e5a8c7bf32bee4c65786e151d0fedc1c0269d29d"
+    },
+    {
+      "file": "characters/k3e_aufseher_b_walk.png",
+      "size": [
+        64,
+        128
+      ],
+      "visibleColors": 25,
+      "sha256": "1efae1b27a21c05654acaa1b34d3b4a0bac96eb3a4a322e64d196234f8bb765d"
+    },
+    {
+      "file": "characters/k3e_wagenputzer_schicht.png",
+      "size": [
+        64,
+        128
+      ],
+      "visibleColors": 22,
+      "sha256": "52593ece256727d97cd88a41ce2fba04ff0246cffed43636057c0dac3adcad11"
+    },
+    {
+      "file": "characters/k3e_steinmetzgeselle_schicht.png",
+      "size": [
+        64,
+        128
+      ],
+      "visibleColors": 24,
+      "sha256": "f9051ed139ae204bcd9513a2d4b30b76ab2ffe2521299ec6197451e1ed072dc7"
+    },
+    {
+      "file": "characters/F_ow_k3k_kupferdieb.png",
+      "size": [
+        64,
+        128
+      ],
+      "visibleColors": 22,
+      "sha256": "be3a9597f1571c5431708bc5de430742bd7ed7c3f79b0e33ba57306e0ade9dcb"
+    },
+    {
+      "file": "characters/F_ow_k3k_schienenlaeufer.png",
+      "size": [
+        64,
+        128
+      ],
+      "visibleColors": 22,
+      "sha256": "35b8ba6f850c462367b261531cd218be45619bf37d1f316f9612a1dd08ca6c58"
+    },
+    {
+      "file": "characters/F_ow_k3k_lohnfaelscher.png",
+      "size": [
+        64,
+        128
+      ],
+      "visibleColors": 26,
+      "sha256": "0c70aae20395e3e3fd7acce9ece7fa5217f1729f9cdee03615c9e3cc2c8e1745"
+    },
+    {
+      "file": "characters/F_ow_k3k_staubschmuggler.png",
+      "size": [
+        64,
+        128
+      ],
+      "visibleColors": 26,
+      "sha256": "8e2925c2b92df023265b281ac1d0363ca1665c3937f70d75613efc379356fd5a"
+    },
+    {
+      "file": "characters/F_ow_k3k_walzenhehler.png",
+      "size": [
+        64,
+        128
+      ],
+      "visibleColors": 26,
+      "sha256": "78813d0a145a0c4d734b12ad48de8d0374afc846ed5a858686daf11290956d39"
+    },
+    {
+      "file": "characters/F_ow_k3k_signalbrecher.png",
+      "size": [
+        64,
+        128
+      ],
+      "visibleColors": 24,
+      "sha256": "2fd6a4f980a846d4b44b06a619c511994718f4b4b5e1372d8b4382f9ad5a2f08"
+    },
+    {
+      "file": "battle/enemy_ez_ds_rangierer.png",
+      "size": [
+        288,
+        240
+      ],
+      "visibleColors": 25,
+      "sha256": "b054d2f17e74c4b344f655b8b5d38bfce87ec4adbc735e6328a665b9e9820106"
+    },
+    {
+      "file": "battle/enemy_ez_ds_kalkbrennerin.png",
+      "size": [
+        288,
+        240
+      ],
+      "visibleColors": 28,
+      "sha256": "0393383f4e4a013499d333dc1c93b2558fd124cbdaef465218b03d5f5691a49f"
+    },
+    {
+      "file": "battle/enemy_ez_ds_streckenlaeufer.png",
+      "size": [
+        288,
+        240
+      ],
+      "visibleColors": 28,
+      "sha256": "69627573c4b90a68301c3f8000201a6f76ab30fdcece075b457c2835519ee9a2"
+    },
+    {
+      "file": "battle/enemy_ez_ds_walzenstimme.png",
+      "size": [
+        288,
+        240
+      ],
+      "visibleColors": 30,
+      "sha256": "ff42be1d513b9f5b8b22e22622440746812b1ef91dcd95ff48a5962ad037ee2d"
+    },
+    {
+      "file": "battle/enemy_ez_ds_schrankenkind.png",
+      "size": [
+        288,
+        240
+      ],
+      "visibleColors": 26,
+      "sha256": "7484709cfda2e7063d9d15b69662b534a52a96655fde7747306fe741b4ae54bf"
+    },
+    {
+      "file": "battle/enemy_k3k_kupferdieb.png",
+      "size": [
+        288,
+        240
+      ],
+      "visibleColors": 27,
+      "sha256": "bc7fecf80f8ca99a126fde95043ea979573c394989459e38614e76458a9f25e9"
+    },
+    {
+      "file": "battle/enemy_k3k_schienenlaeufer.png",
+      "size": [
+        288,
+        240
+      ],
+      "visibleColors": 27,
+      "sha256": "2408002a9c9ff1bfbdaa907b8eb3c9b73b85a4549e2e8943b9592f936234d51f"
+    },
+    {
+      "file": "battle/enemy_k3k_lohnfaelscher.png",
+      "size": [
+        288,
+        240
+      ],
+      "visibleColors": 26,
+      "sha256": "29a55a8a8a37430c19b6e3c74290063471c18aa0590183242720085a0759a63e"
+    },
+    {
+      "file": "battle/enemy_k3k_staubschmuggler.png",
+      "size": [
+        288,
+        240
+      ],
+      "visibleColors": 24,
+      "sha256": "30c1b43acd7c88db7b2930f55357233a33297db57984dfb1762893d628e83cbf"
+    },
+    {
+      "file": "battle/enemy_k3k_walzenhehler.png",
+      "size": [
+        288,
+        240
+      ],
+      "visibleColors": 30,
+      "sha256": "f776bf963f413b926993cef8e90eccb213978815743c3c25e53b80c11d44ed17"
+    },
+    {
+      "file": "battle/enemy_k3k_signalbrecher.png",
+      "size": [
+        384,
+        320
+      ],
+      "visibleColors": 28,
+      "sha256": "f2a08371ea5103c3a23ecb1f2e5430c1e35716cde796d7079169274bed85b367"
+    },
+    {
+      "file": "props/BE_troedelstand.png",
+      "size": [
+        32,
+        32
+      ],
+      "visibleColors": 23,
+      "sha256": "92c8f67c791ae3872f8c7e6741eabdf65b2bafdc460748763e21fc4d2961705b"
+    },
+    {
+      "file": "props/BE_steinmetzwerkbank.png",
+      "size": [
+        48,
+        32
+      ],
+      "visibleColors": 21,
+      "sha256": "435446fb217a5062d6be7e9bd94e7500596b0d93053630e3d513f0e626a9035b"
+    },
+    {
+      "file": "props/BE_schaltbuden_theke.png",
+      "size": [
+        32,
+        32
+      ],
+      "visibleColors": 26,
+      "sha256": "c5cbb3011e6afb7bb42764d384b0bd2626b7131fa9044748dffbab73d2128073"
+    },
+    {
+      "file": "props/BE_lichtkegel.png",
+      "size": [
+        64,
+        64
+      ],
+      "visibleColors": 5,
+      "sha256": "dd0448f1bc62fc6074d1e5cf7ce583f0b81eed8c98c625c5691ceda63c167b06"
+    },
+    {
+      "file": "props/BE_schichtbund.png",
+      "size": [
+        256,
+        128
+      ],
+      "visibleColors": 23,
+      "sha256": "2b212f21b44fd6367168a190ac61db56514f02e18003c09e6e42212e10a40ecf"
+    },
+    {
+      "file": "items/k3k_kupferdieb_trophaee.png",
+      "size": [
+        16,
+        16
+      ],
+      "visibleColors": 9,
+      "sha256": "1c2a06a6bca4ec9d6e422d5d87e007e1556485c927b33733822d553ab7c3e73b"
+    },
+    {
+      "file": "items/k3k_schienenlaeufer_trophaee.png",
+      "size": [
+        16,
+        16
+      ],
+      "visibleColors": 17,
+      "sha256": "b81762fb511181b0ad163190e272e3fc76e85f51fe74a1feacece85a5d63c031"
+    },
+    {
+      "file": "items/k3k_lohnfaelscher_trophaee.png",
+      "size": [
+        16,
+        16
+      ],
+      "visibleColors": 20,
+      "sha256": "b80fefaaa91ce90da58c48e5d1ddbb14dab62094abde9dd40c46251835958cf8"
+    },
+    {
+      "file": "items/k3k_staubschmuggler_trophaee.png",
+      "size": [
+        16,
+        16
+      ],
+      "visibleColors": 15,
+      "sha256": "32d1f73d668437733b0563bc1bd0f1dd57800512b30bdd2f3d08733e729eb8f3"
+    },
+    {
+      "file": "items/k3k_walzenhehler_trophaee.png",
+      "size": [
+        16,
+        16
+      ],
+      "visibleColors": 11,
+      "sha256": "d77953142d6f1aa34b4831e44656a1f4272ebdbe8a376e9f3e50e3600451d22f"
+    },
+    {
+      "file": "items/k3k_signalbrecher_trophaee.png",
+      "size": [
+        16,
+        16
+      ],
+      "visibleColors": 11,
+      "sha256": "4c86d884d398068afa711cf100f14ae3bdbf144f262662dd25c51aa693a13906"
+    },
+    {
+      "file": "characters/F_ow_ez_ds_rangierer.png",
+      "size": [
+        64,
+        128
+      ],
+      "visibleColors": 22,
+      "sha256": "2e9b9ec8d681cb80b1aa418b8a18b5b1b29bf487d86417b40faa0f4a3d5b98e0"
+    },
+    {
+      "file": "characters/F_ow_ez_ds_kalkbrennerin.png",
+      "size": [
+        64,
+        128
+      ],
+      "visibleColors": 28,
+      "sha256": "e8454feb3ed1aaca052d1a7f4ff9c9f832d7a35e970e0d484af19af8852bb9bb"
+    },
+    {
+      "file": "characters/F_ow_ez_ds_streckenlaeufer.png",
+      "size": [
+        64,
+        128
+      ],
+      "visibleColors": 22,
+      "sha256": "4cb2b296324783bb54a606d2dcbe1c8419ab649fb54bc2e8ccb796ef90286da3"
+    },
+    {
+      "file": "characters/F_ow_ez_ds_walzenstimme.png",
+      "size": [
+        64,
+        128
+      ],
+      "visibleColors": 23,
+      "sha256": "ac55e6978f7f5c08e0b3bd62ab452548423dd8a39177cb64c81cb8900c04724a"
+    },
+    {
+      "file": "characters/F_ow_ez_ds_schrankenkind.png",
+      "size": [
+        64,
+        128
+      ],
+      "visibleColors": 23,
+      "sha256": "b40fc575d9752d224a651967a655453152682811abdbde6069258167c1ffee9c"
+    },
+    {
+      "file": "portraits/BE_koepfe.png",
+      "size": [
+        192,
+        72
+      ],
+      "visibleColors": 25,
+      "sha256": "df9ada5ddd76e68770ab5d73f66c2e32b511440b76045017cc07a73e26ae23f0"
+    },
+    {
+      "file": "ui/bestiary/F_ez_ds_rangierer.png",
+      "size": [
+        96,
+        128
+      ],
+      "visibleColors": 22,
+      "sha256": "16f89ee1c4f1a28948b392abce456cd1a1caf30fdc06cb679204c00dbf947339"
+    },
+    {
+      "file": "ui/bestiary/F_ez_ds_kalkbrennerin.png",
+      "size": [
+        96,
+        128
+      ],
+      "visibleColors": 25,
+      "sha256": "2100d3345bbd441c169916da8feeb740cd97cbf29bfb13661a18726ba2960c28"
+    },
+    {
+      "file": "ui/bestiary/F_ez_ds_streckenlaeufer.png",
+      "size": [
+        96,
+        128
+      ],
+      "visibleColors": 21,
+      "sha256": "15767b3b18b911accaff01d96fa27e60a7237f10ab85e80cc22963d863a22824"
+    },
+    {
+      "file": "ui/bestiary/F_ez_ds_walzenstimme.png",
+      "size": [
+        96,
+        128
+      ],
+      "visibleColors": 27,
+      "sha256": "8887da7f882aa082eb90442b37d08cbf2073940076fc4170bb53bad38ddf2d57"
+    },
+    {
+      "file": "ui/bestiary/F_ez_ds_schrankenkind.png",
+      "size": [
+        96,
+        128
+      ],
+      "visibleColors": 22,
+      "sha256": "6e0cd7a046df6afece0c30dd8f253e95569cc982a3dc58c78a439fdf34542eb0"
+    },
+    {
+      "file": "ui/bestiary/F_k3k_kupferdieb.png",
+      "size": [
+        96,
+        128
+      ],
+      "visibleColors": 20,
+      "sha256": "873ac6e11134aa52faa09c2d1347f532f405b8600ea95dd2f83924531fb9c464"
+    },
+    {
+      "file": "ui/BE_steckbrief_k3k_kupferdieb.png",
+      "size": [
+        48,
+        64
+      ],
+      "visibleColors": 5,
+      "sha256": "ba8479939e85e5676eec5a708d92fea1d9185f07a9910a3e5d576918f673096c"
+    },
+    {
+      "file": "ui/bestiary/F_k3k_schienenlaeufer.png",
+      "size": [
+        96,
+        128
+      ],
+      "visibleColors": 20,
+      "sha256": "090b262d7d286435e9a8a4e214ddb24c605828dd93abdefc51a464b49d3f9441"
+    },
+    {
+      "file": "ui/BE_steckbrief_k3k_schienenlaeufer.png",
+      "size": [
+        48,
+        64
+      ],
+      "visibleColors": 5,
+      "sha256": "4657b5dc65397f2deb9c2a16b5781ec886d33ab623cfb4b6915dd6c2ed8282c7"
+    },
+    {
+      "file": "ui/bestiary/F_k3k_lohnfaelscher.png",
+      "size": [
+        96,
+        128
+      ],
+      "visibleColors": 22,
+      "sha256": "012ea31c764da2f4f1f064cdbef2abbc69002feb8c494d12ff16f8c8fd82976e"
+    },
+    {
+      "file": "ui/BE_steckbrief_k3k_lohnfaelscher.png",
+      "size": [
+        48,
+        64
+      ],
+      "visibleColors": 5,
+      "sha256": "1ae409311b3b59443cc07fd0c3d00fed0ce0838df53fa2828cff53548e3b1e7d"
+    },
+    {
+      "file": "ui/bestiary/F_k3k_staubschmuggler.png",
+      "size": [
+        96,
+        128
+      ],
+      "visibleColors": 20,
+      "sha256": "68660b54bb8c44a49e9634c8f4f4c565304a8bd1a2c5608580572c0c07c33479"
+    },
+    {
+      "file": "ui/BE_steckbrief_k3k_staubschmuggler.png",
+      "size": [
+        48,
+        64
+      ],
+      "visibleColors": 5,
+      "sha256": "9b7b674b8dade84ea37c04acd1b043e9c1eeaf4e053a67cfd5bdcc7b9b42bb4a"
+    },
+    {
+      "file": "ui/bestiary/F_k3k_walzenhehler.png",
+      "size": [
+        96,
+        128
+      ],
+      "visibleColors": 23,
+      "sha256": "2e802252f4dd7a9dceac788a78e81b492e55848adaeb3516c7e1e043b935930a"
+    },
+    {
+      "file": "ui/BE_steckbrief_k3k_walzenhehler.png",
+      "size": [
+        48,
+        64
+      ],
+      "visibleColors": 5,
+      "sha256": "3017f3125fb930931bc8dde6315135e500ea14e05d083c4ee61ff06ad27e78db"
+    },
+    {
+      "file": "ui/bestiary/F_k3k_signalbrecher.png",
+      "size": [
+        96,
+        128
+      ],
+      "visibleColors": 23,
+      "sha256": "fec57b4eb9f120f67f23a8b499419de6436041afe9d47ff3eef82202c35ed220"
+    },
+    {
+      "file": "ui/BE_steckbrief_k3k_signalbrecher.png",
+      "size": [
+        48,
+        64
+      ],
+      "visibleColors": 5,
+      "sha256": "ca84252598b17647438f4cc463cfce18469ff1ed14e5fb298bc25bbbb6908d7a"
+    },
+    {
+      "file": "battle/enemy_k3k_staubschmuggler_elite.png",
+      "size": [
+        288,
+        240
+      ],
+      "visibleColors": 18,
+      "sha256": "c16a11d31b8fe8940bc9badfb158f1ae7e851a0789d934133d5d062dff12d0ae"
+    }
+  ]
+}

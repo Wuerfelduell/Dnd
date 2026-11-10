@@ -1,0 +1,412 @@
+{
+  "k3a_pfiff": {
+    "choices_add": [
+      {
+        "text": "Sie bemerken meine Begleitung.",
+        "next": "koop_ds_reaktion_pfiff",
+        "requires_flags": [
+          "koop_aktiv"
+        ]
+      }
+    ],
+    "nodes_add": {
+      "koop_ds_reaktion_pfiff": {
+        "text": "„Noch ein Mantel. Gut. Die zweite Koje ist frei. Schiebt nur die Stiefel nicht unter meinen Ofen.“",
+        "choices": [
+          {
+            "text": "Wir nehmen beide Rücksicht.",
+            "next": "koop_ds_reaktion_pfiff_antwort",
+            "requires_flags": [
+              "koop_aktiv"
+            ]
+          },
+          {
+            "text": "Wir kommen später wieder."
+          }
+        ]
+      },
+      "koop_ds_reaktion_pfiff_antwort": {
+        "text": "„Die Decke liegt schon da. Ihr müsst mir dafür keine Geschichte versprechen.“",
+        "choices": [
+          {
+            "text": "Danke.",
+            "next": "k3a_start"
+          }
+        ],
+        "sets_flags": [
+          "koop_ds_koje"
+        ]
+      }
+    }
+  },
+  "k3a_gallowmere": {
+    "choices_add": [
+      {
+        "text": "Sie bemerken meine Begleitung.",
+        "next": "koop_ds_reaktion_gallowmere",
+        "requires_flags": [
+          "koop_aktiv"
+        ]
+      }
+    ],
+    "nodes_add": {
+      "koop_ds_reaktion_gallowmere": {
+        "text": "„Zwei Antworten mehr.“ Der Fahrmeister betrachtet euch nacheinander, als prüfe er freie Zeilen.",
+        "choices": [
+          {
+            "text": "Zwei Menschen. Keine Meldung.",
+            "next": "koop_ds_reaktion_gallowmere_antwort",
+            "requires_flags": [
+              "koop_aktiv"
+            ]
+          },
+          {
+            "text": "Wir kommen später wieder."
+          }
+        ]
+      },
+      "koop_ds_reaktion_gallowmere_antwort": {
+        "text": "„Auch ein Widerspruch braucht eine Stimme.“ Seine Hand bleibt über der Liste stehen.",
+        "choices": [
+          {
+            "text": "Danke.",
+            "next": "k3a_start"
+          }
+        ]
+      }
+    }
+  },
+  "k3a_willa": {
+    "choices_add": [
+      {
+        "text": "Sie bemerken meine Begleitung.",
+        "next": "koop_ds_reaktion_willa",
+        "requires_flags": [
+          "koop_aktiv"
+        ]
+      }
+    ],
+    "nodes_add": {
+      "koop_ds_reaktion_willa": {
+        "text": "„Zu zweit? Dann bitte nacheinander. Sonst messe ich nur, wie gut ihr euch unterbrecht.“",
+        "choices": [
+          {
+            "text": "Wir können auch beide schweigen.",
+            "next": "koop_ds_reaktion_willa_antwort",
+            "requires_flags": [
+              "koop_aktiv"
+            ]
+          },
+          {
+            "text": "Wir kommen später wieder."
+          }
+        ]
+      },
+      "koop_ds_reaktion_willa_antwort": {
+        "text": "„Ausgezeichnet. Das wäre zunächst die sauberste Probe.“",
+        "choices": [
+          {
+            "text": "Danke.",
+            "next": "k3a_start"
+          }
+        ]
+      }
+    }
+  },
+  "k3a_oren": {
+    "choices_add": [
+      {
+        "text": "Sie bemerken meine Begleitung.",
+        "next": "koop_ds_reaktion_oren",
+        "requires_flags": [
+          "koop_aktiv"
+        ]
+      }
+    ],
+    "nodes_add": {
+      "koop_ds_reaktion_oren": {
+        "text": "Oren wischt seine Hände ab. „Zwei Leute im Depot. Einer bleibt bitte immer aus dem Schwenkbereich.“",
+        "choices": [
+          {
+            "text": "Wir passen aufeinander auf.",
+            "next": "koop_ds_reaktion_oren_antwort",
+            "requires_flags": [
+              "koop_aktiv"
+            ]
+          },
+          {
+            "text": "Wir kommen später wieder."
+          }
+        ]
+      },
+      "koop_ds_reaktion_oren_antwort": {
+        "text": "„Besser auf das Gestänge. Das passt auf niemanden auf.“",
+        "choices": [
+          {
+            "text": "Danke.",
+            "next": "k3a_start"
+          }
+        ]
+      }
+    }
+  },
+  "k3a_mabel": {
+    "choices_add": [
+      {
+        "text": "Sie bemerken meine Begleitung.",
+        "next": "koop_ds_reaktion_mabel",
+        "requires_flags": [
+          "koop_aktiv"
+        ]
+      }
+    ],
+    "nodes_add": {
+      "koop_ds_reaktion_mabel": {
+        "text": "Mabel stellt einen zweiten Teller hin. „Ich zähle Mäntel, keine Bestellungen. Setzt euch.“",
+        "choices": [
+          {
+            "text": "Sie rechnen mit uns beiden?",
+            "next": "koop_ds_reaktion_mabel_antwort",
+            "requires_flags": [
+              "koop_aktiv"
+            ]
+          },
+          {
+            "text": "Wir kommen später wieder."
+          }
+        ]
+      },
+      "koop_ds_reaktion_mabel_antwort": {
+        "text": "„Mit zwei Hungrigen. Den Rest erzählt ihr, wenn ihr wollt.“",
+        "choices": [
+          {
+            "text": "Danke.",
+            "next": "k3a_start"
+          }
+        ]
+      }
+    }
+  },
+  "k3a_pelham": {
+    "choices_add": [
+      {
+        "text": "Sie bemerken meine Begleitung.",
+        "next": "koop_ds_reaktion_pelham",
+        "requires_flags": [
+          "koop_aktiv"
+        ]
+      }
+    ],
+    "nodes_add": {
+      "koop_ds_reaktion_pelham": {
+        "text": "„Zwei Besucher.“ Pelham legt den Meißel hin. „Wer von Ihnen stellt die Frage?“",
+        "choices": [
+          {
+            "text": "Wir hören erst einmal beide zu.",
+            "next": "koop_ds_reaktion_pelham_antwort",
+            "requires_flags": [
+              "koop_aktiv"
+            ]
+          },
+          {
+            "text": "Wir kommen später wieder."
+          }
+        ]
+      },
+      "koop_ds_reaktion_pelham_antwort": {
+        "text": "„Dann muss ich mich wenigstens nicht entscheiden, wen ich ansehe.“",
+        "choices": [
+          {
+            "text": "Danke.",
+            "next": "k3a_start"
+          }
+        ]
+      }
+    }
+  },
+  "k3a_nellie": {
+    "choices_add": [
+      {
+        "text": "Sie bemerken meine Begleitung.",
+        "next": "koop_ds_reaktion_nellie",
+        "requires_flags": [
+          "koop_aktiv"
+        ]
+      }
+    ],
+    "nodes_add": {
+      "koop_ds_reaktion_nellie": {
+        "text": "Nellie blickt zwischen euch hin und her. „Ich trage keine Nachricht von einem Ärmel zum anderen.“",
+        "choices": [
+          {
+            "text": "Wir sprechen miteinander.",
+            "next": "koop_ds_reaktion_nellie_antwort",
+            "requires_flags": [
+              "koop_aktiv"
+            ]
+          },
+          {
+            "text": "Wir kommen später wieder."
+          }
+        ]
+      },
+      "koop_ds_reaktion_nellie_antwort": {
+        "text": "„Gut. Dann bleiben meine Schuhe für längere Strecken übrig.“",
+        "choices": [
+          {
+            "text": "Danke.",
+            "next": "k3a_start"
+          }
+        ]
+      }
+    }
+  },
+  "k3a_huxford": {
+    "choices_add": [
+      {
+        "text": "Sie bemerken meine Begleitung.",
+        "next": "koop_ds_reaktion_huxford",
+        "requires_flags": [
+          "koop_aktiv"
+        ]
+      }
+    ],
+    "nodes_add": {
+      "koop_ds_reaktion_huxford": {
+        "text": "„Ihre Begleitung sieht ebenfalls müde aus. Das ist keine gemeinsame Diagnose.“",
+        "choices": [
+          {
+            "text": "Sie dürfen uns einzeln fragen.",
+            "next": "koop_ds_reaktion_huxford_antwort",
+            "requires_flags": [
+              "koop_aktiv"
+            ]
+          },
+          {
+            "text": "Wir kommen später wieder."
+          }
+        ]
+      },
+      "koop_ds_reaktion_huxford_antwort": {
+        "text": "„Das hatte ich vor. Antworten Sie bitte nicht für die andere Person.“",
+        "choices": [
+          {
+            "text": "Danke.",
+            "next": "k3a_start"
+          }
+        ]
+      }
+    }
+  },
+  "k3a_esther": {
+    "choices_add": [
+      {
+        "text": "Sie bemerken meine Begleitung.",
+        "next": "koop_ds_reaktion_esther",
+        "requires_flags": [
+          "koop_aktiv"
+        ]
+      }
+    ],
+    "nodes_add": {
+      "koop_ds_reaktion_esther": {
+        "text": "Esther zieht das Buch näher. „Und der Name der zweiten Person? Für die Lohnliste.“",
+        "choices": [
+          {
+            "text": "Wir tragen hier keinen von uns ein.",
+            "next": "koop_ds_reaktion_esther_antwort",
+            "requires_flags": [
+              "koop_aktiv"
+            ]
+          },
+          {
+            "text": "Wir kommen später wieder."
+          }
+        ]
+      },
+      "koop_ds_reaktion_esther_antwort": {
+        "text": "Die Feder bleibt trocken. „Dann notiere ich auch keinen Ersatznamen. Das wäre dieselbe Unhöflichkeit.“",
+        "choices": [
+          {
+            "text": "Danke.",
+            "next": "k3a_start"
+          }
+        ]
+      }
+    }
+  },
+  "k3a_adaine": {
+    "choices_add": [
+      {
+        "text": "Sie bemerken meine Begleitung.",
+        "next": "koop_ds_reaktion_adaine",
+        "requires_flags": [
+          "koop_aktiv"
+        ]
+      }
+    ],
+    "nodes_add": {
+      "koop_ds_reaktion_adaine": {
+        "text": "„Zwei Schatten auf meiner Messleine.“ Adaine hebt eine Hand. „Bleiben Sie bitte auf derselben Seite.“",
+        "choices": [
+          {
+            "text": "Sonst stimmt das Maß nicht?",
+            "next": "koop_ds_reaktion_adaine_antwort",
+            "requires_flags": [
+              "koop_aktiv"
+            ]
+          },
+          {
+            "text": "Wir kommen später wieder."
+          }
+        ]
+      },
+      "koop_ds_reaktion_adaine_antwort": {
+        "text": "„Das Maß schon. Aber ich stolpere, wenn ich auf beide zugleich achten muss.“",
+        "choices": [
+          {
+            "text": "Danke.",
+            "next": "k3a_start"
+          }
+        ]
+      }
+    }
+  },
+  "k3p_hedda": {
+    "choices_add": [
+      {
+        "text": "Sie bemerken meine Begleitung.",
+        "next": "koop_ds_reaktion_hedda",
+        "requires_flags": [
+          "koop_aktiv"
+        ]
+      }
+    ],
+    "nodes_add": {
+      "koop_ds_reaktion_hedda": {
+        "text": "„Zwei Pfade, zwei Prüfungen. Ich nehme euch einzeln ab. Wer wartet, bleibt außerhalb der Anordnung.“",
+        "choices": [
+          {
+            "text": "Und die Zutaten für den zweiten Pfad?",
+            "next": "koop_ds_reaktion_hedda_antwort",
+            "requires_flags": [
+              "koop_aktiv"
+            ]
+          },
+          {
+            "text": "Wir kommen später wieder."
+          }
+        ]
+      },
+      "koop_ds_reaktion_hedda_antwort": {
+        "text": "„Muss die zweite Person selbst erhalten. Ein bestandener Versuch und eine fremde Zutat ersetzen ihren Weg nicht.“",
+        "choices": [
+          {
+            "text": "Danke.",
+            "next": "k3p_start"
+          }
+        ]
+      }
+    }
+  }
+}

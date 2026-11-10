@@ -20,7 +20,7 @@ export function enemySeq(def, mapDef = {}) {
 
 /** Kopfgeld- und andere Auftragsziele: nur sichtbar, solange ein Auftrag läuft. */
 export function isQuestTarget(def) {
-  return !!def.visible_if?.requires_quests_active?.length || def.encounter?.startsWith('kopfgeld_');
+  return !!(def.visible_if?.requires_quests_active?.length || def.visible_if?.requires_any_quests_active?.length) || def.encounter?.startsWith('kopfgeld_');
 }
 
 /** Hält dieser Gegner Abstand zum Spieler? `playerSeq` ist null ohne Pfad. */

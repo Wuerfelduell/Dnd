@@ -1,0 +1,583 @@
+{
+  "lose_to": {
+    "map": "ds_speisewagen",
+    "spawn": "default"
+  },
+  "lose_money": 0.05,
+  "lose_text": "Pfiff bringt dich zurück. Die Aufträge bleiben offen.",
+  "flee_text": "Du erreichst den sicheren Rückweg.",
+  "elite_chance": 0,
+  "elite_hp": 1.35,
+  "elite_dmg": 1.2,
+  "elite_drops": [],
+  "items": {},
+  "encounters": {
+    "k3k_kupferdieb": {
+      "name": "Kupferdieb",
+      "sprite": "wild",
+      "sheet": "enemy_k3k_kupferdieb",
+      "chapter": 3,
+      "hp": 150,
+      "armor": 2,
+      "occult": false,
+      "fleeable": true,
+      "intro": "Zieht Kupferkabel aus den Signalmasten am Signalhang. Die beschädigten Leitungen gefährden die Nachbarschaft. Lebend stellen; beschlagnahmte Kabel abgeben.",
+      "attacks": [
+        {
+          "name": "Kabelzug",
+          "damage": 11,
+          "hits": [
+            1100,
+            1900
+          ]
+        },
+        {
+          "name": "Seitentritt",
+          "damage": 17,
+          "hits": [
+            2400
+          ]
+        }
+      ],
+      "win_text": "Der Gegner lässt sein Werkzeug fallen. Er atmet und ergibt sich. Die Bahnaufsicht übernimmt ihn.",
+      "on_win": {
+        "sets_flags": [
+          "won_kopfgeld_ds_kupferdieb"
+        ]
+      },
+      "first_win": {
+        "gives_items": {
+          "k3k_kupferdieb_trophaee": 1
+        }
+      },
+      "loot": {
+        "money": [
+          4,
+          8
+        ],
+        "drops": [
+          {
+            "item": "k3o_leitungsklemme",
+            "chance": 1
+          }
+        ]
+      },
+      "roam": {
+        "speed": 22,
+        "chase": 44,
+        "aggro": 44
+      },
+      "lose_to": {
+        "map": "ds_speisewagen",
+        "spawn": "default"
+      },
+      "lose_money": 0.05,
+      "lose_text": "Pfiff bringt dich hinter die Schallschleuse. Der Auftrag bleibt offen; fünf Prozent deines Geldes fehlen.",
+      "flee_text": "Du erreichst den markierten Rückweg. Der Auftrag bleibt offen."
+    },
+    "k3k_schienenlaeufer": {
+      "name": "Schienenläufer",
+      "sprite": "wild",
+      "sheet": "enemy_k3k_schienenlaeufer",
+      "chapter": 3,
+      "hp": 162,
+      "armor": 2,
+      "occult": false,
+      "fleeable": true,
+      "intro": "Springt nachts am Schwellenring auf fremde Wagen. Nicht vor den Zug treiben. Nach drei Kampfrunden entzieht er sich; ein neuer Versuch bleibt möglich.",
+      "attacks": [
+        {
+          "name": "Hakenschwung",
+          "damage": 12,
+          "hits": [
+            1100,
+            1900
+          ]
+        },
+        {
+          "name": "Anlaufsprung",
+          "damage": 18,
+          "hits": [
+            2400
+          ]
+        }
+      ],
+      "win_text": "Der Gegner lässt sein Werkzeug fallen. Er atmet und ergibt sich. Die Bahnaufsicht übernimmt ihn.",
+      "on_win": {
+        "sets_flags": [
+          "won_kopfgeld_ds_schienenlaeufer"
+        ]
+      },
+      "first_win": {
+        "gives_items": {
+          "k3k_schienenlaeufer_trophaee": 1
+        }
+      },
+      "loot": {
+        "money": [
+          4,
+          8
+        ],
+        "drops": []
+      },
+      "roam": {
+        "speed": 22,
+        "chase": 44,
+        "aggro": 44
+      },
+      "lose_to": {
+        "map": "ds_speisewagen",
+        "spawn": "default"
+      },
+      "lose_money": 0.05,
+      "lose_text": "Pfiff bringt dich hinter die Schallschleuse. Der Auftrag bleibt offen; fünf Prozent deines Geldes fehlen.",
+      "flee_text": "Du erreichst den markierten Rückweg. Der Auftrag bleibt offen."
+    },
+    "k3k_lohnfaelscher": {
+      "name": "Lohnfälscher",
+      "sprite": "wild",
+      "sheet": "enemy_k3k_lohnfaelscher",
+      "chapter": 3,
+      "hp": 174,
+      "armor": 2,
+      "occult": false,
+      "fleeable": true,
+      "intro": "Trägt lebende Nachbarn ohne Einwilligung in alte Lohnlisten ein. Am Arbeiterbogen ansprechen. Wer die falschen Verknüpfungen lösen kann, soll eine freiwillige Aufgabe versuchen.",
+      "attacks": [
+        {
+          "name": "Stempelstock",
+          "damage": 13,
+          "hits": [
+            1100,
+            1900
+          ]
+        },
+        {
+          "name": "Tintenwurf",
+          "damage": 19,
+          "hits": [
+            2400
+          ]
+        }
+      ],
+      "win_text": "Der Gegner lässt sein Werkzeug fallen. Er atmet und ergibt sich. Die Bahnaufsicht übernimmt ihn.",
+      "on_win": {
+        "sets_flags": [
+          "won_kopfgeld_ds_lohnfaelscher"
+        ]
+      },
+      "first_win": {
+        "gives_items": {
+          "k3k_lohnfaelscher_trophaee": 1
+        }
+      },
+      "loot": {
+        "money": [
+          4,
+          8
+        ],
+        "drops": []
+      },
+      "roam": {
+        "speed": 22,
+        "chase": 44,
+        "aggro": 44
+      },
+      "lose_to": {
+        "map": "ds_speisewagen",
+        "spawn": "default"
+      },
+      "lose_money": 0.05,
+      "lose_text": "Pfiff bringt dich hinter die Schallschleuse. Der Auftrag bleibt offen; fünf Prozent deines Geldes fehlen.",
+      "flee_text": "Du erreichst den markierten Rückweg. Der Auftrag bleibt offen."
+    },
+    "k3k_staubschmuggler": {
+      "name": "Staubschmuggler",
+      "sprite": "wild",
+      "sheet": "enemy_k3k_staubschmuggler",
+      "chapter": 3,
+      "hp": 186,
+      "armor": 3,
+      "occult": false,
+      "fleeable": true,
+      "intro": "Verkauft am Kalkmarkt Kalkstaub als weißen Schlaf. Die Ware wird eingezogen. Vorsicht: Manchmal schützt er sich mit verstärkter Arbeitskleidung.",
+      "attacks": [
+        {
+          "name": "Sackwurf",
+          "damage": 14,
+          "hits": [
+            1100,
+            1900
+          ]
+        },
+        {
+          "name": "Staubwolke",
+          "damage": 20,
+          "hits": [
+            2400
+          ]
+        }
+      ],
+      "win_text": "Der Gegner lässt sein Werkzeug fallen. Er atmet und ergibt sich. Die Bahnaufsicht übernimmt ihn.",
+      "on_win": {
+        "sets_flags": [
+          "won_kopfgeld_ds_staubschmuggler"
+        ]
+      },
+      "first_win": {
+        "gives_items": {
+          "k3k_staubschmuggler_trophaee": 1
+        }
+      },
+      "loot": {
+        "money": [
+          4,
+          8
+        ],
+        "drops": []
+      },
+      "roam": {
+        "speed": 22,
+        "chase": 44,
+        "aggro": 44
+      },
+      "lose_to": {
+        "map": "ds_speisewagen",
+        "spawn": "default"
+      },
+      "lose_money": 0.05,
+      "lose_text": "Pfiff bringt dich hinter die Schallschleuse. Der Auftrag bleibt offen; fünf Prozent deines Geldes fehlen.",
+      "flee_text": "Du erreichst den markierten Rückweg. Der Auftrag bleibt offen.",
+      "elite": {
+        "name": "Staubschmuggler mit verstärktem Kittel"
+      }
+    },
+    "k3k_walzenhehler": {
+      "name": "Walzenhehler",
+      "sprite": "wild",
+      "sheet": "enemy_k3k_walzenhehler",
+      "chapter": 3,
+      "hp": 198,
+      "armor": 3,
+      "occult": true,
+      "fleeable": true,
+      "intro": "Handelt auf den Bruchstufen mit gestohlenen Stimmwalzen. Einen fremden Ruf nicht für einen Zeugen halten. Ware sichern und den Händler lebend stellen.",
+      "attacks": [
+        {
+          "name": "Walzenschlag",
+          "damage": 15,
+          "hits": [
+            1100,
+            1900
+          ]
+        },
+        {
+          "name": "Trichterhieb",
+          "damage": 21,
+          "hits": [
+            2400
+          ]
+        }
+      ],
+      "win_text": "Der Gegner lässt sein Werkzeug fallen. Er atmet und ergibt sich. Die Bahnaufsicht übernimmt ihn.",
+      "on_win": {
+        "sets_flags": [
+          "won_kopfgeld_ds_walzenhehler"
+        ]
+      },
+      "first_win": {
+        "gives_items": {
+          "k3k_walzenhehler_trophaee": 1
+        }
+      },
+      "loot": {
+        "money": [
+          4,
+          8
+        ],
+        "drops": []
+      },
+      "roam": {
+        "speed": 22,
+        "chase": 44,
+        "aggro": 44
+      },
+      "lose_to": {
+        "map": "ds_speisewagen",
+        "spawn": "default"
+      },
+      "lose_money": 0.05,
+      "lose_text": "Pfiff bringt dich hinter die Schallschleuse. Der Auftrag bleibt offen; fünf Prozent deines Geldes fehlen.",
+      "flee_text": "Du erreichst den markierten Rückweg. Der Auftrag bleibt offen."
+    },
+    "k3k_signalbrecher": {
+      "name": "Signalbrecher",
+      "sprite": "wild",
+      "sheet": "enemy_k3k_signalbrecher",
+      "chapter": 3,
+      "hp": 210,
+      "armor": 3,
+      "occult": true,
+      "fleeable": true,
+      "intro": "Stört die Rufe am Rand der Rufschlucht. Nur bis zum markierten Rückweg vordringen. Sein zweites Signalgerät muss ebenfalls stillgesetzt werden.",
+      "attacks": [
+        {
+          "name": "Signalstoß",
+          "damage": 16,
+          "hits": [
+            1100,
+            1900
+          ]
+        },
+        {
+          "name": "Zweiter Takt",
+          "damage": 22,
+          "hits": [
+            2400
+          ]
+        }
+      ],
+      "win_text": "Der erste Geber fällt zu Boden. Der Signalbrecher greift nach einem zweiten Gerät. Du kannst weiterkämpfen oder dich zurückziehen.",
+      "on_win": {
+        "sets_flags": [
+          "k3k_signalbrecher_phase1_done"
+        ]
+      },
+      "loot": {
+        "money": [
+          4,
+          8
+        ],
+        "drops": []
+      },
+      "roam": {
+        "speed": 22,
+        "chase": 44,
+        "aggro": 44
+      },
+      "lose_to": {
+        "map": "ds_speisewagen",
+        "spawn": "default"
+      },
+      "lose_money": 0.05,
+      "lose_text": "Pfiff bringt dich hinter die Schallschleuse. Der Auftrag bleibt offen; fünf Prozent deines Geldes fehlen.",
+      "flee_text": "Du erreichst den markierten Rückweg. Der Auftrag bleibt offen."
+    }
+  },
+  "roamers": {
+    "ds_signalhang": [
+      {
+        "encounter": "k3k_kupferdieb",
+        "tile": [
+          5,
+          4
+        ],
+        "boss": true,
+        "visible_if": {
+          "requires_flags": [
+            "k3_arrived"
+          ],
+          "requires_quests_active": [
+            "kopfgeld_ds_kupferdieb"
+          ],
+          "hide_if_flags": [
+            "won_kopfgeld_ds_kupferdieb"
+          ]
+        }
+      }
+    ],
+    "ds_schwellenring": [
+      {
+        "encounter": "k3k_schienenlaeufer",
+        "tile": [
+          7,
+          4
+        ],
+        "boss": true,
+        "visible_if": {
+          "requires_flags": [
+            "k3a_akt1_done"
+          ],
+          "requires_quests_active": [
+            "kopfgeld_ds_schienenlaeufer"
+          ],
+          "hide_if_flags": [
+            "won_kopfgeld_ds_schienenlaeufer"
+          ]
+        },
+        "zeit": {
+          "tag": null,
+          "nacht": {
+            "map": "ds_schwellenring",
+            "tile": [
+              7,
+              4
+            ]
+          }
+        }
+      },
+      {
+        "encounter": "schichtgaenger",
+        "tile": [
+          8,
+          4
+        ],
+        "zeit": {
+          "tag": null,
+          "nacht": {
+            "map": "ds_schwellenring",
+            "tile": [
+              8,
+              4
+            ]
+          }
+        },
+        "visible_if": {
+          "requires_flags": [
+            "k3a_akt3_done"
+          ],
+          "hide_if_flags": [
+            "kapitel3_done"
+          ]
+        },
+        "elite_chance": 0
+      }
+    ],
+    "ds_arbeiterbogen": [
+      {
+        "encounter": "k3k_lohnfaelscher",
+        "tile": [
+          17,
+          4
+        ],
+        "boss": true,
+        "visible_if": {
+          "requires_flags": [
+            "k3a_akt1_done"
+          ],
+          "requires_quests_active": [
+            "kopfgeld_ds_lohnfaelscher"
+          ],
+          "hide_if_flags": [
+            "won_kopfgeld_ds_lohnfaelscher",
+            "k3k_lohnfaelscher_friedlich"
+          ]
+        }
+      }
+    ],
+    "ds_kalkmarkt": [
+      {
+        "encounter": "k3k_staubschmuggler",
+        "tile": [
+          6,
+          4
+        ],
+        "boss": false,
+        "visible_if": {
+          "requires_flags": [
+            "k3a_akt2_done"
+          ],
+          "requires_quests_active": [
+            "kopfgeld_ds_staubschmuggler"
+          ],
+          "hide_if_flags": [
+            "won_kopfgeld_ds_staubschmuggler"
+          ]
+        },
+        "elite_chance": 0.2
+      }
+    ],
+    "ds_bruchstufen": [
+      {
+        "encounter": "k3k_walzenhehler",
+        "tile": [
+          5,
+          4
+        ],
+        "boss": true,
+        "visible_if": {
+          "requires_flags": [
+            "k3a_akt2_done"
+          ],
+          "requires_quests_active": [
+            "kopfgeld_ds_walzenhehler"
+          ],
+          "hide_if_flags": [
+            "won_kopfgeld_ds_walzenhehler"
+          ]
+        }
+      },
+      {
+        "encounter": "schichtgaenger",
+        "tile": [
+          6,
+          4
+        ],
+        "zeit": {
+          "tag": null,
+          "nacht": {
+            "map": "ds_bruchstufen",
+            "tile": [
+              6,
+              4
+            ]
+          }
+        },
+        "visible_if": {
+          "requires_flags": [
+            "k3a_akt3_done"
+          ],
+          "hide_if_flags": [
+            "kapitel3_done"
+          ]
+        },
+        "elite_chance": 0
+      }
+    ],
+    "ds_rufschlucht": [
+      {
+        "encounter": "k3k_signalbrecher",
+        "tile": [
+          4,
+          4
+        ],
+        "boss": true,
+        "visible_if": {
+          "requires_flags": [
+            "k3a_akt3_done"
+          ],
+          "requires_quests_active": [
+            "kopfgeld_ds_signalbrecher"
+          ],
+          "hide_if_flags": [
+            "won_kopfgeld_ds_signalbrecher",
+            "k3k_signalbrecher_phase1_done"
+          ]
+        }
+      }
+    ]
+  },
+  "interactables": {
+    "ds_lohnbuero": [
+      {
+        "id": "kopfgeldbrett_ds",
+        "kind": "dialogue",
+        "dialogue": "kopfgeldbrett_ds",
+        "title": "Kopfgeld-Brett der Bahnaufsicht",
+        "role": "Steckbriefe",
+        "tile": [
+          4,
+          4
+        ],
+        "sprite": "paper",
+        "marker": true,
+        "prompt": "Steckbriefe ansehen",
+        "visible_if": {
+          "requires_flags": [
+            "k3_arrived"
+          ]
+        }
+      }
+    ]
+  }
+}

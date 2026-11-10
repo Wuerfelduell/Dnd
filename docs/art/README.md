@@ -1452,6 +1452,62 @@ Die hochauflösenden Quellen sind über Dateiname und SHA-256 protokolliert;
 Runtime-Dateien sind ausschließlich die finalen Rasterexports.
 Einbau in das Spiel erfolgt separat.
 
+## Batch BA — dunscar4: Ruf-Oberfläche und Stadtleben
+
+Neun PNGs, 53 benannte Regionen und 165 belegte Frames. Manifest:
+`public/sprites/manifest-dunscar4.json`. Enthält Ruflinien mit unterschiedlichen
+Strichformen, Hörkreis, Bindung P1/P2 (zusätzlich eine/zwei Kerben), Notladung,
+Schallschleusen, Horchtrichter und Rufjournal; sechs Tierarten inklusive
+Staubteufel, Kalkstaub/Nachtnebel/Graswind; zehn Marktstände jeweils offen und
+abgedeckt; Ruth Bellwicks vier Laufrichtungen, acht Emotionen und 24×24-Kopf.
+
+- [Vorschau](batch-dunscar4-preview.png)
+- [Verwendete Prompts und Nachbearbeitung](batch-dunscar4-generation.json)
+- [Prüfbericht](batch-dunscar4-validation.json)
+- [Einbauhinweise / offene Punkte](dunscar4/offene_punkte.md)
+- Prüfung: `python tools/art/dunscar4/validate.py` (Pillow, NumPy).
+
+Alle Laufzeit-PNGs verwenden dieselbe Palette mit höchstens 32 sichtbaren Farben
+und binärem Alpha. Linien, Journalrahmen und Grasschwung sind pixelgenaue
+geometrische Rasterelemente; Figuren, Tiere, Marktstände, Stationsprops und Wetter
+stammen aus Bildgenerierung mit anschließender Raster-/Paletten-Nachbearbeitung.
+Die Einbindung in BN/BD und das Ersetzen von Ruths bisherigem `npc:hesper`-Alias
+bleiben separat; dieser Batch verändert keinen Spielcode.
+
+## Batch BE – Dunscar5: neue Figuren, Einzelgänger und Kopfgeld
+
+Grafiklieferung für `codex_BE_dunscar_figuren2.md`: **100 PNG-Dateien** für
+3 Händler, den Schichtbund (Gastgeberin und 3 Mitglieder), 5 Einzelgänger,
+8 Einwohner und 2 Bahnaufseher. Enthalten sind 24 Laufsheets einschließlich
+2 Schichtgänger-Varianten, 24 Emotions-Sheets, ein gemeinsamer Kopf-Atlas,
+11 Gegner-Kartensheets, 11 Kampfsheets plus getönte Elite-Variante,
+11 Bestiariumsbilder, 6 Steckbriefe, 6 Trophäen und 5 Prop-Dateien.
+
+- [Manifest](../../public/sprites/manifest-dunscar5.json)
+- [Tatsächliche Prompts und Herkunft](batch-dunscar5-generation.json)
+- [Prüfbericht](validation-dunscar5.json)
+- Vorschauen: [Figuren](preview-dunscar5-figuren.png),
+  [Portraits](preview-dunscar5-portraits.png),
+  [Kämpfe](preview-dunscar5-kaempfe.png), [Props und UI](preview-dunscar5-props-ui.png)
+- [Übergabe und offene Integration](dunscar5/offene_punkte.md)
+
+Erzeugt mit dem eingebauten Bildgenerator, anschließend Zellzuschnitt,
+Nearest-Neighbor-Export, gemeinsame 31-Farben-Palette plus transparentem Index
+und binäres Alpha. Pro Sheet ein gemeinsamer Maßstab und feste Grundlinie.
+Kämpfe: sechs Spalten, Reihen `idle`, `attack`, `special`, `hurt`, `defeated`;
+beide Angriffe halten ihre Ausholpose zwei Frames. Der Signalbrecher verwendet
+64×64-Zellen und zwei Phasen. Die Kinder haben unblutige Niederlagen.
+Kein Laufzeitcode wird in diesem Paket eingebaut.
+
+```sh
+python docs/art/validate-dunscar5.py
+node --test tests/sprites.test.js
+```
+
+Der Exporter liegt unter `tools/art/dunscar5/`; Originaldateien und
+Reproduktionsablauf sind in der Übergabe dokumentiert. Steckbriefe kombinieren
+generierte Kopfzeichnungen mit einem geometrischen Papier-/Bahnsiegelrahmen.
+
 ## Batch BB · icons2
 
 150 eigene Item-Motive ersetzen die geliehenen Bilder von 40 Gegenständen aus

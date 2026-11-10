@@ -1,0 +1,224 @@
+{
+  "kopfgeld_ds_kupferdieb": {
+    "title": "Kopfgeld: Kupferdieb",
+    "kind": "side",
+    "case": "kapitel3",
+    "summary": "Zieht Kupferkabel aus den Signalmasten am Signalhang. Die beschädigten Leitungen gefährden die Nachbarschaft. Lebend stellen; beschlagnahmte Kabel abgeben.",
+    "reward": {
+      "gives_money": 0
+    },
+    "steps": [
+      {
+        "text": "Den Gesuchten stellen.",
+        "done": {
+          "requires_flags": [
+            "won_kopfgeld_ds_kupferdieb"
+          ]
+        },
+        "target": {
+          "map": "ds_signalhang",
+          "id": "k3k_kupferdieb",
+          "label": "Kupferdieb"
+        }
+      },
+      {
+        "text": "Trophäe bei Esther abgeben.",
+        "done": {
+          "requires_flags": [
+            "k3k_kupferdieb_bezahlt"
+          ]
+        },
+        "target": {
+          "map": "ds_lohnbuero",
+          "id": "kopfgeldbrett_ds",
+          "label": "Kopfgeld-Brett"
+        }
+      }
+    ]
+  },
+  "kopfgeld_ds_schienenlaeufer": {
+    "title": "Kopfgeld: Schienenläufer",
+    "kind": "side",
+    "case": "kapitel3",
+    "summary": "Springt nachts am Schwellenring auf fremde Wagen. Nicht vor den Zug treiben. Nach drei Kampfrunden entzieht er sich; ein neuer Versuch bleibt möglich.",
+    "reward": {
+      "gives_money": 0
+    },
+    "steps": [
+      {
+        "text": "Den Gesuchten stellen.",
+        "done": {
+          "requires_flags": [
+            "won_kopfgeld_ds_schienenlaeufer"
+          ]
+        },
+        "target": {
+          "map": "ds_schwellenring",
+          "id": "k3k_schienenlaeufer",
+          "label": "Schienenläufer"
+        }
+      },
+      {
+        "text": "Trophäe bei Esther abgeben.",
+        "done": {
+          "requires_flags": [
+            "k3k_schienenlaeufer_bezahlt"
+          ]
+        },
+        "target": {
+          "map": "ds_lohnbuero",
+          "id": "kopfgeldbrett_ds",
+          "label": "Kopfgeld-Brett"
+        }
+      }
+    ]
+  },
+  "kopfgeld_ds_lohnfaelscher": {
+    "title": "Kopfgeld: Lohnfälscher",
+    "kind": "side",
+    "case": "kapitel3",
+    "summary": "Trägt lebende Nachbarn ohne Einwilligung in alte Lohnlisten ein. Am Arbeiterbogen ansprechen. Wer die falschen Verknüpfungen lösen kann, soll eine freiwillige Aufgabe versuchen.",
+    "reward": {
+      "gives_money": 0
+    },
+    "steps": [
+      {
+        "text": "Den Gesuchten stellen.",
+        "done": {
+          "requires_flags": [
+            "won_kopfgeld_ds_lohnfaelscher"
+          ]
+        },
+        "target": {
+          "map": "ds_arbeiterbogen",
+          "id": "k3k_lohnfaelscher",
+          "label": "Lohnfälscher"
+        }
+      },
+      {
+        "text": "Trophäe bei Esther abgeben.",
+        "done": {
+          "requires_flags": [
+            "k3k_lohnfaelscher_bezahlt"
+          ]
+        },
+        "target": {
+          "map": "ds_lohnbuero",
+          "id": "kopfgeldbrett_ds",
+          "label": "Kopfgeld-Brett"
+        }
+      }
+    ]
+  },
+  "kopfgeld_ds_staubschmuggler": {
+    "title": "Kopfgeld: Staubschmuggler",
+    "kind": "side",
+    "case": "kapitel3",
+    "summary": "Verkauft am Kalkmarkt Kalkstaub als weißen Schlaf. Die Ware wird eingezogen. Vorsicht: Manchmal schützt er sich mit verstärkter Arbeitskleidung.",
+    "reward": {
+      "gives_money": 0
+    },
+    "steps": [
+      {
+        "text": "Den Gesuchten stellen.",
+        "done": {
+          "requires_flags": [
+            "won_kopfgeld_ds_staubschmuggler"
+          ]
+        },
+        "target": {
+          "map": "ds_kalkmarkt",
+          "id": "k3k_staubschmuggler",
+          "label": "Staubschmuggler"
+        }
+      },
+      {
+        "text": "Trophäe bei Esther abgeben.",
+        "done": {
+          "requires_flags": [
+            "k3k_staubschmuggler_bezahlt"
+          ]
+        },
+        "target": {
+          "map": "ds_lohnbuero",
+          "id": "kopfgeldbrett_ds",
+          "label": "Kopfgeld-Brett"
+        }
+      }
+    ]
+  },
+  "kopfgeld_ds_walzenhehler": {
+    "title": "Kopfgeld: Walzenhehler",
+    "kind": "side",
+    "case": "kapitel3",
+    "summary": "Handelt auf den Bruchstufen mit gestohlenen Stimmwalzen. Einen fremden Ruf nicht für einen Zeugen halten. Ware sichern und den Händler lebend stellen.",
+    "reward": {
+      "gives_money": 0
+    },
+    "steps": [
+      {
+        "text": "Den Gesuchten stellen.",
+        "done": {
+          "requires_flags": [
+            "won_kopfgeld_ds_walzenhehler"
+          ]
+        },
+        "target": {
+          "map": "ds_bruchstufen",
+          "id": "k3k_walzenhehler",
+          "label": "Walzenhehler"
+        }
+      },
+      {
+        "text": "Trophäe bei Esther abgeben.",
+        "done": {
+          "requires_flags": [
+            "k3k_walzenhehler_bezahlt"
+          ]
+        },
+        "target": {
+          "map": "ds_lohnbuero",
+          "id": "kopfgeldbrett_ds",
+          "label": "Kopfgeld-Brett"
+        }
+      }
+    ]
+  },
+  "kopfgeld_ds_signalbrecher": {
+    "title": "Kopfgeld: Signalbrecher",
+    "kind": "side",
+    "case": "kapitel3",
+    "summary": "Stört die Rufe am Rand der Rufschlucht. Nur bis zum markierten Rückweg vordringen. Sein zweites Signalgerät muss ebenfalls stillgesetzt werden.",
+    "reward": {
+      "gives_money": 0
+    },
+    "steps": [
+      {
+        "text": "Den Gesuchten stellen.",
+        "done": {
+          "requires_flags": [
+            "won_kopfgeld_ds_signalbrecher"
+          ]
+        },
+        "target": {
+          "map": "ds_rufschlucht",
+          "id": "k3k_signalbrecher",
+          "label": "Signalbrecher"
+        }
+      },
+      {
+        "text": "Trophäe bei Esther abgeben.",
+        "done": {
+          "requires_flags": [
+            "k3k_signalbrecher_bezahlt"
+          ]
+        },
+        "target": {
+          "map": "ds_lohnbuero",
+          "id": "kopfgeldbrett_ds",
+          "label": "Kopfgeld-Brett"
+        }
+      }
+    ]
+  }
+}

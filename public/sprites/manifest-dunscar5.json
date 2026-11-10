@@ -1,0 +1,5251 @@
+{
+  "version": 1,
+  "batch": "dunscar5",
+  "status": "exported; runtime integration pending",
+  "paletteMaxVisibleColors": 31,
+  "palette": [
+    "#1a1c2c",
+    "#252b3b",
+    "#352f31",
+    "#4c4541",
+    "#4a3835",
+    "#6c6258",
+    "#918572",
+    "#bbae95",
+    "#ded8c8",
+    "#303f3c",
+    "#b9c2c2",
+    "#786548",
+    "#594b3e",
+    "#4a5143",
+    "#82896a",
+    "#68473e",
+    "#a18a5b",
+    "#b28a50",
+    "#8b5d49",
+    "#97a5ad",
+    "#aa7956",
+    "#65705a",
+    "#d5ad68",
+    "#ebcd8d",
+    "#475568",
+    "#5b6a7b",
+    "#6fe0d0",
+    "#458b89",
+    "#45305e",
+    "#704d8a",
+    "#cdb89e"
+  ],
+  "assets": [
+    {
+      "id": "k3h_troedlerin_walk",
+      "file": "characters/k3h_troedlerin_walk.png",
+      "width": 64,
+      "height": 128,
+      "transparent": true,
+      "kind": "walk",
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "gameId": "k3h_troedlerin",
+      "occupiedCounts": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "baseline": 30,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "k3h_troedlerin_emotions",
+      "file": "portraits/k3h_troedlerin_emotions.png",
+      "width": 256,
+      "height": 64,
+      "transparent": true,
+      "kind": "portraits",
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 4,
+      "rows": 1,
+      "gameId": "k3h_troedlerin",
+      "expressions": [
+        "neutral",
+        "suspicious",
+        "startled",
+        "slight smile"
+      ],
+      "occupiedCounts": [
+        4
+      ],
+      "baseline": 62,
+      "animations": {
+        "neutral": {
+          "frames": [
+            0
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "suspicious": {
+          "frames": [
+            1
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "startled": {
+          "frames": [
+            2
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "slight smile": {
+          "frames": [
+            3
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "AK_k3h_troedlerin_emotions2",
+      "file": "portraits/AK_k3h_troedlerin_emotions2.png",
+      "width": 256,
+      "height": 64,
+      "transparent": true,
+      "kind": "portraits",
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 4,
+      "rows": 1,
+      "gameId": "k3h_troedlerin",
+      "expressions": [
+        "angry",
+        "sad",
+        "thoughtful",
+        "determined"
+      ],
+      "occupiedCounts": [
+        4
+      ],
+      "baseline": 62,
+      "animations": {
+        "angry": {
+          "frames": [
+            0
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "sad": {
+          "frames": [
+            1
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "thoughtful": {
+          "frames": [
+            2
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "determined": {
+          "frames": [
+            3
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "k3h_steinmetz_walk",
+      "file": "characters/k3h_steinmetz_walk.png",
+      "width": 64,
+      "height": 128,
+      "transparent": true,
+      "kind": "walk",
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "gameId": "k3h_steinmetz",
+      "occupiedCounts": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "baseline": 30,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "k3h_steinmetz_emotions",
+      "file": "portraits/k3h_steinmetz_emotions.png",
+      "width": 256,
+      "height": 64,
+      "transparent": true,
+      "kind": "portraits",
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 4,
+      "rows": 1,
+      "gameId": "k3h_steinmetz",
+      "expressions": [
+        "neutral",
+        "suspicious",
+        "startled",
+        "slight smile"
+      ],
+      "occupiedCounts": [
+        4
+      ],
+      "baseline": 62,
+      "animations": {
+        "neutral": {
+          "frames": [
+            0
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "suspicious": {
+          "frames": [
+            1
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "startled": {
+          "frames": [
+            2
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "slight smile": {
+          "frames": [
+            3
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "AK_k3h_steinmetz_emotions2",
+      "file": "portraits/AK_k3h_steinmetz_emotions2.png",
+      "width": 256,
+      "height": 64,
+      "transparent": true,
+      "kind": "portraits",
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 4,
+      "rows": 1,
+      "gameId": "k3h_steinmetz",
+      "expressions": [
+        "angry",
+        "sad",
+        "thoughtful",
+        "determined"
+      ],
+      "occupiedCounts": [
+        4
+      ],
+      "baseline": 62,
+      "animations": {
+        "angry": {
+          "frames": [
+            0
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "sad": {
+          "frames": [
+            1
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "thoughtful": {
+          "frames": [
+            2
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "determined": {
+          "frames": [
+            3
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "k3h_lampenwart_walk",
+      "file": "characters/k3h_lampenwart_walk.png",
+      "width": 64,
+      "height": 128,
+      "transparent": true,
+      "kind": "walk",
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "gameId": "k3h_lampenwart",
+      "occupiedCounts": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "baseline": 30,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "k3h_lampenwart_emotions",
+      "file": "portraits/k3h_lampenwart_emotions.png",
+      "width": 256,
+      "height": 64,
+      "transparent": true,
+      "kind": "portraits",
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 4,
+      "rows": 1,
+      "gameId": "k3h_lampenwart",
+      "expressions": [
+        "neutral",
+        "suspicious",
+        "startled",
+        "slight smile"
+      ],
+      "occupiedCounts": [
+        4
+      ],
+      "baseline": 62,
+      "animations": {
+        "neutral": {
+          "frames": [
+            0
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "suspicious": {
+          "frames": [
+            1
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "startled": {
+          "frames": [
+            2
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "slight smile": {
+          "frames": [
+            3
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "AK_k3h_lampenwart_emotions2",
+      "file": "portraits/AK_k3h_lampenwart_emotions2.png",
+      "width": 256,
+      "height": 64,
+      "transparent": true,
+      "kind": "portraits",
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 4,
+      "rows": 1,
+      "gameId": "k3h_lampenwart",
+      "expressions": [
+        "angry",
+        "sad",
+        "thoughtful",
+        "determined"
+      ],
+      "occupiedCounts": [
+        4
+      ],
+      "baseline": 62,
+      "animations": {
+        "angry": {
+          "frames": [
+            0
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "sad": {
+          "frames": [
+            1
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "thoughtful": {
+          "frames": [
+            2
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "determined": {
+          "frames": [
+            3
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "zirkel_schichtbund_walk",
+      "file": "characters/zirkel_schichtbund_walk.png",
+      "width": 64,
+      "height": 128,
+      "transparent": true,
+      "kind": "walk",
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "gameId": "zirkel_schichtbund",
+      "occupiedCounts": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "baseline": 30,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "zirkel_schichtbund_emotions",
+      "file": "portraits/zirkel_schichtbund_emotions.png",
+      "width": 256,
+      "height": 64,
+      "transparent": true,
+      "kind": "portraits",
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 4,
+      "rows": 1,
+      "gameId": "zirkel_schichtbund",
+      "expressions": [
+        "neutral",
+        "suspicious",
+        "startled",
+        "slight smile"
+      ],
+      "occupiedCounts": [
+        4
+      ],
+      "baseline": 62,
+      "animations": {
+        "neutral": {
+          "frames": [
+            0
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "suspicious": {
+          "frames": [
+            1
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "startled": {
+          "frames": [
+            2
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "slight smile": {
+          "frames": [
+            3
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "AK_zirkel_schichtbund_emotions2",
+      "file": "portraits/AK_zirkel_schichtbund_emotions2.png",
+      "width": 256,
+      "height": 64,
+      "transparent": true,
+      "kind": "portraits",
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 4,
+      "rows": 1,
+      "gameId": "zirkel_schichtbund",
+      "expressions": [
+        "angry",
+        "sad",
+        "thoughtful",
+        "determined"
+      ],
+      "occupiedCounts": [
+        4
+      ],
+      "baseline": 62,
+      "animations": {
+        "angry": {
+          "frames": [
+            0
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "sad": {
+          "frames": [
+            1
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "thoughtful": {
+          "frames": [
+            2
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "determined": {
+          "frames": [
+            3
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "tm_ds_lampe_walk",
+      "file": "characters/tm_ds_lampe_walk.png",
+      "width": 64,
+      "height": 128,
+      "transparent": true,
+      "kind": "walk",
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "gameId": "tm_ds_lampe",
+      "occupiedCounts": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "baseline": 30,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "tm_ds_lampe_emotions",
+      "file": "portraits/tm_ds_lampe_emotions.png",
+      "width": 256,
+      "height": 64,
+      "transparent": true,
+      "kind": "portraits",
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 4,
+      "rows": 1,
+      "gameId": "tm_ds_lampe",
+      "expressions": [
+        "neutral",
+        "suspicious",
+        "startled",
+        "slight smile"
+      ],
+      "occupiedCounts": [
+        4
+      ],
+      "baseline": 62,
+      "animations": {
+        "neutral": {
+          "frames": [
+            0
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "suspicious": {
+          "frames": [
+            1
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "startled": {
+          "frames": [
+            2
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "slight smile": {
+          "frames": [
+            3
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "AK_tm_ds_lampe_emotions2",
+      "file": "portraits/AK_tm_ds_lampe_emotions2.png",
+      "width": 256,
+      "height": 64,
+      "transparent": true,
+      "kind": "portraits",
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 4,
+      "rows": 1,
+      "gameId": "tm_ds_lampe",
+      "expressions": [
+        "angry",
+        "sad",
+        "thoughtful",
+        "determined"
+      ],
+      "occupiedCounts": [
+        4
+      ],
+      "baseline": 62,
+      "animations": {
+        "angry": {
+          "frames": [
+            0
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "sad": {
+          "frames": [
+            1
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "thoughtful": {
+          "frames": [
+            2
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "determined": {
+          "frames": [
+            3
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "tm_ds_kerbholz_walk",
+      "file": "characters/tm_ds_kerbholz_walk.png",
+      "width": 64,
+      "height": 128,
+      "transparent": true,
+      "kind": "walk",
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "gameId": "tm_ds_kerbholz",
+      "occupiedCounts": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "baseline": 30,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "tm_ds_kerbholz_emotions",
+      "file": "portraits/tm_ds_kerbholz_emotions.png",
+      "width": 256,
+      "height": 64,
+      "transparent": true,
+      "kind": "portraits",
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 4,
+      "rows": 1,
+      "gameId": "tm_ds_kerbholz",
+      "expressions": [
+        "neutral",
+        "suspicious",
+        "startled",
+        "slight smile"
+      ],
+      "occupiedCounts": [
+        4
+      ],
+      "baseline": 62,
+      "animations": {
+        "neutral": {
+          "frames": [
+            0
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "suspicious": {
+          "frames": [
+            1
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "startled": {
+          "frames": [
+            2
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "slight smile": {
+          "frames": [
+            3
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "AK_tm_ds_kerbholz_emotions2",
+      "file": "portraits/AK_tm_ds_kerbholz_emotions2.png",
+      "width": 256,
+      "height": 64,
+      "transparent": true,
+      "kind": "portraits",
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 4,
+      "rows": 1,
+      "gameId": "tm_ds_kerbholz",
+      "expressions": [
+        "angry",
+        "sad",
+        "thoughtful",
+        "determined"
+      ],
+      "occupiedCounts": [
+        4
+      ],
+      "baseline": 62,
+      "animations": {
+        "angry": {
+          "frames": [
+            0
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "sad": {
+          "frames": [
+            1
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "thoughtful": {
+          "frames": [
+            2
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "determined": {
+          "frames": [
+            3
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "tm_ds_stimme_walk",
+      "file": "characters/tm_ds_stimme_walk.png",
+      "width": 64,
+      "height": 128,
+      "transparent": true,
+      "kind": "walk",
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "gameId": "tm_ds_stimme",
+      "occupiedCounts": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "baseline": 30,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "tm_ds_stimme_emotions",
+      "file": "portraits/tm_ds_stimme_emotions.png",
+      "width": 256,
+      "height": 64,
+      "transparent": true,
+      "kind": "portraits",
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 4,
+      "rows": 1,
+      "gameId": "tm_ds_stimme",
+      "expressions": [
+        "neutral",
+        "suspicious",
+        "startled",
+        "slight smile"
+      ],
+      "occupiedCounts": [
+        4
+      ],
+      "baseline": 62,
+      "animations": {
+        "neutral": {
+          "frames": [
+            0
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "suspicious": {
+          "frames": [
+            1
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "startled": {
+          "frames": [
+            2
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "slight smile": {
+          "frames": [
+            3
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "AK_tm_ds_stimme_emotions2",
+      "file": "portraits/AK_tm_ds_stimme_emotions2.png",
+      "width": 256,
+      "height": 64,
+      "transparent": true,
+      "kind": "portraits",
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 4,
+      "rows": 1,
+      "gameId": "tm_ds_stimme",
+      "expressions": [
+        "angry",
+        "sad",
+        "thoughtful",
+        "determined"
+      ],
+      "occupiedCounts": [
+        4
+      ],
+      "baseline": 62,
+      "animations": {
+        "angry": {
+          "frames": [
+            0
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "sad": {
+          "frames": [
+            1
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "thoughtful": {
+          "frames": [
+            2
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "determined": {
+          "frames": [
+            3
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "ez_ds_rangierer_walk",
+      "file": "characters/ez_ds_rangierer_walk.png",
+      "width": 64,
+      "height": 128,
+      "transparent": true,
+      "kind": "walk",
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "gameId": "ez_ds_rangierer",
+      "occupiedCounts": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "baseline": 30,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "ez_ds_rangierer_emotions",
+      "file": "portraits/ez_ds_rangierer_emotions.png",
+      "width": 256,
+      "height": 64,
+      "transparent": true,
+      "kind": "portraits",
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 4,
+      "rows": 1,
+      "gameId": "ez_ds_rangierer",
+      "expressions": [
+        "neutral",
+        "suspicious",
+        "startled",
+        "slight smile"
+      ],
+      "occupiedCounts": [
+        4
+      ],
+      "baseline": 62,
+      "animations": {
+        "neutral": {
+          "frames": [
+            0
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "suspicious": {
+          "frames": [
+            1
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "startled": {
+          "frames": [
+            2
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "slight smile": {
+          "frames": [
+            3
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "AK_ez_ds_rangierer_emotions2",
+      "file": "portraits/AK_ez_ds_rangierer_emotions2.png",
+      "width": 256,
+      "height": 64,
+      "transparent": true,
+      "kind": "portraits",
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 4,
+      "rows": 1,
+      "gameId": "ez_ds_rangierer",
+      "expressions": [
+        "angry",
+        "sad",
+        "thoughtful",
+        "determined"
+      ],
+      "occupiedCounts": [
+        4
+      ],
+      "baseline": 62,
+      "animations": {
+        "angry": {
+          "frames": [
+            0
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "sad": {
+          "frames": [
+            1
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "thoughtful": {
+          "frames": [
+            2
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "determined": {
+          "frames": [
+            3
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "ez_ds_kalkbrennerin_walk",
+      "file": "characters/ez_ds_kalkbrennerin_walk.png",
+      "width": 64,
+      "height": 128,
+      "transparent": true,
+      "kind": "walk",
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "gameId": "ez_ds_kalkbrennerin",
+      "occupiedCounts": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "baseline": 30,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "ez_ds_kalkbrennerin_emotions",
+      "file": "portraits/ez_ds_kalkbrennerin_emotions.png",
+      "width": 256,
+      "height": 64,
+      "transparent": true,
+      "kind": "portraits",
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 4,
+      "rows": 1,
+      "gameId": "ez_ds_kalkbrennerin",
+      "expressions": [
+        "neutral",
+        "suspicious",
+        "startled",
+        "slight smile"
+      ],
+      "occupiedCounts": [
+        4
+      ],
+      "baseline": 62,
+      "animations": {
+        "neutral": {
+          "frames": [
+            0
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "suspicious": {
+          "frames": [
+            1
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "startled": {
+          "frames": [
+            2
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "slight smile": {
+          "frames": [
+            3
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "AK_ez_ds_kalkbrennerin_emotions2",
+      "file": "portraits/AK_ez_ds_kalkbrennerin_emotions2.png",
+      "width": 256,
+      "height": 64,
+      "transparent": true,
+      "kind": "portraits",
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 4,
+      "rows": 1,
+      "gameId": "ez_ds_kalkbrennerin",
+      "expressions": [
+        "angry",
+        "sad",
+        "thoughtful",
+        "determined"
+      ],
+      "occupiedCounts": [
+        4
+      ],
+      "baseline": 62,
+      "animations": {
+        "angry": {
+          "frames": [
+            0
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "sad": {
+          "frames": [
+            1
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "thoughtful": {
+          "frames": [
+            2
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "determined": {
+          "frames": [
+            3
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "ez_ds_streckenlaeufer_walk",
+      "file": "characters/ez_ds_streckenlaeufer_walk.png",
+      "width": 64,
+      "height": 128,
+      "transparent": true,
+      "kind": "walk",
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "gameId": "ez_ds_streckenlaeufer",
+      "occupiedCounts": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "baseline": 30,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "ez_ds_streckenlaeufer_emotions",
+      "file": "portraits/ez_ds_streckenlaeufer_emotions.png",
+      "width": 256,
+      "height": 64,
+      "transparent": true,
+      "kind": "portraits",
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 4,
+      "rows": 1,
+      "gameId": "ez_ds_streckenlaeufer",
+      "expressions": [
+        "neutral",
+        "suspicious",
+        "startled",
+        "slight smile"
+      ],
+      "occupiedCounts": [
+        4
+      ],
+      "baseline": 62,
+      "animations": {
+        "neutral": {
+          "frames": [
+            0
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "suspicious": {
+          "frames": [
+            1
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "startled": {
+          "frames": [
+            2
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "slight smile": {
+          "frames": [
+            3
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "AK_ez_ds_streckenlaeufer_emotions2",
+      "file": "portraits/AK_ez_ds_streckenlaeufer_emotions2.png",
+      "width": 256,
+      "height": 64,
+      "transparent": true,
+      "kind": "portraits",
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 4,
+      "rows": 1,
+      "gameId": "ez_ds_streckenlaeufer",
+      "expressions": [
+        "angry",
+        "sad",
+        "thoughtful",
+        "determined"
+      ],
+      "occupiedCounts": [
+        4
+      ],
+      "baseline": 62,
+      "animations": {
+        "angry": {
+          "frames": [
+            0
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "sad": {
+          "frames": [
+            1
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "thoughtful": {
+          "frames": [
+            2
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "determined": {
+          "frames": [
+            3
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "ez_ds_walzenstimme_walk",
+      "file": "characters/ez_ds_walzenstimme_walk.png",
+      "width": 64,
+      "height": 128,
+      "transparent": true,
+      "kind": "walk",
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "gameId": "ez_ds_walzenstimme",
+      "occupiedCounts": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "baseline": 30,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "ez_ds_walzenstimme_emotions",
+      "file": "portraits/ez_ds_walzenstimme_emotions.png",
+      "width": 256,
+      "height": 64,
+      "transparent": true,
+      "kind": "portraits",
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 4,
+      "rows": 1,
+      "gameId": "ez_ds_walzenstimme",
+      "expressions": [
+        "neutral",
+        "suspicious",
+        "startled",
+        "slight smile"
+      ],
+      "occupiedCounts": [
+        4
+      ],
+      "baseline": 62,
+      "animations": {
+        "neutral": {
+          "frames": [
+            0
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "suspicious": {
+          "frames": [
+            1
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "startled": {
+          "frames": [
+            2
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "slight smile": {
+          "frames": [
+            3
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "AK_ez_ds_walzenstimme_emotions2",
+      "file": "portraits/AK_ez_ds_walzenstimme_emotions2.png",
+      "width": 256,
+      "height": 64,
+      "transparent": true,
+      "kind": "portraits",
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 4,
+      "rows": 1,
+      "gameId": "ez_ds_walzenstimme",
+      "expressions": [
+        "angry",
+        "sad",
+        "thoughtful",
+        "determined"
+      ],
+      "occupiedCounts": [
+        4
+      ],
+      "baseline": 62,
+      "animations": {
+        "angry": {
+          "frames": [
+            0
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "sad": {
+          "frames": [
+            1
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "thoughtful": {
+          "frames": [
+            2
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "determined": {
+          "frames": [
+            3
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "ez_ds_schrankenkind_walk",
+      "file": "characters/ez_ds_schrankenkind_walk.png",
+      "width": 64,
+      "height": 128,
+      "transparent": true,
+      "kind": "walk",
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "gameId": "ez_ds_schrankenkind",
+      "occupiedCounts": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "baseline": 30,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "ez_ds_schrankenkind_emotions",
+      "file": "portraits/ez_ds_schrankenkind_emotions.png",
+      "width": 256,
+      "height": 64,
+      "transparent": true,
+      "kind": "portraits",
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 4,
+      "rows": 1,
+      "gameId": "ez_ds_schrankenkind",
+      "expressions": [
+        "neutral",
+        "suspicious",
+        "startled",
+        "slight smile"
+      ],
+      "occupiedCounts": [
+        4
+      ],
+      "baseline": 62,
+      "animations": {
+        "neutral": {
+          "frames": [
+            0
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "suspicious": {
+          "frames": [
+            1
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "startled": {
+          "frames": [
+            2
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "slight smile": {
+          "frames": [
+            3
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "AK_ez_ds_schrankenkind_emotions2",
+      "file": "portraits/AK_ez_ds_schrankenkind_emotions2.png",
+      "width": 256,
+      "height": 64,
+      "transparent": true,
+      "kind": "portraits",
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 4,
+      "rows": 1,
+      "gameId": "ez_ds_schrankenkind",
+      "expressions": [
+        "angry",
+        "sad",
+        "thoughtful",
+        "determined"
+      ],
+      "occupiedCounts": [
+        4
+      ],
+      "baseline": 62,
+      "animations": {
+        "angry": {
+          "frames": [
+            0
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "sad": {
+          "frames": [
+            1
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "thoughtful": {
+          "frames": [
+            2
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "determined": {
+          "frames": [
+            3
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "k3e_schichtwitwe_walk",
+      "file": "characters/k3e_schichtwitwe_walk.png",
+      "width": 64,
+      "height": 128,
+      "transparent": true,
+      "kind": "walk",
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "gameId": "k3e_schichtwitwe",
+      "occupiedCounts": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "baseline": 30,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "k3e_kalkjunge_walk",
+      "file": "characters/k3e_kalkjunge_walk.png",
+      "width": 64,
+      "height": 128,
+      "transparent": true,
+      "kind": "walk",
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "gameId": "k3e_kalkjunge",
+      "occupiedCounts": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "baseline": 30,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "k3e_wagenputzer_walk",
+      "file": "characters/k3e_wagenputzer_walk.png",
+      "width": 64,
+      "height": 128,
+      "transparent": true,
+      "kind": "walk",
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "gameId": "k3e_wagenputzer",
+      "occupiedCounts": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "baseline": 30,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "k3e_zeitungsfrau_walk",
+      "file": "characters/k3e_zeitungsfrau_walk.png",
+      "width": 64,
+      "height": 128,
+      "transparent": true,
+      "kind": "walk",
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "gameId": "k3e_zeitungsfrau",
+      "occupiedCounts": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "baseline": 30,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "k3e_bahnbettler_walk",
+      "file": "characters/k3e_bahnbettler_walk.png",
+      "width": 64,
+      "height": 128,
+      "transparent": true,
+      "kind": "walk",
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "gameId": "k3e_bahnbettler",
+      "occupiedCounts": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "baseline": 30,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "k3e_steinmetzgeselle_walk",
+      "file": "characters/k3e_steinmetzgeselle_walk.png",
+      "width": 64,
+      "height": 128,
+      "transparent": true,
+      "kind": "walk",
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "gameId": "k3e_steinmetzgeselle",
+      "occupiedCounts": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "baseline": 30,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "k3e_teesaalgast_walk",
+      "file": "characters/k3e_teesaalgast_walk.png",
+      "width": 64,
+      "height": 128,
+      "transparent": true,
+      "kind": "walk",
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "gameId": "k3e_teesaalgast",
+      "occupiedCounts": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "baseline": 30,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "k3e_signalkind_walk",
+      "file": "characters/k3e_signalkind_walk.png",
+      "width": 64,
+      "height": 128,
+      "transparent": true,
+      "kind": "walk",
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "gameId": "k3e_signalkind",
+      "occupiedCounts": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "baseline": 30,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "k3e_aufseher_a_walk",
+      "file": "characters/k3e_aufseher_a_walk.png",
+      "width": 64,
+      "height": 128,
+      "transparent": true,
+      "kind": "walk",
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "gameId": "k3e_aufseher_a",
+      "occupiedCounts": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "baseline": 30,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "k3e_aufseher_b_walk",
+      "file": "characters/k3e_aufseher_b_walk.png",
+      "width": 64,
+      "height": 128,
+      "transparent": true,
+      "kind": "walk",
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "gameId": "k3e_aufseher_b",
+      "occupiedCounts": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "baseline": 30,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "k3e_wagenputzer_schicht",
+      "file": "characters/k3e_wagenputzer_schicht.png",
+      "width": 64,
+      "height": 128,
+      "transparent": true,
+      "kind": "walk",
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "gameId": "k3e_wagenputzer",
+      "occupiedCounts": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "baseline": 30,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "k3e_steinmetzgeselle_schicht",
+      "file": "characters/k3e_steinmetzgeselle_schicht.png",
+      "width": 64,
+      "height": 128,
+      "transparent": true,
+      "kind": "walk",
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "gameId": "k3e_steinmetzgeselle",
+      "occupiedCounts": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "baseline": 30,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "F_ow_k3k_kupferdieb",
+      "file": "characters/F_ow_k3k_kupferdieb.png",
+      "width": 64,
+      "height": 128,
+      "transparent": true,
+      "kind": "overworld",
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "gameId": "k3k_kupferdieb",
+      "occupiedCounts": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "baseline": 30,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "F_ow_k3k_schienenlaeufer",
+      "file": "characters/F_ow_k3k_schienenlaeufer.png",
+      "width": 64,
+      "height": 128,
+      "transparent": true,
+      "kind": "overworld",
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "gameId": "k3k_schienenlaeufer",
+      "occupiedCounts": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "baseline": 30,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "F_ow_k3k_lohnfaelscher",
+      "file": "characters/F_ow_k3k_lohnfaelscher.png",
+      "width": 64,
+      "height": 128,
+      "transparent": true,
+      "kind": "overworld",
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "gameId": "k3k_lohnfaelscher",
+      "occupiedCounts": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "baseline": 30,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "F_ow_k3k_staubschmuggler",
+      "file": "characters/F_ow_k3k_staubschmuggler.png",
+      "width": 64,
+      "height": 128,
+      "transparent": true,
+      "kind": "overworld",
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "gameId": "k3k_staubschmuggler",
+      "occupiedCounts": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "baseline": 30,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "F_ow_k3k_walzenhehler",
+      "file": "characters/F_ow_k3k_walzenhehler.png",
+      "width": 64,
+      "height": 128,
+      "transparent": true,
+      "kind": "overworld",
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "gameId": "k3k_walzenhehler",
+      "occupiedCounts": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "baseline": 30,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "F_ow_k3k_signalbrecher",
+      "file": "characters/F_ow_k3k_signalbrecher.png",
+      "width": 64,
+      "height": 128,
+      "transparent": true,
+      "kind": "overworld",
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "gameId": "k3k_signalbrecher",
+      "occupiedCounts": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "baseline": 30,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "enemy_ez_ds_rangierer",
+      "file": "battle/enemy_ez_ds_rangierer.png",
+      "width": 288,
+      "height": 240,
+      "transparent": true,
+      "kind": "battle",
+      "frameWidth": 48,
+      "frameHeight": 48,
+      "columns": 6,
+      "rows": 5,
+      "gameId": "ez_ds_rangierer",
+      "attackNames": [
+        "hook strike",
+        "shoulder bash"
+      ],
+      "occupiedCounts": [
+        4,
+        6,
+        6,
+        3,
+        4
+      ],
+      "baseline": 46,
+      "facing": "left",
+      "heldRows": [
+        1,
+        2
+      ],
+      "windupFrames": {
+        "attack": [
+          7,
+          8
+        ],
+        "special": [
+          13,
+          14
+        ]
+      },
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "attack": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "special": {
+          "frames": [
+            12,
+            13,
+            14,
+            15,
+            16,
+            17
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            18,
+            19,
+            20
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            24,
+            25,
+            26,
+            27
+          ],
+          "frameRate": 6,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "enemy_ez_ds_kalkbrennerin",
+      "file": "battle/enemy_ez_ds_kalkbrennerin.png",
+      "width": 288,
+      "height": 240,
+      "transparent": true,
+      "kind": "battle",
+      "frameWidth": 48,
+      "frameHeight": 48,
+      "columns": 6,
+      "rows": 5,
+      "gameId": "ez_ds_kalkbrennerin",
+      "attackNames": [
+        "chalk dust cloud",
+        "glass flask throw"
+      ],
+      "occupiedCounts": [
+        4,
+        6,
+        6,
+        3,
+        4
+      ],
+      "baseline": 46,
+      "facing": "left",
+      "heldRows": [
+        1,
+        2
+      ],
+      "windupFrames": {
+        "attack": [
+          7,
+          8
+        ],
+        "special": [
+          13,
+          14
+        ]
+      },
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "attack": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "special": {
+          "frames": [
+            12,
+            13,
+            14,
+            15,
+            16,
+            17
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            18,
+            19,
+            20
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            24,
+            25,
+            26,
+            27
+          ],
+          "frameRate": 6,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "enemy_ez_ds_streckenlaeufer",
+      "file": "battle/enemy_ez_ds_streckenlaeufer.png",
+      "width": 288,
+      "height": 240,
+      "transparent": true,
+      "kind": "battle",
+      "frameWidth": 48,
+      "frameHeight": 48,
+      "columns": 6,
+      "rows": 5,
+      "gameId": "ez_ds_streckenlaeufer",
+      "attackNames": [
+        "counting stick beat",
+        "time skip with separated afterimage"
+      ],
+      "occupiedCounts": [
+        4,
+        6,
+        6,
+        3,
+        4
+      ],
+      "baseline": 46,
+      "facing": "left",
+      "heldRows": [
+        1,
+        2
+      ],
+      "windupFrames": {
+        "attack": [
+          7,
+          8
+        ],
+        "special": [
+          13,
+          14
+        ]
+      },
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "attack": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "special": {
+          "frames": [
+            12,
+            13,
+            14,
+            15,
+            16,
+            17
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            18,
+            19,
+            20
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            24,
+            25,
+            26,
+            27
+          ],
+          "frameRate": 6,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "enemy_ez_ds_walzenstimme",
+      "file": "battle/enemy_ez_ds_walzenstimme.png",
+      "width": 288,
+      "height": 240,
+      "transparent": true,
+      "kind": "battle",
+      "frameWidth": 48,
+      "frameHeight": 48,
+      "columns": 6,
+      "rows": 5,
+      "gameId": "ez_ds_walzenstimme",
+      "attackNames": [
+        "turquoise voice rings",
+        "echo double"
+      ],
+      "occupiedCounts": [
+        4,
+        6,
+        6,
+        3,
+        4
+      ],
+      "baseline": 46,
+      "facing": "left",
+      "heldRows": [
+        1,
+        2
+      ],
+      "windupFrames": {
+        "attack": [
+          7,
+          8
+        ],
+        "special": [
+          13,
+          14
+        ]
+      },
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "attack": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "special": {
+          "frames": [
+            12,
+            13,
+            14,
+            15,
+            16,
+            17
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            18,
+            19,
+            20
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            24,
+            25,
+            26,
+            27
+          ],
+          "frameRate": 6,
+          "repeat": 0
+        }
+      },
+      "nonlethalDefeat": true
+    },
+    {
+      "id": "enemy_ez_ds_schrankenkind",
+      "file": "battle/enemy_ez_ds_schrankenkind.png",
+      "width": 288,
+      "height": 240,
+      "transparent": true,
+      "kind": "battle",
+      "frameWidth": 48,
+      "frameHeight": 48,
+      "columns": 6,
+      "rows": 5,
+      "gameId": "ez_ds_schrankenkind",
+      "attackNames": [
+        "evasive sidestep",
+        "one pebble throw"
+      ],
+      "occupiedCounts": [
+        4,
+        6,
+        6,
+        3,
+        4
+      ],
+      "baseline": 46,
+      "facing": "left",
+      "heldRows": [
+        1,
+        2
+      ],
+      "windupFrames": {
+        "attack": [
+          7,
+          8
+        ],
+        "special": [
+          13,
+          14
+        ]
+      },
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "attack": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "special": {
+          "frames": [
+            12,
+            13,
+            14,
+            15,
+            16,
+            17
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            18,
+            19,
+            20
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            24,
+            25,
+            26,
+            27
+          ],
+          "frameRate": 6,
+          "repeat": 0
+        }
+      },
+      "nonlethalDefeat": true
+    },
+    {
+      "id": "enemy_k3k_kupferdieb",
+      "file": "battle/enemy_k3k_kupferdieb.png",
+      "width": 288,
+      "height": 240,
+      "transparent": true,
+      "kind": "battle",
+      "frameWidth": 48,
+      "frameHeight": 48,
+      "columns": 6,
+      "rows": 5,
+      "gameId": "k3k_kupferdieb",
+      "attackNames": [
+        "plier strike",
+        "cable snare"
+      ],
+      "occupiedCounts": [
+        4,
+        6,
+        6,
+        3,
+        4
+      ],
+      "baseline": 46,
+      "facing": "left",
+      "heldRows": [
+        1,
+        2
+      ],
+      "windupFrames": {
+        "attack": [
+          7,
+          8
+        ],
+        "special": [
+          13,
+          14
+        ]
+      },
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "attack": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "special": {
+          "frames": [
+            12,
+            13,
+            14,
+            15,
+            16,
+            17
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            18,
+            19,
+            20
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            24,
+            25,
+            26,
+            27
+          ],
+          "frameRate": 6,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "enemy_k3k_schienenlaeufer",
+      "file": "battle/enemy_k3k_schienenlaeufer.png",
+      "width": 288,
+      "height": 240,
+      "transparent": true,
+      "kind": "battle",
+      "frameWidth": 48,
+      "frameHeight": 48,
+      "columns": 6,
+      "rows": 5,
+      "gameId": "k3k_schienenlaeufer",
+      "attackNames": [
+        "coupling club strike",
+        "escape dash"
+      ],
+      "occupiedCounts": [
+        4,
+        6,
+        6,
+        3,
+        4
+      ],
+      "baseline": 46,
+      "facing": "left",
+      "heldRows": [
+        1,
+        2
+      ],
+      "windupFrames": {
+        "attack": [
+          7,
+          8
+        ],
+        "special": [
+          13,
+          14
+        ]
+      },
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "attack": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "special": {
+          "frames": [
+            12,
+            13,
+            14,
+            15,
+            16,
+            17
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            18,
+            19,
+            20
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            24,
+            25,
+            26,
+            27
+          ],
+          "frameRate": 6,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "enemy_k3k_lohnfaelscher",
+      "file": "battle/enemy_k3k_lohnfaelscher.png",
+      "width": 288,
+      "height": 240,
+      "transparent": true,
+      "kind": "battle",
+      "frameWidth": 48,
+      "frameHeight": 48,
+      "columns": 6,
+      "rows": 5,
+      "gameId": "k3k_lohnfaelscher",
+      "attackNames": [
+        "ledger bash",
+        "ink splash"
+      ],
+      "occupiedCounts": [
+        4,
+        6,
+        6,
+        3,
+        4
+      ],
+      "baseline": 46,
+      "facing": "left",
+      "heldRows": [
+        1,
+        2
+      ],
+      "windupFrames": {
+        "attack": [
+          7,
+          8
+        ],
+        "special": [
+          13,
+          14
+        ]
+      },
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "attack": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "special": {
+          "frames": [
+            12,
+            13,
+            14,
+            15,
+            16,
+            17
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            18,
+            19,
+            20
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            24,
+            25,
+            26,
+            27
+          ],
+          "frameRate": 6,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "enemy_k3k_staubschmuggler",
+      "file": "battle/enemy_k3k_staubschmuggler.png",
+      "width": 288,
+      "height": 240,
+      "transparent": true,
+      "kind": "battle",
+      "frameWidth": 48,
+      "frameHeight": 48,
+      "columns": 6,
+      "rows": 5,
+      "gameId": "k3k_staubschmuggler",
+      "attackNames": [
+        "blinding dust throw",
+        "sack swing"
+      ],
+      "occupiedCounts": [
+        4,
+        6,
+        6,
+        3,
+        4
+      ],
+      "baseline": 46,
+      "facing": "left",
+      "heldRows": [
+        1,
+        2
+      ],
+      "windupFrames": {
+        "attack": [
+          7,
+          8
+        ],
+        "special": [
+          13,
+          14
+        ]
+      },
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "attack": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "special": {
+          "frames": [
+            12,
+            13,
+            14,
+            15,
+            16,
+            17
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            18,
+            19,
+            20
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            24,
+            25,
+            26,
+            27
+          ],
+          "frameRate": 6,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "enemy_k3k_walzenhehler",
+      "file": "battle/enemy_k3k_walzenhehler.png",
+      "width": 288,
+      "height": 240,
+      "transparent": true,
+      "kind": "battle",
+      "frameWidth": 48,
+      "frameHeight": 48,
+      "columns": 6,
+      "rows": 5,
+      "gameId": "k3k_walzenhehler",
+      "attackNames": [
+        "cylinder throw",
+        "turquoise echo summoning cast"
+      ],
+      "occupiedCounts": [
+        4,
+        6,
+        6,
+        3,
+        4
+      ],
+      "baseline": 46,
+      "facing": "left",
+      "heldRows": [
+        1,
+        2
+      ],
+      "windupFrames": {
+        "attack": [
+          7,
+          8
+        ],
+        "special": [
+          13,
+          14
+        ]
+      },
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "attack": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "special": {
+          "frames": [
+            12,
+            13,
+            14,
+            15,
+            16,
+            17
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            18,
+            19,
+            20
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            24,
+            25,
+            26,
+            27
+          ],
+          "frameRate": 6,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "enemy_k3k_signalbrecher",
+      "file": "battle/enemy_k3k_signalbrecher.png",
+      "width": 384,
+      "height": 320,
+      "transparent": true,
+      "kind": "battle",
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 6,
+      "rows": 5,
+      "gameId": "k3k_signalbrecher",
+      "attackNames": [
+        "phase one whistle blast",
+        "phase two summoning spectral workers"
+      ],
+      "occupiedCounts": [
+        4,
+        6,
+        6,
+        3,
+        4
+      ],
+      "baseline": 62,
+      "facing": "left",
+      "heldRows": [
+        1,
+        2
+      ],
+      "windupFrames": {
+        "attack": [
+          7,
+          8
+        ],
+        "special": [
+          13,
+          14
+        ]
+      },
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "attack": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "special": {
+          "frames": [
+            12,
+            13,
+            14,
+            15,
+            16,
+            17
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            18,
+            19,
+            20
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            24,
+            25,
+            26,
+            27
+          ],
+          "frameRate": 6,
+          "repeat": 0
+        }
+      },
+      "phases": {
+        "pfiff": "attack",
+        "schichtgaenger_ruf": "special"
+      }
+    },
+    {
+      "id": "BE_troedelstand",
+      "file": "props/BE_troedelstand.png",
+      "width": 32,
+      "height": 32,
+      "transparent": true,
+      "kind": "prop",
+      "frameWidth": 32,
+      "frameHeight": 32,
+      "columns": 1,
+      "rows": 1,
+      "occupiedCounts": [
+        1
+      ],
+      "baseline": 30
+    },
+    {
+      "id": "BE_steinmetzwerkbank",
+      "file": "props/BE_steinmetzwerkbank.png",
+      "width": 48,
+      "height": 32,
+      "transparent": true,
+      "kind": "prop",
+      "frameWidth": 48,
+      "frameHeight": 32,
+      "columns": 1,
+      "rows": 1,
+      "occupiedCounts": [
+        1
+      ],
+      "baseline": 30
+    },
+    {
+      "id": "BE_schaltbuden_theke",
+      "file": "props/BE_schaltbuden_theke.png",
+      "width": 32,
+      "height": 32,
+      "transparent": true,
+      "kind": "prop",
+      "frameWidth": 32,
+      "frameHeight": 32,
+      "columns": 1,
+      "rows": 1,
+      "occupiedCounts": [
+        1
+      ],
+      "baseline": 30
+    },
+    {
+      "id": "BE_lichtkegel",
+      "file": "props/BE_lichtkegel.png",
+      "width": 64,
+      "height": 64,
+      "transparent": true,
+      "kind": "prop",
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 1,
+      "rows": 1,
+      "occupiedCounts": [
+        1
+      ],
+      "baseline": 62
+    },
+    {
+      "id": "BE_schichtbund",
+      "file": "props/BE_schichtbund.png",
+      "width": 256,
+      "height": 128,
+      "transparent": true,
+      "kind": "atlas",
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 4,
+      "rows": 2,
+      "occupiedCounts": [
+        4,
+        3
+      ],
+      "regions": {
+        "kerbholz_wand": {
+          "x": 0,
+          "y": 0,
+          "width": 48,
+          "height": 48
+        },
+        "stempeltisch": {
+          "x": 64,
+          "y": 0,
+          "width": 32,
+          "height": 32
+        },
+        "walzenregal": {
+          "x": 128,
+          "y": 0,
+          "width": 32,
+          "height": 48
+        },
+        "lampenreihe": {
+          "x": 192,
+          "y": 0,
+          "width": 64,
+          "height": 16
+        },
+        "versammlungsbank": {
+          "x": 0,
+          "y": 64,
+          "width": 48,
+          "height": 16
+        },
+        "bodenmarke": {
+          "x": 64,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        },
+        "stadtkarten_pin": {
+          "x": 128,
+          "y": 64,
+          "width": 16,
+          "height": 16
+        }
+      }
+    },
+    {
+      "id": "k3k_kupferdieb_trophaee",
+      "file": "items/k3k_kupferdieb_trophaee.png",
+      "width": 16,
+      "height": 16,
+      "transparent": true,
+      "kind": "icon",
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 1,
+      "rows": 1,
+      "gameId": "k3k_kupferdieb",
+      "occupiedCounts": [
+        1
+      ],
+      "baseline": 14
+    },
+    {
+      "id": "k3k_schienenlaeufer_trophaee",
+      "file": "items/k3k_schienenlaeufer_trophaee.png",
+      "width": 16,
+      "height": 16,
+      "transparent": true,
+      "kind": "icon",
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 1,
+      "rows": 1,
+      "gameId": "k3k_schienenlaeufer",
+      "occupiedCounts": [
+        1
+      ],
+      "baseline": 14
+    },
+    {
+      "id": "k3k_lohnfaelscher_trophaee",
+      "file": "items/k3k_lohnfaelscher_trophaee.png",
+      "width": 16,
+      "height": 16,
+      "transparent": true,
+      "kind": "icon",
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 1,
+      "rows": 1,
+      "gameId": "k3k_lohnfaelscher",
+      "occupiedCounts": [
+        1
+      ],
+      "baseline": 14
+    },
+    {
+      "id": "k3k_staubschmuggler_trophaee",
+      "file": "items/k3k_staubschmuggler_trophaee.png",
+      "width": 16,
+      "height": 16,
+      "transparent": true,
+      "kind": "icon",
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 1,
+      "rows": 1,
+      "gameId": "k3k_staubschmuggler",
+      "occupiedCounts": [
+        1
+      ],
+      "baseline": 14
+    },
+    {
+      "id": "k3k_walzenhehler_trophaee",
+      "file": "items/k3k_walzenhehler_trophaee.png",
+      "width": 16,
+      "height": 16,
+      "transparent": true,
+      "kind": "icon",
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 1,
+      "rows": 1,
+      "gameId": "k3k_walzenhehler",
+      "occupiedCounts": [
+        1
+      ],
+      "baseline": 14
+    },
+    {
+      "id": "k3k_signalbrecher_trophaee",
+      "file": "items/k3k_signalbrecher_trophaee.png",
+      "width": 16,
+      "height": 16,
+      "transparent": true,
+      "kind": "icon",
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 1,
+      "rows": 1,
+      "gameId": "k3k_signalbrecher",
+      "occupiedCounts": [
+        1
+      ],
+      "baseline": 14
+    },
+    {
+      "id": "F_ow_ez_ds_rangierer",
+      "file": "characters/F_ow_ez_ds_rangierer.png",
+      "width": 64,
+      "height": 128,
+      "transparent": true,
+      "kind": "overworld",
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "gameId": "ez_ds_rangierer",
+      "baseline": 30,
+      "occupiedCounts": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "derivedFrom": "characters/ez_ds_rangierer_walk.png",
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "F_ow_ez_ds_kalkbrennerin",
+      "file": "characters/F_ow_ez_ds_kalkbrennerin.png",
+      "width": 64,
+      "height": 128,
+      "transparent": true,
+      "kind": "overworld",
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "gameId": "ez_ds_kalkbrennerin",
+      "baseline": 30,
+      "occupiedCounts": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "derivedFrom": "characters/ez_ds_kalkbrennerin_walk.png",
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "F_ow_ez_ds_streckenlaeufer",
+      "file": "characters/F_ow_ez_ds_streckenlaeufer.png",
+      "width": 64,
+      "height": 128,
+      "transparent": true,
+      "kind": "overworld",
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "gameId": "ez_ds_streckenlaeufer",
+      "baseline": 30,
+      "occupiedCounts": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "derivedFrom": "characters/ez_ds_streckenlaeufer_walk.png",
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "F_ow_ez_ds_walzenstimme",
+      "file": "characters/F_ow_ez_ds_walzenstimme.png",
+      "width": 64,
+      "height": 128,
+      "transparent": true,
+      "kind": "overworld",
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "gameId": "ez_ds_walzenstimme",
+      "baseline": 30,
+      "occupiedCounts": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "derivedFrom": "characters/ez_ds_walzenstimme_walk.png",
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "F_ow_ez_ds_schrankenkind",
+      "file": "characters/F_ow_ez_ds_schrankenkind.png",
+      "width": 64,
+      "height": 128,
+      "transparent": true,
+      "kind": "overworld",
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "gameId": "ez_ds_schrankenkind",
+      "baseline": 30,
+      "occupiedCounts": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "derivedFrom": "characters/ez_ds_schrankenkind_walk.png",
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 7,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "BE_koepfe",
+      "file": "portraits/BE_koepfe.png",
+      "width": 192,
+      "height": 72,
+      "transparent": true,
+      "kind": "heads",
+      "frameWidth": 24,
+      "frameHeight": 24,
+      "columns": 8,
+      "rows": 3,
+      "regions": {
+        "k3h_troedlerin": {
+          "x": 0,
+          "y": 0,
+          "width": 24,
+          "height": 24
+        },
+        "k3h_steinmetz": {
+          "x": 24,
+          "y": 0,
+          "width": 24,
+          "height": 24
+        },
+        "k3h_lampenwart": {
+          "x": 48,
+          "y": 0,
+          "width": 24,
+          "height": 24
+        },
+        "zirkel_schichtbund": {
+          "x": 72,
+          "y": 0,
+          "width": 24,
+          "height": 24
+        },
+        "tm_ds_lampe": {
+          "x": 96,
+          "y": 0,
+          "width": 24,
+          "height": 24
+        },
+        "tm_ds_kerbholz": {
+          "x": 120,
+          "y": 0,
+          "width": 24,
+          "height": 24
+        },
+        "tm_ds_stimme": {
+          "x": 144,
+          "y": 0,
+          "width": 24,
+          "height": 24
+        },
+        "ez_ds_rangierer": {
+          "x": 168,
+          "y": 0,
+          "width": 24,
+          "height": 24
+        },
+        "ez_ds_kalkbrennerin": {
+          "x": 0,
+          "y": 24,
+          "width": 24,
+          "height": 24
+        },
+        "ez_ds_streckenlaeufer": {
+          "x": 24,
+          "y": 24,
+          "width": 24,
+          "height": 24
+        },
+        "ez_ds_walzenstimme": {
+          "x": 48,
+          "y": 24,
+          "width": 24,
+          "height": 24
+        },
+        "ez_ds_schrankenkind": {
+          "x": 72,
+          "y": 24,
+          "width": 24,
+          "height": 24
+        },
+        "k3e_schichtwitwe": {
+          "x": 96,
+          "y": 24,
+          "width": 24,
+          "height": 24
+        },
+        "k3e_kalkjunge": {
+          "x": 120,
+          "y": 24,
+          "width": 24,
+          "height": 24
+        },
+        "k3e_wagenputzer": {
+          "x": 144,
+          "y": 24,
+          "width": 24,
+          "height": 24
+        },
+        "k3e_zeitungsfrau": {
+          "x": 168,
+          "y": 24,
+          "width": 24,
+          "height": 24
+        },
+        "k3e_bahnbettler": {
+          "x": 0,
+          "y": 48,
+          "width": 24,
+          "height": 24
+        },
+        "k3e_steinmetzgeselle": {
+          "x": 24,
+          "y": 48,
+          "width": 24,
+          "height": 24
+        },
+        "k3e_teesaalgast": {
+          "x": 48,
+          "y": 48,
+          "width": 24,
+          "height": 24
+        },
+        "k3e_signalkind": {
+          "x": 72,
+          "y": 48,
+          "width": 24,
+          "height": 24
+        },
+        "k3e_aufseher_a": {
+          "x": 96,
+          "y": 48,
+          "width": 24,
+          "height": 24
+        },
+        "k3e_aufseher_b": {
+          "x": 120,
+          "y": 48,
+          "width": 24,
+          "height": 24
+        }
+      },
+      "occupiedCounts": [
+        8,
+        8,
+        6
+      ]
+    },
+    {
+      "id": "F_ez_ds_rangierer",
+      "file": "ui/bestiary/F_ez_ds_rangierer.png",
+      "width": 96,
+      "height": 128,
+      "transparent": true,
+      "kind": "bestiary",
+      "frameWidth": 96,
+      "frameHeight": 128,
+      "columns": 1,
+      "rows": 1,
+      "gameId": "ez_ds_rangierer",
+      "derivedFrom": "battle/enemy_ez_ds_rangierer.png"
+    },
+    {
+      "id": "F_ez_ds_kalkbrennerin",
+      "file": "ui/bestiary/F_ez_ds_kalkbrennerin.png",
+      "width": 96,
+      "height": 128,
+      "transparent": true,
+      "kind": "bestiary",
+      "frameWidth": 96,
+      "frameHeight": 128,
+      "columns": 1,
+      "rows": 1,
+      "gameId": "ez_ds_kalkbrennerin",
+      "derivedFrom": "battle/enemy_ez_ds_kalkbrennerin.png"
+    },
+    {
+      "id": "F_ez_ds_streckenlaeufer",
+      "file": "ui/bestiary/F_ez_ds_streckenlaeufer.png",
+      "width": 96,
+      "height": 128,
+      "transparent": true,
+      "kind": "bestiary",
+      "frameWidth": 96,
+      "frameHeight": 128,
+      "columns": 1,
+      "rows": 1,
+      "gameId": "ez_ds_streckenlaeufer",
+      "derivedFrom": "battle/enemy_ez_ds_streckenlaeufer.png"
+    },
+    {
+      "id": "F_ez_ds_walzenstimme",
+      "file": "ui/bestiary/F_ez_ds_walzenstimme.png",
+      "width": 96,
+      "height": 128,
+      "transparent": true,
+      "kind": "bestiary",
+      "frameWidth": 96,
+      "frameHeight": 128,
+      "columns": 1,
+      "rows": 1,
+      "gameId": "ez_ds_walzenstimme",
+      "derivedFrom": "battle/enemy_ez_ds_walzenstimme.png"
+    },
+    {
+      "id": "F_ez_ds_schrankenkind",
+      "file": "ui/bestiary/F_ez_ds_schrankenkind.png",
+      "width": 96,
+      "height": 128,
+      "transparent": true,
+      "kind": "bestiary",
+      "frameWidth": 96,
+      "frameHeight": 128,
+      "columns": 1,
+      "rows": 1,
+      "gameId": "ez_ds_schrankenkind",
+      "derivedFrom": "battle/enemy_ez_ds_schrankenkind.png"
+    },
+    {
+      "id": "F_k3k_kupferdieb",
+      "file": "ui/bestiary/F_k3k_kupferdieb.png",
+      "width": 96,
+      "height": 128,
+      "transparent": true,
+      "kind": "bestiary",
+      "frameWidth": 96,
+      "frameHeight": 128,
+      "columns": 1,
+      "rows": 1,
+      "gameId": "k3k_kupferdieb",
+      "derivedFrom": "battle/enemy_k3k_kupferdieb.png"
+    },
+    {
+      "id": "BE_steckbrief_k3k_kupferdieb",
+      "file": "ui/BE_steckbrief_k3k_kupferdieb.png",
+      "width": 48,
+      "height": 64,
+      "transparent": true,
+      "kind": "wanted",
+      "frameWidth": 48,
+      "frameHeight": 64,
+      "columns": 1,
+      "rows": 1,
+      "gameId": "k3k_kupferdieb",
+      "derivedFrom": "battle/enemy_k3k_kupferdieb.png"
+    },
+    {
+      "id": "F_k3k_schienenlaeufer",
+      "file": "ui/bestiary/F_k3k_schienenlaeufer.png",
+      "width": 96,
+      "height": 128,
+      "transparent": true,
+      "kind": "bestiary",
+      "frameWidth": 96,
+      "frameHeight": 128,
+      "columns": 1,
+      "rows": 1,
+      "gameId": "k3k_schienenlaeufer",
+      "derivedFrom": "battle/enemy_k3k_schienenlaeufer.png"
+    },
+    {
+      "id": "BE_steckbrief_k3k_schienenlaeufer",
+      "file": "ui/BE_steckbrief_k3k_schienenlaeufer.png",
+      "width": 48,
+      "height": 64,
+      "transparent": true,
+      "kind": "wanted",
+      "frameWidth": 48,
+      "frameHeight": 64,
+      "columns": 1,
+      "rows": 1,
+      "gameId": "k3k_schienenlaeufer",
+      "derivedFrom": "battle/enemy_k3k_schienenlaeufer.png"
+    },
+    {
+      "id": "F_k3k_lohnfaelscher",
+      "file": "ui/bestiary/F_k3k_lohnfaelscher.png",
+      "width": 96,
+      "height": 128,
+      "transparent": true,
+      "kind": "bestiary",
+      "frameWidth": 96,
+      "frameHeight": 128,
+      "columns": 1,
+      "rows": 1,
+      "gameId": "k3k_lohnfaelscher",
+      "derivedFrom": "battle/enemy_k3k_lohnfaelscher.png"
+    },
+    {
+      "id": "BE_steckbrief_k3k_lohnfaelscher",
+      "file": "ui/BE_steckbrief_k3k_lohnfaelscher.png",
+      "width": 48,
+      "height": 64,
+      "transparent": true,
+      "kind": "wanted",
+      "frameWidth": 48,
+      "frameHeight": 64,
+      "columns": 1,
+      "rows": 1,
+      "gameId": "k3k_lohnfaelscher",
+      "derivedFrom": "battle/enemy_k3k_lohnfaelscher.png"
+    },
+    {
+      "id": "F_k3k_staubschmuggler",
+      "file": "ui/bestiary/F_k3k_staubschmuggler.png",
+      "width": 96,
+      "height": 128,
+      "transparent": true,
+      "kind": "bestiary",
+      "frameWidth": 96,
+      "frameHeight": 128,
+      "columns": 1,
+      "rows": 1,
+      "gameId": "k3k_staubschmuggler",
+      "derivedFrom": "battle/enemy_k3k_staubschmuggler.png"
+    },
+    {
+      "id": "BE_steckbrief_k3k_staubschmuggler",
+      "file": "ui/BE_steckbrief_k3k_staubschmuggler.png",
+      "width": 48,
+      "height": 64,
+      "transparent": true,
+      "kind": "wanted",
+      "frameWidth": 48,
+      "frameHeight": 64,
+      "columns": 1,
+      "rows": 1,
+      "gameId": "k3k_staubschmuggler",
+      "derivedFrom": "battle/enemy_k3k_staubschmuggler.png"
+    },
+    {
+      "id": "F_k3k_walzenhehler",
+      "file": "ui/bestiary/F_k3k_walzenhehler.png",
+      "width": 96,
+      "height": 128,
+      "transparent": true,
+      "kind": "bestiary",
+      "frameWidth": 96,
+      "frameHeight": 128,
+      "columns": 1,
+      "rows": 1,
+      "gameId": "k3k_walzenhehler",
+      "derivedFrom": "battle/enemy_k3k_walzenhehler.png"
+    },
+    {
+      "id": "BE_steckbrief_k3k_walzenhehler",
+      "file": "ui/BE_steckbrief_k3k_walzenhehler.png",
+      "width": 48,
+      "height": 64,
+      "transparent": true,
+      "kind": "wanted",
+      "frameWidth": 48,
+      "frameHeight": 64,
+      "columns": 1,
+      "rows": 1,
+      "gameId": "k3k_walzenhehler",
+      "derivedFrom": "battle/enemy_k3k_walzenhehler.png"
+    },
+    {
+      "id": "F_k3k_signalbrecher",
+      "file": "ui/bestiary/F_k3k_signalbrecher.png",
+      "width": 96,
+      "height": 128,
+      "transparent": true,
+      "kind": "bestiary",
+      "frameWidth": 96,
+      "frameHeight": 128,
+      "columns": 1,
+      "rows": 1,
+      "gameId": "k3k_signalbrecher",
+      "derivedFrom": "battle/enemy_k3k_signalbrecher.png"
+    },
+    {
+      "id": "BE_steckbrief_k3k_signalbrecher",
+      "file": "ui/BE_steckbrief_k3k_signalbrecher.png",
+      "width": 48,
+      "height": 64,
+      "transparent": true,
+      "kind": "wanted",
+      "frameWidth": 48,
+      "frameHeight": 64,
+      "columns": 1,
+      "rows": 1,
+      "gameId": "k3k_signalbrecher",
+      "derivedFrom": "battle/enemy_k3k_signalbrecher.png"
+    },
+    {
+      "id": "enemy_k3k_staubschmuggler_elite",
+      "file": "battle/enemy_k3k_staubschmuggler_elite.png",
+      "width": 288,
+      "height": 240,
+      "transparent": true,
+      "kind": "battle",
+      "frameWidth": 48,
+      "frameHeight": 48,
+      "columns": 6,
+      "rows": 5,
+      "gameId": "k3k_staubschmuggler",
+      "attackNames": [
+        "blinding dust throw",
+        "sack swing"
+      ],
+      "occupiedCounts": [
+        4,
+        6,
+        6,
+        3,
+        4
+      ],
+      "baseline": 46,
+      "facing": "left",
+      "heldRows": [
+        1,
+        2
+      ],
+      "windupFrames": {
+        "attack": [
+          7,
+          8
+        ],
+        "special": [
+          13,
+          14
+        ]
+      },
+      "animations": {
+        "idle": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "attack": {
+          "frames": [
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "special": {
+          "frames": [
+            12,
+            13,
+            14,
+            15,
+            16,
+            17
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "hurt": {
+          "frames": [
+            18,
+            19,
+            20
+          ],
+          "frameRate": 8,
+          "repeat": 0
+        },
+        "defeated": {
+          "frames": [
+            24,
+            25,
+            26,
+            27
+          ],
+          "frameRate": 6,
+          "repeat": 0
+        }
+      },
+      "variant": "elite",
+      "derivedFrom": "battle/enemy_k3k_staubschmuggler.png"
+    }
+  ]
+}
