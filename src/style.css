@@ -462,6 +462,10 @@ img.scene { display: block; width: 30em; height: 16.875em; margin: 0 auto 0.6em;
 /* Artefakte: Vorteile grün, Nachteile rot */
 .arteffects { display: block; margin-top: 0.2em; }
 .arteffects .boon, .arteffects .curse { display: block; font-size: 0.9em; }
+.offerinfo { display: block; margin-top: 0.15em; }
+.offerinfo .note { display: block; font-size: 0.9em; }
+.auction .offers { list-style: none; margin: 0.3em 0; padding: 0; }
+.auction .offers li { margin: 0.25em 0; }
 .boon { color: #8fd07a; }
 .curse { color: #e07a6a; }
 
@@ -537,7 +541,7 @@ button.small.drop.armed { border-color: #c8826a; color: #ffb09a; }
 .auction .seat.active { border-color: var(--gold); color: var(--gold); opacity: 1; }
 .auction .seat.done { opacity: 0.45; }
 .auction .stage { min-height: 6em; padding: 0.4em; border: 0.125em solid #2a2630; overflow: hidden; }
-.auction .lot { font-size: 0.85em; margin-top: 0.3em; }
+.auction .lot { font-size: 0.85em; margin-top: 0.3em; overflow: hidden; } /* Segen/Fluch bleiben neben dem Porträt */
 .auction .bidline { font-size: 0.85em; color: var(--gold); margin: 0.4em 0 0; clear: both; }
 .auction .alog { list-style: none; padding: 0; margin: 0.5em 0; font-size: 0.72em; color: #b8b0c0; max-height: 7em; overflow: auto; }
 .auction .alog li:last-child { color: var(--ink, #e8e0d0); }
