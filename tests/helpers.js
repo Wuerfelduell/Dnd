@@ -140,7 +140,9 @@ export function fight(state, encounterId, { attack = 'good', defend = () => 'dod
     if (state.hp < healBelow && heal) c.useItem(heal);
     else if (items.length && state.itemCount(items[0])) c.useItem(items.shift());
     else {
-      const sk = c.canUse(skill) ? skill : 'attack';
+      // Fertigkeiten kosten Nerven: Geübte halten eine Reserve fürs Ausweichen zurück (fünf Mal ausweichen)
+      const reserve = 15;
+      const sk = c.canUse(skill) && state.composure - c.composureCost(c.skillDef(skill)) >= reserve ? skill : 'attack';
       c.useSkill(sk, Array(c.skillDef(sk).hits).fill(attack));
     }
     if (c.outcome) break;

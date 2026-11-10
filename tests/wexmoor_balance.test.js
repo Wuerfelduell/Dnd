@@ -86,8 +86,8 @@ test('Das Moor zehrt: in den Gebieten von Wexmoor kosten die Runden Nerven, in K
   const s = hero(3);
   const c = new Combat(s, 'salzgeist');
   c.rng = seeded(1);
-  const before = s.composure;
   c.useSkill('attack', ['good']);
+  const before = s.composure; // nach dem Angriff (der bringt Nerven zurück), vor dem Rundenende
   c.endRound();
   assert.equal(before - s.composure, content.zones.wx_salzwatt.drain);
   assert.equal(c.drainTick, content.zones.wx_salzwatt.drain);

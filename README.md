@@ -139,6 +139,13 @@ Auf dem **Nachtmarkt** unter der Krähenbrücke (Stadtkarte) kann man aufsteigen
   Ring an: *Ausweichen* (Leertaste) ist großzügig, *Parieren* (F) eng, bringt aber Konzentration
   und einen Konter. Wer alle Schläge einer Attacke pariert, setzt zum Gegenschlag an.
   Konzentration bezahlt Fertigkeiten (Doppelschlag, Laternenblende, Bannwort).
+  Jede Fertigkeit zehrt außerdem an den **Nerven**, je dicker (mehr Konzentration), desto mehr:
+  1 K kostet 4, 5 K kostet 22 Nerven, Sequenz 4 bis 1 noch mehr. Der einfache Angriff im Takt
+  lässt Atem holen (+4 Nerven, präzise +6), Paraden bringen Nerven zurück, Ausweichen kostet welche.
+  Wer nur Fertigkeiten spammt und ausweicht, steht bald bei 0: dann geht weder Fertigkeit noch
+  Ausweichen. Mit jeder höheren Sequenz gewöhnt man sich an die älteren Fertigkeiten (15 % weniger
+  Nervenkosten je Sequenz, bis 40 %), die neueste kostet immer voll. Artefakte können an Nerven und
+  Konzentration drehen (Konzentration pro Runde, zu Kampfbeginn, Höchstwert), immer mit hartem Preis.
   Wissen aus den Ermittlungen deckt Schwachstellen auf. Eine Niederlage ist kein Game Over:
   Man wacht mit wenig Leben wieder auf. Kämpfe bisher: Übungskampf mit Sergeant Holt,
   der Nebelhund am Kanal (Nebenauftrag), der Aschewächter in der Krypta (Fall 2), Ratten im Archiv,
