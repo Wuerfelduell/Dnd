@@ -27,7 +27,7 @@ export function knownPeople(state) {
     const questIds = new Set();
     for (const node of Object.values(tree?.nodes ?? {})) {
       for (const q of [...(node.start_quests ?? []), ...(node.complete_quests ?? [])]) questIds.add(q);
-      for (const ch of node.choices ?? []) for (const q of ch.requires_quests_active ?? []) questIds.add(q);
+      for (const ch of node.choices ?? []) for (const q of [...(ch.requires_quests_active ?? []), ...(ch.requires_any_quests_active ?? [])]) questIds.add(q);
     }
     const quests = [...questIds].filter((q) => state.quests[q] === 'active').map((q) => content.quests[q].title);
     out.push({ id, name: npc.name, role: npc.role ?? '', places: placesOf(content, id), quests });
