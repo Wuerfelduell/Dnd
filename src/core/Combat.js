@@ -6,6 +6,13 @@
 // oder pariert werden (enges Fenster). Paraden bringen Konzentration und einen
 // Konter; wer alle Schläge einer Attacke pariert, setzt zum Gegenschlag an.
 // Konzentration (K) bezahlt Fertigkeiten.
+//
+// Konzentrations-Artefakte (pathways.json → artifacts, Passive):
+//   ap_max (+N Höchstwert), ap_round (+N zu Beginn jeder weiteren Runde), attack_ap (+N je einfachem Angriff),
+//   ap_start / parry_ap (gab es schon; negativ als Fluch).
+// Flüche: ap_blood (jeder ausgegebene Punkt kostet N Leben), ap_burn (jeder am Rundenende ungenutzte Punkt kostet N Leben),
+//   ap_reset (Konzentration verfällt am Rundenende), combat_drain (N Nerven pro Runde), enemy_ramp (Gegner +N Schaden pro Runde),
+//   no_flee (keine Flucht), no_items (keine Gegenstände im Kampf). Lebensverlust durch Flüche tötet nie (mindestens 1 Leben).
 
 import { rollLoot, takeLoot } from './Loot.js';
 
@@ -53,6 +60,7 @@ export const ENRAGE_AT = 0.4; // unter 40 % Leben wird der Gegner schneller und 
 export const EARLY_LIMIT = 450; // frühere Tastendrücke zählen noch nicht
 export const AP_MAX = 6;
 export const AP_START = 1;
+export const AP_MAX_CAP = 10; // mehr Pips passen nicht in die Leiste
 export const GRADE_MULT = { perfect: 1.3, good: 1, miss: 0.4 };
 /**
  * Präzise Fertigkeiten: alles, was betäubt oder richtig viel Schaden macht, wirkt nur bei einem präzisen Treffer voll.
@@ -158,7 +166,8 @@ export class Combat {
     // ap, shield, evading, bleed, actions, itemUsed lesen sich über Zugriffe beim gerade betroffenen Kämpfer.
     // Ab Sequenz 7 beginnt man den Kampf mit mehr Konzentration (Passiv ap_start)
     const fighter = (hp, n) => ({
-      ap: Math.min(AP_MAX, AP_START + state.withPlayer(n, () => state.passive('ap_start'))), shield: 0, evading: false, bleed: null, actions: 0, itemUsed: false, down: false, hpBefore: hp, bleedTick: 0,
+      ap: Math.max(0, Math.min(this.apMaxOf(n), AP_START + state.withPlayer(n, () => state.passive('ap_start'), { quiet: true }))), shield: 0, evading: false, bleed: null, actions: 0, itemUsed: false, down: false, hpBefore: hp, bleedTick: 0,
+      focusTick: 0, focusGain: 0, // Konzentrations-Artefakte: Leben, das Flüche am Rundenende kosten, und Konzentration zum Rundenstart
     });
     this.fighters = { 1: fighter(state.hp, 1) };
     if (duo) this.fighters[2] = fighter(state.p2.hp, 2);
@@ -191,6 +200,25 @@ export class Combat {
 
   fighter(n = this.cur ?? this.actor) {
     return this.fighters[n] ?? this.fighters[1];
+  }
+
+  /** Höchstwert der Konzentration eines Spielers (Grundwert plus Artefakte, höchstens AP_MAX_CAP, mindestens 1). */
+  apMaxOf(n) {
+    return Math.max(1, Math.min(AP_MAX_CAP, AP_MAX + this.state.withPlayer(n, () => this.state.passive('ap_max'), { quiet: true })));
+  }
+
+  get apMax() {
+    return this.apMaxOf(this.cur ?? this.actor);
+  }
+
+  /** Lebensverlust durch einen Konzentrations-Fluch: schwächt, tötet aber nie. Gibt den Verlust zurück. */
+  focusToll(n) {
+    if (n <= 0) return 0;
+    const s = this.state;
+    const before = s.hp;
+    s.hp = Math.max(1, s.hp - Math.round(n));
+    if (s.hp !== before) s.emit('hp', { value: s.hp, delta: s.hp - before });
+    return before - s.hp;
   }
 
   /** Noch stehende Spieler (1 und/oder 2). */
@@ -258,7 +286,12 @@ export class Combat {
   }
 
   canUseItem() {
-    return !this.itemUsed;
+    return !this.itemUsed && !this.on(this.actor, () => this.state.passive('no_items'));
+  }
+
+  /** Warum gerade kein Gegenstand geht (Oberfläche). */
+  itemBlockedText() {
+    return this.on(this.actor, () => this.state.passive('no_items')) ? 'ein Artefakt verbietet es' : 'schon benutzt';
   }
 
   /** Neue Runde: alle Spieler dürfen wieder handeln, Spieler 1 beginnt (wenn er steht). */
@@ -292,6 +325,8 @@ export class Combat {
     if (!this.canUse(skillId)) throw new Error(`Fertigkeit nicht möglich: ${skillId}`);
     this.ap -= sk.cost;
     this.actions += 1;
+    // Fluch ap_blood: jeder ausgegebene Punkt Konzentration kostet Leben
+    const blood = sk.cost ? this.focusToll(sk.cost * this.state.passive('ap_blood')) : 0;
     const cc = this.composureCost(sk);
     if (cc) this.state.setComposure(this.state.composure - cc);
     const precise = isPrecise(sk);
@@ -322,7 +357,8 @@ export class Combat {
     const total = this.hurtEnemy(raw, { pierce: !!sk.pierce });
     if (this.capped) { effects.push(`mehr steckt ${this.enc.name} in dieser Runde nicht weg (${this.capped} prallen ab)`); this.capped = 0; }
     else if (raw > total) effects.push(`Panzer fängt ${raw - total} ab`);
-    if (skillId === 'attack') this.gainAp(hits[0]?.grade === 'perfect' ? 2 : 1);
+    if (skillId === 'attack') this.gainAp((hits[0]?.grade === 'perfect' ? 2 : 1) + this.state.passive('attack_ap'));
+    if (blood) effects.push(`${blood} Leben für die Konzentration`);
     const landed = sk.hits === 0 || hits.some((h) => h.grade !== 'miss' && h.damage);
     // Betäuben gelingt nur mit einem präzisen Takt; sonst bleibt der Gegner wach
     let stunned = false;
@@ -349,7 +385,7 @@ export class Combat {
 
   useItemNow(id) {
     const it = this.state.item(id);
-    if (!it || it.kind !== 'consumable' || !this.state.itemCount(id) || this.itemUsed) return null;
+    if (!it || it.kind !== 'consumable' || !this.state.itemCount(id) || this.itemUsed || this.state.passive('no_items')) return null;
     this.itemUsed = true;
     this.actions += 1;
     this.state.removeItem(id);
@@ -366,6 +402,7 @@ export class Combat {
   }
 
   canFlee() {
+    if (this.standing().some((n) => this.state.withPlayer(n, () => this.state.passive('no_flee'), { quiet: true }))) return false;
     return !!this.enc.fleeable || !!this.state.passive('always_flee');
   }
 
@@ -376,7 +413,14 @@ export class Combat {
   }
 
   gainAp(n) {
-    this.ap = Math.min(AP_MAX, this.ap + n);
+    this.ap = Math.max(0, Math.min(this.apMax, this.ap + n));
+  }
+
+  /** Gegner werden pro Runde stärker: Daten (`ramp`) plus Fluch enemy_ramp des stärksten betroffenen Spielers. */
+  rampRate() {
+    if (this.enc.practice) return this.enc.ramp ?? 0;
+    const cursed = Math.max(0, ...this.standing().map((n) => this.state.withPlayer(n, () => this.state.passive('enemy_ramp'), { quiet: true })));
+    return (this.enc.ramp ?? 0) + cursed;
   }
 
   /** Schaden am Gegner (Panzer fängt zuerst ab). Gibt den tatsächlichen Schaden zurück. */
@@ -513,7 +557,7 @@ export class Combat {
     const rage = this.enraged();
     const tough0 = this.enc.elite;
     // Feld `ramp`: der Gegner wird mit jeder Runde stärker (gegen endloses Abwarten hinter Schilden)
-    const ramp = 1 + (this.enc.ramp ?? 0) * Math.max(0, this.round - 1);
+    const ramp = 1 + this.rampRate() * Math.max(0, this.round - 1);
     const dmgMult = this.enc.practice ? 1 : ENEMY_DMG_MULT * (rage ? 1.2 : 1) * (tough0 ? ELITE_DMG_MULT : 1) * (this.duo && !this.enc.min_seq ? DUO_DMG_MULT : 1) * (this.sweep ? SWEEP_DMG_MULT : 1) * ramp; // höhere Wesen schlagen zu zweit nicht schwächer
     const speed = rage ? 0.85 : 1;
     const hits = [];
@@ -594,7 +638,7 @@ export class Combat {
     this.round += 1;
     this.roundDmg = 0;
     this.capped = 0;
-    for (const f of Object.values(this.fighters)) f.bleedTick = 0;
+    for (const f of Object.values(this.fighters)) { f.bleedTick = 0; f.focusTick = 0; f.focusGain = 0; }
     // BD: Gegner mit `flees_after` entziehen sich nach so vielen vollständigen Runden ohne Spielersieg (kein Sieg, keine Beute)
     if (!this.outcome && this.enc.flees_after && this.round > this.enc.flees_after) this.outcome = 'escaped';
     if (this.outcome) { this.startTurn(); return 0; }
@@ -610,7 +654,12 @@ export class Combat {
     }
     // Das Moor zehrt: jede Runde kosten die Gebiete von Wexmoor Nerven (ohne Nerven kein Ausweichen)
     this.drainTick = 0;
-    if (this.drain) for (const n of this.standing()) this.on(n, () => { const before = this.state.composure; this.state.setComposure(before - this.drain); this.drainTick += before - this.state.composure; });
+    for (const n of this.standing()) this.on(n, () => {
+      const drain = this.enc.practice ? 0 : this.drain + Math.max(0, this.state.passive('combat_drain'));
+      if (!drain) return;
+      const before = this.state.composure; this.state.setComposure(before - drain); this.drainTick += before - this.state.composure;
+    });
+    this.focusRound();
     this.startTurn();
     if (this.outcome) return 0;
     if (!this.burn) return 0;
@@ -618,6 +667,22 @@ export class Combat {
     this.burn.rounds -= 1;
     if (this.burn.rounds <= 0) this.burn = null;
     return dmg;
+  }
+
+  /**
+   * Konzentrations-Artefakte am Rundenwechsel (ab Runde 2), für jeden stehenden Spieler:
+   * ap_burn (ungenutzte Punkte kosten Leben), ap_reset (Konzentration verfällt), ap_round (neue Punkte).
+   */
+  focusRound() {
+    if (this.enc.practice) return;
+    for (const n of this.standing()) this.on(n, () => {
+      const f = this.fighters[n];
+      const burn = this.state.passive('ap_burn');
+      if (burn > 0 && f.ap > 0) f.focusTick = this.focusToll(f.ap * burn);
+      if (this.state.passive('ap_reset')) f.ap = 0;
+      const gain = this.state.passive('ap_round');
+      if (gain) { const before = f.ap; this.gainAp(gain); f.focusGain = f.ap - before; }
+    });
   }
 
   // --- Ende ---------------------------------------------------------------------
