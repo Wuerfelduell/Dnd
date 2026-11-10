@@ -9,10 +9,30 @@ export function koopRoleOf(id) {
 /** Stimme von Spieler 2 im Geplauder: 'a' oder 'b'. */
 export const koopVoice = (look) => (look === 'p2b' ? 'b' : 'a');
 
-/** Nächstes Gespräch für diese Karte (oder null): Bedingungen erfüllt, noch nicht gehört. */
+/**
+ * Nächstes Gespräch für diese Karte (oder null): Bedingungen erfüllt, noch nicht gehört.
+ * Paket BF: `requires_pathway` meint den Pfad von Spieler 2, egal wer gerade läuft (nie der Pfad von p1 als Ersatz).
+ */
 export function pickChat(state, mapId) {
   const list = state.content.koop?.geplauder ?? [];
-  return list.find((g) => g.map === mapId && !state.koopSeen.has(g.id) && state.meets(g)) ?? null;
+  return list.find((g) => {
+    if (g.map !== mapId || state.koopSeen.has(g.id)) return false;
+    const { requires_pathway, ...rest } = g;
+    if (!state.meets(rest)) return false;
+    return requires_pathway === undefined || (state.withPlayer?.(2, () => state.meetsPathway(requires_pathway), { quiet: true }) ?? false);
+  }) ?? null;
+}
+
+/**
+ * Paket BF: besonderer Anlass zum Kampfbeginn. Gegen den lebenden Schichtgänger ersetzt `koop_schichtgaenger` den
+ * gewöhnlichen Beginn, gegen den Nachhall (er wiederholt Bewegungen) `koop_nachhall`, bei einer Prüfung (k3p_) spricht
+ * die zuschauende Person `koop_pruefung`. Sonst null.
+ */
+export function koopStartEvent(encounterId, enc) {
+  if (encounterId === 'schichtgaenger' || /schichtgaenger$/.test(enc?.sheet ?? '')) return 'koop_schichtgaenger';
+  if (encounterId === 'nachhall' || /nachhall$/.test(enc?.sheet ?? '')) return 'koop_nachhall';
+  if (/^k3p_/.test(encounterId ?? '')) return 'koop_pruefung';
+  return null;
 }
 
 /** Ein Kampfspruch für den Anlass (oder null). speaker: 1 oder 2. */

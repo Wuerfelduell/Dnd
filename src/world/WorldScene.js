@@ -1522,6 +1522,7 @@ export class WorldScene extends Phaser.Scene {
   /** Pausiert die Welt und startet den Kampfbildschirm. `after(result)` läuft nach dem Kampf, `roamer` ist ein Gegner auf der Karte. */
   startCombat(id, after = null, { roamer = null } = {}) {
     if (this.leaving || this.scene.isActive('combat')) return;
+    if (!this.state.pendingCombat) this.state.combatBy = this.state.acting;
     this.state.pendingCombat = null;
     this.state.setSpiritVision(false);
     this.player.setVelocity(0, 0);

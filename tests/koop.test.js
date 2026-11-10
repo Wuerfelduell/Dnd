@@ -33,7 +33,7 @@ test('AI: Rollenobjekte gehören einem Spieler', () => {
   assert.equal(koopRoleOf('lampe_p1'), null);
   // Jedes Rollenobjekt aus der Platzierung steht auf seiner Karte
   const ids = Object.values(content.maps).flatMap((m) => (m.interactables ?? []).map((i) => i.id)).filter((id) => koopRoleOf(id));
-  assert.equal(ids.length, 10);
+  assert.equal(ids.length, 12); // AI: 10, BF: Horchen (Rufplatz, Hinterzugang)
 });
 
 test('AI: Geplauder je Karte einmal, Stimme passend zur Figur', () => {
