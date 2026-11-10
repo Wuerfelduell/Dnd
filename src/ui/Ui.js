@@ -17,6 +17,7 @@ import { openGuesses, gapText, knowledgeGaps, onlyKnowledgeMissing } from '../co
 import { guessMood } from '../core/Moods.js';
 import { MOOD_LABEL, GIFT_KINDS } from '../core/Relations.js';
 import { koopGreeting } from '../core/Koop.js';
+import { STATION_NAMES, DIRECTION_NAMES } from '../data/k3Ruf.js';
 import { isSolved, knownPeople } from '../core/journal.js';
 import { canHurry, travelSafe, travelFast, afterHurryFight, travelDestinations, cityOf } from '../core/Travel.js';
 import { questTarget, leadTarget, personPlaces, advice } from '../core/Guide.js';
@@ -801,6 +802,7 @@ export class Ui {
   }
 
   close() {
+    if (this.modal === 'signal') { this.state.cancelPrivateAnswer?.(1); this.state.cancelPrivateAnswer?.(2); this.signalUi = null; } // BN: offenes Angebot verfällt
     this.forgetScroll();
     this.modal = null;
     this.actor = 1;
@@ -1046,11 +1048,12 @@ export class Ui {
     const choice = this.dialogue?.choices[i];
     if (!choice || choice.locked) return;
     if (choice.gift) { this.openGift(); return; }
-    if (choice.shop || choice.vault || choice.expert || choice.auction) {
+    if (choice.shop || choice.vault || choice.expert || choice.auction || choice.signal_station) {
       const { onClose } = this.dialogue;
       this.dialogue = null;
       onClose?.();
-      if (choice.auction) this.openAuction(choice.auction);
+      if (choice.signal_station) this.openSignalStation(choice.signal_station); // BN
+      else if (choice.auction) this.openAuction(choice.auction);
       else if (choice.shop) this.openShop(choice.shop);
       else if (choice.vault) this.openVault();
       else this.openExpert();
@@ -1380,7 +1383,7 @@ export class Ui {
       ...(papers.length ? [{ id: 'zeitung', title: 'Zeitung' }] : []),
       ...cases.map((c) => ({ id: c.id, title: c.title.replace(/:.*/, '') })), ...(solved.length ? [{ id: 'archiv', title: `Archiv (${solved.length})` }] : [])];
     const caseId = this.currentCase();
-    const body = this.tab === 'quests' ? this.questsHtml() : this.tab === 'items' ? this.itemsHtml() : this.tab === 'pfad' ? this.pathwayTabHtml()
+    const body = this.tab === 'quests' ? this.questsHtml() + this.signalJournalHtml() : this.tab === 'items' ? this.itemsHtml() : this.tab === 'pfad' ? this.pathwayTabHtml()
       : this.tab === 'personen' ? this.peopleHtml() : this.tab === 'bestiar' ? this.bestiaryHtml(beasts) : this.tab === 'zeitung' ? this.papersHtml(papers)
       : this.tab === 'archiv' ? this.archiveHtml(solved) : this.caseHtml(this.tab);
     const isCase = !!caseId;
@@ -1545,6 +1548,95 @@ export class Ui {
     const s = this.state;
     if (!s.hasP2()) { this.invPlayer = 1; return this.pathwayHtml() + this.claimsHtml(1); }
     return this.playerTabsHtml() + s.withPlayer(this.invPlayer, () => this.pathwayHtml(), { quiet: true }) + this.claimsHtml(this.invPlayer);
+  }
+
+  /** Paket BN: Journal der bekannten Rufmuster (Symbol, Form, Quelle, Bedeutung, Klangzeichen) und laufende Bindungen. */
+  signalJournalHtml() {
+    const s = this.state;
+    const sr = s.content.signalRoutes;
+    if (!sr) return '';
+    const seen = new Set();
+    const known = [];
+    for (const st of sr.stationen) for (const [id, p] of Object.entries(st.patterns)) if (!seen.has(id) && s.meetsSignalRoutes({ requires_pattern: id })) { seen.add(id); known.push([id, p]); }
+    const b = s.signal.bindings ?? {};
+    const bound = [1, 2].filter((n) => b[n]).map((n) => `<li>${s.hasP2() ? `Spieler ${n}: ` : ''}${esc(sr.bindungen[b[n].station]?.journal ?? '')} <span class="muted">${esc(sr.texte.bindung_an)}</span></li>`);
+    if (!known.length && !bound.length) return '';
+    const row = ([id, p]) => `<li>${this.signalSymbol(id)}<strong>${esc(p.form)}</strong> <span class="muted">${esc(p.source)}</span><br><span class="desc">${esc(p.meaning)}${s.patternSound(id) ? ` · ${esc(s.patternSound(id).zeichen)}` : ''}</span></li>`;
+    return `<h4>Rufmuster</h4>${known.length ? `<ul class="rufmuster">${known.map(row).join('')}</ul>` : ''}${bound.length ? `<ul class="rufmuster">${bound.join('')}</ul>` : ''}`;
+  }
+
+  /** BN/BA: 16×16-Merksymbol eines Rufmusters aus ui/ds_rufmuster.png. */
+  signalSymbol(id) {
+    const n = this.state.signSymbol?.(id);
+    return n === null || n === undefined ? '' : regionIcon(`${SPRITE_BASE}ui/ds_rufmuster.png`, [n * 16, 0, 16, 16], 256, 16, 'rufmuster', 1 / 6);
+  }
+
+  /**
+   * Paket BN: Fenster an einer Horchstelle. Horchen ist kostenlos, ein Ruf braucht Muster, Richtung und eine Ladung;
+   * die Vorschau zeigt Warnung und Risiko, erst der getrennte Knopf ruft. Die Namensantwort bindet nur den Sprecher.
+   */
+  openSignalStation(stationId, feedback = '') {
+    const s = this.state;
+    const sr = s.content.signalRoutes;
+    const st = sr?.stationen.find((x) => x.id === stationId);
+    if (!st) return;
+    const t = sr.texte;
+    const actor = this.actor;
+    const run = (fn) => this.as(fn, actor);
+    const sel = this.signalUi?.station === stationId ? this.signalUi : { station: stationId, pattern: null, dir: st.directions[0], offer: null };
+    this.signalUi = sel;
+    const listen = run(() => s.listen(stationId));
+    const known = Object.entries(st.patterns).filter(([id]) => s.meetsSignalRoutes({ requires_pattern: id }));
+    if (!sel.pattern || !st.patterns[sel.pattern]) sel.pattern = known[0]?.[0] ?? null;
+    const preview = sel.pattern ? run(() => s.previewCall(stationId, sel.pattern, sel.dir)) : null;
+    const patterns = known.length
+      ? `<ul class="items shoplist">${known.map(([id, p], i) => `<li class="item"><div>${this.signalSymbol(id)}<strong>${esc(p.form)}</strong><br><span class="desc">${esc(p.source)} – ${esc(p.meaning)}</span>${s.patternSound(id) ? `<br><span class="muted">${esc(s.patternSound(id).zeichen)}</span>` : ''}</div><div><button class="small" data-pattern="${id}" ${id === sel.pattern ? 'disabled' : ''}><span class="key">${i + 1}</span> ${id === sel.pattern ? 'Gewählt' : 'Wählen'}</button></div></li>`).join('')}</ul>`
+      : `<p class="muted">${esc(t.unlearned)}</p>`;
+    const dirs = st.directions.length > 1 ? `<div class="actions">${st.directions.map((d) => `<button class="small" data-dir="${d}" ${d === sel.dir ? 'disabled' : ''}>${DIRECTION_NAMES[d]}</button>`).join('')}</div>` : `<p class="muted">Der Trichter zeigt nach ${DIRECTION_NAMES[sel.dir]}.</p>`;
+    const hints = listen.ok && listen.hints.length ? `<p class="lead">${esc(t.horch_an)}</p><ul class="hints">${listen.hints.map((h) => `<li>${esc(h.text)}</li>`).join('')}</ul>` : '';
+    const pv = preview ? `<div class="status">${esc(preview.text)}${preview.ok ? `<br>${esc(preview.warning)}<br><span class="muted">${esc(preview.risk)}</span>` : ''}</div>` : '';
+    const bindung = st.privateAnswer && sr.bindungen?.[stationId];
+    const bound = !!s.signal.bindings?.[actor];
+    const bind = !bindung ? '' : sel.offer
+      ? `<div class="status"><strong>${esc(sel.offer.warning)}</strong><br>${esc(sel.offer.koop)}<br><span class="muted">${sel.offer.passives.map((p) => `${p.key === 'max_nerves' ? 'Höchstnerven' : 'Unruhe je Takt'} ${p.value > 0 ? '+' : ''}${p.value}`).join(' · ')}</span></div>
+         <div class="actions"><button data-act="bind">Meinen Namen bewusst antworten</button><button data-act="silence">Schweigen</button></div>`
+      : `<div class="actions"><button data-act="offer" ${bound ? 'disabled' : ''}>${bound ? esc(t.bound) : 'Namensantwort anbieten …'}</button></div>`;
+    const el = this.open('signal', `
+      <h3>${esc(STATION_NAMES[stationId] ?? 'Horchstelle')}${s.hasP2() ? ` <span class="muted">Spieler ${actor}</span>` : ''}</h3>
+      ${hints}
+      <h4>Rufmuster</h4>${patterns}${dirs}${pv}
+      <div class="feedback">${feedback}</div>
+      <div class="actions"><button data-act="call" ${preview?.ok ? '' : 'disabled'}>Rufen (1 Ladung · ${s.signal.charges}/3)</button></div>
+      ${bind}
+      <div class="actions"><button data-act="close">Gehen <span class="key">Esc</span></button></div>`, 'notebook shop');
+    el.querySelectorAll('[data-pattern]').forEach((b) => { b.onclick = () => { sel.pattern = b.dataset.pattern; this.openSignalStation(stationId); }; });
+    el.querySelectorAll('[data-dir]').forEach((b) => { b.onclick = () => { sel.dir = b.dataset.dir; this.openSignalStation(stationId); }; });
+    el.querySelector('[data-act=close]').onclick = () => this.close();
+    el.querySelector('[data-act=call]').onclick = () => {
+      const cmd = `ruf:${stationId}:${sel.pattern}:${sel.dir}:${Date.now()}`;
+      const { handled, result } = run(() => s.confirmCall(cmd, stationId, sel.pattern, sel.dir));
+      if (!handled) { this.openSignalStation(stationId, esc(result.text)); return; }
+      run(() => s.cancelPrivateAnswer(actor));
+      this.signalUi = null;
+      const parts = [result.text, result.flag ? t.wissen : '', result.alarm ? t.alarm : ''].filter(Boolean);
+      this.showMessage(STATION_NAMES[stationId] ?? 'Ruf', parts.join('\n\n'), { footer: result.kind === 'fallback' ? `−${result.nerves} Nerven · Ladungen ${s.signal.charges}/3` : `Ladungen ${s.signal.charges}/3` });
+    };
+    el.querySelector('[data-act=offer]')?.addEventListener('click', () => {
+      const offer = run(() => s.offerPrivateAnswer(stationId, actor));
+      if (!offer.ok) { this.openSignalStation(stationId, esc(offer.text)); return; }
+      sel.offer = offer;
+      this.openSignalStation(stationId);
+    });
+    el.querySelector('[data-act=silence]')?.addEventListener('click', () => { run(() => s.cancelPrivateAnswer(actor)); sel.offer = null; this.openSignalStation(stationId, esc(t.horch_aus)); });
+    el.querySelector('[data-act=bind]')?.addEventListener('click', () => {
+      const cmd = `bindung:${stationId}:${actor}:${Date.now()}`;
+      const { handled, result } = run(() => s.acceptPrivateAnswer(cmd, stationId, actor));
+      sel.offer = null;
+      if (!handled) { this.openSignalStation(stationId, esc(result.text)); return; }
+      run(() => s.setComposure(Math.min(s.composure, s.maxComposure())));
+      this.signalUi = null;
+      this.showMessage('Namensantwort', [result.text, t.bindung_an, s.hasP2() ? result.koop : ''].filter(Boolean).join('\n\n'));
+    });
   }
 
   /** Paket BG: offene persönliche Ansprüche (Hüter- und Prüfungszutaten bei Hedda). */
