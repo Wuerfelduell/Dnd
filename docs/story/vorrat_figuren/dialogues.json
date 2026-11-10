@@ -1,0 +1,4724 @@
+{
+  "bj_cw_crayford": {
+    "start": [
+      {
+        "node": "gruss_hoch",
+        "requires_honor": 40
+      },
+      {
+        "node": "gruss_mittel",
+        "requires_honor": 10
+      },
+      {
+        "node": "gruss_niedrig"
+      }
+    ],
+    "nodes": {
+      "gruss_niedrig": {
+        "text": "„Noch kenne ich deine Hände nicht. Leg sie sichtbar hin.“",
+        "choices": [
+          {
+            "text": "Darf ich etwas fragen?",
+            "next": "hub"
+          },
+          {
+            "text": "Ich komme später wieder.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "gruss_mittel": {
+        "text": "„Man sagt, du bringst Geliehenes zurück. Das wäre praktisch.“",
+        "choices": [
+          {
+            "text": "Darf ich etwas fragen?",
+            "next": "hub"
+          },
+          {
+            "text": "Ich komme später wieder.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "gruss_hoch": {
+        "text": "„Dein Ruf kommt vor dir. Hoffentlich trägt er die schweren Bücher.“",
+        "choices": [
+          {
+            "text": "Darf ich etwas fragen?",
+            "next": "hub"
+          },
+          {
+            "text": "Ich komme später wieder.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "hub": {
+        "text": "„Was möchtest du wissen?“",
+        "choices": [
+          {
+            "text": "Was hält ein altes Buch zusammen?",
+            "next": "thema_eins"
+          },
+          {
+            "text": "Warum steht die Hintertür offen?",
+            "next": "thema_zwei"
+          },
+          {
+            "text": "Was hältst du von meinem Pfad?",
+            "requires_pathway": [
+              "faden",
+              9
+            ],
+            "next": "pfad"
+          },
+          {
+            "text": "Du wolltest um etwas bitten.",
+            "next": "bitte"
+          },
+          {
+            "text": "Für heute genug.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "thema_eins": {
+        "text": "„Nicht der Rücken. Die einzelnen Lagen. Wer nur außen klebt, verkauft einen hübschen Bruch.“",
+        "choices": [
+          {
+            "text": "Noch eine Frage.",
+            "next": "hub"
+          },
+          {
+            "text": "Danke für die Auskunft.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "thema_zwei": {
+        "text": "„Leim braucht Luft. Menschen gelegentlich auch. Für beides muss ich niemanden beim Archiv anmelden.“",
+        "choices": [
+          {
+            "text": "Noch eine Frage.",
+            "next": "hub"
+          },
+          {
+            "text": "Danke für die Auskunft.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "pfad": {
+        "text": "„Ein Faden taugt erst, wenn seine Enden etwas halten. Zeig mir lieber eine Verbindung als einen schönen Knoten.“",
+        "choices": [
+          {
+            "text": "Das werde ich bedenken.",
+            "next": "hub"
+          }
+        ]
+      },
+      "bitte": {
+        "text": "„Drei Nachbarn beanspruchen denselben alten Rezeptband. Prüfe die Reparaturen, bevor ich ihn neu binde.“",
+        "choices": [
+          {
+            "text": "Was soll ich dabei beachten?",
+            "next": "bitte_details"
+          },
+          {
+            "text": "Ich verspreche noch nichts.",
+            "next": "hub"
+          },
+          {
+            "text": "Heute kann ich nicht helfen.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "bitte_details": {
+        "text": "„Kein Besitzer muss seine Erinnerungen abgeben. Eine gemeinsame Hülle reicht; die Einlagen bleiben getrennt.“",
+        "choices": [
+          {
+            "text": "Ich habe die Bitte verstanden.",
+            "next": "hub"
+          },
+          {
+            "text": "Ich muss weiter.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "abschied": {
+        "text": "„Lass die Klammer liegen. Ich halte dir die Tür.“",
+        "choices": [
+          {
+            "text": "Auf Wiedersehen."
+          }
+        ]
+      }
+    }
+  },
+  "bj_cw_ida_bellcross": {
+    "start": [
+      {
+        "node": "gruss_hoch",
+        "requires_honor": 40
+      },
+      {
+        "node": "gruss_mittel",
+        "requires_honor": 10
+      },
+      {
+        "node": "gruss_niedrig"
+      }
+    ],
+    "nodes": {
+      "gruss_niedrig": {
+        "text": "„Deine Frage steht zu nah an der Antwort. Lass einen Abstand.“",
+        "choices": [
+          {
+            "text": "Darf ich etwas fragen?",
+            "next": "hub"
+          },
+          {
+            "text": "Ich komme später wieder.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "gruss_mittel": {
+        "text": "„Von dir habe ich eine brauchbare Auskunft gehört. Eine reicht fürs Erste.“",
+        "choices": [
+          {
+            "text": "Darf ich etwas fragen?",
+            "next": "hub"
+          },
+          {
+            "text": "Ich komme später wieder.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "gruss_hoch": {
+        "text": "„Man lobt deine Genauigkeit. Dann überspring bitte keinen Rand.“",
+        "choices": [
+          {
+            "text": "Darf ich etwas fragen?",
+            "next": "hub"
+          },
+          {
+            "text": "Ich komme später wieder.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "hub": {
+        "text": "„Was möchtest du wissen?“",
+        "choices": [
+          {
+            "text": "Warum steht am Rand ein Haken?",
+            "next": "thema_eins"
+          },
+          {
+            "text": "Woran merkst du einen schlechten Satz?",
+            "next": "thema_zwei"
+          },
+          {
+            "text": "Was hältst du von meinem Pfad?",
+            "requires_pathway": [
+              "faden",
+              9
+            ],
+            "next": "pfad"
+          },
+          {
+            "text": "Du wolltest um etwas bitten.",
+            "next": "bitte"
+          },
+          {
+            "text": "Für heute genug.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "thema_eins": {
+        "text": "„Weil in der Mitte kein Platz mehr war. Genauer: weil jemand dort keinen Platz gelassen hat.“",
+        "choices": [
+          {
+            "text": "Noch eine Frage.",
+            "next": "hub"
+          },
+          {
+            "text": "Danke für die Auskunft.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "thema_zwei": {
+        "text": "„Er liest sich bequem und lässt etwas weg. Meist das, was einer hätte bezahlen müssen.“",
+        "choices": [
+          {
+            "text": "Noch eine Frage.",
+            "next": "hub"
+          },
+          {
+            "text": "Danke für die Auskunft.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "pfad": {
+        "text": "„Du kennst den Faden. Zieh nicht an einer losen Stelle, bevor du weißt, wer am anderen Ende sitzt.“",
+        "choices": [
+          {
+            "text": "Das werde ich bedenken.",
+            "next": "hub"
+          }
+        ]
+      },
+      "bitte": {
+        "text": "„In einer alten Werkordnung fehlt die Ruhepause. Vergleiche die erhaltenen Fassungen, ohne eine davon zur einzigen Wahrheit zu erklären.“",
+        "choices": [
+          {
+            "text": "Was soll ich dabei beachten?",
+            "next": "bitte_details"
+          },
+          {
+            "text": "Ich verspreche noch nichts.",
+            "next": "hub"
+          },
+          {
+            "text": "Heute kann ich nicht helfen.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "bitte_details": {
+        "text": "„Das ist eine Werkordnung, keine Auskunft über meinen Aufenthaltsort. Bewahre die alten Fassungen auf.“",
+        "choices": [
+          {
+            "text": "Ich habe die Bitte verstanden.",
+            "next": "hub"
+          },
+          {
+            "text": "Ich muss weiter.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "abschied": {
+        "text": "„Heb auch die verworfene Fassung auf.“",
+        "choices": [
+          {
+            "text": "Auf Wiedersehen."
+          }
+        ]
+      }
+    }
+  },
+  "bj_cw_noel_bellcross": {
+    "start": [
+      {
+        "node": "gruss_hoch",
+        "requires_honor": 40
+      },
+      {
+        "node": "gruss_mittel",
+        "requires_honor": 10
+      },
+      {
+        "node": "gruss_niedrig"
+      }
+    ],
+    "nodes": {
+      "gruss_niedrig": {
+        "text": "„Für Fremde steht der kleine Topf bereit. Er ist nicht weniger warm.“",
+        "choices": [
+          {
+            "text": "Darf ich etwas fragen?",
+            "next": "hub"
+          },
+          {
+            "text": "Ich komme später wieder.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "gruss_mittel": {
+        "text": "„Setz dich. Dein Platz wurde eben erst frei.“",
+        "choices": [
+          {
+            "text": "Darf ich etwas fragen?",
+            "next": "hub"
+          },
+          {
+            "text": "Ich komme später wieder.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "gruss_hoch": {
+        "text": "„Man kennt dich hier. Das ersetzt keine Mahlzeit.“",
+        "choices": [
+          {
+            "text": "Darf ich etwas fragen?",
+            "next": "hub"
+          },
+          {
+            "text": "Ich komme später wieder.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "hub": {
+        "text": "„Was möchtest du wissen?“",
+        "choices": [
+          {
+            "text": "Warum zwei verschiedene Teller?",
+            "next": "thema_eins"
+          },
+          {
+            "text": "Wer bezahlt die Küche?",
+            "next": "thema_zwei"
+          },
+          {
+            "text": "Was hältst du von meinem Pfad?",
+            "requires_pathway": [
+              "sq_waage",
+              9
+            ],
+            "next": "pfad"
+          },
+          {
+            "text": "Du wolltest um etwas bitten.",
+            "next": "bitte"
+          },
+          {
+            "text": "Für heute genug.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "thema_eins": {
+        "text": "„Einer hält länger warm. Der andere war billig. Zusammen sind sie ein sehr vernünftiger Haushalt.“",
+        "choices": [
+          {
+            "text": "Noch eine Frage.",
+            "next": "hub"
+          },
+          {
+            "text": "Danke für die Auskunft.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "thema_zwei": {
+        "text": "„Wer kann, bringt etwas. Wer nicht kann, rührt um. Bei mir muss auch die Armut arbeiten; aber nicht schwer.“",
+        "choices": [
+          {
+            "text": "Noch eine Frage.",
+            "next": "hub"
+          },
+          {
+            "text": "Danke für die Auskunft.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "pfad": {
+        "text": "„Eine Waage kann Portionen teilen. Ob jemand noch Hunger hat, musst du trotzdem fragen.“",
+        "choices": [
+          {
+            "text": "Das werde ich bedenken.",
+            "next": "hub"
+          }
+        ]
+      },
+      "bitte": {
+        "text": "„Der Griff des Küchentopfs ist gebrochen. Die Bewohner bieten drei verschiedene Ersatzstücke an.“",
+        "choices": [
+          {
+            "text": "Was soll ich dabei beachten?",
+            "next": "bitte_details"
+          },
+          {
+            "text": "Ich verspreche noch nichts.",
+            "next": "hub"
+          },
+          {
+            "text": "Heute kann ich nicht helfen.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "bitte_details": {
+        "text": "„Kein geliehenes Stück verschwindet einfach in meiner Küche. Schreib auf, wem wir etwas schulden.“",
+        "choices": [
+          {
+            "text": "Ich habe die Bitte verstanden.",
+            "next": "hub"
+          },
+          {
+            "text": "Ich muss weiter.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "abschied": {
+        "text": "„Iss, bevor du nach der nächsten Erklärung suchst.“",
+        "choices": [
+          {
+            "text": "Auf Wiedersehen."
+          }
+        ]
+      }
+    }
+  },
+  "bj_cw_wetherby": {
+    "start": [
+      {
+        "node": "gruss_hoch",
+        "requires_honor": 40
+      },
+      {
+        "node": "gruss_mittel",
+        "requires_honor": 10
+      },
+      {
+        "node": "gruss_niedrig"
+      }
+    ],
+    "nodes": {
+      "gruss_niedrig": {
+        "text": "„Ihr Anliegen ist noch keiner Stelle zugeordnet. Sprechen Sie langsam.“",
+        "choices": [
+          {
+            "text": "Darf ich etwas fragen?",
+            "next": "hub"
+          },
+          {
+            "text": "Ich komme später wieder.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "gruss_mittel": {
+        "text": "„Ihre bisherigen Auskünfte sind vermerkt. Bitte bleiben Sie beim Gegenstand.“",
+        "choices": [
+          {
+            "text": "Darf ich etwas fragen?",
+            "next": "hub"
+          },
+          {
+            "text": "Ich komme später wieder.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "gruss_hoch": {
+        "text": "„Ihr Ansehen erleichtert den Empfang. Es ersetzt keine Begründung.“",
+        "choices": [
+          {
+            "text": "Darf ich etwas fragen?",
+            "next": "hub"
+          },
+          {
+            "text": "Ich komme später wieder.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "hub": {
+        "text": "„Was möchtest du wissen?“",
+        "choices": [
+          {
+            "text": "Warum wird jede Auskunft weitergeleitet?",
+            "next": "thema_eins"
+          },
+          {
+            "text": "Darf eine Akte zwei Fassungen haben?",
+            "next": "thema_zwei"
+          },
+          {
+            "text": "Was hältst du von meinem Pfad?",
+            "requires_pathway": [
+              "faden",
+              9
+            ],
+            "next": "pfad"
+          },
+          {
+            "text": "Du wolltest um etwas bitten.",
+            "next": "bitte"
+          },
+          {
+            "text": "Für heute genug.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "thema_eins": {
+        "text": "„Damit die zuständige Stelle antwortet. Unzuständige Antworten verbreiten sich gewöhnlich schneller.“",
+        "choices": [
+          {
+            "text": "Noch eine Frage.",
+            "next": "hub"
+          },
+          {
+            "text": "Danke für die Auskunft.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "thema_zwei": {
+        "text": "„Vorläufig. Eine Verwaltung muss mit Widersprüchen arbeiten können. Sie darf sich nur nicht in ihnen einrichten.“",
+        "choices": [
+          {
+            "text": "Noch eine Frage.",
+            "next": "hub"
+          },
+          {
+            "text": "Danke für die Auskunft.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "pfad": {
+        "text": "„Ein Faden ist eine Verpflichtung. Es genügt nicht, ihn zu sehen; jemand muss für seine Spannung zuständig sein.“",
+        "choices": [
+          {
+            "text": "Das werde ich bedenken.",
+            "next": "hub"
+          }
+        ]
+      },
+      "bitte": {
+        "text": "„Die Wartebank versperrt den Zugang für Träger. Lassen Sie prüfen, wer sie wohin versetzt hat.“",
+        "choices": [
+          {
+            "text": "Was soll ich dabei beachten?",
+            "next": "bitte_details"
+          },
+          {
+            "text": "Ich verspreche noch nichts.",
+            "next": "hub"
+          },
+          {
+            "text": "Heute kann ich nicht helfen.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "bitte_details": {
+        "text": "„Es geht um den Durchgang. Persönliche Verzeichnisse werden dafür nicht benötigt.“",
+        "choices": [
+          {
+            "text": "Ich habe die Bitte verstanden.",
+            "next": "hub"
+          },
+          {
+            "text": "Ich muss weiter.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "abschied": {
+        "text": "„Ihre übrigen Fragen bleiben entgegengenommen.“",
+        "choices": [
+          {
+            "text": "Auf Wiedersehen."
+          }
+        ]
+      }
+    }
+  },
+  "bj_cw_darnell": {
+    "start": [
+      {
+        "node": "gruss_hoch",
+        "requires_honor": 40
+      },
+      {
+        "node": "gruss_mittel",
+        "requires_honor": 10
+      },
+      {
+        "node": "gruss_niedrig"
+      }
+    ],
+    "nodes": {
+      "gruss_niedrig": {
+        "text": "„Hinter die Linie, bitte. Sie ist auch ohne Schild noch eine Linie.“",
+        "choices": [
+          {
+            "text": "Darf ich etwas fragen?",
+            "next": "hub"
+          },
+          {
+            "text": "Ich komme später wieder.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "gruss_mittel": {
+        "text": "„Ich habe schon ordentlichere Unterschriften gesehen. Aber auch schlechtere Auskünfte.“",
+        "choices": [
+          {
+            "text": "Darf ich etwas fragen?",
+            "next": "hub"
+          },
+          {
+            "text": "Ich komme später wieder.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "gruss_hoch": {
+        "text": "„Für dich suche ich den trockenen Durchschlag. Die Reihenfolge bleibt bestehen.“",
+        "choices": [
+          {
+            "text": "Darf ich etwas fragen?",
+            "next": "hub"
+          },
+          {
+            "text": "Ich komme später wieder.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "hub": {
+        "text": "„Was möchtest du wissen?“",
+        "choices": [
+          {
+            "text": "Wie viel wiegt ein leerer Umschlag?",
+            "next": "thema_eins"
+          },
+          {
+            "text": "Warum trocknest du Papier einzeln?",
+            "next": "thema_zwei"
+          },
+          {
+            "text": "Was hältst du von meinem Pfad?",
+            "requires_pathway": [
+              "schluessel",
+              9
+            ],
+            "next": "pfad"
+          },
+          {
+            "text": "Du wolltest um etwas bitten.",
+            "next": "bitte"
+          },
+          {
+            "text": "Für heute genug.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "thema_eins": {
+        "text": "„Mehr als keiner. Darauf besteht die Waage. Sie ist unsere gewissenhafteste Angestellte.“",
+        "choices": [
+          {
+            "text": "Noch eine Frage.",
+            "next": "hub"
+          },
+          {
+            "text": "Danke für die Auskunft.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "thema_zwei": {
+        "text": "„Feuchte Blätter haften zusammen. Später behauptet jeder, es sei nur eines gewesen.“",
+        "choices": [
+          {
+            "text": "Noch eine Frage.",
+            "next": "hub"
+          },
+          {
+            "text": "Danke für die Auskunft.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "pfad": {
+        "text": "„Wer Schlüssel versteht, sollte auch wissen, wann eine offene Schublade wieder geschlossen werden muss.“",
+        "choices": [
+          {
+            "text": "Das werde ich bedenken.",
+            "next": "hub"
+          }
+        ]
+      },
+      "bitte": {
+        "text": "„Die Rücklaufkiste enthält eine unbestellte leere Kapsel. Finde ihre Werkstatt, ohne fremde Sendungen zu öffnen.“",
+        "choices": [
+          {
+            "text": "Was soll ich dabei beachten?",
+            "next": "bitte_details"
+          },
+          {
+            "text": "Ich verspreche noch nichts.",
+            "next": "hub"
+          },
+          {
+            "text": "Heute kann ich nicht helfen.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "bitte_details": {
+        "text": "„Eine Außenprüfung genügt. Niemand hat uns erlaubt, private Nachrichten zu lesen.“",
+        "choices": [
+          {
+            "text": "Ich habe die Bitte verstanden.",
+            "next": "hub"
+          },
+          {
+            "text": "Ich muss weiter.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "abschied": {
+        "text": "„Nimm deine Abschrift mit. Die Feuchtigkeit bleibt hier.“",
+        "choices": [
+          {
+            "text": "Auf Wiedersehen."
+          }
+        ]
+      }
+    }
+  },
+  "bj_cw_hesk": {
+    "start": [
+      {
+        "node": "gruss_hoch",
+        "requires_honor": 40
+      },
+      {
+        "node": "gruss_mittel",
+        "requires_honor": 10
+      },
+      {
+        "node": "gruss_niedrig"
+      }
+    ],
+    "nodes": {
+      "gruss_niedrig": {
+        "text": "„Du stehst auf meinem Riemen. Das ist kein guter Anfang.“",
+        "choices": [
+          {
+            "text": "Darf ich etwas fragen?",
+            "next": "hub"
+          },
+          {
+            "text": "Ich komme später wieder.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "gruss_mittel": {
+        "text": "„Man sagt, du lässt Leute ausreden. Dann warte, bis ich abgesetzt habe.“",
+        "choices": [
+          {
+            "text": "Darf ich etwas fragen?",
+            "next": "hub"
+          },
+          {
+            "text": "Ich komme später wieder.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "gruss_hoch": {
+        "text": "„Dein Ruf wiegt wenig. Deine Hilfe wäre mir lieber.“",
+        "choices": [
+          {
+            "text": "Darf ich etwas fragen?",
+            "next": "hub"
+          },
+          {
+            "text": "Ich komme später wieder.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "hub": {
+        "text": "„Was möchtest du wissen?“",
+        "choices": [
+          {
+            "text": "Was trägt sich am schlechtesten?",
+            "next": "thema_eins"
+          },
+          {
+            "text": "Warum hältst du an jedem Absatz?",
+            "next": "thema_zwei"
+          },
+          {
+            "text": "Was hältst du von meinem Pfad?",
+            "requires_pathway": [
+              "eisen",
+              9
+            ],
+            "next": "pfad"
+          },
+          {
+            "text": "Du wolltest um etwas bitten.",
+            "next": "bitte"
+          },
+          {
+            "text": "Für heute genug.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "thema_eins": {
+        "text": "„Eine Kiste ohne Griffe. Gleich danach kommt eine Anweisung ohne Absender.“",
+        "choices": [
+          {
+            "text": "Noch eine Frage.",
+            "next": "hub"
+          },
+          {
+            "text": "Danke für die Auskunft.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "thema_zwei": {
+        "text": "„Zum Nachfassen. Wer nie anhält, merkt erst unten, dass etwas gerutscht ist.“",
+        "choices": [
+          {
+            "text": "Noch eine Frage.",
+            "next": "hub"
+          },
+          {
+            "text": "Danke für die Auskunft.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "pfad": {
+        "text": "„Eisen hält viel aus. Ein Mensch muss deshalb nicht alles tragen, was man daran hängt.“",
+        "choices": [
+          {
+            "text": "Das werde ich bedenken.",
+            "next": "hub"
+          }
+        ]
+      },
+      "bitte": {
+        "text": "„Ein Handwagen wird zwei Trägern doppelt berechnet. Prüfe, welche Fahrten tatsächlich stattgefunden haben.“",
+        "choices": [
+          {
+            "text": "Was soll ich dabei beachten?",
+            "next": "bitte_details"
+          },
+          {
+            "text": "Ich verspreche noch nichts.",
+            "next": "hub"
+          },
+          {
+            "text": "Heute kann ich nicht helfen.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "bitte_details": {
+        "text": "„Keine Namenslisten. Es reichen Wege, Zeiten und die Aussagen der Beteiligten.“",
+        "choices": [
+          {
+            "text": "Ich habe die Bitte verstanden.",
+            "next": "hub"
+          },
+          {
+            "text": "Ich muss weiter.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "abschied": {
+        "text": "„Ich nehme die schwere Seite. Du hältst die Tür.“",
+        "choices": [
+          {
+            "text": "Auf Wiedersehen."
+          }
+        ]
+      }
+    }
+  },
+  "bj_cw_wicksend": {
+    "start": [
+      {
+        "node": "gruss_hoch",
+        "requires_honor": 40
+      },
+      {
+        "node": "gruss_mittel",
+        "requires_honor": 10
+      },
+      {
+        "node": "gruss_niedrig"
+      }
+    ],
+    "nodes": {
+      "gruss_niedrig": {
+        "text": "„Schau erst. Eigentum entsteht hier nicht durch Anfassen.“",
+        "choices": [
+          {
+            "text": "Darf ich etwas fragen?",
+            "next": "hub"
+          },
+          {
+            "text": "Ich komme später wieder.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "gruss_mittel": {
+        "text": "„Du darfst hinter die Theke sehen. Mit den Augen.“",
+        "choices": [
+          {
+            "text": "Darf ich etwas fragen?",
+            "next": "hub"
+          },
+          {
+            "text": "Ich komme später wieder.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "gruss_hoch": {
+        "text": "„Man vertraut dir. Behandle dieses Vertrauen wie geliehene Ware.“",
+        "choices": [
+          {
+            "text": "Darf ich etwas fragen?",
+            "next": "hub"
+          },
+          {
+            "text": "Ich komme später wieder.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "hub": {
+        "text": "„Was möchtest du wissen?“",
+        "choices": [
+          {
+            "text": "Was nimmst du nicht ins Pfand?",
+            "next": "thema_eins"
+          },
+          {
+            "text": "Wie erkennst du einen Gegenstand wieder?",
+            "next": "thema_zwei"
+          },
+          {
+            "text": "Was hältst du von meinem Pfad?",
+            "requires_pathway": [
+              "schluessel",
+              9
+            ],
+            "next": "pfad"
+          },
+          {
+            "text": "Du wolltest um etwas bitten.",
+            "next": "bitte"
+          },
+          {
+            "text": "Für heute genug.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "thema_eins": {
+        "text": "„Versprechen über Dritte. Die Besitzer kommen selten selbst zum Auslösen.“",
+        "choices": [
+          {
+            "text": "Noch eine Frage.",
+            "next": "hub"
+          },
+          {
+            "text": "Danke für die Auskunft.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "thema_zwei": {
+        "text": "„An Reparaturen. Glatte Ware kann jeder beschreiben. Ein schiefer Henkel hat eine Geschichte.“",
+        "choices": [
+          {
+            "text": "Noch eine Frage.",
+            "next": "hub"
+          },
+          {
+            "text": "Danke für die Auskunft.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "pfad": {
+        "text": "„Ein guter Schlüssel öffnet nur das passende Schloss. Mehr verlange ich von einem Namen ebenfalls nicht.“",
+        "choices": [
+          {
+            "text": "Das werde ich bedenken.",
+            "next": "hub"
+          }
+        ]
+      },
+      "bitte": {
+        "text": "„Zwei Menschen möchten denselben Krug auslösen. Lass beide die Reparatur beschreiben, ohne ihnen die Antwort vorzulegen.“",
+        "choices": [
+          {
+            "text": "Was soll ich dabei beachten?",
+            "next": "bitte_details"
+          },
+          {
+            "text": "Ich verspreche noch nichts.",
+            "next": "hub"
+          },
+          {
+            "text": "Heute kann ich nicht helfen.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "bitte_details": {
+        "text": "„Wer sich irrt, wird nicht vorgeführt. Eine ehrliche Verwechslung ist noch kein Diebstahl.“",
+        "choices": [
+          {
+            "text": "Ich habe die Bitte verstanden.",
+            "next": "hub"
+          },
+          {
+            "text": "Ich muss weiter.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "abschied": {
+        "text": "„Deine Fragen bleiben vorerst unverpfändet.“",
+        "choices": [
+          {
+            "text": "Auf Wiedersehen."
+          }
+        ]
+      }
+    }
+  },
+  "bj_cw_bexley": {
+    "start": [
+      {
+        "node": "gruss_hoch",
+        "requires_honor": 40
+      },
+      {
+        "node": "gruss_mittel",
+        "requires_honor": 10
+      },
+      {
+        "node": "gruss_niedrig"
+      }
+    ],
+    "nodes": {
+      "gruss_niedrig": {
+        "text": "„Bist du schon einmal hier gewesen? Die Stufen klingen bekannt.“",
+        "choices": [
+          {
+            "text": "Darf ich etwas fragen?",
+            "next": "hub"
+          },
+          {
+            "text": "Ich komme später wieder.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "gruss_mittel": {
+        "text": "„Deine Schritte kenne ich eher als deinen Namen. Komm näher.“",
+        "choices": [
+          {
+            "text": "Darf ich etwas fragen?",
+            "next": "hub"
+          },
+          {
+            "text": "Ich komme später wieder.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "gruss_hoch": {
+        "text": "„Man sagt, du hörst zu. Dann gönn mir eine kleine Pause.“",
+        "choices": [
+          {
+            "text": "Darf ich etwas fragen?",
+            "next": "hub"
+          },
+          {
+            "text": "Ich komme später wieder.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "hub": {
+        "text": "„Was möchtest du wissen?“",
+        "choices": [
+          {
+            "text": "Warum klopfst du vor dem Heizen?",
+            "next": "thema_eins"
+          },
+          {
+            "text": "Kann man durch die Rohre reden?",
+            "next": "thema_zwei"
+          },
+          {
+            "text": "Was hältst du von meinem Pfad?",
+            "requires_pathway": [
+              "echo",
+              9
+            ],
+            "next": "pfad"
+          },
+          {
+            "text": "Du wolltest um etwas bitten.",
+            "next": "bitte"
+          },
+          {
+            "text": "Für heute genug.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "thema_eins": {
+        "text": "„Weil oben jemand schläft. Ungefähr jedenfalls. Manche schlafen zu anderen Zeiten als ihre Uhren.“",
+        "choices": [
+          {
+            "text": "Noch eine Frage.",
+            "next": "hub"
+          },
+          {
+            "text": "Danke für die Auskunft.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "thema_zwei": {
+        "text": "„Man kann. Ob am Ende noch derselbe Satz ankommt, ist eine zweite Frage.“",
+        "choices": [
+          {
+            "text": "Noch eine Frage.",
+            "next": "hub"
+          },
+          {
+            "text": "Danke für die Auskunft.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "pfad": {
+        "text": "„Ein Echo hat einen Weg hinter sich. Hör auf den Weg, bevor du ihm ein Gesicht gibst.“",
+        "choices": [
+          {
+            "text": "Das werde ich bedenken.",
+            "next": "hub"
+          }
+        ]
+      },
+      "bitte": {
+        "text": "„Jemand klopft nachts gegen die Rohre. Prüfe, ob ein loses Lager oder ein Nachbar Hilfe verlangt.“",
+        "choices": [
+          {
+            "text": "Was soll ich dabei beachten?",
+            "next": "bitte_details"
+          },
+          {
+            "text": "Ich verspreche noch nichts.",
+            "next": "hub"
+          },
+          {
+            "text": "Heute kann ich nicht helfen.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "bitte_details": {
+        "text": "„Keine Wand wird ohne Erlaubnis geöffnet. Wir können zuerst auf beiden Seiten fragen.“",
+        "choices": [
+          {
+            "text": "Ich habe die Bitte verstanden.",
+            "next": "hub"
+          },
+          {
+            "text": "Ich muss weiter.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "abschied": {
+        "text": "„Klopf zweimal, wenn du wiederkommst. Ungefähr gleich laut.“",
+        "choices": [
+          {
+            "text": "Auf Wiedersehen."
+          }
+        ]
+      }
+    }
+  },
+  "bj_cw_malliver": {
+    "start": [
+      {
+        "node": "gruss_hoch",
+        "requires_honor": 40
+      },
+      {
+        "node": "gruss_mittel",
+        "requires_honor": 10
+      },
+      {
+        "node": "gruss_niedrig"
+      }
+    ],
+    "nodes": {
+      "gruss_niedrig": {
+        "text": "„Bitte nicht über die Arbeitsfläche atmen. Fragen gehen auch von dort.“",
+        "choices": [
+          {
+            "text": "Darf ich etwas fragen?",
+            "next": "hub"
+          },
+          {
+            "text": "Ich komme später wieder.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "gruss_mittel": {
+        "text": "„Du unterscheidest offenbar zwischen Vermutung und Beleg. Das spart uns Zeit.“",
+        "choices": [
+          {
+            "text": "Darf ich etwas fragen?",
+            "next": "hub"
+          },
+          {
+            "text": "Ich komme später wieder.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "gruss_hoch": {
+        "text": "„Deine Sorgfalt wird erwähnt. Ich werde sie trotzdem prüfen.“",
+        "choices": [
+          {
+            "text": "Darf ich etwas fragen?",
+            "next": "hub"
+          },
+          {
+            "text": "Ich komme später wieder.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "hub": {
+        "text": "„Was möchtest du wissen?“",
+        "choices": [
+          {
+            "text": "Wann ist eine Restaurierung fertig?",
+            "next": "thema_eins"
+          },
+          {
+            "text": "Was steht in einem guten Gutachten?",
+            "next": "thema_zwei"
+          },
+          {
+            "text": "Was hältst du von meinem Pfad?",
+            "requires_pathway": [
+              "kessel",
+              9
+            ],
+            "next": "pfad"
+          },
+          {
+            "text": "Du wolltest um etwas bitten.",
+            "next": "bitte"
+          },
+          {
+            "text": "Für heute genug.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "thema_eins": {
+        "text": "„Wenn man erkennen kann, was erhalten und was ergänzt wurde. Unsichtbare Ergänzungen sind bequem. Selten ehrlich.“",
+        "choices": [
+          {
+            "text": "Noch eine Frage.",
+            "next": "hub"
+          },
+          {
+            "text": "Danke für die Auskunft.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "thema_zwei": {
+        "text": "„Auch das, was ich nicht geprüft habe. Sonst wird die Leerstelle später mit meinem Namen ausgefüllt.“",
+        "choices": [
+          {
+            "text": "Noch eine Frage.",
+            "next": "hub"
+          },
+          {
+            "text": "Danke für die Auskunft.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "pfad": {
+        "text": "„Der Kessel macht Stoffe vergleichbar. Er nimmt dir die Verantwortung für den Vergleich nicht ab.“",
+        "choices": [
+          {
+            "text": "Das werde ich bedenken.",
+            "next": "hub"
+          }
+        ]
+      },
+      "bitte": {
+        "text": "„Ein privates Bild wurde zu eifrig restauriert. Hilf mir, die Ergänzung kenntlich zu machen, ohne das Original weiter zu beschädigen.“",
+        "choices": [
+          {
+            "text": "Was soll ich dabei beachten?",
+            "next": "bitte_details"
+          },
+          {
+            "text": "Ich verspreche noch nichts.",
+            "next": "hub"
+          },
+          {
+            "text": "Heute kann ich nicht helfen.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "bitte_details": {
+        "text": "„Es bleibt ein privates Bild. Die Probe ist kein Beleg für eine andere Untersuchung.“",
+        "choices": [
+          {
+            "text": "Ich habe die Bitte verstanden.",
+            "next": "hub"
+          },
+          {
+            "text": "Ich muss weiter.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "abschied": {
+        "text": "„Schreib die Unsicherheit dazu. Sie gehört zum Befund.“",
+        "choices": [
+          {
+            "text": "Auf Wiedersehen."
+          }
+        ]
+      }
+    }
+  },
+  "bj_cw_pritch": {
+    "start": [
+      {
+        "node": "gruss_hoch",
+        "requires_honor": 40
+      },
+      {
+        "node": "gruss_mittel",
+        "requires_honor": 10
+      },
+      {
+        "node": "gruss_niedrig"
+      }
+    ],
+    "nodes": {
+      "gruss_niedrig": {
+        "text": "„Wer nur zuhören will, darf mitessen. Wer reden will, wartet trotzdem.“",
+        "choices": [
+          {
+            "text": "Darf ich etwas fragen?",
+            "next": "hub"
+          },
+          {
+            "text": "Ich komme später wieder.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "gruss_mittel": {
+        "text": "„Man sagt, du hältst Zusagen. Wir hätten eine kleine.“",
+        "choices": [
+          {
+            "text": "Darf ich etwas fragen?",
+            "next": "hub"
+          },
+          {
+            "text": "Ich komme später wieder.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "gruss_hoch": {
+        "text": "„Dein Name hilft beim Sammeln. Benutz ihn bitte nicht zum Befehlen.“",
+        "choices": [
+          {
+            "text": "Darf ich etwas fragen?",
+            "next": "hub"
+          },
+          {
+            "text": "Ich komme später wieder.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "hub": {
+        "text": "„Was möchtest du wissen?“",
+        "choices": [
+          {
+            "text": "Was hält eine Versammlung zusammen?",
+            "next": "thema_eins"
+          },
+          {
+            "text": "Warum zählst du die Schalen zweimal?",
+            "next": "thema_zwei"
+          },
+          {
+            "text": "Was hältst du von meinem Pfad?",
+            "requires_pathway": [
+              "sq_waage",
+              9
+            ],
+            "next": "pfad"
+          },
+          {
+            "text": "Du wolltest um etwas bitten.",
+            "next": "bitte"
+          },
+          {
+            "text": "Für heute genug.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "thema_eins": {
+        "text": "„Ein warmer Topf. Danach eine Frage, die nicht schon beantwortet ist.“",
+        "choices": [
+          {
+            "text": "Noch eine Frage.",
+            "next": "hub"
+          },
+          {
+            "text": "Danke für die Auskunft.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "thema_zwei": {
+        "text": "„Beim ersten Mal zähle ich Schalen. Beim zweiten merke ich, wer fehlt.“",
+        "choices": [
+          {
+            "text": "Noch eine Frage.",
+            "next": "hub"
+          },
+          {
+            "text": "Danke für die Auskunft.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "pfad": {
+        "text": "„Eine Waage ist nur nützlich, wenn jemand auch den leeren Teller darauflegt.“",
+        "choices": [
+          {
+            "text": "Das werde ich bedenken.",
+            "next": "hub"
+          }
+        ]
+      },
+      "bitte": {
+        "text": "„Der Küchenlöffel eines entlassenen Gesellen wurde als Pfand verkauft. Suche ihn, ohne den Mann öffentlich als bedürftig vorzustellen.“",
+        "choices": [
+          {
+            "text": "Was soll ich dabei beachten?",
+            "next": "bitte_details"
+          },
+          {
+            "text": "Ich verspreche noch nichts.",
+            "next": "hub"
+          },
+          {
+            "text": "Heute kann ich nicht helfen.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "bitte_details": {
+        "text": "„Frag ihn zuerst, ob er das überhaupt möchte. Hilfe kann auch lästig auftreten.“",
+        "choices": [
+          {
+            "text": "Ich habe die Bitte verstanden.",
+            "next": "hub"
+          },
+          {
+            "text": "Ich muss weiter.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "abschied": {
+        "text": "„Wenn du wiederkommst, bring Hunger mit. Der ist hier kein Mangel.“",
+        "choices": [
+          {
+            "text": "Auf Wiedersehen."
+          }
+        ]
+      }
+    }
+  },
+  "bj_bh_bellweather": {
+    "start": [
+      {
+        "node": "gruss_hoch",
+        "requires_honor": 40
+      },
+      {
+        "node": "gruss_mittel",
+        "requires_honor": 10
+      },
+      {
+        "node": "gruss_niedrig"
+      }
+    ],
+    "nodes": {
+      "gruss_niedrig": {
+        "text": "„Nicht an das Rohr. Es kennt dich nicht.“",
+        "choices": [
+          {
+            "text": "Darf ich etwas fragen?",
+            "next": "hub"
+          },
+          {
+            "text": "Ich komme später wieder.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "gruss_mittel": {
+        "text": "„Du wartest, bis ich fertig bin. Das schätze ich.“",
+        "choices": [
+          {
+            "text": "Darf ich etwas fragen?",
+            "next": "hub"
+          },
+          {
+            "text": "Ich komme später wieder.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "gruss_hoch": {
+        "text": "„Deinen Ruf habe ich gehört. Reich mir lieber den Schlüssel.“",
+        "choices": [
+          {
+            "text": "Darf ich etwas fragen?",
+            "next": "hub"
+          },
+          {
+            "text": "Ich komme später wieder.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "hub": {
+        "text": "„Was möchtest du wissen?“",
+        "choices": [
+          {
+            "text": "Woran erkennst du einen sicheren Kessel?",
+            "next": "thema_eins"
+          },
+          {
+            "text": "Warum steht hier ein zweiter Haken?",
+            "next": "thema_zwei"
+          },
+          {
+            "text": "Was hältst du von meinem Pfad?",
+            "requires_pathway": [
+              "eisen",
+              9
+            ],
+            "next": "pfad"
+          },
+          {
+            "text": "Du wolltest um etwas bitten.",
+            "next": "bitte"
+          },
+          {
+            "text": "Für heute genug.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "thema_eins": {
+        "text": "„Er antwortet gleichmäßig. Ein stiller Kessel kann ebenfalls Ärger machen.“",
+        "choices": [
+          {
+            "text": "Noch eine Frage.",
+            "next": "hub"
+          },
+          {
+            "text": "Danke für die Auskunft.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "thema_zwei": {
+        "text": "„Für einen Mantel. Mehr weiß ich heute nicht zu sagen. Das muss reichen.“",
+        "choices": [
+          {
+            "text": "Noch eine Frage.",
+            "next": "hub"
+          },
+          {
+            "text": "Danke für die Auskunft.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "pfad": {
+        "text": "„Eisen hält Wärme. Fass trotzdem nicht mit bloßen Händen hin. Ein Pfad ersetzt keine Vorsicht.“",
+        "choices": [
+          {
+            "text": "Das werde ich bedenken.",
+            "next": "hub"
+          }
+        ]
+      },
+      "bitte": {
+        "text": "„Im Bügelraum zieht es unter der Tür. Besorge eine sichere Dichtung, ohne dafür eine Wohnleitung anzutasten.“",
+        "choices": [
+          {
+            "text": "Was soll ich dabei beachten?",
+            "next": "bitte_details"
+          },
+          {
+            "text": "Ich verspreche noch nichts.",
+            "next": "hub"
+          },
+          {
+            "text": "Heute kann ich nicht helfen.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "bitte_details": {
+        "text": "„Die Lüftung bleibt frei. Wir wollen sitzen können, nicht einschlafen und nie wieder aufwachen.“",
+        "choices": [
+          {
+            "text": "Ich habe die Bitte verstanden.",
+            "next": "hub"
+          },
+          {
+            "text": "Ich muss weiter.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "abschied": {
+        "text": "„Die Tür klemmt. Ziehen, nicht treten.“",
+        "choices": [
+          {
+            "text": "Auf Wiedersehen."
+          }
+        ]
+      }
+    }
+  },
+  "bj_bh_orla_fencrest": {
+    "start": [
+      {
+        "node": "gruss_hoch",
+        "requires_honor": 40
+      },
+      {
+        "node": "gruss_mittel",
+        "requires_honor": 10
+      },
+      {
+        "node": "gruss_niedrig"
+      }
+    ],
+    "nodes": {
+      "gruss_niedrig": {
+        "text": "„Wenn du Fragen hast, stell sie einzeln.“",
+        "choices": [
+          {
+            "text": "Darf ich etwas fragen?",
+            "next": "hub"
+          },
+          {
+            "text": "Ich komme später wieder.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "gruss_mittel": {
+        "text": "„Ich habe gehört, du lässt Menschen Nein sagen. Bleib dabei.“",
+        "choices": [
+          {
+            "text": "Darf ich etwas fragen?",
+            "next": "hub"
+          },
+          {
+            "text": "Ich komme später wieder.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "gruss_hoch": {
+        "text": "„Andere vertrauen dir. Ich entscheide das trotzdem selbst.“",
+        "choices": [
+          {
+            "text": "Darf ich etwas fragen?",
+            "next": "hub"
+          },
+          {
+            "text": "Ich komme später wieder.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "hub": {
+        "text": "„Was möchtest du wissen?“",
+        "choices": [
+          {
+            "text": "Was macht eine gute Postkarte aus?",
+            "next": "thema_eins"
+          },
+          {
+            "text": "Möchtest du über deine Reise sprechen?",
+            "next": "thema_zwei"
+          },
+          {
+            "text": "Was hältst du von meinem Pfad?",
+            "requires_pathway": [
+              "maske",
+              9
+            ],
+            "next": "pfad"
+          },
+          {
+            "text": "Du wolltest um etwas bitten.",
+            "next": "bitte"
+          },
+          {
+            "text": "Für heute genug.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "thema_eins": {
+        "text": "„Dass der Satz von der Person stammt, die ihn abschickt. Schöne Aussichten kann man dazukaufen.“",
+        "choices": [
+          {
+            "text": "Noch eine Frage.",
+            "next": "hub"
+          },
+          {
+            "text": "Danke für die Auskunft.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "thema_zwei": {
+        "text": "„Über das Gepäck vielleicht. Über anderes entscheide ich später. Du kannst trotzdem hier sitzen.“",
+        "choices": [
+          {
+            "text": "Noch eine Frage.",
+            "next": "hub"
+          },
+          {
+            "text": "Danke für die Auskunft.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "pfad": {
+        "text": "„Eine Maske kann Schutz sein. Sie gibt niemandem das Recht, das Gesicht darunter festzulegen.“",
+        "choices": [
+          {
+            "text": "Das werde ich bedenken.",
+            "next": "hub"
+          }
+        ]
+      },
+      "bitte": {
+        "text": "„Eine Kurgästin will ihrer Schwester schreiben, aber nicht den vorgeschlagenen Text verwenden. Besorge ihr einen unbedruckten Bogen.“",
+        "choices": [
+          {
+            "text": "Was soll ich dabei beachten?",
+            "next": "bitte_details"
+          },
+          {
+            "text": "Ich verspreche noch nichts.",
+            "next": "hub"
+          },
+          {
+            "text": "Heute kann ich nicht helfen.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "bitte_details": {
+        "text": "„Du liest ihn nicht gegen, wenn sie das nicht möchte. Auch ein unbeholfener eigener Satz darf hinaus.“",
+        "choices": [
+          {
+            "text": "Ich habe die Bitte verstanden.",
+            "next": "hub"
+          },
+          {
+            "text": "Ich muss weiter.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "abschied": {
+        "text": "„Frag mich beim nächsten Mal wieder. Meine Antwort darf sich ändern.“",
+        "choices": [
+          {
+            "text": "Auf Wiedersehen."
+          }
+        ]
+      }
+    }
+  },
+  "bj_bh_felix_fencrest": {
+    "start": [
+      {
+        "node": "gruss_hoch",
+        "requires_honor": 40
+      },
+      {
+        "node": "gruss_mittel",
+        "requires_honor": 10
+      },
+      {
+        "node": "gruss_niedrig"
+      }
+    ],
+    "nodes": {
+      "gruss_niedrig": {
+        "text": "„Soll ich tragen oder fragen? Beides zugleich geht meist schief.“",
+        "choices": [
+          {
+            "text": "Darf ich etwas fragen?",
+            "next": "hub"
+          },
+          {
+            "text": "Ich komme später wieder.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "gruss_mittel": {
+        "text": "„Dein Gepäck kenne ich noch nicht. Deine Art zu fragen schon.“",
+        "choices": [
+          {
+            "text": "Darf ich etwas fragen?",
+            "next": "hub"
+          },
+          {
+            "text": "Ich komme später wieder.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "gruss_hoch": {
+        "text": "„Man hört viel Gutes. Ich frage trotzdem erst, ob du Hilfe willst.“",
+        "choices": [
+          {
+            "text": "Darf ich etwas fragen?",
+            "next": "hub"
+          },
+          {
+            "text": "Ich komme später wieder.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "hub": {
+        "text": "„Was möchtest du wissen?“",
+        "choices": [
+          {
+            "text": "Welches Gepäck bleibt am längsten stehen?",
+            "next": "thema_eins"
+          },
+          {
+            "text": "Warum bindest du den Riemen neu?",
+            "next": "thema_zwei"
+          },
+          {
+            "text": "Was hältst du von meinem Pfad?",
+            "requires_pathway": [
+              "schluessel",
+              9
+            ],
+            "next": "pfad"
+          },
+          {
+            "text": "Du wolltest um etwas bitten.",
+            "next": "bitte"
+          },
+          {
+            "text": "Für heute genug.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "thema_eins": {
+        "text": "„Das mit der deutlichsten Adresse. Eigentlich müsste es anders sein.“",
+        "choices": [
+          {
+            "text": "Noch eine Frage.",
+            "next": "hub"
+          },
+          {
+            "text": "Danke für die Auskunft.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "thema_zwei": {
+        "text": "„Die alte Schlinge hielt. Aber die Besitzerin bekam sie allein nicht auf.“",
+        "choices": [
+          {
+            "text": "Noch eine Frage.",
+            "next": "hub"
+          },
+          {
+            "text": "Danke für die Auskunft.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "pfad": {
+        "text": "„Wer Schlüssel kennt, kann auch einen Verschluss so bauen, dass sein Besitzer ihn selbst bedient.“",
+        "choices": [
+          {
+            "text": "Das werde ich bedenken.",
+            "next": "hub"
+          }
+        ]
+      },
+      "bitte": {
+        "text": "„Ein Gast hat seinen Koffer stehen lassen. Kläre zuerst, ob er ihn zurückhaben will, bevor jemand hinterhergeschickt wird.“",
+        "choices": [
+          {
+            "text": "Was soll ich dabei beachten?",
+            "next": "bitte_details"
+          },
+          {
+            "text": "Ich verspreche noch nichts.",
+            "next": "hub"
+          },
+          {
+            "text": "Heute kann ich nicht helfen.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "bitte_details": {
+        "text": "„Die Antwort kann auch lauten: später. Das ist keine Erlaubnis, den Koffer zu öffnen.“",
+        "choices": [
+          {
+            "text": "Ich habe die Bitte verstanden.",
+            "next": "hub"
+          },
+          {
+            "text": "Ich muss weiter.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "abschied": {
+        "text": "„Ich stelle ihn so hin, dass du selbst drankommst.“",
+        "choices": [
+          {
+            "text": "Auf Wiedersehen."
+          }
+        ]
+      }
+    }
+  },
+  "bj_bh_greavesend": {
+    "start": [
+      {
+        "node": "gruss_hoch",
+        "requires_honor": 40
+      },
+      {
+        "node": "gruss_mittel",
+        "requires_honor": 10
+      },
+      {
+        "node": "gruss_niedrig"
+      }
+    ],
+    "nodes": {
+      "gruss_niedrig": {
+        "text": "„Nehmen Sie Platz. Eine Aufnahme setzt ein Gespräch voraus.“",
+        "choices": [
+          {
+            "text": "Darf ich etwas fragen?",
+            "next": "hub"
+          },
+          {
+            "text": "Ich komme später wieder.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "gruss_mittel": {
+        "text": "„Ihre Sorgfalt wurde erwähnt. Bitte formulieren Sie Ihre Frage genau.“",
+        "choices": [
+          {
+            "text": "Darf ich etwas fragen?",
+            "next": "hub"
+          },
+          {
+            "text": "Ich komme später wieder.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "gruss_hoch": {
+        "text": "„Ihr Ansehen ist mir bekannt. Eine Untersuchung beginnt trotzdem beim Befund.“",
+        "choices": [
+          {
+            "text": "Darf ich etwas fragen?",
+            "next": "hub"
+          },
+          {
+            "text": "Ich komme später wieder.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "hub": {
+        "text": "„Was möchtest du wissen?“",
+        "choices": [
+          {
+            "text": "Was darf ein Patient erwarten?",
+            "next": "thema_eins"
+          },
+          {
+            "text": "Warum ist der Garten so ruhig?",
+            "next": "thema_zwei"
+          },
+          {
+            "text": "Was hältst du von meinem Pfad?",
+            "requires_pathway": [
+              "kessel",
+              9
+            ],
+            "next": "pfad"
+          },
+          {
+            "text": "Du wolltest um etwas bitten.",
+            "next": "bitte"
+          },
+          {
+            "text": "Für heute genug.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "thema_eins": {
+        "text": "„Eine verständliche Auskunft über das Verfahren. Erwartung und Ergebnis sind allerdings verschiedene Größen.“",
+        "choices": [
+          {
+            "text": "Noch eine Frage.",
+            "next": "hub"
+          },
+          {
+            "text": "Danke für die Auskunft.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "thema_zwei": {
+        "text": "„Geräusche erschöpfen. Wir haben Wege angelegt, auf denen niemand zur Eile genötigt wird.“",
+        "choices": [
+          {
+            "text": "Noch eine Frage.",
+            "next": "hub"
+          },
+          {
+            "text": "Danke für die Auskunft.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "pfad": {
+        "text": "„Am Kessel lernt man, eine Dosis zu wiederholen. Die Umstände muss man dennoch jedes Mal prüfen.“",
+        "choices": [
+          {
+            "text": "Das werde ich bedenken.",
+            "next": "hub"
+          }
+        ]
+      },
+      "bitte": {
+        "text": "„Im Wartehaus stehen Trinkbecher außerhalb der Reichweite mehrerer Gäste. Prüfen Sie eine zugängliche Aufstellung.“",
+        "choices": [
+          {
+            "text": "Was soll ich dabei beachten?",
+            "next": "bitte_details"
+          },
+          {
+            "text": "Ich verspreche noch nichts.",
+            "next": "hub"
+          },
+          {
+            "text": "Heute kann ich nicht helfen.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "bitte_details": {
+        "text": "„Die Gäste werden gefragt, nicht versuchsweise umgestellt. Für diese Arbeit ist keine Behandlung erforderlich.“",
+        "choices": [
+          {
+            "text": "Ich habe die Bitte verstanden.",
+            "next": "hub"
+          },
+          {
+            "text": "Ich muss weiter.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "abschied": {
+        "text": "„Sie können den Empfang über Ihre nächste Frage unterrichten.“",
+        "choices": [
+          {
+            "text": "Auf Wiedersehen."
+          }
+        ]
+      }
+    }
+  },
+  "bj_bh_vellish": {
+    "start": [
+      {
+        "node": "gruss_hoch",
+        "requires_honor": 40
+      },
+      {
+        "node": "gruss_mittel",
+        "requires_honor": 10
+      },
+      {
+        "node": "gruss_niedrig"
+      }
+    ],
+    "nodes": {
+      "gruss_niedrig": {
+        "text": "„Bleib auf dem trockenen Streifen. Dann können wir reden.“",
+        "choices": [
+          {
+            "text": "Darf ich etwas fragen?",
+            "next": "hub"
+          },
+          {
+            "text": "Ich komme später wieder.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "gruss_mittel": {
+        "text": "„Du fragst, bevor du pflückst. Das fällt hier auf.“",
+        "choices": [
+          {
+            "text": "Darf ich etwas fragen?",
+            "next": "hub"
+          },
+          {
+            "text": "Ich komme später wieder.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "gruss_hoch": {
+        "text": "„Dein Ruf schützt keine Wurzel. Ein vorsichtiger Schritt schon.“",
+        "choices": [
+          {
+            "text": "Darf ich etwas fragen?",
+            "next": "hub"
+          },
+          {
+            "text": "Ich komme später wieder.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "hub": {
+        "text": "„Was möchtest du wissen?“",
+        "choices": [
+          {
+            "text": "Warum gießt du am Rand?",
+            "next": "thema_eins"
+          },
+          {
+            "text": "Weshalb drehst du manche Töpfe nicht?",
+            "next": "thema_zwei"
+          },
+          {
+            "text": "Was hältst du von meinem Pfad?",
+            "requires_pathway": [
+              "kessel",
+              9
+            ],
+            "next": "pfad"
+          },
+          {
+            "text": "Du wolltest um etwas bitten.",
+            "next": "bitte"
+          },
+          {
+            "text": "Für heute genug.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "thema_eins": {
+        "text": "„Damit die jungen Wurzeln Luft behalten. Gut gemeintes Wasser kann sie ebenfalls ersticken.“",
+        "choices": [
+          {
+            "text": "Noch eine Frage.",
+            "next": "hub"
+          },
+          {
+            "text": "Danke für die Auskunft.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "thema_zwei": {
+        "text": "„Nicht jede Pflanze verträgt dieselbe Richtung. Das merkt man vor allem, wenn man es zu spät bemerkt.“",
+        "choices": [
+          {
+            "text": "Noch eine Frage.",
+            "next": "hub"
+          },
+          {
+            "text": "Danke für die Auskunft.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "pfad": {
+        "text": "„Ein Sud ist nicht schon hilfreich, weil er warm ist. Am Kessel solltest du zuerst fragen, für wen er gedacht ist.“",
+        "choices": [
+          {
+            "text": "Das werde ich bedenken.",
+            "next": "hub"
+          }
+        ]
+      },
+      "bitte": {
+        "text": "„Ein gewöhnlicher Steckling steht im Zug. Finde einen geeigneten Platz, ohne andere Beete zu verdrängen.“",
+        "choices": [
+          {
+            "text": "Was soll ich dabei beachten?",
+            "next": "bitte_details"
+          },
+          {
+            "text": "Ich verspreche noch nichts.",
+            "next": "hub"
+          },
+          {
+            "text": "Heute kann ich nicht helfen.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "bitte_details": {
+        "text": "„Es ist ein gewöhnlicher Steckling. Wir nehmen weder Proben aus verschlossenen Beeten noch Versprechen über Wunder an.“",
+        "choices": [
+          {
+            "text": "Ich habe die Bitte verstanden.",
+            "next": "hub"
+          },
+          {
+            "text": "Ich muss weiter.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "abschied": {
+        "text": "„Geh am Beet vorbei. Die Erde merkt sich jeden Absatz.“",
+        "choices": [
+          {
+            "text": "Auf Wiedersehen."
+          }
+        ]
+      }
+    }
+  },
+  "bj_bh_malkin": {
+    "start": [
+      {
+        "node": "gruss_hoch",
+        "requires_honor": 40
+      },
+      {
+        "node": "gruss_mittel",
+        "requires_honor": 10
+      },
+      {
+        "node": "gruss_niedrig"
+      }
+    ],
+    "nodes": {
+      "gruss_niedrig": {
+        "text": "„Wer schickt dich? Das Rohr oder die Verwaltung?“",
+        "choices": [
+          {
+            "text": "Darf ich etwas fragen?",
+            "next": "hub"
+          },
+          {
+            "text": "Ich komme später wieder.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "gruss_mittel": {
+        "text": "„Deine Fragen sind wenigstens günstiger als die letzte Reparatur.“",
+        "choices": [
+          {
+            "text": "Darf ich etwas fragen?",
+            "next": "hub"
+          },
+          {
+            "text": "Ich komme später wieder.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "gruss_hoch": {
+        "text": "„Mit deinem Ruf findet sich vielleicht eine Dichtung. Probieren wir es.“",
+        "choices": [
+          {
+            "text": "Darf ich etwas fragen?",
+            "next": "hub"
+          },
+          {
+            "text": "Ich komme später wieder.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "hub": {
+        "text": "„Was möchtest du wissen?“",
+        "choices": [
+          {
+            "text": "Warum zwei Schlüssel?",
+            "next": "thema_eins"
+          },
+          {
+            "text": "Wo endet eine Leitung?",
+            "next": "thema_zwei"
+          },
+          {
+            "text": "Was hältst du von meinem Pfad?",
+            "requires_pathway": [
+              "schluessel",
+              9
+            ],
+            "next": "pfad"
+          },
+          {
+            "text": "Du wolltest um etwas bitten.",
+            "next": "bitte"
+          },
+          {
+            "text": "Für heute genug.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "thema_eins": {
+        "text": "„Der kleine passt. Der große überzeugt manchmal ein altes Gewinde. Man darf sie nicht verwechseln.“",
+        "choices": [
+          {
+            "text": "Noch eine Frage.",
+            "next": "hub"
+          },
+          {
+            "text": "Danke für die Auskunft.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "thema_zwei": {
+        "text": "„Auf dem Plan oder in der Wand? Das sind hier gelegentlich zwei verschiedene Orte.“",
+        "choices": [
+          {
+            "text": "Noch eine Frage.",
+            "next": "hub"
+          },
+          {
+            "text": "Danke für die Auskunft.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "pfad": {
+        "text": "„Ein Schlüssel öffnet einen Weg. Er sagt dir nicht, ob am anderen Ende jemand friert.“",
+        "choices": [
+          {
+            "text": "Das werde ich bedenken.",
+            "next": "hub"
+          }
+        ]
+      },
+      "bitte": {
+        "text": "„Ein Ventil pfeift in der Nacht. Hilf bei der Reparatur, ohne die Grundwärme der Wohnungen abzudrehen.“",
+        "choices": [
+          {
+            "text": "Was soll ich dabei beachten?",
+            "next": "bitte_details"
+          },
+          {
+            "text": "Ich verspreche noch nichts.",
+            "next": "hub"
+          },
+          {
+            "text": "Heute kann ich nicht helfen.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "bitte_details": {
+        "text": "„Ohne getrennten Wartungsabschnitt beginnen wir nicht. Eine ruhige Nacht ist keine kalte Wohnung wert.“",
+        "choices": [
+          {
+            "text": "Ich habe die Bitte verstanden.",
+            "next": "hub"
+          },
+          {
+            "text": "Ich muss weiter.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "abschied": {
+        "text": "„Lass etwas Spielraum. Auch für den nächsten Monteur.“",
+        "choices": [
+          {
+            "text": "Auf Wiedersehen."
+          }
+        ]
+      }
+    }
+  },
+  "bj_bh_rookwell": {
+    "start": [
+      {
+        "node": "gruss_hoch",
+        "requires_honor": 40
+      },
+      {
+        "node": "gruss_mittel",
+        "requires_honor": 10
+      },
+      {
+        "node": "gruss_niedrig"
+      }
+    ],
+    "nodes": {
+      "gruss_niedrig": {
+        "text": "„Bist du zu Besuch oder möchtest du jemanden sprechen? Das ist nicht immer dasselbe.“",
+        "choices": [
+          {
+            "text": "Darf ich etwas fragen?",
+            "next": "hub"
+          },
+          {
+            "text": "Ich komme später wieder.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "gruss_mittel": {
+        "text": "„Dein Besuch ist angekündigt. Die Zustimmung frage ich trotzdem noch ab.“",
+        "choices": [
+          {
+            "text": "Darf ich etwas fragen?",
+            "next": "hub"
+          },
+          {
+            "text": "Ich komme später wieder.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "gruss_hoch": {
+        "text": "„Man vertraut deiner Geduld. Bitte bring sie mit ins Zimmer.“",
+        "choices": [
+          {
+            "text": "Darf ich etwas fragen?",
+            "next": "hub"
+          },
+          {
+            "text": "Ich komme später wieder.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "hub": {
+        "text": "„Was möchtest du wissen?“",
+        "choices": [
+          {
+            "text": "Warum lässt du den Stuhl frei?",
+            "next": "thema_eins"
+          },
+          {
+            "text": "Was fragst du morgens zuerst?",
+            "next": "thema_zwei"
+          },
+          {
+            "text": "Was hältst du von meinem Pfad?",
+            "requires_pathway": [
+              "sq_waage",
+              9
+            ],
+            "next": "pfad"
+          },
+          {
+            "text": "Du wolltest um etwas bitten.",
+            "next": "bitte"
+          },
+          {
+            "text": "Für heute genug.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "thema_eins": {
+        "text": "„Damit Besuch sitzen kann. Manchmal braucht auch eine Antwort einen freien Platz.“",
+        "choices": [
+          {
+            "text": "Noch eine Frage.",
+            "next": "hub"
+          },
+          {
+            "text": "Danke für die Auskunft.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "thema_zwei": {
+        "text": "„Ob jemand sprechen möchte. Die anderen Fragen laufen nicht davon.“",
+        "choices": [
+          {
+            "text": "Noch eine Frage.",
+            "next": "hub"
+          },
+          {
+            "text": "Danke für die Auskunft.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "pfad": {
+        "text": "„Eine Waage muss nicht nur Lasten vergleichen. Sie kann auch zeigen, dass eine Seite gar nicht gefragt wurde.“",
+        "choices": [
+          {
+            "text": "Das werde ich bedenken.",
+            "next": "hub"
+          }
+        ]
+      },
+      "bitte": {
+        "text": "„Die Rufglocke eines Gastes ist vom Bett aus nicht erreichbar. Hilf, ohne sein Zimmer ungefragt umzuräumen.“",
+        "choices": [
+          {
+            "text": "Was soll ich dabei beachten?",
+            "next": "bitte_details"
+          },
+          {
+            "text": "Ich verspreche noch nichts.",
+            "next": "hub"
+          },
+          {
+            "text": "Heute kann ich nicht helfen.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "bitte_details": {
+        "text": "„Wir nennen das keine Kleinigkeit, solange jemand deswegen auf Hilfe warten muss.“",
+        "choices": [
+          {
+            "text": "Ich habe die Bitte verstanden.",
+            "next": "hub"
+          },
+          {
+            "text": "Ich muss weiter.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "abschied": {
+        "text": "„Ich frage später noch einmal. Jetzt darf Ruhe sein.“",
+        "choices": [
+          {
+            "text": "Auf Wiedersehen."
+          }
+        ]
+      }
+    }
+  },
+  "bj_bh_henshall": {
+    "start": [
+      {
+        "node": "gruss_hoch",
+        "requires_honor": 40
+      },
+      {
+        "node": "gruss_mittel",
+        "requires_honor": 10
+      },
+      {
+        "node": "gruss_niedrig"
+      }
+    ],
+    "nodes": {
+      "gruss_niedrig": {
+        "text": "„Ich kenne dich nicht. Oder ich kann es gerade nicht sagen.“",
+        "choices": [
+          {
+            "text": "Darf ich etwas fragen?",
+            "next": "hub"
+          },
+          {
+            "text": "Ich komme später wieder.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "gruss_mittel": {
+        "text": "„Von dir hat jemand freundlich gesprochen. Ich weiß noch den Ton.“",
+        "choices": [
+          {
+            "text": "Darf ich etwas fragen?",
+            "next": "hub"
+          },
+          {
+            "text": "Ich komme später wieder.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "gruss_hoch": {
+        "text": "„Dein Name fällt oft. Bitte mach daraus keine Antwort für mich.“",
+        "choices": [
+          {
+            "text": "Darf ich etwas fragen?",
+            "next": "hub"
+          },
+          {
+            "text": "Ich komme später wieder.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "hub": {
+        "text": "„Was möchtest du wissen?“",
+        "choices": [
+          {
+            "text": "Welche Musik magst du?",
+            "next": "thema_eins"
+          },
+          {
+            "text": "Worauf wartest du hier?",
+            "next": "thema_zwei"
+          },
+          {
+            "text": "Was hältst du von meinem Pfad?",
+            "requires_pathway": [
+              "echo",
+              9
+            ],
+            "next": "pfad"
+          },
+          {
+            "text": "Du wolltest um etwas bitten.",
+            "next": "bitte"
+          },
+          {
+            "text": "Für heute genug.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "thema_eins": {
+        "text": "„Die, bei der ich die letzte Note nicht vorhersagen muss. Vielleicht habe ich früher anders gewählt.“",
+        "choices": [
+          {
+            "text": "Noch eine Frage.",
+            "next": "hub"
+          },
+          {
+            "text": "Danke für die Auskunft.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "thema_zwei": {
+        "text": "„Auf einen Gedanken, der nicht sofort mit einer Erklärung kommt. Du darfst auch ohne Erklärung bleiben.“",
+        "choices": [
+          {
+            "text": "Noch eine Frage.",
+            "next": "hub"
+          },
+          {
+            "text": "Danke für die Auskunft.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "pfad": {
+        "text": "„Ein Echo kann ähnlich klingen. Versprich mir, dass du Ähnlichkeit nicht mit Gewissheit verwechselst.“",
+        "choices": [
+          {
+            "text": "Das werde ich bedenken.",
+            "next": "hub"
+          }
+        ]
+      },
+      "bitte": {
+        "text": "„Der Pavillon hat nur sonnige Sitzplätze. Ich möchte einen Schattenplatz, nicht noch einen Ratschlag.“",
+        "choices": [
+          {
+            "text": "Was soll ich dabei beachten?",
+            "next": "bitte_details"
+          },
+          {
+            "text": "Ich verspreche noch nichts.",
+            "next": "hub"
+          },
+          {
+            "text": "Heute kann ich nicht helfen.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "bitte_details": {
+        "text": "„Du musst dafür nichts über meine Vergangenheit herausfinden. Ein Platz für heute genügt.“",
+        "choices": [
+          {
+            "text": "Ich habe die Bitte verstanden.",
+            "next": "hub"
+          },
+          {
+            "text": "Ich muss weiter.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "abschied": {
+        "text": "„Danke, dass du die Lücke stehen lässt.“",
+        "choices": [
+          {
+            "text": "Auf Wiedersehen."
+          }
+        ]
+      }
+    }
+  },
+  "bj_bh_crowther": {
+    "start": [
+      {
+        "node": "gruss_hoch",
+        "requires_honor": 40
+      },
+      {
+        "node": "gruss_mittel",
+        "requires_honor": 10
+      },
+      {
+        "node": "gruss_niedrig"
+      }
+    ],
+    "nodes": {
+      "gruss_niedrig": {
+        "text": "„Eine Anfrage verpflichtet noch zu nichts. Weder dich noch mich.“",
+        "choices": [
+          {
+            "text": "Darf ich etwas fragen?",
+            "next": "hub"
+          },
+          {
+            "text": "Ich komme später wieder.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "gruss_mittel": {
+        "text": "„Dein Name ist in verlässlichen Gesprächen gefallen. Bleiben wir bei überprüfbaren Dingen.“",
+        "choices": [
+          {
+            "text": "Darf ich etwas fragen?",
+            "next": "hub"
+          },
+          {
+            "text": "Ich komme später wieder.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "gruss_hoch": {
+        "text": "„Für bekannte Leute gilt ebenfalls der vereinbarte Termin. Das ist die freundlichste Regel, die ich habe.“",
+        "choices": [
+          {
+            "text": "Darf ich etwas fragen?",
+            "next": "hub"
+          },
+          {
+            "text": "Ich komme später wieder.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "hub": {
+        "text": "„Was möchtest du wissen?“",
+        "choices": [
+          {
+            "text": "Warum ist die Kiste gepolstert?",
+            "next": "thema_eins"
+          },
+          {
+            "text": "Wie lange gilt ein Angebot?",
+            "next": "thema_zwei"
+          },
+          {
+            "text": "Was hältst du von meinem Pfad?",
+            "requires_pathway": [
+              "maske",
+              9
+            ],
+            "next": "pfad"
+          },
+          {
+            "text": "Du wolltest um etwas bitten.",
+            "next": "bitte"
+          },
+          {
+            "text": "Für heute genug.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "thema_eins": {
+        "text": "„Weil Glas ehrlicher als Papier ist. Es zeigt einen schlechten Transport sofort.“",
+        "choices": [
+          {
+            "text": "Noch eine Frage.",
+            "next": "hub"
+          },
+          {
+            "text": "Danke für die Auskunft.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "thema_zwei": {
+        "text": "„Bis zum vereinbarten Termin. Danach kann man reden. Das ist etwas anderes als schweigend verlängern.“",
+        "choices": [
+          {
+            "text": "Noch eine Frage.",
+            "next": "hub"
+          },
+          {
+            "text": "Danke für die Auskunft.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "pfad": {
+        "text": "„Eine Maske sitzt am besten, wenn man sie selbst abnehmen kann. Manche Kunden vergessen diese Kleinigkeit.“",
+        "choices": [
+          {
+            "text": "Das werde ich bedenken.",
+            "next": "hub"
+          }
+        ]
+      },
+      "bitte": {
+        "text": "„Eine gewöhnliche leere Kiste wurde doppelt berechnet. Prüfe Verpackung und Quittungen, ohne unbekannte Ware weiterzugeben.“",
+        "choices": [
+          {
+            "text": "Was soll ich dabei beachten?",
+            "next": "bitte_details"
+          },
+          {
+            "text": "Ich verspreche noch nichts.",
+            "next": "hub"
+          },
+          {
+            "text": "Heute kann ich nicht helfen.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "bitte_details": {
+        "text": "„Ungeöffnete fremde Sendungen bleiben ungeöffnet. Die leere Verpackung ist unser Gegenstand.“",
+        "choices": [
+          {
+            "text": "Ich habe die Bitte verstanden.",
+            "next": "hub"
+          },
+          {
+            "text": "Ich muss weiter.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "abschied": {
+        "text": "„Lass dir auch den Rückweg bestätigen.“",
+        "choices": [
+          {
+            "text": "Auf Wiedersehen."
+          }
+        ]
+      }
+    }
+  },
+  "bj_bh_dipple": {
+    "start": [
+      {
+        "node": "gruss_hoch",
+        "requires_honor": 40
+      },
+      {
+        "node": "gruss_mittel",
+        "requires_honor": 10
+      },
+      {
+        "node": "gruss_niedrig"
+      }
+    ],
+    "nodes": {
+      "gruss_niedrig": {
+        "text": "„Tritt aus dem Licht. Dann kann ich dich besser ansehen.“",
+        "choices": [
+          {
+            "text": "Darf ich etwas fragen?",
+            "next": "hub"
+          },
+          {
+            "text": "Ich komme später wieder.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "gruss_mittel": {
+        "text": "„Man sagt, du bewahrst auch Widersprüche auf. Das gefällt mir.“",
+        "choices": [
+          {
+            "text": "Darf ich etwas fragen?",
+            "next": "hub"
+          },
+          {
+            "text": "Ich komme später wieder.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "gruss_hoch": {
+        "text": "„Deine Aufmerksamkeit wird gelobt. Schenk dem Rand ein wenig davon.“",
+        "choices": [
+          {
+            "text": "Darf ich etwas fragen?",
+            "next": "hub"
+          },
+          {
+            "text": "Ich komme später wieder.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "hub": {
+        "text": "„Was möchtest du wissen?“",
+        "choices": [
+          {
+            "text": "Warum zeichnest du abgestorbene Zweige?",
+            "next": "thema_eins"
+          },
+          {
+            "text": "Was lässt du auf einem Blatt weg?",
+            "next": "thema_zwei"
+          },
+          {
+            "text": "Was hältst du von meinem Pfad?",
+            "requires_pathway": [
+              "faden",
+              9
+            ],
+            "next": "pfad"
+          },
+          {
+            "text": "Du wolltest um etwas bitten.",
+            "next": "bitte"
+          },
+          {
+            "text": "Für heute genug.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "thema_eins": {
+        "text": "„Weil sie ihre Form noch haben. Die Farbe war nie die ganze Pflanze.“",
+        "choices": [
+          {
+            "text": "Noch eine Frage.",
+            "next": "hub"
+          },
+          {
+            "text": "Danke für die Auskunft.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "thema_zwei": {
+        "text": "„Den Rahmen, wenn er nichts erklärt. Und meine Vermutungen, bis ich sie daneben kennzeichnen kann.“",
+        "choices": [
+          {
+            "text": "Noch eine Frage.",
+            "next": "hub"
+          },
+          {
+            "text": "Danke für die Auskunft.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "pfad": {
+        "text": "„Ein Faden kann einen Umriss verfolgen. Er sollte ihn nicht so fest ziehen, dass das Vorbild verschwinden muss.“",
+        "choices": [
+          {
+            "text": "Das werde ich bedenken.",
+            "next": "hub"
+          }
+        ]
+      },
+      "bitte": {
+        "text": "„Eine Gartenschülerin hält einen Schatten für eine zweite Blattkante. Hilf bei einem Vergleich unter anderem Licht.“",
+        "choices": [
+          {
+            "text": "Was soll ich dabei beachten?",
+            "next": "bitte_details"
+          },
+          {
+            "text": "Ich verspreche noch nichts.",
+            "next": "hub"
+          },
+          {
+            "text": "Heute kann ich nicht helfen.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "bitte_details": {
+        "text": "„Die erste Zeichnung bleibt erhalten. Sonst sieht später niemand mehr, wie die zweite zustande kam.“",
+        "choices": [
+          {
+            "text": "Ich habe die Bitte verstanden.",
+            "next": "hub"
+          },
+          {
+            "text": "Ich muss weiter.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "abschied": {
+        "text": "„Nimm auch den ersten Entwurf. Er war nicht nutzlos.“",
+        "choices": [
+          {
+            "text": "Auf Wiedersehen."
+          }
+        ]
+      }
+    }
+  },
+  "bj_vn_kutscherin": {
+    "start": [
+      {
+        "node": "gruss_hoch",
+        "requires_honor": 40
+      },
+      {
+        "node": "gruss_mittel",
+        "requires_honor": 10
+      },
+      {
+        "node": "gruss_niedrig"
+      }
+    ],
+    "nodes": {
+      "gruss_niedrig": {
+        "text": "„Die Fahrt kostet. Die Frage nach dem Weg noch nicht.“",
+        "choices": [
+          {
+            "text": "Darf ich etwas fragen?",
+            "next": "hub"
+          },
+          {
+            "text": "Ich komme später wieder.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "gruss_mittel": {
+        "text": "„Du hast wohl schon einmal jemandem beim Aussteigen geholfen. Steig ordentlich ein.“",
+        "choices": [
+          {
+            "text": "Darf ich etwas fragen?",
+            "next": "hub"
+          },
+          {
+            "text": "Ich komme später wieder.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "gruss_hoch": {
+        "text": "„Dein Ruf fährt nicht mit auf dem Dach. Für dich finden wir einen Sitz.“",
+        "choices": [
+          {
+            "text": "Darf ich etwas fragen?",
+            "next": "hub"
+          },
+          {
+            "text": "Ich komme später wieder.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "hub": {
+        "text": "„Was möchtest du wissen?“",
+        "choices": [
+          {
+            "text": "Warum bleibt der Platz neben dir frei?",
+            "next": "thema_eins"
+          },
+          {
+            "text": "Woran merkst du einen schlechten Weg?",
+            "next": "thema_zwei"
+          },
+          {
+            "text": "Was hältst du von meinem Pfad?",
+            "requires_pathway": [
+              "eisen",
+              9
+            ],
+            "next": "pfad"
+          },
+          {
+            "text": "Du wolltest um etwas bitten.",
+            "next": "bitte"
+          },
+          {
+            "text": "Kurze Mitfahrt …",
+            "next": "dienst"
+          },
+          {
+            "text": "Für heute genug.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "thema_eins": {
+        "text": "„Für jemanden, der die Straße sehen möchte. Hinten sieht man vor allem die vorherigen Entscheidungen.“",
+        "choices": [
+          {
+            "text": "Noch eine Frage.",
+            "next": "hub"
+          },
+          {
+            "text": "Danke für die Auskunft.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "thema_zwei": {
+        "text": "„Das Pferd sagt es zuerst. Wer erst auf die Achse hört, zahlt mehr.“",
+        "choices": [
+          {
+            "text": "Noch eine Frage.",
+            "next": "hub"
+          },
+          {
+            "text": "Danke für die Auskunft.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "pfad": {
+        "text": "„Eisen trägt die Achse. Ein ruhiger Umgang trägt den Rest. Beides darf man nicht verwechseln.“",
+        "choices": [
+          {
+            "text": "Das werde ich bedenken.",
+            "next": "hub"
+          }
+        ]
+      },
+      "bitte": {
+        "text": "„Eine Leihkutsche hat einen beschädigten Riemen. Finde heraus, ob Verschleiß oder ein ungeeigneter Ersatz dahintersteckt.“",
+        "choices": [
+          {
+            "text": "Was soll ich dabei beachten?",
+            "next": "bitte_details"
+          },
+          {
+            "text": "Ich verspreche noch nichts.",
+            "next": "hub"
+          },
+          {
+            "text": "Heute kann ich nicht helfen.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "bitte_details": {
+        "text": "„Niemand muss zum Beweis in die unsichere Kutsche steigen.“",
+        "choices": [
+          {
+            "text": "Ich habe die Bitte verstanden.",
+            "next": "hub"
+          },
+          {
+            "text": "Ich muss weiter.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "abschied": {
+        "text": "„Sag rechtzeitig Halt. Auch mitten im Satz.“",
+        "choices": [
+          {
+            "text": "Auf Wiedersehen."
+          }
+        ]
+      },
+      "dienst": {
+        "text": "„Bis zum nächsten sichtbaren Wegstein und zurück. Fünf Schilling, vier Nerven Erholung. Keine Fernreise.“",
+        "choices": [
+          {
+            "text": "Für 5 Schilling annehmen.",
+            "requires_money": 5,
+            "next": "dienst_geleistet"
+          },
+          {
+            "text": "Nicht jetzt.",
+            "next": "hub"
+          },
+          {
+            "text": "Auf Wiedersehen.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "dienst_geleistet": {
+        "text": "Mara fährt den kurzen Bogen langsam. Am selben Rastplatz lässt sie dich aussteigen. Du hast wieder ruhiger geatmet.",
+        "takes_money": 5,
+        "nerves": 4,
+        "choices": [
+          {
+            "text": "Danke.",
+            "next": "hub"
+          },
+          {
+            "text": "Ich gehe weiter.",
+            "next": "abschied"
+          }
+        ]
+      }
+    }
+  },
+  "bj_vn_zoellner": {
+    "start": [
+      {
+        "node": "gruss_hoch",
+        "requires_honor": 40
+      },
+      {
+        "node": "gruss_mittel",
+        "requires_honor": 10
+      },
+      {
+        "node": "gruss_niedrig"
+      }
+    ],
+    "nodes": {
+      "gruss_niedrig": {
+        "text": "„Erst die Auskunft, dann die Gebühr. Andersherum gibt es Streit.“",
+        "choices": [
+          {
+            "text": "Darf ich etwas fragen?",
+            "next": "hub"
+          },
+          {
+            "text": "Ich komme später wieder.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "gruss_mittel": {
+        "text": "„Du fragst offenbar nach dem Gegenwert. Das ist erlaubt.“",
+        "choices": [
+          {
+            "text": "Darf ich etwas fragen?",
+            "next": "hub"
+          },
+          {
+            "text": "Ich komme später wieder.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "gruss_hoch": {
+        "text": "„Dein Ansehen erlässt nicht jede Gebühr. Den günstigeren Fußtarif darf ich aber anbieten.“",
+        "choices": [
+          {
+            "text": "Darf ich etwas fragen?",
+            "next": "hub"
+          },
+          {
+            "text": "Ich komme später wieder.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "hub": {
+        "text": "„Was möchtest du wissen?“",
+        "choices": [
+          {
+            "text": "Wo ist die Brücke zu diesem Zoll?",
+            "next": "thema_eins"
+          },
+          {
+            "text": "Warum ist die Geldschale so flach?",
+            "next": "thema_zwei"
+          },
+          {
+            "text": "Was hältst du von meinem Pfad?",
+            "requires_pathway": [
+              "sq_waage",
+              9
+            ],
+            "next": "pfad"
+          },
+          {
+            "text": "Du wolltest um etwas bitten.",
+            "next": "bitte"
+          },
+          {
+            "text": "Zollnachlass …",
+            "next": "dienst"
+          },
+          {
+            "text": "Für heute genug.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "thema_eins": {
+        "text": "„Ein guter Anfang. Wer für eine Brücke kassiert, sollte sie zeigen können.“",
+        "choices": [
+          {
+            "text": "Noch eine Frage.",
+            "next": "hub"
+          },
+          {
+            "text": "Danke für die Auskunft.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "thema_zwei": {
+        "text": "„Damit man sieht, was darin liegt. Tiefe Schalen haben schlechte Zeugen.“",
+        "choices": [
+          {
+            "text": "Noch eine Frage.",
+            "next": "hub"
+          },
+          {
+            "text": "Danke für die Auskunft.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "pfad": {
+        "text": "„Du kennst die Waage. Dann prüf bitte beide Seiten, auch meine.“",
+        "choices": [
+          {
+            "text": "Das werde ich bedenken.",
+            "next": "hub"
+          }
+        ]
+      },
+      "bitte": {
+        "text": "„An zwei Wegstellen wird für denselben Übergang kassiert. Prüfe den tatsächlichen Verlauf, bevor jemand beschuldigt wird.“",
+        "choices": [
+          {
+            "text": "Was soll ich dabei beachten?",
+            "next": "bitte_details"
+          },
+          {
+            "text": "Ich verspreche noch nichts.",
+            "next": "hub"
+          },
+          {
+            "text": "Heute kann ich nicht helfen.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "bitte_details": {
+        "text": "„Gegen einen Zöllner ohne Brücke hilft zuerst eine Frage. Ein Kampf wäre nur der gefährlichere Umweg.“",
+        "choices": [
+          {
+            "text": "Ich habe die Bitte verstanden.",
+            "next": "hub"
+          },
+          {
+            "text": "Ich muss weiter.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "abschied": {
+        "text": "„Bewahr die Auskunft auf. Papier allein ist dafür nicht nötig.“",
+        "choices": [
+          {
+            "text": "Auf Wiedersehen."
+          }
+        ]
+      },
+      "dienst": {
+        "text": "„Der Fußtarif kostet zwei statt fünf Schilling. Er gilt nur für meine örtliche Schranke; keine Fahndung wird aufgehoben.“",
+        "choices": [
+          {
+            "text": "Für 2 Schilling annehmen.",
+            "requires_money": 2,
+            "next": "dienst_geleistet"
+          },
+          {
+            "text": "Nicht jetzt.",
+            "next": "hub"
+          },
+          {
+            "text": "Auf Wiedersehen.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "dienst_geleistet": {
+        "text": "Edwin nimmt zwei Schilling und hebt seine Kelle. Für diesen örtlichen Durchgang verlangt er nichts Weiteres.",
+        "takes_money": 2,
+        "choices": [
+          {
+            "text": "Danke.",
+            "next": "hub"
+          },
+          {
+            "text": "Ich gehe weiter.",
+            "next": "abschied"
+          }
+        ]
+      }
+    }
+  },
+  "bj_vn_hausiererin": {
+    "start": [
+      {
+        "node": "gruss_hoch",
+        "requires_honor": 40
+      },
+      {
+        "node": "gruss_mittel",
+        "requires_honor": 10
+      },
+      {
+        "node": "gruss_niedrig"
+      }
+    ],
+    "nodes": {
+      "gruss_niedrig": {
+        "text": "„Du darfst schauen. Anfassen bitte erst nach dem Schließen der Nadelbüchse.“",
+        "choices": [
+          {
+            "text": "Darf ich etwas fragen?",
+            "next": "hub"
+          },
+          {
+            "text": "Ich komme später wieder.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "gruss_mittel": {
+        "text": "„Du kommst mit Fragen zurück. Das ist mir lieber als mit Beschwerden.“",
+        "choices": [
+          {
+            "text": "Darf ich etwas fragen?",
+            "next": "hub"
+          },
+          {
+            "text": "Ich komme später wieder.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "gruss_hoch": {
+        "text": "„Dein Lob wäre schön. Eine ehrliche Prüfung ist mir mehr wert.“",
+        "choices": [
+          {
+            "text": "Darf ich etwas fragen?",
+            "next": "hub"
+          },
+          {
+            "text": "Ich komme später wieder.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "hub": {
+        "text": "„Was möchtest du wissen?“",
+        "choices": [
+          {
+            "text": "Was verkaufst du am liebsten?",
+            "next": "thema_eins"
+          },
+          {
+            "text": "Warum liegt die schadhafte Ware vorn?",
+            "next": "thema_zwei"
+          },
+          {
+            "text": "Was hältst du von meinem Pfad?",
+            "requires_pathway": [
+              "maske",
+              9
+            ],
+            "next": "pfad"
+          },
+          {
+            "text": "Du wolltest um etwas bitten.",
+            "next": "bitte"
+          },
+          {
+            "text": "Wegzehrung kaufen …",
+            "next": "dienst"
+          },
+          {
+            "text": "Für heute genug.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "thema_eins": {
+        "text": "„Nadeln. Sie versprechen wenig und halten sich meistens daran.“",
+        "choices": [
+          {
+            "text": "Noch eine Frage.",
+            "next": "hub"
+          },
+          {
+            "text": "Danke für die Auskunft.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "thema_zwei": {
+        "text": "„Weil man den Schaden vor dem Preis sehen soll. Danach hören manche nur noch die Münzen.“",
+        "choices": [
+          {
+            "text": "Noch eine Frage.",
+            "next": "hub"
+          },
+          {
+            "text": "Danke für die Auskunft.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "pfad": {
+        "text": "„Eine Maske kann freundlich aussehen. Lass dir trotzdem die Rückseite der Ware zeigen.“",
+        "choices": [
+          {
+            "text": "Das werde ich bedenken.",
+            "next": "hub"
+          }
+        ]
+      },
+      "bitte": {
+        "text": "„Ein Kunde behauptet, ein Mantel sei leer verkauft worden. Hilf, seine verlorene Nadel sicher zu finden.“",
+        "choices": [
+          {
+            "text": "Was soll ich dabei beachten?",
+            "next": "bitte_details"
+          },
+          {
+            "text": "Ich verspreche noch nichts.",
+            "next": "hub"
+          },
+          {
+            "text": "Heute kann ich nicht helfen.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "bitte_details": {
+        "text": "„Er soll den Mantel vorher ausziehen. Wir suchen eine Nadel, keine neue Verletzung.“",
+        "choices": [
+          {
+            "text": "Ich habe die Bitte verstanden.",
+            "next": "hub"
+          },
+          {
+            "text": "Ich muss weiter.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "abschied": {
+        "text": "„Wenn es nicht hält, sprich mich an. Ich laufe denselben Weg zurück.“",
+        "choices": [
+          {
+            "text": "Auf Wiedersehen."
+          }
+        ]
+      },
+      "dienst": {
+        "text": "„Ein Bündel Wegzehrung für sechs Schilling. Schau vorher nach, ob du es tragen kannst.“",
+        "choices": [
+          {
+            "text": "Für 6 Schilling annehmen.",
+            "requires_money": 6,
+            "next": "dienst_geleistet"
+          },
+          {
+            "text": "Nicht jetzt.",
+            "next": "hub"
+          },
+          {
+            "text": "Auf Wiedersehen.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "dienst_geleistet": {
+        "text": "Selma wickelt Brot, Speck und Zwiebel in ein Tuch und reicht dir das bezahlte Bündel.",
+        "takes_money": 6,
+        "gives_items": {
+          "vi_v_wegzehrung": 1
+        },
+        "choices": [
+          {
+            "text": "Danke.",
+            "next": "hub"
+          },
+          {
+            "text": "Ich gehe weiter.",
+            "next": "abschied"
+          }
+        ]
+      }
+    }
+  },
+  "bj_vn_landarzt": {
+    "start": [
+      {
+        "node": "gruss_hoch",
+        "requires_honor": 40
+      },
+      {
+        "node": "gruss_mittel",
+        "requires_honor": 10
+      },
+      {
+        "node": "gruss_niedrig"
+      }
+    ],
+    "nodes": {
+      "gruss_niedrig": {
+        "text": "„Setz dich, wenn du sitzen möchtest. Was fehlt dir?“",
+        "choices": [
+          {
+            "text": "Darf ich etwas fragen?",
+            "next": "hub"
+          },
+          {
+            "text": "Ich komme später wieder.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "gruss_mittel": {
+        "text": "„Du beschreibst Veränderungen recht genau. Das hilft mehr als Tapferkeit.“",
+        "choices": [
+          {
+            "text": "Darf ich etwas fragen?",
+            "next": "hub"
+          },
+          {
+            "text": "Ich komme später wieder.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "gruss_hoch": {
+        "text": "„Deinen Ruf kann ich nicht verbinden. Deinen Arm vermutlich schon.“",
+        "choices": [
+          {
+            "text": "Darf ich etwas fragen?",
+            "next": "hub"
+          },
+          {
+            "text": "Ich komme später wieder.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "hub": {
+        "text": "„Was möchtest du wissen?“",
+        "choices": [
+          {
+            "text": "Warum fährst du keine eigene Kutsche?",
+            "next": "thema_eins"
+          },
+          {
+            "text": "Wann gibst du eine Behandlung auf?",
+            "next": "thema_zwei"
+          },
+          {
+            "text": "Was hältst du von meinem Pfad?",
+            "requires_pathway": [
+              "kessel",
+              9
+            ],
+            "next": "pfad"
+          },
+          {
+            "text": "Du wolltest um etwas bitten.",
+            "next": "bitte"
+          },
+          {
+            "text": "Wunde versorgen …",
+            "next": "dienst"
+          },
+          {
+            "text": "Für heute genug.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "thema_eins": {
+        "text": "„Weil ich dann auch die Kutsche behandeln müsste. Zunächst reichen mir die Menschen.“",
+        "choices": [
+          {
+            "text": "Noch eine Frage.",
+            "next": "hub"
+          },
+          {
+            "text": "Danke für die Auskunft.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "thema_zwei": {
+        "text": "„Wenn sie mehr nimmt, als sie hilft. Aufgeben ist nicht dasselbe wie jemanden allein lassen.“",
+        "choices": [
+          {
+            "text": "Noch eine Frage.",
+            "next": "hub"
+          },
+          {
+            "text": "Danke für die Auskunft.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "pfad": {
+        "text": "„Der Kessel lehrt die Dosis. Die Zustimmung muss ein Mensch geben.“",
+        "choices": [
+          {
+            "text": "Das werde ich bedenken.",
+            "next": "hub"
+          }
+        ]
+      },
+      "bitte": {
+        "text": "„Die sauberen Tücher sind bei einem Regenguss nass geworden. Finde einen trockenen Platz und lass die Kranken nicht warten.“",
+        "choices": [
+          {
+            "text": "Was soll ich dabei beachten?",
+            "next": "bitte_details"
+          },
+          {
+            "text": "Ich verspreche noch nichts.",
+            "next": "hub"
+          },
+          {
+            "text": "Heute kann ich nicht helfen.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "bitte_details": {
+        "text": "„Wir verwenden keinen Stoff nur deshalb, weil er wieder trocken aussieht.“",
+        "choices": [
+          {
+            "text": "Ich habe die Bitte verstanden.",
+            "next": "hub"
+          },
+          {
+            "text": "Ich muss weiter.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "abschied": {
+        "text": "„Wenn es schlimmer wird, komm wieder. Das ist keine Unhöflichkeit.“",
+        "choices": [
+          {
+            "text": "Auf Wiedersehen."
+          }
+        ]
+      },
+      "dienst": {
+        "text": "„Untersuchung und einfache Wundversorgung kosten acht Schilling. Bei Bedarf heilt sie bis zu zwölf Leben; keine Flüche werden entfernt.“",
+        "choices": [
+          {
+            "text": "Für 8 Schilling annehmen.",
+            "requires_money": 8,
+            "next": "dienst_geleistet"
+          },
+          {
+            "text": "Nicht jetzt.",
+            "next": "hub"
+          },
+          {
+            "text": "Auf Wiedersehen.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "dienst_geleistet": {
+        "text": "Harrow reinigt und verbindet die kleine Wunde. Er nennt dir die Grenzen der Versorgung, bevor er seine Tasche schließt.",
+        "takes_money": 8,
+        "heal": 12,
+        "choices": [
+          {
+            "text": "Danke.",
+            "next": "hub"
+          },
+          {
+            "text": "Ich gehe weiter.",
+            "next": "abschied"
+          }
+        ]
+      }
+    }
+  },
+  "bj_vn_wanderprediger": {
+    "start": [
+      {
+        "node": "gruss_hoch",
+        "requires_honor": 40
+      },
+      {
+        "node": "gruss_mittel",
+        "requires_honor": 10
+      },
+      {
+        "node": "gruss_niedrig"
+      }
+    ],
+    "nodes": {
+      "gruss_niedrig": {
+        "text": "„Du musst mir nichts erzählen, um hier sitzen zu dürfen.“",
+        "choices": [
+          {
+            "text": "Darf ich etwas fragen?",
+            "next": "hub"
+          },
+          {
+            "text": "Ich komme später wieder.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "gruss_mittel": {
+        "text": "„Man sagt, du hörst zuerst zu. Dann teilen wir uns die Stille.“",
+        "choices": [
+          {
+            "text": "Darf ich etwas fragen?",
+            "next": "hub"
+          },
+          {
+            "text": "Ich komme später wieder.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "gruss_hoch": {
+        "text": "„Viel Ansehen kann schwer werden. Stell es für einen Augenblick ab.“",
+        "choices": [
+          {
+            "text": "Darf ich etwas fragen?",
+            "next": "hub"
+          },
+          {
+            "text": "Ich komme später wieder.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "hub": {
+        "text": "„Was möchtest du wissen?“",
+        "choices": [
+          {
+            "text": "Was predigst du unterwegs?",
+            "next": "thema_eins"
+          },
+          {
+            "text": "Hörst du jedes Gebet?",
+            "next": "thema_zwei"
+          },
+          {
+            "text": "Was hältst du von meinem Pfad?",
+            "requires_pathway": [
+              "echo",
+              9
+            ],
+            "next": "pfad"
+          },
+          {
+            "text": "Du wolltest um etwas bitten.",
+            "next": "bitte"
+          },
+          {
+            "text": "Rastsegen …",
+            "next": "dienst"
+          },
+          {
+            "text": "Für heute genug.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "thema_eins": {
+        "text": "„Dass man einander Platz lassen soll. Die Straße widerspricht mir regelmäßig.“",
+        "choices": [
+          {
+            "text": "Noch eine Frage.",
+            "next": "hub"
+          },
+          {
+            "text": "Danke für die Auskunft.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "thema_zwei": {
+        "text": "„Nein. Aber wenn jemand neben mir spricht, sollte ich wenigstens versuchen zuzuhören.“",
+        "choices": [
+          {
+            "text": "Noch eine Frage.",
+            "next": "hub"
+          },
+          {
+            "text": "Danke für die Auskunft.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "pfad": {
+        "text": "„Ein Echo kann trösten. Es muss deshalb noch keine Antwort sein.“",
+        "choices": [
+          {
+            "text": "Das werde ich bedenken.",
+            "next": "hub"
+          }
+        ]
+      },
+      "bitte": {
+        "text": "„Eine gemeinsame Wasserschale wird nachts umgestoßen. Finde die Ursache, ohne vorschnell einen Schuldigen zu suchen.“",
+        "choices": [
+          {
+            "text": "Was soll ich dabei beachten?",
+            "next": "bitte_details"
+          },
+          {
+            "text": "Ich verspreche noch nichts.",
+            "next": "hub"
+          },
+          {
+            "text": "Heute kann ich nicht helfen.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "bitte_details": {
+        "text": "„Vielleicht ist es ein Tier. Vielleicht ein loser Stein. Ein Name ist noch keine Untersuchung.“",
+        "choices": [
+          {
+            "text": "Ich habe die Bitte verstanden.",
+            "next": "hub"
+          },
+          {
+            "text": "Ich muss weiter.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "abschied": {
+        "text": "„Du darfst auch ohne letzte Erklärung weitergehen.“",
+        "choices": [
+          {
+            "text": "Auf Wiedersehen."
+          }
+        ]
+      },
+      "dienst": {
+        "text": "„Ein kurzer gemeinsamer Segen und Ruhe kosten drei Schilling: acht Nerven Erholung, keine magische Schutzwirkung.“",
+        "choices": [
+          {
+            "text": "Für 3 Schilling annehmen.",
+            "requires_money": 3,
+            "next": "dienst_geleistet"
+          },
+          {
+            "text": "Nicht jetzt.",
+            "next": "hub"
+          },
+          {
+            "text": "Auf Wiedersehen.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "dienst_geleistet": {
+        "text": "Silas spricht wenige ruhige Worte. Dann schweigt er mit dir, bis die Hände nicht mehr so fest ineinandergreifen.",
+        "takes_money": 3,
+        "nerves": 8,
+        "choices": [
+          {
+            "text": "Danke.",
+            "next": "hub"
+          },
+          {
+            "text": "Ich gehe weiter.",
+            "next": "abschied"
+          }
+        ]
+      }
+    }
+  },
+  "bj_vn_kartenzeichnerin": {
+    "start": [
+      {
+        "node": "gruss_hoch",
+        "requires_honor": 40
+      },
+      {
+        "node": "gruss_mittel",
+        "requires_honor": 10
+      },
+      {
+        "node": "gruss_niedrig"
+      }
+    ],
+    "nodes": {
+      "gruss_niedrig": {
+        "text": "„Wenn du einen Weg suchst, sag zuerst, wohin du nicht willst.“",
+        "choices": [
+          {
+            "text": "Darf ich etwas fragen?",
+            "next": "hub"
+          },
+          {
+            "text": "Ich komme später wieder.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "gruss_mittel": {
+        "text": "„Du bringst eigene Beobachtungen mit. Dann können wir vergleichen.“",
+        "choices": [
+          {
+            "text": "Darf ich etwas fragen?",
+            "next": "hub"
+          },
+          {
+            "text": "Ich komme später wieder.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "gruss_hoch": {
+        "text": "„Dein Ruf ist weit gereist. Meine Karte kennt nur diese Strecke.“",
+        "choices": [
+          {
+            "text": "Darf ich etwas fragen?",
+            "next": "hub"
+          },
+          {
+            "text": "Ich komme später wieder.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "hub": {
+        "text": "„Was möchtest du wissen?“",
+        "choices": [
+          {
+            "text": "Warum endet deine Linie dort?",
+            "next": "thema_eins"
+          },
+          {
+            "text": "Was zeichnest du nicht ein?",
+            "next": "thema_zwei"
+          },
+          {
+            "text": "Was hältst du von meinem Pfad?",
+            "requires_pathway": [
+              "laterne",
+              9
+            ],
+            "next": "pfad"
+          },
+          {
+            "text": "Du wolltest um etwas bitten.",
+            "next": "bitte"
+          },
+          {
+            "text": "Wegskizze …",
+            "next": "dienst"
+          },
+          {
+            "text": "Für heute genug.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "thema_eins": {
+        "text": "„Weil ich dort umgekehrt bin. Ungeprüft ist keine andere Bezeichnung für leer.“",
+        "choices": [
+          {
+            "text": "Noch eine Frage.",
+            "next": "hub"
+          },
+          {
+            "text": "Danke für die Auskunft.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "thema_zwei": {
+        "text": "„Private Türen ohne Erlaubnis. Ein Weg darf nützlich sein, ohne alles zu verraten.“",
+        "choices": [
+          {
+            "text": "Noch eine Frage.",
+            "next": "hub"
+          },
+          {
+            "text": "Danke für die Auskunft.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "pfad": {
+        "text": "„Eine Laterne zeigt, wohin ihr Licht reicht. Zeichne nicht den Rest der Nacht als Gewissheit ein.“",
+        "choices": [
+          {
+            "text": "Das werde ich bedenken.",
+            "next": "hub"
+          }
+        ]
+      },
+      "bitte": {
+        "text": "„Ein Wegstein weist nach einem Frostbruch in die falsche Richtung. Hilf, den alten Verlauf unabhängig zu prüfen.“",
+        "choices": [
+          {
+            "text": "Was soll ich dabei beachten?",
+            "next": "bitte_details"
+          },
+          {
+            "text": "Ich verspreche noch nichts.",
+            "next": "hub"
+          },
+          {
+            "text": "Heute kann ich nicht helfen.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "bitte_details": {
+        "text": "„Private Zugänge bleiben aus der Skizze. Wir berichtigen den öffentlichen Weg.“",
+        "choices": [
+          {
+            "text": "Ich habe die Bitte verstanden.",
+            "next": "hub"
+          },
+          {
+            "text": "Ich muss weiter.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "abschied": {
+        "text": "„Frag am nächsten Abzweig noch einmal. Wege können sich ändern.“",
+        "choices": [
+          {
+            "text": "Auf Wiedersehen."
+          }
+        ]
+      },
+      "dienst": {
+        "text": "„Vier Schilling für ein Kartenstück mit einer mündlichen Erklärung. Es schaltet keine unbekannten Reiseziele frei.“",
+        "choices": [
+          {
+            "text": "Für 4 Schilling annehmen.",
+            "requires_money": 4,
+            "next": "dienst_geleistet"
+          },
+          {
+            "text": "Nicht jetzt.",
+            "next": "hub"
+          },
+          {
+            "text": "Auf Wiedersehen.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "dienst_geleistet": {
+        "text": "Nessa übergibt ein Kartenstück und erklärt den sichtbaren Abzweig. Private Türen bleiben darauf ausgespart.",
+        "takes_money": 4,
+        "gives_items": {
+          "vi_m_landkarte_rest": 1
+        },
+        "choices": [
+          {
+            "text": "Danke.",
+            "next": "hub"
+          },
+          {
+            "text": "Ich gehe weiter.",
+            "next": "abschied"
+          }
+        ]
+      }
+    }
+  },
+  "bj_vn_fahrender_richter": {
+    "start": [
+      {
+        "node": "gruss_hoch",
+        "requires_honor": 40
+      },
+      {
+        "node": "gruss_mittel",
+        "requires_honor": 10
+      },
+      {
+        "node": "gruss_niedrig"
+      }
+    ],
+    "nodes": {
+      "gruss_niedrig": {
+        "text": "„Wer ist noch beteiligt? Mit dieser Frage beginnen wir.“",
+        "choices": [
+          {
+            "text": "Darf ich etwas fragen?",
+            "next": "hub"
+          },
+          {
+            "text": "Ich komme später wieder.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "gruss_mittel": {
+        "text": "„Deine Auskünfte gelten als sorgfältig. Sie bleiben prüfbar.“",
+        "choices": [
+          {
+            "text": "Darf ich etwas fragen?",
+            "next": "hub"
+          },
+          {
+            "text": "Ich komme später wieder.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "gruss_hoch": {
+        "text": "„Dein Ansehen erspart dir keine Gegenfrage. Das sollte dich beruhigen.“",
+        "choices": [
+          {
+            "text": "Darf ich etwas fragen?",
+            "next": "hub"
+          },
+          {
+            "text": "Ich komme später wieder.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "hub": {
+        "text": "„Was möchtest du wissen?“",
+        "choices": [
+          {
+            "text": "Wozu der Stab?",
+            "next": "thema_eins"
+          },
+          {
+            "text": "Wer darf dir widersprechen?",
+            "next": "thema_zwei"
+          },
+          {
+            "text": "Was hältst du von meinem Pfad?",
+            "requires_pathway": [
+              "sq_waage",
+              9
+            ],
+            "next": "pfad"
+          },
+          {
+            "text": "Du wolltest um etwas bitten.",
+            "next": "bitte"
+          },
+          {
+            "text": "Begrenzte Rechtsauskunft …",
+            "next": "dienst"
+          },
+          {
+            "text": "Für heute genug.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "thema_eins": {
+        "text": "„Damit man mich findet. Er ist kein Ersatz für eine Begründung.“",
+        "choices": [
+          {
+            "text": "Noch eine Frage.",
+            "next": "hub"
+          },
+          {
+            "text": "Danke für die Auskunft.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "thema_zwei": {
+        "text": "„Die Beteiligten. Und jeder, der einen überprüfbaren Irrtum zeigen kann. Das macht die Reise länger.“",
+        "choices": [
+          {
+            "text": "Noch eine Frage.",
+            "next": "hub"
+          },
+          {
+            "text": "Danke für die Auskunft.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "pfad": {
+        "text": "„Die Waage verlangt zwei Schalen. Ein Urteil braucht zusätzlich Menschen, die man angehört hat.“",
+        "choices": [
+          {
+            "text": "Das werde ich bedenken.",
+            "next": "hub"
+          }
+        ]
+      },
+      "bitte": {
+        "text": "„Zwei Reisende beanspruchen ein Ersatzrad. Prüfe Eigentum und Leihe, ohne aus Besitz allein ein Recht abzuleiten.“",
+        "choices": [
+          {
+            "text": "Was soll ich dabei beachten?",
+            "next": "bitte_details"
+          },
+          {
+            "text": "Ich verspreche noch nichts.",
+            "next": "hub"
+          },
+          {
+            "text": "Heute kann ich nicht helfen.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "bitte_details": {
+        "text": "„Wenn einer nicht teilnehmen möchte, erzwingen wir keine Versöhnung. Dann bleibt zunächst nur eine begrenzte Auskunft.“",
+        "choices": [
+          {
+            "text": "Ich habe die Bitte verstanden.",
+            "next": "hub"
+          },
+          {
+            "text": "Ich muss weiter.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "abschied": {
+        "text": "„Behalte auch den Einwand. Er gehört zur Sache.“",
+        "choices": [
+          {
+            "text": "Auf Wiedersehen."
+          }
+        ]
+      },
+      "dienst": {
+        "text": "„Fünf Schilling für einen vorläufigen Bescheid nach deiner Darstellung. Die Klarheit gibt drei Nerven zurück. Ohne Gegenseite ist das Urteil nicht bindend.“",
+        "choices": [
+          {
+            "text": "Für 5 Schilling annehmen.",
+            "requires_money": 5,
+            "next": "dienst_geleistet"
+          },
+          {
+            "text": "Nicht jetzt.",
+            "next": "hub"
+          },
+          {
+            "text": "Auf Wiedersehen.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "dienst_geleistet": {
+        "text": "Voss fällt einen vorläufigen Bescheid: „Eine bloße Behauptung verpflichtet dich noch zu keiner Zahlung. Lass dir den Anspruch belegen. Über das Recht der Gegenseite entscheide ich erst nach ihrer Anhörung.“",
+        "takes_money": 5,
+        "nerves": 3,
+        "choices": [
+          {
+            "text": "Danke.",
+            "next": "hub"
+          },
+          {
+            "text": "Ich gehe weiter.",
+            "next": "abschied"
+          }
+        ]
+      }
+    }
+  },
+  "bj_vn_waisenjunge": {
+    "start": [
+      {
+        "node": "gruss_hoch",
+        "requires_honor": 40
+      },
+      {
+        "node": "gruss_mittel",
+        "requires_honor": 10
+      },
+      {
+        "node": "gruss_niedrig"
+      }
+    ],
+    "nodes": {
+      "gruss_niedrig": {
+        "text": "„Eine Frage darfst du stellen. Auf jede antworte ich nicht.“",
+        "choices": [
+          {
+            "text": "Darf ich etwas fragen?",
+            "next": "hub"
+          },
+          {
+            "text": "Ich komme später wieder.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "gruss_mittel": {
+        "text": "„Du hast beim letzten Mal den Preis vorher genannt. Das merke ich mir.“",
+        "choices": [
+          {
+            "text": "Darf ich etwas fragen?",
+            "next": "hub"
+          },
+          {
+            "text": "Ich komme später wieder.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "gruss_hoch": {
+        "text": "„Alle kennen deinen Namen. Du brauchst meinen deswegen nicht überall hinzutragen.“",
+        "choices": [
+          {
+            "text": "Darf ich etwas fragen?",
+            "next": "hub"
+          },
+          {
+            "text": "Ich komme später wieder.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "hub": {
+        "text": "„Was möchtest du wissen?“",
+        "choices": [
+          {
+            "text": "Was sammelst du in der Dose?",
+            "next": "thema_eins"
+          },
+          {
+            "text": "Kennst du hier jeden Rastplatz?",
+            "next": "thema_zwei"
+          },
+          {
+            "text": "Was hältst du von meinem Pfad?",
+            "requires_pathway": [
+              "sq_uhr",
+              9
+            ],
+            "next": "pfad"
+          },
+          {
+            "text": "Du wolltest um etwas bitten.",
+            "next": "bitte"
+          },
+          {
+            "text": "Öffentlicher Weghinweis …",
+            "next": "dienst"
+          },
+          {
+            "text": "Für heute genug.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "thema_eins": {
+        "text": "„Manchmal Münzen. Manchmal Knöpfe. Ich sage vorher, was du bekommst.“",
+        "choices": [
+          {
+            "text": "Noch eine Frage.",
+            "next": "hub"
+          },
+          {
+            "text": "Danke für die Auskunft.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "thema_zwei": {
+        "text": "„Genug für meinen Weg. Die anderen musst du bei ihren Bewohnern erfragen.“",
+        "choices": [
+          {
+            "text": "Noch eine Frage.",
+            "next": "hub"
+          },
+          {
+            "text": "Danke für die Auskunft.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "pfad": {
+        "text": "„Du folgst der Uhr? Dann weißt du vielleicht, wie lang Warten wird, wenn jemand den Preis erst hinterher nennt.“",
+        "choices": [
+          {
+            "text": "Das werde ich bedenken.",
+            "next": "hub"
+          }
+        ]
+      },
+      "bitte": {
+        "text": "„Tobin hat einen auffälligen Mantelknopf gefunden. Hilf ihm, den Besitzer sicher zu suchen, ohne allein in fremde Kutschen zu steigen.“",
+        "choices": [
+          {
+            "text": "Was soll ich dabei beachten?",
+            "next": "bitte_details"
+          },
+          {
+            "text": "Ich verspreche noch nichts.",
+            "next": "hub"
+          },
+          {
+            "text": "Heute kann ich nicht helfen.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "bitte_details": {
+        "text": "„Ich gehe nicht mit einem Fremden hinter die Wagen. Du musst mir auch keinen Schlafplatz abfragen.“",
+        "choices": [
+          {
+            "text": "Ich habe die Bitte verstanden.",
+            "next": "hub"
+          },
+          {
+            "text": "Ich muss weiter.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "abschied": {
+        "text": "„Wenn du wiederfragst, nenn vorher den Gegenstand.“",
+        "choices": [
+          {
+            "text": "Auf Wiedersehen."
+          }
+        ]
+      },
+      "dienst": {
+        "text": "„Ein Schilling für einen Hinweis zum sichtbaren Weg. Keine privaten Schlafplätze und keine gefährliche Begleitung.“",
+        "choices": [
+          {
+            "text": "Für 1 Schilling annehmen.",
+            "requires_money": 1,
+            "next": "dienst_geleistet"
+          },
+          {
+            "text": "Nicht jetzt.",
+            "next": "hub"
+          },
+          {
+            "text": "Auf Wiedersehen.",
+            "next": "abschied"
+          }
+        ]
+      },
+      "dienst_geleistet": {
+        "text": "Tobin zeigt die ausgewaschene Stelle am nahen Wegsaum. „Geh außen herum. Der feste Rand ist auf der hellen Seite.“",
+        "takes_money": 1,
+        "choices": [
+          {
+            "text": "Danke.",
+            "next": "hub"
+          },
+          {
+            "text": "Ich gehe weiter.",
+            "next": "abschied"
+          }
+        ]
+      }
+    }
+  }
+}

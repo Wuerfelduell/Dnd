@@ -1,5 +1,14 @@
 # BN — genaue Einbaupunkte und abgeglichene Quellen
 
+## Stand nach dem Einbau (10.11.2026)
+
+- Daten: `src/data/k3Ruf.js` baut das Pack `k3_ruf` (Dialogzusatz „Das Signalgerät ansetzen und den Rufweg prüfen.“ mit `signal_station` an den fünf AS-Arbeitsstellen, Trichter-Objekt `k3r_trichter_drehscheibe` bei (35,3) am Schwellenring, `content.signalRoutes`).
+- GameState: `signalRouteMethods` eingehängt; `resetSignalRoutes` nach `resetSignal`, `serializeSignalRoutes`, `loadSignalRoutes` nach `loadSignal`, `meetsSignalRoutes` in `meets`, `applySignalRoutes` in `applyEffects`, `tickSignalRoutes` in `tick`; `passive()` nimmt `bindingPassive`, `artifactUnruhe` zählt die Bindung auch ohne Artefakt.
+- Oberfläche: `Ui.openSignalStation` (Horchen, Musterwahl mit BA-Symbol, Richtung, Vorschau mit Warnung/Risiko, getrennter Rufknopf, Namensantwort mit ausdrücklicher Zustimmung), Journal-Abschnitt „Rufmuster“ im Aufträge-Tab, Fallback-Reise über `pendingTravel`.
+- Welt: `signalRouteContext` aus `TapMove.blockedGrid` und lebenden Roamern; `showSignalRoute` zeichnet Linie, Nischen und Suchzone; gehörte Lauscher suchen am Linienende (`Roamers.alarm`); Schallschleusen lösen an den Ausgängen/Ankunftsplätzen (`checkLocks`, Abstand ≤ 2 Kacheln) aus; Kartenwechsel verwirft offene Angebote.
+- Die alten AS-Rufknoten (`signal: call`) bleiben als Textweg bestehen; beide setzen dasselbe Vorbereitungsflag, der BN-Knopf verschwindet danach.
+- Offen: Klangwiedergabe (eigener `MusicSynth` für AY-Rufklänge), Overlay-Animationen aus `ds_ruflinien.png` (derzeit einfache Grafik), `closedLocks`/`insideLock` außerhalb des Speisewagens, BF-Schallschleuse (`koop_ds_schleuse_bindung_bestaetigt`, `_rueckkehr_geprueft`) wartet weiter auf einen Adapter.
+
 Dieses Paket ändert ausschließlich seine neun neuen Dateien. Die folgenden
 Ausschnitte sind Vorschläge für den separaten Integrations-PR, nicht schon aktiver
 Spielcode. BA stellt die Grafik in `manifest-dunscar4.json` bereit.

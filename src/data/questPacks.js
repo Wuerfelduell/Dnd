@@ -81,6 +81,8 @@ export function applyQuestPack(content, pack) {
     m.interactables.push({ id: flag, kind: 'read', tile: spot.tile, sprite: flag, prompt: k.name, title: k.name, text: k.deko, footer: k.wirkung,
       visible_if: { requires_flags: [flag] }, ...(spot.effects ? { effects: spot.effects, done_flag: spot.done } : {}) });
   }
+  // Paket BN: Horchstellen, Klangzuordnung, Bindungen und Texte (core/SignalRoutes.js)
+  if (pack.signalRoutes) content.signalRoutes = pack.signalRoutes;
   // Paket BG: Anspruchsquellen, Ersatzzeilen und Kurztexte (core/Claims.js)
   if (pack.ansprueche) content.claimSources = { ...(content.claimSources ?? {}), ...pack.ansprueche };
   if (pack.ersatz) content.claimReplacements = [...(content.claimReplacements ?? []), ...pack.ersatz];

@@ -1046,6 +1046,7 @@ export class WorldScene extends Phaser.Scene {
     this.input.keyboard.on('keydown-P', queue('pathway'));
     // Handy/Maus: hintippen zum Hinlaufen und Interagieren
     this.tap = new TapMove(this);
+    this.setupSignalContext(); // BN: Kollision und Lauscher für Rufwege
     this.input.mouse?.disableContextMenu();
     // Spieler 2: Enter interagiert (Pfeile laufen, siehe updateMovement)
     this.input.keyboard.on('keydown-ENTER', (e) => { if (!e.repeat && this.p2) this.pending2 = 'interact'; });
@@ -1070,6 +1071,9 @@ export class WorldScene extends Phaser.Scene {
       s.on('changed', refresh),
       s.on('conclusion', refresh),
       s.on('clock', () => { this.clockDirty = true; }), // BD: Tageswechsel erst, wenn kein Gespräch/Fenster offen ist
+      s.on('signal_route', (r) => this.showSignalRoute(r)), // BN: Ruflinie, Nischen, Suchzone
+      s.on('signal_alarm_end', () => this.roamers?.alarmEnd()),
+      s.on('signal_lock', () => this.roamers?.alarmEnd()),
       s.on('quest', refresh),
       s.on('ascend', ({ pathway, player }) => this.playDrinkFx(pathway, player)),
       s.on('unruhe', () => this.updateCracks()),
@@ -1162,6 +1166,7 @@ export class WorldScene extends Phaser.Scene {
     this.dsLife?.update(delta);
     if (this.clockDirty && !blocked) this.applyClock();
     this.koop?.update(delta, blocked);
+    if (!blocked) this.checkLocks(delta); // BN: Schallschleusen an den Ausgängen
     this.updateFocus(blocked);
     this.checkAuto(blocked);
     this.handleKeys(blocked);
@@ -1454,6 +1459,10 @@ export class WorldScene extends Phaser.Scene {
         this.playPlayerAction('door');
         this.ui.openTravel(this.state.map);
         break;
+      case 'signal': // BN: Horchstelle
+        this.playPlayerAction('read');
+        this.ui.openSignalStation(def.station);
+        break;
       case 'brew':
         this.ui.openBrew();
         break;
@@ -1508,6 +1517,8 @@ export class WorldScene extends Phaser.Scene {
     if (this.leaving) return;
     if (!this.state.content.maps[mapId]) throw new Error(`Unbekannter Ort: ${mapId}`);
     this.leaving = true;
+    this.state.cancelPrivateAnswer?.(1); // BN: offene Namensantwort verfällt beim Kartenwechsel
+    this.state.cancelPrivateAnswer?.(2);
     this.state.setSpiritVision(false);
     this.cameras.main.fadeOut(300, 0, 0, 0);
     this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, () => {
@@ -1517,6 +1528,62 @@ export class WorldScene extends Phaser.Scene {
       this.state.emit('travel', mapId);
       this.scene.restart();
     });
+  }
+
+  /** Paket BN: aktuelle Kollision (Boden + Hindernisse) und lebende Gegner für Rufvorschau und Hörweite. */
+  setupSignalContext() {
+    let cache = null;
+    const grid = () => {
+      const now = this.time.now;
+      if (!cache || now - cache.at > 100) cache = { ...this.tap.blockedGrid(), at: now };
+      return cache;
+    };
+    const ctx = {
+      isWalkable: (map, x, y) => { if (map !== this.state.map) return false; const g = grid(); return x >= 0 && y >= 0 && x < g.w && y < g.h && !g.grid[y * g.w + x]; },
+      listeners: (map) => (map !== this.state.map ? [] : this.roamers.list.filter((r) => r.alive).map((r) => ({ id: r.def.id ?? r.id, encounter: r.id, alive: true, tile: [Math.floor(r.body.x / TILE), Math.floor(r.body.y / TILE)] }))),
+    };
+    this.state.signalRouteContext = ctx;
+    this.cleanups.push(() => { if (this.state.signalRouteContext === ctx) this.state.signalRouteContext = null; });
+  }
+
+  /** BN: Ruflinie (gold richtig, rot falsch), sichere Nischen grün, Suchzone rot umrandet; verblasst nach ein paar Sekunden. */
+  showSignalRoute(r) {
+    if (r.map !== this.state.map) return;
+    this.signalGfx?.destroy();
+    const g = this.add.graphics().setDepth(DEPTH.dark - 1);
+    const color = r.form === 'linie_fehl' ? 0xe07a8a : r.form === 'linie_aktiv' ? 0xe8b860 : 0xabb3ae;
+    g.fillStyle(color, 0.45);
+    for (const [x, y] of r.tiles ?? []) g.fillRect(x * TILE + 5, y * TILE + 5, 6, 6);
+    g.lineStyle(1, 0x9ad06a, 0.9);
+    for (const [x, y] of r.safeTiles ?? []) g.strokeRect(x * TILE + 1, y * TILE + 1, TILE - 2, TILE - 2);
+    g.lineStyle(1, 0xe07a8a, 0.9);
+    for (const [x, y] of r.alarm?.tiles ?? []) g.strokeRect(x * TILE + 3, y * TILE + 3, TILE - 6, TILE - 6);
+    this.signalGfx = g;
+    this.tweens.add({ targets: g, alpha: 0, delay: 6000, duration: 1500, onComplete: () => { if (this.signalGfx === g) this.signalGfx = null; g.destroy(); } });
+    if (r.alarm) this.roamers?.alarm(r);
+  }
+
+  /** BN: Schallschleusen liegen an den Ausgängen; wer hindurchgeht, verliert Bindung und Alarm. */
+  checkLocks(delta) {
+    const sr = this.state.content.signalRoutes;
+    if (!sr || !this.player) return;
+    this.lockT = (this.lockT ?? 0) - delta;
+    if (this.lockT > 0) return;
+    this.lockT = 300;
+    const s = this.state;
+    const px = Math.floor(this.player.x / TILE);
+    const py = Math.floor((this.player.y - 3) / TILE);
+    this.locksNear ??= new Set();
+    for (const st of sr.stationen) {
+      const l = st.lock;
+      if (l.map !== s.map) continue;
+      const near = Math.abs(l.tile[0] - px) + Math.abs(l.tile[1] - py) <= 2; // Ankunftsplatz und Türzugang liegen zwei Kacheln auseinander
+      if (!near) { this.locksNear.delete(l.id); continue; }
+      if (this.locksNear.has(l.id)) continue;
+      this.locksNear.add(l.id);
+      const r = s.enterLock(l.map, l.id);
+      if (r.ok && r.ended.length) this.ui.showMessage('Schallschleuse', [r.text, ...r.ended.map((e) => e.text)].join('\n\n'));
+    }
   }
 
   /** Pausiert die Welt und startet den Kampfbildschirm. `after(result)` läuft nach dem Kampf, `roamer` ist ein Gegner auf der Karte. */
