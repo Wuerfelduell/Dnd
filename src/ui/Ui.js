@@ -114,14 +114,17 @@ const turnFace = (id) => {
   return `<span class="turnface" style="background-image:url(${url});background-size:${cols * 2}em 2em;background-position:-${TURN_PORTRAITS[id] * 2}em 0"></span>`;
 };
 const BASE_SKILL_IDS = ['double', 'blind', 'ward'];
+/** Icon-Größe der Kampf-Kacheln in em (1em = 8 Spielpixel). */
+const TILE_ICON_EM = 1.75;
 const skillIcon = (id) => { const ic = skillIconOf(id); return ic ? atlasIcon(ic[0], ic[1], 7) : ''; };
-/** Großes Fähigkeits-Icon fürs Kampfmenü: 16er-Zelle auf 2em (skaliert mit der Oberfläche, nicht in festen Pixeln). */
+/** Großes Fähigkeits-Icon fürs Kampfmenü: 16er-Zelle auf 1.75em (skaliert mit der Oberfläche, nicht in festen Pixeln). */
 const skillIconBig = (id) => {
   const ic = skillIconOf(id);
   // Grundfertigkeiten ohne eigenes Bild leihen sich die Menüsymbole; neue Pfadfertigkeiten (Seq. 4 bis 1) zeigen bis zur eigenen Grafik ein Siegel
-  if (!ic) return uiSprite('bmenu', id === 'double' ? 'attack' : BASE_SKILL_IDS.includes(id) ? 'skill' : 'defend', 1 / 8, 'cbicon big');
+  if (!ic) return uiSprite('bmenu', id === 'double' ? 'attack' : BASE_SKILL_IDS.includes(id) ? 'skill' : 'defend', TILE_ICON_EM / 16, 'cbicon big');
   const [url, index] = ic;
-  return `<span class="atlas-icon big" style="background-image:url(${url});background-size:14em auto;background-position:-${(index % 7) * 2}em -${Math.floor(index / 7) * 2}em"></span>`;
+  const k = TILE_ICON_EM;
+  return `<span class="atlas-icon big" style="background-image:url(${url});background-size:${7 * k}em auto;background-position:-${(index % 7) * k}em -${Math.floor(index / 7) * k}em"></span>`;
 };
 /** Artefakt-Slots (20x20 aus ui/N_artefakt_ui.png), mitgeführte mit Icon in der Öffnung. */
 const artifactSlots = (ids, max, overloaded) => Array.from({ length: Math.max(max, ids.length) }, (_, i) => {
@@ -2278,16 +2281,21 @@ export class Ui {
       menu.innerHTML = `<ol class="choices">${entries.map((e, i) => btn(e, i, `<span class="key">${key(e, i)}</span> ${e.ui ? uiSprite('bmenu', e.disabled ? `${e.ui}_off` : e.ui, 1 / 8, 'cbicon') : ''}${esc(e.text)} <span class="muted">${esc(e.info ?? '')}</span>`)).join('')}</ol>
         <div class="cb-desc"></div>`;
     } else {
-      // Fertigkeiten und Gegenstände: Kacheln mit großem Icon, scrollbar, wenn es viele sind (bis Sequenz 1 sind es zwölf);
-      // „Zurück“ bleibt außerhalb der Liste immer sichtbar
+      // Fertigkeiten und Gegenstände: kompakte Kacheln mit großem Icon in der alten Fensterhöhe, damit der Gegner sichtbar bleibt;
+      // bis Sequenz 1 sind es zwölf Einträge, die Liste scrollt. „Zurück“ steht vorn, die Beschreibung wandert in die Rundenmeldung.
       const back = entries.length - 1;
-      menu.innerHTML = `<ol class="choices">${entries.slice(0, back).map((e, i) => btn(e, i, `
-          ${e.icon ? itemIconBig(e.icon) : e.skill ? skillIconBig(e.skill) : ''}<span class="tile-text"><span class="tile-name"><span class="key">${key(e, i)}</span>${esc(e.text)}</span><span class="muted">${esc(e.info ?? '')}</span></span>`)).join('')}</ol>
-        <div class="cb-foot"><button class="cb-back" data-i="${back}"><span class="key">Esc</span> Zurück</button><div class="cb-desc"></div></div>`;
+      menu.innerHTML = `<ol class="choices">${btn(entries[back], back, `<span class="tile-text"><span class="tile-name"><span class="key">Esc</span>Zurück</span></span>`)}${entries.slice(0, back).map((e, i) => btn(e, i, `
+          <span class="tile-icon">${e.icon ? itemIconBig(e.icon) : e.skill ? skillIconBig(e.skill) : ''}<span class="key">${key(e, i)}</span></span><span class="tile-text">${esc(e.text)} <span class="muted">${esc(e.info ?? '')}</span></span>`)).join('')}</ol>`;
+      // Pfeil unten rechts, solange es weiter unten noch Einträge gibt (auch ohne sichtbaren Scrollbalken, z. B. am Handy)
+      const list = menu.querySelector('.choices');
+      const more = () => menu.classList.toggle('more', list.scrollTop + list.clientHeight < list.scrollHeight - 2);
+      list.onscroll = more;
+      requestAnimationFrame(more);
     }
+    const help = this.layer.querySelector('.cb-help');
     menu.querySelectorAll('[data-i]').forEach((b) => {
       b.onclick = () => this.combatPick(Number(b.dataset.i));
-      b.onmouseenter = () => { menu.querySelector('.cb-desc').textContent = entries[Number(b.dataset.i)].desc ?? ''; };
+      b.onmouseenter = () => { (menu.querySelector('.cb-desc') ?? help).textContent = entries[Number(b.dataset.i)].desc ?? ''; };
     });
   }
 
