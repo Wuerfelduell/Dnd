@@ -8,6 +8,7 @@ import { kahnMethods } from './Kahn.js';
 import { newspaperMethods } from './Newspapers.js';
 import { signalMethods } from './Signals.js';
 import { claimMethods } from './Claims.js';
+import { signalRouteMethods } from './SignalRoutes.js';
 import { claimEinbauMethods } from './ClaimsEinbau.js';
 import { clockMethods, NIGHT_FLAG } from './Clock.js';
 import { bondMethods } from './Bonds.js';
@@ -85,6 +86,7 @@ export class GameState {
     this.resetClaims(); // Paket BG
     this.resetPapers();
     this.resetSignal();
+    this.resetSignalRoutes(); // Paket BN
     this.pendingTravel = null;
   }
 
@@ -294,7 +296,8 @@ export class GameState {
       this.meetsSignal(o) &&
       this.meetsBond(o) &&
       this.meetsRelation(o) &&
-      this.meetsClaims(o) // Paket BG: requires_claim, requires_claim_missing, requires_p2, requires_replacement
+      this.meetsClaims(o) && // Paket BG: requires_claim, requires_claim_missing, requires_p2, requires_replacement
+      this.meetsSignalRoutes(o) // Paket BN: requires_route, requires_pattern, requires_binding
     );
   }
 
@@ -324,6 +327,7 @@ export class GameState {
     const gained = (e.gives_clues ?? []).filter((c) => this.addClue(c));
     for (const f of e.sets_flags ?? []) { this.flags.add(f); this.openClaims(f); } // BG: bewältigte Quelle öffnet Ansprüche
     if (e.signal || e.signal_reserve) this.applySignal(e); // Kapitel 3: Rufladungen
+    if (e.learn_pattern || e.reveal_route || e.enter_lock) this.applySignalRoutes(e); // BN: Rufwissen, Route, Schleuse
     for (const f of e.clears_flags ?? []) this.flags.delete(f);
     for (const q of e.start_quests ?? []) this.startQuest(q);
     for (const q of e.complete_quests ?? []) this.finishQuest(q, 'done');
@@ -680,6 +684,7 @@ export class GameState {
     }
     if (this.composure !== before) this.emit('composure', this.composure);
     this.tickPathway(dtSeconds);
+    this.tickSignalRoutes(dtSeconds); // BN: Alarmdauer in Spielzeit
     this.tickGatherings(dtSeconds);
     this.tickWanted(dtSeconds);
     this.tickParty(dtSeconds);
@@ -714,6 +719,7 @@ export class GameState {
       ...this.serializeParty(),
       papers: this.papers,
       ...this.serializeSignal(),
+      ...this.serializeSignalRoutes(),
       ...this.serializeClaims(),
     };
   }
@@ -763,6 +769,7 @@ export class GameState {
     if (data.claims === undefined) this.migrateLegacyClaims(); // BG: alte Spielstände ohne Register
     this.loadPapers(data);
     this.loadSignal(data);
+    this.loadSignalRoutes(data); // BN: nach loadSignal, Ladungen bleiben
     this.syncClock(); // Tag/Nacht folgt der Spielzeit, nicht dem Spielstand
     if (!this.content.maps[this.map]) { this.map = this.content.start.map; this.position = null; }
     return true;
@@ -772,4 +779,4 @@ export class GameState {
 /** Fortschrittsflags der verlängerten Akt-V-Fassung (AP), in Spielreihenfolge. */
 export const K2_AKT5_STEPS = ['k2v_boot_bereit', 'k2v_keller_passiert', 'k2v_aufstieg_passiert', 'k2v_abschied_done'];
 
-Object.assign(GameState.prototype, partyMethods, gearMethods, corruptionMethods, pathwayMethods, artifactMethods, gatheringMethods, wantedMethods, bondMethods, relationMethods, auctionMethods, artisanMethods, kahnMethods, newspaperMethods, signalMethods, clockMethods, claimMethods, claimEinbauMethods);
+Object.assign(GameState.prototype, partyMethods, gearMethods, corruptionMethods, pathwayMethods, artifactMethods, gatheringMethods, wantedMethods, bondMethods, relationMethods, auctionMethods, artisanMethods, kahnMethods, newspaperMethods, signalMethods, clockMethods, claimMethods, claimEinbauMethods, signalRouteMethods);

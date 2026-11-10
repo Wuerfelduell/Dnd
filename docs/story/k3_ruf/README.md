@@ -1,7 +1,7 @@
 # BN — Rufextras für Dunscar
 
-Reine Logik und Daten, ohne Phaser und ohne automatische Registrierung. Bestehende
-Dateien bleiben unverändert. Die spätere Darstellung kann die BA-Regionen direkt
+Reine Logik und Daten, ohne Phaser. Seit dem Einbau im Spiel registriert (Stand siehe
+`offene_punkte.md`). Die spätere Darstellung kann die BA-Regionen direkt
 anhand von `form`, `tiles`, `routeTiles`, `safeTiles` und `listeners` wählen.
 
 ## Lieferung und Aufruf

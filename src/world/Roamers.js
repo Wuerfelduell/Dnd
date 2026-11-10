@@ -189,6 +189,30 @@ export class Roamers {
     }
   }
 
+  /** Paket BN: gehörte Lauscher suchen am Ende der Ruflinie, nicht beim Spieler. */
+  alarm(event) {
+    const heard = new Set((event.listeners ?? []).map((l) => l.id));
+    const end = event.alarm?.tiles?.at(-1) ?? event.tiles?.at(-1);
+    if (!end) return;
+    for (const r of this.list) {
+      if (!r.alive || !heard.has(r.def.id ?? r.id)) continue;
+      r.mode = 'return';
+      r.target = { x: end[0] * TILE + 8, y: end[1] * TILE + 12 };
+      r.wait = 0;
+      r.searching = true;
+      this.notice(r, this.scene.time.now);
+    }
+  }
+
+  /** BN: Alarm vorbei oder Schleuse: Suchende kehren heim. */
+  alarmEnd() {
+    for (const r of this.list) {
+      if (!r.searching) continue;
+      r.searching = false;
+      if (r.mode === 'return') r.target = { ...r.home };
+    }
+  }
+
   wander(r, delta) {
     const b = r.body.body;
     const speed = r.roam.speed ?? 26;
