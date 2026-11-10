@@ -1,0 +1,771 @@
+{
+  "vi_hut_setzerkappe": {
+    "name": "Setzerkappe",
+    "desc": "Schwarze Setzerkappe mit Bleiglanz; Schutz vor Nervenverlust durch Lesen.",
+    "weight": 1,
+    "price": 100,
+    "kind": "gear",
+    "slot": "hut",
+    "boons": [
+      {
+        "key": "max_nerves",
+        "value": 8,
+        "text": "+8 maximale Nerven."
+      },
+      {
+        "text": "Beim bestätigten Lesen eines Lesestücks 25 % weniger Nervenverlust; mindestens 1 bei einem ursprünglichen Verlust. Kein Schutz vor Gesprächs- oder Kampfkosten."
+      }
+    ]
+  },
+  "vi_hut_kurhaube": {
+    "name": "Kurhaube",
+    "desc": "Weiße Pflegehaube mit grünem Band; Leben +, Nerven-Höchstwert -.",
+    "weight": 0.5,
+    "price": 110,
+    "kind": "gear",
+    "slot": "hut",
+    "boons": [
+      {
+        "key": "max_hp",
+        "value": 10,
+        "text": "+10 maximales Leben."
+      },
+      {
+        "key": "max_nerves",
+        "value": -6,
+        "text": "−6 maximale Nerven."
+      }
+    ]
+  },
+  "vi_hut_zylinder_vermesser": {
+    "name": "Vermesserzylinder",
+    "desc": "Zylinder mit Messband als Hutband; Reise-Ereignisse günstiger.",
+    "weight": 1,
+    "price": 130,
+    "kind": "gear",
+    "slot": "hut",
+    "boons": [
+      {
+        "key": "sell",
+        "value": 1.15,
+        "text": "15 % höherer Erlös beim Verkaufen."
+      },
+      {
+        "text": "Bei einer bezahlten Reisebegegnung 20 % geringere Geldforderung, aufrunden; keine Änderung von Zeugen, Entscheidungen oder Beweisen."
+      }
+    ]
+  },
+  "vi_hut_fuhrmannshut": {
+    "name": "Fuhrmannshut",
+    "desc": "Breiter Filzhut mit Regenrand; Schutz vor Wetter-Malus.",
+    "weight": 1.2,
+    "price": 105,
+    "kind": "gear",
+    "slot": "hut",
+    "boons": [
+      {
+        "key": "max_hp",
+        "value": 6,
+        "text": "+6 maximales Leben."
+      },
+      {
+        "text": "Wetterbedingte Nerven- und Tempomali auf Reisen entfallen. Keine allgemeine Schadensimmunität, keine Wirkung gegen gegnerische Angriffe."
+      }
+    ]
+  },
+  "vi_mantel_druckerschurz": {
+    "name": "Druckerschurz",
+    "desc": "Lederschurz voller Tintenflecken; Rüstung gegen Schnitt.",
+    "weight": 3,
+    "price": 165,
+    "kind": "gear",
+    "slot": "mantel",
+    "boons": [
+      {
+        "key": "max_nerves",
+        "value": 8,
+        "text": "+8 maximale Nerven."
+      },
+      {
+        "text": "20 % weniger Schnittschaden, auf den eingehenden Schnittanteil vor Rundung. Kein Schutz gegen Dampf, Sturz oder Namenverlust."
+      }
+    ]
+  },
+  "vi_mantel_dampfmantel": {
+    "name": "Dampfmantel",
+    "desc": "Gewachster Mantel mit Kupferösen; Rüstung gegen Hitze und Dampf.",
+    "weight": 3.5,
+    "price": 180,
+    "kind": "gear",
+    "slot": "mantel",
+    "boons": [
+      {
+        "key": "max_hp",
+        "value": 8,
+        "text": "+8 maximales Leben."
+      },
+      {
+        "text": "25 % weniger Hitze- und Dampfschaden; überlappende Kennzeichnungen zählen einmal. Kein Schutz gegen andere Schadensarten."
+      }
+    ]
+  },
+  "vi_mantel_reisepelerine": {
+    "name": "Reisepelerine",
+    "desc": "Graue Pelerine mit vielen Taschen; Tragkraft +.",
+    "weight": 2,
+    "price": 140,
+    "kind": "gear",
+    "slot": "mantel",
+    "boons": [
+      {
+        "key": "carry",
+        "value": 10,
+        "text": "+10 Pfund Tragkraft."
+      }
+    ]
+  },
+  "vi_mantel_archivrobe": {
+    "name": "Archivrobe",
+    "desc": "Dunkelblaue Robe mit Siegelschnur; Ansehen bei Ämtern. Amtsschlösser sind leichter zugänglich; verlorenes Ansehen wiegt weniger. Kein dauerhaft geschenkter Amtsrang.",
+    "weight": 2,
+    "price": 170,
+    "kind": "gear",
+    "slot": "mantel",
+    "boons": [
+      {
+        "key": "lock_bonus",
+        "value": 12,
+        "text": "Amtsschlösser verlangen 12 Ansehen weniger."
+      },
+      {
+        "key": "honor_loss",
+        "value": 0.7,
+        "text": "30 % weniger Ansehensverlust."
+      }
+    ]
+  },
+  "vi_amulett_bleiletter": {
+    "name": "Bleiletter am Band",
+    "desc": "Eine einzelne Bleiletter ohne Zeichen an Schnur; Geistsicht länger.",
+    "weight": 0.3,
+    "price": 180,
+    "kind": "gear",
+    "slot": "amulett",
+    "boons": [
+      {
+        "key": "vision_cost",
+        "value": 0.7,
+        "text": "Geistsicht kostet 30 % weniger Nerven."
+      }
+    ]
+  },
+  "vi_amulett_pfirsichkern": {
+    "name": "Geschnitzter Pfirsichkern",
+    "desc": "Geschnitzter Pfirsichkern; Unruhe sinkt langsamer, Leben regeneriert.",
+    "weight": 0.2,
+    "price": 175,
+    "kind": "gear",
+    "slot": "amulett",
+    "boons": [
+      {
+        "key": "calm_decay",
+        "value": 0.75,
+        "text": "Unruhe klingt 25 % langsamer ab."
+      },
+      {
+        "key": "max_nerves",
+        "value": 8,
+        "text": "+8 maximale Nerven."
+      },
+      {
+        "text": "Außerhalb des Kampfes alle 10 aktiven Spielsekunden +1 Leben bis zum Höchstwert. Menüzeit zählt nicht; Anlegen startet keinen sofortigen Heilimpuls. Der soziale Schwerpunkt ist geduldiges Zuhören, keine erzwungene Zustimmung."
+      }
+    ]
+  },
+  "vi_amulett_grenzsteinsplitter": {
+    "name": "Grenzsteinsplitter",
+    "desc": "Splitter mit halbem Wappen; Flucht gelingt öfter.",
+    "weight": 0.5,
+    "price": 160,
+    "kind": "gear",
+    "slot": "amulett",
+    "boons": [
+      {
+        "key": "dodge_window",
+        "value": 1.25,
+        "text": "Ausweichfenster +25 %."
+      },
+      {
+        "text": "Bei ausdrücklich fliehbaren Begegnungen +20 Prozentpunkte auf eine spätere Fluchtprobe, höchstens 95 %. Der Bestand kennt nur erlaubte/verbotene Flucht und braucht hierfür eine echte Probe; niemals einen Bossausgang stillschweigend öffnen."
+      }
+    ]
+  },
+  "vi_amulett_rohrpostkapsel": {
+    "name": "Rohrpostkapsel am Band",
+    "desc": "Winzige Messingkapsel, innen ein Zettel; einmal pro Kampf ein Treffer abgewehrt.",
+    "weight": 0.3,
+    "price": 195,
+    "kind": "gear",
+    "slot": "amulett",
+    "boons": [
+      {
+        "text": "Einmal je Kampf den ersten schadensverursachenden Treffer gegen den Träger vollständig abwehren. Nur dessen Ladung verbrauchen; An- und Ablegen sowie Laden eines Spielstands geben keine zusätzliche Ladung."
+      }
+    ]
+  },
+  "vi_waffe_setzhaken": {
+    "name": "Setzhaken",
+    "desc": "Stahlhaken der Setzer; schnell, geringer Schaden.",
+    "weight": 1.5,
+    "price": 145,
+    "kind": "weapon",
+    "atk": 9
+  },
+  "vi_waffe_bleihammer": {
+    "name": "Bleihammer",
+    "desc": "Schwerer Hammer mit Bleikopf; langsam, hoher Schaden.",
+    "weight": 5,
+    "price": 210,
+    "kind": "weapon",
+    "atk": 12
+  },
+  "vi_waffe_veredelungsschere": {
+    "name": "Veredelungsschere",
+    "desc": "Gärtnerschere mit zwei Klingen; zwei Treffer.",
+    "weight": 2,
+    "price": 195,
+    "kind": "weapon",
+    "atk": 10
+  },
+  "vi_waffe_dampfrohr": {
+    "name": "Warmes Dampfrohr",
+    "desc": "Abgesägtes Heizrohr, noch warm; Hitze-Schaden.",
+    "weight": 3.5,
+    "price": 185,
+    "kind": "weapon",
+    "atk": 11
+  },
+  "vi_waffe_kutschpeitsche": {
+    "name": "Kutschpeitsche mit Bleiknoten",
+    "desc": "Lange Peitsche mit Bleiknoten; Reichweite, trifft zuerst.",
+    "weight": 1.5,
+    "price": 190,
+    "kind": "weapon",
+    "atk": 9
+  },
+  "vi_waffe_richterstab": {
+    "name": "Richterstab",
+    "desc": "Schwarzer Stab mit Silberknauf; Schutz beim Parieren.",
+    "weight": 2.5,
+    "price": 205,
+    "kind": "weapon",
+    "atk": 10
+  },
+  "vi_v_setzerbrot": {
+    "name": "Setzerbrot",
+    "desc": "Brot mit eingebackener Letter; Leben +.",
+    "weight": 0.4,
+    "price": 16,
+    "kind": "consumable",
+    "heal": 30
+  },
+  "vi_v_terrassentee": {
+    "name": "Terrassentee",
+    "desc": "Rußiger schwarzer Tee; Nerven +.",
+    "weight": 0.4,
+    "price": 22,
+    "kind": "consumable",
+    "composure": 48
+  },
+  "vi_v_durchschlagpapier": {
+    "name": "Durchschlagpapier",
+    "desc": "Blatt Kohlepapier; kopiert einmal einen Hinweis.",
+    "weight": 0.1,
+    "price": 24,
+    "kind": "consumable"
+  },
+  "vi_v_rohrpostmarke": {
+    "name": "Rohrpostmarke",
+    "desc": "Marke für die Rohrpost; einmal Schnellreise umsonst.",
+    "weight": 0.1,
+    "price": 18,
+    "kind": "consumable"
+  },
+  "vi_v_pfirsichsud": {
+    "name": "Pfirsichsud",
+    "desc": "Klarer warmer Sud; Leben stark +, danach kurz Unruhe.",
+    "weight": 0.4,
+    "price": 36,
+    "kind": "consumable",
+    "heal": 45
+  },
+  "vi_v_wurzelpastille": {
+    "name": "Wurzelpastille",
+    "desc": "Bittere braune Pastille; Unruhe sinkt.",
+    "weight": 0.1,
+    "price": 20,
+    "kind": "consumable",
+    "calm": 25
+  },
+  "vi_v_dampfkompresse": {
+    "name": "Dampfkompresse",
+    "desc": "Heiße Kompresse; hebt Betäubung auf.",
+    "weight": 0.3,
+    "price": 24,
+    "kind": "consumable"
+  },
+  "vi_v_kurkarte": {
+    "name": "Blaue Kurkarte",
+    "desc": "Blaue Kurkarte; einmal freier Eintritt.",
+    "weight": 0.1,
+    "price": 20,
+    "kind": "consumable"
+  },
+  "vi_v_wegzehrung": {
+    "name": "Wegzehrung im Tuch",
+    "desc": "Speck, Brot, Zwiebel im Tuch; Leben + auf Reisen.",
+    "weight": 0.6,
+    "price": 20,
+    "kind": "consumable",
+    "heal": 35
+  },
+  "vi_v_laternenoel_klar": {
+    "name": "Klares Laternenöl",
+    "desc": "Klares Öl; Geistsicht länger.",
+    "weight": 0.3,
+    "price": 28,
+    "kind": "consumable"
+  },
+  "vi_v_zollsiegel": {
+    "name": "Zollsiegel",
+    "desc": "Rotes Siegel; einmal Streife umgehen.",
+    "weight": 0.1,
+    "price": 30,
+    "kind": "consumable"
+  },
+  "vi_v_riechsalz_stark": {
+    "name": "Starkes Riechsalz",
+    "desc": "Starkes Riechsalz; hebt K.o. auf (Koop).",
+    "weight": 0.2,
+    "price": 45,
+    "kind": "consumable"
+  },
+  "vi_v_nebelkerze": {
+    "name": "Nebelkerze",
+    "desc": "Kurze Kerze, blauer Rauch; Gegner übersehen dich einen Raum lang.",
+    "weight": 0.2,
+    "price": 32,
+    "kind": "consumable"
+  },
+  "vi_v_schlafpulver": {
+    "name": "Schlafpulver",
+    "desc": "Pulver in Papier; Gegner setzt eine Runde aus.",
+    "weight": 0.1,
+    "price": 30,
+    "kind": "consumable",
+    "combat_only": true,
+    "stun": true
+  },
+  "vi_v_schreibfeder_eisen": {
+    "name": "Eiserne Schreibfeder",
+    "desc": "Feder aus Eisen; Verhör-Bonus einmal.",
+    "weight": 0.2,
+    "price": 26,
+    "kind": "consumable"
+  },
+  "vi_v_bitterwasser": {
+    "name": "Bitterwasser",
+    "desc": "Trübes Wasser aus der Terrasse; heilt Vergiftung.",
+    "weight": 0.4,
+    "price": 24,
+    "kind": "consumable"
+  },
+  "vi_art_das_leere_tuerschild": {
+    "name": "Das leere Türschild",
+    "desc": "Messingschild ohne Namen; Gegner vergessen dich nach der Flucht, dafür verblasst eine Beziehung pro Tag.",
+    "weight": 0.6,
+    "price": 360,
+    "kind": "artifact",
+    "source": "quest",
+    "rarity": "okkult",
+    "boons": [
+      {
+        "text": "Nach erfolgreicher Flucht verlieren gewöhnliche Verfolger die persönliche Zielbindung bis zur nächsten eigenen feindlichen Aktion; kein Fahndungsabbau und kein Vergessen von Beweisen."
+      }
+    ],
+    "curses": [
+      {
+        "text": "Je abgeschlossenem Reisetag −1 Bindung bei genau einem bereits bekannten Kontakt mit positiver Bindung, deterministisch rotierend; bei leerer Auswahl keine neue Beziehung erzeugen. Nur mitgetragen, nicht eingelagert; kein Echtzeitverlust beim Lesen."
+      }
+    ],
+    "inspect": "inspect_vi_art_das_leere_tuerschild"
+  },
+  "vi_art_der_erste_durchschlag": {
+    "name": "Der erste Durchschlag",
+    "desc": "Durchschlag mit fremder Unterschrift; einmal pro Kampf ein Treffer doppelt, Nerven-Höchstwert -10.",
+    "weight": 0.1,
+    "price": 380,
+    "kind": "artifact",
+    "source": "quest",
+    "rarity": "okkult",
+    "boons": [
+      {
+        "text": "Einmal je Kampf den ersten bewusst bestätigten erfolgreichen eigenen Waffentreffer verdoppeln. Nur diesen Teiltreffer, keine ganze Mehrfachaktion; Verbrauch der Ladung erst bei Treffer, keine Aufladung durch Inventarwechsel."
+      }
+    ],
+    "curses": [
+      {
+        "key": "max_nerves",
+        "value": -10,
+        "text": "−10 maximale Nerven."
+      }
+    ],
+    "inspect": "inspect_vi_art_der_erste_durchschlag"
+  },
+  "vi_art_die_warme_postkarte": {
+    "name": "Die warme Postkarte",
+    "desc": "Postkarte, die nie kalt wird; Nerven regenerieren im Kampf, aber Unruhe steigt beim Lesen.",
+    "weight": 0.1,
+    "price": 340,
+    "kind": "artifact",
+    "source": "quest",
+    "rarity": "okkult",
+    "boons": [
+      {
+        "text": "Am Ende jeder vollständigen Kampfrunde +3 Nerven, höchstens bis zum Höchstwert; kein Gewinn durch Menüs oder zusätzliche Teilaktionen."
+      }
+    ],
+    "curses": [
+      {
+        "text": "Jedes ausdrücklich bestätigte Lesen der Karte verursacht +6 Unruhe; nicht bereits das Öffnen des Inventars und nicht der Rückweg im Dialog."
+      }
+    ],
+    "inspect": "inspect_vi_art_die_warme_postkarte"
+  },
+  "vi_art_der_falsche_fahrplan": {
+    "name": "Der falsche Fahrplan",
+    "desc": "Fahrplan mit Personen als Fracht; Schnellreise ohne Ereignis, Beute -20 %.",
+    "weight": 0.2,
+    "price": 400,
+    "kind": "artifact",
+    "source": "quest",
+    "rarity": "okkult",
+    "boons": [
+      {
+        "text": "Auf einer freigeschalteten Schnellreise kein zufälliges Reiseereignis; fest angekündigte Hauptaktionen und gesperrte Routen bleiben unverändert."
+      }
+    ],
+    "curses": [
+      {
+        "text": "Beute aus optionalen Kämpfen und Reiseereignissen −20 %: Geld und Mengen gewöhnlicher Gegenstände abrunden, Einzelstück-Chancen mit 0,8 multiplizieren. Garantierte Beweise, Schlüssel, Questbelohnungen und Kernzutaten bleiben vollständig."
+      }
+    ],
+    "inspect": "inspect_vi_art_der_falsche_fahrplan"
+  },
+  "vi_art_die_gaertnerschnur": {
+    "name": "Die Gärtnerschnur",
+    "desc": "Grüne Schnur mit Knoten; Heilung +50 %, Rüstung -2.",
+    "weight": 0.2,
+    "price": 370,
+    "kind": "artifact",
+    "source": "quest",
+    "rarity": "okkult",
+    "boons": [
+      {
+        "key": "heal_bonus",
+        "value": 1.5,
+        "text": "Heilmittel wirken 50 % stärker."
+      }
+    ],
+    "curses": [
+      {
+        "text": "Rüstung −2, mindestens 0; nur im künftigen flachen Rüstungssystem. Nicht stillschweigend in einen Schadensmultiplikator umrechnen."
+      }
+    ],
+    "inspect": "inspect_vi_art_die_gaertnerschnur"
+  },
+  "vi_art_der_stille_stempel": {
+    "name": "Der stille Stempel",
+    "desc": "Stempel ohne Zeichen; Verhöre leichter, Ehre pro Fall -5.",
+    "weight": 0.4,
+    "price": 350,
+    "kind": "artifact",
+    "source": "quest",
+    "rarity": "okkult",
+    "boons": [
+      {
+        "text": "Bei einer ausdrücklich gewählten Verhörprobe +15 Prozentpunkte, höchstens 95 %; keine erzwungene Zustimmung und keine neuen Beweise."
+      }
+    ],
+    "curses": [
+      {
+        "text": "Bei endgültigem Abschluss eines Falls −5 Ehre, einmal je Fall-ID und unabhängig vom gewählten Ende; kein wiederholter Abzug beim Laden oder Lesen des Abschlusses."
+      }
+    ],
+    "inspect": "inspect_vi_art_der_stille_stempel"
+  },
+  "vi_art_das_bremserseil": {
+    "name": "Das Bremserseil",
+    "desc": "Seil der Standseilbahn; Flucht immer möglich, erster Treffer trifft immer dich.",
+    "weight": 1.2,
+    "price": 390,
+    "kind": "artifact",
+    "source": "quest",
+    "rarity": "okkult",
+    "boons": [
+      {
+        "key": "always_flee",
+        "value": true,
+        "text": "Flucht ist aus jedem Kampf möglich."
+      }
+    ],
+    "curses": [
+      {
+        "text": "Der erste gegnerische schadensverursachende Treffer je Kampf richtet sich an den Träger und ist nicht ausweich- oder parierbar. Bei zwei Trägern feste Spielerreihenfolge; blockierende Rohrpostkapsel wird vor diesem Zwangstreffer nicht ausgelöst. Flucht selbst bleibt immer verfügbar."
+      }
+    ],
+    "inspect": "inspect_vi_art_das_bremserseil"
+  },
+  "vi_art_die_kurglocke": {
+    "name": "Die Kurglocke",
+    "desc": "Kleine Glocke der Stillenhäuser; Gegner beginnen schlafend, wachen aber bei Schaden doppelt zornig auf.",
+    "weight": 0.4,
+    "price": 420,
+    "kind": "artifact",
+    "source": "quest",
+    "rarity": "okkult",
+    "boons": [
+      {
+        "text": "Zu Kampfbeginn schläft der Gegner eine Runde und setzt seinen ersten Zug aus; kein erneuter Schlaf durch Umlagern. Schlaf endet sofort beim ersten Schaden."
+      }
+    ],
+    "curses": [
+      {
+        "text": "Weckt Schaden den Gegner vor dem ersten ausgelassenen Zug, verursacht seine nächste vollständige Angriffsfolge doppelten Grundschaden; nach dieser Folge endet der Zorn. Bei natürlichem Erwachen ohne Schaden kein Zorn; die Warnung muss vor dem Angriff sichtbar sein."
+      }
+    ],
+    "inspect": "inspect_vi_art_die_kurglocke"
+  },
+  "vi_m_bleiletter": {
+    "name": "Ausgesonderte Bleilettern",
+    "desc": "Ein Beutel ausgesonderter Lettern.",
+    "weight": 1,
+    "price": 14,
+    "kind": "trophy"
+  },
+  "vi_m_tintenkuchen": {
+    "name": "Tintenkuchen",
+    "desc": "Getrocknete Druckerschwärze.",
+    "weight": 0.3,
+    "price": 16,
+    "kind": "trophy"
+  },
+  "vi_m_rohrpostkapsel_leer": {
+    "name": "Leere Rohrpostkapsel",
+    "desc": "Leere Messingkapsel.",
+    "weight": 0.5,
+    "price": 18,
+    "kind": "trophy"
+  },
+  "vi_m_registerband": {
+    "name": "Registerband",
+    "desc": "Rotes Band aus einem Register.",
+    "weight": 0.1,
+    "price": 10,
+    "kind": "trophy"
+  },
+  "vi_m_terrassenruss": {
+    "name": "Terrassenruß",
+    "desc": "Fetter schwarzer Ruß von den Regenrinnen.",
+    "weight": 0.3,
+    "price": 8,
+    "kind": "trophy"
+  },
+  "vi_m_seilbahnfett": {
+    "name": "Seilbahnfett",
+    "desc": "Dose Schmierfett.",
+    "weight": 0.5,
+    "price": 20,
+    "kind": "trophy"
+  },
+  "vi_m_pfirsichholz": {
+    "name": "Pfirsichholz",
+    "desc": "Helles Holz aus den Glasgärten.",
+    "weight": 0.8,
+    "price": 16,
+    "kind": "trophy"
+  },
+  "vi_m_glasscherbe_beschlagen": {
+    "name": "Beschlagene Glasscherbe",
+    "desc": "Scherbe mit innenliegendem Beschlag.",
+    "weight": 0.2,
+    "price": 12,
+    "kind": "trophy"
+  },
+  "vi_m_wurzelfaser": {
+    "name": "Warme Wurzelfaser",
+    "desc": "Zähe helle Faser, warm.",
+    "weight": 0.2,
+    "price": 18,
+    "kind": "trophy"
+  },
+  "vi_m_kupferrohrstueck": {
+    "name": "Kupferrohrstück",
+    "desc": "Kurzes Rohr mit Kalkrand.",
+    "weight": 0.7,
+    "price": 22,
+    "kind": "trophy"
+  },
+  "vi_m_kurwaesche": {
+    "name": "Saubere Kurwäsche",
+    "desc": "Gefaltetes weißes Laken mit Nummer-Stickerei ohne Ziffern.",
+    "weight": 0.5,
+    "price": 12,
+    "kind": "trophy"
+  },
+  "vi_m_sudflasche": {
+    "name": "Leere Sudflasche mit Rest",
+    "desc": "Dunkle Flasche mit Rest.",
+    "weight": 0.3,
+    "price": 10,
+    "kind": "trophy"
+  },
+  "vi_m_wegzoll_marke": {
+    "name": "Alte Wegzollmarke",
+    "desc": "Blechmarke eines Zolls.",
+    "weight": 0.1,
+    "price": 10,
+    "kind": "trophy"
+  },
+  "vi_m_kutschenlaterne": {
+    "name": "Beschädigte Kutschenlaterne",
+    "desc": "Kleine Kutschenlaterne, Glas gesprungen.",
+    "weight": 0.8,
+    "price": 24,
+    "kind": "trophy"
+  },
+  "vi_m_landkarte_rest": {
+    "name": "Landkartenrest",
+    "desc": "Kartenstück ohne Namen.",
+    "weight": 0.1,
+    "price": 14,
+    "kind": "trophy"
+  },
+  "vi_m_pferdehaar": {
+    "name": "Pferdehaar",
+    "desc": "Strähne Pferdehaar.",
+    "weight": 0.1,
+    "price": 8,
+    "kind": "trophy"
+  },
+  "vi_m_grenzsteinmoos": {
+    "name": "Grenzsteinmoos",
+    "desc": "Moos von einem Grenzstein.",
+    "weight": 0.1,
+    "price": 8,
+    "kind": "trophy"
+  },
+  "vi_m_predigerzettel": {
+    "name": "Verwitterter Predigerzettel",
+    "desc": "Zettel mit Andeutung von Schrift.",
+    "weight": 0.1,
+    "price": 6,
+    "kind": "trophy"
+  },
+  "vi_k_cw_randkorrektur": {
+    "name": "Idas Randkorrektur",
+    "desc": "Ein am Rand berichtigter Druckbogen. Die Korrektur gehört Ida Bellcross; ihr Ziel muss erst mit weiteren Quellen geprüft werden.",
+    "weight": 0.1,
+    "price": 0,
+    "kind": "key",
+    "inspect": "inspect_vi_k_cw_randkorrektur"
+  },
+  "vi_k_cw_ungestempelter_durchschlag": {
+    "name": "Veras ungestempelter Durchschlag",
+    "desc": "Vera Darnell hat eine ungestempelte Kopie aufbewahrt. Ohne das zugehörige Original ist sie eine Spur, noch kein abgeschlossener Nachweis.",
+    "weight": 0.1,
+    "price": 0,
+    "kind": "key",
+    "inspect": "inspect_vi_k_cw_ungestempelter_durchschlag"
+  },
+  "vi_k_cw_falsche_quittung": {
+    "name": "Hesks falsche Quittung",
+    "desc": "Bramwell Hesk quittierte einen anderen Zielort. Der Zettel allein erklärt weder seine Absicht noch den tatsächlichen Weg.",
+    "weight": 0.1,
+    "price": 0,
+    "kind": "key",
+    "inspect": "inspect_vi_k_cw_falsche_quittung"
+  },
+  "vi_k_cw_pfandzettel": {
+    "name": "Lotties Pfandzettel",
+    "desc": "Ein Pfandzettel aus Lottie Wicksends Bestand, unter einem falschen Namen verwahrt. Die Herkunft des Pfands bleibt einzeln zu prüfen.",
+    "weight": 0.1,
+    "price": 0,
+    "kind": "key",
+    "inspect": "inspect_vi_k_cw_pfandzettel"
+  },
+  "vi_k_cw_heizungsrohr_skizze": {
+    "name": "Bexleys Rohrskizze",
+    "desc": "Gideon Bexleys Zeichnung der Heizungsrohre und der Wohnungen dahinter. Sie hält Hörwege fest, keine gesicherten Sprecheridentitäten.",
+    "weight": 0.1,
+    "price": 0,
+    "kind": "key",
+    "inspect": "inspect_vi_k_cw_heizungsrohr_skizze"
+  },
+  "vi_k_cw_streiktopf_auszug": {
+    "name": "Pritchs Auszugsblatt",
+    "desc": "Ein von Ewan Pritch verwahrter Auszug. Ausgaben für die Unterstützung Entlassener stehen neben einer verkürzten Abschrift.",
+    "weight": 0.1,
+    "price": 0,
+    "kind": "key",
+    "inspect": "inspect_vi_k_cw_streiktopf_auszug"
+  },
+  "vi_k_bh_postkarte_verworfen": {
+    "name": "Orlas verworfene Postkarte",
+    "desc": "Orla Fencrests nicht abgesandte Karte. Zwischen gewöhnlichen Grußsätzen blieb eine eigene Randnotiz stehen.",
+    "weight": 0.1,
+    "price": 0,
+    "kind": "key",
+    "inspect": "inspect_vi_k_bh_postkarte_verworfen"
+  },
+  "vi_k_bh_pflanzenkapsel": {
+    "name": "Versiegelte Pflanzenkapsel",
+    "desc": "Die von Orla gesicherte Kapsel hält getrennte Zuordnungen für die nächste Behandlung. Sie bleibt verschlossen; eine Prüfung darf die Zuordnung nicht zerstören.",
+    "weight": 0.2,
+    "price": 0,
+    "kind": "key",
+    "inspect": "inspect_vi_k_bh_pflanzenkapsel"
+  },
+  "vi_k_bh_einweisung": {
+    "name": "Felix’ Einweisung",
+    "desc": "Die von Felix Fencrest unterschriebene Einweisung seiner Schwester. Sie ist kein Ersatz für Orlas eigene Zustimmung.",
+    "weight": 0.1,
+    "price": 0,
+    "kind": "key",
+    "inspect": "inspect_vi_k_bh_einweisung"
+  },
+  "vi_k_bh_beetschild": {
+    "name": "Umgedrehtes Beetschild",
+    "desc": "Ein Schild aus den Glasgärten, mit der beschrifteten Seite nach innen. Ein einzelner Fund benennt noch keinen Patienten.",
+    "weight": 0.1,
+    "price": 0,
+    "kind": "key",
+    "inspect": "inspect_vi_k_bh_beetschild"
+  },
+  "vi_k_bh_namensheft": {
+    "name": "Ennas Namensheft",
+    "desc": "Schwester Enna Rookwells privates Verzeichnis. Es bewahrt Beobachtungen, ohne verlorene Beziehungen eigenmächtig zu ergänzen.",
+    "weight": 0.1,
+    "price": 0,
+    "kind": "key",
+    "inspect": "inspect_vi_k_bh_namensheft"
+  },
+  "vi_k_bh_wurzelzeichnung": {
+    "name": "Dipples alte Wurzelzeichnung",
+    "desc": "Amos Dipples Zeichnung aus der Zeit vor dem Klinikbau. Ihre Datierung muss mit einem unabhängigen Bauplan abgeglichen werden.",
+    "weight": 0.1,
+    "price": 0,
+    "kind": "key",
+    "inspect": "inspect_vi_k_bh_wurzelzeichnung"
+  }
+}
