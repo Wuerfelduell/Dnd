@@ -1,0 +1,456 @@
+[
+  {
+    "map": "ds_kalkmarkt",
+    "tile": [
+      20,
+      7
+    ],
+    "npc": "k3h_troedlerin",
+    "visible_if": {
+      "requires_flags": [
+        "k3_arrived"
+      ]
+    }
+  },
+  {
+    "map": "ds_kalkmarkt",
+    "tile": [
+      26,
+      7
+    ],
+    "npc": "k3h_steinmetz",
+    "visible_if": {
+      "requires_flags": [
+        "k3_arrived"
+      ]
+    }
+  },
+  {
+    "map": "ds_signalhang",
+    "tile": [
+      20,
+      6
+    ],
+    "npc": "k3h_lampenwart",
+    "visible_if": {
+      "requires_flags": [
+        "k3_arrived"
+      ]
+    }
+  },
+  {
+    "map": "ds_kalkmarkt",
+    "tile": [
+      21,
+      7
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k3h_mantelbesitzer_begonnen"
+      ],
+      "hide_if_flags": [
+        "k3h_mantelnaht_gelesen"
+      ]
+    },
+    "interactable": {
+      "id": "k3h_mantelnaht",
+      "kind": "read",
+      "sprite": "paper",
+      "prompt": "Die innere Naht",
+      "title": "Die innere Naht",
+      "text": "Unter der alten Marke steht Holm Varley in unruhigen Stichen. Eine Tasche wurde nachträglich für einen Kupplungsschlüssel verlängert. Du nimmst nur eine Abschrift mit.",
+      "done_flag": "k3h_mantelnaht_gelesen",
+      "effects": {
+        "sets_flags": [
+          "k3h_mantelnaht_gelesen"
+        ],
+        "gives_items": {
+          "k3h_mantelzettel": 1
+        }
+      }
+    }
+  },
+  {
+    "map": "ds_klopfbruch",
+    "tile": [
+      20,
+      7
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k3h_steinmass_begonnen"
+      ],
+      "hide_if_flags": [
+        "k3h_mass_vorn_gelesen"
+      ]
+    },
+    "interactable": {
+      "id": "k3h_mass_vorn",
+      "kind": "read",
+      "sprite": "paper",
+      "prompt": "Das alte Lot",
+      "title": "Das alte Lot",
+      "text": "Die Stirn ist neun Handbreit hoch. Das Lot hängt frei; der Fuß liegt auf gewachsenem Fels. Du markierst die Messstelle, ohne den Stein zu schlagen.",
+      "done_flag": "k3h_mass_vorn_gelesen",
+      "effects": {
+        "sets_flags": [
+          "k3h_mass_vorn_gelesen"
+        ]
+      }
+    }
+  },
+  {
+    "map": "ds_klopfbruch",
+    "tile": [
+      26,
+      7
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k3h_steinmass_begonnen"
+      ],
+      "hide_if_flags": [
+        "k3h_mass_hinten_gelesen"
+      ]
+    },
+    "interactable": {
+      "id": "k3h_mass_hinten",
+      "kind": "read",
+      "sprite": "paper",
+      "prompt": "Die Rückseite",
+      "title": "Die Rückseite",
+      "text": "Hinter dem Stein läuft eine zweite Kante in die Wand. Das Stahlband zeigt vier Handbreit Tiefe statt der üblichen zwei. Es ist eine abgebrochene Stütze, kein vergessenes Grabmal.",
+      "done_flag": "k3h_mass_hinten_gelesen",
+      "effects": {
+        "sets_flags": [
+          "k3h_mass_hinten_gelesen"
+        ]
+      }
+    }
+  },
+  {
+    "map": "ds_rufschlucht",
+    "tile": [
+      20,
+      7
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k3h_klemmen_begonnen"
+      ],
+      "hide_if_flags": [
+        "k3h_klemmkasten_gelesen"
+      ]
+    },
+    "interactable": {
+      "id": "k3h_klemmkasten",
+      "kind": "read",
+      "sprite": "paper",
+      "prompt": "Der ausgebaute Verteiler",
+      "title": "Der ausgebaute Verteiler",
+      "text": "Unter dem abgetrennten Trichter liegen drei kalte Klemmen mit derselben breiten Backe. Keine hängt mehr am Rufnetz. Du zeichnest die Herstellerkerbe ab und nimmst die drei Stücke mit.",
+      "done_flag": "k3h_klemmkasten_gelesen",
+      "effects": {
+        "sets_flags": [
+          "k3h_klemmkasten_gelesen"
+        ],
+        "gives_items": {
+          "k3o_leitungsklemme": 3
+        }
+      }
+    }
+  },
+  {
+    "map": "ds_schwellenring",
+    "tile": [
+      20,
+      9
+    ],
+    "npc": "ez_ds_rangierer",
+    "visible_if": {
+      "requires_flags": [
+        "k3_arrived"
+      ]
+    }
+  },
+  {
+    "map": "ds_bruchstufen",
+    "tile": [
+      20,
+      8
+    ],
+    "npc": "ez_ds_kalkbrennerin",
+    "visible_if": {
+      "requires_flags": [
+        "k3_arrived"
+      ]
+    }
+  },
+  {
+    "map": "ds_signalhang",
+    "tile": [
+      26,
+      8
+    ],
+    "npc": "ez_ds_streckenlaeufer",
+    "visible_if": {
+      "requires_flags": [
+        "k3_arrived"
+      ]
+    }
+  },
+  {
+    "map": "ds_arbeiterbogen",
+    "tile": [
+      20,
+      8
+    ],
+    "npc": "ez_ds_walzenstimme",
+    "visible_if": {
+      "requires_flags": [
+        "k3_arrived"
+      ]
+    }
+  },
+  {
+    "map": "ds_endbahnhof",
+    "tile": [
+      20,
+      8
+    ],
+    "npc": "ez_ds_schrankenkind",
+    "visible_if": {
+      "requires_flags": [
+        "k3_arrived"
+      ]
+    }
+  },
+  {
+    "map": "ds_runddepot",
+    "tile": [
+      19,
+      7
+    ],
+    "npc": "zirkel_schichtbund",
+    "visible_if": {
+      "requires_flags": [
+        "k3_arrived"
+      ],
+      "hide_if_flags": [
+        "treffen_schichtbund"
+      ]
+    }
+  },
+  {
+    "map": "ds_kalkmarkt",
+    "tile": [
+      30,
+      8
+    ],
+    "npc": "tm_ds_kerbholz",
+    "visible_if": {
+      "requires_flags": [
+        "k3_arrived"
+      ],
+      "hide_if_flags": [
+        "treffen_schichtbund"
+      ]
+    }
+  },
+  {
+    "map": "ds_runddepot",
+    "tile": [
+      21,
+      8
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k3h_lampenrechnung_begonnen"
+      ],
+      "hide_if_flags": [
+        "k3h_lampenrechnung_fund1_gelesen"
+      ]
+    },
+    "interactable": {
+      "id": "k3h_lampenrechnung_fund1",
+      "kind": "read",
+      "sprite": "paper",
+      "prompt": "Die Ölkannenrechnung",
+      "title": "Die Ölkannenrechnung",
+      "text": "Eine volle Kanne wurde zweimal gebucht. Unter der zweiten Zeile steht eine private Kerbe statt einer Schichtnummer.",
+      "done_flag": "k3h_lampenrechnung_fund1_gelesen",
+      "effects": {
+        "sets_flags": [
+          "k3h_lampenrechnung_fund1_gelesen"
+        ]
+      }
+    }
+  },
+  {
+    "map": "ds_schwellenring",
+    "tile": [
+      28,
+      9
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k3h_lampenrechnung_begonnen"
+      ],
+      "hide_if_flags": [
+        "k3h_lampenrechnung_fund2_gelesen"
+      ]
+    },
+    "interactable": {
+      "id": "k3h_lampenrechnung_fund2",
+      "kind": "read",
+      "sprite": "paper",
+      "prompt": "Die kalte Lampe",
+      "title": "Die kalte Lampe",
+      "text": "Die Lampe am leeren Wagen ist frisch gefüllt. Holm hält damit den öffentlichen Rückweg hell; er beleuchtet keinen Fahrgast.",
+      "done_flag": "k3h_lampenrechnung_fund2_gelesen",
+      "effects": {
+        "sets_flags": [
+          "k3h_lampenrechnung_fund2_gelesen"
+        ]
+      }
+    }
+  },
+  {
+    "map": "ds_arbeiterbogen",
+    "tile": [
+      28,
+      8
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k3h_doppelte_kerbe_begonnen"
+      ],
+      "hide_if_flags": [
+        "k3h_doppelte_kerbe_fund1_gelesen"
+      ]
+    },
+    "interactable": {
+      "id": "k3h_doppelte_kerbe_fund1",
+      "kind": "read",
+      "sprite": "paper",
+      "prompt": "Das Reparaturholz",
+      "title": "Das Reparaturholz",
+      "text": "Zwei Kerben überlagern sich. Die ältere endet unter dem neuen Lack.",
+      "done_flag": "k3h_doppelte_kerbe_fund1_gelesen",
+      "effects": {
+        "sets_flags": [
+          "k3h_doppelte_kerbe_fund1_gelesen"
+        ]
+      }
+    }
+  },
+  {
+    "map": "ds_endbahnhof",
+    "tile": [
+      28,
+      8
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k3h_doppelte_kerbe_begonnen"
+      ],
+      "hide_if_flags": [
+        "k3h_doppelte_kerbe_fund2_gelesen"
+      ]
+    },
+    "interactable": {
+      "id": "k3h_doppelte_kerbe_fund2",
+      "kind": "read",
+      "sprite": "paper",
+      "prompt": "Die abgelegte Schranke",
+      "title": "Die abgelegte Schranke",
+      "text": "Die fehlende Ecke passt zum Reparaturholz. Dasselbe Brett wurde zweimal gezählt, nicht dieselbe Person zweimal vermisst.",
+      "done_flag": "k3h_doppelte_kerbe_fund2_gelesen",
+      "effects": {
+        "sets_flags": [
+          "k3h_doppelte_kerbe_fund2_gelesen"
+        ]
+      }
+    }
+  },
+  {
+    "map": "ds_pruefhaus",
+    "tile": [
+      20,
+      8
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k3h_nachtwalze_begonnen"
+      ],
+      "hide_if_flags": [
+        "k3h_nachtwalze_fund1_gelesen"
+      ]
+    },
+    "interactable": {
+      "id": "k3h_nachtwalze_fund1",
+      "kind": "read",
+      "sprite": "paper",
+      "prompt": "Der unbespielte Rand",
+      "title": "Der unbespielte Rand",
+      "text": "Zwischen zwei Rillen bleibt ein breiter glatter Rand. Eine Pause wurde beim Kopieren herausgeschnitten.",
+      "done_flag": "k3h_nachtwalze_fund1_gelesen",
+      "effects": {
+        "sets_flags": [
+          "k3h_nachtwalze_fund1_gelesen"
+        ]
+      }
+    }
+  },
+  {
+    "map": "ds_arbeiterbogen",
+    "tile": [
+      26,
+      7
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k3h_nachtwalze_begonnen",
+        "k3h_nacht"
+      ],
+      "hide_if_flags": [
+        "k3h_nachtwalze_fund2_gelesen"
+      ]
+    },
+    "interactable": {
+      "id": "k3h_nachtwalze_fund2",
+      "kind": "read",
+      "sprite": "paper",
+      "prompt": "Der geschlossene Trichter",
+      "title": "Der geschlossene Trichter",
+      "text": "In der stillen Nacht bleibt der Trichter zwischen zwei fremden Sätzen leer. Jory wählt die Pause selbst. Sie ist keine fehlende Bestellung.",
+      "done_flag": "k3h_nachtwalze_fund2_gelesen",
+      "effects": {
+        "sets_flags": [
+          "k3h_nachtwalze_fund2_gelesen"
+        ]
+      }
+    }
+  },
+  {
+    "map": "ds_runddepot",
+    "tile": [
+      20,
+      10
+    ],
+    "interactable": {
+      "id": "k3h_bund_eingang",
+      "kind": "door",
+      "to": "treffen_schichtbund",
+      "spawn": "default",
+      "prompt": "Zum Schichtbund hinabsteigen",
+      "lock": {
+        "requires_flags": [
+          "treffen_schichtbund"
+        ],
+        "requires_gathering": "schichtbund"
+      },
+      "marker": true
+    }
+  }
+]

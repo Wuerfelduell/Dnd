@@ -1,0 +1,2059 @@
+{
+  "k3h_troedlerin": {
+    "start": "start",
+    "nodes": {
+      "start": {
+        "text": "„Die Leute lassen vieles zurück. Schulden hole ich nicht aus den Taschen.“",
+        "choices": [
+          {
+            "text": "Waren ansehen.",
+            "shop": "k3h_troedlerin"
+          },
+          {
+            "text": "Wem gehört der Mantel?",
+            "next": "auftrag",
+            "hide_if_flags": [
+              "k3h_mantelbesitzer_begonnen"
+            ]
+          },
+          {
+            "text": "Holm hat die Naht erkannt.",
+            "next": "abgabe",
+            "requires_flags": [
+              "k3h_mantelbesitzer_zeugnis"
+            ],
+            "hide_if_flags": [
+              "k3h_mantelbesitzer_done"
+            ]
+          },
+          {
+            "text": "Auf Wiedersehen."
+          }
+        ]
+      },
+      "auftrag": {
+        "text": "„Die äußere Marke gehört einem Toten. Die Naht ist frisch. Lies sie am Kleiderballen hier am Markt. Holm am Schwellenring kennt die Rangierer. Ich verkaufe keinen Mantel, solange jemand darin noch einen Menschen sucht.“",
+        "start_quests": [
+          "k3h_mantelbesitzer"
+        ],
+        "sets_flags": [
+          "k3h_mantelbesitzer_begonnen"
+        ],
+        "choices": [
+          {
+            "text": "Ich sehe nach.",
+            "next": "start"
+          }
+        ]
+      },
+      "abgabe": {
+        "text": "Ida hängt den Mantel hinter den Stand. „Holm lebt. Damit ist er der schwierigere Kunde.“ Sie schickt das Stück zu seiner Werkstatt. Die alte Marke bleibt bei seiner Familie.",
+        "sets_flags": [
+          "k3h_mantelbesitzer_done"
+        ],
+        "complete_quests": [
+          "k3h_mantelbesitzer"
+        ],
+        "gives_money": 36,
+        "honor": 2,
+        "choices": [
+          {
+            "text": "Bis später."
+          }
+        ]
+      }
+    }
+  },
+  "k3h_steinmetz": {
+    "start": "start",
+    "nodes": {
+      "start": {
+        "text": "„Namen kosten Platz. Schweigen kostet auch.“",
+        "choices": [
+          {
+            "text": "Waren ansehen.",
+            "shop": "k3h_steinmetz"
+          },
+          {
+            "text": "Was soll vermessen werden?",
+            "next": "auftrag",
+            "hide_if_flags": [
+              "k3h_steinmass_begonnen"
+            ]
+          },
+          {
+            "text": "Die beiden Maße liegen vor.",
+            "next": "abgabe",
+            "requires_flags": [
+              "k3h_mass_vorn_gelesen",
+              "k3h_mass_hinten_gelesen"
+            ],
+            "hide_if_flags": [
+              "k3h_steinmass_done"
+            ]
+          },
+          {
+            "text": "Mein Namenstäfelchen gravieren lassen — 60 Schilling.",
+            "next": "gravur",
+            "requires_money": 60,
+            "hide_if_flags": [
+              "k3h_taefelchen"
+            ]
+          },
+          {
+            "text": "Dora schickt mich. Mein eigenes Kerbholz schneiden.",
+            "next": "kerbholz",
+            "requires_flags": [
+              "k3h_aufnahme_begonnen"
+            ],
+            "hide_if_flags": [
+              "k3h_kerbholz_geschnitten"
+            ]
+          },
+          {
+            "text": "Auf Wiedersehen."
+          }
+        ]
+      },
+      "auftrag": {
+        "text": "„Im Klopfbruch steht ein Stein ohne Namen. Miss die Stirn am alten Lot und die Rückseite am Stahlband. Geh zu Fuß zurück, wenn der Bruch antwortet. Pelham kennt die alten Bestellungen. Ich will wissen, ob dieser Stein überhaupt einer ist.“",
+        "start_quests": [
+          "k3h_steinmass"
+        ],
+        "sets_flags": [
+          "k3h_steinmass_begonnen"
+        ],
+        "choices": [
+          {
+            "text": "Ich sehe nach.",
+            "next": "start"
+          }
+        ]
+      },
+      "abgabe": {
+        "text": "Bram legt das Band zusammen. „Eine Stütze. Dann bekommt sie keinen Namen.“ Er bestellt eine Sicherung statt einer Inschrift. Das Auftragsbuch Pelhams bleibt von diesem Fund unberührt.",
+        "sets_flags": [
+          "k3h_steinmass_done"
+        ],
+        "complete_quests": [
+          "k3h_steinmass"
+        ],
+        "gives_money": 40,
+        "honor": 2,
+        "choices": [
+          {
+            "text": "Bis später."
+          }
+        ]
+      },
+      "gravur": {
+        "text": "Bram legt dir das Täfelchen hin. „Deiner. Wenn der Zug ihn ruft, musst du trotzdem nicht antworten.“",
+        "takes_money": 60,
+        "gives_items": {
+          "k3h_namenstaefelchen": 1
+        },
+        "sets_flags": [
+          "k3h_taefelchen"
+        ],
+        "choices": [
+          {
+            "text": "Auf Wiedersehen."
+          }
+        ]
+      },
+      "kerbholz": {
+        "text": "Bram schneidet den von dir genannten Namen. „Der Bund braucht einen Zeugen, keinen Gehorsam. Geh nachts ins Runddepot. Zeig Agathe den Wartungsweg aus deinem Journal.“",
+        "gives_items": {
+          "k3h_kerbholz": 1
+        },
+        "sets_flags": [
+          "k3h_kerbholz_geschnitten"
+        ],
+        "choices": [
+          {
+            "text": "Auf Wiedersehen."
+          }
+        ]
+      }
+    }
+  },
+  "k3h_lampenwart": {
+    "start": "start",
+    "nodes": {
+      "start": {
+        "text": "„Gallowmere hat die Leitung stillgelegt. Den Verschleiß leider nicht.“",
+        "choices": [
+          {
+            "text": "Waren ansehen.",
+            "shop": "k3h_lampenwart"
+          },
+          {
+            "text": "Welche Leitung fehlt?",
+            "next": "auftrag",
+            "hide_if_flags": [
+              "k3h_klemmen_begonnen"
+            ]
+          },
+          {
+            "text": "Klemme 1 abgeben.",
+            "next": "klemme1",
+            "requires_flags": [
+              "k3h_klemmkasten_gelesen"
+            ],
+            "requires_items": [
+              "k3o_leitungsklemme"
+            ],
+            "hide_if_flags": [
+              "k3h_klemme_1"
+            ]
+          },
+          {
+            "text": "Klemme 2 abgeben.",
+            "next": "klemme2",
+            "requires_flags": [
+              "k3h_klemmkasten_gelesen",
+              "k3h_klemme_1"
+            ],
+            "requires_items": [
+              "k3o_leitungsklemme"
+            ],
+            "hide_if_flags": [
+              "k3h_klemme_2"
+            ]
+          },
+          {
+            "text": "Klemme 3 abgeben.",
+            "next": "klemme3",
+            "requires_flags": [
+              "k3h_klemmkasten_gelesen",
+              "k3h_klemme_2"
+            ],
+            "requires_items": [
+              "k3o_leitungsklemme"
+            ],
+            "hide_if_flags": [
+              "k3h_klemme_3"
+            ]
+          },
+          {
+            "text": "Die Reparatur abschließen.",
+            "next": "abgabe",
+            "requires_flags": [
+              "k3h_klemme_3"
+            ],
+            "hide_if_flags": [
+              "k3h_klemmen_done"
+            ]
+          },
+          {
+            "text": "Auf Wiedersehen."
+          }
+        ]
+      },
+      "auftrag": {
+        "text": "„Drei kalte Klemmen aus der Rufschlucht. Am ausgebauten Verteiler liegen genug. Schau zuerst nach der Kerbe des Herstellers. Meine Ladenware stammt aus einer anderen Serie. Bring jede einzeln her; ich prüfe die Backen.“",
+        "start_quests": [
+          "k3h_klemmen"
+        ],
+        "sets_flags": [
+          "k3h_klemmen_begonnen"
+        ],
+        "choices": [
+          {
+            "text": "Ich sehe nach.",
+            "next": "start"
+          }
+        ]
+      },
+      "klemme1": {
+        "text": "„Die Backe trägt. Eine.“",
+        "takes_items": {
+          "k3o_leitungsklemme": 1
+        },
+        "sets_flags": [
+          "k3h_klemme_1"
+        ],
+        "choices": [
+          {
+            "text": "Auf Wiedersehen."
+          }
+        ]
+      },
+      "klemme2": {
+        "text": "„Das Gewinde greift. Zwei.“",
+        "takes_items": {
+          "k3o_leitungsklemme": 1
+        },
+        "sets_flags": [
+          "k3h_klemme_2"
+        ],
+        "choices": [
+          {
+            "text": "Auf Wiedersehen."
+          }
+        ]
+      },
+      "klemme3": {
+        "text": "„Drei. Jetzt kann die alte Leitung kalt bleiben.“",
+        "takes_items": {
+          "k3o_leitungsklemme": 1
+        },
+        "sets_flags": [
+          "k3h_klemme_3"
+        ],
+        "choices": [
+          {
+            "text": "Auf Wiedersehen."
+          }
+        ]
+      },
+      "abgabe": {
+        "text": "Cato setzt die Klemmen an eine unverbundene Prüfleiste. „Wer Stimmen trennt, muss nicht lauter sein.“ Er bezahlt die Bergung und gibt dir einen Dämpfpfropfen.",
+        "sets_flags": [
+          "k3h_klemmen_done"
+        ],
+        "complete_quests": [
+          "k3h_klemmen"
+        ],
+        "gives_money": 45,
+        "gives_items": {
+          "k3h_hilfe_echo": 1
+        },
+        "choices": [
+          {
+            "text": "Bis später."
+          }
+        ]
+      }
+    }
+  },
+  "ez_ds_rangierer": {
+    "start": "start",
+    "nodes": {
+      "start": {
+        "text": "Holm kuppelt einen leeren Wagen an einen zweiten. „Niemand bestellt sie. Trotzdem sollen sie sicher stehen.“",
+        "sets_flags": [
+          "ez_ds_rangierer_getroffen"
+        ],
+        "choices": [
+          {
+            "text": "Den Hemmschuh gemeinsam unterlegen.",
+            "next": "gut1",
+            "hide_if_flags": [
+              "ez_ds_rangierer_wahl1",
+              "ez_ds_rangierer_freund",
+              "ez_ds_rangierer_feind"
+            ]
+          },
+          {
+            "text": "Den Hemmschuh beiseitetreten.",
+            "next": "schlecht1",
+            "hide_if_flags": [
+              "ez_ds_rangierer_wahl1",
+              "ez_ds_rangierer_freund",
+              "ez_ds_rangierer_feind"
+            ]
+          },
+          {
+            "text": "Den unbestellten Wagen als unbesetzt kennzeichnen.",
+            "next": "gut2",
+            "hide_if_flags": [
+              "ez_ds_rangierer_wahl2",
+              "ez_ds_rangierer_freund",
+              "ez_ds_rangierer_feind"
+            ],
+            "requires_flags": [
+              "ez_ds_rangierer_wahl1"
+            ]
+          },
+          {
+            "text": "Einen fremden Namen an die Kupplung hängen.",
+            "next": "schlecht2",
+            "hide_if_flags": [
+              "ez_ds_rangierer_wahl2",
+              "ez_ds_rangierer_freund",
+              "ez_ds_rangierer_feind"
+            ],
+            "requires_flags": [
+              "ez_ds_rangierer_wahl1"
+            ]
+          },
+          {
+            "text": "Seine nächtliche Arbeit bezeugen.",
+            "next": "gut3",
+            "hide_if_flags": [
+              "ez_ds_rangierer_wahl3",
+              "ez_ds_rangierer_freund",
+              "ez_ds_rangierer_feind"
+            ],
+            "requires_flags": [
+              "ez_ds_rangierer_wahl2"
+            ]
+          },
+          {
+            "text": "Seine Arbeit als bezahlte Täuschung denunzieren.",
+            "next": "schlecht3",
+            "hide_if_flags": [
+              "ez_ds_rangierer_wahl3",
+              "ez_ds_rangierer_freund",
+              "ez_ds_rangierer_feind"
+            ],
+            "requires_flags": [
+              "ez_ds_rangierer_wahl2"
+            ]
+          },
+          {
+            "text": "Wir folgen demselben Pfad.",
+            "next": "pfad",
+            "requires_pathway": [
+              "eisen",
+              9
+            ]
+          },
+          {
+            "text": "Du wolltest mir etwas geben.",
+            "next": "gabe",
+            "requires_bond": {
+              "ez_ds_rangierer": 3
+            },
+            "hide_if_flags": [
+              "ez_ds_rangierer_gabe_erhalten"
+            ]
+          },
+          {
+            "text": "Du hast meinen Weg verraten.",
+            "next": "verrat",
+            "requires_bond_max": {
+              "ez_ds_rangierer": -3
+            },
+            "hide_if_flags": [
+              "ez_ds_rangierer_verraten"
+            ]
+          },
+          {
+            "text": "Dich stellen.",
+            "next": "kampf",
+            "requires_flags": [
+              "ez_ds_rangierer_feind"
+            ],
+            "hide_if_flags": [
+              "ez_ds_rangierer_besiegt"
+            ]
+          },
+          {
+            "text": "Was hast du von Wexmoor gehört?",
+            "next": "wexmoor_rein",
+            "requires_flags": [
+              "k2_end_rein"
+            ]
+          },
+          {
+            "text": "Was hast du von Wexmoor gehört?",
+            "next": "wexmoor_moor",
+            "requires_flags": [
+              "k2_end_moor"
+            ]
+          },
+          {
+            "text": "Was hast du von Wexmoor gehört?",
+            "next": "wexmoor_lichtmeister",
+            "requires_flags": [
+              "k2_end_lichtmeister"
+            ]
+          },
+          {
+            "text": "Was hast du von Wexmoor gehört?",
+            "next": "wexmoor_meer",
+            "requires_flags": [
+              "k2_end_meer"
+            ]
+          },
+          {
+            "text": "Idas Mantel hat deinen Namen in der Naht.",
+            "next": "mantel",
+            "requires_flags": [
+              "k3h_mantelnaht_gelesen"
+            ],
+            "hide_if_flags": [
+              "k3h_mantelbesitzer_zeugnis"
+            ]
+          },
+          {
+            "text": "Auf Wiedersehen."
+          }
+        ]
+      },
+      "gut1": {
+        "text": "„Halt erst fest, dann rede. So verliere ich weniger Finger.“",
+        "sets_flags": [
+          "ez_ds_rangierer_wahl1"
+        ],
+        "bond": {
+          "ez_ds_rangierer": 1
+        },
+        "choices": [
+          {
+            "text": "Weiter.",
+            "next": "start"
+          }
+        ]
+      },
+      "schlecht1": {
+        "text": "„Das Rad merkt sich keine Entschuldigung.“",
+        "sets_flags": [
+          "ez_ds_rangierer_wahl1"
+        ],
+        "bond": {
+          "ez_ds_rangierer": -1
+        },
+        "choices": [
+          {
+            "text": "Weiter.",
+            "next": "start"
+          }
+        ]
+      },
+      "gut2": {
+        "text": "„Leer ist eine ehrliche Ladung.“",
+        "sets_flags": [
+          "ez_ds_rangierer_wahl2"
+        ],
+        "bond": {
+          "ez_ds_rangierer": 1
+        },
+        "choices": [
+          {
+            "text": "Weiter.",
+            "next": "start"
+          }
+        ]
+      },
+      "schlecht2": {
+        "text": "„Jetzt sucht er einen Menschen für dein Schild.“",
+        "sets_flags": [
+          "ez_ds_rangierer_wahl2"
+        ],
+        "bond": {
+          "ez_ds_rangierer": -1
+        },
+        "choices": [
+          {
+            "text": "Weiter.",
+            "next": "start"
+          }
+        ]
+      },
+      "gut3": {
+        "text": "„Dann stand heute jemand neben mir.“",
+        "sets_flags": [
+          "ez_ds_rangierer_wahl3"
+        ],
+        "bond": {
+          "ez_ds_rangierer": 1
+        },
+        "choices": [
+          {
+            "text": "Weiter.",
+            "next": "start"
+          }
+        ]
+      },
+      "schlecht3": {
+        "text": "„Du hast nicht zugesehen. Du hast nur gezählt.“",
+        "sets_flags": [
+          "ez_ds_rangierer_wahl3"
+        ],
+        "bond": {
+          "ez_ds_rangierer": -1
+        },
+        "choices": [
+          {
+            "text": "Weiter.",
+            "next": "start"
+          }
+        ]
+      },
+      "pfad": {
+        "text": "„Eisen hält nur, wenn man die Last kennt.“",
+        "choices": [
+          {
+            "text": "Auf Wiedersehen."
+          }
+        ]
+      },
+      "gabe": {
+        "text": "Die Gabe liegt zwischen euch. Niemand nennt sie Lohn.",
+        "gives_items": {
+          "ez_ds_rangierer_gabe": 1
+        },
+        "sets_flags": [
+          "ez_ds_rangierer_gabe_erhalten"
+        ],
+        "choices": [
+          {
+            "text": "Auf Wiedersehen."
+          }
+        ]
+      },
+      "verrat": {
+        "text": "Dein nächster Weg zur Horchstelle wurde weitergesagt. Du findest einen frischen Kerbstrich an der falschen Seite des Trichters. Der Verrat ist vorgemerkt; die Rufanlage reagiert erst an der Horchstelle.",
+        "sets_flags": [
+          "ez_ds_rangierer_alarm",
+          "ez_ds_rangierer_verraten"
+        ],
+        "choices": [
+          {
+            "text": "Auf Wiedersehen."
+          }
+        ]
+      },
+      "kampf": {
+        "text": "Holm kuppelt einen leeren Wagen an einen zweiten. „Niemand bestellt sie. Trotzdem sollen sie sicher stehen.“ Du stellst dich dem Angriff. Ein Sieg beendet den Streit ohne tödliche Gewalt.",
+        "combat": "ez_ds_rangierer",
+        "choices": [
+          {
+            "text": "Auf Wiedersehen."
+          }
+        ]
+      },
+      "wexmoor_rein": {
+        "text": "„Du hast Unterlagen vor Gericht gebracht. Dann verstehst du, warum ich einen leeren Wagen nicht vollschreibe.“",
+        "choices": [
+          {
+            "text": "Auf Wiedersehen."
+          }
+        ]
+      },
+      "wexmoor_moor": {
+        "text": "„Ein erloschenes Feuer macht noch keine sichere Strecke. Wir prüfen die Bremsen trotzdem.“",
+        "choices": [
+          {
+            "text": "Auf Wiedersehen."
+          }
+        ]
+      },
+      "wexmoor_lichtmeister": {
+        "text": "„Lichtmeister. Hier fasst auch ein Amtsträger den kalten Stahl selbst an.“",
+        "choices": [
+          {
+            "text": "Auf Wiedersehen."
+          }
+        ]
+      },
+      "wexmoor_meer": {
+        "text": "„Wer aufs Meer fährt, kennt vielleicht den Wert einer losen Leine.“",
+        "choices": [
+          {
+            "text": "Auf Wiedersehen."
+          }
+        ]
+      },
+      "mantel": {
+        "text": "„Mein Mantel. Die Marke war von Vater. Ich habe sie nie abgetrennt.“ Holm nennt die verlängerte Tasche, bevor du sie erwähnst. „Sag Ida, ich hole ihn. Ohne die Marke zu verkaufen.“",
+        "sets_flags": [
+          "k3h_mantelbesitzer_zeugnis"
+        ],
+        "takes_items": {
+          "k3h_mantelzettel": 1
+        },
+        "choices": [
+          {
+            "text": "Auf Wiedersehen."
+          }
+        ]
+      }
+    }
+  },
+  "ez_ds_kalkbrennerin": {
+    "start": "start",
+    "nodes": {
+      "start": {
+        "text": "Senta schöpft weiße Asche aus dem letzten Ofen. „Weißer Schlaf, sagen die Kunden. Es ist nur Kalk. Aber Namen verkaufen sich besser.“",
+        "sets_flags": [
+          "ez_ds_kalkbrennerin_getroffen"
+        ],
+        "choices": [
+          {
+            "text": "Den Ofenzug gemeinsam schließen.",
+            "next": "gut1",
+            "hide_if_flags": [
+              "ez_ds_kalkbrennerin_wahl1",
+              "ez_ds_kalkbrennerin_freund",
+              "ez_ds_kalkbrennerin_feind"
+            ]
+          },
+          {
+            "text": "Den heißen Zug ungefragt aufreißen.",
+            "next": "schlecht1",
+            "hide_if_flags": [
+              "ez_ds_kalkbrennerin_wahl1",
+              "ez_ds_kalkbrennerin_freund",
+              "ez_ds_kalkbrennerin_feind"
+            ]
+          },
+          {
+            "text": "Auf eine ehrliche Warenbeschreibung bestehen.",
+            "next": "gut2",
+            "hide_if_flags": [
+              "ez_ds_kalkbrennerin_wahl2",
+              "ez_ds_kalkbrennerin_freund",
+              "ez_ds_kalkbrennerin_feind"
+            ],
+            "requires_flags": [
+              "ez_ds_kalkbrennerin_wahl1"
+            ]
+          },
+          {
+            "text": "Die Asche als Heilmittel anpreisen.",
+            "next": "schlecht2",
+            "hide_if_flags": [
+              "ez_ds_kalkbrennerin_wahl2",
+              "ez_ds_kalkbrennerin_freund",
+              "ez_ds_kalkbrennerin_feind"
+            ],
+            "requires_flags": [
+              "ez_ds_kalkbrennerin_wahl1"
+            ]
+          },
+          {
+            "text": "Ihre Pause gegen den Schichtpfiff verteidigen.",
+            "next": "gut3",
+            "hide_if_flags": [
+              "ez_ds_kalkbrennerin_wahl3",
+              "ez_ds_kalkbrennerin_freund",
+              "ez_ds_kalkbrennerin_feind"
+            ],
+            "requires_flags": [
+              "ez_ds_kalkbrennerin_wahl2"
+            ]
+          },
+          {
+            "text": "Sie beim Pfiff wieder an den Ofen treiben.",
+            "next": "schlecht3",
+            "hide_if_flags": [
+              "ez_ds_kalkbrennerin_wahl3",
+              "ez_ds_kalkbrennerin_freund",
+              "ez_ds_kalkbrennerin_feind"
+            ],
+            "requires_flags": [
+              "ez_ds_kalkbrennerin_wahl2"
+            ]
+          },
+          {
+            "text": "Wir folgen demselben Pfad.",
+            "next": "pfad",
+            "requires_pathway": [
+              "kessel",
+              9
+            ]
+          },
+          {
+            "text": "Du wolltest mir etwas geben.",
+            "next": "gabe",
+            "requires_bond": {
+              "ez_ds_kalkbrennerin": 3
+            },
+            "hide_if_flags": [
+              "ez_ds_kalkbrennerin_gabe_erhalten"
+            ]
+          },
+          {
+            "text": "Du hast meinen Weg verraten.",
+            "next": "verrat",
+            "requires_bond_max": {
+              "ez_ds_kalkbrennerin": -3
+            },
+            "hide_if_flags": [
+              "ez_ds_kalkbrennerin_verraten"
+            ]
+          },
+          {
+            "text": "Dich stellen.",
+            "next": "kampf",
+            "requires_flags": [
+              "ez_ds_kalkbrennerin_feind"
+            ],
+            "hide_if_flags": [
+              "ez_ds_kalkbrennerin_besiegt"
+            ]
+          },
+          {
+            "text": "Auf Wiedersehen."
+          }
+        ]
+      },
+      "gut1": {
+        "text": "„Jetzt atmet wenigstens der Raum.“",
+        "sets_flags": [
+          "ez_ds_kalkbrennerin_wahl1"
+        ],
+        "bond": {
+          "ez_ds_kalkbrennerin": 1
+        },
+        "choices": [
+          {
+            "text": "Weiter.",
+            "next": "start"
+          }
+        ]
+      },
+      "schlecht1": {
+        "text": "„Der Ofen ist kein Fenster.“",
+        "sets_flags": [
+          "ez_ds_kalkbrennerin_wahl1"
+        ],
+        "bond": {
+          "ez_ds_kalkbrennerin": -1
+        },
+        "choices": [
+          {
+            "text": "Weiter.",
+            "next": "start"
+          }
+        ]
+      },
+      "gut2": {
+        "text": "„Kalk. Dann steht eben Kalk auf der Rechnung.“",
+        "sets_flags": [
+          "ez_ds_kalkbrennerin_wahl2"
+        ],
+        "bond": {
+          "ez_ds_kalkbrennerin": 1
+        },
+        "choices": [
+          {
+            "text": "Weiter.",
+            "next": "start"
+          }
+        ]
+      },
+      "schlecht2": {
+        "text": "„Du klingst wie mein bester Kunde. Der hat nie bezahlt.“",
+        "sets_flags": [
+          "ez_ds_kalkbrennerin_wahl2"
+        ],
+        "bond": {
+          "ez_ds_kalkbrennerin": -1
+        },
+        "choices": [
+          {
+            "text": "Weiter.",
+            "next": "start"
+          }
+        ]
+      },
+      "gut3": {
+        "text": "„Zum ersten Mal hört jemand mein Nein.“",
+        "sets_flags": [
+          "ez_ds_kalkbrennerin_wahl3"
+        ],
+        "bond": {
+          "ez_ds_kalkbrennerin": 1
+        },
+        "choices": [
+          {
+            "text": "Weiter.",
+            "next": "start"
+          }
+        ]
+      },
+      "schlecht3": {
+        "text": "„Du brauchst nicht einmal eine Uniform.“",
+        "sets_flags": [
+          "ez_ds_kalkbrennerin_wahl3"
+        ],
+        "bond": {
+          "ez_ds_kalkbrennerin": -1
+        },
+        "choices": [
+          {
+            "text": "Weiter.",
+            "next": "start"
+          }
+        ]
+      },
+      "pfad": {
+        "text": "„Kesselwissen macht aus Kalk keine Medizin.“",
+        "choices": [
+          {
+            "text": "Auf Wiedersehen."
+          }
+        ]
+      },
+      "gabe": {
+        "text": "Die Gabe liegt zwischen euch. Niemand nennt sie Lohn.",
+        "gives_items": {
+          "ez_ds_kalkbrennerin_gabe": 1
+        },
+        "sets_flags": [
+          "ez_ds_kalkbrennerin_gabe_erhalten"
+        ],
+        "choices": [
+          {
+            "text": "Auf Wiedersehen."
+          }
+        ]
+      },
+      "verrat": {
+        "text": "Dein nächster Weg zur Horchstelle wurde weitergesagt. Du findest einen frischen Kerbstrich an der falschen Seite des Trichters. Der Verrat ist vorgemerkt; die Rufanlage reagiert erst an der Horchstelle.",
+        "sets_flags": [
+          "ez_ds_kalkbrennerin_alarm",
+          "ez_ds_kalkbrennerin_verraten"
+        ],
+        "choices": [
+          {
+            "text": "Auf Wiedersehen."
+          }
+        ]
+      },
+      "kampf": {
+        "text": "Senta schöpft weiße Asche aus dem letzten Ofen. „Weißer Schlaf, sagen die Kunden. Es ist nur Kalk. Aber Namen verkaufen sich besser.“ Du stellst dich dem Angriff. Ein Sieg beendet den Streit ohne tödliche Gewalt.",
+        "combat": "ez_ds_kalkbrennerin",
+        "choices": [
+          {
+            "text": "Auf Wiedersehen."
+          }
+        ]
+      }
+    }
+  },
+  "ez_ds_streckenlaeufer": {
+    "start": "start",
+    "nodes": {
+      "start": {
+        "text": "Der Streckenläufer hält neben dir an. „Sieben Minuten zu spät. Für einen Zug, der seit siebzig Jahren ausfällt, ist das ordentlich.“",
+        "sets_flags": [
+          "ez_ds_streckenlaeufer_getroffen"
+        ],
+        "choices": [
+          {
+            "text": "Eine Runde in seinem Takt mitgehen.",
+            "next": "gut1",
+            "hide_if_flags": [
+              "ez_ds_streckenlaeufer_wahl1",
+              "ez_ds_streckenlaeufer_freund",
+              "ez_ds_streckenlaeufer_feind"
+            ]
+          },
+          {
+            "text": "Seinen Schritt absichtlich unterbrechen.",
+            "next": "schlecht1",
+            "hide_if_flags": [
+              "ez_ds_streckenlaeufer_wahl1",
+              "ez_ds_streckenlaeufer_freund",
+              "ez_ds_streckenlaeufer_feind"
+            ]
+          },
+          {
+            "text": "Die gemessene Verspätung unverändert notieren.",
+            "next": "gut2",
+            "hide_if_flags": [
+              "ez_ds_streckenlaeufer_wahl2",
+              "ez_ds_streckenlaeufer_freund",
+              "ez_ds_streckenlaeufer_feind"
+            ],
+            "requires_flags": [
+              "ez_ds_streckenlaeufer_wahl1"
+            ]
+          },
+          {
+            "text": "Seinen Bericht auf pünktlich ändern.",
+            "next": "schlecht2",
+            "hide_if_flags": [
+              "ez_ds_streckenlaeufer_wahl2",
+              "ez_ds_streckenlaeufer_freund",
+              "ez_ds_streckenlaeufer_feind"
+            ],
+            "requires_flags": [
+              "ez_ds_streckenlaeufer_wahl1"
+            ]
+          },
+          {
+            "text": "Die letzte Runde für heute beenden.",
+            "next": "gut3",
+            "hide_if_flags": [
+              "ez_ds_streckenlaeufer_wahl3",
+              "ez_ds_streckenlaeufer_freund",
+              "ez_ds_streckenlaeufer_feind"
+            ],
+            "requires_flags": [
+              "ez_ds_streckenlaeufer_wahl2"
+            ]
+          },
+          {
+            "text": "Ihm eine weitere Schicht befehlen.",
+            "next": "schlecht3",
+            "hide_if_flags": [
+              "ez_ds_streckenlaeufer_wahl3",
+              "ez_ds_streckenlaeufer_freund",
+              "ez_ds_streckenlaeufer_feind"
+            ],
+            "requires_flags": [
+              "ez_ds_streckenlaeufer_wahl2"
+            ]
+          },
+          {
+            "text": "Wir folgen demselben Pfad.",
+            "next": "pfad",
+            "requires_pathway": [
+              "sq_uhr",
+              9
+            ]
+          },
+          {
+            "text": "Du wolltest mir etwas geben.",
+            "next": "gabe",
+            "requires_bond": {
+              "ez_ds_streckenlaeufer": 3
+            },
+            "hide_if_flags": [
+              "ez_ds_streckenlaeufer_gabe_erhalten"
+            ]
+          },
+          {
+            "text": "Du hast meinen Weg verraten.",
+            "next": "verrat",
+            "requires_bond_max": {
+              "ez_ds_streckenlaeufer": -3
+            },
+            "hide_if_flags": [
+              "ez_ds_streckenlaeufer_verraten"
+            ]
+          },
+          {
+            "text": "Dich stellen.",
+            "next": "kampf",
+            "requires_flags": [
+              "ez_ds_streckenlaeufer_feind"
+            ],
+            "hide_if_flags": [
+              "ez_ds_streckenlaeufer_besiegt"
+            ]
+          },
+          {
+            "text": "Auf Wiedersehen."
+          }
+        ]
+      },
+      "gut1": {
+        "text": "„Du gehst mit. Das ist etwas anderes als verfolgen.“",
+        "sets_flags": [
+          "ez_ds_streckenlaeufer_wahl1"
+        ],
+        "bond": {
+          "ez_ds_streckenlaeufer": 1
+        },
+        "choices": [
+          {
+            "text": "Weiter.",
+            "next": "start"
+          }
+        ]
+      },
+      "schlecht1": {
+        "text": "„Noch ein Mensch, der aus meiner Zeit ein Hindernis macht.“",
+        "sets_flags": [
+          "ez_ds_streckenlaeufer_wahl1"
+        ],
+        "bond": {
+          "ez_ds_streckenlaeufer": -1
+        },
+        "choices": [
+          {
+            "text": "Weiter.",
+            "next": "start"
+          }
+        ]
+      },
+      "gut2": {
+        "text": "„Eine falsche Zeit wird vom Wiederholen nicht richtig.“",
+        "sets_flags": [
+          "ez_ds_streckenlaeufer_wahl2"
+        ],
+        "bond": {
+          "ez_ds_streckenlaeufer": 1
+        },
+        "choices": [
+          {
+            "text": "Weiter.",
+            "next": "start"
+          }
+        ]
+      },
+      "schlecht2": {
+        "text": "„Jetzt stimmt das Papier. Die Strecke leider nicht.“",
+        "sets_flags": [
+          "ez_ds_streckenlaeufer_wahl2"
+        ],
+        "bond": {
+          "ez_ds_streckenlaeufer": -1
+        },
+        "choices": [
+          {
+            "text": "Weiter.",
+            "next": "start"
+          }
+        ]
+      },
+      "gut3": {
+        "text": "„Gut. Morgen fängt nicht heute an.“",
+        "sets_flags": [
+          "ez_ds_streckenlaeufer_wahl3"
+        ],
+        "bond": {
+          "ez_ds_streckenlaeufer": 1
+        },
+        "choices": [
+          {
+            "text": "Weiter.",
+            "next": "start"
+          }
+        ]
+      },
+      "schlecht3": {
+        "text": "„Das war der Satz meines Vorarbeiters.“",
+        "sets_flags": [
+          "ez_ds_streckenlaeufer_wahl3"
+        ],
+        "bond": {
+          "ez_ds_streckenlaeufer": -1
+        },
+        "choices": [
+          {
+            "text": "Weiter.",
+            "next": "start"
+          }
+        ]
+      },
+      "pfad": {
+        "text": "„Unsere Uhren dürfen verschiedene Stunden zeigen.“",
+        "choices": [
+          {
+            "text": "Auf Wiedersehen."
+          }
+        ]
+      },
+      "gabe": {
+        "text": "Die Gabe liegt zwischen euch. Niemand nennt sie Lohn.",
+        "gives_items": {
+          "ez_ds_streckenlaeufer_gabe": 1
+        },
+        "sets_flags": [
+          "ez_ds_streckenlaeufer_gabe_erhalten"
+        ],
+        "choices": [
+          {
+            "text": "Auf Wiedersehen."
+          }
+        ]
+      },
+      "verrat": {
+        "text": "Dein nächster Weg zur Horchstelle wurde weitergesagt. Du findest einen frischen Kerbstrich an der falschen Seite des Trichters. Der Verrat ist vorgemerkt; die Rufanlage reagiert erst an der Horchstelle.",
+        "sets_flags": [
+          "ez_ds_streckenlaeufer_alarm",
+          "ez_ds_streckenlaeufer_verraten"
+        ],
+        "choices": [
+          {
+            "text": "Auf Wiedersehen."
+          }
+        ]
+      },
+      "kampf": {
+        "text": "Der Streckenläufer hält neben dir an. „Sieben Minuten zu spät. Für einen Zug, der seit siebzig Jahren ausfällt, ist das ordentlich.“ Du stellst dich dem Angriff. Ein Sieg beendet den Streit ohne tödliche Gewalt.",
+        "combat": "ez_ds_streckenlaeufer",
+        "choices": [
+          {
+            "text": "Auf Wiedersehen."
+          }
+        ]
+      }
+    }
+  },
+  "ez_ds_walzenstimme": {
+    "start": "start",
+    "nodes": {
+      "start": {
+        "text": "Jory hebt den Phonographentrichter. Eine fremde Frau sagt: „Bitte erst klopfen.“ Er klopft selbst an das Blech.",
+        "sets_flags": [
+          "ez_ds_walzenstimme_getroffen"
+        ],
+        "choices": [
+          {
+            "text": "Anklopfen und auf seine Zustimmung warten.",
+            "next": "gut1",
+            "hide_if_flags": [
+              "ez_ds_walzenstimme_wahl1",
+              "ez_ds_walzenstimme_freund",
+              "ez_ds_walzenstimme_feind"
+            ]
+          },
+          {
+            "text": "Den Trichter aus seiner Hand reißen.",
+            "next": "schlecht1",
+            "hide_if_flags": [
+              "ez_ds_walzenstimme_wahl1",
+              "ez_ds_walzenstimme_freund",
+              "ez_ds_walzenstimme_feind"
+            ]
+          },
+          {
+            "text": "Eine leere Walze anbieten, ohne Aufnahme zu verlangen.",
+            "next": "gut2",
+            "hide_if_flags": [
+              "ez_ds_walzenstimme_wahl2",
+              "ez_ds_walzenstimme_freund",
+              "ez_ds_walzenstimme_feind"
+            ],
+            "requires_flags": [
+              "ez_ds_walzenstimme_wahl1"
+            ]
+          },
+          {
+            "text": "Eine Aufnahme seiner eigenen Stimme verlangen.",
+            "next": "schlecht2",
+            "hide_if_flags": [
+              "ez_ds_walzenstimme_wahl2",
+              "ez_ds_walzenstimme_freund",
+              "ez_ds_walzenstimme_feind"
+            ],
+            "requires_flags": [
+              "ez_ds_walzenstimme_wahl1"
+            ]
+          },
+          {
+            "text": "Sein Schweigen als Antwort annehmen.",
+            "next": "gut3",
+            "hide_if_flags": [
+              "ez_ds_walzenstimme_wahl3",
+              "ez_ds_walzenstimme_freund",
+              "ez_ds_walzenstimme_feind"
+            ],
+            "requires_flags": [
+              "ez_ds_walzenstimme_wahl2"
+            ]
+          },
+          {
+            "text": "Seine fremden Stimmen öffentlich verspotten.",
+            "next": "schlecht3",
+            "hide_if_flags": [
+              "ez_ds_walzenstimme_wahl3",
+              "ez_ds_walzenstimme_freund",
+              "ez_ds_walzenstimme_feind"
+            ],
+            "requires_flags": [
+              "ez_ds_walzenstimme_wahl2"
+            ]
+          },
+          {
+            "text": "Wir folgen demselben Pfad.",
+            "next": "pfad",
+            "requires_pathway": [
+              "echo",
+              9
+            ]
+          },
+          {
+            "text": "Du wolltest mir etwas geben.",
+            "next": "gabe",
+            "requires_bond": {
+              "ez_ds_walzenstimme": 3
+            },
+            "hide_if_flags": [
+              "ez_ds_walzenstimme_gabe_erhalten"
+            ]
+          },
+          {
+            "text": "Du hast meinen Weg verraten.",
+            "next": "verrat",
+            "requires_bond_max": {
+              "ez_ds_walzenstimme": -3
+            },
+            "hide_if_flags": [
+              "ez_ds_walzenstimme_verraten"
+            ]
+          },
+          {
+            "text": "Dich stellen.",
+            "next": "kampf",
+            "requires_flags": [
+              "ez_ds_walzenstimme_feind"
+            ],
+            "hide_if_flags": [
+              "ez_ds_walzenstimme_besiegt"
+            ]
+          },
+          {
+            "text": "Auf Wiedersehen."
+          }
+        ]
+      },
+      "gut1": {
+        "text": "Ein alter Mann sagt: „Herein.“ Jory rückt ein Stück zur Seite.",
+        "sets_flags": [
+          "ez_ds_walzenstimme_wahl1"
+        ],
+        "bond": {
+          "ez_ds_walzenstimme": 1
+        },
+        "choices": [
+          {
+            "text": "Weiter.",
+            "next": "start"
+          }
+        ]
+      },
+      "schlecht1": {
+        "text": "Aus dem Trichter kommt das schrille Pfeifen einer Bremse.",
+        "sets_flags": [
+          "ez_ds_walzenstimme_wahl1"
+        ],
+        "bond": {
+          "ez_ds_walzenstimme": -1
+        },
+        "choices": [
+          {
+            "text": "Weiter.",
+            "next": "start"
+          }
+        ]
+      },
+      "gut2": {
+        "text": "Eine Köchin sagt: „Das leere Fach ist für dich.“ Jory nickt.",
+        "sets_flags": [
+          "ez_ds_walzenstimme_wahl2"
+        ],
+        "bond": {
+          "ez_ds_walzenstimme": 1
+        },
+        "choices": [
+          {
+            "text": "Weiter.",
+            "next": "start"
+          }
+        ]
+      },
+      "schlecht2": {
+        "text": "Ein Stationsvorsteher sagt: „Zurücktreten.“",
+        "sets_flags": [
+          "ez_ds_walzenstimme_wahl2"
+        ],
+        "bond": {
+          "ez_ds_walzenstimme": -1
+        },
+        "choices": [
+          {
+            "text": "Weiter.",
+            "next": "start"
+          }
+        ]
+      },
+      "gut3": {
+        "text": "Der Trichter bleibt still. Jory bleibt sitzen.",
+        "sets_flags": [
+          "ez_ds_walzenstimme_wahl3"
+        ],
+        "bond": {
+          "ez_ds_walzenstimme": 1
+        },
+        "choices": [
+          {
+            "text": "Weiter.",
+            "next": "start"
+          }
+        ]
+      },
+      "schlecht3": {
+        "text": "Eine tiefe Stimme sagt: „Letzte Warnung.“",
+        "sets_flags": [
+          "ez_ds_walzenstimme_wahl3"
+        ],
+        "bond": {
+          "ez_ds_walzenstimme": -1
+        },
+        "choices": [
+          {
+            "text": "Weiter.",
+            "next": "start"
+          }
+        ]
+      },
+      "pfad": {
+        "text": "Eine fremde Stimme sagt: „Dann weißt du, was eine Pause wert ist.“",
+        "choices": [
+          {
+            "text": "Auf Wiedersehen."
+          }
+        ]
+      },
+      "gabe": {
+        "text": "Die Gabe liegt zwischen euch. Niemand nennt sie Lohn.",
+        "gives_items": {
+          "ez_ds_walzenstimme_gabe": 1
+        },
+        "sets_flags": [
+          "ez_ds_walzenstimme_gabe_erhalten"
+        ],
+        "choices": [
+          {
+            "text": "Auf Wiedersehen."
+          }
+        ]
+      },
+      "verrat": {
+        "text": "Dein nächster Weg zur Horchstelle wurde weitergesagt. Du findest einen frischen Kerbstrich an der falschen Seite des Trichters. Der Verrat ist vorgemerkt; die Rufanlage reagiert erst an der Horchstelle.",
+        "sets_flags": [
+          "ez_ds_walzenstimme_alarm",
+          "ez_ds_walzenstimme_verraten"
+        ],
+        "choices": [
+          {
+            "text": "Auf Wiedersehen."
+          }
+        ]
+      },
+      "kampf": {
+        "text": "Jory hebt den Phonographentrichter. Eine fremde Frau sagt: „Bitte erst klopfen.“ Er klopft selbst an das Blech. Du stellst dich dem Angriff. Ein Sieg beendet den Streit ohne tödliche Gewalt.",
+        "combat": "ez_ds_walzenstimme",
+        "choices": [
+          {
+            "text": "Auf Wiedersehen."
+          }
+        ]
+      }
+    }
+  },
+  "ez_ds_schrankenkind": {
+    "start": "start",
+    "nodes": {
+      "start": {
+        "text": "Wenna legt Kerbspäne auf die Schranke. „Jeder fehlende Span ist jemand, den sie nicht mehr zählen. Bitte nicht pusten.“",
+        "sets_flags": [
+          "ez_ds_schrankenkind_getroffen"
+        ],
+        "choices": [
+          {
+            "text": "Die Späne gegen den Wind abschirmen.",
+            "next": "gut1",
+            "hide_if_flags": [
+              "ez_ds_schrankenkind_wahl1",
+              "ez_ds_schrankenkind_freund",
+              "ez_ds_schrankenkind_feind"
+            ]
+          },
+          {
+            "text": "Die Späne von der Schranke fegen.",
+            "next": "schlecht1",
+            "hide_if_flags": [
+              "ez_ds_schrankenkind_wahl1",
+              "ez_ds_schrankenkind_freund",
+              "ez_ds_schrankenkind_feind"
+            ]
+          },
+          {
+            "text": "Eine unbekannte Kerbe als unbekannt stehen lassen.",
+            "next": "gut2",
+            "hide_if_flags": [
+              "ez_ds_schrankenkind_wahl2",
+              "ez_ds_schrankenkind_freund",
+              "ez_ds_schrankenkind_feind"
+            ],
+            "requires_flags": [
+              "ez_ds_schrankenkind_wahl1"
+            ]
+          },
+          {
+            "text": "Einen passenden Namen für die Kerbe erfinden.",
+            "next": "schlecht2",
+            "hide_if_flags": [
+              "ez_ds_schrankenkind_wahl2",
+              "ez_ds_schrankenkind_freund",
+              "ez_ds_schrankenkind_feind"
+            ],
+            "requires_flags": [
+              "ez_ds_schrankenkind_wahl1"
+            ]
+          },
+          {
+            "text": "Ihr das Sammeln ohne Meldung an den Zug erlauben.",
+            "next": "gut3",
+            "hide_if_flags": [
+              "ez_ds_schrankenkind_wahl3",
+              "ez_ds_schrankenkind_freund",
+              "ez_ds_schrankenkind_feind"
+            ],
+            "requires_flags": [
+              "ez_ds_schrankenkind_wahl2"
+            ]
+          },
+          {
+            "text": "Ihre Sammlung dem Fahrmeister versprechen.",
+            "next": "schlecht3",
+            "hide_if_flags": [
+              "ez_ds_schrankenkind_wahl3",
+              "ez_ds_schrankenkind_freund",
+              "ez_ds_schrankenkind_feind"
+            ],
+            "requires_flags": [
+              "ez_ds_schrankenkind_wahl2"
+            ]
+          },
+          {
+            "text": "Wir folgen demselben Pfad.",
+            "next": "pfad",
+            "requires_pathway": [
+              "sq_moor",
+              9
+            ]
+          },
+          {
+            "text": "Du wolltest mir etwas geben.",
+            "next": "gabe",
+            "requires_bond": {
+              "ez_ds_schrankenkind": 3
+            },
+            "hide_if_flags": [
+              "ez_ds_schrankenkind_gabe_erhalten"
+            ]
+          },
+          {
+            "text": "Du hast meinen Weg verraten.",
+            "next": "verrat",
+            "requires_bond_max": {
+              "ez_ds_schrankenkind": -3
+            },
+            "hide_if_flags": [
+              "ez_ds_schrankenkind_verraten"
+            ]
+          },
+          {
+            "text": "Dich stellen.",
+            "next": "kampf",
+            "requires_flags": [
+              "ez_ds_schrankenkind_feind"
+            ],
+            "hide_if_flags": [
+              "ez_ds_schrankenkind_besiegt"
+            ]
+          },
+          {
+            "text": "Was hast du von Wexmoor gehört?",
+            "next": "wexmoor_rein",
+            "requires_flags": [
+              "k2_end_rein"
+            ]
+          },
+          {
+            "text": "Was hast du von Wexmoor gehört?",
+            "next": "wexmoor_moor",
+            "requires_flags": [
+              "k2_end_moor"
+            ]
+          },
+          {
+            "text": "Was hast du von Wexmoor gehört?",
+            "next": "wexmoor_lichtmeister",
+            "requires_flags": [
+              "k2_end_lichtmeister"
+            ]
+          },
+          {
+            "text": "Was hast du von Wexmoor gehört?",
+            "next": "wexmoor_meer",
+            "requires_flags": [
+              "k2_end_meer"
+            ]
+          },
+          {
+            "text": "Auf Wiedersehen."
+          }
+        ]
+      },
+      "gut1": {
+        "text": "„Du hast gesehen, dass sie verschieden sind.“",
+        "sets_flags": [
+          "ez_ds_schrankenkind_wahl1"
+        ],
+        "bond": {
+          "ez_ds_schrankenkind": 1
+        },
+        "choices": [
+          {
+            "text": "Weiter.",
+            "next": "start"
+          }
+        ]
+      },
+      "schlecht1": {
+        "text": "„Für dich ist alles Staub, sobald es klein genug ist.“",
+        "sets_flags": [
+          "ez_ds_schrankenkind_wahl1"
+        ],
+        "bond": {
+          "ez_ds_schrankenkind": -1
+        },
+        "choices": [
+          {
+            "text": "Weiter.",
+            "next": "start"
+          }
+        ]
+      },
+      "gut2": {
+        "text": "„Vielleicht kommt noch jemand, der ihn weiß.“",
+        "sets_flags": [
+          "ez_ds_schrankenkind_wahl2"
+        ],
+        "bond": {
+          "ez_ds_schrankenkind": 1
+        },
+        "choices": [
+          {
+            "text": "Weiter.",
+            "next": "start"
+          }
+        ]
+      },
+      "schlecht2": {
+        "text": "„Jetzt weiß niemand mehr, wo die Lücke war.“",
+        "sets_flags": [
+          "ez_ds_schrankenkind_wahl2"
+        ],
+        "bond": {
+          "ez_ds_schrankenkind": -1
+        },
+        "choices": [
+          {
+            "text": "Weiter.",
+            "next": "start"
+          }
+        ]
+      },
+      "gut3": {
+        "text": "„Dann muss ich niemanden abliefern.“",
+        "sets_flags": [
+          "ez_ds_schrankenkind_wahl3"
+        ],
+        "bond": {
+          "ez_ds_schrankenkind": 1
+        },
+        "choices": [
+          {
+            "text": "Weiter.",
+            "next": "start"
+          }
+        ]
+      },
+      "schlecht3": {
+        "text": "„Du möchtest aus meiner Schranke eine Kasse machen.“",
+        "sets_flags": [
+          "ez_ds_schrankenkind_wahl3"
+        ],
+        "bond": {
+          "ez_ds_schrankenkind": -1
+        },
+        "choices": [
+          {
+            "text": "Weiter.",
+            "next": "start"
+          }
+        ]
+      },
+      "pfad": {
+        "text": "„Auch im Moor darf eine Lücke eine Lücke bleiben.“",
+        "choices": [
+          {
+            "text": "Auf Wiedersehen."
+          }
+        ]
+      },
+      "gabe": {
+        "text": "Die Gabe liegt zwischen euch. Niemand nennt sie Lohn.",
+        "gives_items": {
+          "ez_ds_schrankenkind_gabe": 1
+        },
+        "sets_flags": [
+          "ez_ds_schrankenkind_gabe_erhalten"
+        ],
+        "choices": [
+          {
+            "text": "Auf Wiedersehen."
+          }
+        ]
+      },
+      "verrat": {
+        "text": "Dein nächster Weg zur Horchstelle wurde weitergesagt. Du findest einen frischen Kerbstrich an der falschen Seite des Trichters. Der Verrat ist vorgemerkt; die Rufanlage reagiert erst an der Horchstelle.",
+        "sets_flags": [
+          "ez_ds_schrankenkind_alarm",
+          "ez_ds_schrankenkind_verraten"
+        ],
+        "choices": [
+          {
+            "text": "Auf Wiedersehen."
+          }
+        ]
+      },
+      "kampf": {
+        "text": "Wenna legt Kerbspäne auf die Schranke. „Jeder fehlende Span ist jemand, den sie nicht mehr zählen. Bitte nicht pusten.“ Du stellst dich dem Angriff. Ein Sieg beendet den Streit ohne tödliche Gewalt.",
+        "combat": "ez_ds_schrankenkind",
+        "choices": [
+          {
+            "text": "Auf Wiedersehen."
+          }
+        ]
+      },
+      "wexmoor_rein": {
+        "text": "„Du hast sie reden lassen. Hier fehlen noch Stimmen, aber ich sammle keine Menschen.“",
+        "choices": [
+          {
+            "text": "Auf Wiedersehen."
+          }
+        ]
+      },
+      "wexmoor_moor": {
+        "text": "„Wenn das Feuer aus ist, bleiben die Kerben. Man kann sie auch im Dunkeln fühlen.“",
+        "choices": [
+          {
+            "text": "Auf Wiedersehen."
+          }
+        ]
+      },
+      "wexmoor_lichtmeister": {
+        "text": "„Du hast jetzt ein Amt. Meine Späne gehören ihm nicht.“",
+        "choices": [
+          {
+            "text": "Auf Wiedersehen."
+          }
+        ]
+      },
+      "wexmoor_meer": {
+        "text": "„Das Meer nimmt keine Fahrkarten. Das gefällt mir.“",
+        "choices": [
+          {
+            "text": "Auf Wiedersehen."
+          }
+        ]
+      }
+    }
+  },
+  "zirkel_schichtbund": {
+    "start": "start",
+    "nodes": {
+      "start": {
+        "text": "„Der Schichtbund bewahrt Namen, keine Arbeitsplätze“, sagt Agathe. „Gallowmere hat beides verwechselt.“",
+        "choices": [
+          {
+            "text": "Mein Kerbholz und den Wartungsweg vorzeigen.",
+            "next": "aufnahme",
+            "requires_flags": [
+              "k3h_kerbholz_geschnitten",
+              "k3h_nacht"
+            ],
+            "requires_items": [
+              "k3h_kerbholz"
+            ],
+            "requires_clues": [
+              "k3a_14_c2"
+            ],
+            "hide_if_flags": [
+              "treffen_schichtbund"
+            ]
+          },
+          {
+            "text": "Die Auktion eröffnen.",
+            "auction": "schichtbund",
+            "requires_flags": [
+              "treffen_schichtbund"
+            ],
+            "requires_gathering": "schichtbund"
+          },
+          {
+            "text": "Was verlangt ihr?",
+            "next": "regel"
+          },
+          {
+            "text": "Auf Wiedersehen."
+          }
+        ]
+      },
+      "regel": {
+        "text": "„Dora spricht am Kalkmarkt mit dir. Bram schneidet deinen Namen. Komm nachts ins Runddepot und zeig mir den Wartungsweg im Journal. Du musst ihn nicht in die Leitung rufen. Die Treppe bleibt nach deiner Aufnahme der Zugang zum Treffen.“",
+        "choices": [
+          {
+            "text": "Auf Wiedersehen."
+          }
+        ]
+      },
+      "aufnahme": {
+        "text": "Agathe prüft Kerbe und Zeichnung. „Ein Weg ist keine Verpflichtung, ihn zu gehen.“ Sie öffnet den Zugang unter dem Depot. Dein Kerbholz bleibt bei dir.",
+        "sets_flags": [
+          "treffen_schichtbund",
+          "k3h_aufnahme_done"
+        ],
+        "complete_quests": [
+          "k3h_aufnahme"
+        ],
+        "choices": [
+          {
+            "text": "Auf Wiedersehen."
+          }
+        ]
+      }
+    }
+  },
+  "tm_ds_lampe": {
+    "start": "start",
+    "nodes": {
+      "start": {
+        "text": "Wim wischt den Docht ab. „Jemand nimmt Öl. Vielleicht hält er nur einen Weg offen. Vergleiche Rechnung und Lampe, ehe ich Diebstahl rufe.“",
+        "choices": [
+          {
+            "text": "Den Auftrag übernehmen.",
+            "next": "auftrag",
+            "requires_flags": [
+              "treffen_schichtbund"
+            ],
+            "hide_if_flags": [
+              "k3h_lampenrechnung_begonnen"
+            ]
+          },
+          {
+            "text": "Beide Beobachtungen berichten.",
+            "next": "abgabe",
+            "requires_flags": [
+              "k3h_lampenrechnung_fund1_gelesen",
+              "k3h_lampenrechnung_fund2_gelesen"
+            ],
+            "hide_if_flags": [
+              "k3h_lampenrechnung_done"
+            ]
+          },
+          {
+            "text": "Die Angebote der Runde ansehen.",
+            "auction": "schichtbund",
+            "requires_flags": [
+              "treffen_schichtbund"
+            ],
+            "requires_gathering": "schichtbund"
+          },
+          {
+            "text": "Auf Wiedersehen."
+          }
+        ]
+      },
+      "auftrag": {
+        "text": "Wim wischt den Docht ab. „Jemand nimmt Öl. Vielleicht hält er nur einen Weg offen. Vergleiche Rechnung und Lampe, ehe ich Diebstahl rufe.“",
+        "start_quests": [
+          "k3h_lampenrechnung"
+        ],
+        "sets_flags": [
+          "k3h_lampenrechnung_begonnen"
+        ],
+        "choices": [
+          {
+            "text": "Ich sehe nach.",
+            "next": "start"
+          }
+        ]
+      },
+      "abgabe": {
+        "text": "„Dann schreibe ich Weglicht auf die Rechnung. Das ist länger als Fehlbestand, aber genauer.“",
+        "sets_flags": [
+          "k3h_lampenrechnung_done"
+        ],
+        "complete_quests": [
+          "k3h_lampenrechnung"
+        ],
+        "gives_money": 35,
+        "bond": {
+          "ez_ds_rangierer": 1
+        },
+        "relation": {
+          "tm_ds_lampe": 1
+        },
+        "choices": [
+          {
+            "text": "Bis später."
+          }
+        ]
+      }
+    }
+  },
+  "tm_ds_kerbholz": {
+    "start": "start",
+    "nodes": {
+      "start": {
+        "text": "Dora legt zwei Abreibungen hin. „Wenna zählt eine Kerbe zu viel. Vergleiche das Holz am Arbeiterbogen mit der alten Schranke. Lass die Namen dabei stehen.“",
+        "choices": [
+          {
+            "text": "Was ist der Schichtbund?",
+            "next": "aufnahme",
+            "hide_if_flags": [
+              "k3h_aufnahme_begonnen"
+            ]
+          },
+          {
+            "text": "Den Auftrag übernehmen.",
+            "next": "auftrag",
+            "requires_flags": [
+              "treffen_schichtbund"
+            ],
+            "hide_if_flags": [
+              "k3h_doppelte_kerbe_begonnen"
+            ]
+          },
+          {
+            "text": "Beide Beobachtungen berichten.",
+            "next": "abgabe",
+            "requires_flags": [
+              "k3h_doppelte_kerbe_fund1_gelesen",
+              "k3h_doppelte_kerbe_fund2_gelesen"
+            ],
+            "hide_if_flags": [
+              "k3h_doppelte_kerbe_done"
+            ]
+          },
+          {
+            "text": "Die Angebote der Runde ansehen.",
+            "auction": "schichtbund",
+            "requires_flags": [
+              "treffen_schichtbund"
+            ],
+            "requires_gathering": "schichtbund"
+          },
+          {
+            "text": "Auf Wiedersehen."
+          }
+        ]
+      },
+      "auftrag": {
+        "text": "Dora legt zwei Abreibungen hin. „Wenna zählt eine Kerbe zu viel. Vergleiche das Holz am Arbeiterbogen mit der alten Schranke. Lass die Namen dabei stehen.“",
+        "start_quests": [
+          "k3h_doppelte_kerbe"
+        ],
+        "sets_flags": [
+          "k3h_doppelte_kerbe_begonnen"
+        ],
+        "choices": [
+          {
+            "text": "Ich sehe nach.",
+            "next": "start"
+          }
+        ]
+      },
+      "abgabe": {
+        "text": "„Eine Reparatur. Ich streiche den doppelten Eintrag, nicht den Namen.“",
+        "sets_flags": [
+          "k3h_doppelte_kerbe_done"
+        ],
+        "complete_quests": [
+          "k3h_doppelte_kerbe"
+        ],
+        "gives_money": 35,
+        "bond": {
+          "ez_ds_schrankenkind": 1
+        },
+        "relation": {
+          "tm_ds_kerbholz": 1
+        },
+        "choices": [
+          {
+            "text": "Bis später."
+          }
+        ]
+      },
+      "aufnahme": {
+        "text": "„Wir bewahren Namen auf Kerbhölzern. Bram schneidet deinen, wenn du selbst darum bittest. Agathe wartet nachts im Runddepot. Bring die Zeichnung des Wartungswegs mit. Eine Stimme musst du niemandem geben.“",
+        "start_quests": [
+          "k3h_aufnahme"
+        ],
+        "sets_flags": [
+          "k3h_aufnahme_begonnen"
+        ],
+        "choices": [
+          {
+            "text": "Auf Wiedersehen."
+          }
+        ]
+      }
+    }
+  },
+  "tm_ds_stimme": {
+    "start": "start",
+    "nodes": {
+      "start": {
+        "text": "Rufus legt die Hand auf eine Walze. „Ich habe eine Pause als Fehler verkauft. Schau im Prüfhaus den Rand an. Höre Jorys Trichter nur nachts ab, ohne etwas aufzunehmen.“",
+        "choices": [
+          {
+            "text": "Den Auftrag übernehmen.",
+            "next": "auftrag",
+            "requires_flags": [
+              "treffen_schichtbund"
+            ],
+            "hide_if_flags": [
+              "k3h_nachtwalze_begonnen"
+            ]
+          },
+          {
+            "text": "Beide Beobachtungen berichten.",
+            "next": "abgabe",
+            "requires_flags": [
+              "k3h_nachtwalze_fund1_gelesen",
+              "k3h_nachtwalze_fund2_gelesen"
+            ],
+            "hide_if_flags": [
+              "k3h_nachtwalze_done"
+            ]
+          },
+          {
+            "text": "Die Angebote der Runde ansehen.",
+            "auction": "schichtbund",
+            "requires_flags": [
+              "treffen_schichtbund"
+            ],
+            "requires_gathering": "schichtbund"
+          },
+          {
+            "text": "Auf Wiedersehen."
+          }
+        ]
+      },
+      "auftrag": {
+        "text": "Rufus legt die Hand auf eine Walze. „Ich habe eine Pause als Fehler verkauft. Schau im Prüfhaus den Rand an. Höre Jorys Trichter nur nachts ab, ohne etwas aufzunehmen.“",
+        "start_quests": [
+          "k3h_nachtwalze"
+        ],
+        "sets_flags": [
+          "k3h_nachtwalze_begonnen"
+        ],
+        "choices": [
+          {
+            "text": "Ich sehe nach.",
+            "next": "start"
+          }
+        ]
+      },
+      "abgabe": {
+        "text": "„Dann verkaufe ich die Walze mit ihrer Pause. Wer nur Befehle hören will, soll woanders kaufen.“",
+        "sets_flags": [
+          "k3h_nachtwalze_done"
+        ],
+        "complete_quests": [
+          "k3h_nachtwalze"
+        ],
+        "gives_money": 35,
+        "bond": {
+          "ez_ds_walzenstimme": 1
+        },
+        "relation": {
+          "tm_ds_stimme": 1
+        },
+        "choices": [
+          {
+            "text": "Bis später."
+          }
+        ]
+      }
+    }
+  }
+}

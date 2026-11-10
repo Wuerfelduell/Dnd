@@ -1,0 +1,378 @@
+{
+  "k3h_mantelbesitzer": {
+    "title": "Ein Mantel, zwei Besitzer",
+    "kind": "side",
+    "case": "kapitel3",
+    "summary": "Prüfe die Naht und frage Holm, bevor Ida fremdes Eigentum verkauft.",
+    "steps": [
+      {
+        "text": "Naht lesen",
+        "done": {
+          "requires_flags": [
+            "k3h_mantelnaht_gelesen"
+          ]
+        },
+        "target": {
+          "map": "ds_kalkmarkt",
+          "id": "k3h_mantelnaht",
+          "label": "Naht lesen"
+        }
+      },
+      {
+        "text": "Holm befragen",
+        "done": {
+          "requires_flags": [
+            "k3h_mantelbesitzer_zeugnis"
+          ]
+        },
+        "target": {
+          "map": "ds_schwellenring",
+          "id": "ez_ds_rangierer",
+          "label": "Holm befragen"
+        }
+      },
+      {
+        "text": "Ida berichten",
+        "done": {
+          "requires_flags": [
+            "k3h_mantelbesitzer_done"
+          ]
+        },
+        "target": {
+          "map": "ds_kalkmarkt",
+          "id": "k3h_troedlerin",
+          "label": "Ida berichten"
+        }
+      }
+    ],
+    "reward": {
+      "gives_money": 0
+    }
+  },
+  "k3h_steinmass": {
+    "title": "Der Stein ohne Maß",
+    "kind": "side",
+    "case": "kapitel3",
+    "summary": "Vergleiche zwei Seiten einer vermeintlichen Grabplatte im Klopfbruch.",
+    "steps": [
+      {
+        "text": "Stirn messen",
+        "done": {
+          "requires_flags": [
+            "k3h_mass_vorn_gelesen"
+          ]
+        },
+        "target": {
+          "map": "ds_klopfbruch",
+          "id": "k3h_mass_vorn",
+          "label": "Stirn messen"
+        }
+      },
+      {
+        "text": "Rückseite messen",
+        "done": {
+          "requires_flags": [
+            "k3h_mass_hinten_gelesen"
+          ]
+        },
+        "target": {
+          "map": "ds_klopfbruch",
+          "id": "k3h_mass_hinten",
+          "label": "Rückseite messen"
+        }
+      },
+      {
+        "text": "Bram berichten",
+        "done": {
+          "requires_flags": [
+            "k3h_steinmass_done"
+          ]
+        },
+        "target": {
+          "map": "ds_kalkmarkt",
+          "id": "k3h_steinmetz",
+          "label": "Bram berichten"
+        }
+      }
+    ],
+    "reward": {
+      "gives_money": 0
+    }
+  },
+  "k3h_klemmen": {
+    "title": "Drei kalte Klemmen",
+    "kind": "side",
+    "case": "kapitel3",
+    "summary": "Berge drei Klemmen am abgetrennten Verteiler und lass sie einzeln prüfen.",
+    "steps": [
+      {
+        "text": "Verteiler bergen",
+        "done": {
+          "requires_flags": [
+            "k3h_klemmkasten_gelesen"
+          ]
+        },
+        "target": {
+          "map": "ds_rufschlucht",
+          "id": "k3h_klemmkasten",
+          "label": "Verteiler bergen"
+        }
+      },
+      {
+        "text": "Klemme 1 prüfen",
+        "done": {
+          "requires_flags": [
+            "k3h_klemme_1"
+          ]
+        },
+        "target": {
+          "map": "ds_signalhang",
+          "id": "k3h_lampenwart",
+          "label": "Klemme 1 prüfen"
+        }
+      },
+      {
+        "text": "Klemme 2 prüfen",
+        "done": {
+          "requires_flags": [
+            "k3h_klemme_2"
+          ]
+        },
+        "target": {
+          "map": "ds_signalhang",
+          "id": "k3h_lampenwart",
+          "label": "Klemme 2 prüfen"
+        }
+      },
+      {
+        "text": "Klemme 3 prüfen",
+        "done": {
+          "requires_flags": [
+            "k3h_klemme_3"
+          ]
+        },
+        "target": {
+          "map": "ds_signalhang",
+          "id": "k3h_lampenwart",
+          "label": "Klemme 3 prüfen"
+        }
+      },
+      {
+        "text": "Lohn abholen",
+        "done": {
+          "requires_flags": [
+            "k3h_klemmen_done"
+          ]
+        },
+        "target": {
+          "map": "ds_signalhang",
+          "id": "k3h_lampenwart",
+          "label": "Lohn abholen"
+        }
+      }
+    ],
+    "reward": {
+      "gives_money": 0
+    }
+  },
+  "k3h_aufnahme": {
+    "title": "Der eigene Span",
+    "kind": "side",
+    "case": "kapitel3",
+    "summary": "Dora vermittelt einen freiwilligen Eintritt in den Schichtbund.",
+    "steps": [
+      {
+        "text": "Dora anhören",
+        "done": {
+          "requires_flags": [
+            "k3h_aufnahme_begonnen"
+          ]
+        },
+        "target": {
+          "map": "ds_kalkmarkt",
+          "id": "tm_ds_kerbholz",
+          "label": "Dora anhören"
+        }
+      },
+      {
+        "text": "Kerbholz schneiden lassen",
+        "done": {
+          "requires_flags": [
+            "k3h_kerbholz_geschnitten"
+          ]
+        },
+        "target": {
+          "map": "ds_kalkmarkt",
+          "id": "k3h_steinmetz",
+          "label": "Kerbholz schneiden lassen"
+        }
+      },
+      {
+        "text": "Nachts den Wartungsweg vorzeigen",
+        "done": {
+          "requires_flags": [
+            "k3h_aufnahme_done"
+          ]
+        },
+        "target": {
+          "map": "ds_runddepot",
+          "id": "zirkel_schichtbund",
+          "label": "Nachts den Wartungsweg vorzeigen"
+        }
+      }
+    ],
+    "reward": {
+      "gives_money": 0
+    }
+  },
+  "k3h_lampenrechnung": {
+    "title": "Öl für einen leeren Raum",
+    "kind": "side",
+    "case": "kapitel3",
+    "summary": "Wim wischt den Docht ab. „Jemand nimmt Öl. Vielleicht hält er nur einen Weg offen. Vergleiche Rechnung und Lampe, ehe ich Diebstahl rufe.“",
+    "steps": [
+      {
+        "text": "Ersten Befund prüfen",
+        "done": {
+          "requires_flags": [
+            "k3h_lampenrechnung_fund1_gelesen"
+          ]
+        },
+        "target": {
+          "map": "ds_runddepot",
+          "id": "k3h_lampenrechnung_fund1",
+          "label": "Ersten Befund prüfen"
+        }
+      },
+      {
+        "text": "Zweiten Befund prüfen",
+        "done": {
+          "requires_flags": [
+            "k3h_lampenrechnung_fund2_gelesen"
+          ]
+        },
+        "target": {
+          "map": "ds_schwellenring",
+          "id": "k3h_lampenrechnung_fund2",
+          "label": "Zweiten Befund prüfen"
+        }
+      },
+      {
+        "text": "Zur Runde zurückkehren",
+        "done": {
+          "requires_flags": [
+            "k3h_lampenrechnung_done"
+          ]
+        },
+        "target": {
+          "map": "treffen_schichtbund",
+          "id": "tm_ds_lampe",
+          "label": "Zur Runde zurückkehren"
+        }
+      }
+    ],
+    "reward": {
+      "gives_money": 0
+    }
+  },
+  "k3h_doppelte_kerbe": {
+    "title": "Zwei Kerben für eine Hand",
+    "kind": "side",
+    "case": "kapitel3",
+    "summary": "Dora legt zwei Abreibungen hin. „Wenna zählt eine Kerbe zu viel. Vergleiche das Holz am Arbeiterbogen mit der alten Schranke. Lass die Namen dabei stehen.“",
+    "steps": [
+      {
+        "text": "Ersten Befund prüfen",
+        "done": {
+          "requires_flags": [
+            "k3h_doppelte_kerbe_fund1_gelesen"
+          ]
+        },
+        "target": {
+          "map": "ds_arbeiterbogen",
+          "id": "k3h_doppelte_kerbe_fund1",
+          "label": "Ersten Befund prüfen"
+        }
+      },
+      {
+        "text": "Zweiten Befund prüfen",
+        "done": {
+          "requires_flags": [
+            "k3h_doppelte_kerbe_fund2_gelesen"
+          ]
+        },
+        "target": {
+          "map": "ds_endbahnhof",
+          "id": "k3h_doppelte_kerbe_fund2",
+          "label": "Zweiten Befund prüfen"
+        }
+      },
+      {
+        "text": "Zur Runde zurückkehren",
+        "done": {
+          "requires_flags": [
+            "k3h_doppelte_kerbe_done"
+          ]
+        },
+        "target": {
+          "map": "treffen_schichtbund",
+          "id": "tm_ds_kerbholz",
+          "label": "Zur Runde zurückkehren"
+        }
+      }
+    ],
+    "reward": {
+      "gives_money": 0
+    }
+  },
+  "k3h_nachtwalze": {
+    "title": "Die Pause auf der Walze",
+    "kind": "side",
+    "case": "kapitel3",
+    "summary": "Rufus legt die Hand auf eine Walze. „Ich habe eine Pause als Fehler verkauft. Schau im Prüfhaus den Rand an. Höre Jorys Trichter nur nachts ab, ohne etwas aufzunehmen.“",
+    "steps": [
+      {
+        "text": "Ersten Befund prüfen",
+        "done": {
+          "requires_flags": [
+            "k3h_nachtwalze_fund1_gelesen"
+          ]
+        },
+        "target": {
+          "map": "ds_pruefhaus",
+          "id": "k3h_nachtwalze_fund1",
+          "label": "Ersten Befund prüfen"
+        }
+      },
+      {
+        "text": "Zweiten Befund prüfen (nachts)",
+        "done": {
+          "requires_flags": [
+            "k3h_nachtwalze_fund2_gelesen"
+          ]
+        },
+        "target": {
+          "map": "ds_arbeiterbogen",
+          "id": "k3h_nachtwalze_fund2",
+          "label": "Zweiten Befund prüfen (nachts)"
+        }
+      },
+      {
+        "text": "Zur Runde zurückkehren",
+        "done": {
+          "requires_flags": [
+            "k3h_nachtwalze_done"
+          ]
+        },
+        "target": {
+          "map": "treffen_schichtbund",
+          "id": "tm_ds_stimme",
+          "label": "Zur Runde zurückkehren"
+        }
+      }
+    ],
+    "reward": {
+      "gives_money": 0
+    }
+  }
+}
