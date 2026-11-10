@@ -624,7 +624,7 @@ export class Ui {
   updateWanted() {
     const el = this.$('.fahndung');
     const s = this.state;
-    const r = s.policeRules?.();
+    const r = s.cityPolice?.();
     const show = !!r;
     el.classList.toggle('hidden', !show);
     if (!show) return;

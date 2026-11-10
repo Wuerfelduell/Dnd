@@ -1446,15 +1446,22 @@
     "hp": 84,
     "armor": 3,
     "fleeable": false,
-    "intro": "Starling dreht sich vom Okular weg und lächelt, als hätte er dich zum Tee erwartet. „Mein bester Ermittler! Sie kommen genau richtig. Ohne Sie hätte ich nichts davon ernten können.“\n\nEr hebt eine Linse, und darin brennt ein Stück Stern.",
+    "min_seq": 7,
+    "intro": "Starling dreht sich vom Okular weg und lächelt, als hätte er dich zum Tee erwartet. „Mein bester Ermittler! Sie kommen genau richtig. Ohne Sie hätte ich nichts davon ernten können.“\n\nEr hebt eine Linse, und darin brennt ein Stück Stern. „Price hat heute meinen vierten Brief bekommen. Sie haben noch bis zum Morgengrauen, dann gehört Ihr Gesicht ihm.“",
     "attacks": [
       {
         "name": "Brennglas",
-        "damage": 9,
+        "damage": 10,
         "hits": [
           900,
           1300
         ]
+      },
+      {
+        "name": "Gestohlene Stimme",
+        "action": "taunt",
+        "value": 14,
+        "text": "Er spricht mit Elias’ Stimme: „Hilf mir.“ -14 Nerven."
       },
       {
         "name": "Sternregen",
@@ -1463,14 +1470,17 @@
           500,
           750,
           1000,
-          1250
+          1250,
+          1500
         ]
       },
       {
-        "name": "Gestohlene Stimme",
-        "action": "taunt",
-        "value": 12,
-        "text": "Er spricht mit Elias’ Stimme: „Hilf mir.“ -12 Nerven."
+        "name": "Ernte",
+        "action": "drain",
+        "value": 2,
+        "heal": 4,
+        "heal_per_ap": 2,
+        "text": "Er hält dir die Linse hin, und deine Konzentration fließt als dünner Lichtfaden hinein. Er wird heller."
       },
       {
         "name": "Geliehener Schatten",
@@ -1480,7 +1490,7 @@
       },
       {
         "name": "Fallender Stern",
-        "damage": 17,
+        "damage": 18,
         "hits": [
           2100
         ]
@@ -1494,6 +1504,88 @@
     "weak_text": "Du weißt, woraus sein Licht besteht: aus fremden Stimmen, Schatten und Träumen. Du rufst ihre Namen, und es flackert.",
     "on_win": {
       "sets_flags": [
+        "starling_phase1"
+      ],
+      "heal": 25,
+      "nerves": 25,
+      "combat": "starling_stern"
+    },
+    "lose_to": {
+      "map": "sternwarte",
+      "spawn": "default"
+    },
+    "lose_text": "Das Brennglas findet dich. Du kommst am Fuß der Treppe zu dir, und oben am Okular steht Starling wieder, als hätte es dich nie gegeben.",
+    "win_text": "Die Linse zerspringt. Starling taumelt gegen das Teleskop, und für einen Atemzug glaubst du, es sei vorbei. Du holst Luft, der Kopf wird klarer (+25 Leben, +25 Nerven).\n\nDann greift er in den Spiegel, und der Stern greift zurück."
+  },
+  "starling_stern": {
+    "name": "Starling, vom Stern getragen",
+    "sprite": "npc:cultist",
+    "tint": "#f4f8ff",
+    "occult": true,
+    "boss": true,
+    "hp": 95,
+    "armor": 3,
+    "ramp": 0.03,
+    "fleeable": false,
+    "min_seq": 7,
+    "intro": "Licht läuft Starlings Arme hinauf, und unter seiner Haut kreisen fünf kleine Lichter: Stimmen, Schatten, Glockenklang, Träume. „Nicht ich habe Sie gebraucht“, sagt er mit Elias’ Stimme, mit Varennes Stimme, mit deiner. „Er hat Sie gebraucht.“\n\nEr wird mit jeder Runde heller. Zieh den Kampf nicht in die Länge.",
+    "attacks": [
+      {
+        "name": "Fünf Ernten",
+        "damage": 5,
+        "hits": [
+          500,
+          800,
+          1100,
+          1400
+        ],
+        "nerves": 2
+      },
+      {
+        "name": "Spiegellicht",
+        "action": "veil",
+        "text": "Der Stern spiegelt sich in ihm. Nur ein präziser Treffer findet den Mann im Licht."
+      },
+      {
+        "name": "Sternenkrone",
+        "damage": 11,
+        "hits": [
+          800,
+          1500
+        ],
+        "bleed": [
+          3,
+          2
+        ]
+      },
+      {
+        "name": "Dein Name",
+        "action": "taunt",
+        "value": 18,
+        "text": "„Wie hießen Sie noch? Auf dem Steckbrief steht es anders.“ -18 Nerven."
+      },
+      {
+        "name": "Sternlicht trinken",
+        "action": "heal",
+        "value": 10,
+        "text": "Er trinkt vom Licht des Sterns. +10 Leben."
+      },
+      {
+        "name": "Fallender Stern",
+        "damage": 21,
+        "hits": [
+          2300
+        ]
+      }
+    ],
+    "weak_if": {
+      "requires_certain": [
+        "d9_ernte"
+      ]
+    },
+    "weak_text": "Du kennst jedes der fünf Lichter beim Namen. Wenn du sie rufst, zögert das Licht, und darunter ist nur ein alter Mann.",
+    "on_win": {
+      "sets_flags": [
         "starling_beaten"
       ],
       "honor": 5,
@@ -1503,7 +1595,7 @@
       "map": "sternwarte",
       "spawn": "default"
     },
-    "win_text": "Die Linse zerspringt. Starling sinkt neben das Teleskop und lacht, als hätte er gewonnen.",
-    "min_seq": 7
+    "lose_text": "Das Licht schlägt über dir zusammen. Du kommst am Fuß der Treppe zu dir, und oben am Okular steht Starling wieder, unversehrt. Du musst noch einmal hinauf, von Anfang an.",
+    "win_text": "Der Stern lässt ihn los. Starling sinkt neben das Teleskop, grau und klein, und lacht, als hätte er trotzdem gewonnen.\n\n„Sehen Sie aus dem Fenster“, flüstert er. „Die Laternen kommen den Hügel herauf.“"
   }
 }

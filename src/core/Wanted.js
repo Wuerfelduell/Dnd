@@ -12,8 +12,13 @@ export const wantedMethods = {
     this.wantedClock = 0;
   },
 
-  /** Fahndungsregeln der Stadt, in der die Karte liegt (null: dort sucht niemand nach dir). */
+  /** Fahndungsregeln der Stadt, in der die Karte liegt; sonst die allgemeinen (Wexmoor), damit Stufe und Festnahme überall rechnen. */
   policeRules(mapId = this.map) {
+    return this.cityPolice(mapId) ?? this.content.police ?? null;
+  },
+
+  /** Wird auf dieser Karte gerade nach dir gesucht? Regeln der Stadt, sofern ihr `active_if` erfüllt ist (null: hier nicht). */
+  cityPolice(mapId = this.map) {
     const city = this.content.maps[mapId]?.city ?? 'kettlegate';
     const r = this.content.polices?.[city] ?? null;
     if (!r) return null;
@@ -28,7 +33,7 @@ export const wantedMethods = {
 
   /** Sichtkegel der Laterne bei der aktuellen Stufe: { range (px), angle (Grad), catchSec }. */
   policeCone(level = this.wanted, mapId = this.map) {
-    const r = this.policeRules();
+    const r = this.policeRules(mapId);
     const l = Math.min(level, r.max_level);
     // Verkleidung: im passenden Viertel kleinerer Kegel und mehr Zeit, anderswo fällt man eher auf
     const worn = this.disguise();

@@ -1484,7 +1484,7 @@ export class WorldScene extends Phaser.Scene {
         this.playPlayerAction('rest');
         const healed = this.state.heal(this.state.maxHp);
         this.state.setComposure(100);
-        this.state.restWanted(); // Untertauchen senkt die Fahndung (Wexmoor, nach Fall 9 auch Kettlegate)
+        if (this.state.cityPolice()) this.state.restWanted(); // Untertauchen senkt die Fahndung (Wexmoor, nach Fall 9 auch Kettlegate)
         const calm = this.state.kahnRestBonus(); // Paket AB: Waschtisch im Kahn
         this.ui.showMessage(def.title, def.text, { footer: (healed > 0 ? `+${healed} Leben, Nerven beruhigt.` : 'Du bist ausgeruht.') + (calm ? ` Am Waschtisch: -${calm} Unruhe.` : '') });
         break;

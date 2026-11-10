@@ -48,6 +48,8 @@ export function loadContent({ sequenzen = true, without = [] } = {}) {
       ...(name === 'koop' ? { geplauder: load('packs/koop/geplauder.json'), kampf: load('packs/koop/kampf.json') } : {}),
       ...(name === 'koop_k3' ? { platzierung: load('packs/koop_k3/platzierung.json').filter((p) => !p.interactable.id.startsWith('koop_ds_schleuse')),
         ...Object.fromEntries(['geplauder', 'kampf', 'bindung'].map((f) => [f, load(`packs/koop_k3/${f}.json`)])) } : {}) })),
+    // Kapitel-1-Finale: Epilogtafeln nach Fall 9 und Prices Fahndung in Kettlegate
+    ...(without.includes('k1_finale') ? [] : [{ name: 'k1_finale', epiloge: load('packs/k1_finale/epiloge.json'), police: load('packs/k1_finale/police.json') }]),
     // Paket BG bringt nur Zusätze, Ansprüche, Ersatzzeilen und Texte
     ...(without.includes('k3_ruf') ? [] : [buildK3Ruf(Object.fromEntries(['stationen', 'klang_zuordnung', 'bindungen', 'texte'].map((f) => [f, load(`packs/k3_ruf/${f}.json`)])))]),
     ...(without.includes('beziehungen') ? [] : [{ name: 'beziehungen', dialog_zusaetze: load('packs/beziehungen/dialog_zusaetze.json') }]),

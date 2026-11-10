@@ -26,7 +26,7 @@ export class Patrols {
 
   build() {
     const s = this.scene;
-    const defs = (s.mapDef.patrols ?? []).filter((d) => d.kind === 'aufsicht' || this.state.policeRules());
+    const defs = (s.mapDef.patrols ?? []).filter((d) => d.kind === 'aufsicht' || this.state.cityPolice());
     if (!defs.length) return;
     const sheets = new Set(['npc_grauspaeher', ...AUFSICHT.figures.map((id) => `npc_${id}`), ...defs.filter((d) => d.figur).map((d) => `npc_${d.figur}`)]);
     for (const key of sheets) {
@@ -90,7 +90,7 @@ export class Patrols {
     if (blocked) { if (this.graceUntil > time) this.graceUntil += delta; for (const g of this.list) g.sprite.anims.stop(); return; }
     const p = this.scene.player;
     const graced = time < this.graceUntil;
-    const policeCone = this.state.policeRules() ? this.state.policeCone() : null;
+    const policeCone = this.state.cityPolice() ? this.state.policeCone() : null;
     const exempt = this.exempt();
     for (const g of this.list) {
       const cone = g.civil ? AUFSICHT.cone : policeCone;
