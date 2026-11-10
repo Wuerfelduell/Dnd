@@ -1,4 +1,6 @@
 // Kapitel 2 (Wexmoor): Fahndung und Festnahme. Regeln in wexmoor.json → police.
+// Kapitel-1-Finale: Nach Fall 9 gelten auch in Kettlegate Regeln (packs/k1_finale/police.json), Price lässt nach dir suchen.
+// content.polices hält die Regeln je Stadt; `active_if` schaltet sie erst mit einem Flag frei.
 // Die Grauspäher (world/Patrols.js) melden Sichtungen; hier steht nur die Spiellogik, damit Tests sie direkt prüfen.
 // - Fahndungsstufe 0..max: jede Sichtung, der man entkommt, +1. Sinkt mit der Zeit und beim Schlafen im Unterschlupf.
 // - Festnahme: Zelle im Wachhaus, ein Teil der Schillinge wird beschlagnahmt. Zunder holt dich zweimal umsonst raus, danach kostet es.
@@ -10,8 +12,13 @@ export const wantedMethods = {
     this.wantedClock = 0;
   },
 
-  policeRules() {
-    return this.content.police ?? null;
+  /** Fahndungsregeln der Stadt, in der die Karte liegt (null: dort sucht niemand nach dir). */
+  policeRules(mapId = this.map) {
+    const city = this.content.maps[mapId]?.city ?? 'kettlegate';
+    const r = this.content.polices?.[city] ?? null;
+    if (!r) return null;
+    if (r.active_if && !this.meets(r.active_if)) return null;
+    return r;
   },
 
   /** Grauspäher-Gebiet: Karten mit `police: true` (die Viertel von Wexmoor). */
@@ -40,7 +47,8 @@ export const wantedMethods = {
   },
 
   setWanted(level, reason = '') {
-    const r = this.policeRules();
+    const r = this.policeRules() ?? this.content.police;
+    if (!r) return this.wanted;
     const before = this.wanted;
     this.wanted = Math.max(0, Math.min(r.max_level, level));
     this.wantedClock = 0;
@@ -55,27 +63,33 @@ export const wantedMethods = {
 
   /** Zeit verstreicht (nur ungestörte Spielzeit): alle decay_sec sinkt die Stufe um eins. */
   tickWanted(dt) {
-    if (!this.content.police || this.wanted <= 0) return;
+    const r = this.policeRules();
+    if (!r || this.wanted <= 0) return;
     this.wantedClock += dt;
-    if (this.wantedClock >= this.policeRules().decay_sec) this.setWanted(this.wanted - 1, 'Die Wache sucht woanders');
+    if (this.wantedClock >= r.decay_sec) this.setWanted(this.wanted - 1, 'Die Wache sucht woanders');
   },
 
   /** In der Koje des Unterschlupfs geschlafen. */
   restWanted() {
-    if (this.wanted > 0) this.setWanted(this.wanted - this.policeRules().rest_lowers, 'Untergetaucht');
+    const r = this.policeRules();
+    if (r && this.wanted > 0) this.setWanted(this.wanted - r.rest_lowers, 'Untergetaucht');
   },
 
   /**
-   * Festnahme. Ergebnis: { map, spawn, seized, text }. Setzt Flags für die Zelle:
-   * k2_in_cell (bis man raus ist) und k2_bail_due (ab der dritten Festnahme kostet Zunders Hilfe).
+   * Festnahme. Ergebnis: { map, spawn, seized, text }. Setzt Flags für die Zelle (Regel `cell_flag`, Wexmoor:
+   * k2_in_cell bis man raus ist) und `bail_flag` (k2_bail_due: ab der dritten Festnahme kostet Zunders Hilfe).
+   * Kettlegate hat keine Zelle: Marlowe schmuggelt dich nachts hinaus, du wachst am Nachtmarkt auf.
    */
   arrest() {
     const r = this.policeRules();
     this.arrests += 1;
     const seized = Math.floor(this.money * r.seize_pct);
     if (seized > 0) this.addMoney(-seized, { reason: 'Beschlagnahmt' });
-    this.flags.add('k2_in_cell');
-    if (this.arrests > r.free_bails) this.flags.add('k2_bail_due');
+    const cellFlag = r.cell_flag === undefined ? 'k2_in_cell' : r.cell_flag;
+    const bailFlag = r.bail_flag === undefined ? 'k2_bail_due' : r.bail_flag;
+    if (cellFlag) this.flags.add(cellFlag);
+    if (bailFlag && this.arrests > r.free_bails) this.flags.add(bailFlag);
+    if (r.on_arrest) this.applyEffects(r.on_arrest);
     this.setWanted(Math.max(this.wanted, 1));
     this.emit('changed');
     return { map: r.cell.map, spawn: r.cell.spawn, seized, text: r.arrest_text };

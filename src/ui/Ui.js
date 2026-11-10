@@ -620,12 +620,12 @@ export class Ui {
     if (heavy) el.innerHTML = `${uiSprite('loot', 'full', 1 / 16, 'toastico')}Überladen · ${esc(this.state.carryText())}`;
   }
 
-  /** Kapitel 2: Fahndungsstufe im HUD, nur in Wexmoor. */
+  /** Fahndungsstufe im HUD: in Wexmoor, und in Kettlegate, sobald Price nach dir suchen lässt (Ende Fall 9). */
   updateWanted() {
     const el = this.$('.fahndung');
     const s = this.state;
     const r = s.policeRules?.();
-    const show = !!r && s.content.maps[s.map]?.city === 'wexmoor';
+    const show = !!r;
     el.classList.toggle('hidden', !show);
     if (!show) return;
     el.classList.toggle('hot', s.wanted > 0);

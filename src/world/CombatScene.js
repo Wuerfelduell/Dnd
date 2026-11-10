@@ -544,9 +544,10 @@ export class CombatScene extends Phaser.Scene {
         // Kniff der Sekten: Panzer, Heilung, Schleier, Einschüchterung
         const a = c.lastAction;
         this.ui.combatMessage(`${c.enemy.name}: ${a.name}\n\n${a.text}`);
-        const float = { guard: [`Panzer +${a.value}`, 'good'], heal: [`+${a.value}`, 'good'], veil: ['Schleier', 'miss'], taunt: [`-${a.value} Nerven`, 'hurt'] }[a.action];
-        if (a.action === 'taunt') this.focusPlayer(c.target);
-        if (float) this.float(float[0], a.action === 'taunt' ? 'player' : 'enemy', float[1]);
+        const float = { guard: [`Panzer +${a.value}`, 'good'], heal: [`+${a.value}`, 'good'], veil: ['Schleier', 'miss'], taunt: [`-${a.value} Nerven`, 'hurt'], drain: [`-${a.value} Konzentration`, 'hurt'] }[a.action];
+        if (a.action === 'taunt' || a.action === 'drain') this.focusPlayer(c.target);
+        if (float) this.float(float[0], a.action === 'taunt' || a.action === 'drain' ? 'player' : 'enemy', float[1]);
+        if (a.action === 'drain' && a.healed) this.float(`+${a.healed}`, 'enemy', 'good');
         this.anim(this.enemy, 'special');
         this.ui.combatRefresh();
         this.time.delayedCall(1100, () => this.afterStrike());
