@@ -540,6 +540,13 @@ button.small.drop.armed { border-color: #c8826a; color: #ffb09a; }
 .auction .alog { list-style: none; padding: 0; margin: 0.5em 0; font-size: 0.72em; color: #b8b0c0; max-height: 7em; overflow: auto; }
 .auction .alog li:last-child { color: var(--ink, #e8e0d0); }
 .auction .actions { flex-wrap: wrap; gap: 0.4em; }
+/* Die Fasserin: Rezepte aus Beutestücken */
+.auction .recipes { list-style: none; padding: 0; margin: 0.4em 0 0; font-size: 0.8em; display: grid; gap: 0.4em; max-height: 13em; overflow-y: auto; }
+.auction .recipe { padding: 0.3em 0.4em; border: 0.125em solid #2a2630; }
+.auction .recipe.ready { border-color: var(--gold); }
+.auction .recipe .needs { display: block; color: #b8b0c0; font-size: 0.9em; margin-top: 0.15em; }
+.auction .recipe .needs .lack { color: #d08070; }
+.auction .recipe .needs .got { color: #8fd07a; }
 /* Paket P: Szenenkarte neben der Ritual-Meldung (96x128) */
 .ritualcard { float: left; width: 12em; height: 16em; margin: 0 1em 0.5em 0; image-rendering: pixelated; }
 /* Paket T: Auktions-Atlas (Bietehand an der Sitzleiste, Zirkelmarke im Titel) */

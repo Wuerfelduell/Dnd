@@ -1855,7 +1855,8 @@ export class Ui {
     const [emblem] = ZIRKEL_ICONS[a.circle] ?? [];
     const leader = a.phase === 'lot' ? a.lot?.leader : null;
     const seats = a.members.map((m, i) => `<li class="seat ${m === speaker ? 'active' : ''} ${i < a.turn ? 'done' : ''}">${headFace(m, s.memberName(m))}<span>${esc(s.memberName(m))}</span>${m === leader ? auktionIcon('bid_0', 'bidhand') : ''}</li>`).join('')
-      + `<li class="seat you ${a.phase.startsWith('own') ? 'active' : ''}">${headFace('player', 'Du')}<span>Du</span>${leader === 'player' ? auktionIcon('bid_0', 'bidhand') : ''}</li>`;
+      + `<li class="seat you ${a.phase.startsWith('own') ? 'active' : ''}">${headFace('player', 'Du')}<span>Du</span>${leader === 'player' ? auktionIcon('bid_0', 'bidhand') : ''}</li>`
+      + (a.artisan ? `<li class="seat artisan ${a.phase === 'artisan' ? 'active' : ''}">${headFace(s.artisanId(), s.artisanName())}<span>${esc(s.artisanName())}</span></li>` : '');
     const acts = [];
     let stage = '';
     const who = (id) => (id === 'player' ? 'dir' : id ? esc(s.memberName(id)) : 'niemandem');
@@ -1879,9 +1880,27 @@ export class Ui {
     } else if (a.phase === 'own') {
       const list = s.ownOfferables();
       stage = `<div class="speaker">Dein Angebot <span class="role">Artefakte und Formeln</span></div>
-        ${list.length ? '<p class="lead">Was legst du auf den Tisch?</p>' : '<p class="lead">Du hast keine Artefakte oder Formeln dabei, die du anbieten könntest.</p>'}`;
+        ${list.length ? '<p class="lead">Was legst du auf den Tisch?</p>' : '<p class="lead">Du hast keine Artefakte oder Formeln dabei, die du anbieten könntest.</p>'}
+        ${a.artisan ? `<p class="lead muted">${esc(s.artisanName())} sitzt abseits und fasst Beutestücke zu Artefakten.</p>` : ''}`;
+      if (a.artisan) acts.push({ label: `Zu ${s.artisanName()}: Beute fassen lassen`, fn: () => s.openArtisan() });
       for (const o of list.slice(0, 8)) acts.push({ label: `${o.name} anbieten`, fn: () => s.offerOwn(o.id), icon: o.id });
       acts.push({ label: 'Runde beenden', fn: () => this.finishAuction() });
+    } else if (a.phase === 'artisan') {
+      const recipes = s.artisanRecipes(a.circle, a.cycle);
+      const rows = recipes.map((r) => {
+        const c = s.recipeCheck(r);
+        const it = s.item(c.artifact);
+        const needs = c.needs.map((x) => `<span class="${x.have >= x.n ? 'got' : 'lack'}">${itemIcon(x.item)}${esc(s.item(x.item)?.name ?? x.item)} ${x.have}/${x.n}</span>`).join(' · ');
+        return `<li class="recipe ${c.ok ? 'ready' : ''}">${itemIconBig(c.artifact)}<strong>${esc(it?.name ?? c.artifact)}</strong> <span class="muted">Lohn ${c.fee} Sch.</span>${artifactEffectsHtml(it ?? {})}<span class="needs">Braucht: ${needs}</span></li>`;
+      }).join('');
+      stage = `${portrait(s.artisanId())}<div class="speaker">${esc(s.artisanName())} <span class="role">${esc(s.content.npcs[s.artisanId()]?.role ?? 'Fasserin')}</span></div>
+        <p class="lead">„Ich fasse, was andere wegwerfen. Der Lohn ist fest, die Beute ist danach weg.“</p>
+        <ul class="recipes">${rows || '<li class="muted">Heute hat sie nichts auf dem Tisch.</li>'}</ul>`;
+      for (const r of recipes) {
+        const c = s.recipeCheck(r);
+        acts.push({ label: `${s.item(c.artifact)?.name ?? r.id} fassen (${c.fee} Sch.)`, fn: () => s.craftArtifact(r.id), off: !c.ok, icon: c.artifact });
+      }
+      acts.push({ label: 'Zurück zur Runde', fn: () => s.leaveArtisan() });
     } else if (a.phase === 'own_bids') {
       const o = a.own;
       const it = s.item(o.item);
@@ -1893,7 +1912,7 @@ export class Ui {
     this.auctionActs = acts;
     let n = 0;
     const el = this.open('auction', `
-      <h3>${emblem !== undefined ? atlasIcon(ZIRKEL_URL, emblem, 8) : S_ZIRKEL[a.circle] ? regionIcon(S_ZIRKEL_URL, S_ZIRKEL[a.circle].emblem, 128, 64, 'mark', 1 / 16) : auktionIcon(a.circle, 'mark', 1 / 6)}${esc(g.name)} <span class="muted">${a.phase.startsWith('own') ? 'Eigenes Angebot' : `Runde ${Math.min(a.turn + 1, a.members.length)} von ${a.members.length}`}</span></h3>
+      <h3>${emblem !== undefined ? atlasIcon(ZIRKEL_URL, emblem, 8) : S_ZIRKEL[a.circle] ? regionIcon(S_ZIRKEL_URL, S_ZIRKEL[a.circle].emblem, 128, 64, 'mark', 1 / 16) : auktionIcon(a.circle, 'mark', 1 / 6)}${esc(g.name)} <span class="muted">${a.phase === 'artisan' ? 'Bei der Fasserin' : a.phase.startsWith('own') ? 'Eigenes Angebot' : `Runde ${Math.min(a.turn + 1, a.members.length)} von ${a.members.length}`}</span></h3>
       <ul class="seats">${seats}</ul>
       <div class="stage">${stage}</div>
       <ul class="alog">${a.log.map((t) => `<li>${t.startsWith('Zuschlag') ? auktionIcon('sold', 'sold', 1 / 12) : ''}${esc(t)}</li>`).join('')}</ul>
@@ -1918,7 +1937,7 @@ export class Ui {
     this.close();
     if (!sum) return;
     const line = (l, verb) => l.map((x) => `${this.state.item(x.item).name} (${x.price} Sch.)`).join(', ') || 'nichts';
-    this.showMessage('Die Runde löst sich auf', `Gekauft: ${line(sum.bought)}\n\nVerkauft: ${line(sum.sold)}`, { footer: 'Bis zum nächsten Treffen.' });
+    this.showMessage('Die Runde löst sich auf', `Gekauft: ${line(sum.bought)}\n\nVerkauft: ${line(sum.sold)}${sum.crafted?.length ? `\n\nGefasst: ${line(sum.crafted)}` : ''}`, { footer: 'Bis zum nächsten Treffen.' });
   }
 
   // --- Eigenes Büro: Lagerschrank und Fallwand -------------------------------------------
