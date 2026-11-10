@@ -1,5 +1,7 @@
 # BC · Anschlüsse und bewusste Abweichungen von der Kurzvorlage
 
+> **Stand nach dem Einbau:** Die Daten liegen in `src/data/packs/k3_handel/` und werden über `src/data/index.js` geladen (Händler, Schichtbund, Einzelgänger, Artefakte additiv). Der Zeitadapter ist `src/core/Clock.js` (`k3h_nacht` folgt der Spielzeit, wird nicht gespeichert). Die BE-Figuren, Kampf-Sheets, Köpfe und der Stadtkarten-Pin sind in `src/world/assets.js` eingetragen; BC-Waren zeigen bis zu eigenen Icons Bestandsbilder. `pruefen.mjs` prüft den echten Spielinhalt. Offen bleiben der BN-Horchstellenalarm und die Auktionsmetadaten (`once`/`requires_pathway`) in `Auction.memberLot()`.
+
 ## Einbindung (nicht Teil dieses Datenpakets)
 
 - Acht Standarddateien unter `src/data/packs/k3_handel/` registrieren, dann mit `applyQuestPack` einbinden. `haendler.json.merchants` und `.sell_prices` additiv in den Markt übernehmen. Mabels vorhandene Figur bleibt bestehen; nur `k3a_mabel` bekommt eine zusätzliche Gesprächsoption.

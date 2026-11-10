@@ -20,7 +20,7 @@ test('Kapitel 3: 18 Dunscarer Karten, eigene Stadtkarte mit Pins und Markern', (
   assert.ok(existsSync(pub(DS_MAP_MARKERS_URL)));
   for (const id of Object.keys(city.pins)) {
     assert.ok(content.maps[id], id);
-    assert.ok(mapMarkerOf(id)[0].includes('ds_marker'), id);
+    assert.ok(mapMarkerOf(id)[0].includes(id.startsWith('treffen_') ? 'BE_schichtbund' : 'ds_marker'), id); // Zirkelpin (BC/BE) aus dem Schichtbund-Atlas
   }
   for (const id of ['ds_endbahnhof', 'ds_schwellenring', 'ds_arbeiterbogen']) assert.ok(content.travel.some((t) => t.map === id), id);
   assert.ok(CHAPTER_CARDS.includes('kapitel3_karte'));

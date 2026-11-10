@@ -5,7 +5,7 @@ import { GameState } from '../src/core/GameState.js';
 import { loadContent, talk, fight, EXPERT } from './helpers.js';
 
 const content = loadContent();
-const LONERS = Object.keys(content.loners.list);
+const LONERS = Object.keys(content.loners.list).filter((id) => content.loners.list[id].map.startsWith('wx_')); // Dunscar (BC) prüft docs/story/k3_handel/pruefen.mjs
 
 /** In Wexmoor angekommen, mit Unterschlupf. */
 function inWexmoor() {

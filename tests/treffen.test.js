@@ -143,7 +143,7 @@ function session(id = 'waage', setup = () => {}) {
 
 test('Jeder Zirkel ist eine Gruppe aus 4 bis 5 Leuten (Täfelchengilde: 3), alle sitzen am Treffpunkt', () => {
   for (const [id, c] of Object.entries(content.gatherings.circles)) {
-    assert.ok(c.members.length >= (id === 'namensgilde' ? 3 : 4) && c.members.length <= 5, `${id}: ${c.members.length}`);
+    assert.ok(c.members.length >= (['namensgilde', 'schichtbund'].includes(id) ? 3 : 4) && c.members.length <= 5, `${id}: ${c.members.length}`);
     const map = content.maps[c.map];
     for (const m of c.members) {
       assert.ok(content.npcs[m.id], m.id);
@@ -154,7 +154,7 @@ test('Jeder Zirkel ist eine Gruppe aus 4 bis 5 Leuten (Täfelchengilde: 3), alle
       for (const e of m.offers) assert.ok(content.items[e.item], e.item);
       for (const w of m.wants) assert.ok(content.items[w], w);
     }
-    assert.ok(map.interactables.some((i) => i.kind === 'travel'), `${c.map}: Ausgang`);
+    assert.ok(map.interactables.some((i) => i.kind === 'travel' || (i.kind === 'door' && i.to)), `${c.map}: Ausgang`); // Schichtbund (BC): Tür zurück ins Runddepot
   }
 });
 
@@ -392,6 +392,7 @@ test('Auf den Treffen gibt es nur seltene Dinge fürs große Geld, nichts vom no
     .flatMap((m) => m.stock.filter((e) => e.rare === undefined).map((e) => e.item)));
   const arts = [];
   for (const [id, c] of Object.entries(content.gatherings.circles)) {
+    if (id === 'schichtbund') continue; // BC: der Arbeiterzirkel in Dunscar handelt bewusst auch mit Alltagsware und billigen Zutaten
     for (const m of c.members) {
       for (const e of m.offers) {
         assert.ok(!regular.has(e.item), `${id}/${m.id} bietet ${e.item} an, das gibt es auch so`);

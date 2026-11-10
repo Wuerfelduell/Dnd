@@ -140,6 +140,7 @@ export const gatheringMethods = {
   /** Läuft im Spiel-Tick mit: zählt die Zeit und meldet, wenn ein eigenes Treffen beginnt oder endet. */
   tickGatherings(dt) {
     this.playTime += dt;
+    this.syncClock?.();
     if (!this.gatheringRules() || !this.gatheringsUnlocked()) return;
     const cur = this.currentGathering();
     const key = cur ? cur.cycle : null;
