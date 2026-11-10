@@ -14,6 +14,7 @@ import {
 import { sourceOf } from '../core/sources.js';
 import { caseHints, nextDeduction } from '../core/hints.js';
 import { guessMood } from '../core/Moods.js';
+import { MOOD_LABEL } from '../core/Relations.js';
 import { koopGreeting } from '../core/Koop.js';
 import { isSolved, knownPeople } from '../core/journal.js';
 import { canHurry, travelSafe, travelFast, afterHurryFight, travelDestinations, cityOf } from '../core/Travel.js';
@@ -81,6 +82,21 @@ const lonerMood = (s, id) => {
   if (!s.loner?.(id)) return undefined;
   const st = s.bondStatus(id);
   return st === 'freund' ? 'friendly' : st === 'feind' || s.bond(id) < 0 ? 'hostile' : s.bond(id) >= 2 ? 'friendly' : undefined;
+};
+/** Beziehung: Gesicht je Stimmung, wenn der Knoten keine eigene hat (freundlich lächelt, feindselig misstraut bzw. zürnt). */
+const relationMood = (s, id) => {
+  if (!s.content.npcs?.[id] || s.loner?.(id)) return undefined;
+  const m = s.mood(id);
+  return m === 'freundlich' ? 'smile' : m === 'feindselig' ? (AK_FIGURES.has(id) ? 'angry' : 'suspicious') : undefined;
+};
+/** Beziehung: Abzeichen (freundlich, neutral, feindselig) mit Wert neben dem Namen; Einzelgänger haben ihre eigene Leiste. */
+const relationBadge = (s, id, withLabel = true) => {
+  if (!s.content.npcs?.[id] || s.loner?.(id)) return '';
+  const m = s.mood(id);
+  const v = s.relation(id);
+  const icon = { freundlich: 'friend', neutral: 'neutral', feindselig: 'wary' }[m];
+  const title = `${MOOD_LABEL[m]} (${v > 0 ? '+' : ''}${v})`;
+  return `<span class="relbadge ${m}" title="${title}">${regionIcon(LONER_UI_URL, LONER_UI[icon], 128, 96, 'badge', 1 / 8, title)}${withLabel ? `<span class="rellabel">${MOOD_LABEL[m]}</span>` : ''}</span>`;
 };
 /** Zug-Portrait (16x16, Paket F) neben den Namen im Kampf. */
 const turnFace = (id) => {
@@ -355,6 +371,10 @@ export class Ui {
       this.toast(`Fahndungsstufe ${level}${reason ? `: ${reason}` : ''}`, delta > 0 ? 'warn' : 'item');
     });
     state.on('newspaper', (p) => this.toast(`${NEWSPAPERS[p.zeitung] ?? 'Zeitung'}: „${p.title}“ (Notizbuch → Zeitung)`, 'gold'));
+    state.on('relation', ({ name, delta, mood, changed }) => {
+      if (changed) this.toast(`${name} ist dir gegenüber jetzt ${MOOD_LABEL[mood].toLowerCase()}.`, mood === 'feindselig' ? 'warn' : 'item');
+      else this.toast(`${name} ${delta > 0 ? 'hält mehr von dir' : 'hält weniger von dir'}.`, delta > 0 ? 'item' : 'warn');
+    });
     state.on('bond', ({ name, value, delta, status, companion }) => {
       if (companion) { this.toast(`${name} ${delta > 0 ? 'vertraut dir mehr' : 'vertraut dir weniger'}.`, delta > 0 ? 'item' : 'warn'); return; }
       const max = state.lonerRules()?.friend_at ?? 3;
@@ -868,7 +888,7 @@ export class Ui {
   openDialogue(npc, onClose) {
     const tree = this.state.content.dialogues[npc.dialogue];
     if (!tree) throw new Error(`Dialog fehlt: ${npc.dialogue}`);
-    this.dialogue = { npc, tree, onClose };
+    this.dialogue = { npc, tree, onClose, greeted: false };
     this.showNode(this.state.pick(tree.start));
   }
 
@@ -877,10 +897,16 @@ export class Ui {
     const { npc, tree } = this.dialogue;
     const node = tree.nodes[nodeId];
     if (!node) throw new Error(`Dialogknoten fehlt: ${npc.dialogue}.${nodeId}`);
-    this.as(() => s.applyEffects(node));
-    if (node.combat) this.dialogue.combat = true;
+    this.as(() => s.applyEffects(node, { nodeKey: `${npc.dialogue}.${nodeId}` }));
+    if (node.combat) { this.dialogue.combat = true; if (npc.id) s.hostileAfterFight(npc.id, node.combat); }
     s.visitNode(npc.dialogue, nodeId);
     let text = node.text;
+    // Beziehung: ein Begrüßungssatz je Stimmung, einmal pro Gespräch (nicht für Fundstücke und Objekte)
+    if (!this.dialogue.greeted && npc.id && !npc.item) {
+      this.dialogue.greeted = true;
+      const g = s.greeting(npc.id);
+      if (g) text = `${g}\n\n${text}`;
+    }
     if (node.pathway_report) text += `\n\n${s.pathwayReport()}`;
     if (node.rank) {
       const r = s.rank();
@@ -899,10 +925,16 @@ export class Ui {
         choices.push({ ...c, locked: `Rang ${s.rank(c.requires_honor).name} (Ansehen ${c.requires_honor}) nötig` });
       }
     }
+    // Beziehung: Geschenke im Menü einer Figur (Start- oder Hub-Knoten), vor der letzten Option
+    const menu = nodeId === (tree.nodes.start ? 'start' : tree.start && tree.nodes[tree.start] ? tree.start : 'hub');
+    if (menu && npc.id && !npc.item && s.content.npcs[npc.id] && !node.ending && !node.combat && (node.choices ?? []).length) {
+      choices.splice(Math.max(0, choices.length - 1), 0, { text: 'Etwas schenken …', gift: true });
+      this.dialogue.menuNode = nodeId;
+    }
     if (choices.filter((c) => !c.locked).length === 0) choices.push({ text: node.ending ? 'Weiter' : 'Ende' });
     this.dialogue.choices = choices;
     let n = 0;
-    const face = portrait(npc.id, node.mood ?? lonerMood(this.state, npc.id) ?? (AK_FIGURES.has(npc.id) ? guessMood(node.text) : undefined));
+    const face = portrait(npc.id, node.mood ?? lonerMood(this.state, npc.id) ?? relationMood(this.state, npc.id) ?? (AK_FIGURES.has(npc.id) ? guessMood(node.text) : undefined));
     // Paket H: Nahansicht beim Untersuchen, verflucht bei Schaden oder Kampf; Risiko-Effekt über dem Bild
     const risk = npc.item ? riskOf(node) : null;
     const closeup = npc.item && inspectUrl(npc.item)
@@ -910,7 +942,7 @@ export class Ui {
     if (risk) this.scene?.playRiskFx?.(risk);
     if (npc.item && nodeId !== tree.start) this.scene?.playInspect?.(risk === 'curse' || risk === 'ambush' ? 'flinch' : risk === 'bonus_clue' ? 'note' : risk === 'unrest' ? 'clutch_head' : 'read');
     const el = this.open('dialogue', `${closeup || sceneImg(node.scene)}${wantedImg(node.wanted, node.wanted_caught)}${face}
-      <div class="speaker">${esc(npc.name)} <span class="role">${esc(npc.role ?? '')}</span></div>${lonerBar(this.state, npc.id)}
+      <div class="speaker">${esc(npc.name)} <span class="role">${esc(npc.role ?? '')}</span>${relationBadge(this.state, npc.id)}</div>${lonerBar(this.state, npc.id)}
       <div class="text">${paragraphs(text)}</div>
       <ol class="choices">${choices.map((c, i) => (c.locked
         ? `<li><button disabled class="locked">${uiSprite('locked', /^Rang/.test(c.locked) ? 'schloss' : 'gespraech', 1 / 16, 'lockico')}${esc(c.text)} <span class="lockinfo">${esc(c.locked)}</span></button></li>`
@@ -922,6 +954,7 @@ export class Ui {
   choose(i) {
     const choice = this.dialogue?.choices[i];
     if (!choice || choice.locked) return;
+    if (choice.gift) { this.openGift(); return; }
     if (choice.shop || choice.vault || choice.expert || choice.auction) {
       const { onClose } = this.dialogue;
       this.dialogue = null;
@@ -938,6 +971,33 @@ export class Ui {
     this.dialogue = null;
     this.close();
     onClose?.({ combat: !!combat });
+  }
+
+  /** Beziehung: etwas aus der eigenen Tasche verschenken; danach zurück ins Gespräch. */
+  openGift(feedback = '') {
+    const s = this.state;
+    const { npc } = this.dialogue;
+    const items = this.as(() => s.giftOptions());
+    const who = s.hasP2() ? ` <span class="muted">aus der Tasche von Spieler ${this.actor}</span>` : '';
+    const el = this.open('gift', `${portrait(npc.id, relationMood(s, npc.id))}
+      <div class="speaker">${esc(npc.name)} <span class="role">${esc(npc.role ?? '')}</span>${relationBadge(s, npc.id)}</div>
+      <h3>Etwas schenken${who}</h3>
+      ${feedback ? `<div class="feedback">${esc(feedback)}</div>` : ''}
+      <ul class="choices giftlist">${items.map((it, i) => `<li><button data-gift="${it.id}">${i < 9 ? `<span class="key">${i + 1}</span> ` : ''}${itemIcon(it.id)}${esc(it.name)} <span class="muted">×${it.count}</span></button></li>`).join('') || '<li class="empty">Du hast nichts, was du verschenken könntest.</li>'}</ul>
+      <div class="actions"><button data-act="back">Zurück <span class="key">Esc</span></button></div>`, `dialogue with-portrait gift`);
+    this.giftIds = items.map((it) => it.id);
+    el.querySelectorAll('[data-gift]').forEach((b) => { b.onclick = () => this.giveGift(b.dataset.gift); });
+    el.querySelector('[data-act=back]').onclick = () => this.closeGift();
+  }
+
+  giveGift(itemId) {
+    const r = this.as(() => this.state.giveGift(this.dialogue.npc.id, itemId));
+    this.openGift(r.text);
+  }
+
+  /** Zurück ins Menü der Figur (ohne neue Begrüßung). */
+  closeGift() {
+    this.showNode(this.dialogue.menuNode);
   }
 
   // --- Stadtkarte ----------------------------------------------------------------
@@ -1444,7 +1504,7 @@ export class Ui {
     if (!people.length) return `${this.factionsHtml()}<p class="empty">Du hast noch mit niemandem gesprochen.</p>`;
     return `${this.factionsHtml()}<ul class="people">${people.map((p) => {
       const face = headFace(p.id, esc(p.name));
-      return `<li class="${p.quests.length ? 'busy' : ''}">${face}<div><strong>${esc(p.name)}</strong> <span class="muted">${esc(p.role)}</span>
+      return `<li class="${p.quests.length ? 'busy' : ''}">${face}<div><strong>${esc(p.name)}</strong> <span class="muted">${esc(p.role)}</span> ${relationBadge(this.state, p.id, this.state.mood(p.id) !== 'neutral')}
         <br><span class="where">${esc(p.places.join(', ') || 'unterwegs')}</span>${p.quests.map((q) => `<br><span class="qtag">${esc(q)}</span>`).join('')}</div></li>`;
     }).join('')}</ul>`;
   }
@@ -2143,6 +2203,9 @@ export class Ui {
     else if (this.modal === 'pause' && (k === 'escape' || confirm)) this.close();
     else if (this.modal === 'pause' && k === '2') this.togglePlayer2();
     else if (this.modal === 'dialogue' && num >= 0) this.choose(this.dialogue.keyMap[num]);
+    else if (this.modal === 'gift' && num >= 0 && this.giftIds?.[num]) this.giveGift(this.giftIds[num]);
+    else if (this.modal === 'gift' && (k === 'escape' || k === 'e')) this.closeGift();
+    else if (this.modal === 'gift' && k === 'g' && this.state.hasP2()) { this.actor = this.actor === 1 ? 2 : 1; this.openGift(); }
     else if (this.modal === 'dialogue' && confirm && this.dialogue?.keyMap.length === 1) this.choose(this.dialogue.keyMap[0]);
     else if (this.modal === 'travel' && this.travelPick && (num === 0 || num === 1)) this.travelMode(num === 0 ? 'sicher' : 'schnell');
     else if (this.modal === 'travel' && !this.travelPick && num >= 0) this.travel(num);

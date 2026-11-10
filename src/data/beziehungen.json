@@ -1,0 +1,103 @@
+{
+  "rules": {
+    "min": -5,
+    "max": 6,
+    "feindselig_ab": -2,
+    "freundlich_ab": 3,
+    "geschenk_max": 2,
+    "preis": {
+      "freundlich": 0.9,
+      "feindselig": 1.2
+    }
+  },
+  "texte": {
+    "dank": "{name} nimmt {item} an. „Das vergesse ich Ihnen nicht.“",
+    "genug": "{name} nimmt {item} an, sagt aber nichts weiter. Mehr Dankbarkeit kauft man damit nicht.",
+    "ablehnung": "„Behalten Sie das. Ich hätte keine Verwendung dafür.“",
+    "beleidigt": "{name} schiebt {item} zurück und sieht dich lange an. „Für wen halten Sie mich?“"
+  },
+  "allgemein": {
+    "freundlich": [
+      "Ein kurzes Nicken, fast ein Lächeln. „Sie schon wieder. Gut.“",
+      "„Setzen Sie sich, Sie sehen müde aus.“ Die Stimme ist wärmer als sonst.",
+      "„Wenn es jemand verdient hat, dass ich ehrlich bin, dann Sie.“",
+      "Die Haltung lockert sich, als Sie näher kommen. „Was kann ich tun?“"
+    ],
+    "feindselig": [
+      "Der Blick bleibt kalt. „Machen Sie es kurz.“",
+      "„Sie haben Nerven, hier aufzutauchen.“ Kein Gruß, keine Geste.",
+      "Ein Schritt zurück, die Arme verschränkt. „Was wollen Sie noch?“",
+      "„Ich rede mit Ihnen, weil ich muss. Nicht, weil ich will.“"
+    ]
+  },
+  "figuren": {
+    "marlowe": {
+      "mag": [
+        "tonikum"
+      ],
+      "verabscheut": [
+        "blitzpulver"
+      ]
+    },
+    "holt": {
+      "mag": [
+        "gewuerzwein"
+      ]
+    },
+    "pimm": {
+      "mag": [
+        "taschentuch"
+      ],
+      "verabscheut": [
+        "lampenoel"
+      ]
+    },
+    "greta": {
+      "mag": [
+        "gewuerzwein",
+        "riechsalz"
+      ]
+    },
+    "nell": {
+      "mag": [
+        "bannsalz"
+      ]
+    },
+    "gorse": {
+      "mag": [
+        "glasauge",
+        "taschenspiegel"
+      ]
+    },
+    "kittering": {
+      "mag": [
+        "lampenoel"
+      ]
+    },
+    "maud": {
+      "mag": [
+        "taschentuch"
+      ],
+      "verabscheut": [
+        "gewuerzwein"
+      ]
+    }
+  },
+  "knoten": {
+    "holt/holt_clear": {
+      "holt": 1
+    },
+    "greta/watch_dead": {
+      "greta": 1
+    },
+    "ivy/after_bad": {
+      "ivy": -1
+    },
+    "marlowe/report_bad": {
+      "marlowe": -1
+    },
+    "kit/bluff": {
+      "kit": -1
+    }
+  }
+}

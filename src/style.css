@@ -818,3 +818,15 @@ html.touch .cb-def .aeicon { display: block; margin: 0 auto 0.2em; font-size: 16
 .p2lookbtns button { display: grid; grid-template-columns: 4em 1fr; grid-template-rows: auto auto; column-gap: 0.6em; text-align: left; align-items: center; }
 .p2lookbtns small { grid-column: 2; font-size: 0.75em; }
 .p2face { grid-row: span 2; width: 4em; height: 4em; background-size: 16em 4em; background-position: 0 0; image-rendering: pixelated; }
+
+/* Beziehungen: Stimmungsabzeichen neben dem Namen, Geschenkliste */
+.relbadge { display: inline-flex; align-items: center; gap: 0.25em; margin-left: 0.6em; font-size: 0.75em; font-weight: 400; color: var(--muted, #a89c88); vertical-align: middle; }
+.relbadge.freundlich .rellabel { color: #8fc48a; }
+.relbadge.feindselig .rellabel { color: #d07a6a; }
+.notebook .people .relbadge { margin-left: 0.2em; }
+.panel.gift h3 { margin: 0.2em 0 0.4em; }
+.panel.gift .giftlist { list-style: none; margin: 0; padding: 0; max-height: 14em; overflow-y: auto; }
+.panel.gift .giftlist li { margin: 0.15em 0; }
+.panel.gift .giftlist button { width: 100%; text-align: left; display: flex; align-items: center; gap: 0.4em; }
+.panel.gift .giftlist .empty { color: var(--muted, #a89c88); padding: 0.4em 0; }
+.panel.gift .feedback { margin: 0 0 0.5em; }

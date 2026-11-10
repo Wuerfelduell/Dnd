@@ -394,7 +394,7 @@ export const pathwayMethods = {
     const visible = this.merchantStock(merchantId).filter((e) => !e.requires_pathway || this.pathway?.id === e.requires_pathway[0]);
     return visible.map((e) => {
       const it = this.item(e.item);
-      const price = Math.max(1, Math.round(e.price * this.passive('price')));
+      const price = Math.max(1, Math.round(e.price * this.passive('price') * this.relationPriceFactor(merchantId))); // Stimmung des Händlers
       let locked = null;
       if (e.requires_pathway) {
         const [pid, seq] = e.requires_pathway;
