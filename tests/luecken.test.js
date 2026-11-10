@@ -26,17 +26,20 @@ function stuckInCase7() {
   return s;
 }
 
-test('Fall 7: Marlowe blockiert → Wegweiser zeigt auf die Briefe im Kontor Thorne und sagt warum', () => {
+test('Fall 7: Marlowe blockiert → Wegweiser zeigt ins Kontor Thorne (nur den Ort, nicht das Pult) und sagt warum', () => {
   const s = stuckInCase7();
   const t = questTarget(s, 'case_07');
   assert.equal(t.step, 'Berichte Marlowe, wer Thorne getötet hat');
   assert.equal(t.map, 'kontor_thorne');
-  assert.equal(t.id, 'letter');
+  assert.equal(t.id, null, 'kein Fleck in der Welt markiert');
+  assert.ok(t.vague);
+  assert.equal(t.name, 'Genauer umsehen');
   assert.equal(t.via, 'Inspektorin Marlowe');
   assert.match(t.because, /Marlowe braucht/);
   assert.match(t.because, /„Miss Wrens Grund“ ist erst eine Vermutung/);
   assert.match(t.because, /1 von 2 Quellen/);
-  assert.match(t.because, /Briefe auf dem Pult/);
+  assert.match(t.because, /im Ort „Kontor Thorne am Altmarkt“ umsehen/);
+  assert.ok(!t.because.includes('Briefe'), 'das Objekt selbst bleibt geheim');
   // Mit der zweiten Quelle ist der Weg frei: zurück zu Marlowe, ohne Erklärung
   s.addClue('pfaendung_letter');
   const t2 = questTarget(s, 'case_07');
@@ -69,7 +72,7 @@ test('Notizbuch: offene Vermutungen nennen die schwache Information und ihren Fu
   assert.deepEqual(open.map((g) => g.deduction.id), ['link_motive']);
   const text = gapText(open[0]);
   assert.match(text, /Thorne wollte das Waisenhaus/);
-  assert.match(text, /1 von 2 Quellen → Die Briefe auf dem Pult lesen \(Kontor Thorne am Altmarkt\)/);
+  assert.match(text, /1 von 2 Quellen → im Ort „Kontor Thorne am Altmarkt“ umsehen/);
   assert.equal(openGuesses(s, 'case_07').length, 0, 'd7_child und d7_canal sind gesichert');
   // Gesichert → keine Lücke mehr
   s.addClue('pfaendung_letter');
@@ -103,6 +106,12 @@ test('Wegweiser: fehlt die Information für eine Schlussfolgerung noch ganz, zei
   assert.equal(t.notebook, undefined);
   s.addClue('chute_prints');
   assert.ok(questTarget(s, 'case_07').notebook, 'jetzt sind beide bekannt: verknüpfen');
+});
+
+test('Fundorte für den Spieler nennen bei Objekten nur den Ort, bei Personen den Namen', () => {
+  const origins = clueOrigins(content);
+  assert.equal(origins.pfaendung_letter[0].hint, 'im Ort „Kontor Thorne am Altmarkt“ umsehen');
+  assert.match(origins.clara_protest[0].hint, /^Clara Benning fragen/);
 });
 
 test('Fundstücke zählen als Fundort: Hinweise aus „Untersuchen“ im Inventar haben eine Herkunft', () => {
@@ -139,7 +148,8 @@ test('Marlowes Rat: nennt Schritt, fehlende zweite Quelle und Fundort, in ihrer 
   const lines = advice(s, 'marlowe');
   assert.match(lines[0], /^Fall 7, Ertrunken im Trockenen, als Nächstes: „Berichte Marlowe/);
   assert.match(lines[0], /Ich brauche (für den besten Ausgang )?erst:/);
-  assert.match(lines[0], /Briefe auf dem Pult lesen \(Kontor Thorne am Altmarkt\)/);
+  assert.match(lines[0], /im Ort „Kontor Thorne am Altmarkt“ umsehen/);
+  assert.ok(!lines[0].includes('Pult'));
   assert.ok(!lines[0].includes('Inspektorin Marlowe braucht'));
 });
 
