@@ -83,8 +83,7 @@
             "flat": 16,
             "holy": true,
             "stun": true,
-            "composure": 10,
-            "desc": "Ein greller Lichtblitz. 16 Schaden, doppelt gegen Okkultes, der Gegner setzt eine Runde aus. Kostet 10 Nerven."
+            "desc": "Ein greller Lichtblitz. 16 Schaden, doppelt gegen Okkultes, der Gegner setzt eine Runde aus."
           },
           "passives": [
             {
@@ -172,8 +171,7 @@
               5,
               3
             ],
-            "composure": 15,
-            "desc": "Du lässt alles Licht auf einmal los. 30 Schaden, doppelt gegen Okkultes, der Gegner setzt aus und brennt 3 Runden. Kostet 15 Nerven."
+            "desc": "Du lässt alles Licht auf einmal los. 30 Schaden, doppelt gegen Okkultes, der Gegner setzt aus und brennt 3 Runden."
           },
           "passives": [
             {
@@ -674,8 +672,7 @@
             "hits": 1,
             "flat": 7,
             "holy": true,
-            "composure": 5,
-            "desc": "Ein Ton, der nur Tote quält. 7 Schaden, doppelt gegen Okkultes. Kostet 5 Nerven."
+            "desc": "Ein Ton, der nur Tote quält. 7 Schaden, doppelt gegen Okkultes."
           },
           "passives": [
             {
@@ -699,8 +696,7 @@
             "cost": 3,
             "hits": 0,
             "stun": true,
-            "composure": 10,
-            "desc": "Eine Stimme aus dem Grab. Der Gegner erstarrt und setzt eine Runde aus. Kostet 10 Nerven."
+            "desc": "Eine Stimme aus dem Grab. Der Gegner erstarrt und setzt eine Runde aus."
           },
           "passives": [
             {
@@ -762,8 +758,7 @@
             "hits": 3,
             "flat": 7,
             "holy": true,
-            "composure": 10,
-            "desc": "Drei Stimmen singen mit dir. Je 7 Schaden, doppelt gegen Okkultes. Kostet 10 Nerven."
+            "desc": "Drei Stimmen singen mit dir. Je 7 Schaden, doppelt gegen Okkultes."
           },
           "passives": [
             {
@@ -810,8 +805,7 @@
             "flat": 24,
             "drain": 0.6,
             "stun": true,
-            "composure": 15,
-            "desc": "Ein Lied, das Atem stiehlt. 24 Schaden, 60 % davon heilen dich, der Gegner erstarrt. Kostet 15 Nerven."
+            "desc": "Ein Lied, das Atem stiehlt. 24 Schaden, 60 % davon heilen dich, der Gegner erstarrt."
           },
           "passives": [
             {
@@ -1780,6 +1774,221 @@
       "boss": 0.2
     },
     "list": {
+      "atemperle": {
+        "name": "Atemperle der Taucherin",
+        "source": "wild",
+        "zones": [
+          "wx_salzwatt",
+          "wx_leuchtturm"
+        ],
+        "price": 120,
+        "icon": "moorperle",
+        "desc": "Eine graue Perle, die nach Tang und Salz riecht. Wer sie unter der Zunge hält, atmet ruhig, auch wenn der Gegner zum dritten Mal ausholt. Dafür bleibt kein Platz für Gedanken.",
+        "boons": [
+          {
+            "key": "round_nerves",
+            "value": 5,
+            "text": "+5 Nerven zu Beginn jeder Kampfrunde."
+          }
+        ],
+        "curses": [
+          {
+            "key": "ap_max",
+            "value": -2,
+            "text": "-2 Höchstkonzentration."
+          },
+          {
+            "key": "heal_bonus",
+            "value": 0.6,
+            "text": "Heilung wirkt nur zu 60 %."
+          }
+        ]
+      },
+      "blutsalz_phiole": {
+        "name": "Blutsalz-Phiole",
+        "source": "wild",
+        "zones": [
+          "marsch",
+          "wx_torfbrueche"
+        ],
+        "price": 90,
+        "icon": "salzkristall",
+        "desc": "Eine Phiole mit rotem Salz aus dem Moor. Es knistert, wenn ein Schlag auf dich zukommt, und zieht die Angst aus den Fingern. Es zieht auch anderes.",
+        "boons": [
+          {
+            "key": "round_nerves",
+            "value": 4,
+            "text": "+4 Nerven zu Beginn jeder Kampfrunde."
+          },
+          {
+            "key": "parry_nerves",
+            "value": 2,
+            "text": "Paraden bringen 2 Nerven mehr."
+          }
+        ],
+        "curses": [
+          {
+            "key": "ap_blood",
+            "value": 1,
+            "text": "Jeder Punkt Konzentration, den du ausgibst, kostet 1 Leben."
+          },
+          {
+            "key": "heal_bonus",
+            "value": 0.7,
+            "text": "Heilung wirkt nur zu 70 %."
+          }
+        ]
+      },
+      "knoechelring_preisboxer": {
+        "name": "Knöchelring des Preisboxers",
+        "source": "treffen",
+        "price": 125,
+        "icon": "siegelring",
+        "desc": "Ein Eisenring für den Mittelfinger, blank geschlagen von hundert Fausthieben. Wer ihn trägt, will keinem Schlag ausweichen. Er will ihn fangen.",
+        "boons": [
+          {
+            "key": "parry_ap",
+            "value": 1,
+            "text": "Paraden bringen 1 Konzentration mehr."
+          },
+          {
+            "key": "parry_nerves",
+            "value": 4,
+            "text": "Paraden bringen 4 Nerven mehr."
+          }
+        ],
+        "curses": [
+          {
+            "key": "dodge_cost",
+            "value": 4,
+            "text": "Ausweichen kostet 4 Nerven mehr."
+          },
+          {
+            "key": "damage_taken",
+            "value": 1.15,
+            "text": "Du nimmst 15 % mehr Schaden."
+          }
+        ]
+      },
+      "trommelfell_ausrufer": {
+        "name": "Trommelfell des Ausrufers",
+        "source": "treffen",
+        "price": 115,
+        "icon": "bronzeglocke_klein",
+        "desc": "Eine Membran aus Pergament in einem Messingring, angeblich das Trommelfell eines Marktausrufers, der nie heiser wurde. Nichts bringt dich so leicht aus der Ruhe. Aber du brauchst länger, bis du zuschlägst.",
+        "boons": [
+          {
+            "key": "max_nerves",
+            "value": 25,
+            "text": "+25 Nerven."
+          },
+          {
+            "key": "composure_regen",
+            "value": 1.3,
+            "text": "Nerven erholen sich 30 % schneller."
+          }
+        ],
+        "curses": [
+          {
+            "key": "ap_max",
+            "value": -1,
+            "text": "-1 Höchstkonzentration."
+          },
+          {
+            "key": "ap_start",
+            "value": -1,
+            "text": "Du beginnst jeden Kampf mit 1 Konzentration weniger."
+          },
+          {
+            "key": "damage_taken",
+            "value": 1.1,
+            "text": "Du nimmst 10 % mehr Schaden."
+          }
+        ]
+      },
+      "glasnerv": {
+        "name": "Glasnerv",
+        "source": "artisan",
+        "price": 170,
+        "icon": "glasfeder",
+        "desc": "Ein Strang aus Glasfedern und Geisterkern, zu einem Nerv gefasst, der nicht reißt. Er hält mehr aus als deine eigenen. Dafür spürst du jeden Schlag doppelt.",
+        "boons": [
+          {
+            "key": "max_nerves",
+            "value": 40,
+            "text": "+40 Nerven."
+          }
+        ],
+        "curses": [
+          {
+            "key": "damage_taken",
+            "value": 1.25,
+            "text": "Du nimmst 25 % mehr Schaden."
+          },
+          {
+            "key": "dodge_cost",
+            "value": 3,
+            "text": "Ausweichen kostet 3 Nerven mehr."
+          }
+        ]
+      },
+      "nervenfaden_weberin": {
+        "name": "Nervenfaden der Weberin",
+        "source": "artisan",
+        "price": 150,
+        "icon": "wachsdocht",
+        "desc": "Ein Docht, mit Madenwachs gespult und so straff gespannt, dass er singt. Er hält drei Gedanken mehr, als in deinen Kopf passen. Jede Runde reißt er ein Stück weiter.",
+        "boons": [
+          {
+            "key": "ap_max",
+            "value": 3,
+            "text": "+3 Höchstkonzentration."
+          }
+        ],
+        "curses": [
+          {
+            "key": "round_nerves",
+            "value": -5,
+            "text": "Jede Kampfrunde kostet 5 Nerven."
+          },
+          {
+            "key": "max_nerves",
+            "value": -20,
+            "text": "-20 Nerven."
+          }
+        ]
+      },
+      "moorzunder": {
+        "name": "Moorzunder",
+        "source": "artisan",
+        "price": 130,
+        "icon": "irrlichtfunke",
+        "desc": "Irrlichtfunken in schwarzem Kerzenwachs. Zünde ihn im Kopf, und die Fertigkeiten kommen fast umsonst. Was er stattdessen frisst, merkst du erst, wenn die Stimmen anfangen.",
+        "boons": [
+          {
+            "key": "skill_composure",
+            "value": 0.4,
+            "text": "Fertigkeiten kosten 60 % weniger Nerven."
+          }
+        ],
+        "curses": [
+          {
+            "key": "skill_unruhe",
+            "value": 4,
+            "text": "Jede Fertigkeit bringt 4 Unruhe."
+          },
+          {
+            "key": "max_hp",
+            "value": -12,
+            "text": "-12 Leben."
+          },
+          {
+            "key": "vision_cost",
+            "value": 1.5,
+            "text": "Geistsicht kostet 50 % mehr Nerven."
+          }
+        ]
+      },
       "uhr_ertrunkener": {
         "name": "Uhr des Ertrunkenen",
         "source": "revier",
