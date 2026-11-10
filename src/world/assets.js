@@ -1058,7 +1058,10 @@ const ICON32 = ['stimmphiole', 'verlorenes_gesangbuch', 'spiegelscherbe', ...F_E
   // Ausrüstung aus Paket G, J und K
   'mantel_moor', 'hut_schnabel', 'amulett_moorperle', 'knochenmesser', 'wachsamulett', 'glasfibel', 'sternglasdolch', 'geweihreif',
   'amulett_wiegenlied', 'mantel_giesser', 'taktstock_vey', 'hut_chor', 'amulett_schatten', 'hut_maskenball', 'mantel_frack', 'blitzpulver'];
-export const itemIcon32Url = (id) => (id.startsWith('trank_') || ICON32.includes(id) || AG_ICONS(id) ? `${BASE}items/32/${standinIcon(id)}.png` : null);
+export const itemIcon32Url = (id) => {
+  const k = ITEM_ICON_ALIASES[id] ?? id;
+  return k.startsWith('trank_') || ICON32.includes(k) || AG_ICONS(k) ? `${BASE}items/32/${standinIcon(k)}.png` : null;
+};
 
 const srcKey = (sheet) => `src_${sheet}`;
 
@@ -1870,6 +1873,10 @@ export const X_ITEMS = ['nachtauge_brosche', 'bleierne_waage', 'kreidestummel', 
   'glaesernes_ohr', 'pfandmarke_alt', 'kleine_moorlaterne', 'eiserne_zunge', 'spiegelmuenze', 'fahrkarte_wexmoor', 'wundertonikum', 'pells_maske',
   'egelhaken', 'ossuarklinge', 'sternsplitter', 'empfehlungsschreiben'];
 ICON32.push(...X_ITEMS);
+/** Artefakte der Fasserin (geheime Treffen): bis eigene Bilder kommen, das Bild des Hauptbeutestücks. */
+export const ARTISAN_ICONS = { krone_der_sieben: 'rattenkrone', sternlicht_gespinst: 'sternhirschgeweih', glaskielfeder: 'glasfeder', herzkerze: 'wachsherz', perlenpaar: 'moorperle',
+  geisterspindel: 'geisterkern', leuchtturmmonokel: 'linsenscherbe', namenssiegel: 'madenwachs', gluehglocke: 'bronzeglocke_klein', doppelsiegel: 'ratssiegel' };
+Object.assign(ITEM_ICON_ALIASES, ARTISAN_ICONS);
 /** Fall 9: eigene Kampf-Sheets für Pratt, den Gesangbuchgeist, das Sternlicht und Starling. */
 export const X_FIGHTS = { pratt_fight: ['pratt', 48], gesangbuchgeist: ['gesangbuchgeist', 64], sternlicht: ['sternlicht', 64], starling_fight: ['starling', 96] };
 for (const [enc, [id, w]] of Object.entries(X_FIGHTS)) {
