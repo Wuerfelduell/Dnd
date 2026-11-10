@@ -3,7 +3,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { GameState } from '../src/core/GameState.js';
-import { questTarget, dialogueGate, sourceBlockers, guideIndex } from '../src/core/Guide.js';
+import { questTarget, dialogueGate, sourceBlockers, guideIndex, advice } from '../src/core/Guide.js';
 import { clueOrigins, deductionGap, gapText, openGuesses, knowledgeGaps, onlyKnowledgeMissing } from '../src/core/hints.js';
 import { loadContent } from './helpers.js';
 
@@ -133,16 +133,32 @@ test('Jede Information, die irgendwo gesichert sein muss, hat für jeden Hinweis
   assert.deepEqual(missing, []);
 });
 
-test('Wartezeit für den Tipp beginnt bei jedem Fortschritt neu', () => {
+test('Marlowes Rat: nennt Schritt, fehlende zweite Quelle und Fundort, in ihrer Stimme', () => {
+  const s = stuckInCase7();
+  s.track('case_07');
+  const lines = advice(s, 'marlowe');
+  assert.match(lines[0], /^Fall 7, Ertrunken im Trockenen, als Nächstes: „Berichte Marlowe/);
+  assert.match(lines[0], /Ich brauche (für den besten Ausgang )?erst:/);
+  assert.match(lines[0], /Briefe auf dem Pult lesen \(Kontor Thorne am Altmarkt\)/);
+  assert.ok(!lines[0].includes('Inspektorin Marlowe braucht'));
+});
+
+test('Marlowes Rat am Anfang eines Falls: wo nachsehen, wen fragen', () => {
   const s = new GameState(content);
-  s.tick(100);
-  assert.equal(s.idleSeconds, 100);
+  s.quests = { case_07: 'active' };
+  s.flags.add('briefed_07');
   s.addClue('police_thorne');
-  assert.equal(s.idleSeconds, 0);
-  s.tick(50);
-  s.applyEffects({ sets_flags: ['irgendwas_neues'] });
-  assert.equal(s.idleSeconds, 0);
-  s.tick(50);
-  s.applyEffects({ sets_flags: ['irgendwas_neues'] });
-  assert.equal(s.idleSeconds, 50, 'eine schon gesetzte Markierung ist kein Fortschritt');
+  const lines = advice(s, 'marlowe');
+  assert.match(lines[0], /Sieh dir das Kontor Thorne am Altmarkt an/);
+  assert.match(lines[0], /Sehen Sie sich das an|Fragen Sie/);
+  assert.ok(lines.length >= 2, 'dazu der Hinweis auf die schwache Information');
+  assert.match(lines[1], /steht erst auf einer Quelle|haben Sie noch nichts in der Hand/);
+  assert.match(lines.at(-1), /Nan Kettle hat nach Ihnen gefragt/);
+  // Beide Informationen bekannt: das Paar zum Verknüpfen
+  s.addClue('finch_found'); s.addClue('chute_prints');
+  assert.match(advice(s, 'marlowe')[0], /Verknüpfen Sie „.*“ mit „.*“/);
+  // Ohne Aufträge: Ruhe
+  const idle = new GameState(content);
+  idle.quests = {};
+  assert.match(advice(idle, 'marlowe')[0], /nichts an/);
 });
