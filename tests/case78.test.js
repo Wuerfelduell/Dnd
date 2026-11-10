@@ -4,6 +4,7 @@ import assert from 'node:assert/strict';
 import { GameState } from '../src/core/GameState.js';
 import { loadContent, talk, use, fight, SKILLED, EXPERT } from './helpers.js';
 import { nextDeduction } from '../src/core/hints.js';
+import { leadTarget } from '../src/core/Guide.js';
 
 const content = loadContent();
 const BOSS = { defend: EXPERT, healBelow: 15 };
@@ -148,4 +149,34 @@ test('Fall 7 und 8: vorschnell über den Tee verhaften', () => {
   talk(s, 'marlowe', ['St. Brigid', 'Tee', 'Holen']);
   assert.equal(s.endings.case_08, 'c8_early');
   assert.equal(s.quests.case_07, 'done');
+});
+
+test('Fall 8 kommt von Nan Kettle: ohne Fall 8 zeigen Spur, Wegweiser und Marlowe zum Nachtmarkt', () => {
+  const s = afterCase6();
+  // Nach dem Epilog von Fall 6 wartet Fall 7 bei Marlowe
+  assert.deepEqual(s.openLeads().map((l) => l.quest), ['case_07']);
+  assert.equal(leadTarget(s, s.openLeads()[0]).id, 'marlowe');
+  talk(s, 'marlowe', ['Kontor']);
+  // Fall 7 läuft, Fall 8 ist noch nicht abgeholt: die Spur zeigt auf Nan am Nachtmarkt
+  assert.deepEqual(s.openLeads().map((l) => l.quest), ['case_08']);
+  const t = leadTarget(s, s.openLeads()[0]);
+  assert.equal(t.map, 'nachtmarkt');
+  assert.equal(t.id, 'kind_streuner');
+  assert.equal(t.name, 'Nan Kettle');
+  // Fall 7 falsch abgeschlossen, ohne je bei Nan gewesen zu sein
+  talk(s, 'marlowe', ['Thorne ertrunken', 'Neffe']);
+  assert.equal(s.endings.case_07, 'c7_heir');
+  assert.equal(s.quests.case_08, undefined);
+  const hint = s.nextHint();
+  assert.ok(hint.lead && hint.quest.startsWith('Fall 8') && hint.text.includes('Nan Kettle'), 'Tipp nennt Nan');
+  // Marlowe: erst der Epilog, dann die Erinnerung an Nan, dann der Hub
+  talk(s, 'marlowe', ['leid']);
+  assert.ok(s.flags.has('epilogue7_seen'));
+  assert.equal(talk(s, 'marlowe', ['Was weiß', 'Nan'])[0], 'nan_reminder');
+  assert.equal(talk(s, 'marlowe')[0], 'hub');
+  // Bei Nan startet Fall 8, die Spur verschwindet
+  talk(s, 'kind_streuner', ['Erzähl', 'sehe mir']);
+  assert.equal(s.quests.case_08, 'active');
+  assert.deepEqual(s.openLeads(), []);
+  assert.equal(s.nextHint().lead, undefined);
 });

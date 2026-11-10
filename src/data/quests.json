@@ -1161,7 +1161,21 @@
           ]
         }
       }
-    ]
+    ],
+    "lead": {
+      "requires_flags": [
+        "epilogue6_seen"
+      ],
+      "hide_if_quests": [
+        "case_07"
+      ],
+      "text": "Inspektorin Marlowe hat einen neuen Fall für dich. Sprich sie im Revier an.",
+      "target": {
+        "map": "revier",
+        "id": "marlowe",
+        "label": "Inspektorin Marlowe"
+      }
+    }
   },
   "case_08": {
     "title": "Fall 8: Die Schlafwandler von St. Brigid",
@@ -1211,7 +1225,21 @@
           ]
         }
       }
-    ]
+    ],
+    "lead": {
+      "requires_flags": [
+        "briefed_07"
+      ],
+      "hide_if_quests": [
+        "case_08"
+      ],
+      "text": "Nan Kettle wartet am Nachtmarkt auf dich. Es geht um die Waisenkinder von St. Brigid. Diesen Fall bekommst du nicht von Marlowe.",
+      "target": {
+        "map": "nachtmarkt",
+        "id": "kind_streuner",
+        "label": "Nan Kettle"
+      }
+    }
   },
   "kopfgeld_laternendieb": {
     "title": "Kopfgeld: „Funzel“ Moe Harker",
@@ -1370,6 +1398,36 @@
           "requires_flags": [
             "case_09_closed"
           ]
+        }
+      }
+    ],
+    "lead": [
+      {
+        "requires_flags": [
+          "epilogue78_seen"
+        ],
+        "hide_if_quests": [
+          "case_09"
+        ],
+        "text": "Inspektorin Marlowe hat Post bekommen, die dich betrifft. Sprich sie im Revier an.",
+        "target": {
+          "map": "revier",
+          "id": "marlowe",
+          "label": "Inspektorin Marlowe"
+        }
+      },
+      {
+        "requires_flags": [
+          "epilogue8_seen"
+        ],
+        "hide_if_quests": [
+          "case_09"
+        ],
+        "text": "Inspektorin Marlowe hat Post bekommen, die dich betrifft. Sprich sie im Revier an.",
+        "target": {
+          "map": "revier",
+          "id": "marlowe",
+          "label": "Inspektorin Marlowe"
         }
       }
     ]

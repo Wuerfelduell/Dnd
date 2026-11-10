@@ -135,6 +135,16 @@
         ]
       },
       {
+        "node": "nan_reminder",
+        "requires_flags": [
+          "case_07_closed"
+        ],
+        "hide_if_flags": [
+          "briefed_08",
+          "nan_reminder_seen"
+        ]
+      },
+      {
         "node": "farewell9",
         "requires_flags": [
           "case_09_closed"
@@ -1602,6 +1612,31 @@
         "choices": [
           {
             "text": "Danke. Für alles.",
+            "next": "hub"
+          }
+        ]
+      },
+      "nan_reminder": {
+        "text": "Marlowe sieht nicht von der Akte auf. „Thorne ist abgeheftet. Und Sie stehen hier herum.\n\nDie kleine Kettle vom Nachtmarkt hat heute wieder nach Ihnen gefragt. Zum dritten Mal. Waisenkinder, die nachts herumlaufen, ein Junge, der fehlt. Ich habe keinen Constable dafür übrig, und Price lacht sie aus.\n\nGehen Sie zum Nachtmarkt und hören Sie sich an, was sie zu sagen hat. Von mir bekommen Sie den nächsten Fall erst, wenn das erledigt ist.“",
+        "sets_flags": [
+          "nan_reminder_seen"
+        ],
+        "choices": [
+          {
+            "text": "Ich gehe zu Nan.",
+            "next": "hub"
+          },
+          {
+            "text": "Was weiß sie denn?",
+            "next": "nan_reminder2"
+          }
+        ]
+      },
+      "nan_reminder2": {
+        "text": "„Dass die Kinder aus St. Brigid in Ashgrove barfuß am Kanal stehen, mitten in der Nacht, mit offenen Augen. Mehr hat sie mir nicht gesagt. Sie redet nur mit Ihnen.“\n\n(Fall 8 beginnt bei Nan Kettle am Nachtmarkt, nicht im Revier.)",
+        "choices": [
+          {
+            "text": "Ich gehe zu Nan.",
             "next": "hub"
           }
         ]

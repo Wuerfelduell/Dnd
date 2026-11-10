@@ -18,7 +18,7 @@ import { MOOD_LABEL } from '../core/Relations.js';
 import { koopGreeting } from '../core/Koop.js';
 import { isSolved, knownPeople } from '../core/journal.js';
 import { canHurry, travelSafe, travelFast, afterHurryFight, travelDestinations, cityOf } from '../core/Travel.js';
-import { questTarget } from '../core/Guide.js';
+import { questTarget, leadTarget } from '../core/Guide.js';
 
 /** 16x16-Icon vor einem Item-Namen. Lädt es nicht, verschwindet es einfach. */
 const itemIcon = (id) => (PULSE_ICONS[id] ? `<span class="item-icon pulse" style="background-image:url(${PULSE_ICONS[id]})"></span>` : `<img class="item-icon" src="${itemIconUrl(id)}" alt="" width="16" height="16" onerror="this.remove()">`);
@@ -553,9 +553,10 @@ export class Ui {
     const el = this.$('.goal');
     if (!el) return;
     const s = this.state;
-    const t = s.tracked ? questTarget(s, s.tracked) : null;
+    // Ohne verfolgten Auftrag zeigt der Wegweiser die nächste offene Spur (z. B. Nan Kettle für Fall 8).
+    const t = s.tracked ? questTarget(s, s.tracked) : leadTarget(s, s.openLeads()[0]);
     el.classList.toggle('hidden', !t);
-    if (t) el.innerHTML = `<span class="arrow">➤</span> ${esc(this.goalText(t))}<span class="gstep">${esc(t.step)}</span>`;
+    if (t) el.innerHTML = `<span class="arrow">➤</span> ${esc(this.goalText(t))}<span class="gstep">${esc(t.lead ? `Neue Spur: ${s.quest(t.quest).title}` : t.step)}</span>`;
   }
 
   updateGathering() {
@@ -1015,7 +1016,7 @@ export class Ui {
     this.travelFrom = current;
     const pins = rules.pins ?? {};
     this.travelPins = pins;
-    const goal = s.tracked ? questTarget(s, s.tracked) : null;
+    const goal = s.tracked ? questTarget(s, s.tracked) : leadTarget(s, s.openLeads()[0]);
     const goalMap = goal?.district ?? null;
     const meetMap = s.gatheringTarget?.()?.district ?? null;
     const pin = (map, cls, inner, attrs = '') => {
@@ -1317,7 +1318,7 @@ export class Ui {
     const ids = Object.keys(s.quests);
     const order = (q) => (s.quests[q] === 'active' ? 0 : 1) * 10 + (s.quest(q).kind === 'main' ? 0 : 1);
     ids.sort((a, b) => order(a) - order(b));
-    if (!ids.length) return '<p class="empty">Noch keine Aufträge.</p>';
+    if (!ids.length && !s.openLeads().length) return '<p class="empty">Noch keine Aufträge.</p>';
     const row = (id) => {
       const q = s.quest(id);
       const st = s.quests[id];
@@ -1329,11 +1330,19 @@ export class Ui {
       return `<li class="quest ${st} ${tracked ? 'tracked' : ''}" ${active ? `data-track="${id}"` : ''}><div class="qtitle">${uiSprite('qstatus', !active ? 'q1' : tracked ? 'q6' : q.kind === 'main' ? 'q5' : 'q2', 1 / 12, 'qico')}<span class="qkind">${q.kind === 'main' ? 'Hauptfall' : 'Nebenauftrag'}</span> ${esc(q.title)} ${!active ? '<span class="badge likely">erledigt</span>' : ''}${tracked ? '<span class="badge track">verfolgt</span>' : ''}</div>
         ${active ? `<div class="qsum">${q.wanted ? wantedImg(q.wanted, false) : ''}${esc(q.summary)}</div>` : ''}${steps}${goal}</li>`;
     };
+    // Offene Spuren: Aufträge, die noch abgeholt werden müssen (z. B. Fall 8 bei Nan Kettle am Nachtmarkt)
+    const leadRow = (l) => {
+      const t = leadTarget(s, l);
+      const q = s.quest(l.quest);
+      return `<li class="quest lead"><div class="qtitle">${uiSprite('qstatus', 'q2', 1 / 12, 'qico')}<span class="qkind">Neue Spur</span> ${esc(q.title)}</div>
+        <div class="qsum">${esc(l.text)}</div>${t ? `<div class="qgoal">➤ ${esc(this.goalText(t))}</div>` : ''}</li>`;
+    };
+    const leads = s.openLeads().map(leadRow).join('');
     // Erledigte Aufträge zusammengeklappt, damit die offenen oben sichtbar bleiben
     const open = ids.filter((id) => s.quests[id] === 'active');
     const closed = ids.filter((id) => s.quests[id] !== 'active');
     return `<p class="hintline">Klicke auf einen Auftrag, um ihn zu verfolgen. Ein Pfeil zeigt dir dann den Weg.</p>
-      <ul class="quests">${open.map(row).join('') || '<li class="empty">Gerade keine offenen Aufträge.</li>'}</ul>
+      <ul class="quests">${leads}${open.map(row).join('') || (leads ? '' : '<li class="empty">Gerade keine offenen Aufträge.</li>')}</ul>
       ${closed.length ? `<details class="closed-quests"><summary>Erledigt (${closed.length})</summary><ul class="quests">${closed.map(row).join('')}</ul></details>` : ''}`;
   }
 
