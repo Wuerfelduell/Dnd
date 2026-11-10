@@ -131,7 +131,17 @@ const LATE = ['choir_zealots', 'rook_fight', 'gasgeist', 'felix_fight', 'uhrwerk
 const BOSSES = ['ash_warden', 'rook_fight', 'felix_fight', 'mirror_shade', 'fog_hound', 'rost_schmied', 'rost_vater', 'schleier_seherin', 'schleier_mutter',
   'bronzeengel', 'miriam', 'dreizehnter_gast', 'traumfaden', 'miss_wren', 'sternlicht', 'starling_fight'];
 
-const NEEDS_SEQ7 = ['miss_wren', 'starling_fight'];
+// Ab Fall 4 verlangen die Gegner einen Pfad: Fall 4 Sequenz 9 (Nachtmarkt), Fall 5/6 und die Nebenaufträge
+// Kettlegate Sequenz 8, Fall 7/8 und Fall 9 den Durchbruch auf Sequenz 7.
+const NEEDS_SEQ = Object.fromEntries([
+  ...['gasgeist', 'felix_fight', 'uhrwerkwaechter', 'kanalkroete', 'maskenspieler', 'schlachtergehilfe'].map((id) => [id, 9]),
+  ...['chorwaechter', 'stimmenfresser', 'bronzeengel', 'glockenecho', 'miriam', 'schattenabzug', 'negativ_geist', 'silberbad_schleim', 'dreizehnter_gast', 'pratt_fight'].map((id) => [id, 8]),
+  ...Object.keys(content.encounters).filter((id) => id.startsWith('kg_')).map((id) => [id, 8]),
+  ...['ertrunkener', 'pfandeintreiber', 'traumfaden', 'miss_wren', 'sternlicht', 'starling_fight'].map((id) => [id, 7]),
+]);
+const NEEDS_SEQ7 = Object.keys(NEEDS_SEQ).filter((id) => NEEDS_SEQ[id] === 7);
+/** Fertigkeit des Eisen-Pfads, die man auf dieser Sequenz hat (Wuchtschlag ab 9, Klingenwirbel ab 7). */
+const SEQ_SKILL = (seq) => (seq ? (seq <= 7 ? 'klingenwirbel' : 'wuchtschlag') : 'attack');
 
 test('Balance: Geübte Spieler (Bosse: sehr Geübte) schaffen mit Startausrüstung jeden Kampf', () => {
   // Wer von drei Schlägen einem ausweicht, einen pariert und unter 15 Leben verbindet, gewinnt.
@@ -143,11 +153,11 @@ test('Balance: Geübte Spieler (Bosse: sehr Geübte) schaffen mit Startausrüstu
     if (items.length) s.addItem('bannsalz', 2);
     // Ab Fall 3 hat man längst den Dienstschlagstock von Holt.
     if (LATE.includes(id)) s.addItem('schlagstock');
-    // Miss Wren (Fall 7/8) und Starling (Fall 9) verlangen den Durchbruch auf Sequenz 7
-    if (NEEDS_SEQ7.includes(id)) { s.pathway = { id: 'eisen', seq: 7, digestion: 0 }; s.updateMaxHp(); s.hp = s.maxHp; }
+    // Ab Fall 4 ist man auf dem Pfad: Sequenz 9, später 8, für Fall 7 bis 9 der Durchbruch auf 7
+    if (NEEDS_SEQ[id]) { s.pathway = { id: 'eisen', seq: NEEDS_SEQ[id], digestion: 0 }; s.updateMaxHp(); s.hp = s.maxHp; }
     // Bosse der Geschichte verlangen sauberes Timing
     const defend = BOSSES.includes(id) ? EXPERT : SKILLED;
-    const skill = NEEDS_SEQ7.includes(id) ? 'klingenwirbel' : 'attack';
+    const skill = SEQ_SKILL(NEEDS_SEQ[id]);
     const { result, combat } = fight(s, id, { defend, items, skill, healBelow: 15 });
     assert.equal(result.outcome, 'won', `${id}: verloren in Runde ${combat.round}`);
   }

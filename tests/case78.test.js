@@ -7,7 +7,8 @@ import { nextDeduction } from '../src/core/hints.js';
 import { leadTarget } from '../src/core/Guide.js';
 
 const content = loadContent();
-const BOSS = { defend: EXPERT, healBelow: 15 };
+// Mit Sequenz 7 schlägt man mit dem Klingenwirbel zu; Bosse verlangen sauberes Timing
+const BOSS = { defend: EXPERT, skill: 'klingenwirbel', healBelow: 15 };
 
 /** Zustand nach Fall 6 (Epilog gesehen). */
 function afterCase6() {

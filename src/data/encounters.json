@@ -386,19 +386,19 @@
     "name": "Kanalkröte",
     "sprite": "rats",
     "fleeable": true,
-    "hp": 36,
+    "hp": 54,
     "intro": "Das Wasser in der Kammer wölbt sich. Eine Kröte, groß wie ein Kutschpferd, schiebt sich hervor. Ihre Haut glänzt giftig gelb im Licht des Leuchtmooses.",
     "attacks": [
       {
         "name": "Zungenschlag",
-        "damage": 6,
+        "damage": 8,
         "hits": [
           700
         ]
       },
       {
         "name": "Giftspritzer",
-        "damage": 3,
+        "damage": 4,
         "hits": [
           600,
           850,
@@ -407,7 +407,7 @@
       },
       {
         "name": "Bauchplatscher",
-        "damage": 10,
+        "damage": 13,
         "hits": [
           1900
         ]
@@ -440,12 +440,12 @@
     "sprite": "apparition",
     "occult": true,
     "fleeable": true,
-    "hp": 40,
+    "hp": 54,
     "intro": "Aus einem lecken Rohr quillt blassgelbes Gas und formt ein Gesicht mit leeren Augen. Es singt drei Töne, und der Gang wird kalt.",
     "attacks": [
       {
         "name": "Erstickender Hauch",
-        "damage": 5,
+        "damage": 7,
         "hits": [
           900,
           1300
@@ -453,7 +453,7 @@
       },
       {
         "name": "Flackern",
-        "damage": 3,
+        "damage": 4,
         "hits": [
           500,
           800,
@@ -463,7 +463,7 @@
       },
       {
         "name": "Verpuffung",
-        "damage": 11,
+        "damage": 14,
         "hits": [
           2000
         ]
@@ -495,19 +495,19 @@
     "name": "Uhrwerkwächter",
     "sprite": "warden",
     "fleeable": true,
-    "hp": 36,
+    "hp": 48,
     "intro": "Zahnräder rasseln. Eine Messingfigur in Wächteruniform dreht den Kopf mit einem Ruck zu dir. Auf ihrer Brust tickt ein Uhrwerk, und jemand hat ein Auge in das Zifferblatt geritzt.",
     "attacks": [
       {
         "name": "Taktschlag",
-        "damage": 6,
+        "damage": 8,
         "hits": [
           1000
         ]
       },
       {
         "name": "Viertelstunde",
-        "damage": 4,
+        "damage": 5,
         "hits": [
           600,
           900,
@@ -517,7 +517,7 @@
       },
       {
         "name": "Volle Stunde",
-        "damage": 10,
+        "damage": 13,
         "hits": [
           2100
         ]
@@ -549,19 +549,19 @@
     "name": "Der Maskenspieler",
     "sprite": "npc:maskenmacher",
     "fleeable": false,
-    "hp": 34,
+    "hp": 52,
     "intro": "Eine Gestalt mit weißer Halbmaske verbeugt sich übertrieben tief. „Applaus, Applaus! Leider muss der Herr Ermittler die Vorstellung früh verlassen.“",
     "attacks": [
       {
         "name": "Degenstoß",
-        "damage": 6,
+        "damage": 8,
         "hits": [
           800
         ]
       },
       {
         "name": "Finte und Stoß",
-        "damage": 5,
+        "damage": 7,
         "hits": [
           600,
           1400
@@ -569,7 +569,7 @@
       },
       {
         "name": "Großer Auftritt",
-        "damage": 9,
+        "damage": 12,
         "hits": [
           1800
         ]
@@ -593,19 +593,19 @@
     "name": "Knox, der Schlachtergehilfe",
     "sprite": "npc:schlachtermeister",
     "fleeable": false,
-    "hp": 40,
+    "hp": 56,
     "intro": "Knox wischt die Hände an der Schürze ab und greift nach einem Fleischerhaken. „Der Meister hätte dem Jungen geglaubt. Jetzt muss ich mir was überlegen.“",
     "attacks": [
       {
         "name": "Hakenschwung",
-        "damage": 7,
+        "damage": 9,
         "hits": [
           1000
         ]
       },
       {
         "name": "Rempeln",
-        "damage": 4,
+        "damage": 5,
         "hits": [
           600,
           950
@@ -613,7 +613,7 @@
       },
       {
         "name": "Fassstoß",
-        "damage": 10,
+        "damage": 13,
         "hits": [
           1900
         ]
@@ -635,12 +635,12 @@
     "sprite": "npc:souffleur",
     "occult": true,
     "fleeable": false,
-    "hp": 42,
+    "hp": 54,
     "intro": "Felix steht zwischen den Zahnrädern, umgeben von Phiolen voller Licht. Als er den Mund öffnet, singt nicht er, sondern ein Dutzend fremder Stimmen zugleich.",
     "attacks": [
       {
         "name": "Fremde Arie",
-        "damage": 6,
+        "damage": 8,
         "hits": [
           900,
           1500
@@ -648,7 +648,7 @@
       },
       {
         "name": "Chor",
-        "damage": 4,
+        "damage": 5,
         "hits": [
           600,
           850,
@@ -658,14 +658,14 @@
       },
       {
         "name": "Der hohe Ton",
-        "damage": 12,
+        "damage": 13,
         "hits": [
           2100
         ]
       },
       {
         "name": "Souffliert",
-        "damage": 7,
+        "damage": 8,
         "hits": [
           700
         ]
@@ -687,7 +687,9 @@
       "spawn": "default"
     },
     "lose_text": "Die Stimmen drücken dich zu Boden, bis du nichts mehr hörst. Du wachst am Fuß der Treppe auf. Oben singt es noch.",
-    "win_text": "Felix sinkt gegen ein Zahnrad. Die fremden Stimmen verstummen, nur seine eigene bleibt, brüchig und klein. „Sie hat mich nie gehört“, flüstert er. „Kein einziges Mal.“"
+    "win_text": "Felix sinkt gegen ein Zahnrad. Die fremden Stimmen verstummen, nur seine eigene bleibt, brüchig und klein. „Sie hat mich nie gehört“, flüstert er. „Kein einziges Mal.“",
+    "armor": 1,
+    "ramp": 0.04
   },
   "gesangbuchgeist": {
     "name": "Chor der Seiten",
@@ -745,13 +747,13 @@
   "chorwaechter": {
     "name": "Chorwächter",
     "sprite": "npc:cultist",
-    "hp": 34,
+    "hp": 58,
     "fleeable": true,
     "intro": "Ein Mann in weißer Chorrobe tritt aus dem Ofenschatten. Er singt einen einzigen Ton und hört nicht auf.",
     "attacks": [
       {
         "name": "Taktstock",
-        "damage": 5,
+        "damage": 8,
         "hits": [
           700,
           1000
@@ -765,7 +767,7 @@
       },
       {
         "name": "Fortissimo",
-        "damage": 10,
+        "damage": 15,
         "hits": [
           1800
         ]
@@ -782,13 +784,13 @@
     "name": "Stimmenfresser",
     "sprite": "apparition",
     "occult": true,
-    "hp": 36,
+    "hp": 60,
     "fleeable": true,
     "intro": "Im Schatten hinter Lilians Bett bewegt sich ein Mund ohne Gesicht. Er flüstert mit deiner Stimme deinen Namen.",
     "attacks": [
       {
         "name": "Flüstern",
-        "damage": 3,
+        "damage": 4,
         "hits": [
           500,
           750,
@@ -799,7 +801,7 @@
       },
       {
         "name": "Verschlucken",
-        "damage": 8,
+        "damage": 11,
         "hits": [
           1500
         ]
@@ -822,20 +824,20 @@
     "name": "Bronzener Engel",
     "sprite": "warden",
     "occult": true,
-    "hp": 44,
+    "hp": 70,
     "fleeable": false,
     "intro": "An der Treppe steht eine Engelsfigur aus frischer Bronze, noch warm vom Guss. Als du näherkommst, hebt sie den Klöppel wie ein Schwert.",
     "attacks": [
       {
         "name": "Glockenschlag",
-        "damage": 9,
+        "damage": 11,
         "hits": [
           1200
         ]
       },
       {
         "name": "Nachklang",
-        "damage": 3,
+        "damage": 4,
         "hits": [
           600,
           900,
@@ -851,7 +853,7 @@
       },
       {
         "name": "Sturz",
-        "damage": 13,
+        "damage": 16,
         "hits": [
           2100
         ]
@@ -870,19 +872,20 @@
       "spawn": "kammer"
     },
     "lose_text": "Du wachst auf der Treppe auf. Unten summt die Glocke weiter.",
-    "win_text": "Der Engel kippt und zerspringt am Boden in zwei Hälften. Sein Klöppel rollt dir vor die Füße."
+    "win_text": "Der Engel kippt und zerspringt am Boden in zwei Hälften. Sein Klöppel rollt dir vor die Füße.",
+    "armor": 1
   },
   "glockenecho": {
     "name": "Glockenecho",
     "sprite": "apparition",
     "occult": true,
-    "hp": 30,
+    "hp": 50,
     "fleeable": true,
     "intro": "Ein Ton hängt in der Luft, der nicht aufhört. Er wird dichter, bis er eine Gestalt hat.",
     "attacks": [
       {
         "name": "Widerhall",
-        "damage": 4,
+        "damage": 6,
         "hits": [
           800,
           1300
@@ -890,7 +893,7 @@
       },
       {
         "name": "Überlagerung",
-        "damage": 3,
+        "damage": 4,
         "hits": [
           500,
           750,
@@ -910,19 +913,19 @@
     "sprite": "npc:miriam",
     "occult": true,
     "boss": true,
-    "hp": 50,
+    "hp": 66,
     "fleeable": false,
     "intro": "Miriam Vey steht vor der Glocke, das geliehene Gesicht halb abgestreift. „Sie hätten zuhören sollen, Ermittler. Nur ein einziges Mal zuhören.“\n\nSie hebt den Taktstock, und die Glocke antwortet.",
     "attacks": [
       {
         "name": "Wiegenlied",
         "action": "taunt",
-        "value": 12,
-        "text": "Lilians Wiegenlied, ganz leise. Deine Augen werden schwer. -12 Nerven."
+        "value": 15,
+        "text": "Lilians Wiegenlied, ganz leise. Deine Augen werden schwer. -15 Nerven."
       },
       {
         "name": "Sieben Stimmen",
-        "damage": 4,
+        "damage": 5,
         "hits": [
           600,
           850,
@@ -932,7 +935,7 @@
       },
       {
         "name": "Taktstock",
-        "damage": 7,
+        "damage": 8,
         "hits": [
           800,
           1200
@@ -940,7 +943,7 @@
       },
       {
         "name": "Der erste Schlag",
-        "damage": 12,
+        "damage": 14,
         "hits": [
           2200
         ]
@@ -948,8 +951,8 @@
       {
         "name": "Ein fremdes Gesicht",
         "action": "heal",
-        "value": 6,
-        "text": "Sie streicht über ihr Gesicht, und die Wunde gehört plötzlich jemand anderem. +7 Leben."
+        "value": 8,
+        "text": "Sie streicht über ihr Gesicht, und die Wunde gehört plötzlich jemand anderem. +8 Leben."
       }
     ],
     "weak_if": {
@@ -970,26 +973,28 @@
       "spawn": "kammer"
     },
     "lose_text": "Du kommst oben in der Gießerei zu dir. Aus der Kammer klingt ein Wiegenlied. Es ist noch nicht Neumond. Noch nicht ganz.",
-    "win_text": "Vey sinkt gegen die Glocke. Der Taktstock fällt ihr aus der Hand. Die Glocke summt weiter, sieben Stimmen tief."
+    "win_text": "Vey sinkt gegen die Glocke. Der Taktstock fällt ihr aus der Hand. Die Glocke summt weiter, sieben Stimmen tief.",
+    "armor": 2,
+    "ramp": 0.03
   },
   "schattenabzug": {
     "name": "Schattenabzug",
     "sprite": "apparition",
     "occult": true,
-    "hp": 30,
+    "hp": 52,
     "fleeable": true,
     "intro": "Ein Schatten löst sich von der Wand, obwohl niemand vor ihr steht. Er hat die Umrisse eines Offiziers.",
     "attacks": [
       {
         "name": "Kalter Griff",
-        "damage": 5,
+        "damage": 7,
         "hits": [
           900
         ]
       },
       {
         "name": "Flackern",
-        "damage": 3,
+        "damage": 4,
         "hits": [
           500,
           800,
@@ -1008,13 +1013,13 @@
     "name": "Negativgeist",
     "sprite": "apparition",
     "occult": true,
-    "hp": 40,
+    "hp": 64,
     "fleeable": true,
     "intro": "Im roten Licht der Dunkelkammer steht eine Gestalt, weiß, wo sie schwarz sein sollte. Ein Mensch, umgekehrt.",
     "attacks": [
       {
         "name": "Blitzlicht",
-        "damage": 6,
+        "damage": 8,
         "hits": [
           1000
         ],
@@ -1022,7 +1027,7 @@
       },
       {
         "name": "Umkehrung",
-        "damage": 4,
+        "damage": 5,
         "hits": [
           600,
           900
@@ -1030,7 +1035,7 @@
       },
       {
         "name": "Überbelichtung",
-        "damage": 11,
+        "damage": 14,
         "hits": [
           1900
         ]
@@ -1050,13 +1055,13 @@
     "name": "Silberbadschleim",
     "sprite": "rats",
     "occult": true,
-    "hp": 38,
+    "hp": 62,
     "fleeable": true,
     "intro": "Die Pfütze glänzt wie flüssiger Spiegel. Dann richtet sie sich auf und zeigt dir dein Gesicht, falsch herum.",
     "attacks": [
       {
         "name": "Spritzer",
-        "damage": 3,
+        "damage": 4,
         "hits": [
           500,
           750,
@@ -1066,7 +1071,7 @@
       },
       {
         "name": "Ätzendes Silber",
-        "damage": 7,
+        "damage": 9,
         "hits": [
           1300
         ],
@@ -1091,13 +1096,13 @@
     "sprite": "npc:cultist",
     "occult": true,
     "boss": true,
-    "hp": 54,
+    "hp": 68,
     "fleeable": false,
     "intro": "Lucan Mews tritt aus den Spiegeln, und mit ihm zwölf Schatten, die nicht seine sind. „Sie waren so schön auf den Platten. Ich wollte nur auch einmal da sein.“",
     "attacks": [
       {
         "name": "Zwölf Schatten",
-        "damage": 3,
+        "damage": 4,
         "hits": [
           500,
           750,
@@ -1107,7 +1112,7 @@
       },
       {
         "name": "Blitzpulver",
-        "damage": 8,
+        "damage": 9,
         "hits": [
           1100
         ],
@@ -1116,12 +1121,12 @@
       {
         "name": "Geborgter Leib",
         "action": "heal",
-        "value": 5,
-        "text": "Ein fremder Schatten legt sich über seine Wunde. +5 Leben."
+        "value": 8,
+        "text": "Ein fremder Schatten legt sich über seine Wunde. +8 Leben."
       },
       {
         "name": "Spiegelsturz",
-        "damage": 13,
+        "damage": 14,
         "hits": [
           2000
         ]
@@ -1146,18 +1151,20 @@
     },
     "lose_text": "Du stehst draußen vor dem Kabinett und weißt nicht, wie du dorthin gekommen bist. Dein Schatten ist noch da. Fast ganz.",
     "win_text": "Lucan fällt, und die fremden Schatten fallen von ihm ab. Darunter ist ein dünner junger Mann, der zittert.",
-    "tint": "#b8c4d8"
+    "tint": "#b8c4d8",
+    "armor": 2,
+    "ramp": 0.03
   },
   "pratt_fight": {
     "name": "Dr. Horatio Pratt",
     "sprite": "npc:silas",
-    "hp": 30,
+    "hp": 52,
     "fleeable": true,
     "intro": "Pratt zieht einen Stockdegen aus seinem Gehstock. „Meine Kunden sind zufrieden, Herr Polizist!“",
     "attacks": [
       {
         "name": "Degenstich",
-        "damage": 5,
+        "damage": 7,
         "hits": [
           700,
           1050
@@ -1165,7 +1172,7 @@
       },
       {
         "name": "Flasche ins Gesicht",
-        "damage": 7,
+        "damage": 10,
         "hits": [
           1300
         ]
@@ -1187,20 +1194,20 @@
     "sprite": "apparition",
     "tint": "#7ab0a0",
     "occult": true,
-    "hp": 42,
+    "hp": 66,
     "fleeable": true,
     "intro": "Im Kohlenkeller steht eine Gestalt, aus der Wasser rinnt, ohne dass der Boden nass wird. Sie hat Thornes Gesicht, nur aufgedunsen.",
     "attacks": [
       {
         "name": "Schwall",
-        "damage": 8,
+        "damage": 10,
         "hits": [
           1100
         ]
       },
       {
         "name": "Gurgeln",
-        "damage": 4,
+        "damage": 5,
         "hits": [
           500,
           800,
@@ -1210,7 +1217,7 @@
       },
       {
         "name": "Nach unten ziehen",
-        "damage": 12,
+        "damage": 15,
         "hits": [
           1900
         ]
@@ -1227,20 +1234,20 @@
     "name": "Der Pfandeintreiber",
     "sprite": "npc:holt",
     "tint": "#a08a6a",
-    "hp": 44,
+    "hp": 70,
     "fleeable": true,
     "intro": "Ein breiter Mann mit Melone und Schuldbuch versperrt dir den Weg. „Thorne ist tot, aber die Schulden leben. Und Schnüffler zahlen extra.“",
     "attacks": [
       {
         "name": "Faustschlag",
-        "damage": 8,
+        "damage": 10,
         "hits": [
           900
         ]
       },
       {
         "name": "Schlagring",
-        "damage": 5,
+        "damage": 6,
         "hits": [
           600,
           900
@@ -1248,7 +1255,7 @@
       },
       {
         "name": "Kopfstoß",
-        "damage": 13,
+        "damage": 16,
         "hits": [
           1700
         ]
@@ -1262,7 +1269,8 @@
         "schuldbuch": 1
       }
     },
-    "win_text": "Er lässt das Schuldbuch fallen und rennt."
+    "win_text": "Er lässt das Schuldbuch fallen und rennt.",
+    "armor": 1
   },
   "traumfaden": {
     "name": "Gewebe aus Traumfäden",
@@ -1275,7 +1283,7 @@
     "attacks": [
       {
         "name": "Umspinnen",
-        "damage": 4,
+        "damage": 5,
         "hits": [
           500,
           750,
@@ -1291,14 +1299,14 @@
       },
       {
         "name": "Reißen",
-        "damage": 11,
+        "damage": 15,
         "hits": [
           1300
         ]
       },
       {
         "name": "Albtraum",
-        "damage": 15,
+        "damage": 20,
         "hits": [
           2000
         ]
@@ -1313,7 +1321,8 @@
       "map": "waisenhaus",
       "spawn": "keller"
     },
-    "win_text": "Die Fäden reißen und sinken zu Boden wie Staub."
+    "win_text": "Die Fäden reißen und sinken zu Boden wie Staub.",
+    "armor": 2
   },
   "miss_wren": {
     "name": "Miss Imogen Wren",
@@ -1333,7 +1342,7 @@
       },
       {
         "name": "Fadenhieb",
-        "damage": 5,
+        "damage": 6,
         "hits": [
           500,
           750,
@@ -1343,7 +1352,7 @@
       },
       {
         "name": "Silberschere",
-        "damage": 10,
+        "damage": 11,
         "hits": [
           900,
           1300
