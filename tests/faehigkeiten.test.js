@@ -34,6 +34,8 @@ test('Jede Sequenz jedes Pfades hat zwei Kampffertigkeiten und eine Welt-Fähigk
       for (const k of Object.keys(sd.talent)) assert.ok(WELT_KEYS.has(k), `${pid} ${n}: unbekanntes Weltfeld ${k}`);
       // Nicht übermächtig: zweite Fertigkeit kostet höchstens so viel wie die erste und hat nie mehr als 4 Konzentration
       assert.ok(sd.skill2.cost <= Math.max(sd.skill.cost, 4), `${pid} ${n}: ${sd.skill2.id} zu teuer`);
+      // Keine Fertigkeit zahlt sich selbst: Konzentration zurück immer weniger als die Kosten (sonst endlos wiederholbar)
+      if (sd.skill2.ap_gain) assert.ok(sd.skill2.ap_gain < sd.skill2.cost, `${pid} ${n}: ${sd.skill2.id} netto umsonst`);
       // Welt-Fähigkeit hat mindestens eine Wirkung
       assert.ok(['buff', 'calm', 'nerves_gain', 'heal_pct', 'hint', 'review', 'reveal', 'scare', 'clock', 'digest', 'wanted', 'money', 'scout'].some((k) => sd.talent[k] !== undefined), `${pid} ${n}: ${sd.talent.id} ohne Wirkung`);
     }
@@ -82,10 +84,10 @@ test('Kampf: Konzentration zurück, Nerven zurück, Schutz und Heilung für alle
   const rk = ck.useSkill('riechsalz', []);
   assert.equal(ck.bleed, null);
   assert.ok(rk.effects.includes('Blutung versiegt'));
-  // Dochtfunke (Laterne): kostet 1, gibt 1 zurück
+  // Dochtfunke (Laterne): kostet 2, gibt 1 zurück (netto nie umsonst, sonst ließe sie sich endlos wiederholen)
   const l = beyonder('laterne', 9);
   const cl = new Combat(l, 'archive_rats');
-  cl.ap = 1;
+  cl.ap = 2;
   cl.useSkill('dochtfunke', ['good']);
   assert.equal(cl.ap, 1);
   // heal_all heilt den Handelnden

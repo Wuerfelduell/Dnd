@@ -3,7 +3,7 @@
 
   "laterne": {
     "9": {
-      "kampf": { "id": "dochtfunke", "name": "Dochtfunke", "cost": 1, "hits": 1, "flat": 5, "holy": true, "ap_gain": 1, "fx": "lichtstoss", "desc": "Ein kleiner Funke vom Docht. 5 Schaden, doppelt gegen Okkultes, und die Konzentration kommt zurück." },
+      "kampf": { "id": "dochtfunke", "name": "Dochtfunke", "cost": 2, "hits": 1, "flat": 5, "holy": true, "ap_gain": 1, "fx": "lichtstoss", "desc": "Ein kleiner Funke vom Docht. 5 Schaden, doppelt gegen Okkultes, und 1 Konzentration kommt zurück." },
       "welt": { "id": "laternenschein", "name": "Laternenschein", "nerves": 6, "unruhe": 2, "cooldown": 90, "reveal": 20, "desc": "Du hebst die innere Laterne. 20 Sekunden lang zeigen sich verborgene Spuren auch ohne Geistsicht." }
     },
     "8": {
@@ -202,7 +202,7 @@
       "welt": { "id": "zaehne_zusammen", "name": "Zähne zusammen", "nerves": 0, "unruhe": 0, "cooldown": 240, "heal_pct": 0.15, "desc": "Du beißt die Zähne zusammen, bis es nicht mehr blutet. Heilt 15 % deines Lebens." }
     },
     "8": {
-      "kampf": { "id": "deckung", "name": "Deckung", "cost": 1, "hits": 0, "shield": 8, "ap_gain": 1, "fx": "eisenhaut", "desc": "Du nimmst die Arme hoch. Schutz 8, und die Konzentration bleibt dir." },
+      "kampf": { "id": "deckung", "name": "Deckung", "cost": 2, "hits": 0, "shield": 8, "ap_gain": 1, "fx": "eisenhaut", "desc": "Du nimmst die Arme hoch. Schutz 8, und 1 Konzentration kehrt zurück." },
       "welt": { "id": "wachstand", "name": "Wachstand", "nerves": 6, "unruhe": 2, "cooldown": 300, "buff": { "key": "parry_ap", "value": 1, "seconds": 240 }, "desc": "Du stehst, wie ein Wachposten steht. 4 Minuten lang geben Paraden 1 Konzentration mehr." }
     },
     "7": {
@@ -354,7 +354,7 @@
 
   "sq_uhr": {
     "9": {
-      "kampf": { "id": "uhr_vorgriff", "name": "Vorgriff", "cost": 1, "hits": 1, "flat": 5, "ap_gain": 1, "fx": "uhr_stufe_9", "desc": "Du setzt den Fuß früher. 5 Schaden, und die Konzentration kehrt zurück." },
+      "kampf": { "id": "uhr_vorgriff", "name": "Vorgriff", "cost": 2, "hits": 1, "flat": 5, "ap_gain": 1, "fx": "uhr_stufe_9", "desc": "Du setzt den Fuß früher. 5 Schaden, und 1 Konzentration kehrt zurück." },
       "welt": { "id": "uhr_taktzaehlen", "name": "Takt zählen", "nerves": 5, "unruhe": 0, "cooldown": 240, "buff": { "key": "dodge_window", "value": 1.3, "seconds": 180 }, "desc": "Du zählst die Schläge der Stadt mit. 3 Minuten lang ist das Ausweichfenster 30 % größer." }
     },
     "8": {
@@ -366,7 +366,7 @@
       "welt": { "id": "uhr_zoegern", "name": "Das Zögern", "nerves": 8, "unruhe": 2, "cooldown": 300, "hint": true, "desc": "Du hörst im Ablauf, wo etwas fehlt: Der Pfad sagt dir, was dein wichtigster Auftrag als Nächstes braucht." }
     },
     "6": {
-      "kampf": { "id": "uhr_gangreserve", "name": "Gangreserve", "cost": 2, "hits": 0, "evade": true, "ap_gain": 2, "fx": "uhr_stufe_6", "desc": "Du hebst dir einen Schlag auf. Der nächste Angriff geht ins Leere, 2 Konzentration kehren zurück." },
+      "kampf": { "id": "uhr_gangreserve", "name": "Gangreserve", "cost": 3, "hits": 0, "evade": true, "ap_gain": 2, "fx": "uhr_stufe_6", "desc": "Du hebst dir einen Schlag auf. Der nächste Angriff geht ins Leere, 2 Konzentration kehren zurück." },
       "welt": { "id": "uhr_anhalten", "name": "Uhr anhalten", "nerves": 10, "unruhe": 3, "cooldown": 480, "clock": 60, "desc": "Für dich laufen die Uhren der Stadt eine Minute lang nicht: Treffen, Fahndung und Tageszeit stehen still." }
     },
     "5": {
