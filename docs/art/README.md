@@ -1620,3 +1620,7 @@ Built-in Bildgenerator mit vorhandener Sprite-Referenz; Nearest-Neighbor-Export,
 - Vorschauen: [Gegenstände](preview-vorrat3-items.png), [Trophäen](preview-vorrat3-trophies.png); 16px vierfach, 32px zweifach vergrößert.
 - Normalisierte Bildgenerator-Master unter `docs/art/vorrat3-sources/`; Nearest-Neighbor-Export, gemeinsame 32-Farben-Palette und binäres Alpha.
 - Reproduzieren mit Python/Pillow: `python tools/art/vorrat3/export.py`; prüfen: `python tools/art/vorrat3/check.py`. Der Prüfer gleicht die IDs unabhängig mit der BM-Aufgabe ab und kontrolliert Maße, Transparenz, Palette, Rand, Duplikate und SHA-256-Herkunft.
+
+## BO – Fasserin (`fasserin`)
+
+26 PNGs: Oda Kessels Lauf- und Sitzanimation, vier Portraitstimmungen, 24×24-Kopf, Werkbank und Zangen sowie zehn bestehende Artefakte in 16×16 und 32×32. Gemeinsame Wexmoor7-Palette mit höchstens 32 sichtbaren Farben, indizierte PNGs, binäres Alpha. Manifest: `public/sprites/manifest-fasserin.json`; tatsächliche Bildprompts und Quellenprüfsummen: `docs/art/batch-fasserin-generation.json`. Export und Prüfung: `tools/art/fasserin/`. Texte, zehn weitere Rezepte und Integrationshinweise: `docs/story/fasserin/`. Spielcode und aktive Spieldaten bleiben unverändert.
