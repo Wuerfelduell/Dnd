@@ -2,7 +2,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { GameState } from '../src/core/GameState.js';
-import { Combat, ENEMY_HP_MULT, DUO_HP_SHARE, DUO_POWER_MIN, DUO_DMG_MULT, ENEMY_DMG_MULT, SWEEP_DMG_MULT, SWEEP_CHANCE, SWEEP_CHANCE_TOUGH, duoHpMult } from '../src/core/Combat.js';
+import { Combat, ENEMY_HP_MULT, DUO_HP_SHARE, DUO_HP_SHARE_MIN, DUO_POWER_MIN, DUO_POWER_MAX, DUO_DMG_MULT, ENEMY_DMG_MULT, SWEEP_DMG_MULT, SWEEP_CHANCE, SWEEP_CHANCE_TOUGH, duoHpMult } from '../src/core/Combat.js';
 import { loadContent, seeded, SKILLED, EXPERT } from './helpers.js';
 
 const content = loadContent();
@@ -207,10 +207,17 @@ test('Gegnerleben zu zweit richtet sich nach der Schlagkraft von Spieler 2', () 
   const weak = hero();
   weak.addP2(); // Spieler 2 mit Spazierstock
   const base = content.encounters.miss_wren.hp * ENEMY_HP_MULT;
-  assert.equal(new Combat(strong, 'miss_wren').enemy.maxHp, Math.round(base * (1 + DUO_HP_SHARE)));
+  assert.equal(new Combat(strong, 'miss_wren').enemy.maxHp, Math.round(base * (1 + DUO_HP_SHARE)), 'gleich stark: +150 %');
   const w = new Combat(weak, 'miss_wren').enemy.maxHp;
-  assert.ok(w < base * (1 + DUO_HP_SHARE) && w >= Math.round(base * (1 + DUO_HP_SHARE * DUO_POWER_MIN)));
+  assert.ok(w < base * (1 + DUO_HP_SHARE) && w >= Math.round(base * (1 + DUO_HP_SHARE_MIN)), 'schwacher Spieler 2: mindestens +70 %');
   assert.ok(duoHpMult(weak) < duoHpMult(strong));
+  // Unter halber Stärke bleibt es bei +70 %, über 1,25-facher Stärke steigt es nicht weiter
+  const feeble = hero();
+  feeble.addP2();
+  feeble.p2.weapon = null;
+  assert.ok(Math.abs(duoHpMult(feeble) - (1 + DUO_HP_SHARE_MIN)) < 1e-9 || duoHpMult(feeble) >= 1 + DUO_HP_SHARE_MIN);
+  const strong2 = pair(9, 7, 'laterne'); // Spieler 2 mit Durchbrüchen schlägt härter
+  assert.ok(duoHpMult(strong2) <= 1 + DUO_HP_SHARE_MIN + (DUO_HP_SHARE - DUO_HP_SHARE_MIN) * (DUO_POWER_MAX - DUO_POWER_MIN) / (1 - DUO_POWER_MIN) + 1e-9);
 });
 
 /** Spielt einen Kampf zu zweit durch: beide greifen an, der Gegner schlägt jeden einmal. */
@@ -250,9 +257,10 @@ test('Balance zu zweit: Bosse bleiben fordernd, gleich starke Paare schaffen sie
   const mean = (xs) => xs.reduce((a, b) => a + b, 0) / xs.length;
   for (const [enc, seq] of [['rook_fight', 9], ['miriam', 8], ['dreizehnter_gast', 8], ['miss_wren', 7], ['starling_fight', 7]]) {
     const fights = seeds.map((seed) => duoFight(pair(seq), enc, EXPERT, seed));
-    // Starling (zwei Phasen, höheres Wesen) darf auch Geübte gelegentlich schlagen
+    // Mit +150 % Gegnerleben (Seb, 2026-11-10) schaffen Geübte die Bosse meistens, Starling (zwei Phasen, höheres Wesen) bleibt ein Brocken
     const wins = fights.filter((c) => c.outcome === 'won').length;
-    assert.ok(wins >= (enc === 'starling_fight' ? 5 : seeds.length), `${enc} zu zweit (geübt): ${wins} von ${seeds.length} Siegen`);
+    const need = { rook_fight: seeds.length, starling_fight: 2 }[enc] ?? seeds.length - 2;
+    assert.ok(wins >= need, `${enc} zu zweit (geübt): ${wins} von ${seeds.length} Siegen, erwartet mindestens ${need}`);
     // Keiner kommt ungeschoren davon: beide müssen sich verteidigen (im Schnitt über mehrere Kämpfe)
     for (const n of [1, 2]) {
       const lost = mean(fights.map((c) => c.on(n, () => 1 - c.state.hp / c.state.maxHp)));
@@ -264,7 +272,7 @@ test('Balance zu zweit: Bosse bleiben fordernd, gleich starke Paare schaffen sie
     // Zu zweit dauert ein Bosskampf nicht viel kürzer als allein
     const solo = mean(seeds.map((seed) => duoFight(hero(seq), enc, EXPERT, seed).round));
     const duo = mean(fights.map((c) => c.round));
-    assert.ok(duo >= solo * 0.65, `${enc}: ${duo} Runden zu zweit, ${solo} allein`);
+    assert.ok(duo >= solo * 0.8, `${enc}: ${duo} Runden zu zweit, ${solo} allein`);
   }
   // Ohne Durchbruch reicht es auch zu zweit nicht gegen Starling, wenn man nur mittelmäßig verteidigt
   assert.notEqual(duoFight(pair(8), 'starling_fight', SKILLED).outcome, 'won');

@@ -16,10 +16,12 @@ export const ENEMY_HP_MULT = 1.4;
 export const ENEMY_DMG_MULT = 1.4;
 export const ELITE_HP_MULT = 1.0; // zusätzlich zu den Daten (Elite ×1,5 der Grundform)
 export const ELITE_DMG_MULT = 0.9; // Eliten haben in den Daten schon +30 % Schaden, so bleibt es bei etwa +60 %
-// Zu zweit: der Gegner hält mehr aus, je nachdem wie stark Spieler 2 zuschlägt (gleich stark: ×1,9,
-// halb so stark: ×1,45), und er greift jede Runde jeden stehenden Spieler einmal an, dafür etwas
-// schwächer pro Schlag. So muss sich jeder selbst verteidigen, und keiner steht nur daneben.
-export const DUO_HP_SHARE = 0.9; // Anteil Zusatzleben bei gleich starkem Spieler 2
+// Zu zweit: der Gegner hält mehr aus, je nachdem wie stark Spieler 2 zuschlägt: mindestens +70 %
+// (Spieler 2 halb so stark oder schwächer), bei gleich starkem Spieler 2 +150 %, dazwischen linear,
+// bei einem stärkeren Spieler 2 bis +190 %. Er greift jede Runde jeden stehenden Spieler einmal an,
+// dafür etwas schwächer pro Schlag. So muss sich jeder selbst verteidigen, und keiner steht nur daneben.
+export const DUO_HP_SHARE_MIN = 0.7; // Zusatzleben, wenn Spieler 2 höchstens halb so stark ist
+export const DUO_HP_SHARE = 1.5; // Zusatzleben bei gleich starkem Spieler 2
 export const DUO_POWER_MIN = 0.5; // Spieler 2 zählt mindestens halb ...
 export const DUO_POWER_MAX = 1.25; // ... und höchstens so viel wie 1,25 Ermittler
 export const DUO_HP_MULT = 1 + DUO_HP_SHARE; // bei gleich starken Spielern
@@ -94,7 +96,10 @@ export function playerPower(state, n) {
 /** Zusatzleben des Gegners zu zweit: richtet sich danach, wie stark Spieler 2 im Vergleich zuschlägt. */
 export function duoHpMult(state) {
   const ratio = playerPower(state, 2) / Math.max(1, playerPower(state, 1));
-  return 1 + DUO_HP_SHARE * Math.min(DUO_POWER_MAX, Math.max(DUO_POWER_MIN, ratio));
+  const r = Math.min(DUO_POWER_MAX, Math.max(DUO_POWER_MIN, ratio));
+  // Gerade durch (0,5 | +70 %) und (1 | +150 %), darüber weiter steigend bis 1,25
+  const share = DUO_HP_SHARE_MIN + (DUO_HP_SHARE - DUO_HP_SHARE_MIN) * (r - DUO_POWER_MIN) / (1 - DUO_POWER_MIN);
+  return 1 + share;
 }
 
 export class Combat {
