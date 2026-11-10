@@ -50,7 +50,7 @@ export function buildContent({ campaign, quests, cases, maps, dialogues, items =
     zones: wild.zones,
     lootTables: wild.lootTables,
     factions: f.factions ?? {},
-    gatherings: g.rules ? { rules: g.rules, circles: g.circles ?? {} } : null,
+    gatherings: g.rules ? { rules: g.rules, circles: g.circles ?? {}, artisan: g.artisan ?? null } : null,
     police: wx.police ?? null,
     loners: wx.loners ?? null,
     facts: merge(cases, 'facts'),

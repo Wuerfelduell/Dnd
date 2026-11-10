@@ -113,7 +113,8 @@ export const gatheringMethods = {
     if (!next) return null;
     // Gesuche vorher ankündigen, damit man weiß, was man mitnehmen sollte
     const wants = this.sessionRequests ? [...new Set(this.sessionRequests(next.id, next.cycle).map((q) => this.item(q.item)?.name))] : [];
-    return { next, wants, text: `${this.gatheringDef(next.id).name} in ${fmt(next.start - this.playTime)}${wants.length ? ` · gesucht: ${wants.join(', ')}` : ''}` };
+    const artisan = !!this.artisanPresent?.(next.id, next.cycle);
+    return { next, wants, artisan, text: `${this.gatheringDef(next.id).name} in ${fmt(next.start - this.playTime)}${wants.length ? ` · gesucht: ${wants.join(', ')}` : ''}${artisan ? ' · Fasserin dabei' : ''}` };
   },
 
   /**
@@ -148,7 +149,8 @@ export const gatheringMethods = {
     if (cur && this.isMember(cur.id)) {
       const g = this.gatheringDef(cur.id);
       const wants = this.sessionRequests ? [...new Set(this.sessionRequests(cur.id, cur.cycle).map((q) => this.item(q.item)?.name))] : [];
-      this.emit('gathering', { id: cur.id, open: true, text: `${g.invite}${wants.length ? ` Gesucht wird: ${wants.join(', ')}.` : ''}` });
+      const artisan = this.artisanPresent?.(cur.id, cur.cycle) ? ` ${this.artisanName()} ist dabei und fasst Beute zu Artefakten.` : '';
+      this.emit('gathering', { id: cur.id, open: true, text: `${g.invite}${wants.length ? ` Gesucht wird: ${wants.join(', ')}.` : ''}${artisan}` });
       this.emit('changed');
     } else if (!cur && prev !== null) {
       const slot = this.gatheringSlot(prev);

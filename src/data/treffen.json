@@ -1792,6 +1792,19 @@
         "legs": "#2a2018",
         "scarf": "#3a5a7a"
       }
+    },
+    "fasserin": {
+      "name": "Oda Kessel",
+      "role": "Fasserin, fasst Beute zu Artefakten",
+      "dialogue": "fasserin",
+      "palette": {
+        "coat": "#4a3a50",
+        "hat": "#2a2030",
+        "skin": "#dcc0a0",
+        "hair": "#8a8090",
+        "legs": "#2a2030",
+        "scarf": "#c0a060"
+      }
     }
   },
   "merchants": {},
@@ -2704,6 +2717,23 @@
         },
         "closed": {
           "text": "Der Bootsjunge Tam ist nicht mehr da. Nur ein leerer Stuhl.",
+          "choices": [
+            {
+              "text": "Gut."
+            }
+          ]
+        }
+      }
+    },
+    "fasserin": {
+      "start": [
+        {
+          "node": "open"
+        }
+      ],
+      "nodes": {
+        "open": {
+          "text": "Eine Frau mit Lederschürze und einer Lupe auf der Stirn sitzt abseits der Runde. Vor ihr liegen Zangen, Draht und ein Fläschchen Quecksilber. „Ich fasse, was andere wegwerfen. Bringen Sie mir Beute, die nicht stillhält.“",
           "choices": [
             {
               "text": "Gut."
@@ -4326,5 +4356,106 @@
         }
       ]
     }
-  ]
+  ],
+  "artisan": {
+    "_info": "Die Fasserin (PR Artisan): Mit 30 % Chance sitzt sie bei einem geheimen Treffen dabei und fasst ungewöhnliche, seltene und okkulte Beutestücke zu Artefakten. Pro Treffen bietet sie `offers` Rezepte aus dem Pool an (Würfel mit festem Startwert je Runde und Zirkel). Jedes Rezept braucht die Beutestücke (`needs`) und ein Fasserlohn in Schilling (`fee`).",
+    "npc": "fasserin",
+    "chance": 0.3,
+    "offers": 4,
+    "recipes": [
+      {
+        "id": "krone_der_sieben",
+        "needs": {
+          "rattenkrone": 1,
+          "rattenschwanz": 3
+        },
+        "fee": 120,
+        "line": "Sieben Schwänze, drei dazu. Ein Reif, der Geld riecht."
+      },
+      {
+        "id": "sternlicht_gespinst",
+        "needs": {
+          "sternhirschgeweih": 1,
+          "brutschale": 1
+        },
+        "fee": 160,
+        "line": "Licht spinnt sich nur um Perlmutt. Halten Sie still, es blendet."
+      },
+      {
+        "id": "glaskielfeder",
+        "needs": {
+          "glasfeder": 1,
+          "moewenglas": 1,
+          "schnabelfeder": 2
+        },
+        "fee": 110,
+        "line": "Zwei Glasfedern, zwei echte dazwischen. So schneidet sie den Wind."
+      },
+      {
+        "id": "herzkerze",
+        "needs": {
+          "wachsherz": 1,
+          "wachsdocht": 1,
+          "kerze_schwarz": 2
+        },
+        "fee": 100,
+        "line": "Ein Herz, ein Docht, der nicht kürzer wird. Sie wird schlagen, nicht brennen."
+      },
+      {
+        "id": "perlenpaar",
+        "needs": {
+          "moorperle": 1,
+          "schlickperle": 1
+        },
+        "fee": 130,
+        "line": "Zwei Perlen aus zwei Wassern. Sie erzählen sich vom Ertrinken."
+      },
+      {
+        "id": "geisterspindel",
+        "needs": {
+          "geisterkern": 1,
+          "spinnfaden_lila": 1
+        },
+        "fee": 120,
+        "line": "Den Kern auf den Faden gespult. Was da wohnt, wird wach."
+      },
+      {
+        "id": "leuchtturmmonokel",
+        "needs": {
+          "linsenscherbe": 1,
+          "fernrohr_messing": 1
+        },
+        "fee": 150,
+        "line": "Die Scherbe ins Messing, und Sie sehen, was der Turm sah."
+      },
+      {
+        "id": "namenssiegel",
+        "needs": {
+          "madenwachs": 1,
+          "schaedelsplitter": 1,
+          "knochenmehl": 2
+        },
+        "fee": 100,
+        "line": "Der Name auf dem Splitter kommt ins Wachs. Dann gehört er Ihnen."
+      },
+      {
+        "id": "gluehglocke",
+        "needs": {
+          "russklumpen": 1,
+          "bronzeglocke_klein": 1
+        },
+        "fee": 110,
+        "line": "Die Glut in die Glocke. Sie wird nie wieder kalt und nie wieder leise."
+      },
+      {
+        "id": "doppelsiegel",
+        "needs": {
+          "ratssiegel": 1,
+          "medaille_polizei": 1
+        },
+        "fee": 90,
+        "line": "Rat und Polizei auf einem Siegel. Händler verbeugen sich, Beute scheut."
+      }
+    ]
+  }
 }

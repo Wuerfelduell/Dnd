@@ -1,7 +1,8 @@
 // Die Runde eines geheimen Treffens (Daten: treffen.json, circles.*.members).
 // Ablauf: Reihum stellt jedes Mitglied ein Los vor und die anderen bieten mit (Auktion).
 // Danach fragt es nach einer Zutat, die es sucht (Gesuch). Wer sie dabei hat, verkauft gut.
-// Zum Schluss darf man selbst Artefakte oder Formeln versteigern.
+// Zum Schluss darf man selbst Artefakte oder Formeln versteigern. Sitzt die Fasserin dabei
+// (core/Artisan.js, 30 %), kann man ihr dann Beutestücke zu Artefakten fassen lassen.
 // Lose und Gesuche stehen pro Treffen fest (Startwert aus Runde und Zirkel), damit man sie
 // vorher ankündigen kann und Neuladen nichts ändert.
 import { seeded } from './Gatherings.js';
@@ -88,8 +89,9 @@ export const auctionMethods = {
     if (this.sessionHeld(circleId, cycle)) return { ok: false, text: 'Die Runde ist für heute durch. Wartet auf das nächste Treffen.' };
     this.sessionsHeld = [...this.sessionsHeld.filter((k) => Number(k.split(':')[1]) >= cycle - 1), `${circleId}:${cycle}`];
     const members = this.circleMembers(circleId).map((m) => m.id);
-    this.auction = { circle: circleId, cycle, members, turn: 0, phase: 'lot', lot: null, request: null, own: null, log: [], bought: [], sold: [] };
-    this.say(`${this.gatheringDef(circleId).name}: Die Runde ist eröffnet.`);
+    const artisan = !!this.artisanPresent?.(circleId, cycle);
+    this.auction = { circle: circleId, cycle, members, turn: 0, phase: 'lot', lot: null, request: null, own: null, artisan, log: [], bought: [], sold: [], crafted: [] };
+    this.say(`${this.gatheringDef(circleId).name}: Die Runde ist eröffnet.${artisan ? ` ${this.artisanName()} sitzt mit am Tisch.` : ''}`);
     this.openLot();
     return { ok: true };
   },
@@ -103,6 +105,7 @@ export const auctionMethods = {
   auctionSpeaker() {
     const a = this.auction;
     if (!a || a.phase === 'own' || a.phase === 'own_bids' || a.phase === 'done') return null;
+    if (a.phase === 'artisan') return this.artisanId();
     return a.members[a.turn];
   },
 
@@ -224,7 +227,7 @@ export const auctionMethods = {
     a.turn += 1;
     if (a.turn < a.members.length) { this.openLot(); return; }
     a.phase = 'own';
-    this.say('Alle waren dran. Jetzt darfst du selbst etwas anbieten.');
+    this.say(`Alle waren dran. Jetzt darfst du selbst etwas anbieten.${a.artisan ? ` ${this.artisanName()} wartet auf Beute zum Fassen.` : ''}`);
   },
 
   /** Was man selbst versteigern darf: eigene (nicht geliehene) Artefakte und Formeln. */
@@ -287,7 +290,7 @@ export const auctionMethods = {
     const a = this.auction;
     if (!a) return null;
     a.phase = 'done';
-    const summary = { bought: a.bought, sold: a.sold };
+    const summary = { bought: a.bought, sold: a.sold, crafted: a.crafted ?? [] };
     this.auction = null;
     this.emit('changed');
     return summary;

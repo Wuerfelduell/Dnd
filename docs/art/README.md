@@ -1474,6 +1474,59 @@ stammen aus Bildgenerierung mit anschließender Raster-/Paletten-Nachbearbeitung
 Die Einbindung in BN/BD und das Ersetzen von Ruths bisherigem `npc:hesper`-Alias
 bleiben separat; dieser Batch verändert keinen Spielcode.
 
+## Batch BE – Dunscar5: neue Figuren, Einzelgänger und Kopfgeld
+
+Grafiklieferung für `codex_BE_dunscar_figuren2.md`: **100 PNG-Dateien** für
+3 Händler, den Schichtbund (Gastgeberin und 3 Mitglieder), 5 Einzelgänger,
+8 Einwohner und 2 Bahnaufseher. Enthalten sind 24 Laufsheets einschließlich
+2 Schichtgänger-Varianten, 24 Emotions-Sheets, ein gemeinsamer Kopf-Atlas,
+11 Gegner-Kartensheets, 11 Kampfsheets plus getönte Elite-Variante,
+11 Bestiariumsbilder, 6 Steckbriefe, 6 Trophäen und 5 Prop-Dateien.
+
+- [Manifest](../../public/sprites/manifest-dunscar5.json)
+- [Tatsächliche Prompts und Herkunft](batch-dunscar5-generation.json)
+- [Prüfbericht](validation-dunscar5.json)
+- Vorschauen: [Figuren](preview-dunscar5-figuren.png),
+  [Portraits](preview-dunscar5-portraits.png),
+  [Kämpfe](preview-dunscar5-kaempfe.png), [Props und UI](preview-dunscar5-props-ui.png)
+- [Übergabe und offene Integration](dunscar5/offene_punkte.md)
+
+Erzeugt mit dem eingebauten Bildgenerator, anschließend Zellzuschnitt,
+Nearest-Neighbor-Export, gemeinsame 31-Farben-Palette plus transparentem Index
+und binäres Alpha. Pro Sheet ein gemeinsamer Maßstab und feste Grundlinie.
+Kämpfe: sechs Spalten, Reihen `idle`, `attack`, `special`, `hurt`, `defeated`;
+beide Angriffe halten ihre Ausholpose zwei Frames. Der Signalbrecher verwendet
+64×64-Zellen und zwei Phasen. Die Kinder haben unblutige Niederlagen.
+Kein Laufzeitcode wird in diesem Paket eingebaut.
+
+```sh
+python docs/art/validate-dunscar5.py
+node --test tests/sprites.test.js
+```
+
+Der Exporter liegt unter `tools/art/dunscar5/`; Originaldateien und
+Reproduktionsablauf sind in der Übergabe dokumentiert. Steckbriefe kombinieren
+generierte Kopfzeichnungen mit einem geometrischen Papier-/Bahnsiegelrahmen.
+
+## Batch BB · icons2
+
+150 eigene Item-Motive ersetzen die geliehenen Bilder von 40 Gegenständen aus
+Kapitel 2/3 sowie 55 Tränken und 55 Formeln: Waage/Moor/Uhr ab Sequenz 9,
+alle zehn Pfade ab Sequenz 4. Lieferung: **150 PNGs in 16×16 und 65 in 32×32**.
+
+- Manifest: `public/sprites/manifest-icons2.json`.
+- Prompts, Referenzen und Herkunft: [batch-icons2-generation.json](batch-icons2-generation.json).
+- Alle Icons mit IDs und beiden Größen: [preview-icons2.png](preview-icons2.png).
+- Prüfung: `python docs/art/verify-icons2.py` (Pillow).
+
+Einzelmotive mit dem Bildgenerator erstellt, per Nearest Neighbor auf das
+Zielraster exportiert, auf die gemeinsame 32-Farben-Palette aus Batch AG
+reduziert und mit binärem Alpha versehen. Die 32er-Fassungen werden aus dem
+Original exportiert, nicht aus dem 16er-Icon hochskaliert. Statische Einzelframes,
+transparenter Sicherheitsrand. Die Prüfung kontrolliert alle 215 erwarteten
+Dateien unabhängig vom Manifest, Größen, Palette, Alpha und doppelte Bilder.
+Der separate Einbau ist in der PR-Beschreibung dokumentiert; Spielcode bleibt
+in diesem Grafikpaket unverändert.
 ## Platzhalter Kontrollverlust (bis Codex BP liefert)
 
 - `ui/scenes/kontrollverlust.png` (240x135): grob gepixeltes Zwischensequenzbild der Tentakel-Cutscene, per Skript erzeugt.
