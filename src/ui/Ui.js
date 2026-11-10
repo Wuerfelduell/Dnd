@@ -14,7 +14,7 @@ import {
 import { sourceOf } from '../core/sources.js';
 import { caseHints, nextDeduction, openGuesses, gapText, knowledgeGaps, onlyKnowledgeMissing } from '../core/hints.js';
 import { guessMood } from '../core/Moods.js';
-import { MOOD_LABEL } from '../core/Relations.js';
+import { MOOD_LABEL, GIFT_KINDS } from '../core/Relations.js';
 import { koopGreeting } from '../core/Koop.js';
 import { isSolved, knownPeople } from '../core/journal.js';
 import { canHurry, travelSafe, travelFast, afterHurryFight, travelDestinations, cityOf } from '../core/Travel.js';
@@ -1043,13 +1043,18 @@ export class Ui {
   openGift(feedback = '') {
     const s = this.state;
     const { npc } = this.dialogue;
-    const items = this.as(() => s.giftOptions());
+    const items = this.as(() => s.giftOptions(npc.id));
     const who = s.hasP2() ? ` <span class="muted">aus der Tasche von Spieler ${this.actor}</span>` : '';
+    const tastes = s.giftTastes(npc.id);
+    const known = tastes.kinds.map((k) => GIFT_KINDS[k] ?? k).join(', ');
+    const FIT = { mag: ['gefällt', 'fit-mag'], wertvoll: ['wertvoll', 'fit-wert'], hass: ['verhasst', 'fit-hass'], nein: ['', ''] };
+    const tag = (it) => (FIT[it.fit]?.[0] ? `<span class="fittag ${FIT[it.fit][1]}">${FIT[it.fit][0]}</span>` : '');
     const el = this.open('gift', `${portrait(npc.id, relationMood(s, npc.id))}
       <div class="speaker">${esc(npc.name)} <span class="role">${esc(npc.role ?? '')}</span>${relationBadge(s, npc.id)}</div>
       <h3>Etwas schenken${who}</h3>
+      <p class="tastes">Hat ein Auge für <b>${esc(known)}</b>${s.relationRules().geschenk_wert ? `; Wertvolles (ab ${s.relationRules().geschenk_wert} Schilling) nimmt jeder an` : ''}. Zählt bis zu ${s.relationRules().geschenk_max} Mal${(s.gifts[npc.id] ?? 0) ? ` (${Math.min(s.gifts[npc.id], s.relationRules().geschenk_max)} schon)` : ''}.</p>
       ${feedback ? `<div class="feedback">${esc(feedback)}</div>` : ''}
-      <ul class="choices giftlist">${items.map((it, i) => `<li><button data-gift="${it.id}">${i < 9 ? `<span class="key">${i + 1}</span> ` : ''}${itemIcon(it.id)}${esc(it.name)} <span class="muted">×${it.count}</span></button></li>`).join('') || '<li class="empty">Du hast nichts, was du verschenken könntest.</li>'}</ul>
+      <ul class="choices giftlist">${items.map((it, i) => `<li><button data-gift="${it.id}" class="${it.fit}">${i < 9 ? `<span class="key">${i + 1}</span> ` : ''}${itemIcon(it.id)}${esc(it.name)} <span class="muted">×${it.count}</span>${tag(it)}</button></li>`).join('') || '<li class="empty">Du hast nichts, was du verschenken könntest.</li>'}</ul>
       <div class="actions"><button data-act="back">Zurück <span class="key">Esc</span></button></div>`, `dialogue with-portrait gift`);
     this.giftIds = items.map((it) => it.id);
     el.querySelectorAll('[data-gift]').forEach((b) => { b.onclick = () => this.giveGift(b.dataset.gift); });

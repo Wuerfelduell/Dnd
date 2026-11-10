@@ -77,32 +77,55 @@ test('Bedingungen: requires_relation, requires_relation_max, requires_mood, hide
   assert.equal(s.meets({ hide_if_mood: { pimm: 'freundlich' } }), false);
 });
 
-test('Geschenke: Gemochtes zählt bis zur Grenze, Verabscheutes kostet, Unpassendes wird abgelehnt', () => {
+test('Geschenke: Gemochtes und Wertvolles zählt bis zur Grenze, Verabscheutes kostet, Billiges wird mit Wunsch abgelehnt', () => {
   const s = fresh();
+  const r = content.relations.rules;
+  const cheap = Object.keys(content.items).find((i) => content.items[i].kind === 'ingredient' && s.giftValue(i) < r.geschenk_wert);
+  const dear = Object.keys(content.items).find((i) => content.items[i].kind === 'gear' && s.giftValue(i) >= r.geschenk_wert);
   s.addItem('tonikum', 5);
   s.addItem('blitzpulver', 1);
-  s.addItem('verband', 1);
-  const verband = s.itemCount('verband');
-  assert.ok(s.giftOptions().some((it) => it.id === 'tonikum'));
-  const no = s.giveGift('marlowe', 'verband');
+  s.addItem(cheap, 1);
+  s.addItem(dear, 1);
+  assert.deepEqual(s.giftTastes('marlowe').kinds, ['consumable', 'trophy']);
+  assert.equal(s.giftFit('marlowe', 'tonikum'), 'mag');
+  assert.equal(s.giftFit('marlowe', cheap), 'nein');
+  assert.equal(s.giftFit('marlowe', dear), 'wertvoll');
+  assert.equal(s.giftFit('marlowe', 'blitzpulver'), 'hass');
+  const no = s.giveGift('marlowe', cheap);
   assert.equal(no.ok, false);
-  assert.equal(s.itemCount('verband'), verband, 'Abgelehntes bleibt in der Tasche');
+  assert.ok(/Stärkungsmittel oder Kuriositäten/.test(no.text), 'Ablehnung verrät den Wunsch');
+  assert.equal(s.itemCount(cheap), 1);
   assert.equal(s.relation('marlowe'), 0);
   const first = s.giveGift('marlowe', 'tonikum');
   assert.equal(first.ok, true);
   assert.equal(first.delta, 1);
   assert.equal(s.itemCount('tonikum'), 4);
+  const rich = s.giveGift('marlowe', dear);
+  assert.equal(rich.fit, 'wertvoll');
+  assert.equal(s.relation('marlowe'), 2);
   s.giveGift('marlowe', 'tonikum');
-  assert.equal(s.relation('marlowe'), 2);
-  const third = s.giveGift('marlowe', 'tonikum');
-  assert.equal(third.ok, true);
-  assert.equal(third.delta, 0, 'mehr als geschenk_max bringt nichts mehr');
-  assert.equal(s.relation('marlowe'), 2);
+  assert.equal(s.relation('marlowe'), 3);
+  const more = s.giveGift('marlowe', 'tonikum');
+  assert.equal(more.ok, true);
+  assert.equal(more.delta, 0, 'mehr als geschenk_max bringt nichts mehr');
   const bad = s.giveGift('marlowe', 'blitzpulver');
   assert.equal(bad.delta, -1);
   assert.equal(s.itemCount('blitzpulver'), 1, 'Verabscheutes behält sie nicht');
-  assert.equal(s.relation('marlowe'), 1);
+  assert.equal(s.relation('marlowe'), 2);
   assert.ok(/Fenwicks Tonikum/.test(first.text) && /Marlowe/.test(first.text));
+});
+
+test('Jede Figur mag etwas: ohne Profil zwei feste Arten, mit Profil die eigenen', () => {
+  const s = fresh();
+  for (const id of Object.keys(content.npcs)) {
+    const t = s.giftTastes(id);
+    assert.ok(t.kinds.length >= 1 && t.kinds.length <= 2, id);
+    assert.deepEqual(t.kinds, s.giftTastes(id).kinds);
+  }
+  assert.deepEqual(s.giftTastes('nell').kinds, ['ingredient', 'potion']);
+  assert.equal(s.giftFit('kit', 'spazierstock'), 'hass');
+  const opts = s.giftOptions('greta');
+  assert.ok(opts.every((o) => ['mag', 'wertvoll', 'hass', 'nein'].includes(o.fit)));
 });
 
 test('Beweisstücke, Formeln und die einzige Waffe lassen sich nicht verschenken', () => {

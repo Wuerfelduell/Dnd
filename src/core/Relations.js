@@ -21,7 +21,13 @@ import { COMPANIONS } from './Bonds.js';
 export const MOODS = ['feindselig', 'neutral', 'freundlich'];
 export const MOOD_LABEL = { feindselig: 'Feindselig', neutral: 'Neutral', freundlich: 'Freundlich' };
 
-const DEFAULT_RULES = { min: -5, max: 6, feindselig_ab: -2, freundlich_ab: 3, geschenk_max: 2, preis: { freundlich: 0.9, feindselig: 1.2 } };
+const DEFAULT_RULES = { min: -5, max: 6, feindselig_ab: -2, freundlich_ab: 3, geschenk_max: 3, geschenk_wert: 12, preis: { freundlich: 0.9, feindselig: 1.2 } };
+
+/** Geschenk-Arten: Gegenstandsart → Bezeichnung im Fenster; jede Figur mag zwei davon (eigene `mag_arten` oder fest zugelost). */
+export const GIFT_KINDS = { consumable: 'Stärkungsmittel', potion: 'Tränke', ingredient: 'Zutaten', trophy: 'Kuriositäten', gear: 'Kleidung und Schmuck', weapon: 'Waffen', artifact: 'Artefakte' };
+const DRAWN_KINDS = ['consumable', 'trophy', 'gear', 'ingredient', 'potion'];
+/** Wert eines Geschenks ohne Preis, je Art (Schilling). */
+const KIND_VALUE = { consumable: 6, potion: 25, ingredient: 5, trophy: 10, gear: 15, weapon: 20, artifact: 40 };
 
 /** Kleiner fester Streuwert, damit jede Figur immer denselben allgemeinen Satz benutzt. */
 const hash = (s) => [...s].reduce((h, c) => (h * 31 + c.charCodeAt(0)) >>> 0, 7);
@@ -114,27 +120,65 @@ export const relationMethods = {
     return this.relationRules().preis[this.mood(merchantId)] ?? 1;
   },
 
-  /** Gegenstände, die man verschenken kann: alles außer Beweisstücken, Formeln und Geliehenem. */
-  giftOptions() {
-    return this.items().filter((it) => it.kind !== 'key' && it.kind !== 'formula' && !(this.borrowed ?? []).includes(it.id)
-      && !(this.weapon === it.id && it.count === 1));
+  /** Was eine Figur mag: { items, kinds, hates, hateKinds }. Ohne eigenes Profil bekommt sie zwei feste Arten zugelost. */
+  giftTastes(id) {
+    const p = this.relationProfile(id) ?? {};
+    let kinds = p.mag_arten;
+    if (!kinds) {
+      const h = hash(id);
+      const a = DRAWN_KINDS[h % DRAWN_KINDS.length];
+      const b = DRAWN_KINDS[(h / 7 + 1 + (h % (DRAWN_KINDS.length - 1))) % DRAWN_KINDS.length | 0];
+      kinds = a === b ? [a] : [a, b];
+    }
+    return { items: p.mag ?? [], kinds, hates: p.verabscheut ?? [], hateKinds: p.verabscheut_arten ?? [] };
   },
 
-  /** Verschenkt einen Gegenstand: { ok, text, delta }. */
+  /** Wert eines Gegenstands als Geschenk (Schilling): Verkaufspreis, Preis oder Richtwert der Art. */
+  giftValue(itemId) {
+    const it = this.item(itemId);
+    if (!it) return 0;
+    return this.content.market?.sell_prices?.[itemId] ?? it.price ?? KIND_VALUE[it.kind] ?? 0;
+  },
+
+  /** Wie ein Geschenk ankäme: 'hass' | 'mag' | 'wertvoll' | 'nein'. */
+  giftFit(npcId, itemId) {
+    const it = this.item(itemId);
+    if (!it) return 'nein';
+    const t = this.giftTastes(npcId);
+    if (t.hates.includes(itemId) || t.hateKinds.includes(it.kind)) return 'hass';
+    if (t.items.includes(itemId) || t.kinds.includes(it.kind)) return 'mag';
+    if (this.giftValue(itemId) >= this.relationRules().geschenk_wert) return 'wertvoll';
+    return 'nein';
+  },
+
+  /** Gegenstände, die man verschenken kann: alles außer Beweisstücken, Formeln, Geliehenem und der einzigen Waffe. */
+  giftOptions(npcId = null) {
+    return this.items().filter((it) => it.kind !== 'key' && it.kind !== 'formula' && !(this.borrowed ?? []).includes(it.id)
+      && !(this.weapon === it.id && it.count === 1))
+      .map((it) => ({ ...it, fit: npcId ? this.giftFit(npcId, it.id) : null, value: this.giftValue(it.id) }));
+  },
+
+  /**
+   * Verschenkt einen Gegenstand: { ok, text, delta, fit }.
+   * Gemochtes (Ding oder Art) und Wertvolles (ab geschenk_wert) wird angenommen und zählt +1, bis zu geschenk_max Mal je Figur;
+   * Verabscheutes kostet -1 und bleibt beim Spieler; Billiges wird abgelehnt, und die Figur verrät dabei, was sie mag.
+   */
   giveGift(npcId, itemId) {
     const npc = this.content.npcs?.[npcId];
     const it = this.item(itemId);
-    if (!npc || !it || !this.itemCount(itemId)) return { ok: false, text: 'Das hast du nicht.', delta: 0 };
+    if (!npc || !it || !this.itemCount(itemId)) return { ok: false, text: 'Das hast du nicht.', delta: 0, fit: 'nein' };
     const name = npc.name;
     const p = this.relationProfile(npcId) ?? {};
     const texts = this.content.relations?.texte ?? {};
-    const fill = (t) => (t ?? '').replaceAll('{name}', name).replaceAll('{item}', it.name);
-    if ((p.verabscheut ?? []).includes(itemId)) {
+    const wish = this.giftTastes(npcId).kinds.map((k) => GIFT_KINDS[k] ?? k).join(' oder ');
+    const fill = (t) => (t ?? '').replaceAll('{name}', name).replaceAll('{item}', it.name).replaceAll('{wunsch}', wish);
+    const fit = this.giftFit(npcId, itemId);
+    if (fit === 'hass') {
       this.changeRelation(npcId, -1, 'Geschenk');
-      return { ok: false, delta: -1, text: fill(p.ablehnung_beleidigt ?? texts.beleidigt ?? '{name} schiebt {item} zurück und sieht dich lange an.') };
+      return { ok: false, delta: -1, fit, text: fill(p.ablehnung_beleidigt ?? texts.beleidigt ?? '{name} schiebt {item} zurück und sieht dich lange an.') };
     }
-    if (!(p.mag ?? []).includes(itemId)) {
-      return { ok: false, delta: 0, text: fill(p.ablehnung ?? texts.ablehnung ?? '„Behalten Sie das, ich hätte keine Verwendung dafür.“') };
+    if (fit === 'nein') {
+      return { ok: false, delta: 0, fit, text: fill(p.ablehnung ?? texts.ablehnung ?? '„Behalten Sie das. Wenn Sie mir eine Freude machen wollen: {wunsch}.“') };
     }
     const r = this.relationRules();
     this.removeItem(itemId, 1);
@@ -143,7 +187,10 @@ export const relationMethods = {
     if (counts) this.changeRelation(npcId, 1, 'Geschenk');
     this.act?.('trade', 0.5);
     this.emit('changed');
-    return { ok: true, delta: counts ? 1 : 0, text: fill(counts ? p.dank ?? texts.dank ?? '{name} nimmt {item} an. „Das vergesse ich Ihnen nicht.“' : p.dank_genug ?? texts.genug ?? '{name} nimmt {item} an, aber mehr Dankbarkeit kauft man damit nicht.') };
+    const text = !counts ? p.dank_genug ?? texts.genug ?? '{name} nimmt {item} an, aber mehr Dankbarkeit kauft man damit nicht.'
+      : fit === 'wertvoll' ? p.dank_wertvoll ?? texts.wertvoll ?? '{name} wiegt {item} in der Hand. „Das ist zu viel. Aber ich nehme es, und ich merke es mir.“'
+        : p.dank ?? texts.dank ?? '{name} nimmt {item} an. „Das vergesse ich Ihnen nicht.“';
+    return { ok: true, delta: counts ? 1 : 0, fit, text: fill(text) };
   },
 
   /** Übersicht fürs Notizbuch: Figuren mit Wert ungleich null. */
