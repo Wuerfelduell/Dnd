@@ -69,13 +69,17 @@ test('Kampf: Konzentration zurück, Nerven zurück, Schutz und Heilung für alle
   s.composure = 50;
   c.bleed = { damage: 3, rounds: 2 };
   // Flüstern: 8 Nerven, hits 0
+  // Nervenkosten folgen der Konzentration (PR #228); die Fertigkeit gibt netto mehr zurück, als sie kostet
+  const cost1 = c.composureCost(c.skillDef('fluestern'));
   const r = c.useSkill('fluestern', []);
-  assert.equal(s.composure, 58);
+  assert.equal(s.composure, 50 - cost1 + 8);
   assert.ok(r.effects.includes('+8 Nerven'));
   // Chorschild: Schutz für alle Stehenden + Nerven
+  const before = s.composure;
+  const cost2 = c.composureCost(c.skillDef('chorschild'));
   c.useSkill('chorschild', []);
   assert.equal(c.shield, 10);
-  assert.equal(s.composure, 63);
+  assert.equal(s.composure, before - cost2 + 10);
   // Riechsalz (Kessel) als Beispiel für cleanse/ap_gain: Spieler wechseln
   const k = beyonder('kessel', 9);
   const ck = new Combat(k, 'archive_rats');
