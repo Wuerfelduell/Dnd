@@ -180,3 +180,29 @@ test('Fall 8 kommt von Nan Kettle: ohne Fall 8 zeigen Spur, Wegweiser und Marlow
   assert.deepEqual(s.openLeads(), []);
   assert.equal(s.nextHint().lead, undefined);
 });
+
+test('Fall 7 und 8: Fall 7 vorschnell geschlossen, Fall 8 bleibt trotzdem lösbar (Brief im Kontor, Clara)', () => {
+  const s = afterCase6();
+  briefBoth(s);
+  // Fall 7 falsch gelöst, bevor Brief, Schacht und Clara ausgewertet waren
+  talk(s, 'marlowe', ['Thorne ertrunken', 'Neffe']);
+  assert.equal(s.endings.case_07, 'c7_heir');
+  talk(s, 'marlowe', ['leid']);
+  case8(s);
+  // Die zweite Quelle für die Räumung ist weiterhin erreichbar, solange Fall 8 läuft
+  assert.equal(use(s, 'kontor_thorne', 'letter'), 'ok');
+  talk(s, 'sufragette', ['protestiert']);
+  assert.equal(s.factStatus('foreclosure'), 'likely');
+  assert.equal(use(s, 'kontor_thorne', 'chute'), 'ok');
+  assert.equal(s.combine('foreclosure', 'sleep_tea').result, 'new');
+  assert.equal(s.combine('coal_prints', 'benji_missing').result, 'new');
+  assert.ok(s.isCertain('link_motive') && s.isCertain('d8_thread'));
+  talk(s, 'marlowe', ['St. Brigid', 'Traumfäden']);
+  assert.ok(s.flags.has('case_78_showdown'));
+  fight(s, 'traumfaden', BOSS);
+  fight(s, 'miss_wren', BOSS);
+  talk(s, 'webstuhl8', ['Namen']);
+  assert.equal(s.endings.case_08, 'c8_perfect');
+  // Ohne Fall 7 und 8 ist der Kontor-Brief nicht mehr zu sehen
+  assert.throws(() => use(s, 'kontor_thorne', 'letter'), /unsichtbar/);
+});

@@ -264,6 +264,7 @@ export class GameState {
       all(o.requires_certain, (c) => this.isCertain(c)) &&
       all(o.requires_flags, (f) => this.flags.has(f)) &&
       all(o.requires_quests_active, (q) => this.quests[q] === 'active') &&
+      (!o.requires_any_quests_active || o.requires_any_quests_active.some((q) => this.quests[q] === 'active')) &&
       all(o.requires_quests_done, (q) => this.quests[q] === 'done') &&
       (o.requires_honor === undefined || this.honor >= o.requires_honor) &&
       (o.max_honor === undefined || this.honor < o.max_honor) &&
