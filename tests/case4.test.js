@@ -5,9 +5,9 @@ import { GameState } from '../src/core/GameState.js';
 import { loadContent, talk, use, fight, SKILLED, EXPERT } from './helpers.js';
 
 const content = loadContent();
-// Ab Fall 4 ist man auf Sequenz 9 (Nachtmarkt) und schlägt mit dem Wuchtschlag zu; Felix verlangt sauberes Timing
-const WIN = { defend: SKILLED, skill: 'wuchtschlag', healBelow: 15 };
-const BOSS = { defend: EXPERT, skill: 'wuchtschlag', healBelow: 15 };
+// Ab Fall 4 ist man auf Sequenz 9 (Nachtmarkt), trägt den Stockdegen und verkettet den Wuchtschlag; Felix verlangt sauberes Timing
+const WIN = { defend: SKILLED, skill: 'wuchtschlag', chain: true, healBelow: 15 };
+const BOSS = { defend: EXPERT, skill: 'wuchtschlag', chain: true, healBelow: 15 };
 
 /** Zustand nach Fall 3 (gutes Ende). */
 function afterCase3(honor = 40) {
@@ -16,8 +16,8 @@ function afterCase3(honor = 40) {
   ['briefed_01', 'travel_ashgrove', 'travel_ebba', 'travel_docks', 'case_01_closed', 'elias_rescued', 'reported_01', 'case_02_closed',
     'hester_saved', 'briefed_03', 'case_03_raid', 'case_03_closed', 'rook_arrested'].forEach((f) => s.flags.add(f));
   ['case_01', 'case_02', 'case_03'].forEach((q) => { s.quests[q] = 'done'; });
-  s.addItem('schlagstock');
-  s.equip('schlagstock');
+  s.addItem('stockdegen');
+  s.equip('stockdegen');
   s.addItem('verband', 4);
   // Bis Fall 4 hat man am Nachtmarkt den ersten Trank getrunken (die Gegner am Nordtor verlangen Sequenz 9)
   s.pathway = { id: 'eisen', seq: 9, digestion: 0 };

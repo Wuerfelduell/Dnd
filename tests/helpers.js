@@ -1,5 +1,5 @@
 import { readFileSync } from 'node:fs';
-import { Combat } from '../src/core/Combat.js';
+import { Combat, isPrecise, skillBars } from '../src/core/Combat.js';
 import { buildK3Ruf } from '../src/data/k3Ruf.js';
 import { buildContent } from '../src/data/buildContent.js';
 
@@ -112,17 +112,29 @@ export function seeded(seed) {
 
 /** Geübte Spielweise: von drei Schlägen einer ausgewichen, einer pariert, einer kassiert. */
 export const SKILLED = (i) => ['dodge', 'parry', 'miss'][i % 3];
+/**
+ * Geübter Angreifer: jeder dritte Takt sitzt präzise. Bei präzisen Fertigkeiten (Fenster ein Fünftel) nur jeder sechste.
+ * Für fight({ attack }) als Funktion (i, precise) => Bewertung.
+ */
+export const SKILLED_HIT = (i, precise) => ((precise ? i % 6 === 5 : i % 3 === 2) ? 'perfect' : 'good');
+
 /** Sehr geübt: von fünf Schlägen nur einer kassiert. So schafft man Eliten und Bosse. */
 export const EXPERT = (i) => ['dodge', 'parry', 'dodge', 'parry', 'miss'][i % 5];
 
 /**
  * Spielt einen Kampf mit festen Ergebnissen durch (wie CombatScene, ohne Timing).
- * attack: Bewertung der Angriffe, defend(i): Ergebnis des i-ten gegnerischen Schlags.
+ * attack: Bewertung der Angriffe (fest oder (i, precise) => Bewertung), defend(i): Ergebnis des i-ten gegnerischen Schlags.
  */
-export function fight(state, encounterId, { attack = 'good', defend = () => 'dodge', skill = 'attack', items = [], healBelow = 0, maxRounds = 60 } = {}) {
+export function fight(state, encounterId, { attack = 'good', defend = () => 'dodge', skill = 'attack', items = [], healBelow = 0, maxRounds = 60, chain = false, weak = false } = {}) {
   const c = new Combat(state, encounterId);
   c.rng = seeded(7); // fester Zufall: Takt und Nachsetzen sind in Tests reproduzierbar
+  if (weak && c.enc.weak_if) c.weak = true; // Schwachstelle aus den Ermittlungen bekannt
   let n = 0;
+  let bars = 0;
+  const grade = (sk) => (typeof attack === 'function' ? attack(bars++, isPrecise(sk)) : attack);
+  // Fertigkeiten kosten Nerven: Geübte halten eine Reserve fürs Ausweichen zurück (fünf Mal ausweichen)
+  const NERVE_RESERVE = 15;
+  const afford = (id) => c.canUse(id) && (id === 'attack' || state.composure - c.composureCost(c.skillDef(id)) >= NERVE_RESERVE);
   const enemyTurn = () => {
     const atk = c.nextEnemyAttack();
     if (atk) {
@@ -139,11 +151,15 @@ export function fight(state, encounterId, { attack = 'good', defend = () => 'dod
     const heal = ['tonikum', 'verband'].find((i) => state.itemCount(i));
     if (state.hp < healBelow && heal) c.useItem(heal);
     else if (items.length && state.itemCount(items[0])) c.useItem(items.shift());
-    else {
-      // Fertigkeiten kosten Nerven: Geübte halten eine Reserve fürs Ausweichen zurück (fünf Mal ausweichen)
-      const reserve = 15;
-      const sk = c.canUse(skill) && state.composure - c.composureCost(c.skillDef(skill)) >= reserve ? skill : 'attack';
-      c.useSkill(sk, Array(c.skillDef(sk).hits).fill(attack));
+    else if (chain) {
+      // Wie geübte Spieler: Fertigkeit, solange Konzentration und Nerven reichen, dann beendet der Angriff den Zug
+      let guard = 0;
+      while (!c.outcome && skill !== 'attack' && afford(skill) && !c.endsTurn(skill) && guard++ < 5) c.useSkill(skill, Array(c.skillDef(skill).hits).fill(attack));
+      if (!c.outcome) c.useSkill('attack', [attack]);
+    } else {
+      const sk = afford(skill) ? skill : 'attack';
+      const def = c.skillDef(sk);
+      c.useSkill(sk, Array.from({ length: skillBars(def) }, () => grade(def)));
     }
     if (c.outcome) break;
     enemyTurn();

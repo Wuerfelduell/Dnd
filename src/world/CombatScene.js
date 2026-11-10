@@ -1,5 +1,5 @@
 import Phaser from 'phaser';
-import { Combat, WINDOW, EARLY_LIMIT, DODGE_COST, RING_CURVES, judgeDefense, judgeTiming } from '../core/Combat.js';
+import { Combat, WINDOW, EARLY_LIMIT, DODGE_COST, RING_CURVES, judgeDefense, judgeTiming, isPrecise, skillBars, PRECISE_WINDOW } from '../core/Combat.js';
 import { createTextures, createCharacterSheet } from './textures.js';
 import {
   BATTLE_BACKGROUNDS, ENCOUNTER_BACKGROUNDS, ENEMY_BATTLE_SHEETS, ENCOUNTER_SHEETS, FADING_SHEETS,
@@ -420,18 +420,21 @@ export class CombatScene extends Phaser.Scene {
   // Angriff im Takt: ein Zeiger läuft über die Leiste, im goldenen Bereich drücken.
   startQte(skillId) {
     const sk = this.combat.skillDef(skillId);
-    if (!sk.hits) { this.qte = { skillId, grades: [] }; this.phase = 'anim'; this.resolveSkill(); return; }
+    const bars = skillBars(sk);
+    if (!bars) { this.qte = { skillId, grades: [] }; this.phase = 'anim'; this.resolveSkill(); return; }
     this.phase = 'qte';
-    this.qte = { skillId, grades: [], total: sk.hits, bar: null };
+    // Präzise Fertigkeiten (Betäubung, große Wucht): das goldene Fenster ist nur ein Fünftel so breit
+    const precise = isPrecise(sk);
+    this.qte = { skillId, grades: [], total: bars, bar: null, precise };
     const keys = !this.combat.duo ? 'E oder Leertaste' : this.combat.actor === 2 ? 'Enter (Gamepad A)' : 'E oder Leertaste';
-    this.ui.combatMessage(`${this.combat.duo ? `${this.who(this.combat.actor)}, ` : ''}${sk.name}: Drücke ${keys}, wenn der Zeiger im goldenen Bereich ist.`);
+    this.ui.combatMessage(`${this.combat.duo ? `${this.who(this.combat.actor)}, ` : ''}${sk.name}: Drücke ${keys}, wenn der Zeiger im goldenen Bereich ist.${precise ? ` Nur ein präziser Treffer ${sk.stun ? 'betäubt' : 'entfaltet die volle Wucht'}.` : ''}`);
     this.nextBar();
   }
 
   nextBar() {
     const i = this.qte.grades.length;
     const center = 0.55 + Math.random() * 0.3;
-    this.qte.bar = { start: now() + 250, dur: i === 0 ? 950 : 750, zone: { center, perfect: 0.045, good: 0.13 }, done: false };
+    this.qte.bar = { start: now() + 250, dur: i === 0 ? 950 : 750, zone: { center, perfect: 0.045 * (this.qte.precise ? PRECISE_WINDOW : 1), good: 0.13 }, done: false };
   }
 
   qtePos(t) {
@@ -468,7 +471,7 @@ export class CombatScene extends Phaser.Scene {
       if (!this.castAnim()) this.flash(this.player);
       this.skillFx(skillId);
       if (sk.heal) this.hitFx('heal', 'player');
-      this.float(sk.name, 'player', 'good');
+      this.float(sk.name, 'player', grades[0] === 'perfect' ? 'perfect' : 'good');
       if (r.stunned) this.flash(this.enemy);
       this.ui.combatMessage(`${sk.name}: ${r.effects.join(', ') || 'wirkt'}.${r.stunned ? ` ${c.enemy.name} setzt eine Runde aus.` : ''}`);
       this.ui.combatRefresh();
@@ -491,7 +494,7 @@ export class CombatScene extends Phaser.Scene {
     let msg = `${sk.name}: ${r.total} Schaden.`;
     if (r.effects.length) msg += ` ${r.effects.join(', ')}.`;
     if (r.stunned) msg += ` ${c.enemy.name} ${skillId === 'blind' ? 'ist geblendet und ' : ''}setzt aus.`;
-    if (skillId === 'blind' && !r.stunned) msg += ' Die Blende verfehlt ihr Ziel.';
+    if (skillId === 'blind' && r.stunMissed) msg += ' Die Blende verfehlt ihr Ziel.';
     this.ui.combatMessage(msg);
     this.ui.combatRefresh();
     this.time.delayedCall(700, () => this.afterAction(c.endsTurn(skillId)));
@@ -691,10 +694,12 @@ export class CombatScene extends Phaser.Scene {
     if (this.combat.drainTick) { this.focusPlayer(this.combat.actor); this.float(`-${this.combat.drainTick} Nerven`, 'player', 'hurt'); }
     if (this.combat.regenTick) { this.focusPlayer(this.combat.actor); this.float(`+${this.combat.regenTick} Nerven`, 'player', 'good'); }
     for (const [n, f] of Object.entries(this.combat.fighters)) {
-      if (!f.bleedTick) continue;
+      if (!f.bleedTick && !f.focusTick && !f.focusGain) continue;
       this.focusPlayer(Number(n));
-      this.flash(this.player);
-      this.float(`-${f.bleedTick}`, 'player', 'hurt');
+      if (f.bleedTick || f.focusTick) this.flash(this.player);
+      if (f.bleedTick) this.float(`-${f.bleedTick}`, 'player', 'hurt');
+      if (f.focusTick) this.float(`-${f.focusTick} (Konzentration)`, 'player', 'hurt'); // Fluch ap_burn
+      if (f.focusGain) this.float(`+${f.focusGain} K`, 'player', 'good'); // Segen ap_round
       if (f.down) this.knockedOut(this.player);
     }
     if (dot || bleed) {

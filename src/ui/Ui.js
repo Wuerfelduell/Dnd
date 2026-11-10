@@ -2,6 +2,7 @@ import { NEWSPAPERS } from '../data/lore.js';
 import { DIGEST_LABELS } from '../core/Pathways.js';
 import { CARRY_PER_STEP } from '../core/GameState.js';
 import { GEAR_SLOT_NAMES } from '../core/Gear.js';
+import { isPrecise } from '../core/Combat.js';
 import { lootList, itemRarity, RARITY_NAMES, lootPreview, chanceWord } from '../core/Loot.js';
 import {
   itemIconUrl, itemIcon32Url, pathwayEmblemUrl, pathwayCardUrl, COIN_URL, moneyIconUrl, UI_SKINS, UI_SHEETS, UI_REGIONS, DAMAGE_FONT, STATUS_ICONS, STATUS_ICONS_URL,
@@ -2355,7 +2356,8 @@ export class Ui {
       // Paket B: Leisten und Konzentration aus battle_hud.png
       b('.hudbar.hp').innerHTML = uiSprite('hud', `hp${pctStep(v.hp / v.maxHp, 6)}`, 1 / 6);
       b('.hudbar.nerves').innerHTML = uiSprite('hud', `nerves${pctStep(v.composure / v.maxComposure, 6)}`, 1 / 6);
-      b('.pips').innerHTML = Array.from({ length: 6 }, (_, i) => uiSprite('hud', i >= f.ap ? 'conc_empty' : f.ap >= 6 ? 'conc_glow' : 'conc_full', 1 / 6, 'pip')).join('');
+      const apMax = c.apMaxOf(Number(n)); // Konzentrations-Artefakte können den Höchstwert verschieben
+      b('.pips').innerHTML = Array.from({ length: apMax }, (_, i) => uiSprite('hud', i >= f.ap ? 'conc_empty' : f.ap >= apMax ? 'conc_glow' : 'conc_full', 1 / 6, 'pip')).join('');
     }
   }
 
@@ -2404,9 +2406,9 @@ export class Ui {
     if (sub === 'main') {
       const items = mine(() => this.state.items().filter((i) => i.kind === 'consumable' && !i.cleanse).length);
       entries = [
-        { text: 'Angriff', ui: 'attack', info: '+1 K · beendet den Zug', act: { type: 'skill', id: 'attack' } },
-        { text: 'Fertigkeiten', ui: 'skill', info: `${c.ap} K`, sub: 'skills' },
-        { text: 'Gegenstände', ui: 'item', info: c.canUseItem() ? `${items}` : 'schon benutzt', sub: 'items', disabled: !c.canUseItem() },
+        { text: 'Angriff', ui: 'attack', info: `+${1 + mine(() => this.state.passive('attack_ap'))} K · beendet den Zug`, act: { type: 'skill', id: 'attack' } },
+        { text: 'Fertigkeiten', ui: 'skill', info: `${c.ap}/${c.apMax} K`, sub: 'skills' },
+        { text: 'Gegenstände', ui: 'item', info: c.canUseItem() ? `${items}` : c.itemBlockedText(), sub: 'items', disabled: !c.canUseItem() },
         { text: 'Fliehen', ui: 'flee', info: c.canFlee() ? '' : 'unmöglich', act: { type: 'flee' }, disabled: !c.canFlee() },
       ];
       if (c.actions) entries.push({ text: 'Zug beenden', ui: 'defend', info: '', act: { type: 'end' } });
@@ -2417,7 +2419,8 @@ export class Ui {
       this.layer.querySelector('.cb-help').textContent = '';
     } else if (sub === 'skills') {
       entries = c.skills().filter((k) => k.id !== 'attack').map((k) => ({
-        text: `${k.pathway && !skillIconOf(k.id) ? '✧ ' : ''}${k.name}`, skill: k.id, info: `${k.cost} K${k.composure ? ` · ${k.composure} Nerven` : ''}`, desc: k.desc, act: { type: 'skill', id: k.id }, disabled: !k.usable,
+        text: `${k.pathway && !skillIconOf(k.id) ? '✧ ' : ''}${k.name}`, skill: k.id, info: `${k.cost} K${k.composure ? ` · ${k.composure} Nerven` : ''}${isPrecise(k) ? ' · ◎ präzise' : ''}`,
+        desc: `${k.desc ?? ''}${isPrecise(k) ? ` ◎ Präzise: volle Wirkung${k.stun ? ' und Betäubung' : ''} nur bei perfektem Takt, das goldene Fenster ist winzig.` : ''}`, act: { type: 'skill', id: k.id }, disabled: !k.usable,
       }));
     } else {
       entries = mine(() => this.state.items()).filter((i) => i.kind === 'consumable' && !i.cleanse).map((i) => ({ text: `${i.name} ×${i.count}`, icon: i.id, desc: i.desc, act: { type: 'item', id: i.id } }));

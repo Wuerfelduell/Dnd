@@ -1620,3 +1620,8 @@ Built-in Bildgenerator mit vorhandener Sprite-Referenz; Nearest-Neighbor-Export,
 - Vorschauen: [Gegenstände](preview-vorrat3-items.png), [Trophäen](preview-vorrat3-trophies.png); 16px vierfach, 32px zweifach vergrößert.
 - Normalisierte Bildgenerator-Master unter `docs/art/vorrat3-sources/`; Nearest-Neighbor-Export, gemeinsame 32-Farben-Palette und binäres Alpha.
 - Reproduzieren mit Python/Pillow: `python tools/art/vorrat3/export.py`; prüfen: `python tools/art/vorrat3/check.py`. Der Prüfer gleicht die IDs unabhängig mit der BM-Aufgabe ab und kontrolliert Maße, Transparenz, Palette, Rand, Duplikate und SHA-256-Herkunft.
+
+## Konzentrations-Artefakte: Platzhalter-Icons (2026-11-10)
+
+- 16 neue Artefakte (`pathways.json` → `artifacts.list`, `konzentration: true`) nutzen Kopien bestehender Item-Icons als Platzhalter (`items/<id>.png`).
+- Echte Icons: Prompt-Paket `codex_BX_konzentration_artefakte.md` (Tabelle mit Id, Platzhalter und Prompt-Kern). Nach Lieferung die Dateien 1:1 ersetzen.

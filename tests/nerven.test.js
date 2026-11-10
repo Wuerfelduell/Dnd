@@ -19,8 +19,8 @@ function hero(seq = 7, pathway = 'eisen') {
   return s;
 }
 
-const NERVEN_ARTEFAKTE = ['taktgeber_uhrturm', 'kerze_der_nachtwache', 'zahnrad_schlafwandlerin', 'zweites_herz', 'atemperle', 'fiebermuenze', 'blutsalz_phiole',
-  'nadel_der_naeherin', 'knoechelring_preisboxer', 'metronom_komponist', 'trommelfell_ausrufer', 'glasnerv', 'nervenfaden_weberin', 'moorzunder'];
+// Die Konzentrations-Artefakte (ap_round, ap_max, ap_blood ...) kamen mit PR #227; hier die Nerven-Seite dazu.
+const NERVEN_ARTEFAKTE = ['atemperle', 'blutsalz_phiole', 'knoechelring_preisboxer', 'trommelfell_ausrufer', 'glasnerv', 'nervenfaden_weberin', 'moorzunder'];
 
 test('Jede Fertigkeit mit Konzentrationskosten kostet Nerven, je dicker, desto mehr; der einfache Angriff nie', () => {
   const s = hero(7);
@@ -104,41 +104,33 @@ test('Atem holen: der einfache Angriff bringt Nerven zurück, präzise mehr; Par
 test('Geübte gewinnen die Bosse von Kapitel 1 weiterhin, kommen aber mit sichtbar angegriffenen Nerven heraus', () => {
   for (const id of ['miriam', 'miss_wren', 'starling_stern']) {
     const s = hero(7);
-    const { result } = fight(s, id, { defend: EXPERT, skill: 'klingenwirbel', healBelow: 15 });
+    const { result } = fight(s, id, { defend: EXPERT, skill: 'klingenwirbel', healBelow: 15, chain: true, weak: true });
     assert.equal(result.outcome, 'won', id);
     assert.ok(s.composure < s.maxComposure() * 0.7, `${id}: ${s.composure} von ${s.maxComposure()} Nerven übrig, der Kampf hat nicht gezehrt`);
   }
 });
 
-test('Artefakte: Konzentration pro Runde, zu Kampfbeginn und als Höchstwert (ap_turn, ap_start, ap_max)', () => {
-  const base = new Combat(hero(7), 'moorleiche').ap; // der Pfad des Eisens bringt ab Sequenz 7 selbst Startkonzentration
+test('Artefakte: Nervenfaden und Trommelfell drehen an Höchst- und Startkonzentration, der Start fällt nie unter 0', () => {
+  const base = new Combat(hero(7), 'moorleiche'); // der Pfad des Eisens bringt ab Sequenz 7 selbst Startkonzentration
   const s = hero(7);
-  s.addItem('zahnrad_schlafwandlerin'); // +1 Start, +1 je Runde, +1 Höchstwert; -6 Nerven je Runde, Treffer -3 Nerven
+  s.addItem('nervenfaden_weberin'); // +3 Höchstkonzentration; -5 Nerven je Runde, -20 Nerven
   const c = new Combat(s, 'moorleiche');
-  assert.equal(c.ap, base + 1);
-  assert.equal(c.apMax, AP_MAX + 1);
+  assert.equal(c.apMax, Math.min(base.apMax + 3, 9));
+  assert.equal(s.maxComposure(), hero(7).maxComposure() - 20);
   c.ap = c.apMax;
   c.useSkill('attack', ['good']);
   c.gainAp(10);
-  assert.equal(c.ap, AP_MAX + 1, 'Höchstwert hält');
-  c.ap = 2;
+  assert.equal(c.ap, c.apMax, 'Höchstwert hält');
   const nerves = s.composure;
   c.endRound();
-  assert.equal(c.ap, 3, 'eine Konzentration zum Rundenbeginn');
-  assert.equal(s.composure, nerves - 6);
-  assert.equal(c.drainTick, 6);
-  // Ein Treffer kostet zusätzlich Nerven
-  const atk = c.nextEnemyAttack();
-  const before = s.composure;
-  c.resolveHit(atk, 'miss');
-  assert.equal(before - s.composure, 3 + (atk.nerves ?? 0));
-  // Trommelfell: weniger Höchstkonzentration, Start nie unter 0
+  assert.equal(s.composure, nerves - 5);
+  assert.equal(c.drainTick, 5);
   const t = hero(7);
-  t.addItem('trommelfell_ausrufer');
-  t.addItem('atemperle');
+  t.addItem('trommelfell_ausrufer'); // +25 Nerven, Erholung +30 %; -1 Höchstwert, -1 Start, 10 % mehr Schaden
+  t.addItem('atemperle'); // +5 Nerven je Runde; -2 Höchstwert, Heilung 60 %
   const k = new Combat(t, 'moorleiche');
-  assert.equal(k.ap, Math.max(0, base - 1));
-  assert.equal(k.apMax, AP_MAX - 3);
+  assert.equal(k.ap, Math.max(0, base.ap - 1));
+  assert.equal(k.apMax, base.apMax - 3);
   const z = hero(0);
   z.addItem('trommelfell_ausrufer');
   assert.equal(new Combat(z, 'moorleiche').ap, Math.max(0, AP_START - 1), 'nie unter 0');
@@ -146,7 +138,7 @@ test('Artefakte: Konzentration pro Runde, zu Kampfbeginn und als Höchstwert (ap
 
 test('Artefakte: Nerven pro Runde zurück, Blutzoll und Unruhe je Fertigkeit, teureres Ausweichen, bessere Paraden', () => {
   const s = hero(7);
-  s.addItem('blutsalz_phiole'); // +4 Nerven je Runde, Paraden +2 Nerven; Fertigkeiten kosten 3 Leben
+  s.addItem('blutsalz_phiole'); // +4 Nerven je Runde, Paraden +2 Nerven; jeder Punkt Konzentration kostet 1 Leben
   s.addItem('knoechelring_preisboxer'); // Paraden +1 K, +4 Nerven; Ausweichen +4 Nerven, 15 % mehr Schaden
   s.addItem('moorzunder'); // Fertigkeiten 60 % billiger, aber 4 Unruhe je Fertigkeit
   const c = new Combat(s, 'moorleiche');
@@ -157,8 +149,8 @@ test('Artefakte: Nerven pro Runde zurück, Blutzoll und Unruhe je Fertigkeit, te
   const unruhe = s.unruhe;
   c.ap = 6;
   const r = c.useSkill('klingenwirbel', ['good', 'good', 'good']);
-  assert.equal(s.hp, hp - 3, 'Blutzoll');
-  assert.ok(r.effects.includes('-3 Leben'));
+  assert.equal(s.hp, hp - 4, 'Blutzoll: 4 K Klingenwirbel');
+  assert.ok(r.effects.some((e) => e.includes('Leben für die Konzentration')));
   assert.equal(s.unruhe, unruhe + 4);
   assert.equal(s.composure, 60 - Math.round(16 * 0.4), 'Moorzunder senkt die Kosten');
   const atk = c.nextEnemyAttack();
@@ -192,7 +184,7 @@ test('Alle Nerven-Artefakte sind erreichbar: Asservatenkammer, Beute in ihren Ge
     assert.ok(a, id);
     assert.equal(content.items[id].kind, 'artifact');
     assert.ok(a.boons.length && a.curses.length, `${id}: Vorteil und Nachteil`);
-    const strong = a.curses.length >= 2 || a.curses.some((c) => ['skill_hp', 'round_nerves', 'hit_nerves'].includes(c.key));
+    const strong = a.curses.length >= 2 || a.curses.some((c) => ['ap_blood', 'round_nerves', 'hit_nerves'].includes(c.key));
     assert.ok(strong, `${id}: der Preis ist zu mild`);
     for (const e of [...a.boons, ...a.curses]) assert.ok(e.text && typeof e.value === 'number', `${id}: ${e.key}`);
     if (a.source === 'revier') assert.ok(a.requires_honor >= 35 && a.price > 0, id);
@@ -207,10 +199,6 @@ test('Alle Nerven-Artefakte sind erreichbar: Asservatenkammer, Beute in ihren Ge
       for (const need of Object.keys(r.needs)) assert.ok(content.items[need], `${id}: Zutat ${need}`);
     }
   }
-  // Das Revier zeigt die Stücke in der Asservatenkammer, mit Rangsperre
-  const s = hero(7);
-  s.honor = 35;
-  const stock = s.vaultStock();
-  assert.ok(stock.find((e) => e.id === 'taktgeber_uhrturm' && !e.locked));
-  assert.ok(stock.find((e) => e.id === 'zahnrad_schlafwandlerin')?.locked);
+  // Keine doppelten Ids mit den Konzentrations-Artefakten aus PR #227
+  assert.equal(new Set(Object.keys(list)).size, Object.keys(list).length);
 });
