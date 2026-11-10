@@ -5,7 +5,7 @@ import { GameState } from '../src/core/GameState.js';
 import { loadContent, talk, use, fight, EXPERT } from './helpers.js';
 
 const content = loadContent();
-const BOSS = { defend: EXPERT, healBelow: 15 };
+const BOSS = { defend: EXPERT, healBelow: 15, skill: 'klingenwirbel' }; // Durchbruchsfertigkeit von Sequenz 7
 
 /** Zustand nach Fall 7/8 (bestes Ende, Epilog gesehen). */
 function afterCase8() {
@@ -77,7 +77,16 @@ test('Fall 9: bestes Ende, Starling gestellt, die Lichter heimgeschickt, trotzde
   const { combat, result } = fight(s, 'starling_fight', BOSS);
   assert.ok(combat.weak, 'Wer die Ernte kennt, trifft Starling an der schwachen Stelle');
   assert.equal(result.outcome, 'won');
+  // Phase 2 folgt ohne Verschnaufpause (on_win → combat), erst danach ist Starling gestellt
+  assert.equal(s.pendingCombat, 'starling_stern');
+  assert.ok(!s.flags.has('starling_beaten'));
+  const phase2 = fight(s, 'starling_stern', BOSS);
+  assert.ok(phase2.combat.weak);
+  assert.equal(phase2.result.outcome, 'won');
+  assert.ok(s.flags.has('starling_beaten'));
   use(s, 'sternwarte', 'spiegel9');
+  talk(s, 'sternspiegel9', ['Briefe', 'Zurück']);
+  assert.ok(s.flags.has('starling_briefe_seen'), 'Starling gesteht die Briefe');
   talk(s, 'sternspiegel9', ['Namen']);
   assert.equal(s.endings.case_09, 'c9_perfect');
   assert.equal(s.quests.case_09, 'done');
@@ -99,6 +108,7 @@ test('Fall 9: ohne die Briefe zu durchschauen bleibt nur, den Spiegel zu zerschl
   fight(s, 'sternlicht', BOSS);
   s.heal(s.maxHp);
   assert.equal(fight(s, 'starling_fight', BOSS).result.outcome, 'won');
+  assert.equal(fight(s, 'starling_stern', BOSS).result.outcome, 'won');
   assert.throws(() => talk(s, 'sternspiegel9', ['Namen']));
   talk(s, 'sternspiegel9', ['zerschlagen']);
   assert.equal(s.endings.case_09, 'c9_good');
@@ -134,4 +144,35 @@ test('Fall 9: jedes Ende schließt Kapitel 1 ab und gibt die Fahrkarte', () => {
     assert.ok(e.sets_flags.includes('kapitel1_done'), id);
     assert.equal(e.gives_items.fahrkarte_wexmoor, 1, id);
   }
+});
+
+test('Finale: nach dem Kampf folgen Epilogtafeln (Flucht, Steckbrief, Güterbahnhof), und in Kettlegate suchen Constables nach dir', () => {
+  for (const id of ['c9_perfect', 'c9_good', 'c9_early', 'c9_vey']) {
+    const s = afterCase8();
+    s.applyEffects(content.endings[id]);
+    const scenes = s.epilogue(id);
+    assert.ok(scenes.length >= 2, `${id}: Epilogtafeln`);
+    assert.ok(scenes.some((e) => /Steckbrief/.test(e.title)), `${id}: Steckbrief-Tafel`);
+    assert.ok(scenes.every((e) => e.text.length <= 650), `${id}: Tafeln passen ins Notizbuch`);
+  }
+  // Vorher sucht niemand in Kettlegate, danach gelten Prices Regeln auf dem Altmarkt (nicht in Wexmoor)
+  const s = afterCase8();
+  s.map = 'altmarkt';
+  assert.equal(s.cityPolice(), null);
+  for (const m of ['altmarkt', 'nordtor']) assert.ok(content.maps[m].patrols.every((p) => !s.meets(p.visible_if)), `${m}: noch keine Streife`);
+  s.flags.add('kapitel1_done');
+  assert.ok(s.cityPolice()?.cell.map === 'nachtmarkt');
+  for (const m of ['altmarkt', 'nordtor']) assert.ok(content.maps[m].patrols.every((p) => s.meets(p.visible_if)), `${m}: Streife`);
+  assert.equal(s.cityPolice('wx_bahnhof').cell.map, 'wx_zelle', 'Wexmoor behält seine Grauspäher');
+  // Festnahme in Kettlegate: Marlowe holt dich raus, du landest unter der Krähenbrücke, ohne Wexmoorer Zellenflags
+  s.money = 100;
+  const res = s.arrest();
+  assert.equal(res.map, 'nachtmarkt');
+  assert.equal(res.seized, 15);
+  assert.ok(!s.flags.has('k2_in_cell') && !s.flags.has('k2_bail_due'));
+  assert.equal(s.wanted, 1);
+  // Starlings Geständnis und die zweite Phase
+  assert.equal(content.encounters.starling_fight.on_win.combat, 'starling_stern');
+  assert.ok(content.encounters.starling_stern.min_seq === 7 && content.encounters.starling_stern.boss);
+  assert.ok(Object.keys(content.dialogues.sternspiegel9.nodes).includes('briefe'));
 });

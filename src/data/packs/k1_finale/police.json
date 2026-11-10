@@ -1,0 +1,42 @@
+{
+  "kettlegate": {
+    "active_if": {
+      "requires_flags": [
+        "kapitel1_done"
+      ]
+    },
+    "max_level": 3,
+    "cone": {
+      "range": 56,
+      "range_per_level": 12,
+      "angle": 70,
+      "angle_per_level": 10
+    },
+    "catch_sec": 1.6,
+    "catch_per_level": 0.25,
+    "catch_min_sec": 0.7,
+    "decay_sec": 240,
+    "rest_lowers": 1,
+    "seize_pct": 0.15,
+    "free_bails": 99,
+    "cell_flag": null,
+    "bail_flag": null,
+    "cell": {
+      "map": "nachtmarkt",
+      "spawn": "default"
+    },
+    "on_arrest": {
+      "nerves": -10
+    },
+    "arrest_text": "„Da ist er! Festhalten!“\n\nZwei Constables drücken dich gegen die Hauswand, einer hält den Steckbrief neben dein Gesicht und nickt. Im Revier lässt Price dich in die hinterste Zelle sperren und geht Marlowe suchen, um ihr zu zeigen, wen er gefangen hat.\n\nEr findet sie nicht. Sie findet dich: nachts, mit dem Schlüssel des Hofs. „Das war das letzte Mal.“ Was in deinen Taschen war, bleibt in der Asservatenkammer. Du kommst unter der Krähenbrücke zu dir.",
+    "disguises": {},
+    "disguise_fit": {
+      "range": 0.55,
+      "catch": 1.8
+    },
+    "disguise_misfit": {
+      "range": 1.15,
+      "catch": 0.85
+    }
+  }
+}

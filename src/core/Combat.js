@@ -379,7 +379,8 @@ export class Combat {
 
   /**
    * Kniff statt Angriff (Pfad-Fähigkeiten der Sekten). action:
-   * guard (Panzer +value), heal (+value Leben), veil (nächste Aktion nur präzise), taunt (-value Nerven).
+   * guard (Panzer +value), heal (+value Leben), veil (nächste Aktion nur präzise), taunt (-value Nerven),
+   * drain (Fall 9, Starling: erntet value Konzentration des Ziels und heilt sich um `heal`, pro gestohlenem Punkt mehr).
    */
   enemyAct(atk) {
     const v = atk.value ?? 0;
@@ -391,6 +392,17 @@ export class Combat {
       text ||= `+${this.enemy.hp - before} Leben.`;
     } else if (atk.action === 'veil') { this.veiled = true; text ||= 'Nur präzise Treffer zählen.'; }
     else if (atk.action === 'taunt') { this.on(this.target, () => this.state.setComposure(this.state.composure - v)); text ||= `-${v} Nerven.`; }
+    else if (atk.action === 'drain') {
+      const f = this.fighters[this.target];
+      const stolen = Math.min(f.ap, v);
+      f.ap -= stolen;
+      const before = this.enemy.hp;
+      this.enemy.hp = Math.min(this.enemy.maxHp, this.enemy.hp + (atk.heal ?? 0) + stolen * (atk.heal_per_ap ?? 0));
+      text ||= `-${stolen} Konzentration, +${this.enemy.hp - before} Leben.`;
+      this.lastAction = { name: atk.name, action: 'drain', value: stolen, healed: this.enemy.hp - before, text };
+      this.log.push(`${atk.name}: ${text}`);
+      return this.lastAction;
+    }
     else throw new Error(`Unbekannter Kniff: ${atk.action}`);
     this.lastAction = { name: atk.name, action: atk.action, value: v, text };
     this.log.push(`${atk.name}: ${text}`);

@@ -26,9 +26,9 @@ export class Patrols {
 
   build() {
     const s = this.scene;
-    const defs = (s.mapDef.patrols ?? []).filter((d) => d.kind === 'aufsicht' || this.state.policeRules());
+    const defs = (s.mapDef.patrols ?? []).filter((d) => d.kind === 'aufsicht' || this.state.cityPolice());
     if (!defs.length) return;
-    const sheets = new Set(['npc_grauspaeher', ...AUFSICHT.figures.map((id) => `npc_${id}`)]);
+    const sheets = new Set(['npc_grauspaeher', ...AUFSICHT.figures.map((id) => `npc_${id}`), ...defs.filter((d) => d.figur).map((d) => `npc_${d.figur}`)]);
     for (const key of sheets) {
       const npc = this.state.content.npcs[key.slice(4)];
       if (npc) createCharacterSheet(s, key, npc.palette);
@@ -50,7 +50,7 @@ export class Patrols {
     for (const def of defs) {
       if (def.visible_if && !this.state.meets(def.visible_if)) continue;
       const pts = def.route.map(([tx, ty]) => ({ x: tx * TILE + 8, y: ty * TILE + 15 }));
-      const figur = def.kind === 'aufsicht' ? (def.figur ?? AUFSICHT.figures[n++ % AUFSICHT.figures.length]) : 'grauspaeher';
+      const figur = def.kind === 'aufsicht' ? (def.figur ?? AUFSICHT.figures[n++ % AUFSICHT.figures.length]) : (def.figur ?? 'grauspaeher');
       const sheet = s.textures.exists(`npc_${figur}`) ? `npc_${figur}` : 'npc_grauspaeher';
       const sprite = s.add.sprite(pts[0].x, pts[0].y, sheet, 0).setOrigin(0.5, 1);
       const cone = this.coneArt
@@ -90,7 +90,7 @@ export class Patrols {
     if (blocked) { if (this.graceUntil > time) this.graceUntil += delta; for (const g of this.list) g.sprite.anims.stop(); return; }
     const p = this.scene.player;
     const graced = time < this.graceUntil;
-    const policeCone = this.state.policeRules() ? this.state.policeCone() : null;
+    const policeCone = this.state.cityPolice() ? this.state.policeCone() : null;
     const exempt = this.exempt();
     for (const g of this.list) {
       const cone = g.civil ? AUFSICHT.cone : policeCone;
