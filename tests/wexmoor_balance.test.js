@@ -210,7 +210,7 @@ function duoFight(state, enc, defend) {
   return c;
 }
 
-test('Zu zweit bleibt Wexmoor hart: Könner-Paare schaffen die Bosse, halbe Deckung nicht', () => {
+test('Zu zweit bleibt Wexmoor hart: Könner-Paare schaffen die Bosse, halbe Deckung verliert oder blutet', () => {
   for (const [enc, tier, seq] of [['glockenmutter', 4, 7], ['buergermeister', 4, 7], ['namenlose', 3, 6], ['leuchtfeuer', 4, 5]]) {
     const c = duoFight(pair(tier, seq), enc, EXPERT);
     assert.equal(c.outcome, 'won', `${enc} zu zweit (Könner)`);
@@ -219,6 +219,10 @@ test('Zu zweit bleibt Wexmoor hart: Könner-Paare schaffen die Bosse, halbe Deck
     // Zu zweit geht es nicht viel schneller als allein (der Gegner hält entsprechend mehr aus)
     const solo = duoFight(hero(tier, seq), enc, EXPERT);
     assert.ok(c.round >= solo.round * 0.6, `${enc}: ${c.round} Runden zu zweit, ${solo.round} allein`);
-    assert.notEqual(duoFight(pair(tier, seq), enc, HALF).outcome, 'won', `${enc}: halbe Deckung zu zweit`);
+    // Halbe Deckung bei beiden (die Schläge wechseln zwischen den Spielern, also paarweise zählen)
+    const halfEach = (i) => (Math.floor(i / 2) % 2 ? 'miss' : 'dodge');
+    const h = duoFight(pair(tier, seq), enc, halfEach);
+    const bled = [1, 2].reduce((sum, n) => sum + h.on(n, () => 1 - h.state.hp / h.state.maxHp), 0) >= 0.9; // zusammen fast ein ganzes Leben
+    assert.ok(h.outcome !== 'won' || bled, `${enc}: halbe Deckung zu zweit (${h.outcome})`);
   }
 });

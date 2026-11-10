@@ -428,7 +428,7 @@ export class Combat {
     const tough0 = this.enc.elite;
     // Feld `ramp`: der Gegner wird mit jeder Runde stärker (gegen endloses Abwarten hinter Schilden)
     const ramp = 1 + (this.enc.ramp ?? 0) * Math.max(0, this.round - 1);
-    const dmgMult = this.enc.practice ? 1 : ENEMY_DMG_MULT * (rage ? 1.2 : 1) * (tough0 ? ELITE_DMG_MULT : 1) * (this.duo ? DUO_DMG_MULT : 1) * ramp;
+    const dmgMult = this.enc.practice ? 1 : ENEMY_DMG_MULT * (rage ? 1.2 : 1) * (tough0 ? ELITE_DMG_MULT : 1) * (this.duo && !this.enc.min_seq ? DUO_DMG_MULT : 1) * ramp; // höhere Wesen schlagen zu zweit nicht schwächer
     const speed = rage ? 0.85 : 1;
     const hits = [];
     const src = [...atk.hits];
