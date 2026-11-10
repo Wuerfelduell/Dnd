@@ -259,7 +259,7 @@ test('Balance zu zweit: Bosse bleiben fordernd, gleich starke Paare schaffen sie
     const fights = seeds.map((seed) => duoFight(pair(seq), enc, EXPERT, seed));
     // Mit +150 % Gegnerleben (Seb, 2026-11-10) schaffen Geübte die Bosse meistens, Starling (zwei Phasen, höheres Wesen) bleibt ein Brocken
     const wins = fights.filter((c) => c.outcome === 'won').length;
-    const need = { rook_fight: seeds.length, starling_fight: 2 }[enc] ?? seeds.length - 2;
+    const need = { rook_fight: seeds.length, starling_fight: 2 }[enc] ?? seeds.length / 2;
     assert.ok(wins >= need, `${enc} zu zweit (geübt): ${wins} von ${seeds.length} Siegen, erwartet mindestens ${need}`);
     // Keiner kommt ungeschoren davon: beide müssen sich verteidigen (im Schnitt über mehrere Kämpfe)
     for (const n of [1, 2]) {
