@@ -1533,3 +1533,17 @@ in diesem Grafikpaket unverändert.
 - `items/laeutersalz.png`: Kopie von `bannsalz.png`.
 - Die Tentakel auf der Karte zeichnet `WorldScene.playCorruption()` selbst, bis `fx/BP_tentakel_kontrollverlust.png` da ist.
 - Auftragsliste für die echten Grafiken: `docs/art/codex_BP_kontrollverlust_grafik.md`.
+
+
+## Batch BK — Figuren-Vorrat (`vorrat2`)
+
+28 Figuren aus Calderwick, Briarholt und von der Landstraße: je vier Laufrichtungen, acht Portraitstimmungen, vier Sonderaktionsframes und ein 24×24-Kopf. Wetherby und Greavesend erhalten außerdem je zwei Kampfphasen. Insgesamt 115 Sheets mit 880 belegten Frames. Noch kein Einbau ins laufende Spiel.
+
+- Manifest: `public/sprites/manifest-vorrat2.json` (Animationen, Framegrößen, Kopfregionen, Prüfsummen).
+- Herkunft und vollständige Prompts: [batch-vorrat2-generation.json](batch-vorrat2-generation.json).
+- Normalisierte Generatoratlanten: `tools/art/vorrat2/sources/`; Original-Hashes bleiben dokumentiert.
+- Reproduzieren: `python tools/art/vorrat2/export.py`, danach `python docs/art/validate-vorrat2.py` (Pillow).
+- Prüfbericht: [batch-vorrat2-validation.json](batch-vorrat2-validation.json).
+- Vorschauen: [Calderwick](batch-vorrat2-preview-calderwick.png), [Briarholt](batch-vorrat2-preview-briarholt.png), [Reise](batch-vorrat2-preview-reise.png), [Köpfe](batch-vorrat2-preview-heads.png), [Bosse](batch-vorrat2-preview-bosses.png).
+
+Built-in Bildgenerator mit vorhandener Sprite-Referenz; Nearest-Neighbor-Export, 31 sichtbare gemeinsame Palettenfarben plus Transparenz, binäres Alpha. Export bereinigt neutrale helle Mattierung und berücksichtigt abweichende Atlasabstände. Lauf-/Sonderframes stehen auf y=30, der Junge ist kleiner. Bossangriffe halten die Ausholpose zwei Frames. Prüfungen umfassen Vollständigkeit, Raster, Palette, Alpha, Zellränder, Grundlinien, Frameindizes, Ausdrucks-/Bewegungsvielfalt und SHA-256.
