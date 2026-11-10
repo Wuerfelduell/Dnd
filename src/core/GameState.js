@@ -374,7 +374,22 @@ export class GameState {
     return (this.quest(id).steps ?? []).map((s) => ({ text: s.text, done: this.meets(s.done) }));
   }
 
-  /** Nächster offener Schritt des wichtigsten aktiven Auftrags (für Tipps). */
+  /**
+   * Offene Spuren: Aufträge, die noch nicht angenommen sind, aber schon abgeholt werden können
+   * (Feld `lead` im Auftrag, einzeln oder als Liste von Varianten). Fall 8 kommt z. B. nicht von
+   * Marlowe, sondern von Nan Kettle am Nachtmarkt. Ergebnis: [{ quest, title, text, target }].
+   */
+  openLeads() {
+    const out = [];
+    for (const [id, q] of Object.entries(this.content.quests)) {
+      if (!q.lead || this.quests[id] !== undefined) continue;
+      const lead = (Array.isArray(q.lead) ? q.lead : [q.lead]).find((l) => this.meets(l));
+      if (lead) out.push({ quest: id, title: q.title, text: lead.text, target: lead.target ?? null });
+    }
+    return out;
+  }
+
+  /** Nächster offener Schritt des wichtigsten aktiven Auftrags (für Tipps); sonst die nächste offene Spur. */
   nextHint() {
     const active = Object.keys(this.quests).filter((q) => this.quests[q] === 'active');
     active.sort((a, b) => (this.quest(a).kind === 'main' ? -1 : 1) - (this.quest(b).kind === 'main' ? -1 : 1));
@@ -382,7 +397,8 @@ export class GameState {
       const step = this.questSteps(q).find((s) => !s.done);
       if (step) return { quest: this.quest(q).title, text: step.text };
     }
-    return null;
+    const lead = this.openLeads()[0];
+    return lead ? { quest: lead.title, text: lead.text, lead: true } : null;
   }
 
   // --- Leben & Inventar ----------------------------------------------------------------

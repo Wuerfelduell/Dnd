@@ -133,6 +133,32 @@ function needs(state, done) {
   return out;
 }
 
+/** Ziel mit Ort, Ortsname, Bezirk und Sperrhinweis anreichern. */
+function finishTarget(state, base, src) {
+  const c = state.content;
+  const district = districtOf(c, src.map);
+  const locked = district && district !== state.map ? lockedDistrict(state, district) : null;
+  return {
+    ...base, map: src.map, id: src.id, name: src.label ?? src.name,
+    mapName: c.maps[src.map]?.name ?? src.map, district, ...(locked ? { locked } : {}),
+  };
+}
+
+/** Festes Ziel ({ map, id, label? }) um den sichtbaren Namen ergänzen. */
+function namedTarget(c, target) {
+  const def = [...(c.maps[target.map]?.npcs ?? []), ...(c.maps[target.map]?.interactables ?? [])].find((x) => x.id === target.id);
+  return { ...target, name: target.label ?? c.npcs[target.id]?.name ?? def?.prompt ?? target.id };
+}
+
+/**
+ * Ziel für eine offene Spur (GameState.openLeads): ein Auftrag, der noch abgeholt werden muss.
+ * Gleiche Form wie questTarget, damit HUD, Journal und Stadtkarte sie genauso zeigen können.
+ */
+export function leadTarget(state, lead) {
+  if (!lead?.target) return null;
+  return finishTarget(state, { quest: lead.quest, step: lead.text, lead: true }, namedTarget(state.content, lead.target));
+}
+
 /**
  * Ziel für den nächsten offenen Schritt eines Auftrags.
  * Ergebnis: { quest, step, map, id, name, mapName, district, notebook? } oder null.
@@ -144,18 +170,8 @@ export function questTarget(state, questId) {
   const step = (q.steps ?? []).find((s) => !state.meets(s.done));
   if (!step) return null;
   const base = { quest: questId, step: step.text };
-  const finish = (src) => {
-    const district = districtOf(c, src.map);
-    const locked = district && district !== state.map ? lockedDistrict(state, district) : null;
-    return {
-      ...base, map: src.map, id: src.id, name: src.label ?? src.name,
-      mapName: c.maps[src.map]?.name ?? src.map, district, ...(locked ? { locked } : {}),
-    };
-  };
-  if (step.target) {
-    const def = [...(c.maps[step.target.map]?.npcs ?? []), ...(c.maps[step.target.map]?.interactables ?? [])].find((x) => x.id === step.target.id);
-    return finish({ ...step.target, name: step.target.label ?? c.npcs[step.target.id]?.name ?? def?.prompt ?? step.target.id });
-  }
+  const finish = (src) => finishTarget(state, base, src);
+  if (step.target) return finish(namedTarget(c, step.target));
   const idx = guideIndex(c);
   const n = needs(state, step.done);
   const srcs = [
