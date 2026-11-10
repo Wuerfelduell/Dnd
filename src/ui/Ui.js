@@ -209,6 +209,9 @@ const uiSprite = (sheet, region, k = 1 / 8, cls = '', title = '') => {
   const [path, w, h] = UI_SHEETS[sheet];
   return regionIcon(SPRITE_BASE + path, r, w, h, `ui-${sheet} ${cls}`, k, title);
 };
+/** Paket BP: Korruptionsabzeichen (Knoten) bzw. gereinigt/beiseitegelegt aus ui/BP_korruption.png. */
+const korrIcon = (name = 'corrupted', title = 'korrumpiert') => uiSprite('bpkorr', name, 1 / 6, 'korricon', title);
+const korrBadge = () => `<span class="badge refuted korr">${korrIcon()}korrumpiert</span>`;
 /** Paket AE: gezeichneter Touch-Knopf (32x32, nur im Touch-Modus sichtbar) und Einstellungs-Symbol (16x16). */
 const touchIcon = (name) => uiSprite('aetouch', name, 1 / 16, 'touch-only aeicon');
 const setIcon = (name, cls = '') => uiSprite('aeset', name, 1 / 12, `aeicon ${cls}`);
@@ -925,7 +928,7 @@ export class Ui {
     const s = this.state;
     const hit = corrupted.filter((id) => s.item(id));
     const extra = hit.length
-      ? `<ul class="corruptlist">${hit.map((id) => `<li>${itemIcon(id)}<strong>${esc(s.item(id).name)}</strong> <span class="curse">korrumpiert</span></li>`).join('')}</ul>`
+      ? `<ul class="corruptlist">${hit.map((id) => `<li>${itemIcon(id)}<strong>${esc(s.item(id).name)}</strong> <span class="curse">${korrIcon()}korrumpiert</span></li>`).join('')}</ul>`
       : '';
     const r = s.corruptionRules();
     const footer = hit.length
@@ -1673,7 +1676,7 @@ export class Ui {
       } else if (it.kind === 'formula') action = '<button class="small" data-recipe="1">Rezept</button>';
       else if (it.kind === 'artifact') {
         // Artefakte wirken, solange man sie bei sich hat. Korrumpierte darf man ausnahmsweise beiseitelegen.
-        if (s.isSetAside(it.id)) action = `<span class="badge suspected">ruht</span><br><button class="small" data-takeup="${it.id}">Aufnehmen</button>`;
+        if (s.isSetAside(it.id)) action = `<span class="badge suspected">${korrIcon('set_aside', 'beiseitegelegt')}ruht</span><br><button class="small" data-takeup="${it.id}">Aufnehmen</button>`;
         else action = `<span class="badge likely">wirkt</span>${tainted ? `<br><button class="small" data-aside="${it.id}">Beiseitelegen</button>` : ''}`;
         if (s.borrowed.includes(it.id)) action += '<br><span class="muted">vom Revier geliehen</span>';
       } else if (it.kind === 'ingredient') action = '<span class="muted">Zutat</span>';
@@ -1688,7 +1691,7 @@ export class Ui {
         : it.kind === 'gear' ? ` <span class="muted">${GEAR_SLOT_NAMES[it.slot]}</span>` : '';
       const effects = it.kind === 'artifact' || it.kind === 'gear' ? artifactEffectsHtml(it) : '';
       const taint = tainted ? corruptionHtml(s, it.id) : '';
-      return `<li class="item${tainted ? ' tainted' : ''}"><div>${it.kind === 'potion' || it.kind === 'formula' ? itemIconBig(it.id) : itemIcon(it.id)}<strong>${esc(it.name)}</strong>${it.count > 1 ? ` ×${it.count}` : ''}${stat}${tainted ? ' <span class="badge refuted">korrumpiert</span>' : ''}<br><span class="desc">${esc(it.desc)}</span>${effects}${taint}</div><div>${action}</div></li>`;
+      return `<li class="item${tainted ? ' tainted' : ''}"><div>${it.kind === 'potion' || it.kind === 'formula' ? itemIconBig(it.id) : itemIcon(it.id)}<strong>${esc(it.name)}</strong>${it.count > 1 ? ` ×${it.count}` : ''}${stat}${tainted ? ` ${korrBadge()}` : ''}<br><span class="desc">${esc(it.desc)}</span>${effects}${taint}</div><div>${action}</div></li>`;
     }).join('');
     const carried = s.activeArtifacts();
     const maxArt = s.artifactRules().max_active ?? 3;
@@ -1696,7 +1699,7 @@ export class Ui {
       ? `<div class="status"><span class="artslots">${artifactSlots(carried, maxArt, carried.length > maxArt || s.unruhe >= 60)}</span>Artefakte dabei <strong>${carried.length}</strong>${s.artifactUnruhe() ? ` · <span class="curse">Unruhe +${Math.round(s.artifactUnruhe() * 10) / 10} pro Sekunde</span>` : ''} · Alles, was du bei dir trägst, wirkt: Vorteile wie Flüche. Was du nicht brauchst, lagere im Büro ein.${carried.length > maxArt ? ` <span class="curse">Mehr als ${maxArt} zerren heftig aneinander.</span>` : ''}</div>` : '';
     const drain = s.corruptionDrain();
     const taintBox = drain.count
-      ? `<div class="status taintbox">${uiSprite('digest', 'warning', 1 / 12, 'digestico', 'Korruption')}<strong>${drain.count}</strong> korrumpierte${drain.count === 1 ? 's Stück zehrt' : ' Stücke zehren'} an dir: <span class="curse">−${fmtRate(drain.hp)} Leben, −${fmtRate(drain.nerves)} Nerven pro Sekunde</span>. Ablegen hilft sofort, reinigen Dr. Varga im Revier oder Läutersalz (Nell).</div>`
+      ? `<div class="status taintbox">${korrIcon('pulse1', 'Korruption')}<strong>${drain.count}</strong> korrumpierte${drain.count === 1 ? 's Stück zehrt' : ' Stücke zehren'} an dir: <span class="curse">−${fmtRate(drain.hp)} Leben, −${fmtRate(drain.nerves)} Nerven pro Sekunde</span>. Ablegen hilft sofort, reinigen Dr. Varga im Revier oder Läutersalz (Nell).</div>`
       : s.corruptedItems().length ? '<div class="status taintbox muted">Korrumpierte Stücke liegen abgelegt in deiner Tasche. Sie zehren erst wieder, wenn du sie trägst.</div>' : '';
     return `
       ${carryHtml(s)}${taintBox}
@@ -2018,7 +2021,7 @@ export class Ui {
     const cleanse = this.as(() => s.cleanseOffers());
     const base = this.vault.length;
     this.vault.push(...cleanse.map((c) => ({ type: 'cleanse', id: c.id, disabled: !c.affordable })));
-    const cleanseRows = cleanse.map((c, i) => `<li class="item tainted"><div>${itemIcon(c.id)}<strong>${esc(c.name)}</strong> <span class="badge refuted">korrumpiert</span><br>
+    const cleanseRows = cleanse.map((c, i) => `<li class="item tainted"><div>${itemIcon(c.id)}<strong>${esc(c.name)}</strong> ${korrBadge()}<br>
         <span class="desc">${esc(c.kind === 'artifact' ? 'Ein Artefakt mit schwarzem Faden darin. Teuer, aber danach wirkt nur noch sein eigener Fluch.' : 'Der schwarze Faden lässt sich mit Salzlauge und Geduld herauslösen.')}</span></div>
         <div><button class="small" data-vault="${base + i}" ${c.affordable ? '' : 'disabled'}><span class="key">${base + i + 1}</span> Reinigen · ${coin}${c.price}</button></div></li>`).join('');
     const cleanseBox = cleanse.length

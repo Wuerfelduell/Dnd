@@ -1,7 +1,7 @@
 // Kontrollverlust korrumpiert Waffe, Kleidung und Artefakte am Leib; sie zehren, bis man sie ablegt oder reinigt.
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { existsSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import { GameState } from '../src/core/GameState.js';
 import { loadContent } from './helpers.js';
 
@@ -131,7 +131,7 @@ test('Einlagern hilft nicht, Wegwerfen schon; Weitergeben nimmt die Korruption m
 test('Läutersalz gibt es bei Nell, es hat ein Icon und nützt nur außerhalb des Kampfes', () => {
   assert.ok(content.market.merchants.nell.stock.some((e) => e.item === 'laeutersalz'));
   assert.ok(existsSync(new URL('../public/sprites/items/laeutersalz.png', import.meta.url)));
-  assert.ok(existsSync(new URL('../public/sprites/ui/scenes/kontrollverlust.png', import.meta.url)), 'Platzhalterbild der Cutscene');
+  assert.ok(existsSync(new URL('../public/sprites/ui/scenes/kontrollverlust.png', import.meta.url)), 'Bild der Cutscene (Paket BP)');
   const s = new GameState(content);
   s.addItem('laeutersalz');
   assert.match(s.useItem('laeutersalz'), /Nichts an dir/);
@@ -151,4 +151,23 @@ test('Korruption überlebt Speichern und Laden, auch bei Spieler 2', () => {
   assert.equal(t.isArtifactActive(artId), false);
   assert.equal(t.withPlayer(2, () => t.isCorrupted('spazierstock')), true);
   assert.equal(t.isCorrupted('spazierstock'), false);
+});
+
+test('Paket BP: Kontrollverlust-Grafik ist registriert und passt zum Manifest', async () => {
+  const { ANIM_SHEETS, UI_SHEETS, UI_REGIONS, UI_SKINS } = await import('../src/world/assets.js');
+  const manifest = JSON.parse(readFileSync(new URL('../public/sprites/manifest-kontrollverlust.json', import.meta.url), 'utf8'));
+  const asset = (id) => manifest.assets.find((a) => a.id === id);
+  for (const [key, id] of [['tentakel_fx', 'tentakel_fx'], ['player_korruption', 'BP_player_korruption']]) {
+    const [path, w, h] = ANIM_SHEETS[key];
+    const a = asset(id);
+    assert.equal(path, a.file, key);
+    assert.deepEqual([w, h], [a.frameWidth, a.frameHeight], key);
+    assert.ok(existsSync(new URL(`../public/sprites/${path}`, import.meta.url)), path);
+  }
+  assert.deepEqual(asset('tentakel_fx').animations.grow.frames.length, 12);
+  for (const row of ['player', 'p2a', 'p2b']) assert.ok(asset('BP_player_korruption').animations[row], row);
+  assert.equal(UI_SHEETS.bpkorr[0], asset('BP_korruption').file);
+  assert.deepEqual(Object.keys(UI_REGIONS.bpkorr), ['corrupted', 'pulse1', 'pulse2', 'pulse3', 'cleansed', 'set_aside']);
+  assert.equal(UI_SKINS.korrframe, asset('BP_korruption_rahmen').file);
+  assert.ok(existsSync(new URL(`../public/sprites/${UI_SKINS.korrframe}`, import.meta.url)));
 });

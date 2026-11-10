@@ -481,11 +481,14 @@ export const ANIM_SHEETS = {
   // Paket H
   player_inspect: ['characters/H_player_untersuchen.png', 16, 32],
   risk_fx: ['fx/H_06_risiko.png', 480, 270],
+  // Paket BP: Kontrollverlust (manifest-kontrollverlust.json)
+  tentakel_fx: ['fx/BP_tentakel_kontrollverlust.png', 64, 64],
+  player_korruption: ['characters/BP_player_korruption.png', 16, 32],
 };
 
 /** Manifest-Id, falls sie vom Texture-Key abweicht. */
 const MANIFEST_IDS = { player_drink: 'A_player_drink', control_cracks: 'A_11_control_cracks', creatures: 'C_08_creatures', weather: 'C_08_weather',
-  player_inspect: 'H_player_untersuchen', risk_fx: 'H_06_risiko' };
+  player_inspect: 'H_player_untersuchen', risk_fx: 'H_06_risiko', player_korruption: 'BP_player_korruption' };
 
 /** Pfad-Embleme und Karten (public/sprites/pathways/). */
 /** Neue Pfade (Paket AF) zeigen bis zur eigenen Grafik die eines Bestandspfads. */
@@ -510,6 +513,7 @@ export const UI_SKINS = {
   logstrips: 'ui/C_07_log_strips.png',
   routes: 'ui/I_reise_routen.png',
   notebook_bg: 'ui/07_02_notebook.png',
+  korrframe: 'ui/BP_korruption_rahmen.png', // Paket BP: 9-slice, 16 px je Rand
 };
 /** Bögen für Symbole aus Regionen: Name → [Pfad, Breite, Höhe]. Regionen [x, y, w, h] in UI_REGIONS. */
 export const UI_SHEETS = {
@@ -536,6 +540,8 @@ export const UI_SHEETS = {
   aeset: ['ui/AE_einstellungen.png', 128, 32],
   aetouch: ['ui/AE_touch.png', 320, 64],
   aezeitung: ['ui/AE_zeitung.png', 320, 160],
+  // Paket BP: Korruptionsabzeichen (Knoten, Puls 1–3, gereinigt, beiseitegelegt)
+  bpkorr: ['ui/BP_korruption.png', 96, 16],
 };
 const cell = (i, size = 16, cols = 8) => [(i % cols) * size, Math.floor(i / cols) * size, size, size];
 const steps = (prefix, x0, y, w, h, n, dx) => Object.fromEntries(Array.from({ length: n }, (_, i) => [`${prefix}${i}`, [x0 + i * dx, y, w, h]]));
@@ -543,6 +549,7 @@ const steps = (prefix, x0, y, w, h, n, dx) => Object.fromEntries(Array.from({ le
 const AE_SET = ['lautstaerke', 'stumm', 'musik', 'effekte', 'vollbild', 'fenster', 'steuerung', 'speichern', 'laden', 'zurueck', 'zahnrad', 'info', 'beenden', 'pause', 'weiter', 'handy'];
 const AE_TOUCH = ['aktion', 'geistsicht', 'notizbuch', 'inventar', 'karte', 'angriff', 'ausweichen', 'parieren', 'faehigkeit', 'gegenstand'];
 export const UI_REGIONS = {
+  bpkorr: { corrupted: [0, 0, 16, 16], pulse1: [16, 0, 16, 16], pulse2: [32, 0, 16, 16], pulse3: [48, 0, 16, 16], cleansed: [64, 0, 16, 16], set_aside: [80, 0, 16, 16] },
   aeset: Object.fromEntries(AE_SET.map((n, i) => [n, cell(i)])),
   aetouch: Object.fromEntries(AE_TOUCH.flatMap((n, i) => [[n, [i * 32, 0, 32, 32]], [`${n}_down`, [i * 32, 32, 32, 32]]])),
   aezeitung: { kopf_kurier: [0, 48, 160, 24], kopf_bote: [160, 48, 160, 24], foto_polizeiwache: [0, 80, 64, 48], foto_menschenmenge: [64, 80, 64, 48], foto_hafen: [128, 80, 64, 48], foto_leuchtturm: [192, 80, 64, 48] },
@@ -1127,6 +1134,7 @@ export function preloadSprites(scene) {
   if (!scene.cache.json.exists('manifestFall6')) scene.load.json('manifestFall6', `${BASE}manifest-fall6.json`);
   if (!scene.cache.json.exists('manifestFall5')) scene.load.json('manifestFall5', `${BASE}manifest-fall5.json`);
   if (!scene.cache.json.exists('manifestGegner3')) scene.load.json('manifestGegner3', `${BASE}manifest-gegner3.json`);
+  if (!scene.cache.json.exists('manifestKontrollverlust')) scene.load.json('manifestKontrollverlust', `${BASE}manifest-kontrollverlust.json`);
   for (const [key, [path, w, h]] of Object.entries(CASE_SHEETS)) {
     if (!scene.textures.exists(key)) scene.load.spritesheet(key, BASE + path, { frameWidth: w, frameHeight: h });
   }
@@ -1142,7 +1150,7 @@ export function playSheetAnim(sprite, sheet, name, then) {
   const key = `${sheet}-${name}`;
   if (!scene.anims.exists(key)) {
     const id = MANIFEST_IDS[sheet] ?? sheet;
-    const def = ['manifestPfade', 'manifestWelt', 'manifestJournal', 'manifestSpieler2', 'manifestSequenzen3'].map((m) => scene.cache.json.get(m)?.assets?.find((a) => a.id === id)?.animations?.[name]).find(Boolean);
+    const def = ['manifestPfade', 'manifestWelt', 'manifestJournal', 'manifestSpieler2', 'manifestSequenzen3', 'manifestKontrollverlust'].map((m) => scene.cache.json.get(m)?.assets?.find((a) => a.id === id)?.animations?.[name]).find(Boolean);
     if (!def) return false;
     scene.anims.create({ key, frames: def.frames.map((frame) => ({ key: sheet, frame })), frameRate: def.frameRate, repeat: def.repeat });
   }
