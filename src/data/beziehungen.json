@@ -4,16 +4,18 @@
     "max": 6,
     "feindselig_ab": -2,
     "freundlich_ab": 3,
-    "geschenk_max": 2,
+    "geschenk_max": 3,
     "preis": {
       "freundlich": 0.9,
       "feindselig": 1.2
-    }
+    },
+    "geschenk_wert": 12
   },
   "texte": {
     "dank": "{name} nimmt {item} an. „Das vergesse ich Ihnen nicht.“",
+    "wertvoll": "{name} wiegt {item} in der Hand. „Das ist zu viel. Aber ich nehme es, und ich merke es mir.“",
     "genug": "{name} nimmt {item} an, sagt aber nichts weiter. Mehr Dankbarkeit kauft man damit nicht.",
-    "ablehnung": "„Behalten Sie das. Ich hätte keine Verwendung dafür.“",
+    "ablehnung": "„Behalten Sie das. Wenn Sie mir eine Freude machen wollen: {wunsch}.“",
     "beleidigt": "{name} schiebt {item} zurück und sieht dich lange an. „Für wen halten Sie mich?“"
   },
   "allgemein": {
@@ -32,6 +34,10 @@
   },
   "figuren": {
     "marlowe": {
+      "mag_arten": [
+        "consumable",
+        "trophy"
+      ],
       "mag": [
         "tonikum"
       ],
@@ -40,11 +46,19 @@
       ]
     },
     "holt": {
+      "mag_arten": [
+        "consumable",
+        "weapon"
+      ],
       "mag": [
         "gewuerzwein"
       ]
     },
     "pimm": {
+      "mag_arten": [
+        "trophy",
+        "gear"
+      ],
       "mag": [
         "taschentuch"
       ],
@@ -53,33 +67,68 @@
       ]
     },
     "greta": {
+      "mag_arten": [
+        "consumable",
+        "trophy"
+      ],
       "mag": [
         "gewuerzwein",
         "riechsalz"
       ]
     },
     "nell": {
+      "mag_arten": [
+        "ingredient",
+        "potion"
+      ],
       "mag": [
         "bannsalz"
       ]
     },
     "gorse": {
+      "mag_arten": [
+        "trophy",
+        "artifact"
+      ],
       "mag": [
         "glasauge",
         "taschenspiegel"
       ]
     },
     "kittering": {
+      "mag_arten": [
+        "potion",
+        "ingredient"
+      ],
       "mag": [
         "lampenoel"
       ]
     },
     "maud": {
+      "mag_arten": [
+        "gear",
+        "trophy"
+      ],
       "mag": [
         "taschentuch"
       ],
       "verabscheut": [
         "gewuerzwein"
+      ]
+    },
+    "zunder": {
+      "mag_arten": [
+        "consumable",
+        "weapon"
+      ]
+    },
+    "kit": {
+      "mag_arten": [
+        "consumable",
+        "trophy"
+      ],
+      "verabscheut_arten": [
+        "weapon"
       ]
     }
   },

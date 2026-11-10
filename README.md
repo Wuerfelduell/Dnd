@@ -73,7 +73,9 @@ Stimmungen: **feindselig** (ab −2), **neutral**, **freundlich** (ab +3). Die S
 im Gespräch und im Notizbuch unter „Personen“, färbt das Portrait (Lächeln oder Misstrauen) und bringt einen eigenen
 Begrüßungssatz. Der Wert ändert sich durch Gesprächsentscheidungen und Aufträge (`relation` an Dialogknoten oder
 Auftragsbelohnungen, Knoten wirken nur beim ersten Besuch), durch **Geschenke** („Etwas schenken …“ im Menü jeder Figur:
-Gemochtes zählt bis zu zweimal, Verabscheutes kostet) und durch einen Kampf im Gespräch (macht sofort feindselig).
+jede Figur hat ein Auge für zwei Arten von Dingen, das Fenster zeigt sie; Gemochtes und Wertvolles ab 12 Schilling zählt bis zu
+dreimal, Verabscheutes kostet, Billiges wird mit einem Hinweis auf den Wunsch abgelehnt) und durch einen Kampf im Gespräch
+(macht sofort feindselig).
 Freundliche Händler geben 10 % Nachlass, feindselige schlagen 20 % auf; Gesprächsoptionen können eine Stimmung verlangen
 (`requires_mood`, `requires_relation`). Einzelgänger und Gefährten behalten ihren Vertrauenswert, er zählt hier mit.
 Zu zweit gehört die Beziehung dem Ermittler, beide Spieler wirken auf sie. Daten: `src/data/beziehungen.json`, Pakete
