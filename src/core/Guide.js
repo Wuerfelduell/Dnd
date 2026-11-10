@@ -106,6 +106,27 @@ export function districtOf(content, mapId) {
 }
 
 /**
+ * Wegweiser zu einer Person: alle Karten, auf denen die Figur stehen kann, mit dem Bezirk auf der Stadtkarte.
+ * Eine Figur kann je nach Lage an mehreren Orten sein (Greta am Altmarkt oder in Ashgrove, Kit je nach Auftrag);
+ * `now` sagt, ob die Figur dort gerade anzutreffen ist (Sichtbedingung erfüllt), sonst nur unter anderen Umständen.
+ * Ergebnis: [{ map, mapName, district, districtName, city, now, locked? }], aktuelle Orte zuerst.
+ */
+export function personPlaces(state, npcId) {
+  const c = state.content;
+  const out = [];
+  for (const [mapId, map] of Object.entries(c.maps)) {
+    const defs = (map.npcs ?? []).filter((n) => n.id === npcId);
+    if (!defs.length) continue;
+    const now = defs.some((d) => state.meets(d.visible_if));
+    const district = districtOf(c, mapId);
+    const locked = district && district !== state.map ? lockedDistrict(state, district) : null;
+    const districtName = c.travel.find((t) => t.map === district)?.name ?? c.maps[district]?.name ?? null;
+    out.push({ map: mapId, mapName: map.name ?? mapId, district, districtName, city: map.city ?? 'kettlegate', now, ...(locked ? { locked } : {}) });
+  }
+  return out.sort((a, b) => Number(b.now) - Number(a.now) || a.mapName.localeCompare(b.mapName));
+}
+
+/**
  * Ist der Bezirk auf der Stadtkarte noch gesperrt? Dann { name, how } mit einem Hinweis,
  * wer ihn freischaltet (falls die Daten das verraten), sonst null.
  */
