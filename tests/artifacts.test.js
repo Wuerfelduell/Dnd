@@ -116,6 +116,9 @@ test('Hammerfall und Unbeugsam funktionieren im Kampf', () => {
   c.ap = 6;
   const h = c.useSkill('hammerfall', ['good', 'good']);
   assert.ok(h.total > 0);
+  assert.equal(c.stunned, false, 'ohne präzisen Takt keine Betäubung');
+  c.ap = 6;
+  c.useSkill('hammerfall', ['perfect', 'good']);
   assert.equal(c.stunned || c.outcome === 'won', true);
 });
 

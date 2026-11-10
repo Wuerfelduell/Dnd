@@ -2,7 +2,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { GameState } from '../src/core/GameState.js';
-import { Combat, judgeDefense, judgeTiming, WINDOW, ENEMY_HP_MULT, ENEMY_DMG_MULT, DODGE_COST, RING_CURVES } from '../src/core/Combat.js';
+import { Combat, judgeDefense, judgeTiming, isPrecise, skillBars, PRECISE_WINDOW, PRECISE_GRADE_MULT, GRADE_MULT, WINDOW, ENEMY_HP_MULT, ENEMY_DMG_MULT, DODGE_COST, RING_CURVES } from '../src/core/Combat.js';
 import { loadContent, fight, SKILLED, EXPERT, seeded } from './helpers.js';
 
 const content = loadContent();
@@ -82,7 +82,12 @@ test('Laternenblende lässt den Gegner aussetzen, Bannwort kostet Nerven', () =>
   const s = fresh();
   const c = new Combat(s, 'ash_warden');
   c.ap = 6;
-  assert.ok(c.useSkill('blind', ['good']).stunned);
+  const miss = c.useSkill('blind', ['good']);
+  assert.ok(!miss.stunned && miss.stunMissed, 'nur ein präziser Treffer blendet');
+  assert.ok(c.nextEnemyAttack());
+  c.endEnemyTurn();
+  c.ap = 6;
+  assert.ok(c.useSkill('blind', ['perfect']).stunned);
   assert.equal(c.nextEnemyAttack(), null);
   assert.ok(c.nextEnemyAttack());
   const before = s.composure;
@@ -302,4 +307,39 @@ test('Schicksalsfaden durchdringt Panzer und trifft auch bei verfehltem Takt', (
   const r = c.useSkill(sk.id, ['miss', 'good']);
   assert.ok(r.hits.every((h) => h.grade === 'good'));
   assert.equal(r.total, r.hits[0].damage + r.hits[1].damage, 'Panzer zieht nichts ab');
+});
+
+test('Präzise Fertigkeiten: Betäuben und große Wucht nur bei perfektem Takt, kleines Fenster', () => {
+  // Was betäubt oder richtig viel Schaden macht, ist präzise; die Grundfertigkeiten bis auf die Blende nicht
+  const P = content.pathways;
+  for (const id of ['blind']) assert.ok(isPrecise(c0().skillDef(id)), id);
+  for (const id of ['attack', 'double', 'ward']) assert.ok(!isPrecise(c0().skillDef(id)), id);
+  for (const [pid, seq] of [['eisen', 5], ['echo', 5], ['faden', 6], ['schluessel', 8], ['laterne', 7], ['kessel', 5], ['eisen', 1]]) assert.ok(isPrecise(P[pid].seqs[seq].skill), `${pid} ${seq}`);
+  for (const [pid, seq] of [['eisen', 9], ['eisen', 7], ['faden', 7], ['echo', 7], ['kessel', 7], ['maske', 5]]) assert.ok(!isPrecise(P[pid].seqs[seq].skill), `${pid} ${seq}`);
+  assert.ok(isPrecise({ hits: 1, mult: 1, precise: true }) && !isPrecise({ hits: 1, stun: true, precise: false }), 'Daten dürfen überschreiben');
+  // Fangnetz (ohne Treffer) verlangt jetzt einen Takt für die Betäubung
+  assert.equal(skillBars(P.faden.seqs[6].skill), 1);
+  assert.equal(skillBars(P.faden.seqs[8].skill), 0);
+  assert.equal(PRECISE_WINDOW, 0.2);
+  assert.ok(PRECISE_GRADE_MULT.good < GRADE_MULT.good / 2 && PRECISE_GRADE_MULT.perfect === GRADE_MULT.perfect);
+  // Hammerfall: gut getroffen nur ein Bruchteil, präzise die volle Wucht
+  const sk = P.eisen.seqs[5].skill;
+  const heavy = (grades) => { const c = c0(); c.state.pathwaySkills = () => ({ [sk.id]: sk }); c.ap = 6; c.enemy.hp = c.enemy.maxHp = 999; return c.useSkill(sk.id, grades); };
+  const good = heavy(['good', 'good']);
+  const perfect = heavy(['perfect', 'perfect']);
+  assert.ok(!good.stunned && good.stunMissed && good.precise);
+  assert.ok(perfect.stunned && !perfect.stunMissed);
+  assert.ok(perfect.total > good.total * 2.5, `${perfect.total} vs ${good.total}`);
+  assert.ok(good.effects.some((e) => /präziser Treffer/.test(e)));
+  // Ein präziser von zwei Takten reicht zum Betäuben, nur dieser Schlag sitzt voll
+  const mixed = heavy(['good', 'perfect']);
+  assert.ok(mixed.stunned && mixed.hits[1].damage > mixed.hits[0].damage * 2);
+  // Fangnetz: Takt verfehlt, keine Betäubung, Schwachstelle trotzdem erkannt
+  const net = P.faden.seqs[6].skill;
+  const c = c0(); c.state.pathwaySkills = () => ({ [net.id]: net }); c.ap = 6;
+  const r = c.useSkill(net.id, ['good']);
+  assert.ok(!r.stunned && r.stunMissed && c.weak);
+  c.ap = 6;
+  assert.ok(c.useSkill(net.id, ['perfect']).stunned);
+  function c0() { return new Combat(fresh(), 'ash_warden'); }
 });
