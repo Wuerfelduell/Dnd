@@ -872,5 +872,66 @@
         ]
       }
     }
+  ],
+  "police": true,
+  "patrols": [
+    {
+      "id": "constable_nord",
+      "figur": "grimes",
+      "route": [
+        [
+          6,
+          6
+        ],
+        [
+          57,
+          6
+        ],
+        [
+          57,
+          9
+        ],
+        [
+          6,
+          9
+        ]
+      ],
+      "speed": 30,
+      "wait": 1400,
+      "visible_if": {
+        "requires_flags": [
+          "kapitel1_done"
+        ]
+      }
+    },
+    {
+      "id": "constable_sued",
+      "figur": "grimes",
+      "route": [
+        [
+          10,
+          17
+        ],
+        [
+          50,
+          17
+        ],
+        [
+          50,
+          21
+        ],
+        [
+          10,
+          21
+        ]
+      ],
+      "speed": 26,
+      "wait": 1800,
+      "visible_if": {
+        "requires_flags": [
+          "kapitel1_done"
+        ]
+      }
+    }
   ]
 }

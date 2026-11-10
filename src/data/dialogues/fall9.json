@@ -104,8 +104,22 @@
     "start": "start",
     "nodes": {
       "start": {
-        "text": "Das Teleskop glüht. In seinem Spiegel, groß wie ein Wagenrad, hängt der Stern, so nah, dass du die Lichter darin erkennst: Stimmen, Schatten, schlafende Kinder.\n\nStarling liegt am Boden und lacht leise. „Sie können ihn nicht zerschlagen, ohne zu zerschlagen, was Sie gerettet haben. Und wenn morgen die Sonne aufgeht, sucht Price nur einen Mann. Sie.“\n\nUnter seinem Arm klemmt das Hauptbuch.",
+        "text": "Das Teleskop glüht. In seinem Spiegel, groß wie ein Wagenrad, hängt der Stern, so nah, dass du die Lichter darin erkennst: Stimmen, Schatten, schlafende Kinder.\n\nStarling liegt am Boden, grau und klein, das Hauptbuch unter dem Arm. Durch das offene Fenster hörst du Hunde, und unten am Hügel schwanken Laternen.\n\n„Hören Sie das? Das ist Price. Sie können den Stern nicht zerschlagen, ohne zu zerschlagen, was Sie gerettet haben. Und wenn die Sonne aufgeht, sucht er nur einen Mann. Sie.“",
         "choices": [
+          {
+            "text": "Die Briefe an das Revier. Das waren Sie.",
+            "next": "briefe",
+            "hide_if_flags": [
+              "starling_briefe_seen"
+            ]
+          },
+          {
+            "text": "Warum ich?",
+            "next": "warum",
+            "hide_if_flags": [
+              "starling_warum_seen"
+            ]
+          },
           {
             "text": "Den Spiegel drehen, bis der Stern sich selbst sieht, und jedes Licht beim Namen nach Hause rufen.",
             "next": "perfect",
@@ -140,6 +154,30 @@
         "choices": [
           {
             "text": "…"
+          }
+        ]
+      },
+      "briefe": {
+        "text": "„Natürlich war ich das. Wer sonst kennt Ihre Fälle so gut? Ich habe sie geschrieben.“ Er hustet Licht. „Jeder Fall ein Brief. Erst der Ermittler, der immer als Erster am Tatort ist. Dann der, der Beweisstücke in seinem Schrank behält. Dann der, der nachts in die Sternwarte einbricht und einen alten Mann zusammenschlägt.“ Er sieht auf deine Hände. „Den hier schreibt Price selbst.“\n\n„Sie können mich festnehmen lassen. Aber der Mann mit dem Steckbrief nimmt niemanden mehr fest. Der verschwindet heute Nacht aus Kettlegate, oder er verschwindet morgen in einer Zelle. Und ich habe es so eingerichtet, dass Sie wissen, wohin.“",
+        "sets_flags": [
+          "starling_briefe_seen"
+        ],
+        "choices": [
+          {
+            "text": "Zurück zum Spiegel.",
+            "next": "start"
+          }
+        ]
+      },
+      "warum": {
+        "text": "„Weil ein Ermittler mit sauberem Namen die Ernte gestört hätte. Einer, dem niemand glaubt, stört niemanden mehr.“ Er lächelt. „Und weil Sie noch gebraucht werden. Nicht hier. In Wexmoor wartet jemand auf Sie, der mehr sammelt als Sterne. Ich bin nur der Mann mit den Linsen.“\n\nDer Stern im Spiegel summt, als wäre er einverstanden.",
+        "sets_flags": [
+          "starling_warum_seen"
+        ],
+        "choices": [
+          {
+            "text": "Zurück zum Spiegel.",
+            "next": "start"
           }
         ]
       }

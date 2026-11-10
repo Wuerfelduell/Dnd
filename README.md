@@ -59,7 +59,10 @@ Beweisstücke wandern immer zum Ermittler. Wer geht, behält seine Sachen für d
 | Kampf: `←` / `→` (Gamepad `X` / `B`) | ausweichen / parieren, wenn der Gegner Spieler 2 angreift |
 
 Im Kampf stehen beide nebeneinander. Jede Runde handelt erst Spieler 1, dann Spieler 2, dann greift der Gegner
-einen von beiden an; abwehren muss der Angegriffene mit seinen Tasten. Jeder hat eigene Konzentration, eigene
+jeden von beiden einmal an; abwehren muss der Angegriffene mit seinen Tasten. Manchmal holt der Gegner zu einem
+**Flächenangriff** aus (etwa jede dritte Runde, Eliten und Bosse öfter): Der Schlag trifft beide zugleich, über
+beiden Figuren läuft derselbe Ring, und jeder muss im selben Takt für sich ausweichen oder parieren. Parieren beide
+alles, folgt ein doppelter Gegenschlag. Jeder hat eigene Konzentration, eigene
 Gegenstände und eigene Zustände (Schutz, Blutung). Wer zu Boden geht, setzt aus; verloren ist erst, wenn beide
 liegen. Gewinnt der andere, rappelt sich der Gestürzte mit einem Viertel seines Lebens auf.
 

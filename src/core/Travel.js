@@ -92,6 +92,12 @@ export function travelFast(state, rng = Math.random) {
     state.addMoney(-Math.min(state.money, randInt(rng, ev.takes_money)));
     out.lostMoney = before - state.money;
   }
+  // Fallen (Wexmoor): Treibsand, Flutlöcher, Fußangeln kosten Leben, Nerven oder machen dich bekannter (nie tödlich)
+  if (ev.effects) {
+    const hp = state.hp;
+    state.applyEffects(ev.effects);
+    if (state.hp < hp) out.damage = hp - state.hp;
+  }
   if (!ev.encounter && ev.loot) out.loot = rollLoot(state, ev.loot, rng);
   state.emit('changed');
   return out;

@@ -24,6 +24,11 @@ export const DUO_POWER_MIN = 0.5; // Spieler 2 zählt mindestens halb ...
 export const DUO_POWER_MAX = 1.25; // ... und höchstens so viel wie 1,25 Ermittler
 export const DUO_HP_MULT = 1 + DUO_HP_SHARE; // bei gleich starken Spielern
 export const DUO_DMG_MULT = 0.85;
+// Flächenangriff: zu zweit holt der Gegner manchmal zu einem Schlag aus, der beide Spieler zugleich trifft.
+// Jeder muss dann im selben Takt für sich abwehren. Eliten und Bosse tun das öfter.
+export const SWEEP_CHANCE = 0.3;
+export const SWEEP_CHANCE_TOUGH = 0.45;
+export const SWEEP_DMG_MULT = 1.0; // Stellschraube: Schaden je Getroffenem beim Flächenangriff
 export const ARMOR = { elite: 2, boss: 3 }; // zieht jedem Treffer so viel ab (mindestens 1 bleibt)
 export const COUNTER_MULT = 0.3; // Konter nach einer Parade
 export const RIPOSTE_MULT = 1.0; // Gegenschlag nach voll parierter Attacke
@@ -103,7 +108,13 @@ export class Combat {
     this.duoHpMult = duo ? duoHpMult(state) : 1;
     const hp = enc.practice ? enc.hp : Math.round(enc.hp * ENEMY_HP_MULT * (enc.elite ? ELITE_HP_MULT : 1) * this.duoHpMult);
     // Panzer wächst mit der Gefahrenstufe des Gebiets (Marsch 1, ...), Bosse eine Stufe mehr
-    const tier = state.content.zones?.[enc.zone]?.tier ?? 2;
+    const zone = state.content.zones?.[enc.zone];
+    const tier = zone?.tier ?? 2;
+    // Kapitel 2 (Wexmoor): das Gebiet zehrt an den Nerven (`drain` pro Runde) und lauert auf (`ambush`: Chance, dass der Gegner zuerst zuschlägt)
+    this.drain = enc.practice ? 0 : enc.drain ?? zone?.drain ?? 0;
+    this.ambushChance = enc.practice ? 0 : enc.ambush ?? zone?.ambush ?? 0;
+    this.ambushed = null; // wird beim ersten ambush() entschieden (nach dem Setzen von rng)
+    this.drainTick = 0;
     this.armor = enc.practice ? 0 : enc.armor ?? (enc.boss ? Math.min(ARMOR.boss, tier) : enc.elite ? Math.min(ARMOR.elite, tier - 1) : 0);
     this.enemy = { name: enc.name, hp, maxHp: hp, occult: !!enc.occult };
     this.rng = state.rng ?? Math.random;
@@ -121,7 +132,8 @@ export class Combat {
     this.fighters = { 1: fighter(state.hp, 1) };
     if (duo) this.fighters[2] = fighter(state.p2.hp, 2);
     this.actor = 1; // wer am Zug ist
-    this.target = 1; // wen der Gegner gerade angreift
+    this.target = 1; // wen der Gegner gerade angreift (bei Flächenangriffen der erste)
+    this.targets = [1]; // alle, die der aktuelle Angriff trifft (Flächenangriff: beide)
     this.struck = []; // wen der Gegner in dieser Runde schon angegriffen hat (zu zweit jeden einmal)
     this.cur = null; // für wen die Werte gerade gelten (null = wer am Zug ist)
     this.stunned = false;
@@ -359,12 +371,19 @@ export class Combat {
     const fresh = up.filter((n) => !this.struck.includes(n));
     const pool = fresh.length ? fresh : up;
     this.target = pool.length > 1 ? pool[Math.floor(this.rng() * pool.length)] : pool[0] ?? 1;
+    this.targets = [this.target];
     this.struck.push(this.target);
     // Geblendet oder verwirrt: die ganze Runde ist für den Gegner vorbei
     if (this.stunned) { this.stunned = false; this.struck = [...up]; return null; }
     const list = this.enc.attacks;
     const atk = list[this.attackIndex % list.length];
     this.attackIndex += 1;
+    // Flächenangriff: stehen noch beide unberührt da, trifft der Schlag manchmal beide zugleich
+    if (!atk.action && fresh.length > 1 && this.sweeps(atk)) {
+      this.targets = [...fresh].sort();
+      this.target = this.targets[0];
+      this.struck = [...up];
+    }
     if (this.confused) {
       // Verwirrt: der Gegner trifft sich selbst und greift diese Runde nicht an
       this.confused = false;
@@ -379,7 +398,8 @@ export class Combat {
 
   /**
    * Kniff statt Angriff (Pfad-Fähigkeiten der Sekten). action:
-   * guard (Panzer +value), heal (+value Leben), veil (nächste Aktion nur präzise), taunt (-value Nerven).
+   * guard (Panzer +value), heal (+value Leben), veil (nächste Aktion nur präzise), taunt (-value Nerven),
+   * drain (Fall 9, Starling: erntet value Konzentration des Ziels und heilt sich um `heal`, pro gestohlenem Punkt mehr).
    */
   enemyAct(atk) {
     const v = atk.value ?? 0;
@@ -391,10 +411,40 @@ export class Combat {
       text ||= `+${this.enemy.hp - before} Leben.`;
     } else if (atk.action === 'veil') { this.veiled = true; text ||= 'Nur präzise Treffer zählen.'; }
     else if (atk.action === 'taunt') { this.on(this.target, () => this.state.setComposure(this.state.composure - v)); text ||= `-${v} Nerven.`; }
+    else if (atk.action === 'drain') {
+      const f = this.fighters[this.target];
+      const stolen = Math.min(f.ap, v);
+      f.ap -= stolen;
+      const before = this.enemy.hp;
+      this.enemy.hp = Math.min(this.enemy.maxHp, this.enemy.hp + (atk.heal ?? 0) + stolen * (atk.heal_per_ap ?? 0));
+      text ||= `-${stolen} Konzentration, +${this.enemy.hp - before} Leben.`;
+      this.lastAction = { name: atk.name, action: 'drain', value: stolen, healed: this.enemy.hp - before, text };
+      this.log.push(`${atk.name}: ${text}`);
+      return this.lastAction;
+    }
     else throw new Error(`Unbekannter Kniff: ${atk.action}`);
     this.lastAction = { name: atk.name, action: atk.action, value: v, text };
     this.log.push(`${atk.name}: ${text}`);
     return this.lastAction;
+  }
+
+  /** Wird aus dieser Attacke ein Flächenangriff auf beide Spieler? (Daten: `sweep: true` immer, `sweep: false` nie) */
+  sweeps(atk) {
+    if (!this.duo || this.enc.practice) return false;
+    if (atk.sweep !== undefined) return !!atk.sweep;
+    const chance = this.enc.sweep ?? (this.enc.elite || this.enc.boss ? SWEEP_CHANCE_TOUGH : SWEEP_CHANCE);
+    return this.rng() < chance;
+  }
+
+  /** Trifft der aktuelle Angriff beide Spieler? */
+  get sweep() {
+    return this.targets.length > 1;
+  }
+
+  /** Hinterhalt: schlägt der Gegner zu, bevor du handeln kannst? Wird einmal pro Kampf entschieden. */
+  ambush() {
+    if (this.ambushed === null) this.ambushed = this.ambushChance > 0 && this.rng() < this.ambushChance;
+    return this.ambushed;
   }
 
   /** Zu zweit: greift der Gegner in dieser Runde noch einen anderen Spieler an? */
@@ -416,7 +466,7 @@ export class Combat {
     const tough0 = this.enc.elite;
     // Feld `ramp`: der Gegner wird mit jeder Runde stärker (gegen endloses Abwarten hinter Schilden)
     const ramp = 1 + (this.enc.ramp ?? 0) * Math.max(0, this.round - 1);
-    const dmgMult = this.enc.practice ? 1 : ENEMY_DMG_MULT * (rage ? 1.2 : 1) * (tough0 ? ELITE_DMG_MULT : 1) * (this.duo ? DUO_DMG_MULT : 1) * ramp;
+    const dmgMult = this.enc.practice ? 1 : ENEMY_DMG_MULT * (rage ? 1.2 : 1) * (tough0 ? ELITE_DMG_MULT : 1) * (this.duo && !this.enc.min_seq ? DUO_DMG_MULT : 1) * (this.sweep ? SWEEP_DMG_MULT : 1) * ramp; // höhere Wesen schlagen zu zweit nicht schwächer
     const speed = rage ? 0.85 : 1;
     const hits = [];
     const src = [...atk.hits];
@@ -440,18 +490,19 @@ export class Combat {
       t = Math.max(450, t, prev === undefined ? 0 : prev + rings[i].lead + RING_GAP);
       hits.push(Math.round(t));
     }
-    return { ...atk, damage: Math.max(1, Math.round(atk.damage * dmgMult)), hits, rings, followup, unparryable: this.unparryable.has(atk.name), enraged: rage };
+    return { ...atk, damage: Math.max(1, Math.round(atk.damage * dmgMult)), hits, rings, followup, unparryable: this.unparryable.has(atk.name), enraged: rage, sweep: this.sweep, targets: [...this.targets] };
   }
 
   /**
    * Wertet einen einzelnen Schlag aus. result: 'parry' | 'dodge' | 'miss'.
+   * n: welcher Spieler abwehrt (Flächenangriff: jeder Getroffene für sich).
    * Ergebnis: { damage, counter }
    */
-  resolveHit(attack, given) {
-    return this.on(this.target, () => this.resolveHitNow(attack, given));
+  resolveHit(attack, given, n = this.target) {
+    return this.on(n, () => this.resolveHitNow(attack, given, n));
   }
 
-  resolveHitNow(attack, given) {
+  resolveHitNow(attack, given, n = this.target) {
     let result = this.evading && given === 'miss' ? 'dodge' : given;
     let note = null;
     if (result === 'parry' && attack.unparryable) { result = 'miss'; note = 'unparryable'; }
@@ -474,8 +525,8 @@ export class Combat {
     const damage = this.state.damage(incoming);
     if (damage && attack.bleed) this.bleed = { damage: attack.bleed[0], rounds: attack.bleed[1] };
     if (damage && attack.nerves) this.state.setComposure(this.state.composure - attack.nerves);
-    if (this.state.hp === 0) this.knockOut(this.target);
-    return { damage, counter: 0, result, absorbed, note, down: this.fighters[this.target].down };
+    if (this.state.hp === 0) this.knockOut(n);
+    return { damage, counter: 0, result, absorbed, note, down: this.fighters[n].down };
   }
 
   /** Ende des gegnerischen Zuges: Ausweichen verfällt. */
@@ -483,9 +534,9 @@ export class Combat {
     for (const f of Object.values(this.fighters)) f.evading = false;
   }
 
-  /** Alle Schläge pariert: Gegenschlag. */
-  riposte() {
-    const dmg = this.on(this.target, () => this.hurtEnemy(this.hitDamage(RIPOSTE_MULT, 'good')));
+  /** Alle Schläge pariert: Gegenschlag (n: wer ihn führt). */
+  riposte(n = this.target) {
+    const dmg = this.on(n, () => this.hurtEnemy(this.hitDamage(RIPOSTE_MULT, 'good')));
     this.log.push(`Gegenschlag: ${dmg} Schaden`);
     return dmg;
   }
@@ -507,6 +558,9 @@ export class Combat {
         if (this.state.hp === 0) this.knockOut(n);
       });
     }
+    // Das Moor zehrt: jede Runde kosten die Gebiete von Wexmoor Nerven (ohne Nerven kein Ausweichen)
+    this.drainTick = 0;
+    if (this.drain) for (const n of this.standing()) this.on(n, () => { const before = this.state.composure; this.state.setComposure(before - this.drain); this.drainTick += before - this.state.composure; });
     this.startTurn();
     if (this.outcome) return 0;
     if (!this.burn) return 0;

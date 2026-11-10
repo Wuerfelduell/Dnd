@@ -124,12 +124,12 @@ test('Niederlage: Ohnmacht mit wenig Leben, im Wächterkampf zurück an die Trep
 const LATE = ['choir_zealots', 'rook_fight', 'gasgeist', 'felix_fight', 'uhrwerkwaechter', 'kanalkroete', 'maskenspieler', 'schlachtergehilfe',
   'chorwaechter', 'stimmenfresser', 'bronzeengel', 'glockenecho', 'miriam', 'schattenabzug', 'negativ_geist', 'silberbad_schleim', 'dreizehnter_gast', 'pratt_fight', // Fall 5/6
   'ertrunkener', 'pfandeintreiber', 'traumfaden', 'miss_wren', // Fall 7/8
-  'sternlicht', 'starling_fight', // Fall 9
+  'sternlicht', 'starling_fight', 'starling_stern', // Fall 9
   ...Object.keys(content.encounters).filter((id) => content.encounters[id].faction), // Sekten kommen nach Fall 2/3
   ...Object.keys(content.encounters).filter((id) => id.startsWith('kg_'))]; // Nebenaufträge Kettlegate erst nach Fall 5
 
 const BOSSES = ['ash_warden', 'rook_fight', 'felix_fight', 'mirror_shade', 'fog_hound', 'rost_schmied', 'rost_vater', 'schleier_seherin', 'schleier_mutter',
-  'bronzeengel', 'miriam', 'dreizehnter_gast', 'traumfaden', 'miss_wren', 'sternlicht', 'starling_fight'];
+  'bronzeengel', 'miriam', 'dreizehnter_gast', 'traumfaden', 'miss_wren', 'sternlicht', 'starling_fight', 'starling_stern'];
 
 // Ab Fall 4 verlangen die Gegner einen Pfad: Fall 4 Sequenz 9 (Nachtmarkt), Fall 5/6 und die Nebenaufträge
 // Kettlegate Sequenz 8, Fall 7/8 und Fall 9 den Durchbruch auf Sequenz 7.
@@ -137,7 +137,7 @@ const NEEDS_SEQ = Object.fromEntries([
   ...['gasgeist', 'felix_fight', 'uhrwerkwaechter', 'kanalkroete', 'maskenspieler', 'schlachtergehilfe'].map((id) => [id, 9]),
   ...['chorwaechter', 'stimmenfresser', 'bronzeengel', 'glockenecho', 'miriam', 'schattenabzug', 'negativ_geist', 'silberbad_schleim', 'dreizehnter_gast', 'pratt_fight'].map((id) => [id, 8]),
   ...Object.keys(content.encounters).filter((id) => id.startsWith('kg_')).map((id) => [id, 8]),
-  ...['ertrunkener', 'pfandeintreiber', 'traumfaden', 'miss_wren', 'sternlicht', 'starling_fight'].map((id) => [id, 7]),
+  ...['ertrunkener', 'pfandeintreiber', 'traumfaden', 'miss_wren', 'sternlicht', 'starling_fight', 'starling_stern'].map((id) => [id, 7]),
 ]);
 const NEEDS_SEQ7 = Object.keys(NEEDS_SEQ).filter((id) => NEEDS_SEQ[id] === 7);
 /** Fertigkeit des Eisen-Pfads, die man auf dieser Sequenz hat (Wuchtschlag ab 9, Klingenwirbel ab 7). */

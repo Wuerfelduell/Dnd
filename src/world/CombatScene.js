@@ -317,8 +317,8 @@ export class CombatScene extends Phaser.Scene {
     return sprite?.sheets ?? battleSheetsOf(null);
   }
 
-  playerCenter() {
-    const p = this.player;
+  playerCenter(n = null) {
+    const p = n ? this.players?.[n] ?? this.player : this.player;
     return { x: p?.homeX ?? PLAYER_X, y: (p?.homeY ?? GROUND_Y + 14) - 44 };
   }
 
@@ -361,13 +361,23 @@ export class CombatScene extends Phaser.Scene {
   onKey(kind, who = 1) {
     const t = now();
     const c = this.combat;
-    if (this.phase === 'intro' && kind !== 'parry') { this.toMenu(); return true; }
+    if (this.phase === 'intro' && kind !== 'parry') {
+      // Hinterhalt (Wexmoor): der Gegner schlägt zu, bevor das Menü aufgeht
+      if (c.ambush() && !this.ambushShown) {
+        this.ambushShown = true;
+        this.phase = 'anim';
+        this.ui.combatMessage(`Hinterhalt! ${c.enemy.name} ist schneller als du.`);
+        this.time.delayedCall(700, () => this.enemyTurn());
+        return true;
+      }
+      this.toMenu(); return true;
+    }
     if (this.phase === 'qte' && (kind === 'confirm' || kind === 'dodge')) {
       if (!c.duo || who === c.actor) this.pressQte(t);
       return true;
     }
     if (this.phase === 'enemy' && (kind === 'dodge' || kind === 'parry')) {
-      if (!c.duo || who === c.target) this.pressDefense(kind, t);
+      if (!c.duo || c.targets.includes(who)) this.pressDefense(kind, t, c.duo ? who : c.target);
       return true;
     }
     if (this.phase === 'over' && kind !== 'parry') { this.leave(); return true; }
@@ -544,9 +554,10 @@ export class CombatScene extends Phaser.Scene {
         // Kniff der Sekten: Panzer, Heilung, Schleier, Einschüchterung
         const a = c.lastAction;
         this.ui.combatMessage(`${c.enemy.name}: ${a.name}\n\n${a.text}`);
-        const float = { guard: [`Panzer +${a.value}`, 'good'], heal: [`+${a.value}`, 'good'], veil: ['Schleier', 'miss'], taunt: [`-${a.value} Nerven`, 'hurt'] }[a.action];
-        if (a.action === 'taunt') this.focusPlayer(c.target);
-        if (float) this.float(float[0], a.action === 'taunt' ? 'player' : 'enemy', float[1]);
+        const float = { guard: [`Panzer +${a.value}`, 'good'], heal: [`+${a.value}`, 'good'], veil: ['Schleier', 'miss'], taunt: [`-${a.value} Nerven`, 'hurt'], drain: [`-${a.value} Konzentration`, 'hurt'] }[a.action];
+        if (a.action === 'taunt' || a.action === 'drain') this.focusPlayer(c.target);
+        if (float) this.float(float[0], a.action === 'taunt' || a.action === 'drain' ? 'player' : 'enemy', float[1]);
+        if (a.action === 'drain' && a.healed) this.float(`+${a.healed}`, 'enemy', 'good');
         this.anim(this.enemy, 'special');
         this.ui.combatRefresh();
         this.time.delayedCall(1100, () => this.afterStrike());
@@ -560,36 +571,49 @@ export class CombatScene extends Phaser.Scene {
     this.attack = atk;
     this.focusPlayer(c.target);
     const t0 = now() + TELEGRAPH;
-    this.hits = atk.hits.map((h, i) => ({ impact: t0 + h, result: null, applied: false, ring: atk.rings?.[i] ?? { curve: 'linear', lead: RING_LEAD } }));
-    const tags = [atk.unparryable ? '⚠ nicht parierbar, ausweichen!' : '', atk.enraged ? 'in Rage' : '', atk.followup ? 'setzt nach!' : '', atk.bleed ? 'Treffer bluten nach' : '', atk.nerves ? `Treffer kosten ${atk.nerves} Nerven` : ''].filter(Boolean).join(' · ');
-    const evading = c.fighters[c.target].evading;
+    // Jeder Schlag hat je Getroffenem ein eigenes Ergebnis (Flächenangriff: beide wehren denselben Ring ab)
+    this.hits = atk.hits.map((h, i) => ({
+      impact: t0 + h, ring: atk.rings?.[i] ?? { curve: 'linear', lead: RING_LEAD },
+      by: Object.fromEntries(c.targets.map((n) => [n, { result: null, applied: false }])),
+    }));
+    const tags = [atk.sweep ? '⚠ Flächenangriff: trifft beide!' : '', atk.unparryable ? '⚠ nicht parierbar, ausweichen!' : '', atk.enraged ? 'in Rage' : '', atk.followup ? 'setzt nach!' : '', atk.bleed ? 'Treffer bluten nach' : '', atk.nerves ? `Treffer kosten ${atk.nerves} Nerven` : ''].filter(Boolean).join(' · ');
+    const evading = c.targets.every((n) => c.fighters[n].evading);
+    const help1 = `Spieler 1 · Leertaste: ausweichen (${DODGE_COST} Nerven) · F: parieren`;
+    const help2 = `Spieler 2 · ←: ausweichen (${DODGE_COST} Nerven) · →: parieren (Gamepad X / B)`;
     const help = !c.duo ? `Leertaste: ausweichen (${DODGE_COST} Nerven) · F: parieren`
-      : c.target === 2 ? `Spieler 2 · ←: ausweichen (${DODGE_COST} Nerven) · →: parieren (Gamepad X / B)` : `Spieler 1 · Leertaste: ausweichen (${DODGE_COST} Nerven) · F: parieren`;
-    this.ui.combatMessage(`${c.enemy.name}: ${atk.name}${c.duo ? ` → ${this.who(c.target)}` : ''}${atk.hits.length > 1 ? ` (${atk.hits.length} Schläge)` : ''}${tags ? `\n\n${tags}` : ''}${evading ? '\n\nDu weißt schon, wohin er schlägt.' : ''}`, help);
+      : atk.sweep ? `${help1}\n${help2}` : c.target === 2 ? help2 : help1;
+    const whom = !c.duo ? '' : atk.sweep ? ' → beide Spieler' : ` → ${this.who(c.target)}`;
+    this.ui.combatMessage(`${c.enemy.name}: ${atk.name}${whom}${atk.hits.length > 1 ? ` (${atk.hits.length} Schläge)` : ''}${tags ? `\n\n${tags}` : ''}${evading ? '\n\nDu weißt schon, wohin er schlägt.' : ''}`, help);
     this.tweens.add({ targets: this.enemy, x: ENEMY_X + 8, duration: TELEGRAPH * 0.6, ease: 'Sine.out' });
-    // Paket-B-Gegner haben zwei Angriffe: mehrteilige Attacken nutzen 'special'
-    if (!(atk.hits.length > 1 && this.anim(this.enemy, 'special'))) this.anim(this.enemy, 'attack');
+    if (atk.sweep) this.cameras.main.shake(TELEGRAPH * 0.5, 0.003); // der Boden bebt: gleich trifft es beide
+    // Paket-B-Gegner haben zwei Angriffe: mehrteilige Attacken und Flächenangriffe nutzen 'special'
+    if (!((atk.hits.length > 1 || atk.sweep) && this.anim(this.enemy, 'special'))) this.anim(this.enemy, 'attack');
     const efx = ENCOUNTER_FX[this.encounterId];
     if (efx) this.caseFx(atk.hits.length > 2 ? efx.multi ?? efx.attack : atk.hits.length === 1 && atk.damage >= 10 ? efx.heavy ?? efx.attack : efx.attack, 'player');
   }
 
-  pressDefense(kind, t) {
-    const hit = this.hits.find((h) => !h.result && t >= h.impact - EARLY_LIMIT);
+  /** Abwehrdruck von Spieler n (allein: der Angegriffene). */
+  pressDefense(kind, t, n = this.combat.target) {
+    const hit = this.hits.find((h) => h.by[n] && !h.by[n].result && t >= h.impact - EARLY_LIMIT);
     if (!hit) return;
-    hit.result = judgeDefense(kind, t - hit.impact, this.combat.on(this.combat.target, () => this.state.passive('dodge_window')), this.combat.parryWindow());
-    if (hit.result === 'miss') hit.early = t < hit.impact;
-    else this.applyHit(hit);
+    const d = hit.by[n];
+    d.result = judgeDefense(kind, t - hit.impact, this.combat.on(n, () => this.state.passive('dodge_window')), this.combat.parryWindow());
+    if (d.result === 'miss') d.early = t < hit.impact;
+    else this.applyHit(hit, n);
   }
 
-  applyHit(hit) {
-    if (hit.applied) return;
-    hit.applied = true;
-    const r = this.combat.resolveHit(this.attack, hit.result);
-    hit.result = r.result;
-    this.tweens.add({ targets: this.enemy, x: this.player.homeX + 70, duration: 90, yoyo: true, ease: 'Quad.in' });
-    if (hit.result === 'parry') {
+  /** Wendet einen Schlag auf Spieler n an (Flächenangriff: einmal je Getroffenem). */
+  applyHit(hit, n = this.combat.target) {
+    const d = hit.by[n];
+    if (!d || d.applied) return;
+    d.applied = true;
+    this.player = this.players[n] ?? this.player; // Zahlen und Animationen am Getroffenen
+    const r = this.combat.resolveHit(this.attack, d.result, n);
+    d.result = r.result;
+    if (!this.attack?.sweep || n === this.combat.target) this.tweens.add({ targets: this.enemy, x: this.player.homeX + 70, duration: 90, yoyo: true, ease: 'Quad.in' });
+    if (d.result === 'parry') {
       this.float('Parade!', 'player', 'perfect');
-      this.bark('koop_parade', this.combat.target);
+      this.bark('koop_parade', n);
       this.anim(this.player, 'parry');
       this.hitFx('parry', 'player');
       this.time.delayedCall(90, () => { this.flash(this.enemy); this.float(`-${r.counter}`, 'enemy', 'dmg'); });
@@ -601,7 +625,7 @@ export class CombatScene extends Phaser.Scene {
       this.tweens.add({ targets: this.player, x: this.player.homeX - 26, duration: 110, yoyo: true, ease: 'Quad.out' });
     } else {
       this.time.delayedCall(90, () => { this.flash(this.player); if (r.damage) this.hitFx('blunt', 'player'); this.float(r.damage ? `-${r.damage}` : 'Abgefangen', 'player', r.damage ? 'hurt' : 'good'); if (r.damage) this.cameras.main.shake(120, 0.01); });
-      if (hit.early) this.float('Zu früh', 'player', 'miss');
+      if (d.early) this.float('Zu früh', 'player', 'miss');
       else if (r.note === 'unparryable') this.float('Nicht parierbar!', 'player', 'miss');
       else if (r.note === 'exhausted') this.float('Erschöpft', 'player', 'miss');
       if (r.down && !this.combat.outcome) this.knockedOut(this.player);
@@ -626,19 +650,26 @@ export class CombatScene extends Phaser.Scene {
   finishEnemyTurn() {
     const c = this.combat;
     this.phase = 'anim';
-    const allParried = this.hits.every((h) => h.result === 'parry');
+    // Wer alle Schläge pariert hat, setzt zum Gegenschlag an (Flächenangriff: jeder für sich)
+    const parried = c.targets.filter((n) => !c.fighters[n].down && this.hits.every((h) => h.by[n]?.result === 'parry'));
     c.endEnemyTurn();
     this.tweens.add({ targets: this.enemy, x: ENEMY_X, duration: 200 });
-    if (allParried && !c.outcome) {
-      const dmg = c.riposte();
-      this.ui.combatMessage(`Alles pariert! Gegenschlag: ${dmg} Schaden.`);
-      this.attackAnim(c.target);
-      this.tweens.add({
-        targets: this.player, x: ENEMY_X - 50, duration: 140, yoyo: true,
-        onYoyo: () => { this.flash(this.enemy); this.hitFx('critical', 'enemy'); this.float(`-${dmg}`, 'enemy', 'crit'); this.cameras.main.shake(120, 0.008); },
+    if (parried.length && !c.outcome) {
+      const dmgs = parried.map((n) => c.riposte(n));
+      const total = dmgs.reduce((a, b) => a + b, 0);
+      this.ui.combatMessage(parried.length > 1 ? `Beide parieren alles! Doppelter Gegenschlag: ${total} Schaden.` : `Alles pariert! Gegenschlag: ${total} Schaden.`);
+      if (parried.length > 1) this.bark('koop_kombi', null, true);
+      parried.forEach((n, i) => {
+        const spr = this.players[n];
+        this.player = spr;
+        this.attackAnim(n);
+        this.tweens.add({
+          targets: spr, x: ENEMY_X - 50 - i * 18, duration: 140, yoyo: true, delay: i * 160,
+          onYoyo: () => { this.flash(this.enemy); this.hitFx('critical', 'enemy'); this.float(`-${dmgs[i]}`, 'enemy', 'crit'); this.cameras.main.shake(120, 0.008); },
+        });
       });
       this.ui.combatRefresh();
-      this.time.delayedCall(800, () => this.afterStrike());
+      this.time.delayedCall(800 + (parried.length - 1) * 160, () => this.afterStrike());
       return;
     }
     this.time.delayedCall(400, () => this.afterStrike());
@@ -656,6 +687,7 @@ export class CombatScene extends Phaser.Scene {
     if (this.combat.outcome) { this.over(); return; }
     const dot = this.combat.endRound();
     const bleed = this.combat.bleedTick;
+    if (this.combat.drainTick) { this.focusPlayer(this.combat.actor); this.float(`-${this.combat.drainTick} Nerven`, 'player', 'hurt'); }
     for (const [n, f] of Object.entries(this.combat.fighters)) {
       if (!f.bleedTick) continue;
       this.focusPlayer(Number(n));
@@ -739,23 +771,27 @@ export class CombatScene extends Phaser.Scene {
     }
 
     if (this.phase === 'enemy') {
-      const c = this.playerCenter();
-      g.lineStyle(1, 0xffffff, 0.35).strokeCircle(c.x, c.y, 16);
-      for (const hit of this.hits) {
-        if (hit.applied) continue;
-        const left = hit.impact - t;
-        if (hit.result === 'miss' && left <= 0) { this.applyHit(hit); continue; }
-        if (!hit.result && left < -WINDOW.dodge) { hit.result = 'miss'; this.applyHit(hit); continue; }
-        const lead = hit.ring.lead;
-        if (left > lead || hit.result) continue;
-        const u = Math.min(1, Math.max(0, 1 - left / lead));
-        const closed = (RING_CURVES[hit.ring.curve] ?? RING_CURVES.linear)(u);
-        const r = 16 + Math.max(0, 1 - closed) * 60;
-        const near = Math.abs(left) <= this.combat.parryWindow();
-        const color = this.attack?.unparryable ? (near ? 0xff70ff : 0xa040e0) : near ? 0xffd890 : 0xe05050;
-        g.lineStyle(this.attack?.unparryable ? 3 : 2, color, 0.95).strokeCircle(c.x, c.y, r);
+      // Ein Ring je Getroffenem (Flächenangriff: über beiden Spielern zugleich)
+      for (const n of this.combat.targets) {
+        const c = this.playerCenter(n);
+        g.lineStyle(1, 0xffffff, 0.35).strokeCircle(c.x, c.y, 16);
+        for (const hit of this.hits) {
+          const d = hit.by[n];
+          if (!d || d.applied) continue;
+          const left = hit.impact - t;
+          if (d.result === 'miss' && left <= 0) { this.applyHit(hit, n); continue; }
+          if (!d.result && left < -WINDOW.dodge) { d.result = 'miss'; this.applyHit(hit, n); continue; }
+          const lead = hit.ring.lead;
+          if (left > lead || d.result) continue;
+          const u = Math.min(1, Math.max(0, 1 - left / lead));
+          const closed = (RING_CURVES[hit.ring.curve] ?? RING_CURVES.linear)(u);
+          const r = 16 + Math.max(0, 1 - closed) * 60;
+          const near = Math.abs(left) <= this.combat.parryWindow();
+          const color = this.attack?.unparryable ? (near ? 0xff70ff : 0xa040e0) : near ? 0xffd890 : 0xe05050;
+          g.lineStyle(this.attack?.unparryable ? 3 : 2, color, 0.95).strokeCircle(c.x, c.y, r);
+        }
       }
-      if (this.hits.every((h) => h.applied)) this.finishEnemyTurn();
+      if (this.hits.every((h) => Object.values(h.by).every((d) => d.applied))) this.finishEnemyTurn();
     }
   }
 }

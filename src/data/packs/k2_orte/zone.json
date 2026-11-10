@@ -14,7 +14,7 @@
       "map": "wx_torfstich",
       "spawn": "default"
     },
-    "lose_money": 0.2,
+    "lose_money": 0.35,
     "lose_text": "Jonas zieht dich am Sicherungsseil zurück in den Torfstich. „Einmal am Tag darf man dumm sein. Für heute reicht es.“ Deine Notizen und Auftragsgegenstände bleiben bei dir.",
     "flee_text": "Du folgst dem Seil zum Licht am Stollenmund. Hinter dir fällt ein Tropfen, dann lange keiner.",
     "elite_drops": [
@@ -30,12 +30,12 @@
         "sprite": "wild",
         "sheet": "enemy_torfleiche",
         "occult": true,
-        "hp": 50,
+        "hp": 65,
         "intro": "Der Torf hebt eine Gestalt im alten Arbeitskittel auf. In der Brusttasche steckt eine Lohntüte ohne Namen.",
         "attacks": [
           {
             "name": "Schwere Hände",
-            "damage": 6,
+            "damage": 8,
             "hits": [
               850,
               1350
@@ -43,14 +43,14 @@
           },
           {
             "name": "Torfwurf",
-            "damage": 10,
+            "damage": 13,
             "hits": [
               1500
             ]
           },
           {
             "name": "Stollendruck",
-            "damage": 14,
+            "damage": 18,
             "hits": [
               2200
             ]
@@ -72,8 +72,8 @@
         },
         "roam": {
           "speed": 18,
-          "chase": 46,
-          "aggro": 64
+          "chase": 50,
+          "aggro": 74
         },
         "elite": {
           "name": "Der letzte Vorarbeiter"
@@ -84,12 +84,12 @@
         "sprite": "wild",
         "sheet": "enemy_grubenlicht",
         "occult": true,
-        "hp": 44,
+        "hp": 56,
         "intro": "Eine Grubenlampe schwebt auf Augenhöhe. Ihr Glas dreht sich dir zu, obwohl kein Bügel es hält.",
         "attacks": [
           {
             "name": "Flackerstöße",
-            "damage": 4,
+            "damage": 5,
             "hits": [
               700,
               1050,
@@ -98,14 +98,14 @@
           },
           {
             "name": "Linsensprung",
-            "damage": 9,
+            "damage": 12,
             "hits": [
               1300
             ]
           },
           {
             "name": "Weißbrand",
-            "damage": 14,
+            "damage": 18,
             "hits": [
               2200
             ]
@@ -131,8 +131,8 @@
         },
         "roam": {
           "speed": 22,
-          "chase": 50,
-          "aggro": 70
+          "chase": 54,
+          "aggro": 80
         },
         "elite": {
           "name": "Licht der letzten Schicht"
@@ -143,12 +143,12 @@
         "sprite": "wild",
         "sheet": "enemy_torfwurm",
         "occult": false,
-        "hp": 52,
+        "hp": 66,
         "intro": "Die Stollenwand zieht einen Faden über den Gang. Dahinter öffnet sich ein Maul, langsam wie eine schwere Tür.",
         "attacks": [
           {
             "name": "Fadenschlag",
-            "damage": 6,
+            "damage": 8,
             "hits": [
               900,
               1400
@@ -156,14 +156,14 @@
           },
           {
             "name": "Kieferklammer",
-            "damage": 10,
+            "damage": 13,
             "hits": [
               1500
             ]
           },
           {
             "name": "Stollenbruch",
-            "damage": 15,
+            "damage": 20,
             "hits": [
               2300
             ]
@@ -189,8 +189,8 @@
         },
         "roam": {
           "speed": 16,
-          "chase": 44,
-          "aggro": 60
+          "chase": 48,
+          "aggro": 69
         },
         "elite": {
           "name": "Alter Stollenweber"
@@ -201,12 +201,12 @@
         "sprite": "wild",
         "sheet": "enemy_schlickhund",
         "occult": false,
-        "hp": 46,
+        "hp": 59,
         "intro": "Ein Hund aus Schlick schnuppert an deinen Fußspuren. Sein Halsband ist nur der Abdruck eines Halsbands.",
         "attacks": [
           {
             "name": "Bissfolge",
-            "damage": 5,
+            "damage": 6,
             "hits": [
               750,
               1100
@@ -214,14 +214,14 @@
           },
           {
             "name": "Sprung",
-            "damage": 9,
+            "damage": 12,
             "hits": [
               1300
             ]
           },
           {
             "name": "Schlicksturz",
-            "damage": 13,
+            "damage": 17,
             "hits": [
               2100
             ]
@@ -247,8 +247,8 @@
         },
         "roam": {
           "speed": 30,
-          "chase": 60,
-          "aggro": 76
+          "chase": 65,
+          "aggro": 87
         },
         "elite": {
           "name": "Hund der Nachtschicht"
@@ -261,12 +261,12 @@
         "occult": true,
         "boss": true,
         "fleeable": false,
-        "hp": 154,
+        "hp": 208,
         "intro": "Das Brautkleid bleibt still, während der Torf darunter aufsteigt. Zweihundert Jahre hat das Siegel einen Namen festgehalten. Jetzt schlägt es nach der Hand, die ihn zurückholen will.",
         "attacks": [
           {
             "name": "Schleierschlag",
-            "damage": 8,
+            "damage": 10,
             "hits": [
               950,
               1500
@@ -274,7 +274,7 @@
           },
           {
             "name": "Schlickfäden",
-            "damage": 4,
+            "damage": 5,
             "hits": [
               650,
               950,
@@ -285,14 +285,20 @@
           },
           {
             "name": "Siegelgriff",
-            "damage": 11,
+            "damage": 14,
             "hits": [
               1400
             ]
           },
           {
+            "name": "Zweihundert Winter Stille",
+            "action": "taunt",
+            "value": 12,
+            "text": "Die Moorbraut sieht dich an, und für einen Atemzug bist du so lange allein wie sie. -12 Nerven."
+          },
+          {
             "name": "Zweihundert Winter",
-            "damage": 17,
+            "damage": 22,
             "hits": [
               2400
             ]
@@ -328,8 +334,12 @@
           "speed": 0,
           "chase": 0,
           "aggro": 0
-        }
+        },
+        "armor": 3,
+        "ramp": 0.03
       }
-    }
+    },
+    "drain": 2,
+    "ambush": 0.25
   }
 }

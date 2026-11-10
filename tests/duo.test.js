@@ -2,7 +2,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { GameState } from '../src/core/GameState.js';
-import { Combat, ENEMY_HP_MULT, DUO_HP_SHARE, DUO_POWER_MIN, duoHpMult } from '../src/core/Combat.js';
+import { Combat, ENEMY_HP_MULT, DUO_HP_SHARE, DUO_POWER_MIN, DUO_DMG_MULT, ENEMY_DMG_MULT, SWEEP_DMG_MULT, SWEEP_CHANCE, SWEEP_CHANCE_TOUGH, duoHpMult } from '../src/core/Combat.js';
 import { loadContent, seeded, SKILLED, EXPERT } from './helpers.js';
 
 const content = loadContent();
@@ -127,7 +127,7 @@ test('Zu zweit greift der Gegner jeden stehenden Spieler einmal pro Runde an', (
   for (let round = 0; round < 4; round++) {
     const hit = [];
     do {
-      if (c.nextEnemyAttack()) hit.push(c.target);
+      if (c.nextEnemyAttack()) hit.push(...c.targets);
       c.endEnemyTurn();
     } while (c.moreStrikes());
     if (hit.length) assert.deepEqual([...hit].sort(), [1, 2], `Runde ${round}`);
@@ -139,6 +139,60 @@ test('Zu zweit greift der Gegner jeden stehenden Spieler einmal pro Runde an', (
   c.nextEnemyAttack();
   assert.equal(c.target, 1);
   assert.equal(c.moreStrikes(), false);
+});
+
+test('Flächenangriff: manchmal trifft der Gegner beide Spieler zugleich, jeder wehrt für sich ab', () => {
+  const s = pair();
+  const c = new Combat(s, 'fog_hound');
+  c.rng = () => 0.01; // Zufall unter der Flächen-Wahrscheinlichkeit
+  const atk = c.nextEnemyAttack();
+  assert.equal(atk.sweep, true);
+  assert.deepEqual(c.targets, [1, 2]);
+  assert.deepEqual(atk.targets, [1, 2]);
+  assert.equal(c.moreStrikes(), false, 'nach dem Flächenangriff ist die Runde des Gegners vorbei');
+  const base = c.enc.attacks[0];
+  assert.equal(atk.damage, Math.max(1, Math.round(base.damage * ENEMY_DMG_MULT * DUO_DMG_MULT * SWEEP_DMG_MULT)));
+  const hp1 = s.hp;
+  const hp2 = s.p2.hp;
+  const r1 = c.resolveHit(atk, 'miss', 1);
+  const r2 = c.resolveHit(atk, 'parry', 2);
+  assert.ok(r1.damage > 0 && s.hp < hp1, 'Spieler 1 steckt ein');
+  assert.equal(r2.damage, 0);
+  assert.ok(r2.counter > 0, 'Spieler 2 pariert und kontert');
+  assert.equal(s.p2.hp, hp2);
+  // Gegenschlag kann jeder führen, der alles pariert hat
+  const before = c.enemy.hp;
+  c.riposte(2);
+  assert.ok(c.enemy.hp < before);
+  // Liegt einer, gibt es keine Flächenangriffe mehr
+  c.endEnemyTurn();
+  c.endRound();
+  c.target = 1;
+  c.resolveHit({ name: 'Test', damage: 999, hits: [500] }, 'miss', 1);
+  assert.equal(c.fighters[1].down, true);
+  const next = c.nextEnemyAttack();
+  assert.equal(next.sweep, false);
+  assert.deepEqual(c.targets, [2]);
+});
+
+test('Flächenangriffe: nie allein oder in der Übung, bei Bossen öfter, Daten können es erzwingen oder verbieten', () => {
+  assert.equal(new Combat(hero(), 'fog_hound').sweeps({}), false);
+  const c = new Combat(pair(), 'fog_hound');
+  let n = 0;
+  c.rng = () => (n++ % 100) / 100;
+  let sweeps = 0;
+  for (let i = 0; i < 100; i++) if (c.sweeps({})) sweeps += 1;
+  assert.equal(sweeps, Math.round(SWEEP_CHANCE * 100));
+  assert.equal(c.sweeps({ sweep: true }), true);
+  assert.equal(c.sweeps({ sweep: false }), false);
+  const boss = new Combat(pair(7), 'starling_fight');
+  assert.ok(boss.enc.boss);
+  n = 0;
+  boss.rng = () => (n++ % 100) / 100;
+  sweeps = 0;
+  for (let i = 0; i < 100; i++) if (boss.sweeps({})) sweeps += 1;
+  assert.equal(sweeps, Math.round(SWEEP_CHANCE_TOUGH * 100));
+  assert.equal(new Combat(pair(), 'sparring').sweeps({}), false);
 });
 
 test('Blendung lässt die ganze Gegnerrunde ausfallen', () => {
@@ -160,9 +214,9 @@ test('Gegnerleben zu zweit richtet sich nach der Schlagkraft von Spieler 2', () 
 });
 
 /** Spielt einen Kampf zu zweit durch: beide greifen an, der Gegner schlägt jeden einmal. */
-function duoFight(state, enc, defend) {
+function duoFight(state, enc, defend, seed = 7) {
   const c = new Combat(state, enc);
-  c.rng = seeded(7);
+  c.rng = seeded(seed);
   let n = 0;
   while (!c.outcome && c.round <= 80) {
     for (const p of [1, 2]) {
@@ -175,29 +229,42 @@ function duoFight(state, enc, defend) {
     do {
       const atk = c.nextEnemyAttack();
       if (atk) {
-        const rs = atk.hits.map(() => { const r = defend(n++); return r === 'parry' && atk.unparryable ? 'dodge' : r; });
-        for (const r of rs) { c.resolveHit(atk, r); if (c.outcome) break; }
-        if (!c.outcome && rs.every((r) => r === 'parry')) c.riposte();
+        if (atk.sweep) c.sweepCount = (c.sweepCount ?? 0) + 1;
+        // Flächenangriff: jeder Getroffene wehrt jeden Schlag für sich ab
+        for (const p of atk.targets) {
+          const rs = atk.hits.map(() => { const r = defend(n++); return r === 'parry' && atk.unparryable ? 'dodge' : r; });
+          for (const r of rs) { c.resolveHit(atk, r, p); if (c.outcome) break; }
+          if (!c.outcome && !c.fighters[p].down && rs.every((r) => r === 'parry')) c.riposte(p);
+        }
         c.endEnemyTurn();
       }
     } while (c.moreStrikes());
     c.endRound();
   }
+  c.sweepCount ??= 0;
   return c;
 }
 
 test('Balance zu zweit: Bosse bleiben fordernd, gleich starke Paare schaffen sie mit Übung', () => {
+  const seeds = [1, 2, 3, 4, 5, 6, 7, 8];
+  const mean = (xs) => xs.reduce((a, b) => a + b, 0) / xs.length;
   for (const [enc, seq] of [['rook_fight', 9], ['miriam', 8], ['dreizehnter_gast', 8], ['miss_wren', 7], ['starling_fight', 7]]) {
-    const c = duoFight(pair(seq), enc, EXPERT);
-    assert.equal(c.outcome, 'won', `${enc} zu zweit (geübt)`);
-    // Keiner kommt ungeschoren davon: beide müssen sich verteidigen
+    const fights = seeds.map((seed) => duoFight(pair(seq), enc, EXPERT, seed));
+    // Starling (zwei Phasen, höheres Wesen) darf auch Geübte gelegentlich schlagen
+    const wins = fights.filter((c) => c.outcome === 'won').length;
+    assert.ok(wins >= (enc === 'starling_fight' ? 5 : seeds.length), `${enc} zu zweit (geübt): ${wins} von ${seeds.length} Siegen`);
+    // Keiner kommt ungeschoren davon: beide müssen sich verteidigen (im Schnitt über mehrere Kämpfe)
     for (const n of [1, 2]) {
-      const lost = c.on(n, () => 1 - c.state.hp / c.state.maxHp);
+      const lost = mean(fights.map((c) => c.on(n, () => 1 - c.state.hp / c.state.maxHp)));
       assert.ok(lost >= 0.2, `${enc}: Spieler ${n} verliert spürbar Leben (${lost.toFixed(2)})`);
     }
+    // Flächenangriffe kommen vor, aber nicht in jeder Runde
+    const sweeps = mean(fights.map((c) => c.sweepCount));
+    assert.ok(sweeps >= 1 && sweeps < mean(fights.map((c) => c.round)) * 0.6, `${enc}: ${sweeps} Flächenangriffe je Kampf`);
     // Zu zweit dauert ein Bosskampf nicht viel kürzer als allein
-    const solo = duoFight(hero(seq), enc, EXPERT);
-    assert.ok(c.round >= solo.round * 0.65, `${enc}: ${c.round} Runden zu zweit, ${solo.round} allein`);
+    const solo = mean(seeds.map((seed) => duoFight(hero(seq), enc, EXPERT, seed).round));
+    const duo = mean(fights.map((c) => c.round));
+    assert.ok(duo >= solo * 0.65, `${enc}: ${duo} Runden zu zweit, ${solo} allein`);
   }
   // Ohne Durchbruch reicht es auch zu zweit nicht gegen Starling, wenn man nur mittelmäßig verteidigt
   assert.notEqual(duoFight(pair(8), 'starling_fight', SKILLED).outcome, 'won');
