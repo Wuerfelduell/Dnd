@@ -1609,3 +1609,13 @@ Nur Vorrat, noch nicht im Spiel registriert. Verbindliche IDs: 24 normale Gegner
 - Vorschauen: [Calderwick](batch-vorrat2-preview-calderwick.png), [Briarholt](batch-vorrat2-preview-briarholt.png), [Reise](batch-vorrat2-preview-reise.png), [Köpfe](batch-vorrat2-preview-heads.png), [Bosse](batch-vorrat2-preview-bosses.png).
 
 Built-in Bildgenerator mit vorhandener Sprite-Referenz; Nearest-Neighbor-Export, 31 sichtbare gemeinsame Palettenfarben plus Transparenz, binäres Alpha. Export bereinigt neutrale helle Mattierung und berücksichtigt abweichende Atlasabstände. Lauf-/Sonderframes stehen auf y=30, der Junge ist kleiner. Bossangriffe halten die Ausholpose zwei Frames. Prüfungen umfassen Vollständigkeit, Raster, Palette, Alpha, Zellränder, Grundlinien, Frameindizes, Ausdrucks-/Bewegungsvielfalt und SHA-256.
+
+
+## Batch BM – Vorrat-Gegenstände (`vorrat3`)
+
+72 Gegenstände und 32 Trophäen als 16×16-Icons, dazu 38 Varianten in 32×32: **104 Motive, 142 PNGs**. Die Aufgabenbeschreibung nennt 34 Trophäen, listet aber nur 24 normale Gegner und acht Bosse auf; geliefert werden alle 32 ausdrücklich definierten IDs. Vorrat für spätere Kapitel, ohne Einbau ins laufende Spiel. Keine Puppen-Overlays: `F_EQUIPMENT` nutzt eigenständige Icons.
+
+- [Manifest](../../public/sprites/manifest-vorrat3.json), [tatsächliche Einzelprompts und Herkunft](batch-vorrat3-generation.json).
+- Vorschauen: [Gegenstände](preview-vorrat3-items.png), [Trophäen](preview-vorrat3-trophies.png); 16px vierfach, 32px zweifach vergrößert.
+- Normalisierte Bildgenerator-Master unter `docs/art/vorrat3-sources/`; Nearest-Neighbor-Export, gemeinsame 32-Farben-Palette und binäres Alpha.
+- Reproduzieren mit Python/Pillow: `python tools/art/vorrat3/export.py`; prüfen: `python tools/art/vorrat3/check.py`. Der Prüfer gleicht die IDs unabhängig mit der BM-Aufgabe ab und kontrolliert Maße, Transparenz, Palette, Rand, Duplikate und SHA-256-Herkunft.
