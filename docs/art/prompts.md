@@ -2,6 +2,32 @@
 
 Jede Datei ist **eigenständig** (Regeln, Formate, Ablage stehen drin). Codex braucht immer nur **eine** Datei. Alle Pakete schreiben in getrennte Ordner und können **gleichzeitig** laufen. Jedes Paket endet mit einem eigenen Pull Request.
 
+## Runde 5 (2026-11-10): Lücken in Kapitel 3, Koop, Platzhalter, parallel startbar
+Alle teilen dieselben Eckdaten mit festen IDs. BN liegt hinter BM, weil AZ das Beziehungs-Paket aus einem anderen Thread ist.
+
+| Datei | Art | Inhalt | schreibt nach |
+|---|---|---|---|
+| `codex_BN_k3_ruf.md` | Gerüst + Daten | Rufextras: Linienprojektion, Hörreichweite, private Bindung, Klang-Zuordnung der 16 AY-Rufe, 6 Stationen, Tests | `src/core/SignalRoutes.js`, `src/data/packs/k3_ruf/`, `docs/story/k3_ruf/` |
+| `codex_BA_ruf_leben_grafik.md` | Grafik | Ruf-Oberfläche (Linien, Nischen, Hörkreis, Bindung, Schleuse), Dunscar-Tiere und -Wetter, 10 Stände, Ruth Bellwick | Batch `dunscar4` |
+| `codex_BB_icons2.md` | Grafik | alle 40 geliehenen Item-Icons, Tränke/Formeln der neuen Pfade 9 bis 5 und aller Pfade 4 bis 1 (150 Icons 16, 55 Icons 32) | Batch `icons2` |
+| `codex_BC_k3_handel.md` | Daten | 3 Händler, Zirkel „Schichtbund“ mit Auktion, 5 Einzelgänger mit Bindung, 7 kleine Aufträge | `docs/story/k3_handel/` |
+| `codex_BD_k3_leben.md` | Daten | 8 Einwohner mit Tag/Nacht, 80 Gerede-Zeilen, Kopfgeld-Brett mit 6 Stadtgegnern, Bahnaufsicht, 20 Zeitungsmeldungen, Tier-/Wetter-Zuordnung | `docs/story/k3_leben/` |
+| `codex_BE_dunscar_figuren2.md` | Grafik | Figuren aus BC und BD (3 Händler, 4 Zirkel, 5 Einzelgänger, 8 Einwohner, 2 Aufseher), 11 Gegner-Sheets, Steckbriefe | Batch `dunscar5` |
+| `codex_BF_koop_k3.md` | Texte | Koop in Dunscar: 40 Geplauder, 3 Kampf-Anlässe, Rufen zu zweit, Reaktionen der 11 Figuren, 2 Aufträge zu zweit | `docs/story/koop_k3/` |
+| `codex_BG_koop_beute.md` | Gerüst + Daten | getrennte Beute im Koop: Ansprüche je Spieler, Ersatz verlorener Tränke, Hedda/Pfiff/Kittering-Dialoge, Tests | `src/core/Claims.js`, `src/data/packs/koop_beute/`, `docs/story/koop_beute/` |
+
+## Vorrat für spätere Kapitel (2026-11-10), parallel startbar
+Grundlage: die aufgehobenen Geschichten 1 (Calderwick) und 2 (Briarholt) aus `docs/story/kapitel3/` plus allgemeiner Reise-Vorrat. Nichts davon wird jetzt eingebaut; es liegt fertig im Repo.
+
+| Datei | Art | Inhalt | schreibt nach |
+|---|---|---|---|
+| `codex_BH_vorrat_gegner.md` | Daten | 24 Gegner, 8 Bosse (Werte Seq 4 bis 3, Phasen, Bestiarium, Verhalten, Trophäen, 7 Zonen-Skizzen) | `docs/story/vorrat_gegner/` |
+| `codex_BI_vorrat_gegner_grafik.md` | Grafik | Kampf-Sheets, Kartenfiguren, Bestiarium, Boss-Bänder, 7 Hintergründe, 6 Effekte | Batch `vorrat1` |
+| `codex_BJ_vorrat_figuren.md` | Daten | 20 Figuren der beiden Geschichten + 8 Reisefiguren: Steckbriefe, Dialogbäume, 28 Auftragskeime, Reaktionen | `docs/story/vorrat_figuren/` |
+| `codex_BK_vorrat_figuren_grafik.md` | Grafik | 28 Lauf-Sheets, 8 Stimmungen, Köpfe, Sonderposen, 2 Gegenspieler-Kampf-Sheets | Batch `vorrat2` |
+| `codex_BL_vorrat_items.md` | Daten | 72 Gegenstände (12 Ausrüstung, 6 Waffen, 16 Verbrauch, 8 Artefakte, 18 Waren, 12 Schlüsselstücke) mit Werten und Texten | `docs/story/vorrat_items/` |
+| `codex_BM_vorrat_items_grafik.md` | Grafik | 72 Item-Icons + 34 Trophäen (16), 38 davon auch 32 | Batch `vorrat3` |
+
 ## Neu: Musik ohne Audiodateien (ersetzt Z), parallel startbar
 Z ist zweimal gescheitert, weil Codex die vielen OGG/MP3-Dateien nicht hochladen konnte. Jetzt wird Musik als JSON-Notendaten geliefert („Nebel-Musik v1“) und im Spiel per WebAudio gespielt. Keine Audiodateien mehr.
 
@@ -11,6 +37,7 @@ Z ist zweimal gescheitert, weil Codex die vielen OGG/MP3-Dateien nicht hochladen
 | `codex_Z2_musik_kettlegate.md` | Ton | 13 Stücke Kapitel 1 + Zuordnung aller Kettlegate-Karten | `public/audio/musik/` |
 | `codex_Z3_musik_wexmoor.md` | Ton | 10 Stücke Kapitel 2 + Abspann + Zuordnung aller Wexmoor-Karten | `public/audio/musik/` |
 | `codex_AY_dunscar_musik.md` | Ton | neu als Notendaten: 17 Dunscar-Stücke, 16 Rufmuster mit Nachhall, Zug- und Boss-Klänge | `public/audio/musik/` (Präfix `ds_`) |
+| `codex_AZ_beziehungen.md` | Texte | Beziehungssystem füllen: Begrüßungen je Stimmung, Geschenk-Vorlieben, Knoten-Wirkungen, Wiedergutmachungs-Zweige (Gerüst ist im Spiel) | `docs/story/beziehungen/` |
 
 ## Runde 4: Kapitel 3 „Der letzte Zug nach Dunscar“, parallel startbar
 Vorlage ist Geschichte 3 aus `docs/story/kapitel3/geschichte_3.md` (Geschichten 1 und 2 bleiben für später). Alle acht teilen dieselben Eckdaten mit festen IDs.
