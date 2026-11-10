@@ -2,6 +2,7 @@
 //
 // Artefakte sind Gegenstände der Art 'artifact' mit Vorteilen (boons) und schweren Nachteilen (curses).
 // Es gibt kein An- und Ablegen: Beide wirken über passive(), sobald das Artefakt im Inventar ist.
+// Einzige Ausnahme: korrumpierte Artefakte (Corruption.js) darf man beiseitelegen, dann ruhen sie.
 // Wer etwas nicht spüren will, muss es im Büro (oder einem Versteck) einlagern oder zurückgeben.
 // - Ein Artefakt aufzunehmen bringt Unruhe. Mehrere Artefakte streiten sich (Unruhe pro Sekunde),
 //   jenseits von max_active wird der Streit deutlich heftiger.
@@ -29,11 +30,11 @@ export const artifactMethods = {
 
   /** Alle Artefakte, die du gerade bei dir trägst. Genau diese wirken. */
   activeArtifacts() {
-    return Object.keys(this.inventory ?? {}).filter((id) => this.inventory[id] > 0 && this.item(id)?.kind === 'artifact');
+    return Object.keys(this.inventory ?? {}).filter((id) => this.inventory[id] > 0 && this.item(id)?.kind === 'artifact' && !this.isSetAside?.(id));
   },
 
   isArtifactActive(id) {
-    return this.item(id)?.kind === 'artifact' && this.itemCount(id) > 0;
+    return this.item(id)?.kind === 'artifact' && this.itemCount(id) > 0 && !this.isSetAside?.(id);
   },
 
   /** Alle Vor- und Nachteile der mitgeführten Artefakte als Listen für passive(). */
