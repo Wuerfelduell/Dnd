@@ -1,1 +1,2 @@
 - `k3_leben/` – BD: acht Einwohner mit Tagesplänen, 80 Gerede-Einträge, sechs Kopfgelder (ca. 1 Stunde), Kalkblatt, Tiere/Wetter und zehn Stände; Datenpaket mit eigenem Prüfer, Laufzeit-Anbindungen dokumentiert.
+- `vorrat_figuren/` (BJ): 28 Figuren, Dialoge, Auftragskeime, Wiedersehensreaktionen und Sonderposen für spätere Kapitel; nicht eingebunden.
