@@ -1,0 +1,1112 @@
+[
+  {
+    "id": "k3o_horch_drehscheibe",
+    "map": "ds_schwellenring",
+    "tile": [
+      34,
+      3
+    ],
+    "directions": [
+      "east"
+    ],
+    "patterns": {
+      "k3a_ruf_anfahr": {
+        "source": "Prüfstreifen der alten Lok",
+        "form": "Langer Strich, Lücke, kurzer Bogen",
+        "meaning": "Identifiziert die beschädigte Lokpfeife.",
+        "learnedFromClue": "k3a_12_c1"
+      },
+      "k3a_ruf_weg": {
+        "source": "Kerbe an der Schwelle",
+        "form": "Zwei kurze Striche und ein Bogen nach rechts",
+        "meaning": "Prüft den Durchgang neben der zugemauerten Strecke.",
+        "learnedFromClue": "k3a_14_c2"
+      },
+      "k3a_ruf_falsch": {
+        "source": "Wartungsschild der Rangierwüste",
+        "form": "Langer Strich, Punkt, umgekehrter Bogen",
+        "meaning": "Lenkt den Schwellenhund zur leeren Abfahrtsrampe.",
+        "learnedFromClue": "k3a_24_c1"
+      },
+      "k3a_ruf_rettung": {
+        "source": "Rettungstafel im Klopfbruch",
+        "form": "Drei Punkte, breite Pause, zwei Striche",
+        "meaning": "Beantwortet den alten Rettungsversuch.",
+        "learnedFromClue": "k3a_33_c1"
+      },
+      "k3a_ruf_ausfahrt": {
+        "source": "Antwort des Vorhauers",
+        "form": "Zwei Striche, offener Bogen nach außen",
+        "meaning": "Gibt die Ausfahrt frei statt eine neue Schicht zu beginnen.",
+        "learnedFromClue": "k3a_33_c3"
+      },
+      "k3a_ruf_zeit": {
+        "source": "Nellies Botinnenbuch",
+        "form": "Punkt, zwei ungleich hohe Striche, Punkt",
+        "meaning": "Kennzeichnet ein bestätigtes Feld, ohne dessen Inhalt zu prüfen.",
+        "learnedFromClue": "k3a_23_c2"
+      },
+      "k3a_ruf_familie": {
+        "source": "Pfiffs Familienwalze",
+        "form": "Geschlossener Bogen mit drei Punkten",
+        "meaning": "Wiederholt einen vertrauten Satz ohne neue Antwortfähigkeit.",
+        "learnedFromClue": "k3a_31_c1"
+      },
+      "k3a_ruf_leer": {
+        "source": "Willas Luftprobe",
+        "form": "Ein offener, gleichmäßiger Bogen",
+        "meaning": "Selbst erzeugter Ton ohne entnommene Personenstimme.",
+        "learnedFromClue": "k3a_43_c1"
+      },
+      "k3a_ruf_trennen": {
+        "source": "Wartungslegende des Verteilers",
+        "form": "Zwei Bögen mit breiter Lücke",
+        "meaning": "Schließt den Eingang und gibt Rückwege einzeln frei.",
+        "learnedFromClue": "k3a_52_c2"
+      },
+      "k3a_ruf_rund": {
+        "source": "Schaltplan am Signalhang",
+        "form": "Sechs Punkte um einen geschlossenen Bogen",
+        "meaning": "Verbindet sechs Viertel zu einer verpflichtenden Gesamtantwort.",
+        "learnedFromClue": "k3a_44_c3"
+      },
+      "k3a_ruf_feier": {
+        "source": "Gedenkplan der Familien",
+        "form": "Sechs einzelne Punkte, darunter ein Schlussstrich",
+        "meaning": "Erinnert getrennt und beendet die offene Schicht ohne Ersatz.",
+        "learnedFromClue": "k3a_51_c3"
+      },
+      "k3a_ruf_halt": {
+        "source": "Geprüfte Ausgänge der Personenwagen",
+        "form": "Zwei breite Querstriche",
+        "meaning": "Hält die Ausgänge offen, während Menschen einzeln hinausgehen.",
+        "learnedFromClue": "k3a_54_c1"
+      }
+    },
+    "accepted": [
+      {
+        "pattern": "k3a_ruf_weg",
+        "dir": "east",
+        "kind": "route"
+      }
+    ],
+    "rangeTiles": 12,
+    "safeTiles": [
+      [
+        2,
+        3
+      ]
+    ],
+    "routeTiles": [
+      [
+        34,
+        3
+      ],
+      [
+        35,
+        3
+      ],
+      [
+        36,
+        3
+      ],
+      [
+        37,
+        3
+      ],
+      [
+        38,
+        3
+      ],
+      [
+        39,
+        3
+      ],
+      [
+        40,
+        3
+      ]
+    ],
+    "fallback": {
+      "map": "ds_schwellenring",
+      "spawn": "default",
+      "nerves": 3,
+      "alarmSeconds": 8
+    },
+    "reserve": true,
+    "listeners": [],
+    "privateAnswer": {
+      "pattern": "k3a_ruf_weg",
+      "binding": "k3o_horch_drehscheibe"
+    },
+    "hints": [
+      {
+        "text": "Der Trichter zeigt nach Osten. Der Hinterzugang antwortet getrennt von der alten Mauer."
+      },
+      {
+        "text": "Der Weg zum Speisewagen bleibt ohne Rufladung offen."
+      },
+      {
+        "text": "Die Kerbe am Wartungsweg passt zum seitlichen Durchgang.",
+        "requires_flags": [
+          "k3o_schwellenring_gelesen1"
+        ]
+      }
+    ],
+    "lock": {
+      "id": "k3r_schleuse_speisewagen",
+      "map": "ds_speisewagen",
+      "tile": [
+        4,
+        11
+      ]
+    }
+  },
+  {
+    "id": "k3o_horch_hund",
+    "map": "ds_rangierwueste",
+    "tile": [
+      4,
+      9
+    ],
+    "directions": [
+      "north"
+    ],
+    "patterns": {
+      "k3a_ruf_anfahr": {
+        "source": "Prüfstreifen der alten Lok",
+        "form": "Langer Strich, Lücke, kurzer Bogen",
+        "meaning": "Identifiziert die beschädigte Lokpfeife.",
+        "learnedFromClue": "k3a_12_c1"
+      },
+      "k3a_ruf_weg": {
+        "source": "Kerbe an der Schwelle",
+        "form": "Zwei kurze Striche und ein Bogen nach rechts",
+        "meaning": "Prüft den Durchgang neben der zugemauerten Strecke.",
+        "learnedFromClue": "k3a_14_c2"
+      },
+      "k3a_ruf_falsch": {
+        "source": "Wartungsschild der Rangierwüste",
+        "form": "Langer Strich, Punkt, umgekehrter Bogen",
+        "meaning": "Lenkt den Schwellenhund zur leeren Abfahrtsrampe.",
+        "learnedFromClue": "k3a_24_c1"
+      },
+      "k3a_ruf_rettung": {
+        "source": "Rettungstafel im Klopfbruch",
+        "form": "Drei Punkte, breite Pause, zwei Striche",
+        "meaning": "Beantwortet den alten Rettungsversuch.",
+        "learnedFromClue": "k3a_33_c1"
+      },
+      "k3a_ruf_ausfahrt": {
+        "source": "Antwort des Vorhauers",
+        "form": "Zwei Striche, offener Bogen nach außen",
+        "meaning": "Gibt die Ausfahrt frei statt eine neue Schicht zu beginnen.",
+        "learnedFromClue": "k3a_33_c3"
+      },
+      "k3a_ruf_zeit": {
+        "source": "Nellies Botinnenbuch",
+        "form": "Punkt, zwei ungleich hohe Striche, Punkt",
+        "meaning": "Kennzeichnet ein bestätigtes Feld, ohne dessen Inhalt zu prüfen.",
+        "learnedFromClue": "k3a_23_c2"
+      },
+      "k3a_ruf_familie": {
+        "source": "Pfiffs Familienwalze",
+        "form": "Geschlossener Bogen mit drei Punkten",
+        "meaning": "Wiederholt einen vertrauten Satz ohne neue Antwortfähigkeit.",
+        "learnedFromClue": "k3a_31_c1"
+      },
+      "k3a_ruf_leer": {
+        "source": "Willas Luftprobe",
+        "form": "Ein offener, gleichmäßiger Bogen",
+        "meaning": "Selbst erzeugter Ton ohne entnommene Personenstimme.",
+        "learnedFromClue": "k3a_43_c1"
+      },
+      "k3a_ruf_trennen": {
+        "source": "Wartungslegende des Verteilers",
+        "form": "Zwei Bögen mit breiter Lücke",
+        "meaning": "Schließt den Eingang und gibt Rückwege einzeln frei.",
+        "learnedFromClue": "k3a_52_c2"
+      },
+      "k3a_ruf_rund": {
+        "source": "Schaltplan am Signalhang",
+        "form": "Sechs Punkte um einen geschlossenen Bogen",
+        "meaning": "Verbindet sechs Viertel zu einer verpflichtenden Gesamtantwort.",
+        "learnedFromClue": "k3a_44_c3"
+      },
+      "k3a_ruf_feier": {
+        "source": "Gedenkplan der Familien",
+        "form": "Sechs einzelne Punkte, darunter ein Schlussstrich",
+        "meaning": "Erinnert getrennt und beendet die offene Schicht ohne Ersatz.",
+        "learnedFromClue": "k3a_51_c3"
+      },
+      "k3a_ruf_halt": {
+        "source": "Geprüfte Ausgänge der Personenwagen",
+        "form": "Zwei breite Querstriche",
+        "meaning": "Hält die Ausgänge offen, während Menschen einzeln hinausgehen.",
+        "learnedFromClue": "k3a_54_c1"
+      }
+    },
+    "accepted": [
+      {
+        "pattern": "k3a_ruf_falsch",
+        "dir": "north",
+        "kind": "route",
+        "flag": "k3o_falscher_pfiff",
+        "requires_flags": [
+          "k3o_rangierwueste_gelesen1"
+        ]
+      }
+    ],
+    "rangeTiles": 10,
+    "safeTiles": [
+      [
+        2,
+        3
+      ]
+    ],
+    "routeTiles": [
+      [
+        4,
+        9
+      ],
+      [
+        4,
+        8
+      ],
+      [
+        4,
+        7
+      ],
+      [
+        4,
+        6
+      ],
+      [
+        4,
+        5
+      ],
+      [
+        4,
+        4
+      ],
+      [
+        4,
+        3
+      ]
+    ],
+    "fallback": {
+      "map": "ds_rangierwueste",
+      "spawn": "default",
+      "nerves": 3,
+      "alarmSeconds": 8
+    },
+    "reserve": true,
+    "listeners": [
+      {
+        "id": "k3o_rangierwueste_wache1",
+        "encounter": "schichtgaenger",
+        "tile": [
+          11,
+          26
+        ],
+        "hearing": 5
+      },
+      {
+        "id": "k3o_rangierwueste_wache2",
+        "encounter": "signalkraehe",
+        "tile": [
+          18,
+          26
+        ],
+        "hearing": 9
+      },
+      {
+        "id": "k3o_rangierwueste_wache3",
+        "encounter": "lohnlistenmotte",
+        "tile": [
+          26,
+          26
+        ],
+        "hearing": 4
+      }
+    ],
+    "privateAnswer": {
+      "pattern": "k3a_ruf_falsch",
+      "binding": "k3o_horch_hund"
+    },
+    "hints": [
+      {
+        "text": "Der falsche Anfahrpfiff lenkt das Suchlicht vom Walzenfach weg."
+      },
+      {
+        "text": "Die Nische schützt dich. Hinter dir bleibt der Fußweg zum Schwellenring offen."
+      },
+      {
+        "text": "Eine einzelne Ersatzkammer liegt im Kasten an der Tafel.",
+        "requires_flags": [
+          "k3o_rangierwueste_gelesen1"
+        ]
+      }
+    ],
+    "lock": {
+      "id": "k3r_schleuse_rangierwueste",
+      "map": "ds_rangierwueste",
+      "tile": [
+        4,
+        27
+      ]
+    }
+  },
+  {
+    "id": "k3o_horch_vorhauer",
+    "map": "ds_klopfbruch",
+    "tile": [
+      4,
+      9
+    ],
+    "directions": [
+      "north"
+    ],
+    "patterns": {
+      "k3a_ruf_anfahr": {
+        "source": "Prüfstreifen der alten Lok",
+        "form": "Langer Strich, Lücke, kurzer Bogen",
+        "meaning": "Identifiziert die beschädigte Lokpfeife.",
+        "learnedFromClue": "k3a_12_c1"
+      },
+      "k3a_ruf_weg": {
+        "source": "Kerbe an der Schwelle",
+        "form": "Zwei kurze Striche und ein Bogen nach rechts",
+        "meaning": "Prüft den Durchgang neben der zugemauerten Strecke.",
+        "learnedFromClue": "k3a_14_c2"
+      },
+      "k3a_ruf_falsch": {
+        "source": "Wartungsschild der Rangierwüste",
+        "form": "Langer Strich, Punkt, umgekehrter Bogen",
+        "meaning": "Lenkt den Schwellenhund zur leeren Abfahrtsrampe.",
+        "learnedFromClue": "k3a_24_c1"
+      },
+      "k3a_ruf_rettung": {
+        "source": "Rettungstafel im Klopfbruch",
+        "form": "Drei Punkte, breite Pause, zwei Striche",
+        "meaning": "Beantwortet den alten Rettungsversuch.",
+        "learnedFromClue": "k3a_33_c1"
+      },
+      "k3a_ruf_ausfahrt": {
+        "source": "Antwort des Vorhauers",
+        "form": "Zwei Striche, offener Bogen nach außen",
+        "meaning": "Gibt die Ausfahrt frei statt eine neue Schicht zu beginnen.",
+        "learnedFromClue": "k3a_33_c3"
+      },
+      "k3a_ruf_zeit": {
+        "source": "Nellies Botinnenbuch",
+        "form": "Punkt, zwei ungleich hohe Striche, Punkt",
+        "meaning": "Kennzeichnet ein bestätigtes Feld, ohne dessen Inhalt zu prüfen.",
+        "learnedFromClue": "k3a_23_c2"
+      },
+      "k3a_ruf_familie": {
+        "source": "Pfiffs Familienwalze",
+        "form": "Geschlossener Bogen mit drei Punkten",
+        "meaning": "Wiederholt einen vertrauten Satz ohne neue Antwortfähigkeit.",
+        "learnedFromClue": "k3a_31_c1"
+      },
+      "k3a_ruf_leer": {
+        "source": "Willas Luftprobe",
+        "form": "Ein offener, gleichmäßiger Bogen",
+        "meaning": "Selbst erzeugter Ton ohne entnommene Personenstimme.",
+        "learnedFromClue": "k3a_43_c1"
+      },
+      "k3a_ruf_trennen": {
+        "source": "Wartungslegende des Verteilers",
+        "form": "Zwei Bögen mit breiter Lücke",
+        "meaning": "Schließt den Eingang und gibt Rückwege einzeln frei.",
+        "learnedFromClue": "k3a_52_c2"
+      },
+      "k3a_ruf_rund": {
+        "source": "Schaltplan am Signalhang",
+        "form": "Sechs Punkte um einen geschlossenen Bogen",
+        "meaning": "Verbindet sechs Viertel zu einer verpflichtenden Gesamtantwort.",
+        "learnedFromClue": "k3a_44_c3"
+      },
+      "k3a_ruf_feier": {
+        "source": "Gedenkplan der Familien",
+        "form": "Sechs einzelne Punkte, darunter ein Schlussstrich",
+        "meaning": "Erinnert getrennt und beendet die offene Schicht ohne Ersatz.",
+        "learnedFromClue": "k3a_51_c3"
+      },
+      "k3a_ruf_halt": {
+        "source": "Geprüfte Ausgänge der Personenwagen",
+        "form": "Zwei breite Querstriche",
+        "meaning": "Hält die Ausgänge offen, während Menschen einzeln hinausgehen.",
+        "learnedFromClue": "k3a_54_c1"
+      }
+    },
+    "accepted": [
+      {
+        "pattern": "k3a_ruf_rettung",
+        "dir": "north",
+        "kind": "answer",
+        "flag": "k3o_originalfolge",
+        "requires_flags": [
+          "k3o_klopfbruch_gelesen1"
+        ]
+      }
+    ],
+    "rangeTiles": 12,
+    "safeTiles": [
+      [
+        2,
+        3
+      ]
+    ],
+    "routeTiles": [
+      [
+        4,
+        9
+      ],
+      [
+        4,
+        8
+      ],
+      [
+        4,
+        7
+      ],
+      [
+        4,
+        6
+      ],
+      [
+        4,
+        5
+      ],
+      [
+        4,
+        4
+      ],
+      [
+        4,
+        3
+      ]
+    ],
+    "fallback": {
+      "map": "ds_klopfbruch",
+      "spawn": "default",
+      "nerves": 3,
+      "alarmSeconds": 8
+    },
+    "reserve": true,
+    "listeners": [
+      {
+        "id": "k3o_klopfbruch_wache1",
+        "encounter": "kalkstaubgeist",
+        "tile": [
+          11,
+          26
+        ],
+        "hearing": 6
+      },
+      {
+        "id": "k3o_klopfbruch_wache2",
+        "encounter": "geruestklang",
+        "tile": [
+          18,
+          26
+        ],
+        "hearing": 7
+      },
+      {
+        "id": "k3o_klopfbruch_wache3",
+        "encounter": "schichtgaenger",
+        "tile": [
+          26,
+          26
+        ],
+        "hearing": 5
+      }
+    ],
+    "privateAnswer": {
+      "pattern": "k3a_ruf_rettung",
+      "binding": "k3o_horch_vorhauer"
+    },
+    "hints": [
+      {
+        "text": "An der Tafel steht die alte Rettungsfolge; die gehörten Schläge sind nur eine Aufnahme."
+      },
+      {
+        "text": "Das Rückwegseil führt zur Treppe. Ein Ruf ist für die Rückkehr unnötig."
+      },
+      {
+        "text": "Hinter dem Handlauf antwortet ein getrennter Ausfahrtstrichter.",
+        "requires_flags": [
+          "k3o_klopfbruch_gelesen1"
+        ]
+      }
+    ],
+    "lock": {
+      "id": "k3r_schleuse_klopfbruch",
+      "map": "ds_klopfbruch",
+      "tile": [
+        4,
+        27
+      ]
+    }
+  },
+  {
+    "id": "k3o_horch_verteiler",
+    "map": "ds_rufschlucht",
+    "tile": [
+      4,
+      9
+    ],
+    "directions": [
+      "north"
+    ],
+    "patterns": {
+      "k3a_ruf_anfahr": {
+        "source": "Prüfstreifen der alten Lok",
+        "form": "Langer Strich, Lücke, kurzer Bogen",
+        "meaning": "Identifiziert die beschädigte Lokpfeife.",
+        "learnedFromClue": "k3a_12_c1"
+      },
+      "k3a_ruf_weg": {
+        "source": "Kerbe an der Schwelle",
+        "form": "Zwei kurze Striche und ein Bogen nach rechts",
+        "meaning": "Prüft den Durchgang neben der zugemauerten Strecke.",
+        "learnedFromClue": "k3a_14_c2"
+      },
+      "k3a_ruf_falsch": {
+        "source": "Wartungsschild der Rangierwüste",
+        "form": "Langer Strich, Punkt, umgekehrter Bogen",
+        "meaning": "Lenkt den Schwellenhund zur leeren Abfahrtsrampe.",
+        "learnedFromClue": "k3a_24_c1"
+      },
+      "k3a_ruf_rettung": {
+        "source": "Rettungstafel im Klopfbruch",
+        "form": "Drei Punkte, breite Pause, zwei Striche",
+        "meaning": "Beantwortet den alten Rettungsversuch.",
+        "learnedFromClue": "k3a_33_c1"
+      },
+      "k3a_ruf_ausfahrt": {
+        "source": "Antwort des Vorhauers",
+        "form": "Zwei Striche, offener Bogen nach außen",
+        "meaning": "Gibt die Ausfahrt frei statt eine neue Schicht zu beginnen.",
+        "learnedFromClue": "k3a_33_c3"
+      },
+      "k3a_ruf_zeit": {
+        "source": "Nellies Botinnenbuch",
+        "form": "Punkt, zwei ungleich hohe Striche, Punkt",
+        "meaning": "Kennzeichnet ein bestätigtes Feld, ohne dessen Inhalt zu prüfen.",
+        "learnedFromClue": "k3a_23_c2"
+      },
+      "k3a_ruf_familie": {
+        "source": "Pfiffs Familienwalze",
+        "form": "Geschlossener Bogen mit drei Punkten",
+        "meaning": "Wiederholt einen vertrauten Satz ohne neue Antwortfähigkeit.",
+        "learnedFromClue": "k3a_31_c1"
+      },
+      "k3a_ruf_leer": {
+        "source": "Willas Luftprobe",
+        "form": "Ein offener, gleichmäßiger Bogen",
+        "meaning": "Selbst erzeugter Ton ohne entnommene Personenstimme.",
+        "learnedFromClue": "k3a_43_c1"
+      },
+      "k3a_ruf_trennen": {
+        "source": "Wartungslegende des Verteilers",
+        "form": "Zwei Bögen mit breiter Lücke",
+        "meaning": "Schließt den Eingang und gibt Rückwege einzeln frei.",
+        "learnedFromClue": "k3a_52_c2"
+      },
+      "k3a_ruf_rund": {
+        "source": "Schaltplan am Signalhang",
+        "form": "Sechs Punkte um einen geschlossenen Bogen",
+        "meaning": "Verbindet sechs Viertel zu einer verpflichtenden Gesamtantwort.",
+        "learnedFromClue": "k3a_44_c3"
+      },
+      "k3a_ruf_feier": {
+        "source": "Gedenkplan der Familien",
+        "form": "Sechs einzelne Punkte, darunter ein Schlussstrich",
+        "meaning": "Erinnert getrennt und beendet die offene Schicht ohne Ersatz.",
+        "learnedFromClue": "k3a_51_c3"
+      },
+      "k3a_ruf_halt": {
+        "source": "Geprüfte Ausgänge der Personenwagen",
+        "form": "Zwei breite Querstriche",
+        "meaning": "Hält die Ausgänge offen, während Menschen einzeln hinausgehen.",
+        "learnedFromClue": "k3a_54_c1"
+      }
+    },
+    "accepted": [
+      {
+        "pattern": "k3a_ruf_trennen",
+        "dir": "north",
+        "kind": "answer",
+        "flag": "k3o_leitungen_getrennt",
+        "requires_flags": [
+          "k3o_rufschlucht_gelesen1"
+        ]
+      }
+    ],
+    "rangeTiles": 14,
+    "safeTiles": [
+      [
+        2,
+        3
+      ]
+    ],
+    "routeTiles": [
+      [
+        4,
+        9
+      ],
+      [
+        4,
+        8
+      ],
+      [
+        4,
+        7
+      ],
+      [
+        4,
+        6
+      ],
+      [
+        4,
+        5
+      ],
+      [
+        4,
+        4
+      ],
+      [
+        4,
+        3
+      ]
+    ],
+    "fallback": {
+      "map": "ds_rufschlucht",
+      "spawn": "default",
+      "nerves": 3,
+      "alarmSeconds": 8
+    },
+    "reserve": true,
+    "listeners": [
+      {
+        "id": "k3o_rufschlucht_wache1",
+        "encounter": "nachhall",
+        "tile": [
+          11,
+          26
+        ],
+        "hearing": 10
+      },
+      {
+        "id": "k3o_rufschlucht_wache2",
+        "encounter": "signalkraehe",
+        "tile": [
+          18,
+          26
+        ],
+        "hearing": 9
+      },
+      {
+        "id": "k3o_rufschlucht_wache3",
+        "encounter": "geruestklang",
+        "tile": [
+          26,
+          26
+        ],
+        "hearing": 7
+      }
+    ],
+    "privateAnswer": {
+      "pattern": "k3a_ruf_trennen",
+      "binding": "k3o_horch_verteiler"
+    },
+    "hints": [
+      {
+        "text": "Ruf und Antwort liegen an getrennten Klemmen."
+      },
+      {
+        "text": "Der helle Umgang bleibt offen. Kein Name muss in die Leitung gesprochen werden."
+      },
+      {
+        "text": "Die Viertelzeichen markieren einzelne Abgänge statt einer Gesamtantwort.",
+        "requires_flags": [
+          "k3o_rufschlucht_gelesen1"
+        ]
+      }
+    ],
+    "lock": {
+      "id": "k3r_schleuse_rufschlucht",
+      "map": "ds_rufschlucht",
+      "tile": [
+        4,
+        27
+      ]
+    }
+  },
+  {
+    "id": "k3o_horch_bahnsteig",
+    "map": "ds_letzter_bahnsteig",
+    "tile": [
+      4,
+      9
+    ],
+    "directions": [
+      "north"
+    ],
+    "patterns": {
+      "k3a_ruf_anfahr": {
+        "source": "Prüfstreifen der alten Lok",
+        "form": "Langer Strich, Lücke, kurzer Bogen",
+        "meaning": "Identifiziert die beschädigte Lokpfeife.",
+        "learnedFromClue": "k3a_12_c1"
+      },
+      "k3a_ruf_weg": {
+        "source": "Kerbe an der Schwelle",
+        "form": "Zwei kurze Striche und ein Bogen nach rechts",
+        "meaning": "Prüft den Durchgang neben der zugemauerten Strecke.",
+        "learnedFromClue": "k3a_14_c2"
+      },
+      "k3a_ruf_falsch": {
+        "source": "Wartungsschild der Rangierwüste",
+        "form": "Langer Strich, Punkt, umgekehrter Bogen",
+        "meaning": "Lenkt den Schwellenhund zur leeren Abfahrtsrampe.",
+        "learnedFromClue": "k3a_24_c1"
+      },
+      "k3a_ruf_rettung": {
+        "source": "Rettungstafel im Klopfbruch",
+        "form": "Drei Punkte, breite Pause, zwei Striche",
+        "meaning": "Beantwortet den alten Rettungsversuch.",
+        "learnedFromClue": "k3a_33_c1"
+      },
+      "k3a_ruf_ausfahrt": {
+        "source": "Antwort des Vorhauers",
+        "form": "Zwei Striche, offener Bogen nach außen",
+        "meaning": "Gibt die Ausfahrt frei statt eine neue Schicht zu beginnen.",
+        "learnedFromClue": "k3a_33_c3"
+      },
+      "k3a_ruf_zeit": {
+        "source": "Nellies Botinnenbuch",
+        "form": "Punkt, zwei ungleich hohe Striche, Punkt",
+        "meaning": "Kennzeichnet ein bestätigtes Feld, ohne dessen Inhalt zu prüfen.",
+        "learnedFromClue": "k3a_23_c2"
+      },
+      "k3a_ruf_familie": {
+        "source": "Pfiffs Familienwalze",
+        "form": "Geschlossener Bogen mit drei Punkten",
+        "meaning": "Wiederholt einen vertrauten Satz ohne neue Antwortfähigkeit.",
+        "learnedFromClue": "k3a_31_c1"
+      },
+      "k3a_ruf_leer": {
+        "source": "Willas Luftprobe",
+        "form": "Ein offener, gleichmäßiger Bogen",
+        "meaning": "Selbst erzeugter Ton ohne entnommene Personenstimme.",
+        "learnedFromClue": "k3a_43_c1"
+      },
+      "k3a_ruf_trennen": {
+        "source": "Wartungslegende des Verteilers",
+        "form": "Zwei Bögen mit breiter Lücke",
+        "meaning": "Schließt den Eingang und gibt Rückwege einzeln frei.",
+        "learnedFromClue": "k3a_52_c2"
+      },
+      "k3a_ruf_rund": {
+        "source": "Schaltplan am Signalhang",
+        "form": "Sechs Punkte um einen geschlossenen Bogen",
+        "meaning": "Verbindet sechs Viertel zu einer verpflichtenden Gesamtantwort.",
+        "learnedFromClue": "k3a_44_c3"
+      },
+      "k3a_ruf_feier": {
+        "source": "Gedenkplan der Familien",
+        "form": "Sechs einzelne Punkte, darunter ein Schlussstrich",
+        "meaning": "Erinnert getrennt und beendet die offene Schicht ohne Ersatz.",
+        "learnedFromClue": "k3a_51_c3"
+      },
+      "k3a_ruf_halt": {
+        "source": "Geprüfte Ausgänge der Personenwagen",
+        "form": "Zwei breite Querstriche",
+        "meaning": "Hält die Ausgänge offen, während Menschen einzeln hinausgehen.",
+        "learnedFromClue": "k3a_54_c1"
+      }
+    },
+    "accepted": [
+      {
+        "pattern": "k3a_ruf_halt",
+        "dir": "north",
+        "kind": "answer",
+        "flag": "k3o_rolle_getrennt",
+        "requires_flags": [
+          "k3o_letzter_bahnsteig_gelesen1"
+        ]
+      }
+    ],
+    "rangeTiles": 10,
+    "safeTiles": [
+      [
+        2,
+        3
+      ]
+    ],
+    "routeTiles": [
+      [
+        4,
+        9
+      ],
+      [
+        4,
+        8
+      ],
+      [
+        4,
+        7
+      ],
+      [
+        4,
+        6
+      ],
+      [
+        4,
+        5
+      ],
+      [
+        4,
+        4
+      ],
+      [
+        4,
+        3
+      ]
+    ],
+    "fallback": {
+      "map": "ds_letzter_bahnsteig",
+      "spawn": "default",
+      "nerves": 3,
+      "alarmSeconds": 8
+    },
+    "reserve": true,
+    "listeners": [],
+    "privateAnswer": {
+      "pattern": "k3a_ruf_halt",
+      "binding": "k3o_horch_bahnsteig"
+    },
+    "hints": [
+      {
+        "text": "Zwei Querstriche markieren den sicheren Halt."
+      },
+      {
+        "text": "Der freie Geländerweg führt zurück. Ein Proberuf entscheidet kein Schicksal."
+      },
+      {
+        "text": "Rollenruf und eigene Namensantwort sind getrennte Entscheidungen.",
+        "requires_flags": [
+          "k3o_letzter_bahnsteig_gelesen1"
+        ]
+      }
+    ],
+    "lock": {
+      "id": "k3r_schleuse_letzter_bahnsteig",
+      "map": "ds_letzter_bahnsteig",
+      "tile": [
+        4,
+        19
+      ]
+    }
+  },
+  {
+    "id": "k3o_horch_tiefe",
+    "map": "ds_unterschicht",
+    "tile": [
+      4,
+      9
+    ],
+    "directions": [
+      "north"
+    ],
+    "patterns": {
+      "k3a_ruf_anfahr": {
+        "source": "Prüfstreifen der alten Lok",
+        "form": "Langer Strich, Lücke, kurzer Bogen",
+        "meaning": "Identifiziert die beschädigte Lokpfeife.",
+        "learnedFromClue": "k3a_12_c1"
+      },
+      "k3a_ruf_weg": {
+        "source": "Kerbe an der Schwelle",
+        "form": "Zwei kurze Striche und ein Bogen nach rechts",
+        "meaning": "Prüft den Durchgang neben der zugemauerten Strecke.",
+        "learnedFromClue": "k3a_14_c2"
+      },
+      "k3a_ruf_falsch": {
+        "source": "Wartungsschild der Rangierwüste",
+        "form": "Langer Strich, Punkt, umgekehrter Bogen",
+        "meaning": "Lenkt den Schwellenhund zur leeren Abfahrtsrampe.",
+        "learnedFromClue": "k3a_24_c1"
+      },
+      "k3a_ruf_rettung": {
+        "source": "Rettungstafel im Klopfbruch",
+        "form": "Drei Punkte, breite Pause, zwei Striche",
+        "meaning": "Beantwortet den alten Rettungsversuch.",
+        "learnedFromClue": "k3a_33_c1"
+      },
+      "k3a_ruf_ausfahrt": {
+        "source": "Antwort des Vorhauers",
+        "form": "Zwei Striche, offener Bogen nach außen",
+        "meaning": "Gibt die Ausfahrt frei statt eine neue Schicht zu beginnen.",
+        "learnedFromClue": "k3a_33_c3"
+      },
+      "k3a_ruf_zeit": {
+        "source": "Nellies Botinnenbuch",
+        "form": "Punkt, zwei ungleich hohe Striche, Punkt",
+        "meaning": "Kennzeichnet ein bestätigtes Feld, ohne dessen Inhalt zu prüfen.",
+        "learnedFromClue": "k3a_23_c2"
+      },
+      "k3a_ruf_familie": {
+        "source": "Pfiffs Familienwalze",
+        "form": "Geschlossener Bogen mit drei Punkten",
+        "meaning": "Wiederholt einen vertrauten Satz ohne neue Antwortfähigkeit.",
+        "learnedFromClue": "k3a_31_c1"
+      },
+      "k3a_ruf_leer": {
+        "source": "Willas Luftprobe",
+        "form": "Ein offener, gleichmäßiger Bogen",
+        "meaning": "Selbst erzeugter Ton ohne entnommene Personenstimme.",
+        "learnedFromClue": "k3a_43_c1"
+      },
+      "k3a_ruf_trennen": {
+        "source": "Wartungslegende des Verteilers",
+        "form": "Zwei Bögen mit breiter Lücke",
+        "meaning": "Schließt den Eingang und gibt Rückwege einzeln frei.",
+        "learnedFromClue": "k3a_52_c2"
+      },
+      "k3a_ruf_rund": {
+        "source": "Schaltplan am Signalhang",
+        "form": "Sechs Punkte um einen geschlossenen Bogen",
+        "meaning": "Verbindet sechs Viertel zu einer verpflichtenden Gesamtantwort.",
+        "learnedFromClue": "k3a_44_c3"
+      },
+      "k3a_ruf_feier": {
+        "source": "Gedenkplan der Familien",
+        "form": "Sechs einzelne Punkte, darunter ein Schlussstrich",
+        "meaning": "Erinnert getrennt und beendet die offene Schicht ohne Ersatz.",
+        "learnedFromClue": "k3a_51_c3"
+      },
+      "k3a_ruf_halt": {
+        "source": "Geprüfte Ausgänge der Personenwagen",
+        "form": "Zwei breite Querstriche",
+        "meaning": "Hält die Ausgänge offen, während Menschen einzeln hinausgehen.",
+        "learnedFromClue": "k3a_54_c1"
+      }
+    },
+    "accepted": [
+      {
+        "pattern": "k3a_ruf_leer",
+        "dir": "north",
+        "kind": "answer",
+        "flag": "k3o_luecken_begrenzt",
+        "requires_flags": [
+          "k3o_unterschicht_gelesen1"
+        ]
+      }
+    ],
+    "rangeTiles": 12,
+    "safeTiles": [
+      [
+        2,
+        3
+      ]
+    ],
+    "routeTiles": [
+      [
+        4,
+        9
+      ],
+      [
+        4,
+        8
+      ],
+      [
+        4,
+        7
+      ],
+      [
+        4,
+        6
+      ],
+      [
+        4,
+        5
+      ],
+      [
+        4,
+        4
+      ],
+      [
+        4,
+        3
+      ]
+    ],
+    "fallback": {
+      "map": "ds_unterschicht",
+      "spawn": "default",
+      "nerves": 3,
+      "alarmSeconds": 8
+    },
+    "reserve": true,
+    "listeners": [
+      {
+        "id": "k3o_unterschicht_wache1",
+        "encounter": "nachhall",
+        "tile": [
+          11,
+          26
+        ],
+        "hearing": 10
+      },
+      {
+        "id": "k3o_unterschicht_wache2",
+        "encounter": "kalkstaubgeist",
+        "tile": [
+          18,
+          26
+        ],
+        "hearing": 6
+      },
+      {
+        "id": "k3o_unterschicht_wache3",
+        "encounter": "lohnlistenmotte",
+        "tile": [
+          26,
+          26
+        ],
+        "hearing": 4
+      }
+    ],
+    "privateAnswer": {
+      "pattern": "k3a_ruf_leer",
+      "binding": "k3o_horch_tiefe"
+    },
+    "hints": [
+      {
+        "text": "Drei leere Stellen bleiben ohne Ersatznamen sichtbar."
+      },
+      {
+        "text": "Der breite Gang führt zurück zum Signalhang."
+      },
+      {
+        "text": "Die leere Antwort stammt aus Luft, nicht aus einer fremden Person.",
+        "requires_flags": [
+          "k3o_unterschicht_gelesen1"
+        ]
+      }
+    ],
+    "lock": {
+      "id": "k3r_schleuse_rufschlucht",
+      "map": "ds_rufschlucht",
+      "tile": [
+        4,
+        27
+      ]
+    }
+  }
+]
