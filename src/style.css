@@ -397,11 +397,6 @@ ul.loot .rar { margin-left: auto; font-size: 0.8em; }
 img.scene { display: block; width: 30em; height: 16.875em; margin: 0 auto 0.6em; image-rendering: pixelated; border: 0.125em solid #2a2630; }
 .panel.dialogue img.scene { width: 20em; height: 11.25em; }
 
-/* Gestufte Tipps im Notizbuch */
-.feedback.hintbox { margin: 0 0 0.6em; }
-.feedback .hint { border-left: 0.25em solid var(--gold); padding: 0.2em 0.6em; background: #0000004d; color: var(--ink); }
-.feedback .hint p { margin: 0 0 0.25em; }
-.notebook .fact.hinted { border-color: var(--gold); box-shadow: 0 0 0.4em #e8c07066; }
 
 /* Paket F: Bestiarium und Zug-Portraits */
 .bestiary { list-style: none; margin: 0; padding: 0 0 0.4em; display: flex; gap: 0.8em; overflow-x: auto; }
@@ -840,15 +835,6 @@ html.touch .cb-def .aeicon { display: block; margin: 0 auto 0.2em; font-size: 16
 .notebook .facts { max-height: 17em; overflow-y: auto; }
 .notebook .blockbox .lockico { vertical-align: -0.2em; margin-right: 0.3em; }
 .choices .lockinfo.note { color: #e8d8a8; }
-.actions .tipbtn { border-color: var(--gold); color: var(--gold); }
-.actions .tipbtn .tabico { vertical-align: -0.15em; margin-right: 0.2em; }
-.actions .tipbtn.pulse { animation: tippulse 1.1s ease-in-out infinite alternate; }
-@keyframes tippulse { to { box-shadow: 0 0 0.6em var(--gold); background: rgba(232, 192, 112, 0.18); } }
-.nudge { font: inherit; margin-top: 0.35em; font-size: 0.75em; color: #1a1420; background: var(--gold); border: 0.125em solid #fff3c8; padding: 0.2em 0.6em; cursor: pointer;
-  animation: tippulse 1.1s ease-in-out infinite alternate; text-align: left; }
-.nudge.hidden { display: none; }
-.nudge .tabico { vertical-align: -0.15em; margin-right: 0.3em; }
-.nudge .key { color: #1a1420; border-color: #1a1420; }
 
 /* Personen-Wegweiser: Klick im Notizbuch zeigt alle Aufenthaltsorte einer Figur auf der Stadtkarte */
 .notebook .people li[data-person] { cursor: pointer; }
