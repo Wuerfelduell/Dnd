@@ -1527,3 +1527,9 @@ transparenter Sicherheitsrand. Die Prüfung kontrolliert alle 215 erwarteten
 Dateien unabhängig vom Manifest, Größen, Palette, Alpha und doppelte Bilder.
 Der separate Einbau ist in der PR-Beschreibung dokumentiert; Spielcode bleibt
 in diesem Grafikpaket unverändert.
+## Platzhalter Kontrollverlust (bis Codex BP liefert)
+
+- `ui/scenes/kontrollverlust.png` (240x135): grob gepixeltes Zwischensequenzbild der Tentakel-Cutscene, per Skript erzeugt.
+- `items/laeutersalz.png`: Kopie von `bannsalz.png`.
+- Die Tentakel auf der Karte zeichnet `WorldScene.playCorruption()` selbst, bis `fx/BP_tentakel_kontrollverlust.png` da ist.
+- Auftragsliste für die echten Grafiken: `docs/art/codex_BP_kontrollverlust_grafik.md`.

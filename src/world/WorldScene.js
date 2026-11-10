@@ -1610,6 +1610,65 @@ export class WorldScene extends Phaser.Scene {
     this.tweens.add({ targets: circle, alpha: 0, delay: 6000, duration: 1500, onComplete: () => { lit = false; circle.destroy(); } });
   }
 
+  /**
+   * Kontrollverlust: Tentakel wachsen aus der Figur. Sobald das Sheet von Codex BP (fx/BP_tentakel_kontrollverlust.png,
+   * 64x64, als 'tentakel_fx' in ANIM_SHEETS eingetragen) da ist, läuft dessen Animation, sonst zeichnet die Szene selbst wabernde Tentakel. Dazu Bildschirmzittern und ein violetter Blitz.
+   */
+  playCorruption(player = 1) {
+    if (!this.player) return;
+    const who = player === 2 && this.p2 ? this.p2 : this.player;
+    const cam = this.cameras.main;
+    cam.shake(700, 0.012);
+    cam.flash(500, 70, 20, 110);
+    who.setTint?.(0x9a6ad0);
+    this.time.delayedCall(3200, () => who.clearTint?.());
+    let lit = true;
+    this.lighting?.add({ follow: { get x() { return who.x; }, get y() { return who.y - 10; } }, radius: 64, intensity: 0.9, color: 0x8a40d0, glowAlpha: 0.35, flicker: 0.3, active: () => lit });
+    const done = () => { lit = false; };
+    if (this.textures.exists('tentakel_fx')) {
+      const key = 'tentakel_fx';
+      if (!this.anims.exists(`${key}_grow`)) {
+        const n = this.textures.get(key).frameTotal - 1;
+        this.anims.create({ key: `${key}_grow`, frames: this.anims.generateFrameNumbers(key, { start: 0, end: Math.max(0, n - 1) }), frameRate: 8, repeat: 0 });
+      }
+      const fx = this.add.sprite(who.x, who.y - 14, key, 0).setDepth(who.depth + 1);
+      fx.play(`${key}_grow`);
+      fx.once('animationcomplete', () => this.tweens.add({ targets: fx, alpha: 0, duration: 500, onComplete: () => { fx.destroy(); done(); } }));
+      return;
+    }
+    // Platzhalter: 7 Tentakel aus Schultern und Rücken, die wachsen, wabern und sich zurückziehen
+    const g = this.add.graphics().setDepth(who.depth + 1);
+    const arms = Array.from({ length: 7 }, (_, i) => ({
+      a: -Math.PI / 2 + (i - 3) * 0.42 + (Math.random() - 0.5) * 0.2, len: 24 + Math.random() * 20, ph: Math.random() * 6.28, w: 3 + (i % 2),
+    }));
+    const t0 = this.time.now;
+    const total = 3000;
+    const ev = this.time.addEvent({
+      delay: 40, loop: true, callback: () => {
+        const t = this.time.now - t0;
+        const grow = t < 900 ? t / 900 : t > total - 700 ? Math.max(0, (total - t) / 700) : 1;
+        g.clear();
+        if (t >= total) { ev.remove(); g.destroy(); done(); return; }
+        for (const arm of arms) {
+          const segs = 8;
+          let x = who.x + Math.cos(arm.a) * 3; let y = who.y - 16 + Math.sin(arm.a) * 4;
+          g.lineStyle(arm.w, 0x3a1850, 1);
+          g.beginPath(); g.moveTo(x, y);
+          for (let k = 1; k <= segs; k++) {
+            const f = k / segs;
+            const wob = Math.sin(t / 140 + arm.ph + f * 4) * 3 * f;
+            x += Math.cos(arm.a + wob * 0.12) * (arm.len * grow / segs);
+            y += Math.sin(arm.a + wob * 0.12) * (arm.len * grow / segs) - 0.3;
+            g.lineTo(x + wob, y);
+          }
+          g.strokePath();
+          // Spitze in Okkult-Türkis
+          if (grow > 0.2) g.fillStyle(0x6fe0d0, 0.9).fillCircle(x + Math.sin(t / 140 + arm.ph + 4) * 3, y, 1.2);
+        }
+      },
+    });
+  }
+
   debugTeleport(tx, ty) {
     this.player.setPosition(tx * TILE + 8, ty * TILE + 15);
     this.player.body.reset(this.player.x, this.player.y);

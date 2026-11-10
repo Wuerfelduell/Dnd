@@ -94,7 +94,11 @@ Auf dem **Nachtmarkt** unter der Krähenbrücke (Stadtkarte) kann man aufsteigen
   welche Handlungen den eigenen Pfad wie stark verdauen.
 - **Unruhe**: kommt mit jedem Trank und mit Geistsicht, klingt mit der Zeit und durch passendes Handeln ab. Ruhetee senkt sie.
   Bei 100 Unruhe oder einem zu früh getrunkenen Trank droht der **Kontrollverlust**: Ohnmacht, Verlust von Leben,
-  Schilling und Verdauung (nie Game Over).
+  Schilling und Verdauung (nie Game Over), und Tentakel wachsen aus der Figur und **korrumpieren** alles am Leib:
+  die ausgerüstete Waffe, angelegte Kleidung und mitgeführte Artefakte. Korrumpierte Stücke kosten Leben und Nerven
+  pro Sekunde, solange man sie trägt. Ablegen hilft sofort (korrumpierte Artefakte darf man ausnahmsweise beiseitelegen),
+  reinigen kann Dr. Varga im Revier gegen Schilling oder Läutersalz von Nell Rauhfuß. Regeln: `pathways.json` → `corruption`,
+  Logik: `src/core/Corruption.js`.
 - **Schilling** gibt es für Aufträge, Fallenden, besiegte Gegner und den Verkauf beim Pfandleiher Gorse.
   In Brocks **Kampfgrube** kann man um Geld kämpfen, Sabeths **Schattenpuppe** ist ein Übungskampf für die neuen Fähigkeiten.
 - Inhalte: `src/data/pathways.json` (Pfade, Zutaten) und `src/data/market.json` (Händler, Preise, Beute).
