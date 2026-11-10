@@ -361,7 +361,17 @@ export class CombatScene extends Phaser.Scene {
   onKey(kind, who = 1) {
     const t = now();
     const c = this.combat;
-    if (this.phase === 'intro' && kind !== 'parry') { this.toMenu(); return true; }
+    if (this.phase === 'intro' && kind !== 'parry') {
+      // Hinterhalt (Wexmoor): der Gegner schlägt zu, bevor das Menü aufgeht
+      if (c.ambush() && !this.ambushShown) {
+        this.ambushShown = true;
+        this.phase = 'anim';
+        this.ui.combatMessage(`Hinterhalt! ${c.enemy.name} ist schneller als du.`);
+        this.time.delayedCall(700, () => this.enemyTurn());
+        return true;
+      }
+      this.toMenu(); return true;
+    }
     if (this.phase === 'qte' && (kind === 'confirm' || kind === 'dodge')) {
       if (!c.duo || who === c.actor) this.pressQte(t);
       return true;
@@ -544,9 +554,10 @@ export class CombatScene extends Phaser.Scene {
         // Kniff der Sekten: Panzer, Heilung, Schleier, Einschüchterung
         const a = c.lastAction;
         this.ui.combatMessage(`${c.enemy.name}: ${a.name}\n\n${a.text}`);
-        const float = { guard: [`Panzer +${a.value}`, 'good'], heal: [`+${a.value}`, 'good'], veil: ['Schleier', 'miss'], taunt: [`-${a.value} Nerven`, 'hurt'] }[a.action];
-        if (a.action === 'taunt') this.focusPlayer(c.target);
-        if (float) this.float(float[0], a.action === 'taunt' ? 'player' : 'enemy', float[1]);
+        const float = { guard: [`Panzer +${a.value}`, 'good'], heal: [`+${a.value}`, 'good'], veil: ['Schleier', 'miss'], taunt: [`-${a.value} Nerven`, 'hurt'], drain: [`-${a.value} Konzentration`, 'hurt'] }[a.action];
+        if (a.action === 'taunt' || a.action === 'drain') this.focusPlayer(c.target);
+        if (float) this.float(float[0], a.action === 'taunt' || a.action === 'drain' ? 'player' : 'enemy', float[1]);
+        if (a.action === 'drain' && a.healed) this.float(`+${a.healed}`, 'enemy', 'good');
         this.anim(this.enemy, 'special');
         this.ui.combatRefresh();
         this.time.delayedCall(1100, () => this.afterStrike());
@@ -676,6 +687,7 @@ export class CombatScene extends Phaser.Scene {
     if (this.combat.outcome) { this.over(); return; }
     const dot = this.combat.endRound();
     const bleed = this.combat.bleedTick;
+    if (this.combat.drainTick) { this.focusPlayer(this.combat.actor); this.float(`-${this.combat.drainTick} Nerven`, 'player', 'hurt'); }
     for (const [n, f] of Object.entries(this.combat.fighters)) {
       if (!f.bleedTick) continue;
       this.focusPlayer(Number(n));

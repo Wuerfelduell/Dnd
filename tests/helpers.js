@@ -48,6 +48,8 @@ export function loadContent({ sequenzen = true, without = [] } = {}) {
       ...(name === 'koop' ? { geplauder: load('packs/koop/geplauder.json'), kampf: load('packs/koop/kampf.json') } : {}),
       ...(name === 'koop_k3' ? { platzierung: load('packs/koop_k3/platzierung.json').filter((p) => !p.interactable.id.startsWith('koop_ds_schleuse')),
         ...Object.fromEntries(['geplauder', 'kampf', 'bindung'].map((f) => [f, load(`packs/koop_k3/${f}.json`)])) } : {}) })),
+    // Kapitel-1-Finale: Epilogtafeln nach Fall 9 und Prices Fahndung in Kettlegate
+    ...(without.includes('k1_finale') ? [] : [{ name: 'k1_finale', epiloge: load('packs/k1_finale/epiloge.json'), police: load('packs/k1_finale/police.json') }]),
     // Paket BG bringt nur Zusätze, Ansprüche, Ersatzzeilen und Texte
     ...(without.includes('k3_ruf') ? [] : [buildK3Ruf(Object.fromEntries(['stationen', 'klang_zuordnung', 'bindungen', 'texte'].map((f) => [f, load(`packs/k3_ruf/${f}.json`)])))]),
     ...(without.includes('beziehungen') ? [] : [{ name: 'beziehungen', dialog_zusaetze: load('packs/beziehungen/dialog_zusaetze.json') }]),
@@ -121,6 +123,18 @@ export function fight(state, encounterId, { attack = 'good', defend = () => 'dod
   const c = new Combat(state, encounterId);
   c.rng = seeded(7); // fester Zufall: Takt und Nachsetzen sind in Tests reproduzierbar
   let n = 0;
+  const enemyTurn = () => {
+    const atk = c.nextEnemyAttack();
+    if (atk) {
+      // Wer Ringe lesen kann, pariert keine nicht parierbaren Angriffe, sondern weicht aus
+      const results = atk.hits.map(() => { const r = defend(n++); return r === 'parry' && atk.unparryable ? 'dodge' : r; });
+      for (const r of results) { c.resolveHit(atk, r); if (c.outcome) break; }
+      if (!c.outcome && results.every((r) => r === 'parry')) c.riposte();
+      c.endEnemyTurn();
+    }
+  };
+  // Hinterhalt (Wexmoor): der Gegner schlägt zu, bevor du handeln kannst
+  if (c.ambush()) { enemyTurn(); c.endRound(); }
   while (!c.outcome && c.round <= maxRounds) {
     const heal = ['tonikum', 'verband'].find((i) => state.itemCount(i));
     if (state.hp < healBelow && heal) c.useItem(heal);
@@ -130,14 +144,7 @@ export function fight(state, encounterId, { attack = 'good', defend = () => 'dod
       c.useSkill(sk, Array(c.skillDef(sk).hits).fill(attack));
     }
     if (c.outcome) break;
-    const atk = c.nextEnemyAttack();
-    if (atk) {
-      // Wer Ringe lesen kann, pariert keine nicht parierbaren Angriffe, sondern weicht aus
-      const results = atk.hits.map(() => { const r = defend(n++); return r === 'parry' && atk.unparryable ? 'dodge' : r; });
-      for (const r of results) { c.resolveHit(atk, r); if (c.outcome) break; }
-      if (!c.outcome && results.every((r) => r === 'parry')) c.riposte();
-      c.endEnemyTurn();
-    }
+    enemyTurn();
     c.endRound();
   }
   return { combat: c, result: c.finish() };

@@ -551,7 +551,7 @@
   },
   "quests": {
     "k2_akt1": {
-      "title": "Akt I: Ankunft im Moor",
+      "title": "Ankunft im Moor",
       "kind": "main",
       "case": "kapitel2",
       "summary": "Du bist auf der Flucht in Wexmoor angekommen. Dein Steckbrief hängt schon an den Wänden. Eine junge Frau aus der Rußgesellschaft will dir helfen.",
@@ -638,7 +638,7 @@
       ]
     },
     "k2_akt2": {
-      "title": "Akt II: Der Schüler",
+      "title": "Der Schüler",
       "kind": "main",
       "case": "kapitel2",
       "summary": "Die Briefe, der Stern, der Leuchtturm: Alles führt zu Professor Starling. Und Starling hat einmal in Wexmoor studiert.",
@@ -704,7 +704,7 @@
       ]
     },
     "k2_akt3": {
-      "title": "Akt III: Der Lichtmann",
+      "title": "Der Lichtmann",
       "kind": "main",
       "case": "kapitel2",
       "summary": "Starling lebt als Mr. Lucent in der Oberstadt. Er ist halb Licht und braucht Öl. Zeit, ihn zu stellen.",
@@ -768,7 +768,7 @@
       ]
     },
     "k2_akt4": {
-      "title": "Akt IV: Wer die Wache führt",
+      "title": "Wer die Wache führt",
       "kind": "main",
       "case": "kapitel2",
       "summary": "Starling hat nur gezählt. Gebrannt hat jemand im Lichtamt. Und dem Lichtamt gehört die Wache.",
@@ -861,7 +861,7 @@
       ]
     },
     "k2_akt5": {
-      "title": "Akt V: Das Leuchtfeuer",
+      "title": "Das Leuchtfeuer",
       "kind": "main",
       "case": "kapitel2",
       "summary": "L. ist Ilse Brandt, und der Turm brennt mit Fremden. Du bist der nächste. Zeit, zum Leuchtturm zu fahren. Wer mit Zeugen, Haftbefehl und der Wache kommt, kann Brandt vor Gericht bringen.",
@@ -1567,14 +1567,14 @@
     {
       "id": "wx_reise_ruhig",
       "city": "wexmoor",
-      "weight": 30,
+      "weight": 22,
       "title": "Über die Stege",
       "text": "Du nimmst die Bretterstege zwischen den Pfahlhäusern. Unter dir gluckst schwarzes Wasser, aber niemand folgt dir."
     },
     {
       "id": "wx_reise_fund",
       "city": "wexmoor",
-      "weight": 14,
+      "weight": 10,
       "title": "Im Torf verloren",
       "text": "Am Rand eines Stichgrabens ragt etwas aus dem Torf, das jemand verloren hat und das Moor noch nicht ganz verschluckt hat.",
       "loot": "fund"
@@ -1596,6 +1596,56 @@
       "text": "Ein Mann mit Torfspaten hält dir deinen eigenen Steckbrief vor die Nase. „Fünfzig Schilling. Das reicht für einen Winter.“",
       "encounter": "reise_strassenraeuber",
       "loot": "raeuber"
+    },
+    {
+      "id": "wx_falle_treibsand",
+      "city": "wexmoor",
+      "weight": 10,
+      "title": "Treibsand",
+      "text": "Der Steg endet im Nichts. Du trittst in schwarzen Schlick, der sofort zupackt. Bis du dich am Reet herausgezogen hast, hat das Moor dir Kraft und Atem genommen.",
+      "effects": {
+        "damage": 14,
+        "nerves": -10
+      }
+    },
+    {
+      "id": "wx_falle_flutloch",
+      "city": "wexmoor",
+      "weight": 8,
+      "title": "Flutloch",
+      "text": "Unter einem Brett ist kein Boden, nur Wasser. Du gehst bis zur Brust hinein. Als du dich hochziehst, treibt dein Geldbeutel halb geleert davon.",
+      "effects": {
+        "damage": 8
+      },
+      "takes_money": [
+        12,
+        30
+      ],
+      "requires_money": 1
+    },
+    {
+      "id": "wx_falle_fussangel",
+      "city": "wexmoor",
+      "weight": 8,
+      "title": "Fußangel der Torfstecher",
+      "text": "Zwischen zwei Stichgräben spannt jemand Draht mit Haken. Er ist für Wilderer gedacht, aber er fragt nicht, wen er fängt.",
+      "effects": {
+        "damage": 18
+      }
+    },
+    {
+      "id": "wx_falle_streife",
+      "city": "wexmoor",
+      "weight": 7,
+      "title": "Laterne hinter dem Reet",
+      "text": "Eine Sturmlaterne schwenkt dir ins Gesicht. Du duckst dich zu spät. Jemand vergleicht etwas mit einem zerknitterten Zettel.",
+      "effects": {
+        "wanted": 1,
+        "nerves": -8
+      },
+      "requires_flags": [
+        "k2_arrived"
+      ]
     }
   ],
   "maps": [
@@ -3437,7 +3487,7 @@
           "marker": false,
           "title": "Zunders Wandkarte",
           "text": "Eine Karte von Wexmoor, mit Lampenruß auf ein Laken gemalt. Sechs Viertel, dazu die Insel mit dem Leuchtturm. Zunder hat Kreise um die Stellen gemacht, wo die Grauspäher ihre Runden drehen.\n\n„Erst wenn du jede Ecke kennst, kannst du hier jemanden jagen“, hat sie gesagt.",
-          "footer": "Ziel von Akt I: in jedem Viertel mit jemandem sprechen, der sich auskennt."
+          "footer": "Ziel: in jedem Viertel mit jemandem sprechen, der sich auskennt."
         },
         {
           "id": "leer",
@@ -6824,7 +6874,8 @@
           "alpha": 1,
           "depth": 5
         }
-      ]
+      ],
+      "elite_chance": 0.3
     },
     {
       "id": "wx_wachhaus",
@@ -7833,7 +7884,8 @@
           "alpha": 1,
           "depth": 3
         }
-      ]
+      ],
+      "elite_chance": 0.3
     },
     {
       "id": "wx_salzwatt",
@@ -8570,7 +8622,8 @@
           "alpha": 0.6,
           "depth": 3000
         }
-      ]
+      ],
+      "elite_chance": 0.3
     },
     {
       "id": "wx_glocke",
@@ -9674,7 +9727,8 @@
           "title": "Inschrift am alten Stadttor",
           "text": "In den Torbogen gemeißelt, halb unter Muscheln:\n\n„WIR GABEN DEM MOOR KEINEN NAMEN. DARUM NAHM ES UNSEREN.“\n\nDarunter, viel später und mit einem Messer eingeritzt: „Es ist noch nicht satt. Es wächst unter Kettlegate weiter.“"
         }
-      ]
+      ],
+      "elite_chance": 0.3
     }
   ],
   "dialogues": {
@@ -9927,7 +9981,7 @@
           ]
         },
         "wache": {
-          "text": "„Grauspäher laufen feste Runden, immer mit Laterne. Was im Lichtkegel steht, sehen sie. Bleib im Dunkeln, geh hinter Wagen und Fässer, und lauf nie direkt auf eine Laterne zu. Wenn einer ‚!‘ ruft, hast du einen Atemzug, um aus dem Licht zu kommen.“\n\n„Jedes Mal, wenn du ihnen davonläufst, suchen sie dich härter. Schlaf hier ein paar Nächte, dann vergessen sie dich wieder. Und wenn sie dich kriegen, hol ich dich raus. Zweimal umsonst. Dann kostet es.“",
+          "text": "„Grauspäher laufen feste Runden, immer mit Laterne. Was im Lichtkegel steht, sehen sie. Bleib im Dunkeln, geh hinter Wagen und Fässer, und lauf nie direkt auf eine Laterne zu. Wenn einer ‚!‘ ruft, hast du einen Atemzug, um aus dem Licht zu kommen.“\n\n„Jedes Mal, wenn du ihnen davonläufst, suchen sie dich härter. Schlaf hier ein paar Nächte, dann vergessen sie dich wieder. Und wenn sie dich kriegen, hol ich dich raus. Einmal umsonst. Dann kostet es.“",
           "choices": [
             {
               "text": "Noch was anderes.",
@@ -13817,18 +13871,18 @@
   "police": {
     "max_level": 3,
     "cone": {
-      "range": 56,
+      "range": 60,
       "range_per_level": 12,
       "angle": 70,
       "angle_per_level": 10
     },
-    "catch_sec": 1.4,
+    "catch_sec": 1.2,
     "catch_per_level": 0.25,
     "catch_min_sec": 0.6,
-    "decay_sec": 300,
+    "decay_sec": 420,
     "rest_lowers": 1,
-    "seize_pct": 0.1,
-    "free_bails": 2,
+    "seize_pct": 0.25,
+    "free_bails": 1,
     "cell": {
       "map": "wx_zelle",
       "spawn": "default"
@@ -14010,7 +14064,7 @@
         "map": "wx_kahn",
         "spawn": "default"
       },
-      "lose_money": 0.2,
+      "lose_money": 0.35,
       "lose_text": "Zunder zieht dich an einem Seil aus dem Schlick. „Du hast deinen Namen geschrien“, sagt sie. „Gut so. Wer ihn noch weiß, kommt zurück.“",
       "flee_text": "Du rennst den Bohlenweg zurück. Hinter dir ruft etwas einen Namen, und für einen Moment ist es deiner.",
       "elite_drops": [
@@ -14026,12 +14080,12 @@
           "sprite": "wild",
           "sheet": "enemy_namenlose",
           "occult": true,
-          "hp": 150,
+          "hp": 180,
           "intro": "Aus dem Wasser vor der Insel steigt eine Torfstecherin, so groß wie ein Haus. An ihrem Leib kleben hunderte Holztäfelchen, alle ohne Namen.\n\n„Gib mir deinen“, sagt sie mit hundert Stimmen.",
           "attacks": [
             {
               "name": "Schlammwelle",
-              "damage": 7,
+              "damage": 9,
               "hits": [
                 900,
                 1500
@@ -14039,7 +14093,7 @@
             },
             {
               "name": "Wurzelgriff",
-              "damage": 5,
+              "damage": 6,
               "hits": [
                 700,
                 1000,
@@ -14048,14 +14102,20 @@
             },
             {
               "name": "Versinken ...",
-              "damage": 13,
+              "damage": 19,
               "hits": [
                 2100
               ]
             },
             {
+              "name": "Namen fressen",
+              "action": "heal",
+              "value": 12,
+              "text": "Die Namenlose flüstert einen Namen, den du fast noch kanntest, und wird dichter. +12 Leben."
+            },
+            {
               "name": "Ruf des Moors",
-              "damage": 6,
+              "damage": 8,
               "hits": [
                 800,
                 1300,
@@ -14081,7 +14141,7 @@
               },
               {
                 "item": "tonikum",
-                "chance": 0.6
+                "chance": 0.3
               }
             ]
           },
@@ -14092,26 +14152,28 @@
           },
           "boss": true,
           "fleeable": false,
-          "min_seq": 6
+          "min_seq": 6,
+          "armor": 3,
+          "ramp": 0.03
         },
         "torfgaenger": {
           "name": "Torfgänger",
           "sprite": "wild",
           "sheet": "enemy_torfgaenger",
           "occult": true,
-          "hp": 44,
+          "hp": 59,
           "intro": "Ein Mann im Torfkittel steht bis zur Hüfte im Moor. Er dreht sich um. Wo sein Gesicht sein sollte, ist nur glatter, nasser Torf.",
           "attacks": [
             {
               "name": "Griff aus dem Schlamm",
-              "damage": 8,
+              "damage": 10,
               "hits": [
                 1000
               ]
             },
             {
               "name": "Schlurfender Hieb",
-              "damage": 6,
+              "damage": 8,
               "hits": [
                 800,
                 1150
@@ -14119,7 +14181,7 @@
             },
             {
               "name": "Moorwürgen",
-              "damage": 14,
+              "damage": 18,
               "hits": [
                 1900
               ]
@@ -14149,8 +14211,8 @@
           },
           "roam": {
             "speed": 26,
-            "chase": 52,
-            "aggro": 72
+            "chase": 56,
+            "aggro": 83
           },
           "elite": {
             "name": "Uralter Torfgänger"
@@ -14161,12 +14223,12 @@
           "sprite": "wild",
           "sheet": "enemy_weisslicht",
           "occult": true,
-          "hp": 32,
+          "hp": 43,
           "intro": "Ein Licht, das nicht grün ist wie die Irrlichter, sondern weiß. Es summt eine Melodie aus Kettlegate.",
           "attacks": [
             {
               "name": "Flackern",
-              "damage": 4,
+              "damage": 5,
               "hits": [
                 600,
                 900,
@@ -14176,14 +14238,14 @@
             },
             {
               "name": "Blendstoß",
-              "damage": 10,
+              "damage": 13,
               "hits": [
                 950
               ]
             },
             {
               "name": "Locken ... Brennen",
-              "damage": 13,
+              "damage": 17,
               "hits": [
                 2000
               ]
@@ -14209,8 +14271,8 @@
           },
           "roam": {
             "speed": 34,
-            "chase": 66,
-            "aggro": 96
+            "chase": 71,
+            "aggro": 110
           },
           "elite": {
             "name": "Gestohlenes Weißlicht"
@@ -14222,12 +14284,12 @@
           "sprite": "wild",
           "sheet": "enemy_reetmann",
           "occult": true,
-          "hp": 40,
+          "hp": 54,
           "intro": "Ein Bündel Schilf richtet sich auf, mannshoch, mit Armen aus geflochtenem Reet. Wo ein Kopf sein sollte, nickt ein Rohrkolben.",
           "attacks": [
             {
               "name": "Saugen",
-              "damage": 6,
+              "damage": 8,
               "hits": [
                 850,
                 1250
@@ -14235,14 +14297,14 @@
             },
             {
               "name": "Peitschen",
-              "damage": 8,
+              "damage": 10,
               "hits": [
                 1050
               ]
             },
             {
               "name": "Verschlingen",
-              "damage": 13,
+              "damage": 17,
               "hits": [
                 1750
               ]
@@ -14268,14 +14330,16 @@
           },
           "roam": {
             "speed": 20,
-            "chase": 46,
-            "aggro": 60
+            "chase": 50,
+            "aggro": 69
           },
           "elite": {
             "name": "Reetkönigs Wächter"
           }
         }
-      }
+      },
+      "drain": 2,
+      "ambush": 0.25
     },
     "wx_leuchtturm": {
       "name": "Der Leuchtturm",
@@ -14292,7 +14356,7 @@
         "map": "wx_kahn",
         "spawn": "default"
       },
-      "lose_money": 0.2,
+      "lose_money": 0.35,
       "lose_text": "Du wachst im Kahn auf. Zunder hat dir die Augen verbunden. „Du hast ins Licht gesehen“, sagt sie. „Das macht man nicht zweimal.“",
       "flee_text": "Du stolperst zurück durch die Gewölbe. Das Licht folgt dir bis zur Treppe und bleibt dort stehen, als dürfte es nicht weiter.",
       "elite_drops": [
@@ -14336,19 +14400,19 @@
           "sprite": "wild",
           "sheet": "enemy_leuchtfeuer",
           "occult": true,
-          "hp": 220,
+          "hp": 260,
           "intro": "Das Feuer oben im Turm ist kein Feuer. Es ist ein Wesen aus dreihundert Jahren gestohlenem Licht, und es dreht sich zu dir um wie ein Leuchtfeuer zu einem Schiff.\n\nDu hörst Stimmen darin. Elias. Odile. Molly. Sie rufen nicht um Hilfe. Sie rufen deinen Namen.",
           "attacks": [
             {
               "name": "Geweihstoß",
-              "damage": 10,
+              "damage": 15,
               "hits": [
                 1000
               ]
             },
             {
               "name": "Sternenregen",
-              "damage": 5,
+              "damage": 7,
               "hits": [
                 650,
                 900,
@@ -14359,15 +14423,21 @@
             },
             {
               "name": "Hufschlag",
-              "damage": 8,
+              "damage": 12,
               "hits": [
                 900,
                 1500
               ]
             },
             {
+              "name": "Linsenwall",
+              "action": "guard",
+              "value": 16,
+              "text": "Das Leuchtfeuer zieht die Linsen des Turms um sich zusammen. Panzer +16."
+            },
+            {
               "name": "Lichtsturm ...",
-              "damage": 18,
+              "damage": 26,
               "hits": [
                 2300
               ]
@@ -14414,19 +14484,21 @@
           },
           "boss": true,
           "fleeable": false,
-          "min_seq": 5
+          "min_seq": 5,
+          "armor": 3,
+          "ramp": 0.03
         },
         "glasmoewe": {
           "name": "Glasmöwe",
           "sprite": "wild",
           "sheet": "enemy_glasmoewe",
           "occult": true,
-          "hp": 48,
+          "hp": 65,
           "intro": "Eine Möwe aus Glas schlägt mit den Flügeln. In ihr flackert ein gefangenes Licht, das gegen die Wände ihres Körpers schlägt.",
           "attacks": [
             {
               "name": "Splitterflug",
-              "damage": 5,
+              "damage": 6,
               "hits": [
                 650,
                 950,
@@ -14435,14 +14507,14 @@
             },
             {
               "name": "Schnabelstoß",
-              "damage": 10,
+              "damage": 13,
               "hits": [
                 1000
               ]
             },
             {
               "name": "Sturzflug ...",
-              "damage": 15,
+              "damage": 20,
               "hits": [
                 1900
               ]
@@ -14468,8 +14540,8 @@
           },
           "roam": {
             "speed": 36,
-            "chase": 70,
-            "aggro": 110
+            "chase": 76,
+            "aggro": 126
           },
           "elite": {
             "name": "Leuchtmöwe"
@@ -14480,12 +14552,12 @@
           "sprite": "wild",
           "sheet": "enemy_lichtbrut",
           "occult": true,
-          "hp": 60,
+          "hp": 81,
           "intro": "Etwas Weiches, Leuchtendes kriecht aus einer Nische voller Täfelchen. Es trägt fremde Gesichter wie Mäntel.",
           "attacks": [
             {
               "name": "Klauen",
-              "damage": 7,
+              "damage": 9,
               "hits": [
                 850,
                 1250
@@ -14493,14 +14565,14 @@
             },
             {
               "name": "Sprung",
-              "damage": 11,
+              "damage": 14,
               "hits": [
                 1100
               ]
             },
             {
               "name": "Glimmen",
-              "damage": 5,
+              "damage": 6,
               "hits": [
                 700,
                 1000,
@@ -14509,7 +14581,7 @@
             },
             {
               "name": "Zerreißen ...",
-              "damage": 16,
+              "damage": 21,
               "hits": [
                 2000
               ]
@@ -14539,8 +14611,8 @@
           },
           "roam": {
             "speed": 24,
-            "chase": 60,
-            "aggro": 80
+            "chase": 65,
+            "aggro": 92
           },
           "elite": {
             "name": "Alte Lichtbrut"
@@ -14551,12 +14623,12 @@
           "sprite": "wild",
           "sheet": "enemy_linsensplitter",
           "occult": true,
-          "hp": 54,
+          "hp": 73,
           "intro": "Ein Scherbenhaufen aus geschliffenem Glas setzt sich zusammen. Jede Scherbe zeigt dein Gesicht, aber älter.",
           "attacks": [
             {
               "name": "Scherbenregen",
-              "damage": 4,
+              "damage": 5,
               "hits": [
                 600,
                 850,
@@ -14566,14 +14638,14 @@
             },
             {
               "name": "Stich",
-              "damage": 10,
+              "damage": 13,
               "hits": [
                 950
               ]
             },
             {
               "name": "Bersten ...",
-              "damage": 15,
+              "damage": 20,
               "hits": [
                 1950
               ]
@@ -14599,14 +14671,16 @@
           },
           "roam": {
             "speed": 28,
-            "chase": 62,
-            "aggro": 84
+            "chase": 67,
+            "aggro": 97
           },
           "elite": {
             "name": "Großer Linsensplitter"
           }
         }
-      }
+      },
+      "drain": 3,
+      "ambush": 0.25
     },
     "wx_salzwatt": {
       "name": "Das Salzwatt",
@@ -14623,7 +14697,7 @@
         "map": "wx_kahn",
         "spawn": "default"
       },
-      "lose_money": 0.2,
+      "lose_money": 0.35,
       "lose_text": "Ein Fischer zieht dich halb ertrunken ins Boot und setzt dich am Torfstich ab. Zunder flucht eine halbe Stunde und kocht dann Tee.",
       "flee_text": "Du rennst zum Bohlenweg zurück. Hinter dir läutet eine Glocke, immer genau einen Schritt entfernt.",
       "elite_drops": [
@@ -14667,12 +14741,12 @@
           "sprite": "wild",
           "sheet": "enemy_salzgeist",
           "occult": true,
-          "hp": 46,
+          "hp": 62,
           "intro": "Eine Gestalt aus weißem Salz, die über das Watt treibt. Wo sie hintritt, trocknet der Schlick zu Kristallen. Sie weint, und ihre Tränen klirren.",
           "attacks": [
             {
               "name": "Husten",
-              "damage": 4,
+              "damage": 5,
               "hits": [
                 600,
                 850,
@@ -14682,14 +14756,14 @@
             },
             {
               "name": "Umklammern",
-              "damage": 9,
+              "damage": 12,
               "hits": [
                 1200
               ]
             },
             {
               "name": "Ausbruch",
-              "damage": 14,
+              "damage": 18,
               "hits": [
                 1900
               ]
@@ -14715,8 +14789,8 @@
           },
           "roam": {
             "speed": 18,
-            "chase": 50,
-            "aggro": 70
+            "chase": 54,
+            "aggro": 80
           },
           "elite": {
             "name": "Salzweiße Witwe"
@@ -14727,12 +14801,12 @@
           "sprite": "wild",
           "sheet": "enemy_bojenglocke",
           "occult": false,
-          "hp": 46,
+          "hp": 62,
           "intro": "Eine Boje rollt über den Schlick auf dich zu, obwohl kein Wasser sie trägt. Die Glocke in ihr schlägt im Takt deines Herzens.",
           "attacks": [
             {
               "name": "Skalpell",
-              "damage": 6,
+              "damage": 8,
               "hits": [
                 700,
                 1000
@@ -14740,14 +14814,14 @@
             },
             {
               "name": "Aderlass",
-              "damage": 8,
+              "damage": 10,
               "hits": [
                 1100
               ]
             },
             {
               "name": "Räuchern",
-              "damage": 4,
+              "damage": 5,
               "hits": [
                 800,
                 1100,
@@ -14756,7 +14830,7 @@
             },
             {
               "name": "Diagnose ...",
-              "damage": 12,
+              "damage": 16,
               "hits": [
                 2000
               ]
@@ -14786,8 +14860,8 @@
           },
           "roam": {
             "speed": 26,
-            "chase": 58,
-            "aggro": 84
+            "chase": 63,
+            "aggro": 97
           },
           "elite": {
             "name": "Sturmglocke"
@@ -14798,12 +14872,12 @@
           "sprite": "wild",
           "sheet": "enemy_nebelfischer",
           "occult": true,
-          "hp": 40,
+          "hp": 54,
           "intro": "Ein Fischer im Ölzeug steht bis zu den Knien im Watt und wirft sein Netz nach dir aus. Seine Laterne brennt, obwohl sie voller Wasser ist.",
           "attacks": [
             {
               "name": "Nagen",
-              "damage": 4,
+              "damage": 5,
               "hits": [
                 600,
                 850,
@@ -14812,14 +14886,14 @@
             },
             {
               "name": "Sprung",
-              "damage": 8,
+              "damage": 10,
               "hits": [
                 950
               ]
             },
             {
               "name": "Seuchenbiss",
-              "damage": 13,
+              "damage": 17,
               "hits": [
                 1800
               ]
@@ -14845,8 +14919,8 @@
           },
           "roam": {
             "speed": 32,
-            "chase": 64,
-            "aggro": 80
+            "chase": 69,
+            "aggro": 92
           },
           "elite": {
             "name": "Ertrunkener Kapitän"
@@ -14857,12 +14931,12 @@
           "sprite": "wild",
           "sheet": "enemy_schlickaal",
           "occult": false,
-          "hp": 42,
+          "hp": 57,
           "intro": "Der Schlick vor dir wölbt sich. Ein Aal, so dick wie ein Mann, schießt heraus, das Maul voller Perlen statt Zähnen.",
           "attacks": [
             {
               "name": "Skalpell",
-              "damage": 6,
+              "damage": 8,
               "hits": [
                 700,
                 1000
@@ -14870,14 +14944,14 @@
             },
             {
               "name": "Aderlass",
-              "damage": 8,
+              "damage": 10,
               "hits": [
                 1100
               ]
             },
             {
               "name": "Räuchern",
-              "damage": 4,
+              "damage": 5,
               "hits": [
                 800,
                 1100,
@@ -14886,7 +14960,7 @@
             },
             {
               "name": "Diagnose ...",
-              "damage": 12,
+              "damage": 16,
               "hits": [
                 2000
               ]
@@ -14912,8 +14986,8 @@
           },
           "roam": {
             "speed": 26,
-            "chase": 58,
-            "aggro": 84
+            "chase": 63,
+            "aggro": 97
           },
           "elite": {
             "name": "Alter Schlickaal"
@@ -14924,12 +14998,12 @@
           "sprite": "wild",
           "sheet": "enemy_glockenmutter",
           "occult": true,
-          "hp": 140,
+          "hp": 196,
           "intro": "Draußen am Priel steht die größte Boje, die du je gesehen hast. Als die Flut steigt, öffnet sie sich wie ein Mantel. Darin ein Gesicht aus Bronze, das jede Glocke im Hafen gleichzeitig läuten lässt.\n\n„Wer hat meine Kinder gezählt?“",
           "attacks": [
             {
               "name": "Schwanzknoten",
-              "damage": 8,
+              "damage": 10,
               "hits": [
                 900,
                 1400
@@ -14937,7 +15011,7 @@
             },
             {
               "name": "Rattenflut",
-              "damage": 4,
+              "damage": 5,
               "hits": [
                 600,
                 850,
@@ -14948,14 +15022,20 @@
             },
             {
               "name": "Kronenbiss",
-              "damage": 10,
+              "damage": 13,
               "hits": [
                 1100
               ]
             },
             {
+              "name": "Flutläuten",
+              "action": "heal",
+              "value": 18,
+              "text": "Die Glockenmutter läutet, und das Watt spült ihre Wunden zu. +18 Leben."
+            },
+            {
               "name": "Pestgesang ...",
-              "damage": 16,
+              "damage": 21,
               "hits": [
                 2200
               ]
@@ -14983,7 +15063,7 @@
               },
               {
                 "item": "tonikum",
-                "chance": 0.6
+                "chance": 0.3
               }
             ]
           },
@@ -14993,9 +15073,13 @@
             "aggro": 90
           },
           "boss": true,
-          "fleeable": false
+          "fleeable": false,
+          "armor": 3,
+          "ramp": 0.03
         }
-      }
+      },
+      "drain": 3,
+      "ambush": 0.25
     },
     "wx_altstadt": {
       "name": "Die Versunkene Altstadt",
@@ -15013,7 +15097,7 @@
         "map": "wx_kahn",
         "spawn": "default"
       },
-      "lose_money": 0.2,
+      "lose_money": 0.35,
       "lose_text": "Mutter Sedge zieht dich an einem Seil durch die Bohlen nach oben und gibt dir eine Ohrfeige. Zunder holt dich am Schrein ab.",
       "flee_text": "Du kletterst an einem Pfahl hinauf, bis die Bohlen über dir sind. Unten schlägt eine Tür zu.",
       "elite_drops": [
@@ -15029,12 +15113,12 @@
           "sprite": "wild",
           "sheet": "enemy_pfahlbohrer",
           "occult": true,
-          "hp": 40,
+          "hp": 54,
           "intro": "Aus einem Pfahl, dick wie ein Fass, quillt ein grauer Wurm mit einem Kopf aus Hornplatten. Hinter ihm knirscht das Holz, und irgendwo über dir neigt sich ein Haus.",
           "attacks": [
             {
               "name": "Bohren",
-              "damage": 4,
+              "damage": 5,
               "hits": [
                 600,
                 850,
@@ -15043,14 +15127,14 @@
             },
             {
               "name": "Durchbrechen",
-              "damage": 8,
+              "damage": 10,
               "hits": [
                 950
               ]
             },
             {
               "name": "Holzfraß",
-              "damage": 13,
+              "damage": 17,
               "hits": [
                 1800
               ]
@@ -15076,8 +15160,8 @@
           },
           "roam": {
             "speed": 32,
-            "chase": 64,
-            "aggro": 80
+            "chase": 69,
+            "aggro": 92
           },
           "elite": {
             "name": "Alter Pfahlfresser"
@@ -15088,12 +15172,12 @@
           "sprite": "wild",
           "sheet": "enemy_ratsherr",
           "occult": true,
-          "hp": 46,
+          "hp": 62,
           "intro": "Ein Mann in einer Robe aus Tang sitzt auf einem Stuhl, der im Schlick steckt, und blättert in einem Buch, aus dem Wasser läuft. Er sieht auf. „Sie sind nicht auf der Tagesordnung.“",
           "attacks": [
             {
               "name": "Verlesen",
-              "damage": 4,
+              "damage": 5,
               "hits": [
                 600,
                 850,
@@ -15103,14 +15187,14 @@
             },
             {
               "name": "Beschluss",
-              "damage": 9,
+              "damage": 12,
               "hits": [
                 1200
               ]
             },
             {
               "name": "Siegelschlag",
-              "damage": 14,
+              "damage": 18,
               "hits": [
                 1900
               ]
@@ -15136,8 +15220,8 @@
           },
           "roam": {
             "speed": 18,
-            "chase": 50,
-            "aggro": 70
+            "chase": 54,
+            "aggro": 80
           },
           "elite": {
             "name": "Ältester des Rates"
@@ -15148,12 +15232,12 @@
           "sprite": "wild",
           "sheet": "enemy_kellerkrebs",
           "occult": false,
-          "hp": 46,
+          "hp": 62,
           "intro": "Aus einem Kellerfenster schiebt sich eine Schere, dann noch eine. Der Krebs dahinter ist so groß wie ein Hund und trägt Scherben von Weinflaschen auf dem Rücken.",
           "attacks": [
             {
               "name": "Kneifen",
-              "damage": 6,
+              "damage": 8,
               "hits": [
                 700,
                 1000
@@ -15161,14 +15245,14 @@
             },
             {
               "name": "Panzerstoß",
-              "damage": 8,
+              "damage": 10,
               "hits": [
                 1100
               ]
             },
             {
               "name": "Scherenschlag",
-              "damage": 4,
+              "damage": 5,
               "hits": [
                 800,
                 1100,
@@ -15177,7 +15261,7 @@
             },
             {
               "name": "Eingraben ...",
-              "damage": 12,
+              "damage": 16,
               "hits": [
                 2000
               ]
@@ -15203,8 +15287,8 @@
           },
           "roam": {
             "speed": 26,
-            "chase": 58,
-            "aggro": 84
+            "chase": 63,
+            "aggro": 97
           },
           "elite": {
             "name": "Krebs des Ratskellers"
@@ -15215,12 +15299,12 @@
           "sprite": "wild",
           "sheet": "enemy_namensmade",
           "occult": true,
-          "hp": 40,
+          "hp": 54,
           "intro": "Eine bleiche Made, lang wie ein Arm, kriecht über eine Hauswand und frisst die Buchstaben vom Türschild. Wo sie war, weißt du nicht mehr, wer hier gewohnt hat.",
           "attacks": [
             {
               "name": "Saugen",
-              "damage": 6,
+              "damage": 8,
               "hits": [
                 700,
                 1000
@@ -15228,14 +15312,14 @@
             },
             {
               "name": "Vergessen",
-              "damage": 8,
+              "damage": 10,
               "hits": [
                 1100
               ]
             },
             {
               "name": "Ausschwitzen",
-              "damage": 4,
+              "damage": 5,
               "hits": [
                 800,
                 1100,
@@ -15244,7 +15328,7 @@
             },
             {
               "name": "Namen fressen ...",
-              "damage": 12,
+              "damage": 16,
               "hits": [
                 2000
               ]
@@ -15270,8 +15354,8 @@
           },
           "roam": {
             "speed": 26,
-            "chase": 58,
-            "aggro": 84
+            "chase": 63,
+            "aggro": 97
           },
           "elite": {
             "name": "Fette Namensmade"
@@ -15282,12 +15366,12 @@
           "sprite": "wild",
           "sheet": "enemy_buergermeister",
           "occult": true,
-          "hp": 140,
+          "hp": 196,
           "intro": "Auf den Stufen des alten Rathauses sitzt ein Mann mit einer Kette aus Gold und Algen. Hinter ihm stehen Hunderte im Schlamm, still, mit leeren Gesichtern: seine Stadt.\n\n„Wir haben das Moor nicht gefüttert“, sagt er. „Darum hat es uns genommen. Die da oben haben es besser gemacht.“",
           "attacks": [
             {
               "name": "Amtskette",
-              "damage": 8,
+              "damage": 10,
               "hits": [
                 900,
                 1400
@@ -15295,7 +15379,7 @@
             },
             {
               "name": "Ratsglocke",
-              "damage": 4,
+              "damage": 5,
               "hits": [
                 600,
                 850,
@@ -15306,14 +15390,20 @@
             },
             {
               "name": "Urteil",
-              "damage": 10,
+              "damage": 13,
               "hits": [
                 1100
               ]
             },
             {
+              "name": "Ratsbeschluss",
+              "action": "guard",
+              "value": 14,
+              "text": "Der Bürgermeister verliest ein Urteil, und die versunkenen Ratsherren stellen sich vor ihn. Panzer +14."
+            },
+            {
               "name": "Die Stadt sinkt ...",
-              "damage": 16,
+              "damage": 21,
               "hits": [
                 2200
               ]
@@ -15341,7 +15431,7 @@
               },
               {
                 "item": "moortee",
-                "chance": 0.8
+                "chance": 0.4
               }
             ]
           },
@@ -15351,9 +15441,13 @@
             "aggro": 90
           },
           "boss": true,
-          "fleeable": false
+          "fleeable": false,
+          "armor": 3,
+          "ramp": 0.03
         }
-      }
+      },
+      "drain": 2,
+      "ambush": 0.25
     }
   },
   "encounters": {
@@ -15364,12 +15458,12 @@
       "loner": true,
       "occult": true,
       "fleeable": false,
-      "hp": 90,
+      "hp": 130,
       "intro": "Hagen stellt den Kessel ab. „Du hast es ihnen erzählt.“ Der Dampf aus dem Kessel wird grün und dick. „Dann zeig ich dir, was ich wirklich braue.“\n\nEinzelgänger · Pfad des Kessels, Sequenz 6: Destillateur",
       "attacks": [
         {
           "name": "Erster Schlag",
-          "damage": 7,
+          "damage": 9,
           "hits": [
             800,
             1200
@@ -15377,7 +15471,7 @@
         },
         {
           "name": "Sequenz 6",
-          "damage": 10,
+          "damage": 12,
           "hits": [
             1100
           ]
@@ -15385,12 +15479,12 @@
         {
           "name": "Wut",
           "action": "taunt",
-          "value": 8,
+          "value": 12,
           "text": "Hagen Wisp sieht dich an, und plötzlich weißt du wieder genau, was du getan hast. -8 Nerven."
         },
         {
           "name": "Alles oder nichts",
-          "damage": 16,
+          "damage": 20,
           "hits": [
             1800
           ]
@@ -15406,7 +15500,9 @@
         "spawn": "default"
       },
       "lose_text": "Du wachst im Kahn auf, Zunder tupft dir die Stirn. „Hagen Wisp? Mit dem legt man sich nicht an. Das weiß hier jedes Kind.“",
-      "win_text": "Hagen Wisp geht in die Knie. „Gut“, keucht es aus dem Dunkel. „Nimm, was du willst. Aber komm nie wieder.“\n\nDann ist da niemand mehr, nur das, was zurückblieb."
+      "win_text": "Hagen Wisp geht in die Knie. „Gut“, keucht es aus dem Dunkel. „Nimm, was du willst. Aber komm nie wieder.“\n\nDann ist da niemand mehr, nur das, was zurückblieb.",
+      "armor": 2,
+      "ramp": 0.02
     },
     "ez_brennerin": {
       "name": "Mara Docht, die Brennerin",
@@ -15415,12 +15511,12 @@
       "loner": true,
       "occult": true,
       "fleeable": false,
-      "hp": 85,
+      "hp": 123,
       "intro": "Mara steht zwischen den verkohlten Resten ihrer Werkstatt. „Du warst das.“ Ihre Laterne flammt auf, weiß und blendend. „Dann sieh mal ins Licht.“\n\nEinzelgänger · Pfad der Laterne, Sequenz 7: Leuchtfeuer",
       "attacks": [
         {
           "name": "Erster Schlag",
-          "damage": 8,
+          "damage": 10,
           "hits": [
             800,
             1200
@@ -15428,7 +15524,7 @@
         },
         {
           "name": "Sequenz 7",
-          "damage": 11,
+          "damage": 14,
           "hits": [
             1100
           ]
@@ -15436,12 +15532,12 @@
         {
           "name": "Wut",
           "action": "taunt",
-          "value": 8,
+          "value": 12,
           "text": "Mara Docht sieht dich an, und plötzlich weißt du wieder genau, was du getan hast. -8 Nerven."
         },
         {
           "name": "Alles oder nichts",
-          "damage": 16,
+          "damage": 20,
           "hits": [
             1800
           ]
@@ -15457,7 +15553,9 @@
         "spawn": "default"
       },
       "lose_text": "Du wachst im Kahn auf, Zunder tupft dir die Stirn. „Mara Docht? Mit dem legt man sich nicht an. Das weiß hier jedes Kind.“",
-      "win_text": "Mara Docht geht in die Knie. „Gut“, keucht es aus dem Dunkel. „Nimm, was du willst. Aber komm nie wieder.“\n\nDann ist da niemand mehr, nur das, was zurückblieb."
+      "win_text": "Mara Docht geht in die Knie. „Gut“, keucht es aus dem Dunkel. „Nimm, was du willst. Aber komm nie wieder.“\n\nDann ist da niemand mehr, nur das, was zurückblieb.",
+      "armor": 2,
+      "ramp": 0.02
     },
     "ez_spinnerin": {
       "name": "Agathe Garn, die Spinnerin",
@@ -15466,12 +15564,12 @@
       "loner": true,
       "occult": true,
       "fleeable": false,
-      "hp": 110,
+      "hp": 160,
       "intro": "Agathe steht vor dir, ohne Rad, aber mit tausend grauen Fäden zwischen den Fingern. „Du hast mir das Rad genommen“, sagt sie ruhig. „Dann nehme ich mir deine Erinnerungen.“\n\nEinzelgänger · Pfad des Fadens, Sequenz 5: Knotenmeister",
       "attacks": [
         {
           "name": "Erster Schlag",
-          "damage": 8,
+          "damage": 10,
           "hits": [
             800,
             1200
@@ -15479,7 +15577,7 @@
         },
         {
           "name": "Sequenz 5",
-          "damage": 12,
+          "damage": 15,
           "hits": [
             1100
           ]
@@ -15487,12 +15585,12 @@
         {
           "name": "Wut",
           "action": "taunt",
-          "value": 8,
+          "value": 12,
           "text": "Agathe Garn sieht dich an, und plötzlich weißt du wieder genau, was du getan hast. -8 Nerven."
         },
         {
           "name": "Alles oder nichts",
-          "damage": 18,
+          "damage": 22,
           "hits": [
             1800
           ]
@@ -15508,7 +15606,9 @@
         "spawn": "default"
       },
       "lose_text": "Du wachst im Kahn auf, Zunder tupft dir die Stirn. „Agathe Garn? Mit dem legt man sich nicht an. Das weiß hier jedes Kind.“",
-      "win_text": "Agathe Garn geht in die Knie. „Gut“, keucht es aus dem Dunkel. „Nimm, was du willst. Aber komm nie wieder.“\n\nDann ist da niemand mehr, nur das, was zurückblieb."
+      "win_text": "Agathe Garn geht in die Knie. „Gut“, keucht es aus dem Dunkel. „Nimm, was du willst. Aber komm nie wieder.“\n\nDann ist da niemand mehr, nur das, was zurückblieb.",
+      "armor": 2,
+      "ramp": 0.02
     },
     "ez_baender": {
       "name": "Tobin Krell, der Bänder",
@@ -15517,12 +15617,12 @@
       "loner": true,
       "occult": true,
       "fleeable": false,
-      "hp": 85,
+      "hp": 123,
       "intro": "Tobin wickelt die Ketten von seinen Armen. „Hafenwache. Ich weiß, wer geredet hat.“ Die Ketten klirren, als hätten sie Hunger.\n\nEinzelgänger · Pfad des Eisens, Sequenz 7: Klingenmeister",
       "attacks": [
         {
           "name": "Erster Schlag",
-          "damage": 8,
+          "damage": 10,
           "hits": [
             800,
             1200
@@ -15530,7 +15630,7 @@
         },
         {
           "name": "Sequenz 7",
-          "damage": 11,
+          "damage": 14,
           "hits": [
             1100
           ]
@@ -15538,12 +15638,12 @@
         {
           "name": "Wut",
           "action": "taunt",
-          "value": 8,
+          "value": 12,
           "text": "Tobin Krell sieht dich an, und plötzlich weißt du wieder genau, was du getan hast. -8 Nerven."
         },
         {
           "name": "Alles oder nichts",
-          "damage": 16,
+          "damage": 20,
           "hits": [
             1800
           ]
@@ -15559,7 +15659,9 @@
         "spawn": "default"
       },
       "lose_text": "Du wachst im Kahn auf, Zunder tupft dir die Stirn. „Tobin Krell? Mit dem legt man sich nicht an. Das weiß hier jedes Kind.“",
-      "win_text": "Tobin Krell geht in die Knie. „Gut“, keucht es aus dem Dunkel. „Nimm, was du willst. Aber komm nie wieder.“\n\nDann ist da niemand mehr, nur das, was zurückblieb."
+      "win_text": "Tobin Krell geht in die Knie. „Gut“, keucht es aus dem Dunkel. „Nimm, was du willst. Aber komm nie wieder.“\n\nDann ist da niemand mehr, nur das, was zurückblieb.",
+      "armor": 2,
+      "ramp": 0.02
     },
     "ez_maskenwirt": {
       "name": "Ambrose Fell, der Maskenwirt",
@@ -15568,12 +15670,12 @@
       "loner": true,
       "occult": true,
       "fleeable": false,
-      "hp": 90,
+      "hp": 130,
       "intro": "Ambrose kommt aus dem Keller, und er hat dein Gesicht. „Du wolltest Schweigegeld. Das kostet. Ich hole mir dafür was Neues.“\n\nEinzelgänger · Pfad der Maske, Sequenz 6: Zweitgesicht",
       "attacks": [
         {
           "name": "Erster Schlag",
-          "damage": 7,
+          "damage": 9,
           "hits": [
             800,
             1200
@@ -15581,7 +15683,7 @@
         },
         {
           "name": "Sequenz 6",
-          "damage": 10,
+          "damage": 12,
           "hits": [
             1100
           ]
@@ -15589,12 +15691,12 @@
         {
           "name": "Wut",
           "action": "taunt",
-          "value": 8,
+          "value": 12,
           "text": "Ambrose Fell sieht dich an, und plötzlich weißt du wieder genau, was du getan hast. -8 Nerven."
         },
         {
           "name": "Alles oder nichts",
-          "damage": 16,
+          "damage": 20,
           "hits": [
             1800
           ]
@@ -15610,7 +15712,9 @@
         "spawn": "default"
       },
       "lose_text": "Du wachst im Kahn auf, Zunder tupft dir die Stirn. „Ambrose Fell? Mit dem legt man sich nicht an. Das weiß hier jedes Kind.“",
-      "win_text": "Ambrose Fell geht in die Knie. „Gut“, keucht es aus dem Dunkel. „Nimm, was du willst. Aber komm nie wieder.“\n\nDann ist da niemand mehr, nur das, was zurückblieb."
+      "win_text": "Ambrose Fell geht in die Knie. „Gut“, keucht es aus dem Dunkel. „Nimm, was du willst. Aber komm nie wieder.“\n\nDann ist da niemand mehr, nur das, was zurückblieb.",
+      "armor": 2,
+      "ramp": 0.02
     },
     "ez_glockenfischer": {
       "name": "Ole Tamsen, der Glockenfischer",
@@ -15619,12 +15723,12 @@
       "loner": true,
       "occult": true,
       "fleeable": false,
-      "hp": 85,
+      "hp": 123,
       "intro": "Ole steht auf, und das Wasser unter dem Steg steht mit ihm auf. „Du hast sie ertränkt“, sagt er. „Jetzt hörst du, was sie gehört hat.“\n\nEinzelgänger · Pfad des Echos, Sequenz 7: Seelenrufer",
       "attacks": [
         {
           "name": "Erster Schlag",
-          "damage": 8,
+          "damage": 10,
           "hits": [
             800,
             1200
@@ -15632,7 +15736,7 @@
         },
         {
           "name": "Sequenz 7",
-          "damage": 11,
+          "damage": 14,
           "hits": [
             1100
           ]
@@ -15640,12 +15744,12 @@
         {
           "name": "Wut",
           "action": "taunt",
-          "value": 8,
+          "value": 12,
           "text": "Ole Tamsen sieht dich an, und plötzlich weißt du wieder genau, was du getan hast. -8 Nerven."
         },
         {
           "name": "Alles oder nichts",
-          "damage": 16,
+          "damage": 20,
           "hits": [
             1800
           ]
@@ -15661,7 +15765,9 @@
         "spawn": "default"
       },
       "lose_text": "Du wachst im Kahn auf, Zunder tupft dir die Stirn. „Ole Tamsen? Mit dem legt man sich nicht an. Das weiß hier jedes Kind.“",
-      "win_text": "Ole Tamsen geht in die Knie. „Gut“, keucht es aus dem Dunkel. „Nimm, was du willst. Aber komm nie wieder.“\n\nDann ist da niemand mehr, nur das, was zurückblieb."
+      "win_text": "Ole Tamsen geht in die Knie. „Gut“, keucht es aus dem Dunkel. „Nimm, was du willst. Aber komm nie wieder.“\n\nDann ist da niemand mehr, nur das, was zurückblieb.",
+      "armor": 2,
+      "ramp": 0.02
     },
     "ez_schleusendieb": {
       "name": "Fitz Hallow, der Schleusendieb",
@@ -15670,12 +15776,12 @@
       "loner": true,
       "occult": true,
       "fleeable": false,
-      "hp": 85,
+      "hp": 123,
       "intro": "Fitz steht vor dir, aus dem Wachhaus raus, wie auch immer. „Die Tür war nicht abgeschlossen“, sagt er. „Keine ist das bei mir.“ Er zieht zwei Dietriche wie Messer.\n\nEinzelgänger · Pfad des Schlüssels, Sequenz 7: Schattengänger",
       "attacks": [
         {
           "name": "Erster Schlag",
-          "damage": 8,
+          "damage": 10,
           "hits": [
             800,
             1200
@@ -15683,7 +15789,7 @@
         },
         {
           "name": "Sequenz 7",
-          "damage": 11,
+          "damage": 14,
           "hits": [
             1100
           ]
@@ -15691,12 +15797,12 @@
         {
           "name": "Wut",
           "action": "taunt",
-          "value": 8,
+          "value": 12,
           "text": "Fitz Hallow sieht dich an, und plötzlich weißt du wieder genau, was du getan hast. -8 Nerven."
         },
         {
           "name": "Alles oder nichts",
-          "damage": 16,
+          "damage": 20,
           "hits": [
             1800
           ]
@@ -15712,19 +15818,21 @@
         "spawn": "default"
       },
       "lose_text": "Du wachst im Kahn auf, Zunder tupft dir die Stirn. „Fitz Hallow? Mit dem legt man sich nicht an. Das weiß hier jedes Kind.“",
-      "win_text": "Fitz Hallow geht in die Knie. „Gut“, keucht es aus dem Dunkel. „Nimm, was du willst. Aber komm nie wieder.“\n\nDann ist da niemand mehr, nur das, was zurückblieb."
+      "win_text": "Fitz Hallow geht in die Knie. „Gut“, keucht es aus dem Dunkel. „Nimm, was du willst. Aber komm nie wieder.“\n\nDann ist da niemand mehr, nur das, was zurückblieb.",
+      "armor": 2,
+      "ramp": 0.02
     },
     "price_wx_fight": {
       "name": "Constable Price",
       "sprite": "npc:price_wx",
       "sheet": "enemy_price",
       "fleeable": true,
-      "hp": 72,
+      "hp": 90,
       "intro": "Price zieht den Schlagstock. „Ich hab Sie in Kettlegate laufen lassen. Diesmal nicht.“",
       "attacks": [
         {
           "name": "Schlagstock",
-          "damage": 7,
+          "damage": 8,
           "hits": [
             800,
             1200
@@ -15738,14 +15846,14 @@
         },
         {
           "name": "Dienstgriff",
-          "damage": 10,
+          "damage": 12,
           "hits": [
             1100
           ]
         },
         {
           "name": "Volle Wucht",
-          "damage": 14,
+          "damage": 16,
           "hits": [
             1700
           ]

@@ -57,6 +57,7 @@ export function buildContent({ campaign, quests, cases, maps, dialogues, items =
     factions: f.factions ?? {},
     gatherings: g.rules ? { rules: g.rules, circles: g.circles ?? {}, artisan: g.artisan ?? null } : null,
     police: wx.police ?? null,
+    polices: { ...(wx.police ? { wexmoor: wx.police } : {}), ...Object.assign({}, ...packs.map((p) => p.police ?? {})) }, // Fahndung je Stadt (K1-Finale: Kettlegate)
     loners: wx.loners ? { ...wx.loners, list: { ...wx.loners.list, ...Object.assign({}, ...packs.map((p) => p.einzelgaenger?.loners?.list ?? {})) } } : null, // BC: Dunscarer Einzelgänger
     facts: merge(cases, 'facts'),
     clues: merge(cases, 'clues'),

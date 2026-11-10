@@ -87,8 +87,9 @@ test('Grauspäher: Sichtkegel wächst mit der Fahndung, Stufe sinkt beim Unterta
   assert.equal(t.wanted, s.wanted);
 });
 
-test('Festnahme: Zelle, zweimal holt Zunder dich umsonst raus, danach kostet es', () => {
+test('Festnahme: Zelle, einmal holt Zunder dich umsonst raus, danach kostet es', () => {
   const s = afterChapter1();
+  s.map = 'wx_bahnhof'; // in Kettlegate gelten nach Fall 9 Prices Regeln (tests/case9.test.js)
   s.money = 100;
   for (let i = 1; i <= 3; i++) {
     const r = s.arrest();
@@ -97,8 +98,8 @@ test('Festnahme: Zelle, zweimal holt Zunder dich umsonst raus, danach kostet es'
     assert.ok(s.flags.has('k2_in_cell'));
     const before = s.money;
     const path = talk(s, 'wx_zelle', ['Zunder']);
-    assert.equal(path.at(-1), i <= 2 ? 'bail_free' : 'bail_pay', `Festnahme ${i}`);
-    assert.equal(before - s.money, i <= 2 ? 0 : 15);
+    assert.equal(path.at(-1), i <= 1 ? 'bail_free' : 'bail_pay', `Festnahme ${i}`);
+    assert.equal(before - s.money, i <= 1 ? 0 : 15);
     assert.ok(!s.flags.has('k2_in_cell'));
     assert.deepEqual(s.pendingTravel, { map: 'wx_kahn', spawn: 'default' });
     s.pendingTravel = null;
@@ -110,13 +111,14 @@ test('Festnahme: Zelle, zweimal holt Zunder dich umsonst raus, danach kostet es'
   assert.equal(s.pendingTravel.map, 'wx_bahnhof');
 });
 
-test('Streifen stehen nur in Wexmoor und laufen über freie Felder', () => {
+test('Streifen stehen in Wexmoor (und nach Fall 9 in Kettlegate) und laufen über freie Felder', () => {
   const WALK = new Set(['.', ',', '=', 'w', 'g', 'p', 'c', 's', 'P', 'L']);
   for (const m of Object.values(content.maps)) {
     for (const p of m.patrols ?? []) {
       if (p.kind === 'aufsicht') assert.equal(m.city, 'dunscar', `${m.id}/${p.id}`); // BD: zivile Aufseher ohne Polizei
       else {
-        assert.equal(m.city, 'wexmoor', `${m.id}/${p.id}`);
+        // Wexmoor: Grauspäher. Kettlegate (nach Fall 9): Constables auf Altmarkt und Nordtor, erst mit kapitel1_done
+        assert.ok(m.city === 'wexmoor' || (!m.city && p.visible_if?.requires_flags?.includes('kapitel1_done')), `${m.id}/${p.id}`);
         assert.ok(m.police, `${m.id}: Karte mit Streifen braucht police: true`);
       }
       const pts = [...p.route, p.route[0]];
@@ -164,6 +166,7 @@ test('Akt I komplett: sechs Viertel, Lichter und Öl, Abschluss bei Zunder', () 
 
 test('Verkleidung: im passenden Viertel kleiner Kegel, anderswo auffälliger', () => {
   const s = afterChapter1();
+  s.map = 'wx_bojenhafen';
   const plain = s.policeCone(0, 'wx_bojenhafen');
   s.money = 50;
   talk(s, 'brack', ['Jacke']);
@@ -400,6 +403,9 @@ test('Price lässt sich auch überzeugen oder verprügeln', () => {
   talk(s, 'price_wexmoor', ['benutzt']);
   assert.ok(s.flags.has('k2_price_ally'));
   const t = afterAct1();
+  t.pathway = { id: 'eisen', seq: 7, digestion: 0 }; // in Wexmoor ist man mindestens Sequenz 7 (Kettlegate war das Tutorial)
+  t.updateMaxHp();
+  t.hp = t.maxHp;
   t.addItem('egelhaken');
   t.equip('egelhaken');
   t.addItem('tonikum', 3);
