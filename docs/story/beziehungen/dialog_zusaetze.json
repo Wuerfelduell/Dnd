@@ -1,0 +1,1319 @@
+{
+  "marlowe": {
+    "choices_add": [
+      {
+        "text": "Ein Rat außerhalb des Protokolls?",
+        "next": "bz_marlowe_freundlich",
+        "requires_mood": {
+          "marlowe": "freundlich"
+        }
+      },
+      {
+        "text": "Was haben Sie mir übelgenommen?",
+        "next": "bz_marlowe_groll",
+        "requires_mood": {
+          "marlowe": "feindselig"
+        }
+      }
+    ],
+    "nodes_add": {
+      "bz_marlowe_freundlich": {
+        "text": "Marlowe dreht Ihr Notizbuch zu Ihnen zurück. „Notieren Sie auch, was gegen Ihre erste Vermutung spricht. Eine freie Zeile ist besser als ein erfundener Zusammenhang.“",
+        "choices": [
+          {
+            "text": "Bis später."
+          }
+        ]
+      },
+      "bz_marlowe_groll": {
+        "text": "„Sie behandeln meine Geduld wie eine Dienstvorschrift, die sich auslegen lässt. Wenn Sie neu anfangen wollen, nehmen Sie Verantwortung für Ihre eigenen Worte.“",
+        "choices": [
+          {
+            "text": "Ich habe zu viel vorausgesetzt.",
+            "next": "bz_marlowe_ausgleich",
+            "requires_mood": {
+              "marlowe": "feindselig"
+            },
+            "hide_if_flags": [
+              "bz_marlowe_entschuldigt"
+            ]
+          },
+          {
+            "text": "Ich denke darüber nach."
+          }
+        ]
+      },
+      "bz_marlowe_ausgleich": {
+        "text": "Marlowe nickt einmal. „Das halte ich Ihnen zugute, den nächsten Bericht prüfe ich trotzdem.“",
+        "relation": {
+          "marlowe": 1
+        },
+        "sets_flags": [
+          "bz_marlowe_entschuldigt"
+        ],
+        "choices": [
+          {
+            "text": "Für heute genug."
+          }
+        ]
+      }
+    }
+  },
+  "holt": {
+    "choices_add": [
+      {
+        "text": "Haben Sie etwas für die nächste Runde?",
+        "next": "bz_holt_freundlich",
+        "requires_mood": {
+          "holt": "freundlich"
+        },
+        "hide_if_flags": [
+          "bz_holt_geschenk"
+        ]
+      },
+      {
+        "text": "Was haben Sie mir übelgenommen?",
+        "next": "bz_holt_groll",
+        "requires_mood": {
+          "holt": "feindselig"
+        }
+      }
+    ],
+    "nodes_add": {
+      "bz_holt_freundlich": {
+        "text": "Holt zieht einen sauberen Verband aus seiner eigenen Tasche. „Den behalten Sie für den Rückweg. Und sagen Sie rechtzeitig, wenn Sie Hilfe brauchen.“",
+        "choices": [
+          {
+            "text": "Bis später."
+          }
+        ],
+        "gives_items": {
+          "verband": 1
+        },
+        "sets_flags": [
+          "bz_holt_geschenk"
+        ]
+      },
+      "bz_holt_groll": {
+        "text": "„Sie rechnen mit meinen Leuten, bevor Sie an sie denken. Ein sauberer Verband für die nächste Schicht wäre einmal eine brauchbare Geste.“",
+        "choices": [
+          {
+            "text": "Einen Verband für die Wache geben.",
+            "next": "bz_holt_ausgleich",
+            "requires_mood": {
+              "holt": "feindselig"
+            },
+            "hide_if_flags": [
+              "bz_holt_wiedergutgemacht"
+            ],
+            "requires_items": [
+              "verband"
+            ]
+          },
+          {
+            "text": "Ich denke darüber nach."
+          }
+        ]
+      },
+      "bz_holt_ausgleich": {
+        "text": "Holt legt das Leinen neben den Dienstkasten. „Das hilft einem Menschen, nicht bloß Ihrer Begründung.“",
+        "relation": {
+          "holt": 1
+        },
+        "sets_flags": [
+          "bz_holt_wiedergutgemacht"
+        ],
+        "choices": [
+          {
+            "text": "Für heute genug."
+          }
+        ],
+        "takes_items": {
+          "verband": 1
+        }
+      }
+    }
+  },
+  "pimm": {
+    "choices_add": [
+      {
+        "text": "Eine kleine Hilfe beim Ordnen?",
+        "next": "bz_pimm_freundlich",
+        "requires_mood": {
+          "pimm": "freundlich"
+        }
+      },
+      {
+        "text": "Was haben Sie mir übelgenommen?",
+        "next": "bz_pimm_groll",
+        "requires_mood": {
+          "pimm": "feindselig"
+        }
+      }
+    ],
+    "nodes_add": {
+      "bz_pimm_freundlich": {
+        "text": "Pimm legt zwei leere Zettel nebeneinander. „Quelle links, Ihre Folgerung rechts. Lassen Sie genug Abstand, damit sich beide nicht versehentlich für dasselbe halten.“",
+        "choices": [
+          {
+            "text": "Bis später."
+          }
+        ]
+      },
+      "bz_pimm_groll": {
+        "text": "„Sie verlassen sich darauf, dass ich hinter Ihren Fragen wieder Ordnung schaffe. Wenn Sie die Arbeit anerkennen wollen, beteiligen Sie sich mit zwanzig Schilling an Papier und Einbänden.“",
+        "choices": [
+          {
+            "text": "20 Schilling für Archivmaterial geben.",
+            "next": "bz_pimm_ausgleich",
+            "requires_mood": {
+              "pimm": "feindselig"
+            },
+            "hide_if_flags": [
+              "bz_pimm_wiedergutgemacht"
+            ],
+            "requires_money": 20
+          },
+          {
+            "text": "Ich denke darüber nach."
+          }
+        ]
+      },
+      "bz_pimm_ausgleich": {
+        "text": "Pimm schreibt den Betrag auf einen gesonderten Zettel. „Material ist damit bezahlt, meine Zustimmung zu Ihren Ansichten nicht.“",
+        "relation": {
+          "pimm": 1
+        },
+        "sets_flags": [
+          "bz_pimm_wiedergutgemacht"
+        ],
+        "choices": [
+          {
+            "text": "Für heute genug."
+          }
+        ],
+        "takes_money": 20
+      }
+    }
+  },
+  "greta": {
+    "choices_add": [
+      {
+        "text": "Haben Sie einen Augenblick für mich?",
+        "next": "bz_greta_freundlich",
+        "requires_mood": {
+          "greta": "freundlich"
+        },
+        "hide_if_flags": [
+          "bz_greta_geschenk"
+        ]
+      },
+      {
+        "text": "Was haben Sie mir übelgenommen?",
+        "next": "bz_greta_groll",
+        "requires_mood": {
+          "greta": "feindselig"
+        }
+      }
+    ],
+    "nodes_add": {
+      "bz_greta_freundlich": {
+        "text": "Greta drückt Ihnen ein kleines Riechsalz in die Hand. „Das ist für Sie, nicht fürs ganze Revier! Wer sich nie hinsetzt, kippt irgendwann zwischen meine Blumen.“",
+        "choices": [
+          {
+            "text": "Bis später."
+          }
+        ],
+        "gives_items": {
+          "riechsalz": 1
+        },
+        "sets_flags": [
+          "bz_greta_geschenk"
+        ]
+      },
+      "bz_greta_groll": {
+        "text": "„Sie stehen hier, als müsste ich für jeden Ton noch dankbar sein! Sagen Sie einmal ohne Ausflucht, dass Sie auch zuhören können.“",
+        "choices": [
+          {
+            "text": "Ich hätte besser zuhören sollen.",
+            "next": "bz_greta_ausgleich",
+            "requires_mood": {
+              "greta": "feindselig"
+            },
+            "hide_if_flags": [
+              "bz_greta_entschuldigt"
+            ]
+          },
+          {
+            "text": "Ich denke darüber nach."
+          }
+        ]
+      },
+      "bz_greta_ausgleich": {
+        "text": "Greta lässt die Hände sinken. „Na also, ein gerader Satz braucht keinen Blumenstrauß drumherum!“",
+        "relation": {
+          "greta": 1
+        },
+        "sets_flags": [
+          "bz_greta_entschuldigt"
+        ],
+        "choices": [
+          {
+            "text": "Für heute genug."
+          }
+        ]
+      }
+    }
+  },
+  "quill": {
+    "choices_add": [
+      {
+        "text": "Worauf achten Sie bei alten Geschichten?",
+        "next": "bz_quill_freundlich",
+        "requires_mood": {
+          "quill": "freundlich"
+        }
+      },
+      {
+        "text": "Was haben Sie mir übelgenommen?",
+        "next": "bz_quill_groll",
+        "requires_mood": {
+          "quill": "feindselig"
+        }
+      }
+    ],
+    "nodes_add": {
+      "bz_quill_freundlich": {
+        "text": "Quill hält die Lupe über sein geschlossenes Kassenbuch. „Fragen Sie zuerst, wer eine Geschichte erzählt hat. Der letzte Besitzer ist selten schon der erste Zeuge.“",
+        "choices": [
+          {
+            "text": "Bis später."
+          }
+        ]
+      },
+      "bz_quill_groll": {
+        "text": "„Sie behandeln meine Vorsicht wie eine verkäufliche Marotte. Ein sauberes Taschentuch für die empfindlichen Stücke würde mir zeigen, dass Sie auch an die Arbeit denken.“",
+        "choices": [
+          {
+            "text": "Ein Taschentuch für die Vitrinen abgeben.",
+            "next": "bz_quill_ausgleich",
+            "requires_mood": {
+              "quill": "feindselig"
+            },
+            "hide_if_flags": [
+              "bz_quill_wiedergutgemacht"
+            ],
+            "requires_items": [
+              "taschentuch"
+            ]
+          },
+          {
+            "text": "Ich denke darüber nach."
+          }
+        ]
+      },
+      "bz_quill_ausgleich": {
+        "text": "Quill faltet das Tuch ohne Hast. „Sorgfalt ist ein brauchbarer Anfang, selbst außerhalb einer Vitrine.“",
+        "relation": {
+          "quill": 1
+        },
+        "sets_flags": [
+          "bz_quill_wiedergutgemacht"
+        ],
+        "choices": [
+          {
+            "text": "Für heute genug."
+          }
+        ],
+        "takes_items": {
+          "taschentuch": 1
+        }
+      }
+    }
+  },
+  "kit": {
+    "choices_add": [
+      {
+        "text": "Was hilft gegen einen langen Tag?",
+        "next": "bz_kit_freundlich",
+        "requires_mood": {
+          "kit": "freundlich"
+        },
+        "hide_if_flags": [
+          "bz_kit_geschenk"
+        ]
+      },
+      {
+        "text": "Was steht noch zwischen uns?",
+        "next": "bz_kit_groll",
+        "requires_mood": {
+          "kit": "feindselig"
+        }
+      }
+    ],
+    "nodes_add": {
+      "bz_kit_freundlich": {
+        "text": "Kit schiebt dir ein eingewickeltes Taschentuch zu. „Sauber, ehrlich. Für Blut oder kalte Nasen, such dir lieber das Zweite aus.“",
+        "choices": [
+          {
+            "text": "Bis später."
+          }
+        ],
+        "gives_items": {
+          "taschentuch": 1
+        },
+        "sets_flags": [
+          "bz_kit_geschenk"
+        ]
+      },
+      "bz_kit_groll": {
+        "text": "„Du tust immer, als wär jede Antwort von mir schon deine. Wenn du's ernst meinst, gib zwanzig Schilling für Essen her, ohne mich danach irgendwohin zu schicken.“",
+        "choices": [
+          {
+            "text": "20 Schilling ohne Gegenleistung geben.",
+            "next": "bz_kit_ausgleich",
+            "requires_mood": {
+              "kit": "feindselig"
+            },
+            "hide_if_flags": [
+              "bz_kit_wiedergutgemacht"
+            ],
+            "requires_money": 20
+          },
+          {
+            "text": "Ich denke darüber nach."
+          }
+        ]
+      },
+      "bz_kit_ausgleich": {
+        "text": "Kit zählt die Münzen und wartet einen Moment. „Gut, diesmal kommt wirklich kein Auftrag hinterher.“",
+        "relation": {
+          "kit": 1
+        },
+        "sets_flags": [
+          "bz_kit_wiedergutgemacht"
+        ],
+        "choices": [
+          {
+            "text": "Für heute genug."
+          }
+        ],
+        "takes_money": 20
+      }
+    }
+  },
+  "ivy": {
+    "choices_add": [
+      {
+        "text": "Wie behält man bei all dem einen klaren Kopf?",
+        "next": "bz_ivy_freundlich",
+        "requires_mood": {
+          "ivy": "freundlich"
+        }
+      },
+      {
+        "text": "Was haben Sie mir übelgenommen?",
+        "next": "bz_ivy_groll",
+        "requires_mood": {
+          "ivy": "feindselig"
+        }
+      }
+    ],
+    "nodes_add": {
+      "bz_ivy_freundlich": {
+        "text": "Ivy zieht einen Stuhl vom Fenster weg. „Fragen Sie eine Sache nach der anderen. Wer Angst hat, braucht manchmal lange für eine kurze Antwort.“",
+        "choices": [
+          {
+            "text": "Bis später."
+          }
+        ]
+      },
+      "bz_ivy_groll": {
+        "text": "„Sie kommen mit fertigen Sätzen, und ich soll nur noch nicken. Ich möchte hören, dass Sie meine Sorge ernst nehmen, ohne mir dafür etwas zu versprechen.“",
+        "choices": [
+          {
+            "text": "Ich habe Ihre Sorge zu schnell abgetan.",
+            "next": "bz_ivy_ausgleich",
+            "requires_mood": {
+              "ivy": "feindselig"
+            },
+            "hide_if_flags": [
+              "bz_ivy_entschuldigt"
+            ]
+          },
+          {
+            "text": "Ich denke darüber nach."
+          }
+        ]
+      },
+      "bz_ivy_ausgleich": {
+        "text": "Ivy nimmt die Hand vom Stuhl. „Danke, lassen Sie mir beim nächsten Mal auch Zeit für die Antwort.“",
+        "relation": {
+          "ivy": 1
+        },
+        "sets_flags": [
+          "bz_ivy_entschuldigt"
+        ],
+        "choices": [
+          {
+            "text": "Für heute genug."
+          }
+        ]
+      }
+    }
+  },
+  "maud": {
+    "choices_add": [
+      {
+        "text": "Haben Sie einen ruhigen Rat für mich?",
+        "next": "bz_maud_freundlich",
+        "requires_mood": {
+          "maud": "freundlich"
+        }
+      },
+      {
+        "text": "Was haben Sie mir übelgenommen?",
+        "next": "bz_maud_groll",
+        "requires_mood": {
+          "maud": "feindselig"
+        }
+      }
+    ],
+    "nodes_add": {
+      "bz_maud_freundlich": {
+        "text": "Maud stellt einen Krug ab, bevor sie antwortet. „Wer am lautesten weiß, wer schuld ist, zahlt selten die Rechnung für den Irrtum. Hören Sie auch dem zu, der nichts gewinnen kann.“",
+        "choices": [
+          {
+            "text": "Bis später."
+          }
+        ]
+      },
+      "bz_maud_groll": {
+        "text": "„Sie reden über andere Leute, als müssten die Folgen nur auf Papier passen. Bringen Sie ein Tonikum für jemanden, der erschöpft an meinem Tresen landet, statt wieder eine große Rede.“",
+        "choices": [
+          {
+            "text": "Ein Tonikum für müde Gäste abgeben.",
+            "next": "bz_maud_ausgleich",
+            "requires_mood": {
+              "maud": "feindselig"
+            },
+            "hide_if_flags": [
+              "bz_maud_wiedergutgemacht"
+            ],
+            "requires_items": [
+              "tonikum"
+            ]
+          },
+          {
+            "text": "Ich denke darüber nach."
+          }
+        ]
+      },
+      "bz_maud_ausgleich": {
+        "text": "Maud stellt die Flasche hinter den Tresen. „Das ist für einen Gast, aber den guten Gedanken rechne ich Ihnen an.“",
+        "relation": {
+          "maud": 1
+        },
+        "sets_flags": [
+          "bz_maud_wiedergutgemacht"
+        ],
+        "choices": [
+          {
+            "text": "Für heute genug."
+          }
+        ],
+        "takes_items": {
+          "tonikum": 1
+        }
+      }
+    }
+  },
+  "nell": {
+    "choices_add": [
+      {
+        "text": "Gibt es heute einen guten Preis?",
+        "next": "bz_nell_freundlich",
+        "requires_mood": {
+          "nell": "freundlich"
+        }
+      },
+      {
+        "text": "Was haben Sie mir übelgenommen?",
+        "next": "bz_nell_groll",
+        "requires_mood": {
+          "nell": "feindselig"
+        }
+      }
+    ],
+    "nodes_add": {
+      "bz_nell_freundlich": {
+        "text": "Nell tippt auf die ausliegenden Waren. „Für dich rechne ich den freundlichen Preis. Das ist schon im Angebot enthalten, du brauchst nicht jede Wurzel einzeln zu überreden.“",
+        "choices": [
+          {
+            "text": "Bis später."
+          }
+        ]
+      },
+      "bz_nell_groll": {
+        "text": "„Du behandelst meine Arbeit, als wüchsen fertige Tränke im Straßendreck. Zwanzig Schilling für frische Vorratsgläser wären eine Entschuldigung, die nicht nach einer Minute verfliegt.“",
+        "choices": [
+          {
+            "text": "20 Schilling für Vorratsgläser geben.",
+            "next": "bz_nell_ausgleich",
+            "requires_mood": {
+              "nell": "feindselig"
+            },
+            "hide_if_flags": [
+              "bz_nell_wiedergutgemacht"
+            ],
+            "requires_money": 20
+          },
+          {
+            "text": "Ich denke darüber nach."
+          }
+        ]
+      },
+      "bz_nell_ausgleich": {
+        "text": "Nell legt die Münzen zur Materialkasse. „Damit kann ich arbeiten, und mit dir vielleicht auch wieder.“",
+        "relation": {
+          "nell": 1
+        },
+        "sets_flags": [
+          "bz_nell_wiedergutgemacht"
+        ],
+        "choices": [
+          {
+            "text": "Für heute genug."
+          }
+        ],
+        "takes_money": 20
+      }
+    }
+  },
+  "gorse": {
+    "choices_add": [
+      {
+        "text": "Wie steht es heute mit dem Handeln?",
+        "next": "bz_gorse_freundlich",
+        "requires_mood": {
+          "gorse": "freundlich"
+        }
+      },
+      {
+        "text": "Was steht noch zwischen uns?",
+        "next": "bz_gorse_groll",
+        "requires_mood": {
+          "gorse": "feindselig"
+        }
+      }
+    ],
+    "nodes_add": {
+      "bz_gorse_freundlich": {
+        "text": "Gorse zieht die Preistafel näher. „Für dich steht der Nachlass schon drin. Wenn du jetzt noch feilschst, müssen wir beide so tun, als wären wir überrascht.“",
+        "choices": [
+          {
+            "text": "Bis später."
+          }
+        ]
+      },
+      "bz_gorse_groll": {
+        "text": "„Du hältst mich offenbar für einen Preis mit Beinen. Versuch es einmal mit einer Entschuldigung, bei der hinten keine Forderung dranhängt.“",
+        "choices": [
+          {
+            "text": "Ich habe dich wie einen Automaten behandelt.",
+            "next": "bz_gorse_ausgleich",
+            "requires_mood": {
+              "gorse": "feindselig"
+            },
+            "hide_if_flags": [
+              "bz_gorse_entschuldigt"
+            ]
+          },
+          {
+            "text": "Ich denke darüber nach."
+          }
+        ]
+      },
+      "bz_gorse_ausgleich": {
+        "text": "Gorse hebt eine Augenbraue. „Na gut, das war ausnahmsweise ein Angebot ohne versteckten Aufpreis.“",
+        "relation": {
+          "gorse": 1
+        },
+        "sets_flags": [
+          "bz_gorse_entschuldigt"
+        ],
+        "choices": [
+          {
+            "text": "Für heute genug."
+          }
+        ]
+      }
+    }
+  },
+  "druce": {
+    "choices_add": [
+      {
+        "text": "Brauchst du eine Pause am Rad?",
+        "next": "bz_druce_freundlich",
+        "requires_mood": {
+          "druce": "freundlich"
+        },
+        "hide_if_flags": [
+          "bz_druce_geschenk"
+        ]
+      },
+      {
+        "text": "Was steht noch zwischen uns?",
+        "next": "bz_druce_groll",
+        "requires_mood": {
+          "druce": "feindselig"
+        }
+      }
+    ],
+    "nodes_add": {
+      "bz_druce_freundlich": {
+        "text": "Druce klemmt das Schleusenrad fest und legt einen Verband auf den trockenen Rand. „Für deine Hände. Ich brauch nicht noch jemanden, der am Eisen festhält und dabei blutet.“",
+        "choices": [
+          {
+            "text": "Bis später."
+          }
+        ],
+        "gives_items": {
+          "verband": 1
+        },
+        "sets_flags": [
+          "bz_druce_geschenk"
+        ]
+      },
+      "bz_druce_groll": {
+        "text": "„Du redest, und ich soll hinterher das Rad festhalten. Eine Flasche Lampenöl fürs Wärterlicht wäre ein Anfang, bevor wir wieder von Vertrauen reden.“",
+        "choices": [
+          {
+            "text": "Lampenöl für das Wärterlicht abgeben.",
+            "next": "bz_druce_ausgleich",
+            "requires_mood": {
+              "druce": "feindselig"
+            },
+            "hide_if_flags": [
+              "bz_druce_wiedergutgemacht"
+            ],
+            "requires_items": [
+              "lampenoel"
+            ]
+          },
+          {
+            "text": "Ich denke darüber nach."
+          }
+        ]
+      },
+      "bz_druce_ausgleich": {
+        "text": "Druce verstaut die Flasche unter dem Dach. „Dann seh ich wenigstens, wer das nächste Mal am Rad steht.“",
+        "relation": {
+          "druce": 1
+        },
+        "sets_flags": [
+          "bz_druce_wiedergutgemacht"
+        ],
+        "choices": [
+          {
+            "text": "Für heute genug."
+          }
+        ],
+        "takes_items": {
+          "lampenoel": 1
+        }
+      }
+    }
+  },
+  "sedge": {
+    "choices_add": [
+      {
+        "text": "Ein guter Gedanke für unterwegs?",
+        "next": "bz_sedge_freundlich",
+        "requires_mood": {
+          "sedge": "freundlich"
+        }
+      },
+      {
+        "text": "Was steht noch zwischen uns?",
+        "next": "bz_sedge_groll",
+        "requires_mood": {
+          "sedge": "feindselig"
+        }
+      }
+    ],
+    "nodes_add": {
+      "bz_sedge_freundlich": {
+        "text": "Sedge schiebt einen Holzspan mit dem Messerrücken zur Seite. „Wenn jemand seinen Satz nicht findet, füll die Lücke nicht gleich mit deinem. Es könnte noch sein eigener kommen.“",
+        "choices": [
+          {
+            "text": "Bis später."
+          }
+        ]
+      },
+      "bz_sedge_groll": {
+        "text": "„Du hast zu viel für andere mitgesprochen. Für zwanzig Schilling beschaffe ich Holz für die, deren Namen noch keinen Platz haben, und du lässt sie selbst entscheiden.“",
+        "choices": [
+          {
+            "text": "20 Schilling für Täfelchenholz geben.",
+            "next": "bz_sedge_ausgleich",
+            "requires_mood": {
+              "sedge": "feindselig"
+            },
+            "hide_if_flags": [
+              "bz_sedge_wiedergutgemacht"
+            ],
+            "requires_money": 20
+          },
+          {
+            "text": "Ich denke darüber nach."
+          }
+        ]
+      },
+      "bz_sedge_ausgleich": {
+        "text": "Sedge legt die Münzen unter ein unbeschriebenes Brett. „Das Holz ist bezahlt, kein Name und kein Einverständnis.“",
+        "relation": {
+          "sedge": 1
+        },
+        "sets_flags": [
+          "bz_sedge_wiedergutgemacht"
+        ],
+        "choices": [
+          {
+            "text": "Für heute genug."
+          }
+        ],
+        "takes_money": 20
+      }
+    }
+  },
+  "hale": {
+    "choices_add": [
+      {
+        "text": "Wie fragen Sie ohne Druck?",
+        "next": "bz_hale_freundlich",
+        "requires_mood": {
+          "hale": "freundlich"
+        }
+      },
+      {
+        "text": "Was haben Sie mir übelgenommen?",
+        "next": "bz_hale_groll",
+        "requires_mood": {
+          "hale": "feindselig"
+        }
+      }
+    ],
+    "nodes_add": {
+      "bz_hale_freundlich": {
+        "text": "Hale hält ihre Laterne tiefer. „Lassen Sie einen Rückweg im Gespräch. Wer nur zwischen zwei Drohungen wählen darf, sagt Ihnen selten etwas Brauchbares.“",
+        "choices": [
+          {
+            "text": "Bis später."
+          }
+        ]
+      },
+      "bz_hale_groll": {
+        "text": "„Sie erwarten, dass ich Verantwortung übernehme, und hören bei Ihrer eigenen lieber weg. Eine klare Entschuldigung wäre mir mehr wert als ein Hinweis auf meine Uniform.“",
+        "choices": [
+          {
+            "text": "Mein Ton war ungerechtfertigt.",
+            "next": "bz_hale_ausgleich",
+            "requires_mood": {
+              "hale": "feindselig"
+            },
+            "hide_if_flags": [
+              "bz_hale_entschuldigt"
+            ]
+          },
+          {
+            "text": "Ich denke darüber nach."
+          }
+        ]
+      },
+      "bz_hale_ausgleich": {
+        "text": "Hale zieht den Handschuh glatt. „Das ist ausgesprochen, nun sehen wir, wie Sie beim nächsten Mal handeln.“",
+        "relation": {
+          "hale": 1
+        },
+        "sets_flags": [
+          "bz_hale_entschuldigt"
+        ],
+        "choices": [
+          {
+            "text": "Für heute genug."
+          }
+        ]
+      }
+    }
+  },
+  "brack": {
+    "choices_add": [
+      {
+        "text": "Hast du etwas für den Weg übrig?",
+        "next": "bz_brack_freundlich",
+        "requires_mood": {
+          "brack": "freundlich"
+        },
+        "hide_if_flags": [
+          "bz_brack_geschenk"
+        ]
+      },
+      {
+        "text": "Was steht noch zwischen uns?",
+        "next": "bz_brack_groll",
+        "requires_mood": {
+          "brack": "feindselig"
+        }
+      }
+    ],
+    "nodes_add": {
+      "bz_brack_freundlich": {
+        "text": "Brack zieht einen sauberen Verband aus dem Netzkorb. „Nimm den. Ein Tau wird nicht weicher, bloß weil du es eilig hast.“",
+        "choices": [
+          {
+            "text": "Bis später."
+          }
+        ],
+        "gives_items": {
+          "verband": 1
+        },
+        "sets_flags": [
+          "bz_brack_geschenk"
+        ]
+      },
+      "bz_brack_groll": {
+        "text": "„Du gehst mit fremder Hilfe um, als hinge sie für dich am Haken. Ein Verband für die Hände am Kai wäre eine bessere Antwort als noch ein Versprechen.“",
+        "choices": [
+          {
+            "text": "Einen Verband für die Leute am Kai geben.",
+            "next": "bz_brack_ausgleich",
+            "requires_mood": {
+              "brack": "feindselig"
+            },
+            "hide_if_flags": [
+              "bz_brack_wiedergutgemacht"
+            ],
+            "requires_items": [
+              "verband"
+            ]
+          },
+          {
+            "text": "Ich denke darüber nach."
+          }
+        ]
+      },
+      "bz_brack_ausgleich": {
+        "text": "Brack steckt das Leinen in die trockene Kiste. „Da findet es jemand, der es braucht, und ich merk mir, wer es gebracht hat.“",
+        "relation": {
+          "brack": 1
+        },
+        "sets_flags": [
+          "bz_brack_wiedergutgemacht"
+        ],
+        "choices": [
+          {
+            "text": "Für heute genug."
+          }
+        ],
+        "takes_items": {
+          "verband": 1
+        }
+      }
+    }
+  },
+  "hesper": {
+    "choices_add": [
+      {
+        "text": "Kannst du mir etwas Ruhe abfüllen?",
+        "next": "bz_hesper_freundlich",
+        "requires_mood": {
+          "hesper": "freundlich"
+        },
+        "hide_if_flags": [
+          "bz_hesper_geschenk"
+        ]
+      },
+      {
+        "text": "Was steht noch zwischen uns?",
+        "next": "bz_hesper_groll",
+        "requires_mood": {
+          "hesper": "feindselig"
+        }
+      }
+    ],
+    "nodes_add": {
+      "bz_hesper_freundlich": {
+        "text": "Hesper stellt eine Portion Ruhetee vor dich. „Nicht alles, was drängt, muss heute noch beantwortet werden. Den hier kannst du später trinken, wenn du wieder nicht sitzen bleibst.“",
+        "choices": [
+          {
+            "text": "Bis später."
+          }
+        ],
+        "gives_items": {
+          "ruhetee": 1
+        },
+        "sets_flags": [
+          "bz_hesper_geschenk"
+        ]
+      },
+      "bz_hesper_groll": {
+        "text": "„Du kommst rein und erwartest, dass ich alles andere stehen lasse. Dreißig Schilling für die Vorratsküche zeigen mehr Rücksicht als eine weitere hübsche Erklärung.“",
+        "choices": [
+          {
+            "text": "30 Schilling für den Kücheneinkauf geben.",
+            "next": "bz_hesper_ausgleich",
+            "requires_mood": {
+              "hesper": "feindselig"
+            },
+            "hide_if_flags": [
+              "bz_hesper_wiedergutgemacht"
+            ],
+            "requires_money": 30
+          },
+          {
+            "text": "Ich denke darüber nach."
+          }
+        ]
+      },
+      "bz_hesper_ausgleich": {
+        "text": "Hesper zählt das Geld zur Einkaufskasse. „Gut, davon wird jemand satt, und deine Entschuldigung ist wenigstens nicht ganz aus Luft.“",
+        "relation": {
+          "hesper": 1
+        },
+        "sets_flags": [
+          "bz_hesper_wiedergutgemacht"
+        ],
+        "choices": [
+          {
+            "text": "Für heute genug."
+          }
+        ],
+        "takes_money": 30
+      }
+    }
+  },
+  "k3a_oren": {
+    "choices_add": [
+      {
+        "text": "Ein Rat aus der Werkstatt?",
+        "next": "bz_k3_oren_freundlich",
+        "requires_mood": {
+          "k3_oren": "freundlich"
+        }
+      },
+      {
+        "text": "Was steht noch zwischen uns?",
+        "next": "bz_k3_oren_groll",
+        "requires_mood": {
+          "k3_oren": "feindselig"
+        }
+      }
+    ],
+    "nodes_add": {
+      "bz_k3_oren_freundlich": {
+        "text": "Oren dreht einen ausgebauten Bolzen zwischen den Fingern. „Prüf erst, was tatsächlich stillsteht. Ein Geräusch und eine Bewegung sind noch lange nicht dieselbe Störung.“",
+        "choices": [
+          {
+            "text": "Bis später."
+          }
+        ]
+      },
+      "bz_k3_oren_groll": {
+        "text": "„Du planst mit meinen Händen, bevor du mich fragst. Sag einmal deutlich, dass meine Arbeit auch meine Entscheidung bleibt.“",
+        "choices": [
+          {
+            "text": "Ich hätte dich zuerst fragen müssen.",
+            "next": "bz_k3_oren_ausgleich",
+            "requires_mood": {
+              "k3_oren": "feindselig"
+            },
+            "hide_if_flags": [
+              "bz_k3_oren_entschuldigt"
+            ]
+          },
+          {
+            "text": "Ich denke darüber nach."
+          }
+        ]
+      },
+      "bz_k3_oren_ausgleich": {
+        "text": "Oren legt den Bolzen ab. „Gut, dann können wir die nächste Arbeit wieder gemeinsam besprechen.“",
+        "relation": {
+          "k3_oren": 1
+        },
+        "sets_flags": [
+          "bz_k3_oren_entschuldigt"
+        ],
+        "choices": [
+          {
+            "text": "Für heute genug."
+          }
+        ]
+      }
+    }
+  },
+  "k3a_mabel": {
+    "choices_add": [
+      {
+        "text": "Ist noch etwas für unterwegs da?",
+        "next": "bz_k3_mabel_freundlich",
+        "requires_mood": {
+          "k3_mabel": "freundlich"
+        },
+        "hide_if_flags": [
+          "bz_k3_mabel_geschenk"
+        ]
+      },
+      {
+        "text": "Was steht noch zwischen uns?",
+        "next": "bz_k3_mabel_groll",
+        "requires_mood": {
+          "k3_mabel": "feindselig"
+        }
+      }
+    ],
+    "nodes_add": {
+      "bz_k3_mabel_freundlich": {
+        "text": "Mabel schiebt dir eine Portion Ruhetee über den Tisch. „Für später, wenn du zwischen zwei Türen wieder das Essen vergisst. Eine Tasse darf auch ohne Anlass fertig werden.“",
+        "choices": [
+          {
+            "text": "Bis später."
+          }
+        ],
+        "gives_items": {
+          "ruhetee": 1
+        },
+        "sets_flags": [
+          "bz_k3_mabel_geschenk"
+        ]
+      },
+      "bz_k3_mabel_groll": {
+        "text": "„Du rechnest meinen Vorrat zu deinen Möglichkeiten, ohne mich zu fragen. Eine Portion Ruhetee für einen erschöpften Gast wäre eine kleine Geste, über die wir uns einig sein können.“",
+        "choices": [
+          {
+            "text": "Ruhetee für einen erschöpften Gast geben.",
+            "next": "bz_k3_mabel_ausgleich",
+            "requires_mood": {
+              "k3_mabel": "feindselig"
+            },
+            "hide_if_flags": [
+              "bz_k3_mabel_wiedergutgemacht"
+            ],
+            "requires_items": [
+              "ruhetee"
+            ]
+          },
+          {
+            "text": "Ich denke darüber nach."
+          }
+        ]
+      },
+      "bz_k3_mabel_ausgleich": {
+        "text": "Mabel stellt den Tee zu den Bechern. „Den teile ich selbst aus, und genau deshalb ist es ein guter Anfang.“",
+        "relation": {
+          "k3_mabel": 1
+        },
+        "sets_flags": [
+          "bz_k3_mabel_wiedergutgemacht"
+        ],
+        "choices": [
+          {
+            "text": "Für heute genug."
+          }
+        ],
+        "takes_items": {
+          "ruhetee": 1
+        }
+      }
+    }
+  },
+  "k3a_nellie": {
+    "choices_add": [
+      {
+        "text": "Wie liest man eine knappe Nachricht?",
+        "next": "bz_k3_nellie_freundlich",
+        "requires_mood": {
+          "k3_nellie": "freundlich"
+        }
+      },
+      {
+        "text": "Was steht noch zwischen uns?",
+        "next": "bz_k3_nellie_groll",
+        "requires_mood": {
+          "k3_nellie": "feindselig"
+        }
+      }
+    ],
+    "nodes_add": {
+      "bz_k3_nellie_freundlich": {
+        "text": "Nellie streicht mit dem Finger unter eine leere Zeile. „Was in einem Telegramm fehlt, wurde nicht automatisch verheimlicht. Manchmal hat jemand nur für jedes Wort bezahlen müssen.“",
+        "choices": [
+          {
+            "text": "Bis später."
+          }
+        ]
+      },
+      "bz_k3_nellie_groll": {
+        "text": "„Du machst Zusagen, die andere dann zustellen sollen. Zwanzig Schilling für das Botengeld wären einmal dein eigener Anteil, ohne neuen Auftrag an mich.“",
+        "choices": [
+          {
+            "text": "20 Schilling zum Botengeld geben.",
+            "next": "bz_k3_nellie_ausgleich",
+            "requires_mood": {
+              "k3_nellie": "feindselig"
+            },
+            "hide_if_flags": [
+              "bz_k3_nellie_wiedergutgemacht"
+            ],
+            "requires_money": 20
+          },
+          {
+            "text": "Ich denke darüber nach."
+          }
+        ]
+      },
+      "bz_k3_nellie_ausgleich": {
+        "text": "Nellie schreibt den Betrag auf, nicht deinen nächsten Wunsch. „Der Weg ist damit bezahlt, die nächste Zusage besprechen wir vorher.“",
+        "relation": {
+          "k3_nellie": 1
+        },
+        "sets_flags": [
+          "bz_k3_nellie_wiedergutgemacht"
+        ],
+        "choices": [
+          {
+            "text": "Für heute genug."
+          }
+        ],
+        "takes_money": 20
+      }
+    }
+  },
+  "k3a_huxford": {
+    "choices_add": [
+      {
+        "text": "Worauf sollte ich beim Zuhören achten?",
+        "next": "bz_k3_huxford_freundlich",
+        "requires_mood": {
+          "k3_huxford": "freundlich"
+        }
+      },
+      {
+        "text": "Was haben Sie mir übelgenommen?",
+        "next": "bz_k3_huxford_groll",
+        "requires_mood": {
+          "k3_huxford": "feindselig"
+        }
+      }
+    ],
+    "nodes_add": {
+      "bz_k3_huxford_freundlich": {
+        "text": "Huxford legt das leere Formular beiseite. „Fragen Sie nach dem Befinden, bevor Sie eine Erklärung anbieten. Eine passende Erklärung ist noch kein zutreffender Befund.“",
+        "choices": [
+          {
+            "text": "Bis später."
+          }
+        ]
+      },
+      "bz_k3_huxford_groll": {
+        "text": "„Sie verlangen Genauigkeit und sprechen mich zugleich wie ein fertiges Urteil an. Ich möchte eine Entschuldigung für den Ton, keine Entlastung meiner Arbeit.“",
+        "choices": [
+          {
+            "text": "Mein Ton war kein sachlicher Einwand.",
+            "next": "bz_k3_huxford_ausgleich",
+            "requires_mood": {
+              "k3_huxford": "feindselig"
+            },
+            "hide_if_flags": [
+              "bz_k3_huxford_entschuldigt"
+            ]
+          },
+          {
+            "text": "Ich denke darüber nach."
+          }
+        ]
+      },
+      "bz_k3_huxford_ausgleich": {
+        "text": "Huxford nimmt den Füller wieder auf. „Danke, meine früheren Unterschriften bleiben trotzdem meine Verantwortung.“",
+        "relation": {
+          "k3_huxford": 1
+        },
+        "sets_flags": [
+          "bz_k3_huxford_entschuldigt"
+        ],
+        "choices": [
+          {
+            "text": "Für heute genug."
+          }
+        ]
+      }
+    }
+  },
+  "k3a_esther": {
+    "choices_add": [
+      {
+        "text": "Wie behält man fremde Angaben in Ordnung?",
+        "next": "bz_k3_esther_freundlich",
+        "requires_mood": {
+          "k3_esther": "freundlich"
+        }
+      },
+      {
+        "text": "Was haben Sie mir übelgenommen?",
+        "next": "bz_k3_esther_groll",
+        "requires_mood": {
+          "k3_esther": "feindselig"
+        }
+      }
+    ],
+    "nodes_add": {
+      "bz_k3_esther_freundlich": {
+        "text": "Esther legt ein leeres Blatt auf eine geschlossene Mappe. „Schreiben Sie auf, was jemand freigibt, und auch wofür. Eine Erlaubnis zum Lesen ist keine zum Weiterreichen.“",
+        "choices": [
+          {
+            "text": "Bis später."
+          }
+        ]
+      },
+      "bz_k3_esther_groll": {
+        "text": "„Sie lassen mich jedes Nein zweimal aussprechen. Bringen Sie ein sauberes Taschentuch für den Staub auf den Mappen, und lassen Sie die Mappen selbst geschlossen.“",
+        "choices": [
+          {
+            "text": "Ein sauberes Taschentuch abgeben.",
+            "next": "bz_k3_esther_ausgleich",
+            "requires_mood": {
+              "k3_esther": "feindselig"
+            },
+            "hide_if_flags": [
+              "bz_k3_esther_wiedergutgemacht"
+            ],
+            "requires_items": [
+              "taschentuch"
+            ]
+          },
+          {
+            "text": "Ich denke darüber nach."
+          }
+        ]
+      },
+      "bz_k3_esther_ausgleich": {
+        "text": "Esther legt das Tuch neben die Ablage. „So helfen Sie, ohne etwas an sich zu nehmen, und das erkenne ich an.“",
+        "relation": {
+          "k3_esther": 1
+        },
+        "sets_flags": [
+          "bz_k3_esther_wiedergutgemacht"
+        ],
+        "choices": [
+          {
+            "text": "Für heute genug."
+          }
+        ],
+        "takes_items": {
+          "taschentuch": 1
+        }
+      }
+    }
+  }
+}
