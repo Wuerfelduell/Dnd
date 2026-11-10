@@ -1,0 +1,750 @@
+{
+  "dunscar": {
+    "ds_arbeiterbogen": [
+      {
+        "text": "Fremde zählen hier zuerst die leeren Stühle.",
+        "requires_flags": [
+          "k3_arrived"
+        ],
+        "hide_if_flags": [
+          "k3a_akt1_done",
+          "kapitel3_done"
+        ]
+      },
+      {
+        "text": "Von offener Schicht reden sie. Mein Laden ist nur bis Abend offen.",
+        "requires_flags": [
+          "k3a_akt1_done"
+        ],
+        "hide_if_flags": [
+          "k3a_akt2_done",
+          "kapitel3_done"
+        ]
+      },
+      {
+        "text": "Die Nachbarin sagt, sie habe geantwortet. Jetzt schämt sie sich fürs Zuhören.",
+        "requires_flags": [
+          "k3a_akt2_done"
+        ],
+        "hide_if_flags": [
+          "k3a_akt3_done",
+          "kapitel3_done"
+        ]
+      },
+      {
+        "text": "Heute bleibt die Küchentür offen. Allein essen mag keiner.",
+        "requires_flags": [
+          "k3a_akt3_done"
+        ],
+        "hide_if_flags": [
+          "k3a_akt4_done",
+          "kapitel3_done"
+        ]
+      },
+      {
+        "text": "Wenn es endet, koche ich morgen nur für die Lebenden.",
+        "requires_flags": [
+          "k3a_akt4_done"
+        ],
+        "hide_if_flags": [
+          "kapitel3_done"
+        ]
+      },
+      {
+        "text": "Heute decke ich für die, die essen können.",
+        "requires_flags": [
+          "k3a_end_feierabend"
+        ],
+        "hide_if_flags": [
+          "k3o_unterschicht_geloest"
+        ]
+      },
+      {
+        "text": "Es ist still. Ich koche trotzdem eine Portion zu viel.",
+        "requires_flags": [
+          "k3a_end_stilllegung"
+        ],
+        "hide_if_flags": [
+          "k3o_unterschicht_geloest"
+        ]
+      },
+      {
+        "text": "Deine Rückkehr gehört jetzt zum Gespräch. Mein Topf bleibt gewöhnlich.",
+        "requires_flags": [
+          "k3a_end_gegenstimme"
+        ],
+        "hide_if_flags": [
+          "k3o_unterschicht_geloest"
+        ]
+      },
+      {
+        "text": "Verpflegung erfolgt vor Schichtantritt. Bitte passend zahlen.",
+        "requires_flags": [
+          "k3a_end_vollzaehlig"
+        ],
+        "hide_if_flags": [
+          "k3o_unterschicht_geloest"
+        ]
+      },
+      {
+        "text": "Unter der Erde ist etwas ruhiger. Hier oben braucht der Topf noch Feuer.",
+        "requires_flags": [
+          "kapitel3_done",
+          "k3o_unterschicht_geloest"
+        ]
+      },
+      {
+        "text": "Der Stuhl ist frei. Das Gespräch noch nicht.",
+        "requires_flags": [
+          "k3_arrived"
+        ],
+        "hide_if_flags": [
+          "k3a_akt1_done",
+          "kapitel3_done"
+        ]
+      },
+      {
+        "text": "Eine offene Schicht lässt den Tee schneller kalt werden.",
+        "requires_flags": [
+          "k3a_akt1_done"
+        ],
+        "hide_if_flags": [
+          "k3a_akt2_done",
+          "kapitel3_done"
+        ]
+      },
+      {
+        "text": "Am Nebentisch behaupten sie, jemand habe geantwortet. Ich war nicht dabei.",
+        "requires_flags": [
+          "k3a_akt2_done"
+        ],
+        "hide_if_flags": [
+          "k3a_akt3_done",
+          "kapitel3_done"
+        ]
+      },
+      {
+        "text": "Heute bleiben wir zusammen, bis Mabel abschließt.",
+        "requires_flags": [
+          "k3a_akt3_done"
+        ],
+        "hide_if_flags": [
+          "k3a_akt4_done",
+          "kapitel3_done"
+        ]
+      },
+      {
+        "text": "Ich wünsche mir morgen Streit über den Zuckerpreis.",
+        "requires_flags": [
+          "k3a_akt4_done"
+        ],
+        "hide_if_flags": [
+          "kapitel3_done"
+        ]
+      },
+      {
+        "text": "Wir haben gestern über den Zucker gestritten. Es war herrlich.",
+        "requires_flags": [
+          "k3a_end_feierabend"
+        ],
+        "hide_if_flags": [
+          "k3o_unterschicht_geloest"
+        ]
+      },
+      {
+        "text": "Die Kanne klappert lauter, seit draußen nichts mehr antwortet.",
+        "requires_flags": [
+          "k3a_end_stilllegung"
+        ],
+        "hide_if_flags": [
+          "k3o_unterschicht_geloest"
+        ]
+      },
+      {
+        "text": "Wir halten einen Stuhl frei, ohne eine Anwesenheit zu fordern.",
+        "requires_flags": [
+          "k3a_end_gegenstimme"
+        ],
+        "hide_if_flags": [
+          "k3o_unterschicht_geloest"
+        ]
+      },
+      {
+        "text": "Teepause gemäß Einteilung. Gespräch nicht erforderlich.",
+        "requires_flags": [
+          "k3a_end_vollzaehlig"
+        ],
+        "hide_if_flags": [
+          "k3o_unterschicht_geloest"
+        ]
+      },
+      {
+        "text": "Heute haben wir unten nichts gehört. Also redeten wir über das Wetter.",
+        "requires_flags": [
+          "kapitel3_done",
+          "k3o_unterschicht_geloest"
+        ]
+      }
+    ],
+    "ds_schwellenring": [
+      {
+        "text": "Deine Schuhe sind noch dunkel. Du bist neu.",
+        "requires_flags": [
+          "k3_arrived"
+        ],
+        "hide_if_flags": [
+          "k3a_akt1_done",
+          "kapitel3_done"
+        ]
+      },
+      {
+        "text": "Die Großen reden von Schichten. Ich rede lieber von Pausen.",
+        "requires_flags": [
+          "k3a_akt1_done"
+        ],
+        "hide_if_flags": [
+          "k3a_akt2_done",
+          "kapitel3_done"
+        ]
+      },
+      {
+        "text": "Gestern hat jemand zum Fenster hinausgerufen. Heute ist es vernagelt.",
+        "requires_flags": [
+          "k3a_akt2_done"
+        ],
+        "hide_if_flags": [
+          "k3a_akt3_done",
+          "kapitel3_done"
+        ]
+      },
+      {
+        "text": "Heute zeige ich dir den Weg schnell. Ich muss heim.",
+        "requires_flags": [
+          "k3a_akt3_done"
+        ],
+        "hide_if_flags": [
+          "k3a_akt4_done",
+          "kapitel3_done"
+        ]
+      },
+      {
+        "text": "Morgen will ich wieder Kreide verschwenden dürfen.",
+        "requires_flags": [
+          "k3a_akt4_done"
+        ],
+        "hide_if_flags": [
+          "kapitel3_done"
+        ]
+      },
+      {
+        "text": "Heute habe ich Kreide verschwendet. Einen ganzen Kreis.",
+        "requires_flags": [
+          "k3a_end_feierabend"
+        ],
+        "hide_if_flags": [
+          "k3o_unterschicht_geloest"
+        ]
+      },
+      {
+        "text": "Man hört die Murmeln wieder über das Pflaster rollen.",
+        "requires_flags": [
+          "k3a_end_stilllegung"
+        ],
+        "hide_if_flags": [
+          "k3o_unterschicht_geloest"
+        ]
+      },
+      {
+        "text": "Ich weiß, dass du wiederkommen musst. Ich halte dir keine Uhr hin.",
+        "requires_flags": [
+          "k3a_end_gegenstimme"
+        ],
+        "hide_if_flags": [
+          "k3o_unterschicht_geloest"
+        ]
+      },
+      {
+        "text": "Freizeit ist bis zum nächsten Aufruf vorgesehen.",
+        "requires_flags": [
+          "k3a_end_vollzaehlig"
+        ],
+        "hide_if_flags": [
+          "k3o_unterschicht_geloest"
+        ]
+      },
+      {
+        "text": "Die Tiefe macht mir noch Angst. Aber ich spiele wieder draußen.",
+        "requires_flags": [
+          "kapitel3_done",
+          "k3o_unterschicht_geloest"
+        ]
+      }
+    ],
+    "ds_endbahnhof": [
+      {
+        "text": "Nicht auf die frische Bank. Die andere ist genauso alt.",
+        "requires_flags": [
+          "k3_arrived"
+        ],
+        "hide_if_flags": [
+          "k3a_akt1_done",
+          "kapitel3_done"
+        ]
+      },
+      {
+        "text": "Offene Schicht? Meine Hände sind schon offen genug.",
+        "requires_flags": [
+          "k3a_akt1_done"
+        ],
+        "hide_if_flags": [
+          "k3a_akt2_done",
+          "kapitel3_done"
+        ]
+      },
+      {
+        "text": "Ich habe wohl etwas gesagt. An wen, weiß ich nicht mehr.",
+        "requires_flags": [
+          "k3a_akt2_done"
+        ],
+        "hide_if_flags": [
+          "k3a_akt3_done",
+          "kapitel3_done"
+        ]
+      },
+      {
+        "text": "Falls du mich nachts siehst: Ich wollte eigentlich schlafen.",
+        "requires_flags": [
+          "k3a_akt3_done"
+        ],
+        "hide_if_flags": [
+          "k3a_akt4_done",
+          "kapitel3_done"
+        ]
+      },
+      {
+        "text": "Ich möchte den letzten Wagen von außen sehen.",
+        "requires_flags": [
+          "k3a_akt4_done"
+        ],
+        "hide_if_flags": [
+          "kapitel3_done"
+        ]
+      },
+      {
+        "text": "Mein Eimer bleibt nachts vor der Haustür. Ich bleibe dahinter.",
+        "requires_flags": [
+          "k3a_end_feierabend"
+        ],
+        "hide_if_flags": [
+          "k3o_unterschicht_geloest"
+        ]
+      },
+      {
+        "text": "Kein Wagen fährt. Staub setzt sich trotzdem.",
+        "requires_flags": [
+          "k3a_end_stilllegung"
+        ],
+        "hide_if_flags": [
+          "k3o_unterschicht_geloest"
+        ]
+      },
+      {
+        "text": "Ich putze bei Tageslicht. Wenn du kommst, winke ich.",
+        "requires_flags": [
+          "k3a_end_gegenstimme"
+        ],
+        "hide_if_flags": [
+          "k3o_unterschicht_geloest"
+        ]
+      },
+      {
+        "text": "Reinigung abgeschlossen. Bereitschaft zur nächsten Schicht.",
+        "requires_flags": [
+          "k3a_end_vollzaehlig"
+        ],
+        "hide_if_flags": [
+          "k3o_unterschicht_geloest"
+        ]
+      },
+      {
+        "text": "Die Arbeit hier oben wird davon nicht weniger. Aber sie gehört mir am Tag.",
+        "requires_flags": [
+          "kapitel3_done",
+          "k3o_unterschicht_geloest"
+        ]
+      },
+      {
+        "text": "Du suchst etwas. Ich auch. Einen warmen Becher.",
+        "requires_flags": [
+          "k3_arrived"
+        ],
+        "hide_if_flags": [
+          "k3a_akt1_done",
+          "kapitel3_done"
+        ]
+      },
+      {
+        "text": "Offene Schicht, geschlossene Hand. So erzählen sie es mir.",
+        "requires_flags": [
+          "k3a_akt1_done"
+        ],
+        "hide_if_flags": [
+          "k3a_akt2_done",
+          "kapitel3_done"
+        ]
+      },
+      {
+        "text": "Wer geantwortet hat, erzählt mir selten worauf.",
+        "requires_flags": [
+          "k3a_akt2_done"
+        ],
+        "hide_if_flags": [
+          "k3a_akt3_done",
+          "kapitel3_done"
+        ]
+      },
+      {
+        "text": "Heute sitze ich näher am Speisewagen.",
+        "requires_flags": [
+          "k3a_akt3_done"
+        ],
+        "hide_if_flags": [
+          "k3a_akt4_done",
+          "kapitel3_done"
+        ]
+      },
+      {
+        "text": "Wenn die Stadt zur Ruhe kommt, bleibe ich trotzdem arm.",
+        "requires_flags": [
+          "k3a_akt4_done"
+        ],
+        "hide_if_flags": [
+          "kapitel3_done"
+        ]
+      },
+      {
+        "text": "Ich habe endlich ohne Stiefelschritte geschlafen.",
+        "requires_flags": [
+          "k3a_end_feierabend"
+        ],
+        "hide_if_flags": [
+          "k3o_unterschicht_geloest"
+        ]
+      },
+      {
+        "text": "Man hört jetzt meinen Magen am ganzen Bahnsteig.",
+        "requires_flags": [
+          "k3a_end_stilllegung"
+        ],
+        "hide_if_flags": [
+          "k3o_unterschicht_geloest"
+        ]
+      },
+      {
+        "text": "Du darfst dich bei mir setzen, auch wenn du wieder gehen musst.",
+        "requires_flags": [
+          "k3a_end_gegenstimme"
+        ],
+        "hide_if_flags": [
+          "k3o_unterschicht_geloest"
+        ]
+      },
+      {
+        "text": "Warteposition besetzt. Becher zur Ausgabe bereit.",
+        "requires_flags": [
+          "k3a_end_vollzaehlig"
+        ],
+        "hide_if_flags": [
+          "k3o_unterschicht_geloest"
+        ]
+      },
+      {
+        "text": "Die Tiefe schweigt etwas länger. Ich brauche immer noch Tee.",
+        "requires_flags": [
+          "kapitel3_done",
+          "k3o_unterschicht_geloest"
+        ]
+      }
+    ],
+    "ds_kalkmarkt": [
+      {
+        "text": "Lotte. Mehr steht auch nicht über meinem Stand.",
+        "requires_flags": [
+          "k3_arrived"
+        ],
+        "hide_if_flags": [
+          "k3a_akt1_done",
+          "kapitel3_done"
+        ]
+      },
+      {
+        "text": "Die offene Schicht füllt inzwischen jede Unterhaltung.",
+        "requires_flags": [
+          "k3a_akt1_done"
+        ],
+        "hide_if_flags": [
+          "k3a_akt2_done",
+          "kapitel3_done"
+        ]
+      },
+      {
+        "text": "Heute will jeder wissen, wer nachts gesprochen hat. Ich drucke keine Namensliste.",
+        "requires_flags": [
+          "k3a_akt2_done"
+        ],
+        "hide_if_flags": [
+          "k3a_akt3_done",
+          "kapitel3_done"
+        ]
+      },
+      {
+        "text": "Wir liefern heute vor Einbruch der Dunkelheit.",
+        "requires_flags": [
+          "k3a_akt3_done"
+        ],
+        "hide_if_flags": [
+          "k3a_akt4_done",
+          "kapitel3_done"
+        ]
+      },
+      {
+        "text": "Die letzte Spalte bleibt frei, bis wirklich etwas geschehen ist.",
+        "requires_flags": [
+          "k3a_akt4_done"
+        ],
+        "hide_if_flags": [
+          "kapitel3_done"
+        ]
+      },
+      {
+        "text": "Das Kalkblatt nennt die Heimgekehrten nur mit ihrem Einverständnis.",
+        "requires_flags": [
+          "k3a_end_feierabend"
+        ],
+        "hide_if_flags": [
+          "k3o_unterschicht_geloest"
+        ]
+      },
+      {
+        "text": "Unsere Ausgabe ist kurz. Manche Stille lässt sich nicht auffüllen.",
+        "requires_flags": [
+          "k3a_end_stilllegung"
+        ],
+        "hide_if_flags": [
+          "k3o_unterschicht_geloest"
+        ]
+      },
+      {
+        "text": "Eine freiwillige Verantwortung bleibt eine Verantwortung. Das steht morgen drin.",
+        "requires_flags": [
+          "k3a_end_gegenstimme"
+        ],
+        "hide_if_flags": [
+          "k3o_unterschicht_geloest"
+        ]
+      },
+      {
+        "text": "Ausgabe zugestellt. Leserzahl entspricht der Schichtstärke.",
+        "requires_flags": [
+          "k3a_end_vollzaehlig"
+        ],
+        "hide_if_flags": [
+          "k3o_unterschicht_geloest"
+        ]
+      },
+      {
+        "text": "Eine ruhige Nacht ist eine Nachricht. Sie erklärt noch nicht die ganze Tiefe.",
+        "requires_flags": [
+          "kapitel3_done",
+          "k3o_unterschicht_geloest"
+        ]
+      },
+      {
+        "text": "Die Werkstatt ist dort. Meine Pause ist hier.",
+        "requires_flags": [
+          "k3_arrived"
+        ],
+        "hide_if_flags": [
+          "k3a_akt1_done",
+          "kapitel3_done"
+        ]
+      },
+      {
+        "text": "Eine offene Schicht klingt nach unbezahlten Stunden.",
+        "requires_flags": [
+          "k3a_akt1_done"
+        ],
+        "hide_if_flags": [
+          "k3a_akt2_done",
+          "kapitel3_done"
+        ]
+      },
+      {
+        "text": "Vielleicht habe ich ja gesagt. Ich dachte, jemand brauche Hilfe.",
+        "requires_flags": [
+          "k3a_akt2_done"
+        ],
+        "hide_if_flags": [
+          "k3a_akt3_done",
+          "kapitel3_done"
+        ]
+      },
+      {
+        "text": "Wenn ich nachts arbeite, ist das kein freiwilliger Zusatzlohn.",
+        "requires_flags": [
+          "k3a_akt3_done"
+        ],
+        "hide_if_flags": [
+          "k3a_akt4_done",
+          "kapitel3_done"
+        ]
+      },
+      {
+        "text": "Ich will den Hammer morgen selbst in die Hand nehmen.",
+        "requires_flags": [
+          "k3a_akt4_done"
+        ],
+        "hide_if_flags": [
+          "kapitel3_done"
+        ]
+      },
+      {
+        "text": "Heute schlafe ich daheim. Der Hammer bleibt in der Werkstatt.",
+        "requires_flags": [
+          "k3a_end_feierabend"
+        ],
+        "hide_if_flags": [
+          "k3o_unterschicht_geloest"
+        ]
+      },
+      {
+        "text": "Die Anlage ist still. Meine Hände brauchen länger.",
+        "requires_flags": [
+          "k3a_end_stilllegung"
+        ],
+        "hide_if_flags": [
+          "k3o_unterschicht_geloest"
+        ]
+      },
+      {
+        "text": "Ich entscheide wieder über meine Stunden. Du hoffentlich auch.",
+        "requires_flags": [
+          "k3a_end_gegenstimme"
+        ],
+        "hide_if_flags": [
+          "k3o_unterschicht_geloest"
+        ]
+      },
+      {
+        "text": "Werkzeug empfangen. Arbeitskraft vollständig gemeldet.",
+        "requires_flags": [
+          "k3a_end_vollzaehlig"
+        ],
+        "hide_if_flags": [
+          "k3o_unterschicht_geloest"
+        ]
+      },
+      {
+        "text": "Ein ruhiger Bruch macht aus müden Händen keine neuen. Wir lassen ihnen Zeit.",
+        "requires_flags": [
+          "kapitel3_done",
+          "k3o_unterschicht_geloest"
+        ]
+      }
+    ],
+    "ds_signalhang": [
+      {
+        "text": "Ich darf hier warten. Du auch?",
+        "requires_flags": [
+          "k3_arrived"
+        ],
+        "hide_if_flags": [
+          "k3a_akt1_done",
+          "kapitel3_done"
+        ]
+      },
+      {
+        "text": "Wenn die Schicht offen ist, warum schließen alle die Fenster?",
+        "requires_flags": [
+          "k3a_akt1_done"
+        ],
+        "hide_if_flags": [
+          "k3a_akt2_done",
+          "kapitel3_done"
+        ]
+      },
+      {
+        "text": "Ich habe niemanden gerufen. Nur gefragt, ob Mutter da ist.",
+        "requires_flags": [
+          "k3a_akt2_done"
+        ],
+        "hide_if_flags": [
+          "k3a_akt3_done",
+          "kapitel3_done"
+        ]
+      },
+      {
+        "text": "Heute wartet Mutter unten auf mich.",
+        "requires_flags": [
+          "k3a_akt3_done"
+        ],
+        "hide_if_flags": [
+          "k3a_akt4_done",
+          "kapitel3_done"
+        ]
+      },
+      {
+        "text": "Darf die Fahne morgen wieder nur eine Fahne sein?",
+        "requires_flags": [
+          "k3a_akt4_done"
+        ],
+        "hide_if_flags": [
+          "kapitel3_done"
+        ]
+      },
+      {
+        "text": "Ich habe gewinkt. Nur Mutter hat zurückgewinkt.",
+        "requires_flags": [
+          "k3a_end_feierabend"
+        ],
+        "hide_if_flags": [
+          "k3o_unterschicht_geloest"
+        ]
+      },
+      {
+        "text": "Meine Fahne ist wieder zum Spielen da.",
+        "requires_flags": [
+          "k3a_end_stilllegung"
+        ],
+        "hide_if_flags": [
+          "k3o_unterschicht_geloest"
+        ]
+      },
+      {
+        "text": "Wenn du kommst, winke ich dir. Antworten musst du nicht.",
+        "requires_flags": [
+          "k3a_end_gegenstimme"
+        ],
+        "hide_if_flags": [
+          "k3o_unterschicht_geloest"
+        ]
+      },
+      {
+        "text": "Warten bis zum Aufruf. Fahne bleibt eingerollt.",
+        "requires_flags": [
+          "k3a_end_vollzaehlig"
+        ],
+        "hide_if_flags": [
+          "k3o_unterschicht_geloest"
+        ]
+      },
+      {
+        "text": "Ich zähle wieder Schwalben. Die Schlucht zähle ich nicht.",
+        "requires_flags": [
+          "kapitel3_done",
+          "k3o_unterschicht_geloest"
+        ]
+      }
+    ]
+  }
+}

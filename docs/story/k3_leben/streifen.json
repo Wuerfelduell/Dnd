@@ -1,0 +1,68 @@
+{
+  "patrols": {
+    "ds_endbahnhof": [
+      {
+        "id": "k3e_aufsicht_ds_endbahnhof",
+        "route": [
+          [
+            8,
+            4
+          ],
+          [
+            9,
+            4
+          ]
+        ],
+        "speed": 20,
+        "wait": 1600,
+        "visible_if": {
+          "requires_flags": [
+            "k3_arrived"
+          ]
+        },
+        "zeit": {
+          "tag": null,
+          "nacht": {
+            "map": "ds_endbahnhof",
+            "tile": [
+              8,
+              4
+            ]
+          }
+        }
+      }
+    ],
+    "ds_signalhang": [
+      {
+        "id": "k3e_aufsicht_ds_signalhang",
+        "route": [
+          [
+            6,
+            4
+          ],
+          [
+            7,
+            4
+          ]
+        ],
+        "speed": 20,
+        "wait": 1600,
+        "visible_if": {
+          "requires_flags": [
+            "k3_arrived"
+          ]
+        },
+        "zeit": {
+          "tag": null,
+          "nacht": {
+            "map": "ds_signalhang",
+            "tile": [
+              6,
+              4
+            ]
+          }
+        }
+      }
+    ]
+  }
+}

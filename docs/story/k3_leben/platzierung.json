@@ -1,0 +1,326 @@
+[
+  {
+    "map": "ds_arbeiterbogen",
+    "npc": "k3e_schichtwitwe",
+    "tile": [
+      4,
+      4
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k3_arrived"
+      ]
+    }
+  },
+  {
+    "map": "ds_schwellenring",
+    "npc": "k3e_kalkjunge",
+    "tile": [
+      4,
+      4
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k3_arrived"
+      ]
+    }
+  },
+  {
+    "map": "ds_endbahnhof",
+    "npc": "k3e_wagenputzer",
+    "tile": [
+      5,
+      4
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k3_arrived"
+      ]
+    }
+  },
+  {
+    "map": "ds_kalkmarkt",
+    "npc": "k3e_zeitungsfrau",
+    "tile": [
+      4,
+      4
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k3_arrived"
+      ]
+    }
+  },
+  {
+    "map": "ds_endbahnhof",
+    "npc": "k3e_bahnbettler",
+    "tile": [
+      7,
+      4
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k3_arrived"
+      ]
+    }
+  },
+  {
+    "map": "ds_kalkmarkt",
+    "npc": "k3e_steinmetzgeselle",
+    "tile": [
+      5,
+      4
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k3_arrived"
+      ]
+    }
+  },
+  {
+    "map": "ds_arbeiterbogen",
+    "npc": "k3e_teesaalgast",
+    "tile": [
+      15,
+      4
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k3_arrived"
+      ]
+    }
+  },
+  {
+    "map": "ds_signalhang",
+    "npc": "k3e_signalkind",
+    "tile": [
+      4,
+      4
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k3_arrived"
+      ]
+    }
+  },
+  {
+    "map": "ds_arbeiterbogen",
+    "tile": [
+      18,
+      4
+    ],
+    "visible_if": {
+      "requires_quests_active": [
+        "kopfgeld_ds_lohnfaelscher"
+      ],
+      "hide_if_flags": [
+        "won_kopfgeld_ds_lohnfaelscher"
+      ]
+    },
+    "interactable": {
+      "id": "k3k_lohnfaelscher_ansprache",
+      "kind": "dialogue",
+      "dialogue": "k3k_lohnfaelscher",
+      "title": "k3k_lohnfaelscher",
+      "prompt": "Ansprechen",
+      "sprite": "paper",
+      "marker": true
+    }
+  },
+  {
+    "map": "ds_rufschlucht",
+    "tile": [
+      5,
+      4
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k3k_signalbrecher_phase1_done"
+      ],
+      "hide_if_flags": [
+        "won_kopfgeld_ds_signalbrecher"
+      ]
+    },
+    "interactable": {
+      "id": "k3k_signalbrecher_ansprache",
+      "kind": "dialogue",
+      "dialogue": "k3k_signalbrecher_fortsetzen",
+      "title": "k3k_signalbrecher_fortsetzen",
+      "prompt": "Ansprechen",
+      "sprite": "paper",
+      "marker": true
+    }
+  },
+  {
+    "map": "ds_lohnbuero",
+    "tile": [
+      4,
+      4
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "k3_arrived"
+      ]
+    },
+    "interactable": {
+      "id": "kopfgeldbrett_ds",
+      "kind": "dialogue",
+      "dialogue": "kopfgeldbrett_ds",
+      "title": "Kopfgeld-Brett der Bahnaufsicht",
+      "role": "Steckbriefe",
+      "sprite": "paper",
+      "marker": true,
+      "prompt": "Steckbriefe ansehen"
+    }
+  },
+  {
+    "map": "ds_kalkmarkt",
+    "tile": [
+      7,
+      4
+    ],
+    "interactable": {
+      "id": "k3e_stand_kreide",
+      "kind": "read",
+      "title": "Kreidestand",
+      "prompt": "Kreidestand ansehen",
+      "text": "Die Kreide liegt unter einem Tuch, obwohl die ganze Straße davon bedeckt scheint.",
+      "marker": false
+    }
+  },
+  {
+    "map": "ds_kalkmarkt",
+    "tile": [
+      8,
+      4
+    ],
+    "interactable": {
+      "id": "k3e_stand_pastillen",
+      "kind": "read",
+      "title": "Pastillenkasten",
+      "prompt": "Pastillenkasten ansehen",
+      "text": "Die bitteren Pastillen sind sorgfältiger verpackt als die süßen Versprechen der Stadt.",
+      "marker": false
+    }
+  },
+  {
+    "map": "ds_kalkmarkt",
+    "tile": [
+      9,
+      4
+    ],
+    "interactable": {
+      "id": "k3e_stand_troedel",
+      "kind": "read",
+      "title": "Trödeltisch",
+      "prompt": "Trödeltisch ansehen",
+      "text": "Ein einzelner Handschuh wartet zwischen Dingen, die ebenfalls zu etwas anderem gehörten.",
+      "marker": false
+    }
+  },
+  {
+    "map": "ds_kalkmarkt",
+    "tile": [
+      10,
+      4
+    ],
+    "interactable": {
+      "id": "k3e_stand_stein",
+      "kind": "read",
+      "title": "Steinbock",
+      "prompt": "Steinbock ansehen",
+      "text": "Kleine Reststücke stehen ordentlich neben einem Stein, den niemand allein tragen könnte.",
+      "marker": false
+    }
+  },
+  {
+    "map": "ds_kalkmarkt",
+    "tile": [
+      11,
+      4
+    ],
+    "interactable": {
+      "id": "k3e_stand_tee",
+      "kind": "read",
+      "title": "Teekarren",
+      "prompt": "Teekarren ansehen",
+      "text": "Aus der Kanne steigt ein schmaler warmer Faden über die kalte Mauer.",
+      "marker": false
+    }
+  },
+  {
+    "map": "ds_kalkmarkt",
+    "tile": [
+      12,
+      4
+    ],
+    "interactable": {
+      "id": "k3e_stand_werkzeug",
+      "kind": "read",
+      "title": "Werkzeugbank",
+      "prompt": "Werkzeugbank ansehen",
+      "text": "Die blanken Griffe verraten mehr Arbeit als die frisch geputzten Klingen.",
+      "marker": false
+    }
+  },
+  {
+    "map": "ds_arbeiterbogen",
+    "tile": [
+      19,
+      4
+    ],
+    "interactable": {
+      "id": "k3e_stand_kartoffeln",
+      "kind": "read",
+      "title": "Kartoffelofen",
+      "prompt": "Kartoffelofen ansehen",
+      "text": "Aus dem Ofen zieht ein warmer Geruch zwischen die kalten Häuser.",
+      "marker": false
+    }
+  },
+  {
+    "map": "ds_arbeiterbogen",
+    "tile": [
+      20,
+      4
+    ],
+    "interactable": {
+      "id": "k3e_stand_zeitungen",
+      "kind": "read",
+      "title": "Zeitungstisch",
+      "prompt": "Zeitungstisch ansehen",
+      "text": "Ein Stein beschwert die frischen Blätter, ohne ihren Inhalt zu verbessern.",
+      "marker": false
+    }
+  },
+  {
+    "map": "ds_arbeiterbogen",
+    "tile": [
+      21,
+      4
+    ],
+    "interactable": {
+      "id": "k3e_stand_kerzen",
+      "kind": "read",
+      "title": "Kerzenbrett",
+      "prompt": "Kerzenbrett ansehen",
+      "text": "Die kurzen Kerzen stehen vorn, damit auch wenig Geld noch Licht kauft.",
+      "marker": false
+    }
+  },
+  {
+    "map": "ds_arbeiterbogen",
+    "tile": [
+      22,
+      4
+    ],
+    "interactable": {
+      "id": "k3e_stand_flicken",
+      "kind": "read",
+      "title": "Flicktisch",
+      "prompt": "Flicktisch ansehen",
+      "text": "Die Flicken sind größer zugeschnitten als die Löcher.",
+      "marker": false
+    }
+  }
+]
