@@ -2,6 +2,7 @@ import { applyQuestPack } from './questPacks.js';
 import { applyLore } from './lore.js';
 import { withSequenzen, applySequenzen } from './sequenzen.js';
 import { applyMoods } from './moods.js';
+import { applyRelations } from './relations.js';
 // Fügt alle Inhaltsdateien zu einem Objekt zusammen (ohne JSON-Imports, damit Node-Tests es nutzen können).
 // Hinweise, Informationen, Schlussfolgerungen und Dialoge teilen sich jeweils einen Namensraum über alle Fälle.
 // factions.json (Sekten) bringt eigene Figuren, Reiseziele, Gegner, Beute, Aufträge und Hinweise mit.
@@ -9,7 +10,7 @@ import { applyMoods } from './moods.js';
 // stadtgegner.json (Paket L) verteilt Stadtgegner als Streifen auf die Viertel und bringt Beute und Kopfgeld-Brett mit.
 // treffen.json (geheime Treffen) bringt Zirkel, Treffpunkte, Gastgeber mit Händlern, Dialoge und Reiseziele mit.
 // wexmoor.json (Kapitel 2) bringt die zweite Stadt mit: Karten mit `city: "wexmoor"`, eigene Reiseziele und -ereignisse, Figuren, Dialoge, Auftrag und Spuren.
-export function buildContent({ campaign, quests, cases, maps, dialogues, items = {}, encounters = {}, pathways = null, market = null, travel = null, wilds = null, factions = null, buildings = null, gatherings = null, city = null, wexmoor = null, packs = [], lore = null, sequenzen = null }) {
+export function buildContent({ campaign, quests, cases, maps, dialogues, items = {}, encounters = {}, pathways = null, market = null, travel = null, wilds = null, factions = null, buildings = null, gatherings = null, city = null, wexmoor = null, packs = [], lore = null, sequenzen = null, beziehungen = null }) {
   // Paket AF: neue Pfade, Zutaten und Artefakte gehören vor der Erzeugung der Trank-/Formel-Items dazu
   const sq = withSequenzen(pathways, sequenzen);
   pathways = sq.pathways;
@@ -67,6 +68,7 @@ export function buildContent({ campaign, quests, cases, maps, dialogues, items =
   for (const pack of packs) withPackBosses(content, pack); // Kapitel 3: Bosse, Folgeabschnitte und Kampftexte
   applySequenzen(content, sequenzen, sq); // Paket AF: Händler, Treffen und Funde für die neuen Pfade
   applyMoods(content); // Paket AK: Stimmungen für Schlüsselstellen
+  applyRelations(content, beziehungen, packs); // Beziehungen: Regeln, Vorlieben, Knoten-Wirkungen
   return content;
 }
 

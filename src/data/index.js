@@ -188,6 +188,7 @@ import koop_items from './packs/koop/items.json';
 import koop_encounters from './packs/koop/encounters.json';
 import koop_dialogues from './packs/koop/dialogues.json';
 import koop_npcs from './packs/koop/npcs.json';
+import beziehungen from './beziehungen.json';
 import koop_case from './packs/koop/case.json';
 import koop_dialog_zusaetze from './packs/koop/dialog_zusaetze.json';
 import koop_platzierung from './packs/koop/platzierung.json';
@@ -234,5 +235,6 @@ export const content = buildContent({
   wexmoor,
   packs: [kgNebenquests, wxNebenquests, koop, k2Akten, k2Orte, k2Gilde, k2Akte, k3Orte, k3Akte, k3Nebenquests, k3Pruefungen],
   lore: { bestiarium: lore_bestiarium, gerede: lore_gerede, item_texte: lore_item_texte, lesestuecke: lore_lesestuecke, zeitungen: lore_zeitungen },
+  beziehungen,
   sequenzen: { neue_pfade: sq_neue_pfade, seq_4_bis_1: sq_seq_4_bis_1, zutaten: sq_zutaten, artefakte: sq_artefakte, rituale: k3p_rituale },
 });

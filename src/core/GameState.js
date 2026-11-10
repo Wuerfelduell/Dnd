@@ -7,6 +7,7 @@ import { kahnMethods } from './Kahn.js';
 import { newspaperMethods } from './Newspapers.js';
 import { signalMethods } from './Signals.js';
 import { bondMethods } from './Bonds.js';
+import { relationMethods } from './Relations.js';
 import { artifactMethods } from './Artifacts.js';
 import { partyMethods } from './Party.js';
 import { gearMethods } from './Gear.js';
@@ -71,6 +72,7 @@ export class GameState {
     this.resetGatherings();
     this.resetWanted();
     this.resetBonds();
+    this.resetRelations();
     this.resetParty();
     this.resetPapers();
     this.resetSignal();
@@ -280,7 +282,8 @@ export class GameState {
       (o.requires_gatherings_unlocked === undefined || this.gatheringsUnlocked() === o.requires_gatherings_unlocked) &&
       this.meetsPathway(o.requires_pathway) &&
       this.meetsSignal(o) &&
-      this.meetsBond(o)
+      this.meetsBond(o) &&
+      this.meetsRelation(o)
     );
   }
 
@@ -301,8 +304,11 @@ export class GameState {
     return spec.find((v) => this.meets(v) && (v.chance === undefined || this.random() < v.chance))?.node;
   }
 
-  /** Wendet Effekte an (Dialogknoten, Objekte, Enden). Gibt die neuen Hinweise zurück. */
-  applyEffects(e) {
+  /**
+   * Wendet Effekte an (Dialogknoten, Objekte, Enden). Gibt die neuen Hinweise zurück.
+   * nodeKey ("dialog.knoten"): Beziehungswirkungen (`relation`) zählen nur beim ersten Besuch des Knotens.
+   */
+  applyEffects(e, { nodeKey = null } = {}) {
     if (!e) return [];
     const gained = (e.gives_clues ?? []).filter((c) => this.addClue(c));
     for (const f of e.sets_flags ?? []) this.flags.add(f);
@@ -326,6 +332,7 @@ export class GameState {
     // Fahndung: Zahl ≥ 0 = Mindeststufe (Ausbruch, Flucht), negative Zahl = um so viele Stufen senken (Paket AB)
     if (Number.isFinite(e.wanted) && this.content.police) this.setWanted(e.wanted < 0 ? Math.max(0, this.wanted + e.wanted) : Math.max(this.wanted, e.wanted), e.wanted_reason ?? '');
     for (const [id, n] of Object.entries(e.bond ?? {})) this.changeBond(id, n); // Einzelgänger: Freund oder Feind; Gefährten (Zunder): nur Vertrauen
+    if (e.relation && !(nodeKey && this.seenNodes?.has(nodeKey))) for (const [id, n] of Object.entries(e.relation)) this.changeRelation(id, n); // Beziehung (Stimmung der Figur)
     if (e.travel) this.pendingTravel = e.travel; // Ortswechsel nach dem Fenster (z. B. aus der Zelle)
     if (e.sets_flags || e.ending) this.checkPapers(); // Paket AD: neue Zeitungsausgabe?
     if (gained.length || e.sets_flags || e.start_quests || e.complete_quests || e.honor || e.gives_items || e.takes_items || e.gives_money || e.takes_money) this.emit('changed');
@@ -655,6 +662,7 @@ export class GameState {
       ...this.serializeGatherings(),
       ...this.serializeWanted(),
       bonds: this.serializeBonds(),
+      ...this.serializeRelations(),
       ...this.serializeParty(),
       papers: this.papers,
       ...this.serializeSignal(),
@@ -699,6 +707,7 @@ export class GameState {
     this.loadGatherings(data);
     this.loadWanted(data);
     this.loadBonds(data.bonds);
+    this.loadRelations(data);
     this.loadParty(data);
     this.loadPapers(data);
     this.loadSignal(data);
@@ -710,4 +719,4 @@ export class GameState {
 /** Fortschrittsflags der verlängerten Akt-V-Fassung (AP), in Spielreihenfolge. */
 export const K2_AKT5_STEPS = ['k2v_boot_bereit', 'k2v_keller_passiert', 'k2v_aufstieg_passiert', 'k2v_abschied_done'];
 
-Object.assign(GameState.prototype, partyMethods, gearMethods, pathwayMethods, artifactMethods, gatheringMethods, wantedMethods, bondMethods, auctionMethods, kahnMethods, newspaperMethods, signalMethods);
+Object.assign(GameState.prototype, partyMethods, gearMethods, pathwayMethods, artifactMethods, gatheringMethods, wantedMethods, bondMethods, relationMethods, auctionMethods, kahnMethods, newspaperMethods, signalMethods);

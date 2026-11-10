@@ -65,6 +65,19 @@ liegen. Gewinnt der andere, rappelt sich der Gestürzte mit einem Viertel seines
 
 ## Spielmechanik
 
+### Beziehungen (drei Stimmungen je Figur)
+
+Jede Figur merkt sich, wie man sie behandelt hat, als **Beziehungswert** (−5 bis +6) und zeigt daraus eine von drei
+Stimmungen: **feindselig** (ab −2), **neutral**, **freundlich** (ab +3). Die Stimmung steht als Abzeichen neben dem Namen
+im Gespräch und im Notizbuch unter „Personen“, färbt das Portrait (Lächeln oder Misstrauen) und bringt einen eigenen
+Begrüßungssatz. Der Wert ändert sich durch Gesprächsentscheidungen und Aufträge (`relation` an Dialogknoten oder
+Auftragsbelohnungen, Knoten wirken nur beim ersten Besuch), durch **Geschenke** („Etwas schenken …“ im Menü jeder Figur:
+Gemochtes zählt bis zu zweimal, Verabscheutes kostet) und durch einen Kampf im Gespräch (macht sofort feindselig).
+Freundliche Händler geben 10 % Nachlass, feindselige schlagen 20 % auf; Gesprächsoptionen können eine Stimmung verlangen
+(`requires_mood`, `requires_relation`). Einzelgänger und Gefährten behalten ihren Vertrauenswert, er zählt hier mit.
+Zu zweit gehört die Beziehung dem Ermittler, beide Spieler wirken auf sie. Daten: `src/data/beziehungen.json`, Pakete
+können `beziehungen` mitbringen.
+
 ### Pfade und Tränke (Nachtmarkt)
 
 Auf dem **Nachtmarkt** unter der Krähenbrücke (Stadtkarte) kann man aufsteigen:

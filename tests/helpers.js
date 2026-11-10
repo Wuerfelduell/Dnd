@@ -42,6 +42,7 @@ export function loadContent({ sequenzen = true, without = [] } = {}) {
       ...(name === 'k3_nebenquests' ? Object.fromEntries(['zeitung', 'gerede', 'bestiarium', 'lesestuecke'].map((f) => [f, load(`packs/k3_nebenquests/${f}.json`)])) : {}),
       ...(name === 'k2_gilde' ? { artefakte: load('packs/k2_gilde/artefakte.json'), treffen: load('packs/k2_gilde/treffen_namensgilde.json') } : {}),
       ...(name === 'koop' ? { geplauder: load('packs/koop/geplauder.json'), kampf: load('packs/koop/kampf.json') } : {}) })),
+    beziehungen: load('beziehungen.json'),
     lore: Object.fromEntries(['bestiarium', 'gerede', 'item_texte', 'lesestuecke', 'zeitungen'].map((f) => [f, load(`packs/lore/${f}.json`)])),
     sequenzen: sequenzen ? { ...Object.fromEntries(['neue_pfade', 'seq_4_bis_1', 'zutaten', 'artefakte'].map((f) => [f, load(`packs/sequenzen/${f}.json`)])),
       rituale: load('packs/k3_pruefungen/rituale.json') } : null,
@@ -56,7 +57,8 @@ export function talk(state, dialogueId, picks = []) {
   const tree = state.content.dialogues[dialogueId];
   let nodeId = state.pick(tree.start);
   const visited = [nodeId];
-  state.applyEffects(tree.nodes[nodeId]);
+  state.applyEffects(tree.nodes[nodeId], { nodeKey: `${dialogueId}.${nodeId}` });
+  state.visitNode(dialogueId, nodeId);
   for (const want of picks) {
     const node = tree.nodes[nodeId];
     const choice = (node.choices ?? []).find((c) => c.text.includes(want) && state.meets(c));
@@ -67,7 +69,8 @@ export function talk(state, dialogueId, picks = []) {
     nodeId = state.pick(choice.next);
     if (!nodeId) return visited;
     visited.push(nodeId);
-    state.applyEffects(tree.nodes[nodeId]);
+    state.applyEffects(tree.nodes[nodeId], { nodeKey: `${dialogueId}.${nodeId}` });
+    state.visitNode(dialogueId, nodeId);
   }
   return visited;
 }
