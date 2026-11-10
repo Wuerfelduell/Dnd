@@ -227,11 +227,39 @@ import sq_seq_4_bis_1 from './packs/sequenzen/seq_4_bis_1.json';
 import sq_zutaten from './packs/sequenzen/zutaten.json';
 import sq_artefakte from './packs/sequenzen/artefakte.json';
 import k3p_rituale from './packs/k3_pruefungen/rituale.json';
+import bf_quests from './packs/koop_k3/quests.json';
+import bf_items from './packs/koop_k3/items.json';
+import bf_encounters from './packs/koop_k3/encounters.json';
+import bf_dialogues from './packs/koop_k3/dialogues.json';
+import bf_npcs from './packs/koop_k3/npcs.json';
+import bf_case from './packs/koop_k3/case.json';
+import bf_dialog_zusaetze from './packs/koop_k3/dialog_zusaetze.json';
+import bf_platzierung from './packs/koop_k3/platzierung.json';
+import bf_geplauder from './packs/koop_k3/geplauder.json';
+import bf_kampf from './packs/koop_k3/kampf.json';
+import bf_bindung from './packs/koop_k3/bindung.json';
+import bg_ansprueche from './packs/koop_beute/ansprueche.json';
+import bg_ersatz from './packs/koop_beute/ersatz.json';
+import bg_texte from './packs/koop_beute/texte.json';
+import bg_dialog_zusaetze from './packs/koop_beute/dialog_zusaetze.json';
+import bn_stationen from './packs/k3_ruf/stationen.json';
+import bn_klang from './packs/k3_ruf/klang_zuordnung.json';
+import bn_bindungen from './packs/k3_ruf/bindungen.json';
+import bn_texte from './packs/k3_ruf/texte.json';
+import { buildK3Ruf } from './k3Ruf.js';
 
 /** Nebenauftrags-Pakete (Codex AA, AB). */
 const wxNebenquests = { name: 'wx_nebenquests', quests: wx_quests, items: wx_items, encounters: wx_encounters, dialogues: wx_dialogues, npcs: wx_npcs, case: wx_case, dialog_zusaetze: wx_dialog_zusaetze, platzierung: wx_platzierung, kahn_ausbau: wx_kahn_ausbau };
 /** Paket AI: Koop-Aufträge, Geplauder und Kampfsprüche zu zweit. */
 const koop = { name: 'koop', quests: koop_quests, items: koop_items, encounters: koop_encounters, dialogues: koop_dialogues, npcs: koop_npcs, case: koop_case, dialog_zusaetze: koop_dialog_zusaetze, platzierung: koop_platzierung, geplauder: koop_geplauder, kampf: koop_kampf };
+/** Paket BF: Koop in Dunscar. Geplauder, Kampfsprüche und Bindungstexte (BN) kommen zu AI dazu; der Horch-Auftrag läuft
+ *  über die Rollenplätze von AI. Die Schallschleuse wartet auf die Rufbindung aus BN und bleibt bis dahin ohne Objekte. */
+const koopK3 = { name: 'koop_k3', quests: bf_quests, items: bf_items, encounters: bf_encounters, dialogues: bf_dialogues, npcs: bf_npcs, case: bf_case, dialog_zusaetze: bf_dialog_zusaetze,
+  platzierung: bf_platzierung.filter((p) => !p.interactable.id.startsWith('koop_ds_schleuse')), geplauder: bf_geplauder, kampf: bf_kampf, bindung: bf_bindung };
+/** Paket BG: persönliche Koop-Beute. Ansprüche je Spieler auf Hüter- und Prüfungszutaten, Ersatzproben bei Hedda, Pfiff und Kittering. */
+const koopBeute = { name: 'koop_beute', dialog_zusaetze: bg_dialog_zusaetze, ansprueche: bg_ansprueche, ersatz: bg_ersatz, texte: bg_texte };
+/** Paket BN: Rufwege, Hörreichweite und persönliche Bindungen (src/data/k3Ruf.js). */
+const k3Ruf = buildK3Ruf({ stationen: bn_stationen, klang_zuordnung: bn_klang, bindungen: bn_bindungen, texte: bn_texte });
 /** Paket AL: vier Wexmoorer Akten. */
 const k2Akten = { name: 'k2_akten', quests: k2a_quests, items: k2a_items, encounters: k2a_encounters, dialogues: k2a_dialogues, npcs: k2a_npcs, case: k2a_case, dialog_zusaetze: k2a_dialog_zusaetze, platzierung: k2a_platzierung, faelle: k2a_faelle, zeitung: k2a_zeitung };
 const k2Orte = { name: 'k2_orte', quests: k2o_quests, items: k2o_items, encounters: k2o_encounters, dialogues: k2o_dialogues, npcs: k2o_npcs, case: k2o_case, dialog_zusaetze: k2o_dialog_zusaetze, platzierung: k2o_platzierung, artifacts: k2o_artifacts, maps: k2o_maps, travel: k2o_travel, zone: k2o_zone, pins: k2o_pins };
@@ -266,7 +294,7 @@ export const content = buildContent({
   gatherings,
   city,
   wexmoor,
-  packs: [kgNebenquests, wxNebenquests, koop, k2Akten, k2Orte, k2Gilde, k2Akte, k3Orte, k3Akte, k3Nebenquests, k3Pruefungen, k3Handel, k3Leben],
+  packs: [kgNebenquests, wxNebenquests, koop, k2Akten, k2Orte, k2Gilde, k2Akte, k3Orte, k3Akte, k3Nebenquests, k3Pruefungen, k3Handel, k3Leben, koopK3, koopBeute, k3Ruf],
   lore: { bestiarium: lore_bestiarium, gerede: lore_gerede, item_texte: lore_item_texte, lesestuecke: lore_lesestuecke, zeitungen: lore_zeitungen },
   beziehungen,
   sequenzen: { neue_pfade: sq_neue_pfade, seq_4_bis_1: sq_seq_4_bis_1, zutaten: sq_zutaten, artefakte: sq_artefakte, rituale: k3p_rituale },

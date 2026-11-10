@@ -194,7 +194,7 @@ test('Rufladungen: Ruf kostet eine Ladung, Notladung einmal je Station, Pfiff f�
   s.signal.charges = 0;
   const t = new GameState(content);
   assert.ok(t.load(JSON.parse(JSON.stringify(s.serialize()))));
-  assert.deepEqual(t.signal, { charges: 0, reserveUsed: ['k3o_horch_vorhauer'] }, 'Reserve bleibt nach dem Laden verbraucht');
+  assert.deepEqual([t.signal.charges, t.signal.reserveUsed], [0, ['k3o_horch_vorhauer']], 'Reserve bleibt nach dem Laden verbraucht'); // BN hängt eigene Felder an signal
   assert.throws(() => talk(t, 'k3o_vorhauer_station', ['Die Notladung']), /keine verfügbare Option/);
   t.flags.add('k3a_speisewagen_sicher');
   talk(t, 'k3a_pfiff', ['Das Signalgerät füllen']);

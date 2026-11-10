@@ -1,6 +1,6 @@
 # BG – Persönliche Koop-Beute
 
-Eigenständiges Logik- und Datenpaket; noch nicht in das Spiel eingebunden. Es ändert keine vorhandene Datei. `Claims.js` braucht kein Phaser. Integration, Bestandsmigration und die nicht belegbaren Artefaktquellen stehen in `offene_punkte.md`.
+Eigenständiges Logik- und Datenpaket; seit dem Einbau über `src/core/ClaimsEinbau.js` und das Pack `koop_beute` im Spiel (Stand siehe `offene_punkte.md`). Es ändert keine vorhandene Datei. `Claims.js` braucht kein Phaser. Integration, Bestandsmigration und die nicht belegbaren Artefaktquellen stehen in `offene_punkte.md`.
 
 | Gemeinsam, einmal pro Spielstand | Persönlich, je Spieler |
 |---|---|

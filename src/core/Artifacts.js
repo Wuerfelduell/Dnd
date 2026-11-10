@@ -50,7 +50,7 @@ export const artifactMethods = {
   /** Unruhe pro Sekunde durch Artefakte (Flüche plus Streit zwischen mehreren). */
   artifactUnruhe() {
     const n = this.activeArtifacts().length;
-    if (!n) return 0;
+    if (!n) return Math.max(0, this.passive('unruhe_tick')); // BN: Bindung wirkt auch ohne Artefakt
     const rules = this.artifactRules();
     const clash = (rules.clash_tick ?? 0.2) * Math.max(0, n - 1);
     const over = (rules.overload_tick ?? 0.6) * Math.max(0, n - (rules.max_active ?? 3));

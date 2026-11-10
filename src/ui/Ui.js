@@ -1,5 +1,6 @@
 import { NEWSPAPERS } from '../data/lore.js';
 import { DIGEST_LABELS } from '../core/Pathways.js';
+import { CARRY_PER_STEP } from '../core/GameState.js';
 import { GEAR_SLOT_NAMES } from '../core/Gear.js';
 import { lootList, itemRarity, RARITY_NAMES, lootPreview, chanceWord } from '../core/Loot.js';
 import {
@@ -16,6 +17,7 @@ import { openGuesses, gapText, knowledgeGaps, onlyKnowledgeMissing } from '../co
 import { guessMood } from '../core/Moods.js';
 import { MOOD_LABEL, GIFT_KINDS } from '../core/Relations.js';
 import { koopGreeting } from '../core/Koop.js';
+import { STATION_NAMES, DIRECTION_NAMES } from '../data/k3Ruf.js';
 import { isSolved, knownPeople } from '../core/journal.js';
 import { canHurry, travelSafe, travelFast, afterHurryFight, travelDestinations, cityOf } from '../core/Travel.js';
 import { questTarget, leadTarget, personPlaces, advice } from '../core/Guide.js';
@@ -113,7 +115,19 @@ const turnFace = (id) => {
   const [url, cols] = TURN_PORTRAIT_URLS[id] ?? [TURN_PORTRAITS_URL, 19];
   return `<span class="turnface" style="background-image:url(${url});background-size:${cols * 2}em 2em;background-position:-${TURN_PORTRAITS[id] * 2}em 0"></span>`;
 };
+const BASE_SKILL_IDS = ['double', 'blind', 'ward'];
+/** Icon-Größe der Kampf-Kacheln in em (1em = 8 Spielpixel). */
+const TILE_ICON_EM = 1.75;
 const skillIcon = (id) => { const ic = skillIconOf(id); return ic ? atlasIcon(ic[0], ic[1], 7) : ''; };
+/** Großes Fähigkeits-Icon fürs Kampfmenü: 16er-Zelle auf 1.75em (skaliert mit der Oberfläche, nicht in festen Pixeln). */
+const skillIconBig = (id) => {
+  const ic = skillIconOf(id);
+  // Grundfertigkeiten ohne eigenes Bild leihen sich die Menüsymbole; neue Pfadfertigkeiten (Seq. 4 bis 1) zeigen bis zur eigenen Grafik ein Siegel
+  if (!ic) return uiSprite('bmenu', id === 'double' ? 'attack' : BASE_SKILL_IDS.includes(id) ? 'skill' : 'defend', TILE_ICON_EM / 16, 'cbicon big');
+  const [url, index] = ic;
+  const k = TILE_ICON_EM;
+  return `<span class="atlas-icon big" style="background-image:url(${url});background-size:${7 * k}em auto;background-position:-${(index % 7) * k}em -${Math.floor(index / 7) * k}em"></span>`;
+};
 /** Artefakt-Slots (20x20 aus ui/N_artefakt_ui.png), mitgeführte mit Icon in der Öffnung. */
 const artifactSlots = (ids, max, overloaded) => Array.from({ length: Math.max(max, ids.length) }, (_, i) => {
   const id = ids[i];
@@ -256,7 +270,7 @@ const carryHtml = (s) => {
   const w = s.carryWeight();
   const cap = s.carryCapacity();
   const heavy = w > cap;
-  return `<div class="carry ${heavy ? 'heavy' : ''}"><span>Last</span><div class="bar"><div class="cfill" style="width:${Math.min(100, (w / cap) * 100)}%"></div></div>
+  return `<div class="carry ${heavy ? 'heavy' : ''}" title="Tragkraft: ${esc(s.carryBreakdown())} Pfund. Jede Sequenz trägt mehr."><span>Last</span><div class="bar"><div class="cfill" style="width:${Math.min(100, (w / cap) * 100)}%"></div></div>
     <em>${fmtLb(w)}/${fmtLb(cap)} Pfund</em>${heavy ? '<span class="curse">Überladen: halbes Tempo, kein schneller Weg</span>' : ''}</div>`;
 };
 const paragraphs = (s) => esc(s).split('\n\n').map((p) => `<p>${p.replace(/\n/g, '<br>')}</p>`).join('');
@@ -742,15 +756,54 @@ export class Ui {
   // --- Modale Fenster --------------------------------------------------------
 
   open(kind, html, cls = '') {
+    this.rememberScroll();
     this.modal = kind;
     this.layer.classList.remove('has-titlescene');
     this.layer.onpointermove = null;
     this.layer.innerHTML = `<div class="panel ${cls}">${html}</div>`;
     this.setPrompt(null);
+    this.restoreScroll(kind);
     return this.layer.firstElementChild;
   }
 
+  /** Alle gescrollten Listen (und das Fenster selbst) eines Fensters, mit einem Schlüssel aus Tag, Klassen und laufender Nummer. */
+  scrollables(panel) {
+    const seen = {};
+    const key = (el) => {
+      const k = `${el.tagName}.${[...el.classList].filter((c) => c !== 'sel' && c !== 'armed').sort().join('.')}`;
+      seen[k] = (seen[k] ?? 0) + 1;
+      return `${k}#${seen[k]}`;
+    };
+    return [panel, ...panel.querySelectorAll('*')].map((el) => [key(el), el]);
+  }
+
+  /** Scrollposition des offenen Fensters merken, damit ein Neuaufbau (Klick auf Benutzen, Einlagern, Kaufen …) nicht nach oben springt. */
+  rememberScroll() {
+    const panel = this.layer?.firstElementChild;
+    if (!this.modal || !panel?.classList.contains('panel')) return;
+    const pos = {};
+    for (const [k, el] of this.scrollables(panel)) if (el.scrollTop || el.scrollLeft) pos[k] = [el.scrollTop, el.scrollLeft];
+    this.scrollMemo ??= {};
+    if (Object.keys(pos).length) this.scrollMemo[this.modal] = pos; else delete this.scrollMemo[this.modal];
+  }
+
+  restoreScroll(kind) {
+    const pos = this.scrollMemo?.[kind];
+    const panel = this.layer.firstElementChild;
+    if (!pos || !panel) return;
+    for (const [k, el] of this.scrollables(panel)) if (pos[k]) [el.scrollTop, el.scrollLeft] = pos[k];
+  }
+
+  /** Beim Wechsel auf eine andere Seite (Reiter) soll die neue Liste oben anfangen. */
+  forgetScroll(kind = this.modal, only = null) {
+    if (!this.scrollMemo?.[kind]) return;
+    if (!only) { delete this.scrollMemo[kind]; return; }
+    for (const k of Object.keys(this.scrollMemo[kind])) if (only.test(k)) delete this.scrollMemo[kind][k];
+  }
+
   close() {
+    if (this.modal === 'signal') { this.state.cancelPrivateAnswer?.(1); this.state.cancelPrivateAnswer?.(2); this.signalUi = null; } // BN: offenes Angebot verfällt
+    this.forgetScroll();
     this.modal = null;
     this.actor = 1;
     this.layer.classList.remove('has-titlescene');
@@ -928,7 +981,7 @@ export class Ui {
     const { npc, tree } = this.dialogue;
     const node = tree.nodes[nodeId];
     if (!node) throw new Error(`Dialogknoten fehlt: ${npc.dialogue}.${nodeId}`);
-    this.as(() => s.applyEffects(node, { nodeKey: `${npc.dialogue}.${nodeId}` }));
+    this.as(() => s.applyEffects(node, { nodeKey: `${npc.dialogue}.${nodeId}`, commandId: `${npc.dialogue}.${nodeId}@${Date.now()}` })); // BG: jeder bestätigte Schritt ist ein eigener Befehl
     if (node.combat) { this.dialogue.combat = true; if (npc.id) s.hostileAfterFight(npc.id, node.combat); }
     s.visitNode(npc.dialogue, nodeId);
     let text = node.text;
@@ -950,7 +1003,7 @@ export class Ui {
     if (this.dialogue.blockedNote) { text += `\n\n${this.dialogue.blockedNote}`; this.dialogue.blockedNote = null; }
     // Sichtbare Optionen + wegen Ansehen gesperrte Optionen (ausgegraut mit Hinweis)
     const choices = [];
-    for (const c of node.choices ?? []) {
+    this.as(() => { for (const c of node.choices ?? []) { // Bedingungen gelten für den Spieler, der das Gespräch führt (Pfad, Tasche, Ansprüche)
       if (s.meets(c)) {
         // Die Option geht, aber ihr bester Zweig scheitert noch am Wissen (z. B. „zweite Quelle“): das steht gleich dabei
         const weak = Array.isArray(c.next) ? c.next.find((v) => !s.meets(v)) : null;
@@ -964,7 +1017,7 @@ export class Ui {
         const gaps = knowledgeGaps(s, c);
         if (gaps.length) choices.push({ ...c, locked: gaps.map((g) => gapText(g)).join(' ') });
       }
-    }
+    } });
     // Beziehung: Geschenke im Menü einer Figur (Start- oder Hub-Knoten), vor der letzten Option
     const menu = nodeId === (tree.nodes.start ? 'start' : tree.start && tree.nodes[tree.start] ? tree.start : 'hub');
     if (menu && npc.id && !npc.item && s.content.npcs[npc.id] && !node.ending && !node.combat && (node.choices ?? []).length) {
@@ -995,20 +1048,21 @@ export class Ui {
     const choice = this.dialogue?.choices[i];
     if (!choice || choice.locked) return;
     if (choice.gift) { this.openGift(); return; }
-    if (choice.shop || choice.vault || choice.expert || choice.auction) {
+    if (choice.shop || choice.vault || choice.expert || choice.auction || choice.signal_station) {
       const { onClose } = this.dialogue;
       this.dialogue = null;
       onClose?.();
-      if (choice.auction) this.openAuction(choice.auction);
+      if (choice.signal_station) this.openSignalStation(choice.signal_station); // BN
+      else if (choice.auction) this.openAuction(choice.auction);
       else if (choice.shop) this.openShop(choice.shop);
       else if (choice.vault) this.openVault();
       else this.openExpert();
       return;
     }
-    const next = this.state.pick(choice.next);
+    const next = this.as(() => this.state.pick(choice.next));
     if (next) {
       if (Array.isArray(choice.next)) {
-        const chosen = choice.next.find((v) => v.node === next && this.state.meets(v));
+        const chosen = choice.next.find((v) => v.node === next && this.as(() => this.state.meets(v)));
         const skipped = choice.next.slice(0, choice.next.indexOf(chosen)).filter((v) => onlyKnowledgeMissing(this.state, v));
         const gaps = skipped.flatMap((v) => knowledgeGaps(this.state, v));
         if (gaps.length) this.dialogue.blockedNote = `Dir fehlt noch: ${[...new Set(gaps.map((g) => gapText(g)))].join(' ')}`;
@@ -1329,7 +1383,7 @@ export class Ui {
       ...(papers.length ? [{ id: 'zeitung', title: 'Zeitung' }] : []),
       ...cases.map((c) => ({ id: c.id, title: c.title.replace(/:.*/, '') })), ...(solved.length ? [{ id: 'archiv', title: `Archiv (${solved.length})` }] : [])];
     const caseId = this.currentCase();
-    const body = this.tab === 'quests' ? this.questsHtml() : this.tab === 'items' ? this.itemsHtml() : this.tab === 'pfad' ? this.pathwayTabHtml()
+    const body = this.tab === 'quests' ? this.questsHtml() + this.signalJournalHtml() : this.tab === 'items' ? this.itemsHtml() : this.tab === 'pfad' ? this.pathwayTabHtml()
       : this.tab === 'personen' ? this.peopleHtml() : this.tab === 'bestiar' ? this.bestiaryHtml(beasts) : this.tab === 'zeitung' ? this.papersHtml(papers)
       : this.tab === 'archiv' ? this.archiveHtml(solved) : this.caseHtml(this.tab);
     const isCase = !!caseId;
@@ -1343,10 +1397,10 @@ export class Ui {
         <button data-act="close">Schließen <span class="key">J</span></button>
       </div>`, 'notebook');
     this.notebookTabs = tabs;
-    el.querySelectorAll('[data-tab]').forEach((b) => { b.onclick = () => { this.tab = b.dataset.tab; this.selected = []; this.renderNotebook(''); }; });
-    el.querySelectorAll('[data-itemcat]').forEach((b) => { b.onclick = () => { this.itemCat = b.dataset.itemcat; this.renderNotebook(''); }; });
+    el.querySelectorAll('[data-tab]').forEach((b) => { b.onclick = () => { this.tab = b.dataset.tab; this.selected = []; this.forgetScroll(); this.renderNotebook(''); }; });
+    el.querySelectorAll('[data-itemcat]').forEach((b) => { b.onclick = () => { this.itemCat = b.dataset.itemcat; this.forgetScroll('notebook', /^UL\./); this.renderNotebook(''); }; });
     el.querySelectorAll('[data-fact]').forEach((b) => { b.onclick = () => this.toggleFact(b.dataset.fact); });
-    el.querySelectorAll('[data-archive]').forEach((b) => { b.onclick = () => { this.archiveCase = b.dataset.archive; this.selected = []; this.renderNotebook(''); }; });
+    el.querySelectorAll('[data-archive]').forEach((b) => { b.onclick = () => { this.archiveCase = b.dataset.archive; this.selected = []; this.forgetScroll(); this.renderNotebook(''); }; });
     el.querySelector('[data-act=combine]')?.addEventListener('click', () => this.combine());
     const inv = (fn) => this.as(fn, this.tab === 'items' || this.tab === 'pfad' ? this.invPlayer : 1);
     el.querySelectorAll('[data-use]').forEach((b) => { b.onclick = () => this.renderNotebook(esc(inv(() => this.state.useItem(b.dataset.use)) ?? '')); });
@@ -1380,7 +1434,7 @@ export class Ui {
     });
     el.querySelectorAll('[data-inspect]').forEach((b) => { b.onclick = () => this.inspectItem(b.dataset.inspect); });
     el.querySelectorAll('[data-track]').forEach((b) => { b.onclick = () => { const id = b.dataset.track; this.state.track(this.state.tracked === id ? null : id); this.renderNotebook(''); }; });
-    el.querySelectorAll('[data-recipe]').forEach((b) => { b.onclick = () => { this.tab = 'pfad'; this.renderNotebook(''); }; });
+    el.querySelectorAll('[data-recipe]').forEach((b) => { b.onclick = () => { this.tab = 'pfad'; this.forgetScroll(); this.renderNotebook(''); }; });
     el.querySelectorAll('[data-person]').forEach((b) => { b.onclick = () => this.openPersonMap(b.dataset.person); });
     el.querySelector('[data-act=close]').onclick = () => this.close();
   }
@@ -1492,8 +1546,105 @@ export class Ui {
   /** Pfad-Reiter: jeder Spieler hat seinen eigenen Pfad (G wechselt). */
   pathwayTabHtml() {
     const s = this.state;
-    if (!s.hasP2()) { this.invPlayer = 1; return this.pathwayHtml(); }
-    return this.playerTabsHtml() + s.withPlayer(this.invPlayer, () => this.pathwayHtml(), { quiet: true });
+    if (!s.hasP2()) { this.invPlayer = 1; return this.pathwayHtml() + this.claimsHtml(1); }
+    return this.playerTabsHtml() + s.withPlayer(this.invPlayer, () => this.pathwayHtml(), { quiet: true }) + this.claimsHtml(this.invPlayer);
+  }
+
+  /** Paket BN: Journal der bekannten Rufmuster (Symbol, Form, Quelle, Bedeutung, Klangzeichen) und laufende Bindungen. */
+  signalJournalHtml() {
+    const s = this.state;
+    const sr = s.content.signalRoutes;
+    if (!sr) return '';
+    const seen = new Set();
+    const known = [];
+    for (const st of sr.stationen) for (const [id, p] of Object.entries(st.patterns)) if (!seen.has(id) && s.meetsSignalRoutes({ requires_pattern: id })) { seen.add(id); known.push([id, p]); }
+    const b = s.signal.bindings ?? {};
+    const bound = [1, 2].filter((n) => b[n]).map((n) => `<li>${s.hasP2() ? `Spieler ${n}: ` : ''}${esc(sr.bindungen[b[n].station]?.journal ?? '')} <span class="muted">${esc(sr.texte.bindung_an)}</span></li>`);
+    if (!known.length && !bound.length) return '';
+    const row = ([id, p]) => `<li>${this.signalSymbol(id)}<strong>${esc(p.form)}</strong> <span class="muted">${esc(p.source)}</span><br><span class="desc">${esc(p.meaning)}${s.patternSound(id) ? ` · ${esc(s.patternSound(id).zeichen)}` : ''}</span></li>`;
+    return `<h4>Rufmuster</h4>${known.length ? `<ul class="rufmuster">${known.map(row).join('')}</ul>` : ''}${bound.length ? `<ul class="rufmuster">${bound.join('')}</ul>` : ''}`;
+  }
+
+  /** BN/BA: 16×16-Merksymbol eines Rufmusters aus ui/ds_rufmuster.png. */
+  signalSymbol(id) {
+    const n = this.state.signSymbol?.(id);
+    return n === null || n === undefined ? '' : regionIcon(`${SPRITE_BASE}ui/ds_rufmuster.png`, [n * 16, 0, 16, 16], 256, 16, 'rufmuster', 1 / 6);
+  }
+
+  /**
+   * Paket BN: Fenster an einer Horchstelle. Horchen ist kostenlos, ein Ruf braucht Muster, Richtung und eine Ladung;
+   * die Vorschau zeigt Warnung und Risiko, erst der getrennte Knopf ruft. Die Namensantwort bindet nur den Sprecher.
+   */
+  openSignalStation(stationId, feedback = '') {
+    const s = this.state;
+    const sr = s.content.signalRoutes;
+    const st = sr?.stationen.find((x) => x.id === stationId);
+    if (!st) return;
+    const t = sr.texte;
+    const actor = this.actor;
+    const run = (fn) => this.as(fn, actor);
+    const sel = this.signalUi?.station === stationId ? this.signalUi : { station: stationId, pattern: null, dir: st.directions[0], offer: null };
+    this.signalUi = sel;
+    const listen = run(() => s.listen(stationId));
+    const known = Object.entries(st.patterns).filter(([id]) => s.meetsSignalRoutes({ requires_pattern: id }));
+    if (!sel.pattern || !st.patterns[sel.pattern]) sel.pattern = known[0]?.[0] ?? null;
+    const preview = sel.pattern ? run(() => s.previewCall(stationId, sel.pattern, sel.dir)) : null;
+    const patterns = known.length
+      ? `<ul class="items shoplist">${known.map(([id, p], i) => `<li class="item"><div>${this.signalSymbol(id)}<strong>${esc(p.form)}</strong><br><span class="desc">${esc(p.source)} – ${esc(p.meaning)}</span>${s.patternSound(id) ? `<br><span class="muted">${esc(s.patternSound(id).zeichen)}</span>` : ''}</div><div><button class="small" data-pattern="${id}" ${id === sel.pattern ? 'disabled' : ''}><span class="key">${i + 1}</span> ${id === sel.pattern ? 'Gewählt' : 'Wählen'}</button></div></li>`).join('')}</ul>`
+      : `<p class="muted">${esc(t.unlearned)}</p>`;
+    const dirs = st.directions.length > 1 ? `<div class="actions">${st.directions.map((d) => `<button class="small" data-dir="${d}" ${d === sel.dir ? 'disabled' : ''}>${DIRECTION_NAMES[d]}</button>`).join('')}</div>` : `<p class="muted">Der Trichter zeigt nach ${DIRECTION_NAMES[sel.dir]}.</p>`;
+    const hints = listen.ok && listen.hints.length ? `<p class="lead">${esc(t.horch_an)}</p><ul class="hints">${listen.hints.map((h) => `<li>${esc(h.text)}</li>`).join('')}</ul>` : '';
+    const pv = preview ? `<div class="status">${esc(preview.text)}${preview.ok ? `<br>${esc(preview.warning)}<br><span class="muted">${esc(preview.risk)}</span>` : ''}</div>` : '';
+    const bindung = st.privateAnswer && sr.bindungen?.[stationId];
+    const bound = !!s.signal.bindings?.[actor];
+    const bind = !bindung ? '' : sel.offer
+      ? `<div class="status"><strong>${esc(sel.offer.warning)}</strong><br>${esc(sel.offer.koop)}<br><span class="muted">${sel.offer.passives.map((p) => `${p.key === 'max_nerves' ? 'Höchstnerven' : 'Unruhe je Takt'} ${p.value > 0 ? '+' : ''}${p.value}`).join(' · ')}</span></div>
+         <div class="actions"><button data-act="bind">Meinen Namen bewusst antworten</button><button data-act="silence">Schweigen</button></div>`
+      : `<div class="actions"><button data-act="offer" ${bound ? 'disabled' : ''}>${bound ? esc(t.bound) : 'Namensantwort anbieten …'}</button></div>`;
+    const el = this.open('signal', `
+      <h3>${esc(STATION_NAMES[stationId] ?? 'Horchstelle')}${s.hasP2() ? ` <span class="muted">Spieler ${actor}</span>` : ''}</h3>
+      ${hints}
+      <h4>Rufmuster</h4>${patterns}${dirs}${pv}
+      <div class="feedback">${feedback}</div>
+      <div class="actions"><button data-act="call" ${preview?.ok ? '' : 'disabled'}>Rufen (1 Ladung · ${s.signal.charges}/3)</button></div>
+      ${bind}
+      <div class="actions"><button data-act="close">Gehen <span class="key">Esc</span></button></div>`, 'notebook shop');
+    el.querySelectorAll('[data-pattern]').forEach((b) => { b.onclick = () => { sel.pattern = b.dataset.pattern; this.openSignalStation(stationId); }; });
+    el.querySelectorAll('[data-dir]').forEach((b) => { b.onclick = () => { sel.dir = b.dataset.dir; this.openSignalStation(stationId); }; });
+    el.querySelector('[data-act=close]').onclick = () => this.close();
+    el.querySelector('[data-act=call]').onclick = () => {
+      const cmd = `ruf:${stationId}:${sel.pattern}:${sel.dir}:${Date.now()}`;
+      const { handled, result } = run(() => s.confirmCall(cmd, stationId, sel.pattern, sel.dir));
+      if (!handled) { this.openSignalStation(stationId, esc(result.text)); return; }
+      run(() => s.cancelPrivateAnswer(actor));
+      this.signalUi = null;
+      const parts = [result.text, result.flag ? t.wissen : '', result.alarm ? t.alarm : ''].filter(Boolean);
+      this.showMessage(STATION_NAMES[stationId] ?? 'Ruf', parts.join('\n\n'), { footer: result.kind === 'fallback' ? `−${result.nerves} Nerven · Ladungen ${s.signal.charges}/3` : `Ladungen ${s.signal.charges}/3` });
+    };
+    el.querySelector('[data-act=offer]')?.addEventListener('click', () => {
+      const offer = run(() => s.offerPrivateAnswer(stationId, actor));
+      if (!offer.ok) { this.openSignalStation(stationId, esc(offer.text)); return; }
+      sel.offer = offer;
+      this.openSignalStation(stationId);
+    });
+    el.querySelector('[data-act=silence]')?.addEventListener('click', () => { run(() => s.cancelPrivateAnswer(actor)); sel.offer = null; this.openSignalStation(stationId, esc(t.horch_aus)); });
+    el.querySelector('[data-act=bind]')?.addEventListener('click', () => {
+      const cmd = `bindung:${stationId}:${actor}:${Date.now()}`;
+      const { handled, result } = run(() => s.acceptPrivateAnswer(cmd, stationId, actor));
+      sel.offer = null;
+      if (!handled) { this.openSignalStation(stationId, esc(result.text)); return; }
+      run(() => s.setComposure(Math.min(s.composure, s.maxComposure())));
+      this.signalUi = null;
+      this.showMessage('Namensantwort', [result.text, t.bindung_an, s.hasP2() ? result.koop : ''].filter(Boolean).join('\n\n'));
+    });
+  }
+
+  /** Paket BG: offene persönliche Ansprüche (Hüter- und Prüfungszutaten bei Hedda). */
+  claimsHtml(player) {
+    const s = this.state;
+    const open = s.openClaimTexts?.(player) ?? [];
+    if (!open.length) return '';
+    return `<h4>${esc(s.content.claimTexts.k3b_notizbuch)}</h4><ul class="claims">${open.map((t) => `<li>${esc(t)}</li>`).join('')}</ul>`;
   }
 
   itemsListHtml() {
@@ -1710,7 +1861,7 @@ export class Ui {
         <div class="meter vialm">${uiSprite('vial', `v${pctStep(s.composure / s.maxComposure(), 6)}`, 1 / 24, 'vial', 'Nerven')}<span>Nerven</span><em>${Math.round(s.composure)}/${s.maxComposure()}</em></div>
       </div>
       <p class="lead"><em>„${esc(p.principle)}“</em> ${esc(p.digest_hint)}</p>
-      <p class="muted">Jede Sequenz dieses Pfades: +${s.growth().hp} Leben, +${s.growth().nerves} Nerven, die Durchbrüche 7 und 6 das Doppelte. Gerade: ${s.maxHp} Leben, ${s.maxComposure()} Nerven.</p>
+      <p class="muted">Jede Sequenz dieses Pfades: +${s.growth().hp} Leben, +${s.growth().nerves} Nerven, +${CARRY_PER_STEP} Pfund Tragkraft, die Durchbrüche 7 und 6 das Doppelte. Gerade: ${s.maxHp} Leben, ${s.maxComposure()} Nerven, ${esc(s.carryBreakdown())} = ${fmtLb(s.carryCapacity())} Pfund Tragkraft.</p>
       ${s.corruptionDrain().count ? `<p class="curse">Korruption: ${s.corruptionDrain().count} Stück an dir zehrt an Leben und Nerven (siehe Inventar). Bei 100 Unruhe wachsen die Tentakel erneut und treffen alles, was du dann trägst.</p>` : '<p class="muted">Bei 100 Unruhe verlierst du die Kontrolle: Tentakel korrumpieren Waffe, Kleidung und Artefakte am Leib, die dich danach Leben und Nerven kosten, solange du sie trägst.</p>'}
       ${this.ritualHtml()}
       <h4>Was deinen Trank verdaut</h4>
@@ -1809,7 +1960,7 @@ export class Ui {
       <div class="actions"><span class="purse">${moneyIcon(s.money)}${s.money} Schilling</span><button data-act="close">Gehen <span class="key">Esc</span></button></div>`, 'notebook shop');
     el.querySelectorAll('[data-buy]').forEach((b) => { b.onclick = () => this.shopPick(Number(b.dataset.buy)); });
     el.querySelectorAll('[data-sell]').forEach((b) => { b.onclick = () => this.shopPick(Number(b.dataset.sell)); });
-    el.querySelectorAll('[data-mode]').forEach((b) => { b.onclick = () => this.openShop(merchantId, b.dataset.mode); });
+    el.querySelectorAll('[data-mode]').forEach((b) => { b.onclick = () => { this.forgetScroll(); this.openShop(merchantId, b.dataset.mode); }; });
     el.querySelector('[data-act=close]').onclick = () => this.close();
   }
 
@@ -2262,12 +2413,28 @@ export class Ui {
     this.combatMenuOpen = { sub, entries };
     this.layer.querySelector('.cb-target')?.classList.remove('hidden');
     const menu = this.layer.querySelector('.cb-menu');
-    menu.innerHTML = `<ol class="choices">${entries.map((e, i) => `<li><button data-i="${i}" ${e.disabled ? 'disabled' : ''} title="${esc(e.desc ?? '')}">
-      <span class="key">${e.back ? 'Esc' : i + 1}</span> ${e.ui ? uiSprite('bmenu', e.disabled ? `${e.ui}_off` : e.ui, 1 / 16 * 1.4, 'cbicon') : ''}${e.icon ? itemIcon(e.icon) : ''}${e.skill ? skillIcon(e.skill) : ''}${esc(e.text)} <span class="muted">${esc(e.info ?? '')}</span></button></li>`).join('')}</ol>
-      <div class="cb-desc"></div>`;
+    menu.classList.toggle('tiles', sub !== 'main');
+    const key = (e, i) => (e.back ? 'Esc' : i < 9 ? i + 1 : '');
+    const btn = (e, i, inner) => `<li><button data-i="${i}" ${e.disabled ? 'disabled' : ''} title="${esc(e.desc ?? '')}">${inner}</button></li>`;
+    if (sub === 'main') {
+      menu.innerHTML = `<ol class="choices">${entries.map((e, i) => btn(e, i, `<span class="key">${key(e, i)}</span> ${e.ui ? uiSprite('bmenu', e.disabled ? `${e.ui}_off` : e.ui, 1 / 8, 'cbicon') : ''}${esc(e.text)} <span class="muted">${esc(e.info ?? '')}</span>`)).join('')}</ol>
+        <div class="cb-desc"></div>`;
+    } else {
+      // Fertigkeiten und Gegenstände: kompakte Kacheln mit großem Icon in der alten Fensterhöhe, damit der Gegner sichtbar bleibt;
+      // bis Sequenz 1 sind es zwölf Einträge, die Liste scrollt. „Zurück“ steht vorn, die Beschreibung wandert in die Rundenmeldung.
+      const back = entries.length - 1;
+      menu.innerHTML = `<ol class="choices">${btn(entries[back], back, `<span class="tile-text"><span class="tile-name"><span class="key">Esc</span>Zurück</span></span>`)}${entries.slice(0, back).map((e, i) => btn(e, i, `
+          <span class="tile-icon">${e.icon ? itemIconBig(e.icon) : e.skill ? skillIconBig(e.skill) : ''}<span class="key">${key(e, i)}</span></span><span class="tile-text">${esc(e.text)} <span class="muted">${esc(e.info ?? '')}</span></span>`)).join('')}</ol>`;
+      // Pfeil unten rechts, solange es weiter unten noch Einträge gibt (auch ohne sichtbaren Scrollbalken, z. B. am Handy)
+      const list = menu.querySelector('.choices');
+      const more = () => menu.classList.toggle('more', list.scrollTop + list.clientHeight < list.scrollHeight - 2);
+      list.onscroll = more;
+      requestAnimationFrame(more);
+    }
+    const help = this.layer.querySelector('.cb-help');
     menu.querySelectorAll('[data-i]').forEach((b) => {
       b.onclick = () => this.combatPick(Number(b.dataset.i));
-      b.onmouseenter = () => { menu.querySelector('.cb-desc').textContent = entries[Number(b.dataset.i)].desc ?? ''; };
+      b.onmouseenter = () => { (menu.querySelector('.cb-desc') ?? help).textContent = entries[Number(b.dataset.i)].desc ?? ''; };
     });
   }
 
@@ -2397,8 +2564,9 @@ export class Ui {
       const i = this.itemCats.findIndex((c) => c.id === this.itemCat);
       const n = this.itemCats.length;
       this.itemCat = this.itemCats[(i + (k === 'arrowright' ? 1 : n - 1)) % n].id;
+      this.forgetScroll('notebook', /^UL\./);
       this.renderNotebook('');
-    } else if (this.modal === 'notebook' && num >= 0 && this.notebookTabs[num]) { this.tab = this.notebookTabs[num].id; this.selected = []; this.renderNotebook(''); }
+    } else if (this.modal === 'notebook' && num >= 0 && this.notebookTabs[num]) { this.tab = this.notebookTabs[num].id; this.selected = []; this.forgetScroll(); this.renderNotebook(''); }
     else handled = false;
     if (handled) { e.preventDefault(); e.stopPropagation(); }
   }

@@ -1,0 +1,1431 @@
+{
+  "vg_cw_letternlaeufer": {
+    "name": "Letternläufer",
+    "sprite": "wild",
+    "sheet": "enemy_vg_cw_letternlaeufer",
+    "hp": 234,
+    "armor": 2,
+    "occult": true,
+    "fleeable": true,
+    "chapter": 4,
+    "intro": "Ausgesonderte Lettern laufen unter den Pressen der Setzergasse zusammen. Zieht den linken Fuß ein.",
+    "attacks": [
+      {
+        "name": "Letterntritt: zieht den linken fuß ein",
+        "damage": 14,
+        "hits": [
+          950,
+          1650
+        ],
+        "unparryable": false
+      },
+      {
+        "name": "Satzsturz: hält den setzkasten über den kopf – ausweichen",
+        "damage": 18,
+        "hits": [
+          2400
+        ],
+        "unparryable": true
+      }
+    ],
+    "on_win": {},
+    "win_text": "Die Gestalt verliert ihren Zusammenhalt. Der Rückweg bleibt offen; lose Reste liegen abseits des Wegs.",
+    "lose_text": "Du ziehst dich zum zuvor gesicherten Rückweg zurück. Deine Aufzeichnungen bleiben erhalten.",
+    "loot": {
+      "money": [
+        8,
+        16
+      ],
+      "drops": [
+        {
+          "item": "vt_cw_letternlaeufer",
+          "chance": 1
+        },
+        {
+          "item": "vi_m_bleiletter",
+          "chance": 1
+        }
+      ]
+    },
+    "roam": {
+      "speed": 32,
+      "chase": 60,
+      "aggro": 80
+    },
+    "elite": {
+      "name": "Letternläufer der langen Nacht",
+      "hp_mult": 1.4,
+      "dmg_mult": 1.2
+    }
+  },
+  "vg_cw_rohrpostwespe": {
+    "name": "Rohrpostwespe",
+    "sprite": "wild",
+    "sheet": "enemy_vg_cw_rohrpostwespe",
+    "hp": 260,
+    "armor": 2,
+    "occult": true,
+    "fleeable": true,
+    "chapter": 4,
+    "intro": "Eine Messingkapsel kreist nach Dienstschluss über dem Röhrenhof. Hält vor dem Sprung die Flügel still.",
+    "attacks": [
+      {
+        "name": "Kapselstich: hält vor dem sprung die flügel still",
+        "damage": 16,
+        "hits": [
+          1100,
+          1800
+        ],
+        "unparryable": false
+      },
+      {
+        "name": "Messingladung: richtet den offenen kapselmund aus – ausweichen",
+        "damage": 18,
+        "hits": [
+          2700
+        ],
+        "unparryable": true
+      }
+    ],
+    "on_win": {},
+    "win_text": "Die Gestalt verliert ihren Zusammenhalt. Der Rückweg bleibt offen; lose Reste liegen abseits des Wegs.",
+    "lose_text": "Du ziehst dich zum zuvor gesicherten Rückweg zurück. Deine Aufzeichnungen bleiben erhalten.",
+    "loot": {
+      "money": [
+        9,
+        17
+      ],
+      "drops": [
+        {
+          "item": "vt_cw_rohrpostwespe",
+          "chance": 1
+        },
+        {
+          "item": "vi_m_rohrpostkapsel_leer",
+          "chance": 1
+        }
+      ]
+    },
+    "roam": {
+      "speed": 18,
+      "chase": 42,
+      "aggro": 80
+    },
+    "elite": {
+      "name": "Rohrpostwespe der langen Nacht",
+      "hp_mult": 1.4,
+      "dmg_mult": 1.2
+    }
+  },
+  "vg_cw_stempelhand": {
+    "name": "Stempelhand",
+    "sprite": "wild",
+    "sheet": "enemy_vg_cw_stempelhand",
+    "hp": 338,
+    "armor": 2,
+    "occult": true,
+    "fleeable": true,
+    "chapter": 4,
+    "intro": "Ein leerer Amtsärmel stempelt weiter, obwohl sein Schreibtisch versetzt wurde. Rollt die Manschette auf.",
+    "attacks": [
+      {
+        "name": "Ärmelgriff: rollt die manschette auf",
+        "damage": 17,
+        "hits": [
+          1100,
+          1800
+        ],
+        "unparryable": false
+      },
+      {
+        "name": "Dienstschlag: hebt den stempel senkrecht – ausweichen",
+        "damage": 20,
+        "hits": [
+          2400
+        ],
+        "unparryable": true,
+        "nerves": 4
+      }
+    ],
+    "on_win": {},
+    "win_text": "Die Gestalt verliert ihren Zusammenhalt. Der Rückweg bleibt offen; lose Reste liegen abseits des Wegs.",
+    "lose_text": "Du ziehst dich zum zuvor gesicherten Rückweg zurück. Deine Aufzeichnungen bleiben erhalten.",
+    "loot": {
+      "money": [
+        10,
+        18
+      ],
+      "drops": [
+        {
+          "item": "vt_cw_stempelhand",
+          "chance": 1
+        },
+        {
+          "item": "vi_m_registerband",
+          "chance": 1
+        }
+      ]
+    },
+    "roam": {
+      "speed": 18,
+      "chase": 42,
+      "aggro": 80
+    },
+    "elite": {
+      "name": "Stempelhand der langen Nacht",
+      "hp_mult": 1.4,
+      "dmg_mult": 1.2
+    }
+  },
+  "vg_cw_durchschlag": {
+    "name": "Durchschlag",
+    "sprite": "wild",
+    "sheet": "enemy_vg_cw_durchschlag",
+    "hp": 364,
+    "armor": 2,
+    "occult": true,
+    "fleeable": true,
+    "chapter": 4,
+    "intro": "Kohlepapier aus abgeglichenen Registern nimmt eine fremde menschliche Kontur an. Faltet den Ellbogen nach innen.",
+    "attacks": [
+      {
+        "name": "Kopierter Hieb: faltet den ellbogen nach innen",
+        "damage": 17,
+        "hits": [
+          1100,
+          1800
+        ],
+        "unparryable": false
+      },
+      {
+        "name": "Blattsturm: öffnet den brustfalz – ausweichen",
+        "damage": 20,
+        "hits": [
+          2400
+        ],
+        "unparryable": true,
+        "nerves": 6
+      }
+    ],
+    "on_win": {},
+    "win_text": "Die Kopie zerfällt zu Kohlepapier. Kein Mensch ist darin eingeschlossen.",
+    "lose_text": "Du ziehst dich zum zuvor gesicherten Rückweg zurück. Deine Aufzeichnungen bleiben erhalten.",
+    "loot": {
+      "money": [
+        11,
+        19
+      ],
+      "drops": [
+        {
+          "item": "vt_cw_durchschlag",
+          "chance": 1
+        },
+        {
+          "item": "vi_m_tintenkuchen",
+          "chance": 1
+        }
+      ]
+    },
+    "roam": {
+      "speed": 18,
+      "chase": 42,
+      "aggro": 80
+    },
+    "elite": {
+      "name": "Durchschlag der langen Nacht",
+      "hp_mult": 1.4,
+      "dmg_mult": 1.2
+    }
+  },
+  "vg_cw_registerratte": {
+    "name": "Registerratte",
+    "sprite": "wild",
+    "sheet": "enemy_vg_cw_registerratte",
+    "hp": 234,
+    "armor": 2,
+    "occult": true,
+    "fleeable": true,
+    "chapter": 4,
+    "intro": "Ratten ziehen Registerreste aus den warmen Wänden des Kronenarchivs. Zieht die Schnauze unter den Streifen.",
+    "attacks": [
+      {
+        "name": "Aktenbiss: zieht die schnauze unter den streifen",
+        "damage": 14,
+        "hits": [
+          950,
+          1650
+        ],
+        "unparryable": false
+      },
+      {
+        "name": "Nestwurf: stellt die papierstreifen auf – ausweichen",
+        "damage": 18,
+        "hits": [
+          2400
+        ],
+        "unparryable": true
+      }
+    ],
+    "on_win": {},
+    "win_text": "Die Gestalt verliert ihren Zusammenhalt. Der Rückweg bleibt offen; lose Reste liegen abseits des Wegs.",
+    "lose_text": "Du ziehst dich zum zuvor gesicherten Rückweg zurück. Deine Aufzeichnungen bleiben erhalten.",
+    "loot": {
+      "money": [
+        8,
+        20
+      ],
+      "drops": [
+        {
+          "item": "vt_cw_registerratte",
+          "chance": 1
+        },
+        {
+          "item": "vi_m_registerband",
+          "chance": 1
+        }
+      ]
+    },
+    "roam": {
+      "speed": 32,
+      "chase": 60,
+      "aggro": 80
+    },
+    "elite": {
+      "name": "Registerratte der langen Nacht",
+      "hp_mult": 1.4,
+      "dmg_mult": 1.2
+    }
+  },
+  "vg_cw_seilbahnwaechter": {
+    "name": "Seilbahnwächter",
+    "sprite": "wild",
+    "sheet": "enemy_vg_cw_seilbahnwaechter",
+    "hp": 338,
+    "armor": 2,
+    "occult": true,
+    "fleeable": true,
+    "chapter": 4,
+    "intro": "Ein gesichtsloser Bremser bewacht die abgestellte Frachtbahn am Gleisfuß. Schließt beide Hände um das Rad.",
+    "attacks": [
+      {
+        "name": "Bremsgriff: schließt beide hände um das rad",
+        "damage": 17,
+        "hits": [
+          1100,
+          1800
+        ],
+        "unparryable": false
+      },
+      {
+        "name": "Gegengewicht: lehnt den gesichtslosen kopf zurück – ausweichen",
+        "damage": 20,
+        "hits": [
+          2400
+        ],
+        "unparryable": true
+      }
+    ],
+    "on_win": {},
+    "win_text": "Die Gestalt verliert ihren Zusammenhalt. Der Rückweg bleibt offen; lose Reste liegen abseits des Wegs.",
+    "lose_text": "Du ziehst dich zum zuvor gesicherten Rückweg zurück. Deine Aufzeichnungen bleiben erhalten.",
+    "loot": {
+      "money": [
+        9,
+        16
+      ],
+      "drops": [
+        {
+          "item": "vt_cw_seilbahnwaechter",
+          "chance": 1
+        },
+        {
+          "item": "vi_m_seilbahnfett",
+          "chance": 1
+        }
+      ]
+    },
+    "roam": {
+      "speed": 18,
+      "chase": 42,
+      "aggro": 80
+    },
+    "elite": {
+      "name": "Seilbahnwächter der langen Nacht",
+      "hp_mult": 1.4,
+      "dmg_mult": 1.2
+    }
+  },
+  "vg_cw_tintenschatten": {
+    "name": "Tintenschatten",
+    "sprite": "wild",
+    "sheet": "enemy_vg_cw_tintenschatten",
+    "hp": 286,
+    "armor": 2,
+    "occult": true,
+    "fleeable": true,
+    "chapter": 4,
+    "intro": "Druckerschwärze aus den Regenrinnen bleibt auch bei trockenem Wetter in Bewegung. Sammelt sich entlang der Bordkante.",
+    "attacks": [
+      {
+        "name": "Rinnenzug: sammelt sich entlang der bordkante",
+        "damage": 14,
+        "hits": [
+          1100,
+          1800
+        ],
+        "unparryable": false
+      },
+      {
+        "name": "Schwärzeschwall: wölbt die oberfläche zur blase – ausweichen",
+        "damage": 18,
+        "hits": [
+          2700
+        ],
+        "unparryable": true
+      }
+    ],
+    "on_win": {},
+    "win_text": "Die Gestalt verliert ihren Zusammenhalt. Der Rückweg bleibt offen; lose Reste liegen abseits des Wegs.",
+    "lose_text": "Du ziehst dich zum zuvor gesicherten Rückweg zurück. Deine Aufzeichnungen bleiben erhalten.",
+    "loot": {
+      "money": [
+        10,
+        17
+      ],
+      "drops": [
+        {
+          "item": "vt_cw_tintenschatten",
+          "chance": 1
+        },
+        {
+          "item": "vi_m_terrassenruss",
+          "chance": 1
+        }
+      ]
+    },
+    "roam": {
+      "speed": 18,
+      "chase": 42,
+      "aggro": 80
+    },
+    "elite": {
+      "name": "Tintenschatten der langen Nacht",
+      "hp_mult": 1.4,
+      "dmg_mult": 1.2
+    }
+  },
+  "vg_cw_leerfracht": {
+    "name": "Leerfracht",
+    "sprite": "wild",
+    "sheet": "enemy_vg_cw_leerfracht",
+    "hp": 364,
+    "armor": 2,
+    "occult": true,
+    "fleeable": true,
+    "chapter": 4,
+    "intro": "Ein ausgesonderter Postsack bewegt sich im Röhrenhof ohne sichtbaren Inhalt. Zieht die obere Naht straff.",
+    "attacks": [
+      {
+        "name": "Sackschlag: zieht die obere naht straff",
+        "damage": 17,
+        "hits": [
+          1100,
+          1800
+        ],
+        "unparryable": false
+      },
+      {
+        "name": "Frachtfall: stellt sich auf die sackkante – ausweichen",
+        "damage": 20,
+        "hits": [
+          2400
+        ],
+        "unparryable": true,
+        "nerves": 6
+      }
+    ],
+    "on_win": {},
+    "win_text": "Die Gestalt verliert ihren Zusammenhalt. Der Rückweg bleibt offen; lose Reste liegen abseits des Wegs.",
+    "lose_text": "Du ziehst dich zum zuvor gesicherten Rückweg zurück. Deine Aufzeichnungen bleiben erhalten.",
+    "loot": {
+      "money": [
+        11,
+        18
+      ],
+      "drops": [
+        {
+          "item": "vt_cw_leerfracht",
+          "chance": 1
+        },
+        {
+          "item": "vi_m_rohrpostkapsel_leer",
+          "chance": 1
+        }
+      ]
+    },
+    "roam": {
+      "speed": 18,
+      "chase": 42,
+      "aggro": 80
+    },
+    "elite": {
+      "name": "Leerfracht der langen Nacht",
+      "hp_mult": 1.4,
+      "dmg_mult": 1.2
+    }
+  },
+  "vg_bh_dampfschwester": {
+    "name": "Dampfschwester",
+    "sprite": "wild",
+    "sheet": "enemy_vg_bh_dampfschwester",
+    "hp": 286,
+    "armor": 2,
+    "occult": true,
+    "fleeable": true,
+    "chapter": 4,
+    "intro": "Am Rücklauf der Stillenhäuser formt sich Dampf zur Gestalt einer Pflegerin. Faltet die Haube nach vorn.",
+    "attacks": [
+      {
+        "name": "Dampfgriff: faltet die haube nach vorn",
+        "damage": 14,
+        "hits": [
+          1100,
+          1800
+        ],
+        "unparryable": false
+      },
+      {
+        "name": "Heißer Atem: sammelt dampf unter der schürze – ausweichen",
+        "damage": 18,
+        "hits": [
+          2400
+        ],
+        "unparryable": true,
+        "nerves": 4
+      }
+    ],
+    "on_win": {},
+    "win_text": "Die Gestalt verliert ihren Zusammenhalt. Der Rückweg bleibt offen; lose Reste liegen abseits des Wegs.",
+    "lose_text": "Du ziehst dich zum zuvor gesicherten Rückweg zurück. Deine Aufzeichnungen bleiben erhalten.",
+    "loot": {
+      "money": [
+        8,
+        19
+      ],
+      "drops": [
+        {
+          "item": "vt_bh_dampfschwester",
+          "chance": 1
+        },
+        {
+          "item": "vi_m_kupferrohrstueck",
+          "chance": 1
+        }
+      ]
+    },
+    "roam": {
+      "speed": 18,
+      "chase": 42,
+      "aggro": 80
+    },
+    "elite": {
+      "name": "Dampfschwester der langen Nacht",
+      "hp_mult": 1.4,
+      "dmg_mult": 1.2
+    }
+  },
+  "vg_bh_wurzelgaenger": {
+    "name": "Wurzelgänger",
+    "sprite": "wild",
+    "sheet": "enemy_vg_bh_wurzelgaenger",
+    "hp": 338,
+    "armor": 2,
+    "occult": true,
+    "fleeable": true,
+    "chapter": 4,
+    "intro": "Ein lebender Patient der Glasgärten trägt Wurzelstränge um beide Hände. Senkt die verwachsenen Hände.",
+    "attacks": [
+      {
+        "name": "Wurzelgriff: senkt die verwachsenen hände",
+        "damage": 17,
+        "hits": [
+          1100,
+          1800
+        ],
+        "unparryable": false
+      },
+      {
+        "name": "Bodenriss: zieht beide arme aus dem boden – ausweichen",
+        "damage": 20,
+        "hits": [
+          2400
+        ],
+        "unparryable": true
+      }
+    ],
+    "on_win": {},
+    "win_text": "Der Patient sinkt erschöpft nieder und atmet. Ihr löst nur die äußeren Wurzeln und bringt ihn aus dem Gang.",
+    "lose_text": "Du ziehst dich zum zuvor gesicherten Rückweg zurück. Deine Aufzeichnungen bleiben erhalten.",
+    "loot": {
+      "money": [
+        9,
+        20
+      ],
+      "drops": [
+        {
+          "item": "vt_bh_wurzelgaenger",
+          "chance": 1
+        },
+        {
+          "item": "vi_m_wurzelfaser",
+          "chance": 1
+        }
+      ]
+    },
+    "roam": {
+      "speed": 18,
+      "chase": 42,
+      "aggro": 80
+    },
+    "elite": {
+      "name": "Wurzelgänger der langen Nacht",
+      "hp_mult": 1.4,
+      "dmg_mult": 1.2
+    }
+  },
+  "vg_bh_glasmotte": {
+    "name": "Glasmotte",
+    "sprite": "wild",
+    "sheet": "enemy_vg_bh_glasmotte",
+    "hp": 260,
+    "armor": 2,
+    "occult": true,
+    "fleeable": true,
+    "chapter": 4,
+    "intro": "Beschlagene Scheiben des kalten Palmhauses verlieren kleine geflügelte Stücke. Legt die Flügel übereinander.",
+    "attacks": [
+      {
+        "name": "Glasschnitt: legt die flügel übereinander",
+        "damage": 16,
+        "hits": [
+          950,
+          1650
+        ],
+        "unparryable": false
+      },
+      {
+        "name": "Beschlagfächer: hält beide flügel breit und still – ausweichen",
+        "damage": 18,
+        "hits": [
+          2400
+        ],
+        "unparryable": true
+      }
+    ],
+    "on_win": {},
+    "win_text": "Die Gestalt verliert ihren Zusammenhalt. Der Rückweg bleibt offen; lose Reste liegen abseits des Wegs.",
+    "lose_text": "Du ziehst dich zum zuvor gesicherten Rückweg zurück. Deine Aufzeichnungen bleiben erhalten.",
+    "loot": {
+      "money": [
+        10,
+        16
+      ],
+      "drops": [
+        {
+          "item": "vt_bh_glasmotte",
+          "chance": 1
+        },
+        {
+          "item": "vi_m_glasscherbe_beschlagen",
+          "chance": 1
+        }
+      ]
+    },
+    "roam": {
+      "speed": 32,
+      "chase": 60,
+      "aggro": 80
+    },
+    "elite": {
+      "name": "Glasmotte der langen Nacht",
+      "hp_mult": 1.4,
+      "dmg_mult": 1.2
+    }
+  },
+  "vg_bh_bluetenkopf": {
+    "name": "Blütenkopf",
+    "sprite": "wild",
+    "sheet": "enemy_vg_bh_bluetenkopf",
+    "hp": 273,
+    "armor": 2,
+    "occult": true,
+    "fleeable": true,
+    "chapter": 4,
+    "intro": "Eine Pfirsichblüte mit Gesicht bleibt an der Promenade still, bis jemand nahe kommt. Dreht das Gesicht zum Licht.",
+    "attacks": [
+      {
+        "name": "Blütenbiss: dreht das gesicht zum licht",
+        "damage": 16,
+        "hits": [
+          1100,
+          1800
+        ],
+        "unparryable": false
+      },
+      {
+        "name": "Pollenstoß: schließt alle blütenblätter zugleich – ausweichen",
+        "damage": 20,
+        "hits": [
+          2400
+        ],
+        "unparryable": true,
+        "nerves": 6
+      }
+    ],
+    "on_win": {},
+    "win_text": "Die Gestalt verliert ihren Zusammenhalt. Der Rückweg bleibt offen; lose Reste liegen abseits des Wegs.",
+    "lose_text": "Du ziehst dich zum zuvor gesicherten Rückweg zurück. Deine Aufzeichnungen bleiben erhalten.",
+    "loot": {
+      "money": [
+        11,
+        17
+      ],
+      "drops": [
+        {
+          "item": "vt_bh_bluetenkopf",
+          "chance": 1
+        },
+        {
+          "item": "vi_m_pfirsichholz",
+          "chance": 1
+        }
+      ]
+    },
+    "roam": {
+      "speed": 0,
+      "chase": 42,
+      "aggro": 80
+    },
+    "elite": {
+      "name": "Blütenkopf der langen Nacht",
+      "hp_mult": 1.4,
+      "dmg_mult": 1.2
+    }
+  },
+  "vg_bh_rohrwurm": {
+    "name": "Rohrwurm",
+    "sprite": "wild",
+    "sheet": "enemy_vg_bh_rohrwurm",
+    "hp": 338,
+    "armor": 2,
+    "occult": true,
+    "fleeable": true,
+    "chapter": 4,
+    "intro": "Ein gelöstes Heizrohrsegment kriecht unter den Werkbänken des Kesselgrunds. Zieht die Segmente ineinander.",
+    "attacks": [
+      {
+        "name": "Rohrstoß: zieht die segmente ineinander",
+        "damage": 17,
+        "hits": [
+          1100,
+          1800
+        ],
+        "unparryable": false
+      },
+      {
+        "name": "Drucksprung: bläht die mittlere dichtung – ausweichen",
+        "damage": 20,
+        "hits": [
+          2400
+        ],
+        "unparryable": true
+      }
+    ],
+    "on_win": {},
+    "win_text": "Die Gestalt verliert ihren Zusammenhalt. Der Rückweg bleibt offen; lose Reste liegen abseits des Wegs.",
+    "lose_text": "Du ziehst dich zum zuvor gesicherten Rückweg zurück. Deine Aufzeichnungen bleiben erhalten.",
+    "loot": {
+      "money": [
+        8,
+        18
+      ],
+      "drops": [
+        {
+          "item": "vt_bh_rohrwurm",
+          "chance": 1
+        },
+        {
+          "item": "vi_m_kupferrohrstueck",
+          "chance": 1
+        }
+      ]
+    },
+    "roam": {
+      "speed": 18,
+      "chase": 42,
+      "aggro": 80
+    },
+    "elite": {
+      "name": "Rohrwurm der langen Nacht",
+      "hp_mult": 1.4,
+      "dmg_mult": 1.2
+    }
+  },
+  "vg_bh_postkartenschreiber": {
+    "name": "Postkartenschreiber",
+    "sprite": "wild",
+    "sheet": "enemy_vg_bh_postkartenschreiber",
+    "hp": 234,
+    "armor": 2,
+    "occult": false,
+    "fleeable": true,
+    "chapter": 4,
+    "intro": "Ein lebender Kurgast murmelt an der Winterpromenade immer denselben Kartensatz. Dreht die Handfläche nach oben.",
+    "attacks": [
+      {
+        "name": "Federgriff: dreht die handfläche nach oben",
+        "damage": 14,
+        "hits": [
+          1100,
+          1800
+        ],
+        "unparryable": false
+      },
+      {
+        "name": "Gleicher Satz: hebt die karte vor das gesicht – ausweichen",
+        "damage": 18,
+        "hits": [
+          2400
+        ],
+        "unparryable": true,
+        "nerves": 6
+      }
+    ],
+    "on_win": {},
+    "win_text": "Der Kurgast wird bewusstlos. Ihr legt ihn sicher ab und wartet bei ihm auf Hilfe.",
+    "lose_text": "Du ziehst dich zum zuvor gesicherten Rückweg zurück. Deine Aufzeichnungen bleiben erhalten.",
+    "loot": {
+      "money": [
+        9,
+        19
+      ],
+      "drops": [
+        {
+          "item": "vt_bh_postkartenschreiber",
+          "chance": 1
+        },
+        {
+          "item": "vi_m_sudflasche",
+          "chance": 1
+        }
+      ]
+    },
+    "roam": {
+      "speed": 18,
+      "chase": 42,
+      "aggro": 80
+    },
+    "elite": {
+      "name": "Postkartenschreiber der langen Nacht",
+      "hp_mult": 1.4,
+      "dmg_mult": 1.2
+    }
+  },
+  "vg_bh_waeschegeist": {
+    "name": "Wäschegeist",
+    "sprite": "wild",
+    "sheet": "enemy_vg_bh_waeschegeist",
+    "hp": 286,
+    "armor": 2,
+    "occult": true,
+    "fleeable": true,
+    "chapter": 4,
+    "intro": "Zurückgehaltener Atem bewegt in der verlassenen Wäscherei ein kaltes Laken. Spannt eine einzelne Ecke.",
+    "attacks": [
+      {
+        "name": "Lakenhieb: spannt eine einzelne ecke",
+        "damage": 14,
+        "hits": [
+          1100,
+          1800
+        ],
+        "unparryable": false
+      },
+      {
+        "name": "Faltenschwall: rollt alle säume nach innen – ausweichen",
+        "damage": 18,
+        "hits": [
+          2700
+        ],
+        "unparryable": true
+      }
+    ],
+    "on_win": {},
+    "win_text": "Die Gestalt verliert ihren Zusammenhalt. Der Rückweg bleibt offen; lose Reste liegen abseits des Wegs.",
+    "lose_text": "Du ziehst dich zum zuvor gesicherten Rückweg zurück. Deine Aufzeichnungen bleiben erhalten.",
+    "loot": {
+      "money": [
+        10,
+        20
+      ],
+      "drops": [
+        {
+          "item": "vt_bh_waeschegeist",
+          "chance": 1
+        },
+        {
+          "item": "vi_m_kurwaesche",
+          "chance": 1
+        }
+      ]
+    },
+    "roam": {
+      "speed": 18,
+      "chase": 42,
+      "aggro": 80
+    },
+    "elite": {
+      "name": "Wäschegeist der langen Nacht",
+      "hp_mult": 1.4,
+      "dmg_mult": 1.2
+    }
+  },
+  "vg_bh_sudtraeger": {
+    "name": "Sudträger",
+    "sprite": "wild",
+    "sheet": "enemy_vg_bh_sudtraeger",
+    "hp": 364,
+    "armor": 2,
+    "occult": true,
+    "fleeable": true,
+    "chapter": 4,
+    "intro": "Ein ausrangierter Sudkessel läuft auf seinen eigenen Stützen durch den Heizgang. Zieht den Henkel nach hinten.",
+    "attacks": [
+      {
+        "name": "Henkelhieb: zieht den henkel nach hinten",
+        "damage": 17,
+        "hits": [
+          1100,
+          1800
+        ],
+        "unparryable": false
+      },
+      {
+        "name": "Überkochen: hebt den deckel mit dampf an – ausweichen",
+        "damage": 20,
+        "hits": [
+          2400
+        ],
+        "unparryable": true,
+        "nerves": 4
+      }
+    ],
+    "on_win": {},
+    "win_text": "Die Gestalt verliert ihren Zusammenhalt. Der Rückweg bleibt offen; lose Reste liegen abseits des Wegs.",
+    "lose_text": "Du ziehst dich zum zuvor gesicherten Rückweg zurück. Deine Aufzeichnungen bleiben erhalten.",
+    "loot": {
+      "money": [
+        11,
+        16
+      ],
+      "drops": [
+        {
+          "item": "vt_bh_sudtraeger",
+          "chance": 1
+        },
+        {
+          "item": "vi_m_sudflasche",
+          "chance": 1
+        }
+      ]
+    },
+    "roam": {
+      "speed": 18,
+      "chase": 42,
+      "aggro": 80
+    },
+    "elite": {
+      "name": "Sudträger der langen Nacht",
+      "hp_mult": 1.4,
+      "dmg_mult": 1.2
+    }
+  },
+  "vg_all_wegelagerer": {
+    "name": "Wegelagerer",
+    "sprite": "wild",
+    "sheet": "enemy_vg_all_wegelagerer",
+    "hp": 234,
+    "armor": 2,
+    "occult": false,
+    "fleeable": true,
+    "chapter": 4,
+    "intro": "Ein lebender Räuber nutzt die unbewachten Kehren der Landstraße. Verlagert das Gewicht aufs Vorderbein.",
+    "attacks": [
+      {
+        "name": "Knüppelhieb: verlagert das gewicht aufs vorderbein",
+        "damage": 14,
+        "hits": [
+          950,
+          1650
+        ],
+        "unparryable": false
+      },
+      {
+        "name": "Staubwurf: greift mit der freien hand zum boden – ausweichen",
+        "damage": 18,
+        "hits": [
+          2400
+        ],
+        "unparryable": true
+      }
+    ],
+    "on_win": {},
+    "win_text": "Der Räuber wirft den Knüppel weg und flieht in die Böschung.",
+    "lose_text": "Du ziehst dich zum zuvor gesicherten Rückweg zurück. Deine Aufzeichnungen bleiben erhalten.",
+    "loot": {
+      "money": [
+        8,
+        17
+      ],
+      "drops": [
+        {
+          "item": "vt_all_wegelagerer",
+          "chance": 1
+        },
+        {
+          "item": "vi_m_pferdehaar",
+          "chance": 1
+        }
+      ]
+    },
+    "roam": {
+      "speed": 32,
+      "chase": 60,
+      "aggro": 80
+    },
+    "elite": {
+      "name": "Wegelagerer der langen Nacht",
+      "hp_mult": 1.4,
+      "dmg_mult": 1.2
+    }
+  },
+  "vg_all_kutschengeist": {
+    "name": "Kutschengeist",
+    "sprite": "wild",
+    "sheet": "enemy_vg_all_kutschengeist",
+    "hp": 364,
+    "armor": 2,
+    "occult": true,
+    "fleeable": true,
+    "chapter": 4,
+    "intro": "An einer verlassenen Haltestelle wiederholt sich der Schatten einer abgefahrenen Kutsche. Schwingt eine unsichtbare Tür auf.",
+    "attacks": [
+      {
+        "name": "Türschlag: schwingt eine unsichtbare tür auf",
+        "damage": 17,
+        "hits": [
+          1100,
+          1800
+        ],
+        "unparryable": false
+      },
+      {
+        "name": "Radschatten: lässt zwei lichtkreise übereinanderlaufen – ausweichen",
+        "damage": 20,
+        "hits": [
+          2700
+        ],
+        "unparryable": true
+      }
+    ],
+    "on_win": {},
+    "win_text": "Die Gestalt verliert ihren Zusammenhalt. Der Rückweg bleibt offen; lose Reste liegen abseits des Wegs.",
+    "lose_text": "Du ziehst dich zum zuvor gesicherten Rückweg zurück. Deine Aufzeichnungen bleiben erhalten.",
+    "loot": {
+      "money": [
+        9,
+        18
+      ],
+      "drops": [
+        {
+          "item": "vt_all_kutschengeist",
+          "chance": 1
+        },
+        {
+          "item": "vi_m_kutschenlaterne",
+          "chance": 1
+        }
+      ]
+    },
+    "roam": {
+      "speed": 18,
+      "chase": 42,
+      "aggro": 80
+    },
+    "elite": {
+      "name": "Kutschengeist der langen Nacht",
+      "hp_mult": 1.4,
+      "dmg_mult": 1.2
+    }
+  },
+  "vg_all_zollhund": {
+    "name": "Zollhund",
+    "sprite": "wild",
+    "sheet": "enemy_vg_all_zollhund",
+    "hp": 338,
+    "armor": 2,
+    "occult": false,
+    "fleeable": true,
+    "chapter": 4,
+    "intro": "Ein abgerichteter Hund bewacht noch die Schranke einer aufgelösten Zollstelle. Spannt die Leine vor dem Sprung.",
+    "attacks": [
+      {
+        "name": "Leinenbiss: spannt die leine vor dem sprung",
+        "damage": 17,
+        "hits": [
+          1100,
+          1800
+        ],
+        "unparryable": false
+      },
+      {
+        "name": "Sperrsprung: senkt den brustkorb bis zum boden – ausweichen",
+        "damage": 20,
+        "hits": [
+          2400
+        ],
+        "unparryable": true
+      }
+    ],
+    "on_win": {},
+    "win_text": "Der Hund lässt die Marke fallen und zieht sich lebend hinter die Schranke zurück.",
+    "lose_text": "Du ziehst dich zum zuvor gesicherten Rückweg zurück. Deine Aufzeichnungen bleiben erhalten.",
+    "loot": {
+      "money": [
+        10,
+        19
+      ],
+      "drops": [
+        {
+          "item": "vt_all_zollhund",
+          "chance": 1
+        },
+        {
+          "item": "vi_m_wegzoll_marke",
+          "chance": 1
+        }
+      ]
+    },
+    "roam": {
+      "speed": 18,
+      "chase": 42,
+      "aggro": 80
+    },
+    "elite": {
+      "name": "Zollhund der langen Nacht",
+      "hp_mult": 1.4,
+      "dmg_mult": 1.2
+    }
+  },
+  "vg_all_nebelkraehe": {
+    "name": "Nebelkrähe",
+    "sprite": "wild",
+    "sheet": "enemy_vg_all_nebelkraehe",
+    "hp": 260,
+    "armor": 2,
+    "occult": true,
+    "fleeable": true,
+    "chapter": 4,
+    "intro": "Eine Krähe trägt Nebelfetzen zwischen die Grenzsteine der Hochstraße. Stellt die Nackenfedern auf.",
+    "attacks": [
+      {
+        "name": "Schnabelstoß: stellt die nackenfedern auf",
+        "damage": 16,
+        "hits": [
+          950,
+          1650
+        ],
+        "unparryable": false
+      },
+      {
+        "name": "Nebelsturz: verschwindet bis auf beide flügelränder – ausweichen",
+        "damage": 18,
+        "hits": [
+          2400
+        ],
+        "unparryable": true
+      }
+    ],
+    "on_win": {},
+    "win_text": "Die Gestalt verliert ihren Zusammenhalt. Der Rückweg bleibt offen; lose Reste liegen abseits des Wegs.",
+    "lose_text": "Du ziehst dich zum zuvor gesicherten Rückweg zurück. Deine Aufzeichnungen bleiben erhalten.",
+    "loot": {
+      "money": [
+        11,
+        20
+      ],
+      "drops": [
+        {
+          "item": "vt_all_nebelkraehe",
+          "chance": 1
+        },
+        {
+          "item": "vi_m_grenzsteinmoos",
+          "chance": 1
+        }
+      ]
+    },
+    "roam": {
+      "speed": 32,
+      "chase": 60,
+      "aggro": 80
+    },
+    "elite": {
+      "name": "Nebelkrähe der langen Nacht",
+      "hp_mult": 1.4,
+      "dmg_mult": 1.2
+    }
+  },
+  "vg_all_marktschreier": {
+    "name": "Marktschreier",
+    "sprite": "wild",
+    "sheet": "enemy_vg_all_marktschreier",
+    "hp": 273,
+    "armor": 2,
+    "occult": false,
+    "fleeable": true,
+    "chapter": 4,
+    "intro": "Ein lebender Betrüger verkauft an wechselnden Rastplätzen angeblich amtliche Wegegarantien. Nimmt den Vorführstock in beide Hände.",
+    "attacks": [
+      {
+        "name": "Stockfuchteln: nimmt den vorführstock in beide hände",
+        "damage": 16,
+        "hits": [
+          1100,
+          1800
+        ],
+        "unparryable": false
+      },
+      {
+        "name": "Preisruf: holt tief luft und hebt den beutel – ausweichen",
+        "damage": 20,
+        "hits": [
+          2400
+        ],
+        "unparryable": true,
+        "nerves": 6
+      }
+    ],
+    "on_win": {
+      "sets_flags": [
+        "vg_all_marktschreier_geloest"
+      ]
+    },
+    "win_text": "Der Betrüger lässt seinen Vorführbeutel fallen und flieht. Niemand verfolgt ihn mit der Waffe.",
+    "lose_text": "Du ziehst dich zum zuvor gesicherten Rückweg zurück. Deine Aufzeichnungen bleiben erhalten.",
+    "loot": {
+      "money": [
+        8,
+        16
+      ],
+      "drops": [
+        {
+          "item": "vt_all_marktschreier",
+          "chance": 1
+        },
+        {
+          "item": "vi_m_predigerzettel",
+          "chance": 1
+        }
+      ]
+    },
+    "roam": {
+      "speed": 18,
+      "chase": 42,
+      "aggro": 80
+    },
+    "elite": {
+      "name": "Marktschreier der langen Nacht",
+      "hp_mult": 1.4,
+      "dmg_mult": 1.2
+    }
+  },
+  "vg_all_grenzstein": {
+    "name": "Wandernder Grenzstein",
+    "sprite": "wild",
+    "sheet": "enemy_vg_all_grenzstein",
+    "hp": 338,
+    "armor": 2,
+    "occult": true,
+    "fleeable": true,
+    "chapter": 4,
+    "intro": "Ein alter Grenzstein dreht sich, obwohl die Flurgrenze unverändert bleibt. Kippt auf die schmale Ecke.",
+    "attacks": [
+      {
+        "name": "Kantenschlag: kippt auf die schmale ecke",
+        "damage": 17,
+        "hits": [
+          1100,
+          1800
+        ],
+        "unparryable": false
+      },
+      {
+        "name": "Richtungssturz: hebt das moos vom boden ab – ausweichen",
+        "damage": 20,
+        "hits": [
+          2400
+        ],
+        "unparryable": true
+      }
+    ],
+    "on_win": {},
+    "win_text": "Die Gestalt verliert ihren Zusammenhalt. Der Rückweg bleibt offen; lose Reste liegen abseits des Wegs.",
+    "lose_text": "Du ziehst dich zum zuvor gesicherten Rückweg zurück. Deine Aufzeichnungen bleiben erhalten.",
+    "loot": {
+      "money": [
+        9,
+        17
+      ],
+      "drops": [
+        {
+          "item": "vt_all_grenzstein",
+          "chance": 1
+        },
+        {
+          "item": "vi_m_grenzsteinmoos",
+          "chance": 1
+        }
+      ]
+    },
+    "roam": {
+      "speed": 18,
+      "chase": 42,
+      "aggro": 80
+    },
+    "elite": {
+      "name": "Wandernder Grenzstein der langen Nacht",
+      "hp_mult": 1.4,
+      "dmg_mult": 1.2
+    }
+  },
+  "vg_all_fuhrmannsschatten": {
+    "name": "Fuhrmannsschatten",
+    "sprite": "wild",
+    "sheet": "enemy_vg_all_fuhrmannsschatten",
+    "hp": 286,
+    "armor": 2,
+    "occult": true,
+    "fleeable": true,
+    "chapter": 4,
+    "intro": "Der Schatten eines Fuhrmanns wartet an der Straße länger als sein Wagen. Spannt beide Hände auseinander.",
+    "attacks": [
+      {
+        "name": "Zügelzug: spannt beide hände auseinander",
+        "damage": 14,
+        "hits": [
+          1100,
+          1800
+        ],
+        "unparryable": false
+      },
+      {
+        "name": "Schattenpeitsche: hebt den leeren arm über die schulter – ausweichen",
+        "damage": 18,
+        "hits": [
+          2700
+        ],
+        "unparryable": true
+      }
+    ],
+    "on_win": {},
+    "win_text": "Die Gestalt verliert ihren Zusammenhalt. Der Rückweg bleibt offen; lose Reste liegen abseits des Wegs.",
+    "lose_text": "Du ziehst dich zum zuvor gesicherten Rückweg zurück. Deine Aufzeichnungen bleiben erhalten.",
+    "loot": {
+      "money": [
+        10,
+        18
+      ],
+      "drops": [
+        {
+          "item": "vt_all_fuhrmannsschatten",
+          "chance": 1
+        },
+        {
+          "item": "vi_m_pferdehaar",
+          "chance": 1
+        }
+      ]
+    },
+    "roam": {
+      "speed": 18,
+      "chase": 42,
+      "aggro": 80
+    },
+    "elite": {
+      "name": "Fuhrmannsschatten der langen Nacht",
+      "hp_mult": 1.4,
+      "dmg_mult": 1.2
+    }
+  },
+  "vg_all_brueckenzoll": {
+    "name": "Brückenzoll",
+    "sprite": "wild",
+    "sheet": "enemy_vg_all_brueckenzoll",
+    "hp": 364,
+    "armor": 2,
+    "occult": true,
+    "fleeable": true,
+    "chapter": 4,
+    "intro": "Ein Zöllner ohne erkennbare Person fordert Weggeld, wo keine Brücke mehr steht. Schiebt die leere Kasse vor die Brust.",
+    "attacks": [
+      {
+        "name": "Kassenstoß: schiebt die leere kasse vor die brust",
+        "damage": 17,
+        "hits": [
+          1100,
+          1800
+        ],
+        "unparryable": false
+      },
+      {
+        "name": "Schrankenfall: zeichnet mit beiden armen einen bogen – ausweichen",
+        "damage": 20,
+        "hits": [
+          2400
+        ],
+        "unparryable": true,
+        "nerves": 4
+      }
+    ],
+    "on_win": {},
+    "win_text": "Die Gestalt verliert ihren Zusammenhalt. Der Rückweg bleibt offen; lose Reste liegen abseits des Wegs.",
+    "lose_text": "Du ziehst dich zum zuvor gesicherten Rückweg zurück. Deine Aufzeichnungen bleiben erhalten.",
+    "loot": {
+      "money": [
+        11,
+        19
+      ],
+      "drops": [
+        {
+          "item": "vt_all_brueckenzoll",
+          "chance": 1
+        },
+        {
+          "item": "vi_m_wegzoll_marke",
+          "chance": 1
+        }
+      ]
+    },
+    "roam": {
+      "speed": 18,
+      "chase": 42,
+      "aggro": 80
+    },
+    "elite": {
+      "name": "Brückenzoll der langen Nacht",
+      "hp_mult": 1.4,
+      "dmg_mult": 1.2
+    }
+  }
+}

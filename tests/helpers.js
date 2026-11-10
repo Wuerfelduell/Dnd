@@ -1,10 +1,11 @@
 import { readFileSync } from 'node:fs';
 import { Combat } from '../src/core/Combat.js';
+import { buildK3Ruf } from '../src/data/k3Ruf.js';
 import { buildContent } from '../src/data/buildContent.js';
 
 const load = (p) => JSON.parse(readFileSync(new URL(`../src/data/${p}`, import.meta.url), 'utf8'));
 
-const PACKS = ['kg_nebenquests', 'wx_nebenquests', 'koop', 'k2_akten', 'k2_orte', 'k2_gilde', 'k2_akte', 'k3_orte', 'k3_akte', 'k3_nebenquests', 'k3_pruefungen', 'k3_handel', 'k3_leben'];
+const PACKS = ['kg_nebenquests', 'wx_nebenquests', 'koop', 'k2_akten', 'k2_orte', 'k2_gilde', 'k2_akte', 'k3_orte', 'k3_akte', 'k3_nebenquests', 'k3_pruefungen', 'k3_handel', 'k3_leben', 'koop_k3'];
 const PACK_FILES = ['quests', 'items', 'encounters', 'dialogues', 'npcs', 'case', 'dialog_zusaetze', 'platzierung'];
 
 /** sequenzen: false lädt den Stand ohne Paket AF (für docs/story/sequenzen/pruefen.mjs). */
@@ -26,7 +27,7 @@ export function loadContent({ sequenzen = true, without = [] } = {}) {
     gatherings: load('treffen.json'),
     city: load('stadtgegner.json'),
     wexmoor: load('wexmoor.json'),
-    packs: PACKS.filter((name) => !without.includes(name)).map((name) => ({ name, ...Object.fromEntries(PACK_FILES.map((f) => [f, load(`packs/${name}/${f}.json`)])),
+    packs: [...PACKS.filter((name) => !without.includes(name)).map((name) => ({ name, ...Object.fromEntries(PACK_FILES.map((f) => [f, load(`packs/${name}/${f}.json`)])),
       ...(name === 'wx_nebenquests' ? { kahn_ausbau: load('packs/wx_nebenquests/kahn_ausbau.json') } : {}),
       ...(name === 'k2_akten' ? { faelle: load('packs/k2_akten/faelle.json'), zeitung: load('packs/k2_akten/zeitung.json') } : {}),
       ...(name === 'k2_akte' ? (() => {
@@ -44,7 +45,12 @@ export function loadContent({ sequenzen = true, without = [] } = {}) {
       ...(name === 'k3_leben' ? { platzierung: load('packs/k3_leben/platzierung.json').filter((p) => !p.npc), einwohner: load('packs/k3_leben/einwohner.json'), stadtgegner: load('packs/k3_leben/stadtgegner_dunscar.json'),
         ...Object.fromEntries(['phasen', 'streifen', 'gerede', 'zeitung', 'leben'].map((f) => [f, load(`packs/k3_leben/${f}.json`)])) } : {}),
       ...(name === 'k2_gilde' ? { artefakte: load('packs/k2_gilde/artefakte.json'), treffen: load('packs/k2_gilde/treffen_namensgilde.json') } : {}),
-      ...(name === 'koop' ? { geplauder: load('packs/koop/geplauder.json'), kampf: load('packs/koop/kampf.json') } : {}) })),
+      ...(name === 'koop' ? { geplauder: load('packs/koop/geplauder.json'), kampf: load('packs/koop/kampf.json') } : {}),
+      ...(name === 'koop_k3' ? { platzierung: load('packs/koop_k3/platzierung.json').filter((p) => !p.interactable.id.startsWith('koop_ds_schleuse')),
+        ...Object.fromEntries(['geplauder', 'kampf', 'bindung'].map((f) => [f, load(`packs/koop_k3/${f}.json`)])) } : {}) })),
+    // Paket BG bringt nur Zusätze, Ansprüche, Ersatzzeilen und Texte
+    ...(without.includes('k3_ruf') ? [] : [buildK3Ruf(Object.fromEntries(['stationen', 'klang_zuordnung', 'bindungen', 'texte'].map((f) => [f, load(`packs/k3_ruf/${f}.json`)])))]),
+    ...(without.includes('koop_beute') ? [] : [{ name: 'koop_beute', dialog_zusaetze: load('packs/koop_beute/dialog_zusaetze.json'), ansprueche: load('packs/koop_beute/ansprueche.json'), ersatz: load('packs/koop_beute/ersatz.json'), texte: load('packs/koop_beute/texte.json') }])],
     beziehungen: load('beziehungen.json'),
     lore: Object.fromEntries(['bestiarium', 'gerede', 'item_texte', 'lesestuecke', 'zeitungen'].map((f) => [f, load(`packs/lore/${f}.json`)])),
     sequenzen: sequenzen ? { ...Object.fromEntries(['neue_pfade', 'seq_4_bis_1', 'zutaten', 'artefakte'].map((f) => [f, load(`packs/sequenzen/${f}.json`)])),

@@ -1,0 +1,921 @@
+{
+  "keime": [
+    {
+      "id": "bj_keim_cw_crayford",
+      "figur": "cw_crayford",
+      "title": "Der geliehene Buchrücken",
+      "ausloeser": {
+        "dialogue": "bj_cw_crayford",
+        "node": "bitte"
+      },
+      "schritte": [
+        "Die drei Besitzer getrennt nach den beschädigten Seiten fragen.",
+        "Leimreste mit den Reparaturzetteln vergleichen.",
+        "Die Familien um eine gemeinsame Leihregel bitten.",
+        "Den Band erst nach Zustimmung neu binden lassen."
+      ],
+      "belohnung": {
+        "gives_items": {
+          "vi_m_registerband": 1
+        },
+        "gives_money": 8
+      },
+      "gegner": [
+        "vg_cw_registerratte"
+      ],
+      "begegnung": "Optionale Komplikation am Nebenweg; weder der Fund noch eine notwendige Aussage liegt ausschließlich hinter einem Kampf.",
+      "friedlicher_weg": "Mit Erlaubnis der Aufsicht Futter abseits der Unterlagen abstellen und den Fund anschließend sichern.",
+      "spielzeit_minuten": 8,
+      "grenze": "Skizze ohne Queststart, Abschlussflag, Karten-ID oder Haupthinweis. Die Belohnung wird erst nach späterer Umsetzung vergeben."
+    },
+    {
+      "id": "bj_keim_cw_ida_bellcross",
+      "figur": "cw_ida_bellcross",
+      "title": "Eine Zeile für die Pause",
+      "ausloeser": {
+        "dialogue": "bj_cw_ida_bellcross",
+        "node": "bitte"
+      },
+      "schritte": [
+        "Drei Werkstätten nach ihren Pausenzeiten fragen.",
+        "Alte Druckfahnen auf nachträglich veränderte Abstände prüfen.",
+        "Eine freiwillige Gegendarstellung der Gesellen sammeln.",
+        "Den neuen Aushang vor dem Druck gemeinsam gegenlesen."
+      ],
+      "belohnung": {
+        "gives_items": {
+          "vi_m_bleiletter": 1
+        },
+        "gives_money": 10
+      },
+      "gegner": [
+        "vg_cw_letternlaeufer"
+      ],
+      "begegnung": "Optionale Komplikation am Nebenweg; weder der Fund noch eine notwendige Aussage liegt ausschließlich hinter einem Kampf.",
+      "friedlicher_weg": "Den abgesperrten Arbeitsgang meiden und die Vergleichsfassung bei einer zweiten Werkstatt erfragen.",
+      "spielzeit_minuten": 10,
+      "grenze": "Skizze ohne Queststart, Abschlussflag, Karten-ID oder Haupthinweis. Die Belohnung wird erst nach späterer Umsetzung vergeben."
+    },
+    {
+      "id": "bj_keim_cw_noel_bellcross",
+      "figur": "cw_noel_bellcross",
+      "title": "Der Topf ohne Griff",
+      "ausloeser": {
+        "dialogue": "bj_cw_noel_bellcross",
+        "node": "bitte"
+      },
+      "schritte": [
+        "Die angebotenen Griffe auf Hitzefestigkeit prüfen.",
+        "Die Herkunft des brauchbaren Stücks erfragen.",
+        "Mit der Eigentümerin einen Tausch vereinbaren.",
+        "Den Topf gemeinsam sichern und eine Probeportion verteilen."
+      ],
+      "belohnung": {
+        "gives_items": {
+          "vi_v_setzerbrot": 1
+        },
+        "gives_money": 12
+      },
+      "gegner": [
+        "vg_cw_registerratte"
+      ],
+      "begegnung": "Optionale Komplikation am Nebenweg; weder der Fund noch eine notwendige Aussage liegt ausschließlich hinter einem Kampf.",
+      "friedlicher_weg": "Mit Erlaubnis der Aufsicht Futter abseits der Unterlagen abstellen und den Fund anschließend sichern.",
+      "spielzeit_minuten": 12,
+      "grenze": "Skizze ohne Queststart, Abschlussflag, Karten-ID oder Haupthinweis. Die Belohnung wird erst nach späterer Umsetzung vergeben."
+    },
+    {
+      "id": "bj_keim_cw_wetherby",
+      "figur": "cw_wetherby",
+      "title": "Die verrutschte Wartebank",
+      "ausloeser": {
+        "dialogue": "bj_cw_wetherby",
+        "node": "bitte"
+      },
+      "schritte": [
+        "Träger und Wartende getrennt zum Engpass befragen.",
+        "Alte Befestigungsspuren am Boden vergleichen.",
+        "Einen freien Durchgang ohne Vertreibung der Wartenden abstecken.",
+        "Die Bank mit Zustimmung beider Gruppen versetzen lassen."
+      ],
+      "belohnung": {
+        "gives_items": {
+          "vi_m_rohrpostkapsel_leer": 1
+        },
+        "gives_money": 14
+      },
+      "gegner": [
+        "vg_cw_stempelhand"
+      ],
+      "begegnung": "Optionale Komplikation am Nebenweg; weder der Fund noch eine notwendige Aussage liegt ausschließlich hinter einem Kampf.",
+      "friedlicher_weg": "Die Aufsicht den leeren Stempeltisch freigeben lassen; den eigenen Weg außerhalb ihres Arbeitsbereichs nehmen.",
+      "spielzeit_minuten": 8,
+      "grenze": "Skizze ohne Queststart, Abschlussflag, Karten-ID oder Haupthinweis. Die Belohnung wird erst nach späterer Umsetzung vergeben."
+    },
+    {
+      "id": "bj_keim_cw_darnell",
+      "figur": "cw_darnell",
+      "title": "Eine Kapsel zu viel",
+      "ausloeser": {
+        "dialogue": "bj_cw_darnell",
+        "node": "bitte"
+      },
+      "schritte": [
+        "Kapselnaht und Verschluss vermessen.",
+        "Zwei Werkstätten nach ihren Werkzeugspuren fragen.",
+        "Den leeren Behälter im Beisein einer Zeugin zurückgeben."
+      ],
+      "belohnung": {
+        "gives_items": {
+          "vi_m_rohrpostkapsel_leer": 1
+        },
+        "gives_money": 8
+      },
+      "gegner": [
+        "vg_cw_rohrpostwespe"
+      ],
+      "begegnung": "Optionale Komplikation am Nebenweg; weder der Fund noch eine notwendige Aussage liegt ausschließlich hinter einem Kampf.",
+      "friedlicher_weg": "Die Rohrpostwartin eine unbenutzte Leitung schließen lassen und den Vergleich am Schalter durchführen.",
+      "spielzeit_minuten": 10,
+      "grenze": "Skizze ohne Queststart, Abschlussflag, Karten-ID oder Haupthinweis. Die Belohnung wird erst nach späterer Umsetzung vergeben."
+    },
+    {
+      "id": "bj_keim_cw_hesk",
+      "figur": "cw_hesk",
+      "title": "Die Last der anderen",
+      "ausloeser": {
+        "dialogue": "bj_cw_hesk",
+        "node": "bitte"
+      },
+      "schritte": [
+        "Radspuren und den verschlissenen Bremsklotz untersuchen.",
+        "Die beiden Träger unabhängig ihre Wege nachgehen lassen.",
+        "Die doppelte Berechnung beim Verleiher mit Zeugen berichtigen lassen.",
+        "Den reparierten Wagen beiden zugänglich machen."
+      ],
+      "belohnung": {
+        "gives_items": {
+          "vi_m_seilbahnfett": 1
+        },
+        "gives_money": 10
+      },
+      "gegner": [
+        "vg_cw_leerfracht"
+      ],
+      "begegnung": "Optionale Komplikation am Nebenweg; weder der Fund noch eine notwendige Aussage liegt ausschließlich hinter einem Kampf.",
+      "friedlicher_weg": "Die Verladung unter Aufsicht anhalten und Auskünfte außerhalb des bewegten Sacklagers einholen.",
+      "spielzeit_minuten": 12,
+      "grenze": "Skizze ohne Queststart, Abschlussflag, Karten-ID oder Haupthinweis. Die Belohnung wird erst nach späterer Umsetzung vergeben."
+    },
+    {
+      "id": "bj_keim_cw_wicksend",
+      "figur": "cw_wicksend",
+      "title": "Der schiefe Henkel",
+      "ausloeser": {
+        "dialogue": "bj_cw_wicksend",
+        "node": "bitte"
+      },
+      "schritte": [
+        "Die Aussagen getrennt aufnehmen.",
+        "Eine ältere Reparaturrechnung beim Töpfer suchen.",
+        "Den Krug gemeinsam vorführen und die Eigentumsfrage klären.",
+        "Für die andere Person eine freiwillige Ersatzlösung vereinbaren."
+      ],
+      "belohnung": {
+        "gives_items": {
+          "vi_m_registerband": 1
+        },
+        "gives_money": 12
+      },
+      "gegner": [
+        "vg_cw_durchschlag"
+      ],
+      "begegnung": "Optionale Komplikation am Nebenweg; weder der Fund noch eine notwendige Aussage liegt ausschließlich hinter einem Kampf.",
+      "friedlicher_weg": "Die beteiligten Lebenden getrennt befragen; keine Aussage der Kopie als Eigentumsnachweis übernehmen.",
+      "spielzeit_minuten": 8,
+      "grenze": "Skizze ohne Queststart, Abschlussflag, Karten-ID oder Haupthinweis. Die Belohnung wird erst nach späterer Umsetzung vergeben."
+    },
+    {
+      "id": "bj_keim_cw_bexley",
+      "figur": "cw_bexley",
+      "title": "Drei Schläge am Morgen",
+      "ausloeser": {
+        "dialogue": "bj_cw_bexley",
+        "node": "bitte"
+      },
+      "schritte": [
+        "Die Klopfzeiten in drei Wohnungen erfragen.",
+        "Die Leitung bei abgeschalteter Zusatzheizung abhören.",
+        "Das lockere Lager sichern oder der erreichbaren Person helfen.",
+        "Den Bewohnern das Ergebnis ohne Namensmutmaßungen erklären."
+      ],
+      "belohnung": {
+        "gives_items": {
+          "vi_m_kupferrohrstueck": 1
+        },
+        "gives_money": 14
+      },
+      "gegner": [
+        "vg_cw_tintenschatten"
+      ],
+      "begegnung": "Optionale Komplikation am Nebenweg; weder der Fund noch eine notwendige Aussage liegt ausschließlich hinter einem Kampf.",
+      "friedlicher_weg": "Den dunklen Wartungsgang meiden und mit Erlaubnis der Bewohner von der anderen Rohrseite prüfen.",
+      "spielzeit_minuten": 10,
+      "grenze": "Skizze ohne Queststart, Abschlussflag, Karten-ID oder Haupthinweis. Die Belohnung wird erst nach späterer Umsetzung vergeben."
+    },
+    {
+      "id": "bj_keim_cw_malliver",
+      "figur": "cw_malliver",
+      "title": "Der nachgezogene Rand",
+      "ausloeser": {
+        "dialogue": "bj_cw_malliver",
+        "node": "bitte"
+      },
+      "schritte": [
+        "Die Besitzerin nach ihrem Auftrag fragen.",
+        "Die ursprüngliche Rechnung mit den verwendeten Pigmenten vergleichen.",
+        "Eine kleine reversible Probe unter Aufsicht freilegen.",
+        "Über Kennzeichnung oder Rücknahme der Ergänzung gemeinsam entscheiden."
+      ],
+      "belohnung": {
+        "gives_items": {
+          "vi_m_tintenkuchen": 1
+        },
+        "gives_money": 8
+      },
+      "gegner": [
+        "vg_cw_durchschlag"
+      ],
+      "begegnung": "Optionale Komplikation am Nebenweg; weder der Fund noch eine notwendige Aussage liegt ausschließlich hinter einem Kampf.",
+      "friedlicher_weg": "Die beteiligten Lebenden getrennt befragen; keine Aussage der Kopie als Eigentumsnachweis übernehmen.",
+      "spielzeit_minuten": 12,
+      "grenze": "Skizze ohne Queststart, Abschlussflag, Karten-ID oder Haupthinweis. Die Belohnung wird erst nach späterer Umsetzung vergeben."
+    },
+    {
+      "id": "bj_keim_cw_pritch",
+      "figur": "cw_pritch",
+      "title": "Der fehlende Lohnlöffel",
+      "ausloeser": {
+        "dialogue": "bj_cw_pritch",
+        "node": "bitte"
+      },
+      "schritte": [
+        "Den Gesellen unter vier Augen nach dem Griff fragen.",
+        "Beim Trödler die Herkunft des passenden Löffels prüfen.",
+        "Einen erlaubten Rückkauf aus dem gemeinsamen Beitrag vereinbaren.",
+        "Den Löffel ohne öffentliche Danksagung zurückbringen."
+      ],
+      "belohnung": {
+        "gives_items": {
+          "vi_v_setzerbrot": 1
+        },
+        "gives_money": 10
+      },
+      "gegner": [
+        "vg_cw_leerfracht"
+      ],
+      "begegnung": "Optionale Komplikation am Nebenweg; weder der Fund noch eine notwendige Aussage liegt ausschließlich hinter einem Kampf.",
+      "friedlicher_weg": "Die Verladung unter Aufsicht anhalten und Auskünfte außerhalb des bewegten Sacklagers einholen.",
+      "spielzeit_minuten": 8,
+      "grenze": "Skizze ohne Queststart, Abschlussflag, Karten-ID oder Haupthinweis. Die Belohnung wird erst nach späterer Umsetzung vergeben."
+    },
+    {
+      "id": "bj_keim_bh_bellweather",
+      "figur": "bh_bellweather",
+      "title": "Wärme für einen Stuhl",
+      "ausloeser": {
+        "dialogue": "bj_bh_bellweather",
+        "node": "bitte"
+      },
+      "schritte": [
+        "Die Zugluft mit einem losen Faden sichtbar machen.",
+        "Ausgemusterte Stoffreste auf Feuchtigkeit prüfen.",
+        "Mit Zustimmung der Eigentümerin eine Türrolle nähen.",
+        "Bei offenem Lüftungsspalt die Wärme erneut prüfen."
+      ],
+      "belohnung": {
+        "gives_items": {
+          "vi_m_kupferrohrstueck": 1
+        },
+        "gives_money": 12
+      },
+      "gegner": [
+        "vg_bh_rohrwurm"
+      ],
+      "begegnung": "Optionale Komplikation am Nebenweg; weder der Fund noch eine notwendige Aussage liegt ausschließlich hinter einem Kampf.",
+      "friedlicher_weg": "Den getrennten Wartungsabschnitt durch den Rohrwart sichern lassen; Wohnwärme nicht unterbrechen.",
+      "spielzeit_minuten": 10,
+      "grenze": "Skizze ohne Queststart, Abschlussflag, Karten-ID oder Haupthinweis. Die Belohnung wird erst nach späterer Umsetzung vergeben."
+    },
+    {
+      "id": "bj_keim_bh_orla_fencrest",
+      "figur": "bh_orla_fencrest",
+      "title": "Eine Nachricht mit Rückseite",
+      "ausloeser": {
+        "dialogue": "bj_bh_orla_fencrest",
+        "node": "bitte"
+      },
+      "schritte": [
+        "Die Schreiberin nach ihrer gewünschten Nachricht fragen.",
+        "Unbedrucktes Papier aus freigegebenem Ausschuss besorgen.",
+        "Die Frau selbst schreiben oder diktieren lassen.",
+        "Den Brief nur mit ihrer Zustimmung aufgeben."
+      ],
+      "belohnung": {
+        "gives_items": {
+          "vi_m_kurwaesche": 1
+        },
+        "gives_money": 14
+      },
+      "gegner": [
+        "vg_bh_postkartenschreiber"
+      ],
+      "begegnung": "Optionale Komplikation am Nebenweg; weder der Fund noch eine notwendige Aussage liegt ausschließlich hinter einem Kampf.",
+      "friedlicher_weg": "Die betroffene Person in Ruhe lassen und die freiwillige Auskunft am öffentlichen Schreibtisch einholen.",
+      "spielzeit_minuten": 12,
+      "grenze": "Skizze ohne Queststart, Abschlussflag, Karten-ID oder Haupthinweis. Die Belohnung wird erst nach späterer Umsetzung vergeben."
+    },
+    {
+      "id": "bj_keim_bh_felix_fencrest",
+      "figur": "bh_felix_fencrest",
+      "title": "Ein Koffer ohne Eile",
+      "ausloeser": {
+        "dialogue": "bj_bh_felix_fencrest",
+        "node": "bitte"
+      },
+      "schritte": [
+        "Den Gepäckschein auf Übergabewünsche prüfen.",
+        "Eine erlaubte Nachricht an den Besitzer zustellen lassen.",
+        "Seine Antwort mit der Beschreibung des Gepäcks abgleichen.",
+        "Den Koffer zurückgeben oder nach seinem Wunsch verwahren."
+      ],
+      "belohnung": {
+        "gives_items": {
+          "vi_m_pferdehaar": 1
+        },
+        "gives_money": 8
+      },
+      "gegner": [
+        "vg_bh_waeschegeist"
+      ],
+      "begegnung": "Optionale Komplikation am Nebenweg; weder der Fund noch eine notwendige Aussage liegt ausschließlich hinter einem Kampf.",
+      "friedlicher_weg": "Den gesperrten Waschraum umgehen und freigegebenen Stoff aus dem trockenen Vorrat nutzen.",
+      "spielzeit_minuten": 8,
+      "grenze": "Skizze ohne Queststart, Abschlussflag, Karten-ID oder Haupthinweis. Die Belohnung wird erst nach späterer Umsetzung vergeben."
+    },
+    {
+      "id": "bj_keim_bh_greavesend",
+      "figur": "bh_greavesend",
+      "title": "Die zu hohe Ablage",
+      "ausloeser": {
+        "dialogue": "bj_bh_greavesend",
+        "node": "bitte"
+      },
+      "schritte": [
+        "Gäste nach einer angenehmen Griffhöhe fragen.",
+        "Die Becherablage ohne Behandlungsakten vermessen.",
+        "Eine sichere niedrige Halterung anfertigen lassen.",
+        "Die neue Aufstellung gemeinsam erproben."
+      ],
+      "belohnung": {
+        "gives_items": {
+          "vi_m_sudflasche": 1
+        },
+        "gives_money": 10
+      },
+      "gegner": [
+        "vg_bh_sudtraeger"
+      ],
+      "begegnung": "Optionale Komplikation am Nebenweg; weder der Fund noch eine notwendige Aussage liegt ausschließlich hinter einem Kampf.",
+      "friedlicher_weg": "Den Transportweg räumen und den leeren Arbeitsbereich nach der angekündigten Fahrt prüfen.",
+      "spielzeit_minuten": 10,
+      "grenze": "Skizze ohne Queststart, Abschlussflag, Karten-ID oder Haupthinweis. Die Belohnung wird erst nach späterer Umsetzung vergeben."
+    },
+    {
+      "id": "bj_keim_bh_vellish",
+      "figur": "bh_vellish",
+      "title": "Der kalte Steckling",
+      "ausloeser": {
+        "dialogue": "bj_bh_vellish",
+        "node": "bitte"
+      },
+      "schritte": [
+        "Licht und Zugluft an drei freien Stellen vergleichen.",
+        "Die Herkunft des Stecklings bei der Besitzerin erfragen.",
+        "Einen freien Topf reinigen und die Pflanze behutsam umsetzen.",
+        "Nach einer Wartezeit die Blätter mit der Besitzerin prüfen."
+      ],
+      "belohnung": {
+        "gives_items": {
+          "vi_m_pfirsichholz": 1
+        },
+        "gives_money": 12
+      },
+      "gegner": [
+        "vg_bh_glasmotte"
+      ],
+      "begegnung": "Optionale Komplikation am Nebenweg; weder der Fund noch eine notwendige Aussage liegt ausschließlich hinter einem Kampf.",
+      "friedlicher_weg": "Bei Tageslicht den öffentlichen Weg nehmen und private Glasräume verschlossen lassen.",
+      "spielzeit_minuten": 12,
+      "grenze": "Skizze ohne Queststart, Abschlussflag, Karten-ID oder Haupthinweis. Die Belohnung wird erst nach späterer Umsetzung vergeben."
+    },
+    {
+      "id": "bj_keim_bh_malkin",
+      "figur": "bh_malkin",
+      "title": "Das singende Ventil",
+      "ausloeser": {
+        "dialogue": "bj_bh_malkin",
+        "node": "bitte"
+      },
+      "schritte": [
+        "Die Bewohner nach der Störung fragen.",
+        "Den getrennten Wartungsabschnitt am vorhandenen Plan bestätigen.",
+        "Eine passende Dichtung aus freigegebenem Material einsetzen.",
+        "Bei unveränderter Wohnwärme den Lauf kontrollieren."
+      ],
+      "belohnung": {
+        "gives_items": {
+          "vi_m_kupferrohrstueck": 1
+        },
+        "gives_money": 14
+      },
+      "gegner": [
+        "vg_bh_rohrwurm"
+      ],
+      "begegnung": "Optionale Komplikation am Nebenweg; weder der Fund noch eine notwendige Aussage liegt ausschließlich hinter einem Kampf.",
+      "friedlicher_weg": "Den getrennten Wartungsabschnitt durch den Rohrwart sichern lassen; Wohnwärme nicht unterbrechen.",
+      "spielzeit_minuten": 8,
+      "grenze": "Skizze ohne Queststart, Abschlussflag, Karten-ID oder Haupthinweis. Die Belohnung wird erst nach späterer Umsetzung vergeben."
+    },
+    {
+      "id": "bj_keim_bh_rookwell",
+      "figur": "bh_rookwell",
+      "title": "Die erreichbare Glocke",
+      "ausloeser": {
+        "dialogue": "bj_bh_rookwell",
+        "node": "bitte"
+      },
+      "schritte": [
+        "Den Gast nach dem gewünschten Platz fragen.",
+        "Schnur und Befestigung auf sicheren Zug prüfen.",
+        "Die Glocke mit Zustimmung versetzen.",
+        "Den Gast selbst den neuen Weg erproben lassen."
+      ],
+      "belohnung": {
+        "gives_items": {
+          "vi_m_kurwaesche": 1
+        },
+        "gives_money": 8
+      },
+      "gegner": [
+        "vg_bh_dampfschwester"
+      ],
+      "begegnung": "Optionale Komplikation am Nebenweg; weder der Fund noch eine notwendige Aussage liegt ausschließlich hinter einem Kampf.",
+      "friedlicher_weg": "Außerhalb der Dampfleitungen warten und die zuständige lebende Pflegekraft holen.",
+      "spielzeit_minuten": 10,
+      "grenze": "Skizze ohne Queststart, Abschlussflag, Karten-ID oder Haupthinweis. Die Belohnung wird erst nach späterer Umsetzung vergeben."
+    },
+    {
+      "id": "bj_keim_bh_henshall",
+      "figur": "bh_henshall",
+      "title": "Die Bank im Schatten",
+      "ausloeser": {
+        "dialogue": "bj_bh_henshall",
+        "node": "bitte"
+      },
+      "schritte": [
+        "Beatrice nach der gewünschten Aussicht fragen.",
+        "Mit der Platzwartin einen freien Schattenort bestimmen.",
+        "Eine vorhandene Bank mit Helfern sicher umstellen.",
+        "Beatrice selbst entscheiden lassen, ob der Ort passt."
+      ],
+      "belohnung": {
+        "gives_items": {
+          "vi_m_kurwaesche": 1
+        },
+        "gives_money": 10
+      },
+      "gegner": [
+        "vg_bh_postkartenschreiber"
+      ],
+      "begegnung": "Optionale Komplikation am Nebenweg; weder der Fund noch eine notwendige Aussage liegt ausschließlich hinter einem Kampf.",
+      "friedlicher_weg": "Die betroffene Person in Ruhe lassen und die freiwillige Auskunft am öffentlichen Schreibtisch einholen.",
+      "spielzeit_minuten": 12,
+      "grenze": "Skizze ohne Queststart, Abschlussflag, Karten-ID oder Haupthinweis. Die Belohnung wird erst nach späterer Umsetzung vergeben."
+    },
+    {
+      "id": "bj_keim_bh_crowther",
+      "figur": "bh_crowther",
+      "title": "Eine Lieferung ohne Anspruch",
+      "ausloeser": {
+        "dialogue": "bj_bh_crowther",
+        "node": "bitte"
+      },
+      "schritte": [
+        "Die leere Kiste auf ältere Reparaturen prüfen.",
+        "Beide Käufer nach dem vereinbarten Leihzeitraum fragen.",
+        "Die Rechnungsdaten mit den tatsächlichen Übergaben vergleichen.",
+        "Eine Rückzahlung und die nächste Abholung getrennt festhalten."
+      ],
+      "belohnung": {
+        "gives_items": {
+          "vi_m_sudflasche": 1
+        },
+        "gives_money": 12
+      },
+      "gegner": [
+        "vg_bh_glasmotte"
+      ],
+      "begegnung": "Optionale Komplikation am Nebenweg; weder der Fund noch eine notwendige Aussage liegt ausschließlich hinter einem Kampf.",
+      "friedlicher_weg": "Bei Tageslicht den öffentlichen Weg nehmen und private Glasräume verschlossen lassen.",
+      "spielzeit_minuten": 8,
+      "grenze": "Skizze ohne Queststart, Abschlussflag, Karten-ID oder Haupthinweis. Die Belohnung wird erst nach späterer Umsetzung vergeben."
+    },
+    {
+      "id": "bj_keim_bh_dipple",
+      "figur": "bh_dipple",
+      "title": "Der Schatten des Blattes",
+      "ausloeser": {
+        "dialogue": "bj_bh_dipple",
+        "node": "bitte"
+      },
+      "schritte": [
+        "Die Schülerin ihre eigene Beobachtung erklären lassen.",
+        "Dasselbe gewöhnliche Blatt bei zwei Lichtständen zeichnen.",
+        "Beide Fassungen mit der tatsächlichen Kante vergleichen.",
+        "Die Korrektur gemeinsam neben der ersten Zeichnung aufbewahren."
+      ],
+      "belohnung": {
+        "gives_items": {
+          "vi_m_pfirsichholz": 1
+        },
+        "gives_money": 14
+      },
+      "gegner": [
+        "vg_bh_bluetenkopf"
+      ],
+      "begegnung": "Optionale Komplikation am Nebenweg; weder der Fund noch eine notwendige Aussage liegt ausschließlich hinter einem Kampf.",
+      "friedlicher_weg": "Das Beet nicht betreten; ein freigegebenes gewöhnliches Blatt am Arbeitstisch vergleichen.",
+      "spielzeit_minuten": 10,
+      "grenze": "Skizze ohne Queststart, Abschlussflag, Karten-ID oder Haupthinweis. Die Belohnung wird erst nach späterer Umsetzung vergeben."
+    },
+    {
+      "id": "bj_keim_vn_kutscherin",
+      "figur": "vn_kutscherin",
+      "title": "Der falsche Halteriemen",
+      "ausloeser": {
+        "dialogue": "bj_vn_kutscherin",
+        "node": "bitte"
+      },
+      "schritte": [
+        "Die Kutsche vor jeder Weiterfahrt sichern.",
+        "Den alten Riemen mit dem Ersatzstück vergleichen.",
+        "Die Werkstatt zu einer passenden Reparatur bewegen.",
+        "Die Fahrgäste selbst über die Weiterfahrt entscheiden lassen."
+      ],
+      "belohnung": {
+        "gives_items": {
+          "vi_v_wegzehrung": 1
+        },
+        "gives_money": 8
+      },
+      "gegner": [
+        "vg_all_fuhrmannsschatten"
+      ],
+      "begegnung": "Optionale Komplikation am Nebenweg; weder der Fund noch eine notwendige Aussage liegt ausschließlich hinter einem Kampf.",
+      "friedlicher_weg": "Die Fahrt bei Tageslicht mit einer bekannten Begleitperson wieder aufnehmen.",
+      "spielzeit_minuten": 12,
+      "grenze": "Skizze ohne Queststart, Abschlussflag, Karten-ID oder Haupthinweis. Die Belohnung wird erst nach späterer Umsetzung vergeben."
+    },
+    {
+      "id": "bj_keim_vn_zoellner",
+      "figur": "vn_zoellner",
+      "title": "Die doppelte Schale",
+      "ausloeser": {
+        "dialogue": "bj_vn_zoellner",
+        "node": "bitte"
+      },
+      "schritte": [
+        "Die Reisenden nach beiden Zahlstellen fragen.",
+        "Den Weg mit einem freiwilligen Zeugen abgehen.",
+        "Berechtigte und erfundene Forderung getrennt vorlegen.",
+        "Eine Rückgabe der doppelten Zahlung aushandeln."
+      ],
+      "belohnung": {
+        "gives_items": {
+          "vi_m_wegzoll_marke": 1
+        },
+        "gives_money": 10
+      },
+      "gegner": [
+        "vg_all_brueckenzoll"
+      ],
+      "begegnung": "Optionale Komplikation am Nebenweg; weder der Fund noch eine notwendige Aussage liegt ausschließlich hinter einem Kampf.",
+      "friedlicher_weg": "Die behauptete Brücke von sicherem Abstand verlangen und den bestätigten freien Umweg nehmen.",
+      "spielzeit_minuten": 8,
+      "grenze": "Skizze ohne Queststart, Abschlussflag, Karten-ID oder Haupthinweis. Die Belohnung wird erst nach späterer Umsetzung vergeben."
+    },
+    {
+      "id": "bj_keim_vn_hausiererin",
+      "figur": "vn_hausiererin",
+      "title": "Die Nadel im Futter",
+      "ausloeser": {
+        "dialogue": "bj_vn_hausiererin",
+        "node": "bitte"
+      },
+      "schritte": [
+        "Den Kunden den Mantel und den gesuchten Gegenstand beschreiben lassen.",
+        "Das Futter ohne Zerreißen vorsichtig abtasten.",
+        "Eine offene Naht mit Zustimmung lösen.",
+        "Fund und Mantel zusammen zurückgeben und die Naht schließen."
+      ],
+      "belohnung": {
+        "gives_items": {
+          "vi_m_pferdehaar": 1
+        },
+        "gives_money": 12
+      },
+      "gegner": [
+        "vg_all_marktschreier"
+      ],
+      "begegnung": "Optionale Komplikation am Nebenweg; weder der Fund noch eine notwendige Aussage liegt ausschließlich hinter einem Kampf.",
+      "friedlicher_weg": "Den Kauf abbrechen und Vergleichsaussagen anderer Reisender einholen.",
+      "spielzeit_minuten": 10,
+      "grenze": "Skizze ohne Queststart, Abschlussflag, Karten-ID oder Haupthinweis. Die Belohnung wird erst nach späterer Umsetzung vergeben."
+    },
+    {
+      "id": "bj_keim_vn_landarzt",
+      "figur": "vn_landarzt",
+      "title": "Das trockene Verbandtuch",
+      "ausloeser": {
+        "dialogue": "bj_vn_landarzt",
+        "node": "bitte"
+      },
+      "schritte": [
+        "Die unbrauchbaren Tücher von sauberen Resten trennen.",
+        "Eine erlaubte trockene Wärmequelle bei Reisenden finden.",
+        "Eine frische Lieferung über eine sichere kurze Strecke holen.",
+        "Harrow die Verwendbarkeit selbst prüfen lassen."
+      ],
+      "belohnung": {
+        "gives_items": {
+          "vi_v_dampfkompresse": 1
+        },
+        "gives_money": 14
+      },
+      "gegner": [
+        "vg_all_nebelkraehe"
+      ],
+      "begegnung": "Optionale Komplikation am Nebenweg; weder der Fund noch eine notwendige Aussage liegt ausschließlich hinter einem Kampf.",
+      "friedlicher_weg": "Unter einem gedeckten Rastdach warten und den kurzen Weg gemeinsam bei klarer Sicht gehen.",
+      "spielzeit_minuten": 12,
+      "grenze": "Skizze ohne Queststart, Abschlussflag, Karten-ID oder Haupthinweis. Die Belohnung wird erst nach späterer Umsetzung vergeben."
+    },
+    {
+      "id": "bj_keim_vn_wanderprediger",
+      "figur": "vn_wanderprediger",
+      "title": "Die leere Rastschale",
+      "ausloeser": {
+        "dialogue": "bj_vn_wanderprediger",
+        "node": "bitte"
+      },
+      "schritte": [
+        "Die Rastenden nach den Zeiten fragen.",
+        "Standfläche und Tierspuren prüfen.",
+        "Die Schale mit einer erlaubten Halterung sichern.",
+        "Wasser nachfüllen und einen freiwilligen Wachdienst vereinbaren."
+      ],
+      "belohnung": {
+        "gives_items": {
+          "vi_m_predigerzettel": 1
+        },
+        "gives_money": 8
+      },
+      "gegner": [
+        "vg_all_zollhund"
+      ],
+      "begegnung": "Optionale Komplikation am Nebenweg; weder der Fund noch eine notwendige Aussage liegt ausschließlich hinter einem Kampf.",
+      "friedlicher_weg": "Abstand halten und die zuständige Begleitperson ansprechen; keine unbekannten Tiere anfassen.",
+      "spielzeit_minuten": 8,
+      "grenze": "Skizze ohne Queststart, Abschlussflag, Karten-ID oder Haupthinweis. Die Belohnung wird erst nach späterer Umsetzung vergeben."
+    },
+    {
+      "id": "bj_keim_vn_kartenzeichnerin",
+      "figur": "vn_kartenzeichnerin",
+      "title": "Der Stein am falschen Weg",
+      "ausloeser": {
+        "dialogue": "bj_vn_kartenzeichnerin",
+        "node": "bitte"
+      },
+      "schritte": [
+        "Zwei Reisende getrennt nach dem Weg fragen.",
+        "Spuren des alten Sockels mit dem Maß vergleichen.",
+        "Die sichere Strecke gemeinsam abgehen.",
+        "Den Stein mit Zustimmung der Anlieger ausrichten."
+      ],
+      "belohnung": {
+        "gives_items": {
+          "vi_m_landkarte_rest": 1
+        },
+        "gives_money": 10
+      },
+      "gegner": [
+        "vg_all_grenzstein"
+      ],
+      "begegnung": "Optionale Komplikation am Nebenweg; weder der Fund noch eine notwendige Aussage liegt ausschließlich hinter einem Kampf.",
+      "friedlicher_weg": "Den Ort mit zwei unabhängigen Wegbeschreibungen umgehen, bis eine begleitete Prüfung möglich ist.",
+      "spielzeit_minuten": 10,
+      "grenze": "Skizze ohne Queststart, Abschlussflag, Karten-ID oder Haupthinweis. Die Belohnung wird erst nach späterer Umsetzung vergeben."
+    },
+    {
+      "id": "bj_keim_vn_fahrender_richter",
+      "figur": "vn_fahrender_richter",
+      "title": "Zwei Ansprüche, ein Rad",
+      "ausloeser": {
+        "dialogue": "bj_vn_fahrender_richter",
+        "node": "bitte"
+      },
+      "schritte": [
+        "Beide Parteien getrennt anhören.",
+        "Werkspuren und die behauptete Leihvereinbarung vergleichen.",
+        "Eine gemeinsame Gegenüberstellung freiwillig anbieten.",
+        "Eine begründete Einigung samt Möglichkeit des Widerspruchs festhalten."
+      ],
+      "belohnung": {
+        "gives_items": {
+          "vi_v_schreibfeder_eisen": 1
+        },
+        "gives_money": 12
+      },
+      "gegner": [
+        "vg_all_wegelagerer"
+      ],
+      "begegnung": "Optionale Komplikation am Nebenweg; weder der Fund noch eine notwendige Aussage liegt ausschließlich hinter einem Kampf.",
+      "friedlicher_weg": "Die Streitparteien zum belebten Rastplatz einladen und den abgelegenen Weg nicht allein nutzen.",
+      "spielzeit_minuten": 12,
+      "grenze": "Skizze ohne Queststart, Abschlussflag, Karten-ID oder Haupthinweis. Die Belohnung wird erst nach späterer Umsetzung vergeben."
+    },
+    {
+      "id": "bj_keim_vn_waisenjunge",
+      "figur": "vn_waisenjunge",
+      "title": "Der Knopf am Wegsaum",
+      "ausloeser": {
+        "dialogue": "bj_vn_waisenjunge",
+        "node": "bitte"
+      },
+      "schritte": [
+        "Den Fundort bei Tageslicht gemeinsam ansehen.",
+        "Am öffentlichen Rastplatz eine Beschreibung ohne Namen anbieten.",
+        "Die suchende Person den fehlenden Knopf selbst beschreiben lassen.",
+        "Die Übergabe in Begleitung am Rastplatz durchführen."
+      ],
+      "belohnung": {
+        "gives_items": {
+          "vi_v_wegzehrung": 1
+        },
+        "gives_money": 14
+      },
+      "gegner": [
+        "vg_all_nebelkraehe"
+      ],
+      "begegnung": "Optionale Komplikation am Nebenweg; weder der Fund noch eine notwendige Aussage liegt ausschließlich hinter einem Kampf.",
+      "friedlicher_weg": "Unter einem gedeckten Rastdach warten und den kurzen Weg gemeinsam bei klarer Sicht gehen.",
+      "spielzeit_minuten": 8,
+      "grenze": "Skizze ohne Queststart, Abschlussflag, Karten-ID oder Haupthinweis. Die Belohnung wird erst nach späterer Umsetzung vergeben."
+    }
+  ],
+  "ketten": [
+    {
+      "id": "bj_kette_cw_leihe",
+      "title": "Ein Buch für drei Küchen",
+      "figuren": [
+        "cw_crayford",
+        "cw_noel_bellcross",
+        "cw_wicksend"
+      ],
+      "keime": [
+        "bj_keim_cw_crayford",
+        "bj_keim_cw_noel_bellcross",
+        "bj_keim_cw_wicksend"
+      ],
+      "ausloeser": {
+        "dialogue": "bj_cw_crayford",
+        "node": "bitte"
+      },
+      "schritte": [
+        "Tilda vergleicht die Reparaturen des umstrittenen Rezeptbands; die Besitzer wünschen eine gemeinsame Küchenrunde.",
+        "Noel lässt dafür seinen Topfgriff aus den angebotenen Ersatzstücken richten; jede Leihe wird mit dem Eigentümer vereinbart.",
+        "Bei Lottie den umstrittenen Krug anhand seiner Reparatur zuordnen und den geklärten Besitzer um eine Leihe für die Küchenrunde bitten.",
+        "Band, Topf und Krug kommen nur mit Zustimmung zusammen; Tilda bindet die getrennten Einlagen und alle bestätigen die Rückgabezeiten."
+      ],
+      "belohnung": {
+        "gives_money": 24
+      },
+      "gegner": [
+        "vg_cw_registerratte"
+      ],
+      "friedlicher_weg": "Den Band während der Beratung in einer geschlossenen trockenen Kiste verwahren.",
+      "spielzeit_minuten": 18,
+      "grenze": "Verbindet vorhandene Keime statt sie nochmals zu belohnen. Kettenbelohnung ersetzt die Einzelbelohnungen der benutzten Keime; kein Hauptfall-Fortschritt."
+    },
+    {
+      "id": "bj_kette_cw_ruhiger_weg",
+      "title": "Der Weg hinter der Wartebank",
+      "figuren": [
+        "cw_darnell",
+        "cw_hesk",
+        "cw_wetherby"
+      ],
+      "keime": [
+        "bj_keim_cw_darnell",
+        "bj_keim_cw_hesk",
+        "bj_keim_cw_wetherby"
+      ],
+      "ausloeser": {
+        "dialogue": "bj_cw_hesk",
+        "node": "bitte"
+      },
+      "schritte": [
+        "Veras leere Rücklaufkapsel anhand der Außenmerkmale ihrer Werkstatt zuordnen; deren Abholzeit eröffnet den Vergleich der Wagenfahrten.",
+        "Hesks doppelte Wagenrechnung mit den bestätigten Fahrten abgleichen und den unbeladenen Wagen für eine Wegprobe leihen.",
+        "Den durch die Wartebank verengten Weg vermessen; Wetherby erhält den mit Wartenden und Trägern abgestimmten Versetzungsvorschlag.",
+        "Die Bank versetzen, die Kapsel zurückbringen und die Wagenrechnung berichtigen; private Sendungen bleiben geschlossen."
+      ],
+      "belohnung": {
+        "gives_money": 22
+      },
+      "gegner": [
+        "vg_cw_leerfracht"
+      ],
+      "friedlicher_weg": "Die Prüfung in die bestätigte Verladepause legen.",
+      "spielzeit_minuten": 16,
+      "grenze": "Verbindet vorhandene Keime statt sie nochmals zu belohnen. Kettenbelohnung ersetzt die Einzelbelohnungen der benutzten Keime; kein Hauptfall-Fortschritt."
+    },
+    {
+      "id": "bj_kette_bh_ruf",
+      "title": "Ein Ruf in Reichweite",
+      "figuren": [
+        "bh_rookwell",
+        "bh_malkin",
+        "bh_bellweather"
+      ],
+      "keime": [
+        "bj_keim_bh_rookwell",
+        "bj_keim_bh_malkin",
+        "bj_keim_bh_bellweather"
+      ],
+      "ausloeser": {
+        "dialogue": "bj_bh_rookwell",
+        "node": "bitte"
+      },
+      "schritte": [
+        "Enna erfragt den gewünschten Platz der Rufglocke; beim Proberuf übertönt das nächtliche Ventilpfeifen die Glocke.",
+        "Malkin trennt nur den Wartungsabschnitt ab und behebt das Pfeifen, ohne die Wohnwärme stillzulegen.",
+        "Frost schließt den Zug unter der Bügelraumtür mit einer sicheren Dichtung; der Lüftungsquerschnitt bleibt frei.",
+        "Die Glocke in Reichweite befestigen und mit der betroffenen Person bei normalem Heizbetrieb erproben."
+      ],
+      "belohnung": {
+        "gives_money": 24
+      },
+      "gegner": [
+        "vg_bh_rohrwurm"
+      ],
+      "friedlicher_weg": "Die Halterung von der Zimmerseite befestigen; den Wartungsgang gesperrt lassen.",
+      "spielzeit_minuten": 18,
+      "grenze": "Verbindet vorhandene Keime statt sie nochmals zu belohnen. Kettenbelohnung ersetzt die Einzelbelohnungen der benutzten Keime; kein Hauptfall-Fortschritt."
+    },
+    {
+      "id": "bj_kette_bh_schatten",
+      "title": "Ein Platz, der bleiben darf",
+      "figuren": [
+        "bh_henshall",
+        "bh_vellish",
+        "bh_dipple"
+      ],
+      "keime": [
+        "bj_keim_bh_henshall",
+        "bj_keim_bh_vellish",
+        "bj_keim_bh_dipple"
+      ],
+      "ausloeser": {
+        "dialogue": "bj_bh_henshall",
+        "node": "bitte"
+      },
+      "schritte": [
+        "Beatrice beschreibt den gewünschten Schattenplatz; Adeline sucht zugleich einen zugfreien Platz für ihren gewöhnlichen Steckling.",
+        "Freie Standorte prüfen, ohne andere Beete zu verdrängen; Dipple und die Gartenschülerin vergleichen dort Blattkante und Schatten bei zwei Lichtständen.",
+        "Anhand der korrigierten Skizze Bank und Steckling mit Zustimmung versetzen; die erste Zeichnung bleibt erhalten.",
+        "Beatrice probiert den Sitzplatz, Adeline prüft den Steckling; bei Einwänden den Standort nachbessern."
+      ],
+      "belohnung": {
+        "gives_money": 20
+      },
+      "gegner": [
+        "vg_bh_bluetenkopf"
+      ],
+      "friedlicher_weg": "Nur den öffentlichen Gartenweg und ein freies Beet benutzen.",
+      "spielzeit_minuten": 16,
+      "grenze": "Verbindet vorhandene Keime statt sie nochmals zu belohnen. Kettenbelohnung ersetzt die Einzelbelohnungen der benutzten Keime; kein Hauptfall-Fortschritt."
+    }
+  ]
+}

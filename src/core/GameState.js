@@ -7,6 +7,9 @@ import { wantedMethods } from './Wanted.js';
 import { kahnMethods } from './Kahn.js';
 import { newspaperMethods } from './Newspapers.js';
 import { signalMethods } from './Signals.js';
+import { claimMethods } from './Claims.js';
+import { signalRouteMethods } from './SignalRoutes.js';
+import { claimEinbauMethods } from './ClaimsEinbau.js';
 import { clockMethods, NIGHT_FLAG } from './Clock.js';
 import { bondMethods } from './Bonds.js';
 import { relationMethods } from './Relations.js';
@@ -17,6 +20,8 @@ import { corruptionMethods } from './Corruption.js';
 
 /** Tragkraft in Pfund. Gegenstände ohne eigenes "weight" wiegen je nach Art so viel. */
 export const BASE_CARRY = 40;
+/** Pfund Tragkraft je Wachstumsstufe des Pfades (jede Sequenz eine, Durchbrüche mehr, siehe growthSteps). */
+export const CARRY_PER_STEP = 3;
 export const KIND_WEIGHT = { weapon: 4, gear: 2, artifact: 2, consumable: 1, potion: 1, ingredient: 0.5, trophy: 2, formula: 0, key: 0 };
 //
 // Begriffe:
@@ -78,8 +83,10 @@ export class GameState {
     this.resetBonds();
     this.resetRelations();
     this.resetParty();
+    this.resetClaims(); // Paket BG
     this.resetPapers();
     this.resetSignal();
+    this.resetSignalRoutes(); // Paket BN
     this.pendingTravel = null;
   }
 
@@ -288,7 +295,9 @@ export class GameState {
       this.meetsPathway(o.requires_pathway) &&
       this.meetsSignal(o) &&
       this.meetsBond(o) &&
-      this.meetsRelation(o)
+      this.meetsRelation(o) &&
+      this.meetsClaims(o) && // Paket BG: requires_claim, requires_claim_missing, requires_p2, requires_replacement
+      this.meetsSignalRoutes(o) // Paket BN: requires_route, requires_pattern, requires_binding
     );
   }
 
@@ -313,17 +322,20 @@ export class GameState {
    * Wendet Effekte an (Dialogknoten, Objekte, Enden). Gibt die neuen Hinweise zurück.
    * nodeKey ("dialog.knoten"): Beziehungswirkungen (`relation`) zählen nur beim ersten Besuch des Knotens.
    */
-  applyEffects(e, { nodeKey = null } = {}) {
+  applyEffects(e, { nodeKey = null, commandId = null } = {}) {
     if (!e) return [];
     const gained = (e.gives_clues ?? []).filter((c) => this.addClue(c));
-    for (const f of e.sets_flags ?? []) this.flags.add(f);
+    for (const f of e.sets_flags ?? []) { this.flags.add(f); this.openClaims(f); } // BG: bewältigte Quelle öffnet Ansprüche
     if (e.signal || e.signal_reserve) this.applySignal(e); // Kapitel 3: Rufladungen
+    if (e.learn_pattern || e.reveal_route || e.enter_lock) this.applySignalRoutes(e); // BN: Rufwissen, Route, Schleuse
     for (const f of e.clears_flags ?? []) this.flags.delete(f);
     for (const q of e.start_quests ?? []) this.startQuest(q);
     for (const q of e.complete_quests ?? []) this.finishQuest(q, 'done');
     for (const q of e.fail_quests ?? []) this.finishQuest(q, 'failed');
     if (e.honor) this.addHonor(e.honor, e.honor_reason ?? '');
     for (const [id, n] of Object.entries(e.gives_items ?? {})) this.addItem(id, n);
+    if (e.gives_items) this.settleClaims(e.gives_items); // BG: Bestandsauszahlung erfüllt den eigenen Anspruch
+    if (e.claim || e.replacement) this.applyClaims(e, { commandId }); // BG: persönliche Abholung bzw. Ersatzprobe (nur mit bestätigtem Befehl)
     for (const [id, n] of Object.entries(e.takes_items ?? {})) this.removeItem(id, n);
     if (e.heal) { this.heal(e.heal === 'full' ? this.maxHp : e.heal); this.healPartner(e.heal); }
     if (e.gives_money) this.addMoney(e.gives_money, { loot: true, reason: e.honor_reason ?? '' });
@@ -431,6 +443,7 @@ export class GameState {
     // Bessere Waffe automatisch ausrüsten
     if (it.kind === 'weapon' && (!this.weapon || it.atk > this.item(this.weapon).atk)) this.weapon = id;
     if (n > 0) this.gearPickedUp(id);
+    if (n > 0) this.recordClaimItem?.(id); // BG: Erwerbsquittung für Kernzutat oder Trank
     this.emit('item', { id, delta: n });
     if (it.kind === 'artifact' && !had && n > 0) this.artifactPickedUp(id);
     // Beute geht nie verloren: wer zu viel trägt, wird nur langsamer.
@@ -468,9 +481,22 @@ export class GameState {
     return Math.round(w * 10) / 10;
   }
 
-  /** Grundlast plus Boni (Pfad des Eisens). */
+  /** Was die erreichten Sequenzen an Tragkraft bringen (Spieler 2 rechnet mit seinem eigenen Pfad). */
+  carryFromSeq() {
+    return CARRY_PER_STEP * this.growthSteps();
+  }
+
+  /** Grundlast plus Sequenzen plus Boni (Pfad des Eisens, Kleidung, Artefakte). */
   carryCapacity() {
-    return BASE_CARRY + this.passive('carry');
+    return BASE_CARRY + this.carryFromSeq() + this.passive('carry');
+  }
+
+  /** Woher die Tragkraft kommt, für Inventar und Pfad: "40 Grundlast + 6 Sequenzen + 15 Boni". */
+  carryBreakdown() {
+    const parts = [`${BASE_CARRY} Grundlast`];
+    if (this.carryFromSeq()) parts.push(`${this.carryFromSeq()} Sequenzen`);
+    if (this.passive('carry')) parts.push(`${this.passive('carry')} Boni`);
+    return parts.join(' + ');
   }
 
   isOverloaded() {
@@ -608,6 +634,7 @@ export class GameState {
   startCombat(id) {
     if (!this.content.encounters[id]) throw new Error(`Unbekannter Kampf: ${id}`);
     this.pendingCombat = id;
+    this.combatBy = this.acting; // Paket BF: wer den Kampf ausgelöst hat (Prüfling), der andere schaut zu
     this.emit('combat', id);
   }
 
@@ -657,6 +684,7 @@ export class GameState {
     }
     if (this.composure !== before) this.emit('composure', this.composure);
     this.tickPathway(dtSeconds);
+    this.tickSignalRoutes(dtSeconds); // BN: Alarmdauer in Spielzeit
     this.tickGatherings(dtSeconds);
     this.tickWanted(dtSeconds);
     this.tickParty(dtSeconds);
@@ -691,6 +719,8 @@ export class GameState {
       ...this.serializeParty(),
       papers: this.papers,
       ...this.serializeSignal(),
+      ...this.serializeSignalRoutes(),
+      ...this.serializeClaims(),
     };
   }
 
@@ -735,8 +765,11 @@ export class GameState {
     this.loadBonds(data.bonds);
     this.loadRelations(data);
     this.loadParty(data);
+    this.loadClaims(data);
+    if (data.claims === undefined) this.migrateLegacyClaims(); // BG: alte Spielstände ohne Register
     this.loadPapers(data);
     this.loadSignal(data);
+    this.loadSignalRoutes(data); // BN: nach loadSignal, Ladungen bleiben
     this.syncClock(); // Tag/Nacht folgt der Spielzeit, nicht dem Spielstand
     if (!this.content.maps[this.map]) { this.map = this.content.start.map; this.position = null; }
     return true;
@@ -746,4 +779,4 @@ export class GameState {
 /** Fortschrittsflags der verlängerten Akt-V-Fassung (AP), in Spielreihenfolge. */
 export const K2_AKT5_STEPS = ['k2v_boot_bereit', 'k2v_keller_passiert', 'k2v_aufstieg_passiert', 'k2v_abschied_done'];
 
-Object.assign(GameState.prototype, partyMethods, gearMethods, corruptionMethods, pathwayMethods, artifactMethods, gatheringMethods, wantedMethods, bondMethods, relationMethods, auctionMethods, artisanMethods, kahnMethods, newspaperMethods, signalMethods, clockMethods);
+Object.assign(GameState.prototype, partyMethods, gearMethods, corruptionMethods, pathwayMethods, artifactMethods, gatheringMethods, wantedMethods, bondMethods, relationMethods, auctionMethods, artisanMethods, kahnMethods, newspaperMethods, signalMethods, clockMethods, claimMethods, claimEinbauMethods, signalRouteMethods);

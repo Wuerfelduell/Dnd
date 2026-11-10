@@ -1,0 +1,1297 @@
+{
+  "vg_cw_boss_bleisammler_dialog": {
+    "start": [
+      {
+        "node": "vg_cw_boss_bleisammler_quittung",
+        "requires_flags": [
+          "vg_cw_boss_bleisammler_beute"
+        ]
+      },
+      {
+        "node": "vg_cw_boss_bleisammler_bergung",
+        "requires_flags": [
+          "vg_cw_boss_bleisammler_geloest"
+        ]
+      },
+      {
+        "node": "vg_cw_boss_bleisammler_weiter1",
+        "requires_flags": [
+          "vg_cw_boss_bleisammler_phase1_done"
+        ]
+      },
+      {
+        "node": "vg_cw_boss_bleisammler_start"
+      }
+    ],
+    "nodes": {
+      "vg_cw_boss_bleisammler_pruefen": {
+        "text": "Die ausgeschlagene Führung lässt Raum für einen Keil. Die Walze zieht den Körper bei jedem Schritt zusammen.",
+        "sets_flags": [
+          "vg_cw_boss_bleisammler_eingriff_geprueft"
+        ],
+        "choices": [
+          {
+            "text": "Keil in die freie Führung setzen.",
+            "next": "vg_cw_boss_bleisammler_friedlich",
+            "requires_flags": [
+              "vg_cw_boss_bleisammler_eingriff_geprueft"
+            ],
+            "hide_if_flags": [
+              "vg_cw_boss_bleisammler_geloest"
+            ]
+          },
+          {
+            "text": "Noch nichts verändern.",
+            "next": "vg_cw_boss_bleisammler_start"
+          }
+        ]
+      },
+      "vg_cw_boss_bleisammler_friedlich": {
+        "text": "Die Walze steht. Der Bleisammler legt die Lettern ab. Kein Mensch und kein Namenanker wurde eingesetzt.",
+        "sets_flags": [
+          "vg_cw_boss_bleisammler_geloest",
+          "vg_cw_boss_bleisammler_friedlich"
+        ],
+        "choices": [
+          {
+            "text": "Lose Reste bergen.",
+            "next": "vg_cw_boss_bleisammler_bergung",
+            "requires_flags": [
+              "vg_cw_boss_bleisammler_geloest"
+            ],
+            "hide_if_flags": [
+              "vg_cw_boss_bleisammler_beute"
+            ]
+          }
+        ]
+      },
+      "vg_cw_boss_bleisammler_start": {
+        "text": "Bleisammler versperrt nur den inneren Bereich. Der markierte Rückweg bleibt offen. Du entscheidest, ob du nähertrittst.",
+        "choices": [
+          {
+            "text": "Walzenführung untersuchen.",
+            "next": "vg_cw_boss_bleisammler_pruefen",
+            "hide_if_flags": [
+              "vg_cw_boss_bleisammler_geloest"
+            ]
+          },
+          {
+            "text": "Den Kampf beginnen.",
+            "next": "vg_cw_boss_bleisammler_kampf1",
+            "hide_if_flags": [
+              "vg_cw_boss_bleisammler_geloest"
+            ]
+          },
+          {
+            "text": "Den sicheren Rückweg nehmen.",
+            "next": "vg_cw_boss_bleisammler_abbruch"
+          }
+        ]
+      },
+      "vg_cw_boss_bleisammler_kampf1": {
+        "text": "Der erste Abschnitt beginnt.",
+        "combat": "vg_cw_boss_bleisammler",
+        "choices": []
+      },
+      "vg_cw_boss_bleisammler_weiter1": {
+        "text": "Die Walze springt aus der Führung. Einzelne Lettern sammeln sich unter dem Brustkorb.",
+        "choices": [
+          {
+            "text": "Den nächsten Abschnitt beginnen.",
+            "next": "vg_cw_boss_bleisammler_kampf2",
+            "requires_flags": [
+              "vg_cw_boss_bleisammler_phase1_done"
+            ],
+            "hide_if_flags": [
+              "vg_cw_boss_bleisammler_geloest"
+            ]
+          },
+          {
+            "text": "Abbrechen und zum Eingang zurück.",
+            "next": "vg_cw_boss_bleisammler_abbruch"
+          }
+        ]
+      },
+      "vg_cw_boss_bleisammler_kampf2": {
+        "text": "Die Walze springt aus der Führung. Einzelne Lettern sammeln sich unter dem Brustkorb.",
+        "combat": "vg_cw_boss_bleisammler_phase2",
+        "choices": []
+      },
+      "vg_cw_boss_bleisammler_bergung": {
+        "text": "Lose Handelsreste liegen sicher erreichbar neben der stillstehenden Anlage. Ihr könnt sie einmal bergen.",
+        "choices": [
+          {
+            "text": "Trophäe, Material und Ausrüstung nehmen.",
+            "next": "vg_cw_boss_bleisammler_ausgabe",
+            "requires_flags": [
+              "vg_cw_boss_bleisammler_geloest"
+            ],
+            "hide_if_flags": [
+              "vg_cw_boss_bleisammler_beute"
+            ]
+          },
+          {
+            "text": "Später bergen."
+          }
+        ]
+      },
+      "vg_cw_boss_bleisammler_ausgabe": {
+        "text": "Die Reste sind geborgen. Die Ausrüstung ist ein Fundstück; sie ersetzt weder eine Aussage noch eine Sequenzprüfung.",
+        "sets_flags": [
+          "vg_cw_boss_bleisammler_beute"
+        ],
+        "gives_items": {
+          "vt_cw_boss_bleisammler": 1,
+          "vi_m_bleiletter": 1,
+          "vi_mantel_druckerschurz": 1
+        },
+        "gives_money": 60,
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      },
+      "vg_cw_boss_bleisammler_quittung": {
+        "text": "Der örtliche Gegner ist überwunden. Die Reste wurden bereits geborgen.",
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      },
+      "vg_cw_boss_bleisammler_abbruch": {
+        "text": "Ihr bleibt auf dem gesicherten Rückweg. Lose Beweise bleiben erhalten; ein neuer Kampf beginnt wieder mit dem ersten Abschnitt.",
+        "clears_flags": [
+          "vg_cw_boss_bleisammler_phase1_done"
+        ],
+        "choices": [
+          {
+            "text": "Später wiederkommen."
+          }
+        ]
+      }
+    }
+  },
+  "vg_cw_boss_blinder_zusteller_dialog": {
+    "start": [
+      {
+        "node": "vg_cw_boss_blinder_zusteller_quittung",
+        "requires_flags": [
+          "vg_cw_boss_blinder_zusteller_beute"
+        ]
+      },
+      {
+        "node": "vg_cw_boss_blinder_zusteller_bergung",
+        "requires_flags": [
+          "vg_cw_boss_blinder_zusteller_geloest"
+        ]
+      },
+      {
+        "node": "vg_cw_boss_blinder_zusteller_weiter1",
+        "requires_flags": [
+          "vg_cw_boss_blinder_zusteller_phase1_done"
+        ]
+      },
+      {
+        "node": "vg_cw_boss_blinder_zusteller_start"
+      }
+    ],
+    "nodes": {
+      "vg_cw_boss_blinder_zusteller_pruefen": {
+        "text": "Drei angenommene Sendungen liegen mit voneinander abweichenden Empfangszeichen im Rücklauf. Die Originale bleiben getrennt.",
+        "sets_flags": [
+          "vg_cw_boss_blinder_zusteller_eingriff_geprueft"
+        ],
+        "choices": [
+          {
+            "text": "Die drei echten Zustellungen getrennt belegen.",
+            "next": "vg_cw_boss_blinder_zusteller_friedlich",
+            "requires_flags": [
+              "vg_cw_boss_blinder_zusteller_eingriff_geprueft"
+            ],
+            "hide_if_flags": [
+              "vg_cw_boss_blinder_zusteller_geloest"
+            ]
+          },
+          {
+            "text": "Noch nichts verändern.",
+            "next": "vg_cw_boss_blinder_zusteller_start"
+          }
+        ]
+      },
+      "vg_cw_boss_blinder_zusteller_friedlich": {
+        "text": "Der Zusteller vergleicht die drei Empfangszeichen. Er stellt den Sack ab, statt einen Menschen zur fehlenden Adresse zu machen.",
+        "sets_flags": [
+          "vg_cw_boss_blinder_zusteller_geloest",
+          "vg_cw_boss_blinder_zusteller_friedlich"
+        ],
+        "choices": [
+          {
+            "text": "Lose Reste bergen.",
+            "next": "vg_cw_boss_blinder_zusteller_bergung",
+            "requires_flags": [
+              "vg_cw_boss_blinder_zusteller_geloest"
+            ],
+            "hide_if_flags": [
+              "vg_cw_boss_blinder_zusteller_beute"
+            ]
+          }
+        ]
+      },
+      "vg_cw_boss_blinder_zusteller_start": {
+        "text": "Blinder Zusteller versperrt nur den inneren Bereich. Der markierte Rückweg bleibt offen. Du entscheidest, ob du nähertrittst.",
+        "choices": [
+          {
+            "text": "Drei Lieferwege untersuchen.",
+            "next": "vg_cw_boss_blinder_zusteller_pruefen",
+            "hide_if_flags": [
+              "vg_cw_boss_blinder_zusteller_geloest"
+            ]
+          },
+          {
+            "text": "Den Kampf beginnen.",
+            "next": "vg_cw_boss_blinder_zusteller_kampf1",
+            "hide_if_flags": [
+              "vg_cw_boss_blinder_zusteller_geloest"
+            ]
+          },
+          {
+            "text": "Den sicheren Rückweg nehmen.",
+            "next": "vg_cw_boss_blinder_zusteller_abbruch"
+          }
+        ]
+      },
+      "vg_cw_boss_blinder_zusteller_kampf1": {
+        "text": "Der erste Abschnitt beginnt.",
+        "combat": "vg_cw_boss_blinder_zusteller",
+        "choices": []
+      },
+      "vg_cw_boss_blinder_zusteller_weiter1": {
+        "text": "Die falschen Fächer klappen zu. Der Zusteller richtet die leeren Versandröhren auf dich.",
+        "choices": [
+          {
+            "text": "Den nächsten Abschnitt beginnen.",
+            "next": "vg_cw_boss_blinder_zusteller_kampf2",
+            "requires_flags": [
+              "vg_cw_boss_blinder_zusteller_phase1_done"
+            ],
+            "hide_if_flags": [
+              "vg_cw_boss_blinder_zusteller_geloest"
+            ]
+          },
+          {
+            "text": "Abbrechen und zum Eingang zurück.",
+            "next": "vg_cw_boss_blinder_zusteller_abbruch"
+          }
+        ]
+      },
+      "vg_cw_boss_blinder_zusteller_kampf2": {
+        "text": "Die falschen Fächer klappen zu. Der Zusteller richtet die leeren Versandröhren auf dich.",
+        "combat": "vg_cw_boss_blinder_zusteller_phase2",
+        "choices": []
+      },
+      "vg_cw_boss_blinder_zusteller_bergung": {
+        "text": "Lose Handelsreste liegen sicher erreichbar neben der stillstehenden Anlage. Ihr könnt sie einmal bergen.",
+        "choices": [
+          {
+            "text": "Trophäe, Material und Ausrüstung nehmen.",
+            "next": "vg_cw_boss_blinder_zusteller_ausgabe",
+            "requires_flags": [
+              "vg_cw_boss_blinder_zusteller_geloest"
+            ],
+            "hide_if_flags": [
+              "vg_cw_boss_blinder_zusteller_beute"
+            ]
+          },
+          {
+            "text": "Später bergen."
+          }
+        ]
+      },
+      "vg_cw_boss_blinder_zusteller_ausgabe": {
+        "text": "Die Reste sind geborgen. Die Ausrüstung ist ein Fundstück; sie ersetzt weder eine Aussage noch eine Sequenzprüfung.",
+        "sets_flags": [
+          "vg_cw_boss_blinder_zusteller_beute"
+        ],
+        "gives_items": {
+          "vt_cw_boss_blinder_zusteller": 1,
+          "vi_m_rohrpostkapsel_leer": 1,
+          "vi_amulett_rohrpostkapsel": 1
+        },
+        "gives_money": 60,
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      },
+      "vg_cw_boss_blinder_zusteller_quittung": {
+        "text": "Der örtliche Gegner ist überwunden. Die Reste wurden bereits geborgen.",
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      },
+      "vg_cw_boss_blinder_zusteller_abbruch": {
+        "text": "Ihr bleibt auf dem gesicherten Rückweg. Lose Beweise bleiben erhalten; ein neuer Kampf beginnt wieder mit dem ersten Abschnitt.",
+        "clears_flags": [
+          "vg_cw_boss_blinder_zusteller_phase1_done"
+        ],
+        "choices": [
+          {
+            "text": "Später wiederkommen."
+          }
+        ]
+      }
+    }
+  },
+  "vg_cw_boss_nullfundament_dialog": {
+    "start": [
+      {
+        "node": "vg_cw_boss_nullfundament_quittung",
+        "requires_flags": [
+          "vg_cw_boss_nullfundament_beute"
+        ]
+      },
+      {
+        "node": "vg_cw_boss_nullfundament_bergung",
+        "requires_flags": [
+          "vg_cw_boss_nullfundament_geloest"
+        ]
+      },
+      {
+        "node": "vg_cw_boss_nullfundament_weiter2",
+        "requires_flags": [
+          "vg_cw_boss_nullfundament_phase2_done"
+        ]
+      },
+      {
+        "node": "vg_cw_boss_nullfundament_weiter1",
+        "requires_flags": [
+          "vg_cw_boss_nullfundament_phase1_done"
+        ]
+      },
+      {
+        "node": "vg_cw_boss_nullfundament_start"
+      }
+    ],
+    "nodes": {
+      "vg_cw_boss_nullfundament_start": {
+        "text": "Registerleib des Nullfundaments versperrt nur den inneren Bereich. Der markierte Rückweg bleibt offen. Du entscheidest, ob du nähertrittst.",
+        "choices": [
+          {
+            "text": "Den Kampf beginnen.",
+            "next": "vg_cw_boss_nullfundament_kampf1",
+            "hide_if_flags": [
+              "vg_cw_boss_nullfundament_geloest"
+            ]
+          },
+          {
+            "text": "Den sicheren Rückweg nehmen.",
+            "next": "vg_cw_boss_nullfundament_abbruch"
+          }
+        ]
+      },
+      "vg_cw_boss_nullfundament_kampf1": {
+        "text": "Der erste Abschnitt beginnt.",
+        "combat": "vg_cw_boss_nullfundament",
+        "choices": []
+      },
+      "vg_cw_boss_nullfundament_weiter1": {
+        "text": "Die Sammelbindung reißt. Getilgte Linien richten sich als einzelne Spalten auf.",
+        "choices": [
+          {
+            "text": "Den nächsten Abschnitt beginnen.",
+            "next": "vg_cw_boss_nullfundament_kampf2",
+            "requires_flags": [
+              "vg_cw_boss_nullfundament_phase1_done"
+            ],
+            "hide_if_flags": [
+              "vg_cw_boss_nullfundament_geloest"
+            ]
+          },
+          {
+            "text": "Abbrechen und zum Eingang zurück.",
+            "next": "vg_cw_boss_nullfundament_abbruch"
+          }
+        ]
+      },
+      "vg_cw_boss_nullfundament_kampf2": {
+        "text": "Die Sammelbindung reißt. Getilgte Linien richten sich als einzelne Spalten auf.",
+        "combat": "vg_cw_boss_nullfundament_phase2",
+        "choices": []
+      },
+      "vg_cw_boss_nullfundament_weiter2": {
+        "text": "Die getrennten Teile sinken. Nur die örtliche Öffnung bleibt; ihre Ränder nähern sich vor jedem letzten Druck.",
+        "choices": [
+          {
+            "text": "Den nächsten Abschnitt beginnen.",
+            "next": "vg_cw_boss_nullfundament_kampf3",
+            "requires_flags": [
+              "vg_cw_boss_nullfundament_phase2_done"
+            ],
+            "hide_if_flags": [
+              "vg_cw_boss_nullfundament_geloest"
+            ]
+          },
+          {
+            "text": "Abbrechen und zum Eingang zurück.",
+            "next": "vg_cw_boss_nullfundament_abbruch"
+          }
+        ]
+      },
+      "vg_cw_boss_nullfundament_kampf3": {
+        "text": "Die getrennten Teile sinken. Nur die örtliche Öffnung bleibt; ihre Ränder nähern sich vor jedem letzten Druck.",
+        "combat": "vg_cw_boss_nullfundament_phase3",
+        "choices": []
+      },
+      "vg_cw_boss_nullfundament_bergung": {
+        "text": "Lose Handelsreste liegen sicher erreichbar neben der stillstehenden Anlage. Ihr könnt sie einmal bergen.",
+        "choices": [
+          {
+            "text": "Trophäe, Material und Ausrüstung nehmen.",
+            "next": "vg_cw_boss_nullfundament_ausgabe",
+            "requires_flags": [
+              "vg_cw_boss_nullfundament_geloest"
+            ],
+            "hide_if_flags": [
+              "vg_cw_boss_nullfundament_beute"
+            ]
+          },
+          {
+            "text": "Später bergen."
+          }
+        ]
+      },
+      "vg_cw_boss_nullfundament_ausgabe": {
+        "text": "Die Reste sind geborgen. Die Ausrüstung ist ein Fundstück; sie ersetzt weder eine Aussage noch eine Sequenzprüfung.",
+        "sets_flags": [
+          "vg_cw_boss_nullfundament_beute"
+        ],
+        "gives_items": {
+          "vt_cw_boss_nullfundament": 1,
+          "vi_m_registerband": 1,
+          "vi_art_der_erste_durchschlag": 1
+        },
+        "gives_money": 60,
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      },
+      "vg_cw_boss_nullfundament_quittung": {
+        "text": "Der örtliche Gegner ist überwunden. Die Reste wurden bereits geborgen.",
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      },
+      "vg_cw_boss_nullfundament_abbruch": {
+        "text": "Ihr bleibt auf dem gesicherten Rückweg. Lose Beweise bleiben erhalten; ein neuer Kampf beginnt wieder mit dem ersten Abschnitt.",
+        "clears_flags": [
+          "vg_cw_boss_nullfundament_phase1_done",
+          "vg_cw_boss_nullfundament_phase2_done"
+        ],
+        "choices": [
+          {
+            "text": "Später wiederkommen."
+          }
+        ]
+      }
+    }
+  },
+  "vg_bh_boss_glasgaertner_dialog": {
+    "start": [
+      {
+        "node": "vg_bh_boss_glasgaertner_quittung",
+        "requires_flags": [
+          "vg_bh_boss_glasgaertner_beute"
+        ]
+      },
+      {
+        "node": "vg_bh_boss_glasgaertner_bergung",
+        "requires_flags": [
+          "vg_bh_boss_glasgaertner_geloest"
+        ]
+      },
+      {
+        "node": "vg_bh_boss_glasgaertner_weiter1",
+        "requires_flags": [
+          "vg_bh_boss_glasgaertner_phase1_done"
+        ]
+      },
+      {
+        "node": "vg_bh_boss_glasgaertner_start"
+      }
+    ],
+    "nodes": {
+      "vg_bh_boss_glasgaertner_pruefen": {
+        "text": "Drei äußere Fäden verbinden die Schere mit dem Pflanzgestell. Keine der Verbindungen führt durch einen lebenden Menschen.",
+        "sets_flags": [
+          "vg_bh_boss_glasgaertner_eingriff_geprueft"
+        ],
+        "choices": [
+          {
+            "text": "Nur die äußeren Veredelungsfäden lösen.",
+            "next": "vg_bh_boss_glasgaertner_friedlich",
+            "requires_flags": [
+              "vg_bh_boss_glasgaertner_eingriff_geprueft"
+            ],
+            "hide_if_flags": [
+              "vg_bh_boss_glasgaertner_geloest"
+            ]
+          },
+          {
+            "text": "Noch nichts verändern.",
+            "next": "vg_bh_boss_glasgaertner_start"
+          }
+        ]
+      },
+      "vg_bh_boss_glasgaertner_friedlich": {
+        "text": "Die Schere sinkt ins leere Beet. Die Pflanzen bleiben stehen; niemand wird durch eine fremde Erinnerung ersetzt.",
+        "sets_flags": [
+          "vg_bh_boss_glasgaertner_geloest",
+          "vg_bh_boss_glasgaertner_friedlich"
+        ],
+        "choices": [
+          {
+            "text": "Lose Reste bergen.",
+            "next": "vg_bh_boss_glasgaertner_bergung",
+            "requires_flags": [
+              "vg_bh_boss_glasgaertner_geloest"
+            ],
+            "hide_if_flags": [
+              "vg_bh_boss_glasgaertner_beute"
+            ]
+          }
+        ]
+      },
+      "vg_bh_boss_glasgaertner_start": {
+        "text": "Glasgärtner versperrt nur den inneren Bereich. Der markierte Rückweg bleibt offen. Du entscheidest, ob du nähertrittst.",
+        "choices": [
+          {
+            "text": "Veredelungsfäden untersuchen.",
+            "next": "vg_bh_boss_glasgaertner_pruefen",
+            "hide_if_flags": [
+              "vg_bh_boss_glasgaertner_geloest"
+            ]
+          },
+          {
+            "text": "Den Kampf beginnen.",
+            "next": "vg_bh_boss_glasgaertner_kampf1",
+            "hide_if_flags": [
+              "vg_bh_boss_glasgaertner_geloest"
+            ]
+          },
+          {
+            "text": "Den sicheren Rückweg nehmen.",
+            "next": "vg_bh_boss_glasgaertner_abbruch"
+          }
+        ]
+      },
+      "vg_bh_boss_glasgaertner_kampf1": {
+        "text": "Der erste Abschnitt beginnt.",
+        "combat": "vg_bh_boss_glasgaertner",
+        "choices": []
+      },
+      "vg_bh_boss_glasgaertner_weiter1": {
+        "text": "Die äußeren Fäden lösen sich. Der Pflanzenkörper schwingt die Veredelungsschere nun frei.",
+        "choices": [
+          {
+            "text": "Den nächsten Abschnitt beginnen.",
+            "next": "vg_bh_boss_glasgaertner_kampf2",
+            "requires_flags": [
+              "vg_bh_boss_glasgaertner_phase1_done"
+            ],
+            "hide_if_flags": [
+              "vg_bh_boss_glasgaertner_geloest"
+            ]
+          },
+          {
+            "text": "Abbrechen und zum Eingang zurück.",
+            "next": "vg_bh_boss_glasgaertner_abbruch"
+          }
+        ]
+      },
+      "vg_bh_boss_glasgaertner_kampf2": {
+        "text": "Die äußeren Fäden lösen sich. Der Pflanzenkörper schwingt die Veredelungsschere nun frei.",
+        "combat": "vg_bh_boss_glasgaertner_phase2",
+        "choices": []
+      },
+      "vg_bh_boss_glasgaertner_bergung": {
+        "text": "Lose Handelsreste liegen sicher erreichbar neben der stillstehenden Anlage. Ihr könnt sie einmal bergen.",
+        "choices": [
+          {
+            "text": "Trophäe, Material und Ausrüstung nehmen.",
+            "next": "vg_bh_boss_glasgaertner_ausgabe",
+            "requires_flags": [
+              "vg_bh_boss_glasgaertner_geloest"
+            ],
+            "hide_if_flags": [
+              "vg_bh_boss_glasgaertner_beute"
+            ]
+          },
+          {
+            "text": "Später bergen."
+          }
+        ]
+      },
+      "vg_bh_boss_glasgaertner_ausgabe": {
+        "text": "Die Reste sind geborgen. Die Ausrüstung ist ein Fundstück; sie ersetzt weder eine Aussage noch eine Sequenzprüfung.",
+        "sets_flags": [
+          "vg_bh_boss_glasgaertner_beute"
+        ],
+        "gives_items": {
+          "vt_bh_boss_glasgaertner": 1,
+          "vi_m_pfirsichholz": 1,
+          "vi_mantel_dampfmantel": 1
+        },
+        "gives_money": 60,
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      },
+      "vg_bh_boss_glasgaertner_quittung": {
+        "text": "Der örtliche Gegner ist überwunden. Die Reste wurden bereits geborgen.",
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      },
+      "vg_bh_boss_glasgaertner_abbruch": {
+        "text": "Ihr bleibt auf dem gesicherten Rückweg. Lose Beweise bleiben erhalten; ein neuer Kampf beginnt wieder mit dem ersten Abschnitt.",
+        "clears_flags": [
+          "vg_bh_boss_glasgaertner_phase1_done"
+        ],
+        "choices": [
+          {
+            "text": "Später wiederkommen."
+          }
+        ]
+      }
+    }
+  },
+  "vg_bh_boss_waescherei_dialog": {
+    "start": [
+      {
+        "node": "vg_bh_boss_waescherei_quittung",
+        "requires_flags": [
+          "vg_bh_boss_waescherei_beute"
+        ]
+      },
+      {
+        "node": "vg_bh_boss_waescherei_bergung",
+        "requires_flags": [
+          "vg_bh_boss_waescherei_geloest"
+        ]
+      },
+      {
+        "node": "vg_bh_boss_waescherei_weiter1",
+        "requires_flags": [
+          "vg_bh_boss_waescherei_phase1_done"
+        ]
+      },
+      {
+        "node": "vg_bh_boss_waescherei_start"
+      }
+    ],
+    "nodes": {
+      "vg_bh_boss_waescherei_start": {
+        "text": "Atemkessel der verlassenen Wäscherei versperrt nur den inneren Bereich. Der markierte Rückweg bleibt offen. Du entscheidest, ob du nähertrittst.",
+        "choices": [
+          {
+            "text": "Den Kampf beginnen.",
+            "next": "vg_bh_boss_waescherei_kampf1",
+            "hide_if_flags": [
+              "vg_bh_boss_waescherei_geloest"
+            ]
+          },
+          {
+            "text": "Den sicheren Rückweg nehmen.",
+            "next": "vg_bh_boss_waescherei_abbruch"
+          }
+        ]
+      },
+      "vg_bh_boss_waescherei_kampf1": {
+        "text": "Der erste Abschnitt beginnt.",
+        "combat": "vg_bh_boss_waescherei",
+        "choices": []
+      },
+      "vg_bh_boss_waescherei_weiter1": {
+        "text": "Der Kessel verliert seine Hülle. Zurückgehaltene Seufzer schlagen als einzelne Druckstöße aus.",
+        "choices": [
+          {
+            "text": "Den nächsten Abschnitt beginnen.",
+            "next": "vg_bh_boss_waescherei_kampf2",
+            "requires_flags": [
+              "vg_bh_boss_waescherei_phase1_done"
+            ],
+            "hide_if_flags": [
+              "vg_bh_boss_waescherei_geloest"
+            ]
+          },
+          {
+            "text": "Abbrechen und zum Eingang zurück.",
+            "next": "vg_bh_boss_waescherei_abbruch"
+          }
+        ]
+      },
+      "vg_bh_boss_waescherei_kampf2": {
+        "text": "Der Kessel verliert seine Hülle. Zurückgehaltene Seufzer schlagen als einzelne Druckstöße aus.",
+        "combat": "vg_bh_boss_waescherei_phase2",
+        "choices": []
+      },
+      "vg_bh_boss_waescherei_bergung": {
+        "text": "Lose Handelsreste liegen sicher erreichbar neben der stillstehenden Anlage. Ihr könnt sie einmal bergen.",
+        "choices": [
+          {
+            "text": "Trophäe, Material und Ausrüstung nehmen.",
+            "next": "vg_bh_boss_waescherei_ausgabe",
+            "requires_flags": [
+              "vg_bh_boss_waescherei_geloest"
+            ],
+            "hide_if_flags": [
+              "vg_bh_boss_waescherei_beute"
+            ]
+          },
+          {
+            "text": "Später bergen."
+          }
+        ]
+      },
+      "vg_bh_boss_waescherei_ausgabe": {
+        "text": "Die Reste sind geborgen. Die Ausrüstung ist ein Fundstück; sie ersetzt weder eine Aussage noch eine Sequenzprüfung.",
+        "sets_flags": [
+          "vg_bh_boss_waescherei_beute"
+        ],
+        "gives_items": {
+          "vt_bh_boss_waescherei": 1,
+          "vi_m_kurwaesche": 1,
+          "vi_hut_kurhaube": 1
+        },
+        "gives_money": 60,
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      },
+      "vg_bh_boss_waescherei_quittung": {
+        "text": "Der örtliche Gegner ist überwunden. Die Reste wurden bereits geborgen.",
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      },
+      "vg_bh_boss_waescherei_abbruch": {
+        "text": "Ihr bleibt auf dem gesicherten Rückweg. Lose Beweise bleiben erhalten; ein neuer Kampf beginnt wieder mit dem ersten Abschnitt.",
+        "clears_flags": [
+          "vg_bh_boss_waescherei_phase1_done"
+        ],
+        "choices": [
+          {
+            "text": "Später wiederkommen."
+          }
+        ]
+      }
+    }
+  },
+  "vg_bh_boss_mutterwurzel_dialog": {
+    "start": [
+      {
+        "node": "vg_bh_boss_mutterwurzel_quittung",
+        "requires_flags": [
+          "vg_bh_boss_mutterwurzel_beute"
+        ]
+      },
+      {
+        "node": "vg_bh_boss_mutterwurzel_bergung",
+        "requires_flags": [
+          "vg_bh_boss_mutterwurzel_geloest"
+        ]
+      },
+      {
+        "node": "vg_bh_boss_mutterwurzel_weiter2",
+        "requires_flags": [
+          "vg_bh_boss_mutterwurzel_phase2_done"
+        ]
+      },
+      {
+        "node": "vg_bh_boss_mutterwurzel_weiter1",
+        "requires_flags": [
+          "vg_bh_boss_mutterwurzel_phase1_done"
+        ]
+      },
+      {
+        "node": "vg_bh_boss_mutterwurzel_start"
+      }
+    ],
+    "nodes": {
+      "vg_bh_boss_mutterwurzel_start": {
+        "text": "Blütenmund der Mutterwurzel versperrt nur den inneren Bereich. Der markierte Rückweg bleibt offen. Du entscheidest, ob du nähertrittst.",
+        "choices": [
+          {
+            "text": "Den Kampf beginnen.",
+            "next": "vg_bh_boss_mutterwurzel_kampf1",
+            "hide_if_flags": [
+              "vg_bh_boss_mutterwurzel_geloest"
+            ]
+          },
+          {
+            "text": "Den sicheren Rückweg nehmen.",
+            "next": "vg_bh_boss_mutterwurzel_abbruch"
+          }
+        ]
+      },
+      "vg_bh_boss_mutterwurzel_kampf1": {
+        "text": "Der erste Abschnitt beginnt.",
+        "combat": "vg_bh_boss_mutterwurzel",
+        "choices": []
+      },
+      "vg_bh_boss_mutterwurzel_weiter1": {
+        "text": "Die äußeren Wurzeln geben nach. Der Mund spricht nun aus drei getrennten Blütenkelchen.",
+        "choices": [
+          {
+            "text": "Den nächsten Abschnitt beginnen.",
+            "next": "vg_bh_boss_mutterwurzel_kampf2",
+            "requires_flags": [
+              "vg_bh_boss_mutterwurzel_phase1_done"
+            ],
+            "hide_if_flags": [
+              "vg_bh_boss_mutterwurzel_geloest"
+            ]
+          },
+          {
+            "text": "Abbrechen und zum Eingang zurück.",
+            "next": "vg_bh_boss_mutterwurzel_abbruch"
+          }
+        ]
+      },
+      "vg_bh_boss_mutterwurzel_kampf2": {
+        "text": "Die äußeren Wurzeln geben nach. Der Mund spricht nun aus drei getrennten Blütenkelchen.",
+        "combat": "vg_bh_boss_mutterwurzel_phase2",
+        "choices": []
+      },
+      "vg_bh_boss_mutterwurzel_weiter2": {
+        "text": "Die getrennten Teile sinken. Nur die örtliche Öffnung bleibt; ihre Ränder nähern sich vor jedem letzten Druck.",
+        "choices": [
+          {
+            "text": "Den nächsten Abschnitt beginnen.",
+            "next": "vg_bh_boss_mutterwurzel_kampf3",
+            "requires_flags": [
+              "vg_bh_boss_mutterwurzel_phase2_done"
+            ],
+            "hide_if_flags": [
+              "vg_bh_boss_mutterwurzel_geloest"
+            ]
+          },
+          {
+            "text": "Abbrechen und zum Eingang zurück.",
+            "next": "vg_bh_boss_mutterwurzel_abbruch"
+          }
+        ]
+      },
+      "vg_bh_boss_mutterwurzel_kampf3": {
+        "text": "Die getrennten Teile sinken. Nur die örtliche Öffnung bleibt; ihre Ränder nähern sich vor jedem letzten Druck.",
+        "combat": "vg_bh_boss_mutterwurzel_phase3",
+        "choices": []
+      },
+      "vg_bh_boss_mutterwurzel_bergung": {
+        "text": "Lose Handelsreste liegen sicher erreichbar neben der stillstehenden Anlage. Ihr könnt sie einmal bergen.",
+        "choices": [
+          {
+            "text": "Trophäe, Material und Ausrüstung nehmen.",
+            "next": "vg_bh_boss_mutterwurzel_ausgabe",
+            "requires_flags": [
+              "vg_bh_boss_mutterwurzel_geloest"
+            ],
+            "hide_if_flags": [
+              "vg_bh_boss_mutterwurzel_beute"
+            ]
+          },
+          {
+            "text": "Später bergen."
+          }
+        ]
+      },
+      "vg_bh_boss_mutterwurzel_ausgabe": {
+        "text": "Die Reste sind geborgen. Die Ausrüstung ist ein Fundstück; sie ersetzt weder eine Aussage noch eine Sequenzprüfung.",
+        "sets_flags": [
+          "vg_bh_boss_mutterwurzel_beute"
+        ],
+        "gives_items": {
+          "vt_bh_boss_mutterwurzel": 1,
+          "vi_m_wurzelfaser": 1,
+          "vi_art_die_gaertnerschnur": 1
+        },
+        "gives_money": 60,
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      },
+      "vg_bh_boss_mutterwurzel_quittung": {
+        "text": "Der örtliche Gegner ist überwunden. Die Reste wurden bereits geborgen.",
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      },
+      "vg_bh_boss_mutterwurzel_abbruch": {
+        "text": "Ihr bleibt auf dem gesicherten Rückweg. Lose Beweise bleiben erhalten; ein neuer Kampf beginnt wieder mit dem ersten Abschnitt.",
+        "clears_flags": [
+          "vg_bh_boss_mutterwurzel_phase1_done",
+          "vg_bh_boss_mutterwurzel_phase2_done"
+        ],
+        "choices": [
+          {
+            "text": "Später wiederkommen."
+          }
+        ]
+      }
+    }
+  },
+  "vg_all_boss_landvermesser_dialog": {
+    "start": [
+      {
+        "node": "vg_all_boss_landvermesser_quittung",
+        "requires_flags": [
+          "vg_all_boss_landvermesser_beute"
+        ]
+      },
+      {
+        "node": "vg_all_boss_landvermesser_bergung",
+        "requires_flags": [
+          "vg_all_boss_landvermesser_geloest"
+        ]
+      },
+      {
+        "node": "vg_all_boss_landvermesser_weiter1",
+        "requires_flags": [
+          "vg_all_boss_landvermesser_phase1_done"
+        ]
+      },
+      {
+        "node": "vg_all_boss_landvermesser_start"
+      }
+    ],
+    "nodes": {
+      "vg_all_boss_landvermesser_start": {
+        "text": "Landvermesser versperrt nur den inneren Bereich. Der markierte Rückweg bleibt offen. Du entscheidest, ob du nähertrittst.",
+        "choices": [
+          {
+            "text": "Den Kampf beginnen.",
+            "next": "vg_all_boss_landvermesser_kampf1",
+            "hide_if_flags": [
+              "vg_all_boss_landvermesser_geloest"
+            ]
+          },
+          {
+            "text": "Den sicheren Rückweg nehmen.",
+            "next": "vg_all_boss_landvermesser_abbruch"
+          }
+        ]
+      },
+      "vg_all_boss_landvermesser_kampf1": {
+        "text": "Der erste Abschnitt beginnt.",
+        "combat": "vg_all_boss_landvermesser",
+        "choices": []
+      },
+      "vg_all_boss_landvermesser_weiter1": {
+        "text": "Das Band reißt. Der Vermesser zählt weiter und richtet den Zirkel auf die ungemessene Wegbucht.",
+        "choices": [
+          {
+            "text": "Den nächsten Abschnitt beginnen.",
+            "next": "vg_all_boss_landvermesser_kampf2",
+            "requires_flags": [
+              "vg_all_boss_landvermesser_phase1_done"
+            ],
+            "hide_if_flags": [
+              "vg_all_boss_landvermesser_geloest"
+            ]
+          },
+          {
+            "text": "Abbrechen und zum Eingang zurück.",
+            "next": "vg_all_boss_landvermesser_abbruch"
+          }
+        ]
+      },
+      "vg_all_boss_landvermesser_kampf2": {
+        "text": "Das Band reißt. Der Vermesser zählt weiter und richtet den Zirkel auf die ungemessene Wegbucht.",
+        "combat": "vg_all_boss_landvermesser_phase2",
+        "choices": []
+      },
+      "vg_all_boss_landvermesser_bergung": {
+        "text": "Lose Handelsreste liegen sicher erreichbar neben der stillstehenden Anlage. Ihr könnt sie einmal bergen.",
+        "choices": [
+          {
+            "text": "Trophäe, Material und Ausrüstung nehmen.",
+            "next": "vg_all_boss_landvermesser_ausgabe",
+            "requires_flags": [
+              "vg_all_boss_landvermesser_geloest"
+            ],
+            "hide_if_flags": [
+              "vg_all_boss_landvermesser_beute"
+            ]
+          },
+          {
+            "text": "Später bergen."
+          }
+        ]
+      },
+      "vg_all_boss_landvermesser_ausgabe": {
+        "text": "Die Reste sind geborgen. Die Ausrüstung ist ein Fundstück; sie ersetzt weder eine Aussage noch eine Sequenzprüfung.",
+        "sets_flags": [
+          "vg_all_boss_landvermesser_beute"
+        ],
+        "gives_items": {
+          "vt_all_boss_landvermesser": 1,
+          "vi_m_landkarte_rest": 1,
+          "vi_hut_zylinder_vermesser": 1
+        },
+        "gives_money": 60,
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      },
+      "vg_all_boss_landvermesser_quittung": {
+        "text": "Der örtliche Gegner ist überwunden. Die Reste wurden bereits geborgen.",
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      },
+      "vg_all_boss_landvermesser_abbruch": {
+        "text": "Ihr bleibt auf dem gesicherten Rückweg. Lose Beweise bleiben erhalten; ein neuer Kampf beginnt wieder mit dem ersten Abschnitt.",
+        "clears_flags": [
+          "vg_all_boss_landvermesser_phase1_done"
+        ],
+        "choices": [
+          {
+            "text": "Später wiederkommen."
+          }
+        ]
+      }
+    }
+  },
+  "vg_all_boss_schlafkutsche_dialog": {
+    "start": [
+      {
+        "node": "vg_all_boss_schlafkutsche_quittung",
+        "requires_flags": [
+          "vg_all_boss_schlafkutsche_beute"
+        ]
+      },
+      {
+        "node": "vg_all_boss_schlafkutsche_bergung",
+        "requires_flags": [
+          "vg_all_boss_schlafkutsche_geloest"
+        ]
+      },
+      {
+        "node": "vg_all_boss_schlafkutsche_weiter1",
+        "requires_flags": [
+          "vg_all_boss_schlafkutsche_phase1_done"
+        ]
+      },
+      {
+        "node": "vg_all_boss_schlafkutsche_start"
+      }
+    ],
+    "nodes": {
+      "vg_all_boss_schlafkutsche_start": {
+        "text": "Schlafkutsche versperrt nur den inneren Bereich. Der markierte Rückweg bleibt offen. Du entscheidest, ob du nähertrittst.",
+        "choices": [
+          {
+            "text": "Den Kampf beginnen.",
+            "next": "vg_all_boss_schlafkutsche_kampf1",
+            "hide_if_flags": [
+              "vg_all_boss_schlafkutsche_geloest"
+            ]
+          },
+          {
+            "text": "Den sicheren Rückweg nehmen.",
+            "next": "vg_all_boss_schlafkutsche_abbruch"
+          }
+        ]
+      },
+      "vg_all_boss_schlafkutsche_kampf1": {
+        "text": "Der erste Abschnitt beginnt.",
+        "combat": "vg_all_boss_schlafkutsche",
+        "choices": []
+      },
+      "vg_all_boss_schlafkutsche_weiter1": {
+        "text": "Die äußere Achshülle fällt ab. Die schlafenden Reisenden bleiben geschützt hinter den stillstehenden Türen.",
+        "choices": [
+          {
+            "text": "Den nächsten Abschnitt beginnen.",
+            "next": "vg_all_boss_schlafkutsche_kampf2",
+            "requires_flags": [
+              "vg_all_boss_schlafkutsche_phase1_done"
+            ],
+            "hide_if_flags": [
+              "vg_all_boss_schlafkutsche_geloest"
+            ]
+          },
+          {
+            "text": "Abbrechen und zum Eingang zurück.",
+            "next": "vg_all_boss_schlafkutsche_abbruch"
+          }
+        ]
+      },
+      "vg_all_boss_schlafkutsche_kampf2": {
+        "text": "Die äußere Achshülle fällt ab. Die schlafenden Reisenden bleiben geschützt hinter den stillstehenden Türen.",
+        "combat": "vg_all_boss_schlafkutsche_phase2",
+        "choices": []
+      },
+      "vg_all_boss_schlafkutsche_bergung": {
+        "text": "Lose Handelsreste liegen sicher erreichbar neben der stillstehenden Anlage. Ihr könnt sie einmal bergen.",
+        "choices": [
+          {
+            "text": "Trophäe, Material und Ausrüstung nehmen.",
+            "next": "vg_all_boss_schlafkutsche_ausgabe",
+            "requires_flags": [
+              "vg_all_boss_schlafkutsche_geloest"
+            ],
+            "hide_if_flags": [
+              "vg_all_boss_schlafkutsche_beute"
+            ]
+          },
+          {
+            "text": "Später bergen."
+          }
+        ]
+      },
+      "vg_all_boss_schlafkutsche_ausgabe": {
+        "text": "Die Reste sind geborgen. Die Ausrüstung ist ein Fundstück; sie ersetzt weder eine Aussage noch eine Sequenzprüfung.",
+        "sets_flags": [
+          "vg_all_boss_schlafkutsche_beute"
+        ],
+        "gives_items": {
+          "vt_all_boss_schlafkutsche": 1,
+          "vi_m_kutschenlaterne": 1,
+          "vi_hut_fuhrmannshut": 1
+        },
+        "gives_money": 60,
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      },
+      "vg_all_boss_schlafkutsche_quittung": {
+        "text": "Der örtliche Gegner ist überwunden. Die Reste wurden bereits geborgen.",
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      },
+      "vg_all_boss_schlafkutsche_abbruch": {
+        "text": "Ihr bleibt auf dem gesicherten Rückweg. Lose Beweise bleiben erhalten; ein neuer Kampf beginnt wieder mit dem ersten Abschnitt.",
+        "clears_flags": [
+          "vg_all_boss_schlafkutsche_phase1_done"
+        ],
+        "choices": [
+          {
+            "text": "Später wiederkommen."
+          }
+        ]
+      }
+    }
+  },
+  "vg_all_marktschreier_dialog": {
+    "start": [
+      {
+        "node": "quittung",
+        "requires_flags": [
+          "vg_all_marktschreier_geloest"
+        ]
+      },
+      {
+        "node": "start"
+      }
+    ],
+    "nodes": {
+      "start": {
+        "text": "„Garantiert der richtige Weg“, ruft der Händler. Sein Beutel ist verschnürt, das angebliche Amtssiegel noch weich.",
+        "choices": [
+          {
+            "text": "Die Garantie vor dem Kauf prüfen.",
+            "next": "pruefen"
+          },
+          {
+            "text": "Die Drohung zurückweisen und kämpfen.",
+            "next": "kampf"
+          },
+          {
+            "text": "Ohne Kauf weitergehen.",
+            "next": "gehen"
+          }
+        ]
+      },
+      "pruefen": {
+        "text": "Der Beutel ist leer. „Die Garantie ist geistiger Art“, sagt er und zieht den Verschluss hastig zu.",
+        "choices": [
+          {
+            "text": "Ich kaufe nichts. Lass die anderen Reisenden gehen.",
+            "next": "entlarvt"
+          },
+          {
+            "text": "Du bedrohst uns nicht weiter.",
+            "next": "kampf"
+          },
+          {
+            "text": "Das genügt mir.",
+            "next": "gehen"
+          }
+        ]
+      },
+      "entlarvt": {
+        "text": "Er schiebt den Beutel unter den Mantel und flieht. Eure Geldbörse bleibt geschlossen.",
+        "sets_flags": [
+          "vg_all_marktschreier_geloest"
+        ],
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      },
+      "kampf": {
+        "text": "Er nimmt den Vorführstock. Ihr könnt ihn entwaffnen; ein Kampf endet mit seiner Flucht.",
+        "combat": "vg_all_marktschreier",
+        "choices": []
+      },
+      "gehen": {
+        "text": "Ihr geht ohne Kauf. Es wird kein Geld abgezogen und keine Verfolgung ausgelöst.",
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      },
+      "quittung": {
+        "text": "Der Platz des Händlers ist leer. Seine Wegegarantie braucht ihr nicht.",
+        "choices": [
+          {
+            "text": "Weiter."
+          }
+        ]
+      }
+    }
+  }
+}
