@@ -25,6 +25,15 @@ const itemIcon = (id) => (PULSE_ICONS[id] ? `<span class="item-icon pulse" style
 /** Größeres Icon (Tränke in 32px, sonst das 16er doppelt). */
 const itemIconBig = (id) => `<img class="item-icon big" src="${itemIcon32Url(id) ?? itemIconUrl(id)}" alt="" width="32" height="32" onerror="this.remove()">`;
 /** Vor- und Nachteile eines Artefakts als kleine Liste. */
+/** Rate pro Sekunde lesbar (0.12 → „0,12“). */
+const fmtRate = (v) => String(Math.round(v * 100) / 100).replace('.', ',');
+/** Korruption eines Stücks: wie oft getroffen, was es gerade kostet. */
+const corruptionHtml = (s, id) => {
+  const r = s.corruptionRules();
+  const n = s.corrupted?.[id] ?? 1;
+  const using = s.corruptedInUse().includes(id);
+  return `<span class="arteffects"><span class="curse"><i class="artmark minus"></i>Korrumpiert${n > 1 ? ` (${n}×)` : ''}: ${using ? `kostet gerade ${fmtRate(r.hp_per_sec)} Leben und ${fmtRate(r.nerves_per_sec)} Nerven pro Sekunde` : 'ruht, solange du es nicht trägst'}</span></span>`;
+};
 const artifactEffectsHtml = (it) => `<span class="arteffects">${(it.boons ?? []).map((x) => `<span class="boon"><i class="artmark plus"></i>${esc(x.text)}</span>`).join('')}${(it.curses ?? []).map((x) => `<span class="curse"><i class="artmark minus"></i>${esc(x.text)}</span>`).join('')}</span>`;
 /** Im Laden: Angriff von Waffen, Platz und Wirkung von Kleidung. */
 const shopStats = (it) => (it?.kind === 'weapon' ? `<br><span class="muted">Angriff ${it.atk}${it.occult ? ', stark gegen Okkultes' : ''}</span>`
@@ -38,8 +47,8 @@ const paperDoll = (s) => {
     const it = id && s.itemCount(id) ? s.item(id) : null;
     const tip = it ? `${it.name}${(it.boons ?? []).map((b) => ` · ${b.text}`).join('')}${it.atk ? ` · Angriff ${it.atk}` : ''}` : `${GEAR_SLOT_NAMES[slot]}: leer`;
     const inner = it ? `<img src="${itemIcon32Url(id) ?? itemIconUrl(id)}" alt="">` : '';
-    const attr = it && slot !== 'waffe' ? ` data-takeoff="${slot}"` : '';
-    return `<button class="dollslot${it ? ' filled' : ''}"${attr} title="${esc(tip)}" style="left:${x * k}em;top:${y * k}em;width:${20 * k}em;height:${20 * k}em">${inner}</button>`;
+    const attr = it && slot !== 'waffe' ? ` data-takeoff="${slot}"` : it && s.isCorrupted(id) ? ` data-unequip="${id}"` : '';
+    return `<button class="dollslot${it ? ' filled' : ''}${it && s.isCorrupted(id) ? ' tainted' : ''}"${attr} title="${esc(tip)}" style="left:${x * k}em;top:${y * k}em;width:${20 * k}em;height:${20 * k}em">${inner}</button>`;
   }).join('');
   const worn = [...DOLL_SLOTS.map(([slot]) => slot).filter((x) => x !== 'waffe').map((slot) => s.gear?.[slot]).filter((id) => id && s.itemCount(id))];
   const list = worn.length ? worn.map((id) => `<li>${itemIcon(id)}<strong>${esc(s.item(id).name)}</strong>${artifactEffectsHtml(s.item(id))}</li>`).join('') : '<li class="muted">Noch nichts angelegt. Hüte, Mäntel und Amulette wirken nur, solange du sie trägst.</li>';
@@ -404,15 +413,16 @@ export class Ui {
     });
     this.gatheringTimer = setInterval(() => this.updateGathering(), 1000);
     state.on('ascend', () => { this.updateUnruhe(); this.updateHp(); });
-    state.on('lostcontrol', ({ text, player = 1 }) => {
+    state.on('lostcontrol', ({ text, player = 1, corrupted = [] }) => {
       this.updateHp();
       this.updateUnruhe();
       this.updateP2();
-      if (this.modal === 'combat') return;
       const title = player === 2 ? 'Kontrollverlust: Spieler 2' : 'Kontrollverlust';
-      if (this.modal) { this.pendingLost = { title, text }; return; }
-      this.showMessage(title, text);
+      // Im Kampf oder in einem anderen Fenster: Die Tentakel kommen, sobald es zu ist
+      if (this.modal) { this.pendingLost = { title, text, corrupted, player }; return; }
+      this.showCorruption(title, text, corrupted, player);
     });
+    state.on('cleansed', ({ id }) => this.toast(`${this.state.item(id)?.name ?? 'Das Stück'} ist gereinigt.`, 'gold'));
     // Flüstern bei hoher Unruhe
     this.whisperTimer = setInterval(() => {
       if (this.modal || state.unruhe < 60 || !this.scene) return;
@@ -765,9 +775,9 @@ export class Ui {
       this.showMessage(ch.title, ch.text, { footer: ch.footer ?? '', scene: card });
       this.layer.querySelector('.panel.message')?.classList.add('chapterbook'); // Grundpaket: aufgeschlagenes Notizbuch (07_02)
     } else if (this.pendingLost) {
-      const { title, text } = this.pendingLost;
+      const { title, text, corrupted = [], player = 1 } = this.pendingLost;
       this.pendingLost = null;
-      this.showMessage(title, text);
+      this.showCorruption(title, text, corrupted, player);
     } else if (this.state.pendingCombat && this.scene) {
       this.scene.startCombat(this.state.pendingCombat);
     } else if (this.state.pendingTravel && this.scene) {
@@ -851,6 +861,26 @@ export class Ui {
       ${footer ? `<div class="footer">${esc(footer)}</div>` : ''}
       <button class="next" data-act="ok">Weiter <span class="key">E</span></button>`, 'message');
     el.querySelector('[data-act=ok]').onclick = () => this.close();
+  }
+
+  /**
+   * Kontrollverlust: Tentakel wachsen aus der Figur (Animation in der Welt, Bild im Fenster) und
+   * korrumpieren alles am Leib. corrupted: Ids der getroffenen Stücke.
+   */
+  showCorruption(title, text, corrupted = [], player = 1) {
+    this.scene?.playCorruption?.(player);
+    const s = this.state;
+    const hit = corrupted.filter((id) => s.item(id));
+    const extra = hit.length
+      ? `<ul class="corruptlist">${hit.map((id) => `<li>${itemIcon(id)}<strong>${esc(s.item(id).name)}</strong> <span class="curse">korrumpiert</span></li>`).join('')}</ul>`
+      : '';
+    const r = s.corruptionRules();
+    const footer = hit.length
+      ? `Jedes korrumpierte Stück in Gebrauch kostet ${fmtRate(r.hp_per_sec)} Leben und ${fmtRate(r.nerves_per_sec)} Nerven pro Sekunde. Ablegen im Inventar (I), reinigen bei Dr. Varga oder mit Läutersalz.`
+      : '';
+    this.showMessage(title, text, { scene: 'kontrollverlust', extra, footer });
+    this.layer.querySelector('.panel.message')?.classList.add('corruption');
+    this.keysBlockedUntil = performance.now() + 2000; // Erst die Tentakel sehen, dann lesen
   }
 
   /** Inhalt eines Beutebehälters. */
@@ -1321,6 +1351,10 @@ export class Ui {
     const inv = (fn) => this.as(fn, this.tab === 'items' || this.tab === 'pfad' ? this.invPlayer : 1);
     el.querySelectorAll('[data-use]').forEach((b) => { b.onclick = () => this.renderNotebook(esc(inv(() => this.state.useItem(b.dataset.use)) ?? '')); });
     el.querySelectorAll('[data-equip]').forEach((b) => { b.onclick = () => { inv(() => this.state.equip(b.dataset.equip)); this.renderNotebook(''); }; });
+    el.querySelectorAll('[data-unequip]').forEach((b) => { b.onclick = () => { inv(() => this.state.unequipWeapon()); this.renderNotebook('Du kämpfst jetzt mit bloßen Fäusten. Die Korruption ruht.'); }; });
+    el.querySelectorAll('[data-aside]').forEach((b) => { b.onclick = () => this.renderNotebook(esc(inv(() => this.state.setAsideArtifact(b.dataset.aside)).text)); });
+    el.querySelectorAll('[data-takeup]').forEach((b) => { b.onclick = () => this.renderNotebook(esc(inv(() => this.state.takeUpArtifact(b.dataset.takeup)).text)); });
+    el.querySelectorAll('[data-cleanse]').forEach((b) => { b.onclick = () => this.renderNotebook(esc(inv(() => this.state.cleanseWithSalt(b.dataset.cleanse)).text)); });
     el.querySelectorAll('[data-wear]').forEach((b) => { b.onclick = () => { inv(() => this.state.wear(b.dataset.wear)); this.renderNotebook(''); }; });
     el.querySelectorAll('[data-takeoff]').forEach((b) => { b.onclick = () => { inv(() => this.state.takeOff(b.dataset.takeoff)); this.renderNotebook(''); }; });
     el.querySelectorAll('[data-invplayer]').forEach((b) => { b.onclick = () => { this.invPlayer = Number(b.dataset.invplayer); this.renderNotebook(''); }; });
@@ -1477,7 +1511,8 @@ export class Ui {
     const w = s.weaponStats();
     const rows = list.map((it) => {
       let action = '';
-      if (it.kind === 'weapon') action = s.weapon === it.id ? '<span class="badge likely">ausgerüstet</span>' : `<button class="small" data-equip="${it.id}">Ausrüsten</button>`;
+      const tainted = s.isCorrupted(it.id);
+      if (it.kind === 'weapon') action = s.weapon === it.id ? `<span class="badge likely">ausgerüstet</span>${tainted ? `<br><button class="small" data-unequip="${it.id}">Ablegen</button>` : ''}` : `<button class="small" data-equip="${it.id}">Ausrüsten</button>`;
       else if (it.kind === 'gear') action = s.isWorn(it.id) ? `<span class="badge likely">angelegt</span><br><button class="small" data-takeoff="${it.slot}">Ablegen</button>` : `<button class="small" data-wear="${it.id}">Anlegen</button>`;
       else if (it.kind === 'consumable' && !it.combat_only) action = `<button class="small" data-use="${it.id}">Benutzen</button>`;
       else if (it.combat_only) action = '<span class="muted">nur im Kampf</span>';
@@ -1486,11 +1521,14 @@ export class Ui {
         action = chk.ok ? `<button class="small" data-drink="${it.id}">Trinken</button><br><span class="muted">Risiko ${Math.round(chk.risk * 100)} %</span>` : chk.ritual ? '<button class="small" data-recipe="1">Ritual nötig</button>' : '<span class="muted">nicht trinkbar</span>';
       } else if (it.kind === 'formula') action = '<button class="small" data-recipe="1">Rezept</button>';
       else if (it.kind === 'artifact') {
-        action = '<span class="badge likely">wirkt</span>';
+        // Artefakte wirken, solange man sie bei sich hat. Korrumpierte darf man ausnahmsweise beiseitelegen.
+        if (s.isSetAside(it.id)) action = `<span class="badge suspected">ruht</span><br><button class="small" data-takeup="${it.id}">Aufnehmen</button>`;
+        else action = `<span class="badge likely">wirkt</span>${tainted ? `<br><button class="small" data-aside="${it.id}">Beiseitelegen</button>` : ''}`;
         if (s.borrowed.includes(it.id)) action += '<br><span class="muted">vom Revier geliehen</span>';
       } else if (it.kind === 'ingredient') action = '<span class="muted">Zutat</span>';
       else if (it.kind === 'trophy') action = `<span class="muted rar-${itemRarity(it)}">Beutestück · ${RARITY_NAMES[itemRarity(it)]}</span>`;
       if (!action && it.inspect) action = `<button class="small" data-inspect="${it.id}">Untersuchen</button>`;
+      if (tainted && s.itemCount(s.corruptionRules().cleanse_item)) action += `${action ? '<br>' : ''}<button class="small" data-cleanse="${it.id}">Reinigen (Läutersalz)</button>`;
       const wt = s.itemWeight(it.id);
       if (wt > 0) action += `${action ? '<br>' : ''}<span class="muted weight">${fmtLb(wt * it.count)} Pfd.</span>`;
       if (p2 && it.kind !== 'key') action += ` <button class="small give" data-give="${it.id}" title="Eins an Spieler ${other} geben">→ Sp. ${other}</button>`;
@@ -1498,14 +1536,19 @@ export class Ui {
       const stat = it.kind === 'weapon' ? ` <span class="muted">Angriff ${it.atk}${it.occult ? ', stark gegen Okkultes' : ''}</span>`
         : it.kind === 'gear' ? ` <span class="muted">${GEAR_SLOT_NAMES[it.slot]}</span>` : '';
       const effects = it.kind === 'artifact' || it.kind === 'gear' ? artifactEffectsHtml(it) : '';
-      return `<li class="item"><div>${it.kind === 'potion' || it.kind === 'formula' ? itemIconBig(it.id) : itemIcon(it.id)}<strong>${esc(it.name)}</strong>${it.count > 1 ? ` ×${it.count}` : ''}${stat}<br><span class="desc">${esc(it.desc)}</span>${effects}</div><div>${action}</div></li>`;
+      const taint = tainted ? corruptionHtml(s, it.id) : '';
+      return `<li class="item${tainted ? ' tainted' : ''}"><div>${it.kind === 'potion' || it.kind === 'formula' ? itemIconBig(it.id) : itemIcon(it.id)}<strong>${esc(it.name)}</strong>${it.count > 1 ? ` ×${it.count}` : ''}${stat}${tainted ? ' <span class="badge refuted">korrumpiert</span>' : ''}<br><span class="desc">${esc(it.desc)}</span>${effects}${taint}</div><div>${action}</div></li>`;
     }).join('');
     const carried = s.activeArtifacts();
     const maxArt = s.artifactRules().max_active ?? 3;
     const arts = carried.length
       ? `<div class="status"><span class="artslots">${artifactSlots(carried, maxArt, carried.length > maxArt || s.unruhe >= 60)}</span>Artefakte dabei <strong>${carried.length}</strong>${s.artifactUnruhe() ? ` · <span class="curse">Unruhe +${Math.round(s.artifactUnruhe() * 10) / 10} pro Sekunde</span>` : ''} · Alles, was du bei dir trägst, wirkt: Vorteile wie Flüche. Was du nicht brauchst, lagere im Büro ein.${carried.length > maxArt ? ` <span class="curse">Mehr als ${maxArt} zerren heftig aneinander.</span>` : ''}</div>` : '';
+    const drain = s.corruptionDrain();
+    const taintBox = drain.count
+      ? `<div class="status taintbox">${uiSprite('digest', 'warning', 1 / 12, 'digestico', 'Korruption')}<strong>${drain.count}</strong> korrumpierte${drain.count === 1 ? 's Stück zehrt' : ' Stücke zehren'} an dir: <span class="curse">−${fmtRate(drain.hp)} Leben, −${fmtRate(drain.nerves)} Nerven pro Sekunde</span>. Ablegen hilft sofort, reinigen Dr. Varga im Revier oder Läutersalz (Nell).</div>`
+      : s.corruptedItems().length ? '<div class="status taintbox muted">Korrumpierte Stücke liegen abgelegt in deiner Tasche. Sie zehren erst wieder, wenn du sie trägst.</div>' : '';
     return `
-      ${carryHtml(s)}
+      ${carryHtml(s)}${taintBox}
       <div class="status">Leben <strong>${s.hp}/${s.maxHp}</strong> · Nerven <strong>${Math.round(s.composure)}/${s.maxComposure()}</strong> · Waffe <strong>${esc(w.name)}</strong> (Angriff ${w.atk}) · ${coin}<strong>${s.money}</strong> Schilling</div>
       ${cat.id === 'alle' || cat.id === 'waffen' || cat.id === 'kleidung' ? paperDoll(s) : ''}
       ${cat.id === 'alle' || cat.id === 'artefakte' ? arts : ''}
@@ -1668,6 +1711,7 @@ export class Ui {
       </div>
       <p class="lead"><em>„${esc(p.principle)}“</em> ${esc(p.digest_hint)}</p>
       <p class="muted">Jede Sequenz dieses Pfades: +${s.growth().hp} Leben, +${s.growth().nerves} Nerven, die Durchbrüche 7 und 6 das Doppelte. Gerade: ${s.maxHp} Leben, ${s.maxComposure()} Nerven.</p>
+      ${s.corruptionDrain().count ? `<p class="curse">Korruption: ${s.corruptionDrain().count} Stück an dir zehrt an Leben und Nerven (siehe Inventar). Bei 100 Unruhe wachsen die Tentakel erneut und treffen alles, was du dann trägst.</p>` : '<p class="muted">Bei 100 Unruhe verlierst du die Kontrolle: Tentakel korrumpieren Waffe, Kleidung und Artefakte am Leib, die dich danach Leben und Nerven kosten, solange du sie trägst.</p>'}
       ${this.ritualHtml()}
       <h4>Was deinen Trank verdaut</h4>
       <ul class="digestlist">${s.digestTable().map((r) => `<li><span>${esc(r.label)}</span> <strong>+${r.points} %</strong></li>`).join('')}
@@ -1798,6 +1842,11 @@ export class Ui {
       this.openExpert(`<span class="${r.ok ? 'good' : ''}">${esc(r.text)}</span>`);
       return;
     }
+    if (e.type === 'cleanse') {
+      const r = this.as(() => this.state.cleanseAt(e.id));
+      this.openExpert(`<span class="${r.ok ? 'good' : ''}">${esc(r.text)}</span>`);
+      return;
+    }
     const r = e.borrowed ? this.state.returnArtifact(e.id) : this.state.borrowArtifact(e.id);
     this.openVault(`<span class="${r.ok ? 'good' : ''}">${esc(r.text)}</span>`);
   }
@@ -1815,6 +1864,15 @@ export class Ui {
         <span class="desc">${esc(o.locked ? `🔒 ${o.locked}` : o.taken ? 'Schon abgeholt.' : p.seqs[o.seq]?.desc ?? '')}</span></div>
         <div><button class="small" data-vault="${i}" ${this.vault[i].disabled ? 'disabled' : ''}><span class="key">${i + 1}</span> Abholen</button></div></li>`;
     }).join('');
+    const cleanse = this.as(() => s.cleanseOffers());
+    const base = this.vault.length;
+    this.vault.push(...cleanse.map((c) => ({ type: 'cleanse', id: c.id, disabled: !c.affordable })));
+    const cleanseRows = cleanse.map((c, i) => `<li class="item tainted"><div>${itemIcon(c.id)}<strong>${esc(c.name)}</strong> <span class="badge refuted">korrumpiert</span><br>
+        <span class="desc">${esc(c.kind === 'artifact' ? 'Ein Artefakt mit schwarzem Faden darin. Teuer, aber danach wirkt nur noch sein eigener Fluch.' : 'Der schwarze Faden lässt sich mit Salzlauge und Geduld herauslösen.')}</span></div>
+        <div><button class="small" data-vault="${base + i}" ${c.affordable ? '' : 'disabled'}><span class="key">${base + i + 1}</span> Reinigen · ${coin}${c.price}</button></div></li>`).join('');
+    const cleanseBox = cleanse.length
+      ? `<h4>Reinigung</h4><p class="lead">„Da ist etwas in Ihren Sachen, das da nicht hingehört. Ich kann es herauslösen. Es kostet, und es tut dem Stück nicht gut, aber Ihnen tut es noch weniger gut.“</p><ul class="items shoplist">${cleanseRows}</ul>`
+      : '';
     const intro = !s.isBeyonder()
       ? `Das Revier führt Tränke für drei Pfade: ${names}, und nur bis Sequenz 7. Jede Stufe gibt es einmal, sobald ein bestimmter Fall gelöst ist. Für alle anderen Pfade gehen Sie auf den Nachtmarkt.`
       : offers.length ? 'Ihr Pfad gehört zu denen, die das Revier unterstützt, bis Sequenz 7. Danach müssen Sie sich die Formeln selbst beschaffen: bei geheimen Treffen, oder mit viel Glück irgendwo da draußen. Trinken sollten Sie erst, wenn der letzte Trank verdaut ist.'
@@ -1824,6 +1882,7 @@ export class Ui {
       <p class="lead">„${esc(intro)}“</p>
       ${s.isBeyonder() ? `<div class="lead">${paragraphs(s.pathwayReport())}</div>` : ''}
       <ul class="items shoplist">${rows || '<li class="empty">Gerade nichts für Sie.</li>'}</ul>
+      ${cleanseBox}
       <div class="feedback">${feedback}</div>
       <div class="actions"><button data-act="close">Gehen <span class="key">Esc</span></button></div>`, 'notebook shop');
     el.querySelectorAll('[data-vault]').forEach((b) => { b.onclick = () => this.vaultPick(Number(b.dataset.vault)); });
@@ -2159,7 +2218,7 @@ export class Ui {
     const mine = (fn) => this.state.withPlayer(c.actor, fn, { quiet: true });
     const turn = c.duo ? `Spieler ${c.actor} ist am Zug. ` : '';
     if (sub === 'main') {
-      const items = mine(() => this.state.items().filter((i) => i.kind === 'consumable').length);
+      const items = mine(() => this.state.items().filter((i) => i.kind === 'consumable' && !i.cleanse).length);
       entries = [
         { text: 'Angriff', ui: 'attack', info: '+1 K · beendet den Zug', act: { type: 'skill', id: 'attack' } },
         { text: 'Fertigkeiten', ui: 'skill', info: `${c.ap} K`, sub: 'skills' },
@@ -2177,7 +2236,7 @@ export class Ui {
         text: `${k.pathway && !skillIconOf(k.id) ? '✧ ' : ''}${k.name}`, skill: k.id, info: `${k.cost} K${k.composure ? ` · ${k.composure} Nerven` : ''}`, desc: k.desc, act: { type: 'skill', id: k.id }, disabled: !k.usable,
       }));
     } else {
-      entries = mine(() => this.state.items()).filter((i) => i.kind === 'consumable').map((i) => ({ text: `${i.name} ×${i.count}`, icon: i.id, desc: i.desc, act: { type: 'item', id: i.id } }));
+      entries = mine(() => this.state.items()).filter((i) => i.kind === 'consumable' && !i.cleanse).map((i) => ({ text: `${i.name} ×${i.count}`, icon: i.id, desc: i.desc, act: { type: 'item', id: i.id } }));
       if (!entries.length) entries = [{ text: 'Keine Gegenstände', disabled: true }];
     }
     if (sub !== 'main') entries.push({ text: 'Zurück', back: true });

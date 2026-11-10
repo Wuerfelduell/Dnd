@@ -201,7 +201,7 @@ export const pathwayMethods = {
     if (this.unruhe >= UNRUHE_MAX && before < UNRUHE_MAX) this.loseControl('Die Stimmen werden zu laut.');
   },
 
-  /** Kontrollverlust: Ohnmacht, Verlust von Leben, Schilling und Verdauung. Nie Game Over. */
+  /** Kontrollverlust: Ohnmacht, Verlust von Leben, Schilling und Verdauung, und alles am Leib wird korrumpiert (Corruption.js). Nie Game Over. */
   loseControl(cause) {
     const lostMoney = Math.floor(this.money * 0.2);
     this.money -= lostMoney;
@@ -211,19 +211,25 @@ export const pathwayMethods = {
     this.unruhe = 40;
     this.spiritVision = false;
     const shame = this.artifactShame();
-    const text = `${cause}\n\nDie Welt kippt zur Seite. Du siehst Dinge, die nicht da sind, und hörst deinen Namen in fremden Stimmen. Als du wieder zu dir kommst, liegst du auf kaltem Pflaster, die Hände zerkratzt.\n\nDu hast ${lostMoney} Schilling verloren${this.pathway ? ' und ein Stück deines Fortschritts beim Verdauen' : ''}.${shame}`;
+    const hit = this.corruptEquipment();
+    const names = hit.map((id) => this.item(id).name);
+    const tentacles = hit.length
+      ? `\n\nDann reißt etwas in dir auf. Aus deinen Schultern, deinem Rücken, deinen Handgelenken wachsen nasse, dunkle Tentakel, tasten über dich hinweg und finden alles, was du am Leib trägst: ${names.join(', ')}. Sie saugen sich fest. Als sie sich zurückziehen, bleibt in jedem Stück ein schwarzer Faden, der pulsiert wie ein Herz.\n\n${names.length === 1 ? 'Dieses Stück ist' : 'Diese Stücke sind'} jetzt korrumpiert: ${names.length === 1 ? 'Es zehrt' : 'Sie zehren'} an Leben und Nerven, solange du ${names.length === 1 ? 'es' : 'sie'} trägst. Ablegen geht im Inventar, bei korrumpierten Artefakten ausnahmsweise auch. Reinigen kann Dr. Varga im Revier, oder Läutersalz von Nell Rauhfuß.`
+      : '\n\nAus deinen Schultern wachsen nasse, dunkle Tentakel, tasten über dich hinweg und finden nichts, in das sie sich fressen könnten. Diesmal.';
+    const text = `${cause}\n\nDie Welt kippt zur Seite. Du siehst Dinge, die nicht da sind, und hörst deinen Namen in fremden Stimmen.${tentacles}\n\nAls du wieder zu dir kommst, liegst du auf kaltem Pflaster, die Hände zerkratzt. Du hast ${lostMoney} Schilling verloren${this.pathway ? ' und ein Stück deines Fortschritts beim Verdauen' : ''}.${shame}`;
     this.emit('vision', false);
     this.emit('hp', { value: this.hp, delta: 0 });
     this.emit('composure', this.composure);
     this.emit('unruhe', this.unruhe);
     this.emit('money', { delta: -lostMoney, value: this.money, reason: 'Kontrollverlust' });
-    this.emit('lostcontrol', { text, player: this.acting ?? 1 });
+    this.emit('lostcontrol', { text, player: this.acting ?? 1, corrupted: hit });
     this.emit('changed');
     return text;
   },
 
   /** Wird von tick() aufgerufen. */
   tickPathway(dt) {
+    this.tickCorruption(dt);
     const pull = this.artifactUnruhe();
     if (!this.pathway && this.unruhe <= 0 && !pull) return;
     let u = this.unruhe + pull * dt;

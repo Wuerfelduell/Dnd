@@ -11,6 +11,7 @@ import { relationMethods } from './Relations.js';
 import { artifactMethods } from './Artifacts.js';
 import { partyMethods } from './Party.js';
 import { gearMethods } from './Gear.js';
+import { corruptionMethods } from './Corruption.js';
 
 /** Tragkraft in Pfund. Gegenstände ohne eigenes "weight" wiegen je nach Art so viel. */
 export const BASE_CARRY = 40;
@@ -68,6 +69,7 @@ export class GameState {
     this.random = Math.random; // in Tests austauschbar
     for (const q of s.quests ?? []) this.quests[q] = 'active';
     this.tracked = s.quests?.[0] ?? null;
+    this.resetCorruption();
     this.resetPathway();
     this.resetGatherings();
     this.resetWanted();
@@ -440,6 +442,7 @@ export class GameState {
     if (this.weapon === id && !this.inventory[id]) this.weapon = null;
     this.gearDropped(id);
     if (!this.inventory[id] && this.item(id)?.kind === 'artifact') this.dropArtifactIfGone(id);
+    this.corruptionDropped(id);
     this.emit('item', { id, delta: -n });
     return true;
   }
@@ -540,7 +543,8 @@ export class GameState {
 
   weaponStats() {
     const w = this.weapon ? this.item(this.weapon) : { name: 'Fäuste', atk: 3 };
-    const bonus = this.passive('atk');
+    // Eine korrumpierte Waffe beißt besser, aber sie beißt auch dich (Corruption.js)
+    const bonus = this.passive('atk') + (this.weapon && this.isCorrupted(this.weapon) ? this.corruptionRules().weapon_atk_bonus : 0);
     return bonus ? { ...w, atk: w.atk + bonus } : w;
   }
 
@@ -577,6 +581,7 @@ export class GameState {
     const it = this.item(id);
     if (!it || it.kind !== 'consumable' || !this.itemCount(id)) return null;
     if (it.combat_only) return `${it.name} hilft nur im Kampf.`;
+    if (it.cleanse) return this.corruptedItems().length ? 'Reibe damit das korrumpierte Stück ein: Im Inventar steht bei ihm „Reinigen“.' : 'Nichts an dir ist korrumpiert. Heb das Salz auf.';
     if (it.heal && this.hp >= this.maxHp && !it.composure && !it.calm && !this.kahnFoodHelps(id)) return 'Du bist unverletzt.';
     if (it.composure && this.composure >= this.maxComposure() && !it.heal && !(it.calm && this.unruhe > 0)) return 'Deine Nerven sind ruhig.';
     this.removeItem(id);
@@ -676,6 +681,7 @@ export class GameState {
       gear: this.gear,
       tracked: this.tracked,
       ...this.serializePathway(),
+      ...this.serializeCorruption(),
       ...this.serializeGatherings(),
       ...this.serializeWanted(),
       bonds: this.serializeBonds(),
@@ -721,6 +727,7 @@ export class GameState {
     }
     // Ab Version 4: Schilling, Pfad und Unruhe
     if (data.v >= 4) this.loadPathway(data);
+    this.loadCorruption(data);
     this.loadGatherings(data);
     this.loadWanted(data);
     this.loadBonds(data.bonds);
@@ -736,4 +743,4 @@ export class GameState {
 /** Fortschrittsflags der verlängerten Akt-V-Fassung (AP), in Spielreihenfolge. */
 export const K2_AKT5_STEPS = ['k2v_boot_bereit', 'k2v_keller_passiert', 'k2v_aufstieg_passiert', 'k2v_abschied_done'];
 
-Object.assign(GameState.prototype, partyMethods, gearMethods, pathwayMethods, artifactMethods, gatheringMethods, wantedMethods, bondMethods, relationMethods, auctionMethods, kahnMethods, newspaperMethods, signalMethods);
+Object.assign(GameState.prototype, partyMethods, gearMethods, corruptionMethods, pathwayMethods, artifactMethods, gatheringMethods, wantedMethods, bondMethods, relationMethods, auctionMethods, kahnMethods, newspaperMethods, signalMethods);

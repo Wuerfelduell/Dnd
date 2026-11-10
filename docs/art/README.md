@@ -1473,3 +1473,10 @@ geometrische Rasterelemente; Figuren, Tiere, Marktstände, Stationsprops und Wet
 stammen aus Bildgenerierung mit anschließender Raster-/Paletten-Nachbearbeitung.
 Die Einbindung in BN/BD und das Ersetzen von Ruths bisherigem `npc:hesper`-Alias
 bleiben separat; dieser Batch verändert keinen Spielcode.
+
+## Platzhalter Kontrollverlust (bis Codex BP liefert)
+
+- `ui/scenes/kontrollverlust.png` (240x135): grob gepixeltes Zwischensequenzbild der Tentakel-Cutscene, per Skript erzeugt.
+- `items/laeutersalz.png`: Kopie von `bannsalz.png`.
+- Die Tentakel auf der Karte zeichnet `WorldScene.playCorruption()` selbst, bis `fx/BP_tentakel_kontrollverlust.png` da ist.
+- Auftragsliste für die echten Grafiken: `docs/art/codex_BP_kontrollverlust_grafik.md`.

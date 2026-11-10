@@ -13,7 +13,7 @@
 /** Persönliche Werte, die zwischen den Spielern getauscht werden. */
 /** Flüchtige Platz-Flags der Koop-Rätsel (Paket AI). */
 export const KOOP_ROLE_FLAG = /^koop_[a-z_]+_p[12]$/;
-export const PERSONAL = ['hp', 'maxHp', 'inventory', 'weapon', 'gear', 'composure', 'pathway', 'unruhe', 'spiritVision', 'visionDigest'];
+export const PERSONAL = ['hp', 'maxHp', 'inventory', 'weapon', 'gear', 'composure', 'pathway', 'unruhe', 'spiritVision', 'visionDigest', 'corrupted', 'setAside', 'corruptionAcc'];
 
 export const P2_COMPOSURE_REGEN = 6; // pro Sekunde
 
@@ -52,6 +52,7 @@ export const partyMethods = {
         active: true, hp, maxHp: hp, inventory: items,
         weapon: this.content.party?.weapon ?? (items[P2_START.weapon] ? P2_START.weapon : null), gear: { hut: null, mantel: null, amulett: null },
         composure: 100, pathway: null, unruhe: 0, spiritVision: false, visionDigest: { map: null, total: 0 }, look: 'p2a',
+        corrupted: {}, setAside: [], corruptionAcc: 0,
       };
     }
     this.p2.active = true;
@@ -155,8 +156,11 @@ export const partyMethods = {
     const have = this.withPlayer(from, () => this.itemCount(id));
     n = Math.min(n, have);
     if (n <= 0) return { ok: false, text: 'Davon ist nichts mehr da.' };
+    const tainted = this.withPlayer(from, () => this.corrupted?.[id] ?? 0);
     this.withPlayer(from, () => this.removeItem(id, n));
     this.withPlayer(to, () => this.addItem(id, n));
+    // Die Korruption haftet am Stück und wandert mit
+    if (tainted) this.withPlayer(to, () => { this.corrupted[id] = Math.max(this.corrupted[id] ?? 0, tainted); });
     this.emit('changed');
     return { ok: true, text: `${it.name}${n > 1 ? ` ×${n}` : ''} an Spieler ${to} gegeben.` };
   },
@@ -203,7 +207,9 @@ export const partyMethods = {
       pathway: path && this.seqDef(path.id, path.seq) ? { id: path.id, seq: path.seq, digestion: path.digestion ?? 0 } : null,
       unruhe: Math.max(0, Math.min(99, p.unruhe ?? 0)), spiritVision: false, visionDigest: { map: null, total: 0 },
       look: p.look === 'p2b' ? 'p2b' : 'p2a',
+      corrupted: Object.fromEntries(Object.entries(p.corrupted ?? {}).filter(([i, n]) => inventory[i] && n > 0)), setAside: [], corruptionAcc: 0,
     };
+    this.p2.setAside = (p.setAside ?? []).filter((id) => this.p2.corrupted[id] && this.item(id)?.kind === 'artifact');
     // Höchstwerte aus Pfad, Artefakten und Kleidung neu rechnen
     this.withPlayer(2, () => { this.maxHp = this.calcMaxHp(); this.hp = Math.min(this.hp, this.maxHp); }, { quiet: true });
     this.syncKoop();

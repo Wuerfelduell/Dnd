@@ -45,6 +45,7 @@ export function buildContent({ campaign, quests, cases, maps, dialogues, items =
     loot: { ...(market?.loot ?? {}), ...artifactDrops(wild.loot, wild.encounters, pathways?.artifacts), ...town.loot, ...(f.loot ?? {}), ...(wx.loot ?? {}) },
     artifacts: pathways?.artifacts ?? null,
     revierSupply: pathways?.revier_supply ?? null,
+    corruption: pathways?.corruption ?? null,
     ritualRules: pathways?.ritual_rules ?? null,
     zones: wild.zones,
     lootTables: wild.lootTables,
