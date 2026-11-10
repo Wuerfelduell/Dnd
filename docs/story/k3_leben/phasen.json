@@ -1,0 +1,58 @@
+{
+  "k3k_signalbrecher_phase2": {
+    "name": "Signalbrecher: zweiter Geber",
+    "sprite": "wild",
+    "sheet": "enemy_k3k_signalbrecher",
+    "chapter": 3,
+    "hp": 145,
+    "armor": 3,
+    "occult": true,
+    "fleeable": true,
+    "intro": "Der zweite Geber pfeift versetzt. Zwischen den beiden Tönen liegt jetzt eine erkennbare Pause.",
+    "attacks": [
+      {
+        "name": "Signalstoß",
+        "damage": 16,
+        "hits": [
+          1100,
+          1900
+        ]
+      },
+      {
+        "name": "Zweiter Takt",
+        "damage": 22,
+        "hits": [
+          2400
+        ]
+      }
+    ],
+    "win_text": "Du zerlegst den zweiten Geber. Der Signalbrecher hebt die leeren Hände; die Bahnaufsicht übernimmt ihn.",
+    "on_win": {
+      "sets_flags": [
+        "won_kopfgeld_ds_signalbrecher"
+      ]
+    },
+    "loot": {
+      "money": [
+        4,
+        8
+      ],
+      "drops": []
+    },
+    "roam": {
+      "speed": 0
+    },
+    "lose_to": {
+      "map": "ds_speisewagen",
+      "spawn": "default"
+    },
+    "lose_money": 0.05,
+    "lose_text": "Pfiff bringt dich hinter die Schallschleuse. Der Auftrag bleibt offen; fünf Prozent deines Geldes fehlen.",
+    "flee_text": "Du erreichst den markierten Rückweg. Der Auftrag bleibt offen.",
+    "first_win": {
+      "gives_items": {
+        "k3k_signalbrecher_trophaee": 1
+      }
+    }
+  }
+}
