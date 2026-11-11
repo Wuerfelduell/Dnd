@@ -1805,3 +1805,14 @@ Die bereits mit `image_gen` erzeugten CE-Grafiken wurden wiederverwendet und auf
 - Erzeugt mit dem integrierten Bildgenerator. Nearest-Neighbor-Zuschnitte, getrennte Atlaszellen, indizierte gemeinsame 32-Farben-Palette aus `manifest-dunscar1.json`; transparente PNGs verwenden zusätzlich einen transparenten Index. Alpha nur 0/255. Der Effekt-Export entfernt das generierte Pflaster aus den Tinten-/Nebelmasken, damit vorhandene Straßen sichtbar bleiben. Quellnamen, SHA-256, tatsächlich verwendete Prompts und Verarbeitungsschritte stehen im Generierungsprotokoll.
 
 Prüfung: `python tools/art/calderwick2/check.py` (Pillow, aus jedem Arbeitsverzeichnis). Prüft den exakten Lieferumfang, Maße, Indizierung, gemeinsame Palette, Alpha, Prüfsummen, Raster, alle Marker-IDs und Grundlinien, regionale Animationslisten/Geschwindigkeiten, unterschiedliche belegte Frames sowie leere Restflächen. Vorschau und vergrößerter Effektatlas wurden gesichtet; Bewegungsabstimmung im Spiel gehört zum späteren Einbau.
+
+## CN: Kettlegate lebt (`kettlegate_leben`)
+
+35 PNGs: zehn Lauf-Sheets 64×128, zehn Köpfe 24×24, zehn Sonderposen 16×32, Tiere, Wetter, Stände, Nachtfassaden und zehn Stadtpins. 282 nichtleere Frames, gemeinsame 31-Farben-Palette, binäres Alpha. Gemischte Atlasgrößen und Animationslisten stehen in `public/sprites/manifest-kettlegate-leben.json`.
+
+- Daten und Einbauvertrag: `docs/story/kg_leben/README.md`.
+- Prompts und Quellbild-Prüfsummen: `batch-kettlegate-leben-generation.json`; Erzeugung mit dem eingebauten Bildgenerator, danach Nearest-Neighbor-Rasterung und Palette/Alpha-Bereinigung.
+- Vorschau: [preview-kettlegate-leben.png](preview-kettlegate-leben.png).
+- Prüfung: `python tools/art/kettlegate_leben/check.py`.
+
+Keine Laufzeitintegration in diesem Paket.
