@@ -143,7 +143,7 @@ function withPackLeben(content, pack) {
       const visible_if = when === 'nacht'
         ? { ...v, requires_flags: [...(v.requires_flags ?? []), NIGHT_FLAG] }
         : { ...v, hide_if_flags: [...(v.hide_if_flags ?? []), NIGHT_FLAG] };
-      own(spot.map).npcs.push({ id: e.id, tile: spot.tile, visible_if, ...(e.roam ? { roam: e.roam } : {}) });
+      own(spot.map).npcs.push({ id: e.id, tile: spot.tile, visible_if, ...(e.roam ? { roam: e.roam } : {}), ...(e.fahndung ? { fahndung: e.fahndung } : {}) }); // CN: Ausweichknoten bei Fahndung
     }
   }
   for (const [mapId, defs] of Object.entries(pack.streifen?.patrols ?? {})) {

@@ -1,0 +1,597 @@
+[
+ {
+  "map": "altmarkt",
+  "interactable": {
+   "id": "kgl_s_kastanien",
+   "kind": "dialogue",
+   "dialogue": "kgl_s_kastanien",
+   "prompt": "Kastanienröster",
+   "marker": true,
+   "stand": "kgl_kastanien",
+   "fahndung": {
+    "min": 2,
+    "node": "kgl_geschlossen"
+   },
+   "visible_if": {
+    "requires_season": [
+     "herbst",
+     "winter"
+    ]
+   }
+  },
+  "tile": [
+   45,
+   5
+  ]
+ },
+ {
+  "map": "altmarkt",
+  "interactable": {
+   "id": "kgl_s_zeitung",
+   "kind": "dialogue",
+   "dialogue": "kgl_s_zeitung",
+   "prompt": "Zeitungsstand",
+   "marker": true,
+   "stand": "kgl_zeitung",
+   "fahndung": {
+    "min": 2,
+    "node": "kgl_geschlossen"
+   }
+  },
+  "tile": [
+   48,
+   6
+  ]
+ },
+ {
+  "map": "docks",
+  "interactable": {
+   "id": "kgl_s_heisswasser",
+   "kind": "dialogue",
+   "dialogue": "kgl_s_heisswasser",
+   "prompt": "Heißwasserverkäufer",
+   "marker": true,
+   "stand": "kgl_heisswasser",
+   "fahndung": {
+    "min": 2,
+    "node": "kgl_geschlossen"
+   }
+  },
+  "tile": [
+   23,
+   4
+  ]
+ },
+ {
+  "map": "ashgrove",
+  "interactable": {
+   "id": "kgl_s_streichholz",
+   "kind": "dialogue",
+   "dialogue": "kgl_s_streichholz",
+   "prompt": "Streichholzstand",
+   "marker": true,
+   "stand": "kgl_streichholz",
+   "fahndung": {
+    "min": 2,
+    "node": "kgl_geschlossen"
+   }
+  },
+  "tile": [
+   46,
+   4
+  ]
+ },
+ {
+  "map": "nachtmarkt",
+  "interactable": {
+   "id": "kgl_s_drehorgel",
+   "kind": "dialogue",
+   "dialogue": "kgl_s_drehorgel",
+   "prompt": "Drehorgelspieler",
+   "marker": true,
+   "stand": "kgl_drehorgel",
+   "fahndung": {
+    "min": 2,
+    "node": "kgl_geschlossen"
+   }
+  },
+  "tile": [
+   4,
+   5
+  ]
+ },
+ {
+  "map": "nordtor",
+  "interactable": {
+   "id": "kgl_s_schleifer",
+   "kind": "dialogue",
+   "dialogue": "kgl_s_schleifer",
+   "prompt": "Scherenschleifer",
+   "marker": true,
+   "stand": "kgl_schleifer",
+   "fahndung": {
+    "min": 2,
+    "node": "kgl_geschlossen"
+   }
+  },
+  "tile": [
+   39,
+   4
+  ]
+ },
+ {
+  "map": "docks",
+  "interactable": {
+   "id": "kgl_s_austern",
+   "kind": "dialogue",
+   "dialogue": "kgl_s_austern",
+   "prompt": "Austernkarren",
+   "marker": true,
+   "stand": "kgl_austern",
+   "fahndung": {
+    "min": 2,
+    "node": "kgl_geschlossen"
+   }
+  },
+  "tile": [
+   30,
+   4
+  ]
+ },
+ {
+  "map": "altmarkt",
+  "interactable": {
+   "id": "kgl_s_oel",
+   "kind": "dialogue",
+   "dialogue": "kgl_s_oel",
+   "prompt": "Laternenöl-Händler",
+   "marker": true,
+   "stand": "kgl_oel",
+   "fahndung": {
+    "min": 2,
+    "node": "kgl_geschlossen"
+   }
+  },
+  "tile": [
+   28,
+   7
+  ]
+ },
+ {
+  "map": "altmarkt",
+  "interactable": {
+   "id": "kgl_ev_droschke_hinweis1",
+   "kind": "read",
+   "title": "Das Rad im Rinnstein: Spur 1",
+   "text": "Am Rad fehlt der Sicherungskeil. Im Rinnstein liegt frisches Holz, ohne Sägespur.",
+   "footer": "Beobachtung für den Stadtauftrag.",
+   "done_flag": "kgl_ev_droschke_spur1",
+   "effects": {
+    "sets_flags": [
+     "kgl_ev_droschke_spur1"
+    ]
+   },
+   "visible_if": {
+    "requires_flags": [
+     "kgl_ev_droschke_start"
+    ],
+    "hide_if_flags": [
+     "kgl_ev_droschke_done"
+    ]
+   }
+  },
+  "tile": [
+   35,
+   7
+  ]
+ },
+ {
+  "map": "ashgrove",
+  "interactable": {
+   "id": "kgl_ev_droschke_hinweis2",
+   "kind": "read",
+   "title": "Das Rad im Rinnstein: Spur 2",
+   "text": "Die Botin hat eine warme Arzneiflasche in der Tasche. Auf dem Zettel steht eine heutige Abholzeit.",
+   "footer": "Beobachtung für den Stadtauftrag.",
+   "done_flag": "kgl_ev_droschke_spur2",
+   "effects": {
+    "sets_flags": [
+     "kgl_ev_droschke_spur2"
+    ]
+   },
+   "visible_if": {
+    "requires_flags": [
+     "kgl_ev_droschke_start"
+    ],
+    "hide_if_flags": [
+     "kgl_ev_droschke_done"
+    ]
+   }
+  },
+  "tile": [
+   54,
+   4
+  ]
+ },
+ {
+  "map": "nordtor",
+  "interactable": {
+   "id": "kgl_ev_droschke",
+   "kind": "dialogue",
+   "dialogue": "kgl_ev_droschke",
+   "prompt": "Das Rad im Rinnstein",
+   "marker": true,
+   "visit_chance": 0.1,
+   "visit_started": "kgl_ev_droschke_start",
+   "stand": "kgl_droschke_umgestuerzt"
+  },
+  "tile": [
+   42,
+   4
+  ]
+ },
+ {
+  "map": "altmarkt",
+  "interactable": {
+   "id": "kgl_ev_brand_hinweis1",
+   "kind": "read",
+   "title": "Ruß über den Dachziegeln: Spur 1",
+   "text": "Der Ofenzug ist offen. Die Bewohnerin hat bereits aufgehört nachzulegen, das Feuer sitzt im Schlot.",
+   "footer": "Beobachtung für den Stadtauftrag.",
+   "done_flag": "kgl_ev_brand_spur1",
+   "effects": {
+    "sets_flags": [
+     "kgl_ev_brand_spur1"
+    ]
+   },
+   "visible_if": {
+    "requires_flags": [
+     "kgl_ev_brand_start"
+    ],
+    "hide_if_flags": [
+     "kgl_ev_brand_done"
+    ]
+   }
+  },
+  "tile": [
+   46,
+   7
+  ]
+ },
+ {
+  "map": "nordtor",
+  "interactable": {
+   "id": "kgl_ev_brand_hinweis2",
+   "kind": "read",
+   "title": "Ruß über den Dachziegeln: Spur 2",
+   "text": "Am Brunnen steht ein leerer Sandeimer. Eine Leiter ist erreichbar, doch sie muss am Fuß gesichert werden.",
+   "footer": "Beobachtung für den Stadtauftrag.",
+   "done_flag": "kgl_ev_brand_spur2",
+   "effects": {
+    "sets_flags": [
+     "kgl_ev_brand_spur2"
+    ]
+   },
+   "visible_if": {
+    "requires_flags": [
+     "kgl_ev_brand_start"
+    ],
+    "hide_if_flags": [
+     "kgl_ev_brand_done"
+    ]
+   }
+  },
+  "tile": [
+   45,
+   4
+  ]
+ },
+ {
+  "map": "ashgrove",
+  "interactable": {
+   "id": "kgl_ev_brand",
+   "kind": "dialogue",
+   "dialogue": "kgl_ev_brand",
+   "prompt": "Ruß über den Dachziegeln",
+   "marker": true,
+   "visit_chance": 0.1,
+   "visit_started": "kgl_ev_brand_start",
+   "stand": "kgl_schornsteinbrand"
+  },
+  "tile": [
+   57,
+   4
+  ]
+ },
+ {
+  "map": "ashgrove",
+  "interactable": {
+   "id": "kgl_ev_tasche_hinweis1",
+   "kind": "read",
+   "title": "Drei Ecken Vorsprung: Spur 1",
+   "text": "An der ersten Ecke liegt ein abgerissener blauer Faden. Die nassen Schritte führen zum Kanal.",
+   "footer": "Beobachtung für den Stadtauftrag.",
+   "done_flag": "kgl_ev_tasche_spur1",
+   "effects": {
+    "sets_flags": [
+     "kgl_ev_tasche_spur1"
+    ]
+   },
+   "visible_if": {
+    "requires_flags": [
+     "kgl_ev_tasche_start",
+     "kgl_ev_tasche_route"
+    ],
+    "hide_if_flags": [
+     "kgl_ev_tasche_done"
+    ]
+   }
+  },
+  "tile": [
+   15,
+   5
+  ]
+ },
+ {
+  "map": "docks",
+  "interactable": {
+   "id": "kgl_ev_tasche_hinweis2",
+   "kind": "read",
+   "title": "Drei Ecken Vorsprung: Spur 2",
+   "text": "Ein Händler sah den Dieb unter der Brücke warten. Er hält die Tasche fest, als wäre sie sein Fahrgeld.",
+   "footer": "Beobachtung für den Stadtauftrag.",
+   "done_flag": "kgl_ev_tasche_spur2",
+   "effects": {
+    "sets_flags": [
+     "kgl_ev_tasche_spur2"
+    ]
+   },
+   "visible_if": {
+    "requires_flags": [
+     "kgl_ev_tasche_start",
+     "kgl_ev_tasche_route"
+    ],
+    "hide_if_flags": [
+     "kgl_ev_tasche_done"
+    ]
+   }
+  },
+  "tile": [
+   7,
+   5
+  ]
+ },
+ {
+  "map": "altmarkt",
+  "interactable": {
+   "id": "kgl_ev_tasche",
+   "kind": "dialogue",
+   "dialogue": "kgl_ev_tasche",
+   "prompt": "Drei Ecken Vorsprung",
+   "marker": true,
+   "visit_chance": 0.1,
+   "visit_started": "kgl_ev_tasche_start"
+  },
+  "tile": [
+   3,
+   8
+  ]
+ },
+ {
+  "map": "altmarkt",
+  "interactable": {
+   "id": "kgl_ev_prediger_hinweis1",
+   "kind": "read",
+   "title": "Rost am Rednerpult: Spur 1",
+   "text": "Auf dem Flugblatt ist nur eine Treffzeit gedruckt. Die versprochene Schuldentilgung steht nirgends.",
+   "footer": "Beobachtung für den Stadtauftrag.",
+   "done_flag": "kgl_ev_prediger_spur1",
+   "effects": {
+    "sets_flags": [
+     "kgl_ev_prediger_spur1"
+    ]
+   },
+   "visible_if": {
+    "requires_flags": [
+     "kgl_ev_prediger_start"
+    ],
+    "hide_if_flags": [
+     "kgl_ev_prediger_done"
+    ]
+   }
+  },
+  "tile": [
+   21,
+   8
+  ]
+ },
+ {
+  "map": "nachtmarkt",
+  "interactable": {
+   "id": "kgl_ev_prediger_hinweis2",
+   "kind": "read",
+   "title": "Rost am Rednerpult: Spur 2",
+   "text": "Eine Zuhörerin zeigt ihre Quittung. Bezahlt wurde ein Vortrag, kein Erlass ihrer Schulden.",
+   "footer": "Beobachtung für den Stadtauftrag.",
+   "done_flag": "kgl_ev_prediger_spur2",
+   "effects": {
+    "sets_flags": [
+     "kgl_ev_prediger_spur2"
+    ]
+   },
+   "visible_if": {
+    "requires_flags": [
+     "kgl_ev_prediger_start"
+    ],
+    "hide_if_flags": [
+     "kgl_ev_prediger_done"
+    ]
+   }
+  },
+  "tile": [
+   12,
+   5
+  ]
+ },
+ {
+  "map": "ankerhof",
+  "interactable": {
+   "id": "kgl_ev_prediger",
+   "kind": "dialogue",
+   "dialogue": "kgl_ev_prediger",
+   "prompt": "Rost am Rednerpult",
+   "marker": true,
+   "visit_chance": 0.1,
+   "visit_started": "kgl_ev_prediger_start"
+  },
+  "tile": [
+   5,
+   4
+  ]
+ },
+ {
+  "map": "altmarkt",
+  "interactable": {
+   "id": "kgl_ev_kreide_hinweis1",
+   "kind": "read",
+   "title": "Ein Kreis für die Fehlenden: Spur 1",
+   "text": "Die Kreide stammt von einer Schneiderin. An ihr klebt kein Ritualstaub, nur ein Stück Verpackung.",
+   "footer": "Beobachtung für den Stadtauftrag.",
+   "done_flag": "kgl_ev_kreide_spur1",
+   "effects": {
+    "sets_flags": [
+     "kgl_ev_kreide_spur1"
+    ]
+   },
+   "visible_if": {
+    "requires_flags": [
+     "kgl_ev_kreide_start"
+    ],
+    "hide_if_flags": [
+     "kgl_ev_kreide_done"
+    ]
+   }
+  },
+  "tile": [
+   24,
+   8
+  ]
+ },
+ {
+  "map": "ashgrove",
+  "interactable": {
+   "id": "kgl_ev_kreide_hinweis2",
+   "kind": "read",
+   "title": "Ein Kreis für die Fehlenden: Spur 2",
+   "text": "Das fehlende Kind arbeitet seit Tagen bei Verwandten. Die anderen wollten ihm einen Platz freihalten.",
+   "footer": "Beobachtung für den Stadtauftrag.",
+   "done_flag": "kgl_ev_kreide_spur2",
+   "effects": {
+    "sets_flags": [
+     "kgl_ev_kreide_spur2"
+    ]
+   },
+   "visible_if": {
+    "requires_flags": [
+     "kgl_ev_kreide_start"
+    ],
+    "hide_if_flags": [
+     "kgl_ev_kreide_done"
+    ]
+   }
+  },
+  "tile": [
+   23,
+   5
+  ]
+ },
+ {
+  "map": "nachtmarkt",
+  "interactable": {
+   "id": "kgl_ev_kreide",
+   "kind": "dialogue",
+   "dialogue": "kgl_ev_kreide",
+   "prompt": "Ein Kreis für die Fehlenden",
+   "marker": true,
+   "visit_chance": 0.1,
+   "visit_started": "kgl_ev_kreide_start",
+   "stand": "kgl_kreidekreis"
+  },
+  "tile": [
+   3,
+   7
+  ]
+ },
+ {
+  "map": "altmarkt",
+  "interactable": {
+   "id": "kgl_ev_brief_hinweis1",
+   "kind": "read",
+   "title": "Die Tür mit der falschen Zahl: Spur 1",
+   "text": "Die Hausnummer wurde nach dem letzten Brand versetzt. Der Umschlag trägt noch die alte Nummer.",
+   "footer": "Beobachtung für den Stadtauftrag.",
+   "done_flag": "kgl_ev_brief_spur1",
+   "effects": {
+    "sets_flags": [
+     "kgl_ev_brief_spur1"
+    ]
+   },
+   "visible_if": {
+    "requires_flags": [
+     "kgl_ev_brief_start"
+    ],
+    "hide_if_flags": [
+     "kgl_ev_brief_done"
+    ]
+   }
+  },
+  "tile": [
+   30,
+   8
+  ]
+ },
+ {
+  "map": "ebba",
+  "interactable": {
+   "id": "kgl_ev_brief_hinweis2",
+   "kind": "read",
+   "title": "Die Tür mit der falschen Zahl: Spur 2",
+   "text": "Edda kennt die Empfängerin. Die Frau wartet auf Nachricht über eine Stelle, nicht auf eine Erbschaft.",
+   "footer": "Beobachtung für den Stadtauftrag.",
+   "done_flag": "kgl_ev_brief_spur2",
+   "effects": {
+    "sets_flags": [
+     "kgl_ev_brief_spur2"
+    ]
+   },
+   "visible_if": {
+    "requires_flags": [
+     "kgl_ev_brief_start"
+    ],
+    "hide_if_flags": [
+     "kgl_ev_brief_done"
+    ]
+   }
+  },
+  "tile": [
+   23,
+   5
+  ]
+ },
+ {
+  "map": "ashgrove",
+  "interactable": {
+   "id": "kgl_ev_brief",
+   "kind": "dialogue",
+   "dialogue": "kgl_ev_brief",
+   "prompt": "Die Tür mit der falschen Zahl",
+   "marker": true,
+   "visit_chance": 0.1,
+   "visit_started": "kgl_ev_brief_start"
+  },
+  "tile": [
+   41,
+   5
+  ]
+ }
+]
