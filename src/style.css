@@ -955,3 +955,12 @@ html.touch .cb-def .aeicon { display: block; margin: 0 auto 0.2em; font-size: 16
 /* Welt-Fähigkeiten im Pfad-Tab (zweite Fähigkeit je Sequenz) */
 .notebook .seqs .talentbtn { margin-left: 0.4em; vertical-align: baseline; }
 .notebook .buffs { font-size: 0.85em; color: var(--occult, #c8b0e8); border: 0.125em solid #4a3a5a; padding: 0.3em 0.6em; margin: 0.5em 0; }
+
+/* BQ: Kulte im Notizbuch und Sekten-Pins auf der Stadtkarte */
+.notebook ul.kulte { list-style: none; padding: 0; margin: 0; display: grid; gap: 0.6em; }
+.notebook ul.kulte li.kult { border: 0.125em solid var(--brass); padding: 0.5em 0.7em; background: rgba(0,0,0,0.25); }
+.notebook .kulthead { display: flex; align-items: center; gap: 0.5em; flex-wrap: wrap; }
+.notebook .kulthead .kulticon { flex: none; }
+.notebook li.kult p { margin: 0.35em 0 0; }
+.citymap .pin .skpin { position: absolute; right: -0.9em; bottom: 1.4em; pointer-events: none; animation: whopulse 1s ease-in-out infinite alternate; }
+.modes .skfee { grid-column: 1 / -1; margin: 0.2em 0 0; }

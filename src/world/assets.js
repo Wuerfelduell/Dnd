@@ -1126,6 +1126,7 @@ export function preloadSprites(scene) {
   if (!scene.cache.json.exists('manifestDunscar3')) scene.load.json('manifestDunscar3', `${BASE}manifest-dunscar3.json`);
   if (!scene.cache.json.exists('manifestDunscar5')) scene.load.json('manifestDunscar5', `${BASE}manifest-dunscar5.json`);
   if (!scene.cache.json.exists('manifestStarling2')) scene.load.json('manifestStarling2', `${BASE}manifest-starling2.json`);
+  if (!scene.cache.json.exists('manifestSekten')) scene.load.json('manifestSekten', `${BASE}manifest-sekten.json`);
   if (!scene.cache.json.exists('manifestNebenquests')) scene.load.json('manifestNebenquests', `${BASE}manifest-nebenquests.json`);
   if (!scene.cache.json.exists('manifestSpieler2')) scene.load.json('manifestSpieler2', `${BASE}manifest-spieler2.json`);
   if (!scene.cache.json.exists('manifestWexmoor')) scene.load.json('manifestWexmoor', `${BASE}manifest-wexmoor.json`);
@@ -1151,7 +1152,7 @@ export function playSheetAnim(sprite, sheet, name, then) {
   const key = `${sheet}-${name}`;
   if (!scene.anims.exists(key)) {
     const id = MANIFEST_IDS[sheet] ?? sheet;
-    const def = ['manifestPfade', 'manifestWelt', 'manifestJournal', 'manifestSpieler2', 'manifestSequenzen3', 'manifestKontrollverlust'].map((m) => scene.cache.json.get(m)?.assets?.find((a) => a.id === id)?.animations?.[name]).find(Boolean);
+    const def = ['manifestPfade', 'manifestWelt', 'manifestJournal', 'manifestSpieler2', 'manifestSequenzen3', 'manifestKontrollverlust', 'manifestSekten'].map((m) => scene.cache.json.get(m)?.assets?.find((a) => a.id === id)?.animations?.[name]).find(Boolean);
     if (!def) return false;
     scene.anims.create({ key, frames: def.frames.map((frame) => ({ key: sheet, frame })), frameRate: def.frameRate, repeat: def.repeat });
   }
@@ -1170,7 +1171,7 @@ function battleAnimDef(scene, sheet, name) {
   return null;
 }
 /** Manifeste mit Kampf-Sheets; spätere Pakete nennen ihre Einträge nicht nach dem Sheet, darum auch über die Datei. */
-export const BATTLE_MANIFESTS = ['manifest14b', 'manifestKampf', 'manifestKampf2', 'manifestReise', 'manifestWildnis', 'manifestGegner3', 'manifestFall5', 'manifestFall6', 'manifestFall78', 'manifestSequenzen2', 'manifestWexmoor2', 'manifestWexmoor3', 'manifestWexmoor4', 'manifestWexmoor5', 'manifestPlatzhalter', 'manifestSpieler2', 'manifestNebenquests', 'manifestWexmoor7', 'manifestWexmoor6', 'manifestSequenzen3', 'manifestDunscar3', 'manifestDunscar5', 'manifestStarling2'];
+export const BATTLE_MANIFESTS = ['manifest14b', 'manifestKampf', 'manifestKampf2', 'manifestReise', 'manifestWildnis', 'manifestGegner3', 'manifestFall5', 'manifestFall6', 'manifestFall78', 'manifestSequenzen2', 'manifestWexmoor2', 'manifestWexmoor3', 'manifestWexmoor4', 'manifestWexmoor5', 'manifestPlatzhalter', 'manifestSpieler2', 'manifestNebenquests', 'manifestWexmoor7', 'manifestWexmoor6', 'manifestSequenzen3', 'manifestDunscar3', 'manifestDunscar5', 'manifestStarling2', 'manifestSekten'];
 export function battleSheetDef(scene, sheet) {
   const file = BATTLE_SHEETS[sheet]?.[0];
   for (const m of BATTLE_MANIFESTS) {
@@ -2358,3 +2359,52 @@ export const BA_TIERE = {
   ds_schwalbe_fliegen: [0, 192, 16, 16, 4, 8], ds_schwalbe_sitzen: [0, 208, 16, 16, 2, 4],
 };
 export const BA_WETTER = { kalkstaub: [0, 0, 240, 135, 4, 5], nachtnebel_1: [0, 144, 240, 135, 1, 1], nachtnebel_2: [0, 288, 240, 135, 1, 1], wind_grasbueschel: [0, 432, 16, 16, 4, 5] };
+
+// --- BQ/BR: Sekten (Aschenbund, Flutkinder, Stummer Chor) aus manifest-sekten.json --------------------------------
+export const SK_KULTE = ['sk_asche', 'sk_flut', 'sk_chor'];
+export const SK_KURZ = { sk_asche: 'asche', sk_flut: 'flut', sk_chor: 'chor' };
+export const SK_RAENGE = ['novize', 'sprecher', 'hand', 'haupt'];
+export const SK_FIGUREN = ['sk_asche_sprecher_ida', 'sk_asche_aussteiger_tobin', 'sk_asche_opfer_wenz', 'sk_flut_sprecher_maren', 'sk_flut_aussteiger_pell', 'sk_flut_opfer_lotte',
+  'sk_chor_sprecher_ansgar', 'sk_chor_aussteiger_rike', 'sk_chor_opfer_jost'];
+export const SK_ITEMS = ['ski_aschensiegel', 'ski_glutkohle', 'ski_flutknoten', 'ski_bojenoel', 'ski_chorkreide', 'ski_stimmwachs', 'ski_laeuterwasser', 'ski_seilschnitt', 'ski_stimmwachs_rein',
+  'ski_art_aschenring', 'ski_art_flutkompass', 'ski_art_chorstimmgabel'];
+const SK_MOODS = { neutral: 0, misstrauisch: 1, suspicious: 1, skeptical: 1, erschrocken: 2, shocked: 2, leichtes_laecheln: 3, smile: 3, faint_smile: 3, friendly: 3 };
+/** Kampf-Sheets: Novize 48, Sprecher/Hand 64, Haupt 96 (Reihen idle/attack/hit/end, Haupt dazu phase2). */
+export const SK_ENEMY_SIZE = { novize: 48, sprecher: 64, hand: 64, haupt: 96 };
+for (const k of SK_KULTE) {
+  for (const r of SK_RAENGE) {
+    const id = `${k}_${r}`;
+    SHEETS[id] = `characters/${id}.png`;
+    CHARACTER_SHEETS[`npc_${id}`] = id;
+    BATTLE_SHEETS[`enemy_${id}`] = [`battle/enemy_${id}.png`, SK_ENEMY_SIZE[r]];
+    ENCOUNTER_SHEETS[`enemy_${id}`] = `enemy_${id}`;
+    ANIM_ALIASES[`enemy_${id}`] = { hurt: 'hit', defeated: 'end', special: 'attack', cast: 'attack' };
+    BESTIARY_FILES[`enemy_${id}`] = `enemy_${id}`;
+    if (!BESTIARY.includes(`enemy_${id}`)) BESTIARY.push(`enemy_${id}`);
+  }
+  ANIM_SHEETS[`${k}_haupt_aura`] = [`characters/${k}_haupt_aura.png`, 32, 48];
+  SHEETS[`sk_schrein_${SK_KURZ[k]}`] = `props/sk_schrein_${SK_KURZ[k]}.png`;
+  PROP_CELLS[`sk_schrein_${SK_KURZ[k]}_base`] = [`sk_schrein_${SK_KURZ[k]}`, 0, 0, 48, 48];
+  PROP_ANIMS[`sk_schrein_${SK_KURZ[k]}_effekt`] = [`sk_schrein_${SK_KURZ[k]}`, [0, 1, 2, 3].map((f) => [f * 16, 48, 16, 16]), 7];
+}
+for (const id of SK_FIGUREN) {
+  SHEETS[id] = `characters/${id}_walk.png`;
+  CHARACTER_SHEETS[`npc_${id}`] = id;
+  PORTRAITS[id] = `${id}_emotions.png`;
+  PORTRAIT_SPECIAL[id] = [`${id}_emotions.png`, SK_MOODS];
+  HEADS.push(id);
+}
+ICON32.push(...SK_ITEMS);
+SHEETS.sk_zeichen = 'props/sk_zeichen.png';
+SHEETS.sk_sabotage = 'props/sk_sabotage.png';
+/** Erkennungszeichen je Kult (Spur, Türmarkierung, Hausmarke, entfernt) und Sabotageobjekte, 16x16 aus den Bögen. */
+export const SK_ZEICHEN = { asche: ['kreis', 'tuerrahmen', 'russhand', 'entfernt'], flut: ['knoten', 'fussspur', 'bojenmarke', 'entfernt'], chor: ['kreidemund', 'notenlinie', 'lippen', 'entfernt'] };
+Object.entries(SK_ZEICHEN).forEach(([k, names], row) => names.forEach((n, i) => { PROP_CELLS[`sk_zeichen_${k}_${n}`] = ['sk_zeichen', i * 16, row * 16, 16, 16]; }));
+export const SK_SABOTAGE = ['brunnen', 'laterne', 'faehre', 'bahnhebel', 'briefkasten', 'boje', 'chorplatz', 'haus'];
+SK_SABOTAGE.forEach((n, i) => { PROP_CELLS[`sk_sabotage_${n}`] = ['sk_sabotage', (i % 4) * 16, Math.floor(i / 4) * 16, 16, 16]; });
+ANIM_SHEETS.sk_ereignis = ['fx/sk_ereignis.png', 32, 32]; // Ereignis-Effekt je Kult: Reihen asche/flut/chor (manifest-sekten)
+UI_SHEETS.skumtriebe = ['ui/sk_umtriebe.png', 80, 48];
+UI_REGIONS.skumtriebe = Object.fromEntries(SK_KULTE.flatMap((k, row) => [...[0, 1, 2, 3].map((s) => [`${SK_KURZ[k]}_${s}`, [s * 16, row * 16, 16, 16]]), [`${SK_KURZ[k]}_niedergeschlagen`, [64, row * 16, 16, 16]]]));
+UI_SHEETS.skpins = ['ui/sk_karte_pins.png', 36, 24];
+UI_REGIONS.skpins = Object.fromEntries(SK_KULTE.flatMap((k, col) => [[`${SK_KURZ[k]}_normal`, [col * 12, 0, 12, 12]], [`${SK_KURZ[k]}_aktiv`, [col * 12, 12, 12, 12]]]));
+export const SK_PINS_URL = `${BASE}ui/sk_karte_pins.png`;

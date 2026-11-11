@@ -267,7 +267,7 @@ function cropSkins(root) {
   }
 }
 /** Notizbuch-Reiter → Symbol aus 07_03_icons.png (Fallakten: Lupe). */
-const TAB_ICONS = { quests: 'ausruf', items: 'schluessel', pfad: 'auge', personen: 'sprechen', bestiar: 'spuren', archiv: 'notebook' };
+const TAB_ICONS = { quests: 'ausruf', items: 'schluessel', pfad: 'auge', personen: 'sprechen', bestiar: 'spuren', archiv: 'notebook', kulte: 'spuren' };
 const pctStep = (frac, n) => Math.max(0, Math.min(n - 1, Math.round((1 - Math.max(0, Math.min(1, frac))) * (n - 1))));
 const moneyIcon = (n) => `<img class="coin" src="${moneyIconUrl(n)}" alt="" width="16" height="16" onerror="this.remove()">`;
 /** Beute als Liste mit Icon, Anzahl und Seltenheit (Farbe). */
@@ -1152,6 +1152,8 @@ export class Ui {
       else if (map === goalMap) { cls += ' goal'; inner += `${questUi('qpin', QUEST_PINS.amber)}<span class="goaltag">Ziel</span>`; }
       const there = who.filter((p) => p.district === map);
       if (there.length) inner += `<span class="who${there.some((p) => p.now) ? ' now' : ''}">${whoFace}</span>`;
+      const sk = s.sektenAktiveAuf?.(map)[0]; // BQ: laufendes Sektenereignis in diesem Viertel
+      if (sk) inner += `<span class="skpin">${uiSprite('skpins', `${{ sk_asche: 'asche', sk_flut: 'flut', sk_chor: 'chor' }[sk.kult]}_aktiv`, 1 / 6, '', sk.titel)}</span>`;
       return this.mapPin(pins, map, cls, inner, attrs);
     };
     const here = pins[current] ? pin(current, 'here', `<span class="youmark" style="background-image:url(${TRAVEL_MARKER_URL})"></span><span class="tag">Du bist hier</span>`, 'disabled') : '';
@@ -1321,6 +1323,8 @@ export class Ui {
         <span class="muted">${esc(safe.desc)}</span><span class="gain">+${Math.round(s.maxHp * safe.heal_pct)} Leben · +${safe.nerves} Nerven · Journal</span></button>
       <button class="mode fast" data-mode="schnell" ${hurry ? '' : 'disabled'}>${modeIcon('schnell')}<b><span class="key">2</span> ${esc(fast.name)}</b>
         <span class="muted">${esc(fast.desc)}</span><span class="cost">${hurry ? `−${hurryCost(s)} Nerven · Monster · Beute` : s.isOverloaded() ? `Zu schwer beladen (${s.carryText()})` : `Zu wenig Nerven (mind. ${hurryCost(s)})`}</span></button>`;
+    const fee = s.sektenReiseAufschlag?.(this.travelFrom) ?? 0; // BQ: gesperrte Fähre/Bahn
+    if (fee) modes.insertAdjacentHTML('beforeend', `<p class="muted skfee">Die Überfahrt ist gestört: ${fee} Schilling Aufschlag, bis jemand die Sperre löst.</p>`);
     modes.querySelectorAll('[data-mode]').forEach((b) => {
       b.onclick = () => this.travelMode(b.dataset.mode);
       b.onmouseenter = () => el.querySelector('.route')?.classList.toggle('schnell', b.dataset.mode === 'schnell');
@@ -1332,6 +1336,8 @@ export class Ui {
     const d = this.travelPick;
     if (!d) return;
     const s = this.state;
+    const fee = s.sektenReiseAufschlag?.(this.travelFrom) ?? 0;
+    if (fee) { s.addMoney(-fee); this.toast(`Aufschlag an der Sperre: −${fee} Schilling`, 'warn'); }
     const go = () => this.scene.travelTo(d.map, d.spawn);
     if (mode === 'sicher') {
       const r = travelSafe(s);
@@ -1387,7 +1393,8 @@ export class Ui {
     const cases = all.filter((c) => !solved.includes(c));
     const beasts = this.knownBeasts();
     const papers = this.state.paperArchive();
-    const fixed = ['quests', 'items', 'pfad', 'personen', 'bestiar', 'zeitung', 'archiv'];
+    const fixed = ['quests', 'items', 'pfad', 'personen', 'kulte', 'bestiar', 'zeitung', 'archiv'];
+    if (this.tab === 'kulte' && !this.state.sektenFrei?.()) this.tab = 'quests';
     if (this.tab === 'zeitung' && !papers.length) this.tab = 'quests';
     if (this.tab === 'archiv' && !solved.length) this.tab = 'quests';
     if (this.tab === 'bestiar' && !beasts.length) this.tab = 'quests';
@@ -1396,12 +1403,13 @@ export class Ui {
     if (!fixed.includes(this.tab) && !cases.some((c) => c.id === this.tab)) this.tab = 'quests';
     if (this.tab === 'archiv' && !solved.some((c) => c.id === this.archiveCase)) this.archiveCase = solved.at(-1)?.id;
     const tabs = [{ id: 'quests', title: 'Aufträge' }, { id: 'items', title: 'Inventar' }, { id: 'pfad', title: 'Pfad' }, { id: 'personen', title: 'Personen' },
+      ...(this.state.sektenFrei?.() ? [{ id: 'kulte', title: 'Kulte' }] : []), // BQ: Umtriebe der drei Sekten
       ...(beasts.length ? [{ id: 'bestiar', title: 'Bestiarium' }] : []),
       ...(papers.length ? [{ id: 'zeitung', title: 'Zeitung' }] : []),
       ...cases.map((c) => ({ id: c.id, title: c.title.replace(/:.*/, '') })), ...(solved.length ? [{ id: 'archiv', title: `Archiv (${solved.length})` }] : [])];
     const caseId = this.currentCase();
     const body = this.tab === 'quests' ? this.questsHtml() + this.signalJournalHtml() : this.tab === 'items' ? this.itemsHtml() : this.tab === 'pfad' ? this.pathwayTabHtml()
-      : this.tab === 'personen' ? this.peopleHtml() : this.tab === 'bestiar' ? this.bestiaryHtml(beasts) : this.tab === 'zeitung' ? this.papersHtml(papers)
+      : this.tab === 'personen' ? this.peopleHtml() : this.tab === 'kulte' ? this.kulteHtml() : this.tab === 'bestiar' ? this.bestiaryHtml(beasts) : this.tab === 'zeitung' ? this.papersHtml(papers)
       : this.tab === 'archiv' ? this.archiveHtml(solved) : this.caseHtml(this.tab);
     const isCase = !!caseId;
     const el = this.open('notebook', `
@@ -1820,6 +1828,25 @@ export class Ui {
         <br><span class="muted">${esc(f.motto ?? '')}</span></div></li>`;
     }).join('');
     return rows ? `<h4>Sekten</h4><ul class="people factions">${rows}</ul><h4>Personen</h4>` : '';
+  }
+
+  /** BQ: Steckbrief je Kult, wächst mit der Umtriebe-Stufe; laufende Ereignisse und der Wegweiser der Stufe. */
+  kulteHtml() {
+    const s = this.state;
+    const kurz = { sk_asche: 'asche', sk_flut: 'flut', sk_chor: 'chor' };
+    const aktiv = s.sektenAlleAktiven();
+    const cards = s.sektenKulte().map((k) => {
+      const st = s.sektenStufe(k.id);
+      const text = s.sektenStufeText(k.id);
+      const mine = aktiv.filter((e) => e.kult === k.id);
+      return `<li class="kult"><div class="kulthead">${uiSprite('skumtriebe', `${kurz[k.id]}_${st}`, 1 / 6, 'kulticon', `Stufe ${st}`)}<strong>${esc(k.name)}</strong> <span class="muted">${esc(k.beiname)}</span>
+        <span class="badge ${st >= 2 ? 'refuted' : st === 1 ? 'suspected' : 'likely'}">${esc(s.sektenStufeName(k.id))}</span></div>
+        <p class="desc">${esc(k.glaube[0])} Erkennungszeichen: ${esc(k.erkennungszeichen)}.</p>
+        ${s.sektenSteckbrief(k.id).map((p) => `<p>${esc(p)}</p>`).join('')}
+        ${mine.length ? `<p><b>Gerade:</b> ${mine.map((e) => `${esc(e.titel)} (${esc(s.content.maps[e.map]?.name ?? e.map)})`).join(' · ')}</p>` : ''}
+        ${text?.wegweiser ? `<p class="muted">Wegweiser: ${esc(text.wegweiser)}</p>` : ''}</li>`;
+    }).join('');
+    return `<h4>Wandernde Kulte</h4><p class="muted">Drei Sekten treiben sich durch Kettlegate, Wexmoor und Dunscar. Spuren lesen, Einladungen ablehnen, Brunnen reinigen, Kultplätze abbauen: Jede Hilfe senkt ihre Umtriebe, jedes übersehene Zeichen stärkt sie.</p><ul class="kulte">${cards}</ul>`;
   }
 
   peopleHtml() {

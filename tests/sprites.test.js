@@ -712,3 +712,43 @@ test('BW: Innenraum-Möbelsets, animierte Innen-Props und Lesebilder aus manifes
   }
   for (const id of ['buero', 'revier', 'schleierhaus', 'wx_akademie', 'ds_speisewagen', 'ds_lohnbuero']) assert.ok(placed.has(id), id);
 });
+
+test('BR: Sekten-Grafik aus manifest-sekten – Laufbilder, Portraits, Köpfe, Kampf-Sheets, Bestiarium, Zeichen, Schreine, Sabotage, Items, HUD und Pins', async () => {
+  const A = await import('../src/world/assets.js');
+  const m = manifest('sekten');
+  assert.equal(m.assets.length, 98);
+  for (const a of m.assets) assert.ok(existsSync(sprite(a.file)), a.file);
+  for (const id of A.SK_FIGUREN) {
+    assert.equal(SHEETS[CHARACTER_SHEETS[`npc_${id}`]], `characters/${id}_walk.png`);
+    assert.ok(existsSync(sprite(`portraits/${PORTRAITS[id]}`)), id);
+    assert.ok(existsSync(file(A.headUrl(id))), id);
+    assert.equal(A.portraitFor(id, 'misstrauisch').col, 1);
+  }
+  for (const k of A.SK_KULTE) for (const r of A.SK_RAENGE) {
+    const id = `${k}_${r}`;
+    assert.ok(existsSync(sprite(SHEETS[CHARACTER_SHEETS[`npc_${id}`]])), id);
+    const def = m.assets.find((a) => a.id === `enemy_${id}`);
+    assert.deepEqual(BATTLE_SHEETS[`enemy_${id}`], [`battle/enemy_${id}.png`, def.frameWidth]);
+    assert.equal(def.frameHeight, def.frameWidth);
+    for (const anim of ['idle', 'attack', 'hit', 'end', ...(r === 'haupt' ? ['phase2'] : [])]) assert.ok(def.animations[anim], `${id} ${anim}`);
+    assert.equal(ENCOUNTER_SHEETS[`enemy_${id}`], `enemy_${id}`);
+    assert.ok(existsSync(file(A.bestiaryUrl(`enemy_${id}`))), id);
+    assert.ok(content.encounters[`enemy_${id}`], id);
+  }
+  for (const [k, names] of Object.entries(A.SK_ZEICHEN)) for (const n of names) assert.ok(PROP_CELLS[`sk_zeichen_${k}_${n}`], `${k}/${n}`);
+  for (const n of A.SK_SABOTAGE) assert.ok(PROP_CELLS[`sk_sabotage_${n}`], n);
+  for (const k of ['asche', 'flut', 'chor']) {
+    assert.ok(existsSync(sprite(SHEETS[`sk_schrein_${k}`])), k);
+    assert.ok(PROP_CELLS[`sk_schrein_${k}_base`] && PROP_ANIMS[`sk_schrein_${k}_effekt`], k);
+  }
+  for (const id of A.SK_ITEMS) {
+    assert.ok(content.items[id], id);
+    assert.ok(existsSync(file(itemIconUrl(id))), id);
+    assert.equal(itemIcon32Url(id), `./sprites/items/32/${id}.png`);
+    assert.ok(existsSync(file(itemIcon32Url(id))), id);
+  }
+  assert.ok(existsSync(sprite(A.UI_SHEETS.skumtriebe[0])) && existsSync(sprite(A.UI_SHEETS.skpins[0])));
+  assert.deepEqual(A.UI_REGIONS.skumtriebe.chor_niedergeschlagen, [64, 32, 16, 16]);
+  assert.deepEqual(A.UI_REGIONS.skpins.flut_aktiv, [12, 12, 12, 12]);
+  assert.ok(existsSync(sprite(ANIM_SHEETS.sk_ereignis[0])));
+});

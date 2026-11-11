@@ -5,6 +5,7 @@ import { Lighting, DEPTH } from './Lighting.js';
 import { WexmoorLife, preloadWexmoorLife, speechBubble } from './WexmoorLife.js';
 import { DunscarLife, preloadDunscarLife } from './DunscarLife.js';
 import { KoopLife } from './Koop.js';
+import { SektenLife } from './SektenLife.js';
 import { preloadSprites, playSheetAnim, themeKeys, facadeKeys, PROP_ORIGINS, MAP_WEATHER, DISGUISE_SHEETS, pathwayArt, P2_LOOKS, skinKeyOf , leseSceneOf } from './assets.js';
 import { Roamers } from './Roamers.js';
 import { Critters } from './Critters.js';
@@ -688,6 +689,7 @@ export class WorldScene extends Phaser.Scene {
     this.cracks = null;
 
     createTextures(this);
+    this.freshVisit = !this.state.position; // Reise oder Start (kein geladener Stand): zählt als echter Kartenbesuch (BQ)
     this.buildMap();
     const amb = this.mapDef.ambient ?? {};
     this.lighting = new Lighting(this, { width: VIEW_W, height: VIEW_H });
@@ -714,6 +716,8 @@ export class WorldScene extends Phaser.Scene {
     // Paket AI: Koop-Rätsel, Platz-Flags und Geplauder zu zweit (Platz-Flags fallen beim Kartenwechsel weg)
     this.state.syncKoop?.();
     this.koop = new KoopLife(this);
+    this.sekten = new SektenLife(this); // BQ/BR: Sekten-Ereignisse, abgeworbene Figuren, Sabotage
+    this.sekten.build(this.freshVisit);
     this.bindInput();
     this.bindState();
     this.refreshVisibility();
@@ -1485,7 +1489,7 @@ export class WorldScene extends Phaser.Scene {
         this.ui.showCaseWall();
         break;
       case 'combat':
-        this.startCombat(def.encounter);
+        this.startCombat(def.encounter, def.after ?? null, { noLoot: !!def.no_loot }); // BQ: Schreinwachen ohne Beute, mit Folge
         break;
       case 'loot':
         this.playPlayerAction('pickup');
@@ -1600,7 +1604,7 @@ export class WorldScene extends Phaser.Scene {
   }
 
   /** Pausiert die Welt und startet den Kampfbildschirm. `after(result)` läuft nach dem Kampf, `roamer` ist ein Gegner auf der Karte. */
-  startCombat(id, after = null, { roamer = null } = {}) {
+  startCombat(id, after = null, { roamer = null, noLoot = false } = {}) {
     if (this.leaving || this.scene.isActive('combat')) return;
     if (!this.state.pendingCombat) this.state.combatBy = this.state.acting;
     this.state.pendingCombat = null;
@@ -1613,6 +1617,7 @@ export class WorldScene extends Phaser.Scene {
     this.scene.launch('combat', {
       id,
       deferLoot: !!roamer,
+      noLoot,
       onDone: (result) => {
         this.scene.resume();
         if (roamer) this.roamers.afterCombat(roamer, result);

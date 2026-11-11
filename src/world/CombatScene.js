@@ -34,6 +34,7 @@ export class CombatScene extends Phaser.Scene {
     this.encounterId = data.id;
     this.onDone = data.onDone;
     this.deferLoot = !!data.deferLoot; // Gegner auf der Karte: Beute fällt als Behälter auf den Boden
+    this.noLoot = !!data.noLoot; // BQ: Schreinwachen ohne eigene Beute
     this.transformed = false;
   }
 
@@ -566,6 +567,16 @@ export class CombatScene extends Phaser.Scene {
 
   /** Paket I: Sektenoberhäupter verwandeln sich in Rage in ihre große Gestalt. Liefert die Dauer in ms. */
   transform() {
+    // BQ: zweite Phase eines Sektenhaupts: Meldung, Ruck durchs Bild, eigene Reihe `phase2` im Sheet
+    if (this.combat.phaseNote) {
+      const note = this.combat.phaseNote;
+      this.combat.phaseNote = null;
+      this.cameras.main.shake(250, 0.005);
+      this.float('Zweite Phase!', 'enemy', 'crit');
+      this.ui.combatMessage(note);
+      if (!this.anim(this.enemy, 'phase2')) this.idle(this.enemy);
+      return 900;
+    }
     const sheet = BOSS_FORMS[this.encounterId];
     if (!sheet || this.transformed || !this.combat.enraged() || !this.textures.exists(sheet) || !this.enemySheet) return 0;
     this.transformed = true;
@@ -791,7 +802,7 @@ export class CombatScene extends Phaser.Scene {
   leave() {
     if (this.leaving) return;
     this.leaving = true;
-    const result = this.combat.finish({ deferLoot: this.deferLoot });
+    const result = this.combat.finish({ deferLoot: this.deferLoot, noLoot: this.noLoot });
     const done = () => {
       this.ui.closeCombat(result, this.combat.enc);
       this.onDone?.(result);

@@ -271,6 +271,18 @@ const k3Ruf = buildK3Ruf({ stationen: bn_stationen, klang_zuordnung: bn_klang, b
 /** Paket AZ: Beziehungszweige (freundlich: Tipp oder Geschenk, feindselig: Wiedergutmachung) für 20 Figuren; die Profile stehen in beziehungen.json. */
 const beziehungenPack = { name: 'beziehungen', dialog_zusaetze: bz_dialog_zusaetze };
 /** Paket BO: die Fasserin Oda Kessel. Zehn Vorrats-Rezepte (fass_*) mit Artefakten, Begrüßungen je Zirkel, Gerede an den Treffpunkten, zwei Zeitungsnotizen. */
+import sk_daten from './packs/sekten/daten.json';
+import sk_figuren from './packs/sekten/figuren.json';
+import sk_gegner from './packs/sekten/gegner.json';
+import sk_auftraege from './packs/sekten/auftraege.json';
+import sk_dialog_zusaetze from './packs/sekten/dialog_zusaetze.json';
+import sk_platzierung from './packs/sekten/platzierung.json';
+import sk_zeitung from './packs/sekten/zeitung.json';
+import sk_gerede from './packs/sekten/gerede.json';
+import sk_geplauder from './packs/sekten/geplauder.json';
+/** BQ/BR: drei Sekten in drei Städten (Daten in packs/sekten, Laufzeit in core/Sekten.js). */
+const sektenPack = { name: 'sekten', npcs: sk_figuren.npcs, dialogues: sk_figuren.dialogues, einwohner: sk_figuren.einwohner, items: sk_gegner.items, encounters: sk_gegner.encounters, loot: sk_gegner.loot,
+  quests: sk_auftraege.quests, artifacts: sk_auftraege.artifacts, dialog_zusaetze: sk_dialog_zusaetze, platzierung: sk_platzierung, zeitung: sk_zeitung, gerede: sk_gerede, geplauder: sk_geplauder, sekten: sk_daten };
 const fasserinPack = { name: 'fasserin', rezepte: bo_rezepte.recipes, artifacts: bo_rezepte.artifacts, fasserin_texte: bo_texte, gerede: bo_gerede, zeitung: bo_zeitung };
 /** Paket AL: vier Wexmoorer Akten. */
 const k2Akten = { name: 'k2_akten', quests: k2a_quests, items: k2a_items, encounters: k2a_encounters, dialogues: k2a_dialogues, npcs: k2a_npcs, case: k2a_case, dialog_zusaetze: k2a_dialog_zusaetze, platzierung: k2a_platzierung, faelle: k2a_faelle, zeitung: k2a_zeitung };
@@ -308,7 +320,7 @@ export const content = buildContent({
   gatherings,
   city,
   wexmoor,
-  packs: [k1Finale, kgNebenquests, wxNebenquests, koop, k2Akten, k2Orte, k2Gilde, k2Akte, k3Orte, k3Akte, k3Nebenquests, k3Pruefungen, k3Handel, k3Leben, koopK3, koopBeute, k3Ruf, beziehungenPack, fasserinPack],
+  packs: [k1Finale, kgNebenquests, wxNebenquests, koop, k2Akten, k2Orte, k2Gilde, k2Akte, k3Orte, k3Akte, k3Nebenquests, k3Pruefungen, k3Handel, k3Leben, koopK3, koopBeute, k3Ruf, beziehungenPack, fasserinPack, sektenPack],
   lore: { bestiarium: lore_bestiarium, gerede: lore_gerede, item_texte: lore_item_texte, lesestuecke: lore_lesestuecke, zeitungen: lore_zeitungen },
   beziehungen,
   sequenzen: { neue_pfade: sq_neue_pfade, seq_4_bis_1: sq_seq_4_bis_1, zutaten: sq_zutaten, artefakte: sq_artefakte, rituale: k3p_rituale, faehigkeiten: sq_faehigkeiten },

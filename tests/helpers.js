@@ -54,6 +54,9 @@ export function loadContent({ sequenzen = true, without = [] } = {}) {
     ...(without.includes('k3_ruf') ? [] : [buildK3Ruf(Object.fromEntries(['stationen', 'klang_zuordnung', 'bindungen', 'texte'].map((f) => [f, load(`packs/k3_ruf/${f}.json`)])))]),
     ...(without.includes('beziehungen') ? [] : [{ name: 'beziehungen', dialog_zusaetze: load('packs/beziehungen/dialog_zusaetze.json') }]),
     ...(without.includes('fasserin') ? [] : [(() => { const r = load('packs/fasserin/rezepte.json'); return { name: 'fasserin', rezepte: r.recipes, artifacts: r.artifacts, fasserin_texte: load('packs/fasserin/texte.json'), gerede: load('packs/fasserin/gerede.json'), zeitung: load('packs/fasserin/zeitung.json') }; })()]),
+    ...(without.includes('sekten') ? [] : [(() => { const f = load('packs/sekten/figuren.json'); const g = load('packs/sekten/gegner.json'); const a = load('packs/sekten/auftraege.json');
+      return { name: 'sekten', npcs: f.npcs, dialogues: f.dialogues, einwohner: f.einwohner, items: g.items, encounters: g.encounters, loot: g.loot, quests: a.quests, artifacts: a.artifacts,
+        dialog_zusaetze: load('packs/sekten/dialog_zusaetze.json'), platzierung: load('packs/sekten/platzierung.json'), zeitung: load('packs/sekten/zeitung.json'), gerede: load('packs/sekten/gerede.json'), geplauder: load('packs/sekten/geplauder.json'), sekten: load('packs/sekten/daten.json') }; })()]),
     ...(without.includes('koop_beute') ? [] : [{ name: 'koop_beute', dialog_zusaetze: load('packs/koop_beute/dialog_zusaetze.json'), ansprueche: load('packs/koop_beute/ansprueche.json'), ersatz: load('packs/koop_beute/ersatz.json'), texte: load('packs/koop_beute/texte.json') }])],
     beziehungen: load('beziehungen.json'),
     lore: Object.fromEntries(['bestiarium', 'gerede', 'item_texte', 'lesestuecke', 'zeitungen'].map((f) => [f, load(`packs/lore/${f}.json`)])),
