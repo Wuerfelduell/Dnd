@@ -108,11 +108,92 @@ test('Festnahme: Zelle, einmal holt Zunder dich umsonst raus, danach kostet es',
     assert.deepEqual(s.pendingTravel, { map: 'wx_kahn', spawn: 'default' });
     s.pendingTravel = null;
   }
-  // Schloss knacken: mit Glück direkt zum Bahnhof
+  // Nach einem Ausbruch (volle Fahndung) kostet die Kaution 40
+  s.money = 100;
   s.arrest();
+  s.setWanted(3);
+  assert.equal(talk(s, 'wx_zelle', ['Zunder']).at(-1), 'bail_hot');
+  assert.equal(s.money, 75 - 40);
+  s.arrest();
+  s.setWanted(3);
+  assert.equal(talk(s, 'wx_zelle', ['Zunder']).at(-1), 'bail_hot_broke', 'pleite: niemand holt dich');
+  assert.ok(s.flags.has('k2_in_cell'));
+});
+
+test('Ausbruch aus der Zelle: Werkzeug, Schloss, Mauer, jeder Schritt ein Wagnis', () => {
+  const s = afterChapter1();
+  s.map = 'wx_bahnhof';
+  s.money = 100;
+  s.composure = 100;
+  s.arrest();
+  // Ohne Werkzeug lässt sich kein Schloss knacken
+  assert.throws(() => talk(s, 'wx_zelle', ['Schloss']));
+  // Ohne Pfad: Haken suchen (50 %), Schloss 15 %, Mauer 60 % minus Fahndung
+  assert.equal(s.escapeChance('zelle_werkzeug'), 0.5);
+  assert.equal(s.escapeChance('zelle_schloss'), 0.15);
+  assert.equal(s.escapeChance('zelle_mauer'), 0.5, 'Fahndung 1 nach der Festnahme');
+  s.random = () => 0.9;
+  assert.equal(talk(s, 'wx_zelle', ['Pritsche']).at(-1), 'werkzeug_fail');
   s.random = () => 0;
+  assert.equal(talk(s, 'wx_zelle', ['Pritsche']).at(-1), 'werkzeug_ok');
+  assert.ok(s.flags.has('k2_zelle_werkzeug'));
+  // Zwei Fehlschläge am Schloss wecken den Wächter: dann hilft weder Haken noch Zunder, nur Abwarten
+  s.random = () => 0.9;
+  assert.equal(talk(s, 'wx_zelle', ['Schloss']).at(-1), 'pick_fail');
+  assert.equal(talk(s, 'wx_zelle', ['Schloss']).at(-1), 'pick_alarm');
+  assert.ok(s.flags.has('k2_zelle_alarm') && !s.flags.has('k2_zelle_werkzeug'));
+  assert.equal(talk(s, 'wx_zelle', []).at(-1), 'start_alarm');
+  assert.equal(talk(s, 'wx_zelle', ['Zunder']).at(-1), 'bail_alarm');
+  assert.ok(s.flags.has('k2_in_cell'));
+  const nerves = s.composure;
+  assert.equal(talk(s, 'wx_zelle', ['Schicht']).at(-1), 'schicht');
+  assert.ok(s.composure < nerves && !s.flags.has('k2_zelle_alarm'));
+  // Neuer Anlauf mit Glück: Schloss offen, aber an der Mauer gefasst → wieder drin, mehr beschlagnahmt, Wächter wach
+  s.random = () => 0;
+  talk(s, 'wx_zelle', ['Pritsche']);
   assert.equal(talk(s, 'wx_zelle', ['Schloss']).at(-1), 'pick_ok');
+  assert.equal(talk(s, 'wx_zelle', []).at(-1), 'start_offen');
+  s.random = () => 0.9;
+  const money = s.money;
+  assert.equal(talk(s, 'wx_zelle', ['Mauer']).at(-1), 'mauer_fail');
+  assert.equal(s.arrests, 2);
+  assert.equal(money - s.money, Math.floor(money * 0.25 * 1.5));
+  assert.ok(s.flags.has('k2_zelle_alarm') && !s.flags.has('k2_zelle_offen'));
+  assert.deepEqual(s.pendingTravel, { map: 'wx_zelle', spawn: 'default' });
+  // Geglückter Ausbruch: Bahnhof, volle Fahndung
+  s.flags.delete('k2_zelle_alarm');
+  s.random = () => 0;
+  talk(s, 'wx_zelle', ['Pritsche']);
+  talk(s, 'wx_zelle', ['Schloss']);
+  assert.equal(talk(s, 'wx_zelle', ['Mauer']).at(-1), 'mauer_ok');
+  assert.ok(!s.flags.has('k2_in_cell'));
+  assert.equal(s.wanted, 3, 'Ausbruch: volle Fahndung');
   assert.equal(s.pendingTravel.map, 'wx_bahnhof');
+});
+
+test('Pfad des Schlüssels hilft beim Ausbruch, nimmt aber das Risiko nicht', () => {
+  const s = afterChapter1();
+  s.map = 'wx_bahnhof';
+  s.pathway = { id: 'schluessel', seq: 6, digestion: 0 };
+  s.arrest();
+  // Nachtschleicher: Haken immer dabei, Schloss 15 % + 25 Schlossbonus, Mauer als Schattengänger 90 % minus Fahndung
+  assert.equal(talk(s, 'wx_zelle', ['Pritsche']).at(-1), 'werkzeug_pfad');
+  assert.equal(s.escapeChance('zelle_schloss'), 0.4);
+  assert.equal(s.escapeChance('zelle_mauer'), 0.8);
+  s.pathway.seq = 5;
+  assert.equal(s.escapeChance('zelle_schloss'), 0.55);
+  s.pathway.seq = 8;
+  assert.equal(s.escapeChance('zelle_schloss'), 0.3);
+  assert.equal(s.escapeChance('zelle_mauer'), 0.5, 'ohne Schattengänger die normale Mauer');
+  // Auch der Schlüsselpfad scheitert mit Pech und weckt den Wächter
+  s.random = () => 0.99;
+  talk(s, 'wx_zelle', ['Schloss']);
+  assert.equal(talk(s, 'wx_zelle', ['Schloss']).at(-1), 'pick_alarm');
+  // Halbgott: das Gitter hält nicht, dafür Unruhe und volle Fahndung
+  s.pathway.seq = 4;
+  assert.equal(talk(s, 'wx_zelle', ['Angeln']).at(-1), 'halbgott');
+  assert.equal(s.wanted, 3);
+  assert.ok(!s.flags.has('k2_in_cell') && !s.flags.has('k2_zelle_alarm'));
 });
 
 test('Streifen stehen in Wexmoor (und nach Fall 9 in Kettlegate) und laufen über freie Felder', () => {

@@ -11797,10 +11797,26 @@
       }
     },
     "wx_zelle": {
-      "start": "start",
+      "start": [
+        {
+          "node": "start_alarm",
+          "requires_flags": [
+            "k2_zelle_alarm"
+          ]
+        },
+        {
+          "node": "start_offen",
+          "requires_flags": [
+            "k2_zelle_offen"
+          ]
+        },
+        {
+          "node": "start"
+        }
+      ],
       "nodes": {
         "start": {
-          "text": "Das Gitter ist alt und das Schloss noch älter. Draußen im Gang schnarcht ein Grauspäher auf einem Stuhl, die Laterne zu seinen Füßen.",
+          "text": "Das Gitter ist alt und das Schloss noch älter, aber es ist ein Schloss des Lichtamts: drei Zuhaltungen, geölt. Draußen im Gang schnarcht ein Grauspäher auf einem Stuhl, die Laterne zu seinen Füßen. Hinter ihm die Tür zum Hinterhof, dahinter die Mauer.",
           "choices": [
             {
               "text": "Auf Zunder warten.",
@@ -11815,7 +11831,17 @@
                   "node": "bail_free",
                   "hide_if_flags": [
                     "k2_bail_due"
-                  ]
+                  ],
+                  "max_wanted": 3
+                },
+                {
+                  "node": "bail_hot",
+                  "requires_wanted": 3,
+                  "requires_money": 40
+                },
+                {
+                  "node": "bail_hot_broke",
+                  "requires_wanted": 3
                 },
                 {
                   "node": "bail_pay",
@@ -11827,11 +11853,44 @@
               ]
             },
             {
+              "text": "Das Gitter aus den Angeln reißen.",
+              "requires_seq": 4,
+              "next": "halbgott"
+            },
+            {
+              "text": "Die Pritsche nach einem Haken absuchen.",
+              "hide_if_flags": [
+                "k2_zelle_werkzeug"
+              ],
+              "next": [
+                {
+                  "node": "werkzeug_pfad",
+                  "requires_pathway": "schluessel"
+                },
+                {
+                  "node": "werkzeug_ok",
+                  "chance": "zelle_werkzeug"
+                },
+                {
+                  "node": "werkzeug_fail"
+                }
+              ]
+            },
+            {
               "text": "Das Schloss knacken.",
+              "requires_flags": [
+                "k2_zelle_werkzeug"
+              ],
               "next": [
                 {
                   "node": "pick_ok",
-                  "chance": 0.45
+                  "chance": "zelle_schloss"
+                },
+                {
+                  "node": "pick_alarm",
+                  "requires_flags": [
+                    "k2_zelle_fehl1"
+                  ]
                 },
                 {
                   "node": "pick_fail"
@@ -11843,10 +11902,89 @@
             }
           ]
         },
+        "start_offen": {
+          "text": "Die Zellentür steht einen Spalt offen. Der Grauspäher schnarcht. Zwischen dir und dem Güterbahnhof liegen ein Gang, ein Hinterhof und eine Mauer mit Glasscherben obenauf.",
+          "choices": [
+            {
+              "text": "Durch den Hinterhof und über die Mauer.",
+              "next": [
+                {
+                  "node": "mauer_ok",
+                  "chance": "zelle_mauer"
+                },
+                {
+                  "node": "mauer_fail"
+                }
+              ]
+            },
+            {
+              "text": "Lieber doch auf Zunder warten.",
+              "next": [
+                {
+                  "node": "bail_none",
+                  "requires_flags": [
+                    "k2_zunder_gone"
+                  ]
+                },
+                {
+                  "node": "bail_free",
+                  "hide_if_flags": [
+                    "k2_bail_due"
+                  ],
+                  "max_wanted": 3
+                },
+                {
+                  "node": "bail_hot",
+                  "requires_wanted": 3,
+                  "requires_money": 40
+                },
+                {
+                  "node": "bail_hot_broke",
+                  "requires_wanted": 3
+                },
+                {
+                  "node": "bail_pay",
+                  "requires_money": 15
+                },
+                {
+                  "node": "bail_broke"
+                }
+              ]
+            },
+            {
+              "text": "Noch nicht."
+            }
+          ]
+        },
+        "start_alarm": {
+          "text": "Der Grauspäher ist wach. Er sitzt jetzt mit dem Stuhl direkt vor deinem Gitter, die Laterne auf dem Knie, und sieht dich an, ohne zu blinzeln. Solange er so sitzt, rührst du besser nichts an.",
+          "choices": [
+            {
+              "text": "Eine Schicht abwarten.",
+              "next": "schicht"
+            },
+            {
+              "text": "Auf Zunder warten.",
+              "next": "bail_alarm"
+            },
+            {
+              "text": "Das Gitter aus den Angeln reißen.",
+              "requires_seq": 4,
+              "next": "halbgott"
+            },
+            {
+              "text": "Noch nicht."
+            }
+          ]
+        },
         "bail_free": {
           "text": "Gegen Morgen klappert etwas am Fenster. Zunder hängt kopfüber am Sims, einen Dietrich zwischen den Zähnen.\n\n„Der Wachmann schuldet mir Öl. Und ich ihm jetzt nichts mehr.“ Das Schloss springt auf. „Das war gratis. Lange bleibt das nicht so.“",
+          "nerves": -5,
           "clears_flags": [
-            "k2_in_cell"
+            "k2_in_cell",
+            "k2_zelle_werkzeug",
+            "k2_zelle_offen",
+            "k2_zelle_fehl1"
           ],
           "travel": {
             "map": "wx_kahn",
@@ -11859,10 +11997,14 @@
           ]
         },
         "bail_pay": {
-          "text": "Zunder kommt durch die Vordertür, mit einem Beutel Münzen und einem Lächeln, das dem Wachmann nicht gefällt. „Kaution. Für meinen Cousin, den Dummkopf.“\n\nDraußen hält sie die Hand auf. „Fünfzehn. Ich bin nicht die Heilsarmee.“",
+          "text": "Eine lange Nacht auf der Pritsche. Zunder kommt erst am Mittag durch die Vordertür, mit einem Beutel Münzen und einem Lächeln, das dem Wachmann nicht gefällt. „Kaution. Für meinen Cousin, den Dummkopf.“\n\nDraußen hält sie die Hand auf. „Fünfzehn. Ich bin nicht die Heilsarmee.“",
           "takes_money": 15,
+          "nerves": -5,
           "clears_flags": [
-            "k2_in_cell"
+            "k2_in_cell",
+            "k2_zelle_werkzeug",
+            "k2_zelle_offen",
+            "k2_zelle_fehl1"
           ],
           "travel": {
             "map": "wx_kahn",
@@ -11878,7 +12020,10 @@
           "text": "Zunder zahlt die Kaution aus eigener Tasche und redet den ganzen Heimweg nicht mit dir. Erst am Kahn sagt sie: „Das nächste Mal lass ich dich drin.“ Sie meint es nicht so. Hoffentlich.",
           "nerves": -15,
           "clears_flags": [
-            "k2_in_cell"
+            "k2_in_cell",
+            "k2_zelle_werkzeug",
+            "k2_zelle_offen",
+            "k2_zelle_fehl1"
           ],
           "travel": {
             "map": "wx_kahn",
@@ -11890,10 +12035,159 @@
             }
           ]
         },
-        "pick_ok": {
-          "text": "Ein Haken aus deinem Hosenbund, zwei Minuten Geduld, ein leises Klicken. Der Wachmann schnarcht weiter.\n\nDu schleichst durch den Hinterhof und über die Mauer. Als die Sonne aufgeht, stehst du am Güterbahnhof, als wärst du gerade erst angekommen.",
+        "bail_hot": {
+          "text": "Nach einem Ausbruch hängt dein Zettel an jeder Laterne, und das Wachhaus hat doppelte Besetzung. Zunder braucht zwei Tage und einen dicken Beutel. „Vierzig. Der Sergeant wollte sechzig, aber er mag meinen Cousin nicht so wie ich.“",
+          "takes_money": 40,
+          "nerves": -10,
           "clears_flags": [
-            "k2_in_cell"
+            "k2_in_cell",
+            "k2_zelle_werkzeug",
+            "k2_zelle_offen",
+            "k2_zelle_fehl1"
+          ],
+          "travel": {
+            "map": "wx_kahn",
+            "spawn": "default"
+          },
+          "choices": [
+            {
+              "text": "Danke, Zunder."
+            }
+          ]
+        },
+        "bail_hot_broke": {
+          "text": "Nach einem Ausbruch hängt dein Zettel an jeder Laterne, und das Wachhaus hat doppelte Besetzung. Zunder pfeift nachts einmal unter dem Fenster durch und verschwindet wieder. Vierzig Schilling wollen sie für dich, und so viel hast du nicht.",
+          "nerves": -10,
+          "choices": [
+            {
+              "text": "Dann eben selbst.",
+              "next": "start"
+            }
+          ]
+        },
+        "bail_alarm": {
+          "text": "Du wartest. Draußen pfeift irgendwann jemand leise, zweimal, und dann nichts mehr: Zunder hat den wachen Grauspäher am Gitter gesehen und ist wieder gegangen. Solange der hier sitzt, kommt niemand an dich heran.",
+          "nerves": -5,
+          "choices": [
+            {
+              "text": "Dann eine Schicht abwarten.",
+              "next": "schicht"
+            },
+            {
+              "text": "Noch nicht."
+            }
+          ]
+        },
+        "bail_none": {
+          "text": "Du wartest bis zum Morgen. Niemand kommt. Irgendwo weiter hinten im Gang hustet jemand, und es klingt wie Zunder.",
+          "nerves": -5,
+          "choices": [
+            {
+              "text": "Dann eben selbst.",
+              "next": "start"
+            }
+          ]
+        },
+        "schicht": {
+          "text": "Du legst dich auf die Pritsche und zählst die Kerben. Stunden später wechselt die Wache: Der wache Grauspäher geht, ein neuer kommt, gähnt, stellt die Laterne ab und schläft schneller ein als der alte. Die Nacht in der Zelle hat an dir gezehrt.",
+          "nerves": -10,
+          "clears_flags": [
+            "k2_zelle_alarm"
+          ],
+          "choices": [
+            {
+              "text": "Jetzt.",
+              "next": "start"
+            }
+          ]
+        },
+        "werkzeug_pfad": {
+          "text": "Du brauchst nicht zu suchen. Im Saum deines Mantels steckt seit Kettlegate ein Haken, den noch kein Grauspäher gefunden hat. Der Pfad des Schlüssels geht nie ohne.",
+          "sets_flags": [
+            "k2_zelle_werkzeug"
+          ],
+          "choices": [
+            {
+              "text": "Weiter.",
+              "next": "start"
+            }
+          ]
+        },
+        "werkzeug_ok": {
+          "text": "Unter der Pritsche, zwischen den Namen, steckt ein verbogener Nagel. Jemand hat ihn dort gelassen, mit Absicht oder nicht. Du biegst ihn an der Bettkante zurecht.",
+          "sets_flags": [
+            "k2_zelle_werkzeug"
+          ],
+          "choices": [
+            {
+              "text": "Weiter.",
+              "next": "start"
+            }
+          ]
+        },
+        "werkzeug_fail": {
+          "text": "Splitter, Stroh, ein toter Käfer. Nichts, was ein Schloss überreden könnte. Die Pritsche knarrt dabei so laut, dass der Grauspäher im Schlaf schmatzt.",
+          "nerves": -5,
+          "choices": [
+            {
+              "text": "Weitersuchen.",
+              "next": "start"
+            }
+          ]
+        },
+        "pick_ok": {
+          "text": "Ein Haken, zwei Minuten Geduld, drei Zuhaltungen, ein leises Klicken. Der Wachmann schnarcht weiter. Die Tür schwingt einen Spalt auf.",
+          "sets_flags": [
+            "k2_zelle_offen"
+          ],
+          "choices": [
+            {
+              "text": "Weiter.",
+              "next": "start_offen"
+            }
+          ]
+        },
+        "pick_fail": {
+          "text": "Die zweite Zuhaltung rutscht ab. Der Wachmann schnieft, dreht sich um und schläft weiter. Dein Herz hämmert. Noch ein Fehler, und er wacht auf.",
+          "nerves": -8,
+          "sets_flags": [
+            "k2_zelle_fehl1"
+          ],
+          "choices": [
+            {
+              "text": "Nochmal überlegen.",
+              "next": "start"
+            }
+          ]
+        },
+        "pick_alarm": {
+          "text": "Der Haken bricht mit einem Knall ab. Der Grauspäher fährt hoch, greift die Laterne und leuchtet dir ins Gesicht. „Na, sieh an.“ Er rückt den Stuhl bis ans Gitter und setzt sich wieder, diesmal mit offenen Augen.",
+          "nerves": -12,
+          "wanted": 1,
+          "sets_flags": [
+            "k2_zelle_alarm"
+          ],
+          "clears_flags": [
+            "k2_zelle_werkzeug",
+            "k2_zelle_fehl1"
+          ],
+          "choices": [
+            {
+              "text": "Verdammt.",
+              "next": "start_alarm"
+            }
+          ]
+        },
+        "mauer_ok": {
+          "text": "Du schleichst durch den Hinterhof, über die Mauer, an den Scherben vorbei. Als die Sonne aufgeht, stehst du am Güterbahnhof, als wärst du gerade erst angekommen.\n\nBis Mittag hängt dein Gesicht an jeder Laterne von Wexmoor.",
+          "wanted": 3,
+          "wanted_reason": "Ausbruch aus dem Wachhaus",
+          "clears_flags": [
+            "k2_in_cell",
+            "k2_zelle_werkzeug",
+            "k2_zelle_offen",
+            "k2_zelle_fehl1",
+            "k2_zelle_alarm"
           ],
           "travel": {
             "map": "wx_bahnhof",
@@ -11905,23 +12199,40 @@
             }
           ]
         },
-        "pick_fail": {
-          "text": "Der Haken bricht ab. Der Wachmann schnieft, dreht sich um und schläft weiter. Dein Herz hämmert.",
-          "nerves": -8,
+        "mauer_fail": {
+          "text": "Du bist schon auf der Mauer, als im Hof eine Laterne aufflammt. Zwei Hände in Wachshandschuhen ziehen dich an den Beinen zurück. Diesmal nehmen sie dir ab, was sie beim ersten Mal übersehen haben, und der Grauspäher stellt seinen Stuhl direkt vor dein Gitter.",
+          "nerves": -10,
+          "sets_flags": [
+            "k2_zelle_alarm"
+          ],
+          "arrest": {
+            "seize_mult": 1.5
+          },
           "choices": [
             {
-              "text": "Nochmal überlegen.",
-              "next": "start"
+              "text": "Verdammt."
             }
           ]
         },
-        "bail_none": {
-          "text": "Du wartest bis zum Morgen. Niemand kommt. Irgendwo weiter hinten im Gang hustet jemand, und es klingt wie Zunder.",
-          "nerves": -5,
+        "halbgott": {
+          "text": "Du legst die Hände an die Stäbe und ziehst. Das Eisen stöhnt, der Mörtel rieselt, dann liegt das halbe Gitter im Gang. Der Grauspäher stolpert rückwärts, lässt die Laterne fallen und schreit nach Verstärkung. Niemand stellt sich dir in den Weg.\n\nBis Mittag weiß ganz Wexmoor, was im Wachhaus sitzt.",
+          "unruhe": 10,
+          "wanted": 3,
+          "wanted_reason": "Ausbruch aus dem Wachhaus",
+          "clears_flags": [
+            "k2_in_cell",
+            "k2_zelle_werkzeug",
+            "k2_zelle_offen",
+            "k2_zelle_fehl1",
+            "k2_zelle_alarm"
+          ],
+          "travel": {
+            "map": "wx_bahnhof",
+            "spawn": "default"
+          },
           "choices": [
             {
-              "text": "Dann eben selbst.",
-              "next": "start"
+              "text": "Weg hier."
             }
           ]
         }
@@ -15537,7 +15848,17 @@
       "catch": 0.85
     },
     "resist": "wx_grauspaeher_fight",
-    "resist_dialogue": "wx_festnahme"
+    "resist_dialogue": "wx_festnahme",
+    "escape": {
+      "tool_chance": 0.5,
+      "pick_base": 0.15,
+      "pick_per_lock": 0.01,
+      "pick_max": 0.75,
+      "wall_base": 0.6,
+      "wall_flee": 0.9,
+      "wall_per_wanted": 0.1,
+      "recapture_seize": 1.5
+    }
   },
   "items": {
     "torfkittel": {

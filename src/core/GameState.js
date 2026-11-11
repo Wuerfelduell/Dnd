@@ -321,6 +321,8 @@ export class GameState {
       (o.requires_gatherings_unlocked === undefined || this.gatheringsUnlocked() === o.requires_gatherings_unlocked) &&
       this.meetsPathway(o.requires_pathway) &&
       (o.requires_seq === undefined || (!!this.pathway && this.pathway.seq <= o.requires_seq)) && // Halbgott-Prüfung: Sequenz N oder besser, egal welcher Pfad
+      (o.requires_wanted === undefined || this.wanted >= o.requires_wanted) && // Zelle: ab dieser Fahndungsstufe
+      (o.max_wanted === undefined || this.wanted < o.max_wanted) &&
       this.meetsSignal(o) &&
       this.meetsBond(o) &&
       this.meetsRelation(o) &&
@@ -343,7 +345,13 @@ export class GameState {
   pick(spec) {
     if (typeof spec === 'string' || spec === undefined || spec === null) return spec;
     // "chance" (0..1) macht eine Variante zum Wagnis: sie greift nur mit dieser Wahrscheinlichkeit.
-    return spec.find((v) => this.meets(v) && (v.chance === undefined || this.random() < v.chance))?.node;
+    // Ein Name statt einer Zahl ("zelle_schloss") holt die Chance aus der Spiellogik (Wanted.js: Pfad, Fahndung).
+    return spec.find((v) => this.meets(v) && (v.chance === undefined || this.random() < this.chanceOf(v.chance)))?.node;
+  }
+
+  /** Chance einer Wagnis-Variante: Zahl oder benannte Chance (Wanted.escapeChance). */
+  chanceOf(c) {
+    return typeof c === 'string' ? this.escapeChance(c) : c;
   }
 
   /**

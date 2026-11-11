@@ -3,9 +3,16 @@
 // content.polices hält die Regeln je Stadt; `active_if` schaltet sie erst mit einem Flag frei.
 // Die Grauspäher (world/Patrols.js) melden Sichtungen; hier steht nur die Spiellogik, damit Tests sie direkt prüfen.
 // - Fahndungsstufe 0..max: jede Sichtung, der man entkommt, +1. Sinkt mit der Zeit und beim Schlafen im Unterschlupf.
-// - Festnahme: Zelle im Wachhaus, ein Teil der Schillinge wird beschlagnahmt. Zunder holt dich zweimal umsonst raus, danach kostet es.
+// - Festnahme: Zelle im Wachhaus, ein Teil der Schillinge wird beschlagnahmt. Zunder holt dich einmal umsonst raus, danach kostet es.
+// - Ausbruch (Regel `escape`, Gespräch wx_zelle): Werkzeug finden, Schloss knacken, über die Mauer. Jeder Schritt ist ein Wagnis
+//   mit benannter Chance (escapeChance): der Pfad des Schlüssels hilft (lock_bonus, Schattengänger), die Fahndungsstufe schadet.
+//   Zwei Fehlschläge am Schloss wecken den Wächter (Flag k2_zelle_alarm): dann hilft nur Abwarten (eine Schicht) oder ein Halbgott.
+//   Wer draußen erwischt wird, landet mit höherer Beschlagnahme wieder drin; wer entkommt, trägt die volle Fahndungsstufe.
 // - Widerstand (Regel `resist`, Wexmoor): Wer gestellt wird, darf kämpfen (Gespräch `resist_dialogue`). Die Grauspäher sind
 //   Beyonder mit min_seq 4: unter Sequenz 4 verliert man den Kampf auch zu zweit und landet mit doppelter Beschlagnahme in der Zelle.
+
+/** Flags der Ausbruchsschritte, die eine neue Festnahme zurücksetzt (der Alarm k2_zelle_alarm bleibt). */
+const ESCAPE_STEP_FLAGS = ['k2_zelle_werkzeug', 'k2_zelle_offen', 'k2_zelle_fehl1'];
 
 export const wantedMethods = {
   resetWanted() {
@@ -93,6 +100,7 @@ export const wantedMethods = {
     this.arrests += 1;
     const seized = Math.floor(this.money * Math.min(1, r.seize_pct * seize_mult));
     if (seized > 0) this.addMoney(-seized, { reason: 'Beschlagnahmt' });
+    for (const f of ESCAPE_STEP_FLAGS) this.flags.delete(f); // neuer Anlauf: Werkzeug und offenes Schloss sind weg, der Alarm bleibt
     const cellFlag = r.cell_flag === undefined ? 'k2_in_cell' : r.cell_flag;
     const bailFlag = r.bail_flag === undefined ? 'k2_bail_due' : r.bail_flag;
     if (cellFlag) this.flags.add(cellFlag);
@@ -101,6 +109,21 @@ export const wantedMethods = {
     this.setWanted(Math.max(this.wanted, 1));
     this.emit('changed');
     return { map: r.cell.map, spawn: r.cell.spawn, seized, text: r.arrest_text };
+  },
+
+  /**
+   * Benannte Chancen für die Wagnisse in der Zelle (Regel `escape` der Stadt):
+   * - zelle_werkzeug: Haken aus der Pritsche; Schlüssel-Pfad (lock_bonus) braucht nicht zu suchen (siehe Gespräch).
+   * - zelle_schloss: pick_base + lock_bonus · pick_per_lock (Schlüssel Seq 8: +0,15, Seq 6: +0,25, Seq 5: +0,40), höchstens pick_max.
+   * - zelle_mauer: wall_base (Schattengänger, always_flee: wall_flee) minus wall_per_wanted je Fahndungsstufe.
+   */
+  escapeChance(kind) {
+    const e = this.policeRules()?.escape ?? {};
+    const clamp = (v, lo, hi) => Math.max(lo, Math.min(hi, v));
+    if (kind === 'zelle_werkzeug') return e.tool_chance ?? 0.5;
+    if (kind === 'zelle_schloss') return clamp((e.pick_base ?? 0.15) + this.passive('lock_bonus') * (e.pick_per_lock ?? 0.01), 0.05, e.pick_max ?? 0.75);
+    if (kind === 'zelle_mauer') return clamp((this.passive('always_flee') ? e.wall_flee ?? 0.9 : e.wall_base ?? 0.6) - (e.wall_per_wanted ?? 0.1) * this.wanted, 0.1, 0.95);
+    throw new Error(`Unbekannte Chance: ${kind}`);
   },
 
   serializeWanted() {
