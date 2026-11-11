@@ -1,0 +1,92 @@
+{
+  "format": "nebel-musik-1",
+  "id": "bh_ende_winter",
+  "titel": "Draußen darf es kalt sein",
+  "art": "musik",
+  "bpm": 60,
+  "takt": [
+    4,
+    4
+  ],
+  "loop": false,
+  "lautstaerke": 0.62,
+  "hall": 0.32,
+  "spuren": {
+    "s0": {
+      "instrument": "zither",
+      "lautstaerke": 0.48,
+      "pan": 0
+    },
+    "s1": {
+      "instrument": "wind",
+      "lautstaerke": 0.12,
+      "pan": -0.2
+    }
+  },
+  "muster": {
+    "intro_s0": {
+      "spur": "s0",
+      "takte": 1,
+      "noten": "r:8 d4:8"
+    },
+    "intro_s1": {
+      "spur": "s1",
+      "takte": 1,
+      "noten": "x:8 r:8"
+    },
+    "A_s0": {
+      "spur": "s0",
+      "takte": 3,
+      "noten": "d5:5 a4:5 r:6 | d5:5 a4:5 r:6 | e5:5 b4:5 r:6"
+    },
+    "A_s1": {
+      "spur": "s1",
+      "takte": 3,
+      "noten": "x:8 r:8 | r:16 | x:8 r:8"
+    },
+    "B_s0": {
+      "spur": "s0",
+      "takte": 3,
+      "noten": "f5:5 e5:5 r:6 | f5:5 e5:5 r:6 | d#5:5 d5:5 r:6"
+    },
+    "B_s1": {
+      "spur": "s1",
+      "takte": 3,
+      "noten": "x:8 r:8 | r:16 | x:8 r:8"
+    },
+    "C_s0": {
+      "spur": "s0",
+      "takte": 3,
+      "noten": "d5:5 a4:5 r:6 | d5:5 a4:5 r:6 | e5:5 b4:5 r:6"
+    },
+    "C_s1": {
+      "spur": "s1",
+      "takte": 3,
+      "noten": "x:8 r:8 | r:16 | x:8 r:8"
+    }
+  },
+  "abschnitte": {
+    "intro": [
+      "intro_s0",
+      "intro_s1"
+    ],
+    "A": [
+      "A_s0",
+      "A_s1"
+    ],
+    "B": [
+      "B_s0",
+      "B_s1"
+    ],
+    "C": [
+      "C_s0",
+      "C_s1"
+    ]
+  },
+  "ablauf": [
+    "intro",
+    "A",
+    "B",
+    "C"
+  ]
+}

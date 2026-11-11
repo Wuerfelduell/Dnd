@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="de"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CM · Soundeffekte Runde 2</title>
+<style>
+:root{color-scheme:dark;font-family:system-ui,sans-serif;background:#171d28;color:#e6dcc3}body{max-width:1100px;margin:auto;padding:28px}h1{font-size:28px}p{line-height:1.6;color:#a8b4c0}header{position:sticky;top:0;background:#171d28;padding:12px 0;z-index:1;border-bottom:1px solid #425360}input,select,button{font:inherit;color:inherit;background:#252b38;border:1px solid #71858b;border-radius:5px;padding:9px;margin:3px}input{width:260px}article{padding:18px 0;border-bottom:1px solid #425360}h2{font-size:17px;color:#6fe0d0}audio{width:280px;max-width:100%;height:38px}figure{display:inline-grid;gap:7px;margin:8px 18px 8px 0}figcaption,small{color:#a8b4c0}#status{font-size:14px}label{white-space:nowrap}
+</style>
+<h1>CM · Soundeffekte Runde 2</h1>
+<p>120 Motive · 159 Varianten · eigene Synthese ohne Fremdmaterial. Hörkontrolle über einen lokalen HTTP-Server im Repo öffnen, z. B. <code>python -m http.server 8000</code>, dann <code>/docs/audio/sfx2_vorschau.html</code>. Wiedergabe nutzt die empfohlenen Manifestlautstärken. Tonlagen von Sternen, Ventilen und Rufen einzeln vergleichen. Bei Loops mindestens zwei Durchläufe hören.</p>
+<header><input id="search" placeholder="ID oder Beschreibung suchen" aria-label="Suche"><select id="group" aria-label="Gruppe"><option value="">Alle Gruppen</option></select><button id="stop">Alle stoppen</button><p id="status" role="status">Manifest wird geladen …</p></header><main id="list"></main>
+<script type="module">
+const list=document.querySelector('#list'),search=document.querySelector('#search'),group=document.querySelector('#group'),status=document.querySelector('#status');
+function stop(){document.querySelectorAll('audio').forEach(a=>{a.pause();a.currentTime=0;});}document.querySelector('#stop').onclick=stop;
+try{
+ const response=await fetch('../../public/audio/manifest-sfx2.json');if(!response.ok)throw Error(response.status);
+ const m=await response.json();
+ for(const name of [...new Set(Object.values(m.sounds).map(s=>s.group))]){const o=document.createElement('option');o.value=o.textContent=name;group.append(o);}
+ function render(){stop();list.replaceChildren();let count=0;
+  for(const [id,s] of Object.entries(m.sounds)){
+   if(group.value&&s.group!==group.value||!(id+' '+s.note).toLowerCase().includes(search.value.toLowerCase()))continue;count++;
+   const article=document.createElement('article'),title=document.createElement('h2'),note=document.createElement('p');title.textContent=id;note.textContent=`${s.group} · ${s.duration} s · Lautstärke ${s.volume} · ${s.note}`;article.append(title,note);
+   for(let v=1;v<=(s.variants??1);v++){
+    const f=document.createElement('figure'),cap=document.createElement('figcaption'),a=document.createElement('audio');cap.textContent=`Variante ${v}${s.loop?' · Loop':''}`;a.controls=true;a.preload='none';a.loop=!!s.loop;a.volume=s.volume;
+    const stem=id+(s.variants>1?'_'+v:'');for(const ext of m.formats){const source=document.createElement('source');source.src=`../../public/audio/sfx/${stem}.${ext}`;source.type=ext==='ogg'?'audio/ogg':'audio/mpeg';a.append(source);}
+    a.addEventListener('play',()=>document.querySelectorAll('audio').forEach(other=>{if(other!==a)other.pause();}));f.append(cap,a);article.append(f);
+   }list.append(article);
+  }status.textContent=`${count} von 120 Motiven angezeigt. Nur ein Player spielt gleichzeitig.`;
+ }search.oninput=render;group.onchange=render;render();
+}catch(error){status.textContent='Manifest nicht geladen. Datei über einen lokalen HTTP-Server öffnen. '+error.message;}
+</script></html>

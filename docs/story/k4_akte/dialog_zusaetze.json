@@ -1,0 +1,1859 @@
+{
+  "bj_cw_crayford": {
+    "choices_add": [
+      {
+        "text": "Die vier Fährten von „Ein Teller zu viel“ besprechen.",
+        "next": "cwa_bilanz1",
+        "requires_flags": [
+          "cwa_11_geschlossen",
+          "cwa_12_geschlossen",
+          "cwa_13_geschlossen",
+          "cwa_14_geschlossen"
+        ],
+        "hide_if_flags": [
+          "cwa_akt1_done"
+        ]
+      },
+      {
+        "text": "Die vier Fährten von „Die geliehene Stadt“ besprechen.",
+        "next": "cwa_bilanz2",
+        "requires_flags": [
+          "cwa_21_geschlossen",
+          "cwa_22_geschlossen",
+          "cwa_23_geschlossen",
+          "cwa_24_geschlossen"
+        ],
+        "hide_if_flags": [
+          "cwa_akt2_done"
+        ]
+      },
+      {
+        "text": "Die vier Fährten von „Ein Titel bleibt“ besprechen.",
+        "next": "cwa_bilanz3",
+        "requires_flags": [
+          "cwa_31_geschlossen",
+          "cwa_32_geschlossen",
+          "cwa_33_geschlossen",
+          "cwa_34_geschlossen"
+        ],
+        "hide_if_flags": [
+          "cwa_akt3_done"
+        ]
+      },
+      {
+        "text": "Die vier Fährten von „Unterschriften im Regen“ besprechen.",
+        "next": "cwa_bilanz4",
+        "requires_flags": [
+          "cwa_41_geschlossen",
+          "cwa_42_geschlossen",
+          "cwa_43_geschlossen",
+          "cwa_44_geschlossen"
+        ],
+        "hide_if_flags": [
+          "cwa_akt4_done"
+        ]
+      },
+      {
+        "text": "Die vier Fährten von „Wer unterschreibt“ besprechen.",
+        "next": "cwa_bilanz5",
+        "requires_flags": [
+          "cwa_51_geschlossen",
+          "cwa_52_geschlossen",
+          "cwa_53_geschlossen",
+          "cwa_54_geschlossen"
+        ],
+        "hide_if_flags": [
+          "cwa_abschlussbereitschaft"
+        ]
+      },
+      {
+        "text": "Die Werkstatt und sichere Rückwege prüfen.",
+        "next": "cwa_werkstatt_hilfe",
+        "requires_flags": [
+          "k4_arrived"
+        ]
+      },
+      {
+        "text": "Über die Schublade und unser Vertrauen reden.",
+        "next": "cwa_vertrauen",
+        "requires_flags": [
+          "cwa_34_geschlossen"
+        ],
+        "hide_if_flags": [
+          "cwa_vertrauen_gewaehlt"
+        ]
+      },
+      {
+        "text": "Den öffentlich verratenen Kontakt persönlich wieder sichern.",
+        "next": "cwa_folge_cw_crayford",
+        "requires_flags": [
+          "cwa_akt4_done",
+          "cwa_verraten_cw_crayford"
+        ],
+        "hide_if_flags": [
+          "cwa_folge_cw_crayford_gesichert"
+        ]
+      }
+    ],
+    "nodes_add": {
+      "cwa_bilanz1": {
+        "text": "„Ida lebt. Der Auftrag kennt sie nicht. Das sind zwei Befunde.“ Klammer legt 25 Schilling auf den Tisch. Bett, Ofen, Lager und Fallwand bleiben dir offen.",
+        "choices": [
+          {
+            "text": "Die Bilanz bestätigen.",
+            "next": "cwa_bilanz1_ja"
+          },
+          {
+            "text": "Noch weiter ermitteln.",
+            "next": "hub"
+          }
+        ]
+      },
+      "cwa_bilanz1_ja": {
+        "text": "Du heftest die einzelnen Herkunftsnotizen an die Fallwand. Die Werkstatt bleibt erreichbar, auch wenn ein Zeuge später seinen Weg verliert.",
+        "sets_flags": [
+          "cwa_akt1_done",
+          "cwa_werkstatt"
+        ],
+        "complete_quests": [
+          "cwa_akt1"
+        ],
+        "start_quests": [
+          "cwa_akt2"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "cwa_bilanz2": {
+        "text": "„Eine Kabine ist kein Grab. Wir haben ihre nächste Haltestelle.“ Klammer legt das wiederverwendbare Rohrpostsiegel neben deine Notizen. Die oberen Lesefächer werden zugänglich.",
+        "choices": [
+          {
+            "text": "Die Bilanz bestätigen.",
+            "next": "cwa_bilanz2_ja"
+          },
+          {
+            "text": "Noch weiter ermitteln.",
+            "next": "hub"
+          }
+        ]
+      },
+      "cwa_bilanz2_ja": {
+        "text": "Du heftest die einzelnen Herkunftsnotizen an die Fallwand. Das Siegel wird nur benutzt, niemals als Verbrauchsgebühr abgegeben.",
+        "sets_flags": [
+          "cwa_akt2_done"
+        ],
+        "complete_quests": [
+          "cwa_akt2"
+        ],
+        "start_quests": [
+          "cwa_akt3"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "cwa_bilanz3": {
+        "text": "„Ich habe gewartet. Dafür gibt es keine gute Bindung.“ Klammer konserviert den Originalsatz in getrennten Lagen. Du darfst ihre Hilfe nutzen, ohne ihr Versäumnis zu vergessen.",
+        "choices": [
+          {
+            "text": "Die Bilanz bestätigen.",
+            "next": "cwa_bilanz3_ja"
+          },
+          {
+            "text": "Noch weiter ermitteln.",
+            "next": "hub"
+          }
+        ]
+      },
+      "cwa_bilanz3_ja": {
+        "text": "Du heftest die einzelnen Herkunftsnotizen an die Fallwand. Klammer behält keine zweite, heimlich korrigierte Fassung zurück.",
+        "sets_flags": [
+          "cwa_akt3_done"
+        ],
+        "complete_quests": [
+          "cwa_akt3"
+        ],
+        "start_quests": [
+          "cwa_akt4"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "cwa_bilanz4": {
+        "text": "„Sie steht draußen. Jetzt fragen wir sie, statt für sie.“ Ida nimmt sich den freien Stuhl. Du erhältst ihr Vertrauen für die gehaltene Zusage, nicht für den Besitz ihrer Papiere.",
+        "choices": [
+          {
+            "text": "Die Bilanz bestätigen.",
+            "next": "cwa_bilanz4_ja"
+          },
+          {
+            "text": "Noch weiter ermitteln.",
+            "next": "hub"
+          }
+        ]
+      },
+      "cwa_bilanz4_ja": {
+        "text": "Du heftest die einzelnen Herkunftsnotizen an die Fallwand. Ida entscheidet selbst, welche Zeile sie als Nächstes gegenliest.",
+        "sets_flags": [
+          "cwa_akt4_done"
+        ],
+        "complete_quests": [
+          "cwa_akt4"
+        ],
+        "start_quests": [
+          "cwa_akt5"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "cwa_bilanz5": {
+        "text": "„Wir zählen Menschen. Nicht volle Zeilen.“ Klammer prüft deine letzte Bilanz. Zeugennetz, Amt, Evakuierung und Sammelurkunde bleiben bewusst verschiedene Entscheidungen.",
+        "choices": [
+          {
+            "text": "Die Bilanz bestätigen.",
+            "next": "cwa_bilanz5_ja"
+          },
+          {
+            "text": "Noch weiter ermitteln.",
+            "next": "hub"
+          }
+        ]
+      },
+      "cwa_bilanz5_ja": {
+        "text": "Du heftest die einzelnen Herkunftsnotizen an die Fallwand. An der Presse wartet weiterhin deine ausdrückliche Entscheidung.",
+        "sets_flags": [
+          "cwa_abschlussbereitschaft"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "cwa_werkstatt_hilfe": {
+        "text": "„Hier hält die Tür. Auch nach einem falschen Weg.“ Klammer zeigt dir Bett, Ofen, Lager, Fallwand und Bürgenbrett. Kostenlose Zeugengespräche und Hinweise im Notizbuch gehen bei einem Abgleich nicht verloren.",
+        "choices": [
+          {
+            "text": "Die Nerven am Ofen sammeln.",
+            "next": "cwa_ofen"
+          },
+          {
+            "text": "Zu den Fragen zurück.",
+            "next": "hub"
+          }
+        ]
+      },
+      "cwa_ofen": {
+        "text": "Der Ofen knackt, die Buchklammer bleibt liegen. Du ruhst dich aus, ohne einen Drucklauf oder Abgleich auszulösen.",
+        "nerves": 100,
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "cwa_vertrauen": {
+        "text": "„Ich kann dir nur sagen, was ich getan habe.“ Klammer wartet auf deine Antwort. Der Schlüssel zur Werkstatt liegt schon auf deiner Seite.",
+        "choices": [
+          {
+            "text": "Weiter zusammenarbeiten, ohne die Schuld zu streichen.",
+            "next": "cwa_vertrauen_ja"
+          },
+          {
+            "text": "Zusammenarbeiten, aber persönlichen Abstand halten.",
+            "next": "cwa_vertrauen_abstand"
+          }
+        ]
+      },
+      "cwa_vertrauen_ja": {
+        "text": "„Gut. Dann halte ich diesmal die Tür.“ Du verlangst, dass Warnungen künftig sofort auf den Tisch kommen.",
+        "sets_flags": [
+          "cwa_vertrauen_gewaehlt",
+          "cwa_klammer_vertraut"
+        ],
+        "bond": {
+          "cw_crayford": 1
+        },
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "cwa_vertrauen_abstand": {
+        "text": "„Das ist dein Recht. Die Werkstatt bleibt offen.“ Klammer beschriftet das Fach für neue Warnungen und lässt es unverschlossen.",
+        "sets_flags": [
+          "cwa_vertrauen_gewaehlt",
+          "cwa_klammer_abstand"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "cwa_folge_cw_crayford": {
+        "text": "Am Prüfbrett des Archivs steht der öffentlich genannte Kontakt. Du stellst eine neue persönliche Frage und bestätigst die Antwort außerhalb der zentralen Liste. Die Person bleibt erreichbar; der zusätzliche Gang ist die Folge der Veröffentlichung, kein neuer Kaufpreis.",
+        "sets_flags": [
+          "cwa_folge_cw_crayford_gesichert"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      }
+    }
+  },
+  "bj_cw_darnell": {
+    "choices_add": [
+      {
+        "text": "Die leere Ankunft: die Aussagen prüfen.",
+        "next": "cwa_11_verhoer",
+        "requires_flags": [
+          "k4_arrived"
+        ],
+        "hide_if_flags": [
+          "cwa_11_verhoer_done"
+        ]
+      },
+      {
+        "text": "Die Folgen dieser Aussage besprechen.",
+        "next": "cwa_11_verhoer_folgen",
+        "requires_flags": [
+          "cwa_11_verhoer_done"
+        ],
+        "hide_if_flags": [
+          "cwa_11_verhoer_entscheidung"
+        ]
+      },
+      {
+        "text": "Eine unabhängige Zeugengruppe freiwillig sichern.",
+        "next": "cwa_zeugen_bahnhof",
+        "requires_flags": [
+          "cwa_akt3_done"
+        ],
+        "requires_conclusions": [
+          "cwa_42_d"
+        ],
+        "hide_if_flags": [
+          "cwa_zeugen_bahnhof"
+        ]
+      },
+      {
+        "text": "Den öffentlich verratenen Kontakt persönlich wieder sichern.",
+        "next": "cwa_folge_cw_darnell",
+        "requires_flags": [
+          "cwa_akt4_done",
+          "cwa_verraten_cw_darnell"
+        ],
+        "hide_if_flags": [
+          "cwa_folge_cw_darnell_gesichert"
+        ]
+      }
+    ],
+    "nodes_add": {
+      "cwa_11_verhoer": {
+        "text": "Du fragst Vera nach der leeren Ankunft. Sie zieht die Manschette über ihren Tintenfleck und nennt das Fahrgastbuch vorläufig vollständig.",
+        "choices": [
+          {
+            "text": "Die erste Behauptung prüfen.",
+            "next": "cwa_11_verhoer_luege1"
+          },
+          {
+            "text": "Ich suche weitere Belege.",
+            "next": "hub"
+          }
+        ]
+      },
+      "cwa_11_verhoer_luege1": {
+        "text": "„Ich habe nur abgeschrieben. Eine Reisende namens Ida ist hier nicht übergeben worden.“ Sie legt den Finger auf die blanke Zeile, nicht auf die ältere Druckspur.",
+        "choices": [
+          {
+            "text": "Die beiden unabhängigen Gegenbelege vorlegen.",
+            "next": "cwa_11_verhoer_widerlegt1",
+            "requires_clues": [
+              "cwa_11_c1",
+              "cwa_11_c2"
+            ]
+          },
+          {
+            "text": "Noch keine belastbare Widerlegung.",
+            "next": "hub"
+          }
+        ]
+      },
+      "cwa_11_verhoer_widerlegt1": {
+        "text": "Du legst Durchschlag und Tragespur nebeneinander. Vera nimmt den Finger weg. „Sie saß dort. Ich habe die Übergabe geschrieben, bevor ich den Namen entfernen sollte.“",
+        "choices": [
+          {
+            "text": "Die zweite Behauptung prüfen.",
+            "next": "cwa_11_verhoer_luege2"
+          }
+        ]
+      },
+      "cwa_11_verhoer_luege2": {
+        "text": "„Die Bereinigung kam früher. Ich konnte bei der Übergabe also nichts mehr daran ändern.“ Ihre Stimme wird leiser, als du die Schalterpappe hervorziehst.",
+        "choices": [
+          {
+            "text": "Die zweite Beleggruppe vorlegen.",
+            "next": "cwa_11_verhoer_widerlegt2",
+            "requires_clues": [
+              "cwa_11_c3",
+              "cwa_11_c4"
+            ]
+          },
+          {
+            "text": "Mit den offenen Fragen weiterermitteln.",
+            "next": "hub"
+          }
+        ]
+      },
+      "cwa_11_verhoer_widerlegt2": {
+        "text": "Die unabhängige Zeitspur widerlegt die Reihenfolge. „Ich habe danach bereinigt“, sagt Vera. „Und die zweite Fassung aufgehoben. Das ist weniger, als ich hätte tun müssen.“",
+        "sets_flags": [
+          "cwa_11_verhoer_done"
+        ],
+        "choices": [
+          {
+            "text": "Über den Schutz der Aussage sprechen.",
+            "next": "cwa_11_verhoer_folgen"
+          }
+        ]
+      },
+      "cwa_11_verhoer_folgen": {
+        "text": "Vera erlaubt eine getrennte Zeugenaussage. Du entscheidest, ob ihr Name öffentlich die Bahnsteigverbindung stärkt oder unter deiner vertraulichen Bürgschaft bleibt.",
+        "choices": [
+          {
+            "text": "Die Aussage mit Zustimmung öffentlich nennen.",
+            "next": "cwa_11_verhoer_oeffentlich",
+            "hide_if_flags": [
+              "cwa_11_verhoer_entscheidung"
+            ]
+          },
+          {
+            "text": "Die Aussage vertraulich getrennt halten.",
+            "next": "cwa_11_verhoer_vertraulich",
+            "hide_if_flags": [
+              "cwa_11_verhoer_entscheidung"
+            ]
+          },
+          {
+            "text": "Die Entscheidung zurückstellen.",
+            "next": "hub"
+          }
+        ]
+      },
+      "cwa_11_verhoer_oeffentlich": {
+        "text": "Du liest die freigegebene Aussage ohne Ergänzung vor. Der öffentliche Aushang hält einen Weg stabil, und die Rohrpost sendet den Namen der aussagenden Person an das Archiv.",
+        "sets_flags": [
+          "cwa_11_verhoer_entscheidung",
+          "cwa_verraten_cw_darnell",
+          "cwa_oeffentlich_11"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ],
+        "clears_flags": [
+          "cwa_kontakte_geprueft"
+        ]
+      },
+      "cwa_11_verhoer_vertraulich": {
+        "text": "Du verwahrst die Aussage getrennt und gehst den längeren Rückweg. Der Hauptbefund bleibt im Journal; das Archiv erhält von dir keinen neuen Namen.",
+        "sets_flags": [
+          "cwa_11_verhoer_entscheidung",
+          "cwa_geschuetzt_11"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "cwa_zeugen_bahnhof": {
+        "text": "Vera liest ihren eigenen Schaltertag vor. „Meine Uhr ging nach. Die Übergabe habe ich trotzdem gesehen.“ Du lässt die abweichende Zeit ausdrücklich stehen.",
+        "sets_flags": [
+          "cwa_zeugen_bahnhof"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "cwa_folge_cw_darnell": {
+        "text": "Am Prüfbrett des Archivs steht der öffentlich genannte Kontakt. Du stellst eine neue persönliche Frage und bestätigst die Antwort außerhalb der zentralen Liste. Die Person bleibt erreichbar; der zusätzliche Gang ist die Folge der Veröffentlichung, kein neuer Kaufpreis.",
+        "sets_flags": [
+          "cwa_folge_cw_darnell_gesichert"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      }
+    }
+  },
+  "bj_cw_hesk": {
+    "choices_add": [
+      {
+        "text": "Leerfracht: die Aussagen prüfen.",
+        "next": "cwa_13_verhoer",
+        "requires_flags": [
+          "k4_arrived"
+        ],
+        "hide_if_flags": [
+          "cwa_13_verhoer_done"
+        ]
+      },
+      {
+        "text": "Die Folgen dieser Aussage besprechen.",
+        "next": "cwa_13_verhoer_folgen",
+        "requires_flags": [
+          "cwa_13_verhoer_done"
+        ],
+        "hide_if_flags": [
+          "cwa_13_verhoer_entscheidung"
+        ]
+      },
+      {
+        "text": "Idas Umweg: die Aussagen prüfen.",
+        "next": "cwa_23_verhoer",
+        "requires_flags": [
+          "cwa_akt1_done"
+        ],
+        "hide_if_flags": [
+          "cwa_23_verhoer_done"
+        ]
+      },
+      {
+        "text": "Die Folgen dieser Aussage besprechen.",
+        "next": "cwa_23_verhoer_folgen",
+        "requires_flags": [
+          "cwa_23_verhoer_done"
+        ],
+        "hide_if_flags": [
+          "cwa_23_verhoer_entscheidung"
+        ]
+      },
+      {
+        "text": "Den öffentlich verratenen Kontakt persönlich wieder sichern.",
+        "next": "cwa_folge_cw_hesk",
+        "requires_flags": [
+          "cwa_akt4_done",
+          "cwa_verraten_cw_hesk"
+        ],
+        "hide_if_flags": [
+          "cwa_folge_cw_hesk_gesichert"
+        ]
+      }
+    ],
+    "nodes_add": {
+      "cwa_13_verhoer": {
+        "text": "Du stellst dich neben die Warenbahnwaage. Hesk lässt die Riemen hängen. Seine Antwort gilt dem Gewicht, nicht der Person.",
+        "choices": [
+          {
+            "text": "Die erste Behauptung prüfen.",
+            "next": "cwa_13_verhoer_luege1"
+          },
+          {
+            "text": "Ich suche weitere Belege.",
+            "next": "hub"
+          }
+        ]
+      },
+      "cwa_13_verhoer_luege1": {
+        "text": "„Nur Druckrahmen. Kein Mensch.“ Hesk sieht zur Waagennadel, als könnte er sie durch Schweigen zurücksetzen.",
+        "choices": [
+          {
+            "text": "Die beiden unabhängigen Gegenbelege vorlegen.",
+            "next": "cwa_13_verhoer_widerlegt1",
+            "requires_clues": [
+              "cwa_13_c1",
+              "cwa_13_c2"
+            ]
+          },
+          {
+            "text": "Noch keine belastbare Widerlegung.",
+            "next": "hub"
+          }
+        ]
+      },
+      "cwa_13_verhoer_widerlegt1": {
+        "text": "Die getrennte Wägung und die Sitzfeder lassen eine zusätzliche Person erkennen. „Sie hat geatmet“, sagt Hesk. „Ich habe sie getragen. Das war ein Auftrag.“",
+        "choices": [
+          {
+            "text": "Die zweite Behauptung prüfen.",
+            "next": "cwa_13_verhoer_luege2"
+          }
+        ]
+      },
+      "cwa_13_verhoer_luege2": {
+        "text": "„Am Ausgang abgesetzt. Danach war die Last weg.“ Seine Hand liegt auf dem Riemen, der zur Sortiergrube abgeschliffen ist.",
+        "choices": [
+          {
+            "text": "Die zweite Beleggruppe vorlegen.",
+            "next": "cwa_13_verhoer_widerlegt2",
+            "requires_clues": [
+              "cwa_13_c3",
+              "cwa_13_c4"
+            ]
+          },
+          {
+            "text": "Mit den offenen Fragen weiterermitteln.",
+            "next": "hub"
+          }
+        ]
+      },
+      "cwa_13_verhoer_widerlegt2": {
+        "text": "Du zeigst Weichenhaken und abgeklebtes Fenster. „Sortiergrube“, sagt Hesk. „Noch nicht der Rest. Dafür brauche ich eine Frage, die sie nicht ausliefert.“",
+        "sets_flags": [
+          "cwa_13_verhoer_done"
+        ],
+        "choices": [
+          {
+            "text": "Über den Schutz der Aussage sprechen.",
+            "next": "cwa_13_verhoer_folgen"
+          }
+        ]
+      },
+      "cwa_13_verhoer_folgen": {
+        "text": "Du hältst den belastenden Transport fest, ohne Hesk schon zum alleinigen Entführer zu erklären. Seine weitere Hilfe muss später mit Idas eigenem Zeichen geprüft werden.",
+        "choices": [
+          {
+            "text": "Die Aussage mit Zustimmung öffentlich nennen.",
+            "next": "cwa_13_verhoer_oeffentlich",
+            "hide_if_flags": [
+              "cwa_13_verhoer_entscheidung"
+            ]
+          },
+          {
+            "text": "Die Aussage vertraulich getrennt halten.",
+            "next": "cwa_13_verhoer_vertraulich",
+            "hide_if_flags": [
+              "cwa_13_verhoer_entscheidung"
+            ]
+          },
+          {
+            "text": "Die Entscheidung zurückstellen.",
+            "next": "hub"
+          }
+        ]
+      },
+      "cwa_13_verhoer_oeffentlich": {
+        "text": "Du liest die freigegebene Aussage ohne Ergänzung vor. Der öffentliche Aushang hält einen Weg stabil, und die Rohrpost sendet den Namen der aussagenden Person an das Archiv.",
+        "sets_flags": [
+          "cwa_13_verhoer_entscheidung",
+          "cwa_verraten_cw_hesk",
+          "cwa_oeffentlich_13"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ],
+        "clears_flags": [
+          "cwa_kontakte_geprueft"
+        ]
+      },
+      "cwa_13_verhoer_vertraulich": {
+        "text": "Du verwahrst die Aussage getrennt und gehst den längeren Rückweg. Der Hauptbefund bleibt im Journal; das Archiv erhält von dir keinen neuen Namen.",
+        "sets_flags": [
+          "cwa_13_verhoer_entscheidung",
+          "cwa_geschuetzt_13"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "cwa_23_verhoer": {
+        "text": "Diesmal fragst du Hesk nach der letzten Last. Er löst einen Riemen, als wolle er eine genaue Grenze zwischen zwei Wegen ziehen.",
+        "choices": [
+          {
+            "text": "Die erste Behauptung prüfen.",
+            "next": "cwa_23_verhoer_luege1"
+          },
+          {
+            "text": "Ich suche weitere Belege.",
+            "next": "hub"
+          }
+        ]
+      },
+      "cwa_23_verhoer_luege1": {
+        "text": "„Der falsche Zielort war ein Schreibfehler.“ Die alte Quittung liegt so schwer auf der Bank wie ein Werkzeug.",
+        "choices": [
+          {
+            "text": "Die beiden unabhängigen Gegenbelege vorlegen.",
+            "next": "cwa_23_verhoer_widerlegt1",
+            "requires_clues": [
+              "cwa_23_c1",
+              "cwa_23_c2"
+            ]
+          },
+          {
+            "text": "Noch keine belastbare Widerlegung.",
+            "next": "hub"
+          }
+        ]
+      },
+      "cwa_23_verhoer_widerlegt1": {
+        "text": "Achsabrieb und abgestellter Riemen belegen den bewussten Umweg. „Ich habe sie nicht hinausgebracht. Ich habe sie hinter der Kabine abgesetzt.“",
+        "choices": [
+          {
+            "text": "Die zweite Behauptung prüfen.",
+            "next": "cwa_23_verhoer_luege2"
+          }
+        ]
+      },
+      "cwa_23_verhoer_luege2": {
+        "text": "„Sie hat mich um nichts gebeten. Das war meine Entscheidung allein.“ Er sieht nicht durch das Fenster, solange du auf Idas Zeichen deutest.",
+        "choices": [
+          {
+            "text": "Die zweite Beleggruppe vorlegen.",
+            "next": "cwa_23_verhoer_widerlegt2",
+            "requires_clues": [
+              "cwa_23_c3",
+              "cwa_23_c4"
+            ]
+          },
+          {
+            "text": "Mit den offenen Fragen weiterermitteln.",
+            "next": "hub"
+          }
+        ]
+      },
+      "cwa_23_verhoer_widerlegt2": {
+        "text": "Handzeichen und Wasserportion zeigen Idas Bitte. „Sie wollte nicht weitergegeben werden“, sagt Hesk. „Ich habe erst spät zugehört. Danach habe ich falsch quittiert.“",
+        "sets_flags": [
+          "cwa_23_verhoer_done"
+        ],
+        "choices": [
+          {
+            "text": "Über den Schutz der Aussage sprechen.",
+            "next": "cwa_23_verhoer_folgen"
+          }
+        ]
+      },
+      "cwa_23_verhoer_folgen": {
+        "text": "Idas Bitte entlastet den späteren Umweg, nicht den ersten Zwangstransport. Du schützt Hesk als Helfer oder veröffentlichst seine Beteiligung für eine stärkere öffentliche Bürgschaft.",
+        "choices": [
+          {
+            "text": "Die Aussage mit Zustimmung öffentlich nennen.",
+            "next": "cwa_23_verhoer_oeffentlich",
+            "hide_if_flags": [
+              "cwa_23_verhoer_entscheidung"
+            ]
+          },
+          {
+            "text": "Die Aussage vertraulich getrennt halten.",
+            "next": "cwa_23_verhoer_vertraulich",
+            "hide_if_flags": [
+              "cwa_23_verhoer_entscheidung"
+            ]
+          },
+          {
+            "text": "Die Entscheidung zurückstellen.",
+            "next": "hub"
+          }
+        ]
+      },
+      "cwa_23_verhoer_oeffentlich": {
+        "text": "Du liest die freigegebene Aussage ohne Ergänzung vor. Der öffentliche Aushang hält einen Weg stabil, und die Rohrpost sendet den Namen der aussagenden Person an das Archiv.",
+        "sets_flags": [
+          "cwa_23_verhoer_entscheidung",
+          "cwa_verraten_cw_hesk",
+          "cwa_oeffentlich_23"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ],
+        "clears_flags": [
+          "cwa_kontakte_geprueft"
+        ]
+      },
+      "cwa_23_verhoer_vertraulich": {
+        "text": "Du verwahrst die Aussage getrennt und gehst den längeren Rückweg. Der Hauptbefund bleibt im Journal; das Archiv erhält von dir keinen neuen Namen.",
+        "sets_flags": [
+          "cwa_23_verhoer_entscheidung",
+          "cwa_geschuetzt_23"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "cwa_folge_cw_hesk": {
+        "text": "Am Prüfbrett des Archivs steht der öffentlich genannte Kontakt. Du stellst eine neue persönliche Frage und bestätigst die Antwort außerhalb der zentralen Liste. Die Person bleibt erreichbar; der zusätzliche Gang ist die Folge der Veröffentlichung, kein neuer Kaufpreis.",
+        "sets_flags": [
+          "cwa_folge_cw_hesk_gesichert"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      }
+    }
+  },
+  "bj_cw_wicksend": {
+    "choices_add": [
+      {
+        "text": "Namen im Pfand: die Aussagen prüfen.",
+        "next": "cwa_21_verhoer",
+        "requires_flags": [
+          "cwa_akt1_done"
+        ],
+        "hide_if_flags": [
+          "cwa_21_verhoer_done"
+        ]
+      },
+      {
+        "text": "Die Folgen dieser Aussage besprechen.",
+        "next": "cwa_21_verhoer_folgen",
+        "requires_flags": [
+          "cwa_21_verhoer_done"
+        ],
+        "hide_if_flags": [
+          "cwa_21_verhoer_entscheidung"
+        ]
+      },
+      {
+        "text": "Eine unabhängige Zeugengruppe freiwillig sichern.",
+        "next": "cwa_zeugen_markt",
+        "requires_flags": [
+          "cwa_akt3_done"
+        ],
+        "requires_conclusions": [
+          "cwa_42_d"
+        ],
+        "hide_if_flags": [
+          "cwa_zeugen_markt"
+        ]
+      },
+      {
+        "text": "Den öffentlich verratenen Kontakt persönlich wieder sichern.",
+        "next": "cwa_folge_cw_wicksend",
+        "requires_flags": [
+          "cwa_akt4_done",
+          "cwa_verraten_cw_wicksend"
+        ],
+        "hide_if_flags": [
+          "cwa_folge_cw_wicksend_gesichert"
+        ]
+      }
+    ],
+    "nodes_add": {
+      "cwa_21_verhoer": {
+        "text": "Lottie öffnet drei Fächer mit drei verschiedenen Schlüsseln. „Ein Name spart Platz. Ich dachte, der Platz wäre das Gefährliche.“",
+        "choices": [
+          {
+            "text": "Die erste Behauptung prüfen.",
+            "next": "cwa_21_verhoer_luege1"
+          },
+          {
+            "text": "Ich suche weitere Belege.",
+            "next": "hub"
+          }
+        ]
+      },
+      "cwa_21_verhoer_luege1": {
+        "text": "„Derselbe Kunde hat eben drei Handschriften.“ Lottie legt die Schuldscheine dicht übereinander, sodass die unterschiedlichen Druckpunkte verschwinden.",
+        "choices": [
+          {
+            "text": "Die beiden unabhängigen Gegenbelege vorlegen.",
+            "next": "cwa_21_verhoer_widerlegt1",
+            "requires_clues": [
+              "cwa_21_c1",
+              "cwa_21_c2"
+            ]
+          },
+          {
+            "text": "Noch keine belastbare Widerlegung.",
+            "next": "hub"
+          }
+        ]
+      },
+      "cwa_21_verhoer_widerlegt1": {
+        "text": "Du breitest Scheine und Pfänder aus. „Drei Haushalte“, sagt Lottie. „Der Name sollte sie verbergen. Jetzt zieht er ihre Schulden zusammen.“",
+        "choices": [
+          {
+            "text": "Die zweite Behauptung prüfen.",
+            "next": "cwa_21_verhoer_luege2"
+          }
+        ]
+      },
+      "cwa_21_verhoer_luege2": {
+        "text": "„Es ist nur Verwahrung. Das Archiv greift nicht in die Forderungen ein.“ Sie hält den Rückforderungszettel noch unter dem Ärmel.",
+        "choices": [
+          {
+            "text": "Die zweite Beleggruppe vorlegen.",
+            "next": "cwa_21_verhoer_widerlegt2",
+            "requires_clues": [
+              "cwa_21_c3",
+              "cwa_21_c4"
+            ]
+          },
+          {
+            "text": "Mit den offenen Fragen weiterermitteln.",
+            "next": "hub"
+          }
+        ]
+      },
+      "cwa_21_verhoer_widerlegt2": {
+        "text": "Rückforderung und Prüfklappe zeigen den laufenden Test. Lottie gibt den Zettel frei. „Vorerst habe ich geglaubt, Schutz und Gleichsetzung wären dasselbe.“",
+        "sets_flags": [
+          "cwa_21_verhoer_done"
+        ],
+        "choices": [
+          {
+            "text": "Über den Schutz der Aussage sprechen.",
+            "next": "cwa_21_verhoer_folgen"
+          }
+        ]
+      },
+      "cwa_21_verhoer_folgen": {
+        "text": "Die Herkunft bleibt nach Haushalten getrennt. Du kannst Lotties Aussage veröffentlichen oder nur die drei Eigentümer unter vertraulichen Bürgschaften verbinden.",
+        "choices": [
+          {
+            "text": "Die Aussage mit Zustimmung öffentlich nennen.",
+            "next": "cwa_21_verhoer_oeffentlich",
+            "hide_if_flags": [
+              "cwa_21_verhoer_entscheidung"
+            ]
+          },
+          {
+            "text": "Die Aussage vertraulich getrennt halten.",
+            "next": "cwa_21_verhoer_vertraulich",
+            "hide_if_flags": [
+              "cwa_21_verhoer_entscheidung"
+            ]
+          },
+          {
+            "text": "Die Entscheidung zurückstellen.",
+            "next": "hub"
+          }
+        ]
+      },
+      "cwa_21_verhoer_oeffentlich": {
+        "text": "Du liest die freigegebene Aussage ohne Ergänzung vor. Der öffentliche Aushang hält einen Weg stabil, und die Rohrpost sendet den Namen der aussagenden Person an das Archiv.",
+        "sets_flags": [
+          "cwa_21_verhoer_entscheidung",
+          "cwa_verraten_cw_wicksend",
+          "cwa_oeffentlich_21"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ],
+        "clears_flags": [
+          "cwa_kontakte_geprueft"
+        ]
+      },
+      "cwa_21_verhoer_vertraulich": {
+        "text": "Du verwahrst die Aussage getrennt und gehst den längeren Rückweg. Der Hauptbefund bleibt im Journal; das Archiv erhält von dir keinen neuen Namen.",
+        "sets_flags": [
+          "cwa_21_verhoer_entscheidung",
+          "cwa_geschuetzt_21"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "cwa_zeugen_markt": {
+        "text": "Lottie benennt jeden Haushalt einzeln. „Vorerst müssen die Schlüssel nicht zusammenpassen. Es reicht, wenn jeder wieder die eigene Tür findet.“",
+        "sets_flags": [
+          "cwa_zeugen_markt"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "cwa_folge_cw_wicksend": {
+        "text": "Am Prüfbrett des Archivs steht der öffentlich genannte Kontakt. Du stellst eine neue persönliche Frage und bestätigst die Antwort außerhalb der zentralen Liste. Die Person bleibt erreichbar; der zusätzliche Gang ist die Folge der Veröffentlichung, kein neuer Kaufpreis.",
+        "sets_flags": [
+          "cwa_folge_cw_wicksend_gesichert"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      }
+    }
+  },
+  "bj_cw_pritch": {
+    "choices_add": [
+      {
+        "text": "Der Käufer der Abschriften: die Aussagen prüfen.",
+        "next": "cwa_22_verhoer",
+        "requires_flags": [
+          "cwa_akt1_done"
+        ],
+        "hide_if_flags": [
+          "cwa_22_verhoer_done"
+        ]
+      },
+      {
+        "text": "Die Folgen dieser Aussage besprechen.",
+        "next": "cwa_22_verhoer_folgen",
+        "requires_flags": [
+          "cwa_22_verhoer_done"
+        ],
+        "hide_if_flags": [
+          "cwa_22_verhoer_entscheidung"
+        ]
+      },
+      {
+        "text": "Den öffentlich verratenen Kontakt persönlich wieder sichern.",
+        "next": "cwa_folge_cw_pritch",
+        "requires_flags": [
+          "cwa_akt4_done",
+          "cwa_verraten_cw_pritch"
+        ],
+        "hide_if_flags": [
+          "cwa_folge_cw_pritch_gesichert"
+        ]
+      }
+    ],
+    "nodes_add": {
+      "cwa_22_verhoer": {
+        "text": "Pritch leert seine Tasche auf den Tisch. Zwischen Krümeln liegt ein Faden vom Lagerumschlag. Er wartet, bis du nach der Kasse fragst.",
+        "choices": [
+          {
+            "text": "Die erste Behauptung prüfen.",
+            "next": "cwa_22_verhoer_luege1"
+          },
+          {
+            "text": "Ich suche weitere Belege.",
+            "next": "hub"
+          }
+        ]
+      },
+      "cwa_22_verhoer_luege1": {
+        "text": "„Es ging nur um alte Werkordnungen. Keine Revierauszüge.“ Er nennt die bezahlten Mahlzeiten genau und die verkauften Seiten ungenau.",
+        "choices": [
+          {
+            "text": "Die beiden unabhängigen Gegenbelege vorlegen.",
+            "next": "cwa_22_verhoer_widerlegt1",
+            "requires_clues": [
+              "cwa_22_c1",
+              "cwa_22_c2"
+            ]
+          },
+          {
+            "text": "Noch keine belastbare Widerlegung.",
+            "next": "hub"
+          }
+        ]
+      },
+      "cwa_22_verhoer_widerlegt1": {
+        "text": "Postbuch und Marlowes Brief belegen den späteren Revierkauf. „Das Archiv hat sie bezahlt. Nach den Fällen. Ich habe keinem Täter vorher einen Plan gegeben.“",
+        "choices": [
+          {
+            "text": "Die zweite Behauptung prüfen.",
+            "next": "cwa_22_verhoer_luege2"
+          }
+        ]
+      },
+      "cwa_22_verhoer_luege2": {
+        "text": "„Idas Adresse war in keiner verkauften Fassung.“ Pritch schiebt den verkürzten Auszug beiseite, obwohl die Umschlaglasche noch darauf liegt.",
+        "choices": [
+          {
+            "text": "Die zweite Beleggruppe vorlegen.",
+            "next": "cwa_22_verhoer_widerlegt2",
+            "requires_clues": [
+              "cwa_22_c3",
+              "cwa_22_c4"
+            ]
+          },
+          {
+            "text": "Mit den offenen Fragen weiterermitteln.",
+            "next": "hub"
+          }
+        ]
+      },
+      "cwa_22_verhoer_widerlegt2": {
+        "text": "Handelszeichen und Auszug verbinden die Adresse mit der Sendung. „Ihr Anteil sollte nichts kosten“, sagt Pritch. „Bezahlt hat sie trotzdem.“",
+        "sets_flags": [
+          "cwa_22_verhoer_done"
+        ],
+        "choices": [
+          {
+            "text": "Über den Schutz der Aussage sprechen.",
+            "next": "cwa_22_verhoer_folgen"
+          }
+        ]
+      },
+      "cwa_22_verhoer_folgen": {
+        "text": "Du kannst die Herkunft öffentlich belegen oder seine Aussage getrennt verwahren. Der Streiktopf muss in beiden Fällen weiter Menschen ernähren; du beschlagnahmst ihn nicht.",
+        "choices": [
+          {
+            "text": "Die Aussage mit Zustimmung öffentlich nennen.",
+            "next": "cwa_22_verhoer_oeffentlich",
+            "hide_if_flags": [
+              "cwa_22_verhoer_entscheidung"
+            ]
+          },
+          {
+            "text": "Die Aussage vertraulich getrennt halten.",
+            "next": "cwa_22_verhoer_vertraulich",
+            "hide_if_flags": [
+              "cwa_22_verhoer_entscheidung"
+            ]
+          },
+          {
+            "text": "Die Entscheidung zurückstellen.",
+            "next": "hub"
+          }
+        ]
+      },
+      "cwa_22_verhoer_oeffentlich": {
+        "text": "Du liest die freigegebene Aussage ohne Ergänzung vor. Der öffentliche Aushang hält einen Weg stabil, und die Rohrpost sendet den Namen der aussagenden Person an das Archiv.",
+        "sets_flags": [
+          "cwa_22_verhoer_entscheidung",
+          "cwa_verraten_cw_pritch",
+          "cwa_oeffentlich_22"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ],
+        "clears_flags": [
+          "cwa_kontakte_geprueft"
+        ]
+      },
+      "cwa_22_verhoer_vertraulich": {
+        "text": "Du verwahrst die Aussage getrennt und gehst den längeren Rückweg. Der Hauptbefund bleibt im Journal; das Archiv erhält von dir keinen neuen Namen.",
+        "sets_flags": [
+          "cwa_22_verhoer_entscheidung",
+          "cwa_geschuetzt_22"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "cwa_folge_cw_pritch": {
+        "text": "Am Prüfbrett des Archivs steht der öffentlich genannte Kontakt. Du stellst eine neue persönliche Frage und bestätigst die Antwort außerhalb der zentralen Liste. Die Person bleibt erreichbar; der zusätzliche Gang ist die Folge der Veröffentlichung, kein neuer Kaufpreis.",
+        "sets_flags": [
+          "cwa_folge_cw_pritch_gesichert"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      }
+    }
+  },
+  "bj_cw_malliver": {
+    "choices_add": [
+      {
+        "text": "Der Versuchskeller: die Aussagen prüfen.",
+        "next": "cwa_32_verhoer",
+        "requires_flags": [
+          "cwa_akt2_done"
+        ],
+        "hide_if_flags": [
+          "cwa_32_verhoer_done"
+        ]
+      },
+      {
+        "text": "Die Folgen dieser Aussage besprechen.",
+        "next": "cwa_32_verhoer_folgen",
+        "requires_flags": [
+          "cwa_32_verhoer_done"
+        ],
+        "hide_if_flags": [
+          "cwa_32_verhoer_entscheidung"
+        ]
+      },
+      {
+        "text": "Den öffentlich verratenen Kontakt persönlich wieder sichern.",
+        "next": "cwa_folge_cw_malliver",
+        "requires_flags": [
+          "cwa_akt4_done",
+          "cwa_verraten_cw_malliver"
+        ],
+        "hide_if_flags": [
+          "cwa_folge_cw_malliver_gesichert"
+        ]
+      }
+    ],
+    "nodes_add": {
+      "cwa_32_verhoer": {
+        "text": "Du fragst Malliver, wann ihr Versuch zum Verwaltungsverfahren wurde. Sie legt den Pinsel waagerecht hin und verlangt, dass die Probe daneben sichtbar bleibt.",
+        "choices": [
+          {
+            "text": "Die erste Behauptung prüfen.",
+            "next": "cwa_32_verhoer_luege1"
+          },
+          {
+            "text": "Ich suche weitere Belege.",
+            "next": "hub"
+          }
+        ]
+      },
+      "cwa_32_verhoer_luege1": {
+        "text": "„Meine Untersuchung betraf nur Papierfasern. Zuordnungen habe ich nicht geprüft.“ Unter der trockenen Wanne klebt ihr eigenes Probenzeichen.",
+        "choices": [
+          {
+            "text": "Die beiden unabhängigen Gegenbelege vorlegen.",
+            "next": "cwa_32_verhoer_widerlegt1",
+            "requires_clues": [
+              "cwa_32_c1",
+              "cwa_32_c2"
+            ]
+          },
+          {
+            "text": "Noch keine belastbare Widerlegung.",
+            "next": "hub"
+          }
+        ]
+      },
+      "cwa_32_verhoer_widerlegt1": {
+        "text": "Laborprotokoll und örtliche Kontrollprobe nennen die Namenszuordnung ausdrücklich. „Das ist prüfbar“, sagt Malliver. „Auch mein Anteil daran. Die technische Grundlage stammt von mir.“",
+        "choices": [
+          {
+            "text": "Die zweite Behauptung prüfen.",
+            "next": "cwa_32_verhoer_luege2"
+          }
+        ]
+      },
+      "cwa_32_verhoer_luege2": {
+        "text": "„Das Muster war rein örtlich. Ein Vergleich mit Wexmoor fand nicht statt.“ Ihre Finger bleiben am Einband des Vergleichsblatts.",
+        "choices": [
+          {
+            "text": "Die zweite Beleggruppe vorlegen.",
+            "next": "cwa_32_verhoer_widerlegt2",
+            "requires_clues": [
+              "cwa_32_c3",
+              "cwa_32_c4"
+            ]
+          },
+          {
+            "text": "Mit den offenen Fragen weiterermitteln.",
+            "next": "hub"
+          }
+        ]
+      },
+      "cwa_32_verhoer_widerlegt2": {
+        "text": "Skizze und datiertes Vergleichsblatt widerlegen die Auslassung. „Ich habe das Muster wiedererkannt. Daraus folgte keine Erlaubnis für die Sammelurkunde. Ich habe den Übergang trotzdem nicht aufgehalten.“",
+        "sets_flags": [
+          "cwa_32_verhoer_done"
+        ],
+        "choices": [
+          {
+            "text": "Über den Schutz der Aussage sprechen.",
+            "next": "cwa_32_verhoer_folgen"
+          }
+        ]
+      },
+      "cwa_32_verhoer_folgen": {
+        "text": "Du bewahrst ihren Befund samt Grenzen. Öffentlichkeit stärkt den Archivweg und nennt Wetherby die Prüferin; Vertraulichkeit verlangt einen zusätzlichen Wartungsweg.",
+        "choices": [
+          {
+            "text": "Die Aussage mit Zustimmung öffentlich nennen.",
+            "next": "cwa_32_verhoer_oeffentlich",
+            "hide_if_flags": [
+              "cwa_32_verhoer_entscheidung"
+            ]
+          },
+          {
+            "text": "Die Aussage vertraulich getrennt halten.",
+            "next": "cwa_32_verhoer_vertraulich",
+            "hide_if_flags": [
+              "cwa_32_verhoer_entscheidung"
+            ]
+          },
+          {
+            "text": "Die Entscheidung zurückstellen.",
+            "next": "hub"
+          }
+        ]
+      },
+      "cwa_32_verhoer_oeffentlich": {
+        "text": "Du liest die freigegebene Aussage ohne Ergänzung vor. Der öffentliche Aushang hält einen Weg stabil, und die Rohrpost sendet den Namen der aussagenden Person an das Archiv.",
+        "sets_flags": [
+          "cwa_32_verhoer_entscheidung",
+          "cwa_verraten_cw_malliver",
+          "cwa_oeffentlich_32"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ],
+        "clears_flags": [
+          "cwa_kontakte_geprueft"
+        ]
+      },
+      "cwa_32_verhoer_vertraulich": {
+        "text": "Du verwahrst die Aussage getrennt und gehst den längeren Rückweg. Der Hauptbefund bleibt im Journal; das Archiv erhält von dir keinen neuen Namen.",
+        "sets_flags": [
+          "cwa_32_verhoer_entscheidung",
+          "cwa_geschuetzt_32"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "cwa_folge_cw_malliver": {
+        "text": "Am Prüfbrett des Archivs steht der öffentlich genannte Kontakt. Du stellst eine neue persönliche Frage und bestätigst die Antwort außerhalb der zentralen Liste. Die Person bleibt erreichbar; der zusätzliche Gang ist die Folge der Veröffentlichung, kein neuer Kaufpreis.",
+        "sets_flags": [
+          "cwa_folge_cw_malliver_gesichert"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      }
+    }
+  },
+  "bj_cw_wetherby": {
+    "choices_add": [
+      {
+        "text": "Wetherbys Unterschrift: die Aussagen prüfen.",
+        "next": "cwa_53_verhoer",
+        "requires_flags": [
+          "cwa_akt4_done"
+        ],
+        "hide_if_flags": [
+          "cwa_53_verhoer_done"
+        ]
+      },
+      {
+        "text": "Die Folgen dieser Aussage besprechen.",
+        "next": "cwa_53_verhoer_folgen",
+        "requires_flags": [
+          "cwa_53_verhoer_done"
+        ],
+        "hide_if_flags": [
+          "cwa_53_verhoer_entscheidung"
+        ]
+      }
+    ],
+    "nodes_add": {
+      "cwa_53_verhoer": {
+        "text": "Wetherby bietet dir den Stuhl gegenüber an. „Wenn Sie eine zuständige Stelle suchen, haben Sie sie erreicht.“ Du bleibst neben dem Rechenblatt stehen.",
+        "choices": [
+          {
+            "text": "Die erste Behauptung prüfen.",
+            "next": "cwa_53_verhoer_luege1"
+          },
+          {
+            "text": "Ich suche weitere Belege.",
+            "next": "hub"
+          }
+        ]
+      },
+      "cwa_53_verhoer_luege1": {
+        "text": "„Die Verluste sind seit der Zusammenfassung zurückgegangen.“ Er zeigt auf die Zahl der Einträge und verdeckt die Zahl der gleichzeitig betroffenen Haushalte.",
+        "choices": [
+          {
+            "text": "Die beiden unabhängigen Gegenbelege vorlegen.",
+            "next": "cwa_53_verhoer_widerlegt1",
+            "requires_clues": [
+              "cwa_53_c1",
+              "cwa_53_c2"
+            ]
+          },
+          {
+            "text": "Noch keine belastbare Widerlegung.",
+            "next": "hub"
+          }
+        ]
+      },
+      "cwa_53_verhoer_widerlegt1": {
+        "text": "Du legst die ursprüngliche Verlustspalte frei. „Die Fälle sind gemeinsam geworden“, sagt er. „Ich kenne die Zahl. Ich habe angenommen, eine weitere Korrektur würde genügen.“",
+        "choices": [
+          {
+            "text": "Die zweite Behauptung prüfen.",
+            "next": "cwa_53_verhoer_luege2"
+          }
+        ]
+      },
+      "cwa_53_verhoer_luege2": {
+        "text": "„Ohne das Amt bleibt von mir nichts. Also kann ich es nicht niederlegen.“ Er hält sich an der Kette fest, obwohl niemand danach greift.",
+        "choices": [
+          {
+            "text": "Die zweite Beleggruppe vorlegen.",
+            "next": "cwa_53_verhoer_widerlegt2",
+            "requires_clues": [
+              "cwa_53_c3",
+              "cwa_53_c4"
+            ]
+          },
+          {
+            "text": "Mit den offenen Fragen weiterermitteln.",
+            "next": "hub"
+          }
+        ]
+      },
+      "cwa_53_verhoer_widerlegt2": {
+        "text": "Mallivers freiwillige Aussage und die Antwort ohne Titel widerlegen die Ausschließlichkeit. „Eine Möglichkeit ist noch keine Sicherheit“, sagt Wetherby. Seine Angst erklärt die Weigerung, sie entschuldigt sie nicht.",
+        "sets_flags": [
+          "cwa_53_verhoer_done"
+        ],
+        "choices": [
+          {
+            "text": "Über den Schutz der Aussage sprechen.",
+            "next": "cwa_53_verhoer_folgen"
+          }
+        ]
+      },
+      "cwa_53_verhoer_folgen": {
+        "text": "Du kannst Mallivers und Wetherbys ausdrückliche Zustimmung zur persönlichen Bürgschaft bestätigen. Eine Festnahme bleibt auch ohne sein Einlenken möglich; du musst ihm weder Amt noch Stadt versprechen.",
+        "choices": [
+          {
+            "text": "Beide freiwilligen Zustimmungen zur Bürgschaft bestätigen.",
+            "next": "cwa_53_verhoer_buerge",
+            "hide_if_flags": [
+              "cwa_wetherby_buerge"
+            ]
+          },
+          {
+            "text": "Die Aussage mit Zustimmung öffentlich nennen.",
+            "next": "cwa_53_verhoer_oeffentlich",
+            "hide_if_flags": [
+              "cwa_53_verhoer_entscheidung"
+            ]
+          },
+          {
+            "text": "Die Aussage vertraulich getrennt halten.",
+            "next": "cwa_53_verhoer_vertraulich",
+            "hide_if_flags": [
+              "cwa_53_verhoer_entscheidung"
+            ]
+          },
+          {
+            "text": "Die Entscheidung zurückstellen.",
+            "next": "hub"
+          }
+        ]
+      },
+      "cwa_53_verhoer_oeffentlich": {
+        "text": "Du liest die freigegebene Aussage ohne Ergänzung vor. Der öffentliche Aushang hält einen Weg stabil, und die Rohrpost sendet den Namen der aussagenden Person an das Archiv.",
+        "sets_flags": [
+          "cwa_53_verhoer_entscheidung",
+          "cwa_verraten_cw_malliver",
+          "cwa_oeffentlich_53"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ],
+        "clears_flags": [
+          "cwa_kontakte_geprueft"
+        ]
+      },
+      "cwa_53_verhoer_vertraulich": {
+        "text": "Du verwahrst die Aussage getrennt und gehst den längeren Rückweg. Der Hauptbefund bleibt im Journal; das Archiv erhält von dir keinen neuen Namen.",
+        "sets_flags": [
+          "cwa_53_verhoer_entscheidung",
+          "cwa_geschuetzt_53"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "cwa_53_verhoer_buerge": {
+        "text": "Malliver nennt einen gemeinsamen Arbeitstag und erlaubt ihre persönliche Aussage. Wetherby stimmt zu, ohne seine Verantwortung abzustreifen; du protokollierst beide Zustimmungen getrennt.",
+        "sets_flags": [
+          "cwa_wetherby_buerge"
+        ],
+        "choices": [
+          {
+            "text": "Zurück zur Aussage.",
+            "next": "cwa_53_verhoer_folgen"
+          }
+        ]
+      }
+    }
+  },
+  "bj_cw_noel_bellcross": {
+    "choices_add": [
+      {
+        "text": "Eine unabhängige Zeugengruppe freiwillig sichern.",
+        "next": "cwa_zeugen_kuechen",
+        "requires_flags": [
+          "cwa_akt3_done"
+        ],
+        "requires_conclusions": [
+          "cwa_42_d"
+        ],
+        "hide_if_flags": [
+          "cwa_zeugen_kuechen"
+        ]
+      },
+      {
+        "text": "Menschen ohne Meldeadresse zusätzlich verbürgen.",
+        "next": "cwa_kuechenbuerge",
+        "requires_flags": [
+          "cwa_akt4_done"
+        ],
+        "requires_conclusions": [
+          "cwa_51_d"
+        ],
+        "hide_if_flags": [
+          "cwa_kuechenbuerge"
+        ]
+      },
+      {
+        "text": "Den öffentlich verratenen Kontakt persönlich wieder sichern.",
+        "next": "cwa_folge_cw_noel_bellcross",
+        "requires_flags": [
+          "cwa_akt4_done",
+          "cwa_verraten_cw_noel_bellcross"
+        ],
+        "hide_if_flags": [
+          "cwa_folge_cw_noel_bellcross_gesichert"
+        ]
+      }
+    ],
+    "nodes_add": {
+      "cwa_zeugen_kuechen": {
+        "text": "Noel und Bexley geben ihre Erinnerungen getrennt ab. „Ich bestätige, wen ich kenne“, sagt Noel. „Eine Portion ist keine Vollmacht.“",
+        "sets_flags": [
+          "cwa_zeugen_kuechen"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "cwa_kuechenbuerge": {
+        "text": "Noel bittet jede anwesende Person einzeln um Zustimmung. Freie Stellen bleiben offen; du bestätigst niemanden, der nicht gefragt wurde. Die zusätzlichen Wege werden trotzdem vollständig vorbereitet.",
+        "sets_flags": [
+          "cwa_kuechenbuerge"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "cwa_folge_cw_noel_bellcross": {
+        "text": "Am Prüfbrett des Archivs steht der öffentlich genannte Kontakt. Du stellst eine neue persönliche Frage und bestätigst die Antwort außerhalb der zentralen Liste. Die Person bleibt erreichbar; der zusätzliche Gang ist die Folge der Veröffentlichung, kein neuer Kaufpreis.",
+        "sets_flags": [
+          "cwa_folge_cw_noel_bellcross_gesichert"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      }
+    }
+  },
+  "k3a_pfiff": {
+    "choices_add": [
+      {
+        "text": "Eine Fahrkarte ohne Fahrgast: mit Pfiff über die Abreise sprechen.",
+        "next": "cwa_anreise_feierabend",
+        "requires_flags": [
+          "kapitel3_done",
+          "k3a_end_feierabend",
+          "cwa_anreise_feierabend_gelesen"
+        ],
+        "hide_if_flags": [
+          "k4_arrived"
+        ]
+      },
+      {
+        "text": "Rücklauf ohne Empfänger: mit Pfiff über die Abreise sprechen.",
+        "next": "cwa_anreise_stilllegung",
+        "requires_flags": [
+          "kapitel3_done",
+          "k3a_end_stilllegung",
+          "cwa_anreise_stilllegung_gelesen"
+        ],
+        "hide_if_flags": [
+          "k4_arrived"
+        ]
+      },
+      {
+        "text": "Die angeforderte Zusammenfassung: mit Pfiff über die Abreise sprechen.",
+        "next": "cwa_anreise_gegenstimme",
+        "requires_flags": [
+          "kapitel3_done",
+          "k3a_end_gegenstimme",
+          "cwa_anreise_gegenstimme_gelesen"
+        ],
+        "hide_if_flags": [
+          "k4_arrived"
+        ]
+      },
+      {
+        "text": "Eine Einladung mit leerer Zeile: mit Pfiff über die Abreise sprechen.",
+        "next": "cwa_anreise_vollzaehlig",
+        "requires_flags": [
+          "kapitel3_done",
+          "k3a_end_vollzaehlig",
+          "cwa_anreise_vollzaehlig_gelesen"
+        ],
+        "hide_if_flags": [
+          "k4_arrived"
+        ]
+      }
+    ],
+    "nodes_add": {
+      "cwa_anreise_feierabend": {
+        "text": "„Der Zug hier bleibt still“, sagt Pfiff. „Diese Frachtbahn ist eine andere. Ich bringe dich bis zur Landstraße, nicht in eine neue offene Schicht.“",
+        "choices": [
+          {
+            "text": "Die unabhängige Frachtbahn und den Weg prüfen.",
+            "next": "cwa_anreise_feierabend_weg"
+          },
+          {
+            "text": "Noch in Dunscar bleiben.",
+            "next": "k3a_start"
+          }
+        ]
+      },
+      "cwa_anreise_feierabend_weg": {
+        "text": "Die Hinfahrt nutzt die unabhängige Frachtstrecke bis zur Landstraße. Dort kannst du ein angekündigtes Vermesser-Ereignis umgehen; niemand aus den alten Städten reist mit dir nach Calderwick.",
+        "choices": [
+          {
+            "text": "Nach Calderwick reisen, Ankunft am Aufzug.",
+            "next": "cwa_anreise_feierabend_abfahrt"
+          },
+          {
+            "text": "Noch nicht aufbrechen.",
+            "next": "k3a_start"
+          }
+        ]
+      },
+      "cwa_anreise_feierabend_abfahrt": {
+        "text": "Du nimmst das Papier mit der fehlenden Namenszeile mit. Die letzte Etappe endet am Gleisfuß; die Reise fordert weder ein Namenopfer noch die Wiederinbetriebnahme von Dunscars Anlage.",
+        "sets_flags": [
+          "cwa_reise_freigegeben",
+          "cwa_hinfahrt_bestaetigt"
+        ],
+        "travel": {
+          "map": "cw_gleisfuss",
+          "spawn": "aufzug"
+        },
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "cwa_anreise_stilllegung": {
+        "text": "„Esther hat die Listen zur Abschrift geschickt“, sagt Pfiff. „Die Frachtbahn fährt auf eigenem Gleis. Wir müssen dafür keine Stimme wieder einschalten.“",
+        "choices": [
+          {
+            "text": "Die unabhängige Frachtbahn und den Weg prüfen.",
+            "next": "cwa_anreise_stilllegung_weg"
+          },
+          {
+            "text": "Noch in Dunscar bleiben.",
+            "next": "k3a_start"
+          }
+        ]
+      },
+      "cwa_anreise_stilllegung_weg": {
+        "text": "Die Hinfahrt nutzt die unabhängige Frachtstrecke bis zur Landstraße. Dort kannst du ein angekündigtes Vermesser-Ereignis umgehen; niemand aus den alten Städten reist mit dir nach Calderwick.",
+        "choices": [
+          {
+            "text": "Nach Calderwick reisen, Ankunft am Aufzug.",
+            "next": "cwa_anreise_stilllegung_abfahrt"
+          },
+          {
+            "text": "Noch nicht aufbrechen.",
+            "next": "k3a_start"
+          }
+        ]
+      },
+      "cwa_anreise_stilllegung_abfahrt": {
+        "text": "Du nimmst das Papier mit der fehlenden Namenszeile mit. Die letzte Etappe endet am Gleisfuß; die Reise fordert weder ein Namenopfer noch die Wiederinbetriebnahme von Dunscars Anlage.",
+        "sets_flags": [
+          "cwa_reise_freigegeben",
+          "cwa_hinfahrt_bestaetigt"
+        ],
+        "travel": {
+          "map": "cw_gleisfuss",
+          "spawn": "aufzug"
+        },
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "cwa_anreise_gegenstimme": {
+        "text": "„Die Anlage bleibt aus“, sagt Pfiff. „Jeder neue Betrieb braucht deine Rückkehr und Zustimmung. Der Direktor bekommt weder deinen Eintrag noch eine Vollmacht, während du weg bist.“",
+        "choices": [
+          {
+            "text": "Die unabhängige Frachtbahn und den Weg prüfen.",
+            "next": "cwa_anreise_gegenstimme_weg"
+          },
+          {
+            "text": "Noch in Dunscar bleiben.",
+            "next": "k3a_start"
+          }
+        ]
+      },
+      "cwa_anreise_gegenstimme_weg": {
+        "text": "Die Hinfahrt nutzt die unabhängige Frachtstrecke bis zur Landstraße. Dort kannst du ein angekündigtes Vermesser-Ereignis umgehen; niemand aus den alten Städten reist mit dir nach Calderwick.",
+        "choices": [
+          {
+            "text": "Nach Calderwick reisen, Ankunft am Aufzug.",
+            "next": "cwa_anreise_gegenstimme_abfahrt"
+          },
+          {
+            "text": "Noch nicht aufbrechen.",
+            "next": "k3a_start"
+          }
+        ]
+      },
+      "cwa_anreise_gegenstimme_abfahrt": {
+        "text": "Du nimmst das Papier mit der fehlenden Namenszeile mit. Die letzte Etappe endet am Gleisfuß; die Reise fordert weder ein Namenopfer noch die Wiederinbetriebnahme von Dunscars Anlage.",
+        "sets_flags": [
+          "cwa_reise_freigegeben",
+          "cwa_hinfahrt_bestaetigt"
+        ],
+        "travel": {
+          "map": "cw_gleisfuss",
+          "spawn": "aufzug"
+        },
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      },
+      "cwa_anreise_vollzaehlig": {
+        "text": "Pfiff hält den Brief an den Rändern. „Ich begleite keinen neuen Befehl. Du kannst der Warnung nachgehen. Was du hier angeordnet hast, wird davon nicht ungeschehen.“",
+        "choices": [
+          {
+            "text": "Die unabhängige Frachtbahn und den Weg prüfen.",
+            "next": "cwa_anreise_vollzaehlig_weg"
+          },
+          {
+            "text": "Noch in Dunscar bleiben.",
+            "next": "k3a_start"
+          }
+        ]
+      },
+      "cwa_anreise_vollzaehlig_weg": {
+        "text": "Die Hinfahrt nutzt die unabhängige Frachtstrecke bis zur Landstraße. Dort kannst du ein angekündigtes Vermesser-Ereignis umgehen; niemand aus den alten Städten reist mit dir nach Calderwick.",
+        "choices": [
+          {
+            "text": "Nach Calderwick reisen, Ankunft am Aufzug.",
+            "next": "cwa_anreise_vollzaehlig_abfahrt"
+          },
+          {
+            "text": "Noch nicht aufbrechen.",
+            "next": "k3a_start"
+          }
+        ]
+      },
+      "cwa_anreise_vollzaehlig_abfahrt": {
+        "text": "Du nimmst das Papier mit der fehlenden Namenszeile mit. Die letzte Etappe endet am Gleisfuß; die Reise fordert weder ein Namenopfer noch die Wiederinbetriebnahme von Dunscars Anlage.",
+        "sets_flags": [
+          "cwa_reise_freigegeben",
+          "cwa_hinfahrt_bestaetigt"
+        ],
+        "travel": {
+          "map": "cw_gleisfuss",
+          "spawn": "aufzug"
+        },
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      }
+    }
+  },
+  "bj_cw_bexley": {
+    "choices_add": [
+      {
+        "text": "Den öffentlich verratenen Kontakt persönlich wieder sichern.",
+        "next": "cwa_folge_cw_bexley",
+        "requires_flags": [
+          "cwa_akt4_done",
+          "cwa_verraten_cw_bexley"
+        ],
+        "hide_if_flags": [
+          "cwa_folge_cw_bexley_gesichert"
+        ]
+      }
+    ],
+    "nodes_add": {
+      "cwa_folge_cw_bexley": {
+        "text": "Am Prüfbrett des Archivs steht der öffentlich genannte Kontakt. Du stellst eine neue persönliche Frage und bestätigst die Antwort außerhalb der zentralen Liste. Die Person bleibt erreichbar; der zusätzliche Gang ist die Folge der Veröffentlichung, kein neuer Kaufpreis.",
+        "sets_flags": [
+          "cwa_folge_cw_bexley_gesichert"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      }
+    }
+  },
+  "bj_cw_ida_bellcross": {
+    "choices_add": [
+      {
+        "text": "Den öffentlich verratenen Kontakt persönlich wieder sichern.",
+        "next": "cwa_folge_cw_ida_bellcross",
+        "requires_flags": [
+          "cwa_akt4_done",
+          "cwa_verraten_cw_ida_bellcross"
+        ],
+        "hide_if_flags": [
+          "cwa_folge_cw_ida_bellcross_gesichert"
+        ]
+      }
+    ],
+    "nodes_add": {
+      "cwa_folge_cw_ida_bellcross": {
+        "text": "Am Prüfbrett des Archivs steht der öffentlich genannte Kontakt. Du stellst eine neue persönliche Frage und bestätigst die Antwort außerhalb der zentralen Liste. Die Person bleibt erreichbar; der zusätzliche Gang ist die Folge der Veröffentlichung, kein neuer Kaufpreis.",
+        "sets_flags": [
+          "cwa_folge_cw_ida_bellcross_gesichert"
+        ],
+        "choices": [
+          {
+            "text": "Für jetzt genug."
+          }
+        ]
+      }
+    }
+  }
+}
