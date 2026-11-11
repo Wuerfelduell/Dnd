@@ -859,3 +859,29 @@ test('BU: Ausrüstungs-Overlays für drei Figuren, Kampfkulissen mit Nachtfassun
   assert.equal(A.portraitFor('p2a', 'misstrauisch').col, 1);
   assert.equal(A.portraitFor('p2b', 'leichtes_laecheln').url, './sprites/portraits/p2b_emotions_bu.png');
 });
+
+test('BV: Jahreszeiten- und Festgrafik aus manifest-feste – Boden-Deko, Partikel, Fassadenaufsätze, Fest-Props, Gäste, Gerede, Banner, Sequenzbilder', async () => {
+  const A = await import('../src/world/assets.js');
+  const m = manifest('feste');
+  assert.equal(m.assets.length, 41);
+  for (const a of m.assets) assert.ok(existsSync(sprite(a.file)), a.file);
+  const byId = Object.fromEntries(m.assets.map((a) => [a.id, a]));
+  for (const s of ['herbst', 'winter', 'fruehling', 'sommer']) {
+    assert.equal(Object.keys(byId[`feste_saison_${s}`].regions).length, 12, s);
+    assert.equal(byId[`feste_saison_${s}_partikel`].animations.loop.frames.length, 6, s);
+    for (const city of ['kettlegate', 'wexmoor', 'dunscar']) assert.ok(byId[`feste_saison_${s}_fassaden`].regions[`${city}_${A.SEASON_FACADE[s]}`], `${s} ${city}`);
+  }
+  assert.equal(byId.feste_winter_atem.animations.loop.frames.length, 4);
+  assert.deepEqual([byId.feste_sommer_hitzeflimmern.frameWidth, byId.feste_sommer_hitzeflimmern.frameHeight], [480, 270]);
+  for (const f of ['laternennacht', 'salzsegen', 'schichtwechsel']) {
+    assert.ok(Object.keys(byId[`feste_${f}_props`].regions).length >= 14, f);
+    assert.equal(Object.keys(byId[`feste_${f}_gross`].regions).length, 6, f);
+    for (const g of A.FEST_GEREDE) assert.ok(byId[`feste_${f}_gerede`].regions[g], `${f} ${g}`);
+    for (let n = 1; n <= 4; n++) assert.deepEqual(Object.keys(byId[`feste_${f}_gast_${n}`].animations), ['down', 'left', 'right', 'up'], `${f} Gast ${n}`);
+    assert.deepEqual(byId[`feste_${f}_banner`].textSafeRect, { x: 58, y: 8, width: 96, height: 16 });
+    assert.equal(A.sceneUrl(`fest_${f}`), `./sprites/sequences/fest_${f}.png`);
+    assert.ok(existsSync(file(A.sceneUrl(`fest_${f}`))) && existsSync(file(A.festBannerUrl(f))), f);
+  }
+  // Laternen der Laternennacht: vier Farben mit zwei Frames
+  assert.deepEqual(Object.keys(byId.feste_laternennacht_props.regions).filter((n) => /^laterne_/.test(n)).length, 8);
+});

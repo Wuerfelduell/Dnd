@@ -971,7 +971,7 @@ export const M_SCENES = ['kanal', 'finch', 'schlafsaal', 'molly', 'webstuhl', 'm
 export const CHAPTER_CARDS = ['kapitel1_karte', 'kapitel2_karte', 'kapitel3_karte', 'kapitel_ende'];
 /** Kontrollverlust: Tentakel-Bild (240x135, Platzhalter bis Codex-Paket BP liefert). */
 export const FX_SCENES = ['kontrollverlust'];
-export const sceneUrl = (id) => (CHAPTER_CARDS.includes(id) || FX_SCENES.includes(id) ? `${BASE}ui/scenes/${id}.png` : SCENES.includes(id) ? `${BASE}ui/scenes/E_szene_${id}.png`
+export const sceneUrl = (id) => (id?.startsWith('fest_') ? `${BASE}sequences/${id}.png` : CHAPTER_CARDS.includes(id) || FX_SCENES.includes(id) ? `${BASE}ui/scenes/${id}.png` : SCENES.includes(id) ? `${BASE}ui/scenes/E_szene_${id}.png`
   : TRAVEL_SCENES.includes(id) ? `${BASE}ui/scenes/I_${id}.png`
     : J_SCENES.includes(id) ? `${BASE}ui/scenes/J_szene_${id}.png`
       : K_SCENES.includes(id) ? `${BASE}ui/scenes/K_szene_${id}.png`
@@ -2544,3 +2544,18 @@ export const KOOP2_TRENNUNG_URL = `${BASE}ui/koop2_trennung.png`;
 const P2_MOODS = { neutral: 0, misstrauisch: 1, erschrocken: 2, laecheln: 3, leichtes_laecheln: 3, suspicious: 1, scared: 2, smile: 3 };
 PORTRAIT_SPECIAL.p2a = ['p2a_emotions_bu.png', P2_MOODS];
 PORTRAIT_SPECIAL.p2b = ['p2b_emotions_bu.png', P2_MOODS];
+
+// --- Paket BV: Jahreszeiten und Feste (manifest-feste.json; Laufzeit in world/Feste.js) ---
+export const festBannerUrl = (id) => `${BASE}ui/fest_${id}_banner.png`;
+export const FEST_GEREDE = ['musik', 'trinken', 'lachen', 'streit', 'kuss', 'schlaf'];
+/** Welche Karten je Fest geschmückt werden (Außenkarten der drei Städte). */
+export const FEST_MAPS = {
+  laternennacht: ['altmarkt', 'docks', 'ashgrove', 'nordtor', 'ankerhof'],
+  salzsegen: ['wx_salzmarkt', 'wx_bojenhafen', 'wx_pfahldorf', 'wx_oberstadt', 'wx_bahnhof'],
+  schichtwechsel: ['ds_schwellenring', 'ds_arbeiterbogen', 'ds_kalkmarkt', 'ds_endbahnhof', 'ds_bruchstufen'],
+};
+/** Außenkarten ohne Dächer, Gras oder Wasser (Dunscar: Stadt, Bahn, Bruch, Schlucht). */
+export const OUTDOOR_THEMES = ['ds_stadt', 'ds_bahn', 'ds_bruch', 'ds_schlucht'];
+export const isOutdoorMap = (m) => /[Rg~]/.test((m.rows ?? []).join('')) || OUTDOOR_THEMES.includes(m.tiles) || !!m.outdoor;
+/** Fassadenaufsatz je Jahreszeit (Spalten der saison_<s>_fassaden-Blätter). */
+export const SEASON_FACADE = { herbst: 'girlande', winter: 'haube', fruehling: 'blumenkasten', sommer: 'sonnensegel' };

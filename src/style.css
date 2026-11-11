@@ -970,3 +970,8 @@ html.touch .cb-def .aeicon { display: block; margin: 0 auto 0.2em; font-size: 16
 .koop .hud-p2 { border-image-source: url("./sprites/ui/koop2_rahmen_p2.png"); background: none; }
 .p2state { display: inline-block; vertical-align: middle; margin: 0 0.3em; }
 img.scene.koop2trennung { display: block; width: 15em; height: auto; margin: 0 auto 0.5em; image-rendering: pixelated; }
+
+/* Paket BV: Festbanner (192x32, Text in der freien Mitte 58..154 x 8..24) */
+.festbanner { position: absolute; left: 50%; top: 3.2em; width: 12em; height: 2em; margin-left: -6em; background-size: 12em 2em; background-repeat: no-repeat; image-rendering: pixelated; pointer-events: none; z-index: 30; transition: opacity 0.6s; }
+.festbanner span { position: absolute; left: 3.6em; top: 0.5em; width: 6em; height: 1em; line-height: 1em; font-size: 1em; text-align: center; color: #f4e6c2; text-shadow: 0 0 0.15em #1a1c2c; white-space: nowrap; overflow: hidden; }
+.festbanner.out { opacity: 0; }

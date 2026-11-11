@@ -7,7 +7,7 @@ import { isPrecise } from '../core/Combat.js';
 import { lootList, itemRarity, RARITY_NAMES, lootPreview, chanceWord } from '../core/Loot.js';
 import {
   itemIconUrl, itemIcon32Url, pathwayEmblemUrl, pathwayCardUrl, COIN_URL, moneyIconUrl, UI_SKINS, UI_SHEETS, UI_REGIONS, DAMAGE_FONT, STATUS_ICONS, STATUS_ICONS_URL,
-  portraitUrl, portraitFor, AK_FIGURES, P2_LOOKS, P2_CHOICE_URL, p2HeadUrl, p2PortraitUrl, KOOP2_TRENNUNG_URL, mapMarkerOf, LOG_MARKERS, LOG_MARKERS_URL, SOURCE_ICONS, SPRITE_BASE,
+  portraitUrl, portraitFor, AK_FIGURES, P2_LOOKS, P2_CHOICE_URL, p2HeadUrl, p2PortraitUrl, KOOP2_TRENNUNG_URL, festBannerUrl, mapMarkerOf, LOG_MARKERS, LOG_MARKERS_URL, SOURCE_ICONS, SPRITE_BASE,
   endingImageUrl, caseFileUrl, sceneUrl, wantedUrl, wantedSingle, QUEST_UI_URL, QUEST_PINS, QUEST_BANNERS,
   TURN_PORTRAITS, TURN_PORTRAITS_URL, TURN_PORTRAIT_URLS, BESTIARY, bestiaryUrl, TITLE_LAYERS,
   headUrl, ritualCardUrl, ZIRKEL_URL, ZIRKEL_ICONS, AUKTION_URL, AUKTION_REGIONS, LONER_UI_URL, LONER_UI, LONER_SEALS, S_ZIRKEL_URL, S_ZIRKEL, skillIconOf, talentIconOf, PULSE_ICONS, ARTIFACT_UI_URL, sourceKind, sourceKindUrl, inspectUrl, RISK_ICONS, RISK_ICONS_URL, JOURNAL_FRAME, JOURNAL_FRAME_URL, choiceRisk, riskOf,
@@ -757,6 +757,19 @@ export class Ui {
       el.innerHTML = `${uiSprite('interact', `${icon}0`, 1 / 16, 'promptico')}<span class="key">${esc(key)}</span> ${esc(text)}`;
     }
     el.classList.remove('hidden');
+  }
+
+  /** Paket BV: Ankündigungsbanner eines Festes (ui/fest_<id>_banner.png, freie Mitte 96x16 für den Text). */
+  festBanner(id, name) {
+    const old = this.$('.festbanner');
+    old?.remove();
+    const el = document.createElement('div');
+    el.className = 'festbanner';
+    el.style.backgroundImage = `url(${festBannerUrl(id)})`;
+    el.innerHTML = `<span>${esc(name)}</span>`;
+    this.root.appendChild(el);
+    setTimeout(() => el.classList.add('out'), 4200);
+    setTimeout(() => el.remove(), 4900);
   }
 
   toast(text, kind = '', banner = null) {

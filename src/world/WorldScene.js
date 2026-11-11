@@ -4,6 +4,7 @@ import { createTextures, createCharacterSheet, hash2, TILE, TILE_INDEX, SOLID_KE
 import { Lighting, DEPTH } from './Lighting.js';
 import { WexmoorLife, preloadWexmoorLife, speechBubble } from './WexmoorLife.js';
 import { GearOverlay, preloadGear } from './GearOverlay.js';
+import { Feste, preloadFeste } from './Feste.js';
 import { DunscarLife, preloadDunscarLife } from './DunscarLife.js';
 import { KoopLife } from './Koop.js';
 import { SektenLife } from './SektenLife.js';
@@ -622,6 +623,7 @@ export class WorldScene extends Phaser.Scene {
     preloadSprites(this);
     preloadWexmoorLife(this); // Paket AE
     preloadGear(this, this.registry.get('state')); // Paket BU: sichtbare Ausrüstung
+    preloadFeste(this); // Paket BV: Jahreszeiten und Feste
     preloadDunscarLife(this); // Paket BA/BD
     this.registry.get('audio')?.preload(this);
   }
@@ -725,6 +727,8 @@ export class WorldScene extends Phaser.Scene {
     this.koop = new KoopLife(this);
     this.sekten = new SektenLife(this); // BQ/BR: Sekten-Ereignisse, abgeworbene Figuren, Sabotage
     this.sekten.build(this.freshVisit);
+    this.feste = new Feste(this); // BV: Jahreszeit draußen, Fest in der Stadt
+    this.feste.build();
     this.bindInput();
     this.bindState();
     this.refreshVisibility();
@@ -1206,6 +1210,7 @@ export class WorldScene extends Phaser.Scene {
     this.dsLife?.update(delta);
     if (this.clockDirty && !blocked) this.applyClock();
     this.koop?.update(delta, blocked);
+    this.feste?.update(delta, blocked);
     if (!blocked) this.checkLocks(delta); // BN: Schallschleusen an den Ausgängen
     this.updateFocus(blocked);
     this.checkAuto(blocked);

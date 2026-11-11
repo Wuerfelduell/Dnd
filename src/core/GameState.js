@@ -10,7 +10,7 @@ import { signalMethods } from './Signals.js';
 import { claimMethods } from './Claims.js';
 import { signalRouteMethods } from './SignalRoutes.js';
 import { claimEinbauMethods } from './ClaimsEinbau.js';
-import { clockMethods, NIGHT_FLAG } from './Clock.js';
+import { clockMethods, NIGHT_FLAG, VOLATILE_FLAGS } from './Clock.js';
 import { bondMethods } from './Bonds.js';
 import { relationMethods } from './Relations.js';
 import { artifactMethods } from './Artifacts.js';
@@ -704,7 +704,7 @@ export class GameState {
       position: position ?? null,
       clues: this.clues,
       conclusions: this.conclusions,
-      flags: [...this.flags].filter((f) => f !== NIGHT_FLAG),
+      flags: [...this.flags].filter((f) => !VOLATILE_FLAGS(f)),
       quests: this.quests,
       honor: this.honor,
       honorCarry: this.honorCarry,
