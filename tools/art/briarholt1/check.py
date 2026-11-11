@@ -138,6 +138,27 @@ def main():
                 ok = (k.crop(box).getchannel('A').getbbox() is None) == (wm.crop(box).getchannel('A').getbbox() is None)
                 require(ok, f"{a['theme']}: Zelle {i} nur in einer Variante belegt")
             require(k.tobytes() != wm.tobytes(), f"{a['theme']}: kalt und warm identisch")
+            # keine doppelten Zellen innerhalb eines Blatts
+            for img, nm in ((k, 'kalt'), (wm, 'warm')):
+                seen = {}
+                for i in range(a['columns'] * a['rows']):
+                    box = (i % 8 * 16, i // 8 * 16, i % 8 * 16 + 16, i // 8 * 16 + 16)
+                    key = img.crop(box).tobytes()
+                    require(key not in seen, f"{a['theme']}_{nm}: Zelle {i} doppelt (wie {seen.get(key)})")
+                    seen.setdefault(key, i)
+            # warm ist eine eigene Zeichnung, kein reines Umfärben: pro Zelle keine 1:1-Farbabbildung kalt->warm
+            recol = 0
+            for i in range(a['columns'] * a['rows']):
+                box = (i % 8 * 16, i // 8 * 16, i % 8 * 16 + 16, i // 8 * 16 + 16)
+                kp = k.crop(box).convert('RGB').tobytes(); wp = wm.crop(box).convert('RGB').tobytes()
+                mp = {}
+                same = True
+                for j in range(0, len(kp), 3):
+                    if mp.setdefault(kp[j:j + 3], wp[j:j + 3]) != wp[j:j + 3]:
+                        same = False
+                        break
+                recol += same
+            require(recol == 0, f"{a['theme']}: {recol} Zellen sind nur umgefärbt")
     # Overlays / Karte / Marker
     karte = by_file.get('ui/bh_karte.png')
     for f in ('ui/bh_karte_nebel.png', 'ui/bh_karte_leitungen.png'):
@@ -166,7 +187,7 @@ def main():
               'kaltWarmPairs': pairs, 'sharedVisibleColors': len(all_visible), 'errors': errors,
               'checks': ['Pflichtdateien', 'Maße', 'Raster', 'binäres Alpha', 'Palette <=32', 'transparente Pixel RGB 0',
                          'Transparenz-Metadaten', 'opake Szenen/Karten/Hintergründe', 'Regionen/Zellen nicht leer',
-                         'Animationsphasen verschieden', 'kalt/warm gleiche belegte Zellen', 'Overlays', 'Marker-IDs',
+                         'Animationsphasen verschieden', 'kalt/warm gleiche belegte Zellen', 'keine doppelten Tileset-Zellen', 'warm nicht nur umgefärbt', 'Overlays', 'Marker-IDs',
                          'Style-Block in jedem Prompt', 'SHA-256'],
               'assets': results}
     if '--write' in sys.argv:

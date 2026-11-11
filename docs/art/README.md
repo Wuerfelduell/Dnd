@@ -1762,21 +1762,23 @@ Grafiklieferung ohne Änderung am Spielcode. Die Einbindung und die Abstimmung i
 ## Batch CI – Briarholt, kalt und warm (`briarholt1`)
 
 41 PNGs für Kapitel 5 (Briarholt), Einbau separat: 6 Tilesets je `_kalt`/`_warm`
-(8×5 Zellen à 16×16, identische Zellenbelegung; Reihe 5 enthält die Animationsphasen,
-in `_kalt` als ruhende Kopien), 6 Prop-Blätter (Kutschenhof, Kesselgrund inkl. Bügelraum
+(8×5 Zellen à 16×16, identische Zellenbelegung, **v2: jede Zelle einzeln von Hand gezeichnet**,
+Bodenzellen nahtlos, Warm-Zellen als eigene Zeichnung statt Umfärbung; die Animationsplätze
+zeigen kalt ein wanderndes Reif-Glitzern), 6 Prop-Blätter (Kutschenhof, Kesselgrund inkl. Bügelraum
 mit Ventiltafel und Steckmarken, Promenade, Glasgärten, Stillenhäuser, Wurzelkranz mit
-Verteilanlage in 3 Zuständen), `fx/bh_waerme.png` (Dampf, Kondensat-Schrift, Reif,
-Rücklauf-Puls, Kondensat-Sperre, Leitungsplan-Kacheln), 9 Szenenbilder inkl. vier Enden
-und der Lichtmeister-Variante, 9 Kampf-Hintergründe (Kesselgrund und Glasgärten kalt/warm),
-Stadtkarte mit Nebel- und Leitungsplan-Overlay, Marker für alle 18 Karten und die
-Kapitelkarte. Gemeinsame 32-Farben-Palette, binäres Alpha, Nearest-Neighbor-Zielraster.
+Verteilanlage in 3 Zuständen), `fx/bh_waerme.png` (v2 handgezeichnet: Dampf, Kondensat-Schrift,
+Reif, Rücklauf-Puls, Kondensat-Sperre als Wasserwand, Leitungsplan-Kacheln), 9 Szenenbilder inkl.
+vier Enden und der Lichtmeister-Variante, 9 Kampf-Hintergründe (Kesselgrund und Glasgärten
+kalt/warm), Stadtkarte mit Nebel- (v2 im Stil von `ds_karte_nebel`) und Leitungsplan-Overlay,
+Marker für alle 18 Karten und die Kapitelkarte. Gemeinsame 32-Farben-Palette, binäres Alpha.
 Figuren (BK), Gegner/Zonen-Hintergründe (BI) und Item-Icons (BM) werden nicht doppelt geliefert.
 
-- Manifest: `public/sprites/manifest-briarholt1.json` (Zellen, Regionen, `regionAnimations`, `variants: {kalt, warm}`, Pins, Leitungs-Segmente).
-- Prompts (Style-Block vorangestellt), Referenzen, Roh- und Ausgabe-Hashes: `docs/art/batch-briarholt1-generation.json`.
-- Vorschau: `docs/art/batch-briarholt1-preview.png`; Prüfung: `python tools/art/briarholt1/check.py --write` → `docs/art/batch-briarholt1-validation.json`.
+- Manifest: `public/sprites/manifest-briarholt1.json` (Zellen, `groundCells`, Regionen, `regionAnimations`, `variants: {kalt, warm}`, Pins, Leitungs-Segmente).
+- Protokoll: `docs/art/batch-briarholt1-generation.json` (Prompts mit Style-Block, Zellbeschreibungen kalt/warm, Referenzen, Hashes, verworfene Versuche); Rohbilder des Generators: `docs/art/briarholt1-raw/`.
+- Vorschau: `docs/art/batch-briarholt1-preview.png`; Prüfung: `python tools/art/briarholt1/check.py --write` → `docs/art/batch-briarholt1-validation.json` (prüft u. a. doppelte Zellen und reine Umfärbungen kalt→warm).
 
-**Hinweise:** Warm-Zustand von `bh_klinik` und die Animationsreihen sind prozedural aus den
-generierten Zellen abgeleitet (siehe `variantSource`/`steps` im Protokoll). Pins und
+**Hinweise:** Ventilzustände zu/kalt/warm sind eigene Zellen in `bh_kessel` (16–18). Pins und
 Leitungs-Segmente der Stadtkarte sind am generierten Bild gemessen und Vorschläge für CH;
 `groundStrip` der Kampf-Hintergründe folgt dem Dunscar-Standard (y 200, Höhe 70).
+Offen: Die Stadtkarte liest sich eher wie eine normale Kleinstadt; Talkessel und die sechs
+Viertel sind noch nicht klar erkennbar (bewusst unverändert gelassen).
