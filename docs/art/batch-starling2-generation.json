@@ -1,0 +1,532 @@
+{
+  "batch": "starling2",
+  "package": "BS",
+  "date": "2026-11-11",
+  "generator": "built-in image_gen; no procedural substitute artwork",
+  "references": [
+    {
+      "requested": "battle/starling.png",
+      "file": "public/sprites/battle/enemy_starling.png",
+      "sha256": "4a650ec07c78db7029d4be4cae1f548599073c50812441fbfa88ab4a581cd086"
+    },
+    {
+      "requested": "battle/X_08_boss_starling.png",
+      "file": "public/sprites/ui/X_08_boss_starling.png",
+      "sha256": "cc106c22e0e7b3e2bbd24fbe1d9470a812f70db63ba4ff76d87f73f94954aadb"
+    },
+    {
+      "requested": "battle/bg_sternwarte.png",
+      "file": "public/sprites/battle/bg_sternwarte.png",
+      "sha256": "9a196d857c23fd5582ac92b636c510a64b8dd03cf71e90da482efe9cbb9913ac"
+    },
+    {
+      "requested": "portraits/astronom_emotions.png",
+      "file": "public/sprites/portraits/C_astronom_emotions.png",
+      "sha256": "488894a385f62ae3163ca493cc1d9bd915688b3bd6c590b753e70db59562c1ce"
+    },
+    {
+      "requested": "verblasstes Set",
+      "file": "public/sprites/portraits/R_lichtmann_verblassend_emotions.png",
+      "sha256": "349bae8de624dbb8794f3e08a095c83433ef58bad1fa414fb42a6ae1f452e51b"
+    }
+  ],
+  "referenceBoard": {
+    "file": "tools/art/starling2/sources/reference-board.png",
+    "sha256": "d05ff627944274b0485a38da65cb17f3de77d972aa43282da8697612cf04a312",
+    "layout": "2 columns x 3 rows; original sheets nearest-neighbor fitted in 480x180 thumbnails; titles are reference-only"
+  },
+  "generations": [
+    {
+      "id": "boss",
+      "tool": "built-in image_gen",
+      "transparentBackground": true,
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nUse case: stylized-concept. Input reference: contact sheet with original phase-one battle sprites, boss bust, observatory, astronomer emotions and faded man. Preserve character identity and palette. This is NEW phase-two artwork.\nTransparent animation sheet, exactly 8 columns and 7 rows of identical 128x96 logical cells (overall 1024x672, optionally render at 2x). No gutters or labels. Character occupies central 70% of each cell, baseline at 90%, facing left. Elderly wiry astronomer from references, wild grey hair, dark long coat, HALF face and chest replaced by brass telescope tubes and curved lens, turquoise chest light, floating brass armillary rings. Keep identity, scale, anchor consistent. Each row left to right, unused cells entirely transparent. Row 1 idle: 4 frames slight hover and rotating rings; remaining4 empty. Row2 attack:6frames withdrawing a turquoise starlight lance from chest then thrusting left then recovery, first two poses identical windup; remaining2empty. Row3 special:6frames eight small stolen stars rise above him then plunge toward left, remaining2empty. Row4 cast:6frames curved glass panes rotate into protective wall and settle; remaining2empty. Row5 hit:3frames recoil and recover, remaining5empty. Row6 phase_in:8frames old untransformed astronomer holding burning glass, glass cracks, glass breaks, eight starlights enter chest, eyes illuminate, torso extends into brass segments, rings appear, transformed final stance. Row7 defeat:6frames rings collapse, eight stars leave upward, brass fades, old man bends, kneels, final OLD MAN KNEELING ALIVE eyes open; remaining2empty. EXACT row count seven, no text. Draw complete separated figures, never cross cell boundaries.",
+      "referenceInputs": [
+        "tools/art/starling2/sources/reference-board.png"
+      ],
+      "originalFile": "exec-95e2ecf2-b7c6-46b6-a2ca-af871080348c.png",
+      "originalDimensions": [
+        1546,
+        1017
+      ],
+      "originalSha256": "2445fdfa198497e8e429b8ad4e0a0d0689120f8ad549239b2cbd789f9404d6a3",
+      "status": "rejected: cropped bodies and matte; reference for correction only"
+    },
+    {
+      "id": "bust",
+      "tool": "built-in image_gen",
+      "transparentBackground": true,
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nUse case: stylized-concept. Input reference: contact sheet with original phase-one battle sprites, boss bust, observatory, astronomer emotions and faded man. Preserve character identity and palette. This is NEW phase-two artwork.\nSingle 160x160 logical pixel art transparent boss bust of transformed Professor Lucius Starling. Recognizably same elderly wild-haired astronomer in reference. Half his lined melancholic face replaced by brass telescope segments, one eye a round lens, pale turquoise starlight in wrinkles and curved chest glass, high collar made of telescope segments. Three quarter view facing left, serious sad NOT monstrous. Shoulders fully framed with small transparent margin, strong silhouette, pixel art at native160x160 enlarged cleanly.",
+      "referenceInputs": [
+        "tools/art/starling2/sources/reference-board.png"
+      ],
+      "originalFile": "exec-c4ccfcd4-5dde-4ec9-9edd-844c801884f8.png",
+      "originalDimensions": [
+        1254,
+        1254
+      ],
+      "originalSha256": "d76f1da9af94e6a903c47840328439b011245163644fe13de7c08db05c548619",
+      "status": "used"
+    },
+    {
+      "id": "background",
+      "tool": "built-in image_gen",
+      "transparentBackground": false,
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nUse case: stylized-concept. Input reference: contact sheet with original phase-one battle sprites, boss bust, observatory, astronomer emotions and faded man. Preserve character identity and palette. This is NEW phase-two artwork.\nOpaque 480x270 logical pixel art battle backdrop, landscape16:9. Match architecture, slate sky and brass dome of reference observatory, now viewed just INSIDE same observatory. Torn dome overhead open to night sky, curved observatory wall left bearing star chart with EXACTLY EIGHT luminous marked stars, huge brass telescope on right, visibly tilted parquet floor across lower third spacious for fighting, floating papers. Turquoise light from eight-star chart on left, violet supernatural light through dome rift upper right. No people, no text, no HUD. Preserve original building brass/cobblestone/iron architectural vocabulary. Crisp limited pixel detail, no smooth gradients.",
+      "referenceInputs": [
+        "tools/art/starling2/sources/reference-board.png"
+      ],
+      "originalFile": "exec-ac861ff2-b8b0-4f0b-991a-32cda5e6fa03.png",
+      "originalDimensions": [
+        1672,
+        941
+      ],
+      "originalSha256": "ec7238658abbfa5c8c6131c3d9b38877c6ce3bd8226e281b5f76276b9d344d93",
+      "status": "used"
+    },
+    {
+      "id": "fx",
+      "tool": "built-in image_gen",
+      "transparentBackground": true,
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nUse case: stylized-concept. Reference contact sheet includes original battle Starling, boss bust, observatory and both portrait sets; preserve this universe.\nTransparent effects spritesheet ONLY effects, no characters. EXACT grid 6columns x5rows equally sized48x48 logical cells, final288x240, no visible grid lines. Six distinct sequential frames per row: row1 a turquoise star falls then impacts in shards then fades; row2 a brass-rimmed curved glasspane appears then shatters; row3 starlight spear impact bursts outward then dissipates; row4 single tiny stolen star rises from bottom to top of cell with short trail, preserve vertical motion; row5 old astronomer's brass magnifying burningglass cracks then SHATTERS into glass and brass with fading violet motes. Separate all cells; transparent padding. Hard-edged pixels, no glow blur or shadows. TRUE ZERO ALPHA background, no checkerboard drawn, no pale grid.",
+      "referenceInputs": [
+        "tools/art/starling2/sources/reference-board.png"
+      ],
+      "originalFile": "exec-78bf8347-e07b-49dc-8e0c-27e9b8504958.png",
+      "originalDimensions": [
+        1374,
+        1145
+      ],
+      "originalSha256": "13766e2bccdd732c314cbe9449adf35ff077125135ad981930411a350d5e7ca2",
+      "status": "used"
+    },
+    {
+      "id": "portraits",
+      "tool": "built-in image_gen",
+      "transparentBackground": true,
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nUse case: stylized-concept. Reference contact sheet includes original battle Starling, boss bust, observatory and both portrait sets; preserve this universe.\nTransparent portrait sheet, exactly4columns x1row of64x64 logical square cells final256x64. Same recognizable transformed elderly astronomer, wild pale grey hair, half face natural wrinkled and half brass telescope segments, one lens eye, turquoise starlight in cheek wrinkles, high segmented brass collar. Four clearly DIFFERENT expressions left to right: neutral melancholy; triumphant raised chin and knowing smile; doubtful troubled brow and downcast human eye; extinguished drained tired face with dark lens and NO luminous light. Head and shoulders fully inside each square, same scale/crop/anchor in each, generous margins. True zero alpha outside portraits. Hardpixel game portrait style matching reference.",
+      "referenceInputs": [
+        "tools/art/starling2/sources/reference-board.png"
+      ],
+      "originalFile": "exec-e00075ac-caaf-4379-88e3-00609da61a7a.png",
+      "originalDimensions": [
+        2172,
+        724
+      ],
+      "originalSha256": "81bddcdbe491a53137bce0217ad2a4d82d42e8d48b9806515178e5cd193b4514",
+      "status": "used"
+    },
+    {
+      "id": "stars",
+      "tool": "built-in image_gen",
+      "transparentBackground": true,
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nUse case: stylized-concept. Reference contact sheet includes original battle Starling, boss bust, observatory and both portrait sets; preserve this universe.\nTransparent icon spritesheet 4columns x3rows of equal16x16 logical cells, twelve cells overall. First EIGHT cells distinct eight-point star icons each containing a recognizable simple pictogram. Reading left-to-right then nextrow: 1bell, 2glass eyeball, 3theater mask, 4clock hands, 5old gate key, 6gas flame, 7ornate mirror, 8candle. Lastrow FOUR sparkle animation frames of same simple star growing and fading. Muted brass star outlines, turquoise interiors, bone signs, violet shadows. Simple bold pixel icons legible at16x16, not detailed illustrations. NO labels, NO numbers. Absolutely transparent background, no grid lines.",
+      "referenceInputs": [
+        "tools/art/starling2/sources/reference-board.png"
+      ],
+      "originalFile": "exec-b7dbe135-a133-45c2-87a5-b22edc8d2024.png",
+      "originalDimensions": [
+        1448,
+        1086
+      ],
+      "originalSha256": "daac5db0f06f297a8c292d4a33c366e2e49884a8cfac1d330f4f86ed732028bb",
+      "status": "used"
+    },
+    {
+      "id": "boss_fixed",
+      "tool": "built-in image_gen",
+      "transparentBackground": true,
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nUse case: stylized-concept.\nEdit target image2 is the attempted animation sheet. Reference image1 is identity/style. REDRAW sheet preserving exactly8columns x7rows and active frame counts [4,6,6,6,3,8,6]. Critical corrections: ALL CHARACTERS FULL BODY FROM HEAD TO BOOTS, slender elderly adult NORMAL proportions head one sixth bodyheight, NOT chibi or portrait cutouts. Long dark coat, thin legs visible. Entire background TRUE transparent zeroalpha including grid lines and unusedcells, no whiteplate, no checkerboard, no visible guides. Each cell128x96 logical, character about80pixelstall at fixed bottomcenter, facingleft. Half face and chest brass telescope segments, lens eye, turquoise chest glass, floating brass rings. Row1 4hoveringidle poses. Row2 6starlance attack poses firsttwo identical windup. Row3 6poses EIGHT STARS orbit above then rise and fall left. Row4 6glasslenswall castingposes. Row5 3recoilposes. Row6 8transformationposes: starts SAME elderly man withoutbrass holdingburningglass, cracks, shatters, eightlightsenterchest, lightentereyes, torsostretches, brassringsappear, transformedfullstance. Row7 6NONLETHALdefeatposes: eightstarsescapeupward, brassringsfall, oldmanstoops, sinksonto knees, kneels supportedwithonehand, finalkneelsALIVE wearyeyesopen. Leave sparecells transparent. No cropping any boots. Light effects should remain crisp, separated fromneighbors. Return only sheet.",
+      "referenceInputs": [
+        "tools/art/starling2/sources/reference-board.png",
+        "generated:exec-95e2ecf2-b7c6-46b6-a2ca-af871080348c.png"
+      ],
+      "originalFile": "exec-a25615bf-f295-49e6-81c4-006104047168.png",
+      "originalDimensions": [
+        1448,
+        1086
+      ],
+      "originalSha256": "31746863d565d6eda646b6be48bb18629ab80920b802afd4d0fd312027e4f00d",
+      "status": "used"
+    },
+    {
+      "id": "hud",
+      "tool": "built-in image_gen",
+      "transparentBackground": true,
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nUse case: stylized-concept.\nTransparent HUD atlas final192x48 logicalpixels at4:1 aspect ratio, display enlarged clean pixelart. Exactlayout: TOP TWO rows each16pixels tall contain one ornate mutedbrass bossbar frame, 192x16 logicaleach, with EXACTLY EIGHT evenly spaced star-shaped sockets inside eachbar. TOPbar all eight sockets EMPTY darkinteriors; SECONDbar all eight sockets FILLED glowingturquoise stars. Nohealthfill/text/numbers. BOTTOMrow height16 contains two square16x16icons atfarleft: a brass-framed curved glasspane (lenswallactive), then a cracked depleted star (starconsumed); remainderofbottomrow emptytransparent. Thin crisp outline, restrainedbrass/turquoise/violet. No labels, no background, no gridlines. Eight sockets must fit with generousleft/rightpadding.",
+      "referenceInputs": [
+        "tools/art/starling2/sources/reference-board.png"
+      ],
+      "originalFile": "exec-31937ba8-53e4-49b1-a443-8310bf1e2a4b.png",
+      "originalDimensions": [
+        2172,
+        724
+      ],
+      "originalSha256": "e345563dbefca08e59b86e87f3fc21289e7d7a1f8b0e25fa692e98b0a4aa0e6c",
+      "status": "used"
+    },
+    {
+      "id": "scene",
+      "tool": "built-in image_gen",
+      "transparentBackground": false,
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nUse case: stylized-concept.\nOpaque cinematic scene final240x135 logicalpixels16:9. Elderly astronomer Starling stands fullbody on tilted observatoryparquet beneath open torn brassdome. At exactmomenthis handheld burningglass shatters, EIGHT distinct stolenstars streaminto his transparentturquoise chestlens, halfhisface becomingbrass, old expressive face recognizable, wildgreyhair, navycoat, concentricbrassrings beginning tofloat aroundhim. Violetmoonlight fromrip contrasts pale turquoisechestlight. Hugebrass telescope at right, crackedstarchart onleft, paperssuspended. Melancholic mystery climax, not gore/horror-monster. Strong cinematiccomposition with elderlyman central fullbody and architecture framing, readable coarsepixelart asat240x135, no text or captions.",
+      "referenceInputs": [
+        "tools/art/starling2/sources/reference-board.png"
+      ],
+      "originalFile": "exec-74d11476-ec97-427b-8339-8a0141cc9c61.png",
+      "originalDimensions": [
+        1672,
+        941
+      ],
+      "originalSha256": "e8fc713b2c9243d702b159f76dcca05faed69749e0e92abcb230866e670b53be",
+      "status": "used"
+    },
+    {
+      "id": "floor",
+      "tool": "built-in image_gen",
+      "transparentBackground": true,
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nUse case: stylized-concept. Original phase-one contact sheet is a style and setting reference.\nTransparent foreground layer, 480x64 logicalpixel wide8:1 strip. Tilted old dark parquet floorboards spanning entire bottom edge, ragged upperedge diagonal, scattered loosepapers sliding sideways; turquoise/violetreflections in2tonepixelpatches. NO walls, NO characters. Only floorstrip, topbackground truezeroalpha. Compatible with referenceobservatory.",
+      "referenceInputs": [
+        "tools/art/starling2/sources/reference-board.png"
+      ],
+      "originalFile": "exec-ec3bb560-a131-4886-9df9-44cb6fed4d65.png",
+      "originalDimensions": [
+        2172,
+        724
+      ],
+      "originalSha256": "4321282f29f8fd2359cb79ec2a794df3e34b0e0109a2015871eb22e9ec0fd610",
+      "status": "used"
+    },
+    {
+      "id": "dome",
+      "tool": "built-in image_gen",
+      "transparentBackground": true,
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nUse case: stylized-concept. Original phase-one contact sheet is a style and setting reference.\nTransparent animated overlay spritesheet exactly2columns x3rows, sixframes readrowmajor. Eachframe landscape32:9 aspect480x135 logical, canvas960x405logical. Same torn arc of brass observatory dome ribs in eachcell, sameposition, through transparentopenings. Sixprogressive brighteningthenfading pulse phases along JAGGED violet rift, from dim1, medium2, bright3, peak4, medium5, dim6. Turquoise shardsat edges. Onlyupperdomearcandrift, no floors sky walls stars orcharacters. Separate equalcells no guides. Truezeroalphabackground.",
+      "referenceInputs": [
+        "tools/art/starling2/sources/reference-board.png"
+      ],
+      "originalFile": "exec-a15b657a-b777-4019-823f-30c15c96e319.png",
+      "originalDimensions": [
+        1933,
+        814
+      ],
+      "originalSha256": "bb1cbd793e194968a84cd656d48243887217ff65eca324033bad20f452371b49",
+      "status": "used"
+    },
+    {
+      "id": "coop",
+      "tool": "built-in image_gen",
+      "transparentBackground": true,
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nUse case: stylized-concept. Original phase-one contact sheet is a style and setting reference.\nTransparent pixelart iconpair exactly2square48x48logicalcells sidebyside final96x48. Symbols for two cooperative players catching a stolen star. LEFT: gloved hand cradles a turquoise star within a ROUND brassring. RIGHT: differentglovedhand cradles violetstar within DIAMOND brassframe. Strong distinct round/diamond silhouettes andturquoise/violet readable withouttext. Mutedpalette, crispdeepbluegreyoutline, generouspadding, no textnumbers orlabels.",
+      "referenceInputs": [
+        "tools/art/starling2/sources/reference-board.png"
+      ],
+      "originalFile": "exec-06c5fe83-ad35-488f-920d-a99cff4b2a97.png",
+      "originalDimensions": [
+        1774,
+        887
+      ],
+      "originalSha256": "40f12e7e220b8cec380b14e80c333b31e280bf13b673ef8a73124c026b2fb294",
+      "status": "used"
+    },
+    {
+      "id": "special_row",
+      "tool": "built-in image_gen",
+      "transparentBackground": true,
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nUse case: stylized-concept. Image1 identity/style; image2 transformed character and timing reference.\nCreate exactly6 animation frames in 3columns x2rows, each128x96 logicalpixels. ONE fullbody Starling percell matching the secondreference character precisely: thin elderlyman with wildgreyhair, brass telescope faceandchest, longnavycoat, boots, rings. All same scale groundanchor facing left. This is spell 'Eight Harvests'. Critical: EXACTLY EIGHT separate turquoise stars in EACH of firstfourframes, arranged in TWO clearly separated rows of FOUR stars overthe man's head, enough room. Frame1starsappearjustabovehishead; frame2rise; frame3atpeak; frame4tiltleft; frame5eightstars streakdiagonallydownleft; frame6manrecovering with eight fading motesleft. Keepcount8, no extra stars, no numerals. Eachstar small4point. No figurescrossingcellboundaries, no visiblegrid. Background truezeroalpha.",
+      "referenceInputs": [
+        "tools/art/starling2/sources/reference-board.png",
+        "generated:exec-a25615bf-f295-49e6-81c4-006104047168.png"
+      ],
+      "originalFile": "exec-08553222-9bf6-4edb-890c-59bbb86e32f2.png",
+      "originalDimensions": [
+        1536,
+        1024
+      ],
+      "originalSha256": "ad0f0c64aa771b72c0d80ccc2ffed73dd35aa7aae214a1b0b0b6154e438c4f10",
+      "status": "used"
+    },
+    {
+      "id": "defeat_row",
+      "tool": "built-in image_gen",
+      "transparentBackground": true,
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nUse case: stylized-concept. Image1 identity/style; image2 transformed character and timing reference.\nCreate exactly6 animation frames in3columns x2rows,128x96logicaleach. SAME FULLBODY Starling character fromsecondreference, body fixedbottomcenter eachcell. NONLETHALdefeat sequence: frame1 stilltransformed, eighttinyseparatedturquoise stars emergefromchest, fourleftandfourright; frame2eightstarsascending in two rows offour overhead while brassringsdrop; frame3starsatverytop, brasssegmentssloughaway, elderlyhuman stoops; frame4untransformed old man sinksontoone knee; frame5bothknees onfloor onehandsupport; frame6remains kneelingalive lookingup humaneyesopen, winded NOT dead. Consistentscale, SAME wiry adult, longnavycoat boots greyhair. Last3framesplainhuman no brassface or luminouschest. True transparentbackground,no guides.",
+      "referenceInputs": [
+        "tools/art/starling2/sources/reference-board.png",
+        "generated:exec-a25615bf-f295-49e6-81c4-006104047168.png"
+      ],
+      "originalFile": "exec-5daab7c6-aa00-4db8-b62b-218c8b67a51c.png",
+      "originalDimensions": [
+        1448,
+        1086
+      ],
+      "originalSha256": "0e8738b1d275d49bfdb7b6bf8492809d26edc21ad6c36f6d9a5278c332529082",
+      "status": "used"
+    }
+  ],
+  "postprocessing": {
+    "resample": "Pillow NEAREST only",
+    "palette": "31 exact RGB colors from union of original boss bust and original observatory, no dithering; alpha adds at most a 32nd RGBA value",
+    "alpha": "threshold >=160 to 255, else 0; invisible RGB zeroed; opaque backdrop and scene forced 255",
+    "boss": {
+      "base": "boss_fixed",
+      "sourceRowEdges": [
+        0,
+        156,
+        309,
+        474,
+        613,
+        754,
+        918,
+        1086
+      ],
+      "sourceColumns": 8,
+      "sourceColumnWidth": 181,
+      "uniformBaseScale": 0.45,
+      "baseline": 94,
+      "replacementRows": {
+        "special": "special_row",
+        "defeat": "defeat_row"
+      },
+      "replacementSourceGrid": [
+        3,
+        2
+      ],
+      "replacementSize": [
+        96,
+        92
+      ],
+      "replacementOffset": [
+        16,
+        2
+      ],
+      "replacementBottomCropFraction": {
+        "special": 0.9,
+        "defeat": 0.97
+      },
+      "specialLowerRowXEdges": [
+        0,
+        480,
+        1024,
+        1536
+      ],
+      "attackFrames8and9": "exact copy required by brief",
+      "unusedCells": "transparent"
+    },
+    "fx": {
+      "sourceGrid": [
+        6,
+        5
+      ],
+      "resizedCells": [
+        46,
+        46
+      ],
+      "padding": [
+        1,
+        1
+      ],
+      "preservePosition": true,
+      "frame6": "intentionally empty start before lens appears"
+    },
+    "stars": {
+      "sourceGrid": [
+        4,
+        3
+      ],
+      "outputGrid": [
+        12,
+        1
+      ],
+      "bboxFit": [
+        14,
+        14
+      ],
+      "padding": 1
+    },
+    "bust": {
+      "bboxFit": [
+        154,
+        154
+      ],
+      "padding": 3
+    },
+    "portraits": {
+      "sourceCellWidth": 543,
+      "sourceYRange": [
+        55,
+        595
+      ],
+      "bboxFit": [
+        60,
+        60
+      ],
+      "padding": 2
+    },
+    "hud": {
+      "barSourceRects": [
+        [
+          0,
+          0,
+          2172,
+          255
+        ],
+        [
+          0,
+          255,
+          2172,
+          514
+        ]
+      ],
+      "barTargets": [
+        [
+          0,
+          0,
+          192,
+          16
+        ],
+        [
+          0,
+          16,
+          192,
+          16
+        ]
+      ],
+      "iconSourceRects": [
+        [
+          10,
+          515,
+          202,
+          714
+        ],
+        [
+          205,
+          515,
+          400,
+          714
+        ]
+      ],
+      "iconTargets": [
+        [
+          0,
+          32,
+          16,
+          16
+        ],
+        [
+          16,
+          32,
+          16,
+          16
+        ]
+      ]
+    },
+    "floor": {
+      "sourceCrop": [
+        0,
+        455,
+        2172,
+        724
+      ],
+      "target": [
+        480,
+        64
+      ]
+    },
+    "dome": {
+      "sourceGrid": [
+        2,
+        3
+      ],
+      "outputGrid": [
+        6,
+        1
+      ],
+      "targetFrame": [
+        480,
+        135
+      ]
+    },
+    "coop": {
+      "sourceGrid": [
+        2,
+        1
+      ],
+      "targetFrame": [
+        48,
+        48
+      ],
+      "padding": 2
+    }
+  },
+  "normalizedSources": [
+    {
+      "file": "tools/art/starling2/sources/starling2.png",
+      "sha256": "a4df5b045f1495439df0ed9922734889cd574f9da004b065c35756719e373b80",
+      "output": "public/sprites/battle/starling2.png",
+      "outputSha256": "9214a8f530ad51d463fc1b1c14789a02af02bf5a2c5e134ae2ecbd33a8769de8"
+    },
+    {
+      "file": "tools/art/starling2/sources/X_08_boss_starling2.png",
+      "sha256": "f4ca731145dc0ccf5fc212cf9d73ddc8e0393c1ff23b2ff7329dd2659d8064a3",
+      "output": "public/sprites/battle/X_08_boss_starling2.png",
+      "outputSha256": "d1edf1efe3452942b5e63356e7c1377f9a52be0729f2ff2853cd931304d28dfc"
+    },
+    {
+      "file": "tools/art/starling2/sources/bg_sternwarte2.png",
+      "sha256": "f264863a7b37a90460efb72f21ebf279ace505bb65d1b91ed631386a34c1b0d4",
+      "output": "public/sprites/battle/bg_sternwarte2.png",
+      "outputSha256": "98749019a39b703e966d982d30f53924b117ac53babb28d672a08eb288d9fc10"
+    },
+    {
+      "file": "tools/art/starling2/sources/starling2_fx.png",
+      "sha256": "5ff001eaee558493509463861762a01ca3507eec09cbc475454de7e57431ae4d",
+      "output": "public/sprites/fx/starling2_fx.png",
+      "outputSha256": "4b2da3a27ff36fad4b8b4975fe0b9349fb7ce449098f6122f02ce649a1f2a7c4"
+    },
+    {
+      "file": "tools/art/starling2/sources/starling2_sterne.png",
+      "sha256": "f829ddeffec9e753d10f6dfa7003e520db0742c033f2584fd210b1d8110462df",
+      "output": "public/sprites/fx/starling2_sterne.png",
+      "outputSha256": "f739ec7dd29a121e7bd101e5a90c55161c55a6301877a49cfa89b74c33cd4182"
+    },
+    {
+      "file": "tools/art/starling2/sources/starling2_hud.png",
+      "sha256": "2d55b0588f3c0bda3d530da906e065f078691e36acbb1ccd55ae0dca475f4d24",
+      "output": "public/sprites/ui/starling2_hud.png",
+      "outputSha256": "d8c60d0c8811de1777e7f6dcd297e8585414fd9c4c7b0e12683d84bb73a9f90d"
+    },
+    {
+      "file": "tools/art/starling2/sources/starling2_emotions.png",
+      "sha256": "f3eba3c6606b83571efddcfbda58f89ba8f49ad04cc2970c1af814b6003aa7f2",
+      "output": "public/sprites/portraits/starling2_emotions.png",
+      "outputSha256": "d79e5df59e658803d598bb7854ed8a36c9fea6872237ce7001078f1e3ecf4b6b"
+    },
+    {
+      "file": "tools/art/starling2/sources/starling_phase2.png",
+      "sha256": "2c99f3e0b451d37fe890ba002d55497417bacdbbe6509260c140c78e729eea9b",
+      "output": "public/sprites/ui/scenes/starling_phase2.png",
+      "outputSha256": "5c7a3a29f59f3f37f28aeaf2e7a97e969c9713c1e0336dd9ee96d7e282dc0141"
+    },
+    {
+      "file": "tools/art/starling2/sources/starling2_boden.png",
+      "sha256": "c080fe72fec6a5a5c22b4b8c6562df2de759addd68168dec69433445e0463f59",
+      "output": "public/sprites/battle/starling2_boden.png",
+      "outputSha256": "00124be14b7cbe7b63a1e5636ed233e08fbb35c7eab351645cf16db2f4539d70"
+    },
+    {
+      "file": "tools/art/starling2/sources/starling2_kuppel.png",
+      "sha256": "77270a338bb6b805eba33cd9fe7b706709e095a267e0c4f048d595015543be77",
+      "output": "public/sprites/fx/starling2_kuppel.png",
+      "outputSha256": "b599503d4a051e0100fe05fc6ec3fbc205fbe68778dc420f4857bbcf3599ab3c"
+    },
+    {
+      "file": "tools/art/starling2/sources/starling2_koop.png",
+      "sha256": "f1791192a94e5259db89b7fda3a157a7787c40d756ab5662b3ce5abe461e88e7",
+      "output": "public/sprites/ui/starling2_koop.png",
+      "outputSha256": "fd4bdbf9258a83384127dc33259443c74c674bafa7d56a2579929b47c1ee0bb7"
+    }
+  ],
+  "reproduce": "python tools/art/starling2/export.py; python tools/art/starling2/check.py",
+  "scope": "Assets only. No gameplay integration or phase-one replacement."
+}

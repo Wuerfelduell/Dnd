@@ -1,0 +1,1181 @@
+{
+  "items": {
+    "ski_aschensiegel": {
+      "name": "Aschensiegel",
+      "kind": "trophy",
+      "rarity": "ungewoehnlich",
+      "weight": 0.2,
+      "price": 8,
+      "desc": "Ein kalter Abdruck im Ruß. Unter Druck bricht er ohne Hitze."
+    },
+    "ski_glutkohle": {
+      "name": "Glutkohle",
+      "kind": "trophy",
+      "rarity": "ungewoehnlich",
+      "weight": 0.2,
+      "price": 8,
+      "desc": "Sie glimmt nur im Schatten eines Kultzeichens."
+    },
+    "ski_flutknoten": {
+      "name": "Flutknoten",
+      "kind": "trophy",
+      "rarity": "ungewoehnlich",
+      "weight": 0.2,
+      "price": 8,
+      "desc": "Ein nasser Knoten, dessen Schlaufe nach innen zieht."
+    },
+    "ski_bojenoel": {
+      "name": "Bojenöl",
+      "kind": "trophy",
+      "rarity": "ungewoehnlich",
+      "weight": 0.2,
+      "price": 8,
+      "desc": "Trübes Öl aus einer Laterne ohne Docht."
+    },
+    "ski_chorkreide": {
+      "name": "Chorkreide",
+      "kind": "trophy",
+      "rarity": "ungewoehnlich",
+      "weight": 0.2,
+      "price": 8,
+      "desc": "Die Kreide quietscht nur, wenn niemand spricht."
+    },
+    "ski_stimmwachs": {
+      "name": "Stimmwachs",
+      "kind": "trophy",
+      "rarity": "ungewoehnlich",
+      "weight": 0.2,
+      "price": 8,
+      "desc": "In den Rillen hängt ein fremder Atemzug."
+    },
+    "ski_laeuterwasser": {
+      "name": "Läuterwasser",
+      "kind": "key",
+      "rarity": "ungewoehnlich",
+      "weight": 0.2,
+      "price": 0,
+      "desc": "Bindet den Ascherest am Kultort; wird nur nach deiner Bestätigung eingesetzt."
+    },
+    "ski_art_aschenring": {
+      "name": "Aschenring",
+      "source": "sekten",
+      "price": 140,
+      "desc": "Ein kalter Eisenring hält deine Hände ruhig, macht deinen Schritt aber schwer.",
+      "boons": [
+        {
+          "key": "parry_nerves",
+          "value": 3,
+          "text": "Paraden bringen 3 Nerven mehr."
+        }
+      ],
+      "curses": [
+        {
+          "key": "dodge_cost",
+          "value": 2,
+          "text": "Ausweichen kostet 2 Nerven mehr."
+        }
+      ],
+      "kind": "artifact",
+      "rarity": "okkult",
+      "weight": 0.2
+    },
+    "ski_seilschnitt": {
+      "name": "Seilschnitt",
+      "kind": "key",
+      "rarity": "ungewoehnlich",
+      "weight": 0.2,
+      "price": 0,
+      "desc": "Ein gelöstes Gegenstück zur Kultschlinge; nur bewusst am Ereignis einsetzen."
+    },
+    "ski_art_flutkompass": {
+      "name": "Flutkompass",
+      "source": "sekten",
+      "price": 140,
+      "desc": "Der Zeiger sucht den ruhigsten Atemzug und zieht Wärme aus deinen Fingern.",
+      "boons": [
+        {
+          "key": "round_nerves",
+          "value": 3,
+          "text": "+3 Nerven zu Beginn jeder Kampfrunde."
+        }
+      ],
+      "curses": [
+        {
+          "key": "max_hp",
+          "value": -5,
+          "text": "-5 maximale Leben, solange aktiv."
+        }
+      ],
+      "kind": "artifact",
+      "rarity": "okkult",
+      "weight": 0.2
+    },
+    "ski_stimmwachs_rein": {
+      "name": "Reines Stimmwachs",
+      "kind": "key",
+      "rarity": "ungewoehnlich",
+      "weight": 0.2,
+      "price": 0,
+      "desc": "Dämpft den fremden Nebenruf; nur bewusst am Ereignis einsetzen."
+    },
+    "ski_art_chorstimmgabel": {
+      "name": "Chorstimmgabel",
+      "source": "sekten",
+      "price": 140,
+      "desc": "Die Zinken halten deinen Gedanken fest; der Körper spürt jeden Stoß deutlicher.",
+      "boons": [
+        {
+          "key": "ap_max",
+          "value": 1,
+          "text": "+1 Höchstkonzentration."
+        }
+      ],
+      "curses": [
+        {
+          "key": "damage_taken",
+          "value": 1.1,
+          "text": "Du nimmst 10 % mehr Schaden."
+        }
+      ],
+      "kind": "artifact",
+      "rarity": "okkult",
+      "weight": 0.2
+    }
+  },
+  "encounters": {
+    "enemy_sk_asche_novize": {
+      "name": "Aschennovize",
+      "sheet": "enemy_sk_asche_novize",
+      "sprite": "wild",
+      "fleeable": true,
+      "hp": 32,
+      "armor": 0,
+      "occult": false,
+      "intro": "Aschennovize stellt sich dir in den Weg. Eine freie Seitengasse bleibt hinter dir.",
+      "attacks": [
+        {
+          "name": "Schaufelstoß",
+          "damage": 5,
+          "hits": [
+            1200
+          ]
+        },
+        {
+          "name": "Rußwurf",
+          "damage": 3,
+          "hits": [
+            1500,
+            2200
+          ]
+        }
+      ],
+      "win_text": "Der Novize lässt die Schaufel fallen und flieht durch den Rauch.",
+      "lose_money": 0,
+      "lose_text": "Nachbarn ziehen dich aus dem Gedränge. Deine Sachen bleiben bei dir; der Rückweg ist offen.",
+      "flee_text": "Du erreichst die beleuchtete Straße. Die Gestalten folgen dir nicht.",
+      "loot": {
+        "money": [
+          3,
+          8
+        ],
+        "drops": [
+          {
+            "item": "ski_aschensiegel",
+            "chance": 0.6
+          },
+          {
+            "item": "ski_glutkohle",
+            "chance": 0.35
+          }
+        ]
+      },
+      "flees_after": 3
+    },
+    "enemy_sk_asche_sprecher": {
+      "name": "Aschensprecher",
+      "sheet": "enemy_sk_asche_sprecher",
+      "sprite": "wild",
+      "fleeable": true,
+      "hp": 52,
+      "armor": 1,
+      "occult": false,
+      "intro": "Aschensprecher stellt sich dir in den Weg. Eine freie Seitengasse bleibt hinter dir.",
+      "attacks": [
+        {
+          "name": "Ofenhaken",
+          "damage": 7,
+          "hits": [
+            1200
+          ]
+        },
+        {
+          "name": "Glutkreis",
+          "damage": 5,
+          "hits": [
+            1500,
+            2200
+          ]
+        }
+      ],
+      "win_text": "Der Sprecher knickt ein; zwei Helfer tragen ihn aus der Gasse.",
+      "lose_money": 0,
+      "lose_text": "Nachbarn ziehen dich aus dem Gedränge. Deine Sachen bleiben bei dir; der Rückweg ist offen.",
+      "flee_text": "Du erreichst die beleuchtete Straße. Die Gestalten folgen dir nicht.",
+      "loot": {
+        "money": [
+          4,
+          10
+        ],
+        "drops": [
+          {
+            "item": "ski_aschensiegel",
+            "chance": 0.6
+          },
+          {
+            "item": "ski_glutkohle",
+            "chance": 0.35
+          }
+        ]
+      }
+    },
+    "enemy_sk_asche_hand": {
+      "name": "Aschenhand",
+      "sheet": "enemy_sk_asche_hand",
+      "sprite": "wild",
+      "fleeable": true,
+      "hp": 72,
+      "armor": 1,
+      "occult": true,
+      "intro": "Aschenhand stellt sich dir in den Weg. Eine freie Seitengasse bleibt hinter dir.",
+      "attacks": [
+        {
+          "name": "Kohlenfaust",
+          "damage": 9,
+          "hits": [
+            1200
+          ]
+        },
+        {
+          "name": "Funkenfächer",
+          "damage": 7,
+          "hits": [
+            1500,
+            2200
+          ]
+        }
+      ],
+      "win_text": "Die Hand verschwindet hinter einer kalten Rauchwand; Schritte entfernen sich.",
+      "lose_money": 0,
+      "lose_text": "Nachbarn ziehen dich aus dem Gedränge. Deine Sachen bleiben bei dir; der Rückweg ist offen.",
+      "flee_text": "Du erreichst die beleuchtete Straße. Die Gestalten folgen dir nicht.",
+      "loot": {
+        "money": [
+          5,
+          12
+        ],
+        "drops": [
+          {
+            "item": "ski_aschensiegel",
+            "chance": 0.6
+          },
+          {
+            "item": "ski_glutkohle",
+            "chance": 0.35
+          }
+        ]
+      }
+    },
+    "enemy_sk_asche_haupt": {
+      "name": "Haupt der letzten Glut",
+      "sheet": "enemy_sk_asche_haupt",
+      "sprite": "wild",
+      "fleeable": true,
+      "hp": 160,
+      "armor": 2,
+      "occult": true,
+      "intro": "Haupt der letzten Glut stellt sich dir in den Weg. Eine freie Seitengasse bleibt hinter dir.",
+      "attacks": [
+        {
+          "name": "Aschenmantel",
+          "damage": 11,
+          "hits": [
+            1200
+          ]
+        },
+        {
+          "name": "Offener Ofen",
+          "damage": 9,
+          "hits": [
+            1500,
+            2200
+          ]
+        }
+      ],
+      "win_text": "Die Rauchgestalt zerfällt zu kalter Asche; darunter läuft ein Mensch davon.",
+      "lose_money": 0,
+      "lose_text": "Nachbarn ziehen dich aus dem Gedränge. Deine Sachen bleiben bei dir; der Rückweg ist offen.",
+      "flee_text": "Du erreichst die beleuchtete Straße. Die Gestalten folgen dir nicht.",
+      "loot": {
+        "money": [
+          30,
+          30
+        ],
+        "drops": [
+          {
+            "item": "ski_aschensiegel",
+            "chance": 0.6
+          },
+          {
+            "item": "ski_glutkohle",
+            "chance": 0.35
+          }
+        ]
+      },
+      "elite": {
+        "name": "Haupt der letzten Glut"
+      },
+      "boss": true
+    },
+    "enemy_sk_flut_novize": {
+      "name": "Flutnovize",
+      "sheet": "enemy_sk_flut_novize",
+      "sprite": "wild",
+      "fleeable": true,
+      "hp": 32,
+      "armor": 0,
+      "occult": false,
+      "intro": "Flutnovize stellt sich dir in den Weg. Eine freie Seitengasse bleibt hinter dir.",
+      "attacks": [
+        {
+          "name": "Riemenstoß",
+          "damage": 5,
+          "hits": [
+            1200
+          ]
+        },
+        {
+          "name": "Nasser Sack",
+          "damage": 3,
+          "hits": [
+            1500,
+            2200
+          ]
+        }
+      ],
+      "win_text": "Der Novize springt auf einen freien Steg und läuft davon.",
+      "lose_money": 0,
+      "lose_text": "Nachbarn ziehen dich aus dem Gedränge. Deine Sachen bleiben bei dir; der Rückweg ist offen.",
+      "flee_text": "Du erreichst die beleuchtete Straße. Die Gestalten folgen dir nicht.",
+      "loot": {
+        "money": [
+          3,
+          8
+        ],
+        "drops": [
+          {
+            "item": "ski_flutknoten",
+            "chance": 0.6
+          },
+          {
+            "item": "ski_bojenoel",
+            "chance": 0.35
+          }
+        ]
+      },
+      "flees_after": 3
+    },
+    "enemy_sk_flut_sprecher": {
+      "name": "Flutsprecher",
+      "sheet": "enemy_sk_flut_sprecher",
+      "sprite": "wild",
+      "fleeable": true,
+      "hp": 52,
+      "armor": 1,
+      "occult": false,
+      "intro": "Flutsprecher stellt sich dir in den Weg. Eine freie Seitengasse bleibt hinter dir.",
+      "attacks": [
+        {
+          "name": "Bootshaken",
+          "damage": 7,
+          "hits": [
+            1200
+          ]
+        },
+        {
+          "name": "Bojenschwung",
+          "damage": 5,
+          "hits": [
+            1500,
+            2200
+          ]
+        }
+      ],
+      "win_text": "Der Sprecher sinkt auf die Knie; Helfer ziehen ihn in einen Kahn.",
+      "lose_money": 0,
+      "lose_text": "Nachbarn ziehen dich aus dem Gedränge. Deine Sachen bleiben bei dir; der Rückweg ist offen.",
+      "flee_text": "Du erreichst die beleuchtete Straße. Die Gestalten folgen dir nicht.",
+      "loot": {
+        "money": [
+          4,
+          10
+        ],
+        "drops": [
+          {
+            "item": "ski_flutknoten",
+            "chance": 0.6
+          },
+          {
+            "item": "ski_bojenoel",
+            "chance": 0.35
+          }
+        ]
+      }
+    },
+    "enemy_sk_flut_hand": {
+      "name": "Fluthand",
+      "sheet": "enemy_sk_flut_hand",
+      "sprite": "wild",
+      "fleeable": true,
+      "hp": 72,
+      "armor": 1,
+      "occult": true,
+      "intro": "Fluthand stellt sich dir in den Weg. Eine freie Seitengasse bleibt hinter dir.",
+      "attacks": [
+        {
+          "name": "Schlingenzug",
+          "damage": 9,
+          "hits": [
+            1200
+          ]
+        },
+        {
+          "name": "Wasserschlag",
+          "damage": 7,
+          "hits": [
+            1500,
+            2200
+          ]
+        }
+      ],
+      "win_text": "Die Hand taucht hinter den Pfählen unter und kommt fern am Ufer wieder hoch.",
+      "lose_money": 0,
+      "lose_text": "Nachbarn ziehen dich aus dem Gedränge. Deine Sachen bleiben bei dir; der Rückweg ist offen.",
+      "flee_text": "Du erreichst die beleuchtete Straße. Die Gestalten folgen dir nicht.",
+      "loot": {
+        "money": [
+          5,
+          12
+        ],
+        "drops": [
+          {
+            "item": "ski_flutknoten",
+            "chance": 0.6
+          },
+          {
+            "item": "ski_bojenoel",
+            "chance": 0.35
+          }
+        ]
+      }
+    },
+    "enemy_sk_flut_haupt": {
+      "name": "Haupt unter dem Pegel",
+      "sheet": "enemy_sk_flut_haupt",
+      "sprite": "wild",
+      "fleeable": true,
+      "hp": 160,
+      "armor": 2,
+      "occult": true,
+      "intro": "Haupt unter dem Pegel stellt sich dir in den Weg. Eine freie Seitengasse bleibt hinter dir.",
+      "attacks": [
+        {
+          "name": "Wasserkragen",
+          "damage": 11,
+          "hits": [
+            1200
+          ]
+        },
+        {
+          "name": "Gegenströmung",
+          "damage": 9,
+          "hits": [
+            1500,
+            2200
+          ]
+        }
+      ],
+      "win_text": "Die Wasserhülle fällt zusammen; eine Gestalt schwimmt zum fernen Steg.",
+      "lose_money": 0,
+      "lose_text": "Nachbarn ziehen dich aus dem Gedränge. Deine Sachen bleiben bei dir; der Rückweg ist offen.",
+      "flee_text": "Du erreichst die beleuchtete Straße. Die Gestalten folgen dir nicht.",
+      "loot": {
+        "money": [
+          30,
+          30
+        ],
+        "drops": [
+          {
+            "item": "ski_flutknoten",
+            "chance": 0.6
+          },
+          {
+            "item": "ski_bojenoel",
+            "chance": 0.35
+          }
+        ]
+      },
+      "elite": {
+        "name": "Haupt unter dem Pegel"
+      },
+      "boss": true
+    },
+    "enemy_sk_chor_novize": {
+      "name": "Chornovize",
+      "sheet": "enemy_sk_chor_novize",
+      "sprite": "wild",
+      "fleeable": true,
+      "hp": 32,
+      "armor": 0,
+      "occult": false,
+      "intro": "Chornovize stellt sich dir in den Weg. Eine freie Seitengasse bleibt hinter dir.",
+      "attacks": [
+        {
+          "name": "Kreidestoß",
+          "damage": 5,
+          "hits": [
+            1200
+          ]
+        },
+        {
+          "name": "Falscher Einsatz",
+          "damage": 3,
+          "hits": [
+            1500,
+            2200
+          ]
+        }
+      ],
+      "win_text": "Der Novize wischt den Mundstrich fort und läuft ohne ein Wort davon.",
+      "lose_money": 0,
+      "lose_text": "Nachbarn ziehen dich aus dem Gedränge. Deine Sachen bleiben bei dir; der Rückweg ist offen.",
+      "flee_text": "Du erreichst die beleuchtete Straße. Die Gestalten folgen dir nicht.",
+      "loot": {
+        "money": [
+          3,
+          8
+        ],
+        "drops": [
+          {
+            "item": "ski_chorkreide",
+            "chance": 0.6
+          },
+          {
+            "item": "ski_stimmwachs",
+            "chance": 0.35
+          }
+        ]
+      },
+      "flees_after": 3
+    },
+    "enemy_sk_chor_sprecher": {
+      "name": "Chorsprecher",
+      "sheet": "enemy_sk_chor_sprecher",
+      "sprite": "wild",
+      "fleeable": true,
+      "hp": 52,
+      "armor": 1,
+      "occult": false,
+      "intro": "Chorsprecher stellt sich dir in den Weg. Eine freie Seitengasse bleibt hinter dir.",
+      "attacks": [
+        {
+          "name": "Taktstock",
+          "damage": 7,
+          "hits": [
+            1200
+          ]
+        },
+        {
+          "name": "Doppelruf",
+          "damage": 5,
+          "hits": [
+            1500,
+            2200
+          ]
+        }
+      ],
+      "win_text": "Der Sprecher verliert den Takt; zwei Hände ziehen ihn hinter den Vorhang.",
+      "lose_money": 0,
+      "lose_text": "Nachbarn ziehen dich aus dem Gedränge. Deine Sachen bleiben bei dir; der Rückweg ist offen.",
+      "flee_text": "Du erreichst die beleuchtete Straße. Die Gestalten folgen dir nicht.",
+      "loot": {
+        "money": [
+          4,
+          10
+        ],
+        "drops": [
+          {
+            "item": "ski_chorkreide",
+            "chance": 0.6
+          },
+          {
+            "item": "ski_stimmwachs",
+            "chance": 0.35
+          }
+        ]
+      }
+    },
+    "enemy_sk_chor_hand": {
+      "name": "Chorhand",
+      "sheet": "enemy_sk_chor_hand",
+      "sprite": "wild",
+      "fleeable": true,
+      "hp": 72,
+      "armor": 1,
+      "occult": true,
+      "intro": "Chorhand stellt sich dir in den Weg. Eine freie Seitengasse bleibt hinter dir.",
+      "attacks": [
+        {
+          "name": "Stimmgabelhieb",
+          "damage": 9,
+          "hits": [
+            1200
+          ]
+        },
+        {
+          "name": "Stummer Fächer",
+          "damage": 7,
+          "hits": [
+            1500,
+            2200
+          ]
+        }
+      ],
+      "win_text": "Das Chortuch fällt leer zu Boden; Schritte gehen hinter der Wand weiter.",
+      "lose_money": 0,
+      "lose_text": "Nachbarn ziehen dich aus dem Gedränge. Deine Sachen bleiben bei dir; der Rückweg ist offen.",
+      "flee_text": "Du erreichst die beleuchtete Straße. Die Gestalten folgen dir nicht.",
+      "loot": {
+        "money": [
+          5,
+          12
+        ],
+        "drops": [
+          {
+            "item": "ski_chorkreide",
+            "chance": 0.6
+          },
+          {
+            "item": "ski_stimmwachs",
+            "chance": 0.35
+          }
+        ]
+      }
+    },
+    "enemy_sk_chor_haupt": {
+      "name": "Haupt der fremden Stimmen",
+      "sheet": "enemy_sk_chor_haupt",
+      "sprite": "wild",
+      "fleeable": true,
+      "hp": 160,
+      "armor": 2,
+      "occult": true,
+      "intro": "Haupt der fremden Stimmen stellt sich dir in den Weg. Eine freie Seitengasse bleibt hinter dir.",
+      "attacks": [
+        {
+          "name": "Gemeinsamer Atem",
+          "damage": 11,
+          "hits": [
+            1200
+          ]
+        },
+        {
+          "name": "Zerbrochener Takt",
+          "damage": 9,
+          "hits": [
+            1500,
+            2200
+          ]
+        }
+      ],
+      "win_text": "Die Klanghülle zerfällt in helle Linien; der Träger flieht durch die entstandene Pause.",
+      "lose_money": 0,
+      "lose_text": "Nachbarn ziehen dich aus dem Gedränge. Deine Sachen bleiben bei dir; der Rückweg ist offen.",
+      "flee_text": "Du erreichst die beleuchtete Straße. Die Gestalten folgen dir nicht.",
+      "loot": {
+        "money": [
+          30,
+          30
+        ],
+        "drops": [
+          {
+            "item": "ski_chorkreide",
+            "chance": 0.6
+          },
+          {
+            "item": "ski_stimmwachs",
+            "chance": 0.35
+          }
+        ]
+      },
+      "elite": {
+        "name": "Haupt der fremden Stimmen"
+      },
+      "boss": true
+    }
+  },
+  "profile": {
+    "enemy_sk_asche_novize": {
+      "kult": "sk_asche",
+      "rang": "novize",
+      "tier": 1,
+      "atk": 5,
+      "skills": [
+        {
+          "phase": 1,
+          "hp_von": 1.0,
+          "hp_bis": 0.0,
+          "attacks": [
+            {
+              "name": "Schaufelstoß",
+              "damage": 5,
+              "hits": [
+                1200
+              ]
+            },
+            {
+              "name": "Rußwurf",
+              "damage": 3,
+              "hits": [
+                1500,
+                2200
+              ]
+            }
+          ]
+        }
+      ],
+      "lauf_sheet": "sk_asche_novize",
+      "nervenverlust_max": 0
+    },
+    "enemy_sk_asche_sprecher": {
+      "kult": "sk_asche",
+      "rang": "sprecher",
+      "tier": 2,
+      "atk": 7,
+      "skills": [
+        {
+          "phase": 1,
+          "hp_von": 1.0,
+          "hp_bis": 0.0,
+          "attacks": [
+            {
+              "name": "Ofenhaken",
+              "damage": 7,
+              "hits": [
+                1200
+              ]
+            },
+            {
+              "name": "Glutkreis",
+              "damage": 5,
+              "hits": [
+                1500,
+                2200
+              ]
+            }
+          ]
+        }
+      ],
+      "lauf_sheet": "sk_asche_sprecher",
+      "nervenverlust_max": 0
+    },
+    "enemy_sk_asche_hand": {
+      "kult": "sk_asche",
+      "rang": "hand",
+      "tier": 2,
+      "atk": 9,
+      "skills": [
+        {
+          "phase": 1,
+          "hp_von": 1.0,
+          "hp_bis": 0.0,
+          "attacks": [
+            {
+              "name": "Kohlenfaust",
+              "damage": 9,
+              "hits": [
+                1200
+              ]
+            },
+            {
+              "name": "Funkenfächer",
+              "damage": 7,
+              "hits": [
+                1500,
+                2200
+              ]
+            }
+          ]
+        }
+      ],
+      "lauf_sheet": "sk_asche_hand",
+      "nervenverlust_max": 0
+    },
+    "enemy_sk_asche_haupt": {
+      "kult": "sk_asche",
+      "rang": "haupt",
+      "tier": 3,
+      "atk": 11,
+      "skills": [
+        {
+          "phase": 1,
+          "hp_von": 1.0,
+          "hp_bis": 0.5,
+          "attacks": [
+            {
+              "name": "Aschenmantel",
+              "damage": 11,
+              "hits": [
+                1200
+              ]
+            },
+            {
+              "name": "Offener Ofen",
+              "damage": 9,
+              "hits": [
+                1500,
+                2200
+              ]
+            }
+          ]
+        },
+        {
+          "phase": 2,
+          "hp_von": 0.5,
+          "hp_bis": 0.0,
+          "meldung": "Der Aschenmantel reißt; die Glut liegt offen.",
+          "attacks": [
+            {
+              "name": "Offener Ofen – Bruch",
+              "damage": 13,
+              "hits": [
+                1800,
+                2700
+              ]
+            },
+            {
+              "name": "Aschenmantel – Nachsatz",
+              "damage": 11,
+              "hits": [
+                2000
+              ]
+            }
+          ]
+        }
+      ],
+      "lauf_sheet": "sk_asche_haupt",
+      "nervenverlust_max": 0
+    },
+    "enemy_sk_flut_novize": {
+      "kult": "sk_flut",
+      "rang": "novize",
+      "tier": 1,
+      "atk": 5,
+      "skills": [
+        {
+          "phase": 1,
+          "hp_von": 1.0,
+          "hp_bis": 0.0,
+          "attacks": [
+            {
+              "name": "Riemenstoß",
+              "damage": 5,
+              "hits": [
+                1200
+              ]
+            },
+            {
+              "name": "Nasser Sack",
+              "damage": 3,
+              "hits": [
+                1500,
+                2200
+              ]
+            }
+          ]
+        }
+      ],
+      "lauf_sheet": "sk_flut_novize",
+      "nervenverlust_max": 0
+    },
+    "enemy_sk_flut_sprecher": {
+      "kult": "sk_flut",
+      "rang": "sprecher",
+      "tier": 2,
+      "atk": 7,
+      "skills": [
+        {
+          "phase": 1,
+          "hp_von": 1.0,
+          "hp_bis": 0.0,
+          "attacks": [
+            {
+              "name": "Bootshaken",
+              "damage": 7,
+              "hits": [
+                1200
+              ]
+            },
+            {
+              "name": "Bojenschwung",
+              "damage": 5,
+              "hits": [
+                1500,
+                2200
+              ]
+            }
+          ]
+        }
+      ],
+      "lauf_sheet": "sk_flut_sprecher",
+      "nervenverlust_max": 0
+    },
+    "enemy_sk_flut_hand": {
+      "kult": "sk_flut",
+      "rang": "hand",
+      "tier": 2,
+      "atk": 9,
+      "skills": [
+        {
+          "phase": 1,
+          "hp_von": 1.0,
+          "hp_bis": 0.0,
+          "attacks": [
+            {
+              "name": "Schlingenzug",
+              "damage": 9,
+              "hits": [
+                1200
+              ]
+            },
+            {
+              "name": "Wasserschlag",
+              "damage": 7,
+              "hits": [
+                1500,
+                2200
+              ]
+            }
+          ]
+        }
+      ],
+      "lauf_sheet": "sk_flut_hand",
+      "nervenverlust_max": 0
+    },
+    "enemy_sk_flut_haupt": {
+      "kult": "sk_flut",
+      "rang": "haupt",
+      "tier": 3,
+      "atk": 11,
+      "skills": [
+        {
+          "phase": 1,
+          "hp_von": 1.0,
+          "hp_bis": 0.5,
+          "attacks": [
+            {
+              "name": "Wasserkragen",
+              "damage": 11,
+              "hits": [
+                1200
+              ]
+            },
+            {
+              "name": "Gegenströmung",
+              "damage": 9,
+              "hits": [
+                1500,
+                2200
+              ]
+            }
+          ]
+        },
+        {
+          "phase": 2,
+          "hp_von": 0.5,
+          "hp_bis": 0.0,
+          "meldung": "Die Wasserhaut fällt; das Seil schlägt jetzt zurück.",
+          "attacks": [
+            {
+              "name": "Gegenströmung – Bruch",
+              "damage": 13,
+              "hits": [
+                1800,
+                2700
+              ]
+            },
+            {
+              "name": "Wasserkragen – Nachsatz",
+              "damage": 11,
+              "hits": [
+                2000
+              ]
+            }
+          ]
+        }
+      ],
+      "lauf_sheet": "sk_flut_haupt",
+      "nervenverlust_max": 0
+    },
+    "enemy_sk_chor_novize": {
+      "kult": "sk_chor",
+      "rang": "novize",
+      "tier": 1,
+      "atk": 5,
+      "skills": [
+        {
+          "phase": 1,
+          "hp_von": 1.0,
+          "hp_bis": 0.0,
+          "attacks": [
+            {
+              "name": "Kreidestoß",
+              "damage": 5,
+              "hits": [
+                1200
+              ]
+            },
+            {
+              "name": "Falscher Einsatz",
+              "damage": 3,
+              "hits": [
+                1500,
+                2200
+              ]
+            }
+          ]
+        }
+      ],
+      "lauf_sheet": "sk_chor_novize",
+      "nervenverlust_max": 0
+    },
+    "enemy_sk_chor_sprecher": {
+      "kult": "sk_chor",
+      "rang": "sprecher",
+      "tier": 2,
+      "atk": 7,
+      "skills": [
+        {
+          "phase": 1,
+          "hp_von": 1.0,
+          "hp_bis": 0.0,
+          "attacks": [
+            {
+              "name": "Taktstock",
+              "damage": 7,
+              "hits": [
+                1200
+              ]
+            },
+            {
+              "name": "Doppelruf",
+              "damage": 5,
+              "hits": [
+                1500,
+                2200
+              ]
+            }
+          ]
+        }
+      ],
+      "lauf_sheet": "sk_chor_sprecher",
+      "nervenverlust_max": 0
+    },
+    "enemy_sk_chor_hand": {
+      "kult": "sk_chor",
+      "rang": "hand",
+      "tier": 2,
+      "atk": 9,
+      "skills": [
+        {
+          "phase": 1,
+          "hp_von": 1.0,
+          "hp_bis": 0.0,
+          "attacks": [
+            {
+              "name": "Stimmgabelhieb",
+              "damage": 9,
+              "hits": [
+                1200
+              ]
+            },
+            {
+              "name": "Stummer Fächer",
+              "damage": 7,
+              "hits": [
+                1500,
+                2200
+              ]
+            }
+          ]
+        }
+      ],
+      "lauf_sheet": "sk_chor_hand",
+      "nervenverlust_max": 0
+    },
+    "enemy_sk_chor_haupt": {
+      "kult": "sk_chor",
+      "rang": "haupt",
+      "tier": 3,
+      "atk": 11,
+      "skills": [
+        {
+          "phase": 1,
+          "hp_von": 1.0,
+          "hp_bis": 0.5,
+          "attacks": [
+            {
+              "name": "Gemeinsamer Atem",
+              "damage": 11,
+              "hits": [
+                1200
+              ]
+            },
+            {
+              "name": "Zerbrochener Takt",
+              "damage": 9,
+              "hits": [
+                1500,
+                2200
+              ]
+            }
+          ]
+        },
+        {
+          "phase": 2,
+          "hp_von": 0.5,
+          "hp_bis": 0.0,
+          "meldung": "Der Gleichklang bricht in versetzte Einsätze.",
+          "attacks": [
+            {
+              "name": "Zerbrochener Takt – Bruch",
+              "damage": 13,
+              "hits": [
+                1800,
+                2700
+              ]
+            },
+            {
+              "name": "Gemeinsamer Atem – Nachsatz",
+              "damage": 11,
+              "hits": [
+                2000
+              ]
+            }
+          ]
+        }
+      ],
+      "lauf_sheet": "sk_chor_haupt",
+      "nervenverlust_max": 0
+    }
+  }
+}
