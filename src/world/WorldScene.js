@@ -1567,7 +1567,10 @@ export class WorldScene extends Phaser.Scene {
     const def = it.def;
     const refused = this.koop?.refuse(it, this.state.acting);
     if (refused) { this.ui.showMessage(def.title ?? def.prompt, refused); return; }
-    if (def.lock && !this.state.meetsLock(def.lock)) {
+    // Ab Fall 5 bleibt Lagerhaus 7 auch in bestehenden Spielständen zugänglich.
+    const warehouseOpen = def.to === 'warehouse'
+      && (this.state.flags.has('briefed_05') || ['active', 'done'].includes(this.state.quests.case_05));
+    if (def.lock && !warehouseOpen && !this.state.meetsLock(def.lock)) {
       this.ui.showMessage(def.title ?? def.prompt, def.lock.text, { footer: def.lock.footer ?? '' });
       return;
     }
