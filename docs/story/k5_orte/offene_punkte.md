@@ -1,0 +1,23 @@
+# Schnittstellen für den Einbau
+
+## Vor Spielbarkeit erforderlich
+
+1. **CG laden und Storyplätze spiegeln.** Geprüft wurde PR #246, siehe `quellen.md`. Der aktuelle Hauptzweig enthält dessen Dialoge und Flag-Setter noch nicht. Alle CH-Verweise auf `bha_*` sind lesend. CGs Storyplatzierungen auf der Basis-ID müssen auch in `__warm` vorhanden sein; CH reserviert die betreffenden begehbaren Positionen.
+2. **Ventilflags vereinheitlichen.** CG setzt `bha_ventil_<kreis>_offen` und `_zu`, nicht das in CHs Aufgabenbeispiel genannte `_warm`. CH verwendet deshalb ausschließlich `_offen` für Wärme. Keine zusätzlichen Alias-Setter erzeugen. Der Unterschied zwischen hydraulisch geschlossen und offen-kalt braucht später einen eigenen serialisierten Netzstatus. Die Dialogfassung kann diese beiden kalten Darstellungen noch nicht getrennt abbilden.
+3. **BH-Zonenbindung.** `zones.json` enthält Reisefreigaben, Rückwege und Beutetabellen; Gegner-IDs stehen in `maps.roamers[].encounter`. Der bestehende `wildContent` erwartet vollständige Gegnerwerte und kann keine ID-Verweise auflösen. `zonen_bindungen.md` enthält die vollständige Verknüpfung. Beim Einbau aus den unveränderten BH-Definitionen erzeugen, inklusive Eliten. Zonenbezogene Niederlagen-/Beuteregeln pro aktivem Kartenkontext anwenden, damit dieselbe Gegner-ID in mehreren Gebieten korrekt bleibt. Keine duplizierten BH-Werte in CH.
+4. **CG-Bosszugänge korrigieren.** CGs Einstieg darf Kämpfe nur bei offenem zugehörigem Kreis anbieten. Seine Siegprüfung über `won_<basisboss>` erkennt bisher schon Abschnitt 1. Für den Storyabschluss BHs endgültiges `vg_bh_boss_*_geloest` verwenden. CHs eigene Abschnittsdialoge prüfen alle zwei bzw. drei Abschnitte; Ersatzzutaten akzeptieren nur endgültige Siege oder CGs friedlichen Abschluss. Keine parallelen, ungesicherten CG-Kampfoptionen stehen lassen.
+5. **Boss-Rettung und Kapitelkontext.** BHs feste Zahlen, Attacken, Bedingungen, Eliten und IDs bleiben bestehen. Beim Einbau den Kampfkontext von Kapitel 5 sowie `lose_to: {map: "bh_buegelraum", spawn: "default"}`, verlustfreie Rettung und CH-Zonentexte übergeben. BHs Vorrats-Kapitelzahl ist kein Grund, Briarholt als Kapitel 4 zu aktivieren.
+6. **Landstraße CD.** In `reise_landstrasse` den dritten Endpunkt `{map: "bh_kutschenhof", spawn: "kutsche"}` anbinden; Rückfahrt vom Kutschenhof zum CD-Abfahrtspunkt ergänzen. CH liefert Spawn und erklärenden Lesepunkt, keine frei erfundene CD-Spawn-ID. Freigabe nach einem `cwa_end_*` oder dem direkten Dunscar-Anschluss `kapitel3_done` ohne `kapitel4_done`, wie CG. CD bleibt unangetastet.
+
+## Späterer Mechanikeinbau
+
+- `applyToMap` soll den Zustand ohne Neuladen wechseln und die Position erhalten. Bis dahin führen die Temperaturanzeige und die Wegdialoge anhand der CG-Flags zur richtigen Varianten-ID. Sie versetzen auf den sicheren `default`-Spawn. Eine bereits betretene Karte aktualisiert sich nach Ventilbetätigung noch nicht selbst.
+- `kind: valveboard` und das Leitungs-Overlay existieren noch nicht. Der Leitungsplan setzt `bho_leitungsplan_gelesen`; die vorhandene `read`-Tafel und zwölf gewöhnliche Dialogzugänge bilden den bedienbaren Ersatz.
+- Kalte Außenwege bleiben stets offen. Vorschlag für später: 25 Prozent längere fiktive Reisezeit, ohne Echtzeitlimit oder Pflichtkosten. Kein unbekanntes Reisemalus-Feld wurde hinzugefügt.
+- Fehlleitung nach leer sperrt die betreffenden Glasabkürzungen. Weitere lokale Kondensatdarstellung, optionaler bestätigter Reparaturkampf und Materialverbrauch sind spätere Mechanik. Die Dialogfassung erlaubt Rücklaufkorrekturen ohne Verbrauch. Bestehende einmalige Wartungsschränke garantieren Material, sind aber keine unendliche Geldquelle. Vor Einführung von Verbrauch einen begrenzten Ersatzvorrat je Fehlschaltung vorsehen.
+- Zwischen Vorschau und Bestätigung in Koop Kapazität, Geld und Entnahmeflags erneut atomar prüfen. Der Datenfallback führt keine Mehrspieler-Transaktionslogik ein.
+- Das optionale Finale erweitert `bha_finale` erst nach `bha_54_geschlossen`. CH setzt nur seine eigene Entscheidung zur gewaltsamen Sicherung. Normale Endwahl und friedlicher Weg verlangen keinen Sieg gegen den Schwarm.
+
+## Grafik und Format
+
+`tiles` enthält Renderer-Schlüssel: `b_sanatorium`, `warehouse`, `g_kraterwald`, `j_giesserei`; Promenade/Pavillon nutzen den Straßenstandard `street` mit `facade: "putz"`. `D_03_fassade_putz` ist eine Fassadengrafik, kein Boden-Theme. CI liefert die sechs kalten/warmen Themen; Bügelraum hat in beiden Varianten die warme Wunschgrafik. Neue CH-Icons und Aussaatschwarm sind in `grafikwuensche.md` aufgeführt. Die übrigen Figuren, Gegner und Vorratsobjekte werden nicht nochmals bestellt.
