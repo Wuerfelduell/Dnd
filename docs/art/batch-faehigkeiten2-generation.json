@@ -1,0 +1,2618 @@
+{
+  "batch": "faehigkeiten2",
+  "generator": "image_gen.imagegen",
+  "sourceData": "src/data/packs/sequenzen/faehigkeiten2.json",
+  "sourceDataSha256": "99fb007b48e38d325596cabe462ef7d695cbfd27d0b75be7f9eed15aa88c322f",
+  "references": [
+    "public/sprites/ui/skill_icons.png",
+    "public/sprites/ui/skill_icons_2.png"
+  ],
+  "postprocessing": {
+    "sourceLayout": "3x3 per pathway and type, sequence9 to1 row-major",
+    "resize": "nearest neighbor to16x16",
+    "alpha": "binary threshold180; circular boundary normalized",
+    "worldRing": "1px bone-white inside dark1px outline",
+    "palette": "32 shared visible colors plus transparent index",
+    "reproduce": "python tools/art/faehigkeiten2/export.py SOURCE_DIRECTORY"
+  },
+  "generations": [
+    {
+      "id": "laterne_kampf",
+      "path": "laterne",
+      "kind": "kampf",
+      "color": "#e8b860",
+      "cells": [
+        {
+          "seq": 9,
+          "id": "dochtfunke",
+          "name": "Dochtfunke",
+          "cost": 2,
+          "hits": 1,
+          "flat": 5,
+          "holy": true,
+          "ap_gain": 1,
+          "fx": "lichtstoss",
+          "desc": "Ein kleiner Funke vom Docht. 5 Schaden, doppelt gegen Okkultes, und 1 Konzentration kommt zurück."
+        },
+        {
+          "seq": 8,
+          "id": "glutnadel",
+          "name": "Glutnadel",
+          "cost": 2,
+          "hits": 1,
+          "flat": 6,
+          "burn": [
+            3,
+            2
+          ],
+          "extend_burn": 1,
+          "fx": "funkenregen",
+          "desc": "Ein dünner Strahl, der Brand nährt. 6 Schaden, der Gegner brennt 2 Runden, ein bestehender Brand hält eine Runde länger."
+        },
+        {
+          "seq": 7,
+          "id": "signalfeuer",
+          "name": "Signalfeuer",
+          "cost": 2,
+          "hits": 0,
+          "weaken": [
+            0.8,
+            2
+          ],
+          "nerves_gain": 10,
+          "fx": "leuchtfeuer",
+          "desc": "Grelles Licht ohne Hitze. Der Gegner schlägt 2 Runden lang 20 % schwächer zu, und du gewinnst 10 Nerven."
+        },
+        {
+          "seq": 6,
+          "id": "nebelriss",
+          "name": "Nebelriss",
+          "cost": 2,
+          "hits": 1,
+          "flat": 11,
+          "holy": true,
+          "guard_break": true,
+          "fx": "lichtbann",
+          "desc": "Licht, das jeden Schleier zerreißt. 11 Schaden, doppelt gegen Okkultes, der Panzer des Gegners bricht."
+        },
+        {
+          "seq": 5,
+          "id": "flammenmantel",
+          "name": "Flammenmantel",
+          "cost": 3,
+          "hits": 0,
+          "shield": 16,
+          "burn": [
+            5,
+            2
+          ],
+          "fx": "weissglut",
+          "desc": "Du hüllst dich in Flammen. Schutz 16, und wer dich berührt, brennt 2 Runden lang (5 Schaden)."
+        },
+        {
+          "seq": 4,
+          "id": "dochtschnitt",
+          "name": "Dochtschnitt",
+          "cost": 3,
+          "hits": 2,
+          "flat": 14,
+          "holy": true,
+          "armor_break": 1,
+          "fx": "laterne_hoch_4",
+          "desc": "Zwei Schnitte aus Licht. Je 14 Schaden, doppelt gegen Okkultes, und der Panzer des Gegners verliert eine Stufe."
+        },
+        {
+          "seq": 3,
+          "id": "aschenwort",
+          "name": "Aschenwort",
+          "cost": 3,
+          "hits": 1,
+          "flat": 22,
+          "holy": true,
+          "weaken": [
+            0.75,
+            2
+          ],
+          "fx": "laterne_hoch_3",
+          "desc": "Du sprichst aus, was verschwiegen wurde. 22 Schaden, doppelt gegen Okkultes, der Gegner schlägt 2 Runden lang 25 % schwächer."
+        },
+        {
+          "seq": 2,
+          "id": "horizontglut",
+          "name": "Horizontglut",
+          "cost": 4,
+          "hits": 1,
+          "flat": 30,
+          "holy": true,
+          "burn": [
+            10,
+            3
+          ],
+          "ap_gain": 2,
+          "fx": "laterne_hoch_2",
+          "desc": "Der Horizont glüht auf. 30 Schaden, doppelt gegen Okkultes, 3 Runden je 10 Brand, und 2 Konzentration kehren zurück."
+        },
+        {
+          "seq": 1,
+          "id": "unbequeme_wahrheit",
+          "name": "Unbequeme Wahrheit",
+          "cost": 4,
+          "hits": 0,
+          "weak": true,
+          "weaken": [
+            0.6,
+            3
+          ],
+          "guard_break": true,
+          "fx": "laterne_hoch_1",
+          "desc": "Du zeigst dem Gegner, was er ist. Schwachstelle offen, Panzer gebrochen, 3 Runden lang 40 % weniger Schaden von ihm."
+        }
+      ],
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\nUse the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction.\nCreate one production pixel-art icon sheet: EXACTLY NINE icons in a perfectly regular 3 columns x 3 rows grid. Equal square cells, no gutters or margins. Each cell is a logical 16x16 icon enlarged by nearest neighbor. Final sheet logical48x48 pixels, rendered large. Every cell contains a dark near-black blue-grey ROUND medallion, one-pixel rim, transparent outside circle. A simple bold readable symbol inside in two or three shades of #e8b860. Bright highlight top-left. Extremely low resolution icon design: symbol occupies about 10x10 logical pixels, thick clear pixel clusters, no tiny detailed illustration. Same round base for all9; each symbol genuinely distinct. No text, no letters, no numbers, no arrows as primary motif.\nCOMBAT: action symbols, strike, slash, throw, shield, burst or smoke. No white inner ring. Path family: Laterne. First three simple single symbols; middle three include a second element; last three add one tiny turquoise occult spark. Peat uses moss green as secondary; copper clocks use ivory; balances use lead grey.\nROW-MAJOR ORDER (left to right, then next row), sequence9 to1. Translate the following ability descriptions into the icon motif. Titles are semantic instructions only, NEVER print them:\nCell 1: Dochtfunke. Ein kleiner Funke vom Docht. 5 Schaden, doppelt gegen Okkultes, und 1 Konzentration kommt zurück.\nCell 2: Glutnadel. Ein dünner Strahl, der Brand nährt. 6 Schaden, der Gegner brennt 2 Runden, ein bestehender Brand hält eine Runde länger.\nCell 3: Signalfeuer. Grelles Licht ohne Hitze. Der Gegner schlägt 2 Runden lang 20 % schwächer zu, und du gewinnst 10 Nerven.\nCell 4: Nebelriss. Licht, das jeden Schleier zerreißt. 11 Schaden, doppelt gegen Okkultes, der Panzer des Gegners bricht.\nCell 5: Flammenmantel. Du hüllst dich in Flammen. Schutz 16, und wer dich berührt, brennt 2 Runden lang (5 Schaden).\nCell 6: Dochtschnitt. Zwei Schnitte aus Licht. Je 14 Schaden, doppelt gegen Okkultes, und der Panzer des Gegners verliert eine Stufe.\nCell 7: Aschenwort. Du sprichst aus, was verschwiegen wurde. 22 Schaden, doppelt gegen Okkultes, der Gegner schlägt 2 Runden lang 25 % schwächer.\nCell 8: Horizontglut. Der Horizont glüht auf. 30 Schaden, doppelt gegen Okkultes, 3 Runden je 10 Brand, und 2 Konzentration kehren zurück.\nCell 9: Unbequeme Wahrheit. Du zeigst dem Gegner, was er ist. Schwachstelle offen, Panzer gebrochen, 3 Runden lang 40 % weniger Schaden von ihm.",
+      "sourceFile": "exec-30745d04-5983-41d4-9bec-ee1eb3ed7c02.png",
+      "sha256": "55227ca08b84f33f099d1ac5aad3ecffdde5393d4b854b36a664d21336273691",
+      "cropBox": [
+        33,
+        11,
+        1196,
+        1230
+      ]
+    },
+    {
+      "id": "laterne_welt",
+      "path": "laterne",
+      "kind": "welt",
+      "color": "#e8b860",
+      "cells": [
+        {
+          "seq": 9,
+          "id": "laternenschein",
+          "name": "Laternenschein",
+          "nerves": 6,
+          "unruhe": 2,
+          "cooldown": 90,
+          "reveal": 20,
+          "desc": "Du hebst die innere Laterne. 20 Sekunden lang zeigen sich verborgene Spuren auch ohne Geistsicht."
+        },
+        {
+          "seq": 8,
+          "id": "ruhiges_licht",
+          "name": "Ruhiges Licht",
+          "nerves": 0,
+          "unruhe": 0,
+          "cooldown": 180,
+          "calm": 12,
+          "desc": "Du hältst still, bis die Flamme nicht mehr flackert. Senkt die Unruhe um 12."
+        },
+        {
+          "seq": 7,
+          "id": "wegleuchte",
+          "name": "Wegleuchte",
+          "nerves": 8,
+          "unruhe": 0,
+          "cooldown": 240,
+          "hint": true,
+          "desc": "Das Licht fällt auf den nächsten Schritt: Der Pfad verrät dir, was dein wichtigster Auftrag als Nächstes braucht."
+        },
+        {
+          "seq": 6,
+          "id": "klarer_blick",
+          "name": "Klarer Blick",
+          "nerves": 10,
+          "unruhe": 3,
+          "cooldown": 300,
+          "buff": {
+            "key": "vision_cost",
+            "value": 0.4,
+            "seconds": 90
+          },
+          "desc": "Du weitest die Augen. 90 Sekunden lang kostet die Geistsicht 60 % weniger Nerven."
+        },
+        {
+          "seq": 5,
+          "id": "wandelndes_signal",
+          "name": "Wandelndes Signal",
+          "nerves": 12,
+          "unruhe": 4,
+          "cooldown": 360,
+          "scare": 45,
+          "desc": "Du leuchtest wie ein Feuer im Nebel. 45 Sekunden lang weichen gewöhnliche Gegner auf der Karte vor dir zurück."
+        },
+        {
+          "seq": 4,
+          "id": "offene_lampe",
+          "name": "Offene Lampe",
+          "nerves": 12,
+          "unruhe": 3,
+          "cooldown": 300,
+          "reveal": 60,
+          "desc": "Du nimmst den Schirm von der Lampe. Eine Minute lang sind alle verborgenen Spuren der Karte sichtbar."
+        },
+        {
+          "seq": 3,
+          "id": "aschenlese",
+          "name": "Aschenlese",
+          "nerves": 10,
+          "unruhe": 0,
+          "cooldown": 240,
+          "review": true,
+          "desc": "Du liest in der Asche: Eine Vermutung, der noch eine zweite Quelle fehlt, kommt dir wieder in den Sinn."
+        },
+        {
+          "seq": 2,
+          "id": "lichtschranke",
+          "name": "Lichtschranke",
+          "nerves": 14,
+          "unruhe": 4,
+          "cooldown": 420,
+          "buff": {
+            "key": "occult_mult",
+            "value": 1.3,
+            "seconds": 180
+          },
+          "desc": "Du stellst dich in dein eigenes Licht. 3 Minuten lang +30 % Schaden gegen Okkultes."
+        },
+        {
+          "seq": 1,
+          "id": "fensterlicht",
+          "name": "Fensterlicht",
+          "nerves": 16,
+          "unruhe": 5,
+          "cooldown": 480,
+          "reveal": 120,
+          "scare": 60,
+          "desc": "Alle Fenster der Stadt leuchten für dich. 2 Minuten lang sind verborgene Spuren sichtbar, eine Minute lang weichen gewöhnliche Gegner."
+        }
+      ],
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\nUse the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction.\nCreate one production pixel-art icon sheet: EXACTLY NINE icons in a perfectly regular 3 columns x 3 rows grid. Equal square cells, no gutters or margins. Each cell is a logical 16x16 icon enlarged by nearest neighbor. Final sheet logical48x48 pixels, rendered large. Every cell contains a dark near-black blue-grey ROUND medallion, one-pixel rim, transparent outside circle. A simple bold readable symbol inside in two or three shades of #e8b860. Bright highlight top-left. Extremely low resolution icon design: symbol occupies about 10x10 logical pixels, thick clear pixel clusters, no tiny detailed illustration. Same round base for all9; each symbol genuinely distinct. No text, no letters, no numbers, no arrows as primary motif.\nWORLD: tools or tangible objects, NOT combat explosions. Every medallion has an additional ONE logical pixel bone-white inner ring inside dark outer border. Path family: Laterne. First three simple single symbols; middle three include a second element; last three add one tiny violet occult spark. Peat uses moss green as secondary; copper clocks use ivory; balances use lead grey.\nROW-MAJOR ORDER (left to right, then next row), sequence9 to1. Translate the following ability descriptions into the icon motif. Titles are semantic instructions only, NEVER print them:\nCell 1: Laternenschein. Du hebst die innere Laterne. 20 Sekunden lang zeigen sich verborgene Spuren auch ohne Geistsicht.\nCell 2: Ruhiges Licht. Du hältst still, bis die Flamme nicht mehr flackert. Senkt die Unruhe um 12.\nCell 3: Wegleuchte. Das Licht fällt auf den nächsten Schritt: Der Pfad verrät dir, was dein wichtigster Auftrag als Nächstes braucht.\nCell 4: Klarer Blick. Du weitest die Augen. 90 Sekunden lang kostet die Geistsicht 60 % weniger Nerven.\nCell 5: Wandelndes Signal. Du leuchtest wie ein Feuer im Nebel. 45 Sekunden lang weichen gewöhnliche Gegner auf der Karte vor dir zurück.\nCell 6: Offene Lampe. Du nimmst den Schirm von der Lampe. Eine Minute lang sind alle verborgenen Spuren der Karte sichtbar.\nCell 7: Aschenlese. Du liest in der Asche: Eine Vermutung, der noch eine zweite Quelle fehlt, kommt dir wieder in den Sinn.\nCell 8: Lichtschranke. Du stellst dich in dein eigenes Licht. 3 Minuten lang +30 % Schaden gegen Okkultes.\nCell 9: Fensterlicht. Alle Fenster der Stadt leuchten für dich. 2 Minuten lang sind verborgene Spuren sichtbar, eine Minute lang weichen gewöhnliche Gegner.",
+      "sourceFile": "exec-12fb75c9-abf1-471e-a2a2-92dc02a06e12.png",
+      "sha256": "729a3522985e46ff346a0b33ef46622fc328afb50e2ed66471872fc78e94c11a",
+      "cropBox": [
+        53,
+        33,
+        1208,
+        1208
+      ]
+    },
+    {
+      "id": "faden_kampf",
+      "path": "faden",
+      "kind": "kampf",
+      "color": "#c8b0e8",
+      "cells": [
+        {
+          "seq": 9,
+          "id": "fadenzug",
+          "name": "Fadenzug",
+          "cost": 1,
+          "hits": 1,
+          "mult": 0.8,
+          "sure": true,
+          "fx": "schwachstelle",
+          "desc": "Du ziehst am richtigen Faden. 80 % Waffenschaden, der auch bei verfehltem Takt trifft."
+        },
+        {
+          "seq": 8,
+          "id": "vorgefuehl",
+          "name": "Vorgefühl",
+          "cost": 1,
+          "hits": 0,
+          "read": true,
+          "slow": true,
+          "fx": "vorahnung",
+          "desc": "Du spürst den nächsten Schlag. Er kommt langsamer und lässt sich parieren, auch wenn er sonst nicht zu parieren wäre."
+        },
+        {
+          "seq": 7,
+          "id": "musterbruch",
+          "name": "Musterbruch",
+          "cost": 2,
+          "hits": 2,
+          "mult": 0.9,
+          "focus": true,
+          "fx": "schicksalsfaden",
+          "desc": "Zwei Schläge im gelesenen Muster. Deine nächste Fertigkeit trifft einen Takt genauer, als du drückst."
+        },
+        {
+          "seq": 6,
+          "id": "stolperfaden",
+          "name": "Stolperfaden",
+          "cost": 2,
+          "hits": 1,
+          "mult": 1,
+          "slow": true,
+          "weak": true,
+          "fx": "fangnetz",
+          "desc": "Ein Faden quer über den Weg. Normaler Schaden, die Schwachstelle liegt offen, und der nächste Angriff des Gegners kommt langsam."
+        },
+        {
+          "seq": 5,
+          "id": "knotenloesung",
+          "name": "Knotenlösung",
+          "cost": 3,
+          "hits": 3,
+          "mult": 0.8,
+          "sure": true,
+          "ap_gain": 1,
+          "fx": "zerreissen",
+          "desc": "Drei Schnitte dort, wo das Gewebe nachgibt. Je 80 % Waffenschaden, kein Takt geht verloren, 1 Konzentration kehrt zurück."
+        },
+        {
+          "seq": 4,
+          "id": "nahtriss",
+          "name": "Nahtriss",
+          "cost": 3,
+          "hits": 2,
+          "mult": 1.3,
+          "pierce": true,
+          "read": true,
+          "fx": "faden_hoch_4",
+          "desc": "Zwei Schläge entlang einer Naht, die kein Panzer schließt. Den nächsten Schlag des Gegners hast du schon gesehen: Er lässt sich parieren."
+        },
+        {
+          "seq": 3,
+          "id": "bruchvorhersage",
+          "name": "Bruchvorhersage",
+          "cost": 3,
+          "hits": 0,
+          "weak": true,
+          "evade": true,
+          "focus": true,
+          "fx": "faden_hoch_3",
+          "desc": "Du siehst, wo es brechen wird. Schwachstelle offen, der nächste Angriff geht ins Leere, deine nächste Fertigkeit trifft einen Takt genauer."
+        },
+        {
+          "seq": 2,
+          "id": "saumschnitt",
+          "name": "Saumschnitt",
+          "cost": 4,
+          "hits": 4,
+          "mult": 1.2,
+          "sure": true,
+          "slow": true,
+          "fx": "faden_hoch_2",
+          "desc": "Vier Schnitte am Saum des Gegners. Kein Takt geht verloren, und sein nächster Angriff kommt langsam."
+        },
+        {
+          "seq": 1,
+          "id": "offener_knotenpunkt",
+          "name": "Offener Knotenpunkt",
+          "cost": 4,
+          "hits": 1,
+          "mult": 2.5,
+          "pierce": true,
+          "weak": true,
+          "ap_gain": 2,
+          "fx": "faden_hoch_1",
+          "desc": "Ein Stich in den Punkt, an dem alles zusammenläuft. 250 % Waffenschaden durch jeden Panzer, Schwachstelle offen, 2 Konzentration zurück."
+        }
+      ],
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\nUse the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction.\nCreate one production pixel-art icon sheet: EXACTLY NINE icons in a perfectly regular 3 columns x 3 rows grid. Equal square cells, no gutters or margins. Each cell is a logical 16x16 icon enlarged by nearest neighbor. Final sheet logical48x48 pixels, rendered large. Every cell contains a dark near-black blue-grey ROUND medallion, one-pixel rim, transparent outside circle. A simple bold readable symbol inside in two or three shades of #c8b0e8. Bright highlight top-left. Extremely low resolution icon design: symbol occupies about 10x10 logical pixels, thick clear pixel clusters, no tiny detailed illustration. Same round base for all9; each symbol genuinely distinct. No text, no letters, no numbers, no arrows as primary motif.\nCOMBAT: action symbols, strike, slash, throw, shield, burst or smoke. No white inner ring. Path family: Faden. First three simple single symbols; middle three include a second element; last three add one tiny turquoise occult spark. Peat uses moss green as secondary; copper clocks use ivory; balances use lead grey.\nROW-MAJOR ORDER (left to right, then next row), sequence9 to1. Translate the following ability descriptions into the icon motif. Titles are semantic instructions only, NEVER print them:\nCell 1: Fadenzug. Du ziehst am richtigen Faden. 80 % Waffenschaden, der auch bei verfehltem Takt trifft.\nCell 2: Vorgefühl. Du spürst den nächsten Schlag. Er kommt langsamer und lässt sich parieren, auch wenn er sonst nicht zu parieren wäre.\nCell 3: Musterbruch. Zwei Schläge im gelesenen Muster. Deine nächste Fertigkeit trifft einen Takt genauer, als du drückst.\nCell 4: Stolperfaden. Ein Faden quer über den Weg. Normaler Schaden, die Schwachstelle liegt offen, und der nächste Angriff des Gegners kommt langsam.\nCell 5: Knotenlösung. Drei Schnitte dort, wo das Gewebe nachgibt. Je 80 % Waffenschaden, kein Takt geht verloren, 1 Konzentration kehrt zurück.\nCell 6: Nahtriss. Zwei Schläge entlang einer Naht, die kein Panzer schließt. Den nächsten Schlag des Gegners hast du schon gesehen: Er lässt sich parieren.\nCell 7: Bruchvorhersage. Du siehst, wo es brechen wird. Schwachstelle offen, der nächste Angriff geht ins Leere, deine nächste Fertigkeit trifft einen Takt genauer.\nCell 8: Saumschnitt. Vier Schnitte am Saum des Gegners. Kein Takt geht verloren, und sein nächster Angriff kommt langsam.\nCell 9: Offener Knotenpunkt. Ein Stich in den Punkt, an dem alles zusammenläuft. 250 % Waffenschaden durch jeden Panzer, Schwachstelle offen, 2 Konzentration zurück.",
+      "sourceFile": "exec-fa52e436-efab-4911-8b0d-8ad1f90267f5.png",
+      "sha256": "5e0d6cc9aed7ffd1edfa12780a582d9025a91fa84f62086df5d13ee5c104c916",
+      "cropBox": [
+        723,
+        2,
+        1448,
+        723
+      ]
+    },
+    {
+      "id": "faden_welt",
+      "path": "faden",
+      "kind": "welt",
+      "color": "#c8b0e8",
+      "cells": [
+        {
+          "seq": 9,
+          "id": "spur_lesen",
+          "name": "Spur lesen",
+          "nerves": 5,
+          "unruhe": 0,
+          "cooldown": 180,
+          "hint": true,
+          "desc": "Du siehst die kleinen Dinge: Der Pfad sagt dir, was dein wichtigster Auftrag als Nächstes braucht."
+        },
+        {
+          "seq": 8,
+          "id": "fadenblick",
+          "name": "Fadenblick",
+          "nerves": 8,
+          "unruhe": 2,
+          "cooldown": 240,
+          "buff": {
+            "key": "dodge_window",
+            "value": 1.4,
+            "seconds": 240
+          },
+          "desc": "Du siehst Bewegungen einen Herzschlag voraus. 4 Minuten lang ist das Ausweichfenster im Kampf 40 % größer."
+        },
+        {
+          "seq": 7,
+          "id": "gewebe_lesen",
+          "name": "Gewebe lesen",
+          "nerves": 10,
+          "unruhe": 2,
+          "cooldown": 300,
+          "review": true,
+          "desc": "Du folgst einem losen Faden: Eine Vermutung, der eine zweite Quelle fehlt, steht dir wieder vor Augen."
+        },
+        {
+          "seq": 6,
+          "id": "netz_spannen",
+          "name": "Netz spannen",
+          "nerves": 10,
+          "unruhe": 3,
+          "cooldown": 360,
+          "buff": {
+            "key": "conclusion_honor",
+            "value": 2,
+            "seconds": 300
+          },
+          "desc": "Du spannst Fäden zwischen allem, was du weißt. 5 Minuten lang bringt jede Schlussfolgerung +2 Ansehen mehr."
+        },
+        {
+          "seq": 5,
+          "id": "faden_zur_spur",
+          "name": "Faden zur Spur",
+          "nerves": 12,
+          "unruhe": 3,
+          "cooldown": 300,
+          "reveal": 40,
+          "desc": "Ein Faden zieht dich zu dem, was man übersehen soll. 40 Sekunden lang zeigen sich verborgene Spuren ohne Geistsicht."
+        },
+        {
+          "seq": 4,
+          "id": "nahtgefuehl",
+          "name": "Nahtgefühl",
+          "nerves": 12,
+          "unruhe": 3,
+          "cooldown": 420,
+          "buff": {
+            "key": "dodge_window",
+            "value": 1.6,
+            "seconds": 300
+          },
+          "desc": "Du fühlst die Nähte der Welt. 5 Minuten lang ist das Ausweichfenster 60 % größer."
+        },
+        {
+          "seq": 3,
+          "id": "bruchstellen",
+          "name": "Bruchstellen",
+          "nerves": 12,
+          "unruhe": 4,
+          "cooldown": 360,
+          "scout": true,
+          "desc": "Du siehst, wo auf dieser Karte Gewalt lauert: Der Pfad zählt dir die Gegner und ihre Eliten."
+        },
+        {
+          "seq": 2,
+          "id": "stadtgewebe",
+          "name": "Stadtgewebe",
+          "nerves": 14,
+          "unruhe": 4,
+          "cooldown": 480,
+          "buff": {
+            "key": "hurry_cost",
+            "value": 0,
+            "seconds": 300
+          },
+          "desc": "Du kennst jede Gasse am Faden. 5 Minuten lang kostet die schnelle Reise keine Nerven."
+        },
+        {
+          "seq": 1,
+          "id": "zusammenhang",
+          "name": "Zusammenhang",
+          "nerves": 16,
+          "unruhe": 5,
+          "cooldown": 600,
+          "hint": true,
+          "review": true,
+          "reveal": 60,
+          "desc": "Für einen Augenblick siehst du das ganze Gewebe: nächster Schritt, offene Vermutung und eine Minute lang alle verborgenen Spuren."
+        }
+      ],
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\nUse the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction.\nCreate one production pixel-art icon sheet: EXACTLY NINE icons in a perfectly regular 3 columns x 3 rows grid. Equal square cells, no gutters or margins. Each cell is a logical 16x16 icon enlarged by nearest neighbor. Final sheet logical48x48 pixels, rendered large. Every cell contains a dark near-black blue-grey ROUND medallion, one-pixel rim, transparent outside circle. A simple bold readable symbol inside in two or three shades of #c8b0e8. Bright highlight top-left. Extremely low resolution icon design: symbol occupies about 10x10 logical pixels, thick clear pixel clusters, no tiny detailed illustration. Same round base for all9; each symbol genuinely distinct. No text, no letters, no numbers, no arrows as primary motif.\nWORLD: tools or tangible objects, NOT combat explosions. Every medallion has an additional ONE logical pixel bone-white inner ring inside dark outer border. Path family: Faden. First three simple single symbols; middle three include a second element; last three add one tiny violet occult spark. Peat uses moss green as secondary; copper clocks use ivory; balances use lead grey.\nROW-MAJOR ORDER (left to right, then next row), sequence9 to1. Translate the following ability descriptions into the icon motif. Titles are semantic instructions only, NEVER print them:\nCell 1: Spur lesen. Du siehst die kleinen Dinge: Der Pfad sagt dir, was dein wichtigster Auftrag als Nächstes braucht.\nCell 2: Fadenblick. Du siehst Bewegungen einen Herzschlag voraus. 4 Minuten lang ist das Ausweichfenster im Kampf 40 % größer.\nCell 3: Gewebe lesen. Du folgst einem losen Faden: Eine Vermutung, der eine zweite Quelle fehlt, steht dir wieder vor Augen.\nCell 4: Netz spannen. Du spannst Fäden zwischen allem, was du weißt. 5 Minuten lang bringt jede Schlussfolgerung +2 Ansehen mehr.\nCell 5: Faden zur Spur. Ein Faden zieht dich zu dem, was man übersehen soll. 40 Sekunden lang zeigen sich verborgene Spuren ohne Geistsicht.\nCell 6: Nahtgefühl. Du fühlst die Nähte der Welt. 5 Minuten lang ist das Ausweichfenster 60 % größer.\nCell 7: Bruchstellen. Du siehst, wo auf dieser Karte Gewalt lauert: Der Pfad zählt dir die Gegner und ihre Eliten.\nCell 8: Stadtgewebe. Du kennst jede Gasse am Faden. 5 Minuten lang kostet die schnelle Reise keine Nerven.\nCell 9: Zusammenhang. Für einen Augenblick siehst du das ganze Gewebe: nächster Schritt, offene Vermutung und eine Minute lang alle verborgenen Spuren.",
+      "sourceFile": "exec-ae22b29a-60fc-41a2-9c4a-d1369ef288fe.png",
+      "sha256": "cd569fb9f5ac565296925d9f68119716c95ba87bfd40055e4af85a8d39467147",
+      "cropBox": [
+        11,
+        12,
+        1243,
+        1244
+      ]
+    },
+    {
+      "id": "maske_kampf",
+      "path": "maske",
+      "kind": "kampf",
+      "color": "#e07a8a",
+      "cells": [
+        {
+          "seq": 9,
+          "id": "finte",
+          "name": "Finte",
+          "cost": 1,
+          "hits": 1,
+          "mult": 0.7,
+          "slow": true,
+          "fx": "trugbild",
+          "desc": "Ein angetäuschter Schlag. 70 % Waffenschaden, der Gegner zögert: Sein nächster Angriff kommt langsam."
+        },
+        {
+          "seq": 8,
+          "id": "doppelgaenger",
+          "name": "Doppelgänger",
+          "cost": 2,
+          "hits": 0,
+          "shield": 8,
+          "evade": true,
+          "fx": "verwirrung",
+          "desc": "Ein zweites Du tritt vor. Schutz 8, und der nächste Angriff geht ins Leere."
+        },
+        {
+          "seq": 7,
+          "id": "rollentausch",
+          "name": "Rollentausch",
+          "cost": 2,
+          "hits": 1,
+          "mult": 1,
+          "confuse": true,
+          "cleanse": true,
+          "fx": "spiegelschritt",
+          "desc": "Du nimmst die Rolle des Gegners ein. Normaler Schaden, er schlägt beim nächsten Mal sich selbst, deine Blutung versiegt."
+        },
+        {
+          "seq": 6,
+          "id": "zweite_haut",
+          "name": "Zweite Haut",
+          "cost": 2,
+          "hits": 0,
+          "shield": 14,
+          "nerves_gain": 10,
+          "fx": "spiegelbild",
+          "desc": "Die zweite Maske fängt den Schlag. Schutz 14 und 10 Nerven zurück."
+        },
+        {
+          "seq": 5,
+          "id": "gesichterwirbel",
+          "name": "Gesichterwirbel",
+          "cost": 3,
+          "hits": 2,
+          "mult": 1.1,
+          "confuse": true,
+          "weaken": [
+            0.8,
+            2
+          ],
+          "fx": "maskenball",
+          "desc": "Zwei Schläge aus wechselnden Gesichtern. Der Gegner schlägt sich selbst und trifft 2 Runden lang 20 % schwächer."
+        },
+        {
+          "seq": 4,
+          "id": "geliehene_miene",
+          "name": "Geliehene Miene",
+          "cost": 3,
+          "hits": 1,
+          "mult": 1.6,
+          "steal": 10,
+          "evade": true,
+          "fx": "maske_hoch_4",
+          "desc": "Du trägst für einen Schlag das Gesicht des Gegners. 160 % Waffenschaden, der nächste Angriff geht ins Leere, und von Menschen fallen 10 Schilling ab."
+        },
+        {
+          "seq": 3,
+          "id": "stehendes_gesicht",
+          "name": "Stehendes Gesicht",
+          "cost": 3,
+          "hits": 0,
+          "shield": 22,
+          "confuse": true,
+          "cleanse": true,
+          "fx": "maske_hoch_3",
+          "desc": "Dein Gesicht bleibt stehen, wo du warst. Schutz 22, der Gegner schlägt ins alte Bild und sich selbst, deine Blutung versiegt."
+        },
+        {
+          "seq": 2,
+          "id": "leeres_gesicht",
+          "name": "Leeres Gesicht",
+          "cost": 4,
+          "hits": 3,
+          "mult": 1.4,
+          "evade": true,
+          "slow": true,
+          "fx": "maske_hoch_2",
+          "desc": "Drei Schläge von jemandem, den der Gegner nicht sieht. Der nächste Angriff geht ins Leere, der danach kommt langsam."
+        },
+        {
+          "seq": 1,
+          "id": "eigenes_gesicht",
+          "name": "Eigenes Gesicht",
+          "cost": 4,
+          "hits": 1,
+          "mult": 2.2,
+          "confuse": true,
+          "weaken": [
+            0.6,
+            3
+          ],
+          "nerves_gain": 20,
+          "fx": "maske_hoch_1",
+          "desc": "Du zeigst dem Gegner dein wahres Gesicht. 220 % Waffenschaden, er schlägt sich selbst, 3 Runden lang 40 % schwächer, und du findest 20 Nerven wieder."
+        }
+      ],
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\nUse the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction.\nCreate one production pixel-art icon sheet: EXACTLY NINE icons in a perfectly regular 3 columns x 3 rows grid. Equal square cells, no gutters or margins. Each cell is a logical 16x16 icon enlarged by nearest neighbor. Final sheet logical48x48 pixels, rendered large. Every cell contains a dark near-black blue-grey ROUND medallion, one-pixel rim, transparent outside circle. A simple bold readable symbol inside in two or three shades of #e07a8a. Bright highlight top-left. Extremely low resolution icon design: symbol occupies about 10x10 logical pixels, thick clear pixel clusters, no tiny detailed illustration. Same round base for all9; each symbol genuinely distinct. No text, no letters, no numbers, no arrows as primary motif.\nCOMBAT: action symbols, strike, slash, throw, shield, burst or smoke. No white inner ring. Path family: Maske. First three simple single symbols; middle three include a second element; last three add one tiny turquoise occult spark. Peat uses moss green as secondary; copper clocks use ivory; balances use lead grey.\nROW-MAJOR ORDER (left to right, then next row), sequence9 to1. Translate the following ability descriptions into the icon motif. Titles are semantic instructions only, NEVER print them:\nCell 1: Finte. Ein angetäuschter Schlag. 70 % Waffenschaden, der Gegner zögert: Sein nächster Angriff kommt langsam.\nCell 2: Doppelgänger. Ein zweites Du tritt vor. Schutz 8, und der nächste Angriff geht ins Leere.\nCell 3: Rollentausch. Du nimmst die Rolle des Gegners ein. Normaler Schaden, er schlägt beim nächsten Mal sich selbst, deine Blutung versiegt.\nCell 4: Zweite Haut. Die zweite Maske fängt den Schlag. Schutz 14 und 10 Nerven zurück.\nCell 5: Gesichterwirbel. Zwei Schläge aus wechselnden Gesichtern. Der Gegner schlägt sich selbst und trifft 2 Runden lang 20 % schwächer.\nCell 6: Geliehene Miene. Du trägst für einen Schlag das Gesicht des Gegners. 160 % Waffenschaden, der nächste Angriff geht ins Leere, und von Menschen fallen 10 Schilling ab.\nCell 7: Stehendes Gesicht. Dein Gesicht bleibt stehen, wo du warst. Schutz 22, der Gegner schlägt ins alte Bild und sich selbst, deine Blutung versiegt.\nCell 8: Leeres Gesicht. Drei Schläge von jemandem, den der Gegner nicht sieht. Der nächste Angriff geht ins Leere, der danach kommt langsam.\nCell 9: Eigenes Gesicht. Du zeigst dem Gegner dein wahres Gesicht. 220 % Waffenschaden, er schlägt sich selbst, 3 Runden lang 40 % schwächer, und du findest 20 Nerven wieder.",
+      "sourceFile": "exec-79396ce7-ce09-4fb1-afda-c4b418be182b.png",
+      "sha256": "52ab634370e28c0db3f8818195e6002c8ec8e7dd273469f5564f854863eec5ac",
+      "cropBox": [
+        7,
+        7,
+        1247,
+        1248
+      ]
+    },
+    {
+      "id": "maske_welt",
+      "path": "maske",
+      "kind": "welt",
+      "color": "#e07a8a",
+      "cells": [
+        {
+          "seq": 9,
+          "id": "gefaellige_miene",
+          "name": "Gefällige Miene",
+          "nerves": 6,
+          "unruhe": 2,
+          "cooldown": 240,
+          "buff": {
+            "key": "price",
+            "value": 0.85,
+            "seconds": 180
+          },
+          "desc": "Du setzt das Gesicht auf, das Händler mögen. 3 Minuten lang verlangen sie 15 % weniger."
+        },
+        {
+          "seq": 8,
+          "id": "fremdes_gesicht",
+          "name": "Fremdes Gesicht",
+          "nerves": 8,
+          "unruhe": 3,
+          "cooldown": 300,
+          "wanted": -1,
+          "desc": "Du streifst ein anderes Gesicht über. Die Wache sucht dich eine Stufe weniger."
+        },
+        {
+          "seq": 7,
+          "id": "feilschergesicht",
+          "name": "Feilschergesicht",
+          "nerves": 8,
+          "unruhe": 2,
+          "cooldown": 300,
+          "buff": {
+            "key": "sell",
+            "value": 1.35,
+            "seconds": 180
+          },
+          "desc": "Das Gesicht, dem Pfandleiher gern mehr zahlen. 3 Minuten lang bekommst du 35 % mehr beim Verkauf."
+        },
+        {
+          "seq": 6,
+          "id": "unauffaellig",
+          "name": "Unauffällig",
+          "nerves": 10,
+          "unruhe": 3,
+          "cooldown": 360,
+          "scare": 40,
+          "desc": "Du wirst zum Hintergrund. 40 Sekunden lang verlieren gewöhnliche Gegner auf der Karte das Interesse an dir."
+        },
+        {
+          "seq": 5,
+          "id": "gastgesicht",
+          "name": "Gastgesicht",
+          "nerves": 12,
+          "unruhe": 4,
+          "cooldown": 420,
+          "buff": {
+            "key": "lock_bonus",
+            "value": 20,
+            "seconds": 120
+          },
+          "desc": "Jede Tür hält dich für geladen. 2 Minuten lang öffnen sich gesperrte Schränke und Türen mit 20 Ansehen weniger."
+        },
+        {
+          "seq": 4,
+          "id": "mietgesicht",
+          "name": "Mietgesicht",
+          "nerves": 12,
+          "unruhe": 4,
+          "cooldown": 420,
+          "wanted": -2,
+          "buff": {
+            "key": "honor_loss",
+            "value": 0.5,
+            "seconds": 300
+          },
+          "desc": "Ein geliehenes Gesicht trägt die Schuld. Fahndung sinkt um 2 Stufen, 5 Minuten lang verlierst du nur halb so viel Ansehen."
+        },
+        {
+          "seq": 3,
+          "id": "rollenverwahrung",
+          "name": "Rollenverwahrung",
+          "nerves": 14,
+          "unruhe": 4,
+          "cooldown": 480,
+          "buff": {
+            "key": "price",
+            "value": 0.7,
+            "seconds": 240
+          },
+          "desc": "Du spielst den Stammkunden, den jeder kennt. 4 Minuten lang verlangen Händler 30 % weniger."
+        },
+        {
+          "seq": 2,
+          "id": "publikum_verlieren",
+          "name": "Publikum verlieren",
+          "nerves": 14,
+          "unruhe": 5,
+          "cooldown": 600,
+          "wanted": -3,
+          "scare": 60,
+          "desc": "Du verschwindest aus jedem Blick. Die Fahndung sinkt um 3 Stufen, eine Minute lang weichen gewöhnliche Gegner."
+        },
+        {
+          "seq": 1,
+          "id": "hundert_gesichter",
+          "name": "Hundert Gesichter",
+          "nerves": 16,
+          "unruhe": 6,
+          "cooldown": 600,
+          "buff": {
+            "key": "price",
+            "value": 0.6,
+            "seconds": 300
+          },
+          "wanted": -3,
+          "desc": "Du bist jeder Kunde, jeder Nachbar, jeder Gast. 5 Minuten lang 40 % günstigere Preise, die Fahndung sinkt um 3 Stufen."
+        }
+      ],
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\nUse the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction.\nCreate one production pixel-art icon sheet: EXACTLY NINE icons in a perfectly regular 3 columns x 3 rows grid. Equal square cells, no gutters or margins. Each cell is a logical 16x16 icon enlarged by nearest neighbor. Final sheet logical48x48 pixels, rendered large. Every cell contains a dark near-black blue-grey ROUND medallion, one-pixel rim, transparent outside circle. A simple bold readable symbol inside in two or three shades of #e07a8a. Bright highlight top-left. Extremely low resolution icon design: symbol occupies about 10x10 logical pixels, thick clear pixel clusters, no tiny detailed illustration. Same round base for all9; each symbol genuinely distinct. No text, no letters, no numbers, no arrows as primary motif.\nWORLD: tools or tangible objects, NOT combat explosions. Every medallion has an additional ONE logical pixel bone-white inner ring inside dark outer border. Path family: Maske. First three simple single symbols; middle three include a second element; last three add one tiny violet occult spark. Peat uses moss green as secondary; copper clocks use ivory; balances use lead grey.\nROW-MAJOR ORDER (left to right, then next row), sequence9 to1. Translate the following ability descriptions into the icon motif. Titles are semantic instructions only, NEVER print them:\nCell 1: Gefällige Miene. Du setzt das Gesicht auf, das Händler mögen. 3 Minuten lang verlangen sie 15 % weniger.\nCell 2: Fremdes Gesicht. Du streifst ein anderes Gesicht über. Die Wache sucht dich eine Stufe weniger.\nCell 3: Feilschergesicht. Das Gesicht, dem Pfandleiher gern mehr zahlen. 3 Minuten lang bekommst du 35 % mehr beim Verkauf.\nCell 4: Unauffällig. Du wirst zum Hintergrund. 40 Sekunden lang verlieren gewöhnliche Gegner auf der Karte das Interesse an dir.\nCell 5: Gastgesicht. Jede Tür hält dich für geladen. 2 Minuten lang öffnen sich gesperrte Schränke und Türen mit 20 Ansehen weniger.\nCell 6: Mietgesicht. Ein geliehenes Gesicht trägt die Schuld. Fahndung sinkt um 2 Stufen, 5 Minuten lang verlierst du nur halb so viel Ansehen.\nCell 7: Rollenverwahrung. Du spielst den Stammkunden, den jeder kennt. 4 Minuten lang verlangen Händler 30 % weniger.\nCell 8: Publikum verlieren. Du verschwindest aus jedem Blick. Die Fahndung sinkt um 3 Stufen, eine Minute lang weichen gewöhnliche Gegner.\nCell 9: Hundert Gesichter. Du bist jeder Kunde, jeder Nachbar, jeder Gast. 5 Minuten lang 40 % günstigere Preise, die Fahndung sinkt um 3 Stufen.",
+      "sourceFile": "exec-146dfc87-2d6a-4c1e-bfe8-611616e9627b.png",
+      "sha256": "5d6b83f4d4e5a7147d377dc8cca32b185bf6dc8d185b9fcb85c02eab9b5504bd",
+      "cropBox": [
+        6,
+        6,
+        1268,
+        1233
+      ]
+    },
+    {
+      "id": "echo_kampf",
+      "path": "echo",
+      "kind": "kampf",
+      "color": "#6fe0d0",
+      "cells": [
+        {
+          "seq": 9,
+          "id": "fluestern",
+          "name": "Flüstern",
+          "cost": 1,
+          "hits": 0,
+          "nerves_gain": 8,
+          "fx": "klagelaut",
+          "desc": "Du lauschst nach innen. 8 Nerven kehren zurück."
+        },
+        {
+          "seq": 8,
+          "id": "totenruf",
+          "name": "Totenruf",
+          "cost": 2,
+          "hits": 1,
+          "flat": 6,
+          "holy": true,
+          "weaken": [
+            0.8,
+            2
+          ],
+          "fx": "grabesstimme",
+          "desc": "Eine Stimme, die der Gegner kennt. 6 Schaden, doppelt gegen Okkultes, 2 Runden lang schlägt er 20 % schwächer."
+        },
+        {
+          "seq": 7,
+          "id": "seelenfaden",
+          "name": "Seelenfaden",
+          "cost": 2,
+          "hits": 1,
+          "flat": 8,
+          "drain": 1,
+          "fx": "seelenzug",
+          "desc": "Ein dünner Faden zur Seele des Gegners. 8 Schaden, die dich vollständig heilen."
+        },
+        {
+          "seq": 6,
+          "id": "chorschild",
+          "name": "Chorschild",
+          "cost": 2,
+          "hits": 0,
+          "shield_all": 10,
+          "nerves_gain": 10,
+          "fx": "totenchor",
+          "desc": "Die Stimmen singen um dich (und deine Begleitung). Schutz 10 für jeden Stehenden, 10 Nerven zurück."
+        },
+        {
+          "seq": 5,
+          "id": "stillstand",
+          "name": "Stillstand",
+          "cost": 3,
+          "hits": 1,
+          "flat": 16,
+          "holy": true,
+          "slow": true,
+          "weaken": [
+            0.7,
+            2
+          ],
+          "fx": "stillgesang",
+          "desc": "Ein Lied, das den Atem anhält. 16 Schaden, doppelt gegen Okkultes, der Gegner wird langsam und 2 Runden lang 30 % schwächer."
+        },
+        {
+          "seq": 4,
+          "id": "beschlagenes_wort",
+          "name": "Beschlagenes Wort",
+          "cost": 3,
+          "hits": 1,
+          "flat": 26,
+          "holy": true,
+          "drain": 0.5,
+          "guard_break": true,
+          "fx": "echo_hoch_4",
+          "desc": "Dein Wort beschlägt den Gegner wie Glas. 26 Schaden, doppelt gegen Okkultes, die Hälfte heilt dich, sein Panzer bricht."
+        },
+        {
+          "seq": 3,
+          "id": "fremde_kehle",
+          "name": "Fremde Kehle",
+          "cost": 3,
+          "hits": 2,
+          "flat": 18,
+          "holy": true,
+          "confuse": true,
+          "fx": "echo_hoch_3",
+          "desc": "Du sprichst mit der Stimme des Gegners. Je 18 Schaden, doppelt gegen Okkultes, und er schlägt beim nächsten Mal sich selbst."
+        },
+        {
+          "seq": 2,
+          "id": "kuestenlaut",
+          "name": "Küstenlaut",
+          "cost": 4,
+          "hits": 1,
+          "flat": 40,
+          "holy": true,
+          "drain": 0.4,
+          "slow": true,
+          "fx": "echo_hoch_2",
+          "desc": "Ein Ton wie Brandung. 40 Schaden, doppelt gegen Okkultes, 40 % heilen dich, der nächste Angriff kommt langsam."
+        },
+        {
+          "seq": 1,
+          "id": "letztes_zuhoeren",
+          "name": "Letztes Zuhören",
+          "cost": 4,
+          "hits": 0,
+          "weak": true,
+          "weaken": [
+            0.5,
+            3
+          ],
+          "nerves_gain": 20,
+          "heal_all": 15,
+          "fx": "echo_hoch_1",
+          "desc": "Du hörst dem Gegner zu, bis er nichts mehr hat. Schwachstelle offen, 3 Runden lang halber Schaden von ihm, 20 Nerven und 15 Leben für jeden Stehenden."
+        }
+      ],
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\nUse the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction.\nCreate one production pixel-art icon sheet: EXACTLY NINE icons in a perfectly regular 3 columns x 3 rows grid. Equal square cells, no gutters or margins. Each cell is a logical 16x16 icon enlarged by nearest neighbor. Final sheet logical48x48 pixels, rendered large. Every cell contains a dark near-black blue-grey ROUND medallion, one-pixel rim, transparent outside circle. A simple bold readable symbol inside in two or three shades of #6fe0d0. Bright highlight top-left. Extremely low resolution icon design: symbol occupies about 10x10 logical pixels, thick clear pixel clusters, no tiny detailed illustration. Same round base for all9; each symbol genuinely distinct. No text, no letters, no numbers, no arrows as primary motif.\nCOMBAT: action symbols, strike, slash, throw, shield, burst or smoke. No white inner ring. Path family: Echo. First three simple single symbols; middle three include a second element; last three add one tiny turquoise occult spark. Peat uses moss green as secondary; copper clocks use ivory; balances use lead grey.\nROW-MAJOR ORDER (left to right, then next row), sequence9 to1. Translate the following ability descriptions into the icon motif. Titles are semantic instructions only, NEVER print them:\nCell 1: Flüstern. Du lauschst nach innen. 8 Nerven kehren zurück.\nCell 2: Totenruf. Eine Stimme, die der Gegner kennt. 6 Schaden, doppelt gegen Okkultes, 2 Runden lang schlägt er 20 % schwächer.\nCell 3: Seelenfaden. Ein dünner Faden zur Seele des Gegners. 8 Schaden, die dich vollständig heilen.\nCell 4: Chorschild. Die Stimmen singen um dich (und deine Begleitung). Schutz 10 für jeden Stehenden, 10 Nerven zurück.\nCell 5: Stillstand. Ein Lied, das den Atem anhält. 16 Schaden, doppelt gegen Okkultes, der Gegner wird langsam und 2 Runden lang 30 % schwächer.\nCell 6: Beschlagenes Wort. Dein Wort beschlägt den Gegner wie Glas. 26 Schaden, doppelt gegen Okkultes, die Hälfte heilt dich, sein Panzer bricht.\nCell 7: Fremde Kehle. Du sprichst mit der Stimme des Gegners. Je 18 Schaden, doppelt gegen Okkultes, und er schlägt beim nächsten Mal sich selbst.\nCell 8: Küstenlaut. Ein Ton wie Brandung. 40 Schaden, doppelt gegen Okkultes, 40 % heilen dich, der nächste Angriff kommt langsam.\nCell 9: Letztes Zuhören. Du hörst dem Gegner zu, bis er nichts mehr hat. Schwachstelle offen, 3 Runden lang halber Schaden von ihm, 20 Nerven und 15 Leben für jeden Stehenden.",
+      "sourceFile": "exec-60cd1a7b-bf77-47a8-acbe-a61acee8e27a.png",
+      "sha256": "5d77da3cc73b9acefadf5373e379f4a01e29943ec72e956754897c8816e7b12d",
+      "cropBox": [
+        17,
+        19,
+        1238,
+        1243
+      ]
+    },
+    {
+      "id": "echo_welt",
+      "path": "echo",
+      "kind": "welt",
+      "color": "#6fe0d0",
+      "cells": [
+        {
+          "seq": 9,
+          "id": "lauschen",
+          "name": "Lauschen",
+          "nerves": 0,
+          "unruhe": 2,
+          "cooldown": 180,
+          "hint": true,
+          "desc": "Du hörst, was die Wände wissen: Der Pfad sagt dir, was dein wichtigster Auftrag als Nächstes braucht."
+        },
+        {
+          "seq": 8,
+          "id": "stille_bitte",
+          "name": "Stille Bitte",
+          "nerves": 0,
+          "unruhe": 0,
+          "cooldown": 240,
+          "nerves_gain": 20,
+          "desc": "Du bittest die Stimmen um Ruhe, und sie gewähren sie. 20 Nerven kehren zurück."
+        },
+        {
+          "seq": 7,
+          "id": "nachhall",
+          "name": "Nachhall",
+          "nerves": 8,
+          "unruhe": 2,
+          "cooldown": 300,
+          "review": true,
+          "desc": "Der Ort wiederholt, was hier gesagt wurde: Eine Vermutung ohne zweite Quelle kommt dir in den Sinn."
+        },
+        {
+          "seq": 6,
+          "id": "grabesstille",
+          "name": "Grabesstille",
+          "nerves": 10,
+          "unruhe": 3,
+          "cooldown": 360,
+          "calm": 25,
+          "desc": "Du singst den Ton, der die Stimmen in dir schlafen legt. Senkt die Unruhe um 25."
+        },
+        {
+          "seq": 5,
+          "id": "ohr_an_der_wand",
+          "name": "Ohr an der Wand",
+          "nerves": 10,
+          "unruhe": 3,
+          "cooldown": 300,
+          "scout": true,
+          "reveal": 30,
+          "desc": "Du hörst Schritte und Atem hinter allen Wänden: Gegnerzahl der Karte und 30 Sekunden lang verborgene Spuren."
+        },
+        {
+          "seq": 4,
+          "id": "stilleverwahrung",
+          "name": "Stilleverwahrung",
+          "nerves": 0,
+          "unruhe": 0,
+          "cooldown": 480,
+          "buff": {
+            "key": "composure_regen",
+            "value": 2,
+            "seconds": 240
+          },
+          "desc": "Du verwahrst die Stille in dir. 4 Minuten lang erholen sich deine Nerven doppelt so schnell."
+        },
+        {
+          "seq": 3,
+          "id": "nachruf",
+          "name": "Nachruf",
+          "nerves": 12,
+          "unruhe": 4,
+          "cooldown": 420,
+          "review": true,
+          "hint": true,
+          "desc": "Die Toten des Ortes halten dir ihren Nachruf: nächster Schritt und eine offene Vermutung."
+        },
+        {
+          "seq": 2,
+          "id": "schweigeufer",
+          "name": "Schweigeufer",
+          "nerves": 14,
+          "unruhe": 4,
+          "cooldown": 480,
+          "scare": 60,
+          "calm": 15,
+          "desc": "Um dich wird es so still, dass niemand näherkommen mag. Eine Minute lang weichen gewöhnliche Gegner, die Unruhe sinkt um 15."
+        },
+        {
+          "seq": 1,
+          "id": "zuhoerstelle",
+          "name": "Zuhörstelle",
+          "nerves": 0,
+          "unruhe": 0,
+          "cooldown": 600,
+          "nerves_gain": 60,
+          "calm": 30,
+          "desc": "Du setzt dich an die Stelle, an der alles gehört wird. 60 Nerven zurück, Unruhe sinkt um 30."
+        }
+      ],
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\nUse the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction.\nCreate one production pixel-art icon sheet: EXACTLY NINE icons in a perfectly regular 3 columns x 3 rows grid. Equal square cells, no gutters or margins. Each cell is a logical 16x16 icon enlarged by nearest neighbor. Final sheet logical48x48 pixels, rendered large. Every cell contains a dark near-black blue-grey ROUND medallion, one-pixel rim, transparent outside circle. A simple bold readable symbol inside in two or three shades of #6fe0d0. Bright highlight top-left. Extremely low resolution icon design: symbol occupies about 10x10 logical pixels, thick clear pixel clusters, no tiny detailed illustration. Same round base for all9; each symbol genuinely distinct. No text, no letters, no numbers, no arrows as primary motif.\nWORLD: tools or tangible objects, NOT combat explosions. Every medallion has an additional ONE logical pixel bone-white inner ring inside dark outer border. Path family: Echo. First three simple single symbols; middle three include a second element; last three add one tiny violet occult spark. Peat uses moss green as secondary; copper clocks use ivory; balances use lead grey.\nROW-MAJOR ORDER (left to right, then next row), sequence9 to1. Translate the following ability descriptions into the icon motif. Titles are semantic instructions only, NEVER print them:\nCell 1: Lauschen. Du hörst, was die Wände wissen: Der Pfad sagt dir, was dein wichtigster Auftrag als Nächstes braucht.\nCell 2: Stille Bitte. Du bittest die Stimmen um Ruhe, und sie gewähren sie. 20 Nerven kehren zurück.\nCell 3: Nachhall. Der Ort wiederholt, was hier gesagt wurde: Eine Vermutung ohne zweite Quelle kommt dir in den Sinn.\nCell 4: Grabesstille. Du singst den Ton, der die Stimmen in dir schlafen legt. Senkt die Unruhe um 25.\nCell 5: Ohr an der Wand. Du hörst Schritte und Atem hinter allen Wänden: Gegnerzahl der Karte und 30 Sekunden lang verborgene Spuren.\nCell 6: Stilleverwahrung. Du verwahrst die Stille in dir. 4 Minuten lang erholen sich deine Nerven doppelt so schnell.\nCell 7: Nachruf. Die Toten des Ortes halten dir ihren Nachruf: nächster Schritt und eine offene Vermutung.\nCell 8: Schweigeufer. Um dich wird es so still, dass niemand näherkommen mag. Eine Minute lang weichen gewöhnliche Gegner, die Unruhe sinkt um 15.\nCell 9: Zuhörstelle. Du setzt dich an die Stelle, an der alles gehört wird. 60 Nerven zurück, Unruhe sinkt um 30.",
+      "sourceFile": "exec-f7442a7c-cf67-45d0-9d03-c561f0117a47.png",
+      "sha256": "347e50bd3b78a16412c070e1dd440139e598d2dc7bd26331aba37259b3d30547",
+      "cropBox": [
+        31,
+        6,
+        1227,
+        1239
+      ]
+    },
+    {
+      "id": "kessel_kampf",
+      "path": "kessel",
+      "kind": "kampf",
+      "color": "#9ad06a",
+      "cells": [
+        {
+          "seq": 9,
+          "id": "riechsalz",
+          "name": "Riechsalz",
+          "cost": 1,
+          "hits": 0,
+          "nerves_gain": 6,
+          "cleanse": true,
+          "fx": "wundsalbe",
+          "desc": "Ein scharfer Atemzug. 6 Nerven zurück, und eine Blutung versiegt."
+        },
+        {
+          "seq": 8,
+          "id": "rauchphiole",
+          "name": "Rauchphiole",
+          "cost": 2,
+          "hits": 0,
+          "evade": true,
+          "burn": [
+            3,
+            2
+          ],
+          "fx": "giftphiole",
+          "desc": "Beißender Rauch. Der nächste Angriff geht ins Leere, der Gegner hustet 2 Runden lang (3 Schaden)."
+        },
+        {
+          "seq": 7,
+          "id": "laugenwurf",
+          "name": "Laugenwurf",
+          "cost": 2,
+          "hits": 1,
+          "flat": 7,
+          "armor_break": 1,
+          "weak": true,
+          "fx": "aetzwolke",
+          "desc": "Ein Spritzer Lauge. 7 Schaden, der Panzer verliert eine Stufe, die Schwachstelle liegt offen."
+        },
+        {
+          "seq": 6,
+          "id": "destillat",
+          "name": "Destillat",
+          "cost": 2,
+          "hits": 0,
+          "heal": 18,
+          "ap_gain": 1,
+          "fx": "lebenselixier",
+          "desc": "Ein Schluck aus der Taschenflasche. 18 Leben, und 1 Konzentration kehrt zurück."
+        },
+        {
+          "seq": 5,
+          "id": "wandlungstrunk",
+          "name": "Wandlungstrunk",
+          "cost": 3,
+          "hits": 0,
+          "shield": 12,
+          "heal": 12,
+          "nerves_gain": 14,
+          "fx": "zersetzung",
+          "desc": "Gift, Arznei, Säure in einem Schluck. Schutz 12, 12 Leben und 14 Nerven."
+        },
+        {
+          "seq": 4,
+          "id": "rueckstandsgift",
+          "name": "Rückstandsgift",
+          "cost": 3,
+          "hits": 1,
+          "flat": 12,
+          "burn": [
+            9,
+            4
+          ],
+          "extend_burn": 2,
+          "fx": "kessel_hoch_4",
+          "desc": "Was übrig bleibt, wirkt am längsten. 12 Schaden, 4 Runden je 9 Gift, ein bestehender Brand hält 2 Runden länger."
+        },
+        {
+          "seq": 3,
+          "id": "kreislaufsud",
+          "name": "Kreislaufsud",
+          "cost": 3,
+          "hits": 0,
+          "heal_all": 24,
+          "cleanse": true,
+          "fx": "kessel_hoch_3",
+          "desc": "Ein Sud, der durch jeden Stehenden kreist. 24 Leben für jeden, Blutungen versiegen."
+        },
+        {
+          "seq": 2,
+          "id": "dampfstoss",
+          "name": "Dampfstoß",
+          "cost": 4,
+          "hits": 2,
+          "flat": 24,
+          "burn": [
+            14,
+            3
+          ],
+          "slow": true,
+          "fx": "kessel_hoch_2",
+          "desc": "Zwei Schübe kochenden Dampfs. Je 24 Schaden, 3 Runden je 14 Brand, der nächste Angriff kommt langsam."
+        },
+        {
+          "seq": 1,
+          "id": "letzte_fraktion",
+          "name": "Unverlorener Rest",
+          "cost": 4,
+          "hits": 0,
+          "heal_all": 40,
+          "shield_all": 20,
+          "ap_gain": 2,
+          "fx": "kessel_hoch_1",
+          "desc": "Nichts geht verloren, alles kommt zurück. 40 Leben und Schutz 20 für jeden Stehenden, 2 Konzentration zurück."
+        }
+      ],
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\nUse the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction.\nCreate one production pixel-art icon sheet: EXACTLY NINE icons in a perfectly regular 3 columns x 3 rows grid. Equal square cells, no gutters or margins. Each cell is a logical 16x16 icon enlarged by nearest neighbor. Final sheet logical48x48 pixels, rendered large. Every cell contains a dark near-black blue-grey ROUND medallion, one-pixel rim, transparent outside circle. A simple bold readable symbol inside in two or three shades of #9ad06a. Bright highlight top-left. Extremely low resolution icon design: symbol occupies about 10x10 logical pixels, thick clear pixel clusters, no tiny detailed illustration. Same round base for all9; each symbol genuinely distinct. No text, no letters, no numbers, no arrows as primary motif.\nCOMBAT: action symbols, strike, slash, throw, shield, burst or smoke. No white inner ring. Path family: Kessel. First three simple single symbols; middle three include a second element; last three add one tiny turquoise occult spark. Peat uses moss green as secondary; copper clocks use ivory; balances use lead grey.\nROW-MAJOR ORDER (left to right, then next row), sequence9 to1. Translate the following ability descriptions into the icon motif. Titles are semantic instructions only, NEVER print them:\nCell 1: Riechsalz. Ein scharfer Atemzug. 6 Nerven zurück, und eine Blutung versiegt.\nCell 2: Rauchphiole. Beißender Rauch. Der nächste Angriff geht ins Leere, der Gegner hustet 2 Runden lang (3 Schaden).\nCell 3: Laugenwurf. Ein Spritzer Lauge. 7 Schaden, der Panzer verliert eine Stufe, die Schwachstelle liegt offen.\nCell 4: Destillat. Ein Schluck aus der Taschenflasche. 18 Leben, und 1 Konzentration kehrt zurück.\nCell 5: Wandlungstrunk. Gift, Arznei, Säure in einem Schluck. Schutz 12, 12 Leben und 14 Nerven.\nCell 6: Rückstandsgift. Was übrig bleibt, wirkt am längsten. 12 Schaden, 4 Runden je 9 Gift, ein bestehender Brand hält 2 Runden länger.\nCell 7: Kreislaufsud. Ein Sud, der durch jeden Stehenden kreist. 24 Leben für jeden, Blutungen versiegen.\nCell 8: Dampfstoß. Zwei Schübe kochenden Dampfs. Je 24 Schaden, 3 Runden je 14 Brand, der nächste Angriff kommt langsam.\nCell 9: Unverlorener Rest. Nichts geht verloren, alles kommt zurück. 40 Leben und Schutz 20 für jeden Stehenden, 2 Konzentration zurück.",
+      "sourceFile": "exec-293b561a-1c33-470b-bd81-3f500eb84559.png",
+      "sha256": "18c94667088cdcf6c75a3cf147c01d6d3c58574216cb4f888ae1db2549de49f4",
+      "cropBox": [
+        15,
+        13,
+        1239,
+        1239
+      ]
+    },
+    {
+      "id": "kessel_welt",
+      "path": "kessel",
+      "kind": "welt",
+      "color": "#9ad06a",
+      "cells": [
+        {
+          "seq": 9,
+          "id": "kraeuterwickel",
+          "name": "Kräuterwickel",
+          "nerves": 4,
+          "unruhe": 0,
+          "cooldown": 240,
+          "heal_pct": 0.2,
+          "desc": "Du legst dir einen Wickel aus dem an, was am Wegrand wächst. Heilt 20 % deines Lebens."
+        },
+        {
+          "seq": 8,
+          "id": "beruhigender_sud",
+          "name": "Beruhigender Sud",
+          "nerves": 0,
+          "unruhe": 0,
+          "cooldown": 240,
+          "calm": 15,
+          "desc": "Du brühst dir aus der Tasche einen Schluck gegen das Flackern. Senkt die Unruhe um 15."
+        },
+        {
+          "seq": 7,
+          "id": "staerkende_tinktur",
+          "name": "Stärkende Tinktur",
+          "nerves": 6,
+          "unruhe": 2,
+          "cooldown": 300,
+          "buff": {
+            "key": "heal_bonus",
+            "value": 1.5,
+            "seconds": 240
+          },
+          "desc": "Ein paar Tropfen vorab. 4 Minuten lang wirken heilende Gegenstände 50 % stärker."
+        },
+        {
+          "seq": 6,
+          "id": "witterung",
+          "name": "Witterung",
+          "nerves": 8,
+          "unruhe": 2,
+          "cooldown": 300,
+          "reveal": 30,
+          "desc": "Du riechst, woraus die Dinge bestehen, auch die versteckten. 30 Sekunden lang zeigen sich verborgene Spuren."
+        },
+        {
+          "seq": 5,
+          "id": "schnellbrand",
+          "name": "Schnellbrand",
+          "nerves": 10,
+          "unruhe": 3,
+          "cooldown": 360,
+          "heal_pct": 0.35,
+          "calm": 10,
+          "desc": "Du brennst dir am Feuer in der Tasche ein Elixier. Heilt 35 % deines Lebens, Unruhe sinkt um 10."
+        },
+        {
+          "seq": 4,
+          "id": "schichtung",
+          "name": "Schichtung",
+          "nerves": 10,
+          "unruhe": 3,
+          "cooldown": 420,
+          "buff": {
+            "key": "carry",
+            "value": 25,
+            "seconds": 300
+          },
+          "desc": "Deine Säfte setzen sich dichter. 5 Minuten lang +25 Pfund Tragkraft."
+        },
+        {
+          "seq": 3,
+          "id": "zehrende_wandlung",
+          "name": "Zehrende Wandlung",
+          "nerves": 12,
+          "unruhe": 4,
+          "cooldown": 420,
+          "buff": {
+            "key": "damage_taken",
+            "value": 0.8,
+            "seconds": 300
+          },
+          "desc": "Deine Haut gerbt sich von innen. 5 Minuten lang nimmst du 20 % weniger Schaden."
+        },
+        {
+          "seq": 2,
+          "id": "abwaerme",
+          "name": "Abwärme",
+          "nerves": 0,
+          "unruhe": 0,
+          "cooldown": 480,
+          "heal_pct": 0.5,
+          "nerves_gain": 25,
+          "desc": "Du sammelst die Wärme ein, die andere verlieren. Heilt 50 % deines Lebens und 25 Nerven."
+        },
+        {
+          "seq": 1,
+          "id": "kreislauf",
+          "name": "Kreislauf",
+          "nerves": 0,
+          "unruhe": 0,
+          "cooldown": 600,
+          "heal_pct": 1,
+          "calm": 40,
+          "desc": "Dein Körper kehrt in den Zustand zurück, in dem er sein sollte. Volles Leben, Unruhe sinkt um 40."
+        }
+      ],
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\nUse the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction.\nCreate one production pixel-art icon sheet: EXACTLY NINE icons in a perfectly regular 3 columns x 3 rows grid. Equal square cells, no gutters or margins. Each cell is a logical 16x16 icon enlarged by nearest neighbor. Final sheet logical48x48 pixels, rendered large. Every cell contains a dark near-black blue-grey ROUND medallion, one-pixel rim, transparent outside circle. A simple bold readable symbol inside in two or three shades of #9ad06a. Bright highlight top-left. Extremely low resolution icon design: symbol occupies about 10x10 logical pixels, thick clear pixel clusters, no tiny detailed illustration. Same round base for all9; each symbol genuinely distinct. No text, no letters, no numbers, no arrows as primary motif.\nWORLD: tools or tangible objects, NOT combat explosions. Every medallion has an additional ONE logical pixel bone-white inner ring inside dark outer border. Path family: Kessel. First three simple single symbols; middle three include a second element; last three add one tiny violet occult spark. Peat uses moss green as secondary; copper clocks use ivory; balances use lead grey.\nROW-MAJOR ORDER (left to right, then next row), sequence9 to1. Translate the following ability descriptions into the icon motif. Titles are semantic instructions only, NEVER print them:\nCell 1: Kräuterwickel. Du legst dir einen Wickel aus dem an, was am Wegrand wächst. Heilt 20 % deines Lebens.\nCell 2: Beruhigender Sud. Du brühst dir aus der Tasche einen Schluck gegen das Flackern. Senkt die Unruhe um 15.\nCell 3: Stärkende Tinktur. Ein paar Tropfen vorab. 4 Minuten lang wirken heilende Gegenstände 50 % stärker.\nCell 4: Witterung. Du riechst, woraus die Dinge bestehen, auch die versteckten. 30 Sekunden lang zeigen sich verborgene Spuren.\nCell 5: Schnellbrand. Du brennst dir am Feuer in der Tasche ein Elixier. Heilt 35 % deines Lebens, Unruhe sinkt um 10.\nCell 6: Schichtung. Deine Säfte setzen sich dichter. 5 Minuten lang +25 Pfund Tragkraft.\nCell 7: Zehrende Wandlung. Deine Haut gerbt sich von innen. 5 Minuten lang nimmst du 20 % weniger Schaden.\nCell 8: Abwärme. Du sammelst die Wärme ein, die andere verlieren. Heilt 50 % deines Lebens und 25 Nerven.\nCell 9: Kreislauf. Dein Körper kehrt in den Zustand zurück, in dem er sein sollte. Volles Leben, Unruhe sinkt um 40.",
+      "sourceFile": "exec-371776c1-3399-4972-8b02-b4ce30a6ef3f.png",
+      "sha256": "41b656fa3858abc7c9d5c7d12c331d310a2db2d1243c9571983fc0e02b8f8436",
+      "cropBox": [
+        723,
+        5,
+        1449,
+        724
+      ]
+    },
+    {
+      "id": "eisen_kampf",
+      "path": "eisen",
+      "kind": "kampf",
+      "color": "#a8b4c0",
+      "cells": [
+        {
+          "seq": 9,
+          "id": "schulterstoss",
+          "name": "Schulterstoß",
+          "cost": 1,
+          "hits": 1,
+          "mult": 0.9,
+          "slow": true,
+          "fx": "wuchtschlag",
+          "desc": "Ein Stoß mit der Schulter. 90 % Waffenschaden, der Gegner taumelt: Sein nächster Angriff kommt langsam."
+        },
+        {
+          "seq": 8,
+          "id": "deckung",
+          "name": "Deckung",
+          "cost": 2,
+          "hits": 0,
+          "shield": 8,
+          "ap_gain": 1,
+          "fx": "eisenhaut",
+          "desc": "Du nimmst die Arme hoch. Schutz 8, und 1 Konzentration kehrt zurück."
+        },
+        {
+          "seq": 7,
+          "id": "klingenbruch",
+          "name": "Klingenbruch",
+          "cost": 2,
+          "hits": 1,
+          "mult": 1.2,
+          "armor_break": 1,
+          "guard_break": true,
+          "fx": "klingenwirbel",
+          "desc": "Ein Hieb gegen die Deckung. 120 % Waffenschaden, Panzer und Schild des Gegners brechen."
+        },
+        {
+          "seq": 6,
+          "id": "hafenmauer",
+          "name": "Hafenmauer",
+          "cost": 2,
+          "hits": 0,
+          "shield_all": 14,
+          "cleanse": true,
+          "fx": "unbeugsam",
+          "desc": "Du stellst dich vor alle. Schutz 14 für jeden Stehenden, deine Blutung versiegt."
+        },
+        {
+          "seq": 5,
+          "id": "ambossschlag",
+          "name": "Ambossschlag",
+          "cost": 3,
+          "hits": 1,
+          "mult": 2,
+          "pierce": true,
+          "weaken": [
+            0.8,
+            2
+          ],
+          "fx": "hammerfall",
+          "desc": "Ein Schlag wie auf den Amboss. 200 % Waffenschaden durch jeden Panzer, der Gegner trifft 2 Runden lang 20 % schwächer."
+        },
+        {
+          "seq": 4,
+          "id": "nietenfaust",
+          "name": "Nietenfaust",
+          "cost": 3,
+          "hits": 2,
+          "mult": 1.5,
+          "armor_break": 2,
+          "fx": "eisen_hoch_4",
+          "desc": "Zwei Fäuste wie Nietköpfe. Je 150 % Waffenschaden, der Panzer des Gegners verliert zwei Stufen."
+        },
+        {
+          "seq": 3,
+          "id": "gegenlast",
+          "name": "Gegenlast",
+          "cost": 3,
+          "hits": 0,
+          "shield": 30,
+          "read": true,
+          "focus": true,
+          "fx": "eisen_hoch_3",
+          "desc": "Du setzt dein Gewicht dagegen. Schutz 30, der nächste Schlag lässt sich parieren, wie unparierbar er auch ist, und deine nächste Fertigkeit trifft einen Takt genauer."
+        },
+        {
+          "seq": 2,
+          "id": "traegerstoss",
+          "name": "Trägerstoß",
+          "cost": 4,
+          "hits": 3,
+          "mult": 1.6,
+          "sure": true,
+          "slow": true,
+          "fx": "eisen_hoch_2",
+          "desc": "Drei Stöße mit dem Gewicht einer Brücke. Kein Takt geht verloren, der Gegner wird langsam."
+        },
+        {
+          "seq": 1,
+          "id": "bleibende_stuetze",
+          "name": "Bleibende Stütze",
+          "cost": 4,
+          "hits": 0,
+          "shield_all": 40,
+          "heal_all": 20,
+          "weaken": [
+            0.6,
+            3
+          ],
+          "fx": "eisen_hoch_1",
+          "desc": "Du stehst, und alles lehnt sich an dich. Schutz 40 und 20 Leben für jeden Stehenden, der Gegner trifft 3 Runden lang 40 % schwächer."
+        }
+      ],
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\nUse the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction.\nCreate one production pixel-art icon sheet: EXACTLY NINE icons in a perfectly regular 3 columns x 3 rows grid. Equal square cells, no gutters or margins. Each cell is a logical 16x16 icon enlarged by nearest neighbor. Final sheet logical48x48 pixels, rendered large. Every cell contains a dark near-black blue-grey ROUND medallion, one-pixel rim, transparent outside circle. A simple bold readable symbol inside in two or three shades of #a8b4c0. Bright highlight top-left. Extremely low resolution icon design: symbol occupies about 10x10 logical pixels, thick clear pixel clusters, no tiny detailed illustration. Same round base for all9; each symbol genuinely distinct. No text, no letters, no numbers, no arrows as primary motif.\nCOMBAT: action symbols, strike, slash, throw, shield, burst or smoke. No white inner ring. Path family: Eisen. First three simple single symbols; middle three include a second element; last three add one tiny turquoise occult spark. Peat uses moss green as secondary; copper clocks use ivory; balances use lead grey.\nROW-MAJOR ORDER (left to right, then next row), sequence9 to1. Translate the following ability descriptions into the icon motif. Titles are semantic instructions only, NEVER print them:\nCell 1: Schulterstoß. Ein Stoß mit der Schulter. 90 % Waffenschaden, der Gegner taumelt: Sein nächster Angriff kommt langsam.\nCell 2: Deckung. Du nimmst die Arme hoch. Schutz 8, und 1 Konzentration kehrt zurück.\nCell 3: Klingenbruch. Ein Hieb gegen die Deckung. 120 % Waffenschaden, Panzer und Schild des Gegners brechen.\nCell 4: Hafenmauer. Du stellst dich vor alle. Schutz 14 für jeden Stehenden, deine Blutung versiegt.\nCell 5: Ambossschlag. Ein Schlag wie auf den Amboss. 200 % Waffenschaden durch jeden Panzer, der Gegner trifft 2 Runden lang 20 % schwächer.\nCell 6: Nietenfaust. Zwei Fäuste wie Nietköpfe. Je 150 % Waffenschaden, der Panzer des Gegners verliert zwei Stufen.\nCell 7: Gegenlast. Du setzt dein Gewicht dagegen. Schutz 30, der nächste Schlag lässt sich parieren, wie unparierbar er auch ist, und deine nächste Fertigkeit trifft einen Takt genauer.\nCell 8: Trägerstoß. Drei Stöße mit dem Gewicht einer Brücke. Kein Takt geht verloren, der Gegner wird langsam.\nCell 9: Bleibende Stütze. Du stehst, und alles lehnt sich an dich. Schutz 40 und 20 Leben für jeden Stehenden, der Gegner trifft 3 Runden lang 40 % schwächer.",
+      "sourceFile": "exec-da81a38b-15d6-41b5-8b2f-6f89a3c4d12d.png",
+      "sha256": "e9285a599c7b8fd24f9d216c8ca968fdcc74b51cc73c7685f45e43a3911df3b7",
+      "cropBox": [
+        10,
+        11,
+        1254,
+        1241
+      ]
+    },
+    {
+      "id": "eisen_welt",
+      "path": "eisen",
+      "kind": "welt",
+      "color": "#a8b4c0",
+      "cells": [
+        {
+          "seq": 9,
+          "id": "zaehne_zusammen",
+          "name": "Zähne zusammen",
+          "nerves": 0,
+          "unruhe": 0,
+          "cooldown": 240,
+          "heal_pct": 0.15,
+          "desc": "Du beißt die Zähne zusammen, bis es nicht mehr blutet. Heilt 15 % deines Lebens."
+        },
+        {
+          "seq": 8,
+          "id": "wachstand",
+          "name": "Wachstand",
+          "nerves": 6,
+          "unruhe": 2,
+          "cooldown": 300,
+          "buff": {
+            "key": "parry_ap",
+            "value": 1,
+            "seconds": 240
+          },
+          "desc": "Du stehst, wie ein Wachposten steht. 4 Minuten lang geben Paraden 1 Konzentration mehr."
+        },
+        {
+          "seq": 7,
+          "id": "waffenpflege",
+          "name": "Waffenpflege",
+          "nerves": 6,
+          "unruhe": 0,
+          "cooldown": 300,
+          "buff": {
+            "key": "atk",
+            "value": 3,
+            "seconds": 240
+          },
+          "desc": "Du schärfst und ölst, was du trägst. 4 Minuten lang +3 Angriff."
+        },
+        {
+          "seq": 6,
+          "id": "lastentraeger",
+          "name": "Lastenträger",
+          "nerves": 8,
+          "unruhe": 2,
+          "cooldown": 360,
+          "buff": {
+            "key": "carry",
+            "value": 30,
+            "seconds": 300
+          },
+          "desc": "Du nimmst alles auf den Rücken. 5 Minuten lang +30 Pfund Tragkraft."
+        },
+        {
+          "seq": 5,
+          "id": "schmerzfrei",
+          "name": "Schmerzfrei",
+          "nerves": 10,
+          "unruhe": 3,
+          "cooldown": 420,
+          "buff": {
+            "key": "damage_taken",
+            "value": 0.75,
+            "seconds": 300
+          },
+          "desc": "Dein Körper hört auf, sich zu beschweren. 5 Minuten lang nimmst du 25 % weniger Schaden."
+        },
+        {
+          "seq": 4,
+          "id": "standhaft",
+          "name": "Standhaft",
+          "nerves": 10,
+          "unruhe": 3,
+          "cooldown": 420,
+          "scare": 45,
+          "heal_pct": 0.2,
+          "desc": "Du stellst dich breit hin, und die Gasse weiß Bescheid. 45 Sekunden lang weichen gewöhnliche Gegner, 20 % Leben zurück."
+        },
+        {
+          "seq": 3,
+          "id": "eingedrueckte_spur",
+          "name": "Eingedrückte Spur",
+          "nerves": 12,
+          "unruhe": 4,
+          "cooldown": 480,
+          "buff": {
+            "key": "dmg_mult",
+            "value": 1.2,
+            "seconds": 240
+          },
+          "desc": "Jeder Schritt drückt sich in den Stein. 4 Minuten lang +20 % Schaden mit allem."
+        },
+        {
+          "seq": 2,
+          "id": "widerlager",
+          "name": "Widerlager",
+          "nerves": 14,
+          "unruhe": 4,
+          "cooldown": 480,
+          "buff": {
+            "key": "damage_taken",
+            "value": 0.6,
+            "seconds": 240
+          },
+          "heal_pct": 0.3,
+          "desc": "Du wirst zum Teil der Stadtmauer. 4 Minuten lang 40 % weniger Schaden, 30 % Leben zurück."
+        },
+        {
+          "seq": 1,
+          "id": "stehender_schatten",
+          "name": "Stehender Schatten",
+          "nerves": 16,
+          "unruhe": 5,
+          "cooldown": 600,
+          "scare": 120,
+          "buff": {
+            "key": "carry",
+            "value": 60,
+            "seconds": 300
+          },
+          "desc": "Dein Schatten bleibt stehen, und niemand wagt sich an ihm vorbei. 2 Minuten lang weichen gewöhnliche Gegner, 5 Minuten lang +60 Pfund Tragkraft."
+        }
+      ],
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\nUse the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction.\nCreate one production pixel-art icon sheet: EXACTLY NINE icons in a perfectly regular 3 columns x 3 rows grid. Equal square cells, no gutters or margins. Each cell is a logical 16x16 icon enlarged by nearest neighbor. Final sheet logical48x48 pixels, rendered large. Every cell contains a dark near-black blue-grey ROUND medallion, one-pixel rim, transparent outside circle. A simple bold readable symbol inside in two or three shades of #a8b4c0. Bright highlight top-left. Extremely low resolution icon design: symbol occupies about 10x10 logical pixels, thick clear pixel clusters, no tiny detailed illustration. Same round base for all9; each symbol genuinely distinct. No text, no letters, no numbers, no arrows as primary motif.\nWORLD: tools or tangible objects, NOT combat explosions. Every medallion has an additional ONE logical pixel bone-white inner ring inside dark outer border. Path family: Eisen. First three simple single symbols; middle three include a second element; last three add one tiny violet occult spark. Peat uses moss green as secondary; copper clocks use ivory; balances use lead grey.\nROW-MAJOR ORDER (left to right, then next row), sequence9 to1. Translate the following ability descriptions into the icon motif. Titles are semantic instructions only, NEVER print them:\nCell 1: Zähne zusammen. Du beißt die Zähne zusammen, bis es nicht mehr blutet. Heilt 15 % deines Lebens.\nCell 2: Wachstand. Du stehst, wie ein Wachposten steht. 4 Minuten lang geben Paraden 1 Konzentration mehr.\nCell 3: Waffenpflege. Du schärfst und ölst, was du trägst. 4 Minuten lang +3 Angriff.\nCell 4: Lastenträger. Du nimmst alles auf den Rücken. 5 Minuten lang +30 Pfund Tragkraft.\nCell 5: Schmerzfrei. Dein Körper hört auf, sich zu beschweren. 5 Minuten lang nimmst du 25 % weniger Schaden.\nCell 6: Standhaft. Du stellst dich breit hin, und die Gasse weiß Bescheid. 45 Sekunden lang weichen gewöhnliche Gegner, 20 % Leben zurück.\nCell 7: Eingedrückte Spur. Jeder Schritt drückt sich in den Stein. 4 Minuten lang +20 % Schaden mit allem.\nCell 8: Widerlager. Du wirst zum Teil der Stadtmauer. 4 Minuten lang 40 % weniger Schaden, 30 % Leben zurück.\nCell 9: Stehender Schatten. Dein Schatten bleibt stehen, und niemand wagt sich an ihm vorbei. 2 Minuten lang weichen gewöhnliche Gegner, 5 Minuten lang +60 Pfund Tragkraft.",
+      "sourceFile": "exec-5f819e60-e13a-4b99-a265-e7e6245851fc.png",
+      "sha256": "5193aaf461275747a95c070352bcde8e4b0759256f371becfcdd0f34afb978b6",
+      "cropBox": [
+        9,
+        10,
+        1244,
+        1244
+      ]
+    },
+    {
+      "id": "schluessel_kampf",
+      "path": "schluessel",
+      "kind": "kampf",
+      "color": "#d0a050",
+      "cells": [
+        {
+          "seq": 9,
+          "id": "griff_in_die_tasche",
+          "name": "Griff in die Tasche",
+          "cost": 1,
+          "hits": 1,
+          "mult": 0.7,
+          "steal": 6,
+          "fx": "hinterhalt",
+          "desc": "Ein Stich und ein Griff. 70 % Waffenschaden, und von Menschen fallen 6 Schilling ab."
+        },
+        {
+          "seq": 8,
+          "id": "riegelgriff",
+          "name": "Riegelgriff",
+          "cost": 2,
+          "hits": 1,
+          "mult": 1,
+          "guard_break": true,
+          "armor_break": 1,
+          "fx": "fallstrick",
+          "desc": "Du findest den Riegel in der Deckung des Gegners. Normaler Schaden, Schild und eine Stufe Panzer fallen."
+        },
+        {
+          "seq": 7,
+          "id": "schattenhaut",
+          "name": "Schattenhaut",
+          "cost": 2,
+          "hits": 0,
+          "evade": true,
+          "ap_gain": 1,
+          "fx": "schattenschritt",
+          "desc": "Du trittst in den Schatten. Der nächste Angriff geht ins Leere, und 1 Konzentration kehrt zurück."
+        },
+        {
+          "seq": 6,
+          "id": "boersenschnitt",
+          "name": "Börsenschnitt",
+          "cost": 2,
+          "hits": 2,
+          "mult": 1,
+          "steal": 12,
+          "fx": "taschenspiel",
+          "desc": "Zwei Stiche, ein Schnitt am Beutel. Je normaler Schaden, und von Menschen fallen 12 Schilling ab."
+        },
+        {
+          "seq": 5,
+          "id": "siegelstich",
+          "name": "Siegelstich",
+          "cost": 3,
+          "hits": 1,
+          "mult": 1.8,
+          "pierce": true,
+          "weak": true,
+          "fx": "kehlschnitt",
+          "desc": "Ein Stich, der jedes Siegel bricht. 180 % Waffenschaden durch jeden Panzer, die Schwachstelle liegt offen."
+        },
+        {
+          "seq": 4,
+          "id": "schwellentritt",
+          "name": "Schwellentritt",
+          "cost": 3,
+          "hits": 2,
+          "mult": 1.4,
+          "evade": true,
+          "steal": 15,
+          "fx": "schluessel_hoch_4",
+          "desc": "Du trittst durch die Schwelle hinter dem Gegner. Je 140 % Waffenschaden, der nächste Angriff geht ins Leere, von Menschen fallen 15 Schilling ab."
+        },
+        {
+          "seq": 3,
+          "id": "leerriegel",
+          "name": "Leerriegel",
+          "cost": 3,
+          "hits": 0,
+          "evade": true,
+          "confuse": true,
+          "guard_break": true,
+          "fx": "schluessel_hoch_3",
+          "desc": "Der Gegner schlägt gegen eine Tür, die nicht mehr da ist. Nächster Angriff ins Leere, danach trifft er sich selbst, sein Schild fällt."
+        },
+        {
+          "seq": 2,
+          "id": "randsprung",
+          "name": "Randsprung",
+          "cost": 4,
+          "hits": 3,
+          "mult": 1.5,
+          "sure": true,
+          "ap_gain": 2,
+          "fx": "schluessel_hoch_2",
+          "desc": "Drei Stiche vom Rand des Türrahmens. Kein Takt geht verloren, 2 Konzentration kehren zurück."
+        },
+        {
+          "seq": 1,
+          "id": "offene_schwelle",
+          "name": "Offener Durchgang",
+          "cost": 4,
+          "hits": 1,
+          "mult": 3,
+          "pierce": true,
+          "evade": true,
+          "steal": 25,
+          "fx": "schluessel_hoch_1",
+          "desc": "Du öffnest im Gegner eine Tür. 300 % Waffenschaden durch jeden Panzer, der nächste Angriff geht ins Leere, von Menschen fallen 25 Schilling ab."
+        }
+      ],
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\nUse the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction.\nCreate one production pixel-art icon sheet: EXACTLY NINE icons in a perfectly regular 3 columns x 3 rows grid. Equal square cells, no gutters or margins. Each cell is a logical 16x16 icon enlarged by nearest neighbor. Final sheet logical48x48 pixels, rendered large. Every cell contains a dark near-black blue-grey ROUND medallion, one-pixel rim, transparent outside circle. A simple bold readable symbol inside in two or three shades of #d0a050. Bright highlight top-left. Extremely low resolution icon design: symbol occupies about 10x10 logical pixels, thick clear pixel clusters, no tiny detailed illustration. Same round base for all9; each symbol genuinely distinct. No text, no letters, no numbers, no arrows as primary motif.\nCOMBAT: action symbols, strike, slash, throw, shield, burst or smoke. No white inner ring. Path family: Schlüssel. First three simple single symbols; middle three include a second element; last three add one tiny turquoise occult spark. Peat uses moss green as secondary; copper clocks use ivory; balances use lead grey.\nROW-MAJOR ORDER (left to right, then next row), sequence9 to1. Translate the following ability descriptions into the icon motif. Titles are semantic instructions only, NEVER print them:\nCell 1: Griff in die Tasche. Ein Stich und ein Griff. 70 % Waffenschaden, und von Menschen fallen 6 Schilling ab.\nCell 2: Riegelgriff. Du findest den Riegel in der Deckung des Gegners. Normaler Schaden, Schild und eine Stufe Panzer fallen.\nCell 3: Schattenhaut. Du trittst in den Schatten. Der nächste Angriff geht ins Leere, und 1 Konzentration kehrt zurück.\nCell 4: Börsenschnitt. Zwei Stiche, ein Schnitt am Beutel. Je normaler Schaden, und von Menschen fallen 12 Schilling ab.\nCell 5: Siegelstich. Ein Stich, der jedes Siegel bricht. 180 % Waffenschaden durch jeden Panzer, die Schwachstelle liegt offen.\nCell 6: Schwellentritt. Du trittst durch die Schwelle hinter dem Gegner. Je 140 % Waffenschaden, der nächste Angriff geht ins Leere, von Menschen fallen 15 Schilling ab.\nCell 7: Leerriegel. Der Gegner schlägt gegen eine Tür, die nicht mehr da ist. Nächster Angriff ins Leere, danach trifft er sich selbst, sein Schild fällt.\nCell 8: Randsprung. Drei Stiche vom Rand des Türrahmens. Kein Takt geht verloren, 2 Konzentration kehren zurück.\nCell 9: Offener Durchgang. Du öffnest im Gegner eine Tür. 300 % Waffenschaden durch jeden Panzer, der nächste Angriff geht ins Leere, von Menschen fallen 25 Schilling ab.",
+      "sourceFile": "exec-c6e04130-d82c-4a35-9453-5921afbd156f.png",
+      "sha256": "71c2aea26d4b840c489c87a186a0db3cf5fc4a6616afd305280f0f94181c6f53",
+      "cropBox": [
+        28,
+        11,
+        1235,
+        1229
+      ]
+    },
+    {
+      "id": "schluessel_welt",
+      "path": "schluessel",
+      "kind": "welt",
+      "color": "#d0a050",
+      "cells": [
+        {
+          "seq": 9,
+          "id": "muenzen_finden",
+          "name": "Münzen finden",
+          "nerves": 4,
+          "unruhe": 2,
+          "cooldown": 480,
+          "money": [
+            4,
+            12
+          ],
+          "desc": "Münzen finden ihren Weg zu dir: zwischen Pflastersteinen, in Rinnen, unter Bänken. 4 bis 12 Schilling."
+        },
+        {
+          "seq": 8,
+          "id": "schlossfluestern",
+          "name": "Schlossflüstern",
+          "nerves": 8,
+          "unruhe": 2,
+          "cooldown": 300,
+          "buff": {
+            "key": "lock_bonus",
+            "value": 20,
+            "seconds": 120
+          },
+          "desc": "Du fragst das Schloss, wie es aufgehen will. 2 Minuten lang öffnen sich gesperrte Schränke und Türen mit 20 Ansehen weniger."
+        },
+        {
+          "seq": 7,
+          "id": "schattenweg",
+          "name": "Schattenweg",
+          "nerves": 8,
+          "unruhe": 2,
+          "cooldown": 360,
+          "buff": {
+            "key": "hurry_cost",
+            "value": 0,
+            "seconds": 240
+          },
+          "desc": "Die Schatten tragen dich durch die Stadt. 4 Minuten lang kostet die schnelle Reise keine Nerven."
+        },
+        {
+          "seq": 6,
+          "id": "nachtgang",
+          "name": "Nachtgang",
+          "nerves": 10,
+          "unruhe": 3,
+          "cooldown": 360,
+          "scare": 40,
+          "money": [
+            6,
+            16
+          ],
+          "desc": "Du gehst, wo niemand hinsieht. 40 Sekunden lang weichen gewöhnliche Gegner, und 6 bis 16 Schilling bleiben an dir hängen."
+        },
+        {
+          "seq": 5,
+          "id": "jede_tuer",
+          "name": "Jede Tür",
+          "nerves": 12,
+          "unruhe": 4,
+          "cooldown": 420,
+          "buff": {
+            "key": "lock_bonus",
+            "value": 35,
+            "seconds": 180
+          },
+          "reveal": 30,
+          "desc": "Kein Riegel hält. 3 Minuten lang öffnen sich Schlösser mit 35 Ansehen weniger, 30 Sekunden lang zeigen sich verborgene Spuren."
+        },
+        {
+          "seq": 4,
+          "id": "gute_beute",
+          "name": "Gute Beute",
+          "nerves": 10,
+          "unruhe": 3,
+          "cooldown": 420,
+          "buff": {
+            "key": "money_bonus",
+            "value": 1.5,
+            "seconds": 300
+          },
+          "desc": "Du weißt, wo das Geld liegt. 5 Minuten lang +50 % Schilling aus Belohnungen und Beute."
+        },
+        {
+          "seq": 3,
+          "id": "spiegelhand",
+          "name": "Spiegelhand",
+          "nerves": 12,
+          "unruhe": 4,
+          "cooldown": 480,
+          "money": [
+            15,
+            35
+          ],
+          "wanted": -1,
+          "desc": "Deine Hand ist schon auf der anderen Seite der Scheibe. 15 bis 35 Schilling, die Fahndung sinkt um eine Stufe."
+        },
+        {
+          "seq": 2,
+          "id": "innenrand",
+          "name": "Innenrand",
+          "nerves": 14,
+          "unruhe": 4,
+          "cooldown": 480,
+          "buff": {
+            "key": "always_flee",
+            "value": true,
+            "seconds": 600
+          },
+          "buff2": {
+            "key": "lock_bonus",
+            "value": 40,
+            "seconds": 300
+          },
+          "desc": "Du stehst immer auf der abgewandten Seite. 10 Minuten lang kannst du aus jedem Kampf fliehen, 5 Minuten lang öffnen sich Schlösser mit 40 Ansehen weniger."
+        },
+        {
+          "seq": 1,
+          "id": "unverwehrte_tuer",
+          "name": "Unverwehrte Tür",
+          "nerves": 16,
+          "unruhe": 5,
+          "cooldown": 600,
+          "buff": {
+            "key": "lock_bonus",
+            "value": 80,
+            "seconds": 300
+          },
+          "money": [
+            30,
+            60
+          ],
+          "reveal": 60,
+          "desc": "Nichts ist dir verwehrt. 5 Minuten lang öffnet sich jedes Schloss, 30 bis 60 Schilling, eine Minute lang alle verborgenen Spuren."
+        }
+      ],
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\nUse the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction.\nCreate one production pixel-art icon sheet: EXACTLY NINE icons in a perfectly regular 3 columns x 3 rows grid. Equal square cells, no gutters or margins. Each cell is a logical 16x16 icon enlarged by nearest neighbor. Final sheet logical48x48 pixels, rendered large. Every cell contains a dark near-black blue-grey ROUND medallion, one-pixel rim, transparent outside circle. A simple bold readable symbol inside in two or three shades of #d0a050. Bright highlight top-left. Extremely low resolution icon design: symbol occupies about 10x10 logical pixels, thick clear pixel clusters, no tiny detailed illustration. Same round base for all9; each symbol genuinely distinct. No text, no letters, no numbers, no arrows as primary motif.\nWORLD: tools or tangible objects, NOT combat explosions. Every medallion has an additional ONE logical pixel bone-white inner ring inside dark outer border. Path family: Schlüssel. First three simple single symbols; middle three include a second element; last three add one tiny violet occult spark. Peat uses moss green as secondary; copper clocks use ivory; balances use lead grey.\nROW-MAJOR ORDER (left to right, then next row), sequence9 to1. Translate the following ability descriptions into the icon motif. Titles are semantic instructions only, NEVER print them:\nCell 1: Münzen finden. Münzen finden ihren Weg zu dir: zwischen Pflastersteinen, in Rinnen, unter Bänken. 4 bis 12 Schilling.\nCell 2: Schlossflüstern. Du fragst das Schloss, wie es aufgehen will. 2 Minuten lang öffnen sich gesperrte Schränke und Türen mit 20 Ansehen weniger.\nCell 3: Schattenweg. Die Schatten tragen dich durch die Stadt. 4 Minuten lang kostet die schnelle Reise keine Nerven.\nCell 4: Nachtgang. Du gehst, wo niemand hinsieht. 40 Sekunden lang weichen gewöhnliche Gegner, und 6 bis 16 Schilling bleiben an dir hängen.\nCell 5: Jede Tür. Kein Riegel hält. 3 Minuten lang öffnen sich Schlösser mit 35 Ansehen weniger, 30 Sekunden lang zeigen sich verborgene Spuren.\nCell 6: Gute Beute. Du weißt, wo das Geld liegt. 5 Minuten lang +50 % Schilling aus Belohnungen und Beute.\nCell 7: Spiegelhand. Deine Hand ist schon auf der anderen Seite der Scheibe. 15 bis 35 Schilling, die Fahndung sinkt um eine Stufe.\nCell 8: Innenrand. Du stehst immer auf der abgewandten Seite. 10 Minuten lang kannst du aus jedem Kampf fliehen, 5 Minuten lang öffnen sich Schlösser mit 40 Ansehen weniger.\nCell 9: Unverwehrte Tür. Nichts ist dir verwehrt. 5 Minuten lang öffnet sich jedes Schloss, 30 bis 60 Schilling, eine Minute lang alle verborgenen Spuren.",
+      "sourceFile": "exec-abeac5d6-e099-4d3a-8ce0-7db45e3acc05.png",
+      "sha256": "7d13a7fa94326c3fbc6cc8d6853acfd93a1ef9fd25f10b45ed258fc43914e5ec",
+      "cropBox": [
+        4,
+        5,
+        1251,
+        1248
+      ]
+    },
+    {
+      "id": "sq_waage_kampf",
+      "path": "sq_waage",
+      "kind": "kampf",
+      "color": "#c9a84c",
+      "cells": [
+        {
+          "seq": 9,
+          "id": "waage_pfandnahme",
+          "name": "Pfandnahme",
+          "cost": 1,
+          "hits": 1,
+          "flat": 5,
+          "steal": 5,
+          "fx": "waage_stufe_9",
+          "desc": "Du nimmst dir, was dir zusteht. 5 Schaden, von Menschen fallen 5 Schilling ab."
+        },
+        {
+          "seq": 8,
+          "id": "waage_bleizunge",
+          "name": "Bleizunge",
+          "cost": 2,
+          "hits": 0,
+          "weaken": [
+            0.8,
+            2
+          ],
+          "shield": 6,
+          "fx": "waage_stufe_8",
+          "desc": "Du nennst die falsche Forderung beim Namen. Schutz 6, der Gegner schlägt 2 Runden lang 20 % schwächer."
+        },
+        {
+          "seq": 7,
+          "id": "waage_frist",
+          "name": "Frist setzen",
+          "cost": 2,
+          "hits": 0,
+          "slow": true,
+          "read": true,
+          "ap_gain": 1,
+          "fx": "waage_stufe_7",
+          "desc": "Du setzt dem Gegner eine Frist. Sein nächster Schlag kommt langsam und lässt sich parieren, 1 Konzentration kehrt zurück."
+        },
+        {
+          "seq": 6,
+          "id": "waage_ausgleich",
+          "name": "Ausgleich",
+          "cost": 2,
+          "hits": 1,
+          "flat": 10,
+          "shield_all": 8,
+          "fx": "waage_stufe_6",
+          "desc": "Ein Schlag, ein Gegengewicht. 10 Schaden, Schutz 8 für jeden Stehenden."
+        },
+        {
+          "seq": 5,
+          "id": "waage_saldo",
+          "name": "Offener Saldo",
+          "cost": 3,
+          "hits": 1,
+          "flat": 14,
+          "weaken": [
+            0.7,
+            3
+          ],
+          "shield": 10,
+          "fx": "waage_stufe_5",
+          "desc": "Du legst dem Gegner seine Schuld auf. 14 Schaden, Schutz 10, er schlägt 3 Runden lang 30 % schwächer."
+        },
+        {
+          "seq": 4,
+          "id": "waage_gewichtsschatten",
+          "name": "Gewichtsschatten",
+          "cost": 3,
+          "hits": 2,
+          "flat": 18,
+          "slow": true,
+          "fx": "waage_hoch_4",
+          "desc": "Die Schatten an deinen Handgelenken schlagen mit. Je 18 Schaden, der Gegner wird langsam."
+        },
+        {
+          "seq": 3,
+          "id": "waage_halber_ton",
+          "name": "Halber Ton tiefer",
+          "cost": 3,
+          "hits": 0,
+          "shield_all": 18,
+          "weaken": [
+            0.7,
+            2
+          ],
+          "nerves_gain": 14,
+          "fx": "waage_hoch_3",
+          "desc": "Deine Stimme senkt sich, und der Gegner spürt seine Schuld. Schutz 18 für jeden Stehenden, 2 Runden lang 30 % weniger Schaden von ihm, 14 Nerven zurück."
+        },
+        {
+          "seq": 2,
+          "id": "waage_gegenbuchung",
+          "name": "Gegenbuchung",
+          "cost": 4,
+          "hits": 2,
+          "flat": 28,
+          "shield": 20,
+          "drain": 0.3,
+          "fx": "waage_hoch_2",
+          "desc": "Was der Gegner nimmt, buchst du zurück. Je 28 Schaden, Schutz 20, 30 % des Schadens heilen dich."
+        },
+        {
+          "seq": 1,
+          "id": "waage_quittung",
+          "name": "Quittung",
+          "cost": 4,
+          "hits": 1,
+          "flat": 36,
+          "weak": true,
+          "shield_all": 30,
+          "ap_gain": 2,
+          "fx": "waage_hoch_1",
+          "desc": "Du stellst die letzte Quittung aus. 36 Schaden, Schwachstelle offen, Schutz 30 für jeden Stehenden, 2 Konzentration zurück."
+        }
+      ],
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\nUse the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction.\nCreate one production pixel-art icon sheet: EXACTLY NINE icons in a perfectly regular 3 columns x 3 rows grid. Equal square cells, no gutters or margins. Each cell is a logical 16x16 icon enlarged by nearest neighbor. Final sheet logical48x48 pixels, rendered large. Every cell contains a dark near-black blue-grey ROUND medallion, one-pixel rim, transparent outside circle. A simple bold readable symbol inside in two or three shades of #c9a84c. Bright highlight top-left. Extremely low resolution icon design: symbol occupies about 10x10 logical pixels, thick clear pixel clusters, no tiny detailed illustration. Same round base for all9; each symbol genuinely distinct. No text, no letters, no numbers, no arrows as primary motif.\nCOMBAT: action symbols, strike, slash, throw, shield, burst or smoke. No white inner ring. Path family: Waage. First three simple single symbols; middle three include a second element; last three add one tiny turquoise occult spark. Peat uses moss green as secondary; copper clocks use ivory; balances use lead grey.\nROW-MAJOR ORDER (left to right, then next row), sequence9 to1. Translate the following ability descriptions into the icon motif. Titles are semantic instructions only, NEVER print them:\nCell 1: Pfandnahme. Du nimmst dir, was dir zusteht. 5 Schaden, von Menschen fallen 5 Schilling ab.\nCell 2: Bleizunge. Du nennst die falsche Forderung beim Namen. Schutz 6, der Gegner schlägt 2 Runden lang 20 % schwächer.\nCell 3: Frist setzen. Du setzt dem Gegner eine Frist. Sein nächster Schlag kommt langsam und lässt sich parieren, 1 Konzentration kehrt zurück.\nCell 4: Ausgleich. Ein Schlag, ein Gegengewicht. 10 Schaden, Schutz 8 für jeden Stehenden.\nCell 5: Offener Saldo. Du legst dem Gegner seine Schuld auf. 14 Schaden, Schutz 10, er schlägt 3 Runden lang 30 % schwächer.\nCell 6: Gewichtsschatten. Die Schatten an deinen Handgelenken schlagen mit. Je 18 Schaden, der Gegner wird langsam.\nCell 7: Halber Ton tiefer. Deine Stimme senkt sich, und der Gegner spürt seine Schuld. Schutz 18 für jeden Stehenden, 2 Runden lang 30 % weniger Schaden von ihm, 14 Nerven zurück.\nCell 8: Gegenbuchung. Was der Gegner nimmt, buchst du zurück. Je 28 Schaden, Schutz 20, 30 % des Schadens heilen dich.\nCell 9: Quittung. Du stellst die letzte Quittung aus. 36 Schaden, Schwachstelle offen, Schutz 30 für jeden Stehenden, 2 Konzentration zurück.",
+      "sourceFile": "exec-fa724168-1671-4bb3-99fd-7734330fa426.png",
+      "sha256": "f6eb9b2e5c5918b68286fe29a36f36b9e6d77e5b38d945d2c4b59b6e12778ab8",
+      "cropBox": [
+        31,
+        17,
+        1232,
+        1226
+      ]
+    },
+    {
+      "id": "sq_waage_welt",
+      "path": "sq_waage",
+      "kind": "welt",
+      "color": "#c9a84c",
+      "cells": [
+        {
+          "seq": 9,
+          "id": "waage_druckstellen",
+          "name": "Druckstellen lesen",
+          "nerves": 5,
+          "unruhe": 0,
+          "cooldown": 300,
+          "buff": {
+            "key": "sell",
+            "value": 1.25,
+            "seconds": 180
+          },
+          "desc": "Du erkennst den Wert an den Druckstellen. 3 Minuten lang zahlen Pfandleiher 25 % mehr."
+        },
+        {
+          "seq": 8,
+          "id": "waage_fairer_preis",
+          "name": "Fairer Preis",
+          "nerves": 6,
+          "unruhe": 2,
+          "cooldown": 300,
+          "buff": {
+            "key": "price",
+            "value": 0.85,
+            "seconds": 180
+          },
+          "desc": "Du weißt, was etwas wert ist, und der Händler weiß, dass du es weißt. 3 Minuten lang 15 % günstiger."
+        },
+        {
+          "seq": 7,
+          "id": "waage_ruhige_hand",
+          "name": "Ruhige Hand",
+          "nerves": 0,
+          "unruhe": 0,
+          "cooldown": 240,
+          "calm": 15,
+          "desc": "Du zahlst, was du schuldest, und wirst ruhig dabei. Senkt die Unruhe um 15."
+        },
+        {
+          "seq": 6,
+          "id": "waage_anteil",
+          "name": "Eigener Anteil",
+          "nerves": 8,
+          "unruhe": 2,
+          "cooldown": 360,
+          "buff": {
+            "key": "money_bonus",
+            "value": 1.3,
+            "seconds": 300
+          },
+          "desc": "Du nimmst deinen Anteil, nicht mehr und nicht weniger. 5 Minuten lang +30 % Schilling aus Belohnungen und Beute."
+        },
+        {
+          "seq": 5,
+          "id": "waage_schuldschein",
+          "name": "Schuldschein",
+          "nerves": 10,
+          "unruhe": 3,
+          "cooldown": 420,
+          "money": [
+            20,
+            40
+          ],
+          "desc": "Irgendwer in dieser Stadt schuldet dir etwas, und du weißt, wer. 20 bis 40 Schilling."
+        },
+        {
+          "seq": 4,
+          "id": "waage_pfandkoerper",
+          "name": "Pfandkörper",
+          "nerves": 10,
+          "unruhe": 3,
+          "cooldown": 420,
+          "buff": {
+            "key": "carry",
+            "value": 35,
+            "seconds": 300
+          },
+          "desc": "Du trägst Gewichte, die niemand sieht, also trägst du auch die, die man sieht. 5 Minuten lang +35 Pfund Tragkraft."
+        },
+        {
+          "seq": 3,
+          "id": "waage_saldenhut",
+          "name": "Saldenhut",
+          "nerves": 12,
+          "unruhe": 4,
+          "cooldown": 480,
+          "buff": {
+            "key": "conclusion_honor",
+            "value": 2,
+            "seconds": 300
+          },
+          "buff2": {
+            "key": "honor_loss",
+            "value": 0.5,
+            "seconds": 300
+          },
+          "desc": "Jede Zusage wird gewogen. 5 Minuten lang +2 Ansehen je Schlussfolgerung und nur halber Ansehensverlust."
+        },
+        {
+          "seq": 2,
+          "id": "waage_zusagen",
+          "name": "Zusagen senken",
+          "nerves": 14,
+          "unruhe": 4,
+          "cooldown": 480,
+          "buff": {
+            "key": "price",
+            "value": 0.7,
+            "seconds": 300
+          },
+          "buff2": {
+            "key": "sell",
+            "value": 1.4,
+            "seconds": 300
+          },
+          "desc": "Dein Schatten senkt sich unter die Zusagen der Händler. 5 Minuten lang 30 % günstiger kaufen, 40 % teurer verkaufen."
+        },
+        {
+          "seq": 1,
+          "id": "waage_erlass",
+          "name": "Schuld erlassen",
+          "nerves": 16,
+          "unruhe": 5,
+          "cooldown": 600,
+          "money": [
+            50,
+            90
+          ],
+          "calm": 30,
+          "desc": "Jemand erlässt freiwillig eine Schuld, und in deiner Handfläche erscheint die Quittung. 50 bis 90 Schilling, Unruhe sinkt um 30."
+        }
+      ],
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\nUse the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction.\nCreate one production pixel-art icon sheet: EXACTLY NINE icons in a perfectly regular 3 columns x 3 rows grid. Equal square cells, no gutters or margins. Each cell is a logical 16x16 icon enlarged by nearest neighbor. Final sheet logical48x48 pixels, rendered large. Every cell contains a dark near-black blue-grey ROUND medallion, one-pixel rim, transparent outside circle. A simple bold readable symbol inside in two or three shades of #c9a84c. Bright highlight top-left. Extremely low resolution icon design: symbol occupies about 10x10 logical pixels, thick clear pixel clusters, no tiny detailed illustration. Same round base for all9; each symbol genuinely distinct. No text, no letters, no numbers, no arrows as primary motif.\nWORLD: tools or tangible objects, NOT combat explosions. Every medallion has an additional ONE logical pixel bone-white inner ring inside dark outer border. Path family: Waage. First three simple single symbols; middle three include a second element; last three add one tiny violet occult spark. Peat uses moss green as secondary; copper clocks use ivory; balances use lead grey.\nROW-MAJOR ORDER (left to right, then next row), sequence9 to1. Translate the following ability descriptions into the icon motif. Titles are semantic instructions only, NEVER print them:\nCell 1: Druckstellen lesen. Du erkennst den Wert an den Druckstellen. 3 Minuten lang zahlen Pfandleiher 25 % mehr.\nCell 2: Fairer Preis. Du weißt, was etwas wert ist, und der Händler weiß, dass du es weißt. 3 Minuten lang 15 % günstiger.\nCell 3: Ruhige Hand. Du zahlst, was du schuldest, und wirst ruhig dabei. Senkt die Unruhe um 15.\nCell 4: Eigener Anteil. Du nimmst deinen Anteil, nicht mehr und nicht weniger. 5 Minuten lang +30 % Schilling aus Belohnungen und Beute.\nCell 5: Schuldschein. Irgendwer in dieser Stadt schuldet dir etwas, und du weißt, wer. 20 bis 40 Schilling.\nCell 6: Pfandkörper. Du trägst Gewichte, die niemand sieht, also trägst du auch die, die man sieht. 5 Minuten lang +35 Pfund Tragkraft.\nCell 7: Saldenhut. Jede Zusage wird gewogen. 5 Minuten lang +2 Ansehen je Schlussfolgerung und nur halber Ansehensverlust.\nCell 8: Zusagen senken. Dein Schatten senkt sich unter die Zusagen der Händler. 5 Minuten lang 30 % günstiger kaufen, 40 % teurer verkaufen.\nCell 9: Schuld erlassen. Jemand erlässt freiwillig eine Schuld, und in deiner Handfläche erscheint die Quittung. 50 bis 90 Schilling, Unruhe sinkt um 30.",
+      "sourceFile": "exec-f72e976b-07e2-4864-a705-84d6f0f92b2e.png",
+      "sha256": "d67672c598c3f2090b293d4d1d9c06e95e2bffc5ee5f2e2bd94f5e0287b74c11",
+      "cropBox": [
+        724,
+        3,
+        1449,
+        724
+      ]
+    },
+    {
+      "id": "sq_moor_kampf",
+      "path": "sq_moor",
+      "kind": "kampf",
+      "color": "#6b4a2e",
+      "cells": [
+        {
+          "seq": 9,
+          "id": "moor_torfschlag",
+          "name": "Torfschlag",
+          "cost": 1,
+          "hits": 1,
+          "flat": 5,
+          "heal": 3,
+          "fx": "moor_stufe_9",
+          "desc": "Ein feuchter, schwerer Schlag. 5 Schaden, 3 Leben zurück."
+        },
+        {
+          "seq": 8,
+          "id": "moor_namenslast",
+          "name": "Vergessener Name",
+          "cost": 2,
+          "hits": 0,
+          "weaken": [
+            0.8,
+            2
+          ],
+          "nerves_gain": 10,
+          "fx": "moor_stufe_8",
+          "desc": "Du nennst dem Gegner einen Namen, den er vergessen hat. Er schlägt 2 Runden lang 20 % schwächer, dir kehren 10 Nerven zurück."
+        },
+        {
+          "seq": 7,
+          "id": "moor_schicht",
+          "name": "Schichtwechsel",
+          "cost": 2,
+          "hits": 1,
+          "flat": 8,
+          "cleanse": true,
+          "shield": 8,
+          "fx": "moor_stufe_7",
+          "desc": "Du legst eine Schicht Torf über die Wunde. 8 Schaden, Schutz 8, deine Blutung versiegt."
+        },
+        {
+          "seq": 6,
+          "id": "moor_uferhalt",
+          "name": "Uferhalt",
+          "cost": 2,
+          "hits": 0,
+          "heal_all": 12,
+          "shield_all": 6,
+          "fx": "moor_stufe_6",
+          "desc": "Das Ufer hält dich und deine Begleitung. 12 Leben und Schutz 6 für jeden Stehenden."
+        },
+        {
+          "seq": 5,
+          "id": "moor_luecke",
+          "name": "Offene Lücke",
+          "cost": 3,
+          "hits": 1,
+          "flat": 12,
+          "weak": true,
+          "evade": true,
+          "fx": "moor_stufe_5",
+          "desc": "Du lässt eine Lücke, in die der Gegner fällt. 12 Schaden, Schwachstelle offen, der nächste Angriff geht ins Leere."
+        },
+        {
+          "seq": 4,
+          "id": "moor_schichtdruck",
+          "name": "Schichtendruck",
+          "cost": 3,
+          "hits": 2,
+          "flat": 16,
+          "heal": 10,
+          "slow": true,
+          "fx": "moor_hoch_4",
+          "desc": "Zwei Schläge, schwer wie nasser Torf. Je 16 Schaden, 10 Leben zurück, der Gegner wird langsam."
+        },
+        {
+          "seq": 3,
+          "id": "moor_bodennamen",
+          "name": "Namen im Boden",
+          "cost": 3,
+          "hits": 0,
+          "weaken": [
+            0.65,
+            3
+          ],
+          "heal_all": 18,
+          "fx": "moor_hoch_3",
+          "desc": "Der Boden kennt den Gegner. 3 Runden lang 35 % weniger Schaden von ihm, 18 Leben für jeden Stehenden."
+        },
+        {
+          "seq": 2,
+          "id": "moor_vergessensrand",
+          "name": "Vergessensrand",
+          "cost": 4,
+          "hits": 2,
+          "flat": 26,
+          "heal": 20,
+          "confuse": true,
+          "fx": "moor_hoch_2",
+          "desc": "Der Gegner vergisst, wen er angreift. Je 26 Schaden, 20 Leben zurück, er schlägt beim nächsten Mal sich selbst."
+        },
+        {
+          "seq": 1,
+          "id": "moor_fehlstelle",
+          "name": "Fehlstelle",
+          "cost": 4,
+          "hits": 1,
+          "flat": 34,
+          "heal_all": 30,
+          "weak": true,
+          "weaken": [
+            0.6,
+            3
+          ],
+          "fx": "moor_hoch_1",
+          "desc": "Der Gegner hört seinen vergessenen Namen in deiner Fehlstelle. 34 Schaden, Schwachstelle offen, 3 Runden lang 40 % weniger Schaden von ihm, 30 Leben für jeden Stehenden."
+        }
+      ],
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\nUse the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction.\nCreate one production pixel-art icon sheet: EXACTLY NINE icons in a perfectly regular 3 columns x 3 rows grid. Equal square cells, no gutters or margins. Each cell is a logical 16x16 icon enlarged by nearest neighbor. Final sheet logical48x48 pixels, rendered large. Every cell contains a dark near-black blue-grey ROUND medallion, one-pixel rim, transparent outside circle. A simple bold readable symbol inside in two or three shades of #6b4a2e. Bright highlight top-left. Extremely low resolution icon design: symbol occupies about 10x10 logical pixels, thick clear pixel clusters, no tiny detailed illustration. Same round base for all9; each symbol genuinely distinct. No text, no letters, no numbers, no arrows as primary motif.\nCOMBAT: action symbols, strike, slash, throw, shield, burst or smoke. No white inner ring. Path family: Moor. First three simple single symbols; middle three include a second element; last three add one tiny turquoise occult spark. Peat uses moss green as secondary; copper clocks use ivory; balances use lead grey.\nROW-MAJOR ORDER (left to right, then next row), sequence9 to1. Translate the following ability descriptions into the icon motif. Titles are semantic instructions only, NEVER print them:\nCell 1: Torfschlag. Ein feuchter, schwerer Schlag. 5 Schaden, 3 Leben zurück.\nCell 2: Vergessener Name. Du nennst dem Gegner einen Namen, den er vergessen hat. Er schlägt 2 Runden lang 20 % schwächer, dir kehren 10 Nerven zurück.\nCell 3: Schichtwechsel. Du legst eine Schicht Torf über die Wunde. 8 Schaden, Schutz 8, deine Blutung versiegt.\nCell 4: Uferhalt. Das Ufer hält dich und deine Begleitung. 12 Leben und Schutz 6 für jeden Stehenden.\nCell 5: Offene Lücke. Du lässt eine Lücke, in die der Gegner fällt. 12 Schaden, Schwachstelle offen, der nächste Angriff geht ins Leere.\nCell 6: Schichtendruck. Zwei Schläge, schwer wie nasser Torf. Je 16 Schaden, 10 Leben zurück, der Gegner wird langsam.\nCell 7: Namen im Boden. Der Boden kennt den Gegner. 3 Runden lang 35 % weniger Schaden von ihm, 18 Leben für jeden Stehenden.\nCell 8: Vergessensrand. Der Gegner vergisst, wen er angreift. Je 26 Schaden, 20 Leben zurück, er schlägt beim nächsten Mal sich selbst.\nCell 9: Fehlstelle. Der Gegner hört seinen vergessenen Namen in deiner Fehlstelle. 34 Schaden, Schwachstelle offen, 3 Runden lang 40 % weniger Schaden von ihm, 30 Leben für jeden Stehenden.",
+      "sourceFile": "exec-993eada8-ca1b-4961-99d5-f178938ea3ab.png",
+      "sha256": "3311c239d1d8ab7df4f2372ee0af15d1c867d92fd977456124dcda36283d7c24",
+      "cropBox": [
+        34,
+        5,
+        1240,
+        1227
+      ]
+    },
+    {
+      "id": "sq_moor_welt",
+      "path": "sq_moor",
+      "kind": "welt",
+      "color": "#6b4a2e",
+      "cells": [
+        {
+          "seq": 9,
+          "id": "moor_alte_spur",
+          "name": "Alte Spur",
+          "nerves": 5,
+          "unruhe": 0,
+          "cooldown": 240,
+          "reveal": 20,
+          "desc": "Du siehst, was lange hier liegt. 20 Sekunden lang zeigen sich verborgene Spuren ohne Geistsicht."
+        },
+        {
+          "seq": 8,
+          "id": "moor_namen_sammeln",
+          "name": "Namen sammeln",
+          "nerves": 6,
+          "unruhe": 2,
+          "cooldown": 300,
+          "review": true,
+          "desc": "Ein vergessener Name fällt dir ein: Eine Vermutung ohne zweite Quelle kommt dir wieder in den Sinn."
+        },
+        {
+          "seq": 7,
+          "id": "moor_aeltere_geschichte",
+          "name": "Ältere Geschichte",
+          "nerves": 8,
+          "unruhe": 2,
+          "cooldown": 300,
+          "hint": true,
+          "desc": "Du erkennst, was unter der Geschichte liegt: Der Pfad sagt dir, was dein wichtigster Auftrag als Nächstes braucht."
+        },
+        {
+          "seq": 6,
+          "id": "moor_bodenhaftung",
+          "name": "Bodenhaftung",
+          "nerves": 8,
+          "unruhe": 2,
+          "cooldown": 360,
+          "buff": {
+            "key": "damage_taken",
+            "value": 0.85,
+            "seconds": 300
+          },
+          "desc": "Du stehst im Boden wie ein alter Pfahl. 5 Minuten lang nimmst du 15 % weniger Schaden."
+        },
+        {
+          "seq": 5,
+          "id": "moor_torfgedaechtnis",
+          "name": "Torfgedächtnis",
+          "nerves": 10,
+          "unruhe": 3,
+          "cooldown": 360,
+          "digest": 8,
+          "desc": "Du hältst eine Lücke offen und erinnerst dich an alles um sie herum. Verdaut deinen Trank um 8 %."
+        },
+        {
+          "seq": 4,
+          "id": "moor_lesbare_haut",
+          "name": "Lesbare Haut",
+          "nerves": 10,
+          "unruhe": 3,
+          "cooldown": 420,
+          "reveal": 60,
+          "review": true,
+          "desc": "Die Namen in deiner Haut zeigen dir, was hier verborgen liegt: eine Minute lang verborgene Spuren und eine offene Vermutung."
+        },
+        {
+          "seq": 3,
+          "id": "moor_sediment",
+          "name": "Sediment",
+          "nerves": 12,
+          "unruhe": 3,
+          "cooldown": 480,
+          "digest": 15,
+          "calm": 15,
+          "desc": "Du lässt dich absetzen wie Schlick. Verdaut deinen Trank um 15 %, Unruhe sinkt um 15."
+        },
+        {
+          "seq": 2,
+          "id": "moor_ufer",
+          "name": "Vergessensufer",
+          "nerves": 14,
+          "unruhe": 4,
+          "cooldown": 480,
+          "scare": 60,
+          "heal_pct": 0.4,
+          "desc": "Um dich bleiben vergessene Wörter stehen, und niemand kommt näher. Eine Minute lang weichen gewöhnliche Gegner, 40 % Leben zurück."
+        },
+        {
+          "seq": 1,
+          "id": "moor_erinnertes",
+          "name": "Das Erinnerte",
+          "nerves": 16,
+          "unruhe": 5,
+          "cooldown": 600,
+          "digest": 25,
+          "hint": true,
+          "review": true,
+          "desc": "Alles, was fehlt, ist für einen Augenblick da: 25 % Verdauung, nächster Schritt und eine offene Vermutung."
+        }
+      ],
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\nUse the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction.\nCreate one production pixel-art icon sheet: EXACTLY NINE icons in a perfectly regular 3 columns x 3 rows grid. Equal square cells, no gutters or margins. Each cell is a logical 16x16 icon enlarged by nearest neighbor. Final sheet logical48x48 pixels, rendered large. Every cell contains a dark near-black blue-grey ROUND medallion, one-pixel rim, transparent outside circle. A simple bold readable symbol inside in two or three shades of #6b4a2e. Bright highlight top-left. Extremely low resolution icon design: symbol occupies about 10x10 logical pixels, thick clear pixel clusters, no tiny detailed illustration. Same round base for all9; each symbol genuinely distinct. No text, no letters, no numbers, no arrows as primary motif.\nWORLD: tools or tangible objects, NOT combat explosions. Every medallion has an additional ONE logical pixel bone-white inner ring inside dark outer border. Path family: Moor. First three simple single symbols; middle three include a second element; last three add one tiny violet occult spark. Peat uses moss green as secondary; copper clocks use ivory; balances use lead grey.\nROW-MAJOR ORDER (left to right, then next row), sequence9 to1. Translate the following ability descriptions into the icon motif. Titles are semantic instructions only, NEVER print them:\nCell 1: Alte Spur. Du siehst, was lange hier liegt. 20 Sekunden lang zeigen sich verborgene Spuren ohne Geistsicht.\nCell 2: Namen sammeln. Ein vergessener Name fällt dir ein: Eine Vermutung ohne zweite Quelle kommt dir wieder in den Sinn.\nCell 3: Ältere Geschichte. Du erkennst, was unter der Geschichte liegt: Der Pfad sagt dir, was dein wichtigster Auftrag als Nächstes braucht.\nCell 4: Bodenhaftung. Du stehst im Boden wie ein alter Pfahl. 5 Minuten lang nimmst du 15 % weniger Schaden.\nCell 5: Torfgedächtnis. Du hältst eine Lücke offen und erinnerst dich an alles um sie herum. Verdaut deinen Trank um 8 %.\nCell 6: Lesbare Haut. Die Namen in deiner Haut zeigen dir, was hier verborgen liegt: eine Minute lang verborgene Spuren und eine offene Vermutung.\nCell 7: Sediment. Du lässt dich absetzen wie Schlick. Verdaut deinen Trank um 15 %, Unruhe sinkt um 15.\nCell 8: Vergessensufer. Um dich bleiben vergessene Wörter stehen, und niemand kommt näher. Eine Minute lang weichen gewöhnliche Gegner, 40 % Leben zurück.\nCell 9: Das Erinnerte. Alles, was fehlt, ist für einen Augenblick da: 25 % Verdauung, nächster Schritt und eine offene Vermutung.",
+      "sourceFile": "exec-81e7eda6-7fc5-4d66-9248-a3bd9b11916c.png",
+      "sha256": "02573328fe60fe96fcec50a57e43e1b62ad2cd7ea8421bcb227961c1597c8030",
+      "cropBox": [
+        16,
+        9,
+        1243,
+        1238
+      ]
+    },
+    {
+      "id": "sq_uhr_kampf",
+      "path": "sq_uhr",
+      "kind": "kampf",
+      "color": "#b8783c",
+      "cells": [
+        {
+          "seq": 9,
+          "id": "uhr_vorgriff",
+          "name": "Vorgriff",
+          "cost": 2,
+          "hits": 1,
+          "flat": 5,
+          "ap_gain": 1,
+          "fx": "uhr_stufe_9",
+          "desc": "Du setzt den Fuß früher. 5 Schaden, und 1 Konzentration kehrt zurück."
+        },
+        {
+          "seq": 8,
+          "id": "uhr_nachhinken",
+          "name": "Nachhinken",
+          "cost": 2,
+          "hits": 0,
+          "slow": true,
+          "read": true,
+          "fx": "uhr_stufe_8",
+          "desc": "Du verschiebst den Takt des Gegners. Sein nächster Angriff kommt langsam und lässt sich parieren, wie unparierbar er sonst wäre."
+        },
+        {
+          "seq": 7,
+          "id": "uhr_pendel",
+          "name": "Pendelschwung",
+          "cost": 2,
+          "hits": 2,
+          "flat": 6,
+          "focus": true,
+          "fx": "uhr_stufe_7",
+          "desc": "Zwei Schläge im Pendeltakt. Je 6 Schaden, und deine nächste Fertigkeit trifft einen Takt genauer, als du drückst."
+        },
+        {
+          "seq": 6,
+          "id": "uhr_gangreserve",
+          "name": "Gangreserve",
+          "cost": 3,
+          "hits": 0,
+          "evade": true,
+          "ap_gain": 2,
+          "fx": "uhr_stufe_6",
+          "desc": "Du hebst dir einen Schlag auf. Der nächste Angriff geht ins Leere, 2 Konzentration kehren zurück."
+        },
+        {
+          "seq": 5,
+          "id": "uhr_fristschlag",
+          "name": "Fristschlag",
+          "cost": 3,
+          "hits": 1,
+          "flat": 14,
+          "sure": true,
+          "slow": true,
+          "weak": true,
+          "fx": "uhr_stufe_5",
+          "desc": "Der Schlag kommt, bevor der Gegner sich entschieden hat. 14 Schaden, kein Takt geht verloren, Schwachstelle offen, der Gegner wird langsam."
+        },
+        {
+          "seq": 4,
+          "id": "uhr_zwischentakt",
+          "name": "Zwischentakt",
+          "cost": 3,
+          "hits": 2,
+          "flat": 17,
+          "focus": true,
+          "evade": true,
+          "fx": "uhr_hoch_4",
+          "desc": "Du schlägst zwischen den Schlägen. Je 17 Schaden, der nächste Angriff geht ins Leere, deine nächste Fertigkeit trifft einen Takt genauer."
+        },
+        {
+          "seq": 3,
+          "id": "uhr_fristlauscher",
+          "name": "Vorgelauscht",
+          "cost": 3,
+          "hits": 0,
+          "read": true,
+          "slow": true,
+          "weaken": [
+            0.7,
+            2
+          ],
+          "nerves_gain": 14,
+          "fx": "uhr_hoch_3",
+          "desc": "Du hörst den Schlag vor dem Geräusch. Der nächste Angriff kommt langsam und lässt sich parieren, 2 Runden lang 30 % weniger Schaden, 14 Nerven zurück."
+        },
+        {
+          "seq": 2,
+          "id": "uhr_wiederkehr",
+          "name": "Wiederkehr",
+          "cost": 4,
+          "hits": 3,
+          "flat": 20,
+          "sure": true,
+          "ap_gain": 3,
+          "fx": "uhr_hoch_2",
+          "desc": "Dein zweiter Umriss schlägt mit. Dreimal 20 Schaden, kein Takt geht verloren, 3 Konzentration kehren zurück."
+        },
+        {
+          "seq": 1,
+          "id": "uhr_gewaehrte_minute",
+          "name": "Gewährte Minute",
+          "cost": 4,
+          "hits": 0,
+          "evade": true,
+          "read": true,
+          "focus": true,
+          "weaken": [
+            0.5,
+            3
+          ],
+          "ap_gain": 3,
+          "fx": "uhr_hoch_1",
+          "desc": "Du gewährst dir eine Minute, die niemand sonst hat. Nächster Angriff ins Leere, der danach parierbar, 3 Runden lang halber Schaden, deine nächste Fertigkeit trifft einen Takt genauer, 3 Konzentration zurück."
+        }
+      ],
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\nUse the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction.\nCreate one production pixel-art icon sheet: EXACTLY NINE icons in a perfectly regular 3 columns x 3 rows grid. Equal square cells, no gutters or margins. Each cell is a logical 16x16 icon enlarged by nearest neighbor. Final sheet logical48x48 pixels, rendered large. Every cell contains a dark near-black blue-grey ROUND medallion, one-pixel rim, transparent outside circle. A simple bold readable symbol inside in two or three shades of #b8783c. Bright highlight top-left. Extremely low resolution icon design: symbol occupies about 10x10 logical pixels, thick clear pixel clusters, no tiny detailed illustration. Same round base for all9; each symbol genuinely distinct. No text, no letters, no numbers, no arrows as primary motif.\nCOMBAT: action symbols, strike, slash, throw, shield, burst or smoke. No white inner ring. Path family: Uhr. First three simple single symbols; middle three include a second element; last three add one tiny turquoise occult spark. Peat uses moss green as secondary; copper clocks use ivory; balances use lead grey.\nROW-MAJOR ORDER (left to right, then next row), sequence9 to1. Translate the following ability descriptions into the icon motif. Titles are semantic instructions only, NEVER print them:\nCell 1: Vorgriff. Du setzt den Fuß früher. 5 Schaden, und 1 Konzentration kehrt zurück.\nCell 2: Nachhinken. Du verschiebst den Takt des Gegners. Sein nächster Angriff kommt langsam und lässt sich parieren, wie unparierbar er sonst wäre.\nCell 3: Pendelschwung. Zwei Schläge im Pendeltakt. Je 6 Schaden, und deine nächste Fertigkeit trifft einen Takt genauer, als du drückst.\nCell 4: Gangreserve. Du hebst dir einen Schlag auf. Der nächste Angriff geht ins Leere, 2 Konzentration kehren zurück.\nCell 5: Fristschlag. Der Schlag kommt, bevor der Gegner sich entschieden hat. 14 Schaden, kein Takt geht verloren, Schwachstelle offen, der Gegner wird langsam.\nCell 6: Zwischentakt. Du schlägst zwischen den Schlägen. Je 17 Schaden, der nächste Angriff geht ins Leere, deine nächste Fertigkeit trifft einen Takt genauer.\nCell 7: Vorgelauscht. Du hörst den Schlag vor dem Geräusch. Der nächste Angriff kommt langsam und lässt sich parieren, 2 Runden lang 30 % weniger Schaden, 14 Nerven zurück.\nCell 8: Wiederkehr. Dein zweiter Umriss schlägt mit. Dreimal 20 Schaden, kein Takt geht verloren, 3 Konzentration kehren zurück.\nCell 9: Gewährte Minute. Du gewährst dir eine Minute, die niemand sonst hat. Nächster Angriff ins Leere, der danach parierbar, 3 Runden lang halber Schaden, deine nächste Fertigkeit trifft einen Takt genauer, 3 Konzentration zurück.",
+      "sourceFile": "exec-185c290d-a8f5-4c59-b6b3-f83644373b2c.png",
+      "sha256": "bcbeabdd04a2df71150fccecb969915c0ad1b0d406f60d423a2890b1b50bd8b5",
+      "cropBox": [
+        18,
+        14,
+        1236,
+        1241
+      ]
+    },
+    {
+      "id": "sq_uhr_welt",
+      "path": "sq_uhr",
+      "kind": "welt",
+      "color": "#b8783c",
+      "cells": [
+        {
+          "seq": 9,
+          "id": "uhr_taktzaehlen",
+          "name": "Takt zählen",
+          "nerves": 5,
+          "unruhe": 0,
+          "cooldown": 240,
+          "buff": {
+            "key": "dodge_window",
+            "value": 1.3,
+            "seconds": 180
+          },
+          "desc": "Du zählst die Schläge der Stadt mit. 3 Minuten lang ist das Ausweichfenster 30 % größer."
+        },
+        {
+          "seq": 8,
+          "id": "uhr_fruehe_minute",
+          "name": "Frühe Minute",
+          "nerves": 6,
+          "unruhe": 2,
+          "cooldown": 300,
+          "buff": {
+            "key": "hurry_cost",
+            "value": 0.5,
+            "seconds": 300
+          },
+          "desc": "Du gehst nicht schneller, kommst aber früher an. 5 Minuten lang kostet die schnelle Reise halb so viele Nerven."
+        },
+        {
+          "seq": 7,
+          "id": "uhr_zoegern",
+          "name": "Das Zögern",
+          "nerves": 8,
+          "unruhe": 2,
+          "cooldown": 300,
+          "hint": true,
+          "desc": "Du hörst im Ablauf, wo etwas fehlt: Der Pfad sagt dir, was dein wichtigster Auftrag als Nächstes braucht."
+        },
+        {
+          "seq": 6,
+          "id": "uhr_anhalten",
+          "name": "Uhr anhalten",
+          "nerves": 10,
+          "unruhe": 3,
+          "cooldown": 480,
+          "clock": 60,
+          "desc": "Für dich laufen die Uhren der Stadt eine Minute lang nicht: Treffen, Fahndung und Tageszeit stehen still."
+        },
+        {
+          "seq": 5,
+          "id": "uhr_naechster_schlag",
+          "name": "Nächster Schlag",
+          "nerves": 10,
+          "unruhe": 3,
+          "cooldown": 420,
+          "buff": {
+            "key": "ap_start",
+            "value": 2,
+            "seconds": 300
+          },
+          "desc": "Du siehst den ersten Schlag jedes Kampfes kommen. 5 Minuten lang beginnst du Kämpfe mit +2 Konzentration."
+        },
+        {
+          "seq": 4,
+          "id": "uhr_sekundenschatten",
+          "name": "Sekundenschatten",
+          "nerves": 10,
+          "unruhe": 3,
+          "cooldown": 420,
+          "buff": {
+            "key": "dodge_window",
+            "value": 1.6,
+            "seconds": 300
+          },
+          "scout": true,
+          "desc": "Dein Schatten läuft zwischen den Schlägen. 5 Minuten lang Ausweichfenster +60 %, und du zählst die Gegner der Karte."
+        },
+        {
+          "seq": 3,
+          "id": "uhr_fristen",
+          "name": "Fristen",
+          "nerves": 12,
+          "unruhe": 4,
+          "cooldown": 540,
+          "clock": 120,
+          "desc": "Zwei Minuten lang stehen Treffen, Fahndung und Tageszeit für dich still."
+        },
+        {
+          "seq": 2,
+          "id": "uhr_zweiter_umriss",
+          "name": "Zweiter Umriss",
+          "nerves": 14,
+          "unruhe": 4,
+          "cooldown": 480,
+          "scare": 60,
+          "buff": {
+            "key": "hurry_cost",
+            "value": 0,
+            "seconds": 300
+          },
+          "desc": "Dein Umriss geht voraus. Eine Minute lang weichen gewöhnliche Gegner, 5 Minuten lang kostet die schnelle Reise nichts."
+        },
+        {
+          "seq": 1,
+          "id": "uhr_fehlender_strich",
+          "name": "Fehlender Strich",
+          "nerves": 16,
+          "unruhe": 5,
+          "cooldown": 600,
+          "clock": 240,
+          "nerves_gain": 30,
+          "desc": "Alle Uhren zeigen denselben fehlenden Strich. 4 Minuten lang stehen Treffen, Fahndung und Tageszeit still, 30 Nerven kehren zurück."
+        }
+      ],
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial city called Kettlegate with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\nUse the attached sprites as strict style reference: same palette, outline color, pixel density, proportions and light direction.\nCreate one production pixel-art icon sheet: EXACTLY NINE icons in a perfectly regular 3 columns x 3 rows grid. Equal square cells, no gutters or margins. Each cell is a logical 16x16 icon enlarged by nearest neighbor. Final sheet logical48x48 pixels, rendered large. Every cell contains a dark near-black blue-grey ROUND medallion, one-pixel rim, transparent outside circle. A simple bold readable symbol inside in two or three shades of #b8783c. Bright highlight top-left. Extremely low resolution icon design: symbol occupies about 10x10 logical pixels, thick clear pixel clusters, no tiny detailed illustration. Same round base for all9; each symbol genuinely distinct. No text, no letters, no numbers, no arrows as primary motif.\nWORLD: tools or tangible objects, NOT combat explosions. Every medallion has an additional ONE logical pixel bone-white inner ring inside dark outer border. Path family: Uhr. First three simple single symbols; middle three include a second element; last three add one tiny violet occult spark. Peat uses moss green as secondary; copper clocks use ivory; balances use lead grey.\nROW-MAJOR ORDER (left to right, then next row), sequence9 to1. Translate the following ability descriptions into the icon motif. Titles are semantic instructions only, NEVER print them:\nCell 1: Takt zählen. Du zählst die Schläge der Stadt mit. 3 Minuten lang ist das Ausweichfenster 30 % größer.\nCell 2: Frühe Minute. Du gehst nicht schneller, kommst aber früher an. 5 Minuten lang kostet die schnelle Reise halb so viele Nerven.\nCell 3: Das Zögern. Du hörst im Ablauf, wo etwas fehlt: Der Pfad sagt dir, was dein wichtigster Auftrag als Nächstes braucht.\nCell 4: Uhr anhalten. Für dich laufen die Uhren der Stadt eine Minute lang nicht: Treffen, Fahndung und Tageszeit stehen still.\nCell 5: Nächster Schlag. Du siehst den ersten Schlag jedes Kampfes kommen. 5 Minuten lang beginnst du Kämpfe mit +2 Konzentration.\nCell 6: Sekundenschatten. Dein Schatten läuft zwischen den Schlägen. 5 Minuten lang Ausweichfenster +60 %, und du zählst die Gegner der Karte.\nCell 7: Fristen. Zwei Minuten lang stehen Treffen, Fahndung und Tageszeit für dich still.\nCell 8: Zweiter Umriss. Dein Umriss geht voraus. Eine Minute lang weichen gewöhnliche Gegner, 5 Minuten lang kostet die schnelle Reise nichts.\nCell 9: Fehlender Strich. Alle Uhren zeigen denselben fehlenden Strich. 4 Minuten lang stehen Treffen, Fahndung und Tageszeit still, 30 Nerven kehren zurück.",
+      "sourceFile": "exec-5a745d69-b8d3-4bda-8e04-a8984e9e81a1.png",
+      "sha256": "a6b0a20c907508f715a4b2d049e52385708d058549522d037320ab929cd7903d",
+      "cropBox": [
+        1,
+        1,
+        1253,
+        1253
+      ]
+    }
+  ]
+}

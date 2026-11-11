@@ -1,0 +1,272 @@
+[
+  {
+    "id": "sk_asche",
+    "name": "Der Aschenbund",
+    "beiname": "Die Erben der letzten Glut",
+    "glaube": [
+      "Der Bund lehrt, ein Mensch sei erst frei, wenn kein fremdes Register ihn mehr festhalte.",
+      "Seine Sprecher versprechen, mit verbrannten Akten auch Schulden und Schande zu tilgen.",
+      "Wer seinen Namen behalten will, gilt ihnen als Brennstoff für die Ordnung."
+    ],
+    "erkennungszeichen": "Aschekreis",
+    "heimat": "giesserei",
+    "wanderkarten": [
+      "giesserei",
+      "wx_torfstich",
+      "ds_lohnbuero",
+      "revier",
+      "wx_bahnhof",
+      "ds_arbeiterbogen",
+      "altmarkt",
+      "wx_salzmarkt",
+      "ds_endbahnhof"
+    ],
+    "ränge": [
+      "Novize",
+      "Sprecher",
+      "Hand",
+      "Haupt"
+    ],
+    "zustand": "sk_asche_stufe",
+    "stufen": {
+      "0": {
+        "name": "Gerücht",
+        "beschreibung": "Der Aschenbund wirbt mit Wärme und einem Leben ohne Akten. Sein Aschekreis erscheint auch fern der Kettlegater Feuerstellen.",
+        "ereignisrate": 0.12,
+        "freischaltet": [
+          "sk_asche_ereignis_01",
+          "sk_asche_ereignis_02",
+          "sk_asche_ereignis_03"
+        ]
+      },
+      "1": {
+        "name": "Spuren",
+        "beschreibung": "Die Spuren verbinden Kohlewege, Lohnlisten und falsche Einladungen. Verbrannt werden Namen; die finanziellen Forderungen bleiben bestehen.",
+        "ereignisrate": 0.22,
+        "freischaltet": [
+          "sk_asche_ereignis_01",
+          "sk_asche_ereignis_02",
+          "sk_asche_ereignis_03",
+          "sk_asche_ereignis_04",
+          "sk_asche_ereignis_05",
+          "sk_asche_ereignis_06"
+        ]
+      },
+      "2": {
+        "name": "Umtriebe",
+        "beschreibung": "Bewachte Kohlebecken und Abwerbungen zeigen die Methode: Erst wird Hilfe versprochen, dann wird der Rückweg abhängig gemacht.",
+        "ereignisrate": 0.34,
+        "freischaltet": [
+          "sk_asche_ereignis_01",
+          "sk_asche_ereignis_02",
+          "sk_asche_ereignis_03",
+          "sk_asche_ereignis_04",
+          "sk_asche_ereignis_05",
+          "sk_asche_ereignis_06",
+          "sk_asche_ereignis_07",
+          "sk_asche_ereignis_08",
+          "sk_asche_ereignis_09"
+        ]
+      },
+      "3": {
+        "name": "Aufmarsch",
+        "beschreibung": "Der Aufmarsch sammelt Belege aus drei Städten. Abschriften, freie Rückwege und entfernte Kultplätze nehmen dem Bund Macht, ohne andere Fälle zu verändern.",
+        "ereignisrate": 0.48,
+        "freischaltet": [
+          "sk_asche_ereignis_01",
+          "sk_asche_ereignis_02",
+          "sk_asche_ereignis_03",
+          "sk_asche_ereignis_04",
+          "sk_asche_ereignis_05",
+          "sk_asche_ereignis_06",
+          "sk_asche_ereignis_07",
+          "sk_asche_ereignis_08",
+          "sk_asche_ereignis_09",
+          "sk_asche_ereignis_10",
+          "sk_asche_ereignis_11",
+          "sk_asche_ereignis_12"
+        ]
+      }
+    }
+  },
+  {
+    "id": "sk_flut",
+    "name": "Die Flutkinder",
+    "beiname": "Die Gemeinde unter dem Pegel",
+    "glaube": [
+      "Die Flutkinder nennen jeden Atemzug eine geliehene Gabe des Wassers.",
+      "Eine gefährliche Taufe soll die alte Schuld mit dem letzten Luftstoß austreiben.",
+      "Ihre Oberen ziehen die Täuflinge am Seil zurück und nennen diese Abhängigkeit Erlösung."
+    ],
+    "erkennungszeichen": "Knotenseil",
+    "heimat": "wx_bojenhafen",
+    "wanderkarten": [
+      "wx_bojenhafen",
+      "gaskanaele",
+      "ds_endbahnhof",
+      "wx_pfahldorf",
+      "docks",
+      "ds_schwellenring",
+      "wx_salzmarkt",
+      "altmarkt",
+      "ds_bruchstufen"
+    ],
+    "ränge": [
+      "Novize",
+      "Sprecher",
+      "Hand",
+      "Haupt"
+    ],
+    "zustand": "sk_flut_stufe",
+    "stufen": {
+      "0": {
+        "name": "Gerücht",
+        "beschreibung": "Die Flutkinder folgen Wasserwegen und Bahnstrecken. Ihr Knotenseil steht für eine Taufe, deren Rettung jemand anderes kontrolliert.",
+        "ereignisrate": 0.12,
+        "freischaltet": [
+          "sk_flut_ereignis_01",
+          "sk_flut_ereignis_02",
+          "sk_flut_ereignis_03"
+        ]
+      },
+      "1": {
+        "name": "Spuren",
+        "beschreibung": "Bojenmarken, Bündel und Hilferufe verbinden die Städte. Private Sperren und verunreinigtes Wasser sind vorübergehende Druckmittel.",
+        "ereignisrate": 0.22,
+        "freischaltet": [
+          "sk_flut_ereignis_01",
+          "sk_flut_ereignis_02",
+          "sk_flut_ereignis_03",
+          "sk_flut_ereignis_04",
+          "sk_flut_ereignis_05",
+          "sk_flut_ereignis_06"
+        ]
+      },
+      "2": {
+        "name": "Umtriebe",
+        "beschreibung": "An bewachten Taufplätzen werden Seile zur Abhängigkeit. Wer zurückholt oder sichere Wege offenhält, kann den Kult ohne erzwungenen Kampf stören.",
+        "ereignisrate": 0.34,
+        "freischaltet": [
+          "sk_flut_ereignis_01",
+          "sk_flut_ereignis_02",
+          "sk_flut_ereignis_03",
+          "sk_flut_ereignis_04",
+          "sk_flut_ereignis_05",
+          "sk_flut_ereignis_06",
+          "sk_flut_ereignis_07",
+          "sk_flut_ereignis_08",
+          "sk_flut_ereignis_09"
+        ]
+      },
+      "3": {
+        "name": "Aufmarsch",
+        "beschreibung": "Der Aufmarsch beansprucht öffentliche Wege als Kultbesitz. Die Gegenarbeit trennt Kultschlingen von echten Halteleinen und gibt Betroffenen die Entscheidung zurück.",
+        "ereignisrate": 0.48,
+        "freischaltet": [
+          "sk_flut_ereignis_01",
+          "sk_flut_ereignis_02",
+          "sk_flut_ereignis_03",
+          "sk_flut_ereignis_04",
+          "sk_flut_ereignis_05",
+          "sk_flut_ereignis_06",
+          "sk_flut_ereignis_07",
+          "sk_flut_ereignis_08",
+          "sk_flut_ereignis_09",
+          "sk_flut_ereignis_10",
+          "sk_flut_ereignis_11",
+          "sk_flut_ereignis_12"
+        ]
+      }
+    }
+  },
+  {
+    "id": "sk_chor",
+    "name": "Der Stumme Chor",
+    "beiname": "Die Stimmen hinter den Zähnen",
+    "glaube": [
+      "Der Chor behauptet, jeder einzelne Name störe die vollkommene gemeinsame Stimme.",
+      "Er sammelt abgegebene Rufe in Wachs und antwortet später mit fremden Mündern.",
+      "Wer schweigt, soll dazugehören; wer widerspricht, hört seine eigene Stimme gegen sich."
+    ],
+    "erkennungszeichen": "Kreidemund",
+    "heimat": "ds_pruefhaus",
+    "wanderkarten": [
+      "ds_pruefhaus",
+      "theater",
+      "wx_lichtamt",
+      "ds_kalkmarkt",
+      "nachtmarkt",
+      "wx_bahnhof",
+      "ds_arbeiterbogen",
+      "altmarkt",
+      "wx_oberstadt"
+    ],
+    "ränge": [
+      "Novize",
+      "Sprecher",
+      "Hand",
+      "Haupt"
+    ],
+    "zustand": "sk_chor_stufe",
+    "stufen": {
+      "0": {
+        "name": "Gerücht",
+        "beschreibung": "Der Stumme Chor stammt aus Dunscars Nachhall, sucht aber stille Stellen in allen Städten. Sein Kreidemund markiert Orte für fremde Anreden.",
+        "ereignisrate": 0.12,
+        "freischaltet": [
+          "sk_chor_ereignis_01",
+          "sk_chor_ereignis_02",
+          "sk_chor_ereignis_03"
+        ]
+      },
+      "1": {
+        "name": "Spuren",
+        "beschreibung": "Stimmproben werden ohne Einwilligung weitergegeben. Wachs und Kerben dienen als Träger; der Klang allein beweist keinen bekannten Sprecher.",
+        "ereignisrate": 0.22,
+        "freischaltet": [
+          "sk_chor_ereignis_01",
+          "sk_chor_ereignis_02",
+          "sk_chor_ereignis_03",
+          "sk_chor_ereignis_04",
+          "sk_chor_ereignis_05",
+          "sk_chor_ereignis_06"
+        ]
+      },
+      "2": {
+        "name": "Umtriebe",
+        "beschreibung": "Bewachte Stimmgabeln und falsche Hilferufe greifen in den Alltag ein. Nebenrohre lassen sich dämpfen, ohne öffentliche Signale zu beschädigen.",
+        "ereignisrate": 0.34,
+        "freischaltet": [
+          "sk_chor_ereignis_01",
+          "sk_chor_ereignis_02",
+          "sk_chor_ereignis_03",
+          "sk_chor_ereignis_04",
+          "sk_chor_ereignis_05",
+          "sk_chor_ereignis_06",
+          "sk_chor_ereignis_07",
+          "sk_chor_ereignis_08",
+          "sk_chor_ereignis_09"
+        ]
+      },
+      "3": {
+        "name": "Aufmarsch",
+        "beschreibung": "Der Aufmarsch will einzelne Stimmen zu einer Pflichtantwort machen. Gesicherte Proben und freie Pausen widersprechen diesem Anspruch; die Hauptfälle bleiben eigenständig.",
+        "ereignisrate": 0.48,
+        "freischaltet": [
+          "sk_chor_ereignis_01",
+          "sk_chor_ereignis_02",
+          "sk_chor_ereignis_03",
+          "sk_chor_ereignis_04",
+          "sk_chor_ereignis_05",
+          "sk_chor_ereignis_06",
+          "sk_chor_ereignis_07",
+          "sk_chor_ereignis_08",
+          "sk_chor_ereignis_09",
+          "sk_chor_ereignis_10",
+          "sk_chor_ereignis_11",
+          "sk_chor_ereignis_12"
+        ]
+      }
+    }
+  }
+]

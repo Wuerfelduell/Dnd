@@ -1,0 +1,617 @@
+{
+  "version": 1,
+  "batch": "fasserin",
+  "status": "exported; runtime integration pending",
+  "paletteMaxVisibleColors": 32,
+  "palette": [
+    "#1a1c2c",
+    "#252b38",
+    "#303b49",
+    "#d0a050",
+    "#e8b860",
+    "#92745a",
+    "#58433c",
+    "#2d2629",
+    "#715648",
+    "#886332",
+    "#686850",
+    "#494b3a",
+    "#b3946e",
+    "#cfb18a",
+    "#f0ce80",
+    "#8b8870",
+    "#425360",
+    "#e0c9a1",
+    "#a8b4c0",
+    "#586c78",
+    "#71858b",
+    "#95a5a5",
+    "#eee2c5",
+    "#893e4e",
+    "#6fe0d0",
+    "#496b64",
+    "#334d47",
+    "#493d59",
+    "#665572",
+    "#877595",
+    "#835140",
+    "#a66c4d"
+  ],
+  "assets": [
+    {
+      "id": "fasserin_walk",
+      "file": "characters/fasserin_walk.png",
+      "width": 64,
+      "height": 128,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 4,
+      "rows": 4,
+      "transparent": true,
+      "animations": {
+        "down": {
+          "frames": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "left": {
+          "frames": [
+            4,
+            5,
+            6,
+            7
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "right": {
+          "frames": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        },
+        "up": {
+          "frames": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "frameRate": 6,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "fasserin",
+      "file": "portraits/heads/fasserin.png",
+      "width": 24,
+      "height": 24,
+      "frameWidth": 24,
+      "frameHeight": 24,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "animations": {
+        "idle": {
+          "frames": [
+            0
+          ],
+          "frameRate": 1,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "fasserin_emotions",
+      "file": "portraits/fasserin_emotions.png",
+      "width": 256,
+      "height": 64,
+      "frameWidth": 64,
+      "frameHeight": 64,
+      "columns": 4,
+      "rows": 1,
+      "transparent": true,
+      "animations": {
+        "neutral": {
+          "frames": [
+            0
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "suspicious": {
+          "frames": [
+            1
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "startled": {
+          "frames": [
+            2
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        },
+        "smile": {
+          "frames": [
+            3
+          ],
+          "frameRate": 1,
+          "repeat": 0
+        }
+      }
+    },
+    {
+      "id": "fasserin_sit",
+      "file": "characters/fasserin_sit.png",
+      "width": 32,
+      "height": 32,
+      "frameWidth": 16,
+      "frameHeight": 32,
+      "columns": 2,
+      "rows": 1,
+      "transparent": true,
+      "animations": {
+        "craft": {
+          "frames": [
+            0,
+            1
+          ],
+          "frameRate": 2,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "fasserin_werkbank",
+      "file": "props/fasserin_werkbank.png",
+      "width": 32,
+      "height": 32,
+      "frameWidth": 32,
+      "frameHeight": 32,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "animations": {
+        "idle": {
+          "frames": [
+            0
+          ],
+          "frameRate": 1,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "fasserin_zangen",
+      "file": "props/fasserin_zangen.png",
+      "width": 16,
+      "height": 16,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "animations": {
+        "idle": {
+          "frames": [
+            0
+          ],
+          "frameRate": 1,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "krone_der_sieben",
+      "file": "items/krone_der_sieben.png",
+      "width": 16,
+      "height": 16,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "animations": {
+        "idle": {
+          "frames": [
+            0
+          ],
+          "frameRate": 1,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "krone_der_sieben",
+      "file": "items/32/krone_der_sieben.png",
+      "width": 32,
+      "height": 32,
+      "frameWidth": 32,
+      "frameHeight": 32,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "animations": {
+        "idle": {
+          "frames": [
+            0
+          ],
+          "frameRate": 1,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "sternlicht_gespinst",
+      "file": "items/sternlicht_gespinst.png",
+      "width": 16,
+      "height": 16,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "animations": {
+        "idle": {
+          "frames": [
+            0
+          ],
+          "frameRate": 1,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "sternlicht_gespinst",
+      "file": "items/32/sternlicht_gespinst.png",
+      "width": 32,
+      "height": 32,
+      "frameWidth": 32,
+      "frameHeight": 32,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "animations": {
+        "idle": {
+          "frames": [
+            0
+          ],
+          "frameRate": 1,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "glaskielfeder",
+      "file": "items/glaskielfeder.png",
+      "width": 16,
+      "height": 16,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "animations": {
+        "idle": {
+          "frames": [
+            0
+          ],
+          "frameRate": 1,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "glaskielfeder",
+      "file": "items/32/glaskielfeder.png",
+      "width": 32,
+      "height": 32,
+      "frameWidth": 32,
+      "frameHeight": 32,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "animations": {
+        "idle": {
+          "frames": [
+            0
+          ],
+          "frameRate": 1,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "herzkerze",
+      "file": "items/herzkerze.png",
+      "width": 16,
+      "height": 16,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "animations": {
+        "idle": {
+          "frames": [
+            0
+          ],
+          "frameRate": 1,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "herzkerze",
+      "file": "items/32/herzkerze.png",
+      "width": 32,
+      "height": 32,
+      "frameWidth": 32,
+      "frameHeight": 32,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "animations": {
+        "idle": {
+          "frames": [
+            0
+          ],
+          "frameRate": 1,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "perlenpaar",
+      "file": "items/perlenpaar.png",
+      "width": 16,
+      "height": 16,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "animations": {
+        "idle": {
+          "frames": [
+            0
+          ],
+          "frameRate": 1,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "perlenpaar",
+      "file": "items/32/perlenpaar.png",
+      "width": 32,
+      "height": 32,
+      "frameWidth": 32,
+      "frameHeight": 32,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "animations": {
+        "idle": {
+          "frames": [
+            0
+          ],
+          "frameRate": 1,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "geisterspindel",
+      "file": "items/geisterspindel.png",
+      "width": 16,
+      "height": 16,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "animations": {
+        "idle": {
+          "frames": [
+            0
+          ],
+          "frameRate": 1,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "geisterspindel",
+      "file": "items/32/geisterspindel.png",
+      "width": 32,
+      "height": 32,
+      "frameWidth": 32,
+      "frameHeight": 32,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "animations": {
+        "idle": {
+          "frames": [
+            0
+          ],
+          "frameRate": 1,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "leuchtturmmonokel",
+      "file": "items/leuchtturmmonokel.png",
+      "width": 16,
+      "height": 16,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "animations": {
+        "idle": {
+          "frames": [
+            0
+          ],
+          "frameRate": 1,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "leuchtturmmonokel",
+      "file": "items/32/leuchtturmmonokel.png",
+      "width": 32,
+      "height": 32,
+      "frameWidth": 32,
+      "frameHeight": 32,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "animations": {
+        "idle": {
+          "frames": [
+            0
+          ],
+          "frameRate": 1,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "namenssiegel",
+      "file": "items/namenssiegel.png",
+      "width": 16,
+      "height": 16,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "animations": {
+        "idle": {
+          "frames": [
+            0
+          ],
+          "frameRate": 1,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "namenssiegel",
+      "file": "items/32/namenssiegel.png",
+      "width": 32,
+      "height": 32,
+      "frameWidth": 32,
+      "frameHeight": 32,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "animations": {
+        "idle": {
+          "frames": [
+            0
+          ],
+          "frameRate": 1,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "gluehglocke",
+      "file": "items/gluehglocke.png",
+      "width": 16,
+      "height": 16,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "animations": {
+        "idle": {
+          "frames": [
+            0
+          ],
+          "frameRate": 1,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "gluehglocke",
+      "file": "items/32/gluehglocke.png",
+      "width": 32,
+      "height": 32,
+      "frameWidth": 32,
+      "frameHeight": 32,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "animations": {
+        "idle": {
+          "frames": [
+            0
+          ],
+          "frameRate": 1,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "doppelsiegel",
+      "file": "items/doppelsiegel.png",
+      "width": 16,
+      "height": 16,
+      "frameWidth": 16,
+      "frameHeight": 16,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "animations": {
+        "idle": {
+          "frames": [
+            0
+          ],
+          "frameRate": 1,
+          "repeat": -1
+        }
+      }
+    },
+    {
+      "id": "doppelsiegel",
+      "file": "items/32/doppelsiegel.png",
+      "width": 32,
+      "height": 32,
+      "frameWidth": 32,
+      "frameHeight": 32,
+      "columns": 1,
+      "rows": 1,
+      "transparent": true,
+      "animations": {
+        "idle": {
+          "frames": [
+            0
+          ],
+          "frameRate": 1,
+          "repeat": -1
+        }
+      }
+    }
+  ]
+}
