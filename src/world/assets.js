@@ -1937,6 +1937,17 @@ ICON32.push(...X_ITEMS);
 /** Artefakte der Fasserin (geheime Treffen) haben seit BO eigene Bilder in 16 und 32px. */
 export const ARTISAN_ARTEFAKTE = ['krone_der_sieben', 'sternlicht_gespinst', 'glaskielfeder', 'herzkerze', 'perlenpaar', 'geisterspindel', 'leuchtturmmonokel', 'namenssiegel', 'gluehglocke', 'doppelsiegel'];
 ICON32.push(...ARTISAN_ARTEFAKTE);
+/** BO: Oda Kessel selbst (Laufbild, Sitzbild mit Werkbank, Portraits, Kopf) und ihre Werkbank als Requisiten. */
+SHEETS.fasserin = 'characters/fasserin_walk.png';
+CHARACTER_SHEETS.npc_fasserin = 'fasserin';
+PORTRAITS.fasserin = 'fasserin_emotions.png';
+HEADS.push('fasserin');
+ANIM_SHEETS.fasserin_sit = ['characters/fasserin_sit.png', 16, 32];
+for (const id of ['fasserin_werkbank', 'fasserin_zangen']) { WHOLE_PROPS[id] = `props/${id}.png`; SHEETS[id] = `props/${id}.png`; }
+/** Die zehn Vorrats-Rezepte (fass_*) zeigen laut BO weiter das Bild ihres Hauptbeutestücks. */
+export const FASS_ICONS = { fass_aschenlicht: 'fremdlicht_phiole', fass_salzspange: 'moewenglas', fass_pfahlherz: 'laternenoel_alt', fass_kerbhuelse: 'madenwachs', fass_wattpendel: 'schlickperle',
+  fass_pausendose: 'spieldose_klein', fass_regenzeuge: 'wachszylinder', fass_gassenfuchs: 'landkarte_alt', fass_schalenfunke: 'irrlichtfunke', fass_knochenkiel: 'schaedelsplitter' };
+Object.assign(ITEM_ICON_ALIASES, FASS_ICONS);
 /** Nerven-Artefakte (BY) und Konzentrations-Artefakte (BX) haben eigene Icons; die 14 Nerven-Artefakte auch in 32px (items/32/). */
 export const NERVEN_ARTEFAKTE = ['taktgeber_uhrturm', 'kerze_der_nachtwache', 'zahnrad_schlafwandlerin', 'atemperle', 'fiebermuenze', 'blutsalz_phiole', 'knoechelring_preisboxer',
   'metronom_komponist', 'trommelfell_ausrufer', 'glasnerv', 'nervenfaden_weberin', 'moorzunder'];

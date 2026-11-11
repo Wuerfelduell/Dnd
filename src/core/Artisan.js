@@ -57,14 +57,35 @@ export const artisanMethods = {
     const a = this.auction;
     if (!a || a.phase !== 'own' || !a.artisan) return { ok: false, text: 'Die Fasserin ist heute nicht da.' };
     a.phase = 'artisan';
-    this.say(`${this.artisanName()} schiebt ihre Zangen zurecht. „Zeigen Sie, was Sie haben.“`);
+    this.say(`${this.artisanName()} schiebt ihre Zangen zurecht. „${this.artisanGreeting(a.circle, a.cycle)}“`);
     return { ok: true };
+  },
+
+  /** BO: Textvorrat der Fasserin (treffen.json → artisan.texte, Pack fasserin). */
+  artisanTexts() {
+    return this.artisanDef()?.texte ?? {};
+  },
+
+  /** Begrüßung je Zirkel (zwei Varianten, fest je Runde), sonst die allgemeine Werkstattstimme. */
+  artisanGreeting(circleId, cycle = this.marketCycle()) {
+    const t = this.artisanTexts();
+    const lines = t.begruessung?.[circleId] ?? t.allgemein ?? ['Zeigen Sie, was Sie haben.'];
+    return lines[(cycle ?? 0) % lines.length];
+  },
+
+  /** Eine Zeile aus einem Vorrat (`fehlende_beute`, `fehlendes_geld`, `abschied`), reihum. */
+  artisanLine(kind, fallback) {
+    const lines = this.artisanTexts()[kind];
+    if (!lines?.length) return fallback;
+    this.artisanLineCount = (this.artisanLineCount ?? 0) + 1;
+    return lines[this.artisanLineCount % lines.length];
   },
 
   leaveArtisan() {
     const a = this.auction;
     if (!a || a.phase !== 'artisan') return { ok: false };
     a.phase = 'own';
+    this.say(`${this.artisanName()}: „${this.artisanLine('abschied', 'Die Zange ist wieder sauber.')}“`);
     return { ok: true };
   },
 
@@ -75,8 +96,8 @@ export const artisanMethods = {
     const r = this.artisanRecipes(a.circle, a.cycle).find((x) => x.id === recipeId);
     if (!r) return { ok: false, text: 'Das fasst sie heute nicht.' };
     const c = this.recipeCheck(r);
-    if (c.missing.length) return { ok: false, text: `Es fehlt: ${c.missing.map((x) => `${this.item(x.item)?.name ?? x.item} (${x.have}/${x.n})`).join(', ')}.` };
-    if (c.poor) return { ok: false, text: `Der Fasserlohn sind ${c.fee} Schilling. So viel hast du nicht.` };
+    if (c.missing.length) return { ok: false, text: `„${this.artisanLine('fehlende_beute', 'Bringen Sie den Rest.')}“ Es fehlt: ${c.missing.map((x) => `${this.item(x.item)?.name ?? x.item} (${x.have}/${x.n})`).join(', ')}.` };
+    if (c.poor) return { ok: false, text: `„${this.artisanLine('fehlendes_geld', 'Der Lohn steht fest.')}“ Der Fasserlohn sind ${c.fee} Schilling. So viel hast du nicht.` };
     for (const x of c.needs) this.removeItem(x.item, x.n);
     if (c.fee) this.spendMoney(c.fee);
     this.addItem(c.artifact);

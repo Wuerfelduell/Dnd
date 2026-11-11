@@ -177,3 +177,32 @@ test('Spielstand: Fassen bleibt pro Treffen nur einmal möglich, Rezepte überle
   assert.deepEqual(l.artisanRecipes('waage', s.marketCycle()).map((r) => r.id), want);
   assert.equal(l.startSession('waage').ok, false);
 });
+
+// --- BO: Vorrats-Rezepte, Begrüßungen je Zirkel, Zeilen bei fehlender Beute und fehlendem Geld ---------------
+test('BO: 20 Rezepte im Vorrat (plus Nerven-Artefakte), fass_-Artefakte nur bei ihr, Texte je Zirkel', () => {
+  const fass = artisan.recipes.filter((r) => r.id.startsWith('fass_'));
+  assert.equal(fass.length, 10);
+  assert.ok(artisan.recipes.length >= 20);
+  for (const r of fass) assert.equal(content.artifacts.list[r.id].source, 'artisan');
+  const s = session(true);
+  for (const circle of ['waage', 'kreide', 'russ', 'lichtlose', 'salz', 'namensgilde']) {
+    assert.equal(artisan.texte.begruessung[circle].length, 2, circle);
+    assert.notEqual(s.artisanGreeting(circle, 0), s.artisanGreeting(circle, 1));
+  }
+  assert.ok(s.artisanGreeting('schichtbund', 3).length > 10, 'Dunscar nutzt die allgemeine Werkstattstimme');
+  // Fehlende Beute und fehlendes Geld bekommen ihre eigene Zeile
+  const cycle = s.marketCycle();
+  s.auction = { phase: 'artisan', circle: 'waage', cycle, crafted: [], log: [] };
+  const r = s.artisanRecipes('waage', cycle)[0];
+  const miss = s.craftArtifact(r.id);
+  assert.equal(miss.ok, false);
+  assert.ok(artisan.texte.fehlende_beute.some((l) => miss.text.includes(l)), miss.text);
+  for (const [id, n] of Object.entries(r.needs)) s.addItem(id, n);
+  s.money = 0;
+  const poor = s.craftArtifact(r.id);
+  assert.equal(poor.ok, false);
+  assert.ok(artisan.texte.fehlendes_geld.some((l) => poor.text.includes(l)), poor.text);
+  s.money = 500;
+  assert.ok(s.craftArtifact(r.id).ok);
+  assert.ok(s.leaveArtisan().ok);
+});

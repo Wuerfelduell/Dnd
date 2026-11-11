@@ -2150,7 +2150,7 @@ export class Ui {
         return `<li class="recipe ${c.ok ? 'ready' : ''}">${itemIconBig(c.artifact)}<strong>${esc(it?.name ?? c.artifact)}</strong> <span class="muted">Lohn ${c.fee} Sch.</span>${artifactEffectsHtml(it ?? {})}<span class="needs">Braucht: ${needs}</span></li>`;
       }).join('');
       stage = `${portrait(s.artisanId())}<div class="speaker">${esc(s.artisanName())} <span class="role">${esc(s.content.npcs[s.artisanId()]?.role ?? 'Fasserin')}</span></div>
-        <p class="lead">„Ich fasse, was andere wegwerfen. Der Lohn ist fest, die Beute ist danach weg.“</p>
+        <p class="lead">„${esc(s.artisanGreeting(a.circle, a.cycle))}“ <span class="muted">Der Lohn ist fest, die Beute ist danach weg.</span></p>
         <ul class="recipes">${rows || '<li class="muted">Heute hat sie nichts auf dem Tisch.</li>'}</ul>`;
       for (const r of recipes) {
         const c = s.recipeCheck(r);
