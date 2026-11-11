@@ -1,0 +1,105 @@
+{
+  "facts": {
+    "fs_laternennacht_fakt_a": {
+      "case": "side",
+      "text": "Unter dem Hafensteg hängt eine Messinglitze am Boot. Sie verschwindet im Ablaufgitter, das den Wartungsplan der Resonanzkammer trägt."
+    },
+    "fs_laternennacht_fakt_b": {
+      "case": "side",
+      "text": "Im Boot liegt eine Liefernotiz für einen Schallversuch. Das Feld für die Kerze wurde absichtlich gestrichen, damit im Rohr kein Wachs schmilzt."
+    },
+    "fs_salzsegen_fakt_a": {
+      "case": "side",
+      "text": "Hinter dem Vorratsschuppen liegt ein unbeschädigter Kranz neben einer halben Brotscheibe. Eine Notiz bittet um zehn Minuten ohne Titel."
+    },
+    "fs_salzsegen_fakt_b": {
+      "case": "side",
+      "text": "Die Rationsliste trägt Bracks offene Unterschriftszeile, Sedges Mantelvermerk und einen Besuchswunsch der Täfelchengilde. Alle wollten etwas, aber niemand ordnete eine Entführung an."
+    },
+    "fs_schichtwechsel_fakt_a": {
+      "case": "side",
+      "text": "Die zusätzliche Tüte enthält Spielgeld aus Lenes Losbude. Ihr Papier stammt aus dem heutigen Stapel und nicht aus dem versiegelten Schichtarchiv."
+    },
+    "fs_schichtwechsel_fakt_b": {
+      "case": "side",
+      "text": "Auf der Rückseite liegt der Abdruck eines alten Verzeichnisses. Ein Helfer benutzte das Blatt als Unterlage und pauste versehentlich den Namen durch."
+    }
+  },
+  "clues": {
+    "fs_laternennacht_hinweis_a": {
+      "fact": "fs_laternennacht_fakt_a",
+      "name": "Messinglitze am Gitter",
+      "source": "Das Boot ohne Kerze",
+      "text": "Unter dem Hafensteg hängt eine Messinglitze am Boot. Sie verschwindet im Ablaufgitter, das den Wartungsplan der Resonanzkammer trägt."
+    },
+    "fs_laternennacht_hinweis_b": {
+      "fact": "fs_laternennacht_fakt_b",
+      "name": "Gestrichenes Kerzenfeld",
+      "source": "Das Boot ohne Kerze",
+      "text": "Im Boot liegt eine Liefernotiz für einen Schallversuch. Das Feld für die Kerze wurde absichtlich gestrichen, damit im Rohr kein Wachs schmilzt."
+    },
+    "fs_salzsegen_hinweis_a": {
+      "fact": "fs_salzsegen_fakt_a",
+      "name": "Kranz neben dem Brot",
+      "source": "Die Salzkönigin fehlt",
+      "text": "Hinter dem Vorratsschuppen liegt ein unbeschädigter Kranz neben einer halben Brotscheibe. Eine Notiz bittet um zehn Minuten ohne Titel."
+    },
+    "fs_salzsegen_hinweis_b": {
+      "fact": "fs_salzsegen_fakt_b",
+      "name": "Drei offene Anliegen",
+      "source": "Die Salzkönigin fehlt",
+      "text": "Die Rationsliste trägt Bracks offene Unterschriftszeile, Sedges Mantelvermerk und einen Besuchswunsch der Täfelchengilde. Alle wollten etwas, aber niemand ordnete eine Entführung an."
+    },
+    "fs_schichtwechsel_hinweis_a": {
+      "fact": "fs_schichtwechsel_fakt_a",
+      "name": "Heutiges Spielgeld",
+      "source": "Die Lohntüte zu viel",
+      "text": "Die zusätzliche Tüte enthält Spielgeld aus Lenes Losbude. Ihr Papier stammt aus dem heutigen Stapel und nicht aus dem versiegelten Schichtarchiv."
+    },
+    "fs_schichtwechsel_hinweis_b": {
+      "fact": "fs_schichtwechsel_fakt_b",
+      "name": "Durchgepauster Name",
+      "source": "Die Lohntüte zu viel",
+      "text": "Auf der Rückseite liegt der Abdruck eines alten Verzeichnisses. Ein Helfer benutzte das Blatt als Unterlage und pauste versehentlich den Namen durch."
+    }
+  },
+  "deductions": [
+    {
+      "id": "fs_laternennacht_schluss",
+      "case": "side",
+      "pairs": [
+        [
+          "fs_laternennacht_fakt_a",
+          "fs_laternennacht_fakt_b"
+        ]
+      ],
+      "name": "Das Boot ohne Kerze",
+      "text": "Ein alter Zugmechanismus der Resonanzkammer holt seine Versuchsträger zurück. Das Boot trägt keine vermisste Person, sondern eine übersehene Messung."
+    },
+    {
+      "id": "fs_salzsegen_schluss",
+      "case": "side",
+      "pairs": [
+        [
+          "fs_salzsegen_fakt_a",
+          "fs_salzsegen_fakt_b"
+        ]
+      ],
+      "name": "Die Salzkönigin fehlt",
+      "text": "Die gewählte Salzkönigin hat ihre Pause selbst genommen. Brack wollte Rationen bestätigen, Sedge Schutz vor Wind, die Täfelchengilde ihre öffentliche Unterstützung."
+    },
+    {
+      "id": "fs_schichtwechsel_schluss",
+      "case": "side",
+      "pairs": [
+        [
+          "fs_schichtwechsel_fakt_a",
+          "fs_schichtwechsel_fakt_b"
+        ]
+      ],
+      "name": "Die Lohntüte zu viel",
+      "text": "Die Tüte ist kein neuer Aufruf des Fahrmeisters. Ein heutiger Helfer übertrug einen alten Namen, und die Familie soll selbst entscheiden, ob daraus ein Erinnerungsstück wird."
+    }
+  ],
+  "endings": {}
+}

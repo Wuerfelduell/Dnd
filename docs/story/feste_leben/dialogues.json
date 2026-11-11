@@ -1,0 +1,3037 @@
+{
+  "fs_laternennacht_gast_1": {
+    "start": "fs_start",
+    "nodes": {
+      "fs_start": {
+        "text": "„Für jeden Finger eine Falte. Für jedes verlorene Boot einen neuen Versuch.“ Der Stand lässt genug Platz zum Vorbeigehen.",
+        "choices": [
+          {
+            "text": "Was gibt es heute?",
+            "next": "fs_waren",
+            "requires_flags": [
+              "fs_fest_laternennacht_aktiv"
+            ]
+          },
+          {
+            "text": "Was fällt dir auf?",
+            "next": "fs_geruecht"
+          },
+          {
+            "text": "Wie geht es dir damit?",
+            "next": "fs_pause"
+          },
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ],
+        "mood": "neutral",
+        "sets_flags": [
+          "fs_laternennacht_besucht"
+        ]
+      },
+      "fs_waren": {
+        "text": "„Schau in Ruhe. Du schuldest mir keinen Kauf.“ Die Preise stehen offen am Rand.",
+        "choices": [
+          {
+            "text": "Zurück.",
+            "next": "fs_start"
+          }
+        ],
+        "shop": "fs_laternennacht_bude_1"
+      },
+      "fs_geruecht": {
+        "text": "„Das dunkle Boot hat keine Kerze verloren. In seinem Boden fehlt sogar der Halter.“ Das Geräusch der Menge lässt dir Zeit, darüber nachzudenken.",
+        "choices": [
+          {
+            "text": "Und du?",
+            "next": "fs_pause"
+          },
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ],
+        "mood": "thoughtful"
+      },
+      "fs_pause": {
+        "text": "„Papier ist ehrlich. Es hält nur so lange, wie man es richtig faltet.“ Eine Hand glättet die Tischdecke, ohne Eile.",
+        "choices": [
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ],
+        "mood": "sad"
+      }
+    }
+  },
+  "fs_laternennacht_gast_2": {
+    "start": "fs_start",
+    "nodes": {
+      "fs_start": {
+        "text": "„Der Wein ist heiß. Die Neuigkeiten sind von gestern, dafür geprüft.“ Der Stand lässt genug Platz zum Vorbeigehen.",
+        "choices": [
+          {
+            "text": "Was gibt es heute?",
+            "next": "fs_waren",
+            "requires_flags": [
+              "fs_fest_laternennacht_aktiv"
+            ]
+          },
+          {
+            "text": "Was fällt dir auf?",
+            "next": "fs_geruecht"
+          },
+          {
+            "text": "Wie geht es dir damit?",
+            "next": "fs_pause"
+          },
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ],
+        "mood": "neutral",
+        "sets_flags": [
+          "fs_laternennacht_besucht"
+        ]
+      },
+      "fs_waren": {
+        "text": "„Schau in Ruhe. Du schuldest mir keinen Kauf.“ Die Preise stehen offen am Rand.",
+        "choices": [
+          {
+            "text": "Zurück.",
+            "next": "fs_start"
+          }
+        ],
+        "shop": "fs_laternennacht_bude_2"
+      },
+      "fs_geruecht": {
+        "text": "„Unter dem Steg klopft es dreimal. Mein Kessel klopft zweimal, verwechsel das nicht.“ Das Geräusch der Menge lässt dir Zeit, darüber nachzudenken.",
+        "choices": [
+          {
+            "text": "Und du?",
+            "next": "fs_pause"
+          },
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ],
+        "mood": "thoughtful"
+      },
+      "fs_pause": {
+        "text": "„Ein warmer Becher ist keine Aussage unter Eid.“ Eine Hand glättet die Tischdecke, ohne Eile.",
+        "choices": [
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ],
+        "mood": "sad"
+      }
+    }
+  },
+  "fs_laternennacht_gast_3": {
+    "start": "fs_start",
+    "nodes": {
+      "fs_start": {
+        "text": "„Kandis bricht ohne Vorwarnung. Das ist sein einziger Beitrag zur Ermittlungsarbeit.“ Der Stand lässt genug Platz zum Vorbeigehen.",
+        "choices": [
+          {
+            "text": "Was gibt es heute?",
+            "next": "fs_waren",
+            "requires_flags": [
+              "fs_fest_laternennacht_aktiv"
+            ]
+          },
+          {
+            "text": "Was fällt dir auf?",
+            "next": "fs_geruecht"
+          },
+          {
+            "text": "Wie geht es dir damit?",
+            "next": "fs_pause"
+          },
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ],
+        "mood": "neutral",
+        "sets_flags": [
+          "fs_laternennacht_besucht"
+        ]
+      },
+      "fs_waren": {
+        "text": "„Schau in Ruhe. Du schuldest mir keinen Kauf.“ Die Preise stehen offen am Rand.",
+        "choices": [
+          {
+            "text": "Zurück.",
+            "next": "fs_start"
+          }
+        ],
+        "shop": "fs_laternennacht_bude_3"
+      },
+      "fs_geruecht": {
+        "text": "„Die Inspektorin zählt keine Laternen. Sie zählt die offenen Ausgänge.“ Das Geräusch der Menge lässt dir Zeit, darüber nachzudenken.",
+        "choices": [
+          {
+            "text": "Und du?",
+            "next": "fs_pause"
+          },
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ],
+        "mood": "thoughtful"
+      },
+      "fs_pause": {
+        "text": "„Die Kinder bekommen die kleinen Splitter gratis.“ Eine Hand glättet die Tischdecke, ohne Eile.",
+        "choices": [
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ],
+        "mood": "sad"
+      }
+    }
+  },
+  "fs_laternennacht_gast_4": {
+    "start": "fs_start",
+    "nodes": {
+      "fs_start": {
+        "text": "„Ich baue Boote, die untergehen dürfen. Ein angenehmer Unterschied zur Hafenverwaltung.“ Der Stand lässt genug Platz zum Vorbeigehen.",
+        "choices": [
+          {
+            "text": "Was gibt es heute?",
+            "next": "fs_waren",
+            "requires_flags": [
+              "fs_fest_laternennacht_aktiv"
+            ]
+          },
+          {
+            "text": "Was fällt dir auf?",
+            "next": "fs_geruecht"
+          },
+          {
+            "text": "Wie geht es dir damit?",
+            "next": "fs_pause"
+          },
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ],
+        "mood": "neutral",
+        "sets_flags": [
+          "fs_laternennacht_besucht"
+        ]
+      },
+      "fs_waren": {
+        "text": "„Schau in Ruhe. Du schuldest mir keinen Kauf.“ Die Preise stehen offen am Rand.",
+        "choices": [
+          {
+            "text": "Zurück.",
+            "next": "fs_start"
+          }
+        ],
+        "shop": "fs_laternennacht_bude_4"
+      },
+      "fs_geruecht": {
+        "text": "„Am Heck des dunklen Boots hängt ein Faden. Wasser zieht selten an Knoten.“ Das Geräusch der Menge lässt dir Zeit, darüber nachzudenken.",
+        "choices": [
+          {
+            "text": "Und du?",
+            "next": "fs_pause"
+          },
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ],
+        "mood": "thoughtful"
+      },
+      "fs_pause": {
+        "text": "„Frag die Strömung nicht nach dem Ziel. Schau auf den Zugpunkt.“ Eine Hand glättet die Tischdecke, ohne Eile.",
+        "choices": [
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ],
+        "mood": "sad"
+      }
+    }
+  },
+  "fs_salzsegen_gast_1": {
+    "start": "fs_start",
+    "nodes": {
+      "fs_start": {
+        "text": "„Fisch und Geduld. Das eine ist heute günstiger.“ Der Stand lässt genug Platz zum Vorbeigehen.",
+        "choices": [
+          {
+            "text": "Was gibt es heute?",
+            "next": "fs_waren",
+            "requires_flags": [
+              "fs_fest_salzsegen_aktiv"
+            ]
+          },
+          {
+            "text": "Was fällt dir auf?",
+            "next": "fs_geruecht"
+          },
+          {
+            "text": "Wie geht es dir damit?",
+            "next": "fs_pause"
+          },
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ],
+        "mood": "neutral",
+        "sets_flags": [
+          "fs_salzsegen_besucht"
+        ]
+      },
+      "fs_waren": {
+        "text": "„Schau in Ruhe. Du schuldest mir keinen Kauf.“ Die Preise stehen offen am Rand.",
+        "choices": [
+          {
+            "text": "Zurück.",
+            "next": "fs_start"
+          }
+        ],
+        "shop": "fs_salzsegen_bude_1"
+      },
+      "fs_geruecht": {
+        "text": "„Die Königin ging selbst vom Thron. Niemand hat sie getragen.“ Das Geräusch der Menge lässt dir Zeit, darüber nachzudenken.",
+        "choices": [
+          {
+            "text": "Und du?",
+            "next": "fs_pause"
+          },
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ],
+        "mood": "thoughtful"
+      },
+      "fs_pause": {
+        "text": "„Kranzträger ist kein lebenslanger Beruf.“ Eine Hand glättet die Tischdecke, ohne Eile.",
+        "choices": [
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ],
+        "mood": "sad"
+      }
+    }
+  },
+  "fs_salzsegen_gast_2": {
+    "start": "fs_start",
+    "nodes": {
+      "fs_start": {
+        "text": "„Eine Kelle gegen kalte Finger. Für kalte Absichten habe ich nichts im Topf.“ Der Stand lässt genug Platz zum Vorbeigehen.",
+        "choices": [
+          {
+            "text": "Was gibt es heute?",
+            "next": "fs_waren",
+            "requires_flags": [
+              "fs_fest_salzsegen_aktiv"
+            ]
+          },
+          {
+            "text": "Was fällt dir auf?",
+            "next": "fs_geruecht"
+          },
+          {
+            "text": "Wie geht es dir damit?",
+            "next": "fs_pause"
+          },
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ],
+        "mood": "neutral",
+        "sets_flags": [
+          "fs_salzsegen_besucht"
+        ]
+      },
+      "fs_waren": {
+        "text": "„Schau in Ruhe. Du schuldest mir keinen Kauf.“ Die Preise stehen offen am Rand.",
+        "choices": [
+          {
+            "text": "Zurück.",
+            "next": "fs_start"
+          }
+        ],
+        "shop": "fs_salzsegen_bude_2"
+      },
+      "fs_geruecht": {
+        "text": "„Sedge brachte Tücher. Brack brachte eine Liste, die Gilde einen Stuhl.“ Das Geräusch der Menge lässt dir Zeit, darüber nachzudenken.",
+        "choices": [
+          {
+            "text": "Und du?",
+            "next": "fs_pause"
+          },
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ],
+        "mood": "thoughtful"
+      },
+      "fs_pause": {
+        "text": "„Die Liste war schwerer als der Stuhl.“ Eine Hand glättet die Tischdecke, ohne Eile.",
+        "choices": [
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ],
+        "mood": "sad"
+      }
+    }
+  },
+  "fs_salzsegen_gast_3": {
+    "start": "fs_start",
+    "nodes": {
+      "fs_start": {
+        "text": "„Den Kranz musst du nicht tragen. Er darf einfach auf dem Tisch liegen.“ Der Stand lässt genug Platz zum Vorbeigehen.",
+        "choices": [
+          {
+            "text": "Was gibt es heute?",
+            "next": "fs_waren",
+            "requires_flags": [
+              "fs_fest_salzsegen_aktiv"
+            ]
+          },
+          {
+            "text": "Was fällt dir auf?",
+            "next": "fs_geruecht"
+          },
+          {
+            "text": "Wie geht es dir damit?",
+            "next": "fs_pause"
+          },
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ],
+        "mood": "neutral",
+        "sets_flags": [
+          "fs_salzsegen_besucht"
+        ]
+      },
+      "fs_waren": {
+        "text": "„Schau in Ruhe. Du schuldest mir keinen Kauf.“ Die Preise stehen offen am Rand.",
+        "choices": [
+          {
+            "text": "Zurück.",
+            "next": "fs_start"
+          }
+        ],
+        "shop": "fs_salzsegen_bude_3"
+      },
+      "fs_geruecht": {
+        "text": "„Die Täfelchengilde wollte ein Gesicht vor ihren Namenslisten. Das Gesicht wollte eine Pause.“ Das Geräusch der Menge lässt dir Zeit, darüber nachzudenken.",
+        "choices": [
+          {
+            "text": "Und du?",
+            "next": "fs_pause"
+          },
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ],
+        "mood": "thoughtful"
+      },
+      "fs_pause": {
+        "text": "„Ein leerer Thron ist manchmal ein vollständiger Satz.“ Eine Hand glättet die Tischdecke, ohne Eile.",
+        "choices": [
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ],
+        "mood": "sad"
+      }
+    }
+  },
+  "fs_salzsegen_gast_4": {
+    "start": "fs_start",
+    "nodes": {
+      "fs_start": {
+        "text": "„Der erste Kahn trägt Brot, der zweite Wasser, der letzte Licht.“ Der Stand lässt genug Platz zum Vorbeigehen.",
+        "choices": [
+          {
+            "text": "Was gibt es heute?",
+            "next": "fs_waren",
+            "requires_flags": [
+              "fs_fest_salzsegen_aktiv"
+            ]
+          },
+          {
+            "text": "Was fällt dir auf?",
+            "next": "fs_geruecht"
+          },
+          {
+            "text": "Wie geht es dir damit?",
+            "next": "fs_pause"
+          },
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ],
+        "mood": "neutral",
+        "sets_flags": [
+          "fs_salzsegen_besucht"
+        ]
+      },
+      "fs_waren": {
+        "text": "„Schau in Ruhe. Du schuldest mir keinen Kauf.“ Die Preise stehen offen am Rand.",
+        "choices": [
+          {
+            "text": "Zurück.",
+            "next": "fs_start"
+          }
+        ],
+        "shop": "fs_salzsegen_bude_4"
+      },
+      "fs_geruecht": {
+        "text": "„Die Königin sitzt hinter dem Vorratsschuppen und isst. Lass ihr den ersten Bissen.“ Das Geräusch der Menge lässt dir Zeit, darüber nachzudenken.",
+        "choices": [
+          {
+            "text": "Und du?",
+            "next": "fs_pause"
+          },
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ],
+        "mood": "thoughtful"
+      },
+      "fs_pause": {
+        "text": "„Drei Kähne passen hintereinander besser als drei Vorsitzende.“ Eine Hand glättet die Tischdecke, ohne Eile.",
+        "choices": [
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ],
+        "mood": "sad"
+      }
+    }
+  },
+  "fs_schichtwechsel_gast_1": {
+    "start": "fs_start",
+    "nodes": {
+      "fs_start": {
+        "text": "„Auf jedem Los steht ein freundlicher Satz. Wer Geld erwartet, liest besser vorher.“ Der Stand lässt genug Platz zum Vorbeigehen.",
+        "choices": [
+          {
+            "text": "Was gibt es heute?",
+            "next": "fs_waren",
+            "requires_flags": [
+              "fs_fest_schichtwechsel_aktiv"
+            ]
+          },
+          {
+            "text": "Was fällt dir auf?",
+            "next": "fs_geruecht"
+          },
+          {
+            "text": "Wie geht es dir damit?",
+            "next": "fs_pause"
+          },
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ],
+        "mood": "neutral",
+        "sets_flags": [
+          "fs_schichtwechsel_besucht"
+        ]
+      },
+      "fs_waren": {
+        "text": "„Schau in Ruhe. Du schuldest mir keinen Kauf.“ Die Preise stehen offen am Rand.",
+        "choices": [
+          {
+            "text": "Zurück.",
+            "next": "fs_start"
+          }
+        ],
+        "shop": "fs_schichtwechsel_bude_1"
+      },
+      "fs_geruecht": {
+        "text": "„Die zusätzliche Tüte ist neu. Nur der Name darauf kommt aus einem alten Buch.“ Das Geräusch der Menge lässt dir Zeit, darüber nachzudenken.",
+        "choices": [
+          {
+            "text": "Und du?",
+            "next": "fs_pause"
+          },
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ],
+        "mood": "thoughtful"
+      },
+      "fs_pause": {
+        "text": "„Ich verkaufe Trost ohne Gewinnversprechen.“ Eine Hand glättet die Tischdecke, ohne Eile.",
+        "choices": [
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ],
+        "mood": "sad"
+      }
+    }
+  },
+  "fs_schichtwechsel_gast_2": {
+    "start": "fs_start",
+    "nodes": {
+      "fs_start": {
+        "text": "„Der Krug hat einen Deckel. Dunscar hat schließlich überall Streugut.“ Der Stand lässt genug Platz zum Vorbeigehen.",
+        "choices": [
+          {
+            "text": "Was gibt es heute?",
+            "next": "fs_waren",
+            "requires_flags": [
+              "fs_fest_schichtwechsel_aktiv"
+            ]
+          },
+          {
+            "text": "Was fällt dir auf?",
+            "next": "fs_geruecht"
+          },
+          {
+            "text": "Wie geht es dir damit?",
+            "next": "fs_pause"
+          },
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ],
+        "mood": "neutral",
+        "sets_flags": [
+          "fs_schichtwechsel_besucht"
+        ]
+      },
+      "fs_waren": {
+        "text": "„Schau in Ruhe. Du schuldest mir keinen Kauf.“ Die Preise stehen offen am Rand.",
+        "choices": [
+          {
+            "text": "Zurück.",
+            "next": "fs_start"
+          }
+        ],
+        "shop": "fs_schichtwechsel_bude_2"
+      },
+      "fs_geruecht": {
+        "text": "„Esther hat die Tüten zweimal gezählt. Das zweite Mal wurde sie still.“ Das Geräusch der Menge lässt dir Zeit, darüber nachzudenken.",
+        "choices": [
+          {
+            "text": "Und du?",
+            "next": "fs_pause"
+          },
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ],
+        "mood": "thoughtful"
+      },
+      "fs_pause": {
+        "text": "„Heute trinkt keiner auf die nächste Schicht.“ Eine Hand glättet die Tischdecke, ohne Eile.",
+        "choices": [
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ],
+        "mood": "sad"
+      }
+    }
+  },
+  "fs_schichtwechsel_gast_3": {
+    "start": "fs_start",
+    "nodes": {
+      "fs_start": {
+        "text": "„Setz dich zum Essen. Brot ist kein Werkzeug.“ Der Stand lässt genug Platz zum Vorbeigehen.",
+        "choices": [
+          {
+            "text": "Was gibt es heute?",
+            "next": "fs_waren",
+            "requires_flags": [
+              "fs_fest_schichtwechsel_aktiv"
+            ]
+          },
+          {
+            "text": "Was fällt dir auf?",
+            "next": "fs_geruecht"
+          },
+          {
+            "text": "Wie geht es dir damit?",
+            "next": "fs_pause"
+          },
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ],
+        "mood": "neutral",
+        "sets_flags": [
+          "fs_schichtwechsel_besucht"
+        ]
+      },
+      "fs_waren": {
+        "text": "„Schau in Ruhe. Du schuldest mir keinen Kauf.“ Die Preise stehen offen am Rand.",
+        "choices": [
+          {
+            "text": "Zurück.",
+            "next": "fs_start"
+          }
+        ],
+        "shop": "fs_schichtwechsel_bude_3"
+      },
+      "fs_geruecht": {
+        "text": "„Pfiff kennt die Person hinter dem Namen. Er kennt auch den Unterschied zwischen Erinnerung und Aufruf.“ Das Geräusch der Menge lässt dir Zeit, darüber nachzudenken.",
+        "choices": [
+          {
+            "text": "Und du?",
+            "next": "fs_pause"
+          },
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ],
+        "mood": "thoughtful"
+      },
+      "fs_pause": {
+        "text": "„Eine Pause endet nicht, weil jemand pfeift.“ Eine Hand glättet die Tischdecke, ohne Eile.",
+        "choices": [
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ],
+        "mood": "sad"
+      }
+    }
+  },
+  "fs_schichtwechsel_gast_4": {
+    "start": "fs_start",
+    "nodes": {
+      "fs_start": {
+        "text": "„Nur mit Einwilligung, nur bis zur Aufgabe. Der Ring ist kleiner als unser Ehrgeiz.“ Der Stand lässt genug Platz zum Vorbeigehen.",
+        "choices": [
+          {
+            "text": "Was gibt es heute?",
+            "next": "fs_waren",
+            "requires_flags": [
+              "fs_fest_schichtwechsel_aktiv"
+            ]
+          },
+          {
+            "text": "Was fällt dir auf?",
+            "next": "fs_geruecht"
+          },
+          {
+            "text": "Wie geht es dir damit?",
+            "next": "fs_pause"
+          },
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ],
+        "mood": "neutral",
+        "sets_flags": [
+          "fs_schichtwechsel_besucht"
+        ]
+      },
+      "fs_waren": {
+        "text": "„Schau in Ruhe. Du schuldest mir keinen Kauf.“ Die Preise stehen offen am Rand.",
+        "choices": [
+          {
+            "text": "Zurück.",
+            "next": "fs_start"
+          }
+        ],
+        "shop": "fs_schichtwechsel_bude_4"
+      },
+      "fs_geruecht": {
+        "text": "„Der Preis liegt außerhalb des Rings. Niemand muss ihn mit den Zähnen festhalten.“ Das Geräusch der Menge lässt dir Zeit, darüber nachzudenken.",
+        "choices": [
+          {
+            "text": "Und du?",
+            "next": "fs_pause"
+          },
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ],
+        "mood": "thoughtful"
+      },
+      "fs_pause": {
+        "text": "„Du darfst den Kampf ablehnen. Dafür brauchst du keine Begründung.“ Eine Hand glättet die Tischdecke, ohne Eile.",
+        "choices": [
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ],
+        "mood": "sad"
+      }
+    }
+  },
+  "fs_laternennacht_ermittlung": {
+    "start": [
+      {
+        "node": "fs_fertig",
+        "requires_flags": [
+          "fs_laternennacht_bezahlt"
+        ]
+      },
+      {
+        "node": "fs_start"
+      }
+    ],
+    "nodes": {
+      "fs_start": {
+        "text": "Ein Kerzenboot treibt ohne Licht gegen den Strom. Mina bittet dich, seinen Weg zu verfolgen, bevor jemand eine unglückliche Seele hineinredet.",
+        "choices": [
+          {
+            "text": "Ich sehe mir die Sache an.",
+            "next": "fs_annehmen",
+            "requires_flags": [
+              "fs_fest_laternennacht_aktiv"
+            ],
+            "hide_if_flags": [
+              "fs_laternennacht_angenommen"
+            ]
+          },
+          {
+            "text": "Die Spuren zusammenführen.",
+            "next": "fs_wahrheit",
+            "requires_flags": [
+              "fs_laternennacht_spur_a",
+              "fs_laternennacht_spur_b"
+            ],
+            "hide_if_flags": [
+              "fs_laternennacht_entschieden"
+            ]
+          },
+          {
+            "text": "Zu zweit die Beobachtungen vergleichen.",
+            "next": "fs_koop",
+            "requires_flags": [
+              "koop_aktiv",
+              "fs_laternennacht_spur_a",
+              "fs_laternennacht_spur_b"
+            ],
+            "hide_if_flags": [
+              "fs_laternennacht_entschieden"
+            ]
+          },
+          {
+            "text": "Die Sache abschließen.",
+            "next": "fs_lohn",
+            "requires_flags": [
+              "fs_laternennacht_entschieden"
+            ],
+            "hide_if_flags": [
+              "fs_laternennacht_bezahlt"
+            ]
+          },
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ]
+      },
+      "fs_annehmen": {
+        "text": "Du übernimmst die Suche ohne Frist. Auch nach dem Fest liegen die Notizen am Auftragstisch bereit.",
+        "choices": [
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ],
+        "sets_flags": [
+          "fs_laternennacht_angenommen"
+        ],
+        "start_quests": [
+          "fs_laternennacht_auftrag"
+        ]
+      },
+      "fs_wahrheit": {
+        "text": "Ein alter Zugmechanismus der Resonanzkammer holt seine Versuchsträger zurück. Das Boot trägt keine vermisste Person, sondern eine übersehene Messung.",
+        "choices": [
+          {
+            "text": "Den Zug still lösen und das Boot an die Werkstatt zurückgeben.",
+            "next": "fs_privatsphaere"
+          },
+          {
+            "text": "Den Versuch am sicheren Steg öffentlich erklären.",
+            "next": "fs_offen"
+          },
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ]
+      },
+      "fs_privatsphaere": {
+        "text": "Du löst die Litze und legst die Notiz dazu. Die Werkstatt erhält ihren Versuch zurück, ohne dass die Festgäste einen Schuldigen erfinden.",
+        "choices": [
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ],
+        "sets_flags": [
+          "fs_laternennacht_entschieden",
+          "fs_laternennacht_privat"
+        ],
+        "honor": 1
+      },
+      "fs_offen": {
+        "text": "Du zeigst Litze und Notiz am Steg. Einige lachen erleichtert; Mina darf erklären, warum sie das dunkle Boot ernst genommen hat.",
+        "choices": [
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ],
+        "sets_flags": [
+          "fs_laternennacht_entschieden",
+          "fs_laternennacht_offen"
+        ],
+        "honor": 1
+      },
+      "fs_koop": {
+        "text": "Du beschreibst den Fundort, während deine Begleitung die Notiz noch einmal liest. Beide Berichte stimmen überein, und keiner ersetzt den anderen.",
+        "choices": [
+          {
+            "text": "Gemeinsam zur Entscheidung.",
+            "next": "fs_wahrheit"
+          }
+        ],
+        "sets_flags": [
+          "fs_laternennacht_koop_geprueft"
+        ]
+      },
+      "fs_lohn": {
+        "text": "Die Festkasse zahlt dir 80 Schilling und überreicht das Andenken. Der Rest des Festes gehört wieder den gewöhnlichen Geschichten.",
+        "choices": [
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ],
+        "gives_money": 80,
+        "gives_items": {
+          "fs_laternennacht_andenken": 1
+        },
+        "sets_flags": [
+          "fs_laternennacht_bezahlt"
+        ],
+        "complete_quests": [
+          "fs_laternennacht_auftrag"
+        ]
+      },
+      "fs_fertig": {
+        "text": "Die Kasse ist abgerechnet, das Andenken gehört dir. Die Entscheidung wird nicht neu verhandelt.",
+        "choices": [
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ]
+      }
+    }
+  },
+  "fs_salzsegen_ermittlung": {
+    "start": [
+      {
+        "node": "fs_fertig",
+        "requires_flags": [
+          "fs_salzsegen_bezahlt"
+        ]
+      },
+      {
+        "node": "fs_start"
+      }
+    ],
+    "nodes": {
+      "fs_start": {
+        "text": "Der Thron aus Fässern ist leer. Jette bittet dich, die Salzkönigin zu finden, ohne aus einem fehlenden Festgast eine Fahndung zu machen.",
+        "choices": [
+          {
+            "text": "Ich sehe mir die Sache an.",
+            "next": "fs_annehmen",
+            "requires_flags": [
+              "fs_fest_salzsegen_aktiv"
+            ],
+            "hide_if_flags": [
+              "fs_salzsegen_angenommen"
+            ]
+          },
+          {
+            "text": "Die Spuren zusammenführen.",
+            "next": "fs_wahrheit",
+            "requires_flags": [
+              "fs_salzsegen_spur_a",
+              "fs_salzsegen_spur_b"
+            ],
+            "hide_if_flags": [
+              "fs_salzsegen_entschieden"
+            ]
+          },
+          {
+            "text": "Zu zweit die Beobachtungen vergleichen.",
+            "next": "fs_koop",
+            "requires_flags": [
+              "koop_aktiv",
+              "fs_salzsegen_spur_a",
+              "fs_salzsegen_spur_b"
+            ],
+            "hide_if_flags": [
+              "fs_salzsegen_entschieden"
+            ]
+          },
+          {
+            "text": "Die Sache abschließen.",
+            "next": "fs_lohn",
+            "requires_flags": [
+              "fs_salzsegen_entschieden"
+            ],
+            "hide_if_flags": [
+              "fs_salzsegen_bezahlt"
+            ]
+          },
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ]
+      },
+      "fs_annehmen": {
+        "text": "Du übernimmst die Suche ohne Frist. Auch nach dem Fest liegen die Notizen am Auftragstisch bereit.",
+        "choices": [
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ],
+        "sets_flags": [
+          "fs_salzsegen_angenommen"
+        ],
+        "start_quests": [
+          "fs_salzsegen_auftrag"
+        ]
+      },
+      "fs_wahrheit": {
+        "text": "Die gewählte Salzkönigin hat ihre Pause selbst genommen. Brack wollte Rationen bestätigen, Sedge Schutz vor Wind, die Täfelchengilde ihre öffentliche Unterstützung.",
+        "choices": [
+          {
+            "text": "Ihre Pause schützen und den Thron heute leer lassen.",
+            "next": "fs_privatsphaere"
+          },
+          {
+            "text": "Eine freiwillige kurze Rückkehr anbieten, ohne Unterschriftspflicht.",
+            "next": "fs_offen"
+          },
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ]
+      },
+      "fs_privatsphaere": {
+        "text": "Du erklärst, dass die Königin heute keine Audienzen hält. Brot und Fisch werden ohne Zeremonie verteilt; der leere Thron wird zum erlaubten Sitzplatz für müde Gäste.",
+        "choices": [
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ],
+        "sets_flags": [
+          "fs_salzsegen_entschieden",
+          "fs_salzsegen_privat"
+        ],
+        "honor": 1
+      },
+      "fs_offen": {
+        "text": "Du überbringst nur die Einladung. Die Königin winkt kurz vom Kahn aus und kehrt zu ihrem Brot zurück; die Gilde bekommt keine Zusage in ihrem Namen.",
+        "choices": [
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ],
+        "sets_flags": [
+          "fs_salzsegen_entschieden",
+          "fs_salzsegen_offen"
+        ],
+        "honor": 1
+      },
+      "fs_koop": {
+        "text": "Du beschreibst den Fundort, während deine Begleitung die Notiz noch einmal liest. Beide Berichte stimmen überein, und keiner ersetzt den anderen.",
+        "choices": [
+          {
+            "text": "Gemeinsam zur Entscheidung.",
+            "next": "fs_wahrheit"
+          }
+        ],
+        "sets_flags": [
+          "fs_salzsegen_koop_geprueft"
+        ]
+      },
+      "fs_lohn": {
+        "text": "Die Festkasse zahlt dir 90 Schilling und überreicht das Andenken. Der Rest des Festes gehört wieder den gewöhnlichen Geschichten.",
+        "choices": [
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ],
+        "gives_money": 90,
+        "gives_items": {
+          "fs_salzsegen_andenken": 1
+        },
+        "sets_flags": [
+          "fs_salzsegen_bezahlt"
+        ],
+        "complete_quests": [
+          "fs_salzsegen_auftrag"
+        ]
+      },
+      "fs_fertig": {
+        "text": "Die Kasse ist abgerechnet, das Andenken gehört dir. Die Entscheidung wird nicht neu verhandelt.",
+        "choices": [
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ]
+      }
+    }
+  },
+  "fs_schichtwechsel_ermittlung": {
+    "start": [
+      {
+        "node": "fs_fertig",
+        "requires_flags": [
+          "fs_schichtwechsel_bezahlt"
+        ]
+      },
+      {
+        "node": "fs_start"
+      }
+    ],
+    "nodes": {
+      "fs_start": {
+        "text": "Eine Lohntüte liegt zu viel auf dem Tisch. Sie trägt den Namen eines alten Schichtgängers, obwohl Esther nur für heutige Helfer gerechnet hat.",
+        "choices": [
+          {
+            "text": "Ich sehe mir die Sache an.",
+            "next": "fs_annehmen",
+            "requires_flags": [
+              "fs_fest_schichtwechsel_aktiv"
+            ],
+            "hide_if_flags": [
+              "fs_schichtwechsel_angenommen"
+            ]
+          },
+          {
+            "text": "Die Spuren zusammenführen.",
+            "next": "fs_wahrheit",
+            "requires_flags": [
+              "fs_schichtwechsel_spur_a",
+              "fs_schichtwechsel_spur_b"
+            ],
+            "hide_if_flags": [
+              "fs_schichtwechsel_entschieden"
+            ]
+          },
+          {
+            "text": "Zu zweit die Beobachtungen vergleichen.",
+            "next": "fs_koop",
+            "requires_flags": [
+              "koop_aktiv",
+              "fs_schichtwechsel_spur_a",
+              "fs_schichtwechsel_spur_b"
+            ],
+            "hide_if_flags": [
+              "fs_schichtwechsel_entschieden"
+            ]
+          },
+          {
+            "text": "Die Sache abschließen.",
+            "next": "fs_lohn",
+            "requires_flags": [
+              "fs_schichtwechsel_entschieden"
+            ],
+            "hide_if_flags": [
+              "fs_schichtwechsel_bezahlt"
+            ]
+          },
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ]
+      },
+      "fs_annehmen": {
+        "text": "Du übernimmst die Suche ohne Frist. Auch nach dem Fest liegen die Notizen am Auftragstisch bereit.",
+        "choices": [
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ],
+        "sets_flags": [
+          "fs_schichtwechsel_angenommen"
+        ],
+        "start_quests": [
+          "fs_schichtwechsel_auftrag"
+        ]
+      },
+      "fs_wahrheit": {
+        "text": "Die Tüte ist kein neuer Aufruf des Fahrmeisters. Ein heutiger Helfer übertrug einen alten Namen, und die Familie soll selbst entscheiden, ob daraus ein Erinnerungsstück wird.",
+        "choices": [
+          {
+            "text": "Zuerst die Familie fragen und die Tüte bis dahin verschließen.",
+            "next": "fs_privatsphaere"
+          },
+          {
+            "text": "Den Kopierfehler öffentlich erklären, ohne den Namen vorzulesen.",
+            "next": "fs_offen"
+          },
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ]
+      },
+      "fs_privatsphaere": {
+        "text": "Esther legt die Tüte in einen gewöhnlichen Umschlag. Die Familie bekommt Zeit und darf sie auch ablehnen; niemand verzeichnet daraus einen neuen Dienst.",
+        "choices": [
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ],
+        "sets_flags": [
+          "fs_schichtwechsel_entschieden",
+          "fs_schichtwechsel_privat"
+        ],
+        "honor": 1
+      },
+      "fs_offen": {
+        "text": "Du zeigst nur die unbeschriftete Rückseite und das Spielgeld. Die Menge erfährt, was geschah, während der Name bei den Menschen bleibt, die ihn kennen.",
+        "choices": [
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ],
+        "sets_flags": [
+          "fs_schichtwechsel_entschieden",
+          "fs_schichtwechsel_offen"
+        ],
+        "honor": 1
+      },
+      "fs_koop": {
+        "text": "Du beschreibst den Fundort, während deine Begleitung die Notiz noch einmal liest. Beide Berichte stimmen überein, und keiner ersetzt den anderen.",
+        "choices": [
+          {
+            "text": "Gemeinsam zur Entscheidung.",
+            "next": "fs_wahrheit"
+          }
+        ],
+        "sets_flags": [
+          "fs_schichtwechsel_koop_geprueft"
+        ]
+      },
+      "fs_lohn": {
+        "text": "Die Festkasse zahlt dir 100 Schilling und überreicht das Andenken. Der Rest des Festes gehört wieder den gewöhnlichen Geschichten.",
+        "choices": [
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ],
+        "gives_money": 100,
+        "gives_items": {
+          "fs_schichtwechsel_andenken": 1
+        },
+        "sets_flags": [
+          "fs_schichtwechsel_bezahlt"
+        ],
+        "complete_quests": [
+          "fs_schichtwechsel_auftrag"
+        ]
+      },
+      "fs_fertig": {
+        "text": "Die Kasse ist abgerechnet, das Andenken gehört dir. Die Entscheidung wird nicht neu verhandelt.",
+        "choices": [
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ]
+      }
+    }
+  },
+  "fs_laternennacht_spiel": {
+    "start": [
+      {
+        "node": "fs_fertig",
+        "requires_flags": [
+          "fs_laternennacht_spiel_fertig"
+        ]
+      },
+      {
+        "node": "fs_start"
+      }
+    ],
+    "nodes": {
+      "fs_start": {
+        "text": "Bert reicht dir ein Boot ohne Namen. Du kannst drei Dinge daran entscheiden, ohne etwas zu bezahlen.",
+        "choices": [
+          {
+            "text": "Breiten Boden falten.",
+            "next": "fs_docht"
+          },
+          {
+            "text": "Schmalen Kiel falten.",
+            "next": "fs_docht"
+          },
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ]
+      },
+      "fs_docht": {
+        "text": "Das Papier hält beide Faltungen aus. Nun braucht das Boot einen Docht, der zum Wind passt.",
+        "choices": [
+          {
+            "text": "Den Docht kurz lassen.",
+            "next": "fs_platz"
+          },
+          {
+            "text": "Den Docht gegen den Wind abschirmen.",
+            "next": "fs_platz"
+          }
+        ]
+      },
+      "fs_platz": {
+        "text": "Das Licht brennt ruhig zwischen deinen Händen. Am Rand ist das Wasser still, in der Mitte zieht es schneller.",
+        "choices": [
+          {
+            "text": "Am Rand einsetzen.",
+            "next": "fs_rand"
+          },
+          {
+            "text": "In die Strömung setzen.",
+            "next": "fs_strom"
+          }
+        ]
+      },
+      "fs_rand": {
+        "text": "Das Boot bleibt eine Weile in deiner Nähe. Du musst es nicht sofort loswerden, um es loszulassen.",
+        "choices": [
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ],
+        "nerves": 6,
+        "sets_flags": [
+          "fs_laternennacht_spiel_fertig",
+          "fs_laternennacht_boot_rand"
+        ]
+      },
+      "fs_strom": {
+        "text": "Das Boot zieht davon, und du siehst ihm nach. Bert fischt später alle Reste aus dem Wasser.",
+        "choices": [
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ],
+        "nerves": 6,
+        "sets_flags": [
+          "fs_laternennacht_spiel_fertig",
+          "fs_laternennacht_boot_strom"
+        ]
+      },
+      "fs_fertig": {
+        "text": "Dein Boot ist längst unterwegs gewesen. Du schaust den nächsten Gästen zu, ohne erneut einen Einsatz oder eine Belohnung zu bekommen.",
+        "choices": [
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ]
+      }
+    }
+  },
+  "fs_salzsegen_spiel": {
+    "start": [
+      {
+        "node": "fs_fertig",
+        "requires_flags": [
+          "fs_salzsegen_spiel_fertig"
+        ]
+      },
+      {
+        "node": "fs_start"
+      }
+    ],
+    "nodes": {
+      "fs_start": {
+        "text": "Odo bittet dich, die Prozession zu ordnen. Auf drei Tafeln stehen die Regeln, und eine falsche Antwort kostet nichts.",
+        "choices": [
+          {
+            "text": "Die Tafeln lesen.",
+            "next": "fs_hinweise"
+          },
+          {
+            "text": "Die Reihenfolge nennen.",
+            "next": "fs_raten"
+          },
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ]
+      },
+      "fs_hinweise": {
+        "text": "Das Brot fährt vor dem Wasser. Das Licht folgt dem Wasser, damit niemand gegen eine offene Flamme rudern muss.",
+        "choices": [
+          {
+            "text": "Dann weiß ich die Reihenfolge.",
+            "next": "fs_raten"
+          }
+        ],
+        "sets_flags": [
+          "fs_salzsegen_spiel_hinweis"
+        ]
+      },
+      "fs_raten": {
+        "text": "Drei Kähne warten ohne Gedränge am Anleger. Du nennst ihre Ladungen vom ersten bis zum letzten.",
+        "choices": [
+          {
+            "text": "Brot, Wasser, Licht.",
+            "next": "fs_richtig",
+            "requires_flags": [
+              "fs_salzsegen_spiel_hinweis"
+            ]
+          },
+          {
+            "text": "Licht, Brot, Wasser.",
+            "next": "fs_falsch"
+          },
+          {
+            "text": "Wasser, Licht, Brot.",
+            "next": "fs_falsch"
+          },
+          {
+            "text": "Die Tafeln noch einmal lesen.",
+            "next": "fs_hinweise"
+          }
+        ]
+      },
+      "fs_richtig": {
+        "text": "Die Kähne stoßen in dieser Reihenfolge ab. Odo lässt dich den Takt angeben, bis alle sicher im Wasser liegen.",
+        "choices": [
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ],
+        "nerves": 7,
+        "sets_flags": [
+          "fs_salzsegen_spiel_fertig"
+        ]
+      },
+      "fs_falsch": {
+        "text": "Odo hält die Leinen fest und schüttelt freundlich den Kopf. Noch ist kein Kahn gefahren, also ist auch nichts verloren.",
+        "choices": [
+          {
+            "text": "Die Tafeln prüfen.",
+            "next": "fs_hinweise"
+          },
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ]
+      },
+      "fs_fertig": {
+        "text": "Die richtige Reihenfolge steht jetzt am Anleger. Du musst sie nicht gegen Geld oder Nerven ein zweites Mal beweisen.",
+        "choices": [
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ]
+      }
+    }
+  },
+  "fs_schichtwechsel_spiel": {
+    "start": [
+      {
+        "node": "fs_fertig",
+        "requires_flags": [
+          "fs_schichtwechsel_spiel_fertig"
+        ]
+      },
+      {
+        "node": "fs_start"
+      }
+    ],
+    "nodes": {
+      "fs_start": {
+        "text": "Der Seilring ist nur für freiwillige Übungen offen. Ein Abbruch kostet nichts, und Silan beendet jede Runde vor einer ernsten Verletzung.",
+        "choices": [
+          {
+            "text": "Eine Übungsrunde wagen.",
+            "next": "fs_kampf",
+            "requires_flags": [
+              "fs_fest_schichtwechsel_aktiv"
+            ],
+            "hide_if_flags": [
+              "won_fs_boxer_1"
+            ]
+          },
+          {
+            "text": "Das Preisgeld abholen.",
+            "next": "fs_preis",
+            "requires_flags": [
+              "won_fs_boxer_1"
+            ],
+            "hide_if_flags": [
+              "fs_schichtwechsel_spiel_fertig"
+            ]
+          },
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ]
+      },
+      "fs_kampf": {
+        "text": "Du legst alles Scharfe beiseite und prüfst die Seile. Silan wartet auf dein Zeichen.",
+        "choices": [],
+        "combat": "fs_boxer_1"
+      },
+      "fs_preis": {
+        "text": "Silan zählt 20 Schilling aus der Festkasse ab. „Genug für ein Abendessen, zu wenig für eine Karriere.“",
+        "choices": [
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ],
+        "gives_money": 20,
+        "sets_flags": [
+          "fs_schichtwechsel_spiel_fertig"
+        ]
+      },
+      "fs_fertig": {
+        "text": "Das Preisgeld wurde ausgezahlt. Der Ring bleibt für andere offen, und du darfst ohne zweite Prüfung zuschauen.",
+        "choices": [
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ]
+      }
+    }
+  },
+  "fs_stiller_abend_buero": {
+    "start": [
+      {
+        "node": "fs_ruht",
+        "requires_flags": [
+          "fs_stiller_abend_geruht"
+        ]
+      },
+      {
+        "node": "fs_start"
+      }
+    ],
+    "nodes": {
+      "fs_start": {
+        "text": "Eine leere Bestellliste liegt neben der Teekanne. Heute muss selbst das Papier nichts leisten.",
+        "choices": [
+          {
+            "text": "Eine Weile ausruhen.",
+            "next": "fs_pause",
+            "requires_flags": [
+              "fs_stiller_abend_aktiv"
+            ]
+          },
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ]
+      },
+      "fs_pause": {
+        "text": "Du setzt dich hin und lässt die Hände ruhen. Niemand zählt, wie lange du brauchst.",
+        "choices": [
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ],
+        "nerves": 5,
+        "sets_flags": [
+          "fs_stiller_abend_geruht"
+        ]
+      },
+      "fs_ruht": {
+        "text": "Die Ruhe bleibt dir zugänglich. Für diesen Stillen Abend hast du ihre zusätzliche Stärkung bereits erhalten.",
+        "choices": [
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ]
+      }
+    }
+  },
+  "fs_stiller_abend_wx_kahn": {
+    "start": [
+      {
+        "node": "fs_ruht",
+        "requires_flags": [
+          "fs_stiller_abend_geruht"
+        ]
+      },
+      {
+        "node": "fs_start"
+      }
+    ],
+    "nodes": {
+      "fs_start": {
+        "text": "Zunder hat die Ruder festgebunden und ein trockenes Tuch über den Tisch gelegt. Draußen klopft Eis, drinnen niemand.",
+        "choices": [
+          {
+            "text": "Eine Weile ausruhen.",
+            "next": "fs_pause",
+            "requires_flags": [
+              "fs_stiller_abend_aktiv"
+            ]
+          },
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ]
+      },
+      "fs_pause": {
+        "text": "Du setzt dich hin und lässt die Hände ruhen. Niemand zählt, wie lange du brauchst.",
+        "choices": [
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ],
+        "nerves": 5,
+        "sets_flags": [
+          "fs_stiller_abend_geruht"
+        ]
+      },
+      "fs_ruht": {
+        "text": "Die Ruhe bleibt dir zugänglich. Für diesen Stillen Abend hast du ihre zusätzliche Stärkung bereits erhalten.",
+        "choices": [
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ]
+      }
+    }
+  },
+  "fs_stiller_abend_ds_speisewagen": {
+    "start": [
+      {
+        "node": "fs_ruht",
+        "requires_flags": [
+          "fs_stiller_abend_geruht"
+        ]
+      },
+      {
+        "node": "fs_start"
+      }
+    ],
+    "nodes": {
+      "fs_start": {
+        "text": "Pfiff hat die Uhr umgedreht, ohne sie anzuhalten. Mabel stellt eine zweite Schale hin, bevor du etwas bestellst.",
+        "choices": [
+          {
+            "text": "Eine Weile ausruhen.",
+            "next": "fs_pause",
+            "requires_flags": [
+              "fs_stiller_abend_aktiv"
+            ]
+          },
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ]
+      },
+      "fs_pause": {
+        "text": "Du setzt dich hin und lässt die Hände ruhen. Niemand zählt, wie lange du brauchst.",
+        "choices": [
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ],
+        "nerves": 5,
+        "sets_flags": [
+          "fs_stiller_abend_geruht"
+        ]
+      },
+      "fs_ruht": {
+        "text": "Die Ruhe bleibt dir zugänglich. Für diesen Stillen Abend hast du ihre zusätzliche Stärkung bereits erhalten.",
+        "choices": [
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ]
+      }
+    }
+  },
+  "fs_herbst_kettlegate_saisonplatz": {
+    "start": "fs_start",
+    "nodes": {
+      "fs_start": {
+        "text": "Die Jahreszeit verändert kleine Gewohnheiten am Markt. Du kannst eine Pause nehmen, ohne etwas zu kaufen.",
+        "choices": [
+          {
+            "text": "Kastanienfund",
+            "next": "fs_herbst_wirkung_1",
+            "requires_flags": [
+              "fs_herbst"
+            ],
+            "hide_if_flags": [
+              "fs_herbst_wirkung_1_genutzt"
+            ]
+          },
+          {
+            "text": "Pilzprüfung",
+            "next": "fs_herbst_wirkung_2",
+            "requires_flags": [
+              "fs_herbst"
+            ],
+            "hide_if_flags": [
+              "fs_herbst_wirkung_2_genutzt"
+            ]
+          },
+          {
+            "text": "Trockener Unterstand",
+            "next": "fs_herbst_wirkung_3",
+            "requires_flags": [
+              "fs_herbst"
+            ],
+            "hide_if_flags": [
+              "fs_herbst_wirkung_3_genutzt"
+            ]
+          },
+          {
+            "text": "Warmer Teller",
+            "next": "fs_herbst_wirkung_4",
+            "requires_flags": [
+              "fs_herbst"
+            ],
+            "hide_if_flags": [
+              "fs_herbst_wirkung_4_genutzt"
+            ]
+          },
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ]
+      },
+      "fs_herbst_wirkung_1": {
+        "text": "Ein Fund am sicheren Wegrand, einmal je Saison. Danach bleibt der Platz für andere frei.",
+        "choices": [
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ],
+        "gives_items": {
+          "fs_laternennacht_kastanien": 1
+        },
+        "sets_flags": [
+          "fs_herbst_wirkung_1_genutzt"
+        ]
+      },
+      "fs_herbst_wirkung_2": {
+        "text": "Ein geprüfter Pilzbeutel wird als Festtee getauscht, keine unbekannten Pilze essen. Danach bleibt der Platz für andere frei.",
+        "choices": [
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ],
+        "gives_items": {
+          "fs_laternennacht_tee": 1
+        },
+        "sets_flags": [
+          "fs_herbst_wirkung_2_genutzt"
+        ]
+      },
+      "fs_herbst_wirkung_3": {
+        "text": "Eine kurze trockene Pause am Markt. Danach bleibt der Platz für andere frei.",
+        "choices": [
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ],
+        "nerves": 2,
+        "sets_flags": [
+          "fs_herbst_wirkung_3_genutzt"
+        ]
+      },
+      "fs_herbst_wirkung_4": {
+        "text": "Eine kostenlose Kostprobe am sicheren Tisch. Danach bleibt der Platz für andere frei.",
+        "choices": [
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ],
+        "heal": 3,
+        "sets_flags": [
+          "fs_herbst_wirkung_4_genutzt"
+        ]
+      }
+    }
+  },
+  "fs_herbst_wexmoor_saisonplatz": {
+    "start": "fs_start",
+    "nodes": {
+      "fs_start": {
+        "text": "Die Jahreszeit verändert kleine Gewohnheiten am Markt. Du kannst eine Pause nehmen, ohne etwas zu kaufen.",
+        "choices": [
+          {
+            "text": "Kastanienfund",
+            "next": "fs_herbst_wirkung_1",
+            "requires_flags": [
+              "fs_herbst"
+            ],
+            "hide_if_flags": [
+              "fs_herbst_wirkung_1_genutzt"
+            ]
+          },
+          {
+            "text": "Pilzprüfung",
+            "next": "fs_herbst_wirkung_2",
+            "requires_flags": [
+              "fs_herbst"
+            ],
+            "hide_if_flags": [
+              "fs_herbst_wirkung_2_genutzt"
+            ]
+          },
+          {
+            "text": "Trockener Unterstand",
+            "next": "fs_herbst_wirkung_3",
+            "requires_flags": [
+              "fs_herbst"
+            ],
+            "hide_if_flags": [
+              "fs_herbst_wirkung_3_genutzt"
+            ]
+          },
+          {
+            "text": "Warmer Teller",
+            "next": "fs_herbst_wirkung_4",
+            "requires_flags": [
+              "fs_herbst"
+            ],
+            "hide_if_flags": [
+              "fs_herbst_wirkung_4_genutzt"
+            ]
+          },
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ]
+      },
+      "fs_herbst_wirkung_1": {
+        "text": "Ein Fund am sicheren Wegrand, einmal je Saison. Danach bleibt der Platz für andere frei.",
+        "choices": [
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ],
+        "gives_items": {
+          "fs_laternennacht_kastanien": 1
+        },
+        "sets_flags": [
+          "fs_herbst_wirkung_1_genutzt"
+        ]
+      },
+      "fs_herbst_wirkung_2": {
+        "text": "Ein geprüfter Pilzbeutel wird als Festtee getauscht, keine unbekannten Pilze essen. Danach bleibt der Platz für andere frei.",
+        "choices": [
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ],
+        "gives_items": {
+          "fs_laternennacht_tee": 1
+        },
+        "sets_flags": [
+          "fs_herbst_wirkung_2_genutzt"
+        ]
+      },
+      "fs_herbst_wirkung_3": {
+        "text": "Eine kurze trockene Pause am Markt. Danach bleibt der Platz für andere frei.",
+        "choices": [
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ],
+        "nerves": 2,
+        "sets_flags": [
+          "fs_herbst_wirkung_3_genutzt"
+        ]
+      },
+      "fs_herbst_wirkung_4": {
+        "text": "Eine kostenlose Kostprobe am sicheren Tisch. Danach bleibt der Platz für andere frei.",
+        "choices": [
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ],
+        "heal": 3,
+        "sets_flags": [
+          "fs_herbst_wirkung_4_genutzt"
+        ]
+      }
+    }
+  },
+  "fs_herbst_dunscar_saisonplatz": {
+    "start": "fs_start",
+    "nodes": {
+      "fs_start": {
+        "text": "Die Jahreszeit verändert kleine Gewohnheiten am Markt. Du kannst eine Pause nehmen, ohne etwas zu kaufen.",
+        "choices": [
+          {
+            "text": "Kastanienfund",
+            "next": "fs_herbst_wirkung_1",
+            "requires_flags": [
+              "fs_herbst"
+            ],
+            "hide_if_flags": [
+              "fs_herbst_wirkung_1_genutzt"
+            ]
+          },
+          {
+            "text": "Pilzprüfung",
+            "next": "fs_herbst_wirkung_2",
+            "requires_flags": [
+              "fs_herbst"
+            ],
+            "hide_if_flags": [
+              "fs_herbst_wirkung_2_genutzt"
+            ]
+          },
+          {
+            "text": "Trockener Unterstand",
+            "next": "fs_herbst_wirkung_3",
+            "requires_flags": [
+              "fs_herbst"
+            ],
+            "hide_if_flags": [
+              "fs_herbst_wirkung_3_genutzt"
+            ]
+          },
+          {
+            "text": "Warmer Teller",
+            "next": "fs_herbst_wirkung_4",
+            "requires_flags": [
+              "fs_herbst"
+            ],
+            "hide_if_flags": [
+              "fs_herbst_wirkung_4_genutzt"
+            ]
+          },
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ]
+      },
+      "fs_herbst_wirkung_1": {
+        "text": "Ein Fund am sicheren Wegrand, einmal je Saison. Danach bleibt der Platz für andere frei.",
+        "choices": [
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ],
+        "gives_items": {
+          "fs_laternennacht_kastanien": 1
+        },
+        "sets_flags": [
+          "fs_herbst_wirkung_1_genutzt"
+        ]
+      },
+      "fs_herbst_wirkung_2": {
+        "text": "Ein geprüfter Pilzbeutel wird als Festtee getauscht, keine unbekannten Pilze essen. Danach bleibt der Platz für andere frei.",
+        "choices": [
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ],
+        "gives_items": {
+          "fs_laternennacht_tee": 1
+        },
+        "sets_flags": [
+          "fs_herbst_wirkung_2_genutzt"
+        ]
+      },
+      "fs_herbst_wirkung_3": {
+        "text": "Eine kurze trockene Pause am Markt. Danach bleibt der Platz für andere frei.",
+        "choices": [
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ],
+        "nerves": 2,
+        "sets_flags": [
+          "fs_herbst_wirkung_3_genutzt"
+        ]
+      },
+      "fs_herbst_wirkung_4": {
+        "text": "Eine kostenlose Kostprobe am sicheren Tisch. Danach bleibt der Platz für andere frei.",
+        "choices": [
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ],
+        "heal": 3,
+        "sets_flags": [
+          "fs_herbst_wirkung_4_genutzt"
+        ]
+      }
+    }
+  },
+  "fs_winter_kettlegate_saisonplatz": {
+    "start": "fs_start",
+    "nodes": {
+      "fs_start": {
+        "text": "Die Jahreszeit verändert kleine Gewohnheiten am Markt. Du kannst eine Pause nehmen, ohne etwas zu kaufen.",
+        "choices": [
+          {
+            "text": "Wärmestube",
+            "next": "fs_winter_wirkung_1",
+            "requires_flags": [
+              "fs_winter"
+            ],
+            "hide_if_flags": [
+              "fs_winter_wirkung_1_genutzt"
+            ]
+          },
+          {
+            "text": "Trockene Wickel",
+            "next": "fs_winter_wirkung_2",
+            "requires_flags": [
+              "fs_winter"
+            ],
+            "hide_if_flags": [
+              "fs_winter_wirkung_2_genutzt"
+            ]
+          },
+          {
+            "text": "Heißes Wasser",
+            "next": "fs_winter_wirkung_3",
+            "requires_flags": [
+              "fs_winter"
+            ],
+            "hide_if_flags": [
+              "fs_winter_wirkung_3_genutzt"
+            ]
+          },
+          {
+            "text": "Nachbarschaftshilfe",
+            "next": "fs_winter_wirkung_4",
+            "requires_flags": [
+              "fs_winter"
+            ],
+            "hide_if_flags": [
+              "fs_winter_wirkung_4_genutzt"
+            ]
+          },
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ]
+      },
+      "fs_winter_wirkung_1": {
+        "text": "Eine gewöhnliche warme Pause, unabhängig vom Stillen Abend. Danach bleibt der Platz für andere frei.",
+        "choices": [
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ],
+        "nerves": 2,
+        "sets_flags": [
+          "fs_winter_wirkung_1_genutzt"
+        ]
+      },
+      "fs_winter_wirkung_2": {
+        "text": "Kostenlose trockene Wickel am Markt. Danach bleibt der Platz für andere frei.",
+        "choices": [
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ],
+        "heal": 3,
+        "sets_flags": [
+          "fs_winter_wirkung_2_genutzt"
+        ]
+      },
+      "fs_winter_wirkung_3": {
+        "text": "Ein warmes Getränk ohne Kaufpflicht. Danach bleibt der Platz für andere frei.",
+        "choices": [
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ],
+        "gives_items": {
+          "fs_laternennacht_tee": 1
+        },
+        "sets_flags": [
+          "fs_winter_wirkung_3_genutzt"
+        ]
+      },
+      "fs_winter_wirkung_4": {
+        "text": "Ein ausgeliehenes Tuch kommt zurück. Danach bleibt der Platz für andere frei.",
+        "choices": [
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ],
+        "nerves": 2,
+        "sets_flags": [
+          "fs_winter_wirkung_4_genutzt"
+        ]
+      }
+    }
+  },
+  "fs_winter_wexmoor_saisonplatz": {
+    "start": "fs_start",
+    "nodes": {
+      "fs_start": {
+        "text": "Die Jahreszeit verändert kleine Gewohnheiten am Markt. Du kannst eine Pause nehmen, ohne etwas zu kaufen.",
+        "choices": [
+          {
+            "text": "Wärmestube",
+            "next": "fs_winter_wirkung_1",
+            "requires_flags": [
+              "fs_winter"
+            ],
+            "hide_if_flags": [
+              "fs_winter_wirkung_1_genutzt"
+            ]
+          },
+          {
+            "text": "Trockene Wickel",
+            "next": "fs_winter_wirkung_2",
+            "requires_flags": [
+              "fs_winter"
+            ],
+            "hide_if_flags": [
+              "fs_winter_wirkung_2_genutzt"
+            ]
+          },
+          {
+            "text": "Heißes Wasser",
+            "next": "fs_winter_wirkung_3",
+            "requires_flags": [
+              "fs_winter"
+            ],
+            "hide_if_flags": [
+              "fs_winter_wirkung_3_genutzt"
+            ]
+          },
+          {
+            "text": "Nachbarschaftshilfe",
+            "next": "fs_winter_wirkung_4",
+            "requires_flags": [
+              "fs_winter"
+            ],
+            "hide_if_flags": [
+              "fs_winter_wirkung_4_genutzt"
+            ]
+          },
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ]
+      },
+      "fs_winter_wirkung_1": {
+        "text": "Eine gewöhnliche warme Pause, unabhängig vom Stillen Abend. Danach bleibt der Platz für andere frei.",
+        "choices": [
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ],
+        "nerves": 2,
+        "sets_flags": [
+          "fs_winter_wirkung_1_genutzt"
+        ]
+      },
+      "fs_winter_wirkung_2": {
+        "text": "Kostenlose trockene Wickel am Markt. Danach bleibt der Platz für andere frei.",
+        "choices": [
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ],
+        "heal": 3,
+        "sets_flags": [
+          "fs_winter_wirkung_2_genutzt"
+        ]
+      },
+      "fs_winter_wirkung_3": {
+        "text": "Ein warmes Getränk ohne Kaufpflicht. Danach bleibt der Platz für andere frei.",
+        "choices": [
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ],
+        "gives_items": {
+          "fs_laternennacht_tee": 1
+        },
+        "sets_flags": [
+          "fs_winter_wirkung_3_genutzt"
+        ]
+      },
+      "fs_winter_wirkung_4": {
+        "text": "Ein ausgeliehenes Tuch kommt zurück. Danach bleibt der Platz für andere frei.",
+        "choices": [
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ],
+        "nerves": 2,
+        "sets_flags": [
+          "fs_winter_wirkung_4_genutzt"
+        ]
+      }
+    }
+  },
+  "fs_winter_dunscar_saisonplatz": {
+    "start": "fs_start",
+    "nodes": {
+      "fs_start": {
+        "text": "Die Jahreszeit verändert kleine Gewohnheiten am Markt. Du kannst eine Pause nehmen, ohne etwas zu kaufen.",
+        "choices": [
+          {
+            "text": "Wärmestube",
+            "next": "fs_winter_wirkung_1",
+            "requires_flags": [
+              "fs_winter"
+            ],
+            "hide_if_flags": [
+              "fs_winter_wirkung_1_genutzt"
+            ]
+          },
+          {
+            "text": "Trockene Wickel",
+            "next": "fs_winter_wirkung_2",
+            "requires_flags": [
+              "fs_winter"
+            ],
+            "hide_if_flags": [
+              "fs_winter_wirkung_2_genutzt"
+            ]
+          },
+          {
+            "text": "Heißes Wasser",
+            "next": "fs_winter_wirkung_3",
+            "requires_flags": [
+              "fs_winter"
+            ],
+            "hide_if_flags": [
+              "fs_winter_wirkung_3_genutzt"
+            ]
+          },
+          {
+            "text": "Nachbarschaftshilfe",
+            "next": "fs_winter_wirkung_4",
+            "requires_flags": [
+              "fs_winter"
+            ],
+            "hide_if_flags": [
+              "fs_winter_wirkung_4_genutzt"
+            ]
+          },
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ]
+      },
+      "fs_winter_wirkung_1": {
+        "text": "Eine gewöhnliche warme Pause, unabhängig vom Stillen Abend. Danach bleibt der Platz für andere frei.",
+        "choices": [
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ],
+        "nerves": 2,
+        "sets_flags": [
+          "fs_winter_wirkung_1_genutzt"
+        ]
+      },
+      "fs_winter_wirkung_2": {
+        "text": "Kostenlose trockene Wickel am Markt. Danach bleibt der Platz für andere frei.",
+        "choices": [
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ],
+        "heal": 3,
+        "sets_flags": [
+          "fs_winter_wirkung_2_genutzt"
+        ]
+      },
+      "fs_winter_wirkung_3": {
+        "text": "Ein warmes Getränk ohne Kaufpflicht. Danach bleibt der Platz für andere frei.",
+        "choices": [
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ],
+        "gives_items": {
+          "fs_laternennacht_tee": 1
+        },
+        "sets_flags": [
+          "fs_winter_wirkung_3_genutzt"
+        ]
+      },
+      "fs_winter_wirkung_4": {
+        "text": "Ein ausgeliehenes Tuch kommt zurück. Danach bleibt der Platz für andere frei.",
+        "choices": [
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ],
+        "nerves": 2,
+        "sets_flags": [
+          "fs_winter_wirkung_4_genutzt"
+        ]
+      }
+    }
+  },
+  "fs_fruehling_kettlegate_saisonplatz": {
+    "start": "fs_start",
+    "nodes": {
+      "fs_start": {
+        "text": "Die Jahreszeit verändert kleine Gewohnheiten am Markt. Du kannst eine Pause nehmen, ohne etwas zu kaufen.",
+        "choices": [
+          {
+            "text": "Regenpause",
+            "next": "fs_fruehling_wirkung_1",
+            "requires_flags": [
+              "fs_fruehling"
+            ],
+            "hide_if_flags": [
+              "fs_fruehling_wirkung_1_genutzt"
+            ]
+          },
+          {
+            "text": "Frische Kräuter",
+            "next": "fs_fruehling_wirkung_2",
+            "requires_flags": [
+              "fs_fruehling"
+            ],
+            "hide_if_flags": [
+              "fs_fruehling_wirkung_2_genutzt"
+            ]
+          },
+          {
+            "text": "Erste Ruderfahrt",
+            "next": "fs_fruehling_wirkung_3",
+            "requires_flags": [
+              "fs_fruehling"
+            ],
+            "hide_if_flags": [
+              "fs_fruehling_wirkung_3_genutzt"
+            ]
+          },
+          {
+            "text": "Marktprobe",
+            "next": "fs_fruehling_wirkung_4",
+            "requires_flags": [
+              "fs_fruehling"
+            ],
+            "hide_if_flags": [
+              "fs_fruehling_wirkung_4_genutzt"
+            ]
+          },
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ]
+      },
+      "fs_fruehling_wirkung_1": {
+        "text": "Unter dem Vordach trocknest du die Hände. Danach bleibt der Platz für andere frei.",
+        "choices": [
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ],
+        "nerves": 2,
+        "sets_flags": [
+          "fs_fruehling_wirkung_1_genutzt"
+        ]
+      },
+      "fs_fruehling_wirkung_2": {
+        "text": "Eine kleine milde Kostprobe. Danach bleibt der Platz für andere frei.",
+        "choices": [
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ],
+        "heal": 3,
+        "sets_flags": [
+          "fs_fruehling_wirkung_2_genutzt"
+        ]
+      },
+      "fs_fruehling_wirkung_3": {
+        "text": "Vom Ufer aus beim ruhigen Ablegen zusehen. Danach bleibt der Platz für andere frei.",
+        "choices": [
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ],
+        "nerves": 2,
+        "sets_flags": [
+          "fs_fruehling_wirkung_3_genutzt"
+        ]
+      },
+      "fs_fruehling_wirkung_4": {
+        "text": "Ein kostenloses Salzbonbon. Danach bleibt der Platz für andere frei.",
+        "choices": [
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ],
+        "gives_items": {
+          "fs_salzsegen_bonbon": 1
+        },
+        "sets_flags": [
+          "fs_fruehling_wirkung_4_genutzt"
+        ]
+      }
+    }
+  },
+  "fs_fruehling_wexmoor_saisonplatz": {
+    "start": "fs_start",
+    "nodes": {
+      "fs_start": {
+        "text": "Die Jahreszeit verändert kleine Gewohnheiten am Markt. Du kannst eine Pause nehmen, ohne etwas zu kaufen.",
+        "choices": [
+          {
+            "text": "Regenpause",
+            "next": "fs_fruehling_wirkung_1",
+            "requires_flags": [
+              "fs_fruehling"
+            ],
+            "hide_if_flags": [
+              "fs_fruehling_wirkung_1_genutzt"
+            ]
+          },
+          {
+            "text": "Frische Kräuter",
+            "next": "fs_fruehling_wirkung_2",
+            "requires_flags": [
+              "fs_fruehling"
+            ],
+            "hide_if_flags": [
+              "fs_fruehling_wirkung_2_genutzt"
+            ]
+          },
+          {
+            "text": "Erste Ruderfahrt",
+            "next": "fs_fruehling_wirkung_3",
+            "requires_flags": [
+              "fs_fruehling"
+            ],
+            "hide_if_flags": [
+              "fs_fruehling_wirkung_3_genutzt"
+            ]
+          },
+          {
+            "text": "Marktprobe",
+            "next": "fs_fruehling_wirkung_4",
+            "requires_flags": [
+              "fs_fruehling"
+            ],
+            "hide_if_flags": [
+              "fs_fruehling_wirkung_4_genutzt"
+            ]
+          },
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ]
+      },
+      "fs_fruehling_wirkung_1": {
+        "text": "Unter dem Vordach trocknest du die Hände. Danach bleibt der Platz für andere frei.",
+        "choices": [
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ],
+        "nerves": 2,
+        "sets_flags": [
+          "fs_fruehling_wirkung_1_genutzt"
+        ]
+      },
+      "fs_fruehling_wirkung_2": {
+        "text": "Eine kleine milde Kostprobe. Danach bleibt der Platz für andere frei.",
+        "choices": [
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ],
+        "heal": 3,
+        "sets_flags": [
+          "fs_fruehling_wirkung_2_genutzt"
+        ]
+      },
+      "fs_fruehling_wirkung_3": {
+        "text": "Vom Ufer aus beim ruhigen Ablegen zusehen. Danach bleibt der Platz für andere frei.",
+        "choices": [
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ],
+        "nerves": 2,
+        "sets_flags": [
+          "fs_fruehling_wirkung_3_genutzt"
+        ]
+      },
+      "fs_fruehling_wirkung_4": {
+        "text": "Ein kostenloses Salzbonbon. Danach bleibt der Platz für andere frei.",
+        "choices": [
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ],
+        "gives_items": {
+          "fs_salzsegen_bonbon": 1
+        },
+        "sets_flags": [
+          "fs_fruehling_wirkung_4_genutzt"
+        ]
+      }
+    }
+  },
+  "fs_fruehling_dunscar_saisonplatz": {
+    "start": "fs_start",
+    "nodes": {
+      "fs_start": {
+        "text": "Die Jahreszeit verändert kleine Gewohnheiten am Markt. Du kannst eine Pause nehmen, ohne etwas zu kaufen.",
+        "choices": [
+          {
+            "text": "Regenpause",
+            "next": "fs_fruehling_wirkung_1",
+            "requires_flags": [
+              "fs_fruehling"
+            ],
+            "hide_if_flags": [
+              "fs_fruehling_wirkung_1_genutzt"
+            ]
+          },
+          {
+            "text": "Frische Kräuter",
+            "next": "fs_fruehling_wirkung_2",
+            "requires_flags": [
+              "fs_fruehling"
+            ],
+            "hide_if_flags": [
+              "fs_fruehling_wirkung_2_genutzt"
+            ]
+          },
+          {
+            "text": "Erste Ruderfahrt",
+            "next": "fs_fruehling_wirkung_3",
+            "requires_flags": [
+              "fs_fruehling"
+            ],
+            "hide_if_flags": [
+              "fs_fruehling_wirkung_3_genutzt"
+            ]
+          },
+          {
+            "text": "Marktprobe",
+            "next": "fs_fruehling_wirkung_4",
+            "requires_flags": [
+              "fs_fruehling"
+            ],
+            "hide_if_flags": [
+              "fs_fruehling_wirkung_4_genutzt"
+            ]
+          },
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ]
+      },
+      "fs_fruehling_wirkung_1": {
+        "text": "Unter dem Vordach trocknest du die Hände. Danach bleibt der Platz für andere frei.",
+        "choices": [
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ],
+        "nerves": 2,
+        "sets_flags": [
+          "fs_fruehling_wirkung_1_genutzt"
+        ]
+      },
+      "fs_fruehling_wirkung_2": {
+        "text": "Eine kleine milde Kostprobe. Danach bleibt der Platz für andere frei.",
+        "choices": [
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ],
+        "heal": 3,
+        "sets_flags": [
+          "fs_fruehling_wirkung_2_genutzt"
+        ]
+      },
+      "fs_fruehling_wirkung_3": {
+        "text": "Vom Ufer aus beim ruhigen Ablegen zusehen. Danach bleibt der Platz für andere frei.",
+        "choices": [
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ],
+        "nerves": 2,
+        "sets_flags": [
+          "fs_fruehling_wirkung_3_genutzt"
+        ]
+      },
+      "fs_fruehling_wirkung_4": {
+        "text": "Ein kostenloses Salzbonbon. Danach bleibt der Platz für andere frei.",
+        "choices": [
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ],
+        "gives_items": {
+          "fs_salzsegen_bonbon": 1
+        },
+        "sets_flags": [
+          "fs_fruehling_wirkung_4_genutzt"
+        ]
+      }
+    }
+  },
+  "fs_sommer_kettlegate_saisonplatz": {
+    "start": "fs_start",
+    "nodes": {
+      "fs_start": {
+        "text": "Die Jahreszeit verändert kleine Gewohnheiten am Markt. Du kannst eine Pause nehmen, ohne etwas zu kaufen.",
+        "choices": [
+          {
+            "text": "Schattenbank",
+            "next": "fs_sommer_wirkung_1",
+            "requires_flags": [
+              "fs_sommer"
+            ],
+            "hide_if_flags": [
+              "fs_sommer_wirkung_1_genutzt"
+            ]
+          },
+          {
+            "text": "Wasserstelle",
+            "next": "fs_sommer_wirkung_2",
+            "requires_flags": [
+              "fs_sommer"
+            ],
+            "hide_if_flags": [
+              "fs_sommer_wirkung_2_genutzt"
+            ]
+          },
+          {
+            "text": "Kühler Krug",
+            "next": "fs_sommer_wirkung_3",
+            "requires_flags": [
+              "fs_sommer"
+            ],
+            "hide_if_flags": [
+              "fs_sommer_wirkung_3_genutzt"
+            ]
+          },
+          {
+            "text": "Offenes Fenster",
+            "next": "fs_sommer_wirkung_4",
+            "requires_flags": [
+              "fs_sommer"
+            ],
+            "hide_if_flags": [
+              "fs_sommer_wirkung_4_genutzt"
+            ]
+          },
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ]
+      },
+      "fs_sommer_wirkung_1": {
+        "text": "Eine Pause im Schatten ohne Eintritt. Danach bleibt der Platz für andere frei.",
+        "choices": [
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ],
+        "nerves": 2,
+        "sets_flags": [
+          "fs_sommer_wirkung_1_genutzt"
+        ]
+      },
+      "fs_sommer_wirkung_2": {
+        "text": "Sauberes Wasser steht kostenlos bereit. Danach bleibt der Platz für andere frei.",
+        "choices": [
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ],
+        "heal": 3,
+        "sets_flags": [
+          "fs_sommer_wirkung_2_genutzt"
+        ]
+      },
+      "fs_sommer_wirkung_3": {
+        "text": "Eine kostenlose verschlossene Flasche. Danach bleibt der Platz für andere frei.",
+        "choices": [
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ],
+        "gives_items": {
+          "fs_schichtwechsel_wasser": 1
+        },
+        "sets_flags": [
+          "fs_sommer_wirkung_3_genutzt"
+        ]
+      },
+      "fs_sommer_wirkung_4": {
+        "text": "Du trittst aus dem Kanalgeruch in frische Luft. Danach bleibt der Platz für andere frei.",
+        "choices": [
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ],
+        "nerves": 2,
+        "sets_flags": [
+          "fs_sommer_wirkung_4_genutzt"
+        ]
+      }
+    }
+  },
+  "fs_sommer_wexmoor_saisonplatz": {
+    "start": "fs_start",
+    "nodes": {
+      "fs_start": {
+        "text": "Die Jahreszeit verändert kleine Gewohnheiten am Markt. Du kannst eine Pause nehmen, ohne etwas zu kaufen.",
+        "choices": [
+          {
+            "text": "Schattenbank",
+            "next": "fs_sommer_wirkung_1",
+            "requires_flags": [
+              "fs_sommer"
+            ],
+            "hide_if_flags": [
+              "fs_sommer_wirkung_1_genutzt"
+            ]
+          },
+          {
+            "text": "Wasserstelle",
+            "next": "fs_sommer_wirkung_2",
+            "requires_flags": [
+              "fs_sommer"
+            ],
+            "hide_if_flags": [
+              "fs_sommer_wirkung_2_genutzt"
+            ]
+          },
+          {
+            "text": "Kühler Krug",
+            "next": "fs_sommer_wirkung_3",
+            "requires_flags": [
+              "fs_sommer"
+            ],
+            "hide_if_flags": [
+              "fs_sommer_wirkung_3_genutzt"
+            ]
+          },
+          {
+            "text": "Offenes Fenster",
+            "next": "fs_sommer_wirkung_4",
+            "requires_flags": [
+              "fs_sommer"
+            ],
+            "hide_if_flags": [
+              "fs_sommer_wirkung_4_genutzt"
+            ]
+          },
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ]
+      },
+      "fs_sommer_wirkung_1": {
+        "text": "Eine Pause im Schatten ohne Eintritt. Danach bleibt der Platz für andere frei.",
+        "choices": [
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ],
+        "nerves": 2,
+        "sets_flags": [
+          "fs_sommer_wirkung_1_genutzt"
+        ]
+      },
+      "fs_sommer_wirkung_2": {
+        "text": "Sauberes Wasser steht kostenlos bereit. Danach bleibt der Platz für andere frei.",
+        "choices": [
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ],
+        "heal": 3,
+        "sets_flags": [
+          "fs_sommer_wirkung_2_genutzt"
+        ]
+      },
+      "fs_sommer_wirkung_3": {
+        "text": "Eine kostenlose verschlossene Flasche. Danach bleibt der Platz für andere frei.",
+        "choices": [
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ],
+        "gives_items": {
+          "fs_schichtwechsel_wasser": 1
+        },
+        "sets_flags": [
+          "fs_sommer_wirkung_3_genutzt"
+        ]
+      },
+      "fs_sommer_wirkung_4": {
+        "text": "Du trittst aus dem Kanalgeruch in frische Luft. Danach bleibt der Platz für andere frei.",
+        "choices": [
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ],
+        "nerves": 2,
+        "sets_flags": [
+          "fs_sommer_wirkung_4_genutzt"
+        ]
+      }
+    }
+  },
+  "fs_sommer_dunscar_saisonplatz": {
+    "start": "fs_start",
+    "nodes": {
+      "fs_start": {
+        "text": "Die Jahreszeit verändert kleine Gewohnheiten am Markt. Du kannst eine Pause nehmen, ohne etwas zu kaufen.",
+        "choices": [
+          {
+            "text": "Schattenbank",
+            "next": "fs_sommer_wirkung_1",
+            "requires_flags": [
+              "fs_sommer"
+            ],
+            "hide_if_flags": [
+              "fs_sommer_wirkung_1_genutzt"
+            ]
+          },
+          {
+            "text": "Wasserstelle",
+            "next": "fs_sommer_wirkung_2",
+            "requires_flags": [
+              "fs_sommer"
+            ],
+            "hide_if_flags": [
+              "fs_sommer_wirkung_2_genutzt"
+            ]
+          },
+          {
+            "text": "Kühler Krug",
+            "next": "fs_sommer_wirkung_3",
+            "requires_flags": [
+              "fs_sommer"
+            ],
+            "hide_if_flags": [
+              "fs_sommer_wirkung_3_genutzt"
+            ]
+          },
+          {
+            "text": "Offenes Fenster",
+            "next": "fs_sommer_wirkung_4",
+            "requires_flags": [
+              "fs_sommer"
+            ],
+            "hide_if_flags": [
+              "fs_sommer_wirkung_4_genutzt"
+            ]
+          },
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ]
+      },
+      "fs_sommer_wirkung_1": {
+        "text": "Eine Pause im Schatten ohne Eintritt. Danach bleibt der Platz für andere frei.",
+        "choices": [
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ],
+        "nerves": 2,
+        "sets_flags": [
+          "fs_sommer_wirkung_1_genutzt"
+        ]
+      },
+      "fs_sommer_wirkung_2": {
+        "text": "Sauberes Wasser steht kostenlos bereit. Danach bleibt der Platz für andere frei.",
+        "choices": [
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ],
+        "heal": 3,
+        "sets_flags": [
+          "fs_sommer_wirkung_2_genutzt"
+        ]
+      },
+      "fs_sommer_wirkung_3": {
+        "text": "Eine kostenlose verschlossene Flasche. Danach bleibt der Platz für andere frei.",
+        "choices": [
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ],
+        "gives_items": {
+          "fs_schichtwechsel_wasser": 1
+        },
+        "sets_flags": [
+          "fs_sommer_wirkung_3_genutzt"
+        ]
+      },
+      "fs_sommer_wirkung_4": {
+        "text": "Du trittst aus dem Kanalgeruch in frische Luft. Danach bleibt der Platz für andere frei.",
+        "choices": [
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ],
+        "nerves": 2,
+        "sets_flags": [
+          "fs_sommer_wirkung_4_genutzt"
+        ]
+      }
+    }
+  }
+}

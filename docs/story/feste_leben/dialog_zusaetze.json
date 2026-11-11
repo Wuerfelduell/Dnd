@@ -1,0 +1,487 @@
+{
+  "holt": {
+    "choices_add": [
+      {
+        "text": "Über Laternennacht sprechen.",
+        "next": "fs_laternennacht_holt_start",
+        "requires_flags": [
+          "fs_fest_laternennacht_aktiv"
+        ]
+      }
+    ],
+    "nodes_add": {
+      "fs_laternennacht_holt_start": {
+        "text": "„Das Boot fährt gegen den Strom. Ich kenne das Gefühl, aber bei Papier steckt meistens eine Schnur dahinter.“ Die Figur wartet auf deine Antwort.",
+        "choices": [
+          {
+            "text": "Was bedeutet das heute?",
+            "next": "fs_laternennacht_holt_heute"
+          },
+          {
+            "text": "Was soll ich beachten?",
+            "next": "fs_laternennacht_holt_rat"
+          },
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ],
+        "mood": "thoughtful"
+      },
+      "fs_laternennacht_holt_heute": {
+        "text": "„Du darfst heute einfach schauen. Nicht jedes Licht braucht eine Rettung.“ Der Festlärm dringt gedämpft herüber.",
+        "choices": [
+          {
+            "text": "Dein Rat?",
+            "next": "fs_laternennacht_holt_rat"
+          },
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ],
+        "mood": "sad"
+      },
+      "fs_laternennacht_holt_rat": {
+        "text": "„Am Gitter ist dieselbe feine Litze wie an einem Schallversuch. Die Resonanzkammer wirft lange Schatten.“ Niemand drängt dich zu einer Entscheidung.",
+        "choices": [
+          {
+            "text": "Dann lasse ich dir einen ruhigen Moment.",
+            "next": "fs_laternennacht_holt_schluss"
+          }
+        ],
+        "mood": "determined"
+      },
+      "fs_laternennacht_holt_schluss": {
+        "text": "Das Gespräch endet ohne amtlichen Schlussstrich. Das Fest geht weiter.",
+        "choices": [
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ],
+        "mood": "neutral"
+      }
+    }
+  },
+  "marlowe": {
+    "choices_add": [
+      {
+        "text": "Über Laternennacht sprechen.",
+        "next": "fs_laternennacht_marlowe_start",
+        "requires_flags": [
+          "fs_fest_laternennacht_aktiv"
+        ]
+      }
+    ],
+    "nodes_add": {
+      "fs_laternennacht_marlowe_start": {
+        "text": "„Sichere Wege, offene Ausgänge. Mein Festprogramm ist übersichtlich.“ Die Figur wartet auf deine Antwort.",
+        "choices": [
+          {
+            "text": "Was bedeutet das heute?",
+            "next": "fs_laternennacht_marlowe_heute"
+          },
+          {
+            "text": "Was soll ich beachten?",
+            "next": "fs_laternennacht_marlowe_rat"
+          },
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ],
+        "mood": "thoughtful"
+      },
+      "fs_laternennacht_marlowe_heute": {
+        "text": "„Eine Feier hebt eine Fahndung nicht auf. Ich lasse trotzdem niemanden wegen einer umgekippten Tasse verhaften.“ Der Festlärm dringt gedämpft herüber.",
+        "choices": [
+          {
+            "text": "Dein Rat?",
+            "next": "fs_laternennacht_marlowe_rat"
+          },
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ],
+        "mood": "sad"
+      },
+      "fs_laternennacht_marlowe_rat": {
+        "text": "„Wenn du einen Namen findest, prüfe erst, ob jemand ihn vermisst.“ Niemand drängt dich zu einer Entscheidung.",
+        "choices": [
+          {
+            "text": "Dann lasse ich dir einen ruhigen Moment.",
+            "next": "fs_laternennacht_marlowe_schluss"
+          }
+        ],
+        "mood": "determined"
+      },
+      "fs_laternennacht_marlowe_schluss": {
+        "text": "Das Gespräch endet ohne amtlichen Schlussstrich. Das Fest geht weiter.",
+        "choices": [
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ],
+        "mood": "neutral"
+      }
+    }
+  },
+  "sedge": {
+    "choices_add": [
+      {
+        "text": "Über Salzsegen sprechen.",
+        "next": "fs_salzsegen_sedge_start",
+        "requires_flags": [
+          "fs_fest_salzsegen_aktiv"
+        ]
+      }
+    ],
+    "nodes_add": {
+      "fs_salzsegen_sedge_start": {
+        "text": "„Die Salzkönigin braucht keine Krone, um müde zu sein.“ Die Figur wartet auf deine Antwort.",
+        "choices": [
+          {
+            "text": "Was bedeutet das heute?",
+            "next": "fs_salzsegen_sedge_heute"
+          },
+          {
+            "text": "Was soll ich beachten?",
+            "next": "fs_salzsegen_sedge_rat"
+          },
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ],
+        "mood": "thoughtful"
+      },
+      "fs_salzsegen_sedge_heute": {
+        "text": "„Ich wollte sie vom Wind wegbringen. Das ist mein Motiv, wenn du eines brauchst.“ Der Festlärm dringt gedämpft herüber.",
+        "choices": [
+          {
+            "text": "Dein Rat?",
+            "next": "fs_salzsegen_sedge_rat"
+          },
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ],
+        "mood": "sad"
+      },
+      "fs_salzsegen_sedge_rat": {
+        "text": "„Frag sie selbst, ob sie zurück auf den Thron will.“ Niemand drängt dich zu einer Entscheidung.",
+        "choices": [
+          {
+            "text": "Dann lasse ich dir einen ruhigen Moment.",
+            "next": "fs_salzsegen_sedge_schluss"
+          }
+        ],
+        "mood": "determined"
+      },
+      "fs_salzsegen_sedge_schluss": {
+        "text": "Das Gespräch endet ohne amtlichen Schlussstrich. Das Fest geht weiter.",
+        "choices": [
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ],
+        "mood": "neutral"
+      }
+    }
+  },
+  "brack": {
+    "choices_add": [
+      {
+        "text": "Über Salzsegen sprechen.",
+        "next": "fs_salzsegen_brack_start",
+        "requires_flags": [
+          "fs_fest_salzsegen_aktiv"
+        ]
+      }
+    ],
+    "nodes_add": {
+      "fs_salzsegen_brack_start": {
+        "text": "„Ich brauche ihre Unterschrift für die Rationen. Ihren Kopf brauche ich nicht als Dekoration.“ Die Figur wartet auf deine Antwort.",
+        "choices": [
+          {
+            "text": "Was bedeutet das heute?",
+            "next": "fs_salzsegen_brack_heute"
+          },
+          {
+            "text": "Was soll ich beachten?",
+            "next": "fs_salzsegen_brack_rat"
+          },
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ],
+        "mood": "thoughtful"
+      },
+      "fs_salzsegen_brack_heute": {
+        "text": "„Die Täfelchengilde möchte ihre Zusage für eine Liste. Sedge möchte ihr einen Mantel geben.“ Der Festlärm dringt gedämpft herüber.",
+        "choices": [
+          {
+            "text": "Dein Rat?",
+            "next": "fs_salzsegen_brack_rat"
+          },
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ],
+        "mood": "sad"
+      },
+      "fs_salzsegen_brack_rat": {
+        "text": "„Wenn sie ablehnt, verteilen wir den Fisch trotzdem.“ Niemand drängt dich zu einer Entscheidung.",
+        "choices": [
+          {
+            "text": "Dann lasse ich dir einen ruhigen Moment.",
+            "next": "fs_salzsegen_brack_schluss"
+          }
+        ],
+        "mood": "determined"
+      },
+      "fs_salzsegen_brack_schluss": {
+        "text": "Das Gespräch endet ohne amtlichen Schlussstrich. Das Fest geht weiter.",
+        "choices": [
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ],
+        "mood": "neutral"
+      }
+    }
+  },
+  "k3a_esther": {
+    "choices_add": [
+      {
+        "text": "Über Schichtwechsel sprechen.",
+        "next": "fs_schichtwechsel_k3_esther_start",
+        "requires_flags": [
+          "fs_fest_schichtwechsel_aktiv"
+        ]
+      }
+    ],
+    "nodes_add": {
+      "fs_schichtwechsel_k3_esther_start": {
+        "text": "„Die Summe stimmt. Die Anzahl nicht, weil jemand einen alten Namen zwischen die neuen gefaltet hat.“ Die Figur wartet auf deine Antwort.",
+        "choices": [
+          {
+            "text": "Seit dem Ende der Schicht …",
+            "next": "fs_schichtwechsel_k3_esther_ende_vollzaehlig",
+            "requires_flags": [
+              "k3a_end_vollzaehlig"
+            ]
+          },
+          {
+            "text": "Seit dem Ende der Schicht …",
+            "next": "fs_schichtwechsel_k3_esther_ende_gegenstimme",
+            "requires_flags": [
+              "k3a_end_gegenstimme"
+            ]
+          },
+          {
+            "text": "Seit dem Ende der Schicht …",
+            "next": "fs_schichtwechsel_k3_esther_ende_stilllegung",
+            "requires_flags": [
+              "k3a_end_stilllegung"
+            ]
+          },
+          {
+            "text": "Seit dem Ende der Schicht …",
+            "next": "fs_schichtwechsel_k3_esther_ende_feierabend",
+            "requires_flags": [
+              "k3a_end_feierabend"
+            ]
+          },
+          {
+            "text": "Über die Tüte sprechen.",
+            "next": "fs_schichtwechsel_k3_esther_schluss"
+          },
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ],
+        "mood": "thoughtful"
+      },
+      "fs_schichtwechsel_k3_esther_schluss": {
+        "text": "Das Gespräch endet ohne amtlichen Schlussstrich. Das Fest geht weiter. „Eine Tüte ist keine Vorladung. Ich will nicht, dass die Familie sie dafür hält.“ „Wir können den Irrtum offen erklären oder der Familie zuerst Zeit geben.“",
+        "choices": [
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ],
+        "mood": "neutral"
+      },
+      "fs_schichtwechsel_k3_esther_ende_feierabend": {
+        "text": "„Feierabend gilt auch für Papier. Niemand muss für diese Tüte wieder antreten.“ Die zusätzliche Tüte bleibt ein Fehler von Lebenden.",
+        "choices": [
+          {
+            "text": "Zurück zum Fest.",
+            "next": "fs_schichtwechsel_k3_esther_start"
+          }
+        ]
+      },
+      "fs_schichtwechsel_k3_esther_ende_stilllegung": {
+        "text": "„Die Anlage schweigt. Wir können den Namen ohne eine Antwort aus dem Bruch lesen.“ Die zusätzliche Tüte bleibt ein Fehler von Lebenden.",
+        "choices": [
+          {
+            "text": "Zurück zum Fest.",
+            "next": "fs_schichtwechsel_k3_esther_start"
+          }
+        ]
+      },
+      "fs_schichtwechsel_k3_esther_ende_gegenstimme": {
+        "text": "„Deine Rückkehr bleibt eine eigene Zusage. Dieses Fest darf daraus keinen Dienstplan machen.“ Die zusätzliche Tüte bleibt ein Fehler von Lebenden.",
+        "choices": [
+          {
+            "text": "Zurück zum Fest.",
+            "next": "fs_schichtwechsel_k3_esther_start"
+          }
+        ]
+      },
+      "fs_schichtwechsel_k3_esther_ende_vollzaehlig": {
+        "text": "„Das Register nennt alle vollständig. Gerade deshalb entscheiden wir hier einzeln über jede Tüte.“ Die zusätzliche Tüte bleibt ein Fehler von Lebenden.",
+        "choices": [
+          {
+            "text": "Zurück zum Fest.",
+            "next": "fs_schichtwechsel_k3_esther_start"
+          }
+        ]
+      }
+    }
+  },
+  "k3a_pfiff": {
+    "choices_add": [
+      {
+        "text": "Über Schichtwechsel sprechen.",
+        "next": "fs_schichtwechsel_k3_pfiff_start",
+        "requires_flags": [
+          "fs_fest_schichtwechsel_aktiv"
+        ]
+      }
+    ],
+    "nodes_add": {
+      "fs_schichtwechsel_k3_pfiff_start": {
+        "text": "„Ich habe heute kein Signal gegeben. Falls du eines gehört hast, war es die Kapelle.“ Die Figur wartet auf deine Antwort.",
+        "choices": [
+          {
+            "text": "Seit dem Ende der Schicht …",
+            "next": "fs_schichtwechsel_k3_pfiff_ende_vollzaehlig",
+            "requires_flags": [
+              "k3a_end_vollzaehlig"
+            ]
+          },
+          {
+            "text": "Seit dem Ende der Schicht …",
+            "next": "fs_schichtwechsel_k3_pfiff_ende_gegenstimme",
+            "requires_flags": [
+              "k3a_end_gegenstimme"
+            ]
+          },
+          {
+            "text": "Seit dem Ende der Schicht …",
+            "next": "fs_schichtwechsel_k3_pfiff_ende_stilllegung",
+            "requires_flags": [
+              "k3a_end_stilllegung"
+            ]
+          },
+          {
+            "text": "Seit dem Ende der Schicht …",
+            "next": "fs_schichtwechsel_k3_pfiff_ende_feierabend",
+            "requires_flags": [
+              "k3a_end_feierabend"
+            ]
+          },
+          {
+            "text": "Über die Tüte sprechen.",
+            "next": "fs_schichtwechsel_k3_pfiff_schluss"
+          },
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ],
+        "mood": "thoughtful"
+      },
+      "fs_schichtwechsel_k3_pfiff_schluss": {
+        "text": "Das Gespräch endet ohne amtlichen Schlussstrich. Das Fest geht weiter. „Die alte Schicht darf hier keinen neuen Lohnzettel verlangen.“ „Sprich mit Esther. Ein Name braucht manchmal zwei Stimmen, die ihn gewöhnlich aussprechen.“",
+        "choices": [
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ],
+        "mood": "neutral"
+      },
+      "fs_schichtwechsel_k3_pfiff_ende_feierabend": {
+        "text": "„Feierabend gilt auch für Papier. Niemand muss für diese Tüte wieder antreten.“ Die zusätzliche Tüte bleibt ein Fehler von Lebenden.",
+        "choices": [
+          {
+            "text": "Zurück zum Fest.",
+            "next": "fs_schichtwechsel_k3_pfiff_start"
+          }
+        ]
+      },
+      "fs_schichtwechsel_k3_pfiff_ende_stilllegung": {
+        "text": "„Die Anlage schweigt. Wir können den Namen ohne eine Antwort aus dem Bruch lesen.“ Die zusätzliche Tüte bleibt ein Fehler von Lebenden.",
+        "choices": [
+          {
+            "text": "Zurück zum Fest.",
+            "next": "fs_schichtwechsel_k3_pfiff_start"
+          }
+        ]
+      },
+      "fs_schichtwechsel_k3_pfiff_ende_gegenstimme": {
+        "text": "„Deine Rückkehr bleibt eine eigene Zusage. Dieses Fest darf daraus keinen Dienstplan machen.“ Die zusätzliche Tüte bleibt ein Fehler von Lebenden.",
+        "choices": [
+          {
+            "text": "Zurück zum Fest.",
+            "next": "fs_schichtwechsel_k3_pfiff_start"
+          }
+        ]
+      },
+      "fs_schichtwechsel_k3_pfiff_ende_vollzaehlig": {
+        "text": "„Das Register nennt alle vollständig. Gerade deshalb entscheiden wir hier einzeln über jede Tüte.“ Die zusätzliche Tüte bleibt ein Fehler von Lebenden.",
+        "choices": [
+          {
+            "text": "Zurück zum Fest.",
+            "next": "fs_schichtwechsel_k3_pfiff_start"
+          }
+        ]
+      }
+    }
+  },
+  "grauspaeher": {
+    "choices_add": [
+      {
+        "text": "Ein freier Festtag?",
+        "next": "fs_grauspaeher",
+        "requires_flags": [
+          "fs_fest_laternennacht_aktiv"
+        ]
+      }
+    ],
+    "nodes_add": {
+      "fs_grauspaeher": {
+        "text": "„Ich feiere dienstlich. Die Laterne ist privat bezahlt.“ Der Grauspäher behält die Straße im Blick; deine Fahndung wird davon nicht kleiner.",
+        "choices": [
+          {
+            "text": "Bis später.",
+            "next": null
+          }
+        ],
+        "mood": "neutral"
+      }
+    }
+  }
+}
