@@ -1816,3 +1816,10 @@ Prüfung: `python tools/art/calderwick2/check.py` (Pillow, aus jedem Arbeitsverz
 - Prüfung: `python tools/art/kettlegate_leben/check.py`.
 
 Keine Laufzeitintegration in diesem Paket.
+
+
+## Batch CS – Figuren-Nachzügler
+
+`manifest-figuren_nachzuegler.json` liefert 50 PNGs für 21 bestehende Figuren: 21 Laufblätter, 20 Köpfe, vier Porträtleisten, drei Kampfblätter und zwei Marktstände. Vier geliehene Laufblätter werden ersetzt. Gemeinsame Palette mit höchstens 32 sichtbaren Farben, binäres Alpha und feste Zellraster.
+
+[Übergabe und Einbau](figuren_nachzuegler-uebergabe.md) · [Vorschau](batch-figuren_nachzuegler-preview.png) · [Prüfbericht](batch-figuren_nachzuegler-validation.json) · [Prompts](batch-figuren_nachzuegler-generation.json). Prüfung: `python tools/art/figuren_nachzuegler/check.py`. Spielcode wird separat angeschlossen.
