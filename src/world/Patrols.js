@@ -2,6 +2,7 @@ import Phaser from 'phaser';
 import { TILE, TILE_INDEX, SOLID_KEYS, createCharacterSheet } from './textures.js';
 import { DEPTH } from './Lighting.js';
 import { AUFSICHT } from '../core/Aufsicht.js';
+import { worldSound } from '../core/sounds.js';
 
 // Kapitel 2 (Wexmoor): Grauspäher laufen feste Runden mit Sturmlaterne.
 // Wer im Lichtkegel steht und nicht hinter Kisten, Fässern oder Mauern verdeckt ist, wird gesehen.
@@ -98,6 +99,7 @@ export class Patrols {
       const spotted = graced || (g.civil && exempt) ? null : (this.scene.playerSprites?.() ?? [p]).find((q) => this.sees(g, q.x, q.y - 8, cone));
       const seen = !!spotted;
       if (seen) {
+        if (!g.spotting) this.scene.sfx?.(worldSound('spotted')); // Y: „?“ – die Streife stutzt
         g.spotting = true;
         g.lostMs = 0;
         g.seenMs += delta;
@@ -209,6 +211,7 @@ export class Patrols {
   /** Aufseher (BD): keine Fahndung, keine Strafe, keine Zelle; einmal Nerven und zurück in den Speisewagen. */
   sentAway() {
     const s = this.scene;
+    s.sfx?.(worldSound('whistle'));
     for (const g of this.list) { g.spotting = false; g.seenMs = 0; }
     s.player.setVelocity(0, 0);
     s.p2?.setVelocity(0, 0);
@@ -218,6 +221,8 @@ export class Patrols {
 
   caught() {
     const s = this.scene;
+    s.sfx?.(worldSound('whistle'));
+    s.time.delayedCall(700, () => s.sfx?.(worldSound('arrest'))); // Y: Zellentür fällt ins Schloss
     for (const g of this.list) { g.spotting = false; g.seenMs = 0; }
     s.player.setVelocity(0, 0);
     s.p2?.setVelocity(0, 0);

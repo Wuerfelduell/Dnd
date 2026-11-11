@@ -29,10 +29,13 @@ const variant = (entry, night) => (entry && typeof entry === 'object' ? entry[ni
 
 /**
  * Welches Stück passt gerade? `z` ist die zusammengeführte Zuordnung aller Manifeste.
- * ctx: { title, combat: { id, enc } | null, vision, map, city, zone, playTime, fest, season }
+ * ctx: { title, combat: { id, enc } | null, vision, map, city, zone, playTime, fest, season, stinger, mode }
+ * `stinger` ist ein zeitlich begrenztes Ereignisstück (Sieg, Fall gelöst, Ende, Jahreszeit, Ankunft; MusicDirector.cue),
+ * `mode` eine Lage, die eine Schleife aus `ereignisse` verlangt (horchen, treffen, streife), solange sie anhält.
  */
 export function pickTrack(z, ctx) {
   if (ctx.title) return z.ereignisse?.titel ?? 'titel';
+  if (ctx.stinger && (z.ereignisse?.[ctx.stinger] || ctx.stingerTrack)) return z.ereignisse?.[ctx.stinger] ?? ctx.stingerTrack; // auch ein Kartenstück (ds_ankunft) kann als Stinger dienen
   const night = isNightAt(ctx.playTime);
   if (ctx.combat) {
     const { id, enc } = ctx.combat;
@@ -49,6 +52,7 @@ export function pickTrack(z, ctx) {
     return k.standard ?? 'kampf';
   }
   if (ctx.vision) return z.ereignisse?.geistsicht ?? 'geistsicht';
+  if (ctx.mode && z.ereignisse?.[ctx.mode]) return z.ereignisse[ctx.mode];
   // CL: am Festtag spielt auf den Festplätzen die Festmusik; im Kettlegater Winter die Winterfassung des Tages
   if (ctx.fest && FEST_MUSIC_MAPS[ctx.fest]?.includes(ctx.map) && z.ereignisse?.[`fest_${ctx.fest}`]) return z.ereignisse[`fest_${ctx.fest}`];
   // CH: Briarholts warme Fassungen `<id>__warm` teilen die Zuordnung der kalten; wo dort das Kaltstück liegt, spielt das Warmstück
@@ -68,6 +72,27 @@ export class MusicDirector {
     this.ready = null;
     this.current = null;
     this.failed = false;
+    this.stinger = null; // { id, until } aus cue()
+    this.now = () => (globalThis.performance?.now?.() ?? Date.now()) / 1000;
+  }
+
+  /**
+   * Ereignisstück (Schlüssel aus `zuordnung.ereignisse`) für `seconds` Sekunden vor alles andere legen; ohne Angabe so lange,
+   * wie das Stück dauert (Schleifen höchstens 60 s). Danach kehrt die laufende Lage zurück.
+   */
+  cue(id, seconds = null) {
+    if (!id) return;
+    const key = this.synth?.zuordnung?.ereignisse?.[id] ?? id;
+    const data = this.synth?.tracks?.get(key);
+    const dur = Number.isFinite(seconds) ? seconds : data ? (data.score?.loop ? 60 : Math.min(90, (data.duration ?? 20) + 1)) : 20;
+    this.stinger = { id, track: data ? key : null, until: this.now() + dur };
+    if (this.current === key) this.current = null; // dasselbe Stück noch einmal von vorn
+  }
+
+  /** Ereignisstück vorzeitig beenden (z. B. Abgleich abgeschlossen). */
+  clearCue(id = null) {
+    if (!this.stinger || (id && this.stinger.id !== id)) return;
+    this.stinger = null;
   }
 
   /** Nach der ersten Eingabe (Browser verlangen eine Geste für Web Audio). */
@@ -97,7 +122,8 @@ export class MusicDirector {
   /** Wechselt das Stück, wenn sich die Lage geändert hat. */
   update(ctx) {
     if (!this.synth || this.failed || !this.synth.zuordnung || !this.synth.tracks.size) return;
-    const id = pickTrack(this.synth.zuordnung, ctx);
+    if (this.stinger && this.now() >= this.stinger.until) this.stinger = null;
+    const id = pickTrack(this.synth.zuordnung, this.stinger ? { ...ctx, stinger: this.stinger.id, stingerTrack: this.stinger.track } : ctx);
     if (!id || id === this.current || !this.synth.tracks.has(id)) return;
     this.current = id;
     this.synth.spiele(id, { blende: 1.5 }).catch((e) => console.warn('Musik', id, e));
