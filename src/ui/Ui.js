@@ -21,7 +21,7 @@ import { guessMood } from '../core/Moods.js';
 import { MOOD_LABEL, GIFT_KINDS } from '../core/Relations.js';
 import { koopGreeting } from '../core/Koop.js';
 import { STATION_NAMES, DIRECTION_NAMES } from '../data/k3Ruf.js';
-import { isSolved, knownPeople } from '../core/journal.js';
+import { isSolved, knownPeople, journalQuestVisible } from '../core/journal.js';
 import { canHurry, hurryCost, travelSafe, travelFast, afterHurryFight, travelDestinations, cityOf } from '../core/Travel.js';
 import { questTarget, leadTarget, personPlaces, advice } from '../core/Guide.js';
 
@@ -610,7 +610,7 @@ export class Ui {
     if (!el) return;
     const s = this.state;
     // Ohne verfolgten Auftrag zeigt der Wegweiser die nächste offene Spur (z. B. Nan Kettle für Fall 8).
-    const t = s.tracked ? questTarget(s, s.tracked) : leadTarget(s, s.openLeads()[0]);
+    const t = s.tracked && journalQuestVisible(s, s.tracked) ? questTarget(s, s.tracked) : leadTarget(s, s.openLeads()[0]);
     el.classList.toggle('hidden', !t);
     if (t) el.innerHTML = `<span class="arrow">➤</span> ${esc(this.goalText(t))}<span class="gstep">${esc(t.lead ? `Neue Spur: ${s.quest(t.quest).title}` : t.step)}</span>${t.because ? `<span class="gwhy">${esc(t.because.length > 150 ? `${t.because.slice(0, 147)}…` : t.because)}</span>` : ''}`;
   }
@@ -1175,7 +1175,7 @@ export class Ui {
     this.travelFrom = current;
     const pins = rules.pins ?? {};
     this.travelPins = pins;
-    const goal = s.tracked ? questTarget(s, s.tracked) : leadTarget(s, s.openLeads()[0]);
+    const goal = s.tracked && journalQuestVisible(s, s.tracked) ? questTarget(s, s.tracked) : leadTarget(s, s.openLeads()[0]);
     const goalMap = goal?.district ?? null;
     const meetMap = s.gatheringTarget?.()?.district ?? null;
     this.personMap = null;
@@ -1576,7 +1576,7 @@ export class Ui {
 
   questsHtml() {
     const s = this.state;
-    const ids = Object.keys(s.quests);
+    const ids = Object.keys(s.quests).filter((id) => journalQuestVisible(s, id));
     const order = (q) => (s.quests[q] === 'active' ? 0 : 1) * 10 + (s.quest(q).kind === 'main' ? 0 : 1);
     ids.sort((a, b) => order(a) - order(b));
     if (!ids.length && !s.openLeads().length) return '<p class="empty">Noch keine Aufträge.</p>';

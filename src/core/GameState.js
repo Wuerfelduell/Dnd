@@ -1,3 +1,4 @@
+import { journalQuestVisible } from './journal.js';
 // Reiner Spielzustand ohne Phaser-Abhängigkeit, damit er auch in Node-Tests läuft.
 import { pathwayMethods } from './Pathways.js';
 import { gatheringMethods } from './Gatherings.js';
@@ -374,7 +375,7 @@ export class GameState {
     if (this.quests[id]) return false;
     this.quests[id] = 'active';
     // Neuer Hauptfall oder gerade nichts verfolgt: direkt als Ziel übernehmen
-    if (!this.tracked || (this.quest(id).kind === 'main' && this.quest(this.tracked)?.kind !== 'main')) this.tracked = id;
+    if (!this.tracked || !journalQuestVisible(this, this.tracked) || (this.quest(id).kind === 'main' && this.quest(this.tracked)?.kind !== 'main')) this.tracked = id;
     this.emit('quest', { id, status: 'active' });
     return true;
   }
@@ -398,7 +399,7 @@ export class GameState {
 
   /** Auftrag im Journal verfolgen (Wegweiser im HUD, im Ort und auf der Stadtkarte). */
   track(id) {
-    this.tracked = id && this.quests[id] === 'active' ? id : null;
+    this.tracked = id && this.quests[id] === 'active' && journalQuestVisible(this, id) ? id : null;
     this.emit('track', this.tracked);
   }
 
@@ -414,7 +415,7 @@ export class GameState {
   openLeads() {
     const out = [];
     for (const [id, q] of Object.entries(this.content.quests)) {
-      if (!q.lead || this.quests[id] !== undefined) continue;
+      if (!q.lead || this.quests[id] !== undefined || !journalQuestVisible(this, id)) continue;
       const lead = (Array.isArray(q.lead) ? q.lead : [q.lead]).find((l) => this.meets(l));
       if (lead) out.push({ quest: id, title: q.title, text: lead.text, target: lead.target ?? null });
     }
@@ -423,7 +424,7 @@ export class GameState {
 
   /** Nächster offener Schritt des wichtigsten aktiven Auftrags (für Tipps); sonst die nächste offene Spur. */
   nextHint() {
-    const active = Object.keys(this.quests).filter((q) => this.quests[q] === 'active');
+    const active = Object.keys(this.quests).filter((q) => this.quests[q] === 'active' && journalQuestVisible(this, q));
     active.sort((a, b) => (this.quest(a).kind === 'main' ? -1 : 1) - (this.quest(b).kind === 'main' ? -1 : 1));
     for (const q of active) {
       const step = this.questSteps(q).find((s) => !s.done);
