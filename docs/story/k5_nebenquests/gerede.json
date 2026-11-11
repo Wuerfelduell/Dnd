@@ -1,0 +1,712 @@
+{
+  "briarholt": {
+    "bh_kutschenhof": [
+      {
+        "text": "Die Koffer frieren fest, die Empfangsdame nennt es längeren Aufenthalt.",
+        "requires_flags": [
+          "k5_arrived"
+        ],
+        "hide_if_flags": [
+          "bha_akt1_done",
+          "kapitel5_done",
+          "bha_ventil_kutschenhof_warm"
+        ]
+      },
+      {
+        "text": "Heute löst sich das Eis von den Koffern. Die Gäste dürfen ihren Aufenthalt trotzdem selbst beenden.",
+        "requires_flags": [
+          "k5_arrived",
+          "bha_ventil_kutschenhof_warm"
+        ],
+        "hide_if_flags": [
+          "bha_akt1_done",
+          "kapitel5_done"
+        ]
+      },
+      {
+        "text": "Im Frost kann man jede Radspur lesen. Der Prospekt erwähnt nur Blumen.",
+        "requires_flags": [
+          "k5_arrived",
+          "bha_akt1_done"
+        ],
+        "hide_if_flags": [
+          "bha_akt2_done",
+          "kapitel5_done",
+          "bha_ventil_kutschenhof_warm"
+        ]
+      },
+      {
+        "text": "Unter dem Dach taut die Blumenerde. Niemand hat gefragt, warum sie vor den Patienten gewogen wird.",
+        "requires_flags": [
+          "k5_arrived",
+          "bha_akt1_done",
+          "bha_ventil_kutschenhof_warm"
+        ],
+        "hide_if_flags": [
+          "bha_akt2_done",
+          "kapitel5_done"
+        ]
+      },
+      {
+        "text": "Der Postbote wärmt die Finger an seiner eigenen Kanne. Die Anschriften bleiben lesbar.",
+        "requires_flags": [
+          "k5_arrived",
+          "bha_akt2_done"
+        ],
+        "hide_if_flags": [
+          "bha_akt3_done",
+          "kapitel5_done",
+          "bha_ventil_kutschenhof_warm"
+        ]
+      },
+      {
+        "text": "Die Kutschenhalle dampft. Ein trockener Brief ist hier inzwischen eine Dienstleistung.",
+        "requires_flags": [
+          "k5_arrived",
+          "bha_akt2_done",
+          "bha_ventil_kutschenhof_warm"
+        ],
+        "hide_if_flags": [
+          "bha_akt3_done",
+          "kapitel5_done"
+        ]
+      },
+      {
+        "text": "Vor der Abfahrt zählen wir Gepäckstücke, keine geheilten Leben.",
+        "requires_flags": [
+          "k5_arrived",
+          "bha_akt3_done"
+        ],
+        "hide_if_flags": [
+          "bha_akt4_done",
+          "kapitel5_done",
+          "bha_ventil_kutschenhof_warm"
+        ]
+      },
+      {
+        "text": "Die warme Halle hält niemanden fest, solange der Weg zur Straße offen bleibt.",
+        "requires_flags": [
+          "k5_arrived",
+          "bha_akt3_done",
+          "bha_ventil_kutschenhof_warm"
+        ],
+        "hide_if_flags": [
+          "bha_akt4_done",
+          "kapitel5_done"
+        ]
+      },
+      {
+        "text": "Für den Winter liegen Decken bereit. Eine Decke verlangt keine Einwilligung in die Klinik.",
+        "requires_flags": [
+          "k5_arrived",
+          "bha_akt4_done"
+        ],
+        "hide_if_flags": [
+          "kapitel5_done",
+          "bha_ventil_kutschenhof_warm"
+        ]
+      },
+      {
+        "text": "Die letzte warme Kutsche ist keine Pflichtfahrt. Man darf bleiben, ohne eine Aussaat zu bestellen.",
+        "requires_flags": [
+          "k5_arrived",
+          "bha_akt4_done",
+          "bha_ventil_kutschenhof_warm"
+        ],
+        "hide_if_flags": [
+          "kapitel5_done"
+        ]
+      }
+    ],
+    "bh_kesselgrund": [
+      {
+        "text": "Frost hat eine eigene Feuerstelle. Der Keller daneben ist deshalb noch lange kein sicherer Weg.",
+        "requires_flags": [
+          "k5_arrived"
+        ],
+        "hide_if_flags": [
+          "bha_akt1_done",
+          "kapitel5_done",
+          "bha_ventil_kesselgrund_warm"
+        ]
+      },
+      {
+        "text": "Das Rohr klopft regelmäßig. Jasper nennt das ein Gespräch, solange es nichts verlangt.",
+        "requires_flags": [
+          "k5_arrived",
+          "bha_ventil_kesselgrund_warm"
+        ],
+        "hide_if_flags": [
+          "bha_akt1_done",
+          "kapitel5_done"
+        ]
+      },
+      {
+        "text": "Die Werkstatt ist kalt, die Wohnungen haben ihre eigene Grundversorgung.",
+        "requires_flags": [
+          "k5_arrived",
+          "bha_akt1_done"
+        ],
+        "hide_if_flags": [
+          "bha_akt2_done",
+          "kapitel5_done",
+          "bha_ventil_kesselgrund_warm"
+        ]
+      },
+      {
+        "text": "Zusatzwärme läuft durchs Nebenrohr. Die Zusatzrechnung lief bisher nur zu Jasper.",
+        "requires_flags": [
+          "k5_arrived",
+          "bha_akt1_done",
+          "bha_ventil_kesselgrund_warm"
+        ],
+        "hide_if_flags": [
+          "bha_akt2_done",
+          "kapitel5_done"
+        ]
+      },
+      {
+        "text": "Eine neue Dichtung heilt kein schlechtes Gewissen. Sie hilft trotzdem.",
+        "requires_flags": [
+          "k5_arrived",
+          "bha_akt2_done"
+        ],
+        "hide_if_flags": [
+          "bha_akt3_done",
+          "kapitel5_done",
+          "bha_ventil_kesselgrund_warm"
+        ]
+      },
+      {
+        "text": "Die Wäsche trocknet schneller, seit wir das Fenster frei lassen. Das hat die Klinik nicht erfunden.",
+        "requires_flags": [
+          "k5_arrived",
+          "bha_akt2_done",
+          "bha_ventil_kesselgrund_warm"
+        ],
+        "hide_if_flags": [
+          "bha_akt3_done",
+          "kapitel5_done"
+        ]
+      },
+      {
+        "text": "Am kalten Rohr sieht man alte Reparaturen besser. Keine davon trägt ein Patientensiegel.",
+        "requires_flags": [
+          "k5_arrived",
+          "bha_akt3_done"
+        ],
+        "hide_if_flags": [
+          "bha_akt4_done",
+          "kapitel5_done",
+          "bha_ventil_kesselgrund_warm"
+        ]
+      },
+      {
+        "text": "Drei warme Kreise sollen reichen. Wer einen vierten verspricht, soll seinen Plan zeigen.",
+        "requires_flags": [
+          "k5_arrived",
+          "bha_akt3_done",
+          "bha_ventil_kesselgrund_warm"
+        ],
+        "hide_if_flags": [
+          "bha_akt4_done",
+          "kapitel5_done"
+        ]
+      },
+      {
+        "text": "Tragkessel stehen bereit. Erst fragen, dann tragen.",
+        "requires_flags": [
+          "k5_arrived",
+          "bha_akt4_done"
+        ],
+        "hide_if_flags": [
+          "kapitel5_done",
+          "bha_ventil_kesselgrund_warm"
+        ]
+      },
+      {
+        "text": "Die Reserve wird geprüft, nicht gefeiert. Ein warmer Raum macht eine falsche Rechnung nicht richtig.",
+        "requires_flags": [
+          "k5_arrived",
+          "bha_akt4_done",
+          "bha_ventil_kesselgrund_warm"
+        ],
+        "hide_if_flags": [
+          "kapitel5_done"
+        ]
+      }
+    ],
+    "bh_winterpromenade": [
+      {
+        "text": "Die Palmen tragen Mäntel. Für Kurgäste steht das nicht im Prospekt.",
+        "requires_flags": [
+          "k5_arrived"
+        ],
+        "hide_if_flags": [
+          "bha_akt1_done",
+          "kapitel5_done",
+          "bha_ventil_winterpromenade_warm"
+        ]
+      },
+      {
+        "text": "Unter dem Glas ist es warm genug zum Schreiben. Eigene Sätze gehen auch bei Frost.",
+        "requires_flags": [
+          "k5_arrived",
+          "bha_ventil_winterpromenade_warm"
+        ],
+        "hide_if_flags": [
+          "bha_akt1_done",
+          "kapitel5_done"
+        ]
+      },
+      {
+        "text": "Orenna überlegt, einen Takt frei zu lassen. Die Kälte hat dazu keinen Einwand.",
+        "requires_flags": [
+          "k5_arrived",
+          "bha_akt1_done"
+        ],
+        "hide_if_flags": [
+          "bha_akt2_done",
+          "kapitel5_done",
+          "bha_ventil_winterpromenade_warm"
+        ]
+      },
+      {
+        "text": "Wenn die Gäste summen, muss Orenna nicht lauter werden. Die Pause ist groß genug.",
+        "requires_flags": [
+          "k5_arrived",
+          "bha_akt1_done",
+          "bha_ventil_winterpromenade_warm"
+        ],
+        "hide_if_flags": [
+          "bha_akt2_done",
+          "kapitel5_done"
+        ]
+      },
+      {
+        "text": "Beatrice sucht einen Schattenplatz. Sie möchte einen Blick auf den Weg behalten.",
+        "requires_flags": [
+          "k5_arrived",
+          "bha_akt2_done"
+        ],
+        "hide_if_flags": [
+          "bha_akt3_done",
+          "kapitel5_done",
+          "bha_ventil_winterpromenade_warm"
+        ]
+      },
+      {
+        "text": "Die Schreibunterlage ist warm, die vorgedruckte Anrede bleibt fremd.",
+        "requires_flags": [
+          "k5_arrived",
+          "bha_akt2_done",
+          "bha_ventil_winterpromenade_warm"
+        ],
+        "hide_if_flags": [
+          "bha_akt3_done",
+          "kapitel5_done"
+        ]
+      },
+      {
+        "text": "Auf dem gefrorenen Pult liegt ein leerer Bogen. Er ist nicht weniger wert als eine Dankeskarte.",
+        "requires_flags": [
+          "k5_arrived",
+          "bha_akt3_done"
+        ],
+        "hide_if_flags": [
+          "bha_akt4_done",
+          "kapitel5_done",
+          "bha_ventil_winterpromenade_warm"
+        ]
+      },
+      {
+        "text": "Der Werbeabzug trocknet schnell. Die fehlende Zustimmung leider nicht.",
+        "requires_flags": [
+          "k5_arrived",
+          "bha_akt3_done",
+          "bha_ventil_winterpromenade_warm"
+        ],
+        "hide_if_flags": [
+          "bha_akt4_done",
+          "kapitel5_done"
+        ]
+      },
+      {
+        "text": "Wir können auch im Winter ein Konzert absagen. Niemand verliert dadurch seine Stimme.",
+        "requires_flags": [
+          "k5_arrived",
+          "bha_akt4_done"
+        ],
+        "hide_if_flags": [
+          "kapitel5_done",
+          "bha_ventil_winterpromenade_warm"
+        ]
+      },
+      {
+        "text": "Heute wird nach dem letzten Takt nicht applaudiert, bis die Kapelle selbst fertig ist.",
+        "requires_flags": [
+          "k5_arrived",
+          "bha_akt4_done",
+          "bha_ventil_winterpromenade_warm"
+        ],
+        "hide_if_flags": [
+          "kapitel5_done"
+        ]
+      }
+    ],
+    "bh_glasgaerten": [
+      {
+        "text": "Adeline sucht einen zugfreien Platz für einen gewöhnlichen Steckling. Er soll nichts erzählen müssen.",
+        "requires_flags": [
+          "k5_arrived"
+        ],
+        "hide_if_flags": [
+          "bha_akt1_done",
+          "kapitel5_done",
+          "bha_ventil_glasgaerten_warm"
+        ]
+      },
+      {
+        "text": "Die Nachtfalter suchen Wärme. Glasflügel gehören zu einer anderen Warnung.",
+        "requires_flags": [
+          "k5_arrived",
+          "bha_ventil_glasgaerten_warm"
+        ],
+        "hide_if_flags": [
+          "bha_akt1_done",
+          "kapitel5_done"
+        ]
+      },
+      {
+        "text": "Die Schilder bleiben umgedreht, bis jemand erklären kann, wer sie lesen darf.",
+        "requires_flags": [
+          "k5_arrived",
+          "bha_akt1_done"
+        ],
+        "hide_if_flags": [
+          "bha_akt2_done",
+          "kapitel5_done",
+          "bha_ventil_glasgaerten_warm"
+        ]
+      },
+      {
+        "text": "Im Beschlag steht mehr als auf dem Prospekt. Trotzdem ersetzt eine Scheibe keinen Zeugen.",
+        "requires_flags": [
+          "k5_arrived",
+          "bha_akt1_done",
+          "bha_ventil_glasgaerten_warm"
+        ],
+        "hide_if_flags": [
+          "bha_akt2_done",
+          "kapitel5_done"
+        ]
+      },
+      {
+        "text": "Kalte Beete sind ruhiger. Die Namen darin gehören uns dennoch nicht.",
+        "requires_flags": [
+          "k5_arrived",
+          "bha_akt2_done"
+        ],
+        "hide_if_flags": [
+          "bha_akt3_done",
+          "kapitel5_done",
+          "bha_ventil_glasgaerten_warm"
+        ]
+      },
+      {
+        "text": "Die Blüten bewegen sich wieder. Edric zählt Verschlüsse, keine Wunder.",
+        "requires_flags": [
+          "k5_arrived",
+          "bha_akt2_done",
+          "bha_ventil_glasgaerten_warm"
+        ],
+        "hide_if_flags": [
+          "bha_akt3_done",
+          "kapitel5_done"
+        ]
+      },
+      {
+        "text": "Dipple könnte beide Fassungen aufheben. Auch eine falsche Zeichnung darf alt werden.",
+        "requires_flags": [
+          "k5_arrived",
+          "bha_akt3_done"
+        ],
+        "hide_if_flags": [
+          "bha_akt4_done",
+          "kapitel5_done",
+          "bha_ventil_glasgaerten_warm"
+        ]
+      },
+      {
+        "text": "Wärme macht Tinte nicht wahrer. Datum und Schatten verdienen getrennte Blicke.",
+        "requires_flags": [
+          "k5_arrived",
+          "bha_akt3_done",
+          "bha_ventil_glasgaerten_warm"
+        ],
+        "hide_if_flags": [
+          "bha_akt4_done",
+          "kapitel5_done"
+        ]
+      },
+      {
+        "text": "Für die gewöhnlichen Pflanzen reicht ein gewöhnlicher Frühling.",
+        "requires_flags": [
+          "k5_arrived",
+          "bha_akt4_done"
+        ],
+        "hide_if_flags": [
+          "kapitel5_done",
+          "bha_ventil_glasgaerten_warm"
+        ]
+      },
+      {
+        "text": "Ein Garten darf warm sein. Er darf nur nicht heimlich mit fremden Tagen heizen.",
+        "requires_flags": [
+          "k5_arrived",
+          "bha_akt4_done",
+          "bha_ventil_glasgaerten_warm"
+        ],
+        "hide_if_flags": [
+          "kapitel5_done"
+        ]
+      }
+    ],
+    "bh_stillenhaeuser": [
+      {
+        "text": "Das Fenster ist kalt, die Grundwärme im Zimmer bleibt. Die Pflege hat beides geprüft.",
+        "requires_flags": [
+          "k5_arrived"
+        ],
+        "hide_if_flags": [
+          "bha_akt1_done",
+          "kapitel5_done",
+          "bha_ventil_stillenhaeuser_warm"
+        ]
+      },
+      {
+        "text": "Mara nimmt den Tee erst, wenn sie weiß, was darin ist. Das ist kein unfreundlicher Empfang.",
+        "requires_flags": [
+          "k5_arrived",
+          "bha_ventil_stillenhaeuser_warm"
+        ],
+        "hide_if_flags": [
+          "bha_akt1_done",
+          "kapitel5_done"
+        ]
+      },
+      {
+        "text": "Die Rufglocke sollte tiefer hängen. Nicht jeder Gast kann sie erreichen.",
+        "requires_flags": [
+          "k5_arrived",
+          "bha_akt1_done"
+        ],
+        "hide_if_flags": [
+          "bha_akt2_done",
+          "kapitel5_done",
+          "bha_ventil_stillenhaeuser_warm"
+        ]
+      },
+      {
+        "text": "Ada kocht ohne Sud aus der Klinik. Rüben haben schon genug Eigenschaften.",
+        "requires_flags": [
+          "k5_arrived",
+          "bha_akt1_done",
+          "bha_ventil_stillenhaeuser_warm"
+        ],
+        "hide_if_flags": [
+          "bha_akt2_done",
+          "kapitel5_done"
+        ]
+      },
+      {
+        "text": "Enna führt Beobachtung und Vermutung getrennt. Das Heft ist deshalb dicker.",
+        "requires_flags": [
+          "k5_arrived",
+          "bha_akt2_done"
+        ],
+        "hide_if_flags": [
+          "bha_akt3_done",
+          "kapitel5_done",
+          "bha_ventil_stillenhaeuser_warm"
+        ]
+      },
+      {
+        "text": "Ein warmer Speisesaal ist kein Grund, einem Gast die eigene Anrede abzunehmen.",
+        "requires_flags": [
+          "k5_arrived",
+          "bha_akt2_done",
+          "bha_ventil_stillenhaeuser_warm"
+        ],
+        "hide_if_flags": [
+          "bha_akt3_done",
+          "kapitel5_done"
+        ]
+      },
+      {
+        "text": "Tobin lässt eine Zeile frei. Er nennt sie morgen, nicht Gedächtnisverlust.",
+        "requires_flags": [
+          "k5_arrived",
+          "bha_akt3_done"
+        ],
+        "hide_if_flags": [
+          "bha_akt4_done",
+          "kapitel5_done",
+          "bha_ventil_stillenhaeuser_warm"
+        ]
+      },
+      {
+        "text": "Die Kanne wandert von Hand zu Hand. Keine Hand unterschreibt dabei eine Behandlung.",
+        "requires_flags": [
+          "k5_arrived",
+          "bha_akt3_done",
+          "bha_ventil_stillenhaeuser_warm"
+        ],
+        "hide_if_flags": [
+          "bha_akt4_done",
+          "kapitel5_done"
+        ]
+      },
+      {
+        "text": "Vier Türen müssen einzeln besucht werden. Kein Haushalt kann für den nächsten antworten.",
+        "requires_flags": [
+          "k5_arrived",
+          "bha_akt4_done"
+        ],
+        "hide_if_flags": [
+          "kapitel5_done",
+          "bha_ventil_stillenhaeuser_warm"
+        ]
+      },
+      {
+        "text": "Die freiwillige Wärmestube bleibt freiwillig. Auch warme Stühle sind kein Ersatz für Zustimmung.",
+        "requires_flags": [
+          "k5_arrived",
+          "bha_akt4_done",
+          "bha_ventil_stillenhaeuser_warm"
+        ],
+        "hide_if_flags": [
+          "kapitel5_done"
+        ]
+      }
+    ],
+    "bh_wurzelkranz": [
+      {
+        "text": "Vor dem Labor knirscht der Frost unter leeren Kisten. Leer ist hier eine überprüfbare Angabe.",
+        "requires_flags": [
+          "k5_arrived"
+        ],
+        "hide_if_flags": [
+          "bha_akt1_done",
+          "kapitel5_done",
+          "bha_ventil_wurzelkranz_warm"
+        ]
+      },
+      {
+        "text": "Crowther nennt warme Verpackung eine gute Ware. Er meint hoffentlich nur das Holz.",
+        "requires_flags": [
+          "k5_arrived",
+          "bha_ventil_wurzelkranz_warm"
+        ],
+        "hide_if_flags": [
+          "bha_akt1_done",
+          "kapitel5_done"
+        ]
+      },
+      {
+        "text": "Ein altes Siegel bleibt alt, auch wenn der Empfänger heute erschrickt.",
+        "requires_flags": [
+          "k5_arrived",
+          "bha_akt1_done"
+        ],
+        "hide_if_flags": [
+          "bha_akt2_done",
+          "kapitel5_done",
+          "bha_ventil_wurzelkranz_warm"
+        ]
+      },
+      {
+        "text": "Die Frachtliste dampft am Rand. Ihr Datum liegt weiterhin vor der letzten Wexmoor-Fahrt.",
+        "requires_flags": [
+          "k5_arrived",
+          "bha_akt1_done",
+          "bha_ventil_wurzelkranz_warm"
+        ],
+        "hide_if_flags": [
+          "bha_akt2_done",
+          "kapitel5_done"
+        ]
+      },
+      {
+        "text": "Eine Rückzahlung gehört neben die Provision. Sie darf deren Herkunft nicht verdecken.",
+        "requires_flags": [
+          "k5_arrived",
+          "bha_akt2_done"
+        ],
+        "hide_if_flags": [
+          "bha_akt3_done",
+          "kapitel5_done",
+          "bha_ventil_wurzelkranz_warm"
+        ]
+      },
+      {
+        "text": "Der Lieferant möchte aussteigen. Eine warme Handbewegung reicht als Quittung nicht.",
+        "requires_flags": [
+          "k5_arrived",
+          "bha_akt2_done",
+          "bha_ventil_wurzelkranz_warm"
+        ],
+        "hide_if_flags": [
+          "bha_akt3_done",
+          "kapitel5_done"
+        ]
+      },
+      {
+        "text": "Die Wurzeln waren vor dem Haus da. Eine Pension ist kein Gegenbeweis.",
+        "requires_flags": [
+          "k5_arrived",
+          "bha_akt3_done"
+        ],
+        "hide_if_flags": [
+          "bha_akt4_done",
+          "kapitel5_done",
+          "bha_ventil_wurzelkranz_warm"
+        ]
+      },
+      {
+        "text": "Die Leitungen werden einzeln beschriftet. Niemand soll Wärme mit Rücklauf verwechseln.",
+        "requires_flags": [
+          "k5_arrived",
+          "bha_akt3_done",
+          "bha_ventil_wurzelkranz_warm"
+        ],
+        "hide_if_flags": [
+          "bha_akt4_done",
+          "kapitel5_done"
+        ]
+      },
+      {
+        "text": "Am letzten Hahn wird gefragt, bevor jemand dreht. Dafür ist auch im Winter Zeit.",
+        "requires_flags": [
+          "k5_arrived",
+          "bha_akt4_done"
+        ],
+        "hide_if_flags": [
+          "kapitel5_done",
+          "bha_ventil_wurzelkranz_warm"
+        ]
+      },
+      {
+        "text": "Die Anlage ist warm, die Entscheidung gehört trotzdem nicht der Anlage.",
+        "requires_flags": [
+          "k5_arrived",
+          "bha_akt4_done",
+          "bha_ventil_wurzelkranz_warm"
+        ],
+        "hide_if_flags": [
+          "kapitel5_done"
+        ]
+      }
+    ]
+  }
+}
