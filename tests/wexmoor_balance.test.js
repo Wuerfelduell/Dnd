@@ -13,6 +13,7 @@ const WX = Object.entries(content.encounters).filter(([, e]) => e.wild && e.zone
 // Ab Fall 5 hat man die Ossuarklinge aus den Katakomben; in Wexmoor rechnet niemand mehr mit weniger
 const GEAR = { 2: 'ossuarklinge', 3: 'ossuarklinge', 4: 'ossuarklinge' };
 const HALF = (i) => (i % 2 ? 'miss' : 'dodge');
+const FLAWLESS = (i) => ['dodge', 'parry', 'dodge', 'parry', 'parry'][i % 5]; // liest jeden Schlag
 /** Geübte Spielweise in Kapitel 2: die Pfad-Fertigkeit verkettet, dann der Angriff (siehe fall4_haerte.test.js) */
 const PLAY = (defend, seq = 7, skill = 'wuchtschlag') => ({ defend, skill, chain: true, healBelow: 18 });
 
@@ -52,7 +53,9 @@ test('Wexmoor: Eliten und Bosse schafft nur, wer fast jeden Schlag liest; halbe 
     if (!(e.elite || e.boss)) continue;
     const s = hero(tierOf(e), seqOf(e));
     const { result, combat } = fight(s, id, PLAY(EXPERT, seqOf(e)));
-    assert.equal(result.outcome, 'won', `${id}: verloren in Runde ${combat.round}`);
+    // Die Eliten der Torfbrüche (Gefahr ☠☠☠) verlangen mehr: wer dort einen von fünf Schlägen kassiert, kann verlieren
+    const flawless = e.elite && content.zones[e.zone].tier >= 3 && result.outcome !== 'won' ? fight(hero(tierOf(e), seqOf(e)), id, PLAY(FLAWLESS, seqOf(e))) : null;
+    assert.ok(result.outcome === 'won' || flawless?.result.outcome === 'won', `${id}: verloren in Runde ${combat.round}`);
     assert.ok(s.hp < s.maxHp || combat.round <= 3, `${id}: auch Könner verlieren Leben, wenn der Kampf länger dauert`);
     assert.equal(fight(hero(tierOf(e), seqOf(e)), id, PLAY(HALF, seqOf(e))).result.outcome, 'lost', `${id}: halbe Deckung`);
   }
@@ -266,4 +269,27 @@ test('Wexmoor-Gegner schlagen 50 % härter und halten 40 % mehr aus; zu zweit oh
   kg.targets = [1];
   const kgAtk = kg.nextEnemyAttack();
   assert.equal(kgAtk.damage, Math.max(1, Math.round(content.encounters.schnabelmaske.attacks.find((a) => a.name === kgAtk.name).damage * (ENEMY_DMG_MULT * DUO_DMG_MULT))));
+});
+
+test('Schadensgrenze je Runde: kein Wexmoor-Gegner fällt in zwei Zügen, auch nicht gegen ein starkes Paar (Seb: „kein Gegner schafft 2 Züge gegen uns 2“)', () => {
+  for (const [zid, z] of Object.entries(content.zones)) {
+    if (!zid.startsWith('wx_')) continue;
+    assert.deepEqual(z.max_round_dmg, { normal: 0.25, elite: 0.25, boss: 0.2 }, zid);
+  }
+  for (const id of Object.keys(content.loners.list).filter((x) => !x.startsWith('ez_ds_'))) assert.equal(content.encounters[id].max_round_dmg, 0.2, id);
+  assert.equal(content.encounters.price_wx_fight.max_round_dmg, 0.25);
+  assert.equal(content.encounters.k2a_tinte_kampf.max_round_dmg, 0.25);
+  // Gebietsfeld greift je Rang; ein Gegnerfeld geht vor
+  assert.equal(new Combat(hero(3), 'torfgaenger').maxRoundDmg, 0.25);
+  assert.equal(new Combat(hero(3), 'torfgaenger_elite').maxRoundDmg, 0.25);
+  assert.equal(new Combat(hero(3), 'namenlose').maxRoundDmg, 0.2);
+  assert.equal(new Combat(hero(3), 'wx_grauspaeher_fight').maxRoundDmg, 0.25);
+  assert.equal(new Combat(hero(3), 'schnabelmaske').maxRoundDmg, 0);
+  // Ein Paar aus Eisen (Seq 7) und Laterne mit Ossuarklingen, das alles trifft: Vergessmoor-Gegner halten mindestens vier Runden, Bosse fünf
+  for (const [id, e] of WX) {
+    if (e.zone !== 'wx_vergessmoor') continue;
+    const p = pair(4, e.min_seq ?? 7);
+    const c = duoFight(p, id, () => 'dodge');
+    assert.ok(c.round >= (e.boss ? 5 : 4), `${id}: fällt schon in Runde ${c.round}`);
+  }
 });
