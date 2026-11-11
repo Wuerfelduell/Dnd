@@ -1,0 +1,1958 @@
+{
+  "generator": "Built-in image_gen",
+  "batch": "briarholt1",
+  "codex": "docs/art/codex_CI_briarholt_grafik.md",
+  "date": "2026-11-11",
+  "baseCommit": "3bb41696ffa7bff82cbc88a574deb6b37259113d",
+  "styleBlock": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial world with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.",
+  "palette": [
+    "#1a1c2c",
+    "#252b38",
+    "#303b49",
+    "#425360",
+    "#586c78",
+    "#71858b",
+    "#95a5a5",
+    "#a8b4c0",
+    "#2d2629",
+    "#58433c",
+    "#715648",
+    "#92745a",
+    "#b3946e",
+    "#cfb18a",
+    "#e0c9a1",
+    "#494b3a",
+    "#686850",
+    "#8b8870",
+    "#eee2c5",
+    "#173d40",
+    "#245b59",
+    "#36817a",
+    "#4eafa2",
+    "#6fe0d0",
+    "#886332",
+    "#d0a050",
+    "#e8b860",
+    "#f0ce80",
+    "#c8b0e8",
+    "#5c426a",
+    "#8c7295",
+    "#893e4e"
+  ],
+  "paletteSource": "Same shared 32-color palette as batch-dunscar1-generation.json / manifest-dunscar1.json",
+  "referenceSha256": {
+    "tilesets/C_06_bahnhof_tiles.png": "e0ecdb763b59760f6ae7f94d903411c73fa40339c7da103920f410f165cfd9d9",
+    "tilesets/ds_stadt.png": "04c0686e5385329d931f23a60a43883e46c78bb26bb9319c6d75993fe403f97c",
+    "tilesets/ds_innen.png": "e5d5b5557b847154dc205b42e92ca97b8cecf7224c2c9aaa3136f7217ae04921",
+    "props/ds_speisewagen.png": "dbaaf486e030ebef273bd5c89187fafeb9ab13e2f75836cf523b24c23add053c",
+    "props/ds_endbahnhof.png": "b6907b152497e1c330d1bc1502878c68ca3d079301e8e1cad8baf0e50e637854",
+    "fx/ds_nachhall_weg.png": "05a8222126b2bf1583eea3e56d1b392900f491d5b272d0035b894be836ee81a8",
+    "ui/scenes/ds_nachtzug.png": "2ff0cb75ba872e0208b52b21cbc11fbae5929e38712e9f16058eec48f1d925ba",
+    "ui/scenes/kapitel3_karte.png": "a246c4f26e7caca516fb9cb67061d12348f4ec094a826f3c587288aa80638bbc",
+    "portraits/bh_orla_fencrest_emotions.png": "336e956e04b38d7f5e9858bc8f97c44c69418b1a2b0fb9d0f1bbcc39cba1890c",
+    "portraits/bh_bellweather_emotions.png": "4fa1c7025bb85e14c90e9cc0fbb1032c9f4d5c8fcd982356b30a68f190bdf7e4",
+    "characters/bh_orla_fencrest_walk.png": "66840b8b7e4e35f6e4cdad3b3bb8abb67917c7b5702032b3499e84f8a0931a2c",
+    "characters/bh_bellweather_walk.png": "abb348a5f0c7e8375f221912e3855d71c4610e44733b92bca3531488fcee656b",
+    "portraits/bh_rookwell_emotions.png": "8e0b169dbbc2647f83dd50bc306491baca3a19857e44f7bd6c4e6b74219de8b2",
+    "battle/bg_ds_endbahnhof.png": "7c46f6ba1cb36a02020b3e2595c4bc53e6d212f371d44792761c044925670f53",
+    "ui/ds_karte.png": "47f01f3d515c595d2d7dde6085e4a9d3e7939eeebad4cf75fe266259d67b6432",
+    "ui/ds_marker.png": "16cce0dd980cb5e35a36132879d7339d2929105fd4c9bb92f9e945dd1a306ac3",
+    "ui/ds_karte_nebel.png": "fc2a846426064c0c0441bded3b29077b72f4145ed99360d0ea3d1da82ce2bc78",
+    "ui/bh_karte.png": "3a6b5cb5d734c0d3287e15ecebe6633f721b61e50c01c4cd4de9052c7fe8067a"
+  },
+  "postprocessing": "Nearest-neighbour target raster via palette-majority downscale (no anti-aliasing), indexing to the shared 32-colour palette, binary alpha (magenta key, alpha 0 or 255, transparent RGB 0), 1px #1a1c2c outline on cut-out sprites, animation frames derived as listed per job; tilesets v2, fx v2: hand-pixelled on the palette grid, no downscale",
+  "jobs": [
+    {
+      "id": "bh_promenade",
+      "outputs": [
+        "tilesets/bh_promenade_kalt.png",
+        "tilesets/bh_promenade_warm.png"
+      ],
+      "kind": "tiles",
+      "mode": "handpixel",
+      "references": [
+        "tilesets/ds_stadt.png",
+        "tilesets/ds_innen.png",
+        "tilesets/C_06_bahnhof_tiles.png"
+      ],
+      "tool": "tools/art/briarholt1/export/tiles_v2/promenade.py",
+      "cellDescriptions": {
+        "pflaster_1": {
+          "kalt": "running-bond brick paving, joints filled with rime, frost on some brick tops; seamless",
+          "warm": "same paving wet and dark after thaw, mortar dark, wet glints; seamless"
+        },
+        "pflaster_2": {
+          "kalt": "brick paving variant with darker bricks mixed in; seamless",
+          "warm": "wet paving variant with lighter bricks mixed in; seamless"
+        },
+        "pflaster_messing": {
+          "kalt": "paving with brass Kurmeile inlay disc, disc frosted pale",
+          "warm": "inlay disc polished, warm amber centre"
+        },
+        "pflaster_rinne": {
+          "kalt": "paving with stone gutter, gutter frozen solid (ice, white glints)",
+          "warm": "gutter carrying meltwater, dark water with ripples"
+        },
+        "pflaster_pfuetze": {
+          "kalt": "ice patch on paving with white glint",
+          "warm": "thaw puddle with reflections"
+        },
+        "pavillon_boden": {
+          "kalt": "pavilion planks with brass nails, rime in the joints",
+          "warm": "dry pavilion planks, no frost"
+        },
+        "pavillon_rosette": {
+          "kalt": "plank floor with brass rosette inlay, frost specks",
+          "warm": "rosette inlay with amber gleam"
+        },
+        "pavillon_stufe": {
+          "kalt": "pavilion plank edge over a snowed stone step",
+          "warm": "plank edge over a wet stone step"
+        },
+        "kurhaus_gesims": {
+          "kalt": "Kurhaus cornice: slate roof edge, brass band, dentils, icicles hanging",
+          "warm": "same cornice, meltwater drips instead of icicles"
+        },
+        "kurhaus_wand": {
+          "kalt": "light ashlar plaster wall; seamless",
+          "warm": "same wall with faint condensate streaks"
+        },
+        "kurhaus_ecke_links": {
+          "kalt": "left corner pilaster with frost specks",
+          "warm": "left corner pilaster"
+        },
+        "kurhaus_ecke_rechts": {
+          "kalt": "right corner pilaster with frost specks",
+          "warm": "right corner pilaster"
+        },
+        "kurhaus_fenster": {
+          "kalt": "dark window, frost flowers in the lower corners, brass sill",
+          "warm": "window glowing amber, fogged, drop trails, brass sill"
+        },
+        "kurhaus_tuer_oben": {
+          "kalt": "double door top, dark fanlight with frost",
+          "warm": "double door top, fanlight lit amber"
+        },
+        "kurhaus_tuer_unten": {
+          "kalt": "double door bottom on a snowed step",
+          "warm": "door bottom with light spilling over the threshold, wet step"
+        },
+        "kurhaus_sockel": {
+          "kalt": "stone plinth with frost line at the foot",
+          "warm": "plinth darkened by meltwater, drip marks"
+        },
+        "glasgang_dach_links": {
+          "kalt": "glass walkway roof, left edge: blind frosted panes, ice ferns",
+          "warm": "left roof edge: fogged panes with running drops (frame 1)"
+        },
+        "glasgang_dach_mitte": {
+          "kalt": "roof middle, blind panes",
+          "warm": "roof middle, fogged with drops (frame 1)"
+        },
+        "glasgang_dach_rechts": {
+          "kalt": "roof right edge, blind panes",
+          "warm": "roof right edge, fogged"
+        },
+        "glasgang_scheibe": {
+          "kalt": "walkway side pane, blind white frost, ice ferns in corners",
+          "warm": "side pane fogged, condensate band, drops (frame 1)"
+        },
+        "glasgang_pfosten": {
+          "kalt": "side pane with iron post, blind",
+          "warm": "side pane with iron post, fogged"
+        },
+        "glasgang_boden": {
+          "kalt": "walkway floor tiles, frost specks",
+          "warm": "walkway floor tiles with drip spots"
+        },
+        "messinggelaender": {
+          "kalt": "brass railing on paving, rime on the rail",
+          "warm": "brass railing, wet, one warm gleam"
+        },
+        "steintreppe": {
+          "kalt": "four stone steps with snow on the treads",
+          "warm": "four wet stone steps"
+        },
+        "palme_krone": {
+          "kalt": "palm crown, fronds folded down stiff, rimed tips",
+          "warm": "palm crown, fronds spread wide and arching"
+        },
+        "palme_kuebel": {
+          "kalt": "palm tub with brass bands, frozen soil",
+          "warm": "palm tub, dark moist soil with a sprout"
+        },
+        "postkarten_oben": {
+          "kalt": "postcard rack top, pale frosted blank cards",
+          "warm": "rack top with colourful picture cards (blossom, dome, palm; no text)"
+        },
+        "postkarten_fuss": {
+          "kalt": "postcard rack foot, frosted",
+          "warm": "postcard rack foot, brass"
+        },
+        "bank_links": {
+          "kalt": "bench left half, slats rimed, snow on seat",
+          "warm": "bench left half, wet slats"
+        },
+        "bank_rechts": {
+          "kalt": "bench right half, frosted",
+          "warm": "bench right half, wet"
+        },
+        "beet": {
+          "kalt": "flowerbed with frozen bare soil and dead stalks",
+          "warm": "flowerbed with shoots and small blossoms"
+        },
+        "kanaldeckel": {
+          "kalt": "manhole cover with frost rim",
+          "warm": "manhole cover breathing a steam wisp"
+        },
+        "glasgang_scheibe_f2": {
+          "kalt": "static copy of glasgang_scheibe (no animation when cold)",
+          "warm": "side pane drops moved down (frame 2)"
+        },
+        "glasgang_dach_mitte_f2": {
+          "kalt": "static copy of glasgang_dach_mitte",
+          "warm": "roof middle drops moved (frame 2)"
+        },
+        "pflaster_kante_n": {
+          "kalt": "paving edge to frozen bed soil, north",
+          "warm": "paving edge to dark moist soil with shoots, north"
+        },
+        "pflaster_kante_o": {
+          "kalt": "paving edge, east",
+          "warm": "paving edge, east"
+        },
+        "pflaster_kante_s": {
+          "kalt": "paving edge, south",
+          "warm": "paving edge, south"
+        },
+        "pflaster_kante_w": {
+          "kalt": "paving edge, west",
+          "warm": "paving edge, west"
+        },
+        "laternensockel": {
+          "kalt": "cast-iron gas lamp socket on paving, frost caps",
+          "warm": "lamp socket with amber light pool on wet paving"
+        },
+        "pavillon_saeule": {
+          "kalt": "white pavilion column base on planks, frosted",
+          "warm": "column base with amber gleam"
+        }
+      },
+      "steps": [
+        "each 16x16 cell drawn individually on the palette index grid (ASCII pixel maps and seamless pattern routines), no generator downscale",
+        "ground cells built periodic in 16 px and checked in 3x3 tiling",
+        "props on terrain get the 1px #1a1c2c outline, terrain none",
+        "warm cells are second drawings (thaw, open blossoms, steam, light, plants behind glass, lived-in rooms, plump roots), not palette swaps",
+        "kalt animation slots: same cell with a moving frost glint (kalt animations reif_*), so no cell is duplicated",
+        "every cell checked at 6x-8x zoom"
+      ],
+      "rejectedAttempts": [
+        {
+          "superseded": "v1 AI sheet (whole tileset as one generated image, downsampled) - rejected: mushy, ground not seamless, cells wrongly assigned, warm partly recoloured",
+          "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial world with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nASSET: Tileset sheet 'bh_promenade' for Briarholt, a cold dry valley spa town (industrial town pretending to be a garden). Square image containing an exact grid of 8 columns x 8 rows of equal square 16x16 game tiles (each tile drawn as one big square, no gaps, no borders, no labels), full bleed, opaque. TOP 4 ROWS = COLD state, BOTTOM 4 ROWS = WARM state with IDENTICAL layout tile for tile. Cold: hoarfrost on red-grey brick, blind frosted glass, stiff palm leaves, dark windows. Warm: wet thaw water and small puddles, fogged glass with droplets, unfolded palm leaves, windows glowing warm amber behind condensation. Row 1: four brick paving variants, two octagonal music pavilion floor boards, paving edge north, paving edge south. Row 2: palm in heavy tub top half, palm tub bottom half, gas lamp iron base, postcard rack, two glass walkway panes (pair), glass walkway roof left, roof right. Row 3: pale spa house facade with brass trim: wall top cornice, wall center, wall left, wall right, tall window, second window, double door, brass cornice band. Row 4: facade plinth, brass railing horizontal, brass railing vertical, stone steps, flowerbed curb, drain grate, bench base, lamp-light patch on paving. Muted slate blue, fog grey, soot brown, pale bone, brass palette.",
+          "rawSha256": "f64e8eefffb5de948888e0932bae0bfb3962bf50aaf16916ee522f2ab66fafad",
+          "rawFile": "docs/art/briarholt1-raw/bh_promenade.jpg"
+        }
+      ],
+      "outputSha256": {
+        "tilesets/bh_promenade_kalt.png": "77763490472939b0f482ba1d56491533d24b11490e4afc36430dc40829994aa0",
+        "tilesets/bh_promenade_warm.png": "9c0e13349737f370baabb5be778abec4b0dee5e4306c76eeeb514e87d11cfc66"
+      }
+    },
+    {
+      "id": "bh_kessel",
+      "outputs": [
+        "tilesets/bh_kessel_kalt.png",
+        "tilesets/bh_kessel_warm.png"
+      ],
+      "kind": "tiles",
+      "mode": "handpixel",
+      "references": [
+        "tilesets/ds_stadt.png",
+        "tilesets/ds_innen.png",
+        "tilesets/C_06_bahnhof_tiles.png"
+      ],
+      "tool": "tools/art/briarholt1/export/tiles_v2/kessel.py",
+      "cellDescriptions": {
+        "werkstatt_boden": {
+          "kalt": "riveted iron floor plates, rime in the joints; seamless",
+          "warm": "oily dark iron plates, brass rivets, coal smudges; seamless"
+        },
+        "kopfstein": {
+          "kalt": "cobbles with rime-filled joints; seamless",
+          "warm": "wet cobbles, dark joints, glints; seamless"
+        },
+        "kopfstein_kohlenstaub": {
+          "kalt": "cobbles with coal dust",
+          "warm": "wet cobbles with coal dust"
+        },
+        "kondensat_pfuetze": {
+          "kalt": "condensate puddle frozen to ice",
+          "warm": "condensate puddle with ripple rings"
+        },
+        "gitterrost": {
+          "kalt": "floor grate, frosted bars",
+          "warm": "floor grate, dark, damp"
+        },
+        "bordstein_n": {
+          "kalt": "kerb stones north edge, frosted",
+          "warm": "kerb stones, wet"
+        },
+        "bordstein_s": {
+          "kalt": "kerb stones south edge, frosted",
+          "warm": "kerb stones south, wet"
+        },
+        "werkbank": {
+          "kalt": "workbench on iron floor, frost on top",
+          "warm": "workbench with brass tools and a drip"
+        },
+        "rohr_h": {
+          "kalt": "thick horizontal pipe on a bridge over cobbles: rimed slate, icicles, flange",
+          "warm": "same pipe running hot: copper-rust, brass flange, drops"
+        },
+        "rohr_v": {
+          "kalt": "thick vertical pipe, rimed",
+          "warm": "thick vertical pipe, hot copper-rust"
+        },
+        "rohr_bogen_so": {
+          "kalt": "pipe bend joining east and south, rimed",
+          "warm": "pipe bend, hot"
+        },
+        "rohr_bogen_sw": {
+          "kalt": "pipe bend west-south",
+          "warm": "pipe bend west-south, hot"
+        },
+        "rohr_bogen_no": {
+          "kalt": "pipe bend north-east",
+          "warm": "pipe bend north-east, hot"
+        },
+        "rohr_bogen_nw": {
+          "kalt": "pipe bend north-west",
+          "warm": "pipe bend north-west, hot"
+        },
+        "rohr_t": {
+          "kalt": "pipe tee, rimed",
+          "warm": "pipe tee, hot"
+        },
+        "rohrbruecke_stuetze": {
+          "kalt": "pipe resting on an iron trestle",
+          "warm": "pipe on trestle, hot"
+        },
+        "ventil_zu": {
+          "kalt": "VALVE STATE zu: dark wheel chained shut with a rust-red tag, closing bar across the pipe (same in both sheets)",
+          "warm": "identical state cell (states are independent of the sheet)"
+        },
+        "ventil_kalt": {
+          "kalt": "VALVE STATE kalt: wheel open, pipe and wheel white with rime, icicles",
+          "warm": "identical state cell"
+        },
+        "ventil_warm": {
+          "kalt": "VALVE STATE warm: polished brass wheel, glowing amber seam, little steam puffs",
+          "warm": "identical state cell"
+        },
+        "dampfaustritt": {
+          "kalt": "steam vent frozen shut: ice plug, no steam",
+          "warm": "steam vent, small puff (frame 1 of 4)"
+        },
+        "kohlenrutsche": {
+          "kalt": "coal chute running down, coal rimed",
+          "warm": "coal chute with ember specks"
+        },
+        "kohlenhaufen": {
+          "kalt": "coal chute mouth with heap, frost on coal",
+          "warm": "coal heap, dark"
+        },
+        "rohrbruecke_traeger": {
+          "kalt": "pipe over a riveted girder spanning the lane",
+          "warm": "same, pipe hot"
+        },
+        "rohr_isoliert": {
+          "kalt": "lagged pipe with white rime on the lagging",
+          "warm": "lagged pipe, warm cloth lagging"
+        },
+        "waescherei_traufe": {
+          "kalt": "laundry eaves on soot brick, icicles",
+          "warm": "laundry eaves, meltwater drips"
+        },
+        "waescherei_wand": {
+          "kalt": "soot brick wall with frost; seamless",
+          "warm": "soot brick wall; seamless"
+        },
+        "waescherei_fenster": {
+          "kalt": "laundry window, blind and grey, rimed corner",
+          "warm": "window fogged and lit amber from inside"
+        },
+        "waescherei_tor_oben": {
+          "kalt": "plank gate top, frosted",
+          "warm": "plank gate top, warm wood"
+        },
+        "waescherei_tor_unten": {
+          "kalt": "plank gate bottom on a rimed sill",
+          "warm": "gate bottom with steam curling under it"
+        },
+        "waescherei_lueftung": {
+          "kalt": "wall vent grille, icicle",
+          "warm": "wall vent grille breathing steam"
+        },
+        "waescherei_sockel": {
+          "kalt": "stone plinth with frost line",
+          "warm": "plinth wet and dark"
+        },
+        "waescherei_schild": {
+          "kalt": "blank brass-framed sign, frosted (no text)",
+          "warm": "blank sign, no text"
+        },
+        "dampfaustritt_f1": {
+          "kalt": "static copy of frozen vent",
+          "warm": "steam frame 2: puff grows and rises"
+        },
+        "dampfaustritt_f2": {
+          "kalt": "static copy",
+          "warm": "steam frame 3: puff splits"
+        },
+        "dampfaustritt_f3": {
+          "kalt": "static copy",
+          "warm": "steam frame 4: wisps dissolve"
+        },
+        "kondensat_rinne": {
+          "kalt": "condensate channel frozen",
+          "warm": "condensate channel running"
+        },
+        "rohr_v_manometer": {
+          "kalt": "vertical pipe with a blank gauge (no numbers), rimed",
+          "warm": "vertical pipe with blank gauge, hot"
+        },
+        "abflussgitter": {
+          "kalt": "drain grate, frosted",
+          "warm": "drain grate breathing steam"
+        },
+        "kopfstein_2": {
+          "kalt": "cobbles variant; seamless",
+          "warm": "wet cobbles variant; seamless"
+        },
+        "werkstatt_boden_2": {
+          "kalt": "iron plates variant with rime",
+          "warm": "iron plates variant with coal smudges"
+        }
+      },
+      "steps": [
+        "each 16x16 cell drawn individually on the palette index grid (ASCII pixel maps and seamless pattern routines), no generator downscale",
+        "ground cells built periodic in 16 px and checked in 3x3 tiling",
+        "props on terrain get the 1px #1a1c2c outline, terrain none",
+        "warm cells are second drawings (thaw, open blossoms, steam, light, plants behind glass, lived-in rooms, plump roots), not palette swaps",
+        "kalt animation slots: same cell with a moving frost glint (kalt animations reif_*), so no cell is duplicated",
+        "every cell checked at 6x-8x zoom"
+      ],
+      "rejectedAttempts": [
+        {
+          "superseded": "v1 AI sheet (whole tileset as one generated image, downsampled) - rejected: mushy, ground not seamless, cells wrongly assigned, warm partly recoloured",
+          "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial world with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nASSET: Tileset sheet 'bh_kessel' (Kesselgrund boiler quarter of Briarholt, workshops below the promenades). Square image containing an exact grid of 8 columns x 8 rows of equal square 16x16 game tiles, no gaps, no borders, no labels, full bleed, opaque. TOP 4 ROWS = COLD state, BOTTOM 4 ROWS = WARM state with IDENTICAL layout tile for tile. Cold: frost, ice in puddles, dull grey pipes, closed valves. Warm: steam wisps, wet dark stone, condensation, faint warm sheen on brass. Row 1: four soot-stained workshop floor flagstones, coal chute top, coal chute bottom, coal heap, laundry facade wall. Row 2: thick pipe bridge horizontal, thick pipe vertical, pipe bend, second pipe bend, valve tile with handwheel CLOSED (red-rust tag), valve tile COLD (slate tag), valve tile WARM (amber tag), pipe flange joint. Row 3: two condensate puddles (cold: ice sheets), laundry window, laundry door, four steam vent grates in sequence (warm: rising steam). Row 4: brick wall top, brick wall center, brick wall left, brick wall right, chimney base, iron floor grate, iron rail, cobble edge. Muted slate, soot brown, rust, brass palette.",
+          "rawSha256": "d7567c5ba464d4b67c4e6956c2dc0ce77c8106724d6dd9303b643c9696979606",
+          "rawFile": "docs/art/briarholt1-raw/bh_kessel.jpg"
+        }
+      ],
+      "outputSha256": {
+        "tilesets/bh_kessel_kalt.png": "fa4b73a240b37536434f8b9f70f06ae79382722ba2868247b91a1996fab45884",
+        "tilesets/bh_kessel_warm.png": "e95e3631e3c78dfac5b71faedd3cf053efcd8d8b4bd0b9eec9e6be650c6af487"
+      }
+    },
+    {
+      "id": "bh_glas",
+      "outputs": [
+        "tilesets/bh_glas_kalt.png",
+        "tilesets/bh_glas_warm.png"
+      ],
+      "kind": "tiles",
+      "mode": "handpixel",
+      "references": [
+        "tilesets/ds_stadt.png",
+        "tilesets/ds_innen.png",
+        "tilesets/C_06_bahnhof_tiles.png"
+      ],
+      "tool": "tools/art/briarholt1/export/tiles_v2/glas.py",
+      "cellDescriptions": {
+        "kiesweg": {
+          "kalt": "grey gravel path with frost; seamless",
+          "warm": "warm sandy gravel path; seamless"
+        },
+        "kiesweg_2": {
+          "kalt": "gravel variant; seamless",
+          "warm": "gravel variant; seamless"
+        },
+        "kies_kante_n": {
+          "kalt": "gravel edge to frozen soil, north",
+          "warm": "gravel edge to dark moist soil, north"
+        },
+        "kies_kante_s": {
+          "kalt": "gravel edge south",
+          "warm": "gravel edge south"
+        },
+        "kies_kante_w": {
+          "kalt": "gravel edge west",
+          "warm": "gravel edge west"
+        },
+        "kies_kante_o": {
+          "kalt": "gravel edge east",
+          "warm": "gravel edge east"
+        },
+        "erde": {
+          "kalt": "frozen soil, sparse frost; seamless",
+          "warm": "dark moist soil; seamless"
+        },
+        "trittplatten": {
+          "kalt": "stepping slabs in gravel, rimed",
+          "warm": "stepping slabs in sandy gravel"
+        },
+        "glaswand_traufe": {
+          "kalt": "greenhouse wall top rail, icicles, blind panes below",
+          "warm": "top rail, drips, fogged panes with plants behind"
+        },
+        "glaswand": {
+          "kalt": "greenhouse glass-and-iron wall, panes blind white with ice ferns",
+          "warm": "panes fogged, green plants pressing behind the glass, drops"
+        },
+        "glaswand_schrift": {
+          "kalt": "blind pane with faint scratch traces through the frost (no letters)",
+          "warm": "fogged pane with finger strokes wiped into the condensate (no letters)"
+        },
+        "glaswand_pfosten_links": {
+          "kalt": "iron corner post left, brass bolts",
+          "warm": "iron corner post left"
+        },
+        "glaswand_pfosten_rechts": {
+          "kalt": "iron corner post right",
+          "warm": "iron corner post right"
+        },
+        "glastuer_oben": {
+          "kalt": "greenhouse door top, blind panes",
+          "warm": "door top, fogged panes"
+        },
+        "glastuer_unten": {
+          "kalt": "greenhouse door bottom",
+          "warm": "door bottom, fogged"
+        },
+        "glaswand_sockel": {
+          "kalt": "glass wall on brick base, frost line",
+          "warm": "glass wall on wet brick base"
+        },
+        "beet_geschlossen": {
+          "kalt": "closed bed: boards nailed over, frosted",
+          "warm": "closed bed, damp boards"
+        },
+        "beet_geschlossen_schild": {
+          "kalt": "closed bed with blank sign (no text), frosted",
+          "warm": "closed bed with blank sign"
+        },
+        "beet_offen": {
+          "kalt": "open bed, frozen soil",
+          "warm": "open bed, dark moist soil"
+        },
+        "beet_pflanze": {
+          "kalt": "open bed with stiff grey stalk and rimed closed bud",
+          "warm": "open bed with leafy green plant"
+        },
+        "beet_bluete": {
+          "kalt": "open bed, dormant stalk, bud shut",
+          "warm": "plant in bloom, blossom closed (frame 1)"
+        },
+        "beet_rand_n": {
+          "kalt": "long bed border, north",
+          "warm": "long bed border, north"
+        },
+        "beet_rand_s": {
+          "kalt": "long bed border, south",
+          "warm": "long bed border, south"
+        },
+        "beet_ecke": {
+          "kalt": "bed border corner",
+          "warm": "bed border corner"
+        },
+        "rinne_h": {
+          "kalt": "irrigation trough, dry with dust and rime",
+          "warm": "irrigation trough with running water (frame 1)"
+        },
+        "rinne_v": {
+          "kalt": "irrigation trough vertical, dry",
+          "warm": "vertical trough flowing (frame 1)"
+        },
+        "rinne_ecke": {
+          "kalt": "trough corner, dry",
+          "warm": "trough corner flowing (frame 1)"
+        },
+        "rinne_kreuzung": {
+          "kalt": "trough crossing, dry",
+          "warm": "trough crossing, flowing"
+        },
+        "rinne_ende": {
+          "kalt": "trough end with brass outlet, dry",
+          "warm": "trough end, flowing"
+        },
+        "rinne_schieber": {
+          "kalt": "trough with sluice gate shut",
+          "warm": "sluice gate open, water passing"
+        },
+        "eisensaeule": {
+          "kalt": "iron column on gravel, frosted",
+          "warm": "iron column, damp"
+        },
+        "anzucht_regal": {
+          "kalt": "seedling shelf, frosted grey seedlings",
+          "warm": "seedling shelf with green seedlings"
+        },
+        "beet_bluete_f2": {
+          "kalt": "static copy of beet_bluete",
+          "warm": "blossom open (frame 2)"
+        },
+        "rinne_h_f2": {
+          "kalt": "static copy",
+          "warm": "trough flowing (frame 2)"
+        },
+        "rinne_v_f2": {
+          "kalt": "static copy",
+          "warm": "vertical trough flowing (frame 2)"
+        },
+        "rinne_ecke_f2": {
+          "kalt": "static copy",
+          "warm": "trough corner flowing (frame 2)"
+        },
+        "kies_laub": {
+          "kalt": "gravel with a few dead leaves, rimed",
+          "warm": "gravel with fallen pink petals"
+        },
+        "erde_saatreihen": {
+          "kalt": "seed rows in frozen soil, nothing sprouting",
+          "warm": "seed rows with sprouts"
+        },
+        "glasdach": {
+          "kalt": "greenhouse roof pane from above, blind",
+          "warm": "roof pane fogged with plants under it"
+        },
+        "glasdach_first": {
+          "kalt": "roof ridge pane, blind",
+          "warm": "roof ridge pane, fogged"
+        }
+      },
+      "steps": [
+        "each 16x16 cell drawn individually on the palette index grid (ASCII pixel maps and seamless pattern routines), no generator downscale",
+        "ground cells built periodic in 16 px and checked in 3x3 tiling",
+        "props on terrain get the 1px #1a1c2c outline, terrain none",
+        "warm cells are second drawings (thaw, open blossoms, steam, light, plants behind glass, lived-in rooms, plump roots), not palette swaps",
+        "kalt animation slots: same cell with a moving frost glint (kalt animations reif_*), so no cell is duplicated",
+        "every cell checked at 6x-8x zoom"
+      ],
+      "rejectedAttempts": [
+        {
+          "superseded": "v1 AI sheet (whole tileset as one generated image, downsampled) - rejected: mushy, ground not seamless, cells wrongly assigned, warm partly recoloured",
+          "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial world with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nASSET: Tileset sheet 'bh_glas' (Glasgaerten: long streets of greenhouse nurseries in Briarholt). Square image containing an exact grid of 8 columns x 8 rows of equal square 16x16 game tiles, no gaps, no borders, no labels, full bleed, opaque. TOP 4 ROWS = COLD state, BOTTOM 4 ROWS = WARM state with IDENTICAL layout tile for tile. Cold: blind frosted greenhouse panes, frozen dry gravel, closed beds, dry gutters, grey dormant plants. Warm: panes fogged with condensation and scratched handwriting-like streaks (no readable letters), open beds with green plants and pale peach blossoms, flowing water in gutters. Row 1: greenhouse glass wall with iron mullions: left, center, right, top, two pane variants, iron door, corner post. Row 2: four raised beds (closed bed with small blank sign, bed open with plant, bed with blossom, second blossom phase). Then four gravel path tiles. Row 3: irrigation gutter horizontal (two phases), gutter vertical (two phases), gutter corner, gravel edge north, gravel edge south, soil. Row 4: planting table, potting shelf, seed trays, watering can on tiles, brick plinth, iron grate, frost/moss patch, stepping stones.",
+          "rawSha256": "b3a1b25bad563f5cec14ced3e73fff90b7ddacc3fe8e3c3a5cd996b2f8216d62",
+          "rawFile": "docs/art/briarholt1-raw/bh_glas.jpg"
+        }
+      ],
+      "outputSha256": {
+        "tilesets/bh_glas_kalt.png": "e7e454cf134de6e8d390cea26e84ffad77282fb553d6f3baff1329fb9713e743",
+        "tilesets/bh_glas_warm.png": "9757e8625e47a2d7da5c00ffcc34964479a57cd764629b4a6311d34f54080063"
+      }
+    },
+    {
+      "id": "bh_stille",
+      "outputs": [
+        "tilesets/bh_stille_kalt.png",
+        "tilesets/bh_stille_warm.png"
+      ],
+      "kind": "tiles",
+      "mode": "handpixel",
+      "references": [
+        "tilesets/ds_stadt.png",
+        "tilesets/ds_innen.png",
+        "tilesets/C_06_bahnhof_tiles.png"
+      ],
+      "tool": "tools/art/briarholt1/export/tiles_v2/stille.py",
+      "cellDescriptions": {
+        "fliesen": {
+          "kalt": "hospital tiles, grey-cold, frost glints; seamless",
+          "warm": "pale hospital tiles; seamless"
+        },
+        "fliesen_abfluss": {
+          "kalt": "tiles with drain, ice in drain",
+          "warm": "tiles with drain"
+        },
+        "dielen": {
+          "kalt": "dining hall planks, rime in joints; seamless",
+          "warm": "warm dining hall planks; seamless"
+        },
+        "dielen_2": {
+          "kalt": "planks variant",
+          "warm": "planks variant"
+        },
+        "linoleum": {
+          "kalt": "station room linoleum, dull and frosted",
+          "warm": "station room linoleum, mossy green"
+        },
+        "fliesen_dielen_kante": {
+          "kalt": "tile-to-plank transition",
+          "warm": "tile-to-plank transition"
+        },
+        "schwelle": {
+          "kalt": "door threshold",
+          "warm": "door threshold"
+        },
+        "dielen_fleck": {
+          "kalt": "frost patch on planks",
+          "warm": "worn rag rug by the beds"
+        },
+        "wand_oben": {
+          "kalt": "wall top band, grey cold plaster",
+          "warm": "wall top band, cream plaster"
+        },
+        "wand": {
+          "kalt": "grey plaster over tiled dado, frost creeping at skirting; seamless",
+          "warm": "cream plaster over tiled dado; seamless"
+        },
+        "wand_ecke_links": {
+          "kalt": "wall corner left",
+          "warm": "wall corner left"
+        },
+        "wand_ecke_rechts": {
+          "kalt": "wall corner right",
+          "warm": "wall corner right"
+        },
+        "fenster_links": {
+          "kalt": "window left half, dark glass with frost flowers growing from the corner",
+          "warm": "window left half, fogged, warm light, drops (frame 1)"
+        },
+        "fenster_rechts": {
+          "kalt": "window right half, frost flowers",
+          "warm": "window right half, fogged with drops (frame 1)"
+        },
+        "tuer_oben": {
+          "kalt": "door top, frost on glazing",
+          "warm": "door top with lit glazing"
+        },
+        "tuer_unten": {
+          "kalt": "door bottom, frost on threshold",
+          "warm": "door bottom with light under the door"
+        },
+        "bett_kopf": {
+          "kalt": "bed head with chalk board above (last line erased), folded untouched rimed blanket",
+          "warm": "bed head, dented pillow, turned-down red blanket"
+        },
+        "bett_fuss": {
+          "kalt": "bed foot, blanket folded flat and rimed",
+          "warm": "bed foot, blanket rumpled, lived-in"
+        },
+        "tafel_radiert": {
+          "kalt": "wall board: chalk lines, last line rubbed out",
+          "warm": "same board"
+        },
+        "nachttisch": {
+          "kalt": "night table, frosted",
+          "warm": "night table with tea cup and candle stub"
+        },
+        "stuhl": {
+          "kalt": "chair, frosted",
+          "warm": "chair with red cushion"
+        },
+        "speisetisch_links": {
+          "kalt": "dining table left, bare grey top, upturned empty cup",
+          "warm": "table left with white cloth and cups"
+        },
+        "speisetisch_rechts": {
+          "kalt": "dining table right, bare",
+          "warm": "table right with cloth and cups"
+        },
+        "bank": {
+          "kalt": "bench, frosted",
+          "warm": "bench"
+        },
+        "herd_oben": {
+          "kalt": "tea kitchen stove top, cold rimed hob, kettle pushed aside",
+          "warm": "kettle on the glowing hot plate, steam (frame 1)"
+        },
+        "herd_unten": {
+          "kalt": "stove firebox, grey ash",
+          "warm": "stove firebox with fire (frame 1)"
+        },
+        "teeschrank": {
+          "kalt": "tea cupboard, cups grey",
+          "warm": "tea cupboard with white cups"
+        },
+        "spuele": {
+          "kalt": "sink with ice in the basin",
+          "warm": "sink with water and a little steam"
+        },
+        "stationstresen_links": {
+          "kalt": "station desk left with ledger, frosted",
+          "warm": "station desk left with ledger"
+        },
+        "stationstresen_rechts": {
+          "kalt": "station desk right, lamp dark",
+          "warm": "desk right, lamp lit amber"
+        },
+        "aktenregal": {
+          "kalt": "file shelf on wall, grey files",
+          "warm": "file shelf with coloured files"
+        },
+        "heizkoerper": {
+          "kalt": "radiator, rimed, icicle",
+          "warm": "radiator warm with drying cloth, warm air"
+        },
+        "herd_oben_f2": {
+          "kalt": "static copy",
+          "warm": "kettle steam frame 2"
+        },
+        "herd_unten_f2": {
+          "kalt": "static copy",
+          "warm": "fire frame 2"
+        },
+        "fenster_links_f2": {
+          "kalt": "static copy",
+          "warm": "window left drops frame 2"
+        },
+        "fenster_rechts_f2": {
+          "kalt": "static copy",
+          "warm": "window right drops frame 2"
+        },
+        "vorhang": {
+          "kalt": "curtain, grey, frosted",
+          "warm": "curtain, wine red"
+        },
+        "garderobe": {
+          "kalt": "coat hooks, empty, rimed",
+          "warm": "coat hooks with two coats"
+        },
+        "wanduhr": {
+          "kalt": "wall clock without numbers, frosted",
+          "warm": "wall clock without numbers"
+        },
+        "dielen_teppich": {
+          "kalt": "carpet on planks, grey and frosted",
+          "warm": "wine red carpet"
+        }
+      },
+      "steps": [
+        "each 16x16 cell drawn individually on the palette index grid (ASCII pixel maps and seamless pattern routines), no generator downscale",
+        "ground cells built periodic in 16 px and checked in 3x3 tiling",
+        "props on terrain get the 1px #1a1c2c outline, terrain none",
+        "warm cells are second drawings (thaw, open blossoms, steam, light, plants behind glass, lived-in rooms, plump roots), not palette swaps",
+        "kalt animation slots: same cell with a moving frost glint (kalt animations reif_*), so no cell is duplicated",
+        "every cell checked at 6x-8x zoom"
+      ],
+      "rejectedAttempts": [
+        {
+          "superseded": "v1 AI sheet (whole tileset as one generated image, downsampled) - rejected: mushy, ground not seamless, cells wrongly assigned, warm partly recoloured",
+          "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial world with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nASSET: Interior tileset sheet 'bh_stille' (Stillenhaeuser: quiet patient houses of a Victorian spa clinic, with shared dining halls). Square image containing an exact grid of 8 columns x 8 rows of equal square 16x16 game tiles, no gaps, no borders, no labels, full bleed, opaque. TOP 4 ROWS = COLD state, BOTTOM 4 ROWS = WARM state with IDENTICAL layout tile for tile. Cold: hoarfrost on window panes, pale bluish light, dull tiles. Warm: windows fogged with condensation, soft amber reflections, slightly warmer floor. Row 1: four pale green-grey hospital floor tiles (checker), two dining hall floorboards, floor edge north, floor edge south. Row 2: iron hospital bed top half, bed bottom half, small blank slate board on wall with three chalk lines (no letters, last line smudged), bedside table, wall top, wall center, wall left, wall right. Row 3: window with frost, second window, door, wainscot wall, long dining table left, table middle, table right, bench. Row 4: tea kitchen counter, tea kettle stove, cupboard, sink, station room desk, filing shelf, rug, radiator.",
+          "rawSha256": "9fd7d2856e849d8c621e937558077cd2b9bb1121ceb4f5fcc236c3fda9f39115",
+          "rawFile": "docs/art/briarholt1-raw/bh_stille.jpg"
+        },
+        {
+          "superseded": "v1 AI sheet (whole tileset as one generated image, downsampled) - rejected: mushy, ground not seamless, cells wrongly assigned, warm partly recoloured",
+          "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial world with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nEDIT TASK: The reference image is the COLD state of the interior tileset 'bh_stille' (quiet patient houses of a spa clinic: 8 columns x 4 rows of square tiles: floors, hospital beds, wall slate board, walls, frosted windows, door, dining tables, tea kitchen, station desk, shelf, rug, radiator). Redraw the EXACT same 8x4 grid, every tile at the same position with the same object, shape and outline, filling the whole image, no borders, no labels. Only change the state to WARM: frost on windows replaced by fogged condensation with soft amber glow behind, warmer cosy light on walls and floors, the radiator slightly warm. Keep beds, board, tables and furniture identical in position. Same palette, same pixel density, same tile order.",
+          "rawSha256": "01bcfe0b3fd00638b5d63493abb550fab37e435f94bab93187fbd765904eb3e5",
+          "rawFile": "docs/art/briarholt1-raw/bh_stille_warm.jpg"
+        }
+      ],
+      "outputSha256": {
+        "tilesets/bh_stille_kalt.png": "bd78f8931ffe808a0869e6f30490fa9dcca996fa7dee9b92099b489488604939",
+        "tilesets/bh_stille_warm.png": "c1e3fffd97f1016478ae2b6cd4c91b5801caaf8551e9c7d666693f75d2c2751d"
+      }
+    },
+    {
+      "id": "bh_wurzel",
+      "outputs": [
+        "tilesets/bh_wurzel_kalt.png",
+        "tilesets/bh_wurzel_warm.png"
+      ],
+      "kind": "tiles",
+      "mode": "handpixel",
+      "references": [
+        "tilesets/ds_stadt.png",
+        "tilesets/ds_innen.png",
+        "tilesets/C_06_bahnhof_tiles.png"
+      ],
+      "tool": "tools/art/briarholt1/export/tiles_v2/wurzel.py",
+      "cellDescriptions": {
+        "boden": {
+          "kalt": "dry tunnel floor, pale dust; seamless",
+          "warm": "darker damp earth; seamless"
+        },
+        "boden_2": {
+          "kalt": "floor variant",
+          "warm": "floor variant"
+        },
+        "geroell": {
+          "kalt": "rubble on floor",
+          "warm": "rubble on floor"
+        },
+        "boden_wurzel_h": {
+          "kalt": "thin grey shrivelled root across floor, cracked",
+          "warm": "plump pink-grey root across floor"
+        },
+        "boden_wurzel_v": {
+          "kalt": "thin grey root, vertical",
+          "warm": "plump pink-grey root, vertical"
+        },
+        "boden_pfuetze": {
+          "kalt": "dried cracked mud",
+          "warm": "condensation puddle"
+        },
+        "boden_wandfuss": {
+          "kalt": "floor meeting wall foot",
+          "warm": "floor meeting wall foot"
+        },
+        "stufen": {
+          "kalt": "earth steps with timber edges",
+          "warm": "earth steps"
+        },
+        "wand_oben": {
+          "kalt": "rock wall top, icicles",
+          "warm": "rock wall top"
+        },
+        "wand": {
+          "kalt": "rough rock wall, grey; seamless",
+          "warm": "rough rock wall, earth brown; seamless"
+        },
+        "wand_wurzel_a": {
+          "kalt": "wall with thin grey root",
+          "warm": "wall with plump pink-grey root"
+        },
+        "wand_wurzel_b": {
+          "kalt": "wall with grey root, diagonal",
+          "warm": "wall with pink-grey root, diagonal"
+        },
+        "wand_wurzelknoten": {
+          "kalt": "root knot on wall, grey",
+          "warm": "root knot, pink-grey"
+        },
+        "wand_wurzel_schild": {
+          "kalt": "root with blank tag tied to it (no text), frosted",
+          "warm": "root with blank tag"
+        },
+        "wand_tropfen": {
+          "kalt": "wall with icicles",
+          "warm": "wall with condensation drops (frame 1)"
+        },
+        "wand_stuetze": {
+          "kalt": "timber support on rock, frosted",
+          "warm": "timber support with root"
+        },
+        "wurzelwand_ol": {
+          "kalt": "root wall 3x2, top-left: grey cracked roots",
+          "warm": "root wall top-left: plump pink-grey roots, wet"
+        },
+        "wurzelwand_om": {
+          "kalt": "root wall top-middle: grey root crossing, cracked",
+          "warm": "root wall top-middle: root crossing where the turquoise pulse runs, frame 1 of 4"
+        },
+        "wurzelwand_or": {
+          "kalt": "root wall top-right",
+          "warm": "root wall top-right"
+        },
+        "wurzelwand_ul": {
+          "kalt": "root wall bottom-left",
+          "warm": "root wall bottom-left"
+        },
+        "wurzelwand_um": {
+          "kalt": "root wall bottom-middle",
+          "warm": "root wall bottom-middle"
+        },
+        "wurzelwand_ur": {
+          "kalt": "root wall bottom-right",
+          "warm": "root wall bottom-right"
+        },
+        "wurzel_spitze": {
+          "kalt": "root tip entering floor, grey",
+          "warm": "root tip, pink-grey with a bud"
+        },
+        "wurzel_schild_haengend": {
+          "kalt": "blank label hanging from root",
+          "warm": "blank label hanging from root"
+        },
+        "decke_wurzeln": {
+          "kalt": "thin roots hanging from ceiling edge, grey",
+          "warm": "roots hanging, pink-grey"
+        },
+        "stollen_ecke_links": {
+          "kalt": "tunnel corner left",
+          "warm": "tunnel corner left"
+        },
+        "stollen_ecke_rechts": {
+          "kalt": "tunnel corner right",
+          "warm": "tunnel corner right"
+        },
+        "eingang_oben": {
+          "kalt": "tunnel entrance top, icicles",
+          "warm": "entrance top, faint turquoise in the dark"
+        },
+        "eingang_unten": {
+          "kalt": "entrance bottom",
+          "warm": "entrance bottom, faint glow"
+        },
+        "tropfstelle": {
+          "kalt": "frozen drip spot on floor",
+          "warm": "drip landing in a small puddle (frame 1)"
+        },
+        "kiste": {
+          "kalt": "crate, frosted",
+          "warm": "crate with root growing over it"
+        },
+        "boden_3": {
+          "kalt": "floor variant with pebbles",
+          "warm": "floor variant with pebbles"
+        },
+        "wurzelwand_om_f1": {
+          "kalt": "static copy (no pulse when cold)",
+          "warm": "root wall pulse frame 2"
+        },
+        "wurzelwand_om_f2": {
+          "kalt": "static copy",
+          "warm": "pulse frame 3"
+        },
+        "wurzelwand_om_f3": {
+          "kalt": "static copy",
+          "warm": "pulse frame 4"
+        },
+        "wand_tropfen_f2": {
+          "kalt": "static copy",
+          "warm": "drops frame 2"
+        },
+        "tropfstelle_f2": {
+          "kalt": "static copy",
+          "warm": "drip ripple frame 2"
+        },
+        "wand_2": {
+          "kalt": "rock wall variant; seamless",
+          "warm": "rock wall variant; seamless"
+        },
+        "boden_wurzel_duenn": {
+          "kalt": "very thin grey rootlet across floor",
+          "warm": "thin pink-grey rootlet"
+        },
+        "wand_wurzel_quer": {
+          "kalt": "grey root straight across wall",
+          "warm": "pink-grey root straight across wall"
+        }
+      },
+      "steps": [
+        "each 16x16 cell drawn individually on the palette index grid (ASCII pixel maps and seamless pattern routines), no generator downscale",
+        "ground cells built periodic in 16 px and checked in 3x3 tiling",
+        "props on terrain get the 1px #1a1c2c outline, terrain none",
+        "warm cells are second drawings (thaw, open blossoms, steam, light, plants behind glass, lived-in rooms, plump roots), not palette swaps",
+        "kalt animation slots: same cell with a moving frost glint (kalt animations reif_*), so no cell is duplicated",
+        "every cell checked at 6x-8x zoom"
+      ],
+      "rejectedAttempts": [
+        {
+          "superseded": "v1 AI sheet (whole tileset as one generated image, downsampled) - rejected: mushy, ground not seamless, cells wrongly assigned, warm partly recoloured",
+          "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial world with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nASSET: Tileset sheet 'bh_wurzel' (Wurzelkammer: a dry old mine gallery that is strangely warm, its walls overgrown by thick roots). Square image containing an exact grid of 8 columns x 8 rows of equal square 16x16 game tiles, no gaps, no borders, no labels, full bleed, opaque. TOP 4 ROWS = COLD state, BOTTOM 4 ROWS = WARM state with IDENTICAL layout tile for tile. Cold: roots ash grey and lifeless, dry dusty rock, frost crystals. Warm: roots pinkish grey with a faint turquoise inner pulse (four pulse phases), condensation drops. Row 1: four dry gallery floor tiles, rock wall top, rock wall center, rock wall left, rock wall right. Row 2: four root wall tiles in sequence (warm: turquoise pulse moving along), root corner, root junction, thick root vertical, thick root horizontal. Row 3: root with small blank wooden label tag (no letters), second blank tag, timber mine prop, timber beam, rubble, rail track horizontal, rail track vertical, ore cart rail end. Row 4: four condensation drip tiles on rock (drops in different positions), dark pit edge north, pit edge south, root mat floor, dust patch.",
+          "rawSha256": "7a2a921251c47acaeb732057ef45588d865198ae5c984802762ecdab979518c9",
+          "rawFile": "docs/art/briarholt1-raw/bh_wurzel.jpg"
+        }
+      ],
+      "outputSha256": {
+        "tilesets/bh_wurzel_kalt.png": "179dcdf40babd24eafa1120b4627db07c096c7059ca91a7897a6300a1ccf06ac",
+        "tilesets/bh_wurzel_warm.png": "3a55cccd1f8a7e7fd3c9fed89fd2a8d58aa825cb296cc827496488475175b34c"
+      }
+    },
+    {
+      "id": "bh_klinik",
+      "outputs": [
+        "tilesets/bh_klinik_kalt.png",
+        "tilesets/bh_klinik_warm.png"
+      ],
+      "kind": "tiles",
+      "mode": "handpixel",
+      "references": [
+        "tilesets/ds_stadt.png",
+        "tilesets/ds_innen.png",
+        "tilesets/C_06_bahnhof_tiles.png"
+      ],
+      "tool": "tools/art/briarholt1/export/tiles_v2/klinik.py",
+      "cellDescriptions": {
+        "pumpen_boden": {
+          "kalt": "pump station tread plate, frosted; seamless",
+          "warm": "dark tread plate; seamless"
+        },
+        "pumpen_boden_adern": {
+          "kalt": "tread plate with dry dead root cracks (brown-grey)",
+          "warm": "tread plate with faint turquoise root veins, pulse frame 1 of 4"
+        },
+        "labor_fliesen": {
+          "kalt": "lab tiles grey, frost glints; seamless",
+          "warm": "lab tiles white with teal inlays; seamless"
+        },
+        "labor_fliesen_adern": {
+          "kalt": "lab tiles with dry root cracks",
+          "warm": "lab tiles with faint turquoise veins"
+        },
+        "parkett": {
+          "kalt": "Mutterhaus herringbone parquet, rime in joints; seamless",
+          "warm": "warm herringbone parquet; seamless"
+        },
+        "parkett_2": {
+          "kalt": "parquet variant",
+          "warm": "parquet variant"
+        },
+        "stollen_boden": {
+          "kalt": "tunnel floor packed earth, frost specks; seamless",
+          "warm": "dark earth floor; seamless"
+        },
+        "stollen_boden_adern": {
+          "kalt": "earth floor with dry root cracks",
+          "warm": "earth floor with turquoise veins"
+        },
+        "pumpe_oben": {
+          "kalt": "cast-iron pump housing top, blank gauge needle at rest, rime",
+          "warm": "pump running: needle up, steam leak, brass"
+        },
+        "pumpe_unten": {
+          "kalt": "pump housing bottom, firebox dark, frost",
+          "warm": "pump bottom, firebox glowing"
+        },
+        "manometer": {
+          "kalt": "wall gauge without numbers, needle down, frosted",
+          "warm": "gauge without numbers, needle up, red mark"
+        },
+        "gusswand_oben": {
+          "kalt": "riveted cast iron wall top, icicles",
+          "warm": "cast iron wall top"
+        },
+        "gusswand": {
+          "kalt": "riveted cast iron wall, frost; seamless",
+          "warm": "riveted cast iron wall, condensate runs; seamless"
+        },
+        "rohr_gross_v": {
+          "kalt": "big vertical pipe, rimed",
+          "warm": "big vertical pipe, warm"
+        },
+        "hebelbank": {
+          "kalt": "lever bank, all levers down",
+          "warm": "lever bank, two levers up"
+        },
+        "laufsteg": {
+          "kalt": "catwalk grate, frosted",
+          "warm": "catwalk grate"
+        },
+        "sudkessel_fundament_links": {
+          "kalt": "round brew-kettle foundation, left half, firebox dark, frost",
+          "warm": "foundation with fire glowing in the firebox"
+        },
+        "sudkessel_fundament_rechts": {
+          "kalt": "foundation right half (mirrored)",
+          "warm": "foundation right half, fire"
+        },
+        "labortisch_links": {
+          "kalt": "lab bench left, empty frosted glassware",
+          "warm": "lab bench left, turquoise liquid in flask"
+        },
+        "labortisch_rechts": {
+          "kalt": "lab bench right, papers, grey vial",
+          "warm": "lab bench right, papers, violet vial"
+        },
+        "abzug": {
+          "kalt": "fume hood, dark",
+          "warm": "fume hood venting"
+        },
+        "fliesenwand_oben": {
+          "kalt": "tiled wall top",
+          "warm": "tiled wall top"
+        },
+        "fliesenwand": {
+          "kalt": "tiled wall, frost at the foot; seamless",
+          "warm": "tiled wall with teal stripe; seamless"
+        },
+        "ausguss": {
+          "kalt": "floor drain gully, frosted",
+          "warm": "floor drain gully, wet"
+        },
+        "zeichenschrank_oben": {
+          "kalt": "plan chest top, drawers shut, frosted",
+          "warm": "plan chest top with drawer pulled out and plan sheet"
+        },
+        "zeichenschrank_unten": {
+          "kalt": "plan chest bottom, drawers",
+          "warm": "plan chest bottom"
+        },
+        "zeichenpult": {
+          "kalt": "drawing desk with plan, lamp off, frosted",
+          "warm": "drawing desk with plan, lamp lit"
+        },
+        "tapete_oben": {
+          "kalt": "wallpaper top band, grey",
+          "warm": "wallpaper top band, green"
+        },
+        "tapete": {
+          "kalt": "wallpaper with wainscot, grey and frosted; seamless",
+          "warm": "green wallpaper with wainscot; seamless"
+        },
+        "kamin": {
+          "kalt": "fireplace, cold ash, frost",
+          "warm": "fireplace burning"
+        },
+        "stollen_eingang_oben": {
+          "kalt": "tunnel entrance top, dark mouth with icicles",
+          "warm": "tunnel mouth, roots glimmering faintly turquoise"
+        },
+        "stollen_eingang_unten": {
+          "kalt": "tunnel entrance bottom, frosted threshold",
+          "warm": "tunnel threshold with faint glow and roots"
+        },
+        "pumpen_boden_adern_f1": {
+          "kalt": "static copy (veins are dead when cold)",
+          "warm": "vein pulse frame 2"
+        },
+        "pumpen_boden_adern_f2": {
+          "kalt": "static copy",
+          "warm": "vein pulse frame 3"
+        },
+        "pumpen_boden_adern_f3": {
+          "kalt": "static copy",
+          "warm": "vein pulse frame 4"
+        },
+        "parkett_adern": {
+          "kalt": "parquet with dry root cracks",
+          "warm": "parquet with faint dark-teal veins (no pulse)"
+        },
+        "stollen_wand": {
+          "kalt": "tunnel rock blocks, grey frosted; seamless",
+          "warm": "tunnel rock blocks earth brown, vein trace; seamless"
+        },
+        "stollen_stuetze": {
+          "kalt": "timber tunnel support, frosted",
+          "warm": "timber support with a root creeping"
+        },
+        "wandlampe": {
+          "kalt": "wall gas lamp, dark",
+          "warm": "wall gas lamp lit"
+        },
+        "gittertor": {
+          "kalt": "iron gate, locked with a brass lock, frosted",
+          "warm": "gate swung open, dark passage with faint veins"
+        }
+      },
+      "steps": [
+        "each 16x16 cell drawn individually on the palette index grid (ASCII pixel maps and seamless pattern routines), no generator downscale",
+        "ground cells built periodic in 16 px and checked in 3x3 tiling",
+        "props on terrain get the 1px #1a1c2c outline, terrain none",
+        "warm cells are second drawings (thaw, open blossoms, steam, light, plants behind glass, lived-in rooms, plump roots), not palette swaps",
+        "kalt animation slots: same cell with a moving frost glint (kalt animations reif_*), so no cell is duplicated",
+        "every cell checked at 6x-8x zoom"
+      ],
+      "rejectedAttempts": [
+        {
+          "superseded": "v1 AI sheet (whole tileset as one generated image, downsampled) - rejected: mushy, ground not seamless, cells wrongly assigned, warm partly recoloured",
+          "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial world with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nASSET: Tileset sheet 'bh_klinik' (Wurzelkranz terraces: old pump station, clinic laboratory, mother house of the clinic, mine gallery entrance). Square image containing an exact grid of 8 columns x 8 rows of equal square 16x16 game tiles, no gaps, no borders, no labels, full bleed, opaque. TOP 4 ROWS = COLD state, BOTTOM 4 ROWS = WARM state with IDENTICAL layout tile for tile. Cold: frost, grey dormant floors. Warm: the same floors with faint thin turquoise root veins glowing under them (four slightly different vein phases in row 4), condensation. Row 1: cast iron pump station floor plate, riveted iron wall, big pressure gauge with blank dial (no numbers), pipe manifold, pump housing, iron grating, brick pillar, iron door. Row 2: white laboratory tiles, cracked lab tiles, stone foundation ring for a brewing vat, drain, lab counter, glass shelf with empty vials, sink, lab wall. Row 3: herringbone parquet floor, parquet variant, drawing cabinet with flat drawers, drawing cabinet second, carpet, mother house wall, window, wooden door. Row 4: four floor tiles with root veins (cold: grey cracks; warm: faint turquoise pulse phases), mine gallery entrance left, gallery entrance right, timber prop, dry rock floor.",
+          "rawSha256": "a3cd8416643886d82287501628bcd989a6df019fe05d2ee2295f4676abca4768",
+          "rawFile": "docs/art/briarholt1-raw/bh_klinik.jpg"
+        }
+      ],
+      "outputSha256": {
+        "tilesets/bh_klinik_kalt.png": "929a6ffd555429121ab4acd34beda80f3d7aa0326867023237d0ec3878fd008a",
+        "tilesets/bh_klinik_warm.png": "26cc748d2a212a4259514fe3f9f43522a3d3d27ff1e7f27359dca1d590ea8296"
+      }
+    },
+    {
+      "id": "p_buegelraum",
+      "outputs": [
+        "props/bh_kesselgrund.png"
+      ],
+      "kind": "props",
+      "mode": "generate",
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial world with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nASSET: Prop sprite sheet 'bh_buegelraum' (a stoker's hideout in an old ironing room of a disused laundry). Exactly 6 separate objects in a grid of 3 columns x 2 rows, each object centered in its own cell with generous empty space, same 3/4 top-down view, 1px dark blue-grey outline. Background: flat solid pure magenta (#FF00FF) everywhere, no ground, no shadows on background, no grid lines. Row 1: (1) simple iron cot bed with grey wool blanket; (2) a wooden storage chest / supply crate stack with a lantern; (3) a hinged trap wall panel of wooden boards in a brick frame (a hidden drop wall). Row 2: (4) a square brass valve board mounted on wood with three round empty socket circles in a row, connected by little painted pipe lines, no text, no numbers; (5) a coal stove with small open fire door; (6) a coat rack with a heavy stoker coat and a scarf.",
+      "references": [
+        "props/ds_speisewagen.png"
+      ],
+      "aspectRatio": "4:3",
+      "rawSha256": "da1149c04c2cc666d7d75901073bb7f002c3041a096fcaf65388e1be5bae2ae6",
+      "steps": [
+        "magenta chroma key (binary mask, opening 2px, small islands removed)",
+        "per-object crop on the requested object grid",
+        "fit into target region keeping aspect, mode downscale, bottom-centre anchor",
+        "1px #1a1c2c outline on alpha edge",
+        "derived frames: coach horses 1px bob; steam 6 frames by scale and ordered-dither dissolve; valve turning = wheel mirror/1px shift; fire and vat = palette cycle; plant bud->bloom = ordered-dither blend; pump wheel = mirror/1px shift; empty bunker = interior recolour; turned sign = sign recolour; distribution plant open/return = liquid recolour turquoise/violet; peg markers drawn procedurally"
+      ],
+      "outputSha256": {
+        "props/bh_kesselgrund.png": "fe350c1d0379d09ea4729201fbe20c2035b8ff660e7816443e27d9e4c5ace226"
+      },
+      "rawFile": "docs/art/briarholt1-raw/p_buegelraum.jpg"
+    },
+    {
+      "id": "p_glasgaerten",
+      "outputs": [
+        "props/bh_glasgaerten.png"
+      ],
+      "kind": "props",
+      "mode": "generate",
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial world with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nASSET: Prop sprite sheet 'bh_glasgaerten' (greenhouse gardens of a sinister spa clinic). Exactly 8 separate objects in a grid of 4 columns x 2 rows, each object centered in its own cell with generous empty space, same 3/4 top-down view, 1px dark blue-grey outline. Background: flat solid pure magenta (#FF00FF) everywhere, no ground, no shadows on background, no grid lines. NO TEXT anywhere. Row 1: (1) a raised wooden garden bed with soil and a small blank wooden sign facing front; (2) the same bed with the blank sign turned around (back of sign showing); (3) a lectern with an open seed book, pages blank with tiny drawings; (4) large grafting shears, oversized, brass and steel. Row 2: (5) an iron holder stand for a glass plant capsule, empty; (6) the same holder with a sealed glass capsule containing a tiny pale plant; (7) a tall strange flower plant in a pot with a closed bud; (8) the same plant with the bud opened, petals pale peach, faint turquoise glow inside.",
+      "references": [
+        "props/ds_endbahnhof.png"
+      ],
+      "aspectRatio": "16:9",
+      "rawSha256": "ba60ff1a3aa668667e8f34ceed99665a1d3095366bd68cbd688f4b17d3399b1c",
+      "steps": [
+        "magenta chroma key (binary mask, opening 2px, small islands removed)",
+        "per-object crop on the requested object grid",
+        "fit into target region keeping aspect, mode downscale, bottom-centre anchor",
+        "1px #1a1c2c outline on alpha edge",
+        "derived frames: coach horses 1px bob; steam 6 frames by scale and ordered-dither dissolve; valve turning = wheel mirror/1px shift; fire and vat = palette cycle; plant bud->bloom = ordered-dither blend; pump wheel = mirror/1px shift; empty bunker = interior recolour; turned sign = sign recolour; distribution plant open/return = liquid recolour turquoise/violet; peg markers drawn procedurally"
+      ],
+      "outputSha256": {
+        "props/bh_glasgaerten.png": "fe50676d6de34e7b2f1421571ccc812e64850441dd8dca86db2bc25782de445b"
+      },
+      "rawFile": "docs/art/briarholt1-raw/p_glasgaerten.jpg"
+    },
+    {
+      "id": "p_kesselgrund",
+      "outputs": [
+        "props/bh_kesselgrund.png"
+      ],
+      "kind": "props",
+      "mode": "generate",
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial world with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nASSET: Prop sprite sheet 'bh_kesselgrund' (boiler quarter workshops). Exactly 12 separate objects in a grid of 4 columns x 3 rows, each object centered in its own cell with generous empty space, same 3/4 top-down view, 1px dark blue-grey outline. Background: flat solid pure magenta (#FF00FF) everywhere, no ground, no shadows on background, no grid lines. Row 1: (1) tall standing pipe valve with round handwheel, CLOSED, rust-red tag; (2) the same valve, COLD, frosted, slate-blue tag; (3) the same valve, WARM, faint steam, amber tag; (4) iron maintenance cabinet with tools. Row 2: (5) empty coal bunker; (6) the same coal bunker full of coal; (7) round pressure gauge on a short pipe, blank dial with needle low, no numbers; (8) the same gauge with needle high. Row 3: (9) wooden ironing board with flat iron; (10) cast iron laundry mangle with rollers; (11) small separate brick fireplace stove with glowing fire; (12) wooden crate.",
+      "references": [
+        "props/ds_speisewagen.png"
+      ],
+      "aspectRatio": "4:3",
+      "rawSha256": "db73cf5fbc014fbcd1733508792b82d06496f388822d5ed0cb479df25bc77284",
+      "steps": [
+        "magenta chroma key (binary mask, opening 2px, small islands removed)",
+        "per-object crop on the requested object grid",
+        "fit into target region keeping aspect, mode downscale, bottom-centre anchor",
+        "1px #1a1c2c outline on alpha edge",
+        "derived frames: coach horses 1px bob; steam 6 frames by scale and ordered-dither dissolve; valve turning = wheel mirror/1px shift; fire and vat = palette cycle; plant bud->bloom = ordered-dither blend; pump wheel = mirror/1px shift; empty bunker = interior recolour; turned sign = sign recolour; distribution plant open/return = liquid recolour turquoise/violet; peg markers drawn procedurally"
+      ],
+      "outputSha256": {
+        "props/bh_kesselgrund.png": "fe350c1d0379d09ea4729201fbe20c2035b8ff660e7816443e27d9e4c5ace226"
+      },
+      "rawFile": "docs/art/briarholt1-raw/p_kesselgrund.jpg"
+    },
+    {
+      "id": "p_kutschenhof",
+      "outputs": [
+        "props/bh_kutschenhof.png",
+        "props/bh_promenade.png"
+      ],
+      "kind": "props",
+      "mode": "generate",
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial world with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nASSET: Prop sprite sheet 'bh_kutschenhof' (coach yard of Briarholt spa town, frost in the brick). Exactly 6 separate objects arranged in a grid of 3 columns x 2 rows, each object centered in its own cell with generous empty space around it, all objects facing the same 3/4 top-down view, 1px dark blue-grey outline. Background: flat solid pure magenta (#FF00FF) everywhere, no ground, no shadows on the background, no grid lines. Row 1: (1) a long dark green Victorian post coach with two grey horses harnessed in front, side view slightly from above, wide object; (2) a wooden luggage hand cart loaded with suitcases and sacks of flower soil with small seedlings; (3) a wicker and iron patient chair with a blanket. Row 2: (4) an iron notice board on two posts, blank panel with only a small peach-fruit emblem at the top, no text; (5) a burst of white-grey steam discharge cloud, round and billowing; (6) a wooden bench for waiting patients with frost on the seat.",
+      "references": [
+        "props/ds_endbahnhof.png"
+      ],
+      "aspectRatio": "4:3",
+      "rawSha256": "3c620ed999b86e7f2757ebc6aac52c6a309b995443f04f888500b61f031e0938",
+      "steps": [
+        "magenta chroma key (binary mask, opening 2px, small islands removed)",
+        "per-object crop on the requested object grid",
+        "fit into target region keeping aspect, mode downscale, bottom-centre anchor",
+        "1px #1a1c2c outline on alpha edge",
+        "derived frames: coach horses 1px bob; steam 6 frames by scale and ordered-dither dissolve; valve turning = wheel mirror/1px shift; fire and vat = palette cycle; plant bud->bloom = ordered-dither blend; pump wheel = mirror/1px shift; empty bunker = interior recolour; turned sign = sign recolour; distribution plant open/return = liquid recolour turquoise/violet; peg markers drawn procedurally"
+      ],
+      "outputSha256": {
+        "props/bh_kutschenhof.png": "dccddef51af8a70330873c31725685c244e19928cd56570de823836e1c841809",
+        "props/bh_promenade.png": "7ef830c4825a68702210c99a37cd1428af1ed7bfcf983dfb9384efedbb1d94c8"
+      },
+      "rawFile": "docs/art/briarholt1-raw/p_kutschenhof.jpg"
+    },
+    {
+      "id": "p_promenade",
+      "outputs": [
+        "props/bh_promenade.png"
+      ],
+      "kind": "props",
+      "mode": "generate",
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial world with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nASSET: Prop sprite sheet 'bh_promenade' (winter promenade of a Victorian spa town). Exactly 6 separate objects in a grid of 3 columns x 2 rows, each object centered in its own cell with generous empty space, same 3/4 top-down view, 1px dark blue-grey outline. Background: flat solid pure magenta (#FF00FF) everywhere, no ground, no shadows on background, no grid lines. Row 1: (1) an octagonal cast-iron music pavilion with a green-grey roof, wide; (2) a small writing desk with a stack of blank postcards and an inkwell; (3) a palm tree in a heavy wooden tub with stiff frosted leaves (cold state). Row 2: (4) the same palm tub with leaves opened and green (warm state); (5) a tall gas street lantern with warm amber light; (6) a small spa kiosk booth with an awning, plus (in the same cell, right) an iron park bench is not needed: only the kiosk.",
+      "references": [
+        "props/ds_endbahnhof.png"
+      ],
+      "aspectRatio": "4:3",
+      "rawSha256": "fcf593268daacc61698224a92a93a6c02dd7bbf792b00edd95474f889c8e5ec8",
+      "steps": [
+        "magenta chroma key (binary mask, opening 2px, small islands removed)",
+        "per-object crop on the requested object grid",
+        "fit into target region keeping aspect, mode downscale, bottom-centre anchor",
+        "1px #1a1c2c outline on alpha edge",
+        "derived frames: coach horses 1px bob; steam 6 frames by scale and ordered-dither dissolve; valve turning = wheel mirror/1px shift; fire and vat = palette cycle; plant bud->bloom = ordered-dither blend; pump wheel = mirror/1px shift; empty bunker = interior recolour; turned sign = sign recolour; distribution plant open/return = liquid recolour turquoise/violet; peg markers drawn procedurally"
+      ],
+      "outputSha256": {
+        "props/bh_promenade.png": "7ef830c4825a68702210c99a37cd1428af1ed7bfcf983dfb9384efedbb1d94c8"
+      },
+      "rawFile": "docs/art/briarholt1-raw/p_promenade.jpg"
+    },
+    {
+      "id": "p_stillenhaeuser",
+      "outputs": [
+        "props/bh_stillenhaeuser.png"
+      ],
+      "kind": "props",
+      "mode": "generate",
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial world with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nASSET: Prop sprite sheet 'bh_stillenhaeuser' (quiet patient houses of a Victorian spa clinic). Exactly 6 separate objects in a grid of 3 columns x 2 rows, each object centered in its own cell with generous empty space, same 3/4 top-down view, 1px dark blue-grey outline. Background: flat solid pure magenta (#FF00FF) everywhere, no ground, no shadows on background, no grid lines. NO TEXT, no letters anywhere. Row 1: (1) white iron patient bed with a small black slate board hanging at its foot, three chalk scribble lines with the last line smudged away; (2) a tea trolley with teapot and cups; (3) a nurse's small closed notebook with a ribbon, lying on a little stool. Row 2: (4) a long dining table with white cloth and bowls, wide; (5) a pair of simple wooden chairs; (6) a child's crayon drawing pinned on a piece of wallpaper, a house and a stick figure, no letters.",
+      "references": [
+        "props/ds_speisewagen.png"
+      ],
+      "aspectRatio": "4:3",
+      "rawSha256": "d1ef066ee45dd1c5b6e1cf6ac99ae3348d12cf89f4589e9b126f1d493a409aa5",
+      "steps": [
+        "magenta chroma key (binary mask, opening 2px, small islands removed)",
+        "per-object crop on the requested object grid",
+        "fit into target region keeping aspect, mode downscale, bottom-centre anchor",
+        "1px #1a1c2c outline on alpha edge",
+        "derived frames: coach horses 1px bob; steam 6 frames by scale and ordered-dither dissolve; valve turning = wheel mirror/1px shift; fire and vat = palette cycle; plant bud->bloom = ordered-dither blend; pump wheel = mirror/1px shift; empty bunker = interior recolour; turned sign = sign recolour; distribution plant open/return = liquid recolour turquoise/violet; peg markers drawn procedurally"
+      ],
+      "outputSha256": {
+        "props/bh_stillenhaeuser.png": "049b553699d9aa6b0612c191d7070552432fcf699b71c9b3275f1d242ac8cfee"
+      },
+      "rawFile": "docs/art/briarholt1-raw/p_stillenhaeuser.jpg"
+    },
+    {
+      "id": "p_wurzelkranz",
+      "outputs": [
+        "props/bh_wurzelkranz.png"
+      ],
+      "kind": "props",
+      "mode": "generate",
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial world with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nASSET: Prop sprite sheet 'bh_wurzelkranz' (old pump station, clinic laboratory and mother house). Exactly 6 separate objects in a grid of 3 columns x 2 rows, each object centered in its own cell with generous empty space, same 3/4 top-down view, 1px dark blue-grey outline. Background: flat solid pure magenta (#FF00FF) everywhere, no ground, no shadows on background, no grid lines. NO TEXT, no numbers. Row 1: (1) a large cast-iron pump station flywheel with spokes on a stand; (2) a copper brewing vat (Sudkessel) on a brick base with a lid and a faint turquoise liquid glint; (3) a drafting table with a large rolled-out foundation plan drawing of roots under a building (lines only, no writing). Row 2: (4) a wide distribution apparatus: three glass-and-brass containers in a row on a frame, with brass taps and a big shut-off flap lever, wide object; (5) a sealed metal return container drum with wax seals; (6) the same return container opened, lid lifted, faint violet mist inside.",
+      "references": [
+        "props/ds_speisewagen.png"
+      ],
+      "aspectRatio": "4:3",
+      "rawSha256": "69a3a296aece02ade465b0e2b60b6fd60275f0a0b5b7079b9c2281d9cec9fff4",
+      "steps": [
+        "magenta chroma key (binary mask, opening 2px, small islands removed)",
+        "per-object crop on the requested object grid",
+        "fit into target region keeping aspect, mode downscale, bottom-centre anchor",
+        "1px #1a1c2c outline on alpha edge",
+        "derived frames: coach horses 1px bob; steam 6 frames by scale and ordered-dither dissolve; valve turning = wheel mirror/1px shift; fire and vat = palette cycle; plant bud->bloom = ordered-dither blend; pump wheel = mirror/1px shift; empty bunker = interior recolour; turned sign = sign recolour; distribution plant open/return = liquid recolour turquoise/violet; peg markers drawn procedurally"
+      ],
+      "outputSha256": {
+        "props/bh_wurzelkranz.png": "e56c0a4a16fafb18e65aeba0b612b83d9238f301602b31cae057c90835c2882e"
+      },
+      "rawFile": "docs/art/briarholt1-raw/p_wurzelkranz.jpg"
+    },
+    {
+      "id": "bh_waerme",
+      "outputs": [
+        "fx/bh_waerme.png"
+      ],
+      "kind": "effect",
+      "mode": "handpixel",
+      "references": [
+        "fx/ds_nachhall_weg.png"
+      ],
+      "tool": "tools/art/briarholt1/export/tiles_v2/fx2.py",
+      "cellDescriptions": {
+        "dampf_rohr": "pipe stub, puff leaves the mouth, grows, splits, dissolves (4f)",
+        "kondensat_schrift": "fogged patch; two lines of cursive-like strokes (no letters) are wiped in stroke by stroke, last frame drips run and one turquoise glint (6f)",
+        "reif_uebergang": "frost ferns grow in from two corners until the cell is rimed (4f)",
+        "ruecklauf_puls": "faint violet glow travels through a pipe (overlay, 4f)",
+        "kondensat_sperre": "32x32 water wall: spray bar with nozzles, sheets of condensate falling, highlights run down, splash pool (4f)",
+        "leitung_*": "pipe-plan overlay lines h/v/corner/tee in warm amber, kalt slate, belastet violet"
+      },
+      "rejectedAttempts": [
+        {
+          "superseded": "v1 procedural fx (noise/threshold driven), rejected by the user"
+        }
+      ],
+      "outputSha256": {
+        "fx/bh_waerme.png": "8e543f5d541b7a9816ea2764fc33dc866165899d3d2371baa253ae15a2a7eea7"
+      }
+    },
+    {
+      "id": "bh_ankunft",
+      "outputs": [
+        "ui/scenes/bh_ankunft.png"
+      ],
+      "kind": "still",
+      "mode": "generate",
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial world with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nASSET: Opaque scene illustration 'bh_ankunft' (final size 480x270, chunky pixel art like the reference). Arrival at Briarholt: a frosty coach yard under a low brick roof, frost creeping into red-grey brick, a post coach with two grey horses, luggage and sacks of flower soil stacked together, a few small distant figures of patients in blankets. Behind and above, in a cold dry valley basin, rows of large glowing glass domes (greenhouses) with pale peach blossoms visible inside, warm light through fogged glass, hot pipes and glass walkways connecting them, thin steam plumes in cold air. Wide establishing shot, slightly elevated view. No text.",
+      "references": [
+        "ui/scenes/ds_nachtzug.png"
+      ],
+      "aspectRatio": "16:9",
+      "rawSha256": "570c22ef105aa1c72c8a2c0afb13938401306bf37d1e9c75700a66f9d6b3b5db",
+      "steps": [
+        "mode downscale of the whole image to the exact target size (4x box pre-shrink, median 3, palette majority per pixel)",
+        "opaque, shared palette"
+      ],
+      "outputSha256": {
+        "ui/scenes/bh_ankunft.png": "46dde5c732cdd10d3957d2a3e0900b00d812fd2920a345db1ef7f6007d4d23a4"
+      },
+      "rawFile": "docs/art/briarholt1-raw/s_bh_ankunft.jpg"
+    },
+    {
+      "id": "kapitel5_karte",
+      "outputs": [
+        "ui/scenes/kapitel5_karte.png"
+      ],
+      "kind": "still",
+      "mode": "generate",
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial world with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nASSET: Opaque chapter title card 'kapitel5_karte' (final size 480x270, chunky pixel art like the reference chapter card), absolutely NO text, no letters, no numbers. Composition: the lower half is a close view of an old red-grey brick wall covered in white hoarfrost crystals, cold and dry; the upper half shows, through a tall pane of fogged greenhouse glass with iron mullions and condensation droplets, branches of a peach tree in pale pink blossom lit by warm amber light, one tiny faint turquoise glint in a blossom. Cold below, warm above. Melancholic and beautiful.",
+      "references": [
+        "ui/scenes/kapitel3_karte.png"
+      ],
+      "aspectRatio": "16:9",
+      "rawSha256": "4721a3eb3aff162a60e92513b1a4d832079afca31aea55c46fcac5d31169c76d",
+      "steps": [
+        "mode downscale of the whole image to the exact target size (4x box pre-shrink, median 3, palette majority per pixel)",
+        "opaque, shared palette"
+      ],
+      "outputSha256": {
+        "ui/scenes/kapitel5_karte.png": "2e40838ec93d13ff1637b26d5c3c4a6841d85a987c4da6e7a1184d9964d98a06"
+      },
+      "rawFile": "docs/art/briarholt1-raw/s_kapitel5_karte.jpg"
+    },
+    {
+      "id": "bh_trockenraum",
+      "outputs": [
+        "ui/scenes/bh_trockenraum.png"
+      ],
+      "kind": "still",
+      "mode": "generate",
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial world with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nASSET: Opaque small scene illustration 'bh_trockenraum' (final size 240x135, very chunky pixel art). In a laundry drying room with hanging sheets: Orla Fencrest, the fled patient (keep her exact identity from the reference portrait/sprite: hair, face, clothing colours), sits huddled under a grey wool blanket, holding a cold sealed glass plant capsule against her chest. Standing nearby, Ruben 'Frost' Bellweather, the stoker (keep his exact identity from his reference portrait/sprite), quiet and protective, in front of a small framed family picture on the brick wall, frost on the wall around the picture. Melancholic, intimate, never gory. No text.",
+      "references": [
+        "portraits/bh_orla_fencrest_emotions.png",
+        "portraits/bh_bellweather_emotions.png",
+        "characters/bh_orla_fencrest_walk.png",
+        "characters/bh_bellweather_walk.png"
+      ],
+      "aspectRatio": "16:9",
+      "rawSha256": "157c2e5e14642017723f315ad87744fa9771d9c8015e51512ffc694d00bce424",
+      "steps": [
+        "mode downscale of the whole image to the exact target size (4x box pre-shrink, median 3, palette majority per pixel)",
+        "opaque, shared palette"
+      ],
+      "identityPreserve": true,
+      "outputSha256": {
+        "ui/scenes/bh_trockenraum.png": "280edbff63a9b0306c85c4608d95c0cfc0314d33b8cad2fdbd7b846251e61159"
+      },
+      "rawFile": "docs/art/briarholt1-raw/s_bh_trockenraum.jpg"
+    },
+    {
+      "id": "bh_pfirsich",
+      "outputs": [
+        "ui/scenes/bh_pfirsich.png"
+      ],
+      "kind": "still",
+      "mode": "generate",
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial world with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nASSET: Opaque small scene illustration 'bh_pfirsich' (final size 240x135, very chunky pixel art). Close-up still life: a single ripe peach cut open on a worn wooden table in dim light, its stone (kern) glowing faintly turquoise from within, a thin wisp of turquoise light, dark muted background with a hint of fogged greenhouse glass. Quiet, uncanny, beautiful. No text.",
+      "references": [
+        "ui/scenes/ds_nachtzug.png"
+      ],
+      "aspectRatio": "16:9",
+      "rawSha256": "efa8153c6820e79dc75fd52c8090e53fb632f2533f33f184bf08ac9d5fb9b480",
+      "steps": [
+        "mode downscale of the whole image to the exact target size (4x box pre-shrink, median 3, palette majority per pixel)",
+        "opaque, shared palette"
+      ],
+      "outputSha256": {
+        "ui/scenes/bh_pfirsich.png": "36e7918d8bff225896ba2e454d6e27d295674fbe43bc127d397ad33b6a393a1b"
+      },
+      "rawFile": "docs/art/briarholt1-raw/s_bh_pfirsich.jpg"
+    },
+    {
+      "id": "bh_ende_wahl",
+      "outputs": [
+        "ui/scenes/bh_ende_wahl.png"
+      ],
+      "kind": "still",
+      "mode": "generate",
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial world with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nASSET: Opaque small ending scene 'bh_ende_wahl' (final size 240x135, very chunky pixel art). Ending: Briarholt becomes an ordinary, honest sanatorium. A friendly Victorian spa clinic with pale facade and open windows in soft grey-blue morning light; in front a modest garden with gravel paths, plain flower borders with ordinary winter herbs, wooden benches; a nurse walks with two patients in warm coats, one patient reading a letter on a bench. Behind, the great glass domes are clear and plain with NO glow, ordinary greenhouses. No turquoise anywhere. Calm, sober, quietly hopeful, not a prison. No text.",
+      "references": [
+        "ui/scenes/ds_nachtzug.png"
+      ],
+      "aspectRatio": "16:9",
+      "rawSha256": "187e182307dfa3aa6d0659b22eadc5a1d3b689abcb9d39881a73e01b1dd403fc",
+      "steps": [
+        "mode downscale of the whole image to the exact target size (4x box pre-shrink, median 3, palette majority per pixel)",
+        "opaque, shared palette"
+      ],
+      "rejectedAttempts": [
+        {
+          "note": "first result read like a prison yard (beds outdoors); regenerated with clarified prompt",
+          "rawSha256": "53481f17a264e65fa0d2902d18ca6a9ef3e3d8cf0e54886a0006f4240487218f",
+          "rawFile": "docs/art/briarholt1-raw/s_bh_ende_wahl_rejected.jpg"
+        }
+      ],
+      "outputSha256": {
+        "ui/scenes/bh_ende_wahl.png": "ce73f222b332597219b8a3d8376db09dbfcfa196b319125bbe71c218bd215fba"
+      },
+      "rawFile": "docs/art/briarholt1-raw/s_bh_ende_wahl.jpg"
+    },
+    {
+      "id": "bh_ende_winter",
+      "outputs": [
+        "ui/scenes/bh_ende_winter.png"
+      ],
+      "kind": "still",
+      "mode": "generate",
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial world with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nASSET: Opaque small ending scene 'bh_ende_winter' (final size 240x135, very chunky pixel art). Ending: the heat network is shut down, the glass gardens freeze. A simple warming room (Waermestube) in deep snow: inside, a big iron stove glows amber, townspeople in blankets sit close together on benches; Ruben 'Frost' Bellweather the stoker (keep his exact identity from the reference portrait and sprite: face, cap, clothing colours) stands by the stove feeding it coal. Through the window, snow and dark frozen glass domes. Warm and sad at once. No text.",
+      "references": [
+        "portraits/bh_bellweather_emotions.png",
+        "characters/bh_bellweather_walk.png"
+      ],
+      "aspectRatio": "16:9",
+      "rawSha256": "b17c7711da81891e78e68b198d7e3fc59a0d07a5d2918c67fd3e1b67e2fa90b2",
+      "steps": [
+        "mode downscale of the whole image to the exact target size (4x box pre-shrink, median 3, palette majority per pixel)",
+        "opaque, shared palette"
+      ],
+      "identityPreserve": true,
+      "outputSha256": {
+        "ui/scenes/bh_ende_winter.png": "c107b22017e51d2fea376be628440eb07c1cc595742e5250dbf3509c890d13d5"
+      },
+      "rawFile": "docs/art/briarholt1-raw/s_bh_ende_winter.jpg"
+    },
+    {
+      "id": "bh_ende_verwahrt",
+      "outputs": [
+        "ui/scenes/bh_ende_verwahrt.png"
+      ],
+      "kind": "still",
+      "mode": "generate",
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial world with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nASSET: Opaque small ending scene 'bh_ende_verwahrt' (final size 240x135, very chunky pixel art). Ending: the captured memories are kept safe. In a quiet archive vault, Sister Enna Rookwell the nurse (keep her exact identity from the reference portrait: face, hair, uniform colours) stands at a lectern with her open register book, writing by candlelight; behind her, long rows of shelves hold many small sealed glass plant capsules with wax seals, each with a faint turquoise glint, neatly ordered. Respectful, solemn. No readable text on pages, only scribble lines.",
+      "references": [
+        "portraits/bh_rookwell_emotions.png"
+      ],
+      "aspectRatio": "16:9",
+      "rawSha256": "96e6d0cf662d8e96ace57f129729e128722935973b358d2b99b562337fb53241",
+      "steps": [
+        "mode downscale of the whole image to the exact target size (4x box pre-shrink, median 3, palette majority per pixel)",
+        "opaque, shared palette"
+      ],
+      "identityPreserve": true,
+      "outputSha256": {
+        "ui/scenes/bh_ende_verwahrt.png": "34e3efaa8d7723b0a33c8ad38f2a294859924579e9161ccd0bcb7a6f68cca475"
+      },
+      "rawFile": "docs/art/briarholt1-raw/s_bh_ende_verwahrt.jpg"
+    },
+    {
+      "id": "bh_ende_schmerzlos",
+      "outputs": [
+        "ui/scenes/bh_ende_schmerzlos.png"
+      ],
+      "kind": "still",
+      "mode": "generate",
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial world with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nASSET: Opaque small ending scene 'bh_ende_schmerzlos' (final size 240x135, very chunky pixel art). Dark ending: the painless garden. Inside a vast glass dome a garden blooms lushly, peach trees in full pale blossom with a faint turquoise shimmer, serene smiling patients sit motionless on benches. In the foreground on a garden table lies a stack of letters, the envelopes blank, letters without any greeting (only scribble lines, no readable text). Beautiful and deeply unsettling, too calm. No gore.",
+      "references": [
+        "ui/scenes/ds_nachtzug.png"
+      ],
+      "aspectRatio": "16:9",
+      "rawSha256": "fc8f0e81dd5af0f78ab7b4c806544e59d79015208487a6ad451adbe6088d0783",
+      "steps": [
+        "mode downscale of the whole image to the exact target size (4x box pre-shrink, median 3, palette majority per pixel)",
+        "opaque, shared palette"
+      ],
+      "outputSha256": {
+        "ui/scenes/bh_ende_schmerzlos.png": "16011e8d42b7ce2d1c3634f69ea057a56f2a7e4475d732214f140d8828749a4c"
+      },
+      "rawFile": "docs/art/briarholt1-raw/s_bh_ende_schmerzlos.jpg"
+    },
+    {
+      "id": "bh_ende_schmerzlos_lichtmeister",
+      "outputs": [
+        "ui/scenes/bh_ende_schmerzlos_lichtmeister.png"
+      ],
+      "kind": "still",
+      "mode": "generate",
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial world with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nASSET: Opaque small ending scene variant 'bh_ende_schmerzlos_lichtmeister' (final size 240x135, very chunky pixel art), same mood and palette as the reference image. Split composition side by side: on the left a tall dark salt-crusted lighthouse tower on peat marsh stilts with a pale cold beacon (the tower of the light master from the previous chapter); on the right the vast glass dome of the painless garden with peach trees in pale blossom and a faint turquoise shimmer, serene motionless patients on benches. A thin pipe line connects tower and dome. A stack of blank letters without greeting on a table in the foreground. Beautiful and deeply unsettling. No readable text, no gore.",
+      "references": [
+        "generated bh_ende_schmerzlos raw (sha256 fc8f0e81dd5af0f78ab7b4c806544e59d79015208487a6ad451adbe6088d0783)"
+      ],
+      "aspectRatio": "16:9",
+      "rawSha256": "86a6c4aae7609aa1cf40976e5f5d4ae3d7c32e37b2196e383be3bea19dc2ce68",
+      "steps": [
+        "mode downscale of the whole image to the exact target size (4x box pre-shrink, median 3, palette majority per pixel)",
+        "opaque, shared palette"
+      ],
+      "outputSha256": {
+        "ui/scenes/bh_ende_schmerzlos_lichtmeister.png": "55f85f67bbe8adacef58ca370250a3b052607a4e65ac223a9be36ef3ae7eb306"
+      },
+      "rawFile": "docs/art/briarholt1-raw/s_bh_ende_schmerzlos_lichtmeister.jpg"
+    },
+    {
+      "id": "bg_bh_kutschenhof",
+      "outputs": [
+        "battle/bg_bh_kutschenhof.png"
+      ],
+      "kind": "background",
+      "mode": "generate",
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial world with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nASSET: Opaque side-view battle background 'bg_bh_kutschenhof' (final 480x270, same layout as the reference battle background): no characters, no creatures. Upper 3/4: Briarholt coach yard under a low brick-and-iron roof, frost in the red-grey brick, parked post coach without horses, stacks of luggage and sacks of flower soil, a blank notice board with a peach emblem, distant glowing glass domes behind in the cold valley. Lower quarter: a wide flat empty strip of frosty cobblestone ground running across the whole width where combatants will stand. No text.",
+      "references": [
+        "battle/bg_ds_endbahnhof.png"
+      ],
+      "aspectRatio": "16:9",
+      "rawSha256": "fb9f5ccf1eea055b7f36cf71e8d9ae8d35c81d2d786544befb0f93d525854510",
+      "steps": [
+        "mode downscale of the whole image to the exact target size (4x box pre-shrink, median 3, palette majority per pixel)",
+        "opaque, shared palette"
+      ],
+      "outputSha256": {
+        "battle/bg_bh_kutschenhof.png": "5e5e67c56787e558b42f40ab44ba75ee99dd00cbf61205893760deff842eb13c"
+      },
+      "rawFile": "docs/art/briarholt1-raw/b_bg_bh_kutschenhof.jpg"
+    },
+    {
+      "id": "bg_bh_kesselgrund_kalt",
+      "outputs": [
+        "battle/bg_bh_kesselgrund_kalt.png"
+      ],
+      "kind": "background",
+      "mode": "generate",
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial world with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nASSET: Opaque side-view battle background 'bg_bh_kesselgrund_kalt' (final 480x270, same layout as the reference battle background): no characters, no creatures. COLD state. Upper 3/4: an underground-feeling boiler quarter street below the promenades, soot-stained brick workshops, coal chutes, thick iron pipe bridges overhead with closed valves and handwheels, a disused laundry facade with dark windows, everything rimmed with frost, icicles on pipes, frozen condensate puddles, no steam. Lower quarter: a wide flat empty strip of frosty flagstone ground across the whole width where combatants will stand. No text.",
+      "references": [
+        "battle/bg_ds_endbahnhof.png"
+      ],
+      "aspectRatio": "16:9",
+      "rawSha256": "301c4f259a782134467caf21b6c87e8a63aa1198e90cd4b5ab9d8dac6c02d8c2",
+      "steps": [
+        "mode downscale of the whole image to the exact target size (4x box pre-shrink, median 3, palette majority per pixel)",
+        "opaque, shared palette"
+      ],
+      "outputSha256": {
+        "battle/bg_bh_kesselgrund_kalt.png": "8a2ef29f645e45d602a2fc00a8085de033af49b74391f3ba833ccde800f05cc6"
+      },
+      "rawFile": "docs/art/briarholt1-raw/b_bg_bh_kesselgrund_kalt.jpg"
+    },
+    {
+      "id": "bg_bh_kesselgrund_warm",
+      "outputs": [
+        "battle/bg_bh_kesselgrund_warm.png"
+      ],
+      "kind": "background",
+      "mode": "edit",
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial world with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nASSET: Opaque side-view battle background 'bg_bh_kesselgrund_warm' (final 480x270). EDIT of the reference image: keep the EXACT same composition, buildings, pipes, laundry lines, boilers and ground strip in the same positions. Change only the state to WARM: frost and icicles gone, puddles are dark water instead of ice, white steam escaping from valves and pipe joints, wet glistening stone, faint warm amber light from the laundry windows, condensation drops on pipes. No characters, no text.",
+      "references": [
+        "generated bg_bh_kesselgrund_kalt raw (sha256 301c4f259a782134467caf21b6c87e8a63aa1198e90cd4b5ab9d8dac6c02d8c2)"
+      ],
+      "aspectRatio": "16:9",
+      "rawSha256": "0c3cd63af74d0c8fc17b7f66643656703fe23f55a0f74510ccaaaf0b3882b2a0",
+      "steps": [
+        "mode downscale of the whole image to the exact target size (4x box pre-shrink, median 3, palette majority per pixel)",
+        "opaque, shared palette"
+      ],
+      "outputSha256": {
+        "battle/bg_bh_kesselgrund_warm.png": "919a6cfb034bea7bacd9642740b014f7f7409af6c05c16153c81050b289be2f8"
+      },
+      "rawFile": "docs/art/briarholt1-raw/b_bg_bh_kesselgrund_warm.jpg"
+    },
+    {
+      "id": "bg_bh_promenade",
+      "outputs": [
+        "battle/bg_bh_promenade.png"
+      ],
+      "kind": "background",
+      "mode": "generate",
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial world with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nASSET: Opaque side-view battle background 'bg_bh_promenade' (final 480x270, same layout as the reference battle background): no characters, no creatures. Upper 3/4: the winter promenade of Briarholt spa town, an octagonal cast-iron music pavilion, pale spa house facades with brass trim, gas lamps, palms in heavy wooden tubs, a postcard stand, glass walkways overhead, light frost and fog, warm amber lamp glow. Lower quarter: a wide flat empty strip of brick paving across the whole width where combatants will stand. No text.",
+      "references": [
+        "battle/bg_ds_endbahnhof.png"
+      ],
+      "aspectRatio": "16:9",
+      "rawSha256": "cbadbcd58ac9c38f7159bf250389ee4674fd6693185e299ec1e8a534744cb393",
+      "steps": [
+        "mode downscale of the whole image to the exact target size (4x box pre-shrink, median 3, palette majority per pixel)",
+        "opaque, shared palette"
+      ],
+      "outputSha256": {
+        "battle/bg_bh_promenade.png": "9980b90e64d5a9415a50fd65623895e2334c85abc706e1724c39260cef8172ca"
+      },
+      "rawFile": "docs/art/briarholt1-raw/b_bg_bh_promenade.jpg"
+    },
+    {
+      "id": "bg_bh_glasgaerten_kalt",
+      "outputs": [
+        "battle/bg_bh_glasgaerten_kalt.png"
+      ],
+      "kind": "background",
+      "mode": "generate",
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial world with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nASSET: Opaque side-view battle background 'bg_bh_glasgaerten_kalt' (final 480x270, same layout as the reference battle background): no characters, no creatures. COLD state. Upper 3/4: a long street of Victorian greenhouse nurseries made of glass and iron, panes blind and white with frost, dormant grey plants behind the glass, closed raised beds with small blank signs, dry irrigation gutters, frozen gravel. Lower quarter: a wide flat empty strip of frozen gravel path across the whole width where combatants will stand. No text.",
+      "references": [
+        "battle/bg_ds_endbahnhof.png"
+      ],
+      "aspectRatio": "16:9",
+      "rawSha256": "7b6655777b8ab42cc51a5de474818bc9b71c43419b9c581183c0040dfc7f3d7b",
+      "steps": [
+        "mode downscale of the whole image to the exact target size (4x box pre-shrink, median 3, palette majority per pixel)",
+        "opaque, shared palette"
+      ],
+      "outputSha256": {
+        "battle/bg_bh_glasgaerten_kalt.png": "a75f228ea767c3971e174ac43628f022eefbbe0b80f779270df32ad179cef301"
+      },
+      "rawFile": "docs/art/briarholt1-raw/b_bg_bh_glasgaerten_kalt.jpg"
+    },
+    {
+      "id": "bg_bh_glasgaerten_warm",
+      "outputs": [
+        "battle/bg_bh_glasgaerten_warm.png"
+      ],
+      "kind": "background",
+      "mode": "edit",
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial world with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nASSET: Opaque side-view battle background 'bg_bh_glasgaerten_warm' (final 480x270). EDIT of the reference image: keep the EXACT same composition, greenhouses, gate, beds and ground strip in the same positions. Change only the state to WARM: frost and snow gone, the glass panes fogged with warm condensation and drops, faint scratch marks in the fog like handwriting (no readable letters), green plants and pale peach blossoms visible inside, beds open with green shoots, gravel wet and dark, faint warm amber light inside the glass houses. No characters, no text.",
+      "references": [
+        "generated bg_bh_glasgaerten_kalt raw (sha256 7b6655777b8ab42cc51a5de474818bc9b71c43419b9c581183c0040dfc7f3d7b)"
+      ],
+      "aspectRatio": "16:9",
+      "rawSha256": "e53097e6c8db8d20c8a1d84c3486138da5aad6275e6b224cc2ee492193de90cb",
+      "steps": [
+        "mode downscale of the whole image to the exact target size (4x box pre-shrink, median 3, palette majority per pixel)",
+        "opaque, shared palette"
+      ],
+      "outputSha256": {
+        "battle/bg_bh_glasgaerten_warm.png": "7753d90c0350f47804dbc8cc1d2ba53fad41a3e5310ee345b5d8d42cf2b04033"
+      },
+      "rawFile": "docs/art/briarholt1-raw/b_bg_bh_glasgaerten_warm.jpg"
+    },
+    {
+      "id": "bg_bh_stillenhaeuser",
+      "outputs": [
+        "battle/bg_bh_stillenhaeuser.png"
+      ],
+      "kind": "background",
+      "mode": "generate",
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial world with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nASSET: Opaque side-view battle background 'bg_bh_stillenhaeuser' (final 480x270, same layout as the reference battle background): no characters, no creatures. Upper 3/4: inside the quiet patient houses of a Victorian spa clinic: a long shared dining hall with tall frosted windows, long tables with white cloths and bowls, rows of iron beds visible through open doors at the back, small blank slate boards beside each bed (chalk lines, last line erased, no letters), a tea trolley, pale green-grey wall tiles, faint amber lamp light. Lower quarter: a wide flat empty strip of tiled floor across the whole width where combatants will stand. No text.",
+      "references": [
+        "battle/bg_ds_endbahnhof.png"
+      ],
+      "aspectRatio": "16:9",
+      "rawSha256": "b7bd6e3e5cef560c3711f8b7ed4bd4b0eae50b5cb208c25ebfe8990b5ff8674f",
+      "steps": [
+        "mode downscale of the whole image to the exact target size (4x box pre-shrink, median 3, palette majority per pixel)",
+        "opaque, shared palette"
+      ],
+      "outputSha256": {
+        "battle/bg_bh_stillenhaeuser.png": "da8f1e49f10dcda02d5cd3c1929e645d82a14840d3fafa4a4a46999b53b7eaab"
+      },
+      "rawFile": "docs/art/briarholt1-raw/b_bg_bh_stillenhaeuser.jpg"
+    },
+    {
+      "id": "bg_bh_wurzelkranz",
+      "outputs": [
+        "battle/bg_bh_wurzelkranz.png"
+      ],
+      "kind": "background",
+      "mode": "generate",
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial world with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nASSET: Opaque side-view battle background 'bg_bh_wurzelkranz' (final 480x270, same layout as the reference battle background): no characters, no creatures. Upper 3/4: the upper terraces of a Victorian clinic: an old cast-iron pump station with a big flywheel and blank pressure gauges, a red-brick laboratory with tall windows and a copper vat inside, the stately clinic mother house behind, a dark mine gallery entrance cut into the frosty hillside with thin pale roots creeping out, faint turquoise glow deep inside. Lower quarter: a wide flat empty strip of stone terrace ground across the whole width where combatants will stand. No text.",
+      "references": [
+        "battle/bg_ds_endbahnhof.png"
+      ],
+      "aspectRatio": "16:9",
+      "rawSha256": "c2069fe735aa98ff95c9b4485c25c523c84a4a0fb278758de8548d5450c0d126",
+      "steps": [
+        "mode downscale of the whole image to the exact target size (4x box pre-shrink, median 3, palette majority per pixel)",
+        "opaque, shared palette"
+      ],
+      "outputSha256": {
+        "battle/bg_bh_wurzelkranz.png": "db002ba2d8578a78cb4d8c676132f8f0752a7fdd47c4660ca8250d592afb9170"
+      },
+      "rawFile": "docs/art/briarholt1-raw/b_bg_bh_wurzelkranz.jpg"
+    },
+    {
+      "id": "bg_bh_verteilanlage",
+      "outputs": [
+        "battle/bg_bh_verteilanlage.png"
+      ],
+      "kind": "background",
+      "mode": "generate",
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial world with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nASSET: Opaque side-view battle background 'bg_bh_verteilanlage' (final 480x270, same layout as the reference battle background): no characters, no creatures. Upper 3/4: the finale hall of the distribution plant deep in the root ring: a vaulted brick and iron chamber, a long row of large glass-and-brass containers on frames connected by pipes and brass taps, a huge shut-off flap with a lever, thick pale roots grown through the walls with a faint turquoise pulse, faint violet mist in the return pipes, cold condensation. Lower quarter: a wide flat empty strip of iron grating floor across the whole width where combatants will stand. Ominous, quiet. No text.",
+      "references": [
+        "battle/bg_ds_endbahnhof.png"
+      ],
+      "aspectRatio": "16:9",
+      "rawSha256": "59a60491ebfe851f0c5d37ccc8056157d78827d3cc992387bef11158a6efe75e",
+      "steps": [
+        "mode downscale of the whole image to the exact target size (4x box pre-shrink, median 3, palette majority per pixel)",
+        "opaque, shared palette"
+      ],
+      "outputSha256": {
+        "battle/bg_bh_verteilanlage.png": "bd8dd5d76ab35d105c2ac489a3299cfaf965dd4ed0c9d99cb206f634ef90135a"
+      },
+      "rawFile": "docs/art/briarholt1-raw/b_bg_bh_verteilanlage.jpg"
+    },
+    {
+      "id": "bh_karte",
+      "outputs": [
+        "ui/bh_karte.png"
+      ],
+      "kind": "map",
+      "mode": "generate",
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial world with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nASSET: Opaque illustrated city map 'bh_karte' (final size 480x270, chunky pixel art, same style as the reference city map), absolutely NO text, no labels, no numbers, no compass letters. Top-down view of Briarholt in a cold dry valley basin (Talkessel) ringed by frosty grey-brown hills. Six distinct quarters arranged around the basin: lower left the coach yard (low brick sheds, coaches); lower centre the boiler quarter with workshops, coal chutes, chimneys and a disused laundry; centre right the winter promenade with a round music pavilion, palms and gas lamps; upper left long rows of greenhouse glass houses (glass gardens); centre left blocks of quiet patient houses around courtyards; upper right on terraces the old pump station, laboratory and clinic mother house, with a mine gallery entrance in the hillside. Glass walkways and thick pipes link the quarters. Muted palette, paper-map feel but pixel art.",
+      "references": [
+        "ui/ds_karte.png"
+      ],
+      "aspectRatio": "16:9",
+      "rawSha256": "79a9bcc9f7784652a91648958f5be375d66f35328abd2219e537866da4aa15dc",
+      "steps": [
+        "mode downscale of the whole image to the exact target size (4x box pre-shrink, median 3, palette majority per pixel)",
+        "opaque, shared palette"
+      ],
+      "outputSha256": {
+        "ui/bh_karte.png": "3a6b5cb5d734c0d3287e15ecebe6633f721b61e50c01c4cd4de9052c7fe8067a"
+      },
+      "rawFile": "docs/art/briarholt1-raw/m_bh_karte.jpg"
+    },
+    {
+      "id": "bh_marker",
+      "outputs": [
+        "ui/bh_marker.png"
+      ],
+      "kind": "markers",
+      "mode": "generate",
+      "prompt": "STYLE GUIDE (apply to every asset):\nTop-down 3/4 perspective pixel art for a 2D mystery/investigation game, in the readable, cozy-clean style of classic farming/life-sim pixel games, but dark and atmospheric.\nSetting: an original foggy Victorian-era industrial world with occult undertones: cobblestone streets, gas lamps, soot-stained brick, wrought iron, canals, chapels, secret societies, alchemical potions.\nGrid: strict 16x16 pixel tiles. Overworld characters are 16x32 pixels per frame. Every pixel must align to the grid; no half pixels, no sub-pixel detail.\nPixels: crisp hard-edged pixels, no anti-aliasing, no blur, no gradients; deliberate 2-tone checker dithering only on large surfaces or for fake transparency. 1px dark outline in deep blue-grey (around #1a1c2c, not pure black) on characters, props and icons; terrain tiles have no outline.\nPalette: limited muted palette of max 32 colors, matching the existing game sprites. Desaturated slate blues, fog greys, soot browns, mossy greens, rust and brass, bone white; warm amber/yellow only for gas lamp light and candles; turquoise #6fe0d0 or deep violet reserved for occult/supernatural things. Avoid saturated primaries and pure black/white.\nLighting: flat base colors with 2-3 shade steps; light from top-left. Do not bake night darkness into sprites (the engine adds lighting).\nMood: melancholic, mysterious, slightly unsettling, never gory.\nOutput: transparent background (PNG with alpha) unless stated otherwise, orthographic, no text, no letters, no numbers, no watermark, no signature.\nAvoid: 3D render look, painterly style, photorealism, chibi exaggeration, anime eyes, references to existing games, films or franchises.\n\nASSET: Map marker icon sheet 'bh_marker' (each icon final size 16x16), like the reference marker sheet. Exactly 18 small round-shield map markers in a grid of 6 columns x 3 rows, each centered in its own cell, each a brass-rimmed round badge with a single simple pictogram, 1px dark outline, NO letters or numbers. Background flat solid pure magenta (#FF00FF). Row 1: coach wheel; boiler with pipe; music pavilion; greenhouse; bed; pump wheel. Row 2: flat iron (ironing room hideout); suitcase; postcard; locked seed bed with blank sign; teacup; stack of files; Row 3: flask (laboratory); drawing compass; three containers with tap (distribution plant, violet tint); frozen palm (danger, red-rust rim); laundry kettle with steam (danger, red-rust rim); root with flower mouth (danger, red-rust rim, faint turquoise).",
+      "references": [
+        "ui/ds_marker.png"
+      ],
+      "aspectRatio": "16:9",
+      "rawSha256": "3e17f28a018d7b09ec03809921284e6767d3f0b9647cb5515ebd7f17d685ef42",
+      "steps": [
+        "magenta key, hole fill",
+        "fit each badge into 15x15 inside a 16x16 cell (baseline 15)",
+        "outline, palette"
+      ],
+      "outputSha256": {
+        "ui/bh_marker.png": "59a199be48dc006566373b85fa63e433652a0bc358e701a41b523867a037295a"
+      },
+      "rawFile": "docs/art/briarholt1-raw/m_bh_marker.jpg"
+    },
+    {
+      "id": "bh_karte_nebel",
+      "outputs": [
+        "ui/bh_karte_nebel.png"
+      ],
+      "kind": "overlay",
+      "mode": "procedural",
+      "references": [
+        "ui/ds_karte_nebel.png"
+      ],
+      "tool": "tools/art/briarholt1/export/tiles_v2/fog2.py",
+      "steps": [
+        "solid cloud banks (binary alpha) like ds_karte_nebel: three fog tones plus bone/beige light streaks stretched horizontally, 1px checker only between bands",
+        "clearings = lumpy blobs around the pins of the six quarters and the Wurzelkammer, 2-3 px checker fringe at the clearing edge, darker rim",
+        "coverage ~42 % (ds: 39 %)"
+      ],
+      "rejectedAttempts": [
+        {
+          "superseded": "v1 ordered-dither noise with elliptic holes, rejected by the user"
+        }
+      ],
+      "outputSha256": {
+        "ui/bh_karte_nebel.png": "f3977117d07afe5d2e0928038bcdd4246743477aac09eb20aca2e421381b61f8"
+      }
+    },
+    {
+      "id": "bh_karte_leitungen",
+      "outputs": [
+        "ui/bh_karte_leitungen.png"
+      ],
+      "kind": "overlay",
+      "mode": "procedural",
+      "prompt": null,
+      "references": [
+        "ui/bh_karte.png"
+      ],
+      "steps": [
+        "procedural pipe plan: orthogonal 3px pipes with 1px dark rim along the map main roads; amber = warm circuit, slate = kalt circuit, violet = belasteter Rücklauf; transparent elsewhere"
+      ],
+      "outputSha256": {
+        "ui/bh_karte_leitungen.png": "c0be6e09f85c33a81ff11612695aa123c805a7583f6b2a001ad00dbdd0da4146"
+      }
+    }
+  ],
+  "rawImages": "docs/art/briarholt1-raw/ (all generator outputs of this batch, incl. rejected ones and the superseded v1 tileset sheets)"
+}

@@ -8,7 +8,7 @@ import { Feste, preloadFeste } from './Feste.js';
 import { DunscarLife, preloadDunscarLife } from './DunscarLife.js';
 import { KoopLife } from './Koop.js';
 import { SektenLife } from './SektenLife.js';
-import { preloadSprites, playSheetAnim, themeKeys, facadeKeys, facadeAtNight, buildingFacades, WX2_TILE_ANIMS, PROP_ORIGINS, MAP_WEATHER, DISGUISE_SHEETS, pathwayArt, P2_LOOKS, skinKeyOf , leseSceneOf } from './assets.js';
+import { preloadSprites, playSheetAnim, themeKeys, facadeKeys, facadeAtNight, buildingFacades, WX2_TILE_ANIMS, PROP_ORIGINS, MAP_WEATHER, DISGUISE_SHEETS, pathwayArt, P2_LOOKS, skinKeyOf , leseSceneOf, BH_THEME_KEYS } from './assets.js';
 import { Roamers } from './Roamers.js';
 import { Critters } from './Critters.js';
 import { Patrols } from './Patrols.js';
@@ -146,6 +146,12 @@ const THEMES = {
   ds_innen: dsTheme('ds_innen', { mix: [['wear', 0.05]] }),
   ds_teesaal: dsTheme('ds_teesaal', { mix: [['carpet', 0.3]] }),
   ds_zug: dsTheme('ds_zug', { accent: 'window' }),
+  // Paket CI (Briarholt): wie Dunscar, je kalt und warm dasselbe Zellenraster; seltene Bodenvarianten je Thema
+  ...Object.fromEntries(BH_THEME_KEYS.map((t) => [t, dsTheme(t, {
+    mix: { bh_promenade: [['stain', 0.04], ['wet', 0.05]], bh_kessel: [['wet', 0.06]], bh_glas: [['debris', 0.06]], bh_stille: [['wear', 0.05]], bh_klinik: [['wear', 0.06]],
+      bh_labor: [['wear', 0.05]], bh_mutterhaus: [['wear', 0.05]], bh_wurzel: [['debris', 0.06], ['wet', 0.04]] }[t.replace(/_(kalt|warm)$/, '')],
+    accent: 'window',
+  })])),
   warehouse: roomTheme('warehouse', {
     floorMix: (x, y) => (hash2(x, y, 31) > 0.95 ? themeKeys('warehouse', 'debris')[0] : pickKey(themeKeys('warehouse', 'floor'), x, y, 0)),
   }),

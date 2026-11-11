@@ -875,7 +875,7 @@ export class Ui {
       const ch = this.pendingChapter;
       this.pendingChapter = null;
       // Paket AE: Kapitelkarte (Ende von Kapitel 1 kündigt Kapitel 2 an, sonst die Schlusskarte)
-      const card = ch.scene ?? (/Kapitel 1\b/.test(ch.title) ? 'kapitel2_karte' : /Kapitel 2\b/.test(ch.title) ? 'kapitel3_karte' : 'kapitel_ende');
+      const card = ch.scene ?? (/Kapitel 1\b/.test(ch.title) ? 'kapitel2_karte' : /Kapitel 2\b/.test(ch.title) ? 'kapitel3_karte' : /Kapitel 4\b/.test(ch.title) ? 'kapitel5_karte' : 'kapitel_ende');
       this.showMessage(ch.title, ch.text, { footer: ch.footer ?? '', scene: card });
       this.layer.querySelector('.panel.message')?.classList.add('chapterbook'); // Grundpaket: aufgeschlagenes Notizbuch (07_02)
     } else if (this.pendingLost) {
@@ -1197,7 +1197,7 @@ export class Ui {
       ? pin(goalMap, 'locked', `<span class="tag">${esc(goal.locked.name)} (gesperrt)</span>`, 'disabled') : '';
     const unpinned = dests.map((d, i) => (pins[d.map] ? '' : `<button data-i="${i}"><span class="key">${i + 1}</span> ${esc(d.name)}</button>`)).join('');
     const el = this.open('travel', `
-      <div class="map${rules.map_image ? '' : ' plain'}"${rules.map_image ? ` style="background-image:url(${SPRITE_BASE}${rules.map_image})"` : ''}>
+      <div class="map${rules.map_image ? '' : ' plain'}"${rules.map_image ? ` style="background-image:${rules.overlay_image ? `url(${SPRITE_BASE}${rules.overlay_image}),` : ''}url(${SPRITE_BASE}${rules.map_image})"` : ''}>
         ${rules.fog_image ? '<canvas class="fog" width="480" height="270"></canvas>' : ''}
         ${here}${destPins}${lockedPin}
         ${unpinned ? `<div class="unpinned">${unpinned}</div>` : ''}
@@ -2632,7 +2632,8 @@ export class Ui {
       <div class="footer">Ansehen ${(s.lastEndingHonor ?? end.honor) > 0 ? '+' : ''}${s.lastEndingHonor ?? end.honor} · Rang: ${esc(s.rank().name)}</div>
       <button class="primary" data-act="ok">Weiter <span class="key">E</span></button>`, `ending ending-${end.honor >= 15 ? 'good' : 'bad'}`);
     // Schlussbild als Hintergrund (480x270)
-    const img = endingImageUrl(id, end.case);
+    // Paket CI: „Ein Leben ohne Schmerz“ zeigt Turm und Garten nebeneinander, wenn Kapitel 2 mit dem Lichtmeister endete
+    const img = endingImageUrl(id === 'bha_schmerzlos' && s.flags.has('k2_end_lichtmeister') ? 'bha_schmerzlos_lichtmeister' : id, end.case);
     if (img) { el.classList.add('with-image'); el.style.backgroundImage = `linear-gradient(rgba(10, 8, 14, 0.3), rgba(10, 8, 14, 0.85) 50%), url(${img})`; }
     if (end.chapter) this.pendingChapter = end.chapter;
     this.pendingEpilogue = s.epilogue(id);
