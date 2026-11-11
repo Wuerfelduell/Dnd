@@ -89,6 +89,8 @@ export const SHEETS = {
   // Paket AV (Kapitel 3, Dunscar): Straßen, Bahn, Steinbruch, Schlucht, Innenräume, Zug (8 Spalten à 16 px)
   ds_stadt: 'tilesets/ds_stadt.png', ds_bahn: 'tilesets/ds_bahn.png', ds_bruch: 'tilesets/ds_bruch.png', ds_schlucht: 'tilesets/ds_schlucht.png',
   ds_innen: 'tilesets/ds_innen.png', ds_zug: 'tilesets/ds_zug.png',
+  // Paket CI (Kapitel 5, Briarholt): sechs Blätter je kalt/warm (8 Spalten à 16 px, Reihe 5 = Animationsphasen)
+  ...Object.fromEntries(['promenade', 'kessel', 'glas', 'stille', 'klinik', 'wurzel'].flatMap((t) => ['kalt', 'warm'].map((v) => [`bh_${t}_${v}`, `tilesets/bh_${t}_${v}.png`]))),
   v_glocke: 'tilesets/V_01_glocke_tiles.png',
   w_altstadt: 'tilesets/W_01_altstadt_tiles.png',
   s_salzwatt: 'tilesets/S_salzwatt_tiles_v2.png', s_lichtlose: 'tilesets/S_lichtlose_tiles.png', s_salz: 'tilesets/S_salz_tiles.png',
@@ -139,6 +141,22 @@ export const TILE_CELLS = {
  * Tile-Key `<thema>_<name>`; `solid` blockiert, `base` liegt unter transparenten Zellen.
  * Welche Kartenzeichen welche Keys nutzen, steht in THEMES (WorldScene.js).
  */
+/**
+ * Paket CI (Briarholt, Batch briarholt1): sechs Blätter je kalt und warm, gleiche Zellenbelegung (Zellindex im 8er-Raster laut
+ * manifest-briarholt1.json). Labor und Mutterhaus sind eigene Themen auf dem Klinik-Blatt (Fliesen bzw. Parkett statt Pumpenboden).
+ */
+const BH_THEME_SPECS = {
+  bh_promenade: { fallback: 'cobble0', floor: [0, 1], stain: [2], wet: [4], wallTop: [8], wallFace: [9], window: [12] },
+  bh_kessel: { fallback: 'cobble0', floor: [0, 1, 2], wet: [3], wallTop: [24], wallFace: [25], window: [26] },
+  bh_glas: { fallback: 'stone', floor: [0, 1], debris: [36], wallTop: [8], wallFace: [9], window: [10] },
+  bh_stille: { fallback: 'stone', floor: [0, 5], wear: [1], wallTop: [8], wallFace: [9], window: [12, 13] },
+  bh_klinik: { fallback: 'stone', floor: [0], wear: [1], wallTop: [11], wallFace: [12], window: [10] },
+  bh_labor: { sheet: 'bh_klinik', fallback: 'stone', floor: [2], wear: [3], wallTop: [21], wallFace: [22], window: [23] },
+  bh_mutterhaus: { sheet: 'bh_klinik', fallback: 'wood0', floor: [4, 5], wear: [35], wallTop: [27], wallFace: [28], window: [29] },
+  bh_wurzel: { fallback: 'stone', floor: [0, 1, 31], debris: [2], wet: [5], wallTop: [8], wallFace: [9, 37], window: [10, 11] },
+};
+export const BH_THEME_KEYS = Object.keys(BH_THEME_SPECS).flatMap((t) => [`${t}_kalt`, `${t}_warm`]);
+const BH_THEME_TILES = Object.fromEntries(Object.entries(BH_THEME_SPECS).flatMap(([t, { sheet = t, ...spec }]) => ['kalt', 'warm'].map((v) => [`${t}_${v}`, { ...spec, sheet: `${sheet}_${v}` }])));
 export const THEME_TILES = {
   // Paket G: Gefahrengebiete (tilesets/G_01_<gebiet>.png, Zahlen = Zellindex im 8x8-Raster)
   g_marsch: { sheet: 'g_marsch', fallback: 'grass0', floor: [24, 25, 28, 30, 48, 49, 51], mud: [8, 9, 10, 11], wood: [16, 17, 18],
@@ -271,6 +289,7 @@ export const THEME_TILES = {
     sheet: 'sternwarte', base: 'floor_round_0', fallback: 'stone',
     floor: ['floor_round_0', 'floor_round_1', 'floor_round_2'], wallFace: ['wall_0', 'wall_1', 'wall_2', 'wall_3'], wallTop: ['wall_4', 'wall_5', 'wall_6', 'wall_7'],
   },
+  ...BH_THEME_TILES,
 };
 /** Gruppen, die begehbar bleiben; alles andere blockiert. */
 const WALKABLE_GROUPS = ['floor', 'bridge', 'glow', 'debris', 'wet', 'wood', 'mud', 'moss', 'tufts', 'path', 'ash', 'shards', 'weeds', 'sand', 'slag', 'wear', 'ring',
@@ -438,6 +457,11 @@ export const DS_MAP_MARKERS = Object.fromEntries(['ds_endbahnhof', 'ds_schwellen
   'ds_speisewagen', 'ds_runddepot', 'ds_pruefhaus', 'ds_teesaal', 'ds_lohnbuero', 'ds_nachtzug_wagen', 'ds_nachtzug_lok', 'ds_rangierwueste', 'ds_klopfbruch',
   'ds_rufschlucht', 'ds_letzter_bahnsteig', 'ds_unterschicht'].map((id, i) => [id, i]));
 export const DS_MAP_MARKERS_URL = `${BASE}ui/ds_marker.png`;
+/** Kapitel 5 (CI): Briarholt-Marker, 6x3 Felder zu 16x16 in Manifest-Reihenfolge; warme Zwillingskarten nutzen dasselbe Feld. */
+export const BH_MAP_IDS = ['bh_kutschenhof', 'bh_kesselgrund', 'bh_winterpromenade', 'bh_glasgaerten', 'bh_stillenhaeuser', 'bh_wurzelkranz', 'bh_buegelraum', 'bh_kutschenhalle',
+  'bh_pavillon', 'bh_verkaufshalle', 'bh_speisesaal', 'bh_aktenraum', 'bh_labor', 'bh_mutterhaus', 'bh_verteilanlage', 'bh_kaltes_palmhaus', 'bh_verlassene_waescherei', 'bh_wurzelkammer'];
+export const BH_MAP_MARKERS = Object.fromEntries(BH_MAP_IDS.flatMap((id, i) => [[id, i], [`${id}__warm`, i]]));
+export const BH_MAP_MARKERS_URL = `${BASE}ui/bh_marker.png`;
 /** Marker eines Ortes: [Bild-URL, Feld, Spalten im Bild, live, Raster ohne Hervorhebungszeile {rows, row}]. */
 export const mapMarkerOf = (map) => {
   if (O_MAP_MARKERS[map] !== undefined) return [O_MAP_MARKERS_URL, O_MAP_MARKERS[map], 3, true];
@@ -445,6 +469,7 @@ export const mapMarkerOf = (map) => {
   if (Q_MAP_MARKERS[map] !== undefined) return [Q_MAP_MARKERS_URL, Q_MAP_MARKERS[map], 7];
   if (AN_MAP_MARKERS[map] !== undefined) return [AN_MAP_MARKERS_URL, AN_MAP_MARKERS[map], 3, false, { rows: 2, row: 1 }];
   if (DS_MAP_MARKERS[map] !== undefined) return [DS_MAP_MARKERS_URL, DS_MAP_MARKERS[map], 6, false, { rows: 3, row: Math.floor(DS_MAP_MARKERS[map] / 6) }];
+  if (BH_MAP_MARKERS[map] !== undefined) return [BH_MAP_MARKERS_URL, BH_MAP_MARKERS[map], 6, false, { rows: 3, row: Math.floor(BH_MAP_MARKERS[map] / 6) }];
   if (BE_MAP_MARKERS[map]) return BE_MAP_MARKERS[map];
   if (J_MAP_MARKERS[map] !== undefined) return [J_MAP_MARKERS_URL, J_MAP_MARKERS[map], 13];
   return [MAP_MARKERS_URL, MAP_MARKERS[map], 13];
@@ -950,7 +975,10 @@ export function portraitFor(id, mood) {
 /** Schlussbilder (480x270): Ende → Bild; sonst das Bild des Falls. */
 export const ENDING_IMAGES = { c4_perfect: 'E_ende_fall4_gut', c4_good: 'E_ende_fall4_halb', c4_early: 'E_ende_fall4_schlecht', c4_mask: 'E_ende_fall4_haken' };
 export const CASE_ENDING_IMAGES = { case_01: 'E_ende_fall1', case_02: 'E_ende_fall2', case_03: 'E_ende_fall3' };
+/** Paket CI: Schlussbilder von Kapitel 5 liegen als 240x135 unter ui/scenes/ (Variante mit Turm bei k2_end_lichtmeister). */
+export const ENDING_SCENE_IMAGES = { bha_wahl: 'bh_ende_wahl', bha_winter: 'bh_ende_winter', bha_verwahrt: 'bh_ende_verwahrt', bha_schmerzlos: 'bh_ende_schmerzlos', bha_schmerzlos_lichtmeister: 'bh_ende_schmerzlos_lichtmeister' };
 export const endingImageUrl = (id, caseId) => {
+  if (ENDING_SCENE_IMAGES[id]) return `${BASE}ui/scenes/${ENDING_SCENE_IMAGES[id]}.png`;
   const f = ENDING_IMAGES[id] ?? CASE_ENDING_IMAGES[caseId];
   return f ? `${BASE}ui/endings/${f}.png` : null;
 };
@@ -968,10 +996,12 @@ export const K_SCENES = ['abzuege', 'schattenlos', 'maskenball', 'dunkelkammer',
 /** Paket M: Bilder zu Fall 7 und 8. */
 export const M_SCENES = ['kanal', 'finch', 'schlafsaal', 'molly', 'webstuhl', 'morgen'];
 /** Paket AE: Kapitelkarten (480x270) für Spielbeginn, Kapitelwechsel und Kapitelende. */
-export const CHAPTER_CARDS = ['kapitel1_karte', 'kapitel2_karte', 'kapitel3_karte', 'kapitel_ende'];
+export const CHAPTER_CARDS = ['kapitel1_karte', 'kapitel2_karte', 'kapitel3_karte', 'kapitel5_karte', 'kapitel_ende'];
 /** Kontrollverlust: Tentakel-Bild (240x135, Platzhalter bis Codex-Paket BP liefert). */
 export const FX_SCENES = ['kontrollverlust'];
-export const sceneUrl = (id) => (id?.startsWith('fest_') ? `${BASE}sequences/${id}.png` : CHAPTER_CARDS.includes(id) || FX_SCENES.includes(id) ? `${BASE}ui/scenes/${id}.png` : SCENES.includes(id) ? `${BASE}ui/scenes/E_szene_${id}.png`
+/** Paket CI: Ankunft in Briarholt (480x270), Trockenraum und Pfirsich (240x135) unter ui/scenes/<id>.png. */
+export const BH_SCENES = ['bh_ankunft', 'bh_trockenraum', 'bh_pfirsich'];
+export const sceneUrl = (id) => (id?.startsWith('fest_') ? `${BASE}sequences/${id}.png` : CHAPTER_CARDS.includes(id) || FX_SCENES.includes(id) || BH_SCENES.includes(id) ? `${BASE}ui/scenes/${id}.png` : SCENES.includes(id) ? `${BASE}ui/scenes/E_szene_${id}.png`
   : TRAVEL_SCENES.includes(id) ? `${BASE}ui/scenes/I_${id}.png`
     : J_SCENES.includes(id) ? `${BASE}ui/scenes/J_szene_${id}.png`
       : K_SCENES.includes(id) ? `${BASE}ui/scenes/K_szene_${id}.png`
@@ -1014,7 +1044,8 @@ function createRegionTextures(scene) {
     const regions = Array.isArray(def.regions) ? Object.fromEntries(def.regions.map((r) => [r.name, r])) : def.regions ?? {};
     for (const [name, r] of Object.entries(regions)) cut(`${prefix}_${name}`, img, [rect(r)]);
     const anims = { ...(def.animations ?? {}) };
-    for (const [name, a] of Object.entries(def.regionAnimations ?? {})) anims[name] = { ...a, frames: a.regions.map((n) => regions[n]) };
+    // Regionen-Animationen: `regions` (Paket D) oder `frames` mit Regionsnamen (Paket CI)
+    for (const [name, a] of Object.entries(def.regionAnimations ?? {})) anims[name] = { ...a, frames: (a.regions ?? a.frames).map((n) => (typeof n === 'string' ? regions[n] : n)) };
     for (const [name, [frames, frameRate]] of Object.entries(REGION_ANIMS[prefix] ?? {})) anims[name] = { frames, frameRate };
     for (const [name, a] of Object.entries(anims)) {
       if (Array.isArray(a) || !a.frames?.length) continue;
@@ -1180,6 +1211,7 @@ export function preloadSprites(scene) {
   if (!scene.cache.json.exists('manifestSekten')) scene.load.json('manifestSekten', `${BASE}manifest-sekten.json`);
   if (!scene.cache.json.exists('manifestVorrat1')) scene.load.json('manifestVorrat1', `${BASE}manifest-vorrat1.json`);
   if (!scene.cache.json.exists('manifestVorrat2')) scene.load.json('manifestVorrat2', `${BASE}manifest-vorrat2.json`);
+  if (!scene.cache.json.exists('manifestBriarholt1')) scene.load.json('manifestBriarholt1', `${BASE}manifest-briarholt1.json`);
   if (!scene.cache.json.exists('manifestNebenquests')) scene.load.json('manifestNebenquests', `${BASE}manifest-nebenquests.json`);
   if (!scene.cache.json.exists('manifestSpieler2')) scene.load.json('manifestSpieler2', `${BASE}manifest-spieler2.json`);
   if (!scene.cache.json.exists('manifestWexmoor')) scene.load.json('manifestWexmoor', `${BASE}manifest-wexmoor.json`);
@@ -2557,7 +2589,7 @@ export const FEST_MAPS = {
   schichtwechsel: ['ds_schwellenring', 'ds_arbeiterbogen', 'ds_kalkmarkt', 'ds_endbahnhof', 'ds_bruchstufen'],
 };
 /** Außenkarten ohne Dächer, Gras oder Wasser (Dunscar: Stadt, Bahn, Bruch, Schlucht). */
-export const OUTDOOR_THEMES = ['ds_stadt', 'ds_bahn', 'ds_bruch', 'ds_schlucht'];
+export const OUTDOOR_THEMES = ['ds_stadt', 'ds_bahn', 'ds_bruch', 'ds_schlucht', 'bh_promenade_kalt', 'bh_promenade_warm', 'bh_kessel_kalt', 'bh_kessel_warm'];
 export const isOutdoorMap = (m) => /[Rg~]/.test((m.rows ?? []).join('')) || OUTDOOR_THEMES.includes(m.tiles) || !!m.outdoor;
 /** Fassadenaufsatz je Jahreszeit (Spalten der saison_<s>_fassaden-Blätter). */
 export const SEASON_FACADE = { herbst: 'girlande', winter: 'haube', fruehling: 'blumenkasten', sommer: 'sonnensegel' };
@@ -2632,14 +2664,34 @@ Object.assign(ITEM_ICON_ALIASES, {
   fs_schichtwechsel_lohntuetenlos: 'vi_m_wegzoll_marke', fs_schichtwechsel_bierkrug: 'vi_v_pfirsichsud', fs_schichtwechsel_kandis: 'vi_v_wurzelpastille', fs_schichtwechsel_stulle: 'vi_v_setzerbrot',
   fs_schichtwechsel_kaffee: 'vi_v_terrassentee', fs_schichtwechsel_gurke: 'vi_v_wegzehrung', fs_schichtwechsel_wasser: 'vi_v_bitterwasser', fs_schichtwechsel_gebinde: 'vi_v_dampfkompresse',
 });
-/** CD/CH: Stadtkarten-Marker von Calderwick und Briarholt leihen sich bis CE/CI die Dunscarer Zellen. */
+/** CD: Stadtkarten-Marker von Calderwick leihen sich bis CE die Dunscarer Zellen (Briarholt hat seit CI eigene). */
 export const R8_MAP_MARKERS = {
   cw_gleisfuss: 'ds_endbahnhof', cw_setzergasse: 'ds_arbeiterbogen', cw_quittungsmarkt: 'ds_kalkmarkt', cw_roehrenhof: 'ds_schwellenring', cw_witwenterrasse: 'ds_bruchstufen', cw_kronenarchiv: 'ds_lohnbuero',
   cw_alte_setzerei: 'ds_rangierwueste', cw_sortiergrube: 'ds_klopfbruch', cw_nullfundament: 'ds_unterschicht', reise_landstrasse: 'ds_letzter_bahnsteig',
-  bh_kutschenhof: 'ds_endbahnhof', bh_kesselgrund: 'ds_runddepot', bh_winterpromenade: 'ds_schwellenring', bh_glasgaerten: 'ds_teesaal', bh_stillenhaeuser: 'ds_pruefhaus', bh_wurzelkranz: 'ds_bruchstufen',
-  bh_buegelraum: 'ds_speisewagen', bh_kaltes_palmhaus: 'ds_rangierwueste', bh_verlassene_waescherei: 'ds_klopfbruch', bh_wurzelkammer: 'ds_unterschicht',
 };
-for (const [id, ds] of Object.entries(R8_MAP_MARKERS)) {
-  DS_MAP_MARKERS[id] = DS_MAP_MARKERS[ds];
-  if (id.startsWith('bh_')) DS_MAP_MARKERS[`${id}__warm`] = DS_MAP_MARKERS[ds];
+for (const [id, ds] of Object.entries(R8_MAP_MARKERS)) DS_MAP_MARKERS[id] = DS_MAP_MARKERS[ds];
+
+// --- Kapitel 5: Briarholt-Grafik (Paket CI, Batch briarholt1; von Grok geliefert, manifest-briarholt1.json) --------------
+/** Props je Viertel und das Wärme-Effektblatt: Regionen als `bhp_<blatt>_<region>`, Animationen gleichnamig (z. B. bhp_kutschenhof_pferde). */
+export const BH_PROP_SHEETS = ['kutschenhof', 'kesselgrund', 'promenade', 'glasgaerten', 'stillenhaeuser', 'wurzelkranz'];
+for (const n of BH_PROP_SHEETS) {
+  SHEETS[`bhp_${n}`] = `props/bh_${n}.png`;
+  REGION_SHEETS[`bhp_${n}`] = ['manifestBriarholt1', `bh_${n}`];
 }
+SHEETS.bhp_waerme = 'fx/bh_waerme.png';
+REGION_SHEETS.bhp_waerme = ['manifestBriarholt1', 'bh_waerme'];
+/** Kampfkulissen der Viertel (Kesselgrund und Glasgärten je kalt/warm); Innenräume nehmen die Kulisse ihres Viertels, der Bügelraum die warme des Kesselgrunds. */
+const BH_BATTLE = { bh_kutschenhof: 'bg_bh_kutschenhof', bh_kutschenhalle: 'bg_bh_kutschenhof', bh_kesselgrund: 'bg_bh_kesselgrund_kalt', bh_buegelraum: 'bg_bh_kesselgrund_warm',
+  bh_winterpromenade: 'bg_bh_promenade', bh_pavillon: 'bg_bh_promenade', bh_glasgaerten: 'bg_bh_glasgaerten_kalt', bh_verkaufshalle: 'bg_bh_glasgaerten_kalt',
+  bh_stillenhaeuser: 'bg_bh_stillenhaeuser', bh_speisesaal: 'bg_bh_stillenhaeuser', bh_aktenraum: 'bg_bh_stillenhaeuser',
+  bh_wurzelkranz: 'bg_bh_wurzelkranz', bh_labor: 'bg_bh_wurzelkranz', bh_mutterhaus: 'bg_bh_wurzelkranz', bh_verteilanlage: 'bg_bh_verteilanlage' };
+for (const [id, bg] of Object.entries(BH_BATTLE)) {
+  BATTLE_BACKGROUNDS[id] = bg;
+  BATTLE_BACKGROUNDS[`${id}__warm`] = bg.replace(/_kalt$/, '_warm');
+}
+/** Ortskennung → Thema (kalt); die warme Zwillingskarte nimmt `_warm`. Labor und Mutterhaus haben eigene Böden auf dem Klinik-Blatt. */
+export const BH_MAP_THEMES = { bh_kutschenhof: 'bh_promenade', bh_kutschenhalle: 'bh_promenade', bh_winterpromenade: 'bh_promenade', bh_pavillon: 'bh_promenade',
+  bh_kesselgrund: 'bh_kessel', bh_buegelraum: 'bh_kessel', bh_verlassene_waescherei: 'bh_kessel', bh_glasgaerten: 'bh_glas', bh_verkaufshalle: 'bh_glas', bh_kaltes_palmhaus: 'bh_glas',
+  bh_stillenhaeuser: 'bh_stille', bh_speisesaal: 'bh_stille', bh_aktenraum: 'bh_stille', bh_wurzelkranz: 'bh_klinik', bh_verteilanlage: 'bh_klinik', bh_labor: 'bh_labor', bh_mutterhaus: 'bh_mutterhaus',
+  bh_wurzelkammer: 'bh_wurzel' };
+

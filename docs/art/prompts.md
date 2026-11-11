@@ -5,7 +5,7 @@ Jede Datei ist **eigenständig** (Regeln, Formate, Ablage stehen drin). Codex br
 ## Runde 8 (2026-11-11, letzter Codex-Tag): Kapitel 4 und 5 aus dem Vorrat, Feste, Musik, Sounds, Kettlegate-Leben; parallel startbar
 Nach Wert sortiert. CC bis CF teilen die Calderwick-Eckdaten (Präfixe `cwa_`/`cwo_`/`cwn_`, Karten `cw_*`), CG bis CJ die Briarholt-Eckdaten (`bha_`/`bho_`/`bhn_`, Karten `bh_*`); beide bauen auf dem Vorrat BH bis BM auf, nichts wird doppelt erfunden. Grafikpakete dürfen vor den Datenpaketen starten. Nächster freier Buchstabe danach: CO.
 
-**Stand:** CC, CD, CF, CG, CH, CJ, CK, CL und CM sind eingebaut (`src/data/runde8.js`, Abgleich über `tools/packs/runde8_sync.mjs`, das die JSON aus `docs/story/` nach `src/data/packs/` kopiert und korrigiert). Offen: CE (Calderwick-Grafik), CI (Briarholt-Grafik), CN (Kettlegate-Leben); bis dahin leihen sich die neuen Karten Tilesets und Kartenmarker von Dunscar/Wexmoor und die Kampf-Hintergründe des Vorrats.
+**Stand:** CC, CD, CF, CG, CH, CJ, CK, CL und CM sind eingebaut (`src/data/runde8.js`, Abgleich über `tools/packs/runde8_sync.mjs`, das die JSON aus `docs/story/` nach `src/data/packs/` kopiert und korrigiert). CI (Briarholt-Grafik) kam von Grok statt Codex (Batch `briarholt1`, Tilesets in der zweiten Fassung Zelle für Zelle gezeichnet) und ist eingebaut: eigene Themen `bh_*_kalt/_warm`, Props als Deko, Kulissen, Stadtkarte mit Nebel und Leitungsplan, Marker, Kapitelkarte, Szenen und Schlussbilder (`tests/briarholt_grafik.test.js`). Offen: CE (Calderwick-Grafik), CN (Kettlegate-Leben); Calderwick leiht sich bis dahin Tilesets und Kartenmarker von Dunscar und die Kampf-Hintergründe des Vorrats.
 
 | Datei | Art | Inhalt | schreibt nach |
 |---|---|---|---|
