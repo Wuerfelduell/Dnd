@@ -1,5 +1,7 @@
 # Codex-Paket CI: Briarholt als Grafik, kalt und warm (Kapitel 5)
 
+> **Ersetzt (2026-11-11):** zu groß für Codex. Bitte stattdessen die zwei Teilpakete nehmen: `codex_CI1_…` und `…2_…` (siehe prompts.md, Runde 8).
+
 **Batch-Name:** `briarholt1` (Manifest: `public/sprites/manifest-briarholt1.json`)
 
 Briarholt ist eine Industriestadt, die sich als Garten ausgibt: ein kalter, trockener Talkessel, Frost im Backstein, und darüber Glaskuppeln, in denen im Winter Pfirsichbäume blühen. Heiße Rohre und gläserne Übergänge verbinden sechs Viertel. Du lieferst jedes Tileset **zweimal im gleichen Zellenraster**: `_kalt` (Reif, blinde Scheiben, stille Pflanzen) und `_warm` (Kondensat, Dampf, offene Blüten, Schrift im Beschlag). Dazu Props, Innenräume, Kampf-Hintergründe der Stadt, Stadtkarte mit Leitungsplan-Overlay, Kapitelkarte. Figuren (BK), Gegner mit Zonen-Hintergründen (BI) und Item-Icons (BM) gibt es schon; mach nichts davon doppelt. Die Karten dazu macht gleichzeitig Paket CH.
