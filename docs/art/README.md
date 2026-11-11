@@ -1816,3 +1816,16 @@ Prüfung: `python tools/art/calderwick2/check.py` (Pillow, aus jedem Arbeitsverz
 - Prüfung: `python tools/art/kettlegate_leben/check.py`.
 
 Keine Laufzeitintegration in diesem Paket.
+
+
+## Batch DM – Oberfläche 3 (`oberflaeche3`)
+
+89 PNGs: sechs Kapitel-Titelsätze mit vier Ebenen, Briarholt warm/kalt und Varrowmouth Ebbe/Flut, sechs Nachspiel-Vordergründe und Verzicht; 24 Ladebilder; Spielstandkarten, Post- und Foto-Icons; Abspann; größere Schrift, Cursor und Touch-Icons sowie 30 monochrome Formzeichen. Keine Spielcode-Änderungen.
+
+`public/sprites/manifest-oberflaeche3.json` enthält Ebenen-Reihenfolge, Parallax-Vorschläge, Varianten, Regionen, Atlas-Indizes, Animationslisten und Nine-Slice-Ränder (8 px). Basisdatei K5-Vordergrund = kalt, Basisdatei K6-Himmel = Ebbe. `post_symbole_32.png` ergänzt den 16-px-Streifen. Animierter Abspann: acht Zellen à 480×270, ein horizontaler Streifen; Ladepunkte: vier Zellen à 16×16.
+
+Die Nachspiel-Vordergründe verwenden neutrales Morgenlicht gemäß DK (`ffde9aa715695e64a707d6dc27b8eb6c5aaaf708`): Sie behaupten keine Wiederbesiedlung oder Reparatur. Für evakuiertes Calderwick beziehungsweise verbranntes Varrowmouth muss der Einbau den zustandsgerechten Stadt-Hintergrund wählen.
+
+Die aktive Spielschrift ist Pixelify Sans als Webfont, kein vollständiges Bitmap-Font-Sheet. `schrift_gross.png` rastert den vollständigen druckbaren cmap direkt aus den Schriftkonturen bei 16 px (UI-Basis 8 px), ohne Hochskalieren kleiner Glyphen. 24×24-Zellen enthalten Grundlinie, Vorschub und Unicode-Zuordnung im Manifest; Fontquelle und SIL-OFL-Lizenz liegen bei den Exportwerkzeugen. Die Touch-Symbole übernehmen beide Zustände und alle zehn Aktionen aus AE in doppelter Größe.
+
+Prüfung: `python tools/art/oberflaeche3/check.py` (Pillow, fontTools). Bericht und Kontaktbogen: `batch-oberflaeche3-validation.json`, `batch-oberflaeche3-preview.png`. Prompts, Quellbild-Hashes und Verarbeitung: `batch-oberflaeche3-generation.json`. `export.py` erwartet eine externe JSON-Liste der Generator-Master; Originalbilder werden nicht im Repository verdoppelt. Der Einbau und Tests im Spiel erfolgen separat.
