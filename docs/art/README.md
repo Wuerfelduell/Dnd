@@ -1816,3 +1816,11 @@ Prüfung: `python tools/art/calderwick2/check.py` (Pillow, aus jedem Arbeitsverz
 - Prüfung: `python tools/art/kettlegate_leben/check.py`.
 
 Keine Laufzeitintegration in diesem Paket.
+
+## Batch DJ · Benannte Gegner (`benannte`)
+
+24 benannte Varianten, je vier pro Stadt, mit Kampfblatt (6×5 Frames), Kartenblatt (4×4 Richtungsframes), 24×24-Kopf und eigener 64×64-Bestiariumsansicht. Dazu acht neue Beutestücke und acht Fasserin-Artefakte in 16/32 Pixeln, acht Auftrittsframes und fünf UI-Symbole: insgesamt 130 PNGs.
+
+Manifest: `public/sprites/manifest-benannte.json`; Daten und Anschlussregeln: `docs/story/benannte_gegner/README.md`. ImageGen-Prompts und Quellhashes: `batch-benannte-generation.json`; Sichtübersicht: `batch-benannte-preview.png`; technischer Bericht: `batch-benannte-validation.json`. Export über `tools/art/benannte/export.py`, Pillow-Prüfung über `tools/art/benannte/check.py`, Datenprüfung über `node docs/story/benannte_gegner/pruefen.mjs --art`.
+
+Alle Exporte verwenden die 32 Farben aus `manifest-fasserin.json`, Nearest Neighbor und binäres Alpha. Die Kampfzellen behalten die Größe der Grundlage, auch deren 96×96-Ausnahmen. Beim Zollgeist wird das neutrale Gesicht erst im Laufzeiteinbau durch das aktuelle Spielerporträt ersetzt (Koop Spieler 2). CZ-Basiswerte sind noch aufzulösen; CU-Fundorte wurden gegen PR #291 gelesen. Kein Spielcode geändert.
