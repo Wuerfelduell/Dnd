@@ -2,3 +2,4 @@
 - `vorrat_items/` (BL): 72 Gegenstände, 20 Untersuchen-Dialoge und Handel für spätere Kapitel; nicht eingebaut, offene Mechaniken dokumentiert.
 - `vorrat_figuren/` (BJ): 28 Figuren, Dialoge, Auftragskeime, Wiedersehensreaktionen und Sonderposen für spätere Kapitel; nicht eingebunden.
 - `sekten/` (BQ): drei wandernde Kulte, 36 Ereignisse, neun Figuren, zwölf Gegner und neun Aufträge; Datenvorrat für alle drei Städte, Einbau separat.
+- `feste_leben/` (CK): vier Jahreszeiten, drei Feste mit zwölf Buden, drei Ermittlungsaufträgen und Festspielen; Daten und Texte mit eigenem Prüfer, Kalender-Migration und Einbaugrenzen dokumentiert.

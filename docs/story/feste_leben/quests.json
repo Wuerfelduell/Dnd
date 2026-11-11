@@ -1,0 +1,230 @@
+{
+  "fs_laternennacht_auftrag": {
+    "title": "Das Boot ohne Kerze",
+    "kind": "side",
+    "case": "side",
+    "summary": "Untersuche zwei Spuren und entscheide, wie die Festgäste von der Wahrheit erfahren.",
+    "steps": [
+      {
+        "text": "Den Auftrag annehmen.",
+        "done": {
+          "requires_flags": [
+            "fs_laternennacht_angenommen"
+          ]
+        },
+        "target": {
+          "map": "altmarkt",
+          "id": "fs_laternennacht_auftragstisch",
+          "label": "Das Boot ohne Kerze"
+        }
+      },
+      {
+        "text": "Die erste Spur sichern.",
+        "done": {
+          "requires_flags": [
+            "fs_laternennacht_spur_a"
+          ]
+        },
+        "target": {
+          "map": "docks",
+          "id": "fs_laternennacht_fund_a",
+          "label": "Das Boot ohne Kerze"
+        }
+      },
+      {
+        "text": "Die zweite Spur prüfen.",
+        "done": {
+          "requires_flags": [
+            "fs_laternennacht_spur_b"
+          ]
+        },
+        "target": {
+          "map": "altmarkt",
+          "id": "fs_laternennacht_fund_b",
+          "label": "Das Boot ohne Kerze"
+        }
+      },
+      {
+        "text": "Über den Umgang mit dem Fund entscheiden.",
+        "done": {
+          "requires_flags": [
+            "fs_laternennacht_entschieden"
+          ]
+        },
+        "target": {
+          "map": "altmarkt",
+          "id": "fs_laternennacht_auftragstisch",
+          "label": "Das Boot ohne Kerze"
+        }
+      },
+      {
+        "text": "Die Belohnung abholen.",
+        "done": {
+          "requires_flags": [
+            "fs_laternennacht_bezahlt"
+          ]
+        },
+        "target": {
+          "map": "altmarkt",
+          "id": "fs_laternennacht_auftragstisch",
+          "label": "Das Boot ohne Kerze"
+        }
+      }
+    ],
+    "reward": {
+      "gives_money": 0
+    }
+  },
+  "fs_salzsegen_auftrag": {
+    "title": "Die Salzkönigin fehlt",
+    "kind": "side",
+    "case": "side",
+    "summary": "Untersuche zwei Spuren und entscheide, wie die Festgäste von der Wahrheit erfahren.",
+    "steps": [
+      {
+        "text": "Den Auftrag annehmen.",
+        "done": {
+          "requires_flags": [
+            "fs_salzsegen_angenommen"
+          ]
+        },
+        "target": {
+          "map": "wx_salzmarkt",
+          "id": "fs_salzsegen_auftragstisch",
+          "label": "Die Salzkönigin fehlt"
+        }
+      },
+      {
+        "text": "Die erste Spur sichern.",
+        "done": {
+          "requires_flags": [
+            "fs_salzsegen_spur_a"
+          ]
+        },
+        "target": {
+          "map": "wx_bojenhafen",
+          "id": "fs_salzsegen_fund_a",
+          "label": "Die Salzkönigin fehlt"
+        }
+      },
+      {
+        "text": "Die zweite Spur prüfen.",
+        "done": {
+          "requires_flags": [
+            "fs_salzsegen_spur_b"
+          ]
+        },
+        "target": {
+          "map": "wx_salzmarkt",
+          "id": "fs_salzsegen_fund_b",
+          "label": "Die Salzkönigin fehlt"
+        }
+      },
+      {
+        "text": "Über den Umgang mit dem Fund entscheiden.",
+        "done": {
+          "requires_flags": [
+            "fs_salzsegen_entschieden"
+          ]
+        },
+        "target": {
+          "map": "wx_salzmarkt",
+          "id": "fs_salzsegen_auftragstisch",
+          "label": "Die Salzkönigin fehlt"
+        }
+      },
+      {
+        "text": "Die Belohnung abholen.",
+        "done": {
+          "requires_flags": [
+            "fs_salzsegen_bezahlt"
+          ]
+        },
+        "target": {
+          "map": "wx_salzmarkt",
+          "id": "fs_salzsegen_auftragstisch",
+          "label": "Die Salzkönigin fehlt"
+        }
+      }
+    ],
+    "reward": {
+      "gives_money": 0
+    }
+  },
+  "fs_schichtwechsel_auftrag": {
+    "title": "Die Lohntüte zu viel",
+    "kind": "side",
+    "case": "side",
+    "summary": "Untersuche zwei Spuren und entscheide, wie die Festgäste von der Wahrheit erfahren.",
+    "steps": [
+      {
+        "text": "Den Auftrag annehmen.",
+        "done": {
+          "requires_flags": [
+            "fs_schichtwechsel_angenommen"
+          ]
+        },
+        "target": {
+          "map": "ds_kalkmarkt",
+          "id": "fs_schichtwechsel_auftragstisch",
+          "label": "Die Lohntüte zu viel"
+        }
+      },
+      {
+        "text": "Die erste Spur sichern.",
+        "done": {
+          "requires_flags": [
+            "fs_schichtwechsel_spur_a"
+          ]
+        },
+        "target": {
+          "map": "ds_arbeiterbogen",
+          "id": "fs_schichtwechsel_fund_a",
+          "label": "Die Lohntüte zu viel"
+        }
+      },
+      {
+        "text": "Die zweite Spur prüfen.",
+        "done": {
+          "requires_flags": [
+            "fs_schichtwechsel_spur_b"
+          ]
+        },
+        "target": {
+          "map": "ds_kalkmarkt",
+          "id": "fs_schichtwechsel_fund_b",
+          "label": "Die Lohntüte zu viel"
+        }
+      },
+      {
+        "text": "Über den Umgang mit dem Fund entscheiden.",
+        "done": {
+          "requires_flags": [
+            "fs_schichtwechsel_entschieden"
+          ]
+        },
+        "target": {
+          "map": "ds_kalkmarkt",
+          "id": "fs_schichtwechsel_auftragstisch",
+          "label": "Die Lohntüte zu viel"
+        }
+      },
+      {
+        "text": "Die Belohnung abholen.",
+        "done": {
+          "requires_flags": [
+            "fs_schichtwechsel_bezahlt"
+          ]
+        },
+        "target": {
+          "map": "ds_kalkmarkt",
+          "id": "fs_schichtwechsel_auftragstisch",
+          "label": "Die Lohntüte zu viel"
+        }
+      }
+    ],
+    "reward": {
+      "gives_money": 0
+    }
+  }
+}

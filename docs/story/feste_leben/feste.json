@@ -1,0 +1,506 @@
+{
+  "fs_laternennacht": {
+    "name": "Laternennacht",
+    "stadt": "kettlegate",
+    "karten": [
+      "altmarkt",
+      "docks"
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "fs_fest_laternennacht_aktiv"
+      ]
+    },
+    "merchants": {
+      "fs_laternennacht_bude_1": {
+        "name": "Mina Docht",
+        "title": "Laternenfalterin",
+        "greeting": "„Für jeden Finger eine Falte. Für jedes verlorene Boot einen neuen Versuch.“",
+        "stock": [
+          {
+            "item": "fs_laternennacht_papierlaterne",
+            "price": 4
+          },
+          {
+            "item": "fs_laternennacht_kerzenboot",
+            "price": 5
+          },
+          {
+            "item": "fs_laternennacht_gluehwein",
+            "price": 6
+          },
+          {
+            "item": "fs_laternennacht_kastanien",
+            "price": 4
+          },
+          {
+            "item": "fs_laternennacht_kandis",
+            "price": 3
+          },
+          {
+            "item": "fs_laternennacht_apfel",
+            "price": 5
+          }
+        ]
+      },
+      "fs_laternennacht_bude_2": {
+        "name": "Tobias Tasse",
+        "title": "Getränkekocher",
+        "greeting": "„Der Wein ist heiß. Die Neuigkeiten sind von gestern, dafür geprüft.“",
+        "stock": [
+          {
+            "item": "fs_laternennacht_kerzenboot",
+            "price": 5
+          },
+          {
+            "item": "fs_laternennacht_gluehwein",
+            "price": 6
+          },
+          {
+            "item": "fs_laternennacht_kastanien",
+            "price": 4
+          },
+          {
+            "item": "fs_laternennacht_kandis",
+            "price": 3
+          },
+          {
+            "item": "fs_laternennacht_apfel",
+            "price": 5
+          },
+          {
+            "item": "fs_laternennacht_docht",
+            "price": 3
+          }
+        ]
+      },
+      "fs_laternennacht_bude_3": {
+        "name": "Rika Funken",
+        "title": "Zuckerbäckerin",
+        "greeting": "„Kandis bricht ohne Vorwarnung. Das ist sein einziger Beitrag zur Ermittlungsarbeit.“",
+        "stock": [
+          {
+            "item": "fs_laternennacht_gluehwein",
+            "price": 6
+          },
+          {
+            "item": "fs_laternennacht_kastanien",
+            "price": 4
+          },
+          {
+            "item": "fs_laternennacht_kandis",
+            "price": 3
+          },
+          {
+            "item": "fs_laternennacht_apfel",
+            "price": 5
+          },
+          {
+            "item": "fs_laternennacht_docht",
+            "price": 3
+          },
+          {
+            "item": "fs_laternennacht_tee",
+            "price": 4
+          }
+        ]
+      },
+      "fs_laternennacht_bude_4": {
+        "name": "Bert Papier",
+        "title": "Bootsbauer",
+        "greeting": "„Ich baue Boote, die untergehen dürfen. Ein angenehmer Unterschied zur Hafenverwaltung.“",
+        "stock": [
+          {
+            "item": "fs_laternennacht_kastanien",
+            "price": 4
+          },
+          {
+            "item": "fs_laternennacht_kandis",
+            "price": 3
+          },
+          {
+            "item": "fs_laternennacht_apfel",
+            "price": 5
+          },
+          {
+            "item": "fs_laternennacht_docht",
+            "price": 3
+          },
+          {
+            "item": "fs_laternennacht_tee",
+            "price": 4
+          },
+          {
+            "item": "fs_laternennacht_papierlaterne",
+            "price": 4
+          }
+        ]
+      }
+    },
+    "besucher": [
+      {
+        "npc": "fs_laternennacht_gast_1",
+        "dialogue": "fs_laternennacht_gast_1"
+      },
+      {
+        "npc": "fs_laternennacht_gast_2",
+        "dialogue": "fs_laternennacht_gast_2"
+      },
+      {
+        "npc": "fs_laternennacht_gast_3",
+        "dialogue": "fs_laternennacht_gast_3"
+      },
+      {
+        "npc": "fs_laternennacht_gast_4",
+        "dialogue": "fs_laternennacht_gast_4"
+      },
+      {
+        "npc": "holt",
+        "dialogue": "holt"
+      },
+      {
+        "npc": "marlowe",
+        "dialogue": "marlowe"
+      }
+    ],
+    "auftrag": "fs_laternennacht_auftrag",
+    "spiel": "fs_laternennacht_spiel",
+    "text": "Buden sind nur während des Festflags geöffnet. Festkarten bleiben begehbar; zufällige Stadtgegner entfallen, Fahndung bleibt wirksam. Begonnene Aufträge laufen nach dem Fest weiter."
+  },
+  "fs_salzsegen": {
+    "name": "Salzsegen",
+    "stadt": "wexmoor",
+    "karten": [
+      "wx_salzmarkt",
+      "wx_bojenhafen"
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "fs_fest_salzsegen_aktiv"
+      ]
+    },
+    "merchants": {
+      "fs_salzsegen_bude_1": {
+        "name": "Nela Rauch",
+        "title": "Fischräucherin",
+        "greeting": "„Fisch und Geduld. Das eine ist heute günstiger.“",
+        "stock": [
+          {
+            "item": "fs_salzsegen_raeucherfisch",
+            "price": 6
+          },
+          {
+            "item": "fs_salzsegen_salzkranz",
+            "price": 5
+          },
+          {
+            "item": "fs_salzsegen_bruehe",
+            "price": 4
+          },
+          {
+            "item": "fs_salzsegen_brot",
+            "price": 3
+          },
+          {
+            "item": "fs_salzsegen_birne",
+            "price": 5
+          },
+          {
+            "item": "fs_salzsegen_kraeuter",
+            "price": 4
+          }
+        ]
+      },
+      "fs_salzsegen_bude_2": {
+        "name": "Morris Kanne",
+        "title": "Brühenkoch",
+        "greeting": "„Eine Kelle gegen kalte Finger. Für kalte Absichten habe ich nichts im Topf.“",
+        "stock": [
+          {
+            "item": "fs_salzsegen_salzkranz",
+            "price": 5
+          },
+          {
+            "item": "fs_salzsegen_bruehe",
+            "price": 4
+          },
+          {
+            "item": "fs_salzsegen_brot",
+            "price": 3
+          },
+          {
+            "item": "fs_salzsegen_birne",
+            "price": 5
+          },
+          {
+            "item": "fs_salzsegen_kraeuter",
+            "price": 4
+          },
+          {
+            "item": "fs_salzsegen_wasser",
+            "price": 3
+          }
+        ]
+      },
+      "fs_salzsegen_bude_3": {
+        "name": "Jette Flecht",
+        "title": "Kranzflechterin",
+        "greeting": "„Den Kranz musst du nicht tragen. Er darf einfach auf dem Tisch liegen.“",
+        "stock": [
+          {
+            "item": "fs_salzsegen_bruehe",
+            "price": 4
+          },
+          {
+            "item": "fs_salzsegen_brot",
+            "price": 3
+          },
+          {
+            "item": "fs_salzsegen_birne",
+            "price": 5
+          },
+          {
+            "item": "fs_salzsegen_kraeuter",
+            "price": 4
+          },
+          {
+            "item": "fs_salzsegen_wasser",
+            "price": 3
+          },
+          {
+            "item": "fs_salzsegen_bonbon",
+            "price": 2
+          }
+        ]
+      },
+      "fs_salzsegen_bude_4": {
+        "name": "Odo Pfahl",
+        "title": "Kahnführer",
+        "greeting": "„Der erste Kahn trägt Brot, der zweite Wasser, der letzte Licht.“",
+        "stock": [
+          {
+            "item": "fs_salzsegen_brot",
+            "price": 3
+          },
+          {
+            "item": "fs_salzsegen_birne",
+            "price": 5
+          },
+          {
+            "item": "fs_salzsegen_kraeuter",
+            "price": 4
+          },
+          {
+            "item": "fs_salzsegen_wasser",
+            "price": 3
+          },
+          {
+            "item": "fs_salzsegen_bonbon",
+            "price": 2
+          },
+          {
+            "item": "fs_salzsegen_raeucherfisch",
+            "price": 6
+          }
+        ]
+      }
+    },
+    "besucher": [
+      {
+        "npc": "fs_salzsegen_gast_1",
+        "dialogue": "fs_salzsegen_gast_1"
+      },
+      {
+        "npc": "fs_salzsegen_gast_2",
+        "dialogue": "fs_salzsegen_gast_2"
+      },
+      {
+        "npc": "fs_salzsegen_gast_3",
+        "dialogue": "fs_salzsegen_gast_3"
+      },
+      {
+        "npc": "fs_salzsegen_gast_4",
+        "dialogue": "fs_salzsegen_gast_4"
+      },
+      {
+        "npc": "sedge",
+        "dialogue": "sedge"
+      },
+      {
+        "npc": "brack",
+        "dialogue": "brack"
+      }
+    ],
+    "auftrag": "fs_salzsegen_auftrag",
+    "spiel": "fs_salzsegen_spiel",
+    "text": "Buden sind nur während des Festflags geöffnet. Festkarten bleiben begehbar; zufällige Stadtgegner entfallen, Fahndung bleibt wirksam. Begonnene Aufträge laufen nach dem Fest weiter."
+  },
+  "fs_schichtwechsel": {
+    "name": "Schichtwechsel",
+    "stadt": "dunscar",
+    "karten": [
+      "ds_kalkmarkt",
+      "ds_arbeiterbogen"
+    ],
+    "visible_if": {
+      "requires_flags": [
+        "fs_fest_schichtwechsel_aktiv"
+      ]
+    },
+    "merchants": {
+      "fs_schichtwechsel_bude_1": {
+        "name": "Lene Falz",
+        "title": "Losverkäuferin",
+        "greeting": "„Auf jedem Los steht ein freundlicher Satz. Wer Geld erwartet, liest besser vorher.“",
+        "stock": [
+          {
+            "item": "fs_schichtwechsel_lohntuetenlos",
+            "price": 4
+          },
+          {
+            "item": "fs_schichtwechsel_bierkrug",
+            "price": 5
+          },
+          {
+            "item": "fs_schichtwechsel_kandis",
+            "price": 3
+          },
+          {
+            "item": "fs_schichtwechsel_stulle",
+            "price": 4
+          },
+          {
+            "item": "fs_schichtwechsel_kaffee",
+            "price": 5
+          },
+          {
+            "item": "fs_schichtwechsel_gurke",
+            "price": 3
+          }
+        ]
+      },
+      "fs_schichtwechsel_bude_2": {
+        "name": "Gero Henkel",
+        "title": "Ausschank",
+        "greeting": "„Der Krug hat einen Deckel. Dunscar hat schließlich überall Streugut.“",
+        "stock": [
+          {
+            "item": "fs_schichtwechsel_bierkrug",
+            "price": 5
+          },
+          {
+            "item": "fs_schichtwechsel_kandis",
+            "price": 3
+          },
+          {
+            "item": "fs_schichtwechsel_stulle",
+            "price": 4
+          },
+          {
+            "item": "fs_schichtwechsel_kaffee",
+            "price": 5
+          },
+          {
+            "item": "fs_schichtwechsel_gurke",
+            "price": 3
+          },
+          {
+            "item": "fs_schichtwechsel_wasser",
+            "price": 3
+          }
+        ]
+      },
+      "fs_schichtwechsel_bude_3": {
+        "name": "Iva Pause",
+        "title": "Stullenverkäuferin",
+        "greeting": "„Setz dich zum Essen. Brot ist kein Werkzeug.“",
+        "stock": [
+          {
+            "item": "fs_schichtwechsel_kandis",
+            "price": 3
+          },
+          {
+            "item": "fs_schichtwechsel_stulle",
+            "price": 4
+          },
+          {
+            "item": "fs_schichtwechsel_kaffee",
+            "price": 5
+          },
+          {
+            "item": "fs_schichtwechsel_gurke",
+            "price": 3
+          },
+          {
+            "item": "fs_schichtwechsel_wasser",
+            "price": 3
+          },
+          {
+            "item": "fs_schichtwechsel_gebinde",
+            "price": 4
+          }
+        ]
+      },
+      "fs_schichtwechsel_bude_4": {
+        "name": "Silan Seil",
+        "title": "Ringwart",
+        "greeting": "„Nur mit Einwilligung, nur bis zur Aufgabe. Der Ring ist kleiner als unser Ehrgeiz.“",
+        "stock": [
+          {
+            "item": "fs_schichtwechsel_stulle",
+            "price": 4
+          },
+          {
+            "item": "fs_schichtwechsel_kaffee",
+            "price": 5
+          },
+          {
+            "item": "fs_schichtwechsel_gurke",
+            "price": 3
+          },
+          {
+            "item": "fs_schichtwechsel_wasser",
+            "price": 3
+          },
+          {
+            "item": "fs_schichtwechsel_gebinde",
+            "price": 4
+          },
+          {
+            "item": "fs_schichtwechsel_lohntuetenlos",
+            "price": 4
+          }
+        ]
+      }
+    },
+    "besucher": [
+      {
+        "npc": "fs_schichtwechsel_gast_1",
+        "dialogue": "fs_schichtwechsel_gast_1"
+      },
+      {
+        "npc": "fs_schichtwechsel_gast_2",
+        "dialogue": "fs_schichtwechsel_gast_2"
+      },
+      {
+        "npc": "fs_schichtwechsel_gast_3",
+        "dialogue": "fs_schichtwechsel_gast_3"
+      },
+      {
+        "npc": "fs_schichtwechsel_gast_4",
+        "dialogue": "fs_schichtwechsel_gast_4"
+      },
+      {
+        "npc": "k3_esther",
+        "dialogue": "k3a_esther"
+      },
+      {
+        "npc": "k3_pfiff",
+        "dialogue": "k3a_pfiff"
+      }
+    ],
+    "auftrag": "fs_schichtwechsel_auftrag",
+    "spiel": "fs_schichtwechsel_spiel",
+    "text": "Buden sind nur während des Festflags geöffnet. Festkarten bleiben begehbar; zufällige Stadtgegner entfallen, Fahndung bleibt wirksam. Begonnene Aufträge laufen nach dem Fest weiter."
+  }
+}
