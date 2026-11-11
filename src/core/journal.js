@@ -45,11 +45,15 @@ export function journalQuestVisible(state, id) {
   return !!cities && [...cities].some((city) => city !== 'kettlegate');
 }
 
-/** Ein Fall gilt als gelöst, wenn er ein Ende hat oder sein Hauptauftrag erledigt ist. */
+/** Mehrteilige Hauptfälle bleiben bis zum letzten Akt außerhalb des Archivs. */
 export function isSolved(state, caseId) {
   if (caseId === 'side') return false;
   if (state.endings?.[caseId]) return true;
-  return Object.entries(state.content.quests).some(([id, q]) => q.case === caseId && q.kind === 'main' && state.quests[id] === 'done');
+  const main = Object.entries(state.content.quests).filter(([, q]) => q.case === caseId && q.kind === 'main');
+  // Kettlegate-Fälle haben zusätzlich Anreise-/Berichtsaufträge; dort bleibt
+  // der bisherige Abschluss gültig. Kapitelakten bestehen aus mehreren Akten.
+  if (!caseId.startsWith('kapitel')) return main.some(([id]) => state.quests[id] === 'done');
+  return main.length > 0 && main.every(([id]) => state.quests[id] === 'done');
 }
 
 /** Wo eine Figur steht: Kartennamen (Reihenfolge der Karten). */

@@ -1460,6 +1460,12 @@ export class Ui {
     el.querySelectorAll('[data-tab]').forEach((b) => { b.onclick = () => { this.tab = b.dataset.tab; this.selected = []; this.forgetScroll(); this.renderNotebook(''); }; });
     el.querySelectorAll('[data-itemcat]').forEach((b) => { b.onclick = () => { this.itemCat = b.dataset.itemcat; this.forgetScroll('notebook', /^UL\./); this.renderNotebook(''); }; });
     el.querySelectorAll('[data-fact]').forEach((b) => { b.onclick = () => this.toggleFact(b.dataset.fact); });
+    el.querySelectorAll('[data-quest-case]').forEach((b) => { b.onclick = (event) => {
+      event.stopPropagation();
+      this.forgetScroll();
+      this.openNotebook(b.dataset.questCase);
+    }; });
+    el.querySelector('[data-act=quests]')?.addEventListener('click', () => { this.forgetScroll(); this.openNotebook('quests'); });
     el.querySelectorAll('[data-archive]').forEach((b) => { b.onclick = () => { this.archiveCase = b.dataset.archive; this.selected = []; this.forgetScroll(); this.renderNotebook(''); }; });
     el.querySelector('[data-act=combine]')?.addEventListener('click', () => this.combine());
     const inv = (fn) => this.as(fn, this.tab === 'items' || this.tab === 'pfad' ? this.invPlayer : 1);
@@ -1588,8 +1594,10 @@ export class Ui {
       const steps = active ? `<ul class="steps">${s.questSteps(id).map((x) => `<li class="${x.done ? 'done' : ''}">${x.done ? '✓' : '○'} ${esc(x.text)}</li>`).join('')}</ul>` : '';
       const t = active ? questTarget(s, id) : null;
       const goal = active ? `<div class="qgoal">➤ ${t ? esc(this.goalText(t)) : 'Kein fester Ort bekannt'}</div>${t?.because ? `<div class="qwhy">${esc(t.because)}</div>` : ''}` : '';
+      const caseLink = s.content.cases.some((c) => c.id === q.case)
+        ? `<button class="small" data-quest-case="${esc(q.case)}" aria-label="${esc(q.title)}: Schlüsse ziehen">Schlüsse ziehen</button>` : '';
       return `<li class="quest ${st} ${tracked ? 'tracked' : ''}" ${active ? `data-track="${id}"` : ''}><div class="qtitle">${uiSprite('qstatus', !active ? 'q1' : tracked ? 'q6' : q.kind === 'main' ? 'q5' : 'q2', 1 / 12, 'qico')}<span class="qkind">${q.kind === 'main' ? 'Hauptfall' : 'Nebenauftrag'}</span> ${esc(q.title)} ${!active ? '<span class="badge likely">erledigt</span>' : ''}${tracked ? '<span class="badge track">verfolgt</span>' : ''}</div>
-        ${active ? `<div class="qsum">${q.wanted ? wantedImg(q.wanted, false) : ''}${esc(q.summary)}</div>` : ''}${steps}${goal}</li>`;
+        ${active ? `<div class="qsum">${q.wanted ? wantedImg(q.wanted, false) : ''}${esc(q.summary)}</div>` : ''}${steps}${goal}${caseLink}</li>`;
     };
     // Offene Spuren: Aufträge, die noch abgeholt werden müssen (z. B. Fall 8 bei Nan Kettle am Nachtmarkt)
     const leadRow = (l) => {
@@ -1602,7 +1610,7 @@ export class Ui {
     // Erledigte Aufträge zusammengeklappt, damit die offenen oben sichtbar bleiben
     const open = ids.filter((id) => s.quests[id] === 'active');
     const closed = ids.filter((id) => s.quests[id] !== 'active');
-    return `<p class="hintline">Klicke auf einen Auftrag, um ihn zu verfolgen. Ein Pfeil zeigt dir dann den Weg.</p>
+    return `<p class="hintline">Klicke auf einen Auftrag, um ihn zu verfolgen. „Schlüsse ziehen“ öffnet die Informationen zu diesem Fall.</p>
       <ul class="quests">${leads}${open.map(row).join('') || (leads ? '' : '<li class="empty">Gerade keine offenen Aufträge.</li>')}</ul>
       ${closed.length ? `<details class="closed-quests"><summary>Erledigt (${closed.length})</summary><ul class="quests">${closed.map(row).join('')}</ul></details>` : ''}`;
   }
@@ -1820,6 +1828,8 @@ export class Ui {
         <ul class="sources">${s.factSources(detailId).map((c) => `<li>${sourceFace(s.content, s.clue(c), s.factStatus(detailId) === 'refuted')}<div><em>${esc(s.clue(c).source)}:</em> ${esc(s.clue(c).text)}</div></li>`).join('')}</ul>`
       : 'Klicke eine Information an, um ihre Quellen zu sehen. Ab zwei Quellen gilt sie als sehr wahrscheinlich. Wähle zwei Informationen und verknüpfe sie.';
     return `
+      <div class="actions"><button class="small" data-act="quests">← Zurück zu den Aufträgen</button></div>
+      <h4>${esc(s.content.cases.find((c) => c.id === caseId)?.title ?? 'Fallakte')}</h4>
       ${blockBox}
       <div class="cols">
         <div class="col">
