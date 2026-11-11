@@ -1816,3 +1816,13 @@ Prüfung: `python tools/art/calderwick2/check.py` (Pillow, aus jedem Arbeitsverz
 - Prüfung: `python tools/art/kettlegate_leben/check.py`.
 
 Keine Laufzeitintegration in diesem Paket.
+
+## Batch DH – Nebelseite
+
+35 PNGs für Geisterwelt-Tiles, Props, fünf Kartenwesen, vier Kampf-Sheets, Spieler-/Spiegel-Overlays, Übergang, HUD, sechs Stadt-Hintergründe sowie Köpfe und Bestiariumsbilder. Gemeinsame Palette aus `manifest-fasserin.json`, maximal 32 sichtbare Farben, binäres Alpha, explizite Atlasregionen und Frame-Listen in `public/sprites/manifest-nebelseite.json`.
+
+- Texte, Kartenersatz und Einbauvertrag: `docs/story/nebelseite/README.md`.
+- Bildgenerator-Prompts und Verarbeitung: `batch-nebelseite-generation.json`.
+- Vorschau: [batch-nebelseite-preview.png](batch-nebelseite-preview.png).
+- Prüfung: `python tools/art/nebelseite/check.py` und `node docs/story/nebelseite/pruefen.mjs`.
+- Bericht: `batch-nebelseite-validation.json`. Kein Spielcode geändert; Laufzeiteinbau und Balanceprüfung folgen separat.

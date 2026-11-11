@@ -1,0 +1,353 @@
+{
+  "format_note": "Encounter records follow src/data/encounters.json; mechanic_proposal and balancing require integration. docs/story/k5_orte/encounters.json is empty on the baseline.",
+  "encounters": {
+    "nsw_umrissgaenger": {
+      "name": "Umrissgänger",
+      "sprite": "nsw_umrissgaenger",
+      "occult": true,
+      "fleeable": true,
+      "hp": 88,
+      "intro": "Er hält den Platz eines Passanten frei und duldet keine Abkürzung durch seine Brust.",
+      "attacks": [
+        {
+          "name": "Leerer Ärmel",
+          "damage": 10,
+          "hits": [
+            1000
+          ]
+        },
+        {
+          "name": "Schulterkante",
+          "damage": 7,
+          "hits": [
+            900,
+            1450
+          ]
+        }
+      ],
+      "on_win": {},
+      "on_lose": {},
+      "win_text": "Die Gestalt verliert ihre Kanten. Der Weg liegt wieder still vor dir.",
+      "lose_text": "Du kommst am inneren Rand deines Übergangs zu dir. Die Öffnung nach diesseits ist noch da.",
+      "bestiary": "Er hält den Platz eines Passanten frei und duldet keine Abkürzung durch seine Brust. Seine Ärmel kündigen den Schlag an, bevor eine Hand darin fehlt.",
+      "mechanic_proposal": {
+        "kind": "outline",
+        "tell": "Der rechte Ärmel spannt sich vor dem Hieb."
+      }
+    },
+    "nsw_lampenfresser": {
+      "name": "Lampenfresser",
+      "sprite": "nsw_lampenfresser",
+      "occult": true,
+      "fleeable": true,
+      "hp": 76,
+      "intro": "Er frisst nicht die Lampe, sondern den Abstand zwischen ihrem Licht und dem Schatten.",
+      "attacks": [
+        {
+          "name": "Dochtgriff",
+          "damage": 9,
+          "hits": [
+            1200
+          ]
+        },
+        {
+          "name": "Lichtschluck",
+          "damage": 6,
+          "hits": [
+            900,
+            1300,
+            1700
+          ]
+        }
+      ],
+      "on_win": {},
+      "on_lose": {},
+      "win_text": "Die Gestalt verliert ihre Kanten. Der Weg liegt wieder still vor dir.",
+      "lose_text": "Du kommst am inneren Rand deines Übergangs zu dir. Die Öffnung nach diesseits ist noch da.",
+      "bestiary": "Er frisst nicht die Lampe, sondern den Abstand zwischen ihrem Licht und dem Schatten. Nur der Laterne-Pfad sieht seinen ganzen Körper; alle anderen erkennen die Angriffskante.",
+      "mechanic_proposal": {
+        "kind": "visibility",
+        "full_body_path": "laterne",
+        "others": "outline_and_attack_tells",
+        "never_hide_attack_timing": true
+      }
+    },
+    "nsw_rueckwaertsgeher": {
+      "name": "Rückwärtsgeher",
+      "sprite": "nsw_rueckwaertsgeher",
+      "occult": true,
+      "fleeable": true,
+      "hp": 94,
+      "intro": "Er zeigt dir den Rücken und kommt dennoch näher.",
+      "attacks": [
+        {
+          "name": "Vorbeistreifen",
+          "damage": 11,
+          "hits": [
+            1100
+          ]
+        },
+        {
+          "name": "Nachlaufender Stock",
+          "damage": 8,
+          "hits": [
+            900,
+            1600
+          ]
+        }
+      ],
+      "on_win": {},
+      "on_lose": {},
+      "win_text": "Die Gestalt verliert ihre Kanten. Der Weg liegt wieder still vor dir.",
+      "lose_text": "Du kommst am inneren Rand deines Übergangs zu dir. Die Öffnung nach diesseits ist noch da.",
+      "bestiary": "Er zeigt dir den Rücken und kommt dennoch näher. Wer seine Blickrichtung für seine Bewegung hält, bemerkt den Stock zu spät.",
+      "mechanic_proposal": {
+        "kind": "proximity",
+        "trigger": "player_passes_adjacent_tile",
+        "telegraph_ms": 900,
+        "retrigger_cooldown_ms": 5000,
+        "do_not_spawn_at_transition": true
+      }
+    },
+    "nsw_namenlose_kutsche": {
+      "name": "Namenlose Kutsche",
+      "sprite": "nsw_namenlose_kutsche",
+      "occult": true,
+      "fleeable": true,
+      "hp": 210,
+      "intro": "Ihr Wagenkasten trägt weder Wappen noch Nummer.",
+      "attacks": [
+        {
+          "name": "Wandfahrt",
+          "damage": 18,
+          "hits": [
+            1600
+          ]
+        },
+        {
+          "name": "Speichenfolge",
+          "damage": 10,
+          "hits": [
+            900,
+            1200,
+            1500
+          ]
+        }
+      ],
+      "on_win": {},
+      "on_lose": {},
+      "win_text": "Die Gestalt verliert ihre Kanten. Der Weg liegt wieder still vor dir.",
+      "lose_text": "Du kommst am inneren Rand deines Übergangs zu dir. Die Öffnung nach diesseits ist noch da.",
+      "bestiary": "Ihr Wagenkasten trägt weder Wappen noch Nummer. Mauern halten sie nicht auf, doch das Aufleuchten der Vorderräder verrät ihre Bahn.",
+      "mechanic_proposal": {
+        "kind": "elite",
+        "ignores_world_walls": true,
+        "combat_telegraph": "Die Vorderräder werden hell; aus der angekündigten Spur treten.",
+        "transition_safe_radius_tiles": 3
+      }
+    },
+    "nsw_spiegelspieler": {
+      "name": "Spiegelspieler",
+      "sprite": "battle_player",
+      "occult": true,
+      "fleeable": true,
+      "hp": 180,
+      "intro": "Dein Gegenüber beendet eine Bewegung, die du noch nicht begonnen hast. Es wartet auf deine Hände.",
+      "attacks": [
+        {
+          "name": "Gespiegelter Grundschlag",
+          "damage": 10,
+          "hits": [
+            1200
+          ]
+        }
+      ],
+      "on_win": {
+        "sets_flags": [
+          "ns_spiegelspieler_done"
+        ]
+      },
+      "on_lose": {},
+      "win_text": "Dein Gegenüber lässt die Arme sinken. Sein Platz im Glas bleibt leer.",
+      "lose_text": "Dein Spiegel wartet jenseits des Rückwegs. Du kannst wiederkommen oder es bei dieser Begegnung belassen.",
+      "bestiary": "Es lernt aus deinen letzten Handlungen, nicht aus einer unbekannten Zukunft. Drei Runden ohne Angriff geben dem Spiegel Gelegenheit, etwas anderes als einen Gegner zu erkennen.",
+      "mechanic_proposal": {
+        "once_per_save": true,
+        "snapshot": "last_three_successfully_used_player_ability_ids_before_encounter",
+        "keep_duplicates": true,
+        "missing_slots": "use_basic_attack",
+        "copy_costs_and_cooldowns": true,
+        "copy_no_inventory_or_quest_effects": true,
+        "deterministic_order": "oldest_to_newest_cycle",
+        "scale": "snapshot_owner_stats_at_start",
+        "player_sprite_mirrored": true,
+        "overlay": "nsw_spiegel_overlay",
+        "peaceful": {
+          "consecutive_rounds": 3,
+          "allowed_actions": [
+            "guard",
+            "wait",
+            "self_heal"
+          ],
+          "forbidden": [
+            "attack",
+            "damaging_ability",
+            "offensive_status",
+            "pet_attack",
+            "reflection_damage"
+          ],
+          "pet_autoattack_disabled": true,
+          "reflect_damage_disabled": true,
+          "hostile_action_resets_counter": true,
+          "mirror_waits_while_peaceful_counter_active": true,
+          "after_round_3": "ns_spiegel_1",
+          "victory_rewards_equal": true
+        },
+        "koop": {
+          "one_mirror_per_player": true,
+          "each_uses_own_history": true,
+          "both_must_be_nonhostile": true,
+          "atomic_done_flag": true,
+          "no_double_rewards": true
+        }
+      }
+    }
+  },
+  "city_balance_proposal": {
+    "kettlegate": {
+      "expected_sequence": 5,
+      "hp_multiplier": 1,
+      "damage_multiplier": 1,
+      "rounding": "ceil",
+      "boss_uses_snapshot_instead": true
+    },
+    "wexmoor": {
+      "expected_sequence": 5,
+      "hp_multiplier": 1.05,
+      "damage_multiplier": 1,
+      "rounding": "ceil",
+      "boss_uses_snapshot_instead": true
+    },
+    "dunscar": {
+      "expected_sequence": 5,
+      "hp_multiplier": 1.1,
+      "damage_multiplier": 1.1,
+      "rounding": "ceil",
+      "boss_uses_snapshot_instead": true
+    },
+    "calderwick": {
+      "expected_sequence": 4,
+      "hp_multiplier": 1.35,
+      "damage_multiplier": 1.2,
+      "rounding": "ceil",
+      "boss_uses_snapshot_instead": true
+    },
+    "briarholt": {
+      "expected_sequence": 4,
+      "hp_multiplier": 1.5,
+      "damage_multiplier": 1.3,
+      "rounding": "ceil",
+      "boss_uses_snapshot_instead": true
+    },
+    "varrowmouth": {
+      "expected_sequence": 3,
+      "hp_multiplier": 1.8,
+      "damage_multiplier": 1.5,
+      "rounding": "ceil",
+      "boss_uses_snapshot_instead": true
+    }
+  },
+  "peace_dialogue": {
+    "ns_spiegel_1": {
+      "speaker": "nsw_spiegelspieler",
+      "text": "Sie haben drei Bewegungen übrig gelassen. Keine davon hat mich getroffen.",
+      "choices": [
+        {
+          "text": "Warum stehen Sie hier?",
+          "next": "ns_spiegel_2"
+        }
+      ]
+    },
+    "ns_spiegel_2": {
+      "speaker": "nsw_spiegelspieler",
+      "text": "Weil Sie vor einem Spiegel stehen können, ohne sich zu schlagen. Das ist seltener, als ein Rahmen vermuten lässt.",
+      "choices": [
+        {
+          "text": "Sind Sie ich?",
+          "next": "ns_spiegel_3"
+        }
+      ]
+    },
+    "ns_spiegel_3": {
+      "speaker": "nsw_spiegelspieler",
+      "text": "Ich trage Ihre letzten Handgriffe. Für Ihr ganzes Leben reichen drei Griffe nicht.",
+      "choices": [
+        {
+          "text": "Was wollen Sie von mir?",
+          "next": "ns_spiegel_4"
+        }
+      ]
+    },
+    "ns_spiegel_4": {
+      "speaker": "nsw_spiegelspieler",
+      "text": "Einen Platz, den Sie nicht mit einer Waffe ausfüllen. Weiter reicht mein Anspruch nicht.",
+      "choices": [
+        {
+          "text": "Kann ich weitergehen?",
+          "next": "ns_spiegel_5"
+        }
+      ]
+    },
+    "ns_spiegel_5": {
+      "speaker": "nsw_spiegelspieler",
+      "text": "Der Weg bleibt offen. Sie müssen keine zusätzliche Fähigkeit lernen, um ihn zu benutzen.",
+      "choices": [
+        {
+          "text": "Was bleibt von diesem Gespräch?",
+          "next": "ns_spiegel_6"
+        }
+      ]
+    },
+    "ns_spiegel_6": {
+      "speaker": "nsw_spiegelspieler",
+      "text": "Ihre Erinnerung bleibt bei Ihnen. Meine Hände müssen keine vierte Bewegung stehlen.",
+      "choices": [
+        {
+          "text": "Und wenn wir zu zweit sind?",
+          "next": "ns_spiegel_7"
+        }
+      ]
+    },
+    "ns_spiegel_7": {
+      "speaker": "nsw_spiegelspieler",
+      "text": "Dann stehen hier zwei freie Plätze. Keiner von Ihnen muss den anderen aus dem Bild drängen.",
+      "choices": [
+        {
+          "text": "Ich lasse Ihren Platz frei.",
+          "next": "ns_spiegel_8"
+        }
+      ]
+    },
+    "ns_spiegel_8": {
+      "speaker": "nsw_spiegelspieler",
+      "text": "Dann sind wir fertig. Gehen Sie durch den Rahmen, der Sie hergebracht hat.",
+      "choices": [
+        {
+          "text": "Gehen.",
+          "effects": {
+            "sets_flags": [
+              "ns_spiegelspieler_done"
+            ]
+          },
+          "end": true
+        }
+      ]
+    }
+  },
+  "defeat_policy": {
+    "return_to": "entry_transition_inside",
+    "never_consume_unique_finds": true,
+    "no_forced_crossing": true,
+    "transition_safe_radius_tiles": 3
+  }
+}
