@@ -1473,6 +1473,7 @@ export class Ui {
       <div class="feedback">${feedback}</div>
       <div class="actions">
         ${isCase ? `<button class="primary" data-act="combine" ${this.selected.length === 2 ? '' : 'disabled'}>Verknüpfen <span class="key">V</span></button>` : ''}
+        ${isCase && this.state.autoLinkFrei() ? `<button data-act="autocombine" title="Zieht alle Verbindungen, deren Informationen schon im Notizbuch stehen">Auto-Verknüpfen <span class="key">A</span></button>` : ''}
         <button data-act="close">Schließen <span class="key">J</span></button>
       </div>`, 'notebook');
     this.notebookTabs = tabs;
@@ -1488,6 +1489,7 @@ export class Ui {
     el.querySelector('[data-act=quests]')?.addEventListener('click', () => { this.sfx(uiSound('notebook', 'page')); this.forgetScroll(); this.openNotebook('quests'); });
     el.querySelectorAll('[data-archive]').forEach((b) => { b.onclick = () => { this.sfx(uiSound('notebook', 'page')); this.archiveCase = b.dataset.archive; this.selected = []; this.forgetScroll(); this.renderNotebook(''); }; });
     el.querySelector('[data-act=combine]')?.addEventListener('click', () => this.combine());
+    el.querySelector('[data-act=autocombine]')?.addEventListener('click', () => this.autoCombine());
     const inv = (fn) => this.as(fn, this.tab === 'items' || this.tab === 'pfad' ? this.invPlayer : 1);
     el.querySelectorAll('[data-use]').forEach((b) => { b.onclick = () => { this.sfx(worldSound('use', { id: b.dataset.use })); this.renderNotebook(esc(inv(() => this.state.useItem(b.dataset.use)) ?? '')); }; });
     el.querySelectorAll('[data-equip]').forEach((b) => { b.onclick = () => { if (inv(() => this.state.equip(b.dataset.equip))) this.sfx(worldSound('equip')); this.renderNotebook(''); }; });
@@ -1950,6 +1952,18 @@ export class Ui {
       refuted: 'Eine der beiden Informationen ist widerlegt. Darauf lässt sich nichts bauen.',
       none: 'Diese Informationen ergeben zusammen keinen Sinn.',
     }[result];
+    this.renderNotebook(msg);
+  }
+
+  /** Ab Wexmoor: alle Paare des offenen Falls auf einmal verknüpfen. */
+  autoCombine() {
+    const caseId = this.currentCase();
+    if (!caseId || !this.state.autoLinkFrei()) return;
+    const { result, deductions } = this.state.autoCombine(caseId);
+    this.selected = [];
+    const msg = result === 'new'
+      ? `<span class="good">Automatisch verknüpft: ${deductions.map((d) => esc(d.name)).join(', ')}</span>`
+      : 'Nichts Neues zu verknüpfen. Dir fehlen noch Informationen.';
     this.renderNotebook(msg);
   }
 
@@ -2774,6 +2788,7 @@ export class Ui {
       if (this.modal === 'shop') this.openShop(this.shop.id, this.shop.mode); else this.openStorage('', ...this.storageArgs);
     } else if (this.modal === 'notebook' && k === 'g' && (this.tab === 'items' || this.tab === 'pfad') && this.state.hasP2()) { this.invPlayer = this.invPlayer === 1 ? 2 : 1; this.renderNotebook(''); }
     else if (this.modal === 'notebook' && k === 'v') this.combine();
+    else if (this.modal === 'notebook' && k === 'a') this.autoCombine();
     else if (this.modal === 'notebook' && this.tab === 'items' && (k === 'arrowleft' || k === 'arrowright') && this.itemCats?.length) {
       const i = this.itemCats.findIndex((c) => c.id === this.itemCat);
       const n = this.itemCats.length;
