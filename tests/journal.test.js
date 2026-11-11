@@ -56,3 +56,15 @@ test('Ab Wexmoor verschwinden alte Personen und offene Kettlegate-Aufträge ohne
   assert.equal(journalQuestVisible(restored, 'quill_mirror'), false);
   assert.equal(journalQuestVisible(restored, 'case_01'), true);
 });
+
+test('Wexmoor bleibt nach Akt I und während Akt II offen, bis alle Hauptakte erledigt sind', () => {
+  const s = new GameState(content);
+  s.quests.k2_akt1 = 'done';
+  assert.equal(isSolved(s, 'kapitel2'), false);
+  s.quests.k2_akt2 = 'active';
+  assert.equal(isSolved(s, 'kapitel2'), false);
+  for (const [id, q] of Object.entries(content.quests)) {
+    if (q.case === 'kapitel2' && q.kind === 'main') s.quests[id] = 'done';
+  }
+  assert.equal(isSolved(s, 'kapitel2'), true);
+});
