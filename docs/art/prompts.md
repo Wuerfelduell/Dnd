@@ -2,6 +2,32 @@
 
 Jede Datei ist **eigenständig** (Regeln, Formate, Ablage stehen drin). Codex braucht immer nur **eine** Datei. Alle Pakete schreiben in getrennte Ordner und können **gleichzeitig** laufen. Jedes Paket endet mit einem eigenen Pull Request.
 
+## Runde 10 (2026-11-11, Zukunftsvorrat am letzten Codex-Tag): Kapitel 6 Varrowmouth, Sequenz 3/1, neue Systeme; parallel startbar
+Zwanzig Pakete für die Zeit nach dem heutigen Stand, alle in sich vollständig. CT bis DA teilen die Eckdaten „Kapitel 6: Varrowmouth“ (Stadt `varrowmouth`, Präfixe `vm_`/`vmn_`/`vme_`/`vmi_`, Gezeiten `ebbe`/`flut`, Pegelherrin `pegelherrin`, Zirkel `unverzeichnete`); DC und DD teilen die Seq-3/1-Eckdaten (Kreaturformen aus CO, Letzte Register `vm_register_<pfad>`); DE bis DM sind eigenständige neue Systeme, die sich gegenseitig nur über genannte IDs berühren (Haus-Stücke, Post-Fotos, Erfolge). CS schreibt parallel ein anderer Thread (fehlende Figuren). Nächster freier Buchstabe danach: DN.
+
+| Datei | Art | Inhalt | schreibt nach |
+|---|---|---|---|
+| `codex_CT_k6_akte.md` | Story | Kapitel 6 „Die Stadt, die das Meer vergaß“: 5 Akte x 4 Fährten, Pegelrat-Verhöre, Wrackmutter und Leuchtfeuerwächter als Bossmomente, Pegelherrin in zwei Phasen, 4 Enden (schließen, verbrennen, übergeben, teilen), Epiloge, Abspannzeilen, Zeitung | `docs/story/k6_akte/` |
+| `codex_CU_k6_orte.md` | Karten/Mechanik | Varrowmouth: 8 Karten mit Gezeiten-Regeln, 3 Gefahrengebiete, Reise per Boot und Küstenbahn, Gezeiten-Spezifikation (6-Minuten-Takt, Warnung, Pfad-Eingriffe), 12 `vmi_*`-Gegenstände | `docs/story/k6_orte/` |
+| `codex_CV_varrowmouth_tiles.md` | Grafik | 7 Tilesets je Ebbe und Flut, Wasser-Animationen, 60 Props inkl. Pegeluhr, 6 Fassaden | Batch `varrowmouth1` |
+| `codex_CW_varrowmouth_szenen.md` | Grafik | Kapitelkarte, Titelbild, Stadtkarte in zwei Gezeiten, 10 Kampf-Hintergründe, 11 Szenenbilder, 4 Schlussbilder, Gezeitenwechsel-Effekte, Pegeluhr-HUD, 12 Item-Icons | Batch `varrowmouth2` |
+| `codex_CX_k6_figuren.md` | Texte | 23 Figuren (Tam Verrin, Osric Dale, Nell Quarrie, Pegelherrin, 7 Zollherren, 12 Einwohner): Bögen, Tagespläne nach Gezeit, Beziehungen, 80 Gerede, Stimmungen | `docs/story/k6_figuren/` |
+| `codex_CY_varrowmouth_figuren.md` | Grafik | Lauf-Sheets, Portraits mit Stimmungen, Köpfe und Sonderposen der 23 Figuren, Pegelherrin als Kampfgegnerin in zwei Phasen | Batch `varrowmouth3` |
+| `codex_CZ_varrowmouth_gegner.md` | Grafik + Daten | 6 Gegner, Elite Pegelknecht, Bosse Wrackmutter und Leuchtfeuerwächter (zwei Phasen), Effekte, 3 neue Status, Kampfdaten mit Schadensdeckel, Bestiarium | Batch `varrowmouth4`, `docs/story/k6_gegner/` |
+| `codex_DA_musik_varrowmouth.md` | Ton | 28 Notendaten-Stücke: Varrowmouth je Gezeit, Bosse, Grenzbezirk, Finale-Register mit Spurvarianten je Pfadgruppe, Abspann und Titel ab Kapitel 6 | `public/audio/musik/` (`vm_`, `hg_`, `finale_`) |
+| `codex_DB_soundeffekte3.md` | Ton | ca. 94 Soundeffekte: Varrowmouth und Gezeiten, Kampf, Halbgott bis Engel (CO/CP), Fasserin-Aufträge (CQ/CR), Oberfläche für DE bis DL | `public/audio/sfx/`, `manifest-sfx3.json` |
+| `codex_DC_seq31_grafik.md` | Grafik | Sequenz 3 und 1: Trinken, Aufstiegs-Vollbilder, 10 Ritualorte „Letztes Register“ (Tileset, Props, Hintergründe), 10 stille Endgestalten, Auren, 20 Sequenzbilder, Abspann-Karten je Pfad und Verzicht | Batch `seq31` |
+| `codex_DD_seq31_texte.md` | Texte | 10 Seq-3-Prüfungen ohne Boss in Calderwick/Briarholt/Dunscar, 10 Letzte Register als Zeugen-Probe ohne Kampf, Verzicht als gleichwertiges Ende, Welt-Reaktionen, Zeitung, Lesestücke | `docs/story/seq31/` |
+| `codex_DE_fahrende_auktion.md` | Grafik + Texte | Fahrende Auktion mit Perpetua Vance, Wagen, 3 Mitbietern, Losen je Stadt, 10 Kuriositäten, Einliefern, Fahrplan, Mechanik als Dialog | Batch `auktion`, `docs/story/fahrende_auktion/` |
+| `codex_DF_tiergefaehrten.md` | Grafik + Texte | 4 Tiergefährten (Rabe, Kater, Hündin, Ratte) mit Fund-Szene, Gabe auf der Karte, einem Kampf-Eingriff, Fütter-Stufen, Reaktionen | Batch `tiere`, `docs/story/tiergefaehrten/` |
+| `codex_DG_eigenes_haus.md` | Grafik + Texte | Eigenes Haus, das in jede Stadt mitzieht: 4 Räume, 40 Einrichtungs-Stücke mit Boni, 30 Boss-Trophäen, 12 Gäste, Umzugs-Überblende | Batch `haus`, `docs/story/eigenes_haus/` |
+| `codex_DH_nebelseite.md` | Grafik + Texte | Geisterwelt-Ebene „Nebelseite“: 15 Spiegelkarten, Übergänge, stilles Wesen mit Fragen, 4 Gegner, Elite-Kutsche, Spiegelspieler-Boss, Unruhe-Regel | Batch `nebelseite`, `docs/story/nebelseite/` |
+| `codex_DI_post_briefe.md` | Texte | Post: 90 Briefe von Figuren aller Städte mit Antworten und Folgebriefen, Beilagen, Postamt, der Brief ohne Absender aus Fall 9 | `docs/story/post/` |
+| `codex_DJ_benannte_gegner.md` | Grafik + Daten | 24 benannte Elite-Varianten (4 je Stadt) mit Geschichte, Eigenheit, festem Beutestück, 8 neue Fasserin-Beutestücke | Batch `benannte`, `docs/story/benannte_gegner/` |
+| `codex_DK_nachspiel.md` | Texte | Nachspiel nach Kapitel 6: Küstenbahn in alle Städte, Stadt-Zustände aus allen Enden, 54 Gespräche, offene Fäden, 6 neue Aufträge, Abschluss-Abspann | `docs/story/nachspiel/` |
+| `codex_DL_erfolge.md` | Grafik + Texte | 80 Erfolge als Aktenvermerke mit Icons (16+32, erfüllt/offen), Bedingungen aus bestehenden Flags, Freischaltungen für Haus und Titel | Batch `erfolge`, `docs/story/erfolge/` |
+| `codex_DM_oberflaeche3.md` | Grafik | Titel-Ebenen je Kapitel 1 bis 6 und Nachspiel, 24 Ladebilder, Spielstand-Karten, Abspann-Rahmen, Post-Symbole und 6 Fotos, große Schrift, Farbenblind-Symbole | Batch `oberflaeche3` |
+
 ## Runde 9 (2026-11-11, Nachzügler am letzten Codex-Tag): Halbgott/Engel und Fasserin-Aufträge; parallel startbar
 CO und CP teilen die Eckdaten „Halbgott und Engel“ (zehn Kreaturformen `hg_form_<pfad>`, Wächter `hg_schwellenwaechter`/`hg_grenzwaechter`, neue Karte `hg_grenzbezirk`), CQ und CR die Eckdaten „Fasserin-Aufträge“ (Zustände, 20 Artefakte `fa_<stueck>`, Zirkel inkl. `schichtbund`). Die Spiellogik dazu entsteht parallel in eigenen Threads (Seq 4 als Halbgott, Fasserin-Umbau); die Pakete liefern nur Grafik und Texte. Nächster freier Buchstabe danach: CS.
 
