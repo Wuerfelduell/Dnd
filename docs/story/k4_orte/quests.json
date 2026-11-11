@@ -1,0 +1,39 @@
+{
+  "cwo_wartungsweg": {
+    "title": "Ein offenes Fach",
+    "kind": "side",
+    "case": "kapitel4",
+    "summary": "Finde den Aufzugsschlüssel und entscheide zwischen vertraulicher Rückgabe und öffentlicher Fehlermeldung. Belohnung: 12 Schilling und Die getrennte Klammer, Geistsichtkosten −25 %, maximale Nerven −20.",
+    "steps": [
+      {
+        "text": "Wartungsfach im Röhrenhof untersuchen.",
+        "done": {
+          "requires_flags": [
+            "cwo_schluessel_gefunden"
+          ]
+        },
+        "target": {
+          "map": "cw_roehrenhof",
+          "id": "cwo_cw_roehrenhof_14",
+          "label": "Wartungsfach"
+        }
+      },
+      {
+        "text": "Bei Klammer über die Rückgabe entscheiden.",
+        "done": {
+          "requires_flags": [
+            "cwo_wartung_done"
+          ]
+        },
+        "target": {
+          "map": "cw_buchbinderei",
+          "id": "cwo_cw_buchbinderei_12",
+          "label": "Wartungszettel"
+        }
+      }
+    ],
+    "reward": {
+      "gives_money": 12
+    }
+  }
+}
