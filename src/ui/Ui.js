@@ -2001,7 +2001,7 @@ export class Ui {
       <button class="small ${block ? '' : 'primary'}" data-form="1" ${block ? 'disabled' : ''}>${active ? 'Gestalt ablegen' : 'Gestalt annehmen'}</button> ${block ? `<span class="muted">${esc(block)}</span>` : ''}</div>`;
   }
 
-  /** Ritual für den nächsten Trank (ab Sequenz 6): Ort, Zutaten, Bedingungen, Knopf. */
+  /** Ritual für den nächsten Trank (ab Sequenz 6): Zutaten, Bedingungen, Knopf. */
   ritualHtml() {
     const s = this.state;
     if (!s.pathway) return '';
@@ -2012,6 +2012,7 @@ export class Ui {
     const steps = s.ritualSteps();
     const ready = steps.every((x) => x.done || x.ordeal);
     return `<div class="ritual"><h4>Ritual für Sequenz ${seq}: ${esc(r.name)}</h4>
+      <p><strong>Überall ausführbar.</strong> Die genannten Orte sind Teil der Überlieferung und keine Voraussetzung.</p>
       <p class="desc">${esc(r.desc)}</p>
       <ul class="steps">${steps.map((x) => `<li class="${x.done ? 'done' : ''}">${x.done ? '✓' : '○'} ${esc(x.text)}</li>`).join('')}</ul>
       <button class="small ${ready ? 'primary' : ''}" data-ritual="1" ${ready ? '' : 'disabled'}>${ready && r.ordeal && !s.ordealDone(s.pathway.id, seq) ? 'Schwellenwächter rufen' : 'Ritual vollziehen'}</button> <span class="muted">Kostet 20 Nerven und bringt 20 Unruhe.${r.ordeal ? ' Ein schweres Ritual: Wenn alles andere steht, tritt der Schwellenwächter deines Pfades an.' : ''}</span></div>`;
