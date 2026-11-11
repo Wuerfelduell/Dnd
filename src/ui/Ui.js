@@ -2541,6 +2541,7 @@ export class Ui {
       this.possibleLoot(c.id),
       burn ? `<span class="badge suspected">${statusIcon(burn[0])}${burn[1]} ${c.burn.rounds}</span>` : '',
       c.stunned ? `<span class="badge suspected">${statusIcon('betaeubt')}betäubt</span>` : '',
+      c.fleeing ? `<span class="badge likely flee-badge">⏳ Rückzug · ${c.fleeStatus()}</span>` : '',
       c.confused ? `<span class="badge suspected">${statusIcon('verwirrt')}verwirrt</span>` : '',
       c.enemyGuard ? `<span class="badge refuted">${statusIcon('eisenhaut')}Panzer ${c.enemyGuard}</span>` : '',
       c.veiled ? `<span class="badge refuted">${statusIcon('schatten')}verschleiert</span>` : '',
@@ -2617,13 +2618,16 @@ export class Ui {
         { text: 'Angriff', ui: 'attack', info: `+${1 + mine(() => this.state.passive('attack_ap'))} K · beendet den Zug`, act: { type: 'skill', id: 'attack' } },
         { text: 'Fertigkeiten', ui: 'skill', info: `${c.ap}/${c.apMax} K`, sub: 'skills' },
         { text: 'Gegenstände', ui: 'item', info: c.canUseItem() ? `${items}` : c.itemBlockedText(), sub: 'items', disabled: !c.canUseItem() },
-        { text: 'Fliehen', ui: 'flee', info: c.canFlee() ? '' : 'unmöglich', act: { type: 'flee' }, disabled: !c.canFlee() },
+        // Starke Gegner: Fliehen startet nur den Rückzug, man muss noch Runden durchhalten; läuft er, zeigt der Eintrag den Stand
+        { text: 'Fliehen', ui: 'flee', info: c.fleeing ? `Rückzug läuft · ${c.fleeStatus()}` : c.canFlee() ? (c.fleeRounds > 0 ? `${c.fleeRounds} Runden durchhalten` : '') : 'unmöglich', act: { type: 'flee' }, disabled: !c.canFlee(),
+          desc: c.fleeRounds > 0 && !c.fleeing ? `${esc(c.enemy.name)} lässt dich nicht einfach gehen: Nach „Fliehen“ ist dein Zug vorbei, und du musst noch ${c.fleeRounds} Runden durchhalten.` : '' },
       ];
+      const fleeNote = c.fleeing ? `<p class="flee-note">⏳ Rückzug läuft: ${c.fleeStatus()} durchhalten${c.duo ? ', dann seid ihr weg' : ', dann bist du weg'}.</p>` : '';
       if (c.actions) entries.push({ text: 'Zug beenden', ui: 'defend', info: '', act: { type: 'end' } });
       else this.combatTurn('player');
-      this.layer.querySelector('.cb-text').innerHTML = c.actions
+      this.layer.querySelector('.cb-text').innerHTML = fleeNote + (c.actions
         ? `<p>${esc(c.log.at(-1) ?? '')}.</p><p>Runde ${c.round}: ${c.duo ? `Spieler ${c.actor} ist` : 'Du bist'} noch am Zug (${c.ap} Konzentration). Fertigkeiten kosten Konzentration, ein Gegenstand pro Zug.</p>`
-        : `<p>Runde ${c.round}. ${turn}Was tust du? Solange die Konzentration reicht, kannst du mehrere Fertigkeiten nacheinander einsetzen.</p>`;
+        : `<p>Runde ${c.round}. ${turn}Was tust du? Solange die Konzentration reicht, kannst du mehrere Fertigkeiten nacheinander einsetzen.</p>`);
       this.layer.querySelector('.cb-help').textContent = '';
     } else if (sub === 'skills') {
       entries = c.skills().filter((k) => k.id !== 'attack').map((k) => ({

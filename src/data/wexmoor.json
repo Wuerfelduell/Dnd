@@ -17553,7 +17553,13 @@
       "chapter": 2,
       "occult": true,
       "min_seq": 4,
-      "fleeable": false,
+      "fleeable": true,
+      "flee_rounds": 2,
+      "on_flee": {
+        "wanted": 2,
+        "wanted_reason": "Flucht vor der Streife"
+      },
+      "flee_text": "Du reißt dich los und rennst, bis die Laternen hinter dir nur noch Punkte sind. Der Pfiff der Streife folgt dir durch die Gassen. Das Lichtamt kennt jetzt dein Gesicht.",
       "hp": 240,
       "armor": 3,
       "ramp": 0.08,

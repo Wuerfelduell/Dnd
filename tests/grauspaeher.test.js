@@ -61,7 +61,9 @@ test('Regeln: in Wexmoor darf man sich der Streife stellen, in Kettlegate nicht'
   assert.equal(content.polices.kettlegate.resist, undefined);
   const e = content.encounters[ID];
   assert.equal(e.min_seq, 4, 'nur Halbgötter (Sequenz 4) richten etwas aus');
-  assert.equal(e.fleeable, false, 'wer gestellt ist, läuft nicht einfach weg');
+  assert.equal(e.fleeable, true);
+  assert.equal(e.flee_rounds, 2, 'wer gestellt ist, läuft nicht einfach weg: zwei Runden durchhalten');
+  assert.equal(e.on_flee.wanted, 2, 'Flucht vor der Streife macht dich gesucht');
   assert.ok(e.hp >= content.encounters.leuchtfeuer.hp * 0.9, 'so zäh wie ein Kapitelboss');
   assert.ok(e.armor >= 3 && e.ramp >= 0.05 && e.max_round_dmg, 'Panzer, Steigerung und Schadensgrenze');
   assert.ok(e.attacks.some((a) => a.action === 'heal'), 'die Salbe macht Nadelstiche zunichte');

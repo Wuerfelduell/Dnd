@@ -997,3 +997,8 @@ img.scene.koop2trennung { display: block; width: 15em; height: auto; margin: 0 a
 @keyframes ascFlood { 0% { opacity: 0; } 10% { opacity: 1; } 100% { opacity: 1; } }
 @keyframes ascRing { 0% { transform: scale(1); opacity: 0.9; } 100% { transform: scale(90); opacity: 0; } }
 @keyframes ascWords { 0% { opacity: 0; transform: scale(0.6); letter-spacing: 0.6em; } 30% { opacity: 0; } 55% { opacity: 1; transform: scale(1); } 100% { opacity: 1; transform: scale(1.04); } }
+
+/* Flucht vor starken Gegnern: der laufende Rückzug muss ins Auge springen */
+.combat .flee-badge { color: #ffd27a; border-color: #ffd27a; animation: flee-pulse 1.2s ease-in-out infinite; }
+.combat .flee-note { color: #ffd27a; font-weight: bold; }
+@keyframes flee-pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.55; } }
