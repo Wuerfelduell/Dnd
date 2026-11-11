@@ -32,7 +32,9 @@ export function clueOrigins(content) {
       const when = [i.visible_if, i.lock];
       if (i.dialogue) (speakers[i.dialogue] ??= []).push({ text: `${i.prompt ?? i.title ?? 'Untersuchen'} (${m.name})`, hint: around(m), when });
       const clues = [i.clue, ...(i.effects?.gives_clues ?? [])].filter(Boolean);
-      for (const c of clues) add(c, `${i.prompt ?? i.title ?? 'Sieh dich genau um'} (${m.name})`, when, null, around(m));
+      // Verborgene Spuren sieht man nur in der Geistsicht: das muss der Tipp sagen, sonst sucht man vergebens.
+      const spot = i.hidden ? `${i.prompt ?? i.title ?? 'Sieh dich genau um'} (${m.name}, nur in der Geistsicht)` : `${i.prompt ?? i.title ?? 'Sieh dich genau um'} (${m.name})`;
+      for (const c of clues) add(c, spot, when, null, i.hidden ? `mit der Geistsicht ${around(m)}` : around(m));
     }
   }
   // Fundstücke: „Untersuchen“ im Inventar öffnet einen eigenen Dialog (Feld `inspect`)
@@ -53,18 +55,20 @@ export function clueOrigins(content) {
 }
 
 /** Knoten eines Dialogs, die man im aktuellen Zustand erreichen kann (ab dem gewählten Start, über erfüllte Optionen). */
-export function reachableNodes(state, dialogueId) {
+export function reachableNodes(state, dialogueId, { ignoreKnowledge = false } = {}) {
   const tree = state.content.dialogues[dialogueId];
   const seen = new Set();
   const queue = [state.pick(tree.start)];
+  // ignoreKnowledge: Optionen, denen nur Hinweise/Informationen fehlen, gelten als offen (Vorfragen eines Gesprächs).
+  const ok = (c) => state.meets(c) || (ignoreKnowledge && onlyKnowledgeMissing(state, c));
   while (queue.length) {
     const id = queue.shift();
     if (!id || seen.has(id) || !tree.nodes[id]) continue;
     seen.add(id);
     for (const ch of tree.nodes[id].choices ?? []) {
-      if (!state.meets(ch)) continue;
+      if (!ok(ch)) continue;
       if (typeof ch.next === 'string') queue.push(ch.next);
-      else if (Array.isArray(ch.next)) ch.next.filter((v) => state.meets(v)).forEach((v) => queue.push(v.node));
+      else if (Array.isArray(ch.next)) ch.next.filter((v) => ok(v)).forEach((v) => queue.push(v.node));
     }
   }
   return seen;
@@ -74,6 +78,24 @@ export function reachableNodes(state, dialogueId) {
 export function originOpen(state, o) {
   if (!o.when.every((c) => state.meets(c))) return false;
   return !o.via || reachableNodes(state, o.via.dialogue).has(o.via.node);
+}
+
+/**
+ * Fundort, der nur noch am Gesprächsverlauf hängt: die Figur ist da, aber die Frage kommt erst nach anderen Fragen
+ * (z. B. der Rattenfänger in Fall 8). Dann lautet der Tipp „… weiter ausfragen“ statt gar nichts.
+ */
+export function originPending(state, o) {
+  if (!o.via || !o.when.every((c) => state.meets(c)) || reachableNodes(state, o.via.dialogue).has(o.via.node)) return false;
+  return reachableNodes(state, o.via.dialogue, { ignoreKnowledge: true }).has(o.via.node);
+}
+
+/** Fundorte der fehlenden Hinweise einer Information: erst die erreichbaren, dann Gespräche, die noch Vorfragen brauchen. */
+export function whereToFind(state, missing) {
+  const origins = clueOrigins(state.content);
+  const all = missing.flatMap((c) => origins[c] ?? []);
+  const open = all.filter((o) => originOpen(state, o)).map((o) => o.hint);
+  const pending = all.filter((o) => originPending(state, o)).map((o) => o.hint.replace(/ fragen \(/, ' weiter ausfragen ('));
+  return [...new Set([...open, ...pending.filter((h) => !open.includes(h.replace(' weiter ausfragen (', ' fragen (')))])];
 }
 
 /** Die nächste offene Schlussfolgerung und das vielversprechendste Paar dafür. */
@@ -115,8 +137,7 @@ export function caseHints(state, caseId, level = 1) {
   if (!weak) lines.push(`Eine davon: ${fact(pair[0])}.`);
   else {
     const missing = Object.entries(state.content.clues).filter(([id, c]) => c.fact === weak && !state.hasClue(id)).map(([id]) => id);
-    const origins = clueOrigins(state.content);
-    const where = [...new Set(missing.flatMap((c) => (origins[c] ?? []).filter((o) => originOpen(state, o)).map((o) => o.hint)))].slice(0, 3);
+    const where = whereToFind(state, missing).slice(0, 3);
     if (status[weakIdx] === 'suspected') lines.push(`${fact(weak)} ist erst eine Vermutung (1 Quelle).`);
     lines.push(where.length ? `Eine weitere Quelle: ${where.join('; ')}.` : 'Achte auf Orte und Gespräche, die du noch nicht ganz ausgeschöpft hast.');
   }
@@ -138,8 +159,7 @@ export function factGap(state, factId) {
   const have = state.factSources(factId).length;
   const status = state.factStatus(factId);
   const missing = Object.entries(state.content.clues).filter(([id, c]) => c.fact === factId && !state.hasClue(id)).map(([id]) => id);
-  const origins = clueOrigins(state.content);
-  const where = [...new Set(missing.flatMap((c) => (origins[c] ?? []).filter((o) => originOpen(state, o)).map((o) => o.hint)))];
+  const where = whereToFind(state, missing);
   return { fact: factId, text: f?.text ?? factId, status, have, need: LIKELY_SOURCES, missing, where };
 }
 
